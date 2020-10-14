@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("RaidBuffs")
+local module = MER:GetModule('MER_RaidBuffs')
 local LCG = LibStub('LibCustomGlow-1.0')
 
 -- Cache global variables
@@ -38,6 +38,11 @@ module.ReminderBuffs = {
 		298837,			-- Greater Flask of Endless Fathoms
 		298839,			-- Greater Flask of the Vast Horizon
 		298841,			-- Greater Flask of the Undertow
+
+		-- Shadowlands
+		307166,			-- Eternal FLask (190 stat)
+		307185,			-- Spectral Flask of Power (73 stat)
+		307187,			-- Spectral Flask of Stamina (109 sta)
 	},
 	DefiledAugmentRune = {
 		224001,			-- Defiled Augumentation (15 primary stat)
@@ -45,6 +50,16 @@ module.ReminderBuffs = {
 	},
 	Food = {
 		104280,	-- Well Fed
+
+		-- Shadowlands
+		259455,	-- Well Fed
+		308434,	-- Well Fed
+		308488,	-- Well Fed
+		308506,	-- Well Fed
+		308514,	-- Well Fed
+		308637,	-- Well Fed
+		327715,	-- Well Fed
+		327851,	-- Well Fed
 	},
 	Intellect = {
 		1459, -- Arcane Intellect

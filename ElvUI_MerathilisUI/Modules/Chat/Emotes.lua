@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("muiEmotes")
+local module = MER:GetModule('MER_Emotes')
 local CH = E:GetModule("Chat")
 
 -- Cache global variables
@@ -79,7 +79,6 @@ local emotes = {
 	{":monkaomega:", [=[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatEmojis\monkaomega]=]},
 	{":salt:", [=[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatEmojis\salt]=]},
 }
-
 module.emotes = emotes
 
 local ShowEmoteTableButton
@@ -87,12 +86,12 @@ local EmoteTableFrame
 local text, texture
 
 local function CreateEmoteTableFrame()
-	EmoteTableFrame = CreateFrame("Frame", "EmoteTableFrame", E.UIParent)
+	EmoteTableFrame = CreateFrame("Frame", "EmoteTableFrame", E.UIParent, "BackdropTemplate")
 	EmoteTableFrame:CreateBackdrop("Transparent")
 	EmoteTableFrame.backdrop:Styling()
-	EmoteTableFrame:SetWidth((ChatEmote.Config.iconSize + 2) * 12 + 4)
-	EmoteTableFrame:SetHeight((ChatEmote.Config.iconSize + 2) * 5 + 4)
-	EmoteTableFrame:SetPoint("BOTTOMLEFT", _G.LeftChatPanel, "TOPLEFT", 0, 5)
+	EmoteTableFrame:Width((ChatEmote.Config.iconSize + 2) * 12 + 4)
+	EmoteTableFrame:Height((ChatEmote.Config.iconSize + 2) * 5 + 4)
+	EmoteTableFrame:Point("BOTTOMLEFT", _G.LeftChatPanel, "TOPLEFT", 0, 5)
 	EmoteTableFrame:Hide()
 	EmoteTableFrame:SetFrameStrata("DIALOG")
 	tinsert(UISpecialFrames, EmoteTableFrame:GetDebugName())
@@ -104,14 +103,14 @@ local function CreateEmoteTableFrame()
 		text = emotes[i][1]
 		texture = emotes[i][2]
 		icon = CreateFrame("Frame", format("IconButton%d", i), EmoteTableFrame)
-		icon:SetWidth(ChatEmote.Config.iconSize)
-		icon:SetHeight(ChatEmote.Config.iconSize)
+		icon:Width(ChatEmote.Config.iconSize)
+		icon:Height(ChatEmote.Config.iconSize)
 		icon.text = text
 		icon.texture = icon:CreateTexture(nil, "ARTWORK")
 		icon.texture:SetTexture(texture)
 		icon.texture:SetAllPoints(icon)
 		icon:Show()
-		icon:SetPoint("TOPLEFT", (col - 1) * (ChatEmote.Config.iconSize + 2) + 2, -(row - 1) * (ChatEmote.Config.iconSize + 2) - 2)
+		icon:Point("TOPLEFT", (col - 1) * (ChatEmote.Config.iconSize + 2) + 2, -(row - 1) * (ChatEmote.Config.iconSize + 2) - 2)
 		icon:SetScript("OnMouseUp", ChatEmote.EmoteIconMouseUp)
 		icon:EnableMouse(true)
 		col = col + 1
@@ -171,10 +170,9 @@ function module:Initialize()
 	if E.db.mui.chat.emotes ~= true or E.private.chat.enable ~= true then return end
 
 	local Emote = self.ChatEmote
-	local ChatEmote = CreateFrame("Button", "mUIEmote", _G.LeftChatPanel.backdrop)
-	ChatEmote:SetPoint("RIGHT", _G.ElvUI_CopyChatButton1, "LEFT", 0, 0)
-	ChatEmote:SetWidth(12)
-	ChatEmote:SetHeight(12)
+	local ChatEmote = CreateFrame("Button", "mUIEmote", _G.LeftChatPanel)
+	ChatEmote:Point("RIGHT", _G.ElvUI_CopyChatButton1, "LEFT", 0, 0)
+	ChatEmote:Size(12, 12)
 	ChatEmote:SetScript("OnClick", function()
 		if InCombatLockdown() then return end
 		Emote.ToggleEmoteTable()
@@ -183,6 +181,7 @@ function module:Initialize()
 	ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\media\\ChatEmojis\\Smile")
 	ChatEmote:GetNormalTexture():SetDesaturated(true)
 	ChatEmote:GetNormalTexture():SetAlpha(.45)
+
 	ChatEmote:SetScript("OnEnter", function(self)
 		_G.GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 6)
 		_G.GameTooltip:AddLine(L["Click to open Emoticon Frame"])
@@ -191,6 +190,7 @@ function module:Initialize()
 		ChatEmote:GetNormalTexture():SetDesaturated(false)
 		ChatEmote:GetNormalTexture():SetAlpha(1)
 	end)
+
 	ChatEmote:SetScript("OnLeave", function(self)
 		_G.GameTooltip:Hide()
 		ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\media\\ChatEmojis\\Smile")

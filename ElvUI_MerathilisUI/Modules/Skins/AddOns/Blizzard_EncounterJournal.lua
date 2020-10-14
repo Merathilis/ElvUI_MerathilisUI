@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
+local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 -- Cache global variables
@@ -26,7 +26,7 @@ local function SkinBosses()
 		if bossButton and not bossButton.isSkinned then
 			S:HandleButton(bossButton)
 			bossButton.creature:ClearAllPoints()
-			bossButton.creature:SetPoint("TOPLEFT", 1, -4)
+			bossButton.creature:Point("TOPLEFT", 1, -4)
 			bossButton.isSkinned = true
 		end
 
@@ -90,7 +90,7 @@ local function SkinAbilitiesInfo()
 
 			S:HandleButton(header.button)
 
-			header.button.bg = CreateFrame("Frame", nil, header.button)
+			header.button.bg = CreateFrame("Frame", nil, header.button, "BackdropTemplate")
 			header.button.bg:SetTemplate()
 			header.button.bg:SetOutside(header.button.abilityIcon)
 			header.button.bg:SetFrameLevel(header.button.bg:GetFrameLevel() - 1)
@@ -141,8 +141,8 @@ local function styleSearchButton(result, index)
 	hl:Hide()
 	result.hl = hl
 
-	MERS:CreateBD(result)
-	result:SetBackdropColor(.1, .1, .1, .9)
+	result:CreateBackdrop()
+	result.backdrop:SetBackdropColor(.1, .1, .1, .9)
 
 	if result.icon then
 		result:GetRegions():Hide() -- icon frame
@@ -211,8 +211,8 @@ local function LoadSkin()
 
 	-- [[ SearchResults ]]
 	local searchResults = EncounterJournal.searchResults
-	MERS:CreateBD(searchResults)
-	searchResults:SetBackdropColor(.15, .15, .15, .9)
+	searchResults:CreateBackdrop()
+	searchResults.backdrop:SetBackdropColor(.15, .15, .15, .9)
 	for i = 3, 11 do
 		select(i, searchResults:GetRegions()):Hide()
 	end
@@ -369,35 +369,7 @@ local function LoadSkin()
 	local LootJournal = _G["EncounterJournal"].LootJournal
 	LootJournal:DisableDrawLayer("BACKGROUND")
 
-	S:HandleButton(_G.EncounterJournal.LootJournal.ItemSetsFrame.ClassButton, true)
-
-	hooksecurefunc(EncounterJournal.LootJournal.ItemSetsFrame, "UpdateList", function(self)
-		local buttons = self.buttons
-		for i = 1, #buttons do
-			local button = buttons[i]
-
-			if not button.styled then
-				button.ItemLevel:SetTextColor(1, 1, 1)
-				button.Background:Hide()
-				MERS:CreateBD(button, .25)
-				MERS:CreateGradient(button)
-
-				button.styled = true
-			end
-		end
-	end)
-
-	hooksecurefunc(EncounterJournal.LootJournal.ItemSetsFrame, "ConfigureItemButton", function(_, button)
-		if not button.bg then
-			button.Border:SetAlpha(0)
-			button.Icon:SetTexCoord(unpack(E.TexCoords))
-			button.bg = MERS:CreateBDFrame(button.Icon)
-		end
-
-		local quality = select(3, GetItemInfo(button.itemID))
-		local color = _G.BAG_ITEM_QUALITY_COLORS[quality or 1]
-		button.bg:SetBackdropBorderColor(color.r, color.g, color.b)
-	end)
+	-- ToDo: Update me
 
 	-- [[ SuggestFrame ]]
 	local suggestFrame = EncounterJournal.suggestFrame

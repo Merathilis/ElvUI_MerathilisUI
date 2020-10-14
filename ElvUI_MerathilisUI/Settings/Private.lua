@@ -61,7 +61,7 @@ V.muiSkins = {
 		communities = true,
 		channels = true,
 		challenges = true,
-		AzeriteUI = true,
+		azerite = true,
 		AzeriteRespec = true,
 		IslandQueue = true,
 		IslandsPartyPose = true,
@@ -80,6 +80,11 @@ V.muiSkins = {
 		Archaeology = true,
 		AzeriteEssence = true,
 		ItemInteraction = true,
+		animaDiversion = true,
+		soulbinds = true,
+		covenantSanctum = true,
+		covenantPreview = true,
+		playerChoice = true,
 	},
 
 	addonSkins = {

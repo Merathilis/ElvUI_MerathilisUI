@@ -1,3 +1,18 @@
+[b][color=orange]v4.56 for Shadowland PrePatch[/color], 14.10.2020[/b][list]
+[*]Adjusted QuestInfo skin to show colored progress again.
+[*]Fix my skin for ClassColored ScrollBars. >.>
+[*]Adjust the backdrop for AutoBar.
+[*]Commented out new HearthStones for SL, it broke the LocPanel.[/list]
+
+
+[b][color=orange]v4.55 for Shadowland PrePatch[/color], 13.10.2020[/b][list]
+[*]**YOU NEED ELVUI 12.00**
+[*]Added an own FlightMode (inspired by Benik's)
+[*]Updated/Added a lot of skins due to Shadowland code changes.
+[*]Added an options for my Top-/Bottom Panel to change the height.
+[*]Maybe a lot of other changes i already forgot.. lol.[/list]
+
+
 [b][color=orange]v4.54[/color], 27.08.2020[/b][list]
 [*]Fixed an incompatibility error, which errors out my Plugin[/list]
 

@@ -1,8 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERL = MER:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
-local CH = E:GetModule("Chat")
-local DT = E:GetModule("DataTexts")
-local LO = E:GetModule("Layout")
+local MERL = MER:GetModule('MER_Layout')
+local CH = E:GetModule('Chat')
+local DT = E:GetModule('DataTexts')
+local LO = E:GetModule('Layout')
 
 --Cache global variables
 --Lua functions
@@ -26,8 +26,8 @@ function MERL:CreateChatButtons()
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
 	ChatButton:ClearAllPoints()
-	ChatButton:SetPoint("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 2, -5)
-	ChatButton:SetSize(13, 13)
+	ChatButton:Point("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 4, -8)
+	ChatButton:Size(13, 13)
 	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 		ChatButton:SetAlpha(0)
 	else
@@ -84,8 +84,8 @@ function MERL:ShadowOverlay()
 	if E.db.mui.general.shadowOverlay ~= true then return end
 
 	self.f = CreateFrame("Frame", MER.Title.."ShadowBackground")
-	self.f:SetPoint("TOPLEFT")
-	self.f:SetPoint("BOTTOMRIGHT")
+	self.f:Point("TOPLEFT")
+	self.f:Point("BOTTOMRIGHT")
 	self.f:SetFrameLevel(0)
 	self.f:SetFrameStrata("BACKGROUND")
 
@@ -96,79 +96,9 @@ function MERL:ShadowOverlay()
 	self.f:SetAlpha(0.7)
 end
 
-function MERL:CreateSeparators()
-	if E.db.mui.chat.seperators ~= true then return end
-
-	--Left Chat Tab Separator
-	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel)
-	ltabseparator:SetFrameStrata('BACKGROUND')
-	ltabseparator:SetFrameLevel(_G.LeftChatPanel:GetFrameLevel() + 2)
-	ltabseparator:SetHeight(1)
-	ltabseparator:SetPoint('TOPLEFT', _G.LeftChatPanel, 5, -24)
-	ltabseparator:SetPoint('TOPRIGHT', _G.LeftChatPanel, -5, -24)
-	ltabseparator:SetTemplate('Transparent')
-
-	--Right Chat Tab Separator
-	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel)
-	rtabseparator:SetFrameStrata('BACKGROUND')
-	rtabseparator:SetFrameLevel(_G.RightChatPanel:GetFrameLevel() + 2)
-	rtabseparator:SetHeight(1)
-	rtabseparator:SetPoint('TOPLEFT', _G.RightChatPanel, 5, -24)
-	rtabseparator:SetPoint('TOPRIGHT', _G.RightChatPanel, -5, -24)
-	rtabseparator:SetTemplate('Transparent')
-
-	MERL:UpdateSeperators()
-end
-hooksecurefunc(LO, "CreateChatPanels", MERL.CreateSeparators)
-
-function MERL:UpdateSeperators()
-	if E.db.mui.chat.seperators ~= true then return end
-
-	local panelBackdrop = E.db.chat.panelBackdrop
-	if panelBackdrop == 'SHOWBOTH' then
-		_G.LeftChatTabSeparator:Show()
-		_G.RightChatTabSeparator:Show()
-	elseif panelBackdrop == 'HIDEBOTH' then
-		_G.LeftChatTabSeparator:Hide()
-		_G.RightChatTabSeparator:Hide()
-	elseif panelBackdrop == 'LEFT' then
-		_G.LeftChatTabSeparator:Show()
-		_G.RightChatTabSeparator:Hide()
-	else
-		_G.LeftChatTabSeparator:Hide()
-		_G.RightChatTabSeparator:Show()
-	end
-end
-
-function MERL:ToggleChatPanels()
-	local panelHeight = E.db.chat.panelHeight
-	local rightHeight = E.db.chat.separateSizes and E.db.chat.panelHeightRight
-
-	_G.LeftChatMover:SetHeight(panelHeight)
-	_G.RightChatMover:SetHeight((rightHeight or panelHeight))
-end
-hooksecurefunc(LO, "ToggleChatPanels", MERL.ToggleChatPanels)
-
-function MERL:RefreshChatMovers()
-	local Left = _G.LeftChatPanel:GetPoint()
-	local Right = _G.RightChatPanel:GetPoint()
-
-	_G.LeftChatPanel:SetPoint(Left, _G.LeftChatMover, 0, 0)
-	_G.RightChatPanel:SetPoint(Right, _G.RightChatMover, 0, 0)
-end
-hooksecurefunc(LO, "RefreshChatMovers", MERL.RefreshChatMovers)
-
-function MERL:SetDataPanelStyle()
-	E.Chat:PositionChats()
-end
-
 function MERL:Initialize()
 	self:CreateChatButtons()
 	self:ShadowOverlay()
-
-	hooksecurefunc(LO, "SetDataPanelStyle", MERL.SetDataPanelStyle)
-	LO:SetDataPanelStyle()
-	self:UpdateSeperators()
 end
 
 MER:RegisterModule(MERL:GetName())

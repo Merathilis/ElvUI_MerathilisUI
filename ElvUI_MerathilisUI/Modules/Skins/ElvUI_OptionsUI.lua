@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
-local MERS = MER:GetModule("muiSkins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -46,10 +46,9 @@ local function pluginInstaller()
 	end
 end
 
-local function StyleAce3Tooltip(self)
-	if not self or self:IsForbidden() then return end
-	if not self.styling then
-		self:Styling()
+local function StyleAce3Tooltip(self, tt)
+	if not tt:IsForbidden() and E.private.skins.ace3Enable then
+		tt:Styling()
 	end
 end
 
@@ -58,8 +57,8 @@ local function Style_CreateSeparatorLine(self, frame, lastButton)
 		local line = frame.leftHolder.buttons:CreateTexture()
 		line:SetTexture(E.Media.Textures.White8x8)
 		line:SetVertexColor(unpack(E.media.rgbvaluecolor))
-		line:SetSize(179, 2)
-		line:SetPoint("TOP", lastButton, "BOTTOM", 0, -6)
+		line:Size(179, 2)
+		line:Point("TOP", lastButton, "BOTTOM", 0, -6)
 		line.separator = true
 		return line
 	end
@@ -67,18 +66,15 @@ end
 
 local function Style_SetButtonColor(self, btn, disabled)
 	if disabled then
-		btn:Disable()
-		btn:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
-		btn:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		local r, g, b = unpack(E.media.rgbvaluecolor)
+		btn:SetBackdropBorderColor(r, g, b)
+		btn:SetBackdropColor(r, g, b, 0.5)
 		btn.Text:SetTextColor(1, 1, 1)
-		E:Config_SetButtonText(btn, true)
 	else
-		btn:Enable()
 		btn:SetBackdropColor(0.1, 0.1, 0.1, 0.5)
 		local r, g, b = unpack(E.media.bordercolor)
 		btn:SetBackdropBorderColor(r, g, b, 1)
 		btn.Text:SetTextColor(.9, .8, 0)
-		E:Config_SetButtonText(btn)
 	end
 end
 
@@ -87,8 +83,9 @@ local function Style_Ace3TabSelected(self, selected)
 	if not bd then return end
 
 	if selected then
-		bd:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
-		bd:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		local r, g, b = unpack(E.media.rgbvaluecolor)
+		bd:SetBackdropBorderColor(r, g, b)
+		bd:SetBackdropColor(r, g, b, 0.5)
 	else
 		local r, g, b = unpack(E.media.bordercolor)
 		bd:SetBackdropBorderColor(r, g, b, 1)

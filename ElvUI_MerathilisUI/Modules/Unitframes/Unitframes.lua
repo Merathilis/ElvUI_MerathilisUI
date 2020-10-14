@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("muiUnits", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-local UF = E:GetModule("UnitFrames")
+local module = MER:GetModule('MER_UnitFrames')
+local UF = E:GetModule('UnitFrames')
 
 --Cache global variables
 --Lua functions
@@ -16,13 +16,14 @@ function module:ADDON_LOADED(event, addon)
 end
 
 function module:CreateHighlight(self)
-	local hl = self:CreateTexture(nil, "OVERLAY")
+	if not E.db.mui.unitframes.highlight then return end
+
+	local hl = self:CreateTexture(nil, "BACKGROUND")
 	hl:SetAllPoints()
 	hl:SetTexture("Interface\\PETBATTLES\\PetBattle-SelectedPetGlow")
 	hl:SetTexCoord(0, 1, .5, 1)
 	hl:SetVertexColor(1, 1, .6)
 	hl:SetBlendMode("ADD")
-	hl:SetDrawLayer("OVERLAY")
 	hl:Hide()
 	self.Highlight = hl
 
@@ -80,9 +81,6 @@ function module:Initialize()
 
 	-- Units
 	self:StyleUFs()
-
-	-- Auras
-	self:LoadAuras()
 
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)

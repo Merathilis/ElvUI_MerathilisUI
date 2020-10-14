@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local M = MER:GetModule("MERMedia")
+local M = MER:GetModule('MER_Media')
 
 local function mediaTable()
 	E.Options.args.mui.args.media = {

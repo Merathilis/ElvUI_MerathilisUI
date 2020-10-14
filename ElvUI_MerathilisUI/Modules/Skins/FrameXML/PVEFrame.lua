@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 --Cache global variables
 --Lua functions
@@ -14,8 +14,8 @@ local function LoadSkin()
 	local PVEFrame = _G.PVEFrame
 	PVEFrame:Styling()
 
-	local iconSize = 60-2*E.mult
-	for i = 1, 4 do
+	local iconSize = 56-2*E.mult
+	for i = 1, 3 do
 		local bu = _G["GroupFinderFrame"]["groupButton"..i]
 
 		MERS:Reskin(bu)
@@ -25,7 +25,7 @@ local function LoadSkin()
 		bu.icon:SetSize(iconSize, iconSize)
 		bu.icon:SetDrawLayer("OVERLAY")
 		bu.icon:ClearAllPoints()
-		bu.icon:SetPoint("LEFT", bu, "LEFT", 4, 0)
+		bu.icon:SetPoint("LEFT", bu, "LEFT", 5, 0)
 	end
 end
 

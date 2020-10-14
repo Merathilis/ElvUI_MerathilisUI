@@ -15,12 +15,9 @@ MP.general = {
 	GameMenu = true,
 	splashScreen = true,
 	AFK = true,
-	FlightMode = true,
 	FlightPoint = true,
 	style = true,
 	shadowOverlay = true,
-	filterErrors = true,
-	hideErrorFrame = true,
 }
 
 MP.bags = {
@@ -127,7 +124,10 @@ MP.chat = {
 		timeout = 8,
 		fadeOutTime = 0.65
 	},
-	seperators = true,
+	seperators = {
+		enable = true,
+		visibility = "SHOWBOTH",
+	},
 }
 
 MP.colors = {
@@ -139,10 +139,10 @@ MP.misc = {
 	gmotd = true,
 	quest = {
 		selectQuestReward =	true,
-		questAnnounce = false,
 	},
 	cursor = false,
 	lfgInfo = true,
+	spellAlert = 0.65,
 	alerts = {
 		lfg = false,
 		announce = true,
@@ -153,7 +153,6 @@ MP.misc = {
 		textStyle = "PARAGON",
 		paragonColor = {r = 0.9, g = 0.8, b = 0.6},
 	},
-	skipAzerite = true,
 	funstuff = true,
 	wowheadlinks = true,
 	respec = true,
@@ -199,7 +198,7 @@ MP.actionbars = {
 			enable = true,
 			slotBBColorByItem = true,
 			slotBBColor = {r = 1, g = 1, b = 1, a = 1},
-			slotSpace = 1,
+			slotSpace = 3,
 			slotDirection = "RIGHT",
 			slotNum = 5,
 			slotPerRow = 5,
@@ -210,7 +209,7 @@ MP.actionbars = {
 			enable = true,
 			questBBColorByItem = true,
 			questBBColor = {r = 1, g = 1, b = 1, a = 1},
-			questSpace = 1,
+			questSpace = 3,
 			questDirection = "RIGHT",
 			questNum = 5,
 			questPerRow = 5,
@@ -221,7 +220,7 @@ MP.actionbars = {
 			enable = true,
 			usableBBColorByItem = true,
 			usableBBColor = {r = 1, g = 1, b = 1, a = 1},
-			usableSpace = 1,
+			usableSpace = 3,
 			usableDirection = "RIGHT",
 			usableNum = 5,
 			usablePerRow = 5,
@@ -331,6 +330,7 @@ MP.microBar = {
 	template = "Transparent",
 	hideInCombat = true,
 	hideInOrderHall = false,
+	mouseOver = false,
 	tooltip = true,
 	text = {
 		position = "BOTTOM",
@@ -340,7 +340,6 @@ MP.microBar = {
 }
 
 MP.unitframes = {
-	auras = true,
 	healPrediction = false,
 	swing = {
 		enable = false,
@@ -356,7 +355,9 @@ MP.unitframes = {
 		enable = true,
 	},
 	style = true,
+	raidIcons = true,
 	roleIcons = true,
+	highlight = true,
 }
 
 MP.maps = {
@@ -372,9 +373,6 @@ MP.maps = {
 			position = "TOP",
 			xOffset = 0,
 			yOffset = -20,
-		},
-		blip = {
-			enable = true,
 		},
 		rectangle = false,
 	},
@@ -455,6 +453,8 @@ MP.panels = {
 		bottomRightPanel = true,
 		bottomRightExtraPanel = true,
 	},
+	topPanelHeight = 15,
+	bottomPanelHeight = 15,
 	panelSize = 427,
 }
 
@@ -494,7 +494,7 @@ MP.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179",
+		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,184353",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
@@ -536,10 +536,6 @@ MP.tooltip = {
 	factionIcon = true,
 	petIcon = true,
 	keystone = true,
-	azerite = {
-		enable = true,
-		onlyIcons = false,
-	},
 	titleColor = true,
 	progressInfo = {
 		enable = true,
@@ -550,10 +546,8 @@ MP.tooltip = {
 			CrucibleOfStorms = false,
 			EternalPalace = true,
 			Nyalotha = true,
+			CastleNathria = true,
 		}
-	},
-	corruption = {
-		enable = true,
 	},
 }
 
@@ -670,7 +664,6 @@ MP.raidCD = {
 
 MP.armory = {
 	enable = true,
-	azeritebtn = true,
 	undressButton = true,
 	durability = {
 		enable = true,
@@ -718,30 +711,7 @@ MP.armory = {
 	},
 }
 
-MP.dashboard = {
-	dashfont = {
-		useDTfont = true,
-		dbfont = E.db.datatexts.font,
-		dbfontsize = E.db.datatexts.fontSize,
-		dbfontflags = E.db.datatexts.fontOutline,
-	},
-
-	barColor = 1,
-	customBarColor = {r = 255/255,g = 128/255,b = 0/255},
-	textColor = 2,
-	customTextColor = {r = 255/255,g = 255/255,b = 255/255},
-
-	system = {
-		enableSystem = false,
-		combat = false,
-		width = 150,
-		transparency = true,
-		backdrop = true,
-		chooseSystem = {
-			FPS = true,
-			MS = true,
-			Volume = true,
-		},
-		latency = 2,
-	},
+MP.flightMode = {
+	enable = true,
+	BenikFlightMode = true,
 }

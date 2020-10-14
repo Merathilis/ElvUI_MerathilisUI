@@ -1,6 +1,6 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local module = MER:NewModule("mUILFGInfo", "AceHook-3.0")
+local module = MER:GetModule('MER_LFGInfo')
 
 --Cache global variables
 --Lua functions
@@ -25,7 +25,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-function MER_LFGListUtil_SetSearchEntryTooltip(tooltip, resultID, autoAcceptOption)
+function MER:LFGListUtil_SetSearchEntryTooltip(tooltip, resultID, autoAcceptOption)
 	local searchResultInfo = C_LFGList_GetSearchResultInfo(resultID)
 	local activityName, shortName, categoryID, groupID, minItemLevel, filters, minLevel, maxPlayers, displayType, orderIndex, useHonorLevel = C_LFGList_GetActivityInfo(searchResultInfo.activityID)
 	local memberCounts = C_LFGList_GetSearchResultMemberCounts(resultID)
@@ -130,7 +130,7 @@ end
 function module:Initialize()
 	if E.db.mui.misc.lfgInfo ~= true or IsAddOnLoaded("PremadeGroupsFilter") then return; end
 
-	hooksecurefunc("LFGListUtil_SetSearchEntryTooltip", MER_LFGListUtil_SetSearchEntryTooltip)
+	hooksecurefunc("LFGListUtil_SetSearchEntryTooltip", MER.LFGListUtil_SetSearchEntryTooltip)
 end
 
 MER:RegisterModule(module:GetName())

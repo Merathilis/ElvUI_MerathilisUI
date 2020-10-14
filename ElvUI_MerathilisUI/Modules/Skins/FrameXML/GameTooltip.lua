@@ -12,8 +12,6 @@ local IsAddOnLoaded = IsAddOnLoaded
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
 
-	local StoryTooltip = _G.QuestScrollFrame.StoryTooltip
-
 	-- tooltips
 	local tooltips = {
 		_G.GameTooltip,
@@ -34,19 +32,21 @@ local function LoadSkin()
 		_G.PetBattlePrimaryAbilityTooltip,
 		_G.EventTraceTooltip,
 		_G.FrameStackTooltip,
-		_G.QuestScrollFrame.WarCampaignTooltip,
-		_G.QuestScrollFrame.StoryTooltip,
 		_G.DatatextTooltip,
 		_G.WarCampaignTooltip,
 		_G.EmbeddedItemTooltip,
 		_G.ReputationParagonTooltip,
 		_G.ElvUISpellBookTooltip,
-		StoryTooltip,
+		_G.QuestScrollFrame.StoryTooltip,
+		_G.QuestScrollFrame.CampaignTooltip,
+		_G.QuestScrollFrame.WarCampaignTooltip,
+		_G.DataTextTooltip,
 	}
 
 	for _, frame in pairs(tooltips) do
-		if frame and not frame.style then
+		if frame and not frame.IsSkinned then
 			frame:Styling()
+			frame.IsSkinned = true
 		end
 	end
 end

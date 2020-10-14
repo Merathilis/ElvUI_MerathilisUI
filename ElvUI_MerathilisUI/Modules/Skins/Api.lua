@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
-local MERS = MER:NewModule("muiSkins", "AceHook-3.0", "AceEvent-3.0")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -21,8 +21,6 @@ local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
 local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB
 local bordercolorr, bordercolorg, bordercolorb
-
-local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 MERS.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MERS.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
@@ -56,12 +54,9 @@ function MERS:CreateSD(f, m, s, n)
 	f.Shadow = CreateFrame("Frame", nil, frame)
 	f.Shadow:SetPoint("TOPLEFT", f, -m, m)
 	f.Shadow:SetPoint("BOTTOMRIGHT", f, m, -m)
-	f.Shadow:SetBackdrop({
-		edgeFile = E.LSM:Fetch("border", "ElvUI GlowBorder"),
-		edgeSize = E:Scale(s or 3)
-	})
-	f.Shadow:SetBackdropBorderColor(0, 0, 0, 1)
-	f.Shadow:SetFrameLevel(n or lvl)
+	f.Shadow:CreateBackdrop()
+	f.Shadow.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
+	f.Shadow.backdrop:SetFrameLevel(n or lvl)
 
 	return f.Shadow
 end
@@ -73,8 +68,8 @@ function MERS:CreateBG(frame)
 	if frame:IsObjectType('Texture') then f = frame:GetParent() end
 
 	local bg = f:CreateTexture(nil, "BACKGROUND")
-	bg:SetPoint("TOPLEFT", frame, -E.mult, E.mult)
-	bg:SetPoint("BOTTOMRIGHT", frame, E.mult, -E.mult)
+	bg:Point("TOPLEFT", frame, -E.mult, E.mult)
+	bg:Point("BOTTOMRIGHT", frame, E.mult, -E.mult)
 	bg:SetTexture(E.media.blankTex)
 	bg:SetVertexColor(0, 0, 0)
 
@@ -127,7 +122,7 @@ function MERS:CreateBDFrame(f, a, left, right, top, bottom)
 
 	local lvl = frame:GetFrameLevel()
 
-	local bg = CreateFrame("Frame", nil, frame)
+	local bg = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 	bg:SetPoint("TOPLEFT", f, left or -1, top or 1)
 	bg:SetPoint("BOTTOMRIGHT", f, right or 1, bottom or -1)
 	bg:SetFrameLevel(lvl == 0 and 1 or lvl - 1)
@@ -140,30 +135,27 @@ end
 function MERS:CreateBD(f, a)
 	assert(f, "doesn't exist!")
 
-	f:SetBackdrop({
-		bgFile = E["media"].normTex,
-		edgeFile = E["media"].normTex,
-		edgeSize = E.mult*1.1, -- latest Pixel Stuff changes 10.02.2019
-		insets = {left = 0, right = 0, top = 0, bottom = 0},
-	})
-
-	f:SetBackdropColor(E.media.backdropfadecolor.r, E.media.backdropfadecolor.g, E.media.backdropfadecolor.b, a or alpha)
-	f:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	f:CreateBackdrop()
+	f.backdrop:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
+	f.backdrop:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
 
 -- ClassColored ScrollBars
-local function GrabScrollBarElement(frame, element)
-	local FrameName = frame:GetDebugName()
-	return frame[element] or FrameName and (_G[FrameName..element] or strfind(FrameName, element)) or nil
-end
+do
+	local function GrabScrollBarElement(frame, element)
+		local FrameName = frame:GetDebugName()
+		return frame[element] or FrameName and (_G[FrameName..element] or strfind(FrameName, element)) or nil
+	end
 
-function MERS:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
-	local parent = frame:GetParent()
+	function MERS:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
+		local parent = frame:GetParent()
 
-	local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
+		local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
 
-	if Thumb and Thumb.backdrop then
-		Thumb.backdrop:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		if Thumb and Thumb.backdrop then
+			local r, g, b = unpack(E.media.rgbvaluecolor)
+			Thumb.backdrop:SetBackdropColor(r, g, b)
+		end
 	end
 end
 
@@ -180,8 +172,8 @@ end
 function MERS:ColorButton()
 	if self.backdrop then self = self.backdrop end
 
-	self:SetBackdropColor(r, g, b, .3)
-	self:SetBackdropBorderColor(r, g, b)
+	self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, .3)
+	self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 end
 
 function MERS:ClearButton()
@@ -190,36 +182,37 @@ function MERS:ClearButton()
 	self:SetBackdropColor(0, 0, 0, 0)
 
 	if self.isUnitFrameElement then
-		self:SetBackdropBorderColor(unpack(E.media.unitframeBorderColor))
+		self:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
 	else
 		self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 	end
 end
 
-local function onEnter(button)
-	if not button then return end
-
-	button:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
-	button:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+function MERS:OnEnter()
+	if self:IsEnabled() then
+		if self.backdrop then self = self.backdrop end
+		if self.SetBackdropBorderColor then
+			self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
+			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.75) -- maybe 0.5?
+		end
+	end
 end
 
-local function onLeave(button)
-	if not button then return end
-
-	button:SetBackdropBorderColor(unpack(E.media.bordercolor))
-	button:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb)
+function MERS:OnLeave()
+	if self:IsEnabled() then
+		if self.backdrop then self = self.backdrop end
+		if self.SetBackdropBorderColor then
+			self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+			self:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha)
+		end
+	end
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, noGlow)
+function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex)
 	assert(button, "doesn't exist!")
 
 	if strip then button:StripTextures() end
-
-	if button.template then
-		button:SetTemplate("Transparent", true)
-	end
-
 	MERS:CreateGradient(button)
 
 	if button.Icon then
@@ -231,8 +224,17 @@ function MERS:Reskin(button, strip, noGlow)
 		end
 	end
 
-	button:HookScript("OnEnter", onEnter)
-	button:HookScript("OnLeave", onLeave)
+	if not noStyle then
+		if setTemplate then
+			button:SetTemplate('Transparent', not noGlossTex) -- force transparent
+		else
+			button:CreateBackdrop('Transparent', not noGlossTex) -- force transparent
+			button.backdrop:SetAllPoints()
+		end
+
+		button:HookScript("OnEnter", MERS.OnEnter) -- Must check this; Shadowlands
+		button:HookScript("OnLeave", MERS.OnLeave)
+	end
 end
 
 function MERS:StyleButton(button)
@@ -292,7 +294,7 @@ function MERS:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
-	panel.tex:SetGradient("VERTICAL", unpack(E.media.rgbvaluecolor))
+	panel.tex:SetGradient("VERTICAL", rgbValueColorR, rgbValueColorG, rgbValueColorB)
 end
 
 function MERS:ReskinGarrisonPortrait(self)
@@ -341,17 +343,17 @@ local function replaceConfigArrows(button)
 		button.img = button:CreateTexture(nil, 'ARTWORK')
 		button.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
 		button.img:SetSize(12, 12)
-		button.img:SetPoint('CENTER')
+		button.img:Point('CENTER')
 		button.img:SetVertexColor(1, 1, 1)
 
 		button:HookScript('OnMouseDown', function(btn)
 			if btn:IsEnabled() then
-				btn.img:SetPoint("CENTER", -1, -1);
+				btn.img:Point("CENTER", -1, -1);
 			end
 		end)
 
 		button:HookScript('OnMouseUp', function(btn)
-			btn.img:SetPoint("CENTER", 0, 0);
+			btn.img:Point("CENTER", 0, 0);
 		end)
 	end
 end
@@ -412,8 +414,8 @@ function MERS:ReskinAS(AS)
 			end
 		end
 
-		Tab.Backdrop:SetPoint("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
-		Tab.Backdrop:SetPoint("BOTTOMRIGHT", -10, 3)
+		Tab.Backdrop:Point("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
+		Tab.Backdrop:Point("BOTTOMRIGHT", -10, 3)
 
 		Tab.isSkinned = true
 	end
@@ -476,8 +478,8 @@ function MERS:ReskinAS(AS)
 			end
 		end)
 
-		Button:HookScript("OnEnter", onEnter)
-		Button:HookScript("OnLeave", onLeave)
+		Button:HookScript("OnEnter", MERS.OnEnter)
+		Button:HookScript("OnLeave", MERS.OnLeave)
 	end
 end
 
@@ -518,7 +520,6 @@ local function ReskinVehicleExit()
 
 	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
 	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
-
 end
 
 function MERS:SetOutside(obj, anchor, xOffset, yOffset, anchor2)

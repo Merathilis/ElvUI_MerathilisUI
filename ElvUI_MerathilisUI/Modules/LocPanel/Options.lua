@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local LP = MER:GetModule("LocPanel")
+local LP = MER:GetModule('MER_LocPanel')
 
 --Cache global variables
 --Lua functions

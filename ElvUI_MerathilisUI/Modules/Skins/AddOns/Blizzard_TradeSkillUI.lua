@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
+local S = E:GetModule('Skins')
 
 --Cache global variables
 --Lua functions
@@ -11,16 +11,22 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tradeskill ~= true or E.private.muiSkins.blizzard.tradeskill ~= true then return; end
 
 	-- MainFrame
-	local TradeSkillFrame = _G.TradeSkillFrame
-	TradeSkillFrame:Styling()
+	local frame = _G.TradeSkillFrame
+	frame:Styling()
 
-	if TradeSkillFrame.bg1 then
-		TradeSkillFrame.bg1:Hide()
+	if frame.bg1 then
+		frame.bg1:Hide()
 	end
 
-	if TradeSkillFrame.bg2 then
-		TradeSkillFrame.bg2:Hide()
+	if frame.bg2 then
+		frame.bg2:Hide()
 	end
+
+	-- Reposition Optional Reagentlist due to TradeTabs
+	local optionalReagents = frame.OptionalReagentList
+	optionalReagents:ClearAllPoints()
+	optionalReagents:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", 40, 0)
+	optionalReagents:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_TradeSkillUI", "mUITradeSkill", LoadSkin)

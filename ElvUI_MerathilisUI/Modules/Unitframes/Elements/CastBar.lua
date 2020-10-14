@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule("muiUnits")
+local module = MER:GetModule('MER_UnitFrames')
 local UF = E.UnitFrames
 
 --Cache global variables

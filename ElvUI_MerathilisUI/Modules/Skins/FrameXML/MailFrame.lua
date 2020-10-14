@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 --Cache global variables
 --Lua functions
@@ -57,14 +57,14 @@ local function LoadSkin()
 
 		local b = _G["MailItem"..i.."Button"]
 		b:StripTextures()
-		b:SetTemplate("Transparent", true)
+		b:CreateBackdrop("Transparent", true)
 		b:StyleButton()
 	end
 
 	-- SendMailFrame
 	local SendMailFrame = _G.SendMailFrame
 	local SendMailScrollFrame = _G.SendMailScrollFrame
-	SendMailScrollFrame:SetTemplate("Transparent")
+	SendMailScrollFrame:CreateBackdrop("Transparent")
 
 	for i = 4, 7 do
 		select(i, SendMailFrame:GetRegions()):Hide()
@@ -73,29 +73,6 @@ local function LoadSkin()
 	select(4, SendMailScrollFrame:GetRegions()):Hide()
 	_G.SendMailBodyEditBox:SetPoint("TOPLEFT", 2, -2)
 	_G.SendMailBodyEditBox:SetWidth(278)
-
-	for i = 1, _G.ATTACHMENTS_MAX_SEND do
-		local b = _G["SendMailAttachment"..i]
-		if not b.skinned then
-			b:StripTextures()
-			b:SetTemplate("Transparent", true)
-			b:StyleButton()
-			b.skinned = true
-
-			hooksecurefunc(b.IconBorder, "SetVertexColor", function(self, r, g, b)
-				self:GetParent():SetBackdropBorderColor(r, g, b)
-				self:SetTexture("")
-			end)
-			hooksecurefunc(b.IconBorder, "Hide", function(self)
-				self:GetParent():SetBackdropBorderColor(unpack(E.media.bordercolor))
-			end)
-		end
-		local t = b:GetNormalTexture()
-		if t then
-			t:SetTexCoord(unpack(E.TexCoords))
-			t:SetInside()
-		end
-	end
 
 	-- OpenMailFrame
 	local OpenMailFrame = _G.OpenMailFrame
@@ -108,7 +85,7 @@ local function LoadSkin()
 	_G.OpenMailHorizontalBarLeft:Hide()
 
 	local OpenMailScrollFrame = _G.OpenMailScrollFrame
-	OpenMailScrollFrame:SetTemplate("Transparent")
+	OpenMailScrollFrame:CreateBackdrop("Transparent")
 	OpenMailScrollFrame:SetPoint("TOPLEFT", 17, -83)
 	OpenMailScrollFrame:SetWidth(304)
 

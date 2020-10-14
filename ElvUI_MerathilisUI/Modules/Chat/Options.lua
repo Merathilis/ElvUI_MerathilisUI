@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule("muiChat")
+local module = MER:GetModule('MER_Chat')
 
 --Cache global variables
 --Lua functions
@@ -46,20 +46,43 @@ local function ChatTable()
 				type = "toggle",
 				name = L["Emotes"],
 			},
-			seperators = {
-				order = 7,
-				type = "toggle",
-				name = L["Seperators"],
-			},
 			itemLevelLink = {
-				order = 8,
+				order = 7,
 				type = "toggle",
 				name = L["Item Level Links"],
 			},
-			chatFade = {
-				order = 10,
+			seperators = {
+				order = 8,
 				type = "group",
-				name = L["Fade Chat"],
+				name = MER:cOption(L["Seperators"]),
+				guiInline = true,
+				get = function(info) return E.db.mui.chat.seperators[ info[#info] ] end,
+				set = function(info, value) E.db.mui.chat.seperators[ info[#info] ] = value; end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"]
+					},
+					visibility = {
+						order = 2,
+						type = 'select',
+						name = L["Visibility"],
+						get = function(info) return E.db.mui.chat.seperators[ info[#info] ] end,
+						set = function(info, value) E.db.mui.chat.seperators[ info[#info] ] = value; module:UpdateSeperators() end,
+						values = {
+							HIDEBOTH = L["Hide Both"],
+							SHOWBOTH = L["Show Both"],
+							LEFT = L["Left Only"],
+							RIGHT = L["Right Only"],
+						},
+					}
+				},
+			},
+			chatFade = {
+				order = 9,
+				type = "group",
+				name = MER:cOption(L["Fade Chat"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.chat.chatFade[ info[#info] ] end,
 				set = function(info, value) E.db.mui.chat.chatFade[ info[#info] ] = value; module:Configure_ChatFade() end,
@@ -96,7 +119,7 @@ local function ChatTable()
 			filter = {
 				order = 20,
 				type = "group",
-				name = L["Filter"],
+				name = MER:cOption(L["Filter"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.chat.filter[ info[#info] ] end,
 				set = function(info, value) E.db.mui.chat.filter[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("Cursor")
+local module = MER:GetModule('MER_Cursor')
 
 --Cache global variables
 --Lua functions
@@ -28,11 +28,11 @@ local function OnUpdate(_, elapsed)
 	speed = min(weight * speed + (1 - weight) * sqrt(dX * dX + dY * dY) / elapsed, 1024)
 
 	local size = speed / 6 - 16
-	if (size > 0) then
+	if size > 0 then
 		local scale = UIParent:GetEffectiveScale()
-		module.Texture:SetHeight(size)
-		module.Texture:SetWidth(size)
-		module.Texture:SetPoint("CENTER", UIParent, "BOTTOMLEFT", (x + 0.5 * dX) / scale, (y + 0.5 * dY) / scale)
+		module.Texture:Height(size)
+		module.Texture:Width(size)
+		module.Texture:Point("CENTER", UIParent, "BOTTOMLEFT", (x + 0.5 * dX) / scale, (y + 0.5 * dY) / scale)
 		module.Texture:Show()
 		module.Texture:SetVertexColor(r, g, b, 0.6)
 	else

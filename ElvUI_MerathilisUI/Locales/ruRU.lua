@@ -99,7 +99,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = true
 
 -- FlightMode
 L["FlightMode"] = true
-L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
+L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
+L["Exit FlightMode"] = true
+L["Left Click to Request Stop"] = true
 
 -- FlightPoint
 L["Flight Point"] = true
@@ -147,7 +149,6 @@ L["MISC_REPUTATION"] = "Reputation"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
 L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
-L["Skip Azerite Animation"] = true
 L["Fun Stuff"] = true
 L["Press CTRL + C to copy."] = true
 L["Wowhead Links"] = true
@@ -156,7 +157,6 @@ L["Codex Buttons"] = true
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
 L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
-L["Quest Announcer"] = true
 L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
 
@@ -187,12 +187,7 @@ L["Only Icons"] = true
 L["I"] = "1 ур."
 L["II"] = "2 ур."
 L["III"] = "3 ур."
-L["Append to corruption stat"] = "Добавить в характеристики порчи"
-L["Use the new style tooltip."] = "Используйте новый стиль подсказки."
-L["Show summary on the corruption tooltip"] = "Показать сводку во всплывающей подсказке"
-L["List your corruptions in the eye tooltip in the character screen."] = "Отображать список эффектов порчи во всплывающей подсказке на экране персонажа."
 L["Display in English"] = "Отображать английские названия"
-L["Don't translate the corruption effect names."] = "Не переводить названия эффектов порчи."
 L["Show icon"] = "Показать значок"
 L["Show the spell icon along with the name."] = "Показать значок заклинания вместе с названием."
 
@@ -257,8 +252,6 @@ L["ARMORY_DESC"] = [=[The |cffff7d0aArmory Mode|r only works with the ElvUI 'Dis
 
 ElvUI - General - BlizzUI Improvements - Display Character Infos.]=]
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
-L["Azerite Buttons"] = true
-L["Enable/Disable the Azerite Buttons on the character window."] = true
 L["Durability"] = true
 L["Enable/Disable the display of durability information on the character window."] = true
 L["Damaged Only"] = true
@@ -276,9 +269,6 @@ L["Only Relevant Stats"] = true
 L["Show only those primary stats relevant to your spec."] = true
 L["Item Level"] = true
 L["Categories"] = true
-L["Open head slot azerite powers."] = true
-L["Open shoulder slot azerite powers."] = true
-L["Open chest slot azerite powers."] = true
 L["Slot Gradient"] = true
 L["Shows a gradiation texture on the Character Slots."] = true
 L["Indicators"] = true
@@ -286,13 +276,6 @@ L["Transmog"] = true
 L["Shows an arrow indictor for currently transmogrified items."] = true
 L["Illusion"] = true
 L["Shows an indictor for weapon illusions."] = true
--- PRINTS
-L["Equipped head is not an Azerite item."] = true
-L["No head item is equipped."] = true
-L["Equipped shoulder is not an Azerite item."] = true
-L["No shoulder item is equipped."] = true
-L["Equipped chest is not an Azerite item."] = true
-L["No chest item is equipped."] = true
 
 -- Media
 L["MER_MEDIA_ZONES"] = {
@@ -397,8 +380,6 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
-L["Blip Textures"] = true
-L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"] = true
 
 -- SMB
 L["Button Settings"] = true
@@ -612,13 +593,6 @@ L["This will create and apply profile for "] = true
 -- Changelog
 L["Changelog"] = true
 
--- Errors
-L["Error Handling"] = true
-L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = true
-L["Filter Errors"] = true
-L["Choose specific errors from the list below to hide/ignore."] = true
-L["Hides all errors regardless of filtering while in combat."] = true
-
 -- Compatibility
 L["has |cffff2020disabled|r "] = true
 L[" from "] = true
@@ -626,12 +600,3 @@ L[" due to incompatiblities."] = true
 L[" due to incompatiblities with: "] = true
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
-
--- DashBoard
-L["Bar Color"] = true
-L["Use DataTexts font"] = true
-L["Enable the System Dashboard."] = true
-L["Select System Board"] = true
-L["Change the System Dashboard width."] = true
-L["Enable/Disable "] = true
-L["Latency (MS)"] = true

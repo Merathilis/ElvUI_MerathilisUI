@@ -75,7 +75,7 @@ local function SetupChat()
 		if i == 3 and chatName == LOOT.." / "..TRADE then
 			FCF_UnDockFrame(frame)
 			frame:ClearAllPoints()
-			frame:SetPoint("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 1, 3)
+			frame:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 1, 3)
 			FCF_SetWindowName(frame, LOOT)
 			FCF_DockFrame(frame)
 			if not frame.isLocked then
@@ -187,8 +187,8 @@ function MER:SetupLayout(layout)
 	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["normTex"] = "MerathilisUI4"
-	E.private["general"]["glossTex"] = "MerathilisUI4"
+	E.private["general"]["normTex"] = "RenAscensionL"
+	E.private["general"]["glossTex"] = "RenAscensionL"
 
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
@@ -226,10 +226,6 @@ function MER:SetupLayout(layout)
 	E.db["general"]["minimap"]["icons"]["mail"]["scale"] = 1
 	E.db["general"]["minimap"]["icons"]["mail"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = -5
-	E.db["general"]["minimap"]["icons"]["ticket"]["position"] = "TOP"
-	E.db["general"]["minimap"]["icons"]["ticket"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["ticket"]["yOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["ticket"]["scale"] = 0.75
 	E.db["general"]["minimap"]["icons"]["difficulty"]["xOffset"] = 5
 	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -5
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
@@ -251,9 +247,6 @@ function MER:SetupLayout(layout)
 	E.db["general"]["backdropfadecolor"]["r"] = 0.0549
 	E.db["general"]["backdropfadecolor"]["g"] = 0.0549
 	E.db["general"]["backdropfadecolor"]["b"] = 0.0549
-	E.db["general"]["threat"]["enable"] = true
-	E.db["general"]["threat"]["textSize"] = 10
-	E.db["general"]["threat"]["textOutline"] = "OUTLINE"
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
 	E.db["general"]["talkingHeadFrameScale"] = 0.7
 	E.db["general"]["talkingHeadFrameBackdrop"] = true
@@ -261,7 +254,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["altPowerBar"]["font"] = "Merathilis Expressway"
 	E.db["general"]["altPowerBar"]["fontSize"] = 11
 	E.db["general"]["altPowerBar"]["fontOutline"] = "OUTLINE"
-	E.db["general"]["altPowerBar"]["statusBar"] = "MerathilisUI4"
+	E.db["general"]["altPowerBar"]["statusBar"] = "RenAscensionL"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
 	E.db["general"]["altPowerBar"]["smoothbars"] = true
@@ -269,6 +262,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["displayCharacterInfo"] = true
 	E.db["general"]["displayInspectInfo"] = true
 	E.db["general"]["resurrectSound"] = true
+	E.db["general"]["decimalLength"] = 0
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -385,7 +379,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["stackFont"] = "Merathilis Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["smoothbars"] = true
-	E.db["nameplates"]["statusbar"] = "MerathilisUI4"
+	E.db["nameplates"]["statusbar"] = "RenAscensionL"
 	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
 
 	-- Cooldowns
@@ -676,7 +670,6 @@ function MER:SetupLayout(layout)
 	else
 		E.private["skins"]["blizzard"]["alertframes"] = true
 	end
-	E.private["skins"]["cleanBossButton"] = true
 
 	--[[----------------------------------
 	--	ItemLevel - Layout
@@ -709,9 +702,9 @@ function MER:SetupLayout(layout)
 		E.db["mui"]["pvp"]["duels"]["pet"] = true
 		E.db["mui"]["pvp"]["duels"]["announce"] = true
 		E.db["mui"]["maps"]["minimap"]["rectangle"] = true
-		E.db["general"]["cropIcon"] = false
+		E.db["general"]["cropIcon"] = 0
 	else
-		E.db["general"]["cropIcon"] = true
+		E.db["general"]["cropIcon"] = 2
 		E.db["mui"]["maps"]["minimap"]["rectangle"] = false
 	end
 
@@ -748,12 +741,15 @@ function MER:SetupLayout(layout)
 	E.private["general"]["namefont"] = "Merathilis Expressway"
 	E.private["general"]["dmgfont"] = "Merathilis Expressway"
 
+	E.db["databars"]["customTexture"] = true
+	E.db["databars"]["statusbar"] = "RenAscensionL"
+
 	E.db["databars"]["experience"]["enable"] = true
 	E.db["databars"]["experience"]["mouseover"] = false
 	E.db["databars"]["experience"]["height"] = 12
 	E.db["databars"]["experience"]["textSize"] = 9
 	E.db["databars"]["experience"]["font"] = "Merathilis Expressway"
-	E.db["databars"]["experience"]["width"] = 285
+	E.db["databars"]["experience"]["width"] = 283
 	E.db["databars"]["experience"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["experience"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
@@ -764,17 +760,19 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["reputation"]["height"] = 12
 	E.db["databars"]["reputation"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["reputation"]["textSize"] = 9
+
 	if layout == "dps" then
-		E.db["databars"]["reputation"]["width"] = 285
+		E.db["databars"]["reputation"]["width"] = 283
 	elseif layout == "healer" then
 		E.db["databars"]["reputation"]["width"] = 278
 	end
+
 	E.db["databars"]["reputation"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["reputation"]["hideInVehicle"] = true
 	E.db["databars"]["reputation"]["hideInCombat"] = true
 	E.db["databars"]["honor"]["enable"] = false
-	E.db["databars"]["honor"]["width"] = 285
+	E.db["databars"]["honor"]["width"] = 283
 	E.db["databars"]["honor"]["height"] = 12
 	E.db["databars"]["honor"]["textSize"] = 9
 	E.db["databars"]["honor"]["font"] = "Merathilis Expressway"
@@ -788,7 +786,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["azerite"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["azerite"]["textSize"] = 9
 	if layout == "dps" then
-		E.db["databars"]["azerite"]["width"] = 285
+		E.db["databars"]["azerite"]["width"] = 283
 	elseif layout == "healer" then
 		E.db["databars"]["azerite"]["width"] = 278
 	end
@@ -797,13 +795,19 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["azerite"]["mouseover"] = false
 	E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
+	E.db["databars"]["threat"]["enable"] = true
+	E.db["databars"]["threat"]["width"] = 283
+	E.db["databars"]["threat"]["height"] = 12
+	E.db["databars"]["threat"]["textSize"] = 9
+	E.db["databars"]["threat"]["font"] = "Merathilis Expressway"
 
-	E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,59"
+	E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,88"
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,503,12"
 	E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,95"
-	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,83"
-	E.db["movers"]["ReputationBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,71"
-	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,48"
+	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,76"
+	E.db["movers"]["ReputationBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,61"
+	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,101"
+	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,47"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-277,178"
 
 	if IsAddOnLoaded("ProjectAzilroka") then
@@ -832,6 +836,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["transparent"] = true
 	E.db["actionbar"]["globalFadeAlpha"] = 0.75
 	E.db["actionbar"]["hideCooldownBling"] = false
+	E.db["actionbar"]["equippedItem"] = true
 
 	-- Cooldown options
 	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
@@ -847,7 +852,14 @@ function MER:SetupActionbars(layout)
 	end
 
 	E.db["actionbar"]["microbar"]["enabled"] = false
+
+	E.db["actionbar"]["extraActionButton"]["clean"] = true
 	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
+	E.db["actionbar"]["extraActionButton"]["inheritGlobalFade"] = true
+
+	E.db["actionbar"]["zoneActionButton"]["clean"] = true
+	E.db["actionbar"]["zoneActionButton"]["scale"] = 0.75
+	E.db["actionbar"]["zoneActionButton"]["inheritGlobalFade"] = true
 
 	--[[----------------------------------
 	--	ActionBars layout
@@ -875,7 +887,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar1"]["heightMult"] = 2
 	E.db["actionbar"]["bar1"]["buttonsize"] = 32
 	E.db["actionbar"]["bar1"]["buttons"] = 8
-	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
+	E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
 	E.db["actionbar"]["bar1"]["backdrop"] = true
 	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
 
@@ -1022,7 +1034,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
-	E.db["unitframe"]["statusbar"] = "MerathilisUI4"
+	E.db["unitframe"]["statusbar"] = "RenAscensionL"
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
 		E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
@@ -1058,7 +1070,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
-	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MerathilisUI4"
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "RenAscensionL"
 
 	--Cooldowns
 	E.db["unitframe"]["cooldown"]["override"] = true
@@ -1087,7 +1099,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["width"] = 200
 		E.db["unitframe"]["units"]["player"]["height"] = 20
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
-		E.db["unitframe"]["units"]["player"]["restIcon"] = false
+		E.db["unitframe"]["units"]["player"]["RestIcon"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = "ICONTOPRIGHT"
 		E.db["unitframe"]["units"]["player"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["player"]["debuffs"]["enable"] = true
@@ -1102,6 +1114,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["countFont"] = "Merathilis Expressway"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["player"]["debuffs"]["spacing"] = 3
+		E.db["unitframe"]["units"]["player"]["debuffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
@@ -1129,6 +1142,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["castbar"]["iconYOffset"] = 5
 		E.db["unitframe"]["units"]["player"]["castbar"]["iconAttached"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["iconAttachedTo"] = "Castbar"
+		E.db["unitframe"]["units"]["player"]["castbar"]["timeToHold"] = 0.8
 
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
@@ -1172,8 +1186,18 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 12,
 			["justifyH"] = "CENTER",
-			["text_format"] = "[power:current-mUI]",
+			["text_format"] = "[power:current]",
 			["attachTextTo"] = "Power",
+			["xOffset"] = 0,
+			["yOffset"] = 0,
+		}
+		E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = {
+			["font"] = "Merathilis Gotham Narrow Black",
+			["fontOutline"] = "OUTLINE",
+			["size"] = 12,
+			["justifyH"] = "CENTER",
+			["text_format"] = "[additionalmana:current]",
+			["attachTextTo"] = "AdditionalPower",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 		}
@@ -1217,6 +1241,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["priority"] = "Blacklist,MER_RaidCDs"
 		E.db["unitframe"]["units"]["player"]["buffs"]["countFont"] = "Merathilis Expressway"
 		E.db["unitframe"]["units"]["player"]["buffs"]["countFontSize"] = 9
+		E.db["unitframe"]["units"]["player"]["buffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["size"] = 18
@@ -1270,6 +1295,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["castbar"]["textColor"]["r"] = 1
 		E.db["unitframe"]["units"]["target"]["castbar"]["textColor"]["g"] = 1
 		E.db["unitframe"]["units"]["target"]["castbar"]["textColor"]["b"] = 1
+		E.db["unitframe"]["units"]["target"]["castbar"]["timeToHold"] = 0.8
 		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 28
 		E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 2
@@ -1281,6 +1307,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["countFont"] = "Merathilis Expressway"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 3
+		E.db["unitframe"]["units"]["target"]["debuffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["attachTo"] = "BUFFS"
@@ -1359,6 +1386,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,PlayerBuffs,nonPersonal"
 		E.db["unitframe"]["units"]["target"]["buffs"]["countFont"] = "Merathilis Expressway"
 		E.db["unitframe"]["units"]["target"]["buffs"]["countFontSize"] = 9
+		E.db["unitframe"]["units"]["target"]["buffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["size"] = 18
@@ -1864,7 +1892,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["boss"]["castbar"]["insideInfoPanel"] = false
 		E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 156
 		E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 18
-		E.db["unitframe"]["units"]["boss"]["castbar"]["timeToHold"] = 0.5
+		E.db["unitframe"]["units"]["boss"]["castbar"]["timeToHold"] = 0.8
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
@@ -1967,7 +1995,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["width"] = 200
 		E.db["unitframe"]["units"]["player"]["height"] = 50
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
-		E.db["unitframe"]["units"]["player"]["restIcon"] = false
+		E.db["unitframe"]["units"]["player"]["RestIcon"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
@@ -2676,7 +2704,7 @@ function MER:SetupDts()
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["width"] = 288
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["tooltipXOffset"] = 3
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["panelTransparency"] = false
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["frameStrata"] = "HIGH"
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["frameStrata"] = "MEDIUM"
 
 	E.db["datatexts"]["panels"]["MER_BottomPanel"] = {
 		[1] = "Guild",
@@ -2694,6 +2722,10 @@ function MER:SetupDts()
 
 	E.db["movers"]["DTPanelMER_BottomPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 	E.db["movers"]["DTPanelMER_RightChatTopMover"] = "CENTER,MER_RightChatTopDT,CENTER"
+
+	local bottom = E.DataTexts:FetchFrame("MER_BottomPanel")
+	bottom:Point("CENTER", bottom.mover, "CENTER", 0, 0)
+	E:SaveMoverPosition("DTPanelMER_BottomPanelMover")
 
 	E:StaggeredUpdateAll(nil, true)
 

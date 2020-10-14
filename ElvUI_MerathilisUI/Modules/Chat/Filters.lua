@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERC = MER:GetModule("muiChat")
+local MERC = MER:GetModule('MER_Chat')
 
 -- Cache global variables
 -- Lua functions
@@ -153,24 +153,6 @@ function MERC:UpdateAddOnBlocker(event, msg, author)
 		end
 	end
 end
-
--- Filter azerite message on island expeditions
-local azerite = _G.ISLANDS_QUEUE_WEEKLY_QUEST_PROGRESS:gsub('%%d/%%d ', '')
-local function filterAzeriteGain(_, _, msg)
-	if strfind(msg, azerite) then
-		return true
-	end
-end
-
-local function isPlayerOnIslands()
-	local _, instanceType, _, _, maxPlayers = GetInstanceInfo()
-	if instanceType == 'scenario' and (maxPlayers == 3 or maxPlayers == 6) then
-		ChatFrame_AddMessageEventFilter('CHAT_MSG_SYSTEM', filterAzeriteGain)
-	else
-		ChatFrame_RemoveMessageEventFilter('CHAT_MSG_SYSTEM', filterAzeriteGain)
-	end
-end
-
 function MERC:ChatFilter()
 	if E.db.mui.chat.filter.enable then
 		self:UpdateFilterList()
@@ -197,5 +179,4 @@ function MERC:ChatFilter()
 		ChatFrame_AddMessageEventFilter('CHAT_MSG_INSTANCE_CHAT_LEADER', self.UpdateAddOnBlocker)
 		ChatFrame_AddMessageEventFilter('CHAT_MSG_CHANNEL', self.UpdateAddOnBlocker)
 	end
-	MER:RegisterEvent('PLAYER_ENTERING_WORLD', isPlayerOnIslands)
 end

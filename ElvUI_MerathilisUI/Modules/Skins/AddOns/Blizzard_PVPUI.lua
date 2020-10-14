@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
+local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 --Cache global variables
@@ -32,7 +32,7 @@ local function LoadSkin()
 	local ConquestFrame = _G.ConquestFrame
 	local WarGamesFrame = _G.WarGamesFrame
 
-	local iconSize = 60-2*E.mult
+	local iconSize = 56-2*E.mult
 	for i = 1, 3 do
 		local bu = PVPQueueFrame["CategoryButton"..i]
 		local cu = bu.CurrencyDisplay
@@ -44,7 +44,7 @@ local function LoadSkin()
 		bu.Icon:SetSize(iconSize, iconSize)
 		bu.Icon:SetDrawLayer("OVERLAY")
 		bu.Icon:ClearAllPoints()
-		bu.Icon:SetPoint("LEFT", bu, "LEFT", 4, 0)
+		bu.Icon:SetPoint("LEFT", bu, "LEFT", 5, 0)
 
 		if cu then
 			local ic = cu.Icon

@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("muiChat", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
-local MERS = MER:GetModule("muiSkins")
-local CH = E:GetModule("Chat")
+local module = MER:GetModule('MER_Chat')
+local CH = E:GetModule('Chat')
+local LO = E:GetModule('Layout')
 
 -- Cache global variables
 -- Lua functions
@@ -110,8 +110,8 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 		f.text:SetTextColor(r, g, b)
 		f.text:SetJustifyH("CENTER")
 		f.text:SetJustifyV("MIDDLE")
-		f.text:SetHeight(20)
-		f.text:SetPoint("CENTER", f, "CENTER", 0, 0)
+		f.text:Height(20)
+		f.text:Point("CENTER", f, "CENTER", 0, 0)
 
 		f:EnableMouse(true)
 		f:RegisterForClicks("AnyUp")
@@ -156,6 +156,50 @@ function module:CreateChatLootIcons(_, message, ...)
 	return false, message, ...
 end
 
+function module:CreateSeparators()
+	if E.db.mui.chat.seperators.enable ~= true then return end
+
+	--Left Chat Tab Separator
+	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel, "BackdropTemplate")
+	ltabseparator:SetFrameStrata('BACKGROUND')
+	ltabseparator:SetFrameLevel(_G.LeftChatPanel:GetFrameLevel() + 2)
+	ltabseparator:Height(1)
+	ltabseparator:Point('TOPLEFT', _G.LeftChatPanel, 5, -24)
+	ltabseparator:Point('TOPRIGHT', _G.LeftChatPanel, -5, -24)
+	ltabseparator:SetTemplate('Transparent')
+
+	--Right Chat Tab Separator
+	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel, "BackdropTemplate")
+	rtabseparator:SetFrameStrata('BACKGROUND')
+	rtabseparator:SetFrameLevel(_G.RightChatPanel:GetFrameLevel() + 2)
+	rtabseparator:Height(1)
+	rtabseparator:Point('TOPLEFT', _G.RightChatPanel, 5, -24)
+	rtabseparator:Point('TOPRIGHT', _G.RightChatPanel, -5, -24)
+	rtabseparator:SetTemplate('Transparent')
+
+	module:UpdateSeperators()
+end
+hooksecurefunc(LO, "CreateChatPanels", module.CreateSeparators)
+
+function module:UpdateSeperators()
+	if E.db.mui.chat.seperators.enable ~= true then return end
+
+	local visibility = E.db.mui.chat.seperators.visibility
+	if visibility == 'SHOWBOTH' then
+		_G.LeftChatTabSeparator:Show()
+		_G.RightChatTabSeparator:Show()
+	elseif visibility =='HIDEBOTH' then
+		_G.LeftChatTabSeparator:Hide()
+		_G.RightChatTabSeparator:Hide()
+	elseif visibility =='LEFT' then
+		_G.LeftChatTabSeparator:Show()
+		_G.RightChatTabSeparator:Hide()
+	else
+		_G.LeftChatTabSeparator:Hide()
+		_G.RightChatTabSeparator:Show()
+	end
+end
+
 function module:Initialize()
 	if E.private.chat.enable ~= true then return; end
 
@@ -179,6 +223,7 @@ function module:Initialize()
 	self:ChatFilter()
 	self:DamageMeterFilter()
 	self:LoadChatFade()
+	self:UpdateSeperators()
 
 	--Custom Emojis
 	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"

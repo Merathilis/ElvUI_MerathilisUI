@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local module = MER:NewModule("CooldownFlash", "AceHook-3.0")
-local S = E:GetModule("Skins")
+local module = MER:GetModule('MER_Cooldown')
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 --Cache global variables
 --Lua functions
@@ -36,8 +36,8 @@ local DCP = CreateFrame("Frame", nil, E.UIParent)
 DCP:SetAlpha(0)
 DCP:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
 DCP.TextFrame = DCP:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-DCP.TextFrame:SetPoint("TOP", DCP, "BOTTOM", 0, -5)
-DCP.TextFrame:SetWidth(185)
+DCP.TextFrame:Point("TOP", DCP, "BOTTOM", 0, -5)
+DCP.TextFrame:Width(185)
 DCP.TextFrame:SetJustifyH("CENTER")
 DCP.TextFrame:SetTextColor(1, 1, 1)
 module.DCP = DCP
@@ -358,8 +358,8 @@ function module:Initialize()
 		self:EnableCooldownFlash()
 	end
 
-	DCP:SetSize(self.db.iconSize, self.db.iconSize)
-	DCP:SetPoint("CENTER", E.UIParent, "CENTER")
+	DCP:Size(self.db.iconSize, self.db.iconSize)
+	DCP:Point("CENTER", E.UIParent, "CENTER")
 
 	DCP.TextFrame:FontTemplate(E.db.general.font, 18, "OUTLINE")
 	DCP.TextFrame:SetShadowOffset(2, -2)

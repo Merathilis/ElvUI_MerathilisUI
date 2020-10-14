@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("mUIMinimapButtons", 'AceTimer-3.0')
-local COMP = MER:GetModule("mUICompatibility")
+local module = MER:GetModule('MER_MiniMapButtons')
+local COMP = MER:GetModule('MER_Compatibility')
 
 --Cache global variables
 --Lua functions
@@ -70,7 +70,7 @@ module.OverrideTexture = {
 
 module.UnrulyButtons = {}
 
-local ButtonFunctions = { 'SetParent', 'ClearAllPoints', 'SetPoint', 'SetSize', 'SetScale', 'SetFrameStrata', 'SetFrameLevel' }
+local ButtonFunctions = { 'SetParent', 'ClearAllPoints', 'Point', 'SetSize', 'SetScale', 'SetFrameStrata', 'SetFrameLevel' }
 
 local RemoveTextureID = {
 	[136430] = true,
@@ -148,7 +148,7 @@ function module:SkinMinimapButton(Button)
 						Button:HookScript('OnLeave', function() Region:SetTexCoord(unpack(E.TexCoords)) end)
 					end
 
-					Region.SetPoint = function() return end
+					Region.Point = function() return end
 				end
 			end
 		end
@@ -156,7 +156,7 @@ function module:SkinMinimapButton(Button)
 
 	Button:SetFrameLevel(Minimap:GetFrameLevel() + 10)
 	Button:SetFrameStrata(Minimap:GetFrameStrata())
-	Button:SetSize(module.db.size, module.db.size)
+	Button:Size(module.db.size, module.db.size)
 
 	if not Button.ignoreTemplate then
 		Button:CreateBackdrop("Transparent")
@@ -220,8 +220,8 @@ function module:Update()
 
 			Button:SetParent(module.bin)
 			Button:ClearAllPoints()
-			Button:SetPoint(Anchor, self.bin, Anchor, DirMult * (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
-			Button:SetSize(Size, Size)
+			Button:Point(Anchor, self.bin, Anchor, DirMult * (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
+			Button:Size(Size, Size)
 			Button:SetScale(1)
 			Button:SetFrameStrata('MEDIUM')
 			Button:SetFrameLevel(module.bin:GetFrameLevel()+1)
@@ -238,19 +238,19 @@ function module:Update()
 	local BarWidth = Spacing + (Size * ActualButtons) + (Spacing * (ActualButtons - 1)) + Spacing
 	local BarHeight = Spacing + (Size * AnchorY) + (Spacing * (AnchorY - 1)) + Spacing
 
-	module.bin:SetSize(BarWidth, BarHeight)
+	module.bin:Size(BarWidth, BarHeight)
 
 	-- Styling
 	local topLine = CreateFrame("Frame", nil, module.bin)
-	topLine:SetPoint("BOTTOMRIGHT", module.bin, "TOPRIGHT", 1, 0)
+	topLine:Point("BOTTOMRIGHT", module.bin, "TOPRIGHT", 1, 0)
 	MER:CreateGradientFrame(topLine, BarWidth, 1, "Horizontal", r, g, b, 0, .7)
 
 	local bottomLine = CreateFrame("Frame", nil, module.bin)
-	bottomLine:SetPoint("TOPRIGHT", module.bin, "BOTTOMRIGHT", 1, 0)
+	bottomLine:Point("TOPRIGHT", module.bin, "BOTTOMRIGHT", 1, 0)
 	MER:CreateGradientFrame(bottomLine, BarWidth, 1, "Horizontal", r, g, b, 0, .7)
 
 	local rightLine = CreateFrame("Frame", nil, module.bin)
-	rightLine:SetPoint("LEFT", module.bin, "RIGHT", 0, 0)
+	rightLine:Point("LEFT", module.bin, "RIGHT", 0, 0)
 	MER:CreateGradientFrame(rightLine, 1, BarHeight, "Vertical", r, g, b, .7, .7)
 end
 
@@ -259,14 +259,11 @@ function module:Initialize()
 	MER:RegisterDB(self, "smb")
 	if db.enable ~= true then return end
 
-	-- Compatibility
-	if COMP.SLE and E.private.sle.minimap.mapicons.enable then return end
-
 	-- Button Creation
 	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", E.UIParent)
-	module.button:SetSize(28, 28)
+	module.button:Size(28, 28)
 	module.button:ClearAllPoints()
-	module.button:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 10, 20)
+	module.button:Point("TOPRIGHT", Minimap, "TOPRIGHT", 10, 20)
 	module.button:SetFrameStrata("MEDIUM")
 
 	module.button:SetNormalTexture("Interface\\HelpFrame\\ReportLagIcon-Loot")
@@ -284,8 +281,8 @@ function module:Initialize()
 	E:CreateMover(module.button, 'MER_MinimapButtonsToggleButtonMover', 'MinimapButtonsToggleButtonAnchor', nil, nil, nil, 'ALL,GENERAL,MERATHILISUI', nil, 'mui,modules,minimap')
 
 	module.bin = CreateFrame("Frame", "MinimapButtonFrame", E.UIParent)
-	module.bin:SetPoint("BOTTOMRIGHT", module.button, "TOPLEFT", 0, -15)
-	module.bin:SetSize(module.db.size, module.db.size)
+	module.bin:Point("BOTTOMRIGHT", module.button, "TOPLEFT", 0, -15)
+	module.bin:Size(module.db.size, module.db.size)
 	module.bin:SetFrameStrata("HIGH")
 	module.bin:Hide()
 

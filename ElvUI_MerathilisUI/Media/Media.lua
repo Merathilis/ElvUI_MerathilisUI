@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("MERMedia", "AceHook-3.0")
+local module = MER:GetModule('MER_Media')
 local LSM = E.LSM or E.Libs.LSM
 
 -- Cache global variables
@@ -27,9 +27,9 @@ local Colors = {
 
 local function ZoneTextPos()
 	if (_G["PVPInfoTextString"]:GetText() == "") then
-		_G["SubZoneTextString"]:SetPoint("TOP", "ZoneTextString", "BOTTOM", 0, 0)
+		_G["SubZoneTextString"]:Point("TOP", "ZoneTextString", "BOTTOM", 0, 0)
 	else
-		_G["SubZoneTextString"]:SetPoint("TOP", "PVPInfoTextString", "BOTTOM", 0, 0)
+		_G["SubZoneTextString"]:Point("TOP", "PVPInfoTextString", "BOTTOM", 0, 0)
 	end
 end
 
@@ -74,6 +74,7 @@ function module:SetBlizzFonts()
 		if module.db.miscText.objectiveHeader.enable then
 			if not _G["ObjectiveTrackerFrame"].hooked then
 				hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
+					_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
@@ -83,6 +84,7 @@ function module:SetBlizzFonts()
 				_G["ObjectiveTrackerFrame"].hooked = true
 			end
 			_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
+			_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)

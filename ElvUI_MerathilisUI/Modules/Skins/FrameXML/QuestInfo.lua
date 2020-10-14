@@ -1,12 +1,11 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local next, pairs, select, unpack = next, pairs, select, unpack
--- WoW API / Variables
+local strmatch = strmatch
+
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local BAG_ITEM_QUALITY_COLORS = BAG_ITEM_QUALITY_COLORS
@@ -15,12 +14,66 @@ local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
 local GetNumQuestLogRewardSpells = GetNumQuestLogRewardSpells
 local GetNumRewardSpells = GetNumRewardSpells
 local C_QuestLog_GetNextWaypointText = C_QuestLog.GetNextWaypointText
+local C_QuestLog_GetSelectedQuest = C_QuestLog.GetSelectedQuest
 local GetQuestLogSelection = GetQuestLogSelection
 local GetQuestLogTitle = GetQuestLogTitle
 local GetQuestID = GetQuestID
--- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
+
+local function ClearHighlight()
+	for _, button in pairs(_G.QuestInfoRewardsFrame.RewardButtons) do
+		button.textBg:SetBackdropColor(0, 0, 0, .25)
+	end
+end
+
+local function SetHighlight(self)
+	ClearHighlight()
+
+	local _, point = self:GetPoint()
+	if point then
+		point.textBg:SetBackdropColor(r, g, b, .25)
+	end
+end
+
+local function QuestInfo_GetQuestID()
+	if _G.QuestInfoFrame.questLog then
+		return C_QuestLog_GetSelectedQuest()
+	else
+		return GetQuestID()
+	end
+end
+
+local function ColorObjectivesText()
+	if not _G.QuestInfoFrame.questLog then return end
+
+	local questID = QuestInfo_GetQuestID()
+	local objectivesTable = _G.QuestInfoObjectivesFrame.Objectives
+	local numVisibleObjectives = 0
+
+	local waypointText = C_QuestLog_GetNextWaypointText(questID)
+	if waypointText then
+		numVisibleObjectives = numVisibleObjectives + 1
+		local objective = _G['QuestInfoObjective'..numVisibleObjectives]
+		objective:SetTextColor(.4, 1, 1)
+	end
+
+	for i = 1, GetNumQuestLeaderBoards() do
+		local _, objectiveType, isCompleted = GetQuestLogLeaderBoard(i)
+
+		if objectiveType ~= "spell" and objectiveType ~= "log" and numVisibleObjectives < _G.MAX_OBJECTIVES then
+			numVisibleObjectives = numVisibleObjectives + 1
+			local objective = _G['QuestInfoObjective'..numVisibleObjectives]
+			if objective then
+				if isCompleted then
+					objective:SetTextColor(.2, 1, .2)
+				else
+					objective:SetTextColor(1, 1, 1)
+				end
+			end
+		end
+	end
+end
 
 local function RestyleSpellButton(bu)
 	local name = bu:GetName()
@@ -39,45 +92,6 @@ local function RestyleSpellButton(bu)
 	bg:SetPoint("BOTTOMRIGHT", 0, 14)
 	bg:SetFrameLevel(0)
 	MERS:CreateBD(bg, .25)
-end
-
-local function QuestInfo_GetQuestID()
-	if _G.QuestInfoFrame.questLog then
-		return select(8, GetQuestLogTitle(GetQuestLogSelection()))
-	else
-		return GetQuestID()
-	end
-end
-
-local function ColorObjectivesText()
-	if not _G.QuestInfoFrame.questLog then return end
-
-	local questID = QuestInfo_GetQuestID()
-	local objectivesTable = _G.QuestInfoObjectivesFrame.Objectives
-	local numVisibleObjectives = 0
-
-	local waypointText = C_QuestLog_GetNextWaypointText(questID)
-	if waypointText then
-		numVisibleObjectives = numVisibleObjectives + 1
-		local objective = _G['QuestInfoObjective'..numVisibleObjectives]
-		objective:SetTextColor(1, .8, .1)
-	end
-
-	for i = 1, GetNumQuestLeaderBoards() do
-		local _, type, finished = GetQuestLogLeaderBoard(i)
-
-		if (type ~= "spell" and type ~= "log" and numVisibleObjectives < _G.MAX_OBJECTIVES) then
-			numVisibleObjectives = numVisibleObjectives + 1
-			local objective = _G['QuestInfoObjective'..numVisibleObjectives]
-			if objective then
-				if finished then
-					objective:SetTextColor(34/255, 255/255, 0/255)
-				else
-					objective:SetTextColor(1, 1, 1)
-				end
-			end
-		end
-	end
 end
 
 local function RestyleRewardButton(bu, isMapQuestInfo)
@@ -107,43 +121,43 @@ local function RestyleRewardButton(bu, isMapQuestInfo)
 	bu.bg = bg
 end
 
-local function HookTextColor_Yellow(self)
-	if self.isSetting then return end
-	self.isSetting = true
-	self:SetTextColor(1, .8, 0)
-	self.isSetting = nil
+local function HookTextColor_Yellow(self, r, g, b)
+	if r ~= 1 or g ~= .8 or b ~= 0 then
+		self:SetTextColor(1, .8, 0)
+	end
 end
 
 local function SetTextColor_Yellow(font)
-	font:SetShadowColor(0, 0, 0)
 	font:SetTextColor(1, .8, 0)
+	font:SetShadowColor(0, 0, 0, 0)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_Yellow)
 end
 
-local function HookTextColor_White(self)
-	if self.isSetting then return end
-	self.isSetting = true
-	self:SetTextColor(1, 1, 1)
-	self.isSetting = nil
+local function HookTextColor_White(self, r, g, b)
+	if r ~= 1 or g ~= 1 or b ~= 1 then
+		self:SetTextColor(1, 1, 1)
+	end
 end
 
 local function SetTextColor_White(font)
-	font:SetShadowColor(0, 0, 0)
 	font:SetTextColor(1, 1, 1)
+	font:SetShadowColor(0, 0, 0, 0)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_White)
 end
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
-	-- Stop here if parchment reomover is enabled.
-	if E.private.skins.parchmentRemoverEnable then return end
+	-- Item reward highlight
+	_G.QuestInfoItemHighlight:GetRegions():Hide()
+	hooksecurefunc(_G.QuestInfoItemHighlight, "SetPoint", SetHighlight)
+	_G.QuestInfoItemHighlight:HookScript("OnShow", SetHighlight)
+	_G.QuestInfoItemHighlight:HookScript("OnHide", ClearHighlight)
 
-	-- [[ Objectives ]]
 	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
 
 	hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)
-	hooksecurefunc("QuestInfo_Display", ColorObjectivesText)
+	ColorObjectivesText()
 
 	-- [[ Quest rewards ]]
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
@@ -204,6 +218,8 @@ local function LoadSkin()
 
 	-- Follower Rewards
 	hooksecurefunc("QuestInfo_Display", function(template, parentFrame, acceptButton, material, mapView)
+		ColorObjectivesText()
+
 		local rewardsFrame = _G.QuestInfoFrame.rewardsFrame
 		local isQuestLog = _G.QuestInfoFrame.questLog ~= nil
 		local isMapQuest = rewardsFrame == _G.MapQuestInfoRewardsFrame
@@ -221,7 +237,6 @@ local function LoadSkin()
 		end
 	end)
 
-	-- [[ Change text colors ]]
 	hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", function(self, r)
 		if r == 0 then
 			self:SetTextColor(.8, .8, .8)
@@ -236,6 +251,7 @@ local function LoadSkin()
 		_G.QuestInfoObjectivesHeader,
 		_G.QuestInfoRewardsFrame.Header,
 	}
+
 	for _, font in pairs(yellowish) do
 		SetTextColor_Yellow(font)
 	end
@@ -252,9 +268,26 @@ local function LoadSkin()
 		_G.QuestInfoRewardsFrame.PlayerTitleText,
 		_G.QuestInfoRewardsFrame.XPFrame.ReceiveText,
 	}
+
 	for _, font in pairs(whitish) do
 		SetTextColor_White(font)
 	end
+
+	-- Replace seal signature string
+	local ReplacedSealColor = {
+		["480404"] = "c20606",
+		["042c54"] = "1c86ee",
+	}
+
+	hooksecurefunc(_G.QuestInfoSealFrame.Text, "SetText", function(self, text)
+		if text and text ~= "" then
+			local colorStr, rawText = strmatch(text, "|c[fF][fF](%x%x%x%x%x%x)(.-)|r")
+			if colorStr and rawText then
+				colorStr = ReplacedSealColor[colorStr] or "99ccff"
+				self:SetFormattedText("|cff%s%s|r", colorStr, rawText)
+			end
+		end
+	end)
 end
 
 S:AddCallback("mUIQuestInfo", LoadSkin)

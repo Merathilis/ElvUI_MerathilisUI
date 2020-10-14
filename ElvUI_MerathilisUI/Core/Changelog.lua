@@ -16,15 +16,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added Holographic Digitalization to the LocPanel Hearthstones",
-		"• Updated the logo for my SplashScreen",
-		"• Don't hide some textures from the ObjectiveTracker",
-		"• Changed my AFK screen",
-		"• Added an option to adjust the Style Panel Width",
-		"• Take account to the ElvUI Healprediction changes",
-		"• Adjust the frame strata for my right Chat Datatext",
-		"• Added a new font Gotham Narrow Ultra",
-		"• Some code cleanup and misc changes",
+		"• Adjusted QuestInfo skin to show colored progress again",
+		"• Fix my skin for ClassColored ScrollBars. >.>",
+		"• Adjust the backdrop for AutoBar",
+		"• Commented out new HearthStones for SL, it broke the LocPanel",
 
 		-- "• ''",
 	" ",
@@ -87,42 +82,43 @@ local function GetChangeLogInfo(i)
 end
 
 function MER:CreateChangelog()
-	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
-	frame:SetPoint("CENTER")
-	frame:SetSize(480, 420)
-	frame:SetTemplate("Transparent")
+	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent, 'BackdropTemplate')
+	frame:Point("CENTER")
+	frame:Size(600, 430)
+	frame:CreateBackdrop("Transparent")
 	frame:SetMovable(true)
 	frame:EnableMouse(true)
 	frame:RegisterForDrag("LeftButton")
 	frame:SetScript("OnDragStart", frame.StartMoving)
 	frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
 	frame:SetClampedToScreen(true)
-	frame:Styling()
+	frame.backdrop:Styling()
 
-	local icon = CreateFrame("Frame", nil, frame)
-	icon:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
-	icon:SetSize(20, 20)
-	icon:SetTemplate("Transparent")
+	local icon = CreateFrame("Frame", nil, frame, 'BackdropTemplate')
+	icon:Point("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
+	icon:Size(20, 20)
+	icon:CreateBackdrop("Transparent")
 	icon:Styling()
-	icon.bg = icon:CreateTexture(nil, "ARTWORK")
-	icon.bg:SetPoint("TOPLEFT", 2, -2)
-	icon.bg:SetPoint("BOTTOMRIGHT", -2, 2)
-	icon.bg:SetTexture(MER.LogoSmall)
-	icon.bg:SetBlendMode("ADD")
 
-	local title = CreateFrame("Frame", nil, frame)
-	title:SetPoint("LEFT", icon, "RIGHT", 1, 0)
-	title:SetSize(459, 20)
-	title:SetTemplate("Transparent")
-	title:Styling()
+	icon.bg = icon:CreateTexture(nil, "ARTWORK")
+	icon.bg:Point("TOPLEFT", 2, -2)
+	icon.bg:Point("BOTTOMRIGHT", -2, 2)
+	icon.bg:SetTexture(MER.LogoSmall)
+
+	local title = CreateFrame("Frame", nil, frame, 'BackdropTemplate')
+	title:Point("LEFT", icon, "RIGHT", 1, 0)
+	title:Size(579, 20)
+	title:CreateBackdrop("Transparent")
+	title.backdrop:Styling()
+
 	title.text = MER:CreateText(title, "OVERLAY", 15, nil, "CENTER")
-	title.text:SetPoint("CENTER", title, 0, -1)
+	title.text:Point("CENTER", title, 0, -1)
 	title.text:SetText(MER.Title.. "- ChangeLog "..format("|cff00c0fa%s|r", MER.Version))
 
-	local close = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-	close:SetPoint("BOTTOM", frame, "BOTTOM", 0, 10)
+	local close = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate, BackdropTemplate")
+	close:Point("BOTTOM", frame, "BOTTOM", 0, 10)
 	close:SetText(CLOSE)
-	close:SetSize(80, 20)
+	close:Size(80, 20)
 	close:SetScript("OnClick", function()
 		frame:Hide()
 	end)
@@ -131,7 +127,7 @@ function MER:CreateChangelog()
 	frame.close = close
 
 	local countdown = MER:CreateText(close, "OVERLAY", 12, nil, "CENTER")
-	countdown:SetPoint("LEFT", close.Text, "RIGHT", 3, 0)
+	countdown:Point("LEFT", close.Text, "RIGHT", 3, 0)
 	countdown:SetTextColor(DISABLED_FONT_COLOR:GetRGB())
 	frame.countdown = countdown
 
@@ -139,7 +135,7 @@ function MER:CreateChangelog()
 	for i = 1, #ChangeLogData do
 		local button = CreateFrame("Frame", "Button"..i, frame)
 		button:SetSize(375, 16)
-		button:SetPoint("TOPLEFT", frame, "TOPLEFT", 5, -offset)
+		button:Point("TOPLEFT", frame, "TOPLEFT", 5, -offset)
 
 		if i <= #ChangeLogData then
 			local string, isURL = ModifiedString(GetChangeLogInfo(i))
@@ -147,7 +143,7 @@ function MER:CreateChangelog()
 			button.Text = MER:CreateText(button, "OVERLAY", 11, nil, "CENTER")
 			button.Text.isURL = isURL
 			button.Text:SetText(string)
-			button.Text:SetPoint("LEFT", 0, 0)
+			button.Text:Point("LEFT", 0, 0)
 		end
 		offset = offset + 16
 	end
@@ -155,6 +151,7 @@ end
 
 function MER:CountDown()
 	self.time = self.time - 1
+
 	if self.time == 0 then
 		MerathilisUIChangeLog.countdown:SetText("")
 		MerathilisUIChangeLog.close:Enable()
@@ -168,6 +165,7 @@ function MER:ToggleChangeLog()
 	if not MerathilisUIChangeLog then
 		self:CreateChangelog()
 	end
+
 	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF or 857)
 
 	local fadeInfo = {}

@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule('mUINamePlates', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+local module = MER:GetModule('MER_NamePlates')
 local NP = E:GetModule('NamePlates')
 
 --Cache global variables

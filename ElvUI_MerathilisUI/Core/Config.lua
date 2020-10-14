@@ -107,15 +107,8 @@ local function AddOptions()
 						name = L["GameMenu"],
 						desc = L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."],
 					},
-					FlightMode = {
-						order = 6,
-						type = "toggle",
-						name = L["FlightMode"],
-						desc = L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."],
-						hidden = function() return not IsAddOnLoaded("ElvUI_BenikUI") end,
-					},
 					FlightPoint = {
-						order = 7,
+						order = 6,
 						type = "toggle",
 						name = L["Flight Point"],
 						desc = L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."],

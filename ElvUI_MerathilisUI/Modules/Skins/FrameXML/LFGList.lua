@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 --Cache global variables
 --Lua functions
@@ -178,7 +178,7 @@ local function LoadSkin()
 	end
 
 	MERS:CreateBD(ActivityFinder.Dialog)
-	ActivityFinder.Dialog:SetBackdropColor(.2, .2, .2, .9)
+	ActivityFinder.Dialog.backdrop:SetBackdropColor(.2, .2, .2, .9)
 
 	-- Application dialog ]]
 	local LFGListApplicationDialog = _G.LFGListApplicationDialog
