@@ -136,8 +136,6 @@ COMP:RegisterCompatibilityFunction("PA", "ProjectAzilrokaCompatibility")
 COMP:RegisterCompatibilityFunction("LP", "LocationPlusCompatibility")
 COMP:RegisterCompatibilityFunction("LL", "LocationLiteCompatibility")
 COMP:RegisterCompatibilityFunction("SLE", "SLECompatibility")
-COMP:RegisterCompatibilityFunction("WIND", "WindToolsCompatibility")
-COMP:RegisterCompatibilityFunction("LIVVEN", "LivvenCompatibility")
 COMP:RegisterCompatibilityFunction("NUI", "NihilistUI")
 
 function COMP:RunCompatibilityFunctions()
