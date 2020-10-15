@@ -38,6 +38,7 @@ local Screenshot = Screenshot
 local ShowUIPanel = ShowUIPanel
 local SpellBookFrame = _G.SpellBookFrame
 local TalentFrame_LoadUI = TalentFrame_LoadUI
+local ToggleAchievementFrame = ToggleAchievementFrame
 local ToggleAllBags = ToggleAllBags
 local ToggleCalendar = ToggleCalendar
 local ToggleCharacter = ToggleCharacter
