@@ -23,7 +23,7 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function ClearHighlight()
 	for _, button in pairs(_G.QuestInfoRewardsFrame.RewardButtons) do
-		button.textBg:SetBackdropColor(0, 0, 0, .25)
+		button.bg:SetBackdropColor(0, 0, 0, .25)
 	end
 end
 
@@ -32,7 +32,7 @@ local function SetHighlight(self)
 
 	local _, point = self:GetPoint()
 	if point then
-		point.textBg:SetBackdropColor(r, g, b, .25)
+		point.bg:SetBackdropColor(r, g, b, .25)
 	end
 end
 
