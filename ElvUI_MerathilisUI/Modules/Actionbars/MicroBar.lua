@@ -65,6 +65,7 @@ local ScrollButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:
 
 local Heartstones = {
 	6948,
+	64488,
 	110560,
 	140192,
 	141605,

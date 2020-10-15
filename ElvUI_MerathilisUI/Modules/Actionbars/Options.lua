@@ -204,30 +204,8 @@ local function ActionBarTable()
 							MB:UpdateTime()
 						end,
 						args = {
-							localTime = {
-								order = 1,
-								type = "toggle",
-								name = L["Local Time"],
-								get = function(info)
-									return E.db.mui.microBar.time[info[#info]]
-								end,
-								set = function(info, value)
-									E.db.mui.microBar.time[info[#info]] = value
-								end,
-							},
-							twentyFour = {
-								order = 2,
-								type = "toggle",
-								name = L["24-Hour Time"],
-								get = function(info)
-									return E.db.mui.microBar.time[info[#info]]
-								end,
-								set = function(info, value)
-									E.db.mui.microBar.time[info[#info]] = value
-								end,
-							},
 							fadeTime = {
-								order = 3,
+								order = 1,
 								type = "range",
 								name = L["Fade Time"],
 								desc = L["The animation speed."],
@@ -236,7 +214,7 @@ local function ActionBarTable()
 								step = 0.01
 							},
 							normal = {
-								order = 4,
+								order = 2,
 								type = "group",
 								name = L["Color"] .. " - " .. L["Normal"],
 								inline = true,
@@ -273,7 +251,7 @@ local function ActionBarTable()
 								}
 							},
 							hover = {
-								order = 5,
+								order = 3,
 								type = "group",
 								name = L["Color"] .. " - " .. L["Hover"],
 								inline = true,
@@ -310,7 +288,7 @@ local function ActionBarTable()
 								}
 							},
 							additionalText = {
-								order = 6,
+								order = 4,
 								type = "group",
 								name = L["Additional Text"],
 								inline = true,
@@ -368,6 +346,145 @@ local function ActionBarTable()
 								},
 							},
 						},
+					},
+					time = {
+						order = 12,
+						type = "group",
+						name = L["Time"],
+						disabled = function()
+							return not E.db.mui.microBar.enable
+						end,
+						get = function(info)
+							return E.db.mui.microBar.time[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.microBar.time[info[#info]] = value
+							MB:UpdateTimeArea()
+							MB:UpdateLayout()
+						end,
+						args = {
+							localTime = {
+								order = 2,
+								type = "toggle",
+								name = L["Local Time"]
+							},
+							twentyFour = {
+								order = 3,
+								type = "toggle",
+								name = L["24 Hours"]
+							},
+							flash = {
+								order = 4,
+								type = "toggle",
+								name = L["Flash"]
+							},
+							interval = {
+								order = 5,
+								type = "range",
+								name = L["Interval"],
+								desc = L["The interval of updating."],
+								set = function(info, value)
+									E.db.mui.microBar.time[info[#info]] = value
+									MB:UpdateTimeTicker()
+								end,
+								min = 1,
+								max = 60,
+								step = 1
+							},
+							font = {
+								order = 6,
+								type = "group",
+								name = L["Font Setting"],
+								inline = true,
+								get = function(info)
+									return E.db.mui.microBar.time[info[#info - 1]][info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.microBar.time[info[#info - 1]][info[#info]] = value
+									MB:UpdateTimeFormat()
+									MB:UpdateTimeArea()
+								end,
+								args = {
+									name = {
+										order = 1,
+										type = "select",
+										dialogControl = "LSM30_Font",
+										name = L["Font"],
+										values = E.LSM:HashTable("font")
+									},
+									style = {
+										order = 2,
+										type = "select",
+										name = L["Outline"],
+										values = {
+											NONE = L["None"],
+											OUTLINE = L["OUTLINE"],
+											MONOCHROME = L["MONOCHROME"],
+											MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+											THICKOUTLINE = L["THICKOUTLINE"]
+										}
+									},
+									size = {
+										order = 3,
+										name = L["Size"],
+										type = "range",
+										min = 5,
+										max = 60,
+										step = 1
+									},
+								},
+							},
+						},
+					},
+					home = {
+						order = 13,
+						type = "group",
+						name = L["Home"],
+						disabled = function()
+							return not E.db.mui.microBar.enable
+						end,
+						get = function(info)
+							return E.db.mui.microBar.home[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.microBar.home[info[#info]] = value
+							MB:UpdateHomeButton()
+							MB:UpdateButtons()
+						end,
+						args = {}
+					},
+					leftButtons = {
+						order = 14,
+						type = "group",
+						name = L["Left Panel"],
+						disabled = function()
+							return not E.db.mui.microBar.enable
+						end,
+						get = function(info)
+							return E.db.mui.microBar.left[tonumber(info[#info])]
+						end,
+						set = function(info, value)
+							E.db.mui.microBar.left[tonumber(info[#info])] = value
+							MB:UpdateButtons()
+							MB:UpdateLayout()
+						end,
+						args = {}
+					},
+					rightButtons = {
+						order = 16,
+						type = "group",
+						name = L["Right Panel"],
+						disabled = function()
+							return not E.db.mui.microBar.enable
+						end,
+						get = function(info)
+							return E.db.mui.microBar.right[tonumber(info[#info])]
+						end,
+						set = function(info, value)
+							E.db.mui.microBar.right[tonumber(info[#info])] = value
+							MB:UpdateButtons()
+						end,
+						args = {}
 					},
 				},
 			},
@@ -631,5 +748,41 @@ local function ActionBarTable()
 			E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.blackList.values[k] = format(texString, tex, name)
 		end
 	end
+
+
+	local availableButtons = MB:GetAvailableButtons()
+	for i = 1, 7 do
+		E.Options.args.mui.args.modules.args.actionbars.args.microBar.args.leftButtons.args[tostring(i)] = {
+			order = i,
+			type = "select",
+			name = format(L["Button #%d"], i),
+			values = availableButtons
+		}
+
+		E.Options.args.mui.args.modules.args.actionbars.args.microBar.args.rightButtons.args[tostring(i)] = {
+			order = i,
+			type = "select",
+			name = format(L["Button #%d"], i),
+			values = availableButtons
+		}
+	end
+
+	E.Options.args.mui.args.modules.args.actionbars.args.microBar.args.home.args.left = {
+		order = 1,
+		type = "select",
+		name = L["Left Button"],
+		values = function()
+			return MB:GetHearthStoneTable()
+		end
+	}
+
+	E.Options.args.mui.args.modules.args.actionbars.args.microBar.args.home.args.right = {
+		order = 2,
+		type = "select",
+		name = L["Right Button"],
+		values = function()
+			return MB:GetHearthStoneTable()
+		end
+	}
 end
 tinsert(MER.Config, ActionBarTable)
