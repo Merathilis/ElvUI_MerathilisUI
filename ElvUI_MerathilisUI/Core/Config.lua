@@ -122,7 +122,7 @@ local function AddOptions()
 				type = "group",
 				name = L["Information"],
 				args = {
-					name = ACH:Header(L["Information"], 1),
+					name = ACH:Header(MER:cOption(L["Information"]), 1),
 					support = {
 						order = 2,
 						type = "group",
