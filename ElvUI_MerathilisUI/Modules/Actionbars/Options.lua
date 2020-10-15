@@ -343,6 +343,48 @@ local function ActionBarTable()
 										name = L["Slow Mode"],
 										desc = L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."]
 									},
+									font = {
+										order = 6,
+										type = "group",
+										name = L["Font Setting"],
+										inline = true,
+										get = function(info)
+											return E.db.mui.microBar.additionalText[info[#info - 1]][info[#info]]
+										end,
+										set = function(info, value)
+											E.db.mui.microBar.additionalText[#info - 1][info[#info]] = value
+											MB:UpdateTimeArea()
+										end,
+										args = {
+											name = {
+												order = 1,
+												type = "select",
+												dialogControl = "LSM30_Font",
+												name = L["Font"],
+												values = E.LSM:HashTable("font")
+											},
+											style = {
+												order = 2,
+												type = "select",
+												name = L["Outline"],
+												values = {
+													NONE = L["None"],
+													OUTLINE = L["OUTLINE"],
+													MONOCHROME = L["MONOCHROME"],
+													MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+													THICKOUTLINE = L["THICKOUTLINE"]
+												}
+											},
+											size = {
+												order = 3,
+												name = L["Size"],
+												type = "range",
+												min = 5,
+												max = 60,
+												step = 1
+											},
+										},
+									},
 								},
 							},
 						},

@@ -619,7 +619,7 @@ function module:ConstructButton()
 	button.hoverTex = hoverTex
 
 	local additionalText = button:CreateFontString(nil, "OVERLAY")
-	additionalText:FontTemplate(LSM:Fetch("font", self.db.additionalText.font))
+	additionalText:FontTemplate(LSM:Fetch("font", self.db.additionalText.font.name), self.db.additionalText.font.size, self.db.additionalText.font.style)
 	additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
 	additionalText:SetJustifyH("CENTER")
 	additionalText:SetJustifyV("CENTER")
@@ -700,7 +700,7 @@ function module:UpdateButton(button, config)
 		button.additionalTextTimer = C_Timer_NewTicker(self.db.additionalText.slowMode and 10 or 1, function() button.additionalText:SetFormattedText(button.additionalTextFormat, config.additionalText and config.additionalText() or "") end)
 		button.additionalText:ClearAllPoints()
 		button.additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
-		button.additionalText:FontTemplate(LSM:Fetch("font", self.db.additionalText.font))
+		button.additionalText:FontTemplate(LSM:Fetch("font", self.db.additionalText.font.name), self.db.additionalText.font.size, self.db.additionalText.font.style)
 		button.additionalText:Show()
 	else
 		button.additionalText:Hide()
