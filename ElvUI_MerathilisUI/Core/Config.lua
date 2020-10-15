@@ -80,6 +80,7 @@ local function AddOptions()
 				order = 8,
 				type = "group",
 				name = L["General"],
+				icon = MER.Media.Icons.announcement,
 				args = {
 					generalHeader = ACH:Header(MER:cOption(L["General"]), 1),
 					LoginMsg = {

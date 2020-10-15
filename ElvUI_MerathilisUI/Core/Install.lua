@@ -2685,15 +2685,7 @@ function MER:SetupDts()
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
 
 	-- Create custom DT Panels
-	E.DataTexts:BuildPanelFrame("MER_BottomPanel")
 	E.DataTexts:BuildPanelFrame("MER_RightChatTop")
-
-	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["enable"] = true
-	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["width"] = 330
-	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["height"] = 18
-	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["border"] = false
-	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["panelTransparency"] = true
-	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["backdrop"] = false
 
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["enable"] = true
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["border"] = false
@@ -2706,13 +2698,6 @@ function MER:SetupDts()
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["panelTransparency"] = false
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["frameStrata"] = "MEDIUM"
 
-	E.db["datatexts"]["panels"]["MER_BottomPanel"] = {
-		[1] = "Guild",
-		[2] = "System",
-		[3] = "Friends",
-		["enable"] = true,
-	}
-
 	E.db["datatexts"]["panels"]["MER_RightChatTop"] = {
 		[1] = "Missions",
 		[2] = "Durability",
@@ -2720,12 +2705,7 @@ function MER:SetupDts()
 		["enable"] = true,
 	}
 
-	E.db["movers"]["DTPanelMER_BottomPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 	E.db["movers"]["DTPanelMER_RightChatTopMover"] = "CENTER,MER_RightChatTopDT,CENTER"
-
-	local bottom = E.DataTexts:FetchFrame("MER_BottomPanel")
-	bottom:Point("CENTER", bottom.mover, "CENTER", 0, 0)
-	E:SaveMoverPosition("DTPanelMER_BottomPanelMover")
 
 	E:StaggeredUpdateAll(nil, true)
 

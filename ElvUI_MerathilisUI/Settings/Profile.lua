@@ -326,17 +326,63 @@ MP.actionbars = {
 
 MP.microBar = {
 	enable = true,
-	scale = 1,
-	template = "Transparent",
 	hideInCombat = true,
-	hideInOrderHall = false,
-	mouseOver = false,
-	tooltip = true,
-	text = {
-		position = "BOTTOM",
-		friends = true,
-		guild = true,
+	backdrop = true,
+	backdropSpacing = 5,
+	timeAreaWidth = 110,
+	timeAreaHeight = 50,
+	buttonSize = 24,
+	spacing = 4,
+	fadeTime = 0.618,
+	normalColor = "NONE",
+	hoverColor = "CLASS",
+	customNormalColor = {r = 1, g = 1, b = 1},
+	customHoverColor = {r = 0, g = 0.659, b = 1},
+	time = {
+		localTime = true,
+		twentyFour = true,
+		flash = true,
+		interval = 10,
+		font = {
+			name = E.db.general.font,
+			size = 25,
+			style = "OUTLINE"
+		}
 	},
+	home = {
+		left = "6948",
+		right = "141605"
+	},
+	additionalText = {
+		enable = true,
+		slowMode = true,
+		anchor = "BOTTOMRIGHT",
+		x = 3,
+		y = -3,
+		font = {
+			name = E.db.general.font,
+			size = 12,
+			style = "OUTLINE"
+		}
+	},
+	left = {
+		[1] = "CHARACTER",
+		[2] = "SPELLBOOK",
+		[3] = "TALENTS",
+		[4] = "FRIENDS",
+		[5] = "GUILD",
+		[6] = "GROUP_FINDER",
+		[7] = "SCREENSHOT"
+	},
+	right = {
+		[1] = "HOME",
+		[2] = "ACHIEVEMENTS",
+		[3] = "MISSION_REPORTS",
+		[4] = "ENCOUNTER_JOURNAL",
+		[5] = "TOY_BOX",
+		[6] = "PET_JOURNAL",
+		[7] = "BAGS"
+	}
 }
 
 MP.unitframes = {

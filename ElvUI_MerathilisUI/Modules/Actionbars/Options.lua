@@ -107,92 +107,265 @@ local function ActionBarTable()
 				name = MER:cOption(L["Micro Bar"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.microBar[ info[#info] ] end,
-				set = function(info, value) E.db.mui.microBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				set = function(info, value) E.db.mui.microBar[ info[#info] ] = value; MB:ProfileUpdate(); end,
 				args = {
 					enable = {
-						order = 1,
+						order = 2,
 						type = "toggle",
 						name = L["Enable"],
-						disabled = function() return not E.private.actionbar.enable end,
-						width = "full",
+						desc = L["Toggle the game bar."]
 					},
-					scale = {
-						order = 2,
-						type = "range",
-						name = L["Scale"],
-						isPercent = true,
-						min = 0.5, max = 1.0, step = 0.01,
-						disabled = function() return not E.db.mui.microBar.enable end,
-					},
-					template = {
-						order = 3,
-						name = L["Template"],
-						type = "select",
-						disabled = function() return not E.db.mui.microBar.enable end,
-						set = function(info, value) E.db.mui.microBar[ info[#info] ] = value; MB:Template(); end,
-						values = {
-							["Default"] = DEFAULT,
-							["Transparent"] = L["Transparent"],
-							["NoBackdrop"] = L["NoBackdrop"],
-						},
-					},
-					hideInCombat = {
-						order = 4,
-						type = "toggle",
-						name = L["Hide In Combat"],
-						disabled = function() return not E.db.mui.microBar.enable end,
-					},
-					hideInOrderHall = {
-						order = 5,
-						type = "toggle",
-						name = L["Hide In Orderhall"],
-						disabled = function() return not E.db.mui.microBar.enable end,
-					},
-					mouseOver = {
-						order = 6,
-						type = "toggle",
-						name = L["Mouseover"],
-						disabled = function() return not E.db.mui.microBar.enable end,
-					},
-					tooltip = {
-						order = 7,
-						type = "toggle",
-						name = L["Tooltip"],
-						disabled = function() return not E.db.mui.microBar.enable end,
-					},
-					text = {
-						order = 8,
+					general = {
+						order = 10,
 						type = "group",
-						name = MER:cOption(L["Text"]),
-						guiInline = true,
-						disabled = function() return not E.db.mui.microBar.enable end,
+						name = L["General"],
+						disabled = function()
+							return not E.db.mui.microBar.enable
+						end,
+						get = function(info)
+							return E.db.mui.microBar[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.microBar[info[#info]] = value
+							MB:UpdateButtons()
+							MB:UpdateLayout()
+						end,
 						args = {
-							friends = {
+							backdrop = {
 								order = 1,
 								type = "toggle",
-								name = FRIENDS,
-								desc = L["Show/Hide the friend text on MicroBar."],
-								get = function(info) return E.db.mui.microBar.text.friends end,
-								set = function(info, value) E.db.mui.microBar.text.friends = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+								name = L["Bar Backdrop"],
+								desc = L["Show a backdrop of the bar."]
 							},
-							guild = {
+							hideInCombat = {
 								order = 2,
 								type = "toggle",
-								name = GUILD,
-								desc = L["Show/Hide the guild text on MicroBar."],
-								get = function(info) return E.db.mui.microBar.text.guild end,
-								set = function(info, value) E.db.mui.microBar.text.guild = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+								name = L["Hide In Combat"],
 							},
-							position = {
+							backdropSpacing = {
 								order = 3,
-								type = "select",
-								name = L["Position"],
-								values = {
-									["TOP"] = L["Top"],
-									["BOTTOM"] = L["Bottom"],
+								type = "range",
+								name = L["Backdrop Spacing"],
+								desc = L["The spacing between the backdrop and the buttons."],
+								min = 1,
+								max = 30,
+								step = 1
+							},
+							timeAreaWidth = {
+								order = 4,
+								type = "range",
+								name = L["Time Area Width"],
+								min = 1,
+								max = 200,
+								step = 1
+							},
+							timeAreaHeight = {
+								order = 5,
+								type = "range",
+								name = L["Time Area Height"],
+								min = 1,
+								max = 100,
+								step = 1
+							},
+							spacing = {
+								order = 6,
+								type = "range",
+								name = L["Button Spacing"],
+								desc = L["The spacing between buttons."],
+								min = 1,
+								max = 30,
+								step = 1
+							},
+							buttonSize = {
+								order = 7,
+								type = "range",
+								name = L["Button Size"],
+								desc = L["The size of the buttons."],
+								min = 2,
+								max = 80,
+								step = 1
+							}
+						}
+					},
+					display = {
+						order = 11,
+						type = "group",
+						name = L["Display"],
+						disabled = function()
+							return not E.db.mui.microBar.enable
+						end,
+						get = function(info)
+							return E.db.mui.microBar[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.microBar[info[#info]] = value
+							MB:UpdateButtons()
+							MB:UpdateTimeFormat()
+							MB:UpdateTime()
+						end,
+						args = {
+							localTime = {
+								order = 1,
+								type = "toggle",
+								name = L["Local Time"],
+								get = function(info)
+									return E.db.mui.microBar.time[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.microBar.time[info[#info]] = value
+								end,
+							},
+							twentyFour = {
+								order = 2,
+								type = "toggle",
+								name = L["24-Hour Time"],
+								get = function(info)
+									return E.db.mui.microBar.time[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.microBar.time[info[#info]] = value
+								end,
+							},
+							fadeTime = {
+								order = 3,
+								type = "range",
+								name = L["Fade Time"],
+								desc = L["The animation speed."],
+								min = 0,
+								max = 3,
+								step = 0.01
+							},
+							normal = {
+								order = 4,
+								type = "group",
+								name = L["Color"] .. " - " .. L["Normal"],
+								inline = true,
+								args = {
+									normalColor = {
+										order = 1,
+										type = "select",
+										name = L["Mode"],
+										values = {
+											NONE = L["None"],
+											CLASS = L["Class Color"],
+											VALUE = L["Value Color"],
+											CUSTOM = L["Custom"]
+										}
+									},
+									customNormalColor = {
+										order = 2,
+										type = "color",
+										name = L["Custom Color"],
+										hidden = function()
+											return E.db.mui.microBar.normalColor ~= "CUSTOM"
+										end,
+										get = function(info)
+											local db = E.db.mui.microBar[info[#info]]
+											local default = P.mui.microBar[info[#info]]
+											return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+										end,
+										set = function(info, r, g, b, a)
+											local db = E.db.mui.microBar[info[#info]]
+											db.r, db.g, db.b, db.a = r, g, b, a
+											MB:UpdateButtons()
+										end
+									}
+								}
+							},
+							hover = {
+								order = 5,
+								type = "group",
+								name = L["Color"] .. " - " .. L["Hover"],
+								inline = true,
+								args = {
+									hoverColor = {
+										order = 1,
+										type = "select",
+										name = L["Mode"],
+										values = {
+											NONE = L["None"],
+											CLASS = L["Class Color"],
+											VALUE = L["Value Color"],
+											CUSTOM = L["Custom"]
+										}
+									},
+									customHoverColor = {
+										order = 2,
+										type = "color",
+										name = L["Custom Color"],
+										hidden = function()
+											return E.db.mui.microBar.hoverColor ~= "CUSTOM"
+										end,
+										get = function(info)
+											local db = E.db.mui.microBar[info[#info]]
+											local default = P.mui.microBar[info[#info]]
+											return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+										end,
+										set = function(info, r, g, b, a)
+											local db = E.db.mui.microBar[info[#info]]
+											db.r, db.g, db.b, db.a = r, g, b, a
+											MB:UpdateButtons()
+										end
+									}
+								}
+							},
+							additionalText = {
+								order = 6,
+								type = "group",
+								name = L["Additional Text"],
+								inline = true,
+								get = function(info)
+									return E.db.mui.microBar.additionalText[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.microBar.additionalText[info[#info]] = value
+									MB:UpdateButtons()
+								end,
+								args = {
+									enable = {
+										order = 1,
+										type = "toggle",
+										name = L["Enable"]
+									},
+									anchor = {
+										order = 2,
+										type = "select",
+										name = L["Anchor Point"],
+										values = {
+											TOP = L["TOP"],
+											BOTTOM = L["BOTTOM"],
+											LEFT = L["LEFT"],
+											RIGHT = L["RIGHT"],
+											CENTER = L["CENTER"],
+											TOPLEFT = L["TOPLEFT"],
+											TOPRIGHT = L["TOPRIGHT"],
+											BOTTOMLEFT = L["BOTTOMLEFT"],
+											BOTTOMRIGHT = L["BOTTOMRIGHT"]
+										}
+									},
+									x = {
+										order = 3,
+										type = "range",
+										name = L["X-Offset"],
+										min = -100,
+										max = 100,
+										step = 1
+									},
+									y = {
+										order = 4,
+										type = "range",
+										name = L["Y-Offset"],
+										min = -100,
+										max = 100,
+										step = 1
+									},
+									slowMode = {
+										order = 5,
+										type = "toggle",
+										name = L["Slow Mode"],
+										desc = L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."]
+									},
 								},
-								get = function(info) return E.db.mui.microBar.text.position end,
-								set = function(info, value) E.db.mui.microBar.text.position = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 							},
 						},
 					},

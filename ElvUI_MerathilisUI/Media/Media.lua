@@ -12,6 +12,32 @@ local FadingFrame_Show = FadingFrame_Show
 local IsAddOnLoaded = IsAddOnLoaded
 --GLOBALS: hooksecurefunc
 
+MER.Media = {
+	Icons = {},
+}
+
+local MediaPath = "Interface\\Addons\\ElvUI_MerathilisUI\\Media\\"
+
+local function AddMedia(name, file, type)
+	MER.Media[type][name] = MediaPath .. type .. "\\" .. file
+end
+
+AddMedia("barAchievements", "MicroBar\\Achievements.tga", "Icons")
+AddMedia("barBags", "MicroBar\\Bags.tga", "Icons")
+AddMedia("barCharacter", "MicroBar\\Character.tga", "Icons")
+AddMedia("barEncounterJournal", "MicroBar\\EncounterJournal.tga", "Icons")
+AddMedia("barFriends", "MicroBar\\Friends.tga", "Icons")
+AddMedia("barGroupFinder", "MicroBar\\GroupFinder.tga", "Icons")
+AddMedia("barGuild", "MicroBar\\Guild.tga", "Icons")
+AddMedia("barHome", "MicroBar\\Home.tga", "Icons")
+AddMedia("barOptions", "MicroBar\\Options.tga", "Icons")
+AddMedia("barPetJournal", "MicroBar\\PetJournal.tga", "Icons")
+AddMedia("barMissionReports", "MicroBar\\MissionReports.tga", "Icons")
+AddMedia("barScreenShot", "MicroBar\\ScreenShot.tga", "Icons")
+AddMedia("barSpellBook", "MicroBar\\SpellBook.tga", "Icons")
+AddMedia("barTalents", "MicroBar\\Talents.tga", "Icons")
+AddMedia("barToyBox", "MicroBar\\ToyBox.tga", "Icons")
+
 module.Zones = L["MER_MEDIA_ZONES"]
 module.PvPInfo = L["MER_MEDIA_PVP"]
 module.Subzones = L["MER_MEDIA_SUBZONES"]
