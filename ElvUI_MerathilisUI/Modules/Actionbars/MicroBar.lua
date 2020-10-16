@@ -105,7 +105,7 @@ local function AddDoubleLineForItem(itemID, prefix)
 		cooldownTimeString = format("%02d:%02d", min, sec)
 	end
 
-	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name, canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
+	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name or "", canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
 end
 
 local ButtonTypes = {
