@@ -918,11 +918,11 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar3"]["enabled"] = true
 	E.db["actionbar"]["bar3"]["backdrop"] = true
 	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 1
-	E.db["actionbar"]["bar3"]["buttonsize"] = 25
+	E.db["actionbar"]["bar3"]["buttonsize"] = 26
 	E.db["actionbar"]["bar3"]["buttonspacing"] = 3
 	E.db["actionbar"]["bar3"]["buttons"] = 5
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
-	E.db["actionbar"]["bar3"]["backdropSpacing"] = 4
+	E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar3"]["mouseover"] = false
 	E.db["actionbar"]["bar3"]["showGrid"] = true
 	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = true
@@ -940,11 +940,11 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar5"]["enabled"] = true
 	E.db["actionbar"]["bar5"]["backdrop"] = true
 	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 1
-	E.db["actionbar"]["bar5"]["buttonsize"] = 25
+	E.db["actionbar"]["bar5"]["buttonsize"] = 26
 	E.db["actionbar"]["bar5"]["buttonspacing"] = 3
 	E.db["actionbar"]["bar5"]["buttons"] = 5
 	E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
-	E.db["actionbar"]["bar5"]["backdropSpacing"] = 4
+	E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar5"]["mouseover"] = false
 	E.db["actionbar"]["bar5"]["showGrid"] = true
 	E.db["actionbar"]["bar5"]["inheritGlobalFade"] = true
@@ -995,7 +995,7 @@ function MER:SetupActionbars(layout)
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,183"
 		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-455,47"
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
-		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,431,48"
+		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,430,47"
 		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,19"
 		E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,14"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-289,15"
