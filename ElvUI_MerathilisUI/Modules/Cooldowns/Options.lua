@@ -107,6 +107,7 @@ local function Cooldowns()
 					},
 				},
 			},
+			--[[
 			raid = {
 				order = 2,
 				type = "group",
@@ -213,7 +214,7 @@ local function Cooldowns()
 						},
 					},
 				},
-			},
+			},--]]
 		},
 	}
 end
