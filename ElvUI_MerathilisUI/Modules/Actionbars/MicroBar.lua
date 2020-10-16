@@ -516,10 +516,13 @@ end
 
 function module:UpdateTime()
 	local panel = self.bar.middlePanel
+	if not panel or not self.db then
+		return
+	end
 
 	local hour, min
 
-	if self.db and self.db.time then
+	if self.db.time then
 		if self.db.time.localTime then
 			hour = self.db.time.twentyFour and date("%H") or date("%I")
 			min = date("%M")
@@ -529,6 +532,8 @@ function module:UpdateTime()
 			hour = format("%02d", hour)
 			min = format("%02d", min)
 		end
+	else
+		return
 	end
 
 	panel.hour:SetFormattedText(panel.hour.format, hour)
