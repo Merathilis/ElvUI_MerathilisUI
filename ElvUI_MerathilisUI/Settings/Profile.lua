@@ -141,7 +141,11 @@ MP.misc = {
 		selectQuestReward =	true,
 	},
 	cursor = false,
-	lfgInfo = true,
+	lfgInfo = {
+		enable = true,
+		title = true,
+		mode = "NORMAL",
+	},
 	spellAlert = 0.65,
 	alerts = {
 		lfg = false,
