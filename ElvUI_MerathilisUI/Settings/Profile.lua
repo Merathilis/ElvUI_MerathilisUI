@@ -705,24 +705,6 @@ MP.cooldownFlash = {
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
 }
 
-MP.raidCD = {
-	enable = true,
-	width = 200,
-	height = 16,
-	upwards = false,
-	expiration = false,
-	show_self = true,
-	show_icon = true,
-	show_inparty = false,
-	show_inraid = true,
-	show_inarena = false,
-	text = {
-		font = "Expressway",
-		fontSize = 10,
-		fontOutline = "OUTLINE",
-	},
-}
-
 MP.armory = {
 	enable = true,
 	undressButton = true,
