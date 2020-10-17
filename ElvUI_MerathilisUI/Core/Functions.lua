@@ -77,6 +77,32 @@ function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
 end
 
+function MER:CreateColorString(text, db)
+	if not text or not type(text) == "string" then
+		return
+	end
+	if not db or type(db) ~= "table" then
+		return
+	end
+	local hex = db.r and db.g and db.b and E:RGBToHex(db.r, db.g, db.b) or "|cffffffff"
+
+	return hex .. text .. "|r"
+end
+
+function MER:CreateClassColorString(text, englishClass)
+	if not text or not type(text) == "string" then
+		return
+	end
+	if not englishClass or type(englishClass) ~= "string" then
+		return
+	end
+
+	local r, g, b = GetClassColor(englishClass)
+	local hex = r and g and b and E:RGBToHex(r, g, b) or "|cffffffff"
+
+	return hex .. text .. "|r"
+end
+
 function MER:SetupProfileCallbacks()
 	E.data.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
 	E.data.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")

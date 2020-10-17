@@ -141,18 +141,21 @@ function MERS:CreateBD(f, a)
 end
 
 -- ClassColored ScrollBars
-local function GrabScrollBarElement(frame, element)
-	local FrameName = frame:GetDebugName()
-	return frame[element] or FrameName and (_G[FrameName..element] or strfind(FrameName, element)) or nil
-end
+do
+	local function GrabScrollBarElement(frame, element)
+		local FrameName = frame:GetDebugName()
+		return frame[element] or FrameName and (_G[FrameName..element] or strfind(FrameName, element)) or nil
+	end
 
-function MERS:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
-	local parent = frame:GetParent()
+	function MERS:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
+		local parent = frame:GetParent()
 
-	local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
+		local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
 
-	if Thumb and Thumb.backdrop then
-		Thumb.backdrop:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
+		if Thumb and Thumb.backdrop then
+			local r, g, b = unpack(E.media.rgbvaluecolor)
+			Thumb.backdrop:SetBackdropColor(r, g, b)
+		end
 	end
 end
 

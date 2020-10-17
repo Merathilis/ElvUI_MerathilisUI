@@ -112,19 +112,15 @@ L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = true
 
 -- MicroBar
-L["Hide In Orderhall"] = true
-L["Show/Hide the friend text on MicroBar."] = true
-L["Show/Hide the guild text on MicroBar."] = true
-L["Blingtron"] = "Blingtron Daily Gift"
-L["Mean One"] = "Feast of Winter Veil"
-L["Timewarped"] = "500 Timewarped Badges"
-L["Legion Invasion"] = true
-L["Faction Assault"] = true
-L["Local Time"] = true
-L["Realm Time"] = true
-L["Current Invasion: "] = true
-L["Next Invasion: "] = true
-L["Mythic Dungeon"] = true
+L["Backdrop"] = true
+L["Backdrop Spacing"] = true
+L["The spacing between the backdrop and the buttons."] = true
+L["Time Width"] = true
+L["Time Height"] = true
+L["The spacing between buttons."] = true
+L["The size of the buttons."] = true
+L["Slow Mode"] = true
+L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = true
 
 -- Misc
 L["Misc"] = true
@@ -378,7 +374,10 @@ L["Hide Coordinates"] = true
 -- Maps
 L["MiniMap Buttons"] = true
 L["Minimap Ping"] = true
-L["Shows the name of the player who pinged on the Minimap."] = true
+L["Add Server Name"] = true
+L["Only In Combat"] = true
+L["Fade-In"] = true
+L["The time of animation. Set 0 to disable animation."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 

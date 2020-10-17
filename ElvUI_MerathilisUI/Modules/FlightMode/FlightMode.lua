@@ -123,9 +123,89 @@ local AddonsToHide = {
 	{'ConRO', 'ConRO_AutoButton'},
 }
 
+local function ConvertTime(h, m)
+	local AmPm
+	if E.global.datatexts.settings.Time.time24 == true then
+		return h, m, -1
+	else
+		if h >= 12 then
+			if h > 12 then h = h - 12 end
+			AmPm = 1
+		else
+			if h == 0 then h = 12 end
+			AmPm = 2
+		end
+	end
+	return h, m, AmPm
+end
+
+local function CreateTime()
+	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
+	local sHour, sMinute = ConvertTime(GetGameTime())
+
+	local localTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_LOCALTIME, hour, minute, ampm)
+	local localTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_LOCALTIME, hour24, minute)
+	local realmTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute, ampm)
+	local realmTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute)
+
+	if E.global.datatexts.settings.Time.localTime then
+		if E.global.datatexts.settings.Time.time24 == true then
+			return localTime24
+		else
+			return localTime
+		end
+	else
+		if E.global.datatexts.settings.Time.time24 == true then
+			return realmTime24
+		else
+			return realmTime
+		end
+	end
+end
+
+local monthAbr = {
+	[1] = L["Jan"],
+	[2] = L["Feb"],
+	[3] = L["Mar"],
+	[4] = L["Apr"],
+	[5] = L["May"],
+	[6] = L["Jun"],
+	[7] = L["Jul"],
+	[8] = L["Aug"],
+	[9] = L["Sep"],
+	[10] = L["Oct"],
+	[11] = L["Nov"],
+	[12] = L["Dec"],
+}
+
+local daysAbr = {
+	[1] = L["Sun"],
+	[2] = L["Mon"],
+	[3] = L["Tue"],
+	[4] = L["Wed"],
+	[5] = L["Thu"],
+	[6] = L["Fri"],
+	[7] = L["Sat"],
+}
+
+-- Create Date
+local function CreateDate()
+	local date = C_DateAndTime.GetCurrentCalendarTime()
+	local presentWeekday = date.weekday
+	local presentMonth = date.month
+	local presentDay = date.monthDay
+	local presentYear = date.year
+	module.FlightMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
+end
+
 function module:UpdateTimer()
+	local createdTime = CreateTime()
 	local time = GetTime() - module.startTime
 	module.FlightMode.TimeFlying:SetFormattedText('%02d:%02d', floor(time/60), time % 60)
+
+	module.FlightMode.ClockText:SetFormattedText(createdTime)
+
+	CreateDate()
 end
 
 local VisibleFrames = {}
@@ -487,10 +567,7 @@ function module:CreateFlightMode()
 	module.FlightMode.Panel:SetScript('OnUpdate', function(self, elapsed)
 		interval = interval - elapsed
 		if interval <= 0 then
-			module.FlightMode.ClockText:SetText(format('%s', date('%H' .. MER.InfoColor .. ':|r%M' .. MER.InfoColor .. ':|r%S')))
-			module.FlightMode.DateText:SetText(format('%s', date(MER.InfoColor .. '%a|r %b' .. MER.InfoColor .. '/|r%d')))
 			module:UpdateTimer()
-
 			interval = 0.5
 		end
 	end)

@@ -16,10 +16,12 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added an own FlightMode (inspired by Benik's)",
-		"• Updated/Added a lot of skins due to Shadowland code changes",
-		"• Added an options for my Top-/Bottom Panel to change the height",
-		"• Maybe a lot of other changes i already forgot.. lol",
+		"• Updated my DPS Layout due to some backdrop changes in ElvUI",
+		"• Fixed an error in LFG Info",
+		"• Updated my MicroBar, its now more customizable",
+		"• Due to the updated MicroBar, i've also deleted my middle DataText Panel",
+		"• Updated my Minimap Ping",
+		"• Removed RaidCD, use a WeakAura instead or w/e",
 
 		-- "• ''",
 	" ",
@@ -27,7 +29,8 @@ local ChangeLogData = {
 		"• As always, if you want my latest layout, do the install procress again",
 		"• If you are getting any errors or something, make sure you are now using:",
 		"  '/muierrors on' and test again",
-		"• If you havent enable rectangle minimap for now, you must adjust your layout",
+		"• Known Issue: The MicroBar Home Button will maybe cause an error if you hover it",
+		"  nothing will be broken, but its annyoing i know. Haven't found a fix yet.",
 }
 
 local URL_PATTERNS = {

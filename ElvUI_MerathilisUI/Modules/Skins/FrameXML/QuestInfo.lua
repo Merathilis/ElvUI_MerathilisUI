@@ -21,21 +21,6 @@ local GetQuestID = GetQuestID
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function ClearHighlight()
-	for _, button in pairs(_G.QuestInfoRewardsFrame.RewardButtons) do
-		button.textBg:SetBackdropColor(0, 0, 0, .25)
-	end
-end
-
-local function SetHighlight(self)
-	ClearHighlight()
-
-	local _, point = self:GetPoint()
-	if point then
-		point.textBg:SetBackdropColor(r, g, b, .25)
-	end
-end
-
 local function QuestInfo_GetQuestID()
 	if _G.QuestInfoFrame.questLog then
 		return C_QuestLog_GetSelectedQuest()
@@ -55,30 +40,22 @@ local function ColorObjectivesText()
 	if waypointText then
 		numVisibleObjectives = numVisibleObjectives + 1
 		local objective = _G['QuestInfoObjective'..numVisibleObjectives]
-		objective:SetTextColor(1, .8, .1)
+		objective:SetTextColor(.4, 1, 1)
 	end
 
 	for i = 1, GetNumQuestLeaderBoards() do
-		local _, type, finished = GetQuestLogLeaderBoard(i)
+		local _, objectiveType, isCompleted = GetQuestLogLeaderBoard(i)
 
-		if (type ~= "spell" and type ~= "log" and numVisibleObjectives < _G.MAX_OBJECTIVES) then
+		if objectiveType ~= "spell" and objectiveType ~= "log" and numVisibleObjectives < _G.MAX_OBJECTIVES then
 			numVisibleObjectives = numVisibleObjectives + 1
 			local objective = _G['QuestInfoObjective'..numVisibleObjectives]
 			if objective then
-				if finished then
-					objective:SetTextColor(34/255, 255/255, 0/255)
+				if isCompleted then
+					objective:SetTextColor(.2, 1, .2)
 				else
 					objective:SetTextColor(1, 1, 1)
 				end
 			end
-		end
-	end
-
-	-- 9.0 Shadowlands Objective Text Colors
-	for i = 1, 3 do -- Maybe more
-		local text = _G["QuestInfoObjective"..i]
-		if text then
-			text:SetTextColor(1, 1, 1)
 		end
 	end
 end
@@ -158,13 +135,10 @@ local function LoadSkin()
 
 	-- Item reward highlight
 	_G.QuestInfoItemHighlight:GetRegions():Hide()
-	hooksecurefunc(_G.QuestInfoItemHighlight, "SetPoint", SetHighlight)
-	_G.QuestInfoItemHighlight:HookScript("OnShow", SetHighlight)
-	_G.QuestInfoItemHighlight:HookScript("OnHide", ClearHighlight)
-
 	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
 
 	hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)
+	ColorObjectivesText()
 
 	-- [[ Quest rewards ]]
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)

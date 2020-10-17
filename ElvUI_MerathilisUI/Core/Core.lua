@@ -77,11 +77,21 @@ function MER:IsAddOnEnabled(addon) -- Credit: Azilroka
 	return GetAddOnEnableState(E.myname, addon) == 2
 end
 
+function MER:DBCleanup()
+	if E.db["datatexts"]["panels"]["MER_BottomPanel"] then
+		E.db["datatexts"]["panels"]["MER_BottomPanel"] = nil
+	end
+	if E.global["datatexts"]["customPanels"]["MER_BottomPanel"] then
+		E.global["datatexts"]["customPanels"]["MER_BottomPanel"] = nil
+	end
+end
+
 function MER:Initialize()
 	self:RegisterMedia()
 	self:LoadCommands()
 	self:AddMoverCategories()
 	self:LoadDataTexts()
+	self:DBCleanup()
 
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then

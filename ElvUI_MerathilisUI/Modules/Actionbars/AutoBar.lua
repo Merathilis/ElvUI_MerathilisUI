@@ -229,9 +229,8 @@ local function CreateButton(name, size)
 	local AutoButton = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate")
 	AutoButton:Size(size)
 	AutoButton:StyleButton()
-	if not useMasque then
-		AutoButton:CreateBackdrop()
-	end
+	AutoButton:CreateBackdrop()
+
 	AutoButton:SetClampedToScreen(true)
 	AutoButton:SetAttribute("type", "item")
 	AutoButton:SetAlpha(0)
