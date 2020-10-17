@@ -66,6 +66,8 @@ local LeftButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1
 local RightButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:410|t"
 local ScrollButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t"
 
+local GarbageCollectionCounter = 0
+
 local Heartstones = {
 	6948,
 	64488,
@@ -613,6 +615,9 @@ function module:ButtonOnEnter(button)
 			local DTModule = DT.RegisteredDataTexts[button.tooltips]
 
 			if DTModule and DTModule.onEnter then
+				if DTModule.onEvent then
+					DTModule.onEvent()
+				end
 				DTModule.onEnter()
 			end
 
@@ -735,7 +740,14 @@ function module:UpdateButton(button, config)
 	if config.additionalText and self.db.additionalText.enable then
 		button.additionalText:SetFormattedText(button.additionalTextFormat, config.additionalText and config.additionalText() or "")
 
-		button.additionalTextTimer = C_Timer_NewTicker(self.db.additionalText.slowMode and 10 or 1, function() button.additionalText:SetFormattedText(button.additionalTextFormat, config.additionalText and config.additionalText() or "") end)
+		button.additionalTextTimer = C_Timer_NewTicker(self.db.additionalText.slowMode and 10 or 1, function()
+			button.additionalText:SetFormattedText(button.additionalTextFormat, config.additionalText and config.additionalText() or "")
+			GarbageCollectionCounter = GarbageCollectionCounter + 1
+			if GarbageCollectionCounter > 30 then
+				collectgarbage("collect")
+				GarbageCollectionCounter = 0
+			end
+		end)
 		button.additionalText:ClearAllPoints()
 		button.additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
 		button.additionalText:FontTemplate(LSM:Fetch("font", self.db.additionalText.font.name), self.db.additionalText.font.size, self.db.additionalText.font.style)
