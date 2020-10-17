@@ -50,6 +50,7 @@ local ToggleFriendsFrame = ToggleFriendsFrame
 local ToggleGuildFinder = ToggleGuildFinder
 local ToggleGuildFrame = ToggleGuildFrame
 local ToggleTimeManager = ToggleTimeManager
+local UnregisterStateDriver = UnregisterStateDriver
 
 local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
 local C_Garrison_GetCompleteMissions = C_Garrison.GetCompleteMissions
@@ -117,7 +118,9 @@ local ButtonTypes = {
 		name = L["Achievements"],
 		icon = MER.Media.Icons.barAchievements,
 		click = {
-			LeftButton = ToggleAchievementFrame
+			LeftButton = function()
+				ToggleAchievementFrame(false)
+			end
 		},
 		tooltips = {
 			L["Achievements"]
@@ -959,7 +962,7 @@ function module:ProfileUpdate()
 				return
 			else
 				self:Initialize()
-				self.bar:UnregisterStateDriver(self.bar, "visibility")
+				UnregisterStateDriver(self.bar, "visibility")
 			end
 		end
 	else
