@@ -10,7 +10,7 @@ local function FlightMode()
 
 	E.Options.args.mui.args.modules.args.cvars = {
 		type = "group",
-		name = E.NewSign..L["FlightMode"],
+		name = L["FlightMode"],
 		get = function(info) return E.db.mui.flightMode[ info[#info] ] end,
 		set = function(info, value) E.db.mui.flightMode[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
