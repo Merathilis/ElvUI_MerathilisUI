@@ -1,3 +1,9 @@
+[b][color=orange]v4.58 for Shadowland PrePatch[/color], 17.10.2020[/b][list]
+[*]More fixes/updates to my new MicroBar -> own Option-Category
+[*]Fixed an error with the ActionBarProfile skin
+[*]Added some more frames to the blacklist on the FlightMode[/list]
+
+
 [b][color=orange]v4.57 for Shadowland PrePatch[/color], 17.10.2020[/b][list]
 [*]Updated my DPS Layout due to some backdrop changes in ElvUI
 [*]Fixed an error in LFG Info

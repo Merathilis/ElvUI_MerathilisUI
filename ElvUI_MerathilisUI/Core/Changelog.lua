@@ -16,12 +16,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Updated my DPS Layout due to some backdrop changes in ElvUI",
-		"• Fixed an error in LFG Info",
-		"• Updated my MicroBar, its now more customizable",
-		"• Due to the updated MicroBar, i've also deleted my middle DataText Panel",
-		"• Updated my Minimap Ping",
-		"• Removed RaidCD, use a WeakAura instead or w/e",
+		"• More fixes/updates to my new MicroBar -> own Option-Category",
+		"• Fixed an error with the ActionBarProfile skin",
+		"• Added some more frames to the blacklist on the FlightMode",
 
 		-- "• ''",
 	" ",
