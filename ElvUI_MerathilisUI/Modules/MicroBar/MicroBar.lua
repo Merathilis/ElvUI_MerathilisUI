@@ -29,6 +29,7 @@ local GetItemCooldown = GetItemCooldown
 local GetItemIcon = GetItemIcon
 local GetNumGuildMembers = GetNumGuildMembers
 local GetTime = GetTime
+local GuildFrame_LoadUI = GuildFrame_LoadUI
 local HideUIPanel = HideUIPanel
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
@@ -50,6 +51,7 @@ local ToggleFriendsFrame = ToggleFriendsFrame
 local ToggleGuildFinder = ToggleGuildFinder
 local ToggleGuildFrame = ToggleGuildFrame
 local ToggleTimeManager = ToggleTimeManager
+local UnregisterStateDriver = UnregisterStateDriver
 
 local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
 local C_Garrison_GetCompleteMissions = C_Garrison.GetCompleteMissions
@@ -112,12 +114,36 @@ local function AddDoubleLineForItem(itemID, prefix)
 	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name or "", canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
 end
 
+local VirtualDTEvent = {
+	Friends = nil,
+	Guild = "GUILD_ROSTER_UPDATE"
+}
+
+local VirtualDT = {
+	Friends = {
+		text = {
+			SetFormattedText = E.noop
+		}
+	},
+	Guild = {
+		text = {
+			SetFormattedText = E.noop,
+			SetText = E.noop
+		},
+		GetScript = function()
+			return E.noop
+		end
+	}
+}
+
 local ButtonTypes = {
 	ACHIEVEMENTS = {
 		name = L["Achievements"],
 		icon = MER.Media.Icons.barAchievements,
 		click = {
-			LeftButton = ToggleAchievementFrame
+			LeftButton = function()
+				ToggleAchievementFrame(false)
+			end
 		},
 		tooltips = {
 			L["Achievements"]
@@ -207,6 +233,13 @@ local ButtonTypes = {
 				else
 					ToggleGuildFinder()
 				end
+			end,
+			RightButton = function()
+				if not _G.GuildFrame then
+					GuildFrame_LoadUI()
+				end
+
+				ToggleFrame(_G.GuildFrame)
 			end
 		},
 		additionalText = function()
@@ -451,7 +484,13 @@ function module:ConstructTimeArea()
 		E:UIFrameFadeIn(panel.minutesHover, self.db.fadeTime, panel.minutesHover:GetAlpha(), 1)
 		E:UIFrameFadeIn(panel.text, self.db.fadeTime, panel.text:GetAlpha(), 1)
 
-		DT.tooltip:SetOwner(panel.text, "ANCHOR_BOTTOM", 0, -5)
+		if self.db.tooltipPosition == "BOTTOM" then
+			DT.tooltip:SetOwner(panel.text, "ANCHOR_BOTTOM", 0, -5)
+		elseif self.db.tooltipPosition == "TOP" then
+			DT.tooltip:SetOwner(panel.text, "ANCHOR_TOP", 0, 40)
+		else
+			DT.tooltip:SetOwner(panel.text, "ANCHOR_BOTTOM", 0, -5)
+		end
 
 		if IsModifierKeyDown() then
 			DT.RegisteredDataTexts["System"].eventFunc()
@@ -600,7 +639,14 @@ function module:ButtonOnEnter(button)
 	end
 	E:UIFrameFadeIn(button.hoverTex, self.db.fadeTime, button.hoverTex:GetAlpha(), 1)
 	if button.tooltips then
-		DT.tooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -10)
+		if self.db.tooltipPosition == "BOTTOM" then
+			DT.tooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -10)
+		elseif self.db.tooltipPosition == "TOP" then
+			DT.tooltip:SetOwner(button, "ANCHOR_TOP", 0, 10)
+		else
+			DT.tooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -10)
+		end
+
 		if type(button.tooltips) == "table" then
 			DT.tooltip:ClearLines()
 			for index, line in ipairs(button.tooltips) do
@@ -614,10 +660,11 @@ function module:ButtonOnEnter(button)
 		elseif type(button.tooltips) == "string" then
 			local DTModule = DT.RegisteredDataTexts[button.tooltips]
 
+			if VirtualDT[button.tooltips] and DTModule.eventFunc then
+				DTModule.eventFunc(VirtualDT[button.tooltips], VirtualDTEvent[button.tooltips])
+			end
+
 			if DTModule and DTModule.onEnter then
-				if DTModule.onEvent then
-					DTModule.onEvent()
-				end
 				DTModule.onEnter()
 			end
 
@@ -962,7 +1009,7 @@ function module:ProfileUpdate()
 				return
 			else
 				self:Initialize()
-				self.bar:UnregisterStateDriver(self.bar, "visibility")
+				UnregisterStateDriver(self.bar, "visibility")
 			end
 		end
 	else

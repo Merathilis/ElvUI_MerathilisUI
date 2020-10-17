@@ -29,7 +29,7 @@ local function LoadAddOnSkin()
 
 	-- Save Dialog
 	_G.PaperDollActionBarProfilesSaveDialog:StripTextures()
-	_G.PaperDollActionBarProfilesSaveDialog:SetTemplate("Transparent")
+	_G.PaperDollActionBarProfilesSaveDialog:CreateBackdrop("Transparent")
 	S:HandleButton(_G.PaperDollActionBarProfilesSaveDialogOkay)
 	S:HandleButton(_G.PaperDollActionBarProfilesSaveDialogCancel)
 	S:HandleEditBox(_G.PaperDollActionBarProfilesSaveDialogEditBox)

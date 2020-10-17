@@ -2,6 +2,5 @@
 	<Script file="Actionbars.lua"/>
 	<Script file="AutoBar.lua"/>
 	<Script file="EquipSpecBar.lua"/>
-	<Script file="MicroBar.lua"/>
 	<Script file="Options.lua"/>
 </Ui>

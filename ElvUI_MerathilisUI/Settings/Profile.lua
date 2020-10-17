@@ -333,8 +333,8 @@ MP.microBar = {
 	mouseOver = false,
 	backdrop = true,
 	backdropSpacing = 2,
-	timeAreaWidth = 85,
-	timeAreaHeight = 50,
+	timeAreaWidth = 80,
+	timeAreaHeight = 35,
 	buttonSize = 20,
 	spacing = 3,
 	fadeTime = 0.618,
@@ -343,6 +343,7 @@ MP.microBar = {
 	customNormalColor = {r = 1, g = 1, b = 1},
 	customHoverColor = {r = 0, g = 0.659, b = 1},
 	visibility = "[petbattle][combat] hide; show",
+	tooltipPosition = "TOP",
 	time = {
 		localTime = true,
 		twentyFour = true,
