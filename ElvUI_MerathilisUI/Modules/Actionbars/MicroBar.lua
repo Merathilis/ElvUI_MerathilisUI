@@ -127,6 +127,18 @@ local ButtonTypes = {
 		},
 		tooltips = "Bags"
 	},
+	BLIZZARD_SHOP = {
+		name = L["Blizzard Shop"],
+		icon = MER.Media.Icons.barBlizzardShop,
+		click = {
+			LeftButton = function()
+				_G.StoreMicroButton:Click()
+			end
+		},
+		tooltips = {
+			L["Blizzard Shop"]
+		}
+	},
 	CHARACTER = {
 		name = L["Character"],
 		icon = MER.Media.Icons.barCharacter,

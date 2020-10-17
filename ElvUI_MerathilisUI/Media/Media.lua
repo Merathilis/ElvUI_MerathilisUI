@@ -24,6 +24,7 @@ end
 
 AddMedia("barAchievements", "MicroBar\\Achievements.tga", "Icons")
 AddMedia("barBags", "MicroBar\\Bags.tga", "Icons")
+AddMedia("barBlizzardShop", "MicroBar\\BlizzardShop.tga", "Icons")
 AddMedia("barCharacter", "MicroBar\\Character.tga", "Icons")
 AddMedia("barEncounterJournal", "MicroBar\\EncounterJournal.tga", "Icons")
 AddMedia("barFriends", "MicroBar\\Friends.tga", "Icons")
