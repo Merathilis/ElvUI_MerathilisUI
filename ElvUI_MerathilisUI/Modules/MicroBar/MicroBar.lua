@@ -483,7 +483,13 @@ function module:ConstructTimeArea()
 		E:UIFrameFadeIn(panel.minutesHover, self.db.fadeTime, panel.minutesHover:GetAlpha(), 1)
 		E:UIFrameFadeIn(panel.text, self.db.fadeTime, panel.text:GetAlpha(), 1)
 
-		DT.tooltip:SetOwner(panel.text, "ANCHOR_BOTTOM", 0, -5)
+		if self.db.tooltipPosition == "BOTTOM" then
+			DT.tooltip:SetOwner(panel.text, "ANCHOR_BOTTOM", 0, -5)
+		elseif self.db.tooltipPosition == "TOP" then
+			DT.tooltip:SetOwner(panel.text, "ANCHOR_TOP", 0, 40)
+		else
+			DT.tooltip:SetOwner(panel.text, "ANCHOR_BOTTOM", 0, -5)
+		end
 
 		if IsModifierKeyDown() then
 			DT.RegisteredDataTexts["System"].eventFunc()
@@ -632,7 +638,14 @@ function module:ButtonOnEnter(button)
 	end
 	E:UIFrameFadeIn(button.hoverTex, self.db.fadeTime, button.hoverTex:GetAlpha(), 1)
 	if button.tooltips then
-		DT.tooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -10)
+		if self.db.tooltipPosition == "BOTTOM" then
+			DT.tooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -10)
+		elseif self.db.tooltipPosition == "TOP" then
+			DT.tooltip:SetOwner(button, "ANCHOR_TOP", 0, 10)
+		else
+			DT.tooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -10)
+		end
+
 		if type(button.tooltips) == "table" then
 			DT.tooltip:ClearLines()
 			for index, line in ipairs(button.tooltips) do

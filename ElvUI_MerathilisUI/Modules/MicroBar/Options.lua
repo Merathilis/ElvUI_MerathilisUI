@@ -120,8 +120,21 @@ local function MicroBarTable()
 						max = 3,
 						step = 0.01
 					},
-					normal = {
+					tooltipPosition = {
 						order = 3,
+						type = "select",
+						name = L["Tooltip Position"],
+						values = {
+							TOP = L["Top"],
+							BOTTOM = L["Bottom"],
+						},
+						set = function(info, value)
+							E.db.mui.microBar[info[#info]] = value
+							E:StaticPopup_Show("PRIVATE_RL");
+						end
+					},
+					normal = {
+						order = 4,
 						type = "group",
 						name = L["Color"] .. " - " .. L["Normal"],
 						inline = true,
@@ -158,7 +171,7 @@ local function MicroBarTable()
 						}
 					},
 					hover = {
-						order = 4,
+						order = 5,
 						type = "group",
 						name = L["Color"] .. " - " .. L["Hover"],
 						inline = true,
@@ -195,7 +208,7 @@ local function MicroBarTable()
 						}
 					},
 					additionalText = {
-						order = 5,
+						order = 6,
 						type = "group",
 						name = L["Additional Text"],
 						inline = true,
@@ -295,7 +308,7 @@ local function MicroBarTable()
 						},
 					},
 					visibility = {
-						order = 6,
+						order = 7,
 						type = "input",
 						name = L["Visibility"],
 						set = function(info, value)
