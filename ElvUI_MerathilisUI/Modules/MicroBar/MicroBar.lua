@@ -29,6 +29,7 @@ local GetItemCooldown = GetItemCooldown
 local GetItemIcon = GetItemIcon
 local GetNumGuildMembers = GetNumGuildMembers
 local GetTime = GetTime
+local GuildFrame_LoadUI = GuildFrame_LoadUI
 local HideUIPanel = HideUIPanel
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
@@ -112,6 +113,27 @@ local function AddDoubleLineForItem(itemID, prefix)
 
 	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name or "", canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
 end
+
+local VirtualDTEvent = {
+	Friends = nil,
+	Guild = "GUILD_ROSTER_UPDATE"
+}
+
+local VirtualDT = {
+	Friends = {
+		text = {
+			SetFormattedText = E.noop
+		}
+	},
+	Guild = {
+		text = {
+			SetFormattedText = E.noop
+		},
+		GetScript = function()
+			return E.noop
+		end
+	}
+}
 
 local ButtonTypes = {
 	ACHIEVEMENTS = {
@@ -210,6 +232,13 @@ local ButtonTypes = {
 				else
 					ToggleGuildFinder()
 				end
+			end,
+			RightButton = function()
+				if not _G.GuildFrame then
+					GuildFrame_LoadUI()
+				end
+
+				ToggleFrame(_G.GuildFrame)
 			end
 		},
 		additionalText = function()
@@ -616,6 +645,10 @@ function module:ButtonOnEnter(button)
 			DT.tooltip:Show()
 		elseif type(button.tooltips) == "string" then
 			local DTModule = DT.RegisteredDataTexts[button.tooltips]
+
+			if VirtualDT[button.tooltips] and DTModule.eventFunc then
+				DTModule.eventFunc(VirtualDT[button.tooltips], VirtualDTEvent[button.tooltips])
+			end
 
 			if DTModule and DTModule.onEnter then
 				DTModule.onEnter()
