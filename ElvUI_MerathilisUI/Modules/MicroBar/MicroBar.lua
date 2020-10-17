@@ -127,7 +127,8 @@ local VirtualDT = {
 	},
 	Guild = {
 		text = {
-			SetFormattedText = E.noop
+			SetFormattedText = E.noop,
+			SetText = E.noop
 		},
 		GetScript = function()
 			return E.noop
