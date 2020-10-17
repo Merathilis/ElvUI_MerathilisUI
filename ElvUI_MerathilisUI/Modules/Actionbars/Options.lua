@@ -178,11 +178,6 @@ local function ActionBarTable()
 								max = 80,
 								step = 1
 							},
-							hideInCombat = {
-								order = 7,
-								type = "toggle",
-								name = L["Hide In Combat"],
-							},
 						},
 					},
 					display = {
@@ -358,8 +353,8 @@ local function ActionBarTable()
 											return E.db.mui.microBar.additionalText[info[#info - 1]][info[#info]]
 										end,
 										set = function(info, value)
-											E.db.mui.microBar.additionalText[#info - 1][info[#info]] = value
-											MB:UpdateTimeArea()
+											E.db.mui.microBar.additionalText[info[#info - 1]][info[#info]] = value
+											MB:UpdateButtons()
 										end,
 										args = {
 											name = {
@@ -367,7 +362,15 @@ local function ActionBarTable()
 												type = "select",
 												dialogControl = "LSM30_Font",
 												name = L["Font"],
-												values = E.LSM:HashTable("font")
+												values = E.LSM:HashTable("font"),
+											},
+											size = {
+												order = 3,
+												name = L["Size"],
+												type = "range",
+												min = 5,
+												max = 60,
+												step = 1
 											},
 											style = {
 												order = 2,
@@ -380,14 +383,6 @@ local function ActionBarTable()
 													MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
 													THICKOUTLINE = L["THICKOUTLINE"]
 												}
-											},
-											size = {
-												order = 3,
-												name = L["Size"],
-												type = "range",
-												min = 5,
-												max = 60,
-												step = 1
 											},
 										},
 									},
