@@ -121,6 +121,7 @@ local AddonsToHide = {
 	{'ConRO', 'ConRODefenseWindow'},
 	{'ConRO', 'ConRO_BurstButton'},
 	{'ConRO', 'ConRO_AutoButton'},
+	{'ProjectAzilroka', 'SquareMinimapButtonBar'},
 }
 
 local function ConvertTime(h, m)
