@@ -113,7 +113,6 @@ local function ActionBarTable()
 						order = 2,
 						type = "toggle",
 						name = L["Enable"],
-						desc = L["Toggle the game bar."]
 					},
 					general = {
 						order = 10,
@@ -134,16 +133,10 @@ local function ActionBarTable()
 							backdrop = {
 								order = 1,
 								type = "toggle",
-								name = L["Bar Backdrop"],
-								desc = L["Show a backdrop of the bar."]
-							},
-							hideInCombat = {
-								order = 2,
-								type = "toggle",
-								name = L["Hide In Combat"],
+								name = L["Backdrop"],
 							},
 							backdropSpacing = {
-								order = 3,
+								order = 2,
 								type = "range",
 								name = L["Backdrop Spacing"],
 								desc = L["The spacing between the backdrop and the buttons."],
@@ -152,23 +145,23 @@ local function ActionBarTable()
 								step = 1
 							},
 							timeAreaWidth = {
-								order = 4,
+								order = 3,
 								type = "range",
-								name = L["Time Area Width"],
+								name = L["Time Width"],
 								min = 1,
 								max = 200,
 								step = 1
 							},
 							timeAreaHeight = {
-								order = 5,
+								order = 4,
 								type = "range",
-								name = L["Time Area Height"],
+								name = L["Time Height"],
 								min = 1,
 								max = 100,
 								step = 1
 							},
 							spacing = {
-								order = 6,
+								order = 5,
 								type = "range",
 								name = L["Button Spacing"],
 								desc = L["The spacing between buttons."],
@@ -177,15 +170,20 @@ local function ActionBarTable()
 								step = 1
 							},
 							buttonSize = {
-								order = 7,
+								order = 6,
 								type = "range",
 								name = L["Button Size"],
 								desc = L["The size of the buttons."],
 								min = 2,
 								max = 80,
 								step = 1
-							}
-						}
+							},
+							hideInCombat = {
+								order = 7,
+								type = "toggle",
+								name = L["Hide In Combat"],
+							},
+						},
 					},
 					display = {
 						order = 11,
@@ -208,7 +206,6 @@ local function ActionBarTable()
 								order = 1,
 								type = "toggle",
 								name = L["Mouse Over"],
-								desc = L["Show the bar only mouse hovered the area."],
 								set = function(info, value)
 									E.db.mui.microBar[info[#info]] = value
 									MB:UpdateBar()
@@ -218,7 +215,6 @@ local function ActionBarTable()
 								order = 2,
 								type = "range",
 								name = L["Fade Time"],
-								desc = L["The animation speed."],
 								min = 0,
 								max = 3,
 								step = 0.01
@@ -356,7 +352,7 @@ local function ActionBarTable()
 									font = {
 										order = 6,
 										type = "group",
-										name = L["Font Setting"],
+										name = L["Font"],
 										inline = true,
 										get = function(info)
 											return E.db.mui.microBar.additionalText[info[#info - 1]][info[#info]]
@@ -456,7 +452,7 @@ local function ActionBarTable()
 							font = {
 								order = 6,
 								type = "group",
-								name = L["Font Setting"],
+								name = L["Font"],
 								inline = true,
 								get = function(info)
 									return E.db.mui.microBar.time[info[#info - 1]][info[#info]]

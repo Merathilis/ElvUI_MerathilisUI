@@ -523,8 +523,8 @@ MP.panels = {
 MP.smb = {
 	enable = true,
 	size = 34,
-	perRow = 12,
-	spacing = 2,
+	perRow = 6,
+	spacing = 1,
 }
 
 MP.locPanel = {

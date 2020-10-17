@@ -108,12 +108,12 @@ local function Minimap()
 						order = 5,
 						type = "group",
 						inline = true,
-						name = L["Animation Duration"],
+						name = L["Animation"],
 						args = {
 							fadeInTime = {
 								order = 1,
 								type = "range",
-								name = L["Fade In"],
+								name = L["Fade-In"],
 								desc = L["The time of animation. Set 0 to disable animation."],
 								min = 0,
 								max = 5,
@@ -122,7 +122,7 @@ local function Minimap()
 							stayTime = {
 								order = 2,
 								type = "range",
-								name = L["Stay"],
+								name = L["Duration"],
 								desc = L["The time of animation. Set 0 to disable animation."],
 								min = 0,
 								max = 10,
@@ -170,7 +170,7 @@ local function Minimap()
 						order = 7,
 						type = "group",
 						inline = true,
-						name = L["Font Setting"],
+						name = L["Font"],
 						get = function(info)
 							return E.db.mui.maps.minimap.ping.font[info[#info]]
 						end,
