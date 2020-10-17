@@ -330,7 +330,7 @@ MP.actionbars = {
 
 MP.microBar = {
 	enable = true,
-	hideInCombat = true,
+	mouseOver = false,
 	backdrop = true,
 	backdropSpacing = 2,
 	timeAreaWidth = 85,
@@ -342,6 +342,7 @@ MP.microBar = {
 	hoverColor = "CLASS",
 	customNormalColor = {r = 1, g = 1, b = 1},
 	customHoverColor = {r = 0, g = 0.659, b = 1},
+	visibility = "[petbattle][combat] hide; show",
 	time = {
 		localTime = true,
 		twentyFour = true,

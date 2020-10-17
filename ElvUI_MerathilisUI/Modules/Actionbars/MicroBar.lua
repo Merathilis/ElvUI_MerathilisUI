@@ -328,9 +328,22 @@ local ButtonTypes = {
 function module:ConstructBar()
 	if self.bar then return end
 
-	local bar = CreateFrame("Frame", MER.Title .. "MicroBar", E.UIParent)
+	local bar = CreateFrame("Frame", MER.Title .. "MicroBar", E.UIParent, 'BackdropTemplate')
 	bar:Size(800, 60)
 	bar:Point("TOP", 0, -19)
+	bar:SetFrameStrata("DIALOG")
+
+	bar:SetScript("OnEnter", function(bar)
+		if self.db and self.db.mouseOver then
+			E:UIFrameFadeIn(bar, self.db.fadeTime, bar:GetAlpha(), 1)
+		end
+	end)
+
+	bar:SetScript("OnLeave", function(bar)
+		if self.db and self.db.mouseOver then
+			E:UIFrameFadeOut(bar, self.db.fadeTime, bar:GetAlpha(), 0)
+		end
+	end)
 
 	local middlePanel = CreateFrame("Button", "MicroBarMiddlePanel", bar, "SecureActionButtonTemplate")
 	middlePanel:Size(81, 50)
@@ -357,23 +370,16 @@ function module:ConstructBar()
 	self.bar = bar
 
 	E:CreateMover(self.bar, "MicroBarAnchor", L["MicroBar"], nil, nil, nil, "ALL,MERATHILISUI", function() return module.db and module.db.enable end)
-
-	self:Toggle()
 end
 
-function module:Toggle()
-	if self.db.enable then
-		self.bar:SetAlpha(1)
-		E:EnableMover(self.bar.mover:GetName())
-
-		if self.db.hideInCombat then
-			RegisterStateDriver(self.bar, 'visibility', '[combat] hide;show')
-		end
-	else
+function module:UpdateBar()
+	if self.db and self.db.mouseOver then
 		self.bar:SetAlpha(0)
-		E:DisableMover(self.bar.mover:GetName())
-		UnregisterStateDriver(self.bar, 'visibility')
+	else
+		self.bar:SetAlpha(1)
 	end
+
+	RegisterStateDriver(self.bar, "visibility", self.db.visibility)
 end
 
 function module:ConstructTimeArea()
@@ -419,6 +425,10 @@ function module:ConstructTimeArea()
 	DT.RegisteredDataTexts["System"].onUpdate(self.bar.middlePanel, 10)
 
 	self:HookScript(self.bar.middlePanel, "OnEnter", function(panel)
+		if self.db and self.db.mouseOver then
+			E:UIFrameFadeIn(self.bar, self.db.fadeTime, self.bar:GetAlpha(), 1)
+		end
+
 		DT.RegisteredDataTexts["System"].onUpdate(panel, 10)
 
 		E:UIFrameFadeIn(panel.hourHover, self.db.fadeTime, panel.hourHover:GetAlpha(), 1)
@@ -451,6 +461,9 @@ function module:ConstructTimeArea()
 	end)
 
 	self:HookScript(self.bar.middlePanel, "OnLeave", function(panel)
+		if self.db and self.db.mouseOver then
+			E:UIFrameFadeOut(self.bar, self.db.fadeTime, self.bar:GetAlpha(), 0)
+		end
 		E:UIFrameFadeOut(panel.hourHover, self.db.fadeTime, panel.hourHover:GetAlpha(), 0)
 		E:UIFrameFadeOut(panel.minutesHover, self.db.fadeTime, panel.minutesHover:GetAlpha(), 0)
 		E:UIFrameFadeOut(panel.text, self.db.fadeTime, panel.text:GetAlpha(), 0)
@@ -566,6 +579,9 @@ function module:UpdateTimeArea()
 end
 
 function module:ButtonOnEnter(button)
+	if self.db and self.db.mouseOver then
+		E:UIFrameFadeIn(self.bar, self.db.fadeTime, self.bar:GetAlpha(), 1)
+	end
 	E:UIFrameFadeIn(button.hoverTex, self.db.fadeTime, button.hoverTex:GetAlpha(), 1)
 	if button.tooltips then
 		DT.tooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -10)
@@ -598,6 +614,9 @@ function module:ButtonOnEnter(button)
 end
 
 function module:ButtonOnLeave(button)
+	if self.db and self.db.mouseOver then
+		E:UIFrameFadeOut(self.bar, self.db.fadeTime, self.bar:GetAlpha(), 0)
+	end
 	E:UIFrameFadeOut(button.hoverTex, self.db.fadeTime, button.hoverTex:GetAlpha(), 0)
 	DT.tooltip:Hide()
 	if button.tooltipsLeave then
@@ -871,12 +890,12 @@ function module:Initialize()
 
 	self:UpdateHearthStoneTable()
 	self:ConstructBar()
-	self:Toggle()
 	self:ConstructTimeArea()
 	self:ConstructButtons()
 	self:UpdateTimeArea()
 	self:UpdateButtons()
 	self:UpdateLayout()
+	self:UpdateBar()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 	function module:ForUpdateAll()
@@ -888,7 +907,7 @@ function module:Initialize()
 		self:UpdateTime()
 		self:UpdateButtons()
 		self:UpdateLayout()
-		self:Toggle()
+		self:UpdateBar()
 	end
 	self:ForUpdateAll()
 
@@ -910,13 +929,14 @@ function module:ProfileUpdate()
 			self:UpdateTime()
 			self:UpdateButtons()
 			self:UpdateLayout()
-			self:Toggle()
+			self:UpdateBar()
 		else
 			if InCombatLockdown() then
 				self:RegisterEvent("PLAYER_REGEN_ENABLED")
 				return
 			else
 				self:Initialize()
+				self.bar:UnregisterStateDriver(self.bar, "visibility")
 			end
 		end
 	else

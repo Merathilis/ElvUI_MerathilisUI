@@ -204,8 +204,18 @@ local function ActionBarTable()
 							MB:UpdateTime()
 						end,
 						args = {
-							fadeTime = {
+							mouseOver = {
 								order = 1,
+								type = "toggle",
+								name = L["Mouse Over"],
+								desc = L["Show the bar only mouse hovered the area."],
+								set = function(info, value)
+									E.db.mui.microBar[info[#info]] = value
+									MB:UpdateBar()
+								end
+							},
+							fadeTime = {
+								order = 2,
 								type = "range",
 								name = L["Fade Time"],
 								desc = L["The animation speed."],
@@ -214,7 +224,7 @@ local function ActionBarTable()
 								step = 0.01
 							},
 							normal = {
-								order = 2,
+								order = 3,
 								type = "group",
 								name = L["Color"] .. " - " .. L["Normal"],
 								inline = true,
@@ -251,7 +261,7 @@ local function ActionBarTable()
 								}
 							},
 							hover = {
-								order = 3,
+								order = 4,
 								type = "group",
 								name = L["Color"] .. " - " .. L["Hover"],
 								inline = true,
@@ -288,7 +298,7 @@ local function ActionBarTable()
 								}
 							},
 							additionalText = {
-								order = 4,
+								order = 5,
 								type = "group",
 								name = L["Additional Text"],
 								inline = true,
@@ -386,6 +396,16 @@ local function ActionBarTable()
 										},
 									},
 								},
+							},
+							visibility = {
+								order = 6,
+								type = "input",
+								name = L["Visibility"],
+								set = function(info, value)
+									E.db.mui.microBar.enable[info[#info]] = value
+									MB:UpdateBar()
+								end,
+								width = "full"
 							},
 						},
 					},
