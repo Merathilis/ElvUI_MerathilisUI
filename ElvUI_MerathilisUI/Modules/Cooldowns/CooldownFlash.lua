@@ -312,7 +312,7 @@ function module:UseItemByName(itemName)
 	if itemName then
 		itemID = string.match(select(2, GetItemInfo(itemName)), "item:(%d+)")
 	end
-	if (itemID) then
+	if itemID then
 		local texture = select(10, GetItemInfo(itemID))
 		module.watching[itemID] = {GetTime(), "item", texture}
 		DCP:SetScript("OnUpdate", OnUpdate)

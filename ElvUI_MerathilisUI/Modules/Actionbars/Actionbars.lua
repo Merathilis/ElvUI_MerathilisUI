@@ -17,8 +17,8 @@ function module:StyleBackdrops()
 	for i = 1, 10 do
 		local styleBacks = {_G['ElvUI_Bar'..i]}
 		for _, frame in pairs(styleBacks) do
-			if frame then
-				frame:Styling()
+			if frame and frame.backdrop then
+				frame.backdrop:Styling()
 			end
 		end
 	end
@@ -26,8 +26,8 @@ function module:StyleBackdrops()
 	-- Other bar backdrops
 	local styleOtherBacks = {_G.ElvUI_BarPet, _G.ElvUI_StanceBar}
 	for _, frame in pairs(styleOtherBacks) do
-		if frame then
-			frame:Styling()
+		if frame and frame.backdrop then
+			frame.backdrop:Styling()
 		end
 	end
 

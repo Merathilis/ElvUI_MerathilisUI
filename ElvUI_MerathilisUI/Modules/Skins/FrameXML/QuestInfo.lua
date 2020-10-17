@@ -21,21 +21,6 @@ local GetQuestID = GetQuestID
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function ClearHighlight()
-	for _, button in pairs(_G.QuestInfoRewardsFrame.RewardButtons) do
-		button.textBg:SetBackdropColor(0, 0, 0, .25)
-	end
-end
-
-local function SetHighlight(self)
-	ClearHighlight()
-
-	local _, point = self:GetPoint()
-	if point then
-		point.textBg:SetBackdropColor(r, g, b, .25)
-	end
-end
-
 local function QuestInfo_GetQuestID()
 	if _G.QuestInfoFrame.questLog then
 		return C_QuestLog_GetSelectedQuest()
@@ -150,10 +135,6 @@ local function LoadSkin()
 
 	-- Item reward highlight
 	_G.QuestInfoItemHighlight:GetRegions():Hide()
-	hooksecurefunc(_G.QuestInfoItemHighlight, "SetPoint", SetHighlight)
-	_G.QuestInfoItemHighlight:HookScript("OnShow", SetHighlight)
-	_G.QuestInfoItemHighlight:HookScript("OnHide", ClearHighlight)
-
 	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
 
 	hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)

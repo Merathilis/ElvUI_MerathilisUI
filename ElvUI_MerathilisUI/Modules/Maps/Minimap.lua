@@ -84,38 +84,6 @@ function module:MiniMapCoords()
 	Minimap:HookScript("OnLeave", function() Coords:Hide() end)
 end
 
-function module:MiniMapPing()
-	if E.db.mui.maps.minimap.ping.enable ~= true then return end
-
-	local pos = E.db.mui.maps.minimap.ping.position or "TOP"
-	local xOffset = E.db.mui.maps.minimap.ping.xOffset or 0
-	local yOffset = E.db.mui.maps.minimap.ping.yOffset or 0
-	local f = CreateFrame("Frame", nil, Minimap)
-	f:SetAllPoints()
-	f.text = MER:CreateText(f, "OVERLAY", 10, "OUTLINE", "", nil, pos, xOffset, yOffset)
-
-	local anim = f:CreateAnimationGroup()
-	anim:SetScript("OnPlay", function() f:SetAlpha(1) end)
-	anim:SetScript("OnFinished", function() f:SetAlpha(0) end)
-
-	anim.fader = anim:CreateAnimation("Alpha")
-	anim.fader:SetFromAlpha(1)
-	anim.fader:SetToAlpha(0)
-	anim.fader:SetDuration(3)
-	anim.fader:SetSmoothing("OUT")
-	anim.fader:SetStartDelay(3)
-
-	MER:RegisterEvent("MINIMAP_PING", function(_, unit)
-		local color = RAID_CLASS_COLORS[select(2, UnitClass(unit))]
-		local name = UnitName(unit)
-
-		anim:Stop()
-		f.text:SetText(name)
-		f.text:SetTextColor(color.r, color.g, color.b)
-		anim:Play()
-	end)
-end
-
 function module:RaidDifficulty()
 	if E.db.mui.maps.minimap.difficulty ~= true then return end
 
@@ -262,7 +230,7 @@ function module:Initialize()
 	end
 
 	self:MiniMapCoords()
-	self:MiniMapPing()
+	self:MinimapPing()
 	self:StyleMinimap()
 	self:RaidDifficulty()
 	self:RectangleMinimap()

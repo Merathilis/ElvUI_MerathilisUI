@@ -112,19 +112,15 @@ L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = true
 
 -- MicroBar
-L["Hide In Orderhall"] = "在职业大厅中隐藏"
-L["Show/Hide the friend text on MicroBar."] = "在微型菜单上显示/隐藏朋友文本."
-L["Show/Hide the guild text on MicroBar."] = "在微型菜单上显示/隐藏公会文本."
-L["Blingtron"] = "布林顿每日任务"
-L["Mean One"] = "冬幕节"
-L["Timewarped"] = "500时空扭曲徽章"
-L["Legion Invasion"] = "军团入侵"
-L["Faction Assault"] = "阵营突袭"
-L["Local Time"] = "本地时间"
-L["Realm Time"] = "现实时间"
-L["Current Invasion: "] = "当前入侵: "
-L["Next Invasion: "] = "下次入侵: "
-L["Mythic Dungeon"] = "地下城"
+L["Backdrop"] = true
+L["Backdrop Spacing"] = true
+L["The spacing between the backdrop and the buttons."] = true
+L["Time Width"] = true
+L["Time Height"] = true
+L["The spacing between buttons."] = true
+L["The size of the buttons."] = true
+L["Slow Mode"] = true
+L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = true
 
 -- Misc
 L["Misc"] = "杂项"
@@ -395,7 +391,10 @@ L["Hide Coordinates"] = "隐藏坐标"
 L["MiniMap"] = "小地图"
 L["MiniMap Buttons"] = "小地图按钮"
 L["Minimap Ping"] = "小地图点击"
-L["Shows the name of the player who pinged on the Minimap."] = "显示点击小地图的玩家姓名"
+L["Add Server Name"] = true
+L["Only In Combat"] = true
+L["Fade-In"] = true
+L["The time of animation. Set 0 to disable animation."] = true
 L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
 

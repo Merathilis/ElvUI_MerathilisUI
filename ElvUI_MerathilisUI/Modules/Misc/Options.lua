@@ -54,19 +54,48 @@ local function Misc()
 				name = L["Codex Buttons"],
 				desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],
 			},
-			lfgInfo = {
-				order = 10,
-				type = "toggle",
-				name = L["LFG Member Info"],
-				desc = L["Shows role informations in your tooltip in the lfg frame."],
-			},
 			spellAlert = {
-				order = 11,
+				order = 10,
 				type = "range",
 				name = E.NewSign..L["Spell Alert Scale"],
 				min = 0.4, max = 1.5, step = 0.01,
 				get = function(info) return E.db.mui.misc.spellAlert end,
 				set = function(info, value) E.db.mui.misc.spellAlert = value; SA:Resize() end,
+			},
+			lfgInfo = {
+				order = 15,
+				name = L["LFG Info"],
+				type = "group",
+				guiInline = true,
+				get = function(info)
+					return E.db.mui.misc.lfgInfo[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.misc.lfgInfo[info[#info]] = value
+				end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Add LFG group info to tooltip."]
+					},
+					title = {
+						order = 2,
+						type = "toggle",
+						name = L["Add Title"],
+						desc = L["Display an additional title."]
+					},
+					mode = {
+						order = 3,
+						name = L["Mode"],
+						type = "select",
+						values = {
+							NORMAL = L["Normal"],
+							COMPACT = L["Compact"]
+						},
+					},
+				},
 			},
 			alerts = {
 				order = 20,

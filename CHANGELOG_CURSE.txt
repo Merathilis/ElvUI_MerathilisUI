@@ -1,3 +1,12 @@
+** v4.57 for Shadowland Pre-Patch, 17.10.2020**
+* Updated my DPS Layout due to some backdrop changes in ElvUI
+* Fixed an error in LFG Info
+* Updated my MicroBar, its now more customizable
+* Due to the updated MicroBar, i've also deleted my middle DataText Panel
+* Updated my Minimap Ping
+* Removed RaidCD, use a WeakAura instead or w/e
+
+
 ** v4.56 for Shadowland Pre-Patch, 14.10.2020**
 * Adjusted QuestInfo skin to show colored progress again.
 * Fix my skin for ClassColored ScrollBars. >.>

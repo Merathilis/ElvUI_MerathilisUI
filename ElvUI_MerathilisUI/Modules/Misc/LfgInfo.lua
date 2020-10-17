@@ -1,136 +1,125 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:GetModule('MER_LFGInfo')
+local UF = E:GetModule("UnitFrames")
 
---Cache global variables
---Lua functions
 local _G = _G
+local format = format
 local pairs = pairs
-local format = string.format
---WoW API / Variables
-local C_LFGList_GetActivityInfo = C_LFGList.GetActivityInfo
-local C_LFGList_GetSearchResultEncounterInfo = C_LFGList.GetSearchResultEncounterInfo
+local sort = sort
+local wipe = wipe
+
 local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
-local C_LFGList_GetSearchResultMemberCounts = C_LFGList.GetSearchResultMemberCounts
 local C_LFGList_GetSearchResultMemberInfo = C_LFGList.GetSearchResultMemberInfo
-local LFGListUtil_GetQuestDescription = LFGListUtil_GetQuestDescription
-local LFGListSearchEntryUtil_GetFriendList = LFGListSearchEntryUtil_GetFriendList
-local LFG_LIST_COMMENT_FONT_COLOR = LFG_LIST_COMMENT_FONT_COLOR
-local LIGHTBLUE_FONT_COLOR = LIGHTBLUE_FONT_COLOR
-local NORMAL_FONT_COLOR = NORMAL_FONT_COLOR
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
-local RED_FONT_COLOR = RED_FONT_COLOR
-local SecondsToTime = SecondsToTime
-local IsAddOnLoaded = IsAddOnLoaded
-local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
-function MER:LFGListUtil_SetSearchEntryTooltip(tooltip, resultID, autoAcceptOption)
-	local searchResultInfo = C_LFGList_GetSearchResultInfo(resultID)
-	local activityName, shortName, categoryID, groupID, minItemLevel, filters, minLevel, maxPlayers, displayType, orderIndex, useHonorLevel = C_LFGList_GetActivityInfo(searchResultInfo.activityID)
-	local memberCounts = C_LFGList_GetSearchResultMemberCounts(resultID)
+local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
 
-	tooltip:SetText(searchResultInfo.name, 1, 1, 1, true)
-	tooltip:AddLine(activityName)
+local displayOrder = {
+	[1] = "TANK",
+	[2] = "HEALER",
+	[3] = "DAMAGER"
+}
 
-	if (searchResultInfo.comment and searchResultInfo.comment == "" and searchResultInfo.questID) then
-		searchResultInfo.comment = LFGListUtil_GetQuestDescription(searchResultInfo.questID)
+local roleText = {
+	TANK = "|cff00a8ff" .. L["Tank"] .. "|r",
+	HEALER = "|cff2ecc71" .. L["Healer"] .. "|r",
+	DAMAGER = "|cffe74c3c" .. L["DPS"] .. "|r"
+}
+
+local function GetIconString(role, mode)
+	local template
+	if mode == "NORMAL" then
+		template = "|T%s:14:14:0:0:64:64:8:56:8:56|t"
+	elseif mode == "COMPACT" then
+		template = "|T%s:18:18:0:0:64:64:8:56:8:56|t"
 	end
 
-	if (searchResultInfo.comment ~= "") then
-		tooltip:AddLine(format(_G.LFG_LIST_COMMENT_FORMAT, searchResultInfo.comment), LFG_LIST_COMMENT_FONT_COLOR.r, LFG_LIST_COMMENT_FONT_COLOR.g, LFG_LIST_COMMENT_FONT_COLOR.b, true)
+	return format(template, UF.RoleIconTextures[role])
+end
+
+function module:AddGroupInfo(tooltip, resultID)
+	local config = E.db.mui.misc.lfgInfo
+	if not config or not config.enable then
+		return
 	end
 
-	tooltip:AddLine(" ")
-	if (searchResultInfo.requiredItemLevel > 0) then
-		tooltip:AddLine(format(_G.LFG_LIST_TOOLTIP_ILVL, searchResultInfo.requiredItemLevel))
+	local result = C_LFGList_GetSearchResultInfo(resultID)
+
+	if not result then
+		return
 	end
 
-	if (useHonorLevel and searchResultInfo.requiredHonorLevel > 0) then
-		tooltip:AddLine(format(_G.LFG_LIST_TOOLTIP_HONOR_LEVEL, searchResultInfo.requiredHonorLevel))
-	end
+	local cache = {
+		TANK = {},
+		HEALER = {},
+		DAMAGER = {}
+	}
 
-	if (searchResultInfo.voiceChat ~= "") then
-		tooltip:AddLine(format(_G.LFG_LIST_TOOLTIP_VOICE_CHAT, searchResultInfo.voiceChat), nil, nil, nil, true)
-	end
+	local display = {
+		TANK = false,
+		HEALER = false,
+		DAMAGER = false
+	}
 
-	if (searchResultInfo.requiredItemLevel > 0 or (useHonorLevel and searchResultInfo.requiredHonorLevel > 0) or searchResultInfo.voiceChat ~= "") then
-		tooltip:AddLine(" ")
-	end
+	for i = 1, result.numMembers do
+		local role, class = C_LFGList_GetSearchResultMemberInfo(resultID, i)
 
-	if (searchResultInfo.leaderName) then
-		tooltip:AddLine(format(_G.LFG_LIST_TOOLTIP_LEADER, searchResultInfo.leaderName))
-	end
-
-	if (searchResultInfo.age > 0) then
-		tooltip:AddLine(format(_G.LFG_LIST_TOOLTIP_AGE, SecondsToTime(searchResultInfo.age, false, false, 1, false)))
-	end
-
-	if (searchResultInfo.leaderName or searchResultInfo.age > 0) then
-		tooltip:AddLine(" ")
-	end
-
-	tooltip:AddLine(format(_G.LFG_LIST_TOOLTIP_MEMBERS, searchResultInfo.numMembers, memberCounts.TANK, memberCounts.HEALER, memberCounts.DAMAGER))
-
-	if displayType ~= _G.LE_LFG_LIST_DISPLAY_TYPE_CLASS_ENUMERATE and not searchResultInfo.isDelisted and tooltip:IsShown() then
-		local roles = {}
-		local classInfo = {}
-		for i = 1, searchResultInfo.numMembers do
-			local role, class, classLocalized = C_LFGList_GetSearchResultMemberInfo(resultID, i)
-			classInfo[class] = {
-				name = classLocalized,
-				color = RAID_CLASS_COLORS[class] or NORMAL_FONT_COLOR
-			}
-			if not roles[role] then roles[role] = {} end
-			if not roles[role][class] then roles[role][class] = 0 end
-			roles[role][class] = roles[role][class] + 1
+		if not display[role] then
+			display[role] = true
 		end
-		for role, classes in pairs(roles) do
-			tooltip:AddLine(_G[role] .. ": ")
-			for class, count in pairs(classes) do
-				local text = "   "
-				if count > 1 then text = text .. count .. " " else text = text .. "   " end
-				text = text .. "|c" .. classInfo[class].color.colorStr .. classInfo[class].name .. "|r "
-				tooltip:AddLine(text)
+
+		if not cache[role][class] then
+			cache[role][class] = 0
+		end
+
+		cache[role][class] = cache[role][class] + 1
+	end
+
+	sort(cache, function(a, b)
+		return displayOrder[a] > displayOrder[b]
+	end)
+
+	if config.title then
+		tooltip:AddLine(" ")
+		tooltip:AddLine(MER.Title .. " " .. L["LFG Info"])
+	end
+
+	if config.mode == "COMPACT" then
+		tooltip:AddLine(" ")
+	end
+
+	for i = 1, #displayOrder do
+		local role = displayOrder[i]
+		local members = cache[role]
+		if members and display[role] then
+			if config.mode == "NORMAL" then
+				tooltip:AddLine(" ")
+				tooltip:AddLine(GetIconString(role, "NORMAL") .. " " .. roleText[role])
+			end
+
+			for class, counter in pairs(members) do
+				local numberText = counter ~= 1 and format(" × %d", counter) or ""
+				local icon = config.mode == "COMPACT" and GetIconString(role, "COMPACT") or ""
+				local className = MER:CreateClassColorString(LOCALIZED_CLASS_NAMES_MALE[class], class)
+				tooltip:AddLine(icon .. className .. numberText)
 			end
 		end
-		tooltip:Show()
 	end
 
-	if (searchResultInfo.numBNetFriends + searchResultInfo.numCharFriends + searchResultInfo.numGuildMates > 0) then
-		tooltip:AddLine(" ")
-		tooltip:AddLine(_G.LFG_LIST_TOOLTIP_FRIENDS_IN_GROUP)
-		tooltip:AddLine(LFGListSearchEntryUtil_GetFriendList(resultID), 1, 1, 1, true)
-	end
+	wipe(cache)
 
-	local completedEncounters = C_LFGList_GetSearchResultEncounterInfo(resultID)
-	if (completedEncounters and #completedEncounters > 0) then
-		tooltip:AddLine(" ")
-		tooltip:AddLine(_G.LFG_LIST_BOSSES_DEFEATED)
-		for i = 1, #completedEncounters do
-			tooltip:AddLine(completedEncounters[i], RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
-		end
-	end
-
-	autoAcceptOption = autoAcceptOption or _G.LFG_LIST_UTIL_ALLOW_AUTO_ACCEPT_LINE
-
-	if autoAcceptOption == _G.LFG_LIST_UTIL_ALLOW_AUTO_ACCEPT_LINE and searchResultInfo.autoAccept then
-		tooltip:AddLine(" ")
-		tooltip:AddLine(_G.LFG_LIST_TOOLTIP_AUTO_ACCEPT, LIGHTBLUE_FONT_COLOR:GetRGB())
-	end
-
-	if (searchResultInfo.isDelisted) then
-		tooltip:AddLine(" ")
-		tooltip:AddLine(_G.LFG_LIST_ENTRY_DELISTED, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, true)
-	end
-
+	tooltip:ClearAllPoints()
+	tooltip:SetPoint("TOPLEFT", _G.LFGListFrame, "TOPRIGHT", 10, 0)
 	tooltip:Show()
 end
 
 function module:Initialize()
-	if E.db.mui.misc.lfgInfo ~= true or IsAddOnLoaded("PremadeGroupsFilter") then return; end
+	if not E.db.mui.misc.lfgInfo.enable then return end
 
-	hooksecurefunc("LFGListUtil_SetSearchEntryTooltip", MER.LFGListUtil_SetSearchEntryTooltip)
+	self.db = E.db.mui.misc.lfgInfo
+	MER:RegisterDB(self, "lfgInfo")
+
+	module:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
 end
 
 MER:RegisterModule(module:GetName())

@@ -141,7 +141,11 @@ MP.misc = {
 		selectQuestReward =	true,
 	},
 	cursor = false,
-	lfgInfo = true,
+	lfgInfo = {
+		enable = true,
+		title = true,
+		mode = "NORMAL",
+	},
 	spellAlert = 0.65,
 	alerts = {
 		lfg = false,
@@ -326,17 +330,64 @@ MP.actionbars = {
 
 MP.microBar = {
 	enable = true,
-	scale = 1,
-	template = "Transparent",
-	hideInCombat = true,
-	hideInOrderHall = false,
 	mouseOver = false,
-	tooltip = true,
-	text = {
-		position = "BOTTOM",
-		friends = true,
-		guild = true,
+	backdrop = true,
+	backdropSpacing = 2,
+	timeAreaWidth = 85,
+	timeAreaHeight = 50,
+	buttonSize = 20,
+	spacing = 3,
+	fadeTime = 0.618,
+	normalColor = "NONE",
+	hoverColor = "CLASS",
+	customNormalColor = {r = 1, g = 1, b = 1},
+	customHoverColor = {r = 0, g = 0.659, b = 1},
+	visibility = "[petbattle][combat] hide; show",
+	time = {
+		localTime = true,
+		twentyFour = true,
+		flash = true,
+		interval = 10,
+		font = {
+			name = E.db.general.font,
+			size = 25,
+			style = "OUTLINE"
+		}
 	},
+	home = {
+		left = "6948",
+		right = "141605"
+	},
+	additionalText = {
+		enable = true,
+		slowMode = true,
+		anchor = "BOTTOMRIGHT",
+		x = 3,
+		y = -3,
+		font = {
+			name = E.db.general.font,
+			size = 12,
+			style = "OUTLINE"
+		}
+	},
+	left = {
+		[1] = "CHARACTER",
+		[2] = "SPELLBOOK",
+		[3] = "TALENTS",
+		[4] = "FRIENDS",
+		[5] = "GUILD",
+		[6] = "GROUP_FINDER",
+		[7] = "SCREENSHOT"
+	},
+	right = {
+		[1] = "HOME",
+		[2] = "ACHIEVEMENTS",
+		[3] = "MISSION_REPORTS",
+		[4] = "ENCOUNTER_JOURNAL",
+		[5] = "TOY_BOX",
+		[6] = "PET_JOURNAL",
+		[7] = "BAGS"
+	}
 }
 
 MP.unitframes = {
@@ -370,9 +421,20 @@ MP.maps = {
 		},
 		ping = {
 			enable = true,
-			position = "TOP",
 			xOffset = 0,
-			yOffset = -20,
+			yOffset = 0,
+			fadeInTime = 0.5,
+			stayTime = 3,
+			fadeOutTime = 0.5,
+			addRealm = false,
+			onlyInCombat = false,
+			classColor = true,
+			customColor = {r = 1, g = 1, b = 1},
+			font = {
+				name = E.db.general.font,
+				size = 12,
+				style = "OUTLINE"
+			},
 		},
 		rectangle = false,
 	},
@@ -461,8 +523,8 @@ MP.panels = {
 MP.smb = {
 	enable = true,
 	size = 34,
-	perRow = 12,
-	spacing = 2,
+	perRow = 6,
+	spacing = 1,
 }
 
 MP.locPanel = {
@@ -642,24 +704,6 @@ MP.cooldownFlash = {
 	showSpellName = false,
 	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
-}
-
-MP.raidCD = {
-	enable = true,
-	width = 200,
-	height = 16,
-	upwards = false,
-	expiration = false,
-	show_self = true,
-	show_icon = true,
-	show_inparty = false,
-	show_inraid = true,
-	show_inarena = false,
-	text = {
-		font = "Expressway",
-		fontSize = 10,
-		fontOutline = "OUTLINE",
-	},
 }
 
 MP.armory = {

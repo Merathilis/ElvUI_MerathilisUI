@@ -112,19 +112,15 @@ L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = true
 
 -- MicroBar
-L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
-L["Show/Hide the friend text on MicroBar."] = "Zeige/Verstecke die Anzahl der Freunde auf der Mikroleiste."
-L["Show/Hide the guild text on MicroBar."] = "Zeige/Verstecke die Anzahl der Gildenmember auf der Mikroleiste."
-L["Blingtron"] = "Blingtron Tägliches Geschenk"
-L["Mean One"] = "Winterhauchfest"
-L["Timewarped"] = "500 Zeitverzerrte Abzeichen"
-L["Legion Invasion"] = true
-L["Faction Assault"] = "Fraktionsübergriff"
-L["Local Time"] = "Lokale Zeit"
-L["Realm Time"] = "Server Zeit"
-L["Current Invasion: "] = "Aktuelle Invasion: "
-L["Next Invasion: "] = "Nächste Invasion: "
-L["Mythic Dungeon"] = "Mythische Instanz"
+L["Backdrop"] = "Hintergrund"
+L["Backdrop Spacing"] = "Hintergrund Abstand"
+L["The spacing between the backdrop and the buttons."] = "Der Abstand zwischen dem Hintergrund und den Tasten"
+L["Time Width"] = "Zeit Breite"
+L["Time Height"] = "Zeit Höhe"
+L["The spacing between buttons."] = "Der Abstand zwischen den Tasten."
+L["The size of the buttons."] = "Die Größe der Tasten."
+L["Slow Mode"] = true
+L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = "Updated den zusätzlichen Text jede 10 Sekunden anstatt jede Sekunde, wirkt sich auf den Speicher aus."
 
 -- Misc
 L["Misc"] = "Verschiedenes"
@@ -375,7 +371,10 @@ L["Hide Coordinates"] = "Verstecke Koordinaten"
 -- Maps
 L["MiniMap Buttons"] = "Minikartensymbole"
 L["Minimap Ping"] = true
-L["Shows the name of the player who pinged on the Minimap."] = "Zeigt den Namen von dem Spieler der auf der Minikarte gepingt hat."
+L["Add Server Name"] = "Zeige Server Name"
+L["Only In Combat"] = "Nur im Kampf"
+L["Fade-In"] = "Einblenden"
+L["The time of animation. Set 0 to disable animation."] = "Die Zeit der Animation. Setze auf 0 um sie zu deaktivieren."
 L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
 
