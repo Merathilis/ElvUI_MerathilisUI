@@ -393,7 +393,7 @@ local function ActionBarTable()
 								type = "input",
 								name = L["Visibility"],
 								set = function(info, value)
-									E.db.mui.microBar.enable[info[#info]] = value
+									E.db.mui.microBar[info[#info]] = value
 									MB:UpdateBar()
 								end,
 								width = "full"
