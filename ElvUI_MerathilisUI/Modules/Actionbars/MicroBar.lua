@@ -4,6 +4,8 @@ local DT = E:GetModule('DataTexts')
 local S = E:GetModule('Skins')
 local LSM = E.Libs.LSM
 
+-- Credits: fang2hou - ElvUI_Windtools (and me for the initial idea ^^)
+
 local _G = _G
 local collectgarbage = collectgarbage
 local date = date
