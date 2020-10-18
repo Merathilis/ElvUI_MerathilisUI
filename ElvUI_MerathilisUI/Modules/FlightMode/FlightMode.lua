@@ -121,7 +121,6 @@ local AddonsToHide = {
 	{'ConRO', 'ConRODefenseWindow'},
 	{'ConRO', 'ConRO_BurstButton'},
 	{'ConRO', 'ConRO_AutoButton'},
-	{'ProjectAzilroka', 'SquareMinimapButtonBar'},
 	{'Details', 'DetailsBaseFrame1'}, -- probably more
 	{'Details', 'DetailsRowFrame1'}, -- probably more
 }
@@ -243,6 +242,14 @@ function module:SetFlightMode(status)
 
 			_G.RightChatPanel:SetParent(module.FlightMode)
 			_G.RightChatPanel:Hide()
+		end
+
+		-- Hide SquareMinimapButtonBar
+		if COMP.PA  then
+			if SquareMinimapButtonBar then
+				_G.SquareMinimapButtons:CancelAllTimers()
+				SquareMinimapButtonBar:SetAlpha(0)
+			end
 		end
 
 		for i, v in ipairs(AddonsToHide) do
@@ -368,6 +375,14 @@ function module:SetFlightMode(status)
 
 			LO:RepositionChatDataPanels()
 			LO:ToggleChatPanels()
+		end
+
+		-- Show SquareMinimapButtonBar
+		if COMP.PA then
+			if SquareMinimapButtonBar then
+				_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
+				SquareMinimapButtonBar:SetAlpha(1)
+			end
 		end
 
 		module.inFlightMode = false
