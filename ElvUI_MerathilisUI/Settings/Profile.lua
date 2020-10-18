@@ -523,7 +523,7 @@ MP.panels = {
 
 MP.smb = {
 	enable = true,
-	size = 34,
+	size = 30,
 	perRow = 6,
 	spacing = 1,
 }
