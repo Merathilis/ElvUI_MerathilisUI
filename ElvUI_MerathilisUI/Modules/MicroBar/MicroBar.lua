@@ -1009,11 +1009,11 @@ function module:ProfileUpdate()
 				return
 			else
 				self:Initialize()
-				UnregisterStateDriver(self.bar, "visibility")
 			end
 		end
 	else
 		if self.Initialized then
+			UnregisterStateDriver(self.bar, "visibility")
 			self.bar:Hide()
 		end
 	end
