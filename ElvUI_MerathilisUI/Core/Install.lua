@@ -28,7 +28,7 @@ local TRADE = TRADE
 -- GLOBALS: ToggleChatColorNamesByClassGroup, Skada, SkadaDB, BigWigs3DB
 
 local function SetupCVars()
-	-- Setup CVar
+	-- Setup CVars
 	SetCVar("autoQuestProgress", 1)
 	SetCVar("guildMemberNotify", 1)
 	SetCVar("TargetNearestUseNew", 1)
@@ -746,7 +746,7 @@ function MER:SetupLayout(layout)
 
 	E.db["databars"]["experience"]["enable"] = true
 	E.db["databars"]["experience"]["mouseover"] = false
-	E.db["databars"]["experience"]["height"] = 12
+	E.db["databars"]["experience"]["height"] = 9
 	E.db["databars"]["experience"]["textSize"] = 9
 	E.db["databars"]["experience"]["font"] = "Expressway"
 	E.db["databars"]["experience"]["width"] = 283
@@ -757,9 +757,9 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["experience"]["hideInCombat"] = true
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["mouseover"] = false
-	E.db["databars"]["reputation"]["height"] = 12
 	E.db["databars"]["reputation"]["font"] = "Expressway"
 	E.db["databars"]["reputation"]["textSize"] = 9
+	E.db["databars"]["reputation"]["height"] = 9
 
 	if layout == "dps" then
 		E.db["databars"]["reputation"]["width"] = 283
@@ -782,7 +782,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["honor"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["honor"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["azerite"]["enable"] = true
-	E.db["databars"]["azerite"]["height"] = 12
+	E.db["databars"]["azerite"]["height"] = 9
 	E.db["databars"]["azerite"]["font"] = "Expressway"
 	E.db["databars"]["azerite"]["textSize"] = 9
 	if layout == "dps" then
@@ -801,12 +801,12 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["threat"]["textSize"] = 9
 	E.db["databars"]["threat"]["font"] = "Expressway"
 
-	E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,78"
+	E.db["movers"]["AzeriteBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-470,1"
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,503,12"
 	E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,95"
-	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,91"
-	E.db["movers"]["ReputationBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,52"
-	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,65"
+	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,1"
+	E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,470,1"
+	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,52"
 	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,47"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-277,178"
 
