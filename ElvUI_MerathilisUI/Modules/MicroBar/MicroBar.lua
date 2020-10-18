@@ -7,7 +7,6 @@ local LSM = E.Libs.LSM
 -- Credits: fang2hou - ElvUI_Windtools (and me for the initial idea ^^)
 
 local _G = _G
-local collectgarbage = collectgarbage
 local date = date
 local floor = floor
 local format = format
@@ -67,8 +66,6 @@ local IconString = '|T%s:16:18:0:0:64:64:4:60:7:57'
 local LeftButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t"
 local RightButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:410|t"
 local ScrollButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t"
-
-local GarbageCollectionCounter = 0
 
 local Heartstones = {
 	6948,
@@ -530,8 +527,6 @@ function module:ConstructTimeArea()
 
 	self.bar.middlePanel:SetScript("OnClick", function(_, mouseButton)
 		if IsModifierKeyDown() then
-			collectgarbage("collect")
-			ResetCPUUsage()
 			DT.RegisteredDataTexts["System"].eventFunc()
 			DT.RegisteredDataTexts["System"].onEnter()
 		elseif mouseButton == "LeftButton" then
@@ -789,11 +784,6 @@ function module:UpdateButton(button, config)
 
 		button.additionalTextTimer = C_Timer_NewTicker(self.db.additionalText.slowMode and 10 or 1, function()
 			button.additionalText:SetFormattedText(button.additionalTextFormat, config.additionalText and config.additionalText() or "")
-			GarbageCollectionCounter = GarbageCollectionCounter + 1
-			if GarbageCollectionCounter > 30 then
-				collectgarbage("collect")
-				GarbageCollectionCounter = 0
-			end
 		end)
 		button.additionalText:ClearAllPoints()
 		button.additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
