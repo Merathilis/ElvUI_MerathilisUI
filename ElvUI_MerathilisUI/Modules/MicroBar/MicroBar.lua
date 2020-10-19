@@ -1,8 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_MicroBar')
 local DT = E:GetModule('DataTexts')
-local S = E:GetModule('Skins')
-local LSM = E.Libs.LSM
 
 -- Credits: fang2hou - ElvUI_Windtools (and me for the initial idea ^^)
 
@@ -445,34 +443,34 @@ end
 
 function module:ConstructTimeArea()
 	local colon = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	colon:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(colon, self.db.time.font)
 	colon:Point("CENTER")
 	self.bar.middlePanel.colon = colon
 
 	local hour = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	hour:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(hour, self.db.time.font)
 	hour:Point("RIGHT", colon, "LEFT", 1, 0)
 	self.bar.middlePanel.hour = hour
 
 	local hourHover = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	hourHover:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(hourHover, self.db.time.font)
 	hourHover:Point("RIGHT", colon, "LEFT", 1, 0)
 	hourHover:SetAlpha(0)
 	self.bar.middlePanel.hourHover = hourHover
 
 	local minutes = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	minutes:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(minutes, self.db.time.font)
 	minutes:Point("LEFT", colon, "RIGHT", 0, 0)
 	self.bar.middlePanel.minutes = minutes
 
 	local minutesHover = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	minutesHover:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(minutesHover, self.db.time.font)
 	minutesHover:Point("LEFT", colon, "RIGHT", 0, 0)
 	minutesHover:SetAlpha(0)
 	self.bar.middlePanel.minutesHover = minutesHover
 
 	local text = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	text:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(text, self.db.additionalText.font)
 	text:Point("TOP", self.bar, "BOTTOM", 0, -5)
 	text:SetAlpha(0)
 	self.bar.middlePanel.text = text
@@ -620,12 +618,12 @@ end
 function module:UpdateTimeArea()
 	local panel = self.bar.middlePanel
 
-	panel.hour:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
-	panel.hourHover:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
-	panel.minutes:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
-	panel.minutesHover:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
-	panel.colon:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
-	panel.text:FontTemplate(LSM:Fetch("font", self.db.additionalText.font.name), self.db.additionalText.font.size, self.db.additionalText.font.style)
+	MER:SetFontDB(panel.hour, self.db.time.font)
+	MER:SetFontDB(panel.hourHover, self.db.time.font)
+	MER:SetFontDB(panel.minutes, self.db.time.font)
+	MER:SetFontDB(panel.minutesHover, self.db.time.font)
+	MER:SetFontDB(panel.colon, self.db.time.font)
+	MER:SetFontDB(panel.text, self.db.additionalText.font)
 
 	if self.db.time.flash then
 		E:Flash(panel.colon, 1, true)
@@ -712,7 +710,7 @@ function module:ConstructButton()
 	button.hoverTex = hoverTex
 
 	local additionalText = button:CreateFontString(nil, "OVERLAY")
-	additionalText:FontTemplate(LSM:Fetch("font", self.db.additionalText.font.name), self.db.additionalText.font.size, self.db.additionalText.font.style)
+	MER:SetFontDB(additionalText, self.db.additionalText.font)
 	additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
 	additionalText:SetJustifyH("CENTER")
 	additionalText:SetJustifyV("CENTER")
@@ -795,7 +793,7 @@ function module:UpdateButton(button, config)
 		end)
 		button.additionalText:ClearAllPoints()
 		button.additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
-		button.additionalText:FontTemplate(LSM:Fetch("font", self.db.additionalText.font.name), self.db.additionalText.font.size, self.db.additionalText.font.style)
+		MER:SetFontDB(button.additionalText, self.db.additionalText.font)
 		button.additionalText:Show()
 	else
 		button.additionalText:Hide()
