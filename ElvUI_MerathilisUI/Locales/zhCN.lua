@@ -99,9 +99,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "从暴
 
 -- FlightMode
 L["FlightMode"] = "飞行模式"
-L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
-L["Exit FlightMode"] = true
-L["Left Click to Request Stop"] = true
+L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "增强 |cff00c0faBenikUI|r 的飞行模式, 如需完全禁用飞行模式, 请前往 |cff00c0faBenikUI|r 选项."
+L["Exit FlightMode"] = "退出飞行模式"
+L["Left Click to Request Stop"] = "左键点击来请求停止"
 
 -- FlightPoint
 L["Flight Point"] = "飞行点"
@@ -112,15 +112,15 @@ L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = true
 
 -- MicroBar
-L["Backdrop"] = true
-L["Backdrop Spacing"] = true
-L["The spacing between the backdrop and the buttons."] = true
-L["Time Width"] = true
-L["Time Height"] = true
-L["The spacing between buttons."] = true
-L["The size of the buttons."] = true
-L["Slow Mode"] = true
-L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = true
+L["Backdrop"] = "背景"
+L["Backdrop Spacing"] = "背景间距"
+L["The spacing between the backdrop and the buttons."] = "背景和按键间的间距."
+L["Time Width"] = "时间宽度"
+L["Time Height"] = "时间高度"
+L["The spacing between buttons."] = "按键间的间距"
+L["The size of the buttons."] = "按键大小"
+L["Slow Mode"] = "慢速模式"
+L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = "以更慢的时间(10s)更新额外文字"
 
 -- Misc
 L["Misc"] = "杂项"
@@ -391,10 +391,10 @@ L["Hide Coordinates"] = "隐藏坐标"
 L["MiniMap"] = "小地图"
 L["MiniMap Buttons"] = "小地图按钮"
 L["Minimap Ping"] = "小地图点击"
-L["Add Server Name"] = true
-L["Only In Combat"] = true
-L["Fade-In"] = true
-L["The time of animation. Set 0 to disable animation."] = true
+L["Add Server Name"] = "添加服务器名称"
+L["Only In Combat"] = "仅在战斗中"
+L["Fade-In"] = "淡入"
+L["The time of animation. Set 0 to disable animation."] = "时间动画. 设置为0来关闭动画"
 L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
 
