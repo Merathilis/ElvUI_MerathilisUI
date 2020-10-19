@@ -124,6 +124,27 @@ L["The spacing between buttons."] = true
 L["The size of the buttons."] = true
 L["Slow Mode"] = true
 L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = true
+L["Display"] = true
+L["Fade Time"] = true
+L["Tooltip Position"] = true
+L["Mode"] = true
+L["None"] = true
+L["Class Color"] = true
+L["Custom"] = true
+L["Additional Text"] = true
+L["Interval"] = true
+L["The interval of updating."] = true
+L["Home"] = true
+L["Left Button"] = true
+L["Right Button"] = true
+L["Left Panel"] = true
+L["Right Panel"] = true
+L["Button #%d"] = true
+L["Pet Journal"] = true
+L["Screenshot"] = true
+L["Screenshot immediately"] = true
+L["Screenshot after 2 secs"] = true
+L["Toy Box"] = true
 
 -- Misc
 L["Misc"] = true
@@ -242,6 +263,25 @@ L["Add Item ID"] = true
 L["Delete Item ID"] = true
 L["Custom Glow"] = true
 L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
+
+-- AutoButtons
+L["AutoButtons"] = true
+L["Bar"] = true
+L["Only show the bar when you mouse over it."] = true
+L["Bar Backdrop"] = true
+L["Show a backdrop of the bar."] = true
+L["Button Width"] = true
+L["The width of the buttons."] = true
+L["Button Height"] = true
+L["The height of the buttons."] = true
+L["Counter"] = true
+L["Outline"] = true
+L["Button Groups"] = true
+L["Key Binding"] = true
+L["Custom Items"] = true
+L["List"] = true
+L["New Item ID"] = true
+L["Auto Button Bar"] = true
 
 -- Armory
 L["Armory"] = true
