@@ -373,6 +373,19 @@ local ButtonTypes = {
 	}
 }
 
+function module:ShowAdvancedTimeTooltip(panel)
+	DT.RegisteredDataTexts["Time"].onEnter()
+	DT.RegisteredDataTexts["Time"].onLeave()
+	-- DT.tooltip:ClearLines()
+	-- DT.tooltip:SetText(L["Time"])
+	-- DT.tooltip:AddLine("\n", 1, 1, 1)
+	-- DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Calendar"], 1, 1, 1)
+	-- DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Time Manager"], 1, 1, 1)
+	-- DT.tooltip:AddLine("\n")
+	-- DT.tooltip:AddLine(L["(Modifer Click) Collect Garbage"], unpack(E.media.rgbvaluecolor))
+	-- DT.tooltip:Show()
+end
+
 function module:ConstructBar()
 	if self.bar then return end
 
@@ -500,14 +513,7 @@ function module:ConstructTimeArea()
 				DT.RegisteredDataTexts["System"].onEnter()
 			end)
 		else
-			DT.tooltip:ClearLines()
-			DT.tooltip:SetText(L["Time"])
-			DT.tooltip:AddLine("\n", 1, 1, 1)
-			DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Calendar"], 1, 1, 1)
-			DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Time Manager"], 1, 1, 1)
-			DT.tooltip:AddLine("\n")
-			DT.tooltip:AddLine(L["(Modifer Click) Collect Garbage"], unpack(E.media.rgbvaluecolor))
-			DT.tooltip:Show()
+			self:ShowAdvancedTimeTooltip(panel)
 			self.tooltipTimer = C_Timer_NewTicker(1, function()
 				DT.RegisteredDataTexts["System"].onUpdate(panel, 10)
 			end)
