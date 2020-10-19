@@ -135,7 +135,7 @@ local VirtualDT = {
 
 local ButtonTypes = {
 	ACHIEVEMENTS = {
-		name = L["Achievements"],
+		name = _G.ACHIEVEMENT_BUTTON,
 		icon = MER.Media.Icons.barAchievements,
 		click = {
 			LeftButton = function()
@@ -143,7 +143,7 @@ local ButtonTypes = {
 			end
 		},
 		tooltips = {
-			L["Achievements"]
+			_G.ACHIEVEMENT_BUTTON
 		}
 	},
 	BAGS = {
@@ -155,7 +155,7 @@ local ButtonTypes = {
 		tooltips = "Bags"
 	},
 	BLIZZARD_SHOP = {
-		name = L["Blizzard Shop"],
+		name = _G.BLIZZARD_STORE,
 		icon = MER.Media.Icons.barBlizzardShop,
 		click = {
 			LeftButton = function()
@@ -163,11 +163,11 @@ local ButtonTypes = {
 			end
 		},
 		tooltips = {
-			L["Blizzard Shop"]
+			_G.BLIZZARD_STORE
 		}
 	},
 	CHARACTER = {
-		name = L["Character"],
+		name = _G.CHARACTER_BUTTON,
 		icon = MER.Media.Icons.barCharacter,
 		click = {
 			LeftButton = function()
@@ -175,11 +175,11 @@ local ButtonTypes = {
 			end
 		},
 		tooltips = {
-			L["Character"]
+			_G.CHARACTER_BUTTON
 		}
 	},
 	ENCOUNTER_JOURNAL = {
-		name = L["Encounter Journal"],
+		name = _G.ENCOUNTER_JOURNAL,
 		icon = MER.Media.Icons.barEncounterJournal,
 		click = {
 			LeftButton = function()
@@ -191,11 +191,11 @@ local ButtonTypes = {
 			end
 		},
 		tooltips = {
-			L["Encounter Journal"]
+			_G.ENCOUNTER_JOURNAL
 		}
 	},
 	FRIENDS = {
-		name = L["Friend List"],
+		name = _G.SOCIAL_BUTTON,
 		icon = MER.Media.Icons.barFriends,
 		click = {
 			LeftButton = function()
@@ -211,17 +211,17 @@ local ButtonTypes = {
 		tooltips = "Friends"
 	},
 	GROUP_FINDER = {
-		name = L["Group Finder"],
+		name = _G.LFG_TITLE,
 		icon = MER.Media.Icons.barGroupFinder,
 		click = {
 			LeftButton = ToggleLFDParentFrame
 		},
 		tooltips = {
-			L["Group Finder"]
+			_G.LFG_TITLE
 		}
 	},
 	GUILD = {
-		name = L["Guild"],
+		name = _G.ACHIEVEMENTS_GUILD_TAB,
 		icon = MER.Media.Icons.barGuild,
 		click = {
 			LeftButton = function()
@@ -272,7 +272,7 @@ local ButtonTypes = {
 		end
 	},
 	MISSION_REPORTS = {
-		name = L["Mission Reports"],
+		name = _G.GARRISON_TYPE_8_0_LANDING_PAGE_TITLE,
 		icon = MER.Media.Icons.barMissionReports,
 		click = {
 			LeftButton = function(button)
@@ -321,7 +321,7 @@ local ButtonTypes = {
 		}
 	},
 	SPELLBOOK = {
-		name = L["Spell Book"],
+		name = _G.SPELLBOOK_ABILITIES_BUTTON,
 		icon = MER.Media.Icons.barSpellBook,
 		click = {
 			LeftButton = function()
@@ -333,11 +333,11 @@ local ButtonTypes = {
 			end
 		},
 		tooltips = {
-			L["Spell Book"]
+			_G.SPELLBOOK_ABILITIES_BUTTON
 		}
 	},
 	TALENTS = {
-		name = L["Talents"],
+		name = _G.TALENTS_BUTTON,
 		icon = MER.Media.Icons.barTalents,
 		click = {
 			LeftButton = function()
@@ -354,7 +354,7 @@ local ButtonTypes = {
 			end
 		},
 		tooltips = {
-			L["Talents"]
+			_G.TALENTS_BUTTON
 		}
 	},
 	TOY_BOX = {
