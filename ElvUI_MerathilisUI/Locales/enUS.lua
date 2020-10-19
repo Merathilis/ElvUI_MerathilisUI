@@ -282,6 +282,13 @@ L["Custom Items"] = true
 L["List"] = true
 L["New Item ID"] = true
 L["Auto Button Bar"] = true
+L["Quest Items"] = true
+L["Equipments"] = true
+L["Potions"] = true
+L["Flasks"] = true
+L["Banners"] = true
+L["Utilities"] = true
+L["Custom Items"] = true
 
 -- Armory
 L["Armory"] = true

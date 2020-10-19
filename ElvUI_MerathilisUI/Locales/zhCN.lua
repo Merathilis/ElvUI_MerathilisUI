@@ -285,6 +285,12 @@ L["Custom Items"] = "自订物品"
 L["List"] = "列表"
 L["New Item ID"] = "新物品ID"
 L["Auto Button Bar"] = "自动按键动作条"
+L["Quest Items"] = "任务物品"
+L["Equipments"] = "装备"
+L["Potions"] = "药水"
+L["Flasks"] = "合剂"
+L["Banners"] = "战旗"
+L["Utilities"] = "实用"
 
 -- Armory
 L["Armory"] = "角色界面"
