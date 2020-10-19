@@ -428,7 +428,7 @@ function module:ConstructBar()
 
 	self.bar = bar
 
-	E:CreateMover(self.bar, "MicroBarAnchor", L["MicroBar"], nil, nil, nil, "ALL,MERATHILISUI", function() return module.db and module.db.enable end)
+	E:CreateMover(self.bar, 'MicroBarAnchor', L['MicroBar'], nil, nil, nil, 'ALL,MERATHILISUI', function() return module.db and module.db.enable end, 'mui,modules,microBar,general')
 end
 
 function module:UpdateBar()
