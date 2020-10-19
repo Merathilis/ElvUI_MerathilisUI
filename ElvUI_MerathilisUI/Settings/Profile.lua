@@ -194,105 +194,6 @@ MP.actionbars = {
 		mouseover = false,
 		size = 28,
 	},
-	autoButtons = {
-		enable = true,
-		bindFontSize = 12,
-		countFontSize = 12,
-		slotAutoButtons = {
-			enable = true,
-			slotBBColorByItem = true,
-			slotBBColor = {r = 1, g = 1, b = 1, a = 1},
-			slotSpace = 3,
-			slotDirection = "RIGHT",
-			slotNum = 5,
-			slotPerRow = 5,
-			slotSize = 40,
-			inheritGlobalFade = false,
-		},
-		questAutoButtons = {
-			enable = true,
-			questBBColorByItem = true,
-			questBBColor = {r = 1, g = 1, b = 1, a = 1},
-			questSpace = 3,
-			questDirection = "RIGHT",
-			questNum = 5,
-			questPerRow = 5,
-			questSize = 40,
-			inheritGlobalFade = false,
-		},
-		usableAutoButtons = {
-			enable = true,
-			usableBBColorByItem = true,
-			usableBBColor = {r = 1, g = 1, b = 1, a = 1},
-			usableSpace = 3,
-			usableDirection = "RIGHT",
-			usableNum = 5,
-			usablePerRow = 5,
-			usableSize = 40,
-			inheritGlobalFade = false,
-		},
-		whiteList = {
-			[5512] = true, -- Healthstone
-			[49040] = true, -- Jeeves
-			[132514] = true, -- Auto-Hammer
-
-			-- Professions (Bfa)
-			[164733] = true, -- Synchronous Thread
-			[164978] = true, -- Mallet of Thunderous Skins
-
-			--Guild and Honor
-			[63359] = true, -- Banner of Cooperation
-			[64398] = true, -- Standard of Unity
-			[64399] = true, -- Battle Standard of Coordination
-			[18606] = true, -- Alliance Battle Standard
-			[64400] = true, -- Banner of Cooperation
-			[64401] = true, -- Standard of Unity
-			[64402] = true, -- Battle Standard of Coordination
-			[18607] = true, -- Horde Battle Standard
-
-			--Legion
-			[118330] = true, -- Pile of Weapons
-			[122100] = true, -- Soul Gem
-			[127030] = true, -- Granny"s Flare Grenades
-			[127295] = true, -- Blazing Torch
-			[128651] = true, -- Critter Hand Cannon
-			[128772] = true, -- Branch of the Runewood
-			[129161] = true, -- Stormforged Horn
-			[129725] = true, -- Smoldering Torch
-			[131931] = true, -- Khadgar"s Wand
-			[133756] = true, -- Fresh Mound of Flesh
-			[133882] = true, -- Trap Rune
-			[133897] = true, -- Telemancy Beacon
-			[133925] = true, -- Fel Lash
-			[133999] = true, -- Inert Crystal
-			[136605] = true, -- Solendra"s Compassion
-			[137299] = true, -- Nightborne Spellblad
-			[138146] = true, -- Rediant Ley Crystal
-			[140916] = true, -- Satchel of Locklimb Powder
-			[109076] = true, -- Goblin Glider Kit
-			[147707] = true, -- Repurposed Fel Focuser
-			[142117] = true, -- Potion of Prolonged Power
-			[153023] = true, -- Lightforged Augment Rune
-
-			--BFA
-			[169451] = true, -- Abyssal Healing Potion
-			[152494] = true, -- Coastal Healing Potion
-			[152495] = true, -- Coastal Mana Potion
-			[160053] = true, -- Battle-Scarred Augment Rune
-			[163224] = true, -- Battle Potion of Strength
-			[163223] = true, -- Battle Potion of Agility
-			[163222] = true, -- Battle Potion of Intellect
-			[163225] = true, -- Battle Potion of Stamina
-			[168500] = true, -- Superior Battle Potion of Strength
-			[168489] = true, -- Superior Battle Potion of Agility
-			[168498] = true, -- Superior Battle Potion of Intellect
-			[168499] = true, -- Superior Battle Potion of Stamina
-			[169299] = true, -- Potion of Unbridled Fury
-		},
-		blackList = {},
-		blackitemID = "",
-		whiteItemID = "",
-	},
 	randomToy = {
 		enable = true,
 		toyList = {
@@ -325,6 +226,126 @@ MP.actionbars = {
 			[153180] = true,
 			[128807] = true,
 		},
+	},
+}
+
+MP.autoButtons = {
+	enable = true,
+	customList = {},
+	blackList = {},
+	bar1 = {
+		enable = true,
+		mouseOver = false,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 1,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		inheritGlobalFade = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		include = "QUEST,BANNER,EQUIP"
+	},
+	bar2 = {
+		enable = true,
+		mouseOver = false,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 1,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		inheritGlobalFade = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		include = "POTION,FLASK,UTILITY"
+	},
+	bar3 = {
+		enable = false,
+		mouseOver = false,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 1,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		inheritGlobalFade = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		include = "CUSTOM"
 	},
 }
 
