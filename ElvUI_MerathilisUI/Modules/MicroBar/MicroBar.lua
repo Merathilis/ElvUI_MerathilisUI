@@ -96,6 +96,8 @@ local function AddDoubleLineForItem(itemID, prefix)
 	prefix = prefix and prefix .. " " or ""
 
 	local name = HeartstonesTable[tostring(itemID)]
+	if not name then return end
+
 	local texture = GetItemIcon(itemID)
 	local icon = format(IconString .. ":255:255:255|t", texture)
 	local startTime, duration = GetItemCooldown(itemID)
@@ -108,7 +110,7 @@ local function AddDoubleLineForItem(itemID, prefix)
 		cooldownTimeString = format("%02d:%02d", min, sec)
 	end
 
-	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name or "", canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
+	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name, canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
 end
 
 local VirtualDTEvent = {
