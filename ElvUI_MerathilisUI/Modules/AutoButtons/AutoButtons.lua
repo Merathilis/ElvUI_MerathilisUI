@@ -540,16 +540,14 @@ function module:UpdateBar(id)
 
 	local numRows = ceil((buttonID - 1) / barDB.buttonsPerRow)
 	local numCols = buttonID > barDB.buttonsPerRow and barDB.buttonsPerRow or (buttonID - 1)
-	local newBarWidth = 2 * barDB.backdropSpacing + numCols * barDB.buttonWidth + (numCols - 1) * barDB.spacing
+	local newBarWidth = barDB.backdropSpacing + numCols * barDB.buttonWidth + (numCols - 1) * barDB.spacing
 	local newBarHeight = 2 * barDB.backdropSpacing + numRows * barDB.buttonHeight + (numRows - 1) * barDB.spacing
 	bar:Size(newBarWidth, newBarHeight)
 
 	local numMoverRows = ceil(barDB.numButtons / barDB.buttonsPerRow)
 	local numMoverCols = barDB.buttonsPerRow
-	local newMoverWidth =
-		2 * barDB.backdropSpacing + numMoverCols * barDB.buttonWidth + (numMoverCols - 1) * barDB.spacing
-	local newMoverHeight =
-		2 * barDB.backdropSpacing + numMoverRows * barDB.buttonHeight + (numMoverRows - 1) * barDB.spacing
+	local newMoverWidth = 2 * barDB.backdropSpacing + numMoverCols * barDB.buttonWidth + (numMoverCols - 1) -- * barDB.spacing
+	local newMoverHeight = 2 * barDB.backdropSpacing + numMoverRows * barDB.buttonHeight + (numMoverRows - 1) -- * barDB.spacing
 	bar:GetParent():Size(newMoverWidth, newMoverHeight)
 
 	bar:ClearAllPoints()

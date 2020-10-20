@@ -983,13 +983,6 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["stanceBar"]["buttonsize"] = 22
 	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = true
 
-	-- AutoBar
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		E.db["mui"]["actionbars"]["autoButtons"]["slotAutoButtons"]["inheritGlobalFade"] = true
-		E.db["mui"]["actionbars"]["autoButtons"]["questAutoButtons"]["inheritGlobalFade"] = true
-		E.db["mui"]["actionbars"]["autoButtons"]["usableAutoButtons"]["inheritGlobalFade"] = true
-	end
-
 	if layout == "dps" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,133"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,171"
@@ -1002,6 +995,8 @@ function MER:SetupActionbars(layout)
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,305,50"
 		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 		E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,304,140"
+		E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-20,195"
+		E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-20,233"
 	elseif layout == "healer" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,123"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,161"
