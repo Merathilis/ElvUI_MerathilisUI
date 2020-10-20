@@ -86,9 +86,9 @@ function MER:DBCleanup()
 		E.global["datatexts"]["customPanels"]["MER_BottomPanel"] = nil
 	end
 
-	local db = E.db.mui.chatBar
+	local db = E.db.mui.chat.chatBar
 	if type(db) == 'boolean' then
-		E.db.mui.chatBar = {}
+		E.db.mui.chat.chatBar = {}
 	end
 end
 
