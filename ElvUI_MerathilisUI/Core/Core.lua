@@ -87,7 +87,7 @@ function MER:DBCleanup()
 	end
 
 	local db = E.db.mui.chat.chatBar
-	if type(db) == 'boolean' then
+	if type(db) ~= 'table' then
 		E.db.mui.chat.chatBar = {}
 	end
 end
