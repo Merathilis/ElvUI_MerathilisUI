@@ -109,7 +109,6 @@ MP.chat = {
 	chatButton = true,
 	hidePlayerBrackets = true,
 	hideChat = false,
-	chatBar = false,
 	emotes = true,
 	itemLevelLink = true,
 	filter = {
@@ -127,6 +126,107 @@ MP.chat = {
 	seperators = {
 		enable = true,
 		visibility = "SHOWBOTH",
+	},
+	chatBar = {
+		enable = false,
+		style = "BLOCK",
+		blockShadow = true,
+		autoHide = false,
+		mouseOver = false,
+		backdrop = false,
+		backdropSpacing = 2,
+		buttonWidth = 40,
+		buttonHeight = 5,
+		spacing = 5,
+		orientation = "HORIZONTAL",
+		tex = "MerathilisMelli",
+		font = {
+			name = E.db.general.font,
+			size = 12,
+			style = "OUTLINE"
+		},
+		color = true,
+		channels = {
+			["SAY"] = {
+				enable = true,
+				cmd = "s",
+				color = {r = 1, g = 1, b = 1, a = 1},
+				abbr = L["Say"]
+			},
+			["YELL"] = {
+				enable = true,
+				cmd = "y",
+				color = {r = 1, g = 0.25, b = 0.25, a = 1},
+				abbr = L["Yell"]
+			},
+			["EMOTE"] = {
+				enable = false,
+				cmd = "e",
+				color = {r = 1, g = 0.5, b = 0.25, a = 1},
+				abbr = L["Emote"]
+			},
+			["PARTY"] = {
+				enable = true,
+				cmd = "p",
+				color = {r = 0.67, g = 0.67, b = 1, a = 1},
+				abbr = L["Party"]
+			},
+			["INSTANCE"] = {
+				enable = true,
+				cmd = "i",
+				color = {r = 1, g = 0.73, b = 0.2, a = 1},
+				abbr = L["Instance"]
+			},
+			["RAID"] = {
+				enable = true,
+				cmd = "raid",
+				color = {r = 1, g = 0.5, b = 0, a = 1},
+				abbr = L["Raid"]
+			},
+			["RAID_WARNING"] = {
+				enable = false,
+				cmd = "rw",
+				color = {r = 1, g = 0.28, b = 0, a = 1},
+				abbr = L["Raid Warning"]
+			},
+			["GUILD"] = {
+				enable = true,
+				cmd = "g",
+				color = {r = 0.25, g = 1, b = 0.25, a = 1},
+				abbr = L["Guild"]
+			},
+			["OFFICER"] = {
+				enable = false,
+				cmd = "o",
+				color = {r = 0.25, g = 0.75, b = 0.25, a = 1},
+				abbr = L["Officer"]
+			},
+			world = {
+				enable = false,
+				autoJoin = true,
+				name = "",
+				color = {r = 0.2, g = 0.6, b = 0.86, a = 1},
+				abbr = L["World"]
+			},
+			community = {
+				enable = false,
+				name = "",
+				color = {r = 0.72, g = 0.27, b = 0.86, a = 1},
+				abbr = L["Community"]
+			},
+			emote = {
+				enable = true,
+				icon = true,
+				color = {r = 1, g = 0.33, b = 0.52, a = 1},
+				abbr = L["Wind Emote"]
+			},
+			roll = {
+				enable = true,
+				icon = true,
+				color = {r = 0.56, g = 0.56, b = 0.56, a = 1},
+				abbr = L["Roll"]
+			},
+		},
 	},
 }
 

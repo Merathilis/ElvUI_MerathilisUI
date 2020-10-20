@@ -92,6 +92,11 @@ function MER:DBCleanup()
 	if E.global["datatexts"]["customPanels"]["MER_BottomPanel"] then
 		E.global["datatexts"]["customPanels"]["MER_BottomPanel"] = nil
 	end
+
+	local db = E.db.mui.chatBar
+	if type(db) == 'boolean' then
+		E.db.mui.chatBar = {}
+	end
 end
 
 function MER:Initialize()
