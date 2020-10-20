@@ -434,7 +434,7 @@ function module:Initialize()
 	module:CreateBar()
 	module:UpdateBar()
 
-	E:CreateMover(module.bar,"ChatBarMover", L["Chat Bar"], nil, nil, nil, "ALL,MERATHILISUI", function() return module.db.enable end)
+	E:CreateMover(module.bar,"ChatBarMover", L["Chat Bar"], nil, nil, nil, "ALL,MERATHILISUI", function() return module.db.enable end, "mui,modules,chat,chatBar")
 
 	if self.db.autoHide then
 		self:RegisterEvent("GROUP_ROSTER_UPDATE", "UpdateBar")
