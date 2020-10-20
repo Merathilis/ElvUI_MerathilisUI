@@ -67,6 +67,26 @@ L["Damage Meter Filter"] = "伤害统计过滤"
 L["Fade Chat"] = "聊天渐隐"
 L["Auto hide timeout"] = "时间"
 L["Seconds before fading chat panel"] = "多少秒后聊天框自动隐藏"
+L["Seperators"] = true
+L["Orientation"] = true
+L["Please use Blizzard Communities UI add the channel to your main chat frame first."] = true
+L["Channel Name"] = true
+L["Abbreviation"] = true
+L["Auto Join"] = true
+L["World"] = true
+L["Channels"] = true
+L["Block Shadow"] = true
+L["Hide channels not exist."] = true
+L["Say"] = true
+L["Yell"] = true
+L["Instance"] = true
+L["Raid"] = true
+L["Raid Warning"] = true
+L["Guild"] = true
+L["Officer"] = true
+L["Only show chat bar when you mouse over it."] = true
+L["Button"] = true
+L["Item Level Links"] = true
 
 -- Combat Alert
 L["Combat Alert"] = "战斗提示"

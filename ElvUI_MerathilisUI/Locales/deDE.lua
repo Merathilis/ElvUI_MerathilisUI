@@ -56,17 +56,37 @@ L["Chat Menu"] = "Chat Menu"
 L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
 L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
-L["ChatBar"] = "Chatleiste"
+L["Chat Bar"] = "Chatleiste"
 L["Shows a ChatBar with different quick buttons."] = "Zeigt eine Chatleiste mit verschiedenen Schnelltasten."
 L["Hide Community Chat"] = "Verstecke Community Chat"
 L["Adds an overlay to the Community Chat. Useful for streamers."] = "Fügt ein Overlay zum Community Chat hinzu. Nützlich für Streamer."
 L["Chat Hidden. Click to show"] = "Chat versteckt. Klicken um anzuzeigen"
 L["Click to open Emoticon Frame"] = "Öffnet das Emoticon Fenster"
 L["Emotes"] = true
-L["Damage Meter Filter"] = true
-L["Fade Chat"] = true
-L["Auto hide timeout"] = true
-L["Seconds before fading chat panel"] = true
+L["Damage Meter Filter"] = "Schadensmesser Filter"
+L["Fade Chat"] = "Chatausblendung"
+L["Auto hide timeout"] = "Auto Ausblendzeit"
+L["Seconds before fading chat panel"] = "Sek. vor dem Ausblenden des Chat-Panels"
+L["Seperators"] = "Trennlinien"
+L["Orientation"] = "Orientierung"
+L["Please use Blizzard Communities UI add the channel to your main chat frame first."] = "Verwende die Benutzeroberfläche von Blizzard Communities. Füge den Kanal zuerst zu Deinem Hauptchat Frame hinzu."
+L["Channel Name"] = "Kanal Name"
+L["Abbreviation"] = "Abkürzung"
+L["Auto Join"] = "Auto Beitreten"
+L["World"] = "Welt"
+L["Channels"] = "Kanäle"
+L["Block Shadow"] = "Verhindere Schatten"
+L["Hide channels not exist."] = "Kanäle ausblenden die nicht existieren."
+L["Say"] = "Sagen"
+L["Yell"] = "Schreien"
+L["Instance"] = "Instanz"
+L["Raid"] = "Schlachtzug"
+L["Raid Warning"] = "Schlachtzugs Warnung"
+L["Guild"] = "Gilde"
+L["Officer"] = "Offizier"
+L["Only show chat bar when you mouse over it."] = "Zeige Chat-Leiste nur an, wenn mit der Maus darüber gefahren wird."
+L["Button"] = "Tasten"
+L["Item Level Links"] = "Gegenstandstufen Links"
 
 -- Combat Alert
 L["Combat Alert"] = "Kampf Alamierung"
@@ -88,7 +108,7 @@ L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = "Tester & Inspiration"
 L["Development Version"] = true
-L["Here you can download the latest development version."] = "Hier findest du den download zu meiner Development Version."
+L["Here you can download the latest development version."] = "Hier findest du den Download zu meiner Development Version."
 
 -- Modules
 L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffff8000MerathilisUI|r Module.\nBenutze bitte das Dropdown Menu um durch die verschiedenen Module zu navigieren."
@@ -100,7 +120,7 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "Aktivi
 -- FlightMode
 L["FlightMode"] = "Flugmodus"
 L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Erweitert den |cff00c0faBenikUI|r FlightMode.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
-L["Exit FlightMode"] = "Verlasse FlightMode"
+L["Exit FlightMode"] = "Verlasse FlugModus"
 L["Left Click to Request Stop"] = "Links Klick für Haltewunsch"
 
 -- FlightPoint
