@@ -86,7 +86,7 @@ L["Guild"] = "Gilde"
 L["Officer"] = "Offizier"
 L["Only show chat bar when you mouse over it."] = "Zeige Chat-Leiste nur an, wenn mit der Maus darüber gefahren wird."
 L["Button"] = "Tasten"
-L["Item Level Links"] = "Gegenstandstufen Links"
+L["Item Level Links"] = "Gegenstandsstufen Links"
 
 -- Combat Alert
 L["Combat Alert"] = "Kampf Alamierung"
