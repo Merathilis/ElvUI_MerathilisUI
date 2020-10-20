@@ -142,10 +142,8 @@ local ButtonTypes = {
 	ACHIEVEMENTS = {
 		name = _G.ACHIEVEMENT_BUTTON,
 		icon = MER.Media.Icons.barAchievements,
-		click = {
-			LeftButton = function()
-				ToggleAchievementFrame(false)
-			end
+		macro = {
+			LeftButton = _G.SLASH_ACHIEVEMENTUI1
 		},
 		tooltips = {
 			_G.ACHIEVEMENT_BUTTON
@@ -169,42 +167,57 @@ local ButtonTypes = {
 		},
 		tooltips = {
 			_G.BLIZZARD_STORE
-		}
+		},
 	},
 	CHARACTER = {
 		name = _G.CHARACTER_BUTTON,
 		icon = MER.Media.Icons.barCharacter,
 		click = {
 			LeftButton = function()
-				ToggleCharacter("PaperDollFrame")
+				if not InCombatLockdown() then
+					ToggleCharacter("PaperDollFrame")
+				else
+					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+				end
 			end
 		},
 		tooltips = {
 			_G.CHARACTER_BUTTON
-		}
+		},
+	},
+	COLLECTIONS = {
+		name = L["Collections"],
+		icon = MER.Media.Icons.barCollections,
+		macro = {
+			LeftButton = [[/click CollectionsJournalCloseButton
+/click CollectionsMicroButton
+/click CollectionsJournalTab1
+]]
+		},
+		tooltips = {
+			L["Collections"]
+		},
 	},
 	ENCOUNTER_JOURNAL = {
 		name = _G.ENCOUNTER_JOURNAL,
 		icon = MER.Media.Icons.barEncounterJournal,
-		click = {
-			LeftButton = function()
-				if not IsAddOnLoaded("Blizzard_EncounterJournal") then
-					EncounterJournal_LoadUI()
-				end
-
-				ToggleFrame(_G.EncounterJournal)
-			end
+		macro = {
+			LeftButton = "/click EJMicroButton"
 		},
 		tooltips = {
 			_G.ENCOUNTER_JOURNAL
-		}
+		},
 	},
 	FRIENDS = {
 		name = _G.SOCIAL_BUTTON,
 		icon = MER.Media.Icons.barFriends,
 		click = {
 			LeftButton = function()
-				ToggleFriendsFrame(1)
+				if not InCombatLockdown() then
+					ToggleFriendsFrame(1)
+				else
+					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+				end
 			end
 		},
 		additionalText = function()
@@ -233,31 +246,19 @@ local ButtonTypes = {
 	GROUP_FINDER = {
 		name = _G.LFG_TITLE,
 		icon = MER.Media.Icons.barGroupFinder,
-		click = {
-			LeftButton = ToggleLFDParentFrame
+		macro = {
+			LeftButton = "/click LFDMicroButton"
 		},
 		tooltips = {
 			_G.LFG_TITLE
-		}
+		},
 	},
 	GUILD = {
 		name = _G.ACHIEVEMENTS_GUILD_TAB,
 		icon = MER.Media.Icons.barGuild,
-		click = {
-			LeftButton = function()
-				if IsInGuild() then
-					ToggleGuildFrame()
-				else
-					ToggleGuildFinder()
-				end
-			end,
-			RightButton = function()
-				if not _G.GuildFrame then
-					GuildFrame_LoadUI()
-				end
-
-				ToggleFrame(_G.GuildFrame)
-			end
+		macro = {
+			LeftButton = "/click GuildMicroButton",
+			RightButton = "/script if not InCombatLockdown() then if not GuildFrame then GuildFrame_LoadUI() end ToggleFrame(GuildFrame) end"
 		},
 		additionalText = function()
 			return IsInGuild() and select(2, GetNumGuildMembers()) or ""
@@ -322,10 +323,11 @@ local ButtonTypes = {
 	PET_JOURNAL = {
 		name = L["Pet Journal"],
 		icon = MER.Media.Icons.barPetJournal,
-		click = {
-			LeftButton = function()
-				ToggleCollectionsJournal(2)
-			end
+		macro = {
+			LeftButton = [[/click CollectionsJournalCloseButton
+/click CollectionsMicroButton
+/click CollectionsJournalTab2
+]]
 		},
 		tooltips = {
 			L["Pet Journal"]
@@ -350,52 +352,36 @@ local ButtonTypes = {
 	SPELLBOOK = {
 		name = _G.SPELLBOOK_ABILITIES_BUTTON,
 		icon = MER.Media.Icons.barSpellBook,
-		click = {
-			LeftButton = function()
-				if not SpellBookFrame:IsShown() then
-					ShowUIPanel(SpellBookFrame)
-				else
-					HideUIPanel(SpellBookFrame)
-				end
-			end
+		macro = {
+			LeftButton = "/click SpellbookMicroButton"
 		},
 		tooltips = {
 			_G.SPELLBOOK_ABILITIES_BUTTON
-		}
+		},
 	},
 	TALENTS = {
 		name = _G.TALENTS_BUTTON,
 		icon = MER.Media.Icons.barTalents,
-		click = {
-			LeftButton = function()
-				if not _G.PlayerTalentFrame then
-					TalentFrame_LoadUI()
-				end
-
-				local PlayerTalentFrame = _G.PlayerTalentFrame
-				if not PlayerTalentFrame:IsShown() then
-					ShowUIPanel(PlayerTalentFrame)
-				else
-					HideUIPanel(PlayerTalentFrame)
-				end
-			end
+		macro = {
+			LeftButton = "/click TalentMicroButton"
 		},
 		tooltips = {
 			_G.TALENTS_BUTTON
-		}
+		},
 	},
 	TOY_BOX = {
 		name = L["Toy Box"],
 		icon = MER.Media.Icons.barToyBox,
-		click = {
-			LeftButton = function()
-				ToggleCollectionsJournal(3)
-			end
+		macro = {
+			LeftButton = [[/click CollectionsJournalCloseButton
+/click CollectionsMicroButton
+/click CollectionsJournalTab3
+]]
 		},
 		tooltips = {
 			L["Toy Box"]
-		}
-	}
+		},
+	},
 }
 
 function module:ShowAdvancedTimeTooltip(panel)
@@ -757,7 +743,11 @@ function module:UpdateButton(button, config)
 	button.tooltips = config.tooltips
 	button.tooltipsLeave = config.tooltipsLeave
 
-	if config.click then
+	if config.macro then
+		button:SetAttribute("type*", "macro")
+		button:SetAttribute("macrotext1", config.macro.LeftButton or "")
+		button:SetAttribute("macrotext2", config.macro.RightButton or config.macro.LeftButton or "")
+	elseif config.click then
 		function button:Click(mouseButton)
 			local func = mouseButton and config.click[mouseButton] or config.click.LeftButton
 			func(module.bar.middlePanel)
