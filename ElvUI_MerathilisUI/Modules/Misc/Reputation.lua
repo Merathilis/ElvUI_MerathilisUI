@@ -159,11 +159,11 @@ local function HookParagonRep()
 						factionRow.rolloverText = nil
 					end
 
-					if factionIndex == GetSelectedFaction() and ReputationDetailFrame:IsShown() then
+					if factionIndex == GetSelectedFaction() and _G.ReputationDetailFrame:IsShown() then
 						local count = floor(currentValue/threshold)
 						if hasRewardPending then count = count-1 end
 						if count > 0 then
-							ReputationDetailFactionName:SetText(name.." |cffffffffx"..count.."|r")
+							_G.ReputationDetailFactionName:SetText(name.." |cffffffffx"..count.."|r")
 						end
 					end
 				end
