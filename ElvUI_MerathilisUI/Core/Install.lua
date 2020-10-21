@@ -755,32 +755,37 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
 	E.db["databars"]["experience"]["hideInVehicle"] = true
 	E.db["databars"]["experience"]["hideInCombat"] = true
+	E.db["databars"]["experience"]["showBubbles"] = true
+
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["mouseover"] = false
 	E.db["databars"]["reputation"]["font"] = "Expressway"
 	E.db["databars"]["reputation"]["textSize"] = 9
 	E.db["databars"]["reputation"]["height"] = 9
-
 	if layout == "dps" then
 		E.db["databars"]["reputation"]["width"] = 283
 	elseif layout == "healer" then
 		E.db["databars"]["reputation"]["width"] = 278
 	end
-
 	E.db["databars"]["reputation"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["reputation"]["hideInVehicle"] = true
 	E.db["databars"]["reputation"]["hideInCombat"] = true
-	E.db["databars"]["honor"]["enable"] = false
+	E.db["databars"]["reputation"]["showBubbles"] = true
+
+	E.db["databars"]["honor"]["enable"] = true
 	E.db["databars"]["honor"]["width"] = 283
-	E.db["databars"]["honor"]["height"] = 12
+	E.db["databars"]["honor"]["height"] = 9
 	E.db["databars"]["honor"]["textSize"] = 9
 	E.db["databars"]["honor"]["font"] = "Expressway"
+	E.db["databars"]["honor"]["hideBelowMaxLevel"] = true
 	E.db["databars"]["honor"]["hideOutsidePvP"] = true
 	E.db["databars"]["honor"]["hideInCombat"] = true
 	E.db["databars"]["honor"]["hideInVehicle"] = true
 	E.db["databars"]["honor"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["honor"]["orientation"] = "HORIZONTAL"
+	E.db["databars"]["honor"]["showBubbles"] = true
+
 	E.db["databars"]["azerite"]["enable"] = true
 	E.db["databars"]["azerite"]["height"] = 9
 	E.db["databars"]["azerite"]["font"] = "Expressway"
@@ -795,6 +800,8 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["azerite"]["mouseover"] = false
 	E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
+	E.db["databars"]["azerite"]["showBubbles"] = true
+
 	E.db["databars"]["threat"]["enable"] = true
 	E.db["databars"]["threat"]["width"] = 283
 	E.db["databars"]["threat"]["height"] = 12
@@ -803,10 +810,10 @@ function MER:SetupLayout(layout)
 
 	E.db["movers"]["AzeriteBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-470,1"
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,503,12"
-	E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,95"
+	E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,52"
 	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,1"
 	E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,470,1"
-	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,52"
+	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,62"
 	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,47"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-277,178"
 
