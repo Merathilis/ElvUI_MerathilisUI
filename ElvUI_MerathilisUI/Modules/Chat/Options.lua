@@ -472,7 +472,7 @@ local function ChatTable()
 							roll = {
 								order = 103,
 								type = "group",
-								name = L["Roll"],
+								name = _G.ROLL,
 								get = function(info)
 									return E.db.mui.chat.chatBar.channels.roll[info[#info]]
 								end,
@@ -533,22 +533,12 @@ local function ChatTable()
 	}
 
 	local channels = {"SAY", "YELL", "EMOTE", "PARTY", "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER"}
-	local locales = {
-		SAY = L["Say"],
-		YELL = L["Yell"],
-		EMOTE = L["Emote"],
-		PARTY = L["Party"],
-		INSTANCE = L["Instance"],
-		RAID = L["Raid"],
-		RAID_WARNING = L["Raid Warning"],
-		GUILD = L["Guild"],
-		OFFICER = L["Officer"]
-	}
+
 	for index, name in ipairs(channels) do
 		E.Options.args.mui.args.modules.args.chat.args.chatBar.args.channels.args[name] = {
 			order = index,
 			type = "group",
-			name = locales[name],
+			name = _G[name],
 			get = function(info)
 				return E.db.mui.chat.chatBar.channels[name][info[#info]]
 			end,

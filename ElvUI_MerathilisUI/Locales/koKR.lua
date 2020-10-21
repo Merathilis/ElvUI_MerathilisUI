@@ -79,16 +79,11 @@ L["World"] = true
 L["Channels"] = true
 L["Block Shadow"] = true
 L["Hide channels not exist."] = true
-L["Say"] = true
-L["Yell"] = true
-L["Instance"] = true
-L["Raid"] = true
-L["Raid Warning"] = true
-L["Guild"] = true
-L["Officer"] = true
 L["Only show chat bar when you mouse over it."] = true
 L["Button"] = true
 L["Item Level Links"] = true
+L["Filter"] = true
+L["Block"] = true
 
 -- Combat Alert
 L["Combat Alert"] = true
