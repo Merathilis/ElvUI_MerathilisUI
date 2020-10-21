@@ -13,6 +13,7 @@ local InCombatLockdown = InCombatLockdown
 local GetQuestLink = GetQuestLink
 local GetQuestLogTitle = GetQuestLogTitle
 local GetAutoQuestPopUp = GetAutoQuestPopUp
+local C_QuestLog_GetInfo = C_QuestLog.GetInfo
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 local GetNumAutoQuestPopUps = GetNumAutoQuestPopUps
 local GetQuestLogIndexByID = GetQuestLogIndexByID
@@ -21,12 +22,18 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 local function QuestNumString()
-	local questNum, q, o
+	local questNum = 0
+	local q, o
 	local block = _G.ObjectiveTrackerBlocksFrame
 	local frame = _G.ObjectiveTrackerFrame
 
 	if not InCombatLockdown() then
-		questNum = select(2, C_QuestLog_GetNumQuestLogEntries())
+		for questLogIndex = 1, C_QuestLog_GetNumQuestLogEntries() do
+			local info = C_QuestLog_GetInfo(questLogIndex)
+			if not info.isHeader and not info.isHidden then
+				questNum = questNum + 1
+			end
+		end
 
 		if questNum >= (_G.MAX_QUESTS - 5) then -- go red
 			q = format("|cffff0000%d/%d|r %s", questNum, _G.MAX_QUESTS, _G.TRACKER_HEADER_QUESTS)
