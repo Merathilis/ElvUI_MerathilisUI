@@ -8,43 +8,4 @@
 	<Binding name="CLICK mUI_RaidFlare6:LeftButton" description="Orange Flare" category="BINDING_HEADER_MER"/>
 	<Binding name="CLICK mUI_RaidFlare7:LeftButton" description="White Flare" category="BINDING_HEADER_MER"/>
 	<Binding name="CLICK mUI_RaidFlare8:LeftButton" description="Skull Flare" category="BINDING_HEADER_MER"/>
-
-	<Binding name="CLICK ExtraItemsBar1Button1:LeftButton" runOnUp="false" header="EXTRAITEMSBAR1" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar1Button2:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar1Button3:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar1Button4:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar1Button5:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar1Button6:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar1Button7:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar1Button8:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar1Button9:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar1Button10:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar1Button11:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar1Button12:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-
-	<Binding name="CLICK ExtraItemsBar2Button1:LeftButton" runOnUp="false" header="EXTRAITEMSBAR2" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar2Button2:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar2Button3:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar2Button4:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar2Button5:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar2Button6:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar2Button7:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar2Button8:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar2Button9:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar2Button10:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar2Button11:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar2Button12:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-
-	<Binding name="CLICK ExtraItemsBar3Button1:LeftButton" runOnUp="false" header="EXTRAITEMSBAR3" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar3Button2:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar3Button3:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar3Button4:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar3Button5:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar3Button6:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar3Button7:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar3Button8:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar3Button9:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar3Button10:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar3Button11:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK ExtraItemsBar3Button12:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
 </Bindings>

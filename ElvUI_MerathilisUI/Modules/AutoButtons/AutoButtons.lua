@@ -646,7 +646,7 @@ function module:UpdateBinding()
 		for j = 1, 12 do
 			local button = self.bars[i].buttons[j]
 			if button then
-				local bindingName = format("CLICK ExtraItemsBar%dButton%d:LeftButton", i, j)
+				local bindingName = format("CLICK WTExtraItemsBar%dButton%d:LeftButton", i, j)
 				local bindingText = GetBindingKey(bindingName) or ""
 				bindingText = gsub(bindingText, "ALT--", "A")
 				bindingText = gsub(bindingText, "CTRL--", "C")
@@ -668,7 +668,7 @@ function module:Initialize()
 	UpdateQuestItemList()
 	UpdateEquipmentList()
 	self:UpdateBars()
-	self:UpdateBinding()
+	--self:UpdateBinding()
 
 	self:RegisterEvent("UNIT_INVENTORY_CHANGED", "UpdateEquipment")
 	self:RegisterEvent("BAG_UPDATE_DELAYED", "UpdateBars")
@@ -678,7 +678,7 @@ function module:Initialize()
 	self:RegisterEvent("QUEST_LOG_UPDATE", "UpdateQuestItem")
 	self:RegisterEvent("QUEST_ACCEPTED", "UpdateQuestItem")
 	self:RegisterEvent("QUEST_TURNED_IN", "UpdateQuestItem")
-	self:RegisterEvent("UPDATE_BINDINGS", "UpdateBinding")
+	--self:RegisterEvent("UPDATE_BINDINGS", "UpdateBinding")
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.autoButtons
@@ -686,7 +686,7 @@ function module:Initialize()
 		UpdateQuestItemList()
 		UpdateEquipmentList()
 		self:UpdateBars()
-		self:UpdateBinding()
+		--self:UpdateBinding()
 	end
 
 	self:ForUpdateAll()
@@ -707,7 +707,7 @@ function module:ProfileUpdate()
 		self:UnregisterEvent("QUEST_LOG_UPDATE")
 		self:UnregisterEvent("QUEST_ACCEPTED")
 		self:UnregisterEvent("QUEST_TURNED_IN")
-		self:UnregisterEvent("UPDATE_BINDINGS")
+		--self:UnregisterEvent("UPDATE_BINDINGS")
 	end
 
 	self:UpdateBars()
