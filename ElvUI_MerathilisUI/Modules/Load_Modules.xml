@@ -25,4 +25,5 @@
 	<Include file="PvP\Load_PvP.xml"/>
 	<Include file="Panels\Load_Panels.xml"/>
 	<Include file="FlightMode\Load_FlightMode.xml"/>
+	<Include file="AutoButtons\Load_AutoButtons.xml"/>
 </Ui>

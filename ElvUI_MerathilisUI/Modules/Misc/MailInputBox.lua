@@ -25,16 +25,6 @@ local function MailInputBox()
 	local c = _G["SendMailCostMoneyFrame"]
 	c:ClearAllPoints()
 	c:SetPoint(unpack(moneyframe_pos))
-	local f = "SendMailNameEditBox"
-	_G[f]:SetSize(editbox_width or 224, 20)
-	local r = _G[f.."Right"]
-	r:ClearAllPoints()
-	r:SetPoint("TOPRIGHT", 0, 0)
-	local m = _G[f.."Middle"]
-	m:SetSize(0, 20)
-	m:ClearAllPoints()
-	m:SetPoint("LEFT" ,f.. "Left", "LEFT", 8, 0)
-	m:SetPoint("RIGHT", r, "RIGHT", -8, 0)
 end
 
 function MI:LoadMailInputBox()

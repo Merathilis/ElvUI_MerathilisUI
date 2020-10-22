@@ -56,17 +56,37 @@ L["Chat Menu"] = "Chat Menu"
 L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
 L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
-L["ChatBar"] = "Chatleiste"
+L["Chat Bar"] = "Chatleiste"
 L["Shows a ChatBar with different quick buttons."] = "Zeigt eine Chatleiste mit verschiedenen Schnelltasten."
 L["Hide Community Chat"] = "Verstecke Community Chat"
 L["Adds an overlay to the Community Chat. Useful for streamers."] = "Fügt ein Overlay zum Community Chat hinzu. Nützlich für Streamer."
 L["Chat Hidden. Click to show"] = "Chat versteckt. Klicken um anzuzeigen"
 L["Click to open Emoticon Frame"] = "Öffnet das Emoticon Fenster"
 L["Emotes"] = true
-L["Damage Meter Filter"] = true
-L["Fade Chat"] = true
-L["Auto hide timeout"] = true
-L["Seconds before fading chat panel"] = true
+L["Damage Meter Filter"] = "Schadensmesser Filter"
+L["Fade Chat"] = "Chatausblendung"
+L["Auto hide timeout"] = "Auto Ausblendzeit"
+L["Seconds before fading chat panel"] = "Sek. vor dem Ausblenden des Chat-Panels"
+L["Seperators"] = "Trennlinien"
+L["Orientation"] = "Orientierung"
+L["Please use Blizzard Communities UI add the channel to your main chat frame first."] = "Verwende die Benutzeroberfläche von Blizzard Communities. Füge den Kanal zuerst zu Deinem Hauptchat Frame hinzu."
+L["Channel Name"] = "Kanal Name"
+L["Abbreviation"] = "Abkürzung"
+L["Auto Join"] = "Auto Beitreten"
+L["World"] = "Welt"
+L["Channels"] = "Kanäle"
+L["Block Shadow"] = "Verhindere Schatten"
+L["Hide channels not exist."] = "Kanäle ausblenden die nicht existieren."
+L["Say"] = "Sagen"
+L["Yell"] = "Schreien"
+L["Instance"] = "Instanz"
+L["Raid"] = "Schlachtzug"
+L["Raid Warning"] = "Schlachtzugs Warnung"
+L["Guild"] = "Gilde"
+L["Officer"] = "Offizier"
+L["Only show chat bar when you mouse over it."] = "Zeige Chat-Leiste nur an, wenn mit der Maus darüber gefahren wird."
+L["Button"] = "Tasten"
+L["Item Level Links"] = "Gegenstandsstufen Links"
 
 -- Combat Alert
 L["Combat Alert"] = "Kampf Alamierung"
@@ -88,7 +108,7 @@ L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = "Tester & Inspiration"
 L["Development Version"] = true
-L["Here you can download the latest development version."] = "Hier findest du den download zu meiner Development Version."
+L["Here you can download the latest development version."] = "Hier findest du den Download zu meiner Development Version."
 
 -- Modules
 L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffff8000MerathilisUI|r Module.\nBenutze bitte das Dropdown Menu um durch die verschiedenen Module zu navigieren."
@@ -100,7 +120,7 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "Aktivi
 -- FlightMode
 L["FlightMode"] = "Flugmodus"
 L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Erweitert den |cff00c0faBenikUI|r FlightMode.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
-L["Exit FlightMode"] = "Verlasse FlightMode"
+L["Exit FlightMode"] = "Verlasse FlugModus"
 L["Left Click to Request Stop"] = "Links Klick für Haltewunsch"
 
 -- FlightPoint
@@ -119,8 +139,29 @@ L["Time Width"] = "Zeit Breite"
 L["Time Height"] = "Zeit Höhe"
 L["The spacing between buttons."] = "Der Abstand zwischen den Tasten."
 L["The size of the buttons."] = "Die Größe der Tasten."
-L["Slow Mode"] = true
+L["Slow Mode"] = "Langsamer Modus"
 L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = "Updated den zusätzlichen Text jede 10 Sekunden anstatt jede Sekunde, wirkt sich auf den Speicher aus."
+L["Display"] = "Anzeige"
+L["Fade Time"] = "Ausblendzeit"
+L["Tooltip Position"] = "Tooltip Position"
+L["Mode"] = "Auswahl"
+L["None"] = "Nichts"
+L["Class Color"] = "Klassenfarbe"
+L["Custom"] = "Benutzerdefiniert"
+L["Additional Text"] = "Zusätzlicher Text"
+L["Interval"] = "Intervall"
+L["The interval of updating."] = "Aktualisierungsintervall"
+L["Home"] = true
+L["Left Button"] = "Linker Button"
+L["Right Button"] = "Rechter Button"
+L["Left Panel"] = "Linkes Panel"
+L["Right Panel"] = "Rechtes Panel"
+L["Button #%d"] = "Tasten #%d"
+L["Pet Journal"] = "Wildtierführer"
+L["Screenshot"] = "Bildschirmaufnahme"
+L["Screenshot immediately"] = "Direkte Bildschirmaufnahme"
+L["Screenshot after 2 secs"] = "Bildschirmaufnahme nach 2 Sek."
+L["Toy Box"] = "Spielzeugkiste"
 
 -- Misc
 L["Misc"] = "Verschiedenes"
@@ -239,6 +280,31 @@ L["Add Item ID"] = "Füge Item ID hinzu"
 L["Delete Item ID"] = "Entferne Item ID"
 L["Custom Glow"] = "Benutzerdefinertes Leuchten"
 L["Replaces the default Actionbar glow for procs with an own pixel glow."] = "Ersetzt das standard Aktionleistenleuchten mit einem eigenen Pixel-Leuchten."
+
+-- AutoButtons
+L["AutoButtons"] = "Auto Tasten"
+L["Bar"] = "Leiste"
+L["Only show the bar when you mouse over it."] = "Zeige Leiste nur an, wenn mit der Maus darüber gefahren wird."
+L["Bar Backdrop"] = "Leistenhintergrund"
+L["Show a backdrop of the bar."] = "Zeige einen Hintergrund auf der Leiste."
+L["Button Width"] = "Tasten Weite"
+L["The width of the buttons."] = "Die Weite der Tasten"
+L["Button Height"] = "Tasten Höhe"
+L["The height of the buttons."] = "Die Höhe der Tasten"
+L["Counter"] = "Zähler"
+L["Outline"] = true -- No need to translate
+L["Button Groups"] = "Tasten Gruppen"
+L["Key Binding"] = "Tastenbelegung"
+L["Custom Items"] = "Benutzerdefinertes Gegenstände"
+L["List"] = "Liste"
+L["New Item ID"] = "ID des neuen Gegenstands"
+L["Auto Button Bar"] = "Auto Tasten Leiste"
+L["Quest Items"] = "Questgegenstände"
+L["Equipments"] = "Ausrüstungen"
+L["Potions"] = "Tranke"
+L["Flasks"] = "Fläschen"
+L["Banners"] = "Banner"
+L["Utilities"] = "Werkzeuge"
 
 -- Armory
 L["Armory"] = "Arsenal"

@@ -159,7 +159,7 @@ function module:Initialize()
 	end
 	module:ForUpdateAll()
 
-	E:CreateMover(self.alert, 'alertFrameMover', L["Enter Combat Alert"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,CombatAlert', function() return EnterCombatAlert.db.enable; end)
+	E:CreateMover(self.alert, 'alertFrameMover', L["Enter Combat Alert"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', function() return EnterCombatAlert.db.enable; end, 'mui,modules,CombatAlert')
 end
 
 MER:RegisterModule(module:GetName())

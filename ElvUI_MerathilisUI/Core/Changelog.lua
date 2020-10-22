@@ -16,9 +16,12 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• More fixes/updates to my new MicroBar -> own Option-Category",
-		"• Fixed an error with the ActionBarProfile skin",
-		"• Added some more frames to the blacklist on the FlightMode",
+		"• Fix a green icon on my RaidManager. I remove by accident a texture",
+		"• More updates to the MicroBar: Fix stuttering/lags",
+		"• The MicroBar also shows now the time datatext from ElvUI",
+		"• Updated my AutoButtons",
+		"• Updated the ChatBar",
+		"• Added a mover for the Buff Reminder",
 
 		-- "• ''",
 	" ",
@@ -26,8 +29,6 @@ local ChangeLogData = {
 		"• As always, if you want my latest layout, do the install procress again",
 		"• If you are getting any errors or something, make sure you are now using:",
 		"  '/muierrors on' and test again",
-		"• Known Issue: The MicroBar Home Button will maybe cause an error if you hover it",
-		"  nothing will be broken, but its annyoing i know. Haven't found a fix yet.",
 }
 
 local URL_PATTERNS = {

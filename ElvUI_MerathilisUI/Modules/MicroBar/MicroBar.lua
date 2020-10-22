@@ -1,21 +1,20 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_MicroBar')
 local DT = E:GetModule('DataTexts')
-local S = E:GetModule('Skins')
-local LSM = E.Libs.LSM
 
 -- Credits: fang2hou - ElvUI_Windtools (and me for the initial idea ^^)
 
 local _G = _G
-local collectgarbage = collectgarbage
 local date = date
 local floor = floor
 local format = format
+local gsub = gsub
 local ipairs = ipairs
 local max = max
 local mod = mod
 local pairs = pairs
 local select = select
+local strfind = strfind
 local tinsert = tinsert
 local tonumber = tonumber
 local tostring = tostring
@@ -68,7 +67,8 @@ local LeftButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1
 local RightButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:410|t"
 local ScrollButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t"
 
-local GarbageCollectionCounter = 0
+local friendOnline = gsub(_G.ERR_FRIEND_ONLINE_SS, "\124Hplayer:%%s\124h%[%%s%]\124h", "")
+local friendOffline = gsub(_G.ERR_FRIEND_OFFLINE_S, "%%s", "")
 
 local Heartstones = {
 	6948,
@@ -85,9 +85,9 @@ local Heartstones = {
 	166747,
 	168907,
 	172179,
-	180290,
-	182773,
-	184353
+	--180290,
+	--182773,
+	--184353,
 }
 
 local HeartstonesTable
@@ -99,6 +99,8 @@ local function AddDoubleLineForItem(itemID, prefix)
 	prefix = prefix and prefix .. " " or ""
 
 	local name = HeartstonesTable[tostring(itemID)]
+	if not name then return end
+
 	local texture = GetItemIcon(itemID)
 	local icon = format(IconString .. ":255:255:255|t", texture)
 	local startTime, duration = GetItemCooldown(itemID)
@@ -111,7 +113,7 @@ local function AddDoubleLineForItem(itemID, prefix)
 		cooldownTimeString = format("%02d:%02d", min, sec)
 	end
 
-	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name or "", canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
+	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name, canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
 end
 
 local VirtualDTEvent = {
@@ -138,15 +140,13 @@ local VirtualDT = {
 
 local ButtonTypes = {
 	ACHIEVEMENTS = {
-		name = L["Achievements"],
+		name = _G.ACHIEVEMENT_BUTTON,
 		icon = MER.Media.Icons.barAchievements,
-		click = {
-			LeftButton = function()
-				ToggleAchievementFrame(false)
-			end
+		macro = {
+			LeftButton = _G.SLASH_ACHIEVEMENTUI1
 		},
 		tooltips = {
-			L["Achievements"]
+			_G.ACHIEVEMENT_BUTTON
 		}
 	},
 	BAGS = {
@@ -158,7 +158,7 @@ local ButtonTypes = {
 		tooltips = "Bags"
 	},
 	BLIZZARD_SHOP = {
-		name = L["Blizzard Shop"],
+		name = _G.BLIZZARD_STORE,
 		icon = MER.Media.Icons.barBlizzardShop,
 		click = {
 			LeftButton = function()
@@ -166,43 +166,58 @@ local ButtonTypes = {
 			end
 		},
 		tooltips = {
-			L["Blizzard Shop"]
-		}
+			_G.BLIZZARD_STORE
+		},
 	},
 	CHARACTER = {
-		name = L["Character"],
+		name = _G.CHARACTER_BUTTON,
 		icon = MER.Media.Icons.barCharacter,
 		click = {
 			LeftButton = function()
-				ToggleCharacter("PaperDollFrame")
+				if not InCombatLockdown() then
+					ToggleCharacter("PaperDollFrame")
+				else
+					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+				end
 			end
 		},
 		tooltips = {
-			L["Character"]
-		}
+			_G.CHARACTER_BUTTON
+		},
+	},
+	COLLECTIONS = {
+		name = L["Collections"],
+		icon = MER.Media.Icons.barCollections,
+		macro = {
+			LeftButton = [[/click CollectionsJournalCloseButton
+/click CollectionsMicroButton
+/click CollectionsJournalTab1
+]]
+		},
+		tooltips = {
+			L["Collections"]
+		},
 	},
 	ENCOUNTER_JOURNAL = {
-		name = L["Encounter Journal"],
+		name = _G.ENCOUNTER_JOURNAL,
 		icon = MER.Media.Icons.barEncounterJournal,
-		click = {
-			LeftButton = function()
-				if not IsAddOnLoaded("Blizzard_EncounterJournal") then
-					EncounterJournal_LoadUI()
-				end
-
-				ToggleFrame(_G.EncounterJournal)
-			end
+		macro = {
+			LeftButton = "/click EJMicroButton"
 		},
 		tooltips = {
-			L["Encounter Journal"]
-		}
+			_G.ENCOUNTER_JOURNAL
+		},
 	},
 	FRIENDS = {
-		name = L["Friend List"],
+		name = _G.SOCIAL_BUTTON,
 		icon = MER.Media.Icons.barFriends,
 		click = {
 			LeftButton = function()
-				ToggleFriendsFrame(1)
+				if not InCombatLockdown() then
+					ToggleFriendsFrame(1)
+				else
+					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+				end
 			end
 		},
 		additionalText = function()
@@ -211,41 +226,51 @@ local ButtonTypes = {
 			local totalOnline = friendsOnline + bnOnline
 			return totalOnline
 		end,
-		tooltips = "Friends"
+		tooltips = "Friends",
+		events = {
+			"BN_FRIEND_ACCOUNT_ONLINE",
+			"BN_FRIEND_ACCOUNT_OFFLINE",
+			"BN_FRIEND_INFO_CHANGED",
+			"FRIENDLIST_UPDATE",
+			"CHAT_MSG_SYSTEM"
+		},
+		eventHandler = function(button, event, message)
+			if event == "CHAT_MSG_SYSTEM" then
+				if not (strfind(message, friendOnline) or strfind(message, friendOffline)) then
+					return
+				end
+			end
+			button.additionalText:SetFormattedText(button.additionalTextFormat, button.additionalTextFunc())
+		end
 	},
 	GROUP_FINDER = {
-		name = L["Group Finder"],
+		name = _G.LFG_TITLE,
 		icon = MER.Media.Icons.barGroupFinder,
-		click = {
-			LeftButton = ToggleLFDParentFrame
+		macro = {
+			LeftButton = "/click LFDMicroButton"
 		},
 		tooltips = {
-			L["Group Finder"]
-		}
+			_G.LFG_TITLE
+		},
 	},
 	GUILD = {
-		name = L["Guild"],
+		name = _G.ACHIEVEMENTS_GUILD_TAB,
 		icon = MER.Media.Icons.barGuild,
-		click = {
-			LeftButton = function()
-				if IsInGuild() then
-					ToggleGuildFrame()
-				else
-					ToggleGuildFinder()
-				end
-			end,
-			RightButton = function()
-				if not _G.GuildFrame then
-					GuildFrame_LoadUI()
-				end
-
-				ToggleFrame(_G.GuildFrame)
-			end
+		macro = {
+			LeftButton = "/click GuildMicroButton",
+			RightButton = "/script if not InCombatLockdown() then if not GuildFrame then GuildFrame_LoadUI() end ToggleFrame(GuildFrame) end"
 		},
 		additionalText = function()
 			return IsInGuild() and select(2, GetNumGuildMembers()) or ""
 		end,
-		tooltips = "Guild"
+		tooltips = "Guild",
+		events = {
+			"GUILD_ROSTER_UPDATE",
+			"PLAYER_GUILD_UPDATE"
+		},
+		eventHandler = function(button, event, message)
+			button.additionalText:SetFormattedText(button.additionalTextFormat, button.additionalTextFunc())
+		end
 	},
 	HOME = {
 		name = L["Home"],
@@ -275,7 +300,7 @@ local ButtonTypes = {
 		end
 	},
 	MISSION_REPORTS = {
-		name = L["Mission Reports"],
+		name = _G.GARRISON_TYPE_8_0_LANDING_PAGE_TITLE,
 		icon = MER.Media.Icons.barMissionReports,
 		click = {
 			LeftButton = function(button)
@@ -298,10 +323,11 @@ local ButtonTypes = {
 	PET_JOURNAL = {
 		name = L["Pet Journal"],
 		icon = MER.Media.Icons.barPetJournal,
-		click = {
-			LeftButton = function()
-				ToggleCollectionsJournal(2)
-			end
+		macro = {
+			LeftButton = [[/click CollectionsJournalCloseButton
+/click CollectionsMicroButton
+/click CollectionsJournalTab2
+]]
 		},
 		tooltips = {
 			L["Pet Journal"]
@@ -324,55 +350,52 @@ local ButtonTypes = {
 		}
 	},
 	SPELLBOOK = {
-		name = L["Spell Book"],
+		name = _G.SPELLBOOK_ABILITIES_BUTTON,
 		icon = MER.Media.Icons.barSpellBook,
-		click = {
-			LeftButton = function()
-				if not SpellBookFrame:IsShown() then
-					ShowUIPanel(SpellBookFrame)
-				else
-					HideUIPanel(SpellBookFrame)
-				end
-			end
+		macro = {
+			LeftButton = "/click SpellbookMicroButton"
 		},
 		tooltips = {
-			L["Spell Book"]
-		}
+			_G.SPELLBOOK_ABILITIES_BUTTON
+		},
 	},
 	TALENTS = {
-		name = L["Talents"],
+		name = _G.TALENTS_BUTTON,
 		icon = MER.Media.Icons.barTalents,
-		click = {
-			LeftButton = function()
-				if not _G.PlayerTalentFrame then
-					TalentFrame_LoadUI()
-				end
-
-				local PlayerTalentFrame = _G.PlayerTalentFrame
-				if not PlayerTalentFrame:IsShown() then
-					ShowUIPanel(PlayerTalentFrame)
-				else
-					HideUIPanel(PlayerTalentFrame)
-				end
-			end
+		macro = {
+			LeftButton = "/click TalentMicroButton"
 		},
 		tooltips = {
-			L["Talents"]
-		}
+			_G.TALENTS_BUTTON
+		},
 	},
 	TOY_BOX = {
 		name = L["Toy Box"],
 		icon = MER.Media.Icons.barToyBox,
-		click = {
-			LeftButton = function()
-				ToggleCollectionsJournal(3)
-			end
+		macro = {
+			LeftButton = [[/click CollectionsJournalCloseButton
+/click CollectionsMicroButton
+/click CollectionsJournalTab3
+]]
 		},
 		tooltips = {
 			L["Toy Box"]
-		}
-	}
+		},
+	},
 }
+
+function module:ShowAdvancedTimeTooltip(panel)
+	DT.RegisteredDataTexts["Time"].onEnter()
+	DT.RegisteredDataTexts["Time"].onLeave()
+	-- DT.tooltip:ClearLines()
+	-- DT.tooltip:SetText(L["Time"])
+	-- DT.tooltip:AddLine("\n", 1, 1, 1)
+	-- DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Calendar"], 1, 1, 1)
+	-- DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Time Manager"], 1, 1, 1)
+	-- DT.tooltip:AddLine("\n")
+	-- DT.tooltip:AddLine(L["(Modifer Click) Collect Garbage"], unpack(E.media.rgbvaluecolor))
+	-- DT.tooltip:Show()
+end
 
 function module:ConstructBar()
 	if self.bar then return end
@@ -418,7 +441,7 @@ function module:ConstructBar()
 
 	self.bar = bar
 
-	E:CreateMover(self.bar, "MicroBarAnchor", L["MicroBar"], nil, nil, nil, "ALL,MERATHILISUI", function() return module.db and module.db.enable end)
+	E:CreateMover(self.bar, 'MicroBarAnchor', L['MicroBar'], nil, nil, nil, 'ALL,MERATHILISUI', function() return module.db and module.db.enable end, 'mui,modules,microBar,general')
 end
 
 function module:UpdateBar()
@@ -433,34 +456,34 @@ end
 
 function module:ConstructTimeArea()
 	local colon = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	colon:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(colon, self.db.time.font)
 	colon:Point("CENTER")
 	self.bar.middlePanel.colon = colon
 
 	local hour = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	hour:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(hour, self.db.time.font)
 	hour:Point("RIGHT", colon, "LEFT", 1, 0)
 	self.bar.middlePanel.hour = hour
 
 	local hourHover = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	hourHover:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(hourHover, self.db.time.font)
 	hourHover:Point("RIGHT", colon, "LEFT", 1, 0)
 	hourHover:SetAlpha(0)
 	self.bar.middlePanel.hourHover = hourHover
 
 	local minutes = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	minutes:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(minutes, self.db.time.font)
 	minutes:Point("LEFT", colon, "RIGHT", 0, 0)
 	self.bar.middlePanel.minutes = minutes
 
 	local minutesHover = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	minutesHover:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(minutesHover, self.db.time.font)
 	minutesHover:Point("LEFT", colon, "RIGHT", 0, 0)
 	minutesHover:SetAlpha(0)
 	self.bar.middlePanel.minutesHover = minutesHover
 
 	local text = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	text:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
+	MER:SetFontDB(text, self.db.additionalText.font)
 	text:Point("TOP", self.bar, "BOTTOM", 0, -5)
 	text:SetAlpha(0)
 	self.bar.middlePanel.text = text
@@ -484,12 +507,10 @@ function module:ConstructTimeArea()
 		E:UIFrameFadeIn(panel.minutesHover, self.db.fadeTime, panel.minutesHover:GetAlpha(), 1)
 		E:UIFrameFadeIn(panel.text, self.db.fadeTime, panel.text:GetAlpha(), 1)
 
-		if self.db.tooltipPosition == "BOTTOM" then
-			DT.tooltip:SetOwner(panel.text, "ANCHOR_BOTTOM", 0, -5)
-		elseif self.db.tooltipPosition == "TOP" then
-			DT.tooltip:SetOwner(panel.text, "ANCHOR_TOP", 0, 40)
-		else
-			DT.tooltip:SetOwner(panel.text, "ANCHOR_BOTTOM", 0, -5)
+		if self.db.tooltipPosition == 'ANCHOR_BOTTOM' then
+			DT.tooltip:SetOwner(panel.text, 'ANCHOR_BOTTOM', 0, -5)
+		elseif self.db.tooltipPosition == 'ANCHOR_TOP' then
+			DT.tooltip:SetOwner(panel.text, 'ANCHOR_TOP', 0, 50)
 		end
 
 		if IsModifierKeyDown() then
@@ -501,14 +522,7 @@ function module:ConstructTimeArea()
 				DT.RegisteredDataTexts["System"].onEnter()
 			end)
 		else
-			DT.tooltip:ClearLines()
-			DT.tooltip:SetText(L["Time"])
-			DT.tooltip:AddLine("\n", 1, 1, 1)
-			DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Calendar"], 1, 1, 1)
-			DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Time Manager"], 1, 1, 1)
-			DT.tooltip:AddLine("\n")
-			DT.tooltip:AddLine(L["(Modifer Click) Collect Garbage"], unpack(E.media.rgbvaluecolor))
-			DT.tooltip:Show()
+			self:ShowAdvancedTimeTooltip(panel)
 			self.tooltipTimer = C_Timer_NewTicker(1, function()
 				DT.RegisteredDataTexts["System"].onUpdate(panel, 10)
 			end)
@@ -530,8 +544,6 @@ function module:ConstructTimeArea()
 
 	self.bar.middlePanel:SetScript("OnClick", function(_, mouseButton)
 		if IsModifierKeyDown() then
-			collectgarbage("collect")
-			ResetCPUUsage()
 			DT.RegisteredDataTexts["System"].eventFunc()
 			DT.RegisteredDataTexts["System"].onEnter()
 		elseif mouseButton == "LeftButton" then
@@ -617,12 +629,12 @@ end
 function module:UpdateTimeArea()
 	local panel = self.bar.middlePanel
 
-	panel.hour:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
-	panel.hourHover:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
-	panel.minutes:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
-	panel.minutesHover:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
-	panel.colon:FontTemplate(LSM:Fetch("font", self.db.time.font.name), self.db.time.font.size, self.db.time.font.style)
-	panel.text:FontTemplate(LSM:Fetch("font", self.db.additionalText.font.name), self.db.additionalText.font.size, self.db.additionalText.font.style)
+	MER:SetFontDB(panel.hour, self.db.time.font)
+	MER:SetFontDB(panel.hourHover, self.db.time.font)
+	MER:SetFontDB(panel.minutes, self.db.time.font)
+	MER:SetFontDB(panel.minutesHover, self.db.time.font)
+	MER:SetFontDB(panel.colon, self.db.time.font)
+	MER:SetFontDB(panel.text, self.db.additionalText.font)
 
 	if self.db.time.flash then
 		E:Flash(panel.colon, 1, true)
@@ -639,12 +651,10 @@ function module:ButtonOnEnter(button)
 	end
 	E:UIFrameFadeIn(button.hoverTex, self.db.fadeTime, button.hoverTex:GetAlpha(), 1)
 	if button.tooltips then
-		if self.db.tooltipPosition == "BOTTOM" then
-			DT.tooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -10)
-		elseif self.db.tooltipPosition == "TOP" then
-			DT.tooltip:SetOwner(button, "ANCHOR_TOP", 0, 10)
-		else
-			DT.tooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -10)
+		if self.db.tooltipPosition == 'ANCHOR_BOTTOM' then
+			DT.tooltip:SetOwner(button, 'ANCHOR_BOTTOM', 0, -10)
+		elseif self.db.tooltipPosition == 'ANCHOR_TOP' then
+			DT.tooltip:SetOwner(button, 'ANCHOR_TOP', 0, 5)
 		end
 
 		if type(button.tooltips) == "table" then
@@ -709,7 +719,7 @@ function module:ConstructButton()
 	button.hoverTex = hoverTex
 
 	local additionalText = button:CreateFontString(nil, "OVERLAY")
-	additionalText:FontTemplate(LSM:Fetch("font", self.db.additionalText.font.name), self.db.additionalText.font.size, self.db.additionalText.font.style)
+	MER:SetFontDB(additionalText, self.db.additionalText.font)
 	additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
 	additionalText:SetJustifyH("CENTER")
 	additionalText:SetJustifyV("CENTER")
@@ -729,7 +739,11 @@ function module:UpdateButton(button, config)
 	button.tooltips = config.tooltips
 	button.tooltipsLeave = config.tooltipsLeave
 
-	if config.click then
+	if config.macro then
+		button:SetAttribute("type*", "macro")
+		button:SetAttribute("macrotext1", config.macro.LeftButton or "")
+		button:SetAttribute("macrotext2", config.macro.RightButton or config.macro.LeftButton or "")
+	elseif config.click then
 		function button:Click(mouseButton)
 			local func = mouseButton and config.click[mouseButton] or config.click.LeftButton
 			func(module.bar.middlePanel)
@@ -778,6 +792,16 @@ function module:UpdateButton(button, config)
 	button.hoverTex:Size(self.db.buttonSize)
 	button.hoverTex:SetVertexColor(r, g, b)
 
+	if button.registeredEvents then
+		for _, event in pairs(button.registeredEvents) do
+			button:UnregisterEvent(event)
+		end
+	end
+
+	button:SetScript("OnEvent", nil)
+	button.registeredEvents = nil
+	button.additionalTextFunc = nil
+
 	if button.additionalTextTimer and not button.additionalTextTimer:IsCancelled() then
 		button.additionalTextTimer:Cancel()
 	end
@@ -787,17 +811,23 @@ function module:UpdateButton(button, config)
 	if config.additionalText and self.db.additionalText.enable then
 		button.additionalText:SetFormattedText(button.additionalTextFormat, config.additionalText and config.additionalText() or "")
 
-		button.additionalTextTimer = C_Timer_NewTicker(self.db.additionalText.slowMode and 10 or 1, function()
-			button.additionalText:SetFormattedText(button.additionalTextFormat, config.additionalText and config.additionalText() or "")
-			GarbageCollectionCounter = GarbageCollectionCounter + 1
-			if GarbageCollectionCounter > 30 then
-				collectgarbage("collect")
-				GarbageCollectionCounter = 0
+		if config.events and config.eventHandler then
+			button:SetScript("OnEvent", config.eventHandler)
+			button.additionalTextFunc = config.additionalText
+			button.registeredEvents = {}
+			for _, event in pairs(config.events) do
+				button:RegisterEvent(event)
+				tinsert(button.registeredEvents, event)
 			end
-		end)
+		else
+			button.additionalTextTimer = C_Timer_NewTicker(self.db.additionalText.slowMode and 10 or 1, function()
+				button.additionalText:SetFormattedText(button.additionalTextFormat, config.additionalText and config.additionalText() or "")
+			end)
+		end
+
 		button.additionalText:ClearAllPoints()
 		button.additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
-		button.additionalText:FontTemplate(LSM:Fetch("font", self.db.additionalText.font.name), self.db.additionalText.font.size, self.db.additionalText.font.style)
+		MER:SetFontDB(button.additionalText, self.db.additionalText.font)
 		button.additionalText:Show()
 	else
 		button.additionalText:Hide()
@@ -1009,11 +1039,11 @@ function module:ProfileUpdate()
 				return
 			else
 				self:Initialize()
-				UnregisterStateDriver(self.bar, "visibility")
 			end
 		end
 	else
 		if self.Initialized then
+			UnregisterStateDriver(self.bar, "visibility")
 			self.bar:Hide()
 		end
 	end
