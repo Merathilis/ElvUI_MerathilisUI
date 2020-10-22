@@ -16,7 +16,8 @@ local GetAddOnEnableState = GetAddOnEnableState
 MER["styling"] = {}
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
-BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
+
+_G.BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
 
 -- Masque support
 MER.MSQ = _G.LibStub('Masque', true)
@@ -83,6 +84,11 @@ function MER:DBCleanup()
 	end
 	if E.global["datatexts"]["customPanels"]["MER_BottomPanel"] then
 		E.global["datatexts"]["customPanels"]["MER_BottomPanel"] = nil
+	end
+
+	local db = E.db.mui.chat.chatBar
+	if type(db) ~= 'table' then
+		E.db.mui.chat.chatBar = {}
 	end
 end
 

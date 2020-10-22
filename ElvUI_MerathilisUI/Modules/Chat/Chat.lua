@@ -219,7 +219,6 @@ function module:Initialize()
 
 	self:EasyChannel()
 	self:StyleChat()
-	self:ChatBar()
 	self:ChatFilter()
 	self:DamageMeterFilter()
 	self:LoadChatFade()

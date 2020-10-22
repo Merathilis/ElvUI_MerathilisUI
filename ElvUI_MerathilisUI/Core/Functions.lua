@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local LSM = E.LSM
 
 -- Cache global variables
 -- Lua functions
@@ -101,6 +102,28 @@ function MER:CreateClassColorString(text, englishClass)
 	local hex = r and g and b and E:RGBToHex(r, g, b) or "|cffffffff"
 
 	return hex .. text .. "|r"
+end
+
+function MER:SetFontDB(text, db)
+	if not text or not text.GetFont then
+		return
+	end
+	if not db or type(db) ~= "table" then
+		return
+	end
+
+	text:FontTemplate(LSM:Fetch("font", db.name), db.size, db.style)
+end
+
+function MER:SetFontColorDB(text, db)
+	if not text or not text.GetFont then
+		return
+	end
+	if not db or type(db) ~= "table" then
+		return
+	end
+
+	text:SetTextColor(db.r, db.g, db.b, db.a)
 end
 
 function MER:SetupProfileCallbacks()
