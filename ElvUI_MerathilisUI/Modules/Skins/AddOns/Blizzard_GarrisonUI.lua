@@ -655,6 +655,53 @@ local function LoadSkin()
 			Button.isSkinned = true
 		end
 	end
+
+	-- WarPlan
+	if IsAddOnLoaded("WarPlan") then
+		local function reskinWarPlanFont(font, r, g, b)
+			if not font then return end
+			font:FontTemplate(nil, 12, 'OUTLINE') -- Must be outline!
+			font:SetTextColor(r, g, b)
+		end
+
+		C_Timer.After(.1, function()
+			local WarPlanFrame = _G.WarPlanFrame
+			if not WarPlanFrame then return end
+
+			WarPlanFrame:StripTextures()
+			WarPlanFrame:CreateBackdrop('Transparent')
+			WarPlanFrame.ArtFrame:StripTextures()
+			S:HandleCloseButton(WarPlanFrame.ArtFrame.CloseButton)
+			reskinWarPlanFont(WarPlanFrame.ArtFrame.TitleText, 1, .8, 0)
+
+			S:HandleButton(WarPlanFrame.TaskBoard.AllPurposeButton)
+			local missions = WarPlanFrame.TaskBoard.Missions
+			for i = 1, #missions do
+				local button = missions[i]
+				reskinWarPlanFont(button.XPReward, 1, 1, 1)
+				reskinWarPlanFont(button.Description, .8, .8, .8)
+				reskinWarPlanFont(button.CDTDisplay, 1, 1, 1)
+
+				local groups = button.Groups
+				if groups then
+					for j = 1, #groups do
+						local group = groups[j]
+						S:HandleButton(group)
+						reskinWarPlanFont(group.Features, 1, .8, 0)
+					end
+				end
+			end
+
+			local entries = WarPlanFrame.HistoryFrame.Entries
+			for i = 1, #entries do
+				local entry = entries[i]
+				entry:DisableDrawLayer("BACKGROUND")
+				S:HandleIcon(entry.Icon)
+				entry.Name:SetFontObject("Number12Font")
+				entry.Detail:SetFontObject("Number12Font")
+			end
+		end)
+	end
 end
 
 S:AddCallbackForAddon("Blizzard_GarrisonUI", "mUIGarrison", LoadSkin)
