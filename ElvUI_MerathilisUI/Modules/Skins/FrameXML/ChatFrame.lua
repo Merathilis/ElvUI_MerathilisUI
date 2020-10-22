@@ -18,7 +18,7 @@ local function LoadSkin()
 	-- Revert my Styling function on these buttons
 	if E.db.chat.pinVoiceButtons and not E.db.chat.hideVoiceButtons then
 		if _G.ChatFrameChannelButton then
-			_G.ChatFrameChannelButton:StripTextures()
+			_G.ChatFrameChannelButton.backdrop:SetAlpha(0)
 		end
 
 		if _G.ChatFrameToggleVoiceDeafenButton then
