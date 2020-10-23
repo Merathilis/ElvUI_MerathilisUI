@@ -209,11 +209,10 @@ function MERS:OnLeave()
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex)
+function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, noGradient)
 	assert(button, "doesn't exist!")
 
 	if strip then button:StripTextures() end
-	MERS:CreateGradient(button)
 
 	if button.Icon then
 		local Texture = button.Icon:GetTexture()
@@ -232,8 +231,18 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 			button.backdrop:SetAllPoints()
 		end
 
-		button:HookScript("OnEnter", MERS.OnEnter) -- Must check this; Shadowlands
+		button:HookScript("OnEnter", MERS.OnEnter)
 		button:HookScript("OnLeave", MERS.OnLeave)
+	end
+
+	if not noGradient then
+		if button.backdrop then
+			MERS:CreateGradient(button.backdrop)
+		elseif button.setTemplate then
+			MERS:CreateGradient(button)
+		else
+			return
+		end
 	end
 end
 
