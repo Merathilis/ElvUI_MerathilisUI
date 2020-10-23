@@ -73,6 +73,7 @@ local friendOffline = gsub(_G.ERR_FRIEND_OFFLINE_S, "%%s", "")
 local Heartstones = {
 	6948,
 	64488,
+	93672,
 	110560,
 	140192,
 	141605,
