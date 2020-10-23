@@ -159,6 +159,15 @@ do
 	end
 end
 
+-- ClassColored Sliders
+function MERS:ReskinSliderFrame(frame)
+	local thumb = frame:GetThumbTexture()
+	if thumb then
+		local r, g, b = unpack(E.media.rgbvaluecolor)
+		thumb:SetVertexColor(r, g, b)
+	end
+end
+
 -- Overwrite ElvUI Tabs function to be transparent
 function MERS:ReskinTab(tab)
 	if not tab then return end
@@ -512,6 +521,7 @@ end
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
+hooksecurefunc(S, "HandleSliderFrame", MERS.ReskinSliderFrame)
 -- New Widget Types
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
 
