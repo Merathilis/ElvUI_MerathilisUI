@@ -226,10 +226,6 @@ L["Display in English"] = "Nur Englisch verwenden"
 L["Show icon"] = "Icon anzeigen"
 L["Show the spell icon along with the name."] = "Verderbnis-Effekt-Icon samt Namen anzeigen."
 
--- MailInputBox
-L["Mail Inputbox Resize"] = "Post Eingabefeld"
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
-
 -- Notification
 L["Notification"] = "Benachrichtigungen"
 L["Display a Toast Frame for different notifications."] = "Zeigt ein Fenster mit verschiedenen Benachrichtigungen."

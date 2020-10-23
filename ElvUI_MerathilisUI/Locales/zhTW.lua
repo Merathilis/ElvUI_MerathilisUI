@@ -226,10 +226,6 @@ L["Display in English"] = "顯示為英文"
 L["Show icon"] = "顯示圖示"
 L["Show the spell icon along with the name."] = "顯示法術圖示以及名稱。"
 
--- MailInputBox
-L["Mail Inputbox Resize"] = true
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = true
-
 -- Notification
 L["Notification"] = true
 L["Display a Toast Frame for different notifications."] = true

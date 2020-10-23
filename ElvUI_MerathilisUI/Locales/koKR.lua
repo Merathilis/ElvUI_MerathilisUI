@@ -223,10 +223,6 @@ L["Display in English"] = "Display in English"
 L["Show icon"] = "Show icon"
 L["Show the spell icon along with the name."] = "Show the spell icon along with the name."
 
--- MailInputBox
-L["Mail Inputbox Resize"] = true
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = true
-
 -- Notification
 L["Notification"] = true
 L["Display a Toast Frame for different notifications."] = true

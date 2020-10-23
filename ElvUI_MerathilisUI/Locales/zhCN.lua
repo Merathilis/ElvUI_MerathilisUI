@@ -227,10 +227,6 @@ L["Display in English"] = "显示英语腐化特效名称"
 L["Show icon"] = "显示图标"
 L["Show the spell icon along with the name."] = "在腐化特效名称前显示其图标。"
 
--- MailInputBox
-L["Mail Inputbox Resize"] = "收件箱大小调整"
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = "调整邮件收件箱大小，并把费用移动到底部"
-
 -- Notification
 L["Notification"] = "通知"
 L["Display a Toast Frame for different notifications."] = "为不同的通知显示一个提示框."

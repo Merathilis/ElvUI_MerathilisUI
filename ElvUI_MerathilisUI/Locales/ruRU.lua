@@ -225,10 +225,6 @@ L["Display in English"] = "Отображать английские назва�
 L["Show icon"] = "Показать значок"
 L["Show the spell icon along with the name."] = "Показать значок заклинания вместе с названием."
 
--- MailInputBox
-L["Mail Inputbox Resize"] = true
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = true
-
 -- Notification
 L["Notification"] = true
 L["Display a Toast Frame for different notifications."] = true

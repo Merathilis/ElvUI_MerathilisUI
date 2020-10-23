@@ -235,7 +235,6 @@ MP.colors = {
 }
 
 MP.misc = {
-	MailInputbox = true,
 	gmotd = true,
 	quest = {
 		selectQuestReward =	true,
