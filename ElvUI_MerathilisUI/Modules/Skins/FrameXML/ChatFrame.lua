@@ -15,24 +15,9 @@ local function LoadSkin()
 	MERS:CreateBD(_G.VoiceChatChannelActivatedNotification)
 	_G.VoiceChatChannelActivatedNotification:Styling()
 
-	-- Revert my Styling function on these buttons
-	if E.db.chat.pinVoiceButtons and not E.db.chat.hideVoiceButtons then
-		if _G.ChatFrameChannelButton then
-			_G.ChatFrameChannelButton:StripTextures()
-		end
-
-		if _G.ChatFrameToggleVoiceDeafenButton then
-			_G.ChatFrameToggleVoiceDeafenButton:StripTextures()
-		end
-
-		if _G.ChatFrameToggleVoiceMuteButton then
-			_G.ChatFrameToggleVoiceMuteButton:StripTextures()
-		end
-	else
-		--ElvUI ChatButtonHolder
-		if _G.ChatButtonHolder then
-			_G.ChatButtonHolder:Styling()
-		end
+	--ElvUI ChatButtonHolder
+	if _G.ChatButtonHolder then
+		_G.ChatButtonHolder:Styling()
 	end
 
 	do

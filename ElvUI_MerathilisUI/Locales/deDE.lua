@@ -127,9 +127,19 @@ L["Left Click to Request Stop"] = "Links Klick für Haltewunsch"
 L["Flight Point"] = "Flugpunkt"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert/Deaktiviert die MerathilisUI Flugpunkte an der Flugkarte."
 
--- MasterPlan
-L["MasterPlan"] = true
-L["Skins the additional Tabs from MasterPlan."] = true
+-- Mail
+L["Mail"] = "Post"
+L["Alternate Character"] = "Alternative Charakter"
+L["Alt List"] = true
+L["Delete"] = "Löschen"
+L["Favorites"] = "Favoriten"
+L["Favorite List"] = "Favoriten Liste"
+L["Name"] = "Name"
+L["Realm"] = "Server"
+L["Add"] = "Hinzufügen"
+L["Please set the name and realm first."] = "Bitte für zuerst den Namen und den Server hinzu."
+L["Toggle Contacts"] = "Kontakte einblenden"
+L["Online Friends"] = "Freunde Online"
 
 -- MicroBar
 L["Backdrop"] = "Hintergrund"
@@ -225,10 +235,6 @@ L["Use the new style tooltip."] = "Neuen Tooltip-Stil verwenden."
 L["Display in English"] = "Nur Englisch verwenden"
 L["Show icon"] = "Icon anzeigen"
 L["Show the spell icon along with the name."] = "Verderbnis-Effekt-Icon samt Namen anzeigen."
-
--- MailInputBox
-L["Mail Inputbox Resize"] = "Post Eingabefeld"
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
 
 -- Notification
 L["Notification"] = "Benachrichtigungen"

@@ -125,7 +125,6 @@ function module:Initialize()
 
 	self:LoadMisc()
 	self:LoadGMOTD()
-	self:LoadMailInputBox()
 	self:LoadQuest()
 	self:LoadnameHover()
 	self:ItemLevel()

@@ -670,6 +670,7 @@ local function LoadSkin()
 
 			WarPlanFrame:StripTextures()
 			WarPlanFrame:CreateBackdrop('Transparent')
+			WarPlanFrame.backdrop:Styling()
 			WarPlanFrame.ArtFrame:StripTextures()
 			S:HandleCloseButton(WarPlanFrame.ArtFrame.CloseButton)
 			reskinWarPlanFont(WarPlanFrame.ArtFrame.TitleText, 1, .8, 0)

@@ -125,9 +125,19 @@ L["Left Click to Request Stop"] = true
 L["Flight Point"] = true
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 
--- MasterPlan
-L["MasterPlan"] = true
-L["Skins the additional Tabs from MasterPlan."] = true
+-- Mail
+L["Mail"] = true
+L["Alternate Character"] = true
+L["Alt List"] = true
+L["Delete"] = true
+L["Favorites"] = true
+L["Favorite List"] = true
+L["Name"] = true
+L["Realm"] = true
+L["Add"] = true
+L["Please set the name and realm first."] = true
+L["Toggle Contacts"] = true
+L["Online Friends"] = true
 
 -- MicroBar
 L["Backdrop"] = true
@@ -223,10 +233,6 @@ L["Use the new style tooltip."] = "Use the new style tooltip."
 L["Display in English"] = "Display in English"
 L["Show icon"] = "Show icon"
 L["Show the spell icon along with the name."] = "Show the spell icon along with the name."
-
--- MailInputBox
-L["Mail Inputbox Resize"] = true
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = true
 
 -- Notification
 L["Notification"] = true
