@@ -638,7 +638,7 @@ function module:UpdateBinding()
 		for j = 1, 12 do
 			local button = self.bars[i].buttons[j]
 			if button then
-				local bindingName = format("CLICK WTExtraItemsBar%dButton%d:LeftButton", i, j)
+				local bindingName = format("CLICK AutoButtonBar%dButton%d:LeftButton", i, j)
 				local bindingText = GetBindingKey(bindingName) or ""
 				bindingText = gsub(bindingText, "ALT--", "A")
 				bindingText = gsub(bindingText, "CTRL--", "C")
