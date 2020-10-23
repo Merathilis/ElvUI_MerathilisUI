@@ -234,6 +234,10 @@ MP.colors = {
 	styleAlpha = 1,
 }
 
+MP.mail = {
+	enable = true,
+}
+
 MP.misc = {
 	gmotd = true,
 	quest = {

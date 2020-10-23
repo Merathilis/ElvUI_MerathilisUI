@@ -16,6 +16,7 @@ local GameTooltip_Hide = GameTooltip_Hide
 local GetAchievementInfo = GetAchievementInfo
 local GetAddOnMetadata = GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
+local GetClassColor = GetClassColor
 local GetItemInfo = GetItemInfo
 local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID
@@ -124,6 +125,26 @@ function MER:SetFontColorDB(text, db)
 	end
 
 	text:SetTextColor(db.r, db.g, db.b, db.a)
+end
+
+function MER:SetFontOutline(text, font, size)
+	if not text or not text.GetFont then
+		return
+	end
+
+	local fontName, fontHeight = text:GetFont()
+
+	if size and type(size) == "string" then
+		size = fontHeight + tonumber(size)
+	end
+
+	if font and not strfind(font, "\.ttf") then
+		font = LSM:Fetch('font', font)
+	end
+
+	text:FontTemplate(font or fontName, size or fontHeight, "OUTLINE")
+	text:SetShadowColor(0, 0, 0, 0)
+	text.SetShadowColor = E.noop
 end
 
 function MER:SetupProfileCallbacks()
@@ -614,6 +635,35 @@ function MER:ReskinRole(self, role)
 		icon.texture:SetSize(14, 14)
 		icon.border:SetTexture("")
 	end
+end
+
+function MER:SplitString(delimiter, subject)
+	if not subject or subject == "" then
+		return {}
+	end
+
+	local length = strlen(delimiter)
+	local results = {}
+
+	local i = 0
+	local j = 0
+
+	while true do
+		j = strfind(subject, delimiter, i + length)
+		if strlen(subject) == i then
+			break
+		end
+
+		if j == nil then
+			tinsert(results, strsub(subject, i))
+			break
+		end
+
+		tinsert(results, strsub(subject, i, j - 1))
+		i = j + length
+	end
+
+	return unpack(results)
 end
 
 function MER:CreateGradientFrame(frame, w, h, o, r, g, b, a1, a2)
