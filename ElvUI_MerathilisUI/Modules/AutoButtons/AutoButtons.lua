@@ -34,7 +34,7 @@ local IsUsableItem = IsUsableItem
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 
 local potions = {
-	5512,
+	5512, -- Healthstone
 	176443,
 	118915,
 	118911,
@@ -660,7 +660,7 @@ function module:Initialize()
 	UpdateQuestItemList()
 	UpdateEquipmentList()
 	self:UpdateBars()
-	--self:UpdateBinding()
+	self:UpdateBinding()
 
 	self:RegisterEvent("UNIT_INVENTORY_CHANGED", "UpdateEquipment")
 	self:RegisterEvent("BAG_UPDATE_DELAYED", "UpdateBars")
@@ -670,7 +670,7 @@ function module:Initialize()
 	self:RegisterEvent("QUEST_LOG_UPDATE", "UpdateQuestItem")
 	self:RegisterEvent("QUEST_ACCEPTED", "UpdateQuestItem")
 	self:RegisterEvent("QUEST_TURNED_IN", "UpdateQuestItem")
-	--self:RegisterEvent("UPDATE_BINDINGS", "UpdateBinding")
+	self:RegisterEvent("UPDATE_BINDINGS", "UpdateBinding")
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.autoButtons
@@ -678,7 +678,7 @@ function module:Initialize()
 		UpdateQuestItemList()
 		UpdateEquipmentList()
 		self:UpdateBars()
-		--self:UpdateBinding()
+		self:UpdateBinding()
 	end
 
 	self:ForUpdateAll()
@@ -699,7 +699,7 @@ function module:ProfileUpdate()
 		self:UnregisterEvent("QUEST_LOG_UPDATE")
 		self:UnregisterEvent("QUEST_ACCEPTED")
 		self:UnregisterEvent("QUEST_TURNED_IN")
-		--self:UnregisterEvent("UPDATE_BINDINGS")
+		self:UnregisterEvent("UPDATE_BINDINGS")
 	end
 
 	self:UpdateBars()

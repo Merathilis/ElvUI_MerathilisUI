@@ -1,11 +1,40 @@
 <Bindings>
-	<Binding name="CLICK mUI_ClearRaidFlares:LeftButton" description="Clear Flares" header="MERATHILISUI_RAIDFLARE" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare1:LeftButton" description="Blue Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare2:LeftButton" description="Green Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare3:LeftButton" description="Purple Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare4:LeftButton" description="Red Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare5:LeftButton" description="Yellow Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare6:LeftButton" description="Orange Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare7:LeftButton" description="White Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare8:LeftButton" description="Skull Flare" category="BINDING_HEADER_MER"/>
+  <Binding name="CLICK WTExtraItemsBar1Button1:LeftButton" runOnUp="false" header="WTEXTRAITEMSBAR1" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar1Button2:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar1Button3:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar1Button4:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar1Button5:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar1Button6:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar1Button7:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar1Button8:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar1Button9:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar1Button10:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar1Button11:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar1Button12:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+
+  <Binding name="CLICK WTExtraItemsBar2Button1:LeftButton" runOnUp="false" header="WTEXTRAITEMSBAR2" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar2Button2:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar2Button3:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar2Button4:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar2Button5:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar2Button6:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar2Button7:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar2Button8:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar2Button9:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar2Button10:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar2Button11:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar2Button12:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+
+  <Binding name="CLICK WTExtraItemsBar3Button1:LeftButton" runOnUp="false" header="WTEXTRAITEMSBAR3" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar3Button2:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar3Button3:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar3Button4:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar3Button5:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar3Button6:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar3Button7:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar3Button8:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar3Button9:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar3Button10:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar3Button11:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
+  <Binding name="CLICK WTExtraItemsBar3Button12:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_WINDTOOLS"/>
 </Bindings>
