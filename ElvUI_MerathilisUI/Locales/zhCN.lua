@@ -123,9 +123,19 @@ L["Left Click to Request Stop"] = "左键点击来请求停止"
 L["Flight Point"] = "飞行点"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "在飞行地图上启用/禁用MerathilisUI飞行点."
 
--- MasterPlan
-L["MasterPlan"] = true
-L["Skins the additional Tabs from MasterPlan."] = true
+-- Mail
+L["Mail"] = true
+L["Alternate Character"] = true
+L["Alt List"] = true
+L["Delete"] = true
+L["Favorites"] = true
+L["Favorite List"] = true
+L["Name"] = true
+L["Realm"] = true
+L["Add"] = true
+L["Please set the name and realm first."] = true
+L["Toggle Contacts"] = true
+L["Online Friends"] = true
 
 -- MicroBar
 L["Backdrop"] = "背景"
