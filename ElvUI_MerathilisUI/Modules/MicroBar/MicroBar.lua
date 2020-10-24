@@ -348,11 +348,31 @@ local ButtonTypes = {
 			LeftButton = [[/click CollectionsJournalCloseButton
 /click CollectionsMicroButton
 /click CollectionsJournalTab2
-]]
+]],
+			RightButton = "/click PetJournalSummonRandomFavoritePetButton"
 		},
-		tooltips = {
-			L["Pet Journal"]
-		}
+		tooltips = function(button)
+			DT.tooltip:ClearLines()
+			DT.tooltip:SetText(L["Pet Journal"])
+			DT.tooltip:AddLine("\n")
+			DT.tooltip:AddDoubleLine(LeftButtonIcon..L["Show Pet Journal"], '', 1, 1, 1)
+			DT.tooltip:AddDoubleLine(RightButtonIcon.._G.PET_JOURNAL_SUMMON_RANDOM_FAVORITE_PET, '', 1, 1, 1)
+			DT.tooltip:Show()
+
+			button.tooltipsUpdateTimer = C_Timer_NewTicker(1, function()
+				DT.tooltip:ClearLines()
+				DT.tooltip:SetText(L["Pet Journal"])
+				DT.tooltip:AddLine("\n")
+				DT.tooltip:AddDoubleLine(LeftButtonIcon..L["Show Pet Journal"], '', 1, 1, 1)
+				DT.tooltip:AddDoubleLine(RightButtonIcon.._G.PET_JOURNAL_SUMMON_RANDOM_FAVORITE_PET, '', 1, 1, 1)
+				DT.tooltip:Show()
+			end)
+		end,
+		tooltipsLeave = function(button)
+			if button.tooltipsUpdateTimer and button.tooltipsUpdateTimer.Cancel then
+				button.tooltipsUpdateTimer:Cancel()
+			end
+		end,
 	},
 	SCREENSHOT = {
 		name = L["Screenshot"],
