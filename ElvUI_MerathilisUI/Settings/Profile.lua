@@ -603,12 +603,6 @@ MP.media = {
 			size = 12,
 			outline = "NONE",
 		},
-		editbox = {
-			enable = true,
-			font = "Expressway",
-			size = 12,
-			outline = "NONE",
-		},
 		gossip = {
 			enable = true,
 			font = "Expressway",

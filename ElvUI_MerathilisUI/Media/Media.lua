@@ -57,6 +57,7 @@ local Colors = {
 }
 
 local function ZoneTextPos()
+	_G["SubZoneTextString"]:ClearAllPoints()
 	if (_G["PVPInfoTextString"]:GetText() == "") then
 		_G["SubZoneTextString"]:Point("TOP", "ZoneTextString", "BOTTOM", 0, 0)
 	else
@@ -95,10 +96,6 @@ function module:SetBlizzFonts()
 		if module.db.miscText.questFontSuperHuge.enable then
 			_G["QuestFont_Super_Huge"]:SetFont(E.LSM:Fetch('font', module.db.miscText.questFontSuperHuge.font), module.db.miscText.questFontSuperHuge.size, module.db.miscText.questFontSuperHuge.outline) -- No idea what that is for
 			_G["QuestFont_Enormous"]:SetFont(E.LSM:Fetch('font', module.db.miscText.questFontSuperHuge.font), module.db.miscText.questFontSuperHuge.size, module.db.miscText.questFontSuperHuge.outline) -- No idea what that is for
-		end
-
-		if module.db.miscText.editbox.enable then
-			_G["NumberFont_Shadow_Med"]:SetFont(E.LSM:Fetch('font', module.db.miscText.editbox.font), module.db.miscText.editbox.size, module.db.miscText.editbox.outline) --Chat editbox
 		end
 
 		--Objective Frame
