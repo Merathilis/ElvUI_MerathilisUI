@@ -193,11 +193,31 @@ local ButtonTypes = {
 			LeftButton = [[/click CollectionsJournalCloseButton
 /click CollectionsMicroButton
 /click CollectionsJournalTab1
-]]
+]],
+			RightButton = "/click MountJournalSummonRandomFavoriteButton"
 		},
-		tooltips = {
-			L["Collections"]
-		},
+		tooltips = function(button)
+			DT.tooltip:ClearLines()
+			DT.tooltip:SetText(L["Collections"])
+			DT.tooltip:AddLine("\n")
+			DT.tooltip:AddDoubleLine(LeftButtonIcon..L["Show Collections"], '', 1, 1, 1)
+			DT.tooltip:AddDoubleLine(RightButtonIcon.._G.MOUNT_JOURNAL_SUMMON_RANDOM_FAVORITE_MOUNT, '', 1, 1, 1)
+			DT.tooltip:Show()
+
+			button.tooltipsUpdateTimer = C_Timer_NewTicker(1, function()
+				DT.tooltip:ClearLines()
+				DT.tooltip:SetText(L["Collections"])
+				DT.tooltip:AddLine("\n")
+				DT.tooltip:AddDoubleLine(LeftButtonIcon..L["Show Collections"], '', 1, 1, 1)
+				DT.tooltip:AddDoubleLine(RightButtonIcon.._G.MOUNT_JOURNAL_SUMMON_RANDOM_FAVORITE_MOUNT, '', 1, 1, 1)
+				DT.tooltip:Show()
+			end)
+		end,
+		tooltipsLeave = function(button)
+			if button.tooltipsUpdateTimer and button.tooltipsUpdateTimer.Cancel then
+				button.tooltipsUpdateTimer:Cancel()
+			end
+		end,
 	},
 	ENCOUNTER_JOURNAL = {
 		name = _G.ENCOUNTER_JOURNAL,
