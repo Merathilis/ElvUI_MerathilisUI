@@ -127,9 +127,19 @@ L["Left Click to Request Stop"] = "Links Klick für Haltewunsch"
 L["Flight Point"] = "Flugpunkt"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert/Deaktiviert die MerathilisUI Flugpunkte an der Flugkarte."
 
--- MasterPlan
-L["MasterPlan"] = true
-L["Skins the additional Tabs from MasterPlan."] = true
+-- Mail
+L["Mail"] = "Post"
+L["Alternate Character"] = "Alternative Charakter"
+L["Alt List"] = true
+L["Delete"] = "Löschen"
+L["Favorites"] = "Favoriten"
+L["Favorite List"] = "Favoriten Liste"
+L["Name"] = "Name"
+L["Realm"] = "Server"
+L["Add"] = "Hinzufügen"
+L["Please set the name and realm first."] = "Bitte für zuerst den Namen und den Server hinzu."
+L["Toggle Contacts"] = "Kontakte einblenden"
+L["Online Friends"] = "Freunde Online"
 
 -- MicroBar
 L["Backdrop"] = "Hintergrund"
@@ -158,10 +168,14 @@ L["Left Panel"] = "Linkes Panel"
 L["Right Panel"] = "Rechtes Panel"
 L["Button #%d"] = "Tasten #%d"
 L["Pet Journal"] = "Wildtierführer"
+L["Show Pet Journal"] = "Zeige Wildtierführer"
 L["Screenshot"] = "Bildschirmaufnahme"
 L["Screenshot immediately"] = "Direkte Bildschirmaufnahme"
 L["Screenshot after 2 secs"] = "Bildschirmaufnahme nach 2 Sek."
 L["Toy Box"] = "Spielzeugkiste"
+L["Collections"] = "Sammlung"
+L["Show Collections"] = "Zeige Sammlung"
+
 
 -- Misc
 L["Misc"] = "Verschiedenes"
@@ -225,10 +239,6 @@ L["Use the new style tooltip."] = "Neuen Tooltip-Stil verwenden."
 L["Display in English"] = "Nur Englisch verwenden"
 L["Show icon"] = "Icon anzeigen"
 L["Show the spell icon along with the name."] = "Verderbnis-Effekt-Icon samt Namen anzeigen."
-
--- MailInputBox
-L["Mail Inputbox Resize"] = "Post Eingabefeld"
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
 
 -- Notification
 L["Notification"] = "Benachrichtigungen"
@@ -295,7 +305,7 @@ L["Counter"] = "Zähler"
 L["Outline"] = true -- No need to translate
 L["Button Groups"] = "Tasten Gruppen"
 L["Key Binding"] = "Tastenbelegung"
-L["Custom Items"] = "Benutzerdefinertes Gegenstände"
+L["Custom Items"] = "Benutzerdefinierte Gegenstände"
 L["List"] = "Liste"
 L["New Item ID"] = "ID des neuen Gegenstands"
 L["Auto Button Bar"] = "Auto Tasten Leiste"
@@ -305,6 +315,9 @@ L["Potions"] = "Tranke"
 L["Flasks"] = "Fläschen"
 L["Banners"] = "Banner"
 L["Utilities"] = "Werkzeuge"
+L["Fade Time"] = "Ausblendzeit"
+L["Alpha Min"] = true -- No need to translate
+L["Alpha Max"] = true -- No need to translate
 
 -- Armory
 L["Armory"] = "Arsenal"

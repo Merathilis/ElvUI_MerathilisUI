@@ -234,8 +234,11 @@ MP.colors = {
 	styleAlpha = 1,
 }
 
+MP.mail = {
+	enable = true,
+}
+
 MP.misc = {
-	MailInputbox = true,
 	gmotd = true,
 	quest = {
 		selectQuestReward =	true,
@@ -336,6 +339,9 @@ MP.autoButtons = {
 	bar1 = {
 		enable = true,
 		mouseOver = false,
+		fadeTime = 0.3,
+		alphaMin = 0,
+		alphaMax = 1,
 		numButtons = 12,
 		backdrop = true,
 		backdropSpacing = 1,
@@ -374,6 +380,9 @@ MP.autoButtons = {
 	bar2 = {
 		enable = true,
 		mouseOver = false,
+		fadeTime = 0.3,
+		alphaMin = 0,
+		alphaMax = 1,
 		numButtons = 12,
 		backdrop = true,
 		backdropSpacing = 1,
@@ -412,6 +421,9 @@ MP.autoButtons = {
 	bar3 = {
 		enable = false,
 		mouseOver = false,
+		fadeTime = 0.3,
+		alphaMin = 0,
+		alphaMax = 1,
 		numButtons = 12,
 		backdrop = true,
 		backdropSpacing = 1,

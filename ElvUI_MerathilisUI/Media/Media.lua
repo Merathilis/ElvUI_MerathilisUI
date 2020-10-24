@@ -40,6 +40,9 @@ AddMedia("barSpellBook", "MicroBar\\SpellBook.tga", "Icons")
 AddMedia("barTalents", "MicroBar\\Talents.tga", "Icons")
 AddMedia("barToyBox", "MicroBar\\ToyBox.tga", "Icons")
 
+AddMedia("favorite", "Favorite.tga", "Icons")
+AddMedia("list", "List.tga", "Icons")
+
 module.Zones = L["MER_MEDIA_ZONES"]
 module.PvPInfo = L["MER_MEDIA_PVP"]
 module.Subzones = L["MER_MEDIA_SUBZONES"]

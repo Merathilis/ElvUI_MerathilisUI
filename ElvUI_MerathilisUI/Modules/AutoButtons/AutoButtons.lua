@@ -34,7 +34,7 @@ local IsUsableItem = IsUsableItem
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 
 local potions = {
-	5512,
+	5512, -- Healthstone
 	176443,
 	118915,
 	118911,
@@ -290,7 +290,9 @@ function module:SetUpButton(button, questItemData, slotID)
 	button:SetScript("OnEnter", function(self)
 		local bar = self:GetParent()
 		if module.db["bar" .. bar.id].mouseOver then
-			E:UIFrameFadeIn(bar, 0.2, bar:GetAlpha(), 1)
+			local db = module.db["bar" .. bar.id]
+			local alphaCurrent = bar:GetAlpha()
+			E:UIFrameFadeIn(bar, db.fadeTime * (db.alphaMax - alphaCurrent) / (db.alphaMax - db.alphaMin), alphaCurrent, db.alphaMax)
 		end
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
 		GameTooltip:ClearLines()
@@ -307,7 +309,9 @@ function module:SetUpButton(button, questItemData, slotID)
 	button:SetScript("OnLeave", function(self)
 		local bar = self:GetParent()
 		if module.db["bar" .. bar.id].mouseOver then
-			E:UIFrameFadeOut(bar, 0.2, bar:GetAlpha(), 0)
+			local db = module.db["bar" .. bar.id]
+			local alphaCurrent = bar:GetAlpha()
+			E:UIFrameFadeOut(bar, db.fadeTime * (alphaCurrent - db.alphaMin) / (db.alphaMax - db.alphaMin), alphaCurrent, db.alphaMin)
 		end
 		GameTooltip:Hide()
 	end)
@@ -417,13 +421,15 @@ function module:CreateBar(id)
 
 	bar:SetScript("OnEnter", function(self)
 		if barDB.mouseOver then
-			E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+			local alphaCurrent = bar:GetAlpha()
+			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
 		end
 	end)
 
 	bar:SetScript("OnLeave", function(self)
 		if barDB.mouseOver then
-			E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+			local alphaCurrent = bar:GetAlpha()
+			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
 		end
 	end)
 
@@ -465,50 +471,42 @@ function module:UpdateBar(id)
 				for _, potionID in pairs(potions) do
 					local count = GetItemCount(potionID)
 					if count and count > 0 and not self.db.blackList[potionID] then
-						if not self.db.blackList[potionID] then
-							self:SetUpButton(bar.buttons[buttonID], {itemID = potionID})
-							self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-							buttonID = buttonID + 1
-						end
+						self:SetUpButton(bar.buttons[buttonID], {itemID = potionID})
+						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+						buttonID = buttonID + 1
 					end
 				end
 			elseif module == "FLASK" then
 				for _, flaskID in pairs(flasks) do
 					local count = GetItemCount(flaskID)
-					if count and count > 0 and not self.db.blackList[flaskID] then
-						if not self.db.blackList[flaskID] then
-							self:SetUpButton(bar.buttons[buttonID], {itemID = flaskID})
-							self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-							buttonID = buttonID + 1
-						end
+					if count and count > 0 and not self.db.blackList[flaskID] and buttonID <= barDB.numButtons then
+						self:SetUpButton(bar.buttons[buttonID], {itemID = flaskID})
+						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+						buttonID = buttonID + 1
 					end
 				end
 			elseif module == "BANNER" then
 				for _, bannerID in pairs(banners) do
 					local count = GetItemCount(bannerID)
-					if count and count > 0 and not self.db.blackList[bannerID] then
-						if not self.db.blackList[bannerID] then
-							self:SetUpButton(bar.buttons[buttonID], {itemID = bannerID})
-							bar.buttons[buttonID]:Size(barDB.buttonWidth, barDB.buttonHeight)
-							buttonID = buttonID + 1
-						end
+					if count and count > 0 and not self.db.blackList[bannerID] and buttonID <= barDB.numButtons then
+						self:SetUpButton(bar.buttons[buttonID], {itemID = bannerID})
+						bar.buttons[buttonID]:Size(barDB.buttonWidth, barDB.buttonHeight)
+						buttonID = buttonID + 1
 					end
 				end
 			elseif module == "UTILITY" then
 				for _, utilityID in pairs(utilities) do
 					local count = GetItemCount(utilityID)
-					if count and count > 0 and not self.db.blackList[utilityID] then
-						if not self.db.blackList[utilityID] then
-							self:SetUpButton(bar.buttons[buttonID], {itemID = utilityID})
-							self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-							buttonID = buttonID + 1
-						end
+					if count and count > 0 and not self.db.blackList[utilityID] and buttonID <= barDB.numButtons then
+						self:SetUpButton(bar.buttons[buttonID], {itemID = utilityID})
+						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+						buttonID = buttonID + 1
 					end
 				end
 			elseif module == "EQUIP" then
 				for _, slotID in pairs(equipmentList) do
 					local itemID = GetInventoryItemID("player", slotID)
-					if itemID and not self.db.blackList[itemID] then
+					if itemID and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
 						self:SetUpButton(bar.buttons[buttonID], nil, slotID)
 						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 						buttonID = buttonID + 1
@@ -517,7 +515,7 @@ function module:UpdateBar(id)
 			elseif module == "CUSTOM" then
 				for _, itemID in pairs(self.db.customList) do
 					local count = GetItemCount(itemID)
-					if count and count > 0 and not self.db.blackList[itemID] then
+					if count and count > 0 and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
 						self:SetUpButton(bar.buttons[buttonID], {itemID = itemID})
 						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 						buttonID = buttonID + 1
@@ -606,10 +604,13 @@ function module:UpdateBar(id)
 		bar.backdrop:Hide()
 	end
 
+	bar.alphaMin = barDB.alphaMin
+	bar.alphaMax = barDB.alphaMax
+
 	if barDB.mouseOver then
-		bar:SetAlpha(0)
+		bar:SetAlpha(barDB.alphaMin)
 	else
-		bar:SetAlpha(1)
+		bar:SetAlpha(barDB.alphaMax)
 	end
 end
 
@@ -646,7 +647,7 @@ function module:UpdateBinding()
 		for j = 1, 12 do
 			local button = self.bars[i].buttons[j]
 			if button then
-				local bindingName = format("CLICK ExtraItemsBar%dButton%d:LeftButton", i, j)
+				local bindingName = format("CLICK AutoButtonBar%dButton%d:LeftButton", i, j)
 				local bindingText = GetBindingKey(bindingName) or ""
 				bindingText = gsub(bindingText, "ALT--", "A")
 				bindingText = gsub(bindingText, "CTRL--", "C")

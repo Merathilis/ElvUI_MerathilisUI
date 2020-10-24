@@ -10,6 +10,7 @@
 	<Include file="Datatexts\Load_Datatexts.xml"/>
 	<Include file="Databars\Load_Databars.xml"/>
 	<Include file="LocPanel\Load_LocPanel.xml"/>
+	<Include file="Mail\Load_Mail.xml"/>
 	<Include file="Maps\Load_Maps.xml"/>
 	<Include file="MicroBar\Load_MicroBar.xml"/>
 	<Include file="Misc\Load_Misc.xml"/>

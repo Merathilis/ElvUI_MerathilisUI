@@ -16,12 +16,13 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix a green icon on my RaidManager. I remove by accident a texture",
-		"• More updates to the MicroBar: Fix stuttering/lags",
-		"• The MicroBar also shows now the time datatext from ElvUI",
-		"• Updated my AutoButtons",
-		"• Updated the ChatBar",
-		"• Added a mover for the Buff Reminder",
+		"• Added a skin for the AddOn WarPlan",
+		"• Fixed an install whoopsi for the position on AB3 >.>",
+		"• Added a frame on the MailBox SendMail Frame, to easy send mail to contacts",
+		"• The Keybinds for the AutoButtons now finally works",
+		"• Added a custom fade option if you use mouseOver on AutoButtons",
+		"• Add a right click function for MicroBar: Collection & Toybox Buttons",
+		"• Small tweaks and skin upates",
 
 		-- "• ''",
 	" ",

@@ -27,10 +27,9 @@ local function LoadSkin()
 
 	for i = 1, 7 do
 		local bu = _G["AchievementFrameAchievementsContainerButton"..i]
-		-- Hide ElvUI's backdrop
-		if bu.backdrop then bu.backdrop:SetTemplate("Transparent") end
-
-		MERS:CreateGradient(bu)
+		if bu.backdrop then
+			MERS:CreateGradient(bu.backdrop)
+		end
 	end
 
 	hooksecurefunc("AchievementButton_DisplayAchievement", function(button, category, achievement)
@@ -68,11 +67,9 @@ local function LoadSkin()
 		for i = 1, _G.ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS do
 			local bu = _G["AchievementFrameSummaryAchievement"..i]
 			if not bu.reskinned then
-				-- Hide ElvUI's backdrop
-				if bu.backdrop then bu.backdrop:SetTemplate("Transparent") end
-
-				MERS:CreateGradient(bu)
-
+				if bu.backdrop then
+					MERS:CreateGradient(bu.backdrop)
+				end
 				bu.reskinned = true
 			end
 		end
