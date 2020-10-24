@@ -22,17 +22,13 @@ local IsInGuild = IsInGuild
 local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
 local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
 local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
-local C_Club_GetClubMembers = C_Club.GetClubMembers
-local C_Club_GetGuildClubId = C_Club.GetGuildClubId
-local C_Club_GetMemberInfo = C_Club.GetMemberInfo
-local C_CreatureInfo_GetClassInfo = C_CreatureInfo.GetClassInfo
 local C_FriendList_GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
 local C_FriendList_GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
+local GetGuildRosterInfo = GetGuildRosterInfo
 
 local LOCALIZED_CLASS_NAMES_FEMALE = LOCALIZED_CLASS_NAMES_FEMALE
 local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
 
-local guildClubID
 local currentPageIndex
 local data
 
@@ -155,7 +151,7 @@ function module:ConstructButtons()
 	local guildButton = CreateFrame("Button", "MER_MailGuildButton", self.frame, "SecureActionButtonTemplate")
 	guildButton:Size(25)
 	SetButtonTexture(guildButton, MER.Media.Icons.barGuild, 0.180, 0.800, 0.443)
-	SetButtonTooltip(guildButton, L["Guild"])
+	SetButtonTooltip(guildButton, _G.GUILD)
 	guildButton:Point("LEFT", friendsButton, "RIGHT", 10, 0)
 	guildButton:RegisterForClicks("AnyUp")
 
@@ -315,18 +311,18 @@ function module:SetButtonTooltip(button)
 	if button.faction then
 		local text, r, g, b
 		if button.faction == "Horde" then
-			text = L["Horde"]
+			text = _G.FACTION_HORDE
 			r = 0.906
 			g = 0.298
 			b = 0.235
 		else
-			text = L["Alliance"]
+			text = _G.FACTION_ALLIANCE
 			r = 0.204
 			g = 0.596
 			b = 0.859
 		end
 
-		GameTooltip:AddDoubleLine(L["Faction"], text or "", 1, 1, 1, r, g, b)
+		GameTooltip:AddDoubleLine(_G.FACTION, text or "", 1, 1, 1, r, g, b)
 	end
 
 	GameTooltip:Show()
@@ -341,14 +337,13 @@ function module:UpdatePage(pageIndex)
 			local temp = data[(pageIndex - 1) * 14 + i]
 			local button = self.frame.nameButtons[i]
 			if temp then
-				if temp.memberID then -- Only get guild member info if needed
-					local info = C_Club_GetMemberInfo(guildClubID, temp.memberID)
-					local name, realm = MER:SplitString("-", info.name)
-					local classInfo = C_CreatureInfo_GetClassInfo(info.classID)
+				if temp.memberIndex then -- Only get guild member info if needed
+					local fullname, _, _, _, _, _, _, _, _, _, className = GetGuildRosterInfo(temp.memberIndex)
+					local name, realm = MER:SplitString("-", fullname)
 					realm = realm or E.myrealm
 					button.name = name
 					button.realm = realm
-					button.class = classInfo.classFile
+					button.class = className
 					button.BNName = nil
 					button.faction = E.myfaction
 				else
@@ -480,10 +475,9 @@ function module:BuildGuildData()
 		return
 	end
 
-	guildClubID = C_Club_GetGuildClubId()
-	local members = C_Club_GetClubMembers(guildClubID)
-	for _, member in pairs(members) do
-		tinsert(data, {memberID = member})
+	local totalMembers = GetNumGuildMembers()
+	for i = 1, totalMembers do
+		tinsert(data, {memberIndex = i})
 	end
 end
 
