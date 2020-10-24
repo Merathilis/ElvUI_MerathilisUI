@@ -190,28 +190,23 @@ local ButtonTypes = {
 		name = L["Collections"],
 		icon = MER.Media.Icons.barCollections,
 		macro = {
-			LeftButton = [[/click CollectionsJournalCloseButton
-/click CollectionsMicroButton
-/click CollectionsJournalTab1
-]],
+			LeftButton = "/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab1",
 			RightButton = "/click MountJournalSummonRandomFavoriteButton"
 		},
 		tooltips = function(button)
 			DT.tooltip:ClearLines()
 			DT.tooltip:SetText(L["Collections"])
 			DT.tooltip:AddLine("\n")
-			DT.tooltip:AddDoubleLine(LeftButtonIcon, L["Show Collections"], 1, 1, 1, 1, 1, 1)
-			DT.tooltip:AddLine("\n")
-			DT.tooltip:AddDoubleLine(RightButtonIcon, _G.MOUNT_JOURNAL_SUMMON_RANDOM_FAVORITE_MOUNT,  1, 1, 1, 1, 1, 1)
+			DT.tooltip:AddLine(LeftButtonIcon.." "..L["Show Collections"], 1, 1, 1)
+			DT.tooltip:AddLine(RightButtonIcon.." ".._G.MOUNT_JOURNAL_SUMMON_RANDOM_FAVORITE_MOUNT, 1, 1, 1)
 			DT.tooltip:Show()
 
 			button.tooltipsUpdateTimer = C_Timer_NewTicker(1, function()
 				DT.tooltip:ClearLines()
 				DT.tooltip:SetText(L["Collections"])
 				DT.tooltip:AddLine("\n")
-				DT.tooltip:AddDoubleLine(LeftButtonIcon, L["Show Collections"],  1, 1, 1, 1, 1, 1)
-				DT.tooltip:AddLine("\n")
-				DT.tooltip:AddDoubleLine(RightButtonIcon, _G.MOUNT_JOURNAL_SUMMON_RANDOM_FAVORITE_MOUNT,  1, 1, 1, 1, 1, 1)
+				DT.tooltip:AddLine(LeftButtonIcon.." "..L["Show Collections"], 1, 1, 1)
+				DT.tooltip:AddLine(RightButtonIcon.." ".._G.MOUNT_JOURNAL_SUMMON_RANDOM_FAVORITE_MOUNT, 1, 1, 1)
 				DT.tooltip:Show()
 			end)
 		end,
@@ -347,28 +342,23 @@ local ButtonTypes = {
 		name = L["Pet Journal"],
 		icon = MER.Media.Icons.barPetJournal,
 		macro = {
-			LeftButton = [[/click CollectionsJournalCloseButton
-/click CollectionsMicroButton
-/click CollectionsJournalTab2
-]],
+			LeftButton = "/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab2",
 			RightButton = "/click PetJournalSummonRandomFavoritePetButton"
 		},
 		tooltips = function(button)
 			DT.tooltip:ClearLines()
 			DT.tooltip:SetText(L["Pet Journal"])
 			DT.tooltip:AddLine("\n")
-			DT.tooltip:AddDoubleLine(LeftButtonIcon, L["Show Pet Journal"], 1, 1, 1, 1, 1, 1)
-			DT.tooltip:AddLine("\n")
-			DT.tooltip:AddDoubleLine(RightButtonIcon, _G.PET_JOURNAL_SUMMON_RANDOM_FAVORITE_PET, 1, 1, 1, 1, 1, 1)
+			DT.tooltip:AddLine(LeftButtonIcon.." "..L["Show Pet Journal"], 1, 1, 1)
+			DT.tooltip:AddLine(RightButtonIcon.." ".._G.PET_JOURNAL_SUMMON_RANDOM_FAVORITE_PET, 1, 1, 1)
 			DT.tooltip:Show()
 
 			button.tooltipsUpdateTimer = C_Timer_NewTicker(1, function()
 				DT.tooltip:ClearLines()
 				DT.tooltip:SetText(L["Pet Journal"])
 				DT.tooltip:AddLine("\n")
-				DT.tooltip:AddDoubleLine(LeftButtonIcon, L["Show Pet Journal"], 1, 1, 1, 1, 1, 1)
-				DT.tooltip:AddLine("\n")
-				DT.tooltip:AddDoubleLine(RightButtonIcon, _G.PET_JOURNAL_SUMMON_RANDOM_FAVORITE_PET, 1, 1, 1, 1, 1, 1)
+				DT.tooltip:AddLine(LeftButtonIcon.." "..L["Show Pet Journal"], 1, 1, 1)
+				DT.tooltip:AddLine(RightButtonIcon.." ".._G.PET_JOURNAL_SUMMON_RANDOM_FAVORITE_PET, 1, 1, 1)
 				DT.tooltip:Show()
 			end)
 		end,
@@ -418,10 +408,7 @@ local ButtonTypes = {
 		name = L["Toy Box"],
 		icon = MER.Media.Icons.barToyBox,
 		macro = {
-			LeftButton = [[/click CollectionsJournalCloseButton
-/click CollectionsMicroButton
-/click CollectionsJournalTab3
-]]
+			LeftButton = "/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab3"
 		},
 		tooltips = {
 			L["Toy Box"]
