@@ -3,6 +3,12 @@ local module = MER:GetModule('MER_AutoButtons')
 local LSM = E.LSM
 
 local tinsert = table.insert
+local tremove = table.remove
+local format = string.format
+local pairs, select = pairs, select
+local tonumber = tonumber
+
+local GetItemInfo = GetItemInfo
 
 local customListSelected1
 local customListSelected2
@@ -40,8 +46,26 @@ local function AutoButtonTable()
 					return not E.db.mui.autoButtons.enable
 				end,
 				args = {
-					list = {
+					addToList = {
 						order = 1,
+						type = "input",
+						name = L["New Item ID"],
+						get = function()
+							return ""
+						end,
+						set = function(_, value)
+							local itemID = tonumber(value)
+							local itemName = select(1, GetItemInfo(itemID))
+							if itemName then
+								tinsert(E.db.mui.autoButtons.customList, itemID)
+								module:UpdateBars()
+							else
+								MER:Print(L["The item ID is invalid."])
+							end
+						end
+					},
+					list = {
+						order = 2,
 						type = "select",
 						name = L["List"],
 						get = function()
@@ -57,24 +81,6 @@ local function AutoButtonTable()
 								result[key] = select(1, GetItemInfo(value))
 							end
 							return result
-						end
-					},
-					addToList = {
-						order = 2,
-						type = "input",
-						name = L["New Item ID"],
-						get = function()
-							return ""
-						end,
-						set = function(_, value)
-							local itemID = tonumber(value)
-							local itemName = select(1, GetItemInfo(itemID))
-							if itemName then
-								tinsert(E.db.mui.autoButtons.customList, itemID)
-								module:UpdateBars()
-							else
-								print(L["The item ID is invalid."])
-							end
 						end
 					},
 					deleteButton = {
@@ -100,8 +106,26 @@ local function AutoButtonTable()
 					return not E.db.mui.autoButtons.enable
 				end,
 				args = {
-					list = {
+					addToList = {
 						order = 1,
+						type = "input",
+						name = L["New Item ID"],
+						get = function()
+							return ""
+						end,
+						set = function(_, value)
+							local itemID = tonumber(value)
+							local itemName = select(1, GetItemInfo(itemID))
+							if itemName then
+								E.db.mui.autoButtons.blackList[itemID] = itemName
+								module:UpdateBars()
+							else
+								MER:Print(L["The item ID is invalid."])
+							end
+						end
+					},
+					list = {
+						order = 2,
 						type = "select",
 						name = L["List"],
 						get = function()
@@ -116,24 +140,6 @@ local function AutoButtonTable()
 								result[key] = value
 							end
 							return result
-						end
-					},
-					addToList = {
-						order = 2,
-						type = "input",
-						name = L["New Item ID"],
-						get = function()
-							return ""
-						end,
-						set = function(_, value)
-							local itemID = tonumber(value)
-							local itemName = select(1, GetItemInfo(itemID))
-							if itemName then
-								E.db.mui.autoButtons.blackList[itemID] = itemName
-								module:UpdateBars()
-							else
-								print(L["The item ID is invalid."])
-							end
 						end
 					},
 					deleteButton = {
