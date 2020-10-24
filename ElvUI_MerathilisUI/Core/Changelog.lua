@@ -27,8 +27,8 @@ local ChangeLogData = {
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• As always, if you want my latest layout, do the install procress again",
-		"• If you are getting any errors or something, make sure you are now using:",
+		"• As always, if you want my latest layout, do the install again",
+		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muierrors on' and test again",
 }
 
