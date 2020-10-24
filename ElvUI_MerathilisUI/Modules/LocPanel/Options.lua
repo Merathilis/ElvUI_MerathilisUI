@@ -58,7 +58,7 @@ local function LocPanelTable()
 						type = "select",
 						disabled = function() return not E.db.mui.locPanel.enable end,
 						hidden = function() return not E.db.mui.locPanel.enable end,
-						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Template() end,
+						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Template(); E:StaticPopup_Show("PRIVATE_RL"); end,
 						values = {
 							["Default"] = DEFAULT,
 							["Transparent"] = L["Transparent"],
