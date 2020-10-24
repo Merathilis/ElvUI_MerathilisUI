@@ -130,10 +130,15 @@ end
 local function UpdateTimer()
 	local createdTime = CreateTime()
 	local time = GetTime() - AFK.startTime
-	AFK.AFKMode.AFKTimer:SetText(format('%02d' .. MER.InfoColor ..':|r%02d', floor(time/60), time % 60))
+
+	if AFK.AFKMode.AFKTimer then
+		AFK.AFKMode.AFKTimer:SetText(format('%02d' .. MER.InfoColor ..':|r%02d', floor(time/60), time % 60))
+	end
 
 	-- Set Clock
-	AFK.AFKMode.ClockText:SetFormattedText(createdTime)
+	if AFK.AFKMode.ClockText then
+		AFK.AFKMode.ClockText:SetFormattedText(createdTime)
+	end
 
 	-- Set Date
 	CreateDate()

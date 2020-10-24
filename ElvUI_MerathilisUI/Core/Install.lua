@@ -747,7 +747,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["experience"]["enable"] = true
 	E.db["databars"]["experience"]["mouseover"] = false
 	E.db["databars"]["experience"]["height"] = 9
-	E.db["databars"]["experience"]["textSize"] = 9
+	E.db["databars"]["experience"]["fontSize"] = 9
 	E.db["databars"]["experience"]["font"] = "Expressway"
 	E.db["databars"]["experience"]["width"] = 283
 	E.db["databars"]["experience"]["textFormat"] = "CURPERCREM"
@@ -760,7 +760,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["mouseover"] = false
 	E.db["databars"]["reputation"]["font"] = "Expressway"
-	E.db["databars"]["reputation"]["textSize"] = 9
+	E.db["databars"]["reputation"]["fontSize"] = 9
 	E.db["databars"]["reputation"]["height"] = 9
 	if layout == "dps" then
 		E.db["databars"]["reputation"]["width"] = 283
@@ -776,7 +776,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["honor"]["enable"] = true
 	E.db["databars"]["honor"]["width"] = 283
 	E.db["databars"]["honor"]["height"] = 9
-	E.db["databars"]["honor"]["textSize"] = 9
+	E.db["databars"]["honor"]["fontSize"] = 9
 	E.db["databars"]["honor"]["font"] = "Expressway"
 	E.db["databars"]["honor"]["hideBelowMaxLevel"] = true
 	E.db["databars"]["honor"]["hideOutsidePvP"] = true
@@ -789,7 +789,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["azerite"]["enable"] = true
 	E.db["databars"]["azerite"]["height"] = 9
 	E.db["databars"]["azerite"]["font"] = "Expressway"
-	E.db["databars"]["azerite"]["textSize"] = 9
+	E.db["databars"]["azerite"]["fontSize"] = 9
 	if layout == "dps" then
 		E.db["databars"]["azerite"]["width"] = 283
 	elseif layout == "healer" then
@@ -805,7 +805,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["threat"]["enable"] = true
 	E.db["databars"]["threat"]["width"] = 283
 	E.db["databars"]["threat"]["height"] = 12
-	E.db["databars"]["threat"]["textSize"] = 9
+	E.db["databars"]["threat"]["fontSize"] = 9
 	E.db["databars"]["threat"]["font"] = "Expressway"
 
 	E.db["movers"]["AzeriteBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-470,1"

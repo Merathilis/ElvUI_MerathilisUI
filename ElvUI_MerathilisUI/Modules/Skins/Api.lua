@@ -159,6 +159,15 @@ do
 	end
 end
 
+-- ClassColored Sliders
+function MERS:ReskinSliderFrame(frame)
+	local thumb = frame:GetThumbTexture()
+	if thumb then
+		local r, g, b = unpack(E.media.rgbvaluecolor)
+		thumb:SetVertexColor(r, g, b)
+	end
+end
+
 -- Overwrite ElvUI Tabs function to be transparent
 function MERS:ReskinTab(tab)
 	if not tab then return end
@@ -209,11 +218,10 @@ function MERS:OnLeave()
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex)
+function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, noGradient)
 	assert(button, "doesn't exist!")
 
 	if strip then button:StripTextures() end
-	MERS:CreateGradient(button)
 
 	if button.Icon then
 		local Texture = button.Icon:GetTexture()
@@ -232,8 +240,18 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 			button.backdrop:SetAllPoints()
 		end
 
-		button:HookScript("OnEnter", MERS.OnEnter) -- Must check this; Shadowlands
+		button:HookScript("OnEnter", MERS.OnEnter)
 		button:HookScript("OnLeave", MERS.OnLeave)
+	end
+
+	if not noGradient then
+		if button.backdrop then
+			MERS:CreateGradient(button.backdrop)
+		elseif button.setTemplate then
+			MERS:CreateGradient(button)
+		else
+			return
+		end
 	end
 end
 
@@ -503,6 +521,7 @@ end
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
+hooksecurefunc(S, "HandleSliderFrame", MERS.ReskinSliderFrame)
 -- New Widget Types
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
 

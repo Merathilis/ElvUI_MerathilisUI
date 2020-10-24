@@ -164,10 +164,13 @@ L["Left Panel"] = "左面板"
 L["Right Panel"] = "右面板"
 L["Button #%d"] = "按键 #%d"
 L["Pet Journal"] = "宠物"
+L["Show Pet Journal"] = true
 L["Screenshot"] = "截图"
 L["Screenshot immediately"] = "立即截图"
 L["Screenshot after 2 secs"] = "2秒后截图"
 L["Toy Box"] = "玩具"
+L["Collections"] = true
+L["Show Collections"] = true
 
 -- Misc
 L["Misc"] = "杂项"
@@ -313,6 +316,9 @@ L["Potions"] = "药水"
 L["Flasks"] = "合剂"
 L["Banners"] = "战旗"
 L["Utilities"] = "实用"
+L["Fade Time"] = true
+L["Alpha Min"] = true
+L["Alpha Max"] = true
 
 -- Armory
 L["Armory"] = "角色界面"

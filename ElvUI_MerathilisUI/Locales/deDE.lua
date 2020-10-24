@@ -168,10 +168,14 @@ L["Left Panel"] = "Linkes Panel"
 L["Right Panel"] = "Rechtes Panel"
 L["Button #%d"] = "Tasten #%d"
 L["Pet Journal"] = "Wildtierführer"
+L["Show Pet Journal"] = "Zeige Wildtierführer"
 L["Screenshot"] = "Bildschirmaufnahme"
 L["Screenshot immediately"] = "Direkte Bildschirmaufnahme"
 L["Screenshot after 2 secs"] = "Bildschirmaufnahme nach 2 Sek."
 L["Toy Box"] = "Spielzeugkiste"
+L["Collections"] = "Sammlung"
+L["Show Collections"] = "Zeige Sammlung"
+
 
 -- Misc
 L["Misc"] = "Verschiedenes"
@@ -301,7 +305,7 @@ L["Counter"] = "Zähler"
 L["Outline"] = true -- No need to translate
 L["Button Groups"] = "Tasten Gruppen"
 L["Key Binding"] = "Tastenbelegung"
-L["Custom Items"] = "Benutzerdefinertes Gegenstände"
+L["Custom Items"] = "Benutzerdefinierte Gegenstände"
 L["List"] = "Liste"
 L["New Item ID"] = "ID des neuen Gegenstands"
 L["Auto Button Bar"] = "Auto Tasten Leiste"
@@ -311,6 +315,9 @@ L["Potions"] = "Tranke"
 L["Flasks"] = "Fläschen"
 L["Banners"] = "Banner"
 L["Utilities"] = "Werkzeuge"
+L["Fade Time"] = "Ausblendzeit"
+L["Alpha Min"] = true -- No need to translate
+L["Alpha Max"] = true -- No need to translate
 
 -- Armory
 L["Armory"] = "Arsenal"

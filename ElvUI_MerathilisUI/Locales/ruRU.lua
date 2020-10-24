@@ -165,10 +165,13 @@ L["Left Panel"] = true
 L["Right Panel"] = true
 L["Button #%d"] = true
 L["Pet Journal"] = true
+L["Show Pet Journal"] = true
 L["Screenshot"] = true
 L["Screenshot immediately"] = true
 L["Screenshot after 2 secs"] = true
 L["Toy Box"] = true
+L["Collections"] = true
+L["Show Collections"] = true
 
 -- Misc
 L["Misc"] = true
@@ -311,6 +314,9 @@ L["Flasks"] = true
 L["Banners"] = true
 L["Utilities"] = true
 L["Custom Items"] = true
+L["Fade Time"] = true
+L["Alpha Min"] = true
+L["Alpha Max"] = true
 
 -- Armory
 L["Armory"] = true

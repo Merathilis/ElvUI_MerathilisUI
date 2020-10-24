@@ -15,10 +15,26 @@ local function LoadSkin()
 	MERS:CreateBD(_G.VoiceChatChannelActivatedNotification)
 	_G.VoiceChatChannelActivatedNotification:Styling()
 
-	--ElvUI ChatButtonHolder
-	if _G.ChatButtonHolder then
-		_G.ChatButtonHolder:Styling()
+	-- Revert my Styling function on these buttons
+	if E.db.chat.pinVoiceButtons and not E.db.chat.hideVoiceButtons then
+		if _G.ChatFrameChannelButton then
+			MERS:Reskin(_G.ChatFrameChannelButton, nil, nil, true, nil, nil, nil, false)
+		end
+
+		if _G.ChatFrameToggleVoiceDeafenButton then
+			MERS:Reskin(_G.ChatFrameToggleVoiceDeafenButton, nil, nil, true, nil, nil, nil, false)
+		end
+
+		if _G.ChatFrameToggleVoiceMuteButton then
+			MERS:Reskin(_G.ChatFrameToggleVoiceMuteButton, nil, nil, true, nil, nil, nil, false)
+		end
+	else
+		--ElvUI ChatButtonHolder
+		if _G.ChatButtonHolder then
+			_G.ChatButtonHolder:Styling()
+		end
 	end
+
 
 	do
 		local ChatMenus = {

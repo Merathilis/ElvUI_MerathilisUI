@@ -180,8 +180,26 @@ local function AutoButtonTable()
 					name = L["Mouse Over"],
 					desc = L["Only show the bar when you mouse over it."]
 				},
-				anchor = {
+				fadeTime = {
 					order = 3,
+					type = "range",
+					name = L["Fade Time"],
+					min = 0, max = 2, step = 0.01
+				},
+				alphaMin = {
+					order = 4,
+					type = "range",
+					name = L["Alpha Min"],
+					min = 0, max = 1, step = 0.01
+				},
+				alphaMax = {
+					order = 5,
+					type = "range",
+					name = L["Alpha Max"],
+					min = 0, max = 1, step = 0.01
+				},
+				anchor = {
+					order = 6,
 					type = "select",
 					name = L["Anchor Point"],
 					desc = L["The first button anchors itself to this point on the bar."],
@@ -193,19 +211,19 @@ local function AutoButtonTable()
 					}
 				},
 				betterOption1 = {
-					order = 4,
+					order = 7,
 					type = "description",
 					name = " ",
 					width = "full"
 				},
 				backdrop = {
-					order = 5,
+					order = 8,
 					type = "toggle",
 					name = L["Bar Backdrop"],
 					desc = L["Show a backdrop of the bar."]
 				},
 				backdropSpacing = {
-					order = 6,
+					order = 9,
 					type = "range",
 					name = L["Backdrop Spacing"],
 					desc = L["The spacing between the backdrop and the buttons."],
@@ -214,7 +232,7 @@ local function AutoButtonTable()
 					step = 1
 				},
 				spacing = {
-					order = 7,
+					order = 10,
 					type = "range",
 					name = L["Button Spacing"],
 					desc = L["The spacing between buttons."],
@@ -223,13 +241,13 @@ local function AutoButtonTable()
 					step = 1
 				},
 				betterOption2 = {
-					order = 8,
+					order = 11,
 					type = "description",
 					name = " ",
 					width = "full"
 				},
 				numButtons = {
-					order = 9,
+					order = 12,
 					type = "range",
 					name = L["Buttons"],
 					min = 1,
@@ -237,7 +255,7 @@ local function AutoButtonTable()
 					step = 1
 				},
 				buttonWidth = {
-					order = 10,
+					order = 13,
 					type = "range",
 					name = L["Button Width"],
 					desc = L["The width of the buttons."],
@@ -246,7 +264,7 @@ local function AutoButtonTable()
 					step = 1
 				},
 				buttonHeight = {
-					order = 11,
+					order = 14,
 					type = "range",
 					name = L["Button Height"],
 					desc = L["The height of the buttons."],
@@ -255,7 +273,7 @@ local function AutoButtonTable()
 					step = 1
 				},
 				buttonsPerRow = {
-					order = 12,
+					order = 15,
 					type = "range",
 					name = L["Buttons Per Row"],
 					min = 1,
@@ -263,7 +281,7 @@ local function AutoButtonTable()
 					step = 1
 				},
 				countFont = {
-					order = 13,
+					order = 16,
 					type = "group",
 					inline = true,
 					name = L["Counter"],
@@ -337,7 +355,7 @@ local function AutoButtonTable()
 					}
 				},
 				bindFont = {
-					order = 14,
+					order = 17,
 					type = "group",
 					inline = true,
 					name = L["Key Binding"],
@@ -411,7 +429,7 @@ local function AutoButtonTable()
 					}
 				},
 				include = {
-					order = 14,
+					order = 18,
 					type = "input",
 					name = L["Button Groups"],
 					desc = format(

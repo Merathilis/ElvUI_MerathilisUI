@@ -13,14 +13,20 @@ local GetAddOnEnableState = GetAddOnEnableState
 -- GLOBALS: ElvDB, hooksecurefunc, BINDING_HEADER_MER
 -- GLOBALS: MERData, MERDataPerChar, ElvDB
 
+-- Masque support
+MER.MSQ = _G.LibStub('Masque', true)
+
 MER["styling"] = {}
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
 
 _G.BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
-
--- Masque support
-MER.MSQ = _G.LibStub('Masque', true)
+for i = 1, 3 do
+	_G["BINDING_HEADER_AUTOBUTTONBAR"..i] = L["Auto Button Bar"..' '..i]
+	for j = 1, 12 do
+		_G[format("BINDING_NAME_CLICK AutoButtonBar%dButton%d:LeftButton", i, j)] = L["Button"] .. " " .. j
+	end
+end
 
 local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)

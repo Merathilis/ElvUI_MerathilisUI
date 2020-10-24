@@ -250,7 +250,7 @@ module.Spells = {
 
 function module:CreateLocationPanel()
 	--Main Panel
-	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
+	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent, 'BackdropTemplate')
 	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -1)
 	loc_panel:SetFrameStrata("MEDIUM")
 	loc_panel:SetFrameLevel(Minimap:GetFrameLevel()+1)
@@ -266,13 +266,13 @@ function module:CreateLocationPanel()
 	E.FrameLocks[loc_panel] = true
 
 	--Coords
-	loc_panel.Xcoord = CreateFrame('Frame', "MER_LocPanel_X", loc_panel)
+	loc_panel.Xcoord = CreateFrame('Frame', "MER_LocPanel_X", loc_panel, 'BackdropTemplate')
 	loc_panel.Xcoord:Point("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "BACKGROUND")
 	loc_panel.Xcoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
 
-	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel)
+	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel, 'BackdropTemplate')
 	loc_panel.Ycoord:Point("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "BACKGROUND")
 	loc_panel.Ycoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
@@ -283,9 +283,9 @@ function module:CreateLocationPanel()
 	-- Mover
 	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,locPanel')
 
-	module.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent)
+	module.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent, 'BackdropTemplate')
 	module.Menu1:CreateBackdrop("Transparent", true)
-	module.Menu2 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu2", E.UIParent)
+	module.Menu2 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu2", E.UIParent, 'BackdropTemplate')
 	module.Menu2:CreateBackdrop("Transparent", true)
 	DD:RegisterMenu(module.Menu1)
 	DD:RegisterMenu(module.Menu2)
@@ -418,9 +418,15 @@ function module:Fonts()
 end
 
 function module:Template()
-	loc_panel:CreateBackdrop(module.db.template)
-	loc_panel.Xcoord:CreateBackdrop(module.db.template)
-	loc_panel.Ycoord:CreateBackdrop(module.db.template)
+	loc_panel:SetTemplate(module.db.template)
+	loc_panel.Xcoord:SetTemplate(module.db.template)
+	loc_panel.Ycoord:SetTemplate(module.db.template)
+
+	if module.db.template ~= 'NoBackdrop' then
+		loc_panel:Styling()
+		loc_panel.Xcoord:Styling()
+		loc_panel.Ycoord:Styling()
+	end
 end
 
 function module:Toggle()
