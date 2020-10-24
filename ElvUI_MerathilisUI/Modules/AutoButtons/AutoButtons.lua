@@ -290,7 +290,9 @@ function module:SetUpButton(button, questItemData, slotID)
 	button:SetScript("OnEnter", function(self)
 		local bar = self:GetParent()
 		if module.db["bar" .. bar.id].mouseOver then
-			E:UIFrameFadeIn(bar, 0.2, bar:GetAlpha(), 1)
+			local db = module.db["bar" .. bar.id]
+			local alphaCurrent = bar:GetAlpha()
+			E:UIFrameFadeIn(bar, db.fadeTime * (db.alphaMax - alphaCurrent) / (db.alphaMax - db.alphaMin), alphaCurrent, db.alphaMax)
 		end
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
 		GameTooltip:ClearLines()
@@ -307,7 +309,9 @@ function module:SetUpButton(button, questItemData, slotID)
 	button:SetScript("OnLeave", function(self)
 		local bar = self:GetParent()
 		if module.db["bar" .. bar.id].mouseOver then
-			E:UIFrameFadeOut(bar, 0.2, bar:GetAlpha(), 0)
+			local db = module.db["bar" .. bar.id]
+			local alphaCurrent = bar:GetAlpha()
+			E:UIFrameFadeOut(bar, db.fadeTime * (alphaCurrent - db.alphaMin) / (db.alphaMax - db.alphaMin), alphaCurrent, db.alphaMin)
 		end
 		GameTooltip:Hide()
 	end)
@@ -417,13 +421,15 @@ function module:CreateBar(id)
 
 	bar:SetScript("OnEnter", function(self)
 		if barDB.mouseOver then
-			E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+			local alphaCurrent = bar:GetAlpha()
+			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
 		end
 	end)
 
 	bar:SetScript("OnLeave", function(self)
 		if barDB.mouseOver then
-			E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+			local alphaCurrent = bar:GetAlpha()
+			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
 		end
 	end)
 
@@ -598,10 +604,13 @@ function module:UpdateBar(id)
 		bar.backdrop:Hide()
 	end
 
+	bar.alphaMin = barDB.alphaMin
+	bar.alphaMax = barDB.alphaMax
+
 	if barDB.mouseOver then
-		bar:SetAlpha(0)
+		bar:SetAlpha(barDB.alphaMin)
 	else
-		bar:SetAlpha(1)
+		bar:SetAlpha(barDB.alphaMax)
 	end
 end
 
