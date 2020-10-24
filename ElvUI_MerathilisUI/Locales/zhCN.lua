@@ -124,18 +124,18 @@ L["Flight Point"] = "飞行点"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "在飞行地图上启用/禁用MerathilisUI飞行点."
 
 -- Mail
-L["Mail"] = true
-L["Alternate Character"] = true
-L["Alt List"] = true
-L["Delete"] = true
-L["Favorites"] = true
-L["Favorite List"] = true
-L["Name"] = true
-L["Realm"] = true
-L["Add"] = true
-L["Please set the name and realm first."] = true
-L["Toggle Contacts"] = true
-L["Online Friends"] = true
+L["Mail"] = "邮件"
+L["Alternate Character"] = "其他角色"
+L["Alt List"] = "角色列表"
+L["Delete"] = "删除"
+L["Favorites"] = "收藏"
+L["Favorite List"] = "收藏列表"
+L["Name"] = "姓名"
+L["Realm"] = "服务器"
+L["Add"] = "添加"
+L["Please set the name and realm first."] = "请先填写姓名和服务器."
+L["Toggle Contacts"] = "开/关通讯录"
+L["Online Friends"] = "在线好友"
 
 -- MicroBar
 L["Backdrop"] = "背景"
