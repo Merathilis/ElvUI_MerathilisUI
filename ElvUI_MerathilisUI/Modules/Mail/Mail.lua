@@ -24,6 +24,7 @@ local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInf
 local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
 local C_FriendList_GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
 local C_FriendList_GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
+local GetNumGuildMembers = GetNumGuildMembers
 local GetGuildRosterInfo = GetGuildRosterInfo
 
 local LOCALIZED_CLASS_NAMES_FEMALE = LOCALIZED_CLASS_NAMES_FEMALE
@@ -159,7 +160,7 @@ function module:ConstructButtons()
 		self:ChangeCategory("GUILD")
 	end)
 
-	-- My Favorites
+	-- Favorites
 	local favoriteButton = CreateFrame("Button", "MER_MailFavoriteButton", self.frame, "SecureActionButtonTemplate")
 	favoriteButton:Size(25)
 	SetButtonTexture(favoriteButton, MER.Media.Icons.favorite, 0.769, 0.118, 0.227)
