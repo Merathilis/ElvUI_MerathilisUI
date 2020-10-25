@@ -302,7 +302,7 @@ L["The width of the buttons."] = "Die Breite der Tasten"
 L["Button Height"] = "Tasten Höhe"
 L["The height of the buttons."] = "Die Höhe der Tasten"
 L["Counter"] = "Zähler"
-L["Outline"] = "Umriß"
+L["Outline"] = "Kontur"
 L["Button Groups"] = "Tasten Gruppen"
 L["Key Binding"] = "Tastenbelegung"
 L["Custom Items"] = "Benutzerdefinierte Gegenstände"
@@ -390,13 +390,13 @@ L["MER_MEDIA_PVPARENA"] = {
 L["UnitFrames"] = "Einheitenfenster"
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = "Fügt einen Schatten zu den Schwächungszaubern hinzu, so dass die Schwächungszauberfarbe besser sichtbar ist."
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = "Ändert die 'Eingehende Heilung' Textur zu standard Blizzard"
-L["Swing Bar"] = true
+L["Swing Bar"] = "Swing Leiste"
 L["Creates a weapon Swing Bar"] = "Erstellt eine Waffen Swing Leiste"
 L["Main-Hand Color"] = "Haupthand Farbe"
 L["Off-Hand Color"] = "Schildhand Farbe"
 L["Two-Hand Color"] = "Zweihand Farbe"
 L["GCD Bar"] = "GCD Leiste"
-L["Creates a Global Cooldown Bar"] = "Erstellt eine Globale Cooldown Leiste"
+L["Creates a Global Cooldown Bar"] = "Erstellt eine Globale Abklingzeiten Leiste"
 L["UnitFrame Style"] = "Einheitenfenster Stil"
 L["Adds my styling to the Unitframes if you use transparent health."] = "Fügt meinen Stil zu den Einheitenfenstern hinzu, wenn du transparentes Leben benutzt."
 L["Change the default role icons."] = "Ändert die Standard Rollensymbole."
@@ -435,7 +435,7 @@ L["Show Toys"] = "Zeige Spielzeuge"
 L["Show toys in the list. This option will affect all other display options as well."] = "Zeigt Spielzeuge in der Liste an. Diese Option wirkt sich auf alle anderen Anzeigeoptionen aus."
 L["Show spells"] = "Zeige Zauber"
 L["Show relocation spells in the list."] = "Zeigt Teleport Zauber in der Liste."
-L["Show engineer gadgets"] = "Zeige Ingenieur Spielerein."
+L["Show engineer gadgets"] = "Zeige Ingenieurs Spielerein."
 L["Show items used only by engineers when the profession is learned."] = "Zeigt Gegenstände, die nur von Ingenieuren genutzt werden können, sowie wenn der Beruf erlernt wurde, an."
 L["Ignore missing info"] = "Ignoriere fehlende Informationen"
 L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
@@ -475,7 +475,7 @@ L["Set the modifier key for placing world markers."] = "Legt eine Modifierungsta
 L["Visibility State"] = "Sichtbarkeit"
 
 -- Raid Buffs
-L["Raid Buff Reminder"] = "Schlachtzug Buff Erinnerung"
+L["Raid Buff Reminder"] = "Schlachtzugs Buff Erinnerung"
 L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Fläschchen/Essen/Runen an."
 L["Class Specific Buffs"] = "Klassenspezifische Buffs"
 L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
@@ -510,30 +510,30 @@ L["Sort by Expiration Time"] = "Nach Abklingzeit sortieren"
 L["Show Self Cooldown"] = "Zeige eigene Abklingzeiten"
 L["Show Icons"] = "Zeige Symbol"
 L["Show In Party"] = "Zeige in Gruppe"
-L["Show In Raid"] = "Zeige im Raid"
+L["Show In Raid"] = "Zeige im Schalchtzug"
 L["Show In Arena"] = "Zeige in Arenen"
 
 -- CVars
-L["\n\nDefault: |cff00ff001|r"] = true
-L["\n\nDefault: |cffff00000|r"] = true
+L["\n\nDefault: |cff00ff001|r"] = "\n\nStandard: |cff00ff001|r"
+L["\n\nDefault: |cffff00000|r"] = "\n\nStandard: |cffff00000|r"
 L["alwaysCompareItems"] = true
-L["alwaysCompareItems_DESC"] = "Always show item comparsion tooltips\r\rDefault: |cffff00000|r"
+L["alwaysCompareItems_DESC"] = "Always show item comparsion tooltips\r\rStandardt: |cffff00000|r"
 L["breakUpLargeNumbers"] = true
-L["breakUpLargeNumbers_DESC"] = "Toggles using commas in large numbers\r\rDefault: |cff00ff001|r"
+L["breakUpLargeNumbers_DESC"] = "Toggles using commas in large numbers\r\rStandard: |cff00ff001|r"
 L["scriptErrors"] = true
 L["enableWoWMouse"] = true
 L["trackQuestSorting"] = true
-L["trackQuestSorting_DESC"] = "New tracking tasks will be listed at target tracking location \r\r default: top"
+L["trackQuestSorting_DESC"] = "New tracking tasks will be listed at target tracking location \r\r Standard: Oben"
 L["autoLootDefault"] = true
 L["autoDismountFlying"] = true
 L["removeChatDelay"] = true
 L["screenshotQuality"] = true
-L["screenshotQuality_DESC"] = "Screenshot Quality\r\rDefault: |cff00ff003|r"
+L["screenshotQuality_DESC"] = "Screenshot Qualität\r\rStandard: |cff00ff003|r"
 L["showTutorials"] = true
 L["WorldTextScale"] = true
-L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
+L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r Standard: 1.0"
 L["floatingCombatTextCombatDamageDirectionalScale"] = true
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
+L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rStandard: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, sofern sie aktualisiert wurde."
