@@ -83,6 +83,10 @@ L["Button"] = "按键"
 L["Item Level Links"] = "物品等级链接"
 L["Filter"] = "过滤器"
 L["Block"] = "块"
+L["Use Icon"] = "使用图标"
+L["Use a icon rather than text"] = "使用图标"
+L["Use Color"] = "使用颜色"
+L["Font Setting"] = "字体设定"
 
 -- Combat Alert
 L["Combat Alert"] = "战斗提示"
