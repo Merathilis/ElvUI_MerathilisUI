@@ -7,7 +7,7 @@ local tinsert = table.insert
 local SetCVar = SetCVar
 -- GLOBALS:
 
-local function CVars()
+local function CVarTable()
 	local ACH = E.Libs.ACH
 
 	E.Options.args.mui.args.modules.args.cvars = {
@@ -463,4 +463,4 @@ local function CVars()
 		},
 	}
 end
-tinsert(MER.Config, CVars)
+tinsert(MER.Config, CVarTable)
