@@ -115,13 +115,13 @@ L["Here you find the options for all the different |cffff8000MerathilisUI|r modu
 
 -- GameMenu
 L["GameMenu"] = "Spielmenü"
-L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "Aktiviert/Deaktiviert den MerathilisUI Style aus dem Blizzard Spielmenü."
+L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "Aktiviert/Deaktiviert den MerathilisUI Stil aus dem Blizzard Spielmenü."
 
 -- FlightMode
 L["FlightMode"] = "Flugmodus"
 L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Erweitert den |cff00c0faBenikUI|r Flugmodus.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
 L["Exit FlightMode"] = "Verlasse Flugmodus"
-L["Left Click to Request Stop"] = "Linksklick um zum Landen"
+L["Left Click to Request Stop"] = "Linksklick um zu Landen"
 
 -- FlightPoint
 L["Flight Point"] = "Flugpunkt"
