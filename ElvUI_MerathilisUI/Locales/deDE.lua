@@ -2,7 +2,7 @@
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 
 -- Core
-L[" is loaded. For any issues or suggestions, please visit "] = " wurde geladen. Für Fehler, oder Vorschläge besuche bitte: "
+L[" is loaded. For any issues or suggestions, please visit "] = " wurde geladen. Für Fehler oder Vorschläge besuche bitte: "
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Plugin für |cffff7d0aElvUI|r von\nMerathilis."
@@ -22,7 +22,7 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Sie
 - alle ElvUI Skins wurden überarbeitet
 - mein persönliches Layout
 
-|cFF00c0faHinweis:|r Sie ist mit den meisten anderen ElvUI Plugins kompatibel.
+|cFF00c0faHinweis:|r |cffff7d0aMerathilisUI|r ist mit den meisten anderen ElvUI Plugins kompatibel.
 Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell anpassen.
 
 |cffff8000Neue Features sind markiert mit einem: |r]=]
@@ -76,7 +76,7 @@ L["Auto Join"] = "Auto Beitreten"
 L["World"] = "Welt"
 L["Channels"] = "Kanäle"
 L["Block Shadow"] = "Verhindere Schatten"
-L["Hide channels not exist."] = "Kanäle ausblenden, die nicht existieren."
+L["Hide channels not exist."] = "Kanäle ausblenden die nicht existieren."
 L["Say"] = "Sagen"
 L["Yell"] = "Schreien"
 L["Instance"] = "Instanz"
@@ -84,7 +84,7 @@ L["Raid"] = "Schlachtzug"
 L["Raid Warning"] = "Schlachtzugs Warnung"
 L["Guild"] = "Gilde"
 L["Officer"] = "Offizier"
-L["Only show chat bar when you mouse over it."] = "Zeige die Chat-Leiste nur an, wenn mit der Maus darüber gefahren wird."
+L["Only show chat bar when you mouse over it."] = "Zeige Chat-Leiste nur an, wenn mit der Maus darüber gefahren wird."
 L["Button"] = "Tasten"
 L["Item Level Links"] = "Gegenstandsstufen Links"
 
@@ -100,8 +100,8 @@ L["Custom Text (Leave)"] = "Benutzerdefinierter Text (Verlasse)"
 L["Color"] = "Farbe"
 
 -- Information
-L["Information"] = true
-L["Support & Downloads"] = true
+L["Information"] = "Informationen"
+L["Support & Downloads"] = "Unterstützung & Downloads"
 L["Tukui.org"] = true
 L["Git Ticket tracker"] = true
 L["Curse.com"] = true
@@ -209,7 +209,7 @@ L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "Fügt zw
 L["Highest Quest Reward"] = "Höchste Quest Belohnung"
 L["Automatically select the item with the highest reward."] = "Wählt automatisch den Gegenstand mit dem höchsten Wert aus."
 L["Item Alerts"] = "Gegenstandsalarm"
-L["Announce in chat when someone placed an usefull item."] = "Kündigt im Chat an, wenn jemand einen nützlichen Gegenstand hinstellt."
+L["Announce in chat when someone placed an usefull item."] = "Kündigt im Chat an, wenn jemand einen nützlichen Gegenstand stellt."
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
@@ -223,7 +223,7 @@ L["Keystone"] = "Schlüsselstein"
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "Fügt eine Beschreibung für mythische Schlüsselsteineigenschaften dem Tooltip hinzu."
 L["Title Color"] = "Titel Farbe"
 L["Change the color of the title in the Tooltip."] = "Ändert die Farbe des Titels im Tooltip."
-L["Progress Info"] = true
+L["Progress Info"] = "Fortschrittsinfo"
 L["Shows raid progress of a character in the tooltip"] = "Zeigt den Schlachtzugsfortschritt für einen Charakter im Tooltip an."
 L["Mythic"] = "Mytisch"
 L["Heroic"] = "Heroisch"
@@ -244,8 +244,8 @@ L["Show the spell icon along with the name."] = "Verderbnis-Effekt-Icon samt Nam
 L["Notification"] = "Benachrichtigungen"
 L["Display a Toast Frame for different notifications."] = "Zeigt ein Fenster mit verschiedenen Benachrichtigungen."
 L["This is an example of a notification."] = "Beispiel Benachrichtigung."
-L["Notification Mover"] = true
-L["%s slot needs to repair, current durability is %d."] = "%s braucht einne Reparatur, aktuelle Haltbarkeit ist %d."
+L["Notification Mover"] = "Benachrichtigungs Mover"
+L["%s slot needs to repair, current durability is %d."] = "%s braucht eine Reparatur, aktuelle Haltbarkeit ist %d."
 L["You have %s pending calendar invite(s)."] = "Du hast %s ausstehende Kalendereinladungen"
 L["You have %s pending guild event(s)."] = "Du hast %s ausstehende Gildenereignisse"
 L["Event \"%s\" will end today."] = "Ereignis \"%s\" endet heute."
@@ -302,7 +302,7 @@ L["The width of the buttons."] = "Die Breite der Tasten"
 L["Button Height"] = "Tasten Höhe"
 L["The height of the buttons."] = "Die Höhe der Tasten"
 L["Counter"] = "Zähler"
-L["Outline"] = "Umriß" -- No need to translate -- whaaaaaaat?
+L["Outline"] = "Umriß"
 L["Button Groups"] = "Tasten Gruppen"
 L["Key Binding"] = "Tastenbelegung"
 L["Custom Items"] = "Benutzerdefinierte Gegenstände"
@@ -392,14 +392,14 @@ L["Adds a shadow to the debuffs that the debuff color is more visible."] = "Füg
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = "Ändert die 'Eingehende Heilung' Textur zu standard Blizzard"
 L["Swing Bar"] = true
 L["Creates a weapon Swing Bar"] = "Erstellt eine Waffen Swing Leiste"
-L["Main-Hand Color"] = "Main-Hand Farbe"
-L["Off-Hand Color"] = "Off-Hand Farbe"
-L["Two-Hand Color"] = "Two-Hand Farbe"
-L["GCD Bar"] = true
+L["Main-Hand Color"] = "Haupthand Farbe"
+L["Off-Hand Color"] = "Schildhand Farbe"
+L["Two-Hand Color"] = "Zweihand Farbe"
+L["GCD Bar"] = "GCD Leiste"
 L["Creates a Global Cooldown Bar"] = "Erstellt eine Globale Cooldown Leiste"
 L["UnitFrame Style"] = "Einheitenfenster Stil"
 L["Adds my styling to the Unitframes if you use transparent health."] = "Fügt meinen Stil zu den Einheitenfenstern hinzu, wenn du transparentes Leben benutzt."
-L["Change the default role icons."] = "Ändert die Standard Rollen Symbole."
+L["Change the default role icons."] = "Ändert die Standard Rollensymbole."
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -449,8 +449,8 @@ L["Hide Coordinates"] = "Verstecke Koordinaten"
 
 -- Maps
 L["MiniMap Buttons"] = "Minikartensymbole"
-L["Minimap Ping"] = true
-L["Add Server Name"] = "Zeige Server Namen"
+L["Minimap Ping"] = "Minikarten Ping"
+L["Add Server Name"] = "Zeige Servernamen"
 L["Only In Combat"] = "Nur im Kampf"
 L["Fade-In"] = "Einblenden"
 L["The time of animation. Set 0 to disable animation."] = "Die Zeit der Animation. Setze auf 0 um sie zu deaktivieren."
@@ -488,7 +488,7 @@ L["This will disable the ElvUI Raid Control and replace it with my own."] = "Die
 L["Open Raid Manager"] = "Öffnet den Raid Manager"
 L["Pull Timer Count"] = "Pulltimer Zähler"
 L["Change the Pulltimer for DBM or BigWigs"] = "Ändert den Pulltimer für DBM, oder BigWigs"
-L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = 'Aktzeptiert nur Zahlenformate mit "", z.B. "5", "8", "10" etc.'
+L["Only accept values format with "", e.g.: "5", "8", "10" etc."] = "Aktzeptiert nur Zahlenformate mit "", z.B. "5", "8", "10" etc."
 
 -- Reminder
 L["Reminder"] = "Erinnerung"
