@@ -461,48 +461,48 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 end
 
 -- Credits: Paragon Reputation
-local PARAGON_QUEST_ID = { --[questID] = {factionID, rewardID}
+local PARAGON_QUEST_ID = { --[questID] = {factionID}
 	--Legion
-	[48976] = {2170,152922}, -- Argussian Reach
-	[46777] = {2045,152108}, -- Armies of Legionfall
-	[48977] = {2165,152923}, -- Army of the Light
-	[46745] = {1900,152102}, -- Court of Farondis
-	[46747] = {1883,152103}, -- Dreamweavers
-	[46743] = {1828,152104}, -- Highmountain Tribes
-	[46748] = {1859,152105}, -- The Nightfallen
-	[46749] = {1894,152107}, -- The Wardens
-	[46746] = {1948,152106}, -- Valarjar
+	[48976] = {2170}, -- Argussian Reach
+	[46777] = {2045}, -- Armies of Legionfall
+	[48977] = {2165}, -- Army of the Light
+	[46745] = {1900}, -- Court of Farondis
+	[46747] = {1883}, -- Dreamweavers
+	[46743] = {1828}, -- Highmountain Tribes
+	[46748] = {1859}, -- The Nightfallen
+	[46749] = {1894}, -- The Wardens
+	[46746] = {1948}, -- Valarjar
 
 	--Battle for Azeroth
 	--Neutral
-	[54453] = {2164,166298}, --Champions of Azeroth
-	[58096] = {2415,174483}, --Rajani
-	[55348] = {2391,170061}, --Rustbolt Resistance
-	[54451] = {2163,166245}, --Tortollan Seekers
-	[58097] = {2417,174484}, --Uldum Accord
+	[54453] = {2164}, --Champions of Azeroth
+	[58096] = {2415}, --Rajani
+	[55348] = {2391}, --Rustbolt Resistance
+	[54451] = {2163}, --Tortollan Seekers
+	[58097] = {2417}, --Uldum Accord
 
 	--Horde
-	[54460] = {2156,166282}, --Talanji's Expedition
-	[54455] = {2157,166299}, --The Honorbound
-	[53982] = {2373,169940}, --The Unshackled
-	[54461] = {2158,166290}, --Voldunai
-	[54462] = {2103,166292}, --Zandalari Empire
+	[54460] = {2156}, --Talanji's Expedition
+	[54455] = {2157}, --The Honorbound
+	[53982] = {2373}, --The Unshackled
+	[54461] = {2158}, --Voldunai
+	[54462] = {2103}, --Zandalari Empire
 
 	--Alliance
-	[54456] = {2161,166297}, --Order of Embers
-	[54458] = {2160,166295}, --Proudmoore Admiralty
-	[54457] = {2162,166294}, --Storm's Wake
-	[54454] = {2159,166300}, --The 7th Legion
-	[55976] = {2400,169939}, --Waveblade Ankoan
+	[54456] = {2161}, --Order of Embers
+	[54458] = {2160}, --Proudmoore Admiralty
+	[54457] = {2162}, --Storm's Wake
+	[54454] = {2159}, --The 7th Legion
+	[55976] = {2400}, --Waveblade Ankoan
 
 	--Shadowlands
-	[61100] = {2413,180648}, --Court of Harvesters
-	[61097] = {2407,180647}, --The Ascended
-	[61095] = {2410,180646}, --The Undying Army
-	[61098] = {2465,180649}, --The Wild Hunt
+	[61100] = {2413}, --Court of Harvesters
+	[61097] = {2407}, --The Ascended
+	[61095] = {2410}, --The Undying Army
+	[61098] = {2465}, --The Wild Hunt
 }
 
-function module:QUEST_ACCEPTED(self, event, questID)
+function module:QUEST_ACCEPTED(_, questID)
 	if module.db.paragon and PARAGON_QUEST_ID[questID] then
 		local name = format("|cff00c0fa%s|r", GetFactionInfoByID(PARAGON_QUEST_ID[questID][1])) or UNKNOWN
 		local text = GetQuestLogCompletionText(C_QuestLog_GetLogIndexForQuestID(questID))
