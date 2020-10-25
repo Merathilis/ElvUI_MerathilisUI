@@ -503,7 +503,7 @@ L["This will disable the ElvUI Raid Control and replace it with my own."] = "这
 L["Open Raid Manager"] = "打开团队管理"
 L["Pull Timer Count"] = "倒数计时"
 L["Change the Pulltimer for DBM or BigWigs"] = "修改DBM和BigWigs的倒数计时"
-L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = "仅识别数字"
+L["Only accept values format with '', e.g.: '5', '8', '10' etc."] = "仅识别数字"
 
 -- Reminder
 L["Reminder"] = "常驻BUFF提醒"

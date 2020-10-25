@@ -488,7 +488,7 @@ L["This will disable the ElvUI Raid Control and replace it with my own."] = "Die
 L["Open Raid Manager"] = "Öffnet den Raid Manager"
 L["Pull Timer Count"] = "Pulltimer Zähler"
 L["Change the Pulltimer for DBM or BigWigs"] = "Ändert den Pulltimer für DBM, oder BigWigs"
-L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = 'Aktzeptiert nur Zahlenformate mit "", z.B. "5", "8", "10" etc.'
+L["Only accept values format with '', e.g.: '5', '8', '10' etc."] = "Aktzeptiert nur Zahlenformate mit '', z.B. '5', '8', '10' etc."
 
 -- Reminder
 L["Reminder"] = "Erinnerung"
