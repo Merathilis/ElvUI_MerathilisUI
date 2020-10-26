@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule('MER_Minimap')
 local SMB = MER:GetModule('MER_MiniMapButtons')
+local RM = MER:GetModule('MER_RectangleMinimap')
 local COMP = MER:GetModule('MER_Compatibility')
 local LSM = E.LSM
 
@@ -39,12 +40,6 @@ local function Minimap()
 						order = 2,
 						type = "toggle",
 						name = L["Instance Difficulty"],
-					},
-					rectangle = {
-						order = 3,
-						type = "toggle",
-						name = L["Rectangle Minimap"],
-						desc = L["|cffFF0000WARNING:|r If you enable this, you must adjust your Interface manually."],
 					},
 				},
 			},
@@ -292,6 +287,50 @@ local function Minimap()
 								disabled = function() return not E.db.mui.smb.enable end,
 							},
 						},
+					},
+				},
+			},
+			rectangle = {
+				order = 6,
+				type = "group",
+				name = MER:cOption(L["Rectangle Minimap"]),
+				guiInline = true,
+				get = function(info)
+					return E.db.mui.maps.minimap.rectangleMinimap[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.maps.minimap.rectangleMinimap[info[#info]] = value
+					RM:ChangeShape()
+				end,
+				args = {
+					desc = {
+						order = 1,
+						type = "group",
+						inline = true,
+						name = L["Description"],
+						args = {
+							feature = {
+								order = 1,
+								type = "description",
+								name = L["Change the shape of ElvUI minimap."],
+								fontSize = "medium"
+							}
+						}
+					},
+					enable = {
+						order = 2,
+						type = "toggle",
+						name = L["Enable"],
+						width = "full"
+					},
+					heightPercentage = {
+						order = 3,
+						type = "range",
+						name = L["Height Percentage"],
+						desc = L["Percentage of ElvUI minimap size."],
+						min = 0.01,
+						max = 1,
+						step = 0.01
 					},
 				},
 			},

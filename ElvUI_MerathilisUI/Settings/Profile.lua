@@ -570,7 +570,10 @@ MP.maps = {
 				style = "OUTLINE"
 			},
 		},
-		rectangle = false,
+		rectangleMinimap = {
+			enable = false,
+			heightPercentage = 0.8
+		},
 	},
 }
 
