@@ -435,7 +435,7 @@ function module:ConstructBar()
 	local bar = CreateFrame("Frame", MER.Title .. "MicroBar", E.UIParent, 'BackdropTemplate')
 	bar:Size(800, 60)
 	bar:Point("TOP", 0, -19)
-	bar:SetFrameStrata("HIGH")
+	bar:SetFrameStrata("MEDIUM")
 
 	bar:SetScript("OnEnter", function(bar)
 		if self.db and self.db.mouseOver then
