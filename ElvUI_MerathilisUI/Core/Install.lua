@@ -892,11 +892,13 @@ function MER:SetupActionbars(layout)
 
 	E.db["actionbar"]["bar1"]["buttonspacing"] = 2
 	E.db["actionbar"]["bar1"]["heightMult"] = 2
-	E.db["actionbar"]["bar1"]["buttonsize"] = 32
 	E.db["actionbar"]["bar1"]["buttons"] = 8
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
 	E.db["actionbar"]["bar1"]["backdrop"] = true
 	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar1"]["keepSizeRatio"] = false
+	E.db["actionbar"]["bar1"]["buttonHeight"] = 32
+	E.db["actionbar"]["bar1"]["buttonsize"] = 26
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 3
@@ -906,7 +908,6 @@ function MER:SetupActionbars(layout)
 
 	E.db["actionbar"]["bar2"]["enabled"] = true
 	E.db["actionbar"]["bar2"]["buttons"] = 8
-	E.db["actionbar"]["bar2"]["buttonsize"] = 32
 	E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
 	E.db["actionbar"]["bar2"]["mouseover"] = false
 	E.db["actionbar"]["bar2"]["backdropSpacing"] = 1
@@ -915,6 +916,9 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 	E.db["actionbar"]["bar2"]["backdrop"] = false
 	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar2"]["keepSizeRatio"] = false
+	E.db["actionbar"]["bar2"]["buttonHeight"] = 32
+	E.db["actionbar"]["bar2"]["buttonsize"] = 26
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 3
@@ -962,11 +966,13 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar6"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
 	E.db["actionbar"]["bar6"]["showGrid"] = true
 	E.db["actionbar"]["bar6"]["mouseover"] = false
-	E.db["actionbar"]["bar6"]["buttonsize"] = 32
 	E.db["actionbar"]["bar6"]["buttonsPerRow"] = 8
 	E.db["actionbar"]["bar6"]["heightMult"] = 1
 	E.db["actionbar"]["bar6"]["backdrop"] = true
 	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar6"]["keepSizeRatio"] = false
+	E.db["actionbar"]["bar6"]["buttonHeight"] = 32
+	E.db["actionbar"]["bar6"]["buttonsize"] = 26
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar6"]["buttonspacing"] = 3
@@ -991,8 +997,8 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = true
 
 	if layout == "dps" then
-		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,133"
-		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,171"
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,144"
+		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,177"
 		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-438,47"
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,430,47"
@@ -1973,7 +1979,7 @@ function MER:SetupUnitframes(layout)
 
 		-- Movers
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-244,209"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,111"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,120"
 		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,209"
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,230"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,243,209"
