@@ -9,7 +9,9 @@ local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
 -- WoW API
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
+local IsAddOnLoaded = IsAddOnLoaded
 local UnitFactionGroup = UnitFactionGroup
+local C_Timer_After = C_Timer.After
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
@@ -664,7 +666,7 @@ local function LoadSkin()
 			font:SetTextColor(r, g, b)
 		end
 
-		C_Timer.After(.1, function()
+		C_Timer_After(.2, function()
 			local WarPlanFrame = _G.WarPlanFrame
 			if not WarPlanFrame then return end
 
