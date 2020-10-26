@@ -96,11 +96,27 @@ function module:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
+function module:AdjustSettings()
+	if not E.db.mui.maps.minimap.rectangleMinimap.enable then return end
+
+	if not E.db.movers then
+		E.db.movers = {}
+	end
+
+	E.db["general"]["minimap"]["size"] = 212
+	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,47"
+end
+
 function module:Initialize()
 	self.db = E.db.mui.maps.minimap.rectangleMinimap
 
 	if not self.db or not self.db.enable then
 		return
+	end
+
+	-- Only adjust the settings for me
+	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		module:AdjustSettings()
 	end
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
