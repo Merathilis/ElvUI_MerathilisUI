@@ -140,6 +140,8 @@ L["Add"] = "Hinzufügen"
 L["Please set the name and realm first."] = "Bitte füge zuerst den Namen und den Server hinzu."
 L["Toggle Contacts"] = "Kontakte einblenden"
 L["Online Friends"] = "Freunde Online"
+L["Add To Favorites"] = "Zu Favoriten hinzufügen"
+L["Remove From Favorites"] = "Aus Favoriten entfernen"
 
 -- MicroBar
 L["Backdrop"] = "Hintergrund"

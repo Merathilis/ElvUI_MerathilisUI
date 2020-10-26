@@ -140,6 +140,8 @@ L["Add"] = "添加"
 L["Please set the name and realm first."] = "请先填写姓名和服务器."
 L["Toggle Contacts"] = "开/关通讯录"
 L["Online Friends"] = "在线好友"
+L["Add To Favorites"] = true
+L["Remove From Favorites"] = true
 
 -- MicroBar
 L["Backdrop"] = "背景"

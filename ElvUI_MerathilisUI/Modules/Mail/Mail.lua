@@ -14,6 +14,7 @@ local unpack = unpack
 
 local BNGetNumFriends = BNGetNumFriends
 local CreateFrame = CreateFrame
+local EasyMenu = EasyMenu
 local GameTooltip = _G.GameTooltip
 local GetClassColor = GetClassColor
 local GetLocale = GetLocale
@@ -90,6 +91,29 @@ local function SetButtonTooltip(button, text)
 	end)
 end
 
+function module:ShowContextText(button)
+	if not button.name then
+		return
+	end
+
+	local menu = {
+		{
+			text = button.name,
+			isTitle = true,
+			notCheckable = true
+		}
+	}
+
+	if not button.class then
+		tinsert(menu, {text = L["Remove From Favorites"], func = function() if button.name then E.global.mui.contacts.favorites[button.name .. "-" .. button.realm] = nil self:ChangeCategory("FAVORITE") end end, notCheckable = true})
+	else
+		tinsert(menu, {text = L["Add To Favorites"], func = function() if button.name then E.global.mui.contacts.favorites[button.name .. "-" .. button.realm] = true end end, notCheckable = true})
+	end
+
+	EasyMenu(menu, self.contextMenuFrame, "cursor", 0, 0, "MENU")
+end
+
+
 function module:ConstructFrame()
 	if self.frame then
 		return
@@ -103,6 +127,8 @@ function module:ConstructFrame()
 	frame:EnableMouse(true)
 
 	self.frame = frame
+
+	self.contextMenuFrame = CreateFrame("Frame", "WTContactsContextMenu", E.UIParent, "UIDropDownMenuTemplate")
 end
 
 function module:ConstructButtons()
@@ -208,6 +234,8 @@ function module:ConstructNameButtons()
 						_G.SendMailNameEditBox:SetText(playerName)
 					end
 				end
+			elseif mouseButton == "RightButton" then
+				module:ShowContextText(self)
 			end
 		end)
 

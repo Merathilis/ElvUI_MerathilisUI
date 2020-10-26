@@ -138,6 +138,8 @@ L["Add"] = true
 L["Please set the name and realm first."] = true
 L["Toggle Contacts"] = true
 L["Online Friends"] = true
+L["Add To Favorites"] = true
+L["Remove From Favorites"] = true
 
 -- MicroBar
 L["Backdrop"] = true
