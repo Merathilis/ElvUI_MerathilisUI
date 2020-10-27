@@ -897,8 +897,8 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar1"]["backdrop"] = true
 	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
 	E.db["actionbar"]["bar1"]["keepSizeRatio"] = false
-	E.db["actionbar"]["bar1"]["buttonHeight"] = 32
-	E.db["actionbar"]["bar1"]["buttonsize"] = 26
+	E.db["actionbar"]["bar1"]["buttonHeight"] = 26
+	E.db["actionbar"]["bar1"]["buttonsize"] = 32
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 3
@@ -917,8 +917,8 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar2"]["backdrop"] = false
 	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = true
 	E.db["actionbar"]["bar2"]["keepSizeRatio"] = false
-	E.db["actionbar"]["bar2"]["buttonHeight"] = 32
-	E.db["actionbar"]["bar2"]["buttonsize"] = 26
+	E.db["actionbar"]["bar2"]["buttonHeight"] = 26
+	E.db["actionbar"]["bar2"]["buttonsize"] = 32
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 3
@@ -971,8 +971,8 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar6"]["backdrop"] = true
 	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = true
 	E.db["actionbar"]["bar6"]["keepSizeRatio"] = false
-	E.db["actionbar"]["bar6"]["buttonHeight"] = 32
-	E.db["actionbar"]["bar6"]["buttonsize"] = 26
+	E.db["actionbar"]["bar6"]["buttonHeight"] = 26
+	E.db["actionbar"]["bar6"]["buttonsize"] = 32
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar6"]["buttonspacing"] = 3
