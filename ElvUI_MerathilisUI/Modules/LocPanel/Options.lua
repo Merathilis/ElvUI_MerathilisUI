@@ -305,29 +305,29 @@ local function LocPanelTable()
 							},
 						},
 					},
-					fontGroup = {
+					font = {
 						order = 23,
 						type = "group",
 						name = L["Fonts"],
 						disabled = function() return not E.db.mui.locPanel.enable end,
 						hidden = function() return not E.db.mui.locPanel.enable end,
-						get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
-						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Fonts() end,
+						get = function(info) return E.db.mui.locPanel[info[#info - 1]][info[#info]] end,
+						set = function(info, value) E.db.mui.locPanel[info[#info - 1]][info[#info]] = value; LP:Fonts() end,
 						args = {
-							font = {
+							name = {
 								type = "select", dialogControl = "LSM30_Font",
 								order = 1,
 								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
+								values = E.LSM:HashTable("font"),
 							},
-							fontSize = {
+							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
 								min = 6, max = 22, step = 1,
-								set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Fonts(); LP:Resize() end,
+								set = function(info, value) E.db.mui.locPanel[info[#info - 1]][info[#info]] = value; LP:Fonts(); LP:Resize() end,
 							},
-							fontOutline = {
+							style = {
 								order = 3,
 								name = L["Font Outline"],
 								type = "select",

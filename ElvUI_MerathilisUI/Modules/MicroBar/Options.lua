@@ -305,9 +305,7 @@ local function MicroBarTable()
 										order = 3,
 										name = L["Size"],
 										type = "range",
-										min = 5,
-										max = 60,
-										step = 1
+										min = 5, max = 60, step = 1
 									},
 									style = {
 										order = 2,
