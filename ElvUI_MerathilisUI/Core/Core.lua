@@ -32,14 +32,19 @@ local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 
-function MER:cOption(name)
-	local color = "|cffff7d0a%s |r"
-	return (color):format(name)
-end
+function MER:cOption(name, color)
+	local hex
+	if color == 'orange' then
+		hex = '|cffff7d0a%s |r'
+	elseif color == 'blue' then
+		hex = '|cFF00c0fa%s |r'
+	elseif color == 'gradient' then
+		hex = E:TextGradient(name, 1, 0.65, 0, 1, 0.65, 0, 1, 1, 1)
+	else
+		hex = '|cFFFFFFFF%s |r'
+	end
 
-function MER:bOption(name)
-	local color = "|cFF00c0fa%s |r"
-	return (color):format(name)
+	return (hex):format(name)
 end
 
 function MER:DasOptions()

@@ -19,7 +19,7 @@ local function Misc()
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Miscellaneous"]), 1),
+			name = ACH:Header(MER:cOption(L["Miscellaneous"], 'orange'), 1),
 			MailInputbox = {
 				order = 2,
 				type = "toggle",
@@ -100,7 +100,7 @@ local function Misc()
 			alerts = {
 				order = 20,
 				type = "group",
-				name = MER:cOption(L["Alerts"]),
+				name = MER:cOption(L["Alerts"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -127,7 +127,7 @@ local function Misc()
 			quest = {
 				order = 21,
 				type = "group",
-				name = MER:cOption(L["Quest"]),
+				name = MER:cOption(L["Quest"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.quest[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.quest[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -143,7 +143,7 @@ local function Misc()
 			paragon = {
 				order = 22,
 				type = "group",
-				name = MER:cOption(L["MISC_PARAGON_REPUTATION"]),
+				name = MER:cOption(L["MISC_PARAGON_REPUTATION"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.paragon[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.paragon[ info[#info] ] = value; end,
@@ -186,7 +186,7 @@ local function Misc()
 			macros = {
 				order = 23,
 				type = "group",
-				name = MER:cOption(L["Macros"]),
+				name = MER:cOption(L["Macros"], 'orange'),
 				guiInline = true,
 				args = {
 					randomtoy = {

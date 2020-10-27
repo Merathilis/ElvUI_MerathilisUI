@@ -21,11 +21,11 @@ local function LocPanelTable()
 		name = L["Location Panel"],
 		get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Location Panel"]), 1),
+			name = ACH:Header(MER:cOption(L["Location Panel"], 'orange'), 1),
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Credits"]),
+				name = MER:cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = ACH:Description(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
@@ -34,7 +34,7 @@ local function LocPanelTable()
 			panel = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Location Panel"]),
+				name = MER:cOption(L["Location Panel"], 'orange'),
 				guiInline = true,
 				args = {
 					enable = {

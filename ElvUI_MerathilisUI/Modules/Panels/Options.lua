@@ -10,11 +10,11 @@ local function PanelTable()
 		type = "group",
 		name = L["Panels"],
 		args = {
-			header = ACH:Header(MER:cOption(L["Panels"]), 0),
+			header = ACH:Header(MER:cOption(L["Panels"], 'orange'), 0),
 			panels = {
 				order = 1,
 				type = "group",
-				name = MER:cOption(L["Panels"]),
+				name = MER:cOption(L["Panels"], 'orange'),
 				guiInline = true,
 				args = {
 					topPanel = {
@@ -55,7 +55,7 @@ local function PanelTable()
 			stylepanels = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Style Panels"]),
+				name = MER:cOption(L["Style Panels"], 'orange'),
 				guiInline = true,
 				args = {
 					panelSize = {

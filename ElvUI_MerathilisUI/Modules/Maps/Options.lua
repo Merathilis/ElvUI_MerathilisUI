@@ -5,13 +5,12 @@ local RM = MER:GetModule('MER_RectangleMinimap')
 local COMP = MER:GetModule('MER_Compatibility')
 local LSM = E.LSM
 
---Cache global variables
---Lua functions
+local _G = _G
 local format = string.format
 local tinsert = table.insert
---WoW API / Variables
+
 local C_Texture_GetAtlasInfo = C_Texture.GetAtlasInfo
--- GLOBALS:
+
 
 local function Minimap()
 	local ACH = E.Libs.ACH
@@ -23,11 +22,11 @@ local function Minimap()
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
 		args = {
-			header = ACH:Header(MER:cOption(L["MiniMap"]), 1),
+			header = ACH:Header(MER:cOption(L["MiniMap"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["General"]),
+				name = MER:cOption(L["General"], 'orange'),
 				guiInline = true,
 				args = {
 					flash = {
@@ -46,7 +45,7 @@ local function Minimap()
 			ping = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Minimap Ping"]),
+				name = MER:cOption(L["Minimap Ping"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.maps.minimap.ping[ info[#info] ] end,
 				set = function(info, value) E.db.mui.maps.minimap.ping[ info[#info] ] = value; MM:UpdatePing(); end,
@@ -208,7 +207,7 @@ local function Minimap()
 			coords = {
 				order = 4,
 				type = "group",
-				name = MER:cOption(L["Coordinates"]),
+				name = MER:cOption(L["Coordinates"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.maps.minimap.coords[ info[#info] ] end,
 				set = function(info, value) E.db.mui.maps.minimap.coords[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -236,7 +235,7 @@ local function Minimap()
 			smb = {
 				order = 5,
 				type = "group",
-				name = MER:cOption(L["Minimap Buttons"]),
+				name = MER:cOption(L["Minimap Buttons"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.smb[ info[#info] ] end,
 				set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update() end,
@@ -293,7 +292,7 @@ local function Minimap()
 			rectangle = {
 				order = 6,
 				type = "group",
-				name = MER:cOption(L["Rectangle Minimap"]),
+				name = MER:cOption(L["Rectangle Minimap"], 'orange'),
 				guiInline = true,
 				get = function(info)
 					return E.db.mui.maps.minimap.rectangleMinimap[info[#info]]

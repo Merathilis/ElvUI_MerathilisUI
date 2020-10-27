@@ -13,11 +13,11 @@ local function Datatexts()
 		type = "group",
 		name = L["DataTexts"],
 		args = {
-			name = ACH:Header(MER:cOption(L["DataTexts"]), 1),
+			name = ACH:Header(MER:cOption(L["DataTexts"], 'orange'), 1),
 			--general = {
 				--order = 2,
 				--type = "group",
-				--name = MER:cOption(L["General"]),
+				--name = MER:cOption(L["General"], 'orange'),
 				--guiInline = true,
 				--args = {},
 			--},

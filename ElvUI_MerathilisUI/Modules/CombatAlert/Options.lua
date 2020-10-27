@@ -10,7 +10,7 @@ local function CVars()
 		get = function(info) return E.db.mui.CombatAlert[info[#info]] end,
 		set = function(info, value) E.db.mui.CombatAlert[info[#info]] = value E:StaticPopup_Show("PRIVATE_RL") end,
 		args = {
-			CombatAlertHeader = ACH:Header(MER:cOption(L["Combat Alert"]), 0),
+			CombatAlertHeader = ACH:Header(MER:cOption(L["Combat Alert"], 'orange'), 0),
 			enable = {
 				order = 1,
 				type = "toggle",
@@ -19,7 +19,7 @@ local function CVars()
 			},
 			font = {
 				order = 2,
-				name = MER:cOption(L["Font"]),
+				name = MER:cOption(L["Font"], 'orange'),
 				type = "group",
 				guiInline = true,
 				get = function(info) return E.db.mui.CombatAlert[info[#info - 1]][info[#info]] end,
@@ -53,7 +53,7 @@ local function CVars()
 			},
 			style = {
 				order = 2,
-				name = MER:cOption(L["Style"]),
+				name = MER:cOption(L["Style"], 'orange'),
 				type = "group",
 				guiInline = true,
 				get = function(info) return E.db.mui.CombatAlert.style[info[#info]] end,
@@ -117,7 +117,7 @@ local function CVars()
 			},
 			custom_text = {
 				order = 3,
-				name = MER:cOption(L["Custom Text"]),
+				name = MER:cOption(L["Custom Text"], 'orange'),
 				type = "group",
 				guiInline = true,
 				get = function(info) return E.db.mui.CombatAlert.custom_text[info[#info]] end,

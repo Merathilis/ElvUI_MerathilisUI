@@ -20,7 +20,7 @@ local function RaidManagerOptions()
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Description"]),
+				name = MER:cOption(L["Description"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = ACH:Description(L["This will disable the ElvUI Raid Control and replace it with my own."], 1),

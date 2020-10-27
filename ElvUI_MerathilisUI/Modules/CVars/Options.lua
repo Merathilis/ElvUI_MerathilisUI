@@ -14,7 +14,7 @@ local function CVarTable()
 		type = "group",
 		name = L["CVars"],
 		args = {
-			header = ACH:Header(MER:cOption(L["CVars"]), 1),
+			header = ACH:Header(MER:cOption(L["CVars"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",

@@ -305,7 +305,7 @@ local function testCallback()
 end
 
 SlashCmdList.TESTNOTIFICATION = function(b)
-	module:DisplayToast(MER:cOption("MerathilisUI:"), L["This is an example of a notification."], testCallback, b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
+	module:DisplayToast(MER:cOption("MerathilisUI:", 'gradient'), L["This is an example of a notification."], testCallback, b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
 end
 SLASH_TESTNOTIFICATION1 = "/testnotification"
 
@@ -357,8 +357,8 @@ function module:UPDATE_INVENTORY_DURABILITY()
 		end
 	end
 	table.sort(Slots, function(a, b) return a[3] < b[3] end)
-	local value = floor(Slots[1][3]*100)
 
+	local value = floor(Slots[1][3]*100)
 	if showRepair and value < 20 then
 		showRepair = false
 		E:Delay(30, ResetRepairNotification)

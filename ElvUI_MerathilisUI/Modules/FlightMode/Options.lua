@@ -14,11 +14,11 @@ local function FlightMode()
 		get = function(info) return E.db.mui.flightMode[ info[#info] ] end,
 		set = function(info, value) E.db.mui.flightMode[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			header = ACH:Header(MER:cOption(L["FlightMode"]), 1),
+			header = ACH:Header(MER:cOption(L["FlightMode"], 'orange'), 1),
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Credits"]),
+				name = MER:cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				disabled = function() return (COMP.BUI and E.db.benikui.misc.flightMode.enable) end,
 				args = {
