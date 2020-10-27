@@ -371,6 +371,7 @@ function MER:SetupLayout(layout)
 	--	ProfileDB - NamePlate
 	--]]----------------------------------
 	-- General
+	E.db["nameplates"]["threat"]["enable"] = false
 	E.db["nameplates"]["threat"]["useThreatColor"] = false
 	E.db["nameplates"]["clampToScreen"] = true
 	E.db["nameplates"]["colors"]["glowColor"] = {r = 0, g = 191/255, b = 250/255, a = 1}
