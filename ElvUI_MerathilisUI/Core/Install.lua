@@ -2679,11 +2679,7 @@ function MER:SetupDts()
 	E.db["datatexts"]["font"] = "Expressway"
 	E.db["datatexts"]["fontSize"] = 10
 	E.db["datatexts"]["fontOutline"] = "OUTLINE"
-	E.db["datatexts"]["time24"] = true
-	E.db["datatexts"]["goldFormat"] = "CONDENSED"
-	E.db["datatexts"]["goldCoins"] = true
-	E.db["datatexts"]["noCombatHover"] = true
-	E.db["datatexts"]["wordWrap"] = true
+	E.global["datatexts"]["settings"]["Gold"]["goldCoins"] = false
 
 	E.db["chat"]["RightChatDataPanelAnchor"] = "ABOVE_CHAT"
 	E.db["chat"]["LeftChatDataPanelAnchor"] = "ABOVE_CHAT"
