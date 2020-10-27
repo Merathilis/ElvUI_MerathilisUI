@@ -170,7 +170,7 @@ local function AddOptions()
 						name = MER:cOption(L["Coding"]),
 						guiInline = true,
 						args = {
-							tukui = ACH:Description(format("|cffffd200%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal"), 1),
+							tukui = ACH:Description(format("|cffffd200%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal, fang2hou"), 1),
 						},
 					},
 					testing = {

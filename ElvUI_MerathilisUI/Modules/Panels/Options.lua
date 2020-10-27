@@ -27,7 +27,7 @@ local function PanelTable()
 					topPanelHeight = {
 						order = 2,
 						type = "range",
-						name = E.NewSign..L["Height"],
+						name = L["Height"],
 						min = 1, max = 400, step = 1,
 						get = function(info) return E.db.mui.panels.topPanelHeight end,
 						set = function(info, value) E.db.mui.panels.topPanelHeight = value; PN:Resize() end,
@@ -44,7 +44,7 @@ local function PanelTable()
 					bottomPanelHeight = {
 						order = 5,
 						type = "range",
-						name = E.NewSign..L["Height"],
+						name = L["Height"],
 						min = 1, max = 400, step = 1,
 						get = function(info) return E.db.mui.panels.bottomPanelHeight end,
 						set = function(info, value) E.db.mui.panels.bottomPanelHeight = value; PN:Resize() end,
@@ -60,7 +60,7 @@ local function PanelTable()
 				args = {
 					panelSize = {
 						order = 1,
-						name = E.NewSign..L["Width"],
+						name = L["Width"],
 						type = "range",
 						min = 50, max = 800, step = 1,
 						get = function(info) return E.db.mui.panels.panelSize end,

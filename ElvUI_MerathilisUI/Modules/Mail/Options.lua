@@ -9,7 +9,7 @@ local function MailTable()
 
 	E.Options.args.mui.args.modules.args.mail = {
 		type = "group",
-		name = E.NewSign..L["Mail"],
+		name = L["Mail"],
 		get = function(info)
 			return E.db.mui.mail[info[#info]]
 		end,
