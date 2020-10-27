@@ -260,7 +260,7 @@ function module:CreateLocationPanel()
 
 	-- Location Text
 	loc_panel.Text = loc_panel:CreateFontString(nil, "BACKGROUND")
-	MER:SetFontDB(loc_panel.Text, module.db.font)
+	loc_panel.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 	loc_panel.Text:Point("CENTER", 0, 0)
 	loc_panel.Text:SetWordWrap(false)
 	E.FrameLocks[loc_panel] = true
@@ -269,13 +269,13 @@ function module:CreateLocationPanel()
 	loc_panel.Xcoord = CreateFrame('Frame', "MER_LocPanel_X", loc_panel, 'BackdropTemplate')
 	loc_panel.Xcoord:Point("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "BACKGROUND")
-	MER:SetFontDB(loc_panel.Xcoord.Text, module.db.font)
+	loc_panel.Xcoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
 
 	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel, 'BackdropTemplate')
 	loc_panel.Ycoord:Point("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "BACKGROUND")
-	MER:SetFontDB(loc_panel.Ycoord.Text, module.db.font)
+	loc_panel.Ycoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
 
 	module:Resize()
@@ -407,14 +407,14 @@ function module:Resize()
 		loc_panel:Size(module.db.width, module.db.height)
 	end
 	loc_panel.Text:Width(module.db.width - 18)
-	loc_panel.Xcoord:Size(module.db.font.size * 3, module.db.height)
-	loc_panel.Ycoord:Size(module.db.font.size * 3, module.db.height)
+	loc_panel.Xcoord:Size(module.db.fontSize * 3, module.db.height)
+	loc_panel.Ycoord:Size(module.db.fontSize * 3, module.db.height)
 end
 
 function module:Fonts()
-	MER:SetFontDB(loc_panel.Text, module.db.font)
-	MER:SetFontDB(loc_panel.Xcoord.Text, module.db.font)
-	MER:SetFontDB(loc_panel.Ycoord.Text, module.db.font)
+	loc_panel.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
+	loc_panel.Xcoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
+	loc_panel.Ycoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 end
 
 function module:Template()
