@@ -103,8 +103,31 @@ function module:AdjustSettings()
 		E.db.movers = {}
 	end
 
+	E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["enable"] = true
+	E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["heightPercentage"] = 0.68
+
 	E.db["general"]["minimap"]["size"] = 212
+	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
+	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = 30
+	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -40
+	E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 30
 	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,47"
+
+	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-455,47"
+	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-489,116"
+
+	E.db["chat"]["panelWidthRight"] = 235
+	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-219,47"
+
+	if E.global["datatexts"]["customPanels"]["MER_RightChatTop"] then
+		E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 2
+		E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["width"] = 235
+		E.db["datatexts"]["panels"]["MER_RightChatTop"] = {
+			[1] = "Durability",
+			[2] = "Gold",
+			["enable"] = true,
+		}
+	end
 end
 
 function module:Initialize()
