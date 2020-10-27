@@ -15,7 +15,7 @@ L["SplashScreen"] = "Startbildschirm"
 L["Enable/Disable the Splash Screen on Login."] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
 L["Options"] = "Einstellungen"
 L["Desciption"] = "Beschreibung"
-L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Sie ergänzt:
+L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r ist eine Erweiterung für ElvUI. Sie ergänzt:
 
 - viele neue Funktionen
 - einen transparenten Look
@@ -111,7 +111,7 @@ L["Development Version"] = true
 L["Here you can download the latest development version."] = "Hier findest du den Download zu meiner Development Version."
 
 -- Modules
-L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffff8000MerathilisUI|r Modulen.\nBenutze bitte das Dropdownmenü um durch die verschiedenen Module zu navigieren."
+L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffffffffMerathilis|r|cffff8000UI|r Modulen.\nBenutze bitte das Dropdownmenü um durch die verschiedenen Module zu navigieren."
 
 -- GameMenu
 L["GameMenu"] = "Spielmenü"

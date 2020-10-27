@@ -14,6 +14,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 MER.Media = {
 	Icons = {},
+	Textures = {},
 }
 
 local MediaPath = "Interface\\Addons\\ElvUI_MerathilisUI\\Media\\"
@@ -41,7 +42,14 @@ AddMedia("barTalents", "MicroBar\\Talents.tga", "Icons")
 AddMedia("barToyBox", "MicroBar\\ToyBox.tga", "Icons")
 
 AddMedia("favorite", "Favorite.tga", "Icons")
+AddMedia("general", "General.tga", "Icons")
+AddMedia("information", "Information.tga", "Icons")
 AddMedia("list", "List.tga", "Icons")
+AddMedia("media", "Media.tga", "Icons")
+AddMedia("modules", "Modules.tga", "Icons")
+AddMedia("skins", "Skins.tga", "Icons")
+
+AddMedia("pepeSmall", "pepeSmall.tga", "Textures")
 
 module.Zones = L["MER_MEDIA_ZONES"]
 module.PvPInfo = L["MER_MEDIA_PVP"]

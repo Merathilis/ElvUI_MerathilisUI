@@ -45,7 +45,8 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 30,
 		type = "group",
-		name = L["Skins/AddOns"],
+		name = MER:bOption(L["Skins/AddOns"]),
+		icon = MER.Media.Icons.skins,
 		childGroups = "tab",
 		args = {
 			name = ACH:Header(MER:cOption(L["Skins/AddOns"]), 1),
