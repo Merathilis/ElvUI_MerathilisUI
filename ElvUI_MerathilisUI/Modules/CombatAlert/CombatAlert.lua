@@ -36,7 +36,7 @@ function module:RefreshAlert()
 
 	self.db = E.db.mui.CombatAlert
 
-	self.alert.text:FontTemplate(E.LSM:Fetch('font', self.db.style.font), self.db.style.fontSize, self.db.style.fontOutline)
+	MER:SetFontDB(self.alert.text, self.db.font)
 	self.alert:SetScale(self.db.style.scale or 0.8)
 
 	if self.db.style.backdrop then

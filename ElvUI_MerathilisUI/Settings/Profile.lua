@@ -32,10 +32,12 @@ MP.merchant = {
 
 MP.CombatAlert = {
 	enable = true,
+	font = {
+		name = "Expressway",
+		size = 28,
+		style = "THICKOUTLINE",
+	},
 	style = {
-		font = E.db.general.font,
-		fontSize = 28,
-		fontOutline = "THICKOUTLINE",
 		backdrop = false,
 		font_color_enter = {
 			r = 0.91,
