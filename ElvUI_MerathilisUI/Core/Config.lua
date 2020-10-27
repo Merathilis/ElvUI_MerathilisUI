@@ -5,12 +5,32 @@ if E.db.mui == nil then E.db.mui = {} end
 -- Cache global variables
 -- Lua functions
 local format, select, unpack = format, select, unpack
-local tinsert = table.insert
+local tconcat, tinsert, tsort = table.concat, table.insert, table.sort
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: StaticPopup_Show
 
 local logo = CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/media/textures/m2", 64, 64, 20, 20, 0, 1, 0, 1, 0, -1)
+
+local DONATORS = {
+	'enii',
+	'Hope',
+	'Kisol',
+	'Natsurusenô',
+	'Rylok',
+	'Amenitra',
+	'zarbol',
+	'Olli2k',
+	'Dlarge',
+}
+tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
+local DONATOR_STRING = tconcat(DONATORS, ", ")
+
+local PATREONS = {
+	'Graldur',
+}
+tsort(PATREONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
+local PATREONS_STRING = tconcat(PATREONS, ", ")
 
 local function AddOptions()
 	local icon = MER:GetIconString(MER.Media.Textures.pepeSmall, 14)
@@ -180,6 +200,26 @@ local function AddOptions()
 						guiInline = true,
 						args = {
 							tukui = ACH:Description(format("|cffffd200%s|r", "Benik, Darth Predator, Rockxana, ElvUI community"), 1),
+						},
+					},
+					donors = {
+						order = 5,
+						type = 'group',
+						name = MER:cOption(L["Donations"]),
+						guiInline = true,
+						args = {
+							patreon = {
+								order = 1,
+								type = 'description',
+								fontSize = 'medium',
+								name = format("|cffff005aPatreons: |r|cffffd200%s\n|r", PATREONS_STRING)
+							},
+							paypal = {
+								order = 2,
+								type = 'description',
+								fontSize = 'medium',
+								name = format("|cff009fffPayPal: |r|cffffd200%s\n|r", DONATOR_STRING)
+							},
 						},
 					},
 					version = {
