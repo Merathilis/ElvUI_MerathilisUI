@@ -168,12 +168,18 @@ L["Right Panel"] = true
 L["Button #%d"] = true
 L["Pet Journal"] = true
 L["Show Pet Journal"] = true
+L["Random Favorite Pet"] = true
 L["Screenshot"] = true
 L["Screenshot immediately"] = true
 L["Screenshot after 2 secs"] = true
 L["Toy Box"] = true
 L["Collections"] = true
 L["Show Collections"] = true
+L["Random Favorite Mount"] = true
+L["Decrease the volume"] = true
+L["Increase the volume"] = true
+L["Profession"] = true
+L["Volume"] = true
 
 -- Misc
 L["Misc"] = true

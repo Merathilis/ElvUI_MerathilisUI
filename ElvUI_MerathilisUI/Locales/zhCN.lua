@@ -171,12 +171,18 @@ L["Right Panel"] = "右面板"
 L["Button #%d"] = "按键 #%d"
 L["Pet Journal"] = "宠物"
 L["Show Pet Journal"] = true
+L["Random Favorite Pet"] = true
 L["Screenshot"] = "截图"
 L["Screenshot immediately"] = "立即截图"
 L["Screenshot after 2 secs"] = "2秒后截图"
 L["Toy Box"] = "玩具"
 L["Collections"] = true
 L["Show Collections"] = true
+L["Random Favorite Mount"] = true
+L["Decrease the volume"] = true
+L["Increase the volume"] = true
+L["Profession"] = true
+L["Volume"] = true
 
 -- Misc
 L["Misc"] = "杂项"

@@ -11,6 +11,7 @@ local format = format
 local gsub = gsub
 local ipairs = ipairs
 local max = max
+local min = min
 local mod = mod
 local pairs = pairs
 local select = select
@@ -23,6 +24,7 @@ local unpack = unpack
 
 local CreateFrame = CreateFrame
 local EncounterJournal_LoadUI = EncounterJournal_LoadUI
+local CreateFromMixins = CreateFromMixins
 local GetGameTime = GetGameTime
 local GetItemCooldown = GetItemCooldown
 local GetItemIcon = GetItemIcon
@@ -34,6 +36,7 @@ local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local IsInGuild = IsInGuild
 local IsModifierKeyDown = IsModifierKeyDown
+local ItemMixin = ItemMixin
 local RegisterStateDriver = RegisterStateDriver
 local ResetCPUUsage = ResetCPUUsage
 local Screenshot = Screenshot
@@ -49,12 +52,14 @@ local ToggleFrame = ToggleFrame
 local ToggleFriendsFrame = ToggleFriendsFrame
 local ToggleGuildFinder = ToggleGuildFinder
 local ToggleGuildFrame = ToggleGuildFrame
+local ToggleSpellBook = ToggleSpellBook
 local ToggleTimeManager = ToggleTimeManager
 local UnregisterStateDriver = UnregisterStateDriver
 
+local C_CVar_GetCVar = C_CVar.GetCVar
+local C_CVar_SetCVar = C_CVar.SetCVar
 local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
 local C_Garrison_GetCompleteMissions = C_Garrison.GetCompleteMissions
-local C_Item_GetItemNameByID = C_Item.GetItemNameByID
 local C_Timer_After = C_Timer.After
 local C_Timer_NewTicker = C_Timer.NewTicker
 
@@ -92,6 +97,7 @@ local Heartstones = {
 }
 
 local HeartstonesTable
+
 local function AddDoubleLineForItem(itemID, prefix)
 	if type(itemID) == "string" then
 		itemID = tonumber(itemID)
@@ -193,28 +199,9 @@ local ButtonTypes = {
 			LeftButton = "/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab1",
 			RightButton = "/run CollectionsJournal_LoadUI()\n/click MountJournalSummonRandomFavoriteButton"
 		},
-		tooltips = function(button)
-			DT.tooltip:ClearLines()
-			DT.tooltip:SetText(L["Collections"])
-			DT.tooltip:AddLine("\n")
-			DT.tooltip:AddLine(LeftButtonIcon.." "..L["Show Collections"], 1, 1, 1)
-			DT.tooltip:AddLine(RightButtonIcon.." ".._G.MOUNT_JOURNAL_SUMMON_RANDOM_FAVORITE_MOUNT, 1, 1, 1)
-			DT.tooltip:Show()
-
-			button.tooltipsUpdateTimer = C_Timer_NewTicker(1, function()
-				DT.tooltip:ClearLines()
-				DT.tooltip:SetText(L["Collections"])
-				DT.tooltip:AddLine("\n")
-				DT.tooltip:AddLine(LeftButtonIcon.." "..L["Show Collections"], 1, 1, 1)
-				DT.tooltip:AddLine(RightButtonIcon.." ".._G.MOUNT_JOURNAL_SUMMON_RANDOM_FAVORITE_MOUNT, 1, 1, 1)
-				DT.tooltip:Show()
-			end)
-		end,
-		tooltipsLeave = function(button)
-			if button.tooltipsUpdateTimer and button.tooltipsUpdateTimer.Cancel then
-				button.tooltipsUpdateTimer:Cancel()
-			end
-		end,
+		tooltips = {
+			L["Collections"], "\n", LeftButtonIcon .. " " .. L["Show Collections"], RightButtonIcon .. " " .. L["Random Favorite Mount"]
+		},
 	},
 	ENCOUNTER_JOURNAL = {
 		name = _G.ENCOUNTER_JOURNAL,
@@ -345,28 +332,25 @@ local ButtonTypes = {
 			LeftButton = "/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab2",
 			RightButton = "/run CollectionsJournal_LoadUI()\n/click PetJournalSummonRandomFavoritePetButton"
 		},
-		tooltips = function(button)
-			DT.tooltip:ClearLines()
-			DT.tooltip:SetText(L["Pet Journal"])
-			DT.tooltip:AddLine("\n")
-			DT.tooltip:AddLine(LeftButtonIcon.." "..L["Show Pet Journal"], 1, 1, 1)
-			DT.tooltip:AddLine(RightButtonIcon.." ".._G.PET_JOURNAL_SUMMON_RANDOM_FAVORITE_PET, 1, 1, 1)
-			DT.tooltip:Show()
-
-			button.tooltipsUpdateTimer = C_Timer_NewTicker(1, function()
-				DT.tooltip:ClearLines()
-				DT.tooltip:SetText(L["Pet Journal"])
-				DT.tooltip:AddLine("\n")
-				DT.tooltip:AddLine(LeftButtonIcon.." "..L["Show Pet Journal"], 1, 1, 1)
-				DT.tooltip:AddLine(RightButtonIcon.." ".._G.PET_JOURNAL_SUMMON_RANDOM_FAVORITE_PET, 1, 1, 1)
-				DT.tooltip:Show()
-			end)
-		end,
-		tooltipsLeave = function(button)
-			if button.tooltipsUpdateTimer and button.tooltipsUpdateTimer.Cancel then
-				button.tooltipsUpdateTimer:Cancel()
+		tooltips = {
+			L["Pet Journal"], "\n", LeftButtonIcon .. " " .. L["Show Pet Journal"], RightButtonIcon .. " " .. L["Random Favorite Pet"]
+		},
+	},
+	PROFESSION = {
+		name = L["Profession"],
+		icon = MER.Media.Icons.barProfession,
+		click = {
+			LeftButton = function()
+				if not InCombatLockdown() then
+					ToggleSpellBook(_G.BOOKTYPE_PROFESSION)
+				else
+					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+				end
 			end
-		end,
+		},
+		tooltips = {
+			L["Profession"]
+		}
 	},
 	SCREENSHOT = {
 		name = L["Screenshot"],
@@ -413,6 +397,48 @@ local ButtonTypes = {
 		tooltips = {
 			L["Toy Box"]
 		},
+	},
+	VOLUME = {
+		name = L["Volume"],
+		icon = MER.Media.Icons.barVolume,
+		click = {
+			LeftButton = function()
+				local vol = C_CVar_GetCVar("Sound_MasterVolume")
+				vol = vol and tonumber(vol) or 0
+				C_CVar_SetCVar("Sound_MasterVolume", min(vol + 0.1, 1))
+			end,
+			RightButton = function()
+				local vol = C_CVar_GetCVar("Sound_MasterVolume")
+				vol = vol and tonumber(vol) or 0
+				C_CVar_SetCVar("Sound_MasterVolume", max(vol - 0.1, 0))
+			end
+		},
+		tooltips = function(button)
+			local vol = C_CVar_GetCVar("Sound_MasterVolume")
+			vol = vol and tonumber(vol) or 0
+			DT.tooltip:ClearLines()
+			DT.tooltip:SetText(L["Volume"] .. format(": %d%%", vol))
+			DT.tooltip:AddLine("\n")
+			DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Increase the volume"] .. " (+10%)", 1, 1, 1)
+			DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Decrease the volume"] .. " (-10%)", 1, 1, 1)
+			DT.tooltip:Show()
+
+			button.tooltipsUpdateTimer = C_Timer_NewTicker( 0.3, function()
+				local vol = C_CVar_GetCVar("Sound_MasterVolume")
+				vol = vol and tonumber(vol) or 0
+				DT.tooltip:ClearLines()
+				DT.tooltip:SetText(L["Volume"] .. format(": %d%%", vol * 100))
+				DT.tooltip:AddLine("\n")
+				DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Increase the volume"] .. " (+10%)", 1, 1, 1)
+				DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Decrease the volume"] .. " (-10%)", 1, 1, 1)
+				DT.tooltip:Show()
+			end)
+		end,
+		tooltipsLeave = function(button)
+			if button.tooltipsUpdateTimer and button.tooltipsUpdateTimer.Cancel then
+				button.tooltipsUpdateTimer:Cancel()
+			end
+		end
 	},
 }
 
@@ -968,8 +994,6 @@ end
 
 function module:PLAYER_ENTERING_WORLD()
 	C_Timer_After(1, function()
-		self:UpdateHearthStoneTable()
-
 		if InCombatLockdown() then
 			self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		else
@@ -980,24 +1004,39 @@ end
 
 function module:UpdateHomeButton()
 	ButtonTypes.HOME.item = {
-		item1 = C_Item_GetItemNameByID(self.db.home.left),
-		item2 = C_Item_GetItemNameByID(self.db.home.right)
+		item1 = HeartstonesTable[self.db.home.left],
+		item2 = HeartstonesTable[self.db.home.right]
 	}
 end
 
 function module:UpdateHearthStoneTable()
 	HeartstonesTable = {}
 
-	for _, id in pairs(Heartstones) do
-		HeartstonesTable[tostring(id)] = C_Item_GetItemNameByID(id)
+	local index = 0
+	local itemEngine = CreateFromMixins(ItemMixin)
+
+	local function GetNextHearthStoneInfo()
+		index = index + 1
+		if Heartstones[index] then
+			itemEngine:SetItemID(Heartstones[index])
+			itemEngine:ContinueOnItemLoad(
+				function()
+					HeartstonesTable[tostring(Heartstones[index])] = itemEngine:GetItemName()
+					GetNextHearthStoneInfo()
+				end
+			)
+		else
+			self:UpdateHomeButton()
+			if self.Initialized then
+				self:UpdateButtons()
+			end
+		end
 	end
+
+	GetNextHearthStoneInfo()
 end
 
 function module:GetHearthStoneTable()
-	if not HeartstonesTable then
-		self:UpdateHearthStoneTable()
-	end
-
 	return HeartstonesTable
 end
 
