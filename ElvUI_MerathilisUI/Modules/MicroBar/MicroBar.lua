@@ -22,9 +22,10 @@ local tostring = tostring
 local type = type
 local unpack = unpack
 
+local BNGetNumFriends = BNGetNumFriends
 local CreateFrame = CreateFrame
-local EncounterJournal_LoadUI = EncounterJournal_LoadUI
 local CreateFromMixins = CreateFromMixins
+local EncounterJournal_LoadUI = EncounterJournal_LoadUI
 local GetGameTime = GetGameTime
 local GetItemCooldown = GetItemCooldown
 local GetItemIcon = GetItemIcon
@@ -362,10 +363,7 @@ local ButtonTypes = {
 			end
 		},
 		tooltips = {
-			L["Screenshot"],
-			"\n",
-			LeftButtonIcon .. " " .. L["Screenshot immediately"],
-			RightButtonIcon .. " " .. L["Screenshot after 2 secs"]
+			L["Screenshot"], "\n", LeftButtonIcon .. " " .. L["Screenshot immediately"], RightButtonIcon .. " " .. L["Screenshot after 2 secs"]
 		}
 	},
 	SPELLBOOK = {
