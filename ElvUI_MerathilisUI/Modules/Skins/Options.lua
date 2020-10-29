@@ -477,6 +477,11 @@ local function SkinsTable()
 				name = L["Player Choice"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.playerChoice end,
 			},
+			chromieTime = {
+				type = "toggle",
+				name = L["Chromie Time"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.chromieTime end,
+			},
 		},
 	}
 
