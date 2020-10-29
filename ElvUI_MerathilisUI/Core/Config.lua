@@ -26,11 +26,11 @@ local DONATORS = {
 tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
 
-local PATREONS = {
+local PATRONS = {
 	'Graldur',
 }
-tsort(PATREONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
-local PATREONS_STRING = tconcat(PATREONS, ", ")
+tsort(PATRONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
+local PATRONS_STRING = tconcat(PATRONS, ", ")
 
 local function AddOptions()
 	local icon = MER:GetIconString(MER.Media.Textures.pepeSmall, 14)
@@ -208,11 +208,11 @@ local function AddOptions()
 						name = MER:cOption(L["Donations"], 'orange'),
 						guiInline = true,
 						args = {
-							patreon = {
+							patron = {
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format("|cffff005aPatreons: |r|cffffd200%s\n|r", PATREONS_STRING)
+								name = format("|cffff005aPatrons: |r|cffffd200%s\n|r", PATRONS_STRING)
 							},
 							paypal = {
 								order = 2,
