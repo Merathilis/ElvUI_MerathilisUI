@@ -146,12 +146,6 @@ local function LoadSkin()
 
 		if (bu and not bu.restyled) then
 			RestyleRewardButton(bu, rewardsFrame == _G.MapQuestInfoRewardsFrame)
-
-			bu.Icon:SetTexCoord(unpack(E.TexCoords))
-			bu.IconBorder:SetAlpha(0)
-			bu.Icon:SetDrawLayer("OVERLAY")
-			bu.Count:SetDrawLayer("OVERLAY")
-
 			bu.restyled = true
 		end
 	end)
