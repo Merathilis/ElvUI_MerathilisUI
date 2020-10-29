@@ -63,7 +63,7 @@ local function LoadSkin()
 	--- QuestFrameReward ---
 	------------------------
 	_G.QuestRewardScrollFrame:HookScript("OnShow", function(self)
-		E:Delay(0.05, RemoveParchment, self)
+		E:Delay(0.1, RemoveParchment, self)
 	end)
 
 	--------------------------
