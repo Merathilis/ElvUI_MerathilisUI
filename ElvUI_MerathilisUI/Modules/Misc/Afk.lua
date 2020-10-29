@@ -254,8 +254,6 @@ local function Initialize()
 		playerModel.tex.text:SetShadowOffset(2, -2)
 	end
 
-	E:UpdateBorderColors()
-
 	AFK:Toggle()
 	AFK.isActive = false
 

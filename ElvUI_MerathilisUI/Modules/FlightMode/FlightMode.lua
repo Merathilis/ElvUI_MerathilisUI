@@ -124,7 +124,7 @@ local AddonsToHide = {
 	{'ConRO', 'ConRO_SingleButton'},
 	{'Details', 'DetailsBaseFrame1'}, -- probably more
 	{'Details', 'DetailsRowFrame1'}, -- probably more
-	{'!KalielsTracker','!KalielsTrackerFrame'},	
+	{'!KalielsTracker','!KalielsTrackerFrame'},
 }
 
 local function ConvertTime(h, m)
@@ -690,7 +690,6 @@ function module:Initialize()
 	end
 	module:ForUpdateAll()
 
-	E:UpdateBorderColors()
 	module:Toggle()
 	module:Resize()
 
