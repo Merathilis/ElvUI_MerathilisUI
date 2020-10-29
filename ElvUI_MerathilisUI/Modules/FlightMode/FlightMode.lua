@@ -124,6 +124,7 @@ local AddonsToHide = {
 	{'ConRO', 'ConRO_SingleButton'},
 	{'Details', 'DetailsBaseFrame1'}, -- probably more
 	{'Details', 'DetailsRowFrame1'}, -- probably more
+	{'!KalielsTracker','!KalielsTrackerFrame'},	
 }
 
 local function ConvertTime(h, m)
