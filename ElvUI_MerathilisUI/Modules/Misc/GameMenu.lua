@@ -318,7 +318,6 @@ end
 function module:Initialize()
 	if E.db.mui.general.GameMenu then
 		self:GameMenu()
-		E:UpdateBorderColors()
 	end
 end
 
