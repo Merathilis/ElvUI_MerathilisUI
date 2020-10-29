@@ -2,22 +2,21 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local AFK = E:GetModule('AFK')
 local COMP = MER:GetModule('MER_Compatibility')
 
--- Cache global variables
--- Lua Variables
+
 local _G = _G
-local unpack = unpack
+local tonumber, unpack = tonumber, unpack
 local format = string.format
 local floor = math.floor
 local date = date
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
+local GetGameTime = GetGameTime
 local GetTime = GetTime
 local GetGuildInfo = GetGuildInfo
 local IsInGuild = IsInGuild
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
-
--- Credits: DuffedUI
+local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 
 local function Player_Model(self)
 	self:ClearModel()
@@ -49,7 +48,6 @@ local function SetAFK(status)
 		AFK.isAFK = false
 	end
 end
-hooksecurefunc(AFK, "SetAFK", SetAFK)
 
 local function ConvertTime(h, m)
 	local AmPm
@@ -118,12 +116,15 @@ local daysAbr = {
 
 -- Create Date
 local function CreateDate()
-	local date = C_DateAndTime.GetCurrentCalendarTime()
+	local date = C_DateAndTime_GetCurrentCalendarTime()
 	local presentWeekday = date.weekday
 	local presentMonth = date.month
 	local presentDay = date.monthDay
 	local presentYear = date.year
-	AFK.AFKMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
+
+	if AFK.AFKMode.DateText then
+		AFK.AFKMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
+	end
 end
 
 -- AFK-Timer
@@ -143,7 +144,6 @@ local function UpdateTimer()
 	-- Set Date
 	CreateDate()
 end
-hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 
 local function Initialize()
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
@@ -258,6 +258,9 @@ local function Initialize()
 
 	AFK:Toggle()
 	AFK.isActive = false
+
+	hooksecurefunc(AFK, "SetAFK", SetAFK)
+	hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 end
 
 hooksecurefunc(AFK, "Initialize", Initialize)
