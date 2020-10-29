@@ -64,7 +64,7 @@ local function Misc()
 			},
 			lfgInfo = {
 				order = 15,
-				name = L["LFG Info"],
+				name = MER:cOption(L["LFG Info"], 'orange'),
 				type = "group",
 				guiInline = true,
 				get = function(info)

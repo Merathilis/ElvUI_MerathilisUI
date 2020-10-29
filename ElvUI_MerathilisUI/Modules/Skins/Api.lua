@@ -300,9 +300,6 @@ function MERS:ReskinIcon(icon, backdrop)
 		icon:SetDrawLayer("ARTWORK")
 	end
 
-	icon:SetSnapToPixelGrid(false)
-	icon:SetTexelSnappingBias(0)
-
 	if backdrop then
 		MERS:CreateBackdrop(icon)
 	end
