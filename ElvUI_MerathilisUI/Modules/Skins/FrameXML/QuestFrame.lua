@@ -62,8 +62,14 @@ local function LoadSkin()
 	------------------------
 	--- QuestFrameReward ---
 	------------------------
-	_G.QuestRewardScrollFrame:HookScript("OnShow", function(self)
-		E:Delay(0.1, RemoveParchment, self)
+	hooksecurefunc(S, "QuestInfo_StyleScrollFrame", function(S, scrollFrame, widthOverride, heightOverride, inset)
+		if scrollFrame.spellTex then
+			scrollFrame.spellTex:SetTexture(nil)
+		end
+
+		if scrollFrame.backdrop then
+			scrollFrame.backdrop:Hide()
+		end
 	end)
 
 	--------------------------
