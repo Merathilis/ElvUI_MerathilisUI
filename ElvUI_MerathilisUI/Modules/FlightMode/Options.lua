@@ -8,7 +8,7 @@ local tinsert = table.insert
 local function FlightMode()
 	local ACH = E.Libs.ACH
 
-	E.Options.args.mui.args.modules.args.cvars = {
+	E.Options.args.mui.args.modules.args.flightMode = {
 		type = "group",
 		name = L["FlightMode"],
 		get = function(info) return E.db.mui.flightMode[ info[#info] ] end,
