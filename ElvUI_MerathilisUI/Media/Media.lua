@@ -52,6 +52,7 @@ AddMedia("media", "Media.tga", "Icons")
 AddMedia("modules", "Modules.tga", "Icons")
 AddMedia("skins", "Skins.tga", "Icons")
 
+AddMedia("arrow", "arrow.tga", "Textures")
 AddMedia("pepeSmall", "pepeSmall.tga", "Textures")
 
 module.Zones = L["MER_MEDIA_ZONES"]

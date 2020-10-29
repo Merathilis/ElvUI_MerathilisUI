@@ -40,9 +40,6 @@ local function LoadSkin()
 		if self.backdrop then
 			self.backdrop:Hide()
 		end
-		if not E.private.skins.parchmentRemoverEnable then
-			self.spellTex:SetTexture("")
-		end
 	end)
 
 	if _G.QuestDetailScrollFrame.spellTex then

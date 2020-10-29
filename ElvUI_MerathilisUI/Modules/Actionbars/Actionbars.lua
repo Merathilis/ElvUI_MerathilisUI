@@ -62,6 +62,33 @@ function module:ActionbarGlow()
 	end
 end
 
+local function ReskinVehicleExit()
+	if E.private.actionbar.enable ~= true then
+		return
+	end
+
+	local button = _G.MainMenuBarVehicleLeaveButton
+	local tex = button:GetNormalTexture()
+	if tex then
+		tex:SetTexture(MER.Media.Textures.arrow)
+		tex:SetTexCoord(0, 1, 0, 1)
+		tex:SetVertexColor(1, 1, 1)
+	end
+
+	tex = button:GetPushedTexture()
+	if tex then
+		tex:SetTexture(MER.Media.Textures.arrow)
+		tex:SetTexCoord(0, 1, 0, 1)
+		tex:SetVertexColor(1, 0, 0)
+	end
+
+	tex = button:GetHighlightTexture()
+	if tex then
+		tex:SetTexture(nil)
+		tex:Hide()
+	end
+end
+
 function module:Initialize()
 	if E.private.actionbar.enable ~= true then return; end
 
@@ -69,6 +96,7 @@ function module:Initialize()
 	MER:RegisterDB(self, "actionbars")
 
 	self:EquipSpecBar()
+	ReskinVehicleExit()
 
 	C_TimerAfter(1, module.StyleBackdrops)
 	C_TimerAfter(0.1, module.ActionbarGlow)
