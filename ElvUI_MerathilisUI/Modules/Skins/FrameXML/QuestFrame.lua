@@ -24,6 +24,16 @@ local function UpdateGreetingFrame()
 	end
 end
 
+local function RemoveParchment(self)
+	if self.backdrop then
+		self.backdrop:Hide()
+	end
+
+	if self.spellTex then
+		self.spellTex:SetTexture(nil)
+	end
+end
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return end
 
@@ -37,6 +47,7 @@ local function LoadSkin()
 	------------------------
 	_G.QuestDetailScrollFrame:StripTextures(true)
 	_G.QuestDetailScrollFrame:HookScript("OnUpdate", function(self)
+		self:DisableDrawLayer("BACKGROUND")
 		if self.backdrop then
 			self.backdrop:Hide()
 		end
@@ -52,13 +63,7 @@ local function LoadSkin()
 	--- QuestFrameReward ---
 	------------------------
 	_G.QuestRewardScrollFrame:HookScript("OnShow", function(self)
-		if self.backdrop then
-			self.backdrop:Hide()
-		end
-		if not E.private.skins.parchmentRemoverEnable then
-			self.spellTex:SetTexture("")
-			self:Height(self:GetHeight() - 2)
-		end
+		E:Delay(0.05, RemoveParchment, self)
 	end)
 
 	--------------------------
