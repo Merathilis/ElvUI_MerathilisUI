@@ -238,6 +238,7 @@ MP.colors = {
 
 MP.mail = {
 	enable = true,
+	defaultPage = "ALTS"
 }
 
 MP.misc = {

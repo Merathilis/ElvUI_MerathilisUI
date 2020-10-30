@@ -31,6 +31,17 @@ local function MailTable()
 						name = L["Enable"],
 						width = "full",
 					},
+					defaultPage = {
+						order = 2,
+						type = "select",
+						name = L["Default Page"],
+						values = {
+							ALTS = L["Alternate Character"],
+							FRIENDS = L["Online Friends"],
+							GUILD = L["Guild Members"],
+							FAVORITE = L["Favorites"]
+						},
+					},
 				},
 			},
 		},

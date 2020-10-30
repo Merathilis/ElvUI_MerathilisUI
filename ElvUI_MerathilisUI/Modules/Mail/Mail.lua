@@ -521,7 +521,7 @@ function module:BuildFavoriteData()
 end
 
 function module:ChangeCategory(type)
-	type = type or "ALTS"
+	type = type or self.db.defaultPage
 
 	if type == "ALTS" then
 		self:BuildAltsData()
@@ -532,7 +532,8 @@ function module:ChangeCategory(type)
 	elseif type == "FAVORITE" then
 		self:BuildFavoriteData()
 	else
-		self:BuildAltsData()
+		self:ChangeCategory(self.db.defaultPage)
+		return
 	end
 
 	currentPageIndex = 1
