@@ -546,6 +546,7 @@ MP.unitframes = {
 	raidIcons = true,
 	roleIcons = true,
 	highlight = true,
+	auras = true,
 }
 
 MP.maps = {

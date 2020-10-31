@@ -2,9 +2,8 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_NameplateAuras')
 local NP = E:GetModule('NamePlates')
 local UF = E:GetModule('UnitFrames')
+local MUF = MER:GetModule('MER_UnitFrames')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
 local find = string.find
@@ -16,7 +15,6 @@ local UnitClass = UnitClass
 local UnitName = UnitName
 local hooksecurefunc = hooksecurefunc
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
--- GLOBALS:
 
 --[[
 	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken from ElvUI_NihilistUI)
@@ -86,6 +84,8 @@ function module:Construct_Auras(nameplate)
 
 	nameplate.Buffs.SetPosition = module.SetPosition
 	nameplate.Debuffs.SetPosition = module.SetPosition
+
+	hooksecurefunc(nameplate.Debuffs, 'PostUpdateIcon', MUF.PostUpdateDebuffs)
 end
 
 function module:Construct_AuraIcon(button)

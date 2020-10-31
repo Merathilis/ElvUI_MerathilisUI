@@ -2,11 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
 local UF = E.UnitFrames
 
---Cache global variables
---Lua functions
 local _G = _G
---WoW API / Variables
--- GLOBALS:
 
 function module:Configure_Castbar(frame)
 	local castbar = frame.Castbar
