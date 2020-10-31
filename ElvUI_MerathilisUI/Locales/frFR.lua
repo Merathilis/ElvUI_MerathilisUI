@@ -7,7 +7,7 @@ L[" is loaded. For any issues or suggestions, please visit "] = true
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
 L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
-L["AFK"] = true
+L["AFK"] = "ABS"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Are you still there? ... Hello?"] = true
 L["Logout Timer"] = true
@@ -94,7 +94,7 @@ L["Stay Duration"] = true
 L["Custom Text"] = true
 L["Custom Text (Enter)"] = true
 L["Custom Text (Leave)"] = true
-L["Color"] = true
+L["Color"] = "Couleur"
 
 -- Information
 L["Information"] = true
@@ -131,7 +131,7 @@ L["Alt List"] = true
 L["Delete"] = true
 L["Favorites"] = true
 L["Favorite List"] = true
-L["Name"] = true
+L["Name"] = "Nom"
 L["Realm"] = true
 L["Add"] = true
 L["Please set the name and realm first."] = true
@@ -141,12 +141,12 @@ L["Add To Favorites"] = true
 L["Remove From Favorites"] = true
 
 -- MicroBar
-L["Backdrop"] = true
-L["Backdrop Spacing"] = true
-L["The spacing between the backdrop and the buttons."] = true
+L["Backdrop"] = "Fond"
+L["Backdrop Spacing"] = "Espacement du fond"
+L["The spacing between the backdrop and the buttons."] = "Espace entre le fond et les boutons."
 L["Time Width"] = true
 L["Time Height"] = true
-L["The spacing between buttons."] = true
+L["The spacing between buttons."] = "Espacement entre deux boutons."
 L["The size of the buttons."] = true
 L["Slow Mode"] = true
 L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = true
@@ -266,7 +266,7 @@ L["No Sounds"] = true
 
 -- DataTexts
 -- DataBars
-L["DataBars"] = true
+L["DataBars"] = "Barres d'expériences"
 L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
@@ -325,7 +325,7 @@ L["Alpha Min"] = true
 L["Alpha Max"] = true
 
 -- Armory
-L["Armory"] = true
+L["Armory"] = "Armurerie"
 L["ARMORY_DESC"] = [=[The |cffff7d0aArmory Mode|r only works with the ElvUI 'Display Character Info'. You may need to reload your UI:
 
 ElvUI - General - BlizzUI Improvements - Display Character Infos.]=]
@@ -345,7 +345,7 @@ L["Color of Average"] = true
 L["Sets the color of average item level."] = true
 L["Only Relevant Stats"] = true
 L["Show only those primary stats relevant to your spec."] = true
-L["Item Level"] = true
+L["Item Level"] = "Niveau d'objet"
 L["Categories"] = true
 L["Slot Gradient"] = true
 L["Shows a gradiation texture on the Character Slots."] = true
@@ -392,7 +392,7 @@ L["MER_MEDIA_PVPARENA"] = {
 }
 
 -- Unitframes
-L["UnitFrames"] = true
+L["UnitFrames"] = "Cadre d'unité"
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
 L["Swing Bar"] = true
@@ -477,7 +477,7 @@ L["Show/Hide raid marks."] = true
 L["Reverse"] = true
 L["Modifier Key"] = true
 L["Set the modifier key for placing world markers."] = true
-L["Visibility State"] = true
+L["Visibility State"] = "État de visibilité"
 
 -- Raid Buffs
 L["Raid Buff Reminder"] = true
@@ -578,8 +578,8 @@ L["MerathilisUI didn't find any supported addons for profile creation"] = true
 L["MerathilisUI successfully created and applied profile(s) for:"] = true
 L["Tank/ DPS Layout"] = true
 L["Heal Layout"] = true
-L["Chat Set"] = true
-L["ActionBars"] = true
+L["Chat Set"] = "Chat configuré"
+L["ActionBars"] = "Barres d'actions"
 L["ActionBars Set"] = true
 L["DataTexts Set"] = true
 L["Profile Set"] = true
@@ -613,7 +613,7 @@ L["Please click the button below to setup your actionbars."] = true
 L["Please click the button below to setup your datatexts."] = true
 L["Please click the button below to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
-L["DataTexts"] = true
+L["DataTexts"] = "Textes d'informations"
 L["Setup Datatexts"] = true
 L["Setup Addons"] = true
 L["ElvUI AddOns"] = true
@@ -667,7 +667,7 @@ L["Skins/AddOns"] = true
 L["Profiles"] = true
 L["BigWigs"] = true
 L["MasterPlan"] = true
-L["Shadow & Light"] = true
+L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = true
 
 -- Changelog

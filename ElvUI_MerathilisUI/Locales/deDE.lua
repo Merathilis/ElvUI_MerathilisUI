@@ -7,7 +7,7 @@ L[" is loaded. For any issues or suggestions, please visit "] = " wurde geladen.
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Plugin für |cffff7d0aElvUI|r von\nMerathilis."
 L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = "von Merathilis (|cFF00c0faEU-Shattrath|r)"
-L["AFK"] = true
+L["AFK"] = "AFK"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm. Wird automatisch deaktiviert, wenn BenikUI geladen wurde."
 L["Are you still there? ... Hello?"] = "Bist du noch da? ... Hallo?"
 L["Logout Timer"] = "Auslogzeit"
@@ -107,7 +107,7 @@ L["Git Ticket tracker"] = true
 L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = "Tester & Inspiration"
-L["Development Version"] = true
+L["Development Version"] = "Entwicklungsversion"
 L["Here you can download the latest development version."] = "Hier findest du den Download zu meiner Development Version."
 
 -- Modules
@@ -669,7 +669,7 @@ L["Skins/AddOns"] = true
 L["Profiles"] = "Profile"
 L["BigWigs"] = true
 L["MasterPlan"] = true
-L["Shadow & Light"] = true
+L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen und anwenden für "
 
 -- Changelog

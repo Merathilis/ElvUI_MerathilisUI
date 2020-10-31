@@ -140,8 +140,8 @@ L["Add"] = "添加"
 L["Please set the name and realm first."] = "请先填写姓名和服务器."
 L["Toggle Contacts"] = "开/关通讯录"
 L["Online Friends"] = "在线好友"
-L["Add To Favorites"] = true
-L["Remove From Favorites"] = true
+L["Add To Favorites"] = "添加到收藏"
+L["Remove From Favorites"] = "从收藏移除"
 
 -- MicroBar
 L["Backdrop"] = "背景"
@@ -170,19 +170,19 @@ L["Left Panel"] = "左面板"
 L["Right Panel"] = "右面板"
 L["Button #%d"] = "按键 #%d"
 L["Pet Journal"] = "宠物"
-L["Show Pet Journal"] = true
-L["Random Favorite Pet"] = true
+L["Show Pet Journal"] = "显示小伙伴手册"
+L["Random Favorite Pet"] = "随机偏好小伙伴"
 L["Screenshot"] = "截图"
 L["Screenshot immediately"] = "立即截图"
 L["Screenshot after 2 secs"] = "2秒后截图"
 L["Toy Box"] = "玩具"
-L["Collections"] = true
-L["Show Collections"] = true
-L["Random Favorite Mount"] = true
-L["Decrease the volume"] = true
-L["Increase the volume"] = true
-L["Profession"] = true
-L["Volume"] = true
+L["Collections"] = "藏品"
+L["Show Collections"] = "显示藏品"
+L["Random Favorite Mount"] = "随机偏好坐骑"
+L["Decrease the volume"] = "降低音量"
+L["Increase the volume"] = "增大音量"
+L["Profession"] = "专业"
+L["Volume"] = "音量"
 
 -- Misc
 L["Misc"] = "杂项"
@@ -328,9 +328,9 @@ L["Potions"] = "药水"
 L["Flasks"] = "合剂"
 L["Banners"] = "战旗"
 L["Utilities"] = "实用"
-L["Fade Time"] = true
-L["Alpha Min"] = true
-L["Alpha Max"] = true
+L["Fade Time"] = "淡入时间"
+L["Alpha Min"] = "最小透明度"
+L["Alpha Max"] = "最大透明度"
 
 -- Armory
 L["Armory"] = "角色界面"
@@ -693,7 +693,7 @@ L["Skins/AddOns"] = "皮肤/插件"
 L["Profiles"] = "配置文件"
 L["BigWigs"] = true
 L["MasterPlan"] = true
-L["Shadow & Light"] = true
+L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = "这将创建并应用配置文件"
 
 -- Changelog

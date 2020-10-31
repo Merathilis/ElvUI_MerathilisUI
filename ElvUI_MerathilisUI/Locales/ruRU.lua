@@ -7,7 +7,7 @@ L[" is loaded. For any issues or suggestions, please visit "] = true
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
 L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
-L["AFK"] = true
+L["AFK"] = "АФК"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Are you still there? ... Hello?"] = true
 L["Logout Timer"] = true
@@ -97,14 +97,14 @@ L["Custom Text (Leave)"] = true
 L["Color"] = true
 
 -- Information
-L["Information"] = true
+L["Information"] = "Информация"
 L["Support & Downloads"] = true
 L["Tukui.org"] = true
 L["Git Ticket tracker"] = true
 L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
-L["Development Version"] = true
+L["Development Version"] = "Дев. версия"
 L["Here you can download the latest development version."] = true
 
 -- Modules
@@ -131,7 +131,7 @@ L["Alt List"] = true
 L["Delete"] = true
 L["Favorites"] = true
 L["Favorite List"] = true
-L["Name"] = true
+L["Name"] = "Имя"
 L["Realm"] = true
 L["Add"] = true
 L["Please set the name and realm first."] = true
@@ -141,12 +141,12 @@ L["Add To Favorites"] = true
 L["Remove From Favorites"] = true
 
 -- MicroBar
-L["Backdrop"] = true
-L["Backdrop Spacing"] = true
-L["The spacing between the backdrop and the buttons."] = true
+L["Backdrop"] = "Фон"
+L["Backdrop Spacing"] = "Отступ фона"
+L["The spacing between the backdrop and the buttons."] = "Расстояние между фоном панели и кнопками."
 L["Time Width"] = true
 L["Time Height"] = true
-L["The spacing between buttons."] = true
+L["The spacing between buttons."] = "Расстояние между кнопками"
 L["The size of the buttons."] = true
 L["Slow Mode"] = true
 L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = true
@@ -268,7 +268,7 @@ L["No Sounds"] = true
 
 -- DataTexts
 -- DataBars
-L["DataBars"] = true
+L["DataBars"] = "Инфо-полосы"
 L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
@@ -347,7 +347,7 @@ L["Color of Average"] = true
 L["Sets the color of average item level."] = true
 L["Only Relevant Stats"] = true
 L["Show only those primary stats relevant to your spec."] = true
-L["Item Level"] = true
+L["Item Level"] = "Уровень предметов"
 L["Categories"] = true
 L["Slot Gradient"] = true
 L["Shows a gradiation texture on the Character Slots."] = true
@@ -394,7 +394,7 @@ L["MER_MEDIA_PVPARENA"] = {
 }
 
 -- Unitframes
-L["UnitFrames"] = true
+L["UnitFrames"] = "Рамки юнитов"
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
 L["Swing Bar"] = true
@@ -414,7 +414,7 @@ L["Update Throttle"] = true
 L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] = true
 L["Full Location"] = true
 L["Color Type"] = true
-L["Custom Color"] = true
+L["Custom Color"] = "Свой цвет"
 L["Reaction"] = true
 L["Location"] = true
 L["Coordinates"] = true
@@ -479,7 +479,7 @@ L["Show/Hide raid marks."] = true
 L["Reverse"] = true
 L["Modifier Key"] = true
 L["Set the modifier key for placing world markers."] = true
-L["Visibility State"] = true
+L["Visibility State"] = "Статус отображения"
 
 -- Raid Buffs
 L["Raid Buff Reminder"] = true
@@ -580,8 +580,8 @@ L["MerathilisUI didn't find any supported addons for profile creation"] = true
 L["MerathilisUI successfully created and applied profile(s) for:"] = true
 L["Tank/ DPS Layout"] = true
 L["Heal Layout"] = true
-L["Chat Set"] = true
-L["ActionBars"] = true
+L["Chat Set"] = "Чат настроен"
+L["ActionBars"] = "Панели команд"
 L["ActionBars Set"] = true
 L["DataTexts Set"] = true
 L["Profile Set"] = true
@@ -615,8 +615,8 @@ L["Please click the button below to setup your actionbars."] = true
 L["Please click the button below to setup your datatexts."] = true
 L["Please click the button below to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
-L["DataTexts"] = true
-L["Setup Chat"] = true
+L["DataTexts"] = "Инфо-тексты"
+L["Setup Chat"] = "Настроить чат"
 L["Setup Datatexts"] = true
 L["Setup Addons"] = true
 L["ElvUI AddOns"] = true
@@ -670,7 +670,7 @@ L["Skins/AddOns"] = true
 L["Profiles"] = true
 L["BigWigs"] = true
 L["MasterPlan"] = true
-L["Shadow & Light"] = true
+L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = true
 
 -- Changelog
