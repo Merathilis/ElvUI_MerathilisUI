@@ -1083,6 +1083,7 @@ function MER:SetupUnitframes(layout)
 
 	--Cooldowns
 	E.db["unitframe"]["cooldown"]["override"] = true
+	E.db["unitframe"]["cooldown"]["useIndicatorColor"] = true
 	E.db["unitframe"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
 	E.db["unitframe"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
 	E.db["unitframe"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
@@ -1096,6 +1097,15 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["cooldown"]["hoursColor"]["r"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["r"] = 0.4
+	E.db["unitframe"]["cooldown"]["hoursIndicator"]["r"] = 0.4
+	E.db["unitframe"]["cooldown"]["minutesIndicator"]["r"] = 0.2470588235294118
+	E.db["unitframe"]["cooldown"]["minutesIndicator"]["g"] = 0.7764705882352941
+	E.db["unitframe"]["cooldown"]["minutesIndicator"]["b"] = 0.9176470588235294
+	E.db["unitframe"]["cooldown"]["secondsIndicator"]["b"] = 0
+	E.db["unitframe"]["cooldown"]["expireIndicator"]["g"] = 0
+	E.db["unitframe"]["cooldown"]["expireIndicator"]["b"] = 0
+	E.db["unitframe"]["cooldown"]["daysIndicator"]["r"] = 0.4
+	E.db["unitframe"]["cooldown"]["daysIndicator"]["g"] = 0.4
 
 	-- GCD Bar
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
