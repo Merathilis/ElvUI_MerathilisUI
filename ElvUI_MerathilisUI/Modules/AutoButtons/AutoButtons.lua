@@ -345,14 +345,6 @@ function module:UpdateButtonSize(button, barDB)
 		right = right - offset
 	end
 
-	--[[
-	if barDB.inheritGlobalFade == true then
-		button:SetParent(E.ActionBars.fadeParent)
-	else
-		button:SetParent(E.UIParent)
-	end
-	]]
-
 	button.tex:SetTexCoord(left, right, top, bottom)
 end
 
@@ -391,14 +383,6 @@ function module:CreateBar(id)
 	anchor:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, (id - 1) * 45)
 	anchor:Size(150, 40)
 	E:CreateMover(anchor, 'AutoButtonBar' .. id .. 'Mover', L['Auto Button Bar'] .. ' ' .. id, nil, nil, nil, 'ALL,MERATHILISUI',function() return module.db.enable and barDB.enable end, 'mui,modules,autoButtons,bar'..id)
-
-	--[[
-	if barDB.inheritGlobalFade == true then
-		anchor:SetParent(E.ActionBars.fadeParent)
-	else
-		anchor:SetParent(E.UIParent)
-	end
-	]]
 
 	local bar = CreateFrame("Frame", "AutoButtonBar" .. id, E.UIParent, "SecureHandlerStateTemplate")
 	bar.id = id
@@ -663,7 +647,7 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.autoButtons
-	if module.db.enable ~= true then return end
+	if module.db.enable ~= true or self.Initialized then return end
 
 	MER:RegisterDB(self, "autoButtons")
 
@@ -682,6 +666,8 @@ function module:Initialize()
 	self:RegisterEvent("QUEST_ACCEPTED", "UpdateQuestItem")
 	self:RegisterEvent("QUEST_TURNED_IN", "UpdateQuestItem")
 	self:RegisterEvent("UPDATE_BINDINGS", "UpdateBinding")
+
+	self.Initialized = true
 end
 
 function module:ProfileUpdate()
