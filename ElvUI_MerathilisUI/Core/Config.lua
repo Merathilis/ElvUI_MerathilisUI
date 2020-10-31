@@ -72,7 +72,7 @@ local function AddOptions()
 				type = "description",
 				name = L["MER_DESC"]..E.NewSign,
 				fontSize = "medium",
-				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 160, 160 end,
+				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 200, 200 end,
 			},
 			install = {
 				order = 3,
