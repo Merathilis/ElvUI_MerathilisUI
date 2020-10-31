@@ -682,17 +682,6 @@ function module:Initialize()
 	self:RegisterEvent("QUEST_ACCEPTED", "UpdateQuestItem")
 	self:RegisterEvent("QUEST_TURNED_IN", "UpdateQuestItem")
 	self:RegisterEvent("UPDATE_BINDINGS", "UpdateBinding")
-
-	function module:ForUpdateAll()
-		module.db = E.db.mui.autoButtons
-
-		UpdateQuestItemList()
-		UpdateEquipmentList()
-		self:UpdateBars()
-		self:UpdateBinding()
-	end
-
-	self:ForUpdateAll()
 end
 
 function module:ProfileUpdate()
