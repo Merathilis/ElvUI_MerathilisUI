@@ -151,6 +151,8 @@ local utilities = {
 	109076,
 	49040,
 	132514,
+	164733,
+	164978,
 }
 
 local questItemList = {}
