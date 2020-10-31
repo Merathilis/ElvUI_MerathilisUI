@@ -482,6 +482,11 @@ local function SkinsTable()
 				name = L["Chromie Time"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.chromieTime end,
 			},
+			levelUp = {
+				type = "toggle",
+				name = L["LevelUp Display"],
+				disabled = function() return not E.private.skins.blizzard.enable end,
+			},
 		},
 	}
 
