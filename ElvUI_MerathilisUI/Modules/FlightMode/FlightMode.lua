@@ -2,6 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_FlightMode')
 local COMP = MER:GetModule('MER_Compatibility')
 local MERS = MER:GetModule('MER_Skins')
+local AU = MER:GetModule('MER_AutoButtons')
 local AB = E:GetModule('ActionBars')
 local LO = E:GetModule('Layout')
 
@@ -280,10 +281,10 @@ function module:SetFlightMode(status)
 		end
 
 		-- Hide AutoButtons
-		for i = 1, 12 do
-			if _G['AutoQuestButton' .. i] then _G['AutoQuestButton' .. i]:Hide() end
-			if _G['AutoSlotButton' .. i] then _G['AutoSlotButton' .. i]:Hide() end
-			if _G['AutoUsableButton' .. i] then _G['AutoUsableButton' .. i]:Hide() end
+		for _, bar in pairs(AU.bars) do
+			if bar then
+				bar:GetParent():Hide()
+			end
 		end
 
 		C_Timer_After(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
@@ -354,14 +355,15 @@ function module:SetFlightMode(status)
 			end
 		end
 
-		if _G.ElvUI_StanceBar then
-			_G.ElvUI_StanceBar:SetAlpha(1)
+		-- Revert AutoButtons
+		for _, bar in pairs(AU.bars) do
+			if bar then
+				bar:GetParent():Show()
+			end
 		end
 
-		for i = 1, 12 do
-			if _G['AutoQuestButton' .. i] then _G['AutoQuestButton' .. i]:Show() end
-			if _G['AutoSlotButton' .. i] then _G['AutoSlotButton' .. i]:Show() end
-			if _G['AutoUsableButton' .. i] then _G['AutoUsableButton' .. i]:Show() end
+		if _G.ElvUI_StanceBar then
+			_G.ElvUI_StanceBar:SetAlpha(1)
 		end
 
 		-- Revert Chat
