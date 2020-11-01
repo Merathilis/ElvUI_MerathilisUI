@@ -112,7 +112,7 @@ function module.SetPosition(element, _, to)
 	local anchor = element.initialAnchor or "BOTTOMLEFT"
 	local growthx = (element["growth-x"] == "LEFT" and -1) or 1
 	local spacingx = (element["spacing-x"] or element.spacing or 0)
-	local eheight = element[from].db.height
+	local eheight = element[from].db.height or 0
 
 	local function GetAnchorPoint(index)
 		local a = 0
