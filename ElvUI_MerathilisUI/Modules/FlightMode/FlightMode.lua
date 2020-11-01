@@ -200,15 +200,23 @@ local function CreateDate()
 	local presentMonth = date.month
 	local presentDay = date.monthDay
 	local presentYear = date.year
-	module.FlightMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
+
+	if module.FlightMode.DateText then
+		module.FlightMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
+	end
 end
 
 function module:UpdateTimer()
 	local createdTime = CreateTime()
 	local time = GetTime() - module.startTime
-	module.FlightMode.TimeFlying:SetFormattedText('%02d:%02d', floor(time/60), time % 60)
 
-	module.FlightMode.ClockText:SetFormattedText(createdTime)
+	if module.FlightMode.TimeFlying then
+		module.FlightMode.TimeFlying:SetFormattedText('%02d:%02d', floor(time/60), time % 60)
+	end
+
+	if module.FlightMode.ClockText then
+		module.FlightMode.ClockText:SetFormattedText(createdTime)
+	end
 
 	CreateDate()
 end
