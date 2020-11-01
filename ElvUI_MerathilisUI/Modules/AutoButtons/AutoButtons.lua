@@ -611,6 +611,9 @@ function module:UpdateBar(id)
 	bar.alphaMax = barDB.alphaMax
 
 	if barDB.globalFade then
+		barDB.alphaMin = 1
+		barDB.alphaMax = 1
+
 		bar:SetAlpha(1)
 		bar:GetParent():SetParent(AB.fadeParent)
 	else
