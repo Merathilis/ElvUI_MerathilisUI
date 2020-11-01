@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_AutoButtons')
+local AB = E:GetModule('ActionBars')
 
 local _G = _G
 local ceil = ceil
@@ -291,10 +292,18 @@ function module:SetUpButton(button, questItemData, slotID)
 
 	button:SetScript("OnEnter", function(self)
 		local bar = self:GetParent()
-		if module.db["bar" .. bar.id].mouseOver then
-			local db = module.db["bar" .. bar.id]
+		local barDB = module.db["bar" .. bar.id]
+		if not bar or not barDB then
+			return
+		end
+
+		if barDB.globalFade then
+			if AB.fadeParent and not AB.fadeParent.mouseLock then
+				E:UIFrameFadeIn(AB.fadeParent, 0.2, AB.fadeParent:GetAlpha(), 1)
+			end
+		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, db.fadeTime * (db.alphaMax - alphaCurrent) / (db.alphaMax - db.alphaMin), alphaCurrent, db.alphaMax)
+			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
 		end
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
 		GameTooltip:ClearLines()
@@ -310,10 +319,18 @@ function module:SetUpButton(button, questItemData, slotID)
 
 	button:SetScript("OnLeave", function(self)
 		local bar = self:GetParent()
-		if module.db["bar" .. bar.id].mouseOver then
-			local db = module.db["bar" .. bar.id]
+		local barDB = module.db["bar" .. bar.id]
+		if not bar or not barDB then
+			return
+		end
+
+		if barDB.globalFade then
+			if AB.fadeParent and not AB.fadeParent.mouseLock then
+				E:UIFrameFadeOut(AB.fadeParent, 0.2, AB.fadeParent:GetAlpha(), 1 - AB.db.globalFadeAlpha)
+			end
+		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, db.fadeTime * (alphaCurrent - db.alphaMin) / (db.alphaMax - db.alphaMin), alphaCurrent, db.alphaMin)
+			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
 		end
 		GameTooltip:Hide()
 	end)
@@ -593,10 +610,16 @@ function module:UpdateBar(id)
 	bar.alphaMin = barDB.alphaMin
 	bar.alphaMax = barDB.alphaMax
 
-	if barDB.mouseOver then
-		bar:SetAlpha(barDB.alphaMin)
+	if barDB.globalFade then
+		bar:SetAlpha(1)
+		bar:GetParent():SetParent(AB.fadeParent)
 	else
-		bar:SetAlpha(barDB.alphaMax)
+		if barDB.mouseOver then
+			bar:SetAlpha(barDB.alphaMin)
+		else
+			bar:SetAlpha(barDB.alphaMax)
+		end
+		bar:GetParent():SetParent(E.UIParent)
 	end
 end
 
