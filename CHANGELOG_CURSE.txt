@@ -1,4 +1,4 @@
-** v4.61 for Shadowland Pre-Patch, xx.xx.2020**
+** v4.61 for Shadowland Pre-Patch, 02.11.2020**
 * Changed the option layout a bit
 * Style the LocationPanel again
 * Fixed Paragon Reputation Notification

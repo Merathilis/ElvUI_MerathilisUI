@@ -1,4 +1,4 @@
-[b][color=orange]v4.61 for Shadowland PrePatch[/color], xx.xx.2020[/b][list]
+[b][color=orange]v4.61 for Shadowland PrePatch[/color], 02.11.2020[/b][list]
 [*]Changed the option layout a bit
 [*]Style the LocationPanel again
 [*]Fixed Paragon Reputation Notification
