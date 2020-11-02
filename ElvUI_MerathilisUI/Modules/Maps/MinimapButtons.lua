@@ -261,7 +261,7 @@ function module:Initialize()
 
 	-- Button Creation
 	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", E.UIParent)
-	module.button:Size(28, 28)
+	module.button:Size(28)
 	module.button:ClearAllPoints()
 	module.button:Point("TOPRIGHT", Minimap, "TOPRIGHT", 10, 20)
 	module.button:SetFrameStrata("MEDIUM")
