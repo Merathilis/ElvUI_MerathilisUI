@@ -7,7 +7,7 @@ L[" is loaded. For any issues or suggestions, please visit "] = true
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
 L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
-L["AFK"] = true
+L["AFK"] = "Away"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Are you still there? ... Hello?"] = true
 L["Logout Timer"] = true
@@ -15,7 +15,7 @@ L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = true
 L["Desciption"] = true
-L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
+L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI. It adds:
 
 - a lot of new features
 - a transparent overall look
@@ -108,7 +108,7 @@ L["Development Version"] = true
 L["Here you can download the latest development version."] = true
 
 -- Modules
-L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
+L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
 
 -- GameMenu
 L["GameMenu"] = true
@@ -137,6 +137,8 @@ L["Add"] = true
 L["Please set the name and realm first."] = true
 L["Toggle Contacts"] = true
 L["Online Friends"] = true
+L["Add To Favorites"] = true
+L["Remove From Favorites"] = true
 
 -- MicroBar
 L["Backdrop"] = true
@@ -166,12 +168,19 @@ L["Right Panel"] = true
 L["Button #%d"] = true
 L["Pet Journal"] = true
 L["Show Pet Journal"] = true
+L["Random Favorite Pet"] = true
 L["Screenshot"] = true
 L["Screenshot immediately"] = true
 L["Screenshot after 2 secs"] = true
 L["Toy Box"] = true
 L["Collections"] = true
 L["Show Collections"] = true
+L["Random Favorite Mount"] = true
+L["Decrease the volume"] = true
+L["Increase the volume"] = true
+L["Profession"] = true
+L["Volume"] = true
+
 
 -- Misc
 L["Misc"] = true
@@ -484,7 +493,7 @@ L["This will disable the ElvUI Raid Control and replace it with my own."] = true
 L["Open Raid Manager"] = true
 L["Pull Timer Count"] = true
 L["Change the Pulltimer for DBM or BigWigs"] = true
-L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = true
+L["Only accept values format with '', e.g.: '5', '8', '10' etc."] = true
 
 -- Reminder
 L["Reminder"] = true
@@ -570,7 +579,7 @@ L["MerathilisUI successfully created and applied profile(s) for:"] = true
 L["Tank/ DPS Layout"] = true
 L["Heal Layout"] = true
 L["Chat Set"] = true
-L["ActionBars"] = true
+L["ActionBars"] = "Barre Delle Azioni"
 L["ActionBars Set"] = true
 L["DataTexts Set"] = true
 L["Profile Set"] = true

@@ -4,7 +4,6 @@
 	<Script file="Compatibility.lua"/>
 	<Script file="Functions.lua"/>
 	<Script file="Animations.lua"/>
-	<!-- <Script file="Fonts.lua"/> -->
 	<Script file="Changelog.lua"/>
 	<Script file="Dropdown.lua"/>
 	<Script file="Install.lua"/>

@@ -421,6 +421,12 @@ function module:Template()
 	loc_panel:SetTemplate(module.db.template)
 	loc_panel.Xcoord:SetTemplate(module.db.template)
 	loc_panel.Ycoord:SetTemplate(module.db.template)
+
+	if module.db.template ~= 'NoBackdrop' then
+		loc_panel:Styling()
+		loc_panel.Xcoord:Styling()
+		loc_panel.Ycoord:Styling()
+	end
 end
 
 function module:Toggle()

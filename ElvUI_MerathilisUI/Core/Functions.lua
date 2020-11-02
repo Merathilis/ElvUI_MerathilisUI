@@ -40,7 +40,7 @@ local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
 local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
 
 MER.dummy = function() return end
-MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
+MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
@@ -51,7 +51,7 @@ MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
 --Info Color RGB: 0, 191/255, 250/255
-MER.InfoColor = "|cff70C0F5"
+MER.InfoColor = "|cFF00c0fa"
 MER.GreyColor = "|cffB5B5B5"
 MER.RedColor = "|cffff2735"
 MER.GreenColor = "|cff3a9d36"
@@ -145,6 +145,14 @@ function MER:SetFontOutline(text, font, size)
 	text:FontTemplate(font or fontName, size or fontHeight, "OUTLINE")
 	text:SetShadowColor(0, 0, 0, 0)
 	text.SetShadowColor = E.noop
+end
+
+do
+	local template = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
+	local s = 14
+	function MER:GetIconString(icon, size)
+		return format(template, icon, size or s, size or s)
+	end
 end
 
 function MER:SetupProfileCallbacks()

@@ -32,9 +32,19 @@ local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 
-function MER:cOption(name)
-	local color = "|cffff7d0a%s |r"
-	return (color):format(name)
+function MER:cOption(name, color)
+	local hex
+	if color == 'orange' then
+		hex = '|cffff7d0a%s |r'
+	elseif color == 'blue' then
+		hex = '|cFF00c0fa%s |r'
+	elseif color == 'gradient' then
+		hex = E:TextGradient(name, 1, 0.65, 0, 1, 0.65, 0, 1, 1, 1)
+	else
+		hex = '|cFFFFFFFF%s |r'
+	end
+
+	return (hex):format(name)
 end
 
 function MER:DasOptions()
@@ -136,7 +146,8 @@ function MER:Initialize()
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
 
+	local icon = MER:GetIconString(MER.Media.Textures.pepeSmall, 14)
 	if E.db.mui.installed and E.db.mui.general.LoginMsg then
-		print(MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..MER:PrintURL("https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues"))
+		print(icon..''..MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..MER:PrintURL("https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues"))
 	end
 end

@@ -5,15 +5,36 @@ if E.db.mui == nil then E.db.mui = {} end
 -- Cache global variables
 -- Lua functions
 local format, select, unpack = format, select, unpack
-local tinsert = table.insert
+local tconcat, tinsert, tsort = table.concat, table.insert, table.sort
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: StaticPopup_Show
 
 local logo = CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/media/textures/m2", 64, 64, 20, 20, 0, 1, 0, 1, 0, -1)
 
+local DONATORS = {
+	'enii',
+	'Hope',
+	'Kisol',
+	'Natsurusenô',
+	'Rylok',
+	'Amenitra',
+	'zarbol',
+	'Olli2k',
+	'Dlarge',
+}
+tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
+local DONATOR_STRING = tconcat(DONATORS, ", ")
+
+local PATRONS = {
+	'Graldur',
+}
+tsort(PATRONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
+local PATRONS_STRING = tconcat(PATRONS, ", ")
+
 local function AddOptions()
-	E.Options.name = E.Options.name.." + |cffff7d0aMerathilisUI|r"..format(": |cFF00c0fa%s|r", MER.Version)
+	local icon = MER:GetIconString(MER.Media.Textures.pepeSmall, 14)
+	E.Options.name = E.Options.name.." + " .. icon .. " " .. MER.Title .. " " .. format(": |cFF00c0fa%s|r", MER.Version)
 
 	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 	local ACH = E.Libs.ACH
@@ -41,17 +62,17 @@ local function AddOptions()
 		type = 'group',
 		name = logo..MER.Title,
 		desc = L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."],
-		childGroups = "tab",
+		childGroups = "tree",
 		get = function(info) return E.db.mui.general[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER.Title..MER:cOption(MER.Version)..L["by Merathilis (|cFF00c0faEU-Shattrath|r)"], 1),
+			name = ACH:Header(MER.Title..MER:cOption(MER.Version, 'blue')..L["by Merathilis (|cFF00c0faEU-Shattrath|r)"], 1),
 			logo = {
 				order = 2,
 				type = "description",
 				name = L["MER_DESC"]..E.NewSign,
 				fontSize = "medium",
-				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 160, 160 end,
+				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 200, 200 end,
 			},
 			install = {
 				order = 3,
@@ -72,16 +93,17 @@ local function AddOptions()
 			discordButton = {
 				order = 5,
 				type = "execute",
-				name = L["|cffff7d0aMerathilisUI|r Discord"],
+				name = L["|cffffffffMerathilis|r|cffff7d0aUI|r Discord"],
 				customWidth = 140,
 				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/ZhNqCu2") end,
 			},
 			general = {
 				order = 8,
 				type = "group",
-				name = L["General"],
+				name = MER:cOption(L["General"], 'gradient'),
+				icon = MER.Media.Icons.general,
 				args = {
-					generalHeader = ACH:Header(MER:cOption(L["General"]), 1),
+					generalHeader = ACH:Header(MER:cOption(L["General"], 'orange'), 1),
 					LoginMsg = {
 						order = 2,
 						type = "toggle",
@@ -119,13 +141,14 @@ local function AddOptions()
 			info = {
 				order = 50,
 				type = "group",
-				name = L["Information"],
+				name = MER:cOption(L["Information"], 'gradient'),
+				icon = MER.Media.Icons.information,
 				args = {
-					name = ACH:Header(MER:cOption(L["Information"]), 1),
+					name = ACH:Header(MER:cOption(L["Information"], 'orange'), 1),
 					support = {
 						order = 2,
 						type = "group",
-						name = MER:cOption(L["Support & Downloads"]),
+						name = MER:cOption(L["Support & Downloads"], 'orange'),
 						guiInline = true,
 						args = {
 							tukui = {
@@ -164,25 +187,45 @@ local function AddOptions()
 					coding = {
 						order = 3,
 						type = "group",
-						name = MER:cOption(L["Coding"]),
+						name = MER:cOption(L["Coding"], 'orange'),
 						guiInline = true,
 						args = {
-							tukui = ACH:Description(format("|cffffd200%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal"), 1),
+							tukui = ACH:Description(format("|cffffd200%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal, fang2hou"), 1),
 						},
 					},
 					testing = {
 						order = 4,
 						type = "group",
-						name = MER:cOption(L["Testing & Inspiration"]),
+						name = MER:cOption(L["Testing & Inspiration"], 'orange'),
 						guiInline = true,
 						args = {
 							tukui = ACH:Description(format("|cffffd200%s|r", "Benik, Darth Predator, Rockxana, ElvUI community"), 1),
 						},
 					},
+					donors = {
+						order = 5,
+						type = 'group',
+						name = MER:cOption(L["Donations"], 'orange'),
+						guiInline = true,
+						args = {
+							patron = {
+								order = 1,
+								type = 'description',
+								fontSize = 'medium',
+								name = format("|cffff005aPatrons: |r|cffffd200%s\n|r", PATRONS_STRING)
+							},
+							paypal = {
+								order = 2,
+								type = 'description',
+								fontSize = 'medium',
+								name = format("|cff009fffPayPal: |r|cffffd200%s\n|r", DONATOR_STRING)
+							},
+						},
+					},
 					version = {
 						order = 5,
 						type = "group",
-						name = MER:cOption(L["Version"]),
+						name = MER:cOption(L["Version"], 'orange'),
 						guiInline = true,
 						args = {
 							version = ACH:Description(MER.Title..MER.Version, 1),
@@ -194,26 +237,12 @@ local function AddOptions()
 				order = 20,
 				type = "group",
 				childGroups = "select",
-				name = L["Modules"],
+				name = MER:cOption(L["Modules"], 'gradient'),
+				icon = MER.Media.Icons.modules,
 				args = {
-					info = ACH:Description(L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."]),
+					info = ACH:Description(L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."]),
 				},
 			},
-			tools = {
-				order = 300,
-				type = "group",
-				name = L["Tools"],
-				hidden = function() return not(MER:IsDeveloper() and MER:IsDeveloperRealm()) end,
-				args = {
-					converter = {
-						order = 1,
-						type = "execute",
-						name = L["Table Dumper"],
-						desc = L["A tool for dumping table data (this table must be a global variable)"],
-						func = function() MER:OpenTableDumper() end,
-					}
-				}
-			}
 		},
 	}
 end

@@ -10,11 +10,11 @@ local function PanelTable()
 		type = "group",
 		name = L["Panels"],
 		args = {
-			header = ACH:Header(MER:cOption(L["Panels"]), 0),
+			header = ACH:Header(MER:cOption(L["Panels"], 'orange'), 0),
 			panels = {
 				order = 1,
 				type = "group",
-				name = MER:cOption(L["Panels"]),
+				name = MER:cOption(L["Panels"], 'orange'),
 				guiInline = true,
 				args = {
 					topPanel = {
@@ -27,7 +27,7 @@ local function PanelTable()
 					topPanelHeight = {
 						order = 2,
 						type = "range",
-						name = E.NewSign..L["Height"],
+						name = L["Height"],
 						min = 1, max = 400, step = 1,
 						get = function(info) return E.db.mui.panels.topPanelHeight end,
 						set = function(info, value) E.db.mui.panels.topPanelHeight = value; PN:Resize() end,
@@ -44,7 +44,7 @@ local function PanelTable()
 					bottomPanelHeight = {
 						order = 5,
 						type = "range",
-						name = E.NewSign..L["Height"],
+						name = L["Height"],
 						min = 1, max = 400, step = 1,
 						get = function(info) return E.db.mui.panels.bottomPanelHeight end,
 						set = function(info, value) E.db.mui.panels.bottomPanelHeight = value; PN:Resize() end,
@@ -55,12 +55,12 @@ local function PanelTable()
 			stylepanels = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Style Panels"]),
+				name = MER:cOption(L["Style Panels"], 'orange'),
 				guiInline = true,
 				args = {
 					panelSize = {
 						order = 1,
-						name = E.NewSign..L["Width"],
+						name = L["Width"],
 						type = "range",
 						min = 50, max = 800, step = 1,
 						get = function(info) return E.db.mui.panels.panelSize end,

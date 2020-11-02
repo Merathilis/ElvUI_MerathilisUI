@@ -3,6 +3,12 @@ local module = MER:GetModule('MER_AutoButtons')
 local LSM = E.LSM
 
 local tinsert = table.insert
+local tremove = table.remove
+local format = string.format
+local pairs, select = pairs, select
+local tonumber = tonumber
+
+local GetItemInfo = GetItemInfo
 
 local customListSelected1
 local customListSelected2
@@ -24,7 +30,7 @@ local function AutoButtonTable()
 		get = function(info) return E.db.mui.autoButtons[ info[#info] ] end,
 		set = function(info, value) E.db.mui.autoButtons[ info[#info] ] = value; end,
 		args = {
-			name = ACH:Header(MER:cOption(L["AutoButtons"]), 1),
+			name = ACH:Header(MER:cOption(L["AutoButtons"], 'orange'), 1),
 			enable = {
 				order = 2,
 				type = "toggle",
@@ -40,8 +46,26 @@ local function AutoButtonTable()
 					return not E.db.mui.autoButtons.enable
 				end,
 				args = {
-					list = {
+					addToList = {
 						order = 1,
+						type = "input",
+						name = L["New Item ID"],
+						get = function()
+							return ""
+						end,
+						set = function(_, value)
+							local itemID = tonumber(value)
+							local itemName = select(1, GetItemInfo(itemID))
+							if itemName then
+								tinsert(E.db.mui.autoButtons.customList, itemID)
+								module:UpdateBars()
+							else
+								MER:Print(L["The item ID is invalid."])
+							end
+						end
+					},
+					list = {
+						order = 2,
 						type = "select",
 						name = L["List"],
 						get = function()
@@ -57,24 +81,6 @@ local function AutoButtonTable()
 								result[key] = select(1, GetItemInfo(value))
 							end
 							return result
-						end
-					},
-					addToList = {
-						order = 2,
-						type = "input",
-						name = L["New Item ID"],
-						get = function()
-							return ""
-						end,
-						set = function(_, value)
-							local itemID = tonumber(value)
-							local itemName = select(1, GetItemInfo(itemID))
-							if itemName then
-								tinsert(E.db.mui.autoButtons.customList, itemID)
-								module:UpdateBars()
-							else
-								print(L["The item ID is invalid."])
-							end
 						end
 					},
 					deleteButton = {
@@ -100,8 +106,26 @@ local function AutoButtonTable()
 					return not E.db.mui.autoButtons.enable
 				end,
 				args = {
-					list = {
+					addToList = {
 						order = 1,
+						type = "input",
+						name = L["New Item ID"],
+						get = function()
+							return ""
+						end,
+						set = function(_, value)
+							local itemID = tonumber(value)
+							local itemName = select(1, GetItemInfo(itemID))
+							if itemName then
+								E.db.mui.autoButtons.blackList[itemID] = itemName
+								module:UpdateBars()
+							else
+								MER:Print(L["The item ID is invalid."])
+							end
+						end
+					},
+					list = {
+						order = 2,
 						type = "select",
 						name = L["List"],
 						get = function()
@@ -116,24 +140,6 @@ local function AutoButtonTable()
 								result[key] = value
 							end
 							return result
-						end
-					},
-					addToList = {
-						order = 2,
-						type = "input",
-						name = L["New Item ID"],
-						get = function()
-							return ""
-						end,
-						set = function(_, value)
-							local itemID = tonumber(value)
-							local itemName = select(1, GetItemInfo(itemID))
-							if itemName then
-								E.db.mui.autoButtons.blackList[itemID] = itemName
-								module:UpdateBars()
-							else
-								print(L["The item ID is invalid."])
-							end
 						end
 					},
 					deleteButton = {
@@ -174,32 +180,55 @@ local function AutoButtonTable()
 					type = "toggle",
 					name = L["Enable"]
 				},
-				mouseOver = {
+				visibility = {
 					order = 2,
-					type = "toggle",
-					name = L["Mouse Over"],
-					desc = L["Only show the bar when you mouse over it."]
+					type = "group",
+					inline = true,
+					name = L["Visibility"],
+					args = {
+						globalFade = {
+							order = 1,
+							type = "toggle",
+							name = L["Inherit Global Fade"]
+						},
+						mouseOver = {
+							order = 2,
+							type = "toggle",
+							name = L["Mouse Over"],
+							desc = L["Only show the bar when you mouse over it."],
+							disabled = function()
+								return not E.db.mui.autoButtons.enable or
+									E.db.mui.autoButtons["bar" .. i].globalFade
+							end
+						},
+						fadeTime = {
+							order = 3,
+							type = "range",
+							name = L["Fade Time"],
+							min = 0, max = 2, step = 0.01
+						},
+						alphaMin = {
+							order = 4,
+							type = "range",
+							name = L["Alpha Min"],
+							min = 0, max = 1, step = 0.01
+						},
+						alphaMax = {
+							order = 5,
+							type = "range",
+							name = L["Alpha Max"],
+							min = 0, max = 1, step = 0.01
+						},
+					},
 				},
-				fadeTime = {
+				backdrop = {
 					order = 3,
-					type = "range",
-					name = L["Fade Time"],
-					min = 0, max = 2, step = 0.01
-				},
-				alphaMin = {
-					order = 4,
-					type = "range",
-					name = L["Alpha Min"],
-					min = 0, max = 1, step = 0.01
-				},
-				alphaMax = {
-					order = 5,
-					type = "range",
-					name = L["Alpha Max"],
-					min = 0, max = 1, step = 0.01
+					type = "toggle",
+					name = L["Bar Backdrop"],
+					desc = L["Show a backdrop of the bar."]
 				},
 				anchor = {
-					order = 6,
+					order = 4,
 					type = "select",
 					name = L["Anchor Point"],
 					desc = L["The first button anchors itself to this point on the bar."],
@@ -210,20 +239,8 @@ local function AutoButtonTable()
 						BOTTOMRIGHT = L["BOTTOMRIGHT"]
 					}
 				},
-				betterOption1 = {
-					order = 7,
-					type = "description",
-					name = " ",
-					width = "full"
-				},
-				backdrop = {
-					order = 8,
-					type = "toggle",
-					name = L["Bar Backdrop"],
-					desc = L["Show a backdrop of the bar."]
-				},
 				backdropSpacing = {
-					order = 9,
+					order = 5,
 					type = "range",
 					name = L["Backdrop Spacing"],
 					desc = L["The spacing between the backdrop and the buttons."],
@@ -232,7 +249,7 @@ local function AutoButtonTable()
 					step = 1
 				},
 				spacing = {
-					order = 10,
+					order = 6,
 					type = "range",
 					name = L["Button Spacing"],
 					desc = L["The spacing between buttons."],
@@ -241,13 +258,13 @@ local function AutoButtonTable()
 					step = 1
 				},
 				betterOption2 = {
-					order = 11,
+					order = 7,
 					type = "description",
 					name = " ",
 					width = "full"
 				},
 				numButtons = {
-					order = 12,
+					order = 8,
 					type = "range",
 					name = L["Buttons"],
 					min = 1,
@@ -255,7 +272,7 @@ local function AutoButtonTable()
 					step = 1
 				},
 				buttonWidth = {
-					order = 13,
+					order = 9,
 					type = "range",
 					name = L["Button Width"],
 					desc = L["The width of the buttons."],
@@ -264,7 +281,7 @@ local function AutoButtonTable()
 					step = 1
 				},
 				buttonHeight = {
-					order = 14,
+					order = 10,
 					type = "range",
 					name = L["Button Height"],
 					desc = L["The height of the buttons."],
@@ -273,7 +290,7 @@ local function AutoButtonTable()
 					step = 1
 				},
 				buttonsPerRow = {
-					order = 15,
+					order = 11,
 					type = "range",
 					name = L["Buttons Per Row"],
 					min = 1,
@@ -281,7 +298,7 @@ local function AutoButtonTable()
 					step = 1
 				},
 				countFont = {
-					order = 16,
+					order = 12,
 					type = "group",
 					inline = true,
 					name = L["Counter"],
@@ -355,7 +372,7 @@ local function AutoButtonTable()
 					}
 				},
 				bindFont = {
-					order = 17,
+					order = 13,
 					type = "group",
 					inline = true,
 					name = L["Key Binding"],
@@ -429,7 +446,7 @@ local function AutoButtonTable()
 					}
 				},
 				include = {
-					order = 18,
+					order = 14,
 					type = "input",
 					name = L["Button Groups"],
 					desc = format(

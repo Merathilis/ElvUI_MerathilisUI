@@ -9,7 +9,7 @@ local function MailTable()
 
 	E.Options.args.mui.args.modules.args.mail = {
 		type = "group",
-		name = E.NewSign..L["Mail"],
+		name = L["Mail"],
 		get = function(info)
 			return E.db.mui.mail[info[#info]]
 		end,
@@ -18,11 +18,11 @@ local function MailTable()
 			MA:ProfileUpdate()
 		end,
 		args = {
-			header = ACH:Header(MER:cOption(L["Mail"]), 0),
+			header = ACH:Header(MER:cOption(L["Mail"], 'orange'), 0),
 			panels = {
 				order = 1,
 				type = "group",
-				name = MER:cOption(L["Mail"]),
+				name = MER:cOption(L["Mail"], 'orange'),
 				guiInline = true,
 				args = {
 					enable = {
@@ -30,6 +30,17 @@ local function MailTable()
 						type = "toggle",
 						name = L["Enable"],
 						width = "full",
+					},
+					defaultPage = {
+						order = 2,
+						type = "select",
+						name = L["Default Page"],
+						values = {
+							ALTS = L["Alternate Character"],
+							FRIENDS = L["Online Friends"],
+							GUILD = L["Guild Members"],
+							FAVORITE = L["Favorites"]
+						},
 					},
 				},
 			},

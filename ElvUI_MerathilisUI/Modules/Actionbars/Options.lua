@@ -25,11 +25,11 @@ local function ActionBarTable()
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["ActionBars"]), 1),
+			name = ACH:Header(MER:cOption(L["ActionBars"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["General"]),
+				name = MER:cOption(L["General"], 'orange'),
 				guiInline = true,
 				args = {
 					customGlow = {
@@ -43,7 +43,7 @@ local function ActionBarTable()
 			specBar = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Specialization Bar"]),
+				name = MER:cOption(L["Specialization Bar"], 'orange'),
 				guiInline = true,
 				disabled = function() return not E.private.actionbar.enable end,
 				get = function(info) return E.db.mui.actionbars.specBar[ info[#info] ] end,
@@ -73,7 +73,7 @@ local function ActionBarTable()
 			equipBar = {
 				order = 4,
 				type = "group",
-				name = MER:cOption(L["EquipSet Bar"]),
+				name = MER:cOption(L["EquipSet Bar"], 'orange'),
 				guiInline = true,
 				disabled = function() return not E.private.actionbar.enable end,
 				get = function(info) return E.db.mui.actionbars.equipBar[ info[#info] ] end,

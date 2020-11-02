@@ -15,7 +15,7 @@ L["SplashScreen"] = "闪屏"
 L["Enable/Disable the Splash Screen on Login."] = "在登录时启用/禁用启动画面."
 L["Options"] = "选项"
 L["Desciption"] = "描述"
-L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r 是ElvUI的扩展. 它增加了:
+L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r 是ElvUI的扩展. 它增加了:
 
 - 大量新特性
 - 一个整体的透明外观
@@ -83,6 +83,10 @@ L["Button"] = "按键"
 L["Item Level Links"] = "物品等级链接"
 L["Filter"] = "过滤器"
 L["Block"] = "块"
+L["Use Icon"] = "使用图标"
+L["Use a icon rather than text"] = "使用图标"
+L["Use Color"] = "使用颜色"
+L["Font Setting"] = "字体设定"
 
 -- Combat Alert
 L["Combat Alert"] = "战斗提示"
@@ -107,7 +111,7 @@ L["Development Version"] = "开发版本"
 L["Here you can download the latest development version."] = "您可以从这里下载最新的开发版本."
 
 -- Modules
-L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = "你能在这里找到所有不同的选项 |cffff8000MerathilisUI|r 模块.\n请使用下拉列表浏览模块."
+L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."] = "你能在这里找到所有不同的选项 |cffffffffMerathilis|r|cffff8000UI|r 模块.\n请使用下拉列表浏览模块."
 
 -- GameMenu
 L["GameMenu"] = "游戏菜单"
@@ -124,18 +128,20 @@ L["Flight Point"] = "飞行点"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "在飞行地图上启用/禁用MerathilisUI飞行点."
 
 -- Mail
-L["Mail"] = true
-L["Alternate Character"] = true
-L["Alt List"] = true
-L["Delete"] = true
-L["Favorites"] = true
-L["Favorite List"] = true
-L["Name"] = true
-L["Realm"] = true
-L["Add"] = true
-L["Please set the name and realm first."] = true
-L["Toggle Contacts"] = true
-L["Online Friends"] = true
+L["Mail"] = "邮件"
+L["Alternate Character"] = "其他角色"
+L["Alt List"] = "角色列表"
+L["Delete"] = "删除"
+L["Favorites"] = "收藏"
+L["Favorite List"] = "收藏列表"
+L["Name"] = "姓名"
+L["Realm"] = "服务器"
+L["Add"] = "添加"
+L["Please set the name and realm first."] = "请先填写姓名和服务器."
+L["Toggle Contacts"] = "开/关通讯录"
+L["Online Friends"] = "在线好友"
+L["Add To Favorites"] = "添加到收藏"
+L["Remove From Favorites"] = "从收藏移除"
 
 -- MicroBar
 L["Backdrop"] = "背景"
@@ -164,13 +170,19 @@ L["Left Panel"] = "左面板"
 L["Right Panel"] = "右面板"
 L["Button #%d"] = "按键 #%d"
 L["Pet Journal"] = "宠物"
-L["Show Pet Journal"] = true
+L["Show Pet Journal"] = "显示小伙伴手册"
+L["Random Favorite Pet"] = "随机偏好小伙伴"
 L["Screenshot"] = "截图"
 L["Screenshot immediately"] = "立即截图"
 L["Screenshot after 2 secs"] = "2秒后截图"
 L["Toy Box"] = "玩具"
-L["Collections"] = true
-L["Show Collections"] = true
+L["Collections"] = "藏品"
+L["Show Collections"] = "显示藏品"
+L["Random Favorite Mount"] = "随机偏好坐骑"
+L["Decrease the volume"] = "降低音量"
+L["Increase the volume"] = "增大音量"
+L["Profession"] = "专业"
+L["Volume"] = "音量"
 
 -- Misc
 L["Misc"] = "杂项"
@@ -316,9 +328,9 @@ L["Potions"] = "药水"
 L["Flasks"] = "合剂"
 L["Banners"] = "战旗"
 L["Utilities"] = "实用"
-L["Fade Time"] = true
-L["Alpha Min"] = true
-L["Alpha Max"] = true
+L["Fade Time"] = "淡入时间"
+L["Alpha Min"] = "最小透明度"
+L["Alpha Max"] = "最大透明度"
 
 -- Armory
 L["Armory"] = "角色界面"
@@ -503,7 +515,7 @@ L["This will disable the ElvUI Raid Control and replace it with my own."] = "这
 L["Open Raid Manager"] = "打开团队管理"
 L["Pull Timer Count"] = "倒数计时"
 L["Change the Pulltimer for DBM or BigWigs"] = "修改DBM和BigWigs的倒数计时"
-L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = "仅识别数字"
+L["Only accept values format with '', e.g.: '5', '8', '10' etc."] = "仅识别数字"
 
 -- Reminder
 L["Reminder"] = "常驻BUFF提醒"
@@ -681,7 +693,7 @@ L["Skins/AddOns"] = "皮肤/插件"
 L["Profiles"] = "配置文件"
 L["BigWigs"] = true
 L["MasterPlan"] = true
-L["Shadow & Light"] = true
+L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = "这将创建并应用配置文件"
 
 -- Changelog

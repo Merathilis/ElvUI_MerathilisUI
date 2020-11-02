@@ -1,3 +1,16 @@
+[b][color=orange]v4.61 for Shadowland PrePatch[/color], 02.11.2020[/b][list]
+[*]Changed the option layout a bit
+[*]Style the LocationPanel again
+[*]Fixed Paragon Reputation Notification
+[*]Updated deDE locales from Dlarge & Rav
+[*]Updated the Rectangle Minimap Code -- Credits: Windtools
+[*]Updated/Fixed some skins
+[*]MicroBar: Added 2 new Buttons: Professions & Volume
+[*]MicroBar: Fixed an issue on initial load with Heartstones
+[*]Prevent errors on AFK Mode (hopefully)
+[*]Added: Patrons & Donator List to: Information
+
+
 [b][color=orange]v4.60 for Shadowland PrePatch[/color], 24.10.2020[/b][list]
 [*]Added a skin for the AddOn WarPlan
 [*]Fixed an install whoopsi for the position on AB3 >.>

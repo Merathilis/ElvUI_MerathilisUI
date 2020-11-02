@@ -1,7 +1,7 @@
 ## Interface: 90001
 ## Author: Merathilis
-## Version: 4.60
-## Title: |cFF1784d1ElvUI|r |cffff7d0aMerathilisUI|r
+## Version: 4.61
+## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
 ## RequiredDeps: ElvUI
@@ -10,8 +10,8 @@
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, BigWigs, ls_Toasts
 ## X-Credits: Benik, Blazeflack, Azilroka, Simpy, NihilisticPandemonium, Darth Predator, fgprodigal, siweia, Solor, Elv, fang2hou & all AddOn Authors who inspired me.
-## X-ElvVersion: 12.06
-## X-Curse-Packaged-Version: 4.60
+## X-ElvVersion: 12.08
+## X-Curse-Packaged-Version: 4.61
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: merathilis-ui
 ## X-Tukui-ProjectID: 1

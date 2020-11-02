@@ -30,6 +30,7 @@ local referenceSpells = {
 	5176,			-- Wrath (Druid)
 	100780,			-- Tiger Palm (Monk)
 	162243,			-- Demon's Bite (Demon Hunter)
+	203555,			-- Demon Blades (Demon Hunter)
 }
 
 local GetTime = GetTime

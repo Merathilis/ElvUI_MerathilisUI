@@ -20,7 +20,7 @@ local function RaidManagerOptions()
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Description"]),
+				name = MER:cOption(L["Description"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = ACH:Description(L["This will disable the ElvUI Raid Control and replace it with my own."], 1),
@@ -36,7 +36,7 @@ local function RaidManagerOptions()
 				type = "input",
 				name = L["Pull Timer Count"],
 				desc = L["Change the Pulltimer for DBM or BigWigs"],
-				usage = L['Only accept values format with "", e.g.: "5", "8", "10" etc.'],
+				usage = L["Only accept values format with '', e.g.: '5', '8', '10' etc."],
 				width = "half",
 				get = function(info) return E.db.mui.raidmanager.count end,
 				set = function(info, value) E.db.mui.raidmanager.count = value; E:StaticPopup_Show("PRIVATE_RL"); end,
