@@ -692,21 +692,17 @@ function MER:SetupLayout(layout)
 	E.db["mui"]["locPanel"]["colorType"] = "DEFAULT"
 	E.db["mui"]["locPanel"]["colorType_Coords"] = "CLASS"
 	E.db["mui"]["raidmarkers"]["enable"] = false
-	E.db["mui"]["smb"]["enable"] = true
-	E.db["mui"]["smb"]["size"] = 34
-	E.db["mui"]["smb"]["perRow"] = 12
-	E.db["mui"]["smb"]["spacing"] = 2
 
 	-- Heal Prediction
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		E.db["mui"]["pvp"]["duels"]["regular"] = true
 		E.db["mui"]["pvp"]["duels"]["pet"] = true
 		E.db["mui"]["pvp"]["duels"]["announce"] = true
-		E.db["mui"]["maps"]["minimap"]["rectangle"] = true
+		E.db["mui"]["maps"]["minimap"]["rectangle"]["enable"] = true
 		E.db["general"]["cropIcon"] = 0
 	else
 		E.db["general"]["cropIcon"] = 2
-		E.db["mui"]["maps"]["minimap"]["rectangle"] = false
+		E.db["mui"]["maps"]["minimap"]["rectangle"]["enable"] = false
 	end
 
 	E.db["movers"]["MER_SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"
