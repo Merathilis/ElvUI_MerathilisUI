@@ -12,6 +12,7 @@ local C_SpecializationInfo_IsInitialized = C_SpecializationInfo.IsInitialized
 local GetSpecialization = GetSpecialization
 local GetNumSpecializations = GetNumSpecializations
 local GetSpecializationInfo = GetSpecializationInfo
+local GetSpecializationRole = GetSpecializationRole
 local GetSpecializationSpells = GetSpecializationSpells
 local GetSpellTexture = GetSpellTexture
 local GetPvpTalentInfoByID = GetPvpTalentInfoByID
@@ -126,7 +127,7 @@ local function LoadSkin()
 				frame.icon:SetTexture(spellIcon)
 				frame.subText:SetTextColor(.75, .75, .75)
 
-				if not frame.styled and not frame.backdrop then
+				if not frame.styled then
 					frame.ring:Hide()
 					frame.icon:SetTexCoord(unpack(E.TexCoords))
 					MERS:CreateBG(frame.icon)
@@ -159,9 +160,13 @@ local function LoadSkin()
 			end
 
 			local roleIcon = bu.roleIcon
-			roleIcon:SetTexture(E.media.roleIcons)
 			local role = GetSpecializationRole(i, false, bu.isPet)
-			if role then
+			if role and roleIcon then
+				if not roleIcon.backdrop then
+					roleIcon:CreateBackdrop()
+					roleIcon.backdrop:SetOutside(roleIcon)
+				end
+				roleIcon:SetTexture(E.media.roleIcons)
 				roleIcon:SetTexCoord(MER:GetRoleTexCoord(role))
 			end
 		end
