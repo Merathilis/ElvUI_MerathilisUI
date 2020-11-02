@@ -34,6 +34,8 @@ local IsUsableItem = IsUsableItem
 
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 
+module.bars = {}
+
 local potions = {
 	5512, -- Healthstone
 	176443,
@@ -376,7 +378,7 @@ end
 
 function module:UpdateBarTextOnCombat(i)
 	for k = 1, 12 do
-		local button = self.bars[i].buttons[k]
+		local button = module.bars[i].buttons[k]
 		if button.itemID and button:IsShown() then
 			button.countText = GetItemCount(button.itemID, nil, true)
 			if button.countText and button.countText > 1 then
@@ -436,7 +438,7 @@ function module:CreateBar(id)
 		end
 	end)
 
-	self.bars[id] = bar
+	module.bars[id] = bar
 end
 
 function module:UpdateBar(id)
@@ -444,7 +446,7 @@ function module:UpdateBar(id)
 		return
 	end
 
-	local bar = self.bars[id]
+	local bar = module.bars[id]
 	local barDB = self.db["bar" .. id]
 
 	if InCombatLockdown() then
@@ -643,8 +645,6 @@ function module:UpdateEquipment()
 end
 
 function module:CreateAll()
-	self.bars = {}
-
 	for i = 1, 3 do
 		self:CreateBar(i)
 	end
@@ -657,7 +657,7 @@ function module:UpdateBinding()
 
 	for i = 1, 3 do
 		for j = 1, 12 do
-			local button = self.bars[i].buttons[j]
+			local button = module.bars[i].buttons[j]
 			if button then
 				local bindingName = format("CLICK AutoButtonBar%dButton%d:LeftButton", i, j)
 				local bindingText = GetBindingKey(bindingName) or ""
