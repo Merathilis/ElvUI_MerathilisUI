@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_AutoButtons')
+local AB = E:GetModule('ActionBars')
 
 local _G = _G
 local ceil = ceil
@@ -32,6 +33,8 @@ local IsItemInRange = IsItemInRange
 local IsUsableItem = IsUsableItem
 
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
+
+module.bars = {}
 
 local potions = {
 	5512, -- Healthstone
@@ -151,6 +154,8 @@ local utilities = {
 	109076,
 	49040,
 	132514,
+	164733,
+	164978,
 }
 
 local questItemList = {}
@@ -289,10 +294,18 @@ function module:SetUpButton(button, questItemData, slotID)
 
 	button:SetScript("OnEnter", function(self)
 		local bar = self:GetParent()
-		if module.db["bar" .. bar.id].mouseOver then
-			local db = module.db["bar" .. bar.id]
+		local barDB = module.db["bar" .. bar.id]
+		if not bar or not barDB then
+			return
+		end
+
+		if barDB.globalFade then
+			if AB.fadeParent and not AB.fadeParent.mouseLock then
+				E:UIFrameFadeIn(AB.fadeParent, 0.2, AB.fadeParent:GetAlpha(), 1)
+			end
+		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, db.fadeTime * (db.alphaMax - alphaCurrent) / (db.alphaMax - db.alphaMin), alphaCurrent, db.alphaMax)
+			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
 		end
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
 		GameTooltip:ClearLines()
@@ -308,10 +321,18 @@ function module:SetUpButton(button, questItemData, slotID)
 
 	button:SetScript("OnLeave", function(self)
 		local bar = self:GetParent()
-		if module.db["bar" .. bar.id].mouseOver then
-			local db = module.db["bar" .. bar.id]
+		local barDB = module.db["bar" .. bar.id]
+		if not bar or not barDB then
+			return
+		end
+
+		if barDB.globalFade then
+			if AB.fadeParent and not AB.fadeParent.mouseLock then
+				E:UIFrameFadeOut(AB.fadeParent, 0.2, AB.fadeParent:GetAlpha(), 1 - AB.db.globalFadeAlpha)
+			end
+		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, db.fadeTime * (alphaCurrent - db.alphaMin) / (db.alphaMax - db.alphaMin), alphaCurrent, db.alphaMin)
+			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
 		end
 		GameTooltip:Hide()
 	end)
@@ -343,14 +364,6 @@ function module:UpdateButtonSize(button, barDB)
 		right = right - offset
 	end
 
-	--[[
-	if barDB.inheritGlobalFade == true then
-		button:SetParent(E.ActionBars.fadeParent)
-	else
-		button:SetParent(E.UIParent)
-	end
-	]]
-
 	button.tex:SetTexCoord(left, right, top, bottom)
 end
 
@@ -365,7 +378,7 @@ end
 
 function module:UpdateBarTextOnCombat(i)
 	for k = 1, 12 do
-		local button = self.bars[i].buttons[k]
+		local button = module.bars[i].buttons[k]
 		if button.itemID and button:IsShown() then
 			button.countText = GetItemCount(button.itemID, nil, true)
 			if button.countText and button.countText > 1 then
@@ -389,14 +402,6 @@ function module:CreateBar(id)
 	anchor:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, (id - 1) * 45)
 	anchor:Size(150, 40)
 	E:CreateMover(anchor, 'AutoButtonBar' .. id .. 'Mover', L['Auto Button Bar'] .. ' ' .. id, nil, nil, nil, 'ALL,MERATHILISUI',function() return module.db.enable and barDB.enable end, 'mui,modules,autoButtons,bar'..id)
-
-	--[[
-	if barDB.inheritGlobalFade == true then
-		anchor:SetParent(E.ActionBars.fadeParent)
-	else
-		anchor:SetParent(E.UIParent)
-	end
-	]]
 
 	local bar = CreateFrame("Frame", "AutoButtonBar" .. id, E.UIParent, "SecureHandlerStateTemplate")
 	bar.id = id
@@ -433,7 +438,7 @@ function module:CreateBar(id)
 		end
 	end)
 
-	self.bars[id] = bar
+	module.bars[id] = bar
 end
 
 function module:UpdateBar(id)
@@ -441,7 +446,7 @@ function module:UpdateBar(id)
 		return
 	end
 
-	local bar = self.bars[id]
+	local bar = module.bars[id]
 	local barDB = self.db["bar" .. id]
 
 	if InCombatLockdown() then
@@ -607,10 +612,19 @@ function module:UpdateBar(id)
 	bar.alphaMin = barDB.alphaMin
 	bar.alphaMax = barDB.alphaMax
 
-	if barDB.mouseOver then
-		bar:SetAlpha(barDB.alphaMin)
+	if barDB.globalFade then
+		barDB.alphaMin = 1
+		barDB.alphaMax = 1
+
+		bar:SetAlpha(1)
+		bar:GetParent():SetParent(AB.fadeParent)
 	else
-		bar:SetAlpha(barDB.alphaMax)
+		if barDB.mouseOver then
+			bar:SetAlpha(barDB.alphaMin)
+		else
+			bar:SetAlpha(barDB.alphaMax)
+		end
+		bar:GetParent():SetParent(E.UIParent)
 	end
 end
 
@@ -631,8 +645,6 @@ function module:UpdateEquipment()
 end
 
 function module:CreateAll()
-	self.bars = {}
-
 	for i = 1, 3 do
 		self:CreateBar(i)
 	end
@@ -645,7 +657,7 @@ function module:UpdateBinding()
 
 	for i = 1, 3 do
 		for j = 1, 12 do
-			local button = self.bars[i].buttons[j]
+			local button = module.bars[i].buttons[j]
 			if button then
 				local bindingName = format("CLICK AutoButtonBar%dButton%d:LeftButton", i, j)
 				local bindingText = GetBindingKey(bindingName) or ""
@@ -661,7 +673,7 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.autoButtons
-	if module.db.enable ~= true then return end
+	if module.db.enable ~= true or self.Initialized then return end
 
 	MER:RegisterDB(self, "autoButtons")
 
@@ -681,16 +693,7 @@ function module:Initialize()
 	self:RegisterEvent("QUEST_TURNED_IN", "UpdateQuestItem")
 	self:RegisterEvent("UPDATE_BINDINGS", "UpdateBinding")
 
-	function module:ForUpdateAll()
-		module.db = E.db.mui.autoButtons
-
-		UpdateQuestItemList()
-		UpdateEquipmentList()
-		self:UpdateBars()
-		self:UpdateBinding()
-	end
-
-	self:ForUpdateAll()
+	self.Initialized = true
 end
 
 function module:ProfileUpdate()

@@ -17,11 +17,11 @@ local function RaidBuffs()
 		name = L["Raid Buff Reminder"],
 		get = function(info) return E.db.mui.raidBuffs[ info[#info] ] end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Raid Buff Reminder"]), 1),
+			name = ACH:Header(MER:cOption(L["Raid Buff Reminder"], 'orange'), 1),
 			rbreminder = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Raid Buff Reminder"]),
+				name = MER:cOption(L["Raid Buff Reminder"], 'orange'),
 				guiInline = true,
 				args = {
 					enable = {

@@ -233,7 +233,6 @@ function module:Initialize()
 	self:MinimapPing()
 	self:StyleMinimap()
 	self:RaidDifficulty()
-	self:RectangleMinimap()
 
 	if E.db.mui.maps.minimap.flash then
 		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")

@@ -14,34 +14,47 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 MER.Media = {
 	Icons = {},
+	Textures = {},
 }
 
-local MediaPath = "Interface\\Addons\\ElvUI_MerathilisUI\\Media\\"
+local MediaPath = "Interface/Addons/ElvUI_MerathilisUI/Media/"
 
 local function AddMedia(name, file, type)
-	MER.Media[type][name] = MediaPath .. type .. "\\" .. file
+	MER.Media[type][name] = MediaPath .. type .. "/" .. file
 end
 
-AddMedia("barAchievements", "MicroBar\\Achievements.tga", "Icons")
-AddMedia("barBags", "MicroBar\\Bags.tga", "Icons")
-AddMedia("barBlizzardShop", "MicroBar\\BlizzardShop.tga", "Icons")
-AddMedia("barCharacter", "MicroBar\\Character.tga", "Icons")
-AddMedia("barCollections", "MicroBar\\Collections.tga", "Icons")
-AddMedia("barEncounterJournal", "MicroBar\\EncounterJournal.tga", "Icons")
-AddMedia("barFriends", "MicroBar\\Friends.tga", "Icons")
-AddMedia("barGroupFinder", "MicroBar\\GroupFinder.tga", "Icons")
-AddMedia("barGuild", "MicroBar\\Guild.tga", "Icons")
-AddMedia("barHome", "MicroBar\\Home.tga", "Icons")
-AddMedia("barOptions", "MicroBar\\Options.tga", "Icons")
-AddMedia("barPetJournal", "MicroBar\\PetJournal.tga", "Icons")
-AddMedia("barMissionReports", "MicroBar\\MissionReports.tga", "Icons")
-AddMedia("barScreenShot", "MicroBar\\ScreenShot.tga", "Icons")
-AddMedia("barSpellBook", "MicroBar\\SpellBook.tga", "Icons")
-AddMedia("barTalents", "MicroBar\\Talents.tga", "Icons")
-AddMedia("barToyBox", "MicroBar\\ToyBox.tga", "Icons")
+AddMedia("barAchievements", "MicroBar/Achievements.tga", "Icons")
+AddMedia("barBags", "MicroBar/Bags.tga", "Icons")
+AddMedia("barBlizzardShop", "MicroBar/BlizzardShop.tga", "Icons")
+AddMedia("barCharacter", "MicroBar/Character.tga", "Icons")
+AddMedia("barCollections", "MicroBar/Collections.tga", "Icons")
+AddMedia("barEncounterJournal", "MicroBar/EncounterJournal.tga", "Icons")
+AddMedia("barFriends", "MicroBar/Friends.tga", "Icons")
+AddMedia("barGroupFinder", "MicroBar/GroupFinder.tga", "Icons")
+AddMedia("barGuild", "MicroBar/Guild.tga", "Icons")
+AddMedia("barHome", "MicroBar/Home.tga", "Icons")
+AddMedia("barMissionReports", "MicroBar/MissionReports.tga", "Icons")
+AddMedia("barOptions", "MicroBar/Options.tga", "Icons")
+AddMedia("barPetJournal", "MicroBar/PetJournal.tga", "Icons")
+AddMedia("barProfession", "MicroBar/Profession.tga", "Icons")
+AddMedia("barScreenShot", "MicroBar/ScreenShot.tga", "Icons")
+AddMedia("barSound", "MicroBar/Sound.tga", "Icons")
+AddMedia("barSpellBook", "MicroBar/SpellBook.tga", "Icons")
+AddMedia("barTalents", "MicroBar/Talents.tga", "Icons")
+AddMedia("barToyBox", "MicroBar/ToyBox.tga", "Icons")
+AddMedia("barVolume", "MicroBar/Volume.tga", "Icons")
 
 AddMedia("favorite", "Favorite.tga", "Icons")
+AddMedia("general", "General.tga", "Icons")
+AddMedia("information", "Information.tga", "Icons")
 AddMedia("list", "List.tga", "Icons")
+AddMedia("media", "Media.tga", "Icons")
+AddMedia("modules", "Modules.tga", "Icons")
+AddMedia("skins", "Skins.tga", "Icons")
+
+AddMedia("arrow", "arrow.tga", "Textures")
+AddMedia("pepeSmall", "pepeSmall.tga", "Textures")
+AddMedia("ROLES", "UI-LFG-ICON-ROLES.blp", "Textures")
 
 module.Zones = L["MER_MEDIA_ZONES"]
 module.PvPInfo = L["MER_MEDIA_PVP"]
@@ -57,6 +70,7 @@ local Colors = {
 }
 
 local function ZoneTextPos()
+	_G["SubZoneTextString"]:ClearAllPoints()
 	if (_G["PVPInfoTextString"]:GetText() == "") then
 		_G["SubZoneTextString"]:Point("TOP", "ZoneTextString", "BOTTOM", 0, 0)
 	else
@@ -95,10 +109,6 @@ function module:SetBlizzFonts()
 		if module.db.miscText.questFontSuperHuge.enable then
 			_G["QuestFont_Super_Huge"]:SetFont(E.LSM:Fetch('font', module.db.miscText.questFontSuperHuge.font), module.db.miscText.questFontSuperHuge.size, module.db.miscText.questFontSuperHuge.outline) -- No idea what that is for
 			_G["QuestFont_Enormous"]:SetFont(E.LSM:Fetch('font', module.db.miscText.questFontSuperHuge.font), module.db.miscText.questFontSuperHuge.size, module.db.miscText.questFontSuperHuge.outline) -- No idea what that is for
-		end
-
-		if module.db.miscText.editbox.enable then
-			_G["NumberFont_Shadow_Med"]:SetFont(E.LSM:Fetch('font', module.db.miscText.editbox.font), module.db.miscText.editbox.size, module.db.miscText.editbox.outline) --Chat editbox
 		end
 
 		--Objective Frame

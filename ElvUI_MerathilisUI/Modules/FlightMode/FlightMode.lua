@@ -2,6 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_FlightMode')
 local COMP = MER:GetModule('MER_Compatibility')
 local MERS = MER:GetModule('MER_Skins')
+local AU = MER:GetModule('MER_AutoButtons')
 local AB = E:GetModule('ActionBars')
 local LO = E:GetModule('Layout')
 
@@ -121,8 +122,10 @@ local AddonsToHide = {
 	{'ConRO', 'ConRODefenseWindow'},
 	{'ConRO', 'ConRO_BurstButton'},
 	{'ConRO', 'ConRO_AutoButton'},
+	{'ConRO', 'ConRO_SingleButton'},
 	{'Details', 'DetailsBaseFrame1'}, -- probably more
 	{'Details', 'DetailsRowFrame1'}, -- probably more
+	{'!KalielsTracker','!KalielsTrackerFrame'},
 }
 
 local function ConvertTime(h, m)
@@ -197,15 +200,23 @@ local function CreateDate()
 	local presentMonth = date.month
 	local presentDay = date.monthDay
 	local presentYear = date.year
-	module.FlightMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
+
+	if module.FlightMode.DateText then
+		module.FlightMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
+	end
 end
 
 function module:UpdateTimer()
 	local createdTime = CreateTime()
 	local time = GetTime() - module.startTime
-	module.FlightMode.TimeFlying:SetFormattedText('%02d:%02d', floor(time/60), time % 60)
 
-	module.FlightMode.ClockText:SetFormattedText(createdTime)
+	if module.FlightMode.TimeFlying then
+		module.FlightMode.TimeFlying:SetFormattedText('%02d:%02d', floor(time/60), time % 60)
+	end
+
+	if module.FlightMode.ClockText then
+		module.FlightMode.ClockText:SetFormattedText(createdTime)
+	end
 
 	CreateDate()
 end
@@ -278,10 +289,10 @@ function module:SetFlightMode(status)
 		end
 
 		-- Hide AutoButtons
-		for i = 1, 12 do
-			if _G['AutoQuestButton' .. i] then _G['AutoQuestButton' .. i]:Hide() end
-			if _G['AutoSlotButton' .. i] then _G['AutoSlotButton' .. i]:Hide() end
-			if _G['AutoUsableButton' .. i] then _G['AutoUsableButton' .. i]:Hide() end
+		for _, bar in pairs(AU.bars) do
+			if bar then
+				bar:GetParent():Hide()
+			end
 		end
 
 		C_Timer_After(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
@@ -352,14 +363,15 @@ function module:SetFlightMode(status)
 			end
 		end
 
-		if _G.ElvUI_StanceBar then
-			_G.ElvUI_StanceBar:SetAlpha(1)
+		-- Revert AutoButtons
+		for _, bar in pairs(AU.bars) do
+			if bar then
+				bar:GetParent():Show()
+			end
 		end
 
-		for i = 1, 12 do
-			if _G['AutoQuestButton' .. i] then _G['AutoQuestButton' .. i]:Show() end
-			if _G['AutoSlotButton' .. i] then _G['AutoSlotButton' .. i]:Show() end
-			if _G['AutoUsableButton' .. i] then _G['AutoUsableButton' .. i]:Show() end
+		if _G.ElvUI_StanceBar then
+			_G.ElvUI_StanceBar:SetAlpha(1)
 		end
 
 		-- Revert Chat
@@ -511,7 +523,7 @@ function module:CreateFlightMode()
 
 	module.FlightMode.Top.CloseButton = CreateFrame('Button', nil, module.FlightMode.Top, 'BackdropTemplate')
 	module.FlightMode.Top.CloseButton:Size(24)
-	module.FlightMode.Top.CloseButton:Point('RIGHT', module.FlightMode.Top, 'RIGHT', -6, -3)
+	module.FlightMode.Top.CloseButton:Point('RIGHT', module.FlightMode.Top, 'RIGHT', -12, -3)
 
 	module.FlightMode.Top.CloseButton.img = module.FlightMode.Top.CloseButton:CreateTexture(nil, 'OVERLAY')
 	module.FlightMode.Top.CloseButton.img:Point('CENTER')
@@ -688,7 +700,6 @@ function module:Initialize()
 	end
 	module:ForUpdateAll()
 
-	E:UpdateBorderColors()
 	module:Toggle()
 	module:Resize()
 

@@ -7,14 +7,14 @@ local tinsert = table.insert
 local SetCVar = SetCVar
 -- GLOBALS:
 
-local function CVars()
+local function CVarTable()
 	local ACH = E.Libs.ACH
 
 	E.Options.args.mui.args.modules.args.cvars = {
 		type = "group",
 		name = L["CVars"],
 		args = {
-			header = ACH:Header(MER:cOption(L["CVars"]), 1),
+			header = ACH:Header(MER:cOption(L["CVars"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",
@@ -463,4 +463,4 @@ local function CVars()
 		},
 	}
 end
-tinsert(MER.Config, CVars)
+tinsert(MER.Config, CVarTable)

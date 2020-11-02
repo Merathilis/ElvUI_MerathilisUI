@@ -32,10 +32,12 @@ MP.merchant = {
 
 MP.CombatAlert = {
 	enable = true,
+	font = {
+		name = "Expressway",
+		size = 28,
+		style = "THICKOUTLINE",
+	},
 	style = {
-		font = E.db.general.font,
-		fontSize = 28,
-		fontOutline = "THICKOUTLINE",
 		backdrop = false,
 		font_color_enter = {
 			r = 0.91,
@@ -151,55 +153,55 @@ MP.chat = {
 				enable = true,
 				cmd = "s",
 				color = {r = 1, g = 1, b = 1, a = 1},
-				abbr = L["Say"]
+				abbr = _G.SAY
 			},
 			["YELL"] = {
 				enable = true,
 				cmd = "y",
 				color = {r = 1, g = 0.25, b = 0.25, a = 1},
-				abbr = L["Yell"]
+				abbr = _G.YELL
 			},
 			["EMOTE"] = {
 				enable = false,
 				cmd = "e",
 				color = {r = 1, g = 0.5, b = 0.25, a = 1},
-				abbr = L["Emote"]
+				abbr = _G.EMOTE
 			},
 			["PARTY"] = {
 				enable = true,
 				cmd = "p",
 				color = {r = 0.67, g = 0.67, b = 1, a = 1},
-				abbr = L["Party"]
+				abbr = _G.PARTY
 			},
 			["INSTANCE"] = {
 				enable = true,
 				cmd = "i",
 				color = {r = 1, g = 0.73, b = 0.2, a = 1},
-				abbr = L["Instance"]
+				abbr = _G.INSTANCE
 			},
 			["RAID"] = {
 				enable = true,
 				cmd = "raid",
 				color = {r = 1, g = 0.5, b = 0, a = 1},
-				abbr = L["Raid"]
+				abbr = _G.RAID
 			},
 			["RAID_WARNING"] = {
 				enable = false,
 				cmd = "rw",
 				color = {r = 1, g = 0.28, b = 0, a = 1},
-				abbr = L["Raid Warning"]
+				abbr = _G.RAID_WARNING
 			},
 			["GUILD"] = {
 				enable = true,
 				cmd = "g",
 				color = {r = 0.25, g = 1, b = 0.25, a = 1},
-				abbr = L["Guild"]
+				abbr = _G.GUILD
 			},
 			["OFFICER"] = {
 				enable = false,
 				cmd = "o",
 				color = {r = 0.25, g = 0.75, b = 0.25, a = 1},
-				abbr = L["Officer"]
+				abbr = _G.OFFICER
 			},
 			world = {
 				enable = false,
@@ -224,7 +226,7 @@ MP.chat = {
 				enable = true,
 				icon = true,
 				color = {r = 0.56, g = 0.56, b = 0.56, a = 1},
-				abbr = L["Roll"]
+				abbr = _G.ROLL
 			},
 		},
 	},
@@ -236,6 +238,7 @@ MP.colors = {
 
 MP.mail = {
 	enable = true,
+	defaultPage = "ALTS"
 }
 
 MP.misc = {
@@ -339,8 +342,9 @@ MP.autoButtons = {
 	bar1 = {
 		enable = true,
 		mouseOver = false,
+		globalFade = true,
 		fadeTime = 0.3,
-		alphaMin = 0,
+		alphaMin = 1,
 		alphaMax = 1,
 		numButtons = 12,
 		backdrop = true,
@@ -380,8 +384,9 @@ MP.autoButtons = {
 	bar2 = {
 		enable = true,
 		mouseOver = false,
+		globalFade = true,
 		fadeTime = 0.3,
-		alphaMin = 0,
+		alphaMin = 1,
 		alphaMax = 1,
 		numButtons = 12,
 		backdrop = true,
@@ -421,8 +426,9 @@ MP.autoButtons = {
 	bar3 = {
 		enable = false,
 		mouseOver = false,
+		globalFade = true,
 		fadeTime = 0.3,
-		alphaMin = 0,
+		alphaMin = 1,
 		alphaMax = 1,
 		numButtons = 12,
 		backdrop = true,
@@ -543,6 +549,7 @@ MP.unitframes = {
 	raidIcons = true,
 	roleIcons = true,
 	highlight = true,
+	auras = true,
 }
 
 MP.maps = {
@@ -570,7 +577,10 @@ MP.maps = {
 				style = "OUTLINE"
 			},
 		},
-		rectangle = false,
+		rectangleMinimap = {
+			enable = false,
+			heightPercentage = 0.8
+		},
 	},
 }
 
@@ -598,12 +608,6 @@ MP.media = {
 	},
 	miscText = {
 		mail = {
-			enable = true,
-			font = "Expressway",
-			size = 12,
-			outline = "NONE",
-		},
-		editbox = {
 			enable = true,
 			font = "Expressway",
 			size = 12,

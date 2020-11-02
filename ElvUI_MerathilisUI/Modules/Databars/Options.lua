@@ -16,7 +16,7 @@ local function databarsTable()
 		get = function(info) return E.db.mui.databars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.databars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["DataBars"]), 1),
+			name = ACH:Header(MER:cOption(L["DataBars"], 'orange'), 1),
 		},
 	}
 end

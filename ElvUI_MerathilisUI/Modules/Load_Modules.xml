@@ -6,7 +6,6 @@
 	<Include file="Chat\Load_Chat.xml"/>
 	<Include file="CombatAlert\Load_CombatAlert.xml"/>
 	<Include file="Cooldowns\Load_Cooldowns.xml"/>
-	<Include file="CVars\Load_CVars.xml"/>
 	<Include file="Datatexts\Load_Datatexts.xml"/>
 	<Include file="Databars\Load_Databars.xml"/>
 	<Include file="LocPanel\Load_LocPanel.xml"/>
@@ -27,4 +26,5 @@
 	<Include file="Panels\Load_Panels.xml"/>
 	<Include file="FlightMode\Load_FlightMode.xml"/>
 	<Include file="AutoButtons\Load_AutoButtons.xml"/>
+	<Include file="CVars\Load_CVars.xml"/>
 </Ui>

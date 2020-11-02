@@ -37,7 +37,7 @@ local SupportedProfiles = {
 	{"iFilger", "iFilger"},
 }
 
-local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
+local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"])
 
 local function SkinsTable()
 	local ACH = E.Libs.ACH
@@ -45,10 +45,11 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 30,
 		type = "group",
-		name = L["Skins/AddOns"],
+		name = MER:cOption(L["Skins/AddOns"], 'gradient'),
+		icon = MER.Media.Icons.skins,
 		childGroups = "tab",
 		args = {
-			name = ACH:Header(MER:cOption(L["Skins/AddOns"]), 1),
+			name = ACH:Header(MER:cOption(L["Skins/AddOns"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",
@@ -81,7 +82,7 @@ local function SkinsTable()
 					credits = {
 						order = 0,
 						type = "group",
-						name = MER:cOption(L["Credits"]),
+						name = MER:cOption(L["Credits"], 'orange'),
 						guiInline = true,
 						args = {
 							tukui = ACH:Description(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
@@ -475,6 +476,16 @@ local function SkinsTable()
 				type = "toggle",
 				name = L["Player Choice"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.playerChoice end,
+			},
+			chromieTime = {
+				type = "toggle",
+				name = L["Chromie Time"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.chromieTime end,
+			},
+			levelUp = {
+				type = "toggle",
+				name = L["LevelUp Display"],
+				disabled = function() return not E.private.skins.blizzard.enable end,
 			},
 		},
 	}

@@ -3,22 +3,23 @@ local M = MER:GetModule('MER_Media')
 
 local function mediaTable()
 	E.Options.args.mui.args.media = {
-		type = "group",
-		name = L["Media"],
 		order = 40,
+		name = MER:cOption(L["Media"], 'gradient'),
+		icon = MER.Media.Icons.media,
+		type = "group",
 		childGroups = "tab",
 		get = function(info) return E.db.mui.media[ info[#info] ] end,
-		disabled = function() return IsAddOnLoaded("ElvUI_SLE") end,
+		hidden = function() return IsAddOnLoaded("ElvUI_SLE") end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(L["Media"]),
+				name = MER:cOption(L["Media"], 'orange'),
 			},
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Credits"]),
+				name = MER:cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = {
@@ -207,49 +208,6 @@ local function mediaTable()
 									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
 								disabled = function() return not E.db.mui.media.miscText.mail.enable end,
-							},
-						},
-					},
-					editbox = {
-						type = "group",
-						name = L["Chat Editbox Text"],
-						order = 2,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.mui.media.miscText.editbox[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.miscText.editbox[ info[#info] ] = value; E:UpdateMedia() end,
-						args = {
-							enable = {
-								order = 1,
-								type = "toggle",
-								name = L["Enable"],
-							},
-							font = {
-								type = "select", dialogControl = "LSM30_Font",
-								order = 1,
-								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
-								disabled = function() return not E.db.mui.media.miscText.editbox.enable end,
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = "range",
-								min = 6, max = 20, step = 1,
-								disabled = function() return not E.db.mui.media.miscText.editbox.enable end,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								desc = L["Set the font outline."],
-								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = "OUTLINE",
-									["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
-									["THICKOUTLINE"] = "THICKOUTLINE",
-								},
-								disabled = function() return not E.db.mui.media.miscText.editbox.enable end,
 							},
 						},
 					},

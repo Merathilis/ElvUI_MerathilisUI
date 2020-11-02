@@ -16,13 +16,16 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added a skin for the AddOn WarPlan",
-		"• Fixed an install whoopsi for the position on AB3 >.>",
-		"• Added a frame on the MailBox SendMail Frame, to easy send mail to contacts",
-		"• The Keybinds for the AutoButtons now finally works",
-		"• Added a custom fade option if you use mouseOver on AutoButtons",
-		"• Add a right click function for MicroBar: Collection & Toybox Buttons",
-		"• Small tweaks and skin upates",
+		"• Changed the option layout a bit",
+		"• Style the LocationPanel again",
+		"• Fixed Paragon Reputation Notification",
+		"• Updated deDE locales from Dlarge & Rav",
+		"• Updated the Rectangle Minimap Code -- Credits: Windtools",
+		"• Updated/Fixed some skins",
+		"• MicroBar: Added 2 new Buttons: Professions & Volume",
+		"• MicroBar: Fixed an issue on initial load with Heartstones",
+		"• Prevent errors on AFK Mode (hopefully)",
+		"• Added: Patrons & Donator List to: Information",
 
 		-- "• ''",
 	" ",
@@ -30,6 +33,8 @@ local ChangeLogData = {
 		"• As always, if you want my latest layout, do the install again",
 		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muierrors on' and test again",
+
+		-- "• ''",
 }
 
 local URL_PATTERNS = {

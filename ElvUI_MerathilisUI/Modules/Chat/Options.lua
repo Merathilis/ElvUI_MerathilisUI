@@ -3,11 +3,8 @@ local module = MER:GetModule('MER_Chat')
 local CB = MER:GetModule('MER_ChatBar')
 local LSM = E.LSM
 
---Cache global variables
---Lua functions
+local _G = _G
 local tinsert = table.insert
---WoW API / Variable
--- GLOBALS:
 
 local function ChatTable()
 	local ACH = E.Libs.ACH
@@ -18,7 +15,7 @@ local function ChatTable()
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			header = ACH:Header(MER:cOption(L["Chat"]), 1),
+			header = ACH:Header(MER:cOption(L["Chat"], 'orange'), 1),
 			chatButton = {
 				order = 2,
 				type = "toggle",
@@ -50,7 +47,7 @@ local function ChatTable()
 			seperators = {
 				order = 10,
 				type = "group",
-				name = MER:cOption(L["Seperators"]),
+				name = MER:cOption(L["Seperators"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.chat.seperators[ info[#info] ] end,
 				set = function(info, value) E.db.mui.chat.seperators[ info[#info] ] = value; end,
@@ -78,7 +75,7 @@ local function ChatTable()
 			chatFade = {
 				order = 15,
 				type = "group",
-				name = MER:cOption(L["Fade Chat"]),
+				name = MER:cOption(L["Fade Chat"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.chat.chatFade[ info[#info] ] end,
 				set = function(info, value) E.db.mui.chat.chatFade[ info[#info] ] = value; module:Configure_ChatFade() end,
@@ -115,7 +112,7 @@ local function ChatTable()
 			filter = {
 				order = 20,
 				type = "group",
-				name = MER:cOption(L["Filter"]),
+				name = MER:cOption(L["Filter"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.chat.filter[ info[#info] ] end,
 				set = function(info, value) E.db.mui.chat.filter[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -136,7 +133,7 @@ local function ChatTable()
 			chatBar = {
 				order = 30,
 				type = "group",
-				name = MER:cOption(L["Chat Bar"]),
+				name = MER:cOption(L["Chat Bar"], 'orange'),
 				guiInline = true,
 				get = function(info)
 					return E.db.mui.chat.chatBar[info[#info]]
