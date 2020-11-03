@@ -16,16 +16,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Changed the option layout a bit",
-		"• Style the LocationPanel again",
-		"• Fixed Paragon Reputation Notification",
-		"• Updated deDE locales from Dlarge & Rav",
-		"• Updated the Rectangle Minimap Code -- Credits: Windtools",
-		"• Updated/Fixed some skins",
-		"• MicroBar: Added 2 new Buttons: Professions & Volume",
-		"• MicroBar: Fixed an issue on initial load with Heartstones",
-		"• Prevent errors on AFK Mode (hopefully)",
-		"• Added: Patrons & Donator List to: Information",
+		"• Fixed an install whoopsi",
+		"• Small code updates",
+		"• Added Deezyl to the Patreon list <3",
 
 		-- "• ''",
 	" ",

@@ -1,3 +1,9 @@
+** v4.62 for Shadowland Pre-Patch, 03.11.2020**
+* Fixed an install whoopsi
+* Small code updates
+* Added Deezyl to the Patreon list <3
+
+
 ** v4.61 for Shadowland Pre-Patch, 02.11.2020**
 * Changed the option layout a bit
 * Style the LocationPanel again
