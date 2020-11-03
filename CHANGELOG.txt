@@ -1,3 +1,9 @@
+[b][color=orange]v4.62 for Shadowland PrePatch[/color], 03.11.2020[/b][list]
+[*]Fixed an install whoopsi
+[*]Small code updates
+[*]Added Deezyl to the Patreon list <3[/list]
+
+
 [b][color=orange]v4.61 for Shadowland PrePatch[/color], 02.11.2020[/b][list]
 [*]Changed the option layout a bit
 [*]Style the LocationPanel again
@@ -8,7 +14,7 @@
 [*]MicroBar: Added 2 new Buttons: Professions & Volume
 [*]MicroBar: Fixed an issue on initial load with Heartstones
 [*]Prevent errors on AFK Mode (hopefully)
-[*]Added: Patrons & Donator List to: Information
+[*]Added: Patrons & Donator List to: Information[/list]
 
 
 [b][color=orange]v4.60 for Shadowland PrePatch[/color], 24.10.2020[/b][list]
