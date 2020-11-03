@@ -276,39 +276,39 @@ function module:GameMenu()
 	end
 
 	-- Use this frame to control the position of the model - taken from ElvUI
-	if not modelHolder then
-		local modelHolder = CreateFrame("Frame", nil, GameMenuFrame)
-		modelHolder:Size(150)
-		modelHolder:SetPoint("RIGHT", GameMenuFrame, "LEFT", -300, 0)
+	if not GameMenuFrame.modelHolder then
+		GameMenuFrame.modelHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		GameMenuFrame.modelHolder:Size(150)
+		GameMenuFrame.modelHolder:SetPoint("RIGHT", GameMenuFrame, "LEFT", -300, 0)
 
-		local playerModel = CreateFrame("PlayerModel", nil, modelHolder)
-		playerModel:Point("CENTER", modelHolder, "CENTER")
+		local playerModel = CreateFrame("PlayerModel", nil, GameMenuFrame.modelHolder)
+		playerModel:Point("CENTER", GameMenuFrame.modelHolder, "CENTER")
 		playerModel:SetScript("OnShow", Player_Model)
 		playerModel.isIdle = nil
 		playerModel:Size(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models.
 		playerModel:Show()
 	end
 
-	if not npcHolder then
-		local npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
-		npcHolder:SetSize(150, 150)
-		npcHolder:SetPoint("LEFT", GameMenuFrame, "RIGHT", 300, 0)
+	if not GameMenuFrame.npcHolder then
+		GameMenuFrame.npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		 GameMenuFrame.npcHolder:SetSize(150, 150)
+		 GameMenuFrame.npcHolder:SetPoint("LEFT", GameMenuFrame, "RIGHT", 300, 0)
 
-		local npcModel = CreateFrame("PlayerModel", nil, npcHolder)
-		npcModel:Point("CENTER", npcHolder, "CENTER")
+		local npcModel = CreateFrame("PlayerModel", nil, GameMenuFrame.npcHolder)
+		npcModel:Point("CENTER",  GameMenuFrame.npcHolder, "CENTER")
 		npcModel:SetScript("OnShow", NPC_Model)
 		npcModel.isIdle = nil
 		npcModel:Size(256)
 		npcModel:Show()
 	end
 
-	if not pepeHolder then
-		local pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
-		pepeHolder:Size(150)
-		pepeHolder:SetPoint("BOTTOM", GameMenuFrame, "TOP", 0, -50)
+	if not GameMenuFrame.pepeHolder then
+		GameMenuFrame.pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		GameMenuFrame.pepeHolder:Size(150)
+		GameMenuFrame.pepeHolder:SetPoint("BOTTOM", GameMenuFrame, "TOP", 0, -50)
 
-		local pepeModel = CreateFrame("PlayerModel", nil, pepeHolder)
-		pepeModel:Point("CENTER", pepeHolder, "CENTER")
+		local pepeModel = CreateFrame("PlayerModel", nil, GameMenuFrame.pepeHolder)
+		pepeModel:Point("CENTER", GameMenuFrame.pepeHolder, "CENTER")
 		pepeModel:SetScript("OnShow", Pepe_Model)
 		pepeModel.isIdle = nil
 		pepeModel:Show()
