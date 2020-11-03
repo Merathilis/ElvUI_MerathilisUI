@@ -221,8 +221,8 @@ function module:GameMenu()
 		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame, 'BackdropTemplate')
 		local bottomPanel = GameMenuFrame.MUIbottomPanel
 		bottomPanel:SetFrameLevel(0)
-		bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
-		bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
+		bottomPanel:Point("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
+		bottomPanel:Width(GetScreenWidth() + (E.Border*2))
 		MERS:CreateBD(bottomPanel, .5)
 		bottomPanel:Styling()
 
@@ -236,12 +236,12 @@ function module:GameMenu()
 		bottomPanel.anim.height:SetDuration(0.6)
 
 		bottomPanel:SetScript("OnShow", function(self)
-			self:SetHeight(0)
+			self:Height(0)
 			self.anim.height:Play()
 		end)
 
 		bottomPanel.Logo = bottomPanel:CreateTexture(nil, "ARTWORK")
-		bottomPanel.Logo:SetSize(150, 150)
+		bottomPanel.Logo:Size(150)
 		bottomPanel.Logo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 0)
 		bottomPanel.Logo:SetTexture(logo)
 	end
@@ -250,8 +250,8 @@ function module:GameMenu()
 		GameMenuFrame.MUItopPanel = CreateFrame("Frame", nil, GameMenuFrame, 'BackdropTemplate')
 		local topPanel = GameMenuFrame.MUItopPanel
 		topPanel:SetFrameLevel(0)
-		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
-		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
+		topPanel:Point("TOP", E.UIParent, "TOP", 0, 0)
+		topPanel:Width(GetScreenWidth() + (E.Border*2))
 		MERS:CreateBD(topPanel, .5)
 		topPanel:Styling()
 
@@ -265,50 +265,50 @@ function module:GameMenu()
 		topPanel.anim.height:SetDuration(0.6)
 
 		topPanel:SetScript("OnShow", function(self)
-			self:SetHeight(0)
+			self:Height(0)
 			self.anim.height:Play()
 		end)
 
 		topPanel.factionLogo = topPanel:CreateTexture(nil, "ARTWORK")
-		topPanel.factionLogo:SetPoint("CENTER", topPanel, "CENTER", 0, 0)
-		topPanel.factionLogo:SetSize(256, 250)
+		topPanel.factionLogo:Point("CENTER", topPanel, "CENTER", 0, 0)
+		topPanel.factionLogo:Size(256, 250)
 		topPanel.factionLogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\classIcons\\CLASS-"..E.myclass)
 	end
 
 	-- Use this frame to control the position of the model - taken from ElvUI
-	if not modelHolder then
-		local modelHolder = CreateFrame("Frame", nil, GameMenuFrame)
-		modelHolder:SetSize(150, 150)
-		modelHolder:SetPoint("RIGHT", GameMenuFrame, "LEFT", -300, 0)
+	if not GameMenuFrame.modelHolder then
+		GameMenuFrame.modelHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		GameMenuFrame.modelHolder:Size(150)
+		GameMenuFrame.modelHolder:SetPoint("RIGHT", GameMenuFrame, "LEFT", -300, 0)
 
-		playerModel = CreateFrame("PlayerModel", nil, modelHolder)
-		playerModel:SetPoint("CENTER", modelHolder, "CENTER")
+		local playerModel = CreateFrame("PlayerModel", nil, GameMenuFrame.modelHolder)
+		playerModel:Point("CENTER", GameMenuFrame.modelHolder, "CENTER")
 		playerModel:SetScript("OnShow", Player_Model)
 		playerModel.isIdle = nil
-		playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models.
+		playerModel:Size(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models.
 		playerModel:Show()
 	end
 
-	if not npcHolder then
-		local npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
-		npcHolder:SetSize(150, 150)
-		npcHolder:SetPoint("LEFT", GameMenuFrame, "RIGHT", 300, 0)
+	if not GameMenuFrame.npcHolder then
+		GameMenuFrame.npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		 GameMenuFrame.npcHolder:SetSize(150, 150)
+		 GameMenuFrame.npcHolder:SetPoint("LEFT", GameMenuFrame, "RIGHT", 300, 0)
 
-		npcModel = CreateFrame("PlayerModel", nil, npcHolder)
-		npcModel:SetPoint("CENTER", npcHolder, "CENTER")
+		local npcModel = CreateFrame("PlayerModel", nil, GameMenuFrame.npcHolder)
+		npcModel:Point("CENTER",  GameMenuFrame.npcHolder, "CENTER")
 		npcModel:SetScript("OnShow", NPC_Model)
 		npcModel.isIdle = nil
-		npcModel:SetSize(256, 256)
+		npcModel:Size(256)
 		npcModel:Show()
 	end
 
-	if not pepeHolder then
-		local pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
-		pepeHolder:SetSize(150, 150)
-		pepeHolder:SetPoint("BOTTOM", GameMenuFrame, "TOP", 0, -50)
+	if not GameMenuFrame.pepeHolder then
+		GameMenuFrame.pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		GameMenuFrame.pepeHolder:Size(150)
+		GameMenuFrame.pepeHolder:SetPoint("BOTTOM", GameMenuFrame, "TOP", 0, -50)
 
-		pepeModel = CreateFrame("PlayerModel", nil, pepeHolder)
-		pepeModel:SetPoint("CENTER", pepeHolder, "CENTER")
+		local pepeModel = CreateFrame("PlayerModel", nil, GameMenuFrame.pepeHolder)
+		pepeModel:Point("CENTER", GameMenuFrame.pepeHolder, "CENTER")
 		pepeModel:SetScript("OnShow", Pepe_Model)
 		pepeModel.isIdle = nil
 		pepeModel:Show()
