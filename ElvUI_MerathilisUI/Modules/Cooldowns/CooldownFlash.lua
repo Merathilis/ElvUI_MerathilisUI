@@ -199,6 +199,8 @@ local function OnUpdate(_,update)
 			DCP.TextFrame:SetText(nil)
 			DCPT:SetTexture(nil)
 			DCPT:SetVertexColor(1, 1, 1)
+			DCP:SetAlpha(0)
+			DCP:SetSize(module.db.iconSize, module.db.iconSize)
 		else
 			if (not DCPT:GetTexture()) then
 				if (module.animating[1][3] ~= nil and module.db.showSpellName) then
