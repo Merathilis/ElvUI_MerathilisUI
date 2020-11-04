@@ -220,7 +220,6 @@ function module:ConstructNameButtons()
 
 		button:SetText("")
 		button:RegisterForClicks("LeftButtonDown", "RightButtonDown")
-		MER:SetFontOutline(button.Text)
 		S:HandleButton(button)
 
 		button:SetScript("OnClick", function(self, mouseButton)
@@ -302,7 +301,6 @@ function module:ConstructPageController()
 
 	local pageIndicater = slider:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
 	pageIndicater:Point("BOTTOM", slider, "TOP", 0, 6)
-	MER:SetFontOutline(pageIndicater)
 	slider.pageIndicater = pageIndicater
 
 	-- Mouse wheel control

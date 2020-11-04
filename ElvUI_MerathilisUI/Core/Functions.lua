@@ -129,26 +129,6 @@ function MER:SetFontColorDB(text, db)
 	text:SetTextColor(db.r, db.g, db.b, db.a)
 end
 
-function MER:SetFontOutline(text, font, size)
-	if not text or not text.GetFont then
-		return
-	end
-
-	local fontName, fontHeight = text:GetFont()
-
-	if size and type(size) == "string" then
-		size = fontHeight + tonumber(size)
-	end
-
-	if font and not strfind(font, "\.ttf") then
-		font = LSM:Fetch('font', font)
-	end
-
-	text:FontTemplate(font or fontName, size or fontHeight, "OUTLINE")
-	text:SetShadowColor(0, 0, 0, 0)
-	text.SetShadowColor = E.noop
-end
-
 do
 	local template = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
 	local s = 14
