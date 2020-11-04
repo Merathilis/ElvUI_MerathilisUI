@@ -527,6 +527,7 @@ MER.IsDev = {
 	["Damará"] = true,
 	["Jazira"] = true,
 	["Jústice"] = true,
+	["Maithilis"] = true,
 	["Mattdemôn"] = true,
 	["Melisendra"] = true,
 	["Merathilis"] = true,
