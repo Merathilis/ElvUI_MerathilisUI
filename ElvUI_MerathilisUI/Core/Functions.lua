@@ -74,8 +74,9 @@ for class, value in pairs(colors) do
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
+local defaultColor = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
-	if not color then color = { r = 1, g = 1, b = 1, a = 1 } end
+	if not color then color = defaultColor end
 
 	return color.r, color.g, color.b, color.a
 end
