@@ -117,7 +117,7 @@ MP.chat = {
 		enable = true,
 		keywords = "",
 		blockAddOnAlerts = true,
-		damagemeter = true,
+		damagemeter = false,
 	},
 	chatFade = {
 		enable = true,
