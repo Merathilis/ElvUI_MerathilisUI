@@ -218,7 +218,7 @@ function module:UpdateBar()
 
 	for _, name in ipairs(normalChannelsIndex) do
 		local db = self.db.channels[name]
-		local show = db.enable
+		local show = db and db.enable
 
 		if show and self.db.autoHide then
 			if checkFunctions[name] then
