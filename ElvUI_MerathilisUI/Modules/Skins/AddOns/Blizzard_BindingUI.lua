@@ -45,6 +45,8 @@ local function LoadSkin()
 	line:SetSize(1, 546)
 	line:SetPoint("LEFT", 205, 10)
 	line:SetColorTexture(1, 1, 1, .2)
+
+	_G.QuickKeybindFrame:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_BindingUI", "mUIBinding", LoadSkin)
