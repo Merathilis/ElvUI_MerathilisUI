@@ -1,16 +1,17 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:GetModule('MER_Actionbars')
+local AB = E:GetModule('ActionBars')
 local LCG = LibStub('LibCustomGlow-1.0')
 
---Cache global variables
+
 local _G = _G
 local pairs, unpack = pairs, unpack
---WoW API / Variables
+
 local GetActionInfo = GetActionInfo
 local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
--- GLOBALS:
+local hooksecurefunc = hooksecurefunc
 
 function module:StyleBackdrops()
 	-- Actionbar backdrops
@@ -88,6 +89,16 @@ local function ReskinVehicleExit()
 		tex:Hide()
 	end
 end
+
+local function StyleKeybinder()
+	if E.db.mui.general.style ~= true then return end
+
+	local frame = _G.ElvUIBindPopupWindow
+	if frame then
+		frame:Styling()
+	end
+end
+hooksecurefunc(AB, "LoadKeyBinder", StyleKeybinder)
 
 function module:Initialize()
 	if E.private.actionbar.enable ~= true then return; end
