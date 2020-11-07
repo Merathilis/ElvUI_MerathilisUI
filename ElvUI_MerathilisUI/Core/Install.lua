@@ -268,20 +268,22 @@ function MER:SetupLayout(layout)
 	--	ProfileDB - Auras
 	--]]----------------------------------
 	E.db["auras"]["fadeThreshold"] = 10
-	E.db["auras"]["font"] = "Merathilis Gotham Narrow Black"
-	E.db["auras"]["fontOutline"] = "OUTLINE"
-	E.db["auras"]["timeYOffset"] = 34
-	E.db["auras"]["timeXOffset"] = 0
+	E.db["auras"]["buffs"]["timeFont"] = "Merathilis Gotham Narrow Black"
+	E.db["auras"]["buffs"]["timeFontSize"] = 11
+	E.db["auras"]["buffs"]["timeFontOutline"] = "OUTLINE"
+	E.db["auras"]["buffs"]["timeYOffset"] = 34
+	E.db["auras"]["buffs"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 	E.db["auras"]["buffs"]["verticalSpacing"] = 12
 	E.db["auras"]["buffs"]["size"] = 32
 	E.db["auras"]["buffs"]["countFontSize"] = 12
-	E.db["auras"]["buffs"]["timeFontSize"] = 11
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 34
 	E.db["auras"]["debuffs"]["countFontSize"] = 16
+	E.db["auras"]["debuffs"]["timeFont"] = "Merathilis Gotham Narrow Black"
 	E.db["auras"]["debuffs"]["timeFontSize"] = 12
+	E.db["auras"]["debuffs"]["timeFontOutline"] = "OUTLINE"
 	E.db["auras"]["cooldown"]["override"] = true
 	E.db["auras"]["cooldown"]["useIndicatorColor"] = true
 	E.db["auras"]["cooldown"]["hoursIndicator"]["r"] = 0.4
