@@ -38,7 +38,7 @@ function MI:WorldMapLinks()
 	-- Create editbox
 	local EditBox = CreateFrame("EditBox", nil, _G.WorldMapFrame.BorderFrame, "BackdropTemplate")
 	EditBox:ClearAllPoints()
-	EditBox:SetPoint("TOPLEFT", 20, -4)
+	EditBox:SetPoint("TOP", _G.WorldMapFrameTitleText, "BOTTOM", 50, -3)
 	EditBox:SetHeight(16)
 	EditBox:FontTemplate()
 	EditBox:SetTextColor(0, 191/255, 250/255)
