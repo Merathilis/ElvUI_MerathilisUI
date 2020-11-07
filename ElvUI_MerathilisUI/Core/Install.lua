@@ -276,12 +276,12 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["buffs"]["verticalSpacing"] = 12
 	E.db["auras"]["buffs"]["size"] = 32
 	E.db["auras"]["buffs"]["countFontSize"] = 12
-	E.db["auras"]["buffs"]["durationFontSize"] = 11
+	E.db["auras"]["buffs"]["timeFontSize"] = 11
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 34
 	E.db["auras"]["debuffs"]["countFontSize"] = 16
-	E.db["auras"]["debuffs"]["durationFontSize"] = 12
+	E.db["auras"]["debuffs"]["timeFontSize"] = 12
 	E.db["auras"]["cooldown"]["override"] = true
 	E.db["auras"]["cooldown"]["useIndicatorColor"] = true
 	E.db["auras"]["cooldown"]["hoursIndicator"]["r"] = 0.4
