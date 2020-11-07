@@ -23,6 +23,8 @@ local type = type
 local unpack = unpack
 
 local BNGetNumFriends = BNGetNumFriends
+local CloseAllWindows = CloseAllWindows
+local CloseMenus = CloseMenus
 local CreateFrame = CreateFrame
 local CreateFromMixins = CreateFromMixins
 local EncounterJournal_LoadUI = EncounterJournal_LoadUI
@@ -38,6 +40,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local IsInGuild = IsInGuild
 local IsModifierKeyDown = IsModifierKeyDown
 local ItemMixin = ItemMixin
+local PlaySound = PlaySound
 local RegisterStateDriver = RegisterStateDriver
 local ResetCPUUsage = ResetCPUUsage
 local Screenshot = Screenshot
@@ -249,6 +252,38 @@ local ButtonTypes = {
 			button.additionalText:SetFormattedText(button.additionalTextFormat, button.additionalTextFunc())
 		end
 	},
+	GAMEMENU = {
+		name = L["Game Menu"],
+		icon = MER.Media.Icons.barGameMenu,
+		click = {
+			LeftButton = function()
+				if not InCombatLockdown() then
+					-- Open game menu | From ElvUI
+					if not _G.GameMenuFrame:IsShown() then
+						if _G.VideoOptionsFrame:IsShown() then
+							_G.VideoOptionsFrameCancel:Click()
+						elseif _G.AudioOptionsFrame:IsShown() then
+							_G.AudioOptionsFrameCancel:Click()
+						elseif _G.InterfaceOptionsFrame:IsShown() then
+							_G.InterfaceOptionsFrameCancel:Click()
+						end
+						CloseMenus()
+						CloseAllWindows()
+						PlaySound(850) --IG_MAINMENU_OPEN
+						ShowUIPanel(_G.GameMenuFrame)
+					else
+						PlaySound(854) --IG_MAINMENU_QUIT
+						HideUIPanel(_G.GameMenuFrame)
+					end
+				else
+					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+				end
+			end
+		},
+		tooltips = {
+			L["Game Menu"]
+		},
+	},
 	GROUP_FINDER = {
 		name = _G.LFG_TITLE,
 		icon = MER.Media.Icons.barGroupFinder,
@@ -351,7 +386,7 @@ local ButtonTypes = {
 		},
 		tooltips = {
 			L["Profession"]
-		}
+		},
 	},
 	SCREENSHOT = {
 		name = L["Screenshot"],
@@ -364,7 +399,7 @@ local ButtonTypes = {
 		},
 		tooltips = {
 			L["Screenshot"], "\n", LeftButtonIcon .. " " .. L["Screenshot immediately"], RightButtonIcon .. " " .. L["Screenshot after 2 secs"]
-		}
+		},
 	},
 	SPELLBOOK = {
 		name = _G.SPELLBOOK_ABILITIES_BUTTON,
