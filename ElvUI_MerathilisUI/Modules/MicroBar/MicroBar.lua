@@ -978,9 +978,14 @@ function module:UpdateLayout()
 	self.bar.middlePanel:Size(self.db.timeAreaWidth, self.db.timeAreaHeight)
 
 	local areaWidth = 20 + self.bar.middlePanel:GetWidth()
-	areaWidth = areaWidth + 2 * max(self.bar.leftPanel:GetWidth(), self.bar.rightPanel:GetWidth())
-	local areaHeight = max(self.bar.leftPanel:GetHeight(), self.bar.rightPanel:GetHeight())
-	areaHeight = max(areaHeight, self.bar.middlePanel:GetHeight())
+	local leftWidth = self.bar.leftPanel:IsShown() and self.bar.leftPanel:GetWidth() or 0
+	local rightWidth = self.bar.rightPanel:IsShown() and self.bar.rightPanel:GetWidth() or 0
+	areaWidth = areaWidth + 2 * max(leftWidth, rightWidth)
+
+	local areaHeight = self.bar.middlePanel:GetHeight()
+	local leftHeight = self.bar.leftPanel:IsShown() and self.bar.leftPanel:GetHeight() or 0
+	local rightHeight = self.bar.rightPanel:IsShown() and self.bar.rightPanel:GetHeight() or 0
+	areaHeight = max(max(leftHeight, rightHeight), areaHeight)
 
 	self.bar:Size(areaWidth, areaHeight)
 end
