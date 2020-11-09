@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Minimap')
+local COMP = MER:GetModule('MER_Compatibility')
 local LCG = LibStub('LibCustomGlow-1.0')
 
 --Cache global variables
@@ -192,7 +193,7 @@ function module:RaidDifficulty()
 end
 
 function module:StyleMinimap()
-	if not E.db.mui.maps.minimap.rectangleMinimap.enable then
+	if not E.db.mui.maps.minimap.rectangleMinimap.enable or (COMP.SLE and not E.private.minimap.rectangle) then
 		Minimap:Styling(true, true, false)
 	end
 
