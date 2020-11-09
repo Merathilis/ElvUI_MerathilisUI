@@ -16,9 +16,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an install whoopsi",
-		"• Small code updates",
-		"• Added Deezyl to the Patreon list <3",
+		"• MicroBar: Added a Game Menu Button",
+		"• Reposition Wowheadlinks on the WorldMap",
+		"• Updated Cooldown Flash",
+		"• Fixed an option error on Rectangle Minimap/LocPanel",
+		"• Added Zhadar to the Patreon list <3",
 
 		-- "• ''",
 	" ",

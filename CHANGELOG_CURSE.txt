@@ -1,3 +1,11 @@
+** v4.63 for Shadowland Pre-Patch, 08.11.2020**
+* MicroBar: Added a Game Menu Button
+* Reposition Wowheadlinks on the WorldMap
+* Updated Cooldown Flash
+* Fixed an option error on Rectangle Minimap/LocPanel
+* Added Zhadar to the Patreon list <3
+
+
 ** v4.62 for Shadowland Pre-Patch, 03.11.2020**
 * Fixed an install whoopsi
 * Small code updates
