@@ -247,22 +247,6 @@ local function LoadSkin()
 	for _, font in pairs(whitish) do
 		SetTextColor_White(font)
 	end
-
-	-- Replace seal signature string
-	local ReplacedSealColor = {
-		["480404"] = "c20606",
-		["042c54"] = "1c86ee",
-	}
-
-	hooksecurefunc(_G.QuestInfoSealFrame.Text, "SetText", function(self, text)
-		if text and text ~= "" then
-			local colorStr, rawText = strmatch(text, "|c[fF][fF](%x%x%x%x%x%x)(.-)|r")
-			if colorStr and rawText then
-				colorStr = ReplacedSealColor[colorStr] or "99ccff"
-				self:SetFormattedText("|cff%s%s|r", colorStr, rawText)
-			end
-		end
-	end)
 end
 
 S:AddCallback("mUIQuestInfo", LoadSkin)
