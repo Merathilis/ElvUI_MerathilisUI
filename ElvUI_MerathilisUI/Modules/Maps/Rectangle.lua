@@ -111,7 +111,7 @@ function module:AdjustSettings()
 	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = 30
 	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -40
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 30
-	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,47"
+	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,46"
 
 	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-455,47"
 	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-489,116"
