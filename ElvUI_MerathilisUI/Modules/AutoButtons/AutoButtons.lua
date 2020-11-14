@@ -460,9 +460,9 @@ function module:UpdateBar(id)
 
 	if not self.db.enable or not barDB.enable then
 		if bar.register then
-            UnregisterStateDriver(bar, "visibility")
-            bar.register = false
-        end
+			UnregisterStateDriver(bar, "visibility")
+			bar.register = false
+		end
 		bar:Hide()
 		return
 	end
@@ -538,9 +538,9 @@ function module:UpdateBar(id)
 
 	if buttonID == 1 then
 		if bar.register then
-            UnregisterStateDriver(bar, "visibility")
-            bar.register = false
-        end
+			UnregisterStateDriver(bar, "visibility")
+			bar.register = false
+		end
 		bar:Hide()
 		return
 	end
@@ -612,9 +612,9 @@ function module:UpdateBar(id)
 	end
 
 	if not bar.register then
-        RegisterStateDriver(bar, "visibility", "[petbattle]hide;show")
-        bar.register = true
-    end
+		RegisterStateDriver(bar, "visibility", "[petbattle]hide;show")
+		bar.register = true
+	end
 	bar:Show()
 
 	if barDB.backdrop then
