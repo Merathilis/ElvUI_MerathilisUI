@@ -432,7 +432,6 @@ function module:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-
 local SOUND_TIMEOUT = 20
 function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	if not module.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")]  then return end
