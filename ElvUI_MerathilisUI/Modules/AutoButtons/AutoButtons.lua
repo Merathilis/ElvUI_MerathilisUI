@@ -31,6 +31,8 @@ local GetQuestLogSpecialItemInfo = GetQuestLogSpecialItemInfo
 local InCombatLockdown = InCombatLockdown
 local IsItemInRange = IsItemInRange
 local IsUsableItem = IsUsableItem
+local RegisterStateDriver = RegisterStateDriver
+local UnregisterStateDriver = UnregisterStateDriver
 
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 
@@ -457,6 +459,10 @@ function module:UpdateBar(id)
 	end
 
 	if not self.db.enable or not barDB.enable then
+		if bar.register then
+            UnregisterStateDriver(bar, "visibility")
+            bar.register = false
+        end
 		bar:Hide()
 		return
 	end
@@ -531,6 +537,10 @@ function module:UpdateBar(id)
 	end
 
 	if buttonID == 1 then
+		if bar.register then
+            UnregisterStateDriver(bar, "visibility")
+            bar.register = false
+        end
 		bar:Hide()
 		return
 	end
@@ -601,6 +611,10 @@ function module:UpdateBar(id)
 		button.bind:Point("TOPRIGHT", button, "TOPRIGHT", barDB.bindFont.xOffset, barDB.bindFont.yOffset)
 	end
 
+	if not bar.register then
+        RegisterStateDriver(bar, "visibility", "[petbattle]hide;show")
+        bar.register = true
+    end
 	bar:Show()
 
 	if barDB.backdrop then
