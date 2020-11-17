@@ -812,8 +812,8 @@ function module:ConstructButton()
 
 	local notificationTex = button:CreateTexture(nil, "OVERLAY")
 	notificationTex:SetAtlas("hud-microbutton-communities-icon-notification")
-	notificationTex:Point("TOPRIGHT")
-	notificationTex:Size(0.5 * self.db.buttonSize)
+	notificationTex:Point("TOPRIGHT", 4, 4)
+	notificationTex:Size(0.6 * self.db.buttonSize)
 	button.notificationTex = notificationTex
 
 	local additionalText = button:CreateFontString(nil, "OVERLAY")
@@ -1053,6 +1053,10 @@ function module:PLAYER_ENTERING_WORLD()
 end
 
 function module:UpdateGuildButton()
+	if not self.db or not self.db.notification then
+		return
+	end
+
 	if not _G.GuildMicroButton or not _G.GuildMicroButton.NotificationOverlay then
 		return
 	end

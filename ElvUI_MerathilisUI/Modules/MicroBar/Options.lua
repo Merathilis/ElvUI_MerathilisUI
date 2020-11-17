@@ -109,8 +109,13 @@ local function MicroBarTable()
 						name = L["Bar"],
 						inline = true,
 						args = {
-							mouseOver = {
+							notification = {
 								order = 1,
+								type = "toggle",
+								name = L["Notification"],
+							},
+							mouseOver = {
+								order = 2,
 								type = "toggle",
 								name = L["Mouse Over"],
 								set = function(info, value)
@@ -119,7 +124,7 @@ local function MicroBarTable()
 								end
 							},
 							fadeTime = {
-								order = 2,
+								order = 3,
 								type = "range",
 								name = L["Fade Time"],
 								min = 0,
@@ -127,20 +132,16 @@ local function MicroBarTable()
 								step = 0.01
 							},
 							tooltipPosition = {
-								order = 3,
+								order = 4,
 								type = "select",
 								name = L["Tooltip Position"],
 								values = {
 									ANCHOR_TOP = L["TOP"],
 									ANCHOR_BOTTOM = L["BOTTOM"]
 								},
-								set = function(info, value)
-									E.db.mui.microBar[info[#info]] = value
-									--E:StaticPopup_Show("PRIVATE_RL");
-								end
 							},
 							visibility = {
-								order = 4,
+								order = 5,
 								type = "input",
 								name = L["Visibility"],
 								set = function(info, value)

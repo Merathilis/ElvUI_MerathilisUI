@@ -481,6 +481,7 @@ MP.microBar = {
 	hoverColor = "CLASS",
 	customNormalColor = {r = 1, g = 1, b = 1},
 	customHoverColor = {r = 0, g = 0.659, b = 1},
+	notification = true,
 	visibility = "[petbattle][combat] hide; show",
 	tooltipPosition = "ANCHOR_BOTTOM",
 	time = {
