@@ -535,6 +535,7 @@ MER.IsDev = {
 	["Merathilîs"] = true,
 	["Róhal"] = true,
 	["Brítt"] = true,
+	["Jahzzy"] = true,
 }
 
 -- Don't forget to update realm name(s) if we ever transfer realms.
@@ -542,7 +543,7 @@ MER.IsDev = {
 -- End result we piss off people and we do not want to do that. :(
 MER.IsDevRealm = {
 	["Shattrath"] = true,
-	--["Garrosh"] = true,
+	["Garrosh"] = true,
 
 	-- Beta
 	["The Maw"] = true,
