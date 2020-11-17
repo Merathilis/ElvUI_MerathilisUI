@@ -250,7 +250,8 @@ local ButtonTypes = {
 				end
 			end
 			button.additionalText:SetFormattedText(button.additionalTextFormat, button.additionalTextFunc())
-		end
+		end,
+		notification = true,
 	},
 	GAMEMENU = {
 		name = L["Game Menu"],
@@ -809,6 +810,12 @@ function module:ConstructButton()
 	hoverTex:SetAlpha(0)
 	button.hoverTex = hoverTex
 
+	local notificationTex = button:CreateTexture(nil, "OVERLAY")
+	notificationTex:SetAtlas("hud-microbutton-communities-icon-notification")
+	notificationTex:Point("TOPRIGHT")
+	notificationTex:Size(0.5 * self.db.buttonSize)
+	button.notificationTex = notificationTex
+
 	local additionalText = button:CreateFontString(nil, "OVERLAY")
 	MER:SetFontDB(additionalText, self.db.additionalText.font)
 	additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
@@ -822,10 +829,12 @@ function module:ConstructButton()
 	tinsert(self.buttons, button)
 end
 
-function module:UpdateButton(button, config)
+function module:UpdateButton(button, buttonType)
 	if InCombatLockdown() then return end
 
+	local config = ButtonTypes[buttonType]
 	button:Size(self.db.buttonSize)
+	button.type = buttonType
 	button.name = config.name
 	button.tooltips = config.tooltips
 	button.tooltipsLeave = config.tooltipsLeave
@@ -923,6 +932,8 @@ function module:UpdateButton(button, config)
 	else
 		button.additionalText:Hide()
 	end
+
+	button.notificationTex:Hide()
 end
 
 function module:ConstructButtons()
@@ -936,9 +947,10 @@ end
 
 function module:UpdateButtons()
 	for i = 1, NUM_PANEL_BUTTONS do
-		self:UpdateButton(self.buttons[i], ButtonTypes[self.db.left[i]])
-		self:UpdateButton(self.buttons[i + NUM_PANEL_BUTTONS], ButtonTypes[self.db.right[i]])
+		self:UpdateButton(self.buttons[i], self.db.left[i])
+		self:UpdateButton(self.buttons[i + NUM_PANEL_BUTTONS], self.db.right[i])
 	end
+	self:UpdateGuildButton()
 end
 
 function module:UpdateLayout()
@@ -1040,6 +1052,20 @@ function module:PLAYER_ENTERING_WORLD()
 	end)
 end
 
+function module:UpdateGuildButton()
+	if not _G.GuildMicroButton or not _G.GuildMicroButton.NotificationOverlay then
+		return
+	end
+
+	local isShown = _G.GuildMicroButton.NotificationOverlay:IsShown()
+
+	for i = 1, 2 * NUM_PANEL_BUTTONS do
+		if self.buttons[i].type == "GUILD" then
+			self.buttons[i].notificationTex:SetShown(isShown)
+		end
+	end
+end
+
 function module:UpdateHomeButton()
 	ButtonTypes.HOME.item = {
 		item1 = HeartstonesTable[self.db.home.left],
@@ -1109,6 +1135,8 @@ function module:Initialize()
 	self:UpdateLayout()
 	self:UpdateBar()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+	self:SecureHook(_G.GuildMicroButton, "UpdateNotificationIcon", "UpdateGuildButton")
 
 	function module:ForUpdateAll()
 		self.db = E.db.mui.microBar
