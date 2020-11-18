@@ -29,6 +29,7 @@ local DONATOR_STRING = tconcat(DONATORS, ", ")
 local PATRONS = {
 	'Graldur',
 	'Deezyl',
+	'Zhadar',
 }
 tsort(PATRONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local PATRONS_STRING = tconcat(PATRONS, ", ")

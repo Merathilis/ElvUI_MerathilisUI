@@ -16,9 +16,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an install whoopsi",
-		"• Small code updates",
-		"• Added Deezyl to the Patreon list <3",
+		"• The AutoButtons will now hide in Pet Battle",
+		"• Dont force the spacing on UnitFrames Buffs/Debuffs",
+		"• Added an notification icon on the MicroBar Guild button. Thx fang2hou <3",
 
 		-- "• ''",
 	" ",

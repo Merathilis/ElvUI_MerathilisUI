@@ -23,6 +23,8 @@ local type = type
 local unpack = unpack
 
 local BNGetNumFriends = BNGetNumFriends
+local CloseAllWindows = CloseAllWindows
+local CloseMenus = CloseMenus
 local CreateFrame = CreateFrame
 local CreateFromMixins = CreateFromMixins
 local EncounterJournal_LoadUI = EncounterJournal_LoadUI
@@ -38,6 +40,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local IsInGuild = IsInGuild
 local IsModifierKeyDown = IsModifierKeyDown
 local ItemMixin = ItemMixin
+local PlaySound = PlaySound
 local RegisterStateDriver = RegisterStateDriver
 local ResetCPUUsage = ResetCPUUsage
 local Screenshot = Screenshot
@@ -247,7 +250,40 @@ local ButtonTypes = {
 				end
 			end
 			button.additionalText:SetFormattedText(button.additionalTextFormat, button.additionalTextFunc())
-		end
+		end,
+		notification = true,
+	},
+	GAMEMENU = {
+		name = L["Game Menu"],
+		icon = MER.Media.Icons.barGameMenu,
+		click = {
+			LeftButton = function()
+				if not InCombatLockdown() then
+					-- Open game menu | From ElvUI
+					if not _G.GameMenuFrame:IsShown() then
+						if _G.VideoOptionsFrame:IsShown() then
+							_G.VideoOptionsFrameCancel:Click()
+						elseif _G.AudioOptionsFrame:IsShown() then
+							_G.AudioOptionsFrameCancel:Click()
+						elseif _G.InterfaceOptionsFrame:IsShown() then
+							_G.InterfaceOptionsFrameCancel:Click()
+						end
+						CloseMenus()
+						CloseAllWindows()
+						PlaySound(850) --IG_MAINMENU_OPEN
+						ShowUIPanel(_G.GameMenuFrame)
+					else
+						PlaySound(854) --IG_MAINMENU_QUIT
+						HideUIPanel(_G.GameMenuFrame)
+					end
+				else
+					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+				end
+			end
+		},
+		tooltips = {
+			L["Game Menu"]
+		},
 	},
 	GROUP_FINDER = {
 		name = _G.LFG_TITLE,
@@ -351,7 +387,7 @@ local ButtonTypes = {
 		},
 		tooltips = {
 			L["Profession"]
-		}
+		},
 	},
 	SCREENSHOT = {
 		name = L["Screenshot"],
@@ -364,7 +400,7 @@ local ButtonTypes = {
 		},
 		tooltips = {
 			L["Screenshot"], "\n", LeftButtonIcon .. " " .. L["Screenshot immediately"], RightButtonIcon .. " " .. L["Screenshot after 2 secs"]
-		}
+		},
 	},
 	SPELLBOOK = {
 		name = _G.SPELLBOOK_ABILITIES_BUTTON,
@@ -774,6 +810,12 @@ function module:ConstructButton()
 	hoverTex:SetAlpha(0)
 	button.hoverTex = hoverTex
 
+	local notificationTex = button:CreateTexture(nil, "OVERLAY")
+	notificationTex:SetAtlas("hud-microbutton-communities-icon-notification")
+	notificationTex:Point("TOPRIGHT", 4, 4)
+	notificationTex:Size(0.6 * self.db.buttonSize)
+	button.notificationTex = notificationTex
+
 	local additionalText = button:CreateFontString(nil, "OVERLAY")
 	MER:SetFontDB(additionalText, self.db.additionalText.font)
 	additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
@@ -787,10 +829,12 @@ function module:ConstructButton()
 	tinsert(self.buttons, button)
 end
 
-function module:UpdateButton(button, config)
+function module:UpdateButton(button, buttonType)
 	if InCombatLockdown() then return end
 
+	local config = ButtonTypes[buttonType]
 	button:Size(self.db.buttonSize)
+	button.type = buttonType
 	button.name = config.name
 	button.tooltips = config.tooltips
 	button.tooltipsLeave = config.tooltipsLeave
@@ -888,6 +932,8 @@ function module:UpdateButton(button, config)
 	else
 		button.additionalText:Hide()
 	end
+
+	button.notificationTex:Hide()
 end
 
 function module:ConstructButtons()
@@ -901,9 +947,10 @@ end
 
 function module:UpdateButtons()
 	for i = 1, NUM_PANEL_BUTTONS do
-		self:UpdateButton(self.buttons[i], ButtonTypes[self.db.left[i]])
-		self:UpdateButton(self.buttons[i + NUM_PANEL_BUTTONS], ButtonTypes[self.db.right[i]])
+		self:UpdateButton(self.buttons[i], self.db.left[i])
+		self:UpdateButton(self.buttons[i + NUM_PANEL_BUTTONS], self.db.right[i])
 	end
+	self:UpdateGuildButton()
 end
 
 function module:UpdateLayout()
@@ -978,9 +1025,14 @@ function module:UpdateLayout()
 	self.bar.middlePanel:Size(self.db.timeAreaWidth, self.db.timeAreaHeight)
 
 	local areaWidth = 20 + self.bar.middlePanel:GetWidth()
-	areaWidth = areaWidth + 2 * max(self.bar.leftPanel:GetWidth(), self.bar.rightPanel:GetWidth())
-	local areaHeight = max(self.bar.leftPanel:GetHeight(), self.bar.rightPanel:GetHeight())
-	areaHeight = max(areaHeight, self.bar.middlePanel:GetHeight())
+	local leftWidth = self.bar.leftPanel:IsShown() and self.bar.leftPanel:GetWidth() or 0
+	local rightWidth = self.bar.rightPanel:IsShown() and self.bar.rightPanel:GetWidth() or 0
+	areaWidth = areaWidth + 2 * max(leftWidth, rightWidth)
+
+	local areaHeight = self.bar.middlePanel:GetHeight()
+	local leftHeight = self.bar.leftPanel:IsShown() and self.bar.leftPanel:GetHeight() or 0
+	local rightHeight = self.bar.rightPanel:IsShown() and self.bar.rightPanel:GetHeight() or 0
+	areaHeight = max(max(leftHeight, rightHeight), areaHeight)
 
 	self.bar:Size(areaWidth, areaHeight)
 end
@@ -998,6 +1050,24 @@ function module:PLAYER_ENTERING_WORLD()
 			self:ProfileUpdate()
 		end
 	end)
+end
+
+function module:UpdateGuildButton()
+	if not self.db or not self.db.notification then
+		return
+	end
+
+	if not _G.GuildMicroButton or not _G.GuildMicroButton.NotificationOverlay then
+		return
+	end
+
+	local isShown = _G.GuildMicroButton.NotificationOverlay:IsShown()
+
+	for i = 1, 2 * NUM_PANEL_BUTTONS do
+		if self.buttons[i].type == "GUILD" then
+			self.buttons[i].notificationTex:SetShown(isShown)
+		end
+	end
 end
 
 function module:UpdateHomeButton()
@@ -1069,6 +1139,8 @@ function module:Initialize()
 	self:UpdateLayout()
 	self:UpdateBar()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+	self:SecureHook(_G.GuildMicroButton, "UpdateNotificationIcon", "UpdateGuildButton")
 
 	function module:ForUpdateAll()
 		self.db = E.db.mui.microBar

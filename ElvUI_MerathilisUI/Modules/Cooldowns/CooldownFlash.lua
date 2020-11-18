@@ -26,6 +26,7 @@ local GetInventoryItemID = GetInventoryItemID
 local GetInventoryItemTexture = GetInventoryItemTexture
 local GetContainerItemID = GetContainerItemID
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 module.cooldowns, module.animating, module.watching = { }, { }, { }
@@ -35,8 +36,11 @@ local testtable
 local DCP = CreateFrame("Frame", nil, E.UIParent)
 DCP:SetAlpha(0)
 DCP:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
-DCP.TextFrame = DCP:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-DCP.TextFrame:Point("TOP", DCP, "BOTTOM", 0, -5)
+
+DCP.TextFrame = DCP:CreateFontString(nil, "ARTWORK")
+DCP.TextFrame:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+DCP.TextFrame:SetShadowOffset(2,-2)
+DCP.TextFrame:Point("CENTER",DCP,"CENTER")
 DCP.TextFrame:Width(185)
 DCP.TextFrame:SetJustifyH("CENTER")
 DCP.TextFrame:SetTextColor(1, 1, 1)
@@ -47,7 +51,7 @@ DCPT:SetAllPoints(DCP)
 MERS:CreateBDFrame(DCP)
 MERS:CreateSD(DCP, 2, 2)
 
-local defaultsettings = {
+local defaultSettings = {
 	["enable"] = false,
 	["fadeInTime"] = 0.3,
 	["fadeOutTime"] = 0.6,
@@ -98,7 +102,7 @@ local function memoize(f)
 end
 
 local function GetPetActionIndexByName(name)
-	for i=1, NUM_PET_ACTION_SLOTS, 1 do
+	for i=1, _G.NUM_PET_ACTION_SLOTS, 1 do
 		if (GetPetActionInfo(i) == name) then
 			return i
 		end
@@ -197,13 +201,16 @@ local function OnUpdate(_,update)
 			DCPT:SetVertexColor(1, 1, 1)
 			DCP:SetAlpha(0)
 			DCP:SetSize(module.db.iconSize, module.db.iconSize)
-		elseif module.db.enable then
+		else
 			if (not DCPT:GetTexture()) then
 				if (module.animating[1][3] ~= nil and module.db.showSpellName) then
 					DCP.TextFrame:SetText(module.animating[1][3])
 				end
 				DCPT:SetTexture(module.animating[1][1])
 				S:HandleIcon(DCPT)
+				if module.animating[1][2] then
+					DCPT:SetVertexColor(unpack(module.db.petOverlay))
+				end
 			end
 			local alpha = module.db.maxAlpha
 			if (runtimer < module.db.fadeInTime) then
@@ -224,9 +231,9 @@ end
 --------------------
 function DCP:ADDON_LOADED(addon)
 	if (not MERData_DCP) then
-		MERData_DCP = defaultsettings
+		MERData_DCP = {unpack(defaultSettings)}
 	else
-		for i, v in pairs(defaultsettings) do
+		for i, v in pairs(defaultSettings) do
 			if (not MERData_DCP[i]) then
 				MERData_DCP[i] = v
 			end
@@ -234,6 +241,7 @@ function DCP:ADDON_LOADED(addon)
 	end
 	-- self:SetPoint("CENTER", E.UIParent,"BOTTOMLEFT", MERData_DCP.x, MERData_DCP.y)
 	E:CreateMover(DCP, "MER_CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,cooldownFlash')
+	self:UnregisterEvent("ADDON_LOADED")
 end
 
 function DCP:SPELL_UPDATE_COOLDOWN()
@@ -280,50 +288,31 @@ function DCP:PLAYER_ENTERING_WORLD()
 	end
 end
 
-function module:UseAction(slot)
+hooksecurefunc("UseAction", function(slot)
 	local actionType,itemID = GetActionInfo(slot)
 	if (actionType == "item") then
 		local texture = GetActionTexture(slot)
 		module.watching[itemID] = {GetTime(),"item",texture}
-		DCP:SetScript("OnUpdate", OnUpdate)
 	end
-end
+end)
 
-function module:UseInventoryItem(slot)
+hooksecurefunc("UseInventoryItem", function(slot)
 	local itemID = GetInventoryItemID("player", slot);
 	if (itemID) then
 		local texture = GetInventoryItemTexture("player", slot)
-		module.watching[itemID] = {GetTime(), "item", texture}
-		DCP:SetScript("OnUpdate", OnUpdate)
+		module.watching[itemID] = {GetTime(),"item",texture}
 	end
-end
+end)
 
-function module:UseContainerItem(bag, slot)
+hooksecurefunc("UseContainerItem", function(bag,slot)
 	local itemID = GetContainerItemID(bag, slot)
 	if (itemID) then
 		local texture = select(10, GetItemInfo(itemID))
-		module.watching[itemID] = {GetTime(), "item", texture}
-		DCP:SetScript("OnUpdate", OnUpdate)
+		module.watching[itemID] = {GetTime(),"item",texture}
 	end
-end
-
-function module:UseItemByName(itemName)
-	local itemID
-	if itemName then
-		itemID = string.match(select(2, GetItemInfo(itemName)), "item:(%d+)")
-	end
-	if itemID then
-		local texture = select(10, GetItemInfo(itemID))
-		module.watching[itemID] = {GetTime(), "item", texture}
-		DCP:SetScript("OnUpdate", OnUpdate)
-	end
-end
+end)
 
 function module:EnableCooldownFlash()
-	self:SecureHook("UseContainerItem")
-	self:SecureHook("UseInventoryItem")
-	self:SecureHook("UseAction")
-	self:SecureHook("UseItemByName")
 	DCP:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	DCP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	DCP:RegisterEvent("ADDON_LOADED")
@@ -334,10 +323,6 @@ function module:EnableCooldownFlash()
 end
 
 function module:DisableCooldownFlash()
-	self:Unhook("UseContainerItem")
-	self:Unhook("UseInventoryItem")
-	self:Unhook("UseAction")
-	self:Unhook("UseItemByName")
 	DCP:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	DCP:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	DCP:UnregisterEvent("ADDON_LOADED")
@@ -356,6 +341,8 @@ function module:Initialize()
 
 	if self.db.enable then
 		self:EnableCooldownFlash()
+	elseif not self.db.enable then
+		self:DisableCooldownFlash()
 	end
 
 	DCP:Size(self.db.iconSize, self.db.iconSize)

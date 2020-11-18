@@ -8,8 +8,6 @@ local pairs, unpack = pairs, unpack
 local hooksecurefunc = hooksecurefunc
 
 function module:PostUpdateDebuffs(unit, button)
-	button:GetParent().spacing = E:Scale(4)
-
 	if not button.shadow then button:CreateShadow() end
 
 	if button.isDebuff then

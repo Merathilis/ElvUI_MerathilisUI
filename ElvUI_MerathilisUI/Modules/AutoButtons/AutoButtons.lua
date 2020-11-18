@@ -31,6 +31,8 @@ local GetQuestLogSpecialItemInfo = GetQuestLogSpecialItemInfo
 local InCombatLockdown = InCombatLockdown
 local IsItemInRange = IsItemInRange
 local IsUsableItem = IsUsableItem
+local RegisterStateDriver = RegisterStateDriver
+local UnregisterStateDriver = UnregisterStateDriver
 
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 
@@ -118,6 +120,38 @@ local potions = {
 	180318,
 }
 
+-- After shadowlands released
+-- Potion (require level >= 50)
+-- local potions = {
+	--5512,
+	--167917,
+	--167918,
+	--167919,
+	--167920,
+	--171263,
+	--171264,
+	--171266,
+	--171267,
+	--171268,
+	--171269,
+	--171270,
+	--171271,
+	--171272,
+	--171273,
+	--171274,
+	--171275,
+	--171349,
+	--171350,
+	--171351,
+	--171352,
+	--171370,
+	--176811,
+	--180317,
+	--180318,
+	--183823,
+	--184090,
+--}
+
 local flasks = {
 	168652,
 	168654,
@@ -137,6 +171,24 @@ local flasks = {
 	171276,
 	171278,
 }
+
+-- After shadowlands released
+-- Flasks (require level >= 50)
+--local flasks = {
+	--152638,
+	--152639,
+	--152640,
+	--152641,
+	--162518,
+	--168651,
+	--168652,
+	--168653,
+	--168654,
+	--168655,
+	--171276,
+	--171278,
+	--171280,
+--}
 
 local banners = {
 	63359,
@@ -457,6 +509,10 @@ function module:UpdateBar(id)
 	end
 
 	if not self.db.enable or not barDB.enable then
+		if bar.register then
+			UnregisterStateDriver(bar, "visibility")
+			bar.register = false
+		end
 		bar:Hide()
 		return
 	end
@@ -531,6 +587,10 @@ function module:UpdateBar(id)
 	end
 
 	if buttonID == 1 then
+		if bar.register then
+			UnregisterStateDriver(bar, "visibility")
+			bar.register = false
+		end
 		bar:Hide()
 		return
 	end
@@ -601,6 +661,10 @@ function module:UpdateBar(id)
 		button.bind:Point("TOPRIGHT", button, "TOPRIGHT", barDB.bindFont.xOffset, barDB.bindFont.yOffset)
 	end
 
+	if not bar.register then
+		RegisterStateDriver(bar, "visibility", "[petbattle]hide;show")
+		bar.register = true
+	end
 	bar:Show()
 
 	if barDB.backdrop then

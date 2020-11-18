@@ -74,8 +74,10 @@ for class, value in pairs(colors) do
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
-local color = { r = 1, g = 1, b = 1, a = 1 }
+local defaultColor = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
+	if not color then color = defaultColor end
+
 	return color.r, color.g, color.b, color.a
 end
 
@@ -125,26 +127,6 @@ function MER:SetFontColorDB(text, db)
 	end
 
 	text:SetTextColor(db.r, db.g, db.b, db.a)
-end
-
-function MER:SetFontOutline(text, font, size)
-	if not text or not text.GetFont then
-		return
-	end
-
-	local fontName, fontHeight = text:GetFont()
-
-	if size and type(size) == "string" then
-		size = fontHeight + tonumber(size)
-	end
-
-	if font and not strfind(font, "\.ttf") then
-		font = LSM:Fetch('font', font)
-	end
-
-	text:FontTemplate(font or fontName, size or fontHeight, "OUTLINE")
-	text:SetShadowColor(0, 0, 0, 0)
-	text.SetShadowColor = E.noop
 end
 
 do
@@ -545,6 +527,7 @@ MER.IsDev = {
 	["Damará"] = true,
 	["Jazira"] = true,
 	["Jústice"] = true,
+	["Maithilis"] = true,
 	["Mattdemôn"] = true,
 	["Melisendra"] = true,
 	["Merathilis"] = true,
@@ -552,6 +535,7 @@ MER.IsDev = {
 	["Merathilîs"] = true,
 	["Róhal"] = true,
 	["Brítt"] = true,
+	["Jahzzy"] = true,
 }
 
 -- Don't forget to update realm name(s) if we ever transfer realms.
@@ -559,7 +543,7 @@ MER.IsDev = {
 -- End result we piss off people and we do not want to do that. :(
 MER.IsDevRealm = {
 	["Shattrath"] = true,
-	--["Garrosh"] = true,
+	["Garrosh"] = true,
 
 	-- Beta
 	["The Maw"] = true,

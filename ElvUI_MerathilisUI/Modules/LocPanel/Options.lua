@@ -148,7 +148,7 @@ local function LocPanelTable()
 								type = "color",
 								order = 3,
 								name = L["Custom Color"],
-								disabled = function() return not E.db.mui.locPanel.enable or not E.db.mui.locPanel.colorType == "CUSTOM" end,
+								disabled = function() return not E.db.mui.locPanel.enable or E.db.mui.locPanel.colorType ~= "CUSTOM" end,
 								get = function(info)
 									local t = E.db.mui.locPanel[ info[#info] ]
 									local d = P.mui.locPanel[info[#info]]
@@ -197,14 +197,14 @@ local function LocPanelTable()
 								type = "color",
 								order = 3,
 								name = L["Custom Color"],
-								disabled = function() return not E.db.mui.locPanel.enable or not E.db.mui.locPanel.colorType_Coords == "CUSTOM" or E.db.mui.locPanel.coordshide end,
+								disabled = function() return not E.db.mui.locPanel.enable or E.db.mui.locPanel.colorType_Coords ~= "CUSTOM" or E.db.mui.locPanel.coordshide end,
 								get = function(info)
 									local t = E.db.mui.locPanel[ info[#info] ]
 									local d = P.mui.locPanel[info[#info]]
 									return t.r, t.g, t.b, d.r, d.g, d.b
 								end,
 								set = function(info, r, g, b)
-									E.db.mui.minimap.locPanel[ info[#info] ] = {}
+									E.db.mui.locPanel[ info[#info] ] = {}
 									local t = E.db.mui.locPanel[ info[#info] ]
 									t.r, t.g, t.b = r, g, b
 								end,
