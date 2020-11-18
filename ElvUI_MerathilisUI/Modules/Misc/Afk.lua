@@ -26,34 +26,6 @@ local function Player_Model(self)
 	self:SetAnimation(71)
 end
 
-AFK.SetAFKMER = AFK.SetAFK
-function AFK:SetAFK(status)
-	self:SetAFKMER(status)
-	if E.db.mui.general.AFK ~= true then return end
-
-	local guildName = GetGuildInfo("player") or ""
-	if(status) then
-		if(IsInGuild()) then
-			if AFK.AFKMode.Guild then
-				AFK.AFKMode.Guild:SetText("|cFF00c0fa<".. guildName ..">|r")
-			end
-		else
-			if AFK.AFKMode.Guild then
-				AFK.AFKMode.Guild:SetText(L["No Guild"])
-			end
-		end
-		AFK.startTime = GetTime()
-		AFK.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
-
-		AFK.isAFK = true
-	elseif(AFK.isAFK) then
-		self:CancelTimer(self.logoffTimer)
-
-		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
-		AFK.isAFK = false
-	end
-end
-
 local function ConvertTime(h, m)
 	local AmPm
 	if E.global.datatexts.settings.Time.time24 == true then
@@ -158,6 +130,34 @@ local function UpdateTimer()
 	CreateDate()
 end
 hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
+
+AFK.SetAFKMER = AFK.SetAFK
+function AFK:SetAFK(status)
+	self:SetAFKMER(status)
+	if E.db.mui.general.AFK ~= true then return end
+
+	local guildName = GetGuildInfo("player") or ""
+	if(status) then
+		if(IsInGuild()) then
+			if AFK.AFKMode.Guild then
+				AFK.AFKMode.Guild:SetText("|cFF00c0fa<".. guildName ..">|r")
+			end
+		else
+			if AFK.AFKMode.Guild then
+				AFK.AFKMode.Guild:SetText(L["No Guild"])
+			end
+		end
+		AFK.startTime = GetTime()
+		AFK.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
+
+		AFK.isAFK = true
+	elseif(AFK.isAFK) then
+		self:CancelTimer(self.logoffTimer)
+
+		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+		AFK.isAFK = false
+	end
+end
 
 local function Initialize()
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
