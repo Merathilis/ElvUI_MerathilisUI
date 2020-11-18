@@ -16,9 +16,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• The AutoButtons will now hide in Pet Battle",
-		"• Dont force the spacing on UnitFrames Buffs/Debuffs",
-		"• Added an notification icon on the MicroBar Guild button. Thx fang2hou <3",
+		"• Fixed a typo.. whoops, thx Kringel",
+		"• Replaced the AFK Time with a Logout timer",
 
 		-- "• ''",
 	" ",
