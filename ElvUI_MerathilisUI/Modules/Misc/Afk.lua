@@ -27,7 +27,9 @@ local function Player_Model(self)
 	self:SetAnimation(71)
 end
 
-local function SetAFK(status)
+AFK.SetAFKMER = AFK.SetAFK
+function AFK:SetAFK(status)
+	self:SetAFKMER(status)
 	if E.db.mui.general.AFK ~= true then return end
 
 	local guildName = GetGuildInfo("player") or ""
@@ -144,6 +146,7 @@ local function UpdateTimer()
 	-- Set Date
 	CreateDate()
 end
+hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 
 local function Initialize()
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
@@ -201,13 +204,13 @@ local function Initialize()
 
 	-- Dynamic time & date
 	local interval = 0
-	--AFK.AFKMode.Panel:SetScript('OnUpdate', function(self, elapsed)
-		--interval = interval - elapsed
-		--if interval <= 0 then
-			--UpdateTimer()
-			--interval = 0.5
-		--end
-	--end)
+	AFK.AFKMode.Panel:SetScript('OnUpdate', function(self, elapsed)
+		interval = interval - elapsed
+		if interval <= 0 then
+			UpdateTimer()
+			interval = 0.5
+		end
+	end)
 
 	AFK.AFKMode.PlayerName = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.PlayerName:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
@@ -253,12 +256,6 @@ local function Initialize()
 		playerModel.tex.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 		playerModel.tex.text:SetShadowOffset(2, -2)
 	end
-
-	AFK:Toggle()
-	AFK.isActive = false
-
-	hooksecurefunc(AFK, "SetAFK", SetAFK)
-	hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 end
 
 hooksecurefunc(AFK, "Initialize", Initialize)
