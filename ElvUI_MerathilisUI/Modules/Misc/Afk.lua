@@ -2,7 +2,6 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local AFK = E:GetModule('AFK')
 local COMP = MER:GetModule('MER_Compatibility')
 
-
 local _G = _G
 local tonumber, unpack = tonumber, unpack
 local format = string.format
@@ -201,16 +200,6 @@ local function Initialize()
 	AFK.AFKMode.AFKTimer = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.AFKTimer:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, -26)
 	AFK.AFKMode.AFKTimer:FontTemplate(nil, 16, 'OUTLINE')
-
-	-- Dynamic time & date
-	local interval = 0
-	AFK.AFKMode.Panel:SetScript('OnUpdate', function(self, elapsed)
-		interval = interval - elapsed
-		if interval <= 0 then
-			UpdateTimer()
-			interval = 0.5
-		end
-	end)
 
 	AFK.AFKMode.PlayerName = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.PlayerName:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
