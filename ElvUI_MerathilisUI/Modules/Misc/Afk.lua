@@ -148,11 +148,11 @@ function AFK:SetAFK(status)
 			end
 		end
 		AFK.startTime = GetTime()
-		AFK.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
+		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
 
 		AFK.isAFK = true
 	elseif(AFK.isAFK) then
-		self:CancelTimer(self.logoffTimer)
+		self:CancelTimer(AFK.logoffTimer)
 
 		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
 		AFK.isAFK = false
@@ -164,8 +164,6 @@ local function Initialize()
 
 	-- Compatibility
 	if (COMP.SLE and E.private.sle.module.screensaver) or (COMP.BUI and E.db.benikui.misc.afkMode) then return end
-
-	AFK.Initialized = true
 
 	-- Hide ElvUI Elements
 	AFK.AFKMode.bottom:Hide() -- Bottom panel
