@@ -16,11 +16,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• MicroBar: Added a Game Menu Button",
-		"• Reposition Wowheadlinks on the WorldMap",
-		"• Updated Cooldown Flash",
-		"• Fixed an option error on Rectangle Minimap/LocPanel",
-		"• Added Zhadar to the Patreon list <3",
+		"• The AutoButtons will now hide in Pet Battle",
+		"• Dont force the spacing on UnitFrames Buffs/Debuffs",
+		"• Added an notification icon on the MicroBar Guild button. Thx fang2hou <3",
 
 		-- "• ''",
 	" ",

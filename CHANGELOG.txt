@@ -1,3 +1,9 @@
+[b][color=orange]v4.64 for Shadowland PrePatch[/color], 18.11.2020[/b][list]
+[*]The AutoButtons will now hide in Pet Battle
+[*]Dont force the spacing on UnitFrames Buffs/Debuffs
+[*]Added an notification icon on the MicroBar Guild button. Thx fang2hou <3[/list]
+
+
 [b][color=orange]v4.63 for Shadowland PrePatch[/color], 08.11.2020[/b][list]
 [*]MicroBar: Added a Game Menu Button
 [*]Reposition Wowheadlinks on the WorldMap
