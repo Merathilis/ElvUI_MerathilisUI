@@ -201,13 +201,13 @@ local function Initialize()
 
 	-- Dynamic time & date
 	local interval = 0
-	AFK.AFKMode.Panel:SetScript('OnUpdate', function(self, elapsed)
-		interval = interval - elapsed
-		if interval <= 0 then
-			UpdateTimer()
-			interval = 0.5
-		end
-	end)
+	--AFK.AFKMode.Panel:SetScript('OnUpdate', function(self, elapsed)
+		--interval = interval - elapsed
+		--if interval <= 0 then
+			--UpdateTimer()
+			--interval = 0.5
+		--end
+	--end)
 
 	AFK.AFKMode.PlayerName = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.PlayerName:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
