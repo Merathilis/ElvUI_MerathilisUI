@@ -43,9 +43,13 @@ function AFK:SetAFK(status)
 			end
 		end
 		AFK.startTime = GetTime()
+		AFK.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
 
 		AFK.isAFK = true
 	elseif(AFK.isAFK) then
+		self:CancelTimer(self.logoffTimer)
+
+		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
 		AFK.isAFK = false
 	end
 end
@@ -128,14 +132,22 @@ local function CreateDate()
 	end
 end
 
--- AFK-Timer
+function AFK:UpdateLogOff()
+	local timePassed = GetTime() - self.startTime
+	local minutes = floor(timePassed/60)
+	local neg_seconds = -timePassed % 60
+
+	if minutes - 29 == 0 and floor(neg_seconds) == 0 then
+		self:CancelTimer(self.logoffTimer)
+		self.AFKMode.count:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
+	else
+		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds)
+	end
+end
+
 local function UpdateTimer()
 	local createdTime = CreateTime()
 	local time = GetTime() - AFK.startTime
-
-	if AFK.AFKMode.AFKTimer then
-		AFK.AFKMode.AFKTimer:SetText(format('%02d' .. MER.InfoColor ..':|r%02d', floor(time/60), time % 60))
-	end
 
 	-- Set Clock
 	if AFK.AFKMode.ClockText then
@@ -197,9 +209,9 @@ local function Initialize()
 	AFK.AFKMode.ClockText:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 0)
 	AFK.AFKMode.ClockText:FontTemplate(nil, 20, 'OUTLINE')
 
-	AFK.AFKMode.AFKTimer = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.AFKTimer:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, -26)
-	AFK.AFKMode.AFKTimer:FontTemplate(nil, 16, 'OUTLINE')
+	AFK.AFKMode.count = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
+	AFK.AFKMode.count:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, -26)
+	AFK.AFKMode.count:FontTemplate(nil, 14, 'OUTLINE')
 
 	AFK.AFKMode.PlayerName = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.PlayerName:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
