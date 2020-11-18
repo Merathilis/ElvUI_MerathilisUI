@@ -68,6 +68,7 @@ MER.RaidMarkers = MER:NewModule('MER_RaidMarkers')
 MER.RandomToy = MER:NewModule('MER_RandomToy', 'AceEvent-3.0')
 MER.Reminder = MER:NewModule('MER_Reminder', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Skins = MER:NewModule('MER_Skins', 'AceHook-3.0', 'AceEvent-3.0')
+MER.SuperTracker = MER:NewModule('MER_SuperTracker', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Tooltip = MER:NewModule('MER_Tooltip', 'AceTimer-3.0', 'AceHook-3.0', 'AceEvent-3.0')
 MER.UnitFrames = MER:NewModule('MER_UnitFrames', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 

@@ -583,6 +583,19 @@ MP.maps = {
 			heightPercentage = 0.8
 		},
 	},
+	superTracker = {
+		enable = true,
+		noLimit = false,
+		autoTrackWaypoint = true,
+		rightClickToClear = true,
+		distanceText = {
+			enable = true,
+			name = E.db.general.font,
+			size = E.db.general.fontSize + 2,
+			style = "OUTLINE",
+			color = {r = 1, g = 1, b = 1}
+		}
+	},
 }
 
 MP.media = {

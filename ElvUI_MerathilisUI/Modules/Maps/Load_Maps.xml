@@ -3,5 +3,6 @@
 	<Script file="MinimapButtons.lua"/>
 	<Script file="MinimapPing.lua"/>
 	<Script file="Rectangle.lua"/>
+	<Script file="SuperTracker.lua"/>
 	<Script file="Options.lua"/>
 </Ui>

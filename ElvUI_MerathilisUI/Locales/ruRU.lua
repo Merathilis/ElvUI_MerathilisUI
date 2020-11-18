@@ -463,6 +463,16 @@ L["Fade-In"] = true
 L["The time of animation. Set 0 to disable animation."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
+L["Super Tracker"] = true
+L["Description"] = true
+L["Additional features for waypoint."] = true
+L["Auto Track Waypoint"] = true
+L["Auto track the waypoint after setting."] = true
+L["Right Click To Clear"] = true
+L["Right click the waypoint to clear it."] = true
+L["No Distance Limitation"] = true
+L["Force to track the target even if it over 1000 yds."] = true
+L["Distance Text"] = true
 
 -- SMB
 L["Button Settings"] = true

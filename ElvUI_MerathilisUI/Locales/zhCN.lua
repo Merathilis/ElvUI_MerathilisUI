@@ -483,6 +483,16 @@ L["Fade-In"] = "淡入"
 L["The time of animation. Set 0 to disable animation."] = "时间动画. 设置为0来关闭动画"
 L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
+L["Super Tracker"] = true
+L["Description"] = true
+L["Additional features for waypoint."] = true
+L["Auto Track Waypoint"] = true
+L["Auto track the waypoint after setting."] = true
+L["Right Click To Clear"] = true
+L["Right click the waypoint to clear it."] = true
+L["No Distance Limitation"] = true
+L["Force to track the target even if it over 1000 yds."] = true
+L["Distance Text"] = true
 
 -- SMB
 L["Button Settings"] = "按键设置"

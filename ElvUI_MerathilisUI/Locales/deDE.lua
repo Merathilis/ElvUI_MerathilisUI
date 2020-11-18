@@ -463,6 +463,17 @@ L["Fade-In"] = "Einblenden"
 L["The time of animation. Set 0 to disable animation."] = "Die Zeit der Animation. Setze auf 0 um sie zu deaktivieren."
 L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für neue Post, oder austehende Kalendereinladungen."
+L["Super Tracker"] = true
+L["Description"] = "Beschreibung"
+L["Additional features for waypoint."] = "Zusätliche Ergänzungen für Wegpunkte"
+L["Auto Track Waypoint"] = "Automatische Wegpunktverfolgung"
+L["Auto track the waypoint after setting."] = "Verfolgt Wegpunkte automatisch."
+L["Right Click To Clear"] = "Rechts Klick löschen"
+L["Right click the waypoint to clear it."] = "Rechts Klick um einen Wegpunkt zu entfernen."
+L["No Distance Limitation"] = "Keine Begrenzung für Entfernung"
+L["Force to track the target even if it over 1000 yds."] = "Zeigt den Wegpunkt noch an, auch wenn er über 1000yds. entfernt ist."
+L["Distance Text"] = "Distanztext"
+
 
 -- SMB
 L["Button Settings"] = "Tasteneinstellungen"
