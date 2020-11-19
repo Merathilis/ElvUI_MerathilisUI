@@ -193,7 +193,7 @@ function module:RaidDifficulty()
 end
 
 function module:StyleMinimap()
-	if not E.db.mui.maps.minimap.rectangleMinimap.enable or (COMP.SLE and not E.private.sle.minimap.rectangle) then
+	if not E.db.mui.maps.minimap.rectangleMinimap.enable or (COMP.SLE and E.private.sle.minimap.rectangle) then
 		Minimap:Styling(true, true, false)
 	end
 
