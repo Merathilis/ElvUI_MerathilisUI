@@ -208,7 +208,7 @@ L["Fun Stuff"] = true
 L["Press CTRL + C to copy."] = true
 L["Wowhead Links"] = true
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
-L["Codex Buttons"] = true
+L["Codex Buttons"] = "코덱스 버튼"
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
 L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
@@ -245,7 +245,7 @@ L["Show icon"] = "Show icon"
 L["Show the spell icon along with the name."] = "Show the spell icon along with the name."
 
 -- Notification
-L["Notification"] = true
+L["Notification"] = "알림 표시"
 L["Display a Toast Frame for different notifications."] = true
 L["This is an example of a notification."] = true
 L["Notification Mover"] = true
@@ -461,16 +461,16 @@ L["Fade-In"] = true
 L["The time of animation. Set 0 to disable animation."] = "애니메이션 시간. 애니메이션을 비활성화하려면 0을 설정하십시오."
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
-L["Super Tracker"] = true
-L["Description"] = true
-L["Additional features for waypoint."] = true
-L["Auto Track Waypoint"] = true
-L["Auto track the waypoint after setting."] = true
-L["Right Click To Clear"] = true
-L["Right click the waypoint to clear it."] = true
-L["No Distance Limitation"] = true
-L["Force to track the target even if it over 1000 yds."] = true
-L["Distance Text"] = true
+L["Super Tracker"] = "슈퍼 트래커"
+L["Description"] = "설명"
+L["Additional features for waypoint."] = "지도 핀에 기능을 추가합니다."
+L["Auto Track Waypoint"] = "지도 핀 자동 추적"
+L["Auto track the waypoint after setting."] = "지도 핀을 배치하면 즉시 추적하여 화면에 표시합니다."
+L["Right Click To Clear"] = "오른쪽 클릭으로 삭제"
+L["Right click the waypoint to clear it."] = "지도 핀을 마우스 오른쪽 버튼 클릭으로 삭제합니다."
+L["No Distance Limitation"] = "표시 거리 제한 해제"
+L["Force to track the target even if it over 1000 yds."] = "1,000미터 이상 떨어진 거리의 지도 핀도 강제로 화면에 표시합니다."
+L["Distance Text"] = "거리 문자 설정"
 
 -- SMB
 L["Button Settings"] = true
@@ -519,7 +519,7 @@ L["Animation size"] = true
 L["Display spell name"] = true
 L["Watch on pet spell"] = true
 L["Transparency"] = true
-L["Test"] = true
+L["Test"] = "테스트"
 L["Sort Upwards"] = true
 L["Sort by Expiration Time"] = true
 L["Show Self Cooldown"] = true
@@ -675,7 +675,7 @@ L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 
 -- Addons
 L["Skins/AddOns"] = true
-L["Profiles"] = true
+L["Profiles"] = "프로필"
 L["BigWigs"] = true
 L["MasterPlan"] = true
 L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
