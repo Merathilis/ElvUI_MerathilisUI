@@ -473,7 +473,7 @@ L["Right click the waypoint to clear it."] = "Rechts Klick um einen Wegpunkt zu 
 L["No Distance Limitation"] = "Keine Begrenzung für Entfernung"
 L["Force to track the target even if it over 1000 yds."] = "Zeigt den Wegpunkt noch an, auch wenn er über 1000yds. entfernt ist."
 L["Distance Text"] = "Distanztext"
-
+L["Only Number"] = "Nur Nummer"
 
 -- SMB
 L["Button Settings"] = "Tasteneinstellungen"

@@ -450,6 +450,11 @@ local function Minimap()
 									E:StaticPopup_Show("PRIVATE_RL")
 								end,
 							},
+							onlyNumber = {
+								order = 5,
+								type = "toggle",
+								name = L["Only Number"],
+							},
 						},
 					},
 				},

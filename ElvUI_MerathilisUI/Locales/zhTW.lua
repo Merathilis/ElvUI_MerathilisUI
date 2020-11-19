@@ -468,6 +468,7 @@ L["Right click the waypoint to clear it."] = "右鍵標記點來清除它."
 L["No Distance Limitation"] = "無距離限制"
 L["Force to track the target even if it over 1000 yds."] = "強制追蹤超過 1000 碼的目標."
 L["Distance Text"] = "距離文字"
+L["Only Number"] = true
 
 -- SMB
 L["Button Settings"] = true

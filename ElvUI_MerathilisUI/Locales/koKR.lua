@@ -471,6 +471,7 @@ L["Right click the waypoint to clear it."] = "지도 핀을 마우스 오른쪽 
 L["No Distance Limitation"] = "표시 거리 제한 해제"
 L["Force to track the target even if it over 1000 yds."] = "1,000미터 이상 떨어진 거리의 지도 핀도 강제로 화면에 표시합니다."
 L["Distance Text"] = "거리 문자 설정"
+L["Only Number"] = true
 
 -- SMB
 L["Button Settings"] = true

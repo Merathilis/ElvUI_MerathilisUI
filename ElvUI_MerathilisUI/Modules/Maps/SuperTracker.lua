@@ -20,6 +20,10 @@ function module:ReskinDistanceText()
 
 	MER:SetFontDB(_G.SuperTrackedFrame.DistanceText, self.db.distanceText)
 	_G.SuperTrackedFrame.DistanceText:SetTextColor(self.db.distanceText.color.r, self.db.distanceText.color.g, self.db.distanceText.color.b)
+
+	if self.db.distanceText.onlyNumber then
+		_G.IN_GAME_NAVIGATION_RANGE = "%d"
+	end
 end
 
 function module:HookPin()
@@ -53,18 +57,13 @@ function module:NoLimit()
 		return
 	end
 
-	self:RawHook(
-        _G.SuperTrackedFrame,
-        "GetTargetAlphaBaseValue",
-        function(frame)
-            if C_Navigation_GetDistance() > 999 then
-                return 1
-            else
-                return self.hooks[_G.SuperTrackedFrame]["GetTargetAlphaBaseValue"](frame)
-            end
-        end,
-        true
-    )
+	self:RawHook(_G.SuperTrackedFrame, "GetTargetAlphaBaseValue", function(frame)
+		if C_Navigation_GetDistance() > 999 then
+			return 1
+		else
+			return self.hooks[_G.SuperTrackedFrame]["GetTargetAlphaBaseValue"](frame)
+		end
+	end, true)
 end
 
 function module:USER_WAYPOINT_UPDATED()

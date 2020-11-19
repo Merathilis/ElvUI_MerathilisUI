@@ -472,6 +472,7 @@ L["Right click the waypoint to clear it."] = true
 L["No Distance Limitation"] = true
 L["Force to track the target even if it over 1000 yds."] = true
 L["Distance Text"] = true
+L["Only Number"] = true
 
 -- SMB
 L["Button Settings"] = true
