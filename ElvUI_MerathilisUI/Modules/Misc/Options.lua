@@ -20,42 +20,36 @@ local function Misc()
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
 			name = ACH:Header(MER:cOption(L["Miscellaneous"], 'orange'), 1),
-			MailInputbox = {
-				order = 2,
-				type = "toggle",
-				name = L["Mail Inputbox Resize"],
-				desc = L["Resize the Mail Inputbox and move the shipping cost to the Bottom"],
-			},
 			gmotd = {
-				order = 3,
+				order = 2,
 				type = "toggle",
 				name = L.GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 			},
 			cursor = {
-				order = 6,
+				order = 3,
 				type = "toggle",
 				name = L["Flashing Cursor"],
 			},
 			funstuff = {
-				order = 7,
+				order = 4,
 				type = "toggle",
 				name = L["Fun Stuff"],
 			},
 			wowheadlinks = {
-				order = 8,
+				order = 5,
 				type = "toggle",
 				name = L["Wowhead Links"],
 				desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
 			},
 			respec = {
-				order = 9,
+				order = 6,
 				type = "toggle",
 				name = L["Codex Buttons"],
 				desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],
 			},
 			spellAlert = {
-				order = 10,
+				order = 7,
 				type = "range",
 				name = L["Spell Alert Scale"],
 				min = 0.4, max = 1.5, step = 0.01,
