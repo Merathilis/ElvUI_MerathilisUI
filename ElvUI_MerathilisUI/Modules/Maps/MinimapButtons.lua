@@ -37,6 +37,7 @@ module.IgnoreButton = {
 	'MinimapZoomIn',
 	'MinimapZoomOut',
 	'RecipeRadarMinimapButtonFrame',
+	'InstanceDifficultyFrame',
 }
 
 module.GenericIgnore = {
