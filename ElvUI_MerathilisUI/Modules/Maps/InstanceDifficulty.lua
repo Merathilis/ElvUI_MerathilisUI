@@ -20,7 +20,7 @@ function module:UpdateFrame()
 	local norm = format("|cff1eff00%s|r", "N")
 	local hero = format("|cff0070dd%s|r", "H")
 	local myth = format("|cffa335ee%s|r", "M")
-	local lfr = format("|cffff8000s|r", "LFR")
+	local lfr = format("|cffff8000%s|r", "LFR")
 
 	if instanceType == "party" or instanceType == "raid" or instanceType == "scenario" then
 		if (difficulty == 1) then -- Normal
