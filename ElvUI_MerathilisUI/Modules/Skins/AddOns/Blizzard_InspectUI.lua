@@ -8,8 +8,10 @@ local select, unpack = select, unpack
 --WoW API / Variables
 local hooksecurefunc = hooksecurefunc
 local GetInspectSpecialization = GetInspectSpecialization
+local GetInventoryItemLink = GetInventoryItemLink
 local GetSpecializationRoleByID = GetSpecializationRoleByID
 local GetSpecializationInfoByID = GetSpecializationInfoByID
+local IsCosmeticItem = IsCosmeticItem
 local UnitGUID = UnitGUID
 -- GLOBALS:
 
@@ -75,12 +77,23 @@ local function LoadSkin()
 
 		slot.icon:SetTexCoord(unpack(E.TexCoords))
 
+		slot.IconOverlay:SetAtlas("CosmeticIconFrame")
+		slot.IconOverlay:SetInside()
+
 		border:SetDrawLayer("BACKGROUND")
+	end
+
+	local function UpdateCosmetic(self)
+		local unit = _G.InspectFrame.unit
+		local itemLink = unit and GetInventoryItemLink(unit, self:GetID())
+		self.IconOverlay:SetShown(itemLink and IsCosmeticItem(itemLink))
 	end
 
 	hooksecurefunc("InspectPaperDollItemSlotButton_Update", function(button)
 		button.IconBorder:SetTexture(E["media"].normTex)
 		button.icon:SetShown(button.hasItem)
+
+		UpdateCosmetic(button)
 	end)
 
 	-- Talents
