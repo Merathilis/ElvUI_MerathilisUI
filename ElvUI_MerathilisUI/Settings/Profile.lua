@@ -556,7 +556,15 @@ MP.unitframes = {
 MP.maps = {
 	minimap = {
 		flash = true,
-		difficulty = true,
+		instanceDifficulty = {
+			enable = true,
+			hideBlizzard = true,
+			font = {
+				name = E.db.general.font,
+				size = E.db.general.fontSize,
+				style = "OUTLINE",
+			},
+		},
 		coords = {
 			enable = true,
 			position = "BOTTOM",
@@ -596,6 +604,12 @@ MP.maps = {
 			color = {r = 1, g = 1, b = 1},
 			onlyNumber = false,
 		}
+	},
+	worldMap = {
+		scale = {
+			enable = true,
+			size = 1.2
+		},
 	},
 }
 
