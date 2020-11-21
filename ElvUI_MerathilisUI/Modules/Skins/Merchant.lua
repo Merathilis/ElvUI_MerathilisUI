@@ -363,8 +363,8 @@ local function UpdateMerchantInfo()
 			itemButton.hasItem = nil
 			itemButton.name = nil
 			itemButton:Hide()
-			--SetItemButtonNameFrameVertexColor(merchantButton, 0.5, 0.5, 0.5)
-			--SetItemButtonSlotVertexColor(merchantButton,0.4, 0.4, 0.4)
+			SetItemButtonNameFrameVertexColor(merchantButton, 0.5, 0.5, 0.5)
+			SetItemButtonSlotVertexColor(merchantButton,0.4, 0.4, 0.4)
 			_G["MerchantItem"..i.."Name"]:SetText("")
 			_G["MerchantItem"..i.."MoneyFrame"]:Hide()
 			_G["MerchantItem"..i.."AltCurrencyFrame"]:Hide()
