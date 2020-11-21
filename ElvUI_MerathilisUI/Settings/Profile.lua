@@ -608,7 +608,7 @@ MP.maps = {
 	worldMap = {
 		scale = {
 			enable = true,
-			size = 1.2
+			size = 1.1
 		},
 	},
 }
