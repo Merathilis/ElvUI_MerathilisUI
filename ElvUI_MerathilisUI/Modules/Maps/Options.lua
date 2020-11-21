@@ -9,8 +9,6 @@ local _G = _G
 local format = string.format
 local tinsert = table.insert
 
-local C_Texture_GetAtlasInfo = C_Texture.GetAtlasInfo
-
 local function Maps()
 	local ACH = E.Libs.ACH
 
