@@ -15,6 +15,7 @@ local InCombatLockdown = InCombatLockdown
 local IsCosmeticItem = IsCosmeticItem
 local EquipmentManager_UnequipItemInSlot = EquipmentManager_UnequipItemInSlot
 local EquipmentManager_RunAction = EquipmentManager_RunAction
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 local function UnequipItemInSlot(i)
