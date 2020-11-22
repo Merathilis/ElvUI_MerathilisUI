@@ -63,28 +63,6 @@ local function LoadSkin()
 		end)
 		S:HandleButton(bu)
 	end
-
-	local function UpdateCosmetic(self)
-		local itemLink = GetInventoryItemLink("player", self:GetID())
-		self.IconOverlay:SetShown(itemLink and IsCosmeticItem(itemLink))
-	end
-
-	local slots = {
-		"Head", "Neck", "Shoulder", "Shirt", "Chest", "Waist", "Legs", "Feet", "Wrist",
-		"Hands", "Finger0", "Finger1", "Trinket0", "Trinket1", "Back", "MainHand",
-		"SecondaryHand", "Tabard",
-	}
-
-	for i = 1, #slots do
-		local slot = _G["Character"..slots[i].."Slot"]
-
-		slot.IconOverlay:SetAtlas("CosmeticIconFrame")
-		slot.IconOverlay:SetInside()
-	end
-
-	hooksecurefunc("PaperDollItemSlotButton_Update", function(button)
-		UpdateCosmetic(button)
-	end)
 end
 
 S:AddCallback("mUICharacter", LoadSkin)
