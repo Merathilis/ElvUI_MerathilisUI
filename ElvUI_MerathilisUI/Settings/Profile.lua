@@ -424,7 +424,7 @@ MP.autoButtons = {
 		include = "POTION,FLASK,UTILITY"
 	},
 	bar3 = {
-		enable = false,
+		enable = true,
 		mouseOver = false,
 		globalFade = true,
 		fadeTime = 0.3,
@@ -463,7 +463,7 @@ MP.autoButtons = {
 				b = 1
 			},
 		},
-		include = "CUSTOM"
+		include = "FOOD,CUSTOM"
 	},
 }
 
