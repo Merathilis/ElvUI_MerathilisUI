@@ -326,6 +326,7 @@ L["Quest Items"] = "任务物品"
 L["Equipments"] = "装备"
 L["Potions"] = "药水"
 L["Flasks"] = "合剂"
+L["Food"] = true
 L["Banners"] = "战旗"
 L["Utilities"] = "实用"
 L["Fade Time"] = "淡入时间"

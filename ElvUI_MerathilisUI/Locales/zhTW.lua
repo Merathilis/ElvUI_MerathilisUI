@@ -314,6 +314,7 @@ L["Quest Items"] = "任務物品"
 L["Equipments"] = "裝備"
 L["Potions"] = "藥水"
 L["Flasks"] = "藥劑"
+L["Food"] = true
 L["Banners"] = "戰旗"
 L["Utilities"] = "實用物品"
 L["Custom Items"] = "自訂物品"

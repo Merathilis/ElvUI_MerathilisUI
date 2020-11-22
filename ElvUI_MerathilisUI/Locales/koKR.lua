@@ -317,6 +317,7 @@ L["Quest Items"] = "퀘스트 아이템"
 L["Equipments"] = "장비"
 L["Potions"] = "물약"
 L["Flasks"] = "영약"
+L["Food"] = true
 L["Banners"] = "전투 깃발"
 L["Utilities"] = "유틸리티"
 L["Custom Items"] = "사용자 지정 아이템"
