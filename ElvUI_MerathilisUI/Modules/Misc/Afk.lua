@@ -135,6 +135,7 @@ AFK.SetAFKMER = AFK.SetAFK
 function AFK:SetAFK(status)
 	self:SetAFKMER(status)
 	if E.db.mui.general.AFK ~= true then return end
+	if (COMP.BUI and E.db.benikui.misc.afkMode) then return end
 
 	local guildName = GetGuildInfo("player") or ""
 	if(status) then
@@ -164,6 +165,7 @@ local function Initialize()
 
 	-- Compatibility
 	if (COMP.SLE and E.private.sle.module.screensaver) or (COMP.BUI and E.db.benikui.misc.afkMode) then return end
+
 
 	-- Hide ElvUI Elements
 	AFK.AFKMode.bottom:Hide() -- Bottom panel
