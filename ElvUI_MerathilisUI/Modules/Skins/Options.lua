@@ -509,7 +509,9 @@ local function SkinsTable()
 			desc = L["This will create and apply profile for "]..addonName,
 			func = function()
 				if addon == 'BigWigs' then
-					E:StaticPopup_Show("MUI_INSTALL_BW_LAYOUT")
+					MER:LoadBigWigsProfile()
+					MER:Print('BigWigs profile has been set.')
+					E:StaticPopup_Show("PRIVATE_RL")
 				elseif addon == 'DBM-Core' then
 					E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
 				elseif addon == 'ElvUI_BenikUI' then
