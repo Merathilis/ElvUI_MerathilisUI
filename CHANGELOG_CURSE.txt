@@ -1,3 +1,12 @@
+** v4.66, 23.11.2020**
+* Added an option to adjust the waypoints
+* Fixed the backdrop from the Minimap if S&L is enabled
+* Fixed Time DataText
+* Removed GuildBest from the Mythic Keystone frame
+* Reworked Instance Difficulty
+* Fixed border color on the Merchant frame
+* Added some new hearthstones/flasks/food/pots for Shadowlands
+
 ** v4.65 for Shadowland Pre-Patch, 18.11.2020**
 * Fixed a typo.. whoops, thx Kringel
 * Replaced the AFK Time with a Logout timer
