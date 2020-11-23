@@ -38,157 +38,229 @@ local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 
 module.bars = {}
 
+-- Potion (require level >= 40)
 local potions = {
-	5512, -- Healthstone
-	176443,
-	118915,
-	118911,
-	118913,
-	118914,
-	116925,
-	118910,
-	118912,
+	5512,
 	114124,
 	115531,
-	127845,
-	142117,
-	127844,
+	116925,
+	118910,
+	118911,
+	118912,
+	118913,
+	118914,
+	118915,
 	127834,
 	127835,
-	127843,
-	127846,
 	127836,
+	127843,
+	127844,
+	127845,
+	127846,
 	136569,
+	142117,
+	142325,
+	142326,
 	144396,
 	144397,
 	144398,
-	152615,
-	142326,
-	142325,
-	152619,
-	169451,
-	169299,
-	152497,
-	168498,
-	152495,
-	168500,
-	168489,
 	152494,
-	168506,
+	152495,
+	152497,
+	152503,
+	152550,
+	152557,
+	152559,
+	152560,
 	152561,
-	168529,
+	152615,
+	152619,
+	163082,
 	163222,
 	163223,
-	152550,
-	152503,
-	152557,
 	163224,
-	152560,
-	169300,
-	168501,
-	168499,
 	163225,
-	152559,
-	163082,
-	168502,
 	167917,
-	167920,
 	167918,
 	167919,
-	184090,
-	180771,
-	171267,
-	171270,
-	171351,
-	171273,
-	171352,
-	171350,
-	171349,
-	171266,
-	171272,
-	171268,
-	176811,
-	171271,
-	171274,
-	171269,
-	171275,
-	171264,
+	167920,
+	168489,
+	168498,
+	168499,
+	168500,
+	168501,
+	168502,
+	168506,
+	168529,
+	169299,
+	169300,
+	169451,
 	171263,
+	171264,
+	171266,
+	171267,
+	171268,
+	171269,
+	171270,
+	171271,
+	171272,
+	171273,
+	171274,
+	171275,
+	171349,
+	171350,
+	171351,
+	171352,
 	171370,
+	176811,
 	183823,
-	180317,
-	180318,
+	184090,
 }
 
--- After shadowlands released
--- Potion (require level >= 50)
--- local potions = {
-	--5512,
-	--167917,
-	--167918,
-	--167919,
-	--167920,
-	--171263,
-	--171264,
-	--171266,
-	--171267,
-	--171268,
-	--171269,
-	--171270,
-	--171271,
-	--171272,
-	--171273,
-	--171274,
-	--171275,
-	--171349,
-	--171350,
-	--171351,
-	--171352,
-	--171370,
-	--176811,
-	--180317,
-	--180318,
-	--183823,
-	--184090,
---}
+-- Potion added in Shadowlands (require level >= 50)
+local potionsShadowlands = {
+	5512,
+	171263,
+	171264,
+	171266,
+	171267,
+	171268,
+	171269,
+	171270,
+	171271,
+	171272,
+	171273,
+	171274,
+	171275,
+	171349,
+	171350,
+	171351,
+	171352,
+	171370,
+	176811,
+	183823,
+	184090,
+}
 
+-- Flasks (require level >= 40)
 local flasks = {
-	168652,
-	168654,
-	168651,
-	168655,
-	152639,
-	168653,
-	152638,
-	152641,
+	127847,
 	127848,
 	127849,
 	127850,
-	127847,
-	152640,
 	127858,
+	152638,
+	152639,
+	152640,
+	152641,
 	162518,
+	168651,
+	168652,
+	168653,
+	168654,
+	168655,
 	171276,
 	171278,
+	171280,
 }
 
--- After shadowlands released
--- Flasks (require level >= 50)
---local flasks = {
-	--152638,
-	--152639,
-	--152640,
-	--152641,
-	--162518,
-	--168651,
-	--168652,
-	--168653,
-	--168654,
-	--168655,
-	--171276,
-	--171278,
-	--171280,
---}
+-- Flasks added in Shadowlands (require level >= 50)
+local flasksShadowlands = {
+	171276,
+	171278,
+	171280,
+}
+
+-- Foods (Crafted by cooking)
+local food = {
+	133557,
+	133561,
+	133562,
+	133563,
+	133564,
+	133565,
+	133566,
+	133567,
+	133568,
+	133569,
+	133570,
+	133571,
+	133572,
+	133573,
+	133574,
+	133575,
+	133576,
+	133577,
+	133578,
+	133579,
+	133681,
+	142334,
+	154881,
+	154882,
+	154883,
+	154884,
+	154885,
+	154886,
+	154887,
+	154889,
+	154891,
+	156525,
+	156526,
+	163781,
+	165755,
+	166240,
+	166343,
+	166344,
+	166804,
+	168310,
+	168312,
+	168313,
+	168314,
+	168315,
+	169280,
+	172040,
+	172041,
+	172042,
+	172043,
+	172044,
+	172045,
+	172046,
+	172047,
+	172048,
+	172049,
+	172050,
+	172051,
+	172060,
+	172061,
+	172062,
+	172063,
+	172068,
+	172069,
+	184682,
+}
+
+-- Foods added in Shadowlands (Crafted by cooking)
+local foodShadowlands = {
+	172040,
+	172041,
+	172042,
+	172043,
+	172044,
+	172045,
+	172046,
+	172047,
+	172048,
+	172049,
+	172050,
+	172051,
+	172060,
+	172061,
+	172062,
+	172063,
+	172068,
+	172069,
+	184682,
+}
 
 local banners = {
 	63359,
@@ -537,11 +609,47 @@ function module:UpdateBar(id)
 						buttonID = buttonID + 1
 					end
 				end
+			elseif module == "POTIONSL" then -- Potions (Shadowlands only)
+				for _, potionID in pairs(potionsShadowlands) do
+					local count = GetItemCount(potionID)
+					if count and count > 0 and not self.db.blackList[potionID] then
+						self:SetUpButton(bar.buttons[buttonID], {itemID = potionID})
+						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+						buttonID = buttonID + 1
+					end
+				end
 			elseif module == "FLASK" then
 				for _, flaskID in pairs(flasks) do
 					local count = GetItemCount(flaskID)
 					if count and count > 0 and not self.db.blackList[flaskID] and buttonID <= barDB.numButtons then
 						self:SetUpButton(bar.buttons[buttonID], {itemID = flaskID})
+						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+						buttonID = buttonID + 1
+					end
+				end
+			elseif module == "FLASKSL" then -- Flasks (Shadowlands only)
+				for _, flaskID in pairs(flasksShadowlands) do
+					local count = GetItemCount(flaskID)
+					if count and count > 0 and not self.db.blackList[flaskID] and buttonID <= barDB.numButtons then
+						self:SetUpButton(bar.buttons[buttonID], {itemID = flaskID})
+						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+						buttonID = buttonID + 1
+					end
+				end
+			elseif module == "FOOD" then -- Foods
+				for _, foodID in pairs(food) do
+					local count = GetItemCount(foodID)
+					if count and count > 0 and not self.db.blackList[foodID] and buttonID <= barDB.numButtons then
+						self:SetUpButton(bar.buttons[buttonID], {itemID = foodID})
+						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+						buttonID = buttonID + 1
+					end
+				end
+			elseif module == "FOODSL" then -- Foods (Shadowlands only)
+				for _, foodID in pairs(foodShadowlands) do
+					local count = GetItemCount(foodID)
+					if count and count > 0 and not self.db.blackList[foodID] and buttonID <= barDB.numButtons then
+						self:SetUpButton(bar.buttons[buttonID], {itemID = foodID})
 						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 						buttonID = buttonID + 1
 					end

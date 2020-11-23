@@ -1,3 +1,18 @@
+[b][color=orange]v4.66[/color], 23.11.2020[/b][list]
+[*]Added an option to adjust the waypoints
+[*]Fixed the backdrop from the Minimap if S&L is enabled
+[*]Fixed Time DataText
+[*]Removed GuildBest from the Mythic Keystone frame
+[*]Reworked Instance Difficulty
+[*]Fixed border color on the Merchant frame
+[*]Added some new hearthstones/flasks/food/pots for Shadowlands
+
+
+[b][color=orange]v4.65 for Shadowland PrePatch[/color], 18.11.2020[/b][list]
+[*]Fixed a typo.. whoops, thx Kringel
+[*]Replaced the AFK Time with a Logout timer[/list]
+
+
 [b][color=orange]v4.64 for Shadowland PrePatch[/color], 18.11.2020[/b][list]
 [*]The AutoButtons will now hide in Pet Battle
 [*]Dont force the spacing on UnitFrames Buffs/Debuffs

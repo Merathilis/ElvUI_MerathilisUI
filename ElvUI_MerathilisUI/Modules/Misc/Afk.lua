@@ -2,7 +2,6 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local AFK = E:GetModule('AFK')
 local COMP = MER:GetModule('MER_Compatibility')
 
-
 local _G = _G
 local tonumber, unpack = tonumber, unpack
 local format = string.format
@@ -25,28 +24,6 @@ local function Player_Model(self)
 	self:SetCamDistanceScale(8)
 	self:SetAlpha(1)
 	self:SetAnimation(71)
-end
-
-local function SetAFK(status)
-	if E.db.mui.general.AFK ~= true then return end
-
-	local guildName = GetGuildInfo("player") or ""
-	if(status) then
-		if(IsInGuild()) then
-			if AFK.AFKMode.Guild then
-				AFK.AFKMode.Guild:SetText("|cFF00c0fa<".. guildName ..">|r")
-			end
-		else
-			if AFK.AFKMode.Guild then
-				AFK.AFKMode.Guild:SetText(L["No Guild"])
-			end
-		end
-		AFK.startTime = GetTime()
-
-		AFK.isAFK = true
-	elseif(AFK.isAFK) then
-		AFK.isAFK = false
-	end
 end
 
 local function ConvertTime(h, m)
@@ -127,14 +104,22 @@ local function CreateDate()
 	end
 end
 
--- AFK-Timer
+function AFK:UpdateLogOff()
+	local timePassed = GetTime() - self.startTime
+	local minutes = floor(timePassed/60)
+	local neg_seconds = -timePassed % 60
+
+	if minutes - 29 == 0 and floor(neg_seconds) == 0 then
+		self:CancelTimer(self.logoffTimer)
+		self.AFKMode.count:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
+	else
+		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds)
+	end
+end
+
 local function UpdateTimer()
 	local createdTime = CreateTime()
 	local time = GetTime() - AFK.startTime
-
-	if AFK.AFKMode.AFKTimer then
-		AFK.AFKMode.AFKTimer:SetText(format('%02d' .. MER.InfoColor ..':|r%02d', floor(time/60), time % 60))
-	end
 
 	-- Set Clock
 	if AFK.AFKMode.ClockText then
@@ -144,14 +129,41 @@ local function UpdateTimer()
 	-- Set Date
 	CreateDate()
 end
+hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
+
+AFK.SetAFKMER = AFK.SetAFK
+function AFK:SetAFK(status)
+	self:SetAFKMER(status)
+	if E.db.mui.general.AFK ~= true then return end
+
+	local guildName = GetGuildInfo("player") or ""
+	if(status) then
+		if(IsInGuild()) then
+			if AFK.AFKMode.Guild then
+				AFK.AFKMode.Guild:SetText("|cFF00c0fa<".. guildName ..">|r")
+			end
+		else
+			if AFK.AFKMode.Guild then
+				AFK.AFKMode.Guild:SetText(L["No Guild"])
+			end
+		end
+		AFK.startTime = GetTime()
+		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
+
+		AFK.isAFK = true
+	elseif(AFK.isAFK) then
+		self:CancelTimer(AFK.logoffTimer)
+
+		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+		AFK.isAFK = false
+	end
+end
 
 local function Initialize()
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
 
 	-- Compatibility
 	if (COMP.SLE and E.private.sle.module.screensaver) or (COMP.BUI and E.db.benikui.misc.afkMode) then return end
-
-	AFK.Initialized = true
 
 	-- Hide ElvUI Elements
 	AFK.AFKMode.bottom:Hide() -- Bottom panel
@@ -195,19 +207,9 @@ local function Initialize()
 	AFK.AFKMode.ClockText:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 0)
 	AFK.AFKMode.ClockText:FontTemplate(nil, 20, 'OUTLINE')
 
-	AFK.AFKMode.AFKTimer = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.AFKTimer:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, -26)
-	AFK.AFKMode.AFKTimer:FontTemplate(nil, 16, 'OUTLINE')
-
-	-- Dynamic time & date
-	local interval = 0
-	AFK.AFKMode.Panel:SetScript('OnUpdate', function(self, elapsed)
-		interval = interval - elapsed
-		if interval <= 0 then
-			UpdateTimer()
-			interval = 0.5
-		end
-	end)
+	AFK.AFKMode.count = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
+	AFK.AFKMode.count:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, -26)
+	AFK.AFKMode.count:FontTemplate(nil, 14, 'OUTLINE')
 
 	AFK.AFKMode.PlayerName = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.PlayerName:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
@@ -253,12 +255,6 @@ local function Initialize()
 		playerModel.tex.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 		playerModel.tex.text:SetShadowOffset(2, -2)
 	end
-
-	AFK:Toggle()
-	AFK.isActive = false
-
-	hooksecurefunc(AFK, "SetAFK", SetAFK)
-	hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 end
 
 hooksecurefunc(AFK, "Initialize", Initialize)

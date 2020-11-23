@@ -9,20 +9,17 @@ local _G = _G
 local format = string.format
 local tinsert = table.insert
 
-local C_Texture_GetAtlasInfo = C_Texture.GetAtlasInfo
-
-
-local function Minimap()
+local function Maps()
 	local ACH = E.Libs.ACH
 
-	E.Options.args.mui.args.modules.args.minimap = {
+	E.Options.args.mui.args.modules.args.maps = {
 		type = "group",
-		name = L["MiniMap"],
+		name = E.NewSign..L["Maps"],
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
 		args = {
-			header = ACH:Header(MER:cOption(L["MiniMap"], 'orange'), 1),
+			header = ACH:Header(MER:cOption(L["Maps"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",
@@ -35,15 +32,126 @@ local function Minimap()
 						name = L["Blinking Minimap"],
 						desc = L["Enable the blinking animation for new mail or pending invites."],
 					},
-					difficulty = {
+				},
+			},
+			instanceDifficulty = {
+				order = 6,
+				type = "group",
+				name = MER:cOption(L["Instance Difficulty"], 'orange'),
+				guiInline = true,
+				get = function(info)
+					return E.db.mui.maps.minimap.instanceDifficulty[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.maps.minimap.instanceDifficulty[info[#info]] = value
+					E:StaticPopup_Show("PRIVATE_RL")
+				end,
+				args = {
+					desc = {
+						order = 1,
+						type = "group",
+						inline = true,
+						name = L["Description"],
+						args = {
+							feature = {
+								order = 1,
+								type = "description",
+								name = L["Reskin the instance diffculty in text style."],
+								fontSize = "medium"
+							}
+						}
+					},
+					enable = {
 						order = 2,
 						type = "toggle",
-						name = L["Instance Difficulty"],
+						name = L["Enable"],
+					},
+					hideBlizzard = {
+						order = 3,
+						type = "toggle",
+						name = L["Hide Blizzard"],
+					},
+					font = {
+						order = 4,
+						type = "group",
+						name = L["Font"],
+						guiInline = true,
+						get = function(info)
+							return E.db.mui.maps.minimap.instanceDifficulty.font[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.maps.minimap.instanceDifficulty.font[info[#info]] = value
+							E:StaticPopup_Show("PRIVATE_RL")
+						end,
+						args = {
+							name = {
+								order = 1,
+								type = "select",
+								dialogControl = "LSM30_Font",
+								name = L["Font"],
+								values = LSM:HashTable("font")
+							},
+							style = {
+								order = 2,
+								type = "select",
+								name = L["Outline"],
+								values = {
+									NONE = L["None"],
+									OUTLINE = L["OUTLINE"],
+									MONOCHROME = L["MONOCHROME"],
+									MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+									THICKOUTLINE = L["THICKOUTLINE"]
+								}
+							},
+							size = {
+								order = 3,
+								name = L["Size"],
+								type = "range",
+								min = 5,
+								max = 60,
+								step = 1
+							},
+						},
+					},
+				},
+			},
+			worldMap = {
+				order = 4,
+				type = "group",
+				name = E.NewSign..MER:cOption(L["World Map"], 'orange'),
+				guiInline = true,
+				get = function(info) return E.db.mui.maps.worldMap[info[#info]] end,
+				set = function(info, value) E.db.mui.maps.worldMap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					scale = {
+						order = 1,
+						type = "group",
+						inline = true,
+						name = L["Scale"],
+						desc = L["Resize world map."],
+						get = function(info) return E.db.mui.maps.worldMap.scale[info[#info]] end,
+						set = function(info, value) E.db.mui.maps.worldMap.scale[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						args = {
+							enable = {
+								order = 1,
+								type = "toggle",
+								name = L["Enable"],
+								desc = L["Resize world map."]
+							},
+							size = {
+								order = 2,
+								type = "range",
+								name = L["Size"],
+								min = 0.1,
+								max = 3,
+								step = 0.01
+							},
+						},
 					},
 				},
 			},
 			ping = {
-				order = 3,
+				order = 4,
 				type = "group",
 				name = MER:cOption(L["Minimap Ping"], 'orange'),
 				guiInline = true,
@@ -205,7 +313,7 @@ local function Minimap()
 				},
 			},
 			coords = {
-				order = 4,
+				order = 5,
 				type = "group",
 				name = MER:cOption(L["Coordinates"], 'orange'),
 				guiInline = true,
@@ -233,7 +341,7 @@ local function Minimap()
 				},
 			},
 			smb = {
-				order = 5,
+				order = 6,
 				type = "group",
 				name = MER:cOption(L["Minimap Buttons"], 'orange'),
 				guiInline = true,
@@ -290,7 +398,7 @@ local function Minimap()
 				},
 			},
 			rectangle = {
-				order = 6,
+				order = 7,
 				type = "group",
 				name = MER:cOption(L["Rectangle Minimap"], 'orange'),
 				guiInline = true,
@@ -333,7 +441,133 @@ local function Minimap()
 					},
 				},
 			},
+			superTracker = {
+				order = 8,
+				type = "group",
+				name = E.NewSign..MER:cOption(L["Super Tracker"], 'orange'),
+				guiInline = true,
+				get = function(info)
+					return E.db.mui.maps.superTracker[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.maps.superTracker[info[#info]] = value
+					E:StaticPopup_Show("PRIVATE_RL")
+				end,
+				args = {
+					desc = {
+						order = 1,
+						type = "group",
+						inline = true,
+						name = L["Description"],
+						args = {
+							feature = {
+								order = 1,
+								type = "description",
+								name = L["Additional features for waypoint."],
+								fontSize = "medium"
+							}
+						}
+					},
+					enable = {
+						order = 2,
+						type = "toggle",
+						name = L["Enable"],
+						width = "full"
+					},
+					general = {
+						order = 3,
+						type = "group",
+						inline = true,
+						name = L["General"],
+						args = {
+							autoTrackWaypoint = {
+								order = 1,
+								type = "toggle",
+								name = L["Auto Track Waypoint"],
+								desc = L["Auto track the waypoint after setting."],
+								width = 1.5,
+							},
+							rightClickToClear = {
+								order = 2,
+								type = "toggle",
+								name = L["Right Click To Clear"],
+								desc = L["Right click the waypoint to clear it."],
+								width = 1.5,
+							},
+							noLimit = {
+								order = 3,
+								type = "toggle",
+								name = L["No Distance Limitation"],
+								desc = L["Force to track the target even if it over 1000 yds."],
+								width = 1.5,
+							}
+						}
+					},
+					distanceText = {
+						order = 4,
+						type = "group",
+						name = L["Distance Text"],
+						inline = true,
+						get = function(info)
+							return E.db.mui.maps.superTracker.distanceText[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.maps.superTracker.distanceText[info[#info]] = value
+							E:StaticPopup_Show("PRIVATE_RL")
+						end,
+						args = {
+							name = {
+								order = 1,
+								type = "select",
+								dialogControl = "LSM30_Font",
+								name = L["Font"],
+								values = LSM:HashTable("font")
+							},
+							style = {
+								order = 2,
+								type = "select",
+								name = L["Outline"],
+								values = {
+									NONE = L["None"],
+									OUTLINE = L["OUTLINE"],
+									MONOCHROME = L["MONOCHROME"],
+									MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+									THICKOUTLINE = L["THICKOUTLINE"]
+								}
+							},
+							size = {
+								order = 3,
+								name = L["Size"],
+								type = "range",
+								min = 5,
+								max = 60,
+								step = 1
+							},
+							color = {
+								order = 4,
+								type = "color",
+								name = L["Color"],
+								get = function(info)
+									local db = E.db.mui.maps.superTracker.distanceText[info[#info]]
+									local default = P.mui.maps.superTracker.distanceText[info[#info]]
+									return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+								end,
+								set = function(info, r, g, b, a)
+									local db = E.db.mui.maps.superTracker.distanceText[info[#info]]
+									db.r, db.g, db.b, db.a = r, g, b, nil
+									E:StaticPopup_Show("PRIVATE_RL")
+								end,
+							},
+							onlyNumber = {
+								order = 5,
+								type = "toggle",
+								name = L["Only Number"],
+							},
+						},
+					},
+				},
+			},
 		},
 	}
 end
-tinsert(MER.Config, Minimap)
+tinsert(MER.Config, Maps)

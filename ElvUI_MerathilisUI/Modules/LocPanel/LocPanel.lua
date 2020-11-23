@@ -93,8 +93,8 @@ module.Hearthstones = {
 	{166746, nil, true}, -- Midsummer HS
 	{166747, nil, true}, -- Brewfest HS
 	{168907, nil, true}, -- Holographic Digitalization HS
-	--{172179, nil, true}, -- Eternal Traveler's HS
-	--{184353, nil, true}, -- Kyrian Hearthstone
+	{172179, nil, true}, -- Eternal Traveler's HS
+	{184353, nil, true}, -- Kyrian Hearthstone
 }
 
 module.PortItems = {

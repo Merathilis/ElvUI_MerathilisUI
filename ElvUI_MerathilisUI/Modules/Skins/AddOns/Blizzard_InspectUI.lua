@@ -8,6 +8,7 @@ local select, unpack = select, unpack
 --WoW API / Variables
 local hooksecurefunc = hooksecurefunc
 local GetInspectSpecialization = GetInspectSpecialization
+local GetInventoryItemLink = GetInventoryItemLink
 local GetSpecializationRoleByID = GetSpecializationRoleByID
 local GetSpecializationInfoByID = GetSpecializationInfoByID
 local UnitGUID = UnitGUID
@@ -72,11 +73,11 @@ local function LoadSkin()
 
 		slot:SetNormalTexture("")
 		slot:SetPushedTexture("")
-
 		slot.icon:SetTexCoord(unpack(E.TexCoords))
 
 		border:SetDrawLayer("BACKGROUND")
 	end
+
 
 	hooksecurefunc("InspectPaperDollItemSlotButton_Update", function(button)
 		button.IconBorder:SetTexture(E["media"].normTex)

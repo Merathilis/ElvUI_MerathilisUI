@@ -424,7 +424,7 @@ MP.autoButtons = {
 		include = "POTION,FLASK,UTILITY"
 	},
 	bar3 = {
-		enable = false,
+		enable = true,
 		mouseOver = false,
 		globalFade = true,
 		fadeTime = 0.3,
@@ -463,7 +463,7 @@ MP.autoButtons = {
 				b = 1
 			},
 		},
-		include = "CUSTOM"
+		include = "FOOD,CUSTOM"
 	},
 }
 
@@ -556,7 +556,15 @@ MP.unitframes = {
 MP.maps = {
 	minimap = {
 		flash = true,
-		difficulty = true,
+		instanceDifficulty = {
+			enable = true,
+			hideBlizzard = true,
+			font = {
+				name = E.db.general.font,
+				size = E.db.general.fontSize,
+				style = "OUTLINE",
+			},
+		},
 		coords = {
 			enable = true,
 			position = "BOTTOM",
@@ -581,6 +589,26 @@ MP.maps = {
 		rectangleMinimap = {
 			enable = false,
 			heightPercentage = 0.8
+		},
+	},
+	superTracker = {
+		enable = true,
+		noLimit = false,
+		autoTrackWaypoint = true,
+		rightClickToClear = true,
+		distanceText = {
+			enable = true,
+			name = E.db.general.font,
+			size = E.db.general.fontSize + 2,
+			style = "OUTLINE",
+			color = {r = 1, g = 1, b = 1},
+			onlyNumber = false,
+		}
+	},
+	worldMap = {
+		scale = {
+			enable = true,
+			size = 1.15
 		},
 	},
 }

@@ -55,6 +55,7 @@ local function SkinVendorItems(i)
 
 	bu:SetHighlightTexture("")
 	bu:CreateBackdrop()
+	bu:StyleButton(false)
 
 	_G["MerchantItem"..i.."SlotTexture"]:Hide()
 	_G["MerchantItem"..i.."NameFrame"]:Hide()
@@ -63,14 +64,13 @@ local function SkinVendorItems(i)
 	bu:SetPoint(a1, p, a2, -1, -1)
 	bu:SetNormalTexture("")
 	bu:SetPushedTexture("")
-	bu:SetSize(42, 42)
 
 	local a3, p2, a4, x, y = mo:GetPoint()
 	mo:SetPoint(a3, p2, a4, x, y+2)
 
 	MERS:CreateBD(bu, 0)
 
-	button.bd = CreateFrame("Frame", nil, button)
+	button.bd = CreateFrame("Frame", nil, button, "BackdropTemplate")
 	button.bd:SetPoint("TOPLEFT", 39, 0)
 	button.bd:SetPoint("BOTTOMRIGHT")
 	button.bd:SetFrameLevel(0)
@@ -78,7 +78,9 @@ local function SkinVendorItems(i)
 	MERS:CreateGradient(button.bd)
 
 	ic:SetTexCoord(unpack(E.TexCoords))
-	ic:SetInside()
+	ic:ClearAllPoints()
+	ic:Point('TOPLEFT', 1, -1)
+	ic:Point('BOTTOMRIGHT', -1, 1)
 	IconBorder:SetAlpha(0)
 
 	-- Hide ElvUI's backdrop
@@ -86,16 +88,15 @@ local function SkinVendorItems(i)
 		button.backdrop:Hide()
 	end
 
-	--hooksecurefunc(IconBorder, 'SetVertexColor', function(self, r, g, b)
-		--self:SetBackdropBorderColor(r, g, b)
-		--self:SetTexture("")
-	--end)
---
-	--hooksecurefunc(IconBorder, 'Hide', function(self)
-		--self:SetBackdropBorderColor(unpack(E.media.bordercolor))
-	--end)
-
 	_G.MerchantBuyBackItemItemButton.IconBorder:SetAlpha(0)
+
+	hooksecurefunc(IconBorder, 'SetVertexColor', function(self, r, g, b)
+		bu.backdrop:SetBackdropBorderColor(r, g, b)
+	end)
+
+	hooksecurefunc(IconBorder, 'Hide', function(self)
+		bu.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	end)
 
 	MER.NPC:Register(_G.MerchantFrame)
 end
@@ -150,7 +151,7 @@ local function UpdateButtonsPositions(isBuyBack)
 end
 
 local function UpdateBuybackInfo()
-	if E.db.mui.merchant.style == "Default" then UpdateButtonsPositions(true) end
+	UpdateButtonsPositions(true)
 
 	-- apply coloring
 	local btn, link, quality, r, g, b, _
@@ -163,7 +164,7 @@ local function UpdateBuybackInfo()
 				if quality then
 					r, g, b = GetItemQualityColor(quality)
 				else
-					r, g, b = 1,1,1
+					r, g, b = 1, 1, 1
 				end
 				_G["MerchantItem" .. i .. "Name"]:SetTextColor(r, g, b)
 			end
@@ -351,7 +352,9 @@ local function UpdateMerchantInfo()
 					) then
 					alpha = 1
 				end
+
 				merchantButton:SetAlpha(alpha)
+
 				SetItemButtonNameFrameVertexColor(merchantButton, detailColor.r * colorMult, detailColor.g * colorMult, detailColor.b * colorMult)
 				SetItemButtonSlotVertexColor(merchantButton, slotColor.r * colorMult, slotColor.g * colorMult, slotColor.b * colorMult)
 				SetItemButtonTextureVertexColor(itemButton, slotColor.r * colorMult, slotColor.g * colorMult, slotColor.b * colorMult)
@@ -448,7 +451,6 @@ local function MerchantSkinInit()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.db.mui.merchant.enable ~= true then return end
 
 	hooksecurefunc("MerchantFrame_UpdateBuybackInfo", UpdateBuybackInfo)
-	if E.db.mui.merchant.style ~= "Default" then return end
 
 	RebuildMerchantFrame()
 	UpdateButtonsPositions()
