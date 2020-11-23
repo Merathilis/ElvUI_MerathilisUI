@@ -55,6 +55,7 @@ local function SkinVendorItems(i)
 
 	bu:SetHighlightTexture("")
 	bu:CreateBackdrop()
+	bu:StyleButton(false)
 
 	_G["MerchantItem"..i.."SlotTexture"]:Hide()
 	_G["MerchantItem"..i.."NameFrame"]:Hide()
@@ -63,7 +64,6 @@ local function SkinVendorItems(i)
 	bu:SetPoint(a1, p, a2, -1, -1)
 	bu:SetNormalTexture("")
 	bu:SetPushedTexture("")
-	bu:SetSize(42, 42)
 
 	local a3, p2, a4, x, y = mo:GetPoint()
 	mo:SetPoint(a3, p2, a4, x, y+2)
@@ -78,7 +78,9 @@ local function SkinVendorItems(i)
 	MERS:CreateGradient(button.bd)
 
 	ic:SetTexCoord(unpack(E.TexCoords))
-	ic:SetInside()
+	ic:ClearAllPoints()
+	ic:Point('TOPLEFT', 1, -1)
+	ic:Point('BOTTOMRIGHT', -1, 1)
 	IconBorder:SetAlpha(0)
 
 	-- Hide ElvUI's backdrop
