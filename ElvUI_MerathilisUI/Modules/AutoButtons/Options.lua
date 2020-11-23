@@ -450,7 +450,7 @@ local function AutoButtonTable()
 					type = "input",
 					name = L["Button Groups"],
 					desc = format(
-						"%s %s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
+						"%s %s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
 						L["Set the type and order of button groups."],
 						L["You can separate the groups with a comma."],
 						FormatDesc("QUEST", L["Quest Items"]),

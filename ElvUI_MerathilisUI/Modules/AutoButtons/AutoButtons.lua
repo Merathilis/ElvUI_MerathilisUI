@@ -172,7 +172,7 @@ local flasksShadowlands = {
 }
 
 -- Foods (Crafted by cooking)
-local foods = {
+local food = {
 	133557,
 	133561,
 	133562,
@@ -240,7 +240,7 @@ local foods = {
 }
 
 -- Foods added in Shadowlands (Crafted by cooking)
-local foodsShadowlands = {
+local foodShadowlands = {
 	172040,
 	172041,
 	172042,
@@ -637,7 +637,7 @@ function module:UpdateBar(id)
 					end
 				end
 			elseif module == "FOOD" then -- Foods
-				for _, foodID in pairs(foods) do
+				for _, foodID in pairs(food) do
 					local count = GetItemCount(foodID)
 					if count and count > 0 and not self.db.blackList[foodID] and buttonID <= barDB.numButtons then
 						self:SetUpButton(bar.buttons[buttonID], {itemID = foodID})
@@ -646,7 +646,7 @@ function module:UpdateBar(id)
 					end
 				end
 			elseif module == "FOODSL" then -- Foods (Shadowlands only)
-				for _, foodID in pairs(foodsShadowlands) do
+				for _, foodID in pairs(foodShadowlands) do
 					local count = GetItemCount(foodID)
 					if count and count > 0 and not self.db.blackList[foodID] and buttonID <= barDB.numButtons then
 						self:SetUpButton(bar.buttons[buttonID], {itemID = foodID})
