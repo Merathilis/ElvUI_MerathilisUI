@@ -109,6 +109,7 @@ local AddonsToHide = {
 	-- addon, frame
 	{'ZygorGuidesViewer', 'ZygorGuidesViewerFrame'},
 	{'ZygorGuidesViewer', 'Zygor_Notification_Center'},
+	{'ZygorGuidesViewer', 'ZygorGuidesViewer_ActionBar'},
 	{'WorldQuestTracker', 'WorldQuestTrackerScreenPanel'},
 	{'WorldQuestTracker', 'WorldQuestTrackerFinderFrame'},
 	{'XIV_Databar', 'XIV_Databar'},
@@ -123,9 +124,11 @@ local AddonsToHide = {
 	{'ConRO', 'ConRO_BurstButton'},
 	{'ConRO', 'ConRO_AutoButton'},
 	{'ConRO', 'ConRO_SingleButton'},
+	{'ConRO', 'ConRO_FullButton'},	
 	{'Details', 'DetailsBaseFrame1'}, -- probably more
 	{'Details', 'DetailsRowFrame1'}, -- probably more
-	{'!KalielsTracker','!KalielsTrackerFrame'},
+	{'!KalielsTracker','!KalielsTrackerFrame'},	
+	{'ElvUI','ZoneAbilityFrame'},	
 }
 
 local function ConvertTime(h, m)
