@@ -297,6 +297,10 @@ function module:SetFlightMode(status)
 			end
 		end
 
+		if _G.ZoneAbilityFrame then
+			_G.ZoneAbilityFrame:SetAlpha(0)
+		end
+
 		C_Timer_After(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
 
 		-- Disable Blizz location messsages
@@ -370,6 +374,10 @@ function module:SetFlightMode(status)
 			if bar then
 				bar:GetParent():Show()
 			end
+		end
+
+		if _G.ZoneAbilityFrame then
+			_G.ZoneAbilityFrame:SetAlpha(1)
 		end
 
 		if _G.ElvUI_StanceBar then
