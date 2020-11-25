@@ -444,7 +444,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 		if VignetteBlackListIDs[vignetteInfo.vignetteID] then return end
 
 		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id  then
-			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:sub(1, 28))
+			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:utf8sub(1, 28))
 			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
 			self.lastMinimapRare.id = vignetteGUID
 
