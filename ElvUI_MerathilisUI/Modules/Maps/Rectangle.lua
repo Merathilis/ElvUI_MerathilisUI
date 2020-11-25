@@ -41,6 +41,11 @@ function module:ChangeShape()
 	Minimap.backdrop:SetOutside(Minimap, 1, -(diff / 2) + 1)
 	MinimapBackdrop:SetOutside(Minimap.backdrop)
 
+	if _G.HybridMinimap then
+		local MapCanvas = _G.HybridMinimap.MapCanvas
+		MapCanvas:SetMaskTexture(texturePath)
+	end
+
 	if Minimap.location then
 		Minimap.location:ClearAllPoints()
 		Minimap.location:Point("TOP", MMHolder, "TOP", 0, -5)
@@ -96,6 +101,13 @@ function module:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
+function module:ADDON_LOADED(addon)
+	if addon == "Blizzard_HybridMinimap" then
+		self:ChangeShape()
+		self:UnregisterEvent('ADDON_LOADED')
+	end
+end
+
 function module:AdjustSettings()
 	if not E.db.mui.maps.minimap.rectangleMinimap.enable then return end
 
@@ -142,7 +154,8 @@ function module:Initialize()
 		module:AdjustSettings()
 	end
 
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self:RegisterEvent('ADDON_LOADED')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
 function module:ProfileUpdate()
