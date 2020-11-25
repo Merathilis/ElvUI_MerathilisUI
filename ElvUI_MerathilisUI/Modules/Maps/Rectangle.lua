@@ -101,7 +101,7 @@ function module:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-function module:ADDON_LOADED(addon)
+function module:ADDON_LOADED(_, addon)
 	if addon == "Blizzard_HybridMinimap" then
 		self:ChangeShape()
 		self:UnregisterEvent('ADDON_LOADED')
