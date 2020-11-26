@@ -44,6 +44,12 @@ function module:ChangeShape()
 	if _G.HybridMinimap then
 		_G.HybridMinimap.CircleMask:StripTextures()
 		_G.HybridMinimap.MapCanvas:SetMaskTexture(texturePath)
+		_G.HybridMinimap:Size(E.MinimapSize, E.MinimapSize)
+		_G.HybridMinimap:SetHitRectInsets(0, 0, (diff / 2) * E.mult, (diff / 2) * E.mult)
+		_G.HybridMinimap:SetClampRectInsets(0, 0, 0, 0)
+		_G.MinimapMover:SetClampRectInsets(0, 0, (diff / 2) * E.mult, -(diff / 2) * E.mult)
+		_G.HybridMinimap:ClearAllPoints()
+		_G.HybridMinimap:Point("TOPLEFT", MMHolder, "TOPLEFT", E.Border, -E.Border + diff / 2)
 
 		if Minimap.backdrop then
 			Minimap.backdrop:SetFrameStrata(_G.HybridMinimap.MapCanvas:GetFrameStrata())
