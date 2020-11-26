@@ -243,6 +243,7 @@ local food = {
 
 -- Foods added in Shadowlands (Crafted by cooking)
 local foodShadowlands = {
+	113509, -- Mage Food
 	172040,
 	172041,
 	172042,
