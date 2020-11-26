@@ -127,6 +127,7 @@ module.EngineerItems = {
 	{151652, nil, true}, --Wormhole Generator: Argus
 	{168807, nil, true}, --Wormhole Generator: Kul Tiras
 	{168808, nil, true}, --Wormhole Generator: Zandalar
+	{172924, nil, true}, --Wormhole Generator: Shadowlands
 }
 module.Spells = {
 	["DEATHKNIGHT"] = {
