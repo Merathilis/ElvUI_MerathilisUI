@@ -42,20 +42,13 @@ function module:ChangeShape()
 	MinimapBackdrop:SetOutside(Minimap.backdrop)
 
 	if _G.HybridMinimap then
-		_G.HybridMinimap.CircleMask:StripTextures()
-		_G.HybridMinimap.MapCanvas:SetMaskTexture(texturePath)
-		_G.HybridMinimap:Size(E.MinimapSize, E.MinimapSize)
-		_G.HybridMinimap:SetHitRectInsets(0, 0, (diff / 2) * E.mult, (diff / 2) * E.mult)
-		_G.HybridMinimap:SetClampRectInsets(0, 0, 0, 0)
-		_G.MinimapMover:SetClampRectInsets(0, 0, (diff / 2) * E.mult, -(diff / 2) * E.mult)
-		_G.HybridMinimap:ClearAllPoints()
-		_G.HybridMinimap:Point("TOPLEFT", MMHolder, "TOPLEFT", E.Border, -E.Border + diff / 2)
-
-		if Minimap.backdrop then
-			Minimap.backdrop:SetFrameStrata(_G.HybridMinimap.MapCanvas:GetFrameStrata())
-			Minimap.backdrop:SetFrameLevel(_G.HybridMinimap.MapCanvas:GetFrameLevel()-1)
-			Minimap.backdrop.Center:SetVertexColor(0, 0, 0, 1)
-		end
+		local mapCanvas = _G.HybridMinimap.MapCanvas
+		local rectangleMask = _G.HybridMinimap:CreateMaskTexture()
+		rectangleMask:SetTexture(texturePath)
+		rectangleMask:SetAllPoints(_G.HybridMinimap)
+		_G.HybridMinimap.RectangleMask = rectangleMask
+		mapCanvas:SetMaskTexture(rectangleMask)
+		mapCanvas:SetUseMaskTexture(true)
 	end
 
 	if Minimap.location then
