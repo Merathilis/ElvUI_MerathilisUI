@@ -285,6 +285,14 @@ local utilities = {
 	164978,
 }
 
+local torghastItems = {
+	168207, -- Plundered Anima Cell
+	170540, -- Ravenous Anima Cell
+	176331, -- Obscuring Essence Potion
+	176409, -- Rejuvenating Siphoned Essence
+	176443 -- Fleeting Frenzy Potion
+}
+
 local questItemList = {}
 local function UpdateQuestItemList()
 	wipe(questItemList)
@@ -680,6 +688,15 @@ function module:UpdateBar(id)
 					local itemID = GetInventoryItemID("player", slotID)
 					if itemID and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
 						self:SetUpButton(bar.buttons[buttonID], nil, slotID)
+						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+						buttonID = buttonID + 1
+					end
+				end
+			elseif module == "TORGHAST" then -- Torghast Items
+				for _, itemID in pairs(torghastItems) do
+					local count = GetItemCount(itemID)
+					if count and count > 0 and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
+						self:SetUpButton(bar.buttons[buttonID], {itemID = itemID})
 						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 						buttonID = buttonID + 1
 					end
