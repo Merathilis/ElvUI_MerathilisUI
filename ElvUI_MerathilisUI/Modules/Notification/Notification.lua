@@ -66,6 +66,7 @@ local VignetteExclusionMapIDs = {
 
 local VignetteBlackListIDs = {
 	[4553] = true, -- Recoverable Corpse (The Maw)
+	[4582] = true, -- Ripe Purian (Bastion)
 }
 
 function module:SpawnToast(toast)
