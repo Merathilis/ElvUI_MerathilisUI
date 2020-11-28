@@ -243,7 +243,6 @@ local food = {
 
 -- Foods added in Shadowlands (Crafted by cooking)
 local foodShadowlands = {
-	113509, -- Mage Food
 	172040,
 	172041,
 	172042,
@@ -263,6 +262,20 @@ local foodShadowlands = {
 	172068,
 	172069,
 	184682,
+}
+
+local conjuredManaFood = {
+	34062,
+	43518,
+	43523,
+	65499,
+	65500,
+	65515,
+	65516,
+	65517,
+	80610,
+	80618,
+	113509
 }
 
 local banners = {
@@ -658,6 +671,15 @@ function module:UpdateBar(id)
 				end
 			elseif module == "FOODSL" then -- Foods (Shadowlands only)
 				for _, foodID in pairs(foodShadowlands) do
+					local count = GetItemCount(foodID)
+					if count and count > 0 and not self.db.blackList[foodID] and buttonID <= barDB.numButtons then
+						self:SetUpButton(bar.buttons[buttonID], {itemID = foodID})
+						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+						buttonID = buttonID + 1
+					end
+				end
+			elseif module == "MAGEFOOD" then -- Food crafted by mage
+				for _, foodID in pairs(conjuredManaFood) do
 					local count = GetItemCount(foodID)
 					if count and count > 0 and not self.db.blackList[foodID] and buttonID <= barDB.numButtons then
 						self:SetUpButton(bar.buttons[buttonID], {itemID = foodID})

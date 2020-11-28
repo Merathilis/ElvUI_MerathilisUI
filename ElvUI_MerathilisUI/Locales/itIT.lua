@@ -317,6 +317,7 @@ L["Quest Items"] = true
 L["Equipments"] = true
 L["Potions"] = true
 L["Food"] = true
+L["Crafted by mage"] = true
 L["Flasks"] = true
 L["Banners"] = true
 L["Utilities"] = true

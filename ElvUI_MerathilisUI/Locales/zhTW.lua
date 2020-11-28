@@ -315,6 +315,7 @@ L["Equipments"] = "裝備"
 L["Potions"] = "藥水"
 L["Flasks"] = "藥劑"
 L["Food"] = true
+L["Crafted by mage"] = true
 L["Banners"] = "戰旗"
 L["Utilities"] = "實用物品"
 L["Custom Items"] = "自訂物品"
