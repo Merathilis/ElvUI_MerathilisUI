@@ -318,6 +318,7 @@ L["Equipments"] = true
 L["Potions"] = true
 L["Flasks"] = true
 L["Food"] = true
+L["Crafted by mage"] = true
 L["Banners"] = true
 L["Utilities"] = true
 L["Custom Items"] = true

@@ -111,9 +111,13 @@ function AFK:UpdateLogOff()
 
 	if minutes - 29 == 0 and floor(neg_seconds) == 0 then
 		self:CancelTimer(self.logoffTimer)
-		self.AFKMode.count:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
+		if self.AFKMode.count then
+			self.AFKMode.count:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
+		end
 	else
-		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds)
+		if self.AFKMode.count then
+			self.AFKMode.count:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds)
+		end
 	end
 end
 

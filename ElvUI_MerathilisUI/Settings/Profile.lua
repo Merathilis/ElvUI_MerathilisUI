@@ -379,7 +379,7 @@ MP.autoButtons = {
 				b = 1
 			},
 		},
-		include = "QUEST,BANNER,EQUIP"
+		include = "QUEST,BANNER,EQUIP,TORGHAST"
 	},
 	bar2 = {
 		enable = true,
@@ -421,7 +421,7 @@ MP.autoButtons = {
 				b = 1
 			},
 		},
-		include = "POTION,FLASK,UTILITY"
+		include = "POTIONSL,FLASKSL,UTILITY"
 	},
 	bar3 = {
 		enable = true,
@@ -463,7 +463,7 @@ MP.autoButtons = {
 				b = 1
 			},
 		},
-		include = "FOOD,CUSTOM"
+		include = "MAGEFOOD,FOODSL,CUSTOM"
 	},
 }
 

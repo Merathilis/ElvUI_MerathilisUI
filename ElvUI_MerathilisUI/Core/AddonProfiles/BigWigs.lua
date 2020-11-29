@@ -7,23 +7,24 @@ local ReloadUI = ReloadUI
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: BigWigs3DB, LibStub
 
-function MER:LoadBigWigsProfileDPS()
+function MER:LoadBigWigsProfile()
 	--[[----------------------------------
 	--	BigWigs - Settings
 	--]]----------------------------------
-	local key = MER.Title
+	local main = MER.Title
+	local heal = MER.Title.."-".." Heal"
 
 	LoadAddOn("BigWigs_Options")
 	LoadAddOn("BigWigs")
 
 	if BigWigs3DB["profiles"] == nil then BigWigs3DB["profiles"] = {} end
 
-	if BigWigs3DB["profiles"][key] == nil then
+	if BigWigs3DB["profiles"][main] == nil then
 		BigWigs3DB = {
 			["namespaces"] = {
 				["BigWigs_Plugins_Alt Power"] = {
 					["profiles"] = {
-						[key] = {
+						[main] = {
 							["posx"] = 600,
 							["fontSize"] = 11,
 							["fontOutline"] = "",
@@ -31,11 +32,30 @@ function MER:LoadBigWigsProfileDPS()
 							["lock"] = true,
 							["posy"] = 132,
 						},
+						[heal] = {
+							["posx"] = 90,
+							["fontSize"] = 11,
+							["fontName"] = "Merathilis Expressway",
+							["font"] = "Merathilis Expressway",
+							["lock"] = true,
+							["posy"] = 245,
+						},
 					},
 				},
 				["BigWigs_Plugins_Colors"] = {
 					["profiles"] = {
-						[key] = {
+						[main] = {
+							["barColor"] = {
+								["BigWigs_Plugins_Colors"] = {
+									["default"] = {
+										0, -- [1]
+										0.474509803921569, -- [2]
+										0.980392156862745, -- [3]
+									},
+								},
+							},
+						},
+						[heal] = {
 							["barColor"] = {
 								["BigWigs_Plugins_Colors"] = {
 									["default"] = {
@@ -50,7 +70,7 @@ function MER:LoadBigWigsProfileDPS()
 				},
 				["BigWigs_Plugins_Bars"] = {
 					["profiles"] = {
-						[key] = {
+						[main] = {
 							["BigWigsEmphasizeAnchor_y"] = 256,
 							["BigWigsEmphasizeAnchor_x"] = 457,
 							["BigWigsAnchor_y"] = 24,
@@ -68,97 +88,7 @@ function MER:LoadBigWigsProfileDPS()
 							["emphasizeGrowup"] = true,
 							["texture"] = "RenAscensionL",
 						},
-					},
-				},
-				["BigWigs_Plugins_Super Emphasize"] = {
-					["profiles"] = {
-						[key] = {
-							["monochrome"] = false,
-							["fontName"] = "Merathilis Expressway",
-						},
-					},
-				},
-				["BigWigs_Plugins_Messages"] = {
-					["profiles"] = {
-						[key] = {
-							["outline"] = "OUTLINE",
-							["fontSize"] = 20,
-							["BWEmphasizeCountdownMessageAnchor_x"] = 664,
-							["BWMessageAnchor_x"] = 608,
-							["growUpwards"] = false,
-							["BWEmphasizeCountdownMessageAnchor_y"] = 523,
-							["fontName"] = "Merathilis Expressway",
-							["BWEmphasizeMessageAnchor_y"] = 614,
-							["BWMessageAnchor_y"] = 676,
-							["BWEmphasizeMessageAnchor_x"] = 610,
-						},
-					},
-				},
-				["BigWigs_Plugins_Proximity"] = {
-					["profiles"] = {
-						[key] = {
-							["posx"] = 346.27,
-							["fontName"] = "Merathilis Expressway",
-							["lock"] = true,
-							["height"] = 99.0000381469727,
-							["posy"] = 81.82,
-						},
-					},
-				},
-			},
-			["profiles"] = {
-				[key] = {
-					["fakeDBMVersion"] = true,
-				},
-			},
-		}
-	end
-end
-
-function MER:LoadBigWigsProfileHeal()
-	--[[----------------------------------
-	--	BigWigs - Settings
-	--]]----------------------------------
-	local key = MER.Title.."-".." Heal"
-
-	LoadAddOn("BigWigs_Options")
-	LoadAddOn("BigWigs")
-
-	if BigWigs3DB["profiles"] == nil then BigWigs3DB["profiles"] = {} end
-
-	if BigWigs3DB["profiles"][key] == nil then
-		BigWigs3DB = {
-			["namespaces"] = {
-				["BigWigs_Plugins_Alt Power"] = {
-					["profiles"] = {
-						[key] = {
-							["posx"] = 90,
-							["fontSize"] = 11,
-							["fontName"] = "Merathilis Expressway",
-							["font"] = "Merathilis Expressway",
-							["lock"] = true,
-							["posy"] = 245,
-						},
-					},
-				},
-				["BigWigs_Plugins_Colors"] = {
-					["profiles"] = {
-						[key] = {
-							["barColor"] = {
-								["BigWigs_Plugins_Colors"] = {
-									["default"] = {
-										0, -- [1]
-										0.474509803921569, -- [2]
-										0.980392156862745, -- [3]
-									},
-								},
-							},
-						},
-					},
-				},
-				["BigWigs_Plugins_Bars"] = {
-					["profiles"] = {
-						[key] = {
+						[heal] = {
 							["outline"] = "OUTLINE",
 							["BigWigsAnchor_width"] = 200.000045776367,
 							["BigWigsAnchor_x"] = 941.244988069448,
@@ -178,7 +108,11 @@ function MER:LoadBigWigsProfileHeal()
 				},
 				["BigWigs_Plugins_Super Emphasize"] = {
 					["profiles"] = {
-						[key] = {
+						[main] = {
+							["monochrome"] = false,
+							["fontName"] = "Merathilis Expressway",
+						},
+						[heal] = {
 							["monochrome"] = false,
 							["fontName"] = "Merathilis Expressway",
 						},
@@ -186,7 +120,19 @@ function MER:LoadBigWigsProfileHeal()
 				},
 				["BigWigs_Plugins_Messages"] = {
 					["profiles"] = {
-						[key] = {
+						[main] = {
+							["outline"] = "OUTLINE",
+							["fontSize"] = 20,
+							["BWEmphasizeCountdownMessageAnchor_x"] = 664,
+							["BWMessageAnchor_x"] = 608,
+							["growUpwards"] = false,
+							["BWEmphasizeCountdownMessageAnchor_y"] = 523,
+							["fontName"] = "Merathilis Expressway",
+							["BWEmphasizeMessageAnchor_y"] = 614,
+							["BWMessageAnchor_y"] = 676,
+							["BWEmphasizeMessageAnchor_x"] = 610,
+						},
+						[heal] = {
 							["outline"] = "OUTLINE",
 							["fontSize"] = 20,
 							["BWEmphasizeCountdownMessageAnchor_x"] = 664,
@@ -202,7 +148,14 @@ function MER:LoadBigWigsProfileHeal()
 				},
 				["BigWigs_Plugins_Proximity"] = {
 					["profiles"] = {
-						[key] = {
+						[main] = {
+							["posx"] = 346.27,
+							["fontName"] = "Merathilis Expressway",
+							["lock"] = true,
+							["height"] = 99.0000381469727,
+							["posy"] = 81.82,
+						},
+						[heal] = {
 							["posx"] = 931.511307278197,
 							["fontName"] = "Merathilis Expressway",
 							["posy"] = 85.3333353996277,
@@ -213,18 +166,17 @@ function MER:LoadBigWigsProfileHeal()
 				},
 			},
 			["profiles"] = {
-				[key] = {
+				[main] = {
+					["showZoneMessages"] = false,
 					["fakeDBMVersion"] = true,
+					["flash"] = true,
+				},
+				[heal] = {
+					["showZoneMessages"] = false,
+					["fakeDBMVersion"] = true,
+					["flash"] = true,
 				},
 			},
 		}
 	end
 end
-
-E.PopupDialogs["MUI_INSTALL_BW_LAYOUT"] = {
-	text = L["MUI_INSTALL_SETTINGS_LAYOUT_BW"],
-	OnAccept = function() MER:LoadBigWigsProfileDPS(); ReloadUI() end,
-	OnCancel = function() MER:LoadBigWigsProfileHeal(); ReloadUI() end,
-	button1 = 'BigWigs DPS Layout',
-	button2 = 'BigWigs Heal Layout'
-}

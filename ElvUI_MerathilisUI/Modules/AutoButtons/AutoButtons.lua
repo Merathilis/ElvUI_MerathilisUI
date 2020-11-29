@@ -112,6 +112,7 @@ local potions = {
 	171351,
 	171352,
 	171370,
+	177278,
 	176811,
 	183823,
 	184090,
@@ -137,6 +138,7 @@ local potionsShadowlands = {
 	171351,
 	171352,
 	171370,
+	177278,
 	176811,
 	183823,
 	184090,
@@ -262,6 +264,20 @@ local foodShadowlands = {
 	184682,
 }
 
+local conjuredManaFood = {
+	34062,
+	43518,
+	43523,
+	65499,
+	65500,
+	65515,
+	65516,
+	65517,
+	80610,
+	80618,
+	113509
+}
+
 local banners = {
 	63359,
 	64400,
@@ -280,6 +296,14 @@ local utilities = {
 	132514,
 	164733,
 	164978,
+}
+
+local torghastItems = {
+	168207, -- Plundered Anima Cell
+	170540, -- Ravenous Anima Cell
+	176331, -- Obscuring Essence Potion
+	176409, -- Rejuvenating Siphoned Essence
+	176443 -- Fleeting Frenzy Potion
 }
 
 local questItemList = {}
@@ -654,6 +678,15 @@ function module:UpdateBar(id)
 						buttonID = buttonID + 1
 					end
 				end
+			elseif module == "MAGEFOOD" then -- Food crafted by mage
+				for _, foodID in pairs(conjuredManaFood) do
+					local count = GetItemCount(foodID)
+					if count and count > 0 and not self.db.blackList[foodID] and buttonID <= barDB.numButtons then
+						self:SetUpButton(bar.buttons[buttonID], {itemID = foodID})
+						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+						buttonID = buttonID + 1
+					end
+				end
 			elseif module == "BANNER" then
 				for _, bannerID in pairs(banners) do
 					local count = GetItemCount(bannerID)
@@ -677,6 +710,15 @@ function module:UpdateBar(id)
 					local itemID = GetInventoryItemID("player", slotID)
 					if itemID and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
 						self:SetUpButton(bar.buttons[buttonID], nil, slotID)
+						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+						buttonID = buttonID + 1
+					end
+				end
+			elseif module == "TORGHAST" then -- Torghast Items
+				for _, itemID in pairs(torghastItems) do
+					local count = GetItemCount(itemID)
+					if count and count > 0 and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
+						self:SetUpButton(bar.buttons[buttonID], {itemID = itemID})
 						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 						buttonID = buttonID + 1
 					end

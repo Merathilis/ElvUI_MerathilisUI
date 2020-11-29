@@ -108,6 +108,8 @@ local function LoadSkin()
 	_G.QuestLogPopupDetailFrame.ShareButton:ClearAllPoints()
 	_G.QuestLogPopupDetailFrame.ShareButton:SetPoint("LEFT", _G.QuestLogPopupDetailFrame.AbandonButton, "RIGHT", 1, 0)
 	_G.QuestLogPopupDetailFrame.ShareButton:SetPoint("RIGHT", _G.QuestLogPopupDetailFrame.TrackButton, "LEFT", -1, 0)
+
+	_G.QuestMapFrame.CampaignOverview.BG:SetAlpha(0)
 end
 
 S:AddCallback("mUIQuestMapFrame", LoadSkin)

@@ -34,7 +34,6 @@ local SupportedProfiles = {
 	{"ls_Toasts", "ls_Toasts"},
 	{"DBM-Core", "Deadly Boss Mods"},
 	{"Touhin", "Touhin"},
-	{"iFilger", "iFilger"},
 }
 
 local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -509,7 +508,9 @@ local function SkinsTable()
 			desc = L["This will create and apply profile for "]..addonName,
 			func = function()
 				if addon == 'BigWigs' then
-					E:StaticPopup_Show("MUI_INSTALL_BW_LAYOUT")
+					MER:LoadBigWigsProfile()
+					MER:Print('BigWigs profile has been set.')
+					E:StaticPopup_Show("PRIVATE_RL")
 				elseif addon == 'DBM-Core' then
 					E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
 				elseif addon == 'ElvUI_BenikUI' then

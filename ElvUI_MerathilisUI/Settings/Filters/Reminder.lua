@@ -41,14 +41,16 @@ MER.ReminderList = {
 				[8679] = true,	 -- Wound Poison
 				[2823] = true,	 -- Deadly Poison
 				[3408] = true,	 -- Crippling Poison
+				[5761] = true, -- Numbing Poison
 				[108211] = true, -- Leeching Poison
+				[315584] = true, -- Instant Poison
 				["defaultIcon"] = 2823,
 			},
 			["enable"] = true,
 			["instance"] = true,
 			["pvp"] = true,
 			["strictFilter"] = true,
-			["tree"] = 1,
+			--["tree"] = 1,
 		},
 	},
 

@@ -109,6 +109,7 @@ local AddonsToHide = {
 	-- addon, frame
 	{'ZygorGuidesViewer', 'ZygorGuidesViewerFrame'},
 	{'ZygorGuidesViewer', 'Zygor_Notification_Center'},
+	{'ZygorGuidesViewer', 'ZygorGuidesViewer_ActionBar'},
 	{'WorldQuestTracker', 'WorldQuestTrackerScreenPanel'},
 	{'WorldQuestTracker', 'WorldQuestTrackerFinderFrame'},
 	{'XIV_Databar', 'XIV_Databar'},
@@ -123,6 +124,7 @@ local AddonsToHide = {
 	{'ConRO', 'ConRO_BurstButton'},
 	{'ConRO', 'ConRO_AutoButton'},
 	{'ConRO', 'ConRO_SingleButton'},
+	{'ConRO', 'ConRO_FullButton'},
 	{'Details', 'DetailsBaseFrame1'}, -- probably more
 	{'Details', 'DetailsRowFrame1'}, -- probably more
 	{'!KalielsTracker','!KalielsTrackerFrame'},
@@ -295,6 +297,10 @@ function module:SetFlightMode(status)
 			end
 		end
 
+		if _G.ZoneAbilityFrame then
+			_G.ZoneAbilityFrame:SetAlpha(0)
+		end
+
 		C_Timer_After(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
 
 		-- Disable Blizz location messsages
@@ -368,6 +374,10 @@ function module:SetFlightMode(status)
 			if bar then
 				bar:GetParent():Show()
 			end
+		end
+
+		if _G.ZoneAbilityFrame then
+			_G.ZoneAbilityFrame:SetAlpha(1)
 		end
 
 		if _G.ElvUI_StanceBar then
