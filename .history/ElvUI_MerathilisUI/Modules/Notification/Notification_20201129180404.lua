@@ -65,13 +65,11 @@ local VignetteExclusionMapIDs = {
 }
 
 local VignetteBlackListIDs = {
-	[4024] = true, -- Soul Cage (The Maw and Torghast)
-	[4578] = true, -- Gateway to Hero's Rest (Bastion)
-	[4583] = true, -- Gateway to Hero's Rest (Bastion)
+	[4024] = true,
 	[4553] = true, -- Recoverable Corpse (The Maw)
 	[4582] = true, -- Ripe Purian (Bastion)
-	[4602] = true, -- Aimless Soul (The Maw)
-	[4617] = true, -- Imprisoned Soul (The Maw)
+	[4602] = true, -- Aimless Soul
+	[4617] = true, -- Imprisoned Soul
 }
 
 function module:SpawnToast(toast)
