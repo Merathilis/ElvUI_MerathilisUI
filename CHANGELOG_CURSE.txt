@@ -1,3 +1,11 @@
+** v4.67, 29.11.2020**
+* AutoButtons: Added/Updated Shadowlands Pots/Flasks
+* LocPanel: Updated Teleport Items
+* Updated Rectangle Minimap to work in Torghast
+* Added some vignettes to my blacklist in the Notifications
+* Removed iFilger Profile
+
+
 ** v4.66, 23.11.2020**
 * Added an option to adjust the waypoints
 * Fixed the backdrop from the Minimap if S&L is enabled

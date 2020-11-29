@@ -16,13 +16,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added an option to adjust the waypoints",
-		"• Fixed the backdrop from the Minimap if S&L is enabled",
-		"• Fixed Time DataText",
-		"• Removed GuildBest from the Mythic Keystone frame",
-		"• Reworked Instance Difficulty",
-		"• Fixed border color on the Merchant frame",
-		"• Added some new hearthstones/flasks/food/pots for Shadowlands",
+		"• AutoButtons: Added/Updated Shadowlands Pots/Flasks",
+		"• LocPanel: Updated Teleport Items",
+		"• Updated Rectangle Minimap to work in Torghast",
+		"• Added some vignettes to my blacklist in the Notifications",
+		"• Removed iFilger Profile",
 
 		-- "• ''",
 	" ",
