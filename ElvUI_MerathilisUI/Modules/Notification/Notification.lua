@@ -372,7 +372,6 @@ function module:UPDATE_INVENTORY_DURABILITY()
 	end
 end
 
-
 local numInvites = 0
 local function GetGuildInvites()
 	local numGuildInvites = 0
@@ -440,17 +439,17 @@ end
 
 local SOUND_TIMEOUT = 20
 function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
-	if not module.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")]  then return end
+	if not module.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
 
 	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
 	if inGroup or inRaid or inPartyLFG then return end
 
 	if onMinimap then
 		local vignetteInfo = C_VignetteInfo_GetVignetteInfo(vignetteGUID)
-		--MER:Print(vignetteInfo.vignetteID, vignetteInfo.name)
+		--MER:Print("Vignette-ID:"..vignetteInfo.vignetteID, "Vignette-Name:"..vignetteInfo.name)
 		if VignetteBlackListIDs[vignetteInfo.vignetteID] then return end
 
-		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id  then
+		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id then
 			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:utf8sub(1, 28))
 			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
 			self.lastMinimapRare.id = vignetteGUID
