@@ -34,7 +34,6 @@ local SupportedProfiles = {
 	{"ls_Toasts", "ls_Toasts"},
 	{"DBM-Core", "Deadly Boss Mods"},
 	{"Touhin", "Touhin"},
-	{"iFilger", "iFilger"},
 }
 
 local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"])
