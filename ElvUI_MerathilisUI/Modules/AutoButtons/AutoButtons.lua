@@ -260,7 +260,8 @@ local torghastItems = {
 	170540, -- Ravenous Anima Cell
 	176331, -- Obscuring Essence Potion
 	176409, -- Rejuvenating Siphoned Essence
-	176443 -- Fleeting Frenzy Potion
+	176443, -- Fleeting Frenzy Potion
+	168035, -- Mawrat Harness
 }
 
 local questItemList = {}
