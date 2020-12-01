@@ -56,47 +56,6 @@ local function UpdateFollowerList(self)
 	end
 end
 
-local function UpdateFollowerAbilities(followerList)
-	local followerTab = followerList.followerTab
-	local abilitiesFrame = followerTab.AbilitiesFrame
-	if not abilitiesFrame then return end
-
-	local abilities = abilitiesFrame.Abilities
-	if abilities then
-		for i = 1, #abilities do
-			local iconButton = abilities[i].IconButton
-			local icon = iconButton and iconButton.Icon
-			if icon and not icon.bg then
-				iconButton.Border:SetAlpha(0)
-				--icon.bg = B.ReskinIcon(icon)
-			end
-		end
-	end
-
-	local equipment = abilitiesFrame.Equipment
-	if equipment then
-		for i = 1, #equipment do
-			local equip = equipment[i]
-			if equip and not equip.bg then
-				equip.Border:SetAlpha(0)
-				equip.BG:SetAlpha(0)
-				--equip.bg = B.ReskinIcon(equip.Icon)
-				equip.bg:SetBackdropColor(1, 1, 1, .15)
-			end
-		end
-	end
-
-	local combatAllySpell = abilitiesFrame.CombatAllySpell
-	if combatAllySpell then
-		for i = 1, #combatAllySpell do
-			local icon = combatAllySpell[i].iconTexture
-			if icon and not icon.bg then
-				--icon.bg = B.ReskinIcon(icon)
-			end
-		end
-	end
-end
-
 -- [[ Garrison system ]]
 local function ReskinMissionPage(self)
 	self:StripTextures()
@@ -106,15 +65,6 @@ local function ReskinMissionPage(self)
 	self.CloseButton:SetPoint("TOPRIGHT", -10, -5)
 	select(4, self.Stage:GetRegions()):Hide()
 	select(5, self.Stage:GetRegions()):Hide()
-
-	local bg = MERS:CreateBDFrame(self.Stage)
-	bg:SetPoint("TOPLEFT", 4, 1)
-	bg:SetPoint("BOTTOMRIGHT", -4, -1)
-
-	local overlay = self.Stage:CreateTexture()
-	overlay:SetDrawLayer("ARTWORK", 3)
-	overlay:SetAllPoints(bg)
-	overlay:SetColorTexture(0, 0, 0, .5)
 
 	if self.Followers then
 		for i = 1, 3 do
@@ -286,7 +236,6 @@ local function ReskinMissionFrame(self)
 
 	ReskinGarrMaterial(FollowerList)
 	hooksecurefunc(FollowerList, "UpdateData", UpdateFollowerList)
-	hooksecurefunc(FollowerList, "ShowFollower", UpdateFollowerAbilities)
 end
 
 local function UpdateSpellAbilities(spell, followerInfo)
