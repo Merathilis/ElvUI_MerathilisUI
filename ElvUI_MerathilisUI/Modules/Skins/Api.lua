@@ -208,7 +208,7 @@ function MERS:OnEnter()
 		if self.backdrop then self = self.backdrop end
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.75) -- maybe 0.5?
+			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.75)
 		end
 	end
 end
@@ -224,7 +224,7 @@ function MERS:OnLeave()
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, noGradient)
+function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, overrideTex, frameLevel, noGradient)
 	assert(button, "doesn't exist!")
 
 	if strip then button:StripTextures() end

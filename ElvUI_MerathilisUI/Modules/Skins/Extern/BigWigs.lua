@@ -166,9 +166,7 @@ function MERS:BigWigs_QueueTimer()
 			end
 		end)
 
-		E:Delay(2,function()
-			_G.BigWigsLoader.UnregisterMessage("AddOnSkins", "BigWigs_FrameCreated")
-		end)
+		E:Delay(2, function() _G.BigWigsLoader.UnregisterMessage("AddOnSkins", "BigWigs_FrameCreated") end)
 	end
 end
 
