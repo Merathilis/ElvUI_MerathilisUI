@@ -6,6 +6,7 @@ local _G = _G
 local select = select
 
 local hooksecurefunc = hooksecurefunc
+local IsInJailersTower = IsInJailersTower
 
 local function WhiteProgressText(self)
 	if self.IsSkinned then return end
@@ -47,6 +48,8 @@ local function LoadSkin()
 				option.Background.backdrop:Point('BOTTOMRIGHT', option.Background, 'BOTTOMRIGHT', -2, -2)
 				MERS:CreateGradient(option.Background.backdrop)
 			end
+
+			option.Background.backdrop:SetShown(not IsInJailersTower())
 			option.Header.Ribbon:SetAlpha(0)
 
 			option.Header.Text:SetTextColor(1, .8, 0)
