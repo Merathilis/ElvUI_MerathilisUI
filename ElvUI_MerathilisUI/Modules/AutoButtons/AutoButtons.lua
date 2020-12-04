@@ -659,17 +659,17 @@ function module:UpdateBar(id)
 
 	local buttonID = 1
 	local function AddButtons(list)
-		for _, itemID in pairs (list) do
-			local count =  GetItemCount (itemID)
+		for _, itemID in pairs(list) do
+			local count = GetItemCount(itemID)
 			if count and count > 0 and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
 				self:SetUpButton (bar.buttons [buttonID], {itemID = itemID})
 				self:UpdateButtonSize (bar.buttons[buttonID], barDB)
-				buttonID = buttonID +  1
+				buttonID = buttonID + 1
 			end
 		end
 	end
 
-	for _, module in ipairs {strsplit("[, ]", barDB.include)} do
+	for _, module in ipairs{strsplit("[, ]", barDB.include)} do
 		if buttonID <= barDB.numButtons then
 			if moduleList[module] then
 				AddButtons(moduleList[module])
