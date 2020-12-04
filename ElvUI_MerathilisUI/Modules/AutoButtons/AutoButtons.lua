@@ -588,7 +588,6 @@ function module:CreateBar(id)
 	end
 
 	local barDB = self.db["bar" .. id]
-
 	local anchor = CreateFrame("Frame", "AutoButtonBar" .. id .. "Anchor", E.UIParent)
 	anchor:SetClampedToScreen(true)
 	anchor:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, (id - 1) * 45)
@@ -662,8 +661,8 @@ function module:UpdateBar(id)
 		for _, itemID in pairs(list) do
 			local count = GetItemCount(itemID)
 			if count and count > 0 and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
-				self:SetUpButton (bar.buttons [buttonID], {itemID = itemID})
-				self:UpdateButtonSize (bar.buttons[buttonID], barDB)
+				self:SetUpButton(bar.buttons[buttonID], {itemID = itemID})
+				self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 				buttonID = buttonID + 1
 			end
 		end
