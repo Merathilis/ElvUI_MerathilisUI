@@ -136,7 +136,7 @@ local function SetupChat()
 	E.db["chat"]["panelHeight"] = 146
 	E.db["chat"]["panelHeightRight"] = 146
 	E.db["chat"]["panelWidthRight"] = 288
-	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
+	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT_INSIDE"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
 	E.db["chat"]["copyChatLines"] = true
