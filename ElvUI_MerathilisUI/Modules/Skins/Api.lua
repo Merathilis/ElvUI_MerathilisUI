@@ -22,6 +22,12 @@ local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB
 local bordercolorr, bordercolorg, bordercolorb
 
+MERS.addonsToLoad = {}
+MERS.nonAddonsToLoad = {}
+MERS.updateProfile = {}
+MERS.aceWidgets = {}
+MERS.enteredLoad = {}
+
 MERS.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MERS.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 TEXTURE_ITEM_QUEST_BANG = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-Icon-QuestBang]]
@@ -202,7 +208,7 @@ function MERS:OnEnter()
 		if self.backdrop then self = self.backdrop end
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.75) -- maybe 0.5?
+			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.75)
 		end
 	end
 end
@@ -218,7 +224,7 @@ function MERS:OnLeave()
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, noGradient)
+function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, overrideTex, frameLevel, noGradient)
 	assert(button, "doesn't exist!")
 
 	if strip then button:StripTextures() end
@@ -546,6 +552,67 @@ local function updateMedia()
 end
 hooksecurefunc(E, "UpdateMedia", updateMedia)
 
+local function errorhandler(err)
+	return _G.geterrorhandler()(err)
+end
+
+function MERS:AddCallback(name, func)
+	tinsert(self.nonAddonsToLoad, func or self[name])
+end
+
+function MERS:AddCallbackForAceGUIWidget(name, func)
+	self.aceWidgets[name] = func or self[name]
+end
+
+function MERS:AddCallbackForAddon(addonName, func)
+	local addon = self.addonsToLoad[addonName]
+	if not addon then
+		self.addonsToLoad[addonName] = {}
+		addon = self.addonsToLoad[addonName]
+	end
+
+	if type(func) == "string" then
+		func = self[func]
+	end
+
+	tinsert(addon, func or self[addonName])
+end
+
+function MERS:AddCallbackForEnterWorld(name, func)
+	tinsert(self.enteredLoad, func or self[name])
+end
+
+function MERS:PLAYER_ENTERING_WORLD()
+	if not E.initialized then
+		return
+	end
+
+	for index, func in next, self.enteredLoad do
+		xpcall(func, errorhandler, self)
+		self.enteredLoad[index] = nil
+	end
+end
+
+function MERS:ADDON_LOADED(_, addonName)
+	if not E.initialized then
+		return
+	end
+
+	local object = self.addonsToLoad[addonName]
+	if object then
+		self:CallLoadedAddon(addonName, object)
+	end
+end
+
+function MERS:DisableAddOnSkin(key)
+	if _G.AddOnSkins then
+		local AS = _G.AddOnSkins[1]
+		if AS and AS.db[key] then
+			AS:SetOption(key, false)
+		end
+	end
+end
+
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
@@ -557,6 +624,20 @@ function MERS:Initialize()
 			MERS:ReskinAS(unpack(AddOnSkins))
 		end
 	end
+
+	for index, func in next, self.nonAddonsToLoad do
+		xpcall(func, errorhandler, self)
+		self.nonAddonsToLoad[index] = nil
+	end
+
+	for addonName, object in pairs(self.addonsToLoad) do
+		local isLoaded, isFinished = IsAddOnLoaded(addonName)
+		if isLoaded and isFinished then
+			self:CallLoadedAddon(addonName, object)
+		end
+	end
 end
 
+MERS:RegisterEvent("ADDON_LOADED")
+MERS:RegisterEvent("PLAYER_ENTERING_WORLD")
 MER:RegisterModule(MERS:GetName())

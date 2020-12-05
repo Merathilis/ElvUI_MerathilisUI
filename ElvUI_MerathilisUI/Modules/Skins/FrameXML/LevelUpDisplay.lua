@@ -3,10 +3,12 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 
+local IsInJailersTower = IsInJailersTower
+
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.muiSkins.blizzard.levelUp ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.muiSkins.blizzard.levelUp ~= true or IsInJailersTower() then return end
 
 	--/script LevelUpDisplay:Show()
 	local frame = _G.LevelUpDisplay

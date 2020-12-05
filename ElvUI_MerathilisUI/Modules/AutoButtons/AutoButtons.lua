@@ -95,27 +95,6 @@ local potions = {
 	169299,
 	169300,
 	169451,
-	171263,
-	171264,
-	171266,
-	171267,
-	171268,
-	171269,
-	171270,
-	171271,
-	171272,
-	171273,
-	171274,
-	171275,
-	171349,
-	171350,
-	171351,
-	171352,
-	171370,
-	177278,
-	176811,
-	183823,
-	184090,
 }
 
 -- Potion added in Shadowlands (require level >= 50)
@@ -161,9 +140,6 @@ local flasks = {
 	168653,
 	168654,
 	168655,
-	171276,
-	171278,
-	171280,
 }
 
 -- Flasks added in Shadowlands (require level >= 50)
@@ -220,25 +196,6 @@ local food = {
 	168314,
 	168315,
 	169280,
-	172040,
-	172041,
-	172042,
-	172043,
-	172044,
-	172045,
-	172046,
-	172047,
-	172048,
-	172049,
-	172050,
-	172051,
-	172060,
-	172061,
-	172062,
-	172063,
-	172068,
-	172069,
-	184682,
 }
 
 -- Foods added in Shadowlands (Crafted by cooking)
@@ -262,6 +219,81 @@ local foodShadowlands = {
 	172068,
 	172069,
 	184682,
+}
+
+-- Food sold by a vendor (Shadowlands)
+local foodShadowlandsVendor = {
+	173759,
+	173760,
+	173761,
+	173762,
+	173859,
+	174281,
+	174282,
+	174283,
+	174284,
+	174285,
+	177040,
+	178216,
+	178217,
+	178222,
+	178223,
+	178224,
+	178225,
+	178226,
+	178227,
+	178228,
+	178247,
+	178252,
+	178534,
+	178535,
+	178536,
+	178537,
+	178538,
+	178539,
+	178541,
+	178542,
+	178545,
+	178546,
+	178547,
+	178548,
+	178549,
+	178550,
+	178552,
+	178900,
+	179011,
+	179012,
+	179013,
+	179014,
+	179015,
+	179016,
+	179017,
+	179018,
+	179019,
+	179020,
+	179021,
+	179022,
+	179023,
+	179025,
+	179026,
+	179166,
+	179267,
+	179268,
+	179269,
+	179270,
+	179271,
+	179272,
+	179273,
+	179274,
+	179275,
+	179281,
+	179283,
+	179992,
+	179993,
+	180430,
+	184201,
+	184202,
+	184281,
 }
 
 local conjuredManaFood = {
@@ -303,7 +335,9 @@ local torghastItems = {
 	170540, -- Ravenous Anima Cell
 	176331, -- Obscuring Essence Potion
 	176409, -- Rejuvenating Siphoned Essence
-	176443 -- Fleeting Frenzy Potion
+	176443, -- Fleeting Frenzy Potion
+	168035, -- Mawrat Harness
+	184652, -- Phantasmic Infusor
 }
 
 local questItemList = {}
@@ -313,10 +347,7 @@ local function UpdateQuestItemList()
 		local link = GetQuestLogSpecialItemInfo(questLogIndex)
 		if link then
 			local itemID = tonumber(strmatch(link, "|Hitem:(%d+):"))
-			local data = {
-				questLogIndex = questLogIndex,
-				itemID = itemID
-			}
+			local data = {questLogIndex = questLogIndex, itemID = itemID}
 			tinsert(questItemList, data)
 		end
 	end
@@ -336,7 +367,21 @@ end
 local UpdateAfterCombat = {
 	[1] = false,
 	[2] = false,
-	[3] = false
+	[3] = false,
+}
+
+local moduleList = {
+	["POTION"] = potions,
+	["POTIONSL"] = potionsShadowlands,
+	["FLASK"] = flasks,
+	["FLASKSL"] = flasksShadowlands,
+	["TORGHAST"] = torghastItems,
+	["FOOD"] = food,
+	["FOODSL"] = foodShadowlands,
+	["FOODVENDOR"] = foodShadowlandsVendor,
+	["MAGEFOOD"] = conjuredManaFood,
+	["BANNER"] = banners,
+	["UTILITY" ] = utilities,
 }
 
 function module:CreateButton(name, barDB)
@@ -544,7 +589,6 @@ function module:CreateBar(id)
 	end
 
 	local barDB = self.db["bar" .. id]
-
 	local anchor = CreateFrame("Frame", "AutoButtonBar" .. id .. "Anchor", E.UIParent)
 	anchor:SetClampedToScreen(true)
 	anchor:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, (id - 1) * 45)
@@ -614,93 +658,25 @@ function module:UpdateBar(id)
 	end
 
 	local buttonID = 1
-	for _, module in ipairs {strsplit("[, ]", barDB.include)} do
+	local function AddButtons(list)
+		for _, itemID in pairs(list) do
+			local count = GetItemCount(itemID)
+			if count and count > 0 and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
+				self:SetUpButton(bar.buttons[buttonID], {itemID = itemID})
+				self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+				buttonID = buttonID + 1
+			end
+		end
+	end
+
+	for _, module in ipairs{strsplit("[, ]", barDB.include)} do
 		if buttonID <= barDB.numButtons then
-			if module == "QUEST" then
+			if moduleList[module] then
+				AddButtons(moduleList[module])
+			elseif module == "QUEST" then
 				for _, data in pairs(questItemList) do
 					if not self.db.blackList[data.itemID] then
 						self:SetUpButton(bar.buttons[buttonID], data)
-						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-						buttonID = buttonID + 1
-					end
-				end
-			elseif module == "POTION" then
-				for _, potionID in pairs(potions) do
-					local count = GetItemCount(potionID)
-					if count and count > 0 and not self.db.blackList[potionID] then
-						self:SetUpButton(bar.buttons[buttonID], {itemID = potionID})
-						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-						buttonID = buttonID + 1
-					end
-				end
-			elseif module == "POTIONSL" then -- Potions (Shadowlands only)
-				for _, potionID in pairs(potionsShadowlands) do
-					local count = GetItemCount(potionID)
-					if count and count > 0 and not self.db.blackList[potionID] then
-						self:SetUpButton(bar.buttons[buttonID], {itemID = potionID})
-						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-						buttonID = buttonID + 1
-					end
-				end
-			elseif module == "FLASK" then
-				for _, flaskID in pairs(flasks) do
-					local count = GetItemCount(flaskID)
-					if count and count > 0 and not self.db.blackList[flaskID] and buttonID <= barDB.numButtons then
-						self:SetUpButton(bar.buttons[buttonID], {itemID = flaskID})
-						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-						buttonID = buttonID + 1
-					end
-				end
-			elseif module == "FLASKSL" then -- Flasks (Shadowlands only)
-				for _, flaskID in pairs(flasksShadowlands) do
-					local count = GetItemCount(flaskID)
-					if count and count > 0 and not self.db.blackList[flaskID] and buttonID <= barDB.numButtons then
-						self:SetUpButton(bar.buttons[buttonID], {itemID = flaskID})
-						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-						buttonID = buttonID + 1
-					end
-				end
-			elseif module == "FOOD" then -- Foods
-				for _, foodID in pairs(food) do
-					local count = GetItemCount(foodID)
-					if count and count > 0 and not self.db.blackList[foodID] and buttonID <= barDB.numButtons then
-						self:SetUpButton(bar.buttons[buttonID], {itemID = foodID})
-						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-						buttonID = buttonID + 1
-					end
-				end
-			elseif module == "FOODSL" then -- Foods (Shadowlands only)
-				for _, foodID in pairs(foodShadowlands) do
-					local count = GetItemCount(foodID)
-					if count and count > 0 and not self.db.blackList[foodID] and buttonID <= barDB.numButtons then
-						self:SetUpButton(bar.buttons[buttonID], {itemID = foodID})
-						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-						buttonID = buttonID + 1
-					end
-				end
-			elseif module == "MAGEFOOD" then -- Food crafted by mage
-				for _, foodID in pairs(conjuredManaFood) do
-					local count = GetItemCount(foodID)
-					if count and count > 0 and not self.db.blackList[foodID] and buttonID <= barDB.numButtons then
-						self:SetUpButton(bar.buttons[buttonID], {itemID = foodID})
-						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-						buttonID = buttonID + 1
-					end
-				end
-			elseif module == "BANNER" then
-				for _, bannerID in pairs(banners) do
-					local count = GetItemCount(bannerID)
-					if count and count > 0 and not self.db.blackList[bannerID] and buttonID <= barDB.numButtons then
-						self:SetUpButton(bar.buttons[buttonID], {itemID = bannerID})
-						bar.buttons[buttonID]:Size(barDB.buttonWidth, barDB.buttonHeight)
-						buttonID = buttonID + 1
-					end
-				end
-			elseif module == "UTILITY" then
-				for _, utilityID in pairs(utilities) do
-					local count = GetItemCount(utilityID)
-					if count and count > 0 and not self.db.blackList[utilityID] and buttonID <= barDB.numButtons then
-						self:SetUpButton(bar.buttons[buttonID], {itemID = utilityID})
 						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 						buttonID = buttonID + 1
 					end
@@ -714,24 +690,8 @@ function module:UpdateBar(id)
 						buttonID = buttonID + 1
 					end
 				end
-			elseif module == "TORGHAST" then -- Torghast Items
-				for _, itemID in pairs(torghastItems) do
-					local count = GetItemCount(itemID)
-					if count and count > 0 and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
-						self:SetUpButton(bar.buttons[buttonID], {itemID = itemID})
-						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-						buttonID = buttonID + 1
-					end
-				end
 			elseif module == "CUSTOM" then
-				for _, itemID in pairs(self.db.customList) do
-					local count = GetItemCount(itemID)
-					if count and count > 0 and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
-						self:SetUpButton(bar.buttons[buttonID], {itemID = itemID})
-						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
-						buttonID = buttonID + 1
-					end
-				end
+				AddButtons(self.db.customList)
 			end
 		end
 	end

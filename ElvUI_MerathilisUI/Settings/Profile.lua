@@ -463,7 +463,7 @@ MP.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODSL,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODSL,CUSTOM"
 	},
 }
 

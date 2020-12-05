@@ -459,7 +459,7 @@ local function AutoButtonTable()
 						FormatDesc("POTIONSL", format("%s (%s)", L["Potions"], L["Shadowlands"])),
 						FormatDesc("FLASK", L["Flasks"]),
 						FormatDesc("FLASKSL", format("%s (%s)", L["Flasks"], L["Shadowlands"])),
-						FormatDesc("FOODSL", format("%s (%s)", L["Food"], L["Crafted by mage"])),
+						FormatDesc("MAGEFOOD", format("%s (%s)", L["Food"], L["Crafted by mage"])),
 						FormatDesc("TORGHAST", L["Torghast Items"]),
 						FormatDesc("FOOD", L["Food"]),
 						FormatDesc("FOODSL", format("%s (%s)", L["Food"], L["Shadowlands"])),

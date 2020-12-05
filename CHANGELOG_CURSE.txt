@@ -1,3 +1,12 @@
+** v4.68, 05.12.2020**
+* AutoButtons: Added a new category: FOODVENDOR
+* Added some more vignettes to be ignored. Thx isp
+* Updated Garrison skin
+* Updated PlayerChoice skin
+* Added an own BigWigs Queue Timers
+* Added some hearthstones to MicroBar
+
+
 ** v4.67, 29.11.2020**
 * AutoButtons: Added/Updated Shadowlands Pots/Flasks
 * LocPanel: Updated Teleport Items

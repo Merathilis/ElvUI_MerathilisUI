@@ -16,6 +16,46 @@ local C_Timer_After = C_Timer.After
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
+local function UpdateFollowerList(self)
+	local followerFrame = self:GetParent()
+	local scrollFrame = followerFrame.FollowerList.listScroll
+	local buttons = scrollFrame.buttons
+
+	for i = 1, #buttons do
+		local button = buttons[i].Follower
+		local portrait = button.PortraitFrame
+
+		if not button.restyled then
+			button.BG:Hide()
+			button.Selection:SetTexture("")
+			button.AbilitiesBG:SetTexture("")
+			button.bg = MERS:CreateBDFrame(button, .25)
+
+			local hl = button:GetHighlightTexture()
+			hl:SetColorTexture(r, g, b, .1)
+			hl:ClearAllPoints()
+			hl:SetInside(button.bg)
+
+			if portrait then
+				portrait:ClearAllPoints()
+				portrait:SetPoint("TOPLEFT", 4, -1)
+			end
+
+			if button.BusyFrame then
+				button.BusyFrame:SetInside(button.bg)
+			end
+
+			button.restyled = true
+		end
+
+		if button.Selection:IsShown() then
+			button.bg:SetBackdropColor(r, g, b, .2)
+		else
+			button.bg:SetBackdropColor(0, 0, 0, .25)
+		end
+	end
+end
+
 -- [[ Garrison system ]]
 local function ReskinMissionPage(self)
 	self:StripTextures()
@@ -26,40 +66,35 @@ local function ReskinMissionPage(self)
 	select(4, self.Stage:GetRegions()):Hide()
 	select(5, self.Stage:GetRegions()):Hide()
 
-	local bg = MERS:CreateBDFrame(self.Stage)
-	bg:SetPoint("TOPLEFT", 4, 1)
-	bg:SetPoint("BOTTOMRIGHT", -4, -1)
-
-	local overlay = self.Stage:CreateTexture()
-	overlay:SetDrawLayer("ARTWORK", 3)
-	overlay:SetAllPoints(bg)
-	overlay:SetColorTexture(0, 0, 0, .5)
-
-	local iconbg = select(16, self:GetRegions())
-	iconbg:ClearAllPoints()
-	iconbg:SetPoint("TOPLEFT", 3, -1)
-
-	for i = 1, 3 do
-		local follower = self.Followers[i]
-		follower:GetRegions():Hide()
-		MERS:CreateBD(follower, .25)
-		MERS:ReskinGarrisonPortrait(follower.PortraitFrame)
-		follower.PortraitFrame:ClearAllPoints()
-		follower.PortraitFrame:SetPoint("TOPLEFT", 0, -3)
+	if self.Followers then
+		for i = 1, 3 do
+			local follower = self.Followers[i]
+			follower:GetRegions():Hide()
+			MERS:CreateBD(follower, .25)
+			MERS:ReskinGarrisonPortrait(follower.PortraitFrame)
+			follower.PortraitFrame:ClearAllPoints()
+			follower.PortraitFrame:SetPoint("TOPLEFT", 0, -3)
+		end
 	end
 
-	for i = 1, 10 do
-		select(i, self.RewardsFrame:GetRegions()):Hide()
+	if self.RewardsFrame then
+		for i = 1, 10 do
+			select(i, self.RewardsFrame:GetRegions()):Hide()
+		end
+		MERS:CreateBD(self.RewardsFrame, .25)
+
+		local item = self.RewardsFrame.OvermaxItem
+		item.Icon:SetDrawLayer("BORDER", 1)
+		MERS:ReskinIcon(item.Icon)
 	end
-	MERS:CreateBD(self.RewardsFrame, .25)
 
 	local env = self.Stage.MissionEnvIcon
 	env.Texture:SetDrawLayer("BORDER", 1)
 	MERS:ReskinIcon(env.Texture)
 
-	local item = self.RewardsFrame.OvermaxItem
-	item.Icon:SetDrawLayer("BORDER", 1)
-	MERS:ReskinIcon(item.Icon)
+	if self.CostFrame then
+		self.CostFrame.CostIcon:SetTexCoord(unpack(E.TexCoords))
+	end
 end
 
 local function ReskinMissionList(self)
@@ -71,12 +106,27 @@ local function ReskinMissionList(self)
 			local rareText = button.RareText
 			button:StripTextures()
 			MERS:CreateBD(button, .25)
-			rareText:ClearAllPoints()
-			rareText:SetPoint("BOTTOMLEFT", button, 20, 10)
-			rareOverlay:SetDrawLayer("BACKGROUND")
-			rareOverlay:SetTexture(E["media"].normTex)
-			rareOverlay:SetAllPoints()
-			rareOverlay:SetVertexColor(.098, .537, .969, .2)
+			MERS:CreateGradient(button)
+
+			if button.CompleteCheck then
+				button.CompleteCheck:SetAtlas("Adventures-Checkmark")
+			end
+
+			if rareText then
+				rareText:ClearAllPoints()
+				rareText:SetPoint("BOTTOMLEFT", button, 20, 10)
+			end
+			if rareOverlay then
+				rareOverlay:SetDrawLayer("BACKGROUND")
+				rareOverlay:SetTexture(E["media"].normTex)
+				rareOverlay:SetAllPoints()
+				rareOverlay:SetVertexColor(.098, .537, .969, .2)
+			end
+
+			if button.Overlay and button.Overlay.Overlay then
+				button.Overlay.Overlay:SetAllPoints()
+			end
+
 			button.styled = true
 		end
 	end
@@ -85,10 +135,12 @@ end
 local function ReskinMissionTabs(self)
 	for i = 1, 2 do
 		local tab = _G[self:GetName().."Tab"..i]
-		tab:StripTextures()
-		tab:CreateBackdrop('Transparent')
-		if i == 1 then
-			tab.backdrop:SetBackdropColor(r, g, b, .2)
+		if tab then
+			tab:StripTextures()
+			tab:CreateBackdrop('Transparent')
+			if i == 1 then
+				tab.backdrop:SetBackdropColor(r, g, b, .2)
+			end
 		end
 	end
 end
@@ -96,13 +148,27 @@ end
 local function ReskinMissionComplete(self)
 	local missionComplete = self.MissionComplete
 	local bonusRewards = missionComplete.BonusRewards
-	select(11, bonusRewards:GetRegions()):SetTextColor(1, .8, 0)
-	bonusRewards.Saturated:StripTextures()
-	for i = 1, 9 do
-		select(i, bonusRewards:GetRegions()):SetAlpha(0)
+		if bonusRewards then
+		select(11, bonusRewards:GetRegions()):SetTextColor(1, .8, 0)
+		bonusRewards.Saturated:StripTextures()
+		for i = 1, 9 do
+			select(i, bonusRewards:GetRegions()):SetAlpha(0)
+		end
+		MERS:CreateBD(bonusRewards)
 	end
-	MERS:CreateBD(bonusRewards)
-	MERS:Reskin(missionComplete.NextMissionButton)
+
+	if missionComplete.NextMissionButton then
+		MERS:Reskin(missionComplete.NextMissionButton)
+	end
+
+	if missionComplete.CompleteFrame then
+		missionComplete:StripTextures()
+		local bg = MERS:CreateBDFrame(missionComplete, .25)
+		bg:SetPoint("TOPLEFT", 3, 2)
+		bg:SetPoint("BOTTOMRIGHT", -3, -10)
+
+		missionComplete.CompleteFrame:StripTextures()
+	end
 end
 
 local function ReskinGarrMaterial(self)
@@ -113,23 +179,51 @@ local function ReskinGarrMaterial(self)
 	bg:SetPoint("BOTTOMRIGHT", -5, 6)
 end
 
+local function UpdateSpellAbilities(self, followerInfo)
+	local autoSpellInfo = followerInfo.autoSpellAbilities
+	for _ in ipairs(autoSpellInfo) do
+		local abilityFrame = self.autoSpellPool:Acquire()
+		if not abilityFrame.styled then
+			S:HandleIcon(abilityFrame.Icon)
+			if abilityFrame.SpellBorder then
+				abilityFrame.SpellBorder:Hide()
+			end
+
+			abilityFrame.styled = true
+		end
+	end
+end
+
 local function ReskinMissionFrame(self)
-	if self.GarrCorners then self.GarrCorners:Hide() end
+	self:StripTextures()
+	self:CreateBackdrop('Transparent')
+	self.CloseButton:StripTextures()
+	self.GarrCorners:Hide()
+
+	if self.OverlayElements then self.OverlayElements:SetAlpha(0) end
 	if self.ClassHallIcon then self.ClassHallIcon:Hide() end
-	if self.Topper then self.Topper:SetAtlas(UnitFactionGroup("player").."Frame-Header") end
 	if self.TitleScroll then
+		self.TitleScroll:StripTextures()
 		select(4, self.TitleScroll:GetRegions()):SetTextColor(1, .8, 0)
 	end
-
-	for i = 1, 3 do
-		local tab = _G[self:GetName().."Tab"..i]
-		if tab then MERS:ReskinTab(tab) end
-	end
-
 	if self.MapTab then self.MapTab.ScrollContainer.Child.TiledBackground:Hide() end
 
 	ReskinMissionComplete(self)
 	ReskinMissionPage(self.MissionTab.MissionPage)
+	self.FollowerTab:StripTextures()
+	hooksecurefunc(self.FollowerTab, "UpdateCombatantStats", UpdateSpellAbilities)
+
+	for _, item in pairs({self.FollowerTab.ItemWeapon, self.FollowerTab.ItemArmor}) do
+		if item then
+			local icon = item.Icon
+			item.Border:Hide()
+			S:HandleIcon(icon)
+
+			local bg = MERS:CreateBDFrame(item, .25)
+			bg:SetPoint("TOPLEFT", 41, -1)
+			bg:SetPoint("BOTTOMRIGHT", 0, 1)
+		end
+	end
 
 	local missionList = self.MissionTab.MissionList
 	missionList:StripTextures()
@@ -137,8 +231,26 @@ local function ReskinMissionFrame(self)
 	ReskinMissionTabs(missionList)
 	hooksecurefunc(missionList, "Update", ReskinMissionList)
 
-	local followerList = self.FollowerList
-	ReskinGarrMaterial(followerList)
+	local FollowerList = self.FollowerList
+	FollowerList:StripTextures()
+
+	ReskinGarrMaterial(FollowerList)
+	hooksecurefunc(FollowerList, "UpdateData", UpdateFollowerList)
+end
+
+local function UpdateSpellAbilities(spell, followerInfo)
+	local autoSpellInfo = followerInfo.autoSpellAbilities
+	for _ in ipairs(autoSpellInfo) do
+		local abilityFrame = spell.autoSpellPool:Acquire()
+		if not abilityFrame.IsSkinned then
+			S:HandleIcon(abilityFrame.Icon, true)
+
+			if abilityFrame.SpellBorder then
+				abilityFrame.SpellBorder:Hide()
+			end
+			abilityFrame.IsSkinned = true
+		end
+	end
 end
 
 local function LoadSkin()
@@ -657,6 +769,30 @@ local function LoadSkin()
 			Button.isSkinned = true
 		end
 	end
+
+	-- [[ Shadowlands Missions ]]
+	local CovenantMissionFrame = _G.CovenantMissionFrame
+	ReskinMissionFrame(CovenantMissionFrame)
+	CovenantMissionFrame:Styling()
+
+	CovenantMissionFrame.RaisedBorder:SetAlpha(0)
+	_G.CovenantMissionFrameMissions.RaisedFrameEdges:SetAlpha(0)
+
+	hooksecurefunc(CovenantMissionFrame, "SetupTabs", function(self)
+		self.MapTab:SetShown(not self.Tab2:IsShown())
+	end)
+
+	_G.CombatLog:DisableDrawLayer("BACKGROUND")
+	_G.CombatLog.ElevatedFrame:SetAlpha(0)
+	_G.CombatLog.CombatLogMessageFrame:StripTextures()
+	MERS:CreateBDFrame(_G.CombatLog.CombatLogMessageFrame, .25)
+
+	local bg = MERS:CreateBDFrame(CovenantMissionFrame.FollowerTab, .25)
+	bg:SetPoint("TOPLEFT", 3, 2)
+	bg:SetPoint("BOTTOMRIGHT", -3, -10)
+	CovenantMissionFrame.FollowerTab.RaisedFrameEdges:SetAlpha(0)
+	CovenantMissionFrame.FollowerTab.HealFollowerFrame.ButtonFrame:SetAlpha(0)
+	_G.CovenantMissionFrameFollowers.ElevatedFrame:SetAlpha(0)
 
 	-- WarPlan
 	if IsAddOnLoaded("WarPlan") then

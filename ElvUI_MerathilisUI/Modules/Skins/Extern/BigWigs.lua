@@ -2,7 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
-
+local _G = _G
 local select, unpack = select, unpack
 local tremove = table.remove
 local CreateFrame = CreateFrame
@@ -140,3 +140,34 @@ f:SetScript('OnEvent', function(self, event, msg)
 		end
 	end
 end)
+
+function MERS:BigWigs_QueueTimer()
+	if not E.private.muiSkins.addonSkins.bw then return end
+
+	if _G.BigWigsLoader then
+		_G.BigWigsLoader.RegisterMessage("MerathilisUI", "BigWigs_FrameCreated", function(_, frame, name)
+			if name == "QueueTimer" then
+				local parent = frame:GetParent()
+				frame:StripTextures()
+				frame:CreateBackdrop("Transparent")
+				frame.backdrop:Styling()
+				frame:SetStatusBarTexture(E.media.normTex)
+				frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
+				frame:Size(parent:GetWidth(), 10)
+				frame:ClearAllPoints()
+				frame:Point("TOPLEFT", parent, "BOTTOMLEFT", 0, -5)
+				frame:Point("TOPRIGHT", parent, "BOTTOMRIGHT", 0, -5)
+				frame.text.SetFormattedText = function(self, _, time)
+					self:SetText(format("%d", time))
+				end
+				frame.text:FontTemplate()
+				frame.text:ClearAllPoints()
+				frame.text:Point("TOP", frame, "TOP", 0, -3)
+			end
+		end)
+
+		E:Delay(2, function() _G.BigWigsLoader.UnregisterMessage("AddOnSkins", "BigWigs_FrameCreated") end)
+	end
+end
+
+MERS:AddCallbackForEnterWorld("BigWigs_QueueTimer")
