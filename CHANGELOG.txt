@@ -4,7 +4,7 @@
 [*]Updated Garrison skin
 [*]Updated PlayerChoice skin
 [*]Added an own BigWigs Queue Timers
-[*]Added some hearthstones to MicroBar
+[*]Added some hearthstones to MicroBar[/list]
 
 
 [b][color=orange]v4.67[/color], 29.11.2020[/b][list]
