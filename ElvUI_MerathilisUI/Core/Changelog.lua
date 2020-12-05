@@ -16,11 +16,12 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• AutoButtons: Added/Updated Shadowlands Pots/Flasks",
-		"• LocPanel: Updated Teleport Items",
-		"• Updated Rectangle Minimap to work in Torghast",
-		"• Added some vignettes to my blacklist in the Notifications",
-		"• Removed iFilger Profile",
+		"• AutoButtons: Added a new category: FOODVENDOR",
+		"• Added some more vignettes to be ignored. Thx isp",
+		"• Updated Garrison skin",
+		"• Updated PlayerChoice skin",
+		"• Added an own BigWigs Queue Timers",
+		"• Added some hearthstones to MicroBar",
 
 		-- "• ''",
 	" ",
