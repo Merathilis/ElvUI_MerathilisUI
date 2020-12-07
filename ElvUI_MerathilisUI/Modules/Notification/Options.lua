@@ -74,6 +74,12 @@ local function NotificationTable()
 				name = L["MISC_PARAGON"],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
+			quickJoin = {
+				order = 11,
+				type = "toggle",
+				name = L["Quick Join"],
+				disabled = function() return not E.db.mui.notification.enable end,
+			},
 		},
 	}
 end

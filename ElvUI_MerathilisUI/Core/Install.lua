@@ -144,7 +144,7 @@ local function SetupChat()
 	E.db["chat"]["useCustomTimeColor"] = true
 	E.db["chat"]["customTimeColor"] = {r = 0, g = 0.75, b = 0.98}
 	E.db["chat"]["panelBackdropNameRight"] = ""
-	E.db["chat"]["socialQueueMessages"] = true
+	E.db["chat"]["socialQueueMessages"] = false
 	E.db["chat"]["hideChatToggles"] = true
 	E.db["chat"]["tabSelector"] = "BOX"
 	E.db["chat"]["tabSelectorColor"] = {r = MER.r, g = MER.g, b = MER.b}

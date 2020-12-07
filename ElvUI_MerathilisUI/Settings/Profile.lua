@@ -282,6 +282,7 @@ MP.notification = {
 	invites = true,
 	guildEvents = true,
 	paragon = true,
+	quickJoin = true,
 }
 
 MP.databars = {}
