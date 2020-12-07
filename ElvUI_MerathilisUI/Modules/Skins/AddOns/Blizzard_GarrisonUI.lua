@@ -197,7 +197,6 @@ end
 local function ReskinMissionFrame(self)
 	self:StripTextures()
 	self:CreateBackdrop('Transparent')
-	self.CloseButton:StripTextures()
 	self.GarrCorners:Hide()
 
 	if self.OverlayElements then self.OverlayElements:SetAlpha(0) end
