@@ -471,6 +471,11 @@ local function SkinsTable()
 				name = L["Covenant Preview"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantPreview end,
 			},
+			covenantRenown = {
+				type = "toggle",
+				name = L["Covenant Renown"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantRenown end,
+			},
 			playerChoice = {
 				type = "toggle",
 				name = L["Player Choice"],
