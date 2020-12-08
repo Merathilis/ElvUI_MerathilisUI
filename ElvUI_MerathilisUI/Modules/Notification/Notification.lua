@@ -558,11 +558,11 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 
 		if name then
 			if not E.db.chat.socialQueueMessages then
-				self:DisplayToast(coloredName, ((isLeader and L["is looking for members"]) or L["joined a group"]).." ".."["..fullName or UNKNOWN.."]: "..name, _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+				self:DisplayToast(coloredName, format('%s: [%s] |cff00CCFF%s|r', (isLeader and L["is looking for members"]) or L["joined a group"], fullName or UNKNOWN, name), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 			end
 		else
 			if not E.db.chat.socialQueueMessages then
-				self:DisplayToast(coloredName, ((isLeader and L["is looking for members"]) or L["joined a group"]).." ".."["..fullName or UNKNOWN.."]: ", _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+				self:DisplayToast(coloredName, format('%s: |cff00CCFF%s|r', (isLeader and L["is looking for members"]) or L["joined a group"], fullName or UNKNOWN), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 			end
 		end
 	elseif firstQueue then
@@ -584,7 +584,7 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 		if output ~= "" then
 			if queueCount > 0 then outputCount = format(LFG_LIST_AND_MORE, queueCount) end
 			if not E.db.chat.socialQueueMessages then
-				self:DisplayToast(coloredName, SOCIAL_QUEUE_QUEUED_FOR.. ": "..output..outputCount, _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+				self:DisplayToast(coloredName, format('%s: |cff00CCFF%s|r %s', SOCIAL_QUEUE_QUEUED_FOR, output, outputCount), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 			end
 		end
 	end
