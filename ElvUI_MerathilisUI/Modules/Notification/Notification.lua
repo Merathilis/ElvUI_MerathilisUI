@@ -204,10 +204,9 @@ function module:CreateToast()
 
 	local text = MER:CreateText(toast, "OVERLAY", 10, nil)
 	text:SetShadowOffset(1, -1)
-	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 9)
+	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 30)
 	text:SetPoint("RIGHT", toast, -9, 0)
 	text:SetJustifyH("LEFT")
-	text:SetWidth(toast:GetRight() - sep:GetLeft() - 5)
 	toast.text = text
 
 	toast.AnimIn = CreateAnimationGroup(toast)
@@ -520,7 +519,6 @@ function module:QUEST_ACCEPTED(_, questID)
 	end
 end
 
-local socialQueueCache = {}
 function module:SocialQueueEvent(_, guid, numAddedItems)
 	if not module.db.quickJoin or InCombatLockdown() then return end
 	if numAddedItems == 0 or not guid then return end
@@ -560,11 +558,11 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 
 		if name then
 			if not E.db.chat.socialQueueMessages then
-				self:DisplayToast(coloredName, ((isLeader and L["is looking for members"]) or L["joined a group"]).."\n".."["..fullName or UNKNOWN.."]: "..name, _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+				self:DisplayToast(coloredName, ((isLeader and L["is looking for members"]) or L["joined a group"]).." ".."["..fullName or UNKNOWN.."]: "..name, _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 			end
 		else
 			if not E.db.chat.socialQueueMessages then
-				self:DisplayToast(coloredName, ((isLeader and L["is looking for members"]) or L["joined a group"]).."\n".."["..fullName or UNKNOWN.."]: ", _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+				self:DisplayToast(coloredName, ((isLeader and L["is looking for members"]) or L["joined a group"]).." ".."["..fullName or UNKNOWN.."]: ", _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 			end
 		end
 	elseif firstQueue then
