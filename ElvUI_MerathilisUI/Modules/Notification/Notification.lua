@@ -207,6 +207,7 @@ function module:CreateToast()
 	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 30)
 	text:SetPoint("RIGHT", toast, -9, 0)
 	text:SetJustifyH("LEFT")
+	text:SetWidth(toast:GetRight() - sep:GetLeft() - 5)
 	toast.text = text
 
 	toast.AnimIn = CreateAnimationGroup(toast)
