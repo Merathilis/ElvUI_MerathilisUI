@@ -557,6 +557,7 @@ MP.unitframes = {
 MP.maps = {
 	minimap = {
 		flash = true,
+		queueStatus = true,
 		instanceDifficulty = {
 			enable = true,
 			hideBlizzard = true,

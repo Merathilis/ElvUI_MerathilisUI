@@ -79,6 +79,10 @@ function module:StyleMinimap()
 	if not E.db.mui.maps.minimap.rectangleMinimap.enable or (COMP.SLE and E.private.sle.minimap.rectangle) then
 		Minimap:Styling(true, true, false)
 	end
+end
+
+function module:QueueStatus()
+	if E.private.general.minimap.enable ~= true or not E.db.mui.maps.minimap.queueStatus then return end
 
 	-- QueueStatus Button
 	_G.QueueStatusMinimapButtonBorder:Hide()
@@ -116,6 +120,7 @@ function module:Initialize()
 	self:MiniMapCoords()
 	self:MinimapPing()
 	self:StyleMinimap()
+	self:QueueStatus()
 
 	if E.db.mui.maps.minimap.flash then
 		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")
