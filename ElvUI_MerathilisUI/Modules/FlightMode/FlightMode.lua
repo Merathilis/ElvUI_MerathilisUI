@@ -286,10 +286,6 @@ function module:SetFlightMode(status)
 			end
 		end
 
-		if _G.ElvUI_StanceBar then
-			_G.ElvUI_StanceBar:SetAlpha(0)
-		end
-
 		-- Hide AutoButtons
 		for _, bar in pairs(AU.bars) do
 			if bar then
@@ -370,18 +366,12 @@ function module:SetFlightMode(status)
 		end
 
 		-- Revert AutoButtons
-		for _, bar in pairs(AU.bars) do
-			if bar then
-				bar:GetParent():Show()
-			end
+		for barName in pairs(AB.handledBars) do
+			AB:PositionAndSizeBar(barName)
 		end
 
 		if _G.ZoneAbilityFrame then
 			_G.ZoneAbilityFrame:SetAlpha(1)
-		end
-
-		if _G.ElvUI_StanceBar then
-			_G.ElvUI_StanceBar:SetAlpha(1)
 		end
 
 		-- Revert Chat
