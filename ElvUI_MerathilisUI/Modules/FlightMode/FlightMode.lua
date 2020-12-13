@@ -359,15 +359,15 @@ function module:SetFlightMode(status)
 		end
 
 		-- Revert ActionBars
-		for _, bar in pairs(AB.handledBars) do
-			if bar then
-				bar:SetAlpha(1)
-			end
+		for barName in pairs(AB.handledBars) do
+			AB:PositionAndSizeBar(barName)
 		end
 
 		-- Revert AutoButtons
-		for barName in pairs(AB.handledBars) do
-			AB:PositionAndSizeBar(barName)
+		for _, bar in pairs(AU.bars) do
+			if bar then
+				bar:GetParent():Show()
+			end
 		end
 
 		if _G.ZoneAbilityFrame then
