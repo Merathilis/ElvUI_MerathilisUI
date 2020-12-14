@@ -344,6 +344,7 @@ local torghastItems = {
 	176443, -- Fleeting Frenzy Potion
 	168035, -- Mawrat Harness
 	184652, -- Phantasmic Infusor
+	184662, -- Requisitioned Anima Cell
 }
 
 local questItemList = {}
