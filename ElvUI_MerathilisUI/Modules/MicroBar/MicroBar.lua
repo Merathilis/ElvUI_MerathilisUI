@@ -220,10 +220,12 @@ local ButtonTypes = {
 		name = _G.ENCOUNTER_JOURNAL,
 		icon = MER.Media.Icons.barEncounterJournal,
 		macro = {
-			LeftButton = "/click EJMicroButton"
+			LeftButton = "/click EJMicroButton",
+			RightButton = "/run WeeklyRewards_LoadUI(); WeeklyRewardsFrame:Show()"
 		},
 		tooltips = {
-			_G.ENCOUNTER_JOURNAL
+			LeftButtonIcon .. " " .. L["Encounter Journal"],
+			RightButtonIcon .. " " .. L["Weekly Rewards"],
 		},
 	},
 	FRIENDS = {
