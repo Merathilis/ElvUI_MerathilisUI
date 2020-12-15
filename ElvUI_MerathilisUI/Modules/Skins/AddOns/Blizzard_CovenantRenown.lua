@@ -2,6 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
 local _G = _G
+
 local hooksecurefunc = hooksecurefunc
 local CreateFrame = CreateFrame
 
@@ -9,19 +10,21 @@ local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.covenantRenown) or E.private.muiSkins.blizzard.covenantRenown ~= true then return end
 
 	local frame = _G.CovenantRenownFrame
-	frame:StripTextures()
 	frame:CreateBackdrop('Transparent')
 	frame.backdrop:Styling()
 
 	hooksecurefunc(frame, 'SetUpCovenantData', function(self)
-		self:StripTextures()
+		self.NineSlice:Hide()
+		self.Background:Hide()
+		self.BackgroundShadow:Hide()
+		self.Divider:Hide()
 		self.CloseButton.Border:Hide()
 	end)
 
 	hooksecurefunc(frame, 'SetRewards', function(self)
 		for reward in self.rewardsPool:EnumerateActive() do
 			if not reward.backdrop then
-				reward:CreateBackdrop("Transparent")
+				reward:CreateBackdrop('Transparent')
 				reward.backdrop:SetPoint("TOPLEFT", reward, 2, -15)
 				reward.backdrop:SetPoint("BOTTOMRIGHT", reward, -2, 15)
 
