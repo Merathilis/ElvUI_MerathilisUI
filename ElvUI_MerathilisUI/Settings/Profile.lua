@@ -112,7 +112,6 @@ MP.chat = {
 	hidePlayerBrackets = true,
 	hideChat = false,
 	emotes = true,
-	itemLevelLink = true,
 	filter = {
 		enable = true,
 		keywords = "",
@@ -229,6 +228,14 @@ MP.chat = {
 				abbr = _G.ROLL
 			},
 		},
+	},
+	chatLink = {
+		enable = true,
+		level = true,
+		icon = true,
+		armorCategory = true,
+		weaponCategory = true,
+		compatibile = true
 	},
 }
 
