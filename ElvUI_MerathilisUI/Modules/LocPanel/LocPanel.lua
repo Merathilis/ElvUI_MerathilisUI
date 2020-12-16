@@ -95,6 +95,7 @@ module.Hearthstones = {
 	{168907, nil, true}, -- Holographic Digitalization HS
 	{172179, nil, true}, -- Eternal Traveler's HS
 	{184353, nil, true}, -- Kyrian Hearthstone
+	{183716, nil, true}, -- Venthyr Sinstone
 }
 
 module.PortItems = {

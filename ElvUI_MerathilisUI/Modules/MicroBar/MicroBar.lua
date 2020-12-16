@@ -107,6 +107,8 @@ local Heartstones = {
 	168807,
 	168808,
 	172924,
+	183716,
+	184353,
 }
 
 local HeartstonesTable
