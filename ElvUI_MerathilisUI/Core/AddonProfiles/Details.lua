@@ -424,7 +424,7 @@ function MER:LoadDetailsProfile()
 							},
 						},
 						["fontstrings_text3_anchor"] = 35,
-						["strata"] = "LOW",
+						["strata"] = "MEDIUM",
 						["clickthrough_incombatonly"] = true,
 						["__snap"] = {
 						},
@@ -1168,7 +1168,7 @@ function MER:LoadDetailsProfile()
 					["font_face"] = "Friz Quadrata TT",
 					["frame"] = {
 						["show_title"] = false,
-						["strata"] = "LOW",
+						["strata"] = "MEDIUM",
 						["backdrop_color"] = {
 							0, -- [1]
 							0, -- [2]
@@ -1203,7 +1203,7 @@ function MER:LoadDetailsProfile()
 					["font_face"] = "Friz Quadrata TT",
 					["frame"] = {
 						["show_title"] = true,
-						["strata"] = "LOW",
+						["strata"] = "MEDIUM",
 						["backdrop_color"] = {
 							0, -- [1]
 							0, -- [2]
