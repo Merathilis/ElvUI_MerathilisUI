@@ -204,7 +204,7 @@ function module:CreateToast()
 
 	local text = MER:CreateText(toast, "OVERLAY", 10, nil)
 	text:SetShadowOffset(1, -1)
-	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 30)
+	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 25)
 	text:SetPoint("RIGHT", toast, -9, 0)
 	text:SetJustifyH("LEFT")
 	text:SetWidth(toast:GetRight() - sep:GetLeft() - 5)
