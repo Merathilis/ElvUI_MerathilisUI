@@ -286,6 +286,11 @@ function module:SetFlightMode(status)
 			end
 		end
 
+		-- Stance Bar
+		if _G.ElvUI_StanceBar:GetParent() == AB.fadeParent then
+			_G.ElvUI_StanceBar:SetAlpha(0)
+		end
+
 		-- Hide AutoButtons
 		for _, bar in pairs(AU.bars) do
 			if bar then
@@ -361,6 +366,11 @@ function module:SetFlightMode(status)
 		-- Revert ActionBars
 		for barName in pairs(AB.handledBars) do
 			AB:PositionAndSizeBar(barName)
+		end
+
+		-- Stance Bar
+		if _G.ElvUI_StanceBar:GetParent() == AB.fadeParent then
+			_G.ElvUI_StanceBar:SetAlpha(1)
 		end
 
 		-- Revert AutoButtons
