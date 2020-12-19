@@ -1427,6 +1427,12 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["height"] = -1
 		E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["size"] = 11
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["texture"] = "COMBAT"
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["customTexture"] = ""
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["anchorPoint"] = "CENTER"
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["yOffset"] = 0
 
 		-- TargetTarget
 		E.db["unitframe"]["units"]["targettarget"]["disableMouseoverGlow"] = false
