@@ -899,13 +899,15 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
 	E.db["actionbar"]["bar1"]["backdrop"] = true
 	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
-	E.db["actionbar"]["bar1"]["keepSizeRatio"] = false
-	E.db["actionbar"]["bar1"]["buttonHeight"] = 26
-	E.db["actionbar"]["bar1"]["buttonsize"] = 32
 
 	if layout == "dps" then
+		E.db["actionbar"]["bar1"]["keepSizeRatio"] = false
+		E.db["actionbar"]["bar1"]["buttonHeight"] = 26
+		E.db["actionbar"]["bar1"]["buttonsize"] = 32
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 3
 	elseif layout == "healer" then
+		E.db["actionbar"]["bar1"]["keepSizeRatio"] = true
+		E.db["actionbar"]["bar1"]["buttonsize"] = 32
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 2
 	end
 
@@ -919,13 +921,15 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 	E.db["actionbar"]["bar2"]["backdrop"] = false
 	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = true
-	E.db["actionbar"]["bar2"]["keepSizeRatio"] = false
-	E.db["actionbar"]["bar2"]["buttonHeight"] = 26
-	E.db["actionbar"]["bar2"]["buttonsize"] = 32
 
 	if layout == "dps" then
+		E.db["actionbar"]["bar2"]["keepSizeRatio"] = false
+		E.db["actionbar"]["bar2"]["buttonHeight"] = 26
+		E.db["actionbar"]["bar2"]["buttonsize"] = 32
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 3
 	elseif layout == "healer" then
+		E.db["actionbar"]["bar2"]["keepSizeRatio"] = true
+		E.db["actionbar"]["bar2"]["buttonsize"] = 32
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 2
 	end
 
@@ -973,9 +977,15 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar6"]["heightMult"] = 1
 	E.db["actionbar"]["bar6"]["backdrop"] = true
 	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = true
-	E.db["actionbar"]["bar6"]["keepSizeRatio"] = false
-	E.db["actionbar"]["bar6"]["buttonHeight"] = 26
-	E.db["actionbar"]["bar6"]["buttonsize"] = 32
+
+	if layout == "dps" then
+		E.db["actionbar"]["bar6"]["keepSizeRatio"] = false
+		E.db["actionbar"]["bar6"]["buttonHeight"] = 26
+		E.db["actionbar"]["bar6"]["buttonsize"] = 32
+	elseif layout == "healer" then
+		E.db["actionbar"]["bar6"]["keepSizeRatio"] = true
+		E.db["actionbar"]["bar6"]["buttonsize"] = 32
+	end
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar6"]["buttonspacing"] = 3
