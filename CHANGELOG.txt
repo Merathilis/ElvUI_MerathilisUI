@@ -1,3 +1,15 @@
+[b][color=orange]v4.69[/color], 20.12.2020[/b][list]
+[*]Updated GarrisonUI Skin
+[*]Updated CovenantRenown Skin
+[*]Added back the Quick Join messages to my notification
+[*]Updated some utility items for the AutoButtons
+[*]Update my item alerts
+[*]Added right click to EncounterJournal Button on the MicroBar to open Weekly Rewards
+[*]Added some hearthstones to the MicroBar and LocPanel
+[*]Updated ChatLinks
+[*]Updated some reminders[/list]
+
+
 [b][color=orange]v4.68[/color], 05.12.2020[/b][list]
 [*]AutoButtons: Added a new category: FOODVENDOR
 [*]Added some more vignettes to be ignored. Thx isp

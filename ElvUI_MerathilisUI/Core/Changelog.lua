@@ -16,12 +16,15 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• AutoButtons: Added a new category: FOODVENDOR",
-		"• Added some more vignettes to be ignored. Thx isp",
-		"• Updated Garrison skin",
-		"• Updated PlayerChoice skin",
-		"• Added an own BigWigs Queue Timers",
-		"• Added some hearthstones to MicroBar",
+		"• Updated GarrisonUI Skin",
+		"• Updated CovenantRenown Skin",
+		"• Added back the Quick Join messages to my notification",
+		"• Updated some utility items for the AutoButtons",
+		"• Update my item alerts",
+		"• Added right click to EncounterJournal Button on the MicroBar to open Weekly Rewards",
+		"• Added some hearthstones to the MicroBar and LocPanel",
+		"• Updated ChatLinks",
+		"• Updated some reminders",
 
 		-- "• ''",
 	" ",
