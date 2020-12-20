@@ -96,9 +96,6 @@ local Heartstones = {
 	166747,
 	168907,
 	172179,
-	180290,
-	182773,
-	184353,
 	48933,
 	87215,
 	132517,
@@ -107,6 +104,10 @@ local Heartstones = {
 	168807,
 	168808,
 	172924,
+	180290,
+	182773,
+	183716,
+	184353,
 }
 
 local HeartstonesTable
@@ -220,10 +221,12 @@ local ButtonTypes = {
 		name = _G.ENCOUNTER_JOURNAL,
 		icon = MER.Media.Icons.barEncounterJournal,
 		macro = {
-			LeftButton = "/click EJMicroButton"
+			LeftButton = "/click EJMicroButton",
+			RightButton = "/run WeeklyRewards_LoadUI(); WeeklyRewardsFrame:Show()"
 		},
 		tooltips = {
-			_G.ENCOUNTER_JOURNAL
+			LeftButtonIcon .. " " .. L["Encounter Journal"],
+			RightButtonIcon .. " " .. L["Weekly Rewards"],
 		},
 	},
 	FRIENDS = {

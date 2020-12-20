@@ -286,7 +286,8 @@ function module:SetFlightMode(status)
 			end
 		end
 
-		if _G.ElvUI_StanceBar then
+		-- Stance Bar
+		if _G.ElvUI_StanceBar:GetParent() == AB.fadeParent then
 			_G.ElvUI_StanceBar:SetAlpha(0)
 		end
 
@@ -363,10 +364,13 @@ function module:SetFlightMode(status)
 		end
 
 		-- Revert ActionBars
-		for _, bar in pairs(AB.handledBars) do
-			if bar then
-				bar:SetAlpha(1)
-			end
+		for barName in pairs(AB.handledBars) do
+			AB:PositionAndSizeBar(barName)
+		end
+
+		-- Stance Bar
+		if _G.ElvUI_StanceBar:GetParent() == AB.fadeParent then
+			_G.ElvUI_StanceBar:SetAlpha(1)
 		end
 
 		-- Revert AutoButtons
@@ -378,10 +382,6 @@ function module:SetFlightMode(status)
 
 		if _G.ZoneAbilityFrame then
 			_G.ZoneAbilityFrame:SetAlpha(1)
-		end
-
-		if _G.ElvUI_StanceBar then
-			_G.ElvUI_StanceBar:SetAlpha(1)
 		end
 
 		-- Revert Chat

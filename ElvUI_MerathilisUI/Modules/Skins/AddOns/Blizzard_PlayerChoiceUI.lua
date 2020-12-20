@@ -3,18 +3,11 @@ local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
-local select = select
+local next, select = next, select
 
+local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local IsInJailersTower = IsInJailersTower
-
-local function WhiteProgressText(self)
-	if self.IsSkinned then return end
-
-	self:SetTextColor(1, 1, 1)
-	self.SetTextColor = E.noop
-	self.IsSkinned = true
-end
 
 local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.playerChoice) or E.private.muiSkins.blizzard.playerChoice ~= true then return end
@@ -41,38 +34,48 @@ local function LoadSkin()
 
 		for i = 1, self:GetNumOptions() do
 			local option = self.Options[i]
+			local hasArtworkBorderArt = option.ArtworkBorder:IsShown() or option.ArtworkBorderDisabled:IsShown()
 			option.Background:SetAlpha(0)
+
 			if not option.Background.backdrop then
 				option.Background:CreateBackdrop('Transparent')
 				option.Background.backdrop:Point('TOPLEFT', option.Background, 'TOPLEFT', 2, 2)
 				option.Background.backdrop:Point('BOTTOMRIGHT', option.Background, 'BOTTOMRIGHT', -2, -2)
 				MERS:CreateGradient(option.Background.backdrop)
 			end
-
-			option.Background.backdrop:SetShown(not IsInJailersTower())
-			option.Header.Ribbon:SetAlpha(0)
+			option.Background.backdrop:SetShown(IsInJailersTower() and not hasArtworkBorderArt)
 
 			option.Header.Text:SetTextColor(1, .8, 0)
 			option.OptionText:SetTextColor(1, 1, 1)
+			option.Header.Ribbon:SetAlpha(0)
+			option.ArtworkBorder:SetAlpha(0)
+			option.ArtworkBorderDisabled:SetAlpha(0)
 
-			for i = 1, option.WidgetContainer:GetNumChildren() do
-				local child = select(i, option.WidgetContainer:GetChildren())
-				if child.Text then
-					child.Text:SetTextColor(1, 1, 1)
-				end
+			if not option.ArtBackdrop then
+				option.ArtBackdrop = CreateFrame("Frame", nil, option, 'BackdropTemplate')
+				option.ArtBackdrop:SetFrameLevel(option:GetFrameLevel())
+				option.ArtBackdrop:SetPoint("TOPLEFT", option.Artwork, -2, 2)
+				option.ArtBackdrop:SetPoint("BOTTOMRIGHT", option.Artwork, 2, -2)
+				option.ArtBackdrop:SetTemplate('Transparent')
+			end
+			option.ArtBackdrop:SetShown(not IsInJailersTower() and hasArtworkBorderArt)
 
-				if child.Spell then
-					child.Spell.Text:SetTextColor(1, 1, 1)
-				end
+			if option.WidgetContainer.widgetFrames then
+				for _, widgetFrame in next, option.WidgetContainer.widgetFrames do
+					if widgetFrame.widgetType == _G.Enum.UIWidgetVisualizationType.TextWithState then
+						widgetFrame.Text:SetTextColor(1, 1, 1)
 
-				for j = 1, child:GetNumChildren() do
-					local child2 = select(j, child:GetChildren())
-					if child2 then
-						if child2.Text then
-							WhiteProgressText(child2.Text)
+					elseif widgetFrame.widgetType == _G.Enum.UIWidgetVisualizationType.SpellDisplay then
+						local _, g = widgetFrame.Spell.Text:GetTextColor()
+						if g < 0.2 then
+							widgetFrame.Spell.Text:SetTextColor(1, 1, 1)
 						end
-						if child2.LeadingText then
-							WhiteProgressText(child2.LeadingText)
+
+						widgetFrame.Spell.Border:Hide()
+						widgetFrame.Spell.IconMask:Hide()
+
+						if widgetFrame.Spell.Icon:GetWidth() < 25 then
+							widgetFrame.Spell.Icon:SetSize(20, 20)
 						end
 					end
 				end

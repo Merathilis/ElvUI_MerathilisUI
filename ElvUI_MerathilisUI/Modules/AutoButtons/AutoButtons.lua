@@ -322,12 +322,18 @@ local banners = {
 }
 
 local utilities = {
-	153023,
-	109076,
 	49040,
+	109076,
 	132514,
-	164733,
-	164978,
+	153023,
+	171285,
+	171286,
+	171436,
+	171437,
+	171438,
+	171439,
+	172346,
+	172347,
 }
 
 local torghastItems = {
@@ -338,6 +344,7 @@ local torghastItems = {
 	176443, -- Fleeting Frenzy Potion
 	168035, -- Mawrat Harness
 	184652, -- Phantasmic Infusor
+	184662, -- Requisitioned Anima Cell
 }
 
 local questItemList = {}

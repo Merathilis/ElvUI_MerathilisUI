@@ -136,7 +136,7 @@ local function SetupChat()
 	E.db["chat"]["panelHeight"] = 146
 	E.db["chat"]["panelHeightRight"] = 146
 	E.db["chat"]["panelWidthRight"] = 288
-	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
+	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT_INSIDE"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
 	E.db["chat"]["copyChatLines"] = true
@@ -144,7 +144,7 @@ local function SetupChat()
 	E.db["chat"]["useCustomTimeColor"] = true
 	E.db["chat"]["customTimeColor"] = {r = 0, g = 0.75, b = 0.98}
 	E.db["chat"]["panelBackdropNameRight"] = ""
-	E.db["chat"]["socialQueueMessages"] = true
+	E.db["chat"]["socialQueueMessages"] = false
 	E.db["chat"]["hideChatToggles"] = true
 	E.db["chat"]["tabSelector"] = "BOX"
 	E.db["chat"]["tabSelectorColor"] = {r = MER.r, g = MER.g, b = MER.b}
@@ -1427,6 +1427,12 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["height"] = -1
 		E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["size"] = 11
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["texture"] = "COMBAT"
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["customTexture"] = ""
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["anchorPoint"] = "CENTER"
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["target"]["CombatIcon"]["yOffset"] = 0
 
 		-- TargetTarget
 		E.db["unitframe"]["units"]["targettarget"]["disableMouseoverGlow"] = false

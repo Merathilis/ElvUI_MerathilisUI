@@ -142,20 +142,6 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 	end
 end)
 
-local function AddIcon(link)
-	local texture = GetItemIcon(link)
-
-	return "\124T"..texture..":12:12:0:0:64:64:5:59:5:59\124t"..link
-end
-
-function module:CreateChatLootIcons(_, message, ...)
-	if IsAddOnLoaded("ChatLinkIcons") then return end
-
-	message = message:gsub("(\124c%x+\124Hitem:.-\124h\124r)", AddIcon)
-
-	return false, message, ...
-end
-
 function module:CreateSeparators()
 	if E.db.mui.chat.seperators.enable ~= true then return end
 
@@ -214,8 +200,6 @@ function module:Initialize()
 
 	-- Remove the Realm Name from system messages
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", module.RemoveCurrentRealmName)
-	-- Chat Icons for loot
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_LOOT", module.CreateChatLootIcons)
 
 	self:EasyChannel()
 	self:StyleChat()

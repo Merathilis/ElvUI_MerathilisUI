@@ -87,6 +87,7 @@ V.muiSkins = {
 		playerChoice = true,
 		chromieTime = true,
 		levelUp = true,
+		covenantRenown = true,
 	},
 
 	addonSkins = {

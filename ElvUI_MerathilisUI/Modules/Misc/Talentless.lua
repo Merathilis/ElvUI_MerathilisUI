@@ -91,16 +91,9 @@ end
 
 local items = {
 	{
-		141641, -- Codex of the Clear Mind (Pre-Legion)
-		141333, -- Codex of the Tranquil Mind (Legion)
-		153646, -- Codex of the Quiet Mind (BfA)
-		173048, -- Codes of the Still Mind (Shadowlands)
+		173048, -- Codex of the Still Mind (Shadowlands)
 	},
 	{
-		141640, -- Tome of the Clear Mind (Pre-Legion)
-		143785, -- Tome of the Tranquil Mind (BoP version)
-		141446, -- Tome of the Tranquil Mind (Legion)
-		153647, -- Tome of the Quiet Mind (BfA)
 		173049, -- Tome of the Still Mind (Shadowlands)
 	},
 }

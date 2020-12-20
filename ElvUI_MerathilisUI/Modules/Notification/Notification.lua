@@ -5,9 +5,6 @@ local CH = E:GetModule('Chat')
 local S = E:GetModule('Skins')
 
 -- Credits RealUI
-
---Cache global variables
---Lua functions
 local _G = _G
 local select, unpack, type, pairs, ipairs, tostring, next = select, unpack, type, pairs, ipairs, tostring, next
 local table = table
@@ -15,7 +12,6 @@ local tinsert, tremove = table.insert, table.remove
 local floor = math.floor
 local format, find, sub = string.format, string.find, string.sub
 
---WoW API / Variables
 local CreateFrame = CreateFrame
 local UnitIsAFK = UnitIsAFK
 local HasNewMail = HasNewMail
@@ -47,7 +43,13 @@ local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
 local MAIL_LABEL = MAIL_LABEL
 local HAVE_MAIL = HAVE_MAIL
 local UNKNOWN = UNKNOWN
--- GLOBALS:
+local LFG_LIST_AND_MORE = LFG_LIST_AND_MORE
+local SocialQueueUtil_GetQueueName = SocialQueueUtil_GetQueueName
+local SocialQueueUtil_GetRelationshipInfo = SocialQueueUtil_GetRelationshipInfo
+local C_SocialQueue_GetGroupMembers = C_SocialQueue.GetGroupMembers
+local C_SocialQueue_GetGroupQueues = C_SocialQueue.GetGroupQueues
+local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
+local C_LFGList_GetActivityInfo = C_LFGList.GetActivityInfo
 
 local bannerWidth = 255
 local bannerHeight = 68
@@ -57,6 +59,8 @@ local toasts = {}
 local activeToasts = {}
 local queuedToasts = {}
 local anchorFrame
+
+local SOCIAL_QUEUE_QUEUED_FOR = _G.SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some language have `:` on end
 
 local VignetteExclusionMapIDs = {
 	[579] = true, -- Lunarfall: Alliance garrison
@@ -192,7 +196,7 @@ function module:CreateToast()
 
 	local title = MER:CreateText(toast, "OVERLAY", 11, "OUTLINE")
 	title:SetShadowOffset(1, -1)
-	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -6)
+	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -2)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
 	title:SetJustifyH("LEFT")
 	title:SetNonSpaceWrap(true)
@@ -200,7 +204,7 @@ function module:CreateToast()
 
 	local text = MER:CreateText(toast, "OVERLAY", 10, nil)
 	text:SetShadowOffset(1, -1)
-	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 9)
+	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 20)
 	text:SetPoint("RIGHT", toast, -9, 0)
 	text:SetJustifyH("LEFT")
 	text:SetWidth(toast:GetRight() - sep:GetLeft() - 5)
@@ -368,7 +372,7 @@ function module:UPDATE_INVENTORY_DURABILITY()
 	if showRepair and value < 20 then
 		showRepair = false
 		E:Delay(30, ResetRepairNotification)
-		self:DisplayToast(_G.MINIMAP_TRACKING_REPAIR, format(L["%s slot needs to repair, current durability is %d."],Slots[1][2],value))
+		self:DisplayToast(_G.MINIMAP_TRACKING_REPAIR, format(L["%s slot needs to repair, current durability is %d."], Slots[1][2], value))
 	end
 end
 
@@ -516,6 +520,77 @@ function module:QUEST_ACCEPTED(_, questID)
 	end
 end
 
+function module:SocialQueueEvent(_, guid, numAddedItems)
+	if not module.db.quickJoin or InCombatLockdown() then return end
+	if numAddedItems == 0 or not guid then return end
+
+	local players = C_SocialQueue_GetGroupMembers(guid)
+	if not players then return end
+
+	local firstMember, numMembers, extraCount, coloredName = players[1], #players, ''
+	local playerName, nameColor = SocialQueueUtil_GetRelationshipInfo(firstMember.guid, nil, firstMember.clubId)
+	if numMembers > 1 then
+		extraCount = format(' +%s', numMembers - 1)
+	end
+	if playerName and playerName ~= '' then
+		coloredName = format('%s%s|r%s', nameColor, playerName, extraCount)
+	else
+		coloredName = format('{%s%s}', UNKNOWN, extraCount)
+	end
+
+	local queues = C_SocialQueue_GetGroupQueues(guid)
+	local firstQueue = queues and queues[1]
+	local isLFGList = firstQueue and firstQueue.queueData and firstQueue.queueData.queueType == 'lfglist'
+
+	if isLFGList and firstQueue and firstQueue.eligible then
+		local activityID, name, leaderName, fullName, isLeader
+
+		if firstQueue.queueData.lfgListID then
+			local searchResultInfo = C_LFGList_GetSearchResultInfo(firstQueue.queueData.lfgListID)
+			if searchResultInfo then
+				activityID, name, leaderName = searchResultInfo.activityID, searchResultInfo.name, searchResultInfo.leaderName
+				isLeader = CH:SocialQueueIsLeader(playerName, leaderName)
+			end
+		end
+
+		if activityID or firstQueue.queueData.activityID then
+			fullName = C_LFGList_GetActivityInfo(activityID or firstQueue.queueData.activityID)
+		end
+
+		if name then
+			if not E.db.chat.socialQueueMessages then
+				self:DisplayToast(coloredName, format('%s: [%s] |cff00CCFF%s|r', (isLeader and L["is looking for members"]) or L["joined a group"], fullName or UNKNOWN, name), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			end
+		else
+			if not E.db.chat.socialQueueMessages then
+				self:DisplayToast(coloredName, format('%s: |cff00CCFF%s|r', (isLeader and L["is looking for members"]) or L["joined a group"], fullName or UNKNOWN), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			end
+		end
+	elseif firstQueue then
+		local output, outputCount, queueCount, queueName = '', '', 0
+		for _, queue in pairs(queues) do
+			if type(queue) == "table" and queue.eligible then
+				queueName = (queue.queueData and SocialQueueUtil_GetQueueName(queue.queueData)) or ""
+				if queueName ~= "" then
+					if output == "" then
+						output = queueName:gsub("\n.+","") -- grab only the first queue name
+						queueCount = queueCount + select(2, queueName:gsub("\n","")) -- collect additional on single queue
+					else
+						queueCount = queueCount + 1 + select(2, queueName:gsub("\n","")) -- collect additional on additional queues
+					end
+				end
+			end
+		end
+
+		if output ~= "" then
+			if queueCount > 0 then outputCount = format(LFG_LIST_AND_MORE, queueCount) end
+			if not E.db.chat.socialQueueMessages then
+				self:DisplayToast(coloredName, format('%s: |cff00CCFF%s|r %s', SOCIAL_QUEUE_QUEUED_FOR, output, outputCount), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			end
+		end
+	end
+end
+
 function module:Initialize()
 	module.db = E.db.mui.notification
 	MER:RegisterDB(self, "notification")
@@ -534,6 +609,7 @@ function module:Initialize()
 	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("QUEST_ACCEPTED")
+	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", 'SocialQueueEvent')
 
 	self.lastMinimapRare = {time = 0, id = nil}
 end

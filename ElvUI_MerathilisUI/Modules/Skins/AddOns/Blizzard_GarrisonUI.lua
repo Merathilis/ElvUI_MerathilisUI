@@ -197,7 +197,6 @@ end
 local function ReskinMissionFrame(self)
 	self:StripTextures()
 	self:CreateBackdrop('Transparent')
-	self.CloseButton:StripTextures()
 	self.GarrCorners:Hide()
 
 	if self.OverlayElements then self.OverlayElements:SetAlpha(0) end
@@ -777,6 +776,8 @@ local function LoadSkin()
 
 	CovenantMissionFrame.RaisedBorder:SetAlpha(0)
 	_G.CovenantMissionFrameMissions.RaisedFrameEdges:SetAlpha(0)
+	_G.CovenantMissionFrameMissions.MaterialFrame.LeftFiligree:SetAlpha(0)
+	_G.CovenantMissionFrameMissions.MaterialFrame.RightFiligree:SetAlpha(0)
 
 	hooksecurefunc(CovenantMissionFrame, "SetupTabs", function(self)
 		self.MapTab:SetShown(not self.Tab2:IsShown())

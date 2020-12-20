@@ -33,6 +33,7 @@ MER.Bags = MER:NewModule('MER_Bags', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.
 MER.BagInfo = MER:NewModule("MER_BagInfo", 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Chat = MER:NewModule('MER_Chat', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 MER.ChatBar = MER:NewModule('MER_ChatBar', 'AceEvent-3.0', 'AceHook-3.0')
+MER.ChatLink = MER:NewModule('MER_ChatLink', 'AceEvent-3.0')
 MER.Cooldown =  MER:NewModule('MER_Cooldown', 'AceHook-3.0')
 MER.Compatibility = MER:NewModule('MER_Compatibility')
 MER.CombatText = MER:NewModule('MER_CombatText', 'AceEvent-3.0', 'AceTimer-3.0')

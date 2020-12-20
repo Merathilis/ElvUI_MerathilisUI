@@ -94,7 +94,10 @@ module.Hearthstones = {
 	{166747, nil, true}, -- Brewfest HS
 	{168907, nil, true}, -- Holographic Digitalization HS
 	{172179, nil, true}, -- Eternal Traveler's HS
+	{180290, nil, true}, -- Night Fae Hearthstone
+	{182773, nil, true}, -- Necrolord Hearthstone
 	{184353, nil, true}, -- Kyrian Hearthstone
+	{183716, nil, true}, -- Venthyr Sinstone
 }
 
 module.PortItems = {

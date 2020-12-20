@@ -112,7 +112,6 @@ MP.chat = {
 	hidePlayerBrackets = true,
 	hideChat = false,
 	emotes = true,
-	itemLevelLink = true,
 	filter = {
 		enable = true,
 		keywords = "",
@@ -230,6 +229,14 @@ MP.chat = {
 			},
 		},
 	},
+	chatLink = {
+		enable = true,
+		level = true,
+		icon = true,
+		armorCategory = true,
+		weaponCategory = true,
+		compatibile = true
+	},
 }
 
 MP.colors = {
@@ -282,6 +289,7 @@ MP.notification = {
 	invites = true,
 	guildEvents = true,
 	paragon = true,
+	quickJoin = true,
 }
 
 MP.databars = {}
@@ -556,6 +564,7 @@ MP.unitframes = {
 MP.maps = {
 	minimap = {
 		flash = true,
+		queueStatus = true,
 		instanceDifficulty = {
 			enable = true,
 			hideBlizzard = true,
@@ -723,7 +732,7 @@ MP.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,184353",
+		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,

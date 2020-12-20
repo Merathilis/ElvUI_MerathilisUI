@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Chat')
 local CB = MER:GetModule('MER_ChatBar')
+local CL = MER:GetModule('MER_ChatLink')
 local LSM = E.LSM
 
 local _G = _G
@@ -38,11 +39,6 @@ local function ChatTable()
 				order = 5,
 				type = "toggle",
 				name = L["Emotes"],
-			},
-			itemLevelLink = {
-				order = 6,
-				type = "toggle",
-				name = L["Item Level Links"],
 			},
 			seperators = {
 				order = 10,
@@ -495,10 +491,7 @@ local function ChatTable()
 										end,
 										set = function(info, r, g, b, a)
 											E.db.mui.chat.chatBar.channels.roll.color = {
-												r = r,
-												g = g,
-												b = b,
-												a = a
+												r = r, g = g, b = b, a = a
 											}
 											CB:UpdateBar()
 										end
@@ -522,6 +515,71 @@ local function ChatTable()
 									}
 								}
 							}
+						},
+					},
+				},
+			},
+			chatLink = {
+				order = 40,
+				type = "group",
+				name = E.NewSign..MER:cOption(L["Chat Link"], 'orange'),
+				guiInline = true,
+				get = function(info)
+					return E.db.mui.chat.chatLink[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.chat.chatLink[info[#info]] = value
+					CL:ProfileUpdate()
+				end,
+				args = {
+					desc = {
+						order = 0,
+						type = "group",
+						inline = true,
+						name = L["Description"],
+						args = {
+							feature = {
+								order = 1,
+								type = "description",
+								name = L["Add extra information on the link, so that you can get basic information but do not need to click."],
+								fontSize = "medium"
+							}
+						}
+					},
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"]
+					},
+					general = {
+						order = 2,
+						type = "group",
+						inline = true,
+						name = L["Additional Information"],
+						disabled = function()
+							return not E.db.mui.chat.chatLink.enable
+						end,
+						args = {
+							level = {
+								order = 1,
+								type = "toggle",
+								name = L["Level"],
+							},
+							icon = {
+								order = 2,
+								type = "toggle",
+								name = L["Icon"],
+							},
+							armorCategory = {
+								order = 3,
+								type = "toggle",
+								name = L["Armor Category"],
+							},
+							weaponCategory = {
+								order = 4,
+								type = "toggle",
+								name = L["Weapon Category"],
+							},
 						},
 					},
 				},

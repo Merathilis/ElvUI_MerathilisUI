@@ -6,7 +6,6 @@ local MERC = MER:GetModule('MER_Chat')
 local _G = _G
 local pairs, ipairs, tonumber = pairs, ipairs, tonumber
 local format = string.format
-local strsub = strsub
 local strsplit = strsplit
 local time = time
 local tinsert = table.insert
@@ -16,24 +15,19 @@ local ShowUIPanel = ShowUIPanel
 local UIParent = UIParent
 
 local firstLines = {
-	"^Details!: (.*)$",										-- Details!
-	"^Recount - (.*)$", 									-- Recount
-	"^Skada: (.*) for (.*):$",								-- Skada enUS
-	"^Skada: (.*) für (.*):$",								-- Skada deDE
-	"^Skada: (.*) pour (.*):$",								-- Skada frFR
-	"^Отчёт Skada: (.*), с (.*):$",							-- Skada ruRU
-	"^Skada: (.*) por (.*):$",								-- Skada esES/ptBR
-	"^Skada: (.*) per (.*):$",								-- Skada itIT
-	"^(.*) 의 Skada 보고 (.*):$",								-- Skada koKR
-	"^Skada报告(.*)的(.*):$",								-- Skada zhCN
-	"^Skada:(.*)來自(.*):$",								-- Skada zhTW
-	"^Numeration: (.*) - (.*)$",							-- Numeration
-	"^(.*) Done for (.*)$",									-- TinyDPS enUS
-	"^(.*) für (.*)$",										-- TinyDPS deDE
-	"데미지량 -(.*)$",											-- TinyDPS koKR
-	"힐량 -(.*)$",											-- TinyDPS koKR
-	"Урон:(.*)$",											-- TinyDPS ruRU
-	"Исцеление:(.*)$"										-- TinyDPS ruRU
+	"^Recount - (.*)$", --Recount
+	"^Skada: (.*) for (.*):$", -- Skada enUS
+	"^Skada: (.*) por (.*):$", -- Skada esES/ptBR
+	"^Skada: (.*) für (.*):$", -- Skada deDE
+	"^Skada: (.*) pour (.*):$", -- Skada frFR
+	"^Skada: (.*) per (.*):$", -- Skada itIT
+	"^(.*) ? Skada ?? (.*):$", -- Skada koKR
+	"^Отчёт Skada: (.*), с (.*):$", -- Skada ruRU
+	"^Skada??(.*)?(.*):$", -- Skada zhCN
+	"^Skada:(.*)??(.*):$", -- Skada zhTW
+	"^(.*) Done for (.*)$", -- TinyDPS
+	"^Numeration: (.*)$", -- Numeration
+	"^Details!:(.*)$" -- Details!
 }
 
 local nextLines = {
@@ -65,18 +59,16 @@ local events = {
 }
 
 local function FilterLine(event, source, message, ...)
-	for i = 1, #nextLines do
-		local v = nextLines[i]
+	local spam = false
+	for k, v in ipairs(nextLines) do
 		if message:match(v) then
 			local curTime = time()
-			for i = 1, #meters do
-				local j = meters[i]
+			for i, j in ipairs(meters) do
 				local elapsed = curTime - j.time
-				if j.source == source and j.event == event and elapsed < 5 then
+				if j.source == source and j.event == event and elapsed < 1 then
 					local toInsert = true
-
-					for i = 1, #j.data do
-						if j.data[i] == message then
+					for a, b in ipairs(j.data) do
+						if b == message then
 							toInsert = false
 						end
 					end
@@ -90,46 +82,47 @@ local function FilterLine(event, source, message, ...)
 		end
 	end
 
-	for i = 1, #firstLines do
-		local v = firstLines[i]
+	for k, v in ipairs(firstLines) do
 		local newID = 0
 		if message:match(v) then
 			local curTime = time()
 
-			for i = 1, #meters do
-				local j = meters[i]
+			for i, j in ipairs(meters) do
 				local elapsed = curTime - j.time
 				if j.source == source and j.event == event and elapsed < 1 then
 					newID = i
-					return true, true, format("|Hspam:%1$d|h|cFFFFFF00[%2$s]|r|h", newID or 0, message or "nil")
+					return true, true, format('|HMergeSpamMeter:%1$d|h|cFFFFFF00[%2$s]|r|h', newID or 0, message or 'nil')
 				end
 			end
 
 			tinsert(meters, {source = source, event = event, time = curTime, data = {}, title = message})
 
-			for i = 1, #meters do
-				local j = meters[i]
+			for i, j in ipairs(meters) do
 				if j.source == source and j.event == event and j.time == curTime then
 					newID = i
 				end
 			end
 
-			return true, true, format("|Hspam:%1$d|h|cFFFFFF00[%2$s]|r|h", newID or 0, message or "nil")
+			return true, true, format('|HMergeSpamMeter:%1$d|h|cFFFFFF00[%2$s]|r|h', newID or 0, message or 'nil')
 		end
 	end
 	return false, false, nil
 end
 
-local SetHyperlink = _G.ItemRefTooltip.SetHyperlink
-function _G.ItemRefTooltip:SetHyperlink(link, ...)
-	if link and (strsub(link, 1, 4) == "spam") then
-		local _, id = strsplit(":", link)
+local orig2 = SetItemRef
+function SetItemRef(link, text, button, frame)
+	local linkType, id = strsplit(':', link)
+	if linkType == 'MergeSpamMeter' then
 		local meterID = tonumber(id)
+		ShowUIPanel(_G.ItemRefTooltip)
+		if not _G.ItemRefTooltip:IsShown() then
+			_G.ItemRefTooltip:SetOwner(UIParent, 'ANCHOR_PRESERVE')
+		end
 		_G.ItemRefTooltip:ClearLines()
 		_G.ItemRefTooltip:AddLine(meters[meterID].title)
-		_G.ItemRefTooltip:AddLine(format(BY_SOURCE..": %s", meters[meterID].source))
-		for _, v in ipairs(meters[meterID].data) do
-			local left, right = v:match("^(.*)  (.*)$")
+		_G.ItemRefTooltip:AddLine(format(_G.BY_SOURCE..': %s', meters[meterID].source))
+		for k, v in ipairs(meters[meterID].data) do
+			local left, right = v:match('^(.*)  (.*)$')
 			if left and right then
 				_G.ItemRefTooltip:AddDoubleLine(left, right, 1, 1, 1, 1, 1, 1)
 			else
@@ -137,19 +130,22 @@ function _G.ItemRefTooltip:SetHyperlink(link, ...)
 			end
 		end
 		_G.ItemRefTooltip:Show()
-		return
+	else
+		return orig2(link, text, button, frame)
 	end
-
-	SetHyperlink(self, link, ...)
 end
 
-local function ParseChatEvent(_, event, message, sender, ...)
-	local isRecount, isFirstLine, newMessage = FilterLine(event, sender, message)
-	if isRecount then
-		if isFirstLine then
-			return false, newMessage, sender, ...
-		else
-			return true
+local function ParseChatEvent(self, event, message, sender, ...)
+	for _, value in ipairs(events) do
+		if event == value then
+			local isRecount, isFirstLine, newMessage = FilterLine(event, sender, message)
+			if isRecount then
+				if isFirstLine then
+					return false, newMessage, sender, ...
+				else
+					return true
+				end
+			end
 		end
 	end
 end

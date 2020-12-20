@@ -1,16 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
---Cache global variables
---Lua functions
-
---WoW API / Variables
-
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS:
-
 MER.ReminderList = {
 	MAGE = {
-		["Intellect"] = {
+		[1] = { -- Arcane Intellect
 			["spellGroup"] = {
 				[1459] = true,
 				["defaultIcon"] = 1459,  -- Arcane Intellect
@@ -23,7 +15,7 @@ MER.ReminderList = {
 	},
 
 	PRIEST = {
-		["Stamina"] = {
+		[2] = { -- Power Word: Fortitude
 			["spellGroup"] = {
 				[21562] = true,
 				["defaultIcon"] = 21562, -- Power Word: Fortitude
@@ -36,7 +28,7 @@ MER.ReminderList = {
 	},
 
 	ROGUE = {
-		["Poisons"] = {
+		[1] = { -- Poisons
 			["spellGroup"] = {
 				[8679] = true,	 -- Wound Poison
 				[2823] = true,	 -- Deadly Poison
@@ -55,22 +47,33 @@ MER.ReminderList = {
 	},
 
 	SHAMAN = {
-		["Shield"] = {
+		[1] = { -- Lightning Shield
 			["spellGroup"] = {
 				[192106] = true, -- Lightning Shield
 				[974] = true, -- Earth Shield
-				[52127] = true, -- Water Shield
 				["defaultIcon"] = 192106,
 			},
 			["enable"] = true,
 			["instance"] = true,
 			["pvp"] = true,
 			["strictFilter"] = true,
+			["tree"] = 1, 2
+		},
+		[2] = { -- Water Shield
+			["spellGroup"] = {
+				[52127] = true, -- Water Shield
+				["defaultIcon"] = 52127,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			["tree"] = 3,
 		},
 	},
 
 	WARRIOR = {
-		["Stamina"] = {
+		[1] = { -- Battle Shout
 			["spellGroup"] = {
 				[6673] = true, -- Battle Shout
 				["defaultIcon"] = 6673,
