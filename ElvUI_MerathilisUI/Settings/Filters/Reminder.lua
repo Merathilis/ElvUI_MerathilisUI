@@ -1,13 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
---Cache global variables
---Lua functions
-
---WoW API / Variables
-
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS:
-
 MER.ReminderList = {
 	MAGE = {
 		["Intellect"] = {
@@ -55,17 +47,28 @@ MER.ReminderList = {
 	},
 
 	SHAMAN = {
-		["Shield"] = {
+		["LightningShield"] = {
 			["spellGroup"] = {
 				[192106] = true, -- Lightning Shield
 				[974] = true, -- Earth Shield
-				[52127] = true, -- Water Shield
 				["defaultIcon"] = 192106,
 			},
 			["enable"] = true,
 			["instance"] = true,
 			["pvp"] = true,
 			["strictFilter"] = true,
+			["tree"] = 1, 2
+		},
+		["WaterShield"] = {
+			["spellGroup"] = {
+				[52127] = true, -- Water Shield
+				["defaultIcon"] = 52127,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			["tree"] = 3,
 		},
 	},
 
