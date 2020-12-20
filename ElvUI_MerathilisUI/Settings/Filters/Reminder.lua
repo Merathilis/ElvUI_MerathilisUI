@@ -2,7 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 
 MER.ReminderList = {
 	MAGE = {
-		["Intellect"] = {
+		[1] = { -- Arcane Intellect
 			["spellGroup"] = {
 				[1459] = true,
 				["defaultIcon"] = 1459,  -- Arcane Intellect
@@ -15,7 +15,7 @@ MER.ReminderList = {
 	},
 
 	PRIEST = {
-		["Stamina"] = {
+		[2] = { -- Power Word: Fortitude
 			["spellGroup"] = {
 				[21562] = true,
 				["defaultIcon"] = 21562, -- Power Word: Fortitude
@@ -28,7 +28,7 @@ MER.ReminderList = {
 	},
 
 	ROGUE = {
-		["Poisons"] = {
+		[1] = { -- Poisons
 			["spellGroup"] = {
 				[8679] = true,	 -- Wound Poison
 				[2823] = true,	 -- Deadly Poison
@@ -47,7 +47,7 @@ MER.ReminderList = {
 	},
 
 	SHAMAN = {
-		["LightningShield"] = {
+		[1] = { -- Lightning Shield
 			["spellGroup"] = {
 				[192106] = true, -- Lightning Shield
 				[974] = true, -- Earth Shield
@@ -59,7 +59,7 @@ MER.ReminderList = {
 			["strictFilter"] = true,
 			["tree"] = 1, 2
 		},
-		["WaterShield"] = {
+		[2] = { -- Water Shield
 			["spellGroup"] = {
 				[52127] = true, -- Water Shield
 				["defaultIcon"] = 52127,
@@ -73,7 +73,7 @@ MER.ReminderList = {
 	},
 
 	WARRIOR = {
-		["Stamina"] = {
+		[1] = { -- Battle Shout
 			["spellGroup"] = {
 				[6673] = true, -- Battle Shout
 				["defaultIcon"] = 6673,
