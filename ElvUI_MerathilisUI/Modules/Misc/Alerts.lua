@@ -72,22 +72,10 @@ end
 ------------------------]]
 local lastTime = 0
 local itemList = {
-	[126459] = true, -- Blingtron 4000
-	[161414] = true, -- Blingtron 5000
-	[298926] = true, -- Blingtron 7000
-	[185709] = true, -- Sugar-Crusted Fish Feast
-	[199109] = true, -- Auto-Hammer
-	[226241] = true, -- Codex of the Tranquil Mind
-	[22700] = true,	-- Field Repair Bot 74A
-	[256230] = true, -- Codex of the Quiet Mind
-	[259409] = true, -- Galley Banquet
-	[259410] = true, -- BounPtiful Captain's Feast
-	[276972] = true, -- Mystical Cauldron
-	[286050] = true, -- Sanguinated Feast
-	[44389] = true,	-- Field Repair Bot 110G
 	[54710] = true, -- MOLL-E
 	[54711] = true,	-- Scrapbot
 	[67826] = true,	-- Jeeves
+	[199109] = true, -- Auto-Hammer
 	[265116] = true, -- Unstable Temporal Time Shifter
 	[308458] = true,	-- Surprisingly Palatable Feast
 	[308462] = true,	-- Feast of Gluttonous Hedonism
