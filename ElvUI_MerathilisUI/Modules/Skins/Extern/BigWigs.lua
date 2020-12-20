@@ -115,11 +115,9 @@ end
 
 local f = CreateFrame("Frame")
 local function RegisterStyle()
-	if not BigWigs then return end
+	if not BigWigsAPI then return end
 	local styleName = MER.Title or 'MerathilisUI'
-	local bars = BigWigs:GetPlugin('Bars', true)
-	if not bars then return end
-	bars:RegisterBarStyle(styleName, {
+	BigWigsAPI:RegisterBarStyle(styleName, {
 		apiVersion = 1,
 		version = 10,
 		GetSpacing = function() return 20 end,
@@ -127,7 +125,7 @@ local function RegisterStyle()
 		BarStopped = FreeStyle,
 		GetStyleName = function() return styleName end,
 	})
-	bars.defaultDB.barStyle = styleName
+	--BigWigsAPI.defaultDB.barStyle = styleName
 end
 f:RegisterEvent('ADDON_LOADED')
 
