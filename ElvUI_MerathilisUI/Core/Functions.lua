@@ -466,7 +466,7 @@ end
 function MER:CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	local text = f:CreateFontString(nil, layer)
 	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
-	text:SetHeight(text:GetStringHeight())
+	text:SetHeight(text:GetStringHeight()+20)
 
 	if text then
 		text:SetText(text)
