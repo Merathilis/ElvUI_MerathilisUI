@@ -370,8 +370,8 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["bags"]["cooldown"]["hoursColor"]["r"] = 0.4
 
-	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,47"
-	E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,47"
+	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,194"
+	E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,194"
 
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
