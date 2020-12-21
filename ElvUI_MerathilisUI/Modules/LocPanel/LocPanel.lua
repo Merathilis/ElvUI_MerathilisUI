@@ -118,7 +118,7 @@ module.PortItems = {
 	{95567, nil, true}, --Kirin Tor beakon
 	{95568, nil, true}, --Sunreaver beakon
 	{87548}, --Pandaria Arch
-	{180817},
+	{180817}, --Cypher of Relocation
 }
 module.EngineerItems = {
 	{18984, nil, true}, --Dimensional Ripper - Everlook
