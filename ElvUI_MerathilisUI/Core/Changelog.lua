@@ -16,15 +16,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Updated GarrisonUI Skin",
-		"• Updated CovenantRenown Skin",
-		"• Added back the Quick Join messages to my notification",
-		"• Updated some utility items for the AutoButtons",
-		"• Update my item alerts",
-		"• Added right click to EncounterJournal Button on the MicroBar to open Weekly Rewards",
-		"• Added some hearthstones to the MicroBar and LocPanel",
-		"• Updated ChatLinks",
-		"• Updated some reminders",
+		"• Take account for the new skin api in BigWigs",
+		"• Layout: Update the position for Bags/Bank",
 
 		-- "• ''",
 	" ",

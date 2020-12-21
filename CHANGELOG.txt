@@ -1,3 +1,8 @@
+[b][color=orange]v4.70[/color], 21.12.2020[/b][list]
+[*]Take account for the new skin api in BigWigs
+[*]Layout: Update the position for Bags/Bank[/list]
+
+
 [b][color=orange]v4.69[/color], 20.12.2020[/b][list]
 [*]Updated GarrisonUI Skin
 [*]Updated CovenantRenown Skin
