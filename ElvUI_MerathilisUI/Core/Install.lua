@@ -64,7 +64,7 @@ local function SetupChat()
 		E.db.movers = {}
 	end
 
-	for i = 1, NUM_CHAT_WINDOWS do
+	for i = 1, _G.NUM_CHAT_WINDOWS do
 		local frame = _G[format("ChatFrame%s", i)]
 		local chatFrameId = frame:GetID()
 		local chatName = FCF_GetChatWindowInfo(chatFrameId)
@@ -339,7 +339,7 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["countFontSize"] = 10
 	E.db["bags"]["countFontOutline"] = "OUTLINE"
 	E.db["bags"]["bagSize"] = 34
-	E.db["bags"]["bagWidth"] = 452
+	E.db["bags"]["bagWidth"] = 450
 	E.db["bags"]["bankSize"] = 34
 	E.db["bags"]["bankWidth"] = 427
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
@@ -370,7 +370,7 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["bags"]["cooldown"]["hoursColor"]["r"] = 0.4
 
-	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,194"
+	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,194"
 	E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,194"
 
 	--[[----------------------------------
