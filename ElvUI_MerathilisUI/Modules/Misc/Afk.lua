@@ -16,6 +16,8 @@ local GetGuildInfo = GetGuildInfo
 local IsInGuild = IsInGuild
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
+local C_Covenants_GetCovenantData = C_Covenants.GetCovenantData
+local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 
 local function Player_Model(self)
 	self:ClearModel()
@@ -163,6 +165,30 @@ function AFK:SetAFK(status)
 	end
 end
 
+
+local function GetConvCrest()
+	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
+	local kit = covenantData and covenantData.textureKit or nil
+
+	-- vertical position
+	local vky = kit == "Kyrian" and 0
+	local vve = kit == "Venthyr" and 18
+	local vni = kit == "NightFae" and 16
+	local vne = kit == "Necrolord" and 20
+
+	local vert = vky or vve or vni or vne
+
+	-- Height
+	local hky = kit == "Kyrian" and 150
+	local hve = kit == "Venthyr" and 120
+	local hni = kit == "NightFae" and 134
+	local hne = kit == "Necrolord" and 120
+
+	local hei = hky or hve or hni or hne
+
+	return kit, vert, hei
+end
+
 local function Initialize()
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
 
@@ -189,14 +215,26 @@ local function Initialize()
 	AFK.AFKMode.Panel.ignoreFrameTemplates = true
 	AFK.AFKMode.Panel.ignoreBackdropColors = true
 
+	--[[
 	AFK.AFKMode.PanelIcon = CreateFrame('Frame', nil, AFK.AFKMode.Panel, 'BackdropTemplate')
-	AFK.AFKMode.PanelIcon:Size(70)
-	AFK.AFKMode.PanelIcon:Point('CENTER', AFK.AFKMode.Panel, 'TOP', 0, 0)
+	AFK.AFKMode.PanelIcon:Size(55)
+	AFK.AFKMode.PanelIcon:Point('CENTER', AFK.AFKMode.Panel, 'BOTTOM', 0, -3)
 
 	AFK.AFKMode.PanelIcon.Texture = AFK.AFKMode.PanelIcon:CreateTexture(nil, 'ARTWORK')
 	AFK.AFKMode.PanelIcon.Texture:Point('TOPLEFT', 2, -2)
 	AFK.AFKMode.PanelIcon.Texture:Point('BOTTOMRIGHT', -2, 2)
 	AFK.AFKMode.PanelIcon.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga')
+	--]]
+
+	AFK.AFKMode.Panel.crest = AFK.AFKMode.Panel:CreateTexture(nil, 'ARTWORK')
+	AFK.AFKMode.Panel.crest:SetDrawLayer('ARTWORK')
+	local kit, vert, hei = GetConvCrest()
+	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
+	if kit then
+		AFK.AFKMode.Panel.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
+		AFK.AFKMode.Panel.crest:Point("BOTTOM", 0, vert or 14)
+		AFK.AFKMode.Panel.crest:Size(300, hei)
+	end
 
 	AFK.AFKMode.MERVersion = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.MERVersion:Point('CENTER', AFK.AFKMode.Panel, 'CENTER', 0, -10)
