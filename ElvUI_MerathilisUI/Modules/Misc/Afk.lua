@@ -137,35 +137,6 @@ local function UpdateTimer()
 end
 hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 
-AFK.SetAFKMER = AFK.SetAFK
-function AFK:SetAFK(status)
-	self:SetAFKMER(status)
-	if E.db.mui.general.AFK ~= true then return end
-
-	local guildName = GetGuildInfo("player") or ""
-	if(status) then
-		if(IsInGuild()) then
-			if AFK.AFKMode.Guild then
-				AFK.AFKMode.Guild:SetText("|cFF00c0fa<".. guildName ..">|r")
-			end
-		else
-			if AFK.AFKMode.Guild then
-				AFK.AFKMode.Guild:SetText(L["No Guild"])
-			end
-		end
-		AFK.startTime = GetTime()
-		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
-
-		AFK.isAFK = true
-	elseif(AFK.isAFK) then
-		self:CancelTimer(AFK.logoffTimer)
-
-		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
-		AFK.isAFK = false
-	end
-end
-
-
 local function GetConvCrest()
 	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
 	local kit = covenantData and covenantData.textureKit or nil
@@ -187,6 +158,44 @@ local function GetConvCrest()
 	local hei = hky or hve or hni or hne
 
 	return kit, vert, hei
+end
+
+AFK.SetAFKMER = AFK.SetAFK
+function AFK:SetAFK(status)
+	self:SetAFKMER(status)
+	if E.db.mui.general.AFK ~= true then return end
+
+	local guildName = GetGuildInfo("player") or ""
+	local kit, vert, hei = GetConvCrest()
+	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
+
+	if(status) then
+		if(IsInGuild()) then
+			if AFK.AFKMode.Guild then
+				AFK.AFKMode.Guild:SetText("|cFF00c0fa<".. guildName ..">|r")
+			end
+		else
+			if AFK.AFKMode.Guild then
+				AFK.AFKMode.Guild:SetText(L["No Guild"])
+			end
+		end
+
+		if kit then
+			AFK.AFKMode.Panel.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
+			AFK.AFKMode.Panel.crest:Point("BOTTOM", 0, vert or 14)
+			AFK.AFKMode.Panel.crest:Size(300, hei)
+		end
+
+		AFK.startTime = GetTime()
+		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
+
+		AFK.isAFK = true
+	elseif(AFK.isAFK) then
+		self:CancelTimer(AFK.logoffTimer)
+
+		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+		AFK.isAFK = false
+	end
 end
 
 local function Initialize()
@@ -228,13 +237,6 @@ local function Initialize()
 
 	AFK.AFKMode.Panel.crest = AFK.AFKMode.Panel:CreateTexture(nil, 'ARTWORK')
 	AFK.AFKMode.Panel.crest:SetDrawLayer('ARTWORK')
-	local kit, vert, hei = GetConvCrest()
-	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
-	if kit then
-		AFK.AFKMode.Panel.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
-		AFK.AFKMode.Panel.crest:Point("BOTTOM", 0, vert or 14)
-		AFK.AFKMode.Panel.crest:Size(300, hei)
-	end
 
 	AFK.AFKMode.MERVersion = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.MERVersion:Point('CENTER', AFK.AFKMode.Panel, 'CENTER', 0, -10)
