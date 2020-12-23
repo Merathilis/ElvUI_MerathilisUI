@@ -748,9 +748,7 @@ local function LoadSkin()
 
 	-- [[ BFA Mission UI]]
 	local BFAMissionFrame = _G.BFAMissionFrame
-	if BFAMissionFrame.backdrop then BFAMissionFrame.backdrop:Hide() end
-	MERS:CreateBD(BFAMissionFrame, .25)
-	BFAMissionFrame:Styling()
+	BFAMissionFrame.backdrop:Styling()
 	ReskinMissionFrame(BFAMissionFrame)
 
 	-- [[ BFA Missions ]]
