@@ -512,13 +512,18 @@ function module:SetUpButton(button, questItemData, slotID)
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
 		GameTooltip:ClearLines()
 
-		if self.slotID then
-			GameTooltip:SetInventoryItem("player", self.slotID)
-		else
-			GameTooltip:SetItemByID(self.itemID)
-		end
+		if barDB.tooltip then
+			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
+			GameTooltip:ClearLines()
 
-		GameTooltip:Show()
+			if self.slotID then
+				GameTooltip:SetInventoryItem("player", self.slotID)
+			else
+				GameTooltip:SetItemByID(self.itemID)
+			end
+
+			GameTooltip:Show()
+		end
 	end)
 
 	button:SetScript("OnLeave", function(self)

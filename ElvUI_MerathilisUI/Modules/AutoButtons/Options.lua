@@ -219,6 +219,11 @@ local function AutoButtonTable()
 							name = L["Alpha Max"],
 							min = 0, max = 1, step = 0.01
 						},
+						tooltip = {
+							order = 6,
+							type = "toggle",
+							name = L["Tooltip"],
+						},
 					},
 				},
 				backdrop = {
