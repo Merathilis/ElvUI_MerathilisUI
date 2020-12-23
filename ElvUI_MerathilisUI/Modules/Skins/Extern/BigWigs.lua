@@ -94,7 +94,7 @@ local function RegisterStyle()
 		GetSpacing = function(bar) return bar:GetHeight()+7 end,
 		ApplyStyle = ApplyStyle,
 		BarStopped = RemoveStyle,
-		fontSizeNormal = 13,
+		fontSizeNormal = 12,
 		fontSizeEmphasized = 14,
 		fontOutline = "OUTLINE",
 		GetStyleName = function() return styleName end,
