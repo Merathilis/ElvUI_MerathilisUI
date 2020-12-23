@@ -26,11 +26,12 @@ local function RemoveStyle(bar)
 	end
 
 	bar.candyBarDuration:ClearAllPoints()
-	bar.candyBarDuration:SetPoint("TOPLEFT", bar.candyBarBar, "TOPLEFT", 2, 0)
-	bar.candyBarDuration:SetPoint("BOTTOMRIGHT", bar.candyBarBar, "BOTTOMRIGHT", -2, 0)
+	bar.candyBarDuration:SetPoint("TOPLEFT", bar.candyBarBar, "TOPLEFT", 2, 10)
+	bar.candyBarDuration:SetPoint("BOTTOMRIGHT", bar.candyBarBar, "BOTTOMRIGHT", -2, 10)
+
 	bar.candyBarLabel:ClearAllPoints()
-	bar.candyBarLabel:SetPoint("TOPLEFT", bar.candyBarBar, "TOPLEFT", 2, 0)
-	bar.candyBarLabel:SetPoint("BOTTOMRIGHT", bar.candyBarBar, "BOTTOMRIGHT", -2, 0)
+	bar.candyBarLabel:SetPoint("TOPLEFT", bar.candyBarBar, "TOPLEFT", 2, 10)
+	bar.candyBarLabel:SetPoint("BOTTOMRIGHT", bar.candyBarBar, "BOTTOMRIGHT", -2, 10)
 end
 
 local function ApplyStyle(bar)
@@ -75,12 +76,12 @@ local function ApplyStyle(bar)
 	end
 
 	bar.candyBarLabel:ClearAllPoints()
-	bar.candyBarLabel:SetPoint('LEFT', bar.candyBarBar, 'LEFT', 2, 8)
-	bar.candyBarLabel:SetPoint('RIGHT', bar.candyBarBar, 'RIGHT', -2, 8)
+	bar.candyBarLabel:SetPoint('LEFT', bar.candyBarBar, 'LEFT', 2, 10)
+	bar.candyBarLabel:SetPoint('RIGHT', bar.candyBarBar, 'RIGHT', -2, 10)
 
 	bar.candyBarDuration:ClearAllPoints()
-	bar.candyBarDuration:SetPoint('RIGHT', bar.candyBarBar, 'RIGHT', -2, 8)
-	bar.candyBarDuration:SetPoint('LEFT', bar.candyBarBar, 'LEFT', 2, 8)
+	bar.candyBarDuration:SetPoint('RIGHT', bar.candyBarBar, 'RIGHT', -2, 10)
+	bar.candyBarDuration:SetPoint('LEFT', bar.candyBarBar, 'LEFT', 2, 10)
 end
 
 local f = CreateFrame("Frame")

@@ -298,7 +298,7 @@ function module:SetFlightMode(status)
 			end
 		end
 
-		if _G.ZoneAbilityFrame then
+		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
 			_G.ZoneAbilityFrame:SetAlpha(0)
 		end
 
@@ -380,7 +380,7 @@ function module:SetFlightMode(status)
 			end
 		end
 
-		if _G.ZoneAbilityFrame then
+		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
 			_G.ZoneAbilityFrame:SetAlpha(1)
 		end
 
