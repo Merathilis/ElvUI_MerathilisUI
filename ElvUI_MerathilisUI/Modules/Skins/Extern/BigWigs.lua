@@ -8,6 +8,7 @@ local tremove = table.remove
 local CreateFrame = CreateFrame
 local GetAddOnInfo = GetAddOnInfo
 local UIParent = UIParent
+local hooksecurefunc = hooksecurefunc
 
 local function RemoveStyle(bar)
 	bar.candyBarBackdrop:Hide()
@@ -74,22 +75,23 @@ local function ApplyStyle(bar)
 	end
 
 	bar.candyBarLabel:ClearAllPoints()
-	bar.candyBarLabel:SetPoint('LEFT', bar.candyBarBar, 'LEFT', 2, 10)
-	bar.candyBarLabel:SetPoint('RIGHT', bar.candyBarBar, 'RIGHT', -2, 10)
+	bar.candyBarLabel:SetPoint('LEFT', bar.candyBarBar, 'LEFT', 2, 8)
+	bar.candyBarLabel:SetPoint('RIGHT', bar.candyBarBar, 'RIGHT', -2, 8)
 
 	bar.candyBarDuration:ClearAllPoints()
-	bar.candyBarDuration:SetPoint('RIGHT', bar.candyBarBar, 'RIGHT', -2, 10)
-	bar.candyBarDuration:SetPoint('LEFT', bar.candyBarBar, 'LEFT', 2, 10)
+	bar.candyBarDuration:SetPoint('RIGHT', bar.candyBarBar, 'RIGHT', -2, 8)
+	bar.candyBarDuration:SetPoint('LEFT', bar.candyBarBar, 'LEFT', 2, 8)
 end
 
 local f = CreateFrame("Frame")
 local function RegisterStyle()
 	if not _G.BigWigsAPI then return end
+
 	local styleName = MER.Title or 'MerathilisUI'
 	_G.BigWigsAPI:RegisterBarStyle(styleName, {
 		apiVersion = 1,
 		version = 10,
-		GetSpacing = function(bar) return bar:GetHeight()+5 end,
+		GetSpacing = function(bar) return bar:GetHeight()+7 end,
 		ApplyStyle = ApplyStyle,
 		BarStopped = RemoveStyle,
 		fontSizeNormal = 13,
@@ -98,10 +100,10 @@ local function RegisterStyle()
 		GetStyleName = function() return styleName end,
 	})
 
-	local bars = BigWigs:GetPlugin("Bars", true)
-	hooksecurefunc(bars, "SetBarStyle", function(self, style)
-		if style ~= "MerathilisUI" then
-			self:SetBarStyle("MerathilisUI")
+	local bars = BigWigs:GetPlugin('Bars', true)
+	hooksecurefunc(bars, 'SetBarStyle', function(self, style)
+		if style ~= 'MerathilisUI' then
+			self:SetBarStyle('MerathilisUI')
 		end
 	end)
 end
