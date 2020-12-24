@@ -92,7 +92,8 @@ local function RestyleRewardButton(bu, isMapQuestInfo)
 		bg:SetPoint("TOPLEFT", bu.NameFrame, 1, 1)
 		bg:SetPoint("BOTTOMRIGHT", bu.NameFrame, -3, 0)
 	else
-		bu.Icon:SetSize(34, 34)
+		bg:SetPoint("TOPLEFT", bu, 1, 1)
+		bg:SetPoint("BOTTOMRIGHT", bu, -3, 1)
 	end
 
 	if bu.CircleBackground then
@@ -175,7 +176,8 @@ local function LoadSkin()
 		local frame = _G.QuestInfoPlayerTitleFrame
 		local icon = frame.Icon
 
-		MERS:ReskinIcon(icon)
+		icon:SetTexCoord(unpack(E.TexCoords))
+		MERS:CreateBDFrame(icon)
 		for i = 2, 4 do
 			select(i, frame:GetRegions()):Hide()
 		end
@@ -193,8 +195,12 @@ local function LoadSkin()
 		local isMapQuest = rewardsFrame == _G.MapQuestInfoRewardsFrame
 		local numSpellRewards = isQuestLog and GetNumQuestLogRewardSpells() or GetNumRewardSpells()
 
+		if (template.canHaveSealMaterial) then
+			local questFrame = parentFrame:GetParent():GetParent()
+			questFrame.SealMaterialBG:Hide()
+		end
+
 		if numSpellRewards > 0 then
-			-- Spell Headers
 			for spellHeader in rewardsFrame.spellHeaderPool:EnumerateActive() do
 				spellHeader:SetVertexColor(1, 1, 1)
 			end
