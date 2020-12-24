@@ -339,12 +339,13 @@ local utilities = {
 }
 
 local torghastItems = {
+	168035, -- Mawrat Harness
 	168207, -- Plundered Anima Cell
 	170540, -- Ravenous Anima Cell
+	174464, -- Spectral Bridle
 	176331, -- Obscuring Essence Potion
 	176409, -- Rejuvenating Siphoned Essence
 	176443, -- Fleeting Frenzy Potion
-	168035, -- Mawrat Harness
 	184652, -- Phantasmic Infusor
 	184662, -- Requisitioned Anima Cell
 }
