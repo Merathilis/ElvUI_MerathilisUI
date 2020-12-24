@@ -75,8 +75,6 @@ local function RestyleSpellButton(bu)
 	local bg = CreateFrame("Frame", nil, bu)
 	bg:SetPoint("TOPLEFT", 2, -1)
 	bg:SetPoint("BOTTOMRIGHT", 0, 14)
-	bg:SetFrameLevel(0)
-	MERS:CreateBD(bg, .25)
 end
 
 local function RestyleRewardButton(bu, isMapQuestInfo)
@@ -94,8 +92,7 @@ local function RestyleRewardButton(bu, isMapQuestInfo)
 		bg:SetPoint("TOPLEFT", bu.NameFrame, 1, 1)
 		bg:SetPoint("BOTTOMRIGHT", bu.NameFrame, -3, 0)
 	else
-		bg:SetPoint("TOPLEFT", bu, 1, 1)
-		bg:SetPoint("BOTTOMRIGHT", bu, -3, 1)
+		bu.Icon:SetSize(34, 34)
 	end
 
 	if bu.CircleBackground then
@@ -133,14 +130,11 @@ end
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
-	-- Item reward highlight
-	_G.QuestInfoItemHighlight:GetRegions():Hide()
-	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
-
 	hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)
-	ColorObjectivesText()
 
-	-- [[ Quest rewards ]]
+	-- Reskin rewards
+	restyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
+
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
 		local bu = rewardsFrame.RewardButtons[index]
 
@@ -181,8 +175,7 @@ local function LoadSkin()
 		local frame = _G.QuestInfoPlayerTitleFrame
 		local icon = frame.Icon
 
-		icon:SetTexCoord(unpack(E.TexCoords))
-		MERS:CreateBDFrame(icon)
+		MERS:ReskinIcon(icon)
 		for i = 2, 4 do
 			select(i, frame:GetRegions()):Hide()
 		end
@@ -200,12 +193,8 @@ local function LoadSkin()
 		local isMapQuest = rewardsFrame == _G.MapQuestInfoRewardsFrame
 		local numSpellRewards = isQuestLog and GetNumQuestLogRewardSpells() or GetNumRewardSpells()
 
-		if (template.canHaveSealMaterial) then
-			local questFrame = parentFrame:GetParent():GetParent()
-			questFrame.SealMaterialBG:Hide()
-		end
-
 		if numSpellRewards > 0 then
+			-- Spell Headers
 			for spellHeader in rewardsFrame.spellHeaderPool:EnumerateActive() do
 				spellHeader:SetVertexColor(1, 1, 1)
 			end
