@@ -290,6 +290,16 @@ MP.notification = {
 	guildEvents = true,
 	paragon = true,
 	quickJoin = true,
+	titleFont = {
+		name = "Expressway",
+		size = 12,
+		style = "OUTLINE",
+	},
+	textFont = {
+		name = "Expressway",
+		size = 11,
+		style = "OUTLINE",
+	},
 }
 
 MP.databars = {}
