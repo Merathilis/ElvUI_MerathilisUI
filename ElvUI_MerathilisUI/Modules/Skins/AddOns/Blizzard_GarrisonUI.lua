@@ -862,6 +862,11 @@ local function LoadSkin()
 					ReskinWidgetFont(mission.CDTDisplay, 1, .8, 0)
 					S:HandleButton(mission.ViewButton)
 
+					mission.ProgressBar:StripTextures()
+					mission.ProgressBar:CreateBackdrop()
+					mission.ProgressBar.Fill:SetAtlas("UI-Frame-Bar-Fill-Blue")
+					E:RegisterStatusBar(mission.ProgressBar)
+
 					for j = 1, mission.statLine:GetNumRegions() do
 						local stat = select(j, mission.statLine:GetRegions())
 						if stat and stat:IsObjectType("FontString") then
