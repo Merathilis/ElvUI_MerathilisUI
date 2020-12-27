@@ -16,8 +16,6 @@ local GetGuildInfo = GetGuildInfo
 local IsInGuild = IsInGuild
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
-local C_Covenants_GetCovenantData = C_Covenants.GetCovenantData
-local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 
 local function Player_Model(self)
 	self:ClearModel()
@@ -137,28 +135,6 @@ local function UpdateTimer()
 end
 hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 
-local function GetConvCrest()
-	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
-	local kit = covenantData and covenantData.textureKit or nil
-
-	-- vertical position
-	local vky = kit == "Kyrian" and 0
-	local vve = kit == "Venthyr" and 18
-	local vni = kit == "NightFae" and 16
-	local vne = kit == "Necrolord" and 20
-
-	local vert = vky or vve or vni or vne
-
-	-- Height
-	local hky = kit == "Kyrian" and 150
-	local hve = kit == "Venthyr" and 120
-	local hni = kit == "NightFae" and 134
-	local hne = kit == "Necrolord" and 120
-
-	local hei = hky or hve or hni or hne
-
-	return kit, vert, hei
-end
 
 AFK.SetAFKMER = AFK.SetAFK
 function AFK:SetAFK(status)
@@ -166,7 +142,7 @@ function AFK:SetAFK(status)
 	if E.db.mui.general.AFK ~= true then return end
 
 	local guildName = GetGuildInfo("player") or ""
-	local kit, vert, hei = GetConvCrest()
+	local kit, vert, hei = MER:GetConvCrest()
 	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
 
 	if(status) then
