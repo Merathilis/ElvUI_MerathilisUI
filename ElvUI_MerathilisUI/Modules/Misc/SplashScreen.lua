@@ -1,11 +1,10 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule('MER_Misc')
 
--- Cache global variables
--- Lua functions
--- WoW API / Variables
+local GetScreenHeight = GetScreenHeight
 local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
+local CreateFrame = CreateFrame
 
 local needAnimation
 

@@ -273,6 +273,7 @@ MP.misc = {
 	funstuff = true,
 	wowheadlinks = true,
 	respec = true,
+	mawThreatBar = true,
 }
 
 MP.nameHover = {

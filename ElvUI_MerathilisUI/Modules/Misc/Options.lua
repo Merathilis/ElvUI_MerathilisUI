@@ -48,8 +48,14 @@ local function Misc()
 				name = L["Codex Buttons"],
 				desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],
 			},
+			mawThreatBar = {
+				order = 6,
+				type = "toggle",
+				name = E.NewSign..L["Maw ThreatBar"],
+				desc = L["Replace the Maw Threat Display, with a simple StatusBar"],
+			},
 			spellAlert = {
-				order = 7,
+				order = 10,
 				type = "range",
 				name = L["Spell Alert Scale"],
 				min = 0.4, max = 1.5, step = 0.01,

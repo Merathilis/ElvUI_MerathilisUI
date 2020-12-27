@@ -132,6 +132,7 @@ function module:Initialize()
 	self:ReputationInit()
 	self:WowHeadLinks()
 	self:SplashScreen()
+	self:CreateMawWidgetFrame()
 end
 
 MER:RegisterModule(module:GetName())

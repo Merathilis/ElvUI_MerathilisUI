@@ -181,7 +181,6 @@ L["Increase the volume"] = true
 L["Profession"] = true
 L["Volume"] = true
 
-
 -- Misc
 L["Misc"] = true
 L["Artifact Power"] = true
@@ -215,6 +214,8 @@ L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
 L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
+L["Maw ThreatBar"] = true
+L["Replace the Maw Threat Display, with a simple StatusBar"] = true
 
 -- Tooltip
 L["Your Status:"] = true

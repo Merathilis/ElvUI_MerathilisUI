@@ -217,6 +217,8 @@ L["Highest Quest Reward"] = "Höchste Questbelohnung"
 L["Automatically select the item with the highest reward."] = "Wählt automatisch den Gegenstand mit dem höchsten Wert aus."
 L["Item Alerts"] = "Gegenstandsalarm"
 L["Announce in chat when someone placed an usefull item."] = "Kündigt im Chat an, wenn jemand einen nützlichen Gegenstand stellt."
+L["Maw ThreatBar"] = "Schlund Bedrohungleiste"
+L["Replace the Maw Threat Display, with a simple StatusBar"] = "Ersetzt die Schlundbedrohungsanzeige mit einer simplen Statusleiste."
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
