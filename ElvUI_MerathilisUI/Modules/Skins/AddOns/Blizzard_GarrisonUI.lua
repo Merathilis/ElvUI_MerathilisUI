@@ -879,7 +879,7 @@ local function LoadSkin()
 			end
 		end
 
-		C_Timer_After(.1, function()
+		local function SkinVenturePlan()
 			local missionTab = CovenantMissionFrame.MissionTab
 			for i = 1, missionTab:GetNumChildren() do
 				local child = select(i, missionTab:GetChildren())
@@ -906,6 +906,12 @@ local function LoadSkin()
 						texture:SetTexCoord(unpack(E.TexCoords))
 					end
 				end
+			end
+		end
+
+		CovenantMissionFrame:HookScript("OnShow", function()
+			if not VenturePlanFrame then
+				C_Timer_After(.1, SkinVenturePlan)
 			end
 		end)
 	end
