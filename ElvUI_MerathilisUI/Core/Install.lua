@@ -899,6 +899,12 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
 	E.db["actionbar"]["bar1"]["backdrop"] = true
 	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar1"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar1"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar1"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar1"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar1"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar1"]["macroFontOutline"] = "OUTLINE"
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar1"]["keepSizeRatio"] = false
@@ -921,6 +927,12 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 	E.db["actionbar"]["bar2"]["backdrop"] = false
 	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar2"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar2"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar2"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar2"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar2"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar2"]["macroFontOutline"] = "OUTLINE"
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar2"]["keepSizeRatio"] = false
@@ -944,6 +956,12 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar3"]["mouseover"] = false
 	E.db["actionbar"]["bar3"]["showGrid"] = true
 	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar3"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar3"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar3"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar3"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar3"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar3"]["macroFontOutline"] = "OUTLINE"
 
 	E.db["actionbar"]["bar4"]["enabled"] = true
 	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
@@ -954,6 +972,12 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar4"]["showGrid"] = true
 	E.db["actionbar"]["bar4"]["buttonsPerRow"] = 1
 	E.db["actionbar"]["bar4"]["inheritGlobalFade"] = false
+	E.db["actionbar"]["bar4"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar4"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar4"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar4"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar4"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar4"]["macroFontOutline"] = "OUTLINE"
 
 	E.db["actionbar"]["bar5"]["enabled"] = true
 	E.db["actionbar"]["bar5"]["backdrop"] = true
@@ -966,6 +990,12 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar5"]["mouseover"] = false
 	E.db["actionbar"]["bar5"]["showGrid"] = true
 	E.db["actionbar"]["bar5"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar5"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar5"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar5"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar5"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar5"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar5"]["macroFontOutline"] = "OUTLINE"
 
 	E.db["actionbar"]["bar6"]["enabled"] = true
 	E.db["actionbar"]["bar6"]["backdropSpacing"] = 3
@@ -977,6 +1007,12 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar6"]["heightMult"] = 1
 	E.db["actionbar"]["bar6"]["backdrop"] = true
 	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar6"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar6"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar6"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar6"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar6"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar6"]["macroFontOutline"] = "OUTLINE"
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar6"]["keepSizeRatio"] = false
