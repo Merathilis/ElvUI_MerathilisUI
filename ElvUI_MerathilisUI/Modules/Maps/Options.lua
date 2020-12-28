@@ -14,7 +14,7 @@ local function Maps()
 
 	E.Options.args.mui.args.modules.args.maps = {
 		type = "group",
-		name = E.NewSign..L["Maps"],
+		name = L["Maps"],
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
@@ -123,7 +123,7 @@ local function Maps()
 			worldMap = {
 				order = 4,
 				type = "group",
-				name = E.NewSign..MER:cOption(L["World Map"], 'orange'),
+				name = MER:cOption(L["World Map"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.maps.worldMap[info[#info]] end,
 				set = function(info, value) E.db.mui.maps.worldMap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

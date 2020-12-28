@@ -15,7 +15,7 @@ local function Misc()
 
 	E.Options.args.mui.args.modules.args.misc = {
 		type = "group",
-		name = L["Miscellaneous"],
+		name = E.NewSign..L["Miscellaneous"],
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {

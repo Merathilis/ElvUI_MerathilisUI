@@ -11,7 +11,7 @@ local function NotificationTable()
 
 	E.Options.args.mui.args.modules.args.Notification = {
 		type = "group",
-		name = L["Notification"],
+		name = E.NewSign..L["Notification"],
 		get = function(info) return E.db.mui.notification[ info[#info] ] end,
 		set = function(info, value) E.db.mui.notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -83,7 +83,7 @@ local function NotificationTable()
 			fontSettings = {
 				order = 20,
 				type = "group",
-				name = L["Font"],
+				name = E.NewSign..L["Font"],
 				guiInline = true,
 				args = {
 					titleFont = {
