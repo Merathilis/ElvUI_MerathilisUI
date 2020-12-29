@@ -336,6 +336,7 @@ local utilities = {
 	171439,
 	172346,
 	172347,
+	172233,
 }
 
 local torghastItems = {
@@ -576,7 +577,7 @@ function module:UpdateButtonSize(button, barDB)
 end
 
 function module:PLAYER_REGEN_ENABLED()
-	for i = 1, 3 do
+	for i = 1, 5 do
 		if UpdateAfterCombat[i] then
 			self:UpdateBar(i)
 			UpdateAfterCombat[i] = false
@@ -818,7 +819,7 @@ function module:UpdateBar(id)
 end
 
 function module:UpdateBars()
-	for i = 1, 3 do
+	for i = 1, 5 do
 		self:UpdateBar(i)
 	end
 end
@@ -834,7 +835,7 @@ function module:UpdateEquipment()
 end
 
 function module:CreateAll()
-	for i = 1, 3 do
+	for i = 1, 5 do
 		self:CreateBar(i)
 	end
 end
@@ -844,7 +845,7 @@ function module:UpdateBinding()
 		return
 	end
 
-	for i = 1, 3 do
+	for i = 1, 5 do
 		for j = 1, 12 do
 			local button = module.bars[i].buttons[j]
 			if button then

@@ -487,6 +487,92 @@ MP.autoButtons = {
 		},
 		include = "MAGEFOOD,FOODVENDOR,FOODSL,CUSTOM"
 	},
+	bar4 = {
+		enable = false,
+		mouseOver = false,
+		globalFade = false,
+		fadeTime = 0.3,
+		alphaMin = 1,
+		alphaMax = 1,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 3,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		tooltip = true,
+		inheritGlobalFade = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		include = "CUSTOM"
+	},
+	bar5 = {
+		enable = false,
+		mouseOver = false,
+		globalFade = false,
+		fadeTime = 0.3,
+		alphaMin = 1,
+		alphaMax = 1,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 3,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		tooltip = true,
+		inheritGlobalFade = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		include = "CUSTOM"
+	}
 }
 
 MP.microBar = {

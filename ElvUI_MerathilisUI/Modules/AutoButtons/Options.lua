@@ -39,7 +39,7 @@ local function AutoButtonTable()
 				set = function(info, value) E.db.mui.autoButtons[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			},
 			custom = {
-				order = 6,
+				order = 10,
 				type = "group",
 				name = L["Custom Items"],
 				disabled = function()
@@ -99,7 +99,7 @@ local function AutoButtonTable()
 				}
 			},
 			blackList = {
-				order = 7,
+				order = 11,
 				type = "group",
 				name = L["Blacklist"],
 				disabled = function()
@@ -159,7 +159,7 @@ local function AutoButtonTable()
 		},
 	}
 
-	for i = 1, 3 do
+	for i = 1, 5 do
 		E.Options.args.mui.args.modules.args.autoButtons.args["bar" .. i] = {
 			order = i + 2,
 			type = "group",

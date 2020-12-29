@@ -47,4 +47,30 @@
 	<Binding name="CLICK AutoButtonBar3Button10:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
 	<Binding name="CLICK AutoButtonBar3Button11:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
 	<Binding name="CLICK AutoButtonBar3Button12:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+
+	<Binding name="CLICK AutoButtonBar4Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR4" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button2:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button3:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button4:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button5:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button6:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button7:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button8:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button9:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button10:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button11:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button12:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+
+	<Binding name="CLICK AutoButtonBar5Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR5" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button2:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button3:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button4:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button5:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button6:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button7:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button8:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button9:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button10:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button11:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button12:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
 </Bindings>
