@@ -891,16 +891,21 @@ local function LoadSkin()
 
 			ReskinVenturePlan(VenturePlanFrame)
 			VenturePlanFrame:HookScript("OnShow", ReskinVenturePlan)
-			S:HandleButton(VenturePlanFrame.CopyBox.ResetButton)
-			S:HandleCloseButton(VenturePlanFrame.CopyBox.CloseButton2)
+
+			local copyBox = VenturePlanFrame.CopyBox
+			S:HandleButton(copyBox.ResetButton)
+			S:HandleCloseButton(copyBox.CloseButton2)
+			ReskinWidgetFont(copyBox.Intro, 1, 1, 1)
+			ReskinWidgetFont(copyBox.FirstInputBoxLabel, 1, .8, 0)
+			ReskinWidgetFont(copyBox.SecondInputBoxLabel, 1, .8, 0)
 
 			local missionBoard = CovenantMissionFrame.MissionTab.MissionPage.Board
 			for i = 1, missionBoard:GetNumChildren() do
 				local child = select(i, missionBoard:GetChildren())
 				if child and child:IsObjectType("Button") then
 					S:HandleIcon(child:GetNormalTexture())
-					child:SetHighlightTexture(nil)
-					child:SetPushedTexture(E.media.normTex)
+					--child:SetHighlightTexture(nil)
+					--child:SetPushedTexture(E.media.normTex)
 					local texture = select(4, child:GetRegions())
 					if texture then
 						texture:SetTexCoord(unpack(E.TexCoords))

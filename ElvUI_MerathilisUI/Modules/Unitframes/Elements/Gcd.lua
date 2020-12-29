@@ -18,6 +18,7 @@ function module:Construct_GCD(frame)
 	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel()+1)
 	bar:SetStatusBarTexture(E.media.normTex)
 	bar:SetStatusBarColor(r, g, b)
+	MER:SmoothBar(bar)
 
 	bar.BG = bar:CreateTexture(nil, "BORDER")
 	bar.BG:SetAllPoints(bar)

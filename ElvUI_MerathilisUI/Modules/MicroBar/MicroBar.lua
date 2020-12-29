@@ -453,6 +453,10 @@ local ButtonTypes = {
 				vol = vol and tonumber(vol) or 0
 				C_CVar_SetCVar("Sound_MasterVolume", min(vol + 0.1, 1))
 			end,
+			MiddleButton = function()
+				local enabled = tonumber(C_CVar_GetCVar("Sound_EnableAllSound")) == 1
+				C_CVar_SetCVar("Sound_EnableAllSound", enabled and 0 or 1)
+			end,
 			RightButton = function()
 				local vol = C_CVar_GetCVar("Sound_MasterVolume")
 				vol = vol and tonumber(vol) or 0
@@ -467,6 +471,7 @@ local ButtonTypes = {
 			DT.tooltip:AddLine("\n")
 			DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Increase the volume"] .. " (+10%)", 1, 1, 1)
 			DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Decrease the volume"] .. " (-10%)", 1, 1, 1)
+			DT.tooltip:AddLine(ScrollButtonIcon .. " " .. L["Sound ON/OFF"], 1, 1, 1)
 			DT.tooltip:Show()
 
 			button.tooltipsUpdateTimer = C_Timer_NewTicker( 0.3, function()
@@ -477,6 +482,7 @@ local ButtonTypes = {
 				DT.tooltip:AddLine("\n")
 				DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Increase the volume"] .. " (+10%)", 1, 1, 1)
 				DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Decrease the volume"] .. " (-10%)", 1, 1, 1)
+				DT.tooltip:AddLine(ScrollButtonIcon .. " " .. L["Sound ON/OFF"], 1, 1, 1)
 				DT.tooltip:Show()
 			end)
 		end,

@@ -1,17 +1,12 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local LSM = E.LSM
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local format = string.format
 local print, pairs = print, pairs
 local tinsert = table.insert
--- WoW API / Variables
-local GetAddOnEnableState = GetAddOnEnableState
 
--- GLOBALS: ElvDB, hooksecurefunc, BINDING_HEADER_MER
--- GLOBALS: MERData, MERDataPerChar, ElvDB
+local GetAddOnEnableState = GetAddOnEnableState
 
 -- Masque support
 MER.MSQ = _G.LibStub('Masque', true)

@@ -62,6 +62,7 @@ function module:CreateMawWidgetFrame()
 	bar:CreateBackdrop('Transparent')
 	bar.backdrop:Styling()
 	bar:SetStatusBarTexture(E.media.normTex)
+	MER:SmoothBar(bar)
 	E:RegisterStatusBar(bar)
 
 	bar.text = bar:CreateFontString(nil, 'OVERLAY')
