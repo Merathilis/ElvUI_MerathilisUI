@@ -197,7 +197,7 @@ function module:CreateToast()
 
 	local title = MER:CreateText(toast, "OVERLAY")
 	title:SetShadowOffset(1, -1)
-	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -2)
+	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, 3)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
 	title:SetJustifyH("LEFT")
 	title:SetNonSpaceWrap(true)

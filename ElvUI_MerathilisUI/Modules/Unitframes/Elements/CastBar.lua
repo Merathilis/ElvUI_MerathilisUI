@@ -3,6 +3,7 @@ local module = MER:GetModule('MER_UnitFrames')
 local UF = E.UnitFrames
 
 local _G = _G
+local hooksecurefunc = hooksecurefunc
 
 function module:Configure_Castbar(frame)
 	local castbar = frame.Castbar
