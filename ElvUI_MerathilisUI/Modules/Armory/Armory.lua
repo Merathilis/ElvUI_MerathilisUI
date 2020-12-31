@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Armory')
+local M = E:GetModule('Misc')
 local LCG = LibStub('LibCustomGlow-1.0')
 local COMP = MER:GetModule('MER_Compatibility')
 local LSM = E.LSM or E.Libs.LSM
@@ -8,7 +9,9 @@ local LSM = E.LSM or E.Libs.LSM
 -- Lua functions
 local _G = _G
 local select, unpack = select, unpack
+local strlower = strlower
 local type = type
+local gsub = gsub
 local pairs = pairs
 -- WoW API / Variables
 local CreateFrame = CreateFrame
@@ -29,6 +32,7 @@ local Enum_TransmogType_Illusion = Enum.TransmogType.Illusion
 
 local initialized = false
 local updateTimer
+local maxGemSlots = 5
 
 local slots = {
 	["HeadSlot"] = { true, true },
@@ -76,6 +80,25 @@ local AZSlots = {
 	"Head", "Shoulder", "Chest",
 }
 
+local enchantSlots = {
+	['HeadSlot'] = false,
+	['NeckSlot'] = false,
+	['ShoulderSlot'] = false,
+	['WaistSlot'] = false,
+	['LegsSlot'] = false,
+	['Finger0Slot'] = true,
+	['Finger1Slot'] = true,
+	['MainHandSlot'] = true,
+	['SecondaryHandSlot'] = false,
+	['ChestSlot'] = true,
+	['BackSlot'] = true,
+	['FeetSlot'] = 2,
+	['WristSlot'] = true,
+	['HandsSlot'] = 1,
+	['Trinket0Slot'] = false,
+	['Trinket1Slot'] = false,
+}
+
 function module:Transmog_OnEnter()
 	if self.Link and self.Link ~= '' then
 		self.Texture:SetVertexColor(1, .8, 1)
@@ -105,6 +128,57 @@ end
 
 function module:Illusion_OnLeave()
 	_G["GameTooltip"]:Hide()
+end
+
+function module:Warning_OnEnter()
+	if module.db.enable and self.Reason then
+		_G['GameTooltip']:SetOwner(self, 'ANCHOR_RIGHT')
+		_G['GameTooltip']:AddLine(self.Reason, 1, 1, 1)
+		_G['GameTooltip']:Show()
+	end
+end
+
+function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, primaryStat)
+	if not Slot.Warning then return end
+	Slot.Warning.Reason = nil
+	local window = strlower(which)
+	if not module.db.enable then Slot.Warning:Hide() end
+	local SlotName = gsub(Slot:GetName(), which, '')
+	if not SlotName then return end --No slot?
+	local noChant, noGem = false, false
+
+	if iLvl and (enchantSlots[SlotName] == true or enchantSlots[SlotName] == primaryStat) and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
+		local classID, subclassID = select(12, GetItemInfo(Slot.itemLink))
+		if (classID == 4 and subclassID == 6) or (classID == 4 and subclassID == 0 and Slot.ID == 17) then --Shields are special
+			noChant = false
+		else
+			noChant = true
+		end
+	end
+
+	if gems and Slot.ID ~= 2 then --If gems found and not neck
+		for i = 1, maxGemSlots do
+			local texture = Slot['textureSlot'..i]
+			if (texture and texture:GetTexture()) then noGem = true; break end --If there is a texture (e.g. actual slot), but no link = no gem installed
+		end
+	end
+
+	if (noChant or noGem) then --If anything us missing
+		local message = ''
+		if noGem then message = message..'|cffff0000'..L["Empty Socket"]..'|r\n' end
+		if noChant then message = message..'|cffff0000'..L["Not Enchanted"]..'|r\n' end
+		Slot.Warning.Reason = message or nil
+		Slot.Warning:Show()
+	else
+		Slot.Warning:Hide()
+	end
+end
+
+function module:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
+	if not module:CheckOptions(which) then return end
+	Slot.itemLink = GetInventoryItemLink((which == 'Character' and 'player'), Slot.ID)
+
+	module:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort, module[which.."PrimaryStat"])
 end
 
 function module:UpdatePaperDoll()
@@ -268,12 +342,39 @@ function module:BuildInformation()
 		frame.Illusion.Texture = frame.Illusion:CreateTexture(nil, 'OVERLAY')
 		frame.Illusion.Texture:SetInside()
 		frame.Illusion.Texture:SetTexCoord(.1, .9, .1, .9)
+
+		frame.Warning = CreateFrame('Frame', nil, frame)
+		if id <= 7 or id == 17 or id == 11 then -- Left Size
+			frame.Warning:Size(7, 41)
+			frame.Warning:SetPoint("RIGHT", _G["Character"..slotName], "LEFT", 0, 0)
+		elseif id <= 16 then -- Right Side
+			frame.Warning:Size(7, 41)
+			frame.Warning:SetPoint("LEFT", _G["Character"..slotName], "RIGHT", 0, 0)
+		elseif id == 18 or id == 19 then -- Main Hand/ OffHand
+			frame.Warning:Size(41, 7)
+			frame.Warning:SetPoint("TOP", _G["Character"..slotName], "BOTTOM", 0, 0)
+		end
+
+		frame.Warning.Texture = frame.Warning:CreateTexture(nil, "BACKGROUND")
+		frame.Warning.Texture:SetInside()
+		frame.Warning.Texture:SetTexture("Interface\\AddOns\\ElvUI\\Media\\Textures\\Minimalist")
+		frame.Warning.Texture:SetVertexColor(1, 0, 0)
+
+		frame.Warning:SetScript("OnEnter", self.Warning_OnEnter)
+		frame.Warning:SetScript("OnLeave", self.Illusion_OnLeave)
+		frame.Warning:Hide()
 	end
 end
 
 function module:firstGarrisonToast()
 	module:UnregisterEvent("GARRISON_MISSION_FINISHED")
 	self:ScheduleTimer("UpdatePaperDoll", 7)
+end
+
+function module:CheckOptions(which)
+	if not E.private.skins.blizzard.enable then return false end
+	if (which == 'Character' and not E.private.skins.blizzard.character) then return false end
+	return true
 end
 
 function module:Initialize()
@@ -292,6 +393,8 @@ function module:Initialize()
 
 	module:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
 	module:RegisterEvent("PLAYER_ENTERING_WORLD", "InitialUpdatePaperDoll")
+
+	hooksecurefunc(M, 'UpdatePageStrings', module.UpdatePageStrings)
 
 	-- Adjust a bit the Model Size
 	if _G["CharacterModelFrame"]:GetHeight() == 320 then
