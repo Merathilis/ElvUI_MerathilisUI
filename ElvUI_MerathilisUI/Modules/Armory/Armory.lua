@@ -15,6 +15,7 @@ local gsub = gsub
 local pairs = pairs
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local GetItemGem = GetItemGem
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
 local GetInventorySlotInfo = GetInventorySlotInfo
@@ -195,13 +196,13 @@ function module:UpdateGemInfo(Slot, which)
 		if Slot.itemLink then
 			if Slot.ID == 2 then
 				local window = strlower(which)
-				--if module.db.warning.enable then
+				if module.db.warning.enable then
 					if which == 'Character' and Slot['textureSlotEssenceType'..i] then
 						Slot['textureSlotEssenceType'..i]:Hide()
 					elseif which == 'Inspect' and Slot['textureSlotBackdrop'..i] then
 						Slot['textureSlotBackdrop'..i]:Hide()
 					end
-				--end
+				end
 			else
 				GemLink = select(2, GetItemGem(Slot.itemLink, i))
 			end
@@ -414,7 +415,6 @@ function module:BuildInformation()
 				Slot["MER_Gem"..t]:SetPoint("BOTTOMRIGHT", Slot["textureSlot"..t])
 				Slot["MER_Gem"..t]:SetScript("OnEnter", module.Gem_OnEnter)
 				Slot["MER_Gem"..t]:SetScript("OnLeave", module.Tooltip_OnLeave)
-				--Variables for use in some stuff
 				Slot["MER_Gem"..t].frame = "character"
 			end
 		end
