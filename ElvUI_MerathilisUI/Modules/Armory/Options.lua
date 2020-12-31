@@ -266,7 +266,7 @@ local function ArmoryTable()
 						},
 					},
 					illusion = {
-						order = 4,
+						order = 2,
 						type = "group",
 						name = L["Illusion"],
 						get = function(info) return E.db.mui.armory.illusion[ info[#info] ] end,
@@ -277,6 +277,22 @@ local function ArmoryTable()
 								order = 1,
 								name = L["Enable"],
 								desc = L["Shows an indictor for weapon illusions."],
+							},
+						},
+					},
+					warning = {
+						order = 3,
+						type = "group",
+						name = L["Warnings"],
+						desc = L["Shows an indicator for missing sockets and enchants."],
+						get = function(info) return E.db.mui.armory.warning[ info[#info] ] end,
+						set = function(info, value) E.db.mui.armory.warning[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						args = {
+							enable = {
+								type = "toggle",
+								order = 1,
+								name = L["Enable"],
+								desc = L["Shows an arrow indictor for currently transmogrified items."],
 							},
 						},
 					},

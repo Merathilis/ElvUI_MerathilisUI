@@ -1029,6 +1029,9 @@ MP.armory = {
 	illusion = {
 		enable = true,
 	},
+	warning = {
+		enable = true,
+	},
 }
 
 MP.flightMode = {

@@ -360,6 +360,10 @@ L["Transmog"] = true -- No need to translate
 L["Shows an arrow indictor for currently transmogrified items."] = "Zeigt einen Indikator für den derzeitig transmogrifizierten Gegenstand an."
 L["Illusion"] = "Illusionen"
 L["Shows an indictor for weapon illusions."] = "Zeigt einen Indikator für die Waffenillusionen an."
+L["Empty Socket"] = "Leerer Sockel"
+L["Not Enchanted"] = "Nicht verzaubert"
+L["Warnings"] = "Warnungen"
+L["Shows an indicator for missing sockets and enchants."] = "Zeigt einen Indikator für fehlende Sockel und Verzauberungen an."
 
 -- Media
 L["MER_MEDIA_ZONES"] = {

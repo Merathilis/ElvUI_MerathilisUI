@@ -366,6 +366,10 @@ L["Transmog"] = "幻化"
 L["Shows an arrow indictor for currently transmogrified items."] = "为当前幻化的物品显示一个箭头指示器."
 L["Illusion"] = "幻象"
 L["Shows an indictor for weapon illusions."] = "为武器幻象显示一个指示器"
+L["Empty Socket"] = true
+L["Not Enchanted"] = true
+L["Warnings"] = true
+L["Shows an indicator for missing sockets and enchants."] = true
 
 -- Media
 L["Zone Text"] = "区域文字"

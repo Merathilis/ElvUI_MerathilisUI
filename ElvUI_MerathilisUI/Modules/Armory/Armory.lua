@@ -142,7 +142,6 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 	if not Slot.Warning then return end
 	Slot.Warning.Reason = nil
 	local window = strlower(which)
-	if not module.db.enable then Slot.Warning:Hide() end
 	local SlotName = gsub(Slot:GetName(), which, '')
 	if not SlotName then return end --No slot?
 	local noChant, noGem = false, false
@@ -175,8 +174,9 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 end
 
 function module:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
+	if not module.db.warning.enable then return end
 	if not module:CheckOptions(which) then return end
-	Slot.itemLink = GetInventoryItemLink((which == 'Character' and 'player'), Slot.ID)
+	Slot.itemLink = GetInventoryItemLink((which == 'Character' and 'player') or _G['InspectFrame'].unit, Slot.ID)
 
 	module:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort, module[which.."PrimaryStat"])
 end
