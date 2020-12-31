@@ -34,6 +34,11 @@ local initialized = false
 local updateTimer
 local maxGemSlots = 5
 
+local gearList = {
+	'HeadSlot', 'HandsSlot', 'NeckSlot', 'WaistSlot', 'ShoulderSlot', 'LegsSlot', 'BackSlot', 'FeetSlot', 'ChestSlot', 'Finger0Slot',
+	'ShirtSlot', 'Finger1Slot', 'TabardSlot', 'Trinket0Slot', 'WristSlot', 'Trinket1Slot', 'SecondaryHandSlot', 'MainHandSlot'
+}
+
 local slots = {
 	["HeadSlot"] = { true, true },
 	["NeckSlot"] = { true, false },
@@ -126,7 +131,7 @@ function module:Illusion_OnEnter()
 	_G["GameTooltip"]:Show()
 end
 
-function module:Illusion_OnLeave()
+function module:Tooltip_OnLeave()
 	_G["GameTooltip"]:Hide()
 end
 
@@ -134,6 +139,14 @@ function module:Warning_OnEnter()
 	if module.db.enable and self.Reason then
 		_G['GameTooltip']:SetOwner(self, 'ANCHOR_RIGHT')
 		_G['GameTooltip']:AddLine(self.Reason, 1, 1, 1)
+		_G['GameTooltip']:Show()
+	end
+end
+
+function module:Gem_OnEnter()
+	if module.db.enable and self.Link then
+		_G['GameTooltip']:SetOwner(self, 'ANCHOR_RIGHT')
+		_G['GameTooltip']:SetHyperlink(self.Link)
 		_G['GameTooltip']:Show()
 	end
 end
@@ -158,7 +171,7 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 	if gems and Slot.ID ~= 2 then --If gems found and not neck
 		for i = 1, maxGemSlots do
 			local texture = Slot['textureSlot'..i]
-			if (texture and texture:GetTexture()) then noGem = true; break end --If there is a texture (e.g. actual slot), but no link = no gem installed
+			if (texture and texture:GetTexture()) and (Slot['MER_Gem'..i] and not Slot['MER_Gem'..i].Link) then noGem = true; break end --If there is a texture (e.g. actual slot), but no link = no gem installed
 		end
 	end
 
@@ -173,11 +186,36 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 	end
 end
 
+function module:UpdateGemInfo(Slot, which)
+	local unit = which == 'Character' and 'player' or (_G['InspectFrame'] and _G['InspectFrame'].unit)
+	if not unit then return end
+	for i = 1, maxGemSlots do
+		local GemLink
+		if not Slot['MER_Gem'..i] then return end
+		if Slot.itemLink then
+			if Slot.ID == 2 then
+				local window = strlower(which)
+				--if module.db.warning.enable then
+					if which == 'Character' and Slot['textureSlotEssenceType'..i] then
+						Slot['textureSlotEssenceType'..i]:Hide()
+					elseif which == 'Inspect' and Slot['textureSlotBackdrop'..i] then
+						Slot['textureSlotBackdrop'..i]:Hide()
+					end
+				--end
+			else
+				GemLink = select(2, GetItemGem(Slot.itemLink, i))
+			end
+		end
+		Slot['MER_Gem'..i].Link = GemLink
+	end
+end
+
 function module:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 	if not module.db.warning.enable then return end
 	if not module:CheckOptions(which) then return end
 	Slot.itemLink = GetInventoryItemLink((which == 'Character' and 'player') or _G['InspectFrame'].unit, Slot.ID)
 
+	module:UpdateGemInfo(Slot, which)
 	module:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort, module[which.."PrimaryStat"])
 end
 
@@ -280,7 +318,6 @@ function module:BuildInformation()
 
 	for id, slotName in pairs(slotIDs) do
 		if not id then return end
-
 		local frame = _G["Character"..slotIDs[id]]
 
 		-- Durability
@@ -335,7 +372,7 @@ function module:BuildInformation()
 		frame.Illusion:Size(14)
 		frame.Illusion:Point('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
 		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
-		frame.Illusion:SetScript('OnLeave', self.Illusion_OnLeave)
+		frame.Illusion:SetScript('OnLeave', self.Tooltip_OnLeave)
 		frame.Illusion:CreateBackdrop()
 		frame.Illusion.backdrop:SetBackdropBorderColor(1, .5, 1)
 
@@ -363,6 +400,24 @@ function module:BuildInformation()
 		frame.Warning:SetScript("OnEnter", self.Warning_OnEnter)
 		frame.Warning:SetScript("OnLeave", self.Illusion_OnLeave)
 		frame.Warning:Hide()
+	end
+
+	-- Gems
+	for i, SlotName in pairs(gearList) do
+		local Slot = _G["Character"..SlotName]
+		Slot.ID = GetInventorySlotInfo(SlotName)
+
+		for t = 1,maxGemSlots do
+			if Slot["textureSlot"..t] then
+				Slot["MER_Gem"..t] = CreateFrame("Frame", nil, Slot)
+				Slot["MER_Gem"..t]:SetPoint("TOPLEFT", Slot["textureSlot"..t])
+				Slot["MER_Gem"..t]:SetPoint("BOTTOMRIGHT", Slot["textureSlot"..t])
+				Slot["MER_Gem"..t]:SetScript("OnEnter", module.Gem_OnEnter)
+				Slot["MER_Gem"..t]:SetScript("OnLeave", module.Tooltip_OnLeave)
+				--Variables for use in some stuff
+				Slot["MER_Gem"..t].frame = "character"
+			end
+		end
 	end
 end
 
