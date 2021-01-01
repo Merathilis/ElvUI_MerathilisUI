@@ -400,7 +400,7 @@ function module:BuildInformation()
 		frame.Warning.Texture:SetVertexColor(1, 0, 0)
 
 		frame.Warning:SetScript("OnEnter", self.Warning_OnEnter)
-		frame.Warning:SetScript("OnLeave", self.Illusion_OnLeave)
+		frame.Warning:SetScript("OnLeave", self.Tooltip_OnLeave)
 		frame.Warning:Hide()
 	end
 
