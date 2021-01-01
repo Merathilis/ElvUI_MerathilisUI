@@ -31,6 +31,8 @@ local MawRankColor = {
 }
 
 function module:UpdateMawBarLayout()
+	module.db = E.db.mui.misc.mawThreatBar
+
 	local bar = module.mawbar
 	local rank, value = GetMawBarValue()
 
@@ -51,16 +53,21 @@ function module:UpdateMawBarLayout()
 		bar:Hide()
 		_G.UIWidgetTopCenterContainerFrame:Show()
 	end
+
+	bar:Width(module.db.width or 250)
+	bar:Height(module.db.height or 16)
+	MER:SetFontDB(bar.text, module.db.font)
 end
 
 function module:CreateMawWidgetFrame()
 	if module.mawbar then return end
+	module.db = E.db.mui.misc.mawThreatBar
 
-	if not E.db.mui.misc.mawThreatBar then return end
+	if not module.db.enable then return end
 
 	local bar = CreateFrame("StatusBar", nil, E.UIParent)
 	bar:SetPoint("TOP", 0, -175)
-	bar:SetSize(250, 16)
+	bar:SetSize(module.width or 250, module.height or 16)
 	bar:SetMinMaxValues(0, 1000)
 	bar:CreateBackdrop('Transparent')
 	bar.backdrop:Styling()
@@ -69,7 +76,7 @@ function module:CreateMawWidgetFrame()
 	E:RegisterStatusBar(bar)
 
 	bar.text = bar:CreateFontString(nil, 'OVERLAY')
-	bar.text:FontTemplate(nil, 10, 'OUTLINE')
+	bar.text:FontTemplate()
 	bar.text:Point('CENTER')
 
 	module.mawbar = bar

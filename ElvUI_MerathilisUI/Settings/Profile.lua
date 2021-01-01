@@ -273,7 +273,16 @@ MP.misc = {
 	funstuff = true,
 	wowheadlinks = true,
 	respec = true,
-	mawThreatBar = true,
+	mawThreatBar = {
+		enable = true,
+		width = 250,
+		height = 16,
+		font = {
+			name = "Expressway",
+			size = 10,
+			style = "OUTLINE",
+		}
+	}
 }
 
 MP.nameHover = {

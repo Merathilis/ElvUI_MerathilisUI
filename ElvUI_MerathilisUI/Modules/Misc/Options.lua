@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule('MER_Misc')
 local SA = MER:GetModule('MER_SpellAlert')
+local LSM = E.LSM
 
 --Cache global variables
 --Lua functions
@@ -47,12 +48,6 @@ local function Misc()
 				type = "toggle",
 				name = L["Codex Buttons"],
 				desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],
-			},
-			mawThreatBar = {
-				order = 6,
-				type = "toggle",
-				name = E.NewSign..L["Maw ThreatBar"],
-				desc = L["Replace the Maw Threat Display, with a simple StatusBar"],
 			},
 			spellAlert = {
 				order = 10,
@@ -183,8 +178,76 @@ local function Misc()
 					},
 				},
 			},
+			mawThreatBar = {
+				order = 24,
+				type = "group",
+				name = E.NewSign..MER:cOption(L["Maw ThreatBar"], 'orange'),
+				guiInline = true,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Replace the Maw Threat Display, with a simple StatusBar"],
+						get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
+						set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end
+					},
+					width = {
+						order = 2,
+						type = "range",
+						name = L["Width"],
+						min = 100, max = 400, step = 10,
+						get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
+						set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+					},
+					height = {
+						order = 3,
+						type = "range",
+						name = L["Height"],
+						min = 8, max = 20, step = 1,
+						get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
+						set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+					},
+					fontGroup = {
+						order = 4,
+						type = "group",
+						name = L["Font"],
+						get = function(info) return E.db.mui.misc.mawThreatBar.font[ info[#info] ] end,
+						set = function(info, value) E.db.mui.misc.mawThreatBar.font[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+						args = {
+							name = {
+								order = 1,
+								type = "select",
+								dialogControl = "LSM30_Font",
+								name = L["Font"],
+								values = LSM:HashTable("font")
+							},
+							style = {
+								order = 2,
+								type = "select",
+								name = L["Outline"],
+								values = {
+									NONE = L["None"],
+									OUTLINE = L["OUTLINE"],
+									MONOCHROME = L["MONOCHROME"],
+									MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+									THICKOUTLINE = L["THICKOUTLINE"]
+								}
+							},
+							size = {
+								order = 3,
+								name = L["Size"],
+								type = "range",
+								min = 5,
+								max = 60,
+								step = 1
+							},
+						},
+					},
+				},
+			},
 			macros = {
-				order = 23,
+				order = 24,
 				type = "group",
 				name = MER:cOption(L["Macros"], 'orange'),
 				guiInline = true,
