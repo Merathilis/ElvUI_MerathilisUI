@@ -31,16 +31,12 @@ local MawRankColor = {
 }
 
 function module:UpdateMawBarLayout()
-	local header, nonheader
 	local bar = module.mawbar
 	local rank, value = GetMawBarValue()
-	local widgetInfo = rank and C_UIWidgetManager_GetTextureWithAnimationVisualizationInfo(2873 + rank)
-
-	if widgetInfo and widgetInfo.tooltip then
-		header, nonheader = SplitTextIntoHeaderAndNonHeader(widgetInfo.tooltip)
-	end
 
 	if rank then
+		local widgetInfo = rank and C_UIWidgetManager_GetTextureWithAnimationVisualizationInfo(2873 + rank)
+		local header, nonheader = SplitTextIntoHeaderAndNonHeader(widgetInfo.tooltip)
 		bar:SetStatusBarColor(unpack(MawRankColor[rank]))
 		if rank == 5 then
 			bar.text:SetText(header .. ' - ' .. GARRISON_TIER .. ' ' .. rank)
