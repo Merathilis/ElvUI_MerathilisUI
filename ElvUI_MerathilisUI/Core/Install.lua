@@ -1254,7 +1254,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 12,
 			["justifyH"] = "CENTER",
-			["text_format"] = "[power:current]",
+			["text_format"] = "[power:current:shortvalue]",
 			["attachTextTo"] = "Power",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
