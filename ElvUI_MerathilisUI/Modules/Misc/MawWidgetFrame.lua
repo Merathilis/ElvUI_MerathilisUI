@@ -31,10 +31,14 @@ local MawRankColor = {
 }
 
 function module:UpdateMawBarLayout()
+	local header, nonheader
 	local bar = module.mawbar
 	local rank, value = GetMawBarValue()
 	local widgetInfo = rank and C_UIWidgetManager_GetTextureWithAnimationVisualizationInfo(2873 + rank)
-	local header, nonheader = SplitTextIntoHeaderAndNonHeader(widgetInfo.tooltip)
+
+	if widgetInfo and widgetInfo.tooltip then
+		header, nonheader = SplitTextIntoHeaderAndNonHeader(widgetInfo.tooltip)
+	end
 
 	if rank then
 		bar:SetStatusBarColor(unpack(MawRankColor[rank]))
@@ -59,7 +63,7 @@ function module:CreateMawWidgetFrame()
 	if not E.db.mui.misc.mawThreatBar then return end
 
 	local bar = CreateFrame("StatusBar", nil, E.UIParent)
-	bar:SetPoint("TOP", 0, -115)
+	bar:SetPoint("TOP", 0, -175)
 	bar:SetSize(250, 16)
 	bar:SetMinMaxValues(0, 1000)
 	bar:CreateBackdrop('Transparent')
