@@ -381,6 +381,7 @@ function module:BuildInformation()
 		frame.Illusion.Texture:SetInside()
 		frame.Illusion.Texture:SetTexCoord(.1, .9, .1, .9)
 
+		-- Missing Enchants/Gems Warning
 		frame.Warning = CreateFrame('Frame', nil, frame)
 		if id <= 7 or id == 17 or id == 11 then -- Left Size
 			frame.Warning:Size(7, 41)
@@ -403,12 +404,12 @@ function module:BuildInformation()
 		frame.Warning:Hide()
 	end
 
-	-- Gems
 	for i, SlotName in pairs(gearList) do
 		local Slot = _G["Character"..SlotName]
 		Slot.ID = GetInventorySlotInfo(SlotName)
 
-		for t = 1,maxGemSlots do
+		-- Gems
+		for t = 1, maxGemSlots do
 			if Slot["textureSlot"..t] then
 				Slot["MER_Gem"..t] = CreateFrame("Frame", nil, Slot)
 				Slot["MER_Gem"..t]:SetPoint("TOPLEFT", Slot["textureSlot"..t])

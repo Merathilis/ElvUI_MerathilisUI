@@ -10,7 +10,7 @@ local SplitTextIntoHeaderAndNonHeader = SplitTextIntoHeaderAndNonHeader
 local C_UIWidgetManager_GetDiscreteProgressStepsVisualizationInfo = C_UIWidgetManager.GetDiscreteProgressStepsVisualizationInfo
 local C_UIWidgetManager_GetTextureWithAnimationVisualizationInfo = C_UIWidgetManager.GetTextureWithAnimationVisualizationInfo
 local GameTooltip = GameTooltip
-local COVENANT_MISSIONS_LEVEL = COVENANT_MISSIONS_LEVEL
+local GARRISON_TIER = GARRISON_TIER
 
 local maxValue = 1000
 local function GetMawBarValue()
@@ -33,13 +33,16 @@ local MawRankColor = {
 function module:UpdateMawBarLayout()
 	local bar = module.mawbar
 	local rank, value = GetMawBarValue()
+	local widgetInfo = rank and C_UIWidgetManager_GetTextureWithAnimationVisualizationInfo(2873 + rank)
+	local header, nonheader = SplitTextIntoHeaderAndNonHeader(widgetInfo.tooltip)
+
 	if rank then
 		bar:SetStatusBarColor(unpack(MawRankColor[rank]))
 		if rank == 5 then
-			bar.text:SetText(COVENANT_MISSIONS_LEVEL.." "..rank)
+			bar.text:SetText(header .. ' - ' .. GARRISON_TIER .. ' ' .. rank)
 			bar:SetValue(maxValue)
 		else
-			bar.text:SetText(COVENANT_MISSIONS_LEVEL.." "..rank.." - "..value.."/"..maxValue)
+			bar.text:SetText(header .. ' - ' .. GARRISON_TIER .. ' ' .. rank .. ' - ' .. value .. '/' .. maxValue)
 			bar:SetValue(value)
 		end
 		bar:Show()
@@ -57,7 +60,7 @@ function module:CreateMawWidgetFrame()
 
 	local bar = CreateFrame("StatusBar", nil, E.UIParent)
 	bar:SetPoint("TOP", 0, -115)
-	bar:SetSize(200, 16)
+	bar:SetSize(250, 16)
 	bar:SetMinMaxValues(0, 1000)
 	bar:CreateBackdrop('Transparent')
 	bar.backdrop:Styling()
@@ -66,7 +69,7 @@ function module:CreateMawWidgetFrame()
 	E:RegisterStatusBar(bar)
 
 	bar.text = bar:CreateFontString(nil, 'OVERLAY')
-	bar.text:FontTemplate()
+	bar.text:FontTemplate(nil, 10, 'OUTLINE')
 	bar.text:Point('CENTER')
 
 	module.mawbar = bar
