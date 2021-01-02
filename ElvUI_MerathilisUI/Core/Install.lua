@@ -1037,6 +1037,8 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["barPet"]["buttonsize"] = 24
 	E.db["actionbar"]["barPet"]["mouseover"] = false
 	E.db["actionbar"]["barPet"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["barPet"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["barPet"]["hotkeyFontOutline"] = "OUTLINE"
 
 	E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["stanceBar"]["backdrop"] = true
@@ -1044,6 +1046,8 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
 	E.db["actionbar"]["stanceBar"]["buttonsize"] = 22
 	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["stanceBar"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["stanceBar"]["hotkeyFontOutline"] = "OUTLINE"
 
 	if layout == "dps" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,144"
