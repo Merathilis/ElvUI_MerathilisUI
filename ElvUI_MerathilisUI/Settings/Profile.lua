@@ -18,6 +18,15 @@ MP.general = {
 	FlightPoint = true,
 	style = true,
 	shadowOverlay = true,
+	shadow = {
+		enable = true,
+		increasedSize = 0,
+		color = {
+			r = 0,
+			g = 0,
+			b = 0,
+		},
+	},
 }
 
 MP.bags = {

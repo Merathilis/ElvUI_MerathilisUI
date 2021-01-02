@@ -712,6 +712,38 @@ function MER:UpdateStyling()
 	end
 end
 
+function MER:CreateShadow(frame, size, r, g, b, force)
+	if not frame then return end
+	if not (E.db.mui.general.shadow and E.db.mui.general.shadow.enable) and not force then return end
+
+	if frame:GetObjectType() == "Texture" then
+		frame = frame:GetParent()
+	end
+
+	r = r or E.db.mui.general.shadow.color.r or 0
+	g = g or E.db.mui.general.shadow.color.g or 0
+	b = b or E.db.mui.general.shadow.color.b or 0
+
+	size = size or 4
+	size = size + E.db.mui.general.shadow.increasedSize or 0
+
+	local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	shadow:SetFrameStrata(frame:GetFrameStrata())
+	shadow:SetFrameLevel(frame:GetFrameLevel() or 1)
+	shadow:SetOutside(frame, size, size)
+	shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = size + 1})
+	shadow:SetBackdropColor(r, g, b, 0)
+	shadow:SetBackdropBorderColor(r, g, b, 0.618)
+
+	frame.shadow = shadow
+end
+
+function MER:CreateShadowModule(frame)
+	if not frame then return end
+
+	MER:CreateShadow(frame)
+end
+
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 	local frameName = f.GetName and f:GetName()

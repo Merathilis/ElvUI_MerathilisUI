@@ -497,14 +497,6 @@ local ButtonTypes = {
 function module:ShowAdvancedTimeTooltip(panel)
 	DT.RegisteredDataTexts["Time"].onEnter()
 	DT.RegisteredDataTexts["Time"].onLeave()
-	-- DT.tooltip:ClearLines()
-	-- DT.tooltip:SetText(L["Time"])
-	-- DT.tooltip:AddLine("\n", 1, 1, 1)
-	-- DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Calendar"], 1, 1, 1)
-	-- DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Time Manager"], 1, 1, 1)
-	-- DT.tooltip:AddLine("\n")
-	-- DT.tooltip:AddLine(L["(Modifer Click) Collect Garbage"], unpack(E.media.rgbvaluecolor))
-	-- DT.tooltip:Show()
 end
 
 function module:ConstructBar()
@@ -548,6 +540,10 @@ function module:ConstructBar()
 	rightPanel:CreateBackdrop("Transparent")
 	rightPanel.backdrop:Styling()
 	bar.rightPanel = rightPanel
+
+	MER:CreateShadowModule(leftPanel.backdrop)
+	MER:CreateShadowModule(middlePanel.backdrop)
+	MER:CreateShadowModule(rightPanel.backdrop)
 
 	self.bar = bar
 
