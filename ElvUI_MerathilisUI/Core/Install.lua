@@ -1268,7 +1268,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 12,
 			["justifyH"] = "CENTER",
-			["text_format"] = "[mana:current:shortvalue]",
+			["text_format"] = "[additionalmana:current]",
 			["attachTextTo"] = "AdditionalPower",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
