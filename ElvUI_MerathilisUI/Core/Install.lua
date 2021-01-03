@@ -1238,7 +1238,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 11,
 			["justifyH"] = "RIGHT",
-			["text_format"] = "[health:current-mUI]",
+			["text_format"] = "[health:current:shortvalue]",
 			["attachTextTo"] = "Frame",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
@@ -1422,7 +1422,7 @@ function MER:SetupUnitframes(layout)
 			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "LEFT",
-			["text_format"] = "[health:current-mUI]",
+			["text_format"] = "[health:current:shortvalue]",
 			["attachTextTo"] = "Health",
 			["yOffset"] = -1,
 			["xOffset"] = 0,
@@ -1432,7 +1432,7 @@ function MER:SetupUnitframes(layout)
 			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
-			["text_format"] = "[power:current-mUI]",
+			["text_format"] = "[power:current:shortvalue]",
 			["attachTextTo"] = "Health",
 			["yOffset"] = -19,
 			["xOffset"] = 3,
@@ -1998,7 +1998,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 14,
-			["text_format"] = "[health:current-mUI]",
+			["text_format"] = "[health:current:shortvalue]",
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = {
@@ -2015,7 +2015,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["boss"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["boss"]["power"]["height"] = 9
 		E.db["unitframe"]["units"]["boss"]["power"]["position"] = "CENTER"
-		E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = "[power:current-mUI]"
+		E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = "[power:current:shortvalue]"
 		E.db["unitframe"]["units"]["boss"]["growthDirection"] = "UP"
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
@@ -2125,7 +2125,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 16,
 			["justifyH"] = "LEFT",
-			["text_format"] = "[health:current-mUI]",
+			["text_format"] = "[health:current:shortvalue]",
 			["attachTextTo"] = "Health",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
@@ -2237,7 +2237,7 @@ function MER:SetupUnitframes(layout)
 			["size"] = 16,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
-			["text_format"] = "[health:current-mUI] | [power:current-mUI]",
+			["text_format"] = "[health:current:shortvalue] | [power:current:shortvalue]",
 			["attachTextTo"] = "Health",
 			["yOffset"] = 0,
 			["xOffset"] = 0,
@@ -2670,7 +2670,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 14,
-			["text_format"] = "[health:current-mUI]",
+			["text_format"] = "[health:current:shortvalue]",
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = {
