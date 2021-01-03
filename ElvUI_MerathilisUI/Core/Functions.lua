@@ -712,17 +712,13 @@ function MER:UpdateStyling()
 	end
 end
 
-function MER:CreateShadow(frame, size, r, g, b, force)
+function MER:CreateShadow(frame, size, force)
 	if not frame then return end
 	if not (E.db.mui.general.shadow and E.db.mui.general.shadow.enable) and not force then return end
 
 	if frame:GetObjectType() == "Texture" then
 		frame = frame:GetParent()
 	end
-
-	r = r or E.db.mui.general.shadow.color.r or 0
-	g = g or E.db.mui.general.shadow.color.g or 0
-	b = b or E.db.mui.general.shadow.color.b or 0
 
 	size = size or 4
 	size = size + E.db.mui.general.shadow.increasedSize or 0
@@ -732,8 +728,8 @@ function MER:CreateShadow(frame, size, r, g, b, force)
 	shadow:SetFrameLevel(frame:GetFrameLevel() or 1)
 	shadow:SetOutside(frame, size, size)
 	shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = size + 1})
-	shadow:SetBackdropColor(r, g, b, 0)
-	shadow:SetBackdropBorderColor(r, g, b, 0.618)
+	shadow:SetBackdropColor(0, 0, 0, 0)
+	shadow:SetBackdropBorderColor(0, 0, 0, 0.618)
 
 	frame.shadow = shadow
 end
