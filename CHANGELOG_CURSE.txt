@@ -1,3 +1,14 @@
+** v4.72, xx.01.2021**
+* LocPanel: Add Cypher of Relocation to port items
+* AFK/FlightMode: Added a covenant texture
+* Skins: Various updates
+* Misc: Replace the Maw Threat Widget with a simple StatusBar
+* AutoButtons: Added 2 more Bars in total now of 5
+* Armory: Added an indicator to show missing enchants/gems
+* Fonts: Replace GothamNarrow fonts with a newer one
+* MicroBar: Added a Shadow
+
+
 ** v4.70, 21.12.2020**
 * Take account for the new skin api in BigWigs
 * Layout: Update the position for Bags/Bank
