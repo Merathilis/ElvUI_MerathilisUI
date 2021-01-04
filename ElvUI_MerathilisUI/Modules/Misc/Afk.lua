@@ -157,9 +157,11 @@ function AFK:SetAFK(status)
 		end
 
 		if kit then
-			AFK.AFKMode.Panel.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
-			AFK.AFKMode.Panel.crest:Point("BOTTOM", 0, vert or 14)
-			AFK.AFKMode.Panel.crest:Size(300, hei)
+			if AFK.AFKMode.Panel then
+				AFK.AFKMode.Panel.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
+				AFK.AFKMode.Panel.crest:Point("BOTTOM", 0, vert or 14)
+				AFK.AFKMode.Panel.crest:Size(300, hei)
+			end
 		end
 
 		AFK.startTime = GetTime()
@@ -189,30 +191,23 @@ local function Initialize()
 	AFK.AFKMode.chat:ClearAllPoints()
 	AFK.AFKMode.chat:SetPoint("TOPLEFT", AFK.AFKMode.top, "BOTTOMLEFT", 4, -10)
 
-	AFK.AFKMode.Panel = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
-	AFK.AFKMode.Panel:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
-	AFK.AFKMode.Panel:Size((GetScreenWidth()/2), 80)
-	AFK.AFKMode.Panel:CreateBackdrop('Transparent')
-	AFK.AFKMode.Panel:SetFrameStrata('FULLSCREEN')
-	AFK.AFKMode.Panel:Styling()
+	if not AFK.AFKMode.Panel then
+		AFK.AFKMode.Panel = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
+		AFK.AFKMode.Panel:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
+		AFK.AFKMode.Panel:Size((GetScreenWidth()/2), 80)
+		AFK.AFKMode.Panel:CreateBackdrop('Transparent')
+		AFK.AFKMode.Panel:SetFrameStrata('FULLSCREEN')
+		AFK.AFKMode.Panel:Styling()
 
-	E["frames"][AFK.AFKMode.Panel] = true
-	AFK.AFKMode.Panel.ignoreFrameTemplates = true
-	AFK.AFKMode.Panel.ignoreBackdropColors = true
+		E["frames"][AFK.AFKMode.Panel] = true
+		AFK.AFKMode.Panel.ignoreFrameTemplates = true
+		AFK.AFKMode.Panel.ignoreBackdropColors = true
+	end
 
-	--[[
-	AFK.AFKMode.PanelIcon = CreateFrame('Frame', nil, AFK.AFKMode.Panel, 'BackdropTemplate')
-	AFK.AFKMode.PanelIcon:Size(55)
-	AFK.AFKMode.PanelIcon:Point('CENTER', AFK.AFKMode.Panel, 'BOTTOM', 0, -3)
-
-	AFK.AFKMode.PanelIcon.Texture = AFK.AFKMode.PanelIcon:CreateTexture(nil, 'ARTWORK')
-	AFK.AFKMode.PanelIcon.Texture:Point('TOPLEFT', 2, -2)
-	AFK.AFKMode.PanelIcon.Texture:Point('BOTTOMRIGHT', -2, 2)
-	AFK.AFKMode.PanelIcon.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga')
-	--]]
-
-	AFK.AFKMode.Panel.crest = AFK.AFKMode.Panel:CreateTexture(nil, 'ARTWORK')
-	AFK.AFKMode.Panel.crest:SetDrawLayer('ARTWORK')
+	if not AFK.AFKMode.Panel.crest then
+		AFK.AFKMode.Panel.crest = AFK.AFKMode.Panel:CreateTexture(nil, 'ARTWORK')
+		AFK.AFKMode.Panel.crest:SetDrawLayer('ARTWORK')
+	end
 
 	AFK.AFKMode.MERVersion = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.MERVersion:Point('CENTER', AFK.AFKMode.Panel, 'CENTER', 0, -10)
