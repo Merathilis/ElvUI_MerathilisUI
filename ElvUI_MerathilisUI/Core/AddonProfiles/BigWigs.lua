@@ -118,6 +118,19 @@ function MER:LoadBigWigsProfile()
 						},
 					},
 				},
+				["BigWigs_Plugins_Countdown"] = {
+					["profiles"] = {
+						[main] = {
+							["fontName"] = "Expressway",
+							["position"] = {
+								"CENTER", -- [1]
+								"CENTER", -- [2]
+								7.999993801116943, -- [3]
+								122.0000915527344, -- [4]
+							},
+						},
+					},
+				},
 				["BigWigs_Plugins_Messages"] = {
 					["profiles"] = {
 						[main] = {
