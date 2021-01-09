@@ -190,6 +190,7 @@ function module:Filter(event, msg, ...)
 		msg = gsub(msg, "(|Htalent:%d+|h.-|h)", AddTalentInfo)
 		msg = gsub(msg, "(|Hpvptal:%d+|h.-|h)", AddPvPTalentInfo)
 	end
+
 	return false, msg, ...
 end
 

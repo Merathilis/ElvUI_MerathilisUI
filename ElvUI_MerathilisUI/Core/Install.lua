@@ -236,8 +236,6 @@ function MER:SetupLayout(layout)
 	E.db["general"]["minimap"]["locationFont"] = "Expressway"
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
-	E.db["general"]["vendorGrays"] = true
-	E.db["general"]["vendorGraysDetails"] = true
 	E.db["general"]["backdropcolor"]["r"] = 0.101
 	E.db["general"]["backdropcolor"]["g"] = 0.101
 	E.db["general"]["backdropcolor"]["b"] = 0.101
@@ -351,6 +349,8 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["scrapIcon"] = true
 	E.db["bags"]["itemLevelCustomColorEnable"] = false
 	E.db["bags"]["transparent"] = true
+	E.db["bags"]["vendorGrays"]["enable"] = true
+	E.db["bags"]["vendorGrays"]["details"] = true
 
 	-- Cooldown Settings
 	E.db["bags"]["cooldown"]["override"] = true
