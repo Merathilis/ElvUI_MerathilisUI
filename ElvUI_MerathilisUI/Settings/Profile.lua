@@ -971,6 +971,7 @@ MP.reminder = {
 
 MP.nameplates = {
 	castbarShield = true,
+	progressText = true,
 	enhancedAuras = {
 		enable = true,
 		width = 26,
