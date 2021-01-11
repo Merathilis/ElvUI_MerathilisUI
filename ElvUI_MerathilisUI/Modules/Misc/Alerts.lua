@@ -92,7 +92,7 @@ function module:ItemAlert_Update(unit, _, spellID)
 		local who = UnitName(unit)
 		local link = GetSpellLink(spellID)
 		local name = GetSpellInfo(spellID)
-		SendChatMessage(format(L["%s has placed down %s"], who, link or name), MER:CheckChat())
+		SendChatMessage(format(L.ANNOUNCE_FP_PRE, who, link or name), MER:CheckChat())
 
 		lastTime = GetTime()
 	end
