@@ -14,6 +14,7 @@ local Ambiguate = Ambiguate
 local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
 local C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePrefix
 local C_LFGList_GetAvailableRoles = C_LFGList.GetAvailableRoles
+local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local ChatTypeInfo = ChatTypeInfo
 local CreateFrame = CreateFrame
 local GetTime = GetTime
@@ -27,11 +28,13 @@ local RaidNotice_AddMessage = RaidNotice_AddMessage
 local GetSpellInfo = GetSpellInfo
 local GetSpellLink = GetSpellLink
 local GetTime = GetTime
+local InCombatLockdown = InCombatLockdown
 local IsInGroup = IsInGroup
 local SendChatMessage = SendChatMessage
 local UnitInParty = UnitInParty
 local UnitInRaid = UnitInRaid
 local UnitName = UnitName
+local TANKE, HEALER, DAMAGER = TANK, HEALER, DAMAGER
 -- GLOBALS:
 
 local eventframe = CreateFrame('Frame')
@@ -89,7 +92,7 @@ function module:ItemAlert_Update(unit, _, spellID)
 		local who = UnitName(unit)
 		local link = GetSpellLink(spellID)
 		local name = GetSpellInfo(spellID)
-		SendChatMessage(format("%s has placed down %s", who, link or name), MER:CheckChat())
+		SendChatMessage(format(L["%s has placed down %s"], who, link or name), MER:CheckChat())
 
 		lastTime = GetTime()
 	end
@@ -109,6 +112,34 @@ function module:PlacedItemAlert()
 	MER:RegisterEvent("GROUP_LEFT", self.ItemAlert_CheckGroup)
 	MER:RegisterEvent("GROUP_JOINED", self.ItemAlert_CheckGroup)
 end
+
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+frame:SetScript("OnEvent", function()
+	if not IsInGroup() or InCombatLockdown() then return end
+	local db = E.db.mui.misc.alerts
+	local _, subEvent, _, _, srcName, _, _, _, destName, _, _, spellID = CombatLogGetCurrentEventInfo()
+	if not subEvent or not spellID or not srcName then return end
+	if not UnitInRaid(srcName) and not UnitInParty(srcName) then return end
+
+	local srcName = srcName:gsub("%-[^|]+", "")
+	if subEvent == "SPELL_CAST_SUCCESS" then
+		-- Refreshment Table
+		if db.feasts and spellID == 43987 then
+			SendChatMessage(format(L.ANNOUNCE_FP_PRE, srcName, GetSpellLink(spellID)), MER:CheckChat())
+		-- Ritual of Summoning
+		elseif db.portals and spellID == 698 then
+			SendChatMessage(format(L.ANNOUNCE_FP_CLICK, srcName, GetSpellLink(spellID)), MER:CheckChat())
+		-- Piccolo of the Flaming Fire
+		elseif db.toys and spellID == 182346 then
+			SendChatMessage(format(L.ANNOUNCE_FP_USE, srcName, GetSpellLink(spellID)), MER:CheckChat())
+		end
+	elseif subEvent == "SPELL_CREATE" then
+		if db.portals and MER.Announce[spellID] then
+			SendChatMessage(format(L.ANNOUNCE_FP_CAST, srcName, GetSpellLink(spellID)), MER:CheckChat())
+		end
+	end
+end)
 
 function module:AddAlerts()
 	if E.db.mui.misc.alerts.lfg then

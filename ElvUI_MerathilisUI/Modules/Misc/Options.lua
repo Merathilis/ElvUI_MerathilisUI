@@ -117,6 +117,21 @@ local function Misc()
 						name = L["Item Alerts"],
 						desc = L["Announce in chat when someone placed an usefull item."],
 					},
+					feasts = {
+						order = 4,
+						type = "toggle",
+						name = L["Feasts"],
+					},
+					portals = {
+						order = 5,
+						type = "toggle",
+						name = L["Portals"],
+					},
+					toys = {
+						order = 6,
+						type = "toggle",
+						name = L["Toys"],
+					},
 				},
 			},
 			quest = {
