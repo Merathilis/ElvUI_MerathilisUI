@@ -113,6 +113,10 @@ function module:PlacedItemAlert()
 	MER:RegisterEvent("GROUP_JOINED", self.ItemAlert_CheckGroup)
 end
 
+--[[---------------------
+  Various Alerts
+------------------------]]
+
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 frame:SetScript("OnEvent", function()

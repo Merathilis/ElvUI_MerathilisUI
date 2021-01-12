@@ -859,7 +859,6 @@ local function LoadSkin()
 				local mission = missions[i]
 				if not mission.styled then
 					ReskinWidgetFont(mission.Description, .8, .8, .8)
-					ReskinWidgetFont(mission.CDTDisplay, 1, .8, 0)
 					S:HandleButton(mission.ViewButton)
 
 					mission.ProgressBar:StripTextures()
