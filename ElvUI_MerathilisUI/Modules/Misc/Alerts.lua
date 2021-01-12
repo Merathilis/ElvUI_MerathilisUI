@@ -74,76 +74,84 @@ end
   Item Alerts
 ------------------------]]
 local lastTime = 0
-local itemList = {
+local spells = {
+	-- Items/Misc
 	[54710] = true, -- MOLL-E
-	[54711] = true,	-- Scrapbot
 	[67826] = true,	-- Jeeves
 	[199109] = true, -- Auto-Hammer
 	[265116] = true, -- Unstable Temporal Time Shifter
+
+	-- Shadowlands
 	[308458] = true,	-- Surprisingly Palatable Feast
 	[308462] = true,	-- Feast of Gluttonous Hedonism
 	[345130] = true,	-- Disposable Spectrophasic Reanimator
 	[307157] = true,	-- Eternal Cauldron
 	[324029] = true,	-- Codex of the Still Mind
+
+	-- Portals
+	-- Alliance
+	[10059] = true,		-- Stormwind
+	[11416] = true,		-- Ironforge
+	[11419] = true,		-- Darnassus
+	[32266] = true,		-- Exodar
+	[49360] = true,		-- Theramore
+	[33691] = true,		-- Shattrath
+	[88345] = true,		-- Tol Barad
+	[132620] = true,	-- Vale of Eternal Blossoms
+	[176246] = true,	-- Stormshield
+	[281400] = true,	-- Boralus
+	-- Horde
+	[11417] = true,		-- Orgrimmar
+	[11420] = true,		-- Thunder Bluff
+	[11418] = true,		-- Undercity
+	[32267] = true,		-- Silvermoon
+	[49361] = true,		-- Stonard
+	[35717] = true,		-- Shattrath
+	[88346] = true,		-- Tol Barad
+	[132626] = true,	-- Vale of Eternal Blossoms
+	[176244] = true,	-- Warspear
+	[281402] = true,	-- Dazar'alor
+	-- Alliance/Horde
+	[53142] = true,		-- Dalaran
+	[120146] = true,	-- Ancient Dalaran
+	[224871] = true,	-- Dalaran, Broken Isles
+	[344597] = true,	-- Oribos
+
+	[43987] = true, -- Conjure Refreshment Table
+	[698] = true, -- Ritual of Summoning
 }
 
-function module:ItemAlert_Update(unit, _, spellID)
-	if (UnitInRaid(unit) or UnitInParty(unit)) and spellID and itemList[spellID] and lastTime ~= GetTime() then
-		local who = UnitName(unit)
-		local link = GetSpellLink(spellID)
-		local name = GetSpellInfo(spellID)
-		SendChatMessage(format(L.ANNOUNCE_FP_PRE, who, link or name), MER:CheckChat())
+local lastAnnounced = {}
+function module:AnnounceSpell(spellID, casterName, casterServer)
+	if not spellID then return end
+	local fullName = casterName .. "-" .. (casterServer or "")
+	lastAnnounced[fullName] = lastAnnounced[fullName] or {}
+	local now = GetTime()
+	local lastTime = lastAnnounced[fullName][spellID]
+	if ( lastTime ~= nil and (now - lastTime) < 5 ) then return end
+	lastAnnounced[fullName][spellID] = now
 
-		lastTime = GetTime()
-	end
+	local spellLink = GetSpellLink(spellID)
+	local spellName = GetSpellInfo(spellID)
+	local message = format(L.ANNOUNCE_FP_CAST, casterName, (spellLink or spellName))
+	local channel = MER:CheckChat()
+	SendChatMessage(message, channel)
 end
 
-function module:ItemAlert_CheckGroup()
+function module:GROUP_ROSTER_UPDATE()
 	if IsInGroup() then
-		MER:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", module.ItemAlert_Update)
+		self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	else
-		MER:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED", module.ItemAlert_Update)
+		self:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+		lastAnnounced = {}
 	end
 end
 
-function module:PlacedItemAlert()
-	self:ItemAlert_CheckGroup()
-
-	MER:RegisterEvent("GROUP_LEFT", self.ItemAlert_CheckGroup)
-	MER:RegisterEvent("GROUP_JOINED", self.ItemAlert_CheckGroup)
+function module:UNIT_SPELLCAST_SUCCEEDED(unitID, _, _, _, spellID)
+	if not spells[spellID] then return end
+	local name, server = UnitName(unitID)
+	self:announceSpell(spellID, name, server)
 end
-
---[[---------------------
-  Various Alerts
-------------------------]]
-
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-frame:SetScript("OnEvent", function()
-	if not IsInGroup() or InCombatLockdown() then return end
-	local db = E.db.mui.misc.alerts
-	local _, subEvent, _, _, srcName, _, _, _, destName, _, _, spellID = CombatLogGetCurrentEventInfo()
-	if not subEvent or not spellID or not srcName then return end
-	if not UnitInRaid(srcName) and not UnitInParty(srcName) then return end
-
-	local srcName = srcName:gsub("%-[^|]+", "")
-	if subEvent == "SPELL_CAST_SUCCESS" then
-		-- Refreshment Table
-		if db.feasts and spellID == 43987 then
-			SendChatMessage(format(L.ANNOUNCE_FP_PRE, srcName, GetSpellLink(spellID)), MER:CheckChat())
-		-- Ritual of Summoning
-		elseif db.portals and spellID == 698 then
-			SendChatMessage(format(L.ANNOUNCE_FP_CLICK, srcName, GetSpellLink(spellID)), MER:CheckChat())
-		-- Piccolo of the Flaming Fire
-		elseif db.toys and spellID == 182346 then
-			SendChatMessage(format(L.ANNOUNCE_FP_USE, srcName, GetSpellLink(spellID)), MER:CheckChat())
-		end
-	elseif subEvent == "SPELL_CREATE" then
-		if db.portals and MER.Announce[spellID] then
-			SendChatMessage(format(L.ANNOUNCE_FP_CAST, srcName, GetSpellLink(spellID)), MER:CheckChat())
-		end
-	end
-end)
 
 function module:AddAlerts()
 	if E.db.mui.misc.alerts.lfg then
@@ -151,6 +159,6 @@ function module:AddAlerts()
 	end
 
 	if E.db.mui.misc.alerts.itemAlert then
-		self:PlacedItemAlert()
+		eventframe:RegisterEvent('GROUP_ROSTER_UPDATE')
 	end
 end

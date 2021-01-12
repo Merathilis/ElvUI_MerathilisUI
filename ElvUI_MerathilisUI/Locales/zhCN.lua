@@ -219,10 +219,7 @@ L["Item Alerts"] = "物品通告"
 L["Announce in chat when someone placed an usefull item."] = "当有玩家放置某些物品时将在聊天栏通知"
 L["Maw ThreatBar"] = true
 L["Replace the Maw Threat Display, with a simple StatusBar"] = true
-L.ANNOUNCE_FP_PRE = "%s 放置了 %s"
-L.ANNOUNCE_FP_CLICK = "%s 正在开启 %s... 请点击 !"
-L.ANNOUNCE_FP_USE = "%s 使用了 %s。"
-L.ANNOUNCE_FP_CAST = "%s 开启了 %s"
+L.ANNOUNCE_FP_CAST = "{rt1} %s 开启了 %s {rt1}"
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
