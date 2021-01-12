@@ -39,7 +39,7 @@ local TANKE, HEALER, DAMAGER = TANK, HEALER, DAMAGER
 
 local eventframe = CreateFrame('Frame')
 eventframe:SetScript('OnEvent', function(self, event, ...)
-	eventframe[event](self, ...)
+	return eventframe[event](self, ...)
 end)
 
 --[[---------------------
