@@ -150,7 +150,7 @@ end
 function module:UNIT_SPELLCAST_SUCCEEDED(unitID, _, _, _, spellID)
 	if not spells[spellID] then return end
 	local name, server = UnitName(unitID)
-	self:announceSpell(spellID, name, server)
+	self:AnnounceSpell(spellID, name, server)
 end
 
 function module:AddAlerts()
