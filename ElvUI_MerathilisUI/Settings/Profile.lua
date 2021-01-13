@@ -268,6 +268,9 @@ MP.misc = {
 		lfg = false,
 		announce = true,
 		itemAlert = true,
+		feasts = true,
+		portals = true,
+		toys = true,
 	},
 	paragon = {
 		enable = true,
