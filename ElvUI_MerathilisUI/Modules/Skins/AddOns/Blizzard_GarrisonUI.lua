@@ -858,6 +858,8 @@ local function LoadSkin()
 			for i = 1, #missions do
 				local mission = missions[i]
 				if not mission.styled then
+					ReskinWidgetFont(mission.Name, .9, .8, .5)
+					ReskinWidgetFont(mission.TagText, .9, .8, .5)
 					ReskinWidgetFont(mission.Description, .8, .8, .8)
 					S:HandleButton(mission.ViewButton)
 
