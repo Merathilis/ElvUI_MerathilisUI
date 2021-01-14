@@ -218,10 +218,10 @@ L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
 L["Maw ThreatBar"] = true
 L["Replace the Maw Threat Display, with a simple StatusBar"] = true
-L.ANNOUNCE_FP_PRE = "%s has prepared a %s."
-L.ANNOUNCE_FP_CLICK = "%s is casting %s. Click!"
-L.ANNOUNCE_FP_USE = "%s used a %s."
-L.ANNOUNCE_FP_CAST = "%s is casting %s."
+L.ANNOUNCE_FP_PRE = "{rt1} %s has prepared a %s. {rt1}"
+L.ANNOUNCE_FP_CLICK = "{rt1} %s is casting %s. Click! {rt1}"
+L.ANNOUNCE_FP_USE = "{rt1} %s used a %s.{rt1} "
+L.ANNOUNCE_FP_CAST = "{rt1} %s is casting %s. {rt1}"
 
 -- Tooltip
 L["Your Status:"] = true

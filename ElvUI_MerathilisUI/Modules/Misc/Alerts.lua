@@ -116,20 +116,19 @@ end
 --[[---------------------
   Various Alerts
 ------------------------]]
-
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-frame:SetScript("OnEvent", function()
+local frame = CreateFrame('Frame')
+frame:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
+frame:SetScript('OnEvent', function()
 	if not IsInGroup() or InCombatLockdown() then return end
 	local db = E.db.mui.misc.alerts
 	local _, subEvent, _, _, srcName, _, _, _, destName, _, _, spellID = CombatLogGetCurrentEventInfo()
 	if not subEvent or not spellID or not srcName then return end
 	if not UnitInRaid(srcName) and not UnitInParty(srcName) then return end
 
-	local srcName = srcName:gsub("%-[^|]+", "")
+	local srcName = srcName:gsub('%-[^|]+', '')
 	if subEvent == "SPELL_CAST_SUCCESS" then
 		-- Refreshment Table
-		if db.feasts and spellID == 43987 then
+		if db.feasts and spellID == 190336 then
 			SendChatMessage(format(L.ANNOUNCE_FP_PRE, srcName, GetSpellLink(spellID)), MER:CheckChat())
 		-- Ritual of Summoning
 		elseif db.portals and spellID == 698 then

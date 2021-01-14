@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
 MER.Announce = {
+	-- Portals
 	-- Alliance
 	[10059] = true,		-- Stormwind
 	[11416] = true,		-- Ironforge

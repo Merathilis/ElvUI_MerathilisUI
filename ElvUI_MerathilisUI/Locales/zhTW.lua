@@ -210,10 +210,10 @@ L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
 L["Maw ThreatBar"] = true
 L["Replace the Maw Threat Display, with a simple StatusBar"] = true
-L.ANNOUNCE_FP_PRE = "%s 放置了 %s"
-L.ANNOUNCE_FP_CLICK = "%s 正在開啟 %s... 請點擊 !"
-L.ANNOUNCE_FP_USE = "%s 使用了 %s。"
-L.ANNOUNCE_FP_CAST = "%s 開啟了 %s"
+L.ANNOUNCE_FP_PRE = "{rt1} %s 放置了 %s {rt1}"
+L.ANNOUNCE_FP_CLICK = "{rt1} %s 正在開啟 %s... 請點擊 ! {rt1}"
+L.ANNOUNCE_FP_USE = "{rt1} %s 使用了 %s。 {rt1}"
+L.ANNOUNCE_FP_CAST = "{rt1} %s 開啟了 %s {rt1}"
 
 -- Tooltip
 L["Your Status:"] = true
