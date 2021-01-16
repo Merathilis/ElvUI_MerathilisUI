@@ -16,7 +16,7 @@ local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
 local function UpdateFlyoutLevel(button, bag, slot, quality)
 	if not button.iLvl then
 		button.iLvl = MER:CreateText(button, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
-		button.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
+		button.iLvl:SetPoint("BOTTOM", 0, -5)
 	end
 
 	local link, level

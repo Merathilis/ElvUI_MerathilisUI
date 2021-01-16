@@ -133,6 +133,9 @@ frame:SetScript('OnEvent', function()
 		-- Ritual of Summoning
 		elseif db.portals and spellID == 698 then
 			SendChatMessage(format(L.ANNOUNCE_FP_CLICK, srcName, GetSpellLink(spellID)), MER:CheckChat())
+		-- Soul Well
+		elseif db.feasts and spellID == 29893 then
+			SendChatMessage(format(L.ANNOUNCE_FP_PRE, srcName, GetSpellLink(spellID)), MER:CheckChat())
 		-- Piccolo of the Flaming Fire
 		elseif db.toys and spellID == 182346 then
 			SendChatMessage(format(L.ANNOUNCE_FP_USE, srcName, GetSpellLink(spellID)), MER:CheckChat())
