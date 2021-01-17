@@ -350,7 +350,7 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["itemLevelCustomColorEnable"] = false
 	E.db["bags"]["transparent"] = true
 	E.db["bags"]["vendorGrays"]["enable"] = true
-	E.db["bags"]["vendorGrays"]["details"] = true
+	E.db["bags"]["vendorGrays"]["details"] = false
 
 	-- Cooldown Settings
 	E.db["bags"]["cooldown"]["override"] = true
