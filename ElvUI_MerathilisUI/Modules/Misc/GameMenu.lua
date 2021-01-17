@@ -51,7 +51,6 @@ MER.NPCS = {
 	67332, -- Darkmoon Eye
 	71693, -- Rascal-Bot
 	66499, -- Bishibosh
-
 	-- BfA
 	139073, -- Poda
 	139770, -- Taptaf
@@ -62,6 +61,12 @@ MER.NPCS = {
 	143563, -- Cholerian
 	143794, -- Scuttle
 	143796, -- Barnaby
+	-- Shadowlands
+	172854, -- Dredger Butler
+	175783, -- Digallo
+	171716, -- Indigo
+	173586, -- Leafadore
+	173992, -- Torghast Lurker
 }
 
 MER.PEPE = {
