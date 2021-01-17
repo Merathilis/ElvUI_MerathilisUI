@@ -144,6 +144,8 @@ function MER:LoadBigWigsProfile()
 							["BWEmphasizeMessageAnchor_y"] = 614,
 							["BWMessageAnchor_y"] = 676,
 							["BWEmphasizeMessageAnchor_x"] = 610,
+							["emphFontName"] = "Expressway",
+							["fontName"] = "Expressway",
 						},
 						[heal] = {
 							["outline"] = "OUTLINE",
