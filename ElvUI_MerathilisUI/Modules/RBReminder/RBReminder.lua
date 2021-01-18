@@ -2,20 +2,16 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RaidBuffs')
 local LCG = LibStub('LibCustomGlow-1.0')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local IsInRaid = IsInRaid
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 local GetSpellInfo = GetSpellInfo
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
-
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: mUIRaidBuffReminder, FlaskFrame, FoodFrame, DARuneFrame, IntellectFrame, StaminaFrame, AttackPowerFrame, CustomFrame
+local GetWeaponEnchantInfo = GetWeaponEnchantInfo
 
 local bsize = 25
 local r, g, b = unpack(E["media"].rgbvaluecolor)
