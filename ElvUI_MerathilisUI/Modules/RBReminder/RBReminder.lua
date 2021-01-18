@@ -3,7 +3,7 @@ local module = MER:GetModule('MER_RaidBuffs')
 local LCG = LibStub('LibCustomGlow-1.0')
 
 local _G = _G
-local pairs, select, unpack = pairs, select, unpack
+local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
 
 local CreateFrame = CreateFrame
 local IsInRaid = IsInRaid
@@ -12,6 +12,7 @@ local UnregisterStateDriver = UnregisterStateDriver
 local GetSpellInfo = GetSpellInfo
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 local GetWeaponEnchantInfo = GetWeaponEnchantInfo
+local GetInventoryItemTexture = GetInventoryItemTexture
 
 local bsize = 25
 local r, g, b = unpack(E["media"].rgbvaluecolor)
@@ -72,13 +73,27 @@ module.ReminderBuffs = {
 		264761, -- War-Scroll of Battle
 	},
 	Weapon = {
-		320798, -- Shadowcore Oil
-		321389, -- Embalmer's Oil
+		1, -- just a fallback
 	},
 	Custom = {
 		-- spellID,	-- Spell name
 	},
 }
+
+module.Weapon_Enchants = {
+	6188, -- Shadowcore Oil
+	6190, -- Embalmer's Oil
+	6200, -- Shaded Sharpening Stone
+}
+
+local function EnchantsID(id)
+	for i, v in ipairs(module.Weapon_Enchants) do
+		if id == v then
+			return true
+		end
+	end
+	return false
+end
 
 local flaskbuffs = module.ReminderBuffs["Flask"]
 local foodbuffs = module.ReminderBuffs["Food"]
@@ -209,14 +224,14 @@ local function OnAuraChange(self, event, arg1, unit)
 	end
 
 	if (weaponEnch and weaponEnch[1]) then
-		local hasMainHandEnchant = GetWeaponEnchantInfo()
-		if hasMainHandEnchant then
-			WeaponFrame.t:SetTexture('Interface\\ICONS\\inv_misc_potionseta')
+		local hasMainHandEnchant, _, _, mainHandEnchantID, hasOffHandEnchant, _, _, offHandEnchantId = GetWeaponEnchantInfo()
+		if (hasMainHandEnchant and EnchantsID(mainHandEnchantID)) or (hasOffHandEnchant and EnchantsID(offHandEnchantId)) then
+			WeaponFrame.t:SetTexture(GetInventoryItemTexture('player', 16))
 			WeaponFrame:SetAlpha(module.db.alpha)
 			LCG.PixelGlow_Stop(WeaponFrame)
 		else
 			WeaponFrame:SetAlpha(1)
-			WeaponFrame.t:SetTexture('Interface\\ICONS\\inv_misc_potionseta')
+			WeaponFrame.t:SetTexture(GetInventoryItemTexture('player', 16))
 			if module.db.glow then
 				LCG.PixelGlow_Start(WeaponFrame, color, nil, -0.25, nil, 1)
 			end
