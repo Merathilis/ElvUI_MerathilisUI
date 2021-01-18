@@ -75,6 +75,10 @@ module.ReminderBuffs = {
 		6673, -- Battle Shout
 		264761, -- War-Scroll of Battle
 	},
+	Weapon = {
+		320798, -- Shadowcore Oil
+		321389, -- Embalmer's Oil
+	},
 	Custom = {
 		-- spellID,	-- Spell name
 	},
@@ -87,6 +91,7 @@ local intellectbuffs = module.ReminderBuffs["Intellect"]
 local staminabuffs = module.ReminderBuffs["Stamina"]
 local attackpowerbuffs = module.ReminderBuffs["AttackPower"]
 local custombuffs = module.ReminderBuffs["Custom"]
+local weaponEnch = module.ReminderBuffs["Weapon"]
 
 local function OnAuraChange(self, event, arg1, unit)
 	if (event == "UNIT_AURA" and arg1 ~= "player") then return end
@@ -207,6 +212,21 @@ local function OnAuraChange(self, event, arg1, unit)
 		end
 	end
 
+	if (weaponEnch and weaponEnch[1]) then
+		local hasMainHandEnchant = GetWeaponEnchantInfo()
+		if hasMainHandEnchant then
+			WeaponFrame.t:SetTexture('Interface\\ICONS\\inv_misc_potionseta')
+			WeaponFrame:SetAlpha(module.db.alpha)
+			LCG.PixelGlow_Stop(WeaponFrame)
+		else
+			WeaponFrame:SetAlpha(1)
+			WeaponFrame.t:SetTexture('Interface\\ICONS\\inv_misc_potionseta')
+			if module.db.glow then
+				LCG.PixelGlow_Start(WeaponFrame, color, nil, -0.25, nil, 1)
+			end
+		end
+	end
+
 	if custombuffs and custombuffs[1] then
 		for i, custombuffs in pairs(custombuffs) do
 			local name, _, icon = GetSpellInfo(custombuffs)
@@ -280,12 +300,14 @@ function module:Initialize()
 		self:CreateIconBuff("FlaskFrame", AttackPowerFrame, false)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 		self:CreateIconBuff("DARuneFrame", FoodFrame, false)
-		self:CreateIconBuff("CustomFrame", DARuneFrame, false)
+		self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
+		self:CreateIconBuff("CustomFrame", WeaponFrame, false)
 	else
 		self:CreateIconBuff("FlaskFrame", RaidBuffReminder, true)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 		self:CreateIconBuff("DARuneFrame", FoodFrame, false)
-		self:CreateIconBuff("CustomFrame", DARuneFrame, false)
+		self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
+		self:CreateIconBuff("CustomFrame", WeaponFrame, false)
 	end
 
 	self.frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")

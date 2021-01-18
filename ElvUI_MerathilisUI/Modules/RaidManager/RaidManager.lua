@@ -227,7 +227,7 @@ function module:CreateRaidManager()
 	-- Main Frame
 	local RaidManagerFrame = CreateFrame("Frame", "RaidManagerFrame", E.UIParent)
 	RaidManagerFrame:Size(270, 150)
-	RaidManagerFrame:Point("TOPLEFT", E.UIParent, "TOPLEFT", 10, -120)
+	RaidManagerFrame:Point("TOPLEFT", E.UIParent, "TOPLEFT", 240, -15)
 	RaidManagerFrame:SetFrameStrata("HIGH")
 	RaidManagerFrame:Hide()
 
