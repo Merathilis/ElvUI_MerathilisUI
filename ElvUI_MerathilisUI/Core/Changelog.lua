@@ -24,6 +24,8 @@ local ChangeLogData = {
 		"• Armory: Added an indicator to show missing enchants/gems",
 		"• Fonts: Replace GothamNarrow fonts with a newer one",
 		"• MicroBar: Added a Shadow",
+		"• GameMenu: Added some new NPC from Shadowlands",
+		"• RaidBuffReminder: Added a Weapon enchant indicator",
 
 		-- "• ''",
 	" ",
