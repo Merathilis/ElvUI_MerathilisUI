@@ -376,6 +376,14 @@ local function UpdateEquipmentList()
 	end
 end
 
+
+function module:UpdateQuestItemAndEquipment()
+	UpdateQuestItemList()
+	UpdateEquipmentList()
+
+	self:UpdateBars()
+end
+
 local UpdateAfterCombat = {
 	[1] = false,
 	[2] = false,
@@ -830,9 +838,10 @@ function module:UpdateQuestItem()
 	self:UpdateBars()
 end
 
-function module:UpdateEquipment()
-	UpdateEquipmentList()
-	self:UpdateBars()
+function module:ITEM_LOCKED()
+	E:Delay(1, function() UpdateEquipmentList()
+		self:UpdateBars()
+	end)
 end
 
 function module:CreateAll()
@@ -874,7 +883,8 @@ function module:Initialize()
 	self:UpdateBars()
 	self:UpdateBinding()
 
-	self:RegisterEvent("UNIT_INVENTORY_CHANGED", "UpdateEquipment")
+	self:RegisterEvent("UNIT_INVENTORY_CHANGED", "UpdateQuestItemAndEquipment")
+	self:RegisterEvent("ITEM_LOCKED")
 	self:RegisterEvent("BAG_UPDATE_DELAYED", "UpdateBars")
 	self:RegisterEvent("ZONE_CHANGED", "UpdateBars")
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "UpdateBars")
