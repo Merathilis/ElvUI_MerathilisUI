@@ -838,10 +838,20 @@ function module:UpdateQuestItem()
 	self:UpdateBars()
 end
 
-function module:ITEM_LOCKED()
-	E:Delay(1, function() UpdateEquipmentList()
-		self:UpdateBars()
-	end)
+do
+	local IsUpdating = false
+	function module:ITEM_LOCKED()
+		if IsUpdating then
+			return
+		end
+
+		IsUpdating = true
+		E:Delay(1, function()
+			UpdateEquipmentList()
+			self:UpdateBars()
+			IsUpdating = false
+		end)
+	end
 end
 
 function module:CreateAll()
