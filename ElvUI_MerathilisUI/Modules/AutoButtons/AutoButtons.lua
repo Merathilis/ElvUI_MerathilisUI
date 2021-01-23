@@ -28,6 +28,7 @@ local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
 local GetQuestLogSpecialItemCooldown = GetQuestLogSpecialItemCooldown
 local GetQuestLogSpecialItemInfo = GetQuestLogSpecialItemInfo
+local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local IsItemInRange = IsItemInRange
 local IsUsableItem = IsUsableItem
@@ -374,14 +375,6 @@ local function UpdateEquipmentList()
 			tinsert(equipmentList, slotID)
 		end
 	end
-end
-
-
-function module:UpdateQuestItemAndEquipment()
-	UpdateQuestItemList()
-	UpdateEquipmentList()
-
-	self:UpdateBars()
 end
 
 local UpdateAfterCombat = {
@@ -833,6 +826,21 @@ function module:UpdateBars()
 	end
 end
 
+do
+	local lastUpdateTime =  0
+	function module:UNIT_INVENTORY_CHANGED()
+		local now = GetTime()
+		if now - lastUpdateTime < 0.25 then
+			return
+		end
+		lastUpdateTime = now
+		UpdateQuestItemList()
+		UpdateEquipmentList()
+
+		self:UpdateBars()
+	end
+end
+
 function module:UpdateQuestItem()
 	UpdateQuestItemList()
 	self:UpdateBars()
@@ -893,7 +901,7 @@ function module:Initialize()
 	self:UpdateBars()
 	self:UpdateBinding()
 
-	self:RegisterEvent("UNIT_INVENTORY_CHANGED", "UpdateQuestItemAndEquipment")
+	self:RegisterEvent("UNIT_INVENTORY_CHANGED")
 	self:RegisterEvent("ITEM_LOCKED")
 	self:RegisterEvent("BAG_UPDATE_DELAYED", "UpdateBars")
 	self:RegisterEvent("ZONE_CHANGED", "UpdateBars")

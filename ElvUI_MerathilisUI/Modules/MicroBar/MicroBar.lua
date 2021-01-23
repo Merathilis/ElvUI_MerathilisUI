@@ -30,6 +30,7 @@ local CreateFromMixins = CreateFromMixins
 local EncounterJournal_LoadUI = EncounterJournal_LoadUI
 local GetGameTime = GetGameTime
 local GetItemCooldown = GetItemCooldown
+local GetItemCount = GetItemCount
 local GetItemIcon = GetItemIcon
 local GetNumGuildMembers = GetNumGuildMembers
 local GetTime = GetTime
@@ -132,6 +133,11 @@ local function AddDoubleLineForItem(itemID, prefix)
 		local min = floor(cooldownTime / 60)
 		local sec = floor(mod(cooldownTime, 60))
 		cooldownTimeString = format("%02d:%02d", min, sec)
+	end
+
+	if itemID == 180817 then
+		local charge = GetItemCount(itemID, nil, true)
+		name = name .. format(" (%d)", charge)
 	end
 
 	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name, canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
