@@ -36,7 +36,7 @@ local PATRONS_STRING = tconcat(PATRONS, ", ")
 
 local function AddOptions()
 	local icon = MER:GetIconString(MER.Media.Textures.pepeSmall, 14)
-	E.Options.name = E.Options.name.." + " .. icon .. " " .. MER.Title .. " " .. format(": |cFF00c0fa%s|r", MER.Version)
+	E.Options.name = E.Options.name.." + " .. icon .. " " ..MER.Title.. format(": |cFF00c0fa%s|r", MER.Version)
 
 	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 	local ACH = E.Libs.ACH
