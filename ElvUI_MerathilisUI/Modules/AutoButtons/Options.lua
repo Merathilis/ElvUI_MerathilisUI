@@ -455,7 +455,7 @@ local function AutoButtonTable()
 					type = "input",
 					name = L["Button Groups"],
 					desc = format(
-						"%s %s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
+						"%s %s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
 						L["Set the type and order of button groups."],
 						L["You can separate the groups with a comma."],
 						FormatDesc("QUEST", L["Quest Items"]),
@@ -471,6 +471,7 @@ local function AutoButtonTable()
 						FormatDesc("FOODSL", format("%s (%s)", L["Food"], L["Shadowlands"])),
 						FormatDesc("BANNER", L["Banners"]),
 						FormatDesc("UTILITY", L["Utilities"]),
+						FormatDesc("OPENABLE", L["Openable Items"]),
 						FormatDesc("CUSTOM", L["Custom Items"])
 					),
 					width = "full"
