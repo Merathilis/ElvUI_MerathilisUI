@@ -17,6 +17,7 @@ local function LoadSkin()
 	_G.CalendarCreateEventFrame.backdrop:Styling()
 	_G.CalendarViewHolidayFrame.backdrop:Styling()
 	_G.CalendarViewEventFrame.backdrop:Styling()
+	_G.CalendarMassInviteFrame:Styling()
 
 	for i = 1, 42 do
 		_G["CalendarDayButton"..i.."DarkFrame"]:SetAlpha(.5)
