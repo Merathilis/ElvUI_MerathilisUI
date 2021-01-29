@@ -911,11 +911,11 @@ function MER:SetupActionbars(layout)
 	if layout == "dps" then
 		E.db["actionbar"]["bar1"]["keepSizeRatio"] = false
 		E.db["actionbar"]["bar1"]["buttonHeight"] = 26
-		E.db["actionbar"]["bar1"]["buttonsize"] = 32
+		E.db["actionbar"]["bar1"]["buttonSize"] = 32
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 3
 	elseif layout == "healer" then
 		E.db["actionbar"]["bar1"]["keepSizeRatio"] = true
-		E.db["actionbar"]["bar1"]["buttonsize"] = 32
+		E.db["actionbar"]["bar1"]["buttonSize"] = 32
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 2
 	end
 
@@ -941,18 +941,18 @@ function MER:SetupActionbars(layout)
 	if layout == "dps" then
 		E.db["actionbar"]["bar2"]["keepSizeRatio"] = false
 		E.db["actionbar"]["bar2"]["buttonHeight"] = 26
-		E.db["actionbar"]["bar2"]["buttonsize"] = 32
+		E.db["actionbar"]["bar2"]["buttonSize"] = 32
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 3
 	elseif layout == "healer" then
 		E.db["actionbar"]["bar2"]["keepSizeRatio"] = true
-		E.db["actionbar"]["bar2"]["buttonsize"] = 32
+		E.db["actionbar"]["bar2"]["buttonSize"] = 32
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 2
 	end
 
 	E.db["actionbar"]["bar3"]["enabled"] = true
 	E.db["actionbar"]["bar3"]["backdrop"] = true
 	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 1
-	E.db["actionbar"]["bar3"]["buttonsize"] = 26
+	E.db["actionbar"]["bar3"]["buttonSize"] = 26
 	E.db["actionbar"]["bar3"]["buttonspacing"] = 3
 	E.db["actionbar"]["bar3"]["buttons"] = 5
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
@@ -973,7 +973,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 	E.db["actionbar"]["bar4"]["mouseover"] = true
 	E.db["actionbar"]["bar4"]["backdrop"] = true
-	E.db["actionbar"]["bar4"]["buttonsize"] = 24
+	E.db["actionbar"]["bar4"]["buttonSize"] = 24
 	E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar4"]["showGrid"] = true
 	E.db["actionbar"]["bar4"]["buttonsPerRow"] = 1
@@ -990,7 +990,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar5"]["enabled"] = true
 	E.db["actionbar"]["bar5"]["backdrop"] = true
 	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 1
-	E.db["actionbar"]["bar5"]["buttonsize"] = 26
+	E.db["actionbar"]["bar5"]["buttonSize"] = 26
 	E.db["actionbar"]["bar5"]["buttonspacing"] = 3
 	E.db["actionbar"]["bar5"]["buttons"] = 5
 	E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
@@ -1029,10 +1029,10 @@ function MER:SetupActionbars(layout)
 	if layout == "dps" then
 		E.db["actionbar"]["bar6"]["keepSizeRatio"] = false
 		E.db["actionbar"]["bar6"]["buttonHeight"] = 26
-		E.db["actionbar"]["bar6"]["buttonsize"] = 32
+		E.db["actionbar"]["bar6"]["buttonSize"] = 32
 	elseif layout == "healer" then
 		E.db["actionbar"]["bar6"]["keepSizeRatio"] = true
-		E.db["actionbar"]["bar6"]["buttonsize"] = 32
+		E.db["actionbar"]["bar6"]["buttonSize"] = 32
 	end
 
 	if layout == "dps" then
@@ -1046,7 +1046,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["barPet"]["buttons"] = 9
 	E.db["actionbar"]["barPet"]["buttonspacing"] = 3
 	E.db["actionbar"]["barPet"]["buttonsPerRow"] = 9
-	E.db["actionbar"]["barPet"]["buttonsize"] = 24
+	E.db["actionbar"]["barPet"]["buttonSize"] = 24
 	E.db["actionbar"]["barPet"]["mouseover"] = false
 	E.db["actionbar"]["barPet"]["inheritGlobalFade"] = true
 	E.db["actionbar"]["barPet"]["hotkeyFont"] = "Expressway"
@@ -1056,7 +1056,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["stanceBar"]["backdrop"] = true
 	E.db["actionbar"]["stanceBar"]["buttonspacing"] = 3
 	E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
-	E.db["actionbar"]["stanceBar"]["buttonsize"] = 22
+	E.db["actionbar"]["stanceBar"]["buttonSize"] = 22
 	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = true
 	E.db["actionbar"]["stanceBar"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["stanceBar"]["hotkeyFontOutline"] = "OUTLINE"
