@@ -373,7 +373,9 @@ MP.actionbars = {
 MP.autoButtons = {
 	enable = true,
 	customList = {},
-	blackList = {},
+	blackList = {
+		[183040] = true
+	},
 	bar1 = {
 		enable = true,
 		mouseOver = false,
