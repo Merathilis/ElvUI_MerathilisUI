@@ -85,6 +85,7 @@ L["Button"] = true
 L["Item Level Links"] = true
 L["Filter"] = true
 L["Block"] = true
+L["Custom Online Message"] = true
 
 -- Combat Alert
 L["Combat Alert"] = true

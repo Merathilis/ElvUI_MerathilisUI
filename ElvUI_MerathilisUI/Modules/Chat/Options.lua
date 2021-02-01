@@ -40,6 +40,11 @@ local function ChatTable()
 				type = "toggle",
 				name = L["Emotes"],
 			},
+			customOnlineMessage = {
+				order = 6,
+				type = "toggle",
+				name = L["Custom Online Message"],
+			},
 			seperators = {
 				order = 10,
 				type = "group",

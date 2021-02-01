@@ -115,6 +115,7 @@ MP.chat = {
 	chatButton = true,
 	hidePlayerBrackets = true,
 	hideChat = false,
+	customOnlineMessage = true,
 	emotes = true,
 	filter = {
 		enable = true,

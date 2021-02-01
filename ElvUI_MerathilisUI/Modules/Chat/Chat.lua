@@ -192,11 +192,13 @@ function module:Initialize()
 	local db = E.db.mui.chat
 	MER:RegisterDB(self, "chat")
 
-	_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["has come |cff298F00online|r."]
-	_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["has gone |cffff0000offline|r."]
+	if db.customOnlineMessage then
+		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["has come |cff298F00online|r."]
+		_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["has gone |cffff0000offline|r."]
 
-	_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "%s"..L[" has come |cff298F00online|r."]
-	_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L[" has gone |cffff0000offline|r."]
+		_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "%s"..L[" has come |cff298F00online|r."]
+		_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L[" has gone |cffff0000offline|r."]
+	end
 
 	-- Remove the Realm Name from system messages
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", module.RemoveCurrentRealmName)

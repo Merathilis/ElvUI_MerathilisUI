@@ -87,6 +87,7 @@ L["Use Icon"] = "使用图标"
 L["Use a icon rather than text"] = "使用图标"
 L["Use Color"] = "使用颜色"
 L["Font Setting"] = "字体设定"
+L["Custom Online Message"] = true
 
 -- Combat Alert
 L["Combat Alert"] = "战斗提示"

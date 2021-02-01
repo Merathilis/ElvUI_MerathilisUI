@@ -87,6 +87,8 @@ L["Officer"] = "Offizier"
 L["Only show chat bar when you mouse over it."] = "Zeige die Chatleiste nur an, wenn mit der Maus darüber gefahren wird."
 L["Button"] = "Tasten"
 L["Item Level Links"] = "Gegenstandsstufen-Links"
+L["Block"] = true
+L["Custom Online Message"] = "Benutzerdefinierte Online Nachricht"
 
 -- Combat Alert
 L["Combat Alert"] = "Kampfalarmierung"

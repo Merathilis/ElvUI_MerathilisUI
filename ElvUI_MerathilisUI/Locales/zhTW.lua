@@ -84,6 +84,7 @@ L["Button"] = "按鍵"
 L["Item Level Links"] = true
 L["Filter"] = "過濾器"
 L["Block"] = "方塊"
+L["Custom Online Message"] = true
 
 -- Combat Alert
 L["Combat Alert"] = "戰鬥提醒"
