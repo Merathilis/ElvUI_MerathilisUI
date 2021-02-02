@@ -8,126 +8,105 @@ local tremove = table.remove
 local CreateFrame = CreateFrame
 local GetAddOnInfo = GetAddOnInfo
 local UIParent = UIParent
+local hooksecurefunc = hooksecurefunc
 
-local buttonsize = 19
+local function RemoveStyle(bar)
+	bar.candyBarBackdrop:Hide()
 
--- Init a table to store the backgrounds
-local FreeBackgrounds = {}
-
-local function CreateBG()
-	local BG = CreateFrame('Frame', nil, nil, 'BackdropTemplate')
-	MERS:CreateBD(BG, .45)
-	BG:Styling()
-
-	return BG
-end
-
-local function GetBG(FreeBackgrounds)
-	if #FreeBackgrounds > 0 then
-		return tremove(FreeBackgrounds)
-	else
-		return CreateBG()
-	end
-end
-
-local function SetupBG(bg, bar, ibg)
-	bg:SetParent(bar)
-	bg:SetFrameStrata(bar:GetFrameStrata())
-	bg:SetFrameLevel(bar:GetFrameLevel() - 1)
-	bg:ClearAllPoints()
-	if ibg then
-		MERS:SetOutside(bg, bar.candyBarIconFrame)
-		bg:SetBackdropColor(0, 0, 0, 0)
-	else
-		MERS:SetOutside(bg, bar)
-		bg:SetBackdropColor(unpack(E.media.backdropcolor))
-	end
-	bg:Show()
-end
-
-local function FreeStyle(bar)
-	local bg = bar:Get('bigwigs:MerathilisUI:bg')
-	if bg then
-		bg:ClearAllPoints()
-		bg:SetParent(UIParent)
-		bg:Hide()
-		FreeBackgrounds[#FreeBackgrounds + 1] = bg
+	local height = bar:Get("bigwigs:restoreheight")
+	if height then
+		bar:SetHeight(height)
 	end
 
-	local ibg = bar:Get('bigwigs:MerathilisUI:ibg')
-	if ibg then
-		ibg:ClearAllPoints()
-		ibg:SetParent(UIParent)
-		ibg:Hide()
-		FreeBackgrounds[#FreeBackgrounds + 1] = ibg
+	local tex = bar:Get("bigwigs:restoreicon")
+	if tex then
+		bar:SetIcon(tex)
+		bar:Set("bigwigs:restoreicon", nil)
+		bar.candyBarIconFrameBackdrop:Hide()
 	end
 
-	--Reset Positions
-	--Icon
-	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint('TOPLEFT')
-	bar.candyBarIconFrame:SetPoint('BOTTOMLEFT')
-	bar.candyBarIconFrame:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+	bar.candyBarDuration:ClearAllPoints()
+	bar.candyBarDuration:SetPoint("TOPLEFT", bar.candyBarBar, "TOPLEFT", 2, 10)
+	bar.candyBarDuration:SetPoint("BOTTOMRIGHT", bar.candyBarBar, "BOTTOMRIGHT", -2, 10)
 
-	--Status Bar
-	bar.candyBarBar:ClearAllPoints()
-	bar.candyBarBar.SetPoint = nil
-	bar.candyBarBar:SetPoint('TOPRIGHT')
-	bar.candyBarBar:SetPoint('BOTTOMRIGHT')
-
-	--BG
-	bar.candyBarBackground:SetAllPoints()
+	bar.candyBarLabel:ClearAllPoints()
+	bar.candyBarLabel:SetPoint("TOPLEFT", bar.candyBarBar, "TOPLEFT", 2, 10)
+	bar.candyBarLabel:SetPoint("BOTTOMRIGHT", bar.candyBarBar, "BOTTOMRIGHT", -2, 10)
 end
 
 local function ApplyStyle(bar)
-	local bg = GetBG(FreeBackgrounds)
-	SetupBG(bg, bar)
-	bar:Set('bigwigs:MerathilisUI:bg', bg)
+	local height = bar:GetHeight()
+	bar:Set("bigwigs:restoreheight", height)
+	bar:SetHeight(height/2)
+	bar.candyBarBackdrop:Hide()
+	if not bar.styled then
+		bar.candyBarBar:StripTextures()
+		bar.candyBarBar:CreateBackdrop('Transparent')
+		bar.candyBarBar.backdrop:Styling()
 
-	if bar.candyBarIconFrame:GetTexture() then
-		local ibg = GetBG(FreeBackgrounds)
-		SetupBG(ibg, bar, true)
-		bar:Set('bigwigs:MerathilisUI:ibg', ibg)
+		bar.styled = true
+	end
+	bar:SetTexture(E.media.normTex)
+
+	local tex = bar:GetIcon()
+	if tex then
+		local icon = bar.candyBarIconFrame
+		bar:SetIcon(nil)
+
+		icon:SetTexture(tex)
+		icon:Show()
+
+		if bar.iconPosition == "RIGHT" then
+			icon:SetPoint('BOTTOMLEFT', bar, 'BOTTOMRIGHT', 5, 0)
+		else
+			icon:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -5, 0)
+		end
+
+		icon:SetSize(height, height)
+		bar:Set("bigwigs:restoreicon", tex)
+		bar.candyBarIconFrameBackdrop:Hide()
+
+		if not icon.styled then
+			icon:CreateBackdrop()
+			icon.backdrop:SetOutside(icon, 2, 2)
+			icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+
+			icon.styled = true
+		end
 	end
 
-	bar:SetHeight(buttonsize / 2)
-
-	bar.candyBarBar:ClearAllPoints()
-	bar.candyBarBar:SetAllPoints(bar)
-	bar.candyBarBar.SetPoint = MER.Noop
-	bar.candyBarBar:SetStatusBarTexture(E.media.normTex)
-	bar.candyBarBackground:SetTexture(unpack(E.media.backdropcolor))
-
-	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
-	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
-
-	MERS:ReskinIcon(bar.candyBarIconFrame)
-
 	bar.candyBarLabel:ClearAllPoints()
-	bar.candyBarLabel:SetPoint('LEFT', bar, 'LEFT', 2, 10)
-	bar.candyBarLabel:SetPoint('RIGHT', bar, 'RIGHT', -2, 10)
+	bar.candyBarLabel:SetPoint('LEFT', bar.candyBarBar, 'LEFT', 2, 10)
+	bar.candyBarLabel:SetPoint('RIGHT', bar.candyBarBar, 'RIGHT', -2, 10)
 
 	bar.candyBarDuration:ClearAllPoints()
-	bar.candyBarDuration:SetPoint('LEFT', bar, 'LEFT', 2, 10)
-	bar.candyBarDuration:SetPoint('RIGHT', bar, 'RIGHT', -2, 10)
+	bar.candyBarDuration:SetPoint('RIGHT', bar.candyBarBar, 'RIGHT', -2, 10)
+	bar.candyBarDuration:SetPoint('LEFT', bar.candyBarBar, 'LEFT', 2, 10)
 end
 
 local f = CreateFrame("Frame")
 local function RegisterStyle()
-	if not BigWigs then return end
+	if not _G.BigWigsAPI then return end
+
 	local styleName = MER.Title or 'MerathilisUI'
-	local bars = BigWigs:GetPlugin('Bars', true)
-	if not bars then return end
-	bars:RegisterBarStyle(styleName, {
+	_G.BigWigsAPI:RegisterBarStyle(styleName, {
 		apiVersion = 1,
 		version = 10,
-		GetSpacing = function() return 20 end,
+		GetSpacing = function(bar) return bar:GetHeight()+7 end,
 		ApplyStyle = ApplyStyle,
-		BarStopped = FreeStyle,
+		BarStopped = RemoveStyle,
+		fontSizeNormal = 12,
+		fontSizeEmphasized = 14,
+		fontOutline = "OUTLINE",
 		GetStyleName = function() return styleName end,
 	})
-	bars.defaultDB.barStyle = styleName
+
+	local bars = BigWigs:GetPlugin('Bars', true)
+	hooksecurefunc(bars, 'SetBarStyle', function(self, style)
+		if style ~= 'MerathilisUI' then
+			self:SetBarStyle('MerathilisUI')
+		end
+	end)
 end
 f:RegisterEvent('ADDON_LOADED')
 

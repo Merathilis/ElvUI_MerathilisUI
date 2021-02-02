@@ -30,6 +30,7 @@ local CreateFromMixins = CreateFromMixins
 local EncounterJournal_LoadUI = EncounterJournal_LoadUI
 local GetGameTime = GetGameTime
 local GetItemCooldown = GetItemCooldown
+local GetItemCount = GetItemCount
 local GetItemIcon = GetItemIcon
 local GetNumGuildMembers = GetNumGuildMembers
 local GetTime = GetTime
@@ -132,6 +133,11 @@ local function AddDoubleLineForItem(itemID, prefix)
 		local min = floor(cooldownTime / 60)
 		local sec = floor(mod(cooldownTime, 60))
 		cooldownTimeString = format("%02d:%02d", min, sec)
+	end
+
+	if itemID == 180817 then
+		local charge = GetItemCount(itemID, nil, true)
+		name = name .. format(" (%d)", charge)
 	end
 
 	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name, canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
@@ -453,6 +459,10 @@ local ButtonTypes = {
 				vol = vol and tonumber(vol) or 0
 				C_CVar_SetCVar("Sound_MasterVolume", min(vol + 0.1, 1))
 			end,
+			MiddleButton = function()
+				local enabled = tonumber(C_CVar_GetCVar("Sound_EnableAllSound")) == 1
+				C_CVar_SetCVar("Sound_EnableAllSound", enabled and 0 or 1)
+			end,
 			RightButton = function()
 				local vol = C_CVar_GetCVar("Sound_MasterVolume")
 				vol = vol and tonumber(vol) or 0
@@ -467,6 +477,7 @@ local ButtonTypes = {
 			DT.tooltip:AddLine("\n")
 			DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Increase the volume"] .. " (+10%)", 1, 1, 1)
 			DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Decrease the volume"] .. " (-10%)", 1, 1, 1)
+			DT.tooltip:AddLine(ScrollButtonIcon .. " " .. L["Sound ON/OFF"], 1, 1, 1)
 			DT.tooltip:Show()
 
 			button.tooltipsUpdateTimer = C_Timer_NewTicker( 0.3, function()
@@ -477,6 +488,7 @@ local ButtonTypes = {
 				DT.tooltip:AddLine("\n")
 				DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Increase the volume"] .. " (+10%)", 1, 1, 1)
 				DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Decrease the volume"] .. " (-10%)", 1, 1, 1)
+				DT.tooltip:AddLine(ScrollButtonIcon .. " " .. L["Sound ON/OFF"], 1, 1, 1)
 				DT.tooltip:Show()
 			end)
 		end,
@@ -491,14 +503,6 @@ local ButtonTypes = {
 function module:ShowAdvancedTimeTooltip(panel)
 	DT.RegisteredDataTexts["Time"].onEnter()
 	DT.RegisteredDataTexts["Time"].onLeave()
-	-- DT.tooltip:ClearLines()
-	-- DT.tooltip:SetText(L["Time"])
-	-- DT.tooltip:AddLine("\n", 1, 1, 1)
-	-- DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Calendar"], 1, 1, 1)
-	-- DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Time Manager"], 1, 1, 1)
-	-- DT.tooltip:AddLine("\n")
-	-- DT.tooltip:AddLine(L["(Modifer Click) Collect Garbage"], unpack(E.media.rgbvaluecolor))
-	-- DT.tooltip:Show()
 end
 
 function module:ConstructBar()
@@ -542,6 +546,10 @@ function module:ConstructBar()
 	rightPanel:CreateBackdrop("Transparent")
 	rightPanel.backdrop:Styling()
 	bar.rightPanel = rightPanel
+
+	MER:CreateShadowModule(leftPanel.backdrop)
+	MER:CreateShadowModule(middlePanel.backdrop)
+	MER:CreateShadowModule(rightPanel.backdrop)
 
 	self.bar = bar
 
@@ -651,7 +659,11 @@ function module:ConstructTimeArea()
 			DT.RegisteredDataTexts["System"].eventFunc()
 			DT.RegisteredDataTexts["System"].onEnter()
 		elseif mouseButton == "LeftButton" then
-			ToggleCalendar()
+			if not InCombatLockdown() then
+				ToggleCalendar()
+			else
+				_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+			end
 		elseif mouseButton == "RightButton" then
 			ToggleTimeManager()
 		end

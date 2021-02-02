@@ -228,6 +228,8 @@ local VisibleFrames = {}
 function module:SetFlightMode(status)
 	if InCombatLockdown() then return end
 
+	local kit, vert, hei = MER:GetConvCrest()
+	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
 	if status then
 		module.FlightMode:Show()
 
@@ -298,7 +300,7 @@ function module:SetFlightMode(status)
 			end
 		end
 
-		if _G.ZoneAbilityFrame then
+		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
 			_G.ZoneAbilityFrame:SetAlpha(0)
 		end
 
@@ -306,6 +308,13 @@ function module:SetFlightMode(status)
 
 		-- Disable Blizz location messsages
 		_G.ZoneTextFrame:UnregisterAllEvents()
+
+		-- Covenant Crest
+		if kit then
+			module.FlightMode.Top.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
+			module.FlightMode.Top.crest:Point("TOP", 0, vert or 14)
+			module.FlightMode.Top.crest:Size(300, hei)
+		end
 
 		module.startTime = GetTime()
 		module.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
@@ -380,7 +389,7 @@ function module:SetFlightMode(status)
 			end
 		end
 
-		if _G.ZoneAbilityFrame then
+		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
 			_G.ZoneAbilityFrame:SetAlpha(1)
 		end
 
@@ -517,19 +526,8 @@ function module:CreateFlightMode()
 	module.FlightMode.Top.RightStyle2:Point('TOP', module.FlightMode.Top.RightStyle1,'BOTTOM')
 	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle2, panelSize, E.mult, 'Horizontal', r, g, b, 0, .7)
 
-	-- WoW logo
-	module.FlightMode.Top.wowlogo = CreateFrame('Frame', nil, module.FlightMode) -- need this to upper the logo layer
-	module.FlightMode.Top.wowlogo:Point('TOP', module.FlightMode.Top, 'CENTER', 0, 35)
-	module.FlightMode.Top.wowlogo:SetFrameStrata("HIGH")
-	module.FlightMode.Top.wowlogo:Size(300, 150)
-
-	module.FlightMode.Top.wowlogo.tex = module.FlightMode.Top.wowlogo:CreateTexture(nil, 'OVERLAY')
-	local currentExpansionLevel = GetClampedCurrentExpansionLevel()
-	local expansionDisplayInfo = GetExpansionDisplayInfo(currentExpansionLevel)
-	if expansionDisplayInfo then
-		module.FlightMode.Top.wowlogo.tex:SetTexture(expansionDisplayInfo.logo)
-	end
-	module.FlightMode.Top.wowlogo.tex:SetInside()
+	module.FlightMode.Top.crest = module.FlightMode.Top:CreateTexture(nil, 'ARTWORK')
+	module.FlightMode.Top.crest:SetDrawLayer('ARTWORK')
 
 	module.FlightMode.Top.CloseButton = CreateFrame('Button', nil, module.FlightMode.Top, 'BackdropTemplate')
 	module.FlightMode.Top.CloseButton:Size(24)

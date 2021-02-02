@@ -25,6 +25,8 @@ function module:TryFadeOut()
 end
 
 function module:MINIMAP_PING(_, unit)
+	self.db = E.db.mui.maps.minimap.ping
+
 	if self.db and self.db.onlyInCombat and not InCombatLockdown() then
 		return
 	end
@@ -85,6 +87,7 @@ end
 
 function module:MinimapPing()
 	self.db = E.db.mui.maps.minimap.ping
+
 	if not self.db or not self.db.enable then
 		return
 	end

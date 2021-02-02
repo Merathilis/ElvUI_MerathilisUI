@@ -11,7 +11,7 @@ local function NotificationTable()
 
 	E.Options.args.mui.args.modules.args.Notification = {
 		type = "group",
-		name = L["Notification"],
+		name = E.NewSign..L["Notification"],
 		get = function(info) return E.db.mui.notification[ info[#info] ] end,
 		set = function(info, value) E.db.mui.notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -79,6 +79,94 @@ local function NotificationTable()
 				type = "toggle",
 				name = L["Quick Join"],
 				disabled = function() return not E.db.mui.notification.enable end,
+			},
+			fontSettings = {
+				order = 20,
+				type = "group",
+				name = E.NewSign..L["Font"],
+				guiInline = true,
+				args = {
+					titleFont = {
+						order = 1,
+						type = "group",
+						name = L["Title Font"],
+						get = function(info)
+							return E.db.mui.notification.titleFont[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.notification.titleFont[info[#info]] = value
+						end,
+						args = {
+							name = {
+								order = 1,
+								type = "select",
+								dialogControl = "LSM30_Font",
+								name = L["Font"],
+								values = E.LSM:HashTable("font"),
+							},
+							size = {
+								order = 3,
+								name = L["Size"],
+								type = "range",
+								min = 5,
+								max = 60,
+								step = 1
+							},
+							style = {
+								order = 2,
+								type = "select",
+								name = L["Outline"],
+								values = {
+									NONE = L["None"],
+									OUTLINE = L["OUTLINE"],
+									MONOCHROME = L["MONOCHROME"],
+									MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+									THICKOUTLINE = L["THICKOUTLINE"]
+								},
+							},
+						},
+					},
+					textFont = {
+						order = 2,
+						type = "group",
+						name = L["Text Font"],
+						get = function(info)
+							return E.db.mui.notification.textFont[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.notification.textFont[info[#info]] = value
+						end,
+						args = {
+							name = {
+								order = 1,
+								type = "select",
+								dialogControl = "LSM30_Font",
+								name = L["Font"],
+								values = E.LSM:HashTable("font"),
+							},
+							size = {
+								order = 3,
+								name = L["Size"],
+								type = "range",
+								min = 5,
+								max = 60,
+								step = 1
+							},
+							style = {
+								order = 2,
+								type = "select",
+								name = L["Outline"],
+								values = {
+									NONE = L["None"],
+									OUTLINE = L["OUTLINE"],
+									MONOCHROME = L["MONOCHROME"],
+									MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+									THICKOUTLINE = L["THICKOUTLINE"]
+								},
+							},
+						},
+					},
+				},
 			},
 		},
 	}

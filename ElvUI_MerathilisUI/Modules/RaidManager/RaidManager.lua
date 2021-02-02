@@ -31,8 +31,8 @@ local DoReadyCheck = DoReadyCheck
 local InitiateRolePoll = InitiateRolePoll
 local SlashCmdList = SlashCmdList
 local HasLFGRestrictions = HasLFGRestrictions
-local ConvertToParty = ConvertToParty
-local ConvertToRaid = ConvertToRaid
+local C_PartyInfo_ConvertToParty = C_PartyInfo.ConvertToParty
+local C_PartyInfo_ConvertToRaid = C_PartyInfo.ConvertToRaid
 local C_Timer_After = C_Timer.After
 local GameTooltip = GameTooltip
 local ToggleFriendsFrame = ToggleFriendsFrame
@@ -227,7 +227,7 @@ function module:CreateRaidManager()
 	-- Main Frame
 	local RaidManagerFrame = CreateFrame("Frame", "RaidManagerFrame", E.UIParent)
 	RaidManagerFrame:Size(270, 150)
-	RaidManagerFrame:Point("TOPLEFT", E.UIParent, "TOPLEFT", 10, -120)
+	RaidManagerFrame:Point("TOPLEFT", E.UIParent, "TOPLEFT", 240, -50)
 	RaidManagerFrame:SetFrameStrata("HIGH")
 	RaidManagerFrame:Hide()
 
@@ -392,9 +392,9 @@ function module:CreateRaidManager()
 
 	ConvertGroupButton:SetScript("OnClick", function(self)
 		if IsInRaid() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
-			ConvertToParty()
+			C_PartyInfo_ConvertToParty()
 		elseif IsInGroup() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
-			ConvertToRaid()
+			C_PartyInfo_ConvertToRaid()
 		else
 			_G.UIErrorsFrame:AddMessage(MER.InfoColor.._G.ERR_NOT_LEADER)
 		end

@@ -252,6 +252,12 @@ local function UpdateSpellAbilities(spell, followerInfo)
 	end
 end
 
+local function ReskinWidgetFont(font, r, g, b)
+	if not font then return end
+	font:FontTemplate(nil, 12, 'OUTLINE') -- Must be outline!
+	font:SetTextColor(r, g, b)
+end
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.muiSkins.blizzard.garrison ~= true then return end
 
@@ -748,9 +754,7 @@ local function LoadSkin()
 
 	-- [[ BFA Mission UI]]
 	local BFAMissionFrame = _G.BFAMissionFrame
-	if BFAMissionFrame.backdrop then BFAMissionFrame.backdrop:Hide() end
-	MERS:CreateBD(BFAMissionFrame, .25)
-	BFAMissionFrame:Styling()
+	BFAMissionFrame.backdrop:Styling()
 	ReskinMissionFrame(BFAMissionFrame)
 
 	-- [[ BFA Missions ]]
@@ -797,27 +801,21 @@ local function LoadSkin()
 
 	-- WarPlan
 	if IsAddOnLoaded("WarPlan") then
-		local function reskinWarPlanFont(font, r, g, b)
-			if not font then return end
-			font:FontTemplate(nil, 12, 'OUTLINE') -- Must be outline!
-			font:SetTextColor(r, g, b)
-		end
-
-		local function reskinWarPlanMissions(self)
+		local function ReskinWarPlanMissions(self)
 			local missions = self.TaskBoard.Missions
 			for i = 1, #missions do
 				local button = missions[i]
 				if not button.styled then
-					reskinWarPlanFont(button.XPReward, 1, 1, 1)
-					reskinWarPlanFont(button.Description, .8, .8, .8)
-					reskinWarPlanFont(button.CDTDisplay, 1, 1, 1)
+					ReskinWidgetFont(button.XPReward, 1, 1, 1)
+					ReskinWidgetFont(button.Description, .8, .8, .8)
+					ReskinWidgetFont(button.CDTDisplay, 1, 1, 1)
 
 					local groups = button.Groups
 					if groups then
 						for j = 1, #groups do
 							local group = groups[j]
 							S:HandleButton(group)
-							reskinWarPlanFont(group.Features, 1, .8, 0)
+							ReskinWidgetFont(group.Features, 1, .8, 0)
 						end
 					end
 
@@ -834,10 +832,10 @@ local function LoadSkin()
 			WarPlanFrame:CreateBackdrop('Transparent')
 			WarPlanFrame.ArtFrame:StripTextures()
 			S:HandleCloseButton(WarPlanFrame.ArtFrame.CloseButton)
-			reskinWarPlanFont(WarPlanFrame.ArtFrame.TitleText, 1, .8, 0)
+			ReskinWidgetFont(WarPlanFrame.ArtFrame.TitleText, 1, .8, 0)
 
-			reskinWarPlanMissions(WarPlanFrame)
-			WarPlanFrame:HookScript("OnShow", reskinWarPlanMissions)
+			ReskinWarPlanMissions(WarPlanFrame)
+			WarPlanFrame:HookScript("OnShow", ReskinWarPlanMissions)
 			S:HandleButton(WarPlanFrame.TaskBoard.AllPurposeButton)
 
 			local entries = WarPlanFrame.HistoryFrame.Entries
@@ -847,6 +845,82 @@ local function LoadSkin()
 				S:HandleIcon(entry.Icon)
 				entry.Name:SetFontObject("Number12Font")
 				entry.Detail:SetFontObject("Number12Font")
+			end
+		end)
+	end
+
+	-- VenturePlan
+	if IsAddOnLoaded("VenturePlan") then
+		local VenturePlanFrame
+
+		local function ReskinVenturePlan(self)
+			local missions = self.MissionList.Missions
+			for i = 1, #missions do
+				local mission = missions[i]
+				if not mission.styled then
+					ReskinWidgetFont(mission.Name, .9, .8, .5)
+					ReskinWidgetFont(mission.TagText, .9, .8, .5)
+					ReskinWidgetFont(mission.Description, .8, .8, .8)
+					S:HandleButton(mission.ViewButton)
+					S:HandleButton(mission.DoomRunButton)
+					mission.DoomRunButton:ClearAllPoints()
+					mission.DoomRunButton:Point("RIGHT", mission.ViewButton, "LEFT", -2, 0)
+
+					mission.ProgressBar:StripTextures()
+					mission.ProgressBar:CreateBackdrop()
+					mission.ProgressBar.Fill:SetAtlas("UI-Frame-Bar-Fill-Blue")
+					E:RegisterStatusBar(mission.ProgressBar)
+
+					for j = 1, mission.statLine:GetNumRegions() do
+						local stat = select(j, mission.statLine:GetRegions())
+						if stat and stat:IsObjectType("FontString") then
+							ReskinWidgetFont(stat, 1, 1, 1)
+						end
+					end
+
+					mission.styled = true
+				end
+			end
+		end
+
+		local function SkinVenturePlan()
+			local missionTab = CovenantMissionFrame.MissionTab
+			for i = 1, missionTab:GetNumChildren() do
+				local child = select(i, missionTab:GetChildren())
+				if child and child.MissionList then
+					VenturePlanFrame = child
+				end
+			end
+			if not VenturePlanFrame then return end
+
+			ReskinVenturePlan(VenturePlanFrame)
+			VenturePlanFrame:HookScript("OnShow", ReskinVenturePlan)
+
+			local copyBox = VenturePlanFrame.CopyBox
+			S:HandleButton(copyBox.ResetButton)
+			S:HandleCloseButton(copyBox.CloseButton2)
+			ReskinWidgetFont(copyBox.Intro, 1, 1, 1)
+			ReskinWidgetFont(copyBox.FirstInputBoxLabel, 1, .8, 0)
+			ReskinWidgetFont(copyBox.SecondInputBoxLabel, 1, .8, 0)
+
+			local missionBoard = CovenantMissionFrame.MissionTab.MissionPage.Board
+			for i = 1, missionBoard:GetNumChildren() do
+				local child = select(i, missionBoard:GetChildren())
+				if child and child:IsObjectType("Button") then
+					S:HandleIcon(child:GetNormalTexture())
+					--child:SetHighlightTexture(nil)
+					--child:SetPushedTexture(E.media.normTex)
+					local texture = select(4, child:GetRegions())
+					if texture then
+						texture:SetTexCoord(unpack(E.TexCoords))
+					end
+				end
+			end
+		end
+
+		CovenantMissionFrame:HookScript("OnShow", function()
+			if not VenturePlanFrame then
+				C_Timer_After(.1, SkinVenturePlan)
 			end
 		end)
 	end

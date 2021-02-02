@@ -39,7 +39,7 @@ local function AutoButtonTable()
 				set = function(info, value) E.db.mui.autoButtons[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			},
 			custom = {
-				order = 6,
+				order = 10,
 				type = "group",
 				name = L["Custom Items"],
 				disabled = function()
@@ -99,7 +99,7 @@ local function AutoButtonTable()
 				}
 			},
 			blackList = {
-				order = 7,
+				order = 11,
 				type = "group",
 				name = L["Blacklist"],
 				disabled = function()
@@ -159,7 +159,7 @@ local function AutoButtonTable()
 		},
 	}
 
-	for i = 1, 3 do
+	for i = 1, 5 do
 		E.Options.args.mui.args.modules.args.autoButtons.args["bar" .. i] = {
 			order = i + 2,
 			type = "group",
@@ -218,6 +218,11 @@ local function AutoButtonTable()
 							type = "range",
 							name = L["Alpha Max"],
 							min = 0, max = 1, step = 0.01
+						},
+						tooltip = {
+							order = 6,
+							type = "toggle",
+							name = L["Tooltip"],
 						},
 					},
 				},
@@ -450,7 +455,7 @@ local function AutoButtonTable()
 					type = "input",
 					name = L["Button Groups"],
 					desc = format(
-						"%s %s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
+						"%s %s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
 						L["Set the type and order of button groups."],
 						L["You can separate the groups with a comma."],
 						FormatDesc("QUEST", L["Quest Items"]),
@@ -459,12 +464,14 @@ local function AutoButtonTable()
 						FormatDesc("POTIONSL", format("%s (%s)", L["Potions"], L["Shadowlands"])),
 						FormatDesc("FLASK", L["Flasks"]),
 						FormatDesc("FLASKSL", format("%s (%s)", L["Flasks"], L["Shadowlands"])),
+						FormatDesc("FOODVENDOR", format("%s (%s)", L["Food"], L["Sold by vendor"])),
 						FormatDesc("MAGEFOOD", format("%s (%s)", L["Food"], L["Crafted by mage"])),
 						FormatDesc("TORGHAST", L["Torghast Items"]),
 						FormatDesc("FOOD", L["Food"]),
 						FormatDesc("FOODSL", format("%s (%s)", L["Food"], L["Shadowlands"])),
 						FormatDesc("BANNER", L["Banners"]),
 						FormatDesc("UTILITY", L["Utilities"]),
+						FormatDesc("OPENABLE", L["Openable Items"]),
 						FormatDesc("CUSTOM", L["Custom Items"])
 					),
 					width = "full"

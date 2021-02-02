@@ -1,3 +1,23 @@
+[b][color=orange]v4.71[/color], xx.01.2021[/b][list]
+[*]LocPanel: Add Cypher of Relocation to port items
+[*]AFK/FlightMode: Added a covenant texture
+[*]Skins: Various updates
+[*]Misc: Replace the Maw Threat Widget with a simple StatusBar
+[*]AutoButtons: Add openable items
+[*]AutoButtons: Added 2 more Bars in total now of 5
+[*]Armory: Added an indicator to show missing enchants/gems
+[*]Fonts: Replace GothamNarrow fonts with a newer one
+[*]MicroBar: Added a Shadow
+[*]GameMenu: Added some new NPC from Shadowlands
+[*]RaidBuffReminder: Added a Weapon enchant indicator
+[*]Chat: Added an option to disable the custom "Come online.." message
+
+
+[b][color=orange]v4.70[/color], 21.12.2020[/b][list]
+[*]Take account for the new skin api in BigWigs
+[*]Layout: Update the position for Bags/Bank[/list]
+
+
 [b][color=orange]v4.69[/color], 20.12.2020[/b][list]
 [*]Updated GarrisonUI Skin
 [*]Updated CovenantRenown Skin

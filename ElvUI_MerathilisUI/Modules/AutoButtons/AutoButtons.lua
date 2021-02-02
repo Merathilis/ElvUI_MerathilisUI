@@ -28,6 +28,7 @@ local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
 local GetQuestLogSpecialItemCooldown = GetQuestLogSpecialItemCooldown
 local GetQuestLogSpecialItemInfo = GetQuestLogSpecialItemInfo
+local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local IsItemInRange = IsItemInRange
 local IsUsableItem = IsUsableItem
@@ -147,6 +148,8 @@ local flasksShadowlands = {
 	171276,
 	171278,
 	171280,
+
+	181468, -- Veiled Augment Rune
 }
 
 -- Foods (Crafted by cooking)
@@ -334,17 +337,108 @@ local utilities = {
 	171439,
 	172346,
 	172347,
+	172233,
 }
 
 local torghastItems = {
+	168035, -- Mawrat Harness
 	168207, -- Plundered Anima Cell
+	170499, -- Maw Seeker Harness
 	170540, -- Ravenous Anima Cell
+	174464, -- Spectral Bridle
 	176331, -- Obscuring Essence Potion
 	176409, -- Rejuvenating Siphoned Essence
 	176443, -- Fleeting Frenzy Potion
-	168035, -- Mawrat Harness
 	184652, -- Phantasmic Infusor
 	184662, -- Requisitioned Anima Cell
+}
+
+local openableItems = {
+	171209,
+	171210,
+	171211,
+	174652,
+	178040,
+	178078,
+	178128,
+	178513,
+	178965,
+	178966,
+	178967,
+	178968,
+	178969,
+	180085,
+	180355,
+	180378,
+	180379,
+	180380,
+	180386,
+	180442,
+	180646,
+	180647,
+	180648,
+	180649,
+	180875,
+	180974,
+	180975,
+	180976,
+	180977,
+	180979,
+	180980,
+	180981,
+	180983,
+	180984,
+	180985,
+	180988,
+	180989,
+	181767,
+	181372,
+	181475,
+	181476,
+	181556,
+	181557,
+	181732,
+	181733,
+	181741,
+	182590,
+	182591,
+	183699,
+	183701,
+	183702,
+	183703,
+	184045,
+	184046,
+	184047,
+	184048,
+	184158,
+	184395,
+	184444,
+	184522,
+	184589,
+	184630,
+	184631,
+	184632,
+	184633,
+	184634,
+	184635,
+	184636,
+	184637,
+	184638,
+	184639,
+	184640,
+	184641,
+	184642,
+	184643,
+	184644,
+	184645,
+	184646,
+	184647,
+	184648,
+	184811,
+	184812,
+	184843,
+	184868,
+	184869,
 }
 
 local questItemList = {}
@@ -389,6 +483,7 @@ local moduleList = {
 	["MAGEFOOD"] = conjuredManaFood,
 	["BANNER"] = banners,
 	["UTILITY" ] = utilities,
+	["OPENABLE"] = openableItems,
 }
 
 function module:CreateButton(name, barDB)
@@ -510,13 +605,18 @@ function module:SetUpButton(button, questItemData, slotID)
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
 		GameTooltip:ClearLines()
 
-		if self.slotID then
-			GameTooltip:SetInventoryItem("player", self.slotID)
-		else
-			GameTooltip:SetItemByID(self.itemID)
-		end
+		if barDB.tooltip then
+			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
+			GameTooltip:ClearLines()
 
-		GameTooltip:Show()
+			if self.slotID then
+				GameTooltip:SetInventoryItem("player", self.slotID)
+			else
+				GameTooltip:SetItemByID(self.itemID)
+			end
+
+			GameTooltip:Show()
+		end
 	end)
 
 	button:SetScript("OnLeave", function(self)
@@ -568,7 +668,7 @@ function module:UpdateButtonSize(button, barDB)
 end
 
 function module:PLAYER_REGEN_ENABLED()
-	for i = 1, 3 do
+	for i = 1, 5 do
 		if UpdateAfterCombat[i] then
 			self:UpdateBar(i)
 			UpdateAfterCombat[i] = false
@@ -810,8 +910,23 @@ function module:UpdateBar(id)
 end
 
 function module:UpdateBars()
-	for i = 1, 3 do
+	for i = 1, 5 do
 		self:UpdateBar(i)
+	end
+end
+
+do
+	local lastUpdateTime =  0
+	function module:UNIT_INVENTORY_CHANGED()
+		local now = GetTime()
+		if now - lastUpdateTime < 0.25 then
+			return
+		end
+		lastUpdateTime = now
+		UpdateQuestItemList()
+		UpdateEquipmentList()
+
+		self:UpdateBars()
 	end
 end
 
@@ -820,13 +935,24 @@ function module:UpdateQuestItem()
 	self:UpdateBars()
 end
 
-function module:UpdateEquipment()
-	UpdateEquipmentList()
-	self:UpdateBars()
+do
+	local IsUpdating = false
+	function module:ITEM_LOCKED()
+		if IsUpdating then
+			return
+		end
+
+		IsUpdating = true
+		E:Delay(1, function()
+			UpdateEquipmentList()
+			self:UpdateBars()
+			IsUpdating = false
+		end)
+	end
 end
 
 function module:CreateAll()
-	for i = 1, 3 do
+	for i = 1, 5 do
 		self:CreateBar(i)
 	end
 end
@@ -836,7 +962,7 @@ function module:UpdateBinding()
 		return
 	end
 
-	for i = 1, 3 do
+	for i = 1, 5 do
 		for j = 1, 12 do
 			local button = module.bars[i].buttons[j]
 			if button then
@@ -864,7 +990,8 @@ function module:Initialize()
 	self:UpdateBars()
 	self:UpdateBinding()
 
-	self:RegisterEvent("UNIT_INVENTORY_CHANGED", "UpdateEquipment")
+	self:RegisterEvent("UNIT_INVENTORY_CHANGED")
+	self:RegisterEvent("ITEM_LOCKED")
 	self:RegisterEvent("BAG_UPDATE_DELAYED", "UpdateBars")
 	self:RegisterEvent("ZONE_CHANGED", "UpdateBars")
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "UpdateBars")

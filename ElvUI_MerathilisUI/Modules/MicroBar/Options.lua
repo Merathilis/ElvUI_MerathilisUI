@@ -320,7 +320,7 @@ local function MicroBarTable()
 											MONOCHROME = L["MONOCHROME"],
 											MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
 											THICKOUTLINE = L["THICKOUTLINE"]
-										}
+										},
 									},
 								},
 							},

@@ -16,7 +16,8 @@ local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
 local function UpdateFlyoutLevel(button, bag, slot, quality)
 	if not button.iLvl then
 		button.iLvl = MER:CreateText(button, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
-		button.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
+		button.iLvl:ClearAllPoints()
+		button.iLvl:Point("BOTTOMRIGHT", 1, -8)
 	end
 
 	local link, level
@@ -55,7 +56,8 @@ end
 local function ScrappingMachineUpdate(self)
 	if not self.iLvl then
 		self.iLvl = MER:CreateText(self, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
-		self.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
+		self.iLvl:ClearAllPoints()
+		self.iLvl:Point("BOTTOMRIGHT", 1, -8)
 	end
 
 	if not self.itemLink then self.iLvl:SetText("") return end

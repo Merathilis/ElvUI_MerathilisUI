@@ -252,7 +252,11 @@ end
 
 function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,lineID,spellID)
 	if (unit == "player") then
-		module.watching[spellID] = {GetTime(),"spell",spellID}
+		local texture = GetSpellTexture(spellID)
+		local t1 = GetInventoryItemTexture("player", 13)
+		local t2 = GetInventoryItemTexture("player", 14)
+		if texture == t1 or texture == t2 then return end -- Fix wrong buff cd for trinket
+		module.watching[spellID] = {GetTime(), "spell", spellID}
 		if (not self:IsMouseEnabled()) then
 			self:SetScript("OnUpdate", OnUpdate)
 		end

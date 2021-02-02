@@ -3,12 +3,10 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:GetModule('MER_Misc')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local select = select
 local collectgarbage = collectgarbage
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local C_PetJournalSetFilterChecked = C_PetJournal.SetFilterChecked
 local C_PetJournalSetAllPetTypesChecked = C_PetJournal.SetAllPetTypesChecked
@@ -32,11 +30,6 @@ local InCombatLockdown = InCombatLockdown
 local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local StaticPopupSpecial_Hide = StaticPopupSpecial_Hide
-
--- GLOBALS: LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit, SOUNDKIT, hooksecurefunc, PVPReadyDialog
--- GLOBALS: LFRBrowseFrame, RolePollPopup, StaticPopupDialogs, LE_PET_JOURNAL_FILTER_COLLECTED
--- GLOBALS: LE_PET_JOURNAL_FILTER_NOT_COLLECTED, WorldMapZoomOutButton_OnClick, UnitPowerBarAltStatus_UpdateText
--- GLOBALS: StaticPopupSpecial_Hide
 
 function module:LoadMisc()
 	-- Force readycheck warning
@@ -132,6 +125,7 @@ function module:Initialize()
 	self:ReputationInit()
 	self:WowHeadLinks()
 	self:SplashScreen()
+	self:CreateMawWidgetFrame()
 end
 
 MER:RegisterModule(module:GetName())

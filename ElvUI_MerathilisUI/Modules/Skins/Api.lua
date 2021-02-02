@@ -245,9 +245,6 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 			button:CreateBackdrop('Transparent', not noGlossTex) -- force transparent
 			button.backdrop:SetAllPoints()
 		end
-
-		button:HookScript("OnEnter", MERS.OnEnter)
-		button:HookScript("OnLeave", MERS.OnLeave)
 	end
 
 	if not noGradient then

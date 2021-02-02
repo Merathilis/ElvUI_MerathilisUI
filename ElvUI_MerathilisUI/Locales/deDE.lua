@@ -87,6 +87,8 @@ L["Officer"] = "Offizier"
 L["Only show chat bar when you mouse over it."] = "Zeige die Chatleiste nur an, wenn mit der Maus darüber gefahren wird."
 L["Button"] = "Tasten"
 L["Item Level Links"] = "Gegenstandsstufen-Links"
+L["Block"] = true
+L["Custom Online Message"] = "Benutzerdefinierte Online Nachricht"
 
 -- Combat Alert
 L["Combat Alert"] = "Kampfalarmierung"
@@ -217,6 +219,12 @@ L["Highest Quest Reward"] = "Höchste Questbelohnung"
 L["Automatically select the item with the highest reward."] = "Wählt automatisch den Gegenstand mit dem höchsten Wert aus."
 L["Item Alerts"] = "Gegenstandsalarm"
 L["Announce in chat when someone placed an usefull item."] = "Kündigt im Chat an, wenn jemand einen nützlichen Gegenstand stellt."
+L["Maw ThreatBar"] = "Schlund Bedrohungleiste"
+L["Replace the Maw Threat Display, with a simple StatusBar"] = "Ersetzt die Schlundbedrohungsanzeige mit einer simplen Statusleiste."
+L.ANNOUNCE_FP_PRE = "{rt1} %s bereitet ein %s vor. {rt1}"
+L.ANNOUNCE_FP_CLICK = "{rt1} %s zaubert ein %s. Klick! {rt1}"
+L.ANNOUNCE_FP_USE = "{rt1} %s benutzte %s. {rt1}"
+L.ANNOUNCE_FP_CAST = "{rt1} %s zaubert ein %s. {rt1}"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
@@ -358,6 +366,10 @@ L["Transmog"] = true -- No need to translate
 L["Shows an arrow indictor for currently transmogrified items."] = "Zeigt einen Indikator für den derzeitig transmogrifizierten Gegenstand an."
 L["Illusion"] = "Illusionen"
 L["Shows an indictor for weapon illusions."] = "Zeigt einen Indikator für die Waffenillusionen an."
+L["Empty Socket"] = "Leerer Sockel"
+L["Not Enchanted"] = "Nicht verzaubert"
+L["Warnings"] = "Warnungen"
+L["Shows an indicator for missing sockets and enchants."] = "Zeigt einen Indikator für fehlende Sockel und Verzauberungen an."
 
 -- Media
 L["MER_MEDIA_ZONES"] = {

@@ -4,17 +4,24 @@ local oUF = ElvUF or oUF
 -- based on oUF_GCD by Exactly.
 
 --[[
-Spell IDs to check if they are available as GCD refs. The
-original oUF_GCD used spell names and did'nt play well
-with other locales. We use the spell id to lookup the
-spell name and look that up in the spell book ...
+	Spell IDs to check if they are available as GCD refs. The
+	original oUF_GCD used spell names and did'nt play well
+	with other locales. We use the spell id to lookup the
+	spell name and look that up in the spell book ...
 
-Not all these spells are available at level 1 (most
-are learned at level 4). If you have a better suggestion(s),
-post a comment at:
+	Not all these spells are available at level 1 (most
+	are learned at level 4). If you have a better suggestion(s),
+	post a comment at:
 
-http://www.wowinterface.com/downloads/info14769-oUF_GCD-HungtarsoUFGlobalCooldownBar.html
+	http://www.wowinterface.com/downloads/info14769-oUF_GCD-HungtarsoUFGlobalCooldownBar.html
 --]]
+
+local pairs = pairs
+local print = print
+
+local GetSpellTabInfo = GetSpellTabInfo
+local GetSpellBookItemName = GetSpellBookItemName
+local GetSpellInfo = GetSpellInfo
 
 local referenceSpells = {
 	49998,			-- Death Strike (Death Knight)

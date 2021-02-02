@@ -18,6 +18,10 @@ MP.general = {
 	FlightPoint = true,
 	style = true,
 	shadowOverlay = true,
+	shadow = {
+		enable = true,
+		increasedSize = 0,
+	},
 }
 
 MP.bags = {
@@ -111,6 +115,7 @@ MP.chat = {
 	chatButton = true,
 	hidePlayerBrackets = true,
 	hideChat = false,
+	customOnlineMessage = true,
 	emotes = true,
 	filter = {
 		enable = true,
@@ -264,6 +269,9 @@ MP.misc = {
 		lfg = false,
 		announce = true,
 		itemAlert = true,
+		feasts = true,
+		portals = true,
+		toys = true,
 	},
 	paragon = {
 		enable = true,
@@ -273,6 +281,16 @@ MP.misc = {
 	funstuff = true,
 	wowheadlinks = true,
 	respec = true,
+	mawThreatBar = {
+		enable = true,
+		width = 250,
+		height = 16,
+		font = {
+			name = "Expressway",
+			size = 10,
+			style = "OUTLINE",
+		}
+	}
 }
 
 MP.nameHover = {
@@ -290,6 +308,16 @@ MP.notification = {
 	guildEvents = true,
 	paragon = true,
 	quickJoin = true,
+	titleFont = {
+		name = "Expressway",
+		size = 12,
+		style = "OUTLINE",
+	},
+	textFont = {
+		name = "Expressway",
+		size = 11,
+		style = "OUTLINE",
+	},
 }
 
 MP.databars = {}
@@ -346,7 +374,9 @@ MP.actionbars = {
 MP.autoButtons = {
 	enable = true,
 	customList = {},
-	blackList = {},
+	blackList = {
+		[183040] = true
+	},
 	bar1 = {
 		enable = true,
 		mouseOver = false,
@@ -362,6 +392,7 @@ MP.autoButtons = {
 		buttonsPerRow = 12,
 		anchor = "TOPLEFT",
 		spacing = 3,
+		tooltip = true,
 		inheritGlobalFade = true,
 		countFont = {
 			name = "Expressway",
@@ -387,7 +418,7 @@ MP.autoButtons = {
 				b = 1
 			},
 		},
-		include = "QUEST,BANNER,EQUIP,TORGHAST"
+		include = "QUEST,BANNER,EQUIP,TORGHAST,OPENABLE"
 	},
 	bar2 = {
 		enable = true,
@@ -405,6 +436,7 @@ MP.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		inheritGlobalFade = true,
+		tooltip = true,
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -446,6 +478,7 @@ MP.autoButtons = {
 		buttonsPerRow = 12,
 		anchor = "TOPLEFT",
 		spacing = 3,
+		tooltip = true,
 		inheritGlobalFade = true,
 		countFont = {
 			name = "Expressway",
@@ -473,6 +506,92 @@ MP.autoButtons = {
 		},
 		include = "MAGEFOOD,FOODVENDOR,FOODSL,CUSTOM"
 	},
+	bar4 = {
+		enable = false,
+		mouseOver = false,
+		globalFade = false,
+		fadeTime = 0.3,
+		alphaMin = 1,
+		alphaMax = 1,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 3,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		tooltip = true,
+		inheritGlobalFade = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		include = "CUSTOM"
+	},
+	bar5 = {
+		enable = false,
+		mouseOver = false,
+		globalFade = false,
+		fadeTime = 0.3,
+		alphaMin = 1,
+		alphaMax = 1,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 3,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		tooltip = true,
+		inheritGlobalFade = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		include = "CUSTOM"
+	}
 }
 
 MP.microBar = {
@@ -927,6 +1046,9 @@ MP.armory = {
 		enable = true,
 	},
 	illusion = {
+		enable = true,
+	},
+	warning = {
 		enable = true,
 	},
 }

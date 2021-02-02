@@ -190,25 +190,33 @@ function module:Filter(event, msg, ...)
 		msg = gsub(msg, "(|Htalent:%d+|h.-|h)", AddTalentInfo)
 		msg = gsub(msg, "(|Hpvptal:%d+|h.-|h)", AddPvPTalentInfo)
 	end
+
 	return false, msg, ...
 end
 
 function module:Initialize()
 	self.db = E.db.mui.chat.chatLink
 
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_ACHIEVEMENT", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_BATTLEGROUND", self.Filter)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER_INFORM", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_COMMUNITIES_CHANNEL", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_EMOTE", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT_LEADER", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_LOOT", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_OFFICER", self.Filter)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", self.Filter)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_BATTLEGROUND", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_LOOT", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_TRADESKILLS", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER_INFORM", self.Filter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", self.Filter)
 
 	self.Initialized = true
 end

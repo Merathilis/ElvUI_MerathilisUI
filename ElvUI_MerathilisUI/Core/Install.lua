@@ -64,7 +64,7 @@ local function SetupChat()
 		E.db.movers = {}
 	end
 
-	for i = 1, NUM_CHAT_WINDOWS do
+	for i = 1, _G.NUM_CHAT_WINDOWS do
 		local frame = _G[format("ChatFrame%s", i)]
 		local chatFrameId = frame:GetID()
 		local chatName = FCF_GetChatWindowInfo(chatFrameId)
@@ -236,8 +236,6 @@ function MER:SetupLayout(layout)
 	E.db["general"]["minimap"]["locationFont"] = "Expressway"
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
-	E.db["general"]["vendorGrays"] = true
-	E.db["general"]["vendorGraysDetails"] = true
 	E.db["general"]["backdropcolor"]["r"] = 0.101
 	E.db["general"]["backdropcolor"]["g"] = 0.101
 	E.db["general"]["backdropcolor"]["b"] = 0.101
@@ -339,7 +337,7 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["countFontSize"] = 10
 	E.db["bags"]["countFontOutline"] = "OUTLINE"
 	E.db["bags"]["bagSize"] = 34
-	E.db["bags"]["bagWidth"] = 452
+	E.db["bags"]["bagWidth"] = 450
 	E.db["bags"]["bankSize"] = 34
 	E.db["bags"]["bankWidth"] = 427
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
@@ -351,6 +349,8 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["scrapIcon"] = true
 	E.db["bags"]["itemLevelCustomColorEnable"] = false
 	E.db["bags"]["transparent"] = true
+	E.db["bags"]["vendorGrays"]["enable"] = true
+	E.db["bags"]["vendorGrays"]["details"] = false
 
 	-- Cooldown Settings
 	E.db["bags"]["cooldown"]["override"] = true
@@ -370,8 +370,8 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["bags"]["cooldown"]["hoursColor"]["r"] = 0.4
 
-	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,47"
-	E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,47"
+	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,194"
+	E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,194"
 
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
@@ -717,14 +717,14 @@ function MER:SetupLayout(layout)
 	E.db["movers"]["MER_MicroBarMover"] = "TOP,ElvUIParent,TOP,0,-19"
 	E.db["movers"]["MER_OrderhallMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2-2"
 	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-12"
-	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,206,-15"
+	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,240,-15"
 	E.db["movers"]["MER_MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
 	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-60"
 
 	--[[----------------------------------
 	--	Movers - Layout
 	--]]----------------------------------
-	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
+	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-201"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,229,-20"
 	E.db["movers"]["BNETMover"] = "TOP,ElvUIParent,TOP,0,-60"
 	E.db["movers"]["LootFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-495,-457"
@@ -893,20 +893,30 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 20
 	E.db["actionbar"]["cooldown"]["hoursColor"]["r"] = 0.4
 
-	E.db["actionbar"]["bar1"]["buttonspacing"] = 2
+	E.db["actionbar"]["bar1"]["buttonSpacing"] = 2
 	E.db["actionbar"]["bar1"]["heightMult"] = 2
 	E.db["actionbar"]["bar1"]["buttons"] = 8
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
 	E.db["actionbar"]["bar1"]["backdrop"] = true
 	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
-	E.db["actionbar"]["bar1"]["keepSizeRatio"] = false
-	E.db["actionbar"]["bar1"]["buttonHeight"] = 26
-	E.db["actionbar"]["bar1"]["buttonsize"] = 32
+	E.db["actionbar"]["bar1"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar1"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar1"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar1"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar1"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar1"]["macroFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar1"]["macroTextPosition"] = "BOTTOM"
+	E.db["actionbar"]["bar1"]["macroTextYOffset"] = 0
 
 	if layout == "dps" then
-		E.db["actionbar"]["bar1"]["buttonspacing"] = 3
+		E.db["actionbar"]["bar1"]["keepSizeRatio"] = false
+		E.db["actionbar"]["bar1"]["buttonHeight"] = 26
+		E.db["actionbar"]["bar1"]["buttonSize"] = 32
+		E.db["actionbar"]["bar1"]["buttonSpacing"] = 3
 	elseif layout == "healer" then
-		E.db["actionbar"]["bar1"]["buttonspacing"] = 2
+		E.db["actionbar"]["bar1"]["keepSizeRatio"] = true
+		E.db["actionbar"]["bar1"]["buttonSize"] = 32
+		E.db["actionbar"]["bar1"]["buttonSpacing"] = 2
 	end
 
 	E.db["actionbar"]["bar2"]["enabled"] = true
@@ -919,49 +929,83 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 	E.db["actionbar"]["bar2"]["backdrop"] = false
 	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = true
-	E.db["actionbar"]["bar2"]["keepSizeRatio"] = false
-	E.db["actionbar"]["bar2"]["buttonHeight"] = 26
-	E.db["actionbar"]["bar2"]["buttonsize"] = 32
+	E.db["actionbar"]["bar2"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar2"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar2"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar2"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar2"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar2"]["macroFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar2"]["macroTextPosition"] = "BOTTOM"
+	E.db["actionbar"]["bar1"]["macroTextYOffset"] = 0
 
 	if layout == "dps" then
-		E.db["actionbar"]["bar2"]["buttonspacing"] = 3
+		E.db["actionbar"]["bar2"]["keepSizeRatio"] = false
+		E.db["actionbar"]["bar2"]["buttonHeight"] = 26
+		E.db["actionbar"]["bar2"]["buttonSize"] = 32
+		E.db["actionbar"]["bar2"]["buttonSpacing"] = 3
 	elseif layout == "healer" then
-		E.db["actionbar"]["bar2"]["buttonspacing"] = 2
+		E.db["actionbar"]["bar2"]["keepSizeRatio"] = true
+		E.db["actionbar"]["bar2"]["buttonSize"] = 32
+		E.db["actionbar"]["bar2"]["buttonSpacing"] = 2
 	end
 
 	E.db["actionbar"]["bar3"]["enabled"] = true
 	E.db["actionbar"]["bar3"]["backdrop"] = true
 	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 1
-	E.db["actionbar"]["bar3"]["buttonsize"] = 26
-	E.db["actionbar"]["bar3"]["buttonspacing"] = 3
+	E.db["actionbar"]["bar3"]["buttonSize"] = 26
+	E.db["actionbar"]["bar3"]["buttonSpacing"] = 3
 	E.db["actionbar"]["bar3"]["buttons"] = 5
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar3"]["mouseover"] = false
 	E.db["actionbar"]["bar3"]["showGrid"] = true
 	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar3"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar3"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar3"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar3"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar3"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar3"]["macroFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar3"]["macroTextPosition"] = "BOTTOM"
+	E.db["actionbar"]["bar3"]["macroTextYOffset"] = 0
 
 	E.db["actionbar"]["bar4"]["enabled"] = true
-	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
+	E.db["actionbar"]["bar4"]["buttonSpacing"] = 4
 	E.db["actionbar"]["bar4"]["mouseover"] = true
 	E.db["actionbar"]["bar4"]["backdrop"] = true
-	E.db["actionbar"]["bar4"]["buttonsize"] = 24
+	E.db["actionbar"]["bar4"]["buttonSize"] = 24
 	E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar4"]["showGrid"] = true
 	E.db["actionbar"]["bar4"]["buttonsPerRow"] = 1
 	E.db["actionbar"]["bar4"]["inheritGlobalFade"] = false
+	E.db["actionbar"]["bar4"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar4"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar4"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar4"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar4"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar4"]["macroFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar4"]["macroTextPosition"] = "BOTTOM"
+	E.db["actionbar"]["bar4"]["macroTextYOffset"] = 0
 
 	E.db["actionbar"]["bar5"]["enabled"] = true
 	E.db["actionbar"]["bar5"]["backdrop"] = true
 	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 1
-	E.db["actionbar"]["bar5"]["buttonsize"] = 26
-	E.db["actionbar"]["bar5"]["buttonspacing"] = 3
+	E.db["actionbar"]["bar5"]["buttonSize"] = 26
+	E.db["actionbar"]["bar5"]["buttonSpacing"] = 3
 	E.db["actionbar"]["bar5"]["buttons"] = 5
 	E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar5"]["mouseover"] = false
 	E.db["actionbar"]["bar5"]["showGrid"] = true
 	E.db["actionbar"]["bar5"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar5"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar5"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar5"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar5"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar5"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar5"]["macroFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar5"]["macroTextPosition"] = "BOTTOM"
+	E.db["actionbar"]["bar5"]["macroTextYOffset"] = 0
 
 	E.db["actionbar"]["bar6"]["enabled"] = true
 	E.db["actionbar"]["bar6"]["backdropSpacing"] = 3
@@ -973,31 +1017,49 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar6"]["heightMult"] = 1
 	E.db["actionbar"]["bar6"]["backdrop"] = true
 	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = true
-	E.db["actionbar"]["bar6"]["keepSizeRatio"] = false
-	E.db["actionbar"]["bar6"]["buttonHeight"] = 26
-	E.db["actionbar"]["bar6"]["buttonsize"] = 32
+	E.db["actionbar"]["bar6"]["countFont"] = "Expressway"
+	E.db["actionbar"]["bar6"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar6"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["bar6"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar6"]["macroFont"] = "Expressway"
+	E.db["actionbar"]["bar6"]["macroFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar6"]["macroTextPosition"] = "BOTTOM"
+	E.db["actionbar"]["bar6"]["macroTextYOffset"] = 0
 
 	if layout == "dps" then
-		E.db["actionbar"]["bar6"]["buttonspacing"] = 3
+		E.db["actionbar"]["bar6"]["keepSizeRatio"] = false
+		E.db["actionbar"]["bar6"]["buttonHeight"] = 26
+		E.db["actionbar"]["bar6"]["buttonSize"] = 32
 	elseif layout == "healer" then
-		E.db["actionbar"]["bar6"]["buttonspacing"] = 2
+		E.db["actionbar"]["bar6"]["keepSizeRatio"] = true
+		E.db["actionbar"]["bar6"]["buttonSize"] = 32
+	end
+
+	if layout == "dps" then
+		E.db["actionbar"]["bar6"]["buttonSpacing"] = 3
+	elseif layout == "healer" then
+		E.db["actionbar"]["bar6"]["buttonSpacing"] = 2
 	end
 
 	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["barPet"]["backdrop"] = true
 	E.db["actionbar"]["barPet"]["buttons"] = 9
-	E.db["actionbar"]["barPet"]["buttonspacing"] = 3
+	E.db["actionbar"]["barPet"]["buttonSpacing"] = 3
 	E.db["actionbar"]["barPet"]["buttonsPerRow"] = 9
-	E.db["actionbar"]["barPet"]["buttonsize"] = 24
+	E.db["actionbar"]["barPet"]["buttonSize"] = 24
 	E.db["actionbar"]["barPet"]["mouseover"] = false
 	E.db["actionbar"]["barPet"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["barPet"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["barPet"]["hotkeyFontOutline"] = "OUTLINE"
 
 	E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["stanceBar"]["backdrop"] = true
-	E.db["actionbar"]["stanceBar"]["buttonspacing"] = 3
+	E.db["actionbar"]["stanceBar"]["buttonSpacing"] = 3
 	E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
-	E.db["actionbar"]["stanceBar"]["buttonsize"] = 22
+	E.db["actionbar"]["stanceBar"]["buttonSize"] = 22
 	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["stanceBar"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["stanceBar"]["hotkeyFontOutline"] = "OUTLINE"
 
 	if layout == "dps" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,144"
@@ -1017,9 +1079,9 @@ function MER:SetupActionbars(layout)
 	elseif layout == "healer" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,123"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,161"
-		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-446,50"
+		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-438,47"
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
-		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,438,50"
+		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,430,47"
 		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,20"
 		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,85"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-289,15"
@@ -1188,7 +1250,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 11,
 			["justifyH"] = "RIGHT",
-			["text_format"] = "[health:current-mUI]",
+			["text_format"] = "[health:current:shortvalue]",
 			["attachTextTo"] = "Frame",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
@@ -1208,7 +1270,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 12,
 			["justifyH"] = "CENTER",
-			["text_format"] = "[power:current]",
+			["text_format"] = "[power:current:shortvalue]",
 			["attachTextTo"] = "Power",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
@@ -1218,7 +1280,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 12,
 			["justifyH"] = "CENTER",
-			["text_format"] = "[additionalmana:current]",
+			["text_format"] = "[additionalmana:current:shortvalue]",
 			["attachTextTo"] = "AdditionalPower",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
@@ -1372,7 +1434,7 @@ function MER:SetupUnitframes(layout)
 			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "LEFT",
-			["text_format"] = "[health:current-mUI]",
+			["text_format"] = "[health:current:shortvalue]",
 			["attachTextTo"] = "Health",
 			["yOffset"] = -1,
 			["xOffset"] = 0,
@@ -1382,7 +1444,7 @@ function MER:SetupUnitframes(layout)
 			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
-			["text_format"] = "[power:current-mUI]",
+			["text_format"] = "[power:current:shortvalue]",
 			["attachTextTo"] = "Health",
 			["yOffset"] = -19,
 			["xOffset"] = 3,
@@ -1790,7 +1852,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffs"]["useWhitelist"] = true
 		E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["buffs"]["playerOnly"] = false
-		E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 2
+		E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 3
 		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["party"]["buffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "MER_RaidCDs"
@@ -1948,7 +2010,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 14,
-			["text_format"] = "[health:current-mUI]",
+			["text_format"] = "[health:current:shortvalue]",
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = {
@@ -1965,7 +2027,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["boss"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["boss"]["power"]["height"] = 9
 		E.db["unitframe"]["units"]["boss"]["power"]["position"] = "CENTER"
-		E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = "[power:current-mUI]"
+		E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = "[power:current:shortvalue]"
 		E.db["unitframe"]["units"]["boss"]["growthDirection"] = "UP"
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
@@ -2075,7 +2137,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 16,
 			["justifyH"] = "LEFT",
-			["text_format"] = "[health:current-mUI]",
+			["text_format"] = "[health:current:shortvalue]",
 			["attachTextTo"] = "Health",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
@@ -2187,7 +2249,7 @@ function MER:SetupUnitframes(layout)
 			["size"] = 16,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
-			["text_format"] = "[health:current-mUI] | [power:current-mUI]",
+			["text_format"] = "[health:current:shortvalue] | [power:current:shortvalue]",
 			["attachTextTo"] = "Health",
 			["yOffset"] = 0,
 			["xOffset"] = 0,
@@ -2620,7 +2682,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 14,
-			["text_format"] = "[health:current-mUI]",
+			["text_format"] = "[health:current:shortvalue]",
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = {

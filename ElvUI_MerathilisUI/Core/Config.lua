@@ -36,7 +36,7 @@ local PATRONS_STRING = tconcat(PATRONS, ", ")
 
 local function AddOptions()
 	local icon = MER:GetIconString(MER.Media.Textures.pepeSmall, 14)
-	E.Options.name = E.Options.name.." + " .. icon .. " " .. MER.Title .. " " .. format(": |cFF00c0fa%s|r", MER.Version)
+	E.Options.name = E.Options.name.." + " .. icon .. " " ..MER.Title.. format(": |cFF00c0fa%s|r", MER.Version)
 
 	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 	local ACH = E.Libs.ACH
@@ -137,6 +137,28 @@ local function AddOptions()
 						name = L["Flight Point"],
 						desc = L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."],
 						hidden = function() return IsAddOnLoaded("WorldFlightMap") end,
+					},
+					shadow = {
+						order = 7,
+						type = "group",
+						name = E.NewSign..MER:cOption(L["Shadows"]),
+						guiInline = true,
+						get = function(info) return E.db.mui.general.shadow[ info[#info] ] end,
+						set = function(info, value) E.db.mui.general.shadow[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+						args = {
+							enable = {
+								order = 1,
+								type = "toggle",
+								name = L["Enable"],
+							},
+							increasedSize = {
+								order = 2,
+								type = "range",
+								name = L["Increase Size"],
+								desc = L["Make shadow thicker."],
+								min = 0, max = 10, step = 1
+							},
+						},
 					},
 				},
 			},

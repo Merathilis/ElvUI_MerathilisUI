@@ -84,6 +84,7 @@ L["Button"] = "按鍵"
 L["Item Level Links"] = true
 L["Filter"] = "過濾器"
 L["Block"] = "方塊"
+L["Custom Online Message"] = true
 
 -- Combat Alert
 L["Combat Alert"] = "戰鬥提醒"
@@ -208,6 +209,12 @@ L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
 L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
+L["Maw ThreatBar"] = true
+L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L.ANNOUNCE_FP_PRE = "{rt1} %s 放置了 %s {rt1}"
+L.ANNOUNCE_FP_CLICK = "{rt1} %s 正在開啟 %s... 請點擊 ! {rt1}"
+L.ANNOUNCE_FP_USE = "{rt1} %s 使用了 %s。 {rt1}"
+L.ANNOUNCE_FP_CAST = "{rt1} %s 開啟了 %s {rt1}"
 
 -- Tooltip
 L["Your Status:"] = true
@@ -353,6 +360,10 @@ L["Transmog"] = "塑形"
 L["Shows an arrow indictor for currently transmogrified items."] = true
 L["Illusion"] = true
 L["Shows an indictor for weapon illusions."] = true
+L["Empty Socket"] = true
+L["Not Enchanted"] = true
+L["Warnings"] = true
+L["Shows an indicator for missing sockets and enchants."] = true
 
 -- Media
 L["MER_MEDIA_ZONES"] = {

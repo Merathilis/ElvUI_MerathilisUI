@@ -34,6 +34,8 @@ local BAG_ITEM_QUALITY_COLORS = BAG_ITEM_QUALITY_COLORS
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UIParent = UIParent
+local C_Covenants_GetCovenantData = C_Covenants.GetCovenantData
+local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
@@ -466,7 +468,7 @@ end
 function MER:CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	local text = f:CreateFontString(nil, layer)
 	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
-	text:SetHeight(text:GetStringHeight()+20)
+	text:SetHeight(text:GetStringHeight()+30)
 
 	if text then
 		text:SetText(text)
@@ -556,6 +558,30 @@ end
 
 function MER:IsDeveloperRealm()
 	return MER.IsDevRealm[E.myrealm] or false
+end
+
+-- Covenant Crest: Credits BenikUI
+function MER:GetConvCrest()
+	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
+	local kit = covenantData and covenantData.textureKit or nil
+
+	-- vertical position
+	local vky = kit == "Kyrian" and 0
+	local vve = kit == "Venthyr" and 18
+	local vni = kit == "NightFae" and 16
+	local vne = kit == "Necrolord" and 20
+
+	local vert = vky or vve or vni or vne
+
+	-- Height
+	local hky = kit == "Kyrian" and 150
+	local hve = kit == "Venthyr" and 120
+	local hni = kit == "NightFae" and 134
+	local hne = kit == "Necrolord" and 120
+
+	local hei = hky or hve or hni or hne
+
+	return kit, vert, hei
 end
 
 -- Icon Style
@@ -684,6 +710,34 @@ function MER:UpdateStyling()
 			if style.mshadow then style.mshadow:Hide() end
 		end
 	end
+end
+
+function MER:CreateShadow(frame, size, force)
+	if not frame then return end
+	if not (E.db.mui.general.shadow and E.db.mui.general.shadow.enable) and not force then return end
+
+	if frame:GetObjectType() == "Texture" then
+		frame = frame:GetParent()
+	end
+
+	size = size or 4
+	size = size + E.db.mui.general.shadow.increasedSize or 0
+
+	local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	shadow:SetFrameStrata(frame:GetFrameStrata())
+	shadow:SetFrameLevel(frame:GetFrameLevel() or 1)
+	shadow:SetOutside(frame, size, size)
+	shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = size + 1})
+	shadow:SetBackdropColor(0, 0, 0, 0)
+	shadow:SetBackdropBorderColor(0, 0, 0, 0.618)
+
+	frame.shadow = shadow
+end
+
+function MER:CreateShadowModule(frame)
+	if not frame then return end
+
+	MER:CreateShadow(frame)
 end
 
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)

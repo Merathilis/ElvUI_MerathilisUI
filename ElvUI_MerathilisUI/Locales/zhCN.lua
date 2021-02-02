@@ -87,6 +87,7 @@ L["Use Icon"] = "使用图标"
 L["Use a icon rather than text"] = "使用图标"
 L["Use Color"] = "使用颜色"
 L["Font Setting"] = "字体设定"
+L["Custom Online Message"] = true
 
 -- Combat Alert
 L["Combat Alert"] = "战斗提示"
@@ -217,6 +218,12 @@ L["Highest Quest Reward"] = "最贵任务奖励"
 L["Automatically select the item with the highest reward."] = "自动选中最贵任务奖励"
 L["Item Alerts"] = "物品通告"
 L["Announce in chat when someone placed an usefull item."] = "当有玩家放置某些物品时将在聊天栏通知"
+L["Maw ThreatBar"] = true
+L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L.ANNOUNCE_FP_PRE = "{rt1} %s 放置了 %s {rt1}"
+L.ANNOUNCE_FP_CLICK = "{rt1} %s 正在开启 %s... 请点击 ! {rt1}"
+L.ANNOUNCE_FP_USE = "{rt1} %s 使用了 %s。 {rt1}"
+L.ANNOUNCE_FP_CAST = "{rt1} %s 开启了 %s {rt1}"
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
@@ -364,6 +371,10 @@ L["Transmog"] = "幻化"
 L["Shows an arrow indictor for currently transmogrified items."] = "为当前幻化的物品显示一个箭头指示器."
 L["Illusion"] = "幻象"
 L["Shows an indictor for weapon illusions."] = "为武器幻象显示一个指示器"
+L["Empty Socket"] = true
+L["Not Enchanted"] = true
+L["Warnings"] = true
+L["Shows an indicator for missing sockets and enchants."] = true
 
 -- Media
 L["Zone Text"] = "区域文字"

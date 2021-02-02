@@ -11,6 +11,7 @@ local function LoadSkin()
 	-- /run UIParent_OnEvent({}, "WEEKLY_REWARDS_SHOW")
 	local frame = _G.WeeklyRewardsFrame
 	local header = frame.HeaderFrame
+	local concession = frame.ConcessionFrame
 
 	frame:StripTextures()
 	header:StripTextures()
