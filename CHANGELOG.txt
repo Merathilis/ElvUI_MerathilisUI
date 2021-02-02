@@ -3,12 +3,15 @@
 [*]AFK/FlightMode: Added a covenant texture
 [*]Skins: Various updates
 [*]Misc: Replace the Maw Threat Widget with a simple StatusBar
+[*]AutoButtons: Add openable items
 [*]AutoButtons: Added 2 more Bars in total now of 5
 [*]Armory: Added an indicator to show missing enchants/gems
 [*]Fonts: Replace GothamNarrow fonts with a newer one
 [*]MicroBar: Added a Shadow
 [*]GameMenu: Added some new NPC from Shadowlands
 [*]RaidBuffReminder: Added a Weapon enchant indicator
+[*]Chat: Added an option to disable the custom "Come online.." message
+
 
 [b][color=orange]v4.70[/color], 21.12.2020[/b][list]
 [*]Take account for the new skin api in BigWigs
