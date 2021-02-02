@@ -10,7 +10,7 @@
 [*]MicroBar: Added a Shadow
 [*]GameMenu: Added some new NPC from Shadowlands
 [*]RaidBuffReminder: Added a Weapon enchant indicator
-[*]Chat: Added an option to disable the custom "Come online.." message
+[*]Chat: Added an option to disable the custom "Come online.." message[/list]
 
 
 [b][color=orange]v4.70[/color], 21.12.2020[/b][list]
