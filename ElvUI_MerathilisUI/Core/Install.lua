@@ -333,6 +333,9 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["itemLevelFont"] = "Expressway"
 	E.db["bags"]["itemLevelFontSize"] = 9
 	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
+	E.db["bags"]["itemInfoFont"] = "Expressway"
+	E.db["bags"]["itemInfoFontSize"] = 9
+	E.db["bags"]["itemInfoFontOutline"] = "OUTLINE"
 	E.db["bags"]["countFont"] = "Expressway"
 	E.db["bags"]["countFontSize"] = 10
 	E.db["bags"]["countFontOutline"] = "OUTLINE"
