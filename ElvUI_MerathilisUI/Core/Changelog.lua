@@ -16,18 +16,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• LocPanel: Add Cypher of Relocation to port items",
-		"• AFK/FlightMode: Added a covenant texture",
-		"• Skins: Various updates",
-		"• Misc: Replace the Maw Threat Widget with a simple StatusBar",
-		"• AutoButtons: Add openable items",
-		"• AutoButtons: Added 2 more Bars in total now of 5",
-		"• Armory: Added an indicator to show missing enchants/gems",
-		"• Fonts: Replace GothamNarrow fonts with a newer one",
-		"• MicroBar: Added a Shadow",
-		"• GameMenu: Added some new NPC from Shadowlands",
-		"• RaidBuffReminder: Added a Weapon enchant indicator",
-		"• Chat: Added an option to disable the custom Come online.. message",
+		"• AutoButtons: Add more openable items",
+		"• Armory: Fix enchants for strength and agi classes",
+		"• LFG Info: Reskin the role icons",
 
 		-- "• ''",
 	" ",
