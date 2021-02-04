@@ -1,3 +1,9 @@
+** v4.72, 04.02.2021**
+* AutoButtons: Add more openable items
+* Armory: Fix enchants for strength and agi classes
+* LFG Info: Reskin the role icons
+
+
 ** v4.71, 02.02.2021**
 * LocPanel: Add Cypher of Relocation to port items
 * AFK/FlightMode: Added a covenant texture

@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
+local _G = _G
 ----------------------------------------------------------------------------------------
 --	Core options
 ----------------------------------------------------------------------------------------
@@ -263,6 +264,22 @@ MP.misc = {
 		enable = true,
 		title = true,
 		mode = "NORMAL",
+		icon = {
+			reskin = true,
+			pack = "SQUARE",
+			size = 16,
+			border = true,
+			alpha = 1
+		},
+		line = {
+			enable = true,
+			tex = "ElvUI Norm",
+			width = 16,
+			height = 3,
+			offsetX = 0,
+			offsetY = -1,
+			alpha = 1
+		},
 	},
 	spellAlert = 0.65,
 	alerts = {

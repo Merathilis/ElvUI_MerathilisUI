@@ -1,4 +1,10 @@
-[b][color=orange]v4.71[/color], xx.01.2021[/b][list]
+[b][color=orange]v4.72[/color], 04.02.2021[/b][list]
+[*]AutoButtons: Add more openable items
+[*]Armory: Fix enchants for strength and agi classes
+[*]LFG Info: Reskin the role icons[/list]
+
+
+[b][color=orange]v4.71[/color], 02.02.2021[/b][list]
 [*]LocPanel: Add Cypher of Relocation to port items
 [*]AFK/FlightMode: Added a covenant texture
 [*]Skins: Various updates
@@ -10,7 +16,7 @@
 [*]MicroBar: Added a Shadow
 [*]GameMenu: Added some new NPC from Shadowlands
 [*]RaidBuffReminder: Added a Weapon enchant indicator
-[*]Chat: Added an option to disable the custom "Come online.." message
+[*]Chat: Added an option to disable the custom "Come online.." message[/list]
 
 
 [b][color=orange]v4.70[/color], 21.12.2020[/b][list]

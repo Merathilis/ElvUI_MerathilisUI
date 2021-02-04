@@ -90,6 +90,120 @@ local function Misc()
 							COMPACT = L["Compact"]
 						},
 					},
+					icon = {
+						order = 4,
+						type = "group",
+						name = E.NewSign..MER:cOption(L["Icon"], 'orange'),
+						disabled = function()
+							return not E.db.mui.misc.lfgInfo.enable
+						end,
+						get = function(info)
+							return E.db.mui.misc.lfgInfo.icon[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.misc.lfgInfo.icon[info[#info]] = value
+							E:StaticPopup_Show("PRIVATE_RL")
+						end,
+						args = {
+							reskin = {
+								order = 1,
+								type = "toggle",
+								name = L["Reskin Icon"],
+								desc = L["Change role icons."]
+							},
+							border = {
+								order = 3,
+								type = "toggle",
+								name = L["Border"]
+							},
+							size = {
+								order = 4,
+								type = "range",
+								name = L["Size"],
+								min = 1,
+								max = 20,
+								step = 1
+							},
+							alpha = {
+								order = 5,
+								type = "range",
+								name = L["Alpha"],
+								min = 0,
+								max = 1,
+								step = 0.01
+							},
+						},
+					},
+					line = {
+						order = 5,
+						type = "group",
+						name = E.NewSign..MER:cOption(L["Line"], 'orange'),
+						disabled = function()
+							return not E.db.mui.misc.lfgInfo.enable
+						end,
+						get = function(info)
+							return E.db.mui.misc.lfgInfo.line[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.misc.lfgInfo.line[info[#info]] = value
+							E:StaticPopup_Show("PRIVATE_RL")
+						end,
+						args = {
+							enable = {
+								order = 1,
+								type = "toggle",
+								name = L["Enable"],
+								desc = L["Add a line in class color."]
+							},
+							tex = {
+								order = 2,
+								type = "select",
+								name = L["Texture"],
+								dialogControl = "LSM30_Statusbar",
+								values = LSM:HashTable("statusbar")
+							},
+							width = {
+								order = 4,
+								type = "range",
+								name = L["Width"],
+								min = 1,
+								max = 20,
+								step = 1
+							},
+							height = {
+								order = 4,
+								type = "range",
+								name = L["Height"],
+								min = 1,
+								max = 20,
+								step = 1
+							},
+							offsetX = {
+								order = 5,
+								type = "range",
+								name = L["X-Offset"],
+								min = -20,
+								max = 20,
+								step = 1
+							},
+							offsetY = {
+								order = 6,
+								type = "range",
+								name = L["Y-Offset"],
+								min = -20,
+								max = 20,
+								step = 1
+							},
+							alpha = {
+								order = 7,
+								type = "range",
+								name = L["Alpha"],
+								min = 0,
+								max = 1,
+								step = 0.01
+							},
+						},
+					},
 				},
 			},
 			alerts = {
@@ -196,7 +310,7 @@ local function Misc()
 			mawThreatBar = {
 				order = 24,
 				type = "group",
-				name = E.NewSign..MER:cOption(L["Maw ThreatBar"], 'orange'),
+				name = MER:cOption(L["Maw ThreatBar"], 'orange'),
 				guiInline = true,
 				args = {
 					enable = {
