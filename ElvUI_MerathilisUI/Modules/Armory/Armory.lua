@@ -21,6 +21,9 @@ local GetInventoryItemDurability = GetInventoryItemDurability
 local GetInventorySlotInfo = GetInventorySlotInfo
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
+local GetSpecialization = GetSpecialization
+local GetSpecializationInfo = GetSpecializationInfo
+local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
@@ -29,6 +32,7 @@ local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 local Enum_TransmogType_Appearance = Enum.TransmogType.Appearance
 local Enum_TransmogType_Illusion = Enum.TransmogType.Illusion
+local UnitSex = UnitSex
 --GLOBALS:
 
 local initialized = false
@@ -211,13 +215,32 @@ function module:UpdateGemInfo(Slot, which)
 	end
 end
 
+function module:UpdatePageInfo(frame, which, guid, event)
+	if not (frame and which) then return end
+	if not module:CheckOptions(which) then return end
+	local window = strlower(which)
+	local unit = (which == 'Character' and 'player') or frame.unit
+	if which == 'Character' then
+		module.CharacterPrimaryStat = select(6, GetSpecializationInfo(GetSpecialization(), nil, nil, nil, UnitSex('player')))
+	end
+end
+
 function module:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
-	if not module.db.warning.enable then return end
 	if not module:CheckOptions(which) then return end
 	Slot.itemLink = GetInventoryItemLink((which == 'Character' and 'player') or _G['InspectFrame'].unit, Slot.ID)
 
 	module:UpdateGemInfo(Slot, which)
 	module:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort, module[which.."PrimaryStat"])
+end
+
+function module:UpdateCharacterInfo(event)
+	if event == 'CRITERIA_UPDATE' and InCombatLockdown() then return end
+
+	M:UpdatePageInfo(_G['CharacterFrame'], 'Character')
+
+	if not E.db.general.itemLevel.displayCharacterInfo then
+		M:ClearPageInfo(_G['CharacterFrame'], 'Character')
+	end
 end
 
 function module:UpdatePaperDoll()
@@ -450,7 +473,13 @@ function module:Initialize()
 	module:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
 	module:RegisterEvent("PLAYER_ENTERING_WORLD", "InitialUpdatePaperDoll")
 
+	hooksecurefunc(M, 'UpdatePageInfo', module.UpdatePageInfo)
 	hooksecurefunc(M, 'UpdatePageStrings', module.UpdatePageStrings)
+
+	if module:CheckOptions('Character') then
+		hooksecurefunc(M, 'UpdateCharacterInfo', module.UpdateCharacterInfo)
+		module:UpdateCharacterInfo()
+	end
 
 	-- Adjust a bit the Model Size
 	if _G["CharacterModelFrame"]:GetHeight() == 320 then
