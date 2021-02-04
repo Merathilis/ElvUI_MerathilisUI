@@ -93,7 +93,7 @@ local function Misc()
 					icon = {
 						order = 4,
 						type = "group",
-						name = L["Icon"],
+						name = E.NewSign..MER:cOption(L["Icon"], 'orange'),
 						disabled = function()
 							return not E.db.mui.misc.lfgInfo.enable
 						end,
@@ -137,7 +137,7 @@ local function Misc()
 					line = {
 						order = 5,
 						type = "group",
-						name = L["Line"],
+						name = E.NewSign..MER:cOption(L["Line"], 'orange'),
 						disabled = function()
 							return not E.db.mui.misc.lfgInfo.enable
 						end,
@@ -310,7 +310,7 @@ local function Misc()
 			mawThreatBar = {
 				order = 24,
 				type = "group",
-				name = E.NewSign..MER:cOption(L["Maw ThreatBar"], 'orange'),
+				name = MER:cOption(L["Maw ThreatBar"], 'orange'),
 				guiInline = true,
 				args = {
 					enable = {
