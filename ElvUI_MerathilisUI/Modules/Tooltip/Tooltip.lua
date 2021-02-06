@@ -41,8 +41,8 @@ local C_LFGList_GetSearchResultEncounterInfo = C_LFGList.GetSearchResultEncounte
 local LFGListSearchEntryUtil_GetFriendList = LFGListSearchEntryUtil_GetFriendList
 -- GLOBALS:
 
-local AFK_LABEL = " |cffFFFFFF<|r|cffFF0000"..L["AFK"].."|r|cffFFFFFF>|r"
-local DND_LABEL = " |cffFFFFFF<|r|cffFFFF00"..L["DND"].."|r|cffFFFFFF>|r"
+local AFK_LABEL = " |cffFFFFFF<|r|cffFF0000"..L["CHAT_AFK"].."|r|cffFFFFFF>|r"
+local DND_LABEL = " |cffFFFFFF<|r|cffFFFF00"..L["CHAT_DND"].."|r|cffFFFFFF>|r"
 
 function module:SetUnitText(tt, unit, level, isShiftKeyDown)
 	if not UnitIsPlayer(unit) then

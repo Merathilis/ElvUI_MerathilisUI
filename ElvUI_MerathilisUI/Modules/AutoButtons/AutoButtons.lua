@@ -893,6 +893,7 @@ function module:UpdateBar(id)
 
 	bar.alphaMin = barDB.alphaMin or 0
 	bar.alphaMax = barDB.alphaMax or 1
+	bar.fadeTime = barDB.fadeTime or 0.3
 
 	if barDB.globalFade then
 		barDB.alphaMin = 1
