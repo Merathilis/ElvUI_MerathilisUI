@@ -601,7 +601,7 @@ function module:SetUpButton(button, questItemData, slotID)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
+			E:UIFrameFadeIn(bar, barDB.fadeTime or 0.3 * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
 		end
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
 		GameTooltip:ClearLines()
@@ -633,7 +633,7 @@ function module:SetUpButton(button, questItemData, slotID)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
+			E:UIFrameFadeOut(bar, barDB.fadeTime or 0.3 * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
 		end
 		GameTooltip:Hide()
 	end)
@@ -727,14 +727,14 @@ function module:CreateBar(id)
 	bar:SetScript("OnEnter", function(self)
 		if barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
+			E:UIFrameFadeIn(bar, barDB.fadeTime or 0.3 * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
 		end
 	end)
 
 	bar:SetScript("OnLeave", function(self)
 		if barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
+			E:UIFrameFadeOut(bar, barDB.fadeTime or 0.3 * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
 		end
 	end)
 
@@ -891,8 +891,8 @@ function module:UpdateBar(id)
 		bar.backdrop:Hide()
 	end
 
-	bar.alphaMin = barDB.alphaMin
-	bar.alphaMax = barDB.alphaMax
+	bar.alphaMin = barDB.alphaMin or 0
+	bar.alphaMax = barDB.alphaMax or 1
 
 	if barDB.globalFade then
 		barDB.alphaMin = 1
