@@ -1,12 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
---Cache global variables
---WoW API / Variables
--- GLOBALS:
-
 function MER:LoadTouhinProfile()
 	--[[----------------------------------
-	--	ls_Toasts - Settings
+	--	Touhin - Settings
 	--]]----------------------------------
 
 	TouhinDB.profiles["MerathilisUI"] = {

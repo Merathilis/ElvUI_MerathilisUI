@@ -34,6 +34,7 @@ local SupportedProfiles = {
 	{"ls_Toasts", "ls_Toasts"},
 	{"DBM-Core", "Deadly Boss Mods"},
 	{"Touhin", "Touhin"},
+	{"OmniCD", "OmniCD"},
 }
 
 local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -545,6 +546,9 @@ local function SkinsTable()
 					MER:LoadFCTProfile()
 					FCT:UpdateUnitFrames()
 					FCT:UpdateNamePlates()
+				elseif addon == 'OmniCD' then
+					MER:LoadOmniCDProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				end
 				MER:Print(profileString..addonName)
 			end,
