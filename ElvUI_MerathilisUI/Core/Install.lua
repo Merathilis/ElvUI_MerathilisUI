@@ -964,7 +964,6 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar3"]["counttext"] = true
 	E.db["actionbar"]["bar3"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar3"]["countFontOutline"] = "OUTLINE"
-	E.db["actionbar"]["bar3"]["counttext"] = true
 	E.db["actionbar"]["bar3"]["hotkeytext"] = true
 	E.db["actionbar"]["bar3"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["bar3"]["hotkeyFontOutline"] = "OUTLINE"
