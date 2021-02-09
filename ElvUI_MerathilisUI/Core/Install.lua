@@ -866,14 +866,6 @@ function MER:SetupActionbars(layout)
 
 	E.db["actionbar"]["microbar"]["enabled"] = false
 
-	E.db["actionbar"]["extraActionButton"]["clean"] = true
-	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
-	E.db["actionbar"]["extraActionButton"]["inheritGlobalFade"] = true
-
-	E.db["actionbar"]["zoneActionButton"]["clean"] = true
-	E.db["actionbar"]["zoneActionButton"]["scale"] = 0.75
-	E.db["actionbar"]["zoneActionButton"]["inheritGlobalFade"] = true
-
 	--[[----------------------------------
 	--	ActionBars layout
 	--]]----------------------------------
@@ -902,10 +894,13 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
 	E.db["actionbar"]["bar1"]["backdrop"] = true
 	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar1"]["counttext"] = true
 	E.db["actionbar"]["bar1"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar1"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar1"]["hotkeytext"] = true
 	E.db["actionbar"]["bar1"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["bar1"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar1"]["macrotext"] = true
 	E.db["actionbar"]["bar1"]["macroFont"] = "Expressway"
 	E.db["actionbar"]["bar1"]["macroFontOutline"] = "OUTLINE"
 	E.db["actionbar"]["bar1"]["macroTextPosition"] = "BOTTOM"
@@ -932,10 +927,13 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 	E.db["actionbar"]["bar2"]["backdrop"] = false
 	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar2"]["counttext"] = true
 	E.db["actionbar"]["bar2"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar2"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar2"]["hotkeytext"] = true
 	E.db["actionbar"]["bar2"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["bar2"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar2"]["macrotext"] = true
 	E.db["actionbar"]["bar2"]["macroFont"] = "Expressway"
 	E.db["actionbar"]["bar2"]["macroFontOutline"] = "OUTLINE"
 	E.db["actionbar"]["bar2"]["macroTextPosition"] = "BOTTOM"
@@ -963,10 +961,14 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar3"]["mouseover"] = false
 	E.db["actionbar"]["bar3"]["showGrid"] = true
 	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar3"]["counttext"] = true
 	E.db["actionbar"]["bar3"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar3"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar3"]["counttext"] = true
+	E.db["actionbar"]["bar3"]["hotkeytext"] = true
 	E.db["actionbar"]["bar3"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["bar3"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar3"]["macrotext"] = true
 	E.db["actionbar"]["bar3"]["macroFont"] = "Expressway"
 	E.db["actionbar"]["bar3"]["macroFontOutline"] = "OUTLINE"
 	E.db["actionbar"]["bar3"]["macroTextPosition"] = "BOTTOM"
@@ -981,10 +983,13 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar4"]["showGrid"] = true
 	E.db["actionbar"]["bar4"]["buttonsPerRow"] = 1
 	E.db["actionbar"]["bar4"]["inheritGlobalFade"] = false
+	E.db["actionbar"]["bar4"]["counttext"] = true
 	E.db["actionbar"]["bar4"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar4"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar4"]["hotkeytext"] = true
 	E.db["actionbar"]["bar4"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["bar4"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar4"]["macrotext"] = true
 	E.db["actionbar"]["bar4"]["macroFont"] = "Expressway"
 	E.db["actionbar"]["bar4"]["macroFontOutline"] = "OUTLINE"
 	E.db["actionbar"]["bar4"]["macroTextPosition"] = "BOTTOM"
@@ -1001,10 +1006,13 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar5"]["mouseover"] = false
 	E.db["actionbar"]["bar5"]["showGrid"] = true
 	E.db["actionbar"]["bar5"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar5"]["counttext"] = true
 	E.db["actionbar"]["bar5"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar5"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar5"]["hotkeytext"] = true
 	E.db["actionbar"]["bar5"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["bar5"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar5"]["macrotext"] = true
 	E.db["actionbar"]["bar5"]["macroFont"] = "Expressway"
 	E.db["actionbar"]["bar5"]["macroFontOutline"] = "OUTLINE"
 	E.db["actionbar"]["bar5"]["macroTextPosition"] = "BOTTOM"
@@ -1020,10 +1028,13 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar6"]["heightMult"] = 1
 	E.db["actionbar"]["bar6"]["backdrop"] = true
 	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar6"]["counttext"] = true
 	E.db["actionbar"]["bar6"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar6"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar6"]["hotkeytext"] = true
 	E.db["actionbar"]["bar6"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["bar6"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar6"]["macrotext"] = true
 	E.db["actionbar"]["bar6"]["macroFont"] = "Expressway"
 	E.db["actionbar"]["bar6"]["macroFontOutline"] = "OUTLINE"
 	E.db["actionbar"]["bar6"]["macroTextPosition"] = "BOTTOM"
@@ -1063,6 +1074,18 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = true
 	E.db["actionbar"]["stanceBar"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["stanceBar"]["hotkeyFontOutline"] = "OUTLINE"
+
+	E.db["actionbar"]["zoneActionButton"]["clean"] = true
+	E.db["actionbar"]["zoneActionButton"]["scale"] = 0.75
+	E.db["actionbar"]["zoneActionButton"]["inheritGlobalFade"] = true
+
+	E.db["actionbar"]["extraActionButton"]["clean"] = true
+	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
+	E.db["actionbar"]["extraActionButton"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["extraActionButton"]["hotkeytext"] = true
+	E.db["actionbar"]["extraActionButton"]["hotkeyFont"] = "Expressway"
+	E.db["actionbar"]["extraActionButton"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["extraActionButton"]["inheritGlobalFade"] = true
 
 	if layout == "dps" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,144"
