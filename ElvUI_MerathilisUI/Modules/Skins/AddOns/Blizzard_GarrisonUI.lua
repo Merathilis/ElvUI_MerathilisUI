@@ -861,6 +861,11 @@ local function LoadSkin()
 					ReskinWidgetFont(mission.Name, .9, .8, .5)
 					ReskinWidgetFont(mission.TagText, .9, .8, .5)
 					ReskinWidgetFont(mission.Description, .8, .8, .8)
+					if mission.CDTDisplay.GetFontString then
+						ReskinWidgetFont(mission.CDTDisplay:GetFontString(), 1, .8, 0)
+					else
+						ReskinWidgetFont(mission.CDTDisplay, 1, .8, 0)
+					end
 					S:HandleButton(mission.ViewButton)
 					S:HandleButton(mission.DoomRunButton)
 					mission.DoomRunButton:ClearAllPoints()

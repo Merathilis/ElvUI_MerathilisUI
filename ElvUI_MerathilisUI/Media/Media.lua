@@ -57,6 +57,7 @@ AddMedia("skins", "Skins.tga", "Icons")
 AddMedia("arrow", "arrow.tga", "Textures")
 AddMedia("pepeSmall", "pepeSmall.tga", "Textures")
 AddMedia("ROLES", "UI-LFG-ICON-ROLES.blp", "Textures")
+AddMedia("exchange", "Exchange.tga", "Textures")
 
 module.Zones = L["MER_MEDIA_ZONES"]
 module.PvPInfo = L["MER_MEDIA_PVP"]
