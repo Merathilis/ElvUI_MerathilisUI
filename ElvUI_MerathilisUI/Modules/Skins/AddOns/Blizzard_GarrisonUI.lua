@@ -913,7 +913,7 @@ local function LoadSkin()
 				local child = select(i, missionBoard:GetChildren())
 				if child and child:IsObjectType("Button") then
 					S:HandleIcon(child:GetNormalTexture())
-					--child:SetHighlightTexture(nil)
+					child:SetHighlightTexture(nil)
 					--child:SetPushedTexture(E.media.normTex)
 					local texture = select(4, child:GetRegions())
 					if texture then
