@@ -1,9 +1,13 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
+local twipe = table.wipe
+
 function MER:LoadOmniCDProfile()
 	--[[----------------------------------
 	--	OmnicCD - Settings
 	--]]----------------------------------
+
+	if OmniCDDB then twipe(OmniCDDB) end
 
 	OmniCDDB = {
 		["profileKeys"] = {
