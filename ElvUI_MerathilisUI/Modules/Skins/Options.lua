@@ -29,7 +29,6 @@ local SupportedProfiles = {
 	{"Details", "Details"},
 	{"ElvUI_BenikUI", "BenikUI"},
 	{"ElvUI_FCT", "FCT"},
-	{"Skada", "Skada"},
 	{"ProjectAzilroka", "ProjectAzilroka"},
 	{"ls_Toasts", "ls_Toasts"},
 	{"DBM-Core", "Deadly Boss Mods"},
