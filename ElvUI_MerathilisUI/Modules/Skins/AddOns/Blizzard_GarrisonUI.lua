@@ -799,6 +799,7 @@ local function LoadSkin()
 	CovenantMissionFrame.FollowerTab.HealFollowerFrame.ButtonFrame:SetAlpha(0)
 	_G.CovenantMissionFrameFollowers.ElevatedFrame:SetAlpha(0)
 
+	-- Credits siweia
 	-- WarPlan
 	if IsAddOnLoaded("WarPlan") then
 		local function ReskinWarPlanMissions(self)
@@ -814,6 +815,7 @@ local function LoadSkin()
 					if groups then
 						for j = 1, #groups do
 							local group = groups[j]
+							group:StripTextures()
 							S:HandleButton(group)
 							ReskinWidgetFont(group.Features, 1, .8, 0)
 						end
@@ -851,70 +853,91 @@ local function LoadSkin()
 
 	-- VenturePlan
 	if IsAddOnLoaded("VenturePlan") then
-		local VenturePlanFrame
+		local VenturePlanFrame, VP_CopyBox, VP_Missions, VP_UnButton, VP_Follower
 
 		local function ReskinVenturePlan(self)
-			local missions = self.MissionList.Missions
-			for i = 1, #missions do
-				local mission = missions[i]
-				if not mission.styled then
-					ReskinWidgetFont(mission.Name, .9, .8, .5)
-					ReskinWidgetFont(mission.TagText, .9, .8, .5)
-					ReskinWidgetFont(mission.Description, .8, .8, .8)
-					if mission.CDTDisplay.GetFontString then
-						ReskinWidgetFont(mission.CDTDisplay:GetFontString(), 1, .8, 0)
-					else
-						ReskinWidgetFont(mission.CDTDisplay, 1, .8, 0)
-					end
-					S:HandleButton(mission.ViewButton)
-					S:HandleButton(mission.DoomRunButton)
-					mission.DoomRunButton:ClearAllPoints()
-					mission.DoomRunButton:Point("RIGHT", mission.ViewButton, "LEFT", -2, 0)
-
-					mission.ProgressBar:StripTextures()
-					mission.ProgressBar:CreateBackdrop()
-					mission.ProgressBar.Fill:SetAtlas("UI-Frame-Bar-Fill-Blue")
-					E:RegisterStatusBar(mission.ProgressBar)
-
-					for j = 1, mission.statLine:GetNumRegions() do
-						local stat = select(j, mission.statLine:GetRegions())
-						if stat and stat:IsObjectType("FontString") then
-							ReskinWidgetFont(stat, 1, 1, 1)
+			if not VP_Missions then
+				local missionList = self:GetChildren()
+				missionList:StripTextures()
+				local background, frame = missionList:GetChildren()
+				background:StripTextures()
+				background:CreateBackdrop('Transparent')
+				VP_Missions = frame
+			end
+			if VP_Missions then
+				for i = 1, VP_Missions:GetNumChildren() do
+					local mission = select(i, VP_Missions:GetChildren())
+					if not mission.styled then
+						for j = 1, mission:GetNumChildren() do
+							local button = select(j, mission:GetChildren())
+							if button:IsObjectType("Button") and button ~= mission.CDTDisplay then
+								S:HandleButton(button)
+							end
 						end
+						ReskinWidgetFont(mission.CDTDisplay:GetFontString(), 0, 1, 0)
+						mission.styled = true
 					end
-
-					mission.styled = true
 				end
+			end
+
+			if not VP_UnButton then
+				VP_UnButton = select(8, self:GetChildren())
+			end
+			if VP_UnButton and not VP_UnButton.styled then
+				S:HandleButton(VP_UnButton)
+				VP_UnButton.styled = true
 			end
 		end
 
-		local function SkinVenturePlan()
+		local function ReskinFollowerBG()
+			if VP_Follower then return end
+			VP_Follower = select(15, CovenantMissionFrame:GetChildren())
+			if VP_Follower then
+				VP_Follower:StripTextures()
+				VP_Follower:CreateBackdrop('Transparent')
+			end
+		end
+
+		local function SearchMissionBoard()
 			local missionTab = CovenantMissionFrame.MissionTab
 			for i = 1, missionTab:GetNumChildren() do
 				local child = select(i, missionTab:GetChildren())
-				if child and child.MissionList then
-					VenturePlanFrame = child
+				if child then
+					for i = 1, child:GetNumChildren() do
+						local child2 = select(i, child:GetChildren())
+						if child2 and child2.FirstInputBoxLabel then
+							VenturePlanFrame = child
+							VP_CopyBox = child2
+							break
+						end
+					end
 				end
 			end
-			if not VenturePlanFrame then return end
 
-			ReskinVenturePlan(VenturePlanFrame)
-			VenturePlanFrame:HookScript("OnShow", ReskinVenturePlan)
+			if VenturePlanFrame then
+				ReskinVenturePlan(VenturePlanFrame)
+				VenturePlanFrame:HookScript("OnShow", ReskinVenturePlan)
+			end
 
-			local copyBox = VenturePlanFrame.CopyBox
-			S:HandleButton(copyBox.ResetButton)
-			S:HandleCloseButton(copyBox.CloseButton2)
-			ReskinWidgetFont(copyBox.Intro, 1, 1, 1)
-			ReskinWidgetFont(copyBox.FirstInputBoxLabel, 1, .8, 0)
-			ReskinWidgetFont(copyBox.SecondInputBoxLabel, 1, .8, 0)
+			if VP_CopyBox then
+				S:HandleCloseButton(VP_CopyBox.ResetButton)
+				S:HandleCloseButton(VP_CopyBox.CloseButton2)
+				ReskinWidgetFont(VP_CopyBox.Intro, 1, 1, 1)
+				ReskinWidgetFont(VP_CopyBox.FirstInputBoxLabel, 1, .8, 0)
+				ReskinWidgetFont(VP_CopyBox.SecondInputBoxLabel, 1, .8, 0)
+				ReskinWidgetFont(VP_CopyBox.VersionText, 1, 1, 1)
+			end
 
-			local missionBoard = CovenantMissionFrame.MissionTab.MissionPage.Board
+			local missionPage = CovenantMissionFrame.MissionTab.MissionPage
+			missionPage:HookScript("OnShow", ReskinFollowerBG)
+
+			local missionBoard = missionPage.Board
 			for i = 1, missionBoard:GetNumChildren() do
 				local child = select(i, missionBoard:GetChildren())
 				if child and child:IsObjectType("Button") then
 					S:HandleIcon(child:GetNormalTexture())
 					child:SetHighlightTexture(nil)
-					--child:SetPushedTexture(E.media.normTex)
+					child:SetPushedTexture(E.media.normTex)
 					local texture = select(4, child:GetRegions())
 					if texture then
 						texture:SetTexCoord(unpack(E.TexCoords))
@@ -925,7 +948,7 @@ local function LoadSkin()
 
 		CovenantMissionFrame:HookScript("OnShow", function()
 			if not VenturePlanFrame then
-				C_Timer_After(.1, SkinVenturePlan)
+				C_Timer_After(.1, SearchMissionBoard)
 			end
 		end)
 	end
