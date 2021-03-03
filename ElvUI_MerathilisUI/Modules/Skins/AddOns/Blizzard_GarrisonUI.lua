@@ -798,6 +798,8 @@ local function LoadSkin()
 	CovenantMissionFrame.FollowerTab.RaisedFrameEdges:SetAlpha(0)
 	CovenantMissionFrame.FollowerTab.HealFollowerFrame.ButtonFrame:SetAlpha(0)
 	_G.CovenantMissionFrameFollowers.ElevatedFrame:SetAlpha(0)
+	_G.CovenantMissionFrameFollowersListScrollFrameScrollBar:DisableDrawLayer("BACKGROUND")
+	_G.CovenantMissionFrameFollowersListScrollFrameScrollBar:CreateBackdrop('Transparent')
 
 	-- Credits siweia
 	-- WarPlan
