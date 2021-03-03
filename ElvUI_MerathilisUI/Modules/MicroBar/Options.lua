@@ -50,8 +50,13 @@ local function MicroBarTable()
 						max = 30,
 						step = 1
 					},
-					timeAreaWidth = {
+					shadow = {
 						order = 3,
+						type = "toggle",
+						name = L["Shadow"],
+					},
+					timeAreaWidth = {
+						order = 4,
 						type = "range",
 						name = L["Time Width"],
 						min = 1,
@@ -59,7 +64,7 @@ local function MicroBarTable()
 						step = 1
 					},
 					timeAreaHeight = {
-						order = 4,
+						order = 5,
 						type = "range",
 						name = L["Time Height"],
 						min = 1,
@@ -67,7 +72,7 @@ local function MicroBarTable()
 						step = 1
 					},
 					spacing = {
-						order = 5,
+						order = 6,
 						type = "range",
 						name = L["Button Spacing"],
 						desc = L["The spacing between buttons."],
@@ -76,7 +81,7 @@ local function MicroBarTable()
 						step = 1
 					},
 					buttonSize = {
-						order = 6,
+						order = 7,
 						type = "range",
 						name = L["Button Size"],
 						desc = L["The size of the buttons."],

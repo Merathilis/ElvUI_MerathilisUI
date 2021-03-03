@@ -616,6 +616,7 @@ MP.microBar = {
 	mouseOver = false,
 	backdrop = true,
 	backdropSpacing = 2,
+	shadow = true,
 	timeAreaWidth = 80,
 	timeAreaHeight = 35,
 	buttonSize = 20,

@@ -988,6 +988,16 @@ function module:UpdateLayout()
 		self.bar.rightPanel.backdrop:Hide()
 	end
 
+	if self.db.shadow then
+		self.bar.leftPanel.backdrop.shadow:Show()
+		self.bar.middlePanel.backdrop.shadow:Show()
+		self.bar.rightPanel.backdrop.shadow:Show()
+	else
+		self.bar.leftPanel.backdrop.shadow:Hide()
+		self.bar.middlePanel.backdrop.shadow:Hide()
+		self.bar.rightPanel.backdrop.shadow:Hide()
+	end
+
 	local numLeftButtons, numRightButtons = 0, 0
 
 	local lastButton = nil
