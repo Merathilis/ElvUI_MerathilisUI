@@ -800,6 +800,7 @@ local function LoadSkin()
 	_G.CovenantMissionFrameFollowers.ElevatedFrame:SetAlpha(0)
 	_G.CovenantMissionFrameFollowersListScrollFrameScrollBar:DisableDrawLayer("BACKGROUND")
 	_G.CovenantMissionFrameFollowersListScrollFrameScrollBar:CreateBackdrop('Transparent')
+	MERS:CreateGradient(_G.CovenantMissionFrameFollowersListScrollFrameScrollBar.backdrop)
 
 	-- Credits siweia
 	-- WarPlan
