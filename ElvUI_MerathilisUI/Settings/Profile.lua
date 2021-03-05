@@ -339,7 +339,9 @@ MP.notification = {
 
 MP.databars = {}
 
-MP.datatexts = {}
+MP.datatexts = {
+	RightChatDataText = true,
+}
 
 MP.actionbars = {
 	customGlow = true,
