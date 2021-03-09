@@ -222,6 +222,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 1.1
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
+	E.db["general"]["minimap"]["icons"]["mail"]["texture"] = "Mail2"
 	E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"
 	E.db["general"]["minimap"]["icons"]["mail"]["scale"] = 1
 	E.db["general"]["minimap"]["icons"]["mail"]["xOffset"] = 0
