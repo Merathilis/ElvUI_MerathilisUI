@@ -1,11 +1,9 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
---Cache global variables
---WoW API / Variables
+local twipe = table.wipe
+
 local LoadAddOn = LoadAddOn
-local ReloadUI = ReloadUI
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: BigWigs3DB, LibStub
+
 
 function MER:LoadBigWigsProfile()
 	--[[----------------------------------
@@ -17,6 +15,7 @@ function MER:LoadBigWigsProfile()
 	LoadAddOn("BigWigs_Options")
 	LoadAddOn("BigWigs")
 
+	if BigWigs3DB then twipe(BigWigs3DB) end
 	if BigWigs3DB["profiles"] == nil then BigWigs3DB["profiles"] = {} end
 
 	if BigWigs3DB["profiles"][main] == nil then

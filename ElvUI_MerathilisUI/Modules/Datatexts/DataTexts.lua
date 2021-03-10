@@ -1,13 +1,10 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 
---Cache global variables
---Lua functions
 local _G = _G
---WoW API / Variables
+
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 local PANEL_HEIGHT = 22
 
@@ -19,6 +16,8 @@ ChatTabFrame:Hide()
 E.FrameLocks["MER_RightChatTopDT"] = true
 
 function MER:LoadDataTexts()
+	if not E.db.mui.datatexts.RightChatDataText then return end
+
 	MER_RightChatTopDT:Point("TOPRIGHT", _G.RightChatTab, "TOPRIGHT", 0, E.mult)
 	MER_RightChatTopDT:Point("BOTTOMLEFT", _G.RightChatTab, "BOTTOMLEFT", 0, E.mult)
 

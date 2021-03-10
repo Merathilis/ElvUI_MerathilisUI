@@ -11,6 +11,7 @@ local function LoadSkin()
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
 	if TalkingHeadFrame.backdrop then TalkingHeadFrame.backdrop:Styling() end
+	MER:CreateShadowModule(TalkingHeadFrame)
 
 	TalkingHeadFrame.BackgroundFrame.TextBackground:SetAtlas(nil)
 	TalkingHeadFrame.PortraitFrame.Portrait:SetAtlas(nil)

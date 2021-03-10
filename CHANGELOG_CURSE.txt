@@ -1,3 +1,11 @@
+** v4.73, 10.03.2021**
+* Added an OmniCD Profile
+* Added a Talent Set Manager. Credits fang2hou <3
+* Added an option to toggle the shadow on the MicroBar
+* Added an option to toggle my right chat DataText Panel -.-
+* Updated VenturePlan skin
+
+
 ** v4.72, 04.02.2021**
 * AutoButtons: Add more openable items
 * Armory: Fix enchants for strength and agi classes

@@ -979,13 +979,23 @@ end
 
 function module:UpdateLayout()
 	if self.db.backdrop then
-		self.bar.leftPanel.backdrop:Show()
-		self.bar.middlePanel.backdrop:Show()
-		self.bar.rightPanel.backdrop:Show()
+		if self.bar.leftPanel.backdrop then self.bar.leftPanel.backdrop:Show() end
+		if self.bar.middlePanel.backdrop then self.bar.middlePanel.backdrop:Show() end
+		if self.bar.rightPanel.backdrop then self.bar.rightPanel.backdrop:Show() end
 	else
-		self.bar.leftPanel.backdrop:Hide()
-		self.bar.middlePanel.backdrop:Hide()
-		self.bar.rightPanel.backdrop:Hide()
+		if self.bar.leftPanel.backdrop then self.bar.leftPanel.backdrop:Hide() end
+		if self.bar.middlePanel.backdrop then self.bar.middlePanel.backdrop:Hide() end
+		if self.bar.rightPanel.backdrop then self.bar.rightPanel.backdrop:Hide() end
+	end
+
+	if self.db.shadow then
+		if self.bar.leftPanel.backdrop.shadow then self.bar.leftPanel.backdrop.shadow:Show() end
+		if self.bar.middlePanel.backdrop.shadow then self.bar.middlePanel.backdrop.shadow:Show() end
+		if self.bar.rightPanel.backdrop.shadow then self.bar.rightPanel.backdrop.shadow:Show() end
+	else
+		if self.bar.leftPanel.backdrop.shadow then self.bar.leftPanel.backdrop.shadow:Hide() end
+		if self.bar.middlePanel.backdrop.shadow then self.bar.middlePanel.backdrop.shadow:Hide() end
+		if self.bar.rightPanel.backdrop.shadow then self.bar.rightPanel.backdrop.shadow:Hide() end
 	end
 
 	local numLeftButtons, numRightButtons = 0, 0

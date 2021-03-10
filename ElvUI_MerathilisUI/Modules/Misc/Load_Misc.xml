@@ -14,7 +14,6 @@
 	<Script file="NameHover.lua"/>
 	<Script file="RandomToy.lua"/>
 	<Script file="Reputation.lua"/>
-	<Script file="Talentless.lua"/>
 	<Script file="Quest.lua"/>
 	<Script file="SpellAlerts.lua"/>
 	<Script file="WoWHeadLinks.lua"/>

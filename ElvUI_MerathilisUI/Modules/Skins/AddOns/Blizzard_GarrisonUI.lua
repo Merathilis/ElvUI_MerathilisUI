@@ -798,7 +798,11 @@ local function LoadSkin()
 	CovenantMissionFrame.FollowerTab.RaisedFrameEdges:SetAlpha(0)
 	CovenantMissionFrame.FollowerTab.HealFollowerFrame.ButtonFrame:SetAlpha(0)
 	_G.CovenantMissionFrameFollowers.ElevatedFrame:SetAlpha(0)
+	_G.CovenantMissionFrameFollowersListScrollFrameScrollBar:DisableDrawLayer("BACKGROUND")
+	_G.CovenantMissionFrameFollowersListScrollFrameScrollBar:CreateBackdrop('Transparent')
+	MERS:CreateGradient(_G.CovenantMissionFrameFollowersListScrollFrameScrollBar.backdrop)
 
+	-- Credits siweia
 	-- WarPlan
 	if IsAddOnLoaded("WarPlan") then
 		local function ReskinWarPlanMissions(self)
@@ -814,6 +818,7 @@ local function LoadSkin()
 					if groups then
 						for j = 1, #groups do
 							local group = groups[j]
+							group:StripTextures()
 							S:HandleButton(group)
 							ReskinWidgetFont(group.Features, 1, .8, 0)
 						end
@@ -849,80 +854,57 @@ local function LoadSkin()
 		end)
 	end
 
-	-- VenturePlan
+	-- VenturePlan, 4.12a and higer
 	if IsAddOnLoaded("VenturePlan") then
-		local VenturePlanFrame
-
-		local function ReskinVenturePlan(self)
-			local missions = self.MissionList.Missions
-			for i = 1, #missions do
-				local mission = missions[i]
-				if not mission.styled then
-					ReskinWidgetFont(mission.Name, .9, .8, .5)
-					ReskinWidgetFont(mission.TagText, .9, .8, .5)
-					ReskinWidgetFont(mission.Description, .8, .8, .8)
-					S:HandleButton(mission.ViewButton)
-					S:HandleButton(mission.DoomRunButton)
-					mission.DoomRunButton:ClearAllPoints()
-					mission.DoomRunButton:Point("RIGHT", mission.ViewButton, "LEFT", -2, 0)
-
-					mission.ProgressBar:StripTextures()
-					mission.ProgressBar:CreateBackdrop()
-					mission.ProgressBar.Fill:SetAtlas("UI-Frame-Bar-Fill-Blue")
-					E:RegisterStatusBar(mission.ProgressBar)
-
-					for j = 1, mission.statLine:GetNumRegions() do
-						local stat = select(j, mission.statLine:GetRegions())
-						if stat and stat:IsObjectType("FontString") then
-							ReskinWidgetFont(stat, 1, 1, 1)
-						end
-					end
-
-					mission.styled = true
+		function VPEX_OnUIObjectCreated(otype, widget, peek)
+			if widget:IsObjectType("Frame") then
+				if otype == "MissionButton" then
+					S:HandleButton(peek("ViewButton"))
+					S:HandleButton(peek("DoomRunButton"))
+					S:HandleButton(peek("TentativeClear"))
+					ReskinWidgetFont(peek("Description"), .8, .8, .8)
+					ReskinWidgetFont(peek("enemyHP"), 1, 1, 1)
+					ReskinWidgetFont(peek("enemyATK"), 1, 1, 1)
+					ReskinWidgetFont(peek("animaCost"), .6, .8, 1)
+					ReskinWidgetFont(peek("duration"), 1, .8, 0)
+					ReskinWidgetFont(widget.CDTDisplay:GetFontString(), 1, .8, 0)
+				elseif otype == "CopyBoxUI" then
+					S:HandleButton(widget.ResetButton)
+					S:HandleCloseButton(widget.CloseButton2)
+					ReskinWidgetFont(widget.Intro, 1, 1, 1)
+					ReskinWidgetFont(widget.FirstInputBoxLabel, 1, .8, 0)
+					ReskinWidgetFont(widget.SecondInputBoxLabel, 1, .8, 0)
+					ReskinWidgetFont(widget.VersionText, 1, 1, 1)
+				elseif otype == "MissionList" then
+					widget:StripTextures()
+					local background = widget:GetChildren()
+					background:StripTextures()
+					background:CreateBackdrop('Transparent')
+				elseif otype == "MissionPage" then
+					widget:StripTextures()
+					S:HandleButton(peek("UnButton"))
+				elseif otype == "ILButton" then
+					widget:DisableDrawLayer("BACKGROUND")
+					widget:CreateBackdrop('Transparent')
+					widget.backdrop:SetPoint("TOPLEFT", -3, 1)
+					widget.backdrop:SetPoint("BOTTOMRIGHT", 2, -2)
+					widget.Icon:CreateBackdrop('Transparent')
+				elseif otype == "IconButton" then
+					S:HandleIcon(widget:GetNormalTexture())
+					widget:SetHighlightTexture(nil)
+					widget:SetPushedTexture(E.media.normTex)
+					widget.Icon:SetTexCoord(unpack(E.TexCoords))
+				elseif otype == "FollowerList" then
+					widget:StripTextures()
+					widget:CreateBackdrop('Transparent')
+				elseif otype == "FollowerListButton" then
+					peek("TextLabel"):SetFontObject("Game12Font")
+				elseif otype == "ProgressBar" then
+					widget:StripTextures()
+					widget:CreateBackdrop('Transparent')
 				end
 			end
 		end
-
-		local function SkinVenturePlan()
-			local missionTab = CovenantMissionFrame.MissionTab
-			for i = 1, missionTab:GetNumChildren() do
-				local child = select(i, missionTab:GetChildren())
-				if child and child.MissionList then
-					VenturePlanFrame = child
-				end
-			end
-			if not VenturePlanFrame then return end
-
-			ReskinVenturePlan(VenturePlanFrame)
-			VenturePlanFrame:HookScript("OnShow", ReskinVenturePlan)
-
-			local copyBox = VenturePlanFrame.CopyBox
-			S:HandleButton(copyBox.ResetButton)
-			S:HandleCloseButton(copyBox.CloseButton2)
-			ReskinWidgetFont(copyBox.Intro, 1, 1, 1)
-			ReskinWidgetFont(copyBox.FirstInputBoxLabel, 1, .8, 0)
-			ReskinWidgetFont(copyBox.SecondInputBoxLabel, 1, .8, 0)
-
-			local missionBoard = CovenantMissionFrame.MissionTab.MissionPage.Board
-			for i = 1, missionBoard:GetNumChildren() do
-				local child = select(i, missionBoard:GetChildren())
-				if child and child:IsObjectType("Button") then
-					S:HandleIcon(child:GetNormalTexture())
-					--child:SetHighlightTexture(nil)
-					--child:SetPushedTexture(E.media.normTex)
-					local texture = select(4, child:GetRegions())
-					if texture then
-						texture:SetTexCoord(unpack(E.TexCoords))
-					end
-				end
-			end
-		end
-
-		CovenantMissionFrame:HookScript("OnShow", function()
-			if not VenturePlanFrame then
-				C_Timer_After(.1, SkinVenturePlan)
-			end
-		end)
 	end
 end
 

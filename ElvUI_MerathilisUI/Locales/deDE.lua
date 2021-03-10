@@ -597,6 +597,25 @@ L["Castbar Shield"] = "Zauberleiste Schild"
 L["Show a shield icon on the castbar for non interruptible spells."] = "Zeigt ein Schildsymbol auf der Zauberleiste an, wenn ein Zauber nicht unterbrochen werden kann."
 L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] = "|cffFF0000Hinweis:|r Dieser Menüpunkt wird die ElvUI Namensplakettenoptionen Höhe/Breite für die Stärkungs-/Schwächungszauber überschreiben. Die CC-Buffs sind hartkodiert und haben eine Größe von: 32 x 32 Pixel."
 
+-- Talents
+L["Talent Manager"] = true
+L["PvP Talents"] = "PvP Talente"
+L["Item Buttons"] = "Item Tasten"
+L["Add tomb and codex buttons."] = "Füge Grab- und Codex-Schaltflächen hinzu."
+L["Status Icon"] = "Statussymbol"
+L["Add an icon indicates the status of the permission of changing talents."] = "Ein Symbol hinzufügen um den Status der Erlaubnis zum Ändern von Talenten anzeigt."
+L["Clear All Sets"] = "Lösche alle Sets"
+L["Already have a set named %s."] = "Habe schon ein Set benannt %s."
+L["Too many sets here, please delete one of them and try again."] = "Zu viele Sets hier, bitte löschen Sie eines davon und versuchen Sie es erneut."
+L["Talent string is not valid."] = "Talent String ist ungültig."
+L["Overwrite"] = "Überschreiben"
+L["Rename"] = "Umbenennen"
+L["Delete"] = "Löschen"
+L["Not set"] = "Nicht festgelegt"
+L["New Set"] = "Neues Set"
+L["Toggle Talent Manager"] = "Talentmanager einblenden"
+L["Rename Set"] = "Set umbenennen"
+
 -- Install
 L["Welcome"] = "Willkommen"
 L["|cffff7d0aMerathilisUI|r Installation"] = true

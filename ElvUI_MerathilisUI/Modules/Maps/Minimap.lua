@@ -48,11 +48,11 @@ function module:MiniMapCoords()
 		Coords:Point(pos, 0, 0)
 	end
 
-	if E.db.mui.maps.minimap.rectangle then
+	if E.db.mui.maps.minimap.rectangleMinimap.enable then
 		if pos == "BOTTOM" then
-			Coords:Point(pos, 0, 40)
+			Coords:Point(pos, 0, 32)
 		elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
-			Coords:Point(pos, 0, -40)
+			Coords:Point(pos, 0, -32)
 		elseif pos == "TOP" and E.db.general.minimap.locationText == 'HIDE' then
 			Coords:Point(pos, 0, -2)
 		else

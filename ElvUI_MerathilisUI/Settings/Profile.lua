@@ -339,7 +339,9 @@ MP.notification = {
 
 MP.databars = {}
 
-MP.datatexts = {}
+MP.datatexts = {
+	RightChatDataText = true,
+}
 
 MP.actionbars = {
 	customGlow = true,
@@ -616,6 +618,7 @@ MP.microBar = {
 	mouseOver = false,
 	backdrop = true,
 	backdropSpacing = 2,
+	shadow = true,
 	timeAreaWidth = 80,
 	timeAreaHeight = 35,
 	buttonSize = 20,
@@ -1073,4 +1076,14 @@ MP.armory = {
 MP.flightMode = {
 	enable = true,
 	BenikFlightMode = true,
+}
+
+MP.talents = {
+	talentManager = {
+		enable = true,
+		itemButtons = true,
+		pvpTalent = false,
+		statusIcon = true,
+		sets = {}
+	}
 }

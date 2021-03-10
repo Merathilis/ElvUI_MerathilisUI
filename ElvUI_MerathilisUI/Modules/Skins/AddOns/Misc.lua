@@ -42,6 +42,7 @@ local function LoadSkin()
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
+		MER:CreateShadowModule(_G[skins[i]])
 	end
 
 	--DropDownMenu

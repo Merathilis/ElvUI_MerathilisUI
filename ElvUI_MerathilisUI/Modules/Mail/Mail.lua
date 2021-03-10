@@ -128,7 +128,7 @@ function module:ConstructFrame()
 
 	self.frame = frame
 
-	self.contextMenuFrame = CreateFrame("Frame", "WTContactsContextMenu", E.UIParent, "UIDropDownMenuTemplate")
+	self.contextMenuFrame = CreateFrame("Frame", "MER_ContactsContextMenu", E.UIParent, "UIDropDownMenuTemplate")
 end
 
 function module:ConstructButtons()
@@ -567,7 +567,7 @@ function module:Initialize()
 end
 
 function module:ProfileUpdate()
-	self.db = E.db.WT.item.contacts
+	self.db = E.db.mui.mail
 
 	if self.db.enable then
 		self:Initialize()
