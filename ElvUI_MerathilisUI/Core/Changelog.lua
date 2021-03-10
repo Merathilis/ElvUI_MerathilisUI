@@ -16,9 +16,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• AutoButtons: Add more openable items",
-		"• Armory: Fix enchants for strength and agi classes",
-		"• LFG Info: Reskin the role icons",
+		"• Added an OmniCD Profile",
+		"• Added a Talent Set Manager. Credits fang2hou <3",
+		"• Added an option to toggle the shadow on the MicroBar",
+		"• Added an option to toggle my right chat DataText Panel -.-",
+		"• Updated VenturePlan skin",
 
 		-- "• ''",
 	" ",
