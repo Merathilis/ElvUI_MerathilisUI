@@ -59,12 +59,20 @@ end
 -- [[ Garrison system ]]
 local function ReskinMissionPage(self)
 	self:StripTextures()
+	self:CreateBackdrop('Transparent')
+	self.backdrop:Point('TOPLEFT', 3, 2)
+	self.backdrop:Point('BOTTOMRIGHT', -3, -10)
+
+	self.Stage.Header:SetAlpha(0)
+	if self.StartMissionFrame then self.StartMissionFrame:StripTextures() end
 	self.StartMissionButton.Flash:SetTexture("")
 	MERS:Reskin(self.StartMissionButton)
+
 	self.CloseButton:ClearAllPoints()
 	self.CloseButton:SetPoint("TOPRIGHT", -10, -5)
-	select(4, self.Stage:GetRegions()):Hide()
-	select(5, self.Stage:GetRegions()):Hide()
+
+	if self.EnemyBackground then self.EnemyBackground:Hide() end
+	if self.FollowerBackground then self.FollowerBackground:Hide() end
 
 	if self.Followers then
 		for i = 1, 3 do
