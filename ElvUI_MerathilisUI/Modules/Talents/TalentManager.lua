@@ -329,13 +329,9 @@ end
 
 function module:SetButtonTooltip(button)
 	local talentTable = {}
-	gsub(
-		button.talentString,
-		"[0-9]",
-		function(char)
-			tinsert(talentTable, tonumber(char))
-		end
-	)
+	gsub(button.talentString, "[0-9]", function(char)
+		tinsert(talentTable, tonumber(char))
+	end)
 	GameTooltip:SetOwner(button, "ANCHOR_BOTTOMRIGHT", 8, 20)
 	GameTooltip:SetText(button.setName)
 
@@ -363,8 +359,8 @@ function module:BuildFrame()
 	end
 
 	local frame = CreateFrame("Frame", "MER_TalentManager", _G.PlayerTalentFrame)
-	frame:Point("TOPLEFT", _G.PlayerTalentFrame, "TOPRIGHT", 3, -1)
-	frame:Point("BOTTOMRIGHT", _G.PlayerTalentFrame, "BOTTOMRIGHT", 153, 1)
+	frame:Point("TOPLEFT", _G.PlayerTalentFrame, "TOPRIGHT", 2, -1)
+	frame:Point("BOTTOMRIGHT", _G.PlayerTalentFrame, "BOTTOMRIGHT", 152, 1)
 	frame:CreateBackdrop("Transparent")
 
 	frame:EnableMouse(true)
