@@ -182,6 +182,7 @@ function module:CreateToast()
 	toast:Hide()
 	MERS:CreateBD(toast, .45)
 	toast:Styling()
+	MER:CreateBackdropShadow(toast, true)
 	toast:CreateCloseButton(10)
 
 	local icon = toast:CreateTexture(nil, "OVERLAY")

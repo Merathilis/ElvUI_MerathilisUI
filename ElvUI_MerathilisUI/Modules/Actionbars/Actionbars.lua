@@ -43,6 +43,70 @@ function module:StyleBackdrops()
 	end
 end
 
+function module:ActionBar_Shadow(bar, type)
+	if not bar and bar.backdrop then return end
+
+	if bar.db.backdrop then
+		if not bar.backdrop.shadow then
+			MER:CreateBackdropShadow(bar, true)
+		end
+		bar.backdrop.shadow:Show()
+	else
+		if bar.backdrop.shadow then
+			bar.backdrop.shadow:Hide()
+		end
+	end
+
+	if type == "PLAYER" then
+		for i = 1, NUM_ACTIONBAR_BUTTONS do
+			local button = bar.buttons[i]
+			MER:CreateBackdropShadow(button, true)
+		end
+	elseif type == "PET" then
+		for i = 1, NUM_PET_ACTION_SLOTS do
+			local button = _G["PetActionButton" .. i]
+			MER:CreateBackdropShadow(button, true)
+		end
+	elseif type == "STANCE" then
+		for i = 1, NUM_STANCE_SLOTS do
+			local button = _G["ElvUI_StanceBarButton" .. i]
+			MER:CreateBackdropShadow(button, true)
+		end
+	end
+end
+
+function module:ActionBar_PositionAndSizeBar(module, barName)
+	local bar = module.handledBars[barName]
+	self:ActionBar_Shadow(bar, "PLAYER")
+end
+
+function module:ActionBar_PositionAndSizeBarPet()
+	self:ActionBar_Shadow(_G.ElvUI_BarPet, "PET")
+end
+
+function module:ActionBar_PositionAndSizeBarShapeShift()
+	self:ActionBar_Shadow(_G.ElvUI_StanceBar, "STANCE")
+end
+
+function module:SkinZoneAbilities(button)
+	for spellButton in button.SpellButtonContainer:EnumerateActive() do
+		if spellButton and spellButton.IsSkinned then
+			MER:CreateShadow(spellButton)
+		end
+	end
+end
+
+function module:ActionBar_LoadKeyBinder()
+	local frame = _G.ElvUIBindPopupWindow
+	if not frame then
+		self:SecureHook(AB, "LoadKeyBinder", "ActionBar_LoadKeyBinder")
+		return
+	end
+
+	MER:CreateShadow(frame)
+	MER:CreateBackdropShadow(frame.header, true)
+end
+
 function module:ActionbarGlow()
 	if not E.private.actionbar.enable or not E.db.mui.actionbars.customGlow then return end
 
@@ -111,6 +175,40 @@ function module:Initialize()
 
 	C_TimerAfter(1, module.StyleBackdrops)
 	C_TimerAfter(0.1, module.ActionbarGlow)
+
+	for id = 1, 10 do
+		local bar = _G["ElvUI_Bar" .. id]
+		self:ActionBar_Shadow(bar, "PLAYER")
+	end
+
+	self:SecureHook(AB, "PositionAndSizeBar", "ActionBar_PositionAndSizeBar")
+
+	self:ActionBar_Shadow(_G.ElvUI_BarPet, "PET")
+	self:SecureHook(AB, "PositionAndSizeBarPet", "ActionBar_PositionAndSizeBarPet")
+
+	self:ActionBar_Shadow(_G.ElvUI_StanceBar, "STANCE")
+	self:SecureHook(AB, "PositionAndSizeBarShapeShift", "ActionBar_PositionAndSizeBarShapeShift")
+
+	self:SecureHook(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", "SkinZoneAbilities")
+
+	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
+		local button = _G["ExtraActionButton" .. i]
+		if button then
+			MER:CreateShadow(button)
+		end
+	end
+
+	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
+		local button = _G["ExtraActionButton" .. i]
+		MER:CreateBackdropShadow(button.backdrop, true)
+	end
+
+	self:SecureHook(AB, "SetupFlyoutButton", function(_, button)
+		MER:CreateBackdropShadow(button, true)
+	end)
+
+	-- Keybind
+	self:ActionBar_LoadKeyBinder()
 end
 
 MER:RegisterModule(module:GetName())

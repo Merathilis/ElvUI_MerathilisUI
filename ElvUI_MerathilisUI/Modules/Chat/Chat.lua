@@ -86,6 +86,9 @@ function module:StyleChat()
 	-- Style the chat
 	_G.LeftChatPanel.backdrop:Styling()
 	_G.RightChatPanel.backdrop:Styling()
+
+	MER:CreateBackdropShadow(_G.LeftChatPanel, true)
+	MER:CreateBackdropShadow(_G.RightChatPanel, true)
 end
 
 -- Hide communities chat. Useful for streamers

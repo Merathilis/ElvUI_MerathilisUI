@@ -713,8 +713,9 @@ function MER:UpdateStyling()
 end
 
 function MER:CreateShadow(frame, size, force)
-	if not frame then return end
 	if not (E.db.mui.general.shadow and E.db.mui.general.shadow.enable) and not force then return end
+
+	if not frame or frame.MERShadow or frame.shadow then return end
 
 	if frame:GetObjectType() == "Texture" then
 		frame = frame:GetParent()
@@ -732,6 +733,32 @@ function MER:CreateShadow(frame, size, force)
 	shadow:SetBackdropBorderColor(0, 0, 0, 0.618)
 
 	frame.shadow = shadow
+	frame.MERShadow = true
+end
+
+function MER:CreateBackdropShadow(frame, defaultTemplate)
+	if not frame or frame.MERShadow then return end
+
+	if frame.backdrop then
+		if not defaultTemplate then
+			frame.backdrop:SetTemplate("Transparent")
+		end
+		self:CreateShadow(frame.backdrop)
+		frame.MERShadow = true
+	elseif frame.CreateBackdrop and not self:IsHooked(frame, "CreateBackdrop") then
+		self:SecureHook(frame, "CreateBackdrop", function()
+			if self:IsHooked(frame, "CreateBackdrop") then
+				self:Unhook(frame, "CreateBackdrop")
+			end
+			if frame.backdrop then
+				if not defaultTemplate then
+					frame.backdrop:SetTemplate("Transparent")
+				end
+				self:CreateShadow(frame.backdrop)
+				frame.MERShadow = true
+			end
+		end)
+	end
 end
 
 function MER:CreateShadowModule(frame)

@@ -26,7 +26,7 @@ MER.Config = {}
 MER.RegisteredModules = {}
 
 -- Modules
-MER.ActionBars = MER:NewModule('MER_Actionbars', 'AceEvent-3.0')
+MER.ActionBars = MER:NewModule('MER_Actionbars', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Armory = MER:NewModule('MER_Armory', 'AceEvent-3.0', 'AceConsole-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 MER.AutoButtons = MER:NewModule('MER_AutoButtons', 'AceEvent-3.0')
 MER.Bags = MER:NewModule('MER_Bags', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
