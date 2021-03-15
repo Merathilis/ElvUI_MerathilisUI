@@ -11,8 +11,8 @@ local function LoadSkin()
 	--Main Frame
 	_G.ContributionCollectionFrame:StripTextures()
 	MERS:CreateBD(_G.ContributionCollectionFrame, .25)
-
 	_G.ContributionCollectionFrame:Styling()
+	MER:CreateBackdropShadow(_G.ContributionCollectionFrame)
 
 	local function styleText(self)
 		self.Description:SetVertexColor(1, 1, 1)

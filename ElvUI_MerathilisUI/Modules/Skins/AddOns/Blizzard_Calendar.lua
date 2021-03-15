@@ -14,10 +14,15 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.muiSkins.blizzard.calendar ~= true then return end
 
 	_G.CalendarFrame.backdrop:Styling()
+	MER:CreateBackdropShadow(_G.CalendarFrame)
 	_G.CalendarCreateEventFrame.backdrop:Styling()
+	MER:CreateBackdropShadow(_G.CalendarCreateEventFrame)
 	_G.CalendarViewHolidayFrame.backdrop:Styling()
+	MER:CreateBackdropShadow(_G.CalendarViewHolidayFrame)
 	_G.CalendarViewEventFrame.backdrop:Styling()
+	MER:CreateBackdropShadow(_G.CalendarViewEventFrame)
 	_G.CalendarMassInviteFrame:Styling()
+	MER:CreateBackdropShadow(_G.CalendarMassInviteFrame)
 
 	for i = 1, 42 do
 		_G["CalendarDayButton"..i.."DarkFrame"]:SetAlpha(.5)

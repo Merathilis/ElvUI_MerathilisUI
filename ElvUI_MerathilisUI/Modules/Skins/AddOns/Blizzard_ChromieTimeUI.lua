@@ -12,6 +12,7 @@ local function LoadSkin()
 	frame.Background:Hide()
 	frame:CreateBackdrop('Transparent')
 	frame.backdrop:Styling()
+	MER:CreateBackdropShadow(frame)
 
 	local header = frame.Title
 	header:DisableDrawLayer('BACKGROUND')

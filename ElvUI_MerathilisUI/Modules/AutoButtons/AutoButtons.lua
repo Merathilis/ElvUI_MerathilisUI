@@ -523,6 +523,8 @@ function module:CreateButton(name, barDB)
 
 	button:StyleButton()
 
+	MER:CreateShadowModule(button)
+
 	return button
 end
 
@@ -956,6 +958,7 @@ end
 function module:CreateAll()
 	for i = 1, 5 do
 		self:CreateBar(i)
+		MER:CreateShadowModule(self.bars[i].backdrop)
 	end
 end
 

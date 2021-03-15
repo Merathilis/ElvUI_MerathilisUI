@@ -12,6 +12,8 @@ local function LoadSkin()
 	if AlliedRacesFrame.backdrop then
 		AlliedRacesFrame.backdrop:Styling()
 	end
+
+	MER:CreateBackdropShadow(AlliedRacesFrame)
 	select(2, AlliedRacesFrame.ModelFrame:GetRegions()):Hide()
 	AlliedRacesFrame.FrameBackground:Hide()
 

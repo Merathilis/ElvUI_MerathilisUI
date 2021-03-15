@@ -182,6 +182,8 @@ function MERS:ReskinTab(tab)
 		tab.backdrop:SetTemplate("Transparent")
 		tab.backdrop:Styling()
 	end
+
+	MER:CreateBackdropShadow(tab)
 end
 
 function MERS:ColorButton()

@@ -21,6 +21,7 @@ local function LoadSkin()
 
 	local CollectionsJournal = _G.CollectionsJournal
 	CollectionsJournal:Styling()
+	MER:CreateBackdropShadow(CollectionsJournal)
 
 	_G.CollectionsJournalTab2:SetPoint("LEFT", _G.CollectionsJournalTab1, "RIGHT", -15, 0)
 	_G.CollectionsJournalTab3:SetPoint("LEFT", _G.CollectionsJournalTab2, "RIGHT", -15, 0)

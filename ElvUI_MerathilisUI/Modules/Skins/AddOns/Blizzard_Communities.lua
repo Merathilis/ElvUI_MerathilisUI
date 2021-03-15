@@ -20,6 +20,17 @@ local function LoadSkin()
 	if CommunitiesFrame.backdrop then
 		CommunitiesFrame.backdrop:Styling()
 	end
+	MER:CreateBackdropShadow(CommunitiesFrame)
+	MER:CreateShadow()
+	MER:CreateShadow(CommunitiesFrame.ChatTab)
+	MER:CreateShadow(CommunitiesFrame.RosterTab)
+	MER:CreateShadow(CommunitiesFrame.GuildBenefitsTab)
+	MER:CreateShadow(CommunitiesFrame.GuildInfoTab)
+	MER:CreateBackdropShadow(CommunitiesFrame.GuildMemberDetailFrame)
+	MER:CreateBackdropShadow(CommunitiesFrame.ClubFinderInvitationFrame)
+	if _G.CommunitiesGuildLogFrame then
+		MER:CreateBackdropShadow(_G.CommunitiesGuildLogFrame)
+	end
 
 	-- Active Communities
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)

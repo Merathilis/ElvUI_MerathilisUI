@@ -13,6 +13,7 @@ local function LoadSkin()
 
 	local Frame = _G.AuctionHouseFrame
 	Frame:Styling()
+	MER:CreateShadow(Frame)
 
 	local ItemBuyFrame = Frame.ItemBuyFrame
 	MERS:CreateGradient(ItemBuyFrame.ItemDisplay.backdrop)

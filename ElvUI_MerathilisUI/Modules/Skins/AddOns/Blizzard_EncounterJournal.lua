@@ -190,6 +190,7 @@ local function LoadSkin()
 
 	local EncounterJournal = _G.EncounterJournal
 	EncounterJournal.backdrop:Styling()
+	MER:CreateShadow(EncounterJournal)
 
 	if EncounterJournal.navBar.backdrop then
 		EncounterJournal.navBar.backdrop:Hide()

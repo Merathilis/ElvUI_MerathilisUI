@@ -18,6 +18,7 @@ local function LoadSkin()
 		if frame.backdrop then
 			frame.backdrop:Styling()
 		end
+		MER:CreateBackdropShadow(frame)
 
 		if not frame.IsSkinned then
 			frame:StripTextures()

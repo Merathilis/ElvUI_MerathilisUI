@@ -19,6 +19,7 @@ local function LoadSkin()
 	if frame.backdrop then
 		frame.backdrop:Styling()
 	end
+	MER:CreateBackdropShadow(frame)
 end
 
 S:AddCallbackForAddon('Blizzard_WeeklyRewards', 'muiWeeklyRewards', LoadSkin)

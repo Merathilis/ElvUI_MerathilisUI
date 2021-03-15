@@ -25,6 +25,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
 	_G.PlayerTalentFrame:Styling()
+	MER:CreateShadow(_G.PlayerTalentFrame)
 
 	-- Specc
 	for i = 1, GetNumSpecializations(false, nil) do

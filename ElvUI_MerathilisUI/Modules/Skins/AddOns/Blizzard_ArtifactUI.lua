@@ -11,6 +11,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.artifact ~= true or E.private.muiSkins.blizzard.artifact ~= true then return end
 
 	_G.ArtifactFrame:Styling()
+	MER:CreateBackdropShadow(_G.ArtifactFrame)
 
 	_G.ArtifactFrame.Background:Hide()
 	_G.ArtifactFrame.PerksTab.HeaderBackground:Hide()

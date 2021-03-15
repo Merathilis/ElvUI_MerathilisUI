@@ -451,6 +451,7 @@ local function LoadSkin()
 	end
 
 	GarrisonLandingPage.backdrop:Styling()
+	MER:CreateBackdropShadow(GarrisonLandingPage)
 
 	_G.GarrisonLandingPageTab1:ClearAllPoints()
 	_G.GarrisonLandingPageTab1:SetPoint("TOPLEFT", GarrisonLandingPage, "BOTTOMLEFT", 70, 2)
@@ -785,6 +786,7 @@ local function LoadSkin()
 	local CovenantMissionFrame = _G.CovenantMissionFrame
 	ReskinMissionFrame(CovenantMissionFrame)
 	CovenantMissionFrame:Styling()
+	MER:CreateBackdropShadow(CovenantMissionFrame)
 
 	CovenantMissionFrame.RaisedBorder:SetAlpha(0)
 	_G.CovenantMissionFrameMissions.RaisedFrameEdges:SetAlpha(0)

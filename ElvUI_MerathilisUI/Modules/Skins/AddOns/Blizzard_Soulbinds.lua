@@ -32,6 +32,7 @@ local function LoadSkin()
 	if frame.backdrop then
 		frame.backdrop:Styling()
 	end
+	MER:CreateBackdropShadow(frame)
 
 	local scrollBox = frame.ConduitList.ScrollBox
 	for i = 1, 3 do

@@ -58,9 +58,11 @@ local function LoadSkin()
 
 	local PVPMatchScoreboard = _G.PVPMatchScoreboard
 	PVPMatchScoreboard.backdrop:Styling()
+	MER:CreateBackdropShadow(PVPMatchScoreboard)
 
 	local PVPMatchResults = _G.PVPMatchResults
 	PVPMatchResults.backdrop:Styling()
+	MER:CreateBackdropShadow(PVPMatchResults)
 
 	-- PVPMatchResults -- Credits ShestakUI
 	hooksecurefunc(_G.PVPCellNameMixin, "Populate", function(self, rowData)

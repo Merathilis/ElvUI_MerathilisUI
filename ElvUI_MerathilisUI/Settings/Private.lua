@@ -56,7 +56,6 @@ V.muiSkins = {
 		taxi = true,
 		help = true,
 		loot = true,
-		warboard = true,
 		deathRecap = true,
 		communities = true,
 		channels = true,

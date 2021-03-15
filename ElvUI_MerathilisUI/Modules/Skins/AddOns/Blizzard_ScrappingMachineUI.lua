@@ -15,6 +15,7 @@ local function LoadSkin()
 
 	local MachineFrame = _G.ScrappingMachineFrame
 	MachineFrame:Styling()
+	MER:CreateBackdropShadow(MachineFrame)
 end
 
 S:AddCallbackForAddon('Blizzard_ScrappingMachineUI', "mUIScrappingMachine", LoadSkin)

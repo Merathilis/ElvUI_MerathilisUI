@@ -12,6 +12,7 @@ local function LoadSkin()
 	local frame = _G.CovenantRenownFrame
 	frame:CreateBackdrop('Transparent')
 	frame.backdrop:Styling()
+	MER:CreateBackdropShadow(frame)
 
 	hooksecurefunc(frame, 'SetUpCovenantData', function(self)
 		self.NineSlice:Hide()

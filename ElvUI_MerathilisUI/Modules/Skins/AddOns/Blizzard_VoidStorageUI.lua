@@ -12,6 +12,7 @@ local function LoadSkin()
 
 	local VoidStorageFrame = _G.VoidStorageFrame
 	VoidStorageFrame:Styling()
+	MER:CreateShadow(VoidStorageFrame)
 
 	VoidStorageFrame.Page1:ClearAllPoints()
 	VoidStorageFrame.Page1:SetPoint("LEFT", VoidStorageFrame, "TOPRIGHT", 2, -60)
