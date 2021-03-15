@@ -9,6 +9,7 @@ local function LoadSkin()
 
 	local BNToastFrame = _G.BNToastFrame
 	BNToastFrame:Styling()
+	MER:CreateShadow(BNToastFrame)
 
 	-- /run BNToastFrame:AddToast(BN_TOAST_TYPE_ONLINE, 1)
 	hooksecurefunc(BNToastFrame, 'ShowToast', function(self)
