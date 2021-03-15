@@ -2,14 +2,13 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
 local pairs, select = pairs, select
---WoW API / Variables
+
 local CreateFrame = CreateFrame
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 local C_QuestLog_GetMaxNumQuestsCanAccept = C_QuestLog.GetMaxNumQuestsCanAccept
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
@@ -18,6 +17,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.private.muiSkins.blizzard.worldmap ~= true then return end
 
 	_G.WorldMapFrame.backdrop:Styling()
+	MER:CreateBackdropShadow(_G.WorldMapFrame)
 
 	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
 	frame:Size(230, 20)
@@ -35,8 +35,26 @@ local function LoadSkin()
 		frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()).."/"..C_QuestLog_GetMaxNumQuestsCanAccept().." "..L["Quests"])
 	end)
 
-	if _G.QuestScrollFrame.DetailFrame.backdrop then
-		_G.QuestScrollFrame.DetailFrame.backdrop:Hide()
+	if _G.QuestScrollFrame.Background then
+		_G.QuestScrollFrame.Background:Kill()
+	end
+	if _G.QuestScrollFrame.DetailFrame and _G.QuestScrollFrame.DetailFrame.backdrop then
+		_G.QuestScrollFrame.DetailFrame.backdrop:SetTemplate("Transparent")
+		MERS:CreateGradient(_G.QuestScrollFrame.DetailFrame.backdrop)
+	end
+
+	if _G.QuestMapFrame.DetailsFrame then
+		if _G.QuestMapFrame.DetailsFrame.backdrop then
+			_G.QuestMapFrame.DetailsFrame.backdrop:SetTemplate("Transparent")
+			MERS:CreateGradient(_G.QuestMapFrame.DetailsFrame.backdrop)
+		end
+		if _G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop then
+			_G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop:SetTemplate("Transparent")
+			MERS:CreateGradient(_G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop)
+		elseif _G.QuestMapFrame.DetailsFrame.RewardsFrame then
+			_G.QuestMapFrame.DetailsFrame.RewardsFrame:CreateBackdrop("Transparent")
+			MERS:CreateGradient(_G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop)
+		end
 	end
 
 	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", function(_, dialog)
@@ -44,6 +62,7 @@ local function LoadSkin()
 			if dialog.backdrop then
 				dialog.backdrop:Styling()
 			end
+			MER:CreateBackdropShadow(dialog)
 			dialog.isStyled = true
 		end
 	end)
