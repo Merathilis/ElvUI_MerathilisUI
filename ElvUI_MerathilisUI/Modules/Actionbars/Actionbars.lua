@@ -50,7 +50,9 @@ function module:ActionBar_Shadow(bar, type)
 		if not bar.backdrop.shadow then
 			MER:CreateBackdropShadow(bar, true)
 		end
-		bar.backdrop.shadow:Show()
+		if bar.backdrop.shadow then
+			bar.backdrop.shadow:Show()
+		end
 	else
 		if bar.backdrop.shadow then
 			bar.backdrop.shadow:Hide()
