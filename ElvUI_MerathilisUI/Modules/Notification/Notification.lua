@@ -73,6 +73,7 @@ local VignetteBlackListIDs = {
 	[4578] = true, -- Gateway to Hero's Rest (Bastion)
 	[4583] = true, -- Gateway to Hero's Rest (Bastion)
 	[4553] = true, -- Recoverable Corpse (The Maw)
+	[4581] = true, -- Grappling Growth (Maldraxxus)
 	[4582] = true, -- Ripe Purian (Bastion)
 	[4602] = true, -- Aimless Soul (The Maw)
 	[4617] = true, -- Imprisoned Soul (The Maw)
