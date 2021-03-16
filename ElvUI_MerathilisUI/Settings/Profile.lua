@@ -818,6 +818,8 @@ MP.media = {
 }
 
 MP.panels = {
+	colorType = "CLASS",
+	customColor = {r = 1, g = 1, b = 1 },
 	topPanel = true,
 	bottomPanel = true,
 	stylePanels = {
