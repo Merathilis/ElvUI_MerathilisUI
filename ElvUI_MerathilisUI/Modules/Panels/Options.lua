@@ -8,13 +8,13 @@ local function PanelTable()
 
 	E.Options.args.mui.args.modules.args.panels = {
 		type = "group",
-		name = L["Panels"],
+		name = E.NewSign..L["Panels"],
 		args = {
 			header = ACH:Header(MER:cOption(L["Panels"], 'orange'), 0),
 			color = {
 				order = 1,
 				type = "group",
-				name = MER:cOption(L["Color"], 'orange'),
+				name = E.NewSign..MER:cOption(L["Color"], 'orange'),
 				guiInline = true,
 				args = {
 					colorType = {
