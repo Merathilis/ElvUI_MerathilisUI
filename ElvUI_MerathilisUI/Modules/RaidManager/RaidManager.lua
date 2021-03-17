@@ -181,10 +181,7 @@ end
 
 local count = {}
 local function UpdateIcons(self)
-	local raid = IsInRaid()
-	local party --= IsInGroup() --We could have this in party :thinking:
-
-	if not (raid or party) then
+	if not IsInRaid() then
 		self:Hide()
 		return
 	else
@@ -194,21 +191,14 @@ local function UpdateIcons(self)
 
 	twipe(count)
 
-	local role
 	for i = 1, GetNumGroupMembers() do
-		role = UnitGroupRolesAssigned((raid and "raid" or "party")..i)
-		if role and role ~= "NONE" then
+		local role = UnitGroupRolesAssigned('raid'..i)
+		if role and role ~= 'NONE' then
 			count[role] = (count[role] or 0) + 1
 		end
 	end
 
-	if (not raid) and party then
-		if E.myrole then
-			count[E.myrole] = (count[E.myrole] or 0) + 1
-		end
-	end
-
-	for Role, icon in next, _G.RaidManagerRoleIcons.icons do
+	for Role, icon in next, _G.RaidUtilityRoleIcons.icons do
 		icon.count:SetText(count[Role] or 0)
 	end
 end
