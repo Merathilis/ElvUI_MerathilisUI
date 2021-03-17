@@ -198,7 +198,7 @@ local function UpdateIcons(self)
 		end
 	end
 
-	for Role, icon in next, _G.RaidUtilityRoleIcons.icons do
+	for Role, icon in next, _G.RaidManagerRoleIcons.icons do
 		icon.count:SetText(count[Role] or 0)
 	end
 end
