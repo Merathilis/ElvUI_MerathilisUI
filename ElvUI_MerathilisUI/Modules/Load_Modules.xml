@@ -28,4 +28,5 @@
 	<Include file="FlightMode\Load_FlightMode.xml"/>
 	<Include file="AutoButtons\Load_AutoButtons.xml"/>
 	<Include file="CVars\Load_CVars.xml"/>
+	<Include file="Talents\Load_Talents.xml"/>
 </Ui>
