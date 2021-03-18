@@ -1084,8 +1084,6 @@ MP.talents = {
 	talentManager = {
 		enable = true,
 		itemButtons = true,
-		pvpTalent = false,
 		statusIcon = true,
-		sets = {}
 	}
 }
