@@ -22,6 +22,14 @@ function module:SkinBags()
 	if _G.ElvUIBags then
 		_G.ElvUIBags.backdrop:Styling()
 	end
+
+	if B.BagFrame then
+		MER:CreateShadow(B.BagFrame)
+	end
+
+	if B.BagFrame.ContainerHolder then
+		MER:CreateShadow(B.BagFrame.ContainerHolder)
+	end
 end
 
 function module:SkinBank()
@@ -29,12 +37,24 @@ function module:SkinBank()
 		_G.ElvUI_BankContainerFrame:Styling()
 		_G.ElvUI_BankContainerFrameContainerHolder:Styling()
 	end
+
+	if B.BankFrame then
+		MER:CreateShadow(B.BankFrame)
+	end
+
+	if B.BankFrame.ContainerHolder then
+		MER:CreateShadow(B.BankFrame.ContainerHolder)
+	end
 end
 
 function module:ReskinSellFrame()
 	if B.SellFrame then
 		B.SellFrame:Styling()
 		B.SellFrame.statusbar:SetStatusBarColor(unpack(E["media"].rgbvaluecolor))
+	end
+
+	if _G.ElvUIVendorGraysFrame then
+		MER:CreateShadow(_G.ElvUIVendorGraysFrame)
 	end
 end
 hooksecurefunc(B, "CreateSellFrame", module.ReskinSellFrame)
@@ -56,6 +76,7 @@ function module:SkinBlizzBags()
 
 	if _G.BankFrame then
 		_G.BankFrame:Styling()
+		MER:CreateShadow(_G.BankFrame)
 	end
 end
 
