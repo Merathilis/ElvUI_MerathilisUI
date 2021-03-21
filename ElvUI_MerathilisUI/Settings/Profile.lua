@@ -1079,11 +1079,3 @@ MP.flightMode = {
 	enable = true,
 	BenikFlightMode = true,
 }
-
-MP.talents = {
-	talentManager = {
-		enable = true,
-		itemButtons = true,
-		statusIcon = true,
-	}
-}
