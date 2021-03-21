@@ -230,6 +230,7 @@ function module:CreateRaidManager()
 
 	RaidManagerFrame:CreateBackdrop("Transparent")
 	RaidManagerFrame.backdrop:Styling()
+	MER:CreateShadowModule(RaidManagerFrame.backdrop)
 
 	-- Top Title
 	RaidManagerFrame.title = RaidManagerFrame:CreateFontString(nil, "OVERLAY")
@@ -397,6 +398,7 @@ function module:CreateRaidManager()
 	RaidMarkFrame:Hide()
 	RaidMarkFrame:CreateBackdrop("Transparent")
 	RaidMarkFrame.backdrop:Styling()
+	MER:CreateShadowModule(RaidMarkFrame.backdrop)
 
 	RaidMarkFrame:RegisterForDrag("LeftButton")
 	RaidMarkFrame:SetScript("OnDragStart", function(self) self:StartMoving() end)
@@ -533,6 +535,7 @@ function module:CreateRaidInfo()
 	header.backdrop:SetAllPoints()
 	header.backdrop:SetBackdropColor(0, 0, 0, 0.3)
 	header.backdrop:Styling()
+	MER:CreateShadowModule(header.backdrop)
 	E.FrameLocks[header] = true
 
 	E:CreateMover(header, "MER_RaidManager", L["Raid Manager"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,misc')
@@ -665,9 +668,10 @@ function module:CreateRaidInfo()
 	rcFrame:CreateBackdrop("Transparent")
 	rcFrame.backdrop:SetAllPoints()
 	rcFrame.backdrop:Styling()
+	MER:CreateShadowModule(rcFrame.backdrop)
 	MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", _G.READY_CHECK, true, "TOP", 0, -8)
 
-	local rc = MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", "", false, "TOP", 0, -28)
+	local rc = MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", "", false, "TOP", 0, -25)
 
 	local count, total
 	local function hideRCFrame()
