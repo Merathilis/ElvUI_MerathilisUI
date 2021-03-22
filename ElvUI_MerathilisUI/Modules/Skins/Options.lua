@@ -486,6 +486,11 @@ local function SkinsTable()
 				name = L["LevelUp Display"],
 				disabled = function() return not E.private.skins.blizzard.enable end,
 			},
+			guide = {
+				type = "toggle",
+				name = L["Guide Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guide end,
+			},
 		},
 	}
 
