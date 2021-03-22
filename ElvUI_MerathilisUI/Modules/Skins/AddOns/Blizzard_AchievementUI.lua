@@ -19,7 +19,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.muiSkins.blizzard.achievement ~= true then return end
 
 	_G.AchievementFrame.backdrop:Styling()
-	MER:CreateShadow(_G.AchievementFrame)
+	MER:CreateBackdropShadow(_G.AchievementFrame)
 
 	-- Hide the ElvUI default backdrop
 	if _G.AchievementFrameCategoriesContainer.backdrop then

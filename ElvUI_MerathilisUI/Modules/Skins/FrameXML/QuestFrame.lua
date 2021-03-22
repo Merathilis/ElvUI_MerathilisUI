@@ -76,6 +76,7 @@ local function LoadSkin()
 	--- QuestFrameProgress ---
 	--------------------------
 	_G.QuestFrame:Styling()
+	MER:CreateBackdropShadow(_G.QuestFrame)
 
 	_G.QuestProgressScrollFrame:HookScript("OnShow", function(self)
 		if self.backdrop then

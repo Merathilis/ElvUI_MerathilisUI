@@ -384,6 +384,7 @@ local function RebuildMerchantFrame()
 	if _G.MerchantFrame.backdrop then
 		_G.MerchantFrame.backdrop:Styling()
 	end
+	MER:CreateBackdropShadow(_G.MerchantFrame)
 
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
 		if (not _G["MerchantItem" .. i]) then

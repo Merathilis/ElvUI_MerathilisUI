@@ -26,6 +26,7 @@ local function LoadSkin()
 
 	local FriendsFrame = _G.FriendsFrame
 	FriendsFrame:Styling()
+	MER:CreateBackdropShadow(FriendsFrame)
 
 	-- Animated Icon
 	_G.FriendsFrameIcon:SetPoint("TOPLEFT", FriendsFrame, "TOPLEFT", 0, 0)

@@ -17,6 +17,7 @@ local function SkinDetailFrame()
 			ReputationDetailFrame.backdrop.styling = true
 		end
 	end
+	MER:CreateBackdropShadow(ReputationDetailFrame)
 end
 
 local function LoadSkin()
