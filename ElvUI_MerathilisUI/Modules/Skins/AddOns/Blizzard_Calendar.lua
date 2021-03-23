@@ -23,6 +23,8 @@ local function LoadSkin()
 	MER:CreateBackdropShadow(_G.CalendarViewEventFrame)
 	_G.CalendarMassInviteFrame:Styling()
 	MER:CreateBackdropShadow(_G.CalendarMassInviteFrame)
+	_G.CalendarViewRaidFrame.backdrop:Styling()
+	MER:CreateBackdropShadow(_G.CalendarViewRaidFrame)
 
 	for i = 1, 42 do
 		_G["CalendarDayButton"..i.."DarkFrame"]:SetAlpha(.5)
