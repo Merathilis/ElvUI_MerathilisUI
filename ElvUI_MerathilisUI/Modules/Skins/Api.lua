@@ -226,7 +226,7 @@ function MERS:OnLeave()
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, overrideTex, frameLevel, noGradient)
+function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, overrideTex, frameLevel, defaultTemplate)
 	assert(button, "doesn't exist!")
 
 	if strip then button:StripTextures() end
@@ -240,23 +240,40 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 		end
 	end
 
-	if not noStyle then
-		if setTemplate then
-			button:SetTemplate('Transparent', not noGlossTex) -- force transparent
-		else
-			button:CreateBackdrop('Transparent', not noGlossTex) -- force transparent
-			button.backdrop:SetAllPoints()
+	if isDeclineButton then
+		if button.Icon then
+			button.Icon:SetTexture(E.Media.Textures.Close)
 		end
 	end
 
-	if not noGradient then
-		if button.backdrop then
-			MERS:CreateGradient(button.backdrop)
-		elseif button.setTemplate then
-			MERS:CreateGradient(button)
+	if not noStyle then
+		if setTemplate then
+			button:SetTemplate(styleTemplate, not noGlossTex)
 		else
-			return
+			button:CreateBackdrop(styleTemplate, not noGlossTex, nil, nil, nil, nil, true, frameLevel)
 		end
+
+		button:HookScript('OnEnter', S.SetModifiedBackdrop)
+		button:HookScript('OnLeave', S.SetOriginalBackdrop)
+	end
+
+	if button.backdrop then
+		if not defaultTemplate then
+			button.backdrop:SetTemplate('Transparent')
+		end
+		MERS:CreateGradient(button.backdrop)
+	elseif button.CreateBackdrop and not self:IsHooked(button, 'CreateBackdrop') then
+		self:SecureHook(button, 'CreateBackdrop', function()
+			if self:IsHooked(button, 'CreateBackdrop') then
+				self:Unhook(button, 'CreateBackdrop')
+			end
+			if button.backdrop then
+				if not defaultTemplate then
+					button.backdrop:SetTemplate('Transparent')
+				end
+				MERS:CreateGradient(button.backdrop)
+			end
+		end)
 	end
 end
 
