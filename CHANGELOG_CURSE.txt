@@ -1,3 +1,10 @@
+** v4.74, xx.xx.2021**
+* Added Shadows around the most frames
+* Added Grappling Growth to the Vignette Blacklist
+* Remove Talent Set Manager, there will be an own AddOn in the future
+* Updated some skins
+
+
 ** v4.73, 10.03.2021**
 * Added an OmniCD Profile
 * Added a Talent Set Manager. Credits fang2hou <3
