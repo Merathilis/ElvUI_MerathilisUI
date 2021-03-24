@@ -721,7 +721,7 @@ function MER:CreateShadow(frame, size, force)
 		frame = frame:GetParent()
 	end
 
-	size = size or 2
+	size = size or 3
 	size = size + E.db.mui.general.shadow.increasedSize or 0
 
 	local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
