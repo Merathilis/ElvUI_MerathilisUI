@@ -335,6 +335,7 @@ function MERS:SkinPanel(panel)
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
 	panel.tex:SetGradient("VERTICAL", rgbValueColorR, rgbValueColorG, rgbValueColorB)
+	MER:CreateShadow(panel)
 end
 
 function MERS:ReskinGarrisonPortrait(self)
