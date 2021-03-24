@@ -229,6 +229,7 @@ end
 function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, overrideTex, frameLevel, defaultTemplate)
 	assert(button, "doesn't exist!")
 
+	if not button or button.IsSkinned then return end
 	if strip then button:StripTextures() end
 
 	if button.Icon then
@@ -275,6 +276,8 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 			end
 		end)
 	end
+
+	button.IsSkinned = true
 end
 
 function MERS:StyleButton(button)
