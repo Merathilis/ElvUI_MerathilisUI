@@ -11,7 +11,7 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 --[[
-	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken with permissions from ElvUI_NihilistUI)
+	ALL CREDITS BELONG TO Nihilistzsche (Code taken with permissions from ElvUI_NihilistUI)
 	IF YOU COPY THIS, YOU WILL BURN IN HELL!!!!
 --]]
 -- Check other addons

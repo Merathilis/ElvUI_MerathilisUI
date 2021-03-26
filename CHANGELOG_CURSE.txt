@@ -272,7 +272,7 @@
 * Small Layout updates.
 * Added a Killing Blow feature. Credits: Shadow & Light.
 * Added a friend counter on the Friends Frame.
-* Readd compatibility code. Credits: NihilisticPandemonium.
+* Readd compatibility code. Credits: Nihilistzsche.
 * Updated GothamNarrow Font.
 * Added a CVar options.
 * Added a random toy macro. See misc options.
@@ -396,7 +396,7 @@
 * Added Pawn Skin, needs AddOnSkins to work.
 * Adjust some install settings.
 * Added a Paragon Reputation feature.
-* Finally fixed a db error if AAP + HandyNotes are enabled. Big thanks to NihilisticPandemonium <3
+* Finally fixed a db error if AAP + HandyNotes are enabled. Big thanks to Nihilistzsche <3
 
 
 ** v4.27 29.07.2019**
@@ -438,7 +438,7 @@
 
 ** v4.21 01.06.2019**
 * Added new Tag: 'name:abbrev-translit'
-* Return of the Enhanced Nameplate Auras. All Credits belong to: NihilisticPandemonium.
+* Return of the Enhanced Nameplate Auras. All Credits belong to: Nihilistzsche.
 * Take account to the latest ElvUI_OptionsUI changes.
 
 ** v4.20 22.05.2019**
