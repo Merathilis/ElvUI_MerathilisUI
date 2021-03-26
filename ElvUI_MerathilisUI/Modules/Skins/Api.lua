@@ -209,7 +209,7 @@ function MERS:OnEnter()
 		if self.backdrop then self = self.backdrop end
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.75)
+			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.45)
 
 			if not self.wasRaised then
 				RaiseFrameLevel(self)
@@ -424,6 +424,52 @@ hooksecurefunc(E, "CreateMoverPopup", MERS.ApplyConfigArrows)
 
 function MERS:ReskinAS(AS)
 	-- Reskin AddOnSkins
+	function AS:SkinFrame(frame, template, override, kill)
+		local name = frame and frame.GetName and frame:GetName()
+		local insetFrame = name and _G[name..'Inset'] or frame.Inset
+		local closeButton = name and _G[name..'CloseButton'] or frame.CloseButton
+
+		if not override then
+			AS:StripTextures(frame, kill)
+		end
+
+		AS:SetTemplate(frame, template)
+		MER:CreateShadow(frame)
+
+		if insetFrame then
+			AS:SkinFrame(insetFrame)
+		end
+
+		if closeButton then
+			AS:SkinCloseButton(closeButton)
+		end
+	end
+
+	function AS:SkinBackdropFrame(frame, template, override, kill)
+		local name = frame and frame.GetName and frame:GetName()
+		local insetFrame = name and _G[name..'Inset'] or frame.Inset
+		local closeButton = name and _G[name..'CloseButton'] or frame.CloseButton
+
+		if not override then
+			AS:StripTextures(frame, kill)
+		end
+
+		AS:CreateBackdrop(frame, template)
+		AS:SetOutside(frame.Backdrop)
+
+		if insetFrame then
+			AS:SkinFrame(insetFrame)
+		end
+
+		if closeButton then
+			AS:SkinCloseButton(closeButton)
+		end
+
+		if frame.Backdrop then
+			MER:CreateShadow(frame.Backdrop)
+		end
+	end
+
 	function AS:SkinTab(Tab, Strip)
 		if Tab.isSkinned then return end
 		local TabName = Tab:GetName()
