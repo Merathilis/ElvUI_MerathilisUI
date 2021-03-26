@@ -2,18 +2,17 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
 local find, lower, strfind = string.find, string.lower, strfind
--- WoW API / Variables
+local tinsert = table.insert
+
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: AddOnSkins, stripes
+local RaiseFrameLevel = RaiseFrameLevel
+local LowerFrameLevel = LowerFrameLevel
 
 local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
@@ -211,6 +210,11 @@ function MERS:OnEnter()
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.75)
+
+			if not self.wasRaised then
+				RaiseFrameLevel(self)
+				self.wasRaised = true
+			end
 		end
 	end
 end
@@ -221,6 +225,11 @@ function MERS:OnLeave()
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 			self:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha)
+
+			if self.wasRaised then
+				LowerFrameLevel(self)
+				self.wasRaised = nil
+			end
 		end
 	end
 end
@@ -254,8 +263,8 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 			button:CreateBackdrop(styleTemplate, not noGlossTex, nil, nil, nil, nil, true, frameLevel)
 		end
 
-		button:HookScript('OnEnter', S.SetModifiedBackdrop)
-		button:HookScript('OnLeave', S.SetOriginalBackdrop)
+		button:HookScript('OnEnter', MERS.OnEnter)
+		button:HookScript('OnLeave', MERS.OnLeave)
 	end
 
 	if button.backdrop then
