@@ -85,14 +85,10 @@ end
 function MERS:CreateGradient(f)
 	assert(f, "doesn't exist!")
 
-	local tex = f:CreateTexture(nil, "BACKGROUND")
-	tex:ClearAllPoints()
-	tex:SetPoint("TOPLEFT", 1, -1)
-	tex:SetPoint("BOTTOMRIGHT", -1, 1)
+	local tex = f:CreateTexture(nil, "BORDER")
+	tex:SetInside()
 	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
 	tex:SetVertexColor(.3, .3, .3, .15)
-	tex:SetSnapToPixelGrid(false)
-	tex:SetTexelSnappingBias(0)
 
 	return tex
 end
@@ -102,7 +98,7 @@ function MERS:CreateBackdrop(frame)
 
 	local parent = frame.IsObjectType and frame:IsObjectType("Texture") and frame:GetParent() or frame
 
-	local backdrop = CreateFrame("Frame", nil, parent)
+	local backdrop = CreateFrame("Frame", nil, parent, "BackdropTemplate")
 	backdrop:SetOutside(frame)
 	backdrop:SetTemplate("Transparent")
 
@@ -115,23 +111,18 @@ function MERS:CreateBackdrop(frame)
 	frame.backdrop = backdrop
 end
 
-function MERS:CreateBDFrame(f, a, left, right, top, bottom)
+function MERS:CreateBDFrame(f, a)
 	assert(f, "doesn't exist!")
 
-	local frame
-	if f:IsObjectType('Texture') then
-		frame = f:GetParent()
+	local parent = f.IsObjectType and f:IsObjectType("Texture") and f:GetParent() or f
+
+	local bg = CreateFrame("Frame", nil, parent, "BackdropTemplate")
+	bg:SetOutside(f)
+	if (parent:GetFrameLevel() - 1) >= 0 then
+		bg:SetFrameLevel(parent:GetFrameLevel() - 1)
 	else
-		frame = f
+		bg:SetFrameLevel(0)
 	end
-
-	local lvl = frame:GetFrameLevel()
-
-	local bg = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-	bg:SetPoint("TOPLEFT", f, left or -1, top or 1)
-	bg:SetPoint("BOTTOMRIGHT", f, right or 1, bottom or -1)
-	bg:SetFrameLevel(lvl == 0 and 1 or lvl - 1)
-
 	MERS:CreateBD(bg, a or .5)
 
 	return bg
@@ -271,7 +262,7 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 		if not defaultTemplate then
 			button.backdrop:SetTemplate('Transparent')
 		end
-		MERS:CreateGradient(button.backdrop)
+		MERS:CreateGradient(button)
 	elseif button.CreateBackdrop and not self:IsHooked(button, 'CreateBackdrop') then
 		self:SecureHook(button, 'CreateBackdrop', function()
 			if self:IsHooked(button, 'CreateBackdrop') then
@@ -281,7 +272,7 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 				if not defaultTemplate then
 					button.backdrop:SetTemplate('Transparent')
 				end
-				MERS:CreateGradient(button.backdrop)
+				MERS:CreateGradient(button)
 			end
 		end)
 	end
