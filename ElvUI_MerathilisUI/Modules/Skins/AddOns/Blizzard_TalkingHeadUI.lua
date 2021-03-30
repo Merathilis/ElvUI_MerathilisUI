@@ -1,17 +1,14 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
---Cache global variables
 local _G = _G
---WoW API / Variables
--- GLOBALS:
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talkinghead ~= true or E.private.muiSkins.blizzard.talkinghead ~= true then return end
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
 	if TalkingHeadFrame.backdrop then TalkingHeadFrame.backdrop:Styling() end
-	MER:CreateShadowModule(TalkingHeadFrame)
+	MER:CreateShadow(TalkingHeadFrame)
 
 	TalkingHeadFrame.BackgroundFrame.TextBackground:SetAtlas(nil)
 	TalkingHeadFrame.PortraitFrame.Portrait:SetAtlas(nil)
