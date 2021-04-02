@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_GameMenu')
 local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule("Skins")
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
