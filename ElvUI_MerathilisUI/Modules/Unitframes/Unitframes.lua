@@ -41,9 +41,8 @@ end
 
 function module:UnitFrames_Configure_Threat(_, f)
 	local threat = f.ThreatIndicator
-	if not threat then
-		return
-	end
+	if not threat then return end
+
 	threat.PostUpdate = function(self, unit, status, r, g, b)
 		UF.UpdateThreat(self, unit, status, r, g, b)
 		local parent = self:GetParent()
@@ -113,42 +112,40 @@ end
 function module:StyleUFs()
 	local db = E.db.mui.unitframes
 
-	if db.style then
-		-- Player
-		self:InitPlayer()
-		self:InitPower()
-		self:InitCastBar()
+	-- Player
+	self:InitPlayer()
+	self:InitPower()
+	self:InitCastBar()
 
-		-- Target
-		self:InitTarget()
+	-- Target
+	self:InitTarget()
 
-		-- TargetTarget
-		self:InitTargetTarget()
+	-- TargetTarget
+	self:InitTargetTarget()
 
-		-- Pet
-		self:InitPet()
+	-- Pet
+	self:InitPet()
 
-		-- Focus
-		self:InitFocus()
+	-- Focus
+	self:InitFocus()
 
-		-- FocusTarget
-		self:InitFocusTarget()
+	-- FocusTarget
+	self:InitFocusTarget()
 
-		-- Party
-		self:InitParty()
+	-- Party
+	self:InitParty()
 
-		-- Raid
-		self:InitRaid()
+	-- Raid
+	self:InitRaid()
 
-		-- Raid40
-		self:InitRaid40()
+	-- Raid40
+	self:InitRaid40()
 
-		-- Boss
-		self:InitBoss()
+	-- Boss
+	self:InitBoss()
 
-		--Shadows
-		self:CreateUFShadows()
-	end
+	--Shadows
+	self:CreateUFShadows()
 end
 
 function module:Initialize()
