@@ -126,7 +126,8 @@ end
 
 -- Colors
 local function classColor(class, showRGB)
-	local color = MER.ClassColors[E.UnlocalizedClasses['PRIEST'] or class]
+	local color = MER.ClassColors[E.UnlocalizedClasses[class] or class]
+	if not color then color = MER.ClassColors['PRIEST'] end
 
 	if showRGB then
 		return color.r, color.g, color.b
