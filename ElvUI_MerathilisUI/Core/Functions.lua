@@ -64,6 +64,11 @@ MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:
 MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
 MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
 
+MER.ClassList = {}
+for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
+	MER.ClassList[v] = k
+end
+
 -- Class Color stuff
 MER.ClassColors = {}
 local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
@@ -107,6 +112,25 @@ function MER:CreateClassColorString(text, englishClass)
 	local hex = r and g and b and E:RGBToHex(r, g, b) or "|cffffffff"
 
 	return hex .. text .. "|r"
+end
+
+do
+	function MER:RGBToHex(r, g, b)
+		if r then
+			if type(r) == 'table' then
+				if r.r then
+					r, g, b = r.r, r.g, r.b
+				else
+					r, g, b = unpack(r)
+				end
+			end
+			return format('|cff%02x%02x%02x', r * 255, g * 255, b * 255)
+		end
+	end
+
+	function MER:HexToRGB(hex)
+		return tonumber('0x' .. strsub(hex, 1, 2)) / 255, tonumber('0x' .. strsub(hex, 3, 4)) / 255, tonumber('0x' .. strsub(hex, 5, 6)) / 255
+	end
 end
 
 function MER:SetFontDB(text, db)
