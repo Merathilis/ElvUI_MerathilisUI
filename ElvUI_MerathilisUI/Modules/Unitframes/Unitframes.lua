@@ -36,10 +36,14 @@ function module:CreateHighlight(self)
 end
 
 function module:UnitFrames_UpdateNameSettings(_, f)
+	if f.shadow then return end
+
 	MER:CreateBackdropShadow(f.Health, true)
 end
 
 function module:UnitFrames_Configure_Threat(_, f)
+	if f.shadow then return end
+
 	local threat = f.ThreatIndicator
 	if not threat then return end
 
@@ -61,9 +65,11 @@ function module:UnitFrames_Configure_Threat(_, f)
 end
 
 function module:UnitFrames_Configure_Power(_, f)
+	if f.shadow then return end
+
 	if f.USE_POWERBAR then
 		local shadow = f.Power.backdrop.shadow
-		if f.POWERBAR_DETACHED or f.USE_POWERBAR_OFFSET then
+		if f.POWERBAR_DETACHED then
 			if not shadow then
 				MER:CreateBackdropShadow(f.Power, true)
 			else
@@ -78,6 +84,8 @@ function module:UnitFrames_Configure_Power(_, f)
 end
 
 function module:UnitFrames_Configure_ClassBar(_, f)
+	if f.shadow then return end
+
 	local bars = f[f.ClassBar]
 	if not bars.backdrop.shadow then
 		MER:CreateShadow(bars.backdrop)
