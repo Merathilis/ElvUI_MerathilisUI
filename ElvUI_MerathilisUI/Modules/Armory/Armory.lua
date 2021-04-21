@@ -194,6 +194,8 @@ end
 function module:UpdateGemInfo(Slot, which)
 	local unit = which == 'Character' and 'player' or (_G['InspectFrame'] and _G['InspectFrame'].unit)
 	if not unit then return end
+	module.db = E.db.mui.armory
+
 	for i = 1, maxGemSlots do
 		local GemLink
 		if not Slot['MER_Gem'..i] then return end
