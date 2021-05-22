@@ -470,15 +470,6 @@ local function LoadSkin()
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(button:GetFrameLevel() - 1)
 
-		for _, reward in pairs(button.Rewards) do
-			reward:GetRegions():Hide()
-			reward.Icon:SetTexCoord(unpack(E.TexCoords))
-			reward.IconBorder:SetAlpha(0)
-			MERS:CreateBG(reward.Icon)
-			reward:ClearAllPoints()
-			reward:SetPoint("TOPRIGHT", -4, -4)
-		end
-
 		MERS:CreateBD(bg, .25)
 		MERS:CreateGradient(bg)
 	end
