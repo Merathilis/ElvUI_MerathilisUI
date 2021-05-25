@@ -212,7 +212,7 @@ function MER:SetupLayout(layout)
 	--]]----------------------------------
 	E.db["general"]["valuecolor"] = {r = MER.r, g = MER.g, b = MER.b}
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
-	E.db["general"]["backdropfadecolor"] = { a = 0.75, r = 0, g = 0, b = 0 }
+	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 	E.db["general"]["totems"]["size"] = 36
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
