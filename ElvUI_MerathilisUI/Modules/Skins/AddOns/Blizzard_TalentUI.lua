@@ -224,7 +224,7 @@ local function LoadSkin()
 				end)
 			end
 
-			bu.backdrop:SetAllPoints()
+			bu:SetAllPoints()
 
 			if bu.Icon then
 				bu.Icon:SetTexCoord(unpack(E.TexCoords))
