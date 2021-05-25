@@ -57,11 +57,11 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
 	local PVPMatchScoreboard = _G.PVPMatchScoreboard
-	PVPMatchScoreboard.backdrop:Styling()
+	PVPMatchScoreboard:Styling()
 	MER:CreateBackdropShadow(PVPMatchScoreboard)
 
 	local PVPMatchResults = _G.PVPMatchResults
-	PVPMatchResults.backdrop:Styling()
+	PVPMatchResults:Styling()
 	MER:CreateBackdropShadow(PVPMatchResults)
 
 	-- PVPMatchResults -- Credits ShestakUI

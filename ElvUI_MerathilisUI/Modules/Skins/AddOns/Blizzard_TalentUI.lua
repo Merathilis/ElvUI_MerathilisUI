@@ -50,7 +50,7 @@ local function LoadSkin()
 			local bu = row['talent'..j]
 			if bu.bg then
 				MERS:CreateGradient(bu.bg)
-				bu.bg.backdrop:SetTemplate("Transparent")
+				bu.bg:SetTemplate("Transparent")
 				bu.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
 			end
 		end
@@ -193,7 +193,7 @@ local function LoadSkin()
 	end
 
 	local PlayerTalentFrameTalentsPvpTalentFrameTalentList = _G.PlayerTalentFrameTalentsPvpTalentFrameTalentList
-	PlayerTalentFrameTalentsPvpTalentFrameTalentList.backdrop:Styling()
+	PlayerTalentFrameTalentsPvpTalentFrameTalentList:Styling()
 
 	for i = 1, 10 do
 		local bu = _G["PlayerTalentFrameTalentsPvpTalentFrameTalentListScrollFrameButton"..i]

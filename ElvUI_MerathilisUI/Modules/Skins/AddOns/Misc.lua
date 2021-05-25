@@ -58,7 +58,7 @@ local function LoadSkin()
 
 		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
 		if menuBackdrop and not menuBackdrop.IsSkinned then
-			menuBackdrop.backdrop:Styling()
+			menuBackdrop:Styling()
 			menuBackdrop.IsSkinned = true
 		end
 	end)

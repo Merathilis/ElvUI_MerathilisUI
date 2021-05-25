@@ -450,7 +450,7 @@ local function LoadSkin()
 		select(i, GarrisonLandingPage:GetRegions()):Hide() -- Parchment
 	end
 
-	GarrisonLandingPage.backdrop:Styling()
+	GarrisonLandingPage:Styling()
 	MER:CreateBackdropShadow(GarrisonLandingPage)
 
 	_G.GarrisonLandingPageTab1:ClearAllPoints()
@@ -754,7 +754,7 @@ local function LoadSkin()
 
 	-- [[ BFA Mission UI]]
 	local BFAMissionFrame = _G.BFAMissionFrame
-	BFAMissionFrame.backdrop:Styling()
+	BFAMissionFrame:Styling()
 	ReskinMissionFrame(BFAMissionFrame)
 
 	-- [[ BFA Missions ]]
@@ -855,7 +855,7 @@ local function LoadSkin()
 		end)
 	end
 
-	-- VenturePlan, 4.12a and higer
+	-- VenturePlan, 4.12a and higher
 	if IsAddOnLoaded("VenturePlan") then
 		function VPEX_OnUIObjectCreated(otype, widget, peek)
 			if widget:IsObjectType("Frame") then

@@ -18,7 +18,7 @@ local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
 local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
 local unitFrameColorR, unitFrameColorG, unitFrameColorB
-local rgbValueColorR, rgbValueColorG, rgbValueColorB
+local rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA
 local bordercolorr, bordercolorg, bordercolorb
 
 MERS.addonsToLoad = {}
@@ -200,7 +200,7 @@ function MERS:OnEnter()
 		if self.backdrop then self = self.backdrop end
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.45)
+			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA or .75)
 
 			if not self.wasRaised then
 				RaiseFrameLevel(self)
@@ -226,7 +226,7 @@ function MERS:OnLeave()
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, overrideTex, frameLevel, defaultTemplate)
+function MERS:Reskin(button, strip, isDeclineButton, noStyle, createBackdrop, styleTemplate, noGlossTex, overrideTex, frameLevel)
 	assert(button, "doesn't exist!")
 
 	if not button or button.IsSkinned then return end
@@ -248,33 +248,14 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 	end
 
 	if not noStyle then
-		if setTemplate then
-			button:SetTemplate(styleTemplate, not noGlossTex)
-		else
+		if createBackdrop then
 			button:CreateBackdrop(styleTemplate, not noGlossTex, nil, nil, nil, nil, true, frameLevel)
+		else
+			button:SetTemplate(styleTemplate, not noGlossTex)
 		end
 
 		button:HookScript('OnEnter', MERS.OnEnter)
 		button:HookScript('OnLeave', MERS.OnLeave)
-	end
-
-	if button.backdrop then
-		if not defaultTemplate then
-			button.backdrop:SetTemplate('Transparent')
-		end
-		MERS:CreateGradient(button)
-	elseif button.CreateBackdrop and not self:IsHooked(button, 'CreateBackdrop') then
-		self:SecureHook(button, 'CreateBackdrop', function()
-			if self:IsHooked(button, 'CreateBackdrop') then
-				self:Unhook(button, 'CreateBackdrop')
-			end
-			if button.backdrop then
-				if not defaultTemplate then
-					button.backdrop:SetTemplate('Transparent')
-				end
-				MERS:CreateGradient(button)
-			end
-		end)
 	end
 
 	button.IsSkinned = true
@@ -610,7 +591,7 @@ end
 
 -- keep the colors updated
 local function updateMedia()
-	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E.media.rgbvaluecolor)
+	rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA = unpack(E.media.rgbvaluecolor)
 	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E.media.unitframeBorderColor)
 	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E.media.backdropfadecolor)
 	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E.media.backdropcolor)
