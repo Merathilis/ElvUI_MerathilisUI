@@ -16,21 +16,21 @@ local function LoadSkin()
 	MER:CreateShadow(Frame)
 
 	local ItemBuyFrame = Frame.ItemBuyFrame
-	MERS:CreateGradient(ItemBuyFrame.ItemDisplay.backdrop)
-	MERS:CreateGradient(ItemBuyFrame.ItemList.backdrop)
+	MERS:CreateGradient(ItemBuyFrame.ItemDisplay)
+	MERS:CreateGradient(ItemBuyFrame.ItemList)
 
 	local CommoditiesBuyFrame = Frame.CommoditiesBuyFrame
-	MERS:CreateGradient(CommoditiesBuyFrame.BuyDisplay.ItemDisplay.backdrop)
-	MERS:CreateGradient(CommoditiesBuyFrame.ItemList.backdrop)
+	MERS:CreateGradient(CommoditiesBuyFrame.BuyDisplay.ItemDisplay)
+	MERS:CreateGradient(CommoditiesBuyFrame.ItemList)
 
 	local ItemSellFrame = Frame.ItemSellFrame
-	MERS:CreateGradient(ItemSellFrame.ItemDisplay.backdrop)
-	MERS:CreateGradient(Frame.ItemSellList.ScrollFrame.backdrop)
+	MERS:CreateGradient(ItemSellFrame.ItemDisplay)
+	MERS:CreateGradient(Frame.ItemSellList.ScrollFrame)
 
 	local AuctionsFrame = _G.AuctionHouseFrameAuctionsFrame
-	MERS:CreateGradient(AuctionsFrame.ItemDisplay.backdrop)
-	MERS:CreateGradient(AuctionsFrame.ItemList.ScrollFrame.backdrop)
-	MERS:CreateGradient(AuctionsFrame.CommoditiesList.ScrollFrame.backdrop)
+	MERS:CreateGradient(AuctionsFrame.ItemDisplay)
+	MERS:CreateGradient(AuctionsFrame.ItemList.ScrollFrame)
+	MERS:CreateGradient(AuctionsFrame.CommoditiesList.ScrollFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_AuctionHouseUI", "mUIAuctionhouse", LoadSkin)
