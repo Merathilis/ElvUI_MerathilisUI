@@ -54,7 +54,7 @@ local function LoadSkin()
 
 	-- Mount list
 	for _, bu in pairs(MountJournal.ListScrollFrame.buttons) do
-		MERS:CreateGradient(bu.backdrop)
+		MERS:CreateGradient(bu)
 
 		bu.DragButton.ActiveTexture:SetAlpha(0)
 
@@ -97,7 +97,7 @@ local function LoadSkin()
 
 	-- Pet list
 	for _, bu in pairs(PetJournal.listScroll.buttons) do
-		MERS:CreateGradient(bu.backdrop)
+		MERS:CreateGradient(bu)
 	end
 
 	_G.PetJournalHealPetButtonBorder:Hide()
