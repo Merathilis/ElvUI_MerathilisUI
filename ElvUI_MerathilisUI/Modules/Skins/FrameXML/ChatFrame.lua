@@ -18,15 +18,15 @@ local function LoadSkin()
 	-- Revert my Styling function on these buttons
 	if E.db.chat.pinVoiceButtons and not E.db.chat.hideVoiceButtons then
 		if _G.ChatFrameChannelButton then
-			MERS:Reskin(_G.ChatFrameChannelButton, nil, nil, true, nil, nil, nil, false)
+			_G.ChatFrameChannelButton:DisableDrawLayer("BORDER")
 		end
 
 		if _G.ChatFrameToggleVoiceDeafenButton then
-			MERS:Reskin(_G.ChatFrameToggleVoiceDeafenButton, nil, nil, true, nil, nil, nil, false)
+			_G.ChatFrameToggleVoiceDeafenButton:DisableDrawLayer("BORDER")
 		end
 
 		if _G.ChatFrameToggleVoiceMuteButton then
-			MERS:Reskin(_G.ChatFrameToggleVoiceMuteButton, nil, nil, true, nil, nil, nil, false)
+			_G.ChatFrameToggleVoiceMuteButton:DisableDrawLayer("BORDER")
 		end
 	else
 		--ElvUI ChatButtonHolder

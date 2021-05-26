@@ -226,7 +226,7 @@ function MERS:OnLeave()
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, isDeclineButton, noStyle, createBackdrop, styleTemplate, noGlossTex, overrideTex, frameLevel, defaultTemplate)
+function MERS:Reskin(button, strip, isDeclineButton, noStyle, createBackdrop, styleTemplate, noGlossTex, overrideTex, frameLevel, defaultTemplate, noGradient)
 	assert(button, "doesn't exist!")
 
 	if not button or button.IsSkinned then return end
@@ -258,7 +258,9 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, createBackdrop, st
 		button:HookScript('OnLeave', MERS.OnLeave)
 	end
 
-	MERS:CreateGradient(button)
+	if not noGradient then
+		MERS:CreateGradient(button)
+	end
 
 	button.IsSkinned = true
 end
