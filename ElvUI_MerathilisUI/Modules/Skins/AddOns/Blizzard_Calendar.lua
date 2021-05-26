@@ -13,17 +13,21 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.muiSkins.blizzard.calendar ~= true then return end
 
+	if not _G.CalendarFrame.backdrop then
+		_G.CalendarFrame:CreateBackdrop('Transparent')
+	end
+
 	_G.CalendarFrame.backdrop:Styling()
 	MER:CreateBackdropShadow(_G.CalendarFrame)
-	_G.CalendarCreateEventFrame.backdrop:Styling()
+	_G.CalendarCreateEventFrame:Styling()
 	MER:CreateBackdropShadow(_G.CalendarCreateEventFrame)
-	_G.CalendarViewHolidayFrame.backdrop:Styling()
+	_G.CalendarViewHolidayFrame:Styling()
 	MER:CreateBackdropShadow(_G.CalendarViewHolidayFrame)
-	_G.CalendarViewEventFrame.backdrop:Styling()
+	_G.CalendarViewEventFrame:Styling()
 	MER:CreateBackdropShadow(_G.CalendarViewEventFrame)
 	_G.CalendarMassInviteFrame:Styling()
 	MER:CreateBackdropShadow(_G.CalendarMassInviteFrame)
-	_G.CalendarViewRaidFrame.backdrop:Styling()
+	_G.CalendarViewRaidFrame:Styling()
 	MER:CreateBackdropShadow(_G.CalendarViewRaidFrame)
 
 	for i = 1, 42 do
@@ -49,7 +53,7 @@ local function LoadSkin()
 	_G.CalendarViewEventTentativeButton.flashTexture:SetTexture("")
 	_G.CalendarViewEventDeclineButton.flashTexture:SetTexture("")
 
-	_G.CalendarTodayFrame.backdrop:SetBackdropBorderColor(r, g, b)
+	_G.CalendarTodayFrame:SetBackdropBorderColor(r, g, b)
 end
 
 S:AddCallbackForAddon("Blizzard_Calendar", "mUICalendar", LoadSkin)
