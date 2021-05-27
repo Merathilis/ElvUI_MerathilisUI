@@ -8,15 +8,20 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alliedRaces ~= true or E.private.muiSkins.blizzard.AlliedRaces ~= true then return end
 
 	local AlliedRacesFrame = _G.AlliedRacesFrame
-	S:HandlePortraitFrame(AlliedRacesFrame, true)
 
 	if AlliedRacesFrame.backdrop then
 		AlliedRacesFrame.backdrop:Styling()
 	end
 
+	MER:CreateBackdropShadow(AlliedRacesFrame)
+	select(2, AlliedRacesFrame.ModelFrame:GetRegions()):Hide()
+	AlliedRacesFrame.FrameBackground:Hide()
+
 	local scrollFrame = AlliedRacesFrame.RaceInfoFrame.ScrollFrame
 	scrollFrame.Child.ObjectivesFrame:StripTextures()
 	scrollFrame.Child.ObjectivesFrame:CreateBackdrop("Transparent")
+	scrollFrame.ScrollBar.ScrollUpBorder:Hide()
+	scrollFrame.ScrollBar.ScrollDownBorder:Hide()
 
 	AlliedRacesFrame.RaceInfoFrame.AlliedRacesRaceName:SetTextColor(1, .8, 0)
 	scrollFrame.Child.RaceDescriptionText:SetTextColor(1, 1, 1)

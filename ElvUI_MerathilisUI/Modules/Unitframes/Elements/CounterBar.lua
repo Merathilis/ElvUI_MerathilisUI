@@ -15,6 +15,7 @@ function module:Construct_CounterBar(frame)
 	CounterBar:SetHeight(20)
 	CounterBar:SetStatusBarTexture(E.media.normTex)
 	CounterBar:SetPoint("TOP", E.UIParent, "TOP", 0, -102)
+	MER:SmoothBar(CounterBar)
 
 	CounterBar.bg = CounterBar:CreateTexture(nil, "BORDER")
 	CounterBar.bg:SetAllPoints()

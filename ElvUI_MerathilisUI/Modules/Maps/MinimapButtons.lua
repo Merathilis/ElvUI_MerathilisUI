@@ -37,6 +37,7 @@ module.IgnoreButton = {
 	'MinimapZoomIn',
 	'MinimapZoomOut',
 	'RecipeRadarMinimapButtonFrame',
+	'InstanceDifficultyFrame',
 }
 
 module.GenericIgnore = {
@@ -200,9 +201,9 @@ function module:Update()
 	if E.db.mui.smb.enable ~= true then return end
 
 	local AnchorX, AnchorY = 0, 1
-	local ButtonsPerRow = module.db.perRow or 12
-	local Spacing = module.db.spacing or 2
-	local Size = module.db.size
+	local ButtonsPerRow = module.db.perRow or 6
+	local Spacing = module.db.spacing or 1
+	local Size = module.db.size or 30
 	local ActualButtons, Maxed = 0
 
 	local Anchor, DirMult = 'TOPRIGHT', -1
@@ -261,7 +262,7 @@ function module:Initialize()
 
 	-- Button Creation
 	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", E.UIParent)
-	module.button:Size(28, 28)
+	module.button:Size(28)
 	module.button:ClearAllPoints()
 	module.button:Point("TOPRIGHT", Minimap, "TOPRIGHT", 10, 20)
 	module.button:SetFrameStrata("MEDIUM")

@@ -30,8 +30,8 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.muiSkins.blizzard.spellbook ~= true then return end
 
 	local SpellBookFrame = _G.SpellBookFrame
-
 	SpellBookFrame:Styling()
+	MER:CreateShadow(SpellBookFrame)
 	if SpellBookFrame.pagebackdrop then
 		SpellBookFrame.pagebackdrop:Hide()
 	end

@@ -1,97 +1,140 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_Minimap')
+local module = MER:GetModule('MER_RectangleMinimap')
 local MM = E:GetModule('Minimap')
 
--- Credits Shadow&Light
-
---Cache global variables
---Lua functions
 local _G = _G
---WoW API / Variables
-local CreateFrame = CreateFrame
-local hooksecurefunc = hooksecurefunc
--- GLOBALS:
+local floor = floor
+local format = format
+local pairs = pairs
+local sqrt = sqrt
 
-local BAR_HEIGHT = 22
+local InCombatLockdown = InCombatLockdown
 
-function module:SetupHybridMinimap()
-	local MapCanvas = _G.HybridMinimap.MapCanvas
-	MapCanvas:SetMaskTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\rectangle')
-	MapCanvas:Size(E.MinimapSize, E.MinimapSize)
-	MapCanvas:SetHitRectInsets(0, 0, (E.MinimapSize/6.1)*E.mult, (E.MinimapSize/6.1)*E.mult)
-	MapCanvas:SetClampRectInsets(0, 0, 0, 0)
+function module:ChangeShape()
+	if not self.db then
+		return
+	end
 
-	module:UpdateHybridMoverSize()
+	if InCombatLockdown() then
+		return
+	end
 
-	--MapCanvas:ClearAllPoints()
-	MapCanvas:Point("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, (E.MinimapSize/6.1)+E.Border)
+	local Minimap = _G.Minimap
+	local MMHolder = _G.MMHolder
+	local MinimapPanel = _G.MinimapPanel
+	local MinimapBackdrop = _G.MinimapBackdrop
 
-	if MapCanvas.backdrop then
-		MapCanvas.backdrop:SetOutside(MapCanvas, 1, -(E.MinimapSize/6.1)+1)
+	local fileID = self.db.enable and self.db.heightPercentage and floor(self.db.heightPercentage * 128) or 128
+	local texturePath = format("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\MinimapMasks\\%d.tga", fileID)
+	local heightPct = fileID / 128
+	local newHeight = E.MinimapSize * heightPct
+	local diff = E.MinimapSize - newHeight
+
+	Minimap:SetClampedToScreen(true)
+	Minimap:SetMaskTexture(texturePath)
+	Minimap:Size(E.MinimapSize, E.MinimapSize)
+	Minimap:SetHitRectInsets(0, 0, (diff / 2) * E.mult, (diff / 2) * E.mult)
+	Minimap:SetClampRectInsets(0, 0, 0, 0)
+	_G.MinimapMover:SetClampRectInsets(0, 0, (diff / 2) * E.mult, -(diff / 2) * E.mult)
+	Minimap:ClearAllPoints()
+	Minimap:Point("TOPLEFT", MMHolder, "TOPLEFT", E.Border, -E.Border + diff / 2)
+	Minimap.backdrop:SetOutside(Minimap, 1, -(diff / 2) + 1)
+	MinimapBackdrop:SetOutside(Minimap.backdrop)
+
+	if _G.HybridMinimap then
+		local mapCanvas = _G.HybridMinimap.MapCanvas
+		local rectangleMask = _G.HybridMinimap:CreateMaskTexture()
+		rectangleMask:SetTexture(texturePath)
+		rectangleMask:SetAllPoints(_G.HybridMinimap)
+		_G.HybridMinimap.RectangleMask = rectangleMask
+		mapCanvas:SetMaskTexture(rectangleMask)
+		mapCanvas:SetUseMaskTexture(true)
+	end
+
+	if Minimap.location then
+		Minimap.location:ClearAllPoints()
+		Minimap.location:Point("TOP", MMHolder, "TOP", 0, -5)
+	end
+
+	self:MMHolder_Size()
+end
+
+do
+	local isRunning
+	function module:MMHolder_Size()
+		if isRunning then
+			return
+		end
+
+		isRunning = true
+
+		local MinimapPanel = _G.MinimapPanel
+		local MMHolder = _G.MMHolder
+
+		local fileID = self.db.enable and self.db.heightPercentage and floor(self.db.heightPercentage * 128) or 128
+		local newHeight = E.MinimapSize * fileID / 128
+
+		local borderWidth, borderHeight = E.PixelMode and 2 or 6, E.PixelMode and 2 or 8
+		local panelSize, joinPanel =
+			(MinimapPanel:IsShown() and MinimapPanel:GetHeight()) or (E.PixelMode and 1 or -1),
+			1
+		local holderHeight = newHeight + (panelSize - joinPanel)
+
+		MMHolder:Size(E.MinimapSize + borderWidth, holderHeight + borderHeight)
+		_G.MinimapMover:Size(E.MinimapSize + borderWidth, holderHeight + borderHeight)
+
+		isRunning = false
 	end
 end
 
-function module:SkinMiniMap()
-	_G.Minimap:SetMaskTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\rectangle')
-	_G.Minimap:Size(E.MinimapSize, E.MinimapSize)
-	_G.Minimap:SetHitRectInsets(0, 0, (E.MinimapSize/6.1)*E.mult, (E.MinimapSize/6.1)*E.mult)
-	_G.Minimap:SetClampRectInsets(0, 0, 0, 0)
+function module:SetUpdateHook()
+	if not self.Initialized then
+		self:SecureHook(MM, "SetGetMinimapShape", "ChangeShape")
+		self:SecureHook(MM, "UpdateSettings", "ChangeShape")
+		self:SecureHook(MM, "Initialize", "ChangeShape")
+		self:SecureHook(E, "UpdateAll", "ChangeShape")
+		self:SecureHook(_G.MMHolder, "Size", "MMHolder_Size")
 
-	module:UpdateMoverSize()
-
-	--*Relocated Minimap to MMHolder
-	_G.Minimap:ClearAllPoints()
-	--_G.Minimap:Point("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, E.Border)
-
-	--*Below sets mover to same size of minimap, I didn't do this on purpose due to people moving the minimap in an area not good
-	_G.Minimap:Point("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, (E.MinimapSize/6.1)+E.Border)
-
-	if _G.Minimap.location then
-		module:UpdateLocationText()
+		self.Initialized = true
 	end
 
-	_G.MinimapPanel:ClearAllPoints()
-	_G.MinimapPanel:Point('TOPLEFT', _G.Minimap, 'BOTTOMLEFT', -E.Border, (E.MinimapSize/6.1)-1)
-	_G.MinimapPanel:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', E.Border, ((E.MinimapSize/6.1)-BAR_HEIGHT)-1)
+	self:ChangeShape()
+end
 
-	if _G.Minimap.backdrop then
-		_G.Minimap.backdrop:SetOutside(_G.Minimap, 1, -(E.MinimapSize/6.1)+1)
+function module:PLAYER_ENTERING_WORLD()
+	self:SetUpdateHook()
+	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+end
+
+function module:ADDON_LOADED(_, addon)
+	if addon == "Blizzard_HybridMinimap" then
+		self:ChangeShape()
+		self:UnregisterEvent('ADDON_LOADED')
 	end
 end
 
-function module:UpdateHybridMoverSize()
-	if E.db.datatexts.panels.MinimapPanel.enable then
-		_G.MMHolder:Height((_G.HybridMinimap.MapCanvas:GetHeight() + (_G.MinimapPanel and (_G.MinimapPanel:GetHeight() + E.Border) or 24)) + E.Spacing*3-((E.MinimapSize/6.1)))
-	else
-		_G.MMHolder:Height((_G.HybridMinimap.MapCanvas:GetHeight() + E.Border + E.Spacing*3)-(E.MinimapSize/6.1))
-	end
-end
-
-function module:UpdateMoverSize()
-	if E.db.datatexts.panels.MinimapPanel.enable then
-		_G.MMHolder:Height((_G.Minimap:GetHeight() + (_G.MinimapPanel and (_G.MinimapPanel:GetHeight() + E.Border) or 24)) + E.Spacing*3-((E.MinimapSize/6.1)))
-	else
-		_G.MMHolder:Height((_G.Minimap:GetHeight() + E.Border + E.Spacing*3)-(E.MinimapSize/6.1))
-	end
-end
-
--- Probably a bad idea
 function module:AdjustSettings()
-	if not E.db.mui.maps.minimap.rectangle then return end
+	if not E.db.mui.maps.minimap.rectangleMinimap.enable then return end
 
 	if not E.db.movers then
 		E.db.movers = {}
 	end
 
-	E.db["general"]["minimap"]["size"] = 214
+	E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["enable"] = true
+	E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["heightPercentage"] = 0.68
+
+	E.db["general"]["minimap"]["size"] = 212
 	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
 	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = 30
 	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -40
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 30
-	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,11"
+	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,47"
 
 	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-455,47"
 	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-489,116"
+
+	E.db["chat"]["panelWidthRight"] = 235
+	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-219,47"
 
 	if E.global["datatexts"]["customPanels"]["MER_RightChatTop"] then
 		E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 2
@@ -102,36 +145,36 @@ function module:AdjustSettings()
 			["enable"] = true,
 		}
 	end
-
-	E.db["chat"]["panelWidthRight"] = 235
-	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-219,47"
-
-	E.db["mui"]["maps"]["minimap"]["ping"]["yOffset"] = -36
 end
 
-function module:UpdateLocationText()
-	_G.Minimap.location:ClearAllPoints()
-	_G.Minimap.location:Point('TOP', _G.Minimap, 'TOP', 0, -22)
-end
+function module:Initialize()
+	self.db = E.db.mui.maps.minimap.rectangleMinimap
 
-function module:ADDON_LOADED(_, addon)
-	if addon == 'Blizzard_HybridMinimap' then
-		module:SetupHybridMinimap()
+	if not self.db or not self.db.enable then
+		return
 	end
-end
-
-function module:RectangleMinimap()
-	if not E.private.general.minimap.enable or not E.db.mui.maps.minimap.rectangle then return end
-
-	module:SkinMiniMap()
-	--if _G.HybridMinimap then module:SetupHybridMinimap() end
 
 	-- Only adjust the settings for me
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		module:AdjustSettings()
 	end
 
-	hooksecurefunc(MM, 'UpdateSettings', module.UpdateMoverSize)
-	--hooksecurefunc(MM, 'UpdateSettings', module.UpdateHybridMoverSize)
-	--self:RegisterEvent('ADDON_LOADED')
+	self:RegisterEvent('ADDON_LOADED')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
+
+function module:ProfileUpdate()
+	self.db = E.db.mui.maps.minimap.rectangleMinimap
+
+	if not self.db then
+		return
+	end
+
+	if self.db.enable then
+		self:SetUpdateHook()
+	else
+		self:ChangeShape()
+	end
+end
+
+MER:RegisterModule(module:GetName())

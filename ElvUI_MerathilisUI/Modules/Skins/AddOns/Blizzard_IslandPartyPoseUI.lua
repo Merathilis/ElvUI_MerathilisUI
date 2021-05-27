@@ -14,6 +14,7 @@ local function LoadSkin()
 
 	local IslandsPartyPoseFrame = _G.IslandsPartyPoseFrame
 	IslandsPartyPoseFrame:Styling()
+	MER:CreateBackdropShadow(IslandsPartyPoseFrame)
 
 	IslandsPartyPoseFrame.ModelScene:StripTextures()
 	MERS:CreateBDFrame(IslandsPartyPoseFrame.ModelScene, .25)

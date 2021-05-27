@@ -24,9 +24,7 @@ local SlashCmdList = SlashCmdList
 
 local macroName = "RANDOMTOY"
 local macroTemplate =
-"#showtooltip %s\n" ..
-"/randomtoy check\n" ..
-"/cast %s"
+"#showtooltip %s\n" .. "/randomtoy check\n" .. "/cast %s"
 
 local function IsMyToyUsable(itemID)
 	local startTime, duration, enable = GetItemCooldown(itemID)

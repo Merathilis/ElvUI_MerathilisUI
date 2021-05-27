@@ -15,6 +15,7 @@ local function LoadSkin()
 	if RaidInfoFrame.backdrop then
 		RaidInfoFrame.backdrop:Styling()
 	end
+	MER:CreateBackdropShadow(RaidInfoFrame)
 end
 
 S:AddCallback("mUIRaidFrame", LoadSkin)

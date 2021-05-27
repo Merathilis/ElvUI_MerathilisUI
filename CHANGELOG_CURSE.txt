@@ -1,3 +1,161 @@
+** v4.74, xx.xx.2021**
+* Added Shadows around the most frames
+* Added Grappling Growth to the Vignette Blacklist
+* Remove Talent Set Manager, there will be an own AddOn in the future
+* Updated some skins
+
+
+** v4.73, 10.03.2021**
+* Added an OmniCD Profile
+* Added a Talent Set Manager. Credits fang2hou <3
+* Added an option to toggle the shadow on the MicroBar
+* Added an option to toggle my right chat DataText Panel -.-
+* Updated VenturePlan skin
+
+
+** v4.72, 04.02.2021**
+* AutoButtons: Add more openable items
+* Armory: Fix enchants for strength and agi classes
+* LFG Info: Reskin the role icons
+
+
+** v4.71, 02.02.2021**
+* LocPanel: Add Cypher of Relocation to port items
+* AFK/FlightMode: Added a covenant texture
+* Skins: Various updates
+* Misc: Replace the Maw Threat Widget with a simple StatusBar
+* AutoButtons: Add openable items
+* AutoButtons: Added 2 more Bars in total now of 5
+* Armory: Added an indicator to show missing enchants/gems
+* Fonts: Replace GothamNarrow fonts with a newer one
+* MicroBar: Added a Shadow
+* GameMenu: Added some new NPC from Shadowlands
+* RaidBuffReminder: Added a Weapon enchant indicator
+* Chat: Added an option to disable the custom "Come online.." message
+
+
+** v4.70, 21.12.2020**
+* Take account for the new skin api in BigWigs
+* Layout: Update the position for Bags/Bank
+
+
+** v4.69, 20.12.2020**
+* Updated GarrisonUI Skin
+* Updated CovenantRenown Skin
+* Added back the Quick Join messages to my notification
+* Updated some utility items for the AutoButtons
+* Update my item alerts
+* Added right click to EncounterJournal Button on the MicroBar to open Weekly Rewards
+* Added some hearthstones to the MicroBar and LocPanel
+* Updated ChatLinks
+* Updated some reminders
+
+
+** v4.68, 05.12.2020**
+* AutoButtons: Added a new category: FOODVENDOR
+* Added some more vignettes to be ignored. Thx isp
+* Updated Garrison skin
+* Updated PlayerChoice skin
+* Added an own BigWigs Queue Timers
+* Added some hearthstones to MicroBar
+
+
+** v4.67, 29.11.2020**
+* AutoButtons: Added/Updated Shadowlands Pots/Flasks
+* LocPanel: Updated Teleport Items
+* Updated Rectangle Minimap to work in Torghast
+* Added some vignettes to my blacklist in the Notifications
+* Removed iFilger Profile
+
+
+** v4.66, 23.11.2020**
+* Added an option to adjust the waypoints
+* Fixed the backdrop from the Minimap if S&L is enabled
+* Fixed Time DataText
+* Removed GuildBest from the Mythic Keystone frame
+* Reworked Instance Difficulty
+* Fixed border color on the Merchant frame
+* Added some new hearthstones/flasks/food/pots for Shadowlands
+
+** v4.65 for Shadowland Pre-Patch, 18.11.2020**
+* Fixed a typo.. whoops, thx Kringel
+* Replaced the AFK Time with a Logout timer
+
+
+** v4.64 for Shadowland Pre-Patch, 18.11.2020**
+* The AutoButtons will now hide in Pet Battle
+* Dont force the spacing on UnitFrames Buffs/Debuffs
+* Added an notification icon on the MicroBar Guild button. Thx fang2hou <3
+
+
+** v4.63 for Shadowland Pre-Patch, 08.11.2020**
+* MicroBar: Added a Game Menu Button
+* Reposition Wowheadlinks on the WorldMap
+* Updated Cooldown Flash
+* Fixed an option error on Rectangle Minimap/LocPanel
+* Added Zhadar to the Patreon list <3
+
+
+** v4.62 for Shadowland Pre-Patch, 03.11.2020**
+* Fixed an install whoopsi
+* Small code updates
+* Added Deezyl to the Patreon list <3
+
+
+** v4.61 for Shadowland Pre-Patch, 02.11.2020**
+* Changed the option layout a bit
+* Style the LocationPanel again
+* Fixed Paragon Reputation Notification
+* Updated deDE locales from Dlarge & Rav
+* Updated the Rectangle Minimap Code -- Credits: Windtools
+* Updated/Fixed some skins
+* MicroBar: Added 2 new Buttons: Professions & Volume
+* MicroBar: Fixed an issue on initial load with Heartstones
+* Prevent errors on AFK Mode (hopefully)
+* Added: Patrons & Donator List to: Information
+
+
+** v4.60 for Shadowland Pre-Patch, 24.10.2020**
+* Added a skin for the AddOn WarPlan
+* Fixed an install whoopsi for the position on AB3 >.>
+* Added a frame on the MailBox SendMail Frame, to easy send mail to contacts
+* The Keybinds for the AutoButtons now finally works
+* Added a custom fade option if you use mouseOver on AutoButtons
+* Add a right click function for MicroBar: Collection & Toybox Buttons
+* Small tweaks and skin upates
+
+
+** v4.59 for Shadowland Pre-Patch, 22.10.2020**
+* Fix a green icon on my RaidManager. I remove by accident a texture
+* More updates to the MicroBar: Fix stuttering/lags
+* The MicroBar also shows now the time datatext from ElvUI
+* Updated my AutoButtons
+* Updated the ChatBar
+* Added a mover for the Buff Reminder
+
+
+** v4.58 for Shadowland Pre-Patch, 17.10.2020**
+* More fixes/updates to my new MicroBar -> own Option-Category
+* Fixed an error with the ActionBarProfile skin
+* Added some more frames to the blacklist on the FlightMode
+
+
+** v4.57 for Shadowland Pre-Patch, 17.10.2020**
+* Updated my DPS Layout due to some backdrop changes in ElvUI
+* Fixed an error in LFG Info
+* Updated my MicroBar, its now more customizable
+* Due to the updated MicroBar, i've also deleted my middle DataText Panel
+* Updated my Minimap Ping
+* Removed RaidCD, use a WeakAura instead or w/e
+
+
+** v4.56 for Shadowland Pre-Patch, 14.10.2020**
+* Adjusted QuestInfo skin to show colored progress again.
+* Fix my skin for ClassColored ScrollBars. >.>
+* Adjust the backdrop for AutoBar.
+* Commented out new HearthStones for SL, it broke the LocPanel.
+
+
 ** v4.55 for Shadowland Pre-Patch, 13.10.2020**
 * **YOU NEED ELVUI 12.00**
 * Added an own FlightMode (inspired by Benik's)
@@ -114,7 +272,7 @@
 * Small Layout updates.
 * Added a Killing Blow feature. Credits: Shadow & Light.
 * Added a friend counter on the Friends Frame.
-* Readd compatibility code. Credits: NihilisticPandemonium.
+* Readd compatibility code. Credits: Nihilistzsche.
 * Updated GothamNarrow Font.
 * Added a CVar options.
 * Added a random toy macro. See misc options.
@@ -238,7 +396,7 @@
 * Added Pawn Skin, needs AddOnSkins to work.
 * Adjust some install settings.
 * Added a Paragon Reputation feature.
-* Finally fixed a db error if AAP + HandyNotes are enabled. Big thanks to NihilisticPandemonium <3
+* Finally fixed a db error if AAP + HandyNotes are enabled. Big thanks to Nihilistzsche <3
 
 
 ** v4.27 29.07.2019**
@@ -280,7 +438,7 @@
 
 ** v4.21 01.06.2019**
 * Added new Tag: 'name:abbrev-translit'
-* Return of the Enhanced Nameplate Auras. All Credits belong to: NihilisticPandemonium.
+* Return of the Enhanced Nameplate Auras. All Credits belong to: Nihilistzsche.
 * Take account to the latest ElvUI_OptionsUI changes.
 
 ** v4.20 22.05.2019**

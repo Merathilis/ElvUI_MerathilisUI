@@ -7,15 +7,15 @@ L[" is loaded. For any issues or suggestions, please visit "] = true
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
 L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
-L["AFK"] = true
+L["AFK"] = "暫離"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Are you still there? ... Hello?"] = true
 L["Logout Timer"] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
-L["Options"] = true
+L["Options"] = "設定"
 L["Desciption"] = true
-L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
+L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI. It adds:
 
 - a lot of new features
 - a transparent overall look
@@ -54,44 +54,62 @@ L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
 L["Chat Menu"] = true
 L["Create a chat button to increase the chat size."] = true
-L["Hide Player Brackets"] = true
+L["Hide Player Brackets"] = "隱藏玩家方括弧"
 L["Removes brackets around the person who posts a chat message."] = true
+L["Hide Chat Side Panel"] = true
+L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
+L["Chat Bar"] = "聊天條"
+L["Shows a ChatBar with different quick buttons."] = true
 L["Hide Community Chat"] = true
 L["Adds an overlay to the Community Chat. Useful for streamers."] = true
 L["Chat Hidden. Click to show"] = true
-L["ChatBar"] = true
-L["Shows a ChatBar with different quick buttons."] = true
 L["Click to open Emoticon Frame"] = true
 L["Emotes"] = true
 L["Damage Meter Filter"] = true
 L["Fade Chat"] = true
 L["Auto hide timeout"] = true
 L["Seconds before fading chat panel"] = true
+L["Seperators"] = true
+L["Orientation"] = "按鍵對齊方向"
+L["Please use Blizzard Communities UI add the channel to your main chat frame first."] = "請先使用暴雪社群介面將頻道添加至主聊天視窗."
+L["Channel Name"] = "頻道名"
+L["Abbreviation"] = "縮寫"
+L["Auto Join"] = "自動加入"
+L["World"] = "世界"
+L["Channels"] = "頻道"
+L["Block Shadow"] = "方塊陰影"
+L["Hide channels not exist."] = "隱藏不存在的頻道."
+L["Only show chat bar when you mouse over it."] = "只在滑鼠經過時顯示聊天條."
+L["Button"] = "按鍵"
+L["Item Level Links"] = true
+L["Filter"] = "過濾器"
+L["Block"] = "方塊"
+L["Custom Online Message"] = true
 
 -- Combat Alert
-L["Combat Alert"] = true
+L["Combat Alert"] = "戰鬥提醒"
 L["Enable/Disable the combat message if you enter/leave the combat."] = true
-L["Enter Combat"] = true
-L["Leave Combat"] = true
+L["Enter Combat"] = "進入戰鬥"
+L["Leave Combat"] = "離開戰鬥"
 L["Stay Duration"] = true
 L["Custom Text"] = true
 L["Custom Text (Enter)"] = true
 L["Custom Text (Leave)"] = true
-L["Color"] = true
+L["Color"] = "顏色"
 
 -- Information
-L["Information"] = true
+L["Information"] = "信息"
 L["Support & Downloads"] = true
 L["Tukui.org"] = true
 L["Git Ticket tracker"] = true
 L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
-L["Development Version"] = true
+L["Development Version"] = "開發版"
 L["Here you can download the latest development version."] = true
 
 -- Modules
-L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
+L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
 
 -- GameMenu
 L["GameMenu"] = true
@@ -107,27 +125,59 @@ L["Left Click to Request Stop"] = true
 L["Flight Point"] = true
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 
--- MasterPlan
-L["MasterPlan"] = true
-L["Skins the additional Tabs from MasterPlan."] = true
+-- Mail
+L["Mail"] = "邮箱"
+L["Alternate Character"] = "分身角色"
+L["Alt List"] = "分身名單"
+L["Delete"] = "刪除"
+L["Favorites"] = true
+L["Favorite List"] = "最愛列表"
+L["Name"] = "姓名"
+L["Realm"] = "伺服器"
+L["Add"] = "新增"
+L["Please set the name and realm first."] = "請先設定名字和伺服器名."
+L["Toggle Contacts"] = "開關聯絡人"
+L["Online Friends"] = "在線好友"
+L["Add To Favorites"] = "添加到我的最愛"
+L["Remove From Favorites"] = "從我的最愛移除"
 
 -- MicroBar
-L["Hide In Orderhall"] = true
-L["Show/Hide the friend text on MicroBar."] = true
-L["Show/Hide the guild text on MicroBar."] = true
-L["Blingtron"] = "Blingtron Daily Gift"
-L["Mean One"] = "Feast of Winter Veil"
-L["Timewarped"] = "500 Timewarped Badges"
-L["Legion Invasion"] = true
-L["Faction Assault"] = true
-L["Local Time"] = true
-L["Realm Time"] = true
-L["Current Invasion: "] = true
-L["Next Invasion: "] = true
-L["Mythic Dungeon"] = true
+L["Backdrop"] = "背景"
+L["Backdrop Spacing"] = "背景間距"
+L["The spacing between the backdrop and the buttons."] = "背景與按鈕之間的間隙"
+L["Time Width"] = true
+L["Time Height"] = true
+L["The spacing between buttons."] = "兩個按鈕間的距離."
+L["The size of the buttons."] = "按鍵的尺寸."
+L["Slow Mode"] = "慢速模式"
+L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = "附加文字的更新間隔將從 1 秒改為 10 秒以降低記憶體使用."
+L["Display"] = "顯示"
+L["Fade Time"] = "漸變時間"
+L["Tooltip Position"] = true
+L["Mode"] = "模式"
+L["None"] = "無"
+L["Class Color"] = "職業顏色"
+L["Custom"] = "自訂"
+L["Additional Text"] = "附加文字"
+L["Interval"] = "時間間隔"
+L["The interval of updating."] = "更新時間間隔."
+L["Home"] = "家"
+L["Left Button"] = "左鍵"
+L["Right Button"] = "右鍵"
+L["Left Panel"] = "左側面板"
+L["Right Panel"] = "右側面板"
+L["Button #%d"] = "第 %d 個按鍵"
+L["Pet Journal"] = "寵物日誌"
+L["Show Pet Journal"] = "顯示寵物日誌"
+L["Screenshot"] = "擷圖"
+L["Screenshot immediately"] = "立即擷圖"
+L["Screenshot after 2 secs"] = "2 秒後進行擷圖"
+L["Toy Box"] = "玩具箱"
+L["Collections"] = "收藏"
+L["Show Collections"] = "顯示收藏"
 
 -- Misc
-L["Misc"] = true
+L["Misc"] = "其他"
 L["Artifact Power"] = true
 L["has appeared on the MiniMap!"] = true
 L["Alt-click, to buy an stack"] = true
@@ -153,12 +203,18 @@ L["Fun Stuff"] = true
 L["Press CTRL + C to copy."] = true
 L["Wowhead Links"] = true
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
-L["Codex Buttons"] = true
+L["Codex Buttons"] = "寶典按鈕"
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
 L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
 L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
+L["Maw ThreatBar"] = true
+L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L.ANNOUNCE_FP_PRE = "{rt1} %s 放置了 %s {rt1}"
+L.ANNOUNCE_FP_CLICK = "{rt1} %s 正在開啟 %s... 請點擊 ! {rt1}"
+L.ANNOUNCE_FP_USE = "{rt1} %s 使用了 %s。 {rt1}"
+L.ANNOUNCE_FP_CAST = "{rt1} %s 開啟了 %s {rt1}"
 
 -- Tooltip
 L["Your Status:"] = true
@@ -170,13 +226,13 @@ L["Adds an Icon for the faction on the tooltip."] = true
 L["Adds information to the tooltip, on which char you earned an achievement."] = true
 L["Keystone"] = true
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
-L["Title Color"] = true
+L["Title Color"] = "標題顏色"
 L["Change the color of the title in the Tooltip."] = true
 L["Progress Info"] = true
 L["Shows raid progress of a character in the tooltip"] = true
-L["Mythic"] = true
-L["Heroic"] = true
-L["Normal"] = true
+L["Mythic"] = "傳奇"
+L["Heroic"] = "英雄"
+L["Normal"] = "普通"
 L["LFR"] = true
 L["Uldir"] = true
 L["BattleOfDazaralor"] = "Battle Of Dazaralor"
@@ -192,12 +248,8 @@ L["Display in English"] = "顯示為英文"
 L["Show icon"] = "顯示圖示"
 L["Show the spell icon along with the name."] = "顯示法術圖示以及名稱。"
 
--- MailInputBox
-L["Mail Inputbox Resize"] = true
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = true
-
 -- Notification
-L["Notification"] = true
+L["Notification"] = "通知"
 L["Display a Toast Frame for different notifications."] = true
 L["This is an example of a notification."] = true
 L["Notification Mover"] = true
@@ -218,7 +270,7 @@ L["No Sounds"] = true
 
 -- DataTexts
 -- DataBars
-L["DataBars"] = true
+L["DataBars"] = "數據條"
 L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
@@ -229,7 +281,7 @@ L["Announce in chat if duel was rejected."] = true
 L["MER_DuelCancel_REGULAR"] = "Duel request from %s rejected."
 L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
 L["Show your PvP killing blows as a popup."] = true
-L["Sound"] = true
+L["Sound"] = "声效"
 L["Play sound when killing blows popup is shown."] = true
 
 -- Actionbars
@@ -247,8 +299,39 @@ L["Delete Item ID"] = true
 L["Custom Glow"] = true
 L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
 
+-- AutoButtons
+L["AutoButtons"] = "自動按鍵"
+L["Bar"] = "條"
+L["Only show the bar when you mouse over it."] = "只在滑鼠經過時顯示條."
+L["Bar Backdrop"] = "條背景"
+L["Show a backdrop of the bar."] = "顯示條背景."
+L["Button Width"] = "按鍵寬度"
+L["The width of the buttons."] = "按鍵的寬度."
+L["Button Height"] = "按鍵高度"
+L["The height of the buttons."] = "按鍵的高度."
+L["Counter"] = "計數"
+L["Outline"] = "描邊"
+L["Button Groups"] = "按鍵组"
+L["Key Binding"] = "按鍵綁定"
+L["Custom Items"] = "自訂物品"
+L["List"] = "列表"
+L["New Item ID"] = "新物品 ID"
+L["Auto Button Bar"] = true
+L["Quest Items"] = "任務物品"
+L["Equipments"] = "裝備"
+L["Potions"] = "藥水"
+L["Flasks"] = "藥劑"
+L["Food"] = true
+L["Crafted by mage"] = true
+L["Banners"] = "戰旗"
+L["Utilities"] = "實用物品"
+L["Custom Items"] = "自訂物品"
+L["Fade Time"] = "漸變時間"
+L["Alpha Min"] = "最小透明度"
+L["Alpha Max"] = "最大透明度"
+
 -- Armory
-L["Armory"] = true
+L["Armory"] = "英雄榜"
 L["ARMORY_DESC"] = [=[The |cffff7d0aArmory Mode|r only works with the ElvUI 'Display Character Info'. You may need to reload your UI:
 
 ElvUI - General - BlizzUI Improvements - Display Character Infos.]=]
@@ -259,7 +342,7 @@ L["Damaged Only"] = true
 L["Only show durability information for items that are damaged."] = true
 L["Itemlevel"] = true
 L["Enable/Disable the display of item levels on the character window."] = true
-L["Level"] = true
+L["Level"] = "等級"
 L["Full Item Level"] = true
 L["Show both equipped and average item levels."] = true
 L["Item Level Coloring"] = true
@@ -268,15 +351,19 @@ L["Color of Average"] = true
 L["Sets the color of average item level."] = true
 L["Only Relevant Stats"] = true
 L["Show only those primary stats relevant to your spec."] = true
-L["Item Level"] = true
+L["Item Level"] = "物品等級"
 L["Categories"] = true
 L["Slot Gradient"] = true
 L["Shows a gradiation texture on the Character Slots."] = true
 L["Indicators"] = true
-L["Transmog"] = true
+L["Transmog"] = "塑形"
 L["Shows an arrow indictor for currently transmogrified items."] = true
 L["Illusion"] = true
 L["Shows an indictor for weapon illusions."] = true
+L["Empty Socket"] = true
+L["Not Enchanted"] = true
+L["Warnings"] = true
+L["Shows an indicator for missing sockets and enchants."] = true
 
 -- Media
 L["MER_MEDIA_ZONES"] = {
@@ -315,7 +402,7 @@ L["MER_MEDIA_PVPARENA"] = {
 }
 
 -- Unitframes
-L["UnitFrames"] = true
+L["UnitFrames"] = "單位框架"
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
 L["Swing Bar"] = true
@@ -335,12 +422,12 @@ L["Update Throttle"] = true
 L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] = true
 L["Full Location"] = true
 L["Color Type"] = true
-L["Custom Color"] = true
+L["Custom Color"] = "自定顏色"
 L["Reaction"] = true
 L["Location"] = true
 L["Coordinates"] = true
 L["Teleports"] = true
-L["Portals"] = true
+L["Portals"] = "傳送門"
 L["Link Position"] = true
 L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."] = true
 L["Relocation Menu"] = true
@@ -377,16 +464,30 @@ L["Hide Coordinates"] = true
 
 -- Maps
 L["MiniMap Buttons"] = true
-L["Minimap Ping"] = true
-L["Shows the name of the player who pinged on the Minimap."] = true
+L["Minimap Ping"] = "小地圖點擊"
+L["Add Server Name"] = "添加伺服器"
+L["Only In Combat"] = true
+L["Fade-In"] = true
+L["The time of animation. Set 0 to disable animation."] = "動畫時間. 設定為 0 可禁用動畫."
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
+L["Super Tracker"] = "超級追蹤"
+L["Description"] = "描述"
+L["Additional features for waypoint."] = "為標記點添加額外功能."
+L["Auto Track Waypoint"] = "自動追蹤標記"
+L["Auto track the waypoint after setting."] = "在設定標記後自動進行追蹤."
+L["Right Click To Clear"] = "右鍵清除"
+L["Right click the waypoint to clear it."] = "右鍵標記點來清除它."
+L["No Distance Limitation"] = "無距離限制"
+L["Force to track the target even if it over 1000 yds."] = "強制追蹤超過 1000 碼的目標."
+L["Distance Text"] = "距離文字"
+L["Only Number"] = true
 
 -- SMB
 L["Button Settings"] = true
 
 --Raid Marks
-L["Raid Markers"] = true
+L["Raid Markers"] = "團隊標記"
 L["Click to clear the mark."] = true
 L["Click to mark the target."] = true
 L["%sClick to remove all worldmarkers."] = true
@@ -395,9 +496,9 @@ L["Raid Marker Bar"] = true
 L["Options for panels providing fast access to raid markers and flares."] = true
 L["Show/Hide raid marks."] = true
 L["Reverse"] = true
-L["Modifier Key"] = true
-L["Set the modifier key for placing world markers."] = true
-L["Visibility State"] = true
+L["Modifier Key"] = "組合鍵"
+L["Set the modifier key for placing world markers."] = "設定標示團隊光柱的組合鍵"
+L["Visibility State"] = "顯示狀態"
 
 -- Raid Buffs
 L["Raid Buff Reminder"] = true
@@ -413,7 +514,7 @@ L["This will disable the ElvUI Raid Control and replace it with my own."] = true
 L["Open Raid Manager"] = true
 L["Pull Timer Count"] = true
 L["Change the Pulltimer for DBM or BigWigs"] = true
-L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = true
+L["Only accept values format with '', e.g.: '5', '8', '10' etc."] = true
 
 -- Reminder
 L["Reminder"] = true
@@ -429,7 +530,7 @@ L["Animation size"] = true
 L["Display spell name"] = true
 L["Watch on pet spell"] = true
 L["Transparency"] = true
-L["Test"] = true
+L["Test"] = "測試"
 L["Sort Upwards"] = true
 L["Sort by Expiration Time"] = true
 L["Show Self Cooldown"] = true
@@ -498,8 +599,8 @@ L["MerathilisUI didn't find any supported addons for profile creation"] = true
 L["MerathilisUI successfully created and applied profile(s) for:"] = true
 L["Tank/ DPS Layout"] = true
 L["Heal Layout"] = true
-L["Chat Set"] = true
-L["ActionBars"] = true
+L["Chat Set"] = "對話设置"
+L["ActionBars"] = "快捷列"
 L["ActionBars Set"] = true
 L["DataTexts Set"] = true
 L["Profile Set"] = true
@@ -533,8 +634,8 @@ L["Please click the button below to setup your actionbars."] = true
 L["Please click the button below to setup your datatexts."] = true
 L["Please click the button below to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
-L["DataTexts"] = true
-L["Setup Chat"] = true
+L["DataTexts"] = "資訊文字"
+L["Setup Chat"] = "設定對話視窗"
 L["Setup Datatexts"] = true
 L["Setup Addons"] = true
 L["ElvUI AddOns"] = true
@@ -585,14 +686,14 @@ L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 
 -- Addons
 L["Skins/AddOns"] = true
-L["Profiles"] = true
+L["Profiles"] = "設定檔"
 L["BigWigs"] = true
 L["MasterPlan"] = true
-L["Shadow & Light"] = true
+L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = true
 
 -- Changelog
-L["Changelog"] = true
+L["Changelog"] = "更新記錄"
 
 -- Compatibility
 L["has |cffff2020disabled|r "] = true

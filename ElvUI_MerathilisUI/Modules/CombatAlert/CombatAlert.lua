@@ -36,7 +36,7 @@ function module:RefreshAlert()
 
 	self.db = E.db.mui.CombatAlert
 
-	self.alert.text:FontTemplate(E.LSM:Fetch('font', self.db.style.font), self.db.style.fontSize, self.db.style.fontOutline)
+	MER:SetFontDB(self.alert.text, self.db.font)
 	self.alert:SetScale(self.db.style.scale or 0.8)
 
 	if self.db.style.backdrop then
@@ -159,7 +159,7 @@ function module:Initialize()
 	end
 	module:ForUpdateAll()
 
-	E:CreateMover(self.alert, 'alertFrameMover', L["Enter Combat Alert"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,CombatAlert', function() return EnterCombatAlert.db.enable; end)
+	E:CreateMover(self.alert, 'alertFrameMover', L["Enter Combat Alert"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', function() return EnterCombatAlert.db.enable; end, 'mui,modules,CombatAlert')
 end
 
 MER:RegisterModule(module:GetName())

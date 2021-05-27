@@ -86,6 +86,9 @@ function module:StyleChat()
 	-- Style the chat
 	_G.LeftChatPanel.backdrop:Styling()
 	_G.RightChatPanel.backdrop:Styling()
+
+	MER:CreateBackdropShadow(_G.LeftChatPanel, true)
+	MER:CreateBackdropShadow(_G.RightChatPanel, true)
 end
 
 -- Hide communities chat. Useful for streamers
@@ -142,20 +145,6 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 	end
 end)
 
-local function AddIcon(link)
-	local texture = GetItemIcon(link)
-
-	return "\124T"..texture..":12:12:0:0:64:64:5:59:5:59\124t"..link
-end
-
-function module:CreateChatLootIcons(_, message, ...)
-	if IsAddOnLoaded("ChatLinkIcons") then return end
-
-	message = message:gsub("(\124c%x+\124Hitem:.-\124h\124r)", AddIcon)
-
-	return false, message, ...
-end
-
 function module:CreateSeparators()
 	if E.db.mui.chat.seperators.enable ~= true then return end
 
@@ -206,20 +195,19 @@ function module:Initialize()
 	local db = E.db.mui.chat
 	MER:RegisterDB(self, "chat")
 
-	_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["has come |cff298F00online|r."]
-	_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["has gone |cffff0000offline|r."]
+	if db.customOnlineMessage then
+		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["has come |cff298F00online|r."]
+		_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["has gone |cffff0000offline|r."]
 
-	_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "%s"..L[" has come |cff298F00online|r."]
-	_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L[" has gone |cffff0000offline|r."]
+		_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "%s"..L[" has come |cff298F00online|r."]
+		_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L[" has gone |cffff0000offline|r."]
+	end
 
 	-- Remove the Realm Name from system messages
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", module.RemoveCurrentRealmName)
-	-- Chat Icons for loot
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_LOOT", module.CreateChatLootIcons)
 
 	self:EasyChannel()
 	self:StyleChat()
-	self:ChatBar()
 	self:ChatFilter()
 	self:DamageMeterFilter()
 	self:LoadChatFade()

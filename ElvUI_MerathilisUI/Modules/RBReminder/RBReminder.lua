@@ -2,20 +2,17 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RaidBuffs')
 local LCG = LibStub('LibCustomGlow-1.0')
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local pairs, select, unpack = pairs, select, unpack
--- WoW API / Variables
+local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
+
 local CreateFrame = CreateFrame
 local IsInRaid = IsInRaid
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 local GetSpellInfo = GetSpellInfo
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
-
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: mUIRaidBuffReminder, FlaskFrame, FoodFrame, DARuneFrame, IntellectFrame, StaminaFrame, AttackPowerFrame, CustomFrame
+local GetWeaponEnchantInfo = GetWeaponEnchantInfo
+local GetInventoryItemTexture = GetInventoryItemTexture
 
 local bsize = 25
 local r, g, b = unpack(E["media"].rgbvaluecolor)
@@ -47,6 +44,7 @@ module.ReminderBuffs = {
 	DefiledAugmentRune = {
 		224001,			-- Defiled Augumentation (15 primary stat)
 		270058,			-- Battle Scarred Augmentation (60 primary stat)
+		347901,			-- Veiled Augmentation (18 primary stat)
 	},
 	Food = {
 		104280,	-- Well Fed
@@ -74,10 +72,28 @@ module.ReminderBuffs = {
 		6673, -- Battle Shout
 		264761, -- War-Scroll of Battle
 	},
+	Weapon = {
+		1, -- just a fallback
+	},
 	Custom = {
 		-- spellID,	-- Spell name
 	},
 }
+
+module.Weapon_Enchants = {
+	6188, -- Shadowcore Oil
+	6190, -- Embalmer's Oil
+	6200, -- Shaded Sharpening Stone
+}
+
+local function EnchantsID(id)
+	for i, v in ipairs(module.Weapon_Enchants) do
+		if id == v then
+			return true
+		end
+	end
+	return false
+end
 
 local flaskbuffs = module.ReminderBuffs["Flask"]
 local foodbuffs = module.ReminderBuffs["Food"]
@@ -86,6 +102,7 @@ local intellectbuffs = module.ReminderBuffs["Intellect"]
 local staminabuffs = module.ReminderBuffs["Stamina"]
 local attackpowerbuffs = module.ReminderBuffs["AttackPower"]
 local custombuffs = module.ReminderBuffs["Custom"]
+local weaponEnch = module.ReminderBuffs["Weapon"]
 
 local function OnAuraChange(self, event, arg1, unit)
 	if (event == "UNIT_AURA" and arg1 ~= "player") then return end
@@ -206,6 +223,21 @@ local function OnAuraChange(self, event, arg1, unit)
 		end
 	end
 
+	if (weaponEnch and weaponEnch[1]) then
+		local hasMainHandEnchant, _, _, mainHandEnchantID, hasOffHandEnchant, _, _, offHandEnchantId = GetWeaponEnchantInfo()
+		if (hasMainHandEnchant and EnchantsID(mainHandEnchantID)) or (hasOffHandEnchant and EnchantsID(offHandEnchantId)) then
+			WeaponFrame.t:SetTexture(GetInventoryItemTexture('player', 16))
+			WeaponFrame:SetAlpha(module.db.alpha)
+			LCG.PixelGlow_Stop(WeaponFrame)
+		else
+			WeaponFrame:SetAlpha(1)
+			WeaponFrame.t:SetTexture(GetInventoryItemTexture('player', 16))
+			if module.db.glow then
+				LCG.PixelGlow_Start(WeaponFrame, color, nil, -0.25, nil, 1)
+			end
+		end
+	end
+
 	if custombuffs and custombuffs[1] then
 		for i, custombuffs in pairs(custombuffs) do
 			local name, _, icon = GetSpellInfo(custombuffs)
@@ -279,12 +311,14 @@ function module:Initialize()
 		self:CreateIconBuff("FlaskFrame", AttackPowerFrame, false)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 		self:CreateIconBuff("DARuneFrame", FoodFrame, false)
-		self:CreateIconBuff("CustomFrame", DARuneFrame, false)
+		self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
+		self:CreateIconBuff("CustomFrame", WeaponFrame, false)
 	else
 		self:CreateIconBuff("FlaskFrame", RaidBuffReminder, true)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 		self:CreateIconBuff("DARuneFrame", FoodFrame, false)
-		self:CreateIconBuff("CustomFrame", DARuneFrame, false)
+		self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
+		self:CreateIconBuff("CustomFrame", WeaponFrame, false)
 	end
 
 	self.frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")

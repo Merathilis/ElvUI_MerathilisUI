@@ -14,11 +14,13 @@
 	<Script file="Blizzard_Calendar.lua"/>
 	<Script file="Blizzard_ChallengesUI.lua"/>
 	<Script file="Blizzard_Channels.lua"/>
+	<Script file="Blizzard_ChromieTimeUI.lua"/>
 	<Script file="Blizzard_Collections.lua"/>
 	<Script file="Blizzard_Communities.lua"/>
 	<Script file="Blizzard_Contribution.lua"/>
 	<Script file="Blizzard_CovenantPreviewUI.lua"/>
 	<Script file="Blizzard_CovenantSanctum.lua"/>
+	<Script file="Blizzard_CovenantRenown.lua"/>
 	<Script file="Blizzard_DeathRecap.lua"/>
 	<Script file="Blizzard_DebugTools.lua"/>
 	<Script file="Blizzard_EncounterJournal.lua"/>
@@ -38,6 +40,7 @@
 	<Script file="Blizzard_LookingForGuildUI.lua"/>
 	<Script file="Blizzard_MacroUI.lua"/>
 	<Script file="Blizzard_MapCanvas.lua"/>
+	<Script file="Blizzard_NewPlayerExperienceGuide.lua"/>
 	<Script file="Blizzard_ObjectiveTracker.lua"/>
 	<Script file="Misc.lua"/>
 	<Script file="Blizzard_OrderHallUI.lua"/>
@@ -56,7 +59,6 @@
 	<Script file="Blizzard_TrainerUI.lua"/>
 	<Script file="Blizzard_UIWidgets.lua"/>
 	<Script file="Blizzard_VoidStorageUI.lua"/>
-	<Script file="Blizzard_WarboardUI.lua"/>
 	<Script file="Blizzard_WarfrontPartyPose.lua"/>
 	<Script file="Blizzard_WeeklyRewards.lua"/>
 </Ui>

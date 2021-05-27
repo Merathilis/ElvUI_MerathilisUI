@@ -13,7 +13,6 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.questChoice ~= true or E.private.muiSkins.blizzard.questChoice ~= true then return; end
 
 	local QuestChoiceFrame = _G.QuestChoiceFrame
-
 	QuestChoiceFrame:StripTextures()
 
 	if QuestChoiceFrame.backdrop then
@@ -22,6 +21,7 @@ local function LoadSkin()
 
 	MERS:CreateBD(QuestChoiceFrame, .5)
 	QuestChoiceFrame:Styling()
+	MER:CreateBackdropShadow(QuestChoiceFrame)
 
 	for i = 1, 15 do
 		select(i, QuestChoiceFrame:GetRegions()):Hide()

@@ -10,7 +10,7 @@ local hooksecurefunc = hooksecurefunc
 function module:Construct_HealComm(frame)
 	local healPrediction = frame.HealthPrediction
 
-	if not healPrediction.overAbsorb then
+	if healPrediction and not healPrediction.overAbsorb then
 		local overAbsorb = frame.Health:CreateTexture(nil, "OVERLAY")
 		overAbsorb:SetPoint('TOP')
 		overAbsorb:SetPoint('BOTTOM')

@@ -12,6 +12,7 @@ local C_SpecializationInfo_IsInitialized = C_SpecializationInfo.IsInitialized
 local GetSpecialization = GetSpecialization
 local GetNumSpecializations = GetNumSpecializations
 local GetSpecializationInfo = GetSpecializationInfo
+local GetSpecializationRole = GetSpecializationRole
 local GetSpecializationSpells = GetSpecializationSpells
 local GetSpellTexture = GetSpellTexture
 local GetPvpTalentInfoByID = GetPvpTalentInfoByID
@@ -24,6 +25,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
 	_G.PlayerTalentFrame:Styling()
+	MER:CreateShadow(_G.PlayerTalentFrame)
 
 	-- Specc
 	for i = 1, GetNumSpecializations(false, nil) do
@@ -48,7 +50,7 @@ local function LoadSkin()
 			local bu = row['talent'..j]
 			if bu.bg then
 				MERS:CreateGradient(bu.bg)
-				bu.bg.backdrop:SetTemplate("Transparent")
+				bu.bg:SetTemplate("Transparent")
 				bu.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
 			end
 		end
@@ -126,7 +128,7 @@ local function LoadSkin()
 				frame.icon:SetTexture(spellIcon)
 				frame.subText:SetTextColor(.75, .75, .75)
 
-				if not frame.styled and not frame.backdrop then
+				if not frame.styled then
 					frame.ring:Hide()
 					frame.icon:SetTexCoord(unpack(E.TexCoords))
 					MERS:CreateBG(frame.icon)
@@ -159,9 +161,13 @@ local function LoadSkin()
 			end
 
 			local roleIcon = bu.roleIcon
-			roleIcon:SetTexture(E.media.roleIcons)
 			local role = GetSpecializationRole(i, false, bu.isPet)
-			if role then
+			if role and roleIcon then
+				if not roleIcon.backdrop then
+					roleIcon:CreateBackdrop()
+					roleIcon.backdrop:SetOutside(roleIcon)
+				end
+				roleIcon:SetTexture(E.media.roleIcons)
 				roleIcon:SetTexCoord(MER:GetRoleTexCoord(role))
 			end
 		end
@@ -187,7 +193,7 @@ local function LoadSkin()
 	end
 
 	local PlayerTalentFrameTalentsPvpTalentFrameTalentList = _G.PlayerTalentFrameTalentsPvpTalentFrameTalentList
-	PlayerTalentFrameTalentsPvpTalentFrameTalentList.backdrop:Styling()
+	PlayerTalentFrameTalentsPvpTalentFrameTalentList:Styling()
 
 	for i = 1, 10 do
 		local bu = _G["PlayerTalentFrameTalentsPvpTalentFrameTalentListScrollFrameButton"..i]
@@ -218,7 +224,7 @@ local function LoadSkin()
 				end)
 			end
 
-			bu.backdrop:SetAllPoints()
+			bu:SetAllPoints()
 
 			if bu.Icon then
 				bu.Icon:SetTexCoord(unpack(E.TexCoords))

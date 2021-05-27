@@ -9,6 +9,7 @@ local CreateFrame = CreateFrame
 
 function module:Construct_Swing(frame)
 	local width = E.db.unitframe.units.player.castbar.width - 2
+
 	local Mcolor = E.db.mui.unitframes.swing.mcolor
 	local Tcolor = E.db.mui.unitframes.swing.tcolor
 	local Ocolor = E.db.mui.unitframes.swing.ocolor
@@ -22,6 +23,7 @@ function module:Construct_Swing(frame)
 	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel()+1)
 	bar:CreateBackdrop("Transparent")
 	bar.backdrop:Styling(false, false, true)
+	MER:SmoothBar(bar)
 
 	local main = CreateFrame("StatusBar", nil, bar)
 	main:SetAllPoints(bar)

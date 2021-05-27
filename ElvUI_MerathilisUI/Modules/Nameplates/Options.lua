@@ -16,7 +16,7 @@ local function NameplatesTable()
 		get = function(info) return E.db.mui.nameplates[ info[#info] ] end,
 		set = function(info, value) E.db.mui.nameplates[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["NamePlates"]), 0),
+			name = ACH:Header(MER:cOption(L["NamePlates"], 'orange'), 0),
 			castbarShield  = {
 				order = 2,
 				type = "toggle",
@@ -27,12 +27,12 @@ local function NameplatesTable()
 			enhancedAuras = {
 				order = 10,
 				type = "group",
-				name = MER:cOption(L["Enhanced NameplateAuras"]),
+				name = MER:cOption(L["Enhanced NameplateAuras"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.nameplates.enhancedAuras[ info[#info] ] end,
 				set = function(info, value) E.db.mui.nameplates.enhancedAuras[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
 				args = {
-					credits = ACH:Description("Credits: |cff1784d1ElvUI |r|cffff2020NihilistUI|r with |cffFF0000permission|r from NihilisticPandemonium", 0),
+					credits = ACH:Description("Credits: |cff1784d1ElvUI |r|cffff2020NihilistUI|r with |cffFF0000permission|r from Nihilistzsche", 0),
 					spacer = ACH:Spacer(1),
 					description = ACH:Description(L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"], 2),
 					spacer1 = ACH:Spacer(3),

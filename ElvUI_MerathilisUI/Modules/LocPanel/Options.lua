@@ -21,11 +21,11 @@ local function LocPanelTable()
 		name = L["Location Panel"],
 		get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Location Panel"]), 1),
+			name = ACH:Header(MER:cOption(L["Location Panel"], 'orange'), 1),
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Credits"]),
+				name = MER:cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = ACH:Description(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
@@ -34,7 +34,7 @@ local function LocPanelTable()
 			panel = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Location Panel"]),
+				name = MER:cOption(L["Location Panel"], 'orange'),
 				guiInline = true,
 				args = {
 					enable = {
@@ -58,7 +58,7 @@ local function LocPanelTable()
 						type = "select",
 						disabled = function() return not E.db.mui.locPanel.enable end,
 						hidden = function() return not E.db.mui.locPanel.enable end,
-						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Template() end,
+						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Template(); E:StaticPopup_Show("PRIVATE_RL"); end,
 						values = {
 							["Default"] = DEFAULT,
 							["Transparent"] = L["Transparent"],
@@ -148,7 +148,7 @@ local function LocPanelTable()
 								type = "color",
 								order = 3,
 								name = L["Custom Color"],
-								disabled = function() return not E.db.mui.locPanel.enable or not E.db.mui.locPanel.colorType == "CUSTOM" end,
+								disabled = function() return not E.db.mui.locPanel.enable or E.db.mui.locPanel.colorType ~= "CUSTOM" end,
 								get = function(info)
 									local t = E.db.mui.locPanel[ info[#info] ]
 									local d = P.mui.locPanel[info[#info]]
@@ -197,14 +197,14 @@ local function LocPanelTable()
 								type = "color",
 								order = 3,
 								name = L["Custom Color"],
-								disabled = function() return not E.db.mui.locPanel.enable or not E.db.mui.locPanel.colorType_Coords == "CUSTOM" or E.db.mui.locPanel.coordshide end,
+								disabled = function() return not E.db.mui.locPanel.enable or E.db.mui.locPanel.colorType_Coords ~= "CUSTOM" or E.db.mui.locPanel.coordshide end,
 								get = function(info)
 									local t = E.db.mui.locPanel[ info[#info] ]
 									local d = P.mui.locPanel[info[#info]]
 									return t.r, t.g, t.b, d.r, d.g, d.b
 								end,
 								set = function(info, r, g, b)
-									E.db.mui.minimap.locPanel[ info[#info] ] = {}
+									E.db.mui.locPanel[ info[#info] ] = {}
 									local t = E.db.mui.locPanel[ info[#info] ]
 									t.r, t.g, t.b = r, g, b
 								end,

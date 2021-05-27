@@ -15,4 +15,4 @@ local function LoadSkin()
 	-- Used for Currency Fonts (Warfront only?)
 end
 
-S:AddCallbackForAddon("Blizzard_UIWidgets", "mUIUIWidgets", LoadSkin)
+--S:AddCallbackForAddon("Blizzard_UIWidgets", "mUIUIWidgets", LoadSkin)

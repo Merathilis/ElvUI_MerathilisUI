@@ -7,15 +7,13 @@
 	<Include file="FlightPoint.xml" />
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
-	<Script file="GuildBest.lua"/>
 	<Script file="ItemLevel.lua"/>
 	<Script file="LfgInfo.lua"/>
 	<Script file="Loot.lua"/>
-	<Script file="MailInputBox.lua"/>
+	<Script file="MawWidgetFrame.lua"/>
 	<Script file="NameHover.lua"/>
 	<Script file="RandomToy.lua"/>
 	<Script file="Reputation.lua"/>
-	<Script file="Talentless.lua"/>
 	<Script file="Quest.lua"/>
 	<Script file="SpellAlerts.lua"/>
 	<Script file="WoWHeadLinks.lua"/>

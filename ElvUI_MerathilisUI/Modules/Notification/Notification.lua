@@ -5,9 +5,6 @@ local CH = E:GetModule('Chat')
 local S = E:GetModule('Skins')
 
 -- Credits RealUI
-
---Cache global variables
---Lua functions
 local _G = _G
 local select, unpack, type, pairs, ipairs, tostring, next = select, unpack, type, pairs, ipairs, tostring, next
 local table = table
@@ -15,7 +12,6 @@ local tinsert, tremove = table.insert, table.remove
 local floor = math.floor
 local format, find, sub = string.format, string.find, string.sub
 
---WoW API / Variables
 local CreateFrame = CreateFrame
 local UnitIsAFK = UnitIsAFK
 local HasNewMail = HasNewMail
@@ -34,6 +30,7 @@ local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Scenario_GetInfo = C_Scenario.GetInfo
 local C_VignetteInfo_GetVignetteInfo = C_VignetteInfo.GetVignetteInfo
+local C_QuestLog_GetLogIndexForQuestID =C_QuestLog.GetLogIndexForQuestID
 local InCombatLockdown = InCombatLockdown
 local LoadAddOn = LoadAddOn
 local PlaySoundFile = PlaySoundFile
@@ -46,7 +43,13 @@ local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
 local MAIL_LABEL = MAIL_LABEL
 local HAVE_MAIL = HAVE_MAIL
 local UNKNOWN = UNKNOWN
--- GLOBALS:
+local LFG_LIST_AND_MORE = LFG_LIST_AND_MORE
+local SocialQueueUtil_GetQueueName = SocialQueueUtil_GetQueueName
+local SocialQueueUtil_GetRelationshipInfo = SocialQueueUtil_GetRelationshipInfo
+local C_SocialQueue_GetGroupMembers = C_SocialQueue.GetGroupMembers
+local C_SocialQueue_GetGroupQueues = C_SocialQueue.GetGroupQueues
+local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
+local C_LFGList_GetActivityInfo = C_LFGList.GetActivityInfo
 
 local bannerWidth = 255
 local bannerHeight = 68
@@ -57,6 +60,8 @@ local activeToasts = {}
 local queuedToasts = {}
 local anchorFrame
 
+local SOCIAL_QUEUE_QUEUED_FOR = _G.SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some language have `:` on end
+
 local VignetteExclusionMapIDs = {
 	[579] = true, -- Lunarfall: Alliance garrison
 	[585] = true, -- Frostwall: Horde garrison
@@ -64,7 +69,14 @@ local VignetteExclusionMapIDs = {
 }
 
 local VignetteBlackListIDs = {
+	[4024] = true, -- Soul Cage (The Maw and Torghast)
+	[4578] = true, -- Gateway to Hero's Rest (Bastion)
+	[4583] = true, -- Gateway to Hero's Rest (Bastion)
 	[4553] = true, -- Recoverable Corpse (The Maw)
+	[4581] = true, -- Grappling Growth (Maldraxxus)
+	[4582] = true, -- Ripe Purian (Bastion)
+	[4602] = true, -- Aimless Soul (The Maw)
+	[4617] = true, -- Imprisoned Soul (The Maw)
 }
 
 function module:SpawnToast(toast)
@@ -162,6 +174,7 @@ end
 
 function module:CreateToast()
 	local toast = tremove(toasts, 1)
+	local db = E.db.mui.notification
 
 	toast = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
 	toast:SetFrameStrata("HIGH")
@@ -170,6 +183,7 @@ function module:CreateToast()
 	toast:Hide()
 	MERS:CreateBD(toast, .45)
 	toast:Styling()
+	MER:CreateBackdropShadow(toast, true)
 	toast:CreateCloseButton(10)
 
 	local icon = toast:CreateTexture(nil, "OVERLAY")
@@ -183,20 +197,22 @@ function module:CreateToast()
 	sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
 	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
 
-	local title = MER:CreateText(toast, "OVERLAY", 11, "OUTLINE")
+	local title = MER:CreateText(toast, "OVERLAY")
 	title:SetShadowOffset(1, -1)
-	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -6)
+	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, 3)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
 	title:SetJustifyH("LEFT")
 	title:SetNonSpaceWrap(true)
+	MER:SetFontDB(title, db.titleFont)
 	toast.title = title
 
-	local text = MER:CreateText(toast, "OVERLAY", 10, nil)
+	local text = MER:CreateText(toast, "OVERLAY")
 	text:SetShadowOffset(1, -1)
-	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 9)
+	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 20)
 	text:SetPoint("RIGHT", toast, -9, 0)
 	text:SetJustifyH("LEFT")
 	text:SetWidth(toast:GetRight() - sep:GetLeft() - 5)
+	MER:SetFontDB(text, db.textFont)
 	toast.text = text
 
 	toast.AnimIn = CreateAnimationGroup(toast)
@@ -304,7 +320,7 @@ local function testCallback()
 end
 
 SlashCmdList.TESTNOTIFICATION = function(b)
-	module:DisplayToast(MER:cOption("MerathilisUI:"), L["This is an example of a notification."], testCallback, b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
+	module:DisplayToast(MER:cOption("MerathilisUI:", 'gradient'), L["This is an example of a notification."], testCallback, b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
 end
 SLASH_TESTNOTIFICATION1 = "/testnotification"
 
@@ -356,15 +372,14 @@ function module:UPDATE_INVENTORY_DURABILITY()
 		end
 	end
 	table.sort(Slots, function(a, b) return a[3] < b[3] end)
-	local value = floor(Slots[1][3]*100)
 
+	local value = floor(Slots[1][3]*100)
 	if showRepair and value < 20 then
 		showRepair = false
 		E:Delay(30, ResetRepairNotification)
-		self:DisplayToast(_G.MINIMAP_TRACKING_REPAIR, format(L["%s slot needs to repair, current durability is %d."],Slots[1][2],value))
+		self:DisplayToast(_G.MINIMAP_TRACKING_REPAIR, format(L["%s slot needs to repair, current durability is %d."], Slots[1][2], value))
 	end
 end
-
 
 local numInvites = 0
 local function GetGuildInvites()
@@ -431,20 +446,20 @@ function module:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-
 local SOUND_TIMEOUT = 20
 function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
-	if not module.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")]  then return end
+	if not module.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
 
 	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
 	if inGroup or inRaid or inPartyLFG then return end
 
 	if onMinimap then
 		local vignetteInfo = C_VignetteInfo_GetVignetteInfo(vignetteGUID)
+		--MER:Print("Vignette-ID:"..vignetteInfo.vignetteID, "Vignette-Name:"..vignetteInfo.name)
 		if VignetteBlackListIDs[vignetteInfo.vignetteID] then return end
 
-		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id  then
-			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:sub(1, 28))
+		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id then
+			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:utf8sub(1, 28))
 			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
 			self.lastMinimapRare.id = vignetteGUID
 
@@ -460,45 +475,124 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 end
 
 -- Credits: Paragon Reputation
-local PARAGON_QUESTS = { --[QuestID] = {factionID}
+local PARAGON_QUEST_ID = { --[questID] = {factionID}
 	--Legion
-		[48976] = {2170}, -- Argussian Reach
-		[46777] = {2045}, -- Armies of Legionfall
-		[48977] = {2165}, -- Army of the Light
-		[46745] = {1900}, -- Court of Farondis
-		[46747] = {1883}, -- Dreamweavers
-		[46743] = {1828}, -- Highmountain Tribes
-		[46748] = {1859}, -- The Nightfallen
-		[46749] = {1894}, -- The Wardens
-		[46746] = {1948}, -- Valarjar
+	[48976] = {2170}, -- Argussian Reach
+	[46777] = {2045}, -- Armies of Legionfall
+	[48977] = {2165}, -- Army of the Light
+	[46745] = {1900}, -- Court of Farondis
+	[46747] = {1883}, -- Dreamweavers
+	[46743] = {1828}, -- Highmountain Tribes
+	[46748] = {1859}, -- The Nightfallen
+	[46749] = {1894}, -- The Wardens
+	[46746] = {1948}, -- Valarjar
 
 	--Battle for Azeroth
-		--Neutral
-		[54453] = {2164}, --Champions of Azeroth
-		[55348] = {2391}, --Rustbolt Resistance
-		[54451] = {2163}, --Tortollan Seekers
+	--Neutral
+	[54453] = {2164}, --Champions of Azeroth
+	[58096] = {2415}, --Rajani
+	[55348] = {2391}, --Rustbolt Resistance
+	[54451] = {2163}, --Tortollan Seekers
+	[58097] = {2417}, --Uldum Accord
 
-		--Horde
-		[54460] = {2156}, --Talanji's Expedition
-		[54455] = {2157}, --The Honorbound
-		[53982] = {2373}, --The Unshackled
-		[54461] = {2158}, --Voldunai
-		[54462] = {2103}, --Zandalari Empire
+	--Horde
+	[54460] = {2156}, --Talanji's Expedition
+	[54455] = {2157}, --The Honorbound
+	[53982] = {2373}, --The Unshackled
+	[54461] = {2158}, --Voldunai
+	[54462] = {2103}, --Zandalari Empire
 
-		--Alliance
-		[54456] = {2161}, --Orber of Embers
-		[54458] = {2160}, --Proudmoore Admiralty
-		[54457] = {2162}, --Storm's Wake
-		[54454] = {2159}, --The 7th Legion
-		[55976] = {2400}, --Waveblade Ankoan
+	--Alliance
+	[54456] = {2161}, --Order of Embers
+	[54458] = {2160}, --Proudmoore Admiralty
+	[54457] = {2162}, --Storm's Wake
+	[54454] = {2159}, --The 7th Legion
+	[55976] = {2400}, --Waveblade Ankoan
+
+	--Shadowlands
+	[61100] = {2413}, --Court of Harvesters
+	[61097] = {2407}, --The Ascended
+	[61095] = {2410}, --The Undying Army
+	[61098] = {2465}, --The Wild Hunt
 }
 
-function module:QUEST_ACCEPTED(event, ...)
-	local questIndex, questID = ...
-	if module.db.paragon and PARAGON_QUESTS[questID] then
-		local name = format("|cff00c0fa%s|r", GetFactionInfoByID(PARAGON_QUESTS[questID][1])) or UNKNOWN
+function module:QUEST_ACCEPTED(_, questID)
+	if module.db.paragon and PARAGON_QUEST_ID[questID] then
+		local name = format("|cff00c0fa%s|r", GetFactionInfoByID(PARAGON_QUEST_ID[questID][1])) or UNKNOWN
+		local text = GetQuestLogCompletionText(C_QuestLog_GetLogIndexForQuestID(questID))
 		PlaySound(618, "Master") -- QUEST ADDED
-		self:DisplayToast(name, L["MISC_PARAGON_NOTIFY"], nil, "Interface\\Icons\\Achievement_Quests_Completed_08", .08, .92, .08, .92)
+		self:DisplayToast(name, text, nil, "Interface\\Icons\\Achievement_Quests_Completed_08", .08, .92, .08, .92)
+	end
+end
+
+function module:SocialQueueEvent(_, guid, numAddedItems)
+	if not module.db.quickJoin or InCombatLockdown() then return end
+	if numAddedItems == 0 or not guid then return end
+
+	local players = C_SocialQueue_GetGroupMembers(guid)
+	if not players then return end
+
+	local firstMember, numMembers, extraCount, coloredName = players[1], #players, ''
+	local playerName, nameColor = SocialQueueUtil_GetRelationshipInfo(firstMember.guid, nil, firstMember.clubId)
+	if numMembers > 1 then
+		extraCount = format(' +%s', numMembers - 1)
+	end
+	if playerName and playerName ~= '' then
+		coloredName = format('%s%s|r%s', nameColor, playerName, extraCount)
+	else
+		coloredName = format('{%s%s}', UNKNOWN, extraCount)
+	end
+
+	local queues = C_SocialQueue_GetGroupQueues(guid)
+	local firstQueue = queues and queues[1]
+	local isLFGList = firstQueue and firstQueue.queueData and firstQueue.queueData.queueType == 'lfglist'
+
+	if isLFGList and firstQueue and firstQueue.eligible then
+		local activityID, name, leaderName, fullName, isLeader
+
+		if firstQueue.queueData.lfgListID then
+			local searchResultInfo = C_LFGList_GetSearchResultInfo(firstQueue.queueData.lfgListID)
+			if searchResultInfo then
+				activityID, name, leaderName = searchResultInfo.activityID, searchResultInfo.name, searchResultInfo.leaderName
+				isLeader = CH:SocialQueueIsLeader(playerName, leaderName)
+			end
+		end
+
+		if activityID or firstQueue.queueData.activityID then
+			fullName = C_LFGList_GetActivityInfo(activityID or firstQueue.queueData.activityID)
+		end
+
+		if name then
+			if not E.db.chat.socialQueueMessages then
+				self:DisplayToast(coloredName, format('%s: [%s] |cff00CCFF%s|r', (isLeader and L["is looking for members"]) or L["joined a group"], fullName or UNKNOWN, name), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			end
+		else
+			if not E.db.chat.socialQueueMessages then
+				self:DisplayToast(coloredName, format('%s: |cff00CCFF%s|r', (isLeader and L["is looking for members"]) or L["joined a group"], fullName or UNKNOWN), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			end
+		end
+	elseif firstQueue then
+		local output, outputCount, queueCount, queueName = '', '', 0
+		for _, queue in pairs(queues) do
+			if type(queue) == "table" and queue.eligible then
+				queueName = (queue.queueData and SocialQueueUtil_GetQueueName(queue.queueData)) or ""
+				if queueName ~= "" then
+					if output == "" then
+						output = queueName:gsub("\n.+","") -- grab only the first queue name
+						queueCount = queueCount + select(2, queueName:gsub("\n","")) -- collect additional on single queue
+					else
+						queueCount = queueCount + 1 + select(2, queueName:gsub("\n","")) -- collect additional on additional queues
+					end
+				end
+			end
+		end
+
+		if output ~= "" then
+			if queueCount > 0 then outputCount = format(LFG_LIST_AND_MORE, queueCount) end
+			if not E.db.chat.socialQueueMessages then
+				self:DisplayToast(coloredName, format('%s: |cff00CCFF%s|r %s', SOCIAL_QUEUE_QUEUED_FOR, output, outputCount), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			end
+		end
 	end
 end
 
@@ -520,6 +614,7 @@ function module:Initialize()
 	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("QUEST_ACCEPTED")
+	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", 'SocialQueueEvent')
 
 	self.lastMinimapRare = {time = 0, id = nil}
 end

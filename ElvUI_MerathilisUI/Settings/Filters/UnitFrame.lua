@@ -58,6 +58,7 @@ G.unitframe.aurafilters['MER_RaidCDs'] = {
 		[198065] = Defaults(), -- Prismatic Cloak
 		[11426]  = Defaults(), -- Ice Barrier
 		[235313] = Defaults(), -- Blazing Barrier
+		[235450] = Defaults(), -- Prismatic Barrier
 	--Monk
 		[122783] = Defaults(), -- Diffuse Magic
 		[122278] = Defaults(), -- Dampen Harm

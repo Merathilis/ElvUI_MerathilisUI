@@ -84,25 +84,6 @@ local function LoadSkin()
 		self.NeutralBar:SetVertexColor(.8, .8, .8)
 		self.RightBar:SetVertexColor(.9, .2, .2)
 	end)
-
-	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, "Setup", function(self)
-		local bar = self.Bar
-		local atlas = bar:GetStatusBarAtlas()
-		UpdateBarTexture(bar, atlas)
-
-		if not bar.styled then
-			bar.BGLeft:SetAlpha(0)
-			bar.BGRight:SetAlpha(0)
-			bar.BGCenter:SetAlpha(0)
-			bar.BorderLeft:SetAlpha(0)
-			bar.BorderRight:SetAlpha(0)
-			bar.BorderCenter:SetAlpha(0)
-			bar.Spark:SetAlpha(0)
-			MERS:CreateBD(bar)
-
-			bar.styled = true
-		end
-	end)
 end
 
 S:AddCallback("MER_WidgetFrame", LoadSkin)

@@ -31,8 +31,8 @@ local DoReadyCheck = DoReadyCheck
 local InitiateRolePoll = InitiateRolePoll
 local SlashCmdList = SlashCmdList
 local HasLFGRestrictions = HasLFGRestrictions
-local ConvertToParty = ConvertToParty
-local ConvertToRaid = ConvertToRaid
+local C_PartyInfo_ConvertToParty = C_PartyInfo.ConvertToParty
+local C_PartyInfo_ConvertToRaid = C_PartyInfo.ConvertToRaid
 local C_Timer_After = C_Timer.After
 local GameTooltip = GameTooltip
 local ToggleFriendsFrame = ToggleFriendsFrame
@@ -74,8 +74,8 @@ local RaidCounts = {
 local function ReSkinButton(button, ...)
 	button:SetParent(_G.RaidManagerFrame)
 	button:ClearAllPoints()
-	button:SetPoint(...)
-	button:SetSize(_G.RaidManagerFrame:GetWidth()/2-20, 25)
+	button:Point(...)
+	button:Size(_G.RaidManagerFrame:GetWidth()/2-20, 25)
 	for j = 1, button:GetNumRegions() do
 		local region = select(j, button:GetRegions())
 		if region:GetObjectType() == "Texture" then
@@ -88,7 +88,7 @@ end
 local function lockraidmarkframe()
 	_G.RaidMarkFrame:EnableMouse(false)
 	_G.RaidMarkFrame:ClearAllPoints()
-	_G.RaidMarkFrame:SetPoint("TOP", _G.RaidManagerFrame, "BOTTOM", 0, -5)
+	_G.RaidMarkFrame:Point("TOP", _G.RaidManagerFrame, "BOTTOM", 0, -5)
 	E.db.mui.raidmanager.unlockraidmarks = true
 end
 
@@ -181,10 +181,7 @@ end
 
 local count = {}
 local function UpdateIcons(self)
-	local raid = IsInRaid()
-	local party --= IsInGroup() --We could have this in party :thinking:
-
-	if not (raid or party) then
+	if not IsInRaid() then
 		self:Hide()
 		return
 	else
@@ -194,17 +191,10 @@ local function UpdateIcons(self)
 
 	twipe(count)
 
-	local role
 	for i = 1, GetNumGroupMembers() do
-		role = UnitGroupRolesAssigned((raid and "raid" or "party")..i)
-		if role and role ~= "NONE" then
+		local role = UnitGroupRolesAssigned('raid'..i)
+		if role and role ~= 'NONE' then
 			count[role] = (count[role] or 0) + 1
-		end
-	end
-
-	if (not raid) and party then
-		if E.myrole then
-			count[E.myrole] = (count[E.myrole] or 0) + 1
 		end
 	end
 
@@ -226,8 +216,8 @@ end
 function module:CreateRaidManager()
 	-- Main Frame
 	local RaidManagerFrame = CreateFrame("Frame", "RaidManagerFrame", E.UIParent)
-	RaidManagerFrame:SetSize(270, 150)
-	RaidManagerFrame:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -120)
+	RaidManagerFrame:Size(270, 150)
+	RaidManagerFrame:Point("TOPLEFT", E.UIParent, "TOPLEFT", 240, -50)
 	RaidManagerFrame:SetFrameStrata("HIGH")
 	RaidManagerFrame:Hide()
 
@@ -240,18 +230,19 @@ function module:CreateRaidManager()
 
 	RaidManagerFrame:CreateBackdrop("Transparent")
 	RaidManagerFrame.backdrop:Styling()
+	MER:CreateShadowModule(RaidManagerFrame.backdrop)
 
 	-- Top Title
 	RaidManagerFrame.title = RaidManagerFrame:CreateFontString(nil, "OVERLAY")
 	RaidManagerFrame.title:FontTemplate(nil, 14, "OUTLINE")
 	RaidManagerFrame.title:SetTextColor(MER.r, MER.g, MER.b)
-	RaidManagerFrame.title:SetPoint("BOTTOM", RaidManagerFrame, "TOP", 0, -5)
+	RaidManagerFrame.title:Point("BOTTOM", RaidManagerFrame, "TOP", 0, -5)
 	RaidManagerFrame.title:SetText(L["Raid Manager"])
 
 	-- Close Button
 	RaidManagerFrame.Close = CreateFrame("Button", nil, RaidManagerFrame)
-	RaidManagerFrame.Close:SetPoint("BOTTOMRIGHT", -3, 3)
-	RaidManagerFrame.Close:SetSize(20, 20)
+	RaidManagerFrame.Close:Point("BOTTOMRIGHT", -3, 3)
+	RaidManagerFrame.Close:Size(20, 20)
 	RaidManagerFrame.Close:SetScript("OnClick", function()
 		RaidManagerFrame:Hide()
 		if _G.RaidMarkFrame:IsShown() then
@@ -273,8 +264,8 @@ function module:CreateRaidManager()
 	local WorldMarkButton = _G.CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton
 	WorldMarkButton:SetParent(RaidManagerFrame)
 	WorldMarkButton:ClearAllPoints()
-	WorldMarkButton:SetPoint("TOPRIGHT", RaidManagerFrame, "TOPRIGHT", -5, -3)
-	WorldMarkButton:SetSize(18, 18)
+	WorldMarkButton:Point("TOPRIGHT", RaidManagerFrame, "TOPRIGHT", -5, -3)
+	WorldMarkButton:Size(18, 18)
 
 	WorldMarkButton:HookScript("OnEvent", function(self, event)
 		if UnitIsGroupAssistant("player") or UnitIsGroupLeader("player") or (IsInGroup() and not IsInRaid()) then
@@ -289,12 +280,12 @@ function module:CreateRaidManager()
 
 	local PullButton = CreateFrame("Button", "RaidManagerFramePullButton", RaidManagerFrame, "UIPanelButtonTemplate")
 	PullButton:ClearAllPoints()
-	PullButton:SetPoint("TOPRIGHT", RaidManagerFrame, "TOP", -5, -40)
-	PullButton:SetSize(RaidManagerFrame:GetWidth()/2-20, 25)
+	PullButton:Point("TOPRIGHT", RaidManagerFrame, "TOP", -5, -40)
+	PullButton:Size(RaidManagerFrame:GetWidth()/2-20, 25)
 	S:HandleButton(PullButton)
 
 	PullButton.text = PullButton:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	PullButton.text:SetPoint("CENTER")
+	PullButton.text:Point("CENTER")
 	PullButton.text:SetText(L["Pull"])
 
 	local reset = true
@@ -329,8 +320,8 @@ function module:CreateRaidManager()
 
 	local ReadyCheckButton = CreateFrame("Button", "RaidManagerFrameReadyCheckButton", RaidManagerFrame, "UIPanelButtonTemplate")
 	ReadyCheckButton:ClearAllPoints()
-	ReadyCheckButton:SetPoint("LEFT", PullButton, "RIGHT", 10, 0)
-	ReadyCheckButton:SetSize(RaidManagerFrame:GetWidth()/2-20, 25)
+	ReadyCheckButton:Point("LEFT", PullButton, "RIGHT", 10, 0)
+	ReadyCheckButton:Size(RaidManagerFrame:GetWidth()/2-20, 25)
 	S:HandleButton(ReadyCheckButton)
 
 	ReadyCheckButton.text = ReadyCheckButton:CreateFontString(nil, "OVERLAY")
@@ -349,8 +340,8 @@ function module:CreateRaidManager()
 
 	local RolePollButton = CreateFrame("Button", "RaidManagerFrameRoleCheckButton", RaidManagerFrame, "UIPanelButtonTemplate")
 	RolePollButton:ClearAllPoints()
-	RolePollButton:SetPoint("TOP", PullButton, "BOTTOM", 0, -8)
-	RolePollButton:SetSize(RaidManagerFrame:GetWidth()/2-20, 25)
+	RolePollButton:Point("TOP", PullButton, "BOTTOM", 0, -8)
+	RolePollButton:Size(RaidManagerFrame:GetWidth()/2-20, 25)
 	S:HandleButton(RolePollButton)
 
 	RolePollButton.text = RolePollButton:CreateFontString(nil, "OVERLAY")
@@ -367,11 +358,11 @@ function module:CreateRaidManager()
 	end)
 
 	local ConvertGroupButton = CreateFrame("Button", "ConvertGroupButton", RaidManagerFrame, "UIPanelButtonTemplate")
-	ConvertGroupButton:SetPoint("LEFT", RolePollButton, "RIGHT", 10, 0)
-	ConvertGroupButton:SetSize(RaidManagerFrame:GetWidth()/2-20, 25)
+	ConvertGroupButton:Point("LEFT", RolePollButton, "RIGHT", 10, 0)
+	ConvertGroupButton:Size(RaidManagerFrame:GetWidth()/2-20, 25)
 
 	ConvertGroupButton.text = ConvertGroupButton:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	ConvertGroupButton.text:SetPoint("CENTER")
+	ConvertGroupButton.text:Point("CENTER")
 	S:HandleButton(ConvertGroupButton)
 
 	ConvertGroupButton:SetScript("OnEvent", function(self, event, arg1)
@@ -392,21 +383,22 @@ function module:CreateRaidManager()
 
 	ConvertGroupButton:SetScript("OnClick", function(self)
 		if IsInRaid() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
-			ConvertToParty()
+			C_PartyInfo_ConvertToParty()
 		elseif IsInGroup() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
-			ConvertToRaid()
+			C_PartyInfo_ConvertToRaid()
 		else
 			_G.UIErrorsFrame:AddMessage(MER.InfoColor.._G.ERR_NOT_LEADER)
 		end
 	end)
 
 	local RaidMarkFrame = CreateFrame("Frame", "RaidMarkFrame", E.UIParent)
-	RaidMarkFrame:SetSize(270, 80)
-	RaidMarkFrame:SetPoint("TOP", RaidManagerFrame, "BOTTOM", 0, -5)
+	RaidMarkFrame:Size(270, 80)
+	RaidMarkFrame:Point("TOP", RaidManagerFrame, "BOTTOM", 0, -5)
 	RaidMarkFrame:SetFrameStrata("HIGH")
 	RaidMarkFrame:Hide()
 	RaidMarkFrame:CreateBackdrop("Transparent")
 	RaidMarkFrame.backdrop:Styling()
+	MER:CreateShadowModule(RaidMarkFrame.backdrop)
 
 	RaidMarkFrame:RegisterForDrag("LeftButton")
 	RaidMarkFrame:SetScript("OnDragStart", function(self) self:StartMoving() end)
@@ -415,8 +407,8 @@ function module:CreateRaidManager()
 	RaidMarkFrame:SetMovable(true)
 
 	RaidMarkFrame.lockbutton = CreateFrame("Button", nil, RaidMarkFrame)
-	RaidMarkFrame.lockbutton:SetPoint("TOPRIGHT", -3, -3)
-	RaidMarkFrame.lockbutton:SetSize(15, 15)
+	RaidMarkFrame.lockbutton:Point("TOPRIGHT", -3, -3)
+	RaidMarkFrame.lockbutton:Size(15, 15)
 
 	RaidMarkFrame.lockbutton.tex = RaidMarkFrame.lockbutton:CreateTexture(nil, "BACKGROUND")
 	RaidMarkFrame.lockbutton.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\Lock")
@@ -434,7 +426,7 @@ function module:CreateRaidManager()
 	if _G.CompactRaidFrameManager then
 		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers:SetParent(RaidMarkFrame)
 		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers:ClearAllPoints()
-		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers:SetPoint("CENTER", RaidMarkFrame, "CENTER")
+		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers:Point("CENTER", RaidMarkFrame, "CENTER")
 		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers.ClearAllPoints = MER.dummy
 		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers.SetPoint = MER.dummy
 		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers.Hide = _G.CompactRaidFrameManagerDisplayFrameRaidMarkers.Show
@@ -470,8 +462,8 @@ function module:CreateRaidManager()
 	RaidMarkFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 	RaidManagerFrame.toggleraidmark = CreateFrame("Button", nil, RaidManagerFrame)
-	RaidManagerFrame.toggleraidmark:SetPoint("BOTTOMRIGHT", -22, 1)
-	RaidManagerFrame.toggleraidmark:SetSize(26, 26)
+	RaidManagerFrame.toggleraidmark:Point("BOTTOMRIGHT", -22, 1)
+	RaidManagerFrame.toggleraidmark:Size(26, 26)
 
 	RaidManagerFrame.toggleraidmark.tex = RaidManagerFrame.toggleraidmark:CreateTexture(nil, "BACKGROUND")
 	RaidManagerFrame.toggleraidmark.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\Achievement")
@@ -487,8 +479,8 @@ function module:CreateRaidManager()
 
 	--Role Icons
 	local RoleIcons = CreateFrame("Frame", "RaidManagerRoleIcons", RaidManagerFrame)
-	RoleIcons:SetPoint("LEFT", RaidManagerFrame, "RIGHT", -1, 0)
-	RoleIcons:SetSize(36, RaidManagerFrame:GetHeight())
+	RoleIcons:Point("LEFT", RaidManagerFrame, "RIGHT", -1, 0)
+	RoleIcons:Size(36, RaidManagerFrame:GetHeight())
 	RoleIcons:CreateBackdrop("Transparent")
 	RoleIcons.backdrop:Styling()
 	RoleIcons:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -533,9 +525,9 @@ end
 
 function module:CreateRaidInfo()
 	local header = CreateFrame("Button", nil, E.UIParent)
-	header:SetSize(120, 28)
+	header:Size(120, 28)
 	header:SetFrameLevel(2)
-	header:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 214, -15)
+	header:Point("TOPLEFT", E.UIParent, "TOPLEFT", 214, -15)
 	header:SetFrameStrata("HIGH")
 	header:EnableMouse(true)
 	header:RegisterForClicks("LeftButtonUp", "RightButtonUp")
@@ -543,6 +535,7 @@ function module:CreateRaidInfo()
 	header.backdrop:SetAllPoints()
 	header.backdrop:SetBackdropColor(0, 0, 0, 0.3)
 	header.backdrop:Styling()
+	MER:CreateShadowModule(header.backdrop)
 	E.FrameLocks[header] = true
 
 	E:CreateMover(header, "MER_RaidManager", L["Raid Manager"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,misc')
@@ -592,8 +585,8 @@ function module:CreateRaidInfo()
 	local role = {}
 	for i = 1, 3 do
 		role[i] = roleFrame:CreateTexture(nil, "OVERLAY")
-		role[i]:SetPoint("LEFT", 36*i-30, 0)
-		role[i]:SetSize(15, 15)
+		role[i]:Point("LEFT", 36*i-30, 0)
+		role[i]:Size(15, 15)
 		role[i]:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\LFGROLE")
 		role[i]:SetTexCoord(unpack(RoleTexCoord[i]))
 		role[i].text = MER:CreateText(roleFrame, "OVERLAY", 13, "OUTLINE", "0")
@@ -630,12 +623,12 @@ function module:CreateRaidInfo()
 	resFrame:SetAlpha(0)
 
 	local res = CreateFrame("Frame", nil, resFrame)
-	res:SetSize(22, 22)
-	res:SetPoint("LEFT", 5, 0)
+	res:Size(22, 22)
+	res:Point("LEFT", 5, 0)
 	MER:PixelIcon(res, GetSpellTexture(20484))
 	res.Count = MER:CreateText(res, "OVERLAY", 16, "OUTLINE", "0")
 	res.Count:ClearAllPoints()
-	res.Count:SetPoint("LEFT", res, "RIGHT", 10, 0)
+	res.Count:Point("LEFT", res, "RIGHT", 10, 0)
 	res.Timer = MER:CreateText(resFrame, "OVERLAY", 16, "OUTLINE", "00:00", false, "RIGHT", -5, 0)
 
 	res:SetScript("OnUpdate", function(self, elapsed)
@@ -668,16 +661,17 @@ function module:CreateRaidInfo()
 
 	-- Ready check indicator
 	local rcFrame = CreateFrame("Frame", nil, header)
-	rcFrame:SetPoint("TOP", header, "BOTTOM", 0, -2)
-	rcFrame:SetSize(120, 50)
+	rcFrame:Point("TOP", header, "BOTTOM", 0, -2)
+	rcFrame:Size(120, 50)
 	rcFrame:Hide()
 
 	rcFrame:CreateBackdrop("Transparent")
 	rcFrame.backdrop:SetAllPoints()
 	rcFrame.backdrop:Styling()
+	MER:CreateShadowModule(rcFrame.backdrop)
 	MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", _G.READY_CHECK, true, "TOP", 0, -8)
 
-	local rc = MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", "", false, "TOP", 0, -28)
+	local rc = MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", "", false, "TOP", 0, -25)
 
 	local count, total
 	local function hideRCFrame()

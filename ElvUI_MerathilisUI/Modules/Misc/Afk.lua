@@ -2,22 +2,20 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local AFK = E:GetModule('AFK')
 local COMP = MER:GetModule('MER_Compatibility')
 
--- Cache global variables
--- Lua Variables
 local _G = _G
-local unpack = unpack
+local tonumber, unpack = tonumber, unpack
 local format = string.format
 local floor = math.floor
 local date = date
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
+local GetGameTime = GetGameTime
 local GetTime = GetTime
 local GetGuildInfo = GetGuildInfo
 local IsInGuild = IsInGuild
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
-
--- Credits: DuffedUI
+local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 
 local function Player_Model(self)
 	self:ClearModel()
@@ -28,10 +26,125 @@ local function Player_Model(self)
 	self:SetAnimation(71)
 end
 
-local function SetAFK(status)
+local function ConvertTime(h, m)
+	local AmPm
+	if E.global.datatexts.settings.Time.time24 == true then
+		return h, m, -1
+	else
+		if h >= 12 then
+			if h > 12 then h = h - 12 end
+			AmPm = 1
+		else
+			if h == 0 then h = 12 end
+			AmPm = 2
+		end
+	end
+	return h, m, AmPm
+end
+
+local function CreateTime()
+	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
+	local sHour, sMinute = ConvertTime(GetGameTime())
+
+	local localTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_LOCALTIME, hour, minute, ampm)
+	local localTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_LOCALTIME, hour24, minute)
+	local realmTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute, ampm)
+	local realmTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute)
+
+	if E.global.datatexts.settings.Time.localTime then
+		if E.global.datatexts.settings.Time.time24 == true then
+			return localTime24
+		else
+			return localTime
+		end
+	else
+		if E.global.datatexts.settings.Time.time24 == true then
+			return realmTime24
+		else
+			return realmTime
+		end
+	end
+end
+
+local monthAbr = {
+	[1] = L["Jan"],
+	[2] = L["Feb"],
+	[3] = L["Mar"],
+	[4] = L["Apr"],
+	[5] = L["May"],
+	[6] = L["Jun"],
+	[7] = L["Jul"],
+	[8] = L["Aug"],
+	[9] = L["Sep"],
+	[10] = L["Oct"],
+	[11] = L["Nov"],
+	[12] = L["Dec"],
+}
+
+local daysAbr = {
+	[1] = L["Sun"],
+	[2] = L["Mon"],
+	[3] = L["Tue"],
+	[4] = L["Wed"],
+	[5] = L["Thu"],
+	[6] = L["Fri"],
+	[7] = L["Sat"],
+}
+
+-- Create Date
+local function CreateDate()
+	local date = C_DateAndTime_GetCurrentCalendarTime()
+	local presentWeekday = date.weekday
+	local presentMonth = date.month
+	local presentDay = date.monthDay
+	local presentYear = date.year
+
+	if AFK.AFKMode.DateText then
+		AFK.AFKMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
+	end
+end
+
+function AFK:UpdateLogOff()
+	local timePassed = GetTime() - self.startTime
+	local minutes = floor(timePassed/60)
+	local neg_seconds = -timePassed % 60
+
+	if minutes - 29 == 0 and floor(neg_seconds) == 0 then
+		self:CancelTimer(self.logoffTimer)
+		if self.AFKMode.count then
+			self.AFKMode.count:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
+		end
+	else
+		if self.AFKMode.count then
+			self.AFKMode.count:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds)
+		end
+	end
+end
+
+local function UpdateTimer()
+	local createdTime = CreateTime()
+	local time = GetTime() - AFK.startTime
+
+	-- Set Clock
+	if AFK.AFKMode.ClockText then
+		AFK.AFKMode.ClockText:SetFormattedText(createdTime)
+	end
+
+	-- Set Date
+	CreateDate()
+end
+hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
+
+
+AFK.SetAFKMER = AFK.SetAFK
+function AFK:SetAFK(status)
+	self:SetAFKMER(status)
 	if E.db.mui.general.AFK ~= true then return end
 
 	local guildName = GetGuildInfo("player") or ""
+	local kit, vert, hei = MER:GetConvCrest()
+	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
+
 	if(status) then
 		if(IsInGuild()) then
 			if AFK.AFKMode.Guild then
@@ -42,19 +155,25 @@ local function SetAFK(status)
 				AFK.AFKMode.Guild:SetText(L["No Guild"])
 			end
 		end
+
+		if kit then
+			if AFK.AFKMode.Panel then
+				AFK.AFKMode.Panel.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
+				AFK.AFKMode.Panel.crest:Point("BOTTOM", 0, vert or 14)
+				AFK.AFKMode.Panel.crest:Size(300, hei)
+			end
+		end
+
 		AFK.startTime = GetTime()
+		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
 
 		AFK.isAFK = true
 	elseif(AFK.isAFK) then
+		self:CancelTimer(AFK.logoffTimer)
+
+		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
 		AFK.isAFK = false
 	end
-end
-hooksecurefunc(AFK, "SetAFK", SetAFK)
-
--- AFK-Timer
-local function UpdateTimer()
-	local time = GetTime() - AFK.startTime
-	AFK.AFKMode.AFKTimer:SetText(format('%02d' .. MER.InfoColor ..':|r%02d', floor(time/60), time % 60))
 end
 
 local function Initialize()
@@ -62,8 +181,6 @@ local function Initialize()
 
 	-- Compatibility
 	if (COMP.SLE and E.private.sle.module.screensaver) or (COMP.BUI and E.db.benikui.misc.afkMode) then return end
-
-	AFK.Initialized = true
 
 	-- Hide ElvUI Elements
 	AFK.AFKMode.bottom:Hide() -- Bottom panel
@@ -74,25 +191,24 @@ local function Initialize()
 	AFK.AFKMode.chat:ClearAllPoints()
 	AFK.AFKMode.chat:SetPoint("TOPLEFT", AFK.AFKMode.top, "BOTTOMLEFT", 4, -10)
 
-	AFK.AFKMode.Panel = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
-	AFK.AFKMode.Panel:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
-	AFK.AFKMode.Panel:Size((GetScreenWidth()/2), 80)
-	AFK.AFKMode.Panel:CreateBackdrop('Transparent')
-	AFK.AFKMode.Panel:SetFrameStrata('FULLSCREEN')
-	AFK.AFKMode.Panel:Styling()
+	if not AFK.AFKMode.Panel then
+		AFK.AFKMode.Panel = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
+		AFK.AFKMode.Panel:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
+		AFK.AFKMode.Panel:Size((GetScreenWidth()/2), 80)
+		AFK.AFKMode.Panel:CreateBackdrop('Transparent')
+		AFK.AFKMode.Panel:SetFrameStrata('FULLSCREEN')
+		AFK.AFKMode.Panel:Styling()
+		MER:CreateShadow(AFK.AFKMode.Panel)
 
-	E["frames"][AFK.AFKMode.Panel] = true
-	AFK.AFKMode.Panel.ignoreFrameTemplates = true
-	AFK.AFKMode.Panel.ignoreBackdropColors = true
+		E["frames"][AFK.AFKMode.Panel] = true
+		AFK.AFKMode.Panel.ignoreFrameTemplates = true
+		AFK.AFKMode.Panel.ignoreBackdropColors = true
+	end
 
-	AFK.AFKMode.PanelIcon = CreateFrame('Frame', nil, AFK.AFKMode.Panel, 'BackdropTemplate')
-	AFK.AFKMode.PanelIcon:Size(70)
-	AFK.AFKMode.PanelIcon:Point('CENTER', AFK.AFKMode.Panel, 'TOP', 0, 0)
-
-	AFK.AFKMode.PanelIcon.Texture = AFK.AFKMode.PanelIcon:CreateTexture(nil, 'ARTWORK')
-	AFK.AFKMode.PanelIcon.Texture:Point('TOPLEFT', 2, -2)
-	AFK.AFKMode.PanelIcon.Texture:Point('BOTTOMRIGHT', -2, 2)
-	AFK.AFKMode.PanelIcon.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga')
+	if not AFK.AFKMode.Panel.crest then
+		AFK.AFKMode.Panel.crest = AFK.AFKMode.Panel:CreateTexture(nil, 'ARTWORK')
+		AFK.AFKMode.Panel.crest:SetDrawLayer('ARTWORK')
+	end
 
 	AFK.AFKMode.MERVersion = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.MERVersion:Point('CENTER', AFK.AFKMode.Panel, 'CENTER', 0, -10)
@@ -107,21 +223,9 @@ local function Initialize()
 	AFK.AFKMode.ClockText:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 0)
 	AFK.AFKMode.ClockText:FontTemplate(nil, 20, 'OUTLINE')
 
-	AFK.AFKMode.AFKTimer = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.AFKTimer:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, -26)
-	AFK.AFKMode.AFKTimer:FontTemplate(nil, 16, 'OUTLINE')
-
-	-- Dynamic time & date
-	local interval = 0
-	AFK.AFKMode.Panel:SetScript('OnUpdate', function(self, elapsed)
-		interval = interval - elapsed
-		if interval <= 0 then
-			AFK.AFKMode.ClockText:SetText(format('%s', date('%H' .. MER.InfoColor .. ':|r%M' .. MER.InfoColor .. ':|r%S')))
-			AFK.AFKMode.DateText:SetText(format('%s', date(MER.InfoColor .. '%a|r %b' .. MER.InfoColor .. '/|r%d')))
-			UpdateTimer()
-			interval = 0.5
-		end
-	end)
+	AFK.AFKMode.count = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
+	AFK.AFKMode.count:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, -26)
+	AFK.AFKMode.count:FontTemplate(nil, 14, 'OUTLINE')
 
 	AFK.AFKMode.PlayerName = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.PlayerName:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
@@ -167,11 +271,6 @@ local function Initialize()
 		playerModel.tex.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 		playerModel.tex.text:SetShadowOffset(2, -2)
 	end
-
-	E:UpdateBorderColors()
-
-	AFK:Toggle()
-	AFK.isActive = false
 end
 
 hooksecurefunc(AFK, "Initialize", Initialize)

@@ -42,6 +42,7 @@ local function LoadSkin()
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
+		MER:CreateBackdropShadow(_G[skins[i]])
 	end
 
 	--DropDownMenu
@@ -57,7 +58,7 @@ local function LoadSkin()
 
 		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
 		if menuBackdrop and not menuBackdrop.IsSkinned then
-			menuBackdrop.backdrop:Styling()
+			menuBackdrop:Styling()
 			menuBackdrop.IsSkinned = true
 		end
 	end)

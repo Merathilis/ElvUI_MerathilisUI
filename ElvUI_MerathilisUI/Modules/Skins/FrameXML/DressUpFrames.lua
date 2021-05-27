@@ -48,12 +48,15 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true or E.private.muiSkins.blizzard.dressingroom ~= true then return end
 
 	_G.DressUpFrame:Styling()
+	MER:CreateBackdropShadow(_G.DressUpFrame)
 
 	-- Wardrobe edit frame
 	_G.WardrobeOutfitFrame:Styling()
+	MER:CreateBackdropShadow(_G.WardrobeOutfitFrame)
 
 	-- AuctionHouse
 	_G.SideDressUpFrame:Styling()
+	MER:CreateBackdropShadow(_G.SideDressUpFrame)
 
 	-- Undress Button
 	UndressButton()

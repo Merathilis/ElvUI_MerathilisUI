@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
+local _G = _G
 ----------------------------------------------------------------------------------------
 --	Core options
 ----------------------------------------------------------------------------------------
@@ -18,6 +19,10 @@ MP.general = {
 	FlightPoint = true,
 	style = true,
 	shadowOverlay = true,
+	shadow = {
+		enable = true,
+		increasedSize = 0,
+	},
 }
 
 MP.bags = {
@@ -32,10 +37,12 @@ MP.merchant = {
 
 MP.CombatAlert = {
 	enable = true,
+	font = {
+		name = "Expressway",
+		size = 28,
+		style = "THICKOUTLINE",
+	},
 	style = {
-		font = E.db.general.font,
-		fontSize = 28,
-		fontOutline = "THICKOUTLINE",
 		backdrop = false,
 		font_color_enter = {
 			r = 0.91,
@@ -109,14 +116,13 @@ MP.chat = {
 	chatButton = true,
 	hidePlayerBrackets = true,
 	hideChat = false,
-	chatBar = false,
+	customOnlineMessage = true,
 	emotes = true,
-	itemLevelLink = true,
 	filter = {
 		enable = true,
 		keywords = "",
 		blockAddOnAlerts = true,
-		damagemeter = true,
+		damagemeter = false,
 	},
 	chatFade = {
 		enable = true,
@@ -128,25 +134,161 @@ MP.chat = {
 		enable = true,
 		visibility = "SHOWBOTH",
 	},
+	chatBar = {
+		enable = false,
+		style = "BLOCK",
+		blockShadow = true,
+		autoHide = false,
+		mouseOver = false,
+		backdrop = false,
+		backdropSpacing = 2,
+		buttonWidth = 40,
+		buttonHeight = 5,
+		spacing = 5,
+		orientation = "HORIZONTAL",
+		tex = "MerathilisMelli",
+		font = {
+			name = E.db.general.font,
+			size = 12,
+			style = "OUTLINE"
+		},
+		color = true,
+		channels = {
+			["SAY"] = {
+				enable = true,
+				cmd = "s",
+				color = {r = 1, g = 1, b = 1, a = 1},
+				abbr = _G.SAY
+			},
+			["YELL"] = {
+				enable = true,
+				cmd = "y",
+				color = {r = 1, g = 0.25, b = 0.25, a = 1},
+				abbr = _G.YELL
+			},
+			["EMOTE"] = {
+				enable = false,
+				cmd = "e",
+				color = {r = 1, g = 0.5, b = 0.25, a = 1},
+				abbr = _G.EMOTE
+			},
+			["PARTY"] = {
+				enable = true,
+				cmd = "p",
+				color = {r = 0.67, g = 0.67, b = 1, a = 1},
+				abbr = _G.PARTY
+			},
+			["INSTANCE"] = {
+				enable = true,
+				cmd = "i",
+				color = {r = 1, g = 0.73, b = 0.2, a = 1},
+				abbr = _G.INSTANCE
+			},
+			["RAID"] = {
+				enable = true,
+				cmd = "raid",
+				color = {r = 1, g = 0.5, b = 0, a = 1},
+				abbr = _G.RAID
+			},
+			["RAID_WARNING"] = {
+				enable = false,
+				cmd = "rw",
+				color = {r = 1, g = 0.28, b = 0, a = 1},
+				abbr = _G.RAID_WARNING
+			},
+			["GUILD"] = {
+				enable = true,
+				cmd = "g",
+				color = {r = 0.25, g = 1, b = 0.25, a = 1},
+				abbr = _G.GUILD
+			},
+			["OFFICER"] = {
+				enable = false,
+				cmd = "o",
+				color = {r = 0.25, g = 0.75, b = 0.25, a = 1},
+				abbr = _G.OFFICER
+			},
+			world = {
+				enable = false,
+				autoJoin = true,
+				name = "",
+				color = {r = 0.2, g = 0.6, b = 0.86, a = 1},
+				abbr = L["World"]
+			},
+			community = {
+				enable = false,
+				name = "",
+				color = {r = 0.72, g = 0.27, b = 0.86, a = 1},
+				abbr = L["Community"]
+			},
+			emote = {
+				enable = true,
+				icon = true,
+				color = {r = 1, g = 0.33, b = 0.52, a = 1},
+				abbr = L["Wind Emote"]
+			},
+			roll = {
+				enable = true,
+				icon = true,
+				color = {r = 0.56, g = 0.56, b = 0.56, a = 1},
+				abbr = _G.ROLL
+			},
+		},
+	},
+	chatLink = {
+		enable = true,
+		level = true,
+		icon = true,
+		armorCategory = true,
+		weaponCategory = true,
+		compatibile = true
+	},
 }
 
 MP.colors = {
 	styleAlpha = 1,
 }
 
+MP.mail = {
+	enable = true,
+	defaultPage = "ALTS"
+}
+
 MP.misc = {
-	MailInputbox = true,
 	gmotd = true,
 	quest = {
 		selectQuestReward =	true,
 	},
 	cursor = false,
-	lfgInfo = true,
+	lfgInfo = {
+		enable = true,
+		title = true,
+		mode = "NORMAL",
+		icon = {
+			reskin = true,
+			pack = "SQUARE",
+			size = 16,
+			border = true,
+			alpha = 1
+		},
+		line = {
+			enable = true,
+			tex = "ElvUI Norm",
+			width = 16,
+			height = 3,
+			offsetX = 0,
+			offsetY = -1,
+			alpha = 1
+		},
+	},
 	spellAlert = 0.65,
 	alerts = {
 		lfg = false,
 		announce = true,
 		itemAlert = true,
+		feasts = true,
+		portals = true,
+		toys = true,
 	},
 	paragon = {
 		enable = true,
@@ -156,6 +298,16 @@ MP.misc = {
 	funstuff = true,
 	wowheadlinks = true,
 	respec = true,
+	mawThreatBar = {
+		enable = true,
+		width = 250,
+		height = 16,
+		font = {
+			name = "Expressway",
+			size = 10,
+			style = "OUTLINE",
+		}
+	}
 }
 
 MP.nameHover = {
@@ -172,11 +324,24 @@ MP.notification = {
 	invites = true,
 	guildEvents = true,
 	paragon = true,
+	quickJoin = true,
+	titleFont = {
+		name = "Expressway",
+		size = 12,
+		style = "OUTLINE",
+	},
+	textFont = {
+		name = "Expressway",
+		size = 11,
+		style = "OUTLINE",
+	},
 }
 
 MP.databars = {}
 
-MP.datatexts = {}
+MP.datatexts = {
+	RightChatDataText = true,
+}
 
 MP.actionbars = {
 	customGlow = true,
@@ -189,105 +354,6 @@ MP.actionbars = {
 		enable = true,
 		mouseover = false,
 		size = 28,
-	},
-	autoButtons = {
-		enable = true,
-		bindFontSize = 12,
-		countFontSize = 12,
-		slotAutoButtons = {
-			enable = true,
-			slotBBColorByItem = true,
-			slotBBColor = {r = 1, g = 1, b = 1, a = 1},
-			slotSpace = 3,
-			slotDirection = "RIGHT",
-			slotNum = 5,
-			slotPerRow = 5,
-			slotSize = 40,
-			inheritGlobalFade = false,
-		},
-		questAutoButtons = {
-			enable = true,
-			questBBColorByItem = true,
-			questBBColor = {r = 1, g = 1, b = 1, a = 1},
-			questSpace = 3,
-			questDirection = "RIGHT",
-			questNum = 5,
-			questPerRow = 5,
-			questSize = 40,
-			inheritGlobalFade = false,
-		},
-		usableAutoButtons = {
-			enable = true,
-			usableBBColorByItem = true,
-			usableBBColor = {r = 1, g = 1, b = 1, a = 1},
-			usableSpace = 3,
-			usableDirection = "RIGHT",
-			usableNum = 5,
-			usablePerRow = 5,
-			usableSize = 40,
-			inheritGlobalFade = false,
-		},
-		whiteList = {
-			[5512] = true, -- Healthstone
-			[49040] = true, -- Jeeves
-			[132514] = true, -- Auto-Hammer
-
-			-- Professions (Bfa)
-			[164733] = true, -- Synchronous Thread
-			[164978] = true, -- Mallet of Thunderous Skins
-
-			--Guild and Honor
-			[63359] = true, -- Banner of Cooperation
-			[64398] = true, -- Standard of Unity
-			[64399] = true, -- Battle Standard of Coordination
-			[18606] = true, -- Alliance Battle Standard
-			[64400] = true, -- Banner of Cooperation
-			[64401] = true, -- Standard of Unity
-			[64402] = true, -- Battle Standard of Coordination
-			[18607] = true, -- Horde Battle Standard
-
-			--Legion
-			[118330] = true, -- Pile of Weapons
-			[122100] = true, -- Soul Gem
-			[127030] = true, -- Granny"s Flare Grenades
-			[127295] = true, -- Blazing Torch
-			[128651] = true, -- Critter Hand Cannon
-			[128772] = true, -- Branch of the Runewood
-			[129161] = true, -- Stormforged Horn
-			[129725] = true, -- Smoldering Torch
-			[131931] = true, -- Khadgar"s Wand
-			[133756] = true, -- Fresh Mound of Flesh
-			[133882] = true, -- Trap Rune
-			[133897] = true, -- Telemancy Beacon
-			[133925] = true, -- Fel Lash
-			[133999] = true, -- Inert Crystal
-			[136605] = true, -- Solendra"s Compassion
-			[137299] = true, -- Nightborne Spellblad
-			[138146] = true, -- Rediant Ley Crystal
-			[140916] = true, -- Satchel of Locklimb Powder
-			[109076] = true, -- Goblin Glider Kit
-			[147707] = true, -- Repurposed Fel Focuser
-			[142117] = true, -- Potion of Prolonged Power
-			[153023] = true, -- Lightforged Augment Rune
-
-			--BFA
-			[169451] = true, -- Abyssal Healing Potion
-			[152494] = true, -- Coastal Healing Potion
-			[152495] = true, -- Coastal Mana Potion
-			[160053] = true, -- Battle-Scarred Augment Rune
-			[163224] = true, -- Battle Potion of Strength
-			[163223] = true, -- Battle Potion of Agility
-			[163222] = true, -- Battle Potion of Intellect
-			[163225] = true, -- Battle Potion of Stamina
-			[168500] = true, -- Superior Battle Potion of Strength
-			[168489] = true, -- Superior Battle Potion of Agility
-			[168498] = true, -- Superior Battle Potion of Intellect
-			[168499] = true, -- Superior Battle Potion of Stamina
-			[169299] = true, -- Potion of Unbridled Fury
-		},
-		blackList = {},
-		blackitemID = "",
-		whiteItemID = "",
 	},
 	randomToy = {
 		enable = true,
@@ -324,19 +390,292 @@ MP.actionbars = {
 	},
 }
 
+MP.autoButtons = {
+	enable = true,
+	customList = {},
+	blackList = {
+		[183040] = true
+	},
+	bar1 = {
+		enable = true,
+		mouseOver = false,
+		globalFade = true,
+		fadeTime = 0.3,
+		alphaMin = 1,
+		alphaMax = 1,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 1,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		tooltip = true,
+		inheritGlobalFade = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		include = "QUEST,BANNER,EQUIP,TORGHAST,OPENABLE"
+	},
+	bar2 = {
+		enable = true,
+		mouseOver = false,
+		globalFade = true,
+		fadeTime = 0.3,
+		alphaMin = 1,
+		alphaMax = 1,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 1,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		inheritGlobalFade = true,
+		tooltip = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		include = "POTIONSL,FLASKSL,UTILITY"
+	},
+	bar3 = {
+		enable = true,
+		mouseOver = false,
+		globalFade = true,
+		fadeTime = 0.3,
+		alphaMin = 1,
+		alphaMax = 1,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 1,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		tooltip = true,
+		inheritGlobalFade = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+		include = "MAGEFOOD,FOODVENDOR,FOODSL,CUSTOM"
+	},
+	bar4 = {
+		enable = false,
+		mouseOver = false,
+		globalFade = false,
+		fadeTime = 0.3,
+		alphaMin = 1,
+		alphaMax = 1,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 3,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		tooltip = true,
+		inheritGlobalFade = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		include = "CUSTOM"
+	},
+	bar5 = {
+		enable = false,
+		mouseOver = false,
+		globalFade = false,
+		fadeTime = 0.3,
+		alphaMin = 1,
+		alphaMax = 1,
+		numButtons = 12,
+		backdrop = true,
+		backdropSpacing = 3,
+		buttonWidth = 35,
+		buttonHeight = 30,
+		buttonsPerRow = 12,
+		anchor = "TOPLEFT",
+		spacing = 3,
+		tooltip = true,
+		inheritGlobalFade = true,
+		countFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		bindFont = {
+			name = "Expressway",
+			size = 12,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			}
+		},
+		include = "CUSTOM"
+	}
+}
+
 MP.microBar = {
 	enable = true,
-	scale = 1,
-	template = "Transparent",
-	hideInCombat = true,
-	hideInOrderHall = false,
 	mouseOver = false,
-	tooltip = true,
-	text = {
-		position = "BOTTOM",
-		friends = true,
-		guild = true,
+	backdrop = true,
+	backdropSpacing = 2,
+	shadow = true,
+	timeAreaWidth = 80,
+	timeAreaHeight = 35,
+	buttonSize = 20,
+	spacing = 3,
+	fadeTime = 0.618,
+	normalColor = "NONE",
+	hoverColor = "CLASS",
+	customNormalColor = {r = 1, g = 1, b = 1},
+	customHoverColor = {r = 0, g = 0.659, b = 1},
+	notification = true,
+	visibility = "[petbattle][combat] hide; show",
+	tooltipPosition = "ANCHOR_BOTTOM",
+	time = {
+		localTime = true,
+		twentyFour = true,
+		flash = true,
+		interval = 10,
+		font = {
+			name = E.db.general.font,
+			size = 25,
+			style = "OUTLINE"
+		}
 	},
+	home = {
+		left = "6948",
+		right = "141605"
+	},
+	additionalText = {
+		enable = true,
+		slowMode = true,
+		anchor = "BOTTOMRIGHT",
+		x = 3,
+		y = -3,
+		font = {
+			name = E.db.general.font,
+			size = 12,
+			style = "OUTLINE"
+		}
+	},
+	left = {
+		[1] = "CHARACTER",
+		[2] = "SPELLBOOK",
+		[3] = "TALENTS",
+		[4] = "FRIENDS",
+		[5] = "GUILD",
+		[6] = "GROUP_FINDER",
+		[7] = "SCREENSHOT"
+	},
+	right = {
+		[1] = "HOME",
+		[2] = "ACHIEVEMENTS",
+		[3] = "MISSION_REPORTS",
+		[4] = "ENCOUNTER_JOURNAL",
+		[5] = "TOY_BOX",
+		[6] = "PET_JOURNAL",
+		[7] = "BAGS"
+	}
 }
 
 MP.unitframes = {
@@ -358,23 +697,67 @@ MP.unitframes = {
 	raidIcons = true,
 	roleIcons = true,
 	highlight = true,
+	auras = true,
 }
 
 MP.maps = {
 	minimap = {
 		flash = true,
-		difficulty = true,
+		queueStatus = true,
+		instanceDifficulty = {
+			enable = true,
+			hideBlizzard = true,
+			font = {
+				name = E.db.general.font,
+				size = E.db.general.fontSize,
+				style = "OUTLINE",
+			},
+		},
 		coords = {
 			enable = true,
 			position = "BOTTOM",
 		},
 		ping = {
 			enable = true,
-			position = "TOP",
 			xOffset = 0,
-			yOffset = -20,
+			yOffset = 0,
+			fadeInTime = 0.5,
+			stayTime = 3,
+			fadeOutTime = 0.5,
+			addRealm = false,
+			onlyInCombat = false,
+			classColor = true,
+			customColor = {r = 1, g = 1, b = 1},
+			font = {
+				name = E.db.general.font,
+				size = 12,
+				style = "OUTLINE"
+			},
 		},
-		rectangle = false,
+		rectangleMinimap = {
+			enable = false,
+			heightPercentage = 0.8
+		},
+	},
+	superTracker = {
+		enable = true,
+		noLimit = false,
+		autoTrackWaypoint = true,
+		rightClickToClear = true,
+		distanceText = {
+			enable = true,
+			name = E.db.general.font,
+			size = E.db.general.fontSize + 2,
+			style = "OUTLINE",
+			color = {r = 1, g = 1, b = 1},
+			onlyNumber = false,
+		}
+	},
+	worldMap = {
+		scale = {
+			enable = true,
+			size = 1.15
+		},
 	},
 }
 
@@ -402,12 +785,6 @@ MP.media = {
 	},
 	miscText = {
 		mail = {
-			enable = true,
-			font = "Expressway",
-			size = 12,
-			outline = "NONE",
-		},
-		editbox = {
 			enable = true,
 			font = "Expressway",
 			size = 12,
@@ -441,6 +818,8 @@ MP.media = {
 }
 
 MP.panels = {
+	colorType = "CLASS",
+	customColor = {r = 1, g = 1, b = 1 },
 	topPanel = true,
 	bottomPanel = true,
 	stylePanels = {
@@ -460,9 +839,9 @@ MP.panels = {
 
 MP.smb = {
 	enable = true,
-	size = 34,
-	perRow = 12,
-	spacing = 2,
+	size = 30,
+	perRow = 6,
+	spacing = 1,
 }
 
 MP.locPanel = {
@@ -494,7 +873,7 @@ MP.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,184353",
+		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
@@ -644,24 +1023,6 @@ MP.cooldownFlash = {
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
 }
 
-MP.raidCD = {
-	enable = true,
-	width = 200,
-	height = 16,
-	upwards = false,
-	expiration = false,
-	show_self = true,
-	show_icon = true,
-	show_inparty = false,
-	show_inraid = true,
-	show_inarena = false,
-	text = {
-		font = "Expressway",
-		fontSize = 10,
-		fontOutline = "OUTLINE",
-	},
-}
-
 MP.armory = {
 	enable = true,
 	undressButton = true,
@@ -707,6 +1068,9 @@ MP.armory = {
 		enable = true,
 	},
 	illusion = {
+		enable = true,
+	},
+	warning = {
 		enable = true,
 	},
 }

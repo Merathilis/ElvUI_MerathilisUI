@@ -18,15 +18,15 @@ local function LoadSkin()
 	-- Revert my Styling function on these buttons
 	if E.db.chat.pinVoiceButtons and not E.db.chat.hideVoiceButtons then
 		if _G.ChatFrameChannelButton then
-			_G.ChatFrameChannelButton:StripTextures()
+			_G.ChatFrameChannelButton:DisableDrawLayer("BORDER")
 		end
 
 		if _G.ChatFrameToggleVoiceDeafenButton then
-			_G.ChatFrameToggleVoiceDeafenButton:StripTextures()
+			_G.ChatFrameToggleVoiceDeafenButton:DisableDrawLayer("BORDER")
 		end
 
 		if _G.ChatFrameToggleVoiceMuteButton then
-			_G.ChatFrameToggleVoiceMuteButton:StripTextures()
+			_G.ChatFrameToggleVoiceMuteButton:DisableDrawLayer("BORDER")
 		end
 	else
 		--ElvUI ChatButtonHolder
@@ -34,6 +34,7 @@ local function LoadSkin()
 			_G.ChatButtonHolder:Styling()
 		end
 	end
+
 
 	do
 		local ChatMenus = {

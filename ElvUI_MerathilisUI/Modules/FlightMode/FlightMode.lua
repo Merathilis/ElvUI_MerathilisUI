@@ -2,6 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_FlightMode')
 local COMP = MER:GetModule('MER_Compatibility')
 local MERS = MER:GetModule('MER_Skins')
+local AU = MER:GetModule('MER_AutoButtons')
 local AB = E:GetModule('ActionBars')
 local LO = E:GetModule('Layout')
 
@@ -108,6 +109,7 @@ local AddonsToHide = {
 	-- addon, frame
 	{'ZygorGuidesViewer', 'ZygorGuidesViewerFrame'},
 	{'ZygorGuidesViewer', 'Zygor_Notification_Center'},
+	{'ZygorGuidesViewer', 'ZygorGuidesViewer_ActionBar'},
 	{'WorldQuestTracker', 'WorldQuestTrackerScreenPanel'},
 	{'WorldQuestTracker', 'WorldQuestTrackerFinderFrame'},
 	{'XIV_Databar', 'XIV_Databar'},
@@ -121,11 +123,104 @@ local AddonsToHide = {
 	{'ConRO', 'ConRODefenseWindow'},
 	{'ConRO', 'ConRO_BurstButton'},
 	{'ConRO', 'ConRO_AutoButton'},
+	{'ConRO', 'ConRO_SingleButton'},
+	{'ConRO', 'ConRO_FullButton'},
+	{'Details', 'DetailsBaseFrame1'}, -- probably more
+	{'Details', 'DetailsRowFrame1'}, -- probably more
+	{'!KalielsTracker','!KalielsTrackerFrame'},
 }
 
+local function ConvertTime(h, m)
+	local AmPm
+	if E.global.datatexts.settings.Time.time24 == true then
+		return h, m, -1
+	else
+		if h >= 12 then
+			if h > 12 then h = h - 12 end
+			AmPm = 1
+		else
+			if h == 0 then h = 12 end
+			AmPm = 2
+		end
+	end
+	return h, m, AmPm
+end
+
+local function CreateTime()
+	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
+	local sHour, sMinute = ConvertTime(GetGameTime())
+
+	local localTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_LOCALTIME, hour, minute, ampm)
+	local localTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_LOCALTIME, hour24, minute)
+	local realmTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute, ampm)
+	local realmTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute)
+
+	if E.global.datatexts.settings.Time.localTime then
+		if E.global.datatexts.settings.Time.time24 == true then
+			return localTime24
+		else
+			return localTime
+		end
+	else
+		if E.global.datatexts.settings.Time.time24 == true then
+			return realmTime24
+		else
+			return realmTime
+		end
+	end
+end
+
+local monthAbr = {
+	[1] = L["Jan"],
+	[2] = L["Feb"],
+	[3] = L["Mar"],
+	[4] = L["Apr"],
+	[5] = L["May"],
+	[6] = L["Jun"],
+	[7] = L["Jul"],
+	[8] = L["Aug"],
+	[9] = L["Sep"],
+	[10] = L["Oct"],
+	[11] = L["Nov"],
+	[12] = L["Dec"],
+}
+
+local daysAbr = {
+	[1] = L["Sun"],
+	[2] = L["Mon"],
+	[3] = L["Tue"],
+	[4] = L["Wed"],
+	[5] = L["Thu"],
+	[6] = L["Fri"],
+	[7] = L["Sat"],
+}
+
+-- Create Date
+local function CreateDate()
+	local date = C_DateAndTime.GetCurrentCalendarTime()
+	local presentWeekday = date.weekday
+	local presentMonth = date.month
+	local presentDay = date.monthDay
+	local presentYear = date.year
+
+	if module.FlightMode.DateText then
+		module.FlightMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
+	end
+end
+
 function module:UpdateTimer()
+	local createdTime = CreateTime()
 	local time = GetTime() - module.startTime
-	module.FlightMode.TimeFlying:SetFormattedText('%02d:%02d', floor(time/60), time % 60)
+
+	if module.FlightMode.TimeFlying then
+		module.FlightMode.TimeFlying:SetFormattedText('%02d:%02d', floor(time/60), time % 60)
+	end
+
+	if module.FlightMode.ClockText then
+		module.FlightMode.ClockText:SetFormattedText(createdTime)
+	end
+
+	CreateDate()
 end
 
 local VisibleFrames = {}
@@ -133,6 +228,8 @@ local VisibleFrames = {}
 function module:SetFlightMode(status)
 	if InCombatLockdown() then return end
 
+	local kit, vert, hei = MER:GetConvCrest()
+	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
 	if status then
 		module.FlightMode:Show()
 
@@ -162,6 +259,14 @@ function module:SetFlightMode(status)
 			_G.RightChatPanel:Hide()
 		end
 
+		-- Hide SquareMinimapButtonBar
+		if COMP.PA  then
+			if SquareMinimapButtonBar then
+				_G.SquareMinimapButtons:CancelAllTimers()
+				SquareMinimapButtonBar:SetAlpha(0)
+			end
+		end
+
 		for i, v in ipairs(AddonsToHide) do
 			local addon, frame = unpack(v)
 			if IsAddOnLoaded(addon) then
@@ -183,21 +288,33 @@ function module:SetFlightMode(status)
 			end
 		end
 
-		if _G.ElvUI_StanceBar then
+		-- Stance Bar
+		if _G.ElvUI_StanceBar:GetParent() == AB.fadeParent then
 			_G.ElvUI_StanceBar:SetAlpha(0)
 		end
 
 		-- Hide AutoButtons
-		for i = 1, 12 do
-			if _G['AutoQuestButton' .. i] then _G['AutoQuestButton' .. i]:Hide() end
-			if _G['AutoSlotButton' .. i] then _G['AutoSlotButton' .. i]:Hide() end
-			if _G['AutoUsableButton' .. i] then _G['AutoUsableButton' .. i]:Hide() end
+		for _, bar in pairs(AU.bars) do
+			if bar then
+				bar:GetParent():Hide()
+			end
+		end
+
+		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
+			_G.ZoneAbilityFrame:SetAlpha(0)
 		end
 
 		C_Timer_After(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
 
 		-- Disable Blizz location messsages
 		_G.ZoneTextFrame:UnregisterAllEvents()
+
+		-- Covenant Crest
+		if kit then
+			module.FlightMode.Top.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
+			module.FlightMode.Top.crest:Point("TOP", 0, vert or 14)
+			module.FlightMode.Top.crest:Size(300, hei)
+		end
 
 		module.startTime = GetTime()
 		module.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
@@ -256,20 +373,24 @@ function module:SetFlightMode(status)
 		end
 
 		-- Revert ActionBars
-		for _, bar in pairs(AB.handledBars) do
-			if bar then
-				bar:SetAlpha(1)
-			end
+		for barName in pairs(AB.handledBars) do
+			AB:PositionAndSizeBar(barName)
 		end
 
-		if _G.ElvUI_StanceBar then
+		-- Stance Bar
+		if _G.ElvUI_StanceBar:GetParent() == AB.fadeParent then
 			_G.ElvUI_StanceBar:SetAlpha(1)
 		end
 
-		for i = 1, 12 do
-			if _G['AutoQuestButton' .. i] then _G['AutoQuestButton' .. i]:Show() end
-			if _G['AutoSlotButton' .. i] then _G['AutoSlotButton' .. i]:Show() end
-			if _G['AutoUsableButton' .. i] then _G['AutoUsableButton' .. i]:Show() end
+		-- Revert AutoButtons
+		for _, bar in pairs(AU.bars) do
+			if bar then
+				bar:GetParent():Show()
+			end
+		end
+
+		if _G.ZoneAbilityFrame and _G.ZoneAbilityFrame:GetParent() then
+			_G.ZoneAbilityFrame:SetAlpha(1)
 		end
 
 		-- Revert Chat
@@ -285,6 +406,14 @@ function module:SetFlightMode(status)
 
 			LO:RepositionChatDataPanels()
 			LO:ToggleChatPanels()
+		end
+
+		-- Show SquareMinimapButtonBar
+		if COMP.PA then
+			if SquareMinimapButtonBar then
+				_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
+				SquareMinimapButtonBar:SetAlpha(1)
+			end
 		end
 
 		module.inFlightMode = false
@@ -397,23 +526,12 @@ function module:CreateFlightMode()
 	module.FlightMode.Top.RightStyle2:Point('TOP', module.FlightMode.Top.RightStyle1,'BOTTOM')
 	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle2, panelSize, E.mult, 'Horizontal', r, g, b, 0, .7)
 
-	-- WoW logo
-	module.FlightMode.Top.wowlogo = CreateFrame('Frame', nil, module.FlightMode) -- need this to upper the logo layer
-	module.FlightMode.Top.wowlogo:Point('TOP', module.FlightMode.Top, 'CENTER', 0, 35)
-	module.FlightMode.Top.wowlogo:SetFrameStrata("HIGH")
-	module.FlightMode.Top.wowlogo:Size(300, 150)
-
-	module.FlightMode.Top.wowlogo.tex = module.FlightMode.Top.wowlogo:CreateTexture(nil, 'OVERLAY')
-	local currentExpansionLevel = GetClampedCurrentExpansionLevel()
-	local expansionDisplayInfo = GetExpansionDisplayInfo(currentExpansionLevel)
-	if expansionDisplayInfo then
-		module.FlightMode.Top.wowlogo.tex:SetTexture(expansionDisplayInfo.logo)
-	end
-	module.FlightMode.Top.wowlogo.tex:SetInside()
+	module.FlightMode.Top.crest = module.FlightMode.Top:CreateTexture(nil, 'ARTWORK')
+	module.FlightMode.Top.crest:SetDrawLayer('ARTWORK')
 
 	module.FlightMode.Top.CloseButton = CreateFrame('Button', nil, module.FlightMode.Top, 'BackdropTemplate')
 	module.FlightMode.Top.CloseButton:Size(24)
-	module.FlightMode.Top.CloseButton:Point('RIGHT', module.FlightMode.Top, 'RIGHT', -6, -3)
+	module.FlightMode.Top.CloseButton:Point('RIGHT', module.FlightMode.Top, 'RIGHT', -12, -3)
 
 	module.FlightMode.Top.CloseButton.img = module.FlightMode.Top.CloseButton:CreateTexture(nil, 'OVERLAY')
 	module.FlightMode.Top.CloseButton.img:Point('CENTER')
@@ -454,6 +572,7 @@ function module:CreateFlightMode()
 	module.FlightMode.Panel:Size((GetScreenWidth()/2), 80)
 	module.FlightMode.Panel:CreateBackdrop('Transparent')
 	module.FlightMode.Panel:SetFrameStrata('FULLSCREEN')
+	MER:CreateShadow(module.FlightMode.Panel)
 	module.FlightMode.Panel:Styling()
 
 	module.FlightMode.PanelIcon = CreateFrame('Frame', nil, module.FlightMode.Panel, 'BackdropTemplate')
@@ -487,10 +606,7 @@ function module:CreateFlightMode()
 	module.FlightMode.Panel:SetScript('OnUpdate', function(self, elapsed)
 		interval = interval - elapsed
 		if interval <= 0 then
-			module.FlightMode.ClockText:SetText(format('%s', date('%H' .. MER.InfoColor .. ':|r%M' .. MER.InfoColor .. ':|r%S')))
-			module.FlightMode.DateText:SetText(format('%s', date(MER.InfoColor .. '%a|r %b' .. MER.InfoColor .. '/|r%d')))
 			module:UpdateTimer()
-
 			interval = 0.5
 		end
 	end)
@@ -593,7 +709,6 @@ function module:Initialize()
 	end
 	module:ForUpdateAll()
 
-	E:UpdateBorderColors()
 	module:Toggle()
 	module:Resize()
 

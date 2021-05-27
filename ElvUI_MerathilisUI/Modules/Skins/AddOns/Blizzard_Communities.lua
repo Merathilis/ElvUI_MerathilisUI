@@ -17,8 +17,16 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or E.private.muiSkins.blizzard.communities ~= true then return end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
-	if CommunitiesFrame.backdrop then
-		CommunitiesFrame.backdrop:Styling()
+	CommunitiesFrame:Styling()
+	MER:CreateBackdropShadow(CommunitiesFrame)
+	MER:CreateShadow(CommunitiesFrame.ChatTab)
+	MER:CreateShadow(CommunitiesFrame.RosterTab)
+	MER:CreateShadow(CommunitiesFrame.GuildBenefitsTab)
+	MER:CreateShadow(CommunitiesFrame.GuildInfoTab)
+	MER:CreateBackdropShadow(CommunitiesFrame.GuildMemberDetailFrame)
+	MER:CreateBackdropShadow(CommunitiesFrame.ClubFinderInvitationFrame)
+	if _G.CommunitiesGuildLogFrame then
+		MER:CreateBackdropShadow(_G.CommunitiesGuildLogFrame)
 	end
 
 	-- Active Communities

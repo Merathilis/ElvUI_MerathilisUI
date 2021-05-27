@@ -55,6 +55,7 @@ local function SkinVendorItems(i)
 
 	bu:SetHighlightTexture("")
 	bu:CreateBackdrop()
+	bu:StyleButton(false)
 
 	_G["MerchantItem"..i.."SlotTexture"]:Hide()
 	_G["MerchantItem"..i.."NameFrame"]:Hide()
@@ -63,14 +64,13 @@ local function SkinVendorItems(i)
 	bu:SetPoint(a1, p, a2, -1, -1)
 	bu:SetNormalTexture("")
 	bu:SetPushedTexture("")
-	bu:SetSize(42, 42)
 
 	local a3, p2, a4, x, y = mo:GetPoint()
 	mo:SetPoint(a3, p2, a4, x, y+2)
 
 	MERS:CreateBD(bu, 0)
 
-	button.bd = CreateFrame("Frame", nil, button)
+	button.bd = CreateFrame("Frame", nil, button, "BackdropTemplate")
 	button.bd:SetPoint("TOPLEFT", 39, 0)
 	button.bd:SetPoint("BOTTOMRIGHT")
 	button.bd:SetFrameLevel(0)
@@ -78,7 +78,9 @@ local function SkinVendorItems(i)
 	MERS:CreateGradient(button.bd)
 
 	ic:SetTexCoord(unpack(E.TexCoords))
-	ic:SetInside()
+	ic:ClearAllPoints()
+	ic:Point('TOPLEFT', 1, -1)
+	ic:Point('BOTTOMRIGHT', -1, 1)
 	IconBorder:SetAlpha(0)
 
 	-- Hide ElvUI's backdrop
@@ -86,16 +88,15 @@ local function SkinVendorItems(i)
 		button.backdrop:Hide()
 	end
 
-	--hooksecurefunc(IconBorder, 'SetVertexColor', function(self, r, g, b)
-		--self:SetBackdropBorderColor(r, g, b)
-		--self:SetTexture("")
-	--end)
---
-	--hooksecurefunc(IconBorder, 'Hide', function(self)
-		--self:SetBackdropBorderColor(unpack(E.media.bordercolor))
-	--end)
-
 	_G.MerchantBuyBackItemItemButton.IconBorder:SetAlpha(0)
+
+	hooksecurefunc(IconBorder, 'SetVertexColor', function(self, r, g, b)
+		bu.backdrop:SetBackdropBorderColor(r, g, b)
+	end)
+
+	hooksecurefunc(IconBorder, 'Hide', function(self)
+		bu.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	end)
 
 	MER.NPC:Register(_G.MerchantFrame)
 end
@@ -150,7 +151,7 @@ local function UpdateButtonsPositions(isBuyBack)
 end
 
 local function UpdateBuybackInfo()
-	if E.db.mui.merchant.style == "Default" then UpdateButtonsPositions(true) end
+	UpdateButtonsPositions(true)
 
 	-- apply coloring
 	local btn, link, quality, r, g, b, _
@@ -163,7 +164,7 @@ local function UpdateBuybackInfo()
 				if quality then
 					r, g, b = GetItemQualityColor(quality)
 				else
-					r, g, b = 1,1,1
+					r, g, b = 1, 1, 1
 				end
 				_G["MerchantItem" .. i .. "Name"]:SetTextColor(r, g, b)
 			end
@@ -239,7 +240,8 @@ local function UpdateMerchantInfo()
 			if itemButton and itemButton:IsShown() then
 				if not itemButton.text then
 					itemButton.text = MER:CreateText(itemButton, "OVERLAY", 10)
-					itemButton.text:SetPoint("BOTTOMRIGHT", 0, 2)
+					itemButton.text:ClearAllPoints()
+					itemButton.text:Point("BOTTOMRIGHT", 2, -9)
 				else
 					itemButton.text:SetText("")
 				end
@@ -272,7 +274,7 @@ local function UpdateMerchantInfo()
 					itemButton.texture = texture
 					MerchantFrame_UpdateAltCurrency(index, i, canAfford)
 					merchantAltCurrency:ClearAllPoints()
-					merchantAltCurrency:SetPoint("BOTTOMLEFT", "MerchantItem"..i.."NameFrame", "BOTTOMLEFT", 0, 31)
+					merchantAltCurrency:Point("BOTTOMLEFT", "MerchantItem"..i.."NameFrame", "BOTTOMLEFT", 0, 31)
 					merchantMoney:Hide()
 					merchantAltCurrency:Show()
 				elseif ( extendedCost and (price > 0) ) then
@@ -290,7 +292,7 @@ local function UpdateMerchantInfo()
 					end
 					SetMoneyFrameColor(merchantMoney:GetName(), color)
 					merchantAltCurrency:ClearAllPoints()
-					merchantAltCurrency:SetPoint("LEFT", merchantMoney:GetName(), "RIGHT", -14, 0)
+					merchantAltCurrency:Point("LEFT", merchantMoney:GetName(), "RIGHT", -14, 0)
 					merchantAltCurrency:Show()
 					merchantMoney:Show()
 				else
@@ -351,7 +353,9 @@ local function UpdateMerchantInfo()
 					) then
 					alpha = 1
 				end
+
 				merchantButton:SetAlpha(alpha)
+
 				SetItemButtonNameFrameVertexColor(merchantButton, detailColor.r * colorMult, detailColor.g * colorMult, detailColor.b * colorMult)
 				SetItemButtonSlotVertexColor(merchantButton, slotColor.r * colorMult, slotColor.g * colorMult, slotColor.b * colorMult)
 				SetItemButtonTextureVertexColor(itemButton, slotColor.r * colorMult, slotColor.g * colorMult, slotColor.b * colorMult)
@@ -375,11 +379,12 @@ local function RebuildMerchantFrame()
 	ItemsPerSubpage = _G.MERCHANT_ITEMS_PER_PAGE
 	SubpagesPerPage = E.db.mui.merchant.subpages
 	_G.MERCHANT_ITEMS_PER_PAGE = SubpagesPerPage * 10 --Haven't seen this causing any taints so I asume it's ok
-	_G["MerchantFrame"]:SetWidth(42 + (318 * SubpagesPerPage) + (12 * (SubpagesPerPage - 1)))
+	_G["MerchantFrame"]:Width(42 + (318 * SubpagesPerPage) + (12 * (SubpagesPerPage - 1)))
 
 	if _G.MerchantFrame.backdrop then
 		_G.MerchantFrame.backdrop:Styling()
 	end
+	MER:CreateBackdropShadow(_G.MerchantFrame)
 
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
 		if (not _G["MerchantItem" .. i]) then
@@ -398,29 +403,29 @@ local function RebuildMerchantFrame()
 
 	 -- alter the position of the buyback item slot on the merchant tab
 	_G["MerchantBuyBackItem"]:ClearAllPoints()
-	_G["MerchantBuyBackItem"]:SetPoint("TOPLEFT", _G["MerchantItem10"], "BOTTOMLEFT", -14, -20)
+	_G["MerchantBuyBackItem"]:Point("TOPLEFT", _G["MerchantItem10"], "BOTTOMLEFT", -14, -20)
 
 	-- move the next/previous page buttons
 	_G["MerchantPrevPageButton"]:ClearAllPoints()
-	_G["MerchantPrevPageButton"]:SetPoint("CENTER", _G["MerchantFrame"], "BOTTOM", 50, 70)
+	_G["MerchantPrevPageButton"]:Point("CENTER", _G["MerchantFrame"], "BOTTOM", 50, 70)
 	_G["MerchantPageText"]:ClearAllPoints()
-	_G["MerchantPageText"]:SetPoint("BOTTOM", _G["MerchantFrame"], "BOTTOM", 160, 65)
+	_G["MerchantPageText"]:Point("BOTTOM", _G["MerchantFrame"], "BOTTOM", 160, 65)
 	_G["MerchantNextPageButton"]:ClearAllPoints()
-	_G["MerchantNextPageButton"]:SetPoint("CENTER", _G["MerchantFrame"], "BOTTOM", 270, 70)
+	_G["MerchantNextPageButton"]:Point("CENTER", _G["MerchantFrame"], "BOTTOM", 270, 70)
 
 	-- currency insets
 	_G["MerchantExtraCurrencyInset"]:ClearAllPoints()
-	_G["MerchantExtraCurrencyInset"]:SetPoint("BOTTOMRIGHT", _G["MerchantMoneyInset"], "BOTTOMLEFT", 0, 0)
-	_G["MerchantExtraCurrencyInset"]:SetPoint("TOPLEFT", _G["MerchantMoneyInset"], "TOPLEFT", -165, 0)
+	_G["MerchantExtraCurrencyInset"]:Point("BOTTOMRIGHT", _G["MerchantMoneyInset"], "BOTTOMLEFT", 0, 0)
+	_G["MerchantExtraCurrencyInset"]:Point("TOPLEFT", _G["MerchantMoneyInset"], "TOPLEFT", -165, 0)
 	_G["MerchantExtraCurrencyBg"]:ClearAllPoints()
-	_G["MerchantExtraCurrencyBg"]:SetPoint("TOPLEFT", _G["MerchantExtraCurrencyInset"], "TOPLEFT", 3, -2)
-	_G["MerchantExtraCurrencyBg"]:SetPoint("BOTTOMRIGHT", _G["MerchantExtraCurrencyInset"], "BOTTOMRIGHT", -3, 2)
+	_G["MerchantExtraCurrencyBg"]:Point("TOPLEFT", _G["MerchantExtraCurrencyInset"], "TOPLEFT", 3, -2)
+	_G["MerchantExtraCurrencyBg"]:Point("BOTTOMRIGHT", _G["MerchantExtraCurrencyInset"], "BOTTOMRIGHT", -3, 2)
 
 	searchBox = CreateFrame("EditBox", "$parentSearchBox", _G["MerchantFrame"], "InputBoxTemplate")
-	searchBox:SetWidth(_G["MerchantItem1"]:GetWidth())
-	searchBox:SetHeight(21)
+	searchBox:Width(_G["MerchantItem1"]:GetWidth())
+	searchBox:Height(21)
 	searchBox:ClearAllPoints()
-	searchBox:SetPoint("RIGHT", _G["MerchantFrameLootFilter"], "LEFT", 0, 2)
+	searchBox:Point("RIGHT", _G["MerchantFrameLootFilter"], "LEFT", 0, 2)
 	searchBox:SetAutoFocus(false)
 	searchBox:SetFontObject(_G.ChatFontSmall)
 	searchBox:SetScript("OnTextChanged", function(self) searching = self:GetText():trim():lower() UpdateMerchantInfo() end)
@@ -448,7 +453,6 @@ local function MerchantSkinInit()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.db.mui.merchant.enable ~= true then return end
 
 	hooksecurefunc("MerchantFrame_UpdateBuybackInfo", UpdateBuybackInfo)
-	if E.db.mui.merchant.style ~= "Default" then return end
 
 	RebuildMerchantFrame()
 	UpdateButtonsPositions()

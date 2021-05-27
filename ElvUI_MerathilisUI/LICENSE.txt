@@ -7,7 +7,7 @@ copyrighted to their authors with all rights reserved.
 This addon is free to use and the authors hereby grants you the following rights:
 
 1. You may make modifications to this addon for private use only, you may not publicize (upload) any portion of this addon. The only exception being you may
-   upload to the tukui.org or git.tukui.org website, AFTER a permission. 
+   upload to the tukui.org or git.tukui.org website, AFTER a permission.
 2. Do not modify the name of this addon, including the addon folders.
 3. This copyright notice shall be included in all copies or substantial portions of the Software.
 
@@ -21,7 +21,7 @@ Darth Predator: Full permission
 Repoooc: Full permission
 Benik: Full permission
 Azilroka: Full permission
-NihilisticPandemonium: Full permission
+Nihilistzsche: Full permission
 Simpy: Full permission
 liquidbase: Full permission
 siweia: Full permission

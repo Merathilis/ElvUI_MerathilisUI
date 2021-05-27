@@ -1,13 +1,10 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_CVars')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local tonumber = tonumber
--- WoW API / Variable
+
 local GetCVar = GetCVar
--- GLOBALS:
 
 -- CREDITS: ElvUI_LIVVENUI
 
@@ -101,7 +98,7 @@ function module:LoadCVar()
 	end
 
 	if GetCVar("floatingCombatTextSpellMechanics") == "0" then
-		E.db.mui.cvarscombatText.targetCombatText.floatingCombatTextSpellMechanics = false
+		E.db.mui.cvars.combatText.targetCombatText.floatingCombatTextSpellMechanics = false
 	else
 		E.db.mui.cvars.combatText.targetCombatText.floatingCombatTextSpellMechanics = true
 	end
@@ -207,4 +204,4 @@ function module:Initialize()
 	self:LoadCVar()
 end
 
-E:RegisterModule(module:GetName())
+MER:RegisterModule(module:GetName())

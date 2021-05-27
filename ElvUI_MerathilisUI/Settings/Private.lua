@@ -56,7 +56,6 @@ V.muiSkins = {
 		taxi = true,
 		help = true,
 		loot = true,
-		warboard = true,
 		deathRecap = true,
 		communities = true,
 		channels = true,
@@ -85,6 +84,10 @@ V.muiSkins = {
 		covenantSanctum = true,
 		covenantPreview = true,
 		playerChoice = true,
+		chromieTime = true,
+		levelUp = true,
+		covenantRenown = true,
+		guide = true,
 	},
 
 	addonSkins = {
@@ -99,7 +102,7 @@ V.muiSkins = {
 		cl = true,
 		cbn = true,
 		et = true,
-		tb = true,
+		wa = true,
 	},
 
 	elvuiAddons = {

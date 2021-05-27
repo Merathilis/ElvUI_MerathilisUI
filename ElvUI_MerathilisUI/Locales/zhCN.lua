@@ -15,7 +15,7 @@ L["SplashScreen"] = "闪屏"
 L["Enable/Disable the Splash Screen on Login."] = "在登录时启用/禁用启动画面."
 L["Options"] = "选项"
 L["Desciption"] = "描述"
-L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r 是ElvUI的扩展. 它增加了:
+L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r 是ElvUI的扩展. 它增加了:
 
 - 大量新特性
 - 一个整体的透明外观
@@ -59,7 +59,7 @@ L["Removes brackets around the person who posts a chat message."] = "删除聊�
 L["Hide Community Chat"] = "隐藏社区聊天"
 L["Adds an overlay to the Community Chat. Useful for streamers."] = "在社区聊天内容上添加一个遮罩，对主播很有用"
 L["Chat Hidden. Click to show"] = "聊天框已隐藏，点击显示"
-L["ChatBar"] = "聊天条"
+L["Chat Bar"] = "聊天条"
 L["Shows a ChatBar with different quick buttons."] = "用不同的快捷按钮显示一个聊天条"
 L["Click to open Emoticon Frame"] = "点击打开表情框架"
 L["Emotes"] = "表情"
@@ -67,6 +67,27 @@ L["Damage Meter Filter"] = "伤害统计过滤"
 L["Fade Chat"] = "聊天渐隐"
 L["Auto hide timeout"] = "时间"
 L["Seconds before fading chat panel"] = "多少秒后聊天框自动隐藏"
+L["Seperators"] = "标签分隔符"
+L["Orientation"] = "方向"
+L["Community"] = "社群"
+L["Please use Blizzard Communities UI add the channel to your main chat frame first."] = "请先加入一个社区."
+L["Channel Name"] = "频道名称"
+L["Abbreviation"] = "缩写"
+L["Auto Join"] = "自动加入"
+L["World"] = "世界"
+L["Channels"] = "频道"
+L["Block Shadow"] = "按键阴影"
+L["Hide channels not exist."] = "隐藏不存在的频道."
+L["Only show chat bar when you mouse over it."] = "鼠标滑过时显示."
+L["Button"] = "按键"
+L["Item Level Links"] = "物品等级链接"
+L["Filter"] = "过滤器"
+L["Block"] = "块"
+L["Use Icon"] = "使用图标"
+L["Use a icon rather than text"] = "使用图标"
+L["Use Color"] = "使用颜色"
+L["Font Setting"] = "字体设定"
+L["Custom Online Message"] = true
 
 -- Combat Alert
 L["Combat Alert"] = "战斗提示"
@@ -91,7 +112,7 @@ L["Development Version"] = "开发版本"
 L["Here you can download the latest development version."] = "您可以从这里下载最新的开发版本."
 
 -- Modules
-L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = "你能在这里找到所有不同的选项 |cffff8000MerathilisUI|r 模块.\n请使用下拉列表浏览模块."
+L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."] = "你能在这里找到所有不同的选项 |cffffffffMerathilis|r|cffff8000UI|r 模块.\n请使用下拉列表浏览模块."
 
 -- GameMenu
 L["GameMenu"] = "游戏菜单"
@@ -99,32 +120,70 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "从暴
 
 -- FlightMode
 L["FlightMode"] = "飞行模式"
-L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
-L["Exit FlightMode"] = true
-L["Left Click to Request Stop"] = true
+L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "增强 |cff00c0faBenikUI|r 的飞行模式, 如需完全禁用飞行模式, 请前往 |cff00c0faBenikUI|r 选项."
+L["Exit FlightMode"] = "退出飞行模式"
+L["Left Click to Request Stop"] = "左键点击来请求停止"
 
 -- FlightPoint
 L["Flight Point"] = "飞行点"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "在飞行地图上启用/禁用MerathilisUI飞行点."
 
--- MasterPlan
-L["MasterPlan"] = true
-L["Skins the additional Tabs from MasterPlan."] = true
+-- Mail
+L["Mail"] = "邮件"
+L["Alternate Character"] = "其他角色"
+L["Alt List"] = "角色列表"
+L["Delete"] = "删除"
+L["Favorites"] = "收藏"
+L["Favorite List"] = "收藏列表"
+L["Name"] = "姓名"
+L["Realm"] = "服务器"
+L["Add"] = "添加"
+L["Please set the name and realm first."] = "请先填写姓名和服务器."
+L["Toggle Contacts"] = "开/关通讯录"
+L["Online Friends"] = "在线好友"
+L["Add To Favorites"] = "添加到收藏"
+L["Remove From Favorites"] = "从收藏移除"
 
 -- MicroBar
-L["Hide In Orderhall"] = "在职业大厅中隐藏"
-L["Show/Hide the friend text on MicroBar."] = "在微型菜单上显示/隐藏朋友文本."
-L["Show/Hide the guild text on MicroBar."] = "在微型菜单上显示/隐藏公会文本."
-L["Blingtron"] = "布林顿每日任务"
-L["Mean One"] = "冬幕节"
-L["Timewarped"] = "500时空扭曲徽章"
-L["Legion Invasion"] = "军团入侵"
-L["Faction Assault"] = "阵营突袭"
-L["Local Time"] = "本地时间"
-L["Realm Time"] = "现实时间"
-L["Current Invasion: "] = "当前入侵: "
-L["Next Invasion: "] = "下次入侵: "
-L["Mythic Dungeon"] = "地下城"
+L["Backdrop"] = "背景"
+L["Backdrop Spacing"] = "背景间距"
+L["The spacing between the backdrop and the buttons."] = "背景和按键间的间距."
+L["Time Width"] = "时间宽度"
+L["Time Height"] = "时间高度"
+L["The spacing between buttons."] = "按键间的间距"
+L["The size of the buttons."] = "按键大小"
+L["Slow Mode"] = "慢速模式"
+L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = "以更慢的时间(10秒)更新额外文字"
+L["Display"] = "显示"
+L["Fade Time"] = "淡入时间"
+L["Tooltip Position"] = "鼠标提示位置"
+L["Mode"] = "模式"
+L["None"] = "无"
+L["Class Color"] = "职业色"
+L["Custom"] = "自订"
+L["Additional Text"] = "额外文字"
+L["Interval"] = "时间间隔"
+L["The interval of updating."] = "更新时间间隔"
+L["Home"] = "家"
+L["Left Button"] = "左键"
+L["Right Button"] = "右键"
+L["Left Panel"] = "左面板"
+L["Right Panel"] = "右面板"
+L["Button #%d"] = "按键 #%d"
+L["Pet Journal"] = "宠物"
+L["Show Pet Journal"] = "显示小伙伴手册"
+L["Random Favorite Pet"] = "随机偏好小伙伴"
+L["Screenshot"] = "截图"
+L["Screenshot immediately"] = "立即截图"
+L["Screenshot after 2 secs"] = "2秒后截图"
+L["Toy Box"] = "玩具"
+L["Collections"] = "藏品"
+L["Show Collections"] = "显示藏品"
+L["Random Favorite Mount"] = "随机偏好坐骑"
+L["Decrease the volume"] = "降低音量"
+L["Increase the volume"] = "增大音量"
+L["Profession"] = "专业"
+L["Volume"] = "音量"
 
 -- Misc
 L["Misc"] = "杂项"
@@ -159,6 +218,12 @@ L["Highest Quest Reward"] = "最贵任务奖励"
 L["Automatically select the item with the highest reward."] = "自动选中最贵任务奖励"
 L["Item Alerts"] = "物品通告"
 L["Announce in chat when someone placed an usefull item."] = "当有玩家放置某些物品时将在聊天栏通知"
+L["Maw ThreatBar"] = true
+L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L.ANNOUNCE_FP_PRE = "{rt1} %s 放置了 %s {rt1}"
+L.ANNOUNCE_FP_CLICK = "{rt1} %s 正在开启 %s... 请点击 ! {rt1}"
+L.ANNOUNCE_FP_USE = "{rt1} %s 使用了 %s。 {rt1}"
+L.ANNOUNCE_FP_CAST = "{rt1} %s 开启了 %s {rt1}"
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
@@ -193,10 +258,6 @@ L["Use the new style tooltip."] = "使用新的鼠标提示外观，将腐蚀特
 L["Display in English"] = "显示英语腐化特效名称"
 L["Show icon"] = "显示图标"
 L["Show the spell icon along with the name."] = "在腐化特效名称前显示其图标。"
-
--- MailInputBox
-L["Mail Inputbox Resize"] = "收件箱大小调整"
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = "调整邮件收件箱大小，并把费用移动到底部"
 
 -- Notification
 L["Notification"] = "通知"
@@ -250,6 +311,36 @@ L["Delete Item ID"] = "删除物品ID"
 L["Custom Glow"] = "自定义高亮"
 L["Replaces the default Actionbar glow for procs with an own pixel glow."] = "将动作条按钮的触发高亮替换为像素风格"
 
+-- AutoButtons
+L["AutoButtons"] = "自动按键"
+L["Bar"] = "动作条"
+L["Only show the bar when you mouse over it."] = "鼠标滑过时显示"
+L["Bar Backdrop"] = "动作条背景"
+L["Show a backdrop of the bar."] = "为动作条显示一个背景."
+L["Button Width"] = "按键宽度"
+L["The width of the buttons."] = "按键的宽度"
+L["Button Height"] = "按键高度"
+L["The height of the buttons."] = "按键的高度"
+L["Counter"] = "计数"
+L["Outline"] = "描边"
+L["Button Groups"] = "按键组"
+L["Key Binding"] = "按键绑定"
+L["Custom Items"] = "自订物品"
+L["List"] = "列表"
+L["New Item ID"] = "新物品ID"
+L["Auto Button Bar"] = "自动按键动作条"
+L["Quest Items"] = "任务物品"
+L["Equipments"] = "装备"
+L["Potions"] = "药水"
+L["Flasks"] = "合剂"
+L["Food"] = true
+L["Crafted by mage"] = true
+L["Banners"] = "战旗"
+L["Utilities"] = "实用"
+L["Fade Time"] = "淡入时间"
+L["Alpha Min"] = "最小透明度"
+L["Alpha Max"] = "最大透明度"
+
 -- Armory
 L["Armory"] = "角色界面"
 L["ARMORY_DESC"] = [=[这个 |cffff7d0aArmory 模式|r只对ElvUI'显示人物信息'有效. 你可能需要重载你的UI:
@@ -280,6 +371,10 @@ L["Transmog"] = "幻化"
 L["Shows an arrow indictor for currently transmogrified items."] = "为当前幻化的物品显示一个箭头指示器."
 L["Illusion"] = "幻象"
 L["Shows an indictor for weapon illusions."] = "为武器幻象显示一个指示器"
+L["Empty Socket"] = true
+L["Not Enchanted"] = true
+L["Warnings"] = true
+L["Shows an indicator for missing sockets and enchants."] = true
 
 -- Media
 L["Zone Text"] = "区域文字"
@@ -395,9 +490,23 @@ L["Hide Coordinates"] = "隐藏坐标"
 L["MiniMap"] = "小地图"
 L["MiniMap Buttons"] = "小地图按钮"
 L["Minimap Ping"] = "小地图点击"
-L["Shows the name of the player who pinged on the Minimap."] = "显示点击小地图的玩家姓名"
+L["Add Server Name"] = "添加服务器名称"
+L["Only In Combat"] = "仅在战斗中"
+L["Fade-In"] = "淡入"
+L["The time of animation. Set 0 to disable animation."] = "时间动画. 设置为0来关闭动画"
 L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
+L["Super Tracker"] = "超级追踪"
+L["Description"] = "描述"
+L["Additional features for waypoint."] = "为标记点添加额外功能."
+L["Auto Track Waypoint"] = "自动追踪标记"
+L["Auto track the waypoint after setting."] = "在设定标记后自动进行追踪."
+L["Right Click To Clear"] = "右键清除"
+L["Right click the waypoint to clear it."] = "右键标记点来清除它."
+L["No Distance Limitation"] = "无距离限制"
+L["Force to track the target even if it over 1000 yds."] = "强制追踪超过 1000 码的目标."
+L["Distance Text"] = "距离文字"
+L["Only Number"] = true
 
 -- SMB
 L["Button Settings"] = "按键设置"
@@ -430,7 +539,7 @@ L["This will disable the ElvUI Raid Control and replace it with my own."] = "这
 L["Open Raid Manager"] = "打开团队管理"
 L["Pull Timer Count"] = "倒数计时"
 L["Change the Pulltimer for DBM or BigWigs"] = "修改DBM和BigWigs的倒数计时"
-L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = "仅识别数字"
+L["Only accept values format with '', e.g.: '5', '8', '10' etc."] = "仅识别数字"
 
 -- Reminder
 L["Reminder"] = "常驻BUFF提醒"
@@ -608,7 +717,7 @@ L["Skins/AddOns"] = "皮肤/插件"
 L["Profiles"] = "配置文件"
 L["BigWigs"] = true
 L["MasterPlan"] = true
-L["Shadow & Light"] = true
+L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = "这将创建并应用配置文件"
 
 -- Changelog

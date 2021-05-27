@@ -11,9 +11,11 @@ local function LoadSkin()
 
 	local TimeManagerFrame = _G.TimeManagerFrame
 	TimeManagerFrame:Styling()
+	MER:CreateBackdropShadow(TimeManagerFrame)
 
 	local StopwatchFrame = _G.StopwatchFrame
 	StopwatchFrame:Styling()
+	MER:CreateBackdropShadow(StopwatchFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_TimeManager", "mUITimeManager", LoadSkin)

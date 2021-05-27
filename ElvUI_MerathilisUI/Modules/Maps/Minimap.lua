@@ -1,26 +1,17 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Minimap')
+local COMP = MER:GetModule('MER_Compatibility')
 local LCG = LibStub('LibCustomGlow-1.0')
 
---Cache global variables
---Lua functions
 local _G = _G
-local pairs, select, unpack = pairs, select, unpack
+local select, unpack = select, unpack
 local format = string.format
---WoW API / Variables
+
 local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
-local GetUnitName = GetUnitName
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
-local UnitClass = UnitClass
-local UnitName = UnitName
 local Minimap = _G.Minimap
 local hooksecurefunc = hooksecurefunc
-local IsInInstance = IsInInstance
-local IsAddOnLoaded = IsAddOnLoaded
-local C_ChallengeMode_GetActiveKeystoneInfo = C_ChallengeMode.GetActiveKeystoneInfo
--- GLOBALS:
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
@@ -57,11 +48,11 @@ function module:MiniMapCoords()
 		Coords:Point(pos, 0, 0)
 	end
 
-	if E.db.mui.maps.minimap.rectangle then
+	if E.db.mui.maps.minimap.rectangleMinimap.enable then
 		if pos == "BOTTOM" then
-			Coords:Point(pos, 0, 40)
+			Coords:Point(pos, 0, 32)
 		elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
-			Coords:Point(pos, 0, -40)
+			Coords:Point(pos, 0, -32)
 		elseif pos == "TOP" and E.db.general.minimap.locationText == 'HIDE' then
 			Coords:Point(pos, 0, -2)
 		else
@@ -84,149 +75,14 @@ function module:MiniMapCoords()
 	Minimap:HookScript("OnLeave", function() Coords:Hide() end)
 end
 
-function module:MiniMapPing()
-	if E.db.mui.maps.minimap.ping.enable ~= true then return end
-
-	local pos = E.db.mui.maps.minimap.ping.position or "TOP"
-	local xOffset = E.db.mui.maps.minimap.ping.xOffset or 0
-	local yOffset = E.db.mui.maps.minimap.ping.yOffset or 0
-	local f = CreateFrame("Frame", nil, Minimap)
-	f:SetAllPoints()
-	f.text = MER:CreateText(f, "OVERLAY", 10, "OUTLINE", "", nil, pos, xOffset, yOffset)
-
-	local anim = f:CreateAnimationGroup()
-	anim:SetScript("OnPlay", function() f:SetAlpha(1) end)
-	anim:SetScript("OnFinished", function() f:SetAlpha(0) end)
-
-	anim.fader = anim:CreateAnimation("Alpha")
-	anim.fader:SetFromAlpha(1)
-	anim.fader:SetToAlpha(0)
-	anim.fader:SetDuration(3)
-	anim.fader:SetSmoothing("OUT")
-	anim.fader:SetStartDelay(3)
-
-	MER:RegisterEvent("MINIMAP_PING", function(_, unit)
-		local color = RAID_CLASS_COLORS[select(2, UnitClass(unit))]
-		local name = UnitName(unit)
-
-		anim:Stop()
-		f.text:SetText(name)
-		f.text:SetTextColor(color.r, color.g, color.b)
-		anim:Play()
-	end)
-end
-
-function module:RaidDifficulty()
-	if E.db.mui.maps.minimap.difficulty ~= true then return end
-
-	local pos = E.db.general.minimap.icons.difficulty.position or "TOPLEFT"
-	local x = E.db.general.minimap.icons.difficulty.xOffset or 0
-	local y = E.db.general.minimap.icons.difficulty.yOffset or 0
-
-	local RaidDifficulty = CreateFrame('Frame', nil, Minimap)
-	RaidDifficulty:Size(24, 8)
-	RaidDifficulty:Point(pos, Minimap, pos, x, y)
-
-	RaidDifficulty:RegisterEvent('PLAYER_ENTERING_WORLD')
-	RaidDifficulty:RegisterEvent('CHALLENGE_MODE_START')
-	RaidDifficulty:RegisterEvent('CHALLENGE_MODE_COMPLETED')
-	RaidDifficulty:RegisterEvent('CHALLENGE_MODE_RESET')
-	RaidDifficulty:RegisterEvent('PLAYER_DIFFICULTY_CHANGED')
-	RaidDifficulty:RegisterEvent('GUILD_PARTY_STATE_UPDATED')
-	RaidDifficulty:RegisterEvent('ZONE_CHANGED_NEW_AREA')
-	RaidDifficulty:RegisterEvent('GROUP_ROSTER_UPDATE')
-
-	local RaidDifficultyText = RaidDifficulty:CreateFontString(nil, 'OVERLAY')
-	RaidDifficultyText:FontTemplate()
-	RaidDifficultyText:Point('TOPLEFT', 0, 0)
-
-	RaidDifficulty:SetScript('OnEvent', function()
-		local _, instanceType = IsInInstance()
-		local difficulty = select(3, GetInstanceInfo())
-		local numplayers = select(9, GetInstanceInfo())
-		local mplusdiff = select(1, C_ChallengeMode_GetActiveKeystoneInfo()) or ''
-
-		local norm = format("|cff09ff00%s |r", "N")
-		local hero = format("|cffff7d0a%s |r", "H")
-		local myth = format("|cffff0000%s |r", "M")
-
-		if instanceType == 'party' or instanceType == 'raid' or instanceType == 'scenario' then
-			if (difficulty == 1) then -- Normal
-				RaidDifficultyText:SetText('5'..norm)
-			elseif difficulty == 2 then -- Heroic
-				RaidDifficultyText:SetText('5'..hero)
-			elseif difficulty == 3 then -- 10 Player
-				RaidDifficultyText:SetText('10'..norm)
-			elseif difficulty == 4 then -- 25 Player
-				RaidDifficultyText:SetText('25'..norm)
-			elseif difficulty == 5 then -- 10 Player (Heroic)
-				RaidDifficultyText:SetText('10'..hero)
-			elseif difficulty == 6 then -- 25 Player (Heroic)
-				RaidDifficultyText:SetText('25'..hero)
-			elseif difficulty == 7 then -- LFR (Legacy)
-				RaidDifficultyText:SetText(format("|cff09ff00%s |r", "LFR"))
-			elseif difficulty == 8 then -- Mythic Keystone
-				RaidDifficultyText:SetText(format("|cffff0000%s |r", "M+")..mplusdiff)
-			elseif difficulty == 9 then -- 40 Player
-				RaidDifficultyText:SetText('40R')
-			elseif difficulty == 11 or difficulty == 39 then -- Heroic Scenario / Heroic
-				RaidDifficultyText:SetText(format('|cffff7d0aH|rScen'))
-			elseif difficulty == 12 or difficulty == 38 then -- Normal Scenario / Normal
-				RaidDifficultyText:SetText('Scen')
-			elseif difficulty == 40 then -- Mythic Scenario
-				RaidDifficultyText:SetText('MScen')
-			elseif difficulty == 14 then -- Normal Raid
-				RaidDifficultyText:SetText(format("|cff09ff00%s |r", "N:")..numplayers)
-			elseif difficulty == 15 then -- Heroic Raid
-				RaidDifficultyText:SetText(format("|cffff7d0a%s |r", "H:")..numplayers)
-			elseif difficulty == 16 then -- Mythic Raid
-				RaidDifficultyText:SetText(format("|cffff0000%s |r", "M"))
-			elseif difficulty == 17 then -- LFR
-				RaidDifficultyText:SetText(format("|cff09ff00%s |r", "LFR:")..numplayers)
-			elseif difficulty == 18 or difficulty == 19 or difficulty == 20 or difficulty == 30 then -- Event / Event Scenario
-				RaidDifficultyText:SetText('EScen')
-			elseif difficulty == 23 then -- Mythic Party
-				RaidDifficultyText:SetText('5'..myth)
-			elseif difficulty == 24 or difficulty == 33 then -- Timewalking /Timewalking Raid
-				RaidDifficultyText:SetText('TW')
-			elseif difficulty == 25 or difficulty == 32 or difficulty == 34 or difficulty == 45 then -- World PvP Scenario / PvP / PvP Heroic
-				RaidDifficultyText:SetText(format("|cffFFFF00%s |r", 'PVP'))
-			elseif difficulty == 29 then -- PvEvP Scenario
-				RaidDifficultyText:SetText('PvEvP')
-			elseif difficulty == 147 then -- Normal Scenario (Warfronts)
-				RaidDifficultyText:SetText('WF')
-			elseif difficulty == 149 then -- Heroic Scenario (Warfronts)
-				RaidDifficultyText:SetText(format('|cffff7d0aH|rWF'))
-			end
-		elseif instanceType == 'pvp' or instanceType == 'arena' then
-			RaidDifficultyText:SetText(format("|cffFFFF00%s |r", 'PVP'))
-		else
-			RaidDifficultyText:SetText('')
-		end
-
-		if not IsInInstance() then
-			RaidDifficultyText:Hide()
-		else
-			RaidDifficultyText:Show()
-		end
-	end)
-
-	-- Hide Blizz
-	local frames = {
-		'MiniMapInstanceDifficulty',
-		'GuildInstanceDifficulty',
-		'MiniMapChallengeMode',
-	}
-
-	for _, v in pairs(frames) do
-		_G[v]:Kill()
-	end
-end
-
 function module:StyleMinimap()
-	if not E.db.mui.maps.minimap.rectangle then
+	if not E.db.mui.maps.minimap.rectangleMinimap.enable or (COMP.SLE and E.private.sle.minimap.rectangle) then
 		Minimap:Styling(true, true, false)
 	end
+end
+
+function module:QueueStatus()
+	if E.private.general.minimap.enable ~= true or not E.db.mui.maps.minimap.queueStatus then return end
 
 	-- QueueStatus Button
 	_G.QueueStatusMinimapButtonBorder:Hide()
@@ -262,10 +118,9 @@ function module:Initialize()
 	end
 
 	self:MiniMapCoords()
-	self:MiniMapPing()
+	self:MinimapPing()
 	self:StyleMinimap()
-	self:RaidDifficulty()
-	self:RectangleMinimap()
+	self:QueueStatus()
 
 	if E.db.mui.maps.minimap.flash then
 		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")

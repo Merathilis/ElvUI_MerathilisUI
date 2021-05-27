@@ -8,7 +8,7 @@ L[" is loaded. For any issues or suggestions, please visit "] = true
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
 L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
-L["AFK"] = true
+L["AFK"] = "Away"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Are you still there? ... Hello?"] = true
 L["Logout Timer"] = true
@@ -16,7 +16,7 @@ L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = true
 L["Desciption"] = true
-L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
+L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI. It adds:
 
 - a lot of new features
 - a transparent overall look
@@ -59,7 +59,7 @@ L["Hide Player Brackets"] = true
 L["Removes brackets around the person who posts a chat message."] = true
 L["Hide Chat Side Panel"] = true
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
-L["ChatBar"] = true
+L["Chat Bar"] = true
 L["Shows a ChatBar with different quick buttons."] = true
 L["Hide Community Chat"] = true
 L["Adds an overlay to the Community Chat. Useful for streamers."] = true
@@ -70,6 +70,22 @@ L["Damage Meter Filter"] = true
 L["Fade Chat"] = true
 L["Auto hide timeout"] = true
 L["Seconds before fading chat panel"] = true
+L["Seperators"] = true
+L["Orientation"] = true
+L["Please use Blizzard Communities UI add the channel to your main chat frame first."] = true
+L["Channel Name"] = true
+L["Abbreviation"] = true
+L["Auto Join"] = true
+L["World"] = true
+L["Channels"] = true
+L["Block Shadow"] = true
+L["Hide channels not exist."] = true
+L["Only show chat bar when you mouse over it."] = true
+L["Button"] = true
+L["Item Level Links"] = true
+L["Filter"] = true
+L["Block"] = true
+L["Custom Online Message"] = true
 
 -- Combat Alert
 L["Combat Alert"] = true
@@ -90,11 +106,11 @@ L["Git Ticket tracker"] = true
 L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
-L["Development Version"] = true
+L["Development Version"] = "Dev. Version"
 L["Here you can download the latest development version."] = true
 
 -- Modules
-L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
+L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
 
 -- GameMenu
 L["GameMenu"] = true
@@ -110,24 +126,62 @@ L["Left Click to Request Stop"] = true
 L["Flight Point"] = true
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 
--- MasterPlan
-L["MasterPlan"] = true
-L["Skins the additional Tabs from MasterPlan."] = true
+-- Mail
+L["Mail"] = true
+L["Alternate Character"] = true
+L["Alt List"] = true
+L["Delete"] = true
+L["Favorites"] = true
+L["Favorite List"] = true
+L["Name"] = true
+L["Realm"] = true
+L["Add"] = true
+L["Please set the name and realm first."] = true
+L["Toggle Contacts"] = true
+L["Online Friends"] = true
+L["Add To Favorites"] = true
+L["Remove From Favorites"] = true
 
 -- MicroBar
-L["Hide In Orderhall"] = true
-L["Show/Hide the friend text on MicroBar."] = true
-L["Show/Hide the guild text on MicroBar."] = true
-L["Blingtron"] = "Blingtron Daily Gift"
-L["Mean One"] = "Feast of Winter Veil"
-L["Timewarped"] = "500 Timewarped Badges"
-L["Legion Invasion"] = true
-L["Faction Assault"] = true
-L["Local Time"] = true
-L["Realm Time"] = true
-L["Current Invasion: "] = true
-L["Next Invasion: "] = true
-L["Mythic Dungeon"] = true
+L["Backdrop"] = true
+L["Backdrop Spacing"] = true
+L["The spacing between the backdrop and the buttons."] = true
+L["Time Width"] = true
+L["Time Height"] = true
+L["The spacing between buttons."] = true
+L["The size of the buttons."] = true
+L["Slow Mode"] = true
+L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = true
+L["Display"] = true
+L["Fade Time"] = true
+L["Tooltip Position"] = true
+L["Mode"] = true
+L["None"] = true
+L["Class Color"] = true
+L["Custom"] = true
+L["Additional Text"] = true
+L["Interval"] = true
+L["The interval of updating."] = true
+L["Home"] = true
+L["Left Button"] = true
+L["Right Button"] = true
+L["Left Panel"] = true
+L["Right Panel"] = true
+L["Button #%d"] = true
+L["Pet Journal"] = true
+L["Show Pet Journal"] = true
+L["Random Favorite Pet"] = true
+L["Screenshot"] = true
+L["Screenshot immediately"] = true
+L["Screenshot after 2 secs"] = true
+L["Toy Box"] = true
+L["Collections"] = true
+L["Show Collections"] = true
+L["Random Favorite Mount"] = true
+L["Decrease the volume"] = true
+L["Increase the volume"] = true
+L["Profession"] = true
+L["Volume"] = true
 
 -- Misc
 L["Misc"] = true
@@ -163,6 +217,12 @@ L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
 L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
+L["Maw ThreatBar"] = true
+L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L.ANNOUNCE_FP_PRE = "{rt1} %s has prepared a %s. {rt1}"
+L.ANNOUNCE_FP_CLICK = "{rt1} %s is casting %s. Click! {rt1}"
+L.ANNOUNCE_FP_USE = "{rt1} %s used a %s.{rt1} "
+L.ANNOUNCE_FP_CAST = "{rt1} %s is casting %s. {rt1}"
 
 -- Tooltip
 L["Your Status:"] = true
@@ -191,10 +251,6 @@ L["Use the new style tooltip."] = "Use the new style tooltip."
 L["Display in English"] = "Display in English"
 L["Show icon"] = "Show icon"
 L["Show the spell icon along with the name."] = "Show the spell icon along with the name."
-
--- MailInputBox
-L["Mail Inputbox Resize"] = true
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = true
 
 -- Notification
 L["Notification"] = true
@@ -247,6 +303,37 @@ L["Delete Item ID"] = true
 L["Custom Glow"] = true
 L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
 
+-- AutoButtons
+L["AutoButtons"] = true
+L["Bar"] = true
+L["Only show the bar when you mouse over it."] = true
+L["Bar Backdrop"] = true
+L["Show a backdrop of the bar."] = true
+L["Button Width"] = true
+L["The width of the buttons."] = true
+L["Button Height"] = true
+L["The height of the buttons."] = true
+L["Counter"] = true
+L["Outline"] = true
+L["Button Groups"] = true
+L["Key Binding"] = true
+L["Custom Items"] = true
+L["List"] = true
+L["New Item ID"] = true
+L["Auto Button Bar"] = true
+L["Quest Items"] = true
+L["Equipments"] = true
+L["Potions"] = true
+L["Flasks"] = true
+L["Food"] = true
+L["Crafted by mage"] = true
+L["Banners"] = true
+L["Utilities"] = true
+L["Custom Items"] = true
+L["Fade Time"] = true
+L["Alpha Min"] = true
+L["Alpha Max"] = true
+
 -- Armory
 L["Armory"] = true
 L["ARMORY_DESC"] = [=[The |cffff7d0aArmory Mode|r only works with the ElvUI 'Display Character Info'. You may need to reload your UI:
@@ -277,6 +364,10 @@ L["Transmog"] = true
 L["Shows an arrow indictor for currently transmogrified items."] = true
 L["Illusion"] = true
 L["Shows an indictor for weapon illusions."] = true
+L["Empty Socket"] = true
+L["Not Enchanted"] = true
+L["Warnings"] = true
+L["Shows an indicator for missing sockets and enchants."] = true
 
 -- Media
 L["MER_MEDIA_ZONES"] = {
@@ -378,9 +469,23 @@ L["Hide Coordinates"] = true
 -- Maps
 L["MiniMap Buttons"] = true
 L["Minimap Ping"] = true
-L["Shows the name of the player who pinged on the Minimap."] = true
+L["Add Server Name"] = true
+L["Only In Combat"] = true
+L["Fade-In"] = true
+L["The time of animation. Set 0 to disable animation."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
+L["Super Tracker"] = true
+L["Description"] = true
+L["Additional features for waypoint."] = true
+L["Auto Track Waypoint"] = true
+L["Auto track the waypoint after setting."] = true
+L["Right Click To Clear"] = true
+L["Right click the waypoint to clear it."] = true
+L["No Distance Limitation"] = true
+L["Force to track the target even if it over 1000 yds."] = true
+L["Distance Text"] = true
+L["Only Number"] = true
 
 -- SMB
 L["Button Settings"] = true
@@ -413,7 +518,7 @@ L["This will disable the ElvUI Raid Control and replace it with my own."] = true
 L["Open Raid Manager"] = true
 L["Pull Timer Count"] = true
 L["Change the Pulltimer for DBM or BigWigs"] = true
-L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = true
+L["Only accept values format with '', e.g.: '5', '8', '10' etc."] = true
 
 -- Reminder
 L["Reminder"] = true
@@ -587,7 +692,7 @@ L["Skins/AddOns"] = true
 L["Profiles"] = true
 L["BigWigs"] = true
 L["MasterPlan"] = true
-L["Shadow & Light"] = true
+L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = true
 
 -- Changelog

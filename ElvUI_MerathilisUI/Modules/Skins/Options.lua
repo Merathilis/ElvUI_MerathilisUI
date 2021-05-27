@@ -20,7 +20,7 @@ local DecorAddons = {
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
 	{"EventTracker", L["EventTracker"], "et"},
-	{"TextureBrowser", L["TextureBrowser"], "tb"},
+	{"WeakAuras", L["WeakAuras"], "wa"}
 }
 
 local SupportedProfiles = {
@@ -29,15 +29,14 @@ local SupportedProfiles = {
 	{"Details", "Details"},
 	{"ElvUI_BenikUI", "BenikUI"},
 	{"ElvUI_FCT", "FCT"},
-	{"Skada", "Skada"},
 	{"ProjectAzilroka", "ProjectAzilroka"},
 	{"ls_Toasts", "ls_Toasts"},
 	{"DBM-Core", "Deadly Boss Mods"},
 	{"Touhin", "Touhin"},
-	{"iFilger", "iFilger"},
+	{"OmniCD", "OmniCD"},
 }
 
-local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
+local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"])
 
 local function SkinsTable()
 	local ACH = E.Libs.ACH
@@ -45,10 +44,11 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 30,
 		type = "group",
-		name = L["Skins/AddOns"],
+		name = MER:cOption(L["Skins/AddOns"], 'gradient'),
+		icon = MER.Media.Icons.skins,
 		childGroups = "tab",
 		args = {
-			name = ACH:Header(MER:cOption(L["Skins/AddOns"]), 1),
+			name = ACH:Header(MER:cOption(L["Skins/AddOns"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",
@@ -81,7 +81,7 @@ local function SkinsTable()
 					credits = {
 						order = 0,
 						type = "group",
-						name = MER:cOption(L["Credits"]),
+						name = MER:cOption(L["Credits"], 'orange'),
 						guiInline = true,
 						args = {
 							tukui = ACH:Description(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
@@ -336,11 +336,6 @@ local function SkinsTable()
 				name = L["Loot Frames"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.loot end,
 			},
-			warboard = {
-				type = "toggle",
-				name = L["Warboard"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.warboard end,
-			},
 			deathRecap = {
 				type = "toggle",
 				name = _G.DEATH_RECAP_TITLE,
@@ -471,10 +466,30 @@ local function SkinsTable()
 				name = L["Covenant Preview"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantPreview end,
 			},
+			covenantRenown = {
+				type = "toggle",
+				name = L["Covenant Renown"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantRenown end,
+			},
 			playerChoice = {
 				type = "toggle",
 				name = L["Player Choice"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.playerChoice end,
+			},
+			chromieTime = {
+				type = "toggle",
+				name = L["Chromie Time"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.chromieTime end,
+			},
+			levelUp = {
+				type = "toggle",
+				name = L["LevelUp Display"],
+				disabled = function() return not E.private.skins.blizzard.enable end,
+			},
+			guide = {
+				type = "toggle",
+				name = L["Guide Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guide end,
 			},
 		},
 	}
@@ -498,7 +513,9 @@ local function SkinsTable()
 			desc = L["This will create and apply profile for "]..addonName,
 			func = function()
 				if addon == 'BigWigs' then
-					E:StaticPopup_Show("MUI_INSTALL_BW_LAYOUT")
+					MER:LoadBigWigsProfile()
+					MER:Print('BigWigs profile has been set.')
+					E:StaticPopup_Show("PRIVATE_RL")
 				elseif addon == 'DBM-Core' then
 					E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
 				elseif addon == 'ElvUI_BenikUI' then
@@ -528,6 +545,9 @@ local function SkinsTable()
 					MER:LoadFCTProfile()
 					FCT:UpdateUnitFrames()
 					FCT:UpdateNamePlates()
+				elseif addon == 'OmniCD' then
+					MER:LoadOmniCDProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				end
 				MER:Print(profileString..addonName)
 			end,

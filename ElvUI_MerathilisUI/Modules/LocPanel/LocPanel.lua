@@ -94,7 +94,10 @@ module.Hearthstones = {
 	{166747, nil, true}, -- Brewfest HS
 	{168907, nil, true}, -- Holographic Digitalization HS
 	{172179, nil, true}, -- Eternal Traveler's HS
+	{180290, nil, true}, -- Night Fae Hearthstone
+	{182773, nil, true}, -- Necrolord Hearthstone
 	{184353, nil, true}, -- Kyrian Hearthstone
+	{183716, nil, true}, -- Venthyr Sinstone
 }
 
 module.PortItems = {
@@ -115,6 +118,7 @@ module.PortItems = {
 	{95567, nil, true}, --Kirin Tor beakon
 	{95568, nil, true}, --Sunreaver beakon
 	{87548}, --Pandaria Arch
+	{180817}, --Cypher of Relocation
 }
 module.EngineerItems = {
 	{18984, nil, true}, --Dimensional Ripper - Everlook
@@ -127,6 +131,7 @@ module.EngineerItems = {
 	{151652, nil, true}, --Wormhole Generator: Argus
 	{168807, nil, true}, --Wormhole Generator: Kul Tiras
 	{168808, nil, true}, --Wormhole Generator: Zandalar
+	{172924, nil, true}, --Wormhole Generator: Shadowlands
 }
 module.Spells = {
 	["DEATHKNIGHT"] = {
@@ -178,6 +183,7 @@ module.Spells = {
 			[11] = {text = GetSpellInfo(176242),icon = MER:GetIconFromID("spell", 176242),secure = {buttonType = "spell",ID = 176242}, UseTooltip = true},-- TP:Warspear
 			[12] = {text = GetSpellInfo(224869),icon = MER:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
 			[13] = {text = GetSpellInfo(281404),icon = MER:GetIconFromID("spell", 281404),secure = {buttonType = "spell",ID = 281404}, UseTooltip = true},-- TP:Dazar'alor
+			[14] = {text = GetSpellInfo(344587),icon = MER:GetIconFromID("spell", 344587),secure = {buttonType = "spell",ID = 344587}, UseTooltip = true},-- TP:Oribos
 		},
 		["Alliance"] = {
 			[1] = {text = GetSpellInfo(3561),icon = MER:GetIconFromID("spell", 3561),secure = {buttonType = "spell",ID = 3561}, UseTooltip = true},-- TP:Stormwind
@@ -193,6 +199,7 @@ module.Spells = {
 			[11] = {text = GetSpellInfo(176248),icon = MER:GetIconFromID("spell", 176248),secure = {buttonType = "spell",ID = 176248}, UseTooltip = true},-- TP:StormShield
 			[12] = {text = GetSpellInfo(224869),icon = MER:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
 			[13] = {text = GetSpellInfo(281403),icon = MER:GetIconFromID("spell", 281403),secure = {buttonType = "spell",ID = 281403}, UseTooltip = true},-- TP:Boralus
+			[14] = {text = GetSpellInfo(344587),icon = MER:GetIconFromID("spell", 344587),secure = {buttonType = "spell",ID = 344587}, UseTooltip = true},-- TP:Oribos
 		},
 	},
 	["portals"] = {
@@ -210,6 +217,7 @@ module.Spells = {
 			[11] = {text = GetSpellInfo(176244),icon = MER:GetIconFromID("spell", 176244),secure = {buttonType = "spell",ID = 176244}, UseTooltip = true},-- P:Warspear
 			[12] = {text = GetSpellInfo(224871),icon = MER:GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
 			[13] = {text = GetSpellInfo(281402),icon = MER:GetIconFromID("spell", 281402),secure = {buttonType = "spell",ID = 281402}, UseTooltip = true},-- P:Dazar'alor
+			[14] = {text = GetSpellInfo(344597),icon = MER:GetIconFromID("spell", 344597),secure = {buttonType = "spell",ID = 344597}, UseTooltip = true},-- P:Oribos
 		},
 		["Alliance"] = {
 			[1] = {text = GetSpellInfo(10059),icon = MER:GetIconFromID("spell", 10059),secure = {buttonType = "spell",ID = 10059}, UseTooltip = true},-- P:Stormwind
@@ -225,6 +233,7 @@ module.Spells = {
 			[11] = {text = GetSpellInfo(176246),icon = MER:GetIconFromID("spell", 176246),secure = {buttonType = "spell",ID = 176246}, UseTooltip = true},-- P:StormShield
 			[12] = {text = GetSpellInfo(224871),icon = MER:GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
 			[13] = {text = GetSpellInfo(281400),icon = MER:GetIconFromID("spell", 281400),secure = {buttonType = "spell",ID = 281400}, UseTooltip = true},-- P:Boralus
+			[14] = {text = GetSpellInfo(344597),icon = MER:GetIconFromID("spell", 344597),secure = {buttonType = "spell",ID = 344597}, UseTooltip = true},-- P:Oribos
 		},
 	},
 	["challenge"] = {
@@ -250,7 +259,7 @@ module.Spells = {
 
 function module:CreateLocationPanel()
 	--Main Panel
-	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
+	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent, 'BackdropTemplate')
 	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -1)
 	loc_panel:SetFrameStrata("MEDIUM")
 	loc_panel:SetFrameLevel(Minimap:GetFrameLevel()+1)
@@ -266,13 +275,13 @@ function module:CreateLocationPanel()
 	E.FrameLocks[loc_panel] = true
 
 	--Coords
-	loc_panel.Xcoord = CreateFrame('Frame', "MER_LocPanel_X", loc_panel)
+	loc_panel.Xcoord = CreateFrame('Frame', "MER_LocPanel_X", loc_panel, 'BackdropTemplate')
 	loc_panel.Xcoord:Point("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "BACKGROUND")
 	loc_panel.Xcoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
 
-	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel)
+	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel, 'BackdropTemplate')
 	loc_panel.Ycoord:Point("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "BACKGROUND")
 	loc_panel.Ycoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
@@ -283,9 +292,9 @@ function module:CreateLocationPanel()
 	-- Mover
 	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,locPanel')
 
-	module.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent)
+	module.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent, 'BackdropTemplate')
 	module.Menu1:CreateBackdrop("Transparent", true)
-	module.Menu2 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu2", E.UIParent)
+	module.Menu2 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu2", E.UIParent, 'BackdropTemplate')
 	module.Menu2:CreateBackdrop("Transparent", true)
 	DD:RegisterMenu(module.Menu1)
 	DD:RegisterMenu(module.Menu2)
@@ -418,9 +427,15 @@ function module:Fonts()
 end
 
 function module:Template()
-	loc_panel:CreateBackdrop(module.db.template)
-	loc_panel.Xcoord:CreateBackdrop(module.db.template)
-	loc_panel.Ycoord:CreateBackdrop(module.db.template)
+	loc_panel:SetTemplate(module.db.template)
+	loc_panel.Xcoord:SetTemplate(module.db.template)
+	loc_panel.Ycoord:SetTemplate(module.db.template)
+
+	if module.db.template ~= 'NoBackdrop' then
+		loc_panel:Styling()
+		loc_panel.Xcoord:Styling()
+		loc_panel.Ycoord:Styling()
+	end
 end
 
 function module:Toggle()

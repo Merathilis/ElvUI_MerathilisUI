@@ -16,12 +16,12 @@ local function BagTable()
 		get = function(info) return E.db.mui.bags[ info[#info] ] end,
 		set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
-			header = ACH:Header(MER:cOption(L["Bags"]), 1),
+			header = ACH:Header(MER:cOption(L["Bags"], 'orange'), 1),
 			equipManager = {
 				order = 2,
 				type = "group",
 				guiInline = true,
-				name = MER:cOption(L["Equip Manager"]),
+				name = MER:cOption(L["Equip Manager"], 'orange'),
 				args = {
 					equipOverlay = {
 						type = "toggle",

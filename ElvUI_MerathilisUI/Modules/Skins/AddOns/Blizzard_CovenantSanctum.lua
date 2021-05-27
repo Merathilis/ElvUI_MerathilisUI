@@ -14,6 +14,7 @@ local function LoadSkin()
 			if frame.backdrop then
 				frame.backdrop:Styling()
 			end
+			MER:CreateBackdropShadow(frame)
 
 			local UpgradesTab = frame.UpgradesTab
 			local TalentList = frame.UpgradesTab.TalentsList

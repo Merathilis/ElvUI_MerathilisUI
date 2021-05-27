@@ -3,19 +3,26 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:GetModule('MER_Misc')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local select = select
+local pairs, select = pairs, select
+local twipe = table.wipe
+local tinsert = table.insert
+local strfind = string.find
+local gsub = gsub
 local collectgarbage = collectgarbage
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+local C_FriendList_GetNumWhoResults = C_FriendList.GetNumWhoResults
+local C_FriendList_GetWhoInfo = C_FriendList.GetWhoInfo
 local C_PetJournalSetFilterChecked = C_PetJournal.SetFilterChecked
 local C_PetJournalSetAllPetTypesChecked = C_PetJournal.SetAllPetTypesChecked
 local C_PetJournalSetAllPetSourcesChecked = C_PetJournal.SetAllPetSourcesChecked
 local GetBattlefieldStatus = GetBattlefieldStatus
 local GetCurrentMapDungeonLevel = GetCurrentMapDungeonLevel
 local GetCurrentMapAreaID = GetCurrentMapAreaID
+local GetGuildInfo = GetGuildInfo
+local GetQuestDifficultyColor = GetQuestDifficultyColor
 local GetLFGDungeonInfo = GetLFGDungeonInfo
 local GetLFGDungeonRewards = GetLFGDungeonRewards
 local GetLFGRandomDungeonInfo = GetLFGRandomDungeonInfo
@@ -23,20 +30,22 @@ local GetMapInfo = GetMapInfo
 local GetMaxBattlefieldID = GetMaxBattlefieldID
 local GetNumRandomDungeons = GetNumRandomDungeons
 local GetNumGroupMembers = GetNumGroupMembers
+local GetRealZoneText = GetRealZoneText
 local GetSpecialization = GetSpecialization
 local SetMapByID = SetMapByID
 local UnitLevel = UnitLevel
+local UnitRace = UnitRace
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitSetRole = UnitSetRole
 local InCombatLockdown = InCombatLockdown
 local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local StaticPopupSpecial_Hide = StaticPopupSpecial_Hide
-
--- GLOBALS: LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit, SOUNDKIT, hooksecurefunc, PVPReadyDialog
--- GLOBALS: LFRBrowseFrame, RolePollPopup, StaticPopupDialogs, LE_PET_JOURNAL_FILTER_COLLECTED
--- GLOBALS: LE_PET_JOURNAL_FILTER_NOT_COLLECTED, WorldMapZoomOutButton_OnClick, UnitPowerBarAltStatus_UpdateText
--- GLOBALS: StaticPopupSpecial_Hide
+local HybridScrollFrame_GetOffset = HybridScrollFrame_GetOffset
+local LFDQueueFrame_SetType = LFDQueueFrame_SetType
+local UIDropDownMenu_GetSelectedID = UIDropDownMenu_GetSelectedID
+local SOUNDKIT = SOUNDKIT
+local RaidNotice_AddMessage = RaidNotice_AddMessage
 
 function module:LoadMisc()
 	-- Force readycheck warning
@@ -70,18 +79,18 @@ function module:LoadMisc()
 	end)
 
 	-- Misclicks for some popups
-	StaticPopupDialogs.RESURRECT.hideOnEscape = nil
-	StaticPopupDialogs.AREA_SPIRIT_HEAL.hideOnEscape = nil
-	StaticPopupDialogs.PARTY_INVITE.hideOnEscape = nil
-	StaticPopupDialogs.CONFIRM_SUMMON.hideOnEscape = nil
-	StaticPopupDialogs.ADDON_ACTION_FORBIDDEN.button1 = nil
-	StaticPopupDialogs.TOO_MANY_LUA_ERRORS.button1 = nil
+	_G.StaticPopupDialogs.RESURRECT.hideOnEscape = nil
+	_G.StaticPopupDialogs.AREA_SPIRIT_HEAL.hideOnEscape = nil
+	_G.StaticPopupDialogs.PARTY_INVITE.hideOnEscape = nil
+	_G.StaticPopupDialogs.CONFIRM_SUMMON.hideOnEscape = nil
+	_G.StaticPopupDialogs.ADDON_ACTION_FORBIDDEN.button1 = nil
+	_G.StaticPopupDialogs.TOO_MANY_LUA_ERRORS.button1 = nil
 	_G["PetBattleQueueReadyFrame"].hideOnEscape = nil
-	if (PVPReadyDialog) then
-		PVPReadyDialog.leaveButton:Hide()
-		PVPReadyDialog.enterButton:ClearAllPoints()
-		PVPReadyDialog.enterButton:SetPoint("BOTTOM", PVPReadyDialog, "BOTTOM", 0, 25)
-		PVPReadyDialog.label:SetPoint("TOP", 0, -22)
+	if (_G.PVPReadyDialog) then
+		_G.PVPReadyDialog.leaveButton:Hide()
+		_G.PVPReadyDialog.enterButton:ClearAllPoints()
+		_G.PVPReadyDialog.enterButton:SetPoint("BOTTOM", _G.PVPReadyDialog, "BOTTOM", 0, 25)
+		_G.PVPReadyDialog.label:SetPoint("TOP", 0, -22)
 	end
 
 	-- Auto select current event boss from LFD tool(EventBossAutoSelect by Nathanyel)
@@ -115,6 +124,80 @@ function module:SetRole()
 	end
 end
 
+-- Colors
+local function classColor(class, showRGB)
+	local color = MER.ClassColors[E.UnlocalizedClasses[class] or class]
+	if not color then color = MER.ClassColors['PRIEST'] end
+
+	if showRGB then
+		return color.r, color.g, color.b
+	else
+		return '|c'..color.colorStr
+	end
+end
+
+local function diffColor(level)
+	return MER:RGBToHex(GetQuestDifficultyColor(level))
+end
+
+local blizzHexColors = {}
+for class, color in pairs(RAID_CLASS_COLORS) do
+	blizzHexColors[color.colorStr] = class
+end
+
+-- Whoframe
+local columnTable = {}
+local function UpdateWhoList()
+	local scrollFrame = _G.WhoListScrollFrame
+	local offset = HybridScrollFrame_GetOffset(scrollFrame)
+	local buttons = scrollFrame.buttons
+	local numButtons = #buttons
+	local numWhos = C_FriendList_GetNumWhoResults()
+
+	local playerZone = GetRealZoneText()
+	local playerGuild = GetGuildInfo('player')
+	local playerRace = UnitRace('player')
+
+	for i = 1, numButtons do
+		local button = buttons[i]
+		local index = offset + i
+		if index <= numWhos then
+			local nameText = button.Name
+			local levelText = button.Level
+			local variableText = button.Variable
+
+			local info = C_FriendList_GetWhoInfo(index)
+			local guild, level, race, zone, class = info.fullGuildName, info.level, info.raceStr, info.area, info.filename
+			if zone == playerZone then zone = '|cff00ff00'..zone end
+			if guild == playerGuild then guild = '|cff00ff00'..guild end
+			if race == playerRace then race = '|cff00ff00'..race end
+
+			twipe(columnTable)
+			tinsert(columnTable, zone)
+			tinsert(columnTable, guild)
+			tinsert(columnTable, race)
+
+			nameText:SetTextColor(classColor(class, true))
+			levelText:SetText(diffColor(level)..level)
+			variableText:SetText(columnTable[UIDropDownMenu_GetSelectedID(_G.WhoFrameDropDown)])
+		end
+	end
+end
+
+-- FrameXML/RaidWarning.lua
+do
+	local AddMessage = RaidNotice_AddMessage
+	RaidNotice_AddMessage = function(frame, message, ...)
+		if strfind(message, '|cff') then
+			for hex, class in pairs(blizzHexColors) do
+				local color = MER.ClassColors[class]
+				message = gsub(message, hex, color.colorStr)
+			end
+		end
+		return AddMessage(frame, message, ...)
+	end
+end
+
 function module:Initialize()
 	local db = E.db.mui.misc
 	MER:RegisterDB(self, "misc")
@@ -125,15 +208,17 @@ function module:Initialize()
 
 	self:LoadMisc()
 	self:LoadGMOTD()
-	self:LoadMailInputBox()
 	self:LoadQuest()
 	self:LoadnameHover()
 	self:ItemLevel()
-	self:GuildBest()
 	self:AddAlerts()
 	self:ReputationInit()
 	self:WowHeadLinks()
 	self:SplashScreen()
+	self:CreateMawWidgetFrame()
+
+	hooksecurefunc('WhoList_Update', UpdateWhoList)
+	hooksecurefunc(_G.WhoListScrollFrame, 'update', UpdateWhoList)
 end
 
 MER:RegisterModule(module:GetName())

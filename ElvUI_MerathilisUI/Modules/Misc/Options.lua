@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule('MER_Misc')
 local SA = MER:GetModule('MER_SpellAlert')
+local LSM = E.LSM
 
 --Cache global variables
 --Lua functions
@@ -19,59 +20,196 @@ local function Misc()
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Miscellaneous"]), 1),
-			MailInputbox = {
-				order = 2,
-				type = "toggle",
-				name = L["Mail Inputbox Resize"],
-				desc = L["Resize the Mail Inputbox and move the shipping cost to the Bottom"],
-			},
+			name = ACH:Header(MER:cOption(L["Miscellaneous"], 'orange'), 1),
 			gmotd = {
-				order = 3,
+				order = 2,
 				type = "toggle",
 				name = L.GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 			},
 			cursor = {
-				order = 6,
+				order = 3,
 				type = "toggle",
 				name = L["Flashing Cursor"],
 			},
 			funstuff = {
-				order = 7,
+				order = 4,
 				type = "toggle",
 				name = L["Fun Stuff"],
 			},
 			wowheadlinks = {
-				order = 8,
+				order = 5,
 				type = "toggle",
 				name = L["Wowhead Links"],
 				desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
 			},
 			respec = {
-				order = 9,
+				order = 6,
 				type = "toggle",
 				name = L["Codex Buttons"],
 				desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],
 			},
-			lfgInfo = {
-				order = 10,
-				type = "toggle",
-				name = L["LFG Member Info"],
-				desc = L["Shows role informations in your tooltip in the lfg frame."],
-			},
 			spellAlert = {
-				order = 11,
+				order = 10,
 				type = "range",
-				name = E.NewSign..L["Spell Alert Scale"],
+				name = L["Spell Alert Scale"],
 				min = 0.4, max = 1.5, step = 0.01,
 				get = function(info) return E.db.mui.misc.spellAlert end,
 				set = function(info, value) E.db.mui.misc.spellAlert = value; SA:Resize() end,
 			},
+			lfgInfo = {
+				order = 15,
+				name = MER:cOption(L["LFG Info"], 'orange'),
+				type = "group",
+				guiInline = true,
+				get = function(info)
+					return E.db.mui.misc.lfgInfo[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.misc.lfgInfo[info[#info]] = value
+				end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Add LFG group info to tooltip."]
+					},
+					title = {
+						order = 2,
+						type = "toggle",
+						name = L["Add Title"],
+						desc = L["Display an additional title."]
+					},
+					mode = {
+						order = 3,
+						name = L["Mode"],
+						type = "select",
+						values = {
+							NORMAL = L["Normal"],
+							COMPACT = L["Compact"]
+						},
+					},
+					icon = {
+						order = 4,
+						type = "group",
+						name = MER:cOption(L["Icon"], 'orange'),
+						disabled = function()
+							return not E.db.mui.misc.lfgInfo.enable
+						end,
+						get = function(info)
+							return E.db.mui.misc.lfgInfo.icon[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.misc.lfgInfo.icon[info[#info]] = value
+							E:StaticPopup_Show("PRIVATE_RL")
+						end,
+						args = {
+							reskin = {
+								order = 1,
+								type = "toggle",
+								name = L["Reskin Icon"],
+								desc = L["Change role icons."]
+							},
+							border = {
+								order = 3,
+								type = "toggle",
+								name = L["Border"]
+							},
+							size = {
+								order = 4,
+								type = "range",
+								name = L["Size"],
+								min = 1,
+								max = 20,
+								step = 1
+							},
+							alpha = {
+								order = 5,
+								type = "range",
+								name = L["Alpha"],
+								min = 0,
+								max = 1,
+								step = 0.01
+							},
+						},
+					},
+					line = {
+						order = 5,
+						type = "group",
+						name = MER:cOption(L["Line"], 'orange'),
+						disabled = function()
+							return not E.db.mui.misc.lfgInfo.enable
+						end,
+						get = function(info)
+							return E.db.mui.misc.lfgInfo.line[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.misc.lfgInfo.line[info[#info]] = value
+							E:StaticPopup_Show("PRIVATE_RL")
+						end,
+						args = {
+							enable = {
+								order = 1,
+								type = "toggle",
+								name = L["Enable"],
+								desc = L["Add a line in class color."]
+							},
+							tex = {
+								order = 2,
+								type = "select",
+								name = L["Texture"],
+								dialogControl = "LSM30_Statusbar",
+								values = LSM:HashTable("statusbar")
+							},
+							width = {
+								order = 4,
+								type = "range",
+								name = L["Width"],
+								min = 1,
+								max = 20,
+								step = 1
+							},
+							height = {
+								order = 4,
+								type = "range",
+								name = L["Height"],
+								min = 1,
+								max = 20,
+								step = 1
+							},
+							offsetX = {
+								order = 5,
+								type = "range",
+								name = L["X-Offset"],
+								min = -20,
+								max = 20,
+								step = 1
+							},
+							offsetY = {
+								order = 6,
+								type = "range",
+								name = L["Y-Offset"],
+								min = -20,
+								max = 20,
+								step = 1
+							},
+							alpha = {
+								order = 7,
+								type = "range",
+								name = L["Alpha"],
+								min = 0,
+								max = 1,
+								step = 0.01
+							},
+						},
+					},
+				},
+			},
 			alerts = {
 				order = 20,
 				type = "group",
-				name = MER:cOption(L["Alerts"]),
+				name = MER:cOption(L["Alerts"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -93,12 +231,27 @@ local function Misc()
 						name = L["Item Alerts"],
 						desc = L["Announce in chat when someone placed an usefull item."],
 					},
+					feasts = {
+						order = 4,
+						type = "toggle",
+						name = L["Feasts"],
+					},
+					portals = {
+						order = 5,
+						type = "toggle",
+						name = L["Portals"],
+					},
+					toys = {
+						order = 6,
+						type = "toggle",
+						name = L["Toys"],
+					},
 				},
 			},
 			quest = {
 				order = 21,
 				type = "group",
-				name = MER:cOption(L["Quest"]),
+				name = MER:cOption(L["Quest"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.quest[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.quest[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -114,7 +267,7 @@ local function Misc()
 			paragon = {
 				order = 22,
 				type = "group",
-				name = MER:cOption(L["MISC_PARAGON_REPUTATION"]),
+				name = MER:cOption(L["MISC_PARAGON_REPUTATION"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.paragon[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.paragon[ info[#info] ] = value; end,
@@ -154,10 +307,78 @@ local function Misc()
 					},
 				},
 			},
-			macros = {
-				order = 23,
+			mawThreatBar = {
+				order = 24,
 				type = "group",
-				name = MER:cOption(L["Macros"]),
+				name = MER:cOption(L["Maw ThreatBar"], 'orange'),
+				guiInline = true,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Replace the Maw Threat Display, with a simple StatusBar"],
+						get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
+						set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end
+					},
+					width = {
+						order = 2,
+						type = "range",
+						name = L["Width"],
+						min = 100, max = 400, step = 10,
+						get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
+						set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+					},
+					height = {
+						order = 3,
+						type = "range",
+						name = L["Height"],
+						min = 8, max = 20, step = 1,
+						get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
+						set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+					},
+					fontGroup = {
+						order = 4,
+						type = "group",
+						name = L["Font"],
+						get = function(info) return E.db.mui.misc.mawThreatBar.font[ info[#info] ] end,
+						set = function(info, value) E.db.mui.misc.mawThreatBar.font[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+						args = {
+							name = {
+								order = 1,
+								type = "select",
+								dialogControl = "LSM30_Font",
+								name = L["Font"],
+								values = LSM:HashTable("font")
+							},
+							style = {
+								order = 2,
+								type = "select",
+								name = L["Outline"],
+								values = {
+									NONE = L["None"],
+									OUTLINE = L["OUTLINE"],
+									MONOCHROME = L["MONOCHROME"],
+									MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+									THICKOUTLINE = L["THICKOUTLINE"]
+								}
+							},
+							size = {
+								order = 3,
+								name = L["Size"],
+								type = "range",
+								min = 5,
+								max = 60,
+								step = 1
+							},
+						},
+					},
+				},
+			},
+			macros = {
+				order = 24,
+				type = "group",
+				name = MER:cOption(L["Macros"], 'orange'),
 				guiInline = true,
 				args = {
 					randomtoy = {

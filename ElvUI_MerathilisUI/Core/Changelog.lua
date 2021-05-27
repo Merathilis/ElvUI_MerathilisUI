@@ -16,19 +16,19 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• **YOU NEED ELVUI 12.00**",
-		"• Added an own FlightMode (inspired by Benik's)",
-		"• Updated/Added a lot of skins due to Shadowland code changes",
-		"• Added an options for my Top-/Bottom Panel to change the height",
-		"• Maybe a lot of other changes i already forgot.. lol",
+		"• Added Shadows around the most frames",
+		"• Added Grappling Growth to the Vignette Blacklist",
+		"• Remove Talent Set Manager, there will be an own AddOn in the future",
+		"• Updated some skins",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• As always, if you want my latest layout, do the install procress again",
-		"• If you are getting any errors or something, make sure you are now using:",
+		"• As always, if you want my latest layout, do the install again",
+		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muierrors on' and test again",
-		"• If you havent enable rectangle minimap for now, you must adjust your layout",
+
+		-- "• ''",
 }
 
 local URL_PATTERNS = {

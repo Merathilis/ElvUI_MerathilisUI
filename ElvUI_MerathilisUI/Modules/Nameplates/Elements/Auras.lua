@@ -2,9 +2,8 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_NameplateAuras')
 local NP = E:GetModule('NamePlates')
 local UF = E:GetModule('UnitFrames')
+local MUF = MER:GetModule('MER_UnitFrames')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
 local find = string.find
@@ -16,10 +15,9 @@ local UnitClass = UnitClass
 local UnitName = UnitName
 local hooksecurefunc = hooksecurefunc
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
--- GLOBALS:
 
 --[[
-	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken from ElvUI_NihilistUI)
+	ALL CREDITS BELONG TO Nihilistzsche (Code taken from ElvUI_NihilistUI)
 	IF YOU COPY THIS, YOU WILL BURN IN HELL!!!!
 --]]
 
@@ -86,6 +84,8 @@ function module:Construct_Auras(nameplate)
 
 	nameplate.Buffs.SetPosition = module.SetPosition
 	nameplate.Debuffs.SetPosition = module.SetPosition
+
+	hooksecurefunc(nameplate.Debuffs, 'PostUpdateIcon', MUF.PostUpdateDebuffs)
 end
 
 function module:Construct_AuraIcon(button)
@@ -112,7 +112,7 @@ function module.SetPosition(element, _, to)
 	local anchor = element.initialAnchor or "BOTTOMLEFT"
 	local growthx = (element["growth-x"] == "LEFT" and -1) or 1
 	local spacingx = (element["spacing-x"] or element.spacing or 0)
-	local eheight = element[from].db.height
+	local eheight = element[from].db.height or 0
 
 	local function GetAnchorPoint(index)
 		local a = 0

@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local LSM = E.LSM
 
 -- Cache global variables
 -- Lua functions
@@ -15,6 +16,7 @@ local GameTooltip_Hide = GameTooltip_Hide
 local GetAchievementInfo = GetAchievementInfo
 local GetAddOnMetadata = GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
+local GetClassColor = GetClassColor
 local GetItemInfo = GetItemInfo
 local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID
@@ -32,13 +34,15 @@ local BAG_ITEM_QUALITY_COLORS = BAG_ITEM_QUALITY_COLORS
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UIParent = UIParent
+local C_Covenants_GetCovenantData = C_Covenants.GetCovenantData
+local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
 local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
 
 MER.dummy = function() return end
-MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
+MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
@@ -49,7 +53,7 @@ MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
 --Info Color RGB: 0, 191/255, 250/255
-MER.InfoColor = "|cff70C0F5"
+MER.InfoColor = "|cFF00c0fa"
 MER.GreyColor = "|cffB5B5B5"
 MER.RedColor = "|cffff2735"
 MER.GreenColor = "|cff3a9d36"
@@ -72,9 +76,86 @@ for class, value in pairs(colors) do
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
-local color = { r = 1, g = 1, b = 1, a = 1 }
+local defaultColor = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
+	if not color then color = defaultColor end
+
 	return color.r, color.g, color.b, color.a
+end
+
+function MER:CreateColorString(text, db)
+	if not text or not type(text) == "string" then
+		return
+	end
+	if not db or type(db) ~= "table" then
+		return
+	end
+	local hex = db.r and db.g and db.b and E:RGBToHex(db.r, db.g, db.b) or "|cffffffff"
+
+	return hex .. text .. "|r"
+end
+
+function MER:CreateClassColorString(text, englishClass)
+	if not text or not type(text) == "string" then
+		return
+	end
+	if not englishClass or type(englishClass) ~= "string" then
+		return
+	end
+
+	local r, g, b = GetClassColor(englishClass)
+	local hex = r and g and b and E:RGBToHex(r, g, b) or "|cffffffff"
+
+	return hex .. text .. "|r"
+end
+
+do
+	function MER:RGBToHex(r, g, b)
+		if r then
+			if type(r) == 'table' then
+				if r.r then
+					r, g, b = r.r, r.g, r.b
+				else
+					r, g, b = unpack(r)
+				end
+			end
+			return format('|cff%02x%02x%02x', r * 255, g * 255, b * 255)
+		end
+	end
+
+	function MER:HexToRGB(hex)
+		return tonumber('0x' .. strsub(hex, 1, 2)) / 255, tonumber('0x' .. strsub(hex, 3, 4)) / 255, tonumber('0x' .. strsub(hex, 5, 6)) / 255
+	end
+end
+
+function MER:SetFontDB(text, db)
+	if not text or not text.GetFont then
+		return
+	end
+	if not db or type(db) ~= "table" then
+		return
+	end
+
+	text:FontTemplate(LSM:Fetch("font", db.name), db.size, db.style)
+end
+
+function MER:SetFontColorDB(text, db)
+	if not text or not text.GetFont then
+		return
+	end
+	if not db or type(db) ~= "table" then
+		return
+	end
+
+	text:SetTextColor(db.r, db.g, db.b, db.a)
+end
+
+do
+	local template = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
+	local s = 14
+	function MER:GetIconString(icon, size)
+		return format(template, icon, size or s, size or s)
+	end
 end
 
 function MER:SetupProfileCallbacks()
@@ -406,7 +487,7 @@ end
 function MER:CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	local text = f:CreateFontString(nil, layer)
 	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
-	text:SetWordWrap(false)
+	text:SetHeight(text:GetStringHeight()+30)
 
 	if text then
 		text:SetText(text)
@@ -467,6 +548,7 @@ MER.IsDev = {
 	["Damará"] = true,
 	["Jazira"] = true,
 	["Jústice"] = true,
+	["Maithilis"] = true,
 	["Mattdemôn"] = true,
 	["Melisendra"] = true,
 	["Merathilis"] = true,
@@ -474,6 +556,7 @@ MER.IsDev = {
 	["Merathilîs"] = true,
 	["Róhal"] = true,
 	["Brítt"] = true,
+	["Jahzzy"] = true,
 }
 
 -- Don't forget to update realm name(s) if we ever transfer realms.
@@ -481,7 +564,7 @@ MER.IsDev = {
 -- End result we piss off people and we do not want to do that. :(
 MER.IsDevRealm = {
 	["Shattrath"] = true,
-	--["Garrosh"] = true,
+	["Garrosh"] = true,
 
 	-- Beta
 	["The Maw"] = true,
@@ -494,6 +577,30 @@ end
 
 function MER:IsDeveloperRealm()
 	return MER.IsDevRealm[E.myrealm] or false
+end
+
+-- Covenant Crest: Credits BenikUI
+function MER:GetConvCrest()
+	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
+	local kit = covenantData and covenantData.textureKit or nil
+
+	-- vertical position
+	local vky = kit == "Kyrian" and 0
+	local vve = kit == "Venthyr" and 18
+	local vni = kit == "NightFae" and 16
+	local vne = kit == "Necrolord" and 20
+
+	local vert = vky or vve or vni or vne
+
+	-- Height
+	local hky = kit == "Kyrian" and 150
+	local hve = kit == "Venthyr" and 120
+	local hni = kit == "NightFae" and 134
+	local hne = kit == "Necrolord" and 120
+
+	local hei = hky or hve or hni or hne
+
+	return kit, vert, hei
 end
 
 -- Icon Style
@@ -567,6 +674,35 @@ function MER:ReskinRole(self, role)
 	end
 end
 
+function MER:SplitString(delimiter, subject)
+	if not subject or subject == "" then
+		return {}
+	end
+
+	local length = strlen(delimiter)
+	local results = {}
+
+	local i = 0
+	local j = 0
+
+	while true do
+		j = strfind(subject, delimiter, i + length)
+		if strlen(subject) == i then
+			break
+		end
+
+		if j == nil then
+			tinsert(results, strsub(subject, i))
+			break
+		end
+
+		tinsert(results, strsub(subject, i, j - 1))
+		i = j + length
+	end
+
+	return unpack(results)
+end
+
 function MER:CreateGradientFrame(frame, w, h, o, r, g, b, a1, a2)
 	assert(frame, "doesn't exist!")
 
@@ -595,8 +731,68 @@ function MER:UpdateStyling()
 	end
 end
 
+function MER:CreateShadow(frame, size, force)
+	if not (E.db.mui.general.shadow and E.db.mui.general.shadow.enable) and not force then return end
+
+	if not frame or frame.MERShadow or frame.shadow then return end
+
+	if frame:GetObjectType() == "Texture" then
+		frame = frame:GetParent()
+	end
+
+	size = size or 3
+	size = size + E.db.mui.general.shadow.increasedSize or 0
+
+	local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	shadow:SetFrameStrata(frame:GetFrameStrata())
+	shadow:SetFrameLevel(frame:GetFrameLevel() or 1)
+	shadow:SetOutside(frame, size, size)
+	shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = size + 1})
+	shadow:SetBackdropColor(0, 0, 0, 0)
+	shadow:SetBackdropBorderColor(0, 0, 0, 0.618)
+
+	frame.shadow = shadow
+	frame.MERShadow = true
+end
+
+function MER:CreateBackdropShadow(frame, defaultTemplate)
+	if not frame or frame.MERShadow then return end
+
+	if frame.backdrop then
+		if not defaultTemplate then
+			frame.backdrop:SetTemplate("Transparent")
+		end
+		self:CreateShadow(frame.backdrop)
+		frame.MERShadow = true
+	elseif frame.CreateBackdrop and not self:IsHooked(frame, "CreateBackdrop") then
+		self:SecureHook(frame, "CreateBackdrop", function()
+			if self:IsHooked(frame, "CreateBackdrop") then
+				self:Unhook(frame, "CreateBackdrop")
+			end
+			if frame.backdrop then
+				if not defaultTemplate then
+					frame.backdrop:SetTemplate("Transparent")
+				end
+				self:CreateShadow(frame.backdrop)
+				frame.MERShadow = true
+			end
+		end)
+	end
+end
+
+function MER:CreateShadowModule(frame)
+	if not frame then return end
+
+	MER:CreateShadow(frame)
+end
+
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
+
+	if f:GetObjectType() == "Texture" then
+		f = f:GetParent()
+	end
+
 	local frameName = f.GetName and f:GetName()
 	if f.styling then return end
 

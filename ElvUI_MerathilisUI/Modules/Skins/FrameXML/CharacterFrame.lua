@@ -10,9 +10,12 @@ local format = string.format
 -- WoW API
 local CreateFrame = CreateFrame
 local GetInventoryItemTexture = GetInventoryItemTexture
+local GetInventoryItemLink = GetInventoryItemLink
 local InCombatLockdown = InCombatLockdown
+local IsCosmeticItem = IsCosmeticItem
 local EquipmentManager_UnequipItemInSlot = EquipmentManager_UnequipItemInSlot
 local EquipmentManager_RunAction = EquipmentManager_RunAction
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 local function UnequipItemInSlot(i)
@@ -29,6 +32,7 @@ local function LoadSkin()
 	local CharacterModelFrame = _G.CharacterModelFrame
 
 	CharacterFrame:Styling()
+	MER:CreateShadow(CharacterFrame)
 
 	if CharacterModelFrame and CharacterModelFrame.BackgroundTopLeft and CharacterModelFrame.BackgroundTopLeft:IsShown() then
 		CharacterModelFrame.BackgroundTopLeft:Hide()

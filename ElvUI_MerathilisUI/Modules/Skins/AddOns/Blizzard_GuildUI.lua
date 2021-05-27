@@ -36,6 +36,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guild ~= true or E.private.muiSkins.blizzard.guild ~= true then return end
 
 	_G.GuildFrame:Styling()
+	MER:CreateBackdropShadow(_G.GuildFrame)
 
 	-- Hide the blizzard layers
 	hooksecurefunc("GuildRoster_UpdateTradeSkills", function()

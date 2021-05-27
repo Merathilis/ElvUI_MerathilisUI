@@ -10,28 +10,34 @@ local function CVars()
 		get = function(info) return E.db.mui.CombatAlert[info[#info]] end,
 		set = function(info, value) E.db.mui.CombatAlert[info[#info]] = value E:StaticPopup_Show("PRIVATE_RL") end,
 		args = {
-			CombatAlertHeader = ACH:Header(MER:cOption(L["Combat Alert"]), 0),
+			CombatAlertHeader = ACH:Header(MER:cOption(L["Combat Alert"], 'orange'), 0),
 			enable = {
 				order = 1,
 				type = "toggle",
 				name = L["Enable"],
 				desc = L["Enable/Disable the combat message if you enter/leave the combat."]
 			},
-			style = {
+			font = {
 				order = 2,
-				name = MER:cOption(L["Style"]),
+				name = MER:cOption(L["Font"], 'orange'),
 				type = "group",
 				guiInline = true,
-				get = function(info) return E.db.mui.CombatAlert.style[info[#info]] end,
-				set = function(info, value) E.db.mui.CombatAlert.style[info[#info]] = value; module:RefreshAlert() end,
+				get = function(info) return E.db.mui.CombatAlert[info[#info - 1]][info[#info]] end,
+				set = function(info, value) E.db.mui.CombatAlert[info[#info - 1]][info[#info]] = value; module:RefreshAlert() end,
 				args = {
-					font = {
+					name = {
 						order = 1,
 						type = 'select', dialogControl = 'LSM30_Font',
 						name = L["Font"],
 						values = E.LSM:HashTable('font'),
 					},
-					fontOutline = {
+					size = {
+						order = 3,
+						name = L["Size"],
+						type = 'range',
+						min = 5, max = 60, step = 1,
+					},
+					style = {
 						order = 2,
 						type = 'select',
 						name = L["Font Outline"],
@@ -43,14 +49,18 @@ local function CVars()
 							['THICKOUTLINE'] = L["THICKOUTLINE"],
 						},
 					},
-					fontSize = {
-						order = 3,
-						name = L["Size"],
-						type = 'range',
-						min = 5, max = 60, step = 1,
-					},
+				},
+			},
+			style = {
+				order = 2,
+				name = MER:cOption(L["Style"], 'orange'),
+				type = "group",
+				guiInline = true,
+				get = function(info) return E.db.mui.CombatAlert.style[info[#info]] end,
+				set = function(info, value) E.db.mui.CombatAlert.style[info[#info]] = value; module:RefreshAlert() end,
+				args = {
 					font_color_enter = {
-						order = 4,
+						order = 1,
 						type = "color",
 						name = L["Enter Combat"].." - "..L["Color"],
 						hasAlpha = false,
@@ -65,7 +75,7 @@ local function CVars()
 						end,
 					},
 					font_color_leave = {
-						order = 5,
+						order = 2,
 						type = "color",
 						name = L["Leave Combat"].." - "..L["Color"],
 						hasAlpha = false,
@@ -80,24 +90,24 @@ local function CVars()
 						end,
 					},
 					backdrop = {
-						order = 6,
+						order = 3,
 						type = "toggle",
 						name = L["Backdrop"],
 					},
 					stay_duration = {
-						order = 7,
+						order = 4,
 						type = "range",
 						name = L["Stay Duration"],
 						min = 0.1, max = 5.0, step = 0.01,
 					},
 					animation_duration = {
-						order = 8,
+						order = 5,
 						type = "range",
 						name = L["Animation Duration (Fade In)"],
 						min = 0.1, max = 5.0, step = 0.01,
 					},
 					scale = {
-						order = 9,
+						order = 6,
 						type = "range",
 						name = L["Scale"],
 						desc = L["Default is 0.8"],
@@ -107,7 +117,7 @@ local function CVars()
 			},
 			custom_text = {
 				order = 3,
-				name = MER:cOption(L["Custom Text"]),
+				name = MER:cOption(L["Custom Text"], 'orange'),
 				type = "group",
 				guiInline = true,
 				get = function(info) return E.db.mui.CombatAlert.custom_text[info[#info]] end,

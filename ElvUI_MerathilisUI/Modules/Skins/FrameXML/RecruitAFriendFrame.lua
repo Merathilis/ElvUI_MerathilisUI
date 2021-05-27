@@ -42,9 +42,11 @@ local function LoadSkin()
 
 	local Reward = _G.RecruitAFriendRewardsFrame
 	Reward:Styling()
+	MER:CreateBackdropShadow(Reward)
 
 	local Recruit = _G.RecruitAFriendRecruitmentFrame
 	Recruit:Styling()
+	MER:CreateBackdropShadow(Recruit)
 end
 
 S:AddCallback("mUIRecruitAFriend", LoadSkin)

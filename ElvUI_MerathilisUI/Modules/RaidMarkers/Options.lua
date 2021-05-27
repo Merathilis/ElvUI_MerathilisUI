@@ -1,16 +1,18 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local RMA = MER:GetModule('MER_RaidMarkers')
+local COMP = MER:GetModule('MER_Compatibility')
 
 --Cache global variables
 --Lua functions
 local _G = _G
 local format = string.format
 local tinsert = table.insert
---WoW API / Variables
+
 local SHIFT_KEY, CTRL_KEY, ALT_KEY = SHIFT_KEY, CTRL_KEY, ALT_KEY
 local AGGRO_WARNING_IN_PARTY = AGGRO_WARNING_IN_PARTY
 local CUSTOM, DEFAULT = CUSTOM, DEFAULT
--- GLOBALS:
+
+local IsAddOnLoaded = IsAddOnLoaded
 
 local function RaidMarkers()
 	local ACH = E.Libs.ACH
@@ -19,12 +21,13 @@ local function RaidMarkers()
 		type = "group",
 		name = L["Raid Markers"],
 		get = function(info) return E.db.mui.raidmarkers[ info[#info] ] end,
+		disabled = function() return (COMP.SLE and E.db.sle.raidmarkers.enable) end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Raid Markers"]), 1),
+			name = ACH:Header(MER:cOption(L["Raid Markers"], 'orange'), 1),
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Credits"]),
+				name = MER:cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = ACH:Description(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
@@ -33,7 +36,7 @@ local function RaidMarkers()
 			marksheader = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Raid Markers"]),
+				name = MER:cOption(L["Raid Markers"], 'orange'),
 				guiInline = true,
 				args = {
 					info = ACH:Description(L["Options for panels providing fast access to raid markers and flares."], 4),

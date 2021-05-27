@@ -18,18 +18,17 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 -- Get localised Wowhead URL
-local GameLocale = GetLocale()
 local wowheadLoc
-if GameLocale == "deDE" then wowheadLoc = "de.wowhead.com"
-elseif GameLocale == "esMX" then wowheadLoc = "es.wowhead.com"
-elseif GameLocale == "esES" then wowheadLoc = "es.wowhead.com"
-elseif GameLocale == "frFR" then wowheadLoc = "fr.wowhead.com"
-elseif GameLocale == "itIT" then wowheadLoc = "it.wowhead.com"
-elseif GameLocale == "ptBR" then wowheadLoc = "pt.wowhead.com"
-elseif GameLocale == "ruRU" then wowheadLoc = "ru.wowhead.com"
-elseif GameLocale == "koKR" then wowheadLoc = "ko.wowhead.com"
-elseif GameLocale == "zhCN" then wowheadLoc = "cn.wowhead.com"
-elseif GameLocale == "zhTW" then wowheadLoc = "cn.wowhead.com"
+if E.locale == "deDE" then wowheadLoc = "de.wowhead.com"
+elseif E.locale == "esMX" then wowheadLoc = "es.wowhead.com"
+elseif E.locale == "esES" then wowheadLoc = "es.wowhead.com"
+elseif E.locale == "frFR" then wowheadLoc = "fr.wowhead.com"
+elseif E.locale == "itIT" then wowheadLoc = "it.wowhead.com"
+elseif E.locale == "ptBR" then wowheadLoc = "pt.wowhead.com"
+elseif E.locale == "ruRU" then wowheadLoc = "ru.wowhead.com"
+elseif E.locale == "koKR" then wowheadLoc = "ko.wowhead.com"
+elseif E.locale == "zhCN" then wowheadLoc = "cn.wowhead.com"
+elseif E.locale == "zhTW" then wowheadLoc = "cn.wowhead.com"
 else
 	wowheadLoc = "wowhead.com"
 end
@@ -38,7 +37,7 @@ function MI:WorldMapLinks()
 	-- Create editbox
 	local EditBox = CreateFrame("EditBox", nil, _G.WorldMapFrame.BorderFrame, "BackdropTemplate")
 	EditBox:ClearAllPoints()
-	EditBox:SetPoint("TOPLEFT", 20, -4)
+	EditBox:SetPoint("TOP", _G.WorldMapFrameTitleText, "BOTTOM", 50, -3)
 	EditBox:SetHeight(16)
 	EditBox:FontTemplate()
 	EditBox:SetTextColor(0, 191/255, 250/255)

@@ -9,14 +9,16 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Channels ~= true or E.private.muiSkins.blizzard.channels ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.channels ~= true or E.private.muiSkins.blizzard.channels ~= true then return end
 
 	local ChannelFrame = _G.ChannelFrame
 	ChannelFrame:StripTextures()
 	ChannelFrame:Styling()
+	MER:CreateBackdropShadow(ChannelFrame)
 
 	local CreateChannelPopup = _G.CreateChannelPopup
 	CreateChannelPopup:Styling()
+	MER:CreateBackdropShadow(CreateChannelPopup)
 end
 
 S:AddCallbackForAddon("Blizzard_Channels", "mUIChannels", LoadSkin)
