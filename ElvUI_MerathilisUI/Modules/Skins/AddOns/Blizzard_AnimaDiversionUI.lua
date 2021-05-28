@@ -9,9 +9,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.animaDiversion ~= true or E.private.muiSkins.blizzard.animaDiversion ~= true then return end
 
 	local frame = _G.AnimaDiversionFrame
-	if frame.backdrop then
-		frame.backdrop:Styling()
-	end
+	frame:Styling()
 	MER:CreateBackdropShadow(frame)
 end
 
