@@ -26,8 +26,8 @@ local function LoadSkin()
 		for reward in self.rewardsPool:EnumerateActive() do
 			if not reward.backdrop then
 				reward:CreateBackdrop('Transparent')
-				reward.backdrop:SetPoint("TOPLEFT", reward, 2, -15)
-				reward.backdrop:SetPoint("BOTTOMRIGHT", reward, -2, 15)
+				reward.backdrop:SetPoint("TOPLEFT", reward, 13, -15)
+				reward.backdrop:SetPoint("BOTTOMRIGHT", reward, -15, 15)
 
 				reward.Toast:SetAlpha(0)
 				reward.Highlight:SetAlpha(0)
