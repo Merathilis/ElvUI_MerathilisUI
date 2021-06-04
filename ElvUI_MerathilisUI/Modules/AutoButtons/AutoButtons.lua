@@ -41,7 +41,6 @@ module.bars = {}
 
 -- Potion (require level >= 40)
 local potions = {
-	5512,
 	114124,
 	115531,
 	116925,
