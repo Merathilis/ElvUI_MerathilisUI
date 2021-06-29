@@ -195,40 +195,36 @@ local function LoadSkin()
 	local PlayerTalentFrameTalentsPvpTalentFrameTalentList = _G.PlayerTalentFrameTalentsPvpTalentFrameTalentList
 	PlayerTalentFrameTalentsPvpTalentFrameTalentList:Styling()
 
-	for i = 1, 10 do
-		local bu = _G["PlayerTalentFrameTalentsPvpTalentFrameTalentListScrollFrameButton"..i]
-		local icon = bu.Icon
-		if bu then
+	for _, Button in pairs(PvpTalentFrame.TalentList.ScrollFrame.buttons) do
+		if Button then
 			-- Hide ElvUI backdrop
-			if bu.backdrop then
-				bu.backdrop:Hide()
+			if Button.backdrop then
+				Button.backdrop:Hide()
 			end
 
-			MERS:Reskin(bu)
+			MERS:Reskin(Button)
 
-			if bu.Selected then
-				bu.Selected:SetTexture(nil)
+			if Button.Selected then
+				Button.Selected:SetTexture(nil)
 
-				bu.selectedTexture = bu:CreateTexture(nil, "ARTWORK")
-				bu.selectedTexture:SetInside(bu)
-				bu.selectedTexture:SetColorTexture(r, g, b, .5)
-				bu.selectedTexture:SetShown(bu.Selected:IsShown())
+				Button.selectedTexture = Button:CreateTexture(nil, "ARTWORK")
+				Button.selectedTexture:SetInside(Button)
+				Button.selectedTexture:SetColorTexture(r, g, b, .5)
+				Button.selectedTexture:SetShown(Button.Selected:IsShown())
 
-				hooksecurefunc(bu, "Update", function(selectedHere)
-					if not bu.selectedTexture then return end
-					if bu.Selected:IsShown() then
-						bu.selectedTexture:SetShown(selectedHere)
+				hooksecurefunc(Button, "Update", function(selectedHere)
+					if not Button.selectedTexture then return end
+					if Button.Selected:IsShown() then
+						Button.selectedTexture:SetShown(selectedHere)
 					else
-						bu.selectedTexture:Hide()
+						Button.selectedTexture:Hide()
 					end
 				end)
 			end
 
-			bu:SetAllPoints()
-
-			if bu.Icon then
-				bu.Icon:SetTexCoord(unpack(E.TexCoords))
-				bu.Icon:SetDrawLayer("ARTWORK", 1)
+			if Button.Icon then
+				Button.Icon:SetTexCoord(unpack(E.TexCoords))
+				Button.Icon:SetDrawLayer("ARTWORK", 1)
 			end
 		end
 	end

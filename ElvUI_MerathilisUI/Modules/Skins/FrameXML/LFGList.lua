@@ -63,10 +63,25 @@ local function LoadSkin()
 	end)
 
 	-- Invite frame
-	_G.LFGListInviteDialog:Styling()
-	_G.LFGDungeonReadyDialog:Styling()
-	_G.LFGDungeonReadyStatus:Styling()
-	_G.LFGInvitePopup:Styling()
+	if not _G.LFGListInviteDialog.backdrop then
+		_G.LFGListInviteDialog:CreateBackdrop('Transparent')
+		_G.LFGListInviteDialog:Styling()
+	end
+
+	if not _G.LFGDungeonReadyDialog.backdrop then
+		_G.LFGDungeonReadyDialog:CreateBackdrop('Transparent')
+		_G.LFGDungeonReadyDialog.backdrop:Styling()
+	end
+
+	if not _G.LFGDungeonReadyStatus.backdrop then
+		_G.LFGDungeonReadyStatus:CreateBackdrop('Transparent')
+		_G.LFGDungeonReadyStatus.backdrop:Styling()
+	end
+
+	if not _G.LFGInvitePopup.backdrop then
+		_G.LFGInvitePopup:CreateBackdrop('Transparent')
+		_G.LFGInvitePopup.backdrop:Styling()
+	end
 
 	_G.LFGListInviteDialog.GroupName:ClearAllPoints()
 	_G.LFGListInviteDialog.GroupName:SetPoint("TOP", 0, -33)

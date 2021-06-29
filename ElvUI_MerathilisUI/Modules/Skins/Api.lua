@@ -226,7 +226,7 @@ function MERS:OnLeave()
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, isDeclineButton, noStyle, createBackdrop, styleTemplate, noGlossTex, overrideTex, frameLevel, defaultTemplate, noGradient)
+function MERS:Reskin(button, strip, isDecline, noStyle, createBackdrop, template, noGlossTex, overrideTex, frameLevel, defaultTemplate, noGradient)
 	assert(button, "doesn't exist!")
 
 	if not button or button.IsSkinned then return end
@@ -241,7 +241,7 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, createBackdrop, st
 		end
 	end
 
-	if isDeclineButton then
+	if isDecline then
 		if button.Icon then
 			button.Icon:SetTexture(E.Media.Textures.Close)
 		end
@@ -249,9 +249,9 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, createBackdrop, st
 
 	if not noStyle then
 		if createBackdrop then
-			button:CreateBackdrop(defaultTemplate and styleTemplate or 'Transparent', not noGlossTex, nil, nil, nil, nil, true, frameLevel)
+			button:CreateBackdrop(defaultTemplate and template or 'Transparent', not noGlossTex, nil, nil, nil, nil, true, frameLevel)
 		else
-			button:SetTemplate(defaultTemplate and styleTemplate or 'Transparent', not noGlossTex)
+			button:SetTemplate(defaultTemplate and template or 'Transparent', not noGlossTex)
 		end
 
 		button:HookScript('OnEnter', MERS.OnEnter)
