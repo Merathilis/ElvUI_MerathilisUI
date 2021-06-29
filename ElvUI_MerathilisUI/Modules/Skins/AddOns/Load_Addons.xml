@@ -44,7 +44,7 @@
 	<Script file="Blizzard_ObjectiveTracker.lua"/>
 	<Script file="Misc.lua"/>
 	<Script file="Blizzard_OrderHallUI.lua"/>
-	<Script file="Blizzard_PlayerChoiceUI.lua"/>
+	<Script file="Blizzard_PlayerChoice.lua"/>
 	<Script file="Blizzard_PVPUI.lua"/>
 	<Script file="Blizzard_PVPMatchUI.lua"/>
 	<Script file="Blizzard_QuestChoice.lua"/>
