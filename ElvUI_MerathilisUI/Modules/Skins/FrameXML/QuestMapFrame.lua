@@ -39,6 +39,7 @@ local function LoadSkin()
 	local CompleteQuestFrame = DetailsFrame.CompleteQuestFrame
 
 	DetailsFrame:StripTextures()
+	DetailsFrame.Bg:SetAlpha(0)
 	select(6, DetailsFrame.ShareButton:GetRegions()):SetAlpha(0)
 	select(7, DetailsFrame.ShareButton:GetRegions()):SetAlpha(0)
 	DetailsFrame.SealMaterialBG:SetAlpha(0)
