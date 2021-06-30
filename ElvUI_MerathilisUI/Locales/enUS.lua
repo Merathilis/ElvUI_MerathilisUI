@@ -595,25 +595,6 @@ L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
 L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] = true
 
--- Talents
-L["Talent Manager"] = true
-L["PvP Talents"] = true
-L["Item Buttons"] = true
-L["Add tomb and codex buttons."] = true
-L["Status Icon"] = true
-L["Add an icon indicates the status of the permission of changing talents."] = true
-L["Clear All Sets"] = true
-L["Already have a set named %s."] = true
-L["Too many sets here, please delete one of them and try again."] = true
-L["Talent string is not valid."] = true
-L["Overwrite"] = true
-L["Rename"] = true
-L["Delete"] = true
-L["Not set"] = true
-L["New Set"] = true
-L["Toggle Talent Manager"] = true
-L["Rename Set"] = true
-
 -- Install
 L["Welcome"] = true
 L["|cffff7d0aMerathilisUI|r Installation"] = true

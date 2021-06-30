@@ -41,7 +41,6 @@ module.bars = {}
 
 -- Potion (require level >= 40)
 local potions = {
-	5512,
 	114124,
 	115531,
 	116925,
@@ -523,6 +522,8 @@ function module:CreateButton(name, barDB)
 
 	button:StyleButton()
 
+	MER:CreateShadowModule(button)
+
 	return button
 end
 
@@ -956,6 +957,7 @@ end
 function module:CreateAll()
 	for i = 1, 5 do
 		self:CreateBar(i)
+		MER:CreateShadowModule(self.bars[i].backdrop)
 	end
 end
 

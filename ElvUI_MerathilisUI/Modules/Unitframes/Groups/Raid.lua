@@ -10,13 +10,15 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 function module:Update_RaidFrames(frame)
-	local db = E.db.unitframe
+	local db = E.db.mui.unitframes
 
 	-- Only looks good on Transparent
-	if db.colors.transparentHealth then
-		if frame and frame.Health and not frame.isStyled then
-			frame.Health:Styling(false, false, true)
-			frame.isStyled = true
+	if E.db.unitframe.colors.transparentHealth then
+		if db.style then
+			if frame and frame.Health and not frame.isStyled then
+				frame.Health:Styling(false, false, true)
+				frame.isStyled = true
+			end
 		end
 	end
 

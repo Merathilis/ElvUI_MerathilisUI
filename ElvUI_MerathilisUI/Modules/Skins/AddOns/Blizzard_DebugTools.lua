@@ -13,6 +13,7 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function reskinTableAttribute(frame)
 	frame:Styling()
+	MER:CreateBackdropShadow(frame)
 end
 
 local function LoadSkin()
@@ -20,6 +21,7 @@ local function LoadSkin()
 
 	local EventTraceFrame = _G.EventTraceFrame
 	EventTraceFrame:Styling()
+	MER:CreateBackdropShadow(EventTraceFrame)
 
 	-- Table Attribute Display
 	reskinTableAttribute(_G.TableAttributeDisplay)

@@ -12,6 +12,7 @@ local function LoadSkin()
 
 	local ItemUpgradeFrame = _G.ItemUpgradeFrame
 	ItemUpgradeFrame:Styling()
+	MER:CreateBackdropShadow(ItemUpgradeFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_ItemUpgradeUI", "mUIItemUpgrade", LoadSkin)

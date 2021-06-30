@@ -30,6 +30,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.muiSkins.blizzard.binding ~= true then return end
 
 	_G.KeyBindingFrame:Styling()
+	MER:CreateBackdropShadow(_G.KeyBindingFrame)
 
 	for i = 1, _G.KEY_BINDINGS_DISPLAYED do
 		local button1 = _G["KeyBindingFrameKeyBinding"..i.."Key1Button"]

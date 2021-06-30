@@ -20,7 +20,7 @@ local DecorAddons = {
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
 	{"EventTracker", L["EventTracker"], "et"},
-	{"TextureBrowser", L["TextureBrowser"], "tb"},
+	{"WeakAuras", L["WeakAuras"], "wa"}
 }
 
 local SupportedProfiles = {
@@ -336,11 +336,6 @@ local function SkinsTable()
 				name = L["Loot Frames"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.loot end,
 			},
-			warboard = {
-				type = "toggle",
-				name = L["Warboard"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.warboard end,
-			},
 			deathRecap = {
 				type = "toggle",
 				name = _G.DEATH_RECAP_TITLE,
@@ -490,6 +485,11 @@ local function SkinsTable()
 				type = "toggle",
 				name = L["LevelUp Display"],
 				disabled = function() return not E.private.skins.blizzard.enable end,
+			},
+			guide = {
+				type = "toggle",
+				name = L["Guide Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guide end,
 			},
 		},
 	}

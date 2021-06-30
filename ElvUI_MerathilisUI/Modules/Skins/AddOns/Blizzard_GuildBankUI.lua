@@ -8,7 +8,9 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gbank ~= true or E.private.muiSkins.blizzard.gbank ~= true then return end
 
 	_G.GuildBankFrame:Styling()
+	MER:CreateBackdropShadow(_G.GuildBankFrame)
 	_G.GuildBankPopupFrame:Styling()
+	MER:CreateBackdropShadow(_G.GuildBankPopupFrame)
 
 	for i = 1, 4 do
 		local tab = _G["GuildBankFrameTab"..i]

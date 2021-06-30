@@ -59,12 +59,20 @@ end
 -- [[ Garrison system ]]
 local function ReskinMissionPage(self)
 	self:StripTextures()
+	self:CreateBackdrop('Transparent')
+	self.backdrop:Point('TOPLEFT', 3, 2)
+	self.backdrop:Point('BOTTOMRIGHT', -3, -10)
+
+	self.Stage.Header:SetAlpha(0)
+	if self.StartMissionFrame then self.StartMissionFrame:StripTextures() end
 	self.StartMissionButton.Flash:SetTexture("")
 	MERS:Reskin(self.StartMissionButton)
+
 	self.CloseButton:ClearAllPoints()
 	self.CloseButton:SetPoint("TOPRIGHT", -10, -5)
-	select(4, self.Stage:GetRegions()):Hide()
-	select(5, self.Stage:GetRegions()):Hide()
+
+	if self.EnemyBackground then self.EnemyBackground:Hide() end
+	if self.FollowerBackground then self.FollowerBackground:Hide() end
 
 	if self.Followers then
 		for i = 1, 3 do
@@ -442,7 +450,8 @@ local function LoadSkin()
 		select(i, GarrisonLandingPage:GetRegions()):Hide() -- Parchment
 	end
 
-	GarrisonLandingPage.backdrop:Styling()
+	GarrisonLandingPage:Styling()
+	MER:CreateBackdropShadow(GarrisonLandingPage)
 
 	_G.GarrisonLandingPageTab1:ClearAllPoints()
 	_G.GarrisonLandingPageTab1:SetPoint("TOPLEFT", GarrisonLandingPage, "BOTTOMLEFT", 70, 2)
@@ -460,15 +469,6 @@ local function LoadSkin()
 		bg:SetPoint("TOPLEFT")
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(button:GetFrameLevel() - 1)
-
-		for _, reward in pairs(button.Rewards) do
-			reward:GetRegions():Hide()
-			reward.Icon:SetTexCoord(unpack(E.TexCoords))
-			reward.IconBorder:SetAlpha(0)
-			MERS:CreateBG(reward.Icon)
-			reward:ClearAllPoints()
-			reward:SetPoint("TOPRIGHT", -4, -4)
-		end
 
 		MERS:CreateBD(bg, .25)
 		MERS:CreateGradient(bg)
@@ -754,7 +754,7 @@ local function LoadSkin()
 
 	-- [[ BFA Mission UI]]
 	local BFAMissionFrame = _G.BFAMissionFrame
-	BFAMissionFrame.backdrop:Styling()
+	BFAMissionFrame:Styling()
 	ReskinMissionFrame(BFAMissionFrame)
 
 	-- [[ BFA Missions ]]
@@ -777,6 +777,7 @@ local function LoadSkin()
 	local CovenantMissionFrame = _G.CovenantMissionFrame
 	ReskinMissionFrame(CovenantMissionFrame)
 	CovenantMissionFrame:Styling()
+	MER:CreateBackdropShadow(CovenantMissionFrame)
 
 	CovenantMissionFrame.RaisedBorder:SetAlpha(0)
 	_G.CovenantMissionFrameMissions.RaisedFrameEdges:SetAlpha(0)
@@ -854,7 +855,7 @@ local function LoadSkin()
 		end)
 	end
 
-	-- VenturePlan, 4.12a and higer
+	-- VenturePlan, 4.12a and higher
 	if IsAddOnLoaded("VenturePlan") then
 		function VPEX_OnUIObjectCreated(otype, widget, peek)
 			if widget:IsObjectType("Frame") then

@@ -2,13 +2,11 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 
 if E.db.mui == nil then E.db.mui = {} end
 
--- Cache global variables
--- Lua functions
 local format, select, unpack = format, select, unpack
 local tconcat, tinsert, tsort = table.concat, table.insert, table.sort
--- WoW API / Variables
+
+local CreateTextureMarkup = CreateTextureMarkup
 local IsAddOnLoaded = IsAddOnLoaded
--- GLOBALS: StaticPopup_Show
 
 local logo = CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/media/textures/m2", 64, 64, 20, 20, 0, 1, 0, 1, 0, -1)
 
@@ -141,7 +139,7 @@ local function AddOptions()
 					shadow = {
 						order = 7,
 						type = "group",
-						name = E.NewSign..MER:cOption(L["Shadows"]),
+						name = E.NewSign..MER:cOption(L["Shadows"].." ".."|cffFF0000WIP|r"),
 						guiInline = true,
 						get = function(info) return E.db.mui.general.shadow[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general.shadow[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

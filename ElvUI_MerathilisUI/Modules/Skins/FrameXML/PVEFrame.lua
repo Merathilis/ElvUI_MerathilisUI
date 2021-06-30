@@ -13,6 +13,7 @@ local function LoadSkin()
 
 	local PVEFrame = _G.PVEFrame
 	PVEFrame:Styling()
+	MER:CreateShadow(PVEFrame)
 
 	local iconSize = 56-2*E.mult
 	for i = 1, 3 do

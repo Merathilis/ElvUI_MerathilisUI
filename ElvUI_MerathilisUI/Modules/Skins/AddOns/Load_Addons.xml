@@ -40,10 +40,11 @@
 	<Script file="Blizzard_LookingForGuildUI.lua"/>
 	<Script file="Blizzard_MacroUI.lua"/>
 	<Script file="Blizzard_MapCanvas.lua"/>
+	<Script file="Blizzard_NewPlayerExperienceGuide.lua"/>
 	<Script file="Blizzard_ObjectiveTracker.lua"/>
 	<Script file="Misc.lua"/>
 	<Script file="Blizzard_OrderHallUI.lua"/>
-	<Script file="Blizzard_PlayerChoiceUI.lua"/>
+	<Script file="Blizzard_PlayerChoice.lua"/>
 	<Script file="Blizzard_PVPUI.lua"/>
 	<Script file="Blizzard_PVPMatchUI.lua"/>
 	<Script file="Blizzard_QuestChoice.lua"/>
@@ -58,7 +59,6 @@
 	<Script file="Blizzard_TrainerUI.lua"/>
 	<Script file="Blizzard_UIWidgets.lua"/>
 	<Script file="Blizzard_VoidStorageUI.lua"/>
-	<Script file="Blizzard_WarboardUI.lua"/>
 	<Script file="Blizzard_WarfrontPartyPose.lua"/>
 	<Script file="Blizzard_WeeklyRewards.lua"/>
 </Ui>

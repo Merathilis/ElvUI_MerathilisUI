@@ -17,7 +17,7 @@ local hooksecurefunc = hooksecurefunc
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 --[[
-	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken from ElvUI_NihilistUI)
+	ALL CREDITS BELONG TO Nihilistzsche (Code taken from ElvUI_NihilistUI)
 	IF YOU COPY THIS, YOU WILL BURN IN HELL!!!!
 --]]
 

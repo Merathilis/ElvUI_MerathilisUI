@@ -381,9 +381,8 @@ local function RebuildMerchantFrame()
 	_G.MERCHANT_ITEMS_PER_PAGE = SubpagesPerPage * 10 --Haven't seen this causing any taints so I asume it's ok
 	_G["MerchantFrame"]:Width(42 + (318 * SubpagesPerPage) + (12 * (SubpagesPerPage - 1)))
 
-	if _G.MerchantFrame.backdrop then
-		_G.MerchantFrame.backdrop:Styling()
-	end
+	_G.MerchantFrame:Styling()
+	MER:CreateBackdropShadow(_G.MerchantFrame)
 
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
 		if (not _G["MerchantItem" .. i]) then

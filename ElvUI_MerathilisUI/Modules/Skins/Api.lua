@@ -2,24 +2,23 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
 local find, lower, strfind = string.find, string.lower, strfind
--- WoW API / Variables
+local tinsert = table.insert
+
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: AddOnSkins, stripes
+local RaiseFrameLevel = RaiseFrameLevel
+local LowerFrameLevel = LowerFrameLevel
 
 local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
 local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
 local unitFrameColorR, unitFrameColorG, unitFrameColorB
-local rgbValueColorR, rgbValueColorG, rgbValueColorB
+local rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA
 local bordercolorr, bordercolorg, bordercolorb
 
 MERS.addonsToLoad = {}
@@ -86,14 +85,10 @@ end
 function MERS:CreateGradient(f)
 	assert(f, "doesn't exist!")
 
-	local tex = f:CreateTexture(nil, "BACKGROUND")
-	tex:ClearAllPoints()
-	tex:SetPoint("TOPLEFT", 1, -1)
-	tex:SetPoint("BOTTOMRIGHT", -1, 1)
+	local tex = f:CreateTexture(nil, "BORDER")
+	tex:SetInside()
 	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
 	tex:SetVertexColor(.3, .3, .3, .15)
-	tex:SetSnapToPixelGrid(false)
-	tex:SetTexelSnappingBias(0)
 
 	return tex
 end
@@ -103,7 +98,7 @@ function MERS:CreateBackdrop(frame)
 
 	local parent = frame.IsObjectType and frame:IsObjectType("Texture") and frame:GetParent() or frame
 
-	local backdrop = CreateFrame("Frame", nil, parent)
+	local backdrop = CreateFrame("Frame", nil, parent, "BackdropTemplate")
 	backdrop:SetOutside(frame)
 	backdrop:SetTemplate("Transparent")
 
@@ -116,23 +111,18 @@ function MERS:CreateBackdrop(frame)
 	frame.backdrop = backdrop
 end
 
-function MERS:CreateBDFrame(f, a, left, right, top, bottom)
+function MERS:CreateBDFrame(f, a)
 	assert(f, "doesn't exist!")
 
-	local frame
-	if f:IsObjectType('Texture') then
-		frame = f:GetParent()
+	local parent = f.IsObjectType and f:IsObjectType("Texture") and f:GetParent() or f
+
+	local bg = CreateFrame("Frame", nil, parent, "BackdropTemplate")
+	bg:SetOutside(f)
+	if (parent:GetFrameLevel() - 1) >= 0 then
+		bg:SetFrameLevel(parent:GetFrameLevel() - 1)
 	else
-		frame = f
+		bg:SetFrameLevel(0)
 	end
-
-	local lvl = frame:GetFrameLevel()
-
-	local bg = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-	bg:SetPoint("TOPLEFT", f, left or -1, top or 1)
-	bg:SetPoint("BOTTOMRIGHT", f, right or 1, bottom or -1)
-	bg:SetFrameLevel(lvl == 0 and 1 or lvl - 1)
-
 	MERS:CreateBD(bg, a or .5)
 
 	return bg
@@ -182,6 +172,8 @@ function MERS:ReskinTab(tab)
 		tab.backdrop:SetTemplate("Transparent")
 		tab.backdrop:Styling()
 	end
+
+	MER:CreateBackdropShadow(tab)
 end
 
 function MERS:ColorButton()
@@ -208,7 +200,12 @@ function MERS:OnEnter()
 		if self.backdrop then self = self.backdrop end
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.75)
+			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA or .75)
+
+			if not self.wasRaised then
+				RaiseFrameLevel(self)
+				self.wasRaised = true
+			end
 		end
 	end
 end
@@ -219,14 +216,20 @@ function MERS:OnLeave()
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 			self:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha)
+
+			if self.wasRaised then
+				LowerFrameLevel(self)
+				self.wasRaised = nil
+			end
 		end
 	end
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, overrideTex, frameLevel, noGradient)
+function MERS:Reskin(button, strip, isDecline, noStyle, createBackdrop, template, noGlossTex, overrideTex, frameLevel, defaultTemplate, noGradient)
 	assert(button, "doesn't exist!")
 
+	if not button or button.IsSkinned then return end
 	if strip then button:StripTextures() end
 
 	if button.Icon then
@@ -238,24 +241,28 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 		end
 	end
 
-	if not noStyle then
-		if setTemplate then
-			button:SetTemplate('Transparent', not noGlossTex) -- force transparent
-		else
-			button:CreateBackdrop('Transparent', not noGlossTex) -- force transparent
-			button.backdrop:SetAllPoints()
+	if isDecline then
+		if button.Icon then
+			button.Icon:SetTexture(E.Media.Textures.Close)
 		end
 	end
 
-	if not noGradient then
-		if button.backdrop then
-			MERS:CreateGradient(button.backdrop)
-		elseif button.setTemplate then
-			MERS:CreateGradient(button)
+	if not noStyle then
+		if createBackdrop then
+			button:CreateBackdrop(defaultTemplate and template or 'Transparent', not noGlossTex, nil, nil, nil, nil, true, frameLevel)
 		else
-			return
+			button:SetTemplate(defaultTemplate and template or 'Transparent', not noGlossTex)
 		end
+
+		button:HookScript('OnEnter', MERS.OnEnter)
+		button:HookScript('OnLeave', MERS.OnLeave)
 	end
+
+	if not noGradient then
+		MERS:CreateGradient(button)
+	end
+
+	button.IsSkinned = true
 end
 
 function MERS:StyleButton(button)
@@ -313,6 +320,7 @@ function MERS:SkinPanel(panel)
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
 	panel.tex:SetGradient("VERTICAL", rgbValueColorR, rgbValueColorG, rgbValueColorB)
+	MER:CreateShadow(panel)
 end
 
 function MERS:ReskinGarrisonPortrait(self)
@@ -392,6 +400,52 @@ hooksecurefunc(E, "CreateMoverPopup", MERS.ApplyConfigArrows)
 
 function MERS:ReskinAS(AS)
 	-- Reskin AddOnSkins
+	function AS:SkinFrame(frame, template, override, kill)
+		local name = frame and frame.GetName and frame:GetName()
+		local insetFrame = name and _G[name..'Inset'] or frame.Inset
+		local closeButton = name and _G[name..'CloseButton'] or frame.CloseButton
+
+		if not override then
+			AS:StripTextures(frame, kill)
+		end
+
+		AS:SetTemplate(frame, template)
+		MER:CreateShadow(frame)
+
+		if insetFrame then
+			AS:SkinFrame(insetFrame)
+		end
+
+		if closeButton then
+			AS:SkinCloseButton(closeButton)
+		end
+	end
+
+	function AS:SkinBackdropFrame(frame, template, override, kill)
+		local name = frame and frame.GetName and frame:GetName()
+		local insetFrame = name and _G[name..'Inset'] or frame.Inset
+		local closeButton = name and _G[name..'CloseButton'] or frame.CloseButton
+
+		if not override then
+			AS:StripTextures(frame, kill)
+		end
+
+		AS:CreateBackdrop(frame, template)
+		AS:SetOutside(frame.Backdrop)
+
+		if insetFrame then
+			AS:SkinFrame(insetFrame)
+		end
+
+		if closeButton then
+			AS:SkinCloseButton(closeButton)
+		end
+
+		if frame.Backdrop then
+			MER:CreateShadow(frame.Backdrop)
+		end
+	end
+
 	function AS:SkinTab(Tab, Strip)
 		if Tab.isSkinned then return end
 		local TabName = Tab:GetName()
@@ -541,7 +595,7 @@ end
 
 -- keep the colors updated
 local function updateMedia()
-	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E.media.rgbvaluecolor)
+	rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA = unpack(E.media.rgbvaluecolor)
 	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E.media.unitframeBorderColor)
 	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E.media.backdropfadecolor)
 	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E.media.backdropcolor)

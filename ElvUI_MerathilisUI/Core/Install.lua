@@ -938,7 +938,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar2"]["macroFont"] = "Expressway"
 	E.db["actionbar"]["bar2"]["macroFontOutline"] = "OUTLINE"
 	E.db["actionbar"]["bar2"]["macroTextPosition"] = "BOTTOM"
-	E.db["actionbar"]["bar1"]["macroTextYOffset"] = 0
+	E.db["actionbar"]["bar2"]["macroTextYOffset"] = 0
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar2"]["keepSizeRatio"] = false

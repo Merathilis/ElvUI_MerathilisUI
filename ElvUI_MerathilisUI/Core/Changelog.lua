@@ -16,11 +16,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added an OmniCD Profile",
-		"• Added a Talent Set Manager. Credits fang2hou <3",
-		"• Added an option to toggle the shadow on the MicroBar",
-		"• Added an option to toggle my right chat DataText Panel -.-",
-		"• Updated VenturePlan skin",
+		"• Added Shadows around the most frames",
+		"• Added Grappling Growth to the Vignette Blacklist",
+		"• Remove Talent Set Manager, there will be an own AddOn in the future",
+		"• Updated some skins",
 
 		-- "• ''",
 	" ",

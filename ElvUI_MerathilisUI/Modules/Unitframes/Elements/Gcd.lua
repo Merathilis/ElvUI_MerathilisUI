@@ -13,8 +13,9 @@ function module:Construct_GCD(frame)
 	local r, g, b = color.r, color.g, color.b or {.8, .8, .8}
 
 	local bar = CreateFrame("StatusBar", frame:GetName().."_GCD", frame)
-	bar:SetSize(width, 3)
-	bar:SetPoint("BOTTOM", frame.Castbar.Holder, "TOP", 0, -1)
+	bar:Size(width, 3)
+	bar:ClearAllPoints()
+	bar:Point("BOTTOM", frame.Castbar.Holder, "TOP", 0, -1)
 	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel()+1)
 	bar:SetStatusBarTexture(E.media.normTex)
 	bar:SetStatusBarColor(r, g, b)

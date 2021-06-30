@@ -32,6 +32,7 @@ local function LoadSkin()
 	local CharacterModelFrame = _G.CharacterModelFrame
 
 	CharacterFrame:Styling()
+	MER:CreateShadow(CharacterFrame)
 
 	if CharacterModelFrame and CharacterModelFrame.BackgroundTopLeft and CharacterModelFrame.BackgroundTopLeft:IsShown() then
 		CharacterModelFrame.BackgroundTopLeft:Hide()

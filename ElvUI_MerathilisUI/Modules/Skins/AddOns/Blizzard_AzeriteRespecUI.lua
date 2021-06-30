@@ -13,6 +13,7 @@ local function LoadSkin()
 
 	local AzeriteRespecFrame = _G.AzeriteRespecFrame
 	AzeriteRespecFrame:Styling()
+	MER:CreateBackdropShadow(AzeriteRespecFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_AzeriteRespecUI", "mUIAzeriteRespec", LoadSkin)

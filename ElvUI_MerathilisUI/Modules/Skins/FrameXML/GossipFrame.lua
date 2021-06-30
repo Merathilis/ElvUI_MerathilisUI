@@ -43,6 +43,7 @@ local function LoadSkin()
 
 	local GossipFrame = _G.GossipFrame
 	GossipFrame:Styling()
+	MER:CreateBackdropShadow(GossipFrame)
 
 	_G.GossipGreetingScrollFrame:StripTextures()
 

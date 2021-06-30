@@ -26,9 +26,10 @@ MER.Config = {}
 MER.RegisteredModules = {}
 
 -- Modules
-MER.ActionBars = MER:NewModule('MER_Actionbars', 'AceEvent-3.0')
+MER.ActionBars = MER:NewModule('MER_Actionbars', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Armory = MER:NewModule('MER_Armory', 'AceEvent-3.0', 'AceConsole-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 MER.AutoButtons = MER:NewModule('MER_AutoButtons', 'AceEvent-3.0')
+MER.Auras = MER:NewModule('MER_Auras', 'AceHook-3.0')
 MER.Bags = MER:NewModule('MER_Bags', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.BagInfo = MER:NewModule("MER_BagInfo", 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Chat = MER:NewModule('MER_Chat', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
@@ -71,7 +72,6 @@ MER.RandomToy = MER:NewModule('MER_RandomToy', 'AceEvent-3.0')
 MER.Reminder = MER:NewModule('MER_Reminder', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Skins = MER:NewModule('MER_Skins', 'AceHook-3.0', 'AceEvent-3.0')
 MER.SuperTracker = MER:NewModule('MER_SuperTracker', 'AceHook-3.0', 'AceEvent-3.0')
-MER.TalentManager = MER:NewModule('MER_TalentManager', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Tooltip = MER:NewModule('MER_Tooltip', 'AceTimer-3.0', 'AceHook-3.0', 'AceEvent-3.0')
 MER.UnitFrames = MER:NewModule('MER_UnitFrames', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.WorldMap = MER:NewModule('MER_WorldMap', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')

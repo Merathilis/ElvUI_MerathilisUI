@@ -23,9 +23,11 @@ local function LoadSkin()
 	end
 
 	-- Boss Banner
-	hooksecurefunc("BossBanner_ConfigureLootFrame", function(lootFrame)
+	hooksecurefunc('BossBanner_ConfigureLootFrame', function(lootFrame, data)
 		if not lootFrame.isSkinned then
 			local iconHitBox = lootFrame.IconHitBox
+			local color = MER.ClassColors[data.className]
+
 			S:HandleIcon(lootFrame.Icon, true)
 			iconHitBox.IconBorder:SetTexture(nil)
 			S:HandleIconBorder(iconHitBox.IconBorder, lootFrame.Icon.backdrop)
@@ -33,6 +35,8 @@ local function LoadSkin()
 			lootFrame.Anim.__owner = lootFrame
 			lootFrame.Anim:HookScript("OnPlay", HideIconBG)
 			lootFrame.Anim:HookScript("OnFinished", ShowIconBG)
+
+			lootFrame.PlayerName:SetTextColor(color.r, color.g, color.b)
 
 			lootFrame.isSkinned = true
 		end

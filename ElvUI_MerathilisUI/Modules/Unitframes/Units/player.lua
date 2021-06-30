@@ -18,11 +18,15 @@ function module:Update_PlayerFrame(frame)
 
 	-- Only looks good on Transparent
 	if E.db.unitframe.colors.transparentHealth then
-		if frame and frame.Health and not frame.isStyled then
-			frame.Health:Styling(false, false, true)
-			frame.isStyled = true
+		if db.style then
+			if frame and frame.Health and not frame.isStyled then
+				frame.Health:Styling(false, false, true)
+				frame.isStyled = true
+			end
 		end
 	end
+
+	module:CreateHighlight(frame)
 
 	if db.swing.enable then
 		if not frame:IsElementEnabled('Swing') then
@@ -53,8 +57,6 @@ function module:Update_PlayerFrame(frame)
 			frame:DisableElement('CounterBar')
 		end
 	end
-
-	module:CreateHighlight(frame)
 end
 
 function module:InitPlayer()

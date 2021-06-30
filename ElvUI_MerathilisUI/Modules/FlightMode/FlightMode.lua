@@ -572,6 +572,7 @@ function module:CreateFlightMode()
 	module.FlightMode.Panel:Size((GetScreenWidth()/2), 80)
 	module.FlightMode.Panel:CreateBackdrop('Transparent')
 	module.FlightMode.Panel:SetFrameStrata('FULLSCREEN')
+	MER:CreateShadow(module.FlightMode.Panel)
 	module.FlightMode.Panel:Styling()
 
 	module.FlightMode.PanelIcon = CreateFrame('Frame', nil, module.FlightMode.Panel, 'BackdropTemplate')

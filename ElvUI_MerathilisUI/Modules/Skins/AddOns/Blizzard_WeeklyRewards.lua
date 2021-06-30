@@ -16,9 +16,16 @@ local function LoadSkin()
 	frame:StripTextures()
 	header:StripTextures()
 
-	if frame.backdrop then
-		frame.backdrop:Styling()
+	if not frame.backdrop then
+		frame:CreateBackdrop('Transparent')
 	end
+
+	if not header.backdrop then
+		header:CreateBackdrop('Transparent')
+	end
+
+	frame.backdrop:Styling()
+	MER:CreateBackdropShadow(frame)
 end
 
 S:AddCallbackForAddon('Blizzard_WeeklyRewards', 'muiWeeklyRewards', LoadSkin)

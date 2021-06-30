@@ -16,7 +16,7 @@ local function Misc()
 
 	E.Options.args.mui.args.modules.args.misc = {
 		type = "group",
-		name = E.NewSign..L["Miscellaneous"],
+		name = L["Miscellaneous"],
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -93,7 +93,7 @@ local function Misc()
 					icon = {
 						order = 4,
 						type = "group",
-						name = E.NewSign..MER:cOption(L["Icon"], 'orange'),
+						name = MER:cOption(L["Icon"], 'orange'),
 						disabled = function()
 							return not E.db.mui.misc.lfgInfo.enable
 						end,
@@ -137,7 +137,7 @@ local function Misc()
 					line = {
 						order = 5,
 						type = "group",
-						name = E.NewSign..MER:cOption(L["Line"], 'orange'),
+						name = MER:cOption(L["Line"], 'orange'),
 						disabled = function()
 							return not E.db.mui.misc.lfgInfo.enable
 						end,

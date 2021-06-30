@@ -17,7 +17,6 @@ local CreateFrame = CreateFrame
 local EasyMenu = EasyMenu
 local GameTooltip = _G.GameTooltip
 local GetClassColor = GetClassColor
-local GetLocale = GetLocale
 local IsInGuild = IsInGuild
 
 local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
@@ -42,7 +41,7 @@ local function GetNonLocalizedClass(className)
 	end
 
 	-- For deDE and frFR
-	if GetLocale() == "deDE" or GetLocale() == "frFR" then
+	if E.locale == "deDE" or E.locale == "frFR" then
 		for class, localizedName in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
 			if className == localizedName then
 				return class
@@ -124,6 +123,7 @@ function module:ConstructFrame()
 	frame:Point("BOTTOMRIGHT", _G.MailFrame, "BOTTOMRIGHT", 152, 1)
 	frame:CreateBackdrop("Transparent")
 	frame.backdrop:Styling()
+	MER:CreateShadow(frame)
 	frame:EnableMouse(true)
 
 	self.frame = frame

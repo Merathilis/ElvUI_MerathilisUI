@@ -56,6 +56,7 @@ local function LoadSkin()
 
 	local KeyStoneFrame = _G.ChallengesKeystoneFrame
 	KeyStoneFrame:Styling()
+	MER:CreateBackdropShadow(KeyStoneFrame)
 
 	hooksecurefunc("ChallengesFrame_Update", UpdateIcons)
 end

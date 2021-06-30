@@ -8,11 +8,48 @@ local function PanelTable()
 
 	E.Options.args.mui.args.modules.args.panels = {
 		type = "group",
-		name = L["Panels"],
+		name = E.NewSign..L["Panels"],
 		args = {
 			header = ACH:Header(MER:cOption(L["Panels"], 'orange'), 0),
-			panels = {
+			color = {
 				order = 1,
+				type = "group",
+				name = E.NewSign..MER:cOption(L["Color"], 'orange'),
+				guiInline = true,
+				args = {
+					colorType = {
+						order = 1,
+						name = L["Color"],
+						type = "select",
+						get = function(info) return E.db.mui.panels[ info[#info] ] end,
+						set = function(info, value) E.db.mui.panels[ info[#info] ] = value; PN:UpdateColors() end,
+						values = {
+							["DEFAULT"] = DEFAULT,
+							["CLASS"] = CLASS,
+							["CUSTOM"] = CUSTOM,
+						},
+					},
+					customColor = {
+						type = "color",
+						order = 2,
+						name = L["Custom Color"],
+						disabled = function() return E.db.mui.panels.colorType ~= "CUSTOM" end,
+						get = function(info)
+							local t = E.db.mui.panels[ info[#info] ]
+							local d = P.mui.panels[info[#info]]
+							return t.r, t.g, t.b, d.r, d.g, d.b
+						end,
+						set = function(info, r, g, b)
+							E.db.mui.panels[ info[#info] ] = {}
+							local t = E.db.mui.panels[ info[#info] ]
+							t.r, t.g, t.b = r, g, b
+							PN:UpdateColors()
+						end,
+					},
+				},
+			},
+			panels = {
+				order = 2,
 				type = "group",
 				name = MER:cOption(L["Panels"], 'orange'),
 				guiInline = true,
@@ -53,7 +90,7 @@ local function PanelTable()
 				},
 			},
 			stylepanels = {
-				order = 2,
+				order = 3,
 				type = "group",
 				name = MER:cOption(L["Style Panels"], 'orange'),
 				guiInline = true,

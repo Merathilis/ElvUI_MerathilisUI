@@ -9,10 +9,12 @@ local function LoadSkin()
 	if _G.GMChatFrame.backdrop then
 		_G.GMChatFrame.backdrop:Styling()
 	end
+	MER:CreateBackdropShadow(_G.GMChatFrame)
 
 	if _G.GMChatTab.backdrop then
 		_G.GMChatTab.backdrop:Styling()
 	end
+	MER:CreateBackdropShadow(_G.GMChatTab)
 end
 
 S:AddCallbackForAddon("Blizzard_GMChatUI", "mUIGMChatUI", LoadSkin)

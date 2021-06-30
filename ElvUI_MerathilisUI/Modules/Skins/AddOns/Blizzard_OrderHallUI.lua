@@ -15,6 +15,7 @@ local function LoadSkin()
 	if OrderHallTalentFrame.backdrop then
 		OrderHallTalentFrame.backdrop:Styling()
 	end
+	MER:CreateBackdropShadow(OrderHallTalentFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_OrderHallUI", "mUIOrderHall", LoadSkin)

@@ -181,10 +181,7 @@ end
 
 local count = {}
 local function UpdateIcons(self)
-	local raid = IsInRaid()
-	local party --= IsInGroup() --We could have this in party :thinking:
-
-	if not (raid or party) then
+	if not IsInRaid() then
 		self:Hide()
 		return
 	else
@@ -194,17 +191,10 @@ local function UpdateIcons(self)
 
 	twipe(count)
 
-	local role
 	for i = 1, GetNumGroupMembers() do
-		role = UnitGroupRolesAssigned((raid and "raid" or "party")..i)
-		if role and role ~= "NONE" then
+		local role = UnitGroupRolesAssigned('raid'..i)
+		if role and role ~= 'NONE' then
 			count[role] = (count[role] or 0) + 1
-		end
-	end
-
-	if (not raid) and party then
-		if E.myrole then
-			count[E.myrole] = (count[E.myrole] or 0) + 1
 		end
 	end
 
@@ -240,6 +230,7 @@ function module:CreateRaidManager()
 
 	RaidManagerFrame:CreateBackdrop("Transparent")
 	RaidManagerFrame.backdrop:Styling()
+	MER:CreateShadowModule(RaidManagerFrame.backdrop)
 
 	-- Top Title
 	RaidManagerFrame.title = RaidManagerFrame:CreateFontString(nil, "OVERLAY")
@@ -407,6 +398,7 @@ function module:CreateRaidManager()
 	RaidMarkFrame:Hide()
 	RaidMarkFrame:CreateBackdrop("Transparent")
 	RaidMarkFrame.backdrop:Styling()
+	MER:CreateShadowModule(RaidMarkFrame.backdrop)
 
 	RaidMarkFrame:RegisterForDrag("LeftButton")
 	RaidMarkFrame:SetScript("OnDragStart", function(self) self:StartMoving() end)
@@ -543,6 +535,7 @@ function module:CreateRaidInfo()
 	header.backdrop:SetAllPoints()
 	header.backdrop:SetBackdropColor(0, 0, 0, 0.3)
 	header.backdrop:Styling()
+	MER:CreateShadowModule(header.backdrop)
 	E.FrameLocks[header] = true
 
 	E:CreateMover(header, "MER_RaidManager", L["Raid Manager"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,misc')
@@ -675,9 +668,10 @@ function module:CreateRaidInfo()
 	rcFrame:CreateBackdrop("Transparent")
 	rcFrame.backdrop:SetAllPoints()
 	rcFrame.backdrop:Styling()
+	MER:CreateShadowModule(rcFrame.backdrop)
 	MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", _G.READY_CHECK, true, "TOP", 0, -8)
 
-	local rc = MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", "", false, "TOP", 0, -28)
+	local rc = MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", "", false, "TOP", 0, -25)
 
 	local count, total
 	local function hideRCFrame()

@@ -818,6 +818,8 @@ MP.media = {
 }
 
 MP.panels = {
+	colorType = "CLASS",
+	customColor = {r = 1, g = 1, b = 1 },
 	topPanel = true,
 	bottomPanel = true,
 	stylePanels = {
@@ -1076,14 +1078,4 @@ MP.armory = {
 MP.flightMode = {
 	enable = true,
 	BenikFlightMode = true,
-}
-
-MP.talents = {
-	talentManager = {
-		enable = true,
-		itemButtons = true,
-		pvpTalent = false,
-		statusIcon = true,
-		sets = {}
-	}
 }

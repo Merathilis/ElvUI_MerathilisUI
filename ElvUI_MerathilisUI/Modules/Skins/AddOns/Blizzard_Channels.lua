@@ -14,9 +14,11 @@ local function LoadSkin()
 	local ChannelFrame = _G.ChannelFrame
 	ChannelFrame:StripTextures()
 	ChannelFrame:Styling()
+	MER:CreateBackdropShadow(ChannelFrame)
 
 	local CreateChannelPopup = _G.CreateChannelPopup
 	CreateChannelPopup:Styling()
+	MER:CreateBackdropShadow(CreateChannelPopup)
 end
 
 S:AddCallbackForAddon("Blizzard_Channels", "mUIChannels", LoadSkin)

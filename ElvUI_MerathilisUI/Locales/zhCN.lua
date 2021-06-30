@@ -618,25 +618,6 @@ L["Show a shield icon on the castbar for non interruptible spells."] = "在不�
 L["Enhanced NameplateAuras"] = "增强姓名板光环"
 L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] = "|cffFF0000注意:|r 这会覆盖 ElvUI 姓名板 Buff/Debuffs 的长宽设置. 控制技能的图标大小固定为: 32 x 32"
 
--- Talents
-L["Talent Manager"] = true
-L["PvP Talents"] = true
-L["Item Buttons"] = true
-L["Add tomb and codex buttons."] = true
-L["Status Icon"] = true
-L["Add an icon indicates the status of the permission of changing talents."] = true
-L["Clear All Sets"] = true
-L["Already have a set named %s."] = true
-L["Too many sets here, please delete one of them and try again."] = true
-L["Talent string is not valid."] = true
-L["Overwrite"] = true
-L["Rename"] = true
-L["Delete"] = true
-L["Not set"] = true
-L["New Set"] = true
-L["Toggle Talent Manager"] = true
-L["Rename Set"] = true
-
 -- Install
 L["Welcome"] = "欢迎"
 L["|cffff7d0aMerathilisUI|r Installation"] = "|cffff7d0aMerathilisUI|r安装"

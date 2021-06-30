@@ -33,9 +33,19 @@ function MER:LoadOmniCDProfile()
 								["enabled"] = false,
 							},
 							["interruptBar"] = {
+								["hideSpark"] = true,
 								["statusBarWidth"] = 220,
-								["locked"] = true,
+								["barColors"] = {
+									["useClassColor"] = {
+										["inactive"] = true,
+									},
+									["inactiveColor"] = {
+										["a"] = 1,
+										["b"] = 0.1176470588235294,
+									},
+								},
 								["useIconAlpha"] = true,
+								["locked"] = true,
 							},
 						},
 						["general"] = {

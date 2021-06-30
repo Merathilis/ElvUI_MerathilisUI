@@ -35,42 +35,125 @@ function module:CreateHighlight(self)
 	end)
 end
 
+function module:UnitFrames_UpdateNameSettings(_, f)
+	if f.shadow then return end
+
+	MER:CreateBackdropShadow(f.Health, true)
+end
+
+function module:UnitFrames_Configure_Threat(_, f)
+	if f.shadow then return end
+
+	local threat = f.ThreatIndicator
+	if not threat then return end
+
+	threat.PostUpdate = function(self, unit, status, r, g, b)
+		UF.UpdateThreat(self, unit, status, r, g, b)
+		local parent = self:GetParent()
+		if not unit or parent.unit ~= unit then
+			return
+		end
+		if parent.db and parent.db.threatStyle == "GLOW" then
+			if parent.Health and parent.Health.backdrop and parent.Health.backdrop.shadow then
+				parent.Health.backdrop.shadow:SetShown(not threat.MainGlow:IsShown())
+			end
+			if parent.Power and parent.Power.backdrop and parent.Power.backdrop.shadow and parent.USE_POWERBAR_OFFSET then
+				parent.Power.backdrop.shadow:SetShown(not threat.MainGlow:IsShown())
+			end
+		end
+	end
+end
+
+function module:UnitFrames_Configure_Power(_, f)
+	if f.shadow then return end
+
+	if f.USE_POWERBAR then
+		local shadow = f.Power.backdrop.shadow
+		if f.POWERBAR_DETACHED then
+			if not shadow then
+				MER:CreateBackdropShadow(f.Power, true)
+			else
+				shadow:Show()
+			end
+		else
+			if shadow then
+				shadow:Hide()
+			end
+		end
+	end
+end
+
+function module:UnitFrames_Configure_ClassBar(_, f)
+	if f.shadow then return end
+
+	local bars = f[f.ClassBar]
+	if not bars.backdrop.shadow then
+		MER:CreateShadow(bars.backdrop)
+	end
+
+	if f.shadow then
+		f.shadow:ClearAllPoints()
+		if f.USE_MINI_CLASSBAR and not f.CLASSBAR_DETACHED then
+			f.shadow:Point('TOPLEFT', f.Health.backdrop, 'TOPLEFT')
+			f.shadow:Point('BOTTOMRIGHT', f, 'BOTTOMRIGHT')
+			bars.backdrop.shadow:Show()
+		elseif not f.CLASSBAR_DETACHED then
+			bars.backdrop.shadow:Hide()
+		else
+			bars.backdrop.shadow:Show()
+		end
+	end
+end
+
+function module:UnitFrames_UpdateAuraSettings(_, _, a)
+	MER:CreateShadow(a)
+end
+
+function module:CreateUFShadows()
+	self:SecureHook(UF, "UpdateNameSettings", "UnitFrames_UpdateNameSettings")
+	self:SecureHook(UF, "Configure_Threat", "UnitFrames_Configure_Threat")
+	self:SecureHook(UF, "Configure_Power", "UnitFrames_Configure_Power")
+	self:SecureHook(UF, "Configure_ClassBar", "UnitFrames_Configure_ClassBar")
+	self:SecureHook(UF, "UpdateAuraSettings", "UnitFrames_UpdateAuraSettings")
+end
+
 function module:StyleUFs()
 	local db = E.db.mui.unitframes
 
-	if db.style then
-		-- Player
-		self:InitPlayer()
-		self:InitPower()
-		self:InitCastBar()
+	-- Player
+	self:InitPlayer()
+	self:InitPower()
+	self:InitCastBar()
 
-		-- Target
-		self:InitTarget()
+	-- Target
+	self:InitTarget()
 
-		-- TargetTarget
-		self:InitTargetTarget()
+	-- TargetTarget
+	self:InitTargetTarget()
 
-		-- Pet
-		self:InitPet()
+	-- Pet
+	self:InitPet()
 
-		-- Focus
-		self:InitFocus()
+	-- Focus
+	self:InitFocus()
 
-		-- FocusTarget
-		self:InitFocusTarget()
+	-- FocusTarget
+	self:InitFocusTarget()
 
-		-- Party
-		self:InitParty()
+	-- Party
+	self:InitParty()
 
-		-- Raid
-		self:InitRaid()
+	-- Raid
+	self:InitRaid()
 
-		-- Raid40
-		self:InitRaid40()
+	-- Raid40
+	self:InitRaid40()
 
-		-- Boss
-		self:InitBoss()
-	end
+	-- Boss
+	self:InitBoss()
+
+	--Shadows
+	self:CreateUFShadows()
 end
 
 function module:Initialize()

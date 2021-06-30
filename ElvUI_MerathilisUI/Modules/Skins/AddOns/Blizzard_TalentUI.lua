@@ -25,6 +25,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
 	_G.PlayerTalentFrame:Styling()
+	MER:CreateShadow(_G.PlayerTalentFrame)
 
 	-- Specc
 	for i = 1, GetNumSpecializations(false, nil) do
@@ -49,7 +50,7 @@ local function LoadSkin()
 			local bu = row['talent'..j]
 			if bu.bg then
 				MERS:CreateGradient(bu.bg)
-				bu.bg.backdrop:SetTemplate("Transparent")
+				bu.bg:SetTemplate("Transparent")
 				bu.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
 			end
 		end
@@ -192,42 +193,38 @@ local function LoadSkin()
 	end
 
 	local PlayerTalentFrameTalentsPvpTalentFrameTalentList = _G.PlayerTalentFrameTalentsPvpTalentFrameTalentList
-	PlayerTalentFrameTalentsPvpTalentFrameTalentList.backdrop:Styling()
+	PlayerTalentFrameTalentsPvpTalentFrameTalentList:Styling()
 
-	for i = 1, 10 do
-		local bu = _G["PlayerTalentFrameTalentsPvpTalentFrameTalentListScrollFrameButton"..i]
-		local icon = bu.Icon
-		if bu then
+	for _, Button in pairs(PvpTalentFrame.TalentList.ScrollFrame.buttons) do
+		if Button then
 			-- Hide ElvUI backdrop
-			if bu.backdrop then
-				bu.backdrop:Hide()
+			if Button.backdrop then
+				Button.backdrop:Hide()
 			end
 
-			MERS:Reskin(bu)
+			MERS:Reskin(Button)
 
-			if bu.Selected then
-				bu.Selected:SetTexture(nil)
+			if Button.Selected then
+				Button.Selected:SetTexture(nil)
 
-				bu.selectedTexture = bu:CreateTexture(nil, "ARTWORK")
-				bu.selectedTexture:SetInside(bu)
-				bu.selectedTexture:SetColorTexture(r, g, b, .5)
-				bu.selectedTexture:SetShown(bu.Selected:IsShown())
+				Button.selectedTexture = Button:CreateTexture(nil, "ARTWORK")
+				Button.selectedTexture:SetInside(Button)
+				Button.selectedTexture:SetColorTexture(r, g, b, .5)
+				Button.selectedTexture:SetShown(Button.Selected:IsShown())
 
-				hooksecurefunc(bu, "Update", function(selectedHere)
-					if not bu.selectedTexture then return end
-					if bu.Selected:IsShown() then
-						bu.selectedTexture:SetShown(selectedHere)
+				hooksecurefunc(Button, "Update", function(selectedHere)
+					if not Button.selectedTexture then return end
+					if Button.Selected:IsShown() then
+						Button.selectedTexture:SetShown(selectedHere)
 					else
-						bu.selectedTexture:Hide()
+						Button.selectedTexture:Hide()
 					end
 				end)
 			end
 
-			bu.backdrop:SetAllPoints()
-
-			if bu.Icon then
-				bu.Icon:SetTexCoord(unpack(E.TexCoords))
-				bu.Icon:SetDrawLayer("ARTWORK", 1)
+			if Button.Icon then
+				Button.Icon:SetTexCoord(unpack(E.TexCoords))
+				Button.Icon:SetDrawLayer("ARTWORK", 1)
 			end
 		end
 	end

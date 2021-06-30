@@ -18,6 +18,7 @@ local function LoadSkin()
 
 	local ClassTrainerFrame = _G.ClassTrainerFrame
 	ClassTrainerFrame:Styling()
+	MER:CreateShadow(ClassTrainerFrame)
 
 	_G.ClassTrainerStatusBarSkillRank:ClearAllPoints()
 	_G.ClassTrainerStatusBarSkillRank:SetPoint("CENTER", _G.ClassTrainerStatusBar, "CENTER", 0, 0)
