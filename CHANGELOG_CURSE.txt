@@ -1,3 +1,9 @@
+** v4.75, 01.07.2021**
+* Removed the Parchment from some Quest Windows again
+* Fix some skin errors introduced with 9.1
+* Fix an error with the Armory Stat Options
+
+
 ** v4.74 for 9.1, 30.06.2021**
 * Added Shadows around the most frames
 * Added Grappling Growth to the Vignette Blacklist
