@@ -263,6 +263,10 @@ function module:UpdatePaperDoll()
 			-- Reset Data first
 			frame.DurabilityInfo:SetText("")
 			frame.Gradiation.Texture:Hide()
+			frame.Transmog.Texture:Hide()
+			frame.Transmog.Link = nil
+			frame.Illusion:Hide()
+			frame.Illusion.Link = nil
 
 			itemLink = GetInventoryItemLink(unit, slot)
 			if (itemLink and itemLink ~= nil) then
@@ -292,6 +296,33 @@ function module:UpdatePaperDoll()
 						frame.Gradiation.Texture:SetVertexColor(MER:unpackColor(module.db.gradient.color))
 					end
 				end
+
+				-- Transmog
+				--if module.db.transmog.enable then
+					--local transmogLocation = TransmogUtil.GetTransmogLocation((slot), Enum.TransmogType.Appearance, Enum.TransmogModification.None)
+--
+					--if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(transmogLocation) then
+						--frame.Transmog.Texture:Show()
+						--frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation))))
+					--end
+				--end
+
+				-- Illussion
+				--if module.db.illusion.enable then
+					--local transmogLocation = TransmogUtil.GetTransmogLocation((slot), Enum.TransmogType.Illusion, Enum.TransmogModification.None)
+--
+					--if (slot == 16 or slot == 17) then
+						--local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(transmogLocation)
+--
+						--if ItemTexture then
+							--frame.Illusion:Show()
+							--frame.Illusion.Texture:SetTexture(ItemTexture)
+							--_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation)))
+						--end
+					--else
+						--frame.Illusion:Hide()
+					--end
+				--end
 			end
 		end
 	end
@@ -336,6 +367,44 @@ function module:BuildInformation()
 			frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT")
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
 		end
+
+		-- Transmog Info
+		frame.Transmog = CreateFrame('Button', nil, frame)
+		frame.Transmog:Size(12)
+		frame.Transmog:SetScript('OnEnter', self.Transmog_OnEnter)
+		frame.Transmog:SetScript('OnLeave', self.Transmog_OnLeave)
+
+		frame.Transmog.Texture = frame.Transmog:CreateTexture(nil, 'OVERLAY')
+		frame.Transmog.Texture:SetInside()
+		frame.Transmog.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\anchor')
+		frame.Transmog.Texture:SetVertexColor(1, .5, 1)
+
+		if id <= 7 or id == 17 or id == 11 then -- Left Size
+			frame.Transmog:Point("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
+			frame.Transmog.Texture:SetTexCoord(0, 1, 1, 0)
+		elseif id <= 16 then -- Right Side
+			frame.Transmog:Point("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
+			frame.Transmog.Texture:SetTexCoord(1, 0, 1, 0)
+		elseif id == 18 then -- Main Hand
+			frame.Transmog:Point("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
+			frame.Transmog.Texture:SetTexCoord(1, 0, 0, 1)
+		elseif id == 19 then -- Off Hand
+			frame.Transmog:Point("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
+			frame.Transmog.Texture:SetTexCoord(0, 1, 0, 1)
+		end
+
+		-- Illusion Info
+		frame.Illusion = CreateFrame('Button', nil, frame)
+		frame.Illusion:Size(14)
+		frame.Illusion:Point('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
+		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
+		frame.Illusion:SetScript('OnLeave', self.Tooltip_OnLeave)
+		frame.Illusion:CreateBackdrop()
+		frame.Illusion.backdrop:SetBackdropBorderColor(1, .5, 1)
+
+		frame.Illusion.Texture = frame.Illusion:CreateTexture(nil, 'OVERLAY')
+		frame.Illusion.Texture:SetInside()
+		frame.Illusion.Texture:SetTexCoord(.1, .9, .1, .9)
 
 		-- Missing Enchants/Gems Warning
 		frame.Warning = CreateFrame('Frame', nil, frame)
