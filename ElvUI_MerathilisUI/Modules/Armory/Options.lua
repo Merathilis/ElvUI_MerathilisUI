@@ -121,7 +121,7 @@ local function ArmoryTable()
 						set = function(info, value) E.db.mui.armory.stats.List[ info[#info] ] = value; MERAY:ToggleStats() end,
 						args = {
 							HEALTH = { order = 1, type = "toggle", name = HEALTH,},
-							POWER = { order = 2, type = "toggle", name = _G[select(2, UnitPowerType("player"))],},
+							POWER = { order = 2, type = "toggle", name = function() local power = _G[select(2, UnitPowerType('player'))] or L["Power"]; return power end},
 							ALTERNATEMANA = { order = 3, type = "toggle", name = ALTERNATE_RESOURCE_TEXT,},
 							ATTACK_DAMAGE = { order = 4, type = "toggle", name = DAMAGE,},
 							ATTACK_AP = { order = 5, type = "toggle", name = ATTACK_POWER,},
