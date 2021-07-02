@@ -1,4 +1,4 @@
-[b][color=orange]v4.75[/color], 01.07.2021[/b][list]
+[b][color=orange]v4.75[/color], 02.07.2021[/b][list]
 [*]Removed the Parchment from some Quest Windows again
 [*]Fix some skin errors introduced with 9.1
 [*]Fix an error with the Armory Stat Options[/list]
