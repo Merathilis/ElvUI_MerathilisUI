@@ -1,3 +1,8 @@
+** v4.76, 09.07.2021**
+* Fix Chat install.
+* Updated BigWigs Profile (Codewise)
+
+
 ** v4.75, 02.07.2021**
 * Removed the Parchment from some Quest Windows again
 * Fix some skin errors introduced with 9.1

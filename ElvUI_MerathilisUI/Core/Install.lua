@@ -72,10 +72,10 @@ local function SetupChat()
 		FCF_SetChatWindowFontSize(nil, frame, 11)
 
 		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
-		if i == 3 and chatName == LOOT.." / "..TRADE then
+		if i == 4 and chatName == LOOT.." / "..TRADE then
 			FCF_UnDockFrame(frame)
 			frame:ClearAllPoints()
-			frame:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 1, 3)
+			frame:Point("BOTTOMLEFT", _G.LeftChatToggleButton, "TOPLEFT", 1, 3)
 			FCF_SetWindowName(frame, LOOT)
 			FCF_DockFrame(frame)
 			if not frame.isLocked then
@@ -86,17 +86,17 @@ local function SetupChat()
 		FCF_SavePositionAndDimensions(frame)
 		FCF_StopDragging(frame)
 	end
-	ChatFrame_RemoveChannel(ChatFrame3, L["Trade"])
+	ChatFrame_RemoveChannel(ChatFrame4, L["Trade"])
 	ChatFrame_AddChannel(ChatFrame1, L["Trade"])
 	ChatFrame_AddMessageGroup(ChatFrame1, "TARGETICONS")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_FACTION_CHANGE")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_GUILD_XP_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_HONOR_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_XP_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "CURRENCY")
-	ChatFrame_AddMessageGroup(ChatFrame3, "LOOT")
-	ChatFrame_AddMessageGroup(ChatFrame3, "MONEY")
-	ChatFrame_AddMessageGroup(ChatFrame3, "SKILL")
+	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_FACTION_CHANGE")
+	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_GUILD_XP_GAIN")
+	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_HONOR_GAIN")
+	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_XP_GAIN")
+	ChatFrame_AddMessageGroup(ChatFrame4, "CURRENCY")
+	ChatFrame_AddMessageGroup(ChatFrame4, "LOOT")
+	ChatFrame_AddMessageGroup(ChatFrame4, "MONEY")
+	ChatFrame_AddMessageGroup(ChatFrame4, "SKILL")
 
 	-- Enable classcolor automatically on login and on each character without doing /configure each time
 	ToggleChatColorNamesByClassGroup(true, "ACHIEVEMENT")
