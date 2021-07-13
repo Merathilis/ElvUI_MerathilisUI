@@ -890,6 +890,8 @@ MP.raidmarkers = {
 	orientation = "HORIZONTAL",
 	modifier = "shift-",
 	reverse = false,
+	mouseover = false,
+	notooltip = false,
 }
 
 MP.raidmanager = {
