@@ -1,9 +1,12 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
+local _G = _G
 local twipe = table.wipe
 
 local IsAddOnLoaded = IsAddOnLoaded
 local LoadAddOn = LoadAddOn
+
+local BigWigs3DB = _G.BigWigs3DB
 
 
 function MER:LoadBigWigsProfile()
@@ -207,6 +210,5 @@ function MER:LoadBigWigsProfile()
 		}
 
 		-- Set the profile
-		BigWigs.db:SetProfile(main)
-
+		_G.BigWigs.db:SetProfile(main)
 end
