@@ -37,14 +37,14 @@ local function LoadSkin()
 
 	_G.InspectModelFrame:DisableDrawLayer("OVERLAY")
 
+	if not _G.InspectFrame.backdrop then
+		_G.InspectFrame:CreateBackdrop('Transparent')
+	end
+
 	if _G.InspectFrame.backdrop then
 		_G.InspectFrame.backdrop:Styling()
 	end
 	MER:CreateBackdropShadow(_G.InspectFrame)
-
-	_G.InspectTalentFrame:GetRegions():Hide()
-	select(2, _G.InspectTalentFrame:GetRegions()):Hide()
-	_G.InspectGuildFrameBG:Hide()
 
 	if _G.InspectModelFrame.backdrop then
 		_G.InspectModelFrame.backdrop:Hide()
