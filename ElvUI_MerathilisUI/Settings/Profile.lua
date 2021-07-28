@@ -1003,8 +1003,6 @@ MP.nameplates = {
 	castbarShield = true,
 	enhancedAuras = {
 		enable = true,
-		width = 26,
-		height = 18,
 	},
 }
 
