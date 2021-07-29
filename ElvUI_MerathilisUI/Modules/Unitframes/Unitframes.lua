@@ -168,6 +168,9 @@ function module:Initialize()
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 
+	-- Auras
+	self:LoadAuras()
+
 	-- RoleIcons
 	self:Configure_RoleIcons()
 

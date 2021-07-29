@@ -230,6 +230,7 @@ function module:CreateRaidManager()
 
 	RaidManagerFrame:CreateBackdrop("Transparent")
 	RaidManagerFrame.backdrop:Styling()
+	MER:CreateShadowModule(RaidManagerFrame.backdrop)
 
 	-- Top Title
 	RaidManagerFrame.title = RaidManagerFrame:CreateFontString(nil, "OVERLAY")
@@ -261,7 +262,7 @@ function module:CreateRaidManager()
 	end)
 
 	local WorldMarkButton = _G.CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton
-	--WorldMarkButton:SetParent(RaidManagerFrame)
+	WorldMarkButton:SetParent(RaidManagerFrame)
 	WorldMarkButton:ClearAllPoints()
 	WorldMarkButton:Point("TOPRIGHT", RaidManagerFrame, "TOPRIGHT", -5, -3)
 	WorldMarkButton:Size(18, 18)
