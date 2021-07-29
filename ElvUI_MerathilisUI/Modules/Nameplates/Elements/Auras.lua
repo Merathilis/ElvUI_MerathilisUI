@@ -81,8 +81,6 @@ end
 function module:Construct_Auras(nameplate)
 	nameplate.Buffs.PostUpdateIcon = module.PostUpdateAura
 	nameplate.Debuffs.PostUpdateIcon = module.PostUpdateAura
-
-	hooksecurefunc(nameplate.Debuffs, 'PostUpdateIcon', MUF.PostUpdateDebuffs)
 end
 
 function module:Construct_AuraIcon(button)

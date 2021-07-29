@@ -53,12 +53,6 @@ local function UnitFramesTable()
 						name = L["Highlight"],
 						desc = L["Adds an own highlight to the Unitframes"],
 					},
-					auras = {
-						order = 6,
-						type = "toggle",
-						name = L["Auras"],
-						desc = L["Adds an shadow around the auras"],
-					},
 				},
 			},
 			gcd = {
