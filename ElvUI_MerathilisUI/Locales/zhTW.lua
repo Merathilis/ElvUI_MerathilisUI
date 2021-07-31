@@ -247,6 +247,8 @@ L["Use the new style tooltip."] = "使用新型態提示。"
 L["Display in English"] = "顯示為英文"
 L["Show icon"] = "顯示圖示"
 L["Show the spell icon along with the name."] = "顯示法術圖示以及名稱。"
+L["Domination Rank"] = "統御等級"
+L["Show the rank of shards."] = "顯示統御碎片的等級."
 
 -- Notification
 L["Notification"] = "通知"

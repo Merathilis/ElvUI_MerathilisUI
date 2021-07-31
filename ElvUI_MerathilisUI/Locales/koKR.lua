@@ -250,6 +250,8 @@ L["Use the new style tooltip."] = "Use the new style tooltip."
 L["Display in English"] = "Display in English"
 L["Show icon"] = "Show icon"
 L["Show the spell icon along with the name."] = "Show the spell icon along with the name."
+L["Domination Rank"] = true
+L["Show the rank of shards."] = true
 
 -- Notification
 L["Notification"] = "알림 표시"

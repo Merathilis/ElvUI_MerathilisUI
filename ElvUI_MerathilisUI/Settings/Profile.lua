@@ -930,6 +930,7 @@ MP.tooltip = {
 			CastleNathria = true,
 		}
 	},
+	dominationRank = true,
 }
 
 MP.errorFilters = {

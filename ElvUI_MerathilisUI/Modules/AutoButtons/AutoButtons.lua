@@ -448,8 +448,12 @@ local openableItems = {
 	185993, --Promoted War Treasure Chest
 	186196, --Death Vanguard War Treasure Box
 	187029, --Venari's mysterious gift
+	187221, --Soul Ash Cache
+	187222, --Stygic Singularity
+	187254, --Arrangement of Anima
 	187278, --The Deep Oath Treasure Chest Passed Through
 	187354, --Abandoned Intermediary Backpack
+	187440, --Feather-Stuffed Helm
 	187543, --Death Vanguard War Treasure Box
 	187551, --Small Cosia Supply Box
 	187569, --Intermediary Cloth Potential Particles
@@ -461,6 +465,7 @@ local openableItems = {
 	187575, --Cosia Fishing Box
 	187576, --Cosia Leather Box
 	187577, --Cosia Meat Box
+	187817, --Korthite Crystal Geode
 }
 
 local questItemList = {}

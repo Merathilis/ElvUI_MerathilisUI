@@ -49,6 +49,12 @@ local function Tooltip()
 				name = L["Title Color"],
 				desc = L["Change the color of the title in the Tooltip."],
 			},
+			dominationRank = {
+				order = 6,
+				type = "toggle",
+				name = L["Domination Rank"],
+				desc = L["Show the rank of shards."],
+			},
 			nameHover = {
 				order = 11,
 				type = "group",

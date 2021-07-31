@@ -250,6 +250,8 @@ L["Use the new style tooltip."] = "Utiliser le nouveau style d'infobulle."
 L["Display in English"] = "Afficher en Anglais"
 L["Show icon"] = "Afficher l'icône"
 L["Show the spell icon along with the name."] = "Montrer l'icône du sort avec le nom."
+L["Domination Rank"] = true
+L["Show the rank of shards."] = true
 
 -- Notification
 L["Notification"] = true
