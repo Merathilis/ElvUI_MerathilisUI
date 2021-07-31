@@ -183,12 +183,14 @@ function MER:SetupLayout(layout)
 	--]]----------------------------------
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
-	E.private["general"]["chatBubbleFontSize"] = 9
+	E.private["general"]["chatBubbleFontSize"] = 13
 	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
 	E.private["general"]["normTex"] = "RenAscensionL"
 	E.private["general"]["glossTex"] = "RenAscensionL"
+	E.private["general"]["nameplateFont"] = "Expressway"
+	E.private["general"]["nameplateLargeFont"] = "Expressway"
 
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
@@ -1357,7 +1359,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["buffs"]["keepSizeRatio"] = false
 		E.db["unitframe"]["units"]["player"]["buffs"]["height"] = 18
-		E.db["unitframe"]["units"]["player"]["buffs"]["spacing"] = 2
+		E.db["unitframe"]["units"]["player"]["buffs"]["spacing"] = 1
 		E.db["unitframe"]["units"]["player"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["size"] = 18
@@ -1508,7 +1510,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["buffs"]["keepSizeRatio"] = false
 		E.db["unitframe"]["units"]["target"]["buffs"]["height"] = 18
-		E.db["unitframe"]["units"]["target"]["buffs"]["spacing"] = 2
+		E.db["unitframe"]["units"]["target"]["buffs"]["spacing"] = 1
 		E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["size"] = 18
