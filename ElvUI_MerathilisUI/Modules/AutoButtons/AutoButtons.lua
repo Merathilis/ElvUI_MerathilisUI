@@ -35,7 +35,7 @@ local IsUsableItem = IsUsableItem
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
+local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntrie
 
 module.bars = {}
 
@@ -348,8 +348,16 @@ local torghastItems = {
 	176331, -- Obscuring Essence Potion
 	176409, -- Rejuvenating Siphoned Essence
 	176443, -- Fleeting Frenzy Potion
-	184652, -- Phantasmic Infusor
 	184662, -- Requisitioned Anima Cell
+	185946, --Long Tail Dynarats
+	185947, --Draught of Leeching Strikes
+	185950, --Draught of Temporal Rush
+	186043, --Torghast Portal Manipulator
+	186614, --Soul Jar
+	186615, --Mirror of the Conjured Twin
+	186636, --Cage of Mawrats
+	186678, --Mawforged Weapons Cache
+	186679, --Scroll of Domination
 }
 
 local openableItems = {
