@@ -35,7 +35,7 @@ local IsUsableItem = IsUsableItem
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntrie
+local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 
 module.bars = {}
 
