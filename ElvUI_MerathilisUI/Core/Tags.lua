@@ -7,14 +7,11 @@ local translitMark = "!"
 -- Credits Blazeflack (CustomTags)
 
 -- Cache global variables
-local abs, ceil = math.abs, ceil
-local format, match, sub, gsub = string.format, string.match, string.sub, string.gsub
-local strfind, strlower, strmatch, strsub, strsplit, utf8lower, utf8sub, utf8len = strfind, strlower, strmatch, strsub, strsplit, string.utf8lower, string.utf8sub, string.utf8len
-local assert, tonumber, type = assert, tonumber, type
-local gmatch, gsub = gmatch, gsub
+local abs, ceil, type, tonumber = math.abs, ceil, type, tonumber
+local format, gsub, gmatch = string.format, string.gsub, string.gmatch
+local strfind, strmatch, strsplit, utf8lower, utf8sub, utf8len = strfind, strmatch, strsplit, string.utf8lower, string.utf8sub, string.utf8len
 -- WoW API / Variables
 local UnitIsDead = UnitIsDead
-local UnitClass = UnitClass
 local UnitIsGhost = UnitIsGhost
 local UnitIsConnected = UnitIsConnected
 local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax
@@ -22,25 +19,7 @@ local UnitName = UnitName
 local UnitPower = UnitPower
 local IsResting = IsResting
 
--- GLOBALS: Hex, _COLORS
-
-local textFormatStyles = {
-	["CURRENT"] = "%.1f",
-	["CURRENT_MAX"] = "%.1f - %.1f",
-	["CURRENT_PERCENT"] =  "%.1f - %.1f%%",
-	["CURRENT_MAX_PERCENT"] = "%.1f - %.1f | %.1f%%",
-	["PERCENT"] = "%.1f%%",
-	["DEFICIT"] = "-%.1f"
-}
-
-local textFormatStylesNoDecimal = {
-	["CURRENT"] = "%s",
-	["CURRENT_MAX"] = "%s - %s",
-	["CURRENT_PERCENT"] =  "%s - %.0f%%",
-	["CURRENT_MAX_PERCENT"] = "%s - %s | %.0f%%",
-	["PERCENT"] = "%.0f%%",
-	["DEFICIT"] = "-%s"
-}
+-- GLOBALS: Hex, _COLORS, _TAGS
 
 local function shortenNumber(number)
 	if type(number) ~= "number" then
@@ -76,8 +55,7 @@ local function shortenNumber(number)
 end
 
 -- Displays current HP --(2.04B, 2.04M, 204k, 204)--
-ElvUF.Tags.Events["health:current-mUI"] = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
-ElvUF.Tags.Methods["health:current-mUI"] = function(unit)
+E:AddTag("health:current-mUI", "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED", function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
 	if (status) then
 		return status
@@ -85,18 +63,16 @@ ElvUF.Tags.Methods["health:current-mUI"] = function(unit)
 		local currentHealth = UnitHealth(unit)
 		return shortenNumber(currentHealth)
 	end
-end
+end)
 
 -- Max Health shorted
-ElvUF.Tags.Events["health:max-mUI"] = 'UNIT_MAXHEALTH'
-ElvUF.Tags.Methods["health:max-mUI"] = function(unit)
+E:AddTag("health:max-mUI", 'UNIT_MAXHEALTH', function(unit)
 	local maxH = UnitHealthMax(unit)
 
 	return shortenNumber(maxH)
-end
+end)
 
-ElvUF.Tags.Events['mUI-name:health:abbrev'] = 'UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH UNIT_MAXHEALTH'
-ElvUF.Tags.Methods['mUI-name:health:abbrev'] = function(unit, _, args)
+E:AddTag('mUI-name:health:abbrev', 'UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH UNIT_MAXHEALTH', function(unit, _, args)
 	local name = UnitName(unit)
 	if not name then
 		return ''
@@ -111,11 +87,10 @@ ElvUF.Tags.Methods['mUI-name:health:abbrev'] = function(unit, _, args)
 	local base = E.TagFunctions.NameHealthColor(_TAGS, bco, unit, '|cFFffffff')
 
 	return to > 0 and (base..utf8sub(name, 0, to)..fill..utf8sub(name, to+1, -1)) or fill..name
-end
+end)
 
 -- Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag
-ElvUF.Tags.Events["power:current-mUI"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
-ElvUF.Tags.Methods["power:current-mUI"] = function(unit)
+E:AddTag("power:current-mUI", "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER", function(unit)
 	local CurrentPower = UnitPower(unit)
 	local String
 
@@ -125,16 +100,15 @@ ElvUF.Tags.Methods["power:current-mUI"] = function(unit)
 		return nil
 	end
 	return String
-end
+end)
 
-ElvUF.Tags.Events["mUI-resting"] = "PLAYER_UPDATE_RESTING"
-ElvUF.Tags.Methods["mUI-resting"] = function(unit)
+E:AddTag("mUI-resting", "PLAYER_UPDATE_RESTING", function(unit)
 	if(unit == "player" and IsResting()) then
 		return "zZz"
 	else
 		return nil
 	end
-end
+end)
 
 local function abbrev(name)
 	local letters, lastWord = '', strmatch(name, '.+%s(.+)$')
@@ -150,8 +124,7 @@ local function abbrev(name)
 	return name
 end
 
-ElvUF.Tags.Events['name:abbrev-translit'] = 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT'
-ElvUF.Tags.Methods['name:abbrev-translit'] = function(unit)
+E:AddTag('name:abbrev-translit', 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT', function(unit)
 	local name = Translit:Transliterate(UnitName(unit), translitMark)
 
 	if name and strfind(name, '%s') then
@@ -159,7 +132,7 @@ ElvUF.Tags.Methods['name:abbrev-translit'] = function(unit)
 	end
 
 	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
-end
+end)
 
 E:AddTagInfo("health:current-mUI", "MerathilisUI", "Displays current HP (2.04B, 2.04M, 204k, 204)")
 E:AddTagInfo("power:current-mUI", "MerathilisUI", "Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag")

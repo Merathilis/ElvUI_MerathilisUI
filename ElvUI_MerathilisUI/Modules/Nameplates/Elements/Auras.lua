@@ -30,8 +30,8 @@ function module:PostUpdateAura(unit, button)
 		local spell = E.global.unitframe.aurafilters.CCDebuffs.spells[button.spellID]
 
 		-- Size
-		local width = E.db.mui.nameplates.enhancedAuras.width or 26
-		local height = E.db.mui.nameplates.enhancedAuras.height or 18
+		local width = button:GetWidth() or 26
+		local height = button:GetHeight() or 18
 
 		if spell and spell ~= "" then
 			width = 32
@@ -82,9 +82,6 @@ function module:Construct_Auras(nameplate)
 	nameplate.Buffs.PostUpdateIcon = module.PostUpdateAura
 	nameplate.Debuffs.PostUpdateIcon = module.PostUpdateAura
 
-	nameplate.Buffs.SetPosition = module.SetPosition
-	nameplate.Debuffs.SetPosition = module.SetPosition
-
 	hooksecurefunc(nameplate.Debuffs, 'PostUpdateIcon', MUF.PostUpdateDebuffs)
 end
 
@@ -101,39 +98,6 @@ function module:Construct_AuraIcon(button)
 
 	local auras = button:GetParent()
 	button.db = auras and NP.db.units and NP.db.units[auras.__owner.frameType] and NP.db.units[auras.__owner.frameType][auras.type]
-end
-
-function module.SetPosition(element, _, to)
-	local from = 1
-	if not element[from] then
-		return
-	end
-
-	local anchor = element.initialAnchor or "BOTTOMLEFT"
-	local growthx = (element["growth-x"] == "LEFT" and -1) or 1
-	local spacingx = (element["spacing-x"] or element.spacing or 0)
-	local eheight = element[from].db.height or 0
-
-	local function GetAnchorPoint(index)
-		local a = 0
-		for i = index - 1, from, -1 do
-			a = a + spacingx + (element[i].size and element[i].size.width or E.db.mui.nameplates.enhancedAuras.width)
-		end
-		return a * growthx
-	end
-
-	for i = from, to do
-		local button = element[i]
-		if (not button) then
-			break
-		end
-
-		eheight = max(eheight, element[i].size and (element[i].size.height) or 0)
-		button:ClearAllPoints()
-		button:SetPoint(anchor, element, anchor, GetAnchorPoint(i), 0)
-	end
-
-	element:SetHeight(eheight)
 end
 
 function module:Initialize()

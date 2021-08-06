@@ -183,12 +183,14 @@ function MER:SetupLayout(layout)
 	--]]----------------------------------
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
-	E.private["general"]["chatBubbleFontSize"] = 9
+	E.private["general"]["chatBubbleFontSize"] = 13
 	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
 	E.private["general"]["normTex"] = "RenAscensionL"
 	E.private["general"]["glossTex"] = "RenAscensionL"
+	E.private["general"]["nameplateFont"] = "Expressway"
+	E.private["general"]["nameplateLargeFont"] = "Expressway"
 
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
@@ -603,7 +605,8 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Merathilis Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 20
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 26
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["height"] = 18
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 13
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["fontSize"] = 11
@@ -613,8 +616,9 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["priority"] = 'Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["spacing"] = 3
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 26
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["height"] = 18
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["spacing"] = 2
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 33
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = "Merathilis Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["fontSize"] = 10
@@ -622,6 +626,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["keepSizeRatio"] = false
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "Merathilis Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["fontSize"] = 10
@@ -1352,6 +1357,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["countFont"] = "Expressway"
 		E.db["unitframe"]["units"]["player"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["player"]["buffs"]["durationPosition"] = "TOP"
+		E.db["unitframe"]["units"]["player"]["buffs"]["keepSizeRatio"] = false
+		E.db["unitframe"]["units"]["player"]["buffs"]["height"] = 18
+		E.db["unitframe"]["units"]["player"]["buffs"]["spacing"] = 1
 		E.db["unitframe"]["units"]["player"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["size"] = 18
@@ -1418,6 +1426,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["debuffs"]["durationPosition"] = "TOP"
+		E.db["unitframe"]["units"]["target"]["debuffs"]["keepSizeRatio"] = false
+		E.db["unitframe"]["units"]["target"]["debuffs"]["height"] = 18
+		E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 2
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["attachTo"] = "BUFFS"
@@ -1497,6 +1508,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["countFont"] = "Expressway"
 		E.db["unitframe"]["units"]["target"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["target"]["buffs"]["durationPosition"] = "TOP"
+		E.db["unitframe"]["units"]["target"]["buffs"]["keepSizeRatio"] = false
+		E.db["unitframe"]["units"]["target"]["buffs"]["height"] = 18
+		E.db["unitframe"]["units"]["target"]["buffs"]["spacing"] = 1
 		E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["size"] = 18

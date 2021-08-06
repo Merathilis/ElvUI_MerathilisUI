@@ -252,6 +252,8 @@ L["III"] = "3 ур."
 L["Display in English"] = "Отображать английские названия"
 L["Show icon"] = "Показать значок"
 L["Show the spell icon along with the name."] = "Показать значок заклинания вместе с названием."
+L["Domination Rank"] = true
+L["Show the rank of shards."] = true
 
 -- Notification
 L["Notification"] = true
