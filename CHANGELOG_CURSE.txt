@@ -1,3 +1,9 @@
+** v4.77, 06.08.2021**
+* Take account for the latest ElvUI Tags + Aura changes
+* Take account for new Chat Bubble changes
+* Add more openable items to AutoButtons
+
+
 ** v4.76, 09.07.2021**
 * Fix Chat install.
 * Updated BigWigs Profile (Codewise)
