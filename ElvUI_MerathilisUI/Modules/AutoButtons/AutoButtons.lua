@@ -361,119 +361,127 @@ local torghastItems = {
 }
 
 local openableItems = {
-	171209, --Blood bag
-	171210, --a bag of natural gifts
-	171211, --Pan Hill's Wallet
-	174652, --a bag of forgotten heirlooms
-	178040, --Condensed Hades
-	178078, --Rebirth Spirit Treasure Chest
-	178128, --A bag full of glittering treasures
-	178513, -- Anniversary gift
-	178965, --Small gardener's bag
-	178966, --The gardener's bag
-	178967, --Large gardener's bag
-	178968, -- Weekly gardener's bag
-	180085, --Kirian Souvenir
-	180355, --Gorgeous Holy Box
-	180378, --Master Blacksmith's Box
-	180379, --Exquisite textile carpet
-	180380, --fine netting
-	180386, -- Herbalist Pouch
-	180442, --a bag of sin stones
-	180646, --Undead Legion Supplies
-	180647, --Promoted supplies
-	180648, --Reaper Tingwei Supplies
-	180649, --Supplies for Wilderness Hunters
-	180875, -- Cargo Cargo
-	180974, --Apprentice's bag
-	180975, --The bag of the cook
-	180976, --Expert's bag
-	180977, --Soul Keeper's Bag
-	180979, --Expert's large bag
-	180980, --A large bag of a skilled craftsman
-	180981, --The apprentice's large bag
-	180983, --A bag full of experts
-	180984, --A bag full of skilled workers
-	180985, --The apprentice's full bag
-	180988, --The bag overflowing by the cooked workers
-	180989, --The apprentice's overflowing bag
-	181372, --A gift for the promoted
-	181475, --The Woodland Watcher's Reward
-	181476, --A gift to the hunter in the wilderness
-	181556, --Ting Wei's gift
-	181557, --Ting Wei's gift
-	181732, --A gift from a careerist
-	181733, --A gift from the conscientious
-	181741, --A gift of a model
-	181767, --small wallet
-	182590, --Climbing a coin purse
-	182591, --Vine-covered Ruby
-	183699, ---selected materials
-	183701, -- Purification ritual materials
-	183702, --Natural light
-	183703, --Bone Artisan Backpack
-	184045, --The military tax of Tingwei the Harvester
-	184046, --Undead Legion Weapon Case
-	184047, --Promoted Weapon Case
-	184048, --Wild Hunter Weapon Bag
-	184158, --Slimy necromancer roe
-	184395, --Death adventurer's storage box
-	184444, --Road to Promotion Supply
-	184522, --Cooperating Dim Cloth Bag
-	184589, --Potion bag
-	184630, --Adventurer's Cloth Box
-	184631, --Adventurer Enchanting Box
-	184632, --Warrior Fish Box
-	184633, --Warrior Meat Box
-	184634, --Adventurer's Herbal Box
-	184635, --Adventurer's Ore Box
-	184636, --Adventurer's Leather Box
-	184637, --Hero Meat Box
-	184638, --Hero Fish Box
-	184639, --Warrior Cloth Box
-	184640, --Warrior Leather Box
-	184641, --Warrior Ore Box
-	184642, --Warrior Herbal Box
-	184643, --Warrior Enchant Box
-	184644, -- Hero Cloth Box
-	184645, --Hero Leather Box
-	184646, --Heroic Ore Box
-	184647, --Hero Herbal Box
-	184648, --Hero Enchanting Box
-	184810, -- looted supplies
-	184811, --Artemide's gift
-	184812, --Apollon's Gift
-	184843, --Recovered supplies
-	184868, --Nasaya Treasure Chest
-	184869, --Nasaya Treasure Chest
-	185765, -- a batch of heavy and hardened animal skins
-	185832, --a batch of Erechium ore
-	185833, --a batch of matte silk cloth
-	185972, --The tormentor's treasure chest
-	185990, --Reaper's War Chest
-	185991, -- Wilderness Hunter War Chest
-	185992, --Undead Legion War Treasure Chest
-	185993, --Promoted War Treasure Chest
-	186196, --Death Vanguard War Treasure Box
-	187029, --Venari's mysterious gift
-	187221, --Soul Ash Cache
-	187222, --Stygic Singularity
-	187254, --Arrangement of Anima
-	187278, --The Deep Oath Treasure Chest Passed Through
-	187354, --Abandoned Intermediary Backpack
-	187440, --Feather-Stuffed Helm
-	187543, --Death Vanguard War Treasure Box
-	187551, --Small Cosia Supply Box
-	187569, --Intermediary Cloth Potential Particles
-	187570, --Intermediary leather potential particles
-	187571, --Intermediary Ore Potential Particles
-	187572, --Intermediary Herbal Potential Particles
-	187573, --Intermediary Enchanting Potential Particles
-	187574, --The intermediary's overflowing food barrel
-	187575, --Cosia Fishing Box
-	187576, --Cosia Leather Box
-	187577, --Cosia Meat Box
-	187817, --Korthite Crystal Geode
+	171209,
+	171210,
+	171211,
+	174652,
+	178040,
+	178078,
+	178128,
+	178513,
+	178965,
+	178966,
+	178967,
+	178968,
+	180085,
+	180355,
+	180378,
+	180379,
+	180380,
+	180386,
+	180442,
+	180646,
+	180647,
+	180648,
+	180649,
+	180875,
+	180974,
+	180975,
+	180976,
+	180977,
+	180979,
+	180980,
+	180981,
+	180983,
+	180984,
+	180985,
+	180988,
+	180989,
+	181372,
+	181475,
+	181476,
+	181556,
+	181557,
+	181732,
+	181733,
+	181741,
+	181767,
+	182590,
+	182591,
+	183699,
+	183701,
+	183702,
+	183703,
+	184045,
+	184046,
+	184047,
+	184048,
+	184158,
+	184395,
+	184444,
+	184522,
+	184589,
+	184630,
+	184631,
+	184632,
+	184633,
+	184634,
+	184635,
+	184636,
+	184637,
+	184638,
+	184639,
+	184640,
+	184641,
+	184642,
+	184643,
+	184644,
+	184645,
+	184646,
+	184647,
+	184648,
+	184810,
+	184811,
+	184812,
+	184843,
+	184868,
+	184869,
+	185765,
+	185832,
+	185833,
+	185972,
+	185990,
+	185991,
+	185992,
+	185993,
+	186196,
+	186691,
+	186694,
+	186680,
+	186705,
+	186706,
+	186707,
+	186708,
+	187029,
+	187221,
+	187222,
+	187254,
+	187278,
+	187354,
+	187440,
+	187503,
+	187543,
+	187551,
+	187569,
+	187570,
+	187571,
+	187572,
+	187573,
+	187574,
+	187575,
+	187576,
+	187577,
+	187817,
 }
 
 local questItemList = {}
