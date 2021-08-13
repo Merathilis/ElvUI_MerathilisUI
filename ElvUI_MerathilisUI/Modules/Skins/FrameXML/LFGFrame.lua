@@ -62,62 +62,7 @@ local function LoadSkin()
 	StyleRewardButton(_G.LFDQueueFrameRandomScrollFrameChildFrame.MoneyReward)
 	StyleRewardButton(_G.RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
 
-	local leaderBg = MERS:CreateBG(_G.LFGDungeonReadyDialogRoleIconLeaderIcon)
-	leaderBg:SetDrawLayer("ARTWORK", 2)
-	leaderBg:SetPoint("TOPLEFT", _G.LFGDungeonReadyDialogRoleIconLeaderIcon, 2, 0)
-	leaderBg:SetPoint("BOTTOMRIGHT", _G.LFGDungeonReadyDialogRoleIconLeaderIcon, -3, 4)
-
-	hooksecurefunc("LFGDungeonReadyPopup_Update", function()
-		leaderBg:SetShown(_G.LFGDungeonReadyDialogRoleIconLeaderIcon:IsShown())
-	end)
-
-	do
-		local bg = MERS:CreateBDFrame(_G.LFGDungeonReadyDialogRoleIcon, 1)
-		bg:SetPoint("TOPLEFT", 9, -7)
-		bg:SetPoint("BOTTOMRIGHT", -8, 10)
-	end
-
-	hooksecurefunc("LFGDungeonReadyDialogReward_SetMisc", function(button)
-		if not button.styled then
-			local border = _G[button:GetName().."Border"]
-
-			button.texture:SetTexCoord(unpack(E.TexCoords))
-
-			border:SetColorTexture(0, 0, 0)
-			border:SetDrawLayer("BACKGROUND")
-			border:SetPoint("TOPLEFT", button.texture, -1, 1)
-			border:SetPoint("BOTTOMRIGHT", button.texture, 1, -1)
-
-			button.styled = true
-		end
-
-		button.texture:SetTexture("Interface\\Icons\\inv_misc_coin_02")
-	end)
-
-	hooksecurefunc("LFGDungeonReadyDialogReward_SetReward", function(button, dungeonID, rewardIndex, rewardType, rewardArg)
-		if not button.styled then
-			local border = _G[button:GetName().."Border"]
-
-			button.texture:SetTexCoord(unpack(E.TexCoords))
-
-			border:SetColorTexture(0, 0, 0)
-			border:SetDrawLayer("BACKGROUND")
-			border:SetPoint("TOPLEFT", button.texture, -1, 1)
-			border:SetPoint("BOTTOMRIGHT", button.texture, 1, -1)
-
-			button.styled = true
-		end
-
-		local _, texturePath
-		if rewardType == "reward" then
-			_, texturePath = GetLFGDungeonRewardInfo(dungeonID, rewardIndex);
-		elseif rewardType == "shortage" then
-			_, texturePath = GetLFGDungeonShortageRewardInfo(dungeonID, rewardArg, rewardIndex);
-		end
-		if texturePath then
-			button.texture:SetTexture(texturePath)
-		end
-	end)
+	_G.LFGDungeonReadyDialogBackground:SetAlpha(0.5)
 end
 
 S:AddCallback("mUILFG", LoadSkin)
