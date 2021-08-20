@@ -43,10 +43,7 @@ local function ReskinWidgetStatusBar(bar)
 		if bar.Spark then bar.Spark:SetAlpha(0) end
 		if bar.SparkGlow then bar.SparkGlow:SetAlpha(0) end
 		if bar.BorderGlow then bar.BorderGlow:SetAlpha(0) end
-		if bar.Label then
-			bar.Label:SetPoint("CENTER", 0, -5)
-			bar.Label:SetFontObject(_G.Game12Font)
-		end
+
 		bar:CreateBackdrop('Transparent')
 		ReplaceWidgetBarTexture(bar, bar:GetStatusBarAtlas())
 		hooksecurefunc(bar, "SetStatusBarAtlas", ReplaceWidgetBarTexture)
