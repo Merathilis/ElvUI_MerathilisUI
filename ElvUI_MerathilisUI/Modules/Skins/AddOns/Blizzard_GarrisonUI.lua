@@ -857,6 +857,44 @@ local function LoadSkin()
 
 	-- VenturePlan, 4.12a and higher
 	if IsAddOnLoaded("VenturePlan") then
+		local ANIMA_TEXTURE = 3528288
+		local ANIMA_SPELLID = {[347555] = 3, [345706] = 5, [336327] = 35, [336456] = 250}
+		local function GetAnimaMultiplier(itemID)
+			local _, spellID = GetItemSpell(itemID)
+			return ANIMA_SPELLID[spellID]
+		end
+		local function SetAnimaActualCount(self, text)
+			local mult = GetAnimaMultiplier(self.__owner.itemID)
+			if mult then
+				if text == "" then text = 1 end
+				text = text * mult
+				self:SetFormattedText("%s", text)
+				self.__owner.Icon:SetTexture(ANIMA_TEXTURE)
+			end
+		end
+		local function AdjustFollowerList(self)
+			if self.isSetting then return end
+			self.isSetting = true
+
+			local mult = (self:GetHeight()-135)/72
+			if mult == floor(mult) then -- only adjust the unmodified VP
+				local fl = C_Garrison.GetFollowers(123)
+				self:SetHeight(135 + 68*ceil(#fl/4))
+			end
+			self.isSetting = nil
+		end
+		local function AdjustFollowerButton(self, anchor, x, y)
+			if y == -35 then return end -- troops
+			if self.isSetting then return end
+			self.isSetting = true
+
+			local mult = (self:GetHeight()+130)/72
+			if mult == floor(mult) then -- only adjust the unmodified VP
+				self:SetPoint(anchor, x, (y+130)/72*68 - 130)
+			end
+			self.isSetting = nil
+		end
+
 		function VPEX_OnUIObjectCreated(otype, widget, peek)
 			if widget:IsObjectType("Frame") then
 				if otype == "MissionButton" then
@@ -898,11 +936,23 @@ local function LoadSkin()
 				elseif otype == "FollowerList" then
 					widget:StripTextures()
 					widget:CreateBackdrop('Transparent')
+					hooksecurefunc(widget, "SetHeight", AdjustFollowerList)
 				elseif otype == "FollowerListButton" then
 					peek("TextLabel"):SetFontObject("Game12Font")
 				elseif otype == "ProgressBar" then
 					widget:StripTextures()
 					widget:CreateBackdrop('Transparent')
+				elseif otype == "MissionToast" then
+					widget:CreateBackdrop('Transparent')
+					if widget.Icon then widget.Icon:Show() end
+					if widget.Background then widget.Background:Hide() end
+					if widget.Detail then widget.Detail:SetFontObject("Game13Font") end
+					if widget.Outcome then widget.Outcome:SetFontObject("Game13Font") end
+				elseif otype == "RewardFrame" then
+					if widget.Quantity then
+						widget.Quantity.__owner = widget
+						hooksecurefunc(widget.Quantity, "SetText", SetAnimaActualCount)
+					end
 				end
 			end
 		end
