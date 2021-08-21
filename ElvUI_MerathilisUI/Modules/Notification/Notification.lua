@@ -515,6 +515,9 @@ local PARAGON_QUEST_ID = { --[questID] = {factionID}
 	[61097] = {2407}, --The Ascended
 	[61095] = {2410}, --The Undying Army
 	[61098] = {2465}, --The Wild Hunt
+	[64012] = {2470}, --The Death Advance
+	[64266] = {2472}, --The Archivist's Codex
+	[64267] = {2432}, --Ve'nari
 }
 
 function module:QUEST_ACCEPTED(_, questID)
