@@ -2,17 +2,17 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
+local ceil, floor = math.ceil, math.floor
 local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
--- WoW API
+
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local IsAddOnLoaded = IsAddOnLoaded
 local UnitFactionGroup = UnitFactionGroup
 local C_Timer_After = C_Timer.After
--- GLOBALS:
+local C_Garrison_GetFollowers = C_Garrison.GetFollowers
+local GetItemSpell = GetItemSpell
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
@@ -872,13 +872,13 @@ local function LoadSkin()
 				self.__owner.Icon:SetTexture(ANIMA_TEXTURE)
 			end
 		end
-		local function AdjustFollowerList(self)
+		local function AdjustFollowerList(self, height)
 			if self.isSetting then return end
 			self.isSetting = true
 
-			local mult = (self:GetHeight()-135)/72
+			local mult = (height-135)/72
 			if mult == floor(mult) then -- only adjust the unmodified VP
-				local fl = C_Garrison.GetFollowers(123)
+				local fl = C_Garrison_GetFollowers(123)
 				self:SetHeight(135 + 68*ceil(#fl/4))
 			end
 			self.isSetting = nil
@@ -939,6 +939,7 @@ local function LoadSkin()
 					hooksecurefunc(widget, "SetHeight", AdjustFollowerList)
 				elseif otype == "FollowerListButton" then
 					peek("TextLabel"):SetFontObject("Game12Font")
+					hooksecurefunc(widget, "SetPoint", AdjustFollowerButton)
 				elseif otype == "ProgressBar" then
 					widget:StripTextures()
 					widget:CreateBackdrop('Transparent')
