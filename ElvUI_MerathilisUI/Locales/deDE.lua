@@ -274,6 +274,8 @@ L["If a Rare Mob or a treasure gets spotted on the minimap."] = "Zeigt an, wenn 
 L["Enable Invites"] = "Aktiviere Einladungen"
 L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
 L["No Sounds"] = "Keine Sounds"
+L["Domination Rank"] = "Splitter der Herrschaft Rang"
+L["Show the rank of shards."] = "Zeigt den Rang vom Splitter."
 
 -- DataTexts
 -- DataBars

@@ -3,12 +3,9 @@ local LP = MER:GetModule('MER_LocPanel')
 
 --Cache global variables
 --Lua functions
+local ceil = math.ceil
 local format = string.format
 local tinsert = table.insert
-local strsplit = strsplit
-local match = string.match
-local tconcat = table.concat
-local tremove = table.remove
 --WoW API / Variables
 local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 -- GLOBALS: AceGUIWidgetLSMlists
@@ -78,7 +75,7 @@ local function LocPanelTable()
 						order = 5,
 						type = "range",
 						name = L["Width"],
-						min = 100, max = E.screenwidth/2, step = 1,
+						min = 100, max = ceil(E.screenWidth) / 2, step = 1,
 						disabled = function() return not E.db.mui.locPanel.enable or E.db.mui.locPanel.autowidth end,
 						hidden = function() return not E.db.mui.locPanel.enable end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Resize() end,
@@ -244,7 +241,7 @@ local function LocPanelTable()
 								order = 3,
 								name = L["Width"],
 								type = "range",
-								min = 100, max = E.screenwidth, step = 1,
+								min = 100, max = ceil(E.screenWidth), step = 1,
 								disabled = function() return not E.db.mui.locPanel.portals.customWidth or not E.db.mui.locPanel.enable end,
 							},
 							justify = {

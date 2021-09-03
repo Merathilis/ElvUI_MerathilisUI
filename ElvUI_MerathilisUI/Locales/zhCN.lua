@@ -258,6 +258,8 @@ L["Use the new style tooltip."] = "使用新的鼠标提示外观，将腐蚀特
 L["Display in English"] = "显示英语腐化特效名称"
 L["Show icon"] = "显示图标"
 L["Show the spell icon along with the name."] = "在腐化特效名称前显示其图标。"
+L["Domination Rank"] = "統御等級"
+L["Show the rank of shards."] = "显示统御碎片的等级."
 
 -- Notification
 L["Notification"] = "通知"

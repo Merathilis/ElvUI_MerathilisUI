@@ -38,6 +38,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return end
 
 	local QuestFrame = _G.QuestFrame
+	_G.QuestFrameDetailPanelBg:SetAlpha(0)
 
 	-- Stop here if parchment reomover is enabled.
 	if E.private.skins.parchmentRemoverEnable then return end
@@ -45,6 +46,7 @@ local function LoadSkin()
 	------------------------
 	--- QuestDetailFrame ---
 	------------------------
+
 	_G.QuestDetailScrollFrame:StripTextures(true)
 	_G.QuestDetailScrollFrame:HookScript("OnUpdate", function(self)
 		self:DisableDrawLayer("BACKGROUND")

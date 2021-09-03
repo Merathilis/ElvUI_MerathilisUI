@@ -9,26 +9,14 @@ local select, unpack = select, unpack
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-
-local function reskinTableAttribute(frame)
-	frame:Styling()
-	MER:CreateBackdropShadow(frame)
-end
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.debug ~= true or E.private.muiSkins.blizzard.debug ~= true then return end
 
-	local EventTraceFrame = _G.EventTraceFrame
+	local EventTraceFrame = _G.EventTrace
 	EventTraceFrame:Styling()
 	MER:CreateBackdropShadow(EventTraceFrame)
 
-	-- Table Attribute Display
-	reskinTableAttribute(_G.TableAttributeDisplay)
-
-	hooksecurefunc(_G.TableInspectorMixin, "InspectTable", function(self)
-		reskinTableAttribute(self)
-	end)
 end
 
-S:AddCallbackForAddon("Blizzard_DebugTools", "mUIDebugTools", LoadSkin)
+S:AddCallbackForAddon("Blizzard_EventTrace", "mUIDebugTools", LoadSkin)

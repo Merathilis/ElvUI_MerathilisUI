@@ -348,8 +348,16 @@ local torghastItems = {
 	176331, -- Obscuring Essence Potion
 	176409, -- Rejuvenating Siphoned Essence
 	176443, -- Fleeting Frenzy Potion
-	184652, -- Phantasmic Infusor
 	184662, -- Requisitioned Anima Cell
+	185946, --Long Tail Dynarats
+	185947, --Draught of Leeching Strikes
+	185950, --Draught of Temporal Rush
+	186043, --Torghast Portal Manipulator
+	186614, --Soul Jar
+	186615, --Mirror of the Conjured Twin
+	186636, --Cage of Mawrats
+	186678, --Mawforged Weapons Cache
+	186679, --Scroll of Domination
 }
 
 local openableItems = {
@@ -365,7 +373,6 @@ local openableItems = {
 	178966,
 	178967,
 	178968,
-	178969,
 	180085,
 	180355,
 	180378,
@@ -390,7 +397,6 @@ local openableItems = {
 	180985,
 	180988,
 	180989,
-	181767,
 	181372,
 	181475,
 	181476,
@@ -399,6 +405,7 @@ local openableItems = {
 	181732,
 	181733,
 	181741,
+	181767,
 	182590,
 	182591,
 	183699,
@@ -439,6 +446,44 @@ local openableItems = {
 	184843,
 	184868,
 	184869,
+	185765,
+	185832,
+	185833,
+	185972,
+	185990,
+	185991,
+	185992,
+	185993,
+	186196,
+	186650,
+	186691,
+	186694,
+	186680,
+	186705,
+	186706,
+	186707,
+	186708,
+	187028,
+	187029,
+	187221,
+	187222,
+	187254,
+	187278,
+	187354,
+	187440,
+	187503,
+	187543,
+	187551,
+	187569,
+	187570,
+	187571,
+	187572,
+	187573,
+	187574,
+	187575,
+	187576,
+	187577,
+	187817,
 }
 
 local questItemList = {}

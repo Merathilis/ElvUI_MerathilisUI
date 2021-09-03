@@ -2,13 +2,12 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Tooltip')
 local TT = E:GetModule('Tooltip')
 
---Cache global variables
---Lua functions
 local _G = _G
-local pairs, select = pairs, select
+local next, pairs, select = next, pairs, select
 local format = string.format
-local tsort, twipe = table.sort, table.wipe
---WoW API / Variables
+local tinsert, tsort, twipe = table.insert, table.sort, table.wipe
+local xpcall = xpcall
+
 local GetGuildInfo = GetGuildInfo
 local GetMouseFocus = GetMouseFocus
 local IsControlKeyDown = IsControlKeyDown
@@ -29,20 +28,38 @@ local FOREIGN_SERVER_LABEL = FOREIGN_SERVER_LABEL
 local LE_REALM_RELATION_COALESCED = LE_REALM_RELATION_COALESCED
 local LE_REALM_RELATION_VIRTUAL = LE_REALM_RELATION_VIRTUAL
 local INTERACTIVE_SERVER_LABEL = INTERACTIVE_SERVER_LABEL
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local hooksecurefunc = hooksecurefunc
-local UIParent = UIParent
-local C_LFGList_GetActivityInfo = C_LFGList.GetActivityInfo
-local C_LFGList_GetSearchResultMemberCounts = C_LFGList.GetSearchResultMemberCounts
-local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
-local LFGListUtil_GetQuestDescription = LFGListUtil_GetQuestDescription
-local C_LFGList_GetSearchResultMemberInfo = C_LFGList.GetSearchResultMemberInfo
-local C_LFGList_GetSearchResultEncounterInfo = C_LFGList.GetSearchResultEncounterInfo
-local LFGListSearchEntryUtil_GetFriendList = LFGListSearchEntryUtil_GetFriendList
--- GLOBALS:
 
 local AFK_LABEL = " |cffFFFFFF<|r|cffFF0000"..L["CHAT_AFK"].."|r|cffFFFFFF>|r"
 local DND_LABEL = " |cffFFFFFF<|r|cffFFFF00"..L["CHAT_DND"].."|r|cffFFFFFF>|r"
+
+module.load = {}
+module.updateProfile = {}
+
+--[[
+	@param {string} name
+	@param {function} [func=module.name]
+]]
+function module:AddCallback(name, func)
+	tinsert(self.load, func or self[name])
+end
+
+--[[
+	@param {string} name
+	@param {function} [func=module.name]
+]]
+function module:AddCallbackForUpdate(name, func)
+	tinsert(self.updateProfile, func or self[name])
+end
+
+--[[
+	@param {string} err
+]]
+local function errorhandler(err)
+	return _G.geterrorhandler()(err)
+end
+
+------
 
 function module:SetUnitText(tt, unit, level, isShiftKeyDown)
 	if not UnitIsPlayer(unit) then
@@ -140,9 +157,9 @@ function module:GameTooltip_OnTooltipSetUnit(tt)
 		end
 
 		if E.db.mui.tooltip.titleColor then
-			GameTooltipTextLeft1:SetFormattedText("%s|c%s%s|r%s%s", t1, color.colorStr, name, t2, realm)
+			_G.GameTooltipTextLeft1:SetFormattedText("%s|c%s%s|r%s%s", t1, color.colorStr, name, t2, realm)
 		else
-			GameTooltipTextLeft1:SetFormattedText("|c%s%s%s|r", color.colorStr, name, realm)
+			_G.GameTooltipTextLeft1:SetFormattedText("|c%s%s%s|r", color.colorStr, name, realm)
 		end
 
 		local lineOffset = 2
@@ -153,12 +170,12 @@ function module:GameTooltip_OnTooltipSetUnit(tt)
 
 			if(self.db.guildRanks) then
 				if UnitIsInMyGuild(unit) then
-					GameTooltipTextLeft2:SetText(("|cff00c0fa[|r|cff00ff10%s|r|cff00c0fa]|r <|cff00ff10%s|r>"):format(guildName, guildRankName))
+					_G.GameTooltipTextLeft2:SetText(("|cff00c0fa[|r|cff00ff10%s|r|cff00c0fa]|r <|cff00ff10%s|r>"):format(guildName, guildRankName))
 				else
-					GameTooltipTextLeft2:SetText(("|cff00c0fa[|r|cff00ff10%s|r|cff00c0fa]|r <|cff00c0fa%s|r>"):format(guildName, guildRankName))
+					_G.GameTooltipTextLeft2:SetText(("|cff00c0fa[|r|cff00ff10%s|r|cff00c0fa]|r <|cff00c0fa%s|r>"):format(guildName, guildRankName))
 				end
 			else
-				GameTooltipTextLeft2:SetText(("[|cff00ff10%s|r]"):format(guildName))
+				_G.GameTooltipTextLeft2:SetText(("[|cff00ff10%s|r]"):format(guildName))
 			end
 			lineOffset = 3
 		end
@@ -173,18 +190,30 @@ function module:GameTooltip_OnTooltipSetUnit(tt)
 			rightLine:SetText(format("|cffff1919>> %s <<|r", _G.YOU))
 		end
 	end
-
 end
 
 function module:Initialize()
 	if E.private.tooltip.enable ~= true then return end
+
 	self.db = E.db.mui.tooltip
 	MER:RegisterDB(self, "tooltip")
+
+	for index, func in next, self.load do
+		xpcall(func, errorhandler)
+		self.load[index] = nil
+	end
 
 	module:ReskinTooltipIcons()
 
 	hooksecurefunc(TT, "SetUnitText", module.SetUnitText)
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", module.GameTooltip_OnTooltipSetUnit)
+end
+
+function module:ProfileUpdate()
+	for index, func in next, self.updateProfile do
+		xpcall(func, errorhandler, self)
+		self.updateProfile[index] = nil
+	end
 end
 
 MER:RegisterModule(module:GetName())

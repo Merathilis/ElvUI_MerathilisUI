@@ -890,6 +890,8 @@ MP.raidmarkers = {
 	orientation = "HORIZONTAL",
 	modifier = "shift-",
 	reverse = false,
+	mouseover = false,
+	notooltip = false,
 }
 
 MP.raidmanager = {
@@ -928,6 +930,7 @@ MP.tooltip = {
 			CastleNathria = true,
 		}
 	},
+	dominationRank = true,
 }
 
 MP.errorFilters = {
@@ -1001,8 +1004,6 @@ MP.nameplates = {
 	castbarShield = true,
 	enhancedAuras = {
 		enable = true,
-		width = 26,
-		height = 18,
 	},
 }
 

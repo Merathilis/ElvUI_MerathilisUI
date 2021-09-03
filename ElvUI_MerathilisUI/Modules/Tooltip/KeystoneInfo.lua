@@ -1,18 +1,14 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-
 if IsAddOnLoaded("KeystoneHelper") then return; end
 
--- Cache global variables
--- Lua functions
+local _G = _G
 local ipairs, select, tonumber, type = ipairs, select, tonumber, type
 local format, strmatch, strsplit = string.format, string.match, string.split
 local tinsert, tremove = table.insert, table.remove
 
--- WoW API / Variables
 local C_ChallengeMode = C_ChallengeMode
 local C_ChallengeMode_GetAffixInfo = C_ChallengeMode.GetAffixInfo
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS:
+local hooksecurefunc = hooksecurefunc
 
 local function GetModifiers(linkType, ...)
 	if type(linkType) ~= 'string' then return end
@@ -70,5 +66,5 @@ local function DecorateTooltip(self, link, _)
 end
 
 hooksecurefunc(ItemRefTooltip, 'SetHyperlink', DecorateTooltip)
---ItemRefTooltip:HookScript('OnTooltipSetItem', DecorateTooltip)
-GameTooltip:HookScript('OnTooltipSetItem', DecorateTooltip)
+--_G.ItemRefTooltip:HookScript('OnTooltipSetItem', DecorateTooltip)
+_G.GameTooltip:HookScript('OnTooltipSetItem', DecorateTooltip)

@@ -509,8 +509,8 @@ function module:ConstructBar()
 	if self.bar then return end
 
 	local bar = CreateFrame("Frame", MER.Title .. "MicroBar", E.UIParent, 'BackdropTemplate')
-	bar:Size(800, 60)
-	bar:Point("TOP", 0, -19)
+	bar:SetSize(800, 60)
+	bar:SetPoint("TOP", 0, -19)
 	bar:SetFrameStrata("LOW")
 
 	bar:SetScript("OnEnter", function(bar)
@@ -526,23 +526,23 @@ function module:ConstructBar()
 	end)
 
 	local middlePanel = CreateFrame("Button", "MicroBarMiddlePanel", bar, "SecureActionButtonTemplate")
-	middlePanel:Size(81, 50)
-	middlePanel:Point("CENTER")
+	middlePanel:SetSize(81, 50)
+	middlePanel:SetPoint("CENTER")
 	middlePanel:CreateBackdrop("Transparent")
 	middlePanel.backdrop:Styling()
 	middlePanel:RegisterForClicks("AnyUp")
 	bar.middlePanel = middlePanel
 
 	local leftPanel = CreateFrame("Frame", "MicroBarLeftPanel", bar)
-	leftPanel:Size(300, 40)
-	leftPanel:Point("RIGHT", middlePanel, "LEFT", -10, 0)
+	leftPanel:SetSize(300, 40)
+	leftPanel:SetPoint("RIGHT", middlePanel, "LEFT", -10, 0)
 	leftPanel:CreateBackdrop("Transparent")
 	leftPanel.backdrop:Styling()
 	bar.leftPanel = leftPanel
 
 	local rightPanel = CreateFrame("Frame", "MicroBarRightPanel", bar)
-	rightPanel:Size(300, 40)
-	rightPanel:Point("LEFT", middlePanel, "RIGHT", 10, 0)
+	rightPanel:SetSize(300, 40)
+	rightPanel:SetPoint("LEFT", middlePanel, "RIGHT", 10, 0)
 	rightPanel:CreateBackdrop("Transparent")
 	rightPanel.backdrop:Styling()
 	bar.rightPanel = rightPanel
@@ -569,28 +569,28 @@ end
 function module:ConstructTimeArea()
 	local colon = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	MER:SetFontDB(colon, self.db.time.font)
-	colon:Point("CENTER")
+	colon:SetPoint("CENTER")
 	self.bar.middlePanel.colon = colon
 
 	local hour = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	MER:SetFontDB(hour, self.db.time.font)
-	hour:Point("RIGHT", colon, "LEFT", 1, 0)
+	hour:SetPoint("RIGHT", colon, "LEFT", 1, 0)
 	self.bar.middlePanel.hour = hour
 
 	local hourHover = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	MER:SetFontDB(hourHover, self.db.time.font)
-	hourHover:Point("RIGHT", colon, "LEFT", 1, 0)
+	hourHover:SetPoint("RIGHT", colon, "LEFT", 1, 0)
 	hourHover:SetAlpha(0)
 	self.bar.middlePanel.hourHover = hourHover
 
 	local minutes = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	MER:SetFontDB(minutes, self.db.time.font)
-	minutes:Point("LEFT", colon, "RIGHT", 0, 0)
+	minutes:SetPoint("LEFT", colon, "RIGHT", 0, 0)
 	self.bar.middlePanel.minutes = minutes
 
 	local minutesHover = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	MER:SetFontDB(minutesHover, self.db.time.font)
-	minutesHover:Point("LEFT", colon, "RIGHT", 0, 0)
+	minutesHover:SetPoint("LEFT", colon, "RIGHT", 0, 0)
 	minutesHover:SetAlpha(0)
 	self.bar.middlePanel.minutesHover = minutesHover
 
@@ -739,7 +739,7 @@ function module:UpdateTime()
 
 	panel.colon:ClearAllPoints()
 	local offset = (panel.hour:GetStringWidth() - panel.minutes:GetStringWidth()) / 2
-	panel.colon:Point("CENTER", offset, -1)
+	panel.colon:SetPoint("CENTER", offset, -1)
 end
 
 function module:UpdateTimeArea()
@@ -820,29 +820,29 @@ function module:ConstructButton()
 	if not self.bar then return end
 
 	local button = CreateFrame("Button", nil, self.bar, "SecureActionButtonTemplate")
-	button:Size(self.db.buttonSize)
+	button:SetSize(self.db.buttonSize, self.db.buttonSize)
 	button:RegisterForClicks("AnyUp")
 
 	local normalTex = button:CreateTexture(nil, "ARTWORK")
-	normalTex:Point("CENTER")
-	normalTex:Size(self.db.buttonSize)
+	normalTex:SetPoint("CENTER")
+	normalTex:SetSize(self.db.buttonSize, self.db.buttonSize)
 	button.normalTex = normalTex
 
 	local hoverTex = button:CreateTexture(nil, "ARTWORK")
-	hoverTex:Point("CENTER")
-	hoverTex:Size(self.db.buttonSize)
+	hoverTex:SetPoint("CENTER")
+	hoverTex:SetSize(self.db.buttonSize, self.db.buttonSize)
 	hoverTex:SetAlpha(0)
 	button.hoverTex = hoverTex
 
 	local notificationTex = button:CreateTexture(nil, "OVERLAY")
 	notificationTex:SetAtlas("hud-microbutton-communities-icon-notification")
-	notificationTex:Point("TOPRIGHT", 4, 4)
-	notificationTex:Size(0.6 * self.db.buttonSize)
+	notificationTex:SetPoint("TOPRIGHT", 4, 4)
+	notificationTex:SetSize(0.6 * self.db.buttonSize, 0.6 * self.db.buttonSize)
 	button.notificationTex = notificationTex
 
 	local additionalText = button:CreateFontString(nil, "OVERLAY")
 	MER:SetFontDB(additionalText, self.db.additionalText.font)
-	additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
+	additionalText:SetPoint(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
 	additionalText:SetJustifyH("CENTER")
 	additionalText:SetJustifyV("CENTER")
 	button.additionalText = additionalText
@@ -857,7 +857,7 @@ function module:UpdateButton(button, buttonType)
 	if InCombatLockdown() then return end
 
 	local config = ButtonTypes[buttonType]
-	button:Size(self.db.buttonSize)
+	button:SetSize(self.db.buttonSize, self.db.buttonSize)
 	button.type = buttonType
 	button.name = config.name
 	button.tooltips = config.tooltips
@@ -895,7 +895,7 @@ function module:UpdateButton(button, buttonType)
 	end
 
 	button.normalTex:SetTexture(config.icon)
-	button.normalTex:Size(self.db.buttonSize)
+	button.normalTex:SetSize(self.db.buttonSize, self.db.buttonSize)
 	button.normalTex:SetVertexColor(r, g, b)
 
 	r, g, b = 1, 1, 1
@@ -913,7 +913,7 @@ function module:UpdateButton(button, buttonType)
 	end
 
 	button.hoverTex:SetTexture(config.icon)
-	button.hoverTex:Size(self.db.buttonSize)
+	button.hoverTex:SetSize(self.db.buttonSize, self.db.buttonSize)
 	button.hoverTex:SetVertexColor(r, g, b)
 
 	if button.registeredEvents then
@@ -950,7 +950,7 @@ function module:UpdateButton(button, buttonType)
 		end
 
 		button.additionalText:ClearAllPoints()
-		button.additionalText:Point(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
+		button.additionalText:SetPoint(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
 		MER:SetFontDB(button.additionalText, self.db.additionalText.font)
 		button.additionalText:Show()
 	else
@@ -1007,9 +1007,9 @@ function module:UpdateLayout()
 			button:Show()
 			button:ClearAllPoints()
 			if not lastButton then
-				button:Point("LEFT", self.bar.leftPanel, "LEFT", self.db.backdropSpacing, 0)
+				button:SetPoint("LEFT", self.bar.leftPanel, "LEFT", self.db.backdropSpacing, 0)
 			else
-				button:Point("LEFT", lastButton, "RIGHT", self.db.spacing, 0)
+				button:SetPoint("LEFT", lastButton, "RIGHT", self.db.spacing, 0)
 			end
 			lastButton = button
 			numLeftButtons = numLeftButtons + 1
@@ -1025,7 +1025,7 @@ function module:UpdateLayout()
 		local panelWidth =
 			self.db.backdropSpacing * 2 + (numLeftButtons - 1) * self.db.spacing + numLeftButtons * self.db.buttonSize
 		local panelHeight = self.db.backdropSpacing * 2 + self.db.buttonSize
-		self.bar.leftPanel:Size(panelWidth, panelHeight)
+		self.bar.leftPanel:SetSize(panelWidth, panelHeight)
 	end
 
 	lastButton = nil
@@ -1035,9 +1035,9 @@ function module:UpdateLayout()
 			button:Show()
 			button:ClearAllPoints()
 			if not lastButton then
-				button:Point("LEFT", self.bar.rightPanel, "LEFT", self.db.backdropSpacing, 0)
+				button:SetPoint("LEFT", self.bar.rightPanel, "LEFT", self.db.backdropSpacing, 0)
 			else
-				button:Point("LEFT", lastButton, "RIGHT", self.db.spacing, 0)
+				button:SetPoint("LEFT", lastButton, "RIGHT", self.db.spacing, 0)
 			end
 			lastButton = button
 			numRightButtons = numRightButtons + 1
@@ -1053,10 +1053,10 @@ function module:UpdateLayout()
 		local panelWidth =
 			self.db.backdropSpacing * 2 + (numRightButtons - 1) * self.db.spacing + numRightButtons * self.db.buttonSize
 		local panelHeight = self.db.backdropSpacing * 2 + self.db.buttonSize
-		self.bar.rightPanel:Size(panelWidth, panelHeight)
+		self.bar.rightPanel:SetSize(panelWidth, panelHeight)
 	end
 
-	self.bar.middlePanel:Size(self.db.timeAreaWidth, self.db.timeAreaHeight)
+	self.bar.middlePanel:SetSize(self.db.timeAreaWidth, self.db.timeAreaHeight)
 
 	local areaWidth = 20 + self.bar.middlePanel:GetWidth()
 	local leftWidth = self.bar.leftPanel:IsShown() and self.bar.leftPanel:GetWidth() or 0
@@ -1068,7 +1068,7 @@ function module:UpdateLayout()
 	local rightHeight = self.bar.rightPanel:IsShown() and self.bar.rightPanel:GetHeight() or 0
 	areaHeight = max(max(leftHeight, rightHeight), areaHeight)
 
-	self.bar:Size(areaWidth, areaHeight)
+	self.bar:SetSize(areaWidth, areaHeight)
 end
 
 function module:PLAYER_REGEN_ENABLED()

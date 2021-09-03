@@ -3,13 +3,11 @@ local module = MER:GetModule('MER_RaidManager')
 local S = E:GetModule('Skins')
 local COMP = MER:GetModule('MER_Compatibility')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local ipairs, next, pairs, select, unpack = ipairs, next, pairs, select, unpack
 local strfind = strfind
 local tinsert, tsort, twipe = table.insert, table.sort, table.wipe
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
 local GetNumGroupMembers = GetNumGroupMembers
@@ -413,49 +411,6 @@ function module:CreateRaidManager()
 	RaidMarkFrame.lockbutton.tex = RaidMarkFrame.lockbutton:CreateTexture(nil, "BACKGROUND")
 	RaidMarkFrame.lockbutton.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\Lock")
 	RaidMarkFrame.lockbutton.tex:SetAllPoints(RaidMarkFrame.lockbutton)
-
-	local buttons = {
-		"DisbandRaidButton",
-		"RoleCheckButton",
-		"ReadyCheckButton",
-		"RaidControlButton",
-		"RaidUtility_ShowButton",
-		"RaidUtility_CloseButton"
-	}
-
-	if _G.CompactRaidFrameManager then
-		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers:SetParent(RaidMarkFrame)
-		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers:ClearAllPoints()
-		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers:Point("CENTER", RaidMarkFrame, "CENTER")
-		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers.ClearAllPoints = MER.dummy
-		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers.SetPoint = MER.dummy
-		_G.CompactRaidFrameManagerDisplayFrameRaidMarkers.Hide = _G.CompactRaidFrameManagerDisplayFrameRaidMarkers.Show
-		tinsert(buttons, "CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton")
-	else
-		E:StaticPopup_Show("WARNING_BLIZZARD_ADDONS")
-	end
-
-	--Reskin Stuff
-	for _, button in pairs(buttons) do
-		local f = _G[button]
-		if f then
-			f.BottomLeft:SetAlpha(0)
-			f.BottomRight:SetAlpha(0)
-			f.BottomMiddle:SetAlpha(0)
-			f.TopMiddle:SetAlpha(0)
-			f.TopLeft:SetAlpha(0)
-			f.TopRight:SetAlpha(0)
-			f.MiddleLeft:SetAlpha(0)
-			f.MiddleRight:SetAlpha(0)
-			f.MiddleMiddle:SetAlpha(0)
-
-			f:SetHighlightTexture("")
-			f:SetDisabledTexture("")
-			f:HookScript("OnEnter", ButtonEnter)
-			f:HookScript("OnLeave", ButtonLeave)
-			f:CreateBackdrop(nil, true)
-		end
-	end
 
 	RaidMarkFrame.lockbutton:SetScript("OnClick", Lock)
 	RaidMarkFrame:SetScript("OnEvent", Lock)

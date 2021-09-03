@@ -1,4 +1,21 @@
-[b][color=orange]v4.74[/color], xx.xx.2021[/b][list]
+[b][color=orange]v4.77[/color], 06.08.2021[/b][list]
+[*]Take account for the latest ElvUI Tags + Aura changes
+[*]Take account for new Chat Bubble changes
+[*]Add more openable items to AutoButtons
+
+
+[b][color=orange]v4.76[/color], 09.07.2021[/b][list]
+[*]Fix Chat install.
+[*]Updated BigWigs Profile (Codewise)[/list]
+
+
+[b][color=orange]v4.75[/color], 02.07.2021[/b][list]
+[*]Removed the Parchment from some Quest Windows again
+[*]Fix some skin errors introduced with 9.1
+[*]Fix an error with the Armory Stat Options[/list]
+
+
+[b][color=orange]v4.74 for 9.1[/color], 30.06.2021[/b][list]
 [*]Added Shadows around the most frames (WIP)
 [*]Added Grappling Growth to the Vignette Blacklist
 [*]Remove Talent Set Manager, there will be an own AddOn in the future

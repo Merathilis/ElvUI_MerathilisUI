@@ -17,10 +17,8 @@ local function LoadSkin()
 	-- Hide the Parchment
 	ArchaeologyFrame:DisableDrawLayer("BACKGROUND")
 
-	if ArchaeologyFrame.backdrop then
-		ArchaeologyFrame.backdrop:Styling()
-	end
-	MER:CreateBackdropShadow(ArchaeologyFrame)
+	ArchaeologyFrame:Styling()
+	MER:CreateShadow(ArchaeologyFrame)
 
 	_G.ArchaeologyFrameSummaryPageTitle:SetTextColor(1, 1, 1)
 	_G.ArchaeologyFrameArtifactPageHistoryTitle:SetTextColor(1, 1, 1)

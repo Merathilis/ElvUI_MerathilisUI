@@ -72,10 +72,10 @@ local function SetupChat()
 		FCF_SetChatWindowFontSize(nil, frame, 11)
 
 		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
-		if i == 3 and chatName == LOOT.." / "..TRADE then
+		if i == 4 and chatName == LOOT.." / "..TRADE then
 			FCF_UnDockFrame(frame)
 			frame:ClearAllPoints()
-			frame:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 1, 3)
+			frame:Point("BOTTOMLEFT", _G.LeftChatToggleButton, "TOPLEFT", 1, 3)
 			FCF_SetWindowName(frame, LOOT)
 			FCF_DockFrame(frame)
 			if not frame.isLocked then
@@ -86,17 +86,17 @@ local function SetupChat()
 		FCF_SavePositionAndDimensions(frame)
 		FCF_StopDragging(frame)
 	end
-	ChatFrame_RemoveChannel(ChatFrame3, L["Trade"])
+	ChatFrame_RemoveChannel(ChatFrame4, L["Trade"])
 	ChatFrame_AddChannel(ChatFrame1, L["Trade"])
 	ChatFrame_AddMessageGroup(ChatFrame1, "TARGETICONS")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_FACTION_CHANGE")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_GUILD_XP_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_HONOR_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_XP_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "CURRENCY")
-	ChatFrame_AddMessageGroup(ChatFrame3, "LOOT")
-	ChatFrame_AddMessageGroup(ChatFrame3, "MONEY")
-	ChatFrame_AddMessageGroup(ChatFrame3, "SKILL")
+	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_FACTION_CHANGE")
+	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_GUILD_XP_GAIN")
+	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_HONOR_GAIN")
+	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_XP_GAIN")
+	ChatFrame_AddMessageGroup(ChatFrame4, "CURRENCY")
+	ChatFrame_AddMessageGroup(ChatFrame4, "LOOT")
+	ChatFrame_AddMessageGroup(ChatFrame4, "MONEY")
+	ChatFrame_AddMessageGroup(ChatFrame4, "SKILL")
 
 	-- Enable classcolor automatically on login and on each character without doing /configure each time
 	ToggleChatColorNamesByClassGroup(true, "ACHIEVEMENT")
@@ -183,12 +183,14 @@ function MER:SetupLayout(layout)
 	--]]----------------------------------
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
-	E.private["general"]["chatBubbleFontSize"] = 9
+	E.private["general"]["chatBubbleFontSize"] = 13
 	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
 	E.private["general"]["normTex"] = "RenAscensionL"
 	E.private["general"]["glossTex"] = "RenAscensionL"
+	E.private["general"]["nameplateFont"] = "Expressway"
+	E.private["general"]["nameplateLargeFont"] = "Expressway"
 
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
@@ -603,7 +605,8 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Merathilis Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 20
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 26
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["height"] = 18
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 13
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["fontSize"] = 11
@@ -613,8 +616,9 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["priority"] = 'Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["spacing"] = 3
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 26
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["height"] = 18
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["spacing"] = 2
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 33
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = "Merathilis Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["fontSize"] = 10
@@ -622,6 +626,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["keepSizeRatio"] = false
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "Merathilis Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["fontSize"] = 10
@@ -1352,6 +1357,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["countFont"] = "Expressway"
 		E.db["unitframe"]["units"]["player"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["player"]["buffs"]["durationPosition"] = "TOP"
+		E.db["unitframe"]["units"]["player"]["buffs"]["keepSizeRatio"] = false
+		E.db["unitframe"]["units"]["player"]["buffs"]["height"] = 18
+		E.db["unitframe"]["units"]["player"]["buffs"]["spacing"] = 1
 		E.db["unitframe"]["units"]["player"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["size"] = 18
@@ -1418,6 +1426,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["debuffs"]["durationPosition"] = "TOP"
+		E.db["unitframe"]["units"]["target"]["debuffs"]["keepSizeRatio"] = false
+		E.db["unitframe"]["units"]["target"]["debuffs"]["height"] = 18
+		E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 2
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["attachTo"] = "BUFFS"
@@ -1497,6 +1508,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["countFont"] = "Expressway"
 		E.db["unitframe"]["units"]["target"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["target"]["buffs"]["durationPosition"] = "TOP"
+		E.db["unitframe"]["units"]["target"]["buffs"]["keepSizeRatio"] = false
+		E.db["unitframe"]["units"]["target"]["buffs"]["height"] = 18
+		E.db["unitframe"]["units"]["target"]["buffs"]["spacing"] = 1
 		E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["size"] = 18
