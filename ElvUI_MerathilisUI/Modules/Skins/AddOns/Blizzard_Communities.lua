@@ -133,9 +133,14 @@ local function LoadSkin()
 	end)
 
 	-- Guild Recruitment
-	local GuildRecruitmentFrame = _G.CommunitiesGuildRecruitmentFrame
-	if GuildRecruitmentFrame.backdrop then
-		GuildRecruitmentFrame.backdrop:Styling()
+	--local GuildRecruitmentFrame = _G.CommunitiesGuildRecruitmentFrame
+	--if GuildRecruitmentFrame.backdrop then
+		--GuildRecruitmentFrame.backdrop:Styling()
+	--end
+
+	if not _G.ClubFinderGuildFinderFrame.RequestToJoinFrame.backdrop then
+		_G.ClubFinderGuildFinderFrame.RequestToJoinFrame:CreateBackdrop('Transparent')
+		_G.ClubFinderGuildFinderFrame.RequestToJoinFrame.backdrop:Styling()
 	end
 
 	if CommunitiesFrame.RecruitmentDialog.backdrop then
