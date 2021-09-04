@@ -13,6 +13,15 @@ local function LoadSkin()
 	local ItemUpgradeFrame = _G.ItemUpgradeFrame
 	ItemUpgradeFrame:Styling()
 	MER:CreateBackdropShadow(ItemUpgradeFrame)
+
+	ItemUpgradeFrame.BottomBGShadow:Hide()
+	ItemUpgradeFrame.BottomBG:Hide()
+	ItemUpgradeFrame.TopBG:Hide()
+
+	local holder = ItemUpgradeFrame.ButtonFrame
+	holder:StripTextures()
+	holder:CreateBackdrop('Transparent')
+	holder.backdrop.Center:SetDrawLayer('BACKGROUND', -1)
 end
 
 S:AddCallbackForAddon("Blizzard_ItemUpgradeUI", "mUIItemUpgrade", LoadSkin)
