@@ -1,3 +1,5 @@
+![MerathilsUI Logo](https://abload.de/img/m12qss8.png)
+
 ![Image of MerathilsUI](https://www.tukui.org/addons/Merathilis/1603027212/screenshot.png)
 
 **What does this Plugin do?:**
