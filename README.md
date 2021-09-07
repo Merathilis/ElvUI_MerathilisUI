@@ -9,7 +9,7 @@
 ![Image of MerathilsUI](https://www.tukui.org/addons/Merathilis/1603027212/screenshot.png)
 
 ***
-[![Discord](https://img.shields.io/discord/284626725403361281?label=MerathilisUI%20Discord&style=flat-square)](https://discordapp.com/invite/ZhNqCu2) [![Patreon](https://img.shields.io/badge/Support-Patreon-orange)](https://www.patreon.com/merathilisui) [![Donate](https://img.shields.io/badge/Support-Donate-blue)](https://paypal.me/merathilis)
+[![Discord](https://img.shields.io/discord/284626725403361281?label=Discord&style=flat-square)](https://discordapp.com/invite/ZhNqCu2) [![Patreon](https://img.shields.io/badge/Support-Patreon-orange)](https://www.patreon.com/merathilisui) [![Donate](https://img.shields.io/badge/Support-Donate-blue)](https://paypal.me/merathilis)
 ***
 
 **What does this Plugin do?:**
