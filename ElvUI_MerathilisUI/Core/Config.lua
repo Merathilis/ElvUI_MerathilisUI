@@ -183,7 +183,7 @@ local function AddOptions()
 								order = 2,
 								type = "execute",
 								name = L["Git Ticket tracker"],
-								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues") end,
+								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://github.com/Merathilis/ElvUI_MerathilisUI/issues") end,
 							},
 							curse = {
 								order = 3,
@@ -202,7 +202,7 @@ local function AddOptions()
 								type = 'execute',
 								name = L["Development Version"],
 								desc = L["Here you can download the latest development version."],
-								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/-/archive/development/ElvUI_MerathilisUI-development.zip") end,
+								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://github.com/Merathilis/ElvUI_MerathilisUI/archive/refs/heads/development.zip") end,
 							},
 						},
 					},
