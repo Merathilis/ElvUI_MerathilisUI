@@ -1,54 +1,51 @@
----
-name: Bug report
-about: Report a bug for MerathilisUI
+name: Bug Report
+description: Report a bug for ElvUI MerathilisUI
 title: "[Bug Report] <Title here>"
-labels: ''
-assignees: ''
-
----
-
-**Description**
-< Please give a short description of the issue here >
-
-
-**Version Number**
-< Provide the version number here (the actual number, do not say "latest") >
-
-
-**Steps to Reproduce**
-< Provide all the steps necessary to reproduce the problem >
-
-Step 1:
-Step 2:
-Step 3:
-Step 4:
-
-
-**Expected Behavior**
-< Tell us what should happen >
-
-
-**Actual Behavior**
-< Tell us what happens instead >
-
-
-**Only ElvUI + MerathilisUI enabled**
-< Please provide information about whether or not you can reproduce it >
-< when ElvUI and MerathilisUI are the only addons enabled >
-
-
-**Blizzard Issue?**
-< Please test if you can reproduce the issue with 0 addons enabled >
-< Include screenshot of how it looks if possible >
-
-
-**Additional Information**
-< Please provide any additional information here >
-
-
-**Error Log**
-< If you received an error then please post it in the empty space below >
-< so that the error is wrapped in the 3 backquotes (before and after) >
-```
-
-```
+labels: [':bug::question: Bug (Needs Investigation)', ':video_game: Retail']
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What is the issue you are having?
+      description: Describe the issue and what was going on when it happened?
+      placeholder: Give us an explaination of what was going on when the issue appeared.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: What is the expected behavior?
+      description: What do you think the expected behavior should have happened?
+      placeholder: Try to explain what you expected the outcome to be.
+    validations:
+      required: true
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: What actually happened?
+      description: Please try to be as descriptive as possible.
+      placeholder: Try to explain what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-solution
+    attributes:
+      label: Suggested Solution/Workaround
+      description: If you have any idea how we could solve it let us know.
+      placeholder: "Make sure type the command: '/muierror' on then test."
+    validations:
+      required: false
+  - type: textarea
+    id: errors
+    attributes:
+      label: Errors
+      description: If you have any errors, please put them here.
+      render: shell
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: ElvUI Changelog/Troubleshooting
+      description: By submitting this issue, you agree you followed our [Troubelshooting Steps](https://urlfortroubleshootingstepshere.com)
+      options:
+        - label: I have confirmed that I have read the [Changelog](https://changelogurlhere.com) and done the [Troubelshooting Steps](https://urlfortroubleshootingstepshere.com).
+          required: true
