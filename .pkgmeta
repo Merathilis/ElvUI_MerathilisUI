@@ -1,7 +1,7 @@
 package-as: ElvUI_MerathilisUI
 
 ignore:
-	- m4.png
+    - m4.png
 
 manual-changelog:
   filename: CHANGELOG.md
