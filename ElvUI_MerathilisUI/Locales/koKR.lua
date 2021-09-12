@@ -230,7 +230,7 @@ L["Adds an icon for spells and items on your tooltip."] = true
 L["Adds an Icon for battle pets on the tooltip."] = true
 L["Adds an Icon for the faction on the tooltip."] = true
 L["Adds information to the tooltip, on which char you earned an achievement."] = true
-L["Keystone"] = true
+L["Keystone"] = "쐐기돌"
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
 L["Title Color"] = "제목 색상"
 L["Change the color of the title in the Tooltip."] = true
@@ -250,8 +250,8 @@ L["Use the new style tooltip."] = "Use the new style tooltip."
 L["Display in English"] = "Display in English"
 L["Show icon"] = "Show icon"
 L["Show the spell icon along with the name."] = "Show the spell icon along with the name."
-L["Domination Rank"] = true
-L["Show the rank of shards."] = true
+L["Domination Rank"] = "지배조각 등급"
+L["Show the rank of shards."] = "지배의 조각 등급을 표시합니다"
 
 -- Notification
 L["Notification"] = "알림 표시"
@@ -326,8 +326,8 @@ L["Quest Items"] = "퀘스트 아이템"
 L["Equipments"] = "장비"
 L["Potions"] = "물약"
 L["Flasks"] = "영약"
-L["Food"] = true
-L["Crafted by mage"] = true
+L["Food"] = "음식"
+L["Crafted by mage"] = "마법사 창조"
 L["Banners"] = "전투 깃발"
 L["Utilities"] = "유틸리티"
 L["Custom Items"] = "사용자 지정 아이템"
@@ -486,7 +486,7 @@ L["Right click the waypoint to clear it."] = "지도 핀을 마우스 오른쪽 
 L["No Distance Limitation"] = "표시 거리 제한 해제"
 L["Force to track the target even if it over 1000 yds."] = "1,000미터 이상 떨어진 거리의 지도 핀도 강제로 화면에 표시합니다."
 L["Distance Text"] = "거리 문자 설정"
-L["Only Number"] = true
+L["Only Number"] = "숫자만 표시"
 
 -- SMB
 L["Button Settings"] = true
