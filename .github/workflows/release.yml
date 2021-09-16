@@ -1,10 +1,11 @@
-name: publish_stable
+name: Release
 
 on:
   push:
-    tags-ignore:
-      - "**-alpha-**"
-      - "**-beta-**"
+    branches:
+      - main
+    tags:
+      - '**'
 
 jobs:
   build:
@@ -14,15 +15,15 @@ jobs:
       - name: Grab branch
         uses: actions/checkout@v1
         with:
-          fetch-depth: 1
-
+          fetch-depth: 100
+      
       - name: Packager
         uses: BigWigsMods/packager@main
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
           GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
           WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
-
+      
       - name: Github Actions
         uses: actions/upload-artifact@v2
         with:
