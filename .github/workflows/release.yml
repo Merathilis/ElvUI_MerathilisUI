@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 100
       
       - name: Packager
-        uses: BigWigsMods/packager@main
+        uses: BigWigsMods/packager@master
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
           GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
@@ -29,3 +29,10 @@ jobs:
         with:
           name: ElvUI_MerathilisUI
           path: .release/*.zip
+
+    - name: Send status to Discord
+      uses: nebularg/actions-discord-webhook@v1
+      with:
+        webhook_url: ${{ secrets.discord_webhook_url }} # required
+        status: ${{ job.status }} # optional, this is the default
+      if: always() # or failure() or success()
