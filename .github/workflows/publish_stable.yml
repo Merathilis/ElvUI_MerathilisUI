@@ -1,0 +1,30 @@
+name: publish_stable
+
+on:
+  push:
+    tags-ignore:
+      - "**-alpha-**"
+      - "**-beta-**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Grab branch
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Packager
+        uses: BigWigsMods/packager@master
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+          WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
+
+      - name: Github Actions
+        uses: actions/upload-artifact@v2
+        with:
+          name: ElvUI_MerathilisUI
+          path: .release/*.zip
