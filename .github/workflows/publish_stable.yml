@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 1
 
       - name: Packager
-        uses: BigWigsMods/packager@master
+        uses: BigWigsMods/packager@main
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
           GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
