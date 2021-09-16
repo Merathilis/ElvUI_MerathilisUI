@@ -1,3 +1,9 @@
+** v4.78, 16.09.2021**
+* Add more openable items to the AutoButtons
+* Update Venture Plan skin
+* Use Blizzard API instead of ElvUI function for some sizes
+
+
 ** v4.77, 06.08.2021**
 * Take account for the latest ElvUI Tags + Aura changes
 * Take account for new Chat Bubble changes
