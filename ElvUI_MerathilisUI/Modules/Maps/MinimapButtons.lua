@@ -157,7 +157,7 @@ function module:SkinMinimapButton(Button)
 
 	Button:SetFrameLevel(Minimap:GetFrameLevel() + 10)
 	Button:SetFrameStrata(Minimap:GetFrameStrata())
-	Button:Size(module.db.size, module.db.size)
+	Button:SetSize(module.db.size, module.db.size)
 
 	if not Button.ignoreTemplate then
 		Button:CreateBackdrop("Transparent")
@@ -221,8 +221,8 @@ function module:Update()
 
 			Button:SetParent(module.bin)
 			Button:ClearAllPoints()
-			Button:Point(Anchor, self.bin, Anchor, DirMult * (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
-			Button:Size(Size, Size)
+			Button:SetPoint(Anchor, self.bin, Anchor, DirMult * (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
+			Button:SetSize(Size, Size)
 			Button:SetScale(1)
 			Button:SetFrameStrata('MEDIUM')
 			Button:SetFrameLevel(module.bin:GetFrameLevel()+1)
@@ -239,7 +239,7 @@ function module:Update()
 	local BarWidth = Spacing + (Size * ActualButtons) + (Spacing * (ActualButtons - 1)) + Spacing
 	local BarHeight = Spacing + (Size * AnchorY) + (Spacing * (AnchorY - 1)) + Spacing
 
-	module.bin:Size(BarWidth, BarHeight)
+	module.bin:SetSize(BarWidth, BarHeight)
 
 	-- Styling
 	local topLine = CreateFrame("Frame", nil, module.bin)
@@ -262,7 +262,7 @@ function module:Initialize()
 
 	-- Button Creation
 	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", E.UIParent)
-	module.button:Size(28)
+	module.button:SetSize(28, 28)
 	module.button:ClearAllPoints()
 	module.button:Point("TOPRIGHT", Minimap, "TOPRIGHT", 10, 20)
 	module.button:SetFrameStrata("MEDIUM")
@@ -282,8 +282,8 @@ function module:Initialize()
 	E:CreateMover(module.button, 'MER_MinimapButtonsToggleButtonMover', 'MinimapButtonsToggleButtonAnchor', nil, nil, nil, 'ALL,GENERAL,MERATHILISUI', nil, 'mui,modules,minimap')
 
 	module.bin = CreateFrame("Frame", "MinimapButtonFrame", E.UIParent)
-	module.bin:Point("BOTTOMRIGHT", module.button, "TOPLEFT", 0, -15)
-	module.bin:Size(module.db.size, module.db.size)
+	module.bin:SetPoint("BOTTOMRIGHT", module.button, "TOPLEFT", 0, -15)
+	module.bin:SetSize(module.db.size, module.db.size)
 	module.bin:SetFrameStrata("HIGH")
 	module.bin:Hide()
 
