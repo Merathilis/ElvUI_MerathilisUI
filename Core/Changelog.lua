@@ -16,10 +16,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added Shadows around the most frames",
-		"• Added Grappling Growth to the Vignette Blacklist",
-		"• Remove Talent Set Manager, there will be an own AddOn in the future",
-		"• Updated some skins",
+		"• Add more openable items to the AutoButtons",
+		"• Update Venture Plan skin",
+		"• Use Blizzard API instead of ElvUI function for some sizes",
 
 		-- "• ''",
 	" ",

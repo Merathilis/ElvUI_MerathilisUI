@@ -87,7 +87,7 @@ L["Officer"] = "Offizier"
 L["Only show chat bar when you mouse over it."] = "Zeige die Chatleiste nur an, wenn mit der Maus darüber gefahren wird."
 L["Button"] = "Tasten"
 L["Item Level Links"] = "Gegenstandsstufen-Links"
-L["Block"] = true
+L["Block"] = "Blöcke"
 L["Custom Online Message"] = "Benutzerdefinierte Online Nachricht"
 
 -- Combat Alert
@@ -700,7 +700,7 @@ L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen und anwenden für "
 
 -- Changelog
-L["Changelog"] = true
+L["Changelog"] = "Änderungen"
 
 -- Compatibility
 L["has |cffff2020disabled|r "] = "deaktiviert "

@@ -335,8 +335,8 @@ L["Quest Items"] = "任务物品"
 L["Equipments"] = "装备"
 L["Potions"] = "药水"
 L["Flasks"] = "合剂"
-L["Food"] = true
-L["Crafted by mage"] = true
+L["Food"] = "食物"
+L["Crafted by mage"] = "由法师制作"
 L["Banners"] = "战旗"
 L["Utilities"] = "实用"
 L["Fade Time"] = "淡入时间"
@@ -508,7 +508,7 @@ L["Right click the waypoint to clear it."] = "右键标记点来清除它."
 L["No Distance Limitation"] = "无距离限制"
 L["Force to track the target even if it over 1000 yds."] = "强制追踪超过 1000 码的目标."
 L["Distance Text"] = "距离文字"
-L["Only Number"] = true
+L["Only Number"] = "仅数字"
 
 -- SMB
 L["Button Settings"] = "按键设置"
