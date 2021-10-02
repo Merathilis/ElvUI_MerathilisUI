@@ -46,9 +46,9 @@ local function pluginInstaller()
 	end
 end
 
-local function StyleAce3Tooltip(self, tt)
-	if not tt:IsForbidden() and E.private.skins.ace3Enable then
-		tt:Styling()
+local function StyleAce3Tooltip(self)
+	if not self:IsForbidden() and E.private.skins.ace3Enable then
+		self:Styling()
 	end
 end
 
@@ -100,6 +100,6 @@ function MERS:StyleElvUIConfig()
 	hooksecurefunc(E, 'Config_CreateSeparatorLine', Style_CreateSeparatorLine)
 	hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)
 	hooksecurefunc(E, 'Install', StyleElvUIInstall)
-	hooksecurefunc(S, 'Ace3_StyleTooltip', StyleAce3Tooltip)
+	--hooksecurefunc(S, 'Ace3_StyleTooltip', StyleAce3Tooltip)
 	hooksecurefunc(S, 'Ace3_TabSetSelected', Style_Ace3TabSelected)
 end
