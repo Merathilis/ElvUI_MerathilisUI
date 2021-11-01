@@ -31,20 +31,20 @@ function module:HookPin()
 		return
 	end
 
-	local EnumerateAllPins = _G.WorldMapFrame:EnumerateAllPins()
-	local pin = EnumerateAllPins()
-	while pin do
-		if pin.pinTemplate and pin.pinTemplate == "WaypointLocationPinTemplate" then
+	if _G.WorldMapFrame:GetNumActivePinsByTemplate("WaypointLocationPinTemplate") ~= 0 then
+		for pin in _G.WorldMapFrame:EnumeratePinsByTemplate("WaypointLocationPinTemplate") do
 			if not self:IsHooked(pin, "OnMouseClickAction") then
-				self:SecureHook(pin, "OnMouseClickAction", function(_, button)
-					if button == "RightButton" then
-						C_Map_ClearUserWaypoint()
+				self:SecureHook(
+					pin,
+					"OnMouseClickAction",
+					function(_, button)
+						if button == "RightButton" then
+							C_Map_ClearUserWaypoint()
+						end
 					end
-				end)
+				)
 			end
-			break
 		end
-		pin = EnumerateAllPins()
 	end
 end
 
