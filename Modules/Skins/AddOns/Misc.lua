@@ -79,9 +79,12 @@ local function LoadSkin()
 		_G.CopyChatFrame:Styling()
 	end
 
+	local MAX_STATIC_POPUPS = 4 -- ?
 	for i = 1, MAX_STATIC_POPUPS do
 		local frame = _G["ElvUI_StaticPopup"..i]
-		frame:Styling()
+		if frame then
+			frame:Styling()
+		end
 	end
 
 	local TalentMicroButtonAlert = _G.TalentMicroButtonAlert

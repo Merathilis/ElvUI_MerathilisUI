@@ -43,7 +43,7 @@ function module:UpdateMacro()
 		return self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	end
 
-	local macroIcon = select(2, C_ToyBox_GetToyInfo(130209))
+	local macroIcon = select(2, C_ToyBox_GetToyInfo(130209)) or ""
 	local toyname = ""
 	local templist = {}
 

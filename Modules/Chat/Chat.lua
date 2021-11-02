@@ -55,7 +55,7 @@ function module:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, i
 	end
 
 	if CH.db.copyChatLines then
-		msg = format('|Hcpl:%s|h%s|h %s', self:GetID(), [[|TInterface\AddOns\ElvUI\media\textures\ArrowRight:14|t]], msg)
+		msg = format('|Hcpl:%s|h%s|h %s', self:GetID(), E:TextureString(E.Media.Textures.ArrowRight, ':14'), msg)
 	end
 
 	if E.db.mui.chat.hidePlayerBrackets then

@@ -1,13 +1,18 @@
+[b][color=orange]v4.79[/color], 02.11.2021[/b][list]
+[*]!!!! FOR 9.1.5 !!!!
+[*]Mostly fix error due to new code changes in ElvUI&WoW[/list]
+
+
 [b][color=orange]v4.78[/color], 16.09.2021[/b][list]
 [*]Add more openable items to the AutoButtons
 [*]Update Venture Plan skin
-[*]Use Blizzard API instead of ElvUI function for some sizes
+[*]Use Blizzard API instead of ElvUI function for some sizes[/list]
 
 
 [b][color=orange]v4.77[/color], 06.08.2021[/b][list]
 [*]Take account for the latest ElvUI Tags + Aura changes
 [*]Take account for new Chat Bubble changes
-[*]Add more openable items to AutoButtons
+[*]Add more openable items to AutoButtons[/list]
 
 
 [b][color=orange]v4.76[/color], 09.07.2021[/b][list]

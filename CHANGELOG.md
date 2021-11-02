@@ -1,6 +1,5 @@
-## [4.78] ##
+## [4.79] ##
 ### Changes ###
 
-  * Add more openable items to the AutoButtons.
-  * Update Venture Plan skin.
-  * Use Blizzard API instead of ElvUI function for some sizes.
+  * !!!! FOR 9.1.5 !!!!
+  * Mostly fix error due to new code changes in ElvUI&WoW.
