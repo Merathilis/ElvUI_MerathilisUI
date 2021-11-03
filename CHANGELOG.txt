@@ -1,3 +1,7 @@
+[b][color=orange]v4.80[/color], 03.11.2021[/b][list]
+[*]Fix some skin errors[/list]
+
+
 [b][color=orange]v4.79[/color], 02.11.2021[/b][list]
 [*]!!!! FOR 9.1.5 !!!!
 [*]Mostly fix error due to new code changes in ElvUI&WoW[/list]
