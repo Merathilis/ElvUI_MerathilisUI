@@ -16,9 +16,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Add more openable items to the AutoButtons",
-		"• Update Venture Plan skin",
-		"• Use Blizzard API instead of ElvUI function for some sizes",
+		"• Forgot to update this changelog here... woooopppsie :x",
+		"• Not much to see here, fix some skin errors with 9.1.5",
 
 		-- "• ''",
 	" ",
