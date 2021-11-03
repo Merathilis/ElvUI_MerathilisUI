@@ -15,7 +15,7 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
-function module:CheckMail()
+function module:CheckStatus()
 	local inv = C_Calendar_GetNumPendingInvites()
 	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
 
@@ -123,11 +123,11 @@ function module:Initialize()
 	self:QueueStatus()
 
 	if E.db.mui.maps.minimap.flash then
-		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")
-		self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckMail")
-		self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckMail")
-		self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckMail")
-		self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckMail")
+		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
+		self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")
+		self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckStatus")
+		self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
+		self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")
 	end
 end
 
