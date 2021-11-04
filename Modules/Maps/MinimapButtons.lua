@@ -128,6 +128,12 @@ function module:SkinMinimapButton(Button)
 		if Region.IsObjectType and Region:IsObjectType('Texture') then
 			local Texture = Region.GetTextureFileID and Region:GetTextureFileID()
 
+			if Region and strsub(Name, 1, strlen("LibDBIcon")) == "LibDBIcon" then
+				if Region ~= Button.icon then
+					Region:SetTexture()
+				end
+			end
+
 			if RemoveTextureID[Texture] then
 				Region:SetTexture()
 			else
