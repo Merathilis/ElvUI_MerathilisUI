@@ -3,11 +3,9 @@ local module = MER:GetModule('MER_Reminder')
 local LCG = LibStub('LibCustomGlow-1.0')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local pairs, select, type, unpack= pairs, select, type, unpack
--- WoW API / Variables
+
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 local C_PaperDollInfo_OffhandHasWeapon = C_PaperDollInfo.OffhandHasWeapon
 local C_Timer_After = C_Timer.After
@@ -16,15 +14,13 @@ local GetSpecialization = GetSpecialization
 local GetSpellCooldown = GetSpellCooldown
 local GetSpellInfo = GetSpellInfo
 local GetWeaponEnchantInfo = GetWeaponEnchantInfo
+local GetInventoryItemTexture = GetInventoryItemTexture
 local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local IsUsableSpell = IsUsableSpell
 local UnitInVehicle = UnitInVehicle
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 local UnitLevel = UnitLevel
-
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: GetInventoryItemTexture
 
 _Reminder = module
 _CreatedReminders = {}
@@ -361,12 +357,16 @@ function module:CreateReminder(name, index)
 
 	local size = module.db.size or 30
 	local ElvFrame = _G.ElvUF_Player
-	if not ElvFrame or not E.db.unitframe.units.player.enable then return end
+	if not E.db.unitframe.units.player.enable then return end
 
 	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, E.UIParent)
 	frame:Size(size or (ElvFrame:GetHeight() -4))
-	frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
-	frame:SetFrameStrata(ElvFrame:GetFrameStrata())
+	if ElvFrame then
+		frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
+		frame:SetFrameStrata(ElvFrame:GetFrameStrata())
+	else
+		frame:SetPoint("CENTER", E.UIParent, "CENTER", 0, 0)
+	end
 	frame.groupName = name
 
 	E:CreateMover(frame, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
