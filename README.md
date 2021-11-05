@@ -23,5 +23,3 @@ To find the whole description please visit: [link to MerathilisUI!](https://www.
 
 -----
 <br>
-
->This repo is for the retail version for Shadowlands (9.0).
