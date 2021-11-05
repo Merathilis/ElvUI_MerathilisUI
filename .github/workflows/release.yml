@@ -12,8 +12,8 @@ jobs:
     env:
        CF_API_KEY: ${{ secrets.CF_API_KEY }}
        GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+       WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
        # WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
-       # WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
 
     steps:
       - name: Clone Project
@@ -21,8 +21,16 @@ jobs:
         with:
           fetch-depth: 100
       
-      - name: Package and release
+      - name: Retail
         uses: BigWigsMods/packager@master
+      - name: Classic
+        uses: BigWigsMods/packager@master
+        with:
+          args: -g classic
+      - name: Burning Crusade Classic
+        uses: BigWigsMods/packager@master
+        with:
+          args: -g bcc
       
       - name: Github Actions
         uses: actions/upload-artifact@v2
