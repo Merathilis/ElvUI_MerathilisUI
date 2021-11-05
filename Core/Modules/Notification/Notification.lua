@@ -402,6 +402,7 @@ local function GetGuildInvites()
 end
 
 local function toggleCalendar()
+	if not E.Retail then return end
 	if not _G.CalendarFrame then LoadAddOn("Blizzard_Calendar") end
 	ShowUIPanel(_G.CalendarFrame)
 end
@@ -437,6 +438,8 @@ function module:CALENDAR_UPDATE_GUILD_EVENTS()
 end
 
 local function LoginCheck()
+	if not E.Retail then return end
+
 	alertEvents()
 	alertGuildEvents()
 end
@@ -615,12 +618,12 @@ function module:Initialize()
 	if E.Retail then
 		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
 		self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
+		self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
+		self:RegisterEvent("SOCIAL_QUEUE_UPDATE", 'SocialQueueEvent')
 	end
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("QUEST_ACCEPTED")
-	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", 'SocialQueueEvent')
 
 	self.lastMinimapRare = {time = 0, id = nil}
 end

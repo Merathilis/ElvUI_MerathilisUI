@@ -236,7 +236,9 @@ function module:ReminderIcon_OnEvent(event, unit)
 			self:UnregisterAllEvents()
 			self:RegisterEvent("UNIT_AURA")
 			self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
-			self:RegisterEvent("PLAYER_TALENT_UPDATE")
+			if E.Retail then
+				self:RegisterEvent("PLAYER_TALENT_UPDATE")
+			end
 			if db.combat then
 				self:RegisterEvent("PLAYER_REGEN_ENABLED")
 				self:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -410,7 +412,7 @@ function module:Initialize()
 	if module.db.enable ~= true then return; end
 
 	self:CheckForNewReminders()
-	C_Timer_After(1, function() module.initialized = true end)
+	C_Timer_After(1.5, function() module.initialized = true end)
 end
 
 MER:RegisterModule(module:GetName())

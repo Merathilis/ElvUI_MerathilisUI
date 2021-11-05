@@ -41,43 +41,43 @@ local emotes = {
 	{"{rt8}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_8]=]},
 
 	-- ElvUI's emotes
-	{":angry:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Angry]=]},
-	{":blush:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Blush]=]},
-	{":broken_heart:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\BrokenHeart]=]},
-	{":call_me:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\CallMe]=]},
-	{":cry:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Cry]=]},
-	{":facepalm:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Facepalm]=]},
-	{":grin:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Grin]=]},
-	{":heart:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Heart]=]},
-	{":heart_eyes:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\HeartEyes]=]},
-	{":joy:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Joy]=]},
-	{":kappa:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Kappa]=]},
-	{":meaw:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Meaw]=]},
-	{":middle_finger:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\MiddleFinger]=]},
-	{":murloc:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Murloc]=]},
-	{":ok_hand:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\OkHand]=]},
-	{":open_mouth:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\OpenMouth]=]},
-	{":poop:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Poop]=]},
-	{":rage:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Rage]=]},
-	{":sadkitty:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\SadKitty]=]},
-	{":scream:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Scream]=]},
-	{":scream_cat:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\ScreamCat]=]},
-	{":slight_frown:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\SlightFrown]=]},
-	{":smile:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Smile]=]},
-	{":smirk:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Smirk]=]},
-	{":sob:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Sob]=]},
-	{":sunglasses:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Sunglasses]=]},
-	{":thinking:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Thinking]=]},
-	{":thumbs_up:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\ThumbsUp]=]},
-	{":semi_colon:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\SemiColon]=]},
-	{":wink:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\Wink]=]},
-	{":zzz:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\ZZZ]=]},
-	{":stuck_out_tongue:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\StuckOutTongue]=]},
-	{":stuck_out_tongue_closed_eyes:", [=[Interface\AddOns\ElvUI\Media\ChatEmojis\StuckOutTongueClosedEyes]=]},
+	{":angry:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Angry]=]},
+	{":blush:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Blush]=]},
+	{":broken_heart:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\BrokenHeart]=]},
+	{":call_me:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\CallMe]=]},
+	{":cry:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Cry]=]},
+	{":facepalm:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Facepalm]=]},
+	{":grin:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Grin]=]},
+	{":heart:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Heart]=]},
+	{":heart_eyes:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\HeartEyes]=]},
+	{":joy:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Joy]=]},
+	{":kappa:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Kappa]=]},
+	{":meaw:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Meaw]=]},
+	{":middle_finger:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\MiddleFinger]=]},
+	{":murloc:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Murloc]=]},
+	{":ok_hand:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\OkHand]=]},
+	{":open_mouth:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\OpenMouth]=]},
+	{":poop:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Poop]=]},
+	{":rage:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Rage]=]},
+	{":sadkitty:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SadKitty]=]},
+	{":scream:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Scream]=]},
+	{":scream_cat:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ScreamCat]=]},
+	{":slight_frown:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SlightFrown]=]},
+	{":smile:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Smile]=]},
+	{":smirk:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Smirk]=]},
+	{":sob:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Sob]=]},
+	{":sunglasses:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Sunglasses]=]},
+	{":thinking:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Thinking]=]},
+	{":thumbs_up:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ThumbsUp]=]},
+	{":semi_colon:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SemiColon]=]},
+	{":wink:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Wink]=]},
+	{":zzz:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ZZZ]=]},
+	{":stuck_out_tongue:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\StuckOutTongue]=]},
+	{":stuck_out_tongue_closed_eyes:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\StuckOutTongueClosedEyes]=]},
 
 	-- My emots
-	{":monkaomega:", [=[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatEmojis\monkaomega]=]},
-	{":salt:", [=[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatEmojis\salt]=]},
+	{":monkaomega:", [=[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\ChatEmojis\monkaomega]=]},
+	{":salt:", [=[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\ChatEmojis\salt]=]},
 }
 module.emotes = emotes
 
@@ -178,7 +178,7 @@ function module:Initialize()
 		Emote.ToggleEmoteTable()
 	end)
 
-	ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\media\\ChatEmojis\\Smile")
+	ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\Core\\Media\\ChatEmojis\\Smile")
 	ChatEmote:GetNormalTexture():SetDesaturated(true)
 	ChatEmote:GetNormalTexture():SetAlpha(.45)
 
@@ -186,14 +186,14 @@ function module:Initialize()
 		_G.GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 6)
 		_G.GameTooltip:AddLine(L["Click to open Emoticon Frame"])
 		_G.GameTooltip:Show()
-		ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\media\\ChatEmojis\\Scream")
+		ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\Core\\Media\\ChatEmojis\\Scream")
 		ChatEmote:GetNormalTexture():SetDesaturated(false)
 		ChatEmote:GetNormalTexture():SetAlpha(1)
 	end)
 
 	ChatEmote:SetScript("OnLeave", function(self)
 		_G.GameTooltip:Hide()
-		ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\media\\ChatEmojis\\Smile")
+		ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\Core\\Media\\ChatEmojis\\Smile")
 		ChatEmote:GetNormalTexture():SetDesaturated(true)
 		ChatEmote:GetNormalTexture():SetAlpha(.45)
 	end)

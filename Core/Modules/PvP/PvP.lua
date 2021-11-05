@@ -83,21 +83,23 @@ function module:Initialize()
 	self:RegisterEvent("PET_BATTLE_PVP_DUEL_REQUESTED", "BlockDuel")
 
 	if E.db.mui.pvp.killingBlow.enable then
-		--Hook to blizz function for boss kill banner
-		hooksecurefunc(_G["BossBanner"], "PlayBanner", function(self, data)
-			if (data) then
-				if (data.mode == "MER_PVPKILL") then
-					self.Title:SetText(data.name)
-					self.Title:Show()
-					self.SubTitle:Hide()
-					self:Show()
-					BossBanner_BeginAnims(self)
-					if E.db.mui.pvp.killingBlow.sound then
-						PlaySound(SOUNDKIT.UI_RAID_BOSS_DEFEATED)
+		if E.Retail then
+			--Hook to blizz function for boss kill banner
+			hooksecurefunc(_G["BossBanner"], "PlayBanner", function(self, data)
+				if (data) then
+					if (data.mode == "MER_PVPKILL") then
+						self.Title:SetText(data.name)
+						self.Title:Show()
+						self.SubTitle:Hide()
+						self:Show()
+						BossBanner_BeginAnims(self)
+						if E.db.mui.pvp.killingBlow.sound then
+							PlaySound(SOUNDKIT.UI_RAID_BOSS_DEFEATED)
+						end
 					end
 				end
-			end
-		end)
+			end)
+		end
 		self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "LogParse")
 		self:RegisterEvent("UPDATE_BATTLEFIELD_SCORE", "OpponentsTable")
 	end

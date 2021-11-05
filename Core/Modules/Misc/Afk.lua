@@ -156,11 +156,13 @@ function AFK:SetAFK(status)
 			end
 		end
 
-		if kit then
-			if AFK.AFKMode.Panel then
-				AFK.AFKMode.Panel.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
-				AFK.AFKMode.Panel.crest:Point("BOTTOM", 0, vert or 14)
-				AFK.AFKMode.Panel.crest:Size(300, hei)
+		if E.Retail then
+			if kit then
+				if AFK.AFKMode.Panel then
+					AFK.AFKMode.Panel.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
+					AFK.AFKMode.Panel.crest:Point("BOTTOM", 0, vert or 14)
+					AFK.AFKMode.Panel.crest:Size(300, hei)
+				end
 			end
 		end
 
@@ -205,7 +207,7 @@ local function Initialize()
 		AFK.AFKMode.Panel.ignoreBackdropColors = true
 	end
 
-	if not AFK.AFKMode.Panel.crest then
+	if E.Retail and not AFK.AFKMode.Panel.crest then
 		AFK.AFKMode.Panel.crest = AFK.AFKMode.Panel:CreateTexture(nil, 'ARTWORK')
 		AFK.AFKMode.Panel.crest:SetDrawLayer('ARTWORK')
 	end

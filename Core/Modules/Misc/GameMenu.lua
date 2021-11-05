@@ -307,7 +307,7 @@ function module:GameMenu()
 		npcModel:Show()
 	end
 
-	if not GameMenuFrame.pepeHolder then
+	if E.Retail and not GameMenuFrame.pepeHolder then
 		GameMenuFrame.pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
 		GameMenuFrame.pepeHolder:Size(150)
 		GameMenuFrame.pepeHolder:SetPoint("BOTTOM", GameMenuFrame, "TOP", 0, -50)

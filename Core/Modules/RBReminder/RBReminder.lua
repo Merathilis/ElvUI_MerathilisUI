@@ -321,7 +321,9 @@ function module:Initialize()
 		self:CreateIconBuff("CustomFrame", WeaponFrame, false)
 	end
 
-	self.frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+	if E.Retail then
+		self.frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+	end
 	self.frame:RegisterEvent("UNIT_INVENTORY_CHANGED")
 	self.frame:RegisterEvent("UNIT_AURA")
 	self.frame:RegisterEvent("PLAYER_REGEN_ENABLED")

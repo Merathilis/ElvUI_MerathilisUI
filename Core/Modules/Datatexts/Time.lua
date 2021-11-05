@@ -45,7 +45,7 @@ local enteredFrame = false;
 
 local Update, lastPanel; -- UpValue
 local localizedName, isActive, canQueue, startTime, canEnter
-local name, reset, locked, extended, isRaid, maxPlayers, difficulty, numEncounters, encounterProgress
+local name, reset, difficultyId, locked, extended, isRaid, maxPlayers, difficulty, numEncounters, encounterProgress
 local quests = {}
 local updateQuestTable = false
 
@@ -119,8 +119,14 @@ local function OnEvent(self, event)
 	end
 end
 
-local function Click()
-	_G["GameTimeFrame"]:Click()
+local function OnClick(_, btn)
+	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
+
+	if btn == 'RightButton' then
+		ToggleFrame(_G.TimeManagerFrame)
+	elseif E.Retail then
+		_G.GameTimeFrame:Click()
+	end
 end
 
 local function OnLeave(self)
@@ -137,17 +143,19 @@ local function OnEnter(self)
 	end
 
 	DT.tooltip:AddLine(VOICE_CHAT_BATTLEGROUND)
-	for i = 1, GetNumWorldPVPAreas() do
-		_, localizedName, isActive, canQueue, startTime, canEnter = GetWorldPVPAreaInfo(i)
-		if canEnter then
-			if isActive then
-				startTime = WINTERGRASP_IN_PROGRESS
-			elseif startTime == nil then
-				startTime = QUEUE_TIME_UNAVAILABLE
-			else
-				startTime = SecondsToTime(startTime, false, nil, 3)
+	if E.Retail then
+		for i = 1, GetNumWorldPVPAreas() do
+			_, localizedName, isActive, canQueue, startTime, canEnter = GetWorldPVPAreaInfo(i)
+			if canEnter then
+				if isActive then
+					startTime = WINTERGRASP_IN_PROGRESS
+				elseif startTime == nil then
+					startTime = QUEUE_TIME_UNAVAILABLE
+				else
+					startTime = SecondsToTime(startTime, false, nil, 3)
+				end
+				DT.tooltip:AddDoubleLine(format(formatBattleGroundInfo, localizedName), startTime, 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)
 			end
-			DT.tooltip:AddDoubleLine(format(formatBattleGroundInfo, localizedName), startTime, 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)
 		end
 	end
 
@@ -175,16 +183,18 @@ local function OnEnter(self)
 		end
 	end
 
-	local addedLine = false
-	for i = 1, GetNumSavedWorldBosses() do
-		name, instanceID, reset = GetSavedWorldBossInfo(i)
-		if(reset) then
-			if(not addedLine) then
-				DT.tooltip:AddLine(' ')
-				DT.tooltip:AddLine(RAID_INFO_WORLD_BOSS.."(s)")
-				addedLine = true
+	if E.Retail then
+		local addedLine = false
+		for i = 1, GetNumSavedWorldBosses() do
+			name, instanceID, reset = GetSavedWorldBossInfo(i)
+			if(reset) then
+				if(not addedLine) then
+					DT.tooltip:AddLine(' ')
+					DT.tooltip:AddLine(RAID_INFO_WORLD_BOSS.."(s)")
+					addedLine = true
+				end
+				DT.tooltip:AddDoubleLine(name, SecondsToTime(reset, true, nil, 3), 1, 1, 1, 0.8, 0.8, 0.8)
 			end
-			DT.tooltip:AddDoubleLine(name, SecondsToTime(reset, true, nil, 3), 1, 1, 1, 0.8, 0.8, 0.8)
 		end
 	end
 
@@ -276,4 +286,4 @@ function Update(self, t)
 	int = 5
 end
 
-DT:RegisterDatatext("MUI Time", MER.Title, { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, Click, OnEnter, OnLeave)
+DT:RegisterDatatext("MUI Time", MER.Title, { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, OnClick, OnEnter, OnLeave)

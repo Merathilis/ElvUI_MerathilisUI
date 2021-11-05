@@ -64,15 +64,18 @@ local function SetupChat()
 		E.db.movers = {}
 	end
 
-	for i = 1, _G.NUM_CHAT_WINDOWS do
-		local frame = _G[format("ChatFrame%s", i)]
-		local chatFrameId = frame:GetID()
-		local chatName = FCF_GetChatWindowInfo(chatFrameId)
+	for _, name in ipairs(_G.CHAT_FRAMES) do
+		local frame = _G[name]
+		local id = frame:GetID()
+		local chatName = FCF_GetChatWindowInfo(id)
 
 		FCF_SetChatWindowFontSize(nil, frame, 11)
 
+		if id == 1 then
+			frame:ClearAllPoints()
+			frame:Point('BOTTOMLEFT', _G.LeftChatToggleButton, 'TOPLEFT', 1, 3)
 		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
-		if i == 4 and chatName == LOOT.." / "..TRADE then
+		elseif (E.Retail and id == 4 and chatName == LOOT.." / "..TRADE) or id == 3 then
 			FCF_UnDockFrame(frame)
 			frame:ClearAllPoints()
 			frame:Point("BOTTOMLEFT", _G.LeftChatToggleButton, "TOPLEFT", 1, 3)
@@ -86,17 +89,17 @@ local function SetupChat()
 		FCF_SavePositionAndDimensions(frame)
 		FCF_StopDragging(frame)
 	end
-	ChatFrame_RemoveChannel(ChatFrame4, L["Trade"])
-	ChatFrame_AddChannel(ChatFrame1, L["Trade"])
-	ChatFrame_AddMessageGroup(ChatFrame1, "TARGETICONS")
-	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_FACTION_CHANGE")
-	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_GUILD_XP_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_HONOR_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_XP_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame4, "CURRENCY")
-	ChatFrame_AddMessageGroup(ChatFrame4, "LOOT")
-	ChatFrame_AddMessageGroup(ChatFrame4, "MONEY")
-	ChatFrame_AddMessageGroup(ChatFrame4, "SKILL")
+	ChatFrame_RemoveChannel(_G.ChatFrame4, L["Trade"])
+	ChatFrame_AddChannel(_G.ChatFrame1, L["Trade"])
+	ChatFrame_AddMessageGroup(_G.ChatFrame1, "TARGETICONS")
+	ChatFrame_AddMessageGroup(_G.ChatFrame4, "COMBAT_FACTION_CHANGE")
+	ChatFrame_AddMessageGroup(_G.ChatFrame4, "COMBAT_GUILD_XP_GAIN")
+	ChatFrame_AddMessageGroup(_G.ChatFrame4, "COMBAT_HONOR_GAIN")
+	ChatFrame_AddMessageGroup(_G.ChatFrame4, "COMBAT_XP_GAIN")
+	ChatFrame_AddMessageGroup(_G.ChatFrame4, "CURRENCY")
+	ChatFrame_AddMessageGroup(_G.ChatFrame4, "LOOT")
+	ChatFrame_AddMessageGroup(_G.ChatFrame4, "MONEY")
+	ChatFrame_AddMessageGroup(_G.ChatFrame4, "SKILL")
 
 	-- Enable classcolor automatically on login and on each character without doing /configure each time
 	ToggleChatColorNamesByClassGroup(true, "ACHIEVEMENT")
@@ -768,9 +771,11 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["experience"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["experience"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
-	E.db["databars"]["experience"]["hideInVehicle"] = true
 	E.db["databars"]["experience"]["hideInCombat"] = true
 	E.db["databars"]["experience"]["showBubbles"] = true
+	if E.Retail then
+		E.db["databars"]["experience"]["hideInVehicle"] = true
+	end
 
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["mouseover"] = false
@@ -784,38 +789,11 @@ function MER:SetupLayout(layout)
 	end
 	E.db["databars"]["reputation"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
-	E.db["databars"]["reputation"]["hideInVehicle"] = true
 	E.db["databars"]["reputation"]["hideInCombat"] = true
 	E.db["databars"]["reputation"]["showBubbles"] = true
-
-	E.db["databars"]["honor"]["enable"] = true
-	E.db["databars"]["honor"]["width"] = 283
-	E.db["databars"]["honor"]["height"] = 9
-	E.db["databars"]["honor"]["fontSize"] = 9
-	E.db["databars"]["honor"]["font"] = "Expressway"
-	E.db["databars"]["honor"]["hideBelowMaxLevel"] = true
-	E.db["databars"]["honor"]["hideOutsidePvP"] = true
-	E.db["databars"]["honor"]["hideInCombat"] = true
-	E.db["databars"]["honor"]["hideInVehicle"] = true
-	E.db["databars"]["honor"]["textFormat"] = "CURPERCREM"
-	E.db["databars"]["honor"]["orientation"] = "HORIZONTAL"
-	E.db["databars"]["honor"]["showBubbles"] = true
-
-	E.db["databars"]["azerite"]["enable"] = true
-	E.db["databars"]["azerite"]["height"] = 9
-	E.db["databars"]["azerite"]["font"] = "Expressway"
-	E.db["databars"]["azerite"]["fontSize"] = 9
-	if layout == "dps" then
-		E.db["databars"]["azerite"]["width"] = 283
-	elseif layout == "healer" then
-		E.db["databars"]["azerite"]["width"] = 278
+	if E.Retail then
+		E.db["databars"]["reputation"]["hideInVehicle"] = true
 	end
-	E.db["databars"]["azerite"]["hideInVehicle"] = true
-	E.db["databars"]["azerite"]["hideInCombat"] = true
-	E.db["databars"]["azerite"]["mouseover"] = false
-	E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
-	E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
-	E.db["databars"]["azerite"]["showBubbles"] = true
 
 	E.db["databars"]["threat"]["enable"] = true
 	E.db["databars"]["threat"]["width"] = 283
@@ -823,18 +801,46 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["threat"]["fontSize"] = 9
 	E.db["databars"]["threat"]["font"] = "Expressway"
 
-	E.db["movers"]["AzeriteBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-470,1"
+	if E.Retail then
+		E.db["databars"]["honor"]["enable"] = true
+		E.db["databars"]["honor"]["width"] = 283
+		E.db["databars"]["honor"]["height"] = 9
+		E.db["databars"]["honor"]["fontSize"] = 9
+		E.db["databars"]["honor"]["font"] = "Expressway"
+		E.db["databars"]["honor"]["hideBelowMaxLevel"] = true
+		E.db["databars"]["honor"]["hideOutsidePvP"] = true
+		E.db["databars"]["honor"]["hideInCombat"] = true
+		E.db["databars"]["honor"]["hideInVehicle"] = true
+		E.db["databars"]["honor"]["textFormat"] = "CURPERCREM"
+		E.db["databars"]["honor"]["orientation"] = "HORIZONTAL"
+		E.db["databars"]["honor"]["showBubbles"] = true
+
+		E.db["databars"]["azerite"]["enable"] = true
+		E.db["databars"]["azerite"]["height"] = 9
+		E.db["databars"]["azerite"]["font"] = "Expressway"
+		E.db["databars"]["azerite"]["fontSize"] = 9
+		if layout == "dps" then
+			E.db["databars"]["azerite"]["width"] = 283
+		elseif layout == "healer" then
+			E.db["databars"]["azerite"]["width"] = 278
+		end
+		E.db["databars"]["azerite"]["hideInVehicle"] = true
+		E.db["databars"]["azerite"]["hideInCombat"] = true
+		E.db["databars"]["azerite"]["mouseover"] = false
+		E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
+		E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
+		E.db["databars"]["azerite"]["showBubbles"] = true
+
+		E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,52"
+		E.db["movers"]["AzeriteBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-470,1"
+	end
+
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,503,12"
-	E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,52"
 	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,1"
 	E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,470,1"
 	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,62"
 	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,46"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-277,178"
-
-	if IsAddOnLoaded("ProjectAzilroka") then
-		E.db["movers"]["OzCooldownsMover"] = "BOTTOM,ElvUIParent,BOTTOM,-249,306"
-	end
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -1339,7 +1345,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
 		E.db["unitframe"]["units"]["player"]["power"]["powerPrediction"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 20
-		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
+		--E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 285
 		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = ""
@@ -1386,8 +1392,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["absorbStyle"] = "NORMAL"
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["height"] = -1
-		E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
-		E.db["unitframe"]["units"]["player"]["cutaway"]["power"]["enabled"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["combat"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["casting"] = true
@@ -1399,6 +1403,10 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["fader"]["minAlpha"] = 0.35
 		E.db["unitframe"]["units"]["player"]["fader"]["maxAlpha"] = 1
 		E.db["unitframe"]["units"]["player"]["fader"]["smooth"] = 0.33
+		if E.Retail then
+			E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
+			E.db["unitframe"]["units"]["player"]["cutaway"]["power"]["enabled"] = true
+		end
 
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 200
@@ -1531,13 +1539,15 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["absorbStyle"] = "NORMAL"
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["height"] = -1
-		E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
 		E.db["unitframe"]["units"]["target"]["CombatIcon"]["size"] = 11
 		E.db["unitframe"]["units"]["target"]["CombatIcon"]["texture"] = "COMBAT"
 		E.db["unitframe"]["units"]["target"]["CombatIcon"]["customTexture"] = ""
 		E.db["unitframe"]["units"]["target"]["CombatIcon"]["anchorPoint"] = "CENTER"
 		E.db["unitframe"]["units"]["target"]["CombatIcon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["CombatIcon"]["yOffset"] = 0
+		if E.Retail then
+			E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
+		end
 
 		-- TargetTarget
 		E.db["unitframe"]["units"]["targettarget"]["disableMouseoverGlow"] = false
@@ -1559,10 +1569,12 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["targettarget"]["raidicon"]["yOffset"] = 15
 		E.db["unitframe"]["units"]["targettarget"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["targettarget"]["infoPanel"]["enable"] = false
-		E.db["unitframe"]["units"]["targettarget"]["cutaway"]["health"]["enabled"] = true
 		if not E.db["unitframe"]["units"]["targettarget"]["customTexts"] then E.db["unitframe"]["units"]["targettarget"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["targettarget"]["customTexts"] = {}
+		if E.Retail then
+			E.db["unitframe"]["units"]["targettarget"]["cutaway"]["health"]["enabled"] = true
+		end
 
 		-- Focus
 		E.db["unitframe"]["units"]["focus"]["width"] = 100
@@ -1592,7 +1604,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["focus"]["debuffs"]["anchorPoint"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["focus"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = false
-		E.db["unitframe"]["units"]["focus"]["cutaway"]["health"]["enabled"] = true
+		if E.Retail then
+			E.db["unitframe"]["units"]["focus"]["cutaway"]["health"]["enabled"] = true
+		end
 
 		-- FocusTarget
 		E.db["unitframe"]["units"]["focustarget"]["enable"] = false
@@ -1717,7 +1731,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["absorbStyle"] = "NORMAL"
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["height"] = -1
-		E.db["unitframe"]["units"]["raid"]["cutaway"]["health"]["enabled"] = true
+		if E.Retail then
+			E.db["unitframe"]["units"]["raid"]["cutaway"]["health"]["enabled"] = true
+		end
 
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db["unitframe"]["units"]["raid"]["classHover"] = true
@@ -1830,7 +1846,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["absorbStyle"] = "NORMAL"
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["height"] = -1
-		E.db["unitframe"]["units"]["raid40"]["cutaway"]["health"]["enabled"] = true
+		if E.Retail then
+			E.db["unitframe"]["units"]["raid40"]["cutaway"]["health"]["enabled"] = true
+		end
 
 		-- Party
 		E.db["unitframe"]["units"]["party"]["enable"] = true
@@ -1875,7 +1893,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
 		E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
-		E.db["unitframe"]["units"]["party"]["power"]["displayAltPower"] = true
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_OFF"
 		E.db["unitframe"]["units"]["party"]["width"] = 160
 		E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true
@@ -1956,6 +1973,9 @@ function MER:SetupUnitframes(layout)
 				["attachTextTo"] = "Frame",
 				["text_format"] = "[users:elvui]",
 			}
+		end
+		if E.Retail then
+			E.db["unitframe"]["units"]["party"]["power"]["displayAltPower"] = true
 		end
 
 		-- Assist
@@ -2828,12 +2848,16 @@ function MER:SetupDts()
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["panelTransparency"] = false
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["frameStrata"] = "MEDIUM"
 
-	E.db["datatexts"]["panels"]["MER_RightChatTop"] = {
-		[1] = "Missions",
-		[2] = "Durability",
-		[3] = "Gold",
-		["enable"] = true,
-	}
+	if E.Retail then
+		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "Missions"
+	elseif E.Classic or E.TBC then
+		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "MUI Time"
+	else
+		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "Time"
+	end
+	E.db["datatexts"]["panels"]["MER_RightChatTop"][2] = "Durability"
+	E.db["datatexts"]["panels"]["MER_RightChatTop"][3] = "Gold"
+	E.db["datatexts"]["panels"]["MER_RightChatTop"]["enable"] = true
 
 	E.db["movers"]["DTPanelMER_RightChatTopMover"] = "CENTER,MER_RightChatTopDT,CENTER"
 

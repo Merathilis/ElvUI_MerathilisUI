@@ -172,8 +172,10 @@ function module:Initialize()
 	local db = E.db.mui.actionbars
 	MER:RegisterDB(self, "actionbars")
 
-	self:EquipSpecBar()
-	ReskinVehicleExit()
+	if E.Retail then
+		self:EquipSpecBar()
+		ReskinVehicleExit()
+	end
 
 	C_TimerAfter(1, module.StyleBackdrops)
 	C_TimerAfter(0.1, module.ActionbarGlow)
@@ -191,18 +193,20 @@ function module:Initialize()
 	self:ActionBar_Shadow(_G.ElvUI_StanceBar, "STANCE")
 	self:SecureHook(AB, "PositionAndSizeBarShapeShift", "ActionBar_PositionAndSizeBarShapeShift")
 
-	self:SecureHook(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", "SkinZoneAbilities")
+	if E.Retail then
+		self:SecureHook(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", "SkinZoneAbilities")
 
-	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
-		local button = _G["ExtraActionButton" .. i]
-		if button then
-			MER:CreateShadow(button)
+		for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
+			local button = _G["ExtraActionButton" .. i]
+			if button then
+				MER:CreateShadow(button)
+			end
 		end
-	end
 
-	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
-		local button = _G["ExtraActionButton" .. i]
-		MER:CreateBackdropShadow(button.backdrop, true)
+		for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
+			local button = _G["ExtraActionButton" .. i]
+			MER:CreateBackdropShadow(button.backdrop, true)
+		end
 	end
 
 	self:SecureHook(AB, "SetupFlyoutButton", function(_, button)

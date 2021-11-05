@@ -368,8 +368,7 @@ local ButtonTypes = {
 			end
 		},
 		additionalText = function()
-			local numMissions =
-				#C_Garrison_GetCompleteMissions(FollowerType_9_0) + #C_Garrison_GetCompleteMissions(FollowerType_8_0)
+			local numMissions = C_Garrison and (#C_Garrison_GetCompleteMissions(FollowerType_9_0) + #C_Garrison_GetCompleteMissions(FollowerType_8_0))
 			if numMissions == 0 then
 				numMissions = ""
 			end
@@ -659,13 +658,21 @@ function module:ConstructTimeArea()
 			DT.RegisteredDataTexts["System"].eventFunc()
 			DT.RegisteredDataTexts["System"].onEnter()
 		elseif mouseButton == "LeftButton" then
-			if not InCombatLockdown() then
-				ToggleCalendar()
+			if E.Retail then
+				if not InCombatLockdown() then
+					ToggleCalendar()
+				end
+			elseif E.Classic then
+				return
 			else
 				_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
 			end
 		elseif mouseButton == "RightButton" then
-			ToggleTimeManager()
+			if E.Retail then
+				ToggleTimeManager()
+			elseif E.Classic then
+				ToggleFrame(_G.TimeManagerFrame)
+			end
 		end
 	end)
 end
@@ -796,7 +803,7 @@ function module:ButtonOnEnter(button)
 
 			if not DT.tooltip:IsShown() then
 				DT.tooltip:ClearLines()
-				DT.tooltip:SetText(button.name)
+				DT.tooltip:SetText(button.name or '')
 				DT.tooltip:Show()
 			end
 		elseif type(button.tooltips) == "function" then
@@ -1121,12 +1128,10 @@ function module:UpdateHearthStoneTable()
 		index = index + 1
 		if Heartstones[index] then
 			itemEngine:SetItemID(Heartstones[index])
-			itemEngine:ContinueOnItemLoad(
-				function()
-					HeartstonesTable[tostring(Heartstones[index])] = itemEngine:GetItemName()
-					GetNextHearthStoneInfo()
-				end
-			)
+			itemEngine:ContinueOnItemLoad(function()
+				HeartstonesTable[tostring(Heartstones[index])] = itemEngine:GetItemName()
+				GetNextHearthStoneInfo()
+			end)
 		else
 			self:UpdateHomeButton()
 			if self.Initialized then
@@ -1174,7 +1179,9 @@ function module:Initialize()
 	self:UpdateBar()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 
-	self:SecureHook(_G.GuildMicroButton, "UpdateNotificationIcon", "UpdateGuildButton")
+	if E.Retail then
+		self:SecureHook(_G.GuildMicroButton, "UpdateNotificationIcon", "UpdateGuildButton")
+	end
 
 	function module:ForUpdateAll()
 		self.db = E.db.mui.microBar

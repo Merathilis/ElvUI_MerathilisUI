@@ -87,7 +87,7 @@ function module:UnitFrames_Configure_ClassBar(_, f)
 	if f.shadow then return end
 
 	local bars = f[f.ClassBar]
-	if not bars.backdrop.shadow then
+	if bars and not bars.backdrop.shadow then
 		MER:CreateShadow(bars.backdrop)
 	end
 

@@ -1,6 +1,9 @@
 ----------------------------------------------------------------------------------------
 --	Based on oUF_CounterBar(by p3lim)
 ----------------------------------------------------------------------------------------
+-- just bail out on classic
+if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then return end
+
 local _, ns = ...
 local oUF = ElvUF or oUF
 

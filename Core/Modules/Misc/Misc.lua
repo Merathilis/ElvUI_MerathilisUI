@@ -200,25 +200,27 @@ end
 
 function module:Initialize()
 	local db = E.db.mui.misc
-	MER:RegisterDB(self, "misc")
+	MER:RegisterDB(module, "misc")
 
 	E.RegisterCallback(module, "RoleChanged", "SetRole")
-	self:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
-	_G.RolePollPopup:SetScript("OnShow", function() StaticPopupSpecial_Hide(_G.RolePollPopup) end)
+	module:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
 
-	self:LoadMisc()
-	self:LoadGMOTD()
-	self:LoadQuest()
-	self:LoadnameHover()
-	self:ItemLevel()
-	self:AddAlerts()
-	self:ReputationInit()
-	self:WowHeadLinks()
-	self:SplashScreen()
-	self:CreateMawWidgetFrame()
+	if E.Retail then
+		_G.RolePollPopup:SetScript("OnShow", function() StaticPopupSpecial_Hide(_G.RolePollPopup) end)
+		module:LoadMisc()
+		module:ItemLevel()
+		module:CreateMawWidgetFrame()
+		module:WowHeadLinks()
 
-	hooksecurefunc('WhoList_Update', UpdateWhoList)
-	hooksecurefunc(_G.WhoListScrollFrame, 'update', UpdateWhoList)
+		hooksecurefunc('WhoList_Update', UpdateWhoList)
+		hooksecurefunc(_G.WhoListScrollFrame, 'update', UpdateWhoList)
+	end
+	module:LoadGMOTD()
+	module:LoadQuest()
+	module:LoadnameHover()
+	module:AddAlerts()
+	module:ReputationInit()
+	module:SplashScreen()
 end
 
 MER:RegisterModule(module:GetName())

@@ -124,14 +124,16 @@ function module:HookTooltipSetUnit()
 				end
 			end
 
-			if UnitIsBattlePet(unit) then
-				if E.db.mui.tooltip.petIcon then
-					local _, unit = self:GetUnit()
-					InsertPetIcon(self, UnitBattlePetType(unit))
+			if E.Retail then
+				if UnitIsBattlePet(unit) then
+					if E.db.mui.tooltip.petIcon then
+						local _, unit = self:GetUnit()
+						InsertPetIcon(self, UnitBattlePetType(unit))
 
-					-- Pet ID
-					local speciesID = UnitBattlePetSpeciesID(unit)
-					self:AddDoubleLine(PET..ID..":", ((MER.InfoColor..speciesID.."|r") or (MER.GreyColor..UNKNOWN.."|r")))
+						-- Pet ID
+						local speciesID = UnitBattlePetSpeciesID(unit)
+						self:AddDoubleLine(PET..ID..":", ((MER.InfoColor..speciesID.."|r") or (MER.GreyColor..UNKNOWN.."|r")))
+					end
 				end
 			end
 		end
@@ -164,14 +166,16 @@ function module:ReskinTooltipIcons()
 		module.SetupTooltipIcon(self)
 	end)
 
-	hooksecurefunc(_G.GameTooltip, "SetAzeriteEssence", function(self)
-		module.SetupTooltipIcon(self)
-	end)
-	hooksecurefunc(_G.GameTooltip, "SetAzeriteEssenceSlot", function(self)
-		module.SetupTooltipIcon(self)
-	end)
+	if E.Retail then
+		hooksecurefunc(_G.GameTooltip, "SetAzeriteEssence", function(self)
+			module.SetupTooltipIcon(self)
+		end)
+		hooksecurefunc(_G.GameTooltip, "SetAzeriteEssenceSlot", function(self)
+			module.SetupTooltipIcon(self)
+		end)
 
-	-- Tooltip rewards icon
-	module.ReskinRewardIcon(_G.GameTooltip.ItemTooltip)
-	module.ReskinRewardIcon(_G.EmbeddedItemTooltip.ItemTooltip)
+		-- Tooltip rewards icon
+		module.ReskinRewardIcon(_G.GameTooltip.ItemTooltip)
+		module.ReskinRewardIcon(_G.EmbeddedItemTooltip.ItemTooltip)
+	end
 end

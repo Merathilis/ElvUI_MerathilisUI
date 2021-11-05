@@ -9,6 +9,8 @@ local CreateFrame = CreateFrame
 -- GLOBALS:
 
 function module:Construct_CounterBar(frame)
+	if not E.Retail then return end
+
 	local CounterBar = CreateFrame("StatusBar", frame:GetName().."_CounterBar", frame)
 	CounterBar:CreateBackdrop()
 	CounterBar:SetWidth(217)

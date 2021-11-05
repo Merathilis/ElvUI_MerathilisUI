@@ -35,7 +35,7 @@ local IsUsableItem = IsUsableItem
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
+local C_QuestLog_GetNumQuestLogEntries = C_QuestLog and C_QuestLog.GetNumQuestLogEntries
 
 module.bars = {}
 
@@ -488,6 +488,7 @@ local openableItems = {
 
 local questItemList = {}
 local function UpdateQuestItemList()
+	if not E.Retail then return end
 	wipe(questItemList)
 	for questLogIndex = 1, C_QuestLog_GetNumQuestLogEntries() do
 		local link = GetQuestLogSpecialItemInfo(questLogIndex)
@@ -1044,11 +1045,14 @@ function module:Initialize()
 	self:RegisterEvent("BAG_UPDATE_DELAYED", "UpdateBars")
 	self:RegisterEvent("ZONE_CHANGED", "UpdateBars")
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "UpdateBars")
-	self:RegisterEvent("QUEST_WATCH_LIST_CHANGED", "UpdateQuestItem")
-	self:RegisterEvent("QUEST_LOG_UPDATE", "UpdateQuestItem")
-	self:RegisterEvent("QUEST_ACCEPTED", "UpdateQuestItem")
-	self:RegisterEvent("QUEST_TURNED_IN", "UpdateQuestItem")
-	self:RegisterEvent("UPDATE_BINDINGS", "UpdateBinding")
+
+	if E.Retail then
+		self:RegisterEvent("QUEST_WATCH_LIST_CHANGED", "UpdateQuestItem")
+		self:RegisterEvent("QUEST_LOG_UPDATE", "UpdateQuestItem")
+		self:RegisterEvent("QUEST_ACCEPTED", "UpdateQuestItem")
+		self:RegisterEvent("QUEST_TURNED_IN", "UpdateQuestItem")
+		self:RegisterEvent("UPDATE_BINDINGS", "UpdateBinding")
+	end
 
 	self.Initialized = true
 end
@@ -1064,11 +1068,14 @@ function module:ProfileUpdate()
 		self:UnregisterEvent("BAG_UPDATE_DELAYED")
 		self:UnregisterEvent("ZONE_CHANGED")
 		self:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
-		self:UnregisterEvent("QUEST_WATCH_LIST_CHANGED")
-		self:UnregisterEvent("QUEST_LOG_UPDATE")
-		self:UnregisterEvent("QUEST_ACCEPTED")
-		self:UnregisterEvent("QUEST_TURNED_IN")
 		self:UnregisterEvent("UPDATE_BINDINGS")
+
+		if E.Retail then
+			self:UnregisterEvent("QUEST_WATCH_LIST_CHANGED")
+			self:UnregisterEvent("QUEST_LOG_UPDATE")
+			self:UnregisterEvent("QUEST_ACCEPTED")
+			self:UnregisterEvent("QUEST_TURNED_IN")
+		end
 	end
 
 	self:UpdateBars()
