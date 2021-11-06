@@ -19,10 +19,10 @@ local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
 
 	-- Graveyard button (a bit ugly if you press it)
-	_G.GhostFrame:StripTextures()
-	_G.GhostFrameContentsFrame:StripTextures()
-	_G.GhostFrame:CreateBackdrop("Transparent")
-	_G.GhostFrame.backdrop:Styling()
+	--_G.GhostFrame:StripTextures()
+	--_G.GhostFrameContentsFrame:StripTextures()
+	--_G.GhostFrame:CreateBackdrop("Transparent")
+	--_G.GhostFrame.backdrop:Styling()
 
 	local skins = {
 		"StaticPopup1",
@@ -35,9 +35,6 @@ local function LoadSkin()
 		"AutoCompleteBox",
 		"ReadyCheckFrame",
 		"StackSplitFrame",
-		"QueueStatusFrame",
-		"LFDReadyCheckPopup",
-		"LFDRoleCheckPopup",
 	}
 
 	for i = 1, getn(skins) do
@@ -91,9 +88,6 @@ local function LoadSkin()
 	if TalentMicroButtonAlert then
 		TalentMicroButtonAlert:Styling()
 	end
-
-	-- What's New
-	_G.SplashFrame:Styling()
 
 	-- Chat Config
 	_G.ChatConfigFrame:Styling()

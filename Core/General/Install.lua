@@ -1,11 +1,9 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local ceil, format, checkTable = ceil, string.format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
--- WoW API / Variables
+
 local ADDONS = ADDONS
 local FCF_DockFrame = FCF_DockFrame
 local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
@@ -17,15 +15,14 @@ local FCF_StopDragging = FCF_StopDragging
 local FCF_UnDockFrame = FCF_UnDockFrame
 local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
+local ChatFrame_AddChannel = ChatFrame_AddChannel
+local ChatFrame_AddMessageGroup = ChatFrame_AddMessageGroup
+local ChatFrame_RemoveChannel = ChatFrame_RemoveChannel
+local ToggleChatColorNamesByClassGroup = ToggleChatColorNamesByClassGroup
 local LOOT = LOOT
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
 local TRADE = TRADE
-
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: PluginInstallFrame, InstallStepComplete, PluginInstallStepComplete, NUM_CHAT_WINDOWS, LeftChatToggleButton
--- GLOBALS: ChatFrame1, ChatFrame3, ChatFrame_RemoveChannel, ChatFrame_AddChannel, ChatFrame_AddMessageGroup
--- GLOBALS: ToggleChatColorNamesByClassGroup, Skada, SkadaDB, BigWigs3DB
 
 local function SetupCVars()
 	-- Setup CVars
@@ -89,6 +86,7 @@ local function SetupChat()
 		FCF_SavePositionAndDimensions(frame)
 		FCF_StopDragging(frame)
 	end
+
 	ChatFrame_RemoveChannel(_G.ChatFrame4, L["Trade"])
 	ChatFrame_AddChannel(_G.ChatFrame1, L["Trade"])
 	ChatFrame_AddMessageGroup(_G.ChatFrame1, "TARGETICONS")
@@ -2840,7 +2838,6 @@ function MER:SetupDts()
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["enable"] = true
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["border"] = false
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["tooltipYOffset"] = 4
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 3
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["tooltipAnchor"] = "ANCHOR_TOPLEFT"
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["backdrop"] = false
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["width"] = 288
@@ -2849,14 +2846,15 @@ function MER:SetupDts()
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["frameStrata"] = "MEDIUM"
 
 	if E.Retail then
+		E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 3
 		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "Missions"
+		E.db["datatexts"]["panels"]["MER_RightChatTop"][2] = "Durability"
+		E.db["datatexts"]["panels"]["MER_RightChatTop"][3] = "Gold"
 	elseif E.Classic or E.TBC then
-		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "MUI Time"
-	else
-		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "Time"
+		E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 2
+		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "Durability"
+		E.db["datatexts"]["panels"]["MER_RightChatTop"][2] = "Gold"
 	end
-	E.db["datatexts"]["panels"]["MER_RightChatTop"][2] = "Durability"
-	E.db["datatexts"]["panels"]["MER_RightChatTop"][3] = "Gold"
 	E.db["datatexts"]["panels"]["MER_RightChatTop"]["enable"] = true
 
 	E.db["movers"]["DTPanelMER_RightChatTopMover"] = "CENTER,MER_RightChatTopDT,CENTER"

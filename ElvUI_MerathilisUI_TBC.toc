@@ -10,15 +10,18 @@
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, BigWigs, ls_Toasts
 ## X-Credits: Benik, Blazeflack, Azilroka, Simpy, Nihilistzsche, Darth Predator, fgprodigal, siweia, Solor, Elv, fang2hou & all AddOn Authors who inspired me.
+## X-ElvVersion: 2.21
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
 
-Libs\Load_Libs.xml
-Locales\Load_Locales.xml
-Init.lua
-Settings\Load_Settings.xml
-Core\Load_Core.xml
-Media\Load_Media.xml
-Modules\Load_Modules.xml
-Layout\Load_Layout.xml
+Core\Libs\Load_Libs.xml
+Core\Locales\Load_Locales.xml
+Core\Init.lua
+Core\Settings\Load_Settings.xml
+Core\General\Load_General.xml
+Core\Media\Load_Media.xml
+Core\Modules\Load_Modules.xml
+Core\Layout\Load_Layout.xml
 Bindings.xml
+
+TBC\Load.xml

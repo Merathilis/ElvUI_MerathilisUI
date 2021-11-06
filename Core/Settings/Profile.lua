@@ -664,17 +664,17 @@ MP.microBar = {
 		[3] = "TALENTS",
 		[4] = "FRIENDS",
 		[5] = "GUILD",
-		[6] = "GROUP_FINDER",
-		[7] = "SCREENSHOT"
+		[6] = E.Retail and "GROUP_FINDER" or "NONE",
+		[7] = E.Retail and "SCREENSHOT" or "NONE",
 	},
 	right = {
 		[1] = "HOME",
-		[2] = "ACHIEVEMENTS",
-		[3] = "MISSION_REPORTS",
-		[4] = "ENCOUNTER_JOURNAL",
-		[5] = "TOY_BOX",
-		[6] = "PET_JOURNAL",
-		[7] = "BAGS"
+		[2] = E.Retail and "ACHIEVEMENTS" or "SCREENSHOT",
+		[3] = E.Retail and "MISSION_REPORTS" or "VOLUME",
+		[4] = E.Retail and "ENCOUNTER_JOURNAL" or "GAMEMENU",
+		[5] = E.Retail and "TOY_BOX" or "BAGS",
+		[6] = E.Retail and "PET_JOURNAL" or "NONE",
+		[7] = E.Retail and "BAGS" or "NONE",
 	}
 }
 

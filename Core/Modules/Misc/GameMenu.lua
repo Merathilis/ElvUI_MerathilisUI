@@ -23,6 +23,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local logo = "Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\mUI1.tga"
 
 MER.NPCS = {
+	285, -- Murloc
 	86470, -- Pepe
 	16445, -- Terky
 	15552, -- Doctor Weavil

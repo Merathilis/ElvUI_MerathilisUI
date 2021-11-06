@@ -46,6 +46,7 @@ local function ActionBarTable()
 				name = MER:cOption(L["Specialization Bar"], 'orange'),
 				guiInline = true,
 				disabled = function() return not E.private.actionbar.enable end,
+				hidden = not E.Retail,
 				get = function(info) return E.db.mui.actionbars.specBar[ info[#info] ] end,
 				set = function(info, value) E.db.mui.actionbars.specBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
@@ -76,6 +77,7 @@ local function ActionBarTable()
 				name = MER:cOption(L["EquipSet Bar"], 'orange'),
 				guiInline = true,
 				disabled = function() return not E.private.actionbar.enable end,
+				hidden = not E.Retail,
 				get = function(info) return E.db.mui.actionbars.equipBar[ info[#info] ] end,
 				set = function(info, value) E.db.mui.actionbars.equipBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {

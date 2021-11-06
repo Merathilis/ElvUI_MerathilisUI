@@ -319,12 +319,14 @@ function module:OnClick(btn)
 		else
 			ToggleFrame(_G["WorldMapFrame"])
 		end
-	elseif btn == "RightButton" and module.db.portals.enable and not InCombatLockdown() then
+	elseif E.Retail and btn == "RightButton" and module.db.portals.enable and not InCombatLockdown() then
 		if module.ListBuilding then
 			MER:Print(L["Info for some items is not available yet. Please try again later"])
 			return
 		end
 		module:PopulateDropdown(true)
+	elseif E.Classic or E.TBC and btn == "RightButton" then
+		return
 	end
 end
 

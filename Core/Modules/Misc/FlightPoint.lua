@@ -1,22 +1,12 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local next, pairs, table, getmetatable = next, pairs, table, getmetatable
 local match = string.match
 local strtrim = string.trim
--- WoW API / Variables
+
 local IsAddOnLoaded = IsAddOnLoaded
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: FlightPointsTaxiChoiceContainer, FlightPointsTaxiChoiceContainerScrollBar
--- GLOBALS: FlightPointsTaxiChoice, NumTaxiNodes, FlightPointsTaxiChoiceContainer_Update
--- GLOBALS: TaxiFrame, TaxiNodeName, TaxiNodeGetType, TakeTaxiNode, HybridScrollFrame_CreateButtons
--- GLOBALS: HybridScrollFrame_GetOffset, FlightPoints_CreateFlyPathTable, FlightPoints_GetFlight
--- GLOBALS: HybridScrollFrame_Update, FlightPoints_GetFlight, FlightMapFrame
--- GLOBALS: FlightPoints_Config, FlightPoints_OnLoad, FlightPoints_Show, FlightPointsTaxiChoiceButton_OnLoad
--- GLOBALS: FlightPointsTaxiChoiceButton_OnClick, FlightPoints_TakeFlyPath, FlightPoints_OnEvent
 
 -- Credits liquidbase (DuffedUI)
 
@@ -200,17 +190,23 @@ function FlightPoints_OnEvent(self, event, ...)
 	if event == "TAXIMAP_OPENED" then
 		firstshow = true
 		FlightPoints_CreateFlyPathTable()
-		if _G["TaxiFrame"]:IsShown() then
-			FlightPointsTaxiChoice:SetHeight(_G["TaxiFrame"]:GetHeight() - 24)
-		elseif _G["FlightMapFrame"]:IsShown() then
-			FlightPointsTaxiChoice:SetHeight(_G["FlightMapFrame"]:GetHeight())
-		end
+
 		FlightPointsTaxiChoice:SetWidth(250)
 		FlightPointsTaxiChoice:ClearAllPoints()
-		if _G["TaxiFrame"]:IsShown() then
-			FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["TaxiFrame"], "BOTTOMRIGHT", 0, _G["TaxiFrame"]:GetHeight() - 22)
-		elseif _G["FlightMapFrame"]:IsShown() then
-			FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["FlightMapFrame"], "BOTTOMRIGHT", 0, _G["FlightMapFrame"]:GetHeight())
+
+		if E.Retail then
+			if _G["TaxiFrame"]:IsShown() then
+				FlightPointsTaxiChoice:SetHeight(_G["TaxiFrame"]:GetHeight() - 24)
+				FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["TaxiFrame"], "BOTTOMRIGHT", 0, _G["TaxiFrame"]:GetHeight() - 22)
+			elseif _G["FlightMapFrame"]:IsShown() then
+				FlightPointsTaxiChoice:SetHeight(_G["FlightMapFrame"]:GetHeight())
+				FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["FlightMapFrame"], "BOTTOMRIGHT", 0, _G["FlightMapFrame"]:GetHeight())
+			end
+		elseif E.Classic then
+			if _G["TaxiFrame"]:IsShown() then
+				FlightPointsTaxiChoice:SetHeight(_G["TaxiFrame"]:GetHeight() - 50)
+				FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["TaxiFrame"], "BOTTOMRIGHT", -22, _G["TaxiFrame"]:GetHeight())
+			end
 		end
 		FlightPointsTaxiChoice:Show()
 		FlightPointsTaxiChoice:StripTextures()

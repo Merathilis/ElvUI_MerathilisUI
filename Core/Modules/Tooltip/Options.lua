@@ -36,24 +36,21 @@ local function Tooltip()
 				type = "toggle",
 				name = L["Pet Battle"],
 				desc = L["Adds an Icon for battle pets on the tooltip."],
+				hidden = not E.Retail,
 			},
 			keystone = {
 				order = 5,
 				type = "toggle",
 				name = L["Keystone"],
 				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
-			},
-			titleColor = {
-				order = 5,
-				type = "toggle",
-				name = L["Title Color"],
-				desc = L["Change the color of the title in the Tooltip."],
+				hidden = not E.Retail,
 			},
 			dominationRank = {
 				order = 6,
 				type = "toggle",
 				name = L["Domination Rank"],
 				desc = L["Show the rank of shards."],
+				hidden = not E.Retail,
 			},
 			nameHover = {
 				order = 11,
@@ -95,7 +92,7 @@ local function Tooltip()
 				name = "",
 				guiInline = true,
 				disabled = function() return not E.private.tooltip.enable end,
-				hidden = function() return IsAddOnLoaded("RaiderIO") end,
+				hidden = not E.Retail,
 				get = function(info) return E.db.mui.tooltip.progressInfo[ info[#info] ] end,
 				set = function(info, value) E.db.mui.tooltip.progressInfo[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {

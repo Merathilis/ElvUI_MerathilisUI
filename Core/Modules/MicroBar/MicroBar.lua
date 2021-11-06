@@ -82,34 +82,37 @@ local friendOffline = gsub(_G.ERR_FRIEND_OFFLINE_S, "%%s", "")
 
 local Heartstones = {
 	6948,
-	64488,
-	93672,
-	110560,
-	140192,
-	141605,
-	142542,
-	162973,
-	163045,
-	165669,
-	165670,
-	165802,
-	166746,
-	166747,
-	168907,
-	172179,
-	48933,
-	87215,
-	132517,
-	132524,
-	151652,
-	168807,
-	168808,
-	172924,
-	180290,
-	182773,
-	183716,
-	184353,
 }
+
+if E.Retail then
+	tinsert(Heartstones, 64488)
+	tinsert(Heartstones, 93672)
+	tinsert(Heartstones, 110560)
+	tinsert(Heartstones, 140192)
+	tinsert(Heartstones, 141605)
+	tinsert(Heartstones, 142542)
+	tinsert(Heartstones, 162973)
+	tinsert(Heartstones, 163045)
+	tinsert(Heartstones, 165669)
+	tinsert(Heartstones, 165670)
+	tinsert(Heartstones, 165802)
+	tinsert(Heartstones, 166746)
+	tinsert(Heartstones, 166747)
+	tinsert(Heartstones, 168907)
+	tinsert(Heartstones, 172179)
+	tinsert(Heartstones, 48933)
+	tinsert(Heartstones, 87215)
+	tinsert(Heartstones, 132517)
+	tinsert(Heartstones, 132524)
+	tinsert(Heartstones, 151652)
+	tinsert(Heartstones, 168807)
+	tinsert(Heartstones, 168808)
+	tinsert(Heartstones, 172924)
+	tinsert(Heartstones, 180290)
+	tinsert(Heartstones, 182773)
+	tinsert(Heartstones, 183716)
+	tinsert(Heartstones, 184353)
+end
 
 local HeartstonesTable
 

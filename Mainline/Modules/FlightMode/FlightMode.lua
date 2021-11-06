@@ -638,7 +638,7 @@ function module:CreateFlightMode()
 
 	module.FlightMode.RequestStop.img = module.FlightMode.RequestStop:CreateTexture(nil, 'OVERLAY')
 	module.FlightMode.RequestStop.img:Point('CENTER')
-	module.FlightMode.RequestStop.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\Close\\Media\\Textures\\arrow.tga')
+	module.FlightMode.RequestStop.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\arrow.tga')
 	module.FlightMode.RequestStop.img:SetVertexColor(1, 1, 1, .7)
 
 	module.FlightMode.RequestStop:SetScript('OnEnter', function()
