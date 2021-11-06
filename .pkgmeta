@@ -1,7 +1,13 @@
 package-as: ElvUI_MerathilisUI
 
 ignore:
+    - .gitattributes
+    - .gitignore
+    - .github/*
     - m4.png
+    - README.md
+    - README_Curse.txt
+    - README_TUKUI.txt
 
 manual-changelog:
   filename: CHANGELOG.md
