@@ -93,7 +93,9 @@ local function LoadSkin()
 	end
 
 	-- What's New
-	_G.SplashFrame:Styling()
+	_G.SplashFrame:CreateBackdrop('Transparent')
+	_G.SplashFrame.backdrop:Styling()
+	MER:CreateShadow(_G.SplashFrame)
 
 	-- Chat Config
 	_G.ChatConfigFrame:Styling()
