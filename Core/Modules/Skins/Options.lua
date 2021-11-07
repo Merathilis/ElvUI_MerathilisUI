@@ -266,6 +266,11 @@ local function SkinsTable()
 				name = L["Raid Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.raid end,
 			},
+			craft = {
+				type = "toggle",
+				name = L["Craft"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.craft end,
+			},
 		},
 	}
 

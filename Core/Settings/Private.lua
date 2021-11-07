@@ -88,6 +88,7 @@ V.muiSkins = {
 		levelUp = true,
 		covenantRenown = true,
 		guide = true,
+		craft = true,
 	},
 
 	addonSkins = {

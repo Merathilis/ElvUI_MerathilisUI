@@ -217,6 +217,7 @@ local function mediaTable()
 						order = 2,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
+						hidden = not E.Retail,
 						get = function(info) return E.db.mui.media.miscText.gossip[ info[#info] ] end,
 						set = function(info, value) E.db.mui.media.miscText.gossip[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
@@ -260,6 +261,7 @@ local function mediaTable()
 						order = 3,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
+						hidden = not E.Retail,
 						get = function(info) return E.db.mui.media.miscText.objectiveHeader[ info[#info] ] end,
 						set = function(info, value) E.db.mui.media.miscText.objectiveHeader[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
@@ -303,6 +305,7 @@ local function mediaTable()
 						order = 4,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
+						hidden = not E.Retail,
 						get = function(info) return E.db.mui.media.miscText.objective[ info[#info] ] end,
 						set = function(info, value) E.db.mui.media.miscText.objective[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
@@ -346,6 +349,7 @@ local function mediaTable()
 						order = 5,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
+						hidden = not E.Retail,
 						get = function(info) return E.db.mui.media.miscText.questFontSuperHuge[ info[#info] ] end,
 						set = function(info, value) E.db.mui.media.miscText.questFontSuperHuge[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {

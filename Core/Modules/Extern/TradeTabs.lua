@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
+if not E.Retail then return end
 
 ---------------------------------
 -- Credits: ProfessionTabs by Beoko
