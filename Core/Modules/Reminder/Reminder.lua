@@ -308,7 +308,11 @@ function module:ReminderIcon_OnEvent(event, unit)
 		return
 	end
 
-	if not self.icon:GetTexture() or UnitInVehicle("player") then return end
+	if E.Retail then
+		if not self.icon:GetTexture() or UnitInVehicle("player") then
+			return
+		end
+	end
 
 	local filterCheck = module:FilterCheck(self)
 	local reverseCheck = module:FilterCheck(self, true)
@@ -320,7 +324,7 @@ function module:ReminderIcon_OnEvent(event, unit)
 		return
 	end
 
-	local activeTree = GetSpecialization()
+	local activeTree = E.Retail and GetSpecialization()
 	if db.spellGroup and not db.weaponCheck then
 		if filterCheck and ((not hasBuff) and (not hasDebuff)) and not db.reverseCheck then
 			self:SetAlpha(1)
@@ -363,12 +367,12 @@ function module:CreateReminder(name, index)
 
 	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, E.UIParent)
 	frame:Size(size or (ElvFrame:GetHeight() -4))
-	if ElvFrame then
+	--if ElvFrame then
 		frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
 		frame:SetFrameStrata(ElvFrame:GetFrameStrata())
-	else
-		frame:SetPoint("CENTER", E.UIParent, "CENTER", 0, 0)
-	end
+	--else
+		--frame:SetPoint("CENTER", E.UIParent, "CENTER", 0, 0)
+	--end
 	frame.groupName = name
 
 	E:CreateMover(frame, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
@@ -402,17 +406,16 @@ function module:CheckForNewReminders()
 	local index = 0
 	for groupName, _ in pairs(db) do
 		index = index + 1
-		self:CreateReminder(groupName, index)
+		module:CreateReminder(groupName, index)
 	end
 end
 
 function module:Initialize()
 	module.db = E.db.mui.reminder
-	MER:RegisterDB(self, "reminder")
+	MER:RegisterDB(module, "reminder")
 	if module.db.enable ~= true then return; end
 
-	self:CheckForNewReminders()
-	C_Timer_After(1.5, function() module.initialized = true end)
+	C_Timer_After(1, function() module:CheckForNewReminders() module.initialized = true end)
 end
 
 MER:RegisterModule(module:GetName())

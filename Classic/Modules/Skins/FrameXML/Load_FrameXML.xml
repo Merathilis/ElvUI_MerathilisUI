@@ -2,5 +2,6 @@
 	<Script file="CharacterFrame.lua"/>
 	<Script file="FriendsFrame.lua"/>
 	<Script file="GameMenuFrame.lua"/>
+	<Script file="HelpFrame.lua"/>
 	<Script file="SpellBookFrame.lua"/>
 </Ui>

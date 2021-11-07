@@ -17,6 +17,7 @@ MER.ReminderList = {
 	PRIEST = {
 		[2] = { -- Power Word: Fortitude
 			["spellGroup"] = {
+				[1243] = true,
 				[21562] = true,
 				["defaultIcon"] = 21562, -- Power Word: Fortitude
 			},
