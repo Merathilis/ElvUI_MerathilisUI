@@ -66,6 +66,7 @@ local function UnitFramesTable()
 				type = "group",
 				name = MER:cOption(L["GCD Bar"], 'orange'),
 				guiInline = true,
+				hidden = not E.Retail,
 				get = function(info) return E.db.mui.unitframes.gcd[ info[#info] ] end,
 				set = function(info, value) E.db.mui.unitframes.gcd[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
 				args = {
@@ -99,6 +100,7 @@ local function UnitFramesTable()
 				type = "group",
 				name = MER:cOption(L["Swing Bar"], 'orange'),
 				guiInline = true,
+				hidden = not E.Retail,
 				get = function(info) return E.db.mui.unitframes.swing[ info[#info] ] end,
 				set = function(info, value) E.db.mui.unitframes.swing[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
 				args = {

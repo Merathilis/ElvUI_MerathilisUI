@@ -20,7 +20,6 @@
 	<Include file="Nameplates\Load_Nameplates.xml"/>
 	<Include file="Notification\Load_Notification.xml"/>
 	<Include file="RBReminder\Load_RBReminder.xml"/>
-	<Include file="Reminder\Load_Reminder.xml"/>
 	<Include file="RaidManager\Load_RaidManager.xml"/>
 	<Include file="PvP\Load_PvP.xml"/>
 	<Include file="Panels\Load_Panels.xml"/>

@@ -367,12 +367,12 @@ function module:CreateReminder(name, index)
 
 	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, E.UIParent)
 	frame:Size(size or (ElvFrame:GetHeight() -4))
-	--if ElvFrame then
+	if ElvFrame then
 		frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
 		frame:SetFrameStrata(ElvFrame:GetFrameStrata())
-	--else
-		--frame:SetPoint("CENTER", E.UIParent, "CENTER", 0, 0)
-	--end
+	else
+		frame:SetPoint("CENTER", E.UIParent, "CENTER", 0, 0)
+	end
 	frame.groupName = name
 
 	E:CreateMover(frame, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
@@ -415,7 +415,8 @@ function module:Initialize()
 	MER:RegisterDB(module, "reminder")
 	if module.db.enable ~= true then return; end
 
-	C_Timer_After(1, function() module:CheckForNewReminders() module.initialized = true end)
+	module:CheckForNewReminders()
+	C_Timer_After(1, function() module.initialized = true end)
 end
 
 MER:RegisterModule(module:GetName())
