@@ -211,7 +211,7 @@ function MER:LoadDetailsProfile()
 							["side"] = 1,
 							["text_size"] = 9,
 							["custom_text"] = "{name}",
-							["text_face"] = "Interface\\AddOns\\ElvUI\\media\\fonts\\Expressway.ttf",
+							["text_face"] = "Interface\\AddOns\\ElvUI\\Core\\Media\\Fonts\\Expressway.ttf",
 							["anchor"] = {
 								0, -- [1]
 								4, -- [2]
@@ -458,7 +458,7 @@ function MER:LoadDetailsProfile()
 								0, -- [3]
 								1, -- [4]
 							},
-							["font_face_file"] = "Interface\\AddOns\\ElvUI\\Media\\Fonts\\Expressway.ttf",
+							["font_face_file"] = "Interface\\AddOns\\ElvUI\\Core\\Media\\Fonts\\Expressway.ttf",
 							["backdrop"] = {
 								["enabled"] = false,
 								["texture"] = "Details BarBorder 1",
@@ -480,10 +480,10 @@ function MER:LoadDetailsProfile()
 							},
 							["textL_translit_text"] = false,
 							["height"] = 21,
-							["texture_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\lyn1.tga",
+							["texture_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\lyn1.tga",
 							["texture_custom_file"] = "Interface\\",
-							["texture_background_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Empty.tga",
-							["icon_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\mUI-details.tga",
+							["texture_background_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\Empty.tga",
+							["icon_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\mUI-details.tga",
 							["icon_grayscale"] = false,
 							["font_size"] = 12,
 							["use_spec_icons"] = false,
