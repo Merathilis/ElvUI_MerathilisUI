@@ -15,13 +15,11 @@ jobs:
        CF_API_KEY: ${{ secrets.CF_API_KEY }}
        GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
        WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
-
     steps:
       - name: Clone Project
         uses: actions/checkout@v1
         with:
           fetch-depth: 100
-
       - name: Retail
         uses: BigWigsMods/packager@master
       - name: Classic
@@ -32,13 +30,11 @@ jobs:
         uses: BigWigsMods/packager@master
         with:
           args: -g bcc
-
       - name: Github Actions
         uses: actions/upload-artifact@v2
         with:
           name: ElvUI_MerathilisUI
           path: .release/*.zip
-
       - name: Send status to Discord
         uses: nebularg/actions-discord-webhook@v1
         with:
