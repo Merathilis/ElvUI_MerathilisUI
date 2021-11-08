@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Misc.lua"/>
+	<Script file="Afk.lua"/>
+	<Script file="Alerts.lua"/>
+	<Script file="Cursor.lua"/>
+	<Script file="FlightPoint.lua"/>
+	<Include file="FlightPoint.xml" />
+	<Script file="GameMenu.lua"/>
+	<Script file="Gmotd.lua"/>
+	<Script file="Loot.lua"/>
+	<Script file="NameHover.lua"/>
+	<Script file="Reputation.lua"/>
+	<Script file="Quest.lua"/>
+	<Script file="SpellAlerts.lua"/>
+	<Script file="SplashScreen.lua"/>
+	<Script file="Options.lua"/>
+</Ui>
