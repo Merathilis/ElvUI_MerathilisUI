@@ -10,6 +10,7 @@ local tinsert = table.insert
 -- WoW API
 local hooksecurefunc = hooksecurefunc
 local IsAddOnLoaded = IsAddOnLoaded
+local C_TimerAfter = C_Timer.After
 local WorldStateAlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
 -- GLOBALS: hooksecurefunc, NUM_ALWAYS_UP_UI_FRAMES
 
@@ -79,13 +80,16 @@ local function LoadSkin()
 		_G.CopyChatFrame:Styling()
 	end
 
-	local MAX_STATIC_POPUPS = 4 -- ?
-	for i = 1, MAX_STATIC_POPUPS do
-		local frame = _G["ElvUI_StaticPopup"..i]
-		if frame then
-			frame:Styling()
+	local function StylePopups()
+		for i = 1, MAX_STATIC_POPUPS do
+			local frame = _G["ElvUI_StaticPopup"..i]
+			if frame and not frame.skinned then
+				frame:Styling()
+				frame.skinned = true
+			end
 		end
 	end
+	C_TimerAfter(1, StylePopups)
 
 	local TalentMicroButtonAlert = _G.TalentMicroButtonAlert
 	if TalentMicroButtonAlert then
