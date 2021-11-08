@@ -97,6 +97,11 @@ local potions = {
 	169451,
 }
 
+if E.Classic then
+	tinsert(potions, 13446)
+	tinsert(potions, 13444)
+end
+
 -- Potion added in Shadowlands (require level >= 50)
 local potionsShadowlands = {
 	5512,

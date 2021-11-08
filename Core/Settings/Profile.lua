@@ -390,6 +390,16 @@ MP.actionbars = {
 	},
 }
 
+local function Potions()
+	if E.Classic then
+		return "POTION,FLASK,UTILITY"
+	elseif E.TBC then
+		return "POTION,FLASK,UTILITY"
+	elseif E.Retail then
+		return "POTIONSL,FLASKSL,UTILITY"
+	end
+end
+
 MP.autoButtons = {
 	enable = true,
 	customList = {},
@@ -480,7 +490,8 @@ MP.autoButtons = {
 				b = 1
 			},
 		},
-		include = "POTIONSL,FLASKSL,UTILITY"
+		--include = "POTIONSL,FLASKSL,UTILITY"
+		include = Potions()
 	},
 	bar3 = {
 		enable = true,

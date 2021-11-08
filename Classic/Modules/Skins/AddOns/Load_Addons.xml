@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Blizzard_AuctionUI.lua"/>
 	<Script file="Blizzard_Channels.lua"/>
 	<Script file="Blizzard_Communities.lua"/>
 	<Script file="Blizzard_CraftUI.lua"/>
