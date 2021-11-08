@@ -15,11 +15,18 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 -- GLOBALS: MERData, UISpecialFrames, MerathilisUIChangeLog, DISABLED_FONT_COLOR
 
 local ChangeLogData = {
-	"Changes:",
-		"• Forgot to update this changelog here... woooopppsie :x",
-		"• Not much to see here, fix some skin errors with 9.1.5",
+	"Retail:",
+		"• Fix Minimap Icons texture",
+		"• Bandaid fix for Reminders",
 
-		-- "• ''",
+	" ",
+	"Classic:",
+		"• Complete new Version for Classic",
+
+	" ",
+	"TBC:",
+		"• Complete new Version for TBC",
+
 	" ",
 	"Notes:",
 		"• As always, if you want my latest layout, do the install again",

@@ -13,6 +13,11 @@
 ## X-ElvVersion: 2.21
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
+## X-WoWI-ID: 24117
+## X-Wago-ID: VBNBZVNx
+
+## X-Tukui-ProjectID: 1
+## X-Tukui-ProjectFolders: ElvUI_MerathilisUI
 
 Core\Libs\Load_Libs.xml
 Core\Locales\Load_Locales.xml

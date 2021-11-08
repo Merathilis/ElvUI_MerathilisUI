@@ -1,4 +1,13 @@
-## [4.80] ##
+## Retail: [4.81] ##
 ### Changes ###
 
-  * Fix some skin errors
+  * Fix Minimap Icons texture
+  * Bandaid fix for Reminders
+  
+
+## Classic: [1.54] ##
+  * Streamline Retail, Classic, TBC
+
+
+## TBC: [1.03] ##
+  * Streamline Retail, Classic, TBC
