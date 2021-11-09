@@ -11,8 +11,8 @@ function module:Configure_RoleIcons()
 	if E.db.mui.unitframes.roleIcons ~= true then return end
 
 	UF.RoleIconTextures = {
-		TANK = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Tank.tga]],
-		HEALER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Healer.tga]],
-		DAMAGER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Dps.tga]]
+		TANK = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Tank.tga]],
+		HEALER = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Healer.tga]],
+		DAMAGER = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Dps.tga]]
 	}
 end
