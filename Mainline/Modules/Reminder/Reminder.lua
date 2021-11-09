@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Reminder')
 local LCG = LibStub('LibCustomGlow-1.0')
+local UF = E:GetModule('UnitFrames')
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -8,7 +9,7 @@ local pairs, select, type, unpack= pairs, select, type, unpack
 
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 local C_PaperDollInfo_OffhandHasWeapon = C_PaperDollInfo.OffhandHasWeapon
-local C_Timer_After = C_Timer.After
+local hooksecurefunc = hooksecurefunc
 local CreateFrame = CreateFrame
 local GetSpecialization = GetSpecialization
 local GetSpellCooldown = GetSpellCooldown
@@ -359,20 +360,15 @@ function module:ReminderIcon_OnEvent(event, unit)
 end
 
 function module:CreateReminder(name, index)
-	if _CreatedReminders[name] then return end
+	if _CreatedReminders[name] or not E.db.unitframe.units.player.enable then return end
 
 	local size = module.db.size or 30
 	local ElvFrame = _G.ElvUF_Player
-	if not E.db.unitframe.units.player.enable then return end
 
 	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, E.UIParent)
 	frame:Size(size or (ElvFrame:GetHeight() -4))
-	if ElvFrame then
-		frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
-		frame:SetFrameStrata(ElvFrame:GetFrameStrata())
-	else
-		frame:SetPoint("CENTER", E.UIParent, "CENTER", 0, 0)
-	end
+	frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
+	frame:SetFrameStrata(ElvFrame:GetFrameStrata())
 	frame.groupName = name
 
 	E:CreateMover(frame, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
@@ -415,8 +411,9 @@ function module:Initialize()
 	MER:RegisterDB(module, "reminder")
 	if module.db.enable ~= true then return; end
 
-	module:CheckForNewReminders()
-	C_Timer_After(1, function() module.initialized = true end)
+	hooksecurefunc(UF, 'LoadUnits', module.CheckForNewReminders)
+
+	module.initialized = true
 end
 
 MER:RegisterModule(module:GetName())
