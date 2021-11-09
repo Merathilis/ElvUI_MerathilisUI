@@ -1,7 +1,7 @@
-[b][color=orange]Retail: v4.81; Classic: v1.54; TBC: 1.03[/color], 08.11.2021[/b][list]
+[b][color=orange]Retail: v4.82; Classic: v1.54; TBC: 1.03[/color], 08.11.2021[/b][list]
 [*][b][color=orange]Retail:[/color][/b]
-[*]Fix Minimap Icons texture
-[*]Bandaid fix for Reminders
+[*]Fix a lot of green icons
+[*]Real fix for StaticPopups
 
 [*][b][color=orange]Classic:[/color][/b]
 [*]Streamline Retail, Classic, TBC

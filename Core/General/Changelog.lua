@@ -16,8 +16,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Retail:",
-		"• Fix Minimap Icons texture",
-		"• Bandaid fix for Reminders",
+		"• Fix a lot of green icons",
+		"• Real fix for StaticPopups",
 
 	" ",
 	"Classic:",

@@ -29,7 +29,7 @@ MERS.enteredLoad = {}
 
 MERS.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MERS.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
-TEXTURE_ITEM_QUEST_BANG = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-Icon-QuestBang]]
+TEXTURE_ITEM_QUEST_BANG = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\UI-Icon-QuestBang]]
 
 local buttons = {
 	"UI-Panel-MinimizeButton-Disabled",
