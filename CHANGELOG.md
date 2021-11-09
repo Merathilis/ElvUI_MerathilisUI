@@ -1,8 +1,8 @@
-## Retail: [4.81] ##
+## Retail: [4.82] ##
 ### Changes ###
 
-  * Fix Minimap Icons texture
-  * Bandaid fix for Reminders
+  * Fix a lot of green icons
+  * Real fix for StaticPopups
   
 
 ## Classic: [1.54] ##
