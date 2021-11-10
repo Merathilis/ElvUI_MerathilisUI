@@ -16,8 +16,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Retail:",
-		"• Fix a lot of green icons",
-		"• Real fix for StaticPopups",
+		"• Fix Clique icon texture",
+		"• Fix Reminder for real. Thanks @Simpy",
+		"• Fix Merchant Frame option",
+		"• Change the Option to toggle the Guild on the MicroBar",
 
 	" ",
 	"Classic:",

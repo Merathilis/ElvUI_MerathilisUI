@@ -448,7 +448,7 @@ local function RebuildMerchantFrame()
 end
 
 local function MerchantSkinInit()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.db.mui.merchant.enable ~= true and not E.Retail then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.db.mui.merchant.enable ~= true or not E.Retail then return end
 
 	hooksecurefunc("MerchantFrame_UpdateBuybackInfo", UpdateBuybackInfo)
 

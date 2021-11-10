@@ -319,10 +319,19 @@ local ButtonTypes = {
 	GUILD = {
 		name = _G.ACHIEVEMENTS_GUILD_TAB,
 		icon = MER.Media.Icons.barGuild,
-		macro = {
-			LeftButton = "/click GuildMicroButton",
-			RightButton = "/script if not InCombatLockdown() then if not GuildFrame then GuildFrame_LoadUI() end ToggleFrame(GuildFrame) end"
+		click = {
+			LeftButton = function()
+				if not InCombatLockdown() then
+					ToggleGuildFrame()
+				else
+					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+				end
+			end
 		},
+		--macro = {
+			--LeftButton = "/click GuildMicroButton",
+			--RightButton = "/script if not InCombatLockdown() then if not GuildFrame then GuildFrame_LoadUI() end ToggleFrame(GuildFrame) end"
+		--},
 		additionalText = function()
 			return IsInGuild() and select(2, GetNumGuildMembers()) or ""
 		end,
