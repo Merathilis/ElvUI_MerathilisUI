@@ -202,10 +202,10 @@ function module:Initialize()
 	local db = E.db.mui.misc
 	MER:RegisterDB(module, "misc")
 
-	E.RegisterCallback(module, "RoleChanged", "SetRole")
-	module:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
-
 	if E.Retail then
+		E.RegisterCallback(module, "RoleChanged", "SetRole")
+		module:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
+
 		_G.RolePollPopup:SetScript("OnShow", function() StaticPopupSpecial_Hide(_G.RolePollPopup) end)
 		module:LoadMisc()
 		module:ItemLevel()
