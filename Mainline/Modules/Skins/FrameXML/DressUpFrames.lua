@@ -48,7 +48,10 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true or E.private.muiSkins.blizzard.dressingroom ~= true then return end
 
 	_G.DressUpFrame:Styling()
-	MER:CreateBackdropShadow(_G.DressUpFrame)
+	MER:CreateShadow(_G.DressUpFrame)
+
+	_G.DressUpFrame.OutfitDetailsPanel:Styling()
+	MER:CreateShadow(_G.DressUpFrame.OutfitDetailsPanel)
 
 	-- Wardrobe edit frame
 	_G.WardrobeOutfitFrame:Styling()
