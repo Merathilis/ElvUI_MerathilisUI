@@ -1,6 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local CH = E:GetModule('Chat')
 
 local _G = _G
+local ipairs = ipairs
 local ceil, format, checkTable = ceil, string.format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 
@@ -13,12 +15,19 @@ local FCF_SetLocked = FCF_SetLocked
 local FCF_SetWindowName = FCF_SetWindowName
 local FCF_StopDragging = FCF_StopDragging
 local FCF_UnDockFrame = FCF_UnDockFrame
+local FCF_ResetChatWindows = FCF_ResetChatWindows
+local FCF_OpenNewWindow = FCF_OpenNewWindow
 local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 local ChatFrame_AddChannel = ChatFrame_AddChannel
 local ChatFrame_AddMessageGroup = ChatFrame_AddMessageGroup
+local ChatFrame_RemoveMessageGroup = ChatFrame_RemoveMessageGroup
 local ChatFrame_RemoveChannel = ChatFrame_RemoveChannel
-local ToggleChatColorNamesByClassGroup = ToggleChatColorNamesByClassGroup
+local JoinPermanentChannel = JoinPermanentChannel
+local VoiceTranscriptionFrame_UpdateEditBox = VoiceTranscriptionFrame_UpdateEditBox
+local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateVisibility
+local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
+local GetLocale = GetLocale
 local LOOT = LOOT
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
@@ -34,8 +43,6 @@ local function SetupCVars()
 	SetCVar("UberTooltips", 1)
 	SetCVar("lockActionBars", 1)
 	SetCVar("chatMouseScroll", 1)
-	SetCVar("chatStyle", "classic")
-	SetCVar("whisperMode", "inline")
 	SetCVar("violenceLevel", 5)
 	SetCVar("blockTrades", 0)
 	SetCVar("countdownForCooldowns", 1)
@@ -61,30 +68,54 @@ local function SetupChat()
 		E.db.movers = {}
 	end
 
+	-- CVars General
+	SetCVar('chatStyle', 'classic')
+	SetCVar('whisperMode', 'inline')
+	SetCVar('colorChatNamesByClass', 1)
+	SetCVar('chatClassColorOverride', 0)
+
+	-- CVars Retail
+	if E.Retail then
+		SetCVar('speechToText', 0)
+		SetCVar('textToSpeech', 0)
+	end
+
+	-- Reset chat to Blizzard defaults
+	FCF_ResetChatWindows()
+
+	-- Join LFG channel in Classic and TBC (English client only)
+	if not E.Retail and GetLocale() == 'enUS' then
+		JoinPermanentChannel('LookingForGroup')
+		ChatFrame_AddChannel(_G.ChatFrame1, 'LookingForGroup')
+	end
+
+	-- Open one new channel for own Trade
+	FCF_OpenNewWindow()
+
 	for _, name in ipairs(_G.CHAT_FRAMES) do
 		local frame = _G[name]
 		local id = frame:GetID()
 		local chatName = FCF_GetChatWindowInfo(id)
 
+		if E.private.chat.enable then
+			CH:FCFTab_UpdateColors(CH:GetTab(_G[name]))
+		end
+
+		-- Font size 11 for the Chat Frames
 		FCF_SetChatWindowFontSize(nil, frame, 11)
 
 		if id == 1 then
-			frame:ClearAllPoints()
-			frame:Point('BOTTOMLEFT', _G.LeftChatToggleButton, 'TOPLEFT', 1, 3)
+			FCF_SetWindowName(frame, _G.GENERAL)
+		elseif id == 2 then
+			FCF_SetWindowName(frame, _G.LOG)
+		elseif (E.Retail and id == 3) then
+			VoiceTranscriptionFrame_UpdateVisibility(frame)
+			VoiceTranscriptionFrame_UpdateVoiceTab(frame)
+			VoiceTranscriptionFrame_UpdateEditBox(frame)
 		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
-		elseif (E.Retail and id == 4 and chatName == LOOT.." / "..TRADE) or id == 3 then
-			FCF_UnDockFrame(frame)
-			frame:ClearAllPoints()
-			frame:Point("BOTTOMLEFT", _G.LeftChatToggleButton, "TOPLEFT", 1, 3)
+		elseif (E.Retail and id == 4) or id == 3 then
 			FCF_SetWindowName(frame, LOOT)
-			FCF_DockFrame(frame)
-			if not frame.isLocked then
-				FCF_SetLocked(frame, 1)
-			end
-			frame:Show()
 		end
-		FCF_SavePositionAndDimensions(frame)
-		FCF_StopDragging(frame)
 	end
 
 	ChatFrame_RemoveChannel(_G.ChatFrame4, L["Trade"])
@@ -98,36 +129,14 @@ local function SetupChat()
 	ChatFrame_AddMessageGroup(_G.ChatFrame4, "LOOT")
 	ChatFrame_AddMessageGroup(_G.ChatFrame4, "MONEY")
 	ChatFrame_AddMessageGroup(_G.ChatFrame4, "SKILL")
-
-	-- Enable classcolor automatically on login and on each character without doing /configure each time
-	ToggleChatColorNamesByClassGroup(true, "ACHIEVEMENT")
-	ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND_LEADER")
-	ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL1")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL10")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL11")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL2")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL3")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL4")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL5")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL6")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL7")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL8")
-	ToggleChatColorNamesByClassGroup(true, "CHANNEL9")
-	ToggleChatColorNamesByClassGroup(true, "EMOTE")
-	ToggleChatColorNamesByClassGroup(true, "GUILD_ACHIEVEMENT")
-	ToggleChatColorNamesByClassGroup(true, "GUILD")
-	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT_LEADER")
-	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT")
-	ToggleChatColorNamesByClassGroup(true, "OFFICER")
-	ToggleChatColorNamesByClassGroup(true, "PARTY_LEADER")
-	ToggleChatColorNamesByClassGroup(true, "PARTY")
-	ToggleChatColorNamesByClassGroup(true, "RAID_LEADER")
-	ToggleChatColorNamesByClassGroup(true, "RAID_WARNING")
-	ToggleChatColorNamesByClassGroup(true, "RAID")
-	ToggleChatColorNamesByClassGroup(true, "SAY")
-	ToggleChatColorNamesByClassGroup(true, "WHISPER")
-	ToggleChatColorNamesByClassGroup(true, "YELL")
+	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "SAY")
+	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "YELL")
+	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "GUILD")
+	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "WHISPER")
+	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "BN_WHISPER")
+	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "PARTY")
+	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "PARTY_LEADER")
+	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "CHANNEL")
 
 	E.db["chat"]["keywordSound"] = "Whisper Alert"
 	E.db["chat"]["panelTabTransparency"] = true
