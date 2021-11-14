@@ -112,7 +112,6 @@ local function SetupChat()
 			VoiceTranscriptionFrame_UpdateVisibility(frame)
 			VoiceTranscriptionFrame_UpdateVoiceTab(frame)
 			VoiceTranscriptionFrame_UpdateEditBox(frame)
-		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
 		elseif (E.Retail and id == 4) or id == 3 then
 			FCF_SetWindowName(frame, LOOT)
 		end
