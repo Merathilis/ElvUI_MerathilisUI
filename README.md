@@ -12,7 +12,7 @@
 ***
 [![Discord](https://img.shields.io/discord/284626725403361281?label=Discord&style=flat-square)](https://discordapp.com/invite/ZhNqCu2) [![Patreon](https://img.shields.io/badge/Support-Patreon-orange)](https://www.patreon.com/merathilisui) [![Donate](https://img.shields.io/badge/Support-Donate-blue)](https://paypal.me/merathilis)
 
-Download Sites: [Tukui](https://www.tukui.org/addons.php?id=1) | [Curse](https://www.curseforge.com/wow/addons/merathilis-ui) | [Github Release](https://github.com/Merathilis/ElvUI_MerathilisUI/releases)
+Download Sites: [Tukui](https://www.tukui.org/addons.php?id=1) | [Curse](https://www.curseforge.com/wow/addons/merathilis-ui) | [Wago](https://addons.wago.io/addons/elvui-merathilisui) | [Github Release](https://github.com/Merathilis/ElvUI_MerathilisUI/releases)
 
 ***
 

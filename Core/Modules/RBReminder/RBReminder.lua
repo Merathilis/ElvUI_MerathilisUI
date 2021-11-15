@@ -292,6 +292,8 @@ function module:Visibility()
 end
 
 function module:Initialize()
+	if not E.Retail then return end
+
 	module.db = E.db.mui.raidBuffs
 	MER:RegisterDB(self, "raidBuffs")
 

@@ -1,13 +1,11 @@
-[b][color=orange]Retail: v4.83; Classic: v1.54; TBC: 1.03[/color], 08.11.2021[/b][list]
+[b][color=orange]Retail: v4.84; Classic: v1.54; TBC: 1.04[/color], 08.11.2021[/b][list]
 [*][b][color=orange]Retail:[/color][/b]
-[*]Fix Clique icon texture
-[*]Fix Reminder for real. Thanks @Simpy
-[*]Fix Merchant Frame option
-[*]Change the Option to toggle the Guild on the MicroBar
+[*]Style the Outfit Detail Panel
+[*]Updated Chat Install
 
 [*][b][color=orange]Classic:[/color][/b]
 [*]Streamline Retail, Classic, TBC
 
 [*][b][color=orange]TBC:[/color][/b]
-[*]Streamline Retail, Classic, TBC[/list]
+[*]Fix some errors i couldn't test[/list]
 

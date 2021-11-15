@@ -16,10 +16,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Retail:",
-		"• Fix Clique icon texture",
-		"• Fix Reminder for real. Thanks @Simpy",
-		"• Fix Merchant Frame option",
-		"• Change the Option to toggle the Guild on the MicroBar",
+		"• Style the Outfit Detail Panel",
+		"• Updated Chat Install",
 
 	" ",
 	"Classic:",
@@ -27,7 +25,7 @@ local ChangeLogData = {
 
 	" ",
 	"TBC:",
-		"• Complete new Version for TBC",
+		"• Fix some errors i couldn't test",
 
 	" ",
 	"Notes:",

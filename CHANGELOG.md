@@ -1,15 +1,13 @@
-## Retail: [4.83] ##
+## Retail: [4.84] ##
 ### Changes ###
 
-  * Fix Clique icon texture
-  * Fix Reminder for real. Thanks @kodewdle (Simpy)
-  * Fix Merchant Frame option
-  * Change the Option to toggle the Guild on the MicroBar
-  
+  * Style the Outfit Detail Panel
+  * Updated Chat Install
+
 
 ## Classic: [1.54] ##
   * Streamline Retail, Classic, TBC
 
 
-## TBC: [1.03] ##
-  * Streamline Retail, Classic, TBC
+## TBC: [1.04] ##
+  * Fix some errors i couldn't test
