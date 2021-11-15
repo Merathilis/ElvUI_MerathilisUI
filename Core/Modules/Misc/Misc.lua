@@ -46,6 +46,7 @@ local LFDQueueFrame_SetType = LFDQueueFrame_SetType
 local UIDropDownMenu_GetSelectedID = UIDropDownMenu_GetSelectedID
 local SOUNDKIT = SOUNDKIT
 local RaidNotice_AddMessage = RaidNotice_AddMessage
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 function module:LoadMisc()
 	-- Force readycheck warning
@@ -110,6 +111,8 @@ function module:LoadMisc()
 end
 
 function module:SetRole()
+	if not E.Retail then return end
+
 	local spec = GetSpecialization()
 	if UnitLevel("player") >= 10 and not InCombatLockdown() then
 		if spec == nil and UnitGroupRolesAssigned("player") ~= "NONE" then
@@ -215,6 +218,7 @@ function module:Initialize()
 		hooksecurefunc('WhoList_Update', UpdateWhoList)
 		hooksecurefunc(_G.WhoListScrollFrame, 'update', UpdateWhoList)
 	end
+
 	module:LoadGMOTD()
 	module:LoadQuest()
 	module:LoadnameHover()

@@ -104,14 +104,16 @@ function module:Initialize()
 			module.InitialUpdates.Bank = true
 		end
 
-		if not module.InitialUpdates.ReagentBankButton then --For reagent bank, hook to toggle button and update layout when first clicked
-			_G["ElvUI_BankContainerFrame"].reagentToggle:HookScript("OnClick", function()
-				if not module.InitialUpdates.ReagentBank then
-					B:Layout(true)
-					module.InitialUpdates.ReagentBank = true
-				end
-			end)
-			module.InitialUpdates.ReagentBankButton = true
+		if E.Retail then
+			if not module.InitialUpdates.ReagentBankButton then --For reagent bank, hook to toggle button and update layout when first clicked
+				_G["ElvUI_BankContainerFrame"].reagentToggle:HookScript("OnClick", function()
+					if not module.InitialUpdates.ReagentBank then
+						B:Layout(true)
+						module.InitialUpdates.ReagentBank = true
+					end
+				end)
+				module.InitialUpdates.ReagentBankButton = true
+			end
 		end
 	end)
 end

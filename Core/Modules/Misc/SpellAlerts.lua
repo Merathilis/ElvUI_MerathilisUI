@@ -20,6 +20,8 @@ function module:Resize()
 end
 
 function module:PLAYER_LOGIN()
+	if not E.Retail then return end
+
 	module:UpdatePosition()
 	module:UpdateAppearance()
 	module:Resize()
