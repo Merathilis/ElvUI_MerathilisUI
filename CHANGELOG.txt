@@ -1,4 +1,4 @@
-[b][color=orange]Retail: v4.84; Classic: v1.54; TBC: 1.04[/color], 08.11.2021[/b][list]
+[b][color=orange]Retail: v4.84; Classic: v1.54; TBC: 1.04[/color], 15.11.2021[/b][list]
 [*][b][color=orange]Retail:[/color][/b]
 [*]Style the Outfit Detail Panel
 [*]Updated Chat Install
