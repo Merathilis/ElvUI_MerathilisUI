@@ -1,11 +1,10 @@
-[b][color=orange]Retail: v4.84; Classic: v1.54; TBC: 1.04[/color], 08.11.2021[/b][list]
+[b][color=orange]Retail: v4.85[/color], 19.11.2021[/b][list]
 [*][b][color=orange]Retail:[/color][/b]
-[*]Style the Outfit Detail Panel
-[*]Updated Chat Install
+[*]Only load my Announce Module on Retail
 
 [*][b][color=orange]Classic:[/color][/b]
-[*]Streamline Retail, Classic, TBC
+[*]nothing changed
 
 [*][b][color=orange]TBC:[/color][/b]
-[*]Fix some errors i couldn't test[/list]
+[*]nothing changed[/list]
 
