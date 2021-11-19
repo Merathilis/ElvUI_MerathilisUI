@@ -1,13 +1,13 @@
-## Retail: [4.84] ##
+## [4.85] ##
 ### Changes ###
 
-  * Style the Outfit Detail Panel
-  * Updated Chat Install
+## Retail: ##
+  * Only load my Announce Module on Retail
 
 
-## Classic: [1.54] ##
-  * Streamline Retail, Classic, TBC
+## Classic: ##
+  * nothing changed
 
 
-## TBC: [1.04] ##
-  * Fix some errors i couldn't test
+## TBC: ##
+  * nothing changed

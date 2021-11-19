@@ -16,16 +16,15 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Retail:",
-		"• Style the Outfit Detail Panel",
-		"• Updated Chat Install",
+		"• Only load my Announce Module on Retail",
 
 	" ",
 	"Classic:",
-		"• Complete new Version for Classic",
+		"• nothing changed",
 
 	" ",
 	"TBC:",
-		"• Fix some errors i couldn't test",
+		"• nothing changed",
 
 	" ",
 	"Notes:",
