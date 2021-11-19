@@ -1,13 +1,12 @@
-## [4.85] ##
 ### Changes ###
 
 ## Retail: ##
-  * Only load my Announce Module on Retail
+  * nothing changed
 
 
 ## Classic: ##
-  * nothing changed
+  * Fixed an error in Alerts
 
 
 ## TBC: ##
-  * nothing changed
+  * Fixed an error in Alerts
