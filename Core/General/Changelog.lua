@@ -16,15 +16,15 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Retail:",
-		"• Only load my Announce Module on Retail",
+		"• nothing changed",
 
 	" ",
 	"Classic:",
-		"• nothing changed",
+		"• Fixed an error in Alerts",
 
 	" ",
 	"TBC:",
-		"• nothing changed",
+		"• Fixed an error in Alerts",
 
 	" ",
 	"Notes:",
