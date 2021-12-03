@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Alerts.lua"/>
+	<Script file="ItemLevel.lua"/>
+	<Script file="LfgInfo.lua"/>
+	<Script file="MawWidgetFrame.lua"/>
+	<Script file="RandomToy.lua"/>
+	<Script file="WoWHeadLinks.lua"/>
+</Ui>

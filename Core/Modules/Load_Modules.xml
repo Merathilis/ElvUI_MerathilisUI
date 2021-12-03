@@ -1,0 +1,27 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Include file="Skins\Load_Skins.xml"/>
+	<Include file="Extern\Load_Extern.xml"/>
+	<Include file="Auras\Load_Auras.xml"/>
+	<Include file="Bags\Load_Bags.xml"/>
+	<Include file="Chat\Load_Chat.xml"/>
+	<Include file="CombatAlert\Load_CombatAlert.xml"/>
+	<Include file="Cooldowns\Load_Cooldowns.xml"/>
+	<Include file="Datatexts\Load_Datatexts.xml"/>
+	<Include file="Databars\Load_Databars.xml"/>
+	<Include file="LocPanel\Load_LocPanel.xml"/>
+	<Include file="Mail\Load_Mail.xml"/>
+	<Include file="Maps\Load_Maps.xml"/>
+	<Include file='MicroBar\Load_MicroBar.xml'/>
+	<Include file="Misc\Load_Misc.xml"/>
+	<Include file="Tooltip\Load_Tooltip.xml"/>
+	<Include file="Actionbars\Load_Actionbars.xml"/>
+	<Include file="Unitframes\Load_Unitframes.xml"/>
+	<Include file="RaidMarkers\Load_RaidMarkers.xml"/>
+	<Include file="Nameplates\Load_Nameplates.xml"/>
+	<Include file="Notification\Load_Notification.xml"/>
+	<Include file="RBReminder\Load_RBReminder.xml"/>
+	<Include file="PvP\Load_PvP.xml"/>
+	<Include file="Panels\Load_Panels.xml"/>
+	<Include file="AutoButtons\Load_AutoButtons.xml"/>
+	<Include file="CVars\Load_CVars.xml"/>
+</Ui>
