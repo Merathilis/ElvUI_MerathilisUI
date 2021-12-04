@@ -11,4 +11,7 @@ ignore:
 
 manual-changelog:
   filename: CHANGELOG.md
-  markup-type: markdown
+  markup-type: markdown 
+
+move-folders:
+    ElvUI_MerathilisUI/ElvUI_MerathilisUI: ElvUI_MerathilisUI

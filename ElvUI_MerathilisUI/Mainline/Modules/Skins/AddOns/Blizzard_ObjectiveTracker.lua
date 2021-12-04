@@ -78,9 +78,6 @@ local function LoadSkin()
 
 		QuestNumString()
 	end)
-
-	_G.ObjectiveTrackerFrame:SetSize(235, 140)
-	_G.ObjectiveTrackerFrame.HeaderMenu:SetSize(10, 10)
 end
 
 S:AddCallback("mUIObjectiveTracker", LoadSkin)

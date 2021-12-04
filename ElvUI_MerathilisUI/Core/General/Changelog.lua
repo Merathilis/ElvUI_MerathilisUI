@@ -20,11 +20,11 @@ local ChangeLogData = {
 
 	" ",
 	"Classic:",
-		"• Fixed an error in Alerts",
+		"• Load GCD for Classic",
 
 	" ",
 	"TBC:",
-		"• Fixed an error in Alerts",
+		"• Load GCD for TBC",
 
 	" ",
 	"Notes:",

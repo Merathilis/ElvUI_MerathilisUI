@@ -2,12 +2,8 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
 local UF = E:GetModule('UnitFrames')
 
---Cache global variables
---Lua functions
---WoW API / Variables
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 function module:ADDON_LOADED(event, addon)
 	if addon ~= "ElvUI_Config" then return end

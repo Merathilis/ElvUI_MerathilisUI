@@ -1,11 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
 
---Cache global variables
---Lua functions
---WoW API / Variables
 local CreateFrame = CreateFrame
--- GLOBALS:
 
 function module:Construct_GCD(frame)
 	local width = E.db.unitframe.units.player.castbar.width - 2
@@ -27,11 +23,11 @@ function module:Construct_GCD(frame)
 	bar.BG.backdrop:Styling(false, false, true)
 
 	bar.Spark = bar:CreateTexture(nil, "OVERLAY")
-	bar.Spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
+	bar.Spark:SetTexture(E.media.blankTex)
+	bar.Spark:SetVertexColor(1, 1, 1, 0.4)
+	bar.Spark:SetPoint("RIGHT", bar:GetStatusBarTexture())
 	bar.Spark:SetBlendMode("ADD")
-	bar.Spark:SetAlpha(.8)
-	bar.Spark:SetPoint("TOPLEFT", bar:GetStatusBarTexture(), "TOPRIGHT", -10, 10)
-	bar.Spark:SetPoint("BOTTOMRIGHT", bar:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -10)
+	bar.Spark:Size(2)
 
 	bar.Text = bar:CreateFontString(nil, "OVERLAY")
 	bar.Text:FontTemplate()
