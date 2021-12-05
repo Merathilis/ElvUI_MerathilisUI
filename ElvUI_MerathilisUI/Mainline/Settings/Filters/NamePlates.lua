@@ -5,7 +5,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 
 --WoW API / Variables
 
-G.nameplate.filters.Neutral = {
+G.nameplates.filters.Neutral = {
 	triggers = {
 		notTarget = true,
 		outOfCombatUnit = true,
