@@ -2,13 +2,11 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_MiniMapButtons')
 local COMP = MER:GetModule('MER_Compatibility')
 
---Cache global variables
---Lua functions
 local _G = _G
 local pairs, select, tostring, unpack = pairs, select, tostring, unpack
 local strfind, strlen, strlower, strsub = strfind, strlen, strlower, strsub
 local tContains, tinsert = tContains, table.insert
---WoW API / Variables
+
 local C_Timer_After = C_Timer.After
 local InCombatLockdown = InCombatLockdown
 local UIFrameFadeIn = UIFrameFadeIn
@@ -16,7 +14,6 @@ local UIFrameFadeOut = UIFrameFadeOut
 local C_PetBattles_IsInBattle = C_PetBattles and C_PetBattles.IsInBattle
 local Minimap = Minimap
 local CreateFrame = CreateFrame
--- GLOBALS:
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
@@ -52,6 +49,7 @@ module.GenericIgnore = {
 	'poiMinimap',
 	'GuildMap3Mini',
 	'LibRockConfig-1.0_MinimapButton',
+	'MinimapLayerFrame',
 	'NauticusMiniIcon',
 	'WestPointer',
 	'Cork',
@@ -67,11 +65,22 @@ module.OverrideTexture = {
 	SmartBuff_MiniMapButton = [[Interface\Icons\Spell_Nature_Purge]],
 	VendomaticButtonFrame = [[Interface\Icons\INV_Misc_Rabbit_2]],
 	OutfitterMinimapButton = '',
+	RecipeRadar_MinimapButton = 'Interface/Icons/INV_Scroll_03',
+	GameTimeFrame = ''
 }
 
-module.UnrulyButtons = {}
+module.DoNotCrop = {
+	ZygorGuidesViewerMapIcon = true,
+	ItemRackMinimapFrame = true,
+	Narci_MinimapButton = true,
+}
 
-local ButtonFunctions = { 'SetParent', 'ClearAllPoints', 'Point', 'SetSize', 'SetScale', 'SetFrameStrata', 'SetFrameLevel' }
+module.UnrulyButtons = {
+	'WIM3MinimapButton',
+	'RecipeRadar_MinimapButton',
+}
+
+local ButtonFunctions = { 'SetParent', 'ClearAllPoints', 'Point', 'SetSize', 'SetScale', 'SetIgnoreParentScale', 'SetFrameStrata', 'SetFrameLevel' }
 
 local RemoveTextureID = {
 	[136430] = true,
@@ -138,7 +147,8 @@ function module:SkinMinimapButton(Button)
 				Region:SetTexture()
 			else
 				Texture = strlower(tostring(Region:GetTexture()))
-				if RemoveTextureFile[Texture] or (strfind(Texture, [[interface\characterframe]]) or (strfind(Texture, [[interface\minimap]]) and not strfind(Texture, [[interface\minimap\tracking\]])) or strfind(Texture, 'border') or strfind(Texture, 'background') or strfind(Texture, 'alphamask') or strfind(Texture, 'highlight')) then
+
+				if RemoveTextureFile[Texture] or (strfind(Texture, [[interface/characterframe]]) or (strfind(Texture, [[interface/minimap]]) and not strfind(Texture, [[interface/minimap/tracking\]])) or strfind(Texture, 'border') or strfind(Texture, 'background') or strfind(Texture, 'alphamask') or strfind(Texture, 'highlight')) then
 					Region:SetTexture()
 					Region:SetAlpha(0)
 				else
@@ -150,7 +160,7 @@ function module:SkinMinimapButton(Button)
 					Region:SetDrawLayer('ARTWORK')
 					Region:SetInside()
 
-					if not Button.ignoreCrop then
+					if not module.DoNotCrop[Name] and not Button.ignoreCrop then
 						Region:SetTexCoord(unpack(E.TexCoords))
 						Button:HookScript('OnLeave', function() Region:SetTexCoord(unpack(E.TexCoords)) end)
 					end
@@ -226,6 +236,7 @@ function module:Update()
 			module:UnlockButton(Button)
 
 			Button:SetParent(module.bin)
+			Button:SetIgnoreParentScale(false)
 			Button:ClearAllPoints()
 			Button:SetPoint(Anchor, self.bin, Anchor, DirMult * (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
 			Button:SetSize(Size, Size)

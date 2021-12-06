@@ -1,10 +1,10 @@
-[b][color=orange]Retail: v4.86[/color], 19.11.2021[/b][list]
+[b][color=orange]Retail: v4.87[/color], 04.12.2021[/b][list]
 [*][b][color=orange]Retail:[/color][/b]
 [*]nothing changed
 
 [*][b][color=orange]Classic:[/color][/b]
-[*]Fixed an error in Alerts
+[*]Load GCD for Classic
 
 [*][b][color=orange]TBC:[/color][/b]
-[*]Fixed an error in Alerts[/list]
+[*]Load GCD for TBC[/list]
 
