@@ -16,22 +16,19 @@ local GetItemQualityColor = GetItemQualityColor
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
+local bossIndex = 1
 local function SkinBosses()
-	local bossIndex = 1;
-	local _, _, bossID = EJ_GetEncounterInfoByIndex(bossIndex);
-	local bossButton;
+	while true do
+		local button = _G["EncounterJournalBossButton"..bossIndex]
+		if not button then return end
 
-	while bossID do
-		bossButton = _G["EncounterJournalBossButton"..bossIndex];
-		if bossButton and not bossButton.isSkinned then
-			S:HandleButton(bossButton)
-			bossButton.creature:ClearAllPoints()
-			bossButton.creature:Point("TOPLEFT", 1, -4)
-			bossButton.isSkinned = true
-		end
+		S:HandleButton(button)
+		button.text:SetTextColor(1, 1, 1)
+		button.text.SetTextColor = E.noop
+		button.creature:ClearAllPoints()
+		button.creature:Point("TOPLEFT", 0, -4)
 
-		bossIndex = bossIndex + 1;
-		_, _, bossID = EJ_GetEncounterInfoByIndex(bossIndex);
+		bossIndex = bossIndex + 1
 	end
 end
 
@@ -307,7 +304,7 @@ local function LoadSkin()
 
 	local encLoot = info.lootScroll.buttons
 	for i = 1, #encLoot do
-		local item = encLoot[i]
+		local item = encLoot[i].lootFrame
 
 		item.boss:SetTextColor(1, 1, 1)
 		item.slot:SetTextColor(1, 1, 1)
