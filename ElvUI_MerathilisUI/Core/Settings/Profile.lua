@@ -344,7 +344,6 @@ MP.datatexts = {
 }
 
 MP.actionbars = {
-	customGlow = true,
 	specBar = {
 		enable = true,
 		mouseover = false,

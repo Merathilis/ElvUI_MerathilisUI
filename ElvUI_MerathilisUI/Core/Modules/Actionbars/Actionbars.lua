@@ -109,26 +109,6 @@ function module:ActionBar_LoadKeyBinder()
 	MER:CreateBackdropShadow(frame.header, true)
 end
 
-function module:ActionbarGlow()
-	if not E.private.actionbar.enable or not E.db.mui.actionbars.customGlow then return end
-
-	local r, g, b = unpack(E.media.rgbvaluecolor)
-	local color = {r, g, b, 1}
-
-	local lib = LibStub("LibButtonGlow-1.0")
-	if lib then
-		function lib.ShowOverlayGlow(button)
-			if button:GetAttribute("type") == "action" then
-				local actionType, actionID = GetActionInfo(button:GetAttribute("action"))
-				LCG.PixelGlow_Start(button, color, nil, 0.5, nil, 1)
-			end
-		end
-		function lib.HideOverlayGlow(button)
-			LCG.PixelGlow_Stop(button)
-		end
-	end
-end
-
 local function ReskinVehicleExit()
 	if E.private.actionbar.enable ~= true then
 		return
@@ -178,7 +158,6 @@ function module:Initialize()
 	end
 
 	C_TimerAfter(1, module.StyleBackdrops)
-	C_TimerAfter(0.1, module.ActionbarGlow)
 
 	for id = 1, 10 do
 		local bar = _G["ElvUI_Bar" .. id]
