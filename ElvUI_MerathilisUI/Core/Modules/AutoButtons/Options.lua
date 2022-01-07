@@ -5,7 +5,7 @@ local LSM = E.LSM
 local tinsert = table.insert
 local tremove = table.remove
 local format = string.format
-local pairs, select = pairs, select
+local pairs = pairs
 local tonumber = tonumber
 
 local GetItemInfo = GetItemInfo
@@ -55,7 +55,7 @@ local function AutoButtonTable()
 						end,
 						set = function(_, value)
 							local itemID = tonumber(value)
-							local itemName = select(1, GetItemInfo(itemID))
+							local itemName = GetItemInfo(itemID)
 							if itemName then
 								tinsert(E.db.mui.autoButtons.customList, itemID)
 								module:UpdateBars()
@@ -78,7 +78,7 @@ local function AutoButtonTable()
 							local list = E.db.mui.autoButtons.customList
 							local result = {}
 							for key, value in pairs(list) do
-								result[key] = select(1, GetItemInfo(value))
+								result[key] = GetItemInfo(value)
 							end
 							return result
 						end
@@ -115,7 +115,7 @@ local function AutoButtonTable()
 						end,
 						set = function(_, value)
 							local itemID = tonumber(value)
-							local itemName = select(1, GetItemInfo(itemID))
+							local itemName = GetItemInfo(itemID)
 							if itemName then
 								E.db.mui.autoButtons.blackList[itemID] = itemName
 								module:UpdateBars()
@@ -137,7 +137,7 @@ local function AutoButtonTable()
 						values = function()
 							local result = {}
 							for key, value in pairs(E.db.mui.autoButtons.blackList) do
-								result[key] = value
+								result[key] = GetItemInfo(value)
 							end
 							return result
 						end
