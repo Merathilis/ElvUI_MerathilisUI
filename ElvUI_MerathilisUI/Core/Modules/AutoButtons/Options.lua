@@ -136,8 +136,8 @@ local function AutoButtonTable()
 						end,
 						values = function()
 							local result = {}
-							for key, value in pairs(E.db.mui.autoButtons.blackList) do
-								result[key] = GetItemInfo(value)
+							for key in pairs(E.db.mui.autoButtons.blackList) do
+								result[key] = GetItemInfo(key)
 							end
 							return result
 						end
