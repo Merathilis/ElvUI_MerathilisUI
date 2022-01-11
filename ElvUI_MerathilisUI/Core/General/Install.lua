@@ -287,6 +287,8 @@ function MER:SetupLayout(layout)
 	E.db["general"]["displayInspectInfo"] = true
 	E.db["general"]["resurrectSound"] = true
 	E.db["general"]["decimalLength"] = 0
+	E.db["general"]["customGlow"]["useColor"] = true
+	E.db["general"]["customGlow"]["color"] = {r = MER.r, g = MER.g, b = MER.b}
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
