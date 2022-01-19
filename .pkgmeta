@@ -8,6 +8,8 @@ ignore:
     - README.md
     - README_Curse.txt
     - README_TUKUI.txt
+    - CHANGELOG.md
+    - CHANGELOG.txt
 
 manual-changelog:
   filename: CHANGELOG.md

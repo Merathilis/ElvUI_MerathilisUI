@@ -31,14 +31,7 @@ local function ActionBarTable()
 				type = "group",
 				name = MER:cOption(L["General"], 'orange'),
 				guiInline = true,
-				args = {
-					customGlow = {
-						order = 1,
-						type = "toggle",
-						name = L["Custom Glow"],
-						desc = L["Replaces the default Actionbar glow for procs with an own pixel glow."],
-					},
-				},
+				args = { },
 			},
 			specBar = {
 				order = 3,

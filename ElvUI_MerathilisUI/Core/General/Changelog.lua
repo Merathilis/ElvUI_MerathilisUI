@@ -16,15 +16,17 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Retail:",
-		"• nothing changed",
+		"• Update Minimap Buttons",
+		"• Fix an error on the Encounter Journal Skin",
+		"• Take account for the latest ElvUI changes",
 
 	" ",
 	"Classic:",
-		"• Load GCD for Classic",
+		"• Take account for the latest ElvUI changes",
 
 	" ",
 	"TBC:",
-		"• Load GCD for TBC",
+		"• Take account for the latest ElvUI changes",
 
 	" ",
 	"Notes:",
