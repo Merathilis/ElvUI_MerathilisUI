@@ -407,6 +407,7 @@ local function Maps()
 				type = "group",
 				name = MER:cOption(L["Rectangle Minimap"], 'orange'),
 				guiInline = true,
+				hidden = not E.Retail,
 				get = function(info)
 					return E.db.mui.maps.minimap.rectangleMinimap[info[#info]]
 				end,
@@ -451,6 +452,7 @@ local function Maps()
 				type = "group",
 				name = E.NewSign..MER:cOption(L["Super Tracker"], 'orange'),
 				guiInline = true,
+				hidden = not E.Retail,
 				get = function(info)
 					return E.db.mui.maps.superTracker[info[#info]]
 				end,
