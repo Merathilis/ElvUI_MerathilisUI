@@ -131,23 +131,29 @@ local function Tooltip()
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
 							EternalPalace = {
-								order = 4,
+								order = 5,
 								type = "toggle",
 								name = L["Eternal Palace"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
 							Nyalotha = {
-								order = 4,
+								order = 6,
 								type = "toggle",
 								name = L["Ny'alotha"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
 							CastleNathria = {
-								order = 5,
+								order = 7,
 								type = "toggle",
 								name = L["Castle Nathria"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
-							}
+							},
+							SanctumofDomination = {
+								order = 8,
+								type = "toggle",
+								name = L["Sanctum of Domination"],
+								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
+							}							
 						}
 					},
 				},
