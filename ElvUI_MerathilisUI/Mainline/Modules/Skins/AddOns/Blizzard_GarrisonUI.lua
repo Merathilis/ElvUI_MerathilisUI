@@ -272,10 +272,11 @@ local function LoadSkin()
 	-- Building frame
 	local GarrisonBuildingFrame = _G.GarrisonBuildingFrame
 	GarrisonBuildingFrame:StripTextures()
-	MERS:CreateBD(GarrisonBuildingFrame)
 	GarrisonBuildingFrame.GarrCorners:Hide()
-	if GarrisonBuildingFrame.backdrop then GarrisonBuildingFrame.backdrop:Hide() end
-	GarrisonBuildingFrame:Styling()
+	if not GarrisonBuildingFrame.backdrop then
+		GarrisonBuildingFrame:CreateBackdrop('Transparent')
+	end
+	GarrisonBuildingFrame.backdrop:Styling()
 
 	-- Tutorial button
 	local MainHelpButton = GarrisonBuildingFrame.MainHelpButton
