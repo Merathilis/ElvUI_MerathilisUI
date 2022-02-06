@@ -15,7 +15,7 @@ L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = "Options"
 L["Desciption"] = true
-L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI. It adds:
+L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r est une extension d'ElvUI. Cela ajoute:
 
 - a lot of new features
 - a transparent overall look
@@ -39,6 +39,10 @@ L["Show the associated equipment sets for the items in your bags (or bank)."] = 
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
 L["BACK"] = "Retour"
+L["ERR_FRIEND_ONLINE"] = "vient de se |cff298F00connecter|r."
+L["ERR_FRIEND_OFFLINE"] = "vient de se |cffff0000déconnecter|r."
+L["BN_INLINE_TOAST_FRIEND_ONLINE"] = " vient de se |cff298F00connecter|r."
+L["BN_INLINE_TOAST_FRIEND_OFFLINE"] = " vient de se |cffff0000déconnecter|r."
 L["has come |cff298F00online|r."] = true -- Guild Message
 L["has gone |cffff0000offline|r."] = true -- Guild Message
 L[" has come |cff298F00online|r."] = true -- Battle.Net Message
