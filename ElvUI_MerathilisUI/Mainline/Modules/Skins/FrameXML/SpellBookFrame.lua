@@ -11,6 +11,7 @@ local GetSpellAvailableLevel = GetSpellAvailableLevel
 local GetProfessionInfo = GetProfessionInfo
 local UnitLevel = UnitLevel
 local hooksecurefunc = hooksecurefunc
+local CreateFrame = CreateFrame
 local SpellBook_GetSpellBookSlot = SpellBook_GetSpellBookSlot
 local IsPassiveSpell = IsPassiveSpell
 -- GLOBALS:
@@ -56,12 +57,6 @@ local function LoadSkin()
 		local slot, slotType = SpellBook_GetSpellBookSlot(self)
 		local isPassive = IsPassiveSpell(slot, SpellBookFrame.bookType)
 		local name = self:GetName()
-		local highlightTexture = _G[name.."Highlight"]
-		if isPassive then
-			highlightTexture:SetColorTexture(1, 1, 1, 0)
-		else
-			highlightTexture:SetColorTexture(1, 1, 1, .25)
-		end
 
 		local subSpellString = _G[name.."SubSpellName"]
 		local isOffSpec = self.offSpecID ~= 0 and SpellBookFrame.bookType == _G.BOOKTYPE_SPELL
@@ -91,6 +86,7 @@ local function LoadSkin()
 
 	for _, button in pairs(professions) do
 		local bu = _G[button]
+
 		bu.professionName:SetTextColor(1, 1, 1)
 		bu.missingHeader:SetTextColor(1, 1, 1)
 		bu.missingText:SetTextColor(1, 1, 1)
@@ -134,10 +130,11 @@ local function LoadSkin()
 		bu.icon:SetDesaturated(false)
 		MERS:CreateBG(bu.icon)
 
-		bu:CreateBackdrop("Transparent")
-		bu.backdrop:SetOutside(bu, 5, 5)
-
-		MERS:CreateGradient(bu.backdrop)
+		bu.bg = CreateFrame('Frame', nil, bu)
+		bu.bg:SetTemplate('Transparent')
+		bu.bg:SetOutside(bu, 5, 5)
+		MERS:CreateGradient(bu.bg)
+		bu.bg:SetFrameLevel(bu:GetFrameLevel(-1))
 	end
 
 	hooksecurefunc("FormatProfession", function(frame, index)
