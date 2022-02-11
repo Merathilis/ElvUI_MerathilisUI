@@ -47,7 +47,7 @@ end)
 ------------------------]]
 local LFG_Timer = 0
 function eventframe:LFG_UPDATE_RANDOM_INFO()
-	local eligible, forTank, forHealer, forDamage = GetLFGRoleShortageRewards(2087, _G.LFG_ROLE_SHORTAGE_RARE) -- 2087 Random Shadowlands Heroic
+	local _, forTank, forHealer, forDamage = GetLFGRoleShortageRewards(2087, _G.LFG_ROLE_SHORTAGE_RARE) -- 2087 Random Shadowlands Heroic
 	local IsTank, IsHealer, IsDamage = C_LFGList_GetAvailableRoles()
 
 	local ingroup, tank, healer, damager, result
