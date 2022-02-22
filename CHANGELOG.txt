@@ -1,8 +1,7 @@
-[b][color=orange]Retail: v4.88[/color], 19.01.2022[/b][list]
+[b][color=orange]Retail: v4.89[/color], 22.02.2022[/b][list]
 [*][b][color=orange]Retail:[/color][/b]
-[*]Update Minimap Buttons
+[*]Update for Patch 9.2 - nothing mutch changed
 [*]Fix an error on the Encounter Journal Skin
-[*]Take account for the latest ElvUI changes
 
 [*][b][color=orange]Classic:[/color][/b]
 [*]Take account for the latest ElvUI changes
