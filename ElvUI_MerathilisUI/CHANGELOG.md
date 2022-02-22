@@ -1,9 +1,8 @@
 ### Changes ###
 
 ## Retail: ##
-  * Update Minimap Buttons
-  * Fix an error on the Encounter Journal Skin
-  * Take account for the latest ElvUI changes
+  * Update for Patch 9.2 - nothing mutch changed
+  * Mainly updated some skins
 
 
 ## Classic: ##
