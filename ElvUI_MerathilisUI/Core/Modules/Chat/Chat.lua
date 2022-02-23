@@ -196,11 +196,11 @@ function module:Initialize()
 	MER:RegisterDB(module, "chat")
 
 	if db.customOnlineMessage then
-		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["has come |cff298F00online|r."]
-		_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["has gone |cffff0000offline|r."]
+		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["ERR_FRIEND_ONLINE"]
+		_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["ERR_FRIEND_OFFLINE"]
 
-		_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "%s"..L[" has come |cff298F00online|r."]
-		_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L[" has gone |cffff0000offline|r."]
+		_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "%s"..L["BN_INLINE_TOAST_FRIEND_ONLINE"]
+		_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L["BN_INLINE_TOAST_FRIEND_OFFLINE"]
 	end
 
 	-- Remove the Realm Name from system messages

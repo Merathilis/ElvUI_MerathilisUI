@@ -67,7 +67,7 @@ local function LoadSkin()
 	BonusFrame.WorldBattlesTexture:Hide()
 	BonusFrame.ShadowOverlay:Hide()
 
-	for _, bonusButton in pairs({"RandomBGButton", "RandomEpicBGButton", "Arena1Button", "BrawlButton", "SpecialEventButton"}) do
+	for _, bonusButton in pairs({"RandomBGButton", "RandomEpicBGButton", "Arena1Button", "BrawlButton", "BrawlButton2", --[["SpecialEventButton"]]}) do
 		local button = BonusFrame[bonusButton]
 
 		button.SelectedTexture:SetDrawLayer("BACKGROUND")
