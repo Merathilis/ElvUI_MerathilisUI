@@ -69,6 +69,13 @@ local function SkinsTable()
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
+					buttonStyle = {
+						order = 3,
+						type = "toggle",
+						name = E.NewSign..L["MerathilisUI Button Style"],
+						get = function(info) return E.private.muiSkins[ info[#info] ] end,
+						set = function(info, value) E.private.muiSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
 				},
 			},
 			merchant = {
