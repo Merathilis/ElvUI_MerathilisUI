@@ -126,6 +126,7 @@ local potionsShadowlands = {
 	176811,
 	183823,
 	184090,
+	187802,
 }
 
 -- Flasks (require level >= 40)
