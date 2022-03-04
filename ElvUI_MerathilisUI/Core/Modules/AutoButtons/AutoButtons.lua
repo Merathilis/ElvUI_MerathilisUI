@@ -367,6 +367,8 @@ local torghastItems = {
 }
 
 local openableItems = {
+	54537,
+	92794,
 	171209,
 	171210,
 	171211,
@@ -490,6 +492,7 @@ local openableItems = {
 	187576,
 	187577,
 	187817,
+	190610,
 }
 
 local questItemList = {}
