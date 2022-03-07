@@ -32,18 +32,6 @@ function MER:LoadBenikUIProfile()
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["enable"] = false
 	end
 	E.db["benikui"]["datatexts"]["mail"]["toggle"] = false
-	E.db["benikuiDatabars"]["experience"]["enable"] = false
-	E.db["benikuiDatabars"]["experience"]["notifiers"]["enable"] = false
-	E.db["benikuiDatabars"]["experience"]["buiStyle"] = false
-	E.db["benikuiDatabars"]["reputation"]["enable"] = false
-	E.db["benikuiDatabars"]["reputation"]["notifiers"]["enable"] = false
-	E.db["benikuiDatabars"]["reputation"]["buiStyle"] = false
-	E.db["benikuiDatabars"]["azerite"]["enable"] = false
-	E.db["benikuiDatabars"]["azerite"]["notifiers"]["enable"] = false
-	E.db["benikuiDatabars"]["azerite"]["buiStyle"] = false
-	E.db["benikuiDatabars"]["honor"]["enable"] = false
-	E.db["benikuiDatabars"]["honor"]["notifiers"]["enable"] = false
-	E.db["benikuiDatabars"]["honor"]["buiStyle"] = false
 	E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 	E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-164"
 	E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
