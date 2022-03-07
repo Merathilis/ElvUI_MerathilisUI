@@ -17,6 +17,7 @@ V.muiMisc = {
 -- Skins options
 ----------------------------------------------------------------------------------------
 V.muiSkins = {
+	buttonStyle = true,
 	blizzard = {
 		character = true,
 		encounterjournal = true,

@@ -181,11 +181,6 @@ function module:Initialize()
 				MER:CreateShadow(button)
 			end
 		end
-
-		for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
-			local button = _G["ExtraActionButton" .. i]
-			MER:CreateBackdropShadow(button.backdrop, true)
-		end
 	end
 
 	self:SecureHook(AB, "SetupFlyoutButton", function(_, button)

@@ -15,17 +15,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 -- GLOBALS: MERData, UISpecialFrames, MerathilisUIChangeLog, DISABLED_FONT_COLOR
 
 local ChangeLogData = {
-	"Retail:",
-		"• Update for Patch 9.2 - nothing mutch changed",
-		"• Mainly updated some skins",
-
-	" ",
-	"Classic:",
-		"• Take account for the latest ElvUI changes",
-
-	" ",
-	"TBC:",
-		"• Take account for the latest ElvUI changes",
+	"Changes:",
+		"• Added Cosmic Healing Potion to the AutoButtons -- Retail",
+		"• Add an option to disable my button skin",
+		"• Updated some skins",
+		"• Fixed an issue with the AddOn Infinite Raid Tools",
 
 	" ",
 	"Notes:",

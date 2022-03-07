@@ -1,13 +1,7 @@
 ### Changes ###
 
-## Retail: ##
-  * Update for Patch 9.2 - nothing mutch changed
-  * Mainly updated some skins
+  * Added Cosmic Healing Potion to the AutoButtons -- Retail
+  * Add an option to disable my button skin
+  * Updated some skins
+  * Fixed an issue with the AddOn "Infinite Raid Tools"
 
-
-## Classic: ##
-  * Take account for the latest ElvUI changes
-
-
-## TBC: ##
-  * Take account for the latest ElvUI changes

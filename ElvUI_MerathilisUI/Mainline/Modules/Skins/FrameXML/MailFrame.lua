@@ -65,7 +65,7 @@ local function LoadSkin()
 	-- SendMailFrame
 	local SendMailFrame = _G.SendMailFrame
 	local SendMailScrollFrame = _G.SendMailScrollFrame
-	SendMailScrollFrame:CreateBackdrop("Transparent")
+	SendMailScrollFrame:SetTemplate("Transparent")
 
 	for i = 4, 7 do
 		select(i, SendMailFrame:GetRegions()):Hide()
@@ -78,6 +78,7 @@ local function LoadSkin()
 	-- OpenMailFrame
 	local OpenMailFrame = _G.OpenMailFrame
 	OpenMailFrame:Styling()
+	_G.OpenMailScrollFrame:SetTemplate('Transparent')
 	MER:CreateShadow(OpenMailFrame)
 
 	OpenMailFrame:SetPoint("TOPLEFT", _G.InboxFrame, "TOPRIGHT", 5, 0)
