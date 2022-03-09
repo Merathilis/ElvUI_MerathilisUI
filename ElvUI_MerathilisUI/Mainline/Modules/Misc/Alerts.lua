@@ -85,6 +85,7 @@ local itemList = {
 	[345130] = true,	-- Disposable Spectrophasic Reanimator
 	[307157] = true,	-- Eternal Cauldron
 	[324029] = true,	-- Codex of the Still Mind
+	[359336] = true,	 -- Kettle of Stone Soup
 }
 
 function module:ItemAlert_Update(unit, _, spellID)
