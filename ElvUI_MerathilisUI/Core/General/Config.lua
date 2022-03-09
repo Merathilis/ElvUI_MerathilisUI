@@ -127,7 +127,7 @@ local function AddOptions()
 						order = 5,
 						type = "toggle",
 						name = L["GameMenu"],
-						desc = L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."],
+						desc = L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"],
 					},
 					FlightPoint = {
 						order = 6,

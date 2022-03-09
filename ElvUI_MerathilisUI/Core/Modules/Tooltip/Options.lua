@@ -153,6 +153,12 @@ local function Tooltip()
 								type = "toggle",
 								name = L["Sanctum of Domination"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
+							},	
+							SepulcheroftheFirstOnes = {
+								order = 9,
+								type = "toggle",
+								name = L["Sepulcher of the First Ones"],
+								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							}							
 						}
 					},
