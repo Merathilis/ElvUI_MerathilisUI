@@ -120,7 +120,7 @@ L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8
 
 -- GameMenu
 L["GameMenu"] = "游戏菜单"
-L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "从暴雪游戏菜单启用/禁用MerathilisUI样式."
+L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] = "从暴雪游戏菜单启用/禁用MerathilisUI样式."
 
 -- FlightMode
 L["FlightMode"] = "飞行模式"
@@ -131,6 +131,11 @@ L["Left Click to Request Stop"] = "左键点击来请求停止"
 -- FlightPoint
 L["Flight Point"] = "飞行点"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "在飞行地图上启用/禁用MerathilisUI飞行点."
+
+-- Shadows
+L["Shadows"] = true
+L["Increase Size"] = true
+L["Make shadow thicker."] = true
 
 -- Mail
 L["Mail"] = "邮件"
@@ -703,6 +708,9 @@ L["Subpages"] = "子页面"
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "子页面有10个物品, 这个选项设置了一页里有多少子页面"
 L["Enable/Disable"] = "启用/禁用"
 L["decor."] = "装饰"
+L["Enables/Disables a shadow overlay to darken the screen."] = true
+L["MerathilisUI Button Style"] = true
+L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"] = true
 
 -- Panels
 L["Top Left Panel"] = "左上面板"
