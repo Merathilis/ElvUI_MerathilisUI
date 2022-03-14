@@ -487,6 +487,30 @@ local function LoadSkin()
 
 	--Boss selection buttons
 	hooksecurefunc("EncounterJournal_DisplayInstance", SkinBosses)
+
+	-- ItemSetsFrame
+
+	EncounterJournal.LootJournalItems:StripTextures()
+
+	local ItemSetsFrame = _G.EncounterJournal.LootJournalItems.ItemSetsFrame
+	_G.EncounterJournal.LootJournalItems:StripTextures()
+
+	hooksecurefunc(ItemSetsFrame, "UpdateList", function(self)
+		local buttons = self.buttons
+		for i = 1, #buttons do
+			local button = buttons[i]
+			if not button.styled then
+				button.ItemLevel:SetTextColor(1, 1, 1)
+				button.Background:Hide()
+				if not button.backdrop then
+					button:CreateBackdrop('Transparent')
+					MERS:CreateGradient(button.backdrop)
+				end
+
+				button.styled = true
+			end
+		end
+	end)
 end
 
 S:AddCallbackForAddon("Blizzard_EncounterJournal", "mUIEncounterJournal", LoadSkin)
