@@ -172,6 +172,15 @@ function MER:PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 
+function MER:Enum(tbl)
+	local length = #tbl
+	for i = 1, length do
+		local v = tbl[i]
+		tbl[v] = i
+	end
+	return tbl
+end
+
 -- LocPanel
 function MER:GetIconFromID(type, id)
 	local path

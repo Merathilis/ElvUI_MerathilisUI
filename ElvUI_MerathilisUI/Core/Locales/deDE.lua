@@ -357,36 +357,7 @@ L["Armory"] = "Arsenal"
 L["ARMORY_DESC"] = [=[Der |cffff7d0aArmory Mode|r funktioniert nur mit den 'ElvUI Charakter Informationen'. Es könnte sein, dass du dein UI neuladen musst:
 
 ElvUI - Allgemeine - Blizzard Verbesserungen - Zeige Charakterinformationen.]=]
-
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "|cffff7d0aMerathilisUI|r Arsenal aktivieren/deaktivieren"
-L["Durability"] = "Haltbarkeit"
-L["Enable/Disable the display of durability information on the character window."] = "Haltbarkeit im Charakterfenster anzeigen/verbergen"
-L["Damaged Only"] = "Nur beschädigt"
-L["Only show durability information for items that are damaged."] = "Haltbarkeit nur bei beschädigten Gegenständen anzeigen"
-L["Itemlevel"] = "Gegenstandsstufe"
-L["Enable/Disable the display of item levels on the character window."] = "Gegenstandsstufen im Charakterfenster anzeigen/verbergen"
-L["Level"] = "Stufe"
-L["Full Item Level"] = "Vollständige Gegenstandsstufe"
-L["Show both equipped and average item levels."] = "Ausgerüstete und durchschnittliche Gegenstandsstufe anzeigen"
-L["Item Level Coloring"] = "Gegenstandsstufe färben"
-L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Färbt die Gegenstandsstufe ein. Ausgerüstete Stufe wird kombiniert, Maximalstufe entspricht der ausgewählten Farbe"
-L["Color of Average"] = "Durchschnittsfarbe"
-L["Sets the color of average item level."] = "Setzt die Farbe der durchschnittlichen Gegenstandsstufe"
-L["Only Relevant Stats"] = "Nur relevante Attribute"
-L["Show only those primary stats relevant to your spec."] = "Nur die relevanten, primären Attribute deiner Spezialisierung anzeigen"
-L["Item Level"] = "Gegenstandsstufe"
-L["Categories"] = "Kategorien"
-L["Slot Gradient"] = "Ausrüstungsplatz Farbverlauf"
-L["Indicators"] = "Indikatoren"
-L["Shows a gradiation texture on the Character Slots."] = "Zeigt einen Farbverlauf auf den Ausrüstungsplätzen"
-L["Transmog"] = true
-L["Shows an arrow indictor for currently transmogrified items."] = "Zeigt einen Indikator für den derzeitig transmogrifizierten Gegenstand an."
-L["Illusion"] = "Illusionen"
-L["Shows an indictor for weapon illusions."] = "Zeigt einen Indikator für die Waffenillusionen an."
-L["Empty Socket"] = "Leerer Sockel"
-L["Not Enchanted"] = "Nicht verzaubert"
-L["Warnings"] = "Warnungen"
-L["Shows an indicator for missing sockets and enchants."] = "Zeigt einen Indikator für fehlende Sockel und Verzauberungen an."
 
 -- Media
 L["MER_MEDIA_ZONES"] = {
