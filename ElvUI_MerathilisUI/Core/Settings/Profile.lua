@@ -1036,6 +1036,54 @@ MP.cooldownFlash = {
 
 MP.armory = {
 	enable = true,
+	undressButton = true,
+	durability = {
+		enable = true,
+		onlydamaged = true,
+		font = "Expressway",
+		textSize = 11,
+		fontOutline = "OUTLINE",
+	},
+	stats = {
+		OnlyPrimary = true,
+		statFonts = {
+			font = "Expressway",
+			size = 11,
+			outline = "OUTLINE",
+		},
+		catFonts = {
+			font = "Expressway",
+			size = 12,
+			outline = "OUTLINE",
+		},
+		List = {
+			HEALTH = false,
+			POWER = false,
+			ALTERNATEMANA = false,
+			ATTACK_DAMAGE = false,
+			ATTACK_AP = false,
+			ATTACK_ATTACKSPEED = false,
+			SPELLPOWER = false,
+			ENERGY_REGEN = false,
+			RUNE_REGEN = false,
+			FOCUS_REGEN = false,
+			MOVESPEED = false,
+		},
+	},
+	gradient = {
+		enable = true,
+		colorStyle = "VALUE",
+		color = {r = 1, g = 1, b = 0},
+	},
+	transmog = {
+		enable = true,
+	},
+	illusion = {
+		enable = true,
+	},
+	warning = {
+		enable = true,
+	},
 }
 
 MP.flightMode = {

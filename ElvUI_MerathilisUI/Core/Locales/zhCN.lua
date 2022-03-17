@@ -360,6 +360,34 @@ L["ARMORY_DESC"] = [=[这个 |cffff7d0aArmory 模式|r只对ElvUI'显示人物�
 
 ElvUI - 常规 - BlizzUI改进 - 显示人物信息.]=]
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "启用/禁用|cffff7d0aMerathilisUI|r Armory模式"
+L["Durability"] = "耐久度"
+L["Enable/Disable the display of durability information on the character window."] = "在人物窗口启用/禁用耐久度信息显示."
+L["Damaged Only"] = "仅受损"
+L["Only show durability information for items that are damaged."] = "仅显示已受损物品的耐久度信息"
+L["Itemlevel"] = "物品等级"
+L["Enable/Disable the display of item levels on the character window."] = "在人物窗口启用/禁用物品等级显示."
+L["Level"] = "等级"
+L["Full Item Level"] = "完整物品等级"
+L["Show both equipped and average item levels."] = "显示装备和平均物品等级."
+L["Item Level Coloring"] = "物品等级着色"
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = "物品等级的颜色代码值，通过选择的颜色，Equipped will be gradient, average - selected color"
+L["Color of Average"] = "装等颜色"
+L["Sets the color of average item level."] = "设置平均装等的颜色"
+L["Only Relevant Stats"] = "只有相关统计数据"
+L["Show only those primary stats relevant to your spec."] = "仅显示与你专精相关的主要信息."
+L["Item Level"] = "物品等级"
+L["Categories"] = "分类"
+L["Slot Gradient"] = "槽渐变"
+L["Shows a gradiation texture on the Character Slots."] = "为角色的物品槽显示一个渐变的材质."
+L["Indicators"] = "指示器"
+L["Transmog"] = "幻化"
+L["Shows an arrow indictor for currently transmogrified items."] = "为当前幻化的物品显示一个箭头指示器."
+L["Illusion"] = "幻象"
+L["Shows an indictor for weapon illusions."] = "为武器幻象显示一个指示器"
+L["Empty Socket"] = true
+L["Not Enchanted"] = true
+L["Warnings"] = true
+L["Shows an indicator for missing sockets and enchants."] = true
 
 -- Media
 L["Zone Text"] = "区域文字"
