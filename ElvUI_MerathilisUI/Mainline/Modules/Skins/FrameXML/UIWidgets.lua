@@ -125,6 +125,12 @@ local function LoadSkin()
 		end
 	end)
 
+	for _, widgetFrame in pairs(_G.UIWidgetPowerBarContainerFrame.widgetFrames) do
+		if not widgetFrame:IsForbidden() then
+			ReskinWidgetStatusBar(widgetFrame.Bar)
+		end
+	end
+
 	hooksecurefunc(_G.TopScenarioWidgetContainerBlock.WidgetContainer, "UpdateWidgetLayout", function(self)
 		for _, widgetFrame in pairs(self.widgetFrames) do
 			if widgetFrame.widgetType == Type_StatusBar then
