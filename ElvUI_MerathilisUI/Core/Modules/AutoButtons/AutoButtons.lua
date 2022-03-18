@@ -493,6 +493,7 @@ local openableItems = {
 	187577,
 	187817,
 	190610,
+	191139,
 }
 
 local questItemList = {}
