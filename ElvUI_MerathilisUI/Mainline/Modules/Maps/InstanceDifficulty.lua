@@ -93,7 +93,7 @@ function module:ConstructFrame()
 	frame:Point("TOPLEFT", _G.MMHolder, "TOPLEFT", 10, -10)
 
 	local text = frame:CreateFontString(nil, "OVERLAY")
-	MER:SetFontDB(text, self.db.font)
+	F.SetFontDB(text, self.db.font)
 	text:Point("CENTER")
 	frame.text = text
 

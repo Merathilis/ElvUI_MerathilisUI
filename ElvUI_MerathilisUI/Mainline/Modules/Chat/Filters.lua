@@ -29,7 +29,7 @@ local msgSymbols = {'`', '～', '＠', '＃', '^', '＊', '！', '？', '。', '
 
 local FilterList = {}
 function MERC:UpdateFilterList()
-	MER:SplitList(FilterList, E.db.mui.chat.filter.keywords, true)
+	F.SplitList(FilterList, E.db.mui.chat.filter.keywords, true)
 end
 
 -- ECF strings compare

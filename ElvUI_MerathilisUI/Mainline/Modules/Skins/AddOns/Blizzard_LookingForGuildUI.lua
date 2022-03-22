@@ -20,9 +20,9 @@ local function LoadSkin()
 	local styled
 	hooksecurefunc("LookingForGuildFrame_CreateUIElements", function()
 		if styled then return end
-		MER:ReskinRole(_G.LookingForGuildTankButton, "TANK")
-		MER:ReskinRole(_G.LookingForGuildHealerButton, "HEALER")
-		MER:ReskinRole(_G.LookingForGuildDamagerButton, "DPS")
+		F.ReskinRole(_G.LookingForGuildTankButton, "TANK")
+		F.ReskinRole(_G.LookingForGuildHealerButton, "HEALER")
+		F.ReskinRole(_G.LookingForGuildDamagerButton, "DPS")
 
 		styled = true
 	end)

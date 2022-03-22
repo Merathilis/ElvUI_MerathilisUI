@@ -56,7 +56,7 @@ function module:UpdateMawBarLayout()
 
 	bar:Width(module.db.width or 250)
 	bar:Height(module.db.height or 16)
-	MER:SetFontDB(bar.text, module.db.font)
+	F.SetFontDB(bar.text, module.db.font)
 end
 
 function module:CreateMawWidgetFrame()

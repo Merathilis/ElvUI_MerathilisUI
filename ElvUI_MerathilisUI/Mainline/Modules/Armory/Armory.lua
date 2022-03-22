@@ -289,7 +289,7 @@ function module:UpdatePaperDoll()
 					elseif module.db.gradient.colorStyle == "VALUE" then
 						frame.Gradiation.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
 					else
-						frame.Gradiation.Texture:SetVertexColor(MER:unpackColor(module.db.gradient.color))
+						frame.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.gradient.color))
 					end
 				end
 			end

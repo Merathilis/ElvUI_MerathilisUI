@@ -38,7 +38,7 @@ function MI:CreateSplash()
 	tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\mUI1_Shadow.tga")
 	tex:Size(125, 125)
 
-	local version = MER:CreateText(frame, "OVERLAY", 14, nil, "CENTER")
+	local version = F.CreateText(frame, "OVERLAY", 14, nil, "CENTER")
 	version:FontTemplate(nil, 14, nil)
 	version:Point("TOP", tex, "BOTTOM", 0, 10)
 	version:SetFormattedText("v%s", MER.Version)

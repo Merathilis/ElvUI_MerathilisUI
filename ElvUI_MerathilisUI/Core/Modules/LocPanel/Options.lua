@@ -275,7 +275,7 @@ local function LocPanelTable()
 								name = L["Show hearthstones"],
 								desc = L["Show hearthstone type items in the list."],
 							},
-							hsProprity = MER:CreateMovableButtons(22, L["Hearthstone Toys Order"], false, E.db.mui.locPanel.portals, "hsPrio"),
+							hsProprity = F.CreateMovableButtons(22, L["Hearthstone Toys Order"], false, E.db.mui.locPanel.portals, "hsPrio"),
 							showToys = {
 								type = "toggle",
 								order = 20,

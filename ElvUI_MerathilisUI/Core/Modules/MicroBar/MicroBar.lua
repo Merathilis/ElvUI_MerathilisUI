@@ -579,34 +579,34 @@ end
 
 function module:ConstructTimeArea()
 	local colon = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	MER:SetFontDB(colon, self.db.time.font)
+	F.SetFontDB(colon, self.db.time.font)
 	colon:SetPoint("CENTER")
 	self.bar.middlePanel.colon = colon
 
 	local hour = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	MER:SetFontDB(hour, self.db.time.font)
+	F.SetFontDB(hour, self.db.time.font)
 	hour:SetPoint("RIGHT", colon, "LEFT", 1, 0)
 	self.bar.middlePanel.hour = hour
 
 	local hourHover = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	MER:SetFontDB(hourHover, self.db.time.font)
+	F.SetFontDB(hourHover, self.db.time.font)
 	hourHover:SetPoint("RIGHT", colon, "LEFT", 1, 0)
 	hourHover:SetAlpha(0)
 	self.bar.middlePanel.hourHover = hourHover
 
 	local minutes = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	MER:SetFontDB(minutes, self.db.time.font)
+	F.SetFontDB(minutes, self.db.time.font)
 	minutes:SetPoint("LEFT", colon, "RIGHT", 0, 0)
 	self.bar.middlePanel.minutes = minutes
 
 	local minutesHover = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	MER:SetFontDB(minutesHover, self.db.time.font)
+	F.SetFontDB(minutesHover, self.db.time.font)
 	minutesHover:SetPoint("LEFT", colon, "RIGHT", 0, 0)
 	minutesHover:SetAlpha(0)
 	self.bar.middlePanel.minutesHover = minutesHover
 
 	local text = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	MER:SetFontDB(text, self.db.additionalText.font)
+	F.SetFontDB(text, self.db.additionalText.font)
 	text:Point("TOP", self.bar, "BOTTOM", 0, -5)
 	text:SetAlpha(0)
 	self.bar.middlePanel.text = text
@@ -722,11 +722,11 @@ function module:UpdateTimeFormat()
 		}
 	end
 
-	self.bar.middlePanel.hour.format = MER:CreateColorString("%s", normalColor)
-	self.bar.middlePanel.hourHover.format = MER:CreateColorString("%s", hoverColor)
-	self.bar.middlePanel.minutes.format = MER:CreateColorString("%s", normalColor)
-	self.bar.middlePanel.minutesHover.format = MER:CreateColorString("%s", hoverColor)
-	self.bar.middlePanel.colon:SetText(MER:CreateColorString(":", hoverColor))
+	self.bar.middlePanel.hour.format = F.CreateColorString("%s", normalColor)
+	self.bar.middlePanel.hourHover.format = F.CreateColorString("%s", hoverColor)
+	self.bar.middlePanel.minutes.format = F.CreateColorString("%s", normalColor)
+	self.bar.middlePanel.minutesHover.format = F.CreateColorString("%s", hoverColor)
+	self.bar.middlePanel.colon:SetText(F.CreateColorString(":", hoverColor))
 end
 
 function module:UpdateTime()
@@ -764,12 +764,12 @@ end
 function module:UpdateTimeArea()
 	local panel = self.bar.middlePanel
 
-	MER:SetFontDB(panel.hour, self.db.time.font)
-	MER:SetFontDB(panel.hourHover, self.db.time.font)
-	MER:SetFontDB(panel.minutes, self.db.time.font)
-	MER:SetFontDB(panel.minutesHover, self.db.time.font)
-	MER:SetFontDB(panel.colon, self.db.time.font)
-	MER:SetFontDB(panel.text, self.db.additionalText.font)
+	F.SetFontDB(panel.hour, self.db.time.font)
+	F.SetFontDB(panel.hourHover, self.db.time.font)
+	F.SetFontDB(panel.minutes, self.db.time.font)
+	F.SetFontDB(panel.minutesHover, self.db.time.font)
+	F.SetFontDB(panel.colon, self.db.time.font)
+	F.SetFontDB(panel.text, self.db.additionalText.font)
 
 	if self.db.time.flash then
 		E:Flash(panel.colon, 1, true)
@@ -860,7 +860,7 @@ function module:ConstructButton()
 	button.notificationTex = notificationTex
 
 	local additionalText = button:CreateFontString(nil, "OVERLAY")
-	MER:SetFontDB(additionalText, self.db.additionalText.font)
+	F.SetFontDB(additionalText, self.db.additionalText.font)
 	additionalText:SetPoint(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
 	additionalText:SetJustifyH("CENTER")
 	additionalText:SetJustifyV("CENTER")
@@ -949,7 +949,7 @@ function module:UpdateButton(button, buttonType)
 		button.additionalTextTimer:Cancel()
 	end
 
-	button.additionalTextFormat = MER:CreateColorString("%s", {r = r, g = g, b = b})
+	button.additionalTextFormat = F.CreateColorString("%s", {r = r, g = g, b = b})
 
 	if config.additionalText and self.db.additionalText.enable then
 		button.additionalText:SetFormattedText(button.additionalTextFormat, config.additionalText and config.additionalText() or "")
@@ -970,7 +970,7 @@ function module:UpdateButton(button, buttonType)
 
 		button.additionalText:ClearAllPoints()
 		button.additionalText:SetPoint(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
-		MER:SetFontDB(button.additionalText, self.db.additionalText.font)
+		F.SetFontDB(button.additionalText, self.db.additionalText.font)
 		button.additionalText:Show()
 	else
 		button.additionalText:Hide()

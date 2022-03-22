@@ -49,7 +49,71 @@ for i = 1, 5 do
 	end
 end
 
-local function PrintURL(url) -- Credit: Azilroka
+-- Whiro's code magic
+function MER:SetupProfileCallbacks()
+	E.data.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
+	E.data.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
+	E.data.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
+end
+
+function MER:UpdateRegisteredDBs()
+	if (not MER["RegisteredDBs"]) then
+		return
+	end
+
+	local dbs = MER["RegisteredDBs"]
+
+	for tbl, path in pairs(dbs) do
+		self:UpdateRegisteredDB(tbl, path)
+	end
+end
+
+function MER:OnProfileChanged()
+	MER:Hook(E, "UpdateEnd", "UpdateAll")
+end
+
+function MER:UpdateAll()
+	self:UpdateRegisteredDBs()
+	for _, module in ipairs(self:GetRegisteredModules()) do
+		local mod = MER:GetModule(module)
+		if (mod and mod.ForUpdateAll) then
+			mod:ForUpdateAll()
+		end
+	end
+	MER:Unhook(E, "UpdateEnd")
+end
+
+function MER:UpdateRegisteredDB(tbl, path)
+	local path_parts = {strsplit(".", path)}
+	local _db = E.db.mui
+	for _, path_part in ipairs(path_parts) do
+		_db = _db[path_part]
+	end
+	tbl.db = _db
+end
+
+function MER:RegisterDB(tbl, path)
+	if (not MER["RegisteredDBs"]) then
+		MER["RegisteredDBs"] = {}
+	end
+	self:UpdateRegisteredDB(tbl, path)
+	MER["RegisteredDBs"][tbl] = path
+end
+--Whiro's Magic end
+
+do
+	local template = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
+	local s = 14
+	function MER:GetIconString(icon, size)
+		return format(template, icon, size or s, size or s)
+	end
+end
+
+function MER:Print(...)
+	print("|cffff7d0a".."mUI:|r", ...)
+end
+
+function MER:PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 

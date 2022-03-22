@@ -53,7 +53,7 @@ local function SetupCVars()
 	--nameplates
 	SetCVar("ShowClassColorInNameplate", 1)
 
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		SetCVar("taintLog", 1)
 	else
 		SetCVar("taintLog", 0)
@@ -169,7 +169,7 @@ local function SetupChat()
 	E.db["chat"]["tabSelector"] = "BOX"
 	E.db["chat"]["tabSelectorColor"] = {r = MER.r, g = MER.g, b = MER.b}
 
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		E.db["chat"]["timeStampFormat"] = "%H:%M "
 	end
 
@@ -734,7 +734,7 @@ function MER:SetupLayout(layout)
 	E.db["mui"]["raidmarkers"]["enable"] = false
 
 	-- Heal Prediction
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		E.db["mui"]["pvp"]["duels"]["regular"] = true
 		E.db["mui"]["pvp"]["duels"]["pet"] = true
 		E.db["mui"]["pvp"]["duels"]["announce"] = true
@@ -1232,7 +1232,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["cooldown"]["daysIndicator"]["g"] = 0.4
 
 	-- GCD Bar
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		E.db["mui"]["unitframes"]["gcd"]["enable"] = true
 		E.db["mui"]["unitframes"]["healPrediction"] = true
 	end
@@ -1720,7 +1720,7 @@ function MER:SetupUnitframes(layout)
 			["attachTextTo"] = "Health",
 			["text_format"] = "[namecolor][name:medium]",
 		}
-		if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		if F.IsDeveloper() and F.IsDeveloperRealm() then
 			E.db["unitframe"]["units"]["raid"]["customTexts"]["Elv"] = {
 				["font"] = "Expressway",
 				["justifyH"] = "RIGHT",
@@ -1820,7 +1820,7 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 0,
 			["size"] = 9,
 		}
-		if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		if F.IsDeveloper() and F.IsDeveloperRealm() then
 			E.db["unitframe"]["units"]["raid40"]["customTexts"]["Elv"] = {
 				["font"] = "Expressway",
 				["justifyH"] = "RIGHT",
@@ -1981,7 +1981,7 @@ function MER:SetupUnitframes(layout)
 			["attachTextTo"] = "Frame",
 			["text_format"] = "[statustimer]",
 		}
-		if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		if F.IsDeveloper() and F.IsDeveloperRealm() then
 			E.db["unitframe"]["units"]["party"]["customTexts"]["Elv"] = {
 				["font"] = "Expressway",
 				["justifyH"] = "RIGHT",

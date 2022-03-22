@@ -155,7 +155,7 @@ function module:Initialize()
 	end
 
 	-- Only adjust the settings for me
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		module:AdjustSettings()
 	end
 

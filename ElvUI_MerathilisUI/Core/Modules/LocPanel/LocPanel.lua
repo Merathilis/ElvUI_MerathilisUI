@@ -135,125 +135,125 @@ module.EngineerItems = {
 }
 module.Spells = {
 	["DEATHKNIGHT"] = {
-		[1] = {text =  GetSpellInfo(50977),icon = MER:GetIconFromID("spell", 50977),secure = {buttonType = "spell",ID = 50977}, UseTooltip = true},
+		[1] = {text =  GetSpellInfo(50977),icon = F.GetIconFromID("spell", 50977),secure = {buttonType = "spell",ID = 50977}, UseTooltip = true},
 	},
 	["DEMONHUNTER"] = {},
 	["DRUID"] = {
-		[1] = {text = GetSpellInfo(18960),icon = MER:GetIconFromID("spell", 18960),secure = {buttonType = "spell",ID = 18960}, UseTooltip = true},--Moonglade
-		[2] = {text = GetSpellInfo(147420),icon = MER:GetIconFromID("spell", 147420),secure = {buttonType = "spell",ID = 147420}, UseTooltip = true},--One With Nature
-		[3] = {text = GetSpellInfo(193753),icon = MER:GetIconFromID("spell", 193753),secure = {buttonType = "spell",ID = 193753}, UseTooltip = true},--Druid ClassHall
+		[1] = {text = GetSpellInfo(18960),icon = F.GetIconFromID("spell", 18960),secure = {buttonType = "spell",ID = 18960}, UseTooltip = true},--Moonglade
+		[2] = {text = GetSpellInfo(147420),icon = F.GetIconFromID("spell", 147420),secure = {buttonType = "spell",ID = 147420}, UseTooltip = true},--One With Nature
+		[3] = {text = GetSpellInfo(193753),icon = F.GetIconFromID("spell", 193753),secure = {buttonType = "spell",ID = 193753}, UseTooltip = true},--Druid ClassHall
 	},
 	["HUNTER"] = {},
 	["MAGE"] = {
-		[1] = {text = GetSpellInfo(193759),icon = MER:GetIconFromID("spell", 193759),secure = {buttonType = "spell",ID = 193759}, UseTooltip = true}, --Guardian place
+		[1] = {text = GetSpellInfo(193759),icon = F.GetIconFromID("spell", 193759),secure = {buttonType = "spell",ID = 193759}, UseTooltip = true}, --Guardian place
 	},
 	["MONK"] = {
-		[1] = {text = GetSpellInfo(126892),icon = MER:GetIconFromID("spell", 126892),secure = {buttonType = "spell",ID = 126892}, UseTooltip = true},-- Zen Pilgrimage
-		[2] = {text = GetSpellInfo(126895),icon = MER:GetIconFromID("spell", 126895),secure = {buttonType = "spell",ID = 126895}, UseTooltip = true},-- Zen Pilgrimage: Return
+		[1] = {text = GetSpellInfo(126892),icon = F.GetIconFromID("spell", 126892),secure = {buttonType = "spell",ID = 126892}, UseTooltip = true},-- Zen Pilgrimage
+		[2] = {text = GetSpellInfo(126895),icon = F.GetIconFromID("spell", 126895),secure = {buttonType = "spell",ID = 126895}, UseTooltip = true},-- Zen Pilgrimage: Return
 	},
 	["PALADIN"] = {},
 	["PRIEST"] = {},
 	["ROGUE"] = {},
 	["SHAMAN"] = {
-		[1] = {text = GetSpellInfo(556),icon = MER:GetIconFromID("spell", 556),secure = {buttonType = "spell",ID = 556}, UseTooltip = true},
+		[1] = {text = GetSpellInfo(556),icon = F.GetIconFromID("spell", 556),secure = {buttonType = "spell",ID = 556}, UseTooltip = true},
 	},
 	["WARLOCK"] = {},
 	["WARRIOR"] = {},
 	["racials"] = {
 		["DarkIronDwarf"] = {
-			[1] = {text = GetSpellInfo(265225),icon = MER:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+			[1] = {text = GetSpellInfo(265225),icon = F.GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
 		},
 		["Vulpera"] = {
-			[1] = {text = GetSpellInfo(312370),icon = MER:GetIconFromID("spell", 312370),secure = {buttonType = "spell",ID = 312370}, UseTooltip = true}, -- Make Camp
-			[2] = {text = GetSpellInfo(312372),icon = MER:GetIconFromID("spell", 312372),secure = {buttonType = "spell",ID = 312372}, UseTooltip = true}, -- Return to Camp
+			[1] = {text = GetSpellInfo(312370),icon = F.GetIconFromID("spell", 312370),secure = {buttonType = "spell",ID = 312370}, UseTooltip = true}, -- Make Camp
+			[2] = {text = GetSpellInfo(312372),icon = F.GetIconFromID("spell", 312372),secure = {buttonType = "spell",ID = 312372}, UseTooltip = true}, -- Return to Camp
 		},
 	},
 	["teleports"] = {
 		["Horde"] = {
-			[1] = {text = GetSpellInfo(3563),icon = MER:GetIconFromID("spell", 3563),secure = {buttonType = "spell",ID = 3563}, UseTooltip = true},-- TP:Undercity
-			[2] = {text = GetSpellInfo(3566),icon = MER:GetIconFromID("spell", 3566),secure = {buttonType = "spell",ID = 3566}, UseTooltip = true},-- TP:Thunder Bluff
-			[3] = {text = GetSpellInfo(3567),icon = MER:GetIconFromID("spell", 3567),secure = {buttonType = "spell",ID = 3567}, UseTooltip = true},-- TP:Orgrimmar
-			[4] = {text = GetSpellInfo(32272),icon = MER:GetIconFromID("spell", 32272),secure = {buttonType = "spell",ID = 32272}, UseTooltip = true},-- TP:Silvermoon
-			[5] = {text = GetSpellInfo(49358),icon = MER:GetIconFromID("spell", 49358),secure = {buttonType = "spell",ID = 49358}, UseTooltip = true},-- TP:Stonard
-			[6] = {text = GetSpellInfo(35715),icon = MER:GetIconFromID("spell", 35715),secure = {buttonType = "spell",ID = 35715}, UseTooltip = true},-- TP:Shattrath
-			[7] = {text = GetSpellInfo(53140),icon = MER:GetIconFromID("spell", 53140),secure = {buttonType = "spell",ID = 53140}, UseTooltip = true},-- TP:Dalaran - Northrend
-			[8] = {text = GetSpellInfo(88344),icon = MER:GetIconFromID("spell", 88344),secure = {buttonType = "spell",ID = 88344}, UseTooltip = true},-- TP:Tol Barad
-			[9] = {text = GetSpellInfo(132627),icon = MER:GetIconFromID("spell", 132627),secure = {buttonType = "spell",ID = 132627}, UseTooltip = true},-- TP:Vale of Eternal Blossoms
-			[10] = {text = GetSpellInfo(120145),icon = MER:GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
-			[11] = {text = GetSpellInfo(176242),icon = MER:GetIconFromID("spell", 176242),secure = {buttonType = "spell",ID = 176242}, UseTooltip = true},-- TP:Warspear
-			[12] = {text = GetSpellInfo(224869),icon = MER:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
-			[13] = {text = GetSpellInfo(281404),icon = MER:GetIconFromID("spell", 281404),secure = {buttonType = "spell",ID = 281404}, UseTooltip = true},-- TP:Dazar'alor
-			[14] = {text = GetSpellInfo(344587),icon = MER:GetIconFromID("spell", 344587),secure = {buttonType = "spell",ID = 344587}, UseTooltip = true},-- TP:Oribos
+			[1] = {text = GetSpellInfo(3563),icon = F.GetIconFromID("spell", 3563),secure = {buttonType = "spell",ID = 3563}, UseTooltip = true},-- TP:Undercity
+			[2] = {text = GetSpellInfo(3566),icon = F.GetIconFromID("spell", 3566),secure = {buttonType = "spell",ID = 3566}, UseTooltip = true},-- TP:Thunder Bluff
+			[3] = {text = GetSpellInfo(3567),icon = F.GetIconFromID("spell", 3567),secure = {buttonType = "spell",ID = 3567}, UseTooltip = true},-- TP:Orgrimmar
+			[4] = {text = GetSpellInfo(32272),icon = F.GetIconFromID("spell", 32272),secure = {buttonType = "spell",ID = 32272}, UseTooltip = true},-- TP:Silvermoon
+			[5] = {text = GetSpellInfo(49358),icon = F.GetIconFromID("spell", 49358),secure = {buttonType = "spell",ID = 49358}, UseTooltip = true},-- TP:Stonard
+			[6] = {text = GetSpellInfo(35715),icon = F.GetIconFromID("spell", 35715),secure = {buttonType = "spell",ID = 35715}, UseTooltip = true},-- TP:Shattrath
+			[7] = {text = GetSpellInfo(53140),icon = F.GetIconFromID("spell", 53140),secure = {buttonType = "spell",ID = 53140}, UseTooltip = true},-- TP:Dalaran - Northrend
+			[8] = {text = GetSpellInfo(88344),icon = F.GetIconFromID("spell", 88344),secure = {buttonType = "spell",ID = 88344}, UseTooltip = true},-- TP:Tol Barad
+			[9] = {text = GetSpellInfo(132627),icon = F.GetIconFromID("spell", 132627),secure = {buttonType = "spell",ID = 132627}, UseTooltip = true},-- TP:Vale of Eternal Blossoms
+			[10] = {text = GetSpellInfo(120145),icon = F.GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
+			[11] = {text = GetSpellInfo(176242),icon = F.GetIconFromID("spell", 176242),secure = {buttonType = "spell",ID = 176242}, UseTooltip = true},-- TP:Warspear
+			[12] = {text = GetSpellInfo(224869),icon = F.GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
+			[13] = {text = GetSpellInfo(281404),icon = F.GetIconFromID("spell", 281404),secure = {buttonType = "spell",ID = 281404}, UseTooltip = true},-- TP:Dazar'alor
+			[14] = {text = GetSpellInfo(344587),icon = F.GetIconFromID("spell", 344587),secure = {buttonType = "spell",ID = 344587}, UseTooltip = true},-- TP:Oribos
 		},
 		["Alliance"] = {
-			[1] = {text = GetSpellInfo(3561),icon = MER:GetIconFromID("spell", 3561),secure = {buttonType = "spell",ID = 3561}, UseTooltip = true},-- TP:Stormwind
-			[2] = {text = GetSpellInfo(3562),icon = MER:GetIconFromID("spell", 3562),secure = {buttonType = "spell",ID = 3562}, UseTooltip = true},-- TP:Ironforge
-			[3] = {text = GetSpellInfo(3565),icon = MER:GetIconFromID("spell", 3565),secure = {buttonType = "spell",ID = 3565}, UseTooltip = true},-- TP:Darnassus
-			[4] = {text = GetSpellInfo(32271),icon = MER:GetIconFromID("spell", 32271),secure = {buttonType = "spell",ID = 32271}, UseTooltip = true},-- TP:Exodar
-			[5] = {text = GetSpellInfo(49359),icon = MER:GetIconFromID("spell", 49359),secure = {buttonType = "spell",ID = 49359}, UseTooltip = true},-- TP:Theramore
-			[6] = {text = GetSpellInfo(33690),icon = MER:GetIconFromID("spell", 33690),secure = {buttonType = "spell",ID = 33690}, UseTooltip = true},-- TP:Shattrath
-			[7] = {text = GetSpellInfo(53140),icon = MER:GetIconFromID("spell", 53140),secure = {buttonType = "spell",ID = 53140}, UseTooltip = true},-- TP:Dalaran - Northrend
-			[8] = {text = GetSpellInfo(88342),icon = MER:GetIconFromID("spell", 88342),secure = {buttonType = "spell",ID = 88342}, UseTooltip = true},-- TP:Tol Barad
-			[9] = {text = GetSpellInfo(132621),icon = MER:GetIconFromID("spell", 132621),secure = {buttonType = "spell",ID = 132621}, UseTooltip = true},-- TP:Vale of Eternal Blossoms
-			[10] = {text = GetSpellInfo(120145),icon = MER:GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
-			[11] = {text = GetSpellInfo(176248),icon = MER:GetIconFromID("spell", 176248),secure = {buttonType = "spell",ID = 176248}, UseTooltip = true},-- TP:StormShield
-			[12] = {text = GetSpellInfo(224869),icon = MER:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
-			[13] = {text = GetSpellInfo(281403),icon = MER:GetIconFromID("spell", 281403),secure = {buttonType = "spell",ID = 281403}, UseTooltip = true},-- TP:Boralus
-			[14] = {text = GetSpellInfo(344587),icon = MER:GetIconFromID("spell", 344587),secure = {buttonType = "spell",ID = 344587}, UseTooltip = true},-- TP:Oribos
+			[1] = {text = GetSpellInfo(3561),icon = F.GetIconFromID("spell", 3561),secure = {buttonType = "spell",ID = 3561}, UseTooltip = true},-- TP:Stormwind
+			[2] = {text = GetSpellInfo(3562),icon = F.GetIconFromID("spell", 3562),secure = {buttonType = "spell",ID = 3562}, UseTooltip = true},-- TP:Ironforge
+			[3] = {text = GetSpellInfo(3565),icon = F.GetIconFromID("spell", 3565),secure = {buttonType = "spell",ID = 3565}, UseTooltip = true},-- TP:Darnassus
+			[4] = {text = GetSpellInfo(32271),icon = F.GetIconFromID("spell", 32271),secure = {buttonType = "spell",ID = 32271}, UseTooltip = true},-- TP:Exodar
+			[5] = {text = GetSpellInfo(49359),icon = F.GetIconFromID("spell", 49359),secure = {buttonType = "spell",ID = 49359}, UseTooltip = true},-- TP:Theramore
+			[6] = {text = GetSpellInfo(33690),icon = F.GetIconFromID("spell", 33690),secure = {buttonType = "spell",ID = 33690}, UseTooltip = true},-- TP:Shattrath
+			[7] = {text = GetSpellInfo(53140),icon = F.GetIconFromID("spell", 53140),secure = {buttonType = "spell",ID = 53140}, UseTooltip = true},-- TP:Dalaran - Northrend
+			[8] = {text = GetSpellInfo(88342),icon = F.GetIconFromID("spell", 88342),secure = {buttonType = "spell",ID = 88342}, UseTooltip = true},-- TP:Tol Barad
+			[9] = {text = GetSpellInfo(132621),icon = F.GetIconFromID("spell", 132621),secure = {buttonType = "spell",ID = 132621}, UseTooltip = true},-- TP:Vale of Eternal Blossoms
+			[10] = {text = GetSpellInfo(120145),icon = F.GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
+			[11] = {text = GetSpellInfo(176248),icon = F.GetIconFromID("spell", 176248),secure = {buttonType = "spell",ID = 176248}, UseTooltip = true},-- TP:StormShield
+			[12] = {text = GetSpellInfo(224869),icon = F.GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
+			[13] = {text = GetSpellInfo(281403),icon = F.GetIconFromID("spell", 281403),secure = {buttonType = "spell",ID = 281403}, UseTooltip = true},-- TP:Boralus
+			[14] = {text = GetSpellInfo(344587),icon = F.GetIconFromID("spell", 344587),secure = {buttonType = "spell",ID = 344587}, UseTooltip = true},-- TP:Oribos
 		},
 	},
 	["portals"] = {
 		["Horde"] = {
-			[1] = {text = GetSpellInfo(11418),icon = MER:GetIconFromID("spell", 11418),secure = {buttonType = "spell",ID = 11418}, UseTooltip = true},-- P:Undercity
-			[2] = {text = GetSpellInfo(11420),icon = MER:GetIconFromID("spell", 11420),secure = {buttonType = "spell",ID = 11420}, UseTooltip = true}, -- P:Thunder Bluff
-			[3] = {text = GetSpellInfo(11417),icon = MER:GetIconFromID("spell", 11417),secure = {buttonType = "spell",ID = 11417}, UseTooltip = true},-- P:Orgrimmar
-			[4] = {text = GetSpellInfo(32267),icon = MER:GetIconFromID("spell", 32267),secure = {buttonType = "spell",ID = 32267}, UseTooltip = true},-- P:Silvermoon
-			[5] = {text = GetSpellInfo(49361),icon = MER:GetIconFromID("spell", 49361),secure = {buttonType = "spell",ID = 49361}, UseTooltip = true},-- P:Stonard
-			[6] = {text = GetSpellInfo(35717),icon = MER:GetIconFromID("spell", 35717),secure = {buttonType = "spell",ID = 35717}, UseTooltip = true},-- P:Shattrath
-			[7] = {text = GetSpellInfo(53142),icon = MER:GetIconFromID("spell", 53142),secure = {buttonType = "spell",ID = 53142}, UseTooltip = true},-- P:Dalaran - Northred
-			[8] = {text = GetSpellInfo(88346),icon = MER:GetIconFromID("spell", 88346),secure = {buttonType = "spell",ID = 88346}, UseTooltip = true},-- P:Tol Barad
-			[9] = {text = GetSpellInfo(120146),icon = MER:GetIconFromID("spell", 120146),secure = {buttonType = "spell",ID = 120146}, UseTooltip = true},-- P:Ancient Dalaran
-			[10] = {text = GetSpellInfo(132626),icon = MER:GetIconFromID("spell", 132626),secure = {buttonType = "spell",ID = 132626}, UseTooltip = true},-- P:Vale of Eternal Blossoms
-			[11] = {text = GetSpellInfo(176244),icon = MER:GetIconFromID("spell", 176244),secure = {buttonType = "spell",ID = 176244}, UseTooltip = true},-- P:Warspear
-			[12] = {text = GetSpellInfo(224871),icon = MER:GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
-			[13] = {text = GetSpellInfo(281402),icon = MER:GetIconFromID("spell", 281402),secure = {buttonType = "spell",ID = 281402}, UseTooltip = true},-- P:Dazar'alor
-			[14] = {text = GetSpellInfo(344597),icon = MER:GetIconFromID("spell", 344597),secure = {buttonType = "spell",ID = 344597}, UseTooltip = true},-- P:Oribos
+			[1] = {text = GetSpellInfo(11418),icon = F.GetIconFromID("spell", 11418),secure = {buttonType = "spell",ID = 11418}, UseTooltip = true},-- P:Undercity
+			[2] = {text = GetSpellInfo(11420),icon = F.GetIconFromID("spell", 11420),secure = {buttonType = "spell",ID = 11420}, UseTooltip = true}, -- P:Thunder Bluff
+			[3] = {text = GetSpellInfo(11417),icon = F.GetIconFromID("spell", 11417),secure = {buttonType = "spell",ID = 11417}, UseTooltip = true},-- P:Orgrimmar
+			[4] = {text = GetSpellInfo(32267),icon = F.GetIconFromID("spell", 32267),secure = {buttonType = "spell",ID = 32267}, UseTooltip = true},-- P:Silvermoon
+			[5] = {text = GetSpellInfo(49361),icon = F.GetIconFromID("spell", 49361),secure = {buttonType = "spell",ID = 49361}, UseTooltip = true},-- P:Stonard
+			[6] = {text = GetSpellInfo(35717),icon = F.GetIconFromID("spell", 35717),secure = {buttonType = "spell",ID = 35717}, UseTooltip = true},-- P:Shattrath
+			[7] = {text = GetSpellInfo(53142),icon = F.GetIconFromID("spell", 53142),secure = {buttonType = "spell",ID = 53142}, UseTooltip = true},-- P:Dalaran - Northred
+			[8] = {text = GetSpellInfo(88346),icon = F.GetIconFromID("spell", 88346),secure = {buttonType = "spell",ID = 88346}, UseTooltip = true},-- P:Tol Barad
+			[9] = {text = GetSpellInfo(120146),icon = F.GetIconFromID("spell", 120146),secure = {buttonType = "spell",ID = 120146}, UseTooltip = true},-- P:Ancient Dalaran
+			[10] = {text = GetSpellInfo(132626),icon = F.GetIconFromID("spell", 132626),secure = {buttonType = "spell",ID = 132626}, UseTooltip = true},-- P:Vale of Eternal Blossoms
+			[11] = {text = GetSpellInfo(176244),icon = F.GetIconFromID("spell", 176244),secure = {buttonType = "spell",ID = 176244}, UseTooltip = true},-- P:Warspear
+			[12] = {text = GetSpellInfo(224871),icon = F.GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
+			[13] = {text = GetSpellInfo(281402),icon = F.GetIconFromID("spell", 281402),secure = {buttonType = "spell",ID = 281402}, UseTooltip = true},-- P:Dazar'alor
+			[14] = {text = GetSpellInfo(344597),icon = F.GetIconFromID("spell", 344597),secure = {buttonType = "spell",ID = 344597}, UseTooltip = true},-- P:Oribos
 		},
 		["Alliance"] = {
-			[1] = {text = GetSpellInfo(10059),icon = MER:GetIconFromID("spell", 10059),secure = {buttonType = "spell",ID = 10059}, UseTooltip = true},-- P:Stormwind
-			[2] = {text = GetSpellInfo(11416),icon = MER:GetIconFromID("spell", 11416),secure = {buttonType = "spell",ID = 11416}, UseTooltip = true},-- P:Ironforge
-			[3] = {text = GetSpellInfo(11419),icon = MER:GetIconFromID("spell", 11419),secure = {buttonType = "spell",ID = 11419}, UseTooltip = true},-- P:Darnassus
-			[4] = {text = GetSpellInfo(32266),icon = MER:GetIconFromID("spell", 32266),secure = {buttonType = "spell",ID = 32266}, UseTooltip = true},-- P:Exodar
-			[5] = {text = GetSpellInfo(49360),icon = MER:GetIconFromID("spell", 49360),secure = {buttonType = "spell",ID = 49360}, UseTooltip = true},-- P:Theramore
-			[6] = {text = GetSpellInfo(33691),icon = MER:GetIconFromID("spell", 33691),secure = {buttonType = "spell",ID = 33691}, UseTooltip = true},-- P:Shattrath
-			[7] = {text = GetSpellInfo(53142),icon = MER:GetIconFromID("spell", 53142),secure = {buttonType = "spell",ID = 53142}, UseTooltip = true},-- P:Dalaran - Northred
-			[8] = {text = GetSpellInfo(88345),icon = MER:GetIconFromID("spell", 88345),secure = {buttonType = "spell",ID = 88345}, UseTooltip = true},-- P:Tol Barad
-			[9] = {text = GetSpellInfo(120146),icon = MER:GetIconFromID("spell", 120146),secure = {buttonType = "spell",ID = 120146}, UseTooltip = true},-- P:Ancient Dalaran
-			[10] = {text = GetSpellInfo(132620),icon = MER:GetIconFromID("spell", 132620),secure = {buttonType = "spell",ID = 132620}, UseTooltip = true},-- P:Vale of Eternal Blossoms
-			[11] = {text = GetSpellInfo(176246),icon = MER:GetIconFromID("spell", 176246),secure = {buttonType = "spell",ID = 176246}, UseTooltip = true},-- P:StormShield
-			[12] = {text = GetSpellInfo(224871),icon = MER:GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
-			[13] = {text = GetSpellInfo(281400),icon = MER:GetIconFromID("spell", 281400),secure = {buttonType = "spell",ID = 281400}, UseTooltip = true},-- P:Boralus
-			[14] = {text = GetSpellInfo(344597),icon = MER:GetIconFromID("spell", 344597),secure = {buttonType = "spell",ID = 344597}, UseTooltip = true},-- P:Oribos
+			[1] = {text = GetSpellInfo(10059),icon = F.GetIconFromID("spell", 10059),secure = {buttonType = "spell",ID = 10059}, UseTooltip = true},-- P:Stormwind
+			[2] = {text = GetSpellInfo(11416),icon = F.GetIconFromID("spell", 11416),secure = {buttonType = "spell",ID = 11416}, UseTooltip = true},-- P:Ironforge
+			[3] = {text = GetSpellInfo(11419),icon = F.GetIconFromID("spell", 11419),secure = {buttonType = "spell",ID = 11419}, UseTooltip = true},-- P:Darnassus
+			[4] = {text = GetSpellInfo(32266),icon = F.GetIconFromID("spell", 32266),secure = {buttonType = "spell",ID = 32266}, UseTooltip = true},-- P:Exodar
+			[5] = {text = GetSpellInfo(49360),icon = F.GetIconFromID("spell", 49360),secure = {buttonType = "spell",ID = 49360}, UseTooltip = true},-- P:Theramore
+			[6] = {text = GetSpellInfo(33691),icon = F.GetIconFromID("spell", 33691),secure = {buttonType = "spell",ID = 33691}, UseTooltip = true},-- P:Shattrath
+			[7] = {text = GetSpellInfo(53142),icon = F.GetIconFromID("spell", 53142),secure = {buttonType = "spell",ID = 53142}, UseTooltip = true},-- P:Dalaran - Northred
+			[8] = {text = GetSpellInfo(88345),icon = F.GetIconFromID("spell", 88345),secure = {buttonType = "spell",ID = 88345}, UseTooltip = true},-- P:Tol Barad
+			[9] = {text = GetSpellInfo(120146),icon = F.GetIconFromID("spell", 120146),secure = {buttonType = "spell",ID = 120146}, UseTooltip = true},-- P:Ancient Dalaran
+			[10] = {text = GetSpellInfo(132620),icon = F.GetIconFromID("spell", 132620),secure = {buttonType = "spell",ID = 132620}, UseTooltip = true},-- P:Vale of Eternal Blossoms
+			[11] = {text = GetSpellInfo(176246),icon = F.GetIconFromID("spell", 176246),secure = {buttonType = "spell",ID = 176246}, UseTooltip = true},-- P:StormShield
+			[12] = {text = GetSpellInfo(224871),icon = F.GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
+			[13] = {text = GetSpellInfo(281400),icon = F.GetIconFromID("spell", 281400),secure = {buttonType = "spell",ID = 281400}, UseTooltip = true},-- P:Boralus
+			[14] = {text = GetSpellInfo(344597),icon = F.GetIconFromID("spell", 344597),secure = {buttonType = "spell",ID = 344597}, UseTooltip = true},-- P:Oribos
 		},
 	},
 	["challenge"] = {
-		[1] = {text = GetSpellInfo(131204),icon = MER:GetIconFromID("spell", 131204),secure = {buttonType = "spell",ID = 131204}, UseTooltip = true},-- Jade serpent
-		[2] = {text = GetSpellInfo(131205),icon = MER:GetIconFromID("spell", 131205),secure = {buttonType = "spell",ID = 131205}, UseTooltip = true}, -- Brew
-		[3] = {text = GetSpellInfo(131206),icon = MER:GetIconFromID("spell", 131206),secure = {buttonType = "spell",ID = 131206}, UseTooltip = true},-- Shado-pan
-		[4] = {text = GetSpellInfo(131222),icon = MER:GetIconFromID("spell", 131222),secure = {buttonType = "spell",ID = 131222}, UseTooltip = true},-- Mogu
-		[5] = {text = GetSpellInfo(131225),icon = MER:GetIconFromID("spell", 131225),secure = {buttonType = "spell",ID = 131225}, UseTooltip = true},-- Setting sun
-		[6] = {text = GetSpellInfo(131231),icon = MER:GetIconFromID("spell", 131231),secure = {buttonType = "spell",ID = 131231}, UseTooltip = true},-- Scarlet blade
-		[7] = {text = GetSpellInfo(131229),icon = MER:GetIconFromID("spell", 131229),secure = {buttonType = "spell",ID = 131229}, UseTooltip = true},-- scarlet mitre
-		[8] = {text = GetSpellInfo(131232),icon = MER:GetIconFromID("spell", 131232),secure = {buttonType = "spell",ID = 131232}, UseTooltip = true},-- Scholo
-		[9] = {text = GetSpellInfo(131228),icon = MER:GetIconFromID("spell", 131228),secure = {buttonType = "spell",ID = 131228}, UseTooltip = true},-- Black ox
-		[10] = {text = GetSpellInfo(159895),icon = MER:GetIconFromID("spell", 159895),secure = {buttonType = "spell",ID = 159895}, UseTooltip = true},-- bloodmaul
-		[11] = {text = GetSpellInfo(159902),icon = MER:GetIconFromID("spell", 159902),secure = {buttonType = "spell",ID = 159902}, UseTooltip = true},-- burning mountain
-		[12] = {text = GetSpellInfo(159899),icon = MER:GetIconFromID("spell", 159899),secure = {buttonType = "spell",ID = 159899}, UseTooltip = true},-- crescent moon
-		[13] = {text = GetSpellInfo(159900),icon = MER:GetIconFromID("spell", 159900),secure = {buttonType = "spell",ID = 159900}, UseTooltip = true},-- dark rail
-		[14] = {text = GetSpellInfo(159896),icon = MER:GetIconFromID("spell", 159896),secure = {buttonType = "spell",ID = 159896}, UseTooltip = true},-- iron prow
-		[15] = {text = GetSpellInfo(159898),icon = MER:GetIconFromID("spell", 159898),secure = {buttonType = "spell",ID = 159898}, UseTooltip = true},-- Skies
-		[16] = {text = GetSpellInfo(159901),icon = MER:GetIconFromID("spell", 159901),secure = {buttonType = "spell",ID = 159901}, UseTooltip = true},-- Verdant
-		[17] = {text = GetSpellInfo(159897),icon = MER:GetIconFromID("spell", 159897),secure = {buttonType = "spell",ID = 159897}, UseTooltip = true},-- Vigilant
+		[1] = {text = GetSpellInfo(131204),icon = F.GetIconFromID("spell", 131204),secure = {buttonType = "spell",ID = 131204}, UseTooltip = true},-- Jade serpent
+		[2] = {text = GetSpellInfo(131205),icon = F.GetIconFromID("spell", 131205),secure = {buttonType = "spell",ID = 131205}, UseTooltip = true}, -- Brew
+		[3] = {text = GetSpellInfo(131206),icon = F.GetIconFromID("spell", 131206),secure = {buttonType = "spell",ID = 131206}, UseTooltip = true},-- Shado-pan
+		[4] = {text = GetSpellInfo(131222),icon = F.GetIconFromID("spell", 131222),secure = {buttonType = "spell",ID = 131222}, UseTooltip = true},-- Mogu
+		[5] = {text = GetSpellInfo(131225),icon = F.GetIconFromID("spell", 131225),secure = {buttonType = "spell",ID = 131225}, UseTooltip = true},-- Setting sun
+		[6] = {text = GetSpellInfo(131231),icon = F.GetIconFromID("spell", 131231),secure = {buttonType = "spell",ID = 131231}, UseTooltip = true},-- Scarlet blade
+		[7] = {text = GetSpellInfo(131229),icon = F.GetIconFromID("spell", 131229),secure = {buttonType = "spell",ID = 131229}, UseTooltip = true},-- scarlet mitre
+		[8] = {text = GetSpellInfo(131232),icon = F.GetIconFromID("spell", 131232),secure = {buttonType = "spell",ID = 131232}, UseTooltip = true},-- Scholo
+		[9] = {text = GetSpellInfo(131228),icon = F.GetIconFromID("spell", 131228),secure = {buttonType = "spell",ID = 131228}, UseTooltip = true},-- Black ox
+		[10] = {text = GetSpellInfo(159895),icon = F.GetIconFromID("spell", 159895),secure = {buttonType = "spell",ID = 159895}, UseTooltip = true},-- bloodmaul
+		[11] = {text = GetSpellInfo(159902),icon = F.GetIconFromID("spell", 159902),secure = {buttonType = "spell",ID = 159902}, UseTooltip = true},-- burning mountain
+		[12] = {text = GetSpellInfo(159899),icon = F.GetIconFromID("spell", 159899),secure = {buttonType = "spell",ID = 159899}, UseTooltip = true},-- crescent moon
+		[13] = {text = GetSpellInfo(159900),icon = F.GetIconFromID("spell", 159900),secure = {buttonType = "spell",ID = 159900}, UseTooltip = true},-- dark rail
+		[14] = {text = GetSpellInfo(159896),icon = F.GetIconFromID("spell", 159896),secure = {buttonType = "spell",ID = 159896}, UseTooltip = true},-- iron prow
+		[15] = {text = GetSpellInfo(159898),icon = F.GetIconFromID("spell", 159898),secure = {buttonType = "spell",ID = 159898}, UseTooltip = true},-- Skies
+		[16] = {text = GetSpellInfo(159901),icon = F.GetIconFromID("spell", 159901),secure = {buttonType = "spell",ID = 159901}, UseTooltip = true},-- Verdant
+		[17] = {text = GetSpellInfo(159897),icon = F.GetIconFromID("spell", 159897),secure = {buttonType = "spell",ID = 159897}, UseTooltip = true},-- Vigilant
 	},
 }
 
@@ -476,15 +476,15 @@ function module:PopulateItems()
 		module.ListBuilding = false
 		for index, data in pairs(module.Hearthstones) do
 			local id, name, toy = data[1], data[2], data[3]
-			module.Hearthstones[index] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			module.Hearthstones[index] = {text = name or GetItemInfo(id), icon = F.GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
 		end
 		for index, data in pairs(module.PortItems) do
 			local id, name, toy = data[1], data[2], data[3]
-			module.PortItems[index] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			module.PortItems[index] = {text = name or GetItemInfo(id), icon = F.GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
 		end
 		for index, data in pairs(module.EngineerItems) do
 			local id, name, toy = data[1], data[2], data[3]
-			module.EngineerItems[index] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			module.EngineerItems[index] = {text = name or GetItemInfo(id), icon = F.GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
 		end
 	end
 end
@@ -508,7 +508,7 @@ function module:ItemList(check)
 			local ID, isToy = data.secure.ID, data.secure.isToy
 			isToy = (module.db.portals.showToys and isToy)
 			if not module.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
-			if (not isToy and (MER:BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
+			if (not isToy and (F.BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
 				if data.text then
 					if not isToy then
 						ShownHearthstone = data
@@ -546,7 +546,7 @@ function module:ItemList(check)
 		local ID, isToy = data.secure.ID, data.secure.isToy
 		isToy = (module.db.portals.showToys and isToy)
 		if not module.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
-		if ((not isToy and (MER:BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)))) then
+		if ((not isToy and (F.BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)))) then
 			if data.text then
 				local cd = DD:GetCooldown("Item", ID)
 				E:CopyTable(tmp, data)
@@ -567,7 +567,7 @@ function module:ItemList(check)
 			local data = module.EngineerItems[i]
 			local ID, isToy = data.secure.ID, data.secure.isToy
 			if not module.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
-			if (not isToy and (MER:BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
+			if (not isToy and (F.BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
 				if data.text then
 					local cd = DD:GetCooldown("Item", ID)
 					E:CopyTable(tmp, data)
@@ -633,7 +633,7 @@ function module:PopulateDropdown(click)
 			tinsert(module.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 			module:SpellList(module.Spells[E.myclass], module.MainMenu)
 			if module:SpellList(module.Spells.challenge, nil, true) then
-				tinsert(module.MainMenu, {text = CHALLENGE_MODE.." >>",icon = MER:GetIconFromID("achiev", 6378), func = function()
+				tinsert(module.MainMenu, {text = CHALLENGE_MODE.." >>",icon = F.GetIconFromID("achiev", 6378), func = function()
 					twipe(module.SecondaryMenu)
 					MENU_WIDTH = module.db.portals.customWidth and module.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 					tinsert(module.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(module.MainMenu); ToggleFrame(module.Menu2); module:PopulateDropdown() end})
@@ -644,7 +644,7 @@ function module:PopulateDropdown(click)
 				end})
 			end
 			if E.myclass == "MAGE" then
-				tinsert(module.MainMenu, {text = L["Teleports"].." >>", icon = MER:GetIconFromID("spell", 53140), secure = {buttonType = "spell"}, func = function()
+				tinsert(module.MainMenu, {text = L["Teleports"].." >>", icon = F.GetIconFromID("spell", 53140), secure = {buttonType = "spell"}, func = function()
 					twipe(module.SecondaryMenu)
 					MENU_WIDTH = module.db.portals.customWidth and module.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 					tinsert(module.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(module.MainMenu); ToggleFrame(module.Menu2); module:PopulateDropdown() end})
@@ -653,7 +653,7 @@ function module:PopulateDropdown(click)
 					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
 					MER:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
-				tinsert(module.MainMenu, {text = L["Portals"].." >>",icon = MER:GetIconFromID("spell", 53142), secure = {buttonType = "spell"}, func = function()
+				tinsert(module.MainMenu, {text = L["Portals"].." >>",icon = F.GetIconFromID("spell", 53142), secure = {buttonType = "spell"}, func = function()
 					twipe(module.SecondaryMenu)
 					MENU_WIDTH = module.db.portals.customWidth and module.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 					tinsert(module.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(module.MainMenu); ToggleFrame(module.Menu2); module:PopulateDropdown() end})
@@ -676,7 +676,7 @@ function module:PopulateDropdown(click)
 end
 
 function module:GetProf()
-	module.EngineerName = MER:GetSpell(4036)
+	module.EngineerName = F.GetSpell(4036)
 	module:CHAT_MSG_SKILL()
 end
 

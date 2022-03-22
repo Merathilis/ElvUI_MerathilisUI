@@ -142,7 +142,7 @@ function AFK:SetAFK(status)
 	if E.db.mui.general.AFK ~= true then return end
 
 	local guildName = GetGuildInfo("player") or ""
-	local kit, vert, hei = MER:GetConvCrest()
+	local kit, vert, hei = F.GetConvCrest()
 	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
 
 	if(status) then

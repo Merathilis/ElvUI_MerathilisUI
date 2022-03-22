@@ -54,7 +54,7 @@ function module:ReskinIcon(parent, icon, role, class)
 	if role then
 		if self.db.icon.reskin then
 			icon:SetTexture(MER.Media.Textures.ROLES)
-			icon:SetTexCoord(MER:GetRoleTexCoord(role))
+			icon:SetTexCoord(F.GetRoleTexCoord(role))
 		end
 
 		icon:Size(self.db.icon.size)
@@ -209,7 +209,7 @@ function module:AddGroupInfo(tooltip, resultID)
 			for class, counter in pairs(members) do
 				local numberText = counter ~= 1 and format(" × %d", counter) or ""
 				local icon = config.mode == "COMPACT" and GetIconString(role, "COMPACT") or ""
-				local className = MER:CreateClassColorString(LOCALIZED_CLASS_NAMES_MALE[class], class)
+				local className = F.CreateClassColorString(LOCALIZED_CLASS_NAMES_MALE[class], class)
 				tooltip:AddLine(icon .. className .. numberText)
 			end
 		end

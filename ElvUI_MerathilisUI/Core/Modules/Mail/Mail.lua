@@ -366,7 +366,7 @@ function module:UpdatePage(pageIndex)
 			if temp then
 				if temp.memberIndex then -- Only get guild member info if needed
 					local fullname, _, _, _, _, _, _, _, _, _, className = GetGuildRosterInfo(temp.memberIndex)
-					local name, realm = MER:SplitString("-", fullname)
+					local name, realm = F.SplitString("-", fullname)
 					realm = realm or E.myrealm
 					button.name = name
 					button.realm = realm
@@ -380,7 +380,7 @@ function module:UpdatePage(pageIndex)
 					button.faction = temp.faction
 					button.BNName = temp.BNName
 				end
-				button:SetText(button.class and MER:CreateClassColorString(button.name, button.class) or button.name)
+				button:SetText(button.class and F.CreateClassColorString(button.name, button.class) or button.name)
 				button:Show()
 			else
 				button:Hide()
@@ -457,7 +457,7 @@ function module:BuildFriendsData()
 	for i = 1, numWoWFriend do
 		local info = C_FriendList_GetFriendInfoByIndex(i)
 		if info.connected then
-			local name, realm = MER:SplitString("-", info.name)
+			local name, realm = F.SplitString("-", info.name)
 			realm = realm or E.myrealm
 			tinsert(data, {name = name, realm = realm, class = GetNonLocalizedClass(info.className)})
 			tempKey[name .. "-" .. realm] = true
@@ -512,7 +512,7 @@ function module:BuildFavoriteData()
 	data = {}
 
 	for fullName in pairs(E.global.mui.contacts.favorites) do
-		local name, realm = MER:SplitString("-", fullName)
+		local name, realm = F.SplitString("-", fullName)
 		realm = realm or E.myrealm
 		tinsert(data, {name = name, realm = realm})
 	end

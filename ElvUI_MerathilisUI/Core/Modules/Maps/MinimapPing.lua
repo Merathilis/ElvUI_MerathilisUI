@@ -39,9 +39,9 @@ function module:MINIMAP_PING(_, unit)
 	end
 
 	if self.db.classColor then
-		name = MER:CreateClassColorString(name, englishClass)
+		name = F.CreateClassColorString(name, englishClass)
 	else
-		name = MER:CreateColorString(name, self.db.customColor)
+		name = F.CreateColorString(name, self.db.customColor)
 	end
 
 	self.text:SetText(name)

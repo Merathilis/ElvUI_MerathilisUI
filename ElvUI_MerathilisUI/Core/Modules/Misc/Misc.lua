@@ -129,8 +129,8 @@ end
 
 -- Colors
 local function classColor(class, showRGB)
-	local color = MER.ClassColors[E.UnlocalizedClasses[class] or class]
-	if not color then color = MER.ClassColors['PRIEST'] end
+	local color = F.ClassColors[E.UnlocalizedClasses[class] or class]
+	if not color then color = F.ClassColors['PRIEST'] end
 
 	if showRGB then
 		return color.r, color.g, color.b
@@ -140,7 +140,7 @@ local function classColor(class, showRGB)
 end
 
 local function diffColor(level)
-	return MER:RGBToHex(GetQuestDifficultyColor(level))
+	return F.RGBToHex(GetQuestDifficultyColor(level))
 end
 
 local blizzHexColors = {}
@@ -193,7 +193,7 @@ do
 	RaidNotice_AddMessage = function(frame, message, ...)
 		if strfind(message, '|cff') then
 			for hex, class in pairs(blizzHexColors) do
-				local color = MER.ClassColors[class]
+				local color = F.ClassColors[class]
 				message = gsub(message, hex, color.colorStr)
 			end
 		end

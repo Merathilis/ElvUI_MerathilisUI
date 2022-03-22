@@ -168,7 +168,7 @@ local function LoadSkin()
 					roleIcon.backdrop:SetOutside(roleIcon)
 				end
 				roleIcon:SetTexture(E.media.roleIcons)
-				roleIcon:SetTexCoord(MER:GetRoleTexCoord(role))
+				roleIcon:SetTexCoord(F.GetRoleTexCoord(role))
 			end
 		end
 	end

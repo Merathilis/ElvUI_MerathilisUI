@@ -39,25 +39,25 @@ local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCov
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
 -- Class Color stuff
-MER.ClassColors = {}
+F.ClassColors = {}
 local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 for class, value in pairs(colors) do
-	MER.ClassColors[class] = {}
-	MER.ClassColors[class].r = value.r
-	MER.ClassColors[class].g = value.g
-	MER.ClassColors[class].b = value.b
-	MER.ClassColors[class].colorStr = value.colorStr
+	F.ClassColors[class] = {}
+	F.ClassColors[class].r = value.r
+	F.ClassColors[class].g = value.g
+	F.ClassColors[class].b = value.b
+	F.ClassColors[class].colorStr = value.colorStr
 end
-MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
+F.r, F.g, F.b = F.ClassColors[E.myclass].r, F.ClassColors[E.myclass].g, F.ClassColors[E.myclass].b
 
 local defaultColor = { r = 1, g = 1, b = 1, a = 1 }
-function MER:unpackColor(color)
+function F.unpackColor(color)
 	if not color then color = defaultColor end
 
 	return color.r, color.g, color.b, color.a
 end
 
-function MER:CreateColorString(text, db)
+function F.CreateColorString(text, db)
 	if not text or not type(text) == "string" then
 		return
 	end
@@ -69,7 +69,7 @@ function MER:CreateColorString(text, db)
 	return hex .. text .. "|r"
 end
 
-function MER:CreateClassColorString(text, englishClass)
+function F.CreateClassColorString(text, englishClass)
 	if not text or not type(text) == "string" then
 		return
 	end
@@ -84,7 +84,7 @@ function MER:CreateClassColorString(text, englishClass)
 end
 
 do
-	function MER:RGBToHex(r, g, b)
+	function F.RGBToHex(r, g, b)
 		if r then
 			if type(r) == 'table' then
 				if r.r then
@@ -97,12 +97,12 @@ do
 		end
 	end
 
-	function MER:HexToRGB(hex)
+	function F.HexToRGB(hex)
 		return tonumber('0x' .. strsub(hex, 1, 2)) / 255, tonumber('0x' .. strsub(hex, 3, 4)) / 255, tonumber('0x' .. strsub(hex, 5, 6)) / 255
 	end
 end
 
-function MER:SetFontDB(text, db)
+function F.SetFontDB(text, db)
 	if not text or not text.GetFont then
 		return
 	end
@@ -113,7 +113,7 @@ function MER:SetFontDB(text, db)
 	text:FontTemplate(LSM:Fetch("font", db.name), db.size, db.style)
 end
 
-function MER:SetFontColorDB(text, db)
+function F.SetFontColorDB(text, db)
 	if not text or not text.GetFont then
 		return
 	end
@@ -124,30 +124,8 @@ function MER:SetFontColorDB(text, db)
 	text:SetTextColor(db.r, db.g, db.b, db.a)
 end
 
-do
-	local template = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
-	local s = 14
-	function MER:GetIconString(icon, size)
-		return format(template, icon, size or s, size or s)
-	end
-end
-
-function MER:SetupProfileCallbacks()
-	E.data.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
-	E.data.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
-	E.data.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
-end
-
-function MER:Print(...)
-	print("|cffff7d0a".."mUI:|r", ...)
-end
-
-function MER:PrintURL(url)
-	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
-end
-
 -- LocPanel
-function MER:GetIconFromID(type, id)
+function F.GetIconFromID(type, id)
 	local path
 	if type == "item" then
 		path = select(10, GetItemInfo(id))
@@ -159,12 +137,12 @@ function MER:GetIconFromID(type, id)
 	return path or nil
 end
 
-function MER:GetSpell(id)
+function F.GetSpell(id)
 	local name = GetSpellInfo(id)
 	return name
 end
 
-function MER:SplitList(list, variable, cleanup)
+function F.SplitList(list, variable, cleanup)
 	if cleanup then twipe(list) end
 
 	for word in variable:gmatch('%S+') do
@@ -180,7 +158,7 @@ local essenceTextureID = 2975691
 local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
 
 local texturesDB, essencesDB = {}, {}
-function MER:InspectItemTextures(clean, grabTextures)
+function F.InspectItemTextures(clean, grabTextures)
 	twipe(texturesDB)
 	twipe(essencesDB)
 
@@ -205,7 +183,7 @@ function MER:InspectItemTextures(clean, grabTextures)
 	return texturesDB, essencesDB
 end
 
-function MER:InspectItemInfo(text, iLvl, enchantText)
+function F.InspectItemInfo(text, iLvl, enchantText)
 	local itemLevel = strfind(text, itemLevelString) and strmatch(text, "(%d+)%)?$")
 	if itemLevel then iLvl = tonumber(itemLevel) end
 	local enchant = strmatch(text, enchantString)
@@ -214,20 +192,20 @@ function MER:InspectItemInfo(text, iLvl, enchantText)
 	return iLvl, enchantText
 end
 
-function MER:GetItemLevel(link, arg1, arg2, fullScan)
+function F.GetItemLevel(link, arg1, arg2, fullScan)
 	if fullScan then
-		MER:InspectItemTextures(true)
+		F.InspectItemTextures(true)
 		tip:SetOwner(UIParent, "ANCHOR_NONE")
 		tip:SetInventoryItem(arg1, arg2)
 
 		local iLvl, enchantText, gems, essences
-		gems, essences = MER:InspectItemTextures(nil, true)
+		gems, essences = F.InspectItemTextures(nil, true)
 
 		for i = 1, tip:NumLines() do
 			local line = _G[tip:GetName().."TextLeft"..i]
 			if line then
 				local text = line:GetText() or ""
-				iLvl, enchantText = MER:InspectItemInfo(text, iLvl, enchantText)
+				iLvl, enchantText = F.InspectItemInfo(text, iLvl, enchantText)
 				if enchantText then break end
 			end
 		end
@@ -263,7 +241,7 @@ function MER:GetItemLevel(link, arg1, arg2, fullScan)
 end
 
 -- Check Chat channels
-function MER:CheckChat(msg)
+function F.CheckChat(msg)
 	if IsInGroup(_G.LE_PARTY_CATEGORY_INSTANCE) then
 		return "INSTANCE_CHAT"
 	elseif IsInRaid(_G.LE_PARTY_CATEGORY_HOME) then
@@ -279,7 +257,7 @@ function MER:CheckChat(msg)
 	return "SAY"
 end
 
-function MER:CheckPlayerBuff(spell)
+function F.CheckPlayerBuff(spell)
 	for i = 1, 40 do
 		local name, _, _, _, _, _, unitCaster = UnitBuff("player", i)
 		if not name then break end
@@ -290,7 +268,7 @@ function MER:CheckPlayerBuff(spell)
 	return nil
 end
 
-function MER:BagSearch(itemId)
+function F.BagSearch(itemId)
 	for container = 0, _G.NUM_BAG_SLOTS do
 		for slot = 1, GetContainerNumSlots(container) do
 			if itemId == GetContainerItemID(container, slot) then
@@ -300,52 +278,7 @@ function MER:BagSearch(itemId)
 	end
 end
 
--- Whiro's code magic
-function MER:UpdateRegisteredDBs()
-	if (not MER["RegisteredDBs"]) then
-		return
-	end
-
-	local dbs = MER["RegisteredDBs"]
-
-	for tbl, path in pairs(dbs) do
-		self:UpdateRegisteredDB(tbl, path)
-	end
-end
-
-function MER:OnProfileChanged()
-	MER:Hook(E, "UpdateEnd", "UpdateAll")
-end
-
-function MER:UpdateAll()
-	self:UpdateRegisteredDBs()
-	for _, module in ipairs(self:GetRegisteredModules()) do
-		local mod = MER:GetModule(module)
-		if (mod and mod.ForUpdateAll) then
-			mod:ForUpdateAll()
-		end
-	end
-	MER:Unhook(E, "UpdateEnd")
-end
-
-function MER:UpdateRegisteredDB(tbl, path)
-	local path_parts = {strsplit(".", path)}
-	local _db = E.db.mui
-	for _, path_part in ipairs(path_parts) do
-		_db = _db[path_part]
-	end
-	tbl.db = _db
-end
-
-function MER:RegisterDB(tbl, path)
-	if (not MER["RegisteredDBs"]) then
-		MER["RegisteredDBs"] = {}
-	end
-	self:UpdateRegisteredDB(tbl, path)
-	MER["RegisteredDBs"][tbl] = path
-end
-
-function MER:Reset(group)
+function F.Reset(group)
 	if not group then print("U wot m8?") end
 
 	if group == "marks" or group == "all" then
@@ -361,7 +294,7 @@ local function MovableButton_Match(s,v)
 	return (match(s, m1) and m1) or (match(s, m2) and m2) or (match(s, m3) and m3) or (match(s, m4) and v..",")
 end
 
-function MER:MovableButtonSettings(db, key, value, remove, movehere)
+function F.MovableButtonSettings(db, key, value, remove, movehere)
 	local str = db[key]
 	if not db or not str or not value then return end
 
@@ -384,7 +317,7 @@ function MER:MovableButtonSettings(db, key, value, remove, movehere)
 	end
 end
 
-function MER:CreateMovableButtons(Order, Name, CanRemove, db, key)
+function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 	local moveItemFrom, moveItemTo
 
 	local config = {
@@ -400,7 +333,7 @@ function MER:CreateMovableButtons(Order, Name, CanRemove, db, key)
 			moveItemFrom, moveItemTo = info.obj.value, nil
 		end,
 		dragOnMouseUp = function(info)
-			MER:MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
+			F.MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
 			moveItemFrom, moveItemTo = nil, nil
 		end,
 		stateSwitchGetText = function(info, TEXT)
@@ -409,7 +342,7 @@ function MER:CreateMovableButtons(Order, Name, CanRemove, db, key)
 			return text
 		end,
 		stateSwitchOnClick = function(info)
-			MER:MovableButtonSettings(db, key, moveItemFrom)
+			F.MovableButtonSettings(db, key, moveItemFrom)
 		end,
 		values = function()
 			local str = db[key]
@@ -427,38 +360,15 @@ function MER:CreateMovableButtons(Order, Name, CanRemove, db, key)
 
 	if CanRemove then --This allows to remove
 		config.dragOnClick = function(info)
-			MER:MovableButtonSettings(db, key, moveItemFrom, true)
+			F.MovableButtonSettings(db, key, moveItemFrom, true)
 		end
 	end
 
 	return config
 end
 
--- GameTooltip
-function MER:AddTooltip(self, anchor, text, color)
-	if not anchor then return end
-
-	self:SetScript("OnEnter", function()
-		_G.GameTooltip:SetOwner(self, anchor)
-		_G.GameTooltip:ClearLines()
-		if tonumber(text) then
-			_G.GameTooltip:SetSpellByID(text)
-		else
-			local r, g, b = 1, 1, 1
-			if color == "class" then
-				r, g, b = MER.r, MER.g, MER.b
-			elseif color == "system" then
-				r, g, b = 1, .8, 0
-			end
-			_G.GameTooltip:AddLine(text, r, g, b)
-		end
-		_G.GameTooltip:Show()
-	end)
-	self:SetScript("OnLeave", GameTooltip_Hide)
-end
-
 -- frame text
-function MER:CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
+function F.CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	local text = f:CreateFontString(nil, layer)
 	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
 	text:SetHeight(text:GetStringHeight()+30)
@@ -493,7 +403,7 @@ SlashCmdList["WOWVERSION"] = function()
 end
 
 -- Chat command to remove Heirlooms from the bags
-function MER:CleanupHeirlooms()
+function F.CleanupHeirlooms()
 	for bag = 0, 4 do
 		for slot = 1, GetContainerNumSlots(bag) do
 			local name = GetContainerItemLink(bag, slot)
@@ -505,15 +415,15 @@ function MER:CleanupHeirlooms()
 		end
 	end
 end
-MER:RegisterChatCommand("cleanboa", MER.CleanupHeirlooms)
+MER:RegisterChatCommand("cleanboa", F.CleanupHeirlooms)
 
 -- Fixes the issue when the dialog to release spirit does not come up.
-function MER:FixRelease()
+function F.FixRelease()
 	RetrieveCorpse()
 	RepopMe()
 end
-MER:RegisterChatCommand("release", MER.FixRelease)
-MER:RegisterChatCommand("repop", MER.FixRelease)
+MER:RegisterChatCommand("release", F.FixRelease)
+MER:RegisterChatCommand("repop", F.FixRelease)
 
 -- Personal Dev use only
 -- We will add more of my names as we go.
@@ -545,16 +455,16 @@ MER.IsDevRealm = {
 	["Torghast"] = true,
 }
 
-function MER:IsDeveloper()
+function F.IsDeveloper()
 	return MER.IsDev[E.myname] or false
 end
 
-function MER:IsDeveloperRealm()
+function F.IsDeveloperRealm()
 	return MER.IsDevRealm[E.myrealm] or false
 end
 
 -- Covenant Crest: Credits BenikUI
-function MER:GetConvCrest()
+function F.GetConvCrest()
 	if not E.Retail then return end
 
 	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
@@ -580,7 +490,7 @@ function MER:GetConvCrest()
 end
 
 -- Icon Style
-function MER:PixelIcon(self, texture, highlight)
+function F.PixelIcon(self, texture, highlight)
 	if not self then return end
 
 	self.Icon = self:CreateTexture(nil, "ARTWORK")
@@ -605,7 +515,7 @@ function MER:PixelIcon(self, texture, highlight)
 end
 
 -- Role Icons
-function MER:GetRoleTexCoord(role)
+function F.GetRoleTexCoord(role)
 	if role == "TANK" then
 		return .32/9.03, 2.04/9.03, 2.65/9.03, 4.3/9.03
 	elseif role == "DPS" or role == "DAMAGER" then
@@ -623,14 +533,14 @@ function MER:GetRoleTexCoord(role)
 	end
 end
 
-function MER:ReskinRole(self, role)
+function F.ReskinRole(self, role)
 	if self.background then self.background:SetTexture("") end
 	local cover = self.cover or self.Cover
 	if cover then cover:SetTexture("") end
 	local texture = self.GetNormalTexture and self:GetNormalTexture() or self.texture or self.Texture or (self.SetTexture and self)
 	if texture then
 		texture:SetTexture(E.media.roleIcons)
-		texture:SetTexCoord(MER:GetRoleTexCoord(role))
+		texture:SetTexCoord(F.GetRoleTexCoord(role))
 	end
 
 	local checkButton = self.checkButton or self.CheckButton or self.CheckBox
@@ -650,7 +560,7 @@ function MER:ReskinRole(self, role)
 	end
 end
 
-function MER:SplitString(delimiter, subject)
+function F.SplitString(delimiter, subject)
 	if not subject or subject == "" then
 		return {}
 	end

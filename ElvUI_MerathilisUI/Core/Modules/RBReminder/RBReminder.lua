@@ -245,7 +245,7 @@ local function OnAuraChange(self, event, arg1, unit)
 				CustomFrame.t:SetTexture(icon)
 			end
 
-			if MER:CheckPlayerBuff(name) then
+			if F.CheckPlayerBuff(name) then
 				CustomFrame:SetAlpha(module.db.alpha)
 				custom = true
 				LCG.PixelGlow_Stop(CustomFrame)

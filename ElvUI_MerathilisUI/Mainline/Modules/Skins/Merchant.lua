@@ -239,7 +239,7 @@ local function UpdateMerchantInfo()
 			-- ItemLevel
 			if itemButton and itemButton:IsShown() then
 				if not itemButton.text then
-					itemButton.text = MER:CreateText(itemButton, "OVERLAY", 10)
+					itemButton.text = F.CreateText(itemButton, "OVERLAY", 10)
 					itemButton.text:ClearAllPoints()
 					itemButton.text:Point("BOTTOMRIGHT", 2, -9)
 				else

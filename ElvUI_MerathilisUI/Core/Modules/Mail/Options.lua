@@ -72,7 +72,7 @@ local function MailTable()
 						for realm, factions in pairs(E.global.mui.contacts.alts) do
 							for _, characters in pairs(factions) do
 								for name, class in pairs(characters) do
-									result[name .. "-" .. realm] = MER:CreateClassColorString(name .. "-" .. realm, class)
+									result[name .. "-" .. realm] = F.CreateClassColorString(name .. "-" .. realm, class)
 								end
 							end
 						end
