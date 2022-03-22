@@ -1,4 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
+local MER, F, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:GetModule('MER_LFGInfo')
 local UF = E:GetModule("UnitFrames")

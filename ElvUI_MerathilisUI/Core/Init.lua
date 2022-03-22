@@ -17,10 +17,10 @@ local pcall, pairs, ipairs = pcall, pairs, ipairs
 Engine[1] = MER
 Engine[2] = {} -- Functions F
 Engine[3] = E
-Engine[3] = L
-Engine[4] = V
-Engine[5] = P
-Engine[6] = G
+Engine[4] = L
+Engine[5] = V
+Engine[6] = P
+Engine[7] = G
 _G[addon] = Engine
 
 MER.Config = {}
