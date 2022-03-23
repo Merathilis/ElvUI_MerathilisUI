@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Misc')
 
 --Cache global variables
@@ -85,6 +85,7 @@ local itemList = {
 	[345130] = true,	-- Disposable Spectrophasic Reanimator
 	[307157] = true,	-- Eternal Cauldron
 	[324029] = true,	-- Codex of the Still Mind
+	[359336] = true,	 -- Kettle of Stone Soup
 }
 
 function module:ItemAlert_Update(unit, _, spellID)
@@ -92,7 +93,7 @@ function module:ItemAlert_Update(unit, _, spellID)
 		local who = UnitName(unit)
 		local link = GetSpellLink(spellID)
 		local name = GetSpellInfo(spellID)
-		SendChatMessage(format(L.ANNOUNCE_FP_PRE, who, link or name), MER:CheckChat())
+		SendChatMessage(format(L.ANNOUNCE_FP_PRE, who, link or name), F.CheckChat())
 
 		lastTime = GetTime()
 	end
@@ -129,20 +130,20 @@ frame:SetScript('OnEvent', function()
 	if subEvent == "SPELL_CAST_SUCCESS" then
 		-- Refreshment Table
 		if db.feasts and spellID == 190336 then
-			SendChatMessage(format(L.ANNOUNCE_FP_PRE, srcName, GetSpellLink(spellID)), MER:CheckChat())
+			SendChatMessage(format(L.ANNOUNCE_FP_PRE, srcName, GetSpellLink(spellID)), F.CheckChat())
 		-- Ritual of Summoning
 		elseif db.portals and spellID == 698 then
-			SendChatMessage(format(L.ANNOUNCE_FP_CLICK, srcName, GetSpellLink(spellID)), MER:CheckChat())
+			SendChatMessage(format(L.ANNOUNCE_FP_CLICK, srcName, GetSpellLink(spellID)), F.CheckChat())
 		-- Soul Well
 		elseif db.feasts and spellID == 29893 then
-			SendChatMessage(format(L.ANNOUNCE_FP_PRE, srcName, GetSpellLink(spellID)), MER:CheckChat())
+			SendChatMessage(format(L.ANNOUNCE_FP_PRE, srcName, GetSpellLink(spellID)), F.CheckChat())
 		-- Piccolo of the Flaming Fire
 		elseif db.toys and spellID == 182346 then
-			SendChatMessage(format(L.ANNOUNCE_FP_USE, srcName, GetSpellLink(spellID)), MER:CheckChat())
+			SendChatMessage(format(L.ANNOUNCE_FP_USE, srcName, GetSpellLink(spellID)), F.CheckChat())
 		end
 	elseif subEvent == "SPELL_CREATE" then
 		if db.portals and MER.Announce[spellID] then
-			SendChatMessage(format(L.ANNOUNCE_FP_CAST, srcName, GetSpellLink(spellID)), MER:CheckChat())
+			SendChatMessage(format(L.ANNOUNCE_FP_CAST, srcName, GetSpellLink(spellID)), F.CheckChat())
 		end
 	end
 end)

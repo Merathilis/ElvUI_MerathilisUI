@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -124,6 +124,12 @@ local function LoadSkin()
 			end
 		end
 	end)
+
+	for _, widgetFrame in pairs(_G.UIWidgetPowerBarContainerFrame.widgetFrames) do
+		if not widgetFrame:IsForbidden() then
+			ReskinWidgetStatusBar(widgetFrame.Bar)
+		end
+	end
 
 	hooksecurefunc(_G.TopScenarioWidgetContainerBlock.WidgetContainer, "UpdateWidgetLayout", function(self)
 		for _, widgetFrame in pairs(self.widgetFrames) do

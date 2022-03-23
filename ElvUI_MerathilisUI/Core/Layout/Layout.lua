@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERL = MER:GetModule('MER_Layout')
 local CH = E:GetModule('Chat')
 local DT = E:GetModule('DataTexts')

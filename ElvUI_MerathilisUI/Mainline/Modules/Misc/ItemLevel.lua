@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule('MER_Misc')
 
 -- Cache global variables
@@ -15,7 +15,7 @@ local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
 -- ItemLevel on Flyoutbuttons
 local function UpdateFlyoutLevel(button, bag, slot, quality)
 	if not button.iLvl then
-		button.iLvl = MER:CreateText(button, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
+		button.iLvl = F.CreateText(button, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
 		button.iLvl:ClearAllPoints()
 		button.iLvl:Point("BOTTOMRIGHT", 1, -8)
 	end
@@ -23,10 +23,10 @@ local function UpdateFlyoutLevel(button, bag, slot, quality)
 	local link, level
 	if bag then
 		link = GetContainerItemLink(bag, slot)
-		level = MER:GetItemLevel(link, bag, slot)
+		level = F.GetItemLevel(link, bag, slot)
 	else
 		link = GetInventoryItemLink("player", slot)
-		level = MER:GetItemLevel(link, "player", slot)
+		level = F.GetItemLevel(link, "player", slot)
 	end
 
 	local color = ITEM_QUALITY_COLORS[quality or 1]
@@ -55,7 +55,7 @@ end
 
 local function ScrappingMachineUpdate(self)
 	if not self.iLvl then
-		self.iLvl = MER:CreateText(self, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
+		self.iLvl = F.CreateText(self, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
 		self.iLvl:ClearAllPoints()
 		self.iLvl:Point("BOTTOMRIGHT", 1, -8)
 	end
@@ -67,7 +67,7 @@ local function ScrappingMachineUpdate(self)
 		quality = self.item:GetItemQuality()
 	end
 
-	local level = MER:GetItemLevel(self.itemLink)
+	local level = F.GetItemLevel(self.itemLink)
 	local color = ITEM_QUALITY_COLORS[quality or 1]
 	self.iLvl:SetText(level)
 	if color then

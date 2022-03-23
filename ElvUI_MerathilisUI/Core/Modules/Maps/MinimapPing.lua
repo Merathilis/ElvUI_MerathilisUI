@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Minimap')
 local LSM = E.LSM
 
@@ -39,9 +39,9 @@ function module:MINIMAP_PING(_, unit)
 	end
 
 	if self.db.classColor then
-		name = MER:CreateClassColorString(name, englishClass)
+		name = F.CreateClassColorString(name, englishClass)
 	else
-		name = MER:CreateColorString(name, self.db.customColor)
+		name = F.CreateColorString(name, self.db.customColor)
 	end
 
 	self.text:SetText(name)

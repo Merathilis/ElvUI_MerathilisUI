@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule('MER_SpellAlert', 'AceEvent-3.0')
 
 local _G = _G

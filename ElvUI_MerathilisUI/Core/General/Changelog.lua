@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -16,10 +16,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added Cosmic Healing Potion to the AutoButtons -- Retail",
-		"• Add an option to disable my button skin",
+		"• Added Kettle of the Stone Soupt to my alerts",
+		"• Added some missing german locales. Thx @DlargeX",
 		"• Updated some skins",
-		"• Fixed an issue with the AddOn Infinite Raid Tools",
+		"• Try to reskin a widget statusbar on login",
+		"• Added Dominated Hearthstone to the LocPanel. Thx @nictie",
 
 	" ",
 	"Notes:",
@@ -27,6 +28,7 @@ local ChangeLogData = {
 		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muierrors on' and test again",
 
+		"• 'I CHANGED SOME BACKEND CODE. IF YOU ARE EXPERIENCE SOME ERRORS, PLEASE LET ME KNOW!'",
 		-- "• ''",
 }
 
@@ -111,7 +113,7 @@ function MER:CreateChangelog()
 	title:CreateBackdrop("Transparent")
 	title.backdrop:Styling()
 
-	title.text = MER:CreateText(title, "OVERLAY", 15, nil, "CENTER")
+	title.text = F.CreateText(title, "OVERLAY", 15, nil, "CENTER")
 	title.text:Point("CENTER", title, 0, -1)
 	title.text:SetText(MER.Title.. "- ChangeLog "..format("|cff00c0fa%s|r", MER.Version))
 
@@ -126,7 +128,7 @@ function MER:CreateChangelog()
 	close:Disable()
 	frame.close = close
 
-	local countdown = MER:CreateText(close, "OVERLAY", 12, nil, "CENTER")
+	local countdown = F.CreateText(close, "OVERLAY", 12, nil, "CENTER")
 	countdown:Point("LEFT", close.Text, "RIGHT", 3, 0)
 	countdown:SetTextColor(DISABLED_FONT_COLOR:GetRGB())
 	frame.countdown = countdown
@@ -140,7 +142,7 @@ function MER:CreateChangelog()
 		if i <= #ChangeLogData then
 			local string, isURL = ModifiedString(GetChangeLogInfo(i))
 
-			button.Text = MER:CreateText(button, "OVERLAY", 11, nil, "CENTER")
+			button.Text = F.CreateText(button, "OVERLAY", 11, nil, "CENTER")
 			button.Text.isURL = isURL
 			button.Text:SetText(string)
 			button.Text:Point("LEFT", 0, 0)

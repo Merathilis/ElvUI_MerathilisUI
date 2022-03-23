@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_CombatText')
 
 --Cache global variables
@@ -36,7 +36,7 @@ function module:RefreshAlert()
 
 	self.db = E.db.mui.CombatAlert
 
-	MER:SetFontDB(self.alert.text, self.db.font)
+	F.SetFontDB(self.alert.text, self.db.font)
 	self.alert:SetScale(self.db.style.scale or 0.8)
 
 	if self.db.style.backdrop then

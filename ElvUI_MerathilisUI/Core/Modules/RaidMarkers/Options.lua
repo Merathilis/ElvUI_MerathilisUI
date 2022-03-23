@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local RMA = MER:GetModule('MER_RaidMarkers')
 local COMP = MER:GetModule('MER_Compatibility')
 
@@ -54,7 +54,7 @@ local function RaidMarkers()
 						desc = L["Reset these options to defaults"],
 						disabled = function() return not E.db.mui.raidmarkers.enable end,
 						hidden = function() return not E.db.mui.raidmarkers.enable end,
-						func = function() MER:Reset("marks") end,
+						func = function() F.Reset("marks") end,
 					},
 					space1 = {
 						order = 7,

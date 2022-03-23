@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -239,7 +239,7 @@ local function UpdateMerchantInfo()
 			-- ItemLevel
 			if itemButton and itemButton:IsShown() then
 				if not itemButton.text then
-					itemButton.text = MER:CreateText(itemButton, "OVERLAY", 10)
+					itemButton.text = F.CreateText(itemButton, "OVERLAY", 10)
 					itemButton.text:ClearAllPoints()
 					itemButton.text:Point("BOTTOMRIGHT", 2, -9)
 				else

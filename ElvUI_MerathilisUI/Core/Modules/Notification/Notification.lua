@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Notification')
 local MERS = MER:GetModule('MER_Skins')
 local CH = E:GetModule('Chat')
@@ -197,22 +197,22 @@ function module:CreateToast()
 	sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
 	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
 
-	local title = MER:CreateText(toast, "OVERLAY")
+	local title = F.CreateText(toast, "OVERLAY")
 	title:SetShadowOffset(1, -1)
 	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, 3)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
 	title:SetJustifyH("LEFT")
 	title:SetNonSpaceWrap(true)
-	MER:SetFontDB(title, db.titleFont)
+	F.SetFontDB(title, db.titleFont)
 	toast.title = title
 
-	local text = MER:CreateText(toast, "OVERLAY")
+	local text = F.CreateText(toast, "OVERLAY")
 	text:SetShadowOffset(1, -1)
 	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 20)
 	text:SetPoint("RIGHT", toast, -9, 0)
 	text:SetJustifyH("LEFT")
 	text:SetWidth(toast:GetRight() - sep:GetLeft() - 5)
-	MER:SetFontDB(text, db.textFont)
+	F.SetFontDB(text, db.textFont)
 	toast.text = text
 
 	toast.AnimIn = CreateAnimationGroup(toast)

@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_SuperTracker')
 
 local _G = _G
@@ -18,7 +18,7 @@ function module:ReskinDistanceText()
 		return
 	end
 
-	MER:SetFontDB(_G.SuperTrackedFrame.DistanceText, self.db.distanceText)
+	F.SetFontDB(_G.SuperTrackedFrame.DistanceText, self.db.distanceText)
 	_G.SuperTrackedFrame.DistanceText:SetTextColor(self.db.distanceText.color.r, self.db.distanceText.color.g, self.db.distanceText.color.b)
 
 	if self.db.distanceText.onlyNumber then

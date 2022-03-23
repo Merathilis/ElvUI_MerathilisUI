@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local AFK = E:GetModule('AFK')
 local COMP = MER:GetModule('MER_Compatibility')
 
@@ -142,7 +142,7 @@ function AFK:SetAFK(status)
 	if E.db.mui.general.AFK ~= true then return end
 
 	local guildName = GetGuildInfo("player") or ""
-	local kit, vert, hei = MER:GetConvCrest()
+	local kit, vert, hei = F.GetConvCrest()
 	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
 
 	if(status) then

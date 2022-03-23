@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERC = MER:GetModule('MER_Chat')
 
 -- Cache global variables
@@ -29,7 +29,7 @@ local msgSymbols = {'`', '～', '＠', '＃', '^', '＊', '！', '？', '。', '
 
 local FilterList = {}
 function MERC:UpdateFilterList()
-	MER:SplitList(FilterList, E.db.mui.chat.filter.keywords, true)
+	F.SplitList(FilterList, E.db.mui.chat.filter.keywords, true)
 end
 
 -- ECF strings compare

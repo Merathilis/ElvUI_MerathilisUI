@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_ChatBar')
 local LSM = E.LSM
 
@@ -95,7 +95,7 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 
 		button.text = button:CreateFontString(nil, "OVERLAY")
 		button.text:Point("CENTER", button, "CENTER", 0, 0)
-		MER:SetFontDB(button.text, self.db.font)
+		F.SetFontDB(button.text, self.db.font)
 		button.defaultFontSize = self.db.font.size
 
 		button:SetScript("OnEnter", function(self)
@@ -166,10 +166,10 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 
 		self.bar[name].text:Hide()
 	else
-		local buttonText = self.db.color and MER:CreateColorString(abbr, color) or abbr
+		local buttonText = self.db.color and F.CreateColorString(abbr, color) or abbr
 		self.bar[name].text:SetText(buttonText)
 		self.bar[name].defaultFontSize = self.db.font.size
-		MER:SetFontDB(self.bar[name].text, self.db.font)
+		F.SetFontDB(self.bar[name].text, self.db.font)
 		self.bar[name].text:Show()
 
 		self.bar[name].colorBlock:Hide()
