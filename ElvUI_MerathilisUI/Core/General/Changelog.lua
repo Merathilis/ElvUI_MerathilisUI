@@ -16,10 +16,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added Cosmic Healing Potion to the AutoButtons -- Retail",
-		"• Add an option to disable my button skin",
+		"• Added Kettle of the Stone Soupt to my alerts",
+		"• Added some missing german locales. Thx @DlargeX",
 		"• Updated some skins",
-		"• Fixed an issue with the AddOn Infinite Raid Tools",
+		"• Try to reskin a widget statusbar on login",
+		"• Added Dominated Hearthstone to the LocPanel. Thx @nictie",
 
 	" ",
 	"Notes:",
@@ -27,6 +28,7 @@ local ChangeLogData = {
 		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muierrors on' and test again",
 
+		"• 'I CHANGED SOME BACKEND CODE. IF YOU ARE EXPERIENCE SOME ERRORS, PLEASE LET ME KNOW!'",
 		-- "• ''",
 }
 

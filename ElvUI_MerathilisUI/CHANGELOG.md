@@ -1,7 +1,9 @@
 ### Changes ###
 
-  * Added Cosmic Healing Potion to the AutoButtons -- Retail
-  * Add an option to disable my button skin
+  * Added Kettle of the Stone Soupt to my alerts
+  * Added some missing german locales. Thx @DlargeX
   * Updated some skins
-  * Fixed an issue with the AddOn "Infinite Raid Tools"
+  * Try to reskin a widget statusbar on login
+  * Added Dominated Hearthstone to the LocPanel. Thx @nictie
+  * Added some Code Backend Changes... if something is broken for you report it on Discord plx!!!
 
