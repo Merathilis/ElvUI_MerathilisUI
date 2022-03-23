@@ -98,6 +98,7 @@ module.Hearthstones = {
 	{182773, nil, true}, -- Necrolord Hearthstone
 	{184353, nil, true}, -- Kyrian Hearthstone
 	{183716, nil, true}, -- Venthyr Sinstone
+	{188952, nil, true}, -- Dominated Hearthstone
 }
 
 module.PortItems = {
