@@ -58,17 +58,17 @@ local function LoadSkin()
 	end
 
 	-- SendMailFrame
-	local SendMailFrame = _G.SendMailFrame
-	local SendMailScrollFrame = _G.SendMailScrollFrame
-	SendMailScrollFrame:CreateBackdrop("Transparent")
-
-	for i = 4, 7 do
-		select(i, SendMailFrame:GetRegions()):Hide()
-	end
-
-	select(4, SendMailScrollFrame:GetRegions()):Hide()
-	_G.SendMailBodyEditBox:SetPoint("TOPLEFT", 2, -2)
-	_G.SendMailBodyEditBox:SetWidth(278)
+	--local SendMailFrame = _G.SendMailFrame
+	--local SendMailScrollFrame = _G.SendMailScrollFrame
+	--SendMailScrollFrame:CreateBackdrop("Transparent")
+--
+	--for i = 4, 7 do
+		--select(i, SendMailFrame:GetRegions()):Hide()
+	--end
+--
+	--select(4, SendMailScrollFrame:GetRegions()):Hide()
+	--_G.SendMailBodyEditBox:SetPoint("TOPLEFT", 2, -2)
+	--_G.SendMailBodyEditBox:SetWidth(278)
 
 	-- OpenMailFrame
 	local OpenMailFrame = _G.OpenMailFrame
