@@ -167,7 +167,7 @@ local function SetupChat()
 	E.db["chat"]["socialQueueMessages"] = false
 	E.db["chat"]["hideChatToggles"] = true
 	E.db["chat"]["tabSelector"] = "BOX"
-	E.db["chat"]["tabSelectorColor"] = {r = MER.r, g = MER.g, b = MER.b}
+	E.db["chat"]["tabSelectorColor"] = {r = F.r, g = F.g, b = F.b}
 
 	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		E.db["chat"]["timeStampFormat"] = "%H:%M "
@@ -232,7 +232,7 @@ function MER:SetupLayout(layout)
 	--[[----------------------------------
 	--	ProfileDB - General
 	--]]----------------------------------
-	E.db["general"]["valuecolor"] = {r = MER.r, g = MER.g, b = MER.b}
+	E.db["general"]["valuecolor"] = {r = F.r, g = F.g, b = F.b}
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 	E.db["general"]["totems"]["size"] = 36
@@ -262,15 +262,9 @@ function MER:SetupLayout(layout)
 	E.db["general"]["minimap"]["locationFont"] = "Expressway"
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
-	E.db["general"]["backdropcolor"]["r"] = 0.101
-	E.db["general"]["backdropcolor"]["g"] = 0.101
-	E.db["general"]["backdropcolor"]["b"] = 0.101
 	E.db["general"]["bottomPanel"] = false
 	E.db["general"]["topPanel"] = false
 	E.db["general"]["bonusObjectivePosition"] = "AUTO"
-	E.db["general"]["backdropfadecolor"]["r"] = 0.0549
-	E.db["general"]["backdropfadecolor"]["g"] = 0.0549
-	E.db["general"]["backdropfadecolor"]["b"] = 0.0549
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
 	E.db["general"]["talkingHeadFrameScale"] = 0.7
 	E.db["general"]["talkingHeadFrameBackdrop"] = true
@@ -288,7 +282,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["resurrectSound"] = true
 	E.db["general"]["decimalLength"] = 0
 	E.db["general"]["customGlow"]["useColor"] = true
-	E.db["general"]["customGlow"]["color"] = {r = MER.r, g = MER.g, b = MER.b}
+	E.db["general"]["customGlow"]["color"] = {r = F.r, g = F.g, b = F.b}
 
 	--[[----------------------------------
 	--	ProfileDB - Auras

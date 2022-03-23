@@ -1,4 +1,4 @@
-## Interface: 20502
+## Interface: 20504
 ## Author: Merathilis
 ## Version: 4.90
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
@@ -10,7 +10,7 @@
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, BigWigs, ls_Toasts
 ## X-Credits: Benik, Blazeflack, Azilroka, Simpy, Nihilistzsche, Darth Predator, fgprodigal, siweia, Solor, Elv, fang2hou & all AddOn Authors who inspired me.
-## X-ElvVersion: 2.36
+## X-ElvVersion: 2.38
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
 ## X-WoWI-ID: 24117
