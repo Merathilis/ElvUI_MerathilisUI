@@ -380,7 +380,7 @@ function F.CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	end
 
 	if classcolor and type(classcolor) == "boolean" then
-		text:SetTextColor(MER.r, MER.g, MER.b)
+		text:SetTextColor(F.r, F.g, F.b)
 	elseif classcolor == "system" then
 		text:SetTextColor(1, .8, 0)
 	elseif classcolor == "white" then
