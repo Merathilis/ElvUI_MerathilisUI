@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RectangleMinimap')
 local MM = E:GetModule('Minimap')
 
@@ -155,7 +155,7 @@ function module:Initialize()
 	end
 
 	-- Only adjust the settings for me
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		module:AdjustSettings()
 	end
 

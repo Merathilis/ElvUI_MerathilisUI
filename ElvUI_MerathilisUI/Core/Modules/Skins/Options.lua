@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 -- Cache global variables
 -- Lua functions
@@ -66,8 +66,17 @@ local function SkinsTable()
 						order = 2,
 						type = "toggle",
 						name = L["MerathilisUI Shadows"],
+						desc = L["Enables/Disables a shadow overlay to darken the screen."],
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
+					buttonStyle = {
+						order = 3,
+						type = "toggle",
+						name = E.NewSign..L["MerathilisUI Button Style"],
+						desc = L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"],
+						get = function(info) return E.private.muiSkins[ info[#info] ] end,
+						set = function(info, value) E.private.muiSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
 				},
 			},

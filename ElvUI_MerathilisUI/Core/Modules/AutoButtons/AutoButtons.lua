@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_AutoButtons')
 local AB = E:GetModule('ActionBars')
 
@@ -126,6 +126,7 @@ local potionsShadowlands = {
 	176811,
 	183823,
 	184090,
+	187802,
 }
 
 -- Flasks (require level >= 40)
@@ -366,6 +367,8 @@ local torghastItems = {
 }
 
 local openableItems = {
+	54537,
+	92794,
 	171209,
 	171210,
 	171211,
@@ -489,6 +492,8 @@ local openableItems = {
 	187576,
 	187577,
 	187817,
+	190610,
+	191139,
 }
 
 local questItemList = {}
@@ -555,13 +560,13 @@ function module:CreateButton(name, barDB)
 	count:SetTextColor(1, 1, 1, 1)
 	count:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT")
 	count:SetJustifyH("CENTER")
-	MER:SetFontDB(count, barDB.countFont)
+	F.SetFontDB(count, barDB.countFont)
 
 	local bind = button:CreateFontString(nil, "OVERLAY")
 	bind:SetTextColor(0.6, 0.6, 0.6)
 	bind:Point("TOPRIGHT", button, "TOPRIGHT")
 	bind:SetJustifyH("CENTER")
-	MER:SetFontDB(bind, barDB.bindFont)
+	F.SetFontDB(bind, barDB.bindFont)
 
 	local cooldown = CreateFrame("Cooldown", name .. "Cooldown", button, "CooldownFrameTemplate")
 	E:RegisterCooldown(cooldown)
@@ -918,11 +923,11 @@ function module:UpdateBar(id)
 			end
 		end
 
-		MER:SetFontDB(button.count, barDB.countFont)
-		MER:SetFontDB(button.bind, barDB.bindFont)
+		F.SetFontDB(button.count, barDB.countFont)
+		F.SetFontDB(button.bind, barDB.bindFont)
 
-		MER:SetFontColorDB(button.count, barDB.countFont.color)
-		MER:SetFontColorDB(button.bind, barDB.bindFont.color)
+		F.SetFontColorDB(button.count, barDB.countFont.color)
+		F.SetFontColorDB(button.bind, barDB.bindFont.color)
 
 		button.count:ClearAllPoints()
 		button.count:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", barDB.countFont.xOffset, barDB.countFont.yOffset)

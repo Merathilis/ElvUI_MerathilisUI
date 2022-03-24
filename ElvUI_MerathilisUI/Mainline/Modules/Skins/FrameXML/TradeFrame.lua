@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -47,7 +47,7 @@ local function LoadSkin()
 	end
 
 	-- Display text on the TradeFrame if unit is a known person
-	local infoText = MER:CreateText(TradeFrame, "OVERLAY", 16, "")
+	local infoText = F.CreateText(TradeFrame, "OVERLAY", 16, "")
 	infoText:ClearAllPoints()
 	infoText:SetPoint("TOP", _G["TradeFrameRecipientNameText"], "BOTTOM", 0, -5)
 

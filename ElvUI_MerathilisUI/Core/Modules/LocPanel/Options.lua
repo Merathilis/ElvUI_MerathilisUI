@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local LP = MER:GetModule('MER_LocPanel')
 
 --Cache global variables
@@ -275,7 +275,7 @@ local function LocPanelTable()
 								name = L["Show hearthstones"],
 								desc = L["Show hearthstone type items in the list."],
 							},
-							hsProprity = MER:CreateMovableButtons(22, L["Hearthstone Toys Order"], false, E.db.mui.locPanel.portals, "hsPrio"),
+							hsProprity = F.CreateMovableButtons(22, L["Hearthstone Toys Order"], false, E.db.mui.locPanel.portals, "hsPrio"),
 							showToys = {
 								type = "toggle",
 								order = 20,

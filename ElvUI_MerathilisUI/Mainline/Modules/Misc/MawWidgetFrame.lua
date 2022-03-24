@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Misc')
 
 local _G = _G
@@ -56,7 +56,7 @@ function module:UpdateMawBarLayout()
 
 	bar:Width(module.db.width or 250)
 	bar:Height(module.db.height or 16)
-	MER:SetFontDB(bar.text, module.db.font)
+	F.SetFontDB(bar.text, module.db.font)
 end
 
 function module:CreateMawWidgetFrame()

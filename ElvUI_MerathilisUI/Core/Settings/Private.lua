@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 ----------------------------------------------------------------------------------------
 -- General options
@@ -17,6 +17,7 @@ V.muiMisc = {
 -- Skins options
 ----------------------------------------------------------------------------------------
 V.muiSkins = {
+	buttonStyle = true,
 	blizzard = {
 		character = true,
 		encounterjournal = true,

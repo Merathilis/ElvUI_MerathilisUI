@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule("MER_Progress")
 
 --Cache global variables
@@ -153,7 +153,13 @@ local function Tooltip()
 								type = "toggle",
 								name = L["Sanctum of Domination"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
-							}							
+							},
+							SepulcheroftheFirstOnes = {
+								order = 9,
+								type = "toggle",
+								name = L["Sepulcher of the First Ones"],
+								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
+							}
 						}
 					},
 				},

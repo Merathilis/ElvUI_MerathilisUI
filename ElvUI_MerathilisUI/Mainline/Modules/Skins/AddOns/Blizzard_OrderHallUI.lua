@@ -1,8 +1,8 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
--- Cache global variables
 local _G = _G
+local hooksecurefunc = hooksecurefunc
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
@@ -14,6 +14,17 @@ local function LoadSkin()
 	OrderHallTalentFrame.backdrop:Styling()
 
 	MER:CreateBackdropShadow(OrderHallTalentFrame)
+
+	hooksecurefunc(OrderHallTalentFrame, "RefreshAllData", function(self)
+		if self.talentRankPool then
+			for rank in self.talentRankPool:EnumerateActive() do
+				if not rank.styled then
+					rank.Background:SetAlpha(0)
+					rank.styled = true
+				end
+			end
+		end
+	end)
 end
 
 S:AddCallbackForAddon("Blizzard_OrderHallUI", "mUIOrderHall", LoadSkin)

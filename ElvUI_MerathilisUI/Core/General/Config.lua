@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 if E.db.mui == nil then E.db.mui = {} end
 
@@ -121,13 +121,12 @@ local function AddOptions()
 						type = "toggle",
 						name = L["AFK"],
 						desc = L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"],
-						disabled = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 					},
 					GameMenu = {
 						order = 5,
 						type = "toggle",
 						name = L["GameMenu"],
-						desc = L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."],
+						desc = L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"],
 					},
 					FlightPoint = {
 						order = 6,

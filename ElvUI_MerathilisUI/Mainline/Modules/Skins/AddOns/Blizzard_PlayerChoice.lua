@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -13,7 +13,7 @@ local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.playerChoice) or E.private.muiSkins.blizzard.playerChoice ~= true then return end
 
 	local frame = _G.PlayerChoiceFrame
-
+	frame:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_PlayerChoice", "mUIPlayerChoice", LoadSkin)

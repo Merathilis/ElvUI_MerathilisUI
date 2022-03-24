@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -15,11 +15,6 @@ local function LoadSkin()
 	ItemUpgradeFrame.BottomBGShadow:Hide()
 	ItemUpgradeFrame.BottomBG:Hide()
 	ItemUpgradeFrame.TopBG:Hide()
-
-	local holder = ItemUpgradeFrame.ButtonFrame
-	holder:StripTextures()
-	holder:CreateBackdrop('Transparent')
-	holder.backdrop.Center:SetDrawLayer('BACKGROUND', -1)
 end
 
 S:AddCallbackForAddon("Blizzard_ItemUpgradeUI", "mUIItemUpgrade", LoadSkin)

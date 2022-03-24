@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Reminder')
 local LCG = LibStub('LibCustomGlow-1.0')
 local UF = E:GetModule('UnitFrames')

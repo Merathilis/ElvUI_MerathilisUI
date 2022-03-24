@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -47,37 +47,39 @@ local function QuestNumString()
 	end
 end
 
+local function CreatePanels()
+	local Frame = _G.ObjectiveTrackerFrame.MODULES
+
+	if Frame then
+		for i = 1, #Frame do
+
+			local Modules = Frame[i]
+			if Modules then
+				local Header = Modules.Header
+				Header:SetFrameStrata("LOW")
+
+				if not Modules.IsSkinned then
+					local HeaderPanel = CreateFrame("Frame", nil, Modules.Header)
+					HeaderPanel:SetFrameLevel(Modules.Header:GetFrameLevel() - 1)
+					HeaderPanel:SetFrameStrata("LOW")
+					HeaderPanel:SetPoint("BOTTOMLEFT", 0, 3)
+					HeaderPanel:SetSize(210, 2)
+					MERS:SkinPanel(HeaderPanel)
+
+					Modules.IsSkinned = true
+				end
+			end
+		end
+	end
+
+	QuestNumString()
+end
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
 
 	-- Add Panels
-	hooksecurefunc("ObjectiveTracker_Update", function()
-		local Frame = _G.ObjectiveTrackerFrame.MODULES
-
-		if Frame then
-			for i = 1, #Frame do
-
-				local Modules = Frame[i]
-				if Modules then
-					local Header = Modules.Header
-					Header:SetFrameStrata("LOW")
-
-					if not Modules.IsSkinned then
-						local HeaderPanel = CreateFrame("Frame", nil, Modules.Header)
-						HeaderPanel:SetFrameLevel(Modules.Header:GetFrameLevel() - 1)
-						HeaderPanel:SetFrameStrata("LOW")
-						HeaderPanel:SetPoint("BOTTOMLEFT", 0, 3)
-						HeaderPanel:SetSize(210, 2)
-						MERS:SkinPanel(HeaderPanel)
-
-						Modules.IsSkinned = true
-					end
-				end
-			end
-		end
-
-		QuestNumString()
-	end)
+	hooksecurefunc("ObjectiveTracker_Update", CreatePanels)
 end
 
 S:AddCallback("mUIObjectiveTracker", LoadSkin)

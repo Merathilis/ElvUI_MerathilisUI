@@ -1,13 +1,9 @@
 ### Changes ###
 
-## Retail: ##
-  * Update for Patch 9.2 - nothing mutch changed
-  * Mainly updated some skins
+  * Added Kettle of the Stone Soupt to my alerts
+  * Added some missing german locales. Thx @DlargeX
+  * Updated some skins
+  * Try to reskin a widget statusbar on login
+  * Added Dominated Hearthstone to the LocPanel. Thx @nictie
+  * Added some Code Backend Changes... if something is broken for you report it on Discord plx!!!
 
-
-## Classic: ##
-  * Take account for the latest ElvUI changes
-
-
-## TBC: ##
-  * Take account for the latest ElvUI changes

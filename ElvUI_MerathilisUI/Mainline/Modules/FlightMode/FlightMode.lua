@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_FlightMode')
 local COMP = MER:GetModule('MER_Compatibility')
 local MERS = MER:GetModule('MER_Skins')
@@ -228,7 +228,7 @@ local VisibleFrames = {}
 function module:SetFlightMode(status)
 	if InCombatLockdown() then return end
 
-	local kit, vert, hei = MER:GetConvCrest()
+	local kit, vert, hei = F.GetConvCrest()
 	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
 	if status then
 		module.FlightMode:Show()
@@ -648,7 +648,7 @@ function module:CreateFlightMode()
 		_G.GameTooltip:AddLine(L["LeftClick to Request Stop"], 0.7, 0.7, 1)
 		_G.GameTooltip:Show()
 
-		module.FlightMode.RequestStop.img:SetVertexColor(MER:unpackColor(E.db.general.valuecolor))
+		module.FlightMode.RequestStop.img:SetVertexColor(F.unpackColor(E.db.general.valuecolor))
 	end)
 
 	module.FlightMode.RequestStop:SetScript('OnLeave', function()

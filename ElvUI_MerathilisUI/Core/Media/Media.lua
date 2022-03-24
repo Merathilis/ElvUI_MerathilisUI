@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Media')
 local LSM = E.LSM or E.Libs.LSM
 
@@ -100,9 +100,11 @@ function module:SetBlizzFonts()
 			_G["SubZoneTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.subzone.font), module.db.zoneText.subzone.size, module.db.zoneText.subzone.outline) -- Subzone name
 		end
 
-		if module.db.miscText.mail.enable then
-			_G["SendMailBodyEditBox"]:SetFont(E.LSM:Fetch('font', module.db.miscText.mail.font), module.db.miscText.mail.size, module.db.miscText.mail.outline) --Writing letter text
-			_G["OpenMailBodyText"]:SetFont(E.LSM:Fetch('font', module.db.miscText.mail.font), module.db.miscText.mail.size, module.db.miscText.mail.outline) --Received letter text
+		if E.Retail then
+			if module.db.miscText.mail.enable then
+				_G["SendMailBodyEditBox"]:SetFont(E.LSM:Fetch('font', module.db.miscText.mail.font), module.db.miscText.mail.size, module.db.miscText.mail.outline) --Writing letter text
+				_G["OpenMailBodyText"]:SetFont(E.LSM:Fetch('font', module.db.miscText.mail.font), module.db.miscText.mail.size, module.db.miscText.mail.outline) --Received letter text
+			end
 		end
 
 		if module.db.miscText.gossip.enable then

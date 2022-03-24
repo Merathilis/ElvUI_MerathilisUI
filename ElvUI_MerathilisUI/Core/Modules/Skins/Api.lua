@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -227,6 +227,9 @@ end
 
 -- Buttons
 function MERS:Reskin(button, strip, isDecline, noStyle, createBackdrop, template, noGlossTex, overrideTex, frameLevel, defaultTemplate, noGradient)
+	if not E.private.muiSkins then E.private.muiSkins = {} end
+	if not E.private.muiSkins.buttonStyle then return end
+
 	assert(button, "doesn't exist!")
 
 	if not button or button.IsSkinned then return end

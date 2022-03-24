@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -58,17 +58,17 @@ local function LoadSkin()
 	end
 
 	-- SendMailFrame
-	local SendMailFrame = _G.SendMailFrame
-	local SendMailScrollFrame = _G.SendMailScrollFrame
-	SendMailScrollFrame:CreateBackdrop("Transparent")
-
-	for i = 4, 7 do
-		select(i, SendMailFrame:GetRegions()):Hide()
-	end
-
-	select(4, SendMailScrollFrame:GetRegions()):Hide()
-	_G.SendMailBodyEditBox:SetPoint("TOPLEFT", 2, -2)
-	_G.SendMailBodyEditBox:SetWidth(278)
+	--local SendMailFrame = _G.SendMailFrame
+	--local SendMailScrollFrame = _G.SendMailScrollFrame
+	--SendMailScrollFrame:CreateBackdrop("Transparent")
+--
+	--for i = 4, 7 do
+		--select(i, SendMailFrame:GetRegions()):Hide()
+	--end
+--
+	--select(4, SendMailScrollFrame:GetRegions()):Hide()
+	--_G.SendMailBodyEditBox:SetPoint("TOPLEFT", 2, -2)
+	--_G.SendMailBodyEditBox:SetWidth(278)
 
 	-- OpenMailFrame
 	local OpenMailFrame = _G.OpenMailFrame

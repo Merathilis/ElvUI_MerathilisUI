@@ -1,4 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
+local MER, F, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:GetModule('MER_Actionbars')
 local AB = E:GetModule('ActionBars')
@@ -180,11 +180,6 @@ function module:Initialize()
 			if button then
 				MER:CreateShadow(button)
 			end
-		end
-
-		for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
-			local button = _G["ExtraActionButton" .. i]
-			MER:CreateBackdropShadow(button.backdrop, true)
 		end
 	end
 

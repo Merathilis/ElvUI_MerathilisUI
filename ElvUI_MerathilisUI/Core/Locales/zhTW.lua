@@ -117,7 +117,7 @@ L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8
 
 -- GameMenu
 L["GameMenu"] = true
-L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = true
+L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] = true
 
 -- FlightMode
 L["FlightMode"] = true
@@ -128,6 +128,11 @@ L["Left Click to Request Stop"] = true
 -- FlightPoint
 L["Flight Point"] = true
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
+
+-- Shadows
+L["Shadows"] = true
+L["Increase Size"] = true
+L["Make shadow thicker."] = true
 
 -- Mail
 L["Mail"] = "邮箱"
@@ -670,14 +675,17 @@ Please note that some of these options will not be available if corresponding sk
 L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external addons appearance.
 
 Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
-L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
+L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Shadows"] = true
+L["Enables/Disables a shadow overlay to darken the screen."] = true
 L["Undress Button"] = true
 L["Subpages"] = true
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
 L["Enable/Disable"] = true
 L["decor."] = true
+L["MerathilisUI Button Style"] = true
+L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"] = true
 
 -- Panels
 L["Top Left Panel"] = true

@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RaidBuffs')
 local LCG = LibStub('LibCustomGlow-1.0')
 
@@ -245,7 +245,7 @@ local function OnAuraChange(self, event, arg1, unit)
 				CustomFrame.t:SetTexture(icon)
 			end
 
-			if MER:CheckPlayerBuff(name) then
+			if F.CheckPlayerBuff(name) then
 				CustomFrame:SetAlpha(module.db.alpha)
 				custom = true
 				LCG.PixelGlow_Stop(CustomFrame)

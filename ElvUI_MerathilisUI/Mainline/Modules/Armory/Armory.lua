@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Armory')
 local M = E:GetModule('Misc')
 local LCG = LibStub('LibCustomGlow-1.0')
@@ -289,7 +289,7 @@ function module:UpdatePaperDoll()
 					elseif module.db.gradient.colorStyle == "VALUE" then
 						frame.Gradiation.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
 					else
-						frame.Gradiation.Texture:SetVertexColor(MER:unpackColor(module.db.gradient.color))
+						frame.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.gradient.color))
 					end
 				end
 			end

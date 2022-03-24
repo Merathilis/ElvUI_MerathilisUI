@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule('MER_Minimap')
 local SMB = MER:GetModule('MER_MiniMapButtons')
 local RM = MER:GetModule('MER_RectangleMinimap')

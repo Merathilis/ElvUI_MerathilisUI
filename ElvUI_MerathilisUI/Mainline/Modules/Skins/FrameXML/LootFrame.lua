@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -26,7 +26,7 @@ local function LoadSkin()
 	hooksecurefunc('BossBanner_ConfigureLootFrame', function(lootFrame, data)
 		if not lootFrame.isSkinned then
 			local iconHitBox = lootFrame.IconHitBox
-			local color = MER.ClassColors[data.className]
+			local color = F.ClassColors[data.className]
 
 			S:HandleIcon(lootFrame.Icon, true)
 			iconHitBox.IconBorder:SetTexture(nil)
