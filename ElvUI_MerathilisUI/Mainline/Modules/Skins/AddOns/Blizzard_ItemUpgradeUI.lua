@@ -10,7 +10,7 @@ local function LoadSkin()
 	ItemUpgradeFrame.TopBG:Hide()
 
 	ItemUpgradeFrame:Styling()
-	F:CreateBackdropShadow(ItemUpgradeFrame)
+	MER:CreateBackdropShadow(ItemUpgradeFrame)
 
 	ItemUpgradeFrame.BottomBGShadow:Hide()
 	ItemUpgradeFrame.BottomBG:Hide()
