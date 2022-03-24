@@ -3,10 +3,18 @@ local LSM = E.LSM
 
 local _G = _G
 local format = string.format
-local print, pairs = print, pairs
+local ipairs, print, pairs, tonumber, type, select, unpack = ipairs, print, pairs, tonumber, type, select, unpack
+local assert = assert
+local strsplit = strsplit
 local tinsert = table.insert
+local getmetatable = getmetatable
+local EnumerateFrames = EnumerateFrames
 
+local CreateFrame = CreateFrame
 local GetAddOnEnableState = GetAddOnEnableState
+local GetAddOnMetadata = GetAddOnMetadata
+local GetBuildInfo = GetBuildInfo
+local hooksecurefunc = hooksecurefunc
 
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
 local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
