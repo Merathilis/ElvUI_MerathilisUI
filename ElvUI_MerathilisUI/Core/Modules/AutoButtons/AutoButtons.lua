@@ -124,7 +124,7 @@ local potionsShadowlands = {
 	171370,
 	177278,
 	176811,
-    180317, -- Spiritual Healing Potion
+	180317, -- Spiritual Healing Potion
 	183823,
 	184090,
 	187802,
@@ -493,7 +493,7 @@ local openableItems = {
 	187576,
 	187577,
 	187817,
-	190178,	
+	190178,
 	190610,
 	191139,
 }
