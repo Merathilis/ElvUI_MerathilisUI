@@ -124,6 +124,7 @@ local potionsShadowlands = {
 	171370,
 	177278,
 	176811,
+    180317, -- Spiritual Healing Potion
 	183823,
 	184090,
 	187802,
