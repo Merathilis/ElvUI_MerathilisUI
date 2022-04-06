@@ -112,6 +112,7 @@ if E.Retail then
 	tinsert(Heartstones, 182773)
 	tinsert(Heartstones, 183716)
 	tinsert(Heartstones, 184353)
+	tinsert(Heartstones, 188952) --	Dominated Hearthstone
 end
 
 local HeartstonesTable
