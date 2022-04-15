@@ -156,6 +156,7 @@ local flasksShadowlands = {
 	171280,
 
 	181468, -- Veiled Augment Rune
+	190384, -- Eternal Augment Rune
 }
 
 -- Foods (Crafted by cooking)
