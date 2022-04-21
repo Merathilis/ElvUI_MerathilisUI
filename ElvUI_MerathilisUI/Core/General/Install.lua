@@ -693,7 +693,7 @@ function MER:SetupLayout(layout)
 	E.db["tooltip"]["font"] = "Expressway"
 	E.db["tooltip"]["fontOutline"] = "OUTLINE"
 	E.db["tooltip"]["headerFont"] = "Expressway"
-	E.db["tooltip"]["headerFontOutline"] = "NONE"
+	E.db["tooltip"]["headerFontOutline"] = "OUTLINE"
 	E.db["tooltip"]["headerFontSize"] = 12
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
