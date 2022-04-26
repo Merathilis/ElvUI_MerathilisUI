@@ -31,8 +31,7 @@ MP.bags = {
 
 MP.merchant = {
 	enable = true,
-	style = "Default",
-	subpages = 2,
+	numberOfPages = 2,
 }
 
 MP.CombatAlert = {
