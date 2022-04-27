@@ -764,7 +764,7 @@ function module:CreateBar(id)
 	anchor:SetClampedToScreen(true)
 	anchor:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, (id - 1) * 45)
 	anchor:Size(150, 40)
-	E:CreateMover(anchor, 'AutoButtonBar' .. id .. 'Mover', L['Auto Button Bar'] .. ' ' .. id, nil, nil, nil, 'ALL,MERATHILISUI',function() return module.db.enable and barDB.enable end, 'mui,modules,autoButtons,bar'..id)
+	E:CreateMover(anchor, 'AutoButtonBar' .. id .. 'Mover', L['Auto Button Bar'] .. ' ' .. id, nil, nil, nil, 'ALL,MERATHILISUI', function() return module.db.enable and barDB.enable end, 'mui,modules,autoButtons,bar'..id)
 
 	local bar = CreateFrame("Frame", "AutoButtonBar" .. id, E.UIParent, "SecureHandlerStateTemplate")
 	bar.id = id

@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MAB = MER:GetModule('MER_Actionbars')
+local VB = MER:GetModule('MER_VehicleBar')
 
 --Cache global variables
 --Lua functions
@@ -16,6 +17,11 @@ local buttonTypes = {
 	["slot"] = "Trinket Buttons",
 	["usable"] = "Usable Buttons"
 }
+
+local animationsDisabled = function()
+	return not E.db.mui.actionbars.vehicleBar.animations
+end
+
 local function ActionBarTable()
 	local ACH = E.Libs.ACH
 
@@ -92,6 +98,44 @@ local function ActionBarTable()
 						name = L["Button Size"],
 						min = 20, max = 60, step = 1,
 						disabled = function() return not E.private.actionbar.enable end,
+					},
+				},
+			},
+			vehicleBar = {
+				order = 5,
+				type = "group",
+				name = MER:cOption(L["Vehicle Bar"], 'orange'),
+				guiInline = true,
+				disabled = function() return not E.private.actionbar.enable end,
+				hidden = not E.Retail,
+				get = function(info) return E.db.mui.actionbars.equipBar[ info[#info] ] end,
+				set = function(info, value) E.db.mui.actionbars.equipBar[ info[#info] ] = value; VB:ProfileUpdate() end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						disabled = function() return not E.private.actionbar.enable end,
+					},
+					animations = {
+						order = 2,
+						type = "toggle",
+						name = L["Animations"],
+						disabled = function() return not E.private.actionbar.enable end,
+					},
+					animationsMult = {
+						order = 3,
+						type = "range",
+						name = L["Animation Speed"],
+						min = 0.5, max = 2, step = 0.1,
+						isPercent = true,
+						disabled = function() return not E.private.actionbar.enable end or animationsDisabled,
+						get = function()
+							return 1 / E.db.mui.actionbars.vehicleBar.animationsMult
+						end,
+						set = function(_, value)
+							E.db.mui.actionbars.vehicleBar.animationsMult = 1 / value
+						end,
 					},
 				},
 			},
