@@ -1,6 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Functions.lua"/>
 	<Script file="Core.lua"/>
+	<Script file="DBConvert.lua"/>
+	<Script file="Styling.lua"/>
 	<Script file="Commands.lua"/>
 	<Script file="Compatibility.lua"/>
 	<Script file="Animations.lua"/>
