@@ -1,7 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local EV = MER:GetModule('MER_ExtendedVendor')
 
-local pairs = pairs
+local format = string.format
 local tinsert = table.insert
 
 local function ExtendedVendorTable()
@@ -17,6 +17,9 @@ local function ExtendedVendorTable()
 			E.db.mui.merchant[info[#info]] = value
 			E:StaticPopup_Show("PRIVATE_RL")
 		end,
+		disabled = function()
+			return EV.StopRunning
+		end,
 		args = {
 			header = ACH:Header(MER:cOption(L["Extended Vendor"], 'orange'), 0),
 			desc = {
@@ -30,10 +33,7 @@ local function ExtendedVendorTable()
 						type = "description",
 						name = function()
 							if EV.StopRunning then
-								return format(
-									"|cffff0000" .. L["Because of %s, this module will not be loaded."] .. "|r",
-									EV.StopRunning
-								)
+								return format("|cffff0000" .. L["Because of %s, this module will not be loaded."] .. "|r", EV.StopRunning)
 							else
 								return L["Extends the merchant page to show more items."]
 							end
