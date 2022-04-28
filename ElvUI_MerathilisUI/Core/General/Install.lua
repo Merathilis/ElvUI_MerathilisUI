@@ -108,11 +108,11 @@ local function SetupChat()
 			FCF_SetWindowName(frame, _G.GENERAL)
 		elseif id == 2 then
 			FCF_SetWindowName(frame, _G.LOG)
-		elseif (E.Retail and id == 3) then
+		elseif id == 3 then
 			VoiceTranscriptionFrame_UpdateVisibility(frame)
 			VoiceTranscriptionFrame_UpdateVoiceTab(frame)
 			VoiceTranscriptionFrame_UpdateEditBox(frame)
-		elseif (E.Retail and id == 4) or id == 3 then
+		elseif id == 4 then
 			FCF_SetWindowName(frame, LOOT)
 		end
 	end
