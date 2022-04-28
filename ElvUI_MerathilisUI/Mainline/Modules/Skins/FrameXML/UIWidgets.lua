@@ -25,6 +25,8 @@ local atlasColors = {
 }
 
 local function ReplaceWidgetBarTexture(self, atlas)
+	if self:IsForbidden() then return end
+
 	if atlasColors[atlas] then
 		self:SetStatusBarTexture(E.media.normTex)
 		self:SetStatusBarColor(unpack(atlasColors[atlas]))
@@ -32,6 +34,8 @@ local function ReplaceWidgetBarTexture(self, atlas)
 end
 
 local function ReskinWidgetStatusBar(bar)
+	if bar:IsForbidden() then return end
+
 	if bar and not bar.styled then
 		if bar.BG then bar.BG:SetAlpha(0) end
 		if bar.BGLeft then bar.BGLeft:SetAlpha(0) end
@@ -53,6 +57,8 @@ local function ReskinWidgetStatusBar(bar)
 end
 
 local function ReskinDoubleStatusBarWidget(self)
+	if self:IsForbidden() then return end
+
 	if not self.styled then
 		ReskinWidgetStatusBar(self.LeftBar)
 		ReskinWidgetStatusBar(self.RightBar)
@@ -62,6 +68,8 @@ local function ReskinDoubleStatusBarWidget(self)
 end
 
 local function ReskinPVPCaptureBar(self)
+	if self:IsForbidden() then return end
+
 	self.LeftBar:SetTexture(E.media.normTex)
 	self.NeutralBar:SetTexture(E.media.normTex)
 	self.RightBar:SetTexture(E.media.normTex)
@@ -85,6 +93,8 @@ local function ReskinPVPCaptureBar(self)
 end
 
 local function ReskinSpellDisplayWidget(spell)
+	if spell:IsForbidden() then return end
+
 	if not spell.backdrop then
 		spell.Border:SetAlpha(0)
 		spell.DebuffBorder:SetAlpha(0)
