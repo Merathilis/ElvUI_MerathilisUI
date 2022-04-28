@@ -91,6 +91,13 @@ function module:StyleChat()
 	MER:CreateBackdropShadow(_G.RightChatPanel, true)
 end
 
+function module:StyleVoicePanel()
+	if _G.ElvUIChatVoicePanel then
+		_G.ElvUIChatVoicePanel:Styling()
+		MER:CreateShadow(_G.ElvUIChatVoicePanel)
+	end
+end
+
 -- Hide communities chat. Useful for streamers
 -- Credits Nnogga
 local commOpen = CreateFrame("Frame", nil, UIParent)
@@ -208,6 +215,7 @@ function module:Initialize()
 
 	module:EasyChannel()
 	module:StyleChat()
+	module:StyleVoicePanel()
 	if E.Retail then
 		module:ChatFilter()
 	end

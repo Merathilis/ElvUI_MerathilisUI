@@ -16,11 +16,13 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added Kettle of the Stone Soupt to my alerts",
-		"• Added some missing german locales. Thx @DlargeX",
-		"• Updated some skins",
-		"• Try to reskin a widget statusbar on login",
-		"• Added Dominated Hearthstone to the LocPanel. Thx @nictie",
+		"• Updated AutoButtons",
+		"• Added Dominated Hearthstone to the MicroBar. Thx: DlargeX",
+		"• Added Eternal Rune to RBReminders",
+		"• Updated Install for new Tooltip Header Font ^o^",
+		"• Simplify Merchant Frame Skin. Credits: Windtools",
+		"• Attempt to avoid some UIWidget Errors -.-",
+		"• Added an own 'simple' Vehicle Bar",
 
 	" ",
 	"Notes:",
@@ -28,7 +30,6 @@ local ChangeLogData = {
 		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muierrors on' and test again",
 
-		"• 'I CHANGED SOME BACKEND CODE. IF YOU ARE EXPERIENCE SOME ERRORS, PLEASE LET ME KNOW!'",
 		-- "• ''",
 }
 

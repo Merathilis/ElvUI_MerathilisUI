@@ -108,11 +108,11 @@ local function SetupChat()
 			FCF_SetWindowName(frame, _G.GENERAL)
 		elseif id == 2 then
 			FCF_SetWindowName(frame, _G.LOG)
-		elseif (E.Retail and id == 3) then
+		elseif id == 3 then
 			VoiceTranscriptionFrame_UpdateVisibility(frame)
 			VoiceTranscriptionFrame_UpdateVoiceTab(frame)
 			VoiceTranscriptionFrame_UpdateEditBox(frame)
-		elseif (E.Retail and id == 4) or id == 3 then
+		elseif id == 4 then
 			FCF_SetWindowName(frame, LOOT)
 		end
 	end
@@ -691,7 +691,9 @@ function MER:SetupLayout(layout)
 	E.db["tooltip"]["visibility"]["combat"] = false
 	E.db["tooltip"]["healthBar"]["font"] = "Expressway"
 	E.db["tooltip"]["font"] = "Expressway"
-	E.db["tooltip"]["fontOutline"] = "NONE"
+	E.db["tooltip"]["fontOutline"] = "OUTLINE"
+	E.db["tooltip"]["headerFont"] = "Expressway"
+	E.db["tooltip"]["headerFontOutline"] = "OUTLINE"
 	E.db["tooltip"]["headerFontSize"] = 12
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11

@@ -1,9 +1,9 @@
 ### Changes ###
 
-  * Added Kettle of the Stone Soupt to my alerts
-  * Added some missing german locales. Thx @DlargeX
-  * Updated some skins
-  * Try to reskin a widget statusbar on login
-  * Added Dominated Hearthstone to the LocPanel. Thx @nictie
-  * Added some Code Backend Changes... if something is broken for you report it on Discord plx!!!
-
+  * Updated AutoButtons
+  * Added Dominated Hearthstone to the MicroBar. Thx: DlargeX
+  * Added Eternal Rune to RBReminders
+  * Updated Install for new Tooltip Header Font ^o^
+  * Simplify Merchant Frame Skin. Credits: Windtools
+  * Attempt to avoid some UIWidget Errors -.-
+  * Added an own "simple" Vehicle Bar.

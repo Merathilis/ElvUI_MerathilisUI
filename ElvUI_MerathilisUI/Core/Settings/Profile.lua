@@ -31,8 +31,7 @@ MP.bags = {
 
 MP.merchant = {
 	enable = true,
-	style = "Default",
-	subpages = 2,
+	numberOfPages = 2,
 }
 
 MP.CombatAlert = {
@@ -353,6 +352,12 @@ MP.actionbars = {
 		enable = true,
 		mouseover = false,
 		size = 28,
+	},
+	vehicleBar = {
+		enable = true,
+		animations = true,
+		animationsMult = 1, -- Animation speed, higher than 1 => slower, lower than 1 => faster
+		position = "BOTTOM,ElvUIParent,BOTTOM,0,162"
 	},
 	randomToy = {
 		enable = true,
