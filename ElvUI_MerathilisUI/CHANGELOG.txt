@@ -1,8 +1,2 @@
-[b][color=orange]v4.92[/color], 28.04.2022[/b][list]
-[*]Updated AutoButtons
-[*]Added Dominated Hearthstone to the MicroBar. Thx: DlargeX
-[*]Added Eternal Rune to RBReminders
-[*]Updated Install for new Tooltip Header Font ^o^
-[*]Simplify Merchant Frame Skin. Credits: Windtools
-[*]Attempt to avoid some UIWidget Errors -.-
-[*]Added an own "simple" Vehicle Bar.[/list]
+[b][color=orange]v4.93[/color], 29.04.2022[/b][list]
+[*]Fixed some issues related to the new Vehicle Bar[/list]
