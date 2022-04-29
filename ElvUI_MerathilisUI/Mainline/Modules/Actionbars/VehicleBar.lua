@@ -92,6 +92,8 @@ function module:OnShowEvent()
 end
 
 function module:UpdateBar()
+	if not E.private.actionbar.enable then return end
+
 	-- Vars
 	local size = 40
 	local spacing = 2
@@ -148,7 +150,7 @@ function module:UpdateBar()
 				button:SetState(k, "action", (k - 1) * 12 + buttonIndex)
 			end
 
-			if (buttonIndex == 12) then
+			if buttonIndex == 12 then
 				button:SetState(12, "custom", AB.customExitButton)
 			end
 
@@ -156,6 +158,10 @@ function module:UpdateBar()
 			AB:StyleButton(button, nil, MasqueGroup and E.private.actionbar.masque.actionbars)
 			button:SetTemplate("Transparent")
 			button:SetCheckedTexture("")
+
+			if button.HotKey then
+				button.HotKey:FontTemplate()
+			end
 
 			-- Add to array
 			bar.buttons[i] = button
@@ -287,6 +293,8 @@ function module:ProfileUpdate()
 end
 
 function module:Initialize(worldInit)
+	if not E.private.actionbar.enable then return end
+
 	-- Get db
 	self.db = E.db.mui.actionbars.vehicleBar
 	MER:RegisterDB(self.db, "vehicleBar")
