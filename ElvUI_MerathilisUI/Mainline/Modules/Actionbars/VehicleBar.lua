@@ -131,6 +131,7 @@ function module:UpdateBar()
 	bar:CreateBackdrop(AB.db.transparent and 'Transparent', nil, nil, nil, nil, nil, nil, nil, 0)
 	if bar.backdrop then
 		bar.backdrop:Styling()
+		MER:CreateShadow(bar.backdrop)
 	end
 
 	-- Create Buttons
@@ -154,14 +155,22 @@ function module:UpdateBar()
 				button:SetState(12, "custom", AB.customExitButton)
 			end
 
+			local hotkeytext
+			if i == 7 then
+				hotkeytext = _G['ElvUI_Bar1Button12HotKey']:GetText()
+			else
+				hotkeytext = _G['ElvUI_Bar1Button'..i..'HotKey']:GetText()
+			end
+
+			if button.HotKey then
+				button.HotKey:SetText(hotkeytext)
+				button.HotKey:Show()
+			end
+
 			-- Style
 			AB:StyleButton(button, nil, MasqueGroup and E.private.actionbar.masque.actionbars)
 			button:SetTemplate("Transparent")
 			button:SetCheckedTexture("")
-
-			if button.HotKey then
-				button.HotKey:FontTemplate()
-			end
 
 			-- Add to array
 			bar.buttons[i] = button
