@@ -108,8 +108,8 @@ local function ActionBarTable()
 				guiInline = true,
 				disabled = function() return not E.private.actionbar.enable end,
 				hidden = not E.Retail,
-				get = function(info) return E.db.mui.actionbars.equipBar[ info[#info] ] end,
-				set = function(info, value) E.db.mui.actionbars.equipBar[ info[#info] ] = value; VB:ProfileUpdate() end,
+				get = function(info) return E.db.mui.actionbars.vehicleBar[ info[#info] ] end,
+				set = function(info, value) E.db.mui.actionbars.vehicleBar[ info[#info] ] = value; VB:ProfileUpdate() end,
 				args = {
 					enable = {
 						order = 1,
