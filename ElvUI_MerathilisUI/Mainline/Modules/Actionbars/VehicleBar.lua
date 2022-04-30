@@ -5,195 +5,187 @@ local LAB = LibStub('LibActionButton-1.0-ElvUI')
 local Masque = LibStub('Masque', true)
 local MasqueGroup = Masque and Masque:Group('ElvUI', 'ActionBars')
 
-local _G = _G
-local format, split = string.format, string.split
-local ipairs, pairs = ipairs, pairs
+--[[
+	Code is now from Shadow&Light
+]]--
 
-local CreateFrame = CreateFrame
-local GetOverrideBarIndex = GetOverrideBarIndex
-local GetVehicleBarIndex = GetVehicleBarIndex
-local InCombatLockdown = InCombatLockdown
+local _G = _G
+local format = format
+local ipairs, pairs = ipairs, pairs
+local strsplit = strsplit
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
+local GetVehicleBarIndex, GetOverrideBarIndex = GetVehicleBarIndex, GetOverrideBarIndex
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
 
-function module:StopAllAnimations()
-	if (self.bar.SlideIn) and (self.bar.SlideIn.SlideIn:IsPlaying()) then self.bar.SlideIn.SlideIn:Finish() end
+local defaultFont, defaultFontSize, defaultFontOutline
 
-	for _, button in ipairs(self.bar.buttons) do
-		if (button.FadeIn) and (button.FadeIn:IsPlaying()) then
-			button.FadeIn:Stop()
-			button:SetAlpha(1)
-		end
-	end
+module.barDefaults = {
+	vehicle = {
+		page = 1,
+		bindButtons = 'ACTIONBUTTON',
+		conditions = format('[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex()),
+		position = 'BOTTOM,ElvUIParent,BOTTOM,0,176',
+	}
+}
+module.handledBars = {}
+
+function module:Animate(bar, x, y, duration)
+	bar.anim = bar:CreateAnimationGroup('Move_In')
+	bar.anim.in1 = bar.anim:CreateAnimation('Translation')
+	bar.anim.in1:SetDuration(0)
+	bar.anim.in1:SetOrder(1)
+	bar.anim.in2 = bar.anim:CreateAnimation('Translation')
+	bar.anim.in2:SetDuration(duration)
+	bar.anim.in2:SetOrder(2)
+	bar.anim.in2:SetSmoothing('OUT')
+	bar.anim.out1 = bar:CreateAnimationGroup('Move_Out')
+	bar.anim.out2 = bar.anim.out1:CreateAnimation('Translation')
+	bar.anim.out2:SetDuration(duration)
+	bar.anim.out2:SetOrder(1)
+	bar.anim.out2:SetSmoothing('IN')
+	bar.anim.in1:SetOffset(x, y)
+	bar.anim.in2:SetOffset(-x, -y)
+	bar.anim.out2:SetOffset(x, y)
+	bar.anim.out1:SetScript('OnFinished', function() bar:Hide() end)
 end
 
-function module:SetupButtonAnim(button, index)
-	local iconFade = (1 * self.db.animationsMult)
-	local iconHold = (index * 0.10) * self.db.animationsMult
-
-	button.FadeIn = button.FadeIn or MER:CreateAnimationGroup(button)
-
-	button.FadeIn.ResetFade = button.FadeIn.ResetFade or button.FadeIn:CreateAnimation("Fade")
-	button.FadeIn.ResetFade:SetDuration(0)
-	button.FadeIn.ResetFade:SetChange(0)
-	button.FadeIn.ResetFade:SetOrder(1)
-
-	button.FadeIn.Hold = button.FadeIn.Hold or button.FadeIn:CreateAnimation("Sleep")
-	button.FadeIn.Hold:SetDuration(iconHold)
-	button.FadeIn.Hold:SetOrder(2)
-
-	button.FadeIn.Fade = button.FadeIn.Fade or button.FadeIn:CreateAnimation("Fade")
-	button.FadeIn.Fade:SetEasing("out-quintic")
-	button.FadeIn.Fade:SetChange(1)
-	button.FadeIn.Fade:SetDuration(iconFade)
-	button.FadeIn.Fade:SetOrder(3)
-end
-
-function module:SetupBarAnim()
-	local iconFade = ((7 * 0.10) * self.db.animationsMult) + (1 * self.db.animationsMult)
-
-	self.bar.SlideIn = self.bar.SlideIn or {}
-
-	self.bar.SlideIn.ResetOffset = self.bar.SlideIn.ResetOffset or MER:CreateAnimationGroup(self.bar):CreateAnimation("Move")
-	self.bar.SlideIn.ResetOffset:SetDuration(0)
-	self.bar.SlideIn.ResetOffset:SetOffset(0, -60)
-	self.bar.SlideIn.ResetOffset:SetScript("OnFinished", function(anim)
-		anim:GetParent().SlideIn.SlideIn:SetOffset(0, 60)
-		anim:GetParent().SlideIn.SlideIn:Play()
-	end)
-
-	self.bar.SlideIn.SlideIn = self.bar.SlideIn.SlideIn or MER:CreateAnimationGroup(self.bar):CreateAnimation("Move")
-	self.bar.SlideIn.SlideIn:SetEasing("out-quintic")
-	self.bar.SlideIn.SlideIn:SetDuration(iconFade)
-end
-
-function module:OnShowEvent()
-	self:StopAllAnimations()
-
-	local animationsAllowed = (self.db.animations) and (not InCombatLockdown()) and (not self.combatLock)
-
-	if (animationsAllowed) then
-		self:SetupBarAnim()
-		self.bar.SlideIn.ResetOffset:Play()
-
-		for i, button in ipairs(self.bar.buttons) do
-			self:SetupButtonAnim(button, i)
-		end
+function module:AnimSlideIn(bar)
+	if not bar.anim then
+		module:Animate(bar)
 	end
 
-	for _, button in ipairs(self.bar.buttons) do
-		if (animationsAllowed) then
-			button:SetAlpha(0)
-			button.FadeIn:Play()
+	bar.anim.out1:Stop()
+	bar.anim:Play()
+end
+
+function module:AnimSlideOut(bar)
+	if bar.anim then
+		bar.anim:Finish()
+	end
+
+	bar.anim:Stop()
+	bar.anim.out1:Play()
+end
+
+function module:PositionAndSizeBar()
+	if not module.bar then return end
+	local db = E.db.mui.actionbars.vehicle
+	local bar = module.bar
+	local buttonSpacing = db.buttonSpacing
+	local backdropSpacing = db.backdropSpacing
+	local buttonsPerRow = db.buttonsPerRow <= 7 and db.buttonsPerRow or 7
+	local point = db.point
+	local numButtons = 7
+	db.buttons = numButtons --Hard code it here for AB:HandleButton() needs it
+
+	bar.db = db
+	bar.mouseover = db.mouseover
+
+	bar:EnableMouse(bar.mouseover or not db.clickThrough)
+	bar:SetAlpha(bar.mouseover and 0 or db.alpha)
+	bar:SetFrameStrata(db.frameStrata or 'LOW')
+	bar:SetFrameLevel(db.frameLevel)
+
+	AB:FadeBarBlings(bar, bar.mouseover and 0 or db.alpha) --* Prob not needed/wanted tbh
+	bar.backdrop:SetShown(db.backdrop)
+	bar.backdrop:SetFrameStrata(db.frameStrata or 'LOW')
+	bar.backdrop:SetFrameLevel(db.frameLevel - 1)
+	bar.backdrop:ClearAllPoints()
+
+	AB:MoverMagic(bar)
+
+	local _, horizontal, anchorUp, anchorLeft = AB:GetGrowth(point)
+	local button, lastButton, lastColumnButton, anchorRowButton, lastShownButton
+
+	for i = 1, db.buttons do
+		lastButton = bar.buttons[i-1]
+		lastColumnButton = bar.buttons[i-buttonsPerRow]
+		button = bar.buttons[i]
+		button.db = db
+
+		if i == 1 or i == buttonsPerRow then
+			anchorRowButton = button
+		end
+
+		if i > db.buttons then
+			button:Hide()
+			button.handleBackdrop = nil
 		else
-			button:SetAlpha(1)
-		end
-	end
-end
-
-function module:UpdateBar()
-	if not E.private.actionbar.enable then return end
-
-	-- Vars
-	local size = 40
-	local spacing = 2
-
-	-- Create or get bar
-	local bar = self.bar or CreateFrame("Frame", "MER_VehicleBar", E.UIParent, "SecureHandlerStateTemplate, BackdropTemplate")
-
-	-- Default position
-	local point, anchor, attachTo, x, y = split(",", self.db.position)
-	bar:Point(point, anchor, attachTo, x, y)
-
-	-- Set bar vars
-	self.bar = bar
-	self.bar.id = 1
-
-	-- Page Handling
-	bar:SetAttribute("_onstate-page", [[
-		if HasTempShapeshiftActionBar() and self:GetAttribute("hasTempBar") then
-			newstate = GetTempShapeshiftBarIndex() or newstate
+			button:Show()
+			button.handleBackdrop = true
+			lastShownButton = button
 		end
 
-		if newstate ~= 0 then
-			self:SetAttribute("state", newstate)
-			control:ChildUpdate("state", newstate)
+		AB:HandleButton(bar, button, i, lastButton, lastColumnButton)
+		AB:StyleButton(button, nil, MasqueGroup and E.private.actionbar.masque.actionbars)
+
+		local hotkey = _G[bar.buttons[i]:GetName()..'HotKey']
+		local hotkeytext
+
+		local hotkeyPosition = db and db.hotkeyTextPosition or 'TOPRIGHT'
+		local hotkeyXOffset = db and db.hotkeyTextXOffset or 0
+		local hotkeyYOffset = db and db.hotkeyTextYOffset or -3
+		local color = db and db.useHotkeyColor and db.hotkeyColor or AB.db.fontColor
+
+		if i == 7 then
+			hotkeytext = _G['ElvUI_Bar1Button12HotKey']:GetText()
 		else
-			local newCondition = self:GetAttribute("newCondition")
-			if newCondition then
-				newstate = SecureCmdOptionParse(newCondition)
-				self:SetAttribute("state", newstate)
-				control:ChildUpdate("state", newstate)
-			end
+			hotkeytext = _G['ElvUI_Bar1Button'..i..'HotKey']:GetText()
 		end
-	]])
 
-	bar:CreateBackdrop(AB.db.transparent and 'Transparent', nil, nil, nil, nil, nil, nil, nil, 0)
-	if bar.backdrop then
-		bar.backdrop:Styling()
-		MER:CreateShadow(bar.backdrop)
-	end
+		local justify = 'RIGHT'
+		if hotkeyPosition == 'TOPLEFT' or hotkeyPosition == 'BOTTOMLEFT' then
+			justify = 'LEFT'
+		elseif hotkeyPosition == 'TOP' or hotkeyPosition == 'BOTTOM' then
+			justify = 'CENTER'
+		end
 
-	-- Create Buttons
-	if not bar.buttons then
-		bar.buttons = {}
-
-		for i = 1, 7 do
-			local buttonIndex = i == 7 and 12 or i
-
-			-- Create button
-			local button = LAB:CreateButton(buttonIndex, "MER_VehicleBarButton" .. buttonIndex, bar, nil)
-
-			-- Set state aka actions
-			button:SetState(0, "action", buttonIndex)
-
-			for k = 1, 14 do
-				button:SetState(k, "action", (k - 1) * 12 + buttonIndex)
-			end
-
-			if buttonIndex == 12 then
-				button:SetState(12, "custom", AB.customExitButton)
-			end
-
-			local hotkeytext
-			if i == 7 then
-				hotkeytext = _G['ElvUI_Bar1Button12HotKey']:GetText()
+		if hotkeytext then
+			if hotkeytext == _G.RANGE_INDICATOR then
+				hotkey:SetFont(defaultFont, defaultFontSize, defaultFontOutline)
+				hotkey.SetVertexColor = nil
 			else
-				hotkeytext = _G['ElvUI_Bar1Button'..i..'HotKey']:GetText()
+				hotkey:FontTemplate(E.Libs.LSM:Fetch('font', db and db.hotkeyFont or AB.db.font), db and db.hotkeyFontSize or AB.db.fontSize, db and db.hotkeyFontOutline or AB.db.fontOutline)
+				hotkey.SetVertexColor = E.noop
 			end
-
-			if button.HotKey then
-				button.HotKey:SetText(hotkeytext)
-				button.HotKey:Show()
-			end
-
-			-- Style
-			AB:StyleButton(button, nil, MasqueGroup and E.private.actionbar.masque.actionbars)
-			button:SetTemplate("Transparent")
-			button:SetCheckedTexture("")
-
-			-- Add to array
-			bar.buttons[i] = button
+			hotkey:SetText(hotkeytext)
+			hotkey:SetJustifyH(justify)
 		end
-	end
 
-	-- Calculate Bar Width/Height
-	bar:Width((size * 7) + (spacing * (7 - 1)) + 4)
-	bar:Height(size + 4)
+		hotkey:SetTextColor(color.r, color.g, color.b)
 
-	-- Update button position and size
-	for i, button in ipairs(bar.buttons) do
-		button:Size(size)
-		button:ClearAllPoints()
-
-		if (i == 1) then
-			button:SetPoint("BOTTOMLEFT", 2, 2)
+		if db and not db.hotkeytext then
+			hotkey:Hide()
 		else
-			button:SetPoint("LEFT", bar.buttons[i - 1], "RIGHT", spacing, 0)
+			hotkey:Show()
+		end
+
+		if not bar.buttons[i].useMasque then
+			hotkey:ClearAllPoints()
+			hotkey:Point(hotkeyPosition, hotkeyXOffset, hotkeyYOffset)
 		end
 	end
 
-	--! Did not test the masque stuff tbh (Yolo)
+	AB:HandleBackdropMultiplier(bar, backdropSpacing, buttonSpacing, db.widthMult, db.heightMult, anchorUp, anchorLeft, horizontal, lastShownButton, anchorRowButton)
+	AB:HandleBackdropMover(bar, backdropSpacing)
+
+	local page = format('[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex())
+	RegisterStateDriver(bar, 'page', page)
+
+	if db.enable then
+		E:EnableMover(bar.mover:GetName())
+		RegisterStateDriver(bar, 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
+		bar:Show()
+	else
+		E:DisableMover(bar.mover:GetName())
+		UnregisterStateDriver(bar, 'visibility')
+		bar:Hide()
+	end
+
+	E:SetMoverSnapOffset('MER_VehicleBarMover', db.buttonSpacing / 2)
+
 	if MasqueGroup and E.private.actionbar.masque.actionbars then
 		MasqueGroup:ReSkin()
 
@@ -202,137 +194,150 @@ function module:UpdateBar()
 			AB:TrimIcon(btn, true)
 		end
 	end
-
-	-- Update Paging
-	local pageAttribute = AB:GetPage("bar1", 1, format("[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;", GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex()))
-	RegisterStateDriver(bar, "page", pageAttribute)
-	self.bar:SetAttribute("page", pageAttribute)
-
-	-- ElvUI Bar config
-	AB:UpdateButtonConfig("bar1", "ACTIONBUTTON")
-	AB:PositionAndSizeBar("bar1")
-
-	-- Hook for animation
-	self:SecureHookScript(bar, "OnShow", "OnShowEvent")
-
-	-- Hide
-	bar:Hide()
 end
 
-function module:PLAYER_ENTERING_WORLD()
-	self:ScheduleTimer(function()
-		if InCombatLockdown() then
-			self.regenEnabledInit = true
-			self:RegisterEvent("PLAYER_REGEN_ENABLED")
+function module:CreateBar()
+	local bar = CreateFrame('Frame', 'MER_VehicleBar', E.UIParent, 'SecureHandlerStateTemplate,BackdropTemplate')
+	module.handledBars['vehicle'] = bar
+	module.bar = bar
+
+	local defaults = module.barDefaults['vehicle']
+	local elvButton = 'ElvUI_Bar1Button'
+	bar.id = 1
+
+	local point, anchor, attachTo, x, y = strsplit(',', defaults.position)
+	bar:Point(point, anchor, attachTo, x, y)
+	bar:HookScript('OnShow', function(frame) self:AnimSlideIn(frame) end)
+
+	bar:CreateBackdrop(AB.db.transparent and 'Transparent', nil, nil, nil, nil, nil, nil, nil, 0)
+	if bar.backdrop then
+		bar.backdrop:Styling()
+		MER:CreateBackdropShadow(bar)
+	end
+
+	bar.buttons = {}
+
+	AB:HookScript(bar, 'OnEnter', 'Bar_OnEnter')
+	AB:HookScript(bar, 'OnLeave', 'Bar_OnLeave')
+
+	for i = 1, 7 do
+		bar.buttons[i] = LAB:CreateButton(i, format(bar:GetName()..'Button%d', i), bar, nil)
+		bar.buttons[i]:SetState(0, 'action', i)
+
+		for k = 1, 14 do
+			bar.buttons[i]:SetState(k, 'action', (k - 1) * 12 + i)
+		end
+
+		if i == 7 then
+			bar.buttons[i]:SetState(12, 'custom', AB.customExitButton)
+			_G[elvButton..i].slvehiclebutton = bar.buttons[i]:GetName()
 		else
-			self:ProfileUpdate()
+			_G[elvButton..i].slvehiclebutton = bar.buttons[i]:GetName()
 		end
-	end, 3)
-end
 
-function module:PLAYER_REGEN_DISABLED()
-	self.combatLock = true
-	self:StopAllAnimations()
-end
-
-function module:PLAYER_REGEN_ENABLED()
-	self.combatLock = false
-
-	if (self.regenEnabledInit) then
-		self.regenEnabledInit = false
-		self:ProfileUpdate()
-	end
-end
-
-function module:Disable()
-	self:CancelAllTimers()
-	self:UnregisterAllEvents()
-	self:UnhookAll()
-
-	if (self.Initialized) then
-		self:StopAllAnimations()
-		UnregisterStateDriver(self.bar, "visibility")
-		UnregisterStateDriver(AB["handledBars"]["bar1"], "visibility")
-		RegisterStateDriver(AB["handledBars"]["bar1"], "visibility", E.db.actionbar["bar1"].visibility)
-		self.bar:Hide()
-	end
-end
-
-function module:Enable()
-	self:UnregisterAllEvents()
-
-	-- Update or create bar
-	self:UpdateBar()
-
-	-- Overwrite default bar visibility
-	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;"
-
-	self:Hook(AB, "PositionAndSizeBar", function(_, barName)
-		local bar = AB["handledBars"][barName]
-		if (E.db.actionbar[barName].enabled) and (barName == "bar1") then
-			UnregisterStateDriver(bar, "visibility")
-			RegisterStateDriver(bar, "visibility", visibility .. E.db.actionbar[barName].visibility)
+		--Masuqe Support
+		if MasqueGroup and E.private.actionbar.masque.actionbars then
+			bar.buttons[i]:AddToMasque(MasqueGroup)
 		end
-	end)
 
-	-- Unregister/Register State Driver
-	UnregisterStateDriver(self.bar, "visibility")
-	UnregisterStateDriver(AB["handledBars"]["bar1"], "visibility")
+		AB:HookScript(bar.buttons[i], 'OnEnter', 'Button_OnEnter')
+		AB:HookScript(bar.buttons[i], 'OnLeave', 'Button_OnLeave')
+	end
 
-	RegisterStateDriver(self.bar, "visibility", "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide")
-	RegisterStateDriver(AB["handledBars"]["bar1"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
-
-	-- Register Events
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
-	self:RegisterEvent("PLAYER_REGEN_DISABLED")
-end
-
-function module:ProfileUpdate()
-	self:Disable()
-
-	self.db = E.db.mui.actionbars.vehicleBar
-	if (self.db and self.db.enable) then
-		if self.Initialized then
-			self:Enable()
+	bar:SetAttribute('_onstate-page', [[
+		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute('hasTempBar')) and GetTempShapeshiftBarIndex()) or (UnitHasVehicleUI('player') and GetVehicleBarIndex()) or (HasOverrideActionBar() and GetOverrideBarIndex()) or newstate
+		if not newstate then return end
+		if newstate ~= 0 then
+			self:SetAttribute('state', newstate)
+			control:ChildUpdate('state', newstate)
 		else
-			self:Initialize(true)
+			local newCondition = self:GetAttribute('newCondition')
+			if newCondition then
+				newstate = SecureCmdOptionParse(newCondition)
+				self:SetAttribute('state', newstate)
+				control:ChildUpdate('state', newstate)
+			end
 		end
-	end
+	]])
+
+	local db = E.db.mui.actionbars.vehicle
+	local animationDistance = db.keepSizeRatio and db.buttonSize or db.buttonHeight
+	module:Animate(bar, 0, -(animationDistance), 1)
+
+	E:CreateMover(bar, 'MER_VehicleBarMover', L["Vehicle Bar Mover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI', nil, 'mui,modules,actionbars')
 end
 
-function module:Initialize(worldInit)
+function module:UpdateButtonSettings()
 	if not E.private.actionbar.enable then return end
 
-	-- Get db
-	self.db = E.db.mui.actionbars.vehicleBar
-	MER:RegisterDB(self.db, "vehicleBar")
+	for barName, bar in pairs(module.handledBars) do
+		module:UpdateButtonConfig(barName, bar.bindButtons)
+		module:PositionAndSizeBar()
+	end
+end
 
-	if self.Initialized then return end
-	if (not self.db) or (not self.db.enable) then return end
+function module:UpdateButtonConfig(barName)
+	local barDB = E.db.mui.actionbars[barName]
+	local bar = module.handledBars[barName]
 
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	if not bar.buttonConfig then bar.buttonConfig = { hideElements = {}, colors = {} } end
 
-	if InCombatLockdown() then
-		self.regenEnabledInit = true
-		self:RegisterEvent("PLAYER_REGEN_ENABLED")
-		return
+	bar.buttonConfig.hideElements.hotkey = not barDB.hotkeytext
+	bar.buttonConfig.showGrid = barDB.showGrid
+	bar.buttonConfig.clickOnDown = AB.db.keyDown
+	bar.buttonConfig.outOfRangeColoring = (AB.db.useRangeColorText and 'hotkey') or 'button'
+	bar.buttonConfig.colors.range = E:SetColorTable(bar.buttonConfig.colors.range, AB.db.noRangeColor)
+	bar.buttonConfig.colors.mana = E:SetColorTable(bar.buttonConfig.colors.mana, AB.db.noPowerColor)
+	bar.buttonConfig.colors.usable = E:SetColorTable(bar.buttonConfig.colors.usable, AB.db.usableColor)
+	bar.buttonConfig.colors.notUsable = E:SetColorTable(bar.buttonConfig.colors.notUsable, AB.db.notUsableColor)
+	bar.buttonConfig.useDrawBling = not AB.db.hideCooldownBling
+	bar.buttonConfig.useDrawSwipeOnCharges = AB.db.useDrawSwipeOnCharges
+	bar.buttonConfig.handleOverlay = AB.db.handleOverlay
+
+	for _, button in ipairs(bar.buttons) do
+		button:UpdateConfig(bar.buttonConfig)
+	end
+end
+
+--* Ghetto way to get the pushed texture to work
+function module:LAB_MouseUp()
+	if not E.private.actionbar.enable or not E.db.mui.actionbars.vehicle.enable then return end
+	local slbutton = _G[self.slvehiclebutton]
+	if slbutton and slbutton.config.clickOnDown then
+		slbutton:GetPushedTexture():Hide()
+	end
+end
+hooksecurefunc(AB, 'LAB_MouseUp', module.LAB_MouseUp)
+
+function module:LAB_MouseDown()
+	if not E.private.actionbar.enable or not E.db.mui.actionbars.vehicle.enable then return end
+	local slbutton = _G[self.slvehiclebutton]
+	if slbutton and slbutton.config.clickOnDown then
+		slbutton:GetPushedTexture():Show()
+	end
+end
+hooksecurefunc(AB, 'LAB_MouseDown', module.LAB_MouseDown)
+
+function module:Initialize()
+	module.db = E.db.mui.actionbars.vehicle
+	if not module.db.enable then return end
+
+	MER:RegisterDB(self, "vehicle")
+
+	if E.locale == 'koKR' then
+		defaultFont, defaultFontSize, defaultFontOutline = [[Fonts\2002.TTF]], 11, "MONOCHROME, THICKOUTLINE"
+	elseif E.locale == 'zhTW' then
+		defaultFont, defaultFontSize, defaultFontOutline = [[Fonts\arheiuhk_bd.TTF]], 11, "MONOCHROME, THICKOUTLINE"
+	elseif E.locale == 'zhCN' then
+		defaultFont, defaultFontSize, defaultFontOutline = [[Fonts\FRIZQT__.TTF]], 11, 'MONOCHROME, OUTLINE'
+	else
+		defaultFont, defaultFontSize, defaultFontOutline = [[Fonts\ARIALN.TTF]], 12, "MONOCHROME, THICKOUTLINE"
 	end
 
-	if (not worldInit) then return end
+	module:CreateBar()
+	module:UpdateButtonSettings()
 
-	self.combatLock = false
-	self:Enable()
-
-	E:CreateMover(self.bar, "MER_VehicleBar", L["Vehicle Bar"], nil, nil, nil, 'ALL,MERATHILISUI', nil, 'mui,modules,actionbars,vehicleBar')
-
-	-- Force update
-	for _, button in pairs(self.bar.buttons) do
-		button:UpdateAction()
-	end
-
-	-- We are done, hooray!
-	self.Initialized = true
+	hooksecurefunc(AB, 'UpdateButtonSettings', module.UpdateButtonSettings)
 end
 
 MER:RegisterModule(module:GetName())
