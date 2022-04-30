@@ -115,11 +115,6 @@ function COMP:SLECompatibility()
 	if Disable(E.private.sle["skins"]["merchant"]) then
 		self:Print(SLE.Title, "Merchant Skin")
 	end
-
-	-- Vehicle Bar
-	if Disable(E.db.sle["actionbar"]["vehicle"]) then
-		self:Print(SLE.Title, "Vehicle Bar")
-	end
 end
 
 function COMP:NihilistUI()
