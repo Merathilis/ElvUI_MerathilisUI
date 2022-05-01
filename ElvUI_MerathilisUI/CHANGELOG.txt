@@ -1,2 +1,0 @@
-[b][color=orange]v4.93[/color], 29.04.2022[/b][list]
-[*]Fixed some issues related to the new Vehicle Bar[/list]

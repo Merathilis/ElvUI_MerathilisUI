@@ -353,12 +353,6 @@ MP.actionbars = {
 		mouseover = false,
 		size = 28,
 	},
-	vehicleBar = {
-		enable = true,
-		animations = true,
-		animationsMult = 1, -- Animation speed, higher than 1 => slower, lower than 1 => faster
-		position = "BOTTOM,ElvUIParent,BOTTOM,0,162"
-	},
 	randomToy = {
 		enable = true,
 		toyList = {
