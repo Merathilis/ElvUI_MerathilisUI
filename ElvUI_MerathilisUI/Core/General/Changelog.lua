@@ -16,7 +16,7 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed some issues related to the new Vehicle Bar",
+		"• Decided to remove the Vehicle Bar. Sorry for the confusion",
 
 	" ",
 	"Notes:",
