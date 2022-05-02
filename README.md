@@ -10,7 +10,7 @@
 ![Image of MerathilsUI](https://www.tukui.org/addons/Merathilis/1603027212/screenshot.png)
 
 ***
-[![Discord](https://img.shields.io/discord/284626725403361281?label=Discord&style=flat-square)](https://discordapp.com/invite/ZhNqCu2) [![Patreon](https://img.shields.io/badge/Support-Patreon-orange)](https://www.patreon.com/merathilisui) [![Donate](https://img.shields.io/badge/Support-Donate-blue)](https://paypal.me/merathilis)
+[![Discord](https://img.shields.io/discord/284626725403361281?color=orange&label=discord&logo=discord&style=for-the-badge)](https://discordapp.com/invite/ZhNqCu2) [![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/merathilisui) [![Donate](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/merathilis)
 
 Download Sites: [Tukui](https://www.tukui.org/addons.php?id=1) | [Curse](https://www.curseforge.com/wow/addons/merathilis-ui) | [Wago](https://addons.wago.io/addons/elvui-merathilisui) | [Github Release](https://github.com/Merathilis/ElvUI_MerathilisUI/releases)
 
