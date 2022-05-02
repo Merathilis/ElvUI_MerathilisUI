@@ -688,7 +688,16 @@ MP.microBar = {
 }
 
 MP.unitframes = {
-	healPrediction = false,
+	healPrediction = {
+		enable = true,
+		texture = {
+			enable = true,
+			custom = E.db.unitframe.statusbar,
+			blizzardStyle = false,
+		},
+		blizzardOverAbsorbGlow = true,
+		blizzardAbsorbOverlay = true,
+	},
 	swing = {
 		enable = false,
 		mcolor = { r = .8, g = .8, b = .8 },

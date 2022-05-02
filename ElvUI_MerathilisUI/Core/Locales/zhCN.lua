@@ -438,7 +438,6 @@ L["MER_MEDIA_PVPARENA"] = {
 
 -- Unitframes
 L["UnitFrames"] = "单位框体"
-L["Changes the Heal Prediction texture to the default Blizzard ones."] = "将治疗预估材质替换为暴雪默认样式"
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = "在Debuff图标外添加阴影以便更清楚的分辨Debuff类型"
 L["Swing Bar"] = "普攻计时条"
 L["Creates a weapon Swing Bar"] = "创建一个普攻计时条"
@@ -450,6 +449,25 @@ L["Creates a Global Cooldown Bar"] = "创建一个公共CD计时条"
 L["UnitFrame Style"] = "头像样式"
 L["Adds my styling to the Unitframes if you use transparent health."] = "当你使用透明头像时，添加Merathilis风格"
 L["Change the default role icons."] = "替换默认职责图标"
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = "将治疗预估材质替换为暴雪默认样式"
+L["Add a glow in the end of health bars to indicate the over absorb."] = true
+L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = true
+L["Auto Height"] = true
+L["Blizzard Absorb Overlay"] = true
+L["Blizzard Over Absorb Glow"] = true
+L["Blizzard Style"] = true
+L["Change the color of the absorb bar."] = true
+L["Custom Texture"] = "Benutzerdefinierte Textur"
+L["Enable the replacing of ElvUI absorb bar textures."] = true
+L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = true
+L["Max Overflow"] = true
+L["Modify the texture of the absorb bar."] = true
+L["Overflow"] = true
+L["Set %s to %s"] = true
+L["Set All Absorb Style to %s"] = true
+L["The absorb style %s and %s is highly recommended with %s tweaks."] = true
+L["The selected texture will override the ElvUI default absorb bar texture."] = true
+L["Use the texture from Blizzard Raid Frames."] = true
 
 -- LocationPanel
 L["Template"] = "模版"

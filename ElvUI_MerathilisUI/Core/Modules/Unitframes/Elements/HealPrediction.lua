@@ -1,108 +1,282 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
 local UF = E.UnitFrames
-local ElvUF = ElvUF
+local LSM = E.Libs.LSM
 
+--[[
+	All Credits goes to fang2hou from Windtools, he is the man!!!
+]]--
+
+local _G = _G
 local pairs = pairs
+
+local CreateFrame = CreateFrame
 local UnitIsConnected = UnitIsConnected
-local hooksecurefunc = hooksecurefunc
 
-function module:Construct_HealComm(frame)
-	local healPrediction = frame.HealthPrediction
+local framePool = {}
 
-	if healPrediction and not healPrediction.overAbsorb then
-		local overAbsorb = frame.Health:CreateTexture(nil, "OVERLAY")
-		overAbsorb:SetPoint('TOP')
-		overAbsorb:SetPoint('BOTTOM')
-		overAbsorb:SetPoint('LEFT', frame.Health, 'RIGHT')
-		overAbsorb:SetWidth(10)
+function module:ConstructTextures(frame)
+	if not frame or not frame.HealthPrediction then
+		return
+	end
 
-		healPrediction.overAbsorb = overAbsorb
+	if not frame.HealthPrediction.windAbsorbOverlay then
+		local overlay = frame.HealthPrediction.absorbBar:CreateTexture(nil, "OVERLAY", 10)
+		overlay:SetTexture("Interface/RaidFrame/Shield-Overlay", true, true)
+		frame.HealthPrediction.windAbsorbOverlay = overlay
+	end
+
+	if not frame.HealthPrediction.windOverAbsorbGlow then
+		local glow = frame.Health:CreateTexture(nil, "OVERLAY", 10)
+		glow:SetTexture("Interface/RaidFrame/Shield-Overshield")
+		glow:SetBlendMode("ADD")
+		frame.HealthPrediction.windOverAbsorbGlow = glow
 	end
 end
 
-function module:Configure_HealComm(frame)
-	if frame.db and frame.db.healPrediction and frame.db.healPrediction.enable then
-		local healPrediction = frame.HealthPrediction
+function module:ConfigureTextures(_, frame)
+	if not (frame and frame.db and frame.db.healPrediction and frame.db.healPrediction.enable) then
+		return
+	end
 
-		if frame.db.health then
-			local health = frame.Health
-			local orientation = health:GetOrientation()
-			local reverseFill = health:GetReverseFill()
-			local overAbsorbTexture = "Interface\\RaidFrame\\Shield-Overshield"
+	local pred = frame.HealthPrediction
+	local overlay = pred.windAbsorbOverlay
+	local glow = pred.windOverAbsorbGlow
 
-			if orientation == "HORIZONTAL" then
-				if healPrediction.overAbsorb then
-					healPrediction.overAbsorb:SetTexture(overAbsorbTexture)
-					healPrediction.overAbsorb:SetWidth(10)
-					healPrediction.overAbsorb:SetBlendMode("ADD")
-					healPrediction.overAbsorb:ClearAllPoints()
+	if not frame.db.health or not frame.Health or not self.db.enable then
+		overlay:Hide()
+		glow:Hide()
+	else
+		local isHorizontal = frame.Health:GetOrientation() == "HORIZONTAL"
+		local isReverse = frame.Health:GetReverseFill()
+		local offset = isReverse and -3 or 3
 
-					if reverseFill then
-						healPrediction.overAbsorb:SetPoint("TOPRIGHT", health, "TOPLEFT", 5, 1)
-						healPrediction.overAbsorb:SetPoint("BOTTOMRIGHT", health, "BOTTOMLEFT", 5, -1)
-					else
-						healPrediction.overAbsorb:SetPoint("TOPLEFT", health, "TOPRIGHT", -5, 1)
-						healPrediction.overAbsorb:SetPoint("BOTTOMLEFT", health, "BOTTOMRIGHT", -5, -1)
-					end
+		if self.db.blizzardAbsorbOverlay then
+			overlay:ClearAllPoints()
+			if isHorizontal then
+				local anchor = isReverse and "RIGHT" or "LEFT"
+				overlay.SetOverlaySize = function(self, percent)
+					self:SetWidth(frame.Health:GetWidth() * percent)
+					self:SetTexCoord(0, overlay:GetWidth() / 32, 0, overlay:GetHeight() / 32)
 				end
+				overlay:SetPoint("TOP" .. anchor, pred.absorbBar, "TOP" .. anchor)
+				overlay:SetPoint("BOTTOM" .. anchor, pred.absorbBar, "BOTTOM" .. anchor)
 			else
-				if healPrediction.overAbsorb then
-					healPrediction.overAbsorb:SetTexture(overAbsorbTexture)
-					healPrediction.overAbsorb:SetHeight(10)
-					healPrediction.overAbsorb:SetBlendMode("ADD")
-					healPrediction.overAbsorb:ClearAllPoints()
+				local anchor = isReverse and "TOP" or "BOTTOM"
 
-					if reverseFill then
-						healPrediction.overAbsorb:SetPoint("TOPLEFT", health, "BOTTOMLEFT", -1, 5)
-						healPrediction.overAbsorb:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 1, 5)
-					else
-						healPrediction.overAbsorb:SetPoint("BOTTOMLEFT", health, "TOPLEFT", -1, -5)
-						healPrediction.overAbsorb:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 1, -5)
+				overlay.SetOverlaySize = function(self, percent)
+					self:SetHeight(frame.Health:GetHeight() * percent)
+					self:SetTexCoord(0, overlay:GetWidth() / 32, 0, overlay:GetHeight() / 32)
+				end
+
+				overlay:SetPoint(anchor .. "LEFT", pred.absorbBar, anchor .. "LEFT")
+				overlay:SetPoint(anchor .. "RIGHT", pred.absorbBar, anchor .. "RIGHT")
+			end
+			overlay:Show()
+		else
+			overlay:Hide()
+		end
+
+		if self.db.blizzardOverAbsorbGlow then
+			glow:ClearAllPoints()
+			if isHorizontal then
+				local anchor = isReverse and "LEFT" or "RIGHT"
+				glow:SetPoint("TOP", frame.Health, "TOP" .. anchor, offset, 2)
+				glow:SetPoint("BOTTOM", frame.Health, "BOTTOM" .. anchor, offset, -2)
+			else
+				local anchor = isReverse and "BOTTOM" or "TOP"
+				glow:SetHeight(16)
+				glow:SetPoint("LEFT", frame.Health, anchor .. "LEFT", -2, offset)
+				glow:SetPoint("RIGHT", frame.Health, anchor .. "RIGHT", 2, offset)
+			end
+			glow:Show()
+		else
+			glow:Hide()
+		end
+	end
+end
+
+function module:HealthPrediction_OnUpdate(object, unit, _, _, absorb, _, hasOverAbsorb, _, health, maxHealth)
+	if not self.db or not self.db.enable then
+		return
+	end
+
+	local frame = object.frame
+	local pred = frame.HealthPrediction
+
+	local frameDB = frame and frame.db and frame.db.healPrediction
+	if not frameDB or not frameDB.enable or not framePool[frame] then
+		return
+	end
+
+	frame.merSmooth:DoJob(function()
+		local overlay = pred.windAbsorbOverlay
+		local glow = pred.windOverAbsorbGlow
+
+		if not self.db.blizzardAbsorbOverlay or maxHealth == health or absorb == 0 or not UnitIsConnected(unit) then
+			overlay:Hide()
+		else
+			if maxHealth > health + absorb then
+				overlay:SetOverlaySize(absorb / maxHealth)
+				overlay:Show()
+			else
+				if frameDB.absorbStyle == "OVERFLOW" then
+					if health == maxHealth and self.db.blizzardOverAbsorbGlow then
+						pred.absorbBar:SetValue(0)
+					end
+					overlay:SetOverlaySize((maxHealth - health) / maxHealth)
+					overlay:Show()
+				else -- Do not show the overlay if in normal mode
+					overlay:Hide()
+				end
+			end
+		end
+
+		if self.db.blizzardOverAbsorbGlow and hasOverAbsorb and UnitIsConnected(unit) then
+			if health == maxHealth and frameDB.absorbStyle == "NORMAL" then
+				pred.absorbBar:SetValue(0)
+			end
+			glow:Show()
+		else
+			glow:Hide()
+		end
+	end)
+end
+
+function module:SetupFrame(frame)
+	if not frame or framePool[frame] or not frame.HealthPrediction then
+		return
+	end
+
+	self:SmoothTweak(frame)
+	self:ConstructTextures(frame)
+
+	if frame.HealthPrediction.PostUpdate then
+		self:SecureHook(frame.HealthPrediction, "PostUpdate", "HealthPrediction_OnUpdate")
+	end
+
+	framePool[frame] = true
+end
+
+function module:WaitForUnitframesLoad(triedTimes)
+	triedTimes = triedTimes or 0
+
+	if triedTimes > 10 then
+		F.DebugMessage(self:GetName(), "Failed to load unitframes after 10 times, please try again later.")
+		return
+	end
+
+	if not UF.unitstoload and not UF.unitgroupstoload and not UF.headerstoload then
+		for unit in pairs(UF.units) do
+			self:SetupFrame(UF[unit])
+		end
+
+		for unit in pairs(UF.groupunits) do
+			self:SetupFrame(UF[unit])
+		end
+
+		for group, header in pairs(UF.headers) do
+			if header.GetChildren and header:GetNumChildren() > 0 then
+				for _, child in pairs {header:GetChildren()} do
+					if child.groupName and child.GetChildren and child:GetNumChildren() > 0 then
+						for _, subChild in pairs {child:GetChildren()} do
+							self:SetupFrame(subChild)
+						end
 					end
 				end
 			end
 		end
+
+		-- Refresh all frames to make sure the replacing of textures
+		self:SecureHook(UF, "Configure_HealComm", "ConfigureTextures")
+		UF:Update_AllFrames()
+	else
+		E:Delay(0.5, self.WaitForUnitframesLoad, self, triedTimes + 1)
 	end
 end
 
-do
-	function module:UpdateHealComm(unit, myIncomingHeal, otherIncomingHeal, absorb, healAbsorb, hasOverAbsorb, hasOverHealAbsorb, health, maxHealth)
-		local frame = self.frame
+function module:SmoothTweak(frame)
+	if frame.merSmooth then
+		return
+	end
+
+	frame.merSmooth = CreateFrame("statusbar", nil, E.UIParent)
+
+	-- If triggered by ElvUI smooth, do the job
+	frame.merSmooth.SetValue = function(self)
+		if self.job then
+			self.job()
+			self.job = nil
+		end
+	end
+
+	-- Add the job to the smooth queue
+	frame.merSmooth.DoJob = function(self, job)
+		if UF and UF.db and UF.db.smoothbars then
+			self.job = job
+			self:SetValue(0)
+		else
+			job()
+		end
+	end
+
+	-- Let ElvUI change the SetValue method
+	E:SetSmoothing(frame.merSmooth, true)
+end
+
+function module:SetTexture_HealComm(module, obj, texture)
+	local func = self.hooks[module].SetTexture_HealComm
+
+	if self.db and self.db.enable and self.db.texture.enable then
+		if self.db.texture.blizzardStyle then
+			texture = "Interface/RaidFrame/Shield-Fill"
+		elseif self.db.texture.custom then
+			texture = LSM:Fetch("statusbar", self.db.texture.custom)
+		end
+	end
+
+	return self.hooks[module].SetTexture_HealComm(module, obj, texture)
+end
+
+function module:Initialize()
+	self.db = E.db.mui.unitframes.healPrediction
+	MER:RegisterDB(self.db, "healPrediction")
+
+	if not self.db or not self.db.enable then
+		return
+	end
+
+	if self.initialized then
+		return
+	end
+
+	self:RawHook(UF, "SetTexture_HealComm")
+	self:WaitForUnitframesLoad()
+
+	self.initialized = true
+end
+
+function module:ProfileUpdate()
+	self:Initialize()
+
+	if not self.db or not self.db.enable then
+		for frame in pairs(framePool) do
+			self:ConfigureTextures(frame)
+		end
+	end
+
+	UF:Update_AllFrames()
+end
+
+function module:ChangeDB(callback)
+	for frame in pairs(framePool) do
 		local db = frame and frame.db and frame.db.healPrediction
-		if not db or not db.absorbStyle or not UnitIsConnected(unit) then return end
-
-		if hasOverAbsorb and health == maxHealth then
-			local db = self.frame.db and self.frame.db.healPrediction
-			if db and db.absorbStyle == 'NORMAL' then
-				self.absorbBar:SetValue(0)
-			end
-		end
-
-		if self.absorbBar then
-			self.absorbBar:SetStatusBarColor(0.66, 1, 1, .6)
-		end
-
-		if self.overAbsorb then
-			self.overAbsorb:SetVertexColor(1, 1, 1, 1)
+		if db then
+			callback(db)
 		end
 	end
+
+	UF:Update_AllFrames()
 end
 
-function module:HealPrediction()
-	if E.private.unitframe.enable ~= true or E.db.mui.unitframes.healPrediction ~= true then return end
-
-	hooksecurefunc(UF, "Construct_HealComm", module.Construct_HealComm)
-	hooksecurefunc(UF, "Configure_HealComm", module.Configure_HealComm)
-
-	for _, object in pairs(ElvUF.objects) do
-		if object.HealthPrediction then
-			module:Construct_HealComm(object)
-			module:Configure_HealComm(object)
-
-			if object.HealthPrediction.PostUpdate then
-				hooksecurefunc(object.HealthPrediction, "PostUpdate", module.UpdateHealComm)
-			end
-		end
-	end
-end
+MER:RegisterModule(module:GetName())

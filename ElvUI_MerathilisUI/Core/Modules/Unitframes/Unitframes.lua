@@ -170,9 +170,6 @@ function module:Initialize()
 	-- RoleIcons
 	self:Configure_RoleIcons()
 
-	-- Health Prediction
-	self:HealPrediction()
-
 	self:RegisterEvent("ADDON_LOADED")
 end
 

@@ -427,7 +427,6 @@ L["MER_MEDIA_PVPARENA"] = {
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = "Fügt einen Schatten zu den Schwächungszaubern hinzu, so dass die Schwächungszauberfarbe besser sichtbar ist."
-L["Changes the Heal Prediction texture to the default Blizzard ones."] = "Ändert die 'Eingehende Heilung' Textur auf Standard Blizzard"
 L["Swing Bar"] = "Schwungleiste"
 L["Creates a weapon Swing Bar"] = "Erstellt eine Waffenschwungleiste"
 L["Main-Hand Color"] = "Haupthand Farbe"
@@ -438,6 +437,25 @@ L["Creates a Global Cooldown Bar"] = "Erstellt eine globale Leiste mit Abklingze
 L["UnitFrame Style"] = "Einheitenfenster Stil"
 L["Adds my styling to the Unitframes if you use transparent health."] = "Fügt meinen Stil zu den Einheitenfenstern hinzu, wenn du transparentes Leben benutzt."
 L["Change the default role icons."] = "Ändert die Standard Rollensymbole."
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = "Ändert die 'Eingehende Heilung' Textur auf Standard Blizzard"
+L["Add a glow in the end of health bars to indicate the over absorb."] = true
+L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = true
+L["Auto Height"] = true
+L["Blizzard Absorb Overlay"] = true
+L["Blizzard Over Absorb Glow"] = true
+L["Blizzard Style"] = "Blizzard Stil"
+L["Change the color of the absorb bar."] = true
+L["Custom Texture"] = "Benutzerdefinierte Textur"
+L["Enable the replacing of ElvUI absorb bar textures."] = true
+L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = true
+L["Max Overflow"] = "Maximaler Overflow"
+L["Modify the texture of the absorb bar."] = true
+L["Overflow"] = true
+L["Set %s to %s"] = true
+L["Set All Absorb Style to %s"] = true
+L["The absorb style %s and %s is highly recommended with %s tweaks."] = true
+L["The selected texture will override the ElvUI default absorb bar texture."] = true
+L["Use the texture from Blizzard Raid Frames."] = true
 
 -- LocationPanel
 L["Location Panel"] = true
