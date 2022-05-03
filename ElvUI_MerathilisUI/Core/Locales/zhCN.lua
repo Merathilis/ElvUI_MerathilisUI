@@ -134,8 +134,8 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "在飞�
 
 -- Shadows
 L["Shadows"] = true
-L["Increase Size"] = true
-L["Make shadow thicker."] = true
+L["Increase Size"] = "增大尺寸"
+L["Make shadow thicker."] = "让阴影变得更加厚实."
 
 -- Mail
 L["Mail"] = "邮件"
@@ -257,8 +257,8 @@ L["BattleOfDazaralor"] = "达萨罗之战"
 L["CrucibleOfStorms"] = "风暴熔炉"
 L["EternalPalace"] = "永恒王宫"
 L["Nyalotha"] = "尼奥罗萨"
-L["Castle Nathria"] = true
-L["Sanctum of Domination"] = true
+L["Castle Nathria"] = "纳斯利亚堡"
+L["Sanctum of Domination"] = "统御圣所"
 L["FACTION"] = "阵营"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "已激活的艾泽里特之力"
 L["Only Icons"] = "仅图标"
@@ -450,24 +450,24 @@ L["UnitFrame Style"] = "头像样式"
 L["Adds my styling to the Unitframes if you use transparent health."] = "当你使用透明头像时，添加Merathilis风格"
 L["Change the default role icons."] = "替换默认职责图标"
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = "将治疗预估材质替换为暴雪默认样式"
-L["Add a glow in the end of health bars to indicate the over absorb."] = true
-L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = true
-L["Auto Height"] = true
-L["Blizzard Absorb Overlay"] = true
-L["Blizzard Over Absorb Glow"] = true
-L["Blizzard Style"] = true
-L["Change the color of the absorb bar."] = true
+L["Add a glow in the end of health bars to indicate the over absorb."] = "在生命条的末端添加发光来表示过量吸收."
+L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = "为 ElvUI 单位框体添加暴雪风格的过量吸收发光和叠加层."
+L["Auto Height"] = "自动高度"
+L["Blizzard Absorb Overlay"] = "暴雪吸收覆盖层"
+L["Blizzard Over Absorb Glow"] = "暴雪过量吸收发光"
+L["Blizzard Style"] = "暴雪样式"
+L["Change the color of the absorb bar."] = "修改吸收条的颜色."
 L["Custom Texture"] = "Benutzerdefinierte Textur"
-L["Enable the replacing of ElvUI absorb bar textures."] = true
-L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = true
-L["Max Overflow"] = true
-L["Modify the texture of the absorb bar."] = true
-L["Overflow"] = true
-L["Set %s to %s"] = true
-L["Set All Absorb Style to %s"] = true
-L["The absorb style %s and %s is highly recommended with %s tweaks."] = true
-L["The selected texture will override the ElvUI default absorb bar texture."] = true
-L["Use the texture from Blizzard Raid Frames."] = true
+L["Enable the replacing of ElvUI absorb bar textures."] = "启用 ElvUI 吸收条材质替换."
+L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = "这里有一些按钮帮助你一键更改所有吸收条的设置."
+L["Max Overflow"] = "最大治疗吸收盾"
+L["Modify the texture of the absorb bar."] = "修改吸收条材质."
+L["Overflow"] = "溢出"
+L["Set %s to %s"] = "设置 %s 为 %s"
+L["Set All Absorb Style to %s"] = "设置全部吸收样式为 %s"
+L["The absorb style %s and %s is highly recommended with %s tweaks."] = "非常推荐使用 %s 和 %s 的吸收风格来和 %s的修改进行搭配显示."
+L["The selected texture will override the ElvUI default absorb bar texture."] = "选定的材质会覆盖 ElvUI 默认吸收材质."
+L["Use the texture from Blizzard Raid Frames."] = "使用暴雪团队框架中的材质."
 
 -- LocationPanel
 L["Template"] = "模版"

@@ -52,7 +52,7 @@ L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = true
 L["Requires level: %d - %d"] = true
 L["Requires level: %d - %d (%d)"] = true
 L["(+%.1f Rested)"] = true
-L["Unknown"] = true
+L["Unknown"] = "Неизвестно"
 L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
@@ -131,8 +131,8 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 
 -- Shadows
 L["Shadows"] = true
-L["Increase Size"] = true
-L["Make shadow thicker."] = true
+L["Increase Size"] = "Увеличить размер"
+L["Make shadow thicker."] = "Делает тени толще."
 
 -- Mail
 L["Mail"] = "Почта"
@@ -254,8 +254,8 @@ L["Battle Of Dazaralor"] = "Battle Of Dazaralor"
 L["Crucible Of Storms"] = "Crucible Of Storms"
 L["Eternal Palace"] = "Eternal Palace"
 L["Ny'alotha"] = true
-L["Castle Nathria"] = true
-L["Sanctum of Domination"] = true
+L["Castle Nathria"] = "Замок Нафрия"
+L["Sanctum of Domination"] = "Святилище Господства"
 L["FACTION"] = "Фракция"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Активные азеритовые таланты"
 L["Only Icons"] = true
@@ -316,7 +316,7 @@ L["Blacklist Item"] = true
 L["Whitelist Item"] = true
 L["Add Item ID"] = true
 L["Delete Item ID"] = true
-L["Custom Glow"] = true
+L["Custom Glow"] = "Свое свечение"
 L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
 
 -- AutoButtons
@@ -440,12 +440,12 @@ L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = true
 L["Auto Height"] = true
 L["Blizzard Absorb Overlay"] = true
 L["Blizzard Over Absorb Glow"] = true
-L["Blizzard Style"] = true
+L["Blizzard Style"] = "Стиль Blizzard"
 L["Change the color of the absorb bar."] = true
 L["Custom Texture"] = "Benutzerdefinierte Textur"
 L["Enable the replacing of ElvUI absorb bar textures."] = true
 L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = true
-L["Max Overflow"] = true
+L["Max Overflow"] = "Макс. переполнение"
 L["Modify the texture of the absorb bar."] = true
 L["Overflow"] = true
 L["Set %s to %s"] = true
@@ -522,7 +522,7 @@ L["Distance Text"] = "Текст дистанции"
 L["Only Number"] = "Только цифры"
 
 -- SMB
-L["Button Settings"] = true
+L["Button Settings"] = "Параметры кнопок"
 
 -- Raid Marks
 L["Raid Markers"] = "Метки рейда"

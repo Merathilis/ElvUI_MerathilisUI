@@ -52,7 +52,7 @@ L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = true
 L["Requires level: %d - %d"] = true
 L["Requires level: %d - %d (%d)"] = true
 L["(+%.1f Rested)"] = true
-L["Unknown"] = true
+L["Unknown"] = "未知"
 L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
@@ -131,8 +131,8 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 
 -- Shadows
 L["Shadows"] = true
-L["Increase Size"] = true
-L["Make shadow thicker."] = true
+L["Increase Size"] = "增大尺寸"
+L["Make shadow thicker."] = "使陰影更厚."
 
 -- Mail
 L["Mail"] = "邮箱"
@@ -248,8 +248,8 @@ L["BattleOfDazaralor"] = "Battle Of Dazaralor"
 L["CrucibleOfStorms"] = "Crucible Of Storms"
 L["Eternal Palace"] = "Eternal Palace"
 L["Ny'alotha"] = true
-L["Castle Nathria"] = true
-L["Sanctum of Domination"] = true
+L["Castle Nathria"] = "納撒亞城"
+L["Sanctum of Domination"] = "統御聖所"
 L["FACTION"] = "陣營"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "啟動艾澤萊晶岩之力"
 L["Only Icons"] = true
@@ -311,7 +311,7 @@ L["Blacklist Item"] = true
 L["Whitelist Item"] = true
 L["Add Item ID"] = true
 L["Delete Item ID"] = true
-L["Custom Glow"] = true
+L["Custom Glow"] = "自訂閃光"
 L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
 
 -- AutoButtons
@@ -430,24 +430,24 @@ L["UnitFrame Style"] = true
 L["Adds my styling to the Unitframes if you use transparent health."] = true
 L["Change the default role icons."] = true
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
-L["Add a glow in the end of health bars to indicate the over absorb."] = true
-L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = true
-L["Auto Height"] = true
-L["Blizzard Absorb Overlay"] = true
-L["Blizzard Over Absorb Glow"] = true
-L["Blizzard Style"] = true
-L["Change the color of the absorb bar."] = true
-L["Custom Texture"] = true
-L["Enable the replacing of ElvUI absorb bar textures."] = true
-L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = true
+L["Add a glow in the end of health bars to indicate the over absorb."] = "在生命條的末尾添加一個火花来指示過量吸收."
+L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = "為 ElvUI 單位框架添加暴雪過量吸收火花和遮罩."
+L["Auto Height"] = "自動高度"
+L["Blizzard Absorb Overlay"] = "暴雪吸收遮罩層"
+L["Blizzard Over Absorb Glow"] = "暴雪過量吸收火花"
+L["Blizzard Style"] = "暴雪風格"
+L["Change the color of the absorb bar."] = "修改吸收條的顏色."
+L["Custom Texture"] = "自訂材質"
+L["Enable the replacing of ElvUI absorb bar textures."] = "啟用 ElvUI 生命條材質替換."
+L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = "這裡有一些按鍵來幫助你一鍵修改所有吸收條的設定."
 L["Max Overflow"] = "Maximaler Overflow"
-L["Modify the texture of the absorb bar."] = true
-L["Overflow"] = true
-L["Set %s to %s"] = true
-L["Set All Absorb Style to %s"] = true
-L["The absorb style %s and %s is highly recommended with %s tweaks."] = true
-L["The selected texture will override the ElvUI default absorb bar texture."] = true
-L["Use the texture from Blizzard Raid Frames."] = true
+L["Modify the texture of the absorb bar."] = "修改吸收盾材質."
+L["Overflow"] = "超出顯示"
+L["Set %s to %s"] = "設置 %s 為 %s"
+L["Set All Absorb Style to %s"] = "設置全部吸收類型為 %s"
+L["The absorb style %s and %s is highly recommended with %s tweaks."] = "非常推薦使用 %s 和 %s 的吸收條風格來與 %s修改配合顯示."
+L["The selected texture will override the ElvUI default absorb bar texture."] = "選擇的材質將覆蓋ElvUI預設吸收條的材質."
+L["Use the texture from Blizzard Raid Frames."] = "使用遊戲內建的團隊框架圖示."
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -517,7 +517,7 @@ L["Distance Text"] = "距離文字"
 L["Only Number"] = "只有數字"
 
 -- SMB
-L["Button Settings"] = true
+L["Button Settings"] = "按鍵設定"
 
 --Raid Marks
 L["Raid Markers"] = "團隊標記"

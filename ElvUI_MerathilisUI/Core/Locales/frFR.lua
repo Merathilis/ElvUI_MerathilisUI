@@ -109,7 +109,7 @@ L["Git Ticket tracker"] = true
 L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
-L["Development Version"] = true
+L["Development Version"] = "Version de développement"
 L["Here you can download the latest development version."] = true
 
 -- Modules
@@ -131,8 +131,8 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 
 -- Shadows
 L["Shadows"] = true
-L["Increase Size"] = true
-L["Make shadow thicker."] = true
+L["Increase Size"] = "Augmenter la taille"
+L["Make shadow thicker."] = "Rendre l'ombre plus épaisse."
 
 -- Mail
 L["Mail"] = "Courrier"
@@ -254,7 +254,7 @@ L["Battle Of Dazaralor"] = "Battle Of Dazaralor"
 L["Crucible Of Storms"] = "Crucible Of Storms"
 L["Eternal Palace"] = "Eternal Palace"
 L["Ny'alotha"] = true
-L["Castle Nathria"] = true
+L["Castle Nathria"] = "Château Nathria"
 L["Sanctum of Domination"] = true
 L["FACTION"] = "Faction"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Traits azéritiques actifs"
@@ -438,12 +438,12 @@ L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = true
 L["Auto Height"] = true
 L["Blizzard Absorb Overlay"] = true
 L["Blizzard Over Absorb Glow"] = true
-L["Blizzard Style"] = true
+L["Blizzard Style"] = "Style Blizzard"
 L["Change the color of the absorb bar."] = true
 L["Custom Texture"] = "Benutzerdefinierte Textur"
 L["Enable the replacing of ElvUI absorb bar textures."] = true
 L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = true
-L["Max Overflow"] = true
+L["Max Overflow"] = "Dépassement maximum"
 L["Modify the texture of the absorb bar."] = true
 L["Overflow"] = true
 L["Set %s to %s"] = true

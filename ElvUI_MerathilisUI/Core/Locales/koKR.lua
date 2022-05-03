@@ -52,7 +52,7 @@ L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = true
 L["Requires level: %d - %d"] = true
 L["Requires level: %d - %d (%d)"] = true
 L["(+%.1f Rested)"] = true
-L["Unknown"] = true
+L["Unknown"] = "알수없음"
 L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
@@ -131,8 +131,8 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 
 -- Shadows
 L["Shadows"] = true
-L["Increase Size"] = true
-L["Make shadow thicker."] = true
+L["Increase Size"] = "두께 설정"
+L["Make shadow thicker."] = "그림자의 두께를 조절합니다."
 
 -- Mail
 L["Mail"] = "우편"
@@ -254,8 +254,8 @@ L["Battle Of Dazaralor"] = "Battle Of Dazaralor"
 L["Crucible Of Storms"] = "Crucible Of Storms"
 L["Eternal Palace"] = "Eternal Palace"
 L["Ny'alotha"] = true
-L["Castle Nathria"] = true
-L["Sanctum of Domination"] = true
+L["Castle Nathria"] = "나스리아 성채"
+L["Sanctum of Domination"] = "지배의 성소"
 L["FACTION"] = "진영"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "활성화된 아제라이트 능력"
 L["Only Icons"] = true
@@ -438,7 +438,7 @@ L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = true
 L["Auto Height"] = true
 L["Blizzard Absorb Overlay"] = true
 L["Blizzard Over Absorb Glow"] = true
-L["Blizzard Style"] = true
+L["Blizzard Style"] = "블리자드 기본"
 L["Change the color of the absorb bar."] = true
 L["Custom Texture"] = "Benutzerdefinierte Textur"
 L["Enable the replacing of ElvUI absorb bar textures."] = true

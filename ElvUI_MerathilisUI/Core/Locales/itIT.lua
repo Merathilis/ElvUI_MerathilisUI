@@ -727,7 +727,7 @@ L["Skins/AddOns"] = true
 L["Profiles"] = true
 L["BigWigs"] = true
 L["MasterPlan"] = true
-L["Shadow & Light"] = true
+L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = true
 
 -- Changelog
