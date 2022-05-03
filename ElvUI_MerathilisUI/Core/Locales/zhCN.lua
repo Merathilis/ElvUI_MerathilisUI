@@ -122,6 +122,10 @@ L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8
 L["GameMenu"] = "游戏菜单"
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] = "从暴雪游戏菜单启用/禁用MerathilisUI样式."
 
+-- Extended Vendor
+L["Extended Vendor"] = true
+L["Enhanced NameplateAuras"] = true
+
 -- FlightMode
 L["FlightMode"] = "飞行模式"
 L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "增强 |cff00c0faBenikUI|r 的飞行模式, 如需完全禁用飞行模式, 请前往 |cff00c0faBenikUI|r 选项."

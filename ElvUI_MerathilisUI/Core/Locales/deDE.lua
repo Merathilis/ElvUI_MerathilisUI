@@ -123,6 +123,9 @@ L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8
 L["GameMenu"] = "Spielmenü"
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] = "Aktiviert/Deaktiviert den MerathilisUI Stil aus dem Blizzard Spielmenü. (zB. Pepe, Logo, Leisten)"
 
+-- Extended Vendor
+L["Extended Vendor"] = "Erweiterter Händler"
+
 -- FlightMode
 L["FlightMode"] = "Flugmodus"
 L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Erweitert den |cff00c0faBenikUI|r Flugmodus.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
@@ -234,6 +237,10 @@ L.ANNOUNCE_FP_PRE = "{rt1} %s bereitet ein %s vor. {rt1}"
 L.ANNOUNCE_FP_CLICK = "{rt1} %s zaubert ein %s. Klick! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s benutzte %s. {rt1}"
 L.ANNOUNCE_FP_CAST = "{rt1} %s zaubert ein %s. {rt1}"
+
+-- Nameplates
+L["NamePlates"] = "Namensplaketten"
+L["Enhanced NameplateAuras"] = "Erweiterte Namensplaketten Auren"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
@@ -549,7 +556,7 @@ L["Change the alpha level of the icons."] = "Ändert den Alphawert der Symbole"
 L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fehlenden klassenspezifischen Buff."
 
 -- Raid Manager
-L["Raid Manager"] = "Raidmanager"
+L["Raid Manager"] = "Schlachtzugsmanager"
 L["This will disable the ElvUI Raid Control and replace it with my own."] = "Dieser Menüpunkt deaktiviert die ElvUI Schlachtzugssteuerung und ersetzt sie mit meiner eigenen."
 L["Open Raid Manager"] = "Öffnet den Raidmanager"
 L["Pull Timer Count"] = "Pulltimer Zähler"

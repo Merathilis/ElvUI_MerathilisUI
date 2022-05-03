@@ -119,6 +119,9 @@ L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8
 L["GameMenu"] = true
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] = true
 
+-- Extended Vendor
+L["Extended Vendor"] = true
+
 -- FlightMode
 L["FlightMode"] = true
 L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
@@ -230,6 +233,10 @@ L.ANNOUNCE_FP_PRE = "{rt1} %s has prepared a %s. {rt1}"
 L.ANNOUNCE_FP_CLICK = "{rt1} %s is casting %s. Click! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s used a %s. {rt1}"
 L.ANNOUNCE_FP_CAST = "{rt1} %s is casting %s. {rt1}"
+
+-- Nameplates
+L["NamePlates"] = true
+L["Enhanced NameplateAuras"] = true
 
 -- Tooltip
 L["Your Status:"] = true
