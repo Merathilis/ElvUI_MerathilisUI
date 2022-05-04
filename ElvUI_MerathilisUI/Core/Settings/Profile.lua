@@ -689,7 +689,7 @@ MP.microBar = {
 
 MP.unitframes = {
 	healPrediction = {
-		enable = true,
+		enable = false,
 		texture = {
 			enable = true,
 			custom = E.db.unitframe.statusbar,

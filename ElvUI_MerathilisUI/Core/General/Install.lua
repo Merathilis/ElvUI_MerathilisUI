@@ -730,7 +730,6 @@ function MER:SetupLayout(layout)
 	E.db["mui"]["locPanel"]["colorType_Coords"] = "CLASS"
 	E.db["mui"]["raidmarkers"]["enable"] = false
 
-	-- Heal Prediction
 	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		E.db["mui"]["pvp"]["duels"]["regular"] = true
 		E.db["mui"]["pvp"]["duels"]["pet"] = true
@@ -1231,7 +1230,7 @@ function MER:SetupUnitframes(layout)
 	-- GCD Bar
 	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		E.db["mui"]["unitframes"]["gcd"]["enable"] = true
-		E.db["mui"]["unitframes"]["healPrediction"] = true
+		E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
 	end
 
 	if layout == "dps" then
