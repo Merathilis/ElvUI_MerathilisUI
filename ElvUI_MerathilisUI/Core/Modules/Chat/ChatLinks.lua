@@ -19,7 +19,6 @@ local GetPvpTalentInfoByID = GetPvpTalentInfoByID
 local GetSpellTexture = GetSpellTexture
 local GetTalentInfoByID = GetTalentInfoByID
 
-local ItemLevelTooltip = E.ScanTooltip
 local ItemLevelPattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
 
 local IconString = "|T%s:16:18:0:0:64:64:4:60:7:57"
@@ -60,13 +59,13 @@ local function AddItemInfo(Hyperlink)
 
 	if module.db.level or module.db.slot then
 		local text, level, extraname, slot
-		ItemLevelTooltip:SetOwner(_G.UIParent, "ANCHOR_NONE")
-		ItemLevelTooltip:ClearLines()
-		ItemLevelTooltip:SetHyperlink(Hyperlink)
+		E.ScanTooltip:SetOwner(_G.UIParent, "ANCHOR_NONE")
+		E.ScanTooltip:ClearLines()
+		E.ScanTooltip:SetHyperlink(Hyperlink)
 
 		if module.db.level then
 			for i = 2, 5 do
-				local leftText = _G[ItemLevelTooltip:GetName() .. "TextLeft" .. i]
+				local leftText = _G[E.ScanTooltip:GetName() .. "TextLeft" .. i]
 				if leftText then
 					text = leftText:GetText() or ""
 					level = strmatch(text, ItemLevelPattern)
@@ -131,7 +130,7 @@ local function AddSpellInfo(Hyperlink)
 	if module.db.icon then
 		local texture = GetSpellTexture(tonumber(id))
 		local icon = format(IconString .. ":255:255:255|t", texture)
-		Hyperlink = icon .. " |cff71d5ff" .. Hyperlink .. "|r" -- I dk why the color is needed, but worked!
+		Hyperlink = icon .. " |cff71d5ff" .. Hyperlink .. "|r"
 	end
 
 	return Hyperlink
