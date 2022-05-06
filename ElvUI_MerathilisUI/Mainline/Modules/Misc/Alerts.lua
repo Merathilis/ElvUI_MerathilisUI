@@ -34,7 +34,7 @@ local SendChatMessage = SendChatMessage
 local UnitInParty = UnitInParty
 local UnitInRaid = UnitInRaid
 local UnitName = UnitName
-local TANKE, HEALER, DAMAGER = TANK, HEALER, DAMAGER
+local TANK, HEALER, DAMAGER = TANK, HEALER, DAMAGER
 -- GLOBALS:
 
 local eventframe = CreateFrame('Frame')
@@ -73,7 +73,7 @@ end
 --[[---------------------
   Item Alerts
 ------------------------]]
-local lastTime = 0
+local lastCastID = 0
 local itemList = {
 	[54710] = true, -- MOLL-E
 	[54711] = true,	-- Scrapbot
@@ -88,22 +88,18 @@ local itemList = {
 	[359336] = true,	 -- Kettle of Stone Soup
 }
 
-function module:ItemAlert_Update(unit, _, spellID)
-	if (UnitInRaid(unit) or UnitInParty(unit)) and spellID and itemList[spellID] and lastTime ~= GetTime() then
-		local who = UnitName(unit)
-		local link = GetSpellLink(spellID)
-		local name = GetSpellInfo(spellID)
-		SendChatMessage(format(L.ANNOUNCE_FP_PRE, who, link or name), F.CheckChat())
-
-		lastTime = GetTime()
+function module:ItemAlert_Update(unit, castID, spellID)
+	if (UnitInRaid(unit) or UnitInParty(unit)) and spellID and itemList[spellID] and lastCastID ~= castID() then
+		SendChatMessage(format(L.ANNOUNCE_FP_PRE, UnitName(unit), GetSpellLink(spellID) or GetSpellInfo(spellID)), F.CheckChat())
+		lastCastID = castID
 	end
 end
 
 function module:ItemAlert_CheckGroup()
 	if IsInGroup() then
-		MER:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", module.ItemAlert_Update)
+		MER:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", self.ItemAlert_Update)
 	else
-		MER:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED", module.ItemAlert_Update)
+		MER:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED", self.ItemAlert_Update)
 	end
 end
 
