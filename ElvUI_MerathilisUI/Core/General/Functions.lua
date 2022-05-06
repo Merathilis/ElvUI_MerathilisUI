@@ -588,3 +588,22 @@ function F.SplitString(delimiter, subject)
 
 	return unpack(results)
 end
+
+function F.SetCallback(callback, target, times, ...)
+	times = times or 0
+	if times >= 10 then
+		return
+	end
+
+	if times < 10 then
+		local result = {pcall(target, ...)}
+		if result and result[1] == true then
+			tremove(result, 1)
+			if callback(unpack(result)) then
+				return
+			end
+		end
+	end
+
+	E:Delay(0.1, F.SetCallback, callback, target, times+1, ...)
+end

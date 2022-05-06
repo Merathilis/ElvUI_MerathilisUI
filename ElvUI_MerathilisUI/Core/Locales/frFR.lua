@@ -724,6 +724,45 @@ L["Bottom Left Extra Panel"] = true
 L["Bottom Right Panel"] = true
 L["Bottom Right Extra Panel"] = true
 
+-- Objective Tracker
+L["1. Customize the font of Objective Tracker."] = true
+L["2. Add colorful progress text to the quest."] = true
+L["Progress"] = true
+L["No Dash"] = true
+L["Colorful Progress"] = true
+L["Percentage"] = true
+L["Add percentage text after quest text."] = true
+L["Colorful Percentage"] = true
+L["Make the additional percentage text be colored."] = true
+L["Cosmetic Bar"] = true
+L["Border"] = true
+L["Border Alpha"] = true
+L["Width Mode"] = true
+L["'Absolute' mode means the width of the bar is fixed."] = true
+L["'Dynamic' mode will also add the width of header text."] = true
+L["'Absolute' mode means the height of the bar is fixed."] = true
+L["'Dynamic' mode will also add the height of header text."] = true
+L["Absolute"] = true
+L["Dyanamic"] = true
+L["Color Mode"] = true
+L["Gradient"] = true
+L["Class Color"] = true
+L["Normal Color"] = true
+L["Gradient Color 1"] = true
+L["Gradient Color 2"] = true
+L["Presets"] = true
+L["Preset %d"] = true
+L["Here are some example presets, just try them!"] = true
+L["Default"] = true
+L["Header"] = true
+L["Short Header"] = true
+L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = true
+L["Title Color"] = true
+L["Change the color of quest titles."] = true
+L["Use Class Color"] = true
+L["Highlight Color"] = true
+L["Title"] = true
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 
