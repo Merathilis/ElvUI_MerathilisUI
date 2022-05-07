@@ -9,6 +9,7 @@ local LSM = E.Libs.LSM
 
 local _G = _G
 local pairs = pairs
+local rad = rad
 
 local CreateFrame = CreateFrame
 local UnitIsConnected = UnitIsConnected
@@ -20,17 +21,26 @@ function module:ConstructTextures(frame)
 		return
 	end
 
-	if not frame.HealthPrediction.windAbsorbOverlay then
-		local overlay = frame.HealthPrediction.absorbBar:CreateTexture(nil, "OVERLAY", 10)
-		overlay:SetTexture("Interface/RaidFrame/Shield-Overlay", true, true)
-		frame.HealthPrediction.windAbsorbOverlay = overlay
+	if not frame.MERAbsorb then
+		local absorbFrame = CreateFrame("Frame", nil, frame)
+		absorbFrame:SetFrameStrata(frame.HealthPrediction.absorbBar:GetFrameStrata())
+		absorbFrame:SetFrameLevel(frame.HealthPrediction.absorbBar:GetFrameLevel() + 1)
+		frame.MERAbsorb = absorbFrame
 	end
 
-	if not frame.HealthPrediction.windOverAbsorbGlow then
-		local glow = frame.Health:CreateTexture(nil, "OVERLAY", 10)
+	local absorb = frame.MERAbsorb
+
+	if not absorb.overlay then
+		local overlay = absorb:CreateTexture(nil, "OVERLAY", 10)
+		overlay:SetTexture("Interface/RaidFrame/Shield-Overlay", true, true)
+		absorb.overlay = overlay
+	end
+
+	if not absorb.glow then
+		local glow = absorb:CreateTexture(nil, "OVERLAY", 10)
 		glow:SetTexture("Interface/RaidFrame/Shield-Overshield")
 		glow:SetBlendMode("ADD")
-		frame.HealthPrediction.windOverAbsorbGlow = glow
+		absorb.glow = glow
 	end
 end
 
@@ -40,8 +50,8 @@ function module:ConfigureTextures(_, frame)
 	end
 
 	local pred = frame.HealthPrediction
-	local overlay = pred.windAbsorbOverlay
-	local glow = pred.windOverAbsorbGlow
+	local overlay = frame.MERAbsorb.overlay
+	local glow = frame.MERAbsorb.glow
 
 	if not frame.db.health or not frame.Health or not self.db.enable then
 		overlay:Hide()
@@ -83,6 +93,7 @@ function module:ConfigureTextures(_, frame)
 				local anchor = isReverse and "LEFT" or "RIGHT"
 				glow:SetPoint("TOP", frame.Health, "TOP" .. anchor, offset, 2)
 				glow:SetPoint("BOTTOM", frame.Health, "BOTTOM" .. anchor, offset, -2)
+				glow:SetRotation(rad(isReverse and 180 or 0))
 			else
 				local anchor = isReverse and "BOTTOM" or "TOP"
 				glow:SetHeight(16)
@@ -110,8 +121,8 @@ function module:HealthPrediction_OnUpdate(object, unit, _, _, absorb, _, hasOver
 	end
 
 	frame.merSmooth:DoJob(function()
-		local overlay = pred.windAbsorbOverlay
-		local glow = pred.windOverAbsorbGlow
+		local overlay = frame.MERAbsorb.overlay
+		local glow = frame.MERAbsorb.glow
 
 		if not self.db.blizzardAbsorbOverlay or maxHealth == health or absorb == 0 or not UnitIsConnected(unit) then
 			overlay:Hide()
@@ -191,7 +202,7 @@ function module:WaitForUnitframesLoad(triedTimes)
 		self:SecureHook(UF, "Configure_HealComm", "ConfigureTextures")
 		UF:Update_AllFrames()
 	else
-		E:Delay(0.5, self.WaitForUnitframesLoad, self, triedTimes + 1)
+		E:Delay(0.3, self.WaitForUnitframesLoad, self, triedTimes + 1)
 	end
 end
 
