@@ -4,10 +4,10 @@ local LSM = E.LSM
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local assert, ipairs, pairs, print, select, tonumber, type, unpack = assert, ipairs, pairs, print, select, tonumber, type, unpack
+local assert, ipairs, pairs, pcall, print, select, tonumber, type, unpack = assert, ipairs, pairs, pcall, print, select, tonumber, type, unpack
 local getmetatable = getmetatable
 local find, format, gsub, match, split, strfind = string.find, string.format, string.gsub, string.match, string.split, strfind
-local strmatch, strsplit = strmatch, strsplit
+local strmatch, strlen, strsplit, strsub = strmatch, strlen, strsplit, strsub
 local tconcat, tinsert, tremove, twipe = table.concat, table.insert, table.remove, table.wipe
 -- WoW API / Variables
 local CreateFrame = CreateFrame
@@ -606,4 +606,24 @@ function F.SetCallback(callback, target, times, ...)
 	end
 
 	E:Delay(0.1, F.SetCallback, callback, target, times+1, ...)
+end
+
+do
+	local pattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
+	function F.GetRealItemLevelByLink(link)
+		E.ScanTooltip:SetOwner(_G.UIParent, "ANCHOR_NONE")
+		E.ScanTooltip:ClearLines()
+		E.ScanTooltip:SetHyperlink(link)
+
+		for i = 2, 5 do
+			local leftText = _G[E.ScanTooltip:GetName() .. "TextLeft" .. i]
+			if leftText then
+				local text = leftText:GetText() or ""
+				local level = strmatch(text, pattern)
+				if level then
+					return level
+				end
+			end
+		end
+	end
 end

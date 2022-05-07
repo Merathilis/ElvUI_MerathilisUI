@@ -90,6 +90,17 @@ L["Filter"] = "Фильтр"
 L["Block"] = "Блокировать"
 L["Custom Online Message"] = true
 
+L["Chat Link"] = "Ссылки чата"
+L["Add extra information on the link, so that you can get basic information but do not need to click"] = "Добавить дополнительную информацию по ссылке, чтобы вы могли получить основную информацию, не нажимая на нее."
+L["Additional Information"] = "Дополнительная информация"
+L["Level"] = "Уровень"
+L["Translate Item"] = true
+L["Translate the name in item links into your language."] = true
+L["Icon"] = "Иконка"
+L["Armor Category"] = "Категория брони"
+L["Weapon Category"] = "Категория оружия"
+
+
 -- Combat Alert
 L["Combat Alert"] = "Сигнал боя"
 L["Enable/Disable the combat message if you enter/leave the combat."] = true

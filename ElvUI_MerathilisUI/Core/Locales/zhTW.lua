@@ -89,6 +89,15 @@ L["Item Level Links"] = true
 L["Filter"] = "過濾器"
 L["Block"] = "方塊"
 L["Custom Online Message"] = true
+L["Chat Link"] = "聊天鏈接"
+L["Add extra information on the link, so that you can get basic information but do not need to click"] = "為聊天鏈接添加額外的訊息, 如此一來, 你就可以不透過點擊直接獲取到物品的基礎訊息"
+L["Additional Information"] = "附加訊息"
+L["Level"] = "等級"
+L["Translate Item"] = "翻譯物品"
+L["Translate the name in item links into your language."] = "將物品連結的名稱翻譯到你的語言."
+L["Icon"] = "圖示"
+L["Armor Category"] = "護甲分類"
+L["Weapon Category"] = "武器分類"
 
 -- Combat Alert
 L["Combat Alert"] = "戰鬥提醒"

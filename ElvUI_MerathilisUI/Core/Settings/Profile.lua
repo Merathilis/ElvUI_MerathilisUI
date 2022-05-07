@@ -287,6 +287,7 @@ MP.chat = {
 	},
 	chatLink = {
 		enable = true,
+		translateItem = true,
 		level = true,
 		icon = true,
 		armorCategory = true,
@@ -864,18 +865,6 @@ MP.media = {
 			font = "Expressway",
 			size = 12,
 			outline = "NONE",
-		},
-		objective = {
-			enable = true,
-			font = "Expressway",
-			size = 11,
-			outline = "NONE",
-		},
-		objectiveHeader = {
-			enable = true,
-			font = "Expressway",
-			size = 14,
-			outline = "OUTLINE",
 		},
 		questFontSuperHuge = {
 			enable = true,

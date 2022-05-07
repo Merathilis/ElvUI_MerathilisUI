@@ -92,6 +92,15 @@ L["Use a icon rather than text"] = "使用图标"
 L["Use Color"] = "使用颜色"
 L["Font Setting"] = "字体设定"
 L["Custom Online Message"] = true
+L["Chat Link"] = "聊天链接"
+L["Add extra information on the link, so that you can get basic information but do not need to click"] = "为链接添加额外信息, 这样你就可以不通过点击也能获取到基础信息"
+L["Additional Information"] = "额外信息"
+L["Level"] = "等级"
+L["Translate Item"] = "翻译物品"
+L["Translate the name in item links into your language."] = "将物品链接中的名称翻译为你的语言."
+L["Icon"] = "图标"
+L["Armor Category"] = "护甲分类"
+L["Weapon Category"] = "武器分类"
 
 -- Combat Alert
 L["Combat Alert"] = "战斗提示"

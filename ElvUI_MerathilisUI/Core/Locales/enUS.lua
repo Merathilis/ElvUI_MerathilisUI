@@ -90,6 +90,15 @@ L["Item Level Links"] = true
 L["Filter"] = true
 L["Block"] = true
 L["Custom Online Message"] = true
+L["Chat Link"] = true
+L["Add extra information on the link, so that you can get basic information but do not need to click"] = true
+L["Additional Information"] = true
+L["Level"] = true
+L["Translate Item"] = true
+L["Translate the name in item links into your language."] = true
+L["Icon"] = true
+L["Armor Category"] = true
+L["Weapon Category"] = true
 
 -- Combat Alert
 L["Combat Alert"] = true

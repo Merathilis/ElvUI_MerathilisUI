@@ -27,24 +27,31 @@ local function Misc()
 				name = L.GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 			},
-			cursor = {
+			guildNewsItemLevel = {
 				order = 3,
+				type = "toggle",
+				name = L["Guild News Item Level"],
+				get = function(info) return E.private.muiMisc[ info[#info] ] end,
+				set = function(info, value) E.private.muiMisc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			},
+			cursor = {
+				order = 4,
 				type = "toggle",
 				name = L["Flashing Cursor"],
 			},
 			funstuff = {
-				order = 4,
+				order = 5,
 				type = "toggle",
 				name = L["Fun Stuff"],
 			},
 			wowheadlinks = {
-				order = 5,
+				order = 6,
 				type = "toggle",
 				name = L["Wowhead Links"],
 				desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
 			},
 			respec = {
-				order = 6,
+				order = 7,
 				type = "toggle",
 				name = L["Codex Buttons"],
 				desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],

@@ -89,6 +89,15 @@ L["Item Level Links"] = true
 L["Filter"] = "필터"
 L["Block"] = "블럭"
 L["Custom Online Message"] = true
+L["Chat Link"] = "채팅 링크"
+L["Add extra information on the link, so that you can get basic information but do not need to click"] = "추가 정보를 선택하면 채팅 링크를 클릭하지 않고도 기본 정보를 확인할 수 있습니다."
+L["Additional Information"] = "추가 정보"
+L["Level"] = "레벨"
+L["Translate Item"] = "아이템명 변역"
+L["Translate the name in item links into your language."] = "링크된 아이템명을 플레이어의 언어로 번역합니다."
+L["Icon"] = "아이콘"
+L["Armor Category"] = "방어구 카테고리"
+L["Weapon Category"] = "무기 카테고리"
 
 -- Combat Alert
 L["Combat Alert"] = "전투 알림"
