@@ -1,6 +1,6 @@
 ## Interface: 11402
 ## Author: Merathilis
-## Version: 4.94
+## Version: 4.95
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
@@ -10,7 +10,7 @@
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, BigWigs, ls_Toasts
 ## X-Credits: Benik, Blazeflack, Azilroka, Simpy, Nihilistzsche, Darth Predator, fgprodigal, siweia, Solor, Elv, fang2hou & all AddOn Authors who inspired me.
-## X-ElvVersion: 1.68
+## X-ElvVersion: 1.71
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
 ## X-WoWI-ID: 24117
