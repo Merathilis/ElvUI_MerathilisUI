@@ -24,7 +24,7 @@ local function ArmoryTable()
 	E.Options.args.mui.args.modules.args.armory = {
 		type = "group",
 		name = L["Armory"],
-		childGroups = 'tab',
+
 		disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,
 		get = function(info) return E.db.mui.armory[ info[#info] ] end,
 		set = function(info, value) E.db.mui.armory[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

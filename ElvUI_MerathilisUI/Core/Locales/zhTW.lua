@@ -52,7 +52,7 @@ L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = true
 L["Requires level: %d - %d"] = true
 L["Requires level: %d - %d (%d)"] = true
 L["(+%.1f Rested)"] = true
-L["Unknown"] = true
+L["Unknown"] = "未知"
 L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
@@ -89,6 +89,15 @@ L["Item Level Links"] = true
 L["Filter"] = "過濾器"
 L["Block"] = "方塊"
 L["Custom Online Message"] = true
+L["Chat Link"] = "聊天鏈接"
+L["Add extra information on the link, so that you can get basic information but do not need to click"] = "為聊天鏈接添加額外的訊息, 如此一來, 你就可以不透過點擊直接獲取到物品的基礎訊息"
+L["Additional Information"] = "附加訊息"
+L["Level"] = "等級"
+L["Translate Item"] = "翻譯物品"
+L["Translate the name in item links into your language."] = "將物品連結的名稱翻譯到你的語言."
+L["Icon"] = "圖示"
+L["Armor Category"] = "護甲分類"
+L["Weapon Category"] = "武器分類"
 
 -- Combat Alert
 L["Combat Alert"] = "戰鬥提醒"
@@ -119,6 +128,10 @@ L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8
 L["GameMenu"] = true
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] = true
 
+-- Extended Vendor
+L["Extended Vendor"] = true
+L["Enhanced NameplateAuras"] = true
+
 -- FlightMode
 L["FlightMode"] = true
 L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
@@ -131,8 +144,8 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 
 -- Shadows
 L["Shadows"] = true
-L["Increase Size"] = true
-L["Make shadow thicker."] = true
+L["Increase Size"] = "增大尺寸"
+L["Make shadow thicker."] = "使陰影更厚."
 
 -- Mail
 L["Mail"] = "邮箱"
@@ -248,8 +261,8 @@ L["BattleOfDazaralor"] = "Battle Of Dazaralor"
 L["CrucibleOfStorms"] = "Crucible Of Storms"
 L["Eternal Palace"] = "Eternal Palace"
 L["Ny'alotha"] = true
-L["Castle Nathria"] = true
-L["Sanctum of Domination"] = true
+L["Castle Nathria"] = "納撒亞城"
+L["Sanctum of Domination"] = "統御聖所"
 L["FACTION"] = "陣營"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "啟動艾澤萊晶岩之力"
 L["Only Icons"] = true
@@ -311,7 +324,7 @@ L["Blacklist Item"] = true
 L["Whitelist Item"] = true
 L["Add Item ID"] = true
 L["Delete Item ID"] = true
-L["Custom Glow"] = true
+L["Custom Glow"] = "自訂閃光"
 L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
 
 -- AutoButtons
@@ -418,7 +431,6 @@ L["MER_MEDIA_PVPARENA"] = {
 
 -- Unitframes
 L["UnitFrames"] = "單位框架"
-L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
 L["Swing Bar"] = true
 L["Creates a weapon Swing Bar"] = true
@@ -430,6 +442,25 @@ L["Creates a Global Cooldown Bar"] = true
 L["UnitFrame Style"] = true
 L["Adds my styling to the Unitframes if you use transparent health."] = true
 L["Change the default role icons."] = true
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
+L["Add a glow in the end of health bars to indicate the over absorb."] = "在生命條的末尾添加一個火花来指示過量吸收."
+L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = "為 ElvUI 單位框架添加暴雪過量吸收火花和遮罩."
+L["Auto Height"] = "自動高度"
+L["Blizzard Absorb Overlay"] = "暴雪吸收遮罩層"
+L["Blizzard Over Absorb Glow"] = "暴雪過量吸收火花"
+L["Blizzard Style"] = "暴雪風格"
+L["Change the color of the absorb bar."] = "修改吸收條的顏色."
+L["Custom Texture"] = "自訂材質"
+L["Enable the replacing of ElvUI absorb bar textures."] = "啟用 ElvUI 生命條材質替換."
+L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = "這裡有一些按鍵來幫助你一鍵修改所有吸收條的設定."
+L["Max Overflow"] = "Maximaler Overflow"
+L["Modify the texture of the absorb bar."] = "修改吸收盾材質."
+L["Overflow"] = "超出顯示"
+L["Set %s to %s"] = "設置 %s 為 %s"
+L["Set All Absorb Style to %s"] = "設置全部吸收類型為 %s"
+L["The absorb style %s and %s is highly recommended with %s tweaks."] = "非常推薦使用 %s 和 %s 的吸收條風格來與 %s修改配合顯示."
+L["The selected texture will override the ElvUI default absorb bar texture."] = "選擇的材質將覆蓋ElvUI預設吸收條的材質."
+L["Use the texture from Blizzard Raid Frames."] = "使用遊戲內建的團隊框架圖示."
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -499,7 +530,7 @@ L["Distance Text"] = "距離文字"
 L["Only Number"] = "只有數字"
 
 -- SMB
-L["Button Settings"] = true
+L["Button Settings"] = "按鍵設定"
 
 --Raid Marks
 L["Raid Markers"] = "團隊標記"
@@ -696,6 +727,45 @@ L["Bottom Left Panel"] = true
 L["Bottom Left Extra Panel"] = true
 L["Bottom Right Panel"] = true
 L["Bottom Right Extra Panel"] = true
+
+-- Objective Tracker
+L["1. Customize the font of Objective Tracker."] = true
+L["2. Add colorful progress text to the quest."] = true
+L["Progress"] = true
+L["No Dash"] = true
+L["Colorful Progress"] = true
+L["Percentage"] = true
+L["Add percentage text after quest text."] = true
+L["Colorful Percentage"] = true
+L["Make the additional percentage text be colored."] = true
+L["Cosmetic Bar"] = true
+L["Border"] = true
+L["Border Alpha"] = true
+L["Width Mode"] = true
+L["'Absolute' mode means the width of the bar is fixed."] = true
+L["'Dynamic' mode will also add the width of header text."] = true
+L["'Absolute' mode means the height of the bar is fixed."] = true
+L["'Dynamic' mode will also add the height of header text."] = true
+L["Absolute"] = true
+L["Dyanamic"] = true
+L["Color Mode"] = true
+L["Gradient"] = true
+L["Class Color"] = true
+L["Normal Color"] = true
+L["Gradient Color 1"] = true
+L["Gradient Color 2"] = true
+L["Presets"] = true
+L["Preset %d"] = true
+L["Here are some example presets, just try them!"] = true
+L["Default"] = true
+L["Header"] = true
+L["Short Header"] = true
+L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = true
+L["Title Color"] = true
+L["Change the color of quest titles."] = true
+L["Use Class Color"] = true
+L["Highlight Color"] = true
+L["Title"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

@@ -1,9 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule('MER_Misc')
 
---Cache global variables
---Lua functions
---WoW API / Variables
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
 local GetMouseFocus = GetMouseFocus
@@ -19,7 +16,6 @@ local UnitIsPlayer = UnitIsPlayer
 local UnitName = UnitName
 local UIParent = UIParent
 local UNKNOWN = UNKNOWN
--- GLOBALS:
 
 local function Getcolor()
 	local reaction = UnitReaction("mouseover", "player") or 5
@@ -75,8 +71,8 @@ function MI:LoadnameHover()
 		local DND = UnitIsDND("mouseover")
 		local prefix = ""
 
-		if AFK then prefix = "|cffff0000<AFK>|r " end
-		if DND then prefix = "|cffffce00<DND>|r " end
+		if AFK then prefix = "|cffFF9900<AFK>|r " end
+		if DND then prefix = "|cffFF3333<DND>|r " end
 
 		tt.text:SetTextColor(Getcolor())
 		tt.text:SetText(prefix..name)

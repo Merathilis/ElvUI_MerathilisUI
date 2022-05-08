@@ -13,16 +13,15 @@ local tostring = tostring
 local unpack = unpack
 
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
-local GetItemIcon = GetItemIcon
-local GetItemInfo = GetItemInfo
+local GetItemInfoInstant = GetItemInfoInstant
 local GetPvpTalentInfoByID = GetPvpTalentInfoByID
 local GetSpellTexture = GetSpellTexture
 local GetTalentInfoByID = GetTalentInfoByID
+local C_Item_GetItemNameByID = C_Item.GetItemNameByID
 
-local ItemLevelTooltip = E.ScanTooltip
 local ItemLevelPattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
 
-local IconString = "|T%s:16:18:0:0:64:64:4:60:7:57"
+local ICON_STRING = "|T%s:16:18:0:0:64:64:4:60:7:57:255:255:255|t"
 
 local SearchArmorType = {
 	INVTYPE_HEAD = true,
@@ -51,135 +50,126 @@ local abbrList = {
 	INVTYPE_TRINKET = L["Trinket"]
 }
 
-local function AddItemInfo(Hyperlink)
-	local id = strmatch(Hyperlink, "Hitem:(%d-):")
-	if not id then
+local function AddItemInfo(link)
+	local itemID, itemType, itemSubType, itemEquipLoc, icon, classID, subclassID = GetItemInfoInstant(link)
+
+	if not itemID then
 		return
 	end
-	id = tonumber(id)
 
-	if module.db.level or module.db.slot then
-		local text, level, extraname, slot
-		ItemLevelTooltip:SetOwner(_G.UIParent, "ANCHOR_NONE")
-		ItemLevelTooltip:ClearLines()
-		ItemLevelTooltip:SetHyperlink(Hyperlink)
-
-		if module.db.level then
-			for i = 2, 5 do
-				local leftText = _G[ItemLevelTooltip:GetName() .. "TextLeft" .. i]
-				if leftText then
-					text = leftText:GetText() or ""
-					level = strmatch(text, ItemLevelPattern)
-					if level then
-						break
-					end
-				end
-			end
+	if module.db.translateItem then
+		local localizedName = C_Item_GetItemNameByID(itemID)
+		if localizedName then
+			link = gsub(link, "|h%[(.+)%]|h", "|h[" .. localizedName .. "]|h")
 		end
+	end
 
-		local type = select(6, GetItemInfo(id))
-		if type == _G.ARMOR and module.db.armorCategory then
-			local equipLoc = select(9, GetItemInfo(id))
-			if equipLoc ~= "" then
-				if SearchArmorType[equipLoc] then
-					local armorType = select(7, GetItemInfo(id))
-					if E.global.general.locale == "zhTW" or E.global.general.locale == "zhCN" then
-						slot = armorType .. (abbrList[equipLoc] or _G[equipLoc])
-					else
-						slot = armorType .. " " .. (abbrList[equipLoc] or _G[equipLoc])
-					end
+	local level, slot
+
+	-- item Level
+	if module.db.level then
+		level = F.GetRealItemLevelByLink(link)
+	end
+
+	-- armor
+	if itemType == _G.ARMOR and module.db.armorCategory then
+		if itemEquipLoc ~= "" then
+			if SearchArmorType[itemEquipLoc] then
+				if E.global.general.locale == "zhTW" or E.global.general.locale == "zhCN" then
+					slot = itemSubType .. (abbrList[itemEquipLoc] or _G[itemEquipLoc])
 				else
-					slot = abbrList[equipLoc] or _G[equipLoc]
+					slot = itemSubType .. " " .. (abbrList[itemEquipLoc] or _G[itemEquipLoc])
 				end
+			else
+				slot = abbrList[itemEquipLoc] or _G[itemEquipLoc]
 			end
 		end
+	end
 
-		if type == _G.WEAPON and module.db.weaponCategory then
-			local equipLoc = select(9, GetItemInfo(id))
-			if equipLoc ~= "" then
-				local weaponType = select(7, GetItemInfo(id))
-				slot = weaponType or abbrList[equipLoc] or _G[equipLoc]
-			end
+	-- weapon
+	if itemType == _G.WEAPON and module.db.weaponCategory then
+		if itemEquipLoc ~= "" then
+			slot = itemSubType or abbrList[itemEquipLoc] or _G[itemEquipLoc]
 		end
+	end
 
-		if level and extraname then
-			Hyperlink = Hyperlink:gsub("|h%[(.-)%]|h", "|h[" .. level .. ":%1:" .. extraname .. "]|h")
-		elseif level and slot then
-			Hyperlink = Hyperlink:gsub("|h%[(.-)%]|h", "|h[" .. level .. "-" .. slot .. ":%1]|h")
-		elseif level then
-			Hyperlink = Hyperlink:gsub("|h%[(.-)%]|h", "|h[" .. level .. ":%1]|h")
-		elseif slot then
-			Hyperlink = Hyperlink:gsub("|h%[(.-)%]|h", "|h[" .. slot .. ":%1]|h")
-		end
+	if level and slot then
+		link = gsub(link, "|h%[(.-)%]|h", "|h[" .. level .. "-" .. slot .. ":%1]|h")
+	elseif level then
+		link = gsub(link, "|h%[(.-)%]|h", "|h[" .. level .. ":%1]|h")
+	elseif slot then
+		link = gsub(link, "|h%[(.-)%]|h", "|h[" .. slot .. ":%1]|h")
 	end
 
 	if module.db.icon then
-		local texture = GetItemIcon(id)
-		local icon = format(IconString .. ":255:255:255|t", texture)
-		Hyperlink = icon .. " " .. Hyperlink
+		link = format(ICON_STRING, icon) .. " " .. link
 	end
 
-	return Hyperlink
+	return link
 end
 
-local function AddSpellInfo(Hyperlink)
-	local id = strmatch(Hyperlink, "Hspell:(%d-):")
+local function AddSpellInfo(link)
+	-- spell icon
+	local id = strmatch(link, "Hspell:(%d-):")
 	if not id then
 		return
 	end
 
 	if module.db.icon then
 		local texture = GetSpellTexture(tonumber(id))
-		local icon = format(IconString .. ":255:255:255|t", texture)
-		Hyperlink = icon .. " |cff71d5ff" .. Hyperlink .. "|r" -- I dk why the color is needed, but worked!
+		local icon = format(ICON_STRING, texture)
+		link = icon .. " |cff71d5ff" .. link .. "|r"
 	end
 
-	return Hyperlink
+	return link
 end
 
-local function AddEnchantInfo(Hyperlink)
-	local id = strmatch(Hyperlink, "Henchant:(%d-)\124")
+local function AddEnchantInfo(link)
+	-- enchant
+	local id = strmatch(link, "Henchant:(%d-)\124")
 	if not id then
 		return
 	end
 
 	if module.db.icon then
 		local texture = GetSpellTexture(tonumber(id))
-		local icon = format(IconString .. ":255:255:255|t", texture)
-		Hyperlink = icon .. " " .. Hyperlink
+		local icon = format(ICON_STRING, texture)
+		link = icon .. " " .. link
 	end
 
-	return Hyperlink
+	return link
 end
 
-local function AddPvPTalentInfo(Hyperlink)
-	local id = strmatch(Hyperlink, "Hpvptal:(%d-)|")
+local function AddPvPTalentInfo(link)
+	-- PVP talent
+	local id = strmatch(link, "Hpvptal:(%d-)|")
 	if not id then
 		return
 	end
 
 	if module.db.icon then
 		local texture = select(3, GetPvpTalentInfoByID(tonumber(id)))
-		local icon = format(IconString .. ":255:255:255|t", texture)
-		Hyperlink = icon .. " " .. Hyperlink
+		local icon = format(ICON_STRING, texture)
+		link = icon .. " " .. link
 	end
 
-	return Hyperlink
+	return link
 end
 
-local function AddTalentInfo(Hyperlink)
-	local id = strmatch(Hyperlink, "Htalent:(%d-)|")
+local function AddTalentInfo(link)
+	-- talent
+	local id = strmatch(link, "Htalent:(%d-)|")
 	if not id then
 		return
 	end
 
 	if module.db.icon then
 		local texture = select(3, GetTalentInfoByID(tonumber(id)))
-		local icon = format(IconString .. ":255:255:255|t", texture)
-		Hyperlink = icon .. " " .. Hyperlink
+		local icon = format(ICON_STRING, texture)
+		link = icon .. " " .. link
 	end
 
-	return Hyperlink
+	return link
 end
 
 function module:Filter(event, msg, ...)
@@ -197,26 +187,32 @@ end
 function module:Initialize()
 	self.db = E.db.mui.chat.chatLink
 
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_ACHIEVEMENT", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_BATTLEGROUND", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_COMMUNITIES_CHANNEL", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_EMOTE", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT_LEADER", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_LOOT", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_OFFICER", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_TRADESKILLS", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER_INFORM", self.Filter)
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", self.Filter)
+	local events = {
+		"CHAT_MSG_ACHIEVEMENT",
+		"CHAT_MSG_BATTLEGROUND",
+		"CHAT_MSG_BN_WHISPER",
+		"CHAT_MSG_CHANNEL",
+		"CHAT_MSG_COMMUNITIES_CHANNEL",
+		"CHAT_MSG_EMOTE",
+		"CHAT_MSG_GUILD",
+		"CHAT_MSG_INSTANCE_CHAT",
+		"CHAT_MSG_INSTANCE_CHAT_LEADER",
+		"CHAT_MSG_LOOT",
+		"CHAT_MSG_OFFICER",
+		"CHAT_MSG_PARTY",
+		"CHAT_MSG_PARTY_LEADER",
+		"CHAT_MSG_RAID",
+		"CHAT_MSG_RAID_LEADER",
+		"CHAT_MSG_SAY",
+		"CHAT_MSG_TRADESKILLS",
+		"CHAT_MSG_WHISPER",
+		"CHAT_MSG_WHISPER_INFORM",
+		"CHAT_MSG_YELL"
+	}
+
+	for _, event in pairs(events) do
+		ChatFrame_AddMessageEventFilter(event, self.Filter)
+	end
 
 	self.Initialized = true
 end

@@ -115,36 +115,6 @@ function module:SetBlizzFonts()
 			_G["QuestFont_Super_Huge"]:SetFont(E.LSM:Fetch('font', module.db.miscText.questFontSuperHuge.font), module.db.miscText.questFontSuperHuge.size, module.db.miscText.questFontSuperHuge.outline) -- No idea what that is for
 			_G["QuestFont_Enormous"]:SetFont(E.LSM:Fetch('font', module.db.miscText.questFontSuperHuge.font), module.db.miscText.questFontSuperHuge.size, module.db.miscText.questFontSuperHuge.outline) -- No idea what that is for
 		end
-
-		--Objective Frame
-		if module.db.miscText.objectiveHeader.enable then
-			if E.Retail and not _G["ObjectiveTrackerFrame"].hooked then
-				hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
-					_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-					_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-					_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-					_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-					_G["WORLD_QUEST_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-					_G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-				end)
-				_G["ObjectiveTrackerFrame"].hooked = true
-			end
-
-			if E.Retail then
-				_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-				_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-				_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-				_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-				_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-				_G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-				_G["WORLD_QUEST_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
-			end
-		end
-
-		if module.db.miscText.objective.enable then
-			MakeFont(_G["ObjectiveFont"], E.LSM:Fetch('font', module.db.miscText.objective.font), module.db.miscText.objective.size, module.db.miscText.objective.outline)
-			if module.BonusObjectiveBarText then module.BonusObjectiveBarText:SetFont(E.LSM:Fetch('font', module.db.miscText.objective.font), module.db.miscText.objective.size, module.db.miscText.objective.outline) end
-		end
 	end
 end
 
