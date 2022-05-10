@@ -91,23 +91,24 @@ local itemList = {
 function module:ItemAlert_Update(unit, castID, spellID)
 	if (UnitInRaid(unit) or UnitInParty(unit)) and spellID and itemList[spellID] and lastCastID ~= castID() then
 		SendChatMessage(format(L.ANNOUNCE_FP_PRE, UnitName(unit), GetSpellLink(spellID) or GetSpellInfo(spellID)), F.CheckChat())
+
 		lastCastID = castID
 	end
 end
 
 function module:ItemAlert_CheckGroup()
 	if IsInGroup() then
-		MER:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", self.ItemAlert_Update)
+		MER:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", module.ItemAlert_Update)
 	else
-		MER:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED", self.ItemAlert_Update)
+		MER:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED", module.ItemAlert_Update)
 	end
 end
 
 function module:PlacedItemAlert()
-	self:ItemAlert_CheckGroup()
+	module:ItemAlert_CheckGroup()
 
-	MER:RegisterEvent("GROUP_LEFT", self.ItemAlert_CheckGroup)
-	MER:RegisterEvent("GROUP_JOINED", self.ItemAlert_CheckGroup)
+	MER:RegisterEvent("GROUP_LEFT", module.ItemAlert_CheckGroup)
+	MER:RegisterEvent("GROUP_JOINED", module.ItemAlert_CheckGroup)
 end
 
 --[[---------------------

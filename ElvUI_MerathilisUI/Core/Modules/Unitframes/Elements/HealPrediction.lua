@@ -46,7 +46,7 @@ function module:ConstructTextures(frame)
 end
 
 function module:ConfigureTextures(_, frame)
-	if not (frame and frame.db and frame.db.healPrediction and frame.db.healPrediction.enable) then
+	if not (frame and frame.db and frame.db.healPrediction and frame.db.healPrediction.enable and frame.MERAbsorb) then
 		return
 	end
 
