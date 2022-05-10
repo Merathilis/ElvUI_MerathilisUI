@@ -109,7 +109,7 @@ function module:CosmeticBar(header)
 		backdrop:SetTemplate()
 		backdrop:SetOutside(bar, 1, 1)
 		backdrop.Center:SetAlpha(0)
-		MER:CreateShadow(backdrop, 2, nil, nil, nil, true)
+		MER:CreateShadow(backdrop, 2, true)
 		bar.backdrop = backdrop
 		header.windCosmeticBar = bar
 	end
