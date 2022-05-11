@@ -73,8 +73,7 @@ end
 --[[---------------------
   Item Alerts
 ------------------------]]
-local lastCastID = 0
-local itemList = {
+local spellList = {
 	[54710] = true, -- MOLL-E
 	[54711] = true,	-- Scrapbot
 	[67826] = true,	-- Jeeves
@@ -89,10 +88,9 @@ local itemList = {
 }
 
 function module:ItemAlert_Update(unit, castID, spellID)
-	if (UnitInRaid(unit) or UnitInParty(unit)) and spellID and itemList[spellID] and lastCastID ~= castID() then
+	if groupUnits[unit] and spellList[spellID] and (spellList[spellID] ~= castID) then
 		SendChatMessage(format(L.ANNOUNCE_FP_PRE, UnitName(unit), GetSpellLink(spellID) or GetSpellInfo(spellID)), F.CheckChat())
-
-		lastCastID = castID
+		spellList[spellID] = castID
 	end
 end
 
