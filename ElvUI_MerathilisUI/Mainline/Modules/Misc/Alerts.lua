@@ -88,7 +88,7 @@ local spellList = {
 }
 
 function module:ItemAlert_Update(unit, castID, spellID)
-	if groupUnits[unit] and spellList[spellID] and (spellList[spellID] ~= castID) then
+	if (UnitInRaid(unit) or UnitInParty(unit)) and spellList[spellID] and (spellList[spellID] ~= castID) then
 		SendChatMessage(format(L.ANNOUNCE_FP_PRE, UnitName(unit), GetSpellLink(spellID) or GetSpellInfo(spellID)), F.CheckChat())
 		spellList[spellID] = castID
 	end
