@@ -5,6 +5,8 @@ local LSM = E.LSM
 -- Lua functions
 local _G = _G
 local assert, ipairs, pairs, pcall, print, select, tonumber, type, unpack = assert, ipairs, pairs, pcall, print, select, tonumber, type, unpack
+local min = min
+local abs = abs
 local getmetatable = getmetatable
 local find, format, gsub, match, split, strfind = string.find, string.format, string.gsub, string.match, string.split, strfind
 local strmatch, strlen, strsplit, strsub = strmatch, strlen, strsplit, strsub
@@ -625,5 +627,26 @@ do
 				end
 			end
 		end
+	end
+end
+
+do
+	local color = {
+		start = { r = 1.000, g = 0.647, b = 0.008 },
+		complete = { r = 0.180, g = 0.835, b = 0.451 }
+	}
+
+	function F.GetProgressColor(progress)
+		local r = (color.complete.r - color.start.r) * progress + color.start.r
+		local g = (color.complete.g - color.start.g) * progress + color.start.g
+		local b = (color.complete.r - color.start.b) * progress + color.start.b
+
+		-- algorithm to let the color brighter
+		local addition = 0.35
+		r = min(r + abs(0.5 - progress) * addition, r)
+		g = min(g + abs(0.5 - progress) * addition, g)
+		b = min(b + abs(0.5 - progress) * addition, b)
+
+		return {r = r, g = g, b = b}
 	end
 end
