@@ -121,16 +121,15 @@ function module:HealthPrediction_OnUpdate(object, unit, _, _, absorb, _, hasOver
 
 	local frame = object.frame
 	local pred = frame.HealthPrediction
-
+	local overlay = frame.MERAbsorb.overlay
+	local glow = frame.MERAbsorb.glow
 	local frameDB = frame and frame.db and frame.db.healPrediction
-	if not frameDB or not frameDB.enable or not framePool[frame] then
+
+	if not frameDB or not frameDB.enable or not framePool[frame] or not overlay.SetOverlaySize then
 		return
 	end
 
 	frame.merSmooth:DoJob(function()
-		local overlay = frame.MERAbsorb.overlay
-		local glow = frame.MERAbsorb.glow
-
 		if not self.db.blizzardAbsorbOverlay or maxHealth == health or absorb == 0 or not UnitIsConnected(unit) then
 			overlay:Hide()
 		else
