@@ -736,6 +736,8 @@ function MER:SetupLayout(layout)
 		E.db["mui"]["pvp"]["duels"]["announce"] = true
 		E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["enable"] = true
 		E.db["general"]["cropIcon"] = 0
+		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
+		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
 	else
 		E.db["general"]["cropIcon"] = 2
 		E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["enable"] = false
