@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_UnitFrames')
+local module = MER:GetModule('MER_HealPrediction')
 local UF = E.UnitFrames
 local LSM = E.Libs.LSM
 
@@ -12,6 +12,7 @@ local pairs = pairs
 local rad = rad
 
 local CreateFrame = CreateFrame
+local InCombatLockdown = InCombatLockdown
 local UnitIsConnected = UnitIsConnected
 
 local framePool = {}
@@ -120,16 +121,15 @@ function module:HealthPrediction_OnUpdate(object, unit, _, _, absorb, _, hasOver
 
 	local frame = object.frame
 	local pred = frame.HealthPrediction
-
+	local overlay = frame.MERAbsorb.overlay
+	local glow = frame.MERAbsorb.glow
 	local frameDB = frame and frame.db and frame.db.healPrediction
-	if not frameDB or not frameDB.enable or not framePool[frame] then
+
+	if not frameDB or not frameDB.enable or not framePool[frame] or not overlay.SetOverlaySize then
 		return
 	end
 
 	frame.merSmooth:DoJob(function()
-		local overlay = frame.MERAbsorb.overlay
-		local glow = frame.MERAbsorb.glow
-
 		if not self.db.blizzardAbsorbOverlay or maxHealth == health or absorb == 0 or not UnitIsConnected(unit) then
 			overlay:Hide()
 		else
@@ -206,10 +206,19 @@ function module:WaitForUnitframesLoad(triedTimes)
 
 		-- Refresh all frames to make sure the replacing of textures
 		self:SecureHook(UF, "Configure_HealComm", "ConfigureTextures")
-		UF:Update_AllFrames()
+		if InCombatLockdown() then
+			self:RegisterEvent("PLAYER_REGEN_ENABLED")
+		else
+			UF:Update_AllFrames()
+		end
 	else
 		E:Delay(0.3, self.WaitForUnitframesLoad, self, triedTimes + 1)
 	end
+end
+
+function module:PLAYER_REGEN_ENABLED()
+	self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+	UF:Update_AllFrames()
 end
 
 function module:SmoothTweak(frame)
