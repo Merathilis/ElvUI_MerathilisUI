@@ -1,21 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MAB = MER:GetModule('MER_Actionbars')
 
---Cache global variables
---Lua functions
-local pairs, select, tonumber, type = pairs, select, tonumber, type
-local format = string.format
 local tinsert = table.insert
---WoW API / Variables
-local GetItemInfo = GetItemInfo
-local COLOR = COLOR
--- GLOBALS:
 
-local buttonTypes = {
-	["quest"] = "Quest Buttons",
-	["slot"] = "Trinket Buttons",
-	["usable"] = "Usable Buttons"
-}
 local function ActionBarTable()
 	local ACH = E.Libs.ACH
 

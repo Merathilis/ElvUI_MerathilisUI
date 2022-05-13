@@ -31,8 +31,58 @@ MP.bags = {
 
 MP.merchant = {
 	enable = true,
-	style = "Default",
-	subpages = 2,
+	numberOfPages = 2,
+}
+
+MP.blizzard = {
+	objectiveTracker = {
+		enable = true,
+		noDash = true,
+		colorfulProgress = true,
+		percentage = false,
+		colorfulPercentage = false,
+		header = {
+			name = E.db.general.font,
+			size = E.db.general.fontSize + 2,
+			style = "OUTLINE",
+			color = {r = 1, g = 1, b = 1},
+			shortHeader = true
+		},
+		cosmeticBar = {
+			enable = true,
+			texture = "RenAscensionL",
+			widthMode = "ABSOLUTE",
+			heightMode = "ABSOLUTE",
+			width = 212,
+			height = 2,
+			offsetX = 0,
+			offsetY = -13,
+			border = "SHADOW",
+			borderAlpha = 1,
+			color = {
+				mode = "GRADIENT",
+				normalColor = {r = 0.000, g = 0.659, b = 1.000, a = 1},
+				gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1},
+				gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 1}
+			}
+		},
+		title = {
+			name = E.db.general.font,
+			size = E.db.general.fontSize + 1,
+			style = "OUTLINE"
+		},
+		info = {
+			name = E.db.general.font,
+			size = E.db.general.fontSize - 1,
+			style = "OUTLINE"
+		},
+		titleColor = {
+			enable = true,
+			classColor = false,
+			customColorNormal = {r = 0.000, g = 0.659, b = 1.000},
+			customColorHighlight = {r = 0.282, g = 0.859, b = 0.984}
+		},
+	},
 }
 
 MP.CombatAlert = {
@@ -237,6 +287,7 @@ MP.chat = {
 	},
 	chatLink = {
 		enable = true,
+		translateItem = true,
 		level = true,
 		icon = true,
 		armorCategory = true,
@@ -689,7 +740,16 @@ MP.microBar = {
 }
 
 MP.unitframes = {
-	healPrediction = false,
+	healPrediction = {
+		enable = false,
+		texture = {
+			enable = true,
+			custom = E.db.unitframe.statusbar,
+			blizzardStyle = false,
+		},
+		blizzardOverAbsorbGlow = true,
+		blizzardAbsorbOverlay = true,
+	},
 	swing = {
 		enable = false,
 		mcolor = { r = .8, g = .8, b = .8 },
@@ -760,7 +820,6 @@ MP.maps = {
 			size = E.db.general.fontSize + 2,
 			style = "OUTLINE",
 			color = {r = 1, g = 1, b = 1},
-			onlyNumber = false,
 		}
 	},
 	worldMap = {
@@ -805,18 +864,6 @@ MP.media = {
 			font = "Expressway",
 			size = 12,
 			outline = "NONE",
-		},
-		objective = {
-			enable = true,
-			font = "Expressway",
-			size = 11,
-			outline = "NONE",
-		},
-		objectiveHeader = {
-			enable = true,
-			font = "Expressway",
-			size = 14,
-			outline = "OUTLINE",
 		},
 		questFontSuperHuge = {
 			enable = true,

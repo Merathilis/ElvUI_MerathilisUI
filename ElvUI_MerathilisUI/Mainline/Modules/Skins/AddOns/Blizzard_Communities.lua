@@ -2,16 +2,36 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
-local next, select, unpack = next, select, unpack
---WoW API / Variables
-local CreateFrame = CreateFrame
+local gsub, next, select, unpack = gsub, next, select, unpack
+local format = string.format
+local strmatch = strmatch
+
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
+
+local cache = {}
+
+local function ModifyGuildNews(button, _, text, name, link, ...)
+	if not E.private.muiMisc.guildNewsItemLevel then
+		return
+	end
+
+	if not link or not strmatch(link, "|H(item:%d+:.-)|h.-|h") then
+		return
+	end
+
+	if not cache[link] then
+		cache[link] = F.GetRealItemLevelByLink(link)
+	end
+
+	if cache[link] then
+		local coloredItemLevel = format("|cfff1c40f%s|r", cache[link])
+		link = gsub(link, "|h%[(.-)%]|h", "|h[" .. coloredItemLevel .. ":%1]|h")
+		button.text:SetFormattedText(text, name, link, ...)
+	end
+end
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or E.private.muiSkins.blizzard.communities ~= true then return end
@@ -149,6 +169,8 @@ local function LoadSkin()
 	if GuildNewsFilter.backdrop then
 		GuildNewsFilter.backdrop:Styling()
 	end
+
+	hooksecurefunc("GuildNewsButton_SetText", ModifyGuildNews)
 end
 
 S:AddCallbackForAddon("Blizzard_Communities", "mUICommunities", LoadSkin)

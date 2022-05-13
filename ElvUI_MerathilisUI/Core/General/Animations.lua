@@ -1,16 +1,35 @@
-------------------------------------------------------------------------
--- Animation Functions
-------------------------------------------------------------------------
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
--- Cache global variables
--- Lua functions
 local assert = assert
 local abs, max = math.abs, math.max
--- WoW API / Variables
+local pi = math.pi
+local cos = math.cos
+local sin = math.sin
+local mod = math.fmod
+local sqrt = math.sqrt
+local ceil = math.ceil
+local floor = math.floor
+local tinsert = table.insert
+local tremove = table.remove
+local lower = string.lower
+local pairs = pairs
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
--- GLOBALS:
+
+local Updater = CreateFrame("StatusBar")
+local Texture = Updater:CreateTexture()
+local FontString = Updater:CreateFontString()
+local Initialize = {}
+local Update = {}
+local Easing = {}
+local Callbacks = {
+	["onplay"] = {},
+	["onpause"] = {},
+	["onresume"] = {},
+	["onstop"] = {},
+	["onreset"] = {},
+	["onfinished"] = {}
+}
 
 local function OnUpdate(self)
 	if self.parent:GetAlpha() == 0 then

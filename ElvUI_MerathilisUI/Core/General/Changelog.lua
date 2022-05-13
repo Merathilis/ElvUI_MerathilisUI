@@ -16,11 +16,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added Kettle of the Stone Soupt to my alerts",
-		"• Added some missing german locales. Thx @DlargeX",
-		"• Updated some skins",
-		"• Try to reskin a widget statusbar on login",
-		"• Added Dominated Hearthstone to the LocPanel. Thx @nictie",
+		"• Fixed an error in the ObjectiveTracker if my Shadows were disabled >.>",
+		"• Fixed an error on the Mail Frame in Classic",
+		"• Update chinese locales. Thx suyunyiu <3",
+		"• Hopefully final fix for the Alerts <.<",
 
 	" ",
 	"Notes:",
@@ -28,7 +27,6 @@ local ChangeLogData = {
 		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muierrors on' and test again",
 
-		"• 'I CHANGED SOME BACKEND CODE. IF YOU ARE EXPERIENCE SOME ERRORS, PLEASE LET ME KNOW!'",
 		-- "• ''",
 }
 

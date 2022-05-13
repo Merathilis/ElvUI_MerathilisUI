@@ -1,0 +1,5 @@
+[b][color=orange]v4.97[/color], 13.05.2022[/b][list]
+[*]Fixed an error in the ObjectiveTracker if my Shadows were disabled >.>
+[*]Fixed an error on the Mail Frame in Classic
+[*]Update chinese locales. Thx suyunyiu <3
+[*]Hopefully final fix for the Alerts <.<[/list]

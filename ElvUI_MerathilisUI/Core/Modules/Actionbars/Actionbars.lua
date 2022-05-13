@@ -115,6 +115,7 @@ local function ReskinVehicleExit()
 	end
 
 	local button = _G.MainMenuBarVehicleLeaveButton
+	MER:CreateBackdropShadow(button, true)
 	local tex = button:GetNormalTexture()
 	if tex then
 		tex:SetTexture(MER.Media.Textures.arrow)

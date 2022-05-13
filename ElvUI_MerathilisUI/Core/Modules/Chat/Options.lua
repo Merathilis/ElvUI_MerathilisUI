@@ -546,7 +546,7 @@ local function ChatTable()
 							feature = {
 								order = 1,
 								type = "description",
-								name = L["Add extra information on the link, so that you can get basic information but do not need to click."],
+								name = L["Add extra information on the link, so that you can get basic information but do not need to click"],
 								fontSize = "medium"
 							}
 						}
@@ -570,18 +570,24 @@ local function ChatTable()
 								type = "toggle",
 								name = L["Level"],
 							},
-							icon = {
+							translateItem = {
 								order = 2,
+								type = "toggle",
+								name = L["Translate Item"],
+								desc = L["Translate the name in item links into your language."],
+							},
+							icon = {
+								order = 3,
 								type = "toggle",
 								name = L["Icon"],
 							},
 							armorCategory = {
-								order = 3,
+								order = 4,
 								type = "toggle",
 								name = L["Armor Category"],
 							},
 							weaponCategory = {
-								order = 4,
+								order = 5,
 								type = "toggle",
 								name = L["Weapon Category"],
 							},

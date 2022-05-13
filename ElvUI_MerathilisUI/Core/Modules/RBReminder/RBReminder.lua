@@ -45,6 +45,7 @@ module.ReminderBuffs = {
 		224001,			-- Defiled Augumentation (15 primary stat)
 		270058,			-- Battle Scarred Augmentation (60 primary stat)
 		347901,			-- Veiled Augmentation (18 primary stat)
+		367405,			-- Eternal Augmentation (18 Agi, Strength or Int)
 	},
 	Food = {
 		104280,	-- Well Fed

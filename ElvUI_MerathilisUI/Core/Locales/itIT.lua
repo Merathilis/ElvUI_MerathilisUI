@@ -89,6 +89,15 @@ L["Item Level Links"] = true
 L["Filter"] = true
 L["Block"] = true
 L["Custom Online Message"] = true
+L["Chat Link"] = true
+L["Add extra information on the link, so that you can get basic information but do not need to click"] = true
+L["Additional Information"] = true
+L["Level"] = true
+L["Translate Item"] = true
+L["Translate the name in item links into your language."] = true
+L["Icon"] = true
+L["Armor Category"] = true
+L["Weapon Category"] = true
 
 -- Combat Alert
 L["Combat Alert"] = true
@@ -118,6 +127,9 @@ L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8
 -- GameMenu
 L["GameMenu"] = true
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] = true
+
+-- Extended Vendor
+L["Extended Vendor"] = true
 
 -- FlightMode
 L["FlightMode"] = true
@@ -230,6 +242,10 @@ L.ANNOUNCE_FP_PRE = "{rt1} %s ha preparato un/una %s. {rt1}"
 L.ANNOUNCE_FP_CLICK ="{rt1} %s sta lanciando %s. Cliccate! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s ha utilizzato un/una %s. {rt1}"
 L.ANNOUNCE_FP_CAST = "{rt1} %s sta lanciando %s. {rt1}"
+
+-- Nameplates
+L["NamePlates"] = true
+L["Enhanced NameplateAuras"] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -420,7 +436,6 @@ L["MER_MEDIA_PVPARENA"] = {
 
 -- Unitframes
 L["UnitFrames"] = true
-L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
 L["Swing Bar"] = true
 L["Creates a weapon Swing Bar"] = true
@@ -432,6 +447,25 @@ L["Creates a Global Cooldown Bar"] = true
 L["UnitFrame Style"] = true
 L["Adds my styling to the Unitframes if you use transparent health."] = true
 L["Change the default role icons."] = true
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
+L["Add a glow in the end of health bars to indicate the over absorb."] = true
+L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = true
+L["Auto Height"] = true
+L["Blizzard Absorb Overlay"] = true
+L["Blizzard Over Absorb Glow"] = true
+L["Blizzard Style"] = true
+L["Change the color of the absorb bar."] = true
+L["Custom Texture"] = "Benutzerdefinierte Textur"
+L["Enable the replacing of ElvUI absorb bar textures."] = true
+L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = true
+L["Max Overflow"] = true
+L["Modify the texture of the absorb bar."] = true
+L["Overflow"] = true
+L["Set %s to %s"] = true
+L["Set All Absorb Style to %s"] = true
+L["The absorb style %s and %s is highly recommended with %s tweaks."] = true
+L["The selected texture will override the ElvUI default absorb bar texture."] = true
+L["Use the texture from Blizzard Raid Frames."] = true
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -699,6 +733,45 @@ L["Bottom Left Extra Panel"] = true
 L["Bottom Right Panel"] = true
 L["Bottom Right Extra Panel"] = true
 
+-- Objective Tracker
+L["1. Customize the font of Objective Tracker."] = true
+L["2. Add colorful progress text to the quest."] = true
+L["Progress"] = true
+L["No Dash"] = true
+L["Colorful Progress"] = true
+L["Percentage"] = true
+L["Add percentage text after quest text."] = true
+L["Colorful Percentage"] = true
+L["Make the additional percentage text be colored."] = true
+L["Cosmetic Bar"] = true
+L["Border"] = true
+L["Border Alpha"] = true
+L["Width Mode"] = true
+L["'Absolute' mode means the width of the bar is fixed."] = true
+L["'Dynamic' mode will also add the width of header text."] = true
+L["'Absolute' mode means the height of the bar is fixed."] = true
+L["'Dynamic' mode will also add the height of header text."] = true
+L["Absolute"] = true
+L["Dyanamic"] = true
+L["Color Mode"] = true
+L["Gradient"] = true
+L["Class Color"] = true
+L["Normal Color"] = true
+L["Gradient Color 1"] = true
+L["Gradient Color 2"] = true
+L["Presets"] = true
+L["Preset %d"] = true
+L["Here are some example presets, just try them!"] = true
+L["Default"] = true
+L["Header"] = true
+L["Short Header"] = true
+L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = true
+L["Title Color"] = true
+L["Change the color of quest titles."] = true
+L["Use Class Color"] = true
+L["Highlight Color"] = true
+L["Title"] = true
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 
@@ -709,7 +782,7 @@ L["Skins/AddOns"] = true
 L["Profiles"] = true
 L["BigWigs"] = true
 L["MasterPlan"] = true
-L["Shadow & Light"] = true
+L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = true
 
 -- Changelog

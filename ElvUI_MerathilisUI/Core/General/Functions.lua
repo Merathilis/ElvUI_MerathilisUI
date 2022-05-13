@@ -4,10 +4,12 @@ local LSM = E.LSM
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local assert, ipairs, pairs, print, select, tonumber, type, unpack = assert, ipairs, pairs, print, select, tonumber, type, unpack
+local assert, ipairs, pairs, pcall, print, select, tonumber, type, unpack = assert, ipairs, pairs, pcall, print, select, tonumber, type, unpack
+local min = min
+local abs = abs
 local getmetatable = getmetatable
 local find, format, gsub, match, split, strfind = string.find, string.format, string.gsub, string.match, string.split, strfind
-local strmatch, strsplit = strmatch, strsplit
+local strmatch, strlen, strsplit, strsub = strmatch, strlen, strsplit, strsub
 local tconcat, tinsert, tremove, twipe = table.concat, table.insert, table.remove, table.wipe
 -- WoW API / Variables
 local CreateFrame = CreateFrame
@@ -587,4 +589,64 @@ function F.SplitString(delimiter, subject)
 	end
 
 	return unpack(results)
+end
+
+function F.SetCallback(callback, target, times, ...)
+	times = times or 0
+	if times >= 10 then
+		return
+	end
+
+	if times < 10 then
+		local result = {pcall(target, ...)}
+		if result and result[1] == true then
+			tremove(result, 1)
+			if callback(unpack(result)) then
+				return
+			end
+		end
+	end
+
+	E:Delay(0.1, F.SetCallback, callback, target, times+1, ...)
+end
+
+do
+	local pattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
+	function F.GetRealItemLevelByLink(link)
+		E.ScanTooltip:SetOwner(_G.UIParent, "ANCHOR_NONE")
+		E.ScanTooltip:ClearLines()
+		E.ScanTooltip:SetHyperlink(link)
+
+		for i = 2, 5 do
+			local leftText = _G[E.ScanTooltip:GetName() .. "TextLeft" .. i]
+			if leftText then
+				local text = leftText:GetText() or ""
+				local level = strmatch(text, pattern)
+				if level then
+					return level
+				end
+			end
+		end
+	end
+end
+
+do
+	local color = {
+		start = { r = 1.000, g = 0.647, b = 0.008 },
+		complete = { r = 0.180, g = 0.835, b = 0.451 }
+	}
+
+	function F.GetProgressColor(progress)
+		local r = (color.complete.r - color.start.r) * progress + color.start.r
+		local g = (color.complete.g - color.start.g) * progress + color.start.g
+		local b = (color.complete.r - color.start.b) * progress + color.start.b
+
+		-- algorithm to let the color brighter
+		local addition = 0.35
+		r = min(r + abs(0.5 - progress) * addition, r)
+		g = min(g + abs(0.5 - progress) * addition, g)
+		b = min(b + abs(0.5 - progress) * addition, b)
+
+		return {r = r, g = g, b = b}
+	end
 end

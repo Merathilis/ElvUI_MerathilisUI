@@ -39,10 +39,10 @@ L["Show the associated equipment sets for the items in your bags (or bank)."] = 
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
 L["BACK"] = "后退"
-L["ERR_FRIEND_ONLINE"] = "has come |cff298F00online|r."
-L["ERR_FRIEND_OFFLINE"] = "has gone |cffff0000offline|r."
-L["BN_INLINE_TOAST_FRIEND_ONLINE"] = " has come |cff298F00online|r."
-L["BN_INLINE_TOAST_FRIEND_OFFLINE"] = " has gone |cffff0000offline|r."
+L["ERR_FRIEND_ONLINE"] = "|cff298F00上线|r."
+L["ERR_FRIEND_OFFLINE"] = "|cffff0000离线|r."
+L["BN_INLINE_TOAST_FRIEND_ONLINE"] = "|cff298F00上线|r."
+L["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "|cffff0000离线|r."
 L["has come |cff298F00online|r."] = "|cff298F00上线|r." -- Guild Message
 L["has gone |cffff0000offline|r."] = "|cffff0000离线|r." -- Guild Message
 L[" has come |cff298F00online|r."] = "|cff298F00上线|r." -- Battle.Net Message
@@ -92,6 +92,15 @@ L["Use a icon rather than text"] = "使用图标"
 L["Use Color"] = "使用颜色"
 L["Font Setting"] = "字体设定"
 L["Custom Online Message"] = true
+L["Chat Link"] = "聊天链接"
+L["Add extra information on the link, so that you can get basic information but do not need to click"] = "为链接添加额外信息, 这样你就可以不通过点击也能获取到基础信息"
+L["Additional Information"] = "额外信息"
+L["Level"] = "等级"
+L["Translate Item"] = "翻译物品"
+L["Translate the name in item links into your language."] = "将物品链接中的名称翻译为你的语言."
+L["Icon"] = "图标"
+L["Armor Category"] = "护甲分类"
+L["Weapon Category"] = "武器分类"
 
 -- Combat Alert
 L["Combat Alert"] = "战斗提示"
@@ -122,6 +131,10 @@ L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8
 L["GameMenu"] = "游戏菜单"
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] = "从暴雪游戏菜单启用/禁用MerathilisUI样式."
 
+-- Extended Vendor
+L["Extended Vendor"] = true
+L["Enhanced NameplateAuras"] = true
+
 -- FlightMode
 L["FlightMode"] = "飞行模式"
 L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "增强 |cff00c0faBenikUI|r 的飞行模式, 如需完全禁用飞行模式, 请前往 |cff00c0faBenikUI|r 选项."
@@ -134,8 +147,8 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "在飞�
 
 -- Shadows
 L["Shadows"] = true
-L["Increase Size"] = true
-L["Make shadow thicker."] = true
+L["Increase Size"] = "增大尺寸"
+L["Make shadow thicker."] = "让阴影变得更加厚实."
 
 -- Mail
 L["Mail"] = "邮件"
@@ -257,8 +270,8 @@ L["BattleOfDazaralor"] = "达萨罗之战"
 L["CrucibleOfStorms"] = "风暴熔炉"
 L["EternalPalace"] = "永恒王宫"
 L["Nyalotha"] = "尼奥罗萨"
-L["Castle Nathria"] = true
-L["Sanctum of Domination"] = true
+L["Castle Nathria"] = "纳斯利亚堡"
+L["Sanctum of Domination"] = "统御圣所"
 L["FACTION"] = "阵营"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "已激活的艾泽里特之力"
 L["Only Icons"] = "仅图标"
@@ -438,7 +451,6 @@ L["MER_MEDIA_PVPARENA"] = {
 
 -- Unitframes
 L["UnitFrames"] = "单位框体"
-L["Changes the Heal Prediction texture to the default Blizzard ones."] = "将治疗预估材质替换为暴雪默认样式"
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = "在Debuff图标外添加阴影以便更清楚的分辨Debuff类型"
 L["Swing Bar"] = "普攻计时条"
 L["Creates a weapon Swing Bar"] = "创建一个普攻计时条"
@@ -450,6 +462,25 @@ L["Creates a Global Cooldown Bar"] = "创建一个公共CD计时条"
 L["UnitFrame Style"] = "头像样式"
 L["Adds my styling to the Unitframes if you use transparent health."] = "当你使用透明头像时，添加Merathilis风格"
 L["Change the default role icons."] = "替换默认职责图标"
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = "将治疗预估材质替换为暴雪默认样式"
+L["Add a glow in the end of health bars to indicate the over absorb."] = "在生命条的末端添加发光来表示过量吸收."
+L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = "为 ElvUI 单位框体添加暴雪风格的过量吸收发光和叠加层."
+L["Auto Height"] = "自动高度"
+L["Blizzard Absorb Overlay"] = "暴雪吸收覆盖层"
+L["Blizzard Over Absorb Glow"] = "暴雪过量吸收发光"
+L["Blizzard Style"] = "暴雪样式"
+L["Change the color of the absorb bar."] = "修改吸收条的颜色."
+L["Custom Texture"] = "Benutzerdefinierte Textur"
+L["Enable the replacing of ElvUI absorb bar textures."] = "启用 ElvUI 吸收条材质替换."
+L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = "这里有一些按钮帮助你一键更改所有吸收条的设置."
+L["Max Overflow"] = "最大治疗吸收盾"
+L["Modify the texture of the absorb bar."] = "修改吸收条材质."
+L["Overflow"] = "溢出"
+L["Set %s to %s"] = "设置 %s 为 %s"
+L["Set All Absorb Style to %s"] = "设置全部吸收样式为 %s"
+L["The absorb style %s and %s is highly recommended with %s tweaks."] = "非常推荐使用 %s 和 %s 的吸收风格来和 %s的修改进行搭配显示."
+L["The selected texture will override the ElvUI default absorb bar texture."] = "选定的材质会覆盖 ElvUI 默认吸收材质."
+L["Use the texture from Blizzard Raid Frames."] = "使用暴雪团队框架中的材质."
 
 -- LocationPanel
 L["Template"] = "模版"
@@ -721,6 +752,45 @@ L["Bottom Left Panel"] = "左下面板"
 L["Bottom Left Extra Panel"] = "左下额外面板"
 L["Bottom Right Panel"] = "右下面板"
 L["Bottom Right Extra Panel"] = "右下额外面板"
+
+-- Objective Tracker
+L["1. Customize the font of Objective Tracker."] = "1. 自定义任务追踪的字体."
+L["2. Add colorful progress text to the quest."] = "2. 为任务添加彩色的进度文字."
+L["Progress"] = "进度"
+L["No Dash"] = "无标记"
+L["Colorful Progress"] = "彩色进度"
+L["Percentage"] = "百分比"
+L["Add percentage text after quest text."] = "在任务文本后添加百分比文字."
+L["Colorful Percentage"] = "彩色百分比"
+L["Make the additional percentage text be colored."] = "使额外的百分比文字为彩色."
+L["Cosmetic Bar"] = "装饰条"
+L["Border"] = "边框"
+L["Border Alpha"] = "边框透明度"
+L["Width Mode"] = "宽度模式"
+L["'Absolute' mode means the width of the bar is fixed."] = "'绝对' 模式意味着宽度是固定的."
+L["'Dynamic' mode will also add the width of header text."] = "'动态' 模式将自动加上顶部文字的宽度."
+L["'Absolute' mode means the height of the bar is fixed."] = "'绝对' 模式意味着高度是固定的."
+L["'Dynamic' mode will also add the height of header text."] = "'动态' 模式将自动加上顶部文字的高度."
+L["Absolute"] = "绝对"
+L["Dyanamic"] = "动态"
+L["Color Mode"] = "颜色模式"
+L["Gradient"] = "渐变"
+L["Class Color"] = "职业色"
+L["Normal Color"] = "正常颜色"
+L["Gradient Color 1"] = "渐变色 1"
+L["Gradient Color 2"] = "渐变色 2"
+L["Presets"] = "预设"
+L["Preset %d"] = "%d 号预设"
+L["Here are some example presets, just try them!"] = "这里有一些示例预设, 赶快试一试!"
+L["Default"] = "默认"
+L["Header"] = "顶部"
+L["Short Header"] = "简短顶部"
+L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = "使用简短名字替代, 比如 托加斯特,罪魂之塔 为 托加斯特."
+L["Title Color"] = "标题颜色"
+L["Change the color of quest titles."] = "修改任务标题文字颜色."
+L["Use Class Color"] = "使用职业颜色"
+L["Highlight Color"] = "高亮颜色"
+L["Title"] = "标题"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.

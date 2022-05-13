@@ -260,22 +260,26 @@ function module:CreateRaidManager()
 	end)
 
 	if E.Retail then
-		local WorldMarkButton = _G.CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton
-		WorldMarkButton:SetParent(RaidManagerFrame)
-		WorldMarkButton:ClearAllPoints()
-		WorldMarkButton:Point("TOPRIGHT", RaidManagerFrame, "TOPRIGHT", -5, -3)
-		WorldMarkButton:Size(18, 18)
+		if _G.CompactRaidFrameManager then
+			local WorldMarkButton = _G.CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton
+			WorldMarkButton:SetParent(RaidManagerFrame)
+			WorldMarkButton:ClearAllPoints()
+			WorldMarkButton:Point("TOPRIGHT", RaidManagerFrame, "TOPRIGHT", -5, -3)
+			WorldMarkButton:Size(18, 18)
 
-		WorldMarkButton:HookScript("OnEvent", function(self, event)
-			if UnitIsGroupAssistant("player") or UnitIsGroupLeader("player") or (IsInGroup() and not IsInRaid()) then
-				self:Enable()
-			else
-				self:Disable()
-			end
-		end)
+			WorldMarkButton:HookScript("OnEvent", function(self, event)
+				if UnitIsGroupAssistant("player") or UnitIsGroupLeader("player") or (IsInGroup() and not IsInRaid()) then
+					self:Enable()
+				else
+					self:Disable()
+				end
+			end)
 
-		WorldMarkButton:RegisterEvent("GROUP_ROSTER_UPDATE")
-		WorldMarkButton:RegisterEvent("PLAYER_ENTERING_WORLD")
+			WorldMarkButton:RegisterEvent("GROUP_ROSTER_UPDATE")
+			WorldMarkButton:RegisterEvent("PLAYER_ENTERING_WORLD")
+		else
+			E:StaticPopup_Show('WARNING_BLIZZARD_ADDONS')
+		end
 	end
 
 	local PullButton = CreateFrame("Button", "RaidManagerFramePullButton", RaidManagerFrame, "UIPanelButtonTemplate")

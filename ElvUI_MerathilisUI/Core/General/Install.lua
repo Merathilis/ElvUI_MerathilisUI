@@ -108,11 +108,11 @@ local function SetupChat()
 			FCF_SetWindowName(frame, _G.GENERAL)
 		elseif id == 2 then
 			FCF_SetWindowName(frame, _G.LOG)
-		elseif (E.Retail and id == 3) then
+		elseif id == 3 then
 			VoiceTranscriptionFrame_UpdateVisibility(frame)
 			VoiceTranscriptionFrame_UpdateVoiceTab(frame)
 			VoiceTranscriptionFrame_UpdateEditBox(frame)
-		elseif (E.Retail and id == 4) or id == 3 then
+		elseif id == 4 then
 			FCF_SetWindowName(frame, LOOT)
 		end
 	end
@@ -677,7 +677,8 @@ function MER:SetupLayout(layout)
 
 	-- TARGETED
 	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.06 -- 106% scale
-	E.db["nameplates"]["units"]["TARGET"]["glowStyle"] = "style2"
+	E.db["nameplates"]["units"]["TARGET"]["glowStyle"] = "style8"
+	E.db["nameplates"]["units"]["TARGET"]["arrow"] = 'ArrowRed'
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
@@ -691,7 +692,9 @@ function MER:SetupLayout(layout)
 	E.db["tooltip"]["visibility"]["combat"] = false
 	E.db["tooltip"]["healthBar"]["font"] = "Expressway"
 	E.db["tooltip"]["font"] = "Expressway"
-	E.db["tooltip"]["fontOutline"] = "NONE"
+	E.db["tooltip"]["fontOutline"] = "OUTLINE"
+	E.db["tooltip"]["headerFont"] = "Expressway"
+	E.db["tooltip"]["headerFontOutline"] = "OUTLINE"
 	E.db["tooltip"]["headerFontSize"] = 12
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
@@ -727,13 +730,14 @@ function MER:SetupLayout(layout)
 	E.db["mui"]["locPanel"]["colorType_Coords"] = "CLASS"
 	E.db["mui"]["raidmarkers"]["enable"] = false
 
-	-- Heal Prediction
 	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		E.db["mui"]["pvp"]["duels"]["regular"] = true
 		E.db["mui"]["pvp"]["duels"]["pet"] = true
 		E.db["mui"]["pvp"]["duels"]["announce"] = true
 		E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["enable"] = true
 		E.db["general"]["cropIcon"] = 0
+		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
+		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
 	else
 		E.db["general"]["cropIcon"] = 2
 		E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["enable"] = false
@@ -1228,7 +1232,7 @@ function MER:SetupUnitframes(layout)
 	-- GCD Bar
 	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		E.db["mui"]["unitframes"]["gcd"]["enable"] = true
-		E.db["mui"]["unitframes"]["healPrediction"] = true
+		E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
 	end
 
 	if layout == "dps" then
