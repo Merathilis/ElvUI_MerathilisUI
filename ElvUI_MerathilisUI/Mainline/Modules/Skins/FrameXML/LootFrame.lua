@@ -13,7 +13,7 @@ local function ShowIconBG(anim)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.loot ~= true or E.private.muiSkins.blizzard.loot ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.loot ~= true or E.private.mui.skins.blizzard.loot ~= true then return end
 
 	_G.BonusRollFrame:Styling()
 	_G.LootHistoryFrame:Styling()

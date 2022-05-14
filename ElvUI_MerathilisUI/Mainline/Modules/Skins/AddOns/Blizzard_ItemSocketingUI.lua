@@ -13,7 +13,7 @@ local GetSocketTypes = GetSocketTypes
 -- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.socket ~= true or E.private.muiSkins.blizzard.socket ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.socket ~= true or E.private.mui.skins.blizzard.socket ~= true then return end
 
 	local ItemSocketingFrame = _G["ItemSocketingFrame"]
 	ItemSocketingFrame:Styling()

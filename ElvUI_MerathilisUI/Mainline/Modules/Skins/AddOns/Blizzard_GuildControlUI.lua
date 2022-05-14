@@ -7,7 +7,7 @@ local _G = _G
 -- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guildcontrol ~= true or E.private.muiSkins.blizzard.guildcontrol ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guildcontrol ~= true or E.private.mui.skins.blizzard.guildcontrol ~= true then return end
 
 	_G.GuildControlUI:Styling()
 	MER:CreateBackdropShadow(_G.GuildControlUI)

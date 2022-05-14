@@ -31,8 +31,8 @@ local function Misc()
 				order = 3,
 				type = "toggle",
 				name = L["Guild News Item Level"],
-				get = function(info) return E.private.muiMisc[ info[#info] ] end,
-				set = function(info, value) E.private.muiMisc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				get = function(info) return E.private.mui.misc[ info[#info] ] end,
+				set = function(info, value) E.private.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			},
 			cursor = {
 				order = 4,

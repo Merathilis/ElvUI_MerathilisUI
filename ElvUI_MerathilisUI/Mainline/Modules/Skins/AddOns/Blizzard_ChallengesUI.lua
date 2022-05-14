@@ -52,7 +52,7 @@ local function UpdateIcons(self)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.challenges ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.mui.skins.blizzard.challenges ~= true then return end
 
 	local KeyStoneFrame = _G.ChallengesKeystoneFrame
 	KeyStoneFrame:Styling()

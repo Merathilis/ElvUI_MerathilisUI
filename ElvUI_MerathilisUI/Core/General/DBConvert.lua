@@ -13,4 +13,8 @@ function MER:DBConvert()
 	if not db.unitframes.healPrediction.texture or type(db.unitframes.healPrediction.texture) ~= 'table' then
 		db.unitframes.healPrediction.texture = {}
 	end
+
+	if not private.skins or type(private.skins) ~= 'table' then
+		private.skins = {}
+	end
 end

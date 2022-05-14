@@ -3,7 +3,7 @@ local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.mui.skins.blizzard.objectiveTracker ~= true then return end
 
 end
 

@@ -16,7 +16,7 @@ local hooksecurefunc = hooksecurefunc
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bmah ~= true or E.private.muiSkins.blizzard.blackmarket ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bmah ~= true or E.private.mui.skins.blizzard.blackmarket ~= true then return end
 
 	local BlackMarketFrame = _G.BlackMarketFrame
 

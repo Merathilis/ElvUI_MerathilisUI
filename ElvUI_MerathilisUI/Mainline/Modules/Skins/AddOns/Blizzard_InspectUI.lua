@@ -33,7 +33,7 @@ local function updateIcon(self)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.inspect ~= true or E.private.muiSkins.blizzard.inspect ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.inspect ~= true or E.private.mui.skins.blizzard.inspect ~= true then return end
 
 	_G.InspectModelFrame:DisableDrawLayer("OVERLAY")
 

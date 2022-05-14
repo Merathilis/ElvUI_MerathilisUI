@@ -9,7 +9,7 @@ local _G = _G
 -- GLOBALS: hooksecurefunc, BugSack
 
 local function LoadAddOnSkin()
-	if E.private.muiSkins.addonSkins.cbn ~= true then return end
+	if E.private.mui.skins.addonSkins.cbn ~= true then return end
 
 	-- Default Containers from cargBags_Nivaya
 	local frames = {

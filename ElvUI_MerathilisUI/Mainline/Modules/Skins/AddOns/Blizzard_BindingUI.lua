@@ -27,7 +27,7 @@ local function styleBindingButton(bu)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.muiSkins.blizzard.binding ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.mui.skins.blizzard.binding ~= true then return end
 
 	_G.KeyBindingFrame:Styling()
 	MER:CreateBackdropShadow(_G.KeyBindingFrame)

@@ -7,7 +7,7 @@ local _G = _G
 -- GLOBALS:
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.timemanager) or E.private.muiSkins.blizzard.timemanager ~= true then return end
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.timemanager) or E.private.mui.skins.blizzard.timemanager ~= true then return end
 
 	local TimeManagerFrame = _G.TimeManagerFrame
 	TimeManagerFrame.backdrop:Styling()

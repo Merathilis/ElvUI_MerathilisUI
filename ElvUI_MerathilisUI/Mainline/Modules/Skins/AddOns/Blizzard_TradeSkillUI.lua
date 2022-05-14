@@ -8,7 +8,7 @@ local _G = _G
 -- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tradeskill ~= true or E.private.muiSkins.blizzard.tradeskill ~= true then return; end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tradeskill ~= true or E.private.mui.skins.blizzard.tradeskill ~= true then return; end
 
 	-- MainFrame
 	local frame = _G.TradeSkillFrame

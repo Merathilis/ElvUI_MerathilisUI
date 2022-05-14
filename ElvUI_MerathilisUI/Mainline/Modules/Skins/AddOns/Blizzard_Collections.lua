@@ -17,7 +17,7 @@ local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or E.private.muiSkins.blizzard.collections ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or E.private.mui.skins.blizzard.collections ~= true then return end
 
 	local CollectionsJournal = _G.CollectionsJournal
 	CollectionsJournal:Styling()

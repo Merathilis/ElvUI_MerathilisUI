@@ -54,7 +54,7 @@ local classColor = setmetatable({}, {
 })
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.mui.skins.blizzard.pvp ~= true then return end
 
 	local PVPMatchScoreboard = _G.PVPMatchScoreboard
 	if not PVPMatchScoreboard.backdrop then

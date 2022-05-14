@@ -227,8 +227,8 @@ end
 
 -- Buttons
 function MERS:Reskin(button, strip, isDecline, noStyle, createBackdrop, template, noGlossTex, overrideTex, frameLevel, defaultTemplate, noGradient)
-	if not E.private.muiSkins then E.private.muiSkins = {} end
-	if not E.private.muiSkins.buttonStyle then return end
+	if not E.private.mui.skins then E.private.mui.skins = {} end
+	if not E.private.mui.skins.buttonStyle then return end
 
 	assert(button, "doesn't exist!")
 
@@ -668,7 +668,7 @@ function MERS:DisableAddOnSkin(key)
 end
 
 function MERS:Initialize()
-	self.db = E.private.muiSkins
+	self.db = E.private.mui.skins
 
 	updateMedia()
 	self:StyleElvUIConfig()

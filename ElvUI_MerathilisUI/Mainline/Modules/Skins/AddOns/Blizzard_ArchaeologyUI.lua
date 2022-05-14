@@ -11,7 +11,7 @@ local CreateFrame = CreateFrame
 -- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.archaeology ~= true or E.private.muiSkins.blizzard.Archaeology ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.archaeology ~= true or E.private.mui.skins.blizzard.Archaeology ~= true then return end
 
 	local ArchaeologyFrame = _G.ArchaeologyFrame
 	-- Hide the Parchment

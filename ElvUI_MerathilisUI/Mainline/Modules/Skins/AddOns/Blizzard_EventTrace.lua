@@ -11,7 +11,7 @@ local hooksecurefunc = hooksecurefunc
 
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.debug ~= true or E.private.muiSkins.blizzard.debug ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.debug ~= true or E.private.mui.skins.blizzard.debug ~= true then return end
 
 	local EventTraceFrame = _G.EventTrace
 	EventTraceFrame:Styling()

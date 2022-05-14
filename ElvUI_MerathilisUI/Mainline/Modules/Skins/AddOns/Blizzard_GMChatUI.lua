@@ -4,7 +4,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.GMChat ~= true or E.private.muiSkins.blizzard.GMChat ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.GMChat ~= true or E.private.mui.skins.blizzard.GMChat ~= true then return end
 
 	if _G.GMChatFrame.backdrop then
 		_G.GMChatFrame.backdrop:Styling()

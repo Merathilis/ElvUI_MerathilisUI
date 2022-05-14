@@ -7,7 +7,7 @@ local _G = _G
 -- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.macro ~= true or E.private.muiSkins.blizzard.macro ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.macro ~= true or E.private.mui.skins.blizzard.macro ~= true then return end
 
 	_G.MacroFrame:Styling()
 	MER:CreateBackdropShadow(_G.MacroFrame)

@@ -183,7 +183,7 @@ local function SkinEJButton(button)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.muiSkins.blizzard.encounterjournal ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.mui.skins.blizzard.encounterjournal ~= true then return end
 
 	local EncounterJournal = _G.EncounterJournal
 	EncounterJournal:Styling()

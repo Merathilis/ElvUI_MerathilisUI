@@ -4,7 +4,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable or E.private.skins.blizzard.channels) or E.private.muiSkins.blizzard.channels ~= true then return end
+	if not (E.private.skins.blizzard.enable or E.private.skins.blizzard.channels) or E.private.mui.skins.blizzard.channels ~= true then return end
 
 	local ChannelFrame = _G.ChannelFrame
 	ChannelFrame:StripTextures()

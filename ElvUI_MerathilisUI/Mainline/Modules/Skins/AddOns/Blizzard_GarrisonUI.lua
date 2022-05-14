@@ -267,7 +267,7 @@ local function ReskinWidgetFont(font, r, g, b)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.muiSkins.blizzard.garrison ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.mui.skins.blizzard.garrison ~= true then return end
 
 	-- Building frame
 	local GarrisonBuildingFrame = _G.GarrisonBuildingFrame

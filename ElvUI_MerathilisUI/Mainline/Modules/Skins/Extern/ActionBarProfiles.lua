@@ -10,7 +10,7 @@ local pairs = pairs
 -- GLOBALS:
 
 local function LoadAddOnSkin()
-	if E.private.muiSkins.addonSkins.abp ~= true then return; end
+	if E.private.mui.skins.addonSkins.abp ~= true then return; end
 
 	S:HandleScrollBar(_G.PaperDollActionBarProfilesPaneScrollBar, 5)
 	S:HandleButton(_G.PaperDollActionBarProfilesPaneUseProfile)
