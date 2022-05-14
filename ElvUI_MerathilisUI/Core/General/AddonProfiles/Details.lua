@@ -196,7 +196,7 @@ function MER:LoadDetailsProfile()
 							1, -- [3]
 							1, -- [4]
 						},
-						["toolbar_icon_file"] = "Interface\\AddOns\\Details\\images\\toolbar_icons",
+						["toolbar_icon_file"] = "Interface\\AddOns\\Details\\images\\toolbar_icons_2",
 						["skin_custom"] = "",
 						["fontstrings_width"] = 35,
 						["tooltip"] = {
