@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -21,14 +21,14 @@ local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA
 local bordercolorr, bordercolorg, bordercolorb
 
-MERS.addonsToLoad = {}
-MERS.nonAddonsToLoad = {}
-MERS.updateProfile = {}
-MERS.aceWidgets = {}
-MERS.enteredLoad = {}
+module.addonsToLoad = {}
+module.nonAddonsToLoad = {}
+module.updateProfile = {}
+module.aceWidgets = {}
+module.enteredLoad = {}
 
-MERS.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
-MERS.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
+module.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
+module.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 TEXTURE_ITEM_QUEST_BANG = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\UI-Icon-QuestBang]]
 
 local buttons = {
@@ -39,7 +39,7 @@ local buttons = {
 }
 
 -- Depends on the arrow texture to be down by default.
-MERS.ArrowRotation = {
+module.ArrowRotation = {
 	['UP'] = 3.14,
 	['DOWN'] = 0,
 	['LEFT'] = -1.57,
@@ -47,7 +47,7 @@ MERS.ArrowRotation = {
 }
 
 -- Create shadow for textures
-function MERS:CreateSD(f, m, s, n)
+function module:CreateSD(f, m, s, n)
 	if f.Shadow then return end
 
 	local frame = f
@@ -66,7 +66,7 @@ function MERS:CreateSD(f, m, s, n)
 	return f.Shadow
 end
 
-function MERS:CreateBG(frame)
+function module:CreateBG(frame)
 	assert(frame, "doesn't exist!")
 
 	local f = frame
@@ -82,7 +82,7 @@ function MERS:CreateBG(frame)
 end
 
 -- Gradient Texture
-function MERS:CreateGradient(f)
+function module:CreateGradient(f)
 	assert(f, "doesn't exist!")
 
 	local tex = f:CreateTexture(nil, "BORDER")
@@ -93,7 +93,7 @@ function MERS:CreateGradient(f)
 	return tex
 end
 
-function MERS:CreateBackdrop(frame)
+function module:CreateBackdrop(frame)
 	if frame.backdrop then return end
 
 	local parent = frame.IsObjectType and frame:IsObjectType("Texture") and frame:GetParent() or frame
@@ -111,7 +111,7 @@ function MERS:CreateBackdrop(frame)
 	frame.backdrop = backdrop
 end
 
-function MERS:CreateBDFrame(f, a)
+function module:CreateBDFrame(f, a)
 	assert(f, "doesn't exist!")
 
 	local parent = f.IsObjectType and f:IsObjectType("Texture") and f:GetParent() or f
@@ -123,12 +123,12 @@ function MERS:CreateBDFrame(f, a)
 	else
 		bg:SetFrameLevel(0)
 	end
-	MERS:CreateBD(bg, a or .5)
+	module:CreateBD(bg, a or .5)
 
 	return bg
 end
 
-function MERS:CreateBD(f, a)
+function module:CreateBD(f, a)
 	assert(f, "doesn't exist!")
 
 	f:CreateBackdrop()
@@ -143,7 +143,7 @@ do
 		return frame[element] or FrameName and (_G[FrameName..element] or strfind(FrameName, element)) or nil
 	end
 
-	function MERS:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
+	function module:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
 		local parent = frame:GetParent()
 
 		local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
@@ -156,7 +156,7 @@ do
 end
 
 -- ClassColored Sliders
-function MERS:ReskinSliderFrame(frame)
+function module:ReskinSliderFrame(frame)
 	local thumb = frame:GetThumbTexture()
 	if thumb then
 		local r, g, b = unpack(E.media.rgbvaluecolor)
@@ -165,7 +165,7 @@ function MERS:ReskinSliderFrame(frame)
 end
 
 -- Overwrite ElvUI Tabs function to be transparent
-function MERS:ReskinTab(tab)
+function module:ReskinTab(tab)
 	if not tab then return end
 
 	if tab.backdrop then
@@ -176,14 +176,14 @@ function MERS:ReskinTab(tab)
 	MER:CreateBackdropShadow(tab)
 end
 
-function MERS:ColorButton()
+function module:ColorButton()
 	if self.backdrop then self = self.backdrop end
 
 	self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, .3)
 	self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 end
 
-function MERS:ClearButton()
+function module:ClearButton()
 	if self.backdrop then self = self.backdrop end
 
 	self:SetBackdropColor(0, 0, 0, 0)
@@ -195,7 +195,7 @@ function MERS:ClearButton()
 	end
 end
 
-function MERS:OnEnter()
+function module:OnEnter()
 	if self:IsEnabled() then
 		if self.backdrop then self = self.backdrop end
 		if self.SetBackdropBorderColor then
@@ -210,7 +210,7 @@ function MERS:OnEnter()
 	end
 end
 
-function MERS:OnLeave()
+function module:OnLeave()
 	if self:IsEnabled() then
 		if self.backdrop then self = self.backdrop end
 		if self.SetBackdropBorderColor then
@@ -226,7 +226,7 @@ function MERS:OnLeave()
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, isDecline, noStyle, createBackdrop, template, noGlossTex, overrideTex, frameLevel, defaultTemplate, noGradient)
+function module:Reskin(button, strip, isDecline, noStyle, createBackdrop, template, noGlossTex, overrideTex, frameLevel, defaultTemplate, noGradient)
 	if not E.private.mui.skins then E.private.mui.skins = {} end
 	if not E.private.mui.skins.buttonStyle then return end
 
@@ -240,7 +240,7 @@ function MERS:Reskin(button, strip, isDecline, noStyle, createBackdrop, template
 		if Texture and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]]) then
 			button.Icon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Arrow]])
 			button.Icon:SetVertexColor(1, 1, 1)
-			button.Icon:SetRotation(MERS.ArrowRotation['RIGHT'])
+			button.Icon:SetRotation(module.ArrowRotation['RIGHT'])
 		end
 	end
 
@@ -257,18 +257,18 @@ function MERS:Reskin(button, strip, isDecline, noStyle, createBackdrop, template
 			button:SetTemplate(defaultTemplate and template or 'Transparent', not noGlossTex)
 		end
 
-		button:HookScript('OnEnter', MERS.OnEnter)
-		button:HookScript('OnLeave', MERS.OnLeave)
+		button:HookScript('OnEnter', module.OnEnter)
+		button:HookScript('OnLeave', module.OnLeave)
 	end
 
 	if not noGradient then
-		MERS:CreateGradient(button)
+		module:CreateGradient(button)
 	end
 
 	button.IsSkinned = true
 end
 
-function MERS:StyleButton(button)
+function module:StyleButton(button)
 	if button.isStyled then return end
 
 	if button.SetHighlightTexture then
@@ -304,7 +304,7 @@ function MERS:StyleButton(button)
 	button.isStyled = true
 end
 
-function MERS:ReskinIcon(icon, backdrop)
+function module:ReskinIcon(icon, backdrop)
 	assert(icon, "doesn't exist!")
 
 	icon:SetTexCoord(unpack(E.TexCoords))
@@ -314,11 +314,11 @@ function MERS:ReskinIcon(icon, backdrop)
 	end
 
 	if backdrop then
-		MERS:CreateBackdrop(icon)
+		module:CreateBackdrop(icon)
 	end
 end
 
-function MERS:SkinPanel(panel)
+function module:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
@@ -326,7 +326,7 @@ function MERS:SkinPanel(panel)
 	MER:CreateShadow(panel)
 end
 
-function MERS:ReskinGarrisonPortrait(self)
+function module:ReskinGarrisonPortrait(self)
 	self.Portrait:ClearAllPoints()
 	self.Portrait:SetPoint("TOPLEFT", 4, -4)
 	self.PortraitRing:Hide()
@@ -337,7 +337,7 @@ function MERS:ReskinGarrisonPortrait(self)
 	self.Level:ClearAllPoints()
 	self.Level:SetPoint("BOTTOM", self, 0, 12)
 
-	self.squareBG = MERS:CreateBDFrame(self, 1)
+	self.squareBG = module:CreateBDFrame(self, 1)
 	self.squareBG:SetFrameLevel(self:GetFrameLevel())
 	self.squareBG:SetPoint("TOPLEFT", 3, -3)
 	self.squareBG:SetPoint("BOTTOMRIGHT", -3, 11)
@@ -387,21 +387,21 @@ local function replaceConfigArrows(button)
 	end
 end
 
-function MERS:ApplyConfigArrows()
+function module:ApplyConfigArrows()
 	for _, btn in pairs(buttons) do
 		replaceConfigArrows(_G[btn])
 	end
 
 	-- Apply the rotation
-	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(MERS.ArrowRotation['UP'])
-	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(MERS.ArrowRotation['DOWN'])
-	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(MERS.ArrowRotation['LEFT'])
-	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(MERS.ArrowRotation['RIGHT'])
+	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(module.ArrowRotation['UP'])
+	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(module.ArrowRotation['DOWN'])
+	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(module.ArrowRotation['LEFT'])
+	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(module.ArrowRotation['RIGHT'])
 
 end
-hooksecurefunc(E, "CreateMoverPopup", MERS.ApplyConfigArrows)
+hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
 
-function MERS:ReskinAS(AS)
+function module:ReskinAS(AS)
 	-- Reskin AddOnSkins
 	function AS:SkinFrame(frame, template, override, kill)
 		local name = frame and frame.GetName and frame:GetName()
@@ -553,21 +553,21 @@ function MERS:ReskinAS(AS)
 			end
 		end)
 
-		Button:HookScript("OnEnter", MERS.OnEnter)
-		Button:HookScript("OnLeave", MERS.OnLeave)
+		Button:HookScript("OnEnter", module.OnEnter)
+		Button:HookScript("OnLeave", module.OnLeave)
 	end
 end
 
 -- Replace the Recap button script re-set function
 function S:UpdateRecapButton()
 	if self and self.button4 and self.button4:IsEnabled() then
-		self.button4:SetScript("OnEnter", MERS.ColorButton)
-		self.button4:SetScript("OnLeave", MERS.ClearButton)
+		self.button4:SetScript("OnEnter", module.ColorButton)
+		self.button4:SetScript("OnLeave", module.ClearButton)
 	end
 end
 
 --[[ HOOK TO THE UIWIDGET TYPES ]]
-function MERS:ReskinSkinTextWithStateWidget(widgetFrame)
+function module:ReskinSkinTextWithStateWidget(widgetFrame)
 	local text = widgetFrame.Text
 	if text then
 		text:SetTextColor(1, 1, 1)
@@ -575,14 +575,14 @@ function MERS:ReskinSkinTextWithStateWidget(widgetFrame)
 end
 
 -- hook the skin functions
-hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
-hooksecurefunc(S, "HandleButton", MERS.Reskin)
-hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
-hooksecurefunc(S, "HandleSliderFrame", MERS.ReskinSliderFrame)
+hooksecurefunc(S, "HandleTab", module.ReskinTab)
+hooksecurefunc(S, "HandleButton", module.Reskin)
+hooksecurefunc(S, "HandleScrollBar", module.ReskinScrollBar)
+hooksecurefunc(S, "HandleSliderFrame", module.ReskinSliderFrame)
 -- New Widget Types
-hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
+hooksecurefunc(S, "SkinTextWithStateWidget", module.ReskinSkinTextWithStateWidget)
 
-function MERS:SetOutside(obj, anchor, xOffset, yOffset, anchor2)
+function module:SetOutside(obj, anchor, xOffset, yOffset, anchor2)
 	xOffset = xOffset or 1
 	yOffset = yOffset or 1
 	anchor = anchor or obj:GetParent()
@@ -610,15 +610,15 @@ local function errorhandler(err)
 	return _G.geterrorhandler()(err)
 end
 
-function MERS:AddCallback(name, func)
+function module:AddCallback(name, func)
 	tinsert(self.nonAddonsToLoad, func or self[name])
 end
 
-function MERS:AddCallbackForAceGUIWidget(name, func)
+function module:AddCallbackForAceGUIWidget(name, func)
 	self.aceWidgets[name] = func or self[name]
 end
 
-function MERS:AddCallbackForAddon(addonName, func)
+function module:AddCallbackForAddon(addonName, func)
 	local addon = self.addonsToLoad[addonName]
 	if not addon then
 		self.addonsToLoad[addonName] = {}
@@ -632,11 +632,11 @@ function MERS:AddCallbackForAddon(addonName, func)
 	tinsert(addon, func or self[addonName])
 end
 
-function MERS:AddCallbackForEnterWorld(name, func)
+function module:AddCallbackForEnterWorld(name, func)
 	tinsert(self.enteredLoad, func or self[name])
 end
 
-function MERS:PLAYER_ENTERING_WORLD()
+function module:PLAYER_ENTERING_WORLD()
 	if not E.initialized then
 		return
 	end
@@ -647,7 +647,7 @@ function MERS:PLAYER_ENTERING_WORLD()
 	end
 end
 
-function MERS:ADDON_LOADED(_, addonName)
+function module:ADDON_LOADED(_, addonName)
 	if not E.initialized then
 		return
 	end
@@ -658,7 +658,7 @@ function MERS:ADDON_LOADED(_, addonName)
 	end
 end
 
-function MERS:DisableAddOnSkin(key)
+function module:DisableAddOnSkin(key)
 	if _G.AddOnSkins then
 		local AS = _G.AddOnSkins[1]
 		if AS and AS.db[key] then
@@ -667,7 +667,7 @@ function MERS:DisableAddOnSkin(key)
 	end
 end
 
-function MERS:Initialize()
+function module:Initialize()
 	self.db = E.private.mui.skins
 
 	updateMedia()
@@ -675,7 +675,7 @@ function MERS:Initialize()
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then
-			MERS:ReskinAS(unpack(AddOnSkins))
+			module:ReskinAS(unpack(AddOnSkins))
 		end
 	end
 
@@ -692,6 +692,6 @@ function MERS:Initialize()
 	end
 end
 
-MERS:RegisterEvent("ADDON_LOADED")
-MERS:RegisterEvent("PLAYER_ENTERING_WORLD")
-MER:RegisterModule(MERS:GetName())
+module:RegisterEvent("ADDON_LOADED")
+module:RegisterEvent("PLAYER_ENTERING_WORLD")
+MER:RegisterModule(module:GetName())
