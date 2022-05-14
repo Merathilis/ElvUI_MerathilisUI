@@ -2932,7 +2932,7 @@ end
 local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.mui.installed = true
-	E.private.mui.install_complete = MER.Version
+	E.private.mui.general.install_complete = MER.Version
 
 	MERDataPerChar = MER.Version
 

@@ -73,7 +73,7 @@ local function SkinsTable()
 					buttonStyle = {
 						order = 3,
 						type = "toggle",
-						name = E.NewSign..L["MerathilisUI Button Style"],
+						name = L["MerathilisUI Button Style"],
 						desc = L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"],
 						get = function(info) return E.private.mui.skins[ info[#info] ] end,
 						set = function(info, value) E.private.mui.skins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
