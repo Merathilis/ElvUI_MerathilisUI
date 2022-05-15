@@ -18,9 +18,6 @@ local function LoadSkin()
 	local iconSize = 56-2*E.mult
 	for i = 1, 3 do
 		local bu = _G["GroupFinderFrame"]["groupButton"..i]
-
-		MERS:Reskin(bu)
-
 		bu.name:SetTextColor(1, 1, 1)
 
 		bu.icon:SetSize(iconSize, iconSize)

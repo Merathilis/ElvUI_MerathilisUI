@@ -650,3 +650,14 @@ do
 		return {r = r, g = g, b = b}
 	end
 end
+
+function F.SetVertexColorDB(tex, db)
+	if not tex or not tex.GetVertexColor then
+		return
+	end
+	if not db or type(db) ~= "table" then
+		return
+	end
+
+	tex:SetVertexColor(db.r, db.g, db.b, db.a)
+end

@@ -38,8 +38,6 @@ local function LoadSkin()
 		local bu = PVPQueueFrame["CategoryButton"..i]
 		local cu = bu.CurrencyDisplay
 
-		MERS:Reskin(bu)
-
 		bu.Name:SetTextColor(1, 1, 1)
 
 		bu.Icon:SetSize(iconSize, iconSize)

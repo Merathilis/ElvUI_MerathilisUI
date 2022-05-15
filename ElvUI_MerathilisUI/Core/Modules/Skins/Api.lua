@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
+local LSM = E.Libs.LSM
+local S = E.Skins
 
 local _G = _G
 local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
@@ -45,6 +46,80 @@ module.ArrowRotation = {
 	['LEFT'] = -1.57,
 	['RIGHT'] = 1.57,
 }
+
+
+local function errorhandler(err)
+	return _G.geterrorhandler()(err)
+end
+
+function module:AddCallback(name, func)
+	tinsert(self.nonAddonsToLoad, func or self[name])
+end
+
+function module:AddCallbackForAceGUIWidget(name, func)
+	self.aceWidgets[name] = func or self[name]
+end
+
+function module:AddCallbackForAddon(addonName, func)
+	local addon = self.addonsToLoad[addonName]
+	if not addon then
+		self.addonsToLoad[addonName] = {}
+		addon = self.addonsToLoad[addonName]
+	end
+
+	if type(func) == "string" then
+		func = self[func]
+	end
+
+	tinsert(addon, func or self[addonName])
+end
+
+function module:AddCallbackForEnterWorld(name, func)
+	tinsert(self.enteredLoad, func or self[name])
+end
+
+function module:PLAYER_ENTERING_WORLD()
+	if not E.initialized then
+		return
+	end
+
+	for index, func in next, self.enteredLoad do
+		xpcall(func, errorhandler, self)
+		self.enteredLoad[index] = nil
+	end
+end
+
+function module:AddCallbackForUpdate(name, func)
+	tinsert(self.updateProfile, func or self[name])
+end
+
+function module:CallLoadedAddon(addonName, object)
+	for _, func in next, object do
+		xpcall(func, errorhandler, self)
+	end
+
+	self.addonsToLoad[addonName] = nil
+end
+
+function module:ADDON_LOADED(_, addonName)
+	if not E.initialized then
+		return
+	end
+
+	local object = self.addonsToLoad[addonName]
+	if object then
+		self:CallLoadedAddon(addonName, object)
+	end
+end
+
+function module:DisableAddOnSkin(key)
+	if _G.AddOnSkins then
+		local AS = _G.AddOnSkins[1]
+		if AS and AS.db[key] then
+			AS:SetOption(key, false)
+		end
+	end
+end
 
 -- Create shadow for textures
 function module:CreateSD(f, m, s, n)
@@ -143,7 +218,7 @@ do
 		return frame[element] or FrameName and (_G[FrameName..element] or strfind(FrameName, element)) or nil
 	end
 
-	function module:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
+	function module:HandleScrollBar(_, frame, thumbTrimY, thumbTrimX)
 		local parent = frame:GetParent()
 
 		local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
@@ -156,7 +231,7 @@ do
 end
 
 -- ClassColored Sliders
-function module:ReskinSliderFrame(frame)
+function module:HandleSliderFrame(_, frame)
 	local thumb = frame:GetThumbTexture()
 	if thumb then
 		local r, g, b = unpack(E.media.rgbvaluecolor)
@@ -165,7 +240,7 @@ function module:ReskinSliderFrame(frame)
 end
 
 -- Overwrite ElvUI Tabs function to be transparent
-function module:ReskinTab(tab)
+function module:HandleTab(tab)
 	if not tab then return end
 
 	if tab.backdrop then
@@ -195,45 +270,64 @@ function module:ClearButton()
 	end
 end
 
-function module:OnEnter()
-	if self:IsEnabled() then
-		if self.backdrop then self = self.backdrop end
-		if self.SetBackdropBorderColor then
-			self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA or .75)
+local function Frame_OnEnter(frame)
+	if not frame:IsEnabled() or not frame.merAnimated then
+		return
+	end
 
-			if not self.wasRaised then
-				RaiseFrameLevel(self)
-				self.wasRaised = true
-			end
+	if not frame.selected then
+		if frame.merAnimated.bgOnLeave:IsPlaying() then
+			frame.merAnimated.bgOnLeave:Stop()
 		end
+		frame.merAnimated.bgOnEnter:Play()
 	end
 end
 
-function module:OnLeave()
-	if self:IsEnabled() then
-		if self.backdrop then self = self.backdrop end
-		if self.SetBackdropBorderColor then
-			self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-			self:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha)
+local function Frame_OnLeave(frame)
+	if not frame:IsEnabled() or not frame.merAnimated then
+		return
+	end
 
-			if self.wasRaised then
-				LowerFrameLevel(self)
-				self.wasRaised = nil
-			end
+	if not frame.selected then
+		if frame.merAnimated.bgOnEnter:IsPlaying() then
+			frame.merAnimated.bgOnEnter:Stop()
 		end
+		frame.merAnimated.bgOnLeave:Play()
+	end
+end
+
+local function CreateAnimation(texture, aType, direction, duration, data)
+	local aType = strlower(aType)
+	local group = texture:CreateAnimationGroup()
+	local event = direction == "in" and "OnPlay" or "OnFinished"
+
+	local startAlpha = data and data[1] or (direction == "in" and 0 or 1)
+	local endAlpha = data and data[2] or (direction == "in" and 1 or 0)
+
+	if aType == "fade" then
+		group.anim = group:CreateAnimation("Alpha")
+		group.anim:SetFromAlpha(startAlpha)
+		group.anim:SetToAlpha(endAlpha)
+		group.anim:SetSmoothing(direction == "in" and "IN" or "OUT")
+		group.anim:SetDuration(duration)
+	elseif aType == "scale" then
+	end
+
+	if group.anim then
+		group:SetScript(event, function()
+			texture:SetAlpha(endAlpha)
+		end)
+		group.anim:SetDuration(duration)
+
+		return group
 	end
 end
 
 -- Buttons
-function module:Reskin(button, strip, isDecline, noStyle, createBackdrop, template, noGlossTex, overrideTex, frameLevel, defaultTemplate, noGradient)
-	if not E.private.mui.skins then E.private.mui.skins = {} end
-	if not E.private.mui.skins.buttonStyle then return end
+function module:HandleButton(_, button)
+	if not button or button.MERSkin then return end
 
-	assert(button, "doesn't exist!")
-
-	if not button or button.IsSkinned then return end
-	if strip then button:StripTextures() end
+	local db = E.private.mui.skins.widgets.button
 
 	if button.Icon then
 		local Texture = button.Icon:GetTexture()
@@ -244,64 +338,35 @@ function module:Reskin(button, strip, isDecline, noStyle, createBackdrop, templa
 		end
 	end
 
-	if isDecline then
-		if button.Icon then
-			button.Icon:SetTexture(E.Media.Textures.Close)
+	if db.text.enable then
+		local text = button.Text or button:GetName() and _G[button:GetName() .. "Text"]
+		if text and text.GetTextColor then
+			F.SetFontDB(text, db.text.font)
 		end
 	end
 
-	if not noStyle then
-		if createBackdrop then
-			button:CreateBackdrop(defaultTemplate and template or 'Transparent', not noGlossTex, nil, nil, nil, nil, true, frameLevel)
-		else
-			button:SetTemplate(defaultTemplate and template or 'Transparent', not noGlossTex)
-		end
+	if button.template and db.backdrop.enable then
+		-- Create background
+		local bg = button:CreateTexture()
+		bg:SetInside(button, 1, 1)
+		bg:SetAlpha(0)
+		bg:SetTexture(LSM:Fetch("statusbar", db.backdrop.texture) or E.media.normTex)
+		F.SetVertexColorDB(bg, db.backdrop.classColor and MER.ClassColor or db.backdrop.color)
 
-		button:HookScript('OnEnter', module.OnEnter)
-		button:HookScript('OnLeave', module.OnLeave)
-	end
+		-- Animations
+		button.merAnimated = { bg = bg, bgOnEnter = CreateAnimation(bg, db.backdrop.animationType, "in", db.backdrop.animationDuration, {0, db.backdrop.alpha}), bgOnLeave = CreateAnimation(bg, db.backdrop.animationType, "out", db.backdrop.animationDuration, {db.backdrop.alpha, 0})}
 
-	if not noGradient then
-		module:CreateGradient(button)
-	end
+		button:HookScript("OnEnter", Frame_OnEnter)
+		button:HookScript("OnLeave", Frame_OnLeave)
 
-	button.IsSkinned = true
-end
-
-function module:StyleButton(button)
-	if button.isStyled then return end
-
-	if button.SetHighlightTexture then
-		button:SetHighlightTexture(E["media"].blankTex)
-		button:GetHighlightTexture():SetVertexColor(1, 1, 1, .2)
-		button:GetHighlightTexture():SetInside()
-		button.SetHighlightTexture = E.noop
-	end
-
-	if button.SetPushedTexture then
-		button:SetPushedTexture(E["media"].blankTex)
-		button:GetPushedTexture():SetVertexColor(.9, .8, .1, .5)
-		button:GetPushedTexture():SetInside()
-		button.SetPushedTexture = E.noop
-	end
-
-	if button.GetCheckedTexture then
-		button:SetPushedTexture(E["media"].blankTex)
-		button:GetCheckedTexture():SetVertexColor(0, 1, 0, .5)
-		button:GetCheckedTexture():SetInside()
-		button.GetCheckedTexture = E.noop
-	end
-
-	local Cooldown = button:GetName() and _G[button:GetName()..'Cooldown'] or button.Cooldown or button.cooldown or nil
-
-	if Cooldown then
-		Cooldown:SetInside()
-		if Cooldown.SetSwipeColor then
-			Cooldown:SetSwipeColor(0, 0, 0, 1)
+		if db.backdrop.removeBorderEffect then
+			button.SetBackdropBorderColor = E.noop
 		end
 	end
 
-	button.isStyled = true
+	module:CreateGradient(button)
+
+	button.MERSkin = true
 end
 
 function module:ReskinIcon(icon, backdrop)
@@ -314,7 +379,7 @@ function module:ReskinIcon(icon, backdrop)
 	end
 
 	if backdrop then
-		module:CreateBackdrop(icon)
+		icon:CreateBackdrop()
 	end
 end
 
@@ -324,33 +389,6 @@ function module:SkinPanel(panel)
 	panel.tex:SetTexture(E.media.blankTex)
 	panel.tex:SetGradient("VERTICAL", rgbValueColorR, rgbValueColorG, rgbValueColorB)
 	MER:CreateShadow(panel)
-end
-
-function module:ReskinGarrisonPortrait(self)
-	self.Portrait:ClearAllPoints()
-	self.Portrait:SetPoint("TOPLEFT", 4, -4)
-	self.PortraitRing:Hide()
-	self.PortraitRingQuality:SetTexture("")
-	if self.Highlight then self.Highlight:Hide() end
-
-	self.LevelBorder:SetScale(.0001)
-	self.Level:ClearAllPoints()
-	self.Level:SetPoint("BOTTOM", self, 0, 12)
-
-	self.squareBG = module:CreateBDFrame(self, 1)
-	self.squareBG:SetFrameLevel(self:GetFrameLevel())
-	self.squareBG:SetPoint("TOPLEFT", 3, -3)
-	self.squareBG:SetPoint("BOTTOMRIGHT", -3, 11)
-
-	if self.PortraitRingCover then
-		self.PortraitRingCover:SetColorTexture(0, 0, 0)
-		self.PortraitRingCover:SetAllPoints(self.squareBG)
-	end
-
-	if self.Empty then
-		self.Empty:SetColorTexture(0, 0, 0)
-		self.Empty:SetAllPoints(self.Portrait)
-	end
 end
 
 local buttons = {
@@ -454,14 +492,14 @@ function module:ReskinAS(AS)
 		local TabName = Tab:GetName()
 
 		if TabName then
-			for _, Region in pairs(S.Blizzard.Regions) do
+			for _, Region in pairs(module.Blizzard.Regions) do
 				if _G[TabName..Region] then
 					_G[TabName..Region]:SetTexture(nil)
 				end
 			end
 		end
 
-		for _, Region in pairs(S.Blizzard.Regions) do
+		for _, Region in pairs(module.Blizzard.Regions) do
 			if Tab[Region] then
 				Tab[Region]:SetAlpha(0)
 			end
@@ -567,33 +605,11 @@ function S:UpdateRecapButton()
 end
 
 --[[ HOOK TO THE UIWIDGET TYPES ]]
-function module:ReskinSkinTextWithStateWidget(widgetFrame)
+function module:SkinTextWithStateWidget(_, widgetFrame)
 	local text = widgetFrame.Text
 	if text then
 		text:SetTextColor(1, 1, 1)
 	end
-end
-
--- hook the skin functions
-hooksecurefunc(S, "HandleTab", module.ReskinTab)
-hooksecurefunc(S, "HandleButton", module.Reskin)
-hooksecurefunc(S, "HandleScrollBar", module.ReskinScrollBar)
-hooksecurefunc(S, "HandleSliderFrame", module.ReskinSliderFrame)
--- New Widget Types
-hooksecurefunc(S, "SkinTextWithStateWidget", module.ReskinSkinTextWithStateWidget)
-
-function module:SetOutside(obj, anchor, xOffset, yOffset, anchor2)
-	xOffset = xOffset or 1
-	yOffset = yOffset or 1
-	anchor = anchor or obj:GetParent()
-
-	assert(anchor)
-	if obj:GetPoint() then
-		obj:ClearAllPoints()
-	end
-
-	obj:SetPoint('TOPLEFT', anchor, 'TOPLEFT', -xOffset, yOffset)
-	obj:SetPoint('BOTTOMRIGHT', anchor2 or anchor, 'BOTTOMRIGHT', xOffset, -yOffset)
 end
 
 -- keep the colors updated
@@ -606,66 +622,12 @@ local function updateMedia()
 end
 hooksecurefunc(E, "UpdateMedia", updateMedia)
 
-local function errorhandler(err)
-	return _G.geterrorhandler()(err)
-end
-
-function module:AddCallback(name, func)
-	tinsert(self.nonAddonsToLoad, func or self[name])
-end
-
-function module:AddCallbackForAceGUIWidget(name, func)
-	self.aceWidgets[name] = func or self[name]
-end
-
-function module:AddCallbackForAddon(addonName, func)
-	local addon = self.addonsToLoad[addonName]
-	if not addon then
-		self.addonsToLoad[addonName] = {}
-		addon = self.addonsToLoad[addonName]
-	end
-
-	if type(func) == "string" then
-		func = self[func]
-	end
-
-	tinsert(addon, func or self[addonName])
-end
-
-function module:AddCallbackForEnterWorld(name, func)
-	tinsert(self.enteredLoad, func or self[name])
-end
-
-function module:PLAYER_ENTERING_WORLD()
-	if not E.initialized then
-		return
-	end
-
-	for index, func in next, self.enteredLoad do
-		xpcall(func, errorhandler, self)
-		self.enteredLoad[index] = nil
-	end
-end
-
-function module:ADDON_LOADED(_, addonName)
-	if not E.initialized then
-		return
-	end
-
-	local object = self.addonsToLoad[addonName]
-	if object then
-		self:CallLoadedAddon(addonName, object)
-	end
-end
-
-function module:DisableAddOnSkin(key)
-	if _G.AddOnSkins then
-		local AS = _G.AddOnSkins[1]
-		if AS and AS.db[key] then
-			AS:SetOption(key, false)
-		end
-	end
-end
+-- hook the skin functions from ElvUI
+module:SecureHook(S, "HandleTab")
+module:SecureHook(S, "HandleButton")
+module:SecureHook(S, "HandleScrollBar")
+module:SecureHook(S, "HandleSliderFrame")
+module:SecureHook(S, "SkinTextWithStateWidget")
 
 function module:Initialize()
 	self.db = E.private.mui.skins

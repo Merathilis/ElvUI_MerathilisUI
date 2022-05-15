@@ -5,6 +5,7 @@ local _G = _G
 local format = string.format
 local ipairs, print, pairs, tonumber, type, select, unpack = ipairs, print, pairs, tonumber, type, select, unpack
 local assert = assert
+local pcall = pcall
 local strsplit = strsplit
 local tinsert = table.insert
 local getmetatable = getmetatable
@@ -23,7 +24,7 @@ MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.t
 MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
---Info Color RGB: 0, 191/255, 250/255
+--Info Color RGB: 0, 192, 250
 MER.InfoColor = "|cFF00c0fa"
 MER.GreyColor = "|cffB5B5B5"
 MER.RedColor = "|cffff2735"
@@ -63,7 +64,7 @@ function MER:InitializeModules()
 	for _, moduleName in pairs(MER.RegisteredModules) do
 		local module = MER:GetModule(moduleName)
 		if module.Initialize then
-			pcall(module:Initialize(), module)
+			pcall(module.Initialize, module)
 		end
 	end
 end

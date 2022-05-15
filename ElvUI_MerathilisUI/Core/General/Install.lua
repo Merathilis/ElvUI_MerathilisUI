@@ -684,6 +684,26 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
 
 	--[[----------------------------------
+	--	ProfileDB - Style Filter
+	--]]----------------------------------
+	if E.Retail then
+		for _, filterName in pairs({'MerathilisUI_Neutral'}) do
+			E.global["nameplates"]["filters"][filterName] = {}
+			E.NamePlates:StyleFilterCopyDefaults(E.global["nameplates"]["filters"][filterName])
+			E.db["nameplates"]["filters"][filterName] = { triggers = { enable = true } }
+		end
+
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["actions"]["nameOnly"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["notTarget"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["outOfCombat"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["outOfVehicle"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["enable"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["neutral"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["reputation"] = true
+	end
+
+
+	--[[----------------------------------
 	--	ProfileDB - Tooltip
 	--]]----------------------------------
 	E.db["tooltip"]["itemCount"] = "NONE"
@@ -1379,7 +1399,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["perrow"] = 4
 		E.db["unitframe"]["units"]["player"]["buffs"]["numrows"] = 1
 		E.db["unitframe"]["units"]["player"]["buffs"]["anchorPoint"] = "TOPRIGHT"
-		E.db["unitframe"]["units"]["player"]["buffs"]["priority"] = "Blacklist,MER_RaidCDs"
+		E.db["unitframe"]["units"]["player"]["buffs"]["priority"] = "Blacklist,TurtleBuffs"
 		E.db["unitframe"]["units"]["player"]["buffs"]["countFont"] = "Expressway"
 		E.db["unitframe"]["units"]["player"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["player"]["buffs"]["durationPosition"] = "TOP"
@@ -1680,15 +1700,15 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["raid"]["buffs"]["playerOnly"] = false
 		E.db["unitframe"]["units"]["raid"]["buffs"]["perrow"] = 1
-		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["raid"]["buffs"]["noConsolidated"] = false
 		E.db["unitframe"]["units"]["raid"]["buffs"]["sizeOverride"] = 20
 		E.db["unitframe"]["units"]["raid"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["buffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["buffs"]["countFont"] = "Expressway"
 		E.db["unitframe"]["units"]["raid"]["buffs"]["countFontSize"] = 9
-		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "MER_RaidCDs"
-		E.db["unitframe"]["units"]["raid"]["buffs"]["priority"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "TurtleBuffs"
+		E.db["unitframe"]["units"]["raid"]["buffs"]["priority"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["attachTo"] = "CENTER"
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["yOffset"] = 5

@@ -9,7 +9,28 @@ V.misc = {
 }
 
 V.skins = {
-	buttonStyle = true,
+	widgets = {
+		button = {
+			enable = true,
+			backdrop = {
+				enable = true,
+				texture = "RenAscensionL",
+				classColor = false,
+				color = {r = 0.145, g = 0.353, b = 0.698},
+				alpha = 1,
+				animationType = "FADE",
+				animationDuration = 0.2,
+				removeBorderEffect = true
+			},
+			text = {
+				enable = true,
+				font = {
+					name = E.db.general.font,
+					style = "OUTLINE"
+				},
+			},
+		},
+	},
 	blizzard = {
 		character = true,
 		encounterjournal = true,
