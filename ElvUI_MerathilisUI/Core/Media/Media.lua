@@ -142,7 +142,6 @@ end
 
 function module:Initialize()
 	if IsAddOnLoaded("ElvUI_SLE") then return; end
-	MER:RegisterDB(self, "media")
 
 	module.db = E.db.mui.media
 	function module:ForUpdateAll()

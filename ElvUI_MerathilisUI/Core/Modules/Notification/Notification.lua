@@ -606,8 +606,7 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.notification
-	MER:RegisterDB(self, "notification")
-	if module.db.enable ~= true then return end
+	if not module.db.enable then return end
 
 	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
 	anchorFrame:SetSize(bannerWidth, 50)

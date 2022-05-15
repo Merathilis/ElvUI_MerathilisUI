@@ -1172,7 +1172,6 @@ end
 
 function module:Initialize()
 	self.db = E.db.mui.microBar
-	MER:RegisterDB(self, "microBar")
 	if not self.db or not self.db.enable then
 		return
 	end

@@ -200,7 +200,6 @@ function module:Initialize()
 	if E.private.chat.enable ~= true then return; end
 
 	local db = E.db.mui.chat
-	MER:RegisterDB(module, "chat")
 
 	if db.customOnlineMessage then
 		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["ERR_FRIEND_ONLINE"]

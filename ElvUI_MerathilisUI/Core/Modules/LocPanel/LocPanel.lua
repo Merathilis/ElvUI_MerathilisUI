@@ -708,8 +708,7 @@ function module:UNIT_AURA(_, unit)
 end
 
 function module:Initialize()
-	local db = E.db.mui.locPanel
-	MER:RegisterDB(self, "locPanel")
+	module.db = E.db.mui.locPanel
 
 	faction = UnitFactionGroup('player')
 

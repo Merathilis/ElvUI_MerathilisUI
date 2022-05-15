@@ -84,7 +84,6 @@ function module:Initialize()
 	if E.private.bags.enable ~= true then return end
 
 	module.db = E.db.mui.bags.equipoverlay
-	MER:RegisterDB(self, "bags")
 
 	self:AllInOneBags()
 	self:SkinBlizzBags()

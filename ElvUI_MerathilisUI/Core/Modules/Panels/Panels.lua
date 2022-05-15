@@ -246,7 +246,6 @@ end
 
 function module:Initialize()
 	local db = E.db.mui.panels
-	MER:RegisterDB(self, "panels")
 
 	self:CreatePanels()
 	self:Resize()

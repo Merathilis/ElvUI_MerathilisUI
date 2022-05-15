@@ -199,7 +199,6 @@ end
 
 function module:Initialize()
 	local db = E.db.mui.cvars
-	MER:RegisterDB(self, "cvars")
 
 	self:LoadCVar()
 end

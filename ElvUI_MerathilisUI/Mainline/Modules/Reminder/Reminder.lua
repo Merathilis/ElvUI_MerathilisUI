@@ -408,8 +408,7 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.reminder
-	MER:RegisterDB(module, "reminder")
-	if module.db.enable ~= true then return; end
+	if not module.db.enable then return end
 
 	hooksecurefunc(UF, 'LoadUnits', module.CheckForNewReminders)
 

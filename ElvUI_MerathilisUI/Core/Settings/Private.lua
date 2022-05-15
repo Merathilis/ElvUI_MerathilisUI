@@ -1,17 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
-V.mui = {}
-local MV = V.mui
-
-MV.general = {
+V.general = {
 	install_complete = nil,
 }
 
-MV.misc = {
+V.misc = {
 	guildNewsItemLevel = true,
 }
 
-MV.skins = {
+V.skins = {
 	buttonStyle = true,
 	blizzard = {
 		character = true,

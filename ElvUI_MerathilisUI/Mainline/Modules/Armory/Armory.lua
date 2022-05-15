@@ -391,7 +391,6 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.armory
-	MER:RegisterDB(self, "armory")
 
 	if not module.db.enable or E.private.skins.blizzard.character ~= true then return end
 	if (COMP.SLE and E.db.sle.armory.character.enable) then return end

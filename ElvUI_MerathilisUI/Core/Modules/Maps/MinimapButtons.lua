@@ -273,9 +273,8 @@ function module:Update()
 end
 
 function module:Initialize()
-	local db = E.db.mui.smb
-	MER:RegisterDB(self, "smb")
-	if db.enable ~= true then return end
+	module.db = E.db.mui.smb
+	if not module.db.enable then return end
 
 	-- Button Creation
 	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", E.UIParent)

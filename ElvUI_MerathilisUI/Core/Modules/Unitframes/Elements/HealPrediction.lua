@@ -266,7 +266,6 @@ end
 
 function module:Initialize()
 	self.db = E.db.mui.unitframes.healPrediction
-	MER:RegisterDB(self.db, "healPrediction")
 
 	if not self.db or not self.db.enable then
 		return

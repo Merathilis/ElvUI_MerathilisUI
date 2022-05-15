@@ -12,8 +12,6 @@ local EnumerateFrames = EnumerateFrames
 
 local CreateFrame = CreateFrame
 local GetAddOnEnableState = GetAddOnEnableState
-local GetAddOnMetadata = GetAddOnMetadata
-local GetBuildInfo = GetBuildInfo
 local hooksecurefunc = hooksecurefunc
 
 -- Masque support
@@ -21,14 +19,6 @@ MER.MSQ = _G.LibStub('Masque', true)
 
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
-
-MER.dummy = function() return end
-MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
-MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
-MER.ElvUIV = tonumber(E.version)
-MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
-MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
-MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 
 MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
@@ -53,57 +43,39 @@ for i = 1, 5 do
 	end
 end
 
--- Whiro's code magic
-function MER:SetupProfileCallbacks()
-	E.data.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
-	E.data.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
-	E.data.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
-end
-
-function MER:UpdateRegisteredDBs()
-	if (not MER["RegisteredDBs"]) then
+-- Register own Modules
+function MER:RegisterModule(name)
+	if not name then
 		return
 	end
-
-	local dbs = MER["RegisteredDBs"]
-
-	for tbl, path in pairs(dbs) do
-		self:UpdateRegisteredDB(tbl, path)
+	if self.initialized then
+		self:GetModule(name):Initialize()
+	else
+		tinsert(self.RegisteredModules, name)
 	end
 end
 
-function MER:OnProfileChanged()
-	MER:Hook(E, "UpdateEnd", "UpdateAll")
+function MER:GetRegisteredModules()
+	return MER.RegisteredModules
 end
 
-function MER:UpdateAll()
-	self:UpdateRegisteredDBs()
-	for _, module in ipairs(self:GetRegisteredModules()) do
-		local mod = MER:GetModule(module)
-		if (mod and mod.ForUpdateAll) then
-			mod:ForUpdateAll()
+function MER:InitializeModules()
+	for _, moduleName in pairs(MER.RegisteredModules) do
+		local module = MER:GetModule(moduleName)
+		if module.Initialize then
+			pcall(module:Initialize(), module)
 		end
 	end
-	MER:Unhook(E, "UpdateEnd")
 end
 
-function MER:UpdateRegisteredDB(tbl, path)
-	local path_parts = {strsplit(".", path)}
-	local _db = E.db.mui
-	for _, path_part in ipairs(path_parts) do
-		_db = _db[path_part]
+function MER:UpdateModules()
+	for _, moduleName in pairs(MER.RegisteredModules) do
+		local module = MER:GetModule(moduleName)
+		if module.ProfileUpdate then
+			pcall(module.ProfileUpdate, module)
+		end
 	end
-	tbl.db = _db
 end
-
-function MER:RegisterDB(tbl, path)
-	if (not MER["RegisteredDBs"]) then
-		MER["RegisteredDBs"] = {}
-	end
-	self:UpdateRegisteredDB(tbl, path)
-	MER["RegisteredDBs"][tbl] = path
-end
---Whiro's Magic end
 
 do
 	local template = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
@@ -134,6 +106,12 @@ function MER:cOption(name, color)
 	end
 
 	return (hex):format(name)
+end
+
+function MER:AddOptions()
+	for _, func in ipairs(MER.Config) do
+		func()
+	end
 end
 
 function MER:DasOptions()
@@ -181,48 +159,4 @@ end
 
 function MER:IsAddOnEnabled(addon) -- Credit: Azilroka
 	return GetAddOnEnableState(E.myname, addon) == 2
-end
-
-function MER:Initialize()
-	self:DBConvert()
-	self:RegisterMedia()
-	self:LoadCommands()
-	self:AddMoverCategories()
-	self:LoadDataTexts()
-
-	-- ElvUI versions check
-	if MER.ElvUIV < MER.ElvUIX then
-		E:StaticPopup_Show("VERSION_MISMATCH")
-		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
-	end
-
-	-- Create empty saved vars if they doesn't exist
-	if not MERData then
-		MERData = {}
-	end
-
-	if not MERDataPerChar then
-		MERDataPerChar = {}
-	end
-
-	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
-		if initLogin or not ElvDB.MERErrorDisabledAddOns then
-			ElvDB.MERErrorDisabledAddOns = {}
-		end
-	end)
-
-	self:SetupProfileCallbacks()
-
-	E:Delay(6, function() MER:CheckVersion() end)
-
-	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
-	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
-	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
-		E:GetModule("PluginInstaller"):Queue(MER.installTable)
-	end
-
-	local icon = MER:GetIconString(MER.Media.Textures.pepeSmall, 14)
-	if E.db.mui.installed and E.db.mui.general.LoginMsg then
-		print(icon..''..MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..MER:PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
-	end
 end

@@ -110,7 +110,6 @@ function module:Initialize()
 	if E.private.general.minimap.enable ~= true or not E.Retail then return end
 
 	local db = E.db.mui.maps
-	MER:RegisterDB(self, "minimap")
 
 	-- Add a check if the backdrop is there
 	if not Minimap.backdrop then
