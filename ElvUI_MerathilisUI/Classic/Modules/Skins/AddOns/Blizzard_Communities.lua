@@ -7,7 +7,6 @@ local S = E:GetModule('Skins')
 local _G = _G
 local next, select, unpack = next, select, unpack
 --WoW API / Variables
-local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
