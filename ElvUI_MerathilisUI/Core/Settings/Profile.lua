@@ -170,7 +170,7 @@ P.chat = {
 		damagemeter = false,
 	},
 	chatFade = {
-		enable = true,
+		enable = false,
 		minAlpha = 0.33,
 		timeout = 8,
 		fadeOutTime = 0.65
