@@ -4,7 +4,8 @@ local LSM = E.Libs.LSM
 local S = E.Skins
 
 local _G = _G
-local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
+local assert, next, pairs, select, unpack, type = assert, next, pairs, select, unpack, type
+local xpcall = xpcall
 local find, lower, strfind = string.find, string.lower, strfind
 local tinsert = table.insert
 

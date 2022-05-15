@@ -945,7 +945,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar1"]["buttons"] = 8
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
 	E.db["actionbar"]["bar1"]["backdrop"] = true
-	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar1"]["counttext"] = true
 	E.db["actionbar"]["bar1"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar1"]["countFontOutline"] = "OUTLINE"
@@ -978,7 +978,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar2"]["heightMult"] = 1
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 	E.db["actionbar"]["bar2"]["backdrop"] = false
-	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar2"]["counttext"] = true
 	E.db["actionbar"]["bar2"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar2"]["countFontOutline"] = "OUTLINE"
@@ -1012,7 +1012,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar3"]["mouseover"] = false
 	E.db["actionbar"]["bar3"]["showGrid"] = true
-	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar3"]["counttext"] = true
 	E.db["actionbar"]["bar3"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar3"]["countFontOutline"] = "OUTLINE"
@@ -1056,7 +1056,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar5"]["mouseover"] = false
 	E.db["actionbar"]["bar5"]["showGrid"] = true
-	E.db["actionbar"]["bar5"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar5"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar5"]["counttext"] = true
 	E.db["actionbar"]["bar5"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar5"]["countFontOutline"] = "OUTLINE"
@@ -1078,7 +1078,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar6"]["buttonsPerRow"] = 8
 	E.db["actionbar"]["bar6"]["heightMult"] = 1
 	E.db["actionbar"]["bar6"]["backdrop"] = true
-	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar6"]["counttext"] = true
 	E.db["actionbar"]["bar6"]["countFont"] = "Expressway"
 	E.db["actionbar"]["bar6"]["countFontOutline"] = "OUTLINE"
@@ -1113,7 +1113,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["barPet"]["buttonsPerRow"] = 9
 	E.db["actionbar"]["barPet"]["buttonSize"] = 24
 	E.db["actionbar"]["barPet"]["mouseover"] = false
-	E.db["actionbar"]["barPet"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["barPet"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["barPet"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["barPet"]["hotkeyFontOutline"] = "OUTLINE"
 
@@ -1122,21 +1122,20 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["stanceBar"]["buttonSpacing"] = 3
 	E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
 	E.db["actionbar"]["stanceBar"]["buttonSize"] = 22
-	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["stanceBar"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["stanceBar"]["hotkeyFontOutline"] = "OUTLINE"
 
 	E.db["actionbar"]["zoneActionButton"]["clean"] = true
 	E.db["actionbar"]["zoneActionButton"]["scale"] = 0.75
-	E.db["actionbar"]["zoneActionButton"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["zoneActionButton"]["inheritGlobalFade"] = false
 
 	E.db["actionbar"]["extraActionButton"]["clean"] = true
 	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
-	E.db["actionbar"]["extraActionButton"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["extraActionButton"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["extraActionButton"]["hotkeytext"] = true
 	E.db["actionbar"]["extraActionButton"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["extraActionButton"]["hotkeyFontOutline"] = "OUTLINE"
-	E.db["actionbar"]["extraActionButton"]["inheritGlobalFade"] = true
 
 	if layout == "dps" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,144"

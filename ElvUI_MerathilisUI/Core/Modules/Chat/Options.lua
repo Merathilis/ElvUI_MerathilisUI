@@ -376,7 +376,7 @@ local function ChatTable()
 										hasAlpha = true,
 										get = function(info)
 											local colordb = E.db.mui.chat.chatBar.channels.world.color
-											local default = P.mui.chat.chatBar.channels.world.color
+											local default = P.chat.chatBar.channels.world.color
 											return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g, default.b, default.a
 										end,
 										set = function(info, r, g, b, a)
@@ -433,7 +433,7 @@ local function ChatTable()
 										hasAlpha = true,
 										get = function(info)
 											local colordb = E.db.mui.chat.chatBar.channels.community.color
-											local default = P.mui.chat.chatBar.channels.community.color
+											local default = P.chat.chatBar.channels.community.color
 											return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g, default.b, default.a
 										end,
 										set = function(info, r, g, b, a)
@@ -491,7 +491,7 @@ local function ChatTable()
 										hasAlpha = true,
 										get = function(info)
 											local colordb = E.db.mui.chat.chatBar.channels.roll.color
-											local default = P.mui.chat.chatBar.channels.roll.color
+											local default = P.chat.chatBar.channels.roll.color
 											return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g, default.b, default.a
 										end,
 										set = function(info, r, g, b, a)
@@ -625,7 +625,7 @@ local function ChatTable()
 					hasAlpha = true,
 					get = function(info)
 						local colordb = E.db.mui.chat.chatBar.channels[name].color
-						local default = P.mui.chat.chatBar.channels[name].color
+						local default = P.chat.chatBar.channels[name].color
 						return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g, default.b, default.a
 					end,
 					set = function(info, r, g, b, a)

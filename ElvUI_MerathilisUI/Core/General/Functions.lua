@@ -284,7 +284,7 @@ function F.Reset(group)
 	if not group then print("U wot m8?") end
 
 	if group == "marks" or group == "all" then
-		E:CopyTable(E.db.mui.raidmarkers, P.mui.raidmarkers)
+		E:CopyTable(E.db.mui.raidmarkers, P.raidmarkers)
 		E:ResetMovers(L["Raid Marker Bar"])
 	end
 	E:UpdateAll()

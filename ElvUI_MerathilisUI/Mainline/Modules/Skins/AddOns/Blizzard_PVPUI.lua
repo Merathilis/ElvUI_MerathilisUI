@@ -80,8 +80,6 @@ local function LoadSkin()
 		bu.Bg:Hide()
 		bu.Border:Hide()
 
-		MERS:Reskin(bu)
-
 		-- Hide ElvUI backdrop
 		if bu.backdrop then
 			bu.backdrop:Hide()
