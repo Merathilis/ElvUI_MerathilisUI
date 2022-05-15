@@ -249,7 +249,6 @@ local function LoadSkin()
 	-- Toys
 	for i = 1, 18 do
 		local button = ToyBox.iconsFrame["spellButton" .. i]
-		MERS:StyleButton(button)
 		MERS:ReskinIcon(button.iconTexture)
 		MERS:ReskinIcon(button.iconTextureUncollected)
 

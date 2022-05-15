@@ -137,9 +137,6 @@ local function LoadSkin()
 	local shipyardTab = GarrisonShipyardFrame.FollowerTab
 	shipyardTab:DisableDrawLayer("BORDER")
 
-	MERS:ReskinTab(_G.GarrisonShipyardFrameTab1)
-	MERS:ReskinTab(_G.GarrisonShipyardFrameTab2)
-
 	local shipyardMission = GarrisonShipyardFrame.MissionTab.MissionPage
 	shipyardMission:StripTextures()
 

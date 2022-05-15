@@ -202,8 +202,6 @@ local function LoadSkin()
 				Button.backdrop:Hide()
 			end
 
-			MERS:Reskin(Button)
-
 			if Button.Selected then
 				Button.Selected:SetTexture(nil)
 

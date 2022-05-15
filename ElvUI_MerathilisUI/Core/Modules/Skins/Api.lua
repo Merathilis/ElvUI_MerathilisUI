@@ -15,6 +15,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
 local RaiseFrameLevel = RaiseFrameLevel
 local LowerFrameLevel = LowerFrameLevel
+local class = class
 
 local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
@@ -22,6 +23,8 @@ local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
 local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA
 local bordercolorr, bordercolorg, bordercolorb
+
+local classColor = F.ClassColors[E.UnlocalizedClasses[class] or class]
 
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
@@ -241,7 +244,7 @@ function module:HandleSliderFrame(_, frame)
 end
 
 -- Overwrite ElvUI Tabs function to be transparent
-function module:HandleTab(tab)
+function module:HandleTab(_, tab)
 	if not tab then return end
 
 	if tab.backdrop then
@@ -352,7 +355,7 @@ function module:HandleButton(_, button)
 		bg:SetInside(button, 1, 1)
 		bg:SetAlpha(0)
 		bg:SetTexture(LSM:Fetch("statusbar", db.backdrop.texture) or E.media.normTex)
-		F.SetVertexColorDB(bg, db.backdrop.classColor and MER.ClassColor or db.backdrop.color)
+		F.SetVertexColorDB(bg, db.backdrop.classColor and classColor or db.backdrop.color)
 
 		-- Animations
 		button.merAnimated = { bg = bg, bgOnEnter = CreateAnimation(bg, db.backdrop.animationType, "in", db.backdrop.animationDuration, {0, db.backdrop.alpha}), bgOnLeave = CreateAnimation(bg, db.backdrop.animationType, "out", db.backdrop.animationDuration, {db.backdrop.alpha, 0})}
@@ -592,8 +595,8 @@ function module:ReskinAS(AS)
 			end
 		end)
 
-		Button:HookScript("OnEnter", module.OnEnter)
-		Button:HookScript("OnLeave", module.OnLeave)
+		Button:HookScript("OnEnter", Frame_OnEnter)
+		Button:HookScript("OnLeave", Frame_OnLeave)
 	end
 end
 

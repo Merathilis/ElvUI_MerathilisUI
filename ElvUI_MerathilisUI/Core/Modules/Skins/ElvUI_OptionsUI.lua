@@ -46,12 +46,6 @@ local function pluginInstaller()
 	end
 end
 
-local function StyleAce3Tooltip(self)
-	if not self:IsForbidden() and E.private.skins.ace3Enable then
-		self:Styling()
-	end
-end
-
 local function Style_CreateSeparatorLine(self, frame, lastButton)
 	if frame.leftHolder then
 		local line = frame.leftHolder.buttons:CreateTexture()
@@ -100,6 +94,5 @@ function MERS:StyleElvUIConfig()
 	hooksecurefunc(E, 'Config_CreateSeparatorLine', Style_CreateSeparatorLine)
 	hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)
 	hooksecurefunc(E, 'Install', StyleElvUIInstall)
-	--hooksecurefunc(S, 'Ace3_StyleTooltip', StyleAce3Tooltip)
 	hooksecurefunc(S, 'Ace3_TabSetSelected', Style_Ace3TabSelected)
 end

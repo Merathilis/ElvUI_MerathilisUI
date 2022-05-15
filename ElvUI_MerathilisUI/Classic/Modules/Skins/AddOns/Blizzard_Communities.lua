@@ -63,24 +63,7 @@ local function LoadSkin()
 		Dialog.backdrop:Styling()
 	end
 
-	MERS:Reskin(Dialog.OkayButton)
-	MERS:Reskin(Dialog.CancelButton)
 	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
-	MERS:Reskin(Dialog.ScrollFrame.Child.AllButton)
-	MERS:Reskin(Dialog.ScrollFrame.Child.NoneButton)
-
-	hooksecurefunc(Dialog, "Refresh", function(self)
-		local frame = self.ScrollFrame.Child
-		for i = 1, frame:GetNumChildren() do
-			local child = select(i, frame:GetChildren())
-			if child.StreamName and not child.styled then
-				MERS:Reskin(child.ShowNotificationsButton)
-				MERS:Reskin(child.HideNotificationsButton)
-
-				child.styled = true
-			end
-		end
-	end)
 
 	local Dialog = CommunitiesFrame.EditStreamDialog
 	MERS:CreateBDFrame(Dialog.Description, .25)

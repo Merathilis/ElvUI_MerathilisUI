@@ -54,14 +54,6 @@ local function LoadSkin()
 		end
 	end)
 
-	hooksecurefunc("LFGListSearchEntry_Update", function(self)
-		local cancelButton = self.CancelButton
-		if not cancelButton.styled then
-			MERS:Reskin(cancelButton)
-			cancelButton.styled = true
-		end
-	end)
-
 	-- Invite frame
 	if not _G.LFGListInviteDialog.backdrop then
 		_G.LFGListInviteDialog:CreateBackdrop('Transparent')

@@ -22,8 +22,6 @@ local function styleBindingButton(bu)
 	selected:SetPoint("TOPLEFT", 1, -1)
 	selected:SetPoint("BOTTOMRIGHT", -1, 1)
 	selected:SetColorTexture(r, g, b,.2)
-
-	MERS:Reskin(bu)
 end
 
 local function LoadSkin()
