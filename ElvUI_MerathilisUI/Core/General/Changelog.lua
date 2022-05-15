@@ -11,8 +11,6 @@ local PlaySound = PlaySound
 local CLOSE = CLOSE
 local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
-local MerathilisUIChangeLog
-
 local ChangeLogData = {
 	"Changes:",
 		"• Fixed an error in the ObjectiveTracker if my Shadows were disabled >.>",
