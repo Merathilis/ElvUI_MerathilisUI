@@ -341,7 +341,6 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.cooldownFlash
-	MER:RegisterDB(self, "cooldownFlash")
 
 	if self.db.enable then
 		self:EnableCooldownFlash()

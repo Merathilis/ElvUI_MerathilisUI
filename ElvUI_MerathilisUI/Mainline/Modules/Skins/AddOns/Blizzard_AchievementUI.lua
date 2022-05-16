@@ -16,7 +16,7 @@ local hooksecurefunc = hooksecurefunc
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.muiSkins.blizzard.achievement ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.mui.skins.blizzard.achievement ~= true then return end
 
 	_G.AchievementFrame.backdrop:Styling()
 	MER:CreateBackdropShadow(_G.AchievementFrame)

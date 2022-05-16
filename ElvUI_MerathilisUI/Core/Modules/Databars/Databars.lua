@@ -22,7 +22,6 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.databars
-	MER:RegisterDB(self, 'databars')
 
 	self:StyleBackdrops()
 end

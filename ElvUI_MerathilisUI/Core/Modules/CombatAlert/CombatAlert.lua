@@ -141,7 +141,6 @@ function module:Initialize()
 	if not E.db.mui.CombatAlert.enable then return end
 
 	self.db = E.db.mui.CombatAlert
-	MER:RegisterDB(self, "CombatAlert")
 
 	module.inAnimation = false
 	self.animationQueue = {}

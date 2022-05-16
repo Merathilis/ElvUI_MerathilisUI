@@ -293,8 +293,6 @@ end
 
 function module:Initialize()
 	self.db = E.db.mui.blizzard.objectiveTracker
-	MER:RegisterDB(self.db, "objectiveTracker")
-
 	if not self.db.enable then
 		return
 	end

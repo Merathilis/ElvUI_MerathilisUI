@@ -34,7 +34,7 @@ local function Skin_WeakAuras(f, fType)
 end
 
 function S:WeakAuras()
-	if E.private.muiSkins.addonSkins.wa ~= true then return; end
+	if E.private.mui.skins.addonSkins.wa ~= true then return; end
 
 	local regionTypes = _G.WeakAuras.regionTypes
 	local Create_Icon, Modify_Icon = regionTypes.icon.create, regionTypes.icon.modify

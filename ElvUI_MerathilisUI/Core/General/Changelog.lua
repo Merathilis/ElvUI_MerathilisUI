@@ -1,18 +1,15 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 
--- Cache global variables
--- Lua functions
 local format, gmatch, gsub, find, sub = string.format, string.gmatch, string.gsub, string.find, string.sub
 local tinsert = table.insert
 local pairs, tostring = pairs, tostring
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local SOUNDKIT = SOUNDKIT
 local PlaySound = PlaySound
 local CLOSE = CLOSE
 local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
--- GLOBALS: MERData, UISpecialFrames, MerathilisUIChangeLog, DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",

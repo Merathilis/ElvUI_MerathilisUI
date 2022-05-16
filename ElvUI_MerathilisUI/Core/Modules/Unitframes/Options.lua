@@ -76,7 +76,7 @@ local function UnitFramesTable()
 						disabled = function() return not E.db.mui.unitframes.gcd.enable end,
 						get = function(info)
 							local t = E.db.mui.unitframes.gcd[ info[#info] ]
-							local d = P.mui.unitframes.gcd[ info[#info] ]
+							local d = P.unitframes.gcd[ info[#info] ]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 						end,
 						set = function(info, r, g, b, a)
@@ -110,7 +110,7 @@ local function UnitFramesTable()
 						disabled = function() return not E.db.mui.unitframes.swing.enable end,
 						get = function(info)
 							local t = E.db.mui.unitframes.swing[ info[#info] ]
-							local d = P.mui.unitframes.swing[ info[#info] ]
+							local d = P.unitframes.swing[ info[#info] ]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 						end,
 						set = function(info, r, g, b, a)
@@ -127,7 +127,7 @@ local function UnitFramesTable()
 						disabled = function() return not E.db.mui.unitframes.swing.enable end,
 						get = function(info)
 							local t = E.db.mui.unitframes.swing[ info[#info] ]
-							local d = P.mui.unitframes.swing[ info[#info] ]
+							local d = P.unitframes.swing[ info[#info] ]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 						end,
 						set = function(info, r, g, b, a)
@@ -144,7 +144,7 @@ local function UnitFramesTable()
 						disabled = function() return not E.db.mui.unitframes.swing.enable end,
 						get = function(info)
 							local t = E.db.mui.unitframes.swing[ info[#info] ]
-							local d = P.mui.unitframes.swing[ info[#info] ]
+							local d = P.unitframes.swing[ info[#info] ]
 							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 						end,
 						set = function(info, r, g, b, a)

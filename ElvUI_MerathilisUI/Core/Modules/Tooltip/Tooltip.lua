@@ -39,7 +39,6 @@ function module:Initialize()
 	if E.private.tooltip.enable ~= true then return end
 
 	self.db = E.db.mui.tooltip
-	MER:RegisterDB(self, "tooltip")
 
 	for index, func in next, self.load do
 		xpcall(func, errorhandler)

@@ -84,26 +84,23 @@ function FlightPointsTaxiChoiceContainer_Update()
 			button:Hide()
 		else
 			if isHeader then
-				button.categoryLeft:Show()
-				button.categoryRight:Show()
-				button.categoryMiddle:Show()
+				button.categoryLeft:Hide()
+				button.categoryRight:Hide()
+				button.categoryMiddle:Hide()
 				hidebuttons = false
-				button.highlight:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\TSextures\\Duffed.tga")
-				button.highlight:SetVertexColor(unpack(E["media"].rgbvaluecolor))
-				button.highlight:SetPoint("TOPLEFT", button, "TOPLEFT", 3, -2)
-				button.highlight:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -3, 2)
-				button.name:FontTemplate(E["media"].normFont, 13, "OUTLINE")
+				button.highlight:Hide()
+				button.name:FontTemplate(E.media.normFont, 13, "OUTLINE")
 				button.name:SetText(name)
-				button.name:SetTextColor(unpack(E["media"].rgbvaluecolor))
+				button.name:SetTextColor(unpack(E.media.rgbvaluecolor))
 				button.name:SetPoint("LEFT", 11, 0)
 			else
 				button.categoryLeft:Hide()
 				button.categoryRight:Hide()
 				button.categoryMiddle:Hide()
-				button.highlight:SetTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight")
+				button.highlight:SetTexture(E.media.normTex)
 				button.highlight:SetPoint("TOPLEFT", button, "TOPLEFT", 0, 0)
 				button.highlight:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 0, 0)
-				button.name:FontTemplate(E["media"].normFont, 11, "OUTLINE")
+				button.name:FontTemplate(E.media.normFont, 11, "OUTLINE")
 				button.name:SetText(name)
 				button.name:SetPoint("LEFT", 22, 0)
 				button.flightpath = flightpathid
@@ -115,6 +112,7 @@ function FlightPointsTaxiChoiceContainer_Update()
 		end
 		displayedHeight = displayedHeight + button:GetHeight()
 	end
+
 	local totalHeight = #taxinodeinfos * (button:GetHeight())
 	HybridScrollFrame_Update(scrollFrame, totalHeight, displayedHeight)
 end

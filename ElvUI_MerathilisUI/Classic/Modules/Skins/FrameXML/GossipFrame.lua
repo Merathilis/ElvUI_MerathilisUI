@@ -11,7 +11,7 @@ local hooksecurefunc = hooksecurefunc
 
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.muiSkins.blizzard.gossip ~= true then return; end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.mui.skins.blizzard.gossip ~= true then return; end
 
 	local GossipFrame = _G.GossipFrame
 	GossipFrame.backdrop:Styling()

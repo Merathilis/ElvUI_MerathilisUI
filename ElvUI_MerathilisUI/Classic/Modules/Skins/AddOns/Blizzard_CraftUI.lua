@@ -5,7 +5,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.craft) or E.private.muiSkins.blizzard.craft ~= true then return end
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.craft) or E.private.mui.skins.blizzard.craft ~= true then return end
 
 	local CraftFrame = _G.CraftFrame
 	CraftFrame.backdrop:Styling()

@@ -35,7 +35,7 @@ local function RemoveParchment(self)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return end
 
 	local QuestFrame = _G.QuestFrame
 	_G.QuestFrameDetailPanelBg:SetAlpha(0)

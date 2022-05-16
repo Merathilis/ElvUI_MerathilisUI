@@ -263,7 +263,7 @@ local function Maps()
 								name = L["Custom Color"],
 								get = function(info)
 									local db = E.db.mui.maps.minimap.ping[info[#info]]
-									local default = P.mui.maps.minimap.ping[info[#info]]
+									local default = P.maps.minimap.ping[info[#info]]
 									return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 								end,
 								set = function(info, r, g, b, a)
@@ -556,7 +556,7 @@ local function Maps()
 								name = L["Color"],
 								get = function(info)
 									local db = E.db.mui.maps.superTracker.distanceText[info[#info]]
-									local default = P.mui.maps.superTracker.distanceText[info[#info]]
+									local default = P.maps.superTracker.distanceText[info[#info]]
 									return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 								end,
 								set = function(info, r, g, b, a)

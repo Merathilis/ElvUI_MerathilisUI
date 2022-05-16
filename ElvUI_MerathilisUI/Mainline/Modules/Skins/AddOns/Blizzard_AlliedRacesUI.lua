@@ -5,7 +5,7 @@ local _G = _G
 local select = select
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alliedRaces ~= true or E.private.muiSkins.blizzard.AlliedRaces ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alliedRaces ~= true or E.private.mui.skins.blizzard.AlliedRaces ~= true then return end
 
 	local AlliedRacesFrame = _G.AlliedRacesFrame
 

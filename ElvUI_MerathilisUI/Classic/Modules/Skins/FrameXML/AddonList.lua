@@ -4,7 +4,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.addonManager ~= true or E.private.muiSkins.blizzard.addonManager ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.addonManager ~= true or E.private.mui.skins.blizzard.addonManager ~= true then return end
 
 	local AddonList = _G.AddonList
 	AddonList.backdrop:Styling()

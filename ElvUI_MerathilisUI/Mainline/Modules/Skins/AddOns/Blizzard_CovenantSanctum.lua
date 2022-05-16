@@ -5,7 +5,7 @@ local _G = _G
 local ipairs = ipairs
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.covenantSanctum) or E.private.muiSkins.blizzard.covenantSanctum ~= true then return end
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.covenantSanctum) or E.private.mui.skins.blizzard.covenantSanctum ~= true then return end
 
 	local frame = _G.CovenantSanctumFrame
 

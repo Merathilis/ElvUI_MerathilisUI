@@ -232,7 +232,7 @@ local function ArmoryTable()
 						disabled = function() return E.db.mui.armory.gradient.colorStyle == "RARITY" or E.db.mui.armory.gradient.colorStyle == "VALUE" or not E.db.mui.armory.enable or not E.db.mui.armory.gradient.enable end,
 						get = function(info)
 							local t = E.db.mui.armory.gradient[ info[#info] ]
-							local d = P.mui.armory.gradient[info[#info]]
+							local d = P.armory.gradient[info[#info]]
 							return t.r, t.g, t.b, d.r, d.g, d.b
 						end,
 						set = function(info, r, g, b)

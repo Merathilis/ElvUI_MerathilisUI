@@ -284,7 +284,7 @@ function F.Reset(group)
 	if not group then print("U wot m8?") end
 
 	if group == "marks" or group == "all" then
-		E:CopyTable(E.db.mui.raidmarkers, P.mui.raidmarkers)
+		E:CopyTable(E.db.mui.raidmarkers, P.raidmarkers)
 		E:ResetMovers(L["Raid Marker Bar"])
 	end
 	E:UpdateAll()
@@ -649,4 +649,15 @@ do
 
 		return {r = r, g = g, b = b}
 	end
+end
+
+function F.SetVertexColorDB(tex, db)
+	if not tex or not tex.GetVertexColor then
+		return
+	end
+	if not db or type(db) ~= "table" then
+		return
+	end
+
+	tex:SetVertexColor(db.r, db.g, db.b, db.a)
 end

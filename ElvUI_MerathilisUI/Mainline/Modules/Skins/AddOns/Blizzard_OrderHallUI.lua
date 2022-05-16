@@ -5,7 +5,7 @@ local _G = _G
 local hooksecurefunc = hooksecurefunc
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.mui.skins.blizzard.orderhall ~= true then return end
 
 	local OrderHallTalentFrame = _G.OrderHallTalentFrame
 	if not OrderHallTalentFrame.backdrop then

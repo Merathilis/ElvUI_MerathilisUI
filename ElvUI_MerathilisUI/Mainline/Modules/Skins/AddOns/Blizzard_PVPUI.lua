@@ -23,7 +23,7 @@ local HaveQuestRewardData = HaveQuestRewardData
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.mui.skins.blizzard.pvp ~= true then return end
 
 	_G.PVPReadyDialog:Styling()
 	MER:CreateBackdropShadow(_G.PVPReadyDialog)
@@ -37,8 +37,6 @@ local function LoadSkin()
 	for i = 1, 3 do
 		local bu = PVPQueueFrame["CategoryButton"..i]
 		local cu = bu.CurrencyDisplay
-
-		MERS:Reskin(bu)
 
 		bu.Name:SetTextColor(1, 1, 1)
 
@@ -81,8 +79,6 @@ local function LoadSkin()
 	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do
 		bu.Bg:Hide()
 		bu.Border:Hide()
-
-		MERS:Reskin(bu)
 
 		-- Hide ElvUI backdrop
 		if bu.backdrop then

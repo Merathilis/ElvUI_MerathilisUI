@@ -189,21 +189,6 @@ function PaperDollFrame_SetParry(statFrame, unit)
 	statFrame:Show();
 end
 
--- Block Chance
--- function PaperDollFrame_SetBlock(statFrame, unit)
-	-- if (unit ~= "player") then
-		-- statFrame:Hide();
-		-- return;
-	-- end
-
-	-- local chance = GetBlockChance();
--- PaperDollFrame_SetLabelAndText Format Change
-	-- PaperDollFrame_SetLabelAndText(statFrame, STAT_BLOCK, T.format("%.2f%%", chance), false, chance);
-	-- statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, BLOCK_CHANCE).." "..T.format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
-	-- statFrame.tooltip2 = T.format(CR_BLOCK_TOOLTIP, GetShieldBlock());
-	-- statFrame:Show();
--- end
-
 -- Crit Chance
 function PaperDollFrame_SetCritChance(statFrame, unit)
 	if ( unit ~= "player" ) then
@@ -390,6 +375,8 @@ function MERAY:PaperDollFrame_UpdateStats()
 
 	local lastAnchor;
 
+	MERAY:BuildScrollBar()
+
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 		local catFrame = _G["CharacterStatsPane"][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame];
 		catFrame.Title:FontTemplate(LSM:Fetch('font', E.db.mui.armory.stats.catFonts.font), E.db.mui.armory.stats.catFonts.size, E.db.mui.armory.stats.catFonts.outline)
@@ -461,81 +448,81 @@ function MERAY:PaperDollFrame_UpdateStats()
 	end
 end
 
---Creating new scroll
---Scrollframe Parent Frame
-local CharacterFrameInsetRight = _G.CharacterFrameInsetRight
-MERAY.ScrollframeParentFrame = CreateFrame("Frame", nil, CharacterFrameInsetRight)
-MERAY.ScrollframeParentFrame:Size(198, 352)
-MERAY.ScrollframeParentFrame:Point("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
+function MERAY:BuildScrollBar()
+	local CharacterFrameInsetRight = _G.CharacterFrameInsetRight
+	MERAY.ScrollframeParentFrame = CreateFrame("Frame", nil, CharacterFrameInsetRight)
+	MERAY.ScrollframeParentFrame:Size(198, 352)
+	MERAY.ScrollframeParentFrame:Point("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
 
---Scrollframe
-MERAY.ScrollFrame = CreateFrame("ScrollFrame", "MER_ScrollFrame", MERAY.ScrollframeParentFrame)
-MERAY.ScrollFrame:Point("TOP")
-MERAY.ScrollFrame:Size(MERAY.ScrollframeParentFrame:GetSize())
+	--Scrollframe
+	MERAY.ScrollFrame = CreateFrame("ScrollFrame", "MER_ScrollFrame", MERAY.ScrollframeParentFrame)
+	MERAY.ScrollFrame:Point("TOP")
+	MERAY.ScrollFrame:Size(MERAY.ScrollframeParentFrame:GetSize())
 
---Scrollbar
-MERAY.Scrollbar = CreateFrame("Slider", nil, MERAY.ScrollFrame, "UIPanelScrollBarTemplate")
-MERAY.Scrollbar:Point("TOPLEFT", CharacterFrameInsetRight, "TOPRIGHT", -12, -20)
-MERAY.Scrollbar:Point("BOTTOMLEFT", CharacterFrameInsetRight, "BOTTOMRIGHT", -12, 18)
-MERAY.Scrollbar:SetMinMaxValues(1, 2)
-MERAY.Scrollbar:SetValueStep(1)
-MERAY.Scrollbar.scrollStep = 1
-MERAY.Scrollbar:SetValue(0)
-MERAY.Scrollbar:SetWidth(8)
-MERAY.Scrollbar:SetScript("OnValueChanged", function (self, value)
-	self:GetParent():SetVerticalScroll(value)
-end)
-E:GetModule("Skins"):HandleScrollBar(MERAY.Scrollbar)
-MERAY.Scrollbar:Hide()
+	--Scrollbar
+	MERAY.Scrollbar = CreateFrame("Slider", "MERAY_Scrollbar", MERAY.ScrollFrame, "UIPanelScrollBarTemplate")
+	MERAY.Scrollbar:Point("TOPLEFT", CharacterFrameInsetRight, "TOPRIGHT", -12, -20)
+	MERAY.Scrollbar:Point("BOTTOMLEFT", CharacterFrameInsetRight, "BOTTOMRIGHT", -12, 18)
+	MERAY.Scrollbar:SetMinMaxValues(1, 2)
+	MERAY.Scrollbar:SetValueStep(1)
+	MERAY.Scrollbar.scrollStep = 1
+	MERAY.Scrollbar:SetValue(0)
+	MERAY.Scrollbar:SetWidth(8)
+	MERAY.Scrollbar:SetScript("OnValueChanged", function (self, value)
+		self:GetParent():SetVerticalScroll(value)
+	end)
+	E:GetModule("Skins"):HandleScrollBar(MERAY.Scrollbar)
+	MERAY.Scrollbar:Hide()
 
---MERAY.ScrollChild Frame
-MERAY.ScrollChild = CreateFrame("Frame", nil, MERAY.ScrollFrame)
-MERAY.ScrollChild:Size(MERAY.ScrollFrame:GetSize())
-MERAY.ScrollFrame:SetScrollChild(MERAY.ScrollChild)
+	--MERAY.ScrollChild Frame
+	MERAY.ScrollChild = CreateFrame("Frame", nil, MERAY.ScrollFrame)
+	MERAY.ScrollChild:Size(MERAY.ScrollFrame:GetSize())
+	MERAY.ScrollFrame:SetScrollChild(MERAY.ScrollChild)
 
-local CharacterStatsPane = _G.CharacterStatsPane
-CharacterStatsPane:ClearAllPoints()
-CharacterStatsPane:SetParent(MERAY.ScrollChild)
-CharacterStatsPane:Size(MERAY.ScrollChild:GetSize())
-CharacterStatsPane:Point("TOP", MERAY.ScrollChild, "TOP", 0, 0)
+	local CharacterStatsPane = _G.CharacterStatsPane
+	CharacterStatsPane:ClearAllPoints()
+	CharacterStatsPane:SetParent(MERAY.ScrollChild)
+	CharacterStatsPane:Size(MERAY.ScrollChild:GetSize())
+	CharacterStatsPane:Point("TOP", MERAY.ScrollChild, "TOP", 0, 0)
 
-CharacterStatsPane.ClassBackground:ClearAllPoints()
-CharacterStatsPane.ClassBackground:SetParent(CharacterFrameInsetRight)
-CharacterStatsPane.ClassBackground:Point("CENTER")
+	CharacterStatsPane.ClassBackground:ClearAllPoints()
+	CharacterStatsPane.ClassBackground:SetParent(CharacterFrameInsetRight)
+	CharacterStatsPane.ClassBackground:Point("CENTER")
 
--- Enable mousewheel scrolling
-MERAY.ScrollFrame:EnableMouseWheel(true)
-MERAY.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
-	if totalShown > 12 then
-		MERAY.Scrollbar:SetMinMaxValues(1, 45)
-	else
-		MERAY.Scrollbar:SetMinMaxValues(1, 1)
-	end
+	-- Enable mousewheel scrolling
+	MERAY.ScrollFrame:EnableMouseWheel(true)
+	MERAY.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
+		if totalShown > 12 then
+			MERAY.Scrollbar:SetMinMaxValues(1, 45)
+		else
+			MERAY.Scrollbar:SetMinMaxValues(1, 1)
+		end
 
-	local cur_val = MERAY.Scrollbar:GetValue()
-	local min_val, max_val = MERAY.Scrollbar:GetMinMaxValues()
+		local cur_val = MERAY.Scrollbar:GetValue()
+		local min_val, max_val = MERAY.Scrollbar:GetMinMaxValues()
 
-	if delta < 0 and cur_val < max_val then
-		cur_val = math_min(max_val, cur_val + 22)
-		MERAY.Scrollbar:SetValue(cur_val)
-	elseif delta > 0 and cur_val > min_val then
-		cur_val = math_max(min_val, cur_val - 22)
-		MERAY.Scrollbar:SetValue(cur_val)
-	end
-end)
+		if delta < 0 and cur_val < max_val then
+			cur_val = math_min(max_val, cur_val + 22)
+			MERAY.Scrollbar:SetValue(cur_val)
+		elseif delta > 0 and cur_val > min_val then
+			cur_val = math_max(min_val, cur_val - 22)
+			MERAY.Scrollbar:SetValue(cur_val)
+		end
+	end)
 
-PaperDollSidebarTab1:HookScript("OnShow", function(self,event)
-	MERAY.ScrollframeParentFrame:Show()
-end)
+	PaperDollSidebarTab1:HookScript("OnShow", function(self,event)
+		MERAY.ScrollframeParentFrame:Show()
+	end)
 
-PaperDollSidebarTab1:HookScript("OnClick", function(self,event)
-	MERAY.ScrollframeParentFrame:Show()
-end)
+	PaperDollSidebarTab1:HookScript("OnClick", function(self,event)
+		MERAY.ScrollframeParentFrame:Show()
+	end)
 
-PaperDollSidebarTab2:HookScript("OnClick", function(self,event)
-	MERAY.ScrollframeParentFrame:Hide()
-end)
+	PaperDollSidebarTab2:HookScript("OnClick", function(self,event)
+		MERAY.ScrollframeParentFrame:Hide()
+	end)
 
-PaperDollSidebarTab3:HookScript("OnClick", function(self,event)
-	MERAY.ScrollframeParentFrame:Hide()
-end)
+	PaperDollSidebarTab3:HookScript("OnClick", function(self,event)
+		MERAY.ScrollframeParentFrame:Hide()
+	end)
+end

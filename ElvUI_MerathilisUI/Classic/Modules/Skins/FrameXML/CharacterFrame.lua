@@ -16,7 +16,7 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.character) or E.private.muiSkins.blizzard.character ~= true then return end
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.character) or E.private.mui.skins.blizzard.character ~= true then return end
 
 	-- Hide ElvUI Backdrop
 	local CharacterFrame = _G.CharacterFrame

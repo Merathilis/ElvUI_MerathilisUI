@@ -179,11 +179,10 @@ local function SkinEJButton(button)
 	button.DownRight:SetAlpha(0)
 	select(5, button:GetRegions()):Hide()
 	select(6, button:GetRegions()):Hide()
-	MERS:Reskin(button)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.muiSkins.blizzard.encounterjournal ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.mui.skins.blizzard.encounterjournal ~= true then return end
 
 	local EncounterJournal = _G.EncounterJournal
 	EncounterJournal:Styling()
@@ -289,8 +288,6 @@ local function LoadSkin()
 
 	SkinEJButton(info.difficulty)
 
-	MERS:Reskin(info.reset)
-
 	info.detailsScroll.child.description:SetTextColor(1, 1, 1)
 
 	info.overviewScroll.child.loreDescription:SetTextColor(1, 1, 1)
@@ -386,8 +383,6 @@ local function LoadSkin()
 
 		centerDisplay.title.text:SetTextColor(1, 1, 1)
 		centerDisplay.description.text:SetTextColor(.9, .9, .9)
-
-		MERS:Reskin(suggestion.button)
 
 		local reward = suggestion.reward
 

@@ -36,7 +36,7 @@ local function PanelTable()
 						disabled = function() return E.db.mui.panels.colorType ~= "CUSTOM" end,
 						get = function(info)
 							local t = E.db.mui.panels[ info[#info] ]
-							local d = P.mui.panels[info[#info]]
+							local d = P.panels[info[#info]]
 							return t.r, t.g, t.b, d.r, d.g, d.b
 						end,
 						set = function(info, r, g, b)

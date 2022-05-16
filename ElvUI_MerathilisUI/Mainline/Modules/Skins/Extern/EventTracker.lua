@@ -4,7 +4,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadAddOnSkin()
-	if E.private.muiSkins.addonSkins.et ~= true then return end
+	if E.private.mui.skins.addonSkins.et ~= true then return end
 
 	-- Main Frame
 	local frame = _G.EventTrackerFrame

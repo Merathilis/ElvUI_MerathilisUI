@@ -73,7 +73,6 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.pvp
-	MER:RegisterDB(self, "pvp")
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.pvp

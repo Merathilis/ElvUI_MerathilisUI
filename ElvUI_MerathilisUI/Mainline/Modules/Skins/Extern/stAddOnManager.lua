@@ -10,7 +10,7 @@ local CreateFrame = CreateFrame
 -- GLOBALS:
 
 local function LoadAddOnSkin()
-	if E.private.muiSkins.addonSkins.pa ~= true then return end
+	if E.private.mui.skins.addonSkins.pa ~= true then return end
 
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")

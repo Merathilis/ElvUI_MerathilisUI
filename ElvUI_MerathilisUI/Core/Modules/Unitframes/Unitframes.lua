@@ -156,7 +156,6 @@ function module:Initialize()
 	if E.private.unitframe.enable ~= true then return end
 
 	local db = E.db.mui.unitframes
-	MER:RegisterDB(self, "unitframes")
 
 	-- Units
 	self:StyleUFs()

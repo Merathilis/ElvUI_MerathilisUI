@@ -4,7 +4,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talkinghead ~= true or E.private.muiSkins.blizzard.talkinghead ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talkinghead ~= true or E.private.mui.skins.blizzard.talkinghead ~= true then return end
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
 	if TalkingHeadFrame and not TalkingHeadFrame.IsSkinned then

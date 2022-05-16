@@ -6,7 +6,7 @@ local _G = _G
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.talent) or E.private.muiSkins.blizzard.talent ~= true then return end
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.talent) or E.private.mui.skins.blizzard.talent ~= true then return end
 
 	local PlayerTalentFrame = _G.PlayerTalentFrame
 	PlayerTalentFrame.backdrop:Styling()

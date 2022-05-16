@@ -696,7 +696,6 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.flightMode
-	MER:RegisterDB(self, 'flightMode')
 
 	if (COMP.BUI and E.db.benikui.misc.flightMode.enable) then return end
 	if module.db.enable ~= true then return end

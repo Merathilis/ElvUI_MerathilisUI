@@ -203,7 +203,6 @@ end
 
 function module:Initialize()
 	local db = E.db.mui.misc
-	MER:RegisterDB(module, "misc")
 
 	if E.Retail then
 		E.RegisterCallback(module, "RoleChanged", "SetRole")

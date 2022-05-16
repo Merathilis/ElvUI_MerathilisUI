@@ -11,7 +11,7 @@ local CreateFrame = CreateFrame
 -- GLOBALS:
 
 local function LoadAddOnSkin()
-	if E.private.muiSkins.addonSkins.bui ~= true then return; end
+	if E.private.mui.skins.addonSkins.bui ~= true then return; end
 
 	local BuiLeftChatDTPanel = _G.BuiLeftChatDTPanel
 	if BuiLeftChatDTPanel then

@@ -8,7 +8,7 @@ local _G = _G
 -- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.voidstorage ~= true or E.private.muiSkins.blizzard.voidstorage ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.voidstorage ~= true or E.private.mui.skins.blizzard.voidstorage ~= true then return end
 
 	local VoidStorageFrame = _G.VoidStorageFrame
 	VoidStorageFrame:Styling()

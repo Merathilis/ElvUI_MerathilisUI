@@ -365,7 +365,7 @@ local function AutoButtonTable()
 							hasAlpha = false,
 							get = function(info)
 								local db = E.db.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
-								local default = P.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
+								local default = P.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
 								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 							end,
 							set = function(info, r, g, b)
@@ -439,7 +439,7 @@ local function AutoButtonTable()
 							hasAlpha = false,
 							get = function(info)
 								local db = E.db.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
-								local default = P.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
+								local default = P.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
 								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 							end,
 							set = function(info, r, g, b)

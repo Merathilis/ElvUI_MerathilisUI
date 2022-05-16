@@ -551,8 +551,6 @@ function module:Initialize()
 	self:UpdateAltsTable()
 	self.db = E.db.mui.mail
 
-	MER:RegisterDB(self, "mail")
-
 	if not self.db.enable or self.Initialized then
 		return
 	end

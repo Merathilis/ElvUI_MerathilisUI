@@ -296,7 +296,6 @@ function module:Initialize()
 	if not E.Retail then return end
 
 	module.db = E.db.mui.raidBuffs
-	MER:RegisterDB(self, "raidBuffs")
 
 	-- Anchor
 	self.Anchor = CreateFrame("Frame", "RaidBuffAnchor", E.UIParent)

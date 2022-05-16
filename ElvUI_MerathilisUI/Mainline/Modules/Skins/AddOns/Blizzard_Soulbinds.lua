@@ -5,7 +5,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.soulbinds) or E.private.muiSkins.blizzard.soulbinds ~= true then return end
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.soulbinds) or E.private.mui.skins.blizzard.soulbinds ~= true then return end
 
 	local frame = _G.SoulbindViewer
 	frame.Background:Hide()

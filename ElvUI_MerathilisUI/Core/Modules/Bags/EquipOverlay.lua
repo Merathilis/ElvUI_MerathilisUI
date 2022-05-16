@@ -152,7 +152,6 @@ function module:Initialize()
 	if not E.private.bags.enable then return end
 
 	module.db = E.db.mui.bags.equipOverlay
-	MER:RegisterDB(self, "equipOverlay")
 
 	tinsert(module.containers, _G["ElvUI_ContainerFrame"])
 	self:SecureHook(B, "OpenBank", function()

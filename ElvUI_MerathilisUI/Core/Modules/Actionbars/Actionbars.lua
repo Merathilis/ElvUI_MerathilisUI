@@ -151,7 +151,6 @@ function module:Initialize()
 	if E.private.actionbar.enable ~= true then return; end
 
 	local db = E.db.mui.actionbars
-	MER:RegisterDB(self, "actionbars")
 
 	if E.Retail then
 		self:EquipSpecBar()

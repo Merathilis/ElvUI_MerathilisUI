@@ -1,24 +1,45 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
-----------------------------------------------------------------------------------------
--- General options
-----------------------------------------------------------------------------------------
-V.mui = {
+V.general = {
 	install_complete = nil,
 }
 
-----------------------------------------------------------------------------------------
--- Misc options
-----------------------------------------------------------------------------------------
-V.muiMisc = {
+V.misc = {
 	guildNewsItemLevel = true,
 }
 
-----------------------------------------------------------------------------------------
--- Skins options
-----------------------------------------------------------------------------------------
-V.muiSkins = {
-	buttonStyle = true,
+V.skins = {
+	widgets = {
+		button = {
+			enable = true,
+			backdrop = {
+				enable = true,
+				texture = "RenAscensionL",
+				classColor = false,
+				color = {r = 0, g = 0.752, b = 0.980},
+				alpha = 1,
+				animationType = "FADE",
+				animationDuration = 0.2,
+				removeBorderEffect = true
+			},
+			text = {
+				enable = true,
+				font = {
+					name = E.db.general.font,
+					style = "OUTLINE"
+				},
+			},
+		},
+		checkBox = {
+			enable = true,
+			elvUISkin = {
+				enable = true,
+				texture = "RenAscensionL",
+				classColor = false,
+				color = {r = 0, g = 0.752, b = 0.980, a = 1}
+			},
+		},
+	},
 	blizzard = {
 		character = true,
 		encounterjournal = true,
@@ -106,9 +127,5 @@ V.muiSkins = {
 		cbn = true,
 		et = true,
 		wa = true,
-	},
-
-	elvuiAddons = {
-		-- sle = true,
 	},
 }

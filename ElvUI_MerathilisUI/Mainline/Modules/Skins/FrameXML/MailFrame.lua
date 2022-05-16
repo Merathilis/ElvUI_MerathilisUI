@@ -17,7 +17,7 @@ local GetInboxInvoiceInfo = GetInboxInvoiceInfo
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.muiSkins.blizzard.mail ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.mui.skins.blizzard.mail ~= true then return end
 
 	local MiniMapMailFrame = _G.MiniMapMailFrame
 

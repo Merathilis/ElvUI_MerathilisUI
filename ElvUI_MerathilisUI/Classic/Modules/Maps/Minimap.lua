@@ -7,7 +7,6 @@ function module:Initialize()
 	if E.private.general.minimap.enable ~= true then return end
 
 	local db = E.db.mui.maps
-	MER:RegisterDB(module, "minimap")
 
 	_G.MinimapToggleButton:Kill()
 

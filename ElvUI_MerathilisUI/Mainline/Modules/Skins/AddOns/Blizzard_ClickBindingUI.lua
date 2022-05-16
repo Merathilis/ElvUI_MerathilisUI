@@ -20,7 +20,7 @@ local function HandleScrollChild(self)
 end
 
 local function LoadSkin()
-	if not E.private.skins.blizzard.enable and E.private.skins.blizzard.binding or not E.private.muiSkins.blizzard.binding then return end
+	if not E.private.skins.blizzard.enable and E.private.skins.blizzard.binding or not E.private.mui.skins.blizzard.binding then return end
 
 	local frame = _G.ClickBindingFrame
 	frame:Styling()

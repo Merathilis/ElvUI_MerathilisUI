@@ -9,7 +9,7 @@ local pairs = pairs
 local C_AzeriteEssence_CanOpenUI = C_AzeriteEssence.CanOpenUI
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.azeriteEssence ~= true or E.private.muiSkins.blizzard.AzeriteEssence ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.azeriteEssence ~= true or E.private.mui.skins.blizzard.AzeriteEssence ~= true then return end
 	if not C_AzeriteEssence_CanOpenUI() then return end
 
 	local AzeriteEssenceUI = _G.AzeriteEssenceUI

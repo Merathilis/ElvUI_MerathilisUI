@@ -9,7 +9,7 @@ local pairs, unpack = pairs, unpack
 -- GLOBALS:
 
 local function LoadAddOnSkin()
-	if E.private.muiSkins.addonSkins.cl ~= true then return end
+	if E.private.mui.skins.addonSkins.cl ~= true then return end
 
 	_G.CliqueConfig:StripTextures()
 	_G.CliqueConfig:CreateBackdrop("Transparent")

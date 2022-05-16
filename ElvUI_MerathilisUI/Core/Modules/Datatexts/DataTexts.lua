@@ -23,7 +23,7 @@ function MER:LoadDataTexts()
 
 	hooksecurefunc(DT, "UpdatePanelInfo", function(DT, panelName, panel)
 		if not panel then return end
-		local db = panel.db or P.datatexts.panels[panelName] and DT.db.panels[panelName]
+		local db = panel.db or E.db.datatexts.panels[panelName] and DT.db.panels[panelName]
 		if not db then return end
 
 		-- Need to find a way to hide my styling if changing the option from a panel

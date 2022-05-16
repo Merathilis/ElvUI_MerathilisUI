@@ -131,7 +131,7 @@ local function SetTextColor_White(font)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return; end
 
 	-- Item reward highlight
 	_G.QuestInfoItemHighlight:GetRegions():Hide()

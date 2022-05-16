@@ -184,7 +184,6 @@ end
 
 function RM:Initialize()
 	RM.db = E.db.mui.raidmarkers
-	MER:RegisterDB(RM, "raidmarkers")
 
 	RM:Make("mUI_RaidFlare1", "/clearworldmarker 1\n/worldmarker 1", "Blue Flare")
 	RM:Make("mUI_RaidFlare2", "/clearworldmarker 2\n/worldmarker 2", "Green Flare")
