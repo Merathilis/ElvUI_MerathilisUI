@@ -116,6 +116,12 @@ function module:Initialize()
 		Minimap:CreateBackdrop("Default", true)
 	end
 
+	-- Style the ElvUI's MiddleClick-Menu on the Minimap
+	local Menu = _G.MinimapRightClickMenu
+	if Menu then
+		Menu:Styling()
+	end
+
 	self:MiniMapCoords()
 	self:MinimapPing()
 	self:StyleMinimap()
