@@ -16,7 +16,7 @@ V.skins = {
 				enable = true,
 				texture = "RenAscensionL",
 				classColor = false,
-				color = {r = 0.145, g = 0.353, b = 0.698},
+				color = {r = 0, g = 0.752, b = 0.980},
 				alpha = 1,
 				animationType = "FADE",
 				animationDuration = 0.2,

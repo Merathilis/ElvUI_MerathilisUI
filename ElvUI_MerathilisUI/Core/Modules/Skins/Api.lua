@@ -24,7 +24,7 @@ local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA
 local bordercolorr, bordercolorg, bordercolorb
 
-local classColor = F.ClassColors[E.UnlocalizedClasses[class] or class]
+module.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
 
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
@@ -331,6 +331,10 @@ end
 function module:HandleButton(_, button)
 	if not button or button.MERSkin then return end
 
+	if not E.private.mui.skins.widgets.button.enable then
+		return
+	end
+
 	local db = E.private.mui.skins.widgets.button
 
 	if button.Icon then
@@ -355,7 +359,7 @@ function module:HandleButton(_, button)
 		bg:SetInside(button, 1, 1)
 		bg:SetAlpha(0)
 		bg:SetTexture(LSM:Fetch("statusbar", db.backdrop.texture) or E.media.normTex)
-		F.SetVertexColorDB(bg, db.backdrop.classColor and classColor or db.backdrop.color)
+		F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
 
 		-- Animations
 		button.merAnimated = { bg = bg, bgOnEnter = CreateAnimation(bg, db.backdrop.animationType, "in", db.backdrop.animationDuration, {0, db.backdrop.alpha}), bgOnLeave = CreateAnimation(bg, db.backdrop.animationType, "out", db.backdrop.animationDuration, {db.backdrop.alpha, 0})}

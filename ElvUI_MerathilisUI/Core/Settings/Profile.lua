@@ -56,9 +56,9 @@ P.blizzard = {
 			borderAlpha = 1,
 			color = {
 				mode = "GRADIENT",
-				normalColor = {r = 0.000, g = 0.659, b = 1.000, a = 1},
+				normalColor = {r = 0, g = 0.659, b = 1.000, a = 1},
 				gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1},
-				gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 1}
+				gradientColor2 = {r = 0, g = 0.752, b = 0.980, a = 1}
 			}
 		},
 		title = {
@@ -74,7 +74,7 @@ P.blizzard = {
 		titleColor = {
 			enable = true,
 			classColor = false,
-			customColorNormal = {r = 0.000, g = 0.659, b = 1.000},
+			customColorNormal = {r = 0, g = 0.752, b = 0.980},
 			customColorHighlight = {r = 0.282, g = 0.859, b = 0.984}
 		},
 	},
