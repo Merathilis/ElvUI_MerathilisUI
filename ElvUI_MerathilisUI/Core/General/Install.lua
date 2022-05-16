@@ -1106,6 +1106,31 @@ function MER:SetupActionbars(layout)
 		E.db["actionbar"]["bar6"]["buttonSpacing"] = 2
 	end
 
+	if layout == "dps" then
+		E.db["actionbar"]["bar7"]["enable"] = true
+		E.db["actionbar"]["bar7"]["buttonSpacing"] = 3
+		E.db["actionbar"]["bar7"]["heightMult"] = 1
+		E.db["actionbar"]["bar7"]["buttons"] = 8
+		E.db["actionbar"]["bar7"]["keepSizeRatio"] = false
+		E.db["actionbar"]["bar7"]["buttonHeight"] = 26
+		E.db["actionbar"]["bar7"]["buttonSize"] = 32
+		E.db["actionbar"]["bar7"]["buttonSpacing"] = 3
+		E.db["actionbar"]["bar7"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar7"]["backdrop"] = false
+		E.db["actionbar"]["bar7"]["inheritGlobalFade"] = false
+		E.db["actionbar"]["bar7"]["counttext"] = true
+		E.db["actionbar"]["bar7"]["countFont"] = "Expressway"
+		E.db["actionbar"]["bar7"]["countFontOutline"] = "OUTLINE"
+		E.db["actionbar"]["bar7"]["hotkeytext"] = true
+		E.db["actionbar"]["bar7"]["hotkeyFont"] = "Expressway"
+		E.db["actionbar"]["bar7"]["hotkeyFontOutline"] = "OUTLINE"
+		E.db["actionbar"]["bar7"]["macrotext"] = true
+		E.db["actionbar"]["bar7"]["macroFont"] = "Expressway"
+		E.db["actionbar"]["bar7"]["macroFontOutline"] = "OUTLINE"
+		E.db["actionbar"]["bar7"]["macroTextPosition"] = "BOTTOM"
+		E.db["actionbar"]["bar7"]["macroTextYOffset"] = 0
+	end
+
 	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["barPet"]["backdrop"] = true
 	E.db["actionbar"]["barPet"]["buttons"] = 9
@@ -1138,12 +1163,13 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["extraActionButton"]["hotkeyFontOutline"] = "OUTLINE"
 
 	if layout == "dps" then
-		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,144"
-		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,177"
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,UIParent,BOTTOM,0,111"
+		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,146"
 		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-438,47"
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,430,47"
 		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,13"
+		E.db["movers"]["ElvAB_7"] = "BOTTOM,ElvUIParent,BOTTOM,0,177"
 		E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,14"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-289,15"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,305,50"
@@ -2161,7 +2187,7 @@ function MER:SetupUnitframes(layout)
 
 		-- Movers
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-244,209"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,121"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,89"
 		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,209"
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,230"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,243,209"
