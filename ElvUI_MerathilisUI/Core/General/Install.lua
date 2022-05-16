@@ -1454,7 +1454,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["absorbStyle"] = "NORMAL"
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["height"] = -1
-		E.db["unitframe"]["units"]["player"]["fader"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["fader"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["fader"]["combat"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["casting"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["health"] = true
