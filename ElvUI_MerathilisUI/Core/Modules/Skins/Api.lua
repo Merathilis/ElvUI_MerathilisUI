@@ -242,18 +242,6 @@ function module:HandleSliderFrame(_, frame)
 	end
 end
 
--- Overwrite ElvUI Tabs function to be transparent
-function module:HandleTab(_, tab)
-	if not tab then return end
-
-	if tab.backdrop then
-		tab.backdrop:SetTemplate("Transparent")
-		tab.backdrop:Styling()
-	end
-
-	MER:CreateBackdropShadow(tab)
-end
-
 function module:ColorButton()
 	if self.backdrop then self = self.backdrop end
 
@@ -270,219 +258,6 @@ function module:ClearButton()
 		self:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
 	else
 		self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-	end
-end
-
-local function IsUglyYellow(...)
-	local r, g, b = ...
-	return abs(r - 1) + abs(g - 0.82) + abs(b) < 0.02
-end
-
-local function Frame_OnEnter(frame)
-	if not frame:IsEnabled() or not frame.merAnimated then
-		return
-	end
-
-	if not frame.selected then
-		if frame.merAnimated.bgOnLeave:IsPlaying() then
-			frame.merAnimated.bgOnLeave:Stop()
-		end
-		frame.merAnimated.bgOnEnter:Play()
-	end
-end
-
-local function Frame_OnLeave(frame)
-	if not frame:IsEnabled() or not frame.merAnimated then
-		return
-	end
-
-	if not frame.selected then
-		if frame.merAnimated.bgOnEnter:IsPlaying() then
-			frame.merAnimated.bgOnEnter:Stop()
-		end
-		frame.merAnimated.bgOnLeave:Play()
-	end
-end
-
-local function CreateAnimation(texture, aType, direction, duration, data)
-	local aType = strlower(aType)
-	local group = texture:CreateAnimationGroup()
-	local event = direction == "in" and "OnPlay" or "OnFinished"
-
-	local startAlpha = data and data[1] or (direction == "in" and 0 or 1)
-	local endAlpha = data and data[2] or (direction == "in" and 1 or 0)
-
-	if aType == "fade" then
-		group.anim = group:CreateAnimation("Alpha")
-		group.anim:SetFromAlpha(startAlpha)
-		group.anim:SetToAlpha(endAlpha)
-		group.anim:SetSmoothing(direction == "in" and "IN" or "OUT")
-		group.anim:SetDuration(duration)
-	elseif aType == "scale" then
-	end
-
-	if group.anim then
-		group:SetScript(event, function()
-			texture:SetAlpha(endAlpha)
-		end)
-		group.anim:SetDuration(duration)
-
-		return group
-	end
-end
-
--- Buttons
-function module:HandleButton(_, button)
-	if not button or button.MERSkin then return end
-
-	if not E.private.mui.skins.widgets.button.enable then
-		return
-	end
-
-	local db = E.private.mui.skins.widgets.button
-
-	if button.Icon then
-		local Texture = button.Icon:GetTexture()
-		if Texture and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]]) then
-			button.Icon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Arrow]])
-			button.Icon:SetVertexColor(1, 1, 1)
-			button.Icon:SetRotation(module.ArrowRotation['RIGHT'])
-		end
-	end
-
-	if db.text.enable then
-		local text = button.Text or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
-		if text and text.GetTextColor then
-			F.SetFontDB(text, db.text.font)
-		end
-	end
-
-	if button.template and db.backdrop.enable then
-		-- Create background
-		local bg = button:CreateTexture()
-		bg:SetInside(button, 1, 1)
-		bg:SetAlpha(0)
-		bg:SetTexture(LSM:Fetch("statusbar", db.backdrop.texture) or E.media.normTex)
-		F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
-
-		if button.Center then
-			local layer, subLayer = button.Center:GetDrawLayer()
-			subLayer = subLayer and subLayer + 1 or 0
-			bg:SetDrawLayer(layer, subLayer)
-		end
-
-		-- Animations
-		button.merAnimated = { bg = bg, bgOnEnter = CreateAnimation(bg, db.backdrop.animationType, "in", db.backdrop.animationDuration, {0, db.backdrop.alpha}), bgOnLeave = CreateAnimation(bg, db.backdrop.animationType, "out", db.backdrop.animationDuration, {db.backdrop.alpha, 0})}
-
-		self:SecureHookScript(button, "OnEnter", Frame_OnEnter)
-		self:SecureHookScript(button, "OnLeave", Frame_OnLeave)
-
-		-- Avoid the hook is flushed
-		self:SecureHook(button, "SetScript", function(frame, scriptType)
-			if scriptType == "OnEnter" then
-				self:Unhook(frame, "OnEnter")
-				self:SecureHookScript(frame, "OnEnter", Frame_OnEnter)
-			elseif scriptType == "OnLeave" then
-				self:Unhook(frame, "OnLeave")
-				self:SecureHookScript(frame, "OnLeave", Frame_OnLeave)
-			end
-		end)
-
-		if db.backdrop.removeBorderEffect then
-			button.SetBackdropBorderColor = E.noop
-		end
-	end
-
-	button.MERSkin = true
-end
-
--- Checkbox
-do
-	S.Ace3_RegisterAsWidget_ = S.Ace3_RegisterAsWidget
-	function S:Ace3_RegisterAsWidget(widget)
-		S:Ace3_RegisterAsWidget_(widget)
-		module:HandleButton(nil, widget)
-	end
-end
-
-function module:HandleAce3CheckBox(check)
-	if not E.private.skins.checkBoxSkin then
-		return
-	end
-
-	local db = E.private.mui.skins.widgets.checkBox
-
-	if not check or not db or not db.enable then
-		return
-	end
-
-	if not check.MERSkin then
-		check:SetTexture(LSM:Fetch("statusbar", db.elvUISkin.texture) or E.media.normTex)
-		check.SetTexture = E.noop
-		check.MERSkin = true
-	end
-
-	if IsUglyYellow(check:GetVertexColor()) then
-		F.SetVertexColorDB(check, db.elvUISkin.classColor and module.ClassColor or db.elvUISkin.color)
-	end
-end
-
-do
-	S.Ace3_CheckBoxSetDesaturated_ = S.Ace3_CheckBoxSetDesaturated
-	function S.Ace3_CheckBoxSetDesaturated(check, value)
-		S.Ace3_CheckBoxSetDesaturated_(check, value)
-		module:HandleAce3CheckBox(check)
-	end
-end
-
-function module:HandleCheckBox(_, check)
-	if not E.private.skins.checkBoxSkin then
-		return
-	end
-
-	local db = E.private.mui.skins.widgets.checkBox
-	if not check or not db or not db.enable then
-		return
-	end
-
-	if not check.MERSkin then
-		if check.GetCheckedTexture then
-			local tex = check:GetCheckedTexture()
-			if tex then
-				tex:SetTexture(LSM:Fetch("statusbar", db.elvUISkin.texture) or E.media.normTex)
-				tex.SetTexture = E.noop
-				F.SetVertexColorDB(tex, db.elvUISkin.classColor and module.ClassColor or db.elvUISkin.color)
-				tex.SetVertexColor_ = tex.SetVertexColor
-				tex.SetVertexColor = function(tex, ...)
-					if IsUglyYellow(...) then
-						local color = db.elvUISkin.classColor and module.ClassColor or db.elvUISkin.color
-						tex:SetVertexColor_(color.r, color.g, color.b, color.a)
-					else
-						tex:SetVertexColor_(...)
-					end
-				end
-			end
-		end
-
-		if check.GetDisabledTexture then
-			local tex = check:GetDisabledTexture()
-			if tex then
-				tex.SetTexture_ = tex.SetTexture
-				tex.SetTexture = function(tex, texPath)
-					if not texPath then
-						return
-					end
-
-					if texPath == "" then
-						tex:SetTexture_("")
-					else
-						tex:SetTexture_(LSM:Fetch("statusbar", db.elvUISkin.texture) or E.media.normTex)
-					end
-				end
-			end
-		end
-
-		check.MERSkin = true
 	end
 end
 
@@ -708,8 +483,8 @@ function module:ReskinAS(AS)
 			end
 		end)
 
-		Button:HookScript("OnEnter", Frame_OnEnter)
-		Button:HookScript("OnLeave", Frame_OnLeave)
+		Button:HookScript("OnEnter", module.EnterAnimation)
+		Button:HookScript("OnLeave", module.LeaveAnimation)
 	end
 end
 
@@ -740,9 +515,6 @@ end
 hooksecurefunc(E, "UpdateMedia", updateMedia)
 
 -- hook the skin functions from ElvUI
-module:SecureHook(S, "HandleTab")
-module:SecureHook(S, "HandleButton")
-module:SecureHook(S, "HandleCheckBox")
 module:SecureHook(S, "HandleScrollBar")
 module:SecureHook(S, "HandleSliderFrame")
 module:SecureHook(S, "SkinTextWithStateWidget")

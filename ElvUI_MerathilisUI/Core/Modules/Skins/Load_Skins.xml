@@ -2,4 +2,5 @@
 	<Script file='API.lua'/>
 	<Script file='ElvUI_OptionsUI.lua'/>
 	<Script file='Options.lua'/>
+	<Include file='Widgets\Load_Widgets.xml'/>
 </Ui>
