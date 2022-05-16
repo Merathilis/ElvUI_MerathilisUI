@@ -26,9 +26,9 @@ function module:HandleAce3CheckBox(check)
 end
 
 do
-	S.Ace3_CheckBoxSetDesaturated_ = S.Ace3_CheckBoxSetDesaturated
+	S.Ace3_CheckBoxSetDesaturated_Changed = S.Ace3_CheckBoxSetDesaturated
 	function S.Ace3_CheckBoxSetDesaturated(check, value)
-		S.Ace3_CheckBoxSetDesaturated_(check, value)
+		S.Ace3_CheckBoxSetDesaturated_Changed(check, value)
 		module:HandleAce3CheckBox(check)
 	end
 end
