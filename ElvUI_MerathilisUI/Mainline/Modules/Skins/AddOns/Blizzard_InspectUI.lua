@@ -123,7 +123,6 @@ local function LoadSkin()
 
 	for i = 1, 4 do
 		local tab = _G["InspectFrameTab"..i]
-		MERS:ReskinTab(tab)
 		if i ~= 1 then
 			tab:SetPoint("LEFT", _G["InspectFrameTab"..i-1], "RIGHT", -15, 0)
 		end
