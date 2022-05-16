@@ -52,7 +52,7 @@ function module:HandleCheckBox(_, check)
 				F.SetVertexColorDB(tex, db.elvUISkin.classColor and module.ClassColor or db.elvUISkin.color)
 				tex.SetVertexColor_ = tex.SetVertexColor
 				tex.SetVertexColor = function(tex, ...)
-					if IsUglyYellow(...) then
+					if self.IsUglyYellow(...) then
 						local color = db.elvUISkin.classColor and module.ClassColor or db.elvUISkin.color
 						tex:SetVertexColor_(color.r, color.g, color.b, color.a)
 					else

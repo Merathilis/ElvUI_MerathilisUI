@@ -70,9 +70,9 @@ function module:HandleButton(_, button)
 end
 
 do
-	S.Ace3_RegisterAsWidget_ = S.Ace3_RegisterAsWidget
+	S.Ace3_RegisterAsWidget_Changed = S.Ace3_RegisterAsWidget
 	function S:Ace3_RegisterAsWidget(widget)
-		S:Ace3_RegisterAsWidget_(widget)
+		S:Ace3_RegisterAsWidget_Changed(widget)
 		module:HandleButton(nil, widget)
 	end
 end
