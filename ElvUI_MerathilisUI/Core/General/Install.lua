@@ -941,9 +941,9 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["cooldown"]["hoursColor"]["r"] = 0.4
 
 	E.db["actionbar"]["bar1"]["buttonSpacing"] = 2
-	E.db["actionbar"]["bar1"]["heightMult"] = 2
+	E.db["actionbar"]["bar1"]["heightMult"] = 3
 	E.db["actionbar"]["bar1"]["buttons"] = 8
-	E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
+	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
 	E.db["actionbar"]["bar1"]["backdrop"] = true
 	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar1"]["counttext"] = true
@@ -1107,7 +1107,7 @@ function MER:SetupActionbars(layout)
 	end
 
 	if layout == "dps" then
-		E.db["actionbar"]["bar7"]["enable"] = true
+		E.db["actionbar"]["bar7"]["enabled"] = true
 		E.db["actionbar"]["bar7"]["buttonSpacing"] = 3
 		E.db["actionbar"]["bar7"]["heightMult"] = 1
 		E.db["actionbar"]["bar7"]["buttons"] = 8
