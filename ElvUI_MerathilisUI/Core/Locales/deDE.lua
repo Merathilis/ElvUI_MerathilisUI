@@ -726,6 +726,12 @@ L["Enable/Disable"] = "Aktiviere/Deaktiviere"
 L["decor."] = "Dekor"
 L["MerathilisUI Button Style"] = "MerathilisUI Tastenstil"
 L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"] = "Fügt dekorative Streifen den Ingame-Buttons hinzu. (Nur aktiv mit MerathilisUI Stil)"
+L["Additional Backdrop"] = "Zusätzlicher Hintergrund"
+L["Remove Border Effect"] = "Entferne Randeffekt"
+L["Animation Type"] = "Animationstyp"
+L["The type of animation activated when a button is hovered."] = "Der Animationstyp, der aktiviert wird, wenn man sich darüber bewegt."
+L["Animation Duration"] = "Animationsdauer"
+L["The duration of the animation in seconds."] = "Die Dauer der Animation in Sekunden."
 
 -- Panels
 L["Top Left Panel"] = "Leiste oben links"

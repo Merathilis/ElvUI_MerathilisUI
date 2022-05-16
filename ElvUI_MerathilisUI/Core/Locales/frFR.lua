@@ -722,6 +722,12 @@ L["Enable/Disable"] = true
 L["decor."] = true
 L["MerathilisUI Button Style"] = true
 L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"] = true
+L["Additional Backdrop"] = true
+L["Remove Border Effect"] = true
+L["Animation Type"] = true
+L["The type of animation activated when a button is hovered."] = true
+L["Animation Duration"] = true
+L["The duration of the animation in seconds."] = true
 
 -- Panels
 L["Top Left Panel"] = true
