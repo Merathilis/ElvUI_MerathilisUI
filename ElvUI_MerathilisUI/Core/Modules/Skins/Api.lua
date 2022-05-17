@@ -384,14 +384,14 @@ function module:ReskinAS(AS)
 		local TabName = Tab:GetName()
 
 		if TabName then
-			for _, Region in pairs(module.Blizzard.Regions) do
+			for _, Region in pairs(AS.Blizzard.Regions) do
 				if _G[TabName..Region] then
 					_G[TabName..Region]:SetTexture(nil)
 				end
 			end
 		end
 
-		for _, Region in pairs(module.Blizzard.Regions) do
+		for _, Region in pairs(AS.Blizzard.Regions) do
 			if Tab[Region] then
 				Tab[Region]:SetAlpha(0)
 			end
