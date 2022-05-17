@@ -1003,12 +1003,14 @@ function MER:SetupActionbars(layout)
 	end
 
 	E.db["actionbar"]["bar3"]["enabled"] = true
-	E.db["actionbar"]["bar3"]["backdrop"] = true
-	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 1
-	E.db["actionbar"]["bar3"]["buttonSize"] = 26
+	E.db["actionbar"]["bar3"]["backdrop"] = false
+	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 12
+	E.db["actionbar"]["bar3"]["buttonSize"] = 32
+	E.db["actionbar"]["bar3"]["keepSizeRatio"] = false
+	E.db["actionbar"]["bar3"]["buttonHeight"] = 26
 	E.db["actionbar"]["bar3"]["buttonSpacing"] = 3
-	E.db["actionbar"]["bar3"]["buttons"] = 5
-	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
+	E.db["actionbar"]["bar3"]["buttons"] = 8
+	E.db["actionbar"]["bar3"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar3"]["mouseover"] = false
 	E.db["actionbar"]["bar3"]["showGrid"] = true
@@ -1046,28 +1048,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar4"]["macroTextPosition"] = "BOTTOM"
 	E.db["actionbar"]["bar4"]["macroTextYOffset"] = 0
 
-	E.db["actionbar"]["bar5"]["enabled"] = true
-	E.db["actionbar"]["bar5"]["backdrop"] = true
-	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 1
-	E.db["actionbar"]["bar5"]["buttonSize"] = 26
-	E.db["actionbar"]["bar5"]["buttonSpacing"] = 3
-	E.db["actionbar"]["bar5"]["buttons"] = 5
-	E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
-	E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
-	E.db["actionbar"]["bar5"]["mouseover"] = false
-	E.db["actionbar"]["bar5"]["showGrid"] = true
-	E.db["actionbar"]["bar5"]["inheritGlobalFade"] = false
-	E.db["actionbar"]["bar5"]["counttext"] = true
-	E.db["actionbar"]["bar5"]["countFont"] = "Expressway"
-	E.db["actionbar"]["bar5"]["countFontOutline"] = "OUTLINE"
-	E.db["actionbar"]["bar5"]["hotkeytext"] = true
-	E.db["actionbar"]["bar5"]["hotkeyFont"] = "Expressway"
-	E.db["actionbar"]["bar5"]["hotkeyFontOutline"] = "OUTLINE"
-	E.db["actionbar"]["bar5"]["macrotext"] = true
-	E.db["actionbar"]["bar5"]["macroFont"] = "Expressway"
-	E.db["actionbar"]["bar5"]["macroFontOutline"] = "OUTLINE"
-	E.db["actionbar"]["bar5"]["macroTextPosition"] = "BOTTOM"
-	E.db["actionbar"]["bar5"]["macroTextYOffset"] = 0
+	E.db["actionbar"]["bar5"]["enabled"] = false
 
 	E.db["actionbar"]["bar6"]["enabled"] = true
 	E.db["actionbar"]["bar6"]["backdropSpacing"] = 3
@@ -1106,30 +1087,7 @@ function MER:SetupActionbars(layout)
 		E.db["actionbar"]["bar6"]["buttonSpacing"] = 2
 	end
 
-	if layout == "dps" then
-		E.db["actionbar"]["bar7"]["enabled"] = true
-		E.db["actionbar"]["bar7"]["buttonSpacing"] = 3
-		E.db["actionbar"]["bar7"]["heightMult"] = 1
-		E.db["actionbar"]["bar7"]["buttons"] = 8
-		E.db["actionbar"]["bar7"]["keepSizeRatio"] = false
-		E.db["actionbar"]["bar7"]["buttonHeight"] = 26
-		E.db["actionbar"]["bar7"]["buttonSize"] = 32
-		E.db["actionbar"]["bar7"]["buttonSpacing"] = 3
-		E.db["actionbar"]["bar7"]["backdropSpacing"] = 4
-		E.db["actionbar"]["bar7"]["backdrop"] = false
-		E.db["actionbar"]["bar7"]["inheritGlobalFade"] = false
-		E.db["actionbar"]["bar7"]["counttext"] = true
-		E.db["actionbar"]["bar7"]["countFont"] = "Expressway"
-		E.db["actionbar"]["bar7"]["countFontOutline"] = "OUTLINE"
-		E.db["actionbar"]["bar7"]["hotkeytext"] = true
-		E.db["actionbar"]["bar7"]["hotkeyFont"] = "Expressway"
-		E.db["actionbar"]["bar7"]["hotkeyFontOutline"] = "OUTLINE"
-		E.db["actionbar"]["bar7"]["macrotext"] = true
-		E.db["actionbar"]["bar7"]["macroFont"] = "Expressway"
-		E.db["actionbar"]["bar7"]["macroFontOutline"] = "OUTLINE"
-		E.db["actionbar"]["bar7"]["macroTextPosition"] = "BOTTOM"
-		E.db["actionbar"]["bar7"]["macroTextYOffset"] = 0
-	end
+	E.db["actionbar"]["bar7"]["enabled"] = false
 
 	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["barPet"]["backdrop"] = true
@@ -1165,7 +1123,7 @@ function MER:SetupActionbars(layout)
 	if layout == "dps" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,UIParent,BOTTOM,0,111"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,146"
-		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-438,47"
+		E.db["movers"]["ElvAB_3"] = "OTTOM,ElvUIParent,BOTTOM,0,177"
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,430,47"
 		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,13"
@@ -1175,9 +1133,9 @@ function MER:SetupActionbars(layout)
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,305,50"
 		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 		E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,304,140"
-		E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-20,195"
-		E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-20,233"
-		E.db["movers"]["AutoButtonBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-20,271"
+		E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,197"
+		E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,233"
+		E.db["movers"]["AutoButtonBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,269"
 	elseif layout == "healer" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,123"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,161"
