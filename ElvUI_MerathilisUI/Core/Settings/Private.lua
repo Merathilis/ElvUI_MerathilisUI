@@ -63,12 +63,15 @@ V.skins = {
 		},
 		checkBox = {
 			enable = true,
-			elvUISkin = {
-				enable = true,
-				texture = "RenAscensionL",
-				classColor = false,
-				color = {r = 0, g = 0.752, b = 0.980, a = 1}
-			},
+			texture = "RenAscensionL",
+			classColor = false,
+			color = {r = 0, g = 0.752, b = 0.980, a = 1}
+		},
+		slider = {
+			enable = true,
+			texture = "RenAscensionL",
+			classColor = false,
+			color = {r = 0, g = 0.752, b = 0.980, a = 1}
 		},
 	},
 	blizzard = {

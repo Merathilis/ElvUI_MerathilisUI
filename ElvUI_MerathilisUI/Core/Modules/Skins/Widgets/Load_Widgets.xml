@@ -5,4 +5,5 @@
 	<Script file='Button.lua'/>
 	<Script file='CheckBox.lua'/>
 	<Script file='Tab.lua'/>
+	<Script file='Slider.lua'/>
 </Ui>

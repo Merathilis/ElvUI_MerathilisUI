@@ -513,7 +513,7 @@ hooksecurefunc(E, "UpdateMedia", updateMedia)
 
 -- hook the skin functions from ElvUI
 module:SecureHook(S, "HandleScrollBar")
-module:SecureHook(S, "HandleSliderFrame")
+-- module:SecureHook(S, "HandleSliderFrame")
 module:SecureHook(S, "SkinTextWithStateWidget")
 
 function module:Initialize()
