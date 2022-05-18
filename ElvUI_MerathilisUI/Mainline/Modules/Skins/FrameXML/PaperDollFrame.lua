@@ -56,6 +56,27 @@ local function ColorizeStatPane(frame)
 	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
 end
 
+local function SkinSLEArmory()
+	if not IsAddOnLoaded('ElvUI_SLE') then return end
+	local db = E.db.sle.armory
+
+	if not db and db.character.enable then
+		return
+	end
+
+	if CharacterStatsPane.OffenseCategory then
+		CharacterStatsPane.OffenseCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+		StatsPane("OffenseCategory")
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
+	end
+	
+	if CharacterStatsPane.DefenceCategory then
+		CharacterStatsPane.DefenceCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+		StatsPane("DefenceCategory")
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenceCategory)
+	end
+end
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.mui.skins.blizzard.character ~= true then return end
 
@@ -82,6 +103,8 @@ local function LoadSkin()
 
 		CharacterStatsPane.ItemLevelFrame.Background:SetAlpha(0)
 		ColorizeStatPane(CharacterStatsPane.ItemLevelFrame)
+	
+		E:Delay(0.2, SkinSLEArmory)
 
 		hooksecurefunc("PaperDollFrame_UpdateStats", function()
 			for _, Table in ipairs({_G.CharacterStatsPane.statsFramePool:EnumerateActive()}) do
