@@ -482,9 +482,6 @@ function module:ReskinAS(AS)
 				self:GetFontString():SetTextColor(.5, .5, .5)
 			end
 		end)
-
-		Button:HookScript("OnEnter", module.EnterAnimation)
-		Button:HookScript("OnLeave", module.LeaveAnimation)
 	end
 end
 
