@@ -733,6 +733,14 @@ L["Animation Type"] = true
 L["The type of animation activated when a button is hovered."] = true
 L["Animation Duration"] = true
 L["The duration of the animation in seconds."] = true
+L["Backdrop Class Color"] = true
+L["Border Class Color"] = true
+L["Border Color"] = true
+L["Normal Class Color"] = true
+L["Selected Backdrop & Border"] = true
+L["Selected Class Color"] = true
+L["Selected Color"] = true
+L["Tab"] = true
 
 -- Panels
 L["Top Left Panel"] = true

@@ -723,6 +723,14 @@ L["Animation Type"] = true
 L["The type of animation activated when a button is hovered."] = true
 L["Animation Duration"] = true
 L["The duration of the animation in seconds."] = true
+L["Backdrop Class Color"] = "背景職業色"
+L["Border Class Color"] = "邊框職業色"
+L["Border Color"] = "邊框顏色"
+L["Normal Class Color"] = "普通職業顏色"
+L["Selected Backdrop & Border"] = "選中時背景和邊框"
+L["Selected Class Color"] = "選中時職業顏色"
+L["Selected Color"] = "選中時顏色"
+L["Tab"] = "標籤"
 
 -- Panels
 L["Top Left Panel"] = true

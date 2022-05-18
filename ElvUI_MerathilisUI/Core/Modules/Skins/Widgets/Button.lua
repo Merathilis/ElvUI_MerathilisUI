@@ -3,6 +3,7 @@ local module = MER.Modules.Skins
 local LSM = E.Libs.LSM
 local S = E.Skins
 
+local _G = _G
 local strfind = strfind
 
 function module:HandleButton(_, button)
@@ -30,39 +31,42 @@ function module:HandleButton(_, button)
 		end
 	end
 
-	if button.template and db.backdrop.enable then
+	if button.template and (button.template or button.backdrop) then
+		local parentFrame = button.backdrop or button
+
 		-- Create background
-		local bg = button:CreateTexture()
-		bg:SetInside(button, 1, 1)
+		local bg = parentFrame:CreateTexture()
+		bg:SetInside(parentFrame, 1, 1)
 		bg:SetAlpha(0)
 		bg:SetTexture(LSM:Fetch("statusbar", db.backdrop.texture) or E.media.normTex)
-		F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
 
-		if button.Center then
-			local layer, subLayer = button.Center:GetDrawLayer()
+		if parentFrame.Center then
+			local layer, subLayer = parentFrame.Center:GetDrawLayer()
 			subLayer = subLayer and subLayer + 1 or 0
 			bg:SetDrawLayer(layer, subLayer)
 		end
 
-		-- Animations
-		button.merAnimated = { bg = bg, bgOnEnter = module.CreateAnimation(bg, db.backdrop.animationType, "in", db.backdrop.animationDuration, {0, db.backdrop.alpha}), bgOnLeave = module.CreateAnimation(bg, db.backdrop.animationType, "out", db.backdrop.animationDuration, {db.backdrop.alpha, 0})}
+		F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
 
-		self:SecureHookScript(button, "OnEnter", module.EnterAnimation)
-		self:SecureHookScript(button, "OnLeave", module.LeaveAnimation)
+		local group, onEnter, onLeave = self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
+		button.MERAnimation = { bg = bg, group = group, onEnter = onEnter, onLeave = onLeave }
+
+		self:SecureHookScript(button, "OnEnter", onEnter)
+		self:SecureHookScript(button, "OnLeave", onLeave)
 
 		-- Avoid the hook is flushed
 		self:SecureHook(button, "SetScript", function(frame, scriptType)
 			if scriptType == "OnEnter" then
 				self:Unhook(frame, "OnEnter")
-				self:SecureHookScript(frame, "OnEnter", module.EnterAnimation)
+				self:SecureHookScript(frame, "OnEnter", onEnter)
 			elseif scriptType == "OnLeave" then
 				self:Unhook(frame, "OnLeave")
-				self:SecureHookScript(frame, "OnLeave", module.LeaveAnimation)
+				self:SecureHookScript(frame, "OnLeave", onLeave)
 			end
 		end)
 
 		if db.backdrop.removeBorderEffect then
-			button.SetBackdropBorderColor = E.noop
+			parentFrame.SetBackdropBorderColor = E.noop
 		end
 	end
 

@@ -30,6 +30,37 @@ V.skins = {
 				},
 			},
 		},
+		tab = {
+			enable = true,
+			backdrop = {
+				enable = true,
+				texture = "RenAscensionL",
+				classColor = false,
+				color = {r = 0, g = 0.752, b = 0.980},
+				alpha = 1,
+				animationType = "FADE",
+				animationDuration = 0.2
+			},
+			selected = {
+				enable = true,
+				texture = "RenAscensionL",
+				backdropClassColor = false,
+				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.4},
+				borderClassColor = false,
+				borderColor = {r = 0.145, g = 0.353, b = 0.698, a = 1},
+			},
+			text = {
+				enable = true,
+				normalClassColor = false,
+				normalColor = {r = 1, g = 0.82, b = 0},
+				selectedClassColor = false,
+				selectedColor = {r = 1, g = 1, b = 1},
+				font = {
+					name = E.db.general.font,
+					style = "OUTLINE"
+				},
+			},
+		},
 		checkBox = {
 			enable = true,
 			elvUISkin = {

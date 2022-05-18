@@ -732,6 +732,14 @@ L["Animation Type"] = "Animationstyp"
 L["The type of animation activated when a button is hovered."] = "Der Animationstyp, der aktiviert wird, wenn man sich darüber bewegt."
 L["Animation Duration"] = "Animationsdauer"
 L["The duration of the animation in seconds."] = "Die Dauer der Animation in Sekunden."
+L["Backdrop Class Color"] = "Hintergrund Klassenfarbe"
+L["Border Class Color"] = "Rahmen Klassenfarbe"
+L["Border Color"] = "Rahmen Farbe"
+L["Normal Class Color"] = "Normale Klassenfarbe"
+L["Selected Backdrop & Border"] = "Ausgewählter Hintergrund & Rahmen"
+L["Selected Class Color"] = "Ausgewählte Klassenfarbe"
+L["Selected Color"] = "Ausgewählte Farbe"
+L["Tab"] = true
 
 -- Panels
 L["Top Left Panel"] = "Leiste oben links"
