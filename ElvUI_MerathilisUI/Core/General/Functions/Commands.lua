@@ -44,3 +44,11 @@ function MER:LuaError(msg)
 		MER:Print('/muierror on - /muierror off')
 	end
 end
+
+function MER.PrintDebugEnviromentTip()
+	MER.PrintGradientLine()
+	MER:Print(L["Debug Enviroment"])
+	print(L["You can use |cff00ff00/wtdebug off|r command to exit debug mode."])
+	print(format(L["After you stop debuging, %s will reenable the addons automatically."], W.Title))
+	MER.PrintGradientLine()
+end
