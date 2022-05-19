@@ -95,6 +95,9 @@ function module:SetBlizzFonts()
 	if E.private.general.replaceBlizzFonts then
 		if module.db.zoneText.enable then
 			_G["ZoneTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.zone.font), module.db.zoneText.zone.size, module.db.zoneText.zone.outline) -- Main zone name
+			if _G.EventToastManagerFrame.currentDisplayingToast then
+				_G.EventToastManagerFrame.currentDisplayingToast.Title:SetFont(E.LSM:Fetch('font', module.db.zoneText.zone.font), module.db.zoneText.zone.size, module.db.zoneText.zone.outline) -- e.g. Torghast
+			end
 			_G["PVPInfoTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.pvp.font), module.db.zoneText.pvp.size, module.db.zoneText.pvp.outline) -- PvP status for main zone
 			_G["PVPArenaTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.pvp.font), module.db.zoneText.pvp.size, module.db.zoneText.pvp.outline) -- PvP status for subzone
 			_G["SubZoneTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.subzone.font), module.db.zoneText.subzone.size, module.db.zoneText.subzone.outline) -- Subzone name

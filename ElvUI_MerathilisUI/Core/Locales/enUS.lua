@@ -737,6 +737,7 @@ L["Selected Backdrop & Border"] = true
 L["Selected Class Color"] = true
 L["Selected Color"] = true
 L["Tab"] = true
+L["Tree Group Button"] = true
 
 -- Panels
 L["Top Left Panel"] = true

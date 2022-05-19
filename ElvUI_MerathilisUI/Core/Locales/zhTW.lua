@@ -731,6 +731,7 @@ L["Selected Backdrop & Border"] = "選中時背景和邊框"
 L["Selected Class Color"] = "選中時職業顏色"
 L["Selected Color"] = "選中時顏色"
 L["Tab"] = "標籤"
+L["Tree Group Button"] = true
 
 -- Panels
 L["Top Left Panel"] = true

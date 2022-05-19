@@ -85,4 +85,17 @@ function module:Ace3_RegisterAsWidget(_, widget)
 	end
 end
 
+function module:Ace3_RegisterAsContainer(_, widget)
+	local widgetType = widget.type
+
+	if not widgetType then
+		return
+	end
+
+	if widgetType == "TreeGroup" then
+		self:HandleTreeGroup(widget)
+	end
+end
+
 module:SecureHook(S, "Ace3_RegisterAsWidget")
+module:SecureHook(S, "Ace3_RegisterAsContainer")

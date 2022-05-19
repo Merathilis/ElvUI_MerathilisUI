@@ -73,6 +73,26 @@ V.skins = {
 			classColor = false,
 			color = {r = 0, g = 0.752, b = 0.980, a = 1}
 		},
+		treeGroupButton = {
+			enable = true,
+			backdrop = {
+				enable = true,
+				texture = "RenAscensionL",
+				classColor = false,
+				color = {r = 0, g = 0.752, b = 0.980},
+				alpha = 1,
+				animationType = "FADE",
+				animationDuration = 0.2,
+				removeBorderEffect = true
+			},
+			text = {
+				enable = true,
+				font = {
+					name = E.db.general.font,
+					style = "OUTLINE"
+				}
+			}
+		},
 	},
 	blizzard = {
 		character = true,
