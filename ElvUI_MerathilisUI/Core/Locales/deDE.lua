@@ -740,7 +740,7 @@ L["Selected Backdrop & Border"] = "Ausgewählter Hintergrund & Rahmen"
 L["Selected Class Color"] = "Ausgewählte Klassenfarbe"
 L["Selected Color"] = "Ausgewählte Farbe"
 L["Tab"] = true
-L["Tree Group Button"] = "Baumstruktur Taste" --Wie kacke dass klingt
+L["Tree Group Button"] = "Baumstrukturtaste" --Wie kacke dass klingt
 
 -- Panels
 L["Top Left Panel"] = "Leiste oben links"
