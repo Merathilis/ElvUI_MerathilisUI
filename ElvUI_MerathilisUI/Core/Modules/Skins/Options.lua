@@ -251,7 +251,7 @@ local function SkinsTable()
 										order = 6,
 										type = "group",
 										inline = true,
-										name = L["Font Group"],
+										name = L["Font Setting"],
 										disabled = function(info)
 											return not E.private.mui.skins.widgets[info[#info - 3]].enable or
 												not E.private.mui.skins.widgets[info[#info - 3]][info[#info - 2]].enable
@@ -428,7 +428,7 @@ local function SkinsTable()
 										order = 6,
 										type = "group",
 										inline = true,
-										name = L["Font Group"],
+										name = L["Font Setting"],
 										disabled = function(info)
 											return not E.private.mui.skins.widgets[info[#info - 3]].enable or
 												not E.private.mui.skins.widgets[info[#info - 3]][info[#info - 2]].enable
