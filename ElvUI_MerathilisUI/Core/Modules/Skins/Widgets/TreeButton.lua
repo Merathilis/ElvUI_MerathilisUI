@@ -3,17 +3,21 @@ local module = MER.Modules.Skins
 local LSM = E.Libs.LSM
 local S = E.Skins
 
+local _G = _G
+local abs = abs
+local type = type
+
 function module:HandleTreeGroup(widget)
+	if not E.private.mui.skins.widgets.treeGroupButton.enable then
+		return button
+	end
+
+	local db = E.private.mui.skins.widgets.treeGroupButton
+
 	if widget.CreateButton then
 		widget.CreateButton_Changed = widget.CreateButton
 		widget.CreateButton = function(...)
 			local button = widget.CreateButton_Changed(...)
-
-			if not E.private.mui.skins.widgets.treeGroupButton.enable then
-				return button
-			end
-
-			local db = E.private.mui.skins.widgets.treeGroupButton
 
 			if db.text.enable then
 				local text = button.Text or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
@@ -36,7 +40,7 @@ function module:HandleTreeGroup(widget)
 				button:SetHighlightTexture("")
 
 				local bg = button:CreateTexture()
-				bg:SetInside(button, 1, 0)
+				bg:SetInside(button, 2, 0)
 				bg:SetAlpha(0)
 				bg:SetTexture(LSM:Fetch("statusbar", db.backdrop.texture) or E.media.normTex)
 
@@ -64,6 +68,30 @@ function module:HandleTreeGroup(widget)
 						self:SecureHookScript(frame, "OnLeave", onLeave)
 					end
 				end)
+			end
+
+			if db.selected.enable then
+				button:CreateBackdrop()
+				button.backdrop:SetInside(button, 2, 0)
+				local borderColor = db.selected.borderClassColor and module.ClassColor or db.selected.borderColor
+				local backdropColor = db.selected.backdropClassColor and module.ClassColor or db.selected.backdropColor
+				button.backdrop.Center:SetTexture(LSM:Fetch("statusbar", db.selected.texture) or E.media.glossTex)
+				button.backdrop:SetBackdropBorderColor(borderColor.r, borderColor.g, borderColor.b, db.selected.borderAlpha)
+				button.backdrop:SetBackdropColor(backdropColor.r, backdropColor.g, backdropColor.b, db.selected.backdropAlpha)
+				button.backdrop:Hide()
+
+				button.LockHighlight_Changed = button.LockHighlight
+				button.LockHighlight = function(frame)
+					if frame.backdrop then
+						frame.backdrop:Show()
+					end
+				end
+				button.UnlockHighlight_Changed = button.UnlockHighlight
+				button.UnlockHighlight = function(frame)
+					if frame.backdrop then
+						frame.backdrop:Hide()
+					end
+				end
 			end
 
 			button.MERSkinned = true

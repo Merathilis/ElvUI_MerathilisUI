@@ -316,7 +316,7 @@ local function SkinsTable()
 									return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								end,
 								set = function(info, value)
-									E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]] = value
+									E.private.WT.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]] = value
 									E:StaticPopup_Show("PRIVATE_RL")
 								end,
 								disabled = function(info)
@@ -395,11 +395,110 @@ local function SkinsTable()
 										min = 0,
 										max = 3,
 										step = 0.01
+									}
+								}
+							},
+							selected = {
+								order = 3,
+								type = "group",
+								name = L["Selected Backdrop & Border"],
+								inline = true,
+								get = function(info)
+									return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+								end,
+								set = function(info, value)
+									E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]] = value
+									E:StaticPopup_Show("PRIVATE_RL")
+								end,
+								disabled = function(info)
+									return not E.private.mui.skins.widgets[info[#info - 2]].enable or
+										not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
+								end,
+								args = {
+									enable = {
+										order = 1,
+										type = "toggle",
+										name = L["Enable"],
+										width = "full",
+										disabled = function(info)
+											return not E.private.mui.skins.widgets[info[#info - 2]].enable
+										end
 									},
-								},
+									texture = {
+										order = 2,
+										type = "select",
+										name = L["Texture"],
+										dialogControl = "LSM30_Statusbar",
+										values = LSM:HashTable("statusbar")
+									},
+									backdropClassColor = {
+										order = 3,
+										type = "toggle",
+										name = L["Backdrop Class Color"],
+										width = 1.5
+									},
+									backdropColor = {
+										order = 4,
+										type = "color",
+										name = L["Backdrop Color"],
+										hasAlpha = false,
+										hidden = function(info)
+											return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].backdropClassColor
+										end,
+										get = function(info)
+											local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											local default = V.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+										end,
+										set = function(info, r, g, b)
+											local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											db.r, db.g, db.b = r, g, b
+										end
+									},
+									backdropAlpha = {
+										order = 5,
+										type = "range",
+										name = L["Backdrop Alpha"],
+										min = 0,
+										max = 1,
+										step = 0.01
+									},
+									borderClassColor = {
+										order = 6,
+										type = "toggle",
+										name = L["Border Class Color"],
+										width = 1.5
+									},
+									borderColor = {
+										order = 7,
+										type = "color",
+										name = L["Border Color"],
+										hasAlpha = false,
+										hidden = function(info)
+											return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].borderClassColor
+										end,
+										get = function(info)
+											local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											local default = V.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+										end,
+										set = function(info, r, g, b)
+											local db = E.private.WT.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											db.r, db.g, db.b = r, g, b
+										end
+									},
+									borderAlpha = {
+										order = 8,
+										type = "range",
+										name = L["Border Alpha"],
+										min = 0,
+										max = 1,
+										step = 0.01
+									}
+								}
 							},
 							text = {
-								order = 3,
+								order = 4,
 								type = "group",
 								name = L["Text"],
 								inline = true,
