@@ -362,7 +362,7 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["countFontSize"] = 10
 	E.db["bags"]["countFontOutline"] = "OUTLINE"
 	E.db["bags"]["bagSize"] = 34
-	E.db["bags"]["bagWidth"] = 450
+	E.db["bags"]["bagWidth"] = 433
 	E.db["bags"]["bankSize"] = 34
 	E.db["bags"]["bankWidth"] = 427
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
@@ -1131,6 +1131,7 @@ function MER:SetupActionbars(layout)
 		E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,14"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-289,15"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,305,50"
+		E.db["movers"]["ZoneAbility"] = "BOTTOM,UIParent,BOTTOM,305,92"
 		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 		E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,304,140"
 		E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,197"
@@ -1851,8 +1852,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["anchorPoint"] = "CENTER"
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["noConsolidated"] = false
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["priority"] = "MER_RaidCDs"
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["useFilter"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["priority"] = "TurtleBuffs"
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["useFilter"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["raid40"]["name"]["text_format"] = ""
 		E.db["unitframe"]["units"]["raid40"]["positionOverride"] = "BOTTOMRIGHT"
@@ -1935,8 +1936,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 3
 		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["party"]["buffs"]["clickThrough"] = true
-		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "MER_RaidCDs"
-		E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "TurtleBuffs"
+		E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
 		E.db["unitframe"]["units"]["party"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = -15
@@ -2465,14 +2466,14 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["raid"]["buffs"]["playerOnly"] = false
 		E.db["unitframe"]["units"]["raid"]["buffs"]["perrow"] = 1
-		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["raid"]["buffs"]["noConsolidated"] = false
 		E.db["unitframe"]["units"]["raid"]["buffs"]["sizeOverride"] = 20
 		E.db["unitframe"]["units"]["raid"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["buffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["buffs"]["countFontSize"] = 12
-		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "MER_RaidCDs"
-		E.db["unitframe"]["units"]["raid"]["buffs"]["priority"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "TurtleBuffs"
+		E.db["unitframe"]["units"]["raid"]["buffs"]["priority"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["attachTo"] = "CENTER"
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["yOffset"] = 5
@@ -2635,8 +2636,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 1
 		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "CENTER"
 		E.db["unitframe"]["units"]["party"]["buffs"]["clickThrough"] = true
-		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "MER_RaidCDs"
-		E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "TurtleBuffs"
+		E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
 		E.db["unitframe"]["units"]["party"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["name"]["position"] = "LEFT"
