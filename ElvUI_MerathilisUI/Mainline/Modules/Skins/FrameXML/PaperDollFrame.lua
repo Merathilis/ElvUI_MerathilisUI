@@ -21,7 +21,10 @@ local slots = {
 
 local function StatsPane(type)
 	_G.CharacterStatsPane[type]:StripTextures()
-	_G.CharacterStatsPane[type].backdrop:Hide()
+
+	if _G.CharacterStatsPane[type] and _G.CharacterStatsPane[type].backdrop then
+		_G.CharacterStatsPane[type].backdrop:Hide()
+	end
 end
 
 local function CharacterStatFrameCategoryTemplate(frame)
@@ -69,7 +72,7 @@ local function SkinSLEArmory()
 		StatsPane("OffenseCategory")
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
 	end
-	
+
 	if CharacterStatsPane.DefenceCategory then
 		CharacterStatsPane.DefenceCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 		StatsPane("DefenceCategory")
@@ -103,7 +106,7 @@ local function LoadSkin()
 
 		CharacterStatsPane.ItemLevelFrame.Background:SetAlpha(0)
 		ColorizeStatPane(CharacterStatsPane.ItemLevelFrame)
-	
+
 		E:Delay(0.2, SkinSLEArmory)
 
 		hooksecurefunc("PaperDollFrame_UpdateStats", function()
