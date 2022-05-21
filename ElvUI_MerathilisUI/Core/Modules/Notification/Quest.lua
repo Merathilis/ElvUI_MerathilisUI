@@ -54,6 +54,8 @@ local PARAGON_QUEST_ID = { --[questID] = {factionID}
 }
 
 function module:QUEST_ACCEPTED(_, questID)
+	if not module.db.enable then return end
+
 	if module.db.paragon and PARAGON_QUEST_ID[questID] then
 		local name = format("|cff00c0fa%s|r", GetFactionInfoByID(PARAGON_QUEST_ID[questID][1])) or UNKNOWN
 		local text = GetQuestLogCompletionText(C_QuestLog_GetLogIndexForQuestID(questID))

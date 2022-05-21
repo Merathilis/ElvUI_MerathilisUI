@@ -10,7 +10,7 @@ local TANK, HEALER, DAMAGER = TANK, HEALER, DAMAGER
 
 local LFG_Timer = 0
 function module:LFG_UPDATE_RANDOM_INFO()
-	if not module.db.callToArms then return end
+	if not module.db.enable or not module.db.callToArms then return end
 
 	local _, forTank, forHealer, forDamage = GetLFGRoleShortageRewards(2087, _G.LFG_ROLE_SHORTAGE_RARE) -- 2087 Random Shadowlands Heroic
 	local IsTank, IsHealer, IsDamage = C_LFGList_GetAvailableRoles()

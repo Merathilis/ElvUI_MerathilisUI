@@ -11,8 +11,7 @@ local HAVE_MAIL = HAVE_MAIL
 
 local hasMail = false
 function module:UPDATE_PENDING_MAIL()
-	if module.db.enable ~= true or module.db.mail ~= true then return end
-	if InCombatLockdown() then return end
+	if not module.db.enable or not module.db.mail or InCombatLockdown() then return end
 
 	local newMail = HasNewMail()
 	if hasMail ~= newMail then

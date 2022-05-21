@@ -53,7 +53,8 @@ local function alertEvents()
 end
 
 local function alertGuildEvents()
-	if module.db.enable ~= true or module.db.guildEvents ~= true then return end
+	if not module.db.enable or not module.db.guildEvents then return end
+
 	if _G.CalendarFrame and _G.CalendarFrame:IsShown() then return end
 
 	local num = GetGuildInvites()
