@@ -87,7 +87,7 @@ V.skins = {
 			},
 			selected = {
 				enable = true,
-				texture = "WindTools Glow",
+				texture = "RenAscensionL",
 				backdropClassColor = false,
 				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.4},
 				borderClassColor = false,
