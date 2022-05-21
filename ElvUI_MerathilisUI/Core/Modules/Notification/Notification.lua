@@ -72,6 +72,14 @@ local VignetteExclusionMapIDs = {
 
 local VignetteBlackListIDs = {
 	[4024] = true, -- Soul Cage (The Maw and Torghast)
+	[4184] = true, -- Skoldus Hall
+	[4185] = true, -- Fracture Chambers
+	[4186] = true, -- The Soulforges
+	[4187] = true, -- Mort'regar
+	[4188] = true, -- The Upper Reaches
+	[4189] = true, -- Coldheart Interstitia
+	[4190] = true, -- Twisting Corridors
+	[4913] = true, -- The Jailer's Gauntlet
 	[4578] = true, -- Gateway to Hero's Rest (Bastion)
 	[4583] = true, -- Gateway to Hero's Rest (Bastion)
 	[4553] = true, -- Recoverable Corpse (The Maw)
