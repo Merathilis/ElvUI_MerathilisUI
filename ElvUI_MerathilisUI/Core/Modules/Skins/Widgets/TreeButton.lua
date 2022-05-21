@@ -78,7 +78,7 @@ function module:HandleTreeGroup(widget)
 				local borderColor = db.selected.borderClassColor and module.ClassColor or db.selected.borderColor
 				local backdropColor = db.selected.backdropClassColor and module.ClassColor or db.selected.backdropColor
 				button.backdrop.Center:SetTexture(LSM:Fetch("statusbar", db.selected.texture) or E.media.glossTex)
-				button.backdrop:SetBackdropBorderColor(	borderColor.r, borderColor.g, borderColor.b, db.selected.borderAlpha)
+				button.backdrop:SetBackdropBorderColor(borderColor.r, borderColor.g, borderColor.b, db.selected.borderAlpha)
 				button.backdrop:SetBackdropColor(backdropColor.r, backdropColor.g, backdropColor.b, db.selected.backdropAlpha)
 				button.backdrop:Hide()
 			end
