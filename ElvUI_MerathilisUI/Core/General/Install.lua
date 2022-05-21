@@ -3,21 +3,15 @@ local CH = E:GetModule('Chat')
 
 local _G = _G
 local ipairs = ipairs
-local ceil, format, checkTable = ceil, string.format, next
+local format, checkTable = string.format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 
 local ADDONS = ADDONS
-local FCF_DockFrame = FCF_DockFrame
 local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
-local FCF_SavePositionAndDimensions = FCF_SavePositionAndDimensions
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
-local FCF_SetLocked = FCF_SetLocked
 local FCF_SetWindowName = FCF_SetWindowName
-local FCF_StopDragging = FCF_StopDragging
-local FCF_UnDockFrame = FCF_UnDockFrame
 local FCF_ResetChatWindows = FCF_ResetChatWindows
 local FCF_OpenNewWindow = FCF_OpenNewWindow
-local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 local ChatFrame_AddChannel = ChatFrame_AddChannel
 local ChatFrame_AddMessageGroup = ChatFrame_AddMessageGroup
@@ -31,7 +25,6 @@ local GetLocale = GetLocale
 local LOOT = LOOT
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
-local TRADE = TRADE
 
 local function SetupCVars()
 	-- Setup CVars

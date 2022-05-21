@@ -1,11 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local CF = MER:GetModule('MER_Cooldown')
 
---Cache global variables
---Lua functions
 local tinsert = table.insert
---WoW API / Variables
--- GLOBALS:
 
 local function Cooldowns()
 	local ACH = E.Libs.ACH

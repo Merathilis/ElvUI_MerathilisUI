@@ -1,13 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
---Cache global variables
---Lua functions
-local tinsert = table.insert
---WoW API / Variables
-local IsAddOnLoaded = IsAddOnLoaded
--- GLOBALS:
-
-local function databarsTable()
+local function DatabarsTable()
 	local ACH = E.Libs.ACH
 
 	E.Options.args.mui.args.modules.args.databars = {
@@ -20,4 +13,4 @@ local function databarsTable()
 		},
 	}
 end
---tinsert(MER.Config, databarsTable)
+--tinsert(MER.Config, DatabarsTable)

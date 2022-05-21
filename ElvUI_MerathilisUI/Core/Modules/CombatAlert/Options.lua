@@ -71,7 +71,7 @@ local function CVars()
 						set = function(info, r, g, b, a)
 							E.db.mui.CombatAlert.style.font_color_enter = {}
 							local t = E.db.mui.CombatAlert.style.font_color_enter
-							t.r, t.g, t.b, t.a = r, g, b
+							t.r, t.g, t.b, t.a = r, g, b, a
 						end,
 					},
 					font_color_leave = {
@@ -86,7 +86,7 @@ local function CVars()
 						set = function(info, r, g, b, a)
 							E.db.mui.CombatAlert.style.font_color_leave = {}
 							local t = E.db.mui.CombatAlert.style.font_color_leave
-							t.r, t.g, t.b, t.a = r, g, b
+							t.r, t.g, t.b, t.a = r, g, b, a
 						end,
 					},
 					backdrop = {

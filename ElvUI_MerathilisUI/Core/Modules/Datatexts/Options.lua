@@ -1,8 +1,6 @@
 local MER, F, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 
-local _G = _G
-
 local function Datatexts()
 	local ACH = E.Libs.ACH
 

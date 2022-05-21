@@ -2,7 +2,6 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 
 local format, gmatch, gsub, find, sub = string.format, string.gmatch, string.gsub, string.find, string.sub
-local tinsert = table.insert
 local pairs, tostring = pairs, tostring
 
 local CreateFrame = CreateFrame
@@ -178,7 +177,7 @@ function MER:ToggleChangeLog()
 	self:ScheduleRepeatingTimer("CountDown", 1)
 end
 
-function MER:CheckVersion(self)
+function MER:CheckVersion()
 	if not MERData["Version"] or (MERData["Version"] and MERData["Version"] ~= MER.Version) then
 		MERData["Version"] = MER.Version
 		MER:ToggleChangeLog()

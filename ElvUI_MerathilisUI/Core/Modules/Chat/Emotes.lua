@@ -2,22 +2,19 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Emotes')
 local CH = E:GetModule("Chat")
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local pairs = pairs
 local format = string.format
 local gmatch, gsub = gmatch, gsub
 local tinsert = table.insert
 local strmatch, strtrim = strmatch, strtrim
--- WoW API / Variable
+
 local CreateFrame = CreateFrame
 local ChatEdit_ActivateChat = ChatEdit_ActivateChat
 local ChatEdit_ChooseBoxForSend = ChatEdit_ChooseBoxForSend
 local C_Club_GetMessageInfo = C_Club.GetMessageInfo
 local InCombatLockdown = InCombatLockdown
 local UISpecialFrames = UISpecialFrames
--- GLOBALS:
 
 local ChatEmote = {}
 module.ChatEmote = ChatEmote
@@ -81,7 +78,6 @@ local emotes = {
 }
 module.emotes = emotes
 
-local ShowEmoteTableButton
 local EmoteTableFrame
 local text, texture
 

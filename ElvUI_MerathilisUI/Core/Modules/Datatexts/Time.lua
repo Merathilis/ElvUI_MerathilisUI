@@ -9,7 +9,6 @@ local floor = math.floor
 local twipe = table.wipe
 local date = date
 
-local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 local GetGameTime = GetGameTime
 local GetDifficultyInfo = GetDifficultyInfo
 local C_QuestLog_GetAllCompletedQuestIDs = C_QuestLog.GetAllCompletedQuestIDs
@@ -28,8 +27,6 @@ local europeDisplayFormat = '';
 local ukDisplayFormat = '';
 local europeDisplayFormat_nocolor = join("", "%02d", ":|r%02d")
 local ukDisplayFormat_nocolor = join("", "", "%d", ":|r%02d", " %s|r")
-local timerLongFormat = "%d:%02d:%02d"
-local timerShortFormat = "%d:%02d"
 local lockoutInfoFormat = "%s%s |cffaaaaaa(%s, %s/%s)"
 local lockoutInfoFormatNoEnc = "%s%s |cffaaaaaa(%s)"
 local formatBattleGroundInfo = "%s: "
@@ -39,8 +36,8 @@ local curHr, curMin, curAmPm
 local enteredFrame = false;
 
 local Update, lastPanel; -- UpValue
-local localizedName, isActive, canQueue, startTime, canEnter
-local name, reset, difficultyId, locked, extended, isRaid, maxPlayers, difficulty, numEncounters, encounterProgress
+local localizedName, isActive, startTime, canEnter
+local name, reset, difficultyId, locked, extended, isRaid, maxPlayers, numEncounters, encounterProgress
 local quests = {}
 local updateQuestTable = false
 

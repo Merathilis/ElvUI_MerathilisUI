@@ -1,11 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERBI = MER:GetModule('MER_BagInfo')
 
---Cache global variables
---Lua functions
 local tinsert = table.insert
---WoW API / Variables
--- GLOBALS:
 
 local function BagTable()
 	local ACH = E.Libs.ACH

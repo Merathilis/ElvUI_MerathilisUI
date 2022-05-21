@@ -1,23 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local LSM = E.LSM
 
--- GLOBALS: CHAT_FONT_HEIGHTS, GameTooltipHeader, NumberFont_OutlineThick_Mono_Small, SystemFont_Shadow_Large_Outline
--- GLOBALS: NumberFont_Outline_Huge, NumberFont_Outline_Large, NumberFont_Outline_Med, NumberFont_Shadow_Med
--- GLOBALS: NumberFont_Shadow_Small, QuestFont, SystemFont_Large, GameFontNormalMed3, SystemFont_Shadow_Huge1
--- GLOBALS: SystemFont_Med1, SystemFont_Med3, QuestFont_Large, SystemFont_OutlineThick_Huge2, SystemFont_Outline_Small
--- GLOBALS: SystemFont_Shadow_Large, SystemFont_Shadow_Med1, SystemFont_Shadow_Med3, SystemFont_Shadow_Outline_Huge2
--- GLOBALS: SystemFont_Shadow_Small, SystemFont_Small, SystemFont_Tiny, Tooltip_Med, Tooltip_Small, ZoneTextString
--- GLOBALS: SubZoneTextString, PVPInfoTextString, PVPArenaTextString, CombatTextFont, FriendsFont_Normal, FriendsFont_Small
--- GLOBALS: FriendsFont_Large, FriendsFont_UserText, QuestFont_Shadow_Huge, QuestFont_Shadow_Small, SystemFont_Outline
--- GLOBALS: SystemFont_OutlineThick_WTF, SubZoneTextFont, QuestFont_Super_Huge, QuestFont_Huge, CoreAbilityFont
--- GLOBALS: MailFont_Large, InvoiceFont_Med, InvoiceFont_Small, AchievementFont_Small, ReputationDetailFont
--- GLOBALS: GameFontNormalMed2, BossEmoteNormalHuge, GameFontHighlightMedium, GameFontNormalLarge2, QuestFont_Enormous
--- GLOBALS: DestinyFontHuge, Game24Font, SystemFont_Huge1, SystemFont_Huge1_Outline, NumberFont_Normal_Med
--- GLOBALS: SystemFont_Shadow_Huge2, SystemFont_Shadow_Large2, SystemFont_Shadow_Small2, SystemFont_Small2
--- GLOBALS: Fancy22Font, Fancy24Font, Game30Font, SystemFont_Shadow_Med2, WhiteNormalNumberFont, Game18Font
--- GLOBALS: GameFontHighlightSmall2, GameFontNormalSmall2, GameFontNormalHuge2, Game15Font_o1, Game13FontShadow
--- GLOBALS: NumberFontNormalSmall, SystemFont_Shadow_Huge3, SubSpellFont, GameFont_Gigantic
-
 -- add alpha in shadow color (sa) and moved the r, g, b to the end cause of Blizz auto coloring
 local function SetFont(obj, font, size, style, sr, sg, sb, sa, sox, soy, r, g, b)
 	if not obj then return end

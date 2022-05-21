@@ -81,14 +81,6 @@ local function ZoneTextPos()
 	end
 end
 
-local function MakeFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
-	obj:SetFont(font, size, style)
-	if sr and sg and sb then obj:SetShadowColor(sr, sg, sb) end
-	if sox and soy then obj:SetShadowOffset(sox, soy) end
-	if r and g and b then obj:SetTextColor(r, g, b)
-	elseif r then obj:SetAlpha(r) end
-end
-
 function module:SetBlizzFonts()
 	module.db = E.db.mui.media
 

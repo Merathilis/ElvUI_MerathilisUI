@@ -3,14 +3,11 @@ local module = MER:GetModule('MER_Cooldown')
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local GetTime = GetTime
 local select, pairs, bit, unpack = select, pairs, bit, unpack
-local string = string
 local wipe = wipe
 local tinsert, tremove = table.insert, table.remove
---WoW API / Variables
+
 local CreateFrame = CreateFrame
 local GetPetActionInfo = GetPetActionInfo
 local GetSpellInfo = GetSpellInfo
@@ -27,11 +24,8 @@ local GetInventoryItemTexture = GetInventoryItemTexture
 local GetContainerItemID = GetContainerItemID
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 module.cooldowns, module.animating, module.watching = { }, { }, { }
-local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime, showSpellName, ignoredSpells, invertIgnored
-local testtable
 
 local DCP = CreateFrame("Frame", nil, E.UIParent)
 DCP:SetAlpha(0)

@@ -1,21 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERL = MER:GetModule('MER_Layout')
 local CH = E:GetModule('Chat')
-local DT = E:GetModule('DataTexts')
-local LO = E:GetModule('Layout')
 
---Cache global variables
---Lua functions
 local _G = _G
-local unpack = unpack
---WoW API / Variables
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local GameTooltip = _G["GameTooltip"]
-local PlaySound = PlaySound
-local SOUNDKIT = SOUNDKIT
-local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end

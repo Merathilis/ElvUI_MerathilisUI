@@ -2,14 +2,12 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_BagInfo')
 local B = E:GetModule('Bags')
 
---Cache global variables
---Lua Variables
 local _G = _G
 local ipairs, pairs, type = ipairs, pairs, type
 local byte = string.byte
 local tinsert, twipe = table.insert, table.wipe
 local format = string.format
---WoW API / Variables
+
 local C_EquipmentSet = C_EquipmentSet
 local C_EquipmentSet_GetEquipmentSetID = C_EquipmentSet.GetEquipmentSetID
 local C_EquipmentSet_GetEquipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs
@@ -18,9 +16,6 @@ local C_EquipmentSet_GetEquipmentSetInfo = C_EquipmentSet.GetEquipmentSetInfo
 local C_EquipmentSet_GetItemLocations = C_EquipmentSet.GetItemLocations
 local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
 local GetContainerNumSlots = GetContainerNumSlots
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
 
 -- Credits Shadow & Light - Darth & Repooc
 
