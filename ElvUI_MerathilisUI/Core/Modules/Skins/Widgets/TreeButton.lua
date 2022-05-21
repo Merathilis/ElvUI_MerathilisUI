@@ -20,18 +20,20 @@ function module:HandleTreeGroup(widget)
 			local button = widget.CreateButton_Changed(...)
 
 			if db.text.enable then
-				local text = button.Text or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
+				local text = button.text or button.Text or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
 				if text and text.GetTextColor then
 					F.SetFontDB(text, db.text.font)
 
-					text.SetPoint_ = text.SetPoint
+					text.SetPoint_Changed = text.SetPoint
 					text.SetPoint = function(text, point, arg1, arg2, arg3, arg4)
 						if point == "LEFT" and type(arg2) == "number" and abs(arg2 - 2) < 0.1 then
 							arg2 = 0
 						end
 
-						text.SetPoint_(text, point, arg1, arg2, arg3, arg4)
+						text.SetPoint_Changed(text, point, arg1, arg2, arg3, arg4)
 					end
+
+					button.MERText = text
 				end
 			end
 
@@ -76,14 +78,21 @@ function module:HandleTreeGroup(widget)
 				local borderColor = db.selected.borderClassColor and module.ClassColor or db.selected.borderColor
 				local backdropColor = db.selected.backdropClassColor and module.ClassColor or db.selected.backdropColor
 				button.backdrop.Center:SetTexture(LSM:Fetch("statusbar", db.selected.texture) or E.media.glossTex)
-				button.backdrop:SetBackdropBorderColor(borderColor.r, borderColor.g, borderColor.b, db.selected.borderAlpha)
+				button.backdrop:SetBackdropBorderColor(	borderColor.r, borderColor.g, borderColor.b, db.selected.borderAlpha)
 				button.backdrop:SetBackdropColor(backdropColor.r, backdropColor.g, backdropColor.b, db.selected.backdropAlpha)
 				button.backdrop:Hide()
+			end
 
+			if db.selected.enable or db.text.enable then
 				button.LockHighlight_Changed = button.LockHighlight
 				button.LockHighlight = function(frame)
 					if frame.backdrop then
 						frame.backdrop:Show()
+					end
+
+					if frame.MERText then
+						local color = db.text.selectedClassColor and module.ClassColor or db.text.selectedColor
+						frame.MERText:SetTextColor(color.r, color.g, color.b)
 					end
 				end
 				button.UnlockHighlight_Changed = button.UnlockHighlight
@@ -91,11 +100,15 @@ function module:HandleTreeGroup(widget)
 					if frame.backdrop then
 						frame.backdrop:Hide()
 					end
+
+					if frame.MERText then
+						local color = db.text.normalClassColor and module.ClassColor or db.text.normalColor
+						frame.MERText:SetTextColor(color.r, color.g, color.b)
+					end
 				end
 			end
 
 			button.MERSkinned = true
-
 			return button
 		end
 	end

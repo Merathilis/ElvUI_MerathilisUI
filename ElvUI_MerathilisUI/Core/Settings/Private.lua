@@ -88,13 +88,17 @@ V.skins = {
 			selected = {
 				enable = true,
 				texture = "RenAscensionL",
-				backdropClassColor = false,
-				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.4},
-				borderClassColor = false,
-				borderColor = {r = 0.145, g = 0.353, b = 0.698, a = 1},
+				backdropClassColor = true,
+				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.75},
+				borderClassColor = true,
+				borderColor = {r = 0.145, g = 0.353, b = 0.698, a = 0},
 			},
 			text = {
 				enable = true,
+				normalClassColor = false,
+				normalColor = {r = 1, g = 0.82, b = 0},
+				selectedClassColor = false,
+				selectedColor = {r = 1, g = 1, b = 1},
 				font = {
 					name = E.db.general.font,
 					style = "OUTLINE"

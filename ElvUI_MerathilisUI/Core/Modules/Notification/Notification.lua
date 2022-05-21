@@ -31,6 +31,7 @@ local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Scenario_GetInfo = C_Scenario and C_Scenario.GetInfo
 local C_VignetteInfo_GetVignetteInfo = C_VignetteInfo and C_VignetteInfo.GetVignetteInfo
 local C_QuestLog_GetLogIndexForQuestID =C_QuestLog.GetLogIndexForQuestID
+local C_LFGList_GetAvailableRoles = C_LFGList.GetAvailableRoles
 local InCombatLockdown = InCombatLockdown
 local LoadAddOn = LoadAddOn
 local PlaySoundFile = PlaySoundFile
@@ -49,7 +50,8 @@ local SocialQueueUtil_GetRelationshipInfo = SocialQueueUtil_GetRelationshipInfo
 local C_SocialQueue_GetGroupMembers = C_SocialQueue and C_SocialQueue.GetGroupMembers
 local C_SocialQueue_GetGroupQueues = C_SocialQueue and C_SocialQueue.GetGroupQueues
 local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
-local C_LFGList_GetActivityInfo = C_LFGList.GetActivityInfo
+local C_LFGList_GetActivityInfo = C_LFGList.GetActivityInfoTable
+local TANK, HEALER, DAMAGER = TANK, HEALER, DAMAGER
 
 local bannerWidth = 255
 local bannerHeight = 68
@@ -567,7 +569,7 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 		end
 
 		if activityID or firstQueue.queueData.activityID then
-			fullName = C_LFGList_GetActivityInfo(activityID or firstQueue.queueData.activityID)
+			fullName = C_LFGList_GetActivityInfoTable(activityID or firstQueue.queueData.activityID)
 		end
 
 		if name then
@@ -604,6 +606,31 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 	end
 end
 
+local LFG_Timer = 0
+function module:LFG_UPDATE_RANDOM_INFO()
+	if not module.db.callToArms then return end
+
+	local _, forTank, forHealer, forDamage = GetLFGRoleShortageRewards(2087, _G.LFG_ROLE_SHORTAGE_RARE) -- 2087 Random Shadowlands Heroic
+	local IsTank, IsHealer, IsDamage = C_LFGList_GetAvailableRoles()
+
+	local ingroup, tank, healer, damager, result
+
+	tank = IsTank and forTank and "|cff00B2EE"..TANK.."|r" or ""
+	healer = IsHealer and forHealer and "|cff00EE00"..HEALER.."|r" or ""
+	damager = IsDamage and forDamage and "|cffd62c35"..DAMAGER.."|r" or ""
+
+	if IsInGroup(_G.LE_PARTY_CATEGORY) or IsInGroup(_G.LE_PARTY_CATEGORY_INSTANCE) then
+		ingroup = true
+	end
+
+	if ((IsTank and forTank) or (IsHealer and forHealer) or (IsDamage and forDamage)) and not ingroup then
+		if GetTime() - LFG_Timer > 20 then
+			self:DisplayToast(format(_G.LFG_CALL_TO_ARMS, tank.." "..healer.." "..damager), nil, nil, "Interface\\Icons\\Ability_DualWield", .08, .92, .08, .92)
+			LFG_Timer = GetTime()
+		end
+	end
+end
+
 function module:Initialize()
 	module.db = E.db.mui.notification
 	if not module.db.enable then return end
@@ -620,6 +647,7 @@ function module:Initialize()
 		self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
 		self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
 		self:RegisterEvent("SOCIAL_QUEUE_UPDATE", 'SocialQueueEvent')
+		self:RegisterEvent("LFG_UPDATE_RANDOM_INFO")
 	end
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")

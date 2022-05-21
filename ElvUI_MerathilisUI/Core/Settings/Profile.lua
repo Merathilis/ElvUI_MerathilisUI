@@ -329,7 +329,6 @@ P.misc = {
 	},
 	spellAlert = 0.65,
 	alerts = {
-		lfg = false,
 		announce = true,
 		itemAlert = true,
 		feasts = true,
@@ -371,6 +370,7 @@ P.notification = {
 	guildEvents = true,
 	paragon = true,
 	quickJoin = true,
+	callToArms = true,
 	titleFont = {
 		name = "Expressway",
 		size = 12,

@@ -80,6 +80,12 @@ local function NotificationTable()
 				name = L["Quick Join"],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
+			callToArms = {
+				order = 12,
+				type = "toggle",
+				name = _G.BATTLEGROUND_HOLIDAY,
+				disabled = function() return not E.db.mui.notification.enable end,
+			},
 			fontSettings = {
 				order = 20,
 				type = "group",

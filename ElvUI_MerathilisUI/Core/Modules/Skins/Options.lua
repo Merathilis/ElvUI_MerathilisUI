@@ -73,7 +73,7 @@ local function SkinsTable()
 			widgets = {
 				order = 3,
 				type = "group",
-				name = L["Widgets"],
+				name = E.NewSign..L["Widgets"],
 				args = {
 					enableAll = {
 						order = 1,
@@ -316,7 +316,7 @@ local function SkinsTable()
 									return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								end,
 								set = function(info, value)
-									E.private.WT.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]] = value
+									E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]] = value
 									E:StaticPopup_Show("PRIVATE_RL")
 								end,
 								disabled = function(info)
@@ -483,7 +483,7 @@ local function SkinsTable()
 											return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 										end,
 										set = function(info, r, g, b)
-											local db = E.private.WT.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 											db.r, db.g, db.b = r, g, b
 										end
 									},
@@ -521,6 +521,54 @@ local function SkinsTable()
 										width = "full",
 										disabled = function(info)
 											return not E.private.mui.skins.widgets[info[#info - 2]].enable
+										end
+									},
+									normalClassColor = {
+										order = 2,
+										type = "toggle",
+										name = L["Normal Class Color"],
+										width = 1.5
+									},
+									normalColor = {
+										order = 3,
+										type = "color",
+										name = L["Normal Color"],
+										hasAlpha = false,
+										hidden = function(info)
+											return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].normalClassColor
+										end,
+										get = function(info)
+											local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											local default = V.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+										end,
+										set = function(info, r, g, b)
+											local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											db.r, db.g, db.b = r, g, b
+										end
+									},
+									selectedClassColor = {
+										order = 4,
+										type = "toggle",
+										name = L["Selected Class Color"],
+										width = 1.5
+									},
+									selectedColor = {
+										order = 5,
+										type = "color",
+										name = L["Selected Color"],
+										hasAlpha = false,
+										hidden = function(info)
+											return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].selectedClassColor
+										end,
+										get = function(info)
+											local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											local default = V.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+										end,
+										set = function(info, r, g, b)
+											local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+											db.r, db.g, db.b = r, g, b
 										end
 									},
 									font = {
