@@ -17,7 +17,6 @@ local function CreateHeaderPanels()
 	MERS:SkinPanel(HeaderBar)
 
 	HeaderText:SetFontObject(_G.GameFontNormal)
-	--HeaderText:SetTextColor(_G.NORMAL_FONT_COLOR.r, _G.NORMAL_FONT_COLOR.g, _G.NORMAL_FONT_COLOR.b)
 	HeaderText:Point("LEFT", HeaderBar, "LEFT", -2, 14)
 	HeaderText:SetText(_G.CURRENT_QUESTS)
 

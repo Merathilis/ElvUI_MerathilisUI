@@ -4,17 +4,12 @@ local NP = E:GetModule('NamePlates')
 local UF = E:GetModule('UnitFrames')
 local MUF = MER:GetModule('MER_UnitFrames')
 
-local _G = _G
-local pairs, select, unpack = pairs, select, unpack
+local select = select
 local find = string.find
-local max = math.max
-local tsort = table.sort
--- WoW API / Variables
-local GetSpellInfo = GetSpellInfo
+
 local UnitClass = UnitClass
 local UnitName = UnitName
 local hooksecurefunc = hooksecurefunc
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 --[[
 	ALL CREDITS BELONG TO Nihilistzsche (Code taken from ElvUI_NihilistUI)

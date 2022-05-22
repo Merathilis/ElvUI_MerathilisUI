@@ -7,8 +7,6 @@ local select, unpack = select, unpack
 local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
 
-	local r, g, b = unpack(E.media.bordercolor)
-
 	local GameMenuFrame = _G.GameMenuFrame
 	if GameMenuFrame and not GameMenuFrame.IsStyled then
 		GameMenuFrame:Styling()

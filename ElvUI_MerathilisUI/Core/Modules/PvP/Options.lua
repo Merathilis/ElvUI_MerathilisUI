@@ -1,12 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
---Cache global variables
---Lua functions
 local _G = _G
 local format = string.format
 local tinsert = table.insert
---WoW API / Variables
--- GLOBALS:
 
 local function PvPTable()
 	local ACH = E.Libs.ACH

@@ -1,21 +1,16 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_GameMenu')
 local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local random = random
--- WoW API / Variables
+
 local GameMenuFrame = _G["GameMenuFrame"]
 local CreateFrame = CreateFrame
 local CreateAnimationGroup = CreateAnimationGroup
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local UIFrameFadeIn = UIFrameFadeIn
 local IsAddOnLoaded = IsAddOnLoaded
-
--- GLOBALS: button, modelHolder, playerModel, npcHolder, npcModel, LibStub
 
 -- Credit for the Class logos: ADDOriN @DevianArt
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos

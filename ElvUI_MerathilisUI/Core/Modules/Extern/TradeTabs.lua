@@ -5,16 +5,12 @@ if not E.Retail then return end
 ---------------------------------
 -- Credits: ProfessionTabs by Beoko
 ---------------------------------
-
---Cache global variables
---Lua functions
 local _G = _G
 local next, unpack = next, unpack
 local format = string.format
---WoW API / Variables
+
 local CreateFrame = CreateFrame
 local IsCurrentSpell = IsCurrentSpell
--- GLOBALS:
 
 local tabs, spells = {}, {}
 

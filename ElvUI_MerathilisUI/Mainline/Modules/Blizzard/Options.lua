@@ -2,7 +2,6 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_ObjectiveTracker')
 local LSM = E.Libs.LSM
 
-local _G = _G
 local format = string.format
 local tinsert = table.insert
 

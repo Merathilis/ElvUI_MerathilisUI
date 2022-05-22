@@ -1,18 +1,13 @@
 ﻿local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local RM = MER:GetModule('MER_RaidMarkers')
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local ipairs = ipairs
 local format = string.format
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local GameTooltip = GameTooltip
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
-
---GLOBALS: CreateFrame
 
 RM.VisibilityStates = {
 	["DEFAULT"] = "[noexists, nogroup] hide; show",

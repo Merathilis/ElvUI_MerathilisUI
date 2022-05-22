@@ -2,18 +2,12 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
-local select, unpack = select, unpack
---WoW API / Variables
-local CreateFrame = CreateFrame
+local select = select
+
 local GetAchievementInfo = GetAchievementInfo
 local GetAchievementNumCriteria = GetAchievementNumCriteria
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
-
-local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.mui.skins.blizzard.achievement ~= true then return end

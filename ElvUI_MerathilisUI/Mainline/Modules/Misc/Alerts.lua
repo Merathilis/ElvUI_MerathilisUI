@@ -1,13 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Misc')
 
-local _G = _G
-local print, tonumber = print, tonumber
-local twipe = table.wipe
 local format = string.format
 local gsub = gsub
-local strsplit = strsplit
-local Ambiguate = Ambiguate
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local CreateFrame = CreateFrame
@@ -72,7 +67,7 @@ frame:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
 frame:SetScript('OnEvent', function()
 	if not IsInGroup() or InCombatLockdown() then return end
 	local db = E.db.mui.misc.alerts
-	local _, subEvent, _, _, srcName, _, _, _, destName, _, _, spellID = CombatLogGetCurrentEventInfo()
+	local _, subEvent, _, _, srcName, _, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
 	if not subEvent or not spellID or not srcName then return end
 	if not UnitInRaid(srcName) and not UnitInParty(srcName) then return end
 

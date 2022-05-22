@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_MiniMapButtons')
-local COMP = MER:GetModule('MER_Compatibility')
 
 local _G = _G
 local pairs, select, tostring, unpack = pairs, select, tostring, unpack

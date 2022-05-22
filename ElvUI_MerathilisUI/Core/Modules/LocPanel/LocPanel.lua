@@ -1,16 +1,13 @@
 ﻿local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_LocPanel')
-local M = E:GetModule("Minimap")
 local DD = E:GetModule('Dropdown')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local format, split = string.format, string.split
 local tinsert, twipe = table.insert, table.wipe
 local pairs, select, tonumber = pairs, select, tonumber
 local collectgarbage = collectgarbage
--- WoW API / Variables
+
 local GetBindLocation = GetBindLocation
 local GetProfessions = E.Retail and GetProfessions
 local GetProfessionInfo = E.Retail and GetProfessionInfo
@@ -34,13 +31,13 @@ local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
 local C_Garrison_IsPlayerInGarrison = C_Garrison and C_Garrison.IsPlayerInGarrison
+local C_ToyBox_IsToyUsable = C_ToyBox.IsToyUsable
 local C_ToyBox = C_ToyBox
 local Minimap = Minimap
 local UnitFactionGroup = UnitFactionGroup
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
--- GLOBALS: HSplace, LE_GARRISON_TYPE_7_0, TUTORIAL_TITLE31
 
 local loc_panel
 local faction
@@ -567,8 +564,8 @@ function module:ItemList(check)
 			local tmp = {}
 			local data = module.EngineerItems[i]
 			local ID, isToy = data.secure.ID, data.secure.isToy
-			if not module.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
-			if (not isToy and (F.BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
+			if not module.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox_IsToyUsable(ID) == nil) then return false end
+			if (not isToy and (F.BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox_IsToyUsable(ID))) then
 				if data.text then
 					local cd = DD:GetCooldown("Item", ID)
 					E:CopyTable(tmp, data)
@@ -684,7 +681,7 @@ end
 function module:CHAT_MSG_SKILL()
 	if not E.Retail then return end
 
-	local prof1, prof2, archaeology, fishing, cooking = GetProfessions()
+	local prof1, prof2, _, _, _ = GetProfessions()
 	if prof1 then
 		local name, _, _ = GetProfessionInfo(prof1)
 		if name == module.EngineerName then module.isEngineer = true return end

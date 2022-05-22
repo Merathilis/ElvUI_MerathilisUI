@@ -2,14 +2,11 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local unpack = unpack
--- WoW API / Variables
+
 local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown
--- GLOBALS:
 
 local function StyleElvUIConfig()
 	if InCombatLockdown() or not E.private.skins.ace3Enable then return end

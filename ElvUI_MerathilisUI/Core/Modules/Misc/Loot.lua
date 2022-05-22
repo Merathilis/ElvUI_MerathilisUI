@@ -3,13 +3,11 @@ local module = MER:GetModule('MER_Loot')
 local LCG = LibStub('LibCustomGlow-1.0')
 local M = E:GetModule('Misc')
 
---Cache global variables
 local _G = _G
---WoW API / Variables
+
 local GetLootSlotInfo = GetLootSlotInfo
 local GetNumLootItems = GetNumLootItems
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 function module:LOOT_OPENED(_, autoloot)
 	local lootFrame = _G.ElvLootFrame
@@ -18,7 +16,7 @@ function module:LOOT_OPENED(_, autoloot)
 	if items > 0 then
 		for i=1, items do
 			local slot = lootFrame.slots[i] or createSlot(i) -- Monitor this
-			local textureID, item, quantity, _, quality, _, isQuestItem, questId, isActive = GetLootSlotInfo(i)
+			local _, _, _, _, _, _, isQuestItem, questId, isActive = GetLootSlotInfo(i)
 
 			local questTexture = slot.questTexture
 			if ( questId and not isActive ) then

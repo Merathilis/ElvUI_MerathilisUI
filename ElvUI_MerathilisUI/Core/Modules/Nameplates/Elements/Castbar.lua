@@ -2,18 +2,10 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MNP = MER:GetModule('MER_NamePlates')
 local NP = E:GetModule('NamePlates')
 
---Cache global variables
---Lua functions
 local _G = _G
-local strjoin = strjoin
---WoW API / Variables
+
 local UnitCanAttack = UnitCanAttack
-local UnitChannelInfo = UnitChannelInfo
-local UnitClass = UnitClass
-local UnitCastingInfo = UnitCastingInfo
-local UnitName = UnitName
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 -- Castbar Shield
 function MNP:Castbar_CheckInterrupt(unit)

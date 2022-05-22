@@ -9,7 +9,6 @@ local strtrim = string.trim
 local IsAddOnLoaded = IsAddOnLoaded
 
 -- Credits liquidbase (DuffedUI)
-
 local taxinodeinfos = {}
 local firstshow = false
 FlightPoints_Config = {}

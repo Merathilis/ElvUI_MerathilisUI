@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Tooltip')
-local TT = E:GetModule('Tooltip')
 
 local _G = _G
 local next = next

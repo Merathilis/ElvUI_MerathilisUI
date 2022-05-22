@@ -1,13 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_PVP')
 
---Cache global variables
---Lua functions
 local _G = _G
 local format = string.format
 local band = bit.band
 local twipe = table.wipe
---WoW API / Variables
+
 local CancelDuel = CancelDuel
 local CancelPetPVPDuel = C_PetBattles and C_PetBattles.CancelPVPDuel
 local StaticPopup_Hide = StaticPopup_Hide
@@ -18,7 +16,6 @@ local BossBanner_BeginAnims = BossBanner_BeginAnims
 local PlaySound = PlaySound
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 local Opponents = {}
 
@@ -69,7 +66,6 @@ function module:LogParse()
 		end
 	end
 end
-
 
 function module:Initialize()
 	module.db = E.db.mui.pvp

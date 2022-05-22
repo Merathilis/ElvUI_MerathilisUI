@@ -1,7 +1,5 @@
 local MER, F, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:GetModule('MER_Misc')
-local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, select = pairs, select
@@ -9,37 +7,28 @@ local twipe = table.wipe
 local tinsert = table.insert
 local strfind = string.find
 local gsub = gsub
-local collectgarbage = collectgarbage
 
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local C_FriendList_GetNumWhoResults = C_FriendList.GetNumWhoResults
 local C_FriendList_GetWhoInfo = C_FriendList.GetWhoInfo
-local C_PetJournalSetFilterChecked = C_PetJournal and C_PetJournal.SetFilterChecked
-local C_PetJournalSetAllPetTypesChecked = C_PetJournal and C_PetJournal.SetAllPetTypesChecked
-local C_PetJournalSetAllPetSourcesChecked = C_PetJournal and C_PetJournal.SetAllPetSourcesChecked
 local GetBattlefieldStatus = GetBattlefieldStatus
-local GetCurrentMapDungeonLevel = GetCurrentMapDungeonLevel
-local GetCurrentMapAreaID = GetCurrentMapAreaID
 local GetGuildInfo = GetGuildInfo
 local GetQuestDifficultyColor = GetQuestDifficultyColor
 local GetLFGDungeonInfo = GetLFGDungeonInfo
 local GetLFGDungeonRewards = GetLFGDungeonRewards
 local GetLFGRandomDungeonInfo = GetLFGRandomDungeonInfo
-local GetMapInfo = GetMapInfo
 local GetMaxBattlefieldID = GetMaxBattlefieldID
 local GetNumRandomDungeons = GetNumRandomDungeons
 local GetNumGroupMembers = GetNumGroupMembers
 local GetRealZoneText = GetRealZoneText
 local GetSpecialization = GetSpecialization
-local SetMapByID = SetMapByID
 local UnitLevel = UnitLevel
 local UnitRace = UnitRace
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitSetRole = UnitSetRole
 local InCombatLockdown = InCombatLockdown
-local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
-local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
+local PlaySound = PlaySound
 local StaticPopupSpecial_Hide = StaticPopupSpecial_Hide
 local HybridScrollFrame_GetOffset = HybridScrollFrame_GetOffset
 local LFDQueueFrame_SetType = LFDQueueFrame_SetType
@@ -87,6 +76,7 @@ function module:LoadMisc()
 	_G.StaticPopupDialogs.ADDON_ACTION_FORBIDDEN.button1 = nil
 	_G.StaticPopupDialogs.TOO_MANY_LUA_ERRORS.button1 = nil
 	_G["PetBattleQueueReadyFrame"].hideOnEscape = nil
+
 	if (_G.PVPReadyDialog) then
 		_G.PVPReadyDialog.leaveButton:Hide()
 		_G.PVPReadyDialog.enterButton:ClearAllPoints()

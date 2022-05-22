@@ -1243,7 +1243,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
+		E.db["unitframe"]["units"]["player"]["debuffs"]["keepSizeRatio"] = false
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 28
+		E.db["unitframe"]["units"]["player"]["debuffs"]["height"] = 20
 		E.db["unitframe"]["units"]["player"]["debuffs"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 35
 		E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 3
@@ -1251,7 +1253,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["anchorPoint"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["countFont"] = "Expressway"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["countFontSize"] = 9
-		E.db["unitframe"]["units"]["player"]["debuffs"]["spacing"] = 3
+		E.db["unitframe"]["units"]["player"]["debuffs"]["spacing"] = 1
 		E.db["unitframe"]["units"]["player"]["debuffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
@@ -1452,7 +1454,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["debuffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["keepSizeRatio"] = false
-		E.db["unitframe"]["units"]["target"]["debuffs"]["height"] = 18
+		E.db["unitframe"]["units"]["target"]["debuffs"]["height"] = 20
 		E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 2
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
@@ -1875,7 +1877,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["clickThrough"] = true
-		E.db["unitframe"]["units"]["party"]["debuffs"]["spacing"] = 4
+		E.db["unitframe"]["units"]["party"]["debuffs"]["spacing"] = 1
 		E.db["unitframe"]["units"]["party"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "LEFT"

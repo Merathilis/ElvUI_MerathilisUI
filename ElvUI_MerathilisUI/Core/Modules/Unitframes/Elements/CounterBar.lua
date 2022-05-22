@@ -1,12 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
 
---Cache global variables
---Lua functions
 local floor = math.floor
---WoW API / Variables
+
 local CreateFrame = CreateFrame
--- GLOBALS:
 
 function module:Construct_CounterBar(frame)
 	if not E.Retail then return end

@@ -1,13 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule("MER_Progress")
 
---Cache global variables
---Lua functions
 local _G = _G
-local tinsert, twipe = table.insert, table.wipe
---WoW API / Variables
-local IsAddOnLoaded = IsAddOnLoaded
--- GLOBALS:
+local tinsert = table.insert
 
 local function Tooltip()
 	local ACH = E.Libs.ACH

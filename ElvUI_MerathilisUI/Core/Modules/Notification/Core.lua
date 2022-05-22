@@ -3,7 +3,6 @@ local module = MER.Modules.Notification
 local MERS = MER.Modules.Skins
 
 -- Credits RealUI
-local _G = _G
 local unpack, type, pairs = unpack, type, pairs
 local table = table
 local tinsert, tremove = table.insert, table.remove

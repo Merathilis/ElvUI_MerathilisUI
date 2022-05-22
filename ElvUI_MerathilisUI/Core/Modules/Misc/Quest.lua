@@ -4,10 +4,8 @@ local MI = MER:GetModule('MER_Misc')
 local _G = _G
 local select = select
 
-local C_TaskQuest_GetQuestInfoByQuestID = C_TaskQuest.GetQuestInfoByQuestID
 local GetItemInfo = GetItemInfo
 local GetQuestItemLink = GetQuestItemLink
-local GetQuestLogTitle = GetQuestLogTitle
 local GetNumQuestChoices = GetNumQuestChoices
 
 local function SelectQuestReward(index)

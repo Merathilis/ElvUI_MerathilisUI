@@ -1,15 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERAY = MER:GetModule('MER_Armory')
 
---Cache global variables
---Lua functions
 local _G = _G
 local select = select
 local tinsert = table.insert
---WoW API / Variables
+
 local PaperDollFrame_UpdateStats = PaperDollFrame_UpdateStats
 local UnitPowerType = UnitPowerType
--- GLOBALS:
 
 local fontStyleList = {
 	["NONE"] = NONE,

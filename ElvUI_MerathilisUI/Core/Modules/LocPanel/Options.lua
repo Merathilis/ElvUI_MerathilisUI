@@ -1,14 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local LP = MER:GetModule('MER_LocPanel')
 
---Cache global variables
---Lua functions
 local ceil = math.ceil
 local format = string.format
 local tinsert = table.insert
---WoW API / Variables
+
 local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
--- GLOBALS: AceGUIWidgetLSMlists
 
 local function LocPanelTable()
 	local ACH = E.Libs.ACH

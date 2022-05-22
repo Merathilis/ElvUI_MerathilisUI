@@ -5,8 +5,6 @@ local MM = E:GetModule('Minimap')
 local _G = _G
 local floor = floor
 local format = format
-local pairs = pairs
-local sqrt = sqrt
 
 local InCombatLockdown = InCombatLockdown
 

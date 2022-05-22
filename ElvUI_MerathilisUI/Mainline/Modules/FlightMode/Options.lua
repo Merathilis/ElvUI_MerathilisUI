@@ -1,5 +1,4 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_FlightMode')
 local COMP = MER:GetModule('MER_Compatibility')
 
 local format = string.format

@@ -1,14 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RandomToy')
 
---Cache global variables
---Lua functions
 local _G = _G
 local pairs, select = pairs, select
 local format = string.format
 local tinsert = table.insert
 local random = random
---WoW API / Variables
+
 local C_ToyBox_GetToyInfo = C_ToyBox and C_ToyBox.GetToyInfo
 local C_ToyBox_IsToyUsable = C_ToyBox and C_ToyBox.IsToyUsable
 local GetItemCooldown = GetItemCooldown
@@ -20,7 +18,6 @@ local PickupMacro = PickupMacro
 local InCombatLockdown = InCombatLockdown
 local PlayerHasToy = PlayerHasToy
 local SlashCmdList = SlashCmdList
--- GLOBALS:
 
 local macroName = "RANDOMTOY"
 local macroTemplate =

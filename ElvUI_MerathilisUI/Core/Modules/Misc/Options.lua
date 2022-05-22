@@ -3,13 +3,7 @@ local MI = MER:GetModule('MER_Misc')
 local SA = MER:GetModule('MER_SpellAlert')
 local LSM = E.LSM
 
---Cache global variables
---Lua functions
-local _G = _G
 local tinsert = table.insert
---WoW API / Variables
-local GUILD_MOTD_LABEL2 = GUILD_MOTD_LABEL2
--- GLOBALS:
 
 local function Misc()
 	local ACH = E.Libs.ACH

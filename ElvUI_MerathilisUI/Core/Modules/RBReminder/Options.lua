@@ -1,13 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local RB = MER:GetModule('MER_RaidBuffs')
 
---Cache global variables
---Lua functions
 local tinsert = table.insert
---WoW API / Variables
+
 local AGGRO_WARNING_IN_PARTY = AGGRO_WARNING_IN_PARTY
 local CUSTOM, DEFAULT = CUSTOM, DEFAULT
--- GLOBALS:
 
 local function RaidBuffs()
 	local ACH = E.Libs.ACH

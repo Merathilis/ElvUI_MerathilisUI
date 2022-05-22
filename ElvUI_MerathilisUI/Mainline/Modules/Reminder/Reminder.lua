@@ -50,7 +50,7 @@ function module:PlayerHasFilteredDebuff(frame, db)
 	for debuff, value in pairs(db) do
 		if value == true then
 			local name = GetSpellInfo(debuff)
-			local _, icon, _, _, _, _, unitCaster, _, _, _ = AuraUtil_FindAuraByName(name, "player", "HARMFUL")
+			local _, icon, _, _, _, _, _, _, _, _ = AuraUtil_FindAuraByName(name, "player", "HARMFUL")
 
 			if (name and icon) then
 				return true
@@ -80,7 +80,7 @@ function module:ReminderIcon_OnUpdate(elapsed)
 		if db.CDSpell then
 			local filterCheck = module:FilterCheck(self)
 			local name = GetSpellInfo(db.CDSpell)
-			local start, duration, enabled = GetSpellCooldown(name)
+			local start, duration = GetSpellCooldown(name)
 			if(duration and duration > 0) then
 				self.cooldown:SetCooldown(start, duration)
 				self.cooldown:Show()

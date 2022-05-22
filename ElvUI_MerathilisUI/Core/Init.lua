@@ -7,7 +7,7 @@ local locale = (E.global.general.locale and E.global.general.locale ~= "auto") a
 local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 
 local _G = _G
-local pcall, pairs, print, ipairs, select, tonumber = pcall, pairs, print, ipairs, select,tonumber
+local print, select, tonumber = print, select,tonumber
 local format = string.format
 
 local GetAddOnMetadata = GetAddOnMetadata
