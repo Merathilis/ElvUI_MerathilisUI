@@ -15,9 +15,6 @@ MER.MSQ = _G.LibStub('Masque', true)
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
 
-MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
-MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
-
 --Info Color RGB: 0, 192, 250
 MER.InfoColor = "|cFF00c0fa"
 MER.GreyColor = "|cffB5B5B5"

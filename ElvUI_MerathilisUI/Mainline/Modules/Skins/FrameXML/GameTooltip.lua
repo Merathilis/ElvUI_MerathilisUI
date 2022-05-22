@@ -1,13 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local pairs = pairs
--- WoW API
-local IsAddOnLoaded = IsAddOnLoaded
--- GLOBALS:
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end

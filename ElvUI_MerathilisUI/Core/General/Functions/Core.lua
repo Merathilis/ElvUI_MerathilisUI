@@ -1,23 +1,16 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local LSM = E.LSM
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local assert, ipairs, pairs, pcall, print, select, tonumber, type, unpack = assert, ipairs, pairs, pcall, print, select, tonumber, type, unpack
+local ipairs, pairs, pcall, print, select, tonumber, type, unpack = ipairs, pairs, pcall, print, select, tonumber, type, unpack
 local min = min
 local abs = abs
-local getmetatable = getmetatable
 local find, format, gsub, match, split, strfind = string.find, string.format, string.gsub, string.match, string.split, strfind
-local strmatch, strlen, strsplit, strsub = strmatch, strlen, strsplit, strsub
+local strmatch, strlen, strsub = strmatch, strlen, strsub
 local tconcat, tinsert, tremove, twipe = table.concat, table.insert, table.remove, table.wipe
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
-local EnumerateFrames = EnumerateFrames
-local GameTooltip_Hide = GameTooltip_Hide
 local GetAchievementInfo = GetAchievementInfo
-local GetAddOnMetadata = GetAddOnMetadata
-local GetBuildInfo = GetBuildInfo
 local GetClassColor = GetClassColor
 local GetItemInfo = GetItemInfo
 local GetSpellInfo = GetSpellInfo
@@ -32,13 +25,12 @@ local UnitIsGroupLeader = UnitIsGroupLeader
 local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
-local BAG_ITEM_QUALITY_COLORS = BAG_ITEM_QUALITY_COLORS
+
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UIParent = UIParent
 local C_Covenants_GetCovenantData = C_Covenants and C_Covenants.GetCovenantData
 local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
--- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
 -- Class Color stuff
 F.ClassColors = {}

@@ -1,17 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
---Cache global variables
 local _G = _G
-local select = select
---WoW API / Variables
-local CreateFrame = CreateFrame
+
 local GetCVar = GetCVar
-local GetGuildLogoInfo = GetGuildLogoInfo
-local SetSmallGuildTabardTextures = SetSmallGuildTabardTextures
 local GetGuildTradeSkillInfo = GetGuildTradeSkillInfo
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 -- Font width fix
 local function updateLevelString(view)

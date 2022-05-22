@@ -2,15 +2,10 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
 local pairs, select = pairs, select
---WoW API / Variables
-local CreateFrame = CreateFrame
-local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
+
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 

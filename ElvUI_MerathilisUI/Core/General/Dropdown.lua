@@ -1,14 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local DD = E:NewModule("Dropdown", "AceEvent-3.0")
+local module = MER.Modules.DropDown
 
-DD.RegisteredMenus = {}
-
---Cache global variables
 local _G = _G
 local format = string.format
 local pairs, unpack = pairs, unpack
 local tinsert = table.insert
---WoW API / Variables
+
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
 local GetItemInfo = GetItemInfo
@@ -17,13 +14,12 @@ local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local ToggleFrame = ToggleFrame
 
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: UIParent, UISpecialFrames,
-
 local PADDING = 10
 local BUTTON_HEIGHT = 16
 local BUTTON_WIDTH = 135
 local TITLE_OFFSET = 10
+
+module.RegisteredMenus = {}
 
 local function OnClick(btn)
 	if btn.func then btn.func() end
@@ -74,7 +70,7 @@ local function CreateListButton(frame)
 	return button
 end
 
-function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, parent, customWidth, justify)
+function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, parent, customWidth, justify)
 	if InCombatLockdown() then return end
 	if not frame.buttons then
 		frame.buttons = {}
@@ -84,7 +80,7 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 		frame:Styling()
 		frame:Hide()
 	end
-	for i=1, #frame.buttons do
+	for i = 1, #frame.buttons do
 		local btn = frame.buttons[i]
 		btn.UseTooltip = false
 		btn.func = nil
@@ -100,7 +96,7 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 		local AddOffset = 0
 
 		if not parent then FramePoint = "CURSOR" end
-		for i=1, #list do
+		for i = 1, #list do
 			frame.buttons[i] = frame.buttons[i] or CreateListButton(frame)
 			local btn = frame.buttons[i]
 
@@ -173,7 +169,7 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 	ToggleFrame(frame)
 end
 
-function DD:GetCooldown(CDtype, id)
+function module:GetCooldown(CDtype, id)
 	local cd, formatID
 	local start, duration = _G["Get"..CDtype.."Cooldown"](id)
 	if start > 0 then
@@ -186,24 +182,24 @@ function DD:GetCooldown(CDtype, id)
 end
 
 
-function DD:HideMenus()
-	for name, menu in pairs(DD.RegisteredMenus) do
+function module:HideMenus()
+	for _, menu in pairs(module.RegisteredMenus) do
 		menu:Hide()
 	end
 end
 
-function DD:RegisterMenu(menu)
+function module:RegisterMenu(menu)
 	local name = menu:GetName()
 	if name then
-		DD.RegisteredMenus[name] = menu
+		module.RegisteredMenus[name] = menu
 	else
 		MER:Print("Dropdown not registered. Please check if it has a name.")
 	end
 end
 
-function DD:Initialize()
+function module:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "HideMenus")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "HideMenus")
 end
 
-E:RegisterModule(DD:GetName())
+MER:RegisterModule(module:GetName())

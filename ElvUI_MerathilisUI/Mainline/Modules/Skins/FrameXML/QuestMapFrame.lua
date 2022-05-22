@@ -1,18 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local next, pairs, select, unpack = next, pairs, select, unpack
--- WoW API / Variables
-local C_CampaignInfo_GetCampaignInfo = C_CampaignInfo.GetCampaignInfo
-local C_CampaignInfo_GetCurrentCampaignID = C_CampaignInfo.GetCurrentCampaignID
-local hooksecurefunc = hooksecurefunc
--- GLOBALS:
-
-local r, g, b = unpack(E["media"].rgbvaluecolor)
+local select = select
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return; end
@@ -25,8 +15,6 @@ local function LoadSkin()
 
 	-- Quest scroll frame
 	local QuestScrollFrame = _G.QuestScrollFrame
-	local campaignHeader = QuestScrollFrame.Contents.WarCampaignHeader
-	local storyHeader = QuestScrollFrame.Contents.StoryHeader
 
 	QuestMapFrame.VerticalSeparator:SetAlpha(0)
 	QuestScrollFrame.DetailFrame.TopDetail:SetAlpha(0)

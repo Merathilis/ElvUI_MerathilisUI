@@ -1,15 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 
--- Cache global variables
--- Lua functions
 local _G = _G
--- WoW API
+
 local AnimateTexCoords = AnimateTexCoords
-local CreateFrame = CreateFrame
-local PanelTemplates_DeselectTab = PanelTemplates_DeselectTab
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 function FriendsCount_OnLoad(self)
 	self:RegisterEvent("BN_FRIEND_LIST_SIZE_CHANGED")

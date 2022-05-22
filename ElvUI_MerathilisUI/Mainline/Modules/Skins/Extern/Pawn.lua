@@ -4,13 +4,8 @@ local AS = unpack(AddOnSkins)
 
 if not AS:CheckAddOn('Pawn') then return end
 
--- Cache global variables
--- Lua functions
-local _G = _G
--- WoW API / Variables
 local hooksecurefunc = hooksecurefunc
 local IsAddOnLoaded = IsAddOnLoaded
--- GLOBALS:
 
 function MER:SkinPawn(event, addon)
 	if addon == 'Blizzard_ItemSocketingUI' or event == 'PLAYER_ENTERING_WORLD' and IsAddOnLoaded('Blizzard_ItemSocketingUI') then

@@ -1,8 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
 
 local function LoadSkin()

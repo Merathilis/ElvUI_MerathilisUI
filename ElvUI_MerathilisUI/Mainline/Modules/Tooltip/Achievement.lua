@@ -1,15 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
--- Cache global variables
--- Lua functions
+
 local format = format
 local find = string.find
 local select = select
--- WoW API / Variables
+
 local GetAchievementInfo = GetAchievementInfo
 local UnitGUID = UnitGUID
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: ACHIEVEMENT_EARNED_BY, ACHIEVEMENT_NOT_COMPLETED_BY, ACHIEVEMENT_COMPLETED_BY
 
 local function SetHyperlink(tooltip, refString)
 	if E.db.mui.tooltip.achievement ~= true then return end

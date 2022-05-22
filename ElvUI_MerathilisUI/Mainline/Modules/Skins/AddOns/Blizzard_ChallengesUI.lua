@@ -2,15 +2,12 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local ipairs, select, unpack = ipairs, select, unpack
--- WoW API
+local ipairs, select = ipairs, select
+
 local C_ChallengeMode_GetAffixInfo = C_ChallengeMode.GetAffixInfo
 local hooksecurefunc = hooksecurefunc
 local IsAddOnLoaded = IsAddOnLoaded
--- GLOBALS:
 
 -- Copied from ElvUI
 local function HandleAffixIcons(self)

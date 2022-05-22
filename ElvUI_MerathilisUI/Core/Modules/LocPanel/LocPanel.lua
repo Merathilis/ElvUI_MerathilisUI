@@ -1,6 +1,6 @@
 ﻿local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_LocPanel')
-local DD = E:GetModule('Dropdown')
+local DD = MER.Modules.DropDown
 
 local _G = _G
 local format, split = string.format, string.split
@@ -638,7 +638,7 @@ function module:PopulateDropdown(click)
 					tinsert(module.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
 					module:SpellList(module.Spells.challenge, module.SecondaryMenu)
 					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
-					MER:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
+					DD:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
 			end
 			if E.myclass == "MAGE" then
@@ -649,7 +649,7 @@ function module:PopulateDropdown(click)
 					tinsert(module.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
 					module:SpellList(module.Spells["teleports"][faction], module.SecondaryMenu)
 					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
-					MER:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
+					DD:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
 				tinsert(module.MainMenu, {text = L["Portals"].." >>",icon = F.GetIconFromID("spell", 53142), secure = {buttonType = "spell"}, func = function()
 					twipe(module.SecondaryMenu)
@@ -658,7 +658,7 @@ function module:PopulateDropdown(click)
 					tinsert(module.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
 					module:SpellList(module.Spells["portals"][faction], module.SecondaryMenu)
 					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
-					MER:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
+					DD:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["DD_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
 			end
 			if module.Spells["racials"][E.myrace] then
@@ -668,7 +668,7 @@ function module:PopulateDropdown(click)
 	end
 	tinsert(module.MainMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu1) end})
 	MENU_WIDTH = module.db.portals.customWidth and module.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-	MER:DropDown(module.MainMenu, module.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
+	DD:DropDown(module.MainMenu, module.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 
 	collectgarbage('collect');
 end
