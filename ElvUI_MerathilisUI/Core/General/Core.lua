@@ -1,5 +1,4 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local LSM = E.LSM
 
 local _G = _G
 local format = string.format
@@ -126,7 +125,6 @@ function MER:CheckVersion()
 	self:DBConvert()
 	self:LoadCommands()
 	self:AddMoverCategories()
-	self:LoadDataTexts()
 
 	-- Create empty saved vars if they doesn't exist
 	if not MERData then
