@@ -115,9 +115,9 @@ L["Color"] = "Цвет"
 -- Information
 L["Information"] = "Информация"
 L["Support & Downloads"] = true
-L["Tukui.org"] = true
-L["Git Ticket tracker"] = true
-L["Curse.com"] = true
+L["Tukui"] = true
+L["Github"] = true
+L["CurseForge"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["Development Version"] = "Дев. версия"

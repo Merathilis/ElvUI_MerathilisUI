@@ -116,9 +116,9 @@ L["Color"] = "颜色"
 -- Information
 L["Information"] = "信息"
 L["Support & Downloads"] = "支持 & 下载"
-L["Tukui.org"] = true
-L["Git Ticket tracker"] = true
-L["Curse.com"] = true
+L["Tukui"] = true
+L["Github"] = true
+L["CurseForge"] = true
 L["Coding"] = "代码"
 L["Testing & Inspiration"] = "测试与灵感"
 L["Development Version"] = "开发版本"

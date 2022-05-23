@@ -97,51 +97,19 @@ MER.Modules.WorldMap = MER:NewModule('MER_WorldMap', 'AceHook-3.0', 'AceEvent-3.
 MER.Modules.ZoneText = MER:NewModule('MER_ZoneText', 'AceHook-3.0')
 
 function MER:Initialize()
-	MER.initialized = true
+	self.initialized = true
 
-	MER:InitializeModules()
+	self:CheckVersion()
+	self:InitializeModules()
+
 	EP:RegisterPlugin(addon, MER.AddOptions)
-	MER:SecureHook(E, 'UpdateAll', 'UpdateModules')
+	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
 
 	self:DBConvert()
 	self:RegisterMedia()
 	self:LoadCommands()
 	self:AddMoverCategories()
 	self:LoadDataTexts()
-
-	-- ElvUI versions check
-	if MER.ElvUIV < MER.ElvUIX then
-		E:StaticPopup_Show("VERSION_MISMATCH")
-		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
-	end
-
-	-- Create empty saved vars if they doesn't exist
-	if not MERData then
-		MERData = {}
-	end
-
-	if not MERDataPerChar then
-		MERDataPerChar = {}
-	end
-
-	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
-		if initLogin or not ElvDB.MERErrorDisabledAddOns then
-			ElvDB.MERErrorDisabledAddOns = {}
-		end
-	end)
-
-	E:Delay(6, function() MER:CheckVersion() end)
-
-	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
-	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
-	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
-		E:GetModule("PluginInstaller"):Queue(MER.installTable)
-	end
-
-	local icon = MER:GetIconString(MER.Media.Textures.pepeSmall, 14)
-	if E.db.mui.installed and E.db.mui.general.LoginMsg then
-		print(icon..''..MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..MER:PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
-	end
 end
 
 EP:HookInitialize(MER, MER.Initialize)

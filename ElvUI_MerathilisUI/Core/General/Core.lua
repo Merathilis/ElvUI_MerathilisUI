@@ -69,14 +69,6 @@ function MER:UpdateModules()
 	end
 end
 
-do
-	local template = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
-	local s = 14
-	function MER:GetIconString(icon, size)
-		return format(template, icon, size or s, size or s)
-	end
-end
-
 function MER:Print(...)
 	print("|cffff7d0a".."mUI:|r", ...)
 end
@@ -151,4 +143,40 @@ end
 
 function MER:IsAddOnEnabled(addon) -- Credit: Azilroka
 	return GetAddOnEnableState(E.myname, addon) == 2
+end
+
+function MER:CheckVersion()
+	-- ElvUI versions check
+	if MER.ElvUIV < MER.ElvUIX then
+		E:StaticPopup_Show("VERSION_MISMATCH")
+		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
+	end
+
+	-- Create empty saved vars if they doesn't exist
+	if not MERData then
+		MERData = {}
+	end
+
+	if not MERDataPerChar then
+		MERDataPerChar = {}
+	end
+
+	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
+		if initLogin or not ElvDB.MERErrorDisabledAddOns then
+			ElvDB.MERErrorDisabledAddOns = {}
+		end
+	end)
+
+	E:Delay(6, function() MER:ChangeLog() end)
+
+	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
+	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
+	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
+		E:GetModule("PluginInstaller"):Queue(MER.installTable)
+	end
+
+	local icon = F.GetIconString(MER.Media.Textures.pepeSmall, 14)
+	if E.db.mui.installed and E.db.mui.general.LoginMsg then
+		print(icon..''..MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..MER:PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+	end
 end

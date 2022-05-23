@@ -117,9 +117,9 @@ L["Color"] = "Farbe"
 -- Information
 L["Information"] = "Informationen"
 L["Support & Downloads"] = "Unterstützung & Downloads"
-L["Tukui.org"] = true
-L["Git Ticket tracker"] = true
-L["Curse.com"] = true
+L["Tukui"] = true
+L["Github"] = true
+L["CurseForge"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = "Tester & Inspiration"
 L["Development Version"] = "Entwicklungsversion"

@@ -8,6 +8,27 @@ MER.Media = {
 
 local MediaPath = "Interface/Addons/ElvUI_MerathilisUI/Core/Media/"
 
+do
+	local cuttedIconTemplate = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
+	local textureTemplate = "|T%s:%d:%d|t"
+	local aspectRatioTemplate = "|T%s:0:aspectRatio|t"
+	local s = 14
+
+	function F.GetIconString(icon, height, width)
+		width = width or height
+		return format(cuttedIconTemplate, icon, height or s, width or s)
+	end
+
+	function F.GetTextureString(texture, height, width, aspectRatio)
+		if aspectRatio then
+			return format(aspectRatioTemplate, texture)
+		else
+			width = width or height
+			return format(textureTemplate, texture, height or s, width or s)
+		end
+	end
+end
+
 local function AddMedia(name, file, type)
 	MER.Media[type][name] = MediaPath .. type .. "/" .. file
 end

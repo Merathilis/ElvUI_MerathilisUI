@@ -33,7 +33,7 @@ tsort(PATRONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
 local PATRONS_STRING = tconcat(PATRONS, ", ")
 
 local function AddOptions()
-	local icon = MER:GetIconString(MER.Media.Textures.pepeSmall, 14)
+	local icon = F.GetIconString(MER.Media.Textures.pepeSmall, 14)
 	E.Options.name = E.Options.name.." + " .. icon .. " " ..MER.Title.. format(": |cFF00c0fa%s|r", MER.Version)
 
 	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
@@ -95,7 +95,7 @@ local function AddOptions()
 				type = "execute",
 				name = L["|cffffffffMerathilis|r|cffff7d0aUI|r Discord"],
 				customWidth = 140,
-				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/ZhNqCu2") end,
+				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/s4B76at55Y") end,
 			},
 			general = {
 				order = 8,
@@ -175,33 +175,40 @@ local function AddOptions()
 							tukui = {
 								order = 1,
 								type = "execute",
-								name = L["TukUI.org"],
+								name = L["Tukui"],
 								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://www.tukui.org/addons.php?id=1") end,
 								},
-							git = {
+							curse = {
 								order = 2,
 								type = "execute",
-								name = L["Git Ticket tracker"],
-								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://github.com/Merathilis/ElvUI_MerathilisUI/issues") end,
-							},
-							curse = {
-								order = 3,
-								type = "execute",
-								name = L["Curse.com"],
+								name = L["CurseForge"],
 								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://www.curseforge.com/wow/addons/merathilis-ui") end,
 							},
-							discord = {
-								order = 4,
-								type = "execute",
-								name = L["TukUI.org Discord Server"],
-								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/xFWcfgE") end,
-							},
 							development = {
-								order = 5,
+								order = 3,
 								type = 'execute',
 								name = L["Development Version"],
 								desc = L["Here you can download the latest development version."],
 								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://github.com/Merathilis/ElvUI_MerathilisUI/archive/refs/heads/development.zip") end,
+							},
+							spacer = {
+								order = 4,
+								type = 'description',
+								name = ' ',
+							},
+							discord = {
+								order = 5,
+								type = "execute",
+								name = L["Tukui Discord Server"],
+								image = MER.Media.Icons.discord,
+								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/xFWcfgE") end,
+							},
+							git = {
+								order = 6,
+								type = "execute",
+								name = L["Github"],
+								image = MER.Media.Icons.github,
+								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://github.com/Merathilis/ElvUI_MerathilisUI/issues") end,
 							},
 						},
 					},

@@ -177,7 +177,7 @@ function MER:ToggleChangeLog()
 	self:ScheduleRepeatingTimer("CountDown", 1)
 end
 
-function MER:CheckVersion()
+function MER:ChangeLog()
 	if not MERData["Version"] or (MERData["Version"] and MERData["Version"] ~= MER.Version) then
 		MERData["Version"] = MER.Version
 		MER:ToggleChangeLog()
