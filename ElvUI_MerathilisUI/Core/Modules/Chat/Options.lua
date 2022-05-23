@@ -122,6 +122,7 @@ local function ChatTable()
 						order = 1,
 						type = "toggle",
 						name = L["Enable"],
+						desc = L["Filters some messages out of your chat, that some Spam AddOns use."],
 					},
 					damagemeter = {
 						order = 2,

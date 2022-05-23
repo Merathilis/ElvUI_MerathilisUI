@@ -102,6 +102,7 @@ L["Translate the name in item links into your language."] = "Übersetze den Name
 L["Icon"] = "Symbol"
 L["Armor Category"] = "Rüstungs Kategorie"
 L["Weapon Category"] = "Waffenkategorie"
+L["Filters some messages out of your chat, that some Spam AddOns use."] = "Filtert einige Nachrichten von Spam AddOns aus deinem Chat."
 
 -- Combat Alert
 L["Combat Alert"] = "Kampfalarmierung"

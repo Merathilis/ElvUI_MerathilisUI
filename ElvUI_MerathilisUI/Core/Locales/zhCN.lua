@@ -101,6 +101,7 @@ L["Translate the name in item links into your language."] = "将物品链接中�
 L["Icon"] = "图标"
 L["Armor Category"] = "护甲分类"
 L["Weapon Category"] = "武器分类"
+L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 
 -- Combat Alert
 L["Combat Alert"] = "战斗提示"

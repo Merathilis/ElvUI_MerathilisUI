@@ -89,6 +89,7 @@ L["Item Level Links"] = true
 L["Filter"] = "Фильтр"
 L["Block"] = "Блокировать"
 L["Custom Online Message"] = true
+L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 
 L["Chat Link"] = "Ссылки чата"
 L["Add extra information on the link, so that you can get basic information but do not need to click"] = "Добавить дополнительную информацию по ссылке, чтобы вы могли получить основную информацию, не нажимая на нее."

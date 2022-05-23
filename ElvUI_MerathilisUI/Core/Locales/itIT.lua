@@ -98,6 +98,7 @@ L["Translate the name in item links into your language."] = true
 L["Icon"] = true
 L["Armor Category"] = true
 L["Weapon Category"] = true
+L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 
 -- Combat Alert
 L["Combat Alert"] = true

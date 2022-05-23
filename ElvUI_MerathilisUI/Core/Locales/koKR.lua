@@ -98,6 +98,7 @@ L["Translate the name in item links into your language."] = "링크된 아이템
 L["Icon"] = "아이콘"
 L["Armor Category"] = "방어구 카테고리"
 L["Weapon Category"] = "무기 카테고리"
+L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 
 -- Combat Alert
 L["Combat Alert"] = "전투 알림"
