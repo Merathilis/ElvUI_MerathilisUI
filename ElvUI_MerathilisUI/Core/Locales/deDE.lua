@@ -814,3 +814,13 @@ L[" due to incompatiblities."] = " wegen inkompatibilität."
 L[" due to incompatiblities with: "] = " wegen inkompatibilität mit: "
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff00c0faElvUI_Windtools|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum Deaktivieren aus."
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff9482c9ElvUI_LivvenUI|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum Deaktivieren aus."
+
+-- Debug
+L["Usage"] = "Verwendungszweck"
+L["Enable debug mode"] = "Debug Modus aktivieren"
+L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] = "Deaktiviere alle anderen Addons außer ElvUI Core, ElvUI %s und BugSack."
+L["Disable debug mode"] = "Debug Modus deaktivieren"
+L["Reenable the addons that disabled by debug mode."] = "Aktiviere die Addons, die durch den Debug Modus deaktiviert wurden."
+L["Debug Enviroment"] = "Debug Umgebung"
+L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "Du kannst den Befehl |cff00ff00/muidebug off|r verwenden, um den Debug Modus zu verlassen."
+L["After you stop debuging, %s will reenable the addons automatically."] = "Nachdem Du das Debuggen beendet hast, wird %s die Addons automatisch aktivieren."

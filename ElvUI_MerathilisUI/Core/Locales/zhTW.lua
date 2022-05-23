@@ -805,3 +805,13 @@ L[" due to incompatiblities."] = true
 L[" due to incompatiblities with: "] = true
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+
+-- Debug
+L["Usage"] = "使用方式"
+L["Enable debug mode"] = "啟用偵錯模式"
+L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] = "停用除了 ElvUI 核心, ElvUI %s 和 BugSack 以外所有插件."
+L["Disable debug mode"] = "停用偵錯模式"
+L["Reenable the addons that disabled by debug mode."] = "重新啟用偵錯模式禁用的插件."
+L["Debug Enviroment"] = "偵錯環境"
+L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "你可以使用 |cff00ff00/muidebug off|r 指令來退出偵錯模式."
+L["After you stop debuging, %s will reenable the addons automatically."] = "在停止偵錯模式後, %s 將自動重新啟用插件."

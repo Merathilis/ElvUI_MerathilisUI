@@ -116,14 +116,14 @@ do
 			E:Delay(7, self.CheckVersion, self)
 		end
 
-		if _G.ElvDB then
-			if isInitialLogin or not _G.ElvDB.MER then
-				_G.ElvDB.MER = {
+		if ElvDB then
+			if isInitialLogin or not ElvDB.MER then
+				ElvDB.MER = {
 					DisabledAddOns = {}
 				}
 			end
 
-			if next(_G.ElvDB.MER.DisabledAddOns) then
+			if next(ElvDB.MER.DisabledAddOns) then
 				E:Delay(4, self.PrintDebugEnviromentTip)
 			end
 		end

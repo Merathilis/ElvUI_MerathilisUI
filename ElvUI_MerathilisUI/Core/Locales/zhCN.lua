@@ -831,3 +831,13 @@ L[" due to incompatiblities."] = " 由于不兼容."
 L[" due to incompatiblities with: "] = " 由于与以下插件不兼容: "
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff00c0faElvUI_Windtools|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff9482c9ElvUI_LivvenUI|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
+
+-- Debug
+L["Usage"] = "用法"
+L["Enable debug mode"] = "启用除错模式"
+L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] = "禁用除了 ElvUI 核心, ElvUI %s 和 BugSack 以外的插件."
+L["Disable debug mode"] = "禁用除错模式"
+L["Reenable the addons that disabled by debug mode."] = "重新启用调试模式时禁用的插件."
+L["Debug Enviroment"] = "调试环境"
+L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "你可以使用 |cff00ff00/muidebug off|r 命令来退出调试模式."
+L["After you stop debuging, %s will reenable the addons automatically."] = "在你停止调试后, %s 将自动重新启用插件."

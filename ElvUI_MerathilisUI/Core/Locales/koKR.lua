@@ -811,3 +811,13 @@ L[" due to incompatiblities."] = true
 L[" due to incompatiblities with: "] = true
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+
+-- Debug
+L["Usage"] = true
+L["Enable debug mode"] = "디버그 모드 활성화"
+L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] = "ElvUI Core, ElvUI %s 및 BugSack을 제외한 다른 모든 애드온을 비활성화합니다."
+L["Disable debug mode"] = "디버그 모드 비활성화"
+L["Reenable the addons that disabled by debug mode."] = "디버그 모드에서 비활성화된 애드온을 다시 활성화합니다."
+L["Debug Enviroment"] = "디버그 환경"
+L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "|cff00ff00/muidebug off|r 명령을 사용하여 디버그 모드를 종료할 수 있습니다."
+L["After you stop debuging, %s will reenable the addons automatically."] = "디버깅을 중지하면 %s이(가) 애드온을 자동으로 다시 활성화합니다."
