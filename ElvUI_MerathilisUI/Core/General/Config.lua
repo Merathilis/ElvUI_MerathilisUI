@@ -219,7 +219,7 @@ local function AddOptions()
 								order = 8,
 								type = "description",
 								fontSize = "medium",
-								name = E.NewSign ..	" |cffe74c3c" .. format(L["Before you submit a bug, please enable debug mode with %s and test it one more time."], "|cff00ff00/muidebug|r") .."|r",
+								name = E.NewSign .. " |cffe74c3c" .. format(L["Before you submit a bug, please enable debug mode with %s and test it one more time."], "|cff00ff00/muidebug|r") .."|r",
 								width = "full"
 							},
 						},
