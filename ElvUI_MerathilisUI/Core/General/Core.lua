@@ -97,15 +97,6 @@ function MER:AddOptions()
 	end
 end
 
-function MER:DasOptions()
-	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
-end
-
-function MER:LoadCommands()
-	self:RegisterChatCommand("mui", "DasOptions")
-	self:RegisterChatCommand('muierror', 'LuaError')
-end
-
 function MER:AddMoverCategories()
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts) + 1, "MERATHILISUI")
 	E.ConfigModeLocalizedStrings["MERATHILISUI"] = format("|cffff7d0a%s |r", "MerathilisUI")
@@ -123,7 +114,6 @@ function MER:CheckVersion()
 	end
 
 	self:DBConvert()
-	self:LoadCommands()
 	self:AddMoverCategories()
 
 	-- Create empty saved vars if they doesn't exist
@@ -134,12 +124,6 @@ function MER:CheckVersion()
 	if not MERDataPerChar then
 		MERDataPerChar = {}
 	end
-
-	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
-		if initLogin or not ElvDB.MERErrorDisabledAddOns then
-			ElvDB.MERErrorDisabledAddOns = {}
-		end
-	end)
 
 	E:Delay(6, function() MER:ChangeLog() end)
 

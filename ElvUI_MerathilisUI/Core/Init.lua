@@ -30,6 +30,8 @@ _G[addon] = Engine
 MER.Config = {}
 MER.RegisteredModules = {}
 
+MER.IsReloading = false
+
 MER.dummy = function() return end
 MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
@@ -99,11 +101,45 @@ MER.Modules.ZoneText = MER:NewModule('MER_ZoneText', 'AceHook-3.0')
 function MER:Initialize()
 	self.initialized = true
 
-	self:CheckVersion()
 	self:InitializeModules()
 
 	EP:RegisterPlugin(addon, MER.AddOptions)
 	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
+	self:SecureHook('ReloadUI', 'UpdateReloadStatus')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
+	self:RegisterEvent('PLAYER_LOGOUT')
+end
+
+do
+	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
+		if isInitialLogin then
+			E:Delay(7, self.CheckVersion, self)
+		end
+
+		if _G.ElvDB then
+			if isInitialLogin or not _G.ElvDB.MER then
+				_G.ElvDB.MER = {
+					DisabledAddOns = {}
+				}
+			end
+
+			if next(_G.ElvDB.MER.DisabledAddOns) then
+				E:Delay(4, self.PrintDebugEnviromentTip)
+			end
+		end
+
+		E:Delay(1, collectgarbage, "collect")
+	end
+end
+
+function MER:UpdateReloadStatus()
+	MER.IsReloading = true
+end
+
+function MER:PLAYER_LOGOUT()
+	if not self.IsReloading and _G.ElvDB and _G.ElvDB.MER then
+		_G.ElvDB.MER = nil
+	end
 end
 
 EP:HookInitialize(MER, MER.Initialize)
