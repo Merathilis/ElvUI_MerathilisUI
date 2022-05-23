@@ -266,7 +266,7 @@ local function testCallback()
 end
 
 SlashCmdList.TESTNOTIFICATION = function(b)
-	module:DisplayToast(MER:cOption("MerathilisUI:", 'gradient'), L["This is an example of a notification."], testCallback, b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
+	module:DisplayToast(F.cOption("MerathilisUI:", 'gradient'), L["This is an example of a notification."], testCallback, b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
 end
 SLASH_TESTNOTIFICATION1 = "/testnotification"
 

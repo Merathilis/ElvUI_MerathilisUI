@@ -11,7 +11,7 @@ local function Reminder()
 		get = function(info) return E.db.mui.reminder[ info[#info] ] end,
 		set = function(info, value) E.db.mui.reminder[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Reminder"], 'orange'), 0),
+			name = ACH:Header(F.cOption(L["Reminder"], 'orange'), 0),
 			enable = {
 				order = 1,
 				type = 'toggle',

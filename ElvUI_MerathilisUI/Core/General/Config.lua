@@ -66,7 +66,7 @@ local function AddOptions()
 		get = function(info) return E.db.mui.general[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER.Title..MER:cOption(MER.Version, 'blue')..L["by Merathilis (|cFF00c0faEU-Shattrath|r)"], 1),
+			name = ACH:Header(MER.Title..F.cOption(MER.Version, 'blue')..L["by Merathilis (|cFF00c0faEU-Shattrath|r)"], 1),
 			logo = {
 				order = 2,
 				type = "description",
@@ -100,10 +100,10 @@ local function AddOptions()
 			general = {
 				order = 8,
 				type = "group",
-				name = MER:cOption(L["General"], 'gradient'),
+				name = F.cOption(L["General"], 'gradient'),
 				icon = MER.Media.Icons.general,
 				args = {
-					generalHeader = ACH:Header(MER:cOption(L["General"], 'orange'), 1),
+					generalHeader = ACH:Header(F.cOption(L["General"], 'orange'), 1),
 					LoginMsg = {
 						order = 2,
 						type = "toggle",
@@ -138,7 +138,7 @@ local function AddOptions()
 					shadow = {
 						order = 7,
 						type = "group",
-						name = E.NewSign..MER:cOption(L["Shadows"].." ".."|cffFF0000WIP|r"),
+						name = E.NewSign..F.cOption(L["Shadows"].." ".."|cffFF0000WIP|r"),
 						guiInline = true,
 						get = function(info) return E.db.mui.general.shadow[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general.shadow[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -162,14 +162,14 @@ local function AddOptions()
 			info = {
 				order = 50,
 				type = "group",
-				name = MER:cOption(L["Information"], 'gradient'),
+				name = F.cOption(L["Information"], 'gradient'),
 				icon = MER.Media.Icons.information,
 				args = {
-					name = ACH:Header(MER:cOption(L["Information"], 'orange'), 1),
+					name = ACH:Header(F.cOption(L["Information"], 'orange'), 1),
 					support = {
 						order = 2,
 						type = "group",
-						name = MER:cOption(L["Support & Downloads"], 'orange'),
+						name = F.cOption(L["Support & Downloads"], 'orange'),
 						guiInline = true,
 						args = {
 							tukui = {
@@ -227,7 +227,7 @@ local function AddOptions()
 					coding = {
 						order = 3,
 						type = "group",
-						name = MER:cOption(L["Coding"], 'orange'),
+						name = F.cOption(L["Coding"], 'orange'),
 						guiInline = true,
 						args = {
 							tukui = ACH:Description(format("|cffffffff%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal, fang2hou"), 1),
@@ -236,7 +236,7 @@ local function AddOptions()
 					testing = {
 						order = 4,
 						type = "group",
-						name = MER:cOption(L["Testing & Inspiration"], 'orange'),
+						name = F.cOption(L["Testing & Inspiration"], 'orange'),
 						guiInline = true,
 						args = {
 							tukui = ACH:Description(format("|cffffffff%s|r", "Benik, Darth Predator, Rockxana, ElvUI community"), 1),
@@ -245,7 +245,7 @@ local function AddOptions()
 					donors = {
 						order = 5,
 						type = 'group',
-						name = MER:cOption(L["Donations"], 'orange'),
+						name = F.cOption(L["Donations"], 'orange'),
 						guiInline = true,
 						args = {
 							patron = {
@@ -265,7 +265,7 @@ local function AddOptions()
 					version = {
 						order = 5,
 						type = "group",
-						name = MER:cOption(L["Version"], 'orange'),
+						name = F.cOption(L["Version"], 'orange'),
 						guiInline = true,
 						args = {
 							version = ACH:Description(MER.Title..MER.Version, 1),
@@ -277,7 +277,7 @@ local function AddOptions()
 				order = 20,
 				type = "group",
 				childGroups = "select",
-				name = MER:cOption(L["Modules"], 'gradient'),
+				name = F.cOption(L["Modules"], 'gradient'),
 				icon = MER.Media.Icons.modules,
 				args = {
 					info = ACH:Description(L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."]),

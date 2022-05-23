@@ -51,9 +51,9 @@ function MERL:CreateChatButtons()
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
 		GameTooltip:ClearLines()
 		if E.db.mui.chat.isExpanded then
-			GameTooltip:AddLine(MER:cOption(L["BACK"]), 'orange')
+			GameTooltip:AddLine(F.cOption(L["BACK"]), 'orange')
 		else
-			GameTooltip:AddLine(MER:cOption(L["Expand the chat"]), 'orange')
+			GameTooltip:AddLine(F.cOption(L["Expand the chat"]), 'orange')
 		end
 		GameTooltip:Show()
 		if InCombatLockdown() then GameTooltip:Hide() end

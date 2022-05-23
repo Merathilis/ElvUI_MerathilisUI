@@ -13,7 +13,7 @@ local function Tooltip()
 		get = function(info) return E.db.mui.tooltip[info[#info]] end,
 		set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Tooltip"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["Tooltip"], 'orange'), 1),
 			tooltipIcon = {
 				order = 2,
 				type = "toggle",
@@ -56,7 +56,7 @@ local function Tooltip()
 				get = function(info) return E.db.mui.nameHover[info[#info]] end,
 				set = function(info, value) E.db.mui.nameHover[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
-					header = ACH:Header(MER:cOption(L["Name Hover"], 'orange'), 0),
+					header = ACH:Header(F.cOption(L["Name Hover"], 'orange'), 0),
 					enable = {
 						order = 1,
 						type = "toggle",
@@ -91,7 +91,7 @@ local function Tooltip()
 				get = function(info) return E.db.mui.tooltip.progressInfo[ info[#info] ] end,
 				set = function(info, value) E.db.mui.tooltip.progressInfo[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {
-					header = ACH:Header(MER:cOption(L["Progress Info"], 'orange'), 0),
+					header = ACH:Header(F.cOption(L["Progress Info"], 'orange'), 0),
 					raid = {
 						order = 1,
 						name = L["Raid"],

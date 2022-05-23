@@ -19,11 +19,11 @@ local function Maps()
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
 		args = {
-			header = ACH:Header(MER:cOption(L["Maps"], 'orange'), 1),
+			header = ACH:Header(F.cOption(L["Maps"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["General"], 'orange'),
+				name = F.cOption(L["General"], 'orange'),
 				guiInline = true,
 				args = {
 					flash = {
@@ -42,7 +42,7 @@ local function Maps()
 			instanceDifficulty = {
 				order = 6,
 				type = "group",
-				name = MER:cOption(L["Instance Difficulty"], 'orange'),
+				name = F.cOption(L["Instance Difficulty"], 'orange'),
 				guiInline = true,
 				get = function(info)
 					return E.db.mui.maps.minimap.instanceDifficulty[info[#info]]
@@ -123,7 +123,7 @@ local function Maps()
 			worldMap = {
 				order = 4,
 				type = "group",
-				name = MER:cOption(L["World Map"], 'orange'),
+				name = F.cOption(L["World Map"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.maps.worldMap[info[#info]] end,
 				set = function(info, value) E.db.mui.maps.worldMap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -158,7 +158,7 @@ local function Maps()
 			ping = {
 				order = 4,
 				type = "group",
-				name = MER:cOption(L["Minimap Ping"], 'orange'),
+				name = F.cOption(L["Minimap Ping"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.maps.minimap.ping[ info[#info] ] end,
 				set = function(info, value) E.db.mui.maps.minimap.ping[ info[#info] ] = value; MM:UpdatePing(); end,
@@ -320,7 +320,7 @@ local function Maps()
 			coords = {
 				order = 5,
 				type = "group",
-				name = MER:cOption(L["Coordinates"], 'orange'),
+				name = F.cOption(L["Coordinates"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.maps.minimap.coords[ info[#info] ] end,
 				set = function(info, value) E.db.mui.maps.minimap.coords[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -348,7 +348,7 @@ local function Maps()
 			smb = {
 				order = 6,
 				type = "group",
-				name = MER:cOption(L["Minimap Buttons"], 'orange'),
+				name = F.cOption(L["Minimap Buttons"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.smb[ info[#info] ] end,
 				set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update() end,
@@ -405,7 +405,7 @@ local function Maps()
 			rectangle = {
 				order = 7,
 				type = "group",
-				name = MER:cOption(L["Rectangle Minimap"], 'orange'),
+				name = F.cOption(L["Rectangle Minimap"], 'orange'),
 				guiInline = true,
 				hidden = not E.Retail,
 				get = function(info)
@@ -450,7 +450,7 @@ local function Maps()
 			superTracker = {
 				order = 8,
 				type = "group",
-				name = E.NewSign..MER:cOption(L["Super Tracker"], 'orange'),
+				name = E.NewSign..F.cOption(L["Super Tracker"], 'orange'),
 				guiInline = true,
 				hidden = not E.Retail,
 				get = function(info)

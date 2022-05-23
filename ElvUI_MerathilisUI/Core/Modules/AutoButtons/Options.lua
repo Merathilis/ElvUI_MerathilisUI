@@ -30,7 +30,7 @@ local function AutoButtonTable()
 		get = function(info) return E.db.mui.autoButtons[ info[#info] ] end,
 		set = function(info, value) E.db.mui.autoButtons[ info[#info] ] = value; end,
 		args = {
-			name = ACH:Header(MER:cOption(L["AutoButtons"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["AutoButtons"], 'orange'), 1),
 			enable = {
 				order = 2,
 				type = "toggle",

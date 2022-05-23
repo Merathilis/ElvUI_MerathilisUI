@@ -12,11 +12,11 @@ local function UnitFramesTable()
 		name = L["UnitFrames"],
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
-			name = ACH:Header(MER:cOption(L["UnitFrames"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["UnitFrames"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["General"], 'orange'),
+				name = F.cOption(L["General"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 				set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
@@ -56,7 +56,7 @@ local function UnitFramesTable()
 			gcd = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["GCD Bar"], 'orange'),
+				name = F.cOption(L["GCD Bar"], 'orange'),
 				guiInline = true,
 				--hidden = not E.Retail,
 				get = function(info) return E.db.mui.unitframes.gcd[ info[#info] ] end,
@@ -90,7 +90,7 @@ local function UnitFramesTable()
 			swing = {
 				order = 4,
 				type = "group",
-				name = MER:cOption(L["Swing Bar"], 'orange'),
+				name = F.cOption(L["Swing Bar"], 'orange'),
 				guiInline = true,
 				--hidden = not E.Retail,
 				get = function(info) return E.db.mui.unitframes.swing[ info[#info] ] end,
@@ -158,7 +158,7 @@ local function UnitFramesTable()
 			healPrediction = {
 				order = 5,
 				type = "group",
-				name = MER:cOption(L["Heal Prediction"], 'orange'),
+				name = F.cOption(L["Heal Prediction"], 'orange'),
 				desc = L["Changes the Heal Prediction texture to the default Blizzard ones."],
 				guiInline = true,
 				get = function(info)

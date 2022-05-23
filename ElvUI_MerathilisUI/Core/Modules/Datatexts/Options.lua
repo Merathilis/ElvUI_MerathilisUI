@@ -10,11 +10,11 @@ local function Datatexts()
 		get = function(info) return E.db.mui.datatexts[ info[#info] ] end,
 		set = function(info, value) E.db.mui.datatexts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["DataTexts"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["DataTexts"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["General"], 'orange'),
+				name = F.cOption(L["General"], 'orange'),
 				guiInline = true,
 				args = {
 					RightChatDataText = {

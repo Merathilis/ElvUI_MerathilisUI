@@ -42,11 +42,11 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 30,
 		type = "group",
-		name = MER:cOption(L["Skins/AddOns"], 'gradient'),
+		name = F.cOption(L["Skins/AddOns"], 'gradient'),
 		icon = MER.Media.Icons.skins,
 		childGroups = "tab",
 		args = {
-			name = ACH:Header(MER:cOption(L["Skins/AddOns"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["Skins/AddOns"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",

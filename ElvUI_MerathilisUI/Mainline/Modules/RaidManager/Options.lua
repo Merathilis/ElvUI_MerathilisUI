@@ -11,11 +11,11 @@ local function RaidManagerOptions()
 		get = function(info) return E.db.mui.raidmanager[ info[#info] ] end,
 		set = function(info, value) E.db.mui.raidmanager[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Raid Manager"]), 1),
+			name = ACH:Header(F.cOption(L["Raid Manager"]), 1),
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Description"], 'orange'),
+				name = F.cOption(L["Description"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = ACH:Description(L["This will disable the ElvUI Raid Control and replace it with my own."], 1),

@@ -18,7 +18,7 @@ local function ObjectiveTable()
 		set = function(info, value)
 			E.db.mui.blizzard.objectiveTracker[info[#info]] = value; ObjectiveTracker_Update(); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Objective Tracker"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["Objective Tracker"], 'orange'), 1),
 			description = {
 				order = 2,
 				type = "group",

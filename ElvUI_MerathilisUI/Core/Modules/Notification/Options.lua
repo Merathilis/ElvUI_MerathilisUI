@@ -11,11 +11,11 @@ local function NotificationTable()
 		get = function(info) return E.db.mui.notification[ info[#info] ] end,
 		set = function(info, value) E.db.mui.notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Notification"], 'orange'), 0),
+			name = ACH:Header(F.cOption(L["Notification"], 'orange'), 0),
 			credits = {
 				order = 1,
 				type = "group",
-				name = MER:cOption(L["Credits"], 'orange'),
+				name = F.cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = ACH:Description("RealUI - Nibelheim, Gethe", 1),

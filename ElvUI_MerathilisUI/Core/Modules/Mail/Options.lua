@@ -18,11 +18,11 @@ local function MailTable()
 			MA:ProfileUpdate()
 		end,
 		args = {
-			header = ACH:Header(MER:cOption(L["Mail"], 'orange'), 0),
+			header = ACH:Header(F.cOption(L["Mail"], 'orange'), 0),
 			panels = {
 				order = 1,
 				type = "group",
-				name = MER:cOption(L["Mail"], 'orange'),
+				name = F.cOption(L["Mail"], 'orange'),
 				guiInline = true,
 				args = {
 					enable = {

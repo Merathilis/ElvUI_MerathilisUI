@@ -14,7 +14,7 @@ local function Misc()
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Miscellaneous"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["Miscellaneous"], 'orange'), 1),
 			gmotd = {
 				order = 2,
 				type = "toggle",
@@ -61,7 +61,7 @@ local function Misc()
 			},
 			lfgInfo = {
 				order = 15,
-				name = MER:cOption(L["LFG Info"], 'orange'),
+				name = F.cOption(L["LFG Info"], 'orange'),
 				type = "group",
 				guiInline = true,
 				get = function(info)
@@ -95,7 +95,7 @@ local function Misc()
 					icon = {
 						order = 4,
 						type = "group",
-						name = MER:cOption(L["Icon"], 'orange'),
+						name = F.cOption(L["Icon"], 'orange'),
 						disabled = function()
 							return not E.db.mui.misc.lfgInfo.enable
 						end,
@@ -139,7 +139,7 @@ local function Misc()
 					line = {
 						order = 5,
 						type = "group",
-						name = MER:cOption(L["Line"], 'orange'),
+						name = F.cOption(L["Line"], 'orange'),
 						disabled = function()
 							return not E.db.mui.misc.lfgInfo.enable
 						end,
@@ -211,7 +211,7 @@ local function Misc()
 			alerts = {
 				order = 20,
 				type = "group",
-				name = MER:cOption(L["Alerts"], 'orange'),
+				name = F.cOption(L["Alerts"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -253,7 +253,7 @@ local function Misc()
 			quest = {
 				order = 21,
 				type = "group",
-				name = MER:cOption(L["Quest"], 'orange'),
+				name = F.cOption(L["Quest"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.quest[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.quest[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -269,7 +269,7 @@ local function Misc()
 			paragon = {
 				order = 22,
 				type = "group",
-				name = MER:cOption(L["MISC_PARAGON_REPUTATION"], 'orange'),
+				name = F.cOption(L["MISC_PARAGON_REPUTATION"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.paragon[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.paragon[ info[#info] ] = value; end,
@@ -312,7 +312,7 @@ local function Misc()
 			mawThreatBar = {
 				order = 24,
 				type = "group",
-				name = MER:cOption(L["Maw ThreatBar"], 'orange'),
+				name = F.cOption(L["Maw ThreatBar"], 'orange'),
 				guiInline = true,
 				args = {
 					enable = {
@@ -380,7 +380,7 @@ local function Misc()
 			macros = {
 				order = 24,
 				type = "group",
-				name = MER:cOption(L["Macros"], 'orange'),
+				name = F.cOption(L["Macros"], 'orange'),
 				guiInline = true,
 				args = {
 					randomtoy = {

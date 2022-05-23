@@ -13,11 +13,11 @@ local function PvPTable()
 		get = function(info) return E.db.mui.pvp.duels[ info[#info] ] end,
 		set = function(info, value) E.db.mui.pvp.duels[ info[#info] ] = value; end,
 		args = {
-			header = ACH:Header(MER:cOption(L["PVP"], 'orange'), 0),
+			header = ACH:Header(F.cOption(L["PVP"], 'orange'), 0),
 			credits = {
 				order = 1,
 				type = "group",
-				name = MER:cOption(L["Credits"], 'orange'),
+				name = F.cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = ACH:Header(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
@@ -27,7 +27,7 @@ local function PvPTable()
 			duels = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Duels"], 'orange'),
+				name = F.cOption(L["Duels"], 'orange'),
 				guiInline = true,
 				args = {
 					regular = {
@@ -53,7 +53,7 @@ local function PvPTable()
 			killingBlow = {
 				order = 4,
 				type = "group",
-				name = MER:cOption(KILLING_BLOWS, 'orange'),
+				name = F.cOption(KILLING_BLOWS, 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.pvp.killingBlow[ info[#info] ] end,
 				set = function(info, value) E.db.mui.pvp.killingBlow[ info[#info] ] = value end,
