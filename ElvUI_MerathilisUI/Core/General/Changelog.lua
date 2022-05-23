@@ -60,7 +60,7 @@ local function ModifiedString(string)
 	end
 
 	-- find urls
-	for k, v in pairs(URL_PATTERNS) do
+	for _, v in pairs(URL_PATTERNS) do
 		if find(string, v) then
 			newString = gsub(string, v, formatURL("%1"))
 		end

@@ -230,7 +230,7 @@ local function AddOptions()
 						name = MER:cOption(L["Coding"], 'orange'),
 						guiInline = true,
 						args = {
-							tukui = ACH:Description(format("|cffffd200%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal, fang2hou"), 1),
+							tukui = ACH:Description(format("|cffffffff%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal, fang2hou"), 1),
 						},
 					},
 					testing = {
@@ -239,7 +239,7 @@ local function AddOptions()
 						name = MER:cOption(L["Testing & Inspiration"], 'orange'),
 						guiInline = true,
 						args = {
-							tukui = ACH:Description(format("|cffffd200%s|r", "Benik, Darth Predator, Rockxana, ElvUI community"), 1),
+							tukui = ACH:Description(format("|cffffffff%s|r", "Benik, Darth Predator, Rockxana, ElvUI community"), 1),
 						},
 					},
 					donors = {
@@ -252,13 +252,13 @@ local function AddOptions()
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = format("|cffff005aPatrons: |r|cffffd200%s\n|r", PATRONS_STRING)
+								name = format("|cffff005aPatrons: |r|cffffffff%s\n|r", PATRONS_STRING)
 							},
 							paypal = {
 								order = 2,
 								type = 'description',
 								fontSize = 'medium',
-								name = format("|cff009fffPayPal: |r|cffffd200%s\n|r", DONATOR_STRING)
+								name = format("|cff009fffPayPal: |r|cffffffff%s\n|r", DONATOR_STRING)
 							},
 						},
 					},
