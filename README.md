@@ -10,7 +10,7 @@
 ![Image of MerathilsUI](https://www.tukui.org/addons/Merathilis/1603027212/screenshot.png)
 
 ***
-[![](https://img.shields.io/github/stars/Merathilis/ElvUI_MerathilisUI?style=social)](https://github.com/Merathilis/ElvUI_MerathilisUI) [![Discord](https://img.shields.io/discord/284626725403361281?color=orange&label=discord&logo=discord&style=for-the-badge)](https://discordapp.com/invite/s4B76at55Y) [![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/merathilisui) [![Donate](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/merathilis) [![ko-fi](https://img.shields.io/badge/%E2%9D%A4%EF%B8%8FDonate-Ko--Fi-red)](https://ko-fi.com/C0C2CR58G)
+[![](https://img.shields.io/github/stars/Merathilis/ElvUI_MerathilisUI?style=social)](https://github.com/Merathilis/ElvUI_MerathilisUI) [![Discord](https://img.shields.io/discord/284626725403361281?color=orange&label=discord&logo=discord&style=for-the-badge)](https://discordapp.com/invite/s4B76at55Y) [![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/merathilisui) [![Donate](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/merathilis) [![ko-fi](https://img.shields.io/badge/%E2%9D%A4%EF%B8%8FDonate-Ko--Fi-red?style=for-the-badge&logo=heart)](https://ko-fi.com/C0C2CR58G)
 
 Download Sites: [Tukui](https://www.tukui.org/addons.php?id=1) | [Curse](https://www.curseforge.com/wow/addons/merathilis-ui) | [Wago](https://addons.wago.io/addons/elvui-merathilisui) | [Github Release](https://github.com/Merathilis/ElvUI_MerathilisUI/releases)
 
