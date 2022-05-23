@@ -821,3 +821,4 @@ L["Reenable the addons that disabled by debug mode."] = "디버그 모드에서 
 L["Debug Enviroment"] = "디버그 환경"
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "|cff00ff00/muidebug off|r 명령을 사용하여 디버그 모드를 종료할 수 있습니다."
 L["After you stop debuging, %s will reenable the addons automatically."] = "디버깅을 중지하면 %s이(가) 애드온을 자동으로 다시 활성화합니다."
+L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "버그를 제출하기 전에 %s을(를) 사용하여 디버그 모드를 활성화하고 한 번 더 테스트하십시오."

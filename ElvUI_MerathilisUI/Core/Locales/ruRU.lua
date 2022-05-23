@@ -824,3 +824,4 @@ L["Reenable the addons that disabled by debug mode."] = "Повторно вкл
 L["Debug Enviroment"] = "Отладочная среда"
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "Вы можете использовать команду |cff00ff00/muidebug off|r для выхода из режима отладки."
 L["After you stop debuging, %s will reenable the addons automatically."] = "После прекращения отладки %s автоматически активирует надстройки."
+L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = true

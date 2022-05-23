@@ -210,6 +210,18 @@ local function AddOptions()
 								image = MER.Media.Icons.github,
 								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://github.com/Merathilis/ElvUI_MerathilisUI/issues") end,
 							},
+							spacer1 = {
+								order = 7,
+								type = 'description',
+								name = ' ',
+							},
+							debugModeTip = {
+								order = 8,
+								type = "description",
+								fontSize = "medium",
+								name = E.NewSign ..	" |cffe74c3c" .. format(L["Before you submit a bug, please enable debug mode with %s and test it one more time."], "|cff00ff00/muidebug|r") .."|r",
+								width = "full"
+							},
 						},
 					},
 					coding = {

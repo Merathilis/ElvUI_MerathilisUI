@@ -824,3 +824,4 @@ L["Reenable the addons that disabled by debug mode."] = "Aktiviere die Addons, d
 L["Debug Enviroment"] = "Debug Umgebung"
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "Du kannst den Befehl |cff00ff00/muidebug off|r verwenden, um den Debug Modus zu verlassen."
 L["After you stop debuging, %s will reenable the addons automatically."] = "Nachdem Du das Debuggen beendet hast, wird %s die Addons automatisch aktivieren."
+L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "Bevor Du einen Fehler meldest, aktiviere bitte den Debug Modus mit dem %s-Befehl und testen es noch einmal."

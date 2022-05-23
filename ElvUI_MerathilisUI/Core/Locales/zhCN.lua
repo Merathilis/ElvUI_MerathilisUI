@@ -841,3 +841,4 @@ L["Reenable the addons that disabled by debug mode."] = "重新启用调试模�
 L["Debug Enviroment"] = "调试环境"
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "你可以使用 |cff00ff00/muidebug off|r 命令来退出调试模式."
 L["After you stop debuging, %s will reenable the addons automatically."] = "在你停止调试后, %s 将自动重新启用插件."
+L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "在提交一个错误报告之前, 请先用 %s 命令启用调试模式并再测试一次."
