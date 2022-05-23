@@ -107,35 +107,6 @@ function MER:LoadCommands()
 	self:RegisterChatCommand('muierror', 'LuaError')
 end
 
-function MER:RegisterMedia()
-	--Fonts
-	E.media.muiFont = LSM:Fetch("font", "Merathilis Prototype")
-	E.media.muiVisitor = LSM:Fetch("font", "Merathilis Visitor1")
-	E.media.muiVisitor2 = LSM:Fetch("font", "Merathilis Visitor2")
-	E.media.muiTuk = LSM:Fetch("font", "Merathilis Tukui")
-	E.media.muiRoboto = LSM:Fetch("font", "Merathilis Roboto-Black")
-	E.media.muiGothic = LSM:Fetch("font", "Merathilis Gothic-Bold")
-
-	-- Background
-	-- Border
-
-	--Textures
-	E.media.muiBlank = LSM:Fetch("statusbar", "MerathilisBlank")
-	E.media.muiBorder = LSM:Fetch("statusbar", "MerathilisBorder")
-	E.media.muiEmpty = LSM:Fetch("statusbar", "MerathilisEmpty")
-	E.media.muiMelli = LSM:Fetch("statusbar", "MerathilisMelli")
-	E.media.muiMelliDark = LSM:Fetch("statusbar", "MerathilisMelliDark")
-	E.media.muiOnePixel = LSM:Fetch("statusbar", "MerathilisOnePixel")
-	E.media.muiNormTex = LSM:Fetch("statusbar", "MerathilisnormTex")
-	E.media.muiGradient = LSM:Fetch("statusbar", "MerathilisGradient")
-
-	-- Custom Textures
-	E.media.roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\UI-LFG-ICON-ROLES]]
-	E.media.checked = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\checked]]
-
-	E:UpdateMedia()
-end
-
 function MER:AddMoverCategories()
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts) + 1, "MERATHILISUI")
 	E.ConfigModeLocalizedStrings["MERATHILISUI"] = format("|cffff7d0a%s |r", "MerathilisUI")
@@ -151,6 +122,11 @@ function MER:CheckVersion()
 		E:StaticPopup_Show("VERSION_MISMATCH")
 		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
 	end
+
+	self:DBConvert()
+	self:LoadCommands()
+	self:AddMoverCategories()
+	self:LoadDataTexts()
 
 	-- Create empty saved vars if they doesn't exist
 	if not MERData then

@@ -7,12 +7,11 @@ local locale = (E.global.general.locale and E.global.general.locale ~= "auto") a
 local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 
 local _G = _G
-local print, select, tonumber = print, select,tonumber
+local select, tonumber = select,tonumber
 local format = string.format
 
 local GetAddOnMetadata = GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
-local hooksecurefunc = hooksecurefunc
 
 --Setting up table to unpack.
 V.mui = {}
@@ -104,12 +103,6 @@ function MER:Initialize()
 
 	EP:RegisterPlugin(addon, MER.AddOptions)
 	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
-
-	self:DBConvert()
-	self:RegisterMedia()
-	self:LoadCommands()
-	self:AddMoverCategories()
-	self:LoadDataTexts()
 end
 
 EP:HookInitialize(MER, MER.Initialize)
