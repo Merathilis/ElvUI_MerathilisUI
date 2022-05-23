@@ -3,7 +3,7 @@ local module = MER.Modules.Notification
 local CH = E:GetModule('Chat')
 
 local _G = _G
-local select = select
+local pairs, select, type = pairs, select, type
 local format = string.format
 
 local SocialQueueUtil_GetQueueName = SocialQueueUtil_GetQueueName
