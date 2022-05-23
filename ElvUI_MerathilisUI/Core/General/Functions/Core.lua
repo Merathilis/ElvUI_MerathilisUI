@@ -118,6 +118,42 @@ function F.SetFontColorDB(text, db)
 	text:SetTextColor(db.r, db.g, db.b, db.a)
 end
 
+do
+	local gradientLine =
+		E:TextGradient(
+		"----------------------------------",
+		0.910,
+		0.314,
+		0.357,
+		0.976,
+		0.835,
+		0.431,
+		0.953,
+		0.925,
+		0.761,
+		0.078,
+		0.694,
+		0.671
+	)
+
+	function F.PrintGradientLine()
+		print(gradientLine)
+	end
+end
+
+function F.Print(text)
+	if not text then
+		return
+	end
+
+	local message = format("%s: %s", MER.Title, text)
+	print(message)
+end
+
+function F.PrintURL(url)
+	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
+end
+
 -- LocPanel
 function F.GetIconFromID(type, id)
 	local path
@@ -393,7 +429,7 @@ end
 -- Inform us of the patch info we play on.
 _G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
 SlashCmdList["WOWVERSION"] = function()
-	MER:Print("Patch:", MER.WoWPatch..", ".. "Build:", MER.WoWBuild..", ".. "Released", MER.WoWPatchReleaseDate..", ".. "Interface:", MER.TocVersion)
+	F.Print("Patch:", MER.WoWPatch..", ".. "Build:", MER.WoWBuild..", ".. "Released", MER.WoWPatchReleaseDate..", ".. "Interface:", MER.TocVersion)
 end
 
 -- Chat command to remove Heirlooms from the bags
@@ -402,7 +438,7 @@ function F.CleanupHeirlooms()
 		for slot = 1, GetContainerNumSlots(bag) do
 			local name = GetContainerItemLink(bag, slot)
 			if name and find(name, "00ccff") then
-				MER:Print(L["Removed: "]..name)
+				F.Print(L["Removed: "]..name)
 				PickupContainerItem(bag, slot)
 				DeleteCursorItem()
 			end
@@ -418,44 +454,6 @@ function F.FixRelease()
 end
 MER:RegisterChatCommand("release", F.FixRelease)
 MER:RegisterChatCommand("repop", F.FixRelease)
-
--- Personal Dev use only
--- We will add more of my names as we go.
-MER.IsDev = {
-	["Asragoth"] = true,
-	["Damará"] = true,
-	["Jazira"] = true,
-	["Jústice"] = true,
-	["Maithilis"] = true,
-	["Mattdemôn"] = true,
-	["Melisendra"] = true,
-	["Merathilis"] = true,
-	["Mérathilis"] = true,
-	["Merathilîs"] = true,
-	["Róhal"] = true,
-	["Brítt"] = true,
-	["Jahzzy"] = true,
-}
-
--- Don't forget to update realm name(s) if we ever transfer realms.
--- If we forget it could be easly picked up by another player who matches these combinations.
--- End result we piss off people and we do not want to do that. :(
-MER.IsDevRealm = {
-	["Shattrath"] = true,
-	["Garrosh"] = true,
-
-	-- Beta
-	["The Maw"] = true,
-	["Torghast"] = true,
-}
-
-function F.IsDeveloper()
-	return MER.IsDev[E.myname] or false
-end
-
-function F.IsDeveloperRealm()
-	return MER.IsDevRealm[E.myrealm] or false
-end
 
 -- Covenant Crest: Credits BenikUI
 function F.GetConvCrest()

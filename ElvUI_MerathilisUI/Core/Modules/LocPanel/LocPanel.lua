@@ -319,7 +319,7 @@ function module:OnClick(btn)
 		end
 	elseif E.Retail and btn == "RightButton" and module.db.portals.enable and not InCombatLockdown() then
 		if module.ListBuilding then
-			MER:Print(L["Info for some items is not available yet. Please try again later"])
+			F.Print(L["Info for some items is not available yet. Please try again later"])
 			return
 		end
 		module:PopulateDropdown(true)
@@ -607,7 +607,7 @@ end
 
 function module:PopulateDropdown(click)
 	if module.ListUpdating and click then
-		MER:Print(L["Update canceled."])
+		F.Print(L["Update canceled."])
 		module.ListUpdating = false
 		if module.InfoUpdatingTimer then module:CancelTimer(module.InfoUpdatingTimer) end
 		return
@@ -617,12 +617,12 @@ function module:PopulateDropdown(click)
 	if module.Menu2:IsShown() then ToggleFrame(module.Menu2) return end
 	local full_list = module:ItemList()
 	if not full_list then
-		if not module.ListUpdating then MER:Print(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); module.ListUpdating = true end
+		if not module.ListUpdating then F.Print(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); module.ListUpdating = true end
 		if not module.InfoUpdatingTimer then module.InfoUpdatingTimer = module:ScheduleTimer(module.PopulateDropdown, 3) end
 		twipe(module.MainMenu)
 		return
 	end
-	if module.ListUpdating then module.ListUpdating = false; MER:Print(L["Update complete. Opening menu."]) end
+	if module.ListUpdating then module.ListUpdating = false; F.Print(L["Update complete. Opening menu."]) end
 	local anchor, point = GetDirection()
 	local MENU_WIDTH
 

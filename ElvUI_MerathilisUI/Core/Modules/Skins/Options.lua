@@ -1473,7 +1473,7 @@ local function SkinsTable()
 			func = function()
 				if addon == 'BigWigs' then
 					MER:LoadBigWigsProfile()
-					MER:Print('BigWigs profile has been set.')
+					F.Print('BigWigs profile has been set.')
 					E:StaticPopup_Show("PRIVATE_RL")
 				elseif addon == 'DBM-Core' then
 					E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
@@ -1508,7 +1508,7 @@ local function SkinsTable()
 					MER:LoadOmniCDProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				end
-				MER:Print(profileString..addonName)
+				F.Print(profileString..addonName)
 			end,
 			disabled = function() return not IsAddOnLoaded(addon) end,
 		}

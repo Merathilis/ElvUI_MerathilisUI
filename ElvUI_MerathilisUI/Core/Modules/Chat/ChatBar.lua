@@ -311,7 +311,7 @@ function module:UpdateBar()
 				end
 				local clubChannelId = GetCommuniryChannelByName(name)
 				if not clubChannelId then
-					MER:Print(module, format(L["Club channel %s not found, please use the full name of the channel."], name))
+					F.Print(module, format(L["Club channel %s not found, please use the full name of the channel."], name))
 				else
 					local currentText = DefaultChatFrame.editBox:GetText()
 					local command = format("/%s ", clubChannelId)

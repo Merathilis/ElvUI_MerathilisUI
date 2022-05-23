@@ -68,14 +68,6 @@ function MER:UpdateModules()
 	end
 end
 
-function MER:Print(...)
-	print("|cffff7d0a".."mUI:|r", ...)
-end
-
-function MER:PrintURL(url)
-	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
-end
-
 function MER:cOption(name, color)
 	local hex
 	if color == 'orange' then
@@ -135,6 +127,6 @@ function MER:CheckVersion()
 
 	local icon = F.GetIconString(MER.Media.Textures.pepeSmall, 14)
 	if E.db.mui.installed and E.db.mui.general.LoginMsg then
-		print(icon..''..MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..MER:PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+		print(icon..''..MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..F.PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 	end
 end

@@ -35,7 +35,7 @@ function module:BlockDuel(event, name)
 	end
 
 	if cancelled then
-		MER:Print(format(L["MER_DuelCancel_"..cancelled], name))
+		F.Print(format(L["MER_DuelCancel_"..cancelled], name))
 	end
 end
 

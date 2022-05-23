@@ -53,7 +53,7 @@ function module:UpdateMacro()
 	if #templist > 0 then
 		toyname = select(2, C_ToyBox_GetToyInfo(templist[random(#templist)]))
 	else
-		MER:Print(L["It seems that this toy are on cooldown"])
+		F.Print(L["It seems that this toy are on cooldown"])
 	end
 
 	local text = format(macroTemplate, macroIcon, toyname)
@@ -83,7 +83,7 @@ function module:Initialize()
 			self:UpdateMacro()
 			local name = GetMacroInfo(macroName)
 			if name then
-				MER:Print(L["A random toy macro has created, please put it in your Actionbar!"])
+				F.Print(L["A random toy macro has created, please put it in your Actionbar!"])
 				PickupMacro("RANDOMTOY")
 			end
 		end

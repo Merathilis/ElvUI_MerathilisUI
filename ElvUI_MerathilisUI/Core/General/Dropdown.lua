@@ -133,7 +133,7 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 				elseif btn.secure.buttonType == "macro" then
 					btn:SetAttribute("macrotext", btn.secure.ID)
 				else
-					MER:Print("Wrong argument for button type: "..btn.secure.buttonType)
+					F.Print("Wrong argument for button type: "..btn.secure.buttonType)
 				end
 			end
 			btn.UseTooltip = list[i].UseTooltip
@@ -193,7 +193,7 @@ function module:RegisterMenu(menu)
 	if name then
 		module.RegisteredMenus[name] = menu
 	else
-		MER:Print("Dropdown not registered. Please check if it has a name.")
+		F.Print("Dropdown not registered. Please check if it has a name.")
 	end
 end
 

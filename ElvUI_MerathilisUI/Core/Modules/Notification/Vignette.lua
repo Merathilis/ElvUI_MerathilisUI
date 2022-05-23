@@ -48,7 +48,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 		local vignetteInfo = C_VignetteInfo_GetVignetteInfo(vignetteGUID)
 		if not vignetteInfo then return end
 		-- For Debugging: uncomment this
-		-- MER:Print("Vignette-ID:"..vignetteInfo.vignetteID, "Vignette-Name:"..vignetteInfo.name)
+		-- F.Print("Vignette-ID:"..vignetteInfo.vignetteID, "Vignette-Name:"..vignetteInfo.name)
 		if VignetteBlackListIDs[vignetteInfo.vignetteID] then return end
 
 		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id then

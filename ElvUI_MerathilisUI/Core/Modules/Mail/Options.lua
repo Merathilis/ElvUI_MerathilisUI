@@ -146,7 +146,7 @@ local function MailTable()
 							tempName = nil
 							tempRealm = nil
 						else
-							MER:Print(L["Please set the name and realm first."])
+							F.Print(L["Please set the name and realm first."])
 						end
 					end
 				},

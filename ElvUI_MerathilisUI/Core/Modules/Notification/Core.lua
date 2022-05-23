@@ -262,7 +262,7 @@ end
 
 -- Test function
 local function testCallback()
-	MER:Print("Banner clicked!")
+	F.Print("Banner clicked!")
 end
 
 SlashCmdList.TESTNOTIFICATION = function(b)

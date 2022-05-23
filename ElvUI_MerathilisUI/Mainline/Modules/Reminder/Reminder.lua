@@ -305,7 +305,7 @@ function module:ReminderIcon_OnEvent(event, unit)
 		self:SetAlpha(1)
 		return
 	elseif self.ForceShow then
-		MER:Print("Attempted to show a reminder icon that does not have any spells. You must add a spell first.")
+		F.Print("Attempted to show a reminder icon that does not have any spells. You must add a spell first.")
 		return
 	end
 
