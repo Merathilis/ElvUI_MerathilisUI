@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local M = MER:GetModule('MER_Media')
+local M = MER:GetModule('MER_ZoneText')
 
 local function mediaTable()
 	E.Options.args.mui.args.media = {
