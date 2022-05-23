@@ -224,15 +224,6 @@ local function AddOptions()
 							},
 						},
 					},
-					coding = {
-						order = 3,
-						type = "group",
-						name = F.cOption(L["Coding"], 'orange'),
-						guiInline = true,
-						args = {
-							tukui = ACH:Description(format("|cffffffff%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal, fang2hou"), 1),
-						},
-					},
 					testing = {
 						order = 4,
 						type = "group",
@@ -282,6 +273,32 @@ local function AddOptions()
 				args = {
 					info = ACH:Description(L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."]),
 				},
+			},
+		},
+	}
+
+	local DEVELOPER = {
+		'|cffd12727Blazeflack|r',
+		'|cff00c0faBenik|r',
+		'|cff0070DEAzilroka|r',
+		'|cff9482c9Darth Predator|r',
+		'|TInterface/AddOns/ElvUI/Core/Media/ChatLogos/Beer:15:15:0:0:64:64:5:59:5:59|t |cfff48cbaRepooc|r',
+		E:TextGradient('Simpy but my name needs to be longer', 0.27,0.72,0.86, 0.51,0.36,0.80, 0.69,0.28,0.94, 0.94,0.28,0.63, 1.00,0.51,0.00, 0.27,0.96,0.43),
+		'fgprodigal',
+		'fang2hou',
+	}
+	local nameString = strjoin(", ", unpack(DEVELOPER))
+
+	E.Options.args.mui.args.info.args.coding = {
+		order = 3,
+		type = "group",
+		name = F.cOption(L["Coding"], 'orange'),
+		guiInline = true,
+		args = {
+			credits = {
+				order = 1,
+				type = 'description',
+				name = format(L["Many thanks to these wonderful persons %s."], nameString)
 			},
 		},
 	}
