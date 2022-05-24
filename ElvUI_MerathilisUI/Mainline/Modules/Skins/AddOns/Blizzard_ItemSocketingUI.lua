@@ -1,11 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local select, unpack = select, unpack
 
-local function LoadSkin()
+function module:Blizzard_ItemSocketingUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.socket ~= true or E.private.mui.skins.blizzard.socket ~= true then return end
 
 	local ItemSocketingFrame = _G["ItemSocketingFrame"]
@@ -34,8 +33,8 @@ local function LoadSkin()
 		shine:SetPoint("TOPLEFT", bu)
 		shine:SetPoint("BOTTOMRIGHT", bu, 1, 0)
 
-		bu.bg = MERS:CreateBDFrame(bu, .25)
+		bu.bg = module:CreateBDFrame(bu, .25)
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_ItemSocketingUI", "mUISocketing", LoadSkin)
+module:AddCallbackForAddon("Blizzard_ItemSocketingUI")

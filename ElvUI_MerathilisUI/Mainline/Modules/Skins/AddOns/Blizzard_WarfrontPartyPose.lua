@@ -1,11 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local unpack = unpack
 
-local function LoadSkin()
+function module:Blizzard_WarfrontsPartyPoseUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.islandsPartyPose ~= true or E.private.mui.skins.blizzard.IslandsPartyPose ~= true then return end
 
 	local WarfrontsPartyPoseFrame = _G.WarfrontsPartyPoseFrame
@@ -21,7 +20,7 @@ local function LoadSkin()
 	-- Hide ElvUI's backdrop
 	if rewardFrame.backdrop then rewardFrame.backdrop:Hide() end
 
-	local bg = MERS:CreateBDFrame(rewardFrame)
+	local bg = module:CreateBDFrame(rewardFrame)
 	bg:SetPoint("TOPLEFT", -5, 5)
 	bg:SetPoint("BOTTOMRIGHT", rewardFrame.NameFrame, 0, -5)
 
@@ -29,7 +28,7 @@ local function LoadSkin()
 	rewardFrame.IconBorder:SetAlpha(0)
 	rewardFrame.Icon:SetTexCoord(unpack(E.TexCoords))
 
-	MERS:CreateBDFrame(rewardFrame.Icon)
+	module:CreateBDFrame(rewardFrame.Icon)
 end
 
-S:AddCallbackForAddon("Blizzard_WarfrontsPartyPoseUI", "mUIWarfrontPartyPose", LoadSkin)
+module:AddCallbackForAddon("Blizzard_WarfrontsPartyPoseUI")

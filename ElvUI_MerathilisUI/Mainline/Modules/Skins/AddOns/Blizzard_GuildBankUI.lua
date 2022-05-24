@@ -1,13 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 
 local NUM_SLOTS_PER_GUILDBANK_GROUP = 14
 local NUM_GUILDBANK_COLUMNS = 7
 
-local function LoadSkin()
+function module:Blizzard_GuildBankUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gbank ~= true or E.private.mui.skins.blizzard.gbank ~= true then return end
 
 	_G.GuildBankFrame:Styling()
@@ -32,10 +31,10 @@ local function LoadSkin()
 			local button = _G["GuildBankColumn"..i.."Button"..j]
 			if button then
 				button:CreateBackdrop("Transparent")
-				MERS:CreateGradient(button)
+				module:CreateGradient(button)
 			end
 		end
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_GuildBankUI", "mUIGuildBank", LoadSkin)
+module:AddCallbackForAddon("Blizzard_GuildBankUI")

@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local gsub, next, unpack = gsub, next, unpack
@@ -33,7 +32,7 @@ local function ModifyGuildNews(button, _, text, name, link, ...)
 	end
 end
 
-local function LoadSkin()
+function module:Blizzard_Communities()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or E.private.mui.skins.blizzard.communities ~= true then return end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
@@ -53,7 +52,7 @@ local function LoadSkin()
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)
 		if clubInfo then
 			if self.bg and self.bg.backdrop and not self.IsStyled then
-				MERS:CreateGradient(self.bg.backdrop)
+				module:CreateGradient(self.bg.backdrop)
 				self.IsStyled = true
 			end
 		end
@@ -62,7 +61,7 @@ local function LoadSkin()
 	-- Add Community Button
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetAddCommunity", function(self)
 		if self.bg and self.bg.backdrop and not self.IsStyled then
-			MERS:CreateGradient(self.bg.backdrop)
+			module:CreateGradient(self.bg.backdrop)
 			self.IsStyled = true
 		end
 	end)
@@ -83,13 +82,13 @@ local function LoadSkin()
 	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
 
 	local Dialog = CommunitiesFrame.EditStreamDialog
-	MERS:CreateBDFrame(Dialog.Description, .25)
+	module:CreateBDFrame(Dialog.Description, .25)
 	if Dialog.backdrop then
 		Dialog.backdrop:Styling()
 	end
 
 	-- Roster
-	MERS:CreateBDFrame(CommunitiesFrame.MemberList.ListScrollFrame, .25)
+	module:CreateBDFrame(CommunitiesFrame.MemberList.ListScrollFrame, .25)
 
 	local DetailFrame = CommunitiesFrame.GuildMemberDetailFrame
 	DetailFrame:ClearAllPoints()
@@ -105,7 +104,7 @@ local function LoadSkin()
 				button.backdrop:SetTemplate("Transparent")
 				button.backdrop:SetPoint("TOPLEFT", button.Icon, -1, 1)
 				button.backdrop:SetPoint("BOTTOMRIGHT", button.Right, 1, -1)
-				MERS:CreateGradient(button.backdrop)
+				module:CreateGradient(button.backdrop)
 				button.isStyled = true
 			end
 		end
@@ -120,7 +119,7 @@ local function LoadSkin()
 				button.backdrop:SetTemplate("Transparent")
 				button.backdrop:SetPoint("TOPLEFT", button.Icon, 0, 1)
 				button.backdrop:SetPoint("BOTTOMRIGHT", 0, 3)
-				MERS:CreateGradient(button.backdrop)
+				module:CreateGradient(button.backdrop)
 
 				if button.hover then
 					button.hover:SetInside(button.backdrop)
@@ -154,4 +153,4 @@ local function LoadSkin()
 	hooksecurefunc("GuildNewsButton_SetText", ModifyGuildNews)
 end
 
-S:AddCallbackForAddon("Blizzard_Communities", "mUICommunities", LoadSkin)
+module:AddCallbackForAddon("Blizzard_Communities")

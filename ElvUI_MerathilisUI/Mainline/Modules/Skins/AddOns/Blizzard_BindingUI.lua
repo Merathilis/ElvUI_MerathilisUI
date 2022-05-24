@@ -1,12 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local select = select
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleBindingButton(bu)
+local function StyleBindingButton(bu)
 	local selected = bu.selectedHighlight
 
 	for i = 1, 9 do
@@ -19,7 +19,7 @@ local function styleBindingButton(bu)
 	selected:SetColorTexture(r, g, b,.2)
 end
 
-local function LoadSkin()
+function module:Blizzard_BindingUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.mui.skins.blizzard.binding ~= true then return end
 
 	_G.KeyBindingFrame:Styling()
@@ -31,8 +31,8 @@ local function LoadSkin()
 
 		button2:SetPoint("LEFT", button1, "RIGHT", 1, 0)
 
-		styleBindingButton(button1)
-		styleBindingButton(button2)
+		StyleBindingButton(button1)
+		StyleBindingButton(button2)
 	end
 
 	local line = _G.KeyBindingFrame:CreateTexture(nil, "ARTWORK")
@@ -43,4 +43,4 @@ local function LoadSkin()
 	_G.QuickKeybindFrame:Styling()
 end
 
-S:AddCallbackForAddon("Blizzard_BindingUI", "mUIBinding", LoadSkin)
+module:AddCallbackForAddon("Blizzard_BindingUI")

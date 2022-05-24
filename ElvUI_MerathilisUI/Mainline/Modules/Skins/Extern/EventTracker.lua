@@ -1,9 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadAddOnSkin()
+function module:EventTracker()
 	if E.private.mui.skins.addonSkins.et ~= true then return end
 
 	-- Main Frame
@@ -34,4 +35,4 @@ local function LoadAddOnSkin()
 	S:HandleScrollBar(_G.EventTracker_FramesScrollBar)
 end
 
-S:AddCallbackForAddon('EventTracker', 'ADDON_LOADED', LoadAddOnSkin)
+module:AddCallbackForAddon('EventTracker')

@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -12,7 +11,7 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function LoadSkin()
+function module:Blizzard_BlackMarketUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bmah ~= true or E.private.mui.skins.blizzard.blackmarket ~= true then return end
 
 	local BlackMarketFrame = _G.BlackMarketFrame
@@ -27,7 +26,7 @@ local function LoadSkin()
 	BlackMarketFrame:Styling()
 	MER:CreateBackdropShadow(BlackMarketFrame)
 
-	MERS:CreateBG(BlackMarketFrame.HotDeal.Item)
+	module:CreateBG(BlackMarketFrame.HotDeal.Item)
 
 	local headers = {"ColumnName", "ColumnLevel", "ColumnType", "ColumnDuration", "ColumnHighBidder", "ColumnCurrentBid"}
 	for _, headerName in pairs(headers) do
@@ -40,10 +39,10 @@ local function LoadSkin()
 		bg:SetPoint("TOPLEFT", 2, 0)
 		bg:SetPoint("BOTTOMRIGHT", -1, 0)
 		bg:SetFrameLevel(header:GetFrameLevel()-1)
-		MERS:CreateBD(bg, .25)
+		module:CreateBD(bg, .25)
 	end
 
-	MERS:CreateBD(BlackMarketFrame.HotDeal, .25)
+	module:CreateBD(BlackMarketFrame.HotDeal, .25)
 
 	hooksecurefunc("BlackMarketScrollFrame_Update", function()
 		local buttons = _G.BlackMarketScrollFrame.buttons
@@ -65,7 +64,7 @@ local function LoadSkin()
 				bg:SetPoint("TOPLEFT")
 				bg:SetPoint("BOTTOMRIGHT", 0, 5)
 				bg:SetFrameLevel(bu:GetFrameLevel()-1)
-				MERS:CreateBD(bg, 0)
+				module:CreateBD(bg, 0)
 
 				local tex = bu:CreateTexture(nil, "BACKGROUND")
 				tex:SetPoint("TOPLEFT")
@@ -106,4 +105,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_BlackMarketUI", "mUIBlackMarket", LoadSkin)
+module:AddCallbackForAddon("Blizzard_BlackMarketUI")

@@ -1,11 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local unpack, select = unpack, select
 
-local function LoadSkin()
+function module:Blizzard_QuestChoice()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.questChoice ~= true or E.private.mui.skins.blizzard.questChoice ~= true then return; end
 
 	local QuestChoiceFrame = _G.QuestChoiceFrame
@@ -15,7 +14,7 @@ local function LoadSkin()
 		QuestChoiceFrame.backdrop:Hide()
 	end
 
-	MERS:CreateBD(QuestChoiceFrame, .5)
+	module:CreateBD(QuestChoiceFrame, .5)
 	QuestChoiceFrame:Styling()
 	MER:CreateBackdropShadow(QuestChoiceFrame)
 
@@ -43,15 +42,15 @@ local function LoadSkin()
 
 		item.Name:SetTextColor(1, 1, 1)
 		item.Icon:SetTexCoord(unpack(E.TexCoords))
-		item.bg = MERS:CreateBG(item.Icon)
+		item.bg = module:CreateBG(item.Icon)
 
 		for j = 1, 3 do
 			local cu = currencies["Currency"..j]
 
 			cu.Icon:SetTexCoord(unpack(E.TexCoords))
-			MERS:CreateBG(cu.Icon)
+			module:CreateBG(cu.Icon)
 		end
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_QuestChoice", "mUIQuestChoice", LoadSkin)
+module:AddCallbackForAddon("Blizzard_QuestChoice")

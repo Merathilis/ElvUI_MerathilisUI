@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
+local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local select, unpack = select, unpack
 
-local function LoadSkin()
+function module:Blizzard_ArchaeologyUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.archaeology ~= true or E.private.mui.skins.blizzard.Archaeology ~= true then return end
 
 	local ArchaeologyFrame = _G.ArchaeologyFrame
@@ -38,10 +38,10 @@ local function LoadSkin()
 		select(4, bu:GetRegions()):SetTextColor(1, 1, 1)
 		select(5, bu:GetRegions()):SetTextColor(1, 1, 1)
 		bu:CreateBackdrop("Transparent")
-		MERS:CreateGradient(bu)
+		module:CreateGradient(bu)
 	end
 
 	_G.ArchaeologyFrameArtifactPageIcon:SetTexCoord(unpack(E.TexCoords))
 end
 
-S:AddCallbackForAddon("Blizzard_ArchaeologyUI", "mUIArchaeology", LoadSkin)
+module:AddCallbackForAddon("Blizzard_ArchaeologyUI")

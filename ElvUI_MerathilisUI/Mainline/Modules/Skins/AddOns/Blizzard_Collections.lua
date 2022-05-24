@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -10,11 +9,15 @@ local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function LoadSkin()
+function module:Blizzard_Collections()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or E.private.mui.skins.blizzard.collections ~= true then return end
 
 	local CollectionsJournal = _G.CollectionsJournal
-	CollectionsJournal:Styling()
+
+	if not CollectionsJournal.backdrop then
+		CollectionsJournal:CreateBackdrop('Transparent')
+		CollectionsJournal.backdrop:Styling()
+	end
 	MER:CreateBackdropShadow(CollectionsJournal)
 
 	_G.CollectionsJournalTab2:SetPoint("LEFT", _G.CollectionsJournalTab1, "RIGHT", -15, 0)
@@ -42,14 +45,14 @@ local function LoadSkin()
 	MountJournal.MountDisplay.ShadowOverlay:Hide()
 	_G.PetJournalTutorialButton.Ring:Hide()
 
-	MERS:CreateBD(MountJournal.MountCount, .25)
-	MERS:CreateBD(PetJournal.PetCount, .25)
-	MERS:CreateBD(MountJournal.MountDisplay.ModelScene, .25)
+	module:CreateBD(MountJournal.MountCount, .25)
+	module:CreateBD(PetJournal.PetCount, .25)
+	module:CreateBD(MountJournal.MountDisplay.ModelScene, .25)
 
 	-- Mount list
 	for _, bu in pairs(MountJournal.ListScrollFrame.buttons) do
 		if bu then
-			MERS:CreateGradient(bu)
+			module:CreateGradient(bu)
 
 			bu.DragButton.ActiveTexture:SetAlpha(0)
 
@@ -94,7 +97,7 @@ local function LoadSkin()
 	-- Pet list
 	for _, bu in pairs(PetJournal.listScroll.buttons) do
 		if bu then
-			MERS:CreateGradient(bu)
+			module:CreateGradient(bu)
 		end
 	end
 
@@ -106,7 +109,7 @@ local function LoadSkin()
 	do
 		local ic = MountJournal.MountDisplay.InfoButton.Icon
 		ic:SetTexCoord(unpack(E.TexCoords))
-		MERS:CreateBG(ic)
+		module:CreateBG(ic)
 	end
 
 	_G.PetJournalLoadoutBorderSlotHeaderText:SetParent(PetJournal)
@@ -137,19 +140,19 @@ local function LoadSkin()
 	card.PetInfo.level:SetTextColor(1, 1, 1)
 
 	card.PetInfo.icon:SetTexCoord(unpack(E.TexCoords))
-	card.PetInfo.icon.bg = MERS:CreateBG(card.PetInfo.icon)
+	card.PetInfo.icon.bg = module:CreateBG(card.PetInfo.icon)
 
-	MERS:CreateBD(card, .25)
+	module:CreateBD(card, .25)
 
 	for i = 2, 12 do
 		select(i, card.xpBar:GetRegions()):Hide()
 	end
 
-	MERS:CreateBDFrame(card.xpBar, .25)
+	module:CreateBDFrame(card.xpBar, .25)
 
 	for i = 1, 6 do
 		local bu = card["spell" .. i]
-		MERS:ReskinIcon(bu.icon)
+		module:ReskinIcon(bu.icon)
 	end
 
 	hooksecurefunc("PetJournal_UpdatePetCard", function(self)
@@ -181,12 +184,12 @@ local function LoadSkin()
 		bu.level:SetTextColor(1, 1, 1)
 
 		bu.icon:SetTexCoord(unpack(E.TexCoords))
-		bu.icon.bg = MERS:CreateBDFrame(bu.icon, .25)
+		bu.icon.bg = module:CreateBDFrame(bu.icon, .25)
 
 		bu.setButton:GetRegions():SetPoint("TOPLEFT", bu.icon, -5, 5)
 		bu.setButton:GetRegions():SetPoint("BOTTOMRIGHT", bu.icon, 5, -5)
 
-		MERS:CreateBD(bu, .25)
+		module:CreateBD(bu, .25)
 
 		hooksecurefunc(bu.qualityBorder, "SetVertexColor", function(_, r, g, b)
 			bu.name:SetTextColor(r, g, b)
@@ -197,7 +200,7 @@ local function LoadSkin()
 		end
 
 		bu.xpBar:SetStatusBarTexture(E["media"].normTex)
-		MERS:CreateBDFrame(bu.xpBar, .25)
+		module:CreateBDFrame(bu.xpBar, .25)
 
 		_G["PetJournalLoadoutPet" .. i .. "HealthFramehealthStatusBarLeft"]:Hide()
 		_G["PetJournalLoadoutPet" .. i .. "HealthFramehealthStatusBarRight"]:Hide()
@@ -205,7 +208,7 @@ local function LoadSkin()
 		_G["PetJournalLoadoutPet" .. i .. "HealthFramehealthStatusBarBGMiddle"]:Hide()
 
 		bu.healthFrame.healthBar:SetStatusBarTexture(E["media"].normTex)
-		MERS:CreateBDFrame(bu.healthFrame.healthBar, .25)
+		module:CreateBDFrame(bu.healthFrame.healthBar, .25)
 
 		for j = 1, 3 do
 			local spell = bu["spell" .. j]
@@ -215,7 +218,7 @@ local function LoadSkin()
 			spell:GetRegions():Hide()
 
 			spell.icon:SetTexCoord(unpack(E.TexCoords))
-			MERS:CreateBG(spell.icon)
+			module:CreateBG(spell.icon)
 		end
 	end
 
@@ -243,16 +246,16 @@ local function LoadSkin()
 	-- Toys
 	for i = 1, 18 do
 		local button = ToyBox.iconsFrame["spellButton" .. i]
-		MERS:ReskinIcon(button.iconTexture)
-		MERS:ReskinIcon(button.iconTextureUncollected)
+		module:ReskinIcon(button.iconTexture)
+		module:ReskinIcon(button.iconTextureUncollected)
 
 		button.name:SetPoint("LEFT", button, "RIGHT", 9, 0)
 
-		local bg = MERS:CreateBDFrame(button)
+		local bg = module:CreateBDFrame(button)
 		bg:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, -2)
 		bg:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 0, 2)
 		bg:SetPoint("RIGHT", button.name, "RIGHT", 0, 0)
-		MERS:CreateGradient(bg)
+		module:CreateGradient(bg)
 	end
 
 	-- [[ Heirlooms ]]
@@ -264,11 +267,11 @@ local function LoadSkin()
 
 	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
 		if not button.IsStyled then
-			local bg = MERS:CreateBDFrame(button)
+			local bg = module:CreateBDFrame(button)
 			bg:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, -2)
 			bg:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 0, 2)
 			bg:SetPoint("RIGHT", button.name, "RIGHT", 2, 0)
-			MERS:CreateGradient(bg)
+			module:CreateGradient(bg)
 			button.IsStyled = true
 		end
 	end)
@@ -301,7 +304,7 @@ local function LoadSkin()
 		end
 
 		tab:SetHighlightTexture("")
-		tab.bg = MERS:CreateBDFrame(tab, .25)
+		tab.bg = module:CreateBDFrame(tab, .25)
 		tab.bg:SetPoint("TOPLEFT", 3, -3)
 		tab.bg:SetPoint("BOTTOMRIGHT", -3, -1)
 	end
@@ -323,21 +326,21 @@ local function LoadSkin()
 
 	-- ItemSetsCollection
 	local SetsCollectionFrame = WardrobeCollectionFrame.SetsCollectionFrame
-	MERS:CreateBDFrame(SetsCollectionFrame.Model, .25)
+	module:CreateBDFrame(SetsCollectionFrame.Model, .25)
 
 	local ScrollFrame = SetsCollectionFrame.ScrollFrame
 	for i = 1, #ScrollFrame.buttons do
 		local bu = ScrollFrame.buttons[i]
 		bu.Background:Hide()
 		bu.HighlightTexture:SetTexture("")
-		MERS:ReskinIcon(bu.Icon)
+		module:ReskinIcon(bu.Icon)
 
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
 		bu.SelectedTexture:SetColorTexture(r, g, b, .25)
 		bu.SelectedTexture:ClearAllPoints()
 		bu.SelectedTexture:SetPoint("TOPLEFT", 1, -2)
 		bu.SelectedTexture:SetPoint("BOTTOMRIGHT", -1, 2)
-		MERS:CreateBDFrame(bu.SelectedTexture, .25)
+		module:CreateBDFrame(bu.SelectedTexture, .25)
 	end
 
 	local DetailsFrame = SetsCollectionFrame.DetailsFrame
@@ -350,7 +353,7 @@ local function LoadSkin()
 			ic:SetTexCoord(unpack(E.TexCoords))
 			itemFrame.IconBorder:Hide()
 			itemFrame.IconBorder.Show = MER.dummy
-			ic.bg = MERS:CreateBDFrame(ic)
+			ic.bg = module:CreateBDFrame(ic)
 		end
 
 		if itemFrame.collected then
@@ -367,7 +370,7 @@ local function LoadSkin()
 	local WardrobeTransmogFrame = _G.WardrobeTransmogFrame
 	WardrobeFrame:Styling()
 
-	MERS:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
+	module:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
 
 	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
 
@@ -392,7 +395,7 @@ local function LoadSkin()
 		if slot then
 			slot.Border:Hide()
 			slot.Icon:SetDrawLayer("BACKGROUND", 1)
-			MERS:ReskinIcon(slot.Icon)
+			module:ReskinIcon(slot.Icon)
 			slot:SetHighlightTexture(E["media"].normTex)
 
 			local hl = slot:GetHighlightTexture()
@@ -416,4 +419,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_Collections", "mUICollections", LoadSkin)
+module:AddCallbackForAddon("Blizzard_Collections")

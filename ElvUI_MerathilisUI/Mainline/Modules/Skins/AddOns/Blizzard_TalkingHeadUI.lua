@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talkinghead ~= true or E.private.mui.skins.blizzard.talkinghead ~= true then return end
+function module:Blizzard_TalkingHeadUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talkinghead ~= true or not E.private.mui.skins.blizzard.talkinghead then return end
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
 	if TalkingHeadFrame and not TalkingHeadFrame.IsSkinned then
@@ -40,4 +40,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_TalkingHeadUI", "mUITalkingHead", LoadSkin)
+module:AddCallbackForAddon("Blizzard_TalkingHeadUI")

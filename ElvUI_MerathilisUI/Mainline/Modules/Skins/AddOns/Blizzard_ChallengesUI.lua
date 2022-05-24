@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local ipairs, select = ipairs, select
@@ -15,7 +14,7 @@ local function HandleAffixIcons(self)
 		frame.Border:SetTexture(nil)
 		frame.Portrait:SetTexture(nil)
 		if not frame.bg then
-			frame.bg = MERS:ReskinIcon(frame.Portrait)
+			frame.bg = module:ReskinIcon(frame.Portrait)
 		end
 
 		if frame.info then
@@ -34,7 +33,7 @@ local function UpdateIcons(self)
 		local scheduel, party = select(4, self:GetChildren())
 		scheduel:GetRegions():SetAlpha(0)
 		select(3, scheduel:GetRegions()):SetAlpha(0)
-		MERS:CreateBD(scheduel, .3)
+		module:CreateBD(scheduel, .3)
 		if scheduel.Entries then
 			for i = 1, 3 do
 				HandleAffixIcons(scheduel.Entries[i])
@@ -43,12 +42,12 @@ local function UpdateIcons(self)
 
 		party:GetRegions():SetAlpha(0)
 		select(3, party:GetRegions()):SetAlpha(0)
-		MERS:CreateBD(party, .3)
+		module:CreateBD(party, .3)
 		angryStyle = true
 	end
 end
 
-local function LoadSkin()
+function module:Blizzard_ChallengesUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.mui.skins.blizzard.challenges ~= true then return end
 
 	local KeyStoneFrame = _G.ChallengesKeystoneFrame
@@ -58,4 +57,4 @@ local function LoadSkin()
 	hooksecurefunc("ChallengesFrame_Update", UpdateIcons)
 end
 
-S:AddCallbackForAddon("Blizzard_ChallengesUI", "mUIChallenges", LoadSkin)
+module:AddCallbackForAddon("Blizzard_ChallengesUI")
