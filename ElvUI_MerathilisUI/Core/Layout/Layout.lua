@@ -1,21 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERL = MER:GetModule('MER_Layout')
 local CH = E:GetModule('Chat')
-local DT = E:GetModule('DataTexts')
-local LO = E:GetModule('Layout')
 
---Cache global variables
---Lua functions
 local _G = _G
-local unpack = unpack
---WoW API / Variables
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local GameTooltip = _G["GameTooltip"]
-local PlaySound = PlaySound
-local SOUNDKIT = SOUNDKIT
-local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end
@@ -61,9 +51,9 @@ function MERL:CreateChatButtons()
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
 		GameTooltip:ClearLines()
 		if E.db.mui.chat.isExpanded then
-			GameTooltip:AddLine(MER:cOption(L["BACK"]), 'orange')
+			GameTooltip:AddLine(F.cOption(L["BACK"]), 'orange')
 		else
-			GameTooltip:AddLine(MER:cOption(L["Expand the chat"]), 'orange')
+			GameTooltip:AddLine(F.cOption(L["Expand the chat"]), 'orange')
 		end
 		GameTooltip:Show()
 		if InCombatLockdown() then GameTooltip:Hide() end

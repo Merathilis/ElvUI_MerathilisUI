@@ -4,10 +4,7 @@ local S = E:GetModule("Skins")
 local _G = _G
 
 local AnimateTexCoords = AnimateTexCoords
-local CreateFrame = CreateFrame
-local PanelTemplates_DeselectTab = PanelTemplates_DeselectTab
 local hooksecurefunc = hooksecurefunc
-
 
 function FriendsCount_OnLoad(self)
 	self:RegisterEvent("BN_FRIEND_LIST_SIZE_CHANGED")

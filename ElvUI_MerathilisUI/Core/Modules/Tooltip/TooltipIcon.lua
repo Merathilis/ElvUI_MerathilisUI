@@ -1,12 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Tooltip')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local gsub, unpack = gsub, unpack
-local strmatch = strmatch
--- WoW API / Variables
+
 local GetItemIcon = GetItemIcon
 local GetMouseFocus = GetMouseFocus
 local GetSpellTexture = GetSpellTexture

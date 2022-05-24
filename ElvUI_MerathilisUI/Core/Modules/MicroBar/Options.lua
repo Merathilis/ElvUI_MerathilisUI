@@ -14,7 +14,7 @@ local function MicroBarTable()
 		get = function(info) return E.db.mui.microBar[ info[#info] ] end,
 		set = function(info, value) E.db.mui.microBar[ info[#info] ] = value; MB:ProfileUpdate(); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Micro Bar"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["Micro Bar"], 'orange'), 1),
 			enable = {
 				order = 2,
 				type = "toggle",

@@ -1,16 +1,13 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule('MER_Misc')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local pairs, select = pairs, select
--- WoW API / Variables
+
 local hooksecurefunc = hooksecurefunc
 local GetContainerItemLink = GetContainerItemLink
 local GetInventoryItemLink = GetInventoryItemLink
 local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
--- GLOBALS: BAG_ITEM_QUALITY_COLORS
 
 -- ItemLevel on Flyoutbuttons
 local function UpdateFlyoutLevel(button, bag, slot, quality)

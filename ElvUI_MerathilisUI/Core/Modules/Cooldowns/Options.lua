@@ -1,11 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local CF = MER:GetModule('MER_Cooldown')
 
---Cache global variables
---Lua functions
 local tinsert = table.insert
---WoW API / Variables
--- GLOBALS:
 
 local function Cooldowns()
 	local ACH = E.Libs.ACH
@@ -22,11 +18,11 @@ local function Cooldowns()
 				get = function(info) return E.db.mui.cooldownFlash[ info[#info] ] end,
 				set = function(info, value) E.db.mui.cooldownFlash[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
-					header = ACH:Header(MER:cOption(L["Cooldown Flash"], 'orange'), 1),
+					header = ACH:Header(F.cOption(L["Cooldown Flash"], 'orange'), 1),
 					credits = {
 						order = 2,
 						type = "group",
-						name = MER:cOption(L["Credits"], 'orange'),
+						name = F.cOption(L["Credits"], 'orange'),
 						guiInline = true,
 						args = {
 							tukui = ACH:Description("Doom_CooldownPulse - by Woffle of Dark Iron[US]"),

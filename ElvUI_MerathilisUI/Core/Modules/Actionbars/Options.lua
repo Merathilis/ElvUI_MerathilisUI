@@ -11,18 +11,18 @@ local function ActionBarTable()
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["ActionBars"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["ActionBars"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["General"], 'orange'),
+				name = F.cOption(L["General"], 'orange'),
 				guiInline = true,
 				args = { },
 			},
 			specBar = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Specialization Bar"], 'orange'),
+				name = F.cOption(L["Specialization Bar"], 'orange'),
 				guiInline = true,
 				disabled = function() return not E.private.actionbar.enable end,
 				hidden = not E.Retail,
@@ -53,7 +53,7 @@ local function ActionBarTable()
 			equipBar = {
 				order = 4,
 				type = "group",
-				name = MER:cOption(L["EquipSet Bar"], 'orange'),
+				name = F.cOption(L["EquipSet Bar"], 'orange'),
 				guiInline = true,
 				disabled = function() return not E.private.actionbar.enable end,
 				hidden = not E.Retail,

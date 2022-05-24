@@ -7,7 +7,6 @@ local LSM = E.Libs.LSM
 	All Credits goes to fang2hou from Windtools, he is the man!!!
 ]]--
 
-local _G = _G
 local pairs = pairs
 local rad = rad
 

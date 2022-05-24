@@ -2,12 +2,8 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 if not IsAddOnLoaded("ProjectAzilroka") then return end
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local CreateFrame = CreateFrame
--- WoW API / Variables
--- GLOBALS:
 
 local function LoadAddOnSkin()
 	if E.private.mui.skins.addonSkins.pa ~= true then return end

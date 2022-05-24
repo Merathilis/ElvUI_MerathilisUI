@@ -1,74 +1,24 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Misc')
 
---Cache global variables
---Lua functions
-local _G = _G
-local print, tonumber = print, tonumber
-local twipe = table.wipe
 local format = string.format
 local gsub = gsub
-local strsplit = strsplit
-local Ambiguate = Ambiguate
---WoW API / Variables
-local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
-local C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePrefix
-local C_LFGList_GetAvailableRoles = C_LFGList.GetAvailableRoles
+
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-local ChatTypeInfo = ChatTypeInfo
 local CreateFrame = CreateFrame
-local GetTime = GetTime
-local IsInGuild = IsInGuild
-local IsInGroup = IsInGroup
-local IsPartyLFG = IsPartyLFG
-local IsInRaid = IsInRaid
-local GetLFGRoleShortageRewards = GetLFGRoleShortageRewards
-local PlaySound = PlaySound
-local RaidNotice_AddMessage = RaidNotice_AddMessage
 local GetSpellInfo = GetSpellInfo
 local GetSpellLink = GetSpellLink
-local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local IsInGroup = IsInGroup
 local SendChatMessage = SendChatMessage
 local UnitInParty = UnitInParty
 local UnitInRaid = UnitInRaid
 local UnitName = UnitName
-local TANK, HEALER, DAMAGER = TANK, HEALER, DAMAGER
--- GLOBALS:
 
 local eventframe = CreateFrame('Frame')
 eventframe:SetScript('OnEvent', function(self, event, ...)
 	eventframe[event](self, ...)
 end)
-
---[[---------------------
-  LFG Call to Arms rewards
-------------------------]]
-local LFG_Timer = 0
-function eventframe:LFG_UPDATE_RANDOM_INFO()
-	local _, forTank, forHealer, forDamage = GetLFGRoleShortageRewards(2087, _G.LFG_ROLE_SHORTAGE_RARE) -- 2087 Random Shadowlands Heroic
-	local IsTank, IsHealer, IsDamage = C_LFGList_GetAvailableRoles()
-
-	local ingroup, tank, healer, damager, result
-
-	tank = IsTank and forTank and "|cff00B2EE"..TANK.."|r" or ""
-	healer = IsHealer and forHealer and "|cff00EE00"..HEALER.."|r" or ""
-	damager = IsDamage and forDamage and "|cffd62c35"..DAMAGER.."|r" or ""
-
-	if IsInGroup(_G.LE_PARTY_CATEGORY) or IsInGroup(_G.LE_PARTY_CATEGORY_INSTANCE) then
-		ingroup = true
-	end
-
-	if ((IsTank and forTank) or (IsHealer and forHealer) or (IsDamage and forDamage)) and not ingroup then
-		if GetTime() - LFG_Timer > 20 then
-			PlaySound(8959) --Sound\\Interface\\RaidWarning.ogg
-			RaidNotice_AddMessage(_G.RaidWarningFrame, format(_G.LFG_CALL_TO_ARMS, tank.." "..healer.." "..damager), ChatTypeInfo["RAID_WARNING"])
-			MER:Print(format(_G.LFG_CALL_TO_ARMS, tank.." "..healer.." "..damager))
-			LFG_Timer = GetTime()
-		end
-	end
-end
 
 --[[---------------------
   Item Alerts
@@ -117,7 +67,7 @@ frame:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
 frame:SetScript('OnEvent', function()
 	if not IsInGroup() or InCombatLockdown() then return end
 	local db = E.db.mui.misc.alerts
-	local _, subEvent, _, _, srcName, _, _, _, destName, _, _, spellID = CombatLogGetCurrentEventInfo()
+	local _, subEvent, _, _, srcName, _, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
 	if not subEvent or not spellID or not srcName then return end
 	if not UnitInRaid(srcName) and not UnitInParty(srcName) then return end
 
@@ -144,10 +94,6 @@ frame:SetScript('OnEvent', function()
 end)
 
 function module:AddAlerts()
-	if E.db.mui.misc.alerts.lfg then
-		eventframe:RegisterEvent('LFG_UPDATE_RANDOM_INFO')
-	end
-
 	if E.db.mui.misc.alerts.itemAlert then
 		self:PlacedItemAlert()
 	end

@@ -21,12 +21,12 @@ local function ExtendedVendorTable()
 			return EV.StopRunning
 		end,
 		args = {
-			header = ACH:Header(MER:cOption(L["Extended Vendor"], 'orange'), 0),
+			header = ACH:Header(F.cOption(L["Extended Vendor"], 'orange'), 0),
 			desc = {
 				order = 0,
 				type = "group",
 				inline = true,
-				name = MER:cOption(L["Description"], 'orange'),
+				name = F.cOption(L["Description"], 'orange'),
 				args = {
 					feature = {
 						order = 1,
@@ -45,7 +45,7 @@ local function ExtendedVendorTable()
 			merchant = {
 				order = 1,
 				type = "group",
-				name = E.NewSign..MER:cOption(L["Extended Vendor"], 'orange'),
+				name = E.NewSign..F.cOption(L["Extended Vendor"], 'orange'),
 				guiInline = true,
 				args = {
 					enable = {

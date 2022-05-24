@@ -3,7 +3,7 @@ local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
-local gsub, next, select, unpack = gsub, next, select, unpack
+local gsub, next, unpack = gsub, next, unpack
 local format = string.format
 local strmatch = strmatch
 

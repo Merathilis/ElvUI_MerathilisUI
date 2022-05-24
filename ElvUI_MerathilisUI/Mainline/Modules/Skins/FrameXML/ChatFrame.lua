@@ -4,7 +4,6 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
-local hooksecurefunc = hooksecurefunc
 
 local function LoadSkin()
 	if E.private.chat.enable ~= true then return; end

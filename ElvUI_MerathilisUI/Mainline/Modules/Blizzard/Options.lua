@@ -2,7 +2,6 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_ObjectiveTracker')
 local LSM = E.Libs.LSM
 
-local _G = _G
 local format = string.format
 local tinsert = table.insert
 
@@ -19,7 +18,7 @@ local function ObjectiveTable()
 		set = function(info, value)
 			E.db.mui.blizzard.objectiveTracker[info[#info]] = value; ObjectiveTracker_Update(); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Objective Tracker"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["Objective Tracker"], 'orange'), 1),
 			description = {
 				order = 2,
 				type = "group",

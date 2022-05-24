@@ -1,14 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local LP = MER:GetModule('MER_LocPanel')
 
---Cache global variables
---Lua functions
 local ceil = math.ceil
 local format = string.format
 local tinsert = table.insert
---WoW API / Variables
+
 local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
--- GLOBALS: AceGUIWidgetLSMlists
 
 local function LocPanelTable()
 	local ACH = E.Libs.ACH
@@ -18,11 +15,11 @@ local function LocPanelTable()
 		name = L["Location Panel"],
 		get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Location Panel"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["Location Panel"], 'orange'), 1),
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Credits"], 'orange'),
+				name = F.cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = ACH:Description(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
@@ -31,7 +28,7 @@ local function LocPanelTable()
 			panel = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Location Panel"], 'orange'),
+				name = F.cOption(L["Location Panel"], 'orange'),
 				guiInline = true,
 				args = {
 					enable = {

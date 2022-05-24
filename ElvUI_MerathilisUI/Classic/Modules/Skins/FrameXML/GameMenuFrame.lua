@@ -2,12 +2,10 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 
 local _G = _G
-local select, unpack = select, unpack
+local select = select
 
 local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
-
-	local r, g, b = unpack(E.media.bordercolor)
 
 	local GameMenuFrame = _G.GameMenuFrame
 	if GameMenuFrame and not GameMenuFrame.IsStyled then

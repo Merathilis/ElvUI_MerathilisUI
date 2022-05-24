@@ -2,15 +2,13 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_ChatLink')
 
 local _G = _G
-local ceil = ceil
 local format = format
 local gsub = gsub
 local pairs = pairs
 local select = select
 local strmatch = strmatch
 local tonumber = tonumber
-local tostring = tostring
-local unpack = unpack
+
 
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 local GetItemInfoInstant = GetItemInfoInstant
@@ -18,8 +16,6 @@ local GetPvpTalentInfoByID = GetPvpTalentInfoByID
 local GetSpellTexture = GetSpellTexture
 local GetTalentInfoByID = GetTalentInfoByID
 local C_Item_GetItemNameByID = C_Item.GetItemNameByID
-
-local ItemLevelPattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
 
 local ICON_STRING = "|T%s:16:18:0:0:64:64:4:60:7:57:255:255:255|t"
 
@@ -51,7 +47,7 @@ local abbrList = {
 }
 
 local function AddItemInfo(link)
-	local itemID, itemType, itemSubType, itemEquipLoc, icon, classID, subclassID = GetItemInfoInstant(link)
+	local itemID, itemType, itemSubType, itemEquipLoc, icon = GetItemInfoInstant(link)
 
 	if not itemID then
 		return

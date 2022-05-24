@@ -1,18 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
 local unpack = unpack
 local select = select
---WoW API / Variables
+
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local GetInboxText = GetInboxText
 local GetInboxInvoiceInfo = GetInboxInvoiceInfo
---GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
@@ -56,19 +52,6 @@ local function LoadSkin()
 		b:CreateBackdrop("Transparent", true)
 		b:StyleButton()
 	end
-
-	-- SendMailFrame
-	--local SendMailFrame = _G.SendMailFrame
-	--local SendMailScrollFrame = _G.SendMailScrollFrame
-	--SendMailScrollFrame:CreateBackdrop("Transparent")
---
-	--for i = 4, 7 do
-		--select(i, SendMailFrame:GetRegions()):Hide()
-	--end
---
-	--select(4, SendMailScrollFrame:GetRegions()):Hide()
-	--_G.SendMailBodyEditBox:SetPoint("TOPLEFT", 2, -2)
-	--_G.SendMailBodyEditBox:SetWidth(278)
 
 	-- OpenMailFrame
 	local OpenMailFrame = _G.OpenMailFrame

@@ -7,12 +7,11 @@ local locale = (E.global.general.locale and E.global.general.locale ~= "auto") a
 local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 
 local _G = _G
-local pcall, pairs, print, ipairs, select, tonumber = pcall, pairs, print, ipairs, select,tonumber
+local select, tonumber = select,tonumber
 local format = string.format
 
 local GetAddOnMetadata = GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
-local hooksecurefunc = hooksecurefunc
 
 --Setting up table to unpack.
 V.mui = {}
@@ -57,6 +56,8 @@ MER.Modules.Cursor = MER:NewModule('MER_Cursor')
 MER.Modules.CVars = MER:NewModule('MER_CVars')
 MER.Modules.DashBoard = MER:NewModule('MER_DashBoard', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.DataBars = MER:NewModule('MER_DataBars')
+MER.Modules.DataTexts = MER:NewModule('MER_DataTexts', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+MER.Modules.DropDown = MER:NewModule('MER_DropDown', 'AceEvent-3.0')
 MER.Modules.Emotes = MER:NewModule('MER_Emotes')
 MER.Modules.ExtendedVendor = MER:NewModule('MER_ExtendedVendor', 'AceHook-3.0')
 MER.Modules.FlightMode = MER:NewModule('MER_FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0')
@@ -69,7 +70,6 @@ MER.Modules.LFGInfo = MER:NewModule('MER_LFGInfo', 'AceHook-3.0')
 MER.Modules.LocPanel = MER:NewModule('MER_LocPanel', 'AceTimer-3.0', 'AceEvent-3.0')
 MER.Modules.Loot = MER:NewModule('MER_Loot', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.Mail = MER:NewModule('MER_Mail', 'AceHook-3.0')
-MER.Modules.Media = MER:NewModule('MER_Media', 'AceHook-3.0')
 MER.Modules.MicroBar = MER:NewModule('MER_MicroBar', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.MiniMap = MER:NewModule('MER_Minimap', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.RectangleMinimap = MER:NewModule('MER_RectangleMinimap', 'AceHook-3.0', 'AceEvent-3.0')
@@ -94,52 +94,37 @@ MER.Modules.Tooltip = MER:NewModule('MER_Tooltip', 'AceTimer-3.0', 'AceHook-3.0'
 MER.Modules.UnitFrames = MER:NewModule('MER_UnitFrames', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.VehicleBar = MER:NewModule('MER_VehicleBar', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
 MER.Modules.WorldMap = MER:NewModule('MER_WorldMap', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+MER.Modules.ZoneText = MER:NewModule('MER_ZoneText', 'AceHook-3.0')
 
 function MER:Initialize()
-	MER.initialized = true
+	self.initialized = true
 
-	MER:InitializeModules()
+	self:InitializeModules()
+
 	EP:RegisterPlugin(addon, MER.AddOptions)
-	MER:SecureHook(E, 'UpdateAll', 'UpdateModules')
+	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
+end
 
-	self:DBConvert()
-	self:RegisterMedia()
-	self:LoadCommands()
-	self:AddMoverCategories()
-	self:LoadDataTexts()
-
-	-- ElvUI versions check
-	if MER.ElvUIV < MER.ElvUIX then
-		E:StaticPopup_Show("VERSION_MISMATCH")
-		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
-	end
-
-	-- Create empty saved vars if they doesn't exist
-	if not MERData then
-		MERData = {}
-	end
-
-	if not MERDataPerChar then
-		MERDataPerChar = {}
-	end
-
-	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
-		if initLogin or not ElvDB.MERErrorDisabledAddOns then
-			ElvDB.MERErrorDisabledAddOns = {}
+do
+	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
+		if isInitialLogin then
+			E:Delay(7, self.CheckVersion, self)
 		end
-	end)
 
-	E:Delay(6, function() MER:CheckVersion() end)
+		if ElvDB then
+			if isInitialLogin or not ElvDB.MER then
+				ElvDB.MER = {
+					DisabledAddOns = {}
+				}
+			end
 
-	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
-	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
-	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
-		E:GetModule("PluginInstaller"):Queue(MER.installTable)
-	end
+			if next(ElvDB.MER.DisabledAddOns) then
+				E:Delay(4, self.PrintDebugEnviromentTip)
+			end
+		end
 
-	local icon = MER:GetIconString(MER.Media.Textures.pepeSmall, 14)
-	if E.db.mui.installed and E.db.mui.general.LoginMsg then
-		print(icon..''..MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..MER:PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+		E:Delay(1, collectgarbage, "collect")
 	end
 end
 

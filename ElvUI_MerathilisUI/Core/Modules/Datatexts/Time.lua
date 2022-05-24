@@ -1,8 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 
---All credits belongs to Merathilis for this Time datatext mod
---Cache global variables
 local _G = _G
 local type = type
 local format = string.format
@@ -10,8 +8,7 @@ local join = string.join
 local floor = math.floor
 local twipe = table.wipe
 local date = date
---WoW API / Variables
-local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
+
 local GetGameTime = GetGameTime
 local GetDifficultyInfo = GetDifficultyInfo
 local C_QuestLog_GetAllCompletedQuestIDs = C_QuestLog.GetAllCompletedQuestIDs
@@ -23,9 +20,6 @@ local GetSavedWorldBossInfo = GetSavedWorldBossInfo
 local GetWorldPVPAreaInfo = GetWorldPVPAreaInfo
 local RequestRaidInfo = RequestRaidInfo
 local SecondsToTime = SecondsToTime
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: VOICE_CHAT_BATTLEGROUND, WINTERGRASP_IN_PROGRESS, QUEUE_TIME_UNAVAILABLE, difficultyId, instanceID
--- GLOBALS: ChatFrame_TimeBreakDown, RAID_INFO_WORLD_BOSS, TIMEMANAGER_TOOLTIP_REALMTIME, TIMEMANAGER_TOOLTIP_LOCALTIME
 
 local _
 local APM = { TIMEMANAGER_PM, TIMEMANAGER_AM }
@@ -33,8 +27,6 @@ local europeDisplayFormat = '';
 local ukDisplayFormat = '';
 local europeDisplayFormat_nocolor = join("", "%02d", ":|r%02d")
 local ukDisplayFormat_nocolor = join("", "", "%d", ":|r%02d", " %s|r")
-local timerLongFormat = "%d:%02d:%02d"
-local timerShortFormat = "%d:%02d"
 local lockoutInfoFormat = "%s%s |cffaaaaaa(%s, %s/%s)"
 local lockoutInfoFormatNoEnc = "%s%s |cffaaaaaa(%s)"
 local formatBattleGroundInfo = "%s: "
@@ -44,8 +36,8 @@ local curHr, curMin, curAmPm
 local enteredFrame = false;
 
 local Update, lastPanel; -- UpValue
-local localizedName, isActive, canQueue, startTime, canEnter
-local name, reset, difficultyId, locked, extended, isRaid, maxPlayers, difficulty, numEncounters, encounterProgress
+local localizedName, isActive, startTime, canEnter
+local name, reset, difficultyId, locked, extended, isRaid, maxPlayers, numEncounters, encounterProgress
 local quests = {}
 local updateQuestTable = false
 
@@ -110,6 +102,8 @@ local function formatResetTime(sec)
 end
 
 local function OnEvent(self, event)
+	if not E.Retail then return end
+
 	if event == "QUEST_COMPLETE" then
 		updateQuestTable = true
 	elseif (event == "QUEST_LOG_UPDATE" and updateQuestTable) or event == "ELVUI_FORCE_RUN" then

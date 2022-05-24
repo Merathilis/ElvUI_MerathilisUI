@@ -89,6 +89,7 @@ L["Item Level Links"] = true
 L["Filter"] = "Фильтр"
 L["Block"] = "Блокировать"
 L["Custom Online Message"] = true
+L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 
 L["Chat Link"] = "Ссылки чата"
 L["Add extra information on the link, so that you can get basic information but do not need to click"] = "Добавить дополнительную информацию по ссылке, чтобы вы могли получить основную информацию, не нажимая на нее."
@@ -115,9 +116,9 @@ L["Color"] = "Цвет"
 -- Information
 L["Information"] = "Информация"
 L["Support & Downloads"] = true
-L["Tukui.org"] = true
-L["Git Ticket tracker"] = true
-L["Curse.com"] = true
+L["Tukui"] = true
+L["Github"] = true
+L["CurseForge"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["Development Version"] = "Дев. версия"
@@ -733,6 +734,14 @@ L["Animation Type"] = true
 L["The type of animation activated when a button is hovered."] = true
 L["Animation Duration"] = true
 L["The duration of the animation in seconds."] = true
+L["Backdrop Class Color"] = true
+L["Border Class Color"] = true
+L["Border Color"] = true
+L["Normal Class Color"] = true
+L["Selected Backdrop & Border"] = true
+L["Selected Class Color"] = true
+L["Selected Color"] = true
+L["Tab"] = true
 
 -- Panels
 L["Top Left Panel"] = true
@@ -806,3 +815,14 @@ L[" due to incompatiblities."] = true
 L[" due to incompatiblities with: "] = true
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+
+-- Debug
+L["Usage"] = "Использование"
+L["Enable debug mode"] = "Включить режим отладки"
+L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] = "Отключите все остальные дополнения, кроме ElvUI Core, ElvUI %s и BugSack."
+L["Disable debug mode"] = "Отключить режим отладки"
+L["Reenable the addons that disabled by debug mode."] = "Повторно включите надстройки, отключенные режимом отладки."
+L["Debug Enviroment"] = "Отладочная среда"
+L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "Вы можете использовать команду |cff00ff00/muidebug off|r для выхода из режима отладки."
+L["After you stop debuging, %s will reenable the addons automatically."] = "После прекращения отладки %s автоматически активирует надстройки."
+L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = true

@@ -2,19 +2,14 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
 local _G = _G
 local select, unpack = select, unpack
---WoW API / Variables
+
 local hooksecurefunc = hooksecurefunc
 local GetInspectSpecialization = GetInspectSpecialization
-local GetInventoryItemLink = GetInventoryItemLink
 local GetSpecializationRoleByID = GetSpecializationRoleByID
 local GetSpecializationInfoByID = GetSpecializationInfoByID
 local UnitGUID = UnitGUID
--- GLOBALS:
-
-local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function updateIcon(self)
 	local spec = nil

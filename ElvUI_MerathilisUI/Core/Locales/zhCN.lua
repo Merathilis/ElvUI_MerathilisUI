@@ -101,6 +101,7 @@ L["Translate the name in item links into your language."] = "将物品链接中�
 L["Icon"] = "图标"
 L["Armor Category"] = "护甲分类"
 L["Weapon Category"] = "武器分类"
+L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 
 -- Combat Alert
 L["Combat Alert"] = "战斗提示"
@@ -116,9 +117,9 @@ L["Color"] = "颜色"
 -- Information
 L["Information"] = "信息"
 L["Support & Downloads"] = "支持 & 下载"
-L["Tukui.org"] = true
-L["Git Ticket tracker"] = true
-L["Curse.com"] = true
+L["Tukui"] = true
+L["Github"] = true
+L["CurseForge"] = true
 L["Coding"] = "代码"
 L["Testing & Inspiration"] = "测试与灵感"
 L["Development Version"] = "开发版本"
@@ -748,6 +749,15 @@ L["Animation Type"] = true
 L["The type of animation activated when a button is hovered."] = true
 L["Animation Duration"] = true
 L["The duration of the animation in seconds."] = true
+L["Backdrop Class Color"] = "背景职业颜色"
+L["Border Class Color"] = "边框职业颜色"
+L["Border Color"] = "边框颜色"
+L["Normal Class Color"] = "正常职业颜色"
+L["Selected Backdrop & Border"] = "选中时背景和边框"
+L["Selected Class Color"] = "选中职业颜色"
+L["Selected Color"] = "选中颜色"
+L["Tab"] = "选项卡"
+L["Tree Group Button"] = true
 
 -- Panels
 L["Top Left Panel"] = "左上面板"
@@ -822,3 +832,14 @@ L[" due to incompatiblities."] = " 由于不兼容."
 L[" due to incompatiblities with: "] = " 由于与以下插件不兼容: "
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff00c0faElvUI_Windtools|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff9482c9ElvUI_LivvenUI|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
+
+-- Debug
+L["Usage"] = "用法"
+L["Enable debug mode"] = "启用除错模式"
+L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] = "禁用除了 ElvUI 核心, ElvUI %s 和 BugSack 以外的插件."
+L["Disable debug mode"] = "禁用除错模式"
+L["Reenable the addons that disabled by debug mode."] = "重新启用调试模式时禁用的插件."
+L["Debug Enviroment"] = "调试环境"
+L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "你可以使用 |cff00ff00/muidebug off|r 命令来退出调试模式."
+L["After you stop debuging, %s will reenable the addons automatically."] = "在你停止调试后, %s 将自动重新启用插件."
+L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "在提交一个错误报告之前, 请先用 %s 命令启用调试模式并再测试一次."

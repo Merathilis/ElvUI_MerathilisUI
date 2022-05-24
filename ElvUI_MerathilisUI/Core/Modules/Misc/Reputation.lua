@@ -1,13 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule('MER_Misc')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local mod, pairs, select = mod, pairs, select
 local format = string.format
 local floor = math.floor
--- WoW API / Variables
+
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
@@ -21,7 +19,6 @@ local getglobal = getglobal
 local NUM_FACTIONS_DISPLAYED = NUM_FACTIONS_DISPLAYED
 local REPUTATION_PROGRESS_FORMAT = REPUTATION_PROGRESS_FORMAT
 local IsAddOnLoaded = IsAddOnLoaded
--- GLOBALS:
 
 local SR_REP_MSG = '%s (%d/%d): %+d '..L["MISC_REPUTATION"]
 local SR_REP_MSG2 = MER.GreenColor..'%s (%d/10000): %+d '..L["MISC_PARAGON_REPUTATION"]..'|r'
@@ -36,7 +33,7 @@ local function CreateMessage(msg)
 	local info = ChatTypeInfo['COMBAT_FACTION_CHANGE']
 	for j = 1, 4, 1 do
 		local chatframe = getglobal('ChatFrame'..j)
-		for k,v in pairs(chatframe.messageTypeList) do
+		for _, v in pairs(chatframe.messageTypeList) do
 			if v == 'COMBAT_FACTION_CHANGE' then
 				chatframe:AddMessage(msg, info.r, info.g, info.b, info.id)
 				break
@@ -61,7 +58,7 @@ end
 local function RepUpdate(self)
 	local numFactions = GetNumFactions(self)
 	for i = 1, numFactions, 1 do
-		local name, _, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID = GetFactionInfo(i)
+		local name, _, _, barMin, barMax, barValue, _, _, isHeader, _, hasRep, _, _, factionID = GetFactionInfo(i)
 		local value = 0;
 		if barValue >= 42000 then
 			local hasParagon = C_Reputation_IsFactionParagon(factionID)

@@ -1,16 +1,13 @@
 ﻿local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_LocPanel')
-local M = E:GetModule("Minimap")
-local DD = E:GetModule('Dropdown')
+local DD = MER.Modules.DropDown
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local format, split = string.format, string.split
 local tinsert, twipe = table.insert, table.wipe
 local pairs, select, tonumber = pairs, select, tonumber
 local collectgarbage = collectgarbage
--- WoW API / Variables
+
 local GetBindLocation = GetBindLocation
 local GetProfessions = E.Retail and GetProfessions
 local GetProfessionInfo = E.Retail and GetProfessionInfo
@@ -34,13 +31,13 @@ local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
 local C_Garrison_IsPlayerInGarrison = C_Garrison and C_Garrison.IsPlayerInGarrison
+local C_ToyBox_IsToyUsable = C_ToyBox.IsToyUsable
 local C_ToyBox = C_ToyBox
 local Minimap = Minimap
 local UnitFactionGroup = UnitFactionGroup
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
--- GLOBALS: HSplace, LE_GARRISON_TYPE_7_0, TUTORIAL_TITLE31
 
 local loc_panel
 local faction
@@ -322,7 +319,7 @@ function module:OnClick(btn)
 		end
 	elseif E.Retail and btn == "RightButton" and module.db.portals.enable and not InCombatLockdown() then
 		if module.ListBuilding then
-			MER:Print(L["Info for some items is not available yet. Please try again later"])
+			F.Print(L["Info for some items is not available yet. Please try again later"])
 			return
 		end
 		module:PopulateDropdown(true)
@@ -567,8 +564,8 @@ function module:ItemList(check)
 			local tmp = {}
 			local data = module.EngineerItems[i]
 			local ID, isToy = data.secure.ID, data.secure.isToy
-			if not module.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
-			if (not isToy and (F.BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
+			if not module.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox_IsToyUsable(ID) == nil) then return false end
+			if (not isToy and (F.BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox_IsToyUsable(ID))) then
 				if data.text then
 					local cd = DD:GetCooldown("Item", ID)
 					E:CopyTable(tmp, data)
@@ -610,7 +607,7 @@ end
 
 function module:PopulateDropdown(click)
 	if module.ListUpdating and click then
-		MER:Print(L["Update canceled."])
+		F.Print(L["Update canceled."])
 		module.ListUpdating = false
 		if module.InfoUpdatingTimer then module:CancelTimer(module.InfoUpdatingTimer) end
 		return
@@ -620,12 +617,12 @@ function module:PopulateDropdown(click)
 	if module.Menu2:IsShown() then ToggleFrame(module.Menu2) return end
 	local full_list = module:ItemList()
 	if not full_list then
-		if not module.ListUpdating then MER:Print(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); module.ListUpdating = true end
+		if not module.ListUpdating then F.Print(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); module.ListUpdating = true end
 		if not module.InfoUpdatingTimer then module.InfoUpdatingTimer = module:ScheduleTimer(module.PopulateDropdown, 3) end
 		twipe(module.MainMenu)
 		return
 	end
-	if module.ListUpdating then module.ListUpdating = false; MER:Print(L["Update complete. Opening menu."]) end
+	if module.ListUpdating then module.ListUpdating = false; F.Print(L["Update complete. Opening menu."]) end
 	local anchor, point = GetDirection()
 	local MENU_WIDTH
 
@@ -641,7 +638,7 @@ function module:PopulateDropdown(click)
 					tinsert(module.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
 					module:SpellList(module.Spells.challenge, module.SecondaryMenu)
 					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
-					MER:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
+					DD:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
 			end
 			if E.myclass == "MAGE" then
@@ -652,7 +649,7 @@ function module:PopulateDropdown(click)
 					tinsert(module.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
 					module:SpellList(module.Spells["teleports"][faction], module.SecondaryMenu)
 					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
-					MER:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
+					DD:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
 				tinsert(module.MainMenu, {text = L["Portals"].." >>",icon = F.GetIconFromID("spell", 53142), secure = {buttonType = "spell"}, func = function()
 					twipe(module.SecondaryMenu)
@@ -661,7 +658,7 @@ function module:PopulateDropdown(click)
 					tinsert(module.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
 					module:SpellList(module.Spells["portals"][faction], module.SecondaryMenu)
 					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
-					MER:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
+					DD:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["DD_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
 			end
 			if module.Spells["racials"][E.myrace] then
@@ -671,7 +668,7 @@ function module:PopulateDropdown(click)
 	end
 	tinsert(module.MainMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu1) end})
 	MENU_WIDTH = module.db.portals.customWidth and module.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-	MER:DropDown(module.MainMenu, module.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
+	DD:DropDown(module.MainMenu, module.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 
 	collectgarbage('collect');
 end
@@ -684,7 +681,7 @@ end
 function module:CHAT_MSG_SKILL()
 	if not E.Retail then return end
 
-	local prof1, prof2, archaeology, fishing, cooking = GetProfessions()
+	local prof1, prof2, _, _, _ = GetProfessions()
 	if prof1 then
 		local name, _, _ = GetProfessionInfo(prof1)
 		if name == module.EngineerName then module.isEngineer = true return end

@@ -8,7 +8,6 @@ local select, unpack = select, unpack
 local format = string.format
 
 local C_Calendar_GetNumPendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
-local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
 local Minimap = _G.Minimap
 local hooksecurefunc = hooksecurefunc

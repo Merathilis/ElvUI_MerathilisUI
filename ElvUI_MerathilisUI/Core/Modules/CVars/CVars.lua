@@ -1,12 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_CVars')
 
-local _G = _G
 local tonumber = tonumber
 
 local GetCVar = GetCVar
-
--- CREDITS: ElvUI_LIVVENUI
 
 function module:LoadCVar()
 	-- General

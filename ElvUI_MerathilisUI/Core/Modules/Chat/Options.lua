@@ -16,7 +16,7 @@ local function ChatTable()
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			header = ACH:Header(MER:cOption(L["Chat"], 'orange'), 1),
+			header = ACH:Header(F.cOption(L["Chat"], 'orange'), 1),
 			chatButton = {
 				order = 2,
 				type = "toggle",
@@ -48,7 +48,7 @@ local function ChatTable()
 			seperators = {
 				order = 10,
 				type = "group",
-				name = MER:cOption(L["Seperators"], 'orange'),
+				name = F.cOption(L["Seperators"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.chat.seperators[ info[#info] ] end,
 				set = function(info, value) E.db.mui.chat.seperators[ info[#info] ] = value; end,
@@ -76,7 +76,7 @@ local function ChatTable()
 			chatFade = {
 				order = 15,
 				type = "group",
-				name = MER:cOption(L["Fade Chat"], 'orange'),
+				name = F.cOption(L["Fade Chat"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.chat.chatFade[ info[#info] ] end,
 				set = function(info, value) E.db.mui.chat.chatFade[ info[#info] ] = value; module:Configure_ChatFade() end,
@@ -113,7 +113,7 @@ local function ChatTable()
 			filter = {
 				order = 20,
 				type = "group",
-				name = MER:cOption(L["Filter"], 'orange'),
+				name = F.cOption(L["Filter"], 'orange'),
 				guiInline = true,
 				get = function(info) return E.db.mui.chat.filter[ info[#info] ] end,
 				set = function(info, value) E.db.mui.chat.filter[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -122,6 +122,7 @@ local function ChatTable()
 						order = 1,
 						type = "toggle",
 						name = L["Enable"],
+						desc = L["Filters some messages out of your chat, that some Spam AddOns use."],
 					},
 					damagemeter = {
 						order = 2,
@@ -134,7 +135,7 @@ local function ChatTable()
 			chatBar = {
 				order = 30,
 				type = "group",
-				name = MER:cOption(L["Chat Bar"], 'orange'),
+				name = F.cOption(L["Chat Bar"], 'orange'),
 				guiInline = true,
 				get = function(info)
 					return E.db.mui.chat.chatBar[info[#info]]
@@ -527,7 +528,7 @@ local function ChatTable()
 			chatLink = {
 				order = 40,
 				type = "group",
-				name = E.NewSign..MER:cOption(L["Chat Link"], 'orange'),
+				name = E.NewSign..F.cOption(L["Chat Link"], 'orange'),
 				guiInline = true,
 				get = function(info)
 					return E.db.mui.chat.chatLink[info[#info]]

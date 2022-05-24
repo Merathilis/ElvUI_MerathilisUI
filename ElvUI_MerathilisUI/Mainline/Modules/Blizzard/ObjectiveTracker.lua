@@ -4,10 +4,7 @@ local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
 local pairs = pairs
-local abs = abs
 local format = format
-local floor = floor
-local ipairs = ipairs
 local max = max
 local strmatch = strmatch
 local tonumber = tonumber
@@ -255,7 +252,6 @@ function module:ColorfulProgression(text)
 		return
 	end
 
-	local oldHeight = text:GetHeight()
 	local progress = tonumber(current) / tonumber(required)
 
 	if self.db.colorfulProgress then

@@ -34,7 +34,6 @@ local C_PartyInfo_ConvertToRaid = C_PartyInfo.ConvertToRaid
 local C_Timer_After = C_Timer.After
 local GameTooltip = GameTooltip
 local ToggleFriendsFrame = ToggleFriendsFrame
--- GLOBALS:
 
 local function GetRaidMaxGroup()
 	local _, instType, difficulty = GetInstanceInfo()

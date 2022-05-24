@@ -1,19 +1,16 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Armory')
 local M = E:GetModule('Misc')
-local LCG = LibStub('LibCustomGlow-1.0')
 local COMP = MER:GetModule('MER_Compatibility')
 local LSM = E.LSM or E.Libs.LSM
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local select, unpack = select, unpack
 local strlower = strlower
 local type = type
 local gsub = gsub
 local pairs = pairs
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local GetItemGem = GetItemGem
 local GetInventoryItemLink = GetInventoryItemLink
@@ -26,17 +23,9 @@ local GetSpecializationInfo = GetSpecializationInfo
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
-local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
-local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
-local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
-local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
-local Enum_TransmogType_Appearance = Enum.TransmogType.Appearance
-local Enum_TransmogType_Illusion = Enum.TransmogType.Illusion
 local UnitSex = UnitSex
---GLOBALS:
 
 local initialized = false
-local updateTimer
 local maxGemSlots = 5
 
 local gearList = {
@@ -84,10 +73,6 @@ local slotIDs = {
 	[17] = "BackSlot",
 	[18] = "MainHandSlot",
 	[19] = "SecondaryHandSlot",
-}
-
-local AZSlots = {
-	"Head", "Shoulder", "Chest",
 }
 
 local enchantSlots = {

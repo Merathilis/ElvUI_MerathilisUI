@@ -2,10 +2,9 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Lua functions
 local _G = _G
 local pairs = pairs
---WoW API / Variables
+
 local C_AzeriteEssence_CanOpenUI = C_AzeriteEssence.CanOpenUI
 
 local function LoadSkin()

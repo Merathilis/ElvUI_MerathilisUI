@@ -3,7 +3,6 @@ local module = MER:GetModule('MER_Mail')
 local S = E:GetModule('Skins')
 
 -- Credits: WindTools :)
-
 local _G = _G
 local floor = floor
 local format = format

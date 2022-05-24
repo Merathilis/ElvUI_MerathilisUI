@@ -59,7 +59,6 @@ function MI:LoadnameHover()
 		if not UnitExists("mouseover") then tt:Hide() return end
 
 		local x, y = GetCursorPosition()
-		local scale = UIParent:GetEffectiveScale()
 		tt.text:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y+15)
 	end)
 

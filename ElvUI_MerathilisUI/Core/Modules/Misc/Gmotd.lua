@@ -2,14 +2,12 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule('MER_Misc')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local select = select
 local format = string.format
 local tinsert = table.insert
 local strlen = strlen
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local GetGuildRosterMOTD = GetGuildRosterMOTD
 local GetGuildInfo = GetGuildInfo
@@ -18,7 +16,6 @@ local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
 local PlaySound = PlaySound
 local UISpecialFrames = UISpecialFrames
--- GLOBALS:
 
 local gmotd
 

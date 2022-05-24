@@ -2,11 +2,9 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RaidBuffs')
 local LCG = LibStub('LibCustomGlow-1.0')
 
-local _G = _G
 local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
 
 local CreateFrame = CreateFrame
-local IsInRaid = IsInRaid
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 local GetSpellInfo = GetSpellInfo
@@ -14,7 +12,6 @@ local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 local GetWeaponEnchantInfo = GetWeaponEnchantInfo
 local GetInventoryItemTexture = GetInventoryItemTexture
 
-local bsize = 25
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 local color = {r, g, b, 1}
 

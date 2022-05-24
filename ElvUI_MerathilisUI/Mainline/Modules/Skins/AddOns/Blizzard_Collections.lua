@@ -2,17 +2,11 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
---WoW API / Variables
-local GetItemInfo = GetItemInfo
-local GetItemQualityColor = GetItemQualityColor
-local PlayerHasToy = PlayerHasToy
+
 local hooksecurefunc = hooksecurefunc
 local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
--- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 

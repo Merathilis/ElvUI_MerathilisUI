@@ -14,7 +14,6 @@ local function LoadSkin()
 
 	for i = 1, SPELLS_PER_PAGE do
 		local button = _G["SpellButton"..i]
-		local icon = _G["SpellButton"..i.."IconTexture"]
 
 		if button.bg then
 			MERS:CreateGradient(button.bg)

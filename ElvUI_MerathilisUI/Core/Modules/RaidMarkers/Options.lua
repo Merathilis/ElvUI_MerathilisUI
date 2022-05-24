@@ -23,11 +23,11 @@ local function RaidMarkers()
 		get = function(info) return E.db.mui.raidmarkers[ info[#info] ] end,
 		disabled = function() return (COMP.SLE and E.db.sle.raidmarkers.enable) end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Raid Markers"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["Raid Markers"], 'orange'), 1),
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Credits"], 'orange'),
+				name = F.cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = ACH:Description(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
@@ -36,7 +36,7 @@ local function RaidMarkers()
 			marksheader = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Raid Markers"], 'orange'),
+				name = F.cOption(L["Raid Markers"], 'orange'),
 				guiInline = true,
 				args = {
 					info = ACH:Description(L["Options for panels providing fast access to raid markers and flares."], 4),

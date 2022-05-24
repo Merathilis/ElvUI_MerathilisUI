@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local M = MER:GetModule('MER_Media')
+local M = MER:GetModule('MER_ZoneText')
 
 local function mediaTable()
 	E.Options.args.mui.args.media = {
 		order = 40,
-		name = MER:cOption(L["Media"], 'gradient'),
+		name = F.cOption(L["Media"], 'gradient'),
 		icon = MER.Media.Icons.media,
 		type = "group",
 		childGroups = "tab",
@@ -14,12 +14,12 @@ local function mediaTable()
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(L["Media"], 'orange'),
+				name = F.cOption(L["Media"], 'orange'),
 			},
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Credits"], 'orange'),
+				name = F.cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = {

@@ -3,16 +3,10 @@ local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
-local ceil, floor = math.ceil, math.floor
-local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
+local pairs, select, unpack = pairs, select, unpack
 
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
-local IsAddOnLoaded = IsAddOnLoaded
-local UnitFactionGroup = UnitFactionGroup
-local C_Timer_After = C_Timer.After
-local C_Garrison_GetFollowers = C_Garrison.GetFollowers
-local GetItemSpell = GetItemSpell
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 

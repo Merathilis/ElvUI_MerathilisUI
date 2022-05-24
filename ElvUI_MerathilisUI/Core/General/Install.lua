@@ -3,21 +3,15 @@ local CH = E:GetModule('Chat')
 
 local _G = _G
 local ipairs = ipairs
-local ceil, format, checkTable = ceil, string.format, next
+local format, checkTable = string.format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 
 local ADDONS = ADDONS
-local FCF_DockFrame = FCF_DockFrame
 local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
-local FCF_SavePositionAndDimensions = FCF_SavePositionAndDimensions
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
-local FCF_SetLocked = FCF_SetLocked
 local FCF_SetWindowName = FCF_SetWindowName
-local FCF_StopDragging = FCF_StopDragging
-local FCF_UnDockFrame = FCF_UnDockFrame
 local FCF_ResetChatWindows = FCF_ResetChatWindows
 local FCF_OpenNewWindow = FCF_OpenNewWindow
-local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 local ChatFrame_AddChannel = ChatFrame_AddChannel
 local ChatFrame_AddMessageGroup = ChatFrame_AddMessageGroup
@@ -31,7 +25,6 @@ local GetLocale = GetLocale
 local LOOT = LOOT
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
-local TRADE = TRADE
 
 local function SetupCVars()
 	-- Setup CVars
@@ -362,7 +355,7 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["countFontSize"] = 10
 	E.db["bags"]["countFontOutline"] = "OUTLINE"
 	E.db["bags"]["bagSize"] = 34
-	E.db["bags"]["bagWidth"] = 450
+	E.db["bags"]["bagWidth"] = 433
 	E.db["bags"]["bankSize"] = 34
 	E.db["bags"]["bankWidth"] = 427
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
@@ -1003,12 +996,14 @@ function MER:SetupActionbars(layout)
 	end
 
 	E.db["actionbar"]["bar3"]["enabled"] = true
-	E.db["actionbar"]["bar3"]["backdrop"] = true
-	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 1
-	E.db["actionbar"]["bar3"]["buttonSize"] = 26
+	E.db["actionbar"]["bar3"]["backdrop"] = false
+	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 12
+	E.db["actionbar"]["bar3"]["buttonSize"] = 32
+	E.db["actionbar"]["bar3"]["keepSizeRatio"] = false
+	E.db["actionbar"]["bar3"]["buttonHeight"] = 26
 	E.db["actionbar"]["bar3"]["buttonSpacing"] = 3
-	E.db["actionbar"]["bar3"]["buttons"] = 5
-	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
+	E.db["actionbar"]["bar3"]["buttons"] = 8
+	E.db["actionbar"]["bar3"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar3"]["mouseover"] = false
 	E.db["actionbar"]["bar3"]["showGrid"] = true
@@ -1046,28 +1041,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar4"]["macroTextPosition"] = "BOTTOM"
 	E.db["actionbar"]["bar4"]["macroTextYOffset"] = 0
 
-	E.db["actionbar"]["bar5"]["enabled"] = true
-	E.db["actionbar"]["bar5"]["backdrop"] = true
-	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 1
-	E.db["actionbar"]["bar5"]["buttonSize"] = 26
-	E.db["actionbar"]["bar5"]["buttonSpacing"] = 3
-	E.db["actionbar"]["bar5"]["buttons"] = 5
-	E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
-	E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
-	E.db["actionbar"]["bar5"]["mouseover"] = false
-	E.db["actionbar"]["bar5"]["showGrid"] = true
-	E.db["actionbar"]["bar5"]["inheritGlobalFade"] = false
-	E.db["actionbar"]["bar5"]["counttext"] = true
-	E.db["actionbar"]["bar5"]["countFont"] = "Expressway"
-	E.db["actionbar"]["bar5"]["countFontOutline"] = "OUTLINE"
-	E.db["actionbar"]["bar5"]["hotkeytext"] = true
-	E.db["actionbar"]["bar5"]["hotkeyFont"] = "Expressway"
-	E.db["actionbar"]["bar5"]["hotkeyFontOutline"] = "OUTLINE"
-	E.db["actionbar"]["bar5"]["macrotext"] = true
-	E.db["actionbar"]["bar5"]["macroFont"] = "Expressway"
-	E.db["actionbar"]["bar5"]["macroFontOutline"] = "OUTLINE"
-	E.db["actionbar"]["bar5"]["macroTextPosition"] = "BOTTOM"
-	E.db["actionbar"]["bar5"]["macroTextYOffset"] = 0
+	E.db["actionbar"]["bar5"]["enabled"] = false
 
 	E.db["actionbar"]["bar6"]["enabled"] = true
 	E.db["actionbar"]["bar6"]["backdropSpacing"] = 3
@@ -1106,30 +1080,7 @@ function MER:SetupActionbars(layout)
 		E.db["actionbar"]["bar6"]["buttonSpacing"] = 2
 	end
 
-	if layout == "dps" then
-		E.db["actionbar"]["bar7"]["enabled"] = true
-		E.db["actionbar"]["bar7"]["buttonSpacing"] = 3
-		E.db["actionbar"]["bar7"]["heightMult"] = 1
-		E.db["actionbar"]["bar7"]["buttons"] = 8
-		E.db["actionbar"]["bar7"]["keepSizeRatio"] = false
-		E.db["actionbar"]["bar7"]["buttonHeight"] = 26
-		E.db["actionbar"]["bar7"]["buttonSize"] = 32
-		E.db["actionbar"]["bar7"]["buttonSpacing"] = 3
-		E.db["actionbar"]["bar7"]["backdropSpacing"] = 4
-		E.db["actionbar"]["bar7"]["backdrop"] = false
-		E.db["actionbar"]["bar7"]["inheritGlobalFade"] = false
-		E.db["actionbar"]["bar7"]["counttext"] = true
-		E.db["actionbar"]["bar7"]["countFont"] = "Expressway"
-		E.db["actionbar"]["bar7"]["countFontOutline"] = "OUTLINE"
-		E.db["actionbar"]["bar7"]["hotkeytext"] = true
-		E.db["actionbar"]["bar7"]["hotkeyFont"] = "Expressway"
-		E.db["actionbar"]["bar7"]["hotkeyFontOutline"] = "OUTLINE"
-		E.db["actionbar"]["bar7"]["macrotext"] = true
-		E.db["actionbar"]["bar7"]["macroFont"] = "Expressway"
-		E.db["actionbar"]["bar7"]["macroFontOutline"] = "OUTLINE"
-		E.db["actionbar"]["bar7"]["macroTextPosition"] = "BOTTOM"
-		E.db["actionbar"]["bar7"]["macroTextYOffset"] = 0
-	end
+	E.db["actionbar"]["bar7"]["enabled"] = false
 
 	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["barPet"]["backdrop"] = true
@@ -1165,7 +1116,7 @@ function MER:SetupActionbars(layout)
 	if layout == "dps" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,UIParent,BOTTOM,0,111"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,146"
-		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-438,47"
+		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,0,177"
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,430,47"
 		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,13"
@@ -1173,11 +1124,12 @@ function MER:SetupActionbars(layout)
 		E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,14"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-289,15"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,305,50"
+		E.db["movers"]["ZoneAbility"] = "BOTTOM,UIParent,BOTTOM,305,92"
 		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 		E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,304,140"
-		E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-20,195"
-		E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-20,233"
-		E.db["movers"]["AutoButtonBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-20,271"
+		E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,197"
+		E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,233"
+		E.db["movers"]["AutoButtonBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,269"
 	elseif layout == "healer" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,123"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,161"
@@ -1291,7 +1243,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
+		E.db["unitframe"]["units"]["player"]["debuffs"]["keepSizeRatio"] = false
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 28
+		E.db["unitframe"]["units"]["player"]["debuffs"]["height"] = 20
 		E.db["unitframe"]["units"]["player"]["debuffs"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 35
 		E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 3
@@ -1299,7 +1253,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["anchorPoint"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["countFont"] = "Expressway"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["countFontSize"] = 9
-		E.db["unitframe"]["units"]["player"]["debuffs"]["spacing"] = 3
+		E.db["unitframe"]["units"]["player"]["debuffs"]["spacing"] = 1
 		E.db["unitframe"]["units"]["player"]["debuffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
@@ -1500,7 +1454,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 3
 		E.db["unitframe"]["units"]["target"]["debuffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["keepSizeRatio"] = false
-		E.db["unitframe"]["units"]["target"]["debuffs"]["height"] = 18
+		E.db["unitframe"]["units"]["target"]["debuffs"]["height"] = 20
 		E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 2
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
@@ -1893,8 +1847,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["anchorPoint"] = "CENTER"
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["noConsolidated"] = false
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["priority"] = "MER_RaidCDs"
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["useFilter"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["priority"] = "TurtleBuffs"
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["useFilter"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["raid40"]["name"]["text_format"] = ""
 		E.db["unitframe"]["units"]["raid40"]["positionOverride"] = "BOTTOMRIGHT"
@@ -1923,7 +1877,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["clickThrough"] = true
-		E.db["unitframe"]["units"]["party"]["debuffs"]["spacing"] = 4
+		E.db["unitframe"]["units"]["party"]["debuffs"]["spacing"] = 1
 		E.db["unitframe"]["units"]["party"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "LEFT"
@@ -1977,8 +1931,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 3
 		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["party"]["buffs"]["clickThrough"] = true
-		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "MER_RaidCDs"
-		E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "TurtleBuffs"
+		E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
 		E.db["unitframe"]["units"]["party"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = -15
@@ -2507,14 +2461,14 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["raid"]["buffs"]["playerOnly"] = false
 		E.db["unitframe"]["units"]["raid"]["buffs"]["perrow"] = 1
-		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["raid"]["buffs"]["noConsolidated"] = false
 		E.db["unitframe"]["units"]["raid"]["buffs"]["sizeOverride"] = 20
 		E.db["unitframe"]["units"]["raid"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["buffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["buffs"]["countFontSize"] = 12
-		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "MER_RaidCDs"
-		E.db["unitframe"]["units"]["raid"]["buffs"]["priority"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "TurtleBuffs"
+		E.db["unitframe"]["units"]["raid"]["buffs"]["priority"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["attachTo"] = "CENTER"
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["yOffset"] = 5
@@ -2677,8 +2631,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 1
 		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "CENTER"
 		E.db["unitframe"]["units"]["party"]["buffs"]["clickThrough"] = true
-		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "MER_RaidCDs"
-		E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "TurtleBuffs"
+		E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
 		E.db["unitframe"]["units"]["party"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["name"]["position"] = "LEFT"

@@ -1,11 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
---Cache global variables
---Lua functions
 local tinsert = table.insert
---WoW API / Variables
+
 local SetCVar = SetCVar
--- GLOBALS:
 
 local function CVarTable()
 	local ACH = E.Libs.ACH
@@ -14,7 +11,7 @@ local function CVarTable()
 		type = "group",
 		name = L["CVars"],
 		args = {
-			header = ACH:Header(MER:cOption(L["CVars"], 'orange'), 1),
+			header = ACH:Header(F.cOption(L["CVars"], 'orange'), 1),
 			general = {
 				order = 2,
 				type = "group",

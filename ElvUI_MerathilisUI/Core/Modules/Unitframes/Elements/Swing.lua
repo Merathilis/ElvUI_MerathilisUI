@@ -1,11 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
 
---Cache global variables
---Lua functions
---WoW API / Variables
 local CreateFrame = CreateFrame
--- GLOBALS:
 
 function module:Construct_Swing(frame)
 	local width = E.db.unitframe.units.player.castbar.width - 2

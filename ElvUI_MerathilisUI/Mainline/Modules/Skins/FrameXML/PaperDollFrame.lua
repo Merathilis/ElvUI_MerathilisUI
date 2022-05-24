@@ -1,27 +1,20 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
 local ipairs, pairs, type, unpack = ipairs, pairs, type, unpack
---WoW API / Variables
+
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local slots = {
-	"Head", "Neck", "Shoulder", "Shirt", "Chest", "Waist", "Legs", "Feet", "Wrist",
-	"Hands", "Finger0", "Finger1", "Trinket0", "Trinket1", "Back", "MainHand",
-	"SecondaryHand", "Tabard",
-}
-
 local function StatsPane(type)
 	_G.CharacterStatsPane[type]:StripTextures()
-	_G.CharacterStatsPane[type].backdrop:Hide()
+
+	if _G.CharacterStatsPane[type] and _G.CharacterStatsPane[type].backdrop then
+		_G.CharacterStatsPane[type].backdrop:Hide()
+	end
 end
 
 local function CharacterStatFrameCategoryTemplate(frame)
@@ -56,6 +49,27 @@ local function ColorizeStatPane(frame)
 	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
 end
 
+local function SkinSLEArmory()
+	if not IsAddOnLoaded('ElvUI_SLE') then return end
+	local db = E.db.sle.armory
+
+	if not db and db.character.enable then
+		return
+	end
+
+	if CharacterStatsPane.OffenseCategory then
+		CharacterStatsPane.OffenseCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+		StatsPane("OffenseCategory")
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
+	end
+
+	if CharacterStatsPane.DefenceCategory then
+		CharacterStatsPane.DefenceCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+		StatsPane("DefenceCategory")
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenceCategory)
+	end
+end
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.mui.skins.blizzard.character ~= true then return end
 
@@ -82,6 +96,8 @@ local function LoadSkin()
 
 		CharacterStatsPane.ItemLevelFrame.Background:SetAlpha(0)
 		ColorizeStatPane(CharacterStatsPane.ItemLevelFrame)
+
+		E:Delay(0.2, SkinSLEArmory)
 
 		hooksecurefunc("PaperDollFrame_UpdateStats", function()
 			for _, Table in ipairs({_G.CharacterStatsPane.statsFramePool:EnumerateActive()}) do

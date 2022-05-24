@@ -2,15 +2,8 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local select, unpack = select, unpack
--- WoW API
-local hooksecurefunc = hooksecurefunc
-local GetNumSockets = GetNumSockets
-local GetSocketTypes = GetSocketTypes
--- GLOBALS:
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.socket ~= true or E.private.mui.skins.blizzard.socket ~= true then return end

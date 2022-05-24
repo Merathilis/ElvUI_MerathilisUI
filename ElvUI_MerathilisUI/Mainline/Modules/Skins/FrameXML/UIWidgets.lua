@@ -1,14 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, unpack = pairs, unpack
 
-local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
-
-local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local Type_StatusBar = _G.Enum.UIWidgetVisualizationType.StatusBar
 local Type_CaptureBar = _G.Enum.UIWidgetVisualizationType.CaptureBar

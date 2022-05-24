@@ -1,18 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local getn = getn
-local next, pairs = next, pairs
-local tinsert = table.insert
--- WoW API
+
 local hooksecurefunc = hooksecurefunc
 local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
-local WorldStateAlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
--- GLOBALS: hooksecurefunc, NUM_ALWAYS_UP_UI_FRAMES
 
 local MAX_STATIC_POPUPS = 4
 

@@ -1,21 +1,16 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
-local LSM = E.Libs.LSM
 local S = E.Skins
 
 local _G = _G
-local assert, next, pairs, select, unpack, type = assert, next, pairs, select, unpack, type
+local assert, next, pairs, unpack, type = assert, next, pairs, unpack, type
 local xpcall = xpcall
-local find, lower, strfind = string.find, string.lower, strfind
+local strfind = strfind
 local tinsert = table.insert
 
 local CreateFrame = CreateFrame
-local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
-local RaiseFrameLevel = RaiseFrameLevel
-local LowerFrameLevel = LowerFrameLevel
-local class = class
 
 local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
@@ -34,14 +29,6 @@ module.enteredLoad = {}
 
 module.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 module.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
-TEXTURE_ITEM_QUEST_BANG = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\UI-Icon-QuestBang]]
-
-local buttons = {
-	"UI-Panel-MinimizeButton-Disabled",
-	"UI-Panel-MinimizeButton-Up",
-	"UI-Panel-SmallerButton-Up",
-	"UI-Panel-BiggerButton-Up",
-}
 
 -- Depends on the arrow texture to be down by default.
 module.ArrowRotation = {
@@ -482,9 +469,6 @@ function module:ReskinAS(AS)
 				self:GetFontString():SetTextColor(.5, .5, .5)
 			end
 		end)
-
-		Button:HookScript("OnEnter", module.EnterAnimation)
-		Button:HookScript("OnLeave", module.LeaveAnimation)
 	end
 end
 
@@ -516,7 +500,7 @@ hooksecurefunc(E, "UpdateMedia", updateMedia)
 
 -- hook the skin functions from ElvUI
 module:SecureHook(S, "HandleScrollBar")
-module:SecureHook(S, "HandleSliderFrame")
+-- module:SecureHook(S, "HandleSliderFrame")
 module:SecureHook(S, "SkinTextWithStateWidget")
 
 function module:Initialize()

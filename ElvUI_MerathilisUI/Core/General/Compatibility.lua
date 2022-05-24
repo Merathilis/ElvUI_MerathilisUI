@@ -1,14 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local COMP = MER:GetModule('MER_Compatibility')
 
---Cache global variables
-local _G = _G
 local pairs, print = pairs, print
---WoW API / Variables
-local GetAddOnEnableState = GetAddOnEnableState
-local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 --[[
 	ALL CREDITS BELONG TO Nihilistzsche (Code taken with permissions from ElvUI_NihilistUI)
@@ -147,7 +141,7 @@ function COMP:RunCompatibilityFunctions()
 end
 
 function COMP:Initialize()
-	hooksecurefunc(E, "CheckIncompatible", function(self)
+	hooksecurefunc(E, "CheckIncompatible", function()
 		COMP:RunCompatibilityFunctions()
 	end)
 end

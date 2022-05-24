@@ -3,11 +3,7 @@ local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 if not IsAddOnLoaded("XIV_Databar") then return end
 
--- Cache global variables
--- Lua functions
 local _G = _G
--- WoW API / Variables
--- GLOBALS:
 
 local function LoadAddOnSkin()
 	if E.private.MER_Skins.addonSkins.xiv ~= true then return end
