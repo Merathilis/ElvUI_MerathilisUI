@@ -1,4 +1,4 @@
-[b][color=orange]v4.98[/color], xx.05.2022[/b][list]
+[b][color=orange]v4.98[/color], 24.05.2022[/b][list]
 [*]Updated Layout (If you want it, do the install again. Mainly disabled the UF Fader and added a 3rd main Actionbar)
 [*]MASSIVE Code Cleanup (well, stuff could be broken or changed... who knews!?)
 [*]Updated FlightPoint (The extra frame on the side.. you know what i mean)
