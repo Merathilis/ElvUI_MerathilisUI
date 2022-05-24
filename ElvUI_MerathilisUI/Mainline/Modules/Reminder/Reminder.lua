@@ -50,7 +50,7 @@ function module:PlayerHasFilteredDebuff(frame, db)
 	for debuff, value in pairs(db) do
 		if value == true then
 			local name = GetSpellInfo(debuff)
-			local _, icon, _, _, _, _, unitCaster, _, _, _ = AuraUtil_FindAuraByName(name, "player", "HARMFUL")
+			local _, icon, _, _, _, _, _, _, _, _ = AuraUtil_FindAuraByName(name, "player", "HARMFUL")
 
 			if (name and icon) then
 				return true
@@ -80,7 +80,7 @@ function module:ReminderIcon_OnUpdate(elapsed)
 		if db.CDSpell then
 			local filterCheck = module:FilterCheck(self)
 			local name = GetSpellInfo(db.CDSpell)
-			local start, duration, enabled = GetSpellCooldown(name)
+			local start, duration = GetSpellCooldown(name)
 			if(duration and duration > 0) then
 				self.cooldown:SetCooldown(start, duration)
 				self.cooldown:Show()
@@ -305,7 +305,7 @@ function module:ReminderIcon_OnEvent(event, unit)
 		self:SetAlpha(1)
 		return
 	elseif self.ForceShow then
-		MER:Print("Attempted to show a reminder icon that does not have any spells. You must add a spell first.")
+		F.Print("Attempted to show a reminder icon that does not have any spells. You must add a spell first.")
 		return
 	end
 
@@ -408,8 +408,7 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.reminder
-	MER:RegisterDB(module, "reminder")
-	if module.db.enable ~= true then return; end
+	if not module.db.enable then return end
 
 	hooksecurefunc(UF, 'LoadUnits', module.CheckForNewReminders)
 

@@ -1,12 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 
---Cache global variables
 local _G = _G
---WoW API / Variables
+
 local C_Map_GetMapArtLayers = C_Map.GetMapArtLayers
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 local function MapCanvasDetailLayerMixin_RefreshDetailTiles(self)
 	local layers = C_Map_GetMapArtLayers(self.mapID)

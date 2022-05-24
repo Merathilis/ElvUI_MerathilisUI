@@ -2,11 +2,9 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local pairs, unpack = pairs, unpack
--- WoW API / Variables
+
 local GetSpellAvailableLevel = GetSpellAvailableLevel
 local GetProfessionInfo = GetProfessionInfo
 local UnitLevel = UnitLevel
@@ -14,7 +12,6 @@ local hooksecurefunc = hooksecurefunc
 local CreateFrame = CreateFrame
 local SpellBook_GetSpellBookSlot = SpellBook_GetSpellBookSlot
 local IsPassiveSpell = IsPassiveSpell
--- GLOBALS:
 
 local function SecondaryProfession(button)
 	button:CreateBackdrop("Transparent")
@@ -28,7 +25,7 @@ local function SecondaryProfession(button)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.muiSkins.blizzard.spellbook ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.mui.skins.blizzard.spellbook ~= true then return end
 
 	local SpellBookFrame = _G.SpellBookFrame
 	SpellBookFrame:Styling()
@@ -55,7 +52,6 @@ local function LoadSkin()
 		if SpellBookFrame.bookType == _G.BOOKTYPE_PROFESSION then return end
 
 		local slot, slotType = SpellBook_GetSpellBookSlot(self)
-		local isPassive = IsPassiveSpell(slot, SpellBookFrame.bookType)
 		local name = self:GetName()
 
 		local subSpellString = _G[name.."SubSpellName"]

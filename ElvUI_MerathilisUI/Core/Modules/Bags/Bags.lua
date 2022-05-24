@@ -2,16 +2,10 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Bags')
 local B = E:GetModule('Bags')
 
---Cache global variables
---Lua Variables
 local _G = _G
-local ipairs, pairs, unpack = ipairs, pairs, unpack
-local floor = math.floor
---WoW API / Variables
-local GetContainerNumSlots = GetContainerNumSlots
+local unpack = unpack
+
 local hooksecurefunc = hooksecurefunc
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
 
 function module:SkinBags()
 	if _G.ElvUI_ContainerFrame then
@@ -84,7 +78,6 @@ function module:Initialize()
 	if E.private.bags.enable ~= true then return end
 
 	module.db = E.db.mui.bags.equipoverlay
-	MER:RegisterDB(self, "bags")
 
 	self:AllInOneBags()
 	self:SkinBlizzBags()

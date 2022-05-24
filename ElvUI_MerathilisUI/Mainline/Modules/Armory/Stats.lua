@@ -16,16 +16,15 @@ local GetMasteryEffect, Mastery_OnEnter = GetMasteryEffect, Mastery_OnEnter
 local GetLifesteal = GetLifesteal
 local GetAvoidance = GetAvoidance
 local GetAverageItemLevel = GetAverageItemLevel
-local GetDodgeChance, GetParryChance, GetBlockChance, GetShieldBlock = GetDodgeChance, GetParryChance, GetBlockChance, GetShieldBlock
+local GetDodgeChance, GetParryChance = GetDodgeChance, GetParryChance
 local GetSpellCritChance, GetRangedCritChance, GetCritChance, GetCritChanceProvidesParryEffect = GetSpellCritChance, GetRangedCritChance, GetCritChance, GetCritChanceProvidesParryEffect
-local GetCritChanceProvidesParryEffect = GetCritChanceProvidesParryEffect
 local GetCombatRatingBonusForCombatRatingValue = GetCombatRatingBonusForCombatRatingValue
 local GetHaste = GetHaste
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local PaperDollFrame_SetLabelAndText = PaperDollFrame_SetLabelAndText
 local UnitSex = UnitSex
 local MovementSpeed_OnEnter, MovementSpeed_OnUpdate = MovementSpeed_OnEnter, MovementSpeed_OnUpdate
-local UnitLevel, UnitClass, GetSpecialization, GetSpecializationRole = UnitLevel, UnitClass, GetSpecialization, GetSpecializationRole
+local UnitClass, GetSpecialization, GetSpecializationRole = UnitClass, GetSpecialization, GetSpecializationRole
 
 local LE_UNIT_STAT_STRENGTH, LE_UNIT_STAT_AGILITY, LE_UNIT_STAT_INTELLECT = LE_UNIT_STAT_STRENGTH, LE_UNIT_STAT_AGILITY, LE_UNIT_STAT_INTELLECT
 local STAT_ATTACK_SPEED_BASE_TOOLTIP = STAT_ATTACK_SPEED_BASE_TOOLTIP
@@ -37,12 +36,11 @@ local STAT_LIFESTEAL, CR_LIFESTEAL_TOOLTIP, CR_LIFESTEAL = STAT_LIFESTEAL, CR_LI
 local STAT_CRITICAL_STRIKE, CR_CRIT_SPELL, CR_CRIT_RANGED, CR_CRIT_MELEE, CR_CRIT_TOOLTIP = STAT_CRITICAL_STRIKE, CR_CRIT_SPELL, CR_CRIT_RANGED, CR_CRIT_MELEE, CR_CRIT_TOOLTIP
 local CR_CRIT_PARRY_RATING_TOOLTIP, CR_PARRY = CR_CRIT_PARRY_RATING_TOOLTIP, CR_PARRY
 local CR_HASTE_MELEE, STAT_HASTE, STAT_HASTE_TOOLTIP, STAT_HASTE_BASE_TOOLTIP = CR_HASTE_MELEE, STAT_HASTE, STAT_HASTE_TOOLTIP, STAT_HASTE_BASE_TOOLTIP
-local STAT_BLOCK, BLOCK_CHANCE, CR_BLOCK_TOOLTIP = STAT_BLOCK, BLOCK_CHANCE, CR_BLOCK_TOOLTIP
 local STAT_PARRY, PARRY_CHANCE, CR_PARRY_TOOLTIP = STAT_PARRY, PARRY_CHANCE, CR_PARRY_TOOLTIP
 local STAT_DODGE, DODGE_CHANCE, CR_DODGE_TOOLTIP, CR_DODGE = STAT_DODGE, DODGE_CHANCE, CR_DODGE_TOOLTIP, CR_DODGE
 local STAT_AVOIDANCE, CR_AVOIDANCE_TOOLTIP, CR_AVOIDANCE = STAT_AVOIDANCE, CR_AVOIDANCE_TOOLTIP, CR_AVOIDANCE
 local CR_VERSATILITY_DAMAGE_DONE, CR_VERSATILITY_DAMAGE_TAKEN, STAT_VERSATILITY, VERSATILITY_TOOLTIP_FORMAT, CR_VERSATILITY_TOOLTIP = CR_VERSATILITY_DAMAGE_DONE, CR_VERSATILITY_DAMAGE_TAKEN, STAT_VERSATILITY, VERSATILITY_TOOLTIP_FORMAT, CR_VERSATILITY_TOOLTIP
-local SHOW_MASTERY_LEVEL, STAT_MASTERY = SHOW_MASTERY_LEVEL, STAT_MASTERY
+local STAT_MASTERY = STAT_MASTERY
 local MAX_SPELL_SCHOOLS = MAX_SPELL_SCHOOLS
 local RED_FONT_COLOR_CODE = RED_FONT_COLOR_CODE
 
@@ -188,21 +186,6 @@ function PaperDollFrame_SetParry(statFrame, unit)
 	statFrame.tooltip2 = format(CR_PARRY_TOOLTIP, GetCombatRating(CR_PARRY), GetCombatRatingBonus(CR_PARRY));
 	statFrame:Show();
 end
-
--- Block Chance
--- function PaperDollFrame_SetBlock(statFrame, unit)
-	-- if (unit ~= "player") then
-		-- statFrame:Hide();
-		-- return;
-	-- end
-
-	-- local chance = GetBlockChance();
--- PaperDollFrame_SetLabelAndText Format Change
-	-- PaperDollFrame_SetLabelAndText(statFrame, STAT_BLOCK, T.format("%.2f%%", chance), false, chance);
-	-- statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, BLOCK_CHANCE).." "..T.format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
-	-- statFrame.tooltip2 = T.format(CR_BLOCK_TOOLTIP, GetShieldBlock());
-	-- statFrame:Show();
--- end
 
 -- Crit Chance
 function PaperDollFrame_SetCritChance(statFrame, unit)
@@ -390,6 +373,8 @@ function MERAY:PaperDollFrame_UpdateStats()
 
 	local lastAnchor;
 
+	MERAY:BuildScrollBar()
+
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 		local catFrame = _G["CharacterStatsPane"][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame];
 		catFrame.Title:FontTemplate(LSM:Fetch('font', E.db.mui.armory.stats.catFonts.font), E.db.mui.armory.stats.catFonts.size, E.db.mui.armory.stats.catFonts.outline)
@@ -461,81 +446,81 @@ function MERAY:PaperDollFrame_UpdateStats()
 	end
 end
 
---Creating new scroll
---Scrollframe Parent Frame
-local CharacterFrameInsetRight = _G.CharacterFrameInsetRight
-MERAY.ScrollframeParentFrame = CreateFrame("Frame", nil, CharacterFrameInsetRight)
-MERAY.ScrollframeParentFrame:Size(198, 352)
-MERAY.ScrollframeParentFrame:Point("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
+function MERAY:BuildScrollBar()
+	local CharacterFrameInsetRight = _G.CharacterFrameInsetRight
+	MERAY.ScrollframeParentFrame = CreateFrame("Frame", nil, CharacterFrameInsetRight)
+	MERAY.ScrollframeParentFrame:Size(198, 352)
+	MERAY.ScrollframeParentFrame:Point("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
 
---Scrollframe
-MERAY.ScrollFrame = CreateFrame("ScrollFrame", "MER_ScrollFrame", MERAY.ScrollframeParentFrame)
-MERAY.ScrollFrame:Point("TOP")
-MERAY.ScrollFrame:Size(MERAY.ScrollframeParentFrame:GetSize())
+	--Scrollframe
+	MERAY.ScrollFrame = CreateFrame("ScrollFrame", "MER_ScrollFrame", MERAY.ScrollframeParentFrame)
+	MERAY.ScrollFrame:Point("TOP")
+	MERAY.ScrollFrame:Size(MERAY.ScrollframeParentFrame:GetSize())
 
---Scrollbar
-MERAY.Scrollbar = CreateFrame("Slider", nil, MERAY.ScrollFrame, "UIPanelScrollBarTemplate")
-MERAY.Scrollbar:Point("TOPLEFT", CharacterFrameInsetRight, "TOPRIGHT", -12, -20)
-MERAY.Scrollbar:Point("BOTTOMLEFT", CharacterFrameInsetRight, "BOTTOMRIGHT", -12, 18)
-MERAY.Scrollbar:SetMinMaxValues(1, 2)
-MERAY.Scrollbar:SetValueStep(1)
-MERAY.Scrollbar.scrollStep = 1
-MERAY.Scrollbar:SetValue(0)
-MERAY.Scrollbar:SetWidth(8)
-MERAY.Scrollbar:SetScript("OnValueChanged", function (self, value)
-	self:GetParent():SetVerticalScroll(value)
-end)
-E:GetModule("Skins"):HandleScrollBar(MERAY.Scrollbar)
-MERAY.Scrollbar:Hide()
+	--Scrollbar
+	MERAY.Scrollbar = CreateFrame("Slider", "MERAY_Scrollbar", MERAY.ScrollFrame, "UIPanelScrollBarTemplate")
+	MERAY.Scrollbar:Point("TOPLEFT", CharacterFrameInsetRight, "TOPRIGHT", -12, -20)
+	MERAY.Scrollbar:Point("BOTTOMLEFT", CharacterFrameInsetRight, "BOTTOMRIGHT", -12, 18)
+	MERAY.Scrollbar:SetMinMaxValues(1, 2)
+	MERAY.Scrollbar:SetValueStep(1)
+	MERAY.Scrollbar.scrollStep = 1
+	MERAY.Scrollbar:SetValue(0)
+	MERAY.Scrollbar:SetWidth(8)
+	MERAY.Scrollbar:SetScript("OnValueChanged", function (self, value)
+		self:GetParent():SetVerticalScroll(value)
+	end)
+	E:GetModule("Skins"):HandleScrollBar(MERAY.Scrollbar)
+	MERAY.Scrollbar:Hide()
 
---MERAY.ScrollChild Frame
-MERAY.ScrollChild = CreateFrame("Frame", nil, MERAY.ScrollFrame)
-MERAY.ScrollChild:Size(MERAY.ScrollFrame:GetSize())
-MERAY.ScrollFrame:SetScrollChild(MERAY.ScrollChild)
+	--MERAY.ScrollChild Frame
+	MERAY.ScrollChild = CreateFrame("Frame", nil, MERAY.ScrollFrame)
+	MERAY.ScrollChild:Size(MERAY.ScrollFrame:GetSize())
+	MERAY.ScrollFrame:SetScrollChild(MERAY.ScrollChild)
 
-local CharacterStatsPane = _G.CharacterStatsPane
-CharacterStatsPane:ClearAllPoints()
-CharacterStatsPane:SetParent(MERAY.ScrollChild)
-CharacterStatsPane:Size(MERAY.ScrollChild:GetSize())
-CharacterStatsPane:Point("TOP", MERAY.ScrollChild, "TOP", 0, 0)
+	local CharacterStatsPane = _G.CharacterStatsPane
+	CharacterStatsPane:ClearAllPoints()
+	CharacterStatsPane:SetParent(MERAY.ScrollChild)
+	CharacterStatsPane:Size(MERAY.ScrollChild:GetSize())
+	CharacterStatsPane:Point("TOP", MERAY.ScrollChild, "TOP", 0, 0)
 
-CharacterStatsPane.ClassBackground:ClearAllPoints()
-CharacterStatsPane.ClassBackground:SetParent(CharacterFrameInsetRight)
-CharacterStatsPane.ClassBackground:Point("CENTER")
+	CharacterStatsPane.ClassBackground:ClearAllPoints()
+	CharacterStatsPane.ClassBackground:SetParent(CharacterFrameInsetRight)
+	CharacterStatsPane.ClassBackground:Point("CENTER")
 
--- Enable mousewheel scrolling
-MERAY.ScrollFrame:EnableMouseWheel(true)
-MERAY.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
-	if totalShown > 12 then
-		MERAY.Scrollbar:SetMinMaxValues(1, 45)
-	else
-		MERAY.Scrollbar:SetMinMaxValues(1, 1)
-	end
+	-- Enable mousewheel scrolling
+	MERAY.ScrollFrame:EnableMouseWheel(true)
+	MERAY.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
+		if totalShown > 12 then
+			MERAY.Scrollbar:SetMinMaxValues(1, 45)
+		else
+			MERAY.Scrollbar:SetMinMaxValues(1, 1)
+		end
 
-	local cur_val = MERAY.Scrollbar:GetValue()
-	local min_val, max_val = MERAY.Scrollbar:GetMinMaxValues()
+		local cur_val = MERAY.Scrollbar:GetValue()
+		local min_val, max_val = MERAY.Scrollbar:GetMinMaxValues()
 
-	if delta < 0 and cur_val < max_val then
-		cur_val = math_min(max_val, cur_val + 22)
-		MERAY.Scrollbar:SetValue(cur_val)
-	elseif delta > 0 and cur_val > min_val then
-		cur_val = math_max(min_val, cur_val - 22)
-		MERAY.Scrollbar:SetValue(cur_val)
-	end
-end)
+		if delta < 0 and cur_val < max_val then
+			cur_val = math_min(max_val, cur_val + 22)
+			MERAY.Scrollbar:SetValue(cur_val)
+		elseif delta > 0 and cur_val > min_val then
+			cur_val = math_max(min_val, cur_val - 22)
+			MERAY.Scrollbar:SetValue(cur_val)
+		end
+	end)
 
-PaperDollSidebarTab1:HookScript("OnShow", function(self,event)
-	MERAY.ScrollframeParentFrame:Show()
-end)
+	PaperDollSidebarTab1:HookScript("OnShow", function(self,event)
+		MERAY.ScrollframeParentFrame:Show()
+	end)
 
-PaperDollSidebarTab1:HookScript("OnClick", function(self,event)
-	MERAY.ScrollframeParentFrame:Show()
-end)
+	PaperDollSidebarTab1:HookScript("OnClick", function(self,event)
+		MERAY.ScrollframeParentFrame:Show()
+	end)
 
-PaperDollSidebarTab2:HookScript("OnClick", function(self,event)
-	MERAY.ScrollframeParentFrame:Hide()
-end)
+	PaperDollSidebarTab2:HookScript("OnClick", function(self,event)
+		MERAY.ScrollframeParentFrame:Hide()
+	end)
 
-PaperDollSidebarTab3:HookScript("OnClick", function(self,event)
-	MERAY.ScrollframeParentFrame:Hide()
-end)
+	PaperDollSidebarTab3:HookScript("OnClick", function(self,event)
+		MERAY.ScrollframeParentFrame:Hide()
+	end)
+end

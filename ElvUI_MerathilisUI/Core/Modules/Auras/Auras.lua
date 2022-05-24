@@ -2,8 +2,6 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Auras')
 local A = E:GetModule("Auras")
 
-local _G = _G
-
 function module:Auras_SkinIcon(_, button)
 	MER:CreateShadow(button)
 end

@@ -1,10 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
---Cache global variables
---Lua functions
 local tinsert = table.insert
---WoW API / Variables
--- GLOBALS:
 
 local function NotificationTable()
 	local ACH = E.Libs.ACH
@@ -15,11 +11,11 @@ local function NotificationTable()
 		get = function(info) return E.db.mui.notification[ info[#info] ] end,
 		set = function(info, value) E.db.mui.notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Notification"], 'orange'), 0),
+			name = ACH:Header(F.cOption(L["Notification"], 'orange'), 0),
 			credits = {
 				order = 1,
 				type = "group",
-				name = MER:cOption(L["Credits"], 'orange'),
+				name = F.cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = ACH:Description("RealUI - Nibelheim, Gethe", 1),
@@ -78,6 +74,12 @@ local function NotificationTable()
 				order = 11,
 				type = "toggle",
 				name = L["Quick Join"],
+				disabled = function() return not E.db.mui.notification.enable end,
+			},
+			callToArms = {
+				order = 12,
+				type = "toggle",
+				name = _G.BATTLEGROUND_HOLIDAY,
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
 			fontSettings = {

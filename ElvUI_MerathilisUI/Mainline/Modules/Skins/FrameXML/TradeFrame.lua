@@ -2,17 +2,14 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local unpack = unpack
--- WoW API / Variables
+
 local hooksecurefunc = hooksecurefunc
 local C_BattleNet_GetGameAccountInfoByGUID = C_BattleNet.GetGameAccountInfoByGUID
 local C_FriendList_IsFriend = C_FriendList.IsFriend
 local IsGuildMember = IsGuildMember
 local UnitGUID = UnitGUID
--- GLOBALS:
 
 local function ReskinButton(bu)
 	bu:SetNormalTexture("")
@@ -23,7 +20,7 @@ local function ReskinButton(bu)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.trade ~= true or E.private.muiSkins.blizzard.trade ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.trade ~= true or E.private.mui.skins.blizzard.trade ~= true then return end
 
 	local TradeFrame = _G.TradeFrame
 	TradeFrame:Styling()

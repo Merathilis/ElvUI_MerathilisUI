@@ -98,6 +98,7 @@ L["Translate the name in item links into your language."] = true
 L["Icon"] = true
 L["Armor Category"] = true
 L["Weapon Category"] = true
+L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 
 -- Combat Alert
 L["Combat Alert"] = true
@@ -113,9 +114,9 @@ L["Color"] = true
 -- Information
 L["Information"] = true
 L["Support & Downloads"] = true
-L["Tukui.org"] = true
-L["Git Ticket tracker"] = true
-L["Curse.com"] = true
+L["Tukui"] = true
+L["Github"] = true
+L["CurseForge"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["Development Version"] = true
@@ -722,6 +723,21 @@ L["Enable/Disable"] = true
 L["decor."] = true
 L["MerathilisUI Button Style"] = true
 L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"] = true
+L["Additional Backdrop"] = true
+L["Remove Border Effect"] = true
+L["Animation Type"] = true
+L["The type of animation activated when a button is hovered."] = true
+L["Animation Duration"] = true
+L["The duration of the animation in seconds."] = true
+L["Backdrop Class Color"] = true
+L["Border Class Color"] = true
+L["Border Color"] = true
+L["Normal Class Color"] = true
+L["Selected Backdrop & Border"] = true
+L["Selected Class Color"] = true
+L["Selected Color"] = true
+L["Tab"] = true
+L["Tree Group Button"] = true
 
 -- Panels
 L["Top Left Panel"] = true
@@ -795,3 +811,14 @@ L[" due to incompatiblities."] = true
 L[" due to incompatiblities with: "] = true
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+
+-- Debug
+L["Usage"] = true
+L["Enable debug mode"] = true
+L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] = true
+L["Disable debug mode"] = true
+L["Reenable the addons that disabled by debug mode."] = true
+L["Debug Enviroment"] = true
+L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = true
+L["After you stop debuging, %s will reenable the addons automatically."] = true
+L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = true

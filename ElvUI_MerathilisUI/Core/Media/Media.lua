@@ -1,16 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_Media')
 local LSM = E.LSM or E.Libs.LSM
-
--- Cache global variables
--- Lua functions
-local _G = _G
-local unpack = unpack
-local random = random
--- WoW API / Variables
-local FadingFrame_Show = FadingFrame_Show
-local IsAddOnLoaded = IsAddOnLoaded
---GLOBALS: hooksecurefunc
 
 MER.Media = {
 	Icons = {},
@@ -18,6 +7,27 @@ MER.Media = {
 }
 
 local MediaPath = "Interface/Addons/ElvUI_MerathilisUI/Core/Media/"
+
+do
+	local cuttedIconTemplate = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
+	local textureTemplate = "|T%s:%d:%d|t"
+	local aspectRatioTemplate = "|T%s:0:aspectRatio|t"
+	local s = 14
+
+	function F.GetIconString(icon, height, width)
+		width = width or height
+		return format(cuttedIconTemplate, icon, height or s, width or s)
+	end
+
+	function F.GetTextureString(texture, height, width, aspectRatio)
+		if aspectRatio then
+			return format(aspectRatioTemplate, texture)
+		else
+			width = width or height
+			return format(textureTemplate, texture, height or s, width or s)
+		end
+	end
+end
 
 local function AddMedia(name, file, type)
 	MER.Media[type][name] = MediaPath .. type .. "/" .. file
@@ -54,112 +64,62 @@ AddMedia("media", "Media.tga", "Icons")
 AddMedia("modules", "Modules.tga", "Icons")
 AddMedia("skins", "Skins.tga", "Icons")
 
+AddMedia("discord", "Discord.tga", "Icons")
+AddMedia("github", "Github.tga", "Icons")
+
 AddMedia("arrow", "arrow.tga", "Textures")
 AddMedia("pepeSmall", "pepeSmall.tga", "Textures")
 AddMedia("ROLES", "UI-LFG-ICON-ROLES.tga", "Textures")
 AddMedia("exchange", "Exchange.tga", "Textures")
 
-module.Zones = L["MER_MEDIA_ZONES"]
-module.PvPInfo = L["MER_MEDIA_PVP"]
-module.Subzones = L["MER_MEDIA_SUBZONES"]
-module.PVPArena = L["MER_MEDIA_PVPARENA"]
+-- Fonts
+LSM:Register("font","Merathilis Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])
+LSM:Register("font","Merathilis PrototypeRU", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE_RU.TTF]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Merathilis Visitor1", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\visitor1.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Merathilis Visitor2", [[Interface\AddOns\ElvUI_MerathilisUI\\Core\Media\Fonts\visitor2.ttf]])
+LSM:Register("font","Merathilis Tukui", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\uf_font.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Merathilis ArialN", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\ARIALN.ttf]])
+LSM:Register("font","Merathilis Default", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\default.ttf]])
+LSM:Register("font","Merathilis Roboto-Black", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Roboto-Black.ttf]])
+LSM:Register("font","Merathilis Roboto-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Roboto-Bold.ttf]])
+LSM:Register("font","Merathilis Roboto-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Roboto-Medium.ttf]])
+LSM:Register("font","Merathilis Roboto-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Roboto-Regular.ttf]])
+LSM:Register("font","Merathilis GoodDogCool", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\gdcool.ttf]])
+LSM:Register("font","Merathilis BadaBoom", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\BADABB__.ttf]])
+LSM:Register("font","Merathilis Gothic-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\CenturyGothicBold.ttf]])
+LSM:Register("font","Merathilis Gotham Narrow Black", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\GothamNarrow-Black.ttf]])
+LSM:Register("font","Merathilis Gotham Narrow Ultra", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\GothamNarrow-Ultra.otf]])
+LSM:Register("font","Merathilis Expressway", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\ExpresswayExtraBold.ttf]])
 
-local Colors = {
-	[1] = {0.41, 0.8, 0.94}, -- sanctuary
-	[2] = {1.0, 0.1, 0.1}, -- hostile
-	[3] = {0.1, 1.0, 0.1}, --friendly
-	[4] = {1.0, 0.7, 0}, --contested
-	[5] = {1.0, 0.9294, 0.7607}, --white
-}
+-- Backgrounds
+-- Border
 
-local function ZoneTextPos()
-	_G["SubZoneTextString"]:ClearAllPoints()
-	if (_G["PVPInfoTextString"]:GetText() == "") then
-		_G["SubZoneTextString"]:Point("TOP", "ZoneTextString", "BOTTOM", 0, 0)
-	else
-		_G["SubZoneTextString"]:Point("TOP", "PVPInfoTextString", "BOTTOM", 0, 0)
-	end
-end
+-- Statusbars
+LSM:Register("statusbar","MerathilisBlank", [[Interface\BUTTONS\WHITE8X8.blp]])
+LSM:Register("statusbar","MerathilisUI1", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI2.tga]])
+LSM:Register("statusbar","MerathilisUI2", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI3.tga]])
+LSM:Register("statusbar","MerathilisUI4", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI4.tga]])
+LSM:Register("statusbar","MerathilisOnePixel", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\OnePixel.tga]])
+LSM:Register("statusbar","MerathilisMelli", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Melli.tga]])
+LSM:Register("statusbar","MerathilisMelliDark", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\MelliDark.tga]])
+LSM:Register("statusbar","MerathilisEmpty", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Empty.tga]])
+LSM:Register("statusbar","MerathilisnormTex", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\normTex.tga]])
+LSM:Register("statusbar","MerathilisDefault", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\default.tga]])
+LSM:Register("statusbar","MerathilisLight", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Light.tga]])
+LSM:Register("statusbar","MerathilisFeint", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\MerathilisFeint.tga]])
+LSM:Register("statusbar","MerathilisBorder", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Border.tga]])
+LSM:Register("statusbar","MerathilisGradient", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\gradient.tga]])
+LSM:Register("statusbar","Lyn1", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\lyn1.tga]])
+LSM:Register("statusbar","Skullflower", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Skullflower.tga]])
+LSM:Register("statusbar","SkullflowerLight", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SkullflowerLight.tga]])
+LSM:Register("statusbar","Duffed", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Duffed.tga]])
+LSM:Register("statusbar","RenAscension", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\RenAscension.tga]])
+LSM:Register("statusbar","RenAscensionL", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\RenAscensionL.tga]])
+LSM:Register("statusbar","4Pixel", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Line4pixel.tga]])
 
-local function MakeFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
-	obj:SetFont(font, size, style)
-	if sr and sg and sb then obj:SetShadowColor(sr, sg, sb) end
-	if sox and soy then obj:SetShadowOffset(sox, soy) end
-	if r and g and b then obj:SetTextColor(r, g, b)
-	elseif r then obj:SetAlpha(r) end
-end
+-- Sounds
+LSM:Register("sound","warning", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Sounds\warning.ogg]])
 
-function module:SetBlizzFonts()
-	module.db = E.db.mui.media
-
-	if E.private.general.replaceBlizzFonts then
-		if module.db.zoneText.enable then
-			_G["ZoneTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.zone.font), module.db.zoneText.zone.size, module.db.zoneText.zone.outline) -- Main zone name
-			_G["PVPInfoTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.pvp.font), module.db.zoneText.pvp.size, module.db.zoneText.pvp.outline) -- PvP status for main zone
-			_G["PVPArenaTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.pvp.font), module.db.zoneText.pvp.size, module.db.zoneText.pvp.outline) -- PvP status for subzone
-			_G["SubZoneTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.subzone.font), module.db.zoneText.subzone.size, module.db.zoneText.subzone.outline) -- Subzone name
-		end
-
-		if E.Retail then
-			if module.db.miscText.mail.enable then
-				_G["SendMailBodyEditBox"]:SetFont(E.LSM:Fetch('font', module.db.miscText.mail.font), module.db.miscText.mail.size, module.db.miscText.mail.outline) --Writing letter text
-				_G["OpenMailBodyText"]:SetFont(E.LSM:Fetch('font', module.db.miscText.mail.font), module.db.miscText.mail.size, module.db.miscText.mail.outline) --Received letter text
-			end
-		end
-
-		if module.db.miscText.gossip.enable then
-			_G["QuestFont"]:SetFont(E.LSM:Fetch('font', module.db.miscText.gossip.font), module.db.miscText.gossip.size, module.db.miscText.gossip.outline) -- Font in Quest Log/Petitions and shit. It's fucking hedious with any outline so fuck it.
-		end
-
-		if module.db.miscText.questFontSuperHuge.enable then
-			_G["QuestFont_Super_Huge"]:SetFont(E.LSM:Fetch('font', module.db.miscText.questFontSuperHuge.font), module.db.miscText.questFontSuperHuge.size, module.db.miscText.questFontSuperHuge.outline) -- No idea what that is for
-			_G["QuestFont_Enormous"]:SetFont(E.LSM:Fetch('font', module.db.miscText.questFontSuperHuge.font), module.db.miscText.questFontSuperHuge.size, module.db.miscText.questFontSuperHuge.outline) -- No idea what that is for
-		end
-	end
-end
-
-function module:TextShow()
-	local z, i, a, s, c = random(1, #module.Zones), random(1, #module.PvPInfo), random(1, #module.PVPArena), random(1, #module.Subzones), random(1, #Colors)
-	local red, green, blue = unpack(Colors[c])
-
-	--Setting texts--
-	_G["ZoneTextString"]:SetText(module.Zones[z])
-	_G["PVPInfoTextString"]:SetText(module.PvPInfo[i])
-	_G["PVPArenaTextString"]:SetText(module.PVPArena[a])
-	_G["SubZoneTextString"]:SetText(module.Subzones[s])
-
-	ZoneTextPos()--nil, true)
-
-	-- Applying colors
-	_G["ZoneTextString"]:SetTextColor(red, green, blue)
-	_G["PVPInfoTextString"]:SetTextColor(red, green, blue)
-	_G["PVPArenaTextString"]:SetTextColor(red, green, blue)
-	_G["SubZoneTextString"]:SetTextColor(red, green, blue)
-
-	FadingFrame_Show(_G["ZoneTextFrame"])
-	FadingFrame_Show(_G["SubZoneTextFrame"])
-end
-
-function module:Initialize()
-	if IsAddOnLoaded("ElvUI_SLE") then return; end
-	MER:RegisterDB(self, "media")
-
-	module.db = E.db.mui.media
-	function module:ForUpdateAll()
-		module.db = E.db.mui.media
-
-		if module.db.zoneText.enable then
-			hooksecurefunc("SetZoneText", ZoneTextPos)
-		end
-	end
-	self:ForUpdateAll()
-
-	if module.db.zoneText.enable then
-		hooksecurefunc("SetZoneText", ZoneTextPos)
-	end
-
-	hooksecurefunc(E, "UpdateBlizzardFonts", module.SetBlizzFonts)
-	module.SetBlizzFonts()
-end
-
-MER:RegisterModule(module:GetName())
+-- Custom Textures
+E.media.roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\UI-LFG-ICON-ROLES]]
+E.media.checked = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\checked]]

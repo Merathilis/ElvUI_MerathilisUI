@@ -18,8 +18,6 @@ local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Timer_After = C_Timer.After
 local CreateAnimationGroup = CreateAnimationGroup
 local GetBattlefieldStatus = GetBattlefieldStatus
-local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
-local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 local GetMinimapZoneText = GetMinimapZoneText
 local GetRealZoneText = GetRealZoneText
 local GetZonePVPInfo = GetZonePVPInfo
@@ -696,7 +694,6 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.flightMode
-	MER:RegisterDB(self, 'flightMode')
 
 	if (COMP.BUI and E.db.benikui.misc.flightMode.enable) then return end
 	if module.db.enable ~= true then return end

@@ -2,16 +2,11 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
 local unpack = unpack
---WoW API / Variables
+
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
-local GetLFGDungeonRewardInfo = GetLFGDungeonRewardInfo
-local GetLFGDungeonShortageRewardInfo = GetLFGDungeonShortageRewardInfo
--- GLOBALS:
 
 local function StyleRewardButton(button)
 	local buttonName = button:GetName()
@@ -48,7 +43,7 @@ local function StyleRewardButton(button)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.mui.skins.blizzard.lfg ~= true then return; end
 
 	hooksecurefunc("LFGRewardsFrame_SetItemButton", function(parentFrame, _, index, _, _, _, _, _, _, _, _, _, _)
 		local parentName = parentFrame:GetName()

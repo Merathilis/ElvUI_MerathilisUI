@@ -1,13 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
 
 local _G = _G
 local select, unpack = select, unpack
-local tremove = table.remove
+
 local CreateFrame = CreateFrame
 local GetAddOnInfo = GetAddOnInfo
-local UIParent = UIParent
 local hooksecurefunc = hooksecurefunc
 
 local function RemoveStyle(bar)
@@ -121,7 +119,7 @@ f:SetScript('OnEvent', function(self, event, msg)
 end)
 
 function MERS:BigWigs_QueueTimer()
-	if not E.private.muiSkins.addonSkins.bw then return end
+	if not E.private.mui.skins.addonSkins.bw then return end
 
 	if _G.BigWigsLoader then
 		_G.BigWigsLoader.RegisterMessage("MerathilisUI", "BigWigs_FrameCreated", function(_, frame, name)

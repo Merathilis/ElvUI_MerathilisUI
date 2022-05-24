@@ -2,16 +2,13 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 if not IsAddOnLoaded("BugSack") then return; end
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local pairs = pairs
--- WoW API / Variables
+
 local hooksecurefunc = hooksecurefunc
--- GLOBALS: BugSack, BugSackFrame, BugSackTabAll
 
 local function LoadAddOnSkin()
-	if E.private.muiSkins.addonSkins.bs ~= true then return end
+	if E.private.mui.skins.addonSkins.bs ~= true then return end
 
 	hooksecurefunc(_G.BugSack, "OpenSack", function()
 		if not _G.BugSack.IsSkinned then

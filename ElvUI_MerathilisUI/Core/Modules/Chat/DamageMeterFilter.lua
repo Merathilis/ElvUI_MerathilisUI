@@ -1,15 +1,13 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERC = MER:GetModule('MER_Chat')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local pairs, ipairs, tonumber = pairs, ipairs, tonumber
 local format = string.format
 local strsplit = strsplit
 local time = time
 local tinsert = table.insert
--- WoW API / Variable
+
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 local ShowUIPanel = ShowUIPanel
 local UIParent = UIParent

@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Tooltip')
-local TT = E:GetModule('Tooltip')
 
 local _G = _G
 local next = next
@@ -39,7 +38,6 @@ function module:Initialize()
 	if E.private.tooltip.enable ~= true then return end
 
 	self.db = E.db.mui.tooltip
-	MER:RegisterDB(self, "tooltip")
 
 	for index, func in next, self.load do
 		xpcall(func, errorhandler)

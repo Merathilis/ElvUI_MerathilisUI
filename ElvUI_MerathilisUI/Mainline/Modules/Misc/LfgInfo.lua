@@ -223,10 +223,8 @@ function module:AddGroupInfo(tooltip, resultID)
 end
 
 function module:Initialize()
-	if not E.db.mui.misc.lfgInfo.enable then return end
-
-	self.db = E.db.mui.misc.lfgInfo
-	MER:RegisterDB(self, "lfgInfo")
+	local db = E.db.mui.misc.lfgInfo
+	if not db.enable then return end
 
 	module:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
 	module:SecureHook("LFGListGroupDataDisplayEnumerate_Update", "UpdateEnumerate")

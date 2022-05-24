@@ -1049,8 +1049,6 @@ function module:Initialize()
 	module.db = E.db.mui.autoButtons
 	if module.db.enable ~= true or self.Initialized then return end
 
-	MER:RegisterDB(self, "autoButtons")
-
 	self:CreateAll()
 	UpdateQuestItemList()
 	UpdateEquipmentList()

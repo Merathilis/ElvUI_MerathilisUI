@@ -3,7 +3,6 @@ local module = MER:GetModule('MER_MicroBar')
 local DT = E:GetModule('DataTexts')
 
 -- Credits: fang2hou - ElvUI_Windtools (and me for the initial idea ^^)
-
 local _G = _G
 local date = date
 local floor = floor
@@ -27,35 +26,26 @@ local CloseAllWindows = CloseAllWindows
 local CloseMenus = CloseMenus
 local CreateFrame = CreateFrame
 local CreateFromMixins = CreateFromMixins
-local EncounterJournal_LoadUI = EncounterJournal_LoadUI
 local GetGameTime = GetGameTime
 local GetItemCooldown = GetItemCooldown
 local GetItemCount = GetItemCount
 local GetItemIcon = GetItemIcon
 local GetNumGuildMembers = GetNumGuildMembers
 local GetTime = GetTime
-local GuildFrame_LoadUI = GuildFrame_LoadUI
 local HideUIPanel = HideUIPanel
 local InCombatLockdown = InCombatLockdown
-local IsAddOnLoaded = IsAddOnLoaded
 local IsInGuild = IsInGuild
 local IsModifierKeyDown = IsModifierKeyDown
 local ItemMixin = ItemMixin
 local PlaySound = PlaySound
 local RegisterStateDriver = RegisterStateDriver
-local ResetCPUUsage = ResetCPUUsage
 local Screenshot = Screenshot
 local ShowUIPanel = ShowUIPanel
-local SpellBookFrame = _G.SpellBookFrame
-local TalentFrame_LoadUI = TalentFrame_LoadUI
-local ToggleAchievementFrame = ToggleAchievementFrame
 local ToggleAllBags = ToggleAllBags
 local ToggleCalendar = ToggleCalendar
 local ToggleCharacter = ToggleCharacter
-local ToggleCollectionsJournal = ToggleCollectionsJournal
 local ToggleFrame = ToggleFrame
 local ToggleFriendsFrame = ToggleFriendsFrame
-local ToggleGuildFinder = ToggleGuildFinder
 local ToggleGuildFrame = ToggleGuildFrame
 local ToggleSpellBook = ToggleSpellBook
 local ToggleTimeManager = ToggleTimeManager
@@ -253,7 +243,7 @@ local ButtonTypes = {
 		},
 		additionalText = function()
 			local friendsOnline = C_FriendList_GetNumFriends()
-			local bnTotal, bnOnline = BNGetNumFriends()
+			local _, bnOnline = BNGetNumFriends()
 			local totalOnline = friendsOnline + bnOnline
 			return totalOnline
 		end,
@@ -341,7 +331,7 @@ local ButtonTypes = {
 			"GUILD_ROSTER_UPDATE",
 			"PLAYER_GUILD_UPDATE"
 		},
-		eventHandler = function(button, event, message)
+		eventHandler = function(button)
 			button.additionalText:SetFormattedText(button.additionalTextFormat, button.additionalTextFunc())
 		end
 	},
@@ -1172,7 +1162,6 @@ end
 
 function module:Initialize()
 	self.db = E.db.mui.microBar
-	MER:RegisterDB(self, "microBar")
 	if not self.db or not self.db.enable then
 		return
 	end

@@ -2,19 +2,14 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
 local _G = _G
 local select, unpack = select, unpack
---WoW API / Variables
+
 local hooksecurefunc = hooksecurefunc
 local GetInspectSpecialization = GetInspectSpecialization
-local GetInventoryItemLink = GetInventoryItemLink
 local GetSpecializationRoleByID = GetSpecializationRoleByID
 local GetSpecializationInfoByID = GetSpecializationInfoByID
 local UnitGUID = UnitGUID
--- GLOBALS:
-
-local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function updateIcon(self)
 	local spec = nil
@@ -33,7 +28,7 @@ local function updateIcon(self)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.inspect ~= true or E.private.muiSkins.blizzard.inspect ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.inspect ~= true or E.private.mui.skins.blizzard.inspect ~= true then return end
 
 	_G.InspectModelFrame:DisableDrawLayer("OVERLAY")
 
@@ -123,7 +118,6 @@ local function LoadSkin()
 
 	for i = 1, 4 do
 		local tab = _G["InspectFrameTab"..i]
-		MERS:ReskinTab(tab)
 		if i ~= 1 then
 			tab:SetPoint("LEFT", _G["InspectFrameTab"..i-1], "RIGHT", -15, 0)
 		end

@@ -2,20 +2,16 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule('MER_Misc')
 
 -- Credits Leatrix Plus
-
--- Cache global variables
--- Lua functions
 local _G = _G
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local GameTooltip = GameTooltip
 local GetAchievementLink = GetAchievementLink
 local GetQuestLink = GetQuestLink
-local GetSuperTrackedQuestID = GetSuperTrackedQuestID
+
 local IsAddOnLoaded = IsAddOnLoaded
 local QuestMapFrame_GetDetailQuestID = QuestMapFrame_GetDetailQuestID
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 -- Get localised Wowhead URL
 local wowheadLoc

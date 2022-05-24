@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MT = MER:GetModule('MER_Tooltip')
-local TT = E:GetModule('Tooltip')
 
 -- modified from NDui
 local _G = _G

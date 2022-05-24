@@ -1,13 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_CombatText')
 
---Cache global variables
---Lua functions
 local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
---WoW API / Variables
+
 local C_Timer_NewTimer = C_Timer.NewTimer
 local CreateFrame = CreateFrame
--- GLOBALS: EnterCombatAlert
 
 function module:CreateAlert()
 	if self.alert then return end
@@ -141,7 +138,6 @@ function module:Initialize()
 	if not E.db.mui.CombatAlert.enable then return end
 
 	self.db = E.db.mui.CombatAlert
-	MER:RegisterDB(self, "CombatAlert")
 
 	module.inAnimation = false
 	self.animationQueue = {}

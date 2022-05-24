@@ -2,14 +2,11 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local unpack = unpack
--- WoW API / Variables
+
 local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown
--- GLOBALS:
 
 local function StyleElvUIConfig()
 	if InCombatLockdown() or not E.private.skins.ace3Enable then return end
@@ -43,12 +40,6 @@ local function pluginInstaller()
 	if _G.PluginInstallFrame then
 		_G.PluginInstallFrame:Styling()
 		_G.PluginInstallTitleFrame:Styling()
-	end
-end
-
-local function StyleAce3Tooltip(self)
-	if not self:IsForbidden() and E.private.skins.ace3Enable then
-		self:Styling()
 	end
 end
 
@@ -100,6 +91,5 @@ function MERS:StyleElvUIConfig()
 	hooksecurefunc(E, 'Config_CreateSeparatorLine', Style_CreateSeparatorLine)
 	hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)
 	hooksecurefunc(E, 'Install', StyleElvUIInstall)
-	--hooksecurefunc(S, 'Ace3_StyleTooltip', StyleAce3Tooltip)
 	hooksecurefunc(S, 'Ace3_TabSetSelected', Style_Ace3TabSelected)
 end

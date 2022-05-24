@@ -1,17 +1,13 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
---WoW API / Variables
 local unpack = unpack
--- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.muiSkins.blizzard.calendar ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.mui.skins.blizzard.calendar ~= true then return end
 
 	if not _G.CalendarFrame.backdrop then
 		_G.CalendarFrame:CreateBackdrop('Transparent')

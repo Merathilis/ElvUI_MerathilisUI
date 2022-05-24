@@ -3,7 +3,6 @@ local module = MER:GetModule('MER_Mail')
 local S = E:GetModule('Skins')
 
 -- Credits: WindTools :)
-
 local _G = _G
 local floor = floor
 local format = format
@@ -550,8 +549,6 @@ end
 function module:Initialize()
 	self:UpdateAltsTable()
 	self.db = E.db.mui.mail
-
-	MER:RegisterDB(self, "mail")
 
 	if not self.db.enable or self.Initialized then
 		return

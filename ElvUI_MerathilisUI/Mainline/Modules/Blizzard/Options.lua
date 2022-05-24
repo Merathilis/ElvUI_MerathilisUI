@@ -2,7 +2,6 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_ObjectiveTracker')
 local LSM = E.Libs.LSM
 
-local _G = _G
 local format = string.format
 local tinsert = table.insert
 
@@ -19,7 +18,7 @@ local function ObjectiveTable()
 		set = function(info, value)
 			E.db.mui.blizzard.objectiveTracker[info[#info]] = value; ObjectiveTracker_Update(); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Objective Tracker"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["Objective Tracker"], 'orange'), 1),
 			description = {
 				order = 2,
 				type = "group",
@@ -247,7 +246,7 @@ local function ObjectiveTable()
 								end,
 								get = function(info)
 									local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.normalColor
-									local default = P.mui.blizzard.objectiveTracker.cosmeticBar.color.normalColor
+									local default = P.blizzard.objectiveTracker.cosmeticBar.color.normalColor
 									return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
 								end,
 								set = function(info, r, g, b, a)
@@ -268,7 +267,7 @@ local function ObjectiveTable()
 								end,
 								get = function(info)
 									local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.gradientColor1
-									local default = P.mui.blizzard.objectiveTracker.cosmeticBar.color.gradientColor1
+									local default = P.blizzard.objectiveTracker.cosmeticBar.color.gradientColor1
 									return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
 								end,
 								set = function(info, r, g, b, a)
@@ -289,7 +288,7 @@ local function ObjectiveTable()
 								end,
 								get = function(info)
 									local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.gradientColor2
-									local default = P.mui.blizzard.objectiveTracker.cosmeticBar.color.gradientColor2
+									local default = P.blizzard.objectiveTracker.cosmeticBar.color.gradientColor2
 									return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
 								end,
 								set = function(info, r, g, b, a)
@@ -499,7 +498,7 @@ local function ObjectiveTable()
 						hasAlpha = false,
 						get = function(info)
 							local db = E.db.mui.blizzard.objectiveTracker.header.color
-							local default = P.mui.blizzard.objectiveTracker.header.color
+							local default = P.blizzard.objectiveTracker.header.color
 							return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 						end,
 						set = function(info, r, g, b)
@@ -544,7 +543,7 @@ local function ObjectiveTable()
 						hasAlpha = false,
 						get = function(info)
 							local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorNormal
-							local default = P.mui.blizzard.objectiveTracker.titleColor.customColorNormal
+							local default = P.blizzard.objectiveTracker.titleColor.customColorNormal
 							return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 						end,
 						set = function(info, r, g, b)
@@ -559,7 +558,7 @@ local function ObjectiveTable()
 						hasAlpha = false,
 						get = function(info)
 							local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorHighlight
-							local default = P.mui.blizzard.objectiveTracker.titleColor.customColorHighlight
+							local default = P.blizzard.objectiveTracker.titleColor.customColorHighlight
 							return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 						end,
 						set = function(info, r, g, b)

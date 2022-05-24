@@ -92,8 +92,8 @@ end
 
 function module:Initialize()
 	if not E.db.mui.merchant.enable then return end
-	self.db = E.db.mui.merchent
-	MER:RegisterDB(self, "merchant")
+
+	self.db = E.db.mui.merchant
 
 	if IsAddOnLoaded("ExtVendor") then
 		self.StopRunning = "ExtVendor"

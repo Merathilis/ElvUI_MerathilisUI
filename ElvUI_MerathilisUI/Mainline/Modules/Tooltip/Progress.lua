@@ -2,12 +2,10 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Progress')
 local TT  = E:GetModule('Tooltip')
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local ipairs, pairs, select, tonumber = ipairs, pairs, select, tonumber
+local ipairs, select, tonumber = ipairs, select, tonumber
 local sub = string.sub
--- WoW Amodule / Variables
+
 local C_CreatureInfo_GetFactionInfo = C_CreatureInfo.GetFactionInfo
 local CanInspect = CanInspect
 local GetComparisonStatistic = GetComparisonStatistic
@@ -21,7 +19,6 @@ local UnitFactionGroup = UnitFactionGroup
 local UnitRace = UnitRace
 local UnitLevel = UnitLevel
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 module.RP = {
 	-- sort key

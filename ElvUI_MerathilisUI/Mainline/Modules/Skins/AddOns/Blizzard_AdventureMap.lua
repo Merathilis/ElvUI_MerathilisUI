@@ -1,15 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
---WoW API / Variables
-local CreateFrame = CreateFrame
--- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.muiSkins.blizzard.garrison ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.mui.skins.blizzard.garrison ~= true then return end
 
 	local AdventureMapQuestChoiceDialog = _G["AdventureMapQuestChoiceDialog"]
 	AdventureMapQuestChoiceDialog.Rewards:SetAlpha(0)

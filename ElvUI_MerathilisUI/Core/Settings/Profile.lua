@@ -1,17 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 local _G = _G
-----------------------------------------------------------------------------------------
---	Core options
-----------------------------------------------------------------------------------------
-P.mui = {}
-local MP = P.mui
 
-MP.core = {
+P.core = {
 	installed = false,
 }
 
-MP.general = {
+P.general = {
 	LoginMsg = true,
 	GameMenu = true,
 	splashScreen = true,
@@ -25,16 +20,16 @@ MP.general = {
 	},
 }
 
-MP.bags = {
+P.bags = {
 	equipOverlay = true,
 }
 
-MP.merchant = {
+P.merchant = {
 	enable = true,
 	numberOfPages = 2,
 }
 
-MP.blizzard = {
+P.blizzard = {
 	objectiveTracker = {
 		enable = true,
 		noDash = true,
@@ -61,9 +56,9 @@ MP.blizzard = {
 			borderAlpha = 1,
 			color = {
 				mode = "GRADIENT",
-				normalColor = {r = 0.000, g = 0.659, b = 1.000, a = 1},
+				normalColor = {r = 0, g = 0.659, b = 1.000, a = 1},
 				gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1},
-				gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 1}
+				gradientColor2 = {r = 0, g = 0.752, b = 0.980, a = 1}
 			}
 		},
 		title = {
@@ -79,13 +74,13 @@ MP.blizzard = {
 		titleColor = {
 			enable = true,
 			classColor = false,
-			customColorNormal = {r = 0.000, g = 0.659, b = 1.000},
+			customColorNormal = {r = 0, g = 0.752, b = 0.980},
 			customColorHighlight = {r = 0.282, g = 0.859, b = 0.984}
 		},
 	},
 }
 
-MP.CombatAlert = {
+P.CombatAlert = {
 	enable = true,
 	font = {
 		name = "Expressway",
@@ -117,7 +112,7 @@ MP.CombatAlert = {
 	},
 }
 
-MP.cvars = {
+P.cvars = {
 	general = {
 		alwaysCompareItems = false,
 		breakUpLargeNumbers = true,
@@ -162,7 +157,7 @@ MP.cvars = {
 	},
 }
 
-MP.chat = {
+P.chat = {
 	chatButton = true,
 	hidePlayerBrackets = true,
 	hideChat = false,
@@ -175,7 +170,7 @@ MP.chat = {
 		damagemeter = false,
 	},
 	chatFade = {
-		enable = true,
+		enable = false,
 		minAlpha = 0.33,
 		timeout = 8,
 		fadeOutTime = 0.65
@@ -296,16 +291,16 @@ MP.chat = {
 	},
 }
 
-MP.colors = {
+P.colors = {
 	styleAlpha = 1,
 }
 
-MP.mail = {
+P.mail = {
 	enable = true,
 	defaultPage = "ALTS"
 }
 
-MP.misc = {
+P.misc = {
 	gmotd = true,
 	quest = {
 		selectQuestReward =	true,
@@ -334,7 +329,6 @@ MP.misc = {
 	},
 	spellAlert = 0.65,
 	alerts = {
-		lfg = false,
 		announce = true,
 		itemAlert = true,
 		feasts = true,
@@ -361,13 +355,13 @@ MP.misc = {
 	}
 }
 
-MP.nameHover = {
+P.nameHover = {
 	enable = true,
 	fontSize = 7,
 	fontOutline = "OUTLINE",
 }
 
-MP.notification = {
+P.notification = {
 	enable = true,
 	noSound = false,
 	mail = true,
@@ -376,6 +370,7 @@ MP.notification = {
 	guildEvents = true,
 	paragon = true,
 	quickJoin = true,
+	callToArms = true,
 	titleFont = {
 		name = "Expressway",
 		size = 12,
@@ -388,13 +383,13 @@ MP.notification = {
 	},
 }
 
-MP.databars = {}
+P.databars = {}
 
-MP.datatexts = {
+P.datatexts = {
 	RightChatDataText = true,
 }
 
-MP.actionbars = {
+P.actionbars = {
 	specBar = {
 		enable = true,
 		mouseover = false,
@@ -450,7 +445,7 @@ local function Potions()
 	end
 end
 
-MP.autoButtons = {
+P.autoButtons = {
 	enable = true,
 	customList = {},
 	blackList = {
@@ -459,7 +454,7 @@ MP.autoButtons = {
 	bar1 = {
 		enable = true,
 		mouseOver = false,
-		globalFade = true,
+		globalFade = false,
 		fadeTime = 0.3,
 		alphaMin = 1,
 		alphaMax = 1,
@@ -472,7 +467,6 @@ MP.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
-		inheritGlobalFade = true,
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -502,7 +496,7 @@ MP.autoButtons = {
 	bar2 = {
 		enable = true,
 		mouseOver = false,
-		globalFade = true,
+		globalFade = false,
 		fadeTime = 0.3,
 		alphaMin = 1,
 		alphaMax = 1,
@@ -514,7 +508,6 @@ MP.autoButtons = {
 		buttonsPerRow = 12,
 		anchor = "TOPLEFT",
 		spacing = 3,
-		inheritGlobalFade = true,
 		tooltip = true,
 		countFont = {
 			name = "Expressway",
@@ -546,7 +539,7 @@ MP.autoButtons = {
 	bar3 = {
 		enable = true,
 		mouseOver = false,
-		globalFade = true,
+		globalFade = false,
 		fadeTime = 0.3,
 		alphaMin = 1,
 		alphaMax = 1,
@@ -559,7 +552,6 @@ MP.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
-		inheritGlobalFade = true,
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -602,7 +594,6 @@ MP.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
-		inheritGlobalFade = true,
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -645,7 +636,6 @@ MP.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
-		inheritGlobalFade = true,
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -674,7 +664,7 @@ MP.autoButtons = {
 	}
 }
 
-MP.microBar = {
+P.microBar = {
 	enable = true,
 	mouseOver = false,
 	backdrop = true,
@@ -739,7 +729,7 @@ MP.microBar = {
 	}
 }
 
-MP.unitframes = {
+P.unitframes = {
 	healPrediction = {
 		enable = false,
 		texture = {
@@ -770,7 +760,7 @@ MP.unitframes = {
 	auras = true,
 }
 
-MP.maps = {
+P.maps = {
 	minimap = {
 		flash = true,
 		queueStatus = true,
@@ -830,7 +820,7 @@ MP.maps = {
 	},
 }
 
-MP.media = {
+P.media = {
 	zoneText = {
 		enable = true,
 		zone = {
@@ -874,7 +864,7 @@ MP.media = {
 	},
 }
 
-MP.panels = {
+P.panels = {
 	colorType = "CLASS",
 	customColor = {r = 1, g = 1, b = 1 },
 	topPanel = true,
@@ -894,14 +884,14 @@ MP.panels = {
 	panelSize = 427,
 }
 
-MP.smb = {
+P.smb = {
 	enable = true,
 	size = 30,
 	perRow = 6,
 	spacing = 1,
 }
 
-MP.locPanel = {
+P.locPanel = {
 	enable = true,
 	autowidth = false,
 	width = 336,
@@ -937,7 +927,7 @@ MP.locPanel = {
 	},
 }
 
-MP.raidmarkers = {
+P.raidmarkers = {
 	enable = true,
 	visibility = "INPARTY",
 	customVisibility = "[noexists, nogroup] hide; show",
@@ -951,13 +941,13 @@ MP.raidmarkers = {
 	notooltip = false,
 }
 
-MP.raidmanager = {
+P.raidmanager = {
 	enable = true,
 	unlockraidmarks = false,
 	count = "10",
 }
 
-MP.pvp = {
+P.pvp = {
 	duels = {
 		regular = false,
 		pet = false,
@@ -969,7 +959,7 @@ MP.pvp = {
 	},
 }
 
-MP.tooltip = {
+P.tooltip = {
 	tooltipIcon = true,
 	factionIcon = true,
 	petIcon = true,
@@ -990,7 +980,7 @@ MP.tooltip = {
 	dominationRank = true,
 }
 
-MP.errorFilters = {
+P.errorFilters = {
 	[INTERRUPTED] = false,
 	[ERR_ABILITY_COOLDOWN] = true,
 	[ERR_ATTACK_CHANNEL] = false,
@@ -1042,7 +1032,7 @@ MP.errorFilters = {
 	[SPELL_FAILED_NOT_MOUNTED] = true,
 }
 
-MP.raidBuffs = {
+P.raidBuffs = {
 	enable = true,
 	visibility = "INPARTY",
 	class = true,
@@ -1052,19 +1042,19 @@ MP.raidBuffs = {
 	customVisibility = "[noexists, nogroup] hide; show",
 }
 
-MP.reminder = {
+P.reminder = {
 	enable = true,
 	size = 30,
 }
 
-MP.nameplates = {
+P.nameplates = {
 	castbarShield = true,
 	enhancedAuras = {
 		enable = true,
 	},
 }
 
-MP.cooldownFlash = {
+P.cooldownFlash = {
 	enable = true,
 	fadeInTime = 0.3,
 	fadeOutTime = 0.6,
@@ -1081,7 +1071,7 @@ MP.cooldownFlash = {
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
 }
 
-MP.armory = {
+P.armory = {
 	enable = true,
 	undressButton = true,
 	durability = {
@@ -1133,7 +1123,7 @@ MP.armory = {
 	},
 }
 
-MP.flightMode = {
+P.flightMode = {
 	enable = true,
 	BenikFlightMode = true,
 }

@@ -1,14 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
---Cache global variables
 local _G = _G
 local select = select
 local hooksecurefunc = hooksecurefunc
---WoW API / Variables
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.artifact ~= true or E.private.muiSkins.blizzard.artifact ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.artifact ~= true or E.private.mui.skins.blizzard.artifact ~= true then return end
 
 	_G.ArtifactFrame:Styling()
 	MER:CreateBackdropShadow(_G.ArtifactFrame)

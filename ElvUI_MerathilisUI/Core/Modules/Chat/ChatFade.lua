@@ -1,15 +1,12 @@
 local MER, F, E, _, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Chat')
 
---Cache global variables
---Lua Variables
 local _G = _G
 local pairs = pairs
---WoW API / Variables
+
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
 local InCombatLockdown = InCombatLockdown
--- GLOBALS:
 
 function module:HideChatFade()
 	local fadeOutTime = E.db.mui.chat.chatFade.fadeOutTime or 0.65

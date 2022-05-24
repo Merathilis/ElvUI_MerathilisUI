@@ -1,15 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERAY = MER:GetModule('MER_Armory')
 
---Cache global variables
---Lua functions
 local _G = _G
 local select = select
 local tinsert = table.insert
---WoW API / Variables
+
 local PaperDollFrame_UpdateStats = PaperDollFrame_UpdateStats
 local UnitPowerType = UnitPowerType
--- GLOBALS:
 
 local fontStyleList = {
 	["NONE"] = NONE,
@@ -29,7 +26,7 @@ local function ArmoryTable()
 		get = function(info) return E.db.mui.armory[ info[#info] ] end,
 		set = function(info, value) E.db.mui.armory[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Armory"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["Armory"], 'orange'), 1),
 			enable = {
 				type = "toggle",
 				order = 2,
@@ -232,7 +229,7 @@ local function ArmoryTable()
 						disabled = function() return E.db.mui.armory.gradient.colorStyle == "RARITY" or E.db.mui.armory.gradient.colorStyle == "VALUE" or not E.db.mui.armory.enable or not E.db.mui.armory.gradient.enable end,
 						get = function(info)
 							local t = E.db.mui.armory.gradient[ info[#info] ]
-							local d = P.mui.armory.gradient[info[#info]]
+							local d = P.armory.gradient[info[#info]]
 							return t.r, t.g, t.b, d.r, d.g, d.b
 						end,
 						set = function(info, r, g, b)

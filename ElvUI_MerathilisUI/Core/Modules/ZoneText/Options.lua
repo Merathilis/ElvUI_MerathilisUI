@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local M = MER:GetModule('MER_Media')
+local M = MER:GetModule('MER_ZoneText')
 
 local function mediaTable()
 	E.Options.args.mui.args.media = {
 		order = 40,
-		name = MER:cOption(L["Media"], 'gradient'),
+		name = F.cOption(L["Media"], 'gradient'),
 		icon = MER.Media.Icons.media,
 		type = "group",
 		childGroups = "tab",
@@ -14,12 +14,12 @@ local function mediaTable()
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(L["Media"], 'orange'),
+				name = F.cOption(L["Media"], 'orange'),
 			},
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Credits"], 'orange'),
+				name = F.cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				args = {
 					tukui = {
@@ -252,94 +252,6 @@ local function mediaTable()
 									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
 								disabled = function() return not E.db.mui.media.miscText.gossip.enable end,
-							},
-						},
-					},
-					questHeader = {
-						type = "group",
-						name = L["Objective Tracker Header Text"],
-						order = 3,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						hidden = not E.Retail,
-						get = function(info) return E.db.mui.media.miscText.objectiveHeader[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.miscText.objectiveHeader[ info[#info] ] = value; E:UpdateMedia() end,
-						args = {
-							enable = {
-								order = 0,
-								type = "toggle",
-								name = L["Enable"],
-							},
-							font = {
-								type = "select", dialogControl = "LSM30_Font",
-								order = 1,
-								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
-								disabled = function() return not E.db.mui.media.miscText.objectiveHeader.enable end,
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = "range",
-								min = 6, max = 20, step = 1,
-								disabled = function() return not E.db.mui.media.miscText.objectiveHeader.enable end,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								desc = L["Set the font outline."],
-								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = "OUTLINE",
-									["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
-									["THICKOUTLINE"] = "THICKOUTLINE",
-								},
-								disabled = function() return not E.db.mui.media.miscText.objectiveHeader.enable end,
-							},
-						},
-					},
-					questTracker = {
-						type = "group",
-						name = L["Objective Tracker Text"],
-						order = 4,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						hidden = not E.Retail,
-						get = function(info) return E.db.mui.media.miscText.objective[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.miscText.objective[ info[#info] ] = value; E:UpdateMedia() end,
-						args = {
-							enable = {
-								order = 0,
-								type = "toggle",
-								name = L["Enable"],
-							},
-							font = {
-								type = "select", dialogControl = "LSM30_Font",
-								order = 1,
-								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
-								disabled = function() return not E.db.mui.media.miscText.objective.enable end,
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = "range",
-								min = 6, max = 20, step = 1,
-								disabled = function() return not E.db.mui.media.miscText.objective.enable end,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								desc = L["Set the font outline."],
-								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = "OUTLINE",
-									["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
-									["THICKOUTLINE"] = "THICKOUTLINE",
-								},
-								disabled = function() return not E.db.mui.media.miscText.objective.enable end,
 							},
 						},
 					},

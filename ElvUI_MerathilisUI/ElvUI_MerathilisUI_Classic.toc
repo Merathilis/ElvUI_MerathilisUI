@@ -1,6 +1,6 @@
 ## Interface: 11402
 ## Author: Merathilis
-## Version: 4.97
+## Version: 4.98
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
@@ -23,8 +23,8 @@ Core\Libs\Load_Libs.xml
 Core\Locales\Load_Locales.xml
 Core\Init.lua
 Core\Settings\Load_Settings.xml
-Core\General\Load_General.xml
 Core\Media\Load_Media.xml
+Core\General\Load_General.xml
 Core\Modules\Load_Modules.xml
 Core\Layout\Load_Layout.xml
 Bindings.xml

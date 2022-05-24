@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER.Modules.DataTexts
 local DT = E:GetModule('DataTexts')
 
 local _G = _G
@@ -15,7 +16,7 @@ ChatTabFrame:SetFrameStrata("BACKGROUND")
 ChatTabFrame:Hide()
 E.FrameLocks["MER_RightChatTopDT"] = true
 
-function MER:LoadDataTexts()
+function module:LoadDataTexts()
 	if not E.db.mui.datatexts.RightChatDataText then return end
 
 	MER_RightChatTopDT:Point("TOPRIGHT", _G.RightChatTab, "TOPRIGHT", 0, E.mult)
@@ -23,7 +24,7 @@ function MER:LoadDataTexts()
 
 	hooksecurefunc(DT, "UpdatePanelInfo", function(DT, panelName, panel)
 		if not panel then return end
-		local db = panel.db or P.datatexts.panels[panelName] and DT.db.panels[panelName]
+		local db = panel.db or E.db.datatexts.panels[panelName] and DT.db.panels[panelName]
 		if not db then return end
 
 		-- Need to find a way to hide my styling if changing the option from a panel
@@ -35,3 +36,11 @@ function MER:LoadDataTexts()
 		end
 	end)
 end
+
+function module:Initialize()
+	module.db = E.db.mui.datatexts
+
+	self:LoadDataTexts()
+end
+
+MER:RegisterModule(module:GetName())

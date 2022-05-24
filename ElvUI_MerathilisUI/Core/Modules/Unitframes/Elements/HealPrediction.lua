@@ -7,7 +7,6 @@ local LSM = E.Libs.LSM
 	All Credits goes to fang2hou from Windtools, he is the man!!!
 ]]--
 
-local _G = _G
 local pairs = pairs
 local rad = rad
 
@@ -266,7 +265,6 @@ end
 
 function module:Initialize()
 	self.db = E.db.mui.unitframes.healPrediction
-	MER:RegisterDB(self.db, "healPrediction")
 
 	if not self.db or not self.db.enable then
 		return

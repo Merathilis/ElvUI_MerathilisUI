@@ -2,19 +2,14 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
-local next, select, unpack = next, select, unpack
---WoW API / Variables
-local CreateFrame = CreateFrame
+local next, unpack = next, unpack
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or E.private.muiSkins.blizzard.communities ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or E.private.mui.skins.blizzard.communities ~= true then return end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
 	CommunitiesFrame:Styling()
@@ -64,24 +59,7 @@ local function LoadSkin()
 		Dialog.backdrop:Styling()
 	end
 
-	MERS:Reskin(Dialog.OkayButton)
-	MERS:Reskin(Dialog.CancelButton)
 	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
-	MERS:Reskin(Dialog.ScrollFrame.Child.AllButton)
-	MERS:Reskin(Dialog.ScrollFrame.Child.NoneButton)
-
-	hooksecurefunc(Dialog, "Refresh", function(self)
-		local frame = self.ScrollFrame.Child
-		for i = 1, frame:GetNumChildren() do
-			local child = select(i, frame:GetChildren())
-			if child.StreamName and not child.styled then
-				MERS:Reskin(child.ShowNotificationsButton)
-				MERS:Reskin(child.HideNotificationsButton)
-
-				child.styled = true
-			end
-		end
-	end)
 
 	local Dialog = CommunitiesFrame.EditStreamDialog
 	MERS:CreateBDFrame(Dialog.Description, .25)

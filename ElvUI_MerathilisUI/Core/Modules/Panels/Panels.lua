@@ -1,17 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Panels')
-local AB = E:GetModule('ActionBars')
-local MERS = MER:GetModule('MER_Skins')
 
---Cache global variables
---Lua functions
-local _G = _G
-local unpack = unpack
---WoW API / Variables
 local CreateFrame = CreateFrame
-local GameTooltip = GameTooltip
-local InCombatLockdown = InCombatLockdown
--- GLOBALS:
 
 function module:SkinPanel(panel)
 	local color = {r = 1, g = 1, b = 1}
@@ -246,7 +236,6 @@ end
 
 function module:Initialize()
 	local db = E.db.mui.panels
-	MER:RegisterDB(self, "panels")
 
 	self:CreatePanels()
 	self:Resize()

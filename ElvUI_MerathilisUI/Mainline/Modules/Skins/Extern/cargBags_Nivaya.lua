@@ -2,14 +2,8 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 if not IsAddOnLoaded("cargBags_Nivaya") then return; end
 
--- Cache global variables
--- Lua functions
-local _G = _G
--- WoW API / Variables
--- GLOBALS: hooksecurefunc, BugSack
-
 local function LoadAddOnSkin()
-	if E.private.muiSkins.addonSkins.cbn ~= true then return end
+	if E.private.mui.skins.addonSkins.cbn ~= true then return end
 
 	-- Default Containers from cargBags_Nivaya
 	local frames = {

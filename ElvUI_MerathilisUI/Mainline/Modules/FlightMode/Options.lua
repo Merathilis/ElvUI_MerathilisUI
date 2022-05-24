@@ -1,5 +1,4 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_FlightMode')
 local COMP = MER:GetModule('MER_Compatibility')
 
 local format = string.format
@@ -14,11 +13,11 @@ local function FlightMode()
 		get = function(info) return E.db.mui.flightMode[ info[#info] ] end,
 		set = function(info, value) E.db.mui.flightMode[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			header = ACH:Header(MER:cOption(L["FlightMode"], 'orange'), 1),
+			header = ACH:Header(F.cOption(L["FlightMode"], 'orange'), 1),
 			credits = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Credits"], 'orange'),
+				name = F.cOption(L["Credits"], 'orange'),
 				guiInline = true,
 				disabled = function() return (COMP.BUI and E.db.benikui.misc.flightMode.enable) end,
 				args = {

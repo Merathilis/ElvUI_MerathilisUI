@@ -1,17 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERC = MER:GetModule('MER_Chat')
 
--- Cache global variables
--- Lua functions
 local ipairs, select, tostring = ipairs, select, tostring
 local strsub = string.sub
--- WoW API / Variable
+
 local IsInGroup = IsInGroup
 local IsInGuild = IsInGuild
 local IsInInstance = IsInInstance
 local IsInRaid = IsInRaid
 local IsShiftKeyDown = IsShiftKeyDown
--- GLOBALS: ChatEdit_UpdateHeader
 
 local cycles = {
 	{

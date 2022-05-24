@@ -1,24 +1,111 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
-----------------------------------------------------------------------------------------
--- General options
-----------------------------------------------------------------------------------------
-V.mui = {
+V.general = {
 	install_complete = nil,
 }
 
-----------------------------------------------------------------------------------------
--- Misc options
-----------------------------------------------------------------------------------------
-V.muiMisc = {
+V.misc = {
 	guildNewsItemLevel = true,
 }
 
-----------------------------------------------------------------------------------------
--- Skins options
-----------------------------------------------------------------------------------------
-V.muiSkins = {
-	buttonStyle = true,
+V.skins = {
+	widgets = {
+		button = {
+			enable = true,
+			backdrop = {
+				enable = true,
+				texture = "RenAscensionL",
+				classColor = false,
+				color = {r = 0, g = 0.752, b = 0.980},
+				alpha = 1,
+				animationType = "FADE",
+				animationDuration = 0.2,
+				removeBorderEffect = true
+			},
+			text = {
+				enable = true,
+				font = {
+					name = E.db.general.font,
+					style = "OUTLINE"
+				},
+			},
+		},
+		tab = {
+			enable = true,
+			backdrop = {
+				enable = true,
+				texture = "RenAscensionL",
+				classColor = false,
+				color = {r = 0, g = 0.752, b = 0.980},
+				alpha = 1,
+				animationType = "FADE",
+				animationDuration = 0.2
+			},
+			selected = {
+				enable = true,
+				texture = "RenAscensionL",
+				backdropClassColor = false,
+				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.4},
+				borderClassColor = false,
+				borderColor = {r = 0.145, g = 0.353, b = 0.698, a = 1},
+			},
+			text = {
+				enable = true,
+				normalClassColor = false,
+				normalColor = {r = 1, g = 0.82, b = 0},
+				selectedClassColor = false,
+				selectedColor = {r = 1, g = 1, b = 1},
+				font = {
+					name = E.db.general.font,
+					style = "OUTLINE"
+				},
+			},
+		},
+		checkBox = {
+			enable = true,
+			texture = "RenAscensionL",
+			classColor = false,
+			color = {r = 0, g = 0.752, b = 0.980, a = 1}
+		},
+		slider = {
+			enable = true,
+			texture = "RenAscensionL",
+			classColor = false,
+			color = {r = 0, g = 0.752, b = 0.980, a = 1}
+		},
+		treeGroupButton = {
+			enable = true,
+			backdrop = {
+				enable = true,
+				texture = "RenAscensionL",
+				classColor = false,
+				color = {r = 0, g = 0.752, b = 0.980},
+				alpha = 1,
+				animationType = "FADE",
+				animationDuration = 0.2,
+				removeBorderEffect = true
+			},
+			selected = {
+				enable = true,
+				texture = "RenAscensionL",
+				backdropClassColor = true,
+				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.75},
+				borderClassColor = true,
+				borderColor = {r = 0.145, g = 0.353, b = 0.698, a = 0},
+			},
+			text = {
+				enable = true,
+				normalClassColor = false,
+				normalColor = {r = 1, g = 0.82, b = 0},
+				selectedClassColor = false,
+				selectedColor = {r = 1, g = 1, b = 1},
+				font = {
+					name = E.db.general.font,
+					style = "OUTLINE"
+				}
+			}
+		},
+	},
 	blizzard = {
 		character = true,
 		encounterjournal = true,
@@ -106,9 +193,5 @@ V.muiSkins = {
 		cbn = true,
 		et = true,
 		wa = true,
-	},
-
-	elvuiAddons = {
-		-- sle = true,
 	},
 }

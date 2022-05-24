@@ -2,28 +2,15 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
 local _G = _G
-local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
---WoW API / Variables
-local C_QuestLine_GetQuestLineQuests = C_QuestLine.GetQuestLineQuests
-local C_QuestLog_IsOnQuest = C_QuestLog.IsOnQuest
-local C_TaskQuest_RequestPreloadRewardData = C_TaskQuest.RequestPreloadRewardData
+local pairs, unpack = pairs, unpack
+
 local CreateFrame = CreateFrame
-local hooksecurefunc = hooksecurefunc
-local GetCurrencyInfo = GetCurrencyInfo
-local GetItemInfo = GetItemInfo
-local GetItemQualityColor = GetItemQualityColor
-local GetQuestLogRewardInfo = GetQuestLogRewardInfo
-local CurrencyContainerUtil_GetCurrencyContainerInfo = CurrencyContainerUtil.GetCurrencyContainerInfo
-local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
-local HaveQuestRewardData = HaveQuestRewardData
--- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.mui.skins.blizzard.pvp ~= true then return end
 
 	_G.PVPReadyDialog:Styling()
 	MER:CreateBackdropShadow(_G.PVPReadyDialog)
@@ -31,14 +18,11 @@ local function LoadSkin()
 	local PVPQueueFrame = _G.PVPQueueFrame
 	local HonorFrame = _G.HonorFrame
 	local ConquestFrame = _G.ConquestFrame
-	local WarGamesFrame = _G.WarGamesFrame
 
 	local iconSize = 56-2*E.mult
 	for i = 1, 3 do
 		local bu = PVPQueueFrame["CategoryButton"..i]
 		local cu = bu.CurrencyDisplay
-
-		MERS:Reskin(bu)
 
 		bu.Name:SetTextColor(1, 1, 1)
 
@@ -61,7 +45,6 @@ local function LoadSkin()
 	end
 
 	-- Casual - HonorFrame
-	local Inset = HonorFrame.Inset
 	local BonusFrame = HonorFrame.BonusFrame
 
 	BonusFrame.WorldBattlesTexture:Hide()
@@ -81,8 +64,6 @@ local function LoadSkin()
 	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do
 		bu.Bg:Hide()
 		bu.Border:Hide()
-
-		MERS:Reskin(bu)
 
 		-- Hide ElvUI backdrop
 		if bu.backdrop then

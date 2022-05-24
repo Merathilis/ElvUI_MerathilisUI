@@ -30,7 +30,7 @@ local function AutoButtonTable()
 		get = function(info) return E.db.mui.autoButtons[ info[#info] ] end,
 		set = function(info, value) E.db.mui.autoButtons[ info[#info] ] = value; end,
 		args = {
-			name = ACH:Header(MER:cOption(L["AutoButtons"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["AutoButtons"], 'orange'), 1),
 			enable = {
 				order = 2,
 				type = "toggle",
@@ -60,7 +60,7 @@ local function AutoButtonTable()
 								tinsert(E.db.mui.autoButtons.customList, itemID)
 								module:UpdateBars()
 							else
-								MER:Print(L["The item ID is invalid."])
+								F.Print(L["The item ID is invalid."])
 							end
 						end
 					},
@@ -120,7 +120,7 @@ local function AutoButtonTable()
 								E.db.mui.autoButtons.blackList[itemID] = itemName
 								module:UpdateBars()
 							else
-								MER:Print(L["The item ID is invalid."])
+								F.Print(L["The item ID is invalid."])
 							end
 						end
 					},
@@ -365,7 +365,7 @@ local function AutoButtonTable()
 							hasAlpha = false,
 							get = function(info)
 								local db = E.db.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
-								local default = P.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
+								local default = P.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
 								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 							end,
 							set = function(info, r, g, b)
@@ -439,7 +439,7 @@ local function AutoButtonTable()
 							hasAlpha = false,
 							get = function(info)
 								local db = E.db.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
-								local default = P.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
+								local default = P.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
 								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 							end,
 							set = function(info, r, g, b)

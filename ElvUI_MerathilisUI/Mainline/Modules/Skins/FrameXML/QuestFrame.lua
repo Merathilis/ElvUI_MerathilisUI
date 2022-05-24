@@ -2,16 +2,13 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local unpack = unpack
 local strfind = strfind
-local find, gsub = string.find, string.gsub
--- WoW API / Variables
+local gsub = string.gsub
+
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 -- Copied from ElvUI
 local function UpdateGreetingFrame()
@@ -35,7 +32,7 @@ local function RemoveParchment(self)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return end
 
 	local QuestFrame = _G.QuestFrame
 	_G.QuestFrameDetailPanelBg:SetAlpha(0)
@@ -46,7 +43,6 @@ local function LoadSkin()
 	------------------------
 	--- QuestDetailFrame ---
 	------------------------
-
 	_G.QuestDetailScrollFrame:StripTextures(true)
 	_G.QuestDetailScrollFrame:HookScript("OnUpdate", function(self)
 		self:DisableDrawLayer("BACKGROUND")

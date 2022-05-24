@@ -1,17 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 
---Cache global variables
 local _G = _G
-local select = select
---WoW API / Variables
-local CreateFrame = CreateFrame
+
 local GetCVar = GetCVar
-local GetGuildLogoInfo = GetGuildLogoInfo
-local SetSmallGuildTabardTextures = SetSmallGuildTabardTextures
 local GetGuildTradeSkillInfo = GetGuildTradeSkillInfo
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 -- Font width fix
 local function updateLevelString(view)
@@ -33,7 +27,7 @@ local function updateLevelString(view)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guild ~= true or E.private.muiSkins.blizzard.guild ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guild ~= true or E.private.mui.skins.blizzard.guild ~= true then return end
 
 	_G.GuildFrame:Styling()
 	MER:CreateBackdropShadow(_G.GuildFrame)

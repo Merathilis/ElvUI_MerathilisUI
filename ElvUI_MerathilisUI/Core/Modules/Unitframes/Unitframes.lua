@@ -2,7 +2,6 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
 local UF = E:GetModule('UnitFrames')
 
-local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 
 function module:ADDON_LOADED(event, addon)
@@ -156,7 +155,6 @@ function module:Initialize()
 	if E.private.unitframe.enable ~= true then return end
 
 	local db = E.db.mui.unitframes
-	MER:RegisterDB(self, "unitframes")
 
 	-- Units
 	self:StyleUFs()

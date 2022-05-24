@@ -1,11 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
--- Cache global variables
--- Lua functions
 local unpack = unpack
--- WoW API / Variables
+
 local IsAddOnLoaded = IsAddOnLoaded
--- GLOBALS:
 
 if not IsAddOnLoaded("ls_Toasts") then return end
 local LST = unpack(ls_Toasts)

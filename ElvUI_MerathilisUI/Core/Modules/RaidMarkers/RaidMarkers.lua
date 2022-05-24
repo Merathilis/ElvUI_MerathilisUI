@@ -1,18 +1,13 @@
 ﻿local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local RM = MER:GetModule('MER_RaidMarkers')
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local ipairs = ipairs
 local format = string.format
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local GameTooltip = GameTooltip
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
-
---GLOBALS: CreateFrame
 
 RM.VisibilityStates = {
 	["DEFAULT"] = "[noexists, nogroup] hide; show",
@@ -184,7 +179,6 @@ end
 
 function RM:Initialize()
 	RM.db = E.db.mui.raidmarkers
-	MER:RegisterDB(RM, "raidmarkers")
 
 	RM:Make("mUI_RaidFlare1", "/clearworldmarker 1\n/worldmarker 1", "Blue Flare")
 	RM:Make("mUI_RaidFlare2", "/clearworldmarker 2\n/worldmarker 2", "Green Flare")

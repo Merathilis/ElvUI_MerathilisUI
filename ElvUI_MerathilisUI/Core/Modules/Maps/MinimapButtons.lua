@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_MiniMapButtons')
-local COMP = MER:GetModule('MER_Compatibility')
 
 local _G = _G
 local pairs, select, tostring, unpack = pairs, select, tostring, unpack
@@ -273,9 +272,8 @@ function module:Update()
 end
 
 function module:Initialize()
-	local db = E.db.mui.smb
-	MER:RegisterDB(self, "smb")
-	if db.enable ~= true then return end
+	module.db = E.db.mui.smb
+	if not module.db.enable then return end
 
 	-- Button Creation
 	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", E.UIParent)

@@ -2,17 +2,13 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local ipairs, next, pairs, select, unpack = ipairs, next, pairs, select, unpack
--- WoW API / Variables
+local pairs, select, unpack = pairs, select, unpack
+
 local CreateFrame = CreateFrame
-local EJ_GetEncounterInfoByIndex = EJ_GetEncounterInfoByIndex
 local hooksecurefunc = hooksecurefunc
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
--- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
@@ -179,11 +175,10 @@ local function SkinEJButton(button)
 	button.DownRight:SetAlpha(0)
 	select(5, button:GetRegions()):Hide()
 	select(6, button:GetRegions()):Hide()
-	MERS:Reskin(button)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.muiSkins.blizzard.encounterjournal ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.mui.skins.blizzard.encounterjournal ~= true then return end
 
 	local EncounterJournal = _G.EncounterJournal
 	EncounterJournal:Styling()
@@ -289,8 +284,6 @@ local function LoadSkin()
 
 	SkinEJButton(info.difficulty)
 
-	MERS:Reskin(info.reset)
-
 	info.detailsScroll.child.description:SetTextColor(1, 1, 1)
 
 	info.overviewScroll.child.loreDescription:SetTextColor(1, 1, 1)
@@ -386,8 +379,6 @@ local function LoadSkin()
 
 		centerDisplay.title.text:SetTextColor(1, 1, 1)
 		centerDisplay.description.text:SetTextColor(.9, .9, .9)
-
-		MERS:Reskin(suggestion.button)
 
 		local reward = suggestion.reward
 

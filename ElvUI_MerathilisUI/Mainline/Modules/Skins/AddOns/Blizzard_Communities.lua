@@ -3,7 +3,7 @@ local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
-local gsub, next, select, unpack = gsub, next, select, unpack
+local gsub, next, unpack = gsub, next, unpack
 local format = string.format
 local strmatch = strmatch
 
@@ -14,7 +14,7 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local cache = {}
 
 local function ModifyGuildNews(button, _, text, name, link, ...)
-	if not E.private.muiMisc.guildNewsItemLevel then
+	if not E.private.mui.misc.guildNewsItemLevel then
 		return
 	end
 
@@ -34,7 +34,7 @@ local function ModifyGuildNews(button, _, text, name, link, ...)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or E.private.muiSkins.blizzard.communities ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or E.private.mui.skins.blizzard.communities ~= true then return end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
 	CommunitiesFrame:Styling()
@@ -70,7 +70,6 @@ local function LoadSkin()
 	for _, name in next, {"ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab"} do
 		local tab = CommunitiesFrame[name]
 		tab:GetRegions():Hide()
-		MERS:ReskinIcon(tab.Icon)
 		tab:GetHighlightTexture():SetColorTexture(r, g, b, .25)
 	end
 
@@ -81,25 +80,7 @@ local function LoadSkin()
 	if Dialog.backdrop then
 		Dialog.backdrop:Styling()
 	end
-
-	MERS:Reskin(Dialog.OkayButton)
-	MERS:Reskin(Dialog.CancelButton)
 	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
-	MERS:Reskin(Dialog.ScrollFrame.Child.AllButton)
-	MERS:Reskin(Dialog.ScrollFrame.Child.NoneButton)
-
-	hooksecurefunc(Dialog, "Refresh", function(self)
-		local frame = self.ScrollFrame.Child
-		for i = 1, frame:GetNumChildren() do
-			local child = select(i, frame:GetChildren())
-			if child.StreamName and not child.styled then
-				MERS:Reskin(child.ShowNotificationsButton)
-				MERS:Reskin(child.HideNotificationsButton)
-
-				child.styled = true
-			end
-		end
-	end)
 
 	local Dialog = CommunitiesFrame.EditStreamDialog
 	MERS:CreateBDFrame(Dialog.Description, .25)

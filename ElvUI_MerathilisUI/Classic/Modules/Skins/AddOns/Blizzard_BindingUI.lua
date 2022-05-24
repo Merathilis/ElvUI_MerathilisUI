@@ -1,5 +1,4 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -18,12 +17,10 @@ local function styleBindingButton(bu)
 	selected:SetPoint("TOPLEFT", 1, -1)
 	selected:SetPoint("BOTTOMRIGHT", -1, 1)
 	selected:SetColorTexture(r, g, b,.2)
-
-	MERS:Reskin(bu)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.muiSkins.blizzard.binding ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.mui.skins.blizzard.binding ~= true then return end
 
 	local KeyBindingFrame = _G.KeyBindingFrame
 	KeyBindingFrame.backdrop:Styling()

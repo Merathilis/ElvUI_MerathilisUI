@@ -4,22 +4,16 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local next, pairs, select, unpack = next, pairs, select, unpack
-local strmatch = strmatch
 
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
-local BAG_ITEM_QUALITY_COLORS = BAG_ITEM_QUALITY_COLORS
 local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards
 local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
 local GetNumQuestLogRewardSpells = GetNumQuestLogRewardSpells
 local GetNumRewardSpells = GetNumRewardSpells
 local C_QuestLog_GetNextWaypointText = C_QuestLog.GetNextWaypointText
 local C_QuestLog_GetSelectedQuest = C_QuestLog.GetSelectedQuest
-local GetQuestLogSelection = GetQuestLogSelection
-local GetQuestLogTitle = GetQuestLogTitle
 local GetQuestID = GetQuestID
-
-local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function QuestInfo_GetQuestID()
 	if _G.QuestInfoFrame.questLog then
@@ -33,7 +27,6 @@ local function ColorObjectivesText()
 	if not _G.QuestInfoFrame.questLog then return end
 
 	local questID = QuestInfo_GetQuestID()
-	local objectivesTable = _G.QuestInfoObjectivesFrame.Objectives
 	local numVisibleObjectives = 0
 
 	local waypointText = C_QuestLog_GetNextWaypointText(questID)
@@ -131,7 +124,7 @@ local function SetTextColor_White(font)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return; end
 
 	-- Item reward highlight
 	_G.QuestInfoItemHighlight:GetRegions():Hide()
@@ -197,7 +190,6 @@ local function LoadSkin()
 
 		local rewardsFrame = _G.QuestInfoFrame.rewardsFrame
 		local isQuestLog = _G.QuestInfoFrame.questLog ~= nil
-		local isMapQuest = rewardsFrame == _G.MapQuestInfoRewardsFrame
 		local numSpellRewards = isQuestLog and GetNumQuestLogRewardSpells() or GetNumRewardSpells()
 
 		if (template.canHaveSealMaterial) then

@@ -10,7 +10,7 @@ local function CVars()
 		get = function(info) return E.db.mui.CombatAlert[info[#info]] end,
 		set = function(info, value) E.db.mui.CombatAlert[info[#info]] = value E:StaticPopup_Show("PRIVATE_RL") end,
 		args = {
-			CombatAlertHeader = ACH:Header(MER:cOption(L["Combat Alert"], 'orange'), 0),
+			CombatAlertHeader = ACH:Header(F.cOption(L["Combat Alert"], 'orange'), 0),
 			enable = {
 				order = 1,
 				type = "toggle",
@@ -19,7 +19,7 @@ local function CVars()
 			},
 			font = {
 				order = 2,
-				name = MER:cOption(L["Font"], 'orange'),
+				name = F.cOption(L["Font"], 'orange'),
 				type = "group",
 				guiInline = true,
 				get = function(info) return E.db.mui.CombatAlert[info[#info - 1]][info[#info]] end,
@@ -53,7 +53,7 @@ local function CVars()
 			},
 			style = {
 				order = 2,
-				name = MER:cOption(L["Style"], 'orange'),
+				name = F.cOption(L["Style"], 'orange'),
 				type = "group",
 				guiInline = true,
 				get = function(info) return E.db.mui.CombatAlert.style[info[#info]] end,
@@ -71,7 +71,7 @@ local function CVars()
 						set = function(info, r, g, b, a)
 							E.db.mui.CombatAlert.style.font_color_enter = {}
 							local t = E.db.mui.CombatAlert.style.font_color_enter
-							t.r, t.g, t.b, t.a = r, g, b
+							t.r, t.g, t.b, t.a = r, g, b, a
 						end,
 					},
 					font_color_leave = {
@@ -86,7 +86,7 @@ local function CVars()
 						set = function(info, r, g, b, a)
 							E.db.mui.CombatAlert.style.font_color_leave = {}
 							local t = E.db.mui.CombatAlert.style.font_color_leave
-							t.r, t.g, t.b, t.a = r, g, b
+							t.r, t.g, t.b, t.a = r, g, b, a
 						end,
 					},
 					backdrop = {
@@ -117,7 +117,7 @@ local function CVars()
 			},
 			custom_text = {
 				order = 3,
-				name = MER:cOption(L["Custom Text"], 'orange'),
+				name = F.cOption(L["Custom Text"], 'orange'),
 				type = "group",
 				guiInline = true,
 				get = function(info) return E.db.mui.CombatAlert.custom_text[info[#info]] end,

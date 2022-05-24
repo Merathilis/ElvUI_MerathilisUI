@@ -2,15 +2,10 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
 local pairs, select = pairs, select
---WoW API / Variables
-local CreateFrame = CreateFrame
-local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
+
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
@@ -31,7 +26,7 @@ local function HeaderOnLeave(self)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.mui.skins.blizzard.lfg ~= true then return; end
 
 	local LFGListFrame = _G.LFGListFrame
 
@@ -51,14 +46,6 @@ local function LoadSkin()
 
 				bu.IsStyled = true
 			end
-		end
-	end)
-
-	hooksecurefunc("LFGListSearchEntry_Update", function(self)
-		local cancelButton = self.CancelButton
-		if not cancelButton.styled then
-			MERS:Reskin(cancelButton)
-			cancelButton.styled = true
 		end
 	end)
 

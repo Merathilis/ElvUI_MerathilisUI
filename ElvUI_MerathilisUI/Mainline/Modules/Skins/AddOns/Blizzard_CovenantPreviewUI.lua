@@ -6,7 +6,7 @@ local hooksecurefunc = hooksecurefunc
 local CreateFrame = CreateFrame
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.covenantPreview) or E.private.muiSkins.blizzard.covenantPreview ~= true then return end
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.covenantPreview) or E.private.mui.skins.blizzard.covenantPreview ~= true then return end
 
 	local frame = _G.CovenantPreviewFrame
 	frame:Styling()

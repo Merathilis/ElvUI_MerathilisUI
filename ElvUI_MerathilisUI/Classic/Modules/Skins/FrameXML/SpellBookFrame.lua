@@ -5,7 +5,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.spellbook) or E.private.muiSkins.blizzard.spellbook ~= true then return end
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.spellbook) or E.private.mui.skins.blizzard.spellbook ~= true then return end
 
 	local SpellBookFrame = _G.SpellBookFrame
 
@@ -14,7 +14,6 @@ local function LoadSkin()
 
 	for i = 1, SPELLS_PER_PAGE do
 		local button = _G["SpellButton"..i]
-		local icon = _G["SpellButton"..i.."IconTexture"]
 
 		if button.bg then
 			MERS:CreateGradient(button.bg)

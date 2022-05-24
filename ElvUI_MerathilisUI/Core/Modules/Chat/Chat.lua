@@ -3,25 +3,17 @@ local module = MER:GetModule('MER_Chat')
 local CH = E:GetModule('Chat')
 local LO = E:GetModule('Layout')
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local pairs, unpack = pairs, unpack
+local unpack = unpack
 local format = format
 local time = time
 local BetterDate = BetterDate
 local gsub = string.gsub
--- WoW API / Variable
 local CreateFrame = CreateFrame
 local ChatTypeInfo = ChatTypeInfo
-local GetItemIcon = GetItemIcon
 local GetRealmName = GetRealmName
-local GUILD_MOTD = GUILD_MOTD
 local hooksecurefunc = hooksecurefunc
 local UIParent = UIParent
-local IsAddOnLoaded = IsAddOnLoaded
-
--- GLOBALS: CHAT_FRAMES, ChatTypeInfo, COMMUNITIES_FRAME_DISPLAY_MODES
 
 local ChatFrame_SystemEventHandler = ChatFrame_SystemEventHandler
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
@@ -200,7 +192,6 @@ function module:Initialize()
 	if E.private.chat.enable ~= true then return; end
 
 	local db = E.db.mui.chat
-	MER:RegisterDB(module, "chat")
 
 	if db.customOnlineMessage then
 		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["ERR_FRIEND_ONLINE"]

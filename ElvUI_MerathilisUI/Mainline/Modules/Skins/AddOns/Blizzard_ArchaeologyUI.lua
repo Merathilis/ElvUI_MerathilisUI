@@ -2,20 +2,13 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
-local _G = _G
 local select, unpack = select, unpack
---WoW API / Variables
-local CreateFrame = CreateFrame
--- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.archaeology ~= true or E.private.muiSkins.blizzard.Archaeology ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.archaeology ~= true or E.private.mui.skins.blizzard.Archaeology ~= true then return end
 
 	local ArchaeologyFrame = _G.ArchaeologyFrame
-	-- Hide the Parchment
-	ArchaeologyFrame:DisableDrawLayer("BACKGROUND")
+	ArchaeologyFrame:DisableDrawLayer("BACKGROUND")	-- Hide the Parchment
 
 	ArchaeologyFrame:Styling()
 	MER:CreateShadow(ArchaeologyFrame)

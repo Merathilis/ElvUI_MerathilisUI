@@ -1,31 +1,31 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 
--- Cache global variables
--- Lua functions
 local format, gmatch, gsub, find, sub = string.format, string.gmatch, string.gsub, string.find, string.sub
-local tinsert = table.insert
 local pairs, tostring = pairs, tostring
--- WoW API / Variables
+
 local CreateFrame = CreateFrame
 local SOUNDKIT = SOUNDKIT
 local PlaySound = PlaySound
 local CLOSE = CLOSE
 local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
--- GLOBALS: MERData, UISpecialFrames, MerathilisUIChangeLog, DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an error in the ObjectiveTracker if my Shadows were disabled >.>",
-		"• Fixed an error on the Mail Frame in Classic",
-		"• Update chinese locales. Thx suyunyiu <3",
-		"• Hopefully final fix for the Alerts <.<",
+		"• Updated Layout (If you want it, do the install again. Mainly disabled the UF Fader and added a 3rd main Actionbar)",
+		"• MASSIVE Code Cleanup (well, stuff could be broken or changed... who knews!?)",
+		"• Updated FlightPoint (The extra frame on the side.. you know what i mean)",
+		"• Updated 4Pixel Texture. Thx @Jodalo",
+		"• Updated Details Profile (No one Pixel texture anymore)",
+		"• Style the Stat Pane from S&L",
+		"• Changed the Button, Tree Button, Tab Styling with more options (Thx Windtools)",
+		"• Added more Pepe's to my GameMenu",
 
 	" ",
 	"Notes:",
 		"• As always, if you want my latest layout, do the install again",
 		"• If you are getting any errors or something is not working, make sure you are now using:",
-		"  '/muierrors on' and test again",
+		"  '/muidebug on' and test again",
 
 		-- "• ''",
 }
@@ -64,7 +64,7 @@ local function ModifiedString(string)
 	end
 
 	-- find urls
-	for k, v in pairs(URL_PATTERNS) do
+	for _, v in pairs(URL_PATTERNS) do
 		if find(string, v) then
 			newString = gsub(string, v, formatURL("%1"))
 		end
@@ -181,7 +181,7 @@ function MER:ToggleChangeLog()
 	self:ScheduleRepeatingTimer("CountDown", 1)
 end
 
-function MER:CheckVersion(self)
+function MER:ChangeLog()
 	if not MERData["Version"] or (MERData["Version"] and MERData["Version"] ~= MER.Version) then
 		MERData["Version"] = MER.Version
 		MER:ToggleChangeLog()

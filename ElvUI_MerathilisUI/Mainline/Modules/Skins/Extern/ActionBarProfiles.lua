@@ -2,15 +2,11 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
 if not IsAddOnLoaded("ActionBarProfiles") then return end
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local pairs = pairs
--- WoW API / Variables
--- GLOBALS:
 
 local function LoadAddOnSkin()
-	if E.private.muiSkins.addonSkins.abp ~= true then return; end
+	if E.private.mui.skins.addonSkins.abp ~= true then return; end
 
 	S:HandleScrollBar(_G.PaperDollActionBarProfilesPaneScrollBar, 5)
 	S:HandleButton(_G.PaperDollActionBarProfilesPaneUseProfile)

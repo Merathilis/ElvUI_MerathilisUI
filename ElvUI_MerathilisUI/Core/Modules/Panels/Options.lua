@@ -10,11 +10,11 @@ local function PanelTable()
 		type = "group",
 		name = L["Panels"],
 		args = {
-			header = ACH:Header(MER:cOption(L["Panels"], 'orange'), 0),
+			header = ACH:Header(F.cOption(L["Panels"], 'orange'), 0),
 			color = {
 				order = 1,
 				type = "group",
-				name = E.NewSign..MER:cOption(L["Color"], 'orange'),
+				name = E.NewSign..F.cOption(L["Color"], 'orange'),
 				guiInline = true,
 				args = {
 					colorType = {
@@ -36,7 +36,7 @@ local function PanelTable()
 						disabled = function() return E.db.mui.panels.colorType ~= "CUSTOM" end,
 						get = function(info)
 							local t = E.db.mui.panels[ info[#info] ]
-							local d = P.mui.panels[info[#info]]
+							local d = P.panels[info[#info]]
 							return t.r, t.g, t.b, d.r, d.g, d.b
 						end,
 						set = function(info, r, g, b)
@@ -51,7 +51,7 @@ local function PanelTable()
 			panels = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Panels"], 'orange'),
+				name = F.cOption(L["Panels"], 'orange'),
 				guiInline = true,
 				args = {
 					topPanel = {
@@ -92,7 +92,7 @@ local function PanelTable()
 			stylepanels = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Style Panels"], 'orange'),
+				name = F.cOption(L["Style Panels"], 'orange'),
 				guiInline = true,
 				args = {
 					panelSize = {

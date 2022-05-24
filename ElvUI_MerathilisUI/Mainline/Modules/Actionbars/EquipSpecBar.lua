@@ -1,11 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MAB = MER:GetModule('MER_Actionbars')
 
---Cache global variables
---Lua functions
 local _G = _G
 local select = select
---WoW API / Variables
+
 local CreateFrame = CreateFrame
 local C_EquipmentSet = C_EquipmentSet
 local GameTooltip_Hide = GameTooltip_Hide
@@ -20,7 +18,6 @@ local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local PaperDollFrame_SetSidebar = PaperDollFrame_SetSidebar
 local SetLootSpecialization = SetLootSpecialization
 local SetSpecialization = SetSpecialization
--- GLOBALS:
 
 function MAB:CreateSpecBar()
 	if E.db.mui.actionbars.specBar.enable ~= true then return end
@@ -96,12 +93,12 @@ function MAB:CreateSpecBar()
 				self:CreateBackdrop()
 			end
 		end)
-		Button:HookScript('OnEnter', function(self)
+		Button:HookScript('OnEnter', function()
 			if specBar:IsShown() then
 				UIFrameFadeIn(specBar, 0.2, specBar:GetAlpha(), 1)
 			end
 		end)
-		Button:HookScript('OnLeave', function(self)
+		Button:HookScript('OnLeave', function()
 			if specBar:IsShown() and E.db.mui.actionbars.specBar.mouseover then
 				UIFrameFadeOut(specBar, 0.2, specBar:GetAlpha(), 0)
 			end

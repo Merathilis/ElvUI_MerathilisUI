@@ -34,7 +34,6 @@ local C_PartyInfo_ConvertToRaid = C_PartyInfo.ConvertToRaid
 local C_Timer_After = C_Timer.After
 local GameTooltip = GameTooltip
 local ToggleFriendsFrame = ToggleFriendsFrame
--- GLOBALS:
 
 local function GetRaidMaxGroup()
 	local _, instType, difficulty = GetInstanceInfo()
@@ -679,14 +678,12 @@ end
 
 function module:Initialize()
 	local db = E.db.mui.raidmanager
-	MER:RegisterDB(self, "raidmanager")
+	if not db.enable then return end
 
 	-- Disable ElvUI's RaidUtility
-	if db.enable then
-		E.private.general.raidUtility = false
-		self:CreateRaidInfo()
-		self:CreateRaidManager()
-	end
+	E.private.general.raidUtility = false
+	self:CreateRaidInfo()
+	self:CreateRaidManager()
 end
 
 MER:RegisterModule(module:GetName())

@@ -1,13 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local RB = MER:GetModule('MER_RaidBuffs')
 
---Cache global variables
---Lua functions
 local tinsert = table.insert
---WoW API / Variables
+
 local AGGRO_WARNING_IN_PARTY = AGGRO_WARNING_IN_PARTY
 local CUSTOM, DEFAULT = CUSTOM, DEFAULT
--- GLOBALS:
 
 local function RaidBuffs()
 	local ACH = E.Libs.ACH
@@ -17,11 +14,11 @@ local function RaidBuffs()
 		name = L["Raid Buff Reminder"],
 		get = function(info) return E.db.mui.raidBuffs[ info[#info] ] end,
 		args = {
-			name = ACH:Header(MER:cOption(L["Raid Buff Reminder"], 'orange'), 1),
+			name = ACH:Header(F.cOption(L["Raid Buff Reminder"], 'orange'), 1),
 			rbreminder = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Raid Buff Reminder"], 'orange'),
+				name = F.cOption(L["Raid Buff Reminder"], 'orange'),
 				guiInline = true,
 				args = {
 					enable = {

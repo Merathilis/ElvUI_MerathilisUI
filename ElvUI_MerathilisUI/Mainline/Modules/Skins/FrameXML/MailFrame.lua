@@ -2,22 +2,19 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
 local unpack = unpack
 local select = select
---WoW API / Variables
+
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local GetInboxText = GetInboxText
 local GetInboxInvoiceInfo = GetInboxInvoiceInfo
---GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.muiSkins.blizzard.mail ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.mui.skins.blizzard.mail ~= true then return end
 
 	local MiniMapMailFrame = _G.MiniMapMailFrame
 

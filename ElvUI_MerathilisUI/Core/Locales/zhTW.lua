@@ -98,6 +98,7 @@ L["Translate the name in item links into your language."] = "將物品連結的�
 L["Icon"] = "圖示"
 L["Armor Category"] = "護甲分類"
 L["Weapon Category"] = "武器分類"
+L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 
 -- Combat Alert
 L["Combat Alert"] = "戰鬥提醒"
@@ -113,9 +114,9 @@ L["Color"] = "顏色"
 -- Information
 L["Information"] = "信息"
 L["Support & Downloads"] = true
-L["Tukui.org"] = true
-L["Git Ticket tracker"] = true
-L["Curse.com"] = true
+L["Tukui"] = true
+L["Github"] = true
+L["CurseForge"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["Development Version"] = "開發版"
@@ -717,6 +718,21 @@ L["Enable/Disable"] = true
 L["decor."] = true
 L["MerathilisUI Button Style"] = true
 L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"] = true
+L["Additional Backdrop"] = true
+L["Remove Border Effect"] = true
+L["Animation Type"] = true
+L["The type of animation activated when a button is hovered."] = true
+L["Animation Duration"] = true
+L["The duration of the animation in seconds."] = true
+L["Backdrop Class Color"] = "背景職業色"
+L["Border Class Color"] = "邊框職業色"
+L["Border Color"] = "邊框顏色"
+L["Normal Class Color"] = "普通職業顏色"
+L["Selected Backdrop & Border"] = "選中時背景和邊框"
+L["Selected Class Color"] = "選中時職業顏色"
+L["Selected Color"] = "選中時顏色"
+L["Tab"] = "標籤"
+L["Tree Group Button"] = true
 
 -- Panels
 L["Top Left Panel"] = true
@@ -790,3 +806,14 @@ L[" due to incompatiblities."] = true
 L[" due to incompatiblities with: "] = true
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+
+-- Debug
+L["Usage"] = "使用方式"
+L["Enable debug mode"] = "啟用偵錯模式"
+L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] = "停用除了 ElvUI 核心, ElvUI %s 和 BugSack 以外所有插件."
+L["Disable debug mode"] = "停用偵錯模式"
+L["Reenable the addons that disabled by debug mode."] = "重新啟用偵錯模式禁用的插件."
+L["Debug Enviroment"] = "偵錯環境"
+L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "你可以使用 |cff00ff00/muidebug off|r 指令來退出偵錯模式."
+L["After you stop debuging, %s will reenable the addons automatically."] = "在停止偵錯模式後, %s 將自動重新啟用插件."
+L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "在提交錯誤報告前, 請先使用 %s 命令啟用除錯模式並再次測試."

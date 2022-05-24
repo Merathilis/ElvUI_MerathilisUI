@@ -17,7 +17,6 @@ local function CreateHeaderPanels()
 	MERS:SkinPanel(HeaderBar)
 
 	HeaderText:SetFontObject(_G.GameFontNormal)
-	--HeaderText:SetTextColor(_G.NORMAL_FONT_COLOR.r, _G.NORMAL_FONT_COLOR.g, _G.NORMAL_FONT_COLOR.b)
 	HeaderText:Point("LEFT", HeaderBar, "LEFT", -2, 14)
 	HeaderText:SetText(_G.CURRENT_QUESTS)
 
@@ -30,7 +29,7 @@ local function CreateHeaderPanels()
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return end
 
 	local QuestFrame = _G.QuestFrame
 	MER.NPC:Register(QuestFrame)

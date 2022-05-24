@@ -7,7 +7,7 @@ local hooksecurefunc = hooksecurefunc
 local CreateFrame = CreateFrame
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.covenantRenown) or E.private.muiSkins.blizzard.covenantRenown ~= true then return end
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.covenantRenown) or E.private.mui.skins.blizzard.covenantRenown ~= true then return end
 
 	local frame = _G.CovenantRenownFrame
 	frame:StripTextures()

@@ -2,11 +2,9 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
 local pairs, unpack = pairs, unpack
--- WoW API / Variables
+
 local C_SpecializationInfo_GetSpellsDisplay = C_SpecializationInfo.GetSpellsDisplay
 local C_SpecializationInfo_IsInitialized = C_SpecializationInfo.IsInitialized
 local GetSpecialization = GetSpecialization
@@ -22,7 +20,7 @@ local hooksecurefunc = hooksecurefunc
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.mui.skins.blizzard.talent ~= true then return; end
 
 	_G.PlayerTalentFrame:Styling()
 	MER:CreateShadow(_G.PlayerTalentFrame)
@@ -201,8 +199,6 @@ local function LoadSkin()
 			if Button.backdrop then
 				Button.backdrop:Hide()
 			end
-
-			MERS:Reskin(Button)
 
 			if Button.Selected then
 				Button.Selected:SetTexture(nil)

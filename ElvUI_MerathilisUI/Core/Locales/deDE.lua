@@ -102,6 +102,7 @@ L["Translate the name in item links into your language."] = "Übersetze den Name
 L["Icon"] = "Symbol"
 L["Armor Category"] = "Rüstungs Kategorie"
 L["Weapon Category"] = "Waffenkategorie"
+L["Filters some messages out of your chat, that some Spam AddOns use."] = "Filtert einige Nachrichten von Spam AddOns aus deinem Chat."
 
 -- Combat Alert
 L["Combat Alert"] = "Kampfalarmierung"
@@ -117,9 +118,9 @@ L["Color"] = "Farbe"
 -- Information
 L["Information"] = "Informationen"
 L["Support & Downloads"] = "Unterstützung & Downloads"
-L["Tukui.org"] = true
-L["Git Ticket tracker"] = true
-L["Curse.com"] = true
+L["Tukui"] = true
+L["Github"] = true
+L["CurseForge"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = "Tester & Inspiration"
 L["Development Version"] = "Entwicklungsversion"
@@ -726,6 +727,21 @@ L["Enable/Disable"] = "Aktiviere/Deaktiviere"
 L["decor."] = "Dekor"
 L["MerathilisUI Button Style"] = "MerathilisUI Tastenstil"
 L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"] = "Fügt dekorative Streifen den Ingame-Buttons hinzu. (Nur aktiv mit MerathilisUI Stil)"
+L["Additional Backdrop"] = "Zusätzlicher Hintergrund"
+L["Remove Border Effect"] = "Entferne Randeffekt"
+L["Animation Type"] = "Animationstyp"
+L["The type of animation activated when a button is hovered."] = "Der Animationstyp, der aktiviert wird, wenn man sich darüber bewegt."
+L["Animation Duration"] = "Animationsdauer"
+L["The duration of the animation in seconds."] = "Die Dauer der Animation in Sekunden."
+L["Backdrop Class Color"] = "Hintergrund Klassenfarbe"
+L["Border Class Color"] = "Rahmen Klassenfarbe"
+L["Border Color"] = "Rahmen Farbe"
+L["Normal Class Color"] = "Normale Klassenfarbe"
+L["Selected Backdrop & Border"] = "Ausgewählter Hintergrund & Rahmen"
+L["Selected Class Color"] = "Ausgewählte Klassenfarbe"
+L["Selected Color"] = "Ausgewählte Farbe"
+L["Tab"] = true
+L["Tree Group Button"] = "Baumstrukturtaste" --Wie kacke dass klingt
 
 -- Panels
 L["Top Left Panel"] = "Leiste oben links"
@@ -799,3 +815,14 @@ L[" due to incompatiblities."] = " wegen inkompatibilität."
 L[" due to incompatiblities with: "] = " wegen inkompatibilität mit: "
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff00c0faElvUI_Windtools|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum Deaktivieren aus."
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff9482c9ElvUI_LivvenUI|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum Deaktivieren aus."
+
+-- Debug
+L["Usage"] = "Verwendungszweck"
+L["Enable debug mode"] = "Debug Modus aktivieren"
+L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] = "Deaktiviere alle anderen Addons außer ElvUI Core, ElvUI %s und BugSack."
+L["Disable debug mode"] = "Debug Modus deaktivieren"
+L["Reenable the addons that disabled by debug mode."] = "Aktiviere die Addons, die durch den Debug Modus deaktiviert wurden."
+L["Debug Enviroment"] = "Debug Umgebung"
+L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "Du kannst den Befehl |cff00ff00/muidebug off|r verwenden, um den Debug Modus zu verlassen."
+L["After you stop debuging, %s will reenable the addons automatically."] = "Nachdem Du das Debuggen beendet hast, wird %s die Addons automatisch aktivieren."
+L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "Bevor Du einen Fehler meldest, aktiviere bitte den Debug Modus mit dem %s Befehl und teste es noch einmal."

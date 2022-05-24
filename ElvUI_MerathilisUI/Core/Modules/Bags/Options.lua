@@ -1,11 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MERBI = MER:GetModule('MER_BagInfo')
 
---Cache global variables
---Lua functions
 local tinsert = table.insert
---WoW API / Variables
--- GLOBALS:
 
 local function BagTable()
 	local ACH = E.Libs.ACH
@@ -16,12 +12,12 @@ local function BagTable()
 		get = function(info) return E.db.mui.bags[ info[#info] ] end,
 		set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
-			header = ACH:Header(MER:cOption(L["Bags"], 'orange'), 1),
+			header = ACH:Header(F.cOption(L["Bags"], 'orange'), 1),
 			equipManager = {
 				order = 2,
 				type = "group",
 				guiInline = true,
-				name = MER:cOption(L["Equip Manager"], 'orange'),
+				name = F.cOption(L["Equip Manager"], 'orange'),
 				hidden = not E.Retail,
 				args = {
 					equipOverlay = {

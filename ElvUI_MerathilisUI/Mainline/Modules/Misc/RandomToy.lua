@@ -1,14 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RandomToy')
 
---Cache global variables
---Lua functions
 local _G = _G
 local pairs, select = pairs, select
 local format = string.format
 local tinsert = table.insert
 local random = random
---WoW API / Variables
+
 local C_ToyBox_GetToyInfo = C_ToyBox and C_ToyBox.GetToyInfo
 local C_ToyBox_IsToyUsable = C_ToyBox and C_ToyBox.IsToyUsable
 local GetItemCooldown = GetItemCooldown
@@ -20,7 +18,6 @@ local PickupMacro = PickupMacro
 local InCombatLockdown = InCombatLockdown
 local PlayerHasToy = PlayerHasToy
 local SlashCmdList = SlashCmdList
--- GLOBALS:
 
 local macroName = "RANDOMTOY"
 local macroTemplate =
@@ -56,7 +53,7 @@ function module:UpdateMacro()
 	if #templist > 0 then
 		toyname = select(2, C_ToyBox_GetToyInfo(templist[random(#templist)]))
 	else
-		MER:Print(L["It seems that this toy are on cooldown"])
+		F.Print(L["It seems that this toy are on cooldown"])
 	end
 
 	local text = format(macroTemplate, macroIcon, toyname)
@@ -86,7 +83,7 @@ function module:Initialize()
 			self:UpdateMacro()
 			local name = GetMacroInfo(macroName)
 			if name then
-				MER:Print(L["A random toy macro has created, please put it in your Actionbar!"])
+				F.Print(L["A random toy macro has created, please put it in your Actionbar!"])
 				PickupMacro("RANDOMTOY")
 			end
 		end

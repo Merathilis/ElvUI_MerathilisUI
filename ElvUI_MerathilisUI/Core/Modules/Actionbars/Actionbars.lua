@@ -1,15 +1,11 @@
+---@diagnostic disable: 211
 local MER, F, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:GetModule('MER_Actionbars')
 local AB = E:GetModule('ActionBars')
-local LCG = LibStub('LibCustomGlow-1.0')
-
 
 local _G = _G
-local pairs, unpack = pairs, unpack
+local pairs = pairs
 
-local GetActionInfo = GetActionInfo
-local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 local hooksecurefunc = hooksecurefunc
 
@@ -151,7 +147,6 @@ function module:Initialize()
 	if E.private.actionbar.enable ~= true then return; end
 
 	local db = E.db.mui.actionbars
-	MER:RegisterDB(self, "actionbars")
 
 	if E.Retail then
 		self:EquipSpecBar()

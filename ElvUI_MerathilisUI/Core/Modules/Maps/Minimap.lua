@@ -8,7 +8,6 @@ local select, unpack = select, unpack
 local format = string.format
 
 local C_Calendar_GetNumPendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
-local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
 local Minimap = _G.Minimap
 local hooksecurefunc = hooksecurefunc
@@ -110,11 +109,16 @@ function module:Initialize()
 	if E.private.general.minimap.enable ~= true or not E.Retail then return end
 
 	local db = E.db.mui.maps
-	MER:RegisterDB(self, "minimap")
 
 	-- Add a check if the backdrop is there
 	if not Minimap.backdrop then
 		Minimap:CreateBackdrop("Default", true)
+	end
+
+	-- Style the ElvUI's MiddleClick-Menu on the Minimap
+	local Menu = _G.MinimapRightClickMenu
+	if Menu then
+		Menu:Styling()
 	end
 
 	self:MiniMapCoords()

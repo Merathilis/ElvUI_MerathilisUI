@@ -4,8 +4,6 @@ local S = E:GetModule("Skins")
 local _G = _G
 
 local AnimateTexCoords = AnimateTexCoords
-local CreateFrame = CreateFrame
-local PanelTemplates_DeselectTab = PanelTemplates_DeselectTab
 local hooksecurefunc = hooksecurefunc
 
 
@@ -20,7 +18,7 @@ function FriendsCount_OnEvent(event, ...)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.muiSkins.blizzard.friends ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.mui.skins.blizzard.friends ~= true then return end
 
 	local FriendsFrame = _G.FriendsFrame
 	FriendsFrame.backdrop:Styling()

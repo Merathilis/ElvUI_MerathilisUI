@@ -4,13 +4,10 @@ assert(ElvUF, "ElvUI was unable to locate oUF.")
 local Translit = E.Libs.Translit
 local translitMark = "!"
 
--- Credits Blazeflack (CustomTags)
-
--- Cache global variables
 local abs, ceil, type, tonumber = math.abs, ceil, type, tonumber
 local format, gsub, gmatch = string.format, string.gsub, string.gmatch
 local strfind, strmatch, strsplit, utf8lower, utf8sub, utf8len = strfind, strmatch, strsplit, string.utf8lower, string.utf8sub, string.utf8len
--- WoW API / Variables
+
 local UnitIsDead = UnitIsDead
 local UnitIsGhost = UnitIsGhost
 local UnitIsConnected = UnitIsConnected
@@ -18,8 +15,6 @@ local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax
 local UnitName = UnitName
 local UnitPower = UnitPower
 local IsResting = IsResting
-
--- GLOBALS: Hex, _COLORS, _TAGS
 
 local function shortenNumber(number)
 	if type(number) ~= "number" then
