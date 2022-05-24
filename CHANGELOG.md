@@ -7,4 +7,5 @@
   * Updated Details Profile (No one Pixel texture anymore)
   * Style the Stat Pane from S&L
   * Changed the Button, Tree Button, Tab Styling with more options (Thx Windtools)
+  * Added more Pepe's to my GameMenu
 
