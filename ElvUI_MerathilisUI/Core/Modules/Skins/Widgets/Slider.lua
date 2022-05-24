@@ -4,6 +4,12 @@ local LSM = E.Libs.LSM
 local S = E.Skins
 
 function module:HandleSliderFrame(_, slider)
+	if not E.private.mui.skins.widgets then
+		self:RegisterLazyLoad(slider, function()
+			self:HandleSliderFrame(nil, slider)
+		end)
+	end
+
 	local db = E.private.mui.skins.widgets.slider
 
 	if not slider or not db or not db.enable then

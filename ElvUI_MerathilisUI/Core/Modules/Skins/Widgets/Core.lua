@@ -99,3 +99,39 @@ end
 
 module:SecureHook(S, "Ace3_RegisterAsWidget")
 module:SecureHook(S, "Ace3_RegisterAsContainer")
+
+module.LazyLoadTable = {}
+
+function module:RegisterLazyLoad(frame, func)
+	if not frame then
+		F.DebugMessage(module, "frame is nil.")
+		return
+	end
+
+	if type(func) ~= "function" then
+		if self[func] and type(self[func]) == "function" then
+			func = self[func]
+		else
+			F.DebugMessage(module, func .. " is not a function.")
+			return
+		end
+	end
+
+	self.LazyLoadTable[frame] = func
+end
+
+function module:LazyLoad()
+	for frame, func in pairs(self.LazyLoadTable) do
+		if frame and func then
+			pcall(func, self, frame)
+		end
+	end
+
+	self.LazyLoadTable = nil
+end
+
+function module:PLAYER_ENTERING_WORLD()
+	self:LazyLoad()
+end
+
+module:RegisterEvent("PLAYER_ENTERING_WORLD")

@@ -30,8 +30,6 @@ _G[addon] = Engine
 MER.Config = {}
 MER.RegisteredModules = {}
 
-MER.IsReloading = false
-
 MER.dummy = function() return end
 MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
@@ -105,9 +103,7 @@ function MER:Initialize()
 
 	EP:RegisterPlugin(addon, MER.AddOptions)
 	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
-	self:SecureHook('ReloadUI', 'UpdateReloadStatus')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
-	self:RegisterEvent('PLAYER_LOGOUT')
 end
 
 do
@@ -129,16 +125,6 @@ do
 		end
 
 		E:Delay(1, collectgarbage, "collect")
-	end
-end
-
-function MER:UpdateReloadStatus()
-	MER.IsReloading = true
-end
-
-function MER:PLAYER_LOGOUT()
-	if not self.IsReloading and _G.ElvDB and _G.ElvDB.MER then
-		_G.ElvDB.MER = nil
 	end
 end
 

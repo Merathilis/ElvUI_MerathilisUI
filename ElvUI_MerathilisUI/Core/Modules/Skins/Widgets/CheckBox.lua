@@ -8,6 +8,11 @@ function module:HandleAce3CheckBox(check)
 		return
 	end
 
+	if not E.private.mui.skins.widgets then
+		self:RegisterLazyLoad(check, "HandleAce3CheckBox")
+		return
+	end
+
 	local db = E.private.mui.skins.widgets.checkBox
 
 	if not check or not db or not db.enable then

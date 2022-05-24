@@ -41,7 +41,7 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 	local isLFGList = firstQueue and firstQueue.queueData and firstQueue.queueData.queueType == 'lfglist'
 
 	if isLFGList and firstQueue and firstQueue.eligible then
-		local activityID, name, leaderName, fullName, isLeader
+		local activityID, activityInfo, name, leaderName, isLeader
 
 		if firstQueue.queueData.lfgListID then
 			local searchResultInfo = C_LFGList_GetSearchResultInfo(firstQueue.queueData.lfgListID)
@@ -52,16 +52,16 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 		end
 
 		if activityID or firstQueue.queueData.activityID then
-			fullName = C_LFGList_GetActivityInfoTable(activityID or firstQueue.queueData.activityID)
+			activityInfo = C_LFGList_GetActivityInfoTable(activityID or firstQueue.queueData.activityID)
 		end
 
 		if name then
 			if not E.db.chat.socialQueueMessages then
-				self:DisplayToast(coloredName, format('%s: [%s] |cff00CCFF%s|r', (isLeader and L["is looking for members"]) or L["joined a group"], fullName or UNKNOWN, name), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+				self:DisplayToast(coloredName, format('%s: [%s] |cff00CCFF%s|r', (isLeader and L["is looking for members"]) or L["joined a group"], activityInfo.fullName or UNKNOWN, name), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 			end
 		else
 			if not E.db.chat.socialQueueMessages then
-				self:DisplayToast(coloredName, format('%s: |cff00CCFF%s|r', (isLeader and L["is looking for members"]) or L["joined a group"], fullName or UNKNOWN), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+				self:DisplayToast(coloredName, format('%s: |cff00CCFF%s|r', (isLeader and L["is looking for members"]) or L["joined a group"], activityInfo.fullName or UNKNOWN), _G.ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 			end
 		end
 	elseif firstQueue then

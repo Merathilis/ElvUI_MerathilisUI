@@ -12,6 +12,11 @@ function module:HandleTreeGroup(widget)
 		return button
 	end
 
+	if not E.private.mui.skins.widgets then
+		self:RegisterLazyLoad(widget, "HandleTreeGroup")
+		return
+	end
+
 	local db = E.private.mui.skins.widgets.treeGroupButton
 
 	if widget.CreateButton then

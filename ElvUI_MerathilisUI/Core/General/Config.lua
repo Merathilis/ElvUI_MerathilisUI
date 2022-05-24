@@ -10,6 +10,17 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 local logo = CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/Core/Media/textures/m2", 64, 64, 20, 20, 0, 1, 0, 1, 0, -1)
 
+local function AddColor(string)
+	if type(string) ~= "string" then
+		string = tostring(string)
+	end
+	return F.CreateColorString(string, {r = 0.204, g = 0.596, b = 0.859})
+end
+
+local function SortList(a, b)
+	return E:StripString(a) < E:StripString(b)
+end
+
 local DONATORS = {
 	'enii',
 	'Hope',
@@ -21,7 +32,7 @@ local DONATORS = {
 	'Olli2k',
 	'Dlarge',
 }
-tsort(DONATORS, function(a, b) return E:StripString(a) < E:StripString(b) end)
+tsort(DONATORS, SortList)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
 
 local PATRONS = {
@@ -29,7 +40,7 @@ local PATRONS = {
 	'Deezyl',
 	'Zhadar',
 }
-tsort(PATRONS, function(a, b) return E:StripString(a) < E:StripString(b) end)
+tsort(PATRONS, SortList)
 local PATRONS_STRING = tconcat(PATRONS, ", ")
 
 local function AddOptions()
@@ -278,14 +289,14 @@ local function AddOptions()
 	}
 
 	local DEVELOPER = {
+		'|cff0070DEAzilroka|r',
 		'|cffd12727Blazeflack|r',
 		'|cff00c0faBenik|r',
-		'|cff0070DEAzilroka|r',
 		'|cff9482c9Darth Predator|r',
 		'|TInterface/AddOns/ElvUI/Core/Media/ChatLogos/Beer:15:15:0:0:64:64:5:59:5:59|t |cfff48cbaRepooc|r',
 		E:TextGradient('Simpy but my name needs to be longer', 0.27,0.72,0.86, 0.51,0.36,0.80, 0.69,0.28,0.94, 0.94,0.28,0.63, 1.00,0.51,0.00, 0.27,0.96,0.43),
 		'fgprodigal',
-		'fang2hou',
+		AddColor('fang2hou'),
 	}
 	local nameString = strjoin(", ", unpack(DEVELOPER))
 
