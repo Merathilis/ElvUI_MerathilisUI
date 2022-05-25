@@ -3,8 +3,10 @@ local module = MER.Modules.Skins
 local S = E.Skins
 
 local abs = abs
+local pcall = pcall
+local pairs, type = pairs, type
 local strlower = strlower
-
+local wipe = wipe
 
 function module.IsUglyYellow(...)
 	local r, g, b = ...
@@ -127,10 +129,11 @@ function module:LazyLoad()
 		end
 	end
 
-	self.LazyLoadTable = nil
+	wipe(self.LazyLoadTable)
 end
 
 function module:PLAYER_ENTERING_WORLD()
+	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	self:LazyLoad()
 end
 
