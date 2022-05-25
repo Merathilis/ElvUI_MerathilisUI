@@ -13,7 +13,7 @@ local function CreateHeaderPanels()
 	HeaderBar:SetFrameStrata("LOW")
 	HeaderBar:SetPoint("TOPLEFT", _G.QuestWatchFrame, 0, -4)
 	HeaderBar:SetSize(160, 2)
-	MERS:SkinPanel(HeaderBar)
+	module:SkinPanel(HeaderBar)
 
 	HeaderText:SetFontObject(_G.GameFontNormal)
 	HeaderText:Point("LEFT", HeaderBar, "LEFT", -2, 14)

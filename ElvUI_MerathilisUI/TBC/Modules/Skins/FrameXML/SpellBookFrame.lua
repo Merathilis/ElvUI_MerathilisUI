@@ -16,7 +16,7 @@ function module:SpellBookFrame()
 		local button = _G["SpellButton"..i]
 
 		if button.bg then
-			MERS:CreateGradient(button.bg)
+			module:CreateGradient(button.bg)
 		end
 	end
 end
