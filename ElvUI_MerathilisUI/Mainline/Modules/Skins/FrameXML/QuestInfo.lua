@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local next, pairs, select, unpack = next, pairs, select, unpack
@@ -63,13 +62,13 @@ local function RestyleSpellButton(bu)
 	icon:SetPoint("TOPLEFT", 3, -2)
 	icon:SetDrawLayer("ARTWORK")
 	icon:SetTexCoord(unpack(E.TexCoords))
-	MERS:CreateBG(icon)
+	module:CreateBG(icon)
 
 	local bg = CreateFrame("Frame", nil, bu)
 	bg:SetPoint("TOPLEFT", 2, -1)
 	bg:SetPoint("BOTTOMRIGHT", 0, 14)
 	bg:SetFrameLevel(0)
-	MERS:CreateBD(bg, .25)
+	module:CreateBD(bg, .25)
 end
 
 local function RestyleRewardButton(bu, isMapQuestInfo)
@@ -80,7 +79,7 @@ local function RestyleRewardButton(bu, isMapQuestInfo)
 	bu.Count:SetPoint("BOTTOMRIGHT", bu.Icon, "BOTTOMRIGHT", 2, 0)
 	bu.Count:SetDrawLayer("OVERLAY")
 
-	local bg = MERS:CreateBDFrame(bu, .25)
+	local bg = module:CreateBDFrame(bu, .25)
 	bg:SetFrameStrata("BACKGROUND")
 
 	if isMapQuestInfo then
@@ -123,8 +122,8 @@ local function SetTextColor_White(font)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_White)
 end
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return; end
+function module:QuestInfo()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or not E.private.mui.skins.blizzard.quest then return; end
 
 	-- Item reward highlight
 	_G.QuestInfoItemHighlight:GetRegions():Hide()
@@ -161,10 +160,10 @@ local function LoadSkin()
 
 		spellRewardFrame:StripTextures()
 		icon:SetTexCoord(unpack(E.TexCoords))
-		MERS:CreateBDFrame(icon)
+		module:CreateBDFrame(icon)
 		nameFrame:Hide()
 
-		local bg = MERS:CreateBDFrame(nameFrame, .25)
+		local bg = module:CreateBDFrame(nameFrame, .25)
 		bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 2)
 		bg:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 101, -1)
 	end
@@ -175,11 +174,11 @@ local function LoadSkin()
 		local icon = frame.Icon
 
 		icon:SetTexCoord(unpack(E.TexCoords))
-		MERS:CreateBDFrame(icon)
+		module:CreateBDFrame(icon)
 		for i = 2, 4 do
 			select(i, frame:GetRegions()):Hide()
 		end
-		local bg = MERS:CreateBDFrame(frame, .25)
+		local bg = module:CreateBDFrame(frame, .25)
 		bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 2)
 		bg:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 220, -1)
 	end
@@ -241,4 +240,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallback("mUIQuestInfo", LoadSkin)
+module:AddCallback("QuestInfo")

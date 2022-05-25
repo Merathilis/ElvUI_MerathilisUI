@@ -28,7 +28,7 @@ function module:SkinFindGroupButton(block)
 	if block.hasGroupFinderButton and block.groupFinderButton then
 		if block.groupFinderButton and not block.groupFinderButton.MERStyle then
 			MER:CreateShadow(block.groupFinderButton)
-			block.groupFinderButton.MER.Style = true
+			block.groupFinderButton.MERStyle = true
 		end
 	end
 end
@@ -75,9 +75,6 @@ end
 
 function module:ObjectiveTracker()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or not E.private.mui.skins.blizzard.objectiveTracker then return end
-
-	local ObjectiveTrackerFrame = _G.ObjectiveTrackerFrame
-	local minimizeButton = ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
 
 	module:SecureHook("ObjectiveTracker_Update", "SkinOjectiveTrackerHeaders")
 	module:SecureHook("QuestObjectiveSetupBlockButton_FindGroup", "SkinFindGroupButton")

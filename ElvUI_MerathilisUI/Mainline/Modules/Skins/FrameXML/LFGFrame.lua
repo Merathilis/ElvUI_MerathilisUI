@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local unpack = unpack
@@ -38,12 +37,12 @@ local function StyleRewardButton(button)
 	button.bg2:SetPoint("TOPLEFT", na, "TOPLEFT", 10, 0)
 	button.bg2:SetPoint("BOTTOMRIGHT", na, "BOTTOMRIGHT", -1, 0)
 	button.bg2:SetFrameStrata("BACKGROUND")
-	MERS:CreateBD(button.bg2, .25)
-	MERS:CreateGradient(button.bg2)
+	module:CreateBD(button.bg2, .25)
+	module:CreateGradient(button.bg2)
 end
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.mui.skins.blizzard.lfg ~= true then return; end
+function module:LFGFrame()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or not E.private.mui.skins.blizzard.lfg then return; end
 
 	hooksecurefunc("LFGRewardsFrame_SetItemButton", function(parentFrame, _, index, _, _, _, _, _, _, _, _, _, _)
 		local parentName = parentFrame:GetName()
@@ -60,4 +59,4 @@ local function LoadSkin()
 	_G.LFGDungeonReadyDialogBackground:SetAlpha(0.5)
 end
 
-S:AddCallback("mUILFG", LoadSkin)
+module:AddCallback("LFGFrame")

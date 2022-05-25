@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
+local module = MER.Modules.Skins
+local S = E.Skins
 
 local _G = _G
 
@@ -42,7 +43,7 @@ local function UndressButton()
 	end)
 end
 
-local function LoadSkin()
+function module:DressUpFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true or E.private.mui.skins.blizzard.dressingroom ~= true then return end
 
 	_G.DressUpFrame:Styling()
@@ -63,4 +64,4 @@ local function LoadSkin()
 	UndressButton()
 end
 
-S:AddCallback("mUIDressingRoom", LoadSkin)
+module:AddCallback("DressUpFrame")

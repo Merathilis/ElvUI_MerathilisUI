@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local unpack = unpack
@@ -12,8 +12,8 @@ local GetInboxInvoiceInfo = GetInboxInvoiceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.mui.skins.blizzard.mail ~= true then return end
+function module:MailFrame()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or not E.private.mui.skins.blizzard.mail then return end
 
 	local MiniMapMailFrame = _G.MiniMapMailFrame
 
@@ -104,4 +104,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallback("mUIMail", LoadSkin)
+module:AddCallback("MailFrame")

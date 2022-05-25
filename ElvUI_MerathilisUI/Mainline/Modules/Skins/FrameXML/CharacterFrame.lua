@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
+local S = E.Skins
 
 local _G = _G
 local format = string.format
@@ -17,8 +18,8 @@ local function UnequipItemInSlot(i)
 	EquipmentManager_RunAction(action)
 end
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.mui.skins.blizzard.character ~= true then return end
+function module:CharacterFrame()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or not E.private.mui.skins.blizzard.character then return end
 
 	-- Hide ElvUI Backdrop
 	local CharacterFrame = _G.CharacterFrame
@@ -59,4 +60,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallback("mUICharacter", LoadSkin)
+module:AddCallback("CharacterFrame")

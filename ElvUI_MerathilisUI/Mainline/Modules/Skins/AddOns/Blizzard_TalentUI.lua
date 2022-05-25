@@ -19,9 +19,13 @@ local hooksecurefunc = hooksecurefunc
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 function module:Blizzard_TalentUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.mui.skins.blizzard.talent ~= true then return; end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or not E.private.mui.skins.blizzard.talent then return; end
 
-	_G.PlayerTalentFrame:Styling()
+	if not _G.PlayerTalentFrame.backdrop then
+		_G.PlayerTalentFrame:CreateBackdrop('Transparent')
+		_G.PlayerTalentFrame.backdrop:Styling()
+	end
+
 	MER:CreateShadow(_G.PlayerTalentFrame)
 
 	-- Specc

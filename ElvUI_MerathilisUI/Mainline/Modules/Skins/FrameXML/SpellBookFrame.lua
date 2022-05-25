@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -17,14 +16,14 @@ local function SecondaryProfession(button)
 	button:CreateBackdrop("Transparent")
 	button.backdrop:SetOutside(button, 5, 5)
 
-	MERS:CreateGradient(button.backdrop)
+	module:CreateGradient(button.backdrop)
 
 	button.statusBar:ClearAllPoints()
 	button.statusBar:SetPoint("BOTTOMLEFT", 0, 0)
 	button.rank:SetPoint("BOTTOMLEFT", button.statusBar, "TOPLEFT", 3, 4)
 end
 
-local function LoadSkin()
+function module:SpellBookFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.mui.skins.blizzard.spellbook ~= true then return end
 
 	local SpellBookFrame = _G.SpellBookFrame
@@ -92,7 +91,7 @@ local function LoadSkin()
 
 		local _, p = bu.statusBar:GetPoint()
 		bu.statusBar:SetPoint("TOPLEFT", p, "BOTTOMLEFT", 1, -3)
-		MERS:CreateBDFrame(bu.statusBar, .25)
+		module:CreateBDFrame(bu.statusBar, .25)
 	end
 
 	local professionbuttons = {"PrimaryProfession1SpellButtonTop", "PrimaryProfession1SpellButtonBottom", "PrimaryProfession2SpellButtonTop", "PrimaryProfession2SpellButtonBottom", "SecondaryProfession1SpellButtonLeft", "SecondaryProfession1SpellButtonRight", "SecondaryProfession2SpellButtonLeft", "SecondaryProfession2SpellButtonRight", "SecondaryProfession3SpellButtonLeft", "SecondaryProfession3SpellButtonRight"}
@@ -108,7 +107,7 @@ local function LoadSkin()
 			icon:ClearAllPoints()
 			icon:SetPoint("TOPLEFT", 2, -2)
 			icon:SetPoint("BOTTOMRIGHT", -2, 2)
-			MERS:CreateBG(icon)
+			module:CreateBG(icon)
 			bu.highlightTexture:SetAllPoints(icon)
 		end
 	end
@@ -124,12 +123,12 @@ local function LoadSkin()
 		bu.icon:SetAlpha(1)
 		bu.icon:SetTexCoord(unpack(E.TexCoords))
 		bu.icon:SetDesaturated(false)
-		MERS:CreateBG(bu.icon)
+		module:CreateBG(bu.icon)
 
 		bu.bg = CreateFrame('Frame', nil, bu)
 		bu.bg:SetTemplate('Transparent')
 		bu.bg:SetOutside(bu, 5, 5)
-		MERS:CreateGradient(bu.bg)
+		module:CreateGradient(bu.bg)
 		bu.bg:SetFrameLevel(bu:GetFrameLevel(-1))
 	end
 
@@ -162,4 +161,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallback("mUISpellbook", LoadSkin)
+module:AddCallback("SpellBookFrame")

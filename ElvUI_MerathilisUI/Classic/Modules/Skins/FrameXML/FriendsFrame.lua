@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
+local module = MER.Modules.Skins
 
 local _G = _G
 
@@ -16,11 +16,13 @@ function FriendsCount_OnEvent(event, ...)
 	_G.MER_FriendsCounter:SetText(bnetCount.."|cff416380/200|r")
 end
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.mui.skins.blizzard.friends ~= true then return end
+function module:FriendsFrame()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or not E.private.mui.skins.blizzard.friends then return end
 
 	local FriendsFrame = _G.FriendsFrame
-	FriendsFrame.backdrop:Styling()
+	if FriendsFrame.backdrop then
+		FriendsFrame.backdrop:Styling()
+	end
 	MER:CreateBackdropShadow(FriendsFrame)
 
 	-- Animated Icon
@@ -47,4 +49,4 @@ local function LoadSkin()
 	FriendsFriendsFrame.backdrop:Styling()
 end
 
-S:AddCallback("mUIFriends", LoadSkin)
+module:AddCallback("FriendsFrame")
