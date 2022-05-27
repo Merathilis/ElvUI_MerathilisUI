@@ -1,10 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
+local S = E.Skins
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 
-local function LoadSkin()
+function module:BNet()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
 
 	local BNToastFrame = _G.BNToastFrame
@@ -20,4 +21,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallback("mUIBNet", LoadSkin)
+module:AddCallback("BNet")

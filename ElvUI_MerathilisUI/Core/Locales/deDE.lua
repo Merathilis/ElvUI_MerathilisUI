@@ -127,7 +127,10 @@ L["Development Version"] = "Entwicklungsversion"
 L["Here you can download the latest development version."] = "Hier findest du den Download zu meiner Development Version."
 
 -- Modules
-L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffffffffMerathilis|r|cffff8000UI|r Modulen.\nBenutze bitte das Dropdownmenü um durch die verschiedenen Module zu navigieren."
+L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffffffffMerathilis|r|cffff8000UI|r Modulen."
+L["Are you sure you want to reset %s module?"] = "Bist Du sicher, dass Du das %s Modul zurücksetzen möchtest?"
+L["Reset All Modules"] = "Alle Module zurücksetzen"
+L["Reset all %s modules."] = "Setze alle %s Module zurück."
 
 -- GameMenu
 L["GameMenu"] = "Spielmenü"
@@ -235,8 +238,6 @@ L["Fun Stuff"] = "Lustiges Zeugs"
 L["Press CTRL + C to copy."] = "Drücke STRG + C zum Kopieren."
 L["Wowhead Links"] = true
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "Fügt Wowhead Links dem Erfolgfenster und der Weltkarte hinzu."
-L["Codex Buttons"] = "Kodex Tasten"
-L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "Fügt zwei Tasten zu deinem Talentfenster mit Kodex oder Foliant Gegenständen hinzu"
 L["Highest Quest Reward"] = "Höchste Questbelohnung"
 L["Automatically select the item with the highest reward."] = "Wählt automatisch den Gegenstand mit dem höchsten Wert aus."
 L["Item Alerts"] = "Gegenstandsalarm"

@@ -1,9 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
+local module = MER.Modules.Skins
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_NewPlayerExperienceGuide()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guide ~= true or E.private.mui.skins.blizzard.guide ~= true then return end
 
 	local frame = _G.GuideFrame
@@ -11,4 +11,4 @@ local function LoadSkin()
 	MER:CreateShadow(frame)
 end
 
-S:AddCallbackForAddon("Blizzard_NewPlayerExperienceGuide", "muiGuide", LoadSkin)
+module:AddCallbackForAddon("Blizzard_NewPlayerExperienceGuide")

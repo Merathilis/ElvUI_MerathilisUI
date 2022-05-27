@@ -1,9 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
+local module = MER.Modules.Skins
 
 local _G = _G
 
-local function LoadSkin()
+function module:RaidFrame()
 	if E.private.skins.blizzard.enable ~= true then return; end
 
 	local RaidInfoFrame = _G.RaidInfoFrame
@@ -13,4 +13,4 @@ local function LoadSkin()
 	MER:CreateBackdropShadow(RaidInfoFrame)
 end
 
-S:AddCallback("mUIRaidFrame", LoadSkin)
+module:AddCallback("RaidFrame")

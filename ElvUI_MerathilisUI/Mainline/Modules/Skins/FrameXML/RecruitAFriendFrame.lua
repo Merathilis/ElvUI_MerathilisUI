@@ -1,11 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
+local module = MER.Modules.Skins
 
 local _G = _G
 
 local CreateFrame = CreateFrame
 
-local function LoadSkin()
+function module:RecruitAFriendFrame()
 	if E.private.skins.blizzard.enable ~= true then return; end
 
 	local RecruitAFriendFrame = _G.RecruitAFriendFrame
@@ -45,4 +45,4 @@ local function LoadSkin()
 	MER:CreateBackdropShadow(Recruit)
 end
 
-S:AddCallback("mUIRecruitAFriend", LoadSkin)
+module:AddCallback("RecruitAFriendFrame")

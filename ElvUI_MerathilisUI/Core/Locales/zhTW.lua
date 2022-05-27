@@ -123,7 +123,10 @@ L["Development Version"] = "開發版"
 L["Here you can download the latest development version."] = true
 
 -- Modules
-L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
+L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = true
+L["Are you sure you want to reset %s module?"] = "你確定要重置 %s 模組麼?"
+L["Reset All Modules"] = "重置全部模組"
+L["Reset all %s modules."] = "重置全部 %s 模組."
 
 -- GameMenu
 L["GameMenu"] = true
@@ -226,8 +229,6 @@ L["Fun Stuff"] = true
 L["Press CTRL + C to copy."] = true
 L["Wowhead Links"] = true
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
-L["Codex Buttons"] = "寶典按鈕"
-L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
 L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
 L["Item Alerts"] = true

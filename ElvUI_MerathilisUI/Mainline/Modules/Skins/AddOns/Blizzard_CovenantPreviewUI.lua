@@ -1,11 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
-local hooksecurefunc = hooksecurefunc
-local CreateFrame = CreateFrame
 
-local function LoadSkin()
+function module:Blizzard_CovenantPreviewUI()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.covenantPreview) or E.private.mui.skins.blizzard.covenantPreview ~= true then return end
 
 	local frame = _G.CovenantPreviewFrame
@@ -25,4 +23,4 @@ local function LoadSkin()
 	frame.InfoPanel.CovenantFeatureFrame.Label:SetTextColor(1, .8, 0)
 end
 
-S:AddCallbackForAddon('Blizzard_CovenantPreviewUI', 'muiCovenantPreview', LoadSkin)
+module:AddCallbackForAddon('Blizzard_CovenantPreviewUI')

@@ -1,8 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 if not IsAddOnLoaded("cargBags_Nivaya") then return; end
 
-local function LoadAddOnSkin()
+function module:cargBags_Nivaya()
 	if E.private.mui.skins.addonSkins.cbn ~= true then return end
 
 	-- Default Containers from cargBags_Nivaya
@@ -37,4 +37,4 @@ local function LoadAddOnSkin()
 	end
 end
 
-S:AddCallbackForAddon("cargBags_Nivaya", "mui_cargBags_Nivaya", LoadAddOnSkin)
+module:AddCallbackForAddon("cargBags_Nivaya")

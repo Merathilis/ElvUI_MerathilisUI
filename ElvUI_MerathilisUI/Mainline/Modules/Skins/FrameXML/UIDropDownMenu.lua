@@ -1,12 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local unpack = unpack
 local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function LoadSkin()
+function module:UIDropDownMenu()
 	if E.private.skins.blizzard.enable ~= true then return end
 
 	hooksecurefunc("UIDropDownMenu_SetIconImage", function(icon, texture)
@@ -17,4 +17,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallback("mUIUIDropDownMenu", LoadSkin)
+module:AddCallback("UIDropDownMenu")

@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local select, unpack = select, unpack
@@ -118,7 +118,7 @@ f:SetScript('OnEvent', function(self, event, msg)
 	end
 end)
 
-function MERS:BigWigs_QueueTimer()
+function module:BigWigs_QueueTimer()
 	if not E.private.mui.skins.addonSkins.bw then return end
 
 	if _G.BigWigsLoader then
@@ -147,4 +147,4 @@ function MERS:BigWigs_QueueTimer()
 	end
 end
 
-MERS:AddCallbackForEnterWorld("BigWigs_QueueTimer")
+module:AddCallbackForAddon("BigWigs_QueueTimer")

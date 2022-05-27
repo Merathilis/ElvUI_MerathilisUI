@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.voidstorage ~= true or E.private.mui.skins.blizzard.voidstorage ~= true then return end
+function module:Blizzard_VoidStorageUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.voidstorage ~= true or not E.private.mui.skins.blizzard.voidstorage then return end
 
 	local VoidStorageFrame = _G.VoidStorageFrame
 	VoidStorageFrame:Styling()
@@ -14,4 +14,4 @@ local function LoadSkin()
 	VoidStorageFrame.Page1:SetPoint("LEFT", VoidStorageFrame, "TOPRIGHT", 2, -60)
 end
 
-S:AddCallbackForAddon("Blizzard_VoidStorageUI", "mUIVoidStorage", LoadSkin)
+module:AddCallbackForAddon("Blizzard_VoidStorageUI")

@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local unpack = unpack
@@ -13,7 +12,7 @@ local GetInboxInvoiceInfo = GetInboxInvoiceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function LoadSkin()
+function module:MailFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.mui.skins.blizzard.mail ~= true then return end
 
 	local MiniMapMailFrame = _G.MiniMapMailFrame
@@ -51,7 +50,7 @@ local function LoadSkin()
 		if bg.backdrop then
 			bg.backdrop:Hide()
 		end
-		MERS:CreateBD(bg, .25)
+		module:CreateBD(bg, .25)
 
 		local b = _G["MailItem"..i.."Button"]
 		b:StripTextures()
@@ -124,4 +123,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallback("mUIMail", LoadSkin)
+module:AddCallback("MailFrame")

@@ -8,9 +8,8 @@
 	<Script file="Staticpopup.lua"/>
 	<Script file="StatusReport.lua"/>
 	<Script file="Tags.lua"/>
-	<Script file="ModuleCopy.lua"/>
 	<Include file="AddonProfiles\Load_AddonProfiles.xml"/>
-	<Script file="Config.lua"/>
+	<Script file="Update.lua"/>
 	<Include file="FunStuff.xml"/>
 	<Script file="FunStuff.lua"/>
 </Ui>

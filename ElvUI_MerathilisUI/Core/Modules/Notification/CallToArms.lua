@@ -26,7 +26,7 @@ function module:LFG_UPDATE_RANDOM_INFO()
 	end
 
 	if ((IsTank and forTank) or (IsHealer and forHealer) or (IsDamage and forDamage)) and not ingroup then
-		if GetTime() - LFG_Timer > 20 then
+		if GetTime() - LFG_Timer > 50 then
 			self:DisplayToast(format(_G.LFG_CALL_TO_ARMS, tank.." "..healer.." "..damager), nil, nil, "Interface\\Icons\\Ability_DualWield", .08, .92, .08, .92)
 			LFG_Timer = GetTime()
 		end

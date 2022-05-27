@@ -136,6 +136,8 @@ function module:AdjustSettings()
 	E.db["chat"]["panelWidthRight"] = 235
 	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-219,47"
 
+	E.db["bags"]["bagWidth"] = 449
+
 	if E.global["datatexts"]["customPanels"]["MER_RightChatTop"] then
 		E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 2
 		E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["width"] = 235

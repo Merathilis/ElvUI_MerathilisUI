@@ -2,11 +2,18 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 local _G = _G
 local format = string.format
-local ipairs, print, pairs = ipairs, print, pairs
+local print, pairs = print, pairs
 local pcall = pcall
 local tinsert = table.insert
 
 local GetAddOnEnableState = GetAddOnEnableState
+
+MER.dummy = function() return end
+MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
+MER.ElvUIV = tonumber(E.version)
+MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
+MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 
 -- Masque support
 MER.MSQ = _G.LibStub('Masque', true)
@@ -60,32 +67,12 @@ function MER:InitializeModules()
 end
 
 function MER:UpdateModules()
+	self:UpdateScripts()
 	for _, moduleName in pairs(MER.RegisteredModules) do
 		local module = MER:GetModule(moduleName)
 		if module.ProfileUpdate then
 			pcall(module.ProfileUpdate, module)
 		end
-	end
-end
-
--- function F.cOption(name, color)
--- 	local hex
--- 	if color == 'orange' then
--- 		hex = '|cffff7d0a%s |r'
--- 	elseif color == 'blue' then
--- 		hex = '|cFF00c0fa%s |r'
--- 	elseif color == 'gradient' then
--- 		hex = E:TextGradient(name, 1, 0.65, 0, 1, 0.65, 0, 1, 1, 1)
--- 	else
--- 		hex = '|cFFFFFFFF%s |r'
--- 	end
-
--- 	return (hex):format(name)
--- end
-
-function MER:AddOptions()
-	for _, func in ipairs(MER.Config) do
-		func()
 	end
 end
 
@@ -98,26 +85,25 @@ function MER:IsAddOnEnabled(addon) -- Credit: Azilroka
 	return GetAddOnEnableState(E.myname, addon) == 2
 end
 
-function MER:CheckVersion()
+function MER:CheckElvUIVersion()
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
 		E:StaticPopup_Show("VERSION_MISMATCH")
-		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
+		return false-- If ElvUI Version is outdated stop right here. So things don't get broken.
+	end
+	return true
+end
+
+function MER:CheckVersion()
+	if InCombatLockdown() then
+		return
 	end
 
-	self:DBConvert()
+	if not E.global.mui.version or E.global.mui.version ~= MER.Version then
+		MER:ToggleChangeLog()
+	end
+
 	self:AddMoverCategories()
-
-	-- Create empty saved vars if they doesn't exist
-	if not MERData then
-		MERData = {}
-	end
-
-	if not MERDataPerChar then
-		MERDataPerChar = {}
-	end
-
-	E:Delay(6, function() MER:ChangeLog() end)
 
 	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]

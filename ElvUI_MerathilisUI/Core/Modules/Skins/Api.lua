@@ -3,13 +3,10 @@ local module = MER.Modules.Skins
 local S = E.Skins
 
 local _G = _G
-local assert, next, pairs, unpack, type = assert, next, pairs, unpack, type
-local xpcall = xpcall
+local assert, pairs, unpack, type = assert, pairs, unpack, type
 local strfind = strfind
-local tinsert = table.insert
 
 local CreateFrame = CreateFrame
-local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
 
 local alpha
@@ -21,12 +18,6 @@ local bordercolorr, bordercolorg, bordercolorb
 
 module.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
 
-module.addonsToLoad = {}
-module.nonAddonsToLoad = {}
-module.updateProfile = {}
-module.aceWidgets = {}
-module.enteredLoad = {}
-
 module.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 module.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
@@ -37,79 +28,6 @@ module.ArrowRotation = {
 	['LEFT'] = -1.57,
 	['RIGHT'] = 1.57,
 }
-
-local function errorhandler(err)
-	return _G.geterrorhandler()(err)
-end
-
-function module:AddCallback(name, func)
-	tinsert(self.nonAddonsToLoad, func or self[name])
-end
-
-function module:AddCallbackForAceGUIWidget(name, func)
-	self.aceWidgets[name] = func or self[name]
-end
-
-function module:AddCallbackForAddon(addonName, func)
-	local addon = self.addonsToLoad[addonName]
-	if not addon then
-		self.addonsToLoad[addonName] = {}
-		addon = self.addonsToLoad[addonName]
-	end
-
-	if type(func) == "string" then
-		func = self[func]
-	end
-
-	tinsert(addon, func or self[addonName])
-end
-
-function module:AddCallbackForEnterWorld(name, func)
-	tinsert(self.enteredLoad, func or self[name])
-end
-
-function module:PLAYER_ENTERING_WORLD()
-	if not E.initialized then
-		return
-	end
-
-	for index, func in next, self.enteredLoad do
-		xpcall(func, errorhandler, self)
-		self.enteredLoad[index] = nil
-	end
-end
-
-function module:AddCallbackForUpdate(name, func)
-	tinsert(self.updateProfile, func or self[name])
-end
-
-function module:CallLoadedAddon(addonName, object)
-	for _, func in next, object do
-		xpcall(func, errorhandler, self)
-	end
-
-	self.addonsToLoad[addonName] = nil
-end
-
-function module:ADDON_LOADED(_, addonName)
-	if not E.initialized then
-		return
-	end
-
-	local object = self.addonsToLoad[addonName]
-	if object then
-		self:CallLoadedAddon(addonName, object)
-	end
-end
-
-function module:DisableAddOnSkin(key)
-	if _G.AddOnSkins then
-		local AS = _G.AddOnSkins[1]
-		if AS and AS.db[key] then
-			AS:SetOption(key, false)
-		end
-	end
-end
 
 -- Create shadow for textures
 function module:CreateSD(f, m, s, n)
@@ -318,6 +236,14 @@ function module:ApplyConfigArrows()
 end
 hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
 
+function module:Reposition(frame, target, border, top, bottom, left, right)
+	frame:ClearAllPoints()
+	frame:SetPoint("TOPLEFT", target, "TOPLEFT", -left - border, top + border)
+	frame:SetPoint("TOPRIGHT", target, "TOPRIGHT", right + border, top + border)
+	frame:SetPoint("BOTTOMLEFT", target, "BOTTOMLEFT", -left - border, -bottom - border)
+	frame:SetPoint("BOTTOMRIGHT", target, "BOTTOMRIGHT", right + border, -bottom - border)
+end
+
 function module:ReskinAS(AS)
 	-- Reskin AddOnSkins
 	function AS:SkinFrame(frame, template, override, kill)
@@ -489,45 +415,15 @@ function module:SkinTextWithStateWidget(_, widgetFrame)
 end
 
 -- keep the colors updated
-local function updateMedia()
+function module:UpdateMedia()
 	rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA = unpack(E.media.rgbvaluecolor)
 	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E.media.unitframeBorderColor)
 	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E.media.backdropfadecolor)
 	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E.media.backdropcolor)
 	bordercolorr, bordercolorg, bordercolorb = unpack(E.media.bordercolor)
 end
-hooksecurefunc(E, "UpdateMedia", updateMedia)
+hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)
 
 -- hook the skin functions from ElvUI
 module:SecureHook(S, "HandleScrollBar")
--- module:SecureHook(S, "HandleSliderFrame")
 module:SecureHook(S, "SkinTextWithStateWidget")
-
-function module:Initialize()
-	self.db = E.private.mui.skins
-
-	updateMedia()
-	self:StyleElvUIConfig()
-
-	if IsAddOnLoaded("AddOnSkins") then
-		if AddOnSkins then
-			module:ReskinAS(unpack(AddOnSkins))
-		end
-	end
-
-	for index, func in next, self.nonAddonsToLoad do
-		xpcall(func, errorhandler, self)
-		self.nonAddonsToLoad[index] = nil
-	end
-
-	for addonName, object in pairs(self.addonsToLoad) do
-		local isLoaded, isFinished = IsAddOnLoaded(addonName)
-		if isLoaded and isFinished then
-			self:CallLoadedAddon(addonName, object)
-		end
-	end
-end
-
-module:RegisterEvent("ADDON_LOADED")
-module:RegisterEvent("PLAYER_ENTERING_WORLD")
-MER:RegisterModule(module:GetName())

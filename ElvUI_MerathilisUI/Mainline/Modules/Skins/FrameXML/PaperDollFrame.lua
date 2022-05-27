@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local ipairs, pairs, type, unpack = ipairs, pairs, type, unpack
@@ -70,8 +70,8 @@ local function SkinSLEArmory()
 	end
 end
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.mui.skins.blizzard.character ~= true then return end
+function module:PaperDollFrame()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or not E.private.mui.skins.blizzard.character then return end
 
 	local CharacterStatsPane = _G.CharacterStatsPane
 
@@ -129,4 +129,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallback("mUIPaperDoll", LoadSkin)
+module:AddCallback("PaperDollFrame")

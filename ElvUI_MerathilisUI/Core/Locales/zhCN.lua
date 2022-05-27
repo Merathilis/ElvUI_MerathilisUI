@@ -126,7 +126,10 @@ L["Development Version"] = "开发版本"
 L["Here you can download the latest development version."] = "您可以从这里下载最新的开发版本."
 
 -- Modules
-L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."] = "你能在这里找到所有不同的选项 |cffffffffMerathilis|r|cffff8000UI|r 模块.\n请使用下拉列表浏览模块."
+L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = "你能在这里找到所有不同的选项 |cffffffffMerathilis|r|cffff8000UI|r 模块."
+L["Are you sure you want to reset %s module?"] = "你确定要重置 %s 模块么?"
+L["Reset All Modules"] = "重置全部模块"
+L["Reset all %s modules."] = "重置全部 %s 模块."
 
 -- GameMenu
 L["GameMenu"] = "游戏菜单"
@@ -235,8 +238,6 @@ L["Fun Stuff"] = "有趣的玩意儿"
 L["Press CTRL + C to copy."] = "按下 CTRL + C 复制"
 L["Wowhead Links"] = "Wowhead 链接"
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "在成就和地图框体上添加 Wowhead 链接"
-L["Codex Buttons"] = "圣典按钮"
-L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "在天赋界面添加两个按钮，书卷和圣典"
 L["Highest Quest Reward"] = "最贵任务奖励"
 L["Automatically select the item with the highest reward."] = "自动选中最贵任务奖励"
 L["Item Alerts"] = "物品通告"

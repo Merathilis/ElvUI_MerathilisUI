@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.help ~= true or E.private.mui.skins.blizzard.help ~= true then return end
+function module:HelpFrame()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.help ~= true or not E.private.mui.skins.blizzard.help then return end
 
 	local frame = _G.HelpFrame
 	if frame.backdrop then
@@ -12,4 +12,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallback("mUIHelp", LoadSkin)
+module:AddCallback("HelpFrame")

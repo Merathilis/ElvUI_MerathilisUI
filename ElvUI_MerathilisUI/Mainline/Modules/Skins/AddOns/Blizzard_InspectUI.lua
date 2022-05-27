@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local select, unpack = select, unpack
@@ -27,7 +26,7 @@ local function updateIcon(self)
 	end
 end
 
-local function LoadSkin()
+function module:Blizzard_InspectUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.inspect ~= true or E.private.mui.skins.blizzard.inspect ~= true then return end
 
 	_G.InspectModelFrame:DisableDrawLayer("OVERLAY")
@@ -74,7 +73,6 @@ local function LoadSkin()
 		border:SetDrawLayer("BACKGROUND")
 	end
 
-
 	hooksecurefunc("InspectPaperDollItemSlotButton_Update", function(button)
 		button.IconBorder:SetTexture(E["media"].normTex)
 		button.icon:SetShown(button.hasItem)
@@ -95,12 +93,12 @@ local function LoadSkin()
 			bu.icon:SetDrawLayer("ARTWORK")
 			bu.icon:SetTexCoord(unpack(E.TexCoords))
 
-			MERS:CreateBG(bu.icon)
+			module:CreateBG(bu.icon)
 		end
 	end
 
 	inspectSpec.specIcon:SetTexCoord(unpack(E.TexCoords))
-	MERS:CreateBG(inspectSpec.specIcon)
+	module:CreateBG(inspectSpec.specIcon)
 
 	inspectSpec:HookScript("OnShow", updateIcon)
 	_G.InspectTalentFrame:HookScript("OnEvent", function(self, event, unit)
@@ -112,7 +110,7 @@ local function LoadSkin()
 
 	local roleIcon = inspectSpec.roleIcon
 	roleIcon:SetTexture(E["media"].roleIcons)
-	local bg = MERS:CreateBDFrame(roleIcon, 1)
+	local bg = module:CreateBDFrame(roleIcon, 1)
 	bg:SetPoint("TOPLEFT", roleIcon, 2, -1)
 	bg:SetPoint("BOTTOMRIGHT", roleIcon, -1, 2)
 
@@ -124,4 +122,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_InspectUI", "mUIInspect", LoadSkin)
+module:AddCallbackForAddon("Blizzard_InspectUI")

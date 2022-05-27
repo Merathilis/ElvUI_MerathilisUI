@@ -64,6 +64,8 @@ AddMedia("media", "Media.tga", "Icons")
 AddMedia("modules", "Modules.tga", "Icons")
 AddMedia("skins", "Skins.tga", "Icons")
 
+AddMedia("accept", "Accept.tga", "Icons")
+
 AddMedia("discord", "Discord.tga", "Icons")
 AddMedia("github", "Github.tga", "Icons")
 

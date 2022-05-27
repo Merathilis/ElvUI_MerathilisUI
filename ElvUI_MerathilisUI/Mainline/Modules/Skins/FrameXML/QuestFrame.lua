@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
+local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -21,17 +21,7 @@ local function UpdateGreetingFrame()
 	end
 end
 
-local function RemoveParchment(self)
-	if self.backdrop then
-		self.backdrop:Hide()
-	end
-
-	if self.spellTex then
-		self.spellTex:SetTexture(nil)
-	end
-end
-
-local function LoadSkin()
+function module:QuestFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return end
 
 	local QuestFrame = _G.QuestFrame
@@ -158,7 +148,7 @@ local function LoadSkin()
 		ic:SetTexCoord(unpack(E.TexCoords))
 		ic:SetDrawLayer("OVERLAY")
 
-		MERS:CreateBD(bu, .25)
+		module:CreateBD(bu, .25)
 
 		na:Hide()
 		co:SetDrawLayer("OVERLAY")
@@ -166,7 +156,7 @@ local function LoadSkin()
 		local line = CreateFrame("Frame", nil, bu)
 		line:SetSize(1, 40)
 		line:SetPoint("RIGHT", ic, 1, 0)
-		MERS:CreateBD(line)
+		module:CreateBD(line)
 	end
 
 	_G.QuestDetailScrollFrame:SetWidth(302) -- else these buttons get cut off
@@ -174,4 +164,4 @@ local function LoadSkin()
 	MER.NPC:Register(QuestFrame)
 end
 
-S:AddCallback("mUIQuestFrame", LoadSkin)
+module:AddCallback("QuestFrame")

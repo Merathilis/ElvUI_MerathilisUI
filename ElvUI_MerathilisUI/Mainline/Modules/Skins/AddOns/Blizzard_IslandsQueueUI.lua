@@ -1,10 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_IslandsQueueUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.islandQueue ~= true or E.private.mui.skins.blizzard.IslandQueue ~= true then return end
 
 	local IslandsQueueFrame = _G.IslandsQueueFrame
@@ -19,4 +18,4 @@ local function LoadSkin()
 	bg:SetPoint("BOTTOMRIGHT", -50, 5)
 end
 
-S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "mUIIslands", LoadSkin)
+module:AddCallbackForAddon("Blizzard_IslandsQueueUI")

@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local pairs, select = pairs, select
@@ -25,8 +24,8 @@ local function HeaderOnLeave(self)
 	self.hl:Hide()
 end
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.mui.skins.blizzard.lfg ~= true then return; end
+function module:LFGList()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or not E.private.mui.skins.blizzard.lfg then return; end
 
 	local LFGListFrame = _G.LFGListFrame
 
@@ -42,7 +41,7 @@ local function LoadSkin()
 		if bu then
 			if not bu.IsStyled then
 				bu.Icon:SetTexCoord(.01, .99, .01, .99)
-				MERS:CreateGradient(bu)
+				module:CreateGradient(bu)
 
 				bu.IsStyled = true
 			end
@@ -119,7 +118,7 @@ local function LoadSkin()
 			hl:Hide()
 			result.hl = hl
 
-			MERS:CreateBD(result, .5)
+			module:CreateBD(result, .5)
 
 			result:HookScript("OnEnter", ResultOnEnter)
 			result:HookScript("OnLeave", ResultOnLeave)
@@ -151,7 +150,7 @@ local function LoadSkin()
 		hl:Hide()
 		header.hl = hl
 
-		MERS:CreateBD(header, .25)
+		module:CreateBD(header, .25)
 
 		header:HookScript("OnEnter", HeaderOnEnter)
 		header:HookScript("OnLeave", HeaderOnLeave)
@@ -179,7 +178,7 @@ local function LoadSkin()
 		select(i, ActivityFinder.Dialog.BorderFrame:GetRegions()):Hide()
 	end
 
-	MERS:CreateBD(ActivityFinder.Dialog)
+	module:CreateBD(ActivityFinder.Dialog)
 	ActivityFinder.Dialog.backdrop:SetBackdropColor(.2, .2, .2, .9)
 
 	-- Application dialog ]]
@@ -190,12 +189,12 @@ local function LoadSkin()
 		select(i, LFGListApplicationDialog.Description:GetRegions()):Hide()
 	end
 
-	MERS:CreateBD(LFGListApplicationDialog)
-	MERS:CreateBD(LFGListApplicationDialog.Description, .25)
+	module:CreateBD(LFGListApplicationDialog)
+	module:CreateBD(LFGListApplicationDialog.Description, .25)
 
 	-- [[ Invite dialog ]]
 	local LFGListInviteDialog = _G.LFGListInviteDialog
-	MERS:CreateBD(LFGListInviteDialog)
+	module:CreateBD(LFGListInviteDialog)
 end
 
-S:AddCallback("mUILFGList", LoadSkin)
+module:AddCallback("LFGList")

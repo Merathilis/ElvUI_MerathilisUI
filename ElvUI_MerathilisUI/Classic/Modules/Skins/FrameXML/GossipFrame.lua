@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local select = select
@@ -9,9 +8,8 @@ local gsub = string.gsub
 
 local hooksecurefunc = hooksecurefunc
 
-
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.mui.skins.blizzard.gossip ~= true then return; end
+function module:GossipFrame()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or not E.private.mui.skins.blizzard.gossip then return; end
 
 	local GossipFrame = _G.GossipFrame
 	GossipFrame.backdrop:Styling()
@@ -81,10 +79,10 @@ local function LoadSkin()
 	select(7, _G.NPCFriendshipStatusBar:GetRegions()):Hide()
 
 	_G.NPCFriendshipStatusBar.icon:SetPoint("TOPLEFT", -30, 7)
-	MERS:CreateBDFrame(_G.NPCFriendshipStatusBar, .25)
+	module:CreateBDFrame(_G.NPCFriendshipStatusBar, .25)
 
 	MER.NPC:Register(GossipFrame)
 	hooksecurefunc("GossipTitleButton_OnClick", function() MER.NPC:PlayerTalksFirst() end)
 end
 
-S:AddCallback("mUIGossip", LoadSkin)
+module:AddCallback("GossipFrame")
