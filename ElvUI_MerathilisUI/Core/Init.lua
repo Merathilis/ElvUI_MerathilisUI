@@ -27,7 +27,7 @@ Engine[6] = P.mui
 Engine[7] = G.mui
 _G[addon] = Engine
 
-MER.Config = {}
+MER.options = {}
 MER.RegisteredModules = {}
 
 MER.dummy = function() return end
@@ -101,7 +101,7 @@ function MER:Initialize()
 
 	self:InitializeModules()
 
-	EP:RegisterPlugin(addon, MER.AddOptions)
+	EP:RegisterPlugin(addon, MER.OptionsCallback)
 	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end

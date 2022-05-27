@@ -125,7 +125,7 @@ L["Development Version"] = "Дев. версия"
 L["Here you can download the latest development version."] = true
 
 -- Modules
-L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
+L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = true
 
 -- GameMenu
 L["GameMenu"] = true

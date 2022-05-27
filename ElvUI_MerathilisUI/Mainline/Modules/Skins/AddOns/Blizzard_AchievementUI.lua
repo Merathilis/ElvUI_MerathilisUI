@@ -15,7 +15,6 @@ function module:Blizzard_AchievementUI()
 		_G.AchievementFrame:CreateBackdrop('Transparent')
 		_G.AchievementFrame.backdrop:Styling()
 	end
-
 	MER:CreateBackdropShadow(_G.AchievementFrame)
 
 	-- Hide the ElvUI default backdrop
@@ -66,7 +65,7 @@ function module:Blizzard_AchievementUI()
 			local bu = _G["AchievementFrameSummaryAchievement"..i]
 			if not bu.reskinned then
 				if bu.backdrop then
-					MERS:CreateGradient(bu.backdrop)
+					module:CreateGradient(bu.backdrop)
 				end
 				bu.reskinned = true
 			end

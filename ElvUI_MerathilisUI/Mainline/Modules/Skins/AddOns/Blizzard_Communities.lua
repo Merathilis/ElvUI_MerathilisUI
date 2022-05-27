@@ -36,11 +36,7 @@ function module:Blizzard_Communities()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or E.private.mui.skins.blizzard.communities ~= true then return end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
-	if not CommunitiesFrame.backdrop then
-		CommunitiesFrame:CreateBackdrop('Transparent')
-		CommunitiesFrame.backdrop:Styling()
-	end
-
+	CommunitiesFrame:Styling()
 	MER:CreateBackdropShadow(CommunitiesFrame)
 	MER:CreateShadow(CommunitiesFrame.ChatTab)
 	MER:CreateShadow(CommunitiesFrame.RosterTab)

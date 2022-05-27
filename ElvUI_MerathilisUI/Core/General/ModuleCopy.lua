@@ -28,5 +28,3 @@ local function configTable()
 		},
 	}
 end
-
-tinsert(MER.Config, configTable)

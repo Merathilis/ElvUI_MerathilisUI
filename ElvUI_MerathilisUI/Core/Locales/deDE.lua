@@ -127,7 +127,7 @@ L["Development Version"] = "Entwicklungsversion"
 L["Here you can download the latest development version."] = "Hier findest du den Download zu meiner Development Version."
 
 -- Modules
-L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules.\nPlease use the dropdown to navigate through the modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffffffffMerathilis|r|cffff8000UI|r Modulen.\nBenutze bitte das Dropdownmenü um durch die verschiedenen Module zu navigieren."
+L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffffffffMerathilis|r|cffff8000UI|r Modulen."
 
 -- GameMenu
 L["GameMenu"] = "Spielmenü"

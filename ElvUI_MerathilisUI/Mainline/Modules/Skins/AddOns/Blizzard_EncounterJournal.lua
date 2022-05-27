@@ -180,11 +180,7 @@ function module:Blizzard_EncounterJournal()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.mui.skins.blizzard.encounterjournal ~= true then return end
 
 	local EncounterJournal = _G.EncounterJournal
-
-	if not EncounterJournal.backdrop then
-		EncounterJournal:CreateBackdrop('Transparent')
-		EncounterJournal.backdrop:Styling()
-	end
+	EncounterJournal:Styling()
 	MER:CreateBackdropShadow(EncounterJournal)
 
 	if EncounterJournal.navBar.backdrop then

@@ -10,7 +10,6 @@
 	<Script file="Tags.lua"/>
 	<Script file="ModuleCopy.lua"/>
 	<Include file="AddonProfiles\Load_AddonProfiles.xml"/>
-	<Script file="Config.lua"/>
 	<Include file="FunStuff.xml"/>
 	<Script file="FunStuff.lua"/>
 </Ui>

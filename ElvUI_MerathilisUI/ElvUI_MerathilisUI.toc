@@ -27,6 +27,7 @@ Core\Init.lua
 Core\Settings\Load_Settings.xml
 Core\Media\Load_Media.xml
 Core\General\Load_General.xml
+Core\Options\Load_Options.xml
 Core\Modules\Load_Modules.xml
 Core\Layout\Load_Layout.xml
 Bindings.xml

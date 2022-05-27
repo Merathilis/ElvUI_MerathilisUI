@@ -4,7 +4,7 @@ local module = MER.Modules.Skins
 local _G = _G
 
 function module:Blizzard_AuctionHouseUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.auctionhouse ~= true or E.private.mui.skins.blizzard.auctionhouse ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.auctionhouse ~= true or not E.private.mui.skins.blizzard.auctionhouse then return end
 
 	local Frame = _G.AuctionHouseFrame
 	Frame:Styling()
