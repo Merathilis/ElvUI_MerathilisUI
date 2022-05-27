@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Armory')
 local options = MER.options.modules.args
+local LSM = E.LSM
 
 local _G = _G
 local select = select
@@ -73,7 +74,7 @@ options.armory = {
 					order = 3,
 					type = "select", dialogControl = "LSM30_Font",
 					name = L["Font"],
-					values = AceGUIWidgetLSMlists.font,
+					values = LSM:HashTable("font"),
 					disabled = function() return not E.db.mui.armory.enable or not E.db.mui.armory.durability.enable end,
 					set = function(info, value) E.db.mui.armory.durability[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				},
@@ -149,9 +150,7 @@ options.armory = {
 							type = 'select', dialogControl = 'LSM30_Font',
 							name = L["Font"],
 							order = 1,
-							values = function()
-								return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
-							end,
+							values = LSM:HashTable("font"),
 						},
 						size = {
 							type = 'range',
@@ -179,9 +178,7 @@ options.armory = {
 							type = 'select', dialogControl = 'LSM30_Font',
 							name = L["Font"],
 							order = 1,
-							values = function()
-								return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
-							end,
+							values = LSM:HashTable("font"),
 						},
 						size = {
 							type = 'range',
