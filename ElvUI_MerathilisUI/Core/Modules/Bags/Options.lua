@@ -5,6 +5,7 @@ local MERBI = MER:GetModule('MER_BagInfo')
 options.bags = {
 	type = "group",
 	name = F.cOption(L["Bags"], 'orange'),
+	hidden = not E.Retail,
 	get = function(info) return E.db.mui.bags[ info[#info] ] end,
 	set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 	args = {
@@ -18,7 +19,6 @@ options.bags = {
 			type = "group",
 			guiInline = true,
 			name = F.cOption(L["Equip Manager"], 'orange'),
-			hidden = not E.Retail,
 			args = {
 				equipOverlay = {
 					type = "toggle",
