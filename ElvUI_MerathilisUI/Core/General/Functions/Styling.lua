@@ -100,12 +100,13 @@ end
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 
+	if not f or f.MERStyle or f.styling then return end
+
 	if f:GetObjectType() == "Texture" then
 		f = f:GetParent()
 	end
 
 	local frameName = f.GetName and f:GetName()
-	if f.styling then return end
 
 	local style = CreateFrame("Frame", frameName or nil, f)
 
@@ -154,6 +155,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	f.styling = style
 
 	MER["styling"][style] = true
+	f.MERStyle = true
 end
 
 local BlizzardFrameRegions = {

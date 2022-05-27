@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 
@@ -14,7 +13,7 @@ local function CreateHeaderPanels()
 	HeaderBar:SetFrameStrata("LOW")
 	HeaderBar:SetPoint("TOPLEFT", _G.QuestWatchFrame, 0, -4)
 	HeaderBar:SetSize(160, 2)
-	MERS:SkinPanel(HeaderBar)
+	module:SkinPanel(HeaderBar)
 
 	HeaderText:SetFontObject(_G.GameFontNormal)
 	HeaderText:Point("LEFT", HeaderBar, "LEFT", -2, 14)
@@ -28,8 +27,8 @@ local function CreateHeaderPanels()
 	end
 end
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return end
+function module:LoadSkin()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or not E.private.mui.skins.blizzard.quest then return end
 
 	local QuestFrame = _G.QuestFrame
 	MER.NPC:Register(QuestFrame)
@@ -41,4 +40,4 @@ local function LoadSkin()
 	hooksecurefunc('QuestWatch_Update', CreateHeaderPanels)
 end
 
-S:AddCallback("mUIQuestFrame", LoadSkin)
+module:AddCallback("QuestFrame")

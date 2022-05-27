@@ -118,6 +118,26 @@ function F.SetFontColorDB(text, db)
 	text:SetTextColor(db.r, db.g, db.b, db.a)
 end
 
+function F.SetFontOutline(text, font, size)
+	if not text or not text.GetFont then
+		F.DebugMessage("Funktion", "[3]No font found to handle font style")
+		return
+	end
+	local fontName, fontHeight = text:GetFont()
+
+	if size and type(size) == "string" then
+		size = fontHeight + tonumber(size)
+	end
+
+	if font and not strfind(font, "%.ttf") and not strfind(font, "%.otf") then
+		font = LSM:Fetch("font", font)
+	end
+
+	text:FontTemplate(font or fontName, size or fontHeight, "OUTLINE")
+	text:SetShadowColor(0, 0, 0, 0)
+	text.SetShadowColor = E.noop
+end
+
 function F.cOption(name, color)
 	local hex
 	if color == 'orange' then

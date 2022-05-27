@@ -1,12 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 if not IsAddOnLoaded("ElvUI_BenikUI") then return; end
 
 local _G = _G
 
 local CreateFrame = CreateFrame
 
-local function LoadAddOnSkin()
+function module:ElvUI_BenikUI()
 	if E.private.mui.skins.addonSkins.bui ~= true then return; end
 
 	local BuiLeftChatDTPanel = _G.BuiLeftChatDTPanel
@@ -45,4 +45,4 @@ local function LoadAddOnSkin()
 	end)
 end
 
-S:AddCallbackForAddon("ElvUI_BenikUI", "mUIBenikUI", LoadAddOnSkin)
+module:AddCallbackForAddon("ElvUI_BenikUI")

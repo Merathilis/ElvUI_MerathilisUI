@@ -27,16 +27,10 @@ Engine[6] = P.mui
 Engine[7] = G.mui
 _G[addon] = Engine
 
-MER.Config = {}
+MER.options = {}
 MER.RegisteredModules = {}
 
-MER.dummy = function() return end
-MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
-MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
-MER.ElvUIV = tonumber(E.version)
-MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
-MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
-MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
+MER.Version = GetAddOnMetadata(addon, "Version")
 
 -- Modules
 MER.Modules = {}
@@ -97,11 +91,17 @@ MER.Modules.WorldMap = MER:NewModule('MER_WorldMap', 'AceHook-3.0', 'AceEvent-3.
 MER.Modules.ZoneText = MER:NewModule('MER_ZoneText', 'AceHook-3.0')
 
 function MER:Initialize()
+	-- ElvUI -> MerathilisUI -> MerathilisUI Modules
+	if not self:CheckElvUIVersion() then
+		return
+	end
+
 	self.initialized = true
 
+	self:UpdateScripts() -- Database need update first
 	self:InitializeModules()
 
-	EP:RegisterPlugin(addon, MER.AddOptions)
+	EP:RegisterPlugin(addon, MER.OptionsCallback)
 	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end

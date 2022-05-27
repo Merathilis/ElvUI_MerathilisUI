@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local ipairs = ipairs
 
-local function LoadSkin()
+function module:Blizzard_CovenantSanctum()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.covenantSanctum) or E.private.mui.skins.blizzard.covenantSanctum ~= true then return end
 
 	local frame = _G.CovenantSanctumFrame
@@ -33,4 +33,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon('Blizzard_CovenantSanctum', 'muiSanctum', LoadSkin)
+module:AddCallbackForAddon('Blizzard_CovenantSanctum')

@@ -1,11 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local select = select
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return; end
+function module:QuestMapFrame()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or not E.private.mui.skins.blizzard.quest then return; end
 
 	-- Stop here if parchment reomover is enabled.
 	if E.private.skins.parchmentRemoverEnable then return end
@@ -63,7 +63,7 @@ local function LoadSkin()
 		_G.QuestLogPopupDetailFrameScrollFrame.backdrop:Hide()
 		_G.QuestLogPopupDetailFrameInset:Hide()
 		_G.QuestLogPopupDetailFrameBg:Hide()
-		self:CreateBackdrop("Transparent")
+		-- self:CreateBackdrop("Transparent")
 
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
@@ -102,4 +102,4 @@ local function LoadSkin()
 	_G.QuestMapFrame.CampaignOverview.BG:SetAlpha(0)
 end
 
-S:AddCallback("mUIQuestMapFrame", LoadSkin)
+module:AddCallback("QuestMapFrame")

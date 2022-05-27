@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local next, unpack = next, unpack
@@ -9,11 +8,15 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or E.private.mui.skins.blizzard.communities ~= true then return end
+function module:Blizzard_Communities()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or not E.private.mui.skins.blizzard.communities then return end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
-	CommunitiesFrame:Styling()
+	if not CommunitiesFrame.backdrop then
+		CommunitiesFrame:CreateBackdrop('Transparent')
+		CommunitiesFrame.backdrop:Styling()
+	end
+
 	MER:CreateBackdropShadow(CommunitiesFrame)
 	MER:CreateShadow(CommunitiesFrame.ChatTab)
 	MER:CreateShadow(CommunitiesFrame.RosterTab)
@@ -29,7 +32,7 @@ local function LoadSkin()
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)
 		if clubInfo then
 			if self.bg and self.bg.backdrop and not self.IsStyled then
-				MERS:CreateGradient(self.bg.backdrop)
+				module:CreateGradient(self.bg.backdrop)
 				self.IsStyled = true
 			end
 		end
@@ -38,7 +41,7 @@ local function LoadSkin()
 	-- Add Community Button
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetAddCommunity", function(self)
 		if self.bg and self.bg.backdrop and not self.IsStyled then
-			MERS:CreateGradient(self.bg.backdrop)
+			module:CreateGradient(self.bg.backdrop)
 			self.IsStyled = true
 		end
 	end)
@@ -47,7 +50,7 @@ local function LoadSkin()
 		local tab = CommunitiesFrame[name]
 		if tab then
 			tab:GetRegions():Hide()
-			MERS:ReskinIcon(tab.Icon)
+			module:ReskinIcon(tab.Icon)
 			tab:GetHighlightTexture():SetColorTexture(r, g, b, .25)
 		end
 	end
@@ -63,13 +66,13 @@ local function LoadSkin()
 	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
 
 	local Dialog = CommunitiesFrame.EditStreamDialog
-	MERS:CreateBDFrame(Dialog.Description, .25)
+	module:CreateBDFrame(Dialog.Description, .25)
 	if Dialog.backdrop then
 		Dialog.backdrop:Styling()
 	end
 
 	-- Roster
-	MERS:CreateBDFrame(CommunitiesFrame.MemberList.ListScrollFrame, .25)
+	module:CreateBDFrame(CommunitiesFrame.MemberList.ListScrollFrame, .25)
 
 	local DetailFrame = CommunitiesFrame.GuildMemberDetailFrame
 	if DetailFrame then
@@ -101,4 +104,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_Communities", "mUICommunities", LoadSkin)
+module:AddCallbackForAddon("Blizzard_Communities")

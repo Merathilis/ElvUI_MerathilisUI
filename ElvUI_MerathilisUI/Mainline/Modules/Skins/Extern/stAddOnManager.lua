@@ -1,11 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 if not IsAddOnLoaded("ProjectAzilroka") then return end
 
 local _G = _G
 local CreateFrame = CreateFrame
 
-local function LoadAddOnSkin()
+function module:ProjectAzilroka()
 	if E.private.mui.skins.addonSkins.pa ~= true then return end
 
 	local f = CreateFrame("Frame")
@@ -22,4 +22,4 @@ local function LoadAddOnSkin()
 	end)
 end
 
-S:AddCallbackForAddon("ProjectAzilroka", "ADDON_LOADED", LoadAddOnSkin)
+module:AddCallbackForAddon("ProjectAzilroka")

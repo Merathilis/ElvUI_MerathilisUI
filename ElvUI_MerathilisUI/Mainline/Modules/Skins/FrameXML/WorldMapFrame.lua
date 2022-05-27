@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local select = select
@@ -12,7 +11,7 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function LoadSkin()
+function module:WorldMapFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.private.mui.skins.blizzard.worldmap ~= true then return end
 
 	_G.WorldMapFrame.backdrop:Styling()
@@ -21,7 +20,7 @@ local function LoadSkin()
 	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
 	frame:Size(230, 20)
 	frame:SetPoint("TOP", 0, 21)
-	MERS:CreateBD(frame, .25)
+	module:CreateBD(frame, .25)
 
 	frame.text = frame:CreateFontString(nil, "ARTWORK")
 	frame.text:FontTemplate()
@@ -39,20 +38,20 @@ local function LoadSkin()
 	end
 	if _G.QuestScrollFrame.DetailFrame and _G.QuestScrollFrame.DetailFrame.backdrop then
 		_G.QuestScrollFrame.DetailFrame.backdrop:SetTemplate("Transparent")
-		MERS:CreateGradient(_G.QuestScrollFrame.DetailFrame.backdrop)
+		module:CreateGradient(_G.QuestScrollFrame.DetailFrame.backdrop)
 	end
 
 	if _G.QuestMapFrame.DetailsFrame then
 		if _G.QuestMapFrame.DetailsFrame.backdrop then
 			_G.QuestMapFrame.DetailsFrame.backdrop:SetTemplate("Transparent")
-			MERS:CreateGradient(_G.QuestMapFrame.DetailsFrame.backdrop)
+			module:CreateGradient(_G.QuestMapFrame.DetailsFrame.backdrop)
 		end
 		if _G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop then
 			_G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop:SetTemplate("Transparent")
-			MERS:CreateGradient(_G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop)
+			module:CreateGradient(_G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop)
 		elseif _G.QuestMapFrame.DetailsFrame.RewardsFrame then
 			_G.QuestMapFrame.DetailsFrame.RewardsFrame:CreateBackdrop("Transparent")
-			MERS:CreateGradient(_G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop)
+			module:CreateGradient(_G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop)
 		end
 	end
 
@@ -67,4 +66,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallback("mUISkinWorldMap", LoadSkin)
+module:AddCallback("WorldMapFrame")

@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -10,7 +9,7 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function LoadSkin()
+function module:Blizzard_GarrisonUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.mui.skins.blizzard.garrison ~= true then return end
 
 	-- Building frame
@@ -53,8 +52,8 @@ local function LoadSkin()
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(button:GetFrameLevel() - 1)
 
-		MERS:CreateBD(bg, .25)
-		MERS:CreateGradient(bg)
+		module:CreateBD(bg, .25)
+		module:CreateGradient(bg)
 	end
 
 	for _, tab in pairs({Report.InProgress, Report.Available}) do
@@ -65,7 +64,7 @@ local function LoadSkin()
 		local bg = CreateFrame("Frame", nil, tab, 'BackdropTemplate')
 		bg:SetFrameLevel(tab:GetFrameLevel() - 1)
 		bg:CreateBackdrop('Transparent')
-		MERS:CreateGradient(bg.backdrop)
+		module:CreateGradient(bg.backdrop)
 
 		local selectedTex = bg:CreateTexture(nil, "BACKGROUND")
 		selectedTex:SetAllPoints()
@@ -119,13 +118,13 @@ local function LoadSkin()
 	local GarrisonMonumentFrame = _G.GarrisonMonumentFrame
 
 	GarrisonMonumentFrame.Background:Hide()
-	MERS:CreateBD(GarrisonMonumentFrame)
+	module:CreateBD(GarrisonMonumentFrame)
 	GarrisonMonumentFrame:Styling()
 
 	-- [[ Shipyard ]]
 	local GarrisonShipyardFrame = _G.GarrisonShipyardFrame
 	if GarrisonShipyardFrame.backdrop then GarrisonShipyardFrame.backdrop:Hide() end
-	MERS:CreateBD(GarrisonShipyardFrame, .25)
+	module:CreateBD(GarrisonShipyardFrame, .25)
 	GarrisonShipyardFrame:Styling()
 
 	local shipyardTab = GarrisonShipyardFrame.FollowerTab
@@ -134,14 +133,14 @@ local function LoadSkin()
 	local shipyardMission = GarrisonShipyardFrame.MissionTab.MissionPage
 	shipyardMission:StripTextures()
 
-	local smbg = MERS:CreateBDFrame(shipyardMission.Stage)
+	local smbg = module:CreateBDFrame(shipyardMission.Stage)
 	smbg:SetPoint("TOPLEFT", 4, 1)
 	smbg:SetPoint("BOTTOMRIGHT", -4, -1)
 
 	for i = 1, 10 do
 		select(i, shipyardMission.RewardsFrame:GetRegions()):Hide()
 	end
-	MERS:CreateBD(shipyardMission.RewardsFrame, .25)
+	module:CreateBD(shipyardMission.RewardsFrame, .25)
 
 	GarrisonShipyardFrame.MissionCompleteBackground:GetRegions():Hide()
 	GarrisonShipyardFrame.MissionTab.MissionList.CompleteDialog:GetRegions():Hide()
@@ -150,7 +149,7 @@ local function LoadSkin()
 
 	local OrderHallMissionFrame = _G.OrderHallMissionFrame
 	if OrderHallMissionFrame.backdrop then OrderHallMissionFrame.backdrop:Hide() end
-	MERS:CreateBD(OrderHallMissionFrame, .25)
+	module:CreateBD(OrderHallMissionFrame, .25)
 	OrderHallMissionFrame:Styling()
 
 	 --Missions
@@ -162,7 +161,7 @@ local function LoadSkin()
 	for i = 1, 10 do
 		select(i, MissionPage.RewardsFrame:GetRegions()):Hide()
 	end
-	MERS:CreateBD(MissionPage.RewardsFrame, .25)
+	module:CreateBD(MissionPage.RewardsFrame, .25)
 
 	-- [[ BFA Mission UI]]
 	local BFAMissionFrame = _G.BFAMissionFrame
@@ -185,9 +184,9 @@ local function LoadSkin()
 	_G.CombatLog:DisableDrawLayer("BACKGROUND")
 	_G.CombatLog.ElevatedFrame:SetAlpha(0)
 	_G.CombatLog.CombatLogMessageFrame:StripTextures()
-	MERS:CreateBDFrame(_G.CombatLog.CombatLogMessageFrame, .25)
+	module:CreateBDFrame(_G.CombatLog.CombatLogMessageFrame, .25)
 
-	local bg = MERS:CreateBDFrame(CovenantMissionFrame.FollowerTab, .25)
+	local bg = module:CreateBDFrame(CovenantMissionFrame.FollowerTab, .25)
 	bg:SetPoint("TOPLEFT", 3, 2)
 	bg:SetPoint("BOTTOMRIGHT", -3, -10)
 	CovenantMissionFrame.FollowerTab.RaisedFrameEdges:SetAlpha(0)
@@ -195,7 +194,7 @@ local function LoadSkin()
 	_G.CovenantMissionFrameFollowers.ElevatedFrame:SetAlpha(0)
 	_G.CovenantMissionFrameFollowersListScrollFrameScrollBar:DisableDrawLayer("BACKGROUND")
 	_G.CovenantMissionFrameFollowersListScrollFrameScrollBar:CreateBackdrop('Transparent')
-	MERS:CreateGradient(_G.CovenantMissionFrameFollowersListScrollFrameScrollBar.backdrop)
+	module:CreateGradient(_G.CovenantMissionFrameFollowersListScrollFrameScrollBar.backdrop)
 end
 
-S:AddCallbackForAddon("Blizzard_GarrisonUI", "mUIGarrison", LoadSkin)
+module:AddCallbackForAddon("Blizzard_GarrisonUI")

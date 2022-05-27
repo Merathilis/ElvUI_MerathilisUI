@@ -10,7 +10,6 @@ local CreateFrame = CreateFrame
 local CreateAnimationGroup = CreateAnimationGroup
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local UIFrameFadeIn = UIFrameFadeIn
-local IsAddOnLoaded = IsAddOnLoaded
 
 -- Credit for the Class logos: ADDOriN @DevianArt
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos

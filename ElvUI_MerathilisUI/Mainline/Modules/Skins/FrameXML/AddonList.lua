@@ -1,9 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 
-local function LoadSkin()
+function module:AddonList()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.addonManager ~= true or E.private.mui.skins.blizzard.addonManager ~= true then return end
 
 	local AddonList = _G.AddonList
@@ -12,4 +12,4 @@ local function LoadSkin()
 	_G.AddonCharacterDropDown:SetWidth(170)
 end
 
-S:AddCallback("mUIAddonManager", LoadSkin)
+module:AddCallback("AddonList")

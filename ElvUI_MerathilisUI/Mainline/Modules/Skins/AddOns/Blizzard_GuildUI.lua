@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 
@@ -26,7 +26,7 @@ local function updateLevelString(view)
 	end
 end
 
-local function LoadSkin()
+function module:Blizzard_GuildUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guild ~= true or E.private.mui.skins.blizzard.guild ~= true then return end
 
 	_G.GuildFrame:Styling()
@@ -63,4 +63,4 @@ local function LoadSkin()
 	hooksecurefunc("GuildRoster_SetView", updateLevelString)
 end
 
-S:AddCallbackForAddon("Blizzard_GuildUI", "mUIGuild", LoadSkin)
+module:AddCallbackForAddon("Blizzard_GuildUI")

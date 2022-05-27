@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local select = select
@@ -9,10 +8,13 @@ local GetAchievementInfo = GetAchievementInfo
 local GetAchievementNumCriteria = GetAchievementNumCriteria
 local hooksecurefunc = hooksecurefunc
 
-local function LoadSkin()
+function module:Blizzard_AchievementUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.mui.skins.blizzard.achievement ~= true then return end
 
-	_G.AchievementFrame.backdrop:Styling()
+	if not _G.AchievementFrame.backdrop then
+		_G.AchievementFrame:CreateBackdrop('Transparent')
+		_G.AchievementFrame.backdrop:Styling()
+	end
 	MER:CreateBackdropShadow(_G.AchievementFrame)
 
 	-- Hide the ElvUI default backdrop
@@ -23,7 +25,7 @@ local function LoadSkin()
 	for i = 1, 7 do
 		local bu = _G["AchievementFrameAchievementsContainerButton"..i]
 		if bu.backdrop then
-			MERS:CreateGradient(bu.backdrop)
+			module:CreateGradient(bu.backdrop)
 		end
 	end
 
@@ -63,7 +65,7 @@ local function LoadSkin()
 			local bu = _G["AchievementFrameSummaryAchievement"..i]
 			if not bu.reskinned then
 				if bu.backdrop then
-					MERS:CreateGradient(bu.backdrop)
+					module:CreateGradient(bu.backdrop)
 				end
 				bu.reskinned = true
 			end
@@ -83,4 +85,4 @@ local function LoadSkin()
 	_G.AchievementFrame.searchBox:SetSize(100, 20)
 end
 
-S:AddCallbackForAddon("Blizzard_AchievementUI", "mUIAchievement", LoadSkin)
+module:AddCallbackForAddon("Blizzard_AchievementUI")

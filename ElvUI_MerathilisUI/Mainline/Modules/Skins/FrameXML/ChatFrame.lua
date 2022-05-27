@@ -1,17 +1,16 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local pairs = pairs
 
-local function LoadSkin()
+function module:ChatFrame()
 	if E.private.chat.enable ~= true then return; end
 
 	local VoiceChatPromptActivateChannel = _G["VoiceChatPromptActivateChannel"]
-	MERS:CreateBD(VoiceChatPromptActivateChannel)
+	module:CreateBD(VoiceChatPromptActivateChannel)
 	VoiceChatPromptActivateChannel:Styling()
-	MERS:CreateBD(_G.VoiceChatChannelActivatedNotification)
+	module:CreateBD(_G.VoiceChatChannelActivatedNotification)
 	_G.VoiceChatChannelActivatedNotification:Styling()
 
 	-- Revert my Styling function on these buttons
@@ -51,4 +50,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallback("mUIChat", LoadSkin)
+module:AddCallback("ChatFrame")

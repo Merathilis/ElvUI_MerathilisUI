@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local select = select
 
-local function LoadSkin()
+function module:Blizzard_AlliedRacesUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alliedRaces ~= true or E.private.mui.skins.blizzard.AlliedRaces ~= true then return end
 
 	local AlliedRacesFrame = _G.AlliedRacesFrame
@@ -38,4 +38,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_AlliedRacesUI", "mUIAlliedRaces", LoadSkin)
+module:AddCallbackForAddon("Blizzard_AlliedRacesUI")

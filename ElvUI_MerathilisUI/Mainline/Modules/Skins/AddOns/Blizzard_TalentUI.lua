@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -19,8 +18,8 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.mui.skins.blizzard.talent ~= true then return; end
+function module:Blizzard_TalentUI()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or not E.private.mui.skins.blizzard.talent then return; end
 
 	_G.PlayerTalentFrame:Styling()
 	MER:CreateShadow(_G.PlayerTalentFrame)
@@ -47,7 +46,7 @@ local function LoadSkin()
 		for j = 1, _G.NUM_TALENT_COLUMNS do
 			local bu = row['talent'..j]
 			if bu.bg then
-				MERS:CreateGradient(bu.bg)
+				module:CreateGradient(bu.bg)
 				bu.bg:SetTemplate("Transparent")
 				bu.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
 			end
@@ -129,7 +128,7 @@ local function LoadSkin()
 				if not frame.styled then
 					frame.ring:Hide()
 					frame.icon:SetTexCoord(unpack(E.TexCoords))
-					MERS:CreateBG(frame.icon)
+					module:CreateBG(frame.icon)
 
 					frame.styled = true
 				end
@@ -155,7 +154,7 @@ local function LoadSkin()
 
 			if bu and bu.backdrop then
 				bu.backdrop:SetTemplate("Transparent")
-				MERS:CreateGradient(bu.backdrop)
+				module:CreateGradient(bu.backdrop)
 			end
 
 			local roleIcon = bu.roleIcon
@@ -226,4 +225,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_TalentUI", "mUITalents", LoadSkin)
+module:AddCallbackForAddon("Blizzard_TalentUI")

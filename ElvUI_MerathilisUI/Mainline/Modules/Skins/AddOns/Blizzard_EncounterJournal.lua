@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
+local S = E.Skins
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -103,7 +103,6 @@ local function SkinAbilitiesInfo()
 	end
 end
 
-
 local function resultOnEnter(self)
 	self.hl:Show()
 end
@@ -140,7 +139,7 @@ local function styleSearchButton(result, index)
 	if result.icon then
 		result:GetRegions():Hide() -- icon frame
 		result.icon:SetTexCoord(unpack(E.TexCoords))
-		local bg = MERS:CreateBG(result.icon)
+		local bg = module:CreateBG(result.icon)
 		bg:SetDrawLayer("BACKGROUND", 1)
 	end
 
@@ -161,7 +160,7 @@ local function listInstances()
 		bu:SetPushedTexture("")
 		bu.bgImage:SetDrawLayer("BACKGROUND", 1)
 
-		local bg = MERS:CreateBG(bu.bgImage)
+		local bg = module:CreateBG(bu.bgImage)
 		bg:SetPoint("TOPLEFT", 3, -3)
 		bg:SetPoint("BOTTOMRIGHT", -4, 2)
 		index = index + 1
@@ -177,12 +176,12 @@ local function SkinEJButton(button)
 	select(6, button:GetRegions()):Hide()
 end
 
-local function LoadSkin()
+function module:Blizzard_EncounterJournal()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.mui.skins.blizzard.encounterjournal ~= true then return end
 
 	local EncounterJournal = _G.EncounterJournal
 	EncounterJournal:Styling()
-	MER:CreateShadow(EncounterJournal)
+	MER:CreateBackdropShadow(EncounterJournal)
 
 	if EncounterJournal.navBar.backdrop then
 		EncounterJournal.navBar.backdrop:Hide()
@@ -233,7 +232,7 @@ local function LoadSkin()
 					result.resultType:SetTextColor(1, 1, 1)
 					result.path:SetTextColor(1, 1, 1)
 
-					MERS:CreateBG(result.icon)
+					module:CreateBG(result.icon)
 
 					result.styled = true
 				end
@@ -308,7 +307,7 @@ local function LoadSkin()
 
 		item.icon:SetTexCoord(unpack(E.TexCoords))
 		item.icon:SetDrawLayer("OVERLAY")
-		MERS:CreateBG(item.icon)
+		module:CreateBG(item.icon)
 
 		if item.backdrop then
 			item.backdrop:Hide()
@@ -318,14 +317,14 @@ local function LoadSkin()
 		bg:SetPoint("TOPLEFT")
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(item:GetFrameLevel() - 1)
-		MERS:CreateBD(bg, .25)
+		module:CreateBD(bg, .25)
 
-		MERS:CreateGradient(bg)
+		module:CreateGradient(bg)
 	end
 
 	info.model.dungeonBG:Hide()
 	_G.EncounterJournalEncounterFrameInfoModelFrameShadow:Hide()
-	MERS:CreateBDFrame(_G.EncounterJournalEncounterFrameInfoModelFrame, .25)
+	module:CreateBDFrame(_G.EncounterJournalEncounterFrameInfoModelFrame, .25)
 
 	-- [[ Encounter Info Frame ]]
 	local EncounterInfo = EncounterJournal.encounter.info
@@ -370,8 +369,8 @@ local function LoadSkin()
 
 		suggestion.bg:Hide()
 
-		MERS:CreateBD(suggestion, .25)
-		MERS:CreateGradient(suggestion)
+		module:CreateBD(suggestion, .25)
+		module:CreateGradient(suggestion)
 
 		suggestion.icon:SetPoint("TOPLEFT", 135, -15)
 
@@ -392,8 +391,8 @@ local function LoadSkin()
 
 			suggestion.bg:Hide()
 
-			MERS:CreateBD(suggestion, .25)
-			MERS:CreateGradient(suggestion)
+			module:CreateBD(suggestion, .25)
+			module:CreateGradient(suggestion)
 
 			suggestion.icon:SetPoint("TOPLEFT", 10, -10)
 
@@ -495,7 +494,7 @@ local function LoadSkin()
 				button.Background:Hide()
 				if not button.backdrop then
 					button:CreateBackdrop('Transparent')
-					MERS:CreateGradient(button.backdrop)
+					module:CreateGradient(button.backdrop)
 				end
 
 				button.styled = true
@@ -504,4 +503,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_EncounterJournal", "mUIEncounterJournal", LoadSkin)
+module:AddCallbackForAddon("Blizzard_EncounterJournal")

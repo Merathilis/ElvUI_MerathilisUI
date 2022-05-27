@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 
-local function LoadSkin()
+function module:Blizzard_OrderHallUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.mui.skins.blizzard.orderhall ~= true then return end
 
 	local OrderHallTalentFrame = _G.OrderHallTalentFrame
@@ -27,4 +27,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_OrderHallUI", "mUIOrderHall", LoadSkin)
+module:AddCallbackForAddon("Blizzard_OrderHallUI")

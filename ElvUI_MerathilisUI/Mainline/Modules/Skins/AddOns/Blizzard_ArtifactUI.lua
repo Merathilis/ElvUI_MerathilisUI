@@ -1,11 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local select = select
 local hooksecurefunc = hooksecurefunc
 
-local function LoadSkin()
+function module:Blizzard_ArtifactUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.artifact ~= true or E.private.mui.skins.blizzard.artifact ~= true then return end
 
 	_G.ArtifactFrame:Styling()
@@ -69,4 +69,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_ArtifactUI", "mUIArtifact", LoadSkin)
+module:AddCallbackForAddon("Blizzard_ArtifactUI")

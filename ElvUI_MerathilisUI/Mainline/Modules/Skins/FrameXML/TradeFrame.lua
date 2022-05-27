@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local unpack = unpack
@@ -19,8 +18,8 @@ local function ReskinButton(bu)
 	bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 end
 
-local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.trade ~= true or E.private.mui.skins.blizzard.trade ~= true then return end
+function module:TradeFrame()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.trade ~= true or not E.private.mui.skins.blizzard.trade then return end
 
 	local TradeFrame = _G.TradeFrame
 	TradeFrame:Styling()
@@ -35,9 +34,9 @@ local function LoadSkin()
 		_G["TradeRecipientItem"..i.."NameFrame"]:Hide()
 
 		if _G["TradePlayerItem"..i.."ItemButton"].bg then _G["TradePlayerItem"..i.."ItemButton"].bg:SetTemplate("Transparent") end
-		if _G["TradePlayerItem"..i.."ItemButton"].bg then MERS:CreateGradient(_G["TradePlayerItem"..i.."ItemButton"].bg) end
+		if _G["TradePlayerItem"..i.."ItemButton"].bg then module:CreateGradient(_G["TradePlayerItem"..i.."ItemButton"].bg) end
 		if _G["TradeRecipientItem"..i.."ItemButton"].bg then _G["TradeRecipientItem"..i.."ItemButton"].bg:SetTemplate("Transparent") end
-		if _G["TradeRecipientItem"..i.."ItemButton"].bg then MERS:CreateGradient(_G["TradeRecipientItem"..i.."ItemButton"].bg) end
+		if _G["TradeRecipientItem"..i.."ItemButton"].bg then module:CreateGradient(_G["TradeRecipientItem"..i.."ItemButton"].bg) end
 
 		ReskinButton(_G["TradePlayerItem"..i.."ItemButton"])
 		ReskinButton(_G["TradeRecipientItem"..i.."ItemButton"])
@@ -64,4 +63,4 @@ local function LoadSkin()
 	hooksecurefunc("TradeFrame_Update", UpdateColor)
 end
 
-S:AddCallback("mUITradeFrame", LoadSkin)
+module:AddCallback("TradeFrame")
