@@ -99,7 +99,7 @@ function MER:CheckVersion()
 		return
 	end
 
-	if not E.global.mui.version or E.global.mui.version ~= MER.Version then
+	if self.showChangeLog then
 		MER:ToggleChangeLog()
 	end
 

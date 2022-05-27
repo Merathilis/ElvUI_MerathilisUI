@@ -28,6 +28,11 @@ function MER:UpdateScripts() -- DB Convert
 	local profileVersion = tonumber(E.db.mui.version or globalVersion) -- Version in ElvUI Profile
 	local privateVersion = tonumber(E.private.mui.version or globalVersion) -- Version in ElvUI Private
 
+	-- changelog display
+	if globalVersion == 0 or globalVersion ~= currentVersion then
+		self.showChangeLog = true
+	end
+
 	if globalVersion == currentVersion and profileVersion == currentVersion and privateVersion == currentVersion then
 		return
 	end
