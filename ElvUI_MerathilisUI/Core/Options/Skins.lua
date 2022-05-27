@@ -106,7 +106,7 @@ options.widgets = {
 				desc = {
 					order = 1,
 					type = "description",
-					name = L["These skins will affect all widgets handled by ElvUI Skins."],
+					name = MER.InfoColor..L["These skins will affect all widgets handled by ElvUI Skins."],
 					width = "full",
 					fontSize = "medium"
 				},
@@ -1056,7 +1056,7 @@ options.blizzard = {
 		info = {
 			order = 1,
 			type = "description",
-			name = L["MER_SKINS_DESC"],
+			name = MER.InfoColor..L["MER_SKINS_DESC"],
 		},
 		space = {
 			order = 2,
@@ -1471,7 +1471,7 @@ options.addonskins = {
 		info = {
 			order = 1,
 			type = "description",
-			name = L["MER_ADDONSKINS_DESC"],
+			name = MER.InfoColor..L["MER_ADDONSKINS_DESC"],
 		},
 		space = {
 			order = 2,
@@ -1501,7 +1501,7 @@ options.profiles = {
 		info = {
 			order = 1,
 			type = "description",
-			name = L["MER_PROFILE_DESC"],
+			name = MER.InfoColor..L["MER_PROFILE_DESC"],
 		}
 	},
 }

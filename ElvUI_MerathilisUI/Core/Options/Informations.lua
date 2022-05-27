@@ -185,8 +185,18 @@ options.reset = {
 			type = "header",
 			name = F.cOption(L["Reset"], 'orange'),
 		},
-		armory = {
+		desc = {
 			order = 1,
+			type = "description",
+			name = MER.InfoColor..L["This section will help reset specfic settings back to default."],
+		},
+		spacer = {
+			order = 2,
+			type = "description",
+			name = ' ',
+		},
+		armory = {
+			order = 3,
 			type = "execute",
 			name = L["Armory"],
 			func = function()
@@ -196,7 +206,7 @@ options.reset = {
 			end
 		},
 		autoButtons = {
-			order = 2,
+			order = 4,
 			type = "execute",
 			name = L["AutoButtons"],
 			func = function()
@@ -206,7 +216,7 @@ options.reset = {
 			end
 		},
 		locPanel = {
-			order = 3,
+			order = 5,
 			type = "execute",
 			name = L["Location Panel"],
 			func = function()
@@ -216,7 +226,7 @@ options.reset = {
 			end
 		},
 		microBar = {
-			order = 4,
+			order = 6,
 			type = "execute",
 			name = L["Micro Bar"],
 			func = function()
@@ -226,7 +236,7 @@ options.reset = {
 			end
 		},
 		cooldownFlash = {
-			order = 5,
+			order = 7,
 			type = "execute",
 			name = L["Cooldown Flash"],
 			func = function()
@@ -235,7 +245,7 @@ options.reset = {
 				end)
 			end
 		},
-		spacer = {
+		spacer1 = {
 			order = 20,
 			type = "description",
 			name = ' ',
