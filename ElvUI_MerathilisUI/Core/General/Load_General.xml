@@ -9,6 +9,7 @@
 	<Script file="StatusReport.lua"/>
 	<Script file="Tags.lua"/>
 	<Include file="AddonProfiles\Load_AddonProfiles.xml"/>
+	<Script file="Update.lua"/>
 	<Include file="FunStuff.xml"/>
 	<Script file="FunStuff.lua"/>
 </Ui>

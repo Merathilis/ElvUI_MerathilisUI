@@ -2,11 +2,18 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 local _G = _G
 local format = string.format
-local ipairs, print, pairs = ipairs, print, pairs
+local print, pairs = print, pairs
 local pcall = pcall
 local tinsert = table.insert
 
 local GetAddOnEnableState = GetAddOnEnableState
+
+MER.dummy = function() return end
+MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
+MER.ElvUIV = tonumber(E.version)
+MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
+MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 
 -- Masque support
 MER.MSQ = _G.LibStub('Masque', true)
@@ -60,6 +67,7 @@ function MER:InitializeModules()
 end
 
 function MER:UpdateModules()
+	self:UpdateScripts()
 	for _, moduleName in pairs(MER.RegisteredModules) do
 		local module = MER:GetModule(moduleName)
 		if module.ProfileUpdate then
@@ -77,14 +85,20 @@ function MER:IsAddOnEnabled(addon) -- Credit: Azilroka
 	return GetAddOnEnableState(E.myname, addon) == 2
 end
 
-function MER:CheckVersion()
+function MER:CheckElvUIVersion()
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
 		E:StaticPopup_Show("VERSION_MISMATCH")
-		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
+		return false-- If ElvUI Version is outdated stop right here. So things don't get broken.
+	end
+	return true
+end
+
+function MER:CheckVersion()
+	if InCombatLockdown() then
+		return
 	end
 
-	self:DBConvert()
 	self:AddMoverCategories()
 
 	-- Create empty saved vars if they doesn't exist
@@ -96,7 +110,9 @@ function MER:CheckVersion()
 		MERDataPerChar = {}
 	end
 
-	E:Delay(6, function() MER:ChangeLog() end)
+	if not E.global.mui.version or E.global.mui.version ~= MER.Version then
+		E:Delay(6, function() MER:ChangeLog() end)
+	end
 
 	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
