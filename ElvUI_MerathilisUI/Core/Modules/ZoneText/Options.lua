@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local options = MER.options.media.args
 local module = MER:GetModule('MER_ZoneText')
+local LSM = E.LSM
 
 options.general = {
 	order = 1,
@@ -65,7 +66,7 @@ options.general = {
 							type = "select", dialogControl = "LSM30_Font",
 							order = 1,
 							name = L["Font"],
-							values = AceGUIWidgetLSMlists.font,
+							values = LSM:HashTable("font"),
 						},
 						size = {
 							order = 2,
@@ -100,7 +101,7 @@ options.general = {
 							type = "select", dialogControl = "LSM30_Font",
 							order = 1,
 							name = L["Font"],
-							values = AceGUIWidgetLSMlists.font,
+							values = LSM:HashTable("font"),
 						},
 						size = {
 							order = 2,
@@ -135,7 +136,7 @@ options.general = {
 							type = "select", dialogControl = "LSM30_Font",
 							order = 1,
 							name = L["Font"],
-							values = AceGUIWidgetLSMlists.font,
+							values = LSM:HashTable("font"),
 						},
 						size = {
 							order = 2,
@@ -184,7 +185,7 @@ options.general = {
 							type = "select", dialogControl = "LSM30_Font",
 							order = 1,
 							name = L["Font"],
-							values = AceGUIWidgetLSMlists.font,
+							values = LSM:HashTable("font"),
 							disabled = function() return not E.db.mui.media.miscText.mail.enable end,
 						},
 						size = {
@@ -228,7 +229,7 @@ options.general = {
 							type = "select", dialogControl = "LSM30_Font",
 							order = 1,
 							name = L["Font"],
-							values = AceGUIWidgetLSMlists.font,
+							values = LSM:HashTable("font"),
 							disabled = function() return not E.db.mui.media.miscText.gossip.enable end,
 						},
 						size = {
@@ -273,7 +274,7 @@ options.general = {
 							order = 1,
 							name = L["Font"],
 							desc = "The font used for chat editbox",
-							values = AceGUIWidgetLSMlists.font,
+							values = LSM:HashTable("font"),
 							disabled = function() return not E.db.mui.media.miscText.questFontSuperHuge.enable end,
 						},
 						size = {

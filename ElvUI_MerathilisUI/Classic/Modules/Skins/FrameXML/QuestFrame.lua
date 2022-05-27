@@ -34,7 +34,9 @@ function module:LoadSkin()
 	MER.NPC:Register(QuestFrame)
 
 	local QuestLogFrame = _G.QuestLogFrame
-	QuestLogFrame.backdrop:Styling()
+	if QuestLogFrame.backdrop then
+		QuestLogFrame.backdrop:Styling()
+	end
 	MER:CreateBackdropShadow(QuestLogFrame)
 
 	hooksecurefunc('QuestWatch_Update', CreateHeaderPanels)

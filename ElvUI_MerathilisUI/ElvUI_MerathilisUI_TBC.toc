@@ -1,6 +1,6 @@
 ## Interface: 20504
 ## Author: Merathilis
-## Version: 4.99
+## Version: 4.991
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.

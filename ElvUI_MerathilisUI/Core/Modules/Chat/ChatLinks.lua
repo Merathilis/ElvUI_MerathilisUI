@@ -15,7 +15,7 @@ local GetItemInfoInstant = GetItemInfoInstant
 local GetPvpTalentInfoByID = GetPvpTalentInfoByID
 local GetSpellTexture = GetSpellTexture
 local GetTalentInfoByID = GetTalentInfoByID
-local C_ChallengeMode_GetMapUIInfo = C_ChallengeMode.GetMapUIInfo
+local C_ChallengeMode_GetMapUIInfo = E.Retail and C_ChallengeMode.GetMapUIInfo
 local C_Item_GetItemNameByID = C_Item.GetItemNameByID
 
 local ICON_STRING = "|T%s:16:18:0:0:64:64:4:60:7:57:255:255:255|t"

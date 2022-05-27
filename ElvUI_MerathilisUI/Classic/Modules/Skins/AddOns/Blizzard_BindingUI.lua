@@ -23,7 +23,9 @@ function module:Blizzard_BindingUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or not E.private.mui.skins.blizzard.binding then return end
 
 	local KeyBindingFrame = _G.KeyBindingFrame
-	KeyBindingFrame.backdrop:Styling()
+	if KeyBindingFrame.backdrop then
+		KeyBindingFrame.backdrop:Styling()
+	end
 	MER:CreateBackdropShadow(KeyBindingFrame)
 
 	for i = 1, _G.KEY_BINDINGS_DISPLAYED do

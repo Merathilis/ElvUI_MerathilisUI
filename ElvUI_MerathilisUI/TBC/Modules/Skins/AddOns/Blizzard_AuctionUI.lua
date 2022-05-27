@@ -7,7 +7,9 @@ function module:Blizzard_AuctionUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.auctionhouse ~= true or E.private.mui.skins.blizzard.auctionhouse ~= true then return end
 
 	local AuctionFrame = _G.AuctionFrame
-	AuctionFrame.backdrop:Styling()
+	if AuctionFrame.backdrop then
+		AuctionFrame.backdrop:Styling()
+	end
 	MER:CreateBackdropShadow(AuctionFrame)
 end
 
