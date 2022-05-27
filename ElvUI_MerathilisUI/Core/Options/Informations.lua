@@ -185,8 +185,18 @@ options.reset = {
 			type = "header",
 			name = F.cOption(L["Reset"], 'orange'),
 		},
-		autoButtons = {
+		armory = {
 			order = 1,
+			type = "execute",
+			name = L["Armory"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["AutoButtons"], nil, function()
+					E:CopyTable(E.db.mui.armory, P.armory)
+				end)
+			end
+		},
+		autoButtons = {
+			order = 2,
 			type = "execute",
 			name = L["AutoButtons"],
 			func = function()
@@ -195,8 +205,18 @@ options.reset = {
 				end)
 			end
 		},
+		locPanel = {
+			order = 3,
+			type = "execute",
+			name = L["Location Panel"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["AutoButtons"], nil, function()
+					E:CopyTable(E.db.mui.locPanel, P.locPanel)
+				end)
+			end
+		},
 		microBar = {
-			order = 2,
+			order = 4,
 			type = "execute",
 			name = L["Micro Bar"],
 			func = function()
@@ -206,7 +226,7 @@ options.reset = {
 			end
 		},
 		cooldownFlash = {
-			order = 3,
+			order = 5,
 			type = "execute",
 			name = L["Cooldown Flash"],
 			func = function()
