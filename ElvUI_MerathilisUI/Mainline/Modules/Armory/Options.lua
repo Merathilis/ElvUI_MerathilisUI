@@ -156,7 +156,7 @@ options.armory = {
 							type = 'range',
 							name = L["Font Size"],
 							order = 2,
-							min = 6,max = 22,step = 1,
+							min = 6, max = 22, step = 1,
 						},
 						outline = {
 							type = 'select',
@@ -184,7 +184,7 @@ options.armory = {
 							type = 'range',
 							name = L["Font Size"],
 							order = 2,
-							min = 6,max = 22,step = 1,
+							min = 6, max = 22, step = 1,
 						},
 						outline = {
 							type = 'select',
