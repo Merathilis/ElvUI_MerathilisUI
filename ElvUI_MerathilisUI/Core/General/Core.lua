@@ -99,20 +99,11 @@ function MER:CheckVersion()
 		return
 	end
 
-	self:AddMoverCategories()
-
-	-- Create empty saved vars if they doesn't exist
-	if not MERData then
-		MERData = {}
-	end
-
-	if not MERDataPerChar then
-		MERDataPerChar = {}
-	end
-
 	if not E.global.mui.version or E.global.mui.version ~= MER.Version then
-		E:Delay(6, function() MER:ChangeLog() end)
+		MER:ToggleChangeLog()
 	end
+
+	self:AddMoverCategories()
 
 	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
