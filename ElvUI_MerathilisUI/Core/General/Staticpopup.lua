@@ -71,3 +71,28 @@ E.PopupDialogs["LIVVEN_MER_INCOMPATIBLE"] = {
 	whileDead = 1,
 	hideOnEscape = false,
 }
+
+E.PopupDialogs.MERATHILISUI_RESET_MODULE = {
+	text = L["Are you sure you want to reset %s module?"],
+	button1 = _G.ACCEPT,
+	button2 = _G.CANCEL,
+	OnAccept = function(_, func)
+		func()
+		ReloadUI()
+	end,
+	whileDead = 1,
+	hideOnEscape = true
+}
+
+E.PopupDialogs.MERATHILISUI_RESET_ALL_MODULES = {
+	text = format(L["Reset all %s modules."], MER.Title),
+	button1 = _G.ACCEPT,
+	button2 = _G.CANCEL,
+	OnAccept = function()
+		E.db.mui = P
+		E.private.mui = V
+		ReloadUI()
+	end,
+	whileDead = 1,
+	hideOnEscape = true
+}

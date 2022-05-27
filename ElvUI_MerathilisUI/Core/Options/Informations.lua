@@ -174,3 +174,60 @@ options.name.args.coding = {
 		},
 	},
 }
+
+options.reset = {
+	order = 2,
+	type = "group",
+	name = E.NewSign..F.cOption(L["Reset"], 'orange'),
+	args = {
+		header = {
+			order = 0,
+			type = "header",
+			name = F.cOption(L["Reset"], 'orange'),
+		},
+		autoButtons = {
+			order = 1,
+			type = "execute",
+			name = L["AutoButtons"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["AutoButtons"], nil, function()
+					E:CopyTable(E.db.mui.autoButtons, P.autoButtons)
+				end)
+			end
+		},
+		microBar = {
+			order = 2,
+			type = "execute",
+			name = L["Micro Bar"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Micro Bar"], nil, function()
+					E:CopyTable(E.db.mui.microBar, P.microBar)
+				end)
+			end
+		},
+		cooldownFlash = {
+			order = 3,
+			type = "execute",
+			name = L["Cooldown Flash"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Micro Bar"], nil, function()
+					E:CopyTable(E.db.mui.cooldownFlash, P.cooldownFlash)
+				end)
+			end
+		},
+		spacer = {
+			order = 20,
+			type = "description",
+			name = ' ',
+		},
+		resetAllModules = {
+			order = 21,
+			type = "execute",
+			name = L["Reset All Modules"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_ALL_MODULES")
+			end,
+			width = "full"
+		},
+	},
+}

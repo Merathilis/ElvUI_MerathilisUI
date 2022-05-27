@@ -127,6 +127,9 @@ L["Here you can download the latest development version."] = "您可以从这里
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = "你能在这里找到所有不同的选项 |cffffffffMerathilis|r|cffff8000UI|r 模块."
+L["Are you sure you want to reset %s module?"] = "你确定要重置 %s 模块么?"
+L["Reset All Modules"] = "重置全部模块"
+L["Reset all %s modules."] = "重置全部 %s 模块."
 
 -- GameMenu
 L["GameMenu"] = "游戏菜单"

@@ -124,6 +124,9 @@ L["Here you can download the latest development version."] = true
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = true
+L["Are you sure you want to reset %s module?"] = "%s 모듈을 재설정하시겠습니까?"
+L["Reset All Modules"] = "모든 모듈 리셋"
+L["Reset all %s modules."] = "모든 %s 모듈을 리셋합니다."
 
 -- GameMenu
 L["GameMenu"] = true

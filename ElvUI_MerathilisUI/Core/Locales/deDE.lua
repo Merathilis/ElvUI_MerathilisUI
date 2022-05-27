@@ -128,6 +128,9 @@ L["Here you can download the latest development version."] = "Hier findest du de
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffffffffMerathilis|r|cffff8000UI|r Modulen."
+L["Are you sure you want to reset %s module?"] = "Bist Du sicher, dass Du das %s Modul zurücksetzen möchtest?"
+L["Reset All Modules"] = "Alle Module zurücksetzen"
+L["Reset all %s modules."] = "Setze alle %s Module zurück."
 
 -- GameMenu
 L["GameMenu"] = "Spielmenü"
