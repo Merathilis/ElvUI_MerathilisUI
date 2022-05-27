@@ -55,13 +55,13 @@ function module:HandleCheckBox(_, check)
 				tex:SetTexture(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
 				tex.SetTexture = E.noop
 				F.SetVertexColorDB(tex, db.classColor and module.ClassColor or db.color)
-				tex.SetVertexColor_ = tex.SetVertexColor
+				tex.SetVertexColor_Changed = tex.SetVertexColor
 				tex.SetVertexColor = function(tex, ...)
 					if self.IsUglyYellow(...) then
 						local color = db.classColor and module.ClassColor or db.color
-						tex:SetVertexColor_(color.r, color.g, color.b, color.a)
+						tex:SetVertexColor_Changed(color.r, color.g, color.b, color.a)
 					else
-						tex:SetVertexColor_(...)
+						tex:SetVertexColor_Changed(...)
 					end
 				end
 			end
@@ -70,16 +70,16 @@ function module:HandleCheckBox(_, check)
 		if check.GetDisabledTexture then
 			local tex = check:GetDisabledTexture()
 			if tex then
-				tex.SetTexture_ = tex.SetTexture
+				tex.SetTexture_Changed = tex.SetTexture
 				tex.SetTexture = function(tex, texPath)
 					if not texPath then
 						return
 					end
 
 					if texPath == "" then
-						tex:SetTexture_("")
+						tex:SetTexture_Changed("")
 					else
-						tex:SetTexture_(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
+						tex:SetTexture_Changed(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
 					end
 				end
 			end

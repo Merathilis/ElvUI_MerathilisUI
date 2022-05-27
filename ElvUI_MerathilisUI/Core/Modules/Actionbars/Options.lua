@@ -4,6 +4,7 @@ local options = MER.options.modules.args
 options.actionbars = {
 	type = "group",
 	name = F.cOption(L["ActionBars"], 'orange'),
+	hidden = not E.Retail,
 	args = {
 		header = {
 			order = 1,

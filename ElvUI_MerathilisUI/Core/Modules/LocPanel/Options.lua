@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_LocPanel')
 local options = MER.options.modules.args
+local LSM = E.LSM
 
 local ceil = math.ceil
 local format = string.format
@@ -317,7 +318,7 @@ options.locPanel = {
 							type = "select", dialogControl = "LSM30_Font",
 							order = 1,
 							name = L["Font"],
-							values = AceGUIWidgetLSMlists.font,
+							values = LSM:HashTable("font"),
 						},
 						fontSize = {
 							order = 2,

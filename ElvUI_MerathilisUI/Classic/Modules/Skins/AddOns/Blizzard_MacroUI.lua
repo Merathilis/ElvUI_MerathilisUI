@@ -7,7 +7,9 @@ function module:Blizzard_MacroUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.macro ~= true or E.private.mui.skins.blizzard.macro ~= true then return end
 
 	local MacroFrame = _G.MacroFrame
-	MacroFrame.backdrop:Styling()
+	if MacroFrame.backdrop then
+		MacroFrame.backdrop:Styling()
+	end
 	MER:CreateBackdropShadow(_G.MacroFrame)
 
 	_G.MacroPopupFrame:Styling()

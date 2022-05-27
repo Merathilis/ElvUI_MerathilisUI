@@ -20,7 +20,9 @@ function module:FriendsFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or not E.private.mui.skins.blizzard.friends then return end
 
 	local FriendsFrame = _G.FriendsFrame
-	FriendsFrame.backdrop:Styling()
+	if FriendsFrame.backdrop then
+		FriendsFrame.backdrop:Styling()
+	end
 	MER:CreateBackdropShadow(FriendsFrame)
 
 	-- Animated Icon

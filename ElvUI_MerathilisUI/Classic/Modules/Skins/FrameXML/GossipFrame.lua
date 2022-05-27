@@ -12,7 +12,9 @@ function module:GossipFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or not E.private.mui.skins.blizzard.gossip then return; end
 
 	local GossipFrame = _G.GossipFrame
-	GossipFrame.backdrop:Styling()
+	if GossipFrame.backdrop then
+		GossipFrame.backdrop:Styling()
+	end
 	MER:CreateBackdropShadow(GossipFrame)
 
 	_G.GossipGreetingScrollFrame:StripTextures()
