@@ -44,12 +44,6 @@ options.misc = {
 			name = L["Wowhead Links"],
 			desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
 		},
-		respec = {
-			order = 7,
-			type = "toggle",
-			name = L["Codex Buttons"],
-			desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],
-		},
 		spellAlert = {
 			order = 10,
 			type = "range",
