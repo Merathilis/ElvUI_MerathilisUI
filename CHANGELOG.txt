@@ -1,6 +1,2 @@
-[b][color=orange]v4.99[/color], 27.05.2022[/b][list]
-[*]MASSIVE Code Cleanup. AAGAAAAAAIN
-[*]Prevent an error in Social Queue
-[*]Added a Reset Module (Information -> Reset)
-[*]Fixed some errors here and there
-[*]Options looks a bit different now![/list]
+[b][color=orange]v4.991[/color], 27.05.2022[/b][list]
+[*]Fix non Retail errors. Schoooorryyyy[/list]

@@ -8,7 +8,9 @@ function module:Blizzard_Channels()
 
 	local ChannelFrame = _G.ChannelFrame
 	ChannelFrame:StripTextures()
-	ChannelFrame.backdrop:Styling()
+	if ChannelFrame.backdrop then
+		ChannelFrame.backdrop:Styling()
+	end
 	MER:CreateBackdropShadow(ChannelFrame)
 
 	local CreateChannelPopup = _G.CreateChannelPopup

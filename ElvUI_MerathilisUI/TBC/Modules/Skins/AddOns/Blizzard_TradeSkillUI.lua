@@ -8,7 +8,9 @@ function module:Blizzard_TradeSkillUI()
 
 	-- MainFrame
 	local frame = _G.TradeSkillFrame
-	frame.backdrop:Styling()
+	if frame.backdrop then
+		frame.backdrop:Styling()
+	end
 	MER:CreateBackdropShadow(frame)
 end
 
