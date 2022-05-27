@@ -293,33 +293,6 @@ function module:Blizzard_Collections()
 	local WardrobeCollectionFrame = _G.WardrobeCollectionFrame
 	local ItemsCollectionFrame = WardrobeCollectionFrame.ItemsCollectionFrame
 
-	for index = 1, 2 do
-		local tab = _G["WardrobeCollectionFrameTab" .. index]
-		for i = 1, 6 do
-			select(i, tab:GetRegions()):SetAlpha(0)
-		end
-
-		if tab.backdrop then
-			tab.backdrop:Hide()
-		end
-
-		tab:SetHighlightTexture("")
-		tab.bg = module:CreateBDFrame(tab, .25)
-		tab.bg:SetPoint("TOPLEFT", 3, -3)
-		tab.bg:SetPoint("BOTTOMRIGHT", -3, -1)
-	end
-
-	hooksecurefunc("WardrobeCollectionFrame_SetTab", function(tabID)
-		for index = 1, 2 do
-			local tab = _G["WardrobeCollectionFrameTab" .. index]
-			if tabID == index then
-				tab.bg:SetBackdropColor(r, g, b, .45)
-			else
-				tab.bg:SetBackdropColor(0, 0, 0, .2)
-			end
-		end
-	end)
-
 	-- Progress bar
 	local progressBar = WardrobeCollectionFrame.progressBar
 	progressBar.text:SetPoint("CENTER", 0, 1)
