@@ -741,7 +741,6 @@ function MER:SetupLayout(layout)
 	E.db["mui"]["locPanel"]["template"] = "NoBackdrop"
 	E.db["mui"]["locPanel"]["colorType"] = "DEFAULT"
 	E.db["mui"]["locPanel"]["colorType_Coords"] = "CLASS"
-	E.db["mui"]["raidmarkers"]["enable"] = false
 
 	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		E.db["mui"]["pvp"]["duels"]["regular"] = true
@@ -870,7 +869,7 @@ function MER:SetupLayout(layout)
 	E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,470,1"
 	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,62"
 	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,47"
-	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-277,178"
+	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
 
 	E:StaggeredUpdateAll(nil, true)
 
