@@ -99,8 +99,6 @@ function MER:CheckVersion()
 		MER:ToggleChangeLog()
 	end
 
-	self:AddMoverCategories()
-
 	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
 	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
