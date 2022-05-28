@@ -101,6 +101,8 @@ function MER:Initialize()
 	self:UpdateScripts() -- Database need update first
 	self:InitializeModules()
 
+	self:AddMoverCategories()
+
 	EP:RegisterPlugin(addon, MER.OptionsCallback)
 	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
