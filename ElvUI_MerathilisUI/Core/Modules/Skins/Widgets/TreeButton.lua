@@ -12,7 +12,7 @@ function module:HandleTreeGroup(widget)
 		return button
 	end
 
-	if not E.private.mui.skins.widgets then
+	if not self:IsReady() then
 		self:RegisterLazyLoad(widget, "HandleTreeGroup")
 		return
 	end

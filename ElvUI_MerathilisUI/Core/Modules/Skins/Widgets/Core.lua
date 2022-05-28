@@ -104,6 +104,10 @@ module:SecureHook(S, "Ace3_RegisterAsContainer")
 
 module.LazyLoadTable = {}
 
+function module:IsReady()
+	return E.private and E.private.mui and E.private.mui.skins and E.private.mui.skins.widgets
+end
+
 function module:RegisterLazyLoad(frame, func)
 	if not frame then
 		F.DebugMessage(module, "frame is nil.")

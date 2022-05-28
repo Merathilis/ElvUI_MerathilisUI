@@ -11,7 +11,7 @@ function module:HandleButton(_, button)
 		return
 	end
 
-	if not E.private.mui.skins.widgets then
+	if not self:IsReady() then
 		self:RegisterLazyLoad(button, function()
 			self:HandleButton(nil, button)
 		end)

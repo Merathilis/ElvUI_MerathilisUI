@@ -18,7 +18,7 @@ function module:HandleTab(_, tab, noBackdrop, template)
 		return
 	end
 
-	if not E.private.mui.skins.widgets then
+	if not self:IsReady() then
 		self:RegisterLazyLoad(tab, function()
 			self:HandleTab(nil, tab)
 		end)

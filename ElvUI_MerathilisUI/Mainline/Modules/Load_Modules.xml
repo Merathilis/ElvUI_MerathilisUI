@@ -10,4 +10,5 @@
 	<Include file="Reminder\Load_Reminder.xml"/>
 	<Include file='Tooltip\Load_Tooltip.xml'/>
 	<Include file='RaidManager\Load_RaidManager.xml'/>
+	<Include file='UnitFrames\Load_Unitframes.xml'/>
 </Ui>
