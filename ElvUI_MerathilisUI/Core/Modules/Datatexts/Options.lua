@@ -4,7 +4,7 @@ local options = MER.options.modules.args
 
 options.datatexts = {
 	type = "group",
-	name = F.cOption(L["DataTexts"], 'orange'),
+	name = L["DataTexts"],
 	get = function(info) return E.db.mui.datatexts[ info[#info] ] end,
 	set = function(info, value) E.db.mui.datatexts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {

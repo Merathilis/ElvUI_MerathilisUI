@@ -5,7 +5,7 @@ local _G = _G
 
 options.tooltip = {
 	type = "group",
-	name = F.cOption(L["Tooltip"], 'orange'),
+	name = L["Tooltip"],
 	get = function(info) return E.db.mui.tooltip[info[#info]] end,
 	set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {

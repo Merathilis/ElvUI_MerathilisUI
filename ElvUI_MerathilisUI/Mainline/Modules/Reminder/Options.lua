@@ -3,7 +3,7 @@ local options = MER.options.modules.args
 
 options.reminder = {
 	type = "group",
-	name = F.cOption(L["Reminder"], 'orange'),
+	name = L["Reminder"],
 	get = function(info) return E.db.mui.reminder[ info[#info] ] end,
 	set = function(info, value) E.db.mui.reminder[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {

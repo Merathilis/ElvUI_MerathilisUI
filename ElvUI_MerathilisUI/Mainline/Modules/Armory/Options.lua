@@ -18,7 +18,7 @@ local fontStyleList = {
 
 options.armory = {
 	type = "group",
-	name = F.cOption(L["Armory"], 'orange'),
+	name = L["Armory"],
 	disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,
 	get = function(info) return E.db.mui.armory[ info[#info] ] end,
 	set = function(info, value) E.db.mui.armory[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

@@ -6,7 +6,7 @@ local format = string.format
 
 options.flightMode = {
 	type = "group",
-	name = F.cOption(L["FlightMode"], 'orange'),
+	name = L["FlightMode"],
 	get = function(info) return E.db.mui.flightMode[ info[#info] ] end,
 	set = function(info, value) E.db.mui.flightMode[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {

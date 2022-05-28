@@ -181,8 +181,10 @@ end
 
 function FlightPoints_OnEvent(self, event, ...)
 	-- WorldFlightMap don't like this, so stop right here
-	if E.db.mui.general == nil then E.db.mui.general = {} end --Prevent a rar nil error >.>
-	if E.db.mui.general.FlightPoint ~= true or IsAddOnLoaded("WorldFlightMap") then return; end
+	if not E.db.mui or not E.db.mui.general or type(E.db.mui.general) ~= 'table' then
+		E.db.mui.general = {}
+	end
+	if not E.db.mui.general.FlightPoint or IsAddOnLoaded("WorldFlightMap") then return; end
 
 	if event == "TAXIMAP_OPENED" then
 		firstshow = true

@@ -11,7 +11,7 @@ local format = string.format
 
 options.maps = {
 	type = "group",
-	name = F.cOption(L["Maps"], 'orange'),
+	name = L["Maps"],
 	get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 	set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	disabled = function() return not E.private.general.minimap.enable end,

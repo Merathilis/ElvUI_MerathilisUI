@@ -6,7 +6,7 @@ local LSM = E.LSM
 
 options.misc = {
 	type = "group",
-	name = F.cOption(L["Miscellaneous"], 'orange'),
+	name = L["Miscellaneous"],
 	get = function(info) return E.db.mui.misc[ info[#info] ] end,
 	set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {

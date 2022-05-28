@@ -4,7 +4,7 @@ local options = MER.options.general.args
 options.name = {
 	order = 1,
 	type = "group",
-	name = F.cOption(L["General"], 'orange'),
+	name = L["General"],
 	args = {
 		header = {
 			order = 1,
@@ -45,7 +45,7 @@ options.name = {
 		shadow = {
 			order = 7,
 			type = "group",
-			name = F.cOption(L["Shadows"]),
+			name = F.cOption(L["Shadows"], 'orange'),
 			guiInline = true,
 			get = function(info) return E.db.mui.general.shadow[ info[#info] ] end,
 			set = function(info, value) E.db.mui.general.shadow[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

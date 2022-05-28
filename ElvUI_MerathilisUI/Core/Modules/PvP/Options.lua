@@ -6,7 +6,7 @@ local format = string.format
 
 options.pvp = {
 	type = "group",
-	name = F.cOption(L["PVP"], 'orange'),
+	name = L["PVP"],
 	get = function(info) return E.db.mui.pvp.duels[ info[#info] ] end,
 	set = function(info, value) E.db.mui.pvp.duels[ info[#info] ] = value; end,
 	args = {

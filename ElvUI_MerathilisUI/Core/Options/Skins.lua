@@ -39,7 +39,7 @@ local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully cre
 options.general = {
 	order = 1,
 	type = 'group',
-	name = F.cOption(L["General"], 'orange'),
+	name = L["General"],
 	args = {
 		header = {
 			order = 1,
@@ -68,7 +68,7 @@ options.general = {
 options.widgets = {
 	order = 2,
 	type = "group",
-	name = E.NewSign..F.cOption(L["Widgets"], 'orange'),
+	name = E.NewSign..L["Widgets"],
 	args = {
 		header = {
 			order = 1,
@@ -1049,7 +1049,7 @@ options.widgets = {
 options.blizzard = {
 	order = 3,
 	type = "group",
-	name = F.cOption(L["Blizzard"], 'orange'),
+	name = L["Blizzard"],
 	get = function(info) return E.private.mui.skins.blizzard[ info[#info] ] end,
 	set = function(info, value) E.private.mui.skins.blizzard[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 	args = {
@@ -1464,7 +1464,7 @@ end
 options.addonskins = {
 	order = 4,
 	type = "group",
-	name = F.cOption(L["AddOnSkins"], 'orange'),
+	name = L["AddOnSkins"],
 	get = function(info) return E.private.mui.skins.addonSkins[ info[#info] ] end,
 	set = function(info, value) E.private.mui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 	args = {
@@ -1496,7 +1496,7 @@ end
 options.profiles = {
 	order = 5,
 	type = "group",
-	name = F.cOption(L["Profiles"], 'orange'),
+	name = L["Profiles"],
 	args = {
 		info = {
 			order = 1,

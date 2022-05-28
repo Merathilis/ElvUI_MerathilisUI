@@ -11,7 +11,7 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 
 options.raidmarkers = {
 	type = "group",
-	name = F.cOption(L["Raid Markers"], 'orange'),
+	name = L["Raid Markers"],
 	get = function(info) return E.db.mui.raidmarkers[ info[#info] ] end,
 	disabled = function() return (COMP.SLE and E.db.sle.raidmarkers.enable) end,
 	args = {

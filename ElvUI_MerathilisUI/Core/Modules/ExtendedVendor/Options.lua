@@ -6,7 +6,7 @@ local format = string.format
 
 options.merchant = {
 	type = "group",
-	name = F.cOption(L["Extended Vendor"], 'orange'),
+	name = L["Extended Vendor"],
 	get = function(info)
 		return E.db.mui.merchant[info[#info]]
 	end,

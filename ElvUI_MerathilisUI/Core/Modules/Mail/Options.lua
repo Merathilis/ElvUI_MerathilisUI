@@ -6,7 +6,7 @@ local pairs = pairs
 
 options.mail = {
 	type = "group",
-	name = F.cOption(L["Mail"], 'orange'),
+	name = L["Mail"],
 	get = function(info)
 		return E.db.mui.mail[info[#info]]
 	end,

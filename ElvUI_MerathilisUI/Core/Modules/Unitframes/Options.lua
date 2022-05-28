@@ -7,7 +7,7 @@ local format = string.format
 
 options.unitframes = {
 	type = "group",
-	name = F.cOption(L["UnitFrames"], 'orange'),
+	name = L["UnitFrames"],
 	disabled = function() return not E.private.unitframe.enable end,
 	args = {
 		name = {

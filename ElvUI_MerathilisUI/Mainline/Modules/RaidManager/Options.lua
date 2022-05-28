@@ -3,7 +3,7 @@ local options = MER.options.modules.args
 
 options.raidmanager = {
 	type = "group",
-	name = F.cOption(L["Raid Manager"], 'orange'),
+	name = L["Raid Manager"],
 	get = function(info) return E.db.mui.raidmanager[ info[#info] ] end,
 	set = function(info, value) E.db.mui.raidmanager[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
