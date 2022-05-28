@@ -2892,19 +2892,19 @@ function MER:SetupAddOns()
 	MER.isInstallerRunning = true -- don't print when applying profile that doesn't exist
 
 	--AddOnSkins
-	if MER:IsAddOnEnabled("AddOnSkins") then
+	if E:IsAddOnEnabled("AddOnSkins") then
 		MER:LoadAddOnSkinsProfile()
 		tinsert(addonNames, "AddOnSkins")
 	end
 
 	-- ProjectAzilroka
-	if MER:IsAddOnEnabled("ProjectAzilroka") then
+	if E:IsAddOnEnabled("ProjectAzilroka") then
 		MER:LoadPAProfile()
 		tinsert(addonNames, "ProjectAzilroka")
 	end
 
 	-- BenikUI
-	if MER:IsAddOnEnabled("ElvUI_BenikUI") then
+	if E:IsAddOnEnabled("ElvUI_BenikUI") then
 		MER:LoadBenikUIProfile()
 		tinsert(addonNames, "ElvUI_BenikUI")
 	end

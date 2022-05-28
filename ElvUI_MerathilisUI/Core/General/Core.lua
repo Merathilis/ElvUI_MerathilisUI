@@ -81,10 +81,6 @@ function MER:AddMoverCategories()
 	E.ConfigModeLocalizedStrings["MERATHILISUI"] = format("|cffff7d0a%s |r", "MerathilisUI")
 end
 
-function MER:IsAddOnEnabled(addon) -- Credit: Azilroka
-	return GetAddOnEnableState(E.myname, addon) == 2
-end
-
 function MER:CheckElvUIVersion()
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then

@@ -9,13 +9,13 @@ local hooksecurefunc = hooksecurefunc
 	IF YOU COPY THIS, YOU WILL BURN IN HELL!!!!
 --]]
 -- Check other addons
-COMP.SLE = MER:IsAddOnEnabled("ElvUI_SLE")
-COMP.PA = MER:IsAddOnEnabled("ProjectAzilroka")
-COMP.LP = MER:IsAddOnEnabled("ElvUI_LocPlus")
-COMP.LL = MER:IsAddOnEnabled("ElvUI_LocLite")
-COMP.AS = MER:IsAddOnEnabled("AddOnSkins")
-COMP.BUI = MER:IsAddOnEnabled("ElvUI_BenikUI")
-COMP.NUI = MER:IsAddOnEnabled("ElvUI_NihilistUI")
+COMP.SLE = E:IsAddOnEnabled("ElvUI_SLE")
+COMP.PA = E:IsAddOnEnabled("ProjectAzilroka")
+COMP.LP = E:IsAddOnEnabled("ElvUI_LocPlus")
+COMP.LL = E:IsAddOnEnabled("ElvUI_LocLite")
+COMP.AS = E:IsAddOnEnabled("AddOnSkins")
+COMP.BUI = E:IsAddOnEnabled("ElvUI_BenikUI")
+COMP.NUI = E:IsAddOnEnabled("ElvUI_NihilistUI")
 
 local function Disable(tbl, key)
 	E.private.mui = E.private.mui or {}
