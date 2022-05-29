@@ -4,7 +4,7 @@ local options = MER.options.modules.args
 
 options.cooldowns = {
 	type = "group",
-	name = F.cOption(L["Cooldowns"], 'orange'),
+	name = L["Cooldowns"],
 	args = {
 		cooldownFlash = {
 			order = 1,

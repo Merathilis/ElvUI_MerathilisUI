@@ -39,7 +39,7 @@ local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully cre
 options.general = {
 	order = 1,
 	type = 'group',
-	name = F.cOption(L["General"], 'orange'),
+	name = L["General"],
 	args = {
 		header = {
 			order = 1,
@@ -62,13 +62,35 @@ options.general = {
 			get = function(info) return E.db.mui.general[ info[#info] ] end,
 			set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 		},
+		shadow = {
+			order = 4,
+			type = "group",
+			name = F.cOption(L["Shadows"], 'orange'),
+			guiInline = true,
+			get = function(info) return E.db.mui.general.shadow[ info[#info] ] end,
+			set = function(info, value) E.db.mui.general.shadow[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				increasedSize = {
+					order = 2,
+					type = "range",
+					name = L["Increase Size"],
+					desc = L["Make shadow thicker."],
+					min = 0, max = 10, step = 1
+				},
+			},
+		},
 	},
 }
 
 options.widgets = {
 	order = 2,
 	type = "group",
-	name = E.NewSign..F.cOption(L["Widgets"], 'orange'),
+	name = E.NewSign..L["Widgets"],
 	args = {
 		header = {
 			order = 1,
@@ -220,6 +242,98 @@ options.widgets = {
 							step = 0.01
 						},
 					},
+				},
+				selected = {
+					order = 3,
+					type = "group",
+					name = L["Selected Backdrop & Border"],
+					inline = true,
+					get = function(info)
+						return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+					disabled = function(info)
+						return not E.private.mui.skins.widgets[info[#info - 2]].enable or
+							not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+							width = "full",
+							disabled = function(info)
+								return not E.private.mui.skins.widgets[info[#info - 2]].enable
+							end
+						},
+						backdropClassColor = {
+							order = 2,
+							type = "toggle",
+							name = L["Backdrop Class Color"],
+							width = 1.5
+						},
+						backdropColor = {
+							order = 3,
+							type = "color",
+							name = L["Backdrop Color"],
+							hasAlpha = false,
+							hidden = function(info)
+								return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].backdropClassColor
+							end,
+							get = function(info)
+								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+								local default = V.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b
+							end,
+							set = function(info, r, g, b)
+								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+								db.r, db.g, db.b = r, g, b
+							end
+						},
+						backdropAlpha = {
+							order = 4,
+							type = "range",
+							name = L["Backdrop Alpha"],
+							min = 0,
+							max = 1,
+							step = 0.01
+						},
+						borderClassColor = {
+							order = 5,
+							type = "toggle",
+							name = L["Border Class Color"],
+							width = 1.5
+						},
+						borderColor = {
+							order = 6,
+							type = "color",
+							name = L["Border Color"],
+							hasAlpha = false,
+							hidden = function(info)
+								return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].borderClassColor
+							end,
+							get = function(info)
+								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+								local default = V.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+							end,
+							set = function(info, r, g, b, a)
+								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
+								db.r, db.g, db.b = r, g, b
+							end
+						},
+						borderAlpha = {
+							order = 7,
+							type = "range",
+							name = L["Border Alpha"],
+							min = 0,
+							max = 1,
+							step = 0.01
+						}
+					}
 				},
 				text = {
 					order = 3,
@@ -1049,7 +1163,7 @@ options.widgets = {
 options.blizzard = {
 	order = 3,
 	type = "group",
-	name = F.cOption(L["Blizzard"], 'orange'),
+	name = L["Blizzard"],
 	get = function(info) return E.private.mui.skins.blizzard[ info[#info] ] end,
 	set = function(info, value) E.private.mui.skins.blizzard[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 	args = {
@@ -1464,7 +1578,7 @@ end
 options.addonskins = {
 	order = 4,
 	type = "group",
-	name = F.cOption(L["AddOnSkins"], 'orange'),
+	name = L["AddOnSkins"],
 	get = function(info) return E.private.mui.skins.addonSkins[ info[#info] ] end,
 	set = function(info, value) E.private.mui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 	args = {
@@ -1496,7 +1610,7 @@ end
 options.profiles = {
 	order = 5,
 	type = "group",
-	name = F.cOption(L["Profiles"], 'orange'),
+	name = L["Profiles"],
 	args = {
 		info = {
 			order = 1,

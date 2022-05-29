@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Minimap')
-local COMP = MER:GetModule('MER_Compatibility')
 local LCG = LibStub('LibCustomGlow-1.0')
 
 local _G = _G
@@ -75,7 +74,7 @@ function module:MiniMapCoords()
 end
 
 function module:StyleMinimap()
-	if not E.db.mui.maps.minimap.rectangleMinimap.enable or (COMP.SLE and E.private.sle.minimap.rectangle) then
+	if not E.db.mui.maps.minimap.rectangleMinimap.enable then
 		Minimap:Styling(true, true, false)
 	end
 end

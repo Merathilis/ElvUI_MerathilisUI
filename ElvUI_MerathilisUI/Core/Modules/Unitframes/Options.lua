@@ -3,9 +3,11 @@ local module = MER:GetModule('MER_UnitFrames')
 local options = MER.options.modules.args
 local LSM = E.Libs.LSM
 
+local format = string.format
+
 options.unitframes = {
 	type = "group",
-	name = F.cOption(L["UnitFrames"], 'orange'),
+	name = L["UnitFrames"],
 	disabled = function() return not E.private.unitframe.enable end,
 	args = {
 		name = {
@@ -58,7 +60,7 @@ options.unitframes = {
 			type = "group",
 			name = F.cOption(L["GCD Bar"], 'orange'),
 			guiInline = true,
-			--hidden = not E.Retail,
+			hidden = not E.Retail,
 			get = function(info) return E.db.mui.unitframes.gcd[ info[#info] ] end,
 			set = function(info, value) E.db.mui.unitframes.gcd[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
 			args = {
@@ -160,6 +162,7 @@ options.unitframes = {
 			type = "group",
 			name = F.cOption(L["Heal Prediction"], 'orange'),
 			desc = L["Changes the Heal Prediction texture to the default Blizzard ones."],
+			--hidden = not E.Retail,
 			guiInline = true,
 			get = function(info)
 				return E.db.mui.unitframes.healPrediction[info[#info]]

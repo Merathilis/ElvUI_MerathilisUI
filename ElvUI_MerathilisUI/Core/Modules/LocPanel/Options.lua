@@ -10,7 +10,7 @@ local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 
 options.locPanel = {
 	type = "group",
-	name = F.cOption(L["Location Panel"], 'orange'),
+	name = L["Location Panel"],
 	get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
 	args = {
 		header = {

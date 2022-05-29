@@ -21,34 +21,32 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 function module:Blizzard_TalentUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or not E.private.mui.skins.blizzard.talent then return; end
 
-	_G.PlayerTalentFrame:Styling()
-	MER:CreateShadow(_G.PlayerTalentFrame)
+	local PlayerTalentFrame = _G.PlayerTalentFrame
+	PlayerTalentFrame:Styling()
+	MER:CreateShadow(PlayerTalentFrame)
 
-	-- Specc
-	for i = 1, GetNumSpecializations(false, nil) do
-		local bu = _G.PlayerTalentFrameSpecialization["specButton"..i]
-		local _, _, _, icon = GetSpecializationInfo(i, false, nil)
+	for _, Frame in pairs({ _G.PlayerTalentFrameSpecialization, _G.PlayerTalentFramePetSpecialization }) do
+		Frame:StripTextures()
 
-		bu.ring:Hide()
-
-		bu.specIcon:SetTexture(icon)
-		bu.specIcon:SetTexCoord(unpack(E.TexCoords))
-		bu.specIcon:SetSize(50, 50)
-		bu.specIcon:SetPoint("LEFT", bu, "LEFT", 15, 0)
-
-		bu.SelectedTexture = bu:CreateTexture(nil, "BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(r, g, b, .5)
+		for i = 1, 4 do
+			local Button = Frame['specButton'..i]
+			if Button.SelectedTexture then
+				Button.SelectedTexture:SetColorTexture(r, g, b, .5)
+			end
+		end
 	end
 
+	do
 	-- Talents
-	for i = 1, _G.MAX_TALENT_TIERS do
-		local row = _G.PlayerTalentFrameTalents['tier'..i]
-		for j = 1, _G.NUM_TALENT_COLUMNS do
-			local bu = row['talent'..j]
-			if bu.bg then
-				module:CreateGradient(bu.bg)
-				bu.bg:SetTemplate("Transparent")
-				bu.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
+		for i = 1, _G.MAX_TALENT_TIERS do
+			local row = _G.PlayerTalentFrameTalents['tier'..i]
+			for j = 1, _G.NUM_TALENT_COLUMNS do
+				local bu = row['talent'..j]
+				if bu.bg then
+					module:CreateGradient(bu.bg)
+					bu.bg:SetTemplate("Transparent")
+					bu.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
+				end
 			end
 		end
 	end

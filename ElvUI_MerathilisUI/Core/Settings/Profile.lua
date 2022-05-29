@@ -7,7 +7,6 @@ P.core = {
 }
 
 P.general = {
-	LoginMsg = true,
 	GameMenu = true,
 	splashScreen = true,
 	AFK = true,
@@ -180,18 +179,18 @@ P.chat = {
 		visibility = "SHOWBOTH",
 	},
 	chatBar = {
-		enable = false,
+		enable = true,
 		style = "BLOCK",
 		blockShadow = true,
 		autoHide = false,
 		mouseOver = false,
 		backdrop = false,
 		backdropSpacing = 2,
-		buttonWidth = 40,
+		buttonWidth = 54,
 		buttonHeight = 5,
 		spacing = 5,
 		orientation = "HORIZONTAL",
-		tex = "MerathilisMelli",
+		tex = "RenAscensionL",
 		font = {
 			name = E.db.general.font,
 			size = 12,

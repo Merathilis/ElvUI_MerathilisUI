@@ -8,8 +8,10 @@ function module:Update_PlayerFrame(frame)
 	local db = E.db.mui.unitframes
 
 	if not frame.Swing then module:Construct_Swing(frame) end
-	if not frame.GCD then module:Construct_GCD(frame) end
 	if not frame.CounterBar then module:Construct_CounterBar(frame) end
+	if E.Retail then
+		if not frame.GCD then module:Construct_GCD(frame) end
+	end
 
 	-- Only looks good on Transparent
 	if E.db.unitframe.colors.transparentHealth then

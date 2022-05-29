@@ -7,7 +7,7 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 
 options.raidBuffs = {
 	type = "group",
-	name = F.cOption(L["Raid Buff Reminder"], 'orange'),
+	name = L["Raid Buff Reminder"],
 	get = function(info) return E.db.mui.raidBuffs[ info[#info] ] end,
 	args = {
 		header = {

@@ -1,7 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RaidManager')
 local S = E:GetModule('Skins')
-local COMP = MER:GetModule('MER_Compatibility')
 
 local _G = _G
 local ipairs, next, pairs, select, unpack = ipairs, next, pairs, select, unpack
@@ -534,10 +533,6 @@ function module:CreateRaidInfo()
 
 	header:RegisterEvent("GROUP_ROSTER_UPDATE")
 	header:RegisterEvent("PLAYER_ENTERING_WORLD")
-
-	if COMP.NUI then
-		MER.raidManagerHeader = header -- Export this so NihilistUI can add a shadow to it
-	end
 
 	local roleFrame = CreateFrame("Frame", nil, header)
 	roleFrame:SetAllPoints()

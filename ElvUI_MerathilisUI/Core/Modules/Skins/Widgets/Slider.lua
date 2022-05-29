@@ -4,7 +4,7 @@ local LSM = E.Libs.LSM
 local S = E.Skins
 
 function module:HandleSliderFrame(_, slider)
-	if not E.private.mui.skins.widgets then
+	if not self:IsReady() then
 		self:RegisterLazyLoad(slider, function()
 			self:HandleSliderFrame(nil, slider)
 		end)

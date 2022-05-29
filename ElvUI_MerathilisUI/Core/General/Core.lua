@@ -81,10 +81,6 @@ function MER:AddMoverCategories()
 	E.ConfigModeLocalizedStrings["MERATHILISUI"] = format("|cffff7d0a%s |r", "MerathilisUI")
 end
 
-function MER:IsAddOnEnabled(addon) -- Credit: Azilroka
-	return GetAddOnEnableState(E.myname, addon) == 2
-end
-
 function MER:CheckElvUIVersion()
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
@@ -99,11 +95,9 @@ function MER:CheckVersion()
 		return
 	end
 
-	if not E.global.mui.version or E.global.mui.version ~= MER.Version then
+	if self.showChangeLog then
 		MER:ToggleChangeLog()
 	end
-
-	self:AddMoverCategories()
 
 	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
@@ -112,7 +106,7 @@ function MER:CheckVersion()
 	end
 
 	local icon = F.GetIconString(MER.Media.Textures.pepeSmall, 14)
-	if E.db.mui.installed and E.db.mui.general.LoginMsg then
+	if E.db.mui.installed and E.private.mui.core.LoginMsg then
 		print(icon..''..MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..F.PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 	end
 end

@@ -3,7 +3,7 @@ local options = MER.options.modules.args
 
 options.Notification = {
 	type = "group",
-	name = F.cOption(L["Notification"], 'orange'),
+	name = L["Notification"],
 	get = function(info) return E.db.mui.notification[ info[#info] ] end,
 	set = function(info, value) E.db.mui.notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {

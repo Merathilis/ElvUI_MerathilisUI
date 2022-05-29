@@ -5,7 +5,7 @@ local SetCVar = SetCVar
 
 options.cvars = {
 	type = "group",
-	name = F.cOption(L["CVars"], 'orange'),
+	name = L["CVars"],
 	args = {
 		header = {
 			order = 1,

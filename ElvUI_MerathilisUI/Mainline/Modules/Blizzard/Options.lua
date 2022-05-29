@@ -9,7 +9,7 @@ local ObjectiveTracker_Update = ObjectiveTracker_Update
 
 options.objectiveTracker = {
 	type = "group",
-	name = F.cOption(L["Objective Tracker"], 'orange'),
+	name = L["Objective Tracker"],
 	childGroups = 'tab',
 	get = function(info) return E.db.mui.blizzard.objectiveTracker[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard.objectiveTracker[info[#info]] = value; ObjectiveTracker_Update(); end,

@@ -4,7 +4,7 @@ local options = MER.options.modules.args
 
 options.nameplates = {
 	type = "group",
-	name = F.cOption(L["NamePlates"], 'orange'),
+	name = L["NamePlates"],
 	get = function(info) return E.db.mui.nameplates[ info[#info] ] end,
 	set = function(info, value) E.db.mui.nameplates[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
 	args = {

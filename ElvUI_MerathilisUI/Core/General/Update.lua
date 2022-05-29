@@ -23,10 +23,16 @@ end
 
 function MER:UpdateScripts() -- DB Convert
 	MER:ForPreReleaseUser()
+
 	local currentVersion = tonumber(MER.Version) -- Installed WindTools Version
 	local globalVersion = tonumber(E.global.mui.version or "0") -- Version in ElvUI Global
 	local profileVersion = tonumber(E.db.mui.version or globalVersion) -- Version in ElvUI Profile
 	local privateVersion = tonumber(E.private.mui.version or globalVersion) -- Version in ElvUI Private
+
+	-- changelog display
+	if globalVersion == 0 or globalVersion ~= currentVersion then
+		self.showChangeLog = true
+	end
 
 	if globalVersion == currentVersion and profileVersion == currentVersion and privateVersion == currentVersion then
 		return
@@ -34,17 +40,19 @@ function MER:UpdateScripts() -- DB Convert
 
 	isFirstLine = true
 
-	if profileVersion <= 4.95 then
+	if profileVersion <= 4.992 then
 		local db = E.db.mui
+		local private = E.private.mui
 
-		if not db.unitframes.healPrediction or type(db.unitframes.healPrediction) ~= 'table' then
-			db.unitframes.healPrediction = {}
+		if db.general.LoginMsg then
+			db.general.LoginMsg = nil
 		end
 
-		if not db.unitframes.healPrediction.texture or type(db.unitframes.healPrediction.texture) ~= 'table' then
-			db.unitframes.healPrediction.texture = {}
+		if not private.core or type(private.core) ~= 'table' then
+			private.core = {}
 		end
-		UpdateMessage(L["Automation"] .. " - " .. L["Update Database"], profileVersion)
+
+		UpdateMessage(L["Core"] .. " - " .. L["Update Database"], profileVersion)
 	end
 
 	if not isFirstLine then

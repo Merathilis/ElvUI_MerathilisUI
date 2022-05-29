@@ -24,7 +24,7 @@ end
 
 options.autoButtons = {
 	type = "group",
-	name = F.cOption(L["AutoButtons"], 'orange'),
+	name = L["AutoButtons"],
 	get = function(info) return E.db.mui.autoButtons[ info[#info] ] end,
 	set = function(info, value) E.db.mui.autoButtons[ info[#info] ] = value; end,
 	args = {

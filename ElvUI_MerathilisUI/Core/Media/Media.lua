@@ -56,6 +56,7 @@ AddMedia("barTalents", "MicroBar/Talents.tga", "Icons")
 AddMedia("barToyBox", "MicroBar/ToyBox.tga", "Icons")
 AddMedia("barVolume", "MicroBar/Volume.tga", "Icons")
 
+AddMedia("convert", "Convert.tga", "Icons")
 AddMedia("favorite", "Favorite.tga", "Icons")
 AddMedia("general", "General.tga", "Icons")
 AddMedia("information", "Information.tga", "Icons")
@@ -73,6 +74,7 @@ AddMedia("arrow", "arrow.tga", "Textures")
 AddMedia("pepeSmall", "pepeSmall.tga", "Textures")
 AddMedia("ROLES", "UI-LFG-ICON-ROLES.tga", "Textures")
 AddMedia("exchange", "Exchange.tga", "Textures")
+AddMedia("PepeArt", "PepeArt.tga", "Textures")
 
 -- Fonts
 LSM:Register("font","Merathilis Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])

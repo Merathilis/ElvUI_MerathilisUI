@@ -4,7 +4,7 @@ local options = MER.options.modules.args
 
 options.panels = {
 	type = "group",
-	name = F.cOption(L["Panels"], 'orange'),
+	name = L["Panels"],
 	args = {
 		header = {
 			order = 1,
