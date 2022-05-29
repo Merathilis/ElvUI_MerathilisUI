@@ -1185,19 +1185,6 @@ function module:Initialize()
 		self:SecureHook(_G.GuildMicroButton, "UpdateNotificationIcon", "UpdateGuildButton")
 	end
 
-	function module:ForUpdateAll()
-		self.db = E.db.mui.microBar
-
-		self:UpdateHomeButton()
-		self:UpdateTimeFormat()
-		self:UpdateTimeArea()
-		self:UpdateTime()
-		self:UpdateButtons()
-		self:UpdateLayout()
-		self:UpdateBar()
-	end
-	self:ForUpdateAll()
-
 	self.Initialized = true
 end
 
