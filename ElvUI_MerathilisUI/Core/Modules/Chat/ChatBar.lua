@@ -339,6 +339,8 @@ function module:UpdateBar()
 		local chatFunc = function(self, mouseButton)
 			if mouseButton == "LeftButton" then
 				RandomRoll(1, 100)
+			elseif mouseButton == "RightButton" then
+				RandomRoll(1, 50)
 			end
 		end
 

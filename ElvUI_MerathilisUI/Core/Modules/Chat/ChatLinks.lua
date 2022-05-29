@@ -3,12 +3,8 @@ local module = MER:GetModule('MER_ChatLink')
 
 local _G = _G
 local format = format
-local gsub = gsub
-local pairs = pairs
-local select = select
+local gsub, pairs, select, tonumber = gsub, pairs, select, tonumber
 local strmatch = strmatch
-local tonumber = tonumber
-
 
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 local GetItemInfoInstant = GetItemInfoInstant
