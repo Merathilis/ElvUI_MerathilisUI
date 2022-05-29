@@ -149,6 +149,7 @@ options.name = {
 			order = 990,
 			type = "toggle",
 			name = L["Login Message"],
+			desc = L["Enable/Disable the Login Message in Chat"],
 			get = function(info)
 				return E.private.mui.core.LoginMsg
 			end,
@@ -215,7 +216,7 @@ options.name.args.coding = {
 options.reset = {
 	order = 2,
 	type = "group",
-	name = E.NewSign..F.cOption(L["Reset"], 'orange'),
+	name = E.NewSign..L["Reset"],
 	args = {
 		header = {
 			order = 0,

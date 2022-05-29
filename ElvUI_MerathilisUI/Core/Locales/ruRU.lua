@@ -27,8 +27,11 @@ But if you install another Layout over mine, you must adjust it manually.
 
 |cffff8000Newest additions are marked with: |r]=]
 
--- LoginMessage
+-- Core Options
+L["Login Message"] = "Сообщение загрузки"
 L["Enable/Disable the Login Message in Chat"] = true
+L["Debug Mode"] = "Режим отладки"
+L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "Если вы установили другие плагины ElvUI, включение режима отладки не рекомендуется."
 
 -- Bags
 L["Equipment Manager"] = true
@@ -810,6 +813,8 @@ L["This will create and apply profile for "] = true
 L["Changelog"] = "Журнал изменений"
 
 -- Compatibility
+L["Compatibility Check"] = "Проверка совместимости"
+L["Help you to enable/disable the modules for a better experience with other plugins."] = "Помогает вам включить / отключить модули для лучшего взаимодействия с другими плагинами."
 L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "Есть много модулей из разных аддонов или плагинов ElvUI, но некоторые из них имеют практически одинаковую функциональность."
 L["Have a good time with %s!"] = "Удачи с %s!"
 L["Choose the module you would like to |cff00ff00use|r"] = "Выберите модуль, который хотите использовать |cff00ff00use|r"

@@ -27,8 +27,11 @@ But if you install another Layout over mine, you must adjust it manually.
 
 |cffff8000Newest additions are marked with: |r]=]
 
--- LoginMessage
+-- Core Options
+L["Login Message"] = "登入資訊"
 L["Enable/Disable the Login Message in Chat"] = true
+L["Debug Mode"] = "偵錯模式"
+L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "如果你安裝了其他 ElvUI 插件, 不推薦启用偵錯模式."
 
 -- Bags
 L["Equipment Manager"] = true
@@ -801,6 +804,8 @@ L["This will create and apply profile for "] = true
 L["Changelog"] = "更新記錄"
 
 -- Compatibility
+L["Compatibility Check"] = "相容性確認"
+L["Help you to enable/disable the modules for a better experience with other plugins."] = "為了保證與其他插件的使用體驗, 幫助你啟用/停用一些模組."
 L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "不同的插件和 ElvUI 增強中有非常多的模組, 但其中部分模組功能是高度相似的."
 L["Have a good time with %s!"] = "希望 %s 能讓你玩得開心!"
 L["Choose the module you would like to |cff00ff00use|r"] = "選擇你更傾向於|cff00ff00使用|r的模組"

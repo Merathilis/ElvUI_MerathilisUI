@@ -27,8 +27,11 @@ L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r 是ElvUI的扩展. 它�
 
 |cffff8000Newest additions are marked with: |r]=]
 
--- LoginMessage
+-- Core Options
+L["Login Message"] = "登陆信息"
 L["Enable/Disable the Login Message in Chat"] = "在聊天框中启用/禁用登录消息"
+L["Debug Mode"] = "除错模式"
+L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "如果你同时安装了其他 ElvUI 增强插件, 不推荐启用调试模式."
 
 -- Bags
 L["Equipment Manager"] = "装备管理"
@@ -827,6 +830,8 @@ L["This will create and apply profile for "] = "这将创建并应用配置文�
 L["Changelog"] = "更新日志"
 
 -- Compatibility
+L["Compatibility Check"] = "兼容性检测"
+L["Help you to enable/disable the modules for a better experience with other plugins."] = "为了更好的与其他插件兼容, 帮助你开启/禁用一些模块."
 L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "不同的插件和 ElvUI 增强中有非常多的模块, 但其中部分模块功能是高度相似的."
 L["Have a good time with %s!"] = "希望 %s 能让你玩得开心!"
 L["Choose the module you would like to |cff00ff00use|r"] = "请选择你要|cff00ff00使用|r的模块"

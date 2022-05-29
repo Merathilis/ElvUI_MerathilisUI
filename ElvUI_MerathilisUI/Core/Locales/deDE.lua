@@ -27,8 +27,11 @@ Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell
 
 |cffff8000Neue Features sind markiert mit einem: |r]=]
 
--- LoginMessage
+-- Core Options
+L["Login Message"] = "Login Nachricht"
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
+L["Debug Mode"] = "Debug Modus"
+L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "Wenn Du andere ElvUI-Plugins installiert hast, ist das Aktivieren des Debug-Modus kein gute Idee."
 
 -- Bags
 L["Equipment Manager"] = "Ausrüstungsmanager"
@@ -810,6 +813,8 @@ L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen
 L["Changelog"] = "Änderungen"
 
 -- Compatibility
+L["Compatibility Check"] = "Kompatibilitätsprüfung"
+L["Help you to enable/disable the modules for a better experience with other plugins."] = "Hilf beim Aktivieren / Deaktivieren der Module, um eine bessere Erfahrung mit anderen Plugins zu erzielen."
 L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "Es gibt viele Module von verschiedenen Addons oder ElvUI-Plugins, aber einige davon haben fast die gleiche Funktionalität."
 L["Have a good time with %s!"] = "Viel Spaß mit %s!"
 L["Choose the module you would like to |cff00ff00use|r"] = "Wähle das Modul aus, das Du |cff00ff00verwenden|r möchtest."
