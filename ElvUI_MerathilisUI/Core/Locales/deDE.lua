@@ -810,12 +810,12 @@ L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen
 L["Changelog"] = "Änderungen"
 
 -- Compatibility
-L["has |cffff2020disabled|r "] = "deaktiviert "
-L[" from "] = " von "
-L[" due to incompatiblities."] = " wegen inkompatibilität."
-L[" due to incompatiblities with: "] = " wegen inkompatibilität mit: "
-L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff00c0faElvUI_Windtools|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum Deaktivieren aus."
-L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff9482c9ElvUI_LivvenUI|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum Deaktivieren aus."
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "Es gibt viele Module von verschiedenen Addons oder ElvUI-Plugins, aber einige davon haben fast die gleiche Funktionalität."
+L["Have a good time with %s!"] = "Viel Spaß mit %s!"
+L["Choose the module you would like to |cff00ff00use|r"] = "Wähle das Modul aus, das Du |cff00ff00verwenden|r möchtest."
+L["If you find the %s module conflicts with another addon, alert me via Discord."] = "Wenn Du feststellst, dass das %s Modul mit einem anderen Addon in Konflikt steht, benachrichtige mich über Discord."
+L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = "Du kannst die Kompatibilitätsprüfung über die Option unten in [MerathilisUI]-[Informationen] deaktivieren/aktivieren."
+L["Complete"] = "Komplett"
 
 -- Debug
 L["Usage"] = "Verwendungszweck"

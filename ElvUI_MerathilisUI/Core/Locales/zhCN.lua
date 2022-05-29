@@ -827,12 +827,12 @@ L["This will create and apply profile for "] = "这将创建并应用配置文�
 L["Changelog"] = "更新日志"
 
 -- Compatibility
-L["has |cffff2020disabled|r "] = "已 |cffff2020禁用|r "
-L[" from "] = " 从 "
-L[" due to incompatiblities."] = " 由于不兼容."
-L[" due to incompatiblities with: "] = " 由于与以下插件不兼容: "
-L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff00c0faElvUI_Windtools|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
-L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff9482c9ElvUI_LivvenUI|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "不同的插件和 ElvUI 增强中有非常多的模块, 但其中部分模块功能是高度相似的."
+L["Have a good time with %s!"] = "希望 %s 能让你玩得开心!"
+L["Choose the module you would like to |cff00ff00use|r"] = "请选择你要|cff00ff00使用|r的模块"
+L["If you find the %s module conflicts with another addon, alert me via Discord."] = "如果你发现 %s 的模块与其他插件冲突, 可以通过 Discord 来告知我."
+L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = "你可以通过设定位于 [MerathilisUI]-[信息] 底部的选项来启用/停用兼容性检查."
+L["Complete"] = "完成"
 
 -- Debug
 L["Usage"] = "用法"

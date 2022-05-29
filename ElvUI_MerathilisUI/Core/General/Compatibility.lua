@@ -45,12 +45,7 @@ function MER:ConstructCompatibilityFrame()
 	desc:SetJustifyH("LEFT")
 	desc:Width(420)
 	F.SetFontOutline(desc, nil, "-1")
-	desc:SetText(
-		L[
-			"There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."
-		] ..
-			" " .. format(L["Have a good time with %s!"], MER.Title)
-	)
+	desc:SetText(L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] .. " " .. format(L["Have a good time with %s!"], MER.Title))
 	desc:Point("TOPLEFT", frame, "TOPLEFT", 10, -40)
 
 	local largeTip = frame:CreateFontString(nil, "ARTWORK")
@@ -58,13 +53,7 @@ function MER:ConstructCompatibilityFrame()
 	largeTip:SetJustifyH("CENTER")
 	largeTip:Width(500)
 	F.SetFontOutline(largeTip, nil, "7")
-	largeTip:SetText(
-		format(
-			"%s %s %s",
-			F.CreateColorString("[", E.db.general.valuecolor),
-			L["Choose the module you would like to |cff00ff00use|r"],
-			F.CreateColorString("]", E.db.general.valuecolor)
-		)
+	largeTip:SetText(format("%s %s %s", F.CreateColorString("[", E.db.general.valuecolor), L["Choose the module you would like to |cff00ff00use|r"], F.CreateColorString("]", E.db.general.valuecolor))
 	)
 	largeTip:Point("TOPLEFT", desc, "BOTTOMLEFT", 0, -10)
 
@@ -78,14 +67,7 @@ function MER:ConstructCompatibilityFrame()
 	bottomDesc:SetJustifyH("LEFT")
 	bottomDesc:Width(530)
 	F.SetFontOutline(bottomDesc, nil, "-1")
-	bottomDesc:SetText(
-		E.NewSign ..
-			format(L["If you find the %s module conflicts with another addon, alert me via Discord."], MER.Title) ..
-				"\n" ..
-					L[
-						"You can disable/enable compatibility check via the option in the bottom of [WindTools]-[Information]-[Help]."
-					]
-	)
+	bottomDesc:SetText(E.NewSign .. format(L["If you find the %s module conflicts with another addon, alert me via Discord."], MER.Title) .. "\n" .. L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."])
 	--bottomDesc:SetText("|cffff0000*|r " .. L["The feature is just a part of that module."])
 	bottomDesc:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
 
@@ -223,6 +205,7 @@ local function GetCheckCompatibilityFunction(targetAddonName, targetAddonLocales
 	end
 end
 
+local CheckBenikUI = GetCheckCompatibilityFunction("ElvUI_BenikUI", L["BenikUI"])
 local CheckWindtools = GetCheckCompatibilityFunction("ElvUI_Windtools", L["Windtools"])
 local CheckShadowAndLight = GetCheckCompatibilityFunction("ElvUI_SLE", L["Shadow & Light"])
 
@@ -233,21 +216,24 @@ function MER:CheckCompatibility()
 
 	self:ConstructCompatibilityFrame()
 
-	-- Merathilis UI
+	-- BenikUI
+	CheckBenikUI(L["FlightMode"], L["Flight Mode"], "db.mui.flightMode.enable", "db.benikui.misc.flightMode.enable")
+
+	-- Windtools
 	CheckWindtools(
-		L["Extra Items Bar"],
 		L["AutoButtons"],
+		L["Extra Items Bar"],
 		"db.mui.autoButtons.enable",
 		"db.WT.item.extraItemsBar.enable"
 	)
 
-	CheckWindtools(L["Game Bar"], L["Micro Bar"], "db.mui.microBar.enable", "db.WT.misc.gameBar.enable")
+	CheckWindtools(L["Micro Bar"], L["Game Bar"], "db.mui.microBar.enable", "db.WT.misc.gameBar.enable")
 
-	CheckWindtools(L["Contacts"], L["Mail"], "db.mui.mail.enable", "db.WT.item.contacts.enable")
+	CheckWindtools(L["Mail"], L["Contacts"], "db.mui.mail.enable", "db.WT.item.contacts.enable")
 
 	CheckWindtools(
-		format("%s-%s", L["Tooltip"], L["Add Icon"]),
 		format("%s-%s", L["Tooltip"], L["Tooltip Icons"]),
+		format("%s-%s", L["Tooltip"], L["Add Icon"]),
 		"db.mui.tooltip.tooltipIcon",
 		"private.WT.tooltips.icon"
 	)
@@ -259,7 +245,7 @@ function MER:CheckCompatibility()
 		"private.WT.tooltips.dominationRank"
 	)
 
-	CheckWindtools(L["Group Info"], L["LFG Info"], "db.mui.misc.lfgInfo.enable", "db.WT.tooltips.groupInfo.enable")
+	CheckWindtools(L["LFG Info"], L["Group Info"], "db.mui.misc.lfgInfo.enable", "db.WT.tooltips.groupInfo.enable")
 
 	CheckWindtools(
 		L["Paragon Reputation"],
@@ -283,8 +269,8 @@ function MER:CheckCompatibility()
 	)
 
 	CheckWindtools(
-		L["Who Clicked Minimap"],
 		L["Minimap Ping"],
+		L["Who Clicked Minimap"],
 		"db.mui.maps.minimap.ping.enable",
 		"db.WT.maps.whoClicked.enable"
 	)
@@ -315,9 +301,10 @@ function MER:CheckCompatibility()
 	)
 
 	CheckWindtools(
-		format("%s-%s", L["Chat Text"], L["Remove Brackets"]),
 		L["Hide Player Brackets"],
-		"db.mui.chat.hidePlayerBrackets"
+		format("%s-%s", L["Chat Text"], L["Remove Brackets"]),
+		"db.mui.chat.hidePlayerBrackets",
+		"db.WT.social.chatText.removeBrackets"
 	)
 
 	CheckWindtools(
@@ -328,22 +315,22 @@ function MER:CheckCompatibility()
 	)
 
 	CheckWindtools(
-		L["Instance Difficulty"],
 		L["Raid Difficulty"],
+		L["Instance Difficulty"],
 		"db.mui.maps.minimap.instanceDifficulty.enable",
 		"private.WT.maps.instanceDifficulty.enable"
 	)
 
 	CheckWindtools(
-		format("%s-%s", L["Item"], L["Extend Merchant Pages"]),
 		L["Merchant"],
+		format("%s-%s", L["Item"], L["Extend Merchant Pages"]),
 		"db.mui.merchant.enable",
 		"private.WT.item.extendMerchantPages.enable"
 	)
 
 	CheckWindtools(
-		L["Absorb"],
 		L["Heal Prediction"],
+		L["Absorb"],
 		"db.mui.unitframes.healPrediction.enable",
 		"db.WT.unitFrames.absorb.enable"
 	)
@@ -356,29 +343,29 @@ function MER:CheckCompatibility()
 	)
 
 	CheckWindtools(
-		format("%s-%s-%s", L["Skins"], L["Widgets"], L["Button"]),
 		L["Button"],
+		format("%s-%s-%s", L["Skins"], L["Widgets"], L["Button"]),
 		"private.mui.skins.widgets.button.enable",
 		"private.WT.skins.widgets.button.enable"
 	)
 
 	CheckWindtools(
-		format("%s-%s-%s", L["Skins"], L["Widgets"], L["Check Box"]),
 		L["Check Box"],
+		format("%s-%s-%s", L["Skins"], L["Widgets"], L["Check Box"]),
 		"private.mui.skins.widgets.checkBox.enable",
 		"private.WT.skins.widgets.checkBox.enable"
 	)
 
 	CheckWindtools(
+		L["Tab"],
 		format("%s-%s-%s", L["Skins"], L["Widgets"], L["Tab"]),
-		L["Check Box"],
 		"private.mui.skins.widgets.tab.enable",
 		"private.WT.skins.widgets.tab.enable"
 	)
 
 	CheckWindtools(
+		L["Tree Group Button"],
 		format("%s-%s-%s", L["Skins"], L["Widgets"], L["Tree Group Button"]),
-		L["Check Box"],
 		"private.mui.skins.widgets.treeGroupButton.enable",
 		"private.WT.skins.widgets.treeGroupButton.enable"
 	)
@@ -405,9 +392,9 @@ function MER:CheckCompatibility()
 	)
 
 	CheckShadowAndLight(
-		format("%s-%s", L["Skins"], L["Scenario"]),
 		format("%s-%s", L["Skins"], L["Key Timers"]),
-		"private.mui.skins.blizzard.scenario",
+		format("%s-%s", L["Skins"], L["Scenario"]),
+		"private.mui.skins.blizzard.objectiveTracker",
 		"private.sle.skins.objectiveTracker.keyTimers.enable"
 	)
 
@@ -419,8 +406,8 @@ function MER:CheckCompatibility()
 	)
 
 	CheckShadowAndLight(
-		format("%s-%s", L["Item"], L["Extend Merchant Pages"]),
 		L["Merchant"],
+		format("%s-%s", L["Item"], L["Extend Merchant Pages"]),
 		"private.mui.item.extendMerchantPages.enable",
 		"private.sle.skins.merchant.enable"
 	)

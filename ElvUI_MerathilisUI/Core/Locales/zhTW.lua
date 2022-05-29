@@ -801,12 +801,12 @@ L["This will create and apply profile for "] = true
 L["Changelog"] = "更新記錄"
 
 -- Compatibility
-L["has |cffff2020disabled|r "] = true
-L[" from "] = true
-L[" due to incompatiblities."] = true
-L[" due to incompatiblities with: "] = true
-L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
-L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "不同的插件和 ElvUI 增強中有非常多的模組, 但其中部分模組功能是高度相似的."
+L["Have a good time with %s!"] = "希望 %s 能讓你玩得開心!"
+L["Choose the module you would like to |cff00ff00use|r"] = "選擇你更傾向於|cff00ff00使用|r的模組"
+L["If you find the %s module conflicts with another addon, alert me via Discord."] = "如果你發現 %s 的模組與其他插件衝突了, 可以透過 Discord 來進行回報."
+L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = "你可以通過設定位於 [MerathilisUI]-[信息] 底部的選項來啟用/停用相容性檢查."
+L["Complete"] = "完成"
 
 -- Debug
 L["Usage"] = "使用方式"

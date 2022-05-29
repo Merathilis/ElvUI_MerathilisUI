@@ -807,12 +807,12 @@ L["This will create and apply profile for "] = true
 L["Changelog"] = "변경 사항"
 
 -- Compatibility
-L["has |cffff2020disabled|r "] = true
-L[" from "] = true
-L[" due to incompatiblities."] = true
-L[" due to incompatiblities with: "] = true
-L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
-L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "다른 애드온 또는 ElvUI 플러그인의 많은 모듈이 있지만 그중 일부는 거의 동일한 기능입니다."
+L["Have a good time with %s!"] = "%s와 즐거운 시간 보내세요!"
+L["Choose the module you would like to |cff00ff00use|r"] = "|cff00ff00사용|r할 모듈을 선택하십시오"
+L["If you find the %s module conflicts with another addon, alert me via Discord."] = "%s 모듈이 다른 애드온과 충돌하는 것을 발견하면 Discord를 통해 알려주세요."
+L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = "[MerathilisUI]-[정보] 하단의 옵션을 통해 호환성 검사를 비활성화/활성화할 수 있습니다."
+L["Complete"] = "완료"
 
 -- Debug
 L["Usage"] = true
