@@ -97,11 +97,15 @@ function module:SetUpdateHook()
 	end
 
 	self:ChangeShape()
+	E:Delay(1, self.ChangeShape, self)
 end
 
 function module:PLAYER_ENTERING_WORLD()
-	self:SetUpdateHook()
-	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	if self.initialized then
+		E:Delay(1, self.ChangeShape, self)
+	else
+		self:SetUpdateHook()
+	end
 end
 
 function module:ADDON_LOADED(_, addon)
