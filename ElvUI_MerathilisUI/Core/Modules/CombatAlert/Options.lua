@@ -4,7 +4,7 @@ local options = MER.options.modules.args
 
 options.CombatAlert = {
 	type = "group",
-	name = F.cOption(L["Combat Alert"], 'orange'),
+	name = L["Combat Alert"],
 	get = function(info) return E.db.mui.CombatAlert[info[#info]] end,
 	set = function(info, value) E.db.mui.CombatAlert[info[#info]] = value E:StaticPopup_Show("PRIVATE_RL") end,
 	args = {

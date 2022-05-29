@@ -18,7 +18,7 @@ function module:HandleTab(_, tab, noBackdrop, template)
 		return
 	end
 
-	if not E.private.mui.skins.widgets then
+	if not self:IsReady() then
 		self:RegisterLazyLoad(tab, function()
 			self:HandleTab(nil, tab)
 		end)
@@ -115,8 +115,8 @@ do
 		local backdropColor = db.selected.backdropClassColor and module.ClassColor or db.selected.backdropColor
 		if selected then
 			tab.backdrop.Center:SetTexture(LSM:Fetch("statusbar", db.selected.texture) or E.media.glossTex)
-			tab.backdrop:SetBackdropBorderColor(borderColor.r, borderColor.g, borderColor.b, borderColor.a)
-			tab.backdrop:SetBackdropColor(backdropColor.r, backdropColor.g, backdropColor.b, backdropColor.a)
+			tab.backdrop:SetBackdropBorderColor(borderColor.r, borderColor.g, borderColor.b, db.selected.borderAlpha)
+			tab.backdrop:SetBackdropColor(backdropColor.r, backdropColor.g, backdropColor.b, db.selected.backdropAlpha)
 
 			if not tab.wasRaised then
 				RaiseFrameLevel(tab)

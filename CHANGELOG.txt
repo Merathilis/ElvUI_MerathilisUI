@@ -1,2 +1,6 @@
-[b][color=orange]v4.991[/color], 27.05.2022[/b][list]
-[*]Fix non Retail errors. Schoooorryyyy[/list]
+[b][color=orange]v4.992[/color], 29.05.2022[/b][list]
+[*]Small Layout Update. (Again, if you want it, do the install!
+[*]Dont load the GCD Module on Classic or TBC >.>
+[*]Fixed a taint... gosh, that was a hard one
+[*]Fixed some errors here and there
+[*]Code changes there and here[/list]

@@ -7,7 +7,7 @@ local tonumber, tostring = tonumber, tostring
 
 options.microBar = {
 	type = "group",
-	name = F.cOption(L["Micro Bar"], 'orange'),
+	name = L["Micro Bar"],
 	get = function(info) return E.db.mui.microBar[ info[#info] ] end,
 	set = function(info, value) E.db.mui.microBar[ info[#info] ] = value; MB:ProfileUpdate(); end,
 	args = {

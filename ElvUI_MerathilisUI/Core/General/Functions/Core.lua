@@ -120,7 +120,7 @@ end
 
 function F.SetFontOutline(text, font, size)
 	if not text or not text.GetFont then
-		F.DebugMessage("Funktion", "[3]No font found to handle font style")
+		F.DebugMessage("Function", "[3]No font found to handle font style")
 		return
 	end
 	local fontName, fontHeight = text:GetFont()
@@ -151,6 +151,29 @@ function F.cOption(name, color)
 	end
 
 	return (hex):format(name)
+end
+
+function F.DebugMessage(module, text)
+	if not (E.private and E.private.mui and E.private.WT.core.debugMode) then
+		return
+	end
+
+	if not text then
+		return
+	end
+
+	if not module then
+		module = "Function"
+		text = "No Module Name>" .. text
+	end
+
+	if type(module) ~= "string" and module.GetName then
+		module = module:GetName()
+	end
+
+	local message = format("[WT - %s] %s", module, text)
+
+	E:Delay(0.1, print, message)
 end
 
 do
@@ -215,93 +238,143 @@ function F.SplitList(list, variable, cleanup)
 	end
 end
 
--- Tooltip scanning stuff. Credits siweia, with permission.
-local iLvlDB = {}
-local itemLevelString = gsub(_G.ITEM_LEVEL, "%%d", "")
-local enchantString = gsub(_G.ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
-local essenceTextureID = 2975691
-local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
+do
+	-- Tooltip scanning stuff. Credits siweia, with permission.
+	local iLvlDB = {}
+	local itemLevelString = gsub(_G.ITEM_LEVEL, "%%d", "")
+	local enchantString = gsub(_G.ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
+	local essenceTextureID = 2975691
+	local essenceDescription = GetSpellDescription(277253)
+	local ITEM_SPELL_TRIGGER_ONEQUIP = ITEM_SPELL_TRIGGER_ONEQUIP
+	local RETRIEVING_ITEM_INFO = RETRIEVING_ITEM_INFO
 
-local texturesDB, essencesDB = {}, {}
-function F.InspectItemTextures(clean, grabTextures)
-	twipe(texturesDB)
-	twipe(essencesDB)
+	local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
+	F.ScanTip = tip
 
-	for i = 1, 5 do
-		local tex = _G[tip:GetName().."Texture"..i]
-		local texture = tex and tex:GetTexture()
-		if texture then
-			if grabTextures then
+	function F.InspectItemTextures()
+		if not tip.gems then
+			tip.gems = {}
+		else
+			wipe(tip.gems)
+		end
+
+		if not tip.essences then
+			tip.essences = {}
+		else
+			for _, essences in pairs(tip.essences) do
+				wipe(essences)
+			end
+		end
+
+		local step = 1
+		for i = 1, 10 do
+			local tex = _G["mUI_ScanTooltipTexture"..i]
+			local texture = tex and tex:IsShown() and tex:GetTexture()
+			if texture then
 				if texture == essenceTextureID then
-					local selected = (texturesDB[i-1] ~= essenceTextureID and texturesDB[i-1]) or nil
-					essencesDB[i] = {selected, tex:GetAtlas(), texture}
-					if selected then texturesDB[i-1] = nil end
+					local selected = (tip.gems[i-1] ~= essenceTextureID and tip.gems[i-1]) or nil
+					if not tip.essences[step] then tip.essences[step] = {} end
+					tip.essences[step][1] = selected		--essence texture if selected or nil
+					tip.essences[step][2] = tex:GetAtlas()	--atlas place 'tooltip-heartofazerothessence-major' or 'tooltip-heartofazerothessence-minor'
+					tip.essences[step][3] = texture			--border texture placed by the atlas
+
+					step = step + 1
+					if selected then tip.gems[i-1] = nil end
 				else
-					texturesDB[i] = texture
+					tip.gems[i] = texture
 				end
 			end
+		end
 
-			if clean then tex:SetTexture() end
+		return tip.gems, tip.essences
+	end
+
+	function F.InspectItemInfo(text, slotInfo)
+		local itemLevel = strfind(text, itemLevelString) and strmatch(text, "(%d+)%)?$")
+		if itemLevel then
+			slotInfo.iLvl = tonumber(itemLevel)
+		end
+
+		local enchant = strmatch(text, enchantString)
+		if enchant then
+			slotInfo.enchantText = enchant
 		end
 	end
 
-	return texturesDB, essencesDB
-end
+	function F.CollectEssenceInfo(index, lineText, slotInfo)
+		local step = 1
+		local essence = slotInfo.essences[step]
+		if essence and next(essence) and (strfind(lineText, ITEM_SPELL_TRIGGER_ONEQUIP, nil, true) and strfind(lineText, essenceDescription, nil, true)) then
+			for i = 5, 2, -1 do
+				local line = _G["mUI_ScanTooltipTextLeft"..index-i]
+				local text = line and line:GetText()
 
-function F.InspectItemInfo(text, iLvl, enchantText)
-	local itemLevel = strfind(text, itemLevelString) and strmatch(text, "(%d+)%)?$")
-	if itemLevel then iLvl = tonumber(itemLevel) end
-	local enchant = strmatch(text, enchantString)
-	if enchant then enchantText = enchant end
+				if text and (not strmatch(text, "^[ +]")) and essence and next(essence) then
+					local r, g, b = line:GetTextColor()
+					essence[4] = r
+					essence[5] = g
+					essence[6] = b
 
-	return iLvl, enchantText
-end
-
-function F.GetItemLevel(link, arg1, arg2, fullScan)
-	if fullScan then
-		F.InspectItemTextures(true)
-		tip:SetOwner(UIParent, "ANCHOR_NONE")
-		tip:SetInventoryItem(arg1, arg2)
-
-		local iLvl, enchantText, gems, essences
-		gems, essences = F.InspectItemTextures(nil, true)
-
-		for i = 1, tip:NumLines() do
-			local line = _G[tip:GetName().."TextLeft"..i]
-			if line then
-				local text = line:GetText() or ""
-				iLvl, enchantText = F.InspectItemInfo(text, iLvl, enchantText)
-				if enchantText then break end
+					step = step + 1
+					essence = slotInfo.essences[step]
+				end
 			end
 		end
+	end
 
-		return iLvl, enchantText, gems, essences
-	else
-		if iLvlDB[link] then return iLvlDB[link] end
-
-		tip:SetOwner(UIParent, "ANCHOR_NONE")
-		if arg1 and type(arg1) == "string" then
+	function F.GetItemLevel(link, arg1, arg2, fullScan)
+		if fullScan then
+			tip:SetOwner(UIParent, "ANCHOR_NONE")
 			tip:SetInventoryItem(arg1, arg2)
-		elseif arg1 and type(arg1) == "number" then
-			tip:SetBagItem(arg1, arg2)
-		else
-			tip:SetHyperlink(link)
-		end
 
-		for i = 2, 5 do
-			local line = _G[tip:GetName().."TextLeft"..i]
-			if line then
-				local text = line:GetText() or ""
-				local found = strfind(text, itemLevelString)
+			if not tip.slotInfo then tip.slotInfo = {} else wipe(tip.slotInfo) end
+
+			local slotInfo = tip.slotInfo
+			slotInfo.gems, slotInfo.essences = F.InspectItemTextures()
+
+			for i = 1, tip:NumLines() do
+				local line = _G["mUI_ScanTooltipTextLeft"..i]
+				if not line then break end
+
+				local text = line:GetText()
+				if text then
+					if i == 1 and text == RETRIEVING_ITEM_INFO then
+						return "tooSoon"
+					else
+						F.InspectItemInfo(text, slotInfo)
+						F.CollectEssenceInfo(i, text, slotInfo)
+					end
+				end
+			end
+
+			return slotInfo
+		else
+			if iLvlDB[link] then return iLvlDB[link] end
+
+			tip:SetOwner(UIParent, "ANCHOR_NONE")
+			if arg1 and type(arg1) == "string" then
+				tip:SetInventoryItem(arg1, arg2)
+			elseif arg1 and type(arg1) == "number" then
+				tip:SetBagItem(arg1, arg2)
+			else
+				tip:SetHyperlink(link)
+			end
+
+			for i = 2, 5 do
+				local line = _G[tip:GetName().."TextLeft"..i] or _G["mUI_ScanTooltipTextLeft"..i]
+				if not line then break end
+
+				local text = line:GetText()
+				local found = text and strfind(text, itemLevelString)
 				if found then
 					local level = strmatch(text, "(%d+)%)?$")
 					iLvlDB[link] = tonumber(level)
 					break
 				end
 			end
-		end
 
-		return iLvlDB[link]
+			return iLvlDB[link]
+		end
 	end
 end
 

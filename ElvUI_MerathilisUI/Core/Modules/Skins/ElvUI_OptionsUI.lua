@@ -55,41 +55,10 @@ local function Style_CreateSeparatorLine(self, frame, lastButton)
 	end
 end
 
-local function Style_SetButtonColor(self, btn, disabled)
-	if disabled then
-		local r, g, b = unpack(E.media.rgbvaluecolor)
-		btn:SetBackdropBorderColor(r, g, b)
-		btn:SetBackdropColor(r, g, b, 0.5)
-		btn.Text:SetTextColor(1, 1, 1)
-	else
-		btn:SetBackdropColor(0.1, 0.1, 0.1, 0.5)
-		local r, g, b = unpack(E.media.bordercolor)
-		btn:SetBackdropBorderColor(r, g, b, 1)
-		btn.Text:SetTextColor(.9, .8, 0)
-	end
-end
-
-local function Style_Ace3TabSelected(self, selected)
-	local bd = self.backdrop
-	if not bd then return end
-
-	if selected then
-		local r, g, b = unpack(E.media.rgbvaluecolor)
-		bd:SetBackdropBorderColor(r, g, b)
-		bd:SetBackdropColor(r, g, b, 0.5)
-	else
-		local r, g, b = unpack(E.media.bordercolor)
-		bd:SetBackdropBorderColor(r, g, b, 1)
-		bd:SetBackdropColor(0.1, 0.1, 0.1, 0.5)
-	end
-end
-
 function MERS:StyleElvUIConfig()
 	pluginInstaller()
 
 	hooksecurefunc(E, 'ToggleOptionsUI', StyleElvUIConfig)
 	hooksecurefunc(E, 'Config_CreateSeparatorLine', Style_CreateSeparatorLine)
-	hooksecurefunc(E, 'Config_SetButtonColor', Style_SetButtonColor)
 	hooksecurefunc(E, 'Install', StyleElvUIInstall)
-	hooksecurefunc(S, 'Ace3_TabSetSelected', Style_Ace3TabSelected)
 end

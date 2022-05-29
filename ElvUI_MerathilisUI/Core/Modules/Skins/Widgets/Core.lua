@@ -46,7 +46,16 @@ function module.Animation(texture, aType, duration, data)
 			end
 		end
 
-		local onEnter = function()
+		local stop = function()
+			group:Stop()
+			texture:SetAlpha(0)
+		end
+
+		local onEnter = function(frame)
+			if frame.IsEnabled and not frame:IsEnabled() then
+				return stop()
+			end
+
 			local remainingProgress = anim.isEnterMode and (1 - anim:GetProgress()) or anim:GetProgress()
 			local remainingDuration = remainingProgress * duration
 
@@ -58,7 +67,11 @@ function module.Animation(texture, aType, duration, data)
 			restart()
 		end
 
-		local onLeave = function()
+		local onLeave = function(frame)
+			if frame.IsEnabled and not frame:IsEnabled() then
+				return stop()
+			end
+
 			local remainingProgress = anim.isEnterMode and anim:GetProgress() or (1 - anim:GetProgress())
 			local remainingDuration = remainingProgress * duration
 
@@ -103,6 +116,10 @@ module:SecureHook(S, "Ace3_RegisterAsWidget")
 module:SecureHook(S, "Ace3_RegisterAsContainer")
 
 module.LazyLoadTable = {}
+
+function module:IsReady()
+	return E.private and E.private.mui and E.private.mui.skins and E.private.mui.skins.widgets
+end
 
 function module:RegisterLazyLoad(frame, func)
 	if not frame then

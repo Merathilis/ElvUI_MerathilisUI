@@ -9,7 +9,7 @@ local _G = _G
 
 options.chat = {
 	type = "group",
-	name = F.cOption(L["Chat"], 'orange'),
+	name = L["Chat"],
 	get = function(info) return E.db.mui.chat[ info[#info] ] end,
 	set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {

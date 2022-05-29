@@ -8,7 +8,7 @@ function module:HandleAce3CheckBox(check)
 		return
 	end
 
-	if not E.private.mui.skins.widgets then
+	if not self:IsReady() then
 		self:RegisterLazyLoad(check, "HandleAce3CheckBox")
 		return
 	end

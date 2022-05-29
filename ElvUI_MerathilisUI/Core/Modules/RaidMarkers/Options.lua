@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local RMA = MER:GetModule('MER_RaidMarkers')
-local COMP = MER:GetModule('MER_Compatibility')
+local module = MER:GetModule('MER_RaidMarkers')
 local options = MER.options.modules.args
 
 local format = string.format
@@ -11,9 +10,8 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 
 options.raidmarkers = {
 	type = "group",
-	name = F.cOption(L["Raid Markers"], 'orange'),
+	name = L["Raid Markers"],
 	get = function(info) return E.db.mui.raidmarkers[ info[#info] ] end,
-	disabled = function() return (COMP.SLE and E.db.sle.raidmarkers.enable) end,
 	args = {
 		name = {
 			order = 1,
@@ -49,7 +47,7 @@ options.raidmarkers = {
 					type = "toggle",
 					name = L["Enable"],
 					desc = L["Show/Hide raid marks."],
-					set = function(info, value) E.db.mui.raidmarkers.enable = value; RMA:Visibility() end,
+					set = function(info, value) E.db.mui.raidmarkers.enable = value; module:Visibility() end,
 				},
 				reset = {
 					order = 6,
@@ -72,7 +70,7 @@ options.raidmarkers = {
 					name = L["Backdrop"],
 					disabled = function() return not E.db.mui.raidmarkers.enable end,
 					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.backdrop = value; RMA:Backdrop() end,
+					set = function(info, value) E.db.mui.raidmarkers.backdrop = value; module:Backdrop() end,
 				},
 				buttonSize = {
 					order = 9,
@@ -81,7 +79,7 @@ options.raidmarkers = {
 					min = 16, max = 40, step = 1,
 					disabled = function() return not E.db.mui.raidmarkers.enable end,
 					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.buttonSize = value; RMA:UpdateBar() end,
+					set = function(info, value) E.db.mui.raidmarkers.buttonSize = value; module:UpdateBar() end,
 				},
 				spacing = {
 					order = 10,
@@ -90,7 +88,7 @@ options.raidmarkers = {
 					min = -4, max = 10, step = 1,
 					disabled = function() return not E.db.mui.raidmarkers.enable end,
 					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.spacing = value; RMA:UpdateBar() end,
+					set = function(info, value) E.db.mui.raidmarkers.spacing = value; module:UpdateBar() end,
 				},
 				orientation = {
 					order = 11,
@@ -98,7 +96,7 @@ options.raidmarkers = {
 					name = L["Orientation"],
 					disabled = function() return not E.db.mui.raidmarkers.enable end,
 					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.orientation = value; RMA:UpdateBar() end,
+					set = function(info, value) E.db.mui.raidmarkers.orientation = value; module:UpdateBar() end,
 					values = {
 						["HORIZONTAL"] = L["Horizontal"],
 						["VERTICAL"] = L["Vertical"],
@@ -110,7 +108,7 @@ options.raidmarkers = {
 					name = L["Reverse"],
 					disabled = function() return not E.db.mui.raidmarkers.enable end,
 					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.reverse = value; RMA:UpdateBar() end,
+					set = function(info, value) E.db.mui.raidmarkers.reverse = value; module:UpdateBar() end,
 				},
 				modifier = {
 					order = 13,
@@ -119,7 +117,7 @@ options.raidmarkers = {
 					desc = L["Set the modifier key for placing world markers."],
 					disabled = function() return not E.db.mui.raidmarkers.enable end,
 					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.modifier = value; RMA:UpdateWorldMarkersAndTooltips() end,
+					set = function(info, value) E.db.mui.raidmarkers.modifier = value; module:UpdateWorldMarkersAndTooltips() end,
 					values = {
 						["shift-"] = SHIFT_KEY,
 						["ctrl-"] = CTRL_KEY,
@@ -132,7 +130,7 @@ options.raidmarkers = {
 					name = L["Visibility"],
 					disabled = function() return not E.db.mui.raidmarkers.enable end,
 					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.visibility = value; RMA:Visibility() end,
+					set = function(info, value) E.db.mui.raidmarkers.visibility = value; module:Visibility() end,
 					values = {
 						["DEFAULT"] = DEFAULT,
 						["INPARTY"] = AGGRO_WARNING_IN_PARTY,
@@ -147,14 +145,14 @@ options.raidmarkers = {
 					name = L["Visibility State"],
 					disabled = function() return E.db.mui.raidmarkers.visibility ~= "CUSTOM" or not E.db.mui.raidmarkers.enable end,
 					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.customVisibility = value; RMA:Visibility() end,
+					set = function(info, value) E.db.mui.raidmarkers.customVisibility = value; module:Visibility() end,
 				},
 				mouseover = {
 					order = 16,
 					type = 'toggle',
 					name = L["Mouseover"],
 					disabled = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.mouseover = value; RMA:UpdateMouseover() end,
+					set = function(info, value) E.db.mui.raidmarkers.mouseover = value; module:UpdateMouseover() end,
 				},
 				notooltip = {
 					order = 17,
