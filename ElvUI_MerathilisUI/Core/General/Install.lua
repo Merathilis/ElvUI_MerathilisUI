@@ -1360,7 +1360,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
 		E.db["unitframe"]["units"]["player"]["power"]["powerPrediction"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 20
-		--E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 285
 		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = ""
@@ -1384,6 +1383,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["keepSizeRatio"] = false
 		E.db["unitframe"]["units"]["player"]["buffs"]["height"] = 18
 		E.db["unitframe"]["units"]["player"]["buffs"]["spacing"] = 1
+		E.db["unitframe"]["units"]["player"]["buffs"]["growthX"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["size"] = 18
