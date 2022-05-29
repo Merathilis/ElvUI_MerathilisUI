@@ -145,6 +145,43 @@ options.name = {
 				},
 			},
 		},
+		LoginMsg = {
+			order = 990,
+			type = "toggle",
+			name = L["Login Message"],
+			get = function(info)
+				return E.private.mui.core.LoginMsg
+			end,
+			set = function(info, value)
+				E.private.mui.core.LoginMsg = value
+			end
+		},
+		compatibilityCheck = {
+			order = 991,
+			type = "toggle",
+			name = L["Compatibility Check"],
+			desc = L["Help you to enable/disable the modules for a better experience with other plugins."],
+			get = function(info)
+				return E.private.mui.core.compatibilityCheck
+			end,
+			set = function(info, value)
+				E.private.mui.core.compatibilityCheck = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end
+		},
+		debugMode = {
+			order = 992,
+			type = "toggle",
+			name = L["Debug Mode"],
+			desc = L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."],
+			get = function(info)
+				return E.private.mui.core.debugMode
+			end,
+			set = function(info, value)
+				E.private.mui.core.debugMode = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end
+		}
 	},
 }
 

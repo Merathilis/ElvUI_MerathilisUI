@@ -44,7 +44,6 @@ MER.Modules.Chat = MER:NewModule('MER_Chat', 'AceEvent-3.0', 'AceHook-3.0', 'Ace
 MER.Modules.ChatBar = MER:NewModule('MER_ChatBar', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.ChatLink = MER:NewModule('MER_ChatLink', 'AceEvent-3.0')
 MER.Modules.Cooldown =  MER:NewModule('MER_Cooldown', 'AceHook-3.0')
-MER.Modules.Compatibility = MER:NewModule('MER_Compatibility')
 MER.Modules.CombatText = MER:NewModule('MER_CombatText', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.Cursor = MER:NewModule('MER_Cursor')
 MER.Modules.CVars = MER:NewModule('MER_CVars')
@@ -109,9 +108,15 @@ function MER:Initialize()
 end
 
 do
+	local checked = false
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
 		if isInitialLogin then
 			E:Delay(7, self.CheckVersion, self)
+		end
+
+		if not (checked or _G.ElvUIInstallFrame) then
+			self:CheckCompatibility()
+			checked = true
 		end
 
 		if ElvDB then

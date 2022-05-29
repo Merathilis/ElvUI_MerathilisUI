@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RaidMarkers')
-local COMP = MER:GetModule('MER_Compatibility')
 local options = MER.options.modules.args
 
 local format = string.format
@@ -13,7 +12,6 @@ options.raidmarkers = {
 	type = "group",
 	name = L["Raid Markers"],
 	get = function(info) return E.db.mui.raidmarkers[ info[#info] ] end,
-	disabled = function() return (COMP.SLE and E.db.sle.raidmarkers.enable) end,
 	args = {
 		name = {
 			order = 1,

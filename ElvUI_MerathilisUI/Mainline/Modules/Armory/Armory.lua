@@ -1,7 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Armory')
 local M = E:GetModule('Misc')
-local COMP = MER:GetModule('MER_Compatibility')
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
@@ -378,7 +377,6 @@ function module:Initialize()
 	module.db = E.db.mui.armory
 
 	if not module.db.enable or E.private.skins.blizzard.character ~= true then return end
-	if (COMP.SLE and E.db.sle.armory.character.enable) then return end
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
 
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)

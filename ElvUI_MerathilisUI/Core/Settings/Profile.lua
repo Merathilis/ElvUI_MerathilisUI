@@ -7,7 +7,6 @@ P.core = {
 }
 
 P.general = {
-	LoginMsg = true,
 	GameMenu = true,
 	splashScreen = true,
 	AFK = true,

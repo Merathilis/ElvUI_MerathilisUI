@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local AFK = E:GetModule('AFK')
-local COMP = MER:GetModule('MER_Compatibility')
 
 local _G = _G
 local tonumber, unpack = tonumber, unpack
@@ -180,9 +179,6 @@ end
 
 local function Initialize()
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
-
-	-- Compatibility
-	if (COMP.SLE and E.private.sle.module.screensaver) or (COMP.BUI and E.db.benikui.misc.afkMode) then return end
 
 	-- Hide ElvUI Elements
 	AFK.AFKMode.bottom:Hide() -- Bottom panel

@@ -62,6 +62,28 @@ options.general = {
 			get = function(info) return E.db.mui.general[ info[#info] ] end,
 			set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 		},
+		shadow = {
+			order = 4,
+			type = "group",
+			name = F.cOption(L["Shadows"], 'orange'),
+			guiInline = true,
+			get = function(info) return E.db.mui.general.shadow[ info[#info] ] end,
+			set = function(info, value) E.db.mui.general.shadow[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				increasedSize = {
+					order = 2,
+					type = "range",
+					name = L["Increase Size"],
+					desc = L["Make shadow thicker."],
+					min = 0, max = 10, step = 1
+				},
+			},
+		},
 	},
 }
 

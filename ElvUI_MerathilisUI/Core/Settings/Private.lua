@@ -1,5 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
+V.core = {
+	LoginMsg = true,
+	debugMode = false,
+	compatibilityCheck = true,
+}
+
 V.general = {
 	install_complete = nil,
 }

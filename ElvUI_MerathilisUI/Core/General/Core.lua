@@ -106,7 +106,7 @@ function MER:CheckVersion()
 	end
 
 	local icon = F.GetIconString(MER.Media.Textures.pepeSmall, 14)
-	if E.db.mui.installed and E.db.mui.general.LoginMsg then
+	if E.db.mui.installed and E.private.mui.core.LoginMsg then
 		print(icon..''..MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..F.PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 	end
 end

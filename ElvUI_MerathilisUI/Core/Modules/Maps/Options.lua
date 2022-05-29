@@ -2,7 +2,6 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule('MER_Minimap')
 local SMB = MER:GetModule('MER_MiniMapButtons')
 local RM = MER:GetModule('MER_RectangleMinimap')
-local COMP = MER:GetModule('MER_Compatibility')
 local options = MER.options.modules.args
 local LSM = E.LSM
 
@@ -347,7 +346,6 @@ options.maps = {
 			name = L["Minimap Buttons"],
 			get = function(info) return E.db.mui.smb[ info[#info] ] end,
 			set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update() end,
-			disabled = function() return (COMP.PA and _G.ProjectAzilroka.db.SquareMinimapButtons.Enable) end,
 			args = {
 				enable = {
 					order = 1,

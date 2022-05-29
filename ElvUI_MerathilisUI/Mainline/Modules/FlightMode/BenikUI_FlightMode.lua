@@ -1,12 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_BUIFlightMode')
-local COMP = MER:GetModule('MER_Compatibility')
 
 local _G = _G
 local CreateFrame = CreateFrame
 
 function module:Initialize()
-	if not COMP.BUI then return end
 	local BUI = _G.ElvUI_BenikUI[1]
 	if (not BUI.initialized) then
 		_G.hooksecurefunc(BUI, "Init", function()

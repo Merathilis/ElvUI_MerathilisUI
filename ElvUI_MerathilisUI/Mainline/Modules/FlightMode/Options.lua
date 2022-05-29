@@ -1,5 +1,4 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local COMP = MER:GetModule('MER_Compatibility')
 local options = MER.options.modules.args
 
 local format = string.format
@@ -20,7 +19,6 @@ options.flightMode = {
 			type = "group",
 			name = F.cOption(L["Credits"], 'orange'),
 			guiInline = true,
-			disabled = function() return (COMP.BUI and E.db.benikui.misc.flightMode.enable) end,
 			args = {
 				tukui = {
 					order = 1,

@@ -120,7 +120,7 @@ end
 
 function F.SetFontOutline(text, font, size)
 	if not text or not text.GetFont then
-		F.DebugMessage("Funktion", "[3]No font found to handle font style")
+		F.DebugMessage("Function", "[3]No font found to handle font style")
 		return
 	end
 	local fontName, fontHeight = text:GetFont()
@@ -151,6 +151,29 @@ function F.cOption(name, color)
 	end
 
 	return (hex):format(name)
+end
+
+function F.DebugMessage(module, text)
+	if not (E.private and E.private.mui and E.private.WT.core.debugMode) then
+		return
+	end
+
+	if not text then
+		return
+	end
+
+	if not module then
+		module = "Function"
+		text = "No Module Name>" .. text
+	end
+
+	if type(module) ~= "string" and module.GetName then
+		module = module:GetName()
+	end
+
+	local message = format("[WT - %s] %s", module, text)
+
+	E:Delay(0.1, print, message)
 end
 
 do
