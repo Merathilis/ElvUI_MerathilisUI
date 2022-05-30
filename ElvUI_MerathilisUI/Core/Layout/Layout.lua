@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERL = MER:GetModule('MER_Layout')
+local module = MER:GetModule('MER_Layout')
 local CH = E:GetModule('Chat')
 
 local _G = _G
@@ -7,7 +7,7 @@ local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local GameTooltip = _G["GameTooltip"]
 
-function MERL:CreateChatButtons()
+function module:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end
 
 	E.db.mui.chat.expandPanel = 150
@@ -69,9 +69,9 @@ function MERL:CreateChatButtons()
 	end)
 end
 
-function MERL:ShadowOverlay()
+function module:ShadowOverlay()
 	-- Based on ncShadow
-	if E.db.mui.general.shadowOverlay ~= true then return end
+	if not E.private.mui.skins.shadowOverlay then return end
 
 	self.f = CreateFrame("Frame", MER.Title.."ShadowBackground")
 	self.f:Point("TOPLEFT")
@@ -86,9 +86,9 @@ function MERL:ShadowOverlay()
 	self.f:SetAlpha(0.7)
 end
 
-function MERL:Initialize()
+function module:Initialize()
 	self:CreateChatButtons()
 	self:ShadowOverlay()
 end
 
-MER:RegisterModule(MERL:GetName())
+MER:RegisterModule(module:GetName())

@@ -1,20 +1,19 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER.Modules.Skins
 
 local _G = _G
 local unpack = unpack
 
-local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown
 
-local function StyleElvUIConfig()
+function module:StyleElvUIConfig()
 	if InCombatLockdown() or not E.private.skins.ace3Enable then return end
 
 	local frame = E:Config_GetWindow()
 
 	if frame and not frame.IsStyled then
 		frame:Styling()
+		MER:CreateShadow(frame)
 
 		if frame.leftHolder then
 			frame.leftHolder.slider:SetThumbTexture(E.media.normTex)
@@ -26,24 +25,17 @@ local function StyleElvUIConfig()
 	end
 end
 
-local function StyleElvUIInstall()
+function module:StyleElvUIInstall()
 	if InCombatLockdown() then return end
 
 	local frame = _G.ElvUIInstallFrame
-	if frame and not frame.IsStyled then
+	if frame then
 		frame:Styling()
-		frame.IsStyled = true
+		MER:CreateShadow(frame)
 	end
 end
 
-local function pluginInstaller()
-	if _G.PluginInstallFrame then
-		_G.PluginInstallFrame:Styling()
-		_G.PluginInstallTitleFrame:Styling()
-	end
-end
-
-local function Style_CreateSeparatorLine(self, frame, lastButton)
+function module:StyleSeparatorLine(self, frame, lastButton)
 	if frame.leftHolder then
 		local line = frame.leftHolder.buttons:CreateTexture()
 		line:SetTexture(E.Media.Textures.White8x8)
@@ -55,10 +47,26 @@ local function Style_CreateSeparatorLine(self, frame, lastButton)
 	end
 end
 
-function MERS:StyleElvUIConfig()
-	pluginInstaller()
+function module:ElvUI_OptionsUI()
+	if not E.private.mui.skins.enable then
+		return
+	end
 
-	hooksecurefunc(E, 'ToggleOptionsUI', StyleElvUIConfig)
-	hooksecurefunc(E, 'Config_CreateSeparatorLine', Style_CreateSeparatorLine)
-	hooksecurefunc(E, 'Install', StyleElvUIInstall)
+	self:SecureHook(E, "ToggleOptionsUI", "StyleElvUIConfig")
+
+	if _G.PluginInstallFrame then
+		_G.PluginInstallFrame:Styling()
+		_G.PluginInstallTitleFrame:Styling()
+	end
+
+	if _G.ElvUIInstallFrame then
+		_G.ElvUIInstallFrame:Styling()
+		MER:CreateShadow(_G.ElvUIInstallFrame)
+	else
+		self:SecureHook(E, "Install", "StyleElvUIInstall")
+	end
+
+	self:SecureHook(E, "Config_CreateSeparatorLine", "StyleSeparatorLine")
 end
+
+module:AddCallback("ElvUI_OptionsUI")

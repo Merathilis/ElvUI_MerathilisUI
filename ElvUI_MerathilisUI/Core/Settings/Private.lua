@@ -15,6 +15,13 @@ V.misc = {
 }
 
 V.skins = {
+	enable = true,
+	style = true,
+	shadowOverlay = true,
+	shadow = {
+		enable = true,
+		increasedSize = 0,
+	},
 	widgets = {
 		button = {
 			enable = true,

@@ -90,12 +90,12 @@ MER.Modules.WorldMap = MER:NewModule('MER_WorldMap', 'AceHook-3.0', 'AceEvent-3.
 MER.Modules.ZoneText = MER:NewModule('MER_ZoneText', 'AceHook-3.0')
 
 function MER:Initialize()
+	self.initialized = true
+
 	-- ElvUI -> MerathilisUI -> MerathilisUI Modules
 	if not self:CheckElvUIVersion() then
 		return
 	end
-
-	self.initialized = true
 
 	self:UpdateScripts() -- Database need update first
 	self:InitializeModules()
