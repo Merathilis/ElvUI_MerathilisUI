@@ -7,7 +7,7 @@ local function AddColor(string)
 	if type(string) ~= "string" then
 		string = tostring(string)
 	end
-	return F.CreateColorString(string, {r = 0.204, g = 0.596, b = 0.859})
+	return F.CreateColorString(string, {r = 0, g = 192, b = 250})
 end
 
 local function SortList(a, b)
@@ -141,8 +141,13 @@ options.name = {
 				version = {
 					order = 1,
 					type = "description",
-					name = MER.Title..MER.Version,
+					name = MER.Title..F.cOption(MER.Version, 'blue')
 				},
+				build = {
+					order = 2,
+					type = "description",
+					name = L["WoW Build"] .. ": " .. AddColor(format("%s (%s)", E.wowpatch, E.wowbuild))
+				}
 			},
 		},
 		LoginMsg = {
