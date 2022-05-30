@@ -58,7 +58,7 @@ function module:CreateBG(frame)
 	local bg = f:CreateTexture(nil, "BACKGROUND")
 	bg:Point("TOPLEFT", frame, -E.mult, E.mult)
 	bg:Point("BOTTOMRIGHT", frame, E.mult, -E.mult)
-	bg:SetTexture(E.media.blankTex)
+	bg:SetTexture(E.media.normTex)
 	bg:SetVertexColor(0, 0, 0)
 
 	return bg

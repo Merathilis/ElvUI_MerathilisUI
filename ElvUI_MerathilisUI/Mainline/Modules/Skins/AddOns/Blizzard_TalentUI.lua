@@ -16,6 +16,8 @@ local GetPvpTalentInfoByID = GetPvpTalentInfoByID
 local UnitSex = UnitSex
 local hooksecurefunc = hooksecurefunc
 
+local MAX_TALENT_TIERS = 7
+
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 function module:Blizzard_TalentUI()
@@ -38,7 +40,7 @@ function module:Blizzard_TalentUI()
 
 	do
 	-- Talents
-		for i = 1, _G.MAX_TALENT_TIERS do
+		for i = 1, MAX_TALENT_TIERS do
 			local row = _G.PlayerTalentFrameTalents['tier'..i]
 			for j = 1, _G.NUM_TALENT_COLUMNS do
 				local bu = row['talent'..j]
@@ -127,6 +129,7 @@ function module:Blizzard_TalentUI()
 					frame.ring:Hide()
 					frame.icon:SetTexCoord(unpack(E.TexCoords))
 					module:CreateBG(frame.icon)
+					module.bg = bg
 
 					frame.styled = true
 				end

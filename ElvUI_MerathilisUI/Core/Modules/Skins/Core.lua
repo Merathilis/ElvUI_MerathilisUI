@@ -11,6 +11,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 module.allowBypass = {}
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
+module.enteredLoad = {}
 module.updateProfile = {}
 
 --[[
@@ -31,7 +32,7 @@ end
 	@param {string} addonName 插件名
 	@param {function} [func=module.addonName] 插件回调函数
 ]]
-function module:AddCallbackForAddon(addonName, func) -- arg2: name is 'given name'; see example above.
+function module:AddCallbackForAddon(addonName, func)
 	local addon = self.addonsToLoad[addonName]
 	if not addon then
 		self.addonsToLoad[addonName] = {}
