@@ -13,8 +13,15 @@ module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
 module.updateProfile = {}
 
-local function errorhandler(err)
-	return _G.geterrorhandler()(err)
+function module:ADDON_LOADED(_, addonName)
+	if not self.allowBypass[addonName] and not E.initialized then
+		return
+	end
+
+	local object = self.addonsToLoad[addonName]
+	if object then
+		module:CallLoadedAddon(addonName, object)
+	end
 end
 
 -- EXAMPLE:
@@ -35,6 +42,10 @@ end
 function module:AddCallback(name, func, position)  -- arg1: name is 'given name'
 	local load = (type(name) == 'function' and name) or (not func and module[name])
 	module:RegisterSkin('ElvUI_MerathilisUI', load or func, nil, nil, position)
+end
+
+local function errorhandler(err)
+	return _G.geterrorhandler()(err)
 end
 
 function module:RegisterSkin(addonName, func, forceLoad, bypass, position)
@@ -78,17 +89,6 @@ function module:AddCallbackForUpdate(name, func)
 	tinsert(self.updateProfile, func or self[name])
 end
 
-function module:ADDON_LOADED(_, addonName)
-	if not self.allowBypass[addonName] and not E.initialized then
-		return
-	end
-
-	local object = self.addonsToLoad[addonName]
-	if object then
-		module:CallLoadedAddon(addonName, object)
-	end
-end
-
 function module:DisableAddOnSkin(key)
 	if _G.AddOnSkins then
 		local AS = _G.AddOnSkins[1]
@@ -99,6 +99,7 @@ function module:DisableAddOnSkin(key)
 end
 
 function module:Initialize()
+	self.Initialized = true
 	self.db = E.private.mui.skins
 
 	self:UpdateMedia()
