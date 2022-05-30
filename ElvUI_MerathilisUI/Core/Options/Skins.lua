@@ -107,13 +107,20 @@ options.widgets = {
 	name = E.NewSign..L["Widgets"],
 	disabled = function() return not E.private.mui.skins.enable end,
 	args = {
-		header = {
+		desc = {
 			order = 1,
+			type = "description",
+			name = MER.InfoColor..L["These skins will affect all widgets handled by ElvUI Skins."],
+			width = "full",
+			fontSize = "medium"
+		},
+		header = {
+			order = 2,
 			type = 'header',
 			name = F.cOption(L["Widgets"], 'orange'),
 		},
 		enableAll = {
-			order = 2,
+			order = 3,
 			type = "execute",
 			name = L["Enable All"],
 			func = function()
@@ -124,7 +131,7 @@ options.widgets = {
 			end
 		},
 		disableAll = {
-			order = 3,
+			order = 4,
 			type = "execute",
 			name = L["Disable All"],
 			func = function()
@@ -133,21 +140,6 @@ options.widgets = {
 				end
 				E:StaticPopup_Show("PRIVATE_RL")
 			end
-		},
-		descGroup = {
-			order = 4,
-			type = "group",
-			name = " ",
-			inline = true,
-			args = {
-				desc = {
-					order = 1,
-					type = "description",
-					name = MER.InfoColor..L["These skins will affect all widgets handled by ElvUI Skins."],
-					width = "full",
-					fontSize = "medium"
-				},
-			},
 		},
 		button = {
 			order = 10,
@@ -1181,25 +1173,32 @@ options.blizzard = {
 	name = L["Blizzard"],
 	get = function(info) return E.private.mui.skins.blizzard[ info[#info] ] end,
 	set = function(info, value) E.private.mui.skins.blizzard[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+	disabled = function() return not E.private.mui.skins.enable end,
 	args = {
 		info = {
 			order = 1,
 			type = "description",
 			name = MER.InfoColor..L["MER_SKINS_DESC"],
+			fontSize = "medium",
 		},
 		space = {
 			order = 2,
 			type = "description",
 			name = '',
 		},
-		gotoskins = {
+		header = {
 			order = 3,
+			type = "header",
+			name = F.cOption(L["Blizzard"], 'orange'),
+		},
+		gotoskins = {
+			order = 4,
 			type = "execute",
 			name = L["ElvUI Skins"],
 			func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "skins") end,
 		},
 		enableAll = {
-			order = 4,
+			order = 5,
 			type = "execute",
 			name = L["Enable All"],
 			func = function()
@@ -1210,7 +1209,7 @@ options.blizzard = {
 			end
 		},
 		disableAll = {
-			order = 5,
+			order = 6,
 			type = "execute",
 			name = L["Disable All"],
 			func = function()
@@ -1223,7 +1222,7 @@ options.blizzard = {
 			end
 		},
 		space2 = {
-			order = 6,
+			order = 7,
 			type = "description",
 			name = '',
 		},
@@ -1596,16 +1595,23 @@ options.addonskins = {
 	name = L["AddOnSkins"],
 	get = function(info) return E.private.mui.skins.addonSkins[ info[#info] ] end,
 	set = function(info, value) E.private.mui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+	disabled = function() return not E.private.mui.skins.enable end,
 	args = {
 		info = {
 			order = 1,
 			type = "description",
 			name = MER.InfoColor..L["MER_ADDONSKINS_DESC"],
+			fontSize = "medium",
 		},
 		space = {
 			order = 2,
 			type = "description",
 			name = '',
+		},
+		header = {
+			order = 3,
+			type = "header",
+			name = F.cOption(L["AddOnSkins"], 'orange'),
 		},
 	},
 }
@@ -1631,13 +1637,24 @@ options.profiles = {
 			order = 1,
 			type = "description",
 			name = MER.InfoColor..L["MER_PROFILE_DESC"],
-		}
+			fontSize = "medium",
+		},
+		space = {
+			order = 2,
+			type = "description",
+			name = '',
+		},
+		header = {
+			order = 3,
+			type = "header",
+			name = F.cOption(L["Profiles"], 'orange'),
+		},
 	},
 }
 
 for _, v in ipairs(SupportedProfiles) do
 	local addon, addonName = unpack(v)
-	local optionOrder = 1
+	local optionOrder = 4
 	options.profiles.args[addon] = {
 		order = optionOrder + 1,
 		type = "execute",

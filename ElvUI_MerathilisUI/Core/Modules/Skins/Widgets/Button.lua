@@ -17,7 +17,7 @@ function module:HandleButton(_, button)
 		end)
 	end
 
-	if not E.private.mui.skins.widgets.button.enable then
+	if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.button.enable then
 		return
 	end
 
@@ -82,6 +82,10 @@ function module:HandleButton(_, button)
 end
 
 function module:ElvUI_Config_SetButtonColor(_, btn)
+	if not E.private.mui or not E.private.mui.skins.enable then
+		return
+	end
+
 	if not E.private.mui.skins.widgets.button.enable or not E.private.mui.skins.widgets.button.selected.enable then
 		return
 	end
