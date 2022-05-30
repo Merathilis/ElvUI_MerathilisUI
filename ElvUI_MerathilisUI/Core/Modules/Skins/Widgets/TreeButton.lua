@@ -8,7 +8,7 @@ local abs = abs
 local type = type
 
 function module:HandleTreeGroup(widget)
-	if not E.private.mui.skins.widgets.treeGroupButton.enable then
+	if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.treeGroupButton.enable then
 		return button
 	end
 

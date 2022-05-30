@@ -24,7 +24,10 @@ end
 function MER:UpdateScripts() -- DB Convert
 	MER:ForPreReleaseUser()
 
-	local currentVersion = tonumber(MER.Version) -- Installed WindTools Version
+	local db = E.db.mui
+	local private = E.private.mui
+
+	local currentVersion = tonumber(MER.Version) -- Installed MerathilisUI Version
 	local globalVersion = tonumber(E.global.mui.version or "0") -- Version in ElvUI Global
 	local profileVersion = tonumber(E.db.mui.version or globalVersion) -- Version in ElvUI Profile
 	local privateVersion = tonumber(E.private.mui.version or globalVersion) -- Version in ElvUI Private
@@ -40,16 +43,25 @@ function MER:UpdateScripts() -- DB Convert
 
 	isFirstLine = true
 
-	if profileVersion <= 4.992 then
-		local db = E.db.mui
-		local private = E.private.mui
-
-		if db.general.LoginMsg then
-			db.general.LoginMsg = nil
+	if profileVersion <= 4.993 then
+		if db.general.style then
+			db.general.style = nil
 		end
 
-		if not private.core or type(private.core) ~= 'table' then
-			private.core = {}
+		if db.general.shadowOverlay then
+			db.general.shadowOverlay = nil
+		end
+
+		if db.general.shadow and type(db.general.shadow) == 'table' then
+			db.general.shadow = nil
+		end
+
+		if not private.skins or type(private.skins) ~= 'table' then
+			private.skins = {}
+		end
+
+		if not private.skins.shadow or type(private.skins.shadow) ~= 'table' then
+			private.skins.shadow = {}
 		end
 
 		UpdateMessage(L["Core"] .. " - " .. L["Update Database"], profileVersion)

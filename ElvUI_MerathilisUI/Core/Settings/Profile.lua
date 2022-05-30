@@ -11,12 +11,6 @@ P.general = {
 	splashScreen = true,
 	AFK = true,
 	FlightPoint = true,
-	style = true,
-	shadowOverlay = true,
-	shadow = {
-		enable = true,
-		increasedSize = 0,
-	},
 }
 
 P.bags = {

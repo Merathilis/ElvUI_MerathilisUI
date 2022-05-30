@@ -90,12 +90,12 @@ MER.Modules.WorldMap = MER:NewModule('MER_WorldMap', 'AceHook-3.0', 'AceEvent-3.
 MER.Modules.ZoneText = MER:NewModule('MER_ZoneText', 'AceHook-3.0')
 
 function MER:Initialize()
+	self.initialized = true
+
 	-- ElvUI -> MerathilisUI -> MerathilisUI Modules
 	if not self:CheckElvUIVersion() then
 		return
 	end
-
-	self.initialized = true
 
 	self:UpdateScripts() -- Database need update first
 	self:InitializeModules()
@@ -105,6 +105,12 @@ function MER:Initialize()
 	EP:RegisterPlugin(addon, MER.OptionsCallback)
 	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
+
+	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
+	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
+	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
+		E:GetModule("PluginInstaller"):Queue(MER.installTable)
+	end
 end
 
 do

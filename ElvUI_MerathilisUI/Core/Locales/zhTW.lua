@@ -27,8 +27,11 @@ But if you install another Layout over mine, you must adjust it manually.
 
 |cffff8000Newest additions are marked with: |r]=]
 
--- LoginMessage
+-- Core Options
+L["Login Message"] = "登入資訊"
 L["Enable/Disable the Login Message in Chat"] = true
+L["Debug Mode"] = "偵錯模式"
+L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "如果你安裝了其他 ElvUI 插件, 不推薦启用偵錯模式."
 
 -- Bags
 L["Equipment Manager"] = true
@@ -645,8 +648,6 @@ L["|cffff7d0aMerathilisUI|r Installation"] = true
 L["MerathilisUI Set"] = true
 L["MerathilisUI didn't find any supported addons for profile creation"] = true
 L["MerathilisUI successfully created and applied profile(s) for:"] = true
-L["Tank/ DPS Layout"] = true
-L["Heal Layout"] = true
 L["Chat Set"] = "對話设置"
 L["ActionBars"] = "快捷列"
 L["ActionBars Set"] = true
@@ -683,6 +684,9 @@ L["Please click the button below to setup your datatexts."] = true
 L["Please click the button below to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
 L["DataTexts"] = "資訊文字"
+L["General Layout"] = true
+L["Setup ActionBars"] = true
+L["Setup UnitFrames"] = true
 L["Setup Chat"] = "設定對話視窗"
 L["Setup Datatexts"] = true
 L["Setup Addons"] = true
@@ -801,12 +805,14 @@ L["This will create and apply profile for "] = true
 L["Changelog"] = "更新記錄"
 
 -- Compatibility
-L["has |cffff2020disabled|r "] = true
-L[" from "] = true
-L[" due to incompatiblities."] = true
-L[" due to incompatiblities with: "] = true
-L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
-L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+L["Compatibility Check"] = "相容性確認"
+L["Help you to enable/disable the modules for a better experience with other plugins."] = "為了保證與其他插件的使用體驗, 幫助你啟用/停用一些模組."
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "不同的插件和 ElvUI 增強中有非常多的模組, 但其中部分模組功能是高度相似的."
+L["Have a good time with %s!"] = "希望 %s 能讓你玩得開心!"
+L["Choose the module you would like to |cff00ff00use|r"] = "選擇你更傾向於|cff00ff00使用|r的模組"
+L["If you find the %s module conflicts with another addon, alert me via Discord."] = "如果你發現 %s 的模組與其他插件衝突了, 可以透過 Discord 來進行回報."
+L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = "你可以通過設定位於 [MerathilisUI]-[信息] 底部的選項來啟用/停用相容性檢查."
+L["Complete"] = "完成"
 
 -- Debug
 L["Usage"] = "使用方式"

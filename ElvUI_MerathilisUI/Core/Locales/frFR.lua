@@ -27,8 +27,11 @@ But if you install another Layout over mine, you must adjust it manually.
 
 |cffff8000Newest additions are marked with: |r]=]
 
--- LoginMessage
+-- Core Options
+L["Login Message"] = true
 L["Enable/Disable the Login Message in Chat"] = true
+L["Debug Mode"] = true
+L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = true
 
 -- Bags
 L["Equipment Manager"] = true
@@ -651,8 +654,6 @@ L["|cffff7d0aMerathilisUI|r Installation"] = true
 L["MerathilisUI Set"] = true
 L["MerathilisUI didn't find any supported addons for profile creation"] = true
 L["MerathilisUI successfully created and applied profile(s) for:"] = true
-L["Tank/ DPS Layout"] = true
-L["Heal Layout"] = true
 L["Chat Set"] = "Chat configuré"
 L["ActionBars"] = "Barres d'actions"
 L["ActionBars Set"] = true
@@ -689,6 +690,9 @@ L["Please click the button below to setup your datatexts."] = true
 L["Please click the button below to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
 L["DataTexts"] = "Textes d'informations"
+L["General Layout"] = true
+L["Setup ActionBars"] = true
+L["Setup UnitFrames"] = true
 L["Setup Datatexts"] = true
 L["Setup Addons"] = true
 L["ElvUI AddOns"] = true
@@ -806,12 +810,14 @@ L["This will create and apply profile for "] = true
 L["Changelog"] = "Changelog"
 
 -- Compatibility
-L["has |cffff2020disabled|r "] = true
-L[" from "] = true
-L[" due to incompatiblities."] = true
-L[" due to incompatiblities with: "] = true
-L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
-L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+L["Compatibility Check"] = true
+L["Help you to enable/disable the modules for a better experience with other plugins."] = true
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = true
+L["Have a good time with %s!"] = true
+L["Choose the module you would like to |cff00ff00use|r"] = true
+L["If you find the %s module conflicts with another addon, alert me via Discord."] = true
+L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = true
+L["Complete"] = true
 
 -- Debug
 L["Usage"] = true

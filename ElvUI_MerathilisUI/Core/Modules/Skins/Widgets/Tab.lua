@@ -25,7 +25,7 @@ function module:HandleTab(_, tab, noBackdrop, template)
 		return
 	end
 
-	if not E.private.mui.skins.widgets.tab.enable then
+	if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.tab.enable then
 		return
 	end
 
@@ -90,7 +90,7 @@ do
 			return
 		end
 
-		if not E.private.mui.skins.widgets.tab.enable then
+		if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.tab.enable then
 			return
 		end
 

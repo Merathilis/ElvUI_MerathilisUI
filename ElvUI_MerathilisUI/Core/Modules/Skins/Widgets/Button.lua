@@ -17,20 +17,11 @@ function module:HandleButton(_, button)
 		end)
 	end
 
-	if not E.private.mui.skins.widgets.button.enable then
+	if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.button.enable then
 		return
 	end
 
 	local db = E.private.mui.skins.widgets.button
-
-	if button.Icon then
-		local Texture = button.Icon:GetTexture()
-		if Texture and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]]) then
-			button.Icon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Arrow]])
-			button.Icon:SetVertexColor(1, 1, 1)
-			button.Icon:SetRotation(module.ArrowRotation['RIGHT'])
-		end
-	end
 
 	if db.text.enable then
 		local text = button.Text or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
@@ -39,7 +30,7 @@ function module:HandleButton(_, button)
 		end
 	end
 
-	if button.template and (button.template or button.backdrop) then
+	if db.backdrop.enable and (button.template or button.backdrop) then
 		local parentFrame = button.backdrop or button
 
 		-- Create background
@@ -82,6 +73,10 @@ function module:HandleButton(_, button)
 end
 
 function module:ElvUI_Config_SetButtonColor(_, btn)
+	if not E.private.mui or not E.private.mui.skins.enable then
+		return
+	end
+
 	if not E.private.mui.skins.widgets.button.enable or not E.private.mui.skins.widgets.button.selected.enable then
 		return
 	end

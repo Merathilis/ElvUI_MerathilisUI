@@ -27,7 +27,7 @@ function MER:CreateGradientFrame(frame, w, h, o, r, g, b, a1, a2)
 end
 
 function MER:UpdateStyling()
-	if E.db.mui.general.style then
+	if E.private.mui.skins.style then
 		for style in pairs(MER["styling"]) do
 			if style.stripes then style.stripes:Show() end
 			if style.gradient then style.gradient:Show() end
@@ -43,7 +43,7 @@ function MER:UpdateStyling()
 end
 
 function MER:CreateShadow(frame, size, force)
-	if not (E.db.mui.general.shadow and E.db.mui.general.shadow.enable) and not force then return end
+	if not (E.private.mui.skins.shadow and E.private.mui.skins.shadow.enable) and not force then return end
 
 	if not frame or frame.MERShadow or frame.shadow then return end
 
@@ -52,7 +52,7 @@ function MER:CreateShadow(frame, size, force)
 	end
 
 	size = size or 3
-	size = size + E.db.mui.general.shadow.increasedSize or 0
+	size = size + E.private.mui.skins.shadow.increasedSize or 0
 
 	local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 	shadow:SetFrameStrata(frame:GetFrameStrata())
@@ -122,7 +122,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 		style.stripes = stripes
 
-		if not E.db.mui.general.style then stripes:Hide() end
+		if not E.private.mui.skins.style then stripes:Hide() end
 	end
 
 	if not(useGradient) then
@@ -135,7 +135,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 		style.gradient = gradient
 
-		if not E.db.mui.general.style then gradient:Hide() end
+		if not E.private.mui.skins.style then gradient:Hide() end
 	end
 
 	if not(useShadow) then
@@ -148,7 +148,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 		style.mshadow = mshadow
 
-		if not E.db.mui.general.style then mshadow:Hide() end
+		if not E.private.mui.skins.style then mshadow:Hide() end
 	end
 
 	style:SetFrameLevel(f:GetFrameLevel() + 1)

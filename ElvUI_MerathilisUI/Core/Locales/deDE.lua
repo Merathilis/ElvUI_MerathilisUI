@@ -27,8 +27,11 @@ Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell
 
 |cffff8000Neue Features sind markiert mit einem: |r]=]
 
--- LoginMessage
+-- Core Options
+L["Login Message"] = "Login Nachricht"
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
+L["Debug Mode"] = "Debug Modus"
+L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "Wenn Du andere ElvUI-Plugins installiert hast, ist das Aktivieren des Debug-Modus kein gute Idee."
 
 -- Bags
 L["Equipment Manager"] = "Ausrüstungsmanager"
@@ -655,8 +658,6 @@ L["|cffff7d0aMerathilisUI|r Installation"] = true
 L["MerathilisUI Set"] = "MerathilisUI gesetzt"
 L["MerathilisUI didn't find any supported addons for profile creation"] = "MerathilisUI konnte keine Addonprofile finden, die unterstützt werden."
 L["MerathilisUI successfully created and applied profile(s) for:"] = "MerathilisUI hat erfolgreich ein Profil erstellt und angewandt für:"
-L["Tank/ DPS Layout"] = true
-L["Heal Layout"] = "Heiler Layout"
 L["Chat Set"] = "Chat eingestellt"
 L["ActionBars"] = "Aktionsleisten"
 L["ActionBars Set"] = "Aktionsleisten eingestellt"
@@ -693,6 +694,9 @@ L["Please click the button below to setup your datatexts."] = "Bitte drücke die
 L["Please click the button below to setup your Unitframes."] = "Bitte drücke die Taste unten, um die Einheitenfenster einzustellen."
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = "Bitte drücke die Taste unten, um die ElvUI AddOns einzustellen. Weitere AddOns Profile findest Du in meinen Einstellungen unter - Skins/AddOns."
 L["DataTexts"] = "Infotexte"
+L["General Layout"] = "Generelles Layout"
+L["Setup ActionBars"] = "Aktionsleisten einstellen"
+L["Setup UnitFrames"] = "Einheitenfenster einstellen"
 L["Setup Datatexts"] = "Infotexte einstellen"
 L["Setup Addons"] = "Addons einstellen"
 L["ElvUI AddOns"] = true
@@ -810,12 +814,14 @@ L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen
 L["Changelog"] = "Änderungen"
 
 -- Compatibility
-L["has |cffff2020disabled|r "] = "deaktiviert "
-L[" from "] = " von "
-L[" due to incompatiblities."] = " wegen inkompatibilität."
-L[" due to incompatiblities with: "] = " wegen inkompatibilität mit: "
-L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff00c0faElvUI_Windtools|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum Deaktivieren aus."
-L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff9482c9ElvUI_LivvenUI|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum Deaktivieren aus."
+L["Compatibility Check"] = "Kompatibilitätsprüfung"
+L["Help you to enable/disable the modules for a better experience with other plugins."] = "Hilf beim Aktivieren / Deaktivieren der Module, um eine bessere Erfahrung mit anderen Plugins zu erzielen."
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "Es gibt viele Module von verschiedenen Addons oder ElvUI-Plugins, aber einige davon haben fast die gleiche Funktionalität."
+L["Have a good time with %s!"] = "Viel Spaß mit %s!"
+L["Choose the module you would like to |cff00ff00use|r"] = "Wähle das Modul aus, das Du |cff00ff00verwenden|r möchtest."
+L["If you find the %s module conflicts with another addon, alert me via Discord."] = "Wenn Du feststellst, dass das %s Modul mit einem anderen Addon in Konflikt steht, benachrichtige mich über Discord."
+L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = "Du kannst die Kompatibilitätsprüfung über die Option unten in [MerathilisUI]-[Informationen] deaktivieren/aktivieren."
+L["Complete"] = "Komplett"
 
 -- Debug
 L["Usage"] = "Verwendungszweck"
