@@ -99,12 +99,6 @@ function MER:CheckVersion()
 		MER:ToggleChangeLog()
 	end
 
-	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
-	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
-	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
-		E:GetModule("PluginInstaller"):Queue(MER.installTable)
-	end
-
 	local icon = F.GetIconString(MER.Media.Textures.pepeSmall, 14)
 	if E.db.mui.installed and E.private.mui.core.LoginMsg then
 		print(icon..''..MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..F.PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))

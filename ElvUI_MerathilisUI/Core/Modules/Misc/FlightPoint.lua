@@ -181,7 +181,7 @@ end
 
 function FlightPoints_OnEvent(self, event, ...)
 	-- WorldFlightMap don't like this, so stop right here
-	if not E.db.mui or not E.db.mui.general or type(E.db.mui.general) ~= 'table' then
+	if not (E.db.mui and E.db.mui.general) or type(E.db.mui.general) ~= 'table' then
 		E.db.mui.general = {}
 	end
 	if not E.db.mui.general.FlightPoint or IsAddOnLoaded("WorldFlightMap") then return; end

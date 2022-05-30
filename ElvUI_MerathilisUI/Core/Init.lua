@@ -105,6 +105,12 @@ function MER:Initialize()
 	EP:RegisterPlugin(addon, MER.OptionsCallback)
 	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
+
+	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
+	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
+	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
+		E:GetModule("PluginInstaller"):Queue(MER.installTable)
+	end
 end
 
 do
