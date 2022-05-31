@@ -21,6 +21,11 @@ V.skins = {
 	shadow = {
 		enable = true,
 		increasedSize = 0,
+		color = {
+			r = 0,
+			g = 0,
+			b = 0
+		},
 	},
 	widgets = {
 		button = {

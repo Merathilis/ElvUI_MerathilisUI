@@ -6,8 +6,6 @@ local print, pairs = print, pairs
 local pcall = pcall
 local tinsert = table.insert
 
-MER.RegisteredModules = {}
-
 MER.dummy = function() return end
 MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 MER.ElvUIV = tonumber(E.version)
@@ -30,6 +28,8 @@ MER.LineString = MER.GreyColor.."---------------"
 MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
 MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
 MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
+
+MER.RegisteredModules = {}
 
 _G.BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
 for i = 1, 5 do
@@ -54,7 +54,7 @@ end
 
 function MER:InitializeModules()
 	for _, moduleName in pairs(MER.RegisteredModules) do
-		local module = MER:GetModule(moduleName)
+		local module = self:GetModule(moduleName)
 		if module.Initialize then
 			pcall(module.Initialize, module)
 		end
@@ -63,7 +63,7 @@ end
 
 function MER:UpdateModules()
 	self:UpdateScripts()
-	for _, moduleName in pairs(MER.RegisteredModules) do
+	for _, moduleName in pairs(self.RegisteredModules) do
 		local module = MER:GetModule(moduleName)
 		if module.ProfileUpdate then
 			pcall(module.ProfileUpdate, module)
