@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Include file="Skins\Load_Skins.xml"/>
 	<Include file="Extern\Load_Extern.xml"/>
 	<Include file="Auras\Load_Auras.xml"/>
+	<Include file="Skins\Load_Skins.xml"/>
 	<Include file="Bags\Load_Bags.xml"/>
 	<Include file="Chat\Load_Chat.xml"/>
 	<Include file="CombatAlert\Load_CombatAlert.xml"/>

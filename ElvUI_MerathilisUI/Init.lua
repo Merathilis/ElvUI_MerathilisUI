@@ -1,17 +1,20 @@
 local E, _, V, P, G = unpack(ElvUI)
-local EP = LibStub('LibElvUIPlugin-1.0')
 local addon, Engine = ...
+local EP = E.Libs.EP
+local AceAddon = E.Libs.AceAddon
 
-local MER = E.Libs.AceAddon:NewAddon(addon, 'AceConsole-3.0', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 local locale = (E.global.general.locale and E.global.general.locale ~= "auto") and E.global.general.locale or GetLocale()
 local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 
 local _G = _G
-local select, tonumber = select,tonumber
+local next, select, tonumber = next, select,tonumber
 local format = string.format
 
+local collectgarbage = collectgarbage
 local GetAddOnMetadata = GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
+
+local MER = AceAddon:NewAddon(addon, 'AceConsole-3.0', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 
 --Setting up table to unpack.
 V.mui = {}
@@ -26,9 +29,6 @@ Engine[5] = V.mui
 Engine[6] = P.mui
 Engine[7] = G.mui
 _G[addon] = Engine
-
-MER.options = {}
-MER.RegisteredModules = {}
 
 MER.Version = GetAddOnMetadata(addon, "Version")
 
@@ -125,14 +125,14 @@ do
 			checked = true
 		end
 
-		if ElvDB then
-			if isInitialLogin or not ElvDB.MER then
-				ElvDB.MER = {
+		if _G.ElvDB then
+			if isInitialLogin or not _G.ElvDB.MER then
+				_G.ElvDB.MER = {
 					DisabledAddOns = {}
 				}
 			end
 
-			if next(ElvDB.MER.DisabledAddOns) then
+			if next(_G.ElvDB.MER.DisabledAddOns) then
 				E:Delay(4, self.PrintDebugEnviromentTip)
 			end
 		end

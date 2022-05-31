@@ -6,7 +6,7 @@ local print, pairs = print, pairs
 local pcall = pcall
 local tinsert = table.insert
 
-local GetAddOnEnableState = GetAddOnEnableState
+MER.RegisteredModules = {}
 
 MER.dummy = function() return end
 MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
@@ -42,6 +42,7 @@ end
 -- Register own Modules
 function MER:RegisterModule(name)
 	if not name then
+		F.DebugMessage(MER, "The name of module is required!")
 		return
 	end
 	if self.initialized then
@@ -49,10 +50,6 @@ function MER:RegisterModule(name)
 	else
 		tinsert(self.RegisteredModules, name)
 	end
-end
-
-function MER:GetRegisteredModules()
-	return MER.RegisteredModules
 end
 
 function MER:InitializeModules()
