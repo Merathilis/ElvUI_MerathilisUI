@@ -20,6 +20,7 @@ local ChangeLogData = {
 
 	" ",
 	"Notes:",
+		"• IMPORTANT: THE SKINS SOMETIMES FAILS TO LOAD. I DONT KNOW WHY YET.",
 		"• As always, if you want my latest layout, do the install again",
 		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muidebug on' and test again",

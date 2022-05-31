@@ -16,21 +16,7 @@ module.updateProfile = {}
 
 --[[
 	@param {string} addonName
-]]
-function module:ADDON_LOADED(_, addonName)
-	if not E.initialized or not E.private.mui.skins.enable then
-		return
-	end
-
-	local object = self.addonsToLoad[addonName]
-	if object then
-		self:CallLoadedAddon(addonName, object)
-	end
-end
-
---[[
-	@param {string} addonName 插件名
-	@param {function} [func=module.addonName] 插件回调函数
+	@param {function} [func=module.addonName]
 ]]
 function module:AddCallbackForAddon(addonName, func)
 	local addon = self.addonsToLoad[addonName]
@@ -93,6 +79,20 @@ function module:AddCallbackForUpdate(name, func)
 	tinsert(self.updateProfile, func or self[name])
 end
 
+--[[
+	@param {string} addonName
+]]
+function module:ADDON_LOADED(_, addonName)
+	if not E.initialized or not E.private.mui.skins.enable then
+		return
+	end
+
+	local object = self.addonsToLoad[addonName]
+	if object then
+		self:CallLoadedAddon(addonName, object)
+	end
+end
+
 function module:DisableAddOnSkin(key)
 	if _G.AddOnSkins then
 		local AS = _G.AddOnSkins[1]
@@ -105,15 +105,6 @@ end
 function module:Initialize()
 	if not E.private.mui.skins.enable then
 		return
-	end
-	self.db = E.private.mui.skins
-
-	self:StyleElvUIConfig()
-
-	if IsAddOnLoaded("AddOnSkins") then
-		if AddOnSkins then
-			module:ReskinAS(unpack(AddOnSkins))
-		end
 	end
 
 	for index, func in next, self.nonAddonsToLoad do

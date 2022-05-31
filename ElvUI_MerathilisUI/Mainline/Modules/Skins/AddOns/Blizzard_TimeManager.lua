@@ -4,7 +4,7 @@ local module = MER.Modules.Skins
 local _G = _G
 
 function module:Blizzard_TimeManager()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.timemanager ~= true or E.private.mui.skins.blizzard.timemanager ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.timemanager ~= true or not E.private.mui.skins.blizzard.timemanager then return end
 
 	local TimeManagerFrame = _G.TimeManagerFrame
 	TimeManagerFrame:Styling()
