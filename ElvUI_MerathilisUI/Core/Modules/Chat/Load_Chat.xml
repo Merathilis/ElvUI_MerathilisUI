@@ -6,5 +6,4 @@
 	<Script file="DamageMeterFilter.lua"/>
 	<Script file="EasyChannel.lua"/>
 	<Script file="Emotes.lua"/>
-	<Script file="Options.lua"/>
 </Ui>
