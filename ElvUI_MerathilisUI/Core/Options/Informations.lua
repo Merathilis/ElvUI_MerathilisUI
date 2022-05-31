@@ -146,7 +146,7 @@ options.name = {
 				build = {
 					order = 2,
 					type = "description",
-					name = L["WoW Build"] .. ": " .. AddColor(format("%s (%s)", E.wowpatch, E.wowbuild))
+					name = L["WoW Build"] .. ": " .. F.cOption(format("%s (%s)", E.wowpatch, E.wowbuild), 'blue'),
 				}
 			},
 		},

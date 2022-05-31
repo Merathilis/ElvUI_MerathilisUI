@@ -42,7 +42,7 @@ function MER:UpdateStyling()
 	end
 end
 
-function MER:CreateShadow(frame, r, g, b, size, force)
+function MER:CreateShadow(frame, size, r, g, b, force)
 	if not (E.private.mui.skins.shadow and E.private.mui.skins.shadow.enable) and not force then return end
 
 	if not frame or frame.MERShadow or frame.shadow then return end
@@ -116,7 +116,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 	local frameName = f.GetName and f:GetName()
 
-	local style = CreateFrame("Frame", frameName or nil, f)
+	local style = CreateFrame("Frame", frameName or nil, f, "BackdropTemplate")
 
 	if not(useStripes) then
 		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
