@@ -16,4 +16,5 @@ function module:EventToastManager()
 		end
 	end)
 end
+
 module:AddCallback("EventToastManager")
