@@ -114,9 +114,7 @@ end
 do
 	local checked = false
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
-		if isInitialLogin then
-			E:Delay(7, self.CheckVersion, self)
-		end
+		E:Delay(7, self.CheckInstalledVersion, self)
 
 		if not (checked or _G.ElvUIInstallFrame) then
 			self:CheckCompatibility()
