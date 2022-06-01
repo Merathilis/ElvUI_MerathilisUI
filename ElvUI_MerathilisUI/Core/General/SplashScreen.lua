@@ -21,7 +21,6 @@ function MER:Logo_CheckStatus()
 		self:CreateSplash()
 		self:RegisterEvent("PLAYER_STARTED_MOVING", self.Logo_PlayAnimation)
 	end
-	MER:UnregisterEvent(self, MER.Logo_CheckStatus)
 end
 
 function MER:CreateSplash()
