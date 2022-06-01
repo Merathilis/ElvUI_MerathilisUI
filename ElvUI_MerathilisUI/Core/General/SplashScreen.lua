@@ -21,7 +21,7 @@ function MER:Logo_CheckStatus()
 		self:CreateSplash()
 		self:RegisterEvent("PLAYER_STARTED_MOVING", self.Logo_PlayAnimation)
 	end
-	MER:UnregisterEvent(self, self.Logo_CheckStatus)
+	MER:UnregisterEvent(self, MER.Logo_CheckStatus)
 end
 
 function MER:CreateSplash()
@@ -96,7 +96,7 @@ function MER:CreateSplash()
 		frame:Hide()
 	end)
 
-	self.logoFrame = frame
+	MER.logoFrame = frame
 end
 
 function MER:SplashScreen()
@@ -105,10 +105,10 @@ function MER:SplashScreen()
 	self:Logo_CheckStatus()
 
 	SlashCmdList["MER_PLAYLOGO"] = function()
-		if not self.logoFrame then
-			self:CreateSplash()
+		if not MER.logoFrame then
+			MER:CreateSplash()
 		end
-		self.logoFrame:Show()
+		MER.logoFrame:Show()
 	end
 	SLASH_MER_PLAYLOGO1 = "/mlogo"
 end
