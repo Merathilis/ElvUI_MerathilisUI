@@ -19,7 +19,7 @@ function MER:Logo_CheckStatus()
 	if not (IsInInstance() and InCombatLockdown()) then
 		needAnimation = true
 		self:CreateSplash()
-		self:RegisterEvent("PLAYER_STARTED_MOVING", self.Logo_PlayAnimation)
+		MER:RegisterEvent("PLAYER_STARTED_MOVING", self.Logo_PlayAnimation)
 	end
 end
 
