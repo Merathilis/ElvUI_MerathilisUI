@@ -7,7 +7,7 @@ local function AddColor(string)
 	if type(string) ~= "string" then
 		string = tostring(string)
 	end
-	return F.CreateColorString(string, {r = 0.204, g = 0.596, b = 0.859})
+	return F.CreateColorString(string, {r = 0, g = 192, b = 250})
 end
 
 local function SortList(a, b)
@@ -141,14 +141,20 @@ options.name = {
 				version = {
 					order = 1,
 					type = "description",
-					name = MER.Title..MER.Version,
+					name = MER.Title..F.cOption(MER.Version, 'blue')
 				},
+				build = {
+					order = 2,
+					type = "description",
+					name = L["WoW Build"] .. ": " .. F.cOption(format("%s (%s)", E.wowpatch, E.wowbuild), 'blue'),
+				}
 			},
 		},
 		LoginMsg = {
 			order = 990,
 			type = "toggle",
 			name = L["Login Message"],
+			desc = L["Enable/Disable the Login Message in Chat"],
 			get = function(info)
 				return E.private.mui.core.LoginMsg
 			end,
@@ -215,7 +221,7 @@ options.name.args.coding = {
 options.reset = {
 	order = 2,
 	type = "group",
-	name = E.NewSign..F.cOption(L["Reset"], 'orange'),
+	name = E.NewSign..L["Reset"],
 	args = {
 		header = {
 			order = 0,

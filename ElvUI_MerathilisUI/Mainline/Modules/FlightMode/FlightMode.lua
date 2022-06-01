@@ -257,11 +257,9 @@ function module:SetFlightMode(status)
 		end
 
 		-- Hide SquareMinimapButtonBar
-		if COMP.PA  then
-			if SquareMinimapButtonBar then
-				_G.SquareMinimapButtons:CancelAllTimers()
-				SquareMinimapButtonBar:SetAlpha(0)
-			end
+		if SquareMinimapButtonBar then
+			_G.SquareMinimapButtons:CancelAllTimers()
+			SquareMinimapButtonBar:SetAlpha(0)
 		end
 
 		for i, v in ipairs(AddonsToHide) do
@@ -406,11 +404,9 @@ function module:SetFlightMode(status)
 		end
 
 		-- Show SquareMinimapButtonBar
-		if COMP.PA then
-			if SquareMinimapButtonBar then
-				_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
-				SquareMinimapButtonBar:SetAlpha(1)
-			end
+		if SquareMinimapButtonBar then
+			_G.SquareMinimapButtons:ScheduleRepeatingTimer('GrabMinimapButtons', 5)
+			SquareMinimapButtonBar:SetAlpha(1)
 		end
 
 		module.inFlightMode = false
@@ -693,9 +689,7 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.flightMode
-
-	if (COMP.BUI and E.db.benikui.misc.flightMode.enable) then return end
-	if module.db.enable ~= true then return end
+	if not module.db.enable then return end
 
 	module:CreateFlightMode()
 

@@ -6,14 +6,10 @@ local print, pairs = print, pairs
 local pcall = pcall
 local tinsert = table.insert
 
-local GetAddOnEnableState = GetAddOnEnableState
-
 MER.dummy = function() return end
 MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
-MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
-MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 
 -- Masque support
 MER.MSQ = _G.LibStub('Masque', true)
@@ -33,6 +29,8 @@ MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:
 MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
 MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
 
+MER.RegisteredModules = {}
+
 _G.BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
 for i = 1, 5 do
 	_G["BINDING_HEADER_AUTOBUTTONBAR"..i] = L["Auto Button Bar"..' '..i]
@@ -44,6 +42,7 @@ end
 -- Register own Modules
 function MER:RegisterModule(name)
 	if not name then
+		F.DebugMessage(MER, "The name of module is required!")
 		return
 	end
 	if self.initialized then
@@ -53,13 +52,9 @@ function MER:RegisterModule(name)
 	end
 end
 
-function MER:GetRegisteredModules()
-	return MER.RegisteredModules
-end
-
 function MER:InitializeModules()
 	for _, moduleName in pairs(MER.RegisteredModules) do
-		local module = MER:GetModule(moduleName)
+		local module = self:GetModule(moduleName)
 		if module.Initialize then
 			pcall(module.Initialize, module)
 		end
@@ -68,7 +63,7 @@ end
 
 function MER:UpdateModules()
 	self:UpdateScripts()
-	for _, moduleName in pairs(MER.RegisteredModules) do
+	for _, moduleName in pairs(self.RegisteredModules) do
 		local module = MER:GetModule(moduleName)
 		if module.ProfileUpdate then
 			pcall(module.ProfileUpdate, module)
@@ -97,12 +92,6 @@ function MER:CheckVersion()
 
 	if self.showChangeLog then
 		MER:ToggleChangeLog()
-	end
-
-	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
-	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
-	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
-		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
 
 	local icon = F.GetIconString(MER.Media.Textures.pepeSmall, 14)

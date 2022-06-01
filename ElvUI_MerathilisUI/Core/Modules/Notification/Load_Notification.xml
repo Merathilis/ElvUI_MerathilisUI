@@ -7,5 +7,4 @@
 	<Script file="Quest.lua"/>
 	<Script file="SocialQueue.lua"/>
 	<Script file="Vignette.lua"/>
-	<Script file="Options.lua"/>
 </Ui>

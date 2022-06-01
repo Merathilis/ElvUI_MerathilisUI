@@ -25,7 +25,7 @@ function module:HandleTab(_, tab, noBackdrop, template)
 		return
 	end
 
-	if not E.private.mui.skins.widgets.tab.enable then
+	if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.tab.enable then
 		return
 	end
 
@@ -56,29 +56,24 @@ function module:HandleTab(_, tab, noBackdrop, template)
 
 		F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
 
-		local group, onEnter, onLeave = self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
-		tab.windAnimation = {
-			bg = bg,
-			group = group,
-			onEnter = onEnter,
-			onLeave = onLeave
-		}
+		tab.MERAnimation = self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
 
-		self:SecureHookScript(tab, "OnEnter", onEnter)
-		self:SecureHookScript(tab, "OnLeave", onLeave)
+		self:SecureHookScript(tab, "OnEnter", tab.MERAnimation.onEnter)
+		self:SecureHookScript(tab, "OnLeave", tab.MERAnimation.onLeave)
+		self:SecureHook(tab, "Disable", tab.MERAnimation.onStatusChange)
+		self:SecureHook(tab, "Enable", tab.MERAnimation.onStatusChange)
 
 		-- Avoid the hook is flushed
 		self:SecureHook(tab, "SetScript", function(frame, scriptType)
 			if scriptType == "OnEnter" then
 				self:Unhook(frame, "OnEnter")
-				self:SecureHookScript(frame, "OnEnter", onEnter)
+				-- self:SecureHookScript(frame, "OnEnter", onEnter)
 			elseif scriptType == "OnLeave" then
 				self:Unhook(frame, "OnLeave")
-				self:SecureHookScript(frame, "OnLeave", onLeave)
+				-- self:SecureHookScript(frame, "OnLeave", onLeave)
 			end
 		end)
 	end
-	--MER:CreateBackdropShadow(tab)
 
 	tab.MERSkin = true
 end
@@ -90,7 +85,7 @@ do
 			return
 		end
 
-		if not E.private.mui.skins.widgets.tab.enable then
+		if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.tab.enable then
 			return
 		end
 

@@ -64,7 +64,7 @@ local function SetTextColorHook(text)
 end
 
 function module:CosmeticBar(header)
-	local bar = header.windCosmeticBar
+	local bar = header.MERCosmeticBar
 
 	if not self.db.cosmeticBar.enable then
 		if bar then
@@ -81,9 +81,9 @@ function module:CosmeticBar(header)
 		backdrop:SetTemplate()
 		backdrop:SetOutside(bar, 1, 1)
 		backdrop.Center:SetAlpha(0)
-		MER:CreateShadow(backdrop, 2, true)
+		MER:CreateShadow(backdrop, 2, nil, nil, nil, true)
 		bar.backdrop = backdrop
-		header.windCosmeticBar = bar
+		header.MERCosmeticBar = bar
 	end
 
 	-- Border

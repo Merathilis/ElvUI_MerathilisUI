@@ -4,7 +4,6 @@ local LSM = E.Libs.LSM
 local S = E.Skins
 
 local _G = _G
-local strfind = strfind
 
 function module:HandleButton(_, button)
 	if not button or button.MERSkin then
@@ -17,20 +16,11 @@ function module:HandleButton(_, button)
 		end)
 	end
 
-	if not E.private.mui.skins.widgets.button.enable then
+	if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.button.enable then
 		return
 	end
 
 	local db = E.private.mui.skins.widgets.button
-
-	if button.Icon then
-		local Texture = button.Icon:GetTexture()
-		if Texture and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]]) then
-			button.Icon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Arrow]])
-			button.Icon:SetVertexColor(1, 1, 1)
-			button.Icon:SetRotation(module.ArrowRotation['RIGHT'])
-		end
-	end
 
 	if db.text.enable then
 		local text = button.Text or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
@@ -39,7 +29,7 @@ function module:HandleButton(_, button)
 		end
 	end
 
-	if button.template and (button.template or button.backdrop) then
+	if db.backdrop.enable and (button.template or button.backdrop) then
 		local parentFrame = button.backdrop or button
 
 		-- Create background
@@ -56,20 +46,21 @@ function module:HandleButton(_, button)
 
 		F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
 
-		local group, onEnter, onLeave = self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
-		button.MERAnimation = { bg = bg, group = group, onEnter = onEnter, onLeave = onLeave }
+		button.MERAnimation = self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
 
-		self:SecureHookScript(button, "OnEnter", onEnter)
-		self:SecureHookScript(button, "OnLeave", onLeave)
+		self:SecureHookScript(button, "OnEnter", button.MERAnimation.onEnter)
+		self:SecureHookScript(button, "OnLeave", button.MERAnimation.onLeave)
+		self:SecureHook(button, "Disable", button.MERAnimation.onStatusChange)
+		self:SecureHook(button, "Enable", button.MERAnimation.onStatusChange)
 
 		-- Avoid the hook is flushed
 		self:SecureHook(button, "SetScript", function(frame, scriptType)
 			if scriptType == "OnEnter" then
 				self:Unhook(frame, "OnEnter")
-				self:SecureHookScript(frame, "OnEnter", onEnter)
+				-- self:SecureHookScript(frame, "OnEnter", onEnter)
 			elseif scriptType == "OnLeave" then
 				self:Unhook(frame, "OnLeave")
-				self:SecureHookScript(frame, "OnLeave", onLeave)
+				-- self:SecureHookScript(frame, "OnLeave", onEnter)
 			end
 		end)
 
@@ -82,6 +73,10 @@ function module:HandleButton(_, button)
 end
 
 function module:ElvUI_Config_SetButtonColor(_, btn)
+	if not E.private.mui or not E.private.mui.skins.enable then
+		return
+	end
+
 	if not E.private.mui.skins.widgets.button.enable or not E.private.mui.skins.widgets.button.selected.enable then
 		return
 	end

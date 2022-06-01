@@ -11,61 +11,44 @@ local IsAddOnLoaded = IsAddOnLoaded
 module.allowBypass = {}
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
+module.enteredLoad = {}
 module.updateProfile = {}
+
+--[[
+	@param {string} addonName
+	@param {function} [func=module.addonName]
+]]
+function module:AddCallbackForAddon(addonName, func)
+	local addon = self.addonsToLoad[addonName]
+	if not addon then
+		self.addonsToLoad[addonName] = {}
+		addon = self.addonsToLoad[addonName]
+	end
+
+	if type(func) == "string" then
+		func = self[func]
+	end
+
+	tinsert(addon, func or self[addonName])
+end
+
+--[[
+	nonAddonsToLoad
+	@param {string} name
+	@param {function} [func=module.name]
+]]
+function module:AddCallback(name, func)  -- arg1: name is 'given name'
+	tinsert(self.nonAddonsToLoad, func or self[name])
+end
 
 local function errorhandler(err)
 	return _G.geterrorhandler()(err)
 end
 
--- EXAMPLE:
---- module:AddCallbackForAddon('Details', 'MyAddon_Details', MyAddon.SkinDetails)
----- arg1: Addon name (same as the toc): MyAddon.toc (without extension)
----- arg2: Given name (try to use something that won't be used by someone else)
----- arg3: load function (preferably not-local)
--- this is used for loading skins that should be executed when the addon loads (including blizzard addons that load later).
--- please add a given name, non-given-name is specific for elvui core addon.
-function module:AddCallbackForAddon(addonName, name, func, forceLoad, bypass, position) -- arg2: name is 'given name'; see example above.
-	local load = (type(name) == 'function' and name) or (not func and (module[name] or module[addonName]))
-	module:RegisterSkin(addonName, load or func, forceLoad, bypass, position)
-end
-
--- nonAddonsToLoad:
---- this is used for loading skins when our skin init function executes.
---- please add a given name, non-given-name is specific for elvui core addon.
-function module:AddCallback(name, func, position)  -- arg1: name is 'given name'
-	local load = (type(name) == 'function' and name) or (not func and module[name])
-	module:RegisterSkin('ElvUI_MerathilisUI', load or func, nil, nil, position)
-end
-
-function module:RegisterSkin(addonName, func, forceLoad, bypass, position)
-	if bypass then
-		self.allowBypass[addonName] = true
-	end
-
-	if forceLoad then
-		xpcall(func, errorhandler)
-		self.addonsToLoad[addonName] = nil
-	elseif addonName == 'ElvUI_MerathilisUI' then
-		if position then
-			tinsert(self.nonAddonsToLoad, position, func)
-		else
-			tinsert(self.nonAddonsToLoad, func)
-		end
-	else
-		local addon = self.addonsToLoad[addonName]
-		if not addon then
-			self.addonsToLoad[addonName] = {}
-			addon = self.addonsToLoad[addonName]
-		end
-
-		if position then
-			tinsert(addon, position, func)
-		else
-			tinsert(addon, func)
-		end
-	end
-end
-
+--[[
+	@param {string} addonName
+	@param {object} object
+]]
 function module:CallLoadedAddon(addonName, object)
 	for _, func in next, object do
 		xpcall(func, errorhandler)
@@ -74,18 +57,39 @@ function module:CallLoadedAddon(addonName, object)
 	self.addonsToLoad[addonName] = nil
 end
 
+--[[
+	@param {string} addonName
+]]
+function module:PLAYER_ENTERING_WORLD()
+	if not E.initialized or not E.private.mui.skins.enable then
+		return
+	end
+
+	for index, func in next, self.enteredLoad do
+		xpcall(func, errorhandler, self)
+		self.enteredLoad[index] = nil
+	end
+end
+
+--[[
+	@param {string} name
+	@param {function} [func=module.name]
+]]
 function module:AddCallbackForUpdate(name, func)
 	tinsert(self.updateProfile, func or self[name])
 end
 
+--[[
+	@param {string} addonName
+]]
 function module:ADDON_LOADED(_, addonName)
-	if not self.allowBypass[addonName] and not E.initialized then
+	if not E.initialized or not E.private.mui.skins.enable then
 		return
 	end
 
 	local object = self.addonsToLoad[addonName]
 	if object then
-		module:CallLoadedAddon(addonName, object)
+		self:CallLoadedAddon(addonName, object)
 	end
 end
 
@@ -98,16 +102,26 @@ function module:DisableAddOnSkin(key)
 	end
 end
 
+function module:ShadowOverlay()
+	-- Based on ncShadow
+	if not E.private.mui.skins.shadowOverlay then return end
+
+	self.f = CreateFrame("Frame", MER.Title.."ShadowBackground")
+	self.f:Point("TOPLEFT")
+	self.f:Point("BOTTOMRIGHT")
+	self.f:SetFrameLevel(0)
+	self.f:SetFrameStrata("BACKGROUND")
+
+	self.f.tex = self.f:CreateTexture()
+	self.f.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Overlay]])
+	self.f.tex:SetAllPoints(self.f)
+
+	self.f:SetAlpha(0.7)
+end
+
 function module:Initialize()
-	self.db = E.private.mui.skins
-
-	self:UpdateMedia()
-	self:StyleElvUIConfig()
-
-	if IsAddOnLoaded("AddOnSkins") then
-		if AddOnSkins then
-			module:ReskinAS(unpack(AddOnSkins))
-		end
+	if not E.private.mui.skins.enable then
+		return
 	end
 
 	for index, func in next, self.nonAddonsToLoad do
@@ -121,8 +135,11 @@ function module:Initialize()
 			self:CallLoadedAddon(addonName, object)
 		end
 	end
+
+	self:ShadowOverlay()
 end
 
 -- Keep this outside, it's used for skinning addons before shit load
 module:RegisterEvent("ADDON_LOADED")
+module:RegisterEvent("PLAYER_ENTERING_WORLD")
 MER:RegisterModule(module:GetName())

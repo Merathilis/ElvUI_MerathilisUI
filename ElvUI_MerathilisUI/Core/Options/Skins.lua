@@ -18,7 +18,6 @@ local DecorAddons = {
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
 	{"EventTracker", L["EventTracker"], "et"},
-	{"WeakAuras", L["WeakAuras"], "wa"}
 }
 
 local SupportedProfiles = {
@@ -40,47 +39,81 @@ options.general = {
 	order = 1,
 	type = 'group',
 	name = L["General"],
+	get = function(info) return E.private.mui.skins[info[#info]] end,
+	set = function(info, value) E.private.mui.skins[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 	args = {
 		header = {
-			order = 1,
+			order = 0,
 			type = 'header',
 			name = F.cOption(L["General"], 'orange'),
 		},
-		style = {
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+			width = "full",
+			get = function(info) return E.private.mui.skins[ info[#info] ] end,
+			set = function(info, value) E.private.mui.skins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+		},
+		general = {
 			order = 2,
-			type = "toggle",
-			name = L["MerathilisUI Style"],
-			desc = L["Creates decorative stripes and a gradient on some frames"],
-			get = function(info) return E.db.mui.general[ info[#info] ] end,
-			set = function(info, value) E.db.mui.general[ info[#info] ] = value; MER:UpdateStyling() end,
-		},
-		shadowOverlay = {
-			order = 3,
-			type = "toggle",
-			name = L["MerathilisUI Shadows"],
-			desc = L["Enables/Disables a shadow overlay to darken the screen."],
-			get = function(info) return E.db.mui.general[ info[#info] ] end,
-			set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-		},
-		shadow = {
-			order = 4,
 			type = "group",
-			name = F.cOption(L["Shadows"], 'orange'),
-			guiInline = true,
-			get = function(info) return E.db.mui.general.shadow[ info[#info] ] end,
-			set = function(info, value) E.db.mui.general.shadow[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			name = L["General"],
+			disabled = function() return not E.private.mui.skins.enable end,
 			args = {
-				enable = {
-					order = 1,
+				style = {
+					order = 3,
 					type = "toggle",
-					name = L["Enable"],
+					name = L["MerathilisUI Style"],
+					desc = L["Creates decorative stripes and a gradient on some frames"],
+					set = function(info, value) E.private.mui.skins[ info[#info] ] = value; F:UpdateStyling() end,
 				},
-				increasedSize = {
-					order = 2,
-					type = "range",
-					name = L["Increase Size"],
-					desc = L["Make shadow thicker."],
-					min = 0, max = 10, step = 1
+				shadowOverlay = {
+					order = 4,
+					type = "toggle",
+					name = L["MerathilisUI Shadows"],
+					desc = L["Enables/Disables a shadow overlay to darken the screen."],
+				},
+				shadow = {
+					order = 5,
+					type = "group",
+					name = F.cOption(L["Shadows"], 'orange'),
+					guiInline = true,
+					get = function(info) return E.private.mui.skins.shadow[ info[#info] ] end,
+					set = function(info, value) E.private.mui.skins.shadow[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+						},
+						increasedSize = {
+							order = 2,
+							type = "range",
+							name = L["Increase Size"],
+							desc = L["Make shadow thicker."],
+							min = 0, max = 10, step = 1
+						},
+						color = {
+							order = 3,
+							type = "color",
+							name = L["Shadow Color"],
+							hasAlpha = false,
+							get = function(info)
+								local db = E.private.mui.skins.shadow.color
+								local default = V.skins.shadow.color
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+							end,
+							set = function(info, r, g, b)
+								local db = E.private.mui.skins.shadow.color
+								db.r, db.g, db.b = r, g, b
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
+							disabled = function()
+								return not E.private.mui.skins.enable
+							end
+						},
+					},
 				},
 			},
 		},
@@ -91,14 +124,22 @@ options.widgets = {
 	order = 2,
 	type = "group",
 	name = E.NewSign..L["Widgets"],
+	disabled = function() return not E.private.mui.skins.enable end,
 	args = {
-		header = {
+		desc = {
 			order = 1,
+			type = "description",
+			name = MER.InfoColor..L["These skins will affect all widgets handled by ElvUI Skins."],
+			width = "full",
+			fontSize = "medium"
+		},
+		header = {
+			order = 2,
 			type = 'header',
 			name = F.cOption(L["Widgets"], 'orange'),
 		},
 		enableAll = {
-			order = 2,
+			order = 3,
 			type = "execute",
 			name = L["Enable All"],
 			func = function()
@@ -109,7 +150,7 @@ options.widgets = {
 			end
 		},
 		disableAll = {
-			order = 3,
+			order = 4,
 			type = "execute",
 			name = L["Disable All"],
 			func = function()
@@ -118,21 +159,6 @@ options.widgets = {
 				end
 				E:StaticPopup_Show("PRIVATE_RL")
 			end
-		},
-		descGroup = {
-			order = 4,
-			type = "group",
-			name = " ",
-			inline = true,
-			args = {
-				desc = {
-					order = 1,
-					type = "description",
-					name = MER.InfoColor..L["These skins will affect all widgets handled by ElvUI Skins."],
-					width = "full",
-					fontSize = "medium"
-				},
-			},
 		},
 		button = {
 			order = 10,
@@ -1166,25 +1192,32 @@ options.blizzard = {
 	name = L["Blizzard"],
 	get = function(info) return E.private.mui.skins.blizzard[ info[#info] ] end,
 	set = function(info, value) E.private.mui.skins.blizzard[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+	disabled = function() return not E.private.mui.skins.enable end,
 	args = {
 		info = {
 			order = 1,
 			type = "description",
 			name = MER.InfoColor..L["MER_SKINS_DESC"],
+			fontSize = "medium",
 		},
 		space = {
 			order = 2,
 			type = "description",
 			name = '',
 		},
-		gotoskins = {
+		header = {
 			order = 3,
+			type = "header",
+			name = F.cOption(L["Blizzard"], 'orange'),
+		},
+		gotoskins = {
+			order = 4,
 			type = "execute",
 			name = L["ElvUI Skins"],
 			func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "skins") end,
 		},
 		enableAll = {
-			order = 4,
+			order = 5,
 			type = "execute",
 			name = L["Enable All"],
 			func = function()
@@ -1195,7 +1228,7 @@ options.blizzard = {
 			end
 		},
 		disableAll = {
-			order = 5,
+			order = 6,
 			type = "execute",
 			name = L["Disable All"],
 			func = function()
@@ -1208,7 +1241,7 @@ options.blizzard = {
 			end
 		},
 		space2 = {
-			order = 6,
+			order = 7,
 			type = "description",
 			name = '',
 		},
@@ -1581,16 +1614,23 @@ options.addonskins = {
 	name = L["AddOnSkins"],
 	get = function(info) return E.private.mui.skins.addonSkins[ info[#info] ] end,
 	set = function(info, value) E.private.mui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+	disabled = function() return not E.private.mui.skins.enable end,
 	args = {
 		info = {
 			order = 1,
 			type = "description",
 			name = MER.InfoColor..L["MER_ADDONSKINS_DESC"],
+			fontSize = "medium",
 		},
 		space = {
 			order = 2,
 			type = "description",
 			name = '',
+		},
+		header = {
+			order = 3,
+			type = "header",
+			name = F.cOption(L["AddOnSkins"], 'orange'),
 		},
 	},
 }
@@ -1616,13 +1656,24 @@ options.profiles = {
 			order = 1,
 			type = "description",
 			name = MER.InfoColor..L["MER_PROFILE_DESC"],
-		}
+			fontSize = "medium",
+		},
+		space = {
+			order = 2,
+			type = "description",
+			name = '',
+		},
+		header = {
+			order = 3,
+			type = "header",
+			name = F.cOption(L["Profiles"], 'orange'),
+		},
 	},
 }
 
 for _, v in ipairs(SupportedProfiles) do
 	local addon, addonName = unpack(v)
-	local optionOrder = 1
+	local optionOrder = 4
 	options.profiles.args[addon] = {
 		order = optionOrder + 1,
 		type = "execute",

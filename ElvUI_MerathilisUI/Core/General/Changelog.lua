@@ -12,14 +12,13 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Small Layout Update. (Again, if you want it, do the install!",
-		"• Dont load the GCD Module on Classic or TBC >.>",
-		"• Fixed a taint... gosh, that was a hard one",
+		"• Deleted the Heal Layout. Dont have the time to maintain 2 layouts... sorry",
+		"• Major Code changes",
 		"• Fixed some errors here and there",
-		"• Code changes there and here",
 
 	" ",
 	"Notes:",
+		"• IMPORTANT: THE SKINS SOMETIMES FAILS TO LOAD. I DONT KNOW WHY YET.",
 		"• As always, if you want my latest layout, do the install again",
 		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muidebug on' and test again",

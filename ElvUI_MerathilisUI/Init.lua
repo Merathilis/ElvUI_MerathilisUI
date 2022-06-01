@@ -1,17 +1,18 @@
 local E, _, V, P, G = unpack(ElvUI)
-local EP = LibStub('LibElvUIPlugin-1.0')
 local addon, Engine = ...
+local EP = E.Libs.EP
+local AceAddon = E.Libs.AceAddon
 
-local MER = E.Libs.AceAddon:NewAddon(addon, 'AceConsole-3.0', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 local locale = (E.global.general.locale and E.global.general.locale ~= "auto") and E.global.general.locale or GetLocale()
 local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 
 local _G = _G
-local select, tonumber = select,tonumber
-local format = string.format
+local next = next
 
+local collectgarbage = collectgarbage
 local GetAddOnMetadata = GetAddOnMetadata
-local GetBuildInfo = GetBuildInfo
+
+local MER = AceAddon:NewAddon(addon, 'AceConsole-3.0', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 
 --Setting up table to unpack.
 V.mui = {}
@@ -26,9 +27,6 @@ Engine[5] = V.mui
 Engine[6] = P.mui
 Engine[7] = G.mui
 _G[addon] = Engine
-
-MER.options = {}
-MER.RegisteredModules = {}
 
 MER.Version = GetAddOnMetadata(addon, "Version")
 
@@ -90,12 +88,12 @@ MER.Modules.WorldMap = MER:NewModule('MER_WorldMap', 'AceHook-3.0', 'AceEvent-3.
 MER.Modules.ZoneText = MER:NewModule('MER_ZoneText', 'AceHook-3.0')
 
 function MER:Initialize()
+	self.initialized = true
+
 	-- ElvUI -> MerathilisUI -> MerathilisUI Modules
 	if not self:CheckElvUIVersion() then
 		return
 	end
-
-	self.initialized = true
 
 	self:UpdateScripts() -- Database need update first
 	self:InitializeModules()
@@ -105,28 +103,32 @@ function MER:Initialize()
 	EP:RegisterPlugin(addon, MER.OptionsCallback)
 	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
+
+	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
+	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
+	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
+		E:GetModule("PluginInstaller"):Queue(MER.installTable)
+	end
 end
 
 do
 	local checked = false
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
-		if isInitialLogin then
-			E:Delay(7, self.CheckVersion, self)
-		end
+		E:Delay(7, self.CheckInstalledVersion, self)
 
 		if not (checked or _G.ElvUIInstallFrame) then
 			self:CheckCompatibility()
 			checked = true
 		end
 
-		if ElvDB then
-			if isInitialLogin or not ElvDB.MER then
-				ElvDB.MER = {
+		if _G.ElvDB then
+			if isInitialLogin or not _G.ElvDB.MER then
+				_G.ElvDB.MER = {
 					DisabledAddOns = {}
 				}
 			end
 
-			if next(ElvDB.MER.DisabledAddOns) then
+			if next(_G.ElvDB.MER.DisabledAddOns) then
 				E:Delay(4, self.PrintDebugEnviromentTip)
 			end
 		end

@@ -12,7 +12,7 @@ local CreateFrame = CreateFrame
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
 local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
 
-MER["styling"] = {}
+MER.Styling = {}
 
 function MER:CreateGradientFrame(frame, w, h, o, r, g, b, a1, a2)
 	assert(frame, "doesn't exist!")
@@ -27,14 +27,14 @@ function MER:CreateGradientFrame(frame, w, h, o, r, g, b, a1, a2)
 end
 
 function MER:UpdateStyling()
-	if E.db.mui.general.style then
-		for style in pairs(MER["styling"]) do
+	if E.private.mui.skins.style then
+		for style in pairs(MER.Styling) do
 			if style.stripes then style.stripes:Show() end
 			if style.gradient then style.gradient:Show() end
 			if style.mshadow then style.mshadow:Show() end
 		end
 	else
-		for style in pairs(MER["styling"]) do
+		for style in pairs(MER.Styling) do
 			if style.stripes then style.stripes:Hide() end
 			if style.gradient then style.gradient:Hide() end
 			if style.mshadow then style.mshadow:Hide() end
@@ -42,8 +42,8 @@ function MER:UpdateStyling()
 	end
 end
 
-function MER:CreateShadow(frame, size, force)
-	if not (E.db.mui.general.shadow and E.db.mui.general.shadow.enable) and not force then return end
+function MER:CreateShadow(frame, size, r, g, b, force)
+	if not (E.private.mui.skins.shadow and E.private.mui.skins.shadow.enable) and not force then return end
 
 	if not frame or frame.MERShadow or frame.shadow then return end
 
@@ -51,16 +51,20 @@ function MER:CreateShadow(frame, size, force)
 		frame = frame:GetParent()
 	end
 
+	r = r or E.private.mui.skins.shadow.color.r or 0
+	g = g or E.private.mui.skins.shadow.color.g or 0
+	b = b or E.private.mui.skins.shadow.color.b or 0
+
 	size = size or 3
-	size = size + E.db.mui.general.shadow.increasedSize or 0
+	size = size + E.private.mui.skins.shadow.increasedSize or 0
 
 	local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 	shadow:SetFrameStrata(frame:GetFrameStrata())
 	shadow:SetFrameLevel(frame:GetFrameLevel() or 1)
 	shadow:SetOutside(frame, size, size)
 	shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = size + 1})
-	shadow:SetBackdropColor(0, 0, 0, 0)
-	shadow:SetBackdropBorderColor(0, 0, 0, 0.618)
+	shadow:SetBackdropColor(r, g, b, 0)
+	shadow:SetBackdropBorderColor(r, g, b, 0.618)
 
 	frame.shadow = shadow
 	frame.MERShadow = true
@@ -94,13 +98,17 @@ end
 function MER:CreateShadowModule(frame)
 	if not frame then return end
 
-	MER:CreateShadow(frame)
+	if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
+		MER:CreateShadow(frame)
+	end
 end
 
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 
-	if not f or f.MERStyle or f.styling then return end
+	if not f or f.MERStyle or f.styling then
+		return
+	end
 
 	if f:GetObjectType() == "Texture" then
 		f = f:GetParent()
@@ -108,7 +116,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 	local frameName = f.GetName and f:GetName()
 
-	local style = CreateFrame("Frame", frameName or nil, f)
+	local style = CreateFrame("Frame", frameName or nil, f, "BackdropTemplate")
 
 	if not(useStripes) then
 		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
@@ -122,7 +130,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 		style.stripes = stripes
 
-		if not E.db.mui.general.style then stripes:Hide() end
+		if not E.private.mui.skins.style then stripes:Hide() end
 	end
 
 	if not(useGradient) then
@@ -135,7 +143,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 		style.gradient = gradient
 
-		if not E.db.mui.general.style then gradient:Hide() end
+		if not E.private.mui.skins.style then gradient:Hide() end
 	end
 
 	if not(useShadow) then
@@ -148,13 +156,13 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 		style.mshadow = mshadow
 
-		if not E.db.mui.general.style then mshadow:Hide() end
+		if not E.private.mui.skins.style then mshadow:Hide() end
 	end
 
 	style:SetFrameLevel(f:GetFrameLevel() + 1)
 	f.styling = style
 
-	MER["styling"][style] = true
+	MER.Styling[style] = true
 	f.MERStyle = true
 end
 

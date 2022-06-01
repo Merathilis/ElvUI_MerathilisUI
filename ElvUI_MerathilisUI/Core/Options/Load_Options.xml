@@ -4,5 +4,6 @@
 	<!-- Submodule -->
 	<Script file='General.lua'/>
 	<Script file='Informations.lua'/>
+	<Include file='Modules\Load_Modules.xml'/>
 	<Script file='Skins.lua'/>
 </Ui>
