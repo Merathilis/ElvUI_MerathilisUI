@@ -2,7 +2,7 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 local _G = _G
 local format = string.format
-local pairs = pairs
+local print, pairs = print, pairs
 local pcall = pcall
 local tinsert = table.insert
 

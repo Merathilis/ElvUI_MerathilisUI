@@ -12,9 +12,7 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Deleted the Heal Layout. Dont have the time to maintain 2 layouts... sorry",
-		"• Major Code changes",
-		"• Fixed some errors here and there",
+		"• Fix Login Message & ChangeLog spam",
 
 	" ",
 	"Notes:",

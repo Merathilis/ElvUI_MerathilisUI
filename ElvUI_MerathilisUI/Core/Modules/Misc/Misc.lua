@@ -118,7 +118,6 @@ function module:Initialize()
 	module:LoadQuest()
 	module:LoadnameHover()
 	module:ReputationInit()
-	module:SplashScreen()
 end
 
 MER:RegisterModule(module:GetName())

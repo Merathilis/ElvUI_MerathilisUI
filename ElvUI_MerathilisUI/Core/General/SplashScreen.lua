@@ -1,5 +1,4 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MI = MER:GetModule('MER_Misc')
 
 local GetScreenHeight = GetScreenHeight
 local InCombatLockdown = InCombatLockdown
@@ -8,24 +7,24 @@ local CreateFrame = CreateFrame
 
 local needAnimation
 
-function MI:Logo_PlayAnimation()
+function MER:Logo_PlayAnimation()
 	if needAnimation then
-		MI.logoFrame:Show()
+		MER.logoFrame:Show()
 		MER:UnregisterEvent(self, MER.Logo_PlayAnimation)
 		needAnimation = false
 	end
 end
 
-function MI:Logo_CheckStatus(isInitialLogin)
-	if isInitialLogin and not (IsInInstance() and InCombatLockdown()) then
+function MER:Logo_CheckStatus()
+	if not (IsInInstance() and InCombatLockdown()) then
 		needAnimation = true
-		MI:CreateSplash()
-		MER:RegisterEvent("PLAYER_STARTED_MOVING", MI.Logo_PlayAnimation)
+		self:CreateSplash()
+		self:RegisterEvent("PLAYER_STARTED_MOVING", self.Logo_PlayAnimation)
 	end
-	MER:UnregisterEvent(self, MI.Logo_CheckStatus)
+	MER:UnregisterEvent(self, self.Logo_CheckStatus)
 end
 
-function MI:CreateSplash()
+function MER:CreateSplash()
 	local frame = CreateFrame("Frame", nil, E.UIParent)
 	frame:SetSize(300, 150)
 	frame:SetPoint("CENTER", E.UIParent, "BOTTOM", -500, GetScreenHeight()*.618)
@@ -97,19 +96,19 @@ function MI:CreateSplash()
 		frame:Hide()
 	end)
 
-	MI.logoFrame = frame
+	self.logoFrame = frame
 end
 
-function MI:SplashScreen()
+function MER:SplashScreen()
 	if not E.db.mui.general.splashScreen then return end
 
-	MER:RegisterEvent("PLAYER_ENTERING_WORLD", MI.Logo_CheckStatus)
+	self:Logo_CheckStatus()
 
 	SlashCmdList["MER_PLAYLOGO"] = function()
-		if not MI.logoFrame then
-			MI:CreateSplash()
+		if not self.logoFrame then
+			self:CreateSplash()
 		end
-		MI.logoFrame:Show()
+		self.logoFrame:Show()
 	end
 	SLASH_MER_PLAYLOGO1 = "/mlogo"
 end
