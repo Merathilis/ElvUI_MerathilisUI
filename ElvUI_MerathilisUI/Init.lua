@@ -8,6 +8,7 @@ local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 
 local _G = _G
 local next = next
+local print = print
 
 local collectgarbage = collectgarbage
 local GetAddOnMetadata = GetAddOnMetadata
@@ -88,12 +89,12 @@ MER.Modules.WorldMap = MER:NewModule('MER_WorldMap', 'AceHook-3.0', 'AceEvent-3.
 MER.Modules.ZoneText = MER:NewModule('MER_ZoneText', 'AceHook-3.0')
 
 function MER:Initialize()
-	self.initialized = true
-
 	-- ElvUI -> MerathilisUI -> MerathilisUI Modules
 	if not self:CheckElvUIVersion() then
 		return
 	end
+
+	self.initialized = true
 
 	self:UpdateScripts() -- Database need update first
 	self:InitializeModules()
@@ -115,6 +116,15 @@ do
 	local checked = false
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
 		E:Delay(7, self.CheckInstalledVersion, self)
+
+		if isInitialLogin then
+			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
+			if E.db.mui.installed and E.private.mui.core.LoginMsg then
+				print(icon..''..self.Title..format("v|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+			end
+
+			self:Logo_CheckStatus()
+		end
 
 		if not (checked or _G.ElvUIInstallFrame) then
 			self:CheckCompatibility()

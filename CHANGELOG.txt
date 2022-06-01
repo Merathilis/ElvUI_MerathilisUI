@@ -1,5 +1,2 @@
-[b][color=orange]v5.00[/color] for Patch 9.2.5, 01.06.2022[/b][list]
-[*]Deleted the Heal Layout. Dont have the time to maintain 2 layouts... sorry
-[*]Major Code changes
-[*]Fixed some errors here and there
-[*]PLEASE: Reade the ChangeLog Note (In Game)[/list]
+[b][color=orange]v5.01[/color], 01.06.2022[/b][list]
+[*]Fix Login Message & ChangeLog spam[/list]
