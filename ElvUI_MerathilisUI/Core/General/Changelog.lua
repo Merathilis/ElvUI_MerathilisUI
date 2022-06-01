@@ -12,7 +12,7 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix Login Message & ChangeLog spam",
+		"• Fix a LUA Error from SplashScreen >.<",
 
 	" ",
 	"Notes:",
