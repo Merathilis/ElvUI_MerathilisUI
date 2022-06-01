@@ -66,7 +66,7 @@ options.general = {
 					type = "toggle",
 					name = L["MerathilisUI Style"],
 					desc = L["Creates decorative stripes and a gradient on some frames"],
-					set = function(info, value) E.private.mui.skins[ info[#info] ] = value; MER:UpdateStyling() end,
+					set = function(info, value) E.private.mui.skins[ info[#info] ] = value; F:UpdateStyling() end,
 				},
 				shadowOverlay = {
 					order = 4,
@@ -93,6 +93,25 @@ options.general = {
 							name = L["Increase Size"],
 							desc = L["Make shadow thicker."],
 							min = 0, max = 10, step = 1
+						},
+						color = {
+							order = 3,
+							type = "color",
+							name = L["Shadow Color"],
+							hasAlpha = false,
+							get = function(info)
+								local db = E.private.mui.skins.shadow.color
+								local default = V.skins.shadow.color
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+							end,
+							set = function(info, r, g, b)
+								local db = E.private.mui.skins.shadow.color
+								db.r, db.g, db.b = r, g, b
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
+							disabled = function()
+								return not E.private.mui.skins.enable
+							end
 						},
 					},
 				},

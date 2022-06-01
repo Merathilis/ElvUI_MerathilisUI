@@ -7,12 +7,10 @@ local locale = (E.global.general.locale and E.global.general.locale ~= "auto") a
 local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 
 local _G = _G
-local next, select, tonumber = next, select,tonumber
-local format = string.format
+local next = next
 
 local collectgarbage = collectgarbage
 local GetAddOnMetadata = GetAddOnMetadata
-local GetBuildInfo = GetBuildInfo
 
 local MER = AceAddon:NewAddon(addon, 'AceConsole-3.0', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 
@@ -116,9 +114,7 @@ end
 do
 	local checked = false
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
-		if isInitialLogin then
-			E:Delay(7, self.CheckVersion, self)
-		end
+		E:Delay(7, self.CheckInstalledVersion, self)
 
 		if not (checked or _G.ElvUIInstallFrame) then
 			self:CheckCompatibility()

@@ -52,7 +52,7 @@ do
 				local name = GetAddOnInfo(i)
 				if not AcceptableAddons[name] and E:IsAddOnEnabled(name) then
 					DisableAddOn(name, E.myname)
-					ElvDB.MER.DisabledAddOns[name] = i
+					_G.ElvDB.MER.DisabledAddOns[name] = i
 				end
 			end
 
