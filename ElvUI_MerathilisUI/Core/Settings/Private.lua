@@ -205,7 +205,6 @@ V.skins = {
 		covenantRenown = true,
 		guide = true,
 		craft = true,
-		eventToast = true,
 	},
 
 	addonSkins = {

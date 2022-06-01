@@ -1370,11 +1370,6 @@ options.blizzard = {
 			name = L["Craft"],
 			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.craft end,
 		},
-		eventToast = {
-			type = "toggle",
-			name = L["Event Toast Manager"],
-			disabled = function() return not E.private.skins.blizzard.enable end,
-		},
 	},
 }
 
