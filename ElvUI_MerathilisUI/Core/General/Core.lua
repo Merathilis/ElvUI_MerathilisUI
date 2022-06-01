@@ -2,7 +2,7 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 local _G = _G
 local format = string.format
-local print, pairs = print, pairs
+local pairs = pairs
 local pcall = pcall
 local tinsert = table.insert
 
@@ -92,10 +92,6 @@ function MER:CheckInstalledVersion()
 
 	if self.showChangeLog then
 		MER:ToggleChangeLog()
-	end
-
-	local icon = F.GetIconString(MER.Media.Textures.pepeSmall, 14)
-	if E.db.mui.installed and E.private.mui.core.LoginMsg then
-		print(icon..''..MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..F.PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+		self.showChangeLog = false
 	end
 end
