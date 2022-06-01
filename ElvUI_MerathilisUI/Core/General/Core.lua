@@ -85,7 +85,7 @@ function MER:CheckElvUIVersion()
 	return true
 end
 
-function MER:CheckVersion()
+function MER:CheckInstalledVersion()
 	if InCombatLockdown() then
 		return
 	end
