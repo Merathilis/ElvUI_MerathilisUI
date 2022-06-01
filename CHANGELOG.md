@@ -1,3 +1,3 @@
 ### Changes ###
 
-  * Fix Login Message & ChangeLog spam
+  * Fix a LUA Error from SplashScreen >.<
