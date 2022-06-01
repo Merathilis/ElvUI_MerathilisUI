@@ -1,7 +1,7 @@
 ### Changes ###
 
-  * Small Layout Update. (Again, if you want it, do the install!
-  * Dont load the GCD Module on Classic or TBC >.>
-  * Fixed a taint... gosh, that was a hard one
+  * This version is for Patch 9.2.5
+  * Deleted the Heal Layout. Dont have the time to maintain 2 layouts... sorry
+  * Major Code changes
   * Fixed some errors here and there
-  * Code changes there and here
+  * PLEASE: Reade the ChangeLog Note (In Game)

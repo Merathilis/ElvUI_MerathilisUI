@@ -43,7 +43,7 @@ function MER:UpdateScripts() -- DB Convert
 
 	isFirstLine = true
 
-	if profileVersion <= 4.993 then
+	if profileVersion <= 5.00 then
 		if db.general.style then
 			db.general.style = nil
 		end

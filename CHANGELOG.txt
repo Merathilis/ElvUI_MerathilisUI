@@ -1,6 +1,5 @@
-[b][color=orange]v4.992[/color], 29.05.2022[/b][list]
-[*]Small Layout Update. (Again, if you want it, do the install!
-[*]Dont load the GCD Module on Classic or TBC >.>
-[*]Fixed a taint... gosh, that was a hard one
+[b][color=orange]v5.00[/color] for Patch 9.2.5, 01.06.2022[/b][list]
+[*]Deleted the Heal Layout. Dont have the time to maintain 2 layouts... sorry
+[*]Major Code changes
 [*]Fixed some errors here and there
-[*]Code changes there and here[/list]
+[*]PLEASE: Reade the ChangeLog Note (In Game)[/list]
