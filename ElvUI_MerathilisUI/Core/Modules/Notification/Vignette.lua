@@ -41,7 +41,6 @@ local SOUND_TIMEOUT = 20
 function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	module.db = E.db.mui.notification
 	if not module.db.enable or not module.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
-	print("blub")
 
 	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
 	if inGroup or inRaid or inPartyLFG then return end
