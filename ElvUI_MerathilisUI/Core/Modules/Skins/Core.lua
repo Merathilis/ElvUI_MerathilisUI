@@ -89,7 +89,7 @@ function module:ADDON_LOADED(_, addonName)
 
 	local object = self.addonsToLoad[addonName]
 	if object then
-		self:CallLoadedAddon(addonName, object)
+		module:CallLoadedAddon(addonName, object)
 	end
 end
 
@@ -132,7 +132,7 @@ function module:Initialize()
 	for addonName, object in pairs(self.addonsToLoad) do
 		local isLoaded, isFinished = IsAddOnLoaded(addonName)
 		if isLoaded and isFinished then
-			self:CallLoadedAddon(addonName, object)
+			module:CallLoadedAddon(addonName, object)
 		end
 	end
 
