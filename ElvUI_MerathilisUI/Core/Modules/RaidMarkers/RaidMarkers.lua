@@ -46,7 +46,9 @@ end
 function module:CreateButton(index)
 	local info = layouts[index]
 	local target, worldmarker = info.RT, info.WM
+
 	local button = CreateFrame("Button", format("RaidMarkerBarButton%d", index), module.frame, "SecureActionButtonTemplate")
+
 	button:SetHeight(E.db.mui.raidmarkers.buttonSize)
 	button:SetWidth(E.db.mui.raidmarkers.buttonSize)
 	button:EnableMouse("true")
