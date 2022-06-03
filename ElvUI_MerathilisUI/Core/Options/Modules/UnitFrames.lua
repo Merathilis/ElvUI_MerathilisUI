@@ -8,6 +8,8 @@ local format = string.format
 options.unitframes = {
 	type = "group",
 	name = L["UnitFrames"],
+	get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
+	set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; end,
 	disabled = function() return not E.private.unitframe.enable end,
 	args = {
 		name = {

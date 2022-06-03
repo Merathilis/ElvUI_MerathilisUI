@@ -6,6 +6,8 @@ local SetCVar = SetCVar
 options.cvars = {
 	type = "group",
 	name = L["CVars"],
+	get = function(info) return E.db.mui.cvars[ info[#info] ] end,
+	set = function(info, value) E.db.mui.cvars[ info[#info] ] = value; end,
 	args = {
 		header = {
 			order = 1,

@@ -5,6 +5,8 @@ local options = MER.options.modules.args
 options.panels = {
 	type = "group",
 	name = L["Panels"],
+	get = function(info) return E.db.mui.panels[ info[#info] ] end,
+	set = function(info, value) E.db.mui.panels[ info[#info] ] = value; end,
 	args = {
 		header = {
 			order = 1,
