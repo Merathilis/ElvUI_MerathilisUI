@@ -1,11 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, unpack = pairs, unpack
 
-function module:Clique()
+local function LoadSkin()
 	if E.private.mui.skins.addonSkins.cl ~= true then return end
 
 	_G.CliqueConfig:StripTextures()
@@ -79,4 +78,4 @@ function module:Clique()
 	end)
 end
 
-module:AddCallbackForAddon("Clique")
+S:AddCallbackForAddon("Clique", LoadSkin)

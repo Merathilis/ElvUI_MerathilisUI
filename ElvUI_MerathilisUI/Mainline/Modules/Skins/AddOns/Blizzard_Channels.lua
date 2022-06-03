@@ -1,9 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
-function module:Blizzard_Channels()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.channels ~= true or E.private.mui.skins.blizzard.channels ~= true then return end
 
 	local ChannelFrame = _G.ChannelFrame
@@ -15,4 +15,4 @@ function module:Blizzard_Channels()
 	MER:CreateBackdropShadow(CreateChannelPopup)
 end
 
-module:AddCallbackForAddon("Blizzard_Channels")
+S:AddCallbackForAddon("Blizzard_Channels", LoadSkin)

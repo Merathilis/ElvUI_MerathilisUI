@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -23,7 +24,7 @@ local function SecondaryProfession(button)
 	button.rank:SetPoint("BOTTOMLEFT", button.statusBar, "TOPLEFT", 3, 4)
 end
 
-function module:SpellBookFrame()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.mui.skins.blizzard.spellbook ~= true then return end
 
 	local SpellBookFrame = _G.SpellBookFrame
@@ -161,4 +162,4 @@ function module:SpellBookFrame()
 	end)
 end
 
-module:AddCallback("SpellBookFrame")
+S:AddCallback("SpellBookFrame", LoadSkin)

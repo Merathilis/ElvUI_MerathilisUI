@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local next, unpack = next, unpack
@@ -7,7 +8,7 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:Blizzard_Communities()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or not E.private.mui.skins.blizzard.communities then return end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
@@ -103,4 +104,4 @@ function module:Blizzard_Communities()
 	end
 end
 
-module:AddCallbackForAddon("Blizzard_Communities")
+S:AddCallbackForAddon("Blizzard_Communities", LoadSkin)

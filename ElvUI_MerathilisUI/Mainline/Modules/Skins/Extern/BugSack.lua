@@ -1,5 +1,4 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 if not IsAddOnLoaded("BugSack") then return; end
 
@@ -8,7 +7,7 @@ local pairs = pairs
 
 local hooksecurefunc = hooksecurefunc
 
-function module:BugSack()
+local function LoadSkin()
 	if E.private.mui.skins.addonSkins.bs ~= true then return end
 
 	hooksecurefunc(_G.BugSack, "OpenSack", function()
@@ -40,4 +39,4 @@ function module:BugSack()
 	end)
 end
 
-module:AddCallbackForAddon("BugSack")
+S:AddCallbackForAddon("BugSack", LoadSkin)

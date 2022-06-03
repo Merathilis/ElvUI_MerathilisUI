@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -18,7 +19,7 @@ local function HandleScrollChild(self)
 	end
 end
 
-function module:Blizzard_ClickBindingUI()
+local function LoadSkin()
 	if not E.private.skins.blizzard.enable and E.private.skins.blizzard.binding or not E.private.mui.skins.blizzard.binding then return end
 
 	local frame = _G.ClickBindingFrame
@@ -27,4 +28,4 @@ function module:Blizzard_ClickBindingUI()
 	hooksecurefunc(frame.ScrollBox, 'Update', HandleScrollChild)
 end
 
-module:AddCallbackForAddon("Blizzard_ClickBindingUI")
+S:AddCallbackForAddon("Blizzard_ClickBindingUI", LoadSkin)

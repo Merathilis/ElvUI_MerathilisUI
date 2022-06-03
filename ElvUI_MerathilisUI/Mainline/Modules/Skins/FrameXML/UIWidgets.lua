@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
-local S = E.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -100,7 +100,7 @@ local function ReskinSpellDisplayWidget(spell)
 	spell.IconMask:Hide()
 end
 
-function module:UIWidgets()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true then return end
 
 	hooksecurefunc(_G.UIWidgetTopCenterContainerFrame, "UpdateWidgetLayout", function(self)
@@ -159,4 +159,4 @@ function module:UIWidgets()
 	end)
 end
 
-module:AddCallback("UIWidgets")
+S:AddCallback("UIWidgets", LoadSkin)

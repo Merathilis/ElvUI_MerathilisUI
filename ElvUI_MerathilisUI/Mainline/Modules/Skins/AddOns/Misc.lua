@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local getn = getn
@@ -10,7 +10,7 @@ local C_TimerAfter = C_Timer.After
 
 local MAX_STATIC_POPUPS = 4
 
-function module:BlizzMisc()
+local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
 
 	-- Graveyard button (a bit ugly if you press it)
@@ -126,4 +126,4 @@ function module:BlizzMisc()
 	end
 end
 
-module:AddCallback("BlizzMisc")
+S:AddCallback("BlizzMisc", LoadSkin)

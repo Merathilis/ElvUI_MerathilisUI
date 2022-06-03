@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -9,7 +10,7 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:Blizzard_GarrisonUI()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.mui.skins.blizzard.garrison ~= true then return end
 
 	-- Building frame
@@ -197,4 +198,4 @@ function module:Blizzard_GarrisonUI()
 	module:CreateGradient(_G.CovenantMissionFrameFollowersListScrollFrameScrollBar.backdrop)
 end
 
-module:AddCallbackForAddon("Blizzard_GarrisonUI")
+S:AddCallbackForAddon("Blizzard_GarrisonUI", LoadSkin)

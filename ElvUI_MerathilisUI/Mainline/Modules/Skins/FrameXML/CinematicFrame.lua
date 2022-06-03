@@ -1,9 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local hooksecurefunc = hooksecurefunc
 
-function module:CinematicFrame()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true then return end
 
 	hooksecurefunc('CinematicFrame_OnDisplaySizeChanged', function(s)
@@ -28,4 +28,4 @@ function module:CinematicFrame()
 
 end
 
-module:AddCallback("CinematicFrame")
+S:AddCallback("CinematicFrame", LoadSkin)

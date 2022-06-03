@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
@@ -18,7 +18,7 @@ local function SkinDetailFrame()
 	MER:CreateBackdropShadow(ReputationDetailFrame)
 end
 
-function module:ReputationFrame()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or not E.private.mui.skins.blizzard.character then return end
 
 	hooksecurefunc("ExpandFactionHeader", SkinDetailFrame)
@@ -26,4 +26,4 @@ function module:ReputationFrame()
 	hooksecurefunc("ReputationFrame_Update", SkinDetailFrame)
 end
 
-module:AddCallback("ReputationFrame")
+S:AddCallback("ReputationFrame", LoadSkin)

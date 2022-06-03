@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -20,7 +21,7 @@ local MAX_TALENT_TIERS = 7
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:Blizzard_TalentUI()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or not E.private.mui.skins.blizzard.talent then return; end
 
 	local PlayerTalentFrame = _G.PlayerTalentFrame
@@ -226,4 +227,4 @@ function module:Blizzard_TalentUI()
 	end
 end
 
-module:AddCallbackForAddon("Blizzard_TalentUI")
+S:AddCallbackForAddon('Blizzard_TalentUI', LoadSkin)

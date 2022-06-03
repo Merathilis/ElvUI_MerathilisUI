@@ -1,11 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
 local hooksecurefunc = hooksecurefunc
 
-function module:Blizzard_LookingForGuildUI()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfguild ~= true or E.private.mui.skins.blizzard.lfguild ~= true then return end
 
 	local function SkinLFGuild(self)
@@ -25,4 +25,4 @@ function module:Blizzard_LookingForGuildUI()
 	end)
 end
 
-module:AddCallbackForAddon("Blizzard_LookingForGuildUI")
+S:AddCallbackForAddon("Blizzard_LookingForGuildUI", LoadSkin)
