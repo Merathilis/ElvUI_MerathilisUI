@@ -57,10 +57,10 @@ function module:HandleButton(_, button)
 		self:SecureHook(button, "SetScript", function(frame, scriptType)
 			if scriptType == "OnEnter" then
 				self:Unhook(frame, "OnEnter")
-				-- self:SecureHookScript(frame, "OnEnter", onEnter)
+				self:SecureHookScript(frame, "OnEnter", button.MERAnimation.onEnter)
 			elseif scriptType == "OnLeave" then
 				self:Unhook(frame, "OnLeave")
-				-- self:SecureHookScript(frame, "OnLeave", onEnter)
+				self:SecureHookScript(frame, "OnLeave", button.MERAnimation.onLeave)
 			end
 		end)
 

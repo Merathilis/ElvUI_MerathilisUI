@@ -31,12 +31,14 @@ function module:SkinMawBuffsContainer(container)
 	container:CreateBackdrop("Transparent")
 	self:Reposition(container.backdrop, container, 1, -10, -10, -16, -3)
 	MER:CreateBackdropShadow(container)
+	module:CreateGradient(container.backdrop)
 
 	local blockList = container.List
 	blockList:StripTextures()
 	blockList:CreateBackdrop("Transparent")
 	self:Reposition(blockList.backdrop, blockList, 1, -11, -11, -6, -6)
 	MER:CreateBackdropShadow(blockList)
+	module:CreateGradient(blockList.backdrop)
 end
 
 function module:ScenarioStage_CustomizeBlock(stageBlock, scenarioType, widgetSetID, textureKitID)
@@ -48,6 +50,7 @@ function module:ScenarioStage_CustomizeBlock(stageBlock, scenarioType, widgetSet
 		stageBlock.backdrop:ClearAllPoints()
 		stageBlock.backdrop:SetInside(stageBlock.GlowTexture, 4, 2)
 		MER:CreateShadow(stageBlock.backdrop)
+		module:CreateGradient(stageBlock.backdrop)
 	end
 end
 

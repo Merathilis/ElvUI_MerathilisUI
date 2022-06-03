@@ -1,2 +1,4 @@
-[b][color=orange]v5.01[/color], 01.06.2022[/b][list]
-[*]Fix a LUA Error from SplashScreen >.<[/list]
+[b][color=orange]v5.03[/color], 03.06.2022[/b][list]
+[*]Fix a db whoopsi in Notification and my General Options
+[*]Added an skin for EventToastManager
+[*]Prevent an error on the Widget onEnter/onLeave[/list]

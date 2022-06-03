@@ -6,6 +6,8 @@ local next = next
 local xpcall = xpcall
 local tinsert = table.insert
 
+local C_ChallengeMode_GetDungeonScoreRarityColor = E.Retail and C_ChallengeMode.GetDungeonScoreRarityColor
+
 module.load = {}
 module.updateProfile = {}
 
@@ -33,6 +35,11 @@ local function errorhandler(err)
 end
 
 ------
+
+function module.GetDungeonScore(score)
+	local color = C_ChallengeMode_GetDungeonScoreRarityColor(score) or HIGHLIGHT_FONT_COLOR
+	return color:WrapTextInColorCode(score)
+end
 
 function module:Initialize()
 	if E.private.tooltip.enable ~= true then return end

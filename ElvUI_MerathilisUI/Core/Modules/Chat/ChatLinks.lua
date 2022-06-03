@@ -12,6 +12,7 @@ local GetPvpTalentInfoByID = GetPvpTalentInfoByID
 local GetSpellTexture = GetSpellTexture
 local GetTalentInfoByID = GetTalentInfoByID
 local C_ChallengeMode_GetMapUIInfo = E.Retail and C_ChallengeMode.GetMapUIInfo
+local C_Soulbinds_GetConduitCollectionData = E.Retail and C_Soulbinds.GetConduitCollectionData
 local C_Item_GetItemNameByID = C_Item.GetItemNameByID
 
 local ICON_STRING = "|T%s:16:18:0:0:64:64:4:60:7:57:255:255:255|t"
@@ -101,7 +102,7 @@ local function AddItemInfo(link)
 	return link
 end
 
-local function AddKeystoneInfo(link)
+local function AddKeystoneIcon(link)
 	local itemID, mapID, level = strmatch(link, "Hkeystone:(%d-):(%d-):(%d-):")
 	if not (itemID and mapID and level and itemID == "180653") then
 		return
@@ -110,6 +111,25 @@ local function AddKeystoneInfo(link)
 	if module.db.icon then
 		local texture = select(4, C_ChallengeMode_GetMapUIInfo(tonumber(mapID)))
 		link = format(ICON_STRING, texture) .. " " .. link
+	end
+
+	return link
+end
+
+local function AddConduitIcon(link)
+	local conduitID = strmatch(link, "Hconduit:(%d-):")
+	if not conduitID then
+		return
+	end
+
+	if module.db.icon then
+		local conduitCollectionData = C_Soulbinds_GetConduitCollectionData(conduitID)
+		local conduitItemID = conduitCollectionData and conduitCollectionData.conduitItemID
+
+		if conduitItemID then
+			local texture = select(5, GetItemInfoInstant(conduitItemID))
+			link = format(ICON_STRING, texture) .. " " .. link
+		end
 	end
 
 	return link
@@ -181,7 +201,8 @@ end
 
 function module:Filter(event, msg, ...)
 	if module.db.enable then
-		msg = gsub(msg, "(|cffa335ee|Hkeystone:%d+:.-|h.-|h|r)", AddKeystoneInfo)
+		msg = gsub(msg, "(|cff71d5ff|Hconduit:%d+:.-|h.-|h|r)", AddConduitIcon)
+		msg = gsub(msg, "(|cffa335ee|Hkeystone:%d+:.-|h.-|h|r)", AddKeystoneIcon)
 		msg = gsub(msg, "(|Hitem:%d+:.-|h.-|h)", AddItemInfo)
 		msg = gsub(msg, "(|Hspell:%d+:%d+|h.-|h)", AddSpellInfo)
 		msg = gsub(msg, "(|Henchant:%d+|h.-|h)", AddEnchantInfo)

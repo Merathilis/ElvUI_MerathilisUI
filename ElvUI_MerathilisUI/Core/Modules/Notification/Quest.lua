@@ -54,6 +54,7 @@ local PARAGON_QUEST_ID = { --[questID] = {factionID}
 }
 
 function module:QUEST_ACCEPTED(_, questID)
+	module.db = E.db.mui.notification
 	if not module.db.enable then return end
 
 	if module.db.paragon and PARAGON_QUEST_ID[questID] then

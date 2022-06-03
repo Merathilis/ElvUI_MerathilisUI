@@ -5,6 +5,8 @@ options.actionbars = {
 	type = "group",
 	name = L["ActionBars"],
 	hidden = not E.Retail,
+	get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
+	set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
 		header = {
 			order = 1,
