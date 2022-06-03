@@ -123,7 +123,7 @@ do
 				print(icon..''..self.Title..format("v|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 			end
 
-			self:Logo_CheckStatus()
+			self:SplashScreen()
 		end
 
 		if not (checked or _G.ElvUIInstallFrame) then

@@ -99,7 +99,9 @@ function MER:CreateSplash()
 end
 
 function MER:SplashScreen()
-	if not E.db.mui.general.splashScreen then return end
+	if not E.db.mui or not E.db.mui.general.splashScreen then
+		return
+	end
 
 	self:Logo_CheckStatus()
 
