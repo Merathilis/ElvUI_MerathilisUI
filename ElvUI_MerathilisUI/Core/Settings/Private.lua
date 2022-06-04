@@ -220,5 +220,6 @@ V.skins = {
 		cl = true,
 		cbn = true,
 		et = true,
+		wa = true,
 	},
 }
