@@ -12,9 +12,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix a db whoopsi in Notification and my General Options",
-		"• Added an skin for EventToastManager",
-		"• Prevent an error on the Widget onEnter/onLeave",
+		"• Fix some option errors",
+		"• Added the WeakAura Shadows back",
+		"• Updated my BugSack skin a bit",
+		"• Added a shadow on all dropdowns",
+		"• Skins should be working fine again",
 
 	" ",
 	"Notes:",
