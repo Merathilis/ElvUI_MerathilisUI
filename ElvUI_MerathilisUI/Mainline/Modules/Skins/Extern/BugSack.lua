@@ -1,42 +1,86 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 if not IsAddOnLoaded("BugSack") then return; end
 
 local _G = _G
-local pairs = pairs
 
 local hooksecurefunc = hooksecurefunc
 
-local function LoadSkin()
-	if E.private.mui.skins.addonSkins.bs ~= true then return end
+local function BugSack_Open()
+	local BugSackFrame = _G.BugSackFrame
 
-	hooksecurefunc(_G.BugSack, "OpenSack", function()
-		if not _G.BugSack.IsSkinned then
-			_G.BugSackFrame:StripTextures()
+	if BugSackFrame.MERStyle then
+		return
+	end
 
-			_G.BugSackFrame:CreateBackdrop("Transparent")
-			_G.BugSackFrame.backdrop:Styling()
+	BugSackFrame:StripTextures()
+	BugSackFrame:CreateBackdrop('Transparent')
+	if BugSackFrame.backdrop then
+		BugSackFrame.backdrop:Styling()
+	end
+	MER:CreateBackdropShadow(BugSackFrame)
 
-			_G.BugSackTabAll:ClearAllPoints()
-			_G.BugSackTabAll:SetPoint("TOPLEFT", _G.BugSackFrame, "BOTTOMLEFT", 0, -1)
+	for _, child in pairs {_G.BugSackFrame:GetChildren()} do
+		local numRegions = child:GetNumRegions()
 
-			S:HandleTab(_G.BugSackTabAll)
-			S:HandleTab(_G.BugSackTabSession)
-			S:HandleTab(_G.BugSackTabLast)
-			S:HandleScrollBar(_G.BugSackScrollScrollBar)
-			S:HandleButton(_G.BugSackNextButton)
-			S:HandleButton(_G.BugSackSendButton)
-			S:HandleButton(_G.BugSackPrevButton)
-
-			for _, child in pairs({ _G.BugSackFrame:GetChildren() }) do
-				if (child:IsObjectType("Button") and child:GetScript("OnClick") == _G.BugSack.CloseSack) then
-					S:HandleCloseButton(child)
-				end
+		if numRegions == 1 then
+			local text = child:GetRegions()
+			if text and text.SetText then
+				F.SetFontOutline(text)
+				text.MERStyle = true
 			end
-
-			_G.BugSack.IsSkinned = true
+		elseif numRegions == 4 then
+			S:HandleCloseButton(child)
+			child.MERStyle = true
 		end
-	end)
+	end
+
+	S:HandleScrollBar(_G.BugSackScrollScrollBar)
+
+	for _, region in pairs {_G.BugSackScrollText:GetRegions()} do
+		if region and region.SetText then
+			F.SetFontOutline(region)
+		end
+	end
+
+	S:HandleButton(_G.BugSackNextButton)
+	S:HandleButton(_G.BugSackPrevButton)
+	S:HandleButton(_G.BugSackSendButton)
+
+	local tabs = {
+		_G.BugSackTabAll,
+		_G.BugSackTabLast,
+		_G.BugSackTabSession
+	}
+
+	for _, tab in pairs(tabs) do
+		S:HandleTab(tab)
+		tab.backdrop:SetTemplate("Transparent")
+		MER:CreateBackdropShadow(tab)
+
+		local point, relativeTo, relativePoint, xOffset, yOffset = tab:GetPoint(1)
+		tab:ClearAllPoints()
+		if yOffset ~= 0 then
+			yOffset = -1
+		end
+		tab:Point(point, relativeTo, relativePoint, xOffset, yOffset)
+
+		local text = _G[tab:GetName() .. "Text"]
+		if text then
+			F.SetFontOutline(text)
+		end
+	end
+
+	BugSackFrame.MERStyle = true
+end
+
+local function LoadSkin()
+	if not E.private.mui.skins.enable or not E.private.mui.skins.addonSkins.bs then return end
+
+	module:DisableAddOnSkin("BugSack")
+
+	module:SecureHook(_G.BugSack, "OpenSack", BugSack_Open)
 end
 
 S:AddCallbackForAddon("BugSack", LoadSkin)
