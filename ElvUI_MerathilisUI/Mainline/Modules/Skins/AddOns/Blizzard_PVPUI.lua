@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -8,7 +9,7 @@ local CreateFrame = CreateFrame
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:Blizzard_PVPUI()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.mui.skins.blizzard.pvp ~= true then return end
 
 	_G.PVPReadyDialog:Styling()
@@ -102,4 +103,4 @@ function module:Blizzard_PVPUI()
 	ConquestFrame.Arena3v3:SetPoint("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -1)
 end
 
-module:AddCallbackForAddon("Blizzard_PVPUI")
+S:AddCallbackForAddon("Blizzard_PVPUI", LoadSkin)

@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -11,7 +12,7 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:Blizzard_BlackMarketUI()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bmah ~= true or E.private.mui.skins.blizzard.blackmarket ~= true then return end
 
 	local BlackMarketFrame = _G.BlackMarketFrame
@@ -105,4 +106,4 @@ function module:Blizzard_BlackMarketUI()
 	end)
 end
 
-module:AddCallbackForAddon("Blizzard_BlackMarketUI")
+S:AddCallbackForAddon("Blizzard_BlackMarketUI", LoadSkin)

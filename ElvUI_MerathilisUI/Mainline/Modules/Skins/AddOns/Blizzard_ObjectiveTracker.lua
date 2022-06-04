@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 function module:SkinOjectiveTrackerHeaders()
 	local frame = _G.ObjectiveTrackerFrame.MODULES
@@ -73,7 +74,7 @@ function module:SkinTimerBars(_, _, line)
 	MER:CreateBackdropShadow(bar)
 end
 
-function module:ObjectiveTracker()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or not E.private.mui.skins.blizzard.objectiveTracker then return end
 
 	module:SecureHook("ObjectiveTracker_Update", "SkinOjectiveTrackerHeaders")
@@ -90,4 +91,4 @@ function module:ObjectiveTracker()
 	module:SecureHook(_G.ACHIEVEMENT_TRACKER_MODULE, "AddTimerBar", "SkinTimerBars")
 end
 
-module:AddCallback("ObjectiveTracker")
+S:AddCallback("ObjectiveTracker", LoadSkin)

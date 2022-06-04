@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local select = select
@@ -8,7 +9,7 @@ local GetAchievementInfo = GetAchievementInfo
 local GetAchievementNumCriteria = GetAchievementNumCriteria
 local hooksecurefunc = hooksecurefunc
 
-function module:Blizzard_AchievementUI()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.mui.skins.blizzard.achievement ~= true then return end
 
 	if not _G.AchievementFrame.backdrop then
@@ -85,4 +86,4 @@ function module:Blizzard_AchievementUI()
 	_G.AchievementFrame.searchBox:SetSize(100, 20)
 end
 
-module:AddCallbackForAddon("Blizzard_AchievementUI")
+S:AddCallbackForAddon("Blizzard_AchievementUI", LoadSkin)

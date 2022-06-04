@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local gsub, next, unpack = gsub, next, unpack
@@ -32,7 +33,7 @@ local function ModifyGuildNews(button, _, text, name, link, ...)
 	end
 end
 
-function module:Blizzard_Communities()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or E.private.mui.skins.blizzard.communities ~= true then return end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
@@ -153,4 +154,4 @@ function module:Blizzard_Communities()
 	hooksecurefunc("GuildNewsButton_SetText", ModifyGuildNews)
 end
 
-module:AddCallbackForAddon("Blizzard_Communities")
+S:AddCallbackForAddon("Blizzard_Communities", LoadSkin)

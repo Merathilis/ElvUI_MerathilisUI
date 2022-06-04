@@ -1,12 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local unpack = unpack
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:Blizzard_Calendar()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.mui.skins.blizzard.calendar ~= true then return end
 
 	if not _G.CalendarFrame.backdrop then
@@ -52,4 +52,4 @@ function module:Blizzard_Calendar()
 	_G.CalendarTodayFrame:SetBackdropBorderColor(r, g, b)
 end
 
-module:AddCallbackForAddon("Blizzard_Calendar")
+S:AddCallbackForAddon("Blizzard_Calendar", LoadSkin)

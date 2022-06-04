@@ -1,12 +1,13 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local unpack = unpack
 
 local InCombatLockdown = InCombatLockdown
 
-function module:StyleElvUIConfig()
+local function StyleElvUIConfig()
 	if InCombatLockdown() or not E.private.skins.ace3Enable then return end
 
 	local frame = E:Config_GetWindow()
@@ -25,7 +26,7 @@ function module:StyleElvUIConfig()
 	end
 end
 
-function module:StyleElvUIInstall()
+local function StyleElvUIInstall()
 	if InCombatLockdown() then return end
 
 	local frame = _G.ElvUIInstallFrame
@@ -35,7 +36,7 @@ function module:StyleElvUIInstall()
 	end
 end
 
-function module:StyleSeparatorLine(self, frame, lastButton)
+local function StyleSeparatorLine(self, frame, lastButton)
 	if frame.leftHolder then
 		local line = frame.leftHolder.buttons:CreateTexture()
 		line:SetTexture(E.Media.Textures.White8x8)
@@ -47,12 +48,12 @@ function module:StyleSeparatorLine(self, frame, lastButton)
 	end
 end
 
-function module:ElvUI_OptionsUI()
+local function Skin_ElvUI_OptionsUI()
 	if not E.private.mui.skins.enable then
 		return
 	end
 
-	self:SecureHook(E, "ToggleOptionsUI", "StyleElvUIConfig")
+	module:SecureHook(E, "ToggleOptionsUI", StyleElvUIConfig)
 
 	if _G.PluginInstallFrame then
 		_G.PluginInstallFrame:Styling()
@@ -63,10 +64,10 @@ function module:ElvUI_OptionsUI()
 		_G.ElvUIInstallFrame:Styling()
 		MER:CreateShadow(_G.ElvUIInstallFrame)
 	else
-		self:SecureHook(E, "Install", "StyleElvUIInstall")
+		module:SecureHook(E, "Install", StyleElvUIInstall)
 	end
 
-	self:SecureHook(E, "Config_CreateSeparatorLine", "StyleSeparatorLine")
+	module:SecureHook(E, "Config_CreateSeparatorLine", StyleSeparatorLine)
 end
 
-module:AddCallback("ElvUI_OptionsUI")
+S:AddCallback("ElvUI_OptionsUI", Skin_ElvUI_OptionsUI)

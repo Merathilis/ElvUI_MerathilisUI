@@ -1,10 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
 
-function module:ChatFrame()
+local function LoadSkin()
 	if E.private.chat.enable ~= true then return; end
 
 	local VoiceChatPromptActivateChannel = _G["VoiceChatPromptActivateChannel"]
@@ -50,4 +51,4 @@ function module:ChatFrame()
 	end
 end
 
-module:AddCallback("ChatFrame")
+S:AddCallback("ChatFrame", LoadSkin)

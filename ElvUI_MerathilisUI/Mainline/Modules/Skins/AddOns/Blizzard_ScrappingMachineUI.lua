@@ -1,9 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
-function module:Blizzard_ScrappingMachineUI()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.scrapping ~= true or E.private.mui.skins.blizzard.Scrapping ~= true then return end
 
 	local MachineFrame = _G.ScrappingMachineFrame
@@ -11,4 +11,4 @@ function module:Blizzard_ScrappingMachineUI()
 	MER:CreateBackdropShadow(MachineFrame)
 end
 
-module:AddCallbackForAddon('Blizzard_ScrappingMachineUI')
+S:AddCallbackForAddon('Blizzard_ScrappingMachineUI', LoadSkin)

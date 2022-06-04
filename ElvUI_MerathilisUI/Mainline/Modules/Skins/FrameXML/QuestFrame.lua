@@ -21,7 +21,7 @@ local function UpdateGreetingFrame()
 	end
 end
 
-function module:QuestFrame()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return end
 
 	local QuestFrame = _G.QuestFrame
@@ -164,4 +164,4 @@ function module:QuestFrame()
 	MER.NPC:Register(QuestFrame)
 end
 
-module:AddCallback("QuestFrame")
+S:AddCallback("QuestFrame", LoadSkin)

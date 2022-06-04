@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local select = select
@@ -7,7 +8,6 @@ local strmatch = strmatch
 local gsub = string.gsub
 
 local hooksecurefunc = hooksecurefunc
-
 
 local function ReplaceGossipFormat(button, textFormat, text)
 	local newFormat, count = gsub(textFormat, "000000", "ffffff")
@@ -37,7 +37,7 @@ local function ReplaceGossipText(button, text)
 	end
 end
 
-function module:GossipFrame()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.mui.skins.blizzard.gossip ~= true then return; end
 
 	local GossipFrame = _G.GossipFrame
@@ -88,4 +88,4 @@ function module:GossipFrame()
 	hooksecurefunc("GossipTitleButton_OnClick", function() MER.NPC:PlayerTalksFirst() end)
 end
 
-module:AddCallback("GossipFrame")
+S:AddCallback("GossipFrame", LoadSkin)

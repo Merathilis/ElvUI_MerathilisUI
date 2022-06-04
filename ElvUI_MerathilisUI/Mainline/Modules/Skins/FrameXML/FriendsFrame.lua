@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
@@ -16,7 +16,7 @@ function FriendsCount_OnEvent(event, ...)
 	_G.MER_FriendsCounter:SetText(bnetCount.."|cff416380/200|r")
 end
 
-function module:FriendsFrame()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.mui.skins.blizzard.friends ~= true then return end
 
 	local FriendsFrame = _G.FriendsFrame
@@ -51,4 +51,4 @@ function module:FriendsFrame()
 	end
 end
 
-module:AddCallback("FriendsFrame")
+S:AddCallback("FriendsFrame", LoadSkin)

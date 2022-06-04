@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
-local S = E.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -176,7 +176,7 @@ local function SkinEJButton(button)
 	select(6, button:GetRegions()):Hide()
 end
 
-function module:Blizzard_EncounterJournal()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.mui.skins.blizzard.encounterjournal ~= true then return end
 
 	local EncounterJournal = _G.EncounterJournal
@@ -503,4 +503,4 @@ function module:Blizzard_EncounterJournal()
 	end)
 end
 
-module:AddCallbackForAddon("Blizzard_EncounterJournal")
+S:AddCallbackForAddon("Blizzard_EncounterJournal", LoadSkin)

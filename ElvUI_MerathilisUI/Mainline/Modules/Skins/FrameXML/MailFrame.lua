@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule("Skins")
 
 local _G = _G
 local unpack = unpack
@@ -12,8 +13,13 @@ local GetInboxInvoiceInfo = GetInboxInvoiceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:MailFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.mui.skins.blizzard.mail ~= true then return end
+local function LoadSkin()
+	if
+		E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or
+			E.private.mui.skins.blizzard.mail ~= true
+	 then
+		return
+	end
 
 	local MiniMapMailFrame = _G.MiniMapMailFrame
 
@@ -22,21 +28,24 @@ function module:MailFrame()
 	_G.MiniMapMailIcon:SetSize(16, 16)
 	MiniMapMailFrame:Raise()
 
-	MiniMapMailFrame:SetScript("OnShow", function()
-		if not MiniMapMailFrame.highlight then
-			MiniMapMailFrame.highlight = CreateFrame("Frame", nil, MiniMapMailFrame)
-			MiniMapMailFrame.highlight:SetAllPoints(MiniMapMailFrame)
-			MiniMapMailFrame.highlight:SetFrameLevel(MiniMapMailFrame:GetFrameLevel() + 1)
+	MiniMapMailFrame:SetScript(
+		"OnShow",
+		function()
+			if not MiniMapMailFrame.highlight then
+				MiniMapMailFrame.highlight = CreateFrame("Frame", nil, MiniMapMailFrame)
+				MiniMapMailFrame.highlight:SetAllPoints(MiniMapMailFrame)
+				MiniMapMailFrame.highlight:SetFrameLevel(MiniMapMailFrame:GetFrameLevel() + 1)
 
-			MiniMapMailFrame.highlight.tex = MiniMapMailFrame.highlight:CreateTexture()
-			MiniMapMailFrame.highlight.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\Mail")
-			MiniMapMailFrame.highlight.tex:SetPoint("TOPLEFT", _G.MiniMapMailIcon, "TOPLEFT", -2, 2)
-			MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", _G.MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)
-			MiniMapMailFrame.highlight.tex:SetVertexColor(r, g, b)
+				MiniMapMailFrame.highlight.tex = MiniMapMailFrame.highlight:CreateTexture()
+				MiniMapMailFrame.highlight.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\Mail")
+				MiniMapMailFrame.highlight.tex:SetPoint("TOPLEFT", _G.MiniMapMailIcon, "TOPLEFT", -2, 2)
+				MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", _G.MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)
+				MiniMapMailFrame.highlight.tex:SetVertexColor(r, g, b)
 
-			MER:CreatePulse(MiniMapMailFrame, 1, 1)
+				MER:CreatePulse(MiniMapMailFrame, 1, 1)
+			end
 		end
-	end)
+	)
 
 	local MailFrame = _G.MailFrame
 	MailFrame:Styling()
@@ -44,7 +53,7 @@ function module:MailFrame()
 
 	-- InboxFrame
 	for i = 1, _G.INBOXITEMS_TO_DISPLAY do
-		local bg = _G["MailItem"..i]
+		local bg = _G["MailItem" .. i]
 		bg:StripTextures()
 
 		if bg.backdrop then
@@ -52,7 +61,7 @@ function module:MailFrame()
 		end
 		module:CreateBD(bg, .25)
 
-		local b = _G["MailItem"..i.."Button"]
+		local b = _G["MailItem" .. i .. "Button"]
 		b:StripTextures()
 		b:CreateBackdrop("Transparent", true)
 		b:StyleButton()
@@ -74,7 +83,7 @@ function module:MailFrame()
 	-- OpenMailFrame
 	local OpenMailFrame = _G.OpenMailFrame
 	OpenMailFrame:Styling()
-	_G.OpenMailScrollFrame:SetTemplate('Transparent')
+	_G.OpenMailScrollFrame:SetTemplate("Transparent")
 	MER:CreateShadow(OpenMailFrame)
 
 	OpenMailFrame:SetPoint("TOPLEFT", _G.InboxFrame, "TOPRIGHT", 5, 0)
@@ -102,25 +111,28 @@ function module:MailFrame()
 	_G.OpenMailArithmeticLine:SetSize(256, 1)
 	_G.OpenMailInvoiceAmountReceived:SetPoint("TOPRIGHT", _G.OpenMailArithmeticLine, "BOTTOMRIGHT", -14, -5)
 
-	hooksecurefunc("OpenMail_Update", function()
-		if not _G.InboxFrame.openMailID then
-			return
-		end
+	hooksecurefunc(
+		"OpenMail_Update",
+		function()
+			if not _G.InboxFrame.openMailID then
+				return
+			end
 
-		local _, _, _, isInvoice = GetInboxText(_G.InboxFrame.openMailID)
-		if isInvoice then
-			local invoiceType, _, playerName = GetInboxInvoiceInfo(_G.InboxFrame.openMailID)
-			if playerName then
-				if invoiceType == "buyer" then
-					_G.OpenMailArithmeticLine:SetPoint("TOP", "OpenMailInvoicePurchaser", "BOTTOMLEFT", 125, -5)
-				elseif invoiceType == "seller" then
-					_G.OpenMailArithmeticLine:SetPoint("TOP", "OpenMailInvoiceHouseCut", "BOTTOMRIGHT", -114, -22)
-				elseif invoiceType == "seller_temp_invoice" then
-					_G.OpenMailArithmeticLine:SetPoint("TOP", "OpenMailInvoicePurchaser", "BOTTOMLEFT", 125, -5)
+			local _, _, _, isInvoice = GetInboxText(_G.InboxFrame.openMailID)
+			if isInvoice then
+				local invoiceType, _, playerName = GetInboxInvoiceInfo(_G.InboxFrame.openMailID)
+				if playerName then
+					if invoiceType == "buyer" then
+						_G.OpenMailArithmeticLine:SetPoint("TOP", "OpenMailInvoicePurchaser", "BOTTOMLEFT", 125, -5)
+					elseif invoiceType == "seller" then
+						_G.OpenMailArithmeticLine:SetPoint("TOP", "OpenMailInvoiceHouseCut", "BOTTOMRIGHT", -114, -22)
+					elseif invoiceType == "seller_temp_invoice" then
+						_G.OpenMailArithmeticLine:SetPoint("TOP", "OpenMailInvoicePurchaser", "BOTTOMLEFT", 125, -5)
+					end
 				end
 			end
 		end
-	end)
+	)
 end
 
-module:AddCallback("MailFrame")
+S:AddCallback("MailFrame", LoadSkin)

@@ -1,12 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
 local hooksecurefunc = hooksecurefunc
-local CreateFrame = CreateFrame
 
-function module:Blizzard_CovenantRenown()
+local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.covenantRenown) or E.private.mui.skins.blizzard.covenantRenown ~= true then return end
 
 	local frame = _G.CovenantRenownFrame
@@ -24,4 +23,4 @@ function module:Blizzard_CovenantRenown()
 	end)
 end
 
-module:AddCallbackForAddon('Blizzard_CovenantRenown')
+S:AddCallbackForAddon('Blizzard_CovenantRenown', LoadSkin)

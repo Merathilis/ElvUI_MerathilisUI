@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local select = select
 
-function module:GameMenuFrame()
+local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
 
 	local GameMenuFrame = _G.GameMenuFrame
@@ -23,4 +23,4 @@ function module:GameMenuFrame()
 	end
 end
 
-module:AddCallback("GameMenuFrame")
+S:AddCallback("GameMenuFrame", LoadSkin)

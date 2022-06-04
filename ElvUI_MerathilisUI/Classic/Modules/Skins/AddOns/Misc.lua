@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local getn = getn
@@ -10,7 +10,7 @@ local C_TimerAfter = C_Timer.After
 
 local MAX_STATIC_POPUPS = 4
 
-function module:Misc()
+local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
 
 	local skins = {
@@ -39,6 +39,7 @@ function module:Misc()
 		local Backdrop = _G[listFrameName.."Backdrop"]
 		if Backdrop and not Backdrop.IsSkinned then
 			Backdrop:Styling()
+			MER:CreateShadow(Backdrop)
 			Backdrop.IsSkinned = true
 		end
 
@@ -56,7 +57,9 @@ function module:Misc()
 		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
 			if not _G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
+				MER:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
+				MER:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
 			end
 		end)
 	end
@@ -112,4 +115,4 @@ function module:Misc()
 	end
 end
 
-module:AddCallback("Misc")
+S:AddCallback("Misc", LoadSkin)

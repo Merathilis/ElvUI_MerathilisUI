@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local getn = getn
@@ -10,7 +10,7 @@ local C_TimerAfter = C_Timer.After
 
 local MAX_STATIC_POPUPS = 4
 
-function module:BlizzMisc()
+local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
 
 	-- Graveyard button (a bit ugly if you press it)
@@ -48,12 +48,14 @@ function module:BlizzMisc()
 		local Backdrop = _G[listFrameName.."Backdrop"]
 		if Backdrop and not Backdrop.IsSkinned then
 			Backdrop:Styling()
+			MER:CreateBackdropShadow(Backdrop)
 			Backdrop.IsSkinned = true
 		end
 
 		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
 		if menuBackdrop and not menuBackdrop.IsSkinned then
 			menuBackdrop:Styling()
+			MER:CreateBackdropShadow(Backdrop)
 			menuBackdrop.IsSkinned = true
 		end
 	end)
@@ -65,7 +67,9 @@ function module:BlizzMisc()
 		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
 			if not _G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
+				MER:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
+				MER:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
 			end
 		end)
 	end
@@ -126,4 +130,4 @@ function module:BlizzMisc()
 	end
 end
 
-module:AddCallback("BlizzMisc")
+S:AddCallback("BlizzMisc", LoadSkin)

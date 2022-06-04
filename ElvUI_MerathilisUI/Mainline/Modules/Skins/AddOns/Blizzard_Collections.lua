@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -9,7 +10,7 @@ local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:Blizzard_Collections()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or E.private.mui.skins.blizzard.collections ~= true then return end
 
 	local CollectionsJournal = _G.CollectionsJournal
@@ -392,4 +393,4 @@ function module:Blizzard_Collections()
 	end
 end
 
-module:AddCallbackForAddon("Blizzard_Collections")
+S:AddCallbackForAddon("Blizzard_Collections", LoadSkin)

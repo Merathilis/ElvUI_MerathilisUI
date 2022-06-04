@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule("Skins")
 
 local _G = _G
 local ipairs, pairs, type, unpack = ipairs, pairs, type, unpack
@@ -31,8 +31,12 @@ end
 
 -- Copied from ElvUI
 local function ColorizeStatPane(frame)
-	if frame.leftGrad then frame.leftGrad:StripTextures() end
-	if frame.rightGrad then frame.rightGrad:StripTextures() end
+	if frame.leftGrad then
+		frame.leftGrad:StripTextures()
+	end
+	if frame.rightGrad then
+		frame.rightGrad:StripTextures()
+	end
 
 	frame.leftGrad = frame:CreateTexture(nil, "BORDER")
 	frame.leftGrad:SetWidth(80)
@@ -50,7 +54,9 @@ local function ColorizeStatPane(frame)
 end
 
 local function SkinSLEArmory()
-	if not IsAddOnLoaded('ElvUI_SLE') then return end
+	if not IsAddOnLoaded("ElvUI_SLE") then
+		return
+	end
 	local db = E.db.sle.armory
 
 	if not db and db.character.enable then
@@ -70,8 +76,10 @@ local function SkinSLEArmory()
 	end
 end
 
-function module:PaperDollFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or not E.private.mui.skins.blizzard.character then return end
+local function LoadSkin()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or not E.private.mui.skins.blizzard.character then
+		return
+	end
 
 	local CharacterStatsPane = _G.CharacterStatsPane
 
@@ -101,7 +109,7 @@ function module:PaperDollFrame()
 
 		hooksecurefunc("PaperDollFrame_UpdateStats", function()
 			for _, Table in ipairs({_G.CharacterStatsPane.statsFramePool:EnumerateActive()}) do
-				if type(Table) == 'table' then
+				if type(Table) == "table" then
 					for statFrame in pairs(Table) do
 						ColorizeStatPane(statFrame)
 						if statFrame.Background:IsShown() then
@@ -124,9 +132,9 @@ function module:PaperDollFrame()
 		ClassTexture:SetPoint("BOTTOM", _G.CharacterFrameInsetRight, "BOTTOM", 0, 40)
 		ClassTexture:SetSize(126, 120)
 		ClassTexture:SetAlpha(.25)
-		ClassTexture:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\ClassIcons\\CLASS-"..E.myclass)
+		ClassTexture:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\ClassIcons\\CLASS-" .. E.myclass)
 		ClassTexture:SetDesaturated(true)
 	end
 end
 
-module:AddCallback("PaperDollFrame")
+S:AddCallback("PaperDollFrame", LoadSkin)

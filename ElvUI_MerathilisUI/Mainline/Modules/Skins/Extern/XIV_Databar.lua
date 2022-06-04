@@ -1,10 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 if not IsAddOnLoaded("XIV_Databar") then return end
 
 local _G = _G
 
-function module:XIV_Databar()
+local function LoadSkin()
 	if E.private.MER_Skins.addonSkins.xiv ~= true then return end
 
 	local XIV_Databar = _G.XIV_Databar
@@ -19,4 +20,4 @@ function module:XIV_Databar()
 	_G.portPopup:SetTemplate("Transparent")
 end
 
-module:AddCallbackForAddon("XIV_Databar")
+S:AddCallbackForAddon("XIV_Databar", LoadSkin)

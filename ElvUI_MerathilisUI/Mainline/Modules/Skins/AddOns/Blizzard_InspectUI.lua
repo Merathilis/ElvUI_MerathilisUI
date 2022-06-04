@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local select, unpack = select, unpack
@@ -26,7 +27,7 @@ local function updateIcon(self)
 	end
 end
 
-function module:Blizzard_InspectUI()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.inspect ~= true or E.private.mui.skins.blizzard.inspect ~= true then return end
 
 	_G.InspectModelFrame:DisableDrawLayer("OVERLAY")
@@ -122,4 +123,4 @@ function module:Blizzard_InspectUI()
 	end
 end
 
-module:AddCallbackForAddon("Blizzard_InspectUI")
+S:AddCallbackForAddon("Blizzard_InspectUI", LoadSkin)

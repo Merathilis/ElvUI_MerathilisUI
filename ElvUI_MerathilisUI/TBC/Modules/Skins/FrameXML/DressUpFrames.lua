@@ -1,9 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
-function module:DressUpFrames()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true or not E.private.mui.skins.blizzard.dressingroom then return end
 
 	local DressUpFrame = _G.DressUpFrame
@@ -13,4 +13,4 @@ function module:DressUpFrames()
 	MER:CreateBackdropShadow(DressUpFrame)
 end
 
-module:AddCallback("DressUpFrames")
+S:AddCallback("DressUpFrames", LoadSkin)
