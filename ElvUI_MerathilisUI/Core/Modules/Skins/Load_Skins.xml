@@ -2,5 +2,6 @@
 	<Script file='Core.lua'/>
 	<Script file='API.lua'/>
 	<Script file='ElvUI_OptionsUI.lua'/>
+	<Script file='LibDropDown.lua'/>
 	<Include file='Widgets\Load_Widgets.xml'/>
 </Ui>
