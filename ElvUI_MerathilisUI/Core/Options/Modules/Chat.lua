@@ -600,7 +600,7 @@ options.chat = {
 	},
 }
 
-local channels = {"SAY", "YELL", "EMOTE", "PARTY", "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER"}
+local channels = {"SAY", "YELL", "EMOTE", "PARTY", E.Retail and "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER"}
 for index, name in ipairs(channels) do
 	options.chat.args.chatBar.args.channels.args[name] = {
 		order = index,
