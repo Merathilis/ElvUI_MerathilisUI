@@ -1,6 +1,2 @@
-[b][color=orange]v5.04[/color], 04.06.2022[/b][list]
-[*]Fix some option errors
-[*]Added the WeakAura Shadows back
-[*]Updated my BugSack skin a bit
-[*]Added a shadow on all dropdowns
-[*]Skins should be working fine again[/list]
+[b][color=orange]v5.05[/color], 05.06.2022[/b][list]
+[*]Fix an error with the WeakAura Skin[/list]
