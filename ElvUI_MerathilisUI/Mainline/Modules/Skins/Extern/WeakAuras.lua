@@ -6,7 +6,7 @@ local function Skin_WeakAuras(f, fType)
 	-- Modified from NDui WeakAuras Skins
 	if fType == "icon" then
 		if not f.MERStyle then
-			f.icon.SetTexCoordOld = f.icon.SetTexCoord
+			f.icon.SetTexCoordOld_Changed = f.icon.SetTexCoord
 			f.icon.SetTexCoord = function(self, ULx, ULy, LLx, LLy, URx, URy, LRx, LRy)
 				local cLeft, cRight, cTop, cDown
 				if URx and URy and LRx and LRy then
@@ -19,14 +19,14 @@ local function Skin_WeakAuras(f, fType)
 				if cLeft == 0 or cRight == 0 or cTop == 0 or cDown == 0 then
 					local width, height = cRight - cLeft, cDown - cTop
 					if width == height then
-						self:SetTexCoordOld(left, right, top, down)
+						self:SetTexCoordOld_Changed(left, right, top, down)
 					elseif width > height then
-						self:SetTexCoordOld(left, right, top + cTop * (right - left), top + cDown * (right - left))
+						self:SetTexCoordOld_Changed(left, right, top + cTop * (right - left), top + cDown * (right - left))
 					else
-						self:SetTexCoordOld(left + cLeft * (down - top), left + cRight * (down - top), top, down)
+						self:SetTexCoordOld_Changed(left + cLeft * (down - top), left + cRight * (down - top), top, down)
 					end
 				else
-					self:SetTexCoordOld(cLeft, cRight, cTop, cDown)
+					self:SetTexCoordOld_Changed(cLeft, cRight, cTop, cDown)
 				end
 			end
 			f.icon:SetTexCoord(f.icon:GetTexCoord())
@@ -35,15 +35,12 @@ local function Skin_WeakAuras(f, fType)
 			f.backdrop.Center:StripTextures()
 			f.backdrop:SetFrameLevel(0)
 			f.backdrop.icon = f.icon
-			f.backdrop:HookScript(
-				"OnUpdate",
-				function(self)
-					self:SetAlpha(self.icon:GetAlpha())
-					if self.shadow then
-						self.shadow:SetAlpha(self.icon:GetAlpha())
-					end
+			f.backdrop:HookScript("OnUpdate", function(self)
+				self:SetAlpha(self.icon:GetAlpha())
+				if self.shadow then
+					self.shadow:SetAlpha(self.icon:GetAlpha())
 				end
-			)
+			end)
 
 			f.MERStyle = true
 		end
