@@ -370,6 +370,13 @@ function MER:CheckCompatibility()
 		"private.WT.skins.widgets.treeGroupButton.enable"
 	)
 
+	CheckWindtools(
+		L["WeakAuras"],
+		L["WeakAuras"],
+		"private.mui.skins.addonSkins.wa",
+		"private.WT.skins.addons.weakAuras"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],
