@@ -226,6 +226,6 @@ V.skins = {
 		cbn = true,
 		et = true,
 		wa = true,
-		waOptions = false,
+		waOptions = true,
 	},
 }
