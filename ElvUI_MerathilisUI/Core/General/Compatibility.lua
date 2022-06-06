@@ -377,6 +377,13 @@ function MER:CheckCompatibility()
 		"private.WT.skins.addons.weakAuras"
 	)
 
+	CheckWindtools(
+		L["WeakAuras Options"],
+		L["WeakAuras Options"],
+		"private.mui.skins.addonSkins.waOptions",
+		"private.WT.skins.addons.weakAurasOptions"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],
