@@ -67,7 +67,7 @@ options.general = {
 					type = "toggle",
 					name = L["MerathilisUI Style"],
 					desc = L["Creates decorative stripes and a gradient on some frames"],
-					set = function(info, value) E.private.mui.skins[ info[#info] ] = value; F:UpdateStyling() end,
+					set = function(info, value) E.private.mui.skins[ info[#info] ] = value; MER:UpdateStyling() end,
 				},
 				shadowOverlay = {
 					order = 4,
