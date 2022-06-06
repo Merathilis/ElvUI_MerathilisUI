@@ -10,7 +10,9 @@ local hooksecurefunc = hooksecurefunc
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or not E.private.mui.skins.blizzard.communities then return end
+	if not module:CheckDB("communities", "communities") then
+		return
+	end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
 	if not CommunitiesFrame.backdrop then

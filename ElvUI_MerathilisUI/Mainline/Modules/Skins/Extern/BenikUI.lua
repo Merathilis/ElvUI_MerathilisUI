@@ -7,7 +7,7 @@ local _G = _G
 local CreateFrame = CreateFrame
 
 local function LoadSkin()
-	if E.private.mui.skins.addonSkins.bui ~= true then return; end
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bui then return; end
 
 	local BuiLeftChatDTPanel = _G.BuiLeftChatDTPanel
 	if BuiLeftChatDTPanel then

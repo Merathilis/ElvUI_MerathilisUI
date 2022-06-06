@@ -22,7 +22,9 @@ local function UpdateGreetingFrame()
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return end
+	if not module:CheckDB("quest", "quest") then
+		return
+	end
 
 	local QuestFrame = _G.QuestFrame
 	_G.QuestFrameDetailPanelBg:SetAlpha(0)

@@ -22,7 +22,9 @@ local MAX_TALENT_TIERS = 7
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or not E.private.mui.skins.blizzard.talent then return; end
+	if not module:CheckDB("talent", "talent") then
+		return
+	end
 
 	local PlayerTalentFrame = _G.PlayerTalentFrame
 	PlayerTalentFrame:Styling()

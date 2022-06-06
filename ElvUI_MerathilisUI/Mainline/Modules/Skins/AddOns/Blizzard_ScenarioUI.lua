@@ -135,7 +135,9 @@ function module:ScenarioStageWidgetContainer()
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or not E.private.mui.skins.blizzard.objectiveTracker then return end
+	if not module:CheckDB("objectiveTracker", "objectiveTracker") then
+		return
+	end
 
 	module:SecureHook("ScenarioStage_CustomizeBlock")
 	module:SecureHook("Scenario_ChallengeMode_ShowBlock")

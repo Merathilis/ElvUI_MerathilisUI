@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -11,7 +12,9 @@ local C_TimerAfter = C_Timer.After
 local MAX_STATIC_POPUPS = 4
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
+	if not module:CheckDB("misc", "misc") then
+		return
+	end
 
 	local skins = {
 		"StaticPopup1",

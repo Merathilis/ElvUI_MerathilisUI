@@ -3,7 +3,7 @@ local S = E:GetModule('Skins')
 if not IsAddOnLoaded("cargBags_Nivaya") then return; end
 
 local function LoadSkin()
-	if E.private.mui.skins.addonSkins.cbn ~= true then return end
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.cbn then return end
 
 	-- Default Containers from cargBags_Nivaya
 	local frames = {

@@ -5,7 +5,9 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.auctionhouse ~= true or not E.private.mui.skins.blizzard.auctionhouse then return end
+	if not module:CheckDB("auctionhouse", "auctionhouse") then
+		return
+	end
 
 	local Frame = _G.AuctionHouseFrame
 	Frame:Styling()

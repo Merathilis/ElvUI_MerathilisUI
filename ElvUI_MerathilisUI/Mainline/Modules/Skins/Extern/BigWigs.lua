@@ -119,7 +119,7 @@ f:SetScript('OnEvent', function(self, event, msg)
 end)
 
 local function LoadSkin()
-	if not E.private.mui.skins.addonSkins.bw then return end
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bw then return end
 
 	if _G.BigWigsLoader then
 		_G.BigWigsLoader.RegisterMessage("MerathilisUI", "BigWigs_FrameCreated", function(_, frame, name)

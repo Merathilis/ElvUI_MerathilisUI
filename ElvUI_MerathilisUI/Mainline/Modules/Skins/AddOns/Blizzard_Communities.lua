@@ -34,7 +34,9 @@ local function ModifyGuildNews(button, _, text, name, link, ...)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.communities ~= true or E.private.mui.skins.blizzard.communities ~= true then return end
+	if not module:CheckDB("communities", "communities") then
+		return
+	end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
 	CommunitiesFrame:Styling()

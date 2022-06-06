@@ -3,6 +3,24 @@ local module = MER:GetModule('MER_Skins')
 
 local _G = _G
 
+function module:CheckDB(elvuiKey, MERKey)
+	if elvuiKey then
+		MERKey = MERKey or elvuiKey
+		if not (E.private.skins.blizzard.enable and E.private.skins.blizzard[elvuiKey]) then
+			return false
+		end
+		if not (E.private.mui.skins.blizzard.enable and E.private.mui.skins.blizzard[MERKey]) then
+			return false
+		end
+	else
+		if not (E.private.mui.skins.blizzard.enable and E.private.mui.skins.blizzard[MERKey]) then
+			return false
+		end
+	end
+
+	return true
+end
+
 function module:DisableAddOnSkin(key)
 	if _G.AddOnSkins then
 		local AS = _G.AddOnSkins[1]

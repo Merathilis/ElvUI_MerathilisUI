@@ -6,7 +6,9 @@ local _G = _G
 local unpack, select = unpack, select
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.questChoice ~= true or E.private.mui.skins.blizzard.questChoice ~= true then return; end
+	if not module:CheckDB("questChoice", "questChoice") then
+		return
+	end
 
 	local QuestChoiceFrame = _G.QuestChoiceFrame
 	QuestChoiceFrame:StripTextures()

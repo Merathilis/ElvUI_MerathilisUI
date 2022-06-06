@@ -6,7 +6,7 @@ local _G = _G
 local CreateFrame = CreateFrame
 
 local function LoadSkin()
-	if E.private.mui.skins.addonSkins.pa ~= true then return end
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.pa then return end
 
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")

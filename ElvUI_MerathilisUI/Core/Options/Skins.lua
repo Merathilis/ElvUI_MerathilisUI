@@ -17,7 +17,6 @@ local DecorAddons = {
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
-	{"EventTracker", L["EventTracker"], "et"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
 }
 
@@ -1194,25 +1193,31 @@ options.blizzard = {
 			type = "description",
 			name = MER.InfoColor..L["MER_SKINS_DESC"],
 			fontSize = "medium",
+			width = "full",
 		},
 		space = {
 			order = 2,
 			type = "description",
 			name = '',
 		},
-		header = {
+		enable = {
 			order = 3,
+			type = "toggle",
+			name = L["Enable"],
+		},
+		header = {
+			order = 4,
 			type = "header",
 			name = F.cOption(L["Blizzard"], 'orange'),
 		},
 		gotoskins = {
-			order = 4,
+			order = 5,
 			type = "execute",
 			name = L["ElvUI Skins"],
 			func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "skins") end,
 		},
 		enableAll = {
-			order = 5,
+			order = 6,
 			type = "execute",
 			name = L["Enable All"],
 			func = function()
@@ -1223,7 +1228,7 @@ options.blizzard = {
 			end
 		},
 		disableAll = {
-			order = 6,
+			order = 7,
 			type = "execute",
 			name = L["Disable All"],
 			func = function()
@@ -1236,7 +1241,7 @@ options.blizzard = {
 			end
 		},
 		space2 = {
-			order = 7,
+			order = 8,
 			type = "description",
 			name = '',
 		},
@@ -1599,6 +1604,21 @@ if E.Retail then
 		name = L["Guide Frame"],
 		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guide end,
 	}
+	options.blizzard.args.weeklyRewards = {
+		type = "toggle",
+		name = L["Weekly Rewards"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.weeklyRewards end,
+	}
+	options.blizzard.args.misc = {
+		type = "toggle",
+		name = L["Misc"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.misc end,
+	}
+	options.blizzard.args.tooltip = {
+		type = "toggle",
+		name = L["Tooltip"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tooltip end,
+	}
 elseif E.Classic then
 	options.blizzard.args.craft = {
 		type = "toggle",
@@ -1614,7 +1634,7 @@ options.addonskins = {
 	name = L["AddOnSkins"],
 	get = function(info) return E.private.mui.skins.addonSkins[ info[#info] ] end,
 	set = function(info, value) E.private.mui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-	disabled = function() return not E.private.mui.skins.enable end,
+	disabled = function() return not E.private.mui.skins.enable or not E.private.mui.skins.addonSkins.enable end,
 	args = {
 		info = {
 			order = 1,
@@ -1627,15 +1647,20 @@ options.addonskins = {
 			type = "description",
 			name = '',
 		},
-		header = {
+		enable = {
 			order = 3,
+			type = "toggle",
+			name = L["Enable"],
+		},
+		header = {
+			order = 4,
 			type = "header",
 			name = F.cOption(L["AddOnSkins"], 'orange'),
 		},
 	},
 }
 
-local addorder = 3
+local addorder = 5
 for _, v in ipairs(DecorAddons) do
 	local addonName, addonString, addonOption, Notes = unpack(v)
 	options.addonskins.args[addonOption] = {

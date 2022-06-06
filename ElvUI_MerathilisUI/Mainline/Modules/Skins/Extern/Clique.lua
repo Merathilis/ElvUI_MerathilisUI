@@ -5,7 +5,7 @@ local _G = _G
 local pairs, unpack = pairs, unpack
 
 local function LoadSkin()
-	if E.private.mui.skins.addonSkins.cl ~= true then return end
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.cl then return end
 
 	_G.CliqueConfig:StripTextures()
 	_G.CliqueConfig:CreateBackdrop("Transparent")

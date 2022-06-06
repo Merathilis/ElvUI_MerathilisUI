@@ -5,8 +5,6 @@ if not IsAddOnLoaded("BugSack") then return; end
 
 local _G = _G
 
-local hooksecurefunc = hooksecurefunc
-
 local function BugSack_Open()
 	local BugSackFrame = _G.BugSackFrame
 
@@ -76,7 +74,7 @@ local function BugSack_Open()
 end
 
 local function LoadSkin()
-	if not E.private.mui.skins.enable or not E.private.mui.skins.addonSkins.bs then return end
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bs then return end
 
 	module:DisableAddOnSkin("BugSack")
 

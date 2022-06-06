@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -6,25 +7,28 @@ local select = select
 local hooksecurefunc = hooksecurefunc
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.artifact ~= true or E.private.mui.skins.blizzard.artifact ~= true then return end
+	if not module:CheckDB("artifact", "artifact") then
+		return
+	end
 
-	_G.ArtifactFrame:Styling()
+	local ArtifactFrame = _G.ArtifactFrame
+	ArtifactFrame:Styling()
 	MER:CreateBackdropShadow(_G.ArtifactFrame)
 
-	_G.ArtifactFrame.Background:Hide()
-	_G.ArtifactFrame.PerksTab.HeaderBackground:Hide()
-	_G.ArtifactFrame.PerksTab.BackgroundBack:Hide()
-	_G.ArtifactFrame.PerksTab.TitleContainer.Background:SetAlpha(0)
-	_G.ArtifactFrame.PerksTab.Model.BackgroundFront:Hide()
-	_G.ArtifactFrame.PerksTab.Model:SetAlpha(.2)
-	_G.ArtifactFrame.PerksTab.AltModel:SetAlpha(.2)
-	_G.ArtifactFrame.BorderFrame:Hide()
-	_G.ArtifactFrame.ForgeBadgeFrame.ItemIcon:Hide()
-	_G.ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:ClearAllPoints()
-	_G.ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:SetPoint("TOPLEFT", _G["ArtifactFrame"])
-	_G.ArtifactFrame.AppearancesTab.Background:Hide()
+	ArtifactFrame.Background:Hide()
+	ArtifactFrame.PerksTab.HeaderBackground:Hide()
+	ArtifactFrame.PerksTab.BackgroundBack:Hide()
+	ArtifactFrame.PerksTab.TitleContainer.Background:SetAlpha(0)
+	ArtifactFrame.PerksTab.Model.BackgroundFront:Hide()
+	ArtifactFrame.PerksTab.Model:SetAlpha(.2)
+	ArtifactFrame.PerksTab.AltModel:SetAlpha(.2)
+	ArtifactFrame.BorderFrame:Hide()
+	ArtifactFrame.ForgeBadgeFrame.ItemIcon:Hide()
+	ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:ClearAllPoints()
+	ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:SetPoint("TOPLEFT", _G["ArtifactFrame"])
+	ArtifactFrame.AppearancesTab.Background:Hide()
 
-	_G.ArtifactFrame.AppearancesTab:HookScript("OnShow", function(self)
+	ArtifactFrame.AppearancesTab:HookScript("OnShow", function(self)
 		for i = 1, self:GetNumChildren() do
 			local child = select(i, self:GetChildren())
 			if child and child.appearanceID and not child.backdrop then

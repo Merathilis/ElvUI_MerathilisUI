@@ -101,7 +101,9 @@ local function ReskinSpellDisplayWidget(spell)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true then return end
+	if not module:CheckDB("misc", "misc") then
+		return
+	end
 
 	hooksecurefunc(_G.UIWidgetTopCenterContainerFrame, "UpdateWidgetLayout", function(self)
 		for _, widgetFrame in pairs(self.widgetFrames) do

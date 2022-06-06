@@ -8,7 +8,9 @@ local NUM_SLOTS_PER_GUILDBANK_GROUP = 14
 local NUM_GUILDBANK_COLUMNS = 7
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gbank ~= true or E.private.mui.skins.blizzard.gbank ~= true then return end
+	if not module:CheckDB("gbank", "gbank") then
+		return
+	end
 
 	_G.GuildBankFrame:Styling()
 	MER:CreateBackdropShadow(_G.GuildBankFrame)

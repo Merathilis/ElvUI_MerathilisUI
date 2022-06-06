@@ -6,7 +6,9 @@ local _G = _G
 local select, unpack = select, unpack
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.socket ~= true or E.private.mui.skins.blizzard.socket ~= true then return end
+	if not module:CheckDB("socket", "socket") then
+		return
+	end
 
 	local ItemSocketingFrame = _G["ItemSocketingFrame"]
 	ItemSocketingFrame:Styling()

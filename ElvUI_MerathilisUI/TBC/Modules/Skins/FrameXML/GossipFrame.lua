@@ -10,7 +10,9 @@ local gsub = string.gsub
 local hooksecurefunc = hooksecurefunc
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or not E.private.mui.skins.blizzard.gossip then return; end
+	if not module:CheckDB("gossip", "gossip") then
+		return
+	end
 
 	local GossipFrame = _G.GossipFrame
 	if GossipFrame.backdrop then

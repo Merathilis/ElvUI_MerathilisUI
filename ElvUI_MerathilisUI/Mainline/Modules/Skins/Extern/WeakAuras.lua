@@ -68,7 +68,7 @@ local function Skin_WeakAuras(f, fType)
 end
 
 local function LoadSkin()
-	if not E.private.mui.skins.enable or not E.private.mui.skins.addonSkins.wa then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.wa then
 		return
 	end
 

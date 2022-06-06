@@ -134,6 +134,7 @@ V.skins = {
 		},
 	},
 	blizzard = {
+		enable = true,
 		character = true,
 		encounterjournal = true,
 		gossip = true,
@@ -206,9 +207,13 @@ V.skins = {
 		guide = true,
 		craft = true,
 		eventToast = true,
+		weeklyRewards = true,
+		misc = true,
+		tooltip = true,
 	},
 
 	addonSkins = {
+		enable = true,
 		abp = true,
 		bw = true,
 		xiv = true,

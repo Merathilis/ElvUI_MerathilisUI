@@ -10,7 +10,9 @@ local GetAchievementNumCriteria = GetAchievementNumCriteria
 local hooksecurefunc = hooksecurefunc
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.mui.skins.blizzard.achievement ~= true then return end
+	if not module:CheckDB("achievement", "achievement") then
+		return
+	end
 
 	if not _G.AchievementFrame.backdrop then
 		_G.AchievementFrame:CreateBackdrop('Transparent')
