@@ -5,7 +5,6 @@ local S = E:GetModule('Skins')
 local _G = _G
 local format = string.format
 
-local CreateFrame = CreateFrame
 local GetInventoryItemTexture = GetInventoryItemTexture
 
 local InCombatLockdown = InCombatLockdown
