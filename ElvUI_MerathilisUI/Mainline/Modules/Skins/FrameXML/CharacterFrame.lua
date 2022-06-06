@@ -44,13 +44,8 @@ local function LoadSkin()
 
 	-- Undress Button
 	if E.db.mui.armory.undressButton then
-		local bu = CreateFrame("Button", nil, _G.PaperDollFrame, "UIPanelButtonTemplate")
-		bu:SetText(format("|cff70C0F5%s", L["Undress"]))
-		bu:SetSize(60, 20)
-		bu:SetFrameStrata("HIGH")
-		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 70, -35)
-
-		bu:SetScript("OnClick", function()
+		local bu = F.Widgets.New("Button", _G.PaperDollFrame, format("|cff70C0F5%s", L["Undress"]), 60, 20,
+		function()
 			for i = 1, 17 do
 				local texture = GetInventoryItemTexture('player', i)
 				if texture then
@@ -58,7 +53,9 @@ local function LoadSkin()
 				end
 			end
 		end)
-		S:HandleButton(bu)
+
+		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 70, -35)
+		bu:SetFrameStrata("HIGH")
 	end
 end
 
