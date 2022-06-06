@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 if not IsAddOnLoaded("ProjectAzilroka") then return end
 
@@ -22,4 +23,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon("ProjectAzilroka", LoadSkin)
+module:AddCallbackForAddon("ProjectAzilroka", LoadSkin)

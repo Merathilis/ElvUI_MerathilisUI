@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER:GetModule('MER_Skins')
 if not IsAddOnLoaded("cargBags_Nivaya") then return; end
 
 local function LoadSkin()
@@ -37,4 +37,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("cargBags_Nivaya", LoadSkin)
+module:AddCallbackForAddon("cargBags_Nivaya", LoadSkin)

@@ -70,6 +70,12 @@ AddMedia("accept", "Accept.tga", "Icons")
 AddMedia("discord", "Discord.tga", "Icons")
 AddMedia("github", "Github.tga", "Icons")
 
+AddMedia("buttonLock", "Button/Lock.tga", "Icons")
+AddMedia("buttonUnlock", "Button/Unlock.tga", "Icons")
+AddMedia("buttonMinus", "Button/Minus.tga", "Icons")
+AddMedia("buttonPlus", "Button/Plus.tga", "Icons")
+AddMedia("buttonForward", "Button/Forward.tga", "Icons")
+
 AddMedia("arrow", "arrow.tga", "Textures")
 AddMedia("pepeSmall", "pepeSmall.tga", "Textures")
 AddMedia("ROLES", "UI-LFG-ICON-ROLES.tga", "Textures")

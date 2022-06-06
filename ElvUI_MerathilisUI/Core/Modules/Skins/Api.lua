@@ -236,6 +236,27 @@ function module:ApplyConfigArrows()
 end
 hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
 
+do
+	local DeleteRegions = {
+		"Center",
+		"BottomEdge",
+		"LeftEdge",
+		"RightEdge",
+		"TopEdge",
+		"BottomLeftCorner",
+		"BottomRightCorner",
+		"TopLeftCorner",
+		"TopRightCorner"
+	}
+	function module:StripEdgeTextures(frame)
+		for _, regionKey in pairs(DeleteRegions) do
+			if frame[regionKey] then
+				frame[regionKey]:Kill()
+			end
+		end
+	end
+end
+
 function module:Reposition(frame, target, border, top, bottom, left, right)
 	frame:ClearAllPoints()
 	frame:SetPoint("TOPLEFT", target, "TOPLEFT", -left - border, top + border)

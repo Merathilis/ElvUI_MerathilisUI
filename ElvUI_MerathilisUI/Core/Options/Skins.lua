@@ -18,6 +18,7 @@ local DecorAddons = {
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
+	{"WeakAurasOptions", L["WeakAuras Options"], "waOptions"},
 }
 
 local SupportedProfiles = {

@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 if not IsAddOnLoaded("ActionBarProfiles") then return end
 
@@ -38,4 +39,4 @@ local function LoadSkin()
 	S:HandleCheckBox(_G.PaperDollActionBarProfilesSaveDialogOptionBindings)
 end
 
-S:AddCallbackForAddon("ActionBarProfiles", LoadSkin)
+module:AddCallbackForAddon("ActionBarProfiles", LoadSkin)

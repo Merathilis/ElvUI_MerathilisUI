@@ -81,4 +81,4 @@ local function LoadSkin()
 	module:SecureHook(_G.BugSack, "OpenSack", BugSack_Open)
 end
 
-S:AddCallbackForAddon("BugSack", LoadSkin)
+module:AddCallbackForAddon("BugSack", LoadSkin)

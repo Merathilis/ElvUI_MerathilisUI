@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER:GetModule('MER_Skins')
 
 local _G = _G
 local select, unpack = select, unpack
@@ -147,4 +147,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("BigWigs_QueueTimer", LoadSkin)
+module:AddCallbackForAddon("BigWigs_QueueTimer", LoadSkin)

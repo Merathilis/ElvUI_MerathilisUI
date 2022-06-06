@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local module = MER:GetModule('MER_Skins')
 if not IsAddOnLoaded("ElvUI_BenikUI") then return; end
 
 local _G = _G
@@ -45,4 +45,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon("ElvUI_BenikUI", LoadSkin)
+module:AddCallbackForAddon("ElvUI_BenikUI", LoadSkin)
