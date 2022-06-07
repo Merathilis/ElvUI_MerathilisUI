@@ -378,6 +378,19 @@ do
 	end
 end
 
+-- Skin Stuff
+do
+	function F:ResetTabAnchor(size, outline)
+		local text = self.Text or (self.GetName and _G[self:GetName().."Text"])
+		if text then
+			text:FontTemplate(nil, size or 10, outline or "OUTLINE")
+			text:SetPoint("CENTER", self)
+		end
+	end
+	hooksecurefunc("PanelTemplates_SelectTab", F.ResetTabAnchor)
+	hooksecurefunc("PanelTemplates_DeselectTab", F.ResetTabAnchor)
+end
+
 -- Check Chat channels
 function F.CheckChat(msg)
 	if IsInGroup(_G.LE_PARTY_CATEGORY_INSTANCE) then

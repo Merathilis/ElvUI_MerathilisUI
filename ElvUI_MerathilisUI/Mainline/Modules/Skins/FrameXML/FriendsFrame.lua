@@ -26,6 +26,16 @@ local function LoadSkin()
 	FriendsFrame:Styling()
 	MER:CreateBackdropShadow(FriendsFrame)
 
+	-- A check for german clients cause the font is sometimes tooo huge (tested with Expressway 11)
+	if GetLocale() == 'deDE' then
+		for i = 1, 4 do
+			local tab = _G["FriendsFrameTab"..i]
+			if tab then
+				F.ResetTabAnchor(tab)
+			end
+		end
+	end
+
 	-- Animated Icon
 	_G.FriendsFrameIcon:SetPoint("TOPLEFT", FriendsFrame, "TOPLEFT", 0, 0)
 	_G.FriendsFrameIcon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Bnet]])
