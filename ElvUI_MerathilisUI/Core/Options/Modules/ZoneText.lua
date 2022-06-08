@@ -31,7 +31,7 @@ options.general = {
 		},
 		zoneText = {
 			type = "group",
-			name = F.cOption(L["Zone Text"], 'orange'),
+			name = L["Zone Text"],
 			order = 3,
 			get = function(info) return E.db.mui.media.zoneText[ info[#info] ] end,
 			set = function(info, value) E.db.mui.media.zoneText[ info[#info] ] = value; E:UpdateMedia() end,
@@ -162,7 +162,7 @@ options.general = {
 		},
 		miscText = {
 			type = "group",
-			name = F.cOption(L["Misc Texts"], 'orange'),
+			name = L["Misc Texts"],
 			order = 4,
 			get = function(info) return E.db.mui.media.miscText[ info[#info] ] end,
 			set = function(info, value) E.db.mui.media.miscText[ info[#info] ] = value; E:UpdateMedia() end,

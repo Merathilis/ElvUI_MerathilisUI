@@ -105,6 +105,14 @@ function MER:Initialize()
 	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 
+	for name, module in self:IterateModules() do
+		Engine[2].Developer.InjectLogger(module)
+	end
+
+	hooksecurefunc(MER, "NewModule", function(_, name)
+		Engine[2].Developer.InjectLogger(name)
+	end)
+
 	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
 	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
@@ -119,7 +127,7 @@ do
 
 		if isInitialLogin then
 			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
-			if E.db.mui.installed and E.private.mui.core.LoginMsg then
+			if E.db.mui.installed and E.global.mui.core.LoginMsg then
 				print(icon..''..self.Title..format("v|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 			end
 

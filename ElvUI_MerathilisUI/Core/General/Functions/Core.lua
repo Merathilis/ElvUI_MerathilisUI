@@ -53,9 +53,12 @@ end
 
 function F.CreateColorString(text, db)
 	if not text or not type(text) == "string" then
+		F.Developer.LogDebug("Functions.CreateColorString: text not found")
 		return
 	end
+
 	if not db or type(db) ~= "table" then
+		F.Developer.LogDebug("Functions.CreateColorString: db not found")
 		return
 	end
 	local hex = db.r and db.g and db.b and E:RGBToHex(db.r, db.g, db.b) or "|cffffffff"
@@ -65,9 +68,11 @@ end
 
 function F.CreateClassColorString(text, englishClass)
 	if not text or not type(text) == "string" then
+		F.Developer.LogDebug("Functions.CreateClassColorString: text not found")
 		return
 	end
 	if not englishClass or type(englishClass) ~= "string" then
+		F.Developer.LogDebug("Functions.CreateClassColorString: class not found")
 		return
 	end
 
@@ -98,9 +103,12 @@ end
 
 function F.SetFontDB(text, db)
 	if not text or not text.GetFont then
+		F.Developer.LogDebug("Functions.SetFontDB: text not found")
 		return
 	end
+
 	if not db or type(db) ~= "table" then
+		F.Developer.LogDebug("Functions.SetFontDB: db not found")
 		return
 	end
 
@@ -109,9 +117,12 @@ end
 
 function F.SetFontColorDB(text, db)
 	if not text or not text.GetFont then
+		F.Developer.LogDebug("Functions.SetFontColorDB: text not found")
 		return
 	end
+
 	if not db or type(db) ~= "table" then
+		F.Developer.LogDebug("Functions.SetFontColorWithDB: db not found")
 		return
 	end
 
@@ -120,7 +131,7 @@ end
 
 function F.SetFontOutline(text, font, size)
 	if not text or not text.GetFont then
-		F.DebugMessage("Function", "[3]No font found to handle font style")
+		F.Developer.LogDebug("Functions.SetFontOutline: text not found")
 		return
 	end
 	local fontName, fontHeight = text:GetFont()
@@ -151,29 +162,6 @@ function F.cOption(name, color)
 	end
 
 	return (hex):format(name)
-end
-
-function F.DebugMessage(module, text)
-	if not (E.private and E.private.mui and E.private.WT.core.debugMode) then
-		return
-	end
-
-	if not text then
-		return
-	end
-
-	if not module then
-		module = "Function"
-		text = "No Module Name>" .. text
-	end
-
-	if type(module) ~= "string" and module.GetName then
-		module = module:GetName()
-	end
-
-	local message = format("[WT - %s] %s", module, text)
-
-	E:Delay(0.1, print, message)
 end
 
 do
@@ -767,9 +755,12 @@ end
 
 function F.SetVertexColorDB(tex, db)
 	if not tex or not tex.GetVertexColor then
+		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture to handling")
 		return
 	end
+
 	if not db or type(db) ~= "table" then
+		 F.Developer.LogDebug("Functions.SetVertexColorDB: No texture color database")
 		return
 	end
 

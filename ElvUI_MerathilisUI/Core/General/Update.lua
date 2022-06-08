@@ -24,9 +24,6 @@ end
 function MER:UpdateScripts() -- DB Convert
 	MER:ForPreReleaseUser()
 
-	local db = E.db.mui
-	local private = E.private.mui
-
 	local currentVersion = tonumber(MER.Version) -- Installed MerathilisUI Version
 	local globalVersion = tonumber(E.global.mui.version or "0") -- Version in ElvUI Global
 	local profileVersion = tonumber(E.db.mui.version or globalVersion) -- Version in ElvUI Profile
@@ -43,25 +40,22 @@ function MER:UpdateScripts() -- DB Convert
 
 	isFirstLine = true
 
-	if profileVersion <= 5.00 then
-		if db.general.style then
-			db.general.style = nil
+	if profileVersion <= 5.06 then
+		if not E.global.mui.core or type(E.global.mui.core) ~= 'table' then
+			E.global.mui.core = {}
 		end
 
-		if db.general.shadowOverlay then
-			db.general.shadowOverlay = nil
-		end
+		E.global.mui.core.LoginMsg = E.private.mui.core.LoginMsg
+		E.private.mui.core.LoginMsg = nil
 
-		if db.general.shadow and type(db.general.shadow) == 'table' then
-			db.general.shadow = nil
-		end
+		E.global.mui.core.debugMode = E.private.mui.core.debugMode
+		E.private.mui.core.debugMode = nil
 
-		if not private.skins or type(private.skins) ~= 'table' then
-			private.skins = {}
-		end
+		E.global.mui.core.compatibilityCheck = E.private.mui.core.compatibilityCheck
+		E.private.mui.core.compatibilityCheck = nil
 
-		if not private.skins.shadow or type(private.skins.shadow) ~= 'table' then
-			private.skins.shadow = {}
+		if E.private.mui.core or type(E.private.mui.core) == 'table' then
+			E.private.mui.core = nil
 		end
 
 		UpdateMessage(L["Core"] .. " - " .. L["Update Database"], profileVersion)

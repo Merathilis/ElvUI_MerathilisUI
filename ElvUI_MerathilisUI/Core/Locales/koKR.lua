@@ -30,8 +30,9 @@ But if you install another Layout over mine, you must adjust it manually.
 -- Core Options
 L["Login Message"] = "로그인 메세지 표시"
 L["Enable/Disable the Login Message in Chat"] = true
-L["Debug Mode"] = "디버그 모드"
-L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "다른 ElvUI 플러그인을 설치한 경우 디버그 모드를 활성화하는 것은 권장하지 않습니다."
+L["Log Level"] = "로그 레벨"
+L["Only display log message that the level is higher than you choose."] = "선택한 수준 이상의 로그 메시지만 표시합니다."
+L["Set to 2 if you do not understand the meaning of log level."] = true
 
 -- Bags
 L["Equipment Manager"] = true

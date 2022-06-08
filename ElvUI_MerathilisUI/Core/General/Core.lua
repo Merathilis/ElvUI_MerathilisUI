@@ -42,7 +42,7 @@ end
 -- Register own Modules
 function MER:RegisterModule(name)
 	if not name then
-		F.DebugMessage(MER, "The name of module is required!")
+		F.Developer.ThrowError("The name of module is required!")
 		return
 	end
 	if self.initialized then

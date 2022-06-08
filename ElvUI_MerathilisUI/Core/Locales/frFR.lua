@@ -30,8 +30,9 @@ But if you install another Layout over mine, you must adjust it manually.
 -- Core Options
 L["Login Message"] = true
 L["Enable/Disable the Login Message in Chat"] = true
-L["Debug Mode"] = true
-L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = true
+L["Log Level"] = true
+L["Only display log message that the level is higher than you choose."] = true
+L["Set to 2 if you do not understand the meaning of log level."] = true
 
 -- Bags
 L["Equipment Manager"] = true

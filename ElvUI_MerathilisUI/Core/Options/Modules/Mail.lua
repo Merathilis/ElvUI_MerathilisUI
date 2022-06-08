@@ -70,7 +70,7 @@ do
 				end,
 				values = function()
 					local result = {}
-					for realm, factions in pairs(E.global.mui.contacts.alts) do
+					for realm, factions in pairs(E.global.mui.mail.contacts.alts) do
 						for _, characters in pairs(factions) do
 							for name, class in pairs(characters) do
 								result[name .. "-" .. realm] = F.CreateClassColorString(name .. "-" .. realm, class)
@@ -86,11 +86,11 @@ do
 				name = L["Delete"],
 				func = function()
 					if selectedKey then
-						for realm, factions in pairs(E.global.mui.contacts.alts) do
+						for realm, factions in pairs(E.global.mui.mail.contacts.alts) do
 							for faction, characters in pairs(factions) do
 								for name, class in pairs(characters) do
 									if name .. "-" .. realm == selectedKey then
-										E.global.mui.contacts.alts[realm][faction][name] = nil
+										E.global.mui.mail.contacts.alts[realm][faction][name] = nil
 										selectedKey = nil
 										return
 									end
@@ -143,7 +143,7 @@ do
 				name = L["Add"],
 				func = function()
 					if tempName and tempRealm then
-						E.global.mui.contacts.favorites[tempName .. "-" .. tempRealm] = true
+						E.global.mui.mail.contacts.favorites[tempName .. "-" .. tempRealm] = true
 						tempName = nil
 						tempRealm = nil
 					else
@@ -169,7 +169,7 @@ do
 				end,
 				values = function()
 					local result = {}
-					for fullName in pairs(G.mui.contacts.favorites) do
+					for fullName in pairs(E.global.mui.mail.contacts.favorites) do
 						result[fullName] = fullName
 					end
 					return result
@@ -181,7 +181,7 @@ do
 				name = L["Delete"],
 				func = function()
 					if selectedKey then
-						E.global.mui.contacts.favorites[selectedKey] = nil
+						E.global.mui.mail.contacts.favorites[selectedKey] = nil
 					end
 				end
 			},
