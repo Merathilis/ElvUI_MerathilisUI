@@ -41,7 +41,7 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	if profileVersion <= 5.06 then
-		if not E.global.mui.core or type(E.global.mui.core) ~= 'table' then
+		if not E.global.mui and not E.global.mui.core or type(E.global.mui.core) ~= 'table' then
 			E.global.mui.core = {}
 		end
 
