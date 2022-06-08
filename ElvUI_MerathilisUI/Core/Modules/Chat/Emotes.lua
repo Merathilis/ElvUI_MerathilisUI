@@ -69,6 +69,7 @@ local emotes = {
 	-- My emots
 	{":monkaomega:", [=[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\ChatEmojis\monkaomega]=]},
 	{":salt:", [=[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\ChatEmojis\salt]=]},
+	{":sadge:", [=[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\ChatEmojis\sadge]=]},
 }
 module.emotes = emotes
 
