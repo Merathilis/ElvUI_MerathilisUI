@@ -372,14 +372,14 @@ function MER:CheckCompatibility()
 
 	CheckWindtools(
 		L["WeakAuras"],
-		L["WeakAuras"],
+		format("%s-%s-%s", L["Skins"], L["Addons"], L["WeakAuras"]),
 		"private.mui.skins.addonSkins.wa",
 		"private.WT.skins.addons.weakAuras"
 	)
 
 	CheckWindtools(
 		L["WeakAuras Options"],
-		L["WeakAuras Options"],
+		format("%s-%s-%s", L["Skins"], L["Addons"], L["WeakAuras Options"]),
 		"private.mui.skins.addonSkins.waOptions",
 		"private.WT.skins.addons.weakAurasOptions"
 	)

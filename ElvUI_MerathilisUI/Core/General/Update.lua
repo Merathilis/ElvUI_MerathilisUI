@@ -45,15 +45,6 @@ function MER:UpdateScripts() -- DB Convert
 			E.global.mui.core = {}
 		end
 
-		E.global.mui.core.LoginMsg = E.private.mui.core.LoginMsg
-		E.private.mui.core.LoginMsg = nil
-
-		E.global.mui.core.debugMode = E.private.mui.core.debugMode
-		E.private.mui.core.debugMode = nil
-
-		E.global.mui.core.compatibilityCheck = E.private.mui.core.compatibilityCheck
-		E.private.mui.core.compatibilityCheck = nil
-
 		if E.private.mui.core or type(E.private.mui.core) == 'table' then
 			E.private.mui.core = nil
 		end
