@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
 local format = string.format
 
-local CreateFrame = CreateFrame
 local GetInventoryItemTexture = GetInventoryItemTexture
 
 local InCombatLockdown = InCombatLockdown
@@ -18,7 +18,9 @@ local function UnequipItemInSlot(i)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or not E.private.mui.skins.blizzard.character then return end
+	if not module:CheckDB("character", "character") then
+		return
+	end
 
 	-- Hide ElvUI Backdrop
 	local CharacterFrame = _G.CharacterFrame
@@ -41,13 +43,8 @@ local function LoadSkin()
 
 	-- Undress Button
 	if E.db.mui.armory.undressButton then
-		local bu = CreateFrame("Button", nil, _G.PaperDollFrame, "UIPanelButtonTemplate")
-		bu:SetText(format("|cff70C0F5%s", L["Undress"]))
-		bu:SetSize(60, 20)
-		bu:SetFrameStrata("HIGH")
-		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 70, -35)
-
-		bu:SetScript("OnClick", function()
+		local bu = F.Widgets.New("Button", _G.PaperDollFrame, format("|cff70C0F5%s", L["Undress"]), 60, 20,
+		function()
 			for i = 1, 17 do
 				local texture = GetInventoryItemTexture('player', i)
 				if texture then
@@ -55,7 +52,9 @@ local function LoadSkin()
 				end
 			end
 		end)
-		S:HandleButton(bu)
+
+		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 70, -35)
+		bu:SetFrameStrata("HIGH")
 	end
 end
 

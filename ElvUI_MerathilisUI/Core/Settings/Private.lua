@@ -1,11 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
-V.core = {
-	LoginMsg = true,
-	debugMode = false,
-	compatibilityCheck = true,
-}
-
 V.general = {
 	install_complete = nil,
 }
@@ -134,6 +128,7 @@ V.skins = {
 		},
 	},
 	blizzard = {
+		enable = true,
 		character = true,
 		encounterjournal = true,
 		gossip = true,
@@ -206,9 +201,13 @@ V.skins = {
 		guide = true,
 		craft = true,
 		eventToast = true,
+		weeklyRewards = true,
+		misc = true,
+		tooltip = true,
 	},
 
 	addonSkins = {
+		enable = true,
 		abp = true,
 		bw = true,
 		xiv = true,
@@ -221,5 +220,6 @@ V.skins = {
 		cbn = true,
 		et = true,
 		wa = true,
+		waOptions = true,
 	},
 }

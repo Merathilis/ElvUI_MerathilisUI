@@ -8,7 +8,9 @@ local select, unpack = select, unpack
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.raid ~= true or E.private.mui.skins.blizzard.raid ~= true then return end
+	if not module:CheckDB("raid", "raid") then
+		return
+	end
 
 	for i = 1, _G.NUM_RAID_GROUPS do
 		local group = _G["RaidGroup"..i]

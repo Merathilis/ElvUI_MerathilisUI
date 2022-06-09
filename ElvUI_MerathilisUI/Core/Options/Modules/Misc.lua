@@ -64,6 +64,7 @@ options.misc = {
 			set = function(info, value)
 				E.db.mui.misc.lfgInfo[info[#info]] = value
 			end,
+			disabled = function() return IsAddOnLoaded('WindDungeonHelper') end,
 			args = {
 				enable = {
 					order = 1,
@@ -91,7 +92,7 @@ options.misc = {
 					type = "group",
 					name = F.cOption(L["Icon"], 'orange'),
 					disabled = function()
-						return not E.db.mui.misc.lfgInfo.enable
+						return IsAddOnLoaded('WindDungeonHelper') or not E.db.mui.misc.lfgInfo.enable
 					end,
 					get = function(info)
 						return E.db.mui.misc.lfgInfo.icon[info[#info]]
@@ -135,7 +136,7 @@ options.misc = {
 					type = "group",
 					name = F.cOption(L["Line"], 'orange'),
 					disabled = function()
-						return not E.db.mui.misc.lfgInfo.enable
+						return IsAddOnLoaded('WindDungeonHelper') or not E.db.mui.misc.lfgInfo.enable
 					end,
 					get = function(info)
 						return E.db.mui.misc.lfgInfo.line[info[#info]]

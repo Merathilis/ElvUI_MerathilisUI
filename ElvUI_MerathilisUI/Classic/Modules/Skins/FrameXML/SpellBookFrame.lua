@@ -5,7 +5,9 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.spellbook) or not E.private.mui.skins.blizzard.spellbook then return end
+	if not module:CheckDB("spellbook", "spellbook") then
+		return
+	end
 
 	local SpellBookFrame = _G.SpellBookFrame
 	if SpellBookFrame.backdrop then

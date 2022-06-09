@@ -11,7 +11,9 @@ local hooksecurefunc = hooksecurefunc
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.mui.skins.blizzard.garrison ~= true then return end
+	if not module:CheckDB("garrison", "garrison") then
+		return
+	end
 
 	-- Building frame
 	local GarrisonBuildingFrame = _G.GarrisonBuildingFrame

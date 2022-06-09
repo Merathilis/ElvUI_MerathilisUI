@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -17,11 +18,23 @@ function FriendsCount_OnEvent(event, ...)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.mui.skins.blizzard.friends ~= true then return end
+	if not module:CheckDB("friends", "friends") then
+		return
+	end
 
 	local FriendsFrame = _G.FriendsFrame
 	FriendsFrame:Styling()
 	MER:CreateBackdropShadow(FriendsFrame)
+
+	-- A check for german clients cause the font is sometimes tooo huge (tested with Expressway 11)
+	if GetLocale() == 'deDE' then
+		for i = 1, 4 do
+			local tab = _G["FriendsFrameTab"..i]
+			if tab then
+				F.ResetTabAnchor(tab)
+			end
+		end
+	end
 
 	-- Animated Icon
 	_G.FriendsFrameIcon:SetPoint("TOPLEFT", FriendsFrame, "TOPLEFT", 0, 0)

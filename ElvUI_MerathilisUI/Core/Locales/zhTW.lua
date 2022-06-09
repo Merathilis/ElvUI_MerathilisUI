@@ -30,8 +30,9 @@ But if you install another Layout over mine, you must adjust it manually.
 -- Core Options
 L["Login Message"] = "登入資訊"
 L["Enable/Disable the Login Message in Chat"] = true
-L["Debug Mode"] = "偵錯模式"
-L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "如果你安裝了其他 ElvUI 插件, 不推薦启用偵錯模式."
+L["Log Level"] = "日誌等級"
+L["Only display log message that the level is higher than you choose."] = "只顯示高於所選等級的日志訊息."
+L["Set to 2 if you do not understand the meaning of log level."] = "如果你不理解日志等級的意思, 設置為 2 就好."
 
 -- Bags
 L["Equipment Manager"] = true

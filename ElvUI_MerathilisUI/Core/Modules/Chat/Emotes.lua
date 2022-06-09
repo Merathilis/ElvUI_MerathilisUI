@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Emotes')
 local CH = E:GetModule("Chat")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs = pairs
@@ -18,13 +19,6 @@ local UISpecialFrames = UISpecialFrames
 
 local ChatEmote = {}
 module.ChatEmote = ChatEmote
-
-ChatEmote.Config = {
-	iconSize = 24,
-	enableEmoteInput = true,
-}
-
-local customEmoteStartIndex = 9
 
 local emotes = {
 	-- RaidTarget
@@ -75,54 +69,68 @@ local emotes = {
 	-- My emots
 	{":monkaomega:", [=[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\ChatEmojis\monkaomega]=]},
 	{":salt:", [=[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\ChatEmojis\salt]=]},
+	{":sadge:", [=[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\ChatEmojis\sadge]=]},
 }
 module.emotes = emotes
 
-local EmoteTableFrame
 local text, texture
 
 local function CreateEmoteTableFrame()
-	EmoteTableFrame = CreateFrame("Frame", "EmoteTableFrame", E.UIParent, "BackdropTemplate")
-	EmoteTableFrame:CreateBackdrop("Transparent")
-	EmoteTableFrame.backdrop:Styling()
-	EmoteTableFrame:Width((ChatEmote.Config.iconSize + 2) * 12 + 4)
-	EmoteTableFrame:Height((ChatEmote.Config.iconSize + 2) * 5 + 4)
-	EmoteTableFrame:Point("BOTTOMLEFT", _G.LeftChatPanel, "TOPLEFT", 0, 5)
-	EmoteTableFrame:Hide()
-	EmoteTableFrame:SetFrameStrata("DIALOG")
-	tinsert(UISpecialFrames, EmoteTableFrame:GetDebugName())
+	local button
+	local width, height, column, space = 20, 20, 10, 6
+	local index = 0
 
-	local icon, row, col
-	row = 1
-	col = 1
+	local color = {r = 1, g = 1, b = 1}
+	color = RAID_CLASS_COLORS[E.myclass]
+
+	local frame = CreateFrame("Frame", "MER_EmoteTableFrame", E.UIParent, "UIPanelDialogTemplate,BackdropTemplate")
+	_G.MER_EmoteTableFrameTitleBG:Hide()
+	_G.MER_EmoteTableFrameDialogBG:Hide()
+	frame:StripTextures()
+	frame:CreateBackdrop("Transparent")
+	frame.backdrop:Styling()
+	MER:CreateShadowModule(frame.backdrop)
+	S:HandleCloseButton(_G.MER_EmoteTableFrameClose)
+
+	frame:SetWidth(column * (width + space) + 24)
+	frame:Point("BOTTOMLEFT", _G.LeftChatPanel, "TOPLEFT", 0, 5)
+	frame:SetFrameStrata("DIALOG")
+
+	frame.line = CreateFrame("Frame", nil, frame)
+	frame.line:Point("BOTTOM", frame, "TOP", 0, 0)
+	MER:CreateGradientFrame(frame.line, (column * (width + space) + 24), 2, "Horizontal", color.r, color.g, color.b, .7, 0)
+
+	tinsert(UISpecialFrames, frame:GetDebugName())
+
 	for i = 1, #emotes do
 		text = emotes[i][1]
 		texture = emotes[i][2]
-		icon = CreateFrame("Frame", format("IconButton%d", i), EmoteTableFrame)
-		icon:Width(ChatEmote.Config.iconSize)
-		icon:Height(ChatEmote.Config.iconSize)
-		icon.text = text
-		icon.texture = icon:CreateTexture(nil, "ARTWORK")
-		icon.texture:SetTexture(texture)
-		icon.texture:SetAllPoints(icon)
-		icon:Show()
-		icon:Point("TOPLEFT", (col - 1) * (ChatEmote.Config.iconSize + 2) + 2, -(row - 1) * (ChatEmote.Config.iconSize + 2) - 2)
-		icon:SetScript("OnMouseUp", ChatEmote.EmoteIconMouseUp)
-		icon:EnableMouse(true)
-		col = col + 1
-		if (col > 12) then
-			row = row + 1
-			col = 1
-		end
+		button = CreateFrame("Button", format("IconButton%d", i), frame)
+		button:SetSize(width, height)
+		button:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
+
+		button.text = text
+
+		button.texture = button:CreateTexture(nil, "ARTWORK")
+		button.texture:SetTexture(texture)
+		button.texture:SetAllPoints(button)
+
+		button:Show()
+		button:Point("TOPLEFT", 16 + (index % column) * (width + space), -36 - floor(index / column) * (height + space))
+		button:SetScript("OnMouseUp", ChatEmote.EmoteIconMouseUp)
+		button:EnableMouse(true)
+		index = index + 1
 	end
+	frame:SetHeight(ceil(index / column) * (height + space) + 46)
+	frame:Hide()
 end
 
 function ChatEmote.ToggleEmoteTable()
-	if (not EmoteTableFrame) then CreateEmoteTableFrame() end
-	if (EmoteTableFrame:IsShown()) then
-		EmoteTableFrame:Hide()
+	if (not _G.MER_EmoteTableFrame) then CreateEmoteTableFrame() end
+	if (_G.MER_EmoteTableFrame:IsShown()) then
+		_G.MER_EmoteTableFrame:Hide()
 	else
-		EmoteTableFrame:Show()
+		_G.MER_EmoteTableFrame:Show()
 	end
 end
 

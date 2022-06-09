@@ -6,7 +6,9 @@ local _G = _G
 local hooksecurefunc = hooksecurefunc
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.contribution ~= true or E.private.mui.skins.blizzard.contribution ~= true then return end
+	if not module:CheckDB("contribution", "contribution") then
+		return
+	end
 
 	--Main Frame
 	_G.ContributionCollectionFrame:StripTextures()

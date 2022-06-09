@@ -12,7 +12,12 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix an error with the WeakAura Skin",
+		"• Move PvP Module to Mainline only to prevent some errors",
+		"• Adjust the ChatBar Options to not show all for non Retail users",
+		"• Updated some core code for debugging",
+		"• Added a WeakAura Option skin",
+		"• Some Option arrangement",
+
 
 	" ",
 	"Notes:",
@@ -87,6 +92,12 @@ function MER:CreateChangelog()
 	frame:SetClampedToScreen(true)
 	frame.backdrop:Styling()
 
+	frame.texture = frame:CreateTexture(nil, "BACKGROUND")
+	frame.texture:Point("CENTER", frame, "BOTTOM", 0, 110)
+	frame.texture:Size(128)
+	frame.texture:SetTexture(MER.Media.Textures.PepoLove)
+	frame.texture:SetAlpha(0.5)
+
 	local icon = CreateFrame("Frame", nil, frame, 'BackdropTemplate')
 	icon:Point("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
 	icon:Size(20, 20)
@@ -133,7 +144,7 @@ function MER:CreateChangelog()
 		if i <= #ChangeLogData then
 			local string, isURL = ModifiedString(GetChangeLogInfo(i))
 
-			button.Text = F.CreateText(button, "OVERLAY", 11, nil, "CENTER")
+			button.Text = F.CreateText(button, "OVERLAY", 12, nil, "CENTER")
 			button.Text.isURL = isURL
 			button.Text:SetText(string)
 			button.Text:Point("LEFT", 0, 0)

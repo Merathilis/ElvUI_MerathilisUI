@@ -1,11 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
+	if not module:CheckDB("tooltip", "tooltip") then
+		return
+	end
 
 	-- tooltips
 	local tooltips = {

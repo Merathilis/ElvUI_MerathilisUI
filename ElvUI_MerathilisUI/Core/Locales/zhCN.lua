@@ -30,8 +30,9 @@ L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r 是ElvUI的扩展. 它�
 -- Core Options
 L["Login Message"] = "登陆信息"
 L["Enable/Disable the Login Message in Chat"] = "在聊天框中启用/禁用登录消息"
-L["Debug Mode"] = "除错模式"
-L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "如果你同时安装了其他 ElvUI 增强插件, 不推荐启用调试模式."
+L["Log Level"] = "日志等级"
+L["Only display log message that the level is higher than you choose."] = "只显示高于选择等级的日志信息."
+L["Set to 2 if you do not understand the meaning of log level."] = "如果你不理解什么是日志级别, 设置为 2 就行."
 
 -- Bags
 L["Equipment Manager"] = "装备管理"

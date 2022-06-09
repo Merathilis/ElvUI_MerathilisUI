@@ -10,7 +10,9 @@ local CreateFrame = CreateFrame
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.mui.skins.blizzard.pvp ~= true then return end
+	if not module:CheckDB("pvp", "pvp") then
+		return
+	end
 
 	_G.PVPReadyDialog:Styling()
 	MER:CreateBackdropShadow(_G.PVPReadyDialog)

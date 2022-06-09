@@ -1,10 +1,13 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
 
 local function LoadSkin()
-	if not (E.private.skins.blizzard.enable or E.private.skins.blizzard.channels) or not E.private.mui.skins.blizzard.channels then return end
+	if not module:CheckDB("channels", "channels") then
+		return
+	end
 
 	local ChannelFrame = _G.ChannelFrame
 	ChannelFrame:StripTextures()

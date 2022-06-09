@@ -1,4 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER.Modules.Skins
+local A = F.Animation
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -13,7 +15,9 @@ local GetInboxInvoiceInfo = GetInboxInvoiceInfo
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or not E.private.mui.skins.blizzard.mail then return end
+	if not module:CheckDB("mail", "mail") then
+		return
+	end
 
 	local MiniMapMailFrame = _G.MiniMapMailFrame
 
@@ -34,7 +38,7 @@ local function LoadSkin()
 			MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", _G.MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)
 			MiniMapMailFrame.highlight.tex:SetVertexColor(r, g, b)
 
-			MER:CreatePulse(MiniMapMailFrame, 1, 1)
+			A:CreatePulse(MiniMapMailFrame, 1, 1)
 		end
 	end)
 

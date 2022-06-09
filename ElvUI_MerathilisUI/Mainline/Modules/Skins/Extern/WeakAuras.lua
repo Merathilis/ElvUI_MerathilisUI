@@ -2,6 +2,83 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
+local function WeakAuras_PrintProfile()
+	local frame = _G.WADebugEditBox.Background
+
+	if frame and not frame.windStyle then
+		local textArea = _G.WADebugEditBoxScrollFrame:GetRegions()
+		S:HandleScrollBar(_G.WADebugEditBoxScrollFrameScrollBar)
+
+		frame:StripTextures()
+		frame:CreateBackdrop("Transparent")
+		MER:CreateShadow(frame)
+
+		for _, child in pairs {frame:GetChildren()} do
+			if child:GetNumRegions() == 3 then
+				child:StripTextures()
+				local subChild = child:GetChildren()
+				S:HandleCloseButton(subChild)
+				subChild:ClearAllPoints()
+				subChild:Point("TOPRIGHT", frame, "TOPRIGHT", 3, 7)
+			end
+		end
+
+		frame.windStyle = true
+	end
+end
+
+local function ProfilingWindow_UpdateButtons(frame)
+	for _, button in pairs {frame.statsFrame:GetChildren()} do
+		S:HandleButton(button)
+	end
+
+	for _, button in pairs {frame.titleFrame:GetChildren()} do
+		if not button.MERStyle and button.GetNormalTexture then
+			local normalTexturePath = button:GetNormalTexture():GetTexture()
+			if normalTexturePath == "Interface\\BUTTONS\\UI-Panel-CollapseButton-Up" then
+				button:StripTextures()
+
+				button.Texture = button:CreateTexture(nil, "OVERLAY")
+				button.Texture:Point("CENTER")
+				button.Texture:SetTexture(E.Media.Textures.ArrowUp)
+				button.Texture:Size(14, 14)
+
+				button:HookScript("OnEnter", function(self)
+					if self.Texture then
+						self.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+					end
+				end)
+
+				button:HookScript("OnLeave", function(self)
+					if self.Texture then
+						self.Texture:SetVertexColor(1, 1, 1)
+					end
+				end)
+
+				button:HookScript("OnClick", function(self)
+					self:SetNormalTexture("")
+					self:SetPushedTexture("")
+					self.Texture:Show("")
+					if self:GetParent():GetParent().minimized then
+						button.Texture:SetRotation(S.ArrowRotation["down"])
+					else
+						button.Texture:SetRotation(S.ArrowRotation["up"])
+					end
+				end)
+
+				button:SetHitRectInsets(6, 6, 7, 7)
+				button:Point("TOPRIGHT", frame.titleFrame, "TOPRIGHT", -19, 3)
+			else
+				S:HandleCloseButton(button)
+				button:ClearAllPoints()
+				button:Point("TOPRIGHT", frame.titleFrame, "TOPRIGHT", 3, 5)
+			end
+
+			button.MERStyle = true
+		end
+	end
+end
+
 local function Skin_WeakAuras(f, fType)
 	-- Modified from NDui WeakAuras Skins
 	if fType == "icon" then
@@ -68,8 +145,13 @@ local function Skin_WeakAuras(f, fType)
 end
 
 local function LoadSkin()
-	if not E.private.mui.skins.enable or not E.private.mui.skins.addonSkins.wa then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.wa then
 		return
+	end
+
+	-- Handle the options region type registration
+	if _G.WeakAuras and _G.WeakAuras.RegisterRegionOptions then
+		module:RawHook(_G.WeakAuras, "RegisterRegionOptions", "WeakAuras_RegisterRegionOptions")
 	end
 
 	local regionTypes = _G.WeakAuras.regionTypes
@@ -103,6 +185,13 @@ local function LoadSkin()
 			Skin_WeakAuras(regions.region, regions.regionType)
 		end
 	end
+
+	local profilingWindow = _G.WeakAuras.frames["RealTime Profiling Window"]
+	if profilingWindow then
+		MER:CreateShadow(profilingWindow)
+		module:SecureHook(profilingWindow, "UpdateButtons", ProfilingWindow_UpdateButtons)
+		module:SecureHook(_G.WeakAuras, "PrintProfile", WeakAuras_PrintProfile)
+	end
 end
 
-S:AddCallbackForAddon("WeakAuras", LoadSkin)
+module:AddCallbackForAddon("WeakAuras", LoadSkin)

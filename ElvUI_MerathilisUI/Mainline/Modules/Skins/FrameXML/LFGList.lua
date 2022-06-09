@@ -26,7 +26,9 @@ local function HeaderOnLeave(self)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or not E.private.mui.skins.blizzard.lfg then return; end
+	if not module:CheckDB("lfg", "lfg") then
+		return
+	end
 
 	local LFGListFrame = _G.LFGListFrame
 

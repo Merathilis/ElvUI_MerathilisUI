@@ -5,7 +5,9 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkins()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.chromieTime ~= true or E.private.mui.skins.blizzard.chromieTime ~= true then return end
+	if not module:CheckDB("chromieTime", "chromieTime") then
+		return
+	end
 
 	local frame = _G.ChromieTimeFrame
 	frame:StripTextures()

@@ -5,7 +5,9 @@ local S = E:GetModule('Skins')
 local select, unpack = select, unpack
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.archaeology ~= true or E.private.mui.skins.blizzard.Archaeology ~= true then return end
+	if not module:CheckDB("archaeology", "Archaeology") then
+		return
+	end
 
 	local ArchaeologyFrame = _G.ArchaeologyFrame
 	ArchaeologyFrame:DisableDrawLayer("BACKGROUND")	-- Hide the Parchment

@@ -5,4 +5,5 @@
 	<Script file="Developer.lua"/>
 	<Script file="Commands.lua"/>
 	<Script file="Smooth.lua"/>
+	<Script file="Widgets.lua"/>
 </Ui>

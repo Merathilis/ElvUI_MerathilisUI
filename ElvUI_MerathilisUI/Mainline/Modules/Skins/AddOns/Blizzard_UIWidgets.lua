@@ -3,7 +3,9 @@ local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.warboard ~= true or E.private.mui.skins.blizzard.warboard ~= true then return end
+	if not module:CheckDB("warboard", "warboard") then
+		return
+	end
 
 end
 

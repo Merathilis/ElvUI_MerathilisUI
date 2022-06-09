@@ -43,7 +43,9 @@ local function StyleRewardButton(button)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or not E.private.mui.skins.blizzard.lfg then return; end
+	if not module:CheckDB("lfg", "lfg") then
+		return
+	end
 
 	hooksecurefunc("LFGRewardsFrame_SetItemButton", function(parentFrame, _, index, _, _, _, _, _, _, _, _, _, _)
 		local parentName = parentFrame:GetName()

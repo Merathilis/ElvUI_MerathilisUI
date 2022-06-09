@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -20,7 +21,9 @@ local function styleBindingButton(bu)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or not E.private.mui.skins.blizzard.binding then return end
+	if not module:CheckDB("binding", "binding") then
+		return
+	end
 
 	local KeyBindingFrame = _G.KeyBindingFrame
 	if KeyBindingFrame.backdrop then

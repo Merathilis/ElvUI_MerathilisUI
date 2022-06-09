@@ -29,7 +29,9 @@ local function CreateHeaderPanels()
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or not E.private.mui.skins.blizzard.quest then return end
+	if not module:CheckDB("quest", "quest") then
+		return
+	end
 
 	local QuestFrame = _G.QuestFrame
 	MER.NPC:Register(QuestFrame)

@@ -259,12 +259,6 @@ P.chat = {
 				color = {r = 0.72, g = 0.27, b = 0.86, a = 1},
 				abbr = L["Community"]
 			},
-			emote = {
-				enable = true,
-				icon = true,
-				color = {r = 1, g = 0.33, b = 0.52, a = 1},
-				abbr = L["Wind Emote"]
-			},
 			roll = {
 				enable = true,
 				icon = true,

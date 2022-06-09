@@ -30,8 +30,9 @@ Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell
 -- Core Options
 L["Login Message"] = "Login Nachricht"
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
-L["Debug Mode"] = "Debug Modus"
-L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "Wenn Du andere ElvUI-Plugins installiert hast, ist das Aktivieren des Debug-Modus kein gute Idee."
+L["Log Level"] = true
+L["Only display log message that the level is higher than you choose."] = "Zeigt nur die Log Nachrichten an über dem Level dass du ausgewählt hast"
+L["Set to 2 if you do not understand the meaning of log level."] = "Setze auf 2 wenn du keine Ahnung vom Log Level hast. :)"
 
 -- Bags
 L["Equipment Manager"] = "Ausrüstungsmanager"

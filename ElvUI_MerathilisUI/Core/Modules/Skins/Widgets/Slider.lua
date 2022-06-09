@@ -8,6 +8,7 @@ function module:HandleSliderFrame(_, slider)
 		self:RegisterLazyLoad(slider, function()
 			self:HandleSliderFrame(nil, slider)
 		end)
+		return
 	end
 
 	local db = E.private.mui.skins.widgets.slider

@@ -20,7 +20,9 @@ local function ReskinButton(bu)
 end
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.trade ~= true or not E.private.mui.skins.blizzard.trade then return end
+	if not module:CheckDB("trade", "trade") then
+		return
+	end
 
 	local TradeFrame = _G.TradeFrame
 	TradeFrame:Styling()

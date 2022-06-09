@@ -162,7 +162,7 @@ local function GetDatabaseRealValue(path)
 				end
 				accessValue = accessValue[key]
 			else
-				F.DebugMessage("Compatibility", "DB Path Error: " .. path)
+				F.Developer.LogWarning("[Compatibility] database path not found\n" .. path)
 				return
 			end
 		end
@@ -210,7 +210,7 @@ local CheckWindtools = GetCheckCompatibilityFunction("ElvUI_Windtools", L["Windt
 local CheckShadowAndLight = GetCheckCompatibilityFunction("ElvUI_SLE", L["Shadow & Light"])
 
 function MER:CheckCompatibility()
-	if not E.private.mui.core.compatibilityCheck then
+	if not E.global.mui.core.compatibilityCheck then
 		return
 	end
 
@@ -372,9 +372,16 @@ function MER:CheckCompatibility()
 
 	CheckWindtools(
 		L["WeakAuras"],
-		L["WeakAuras"],
+		format("%s-%s-%s", L["Skins"], L["Addons"], L["WeakAuras"]),
 		"private.mui.skins.addonSkins.wa",
 		"private.WT.skins.addons.weakAuras"
+	)
+
+	CheckWindtools(
+		L["WeakAuras Options"],
+		format("%s-%s-%s", L["Skins"], L["Addons"], L["WeakAuras Options"]),
+		"private.mui.skins.addonSkins.waOptions",
+		"private.WT.skins.addons.weakAurasOptions"
 	)
 
 	CheckShadowAndLight(
