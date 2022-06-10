@@ -1,11 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
 local LSM = E.Libs.LSM
+local module = MER.Modules.Skins
+local WS = module.Widgets
 local S = E.Skins
 
 local _G = _G
 
-function module:HandleButton(_, button)
+function WS:HandleButton(_, button)
 	if not button or button.MERSkin then
 		return
 	end
@@ -73,7 +74,7 @@ function module:HandleButton(_, button)
 	button.MERSkin = true
 end
 
-function module:ElvUI_Config_SetButtonColor(_, btn)
+function WS:ElvUI_Config_SetButtonColor(_, btn)
 	if not E.private.mui or not E.private.mui.skins.enable then
 		return
 	end
@@ -102,5 +103,5 @@ function module:ElvUI_Config_SetButtonColor(_, btn)
 	end
 end
 
-module:SecureHook(S, 'HandleButton')
-module:SecureHook(E, 'Config_SetButtonColor', 'ElvUI_Config_SetButtonColor')
+WS:SecureHook(S, 'HandleButton')
+WS:SecureHook(E, 'Config_SetButtonColor', 'ElvUI_Config_SetButtonColor')

@@ -23,6 +23,10 @@ local function LoadSkin()
 	end
 	MER:CreateBackdropShadow(CollectionsJournal)
 
+	for i = 1, 5 do
+		module:ReskinTab(_G["CollectionsJournalTab" .. i])
+	end
+
 	_G.CollectionsJournalTab2:SetPoint("LEFT", _G.CollectionsJournalTab1, "RIGHT", -15, 0)
 	_G.CollectionsJournalTab3:SetPoint("LEFT", _G.CollectionsJournalTab2, "RIGHT", -15, 0)
 	_G.CollectionsJournalTab4:SetPoint("LEFT", _G.CollectionsJournalTab3, "RIGHT", -15, 0)

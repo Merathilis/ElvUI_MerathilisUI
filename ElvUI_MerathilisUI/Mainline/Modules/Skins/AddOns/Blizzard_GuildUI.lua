@@ -33,7 +33,11 @@ local function LoadSkin()
 	end
 
 	_G.GuildFrame:Styling()
-	MER:CreateBackdropShadow(_G.GuildFrame)
+	MER:CreateShadow(_G.GuildFrame)
+
+	for i = 1, 5 do
+		module:ReskinTab(_G["GuildFrameTab" .. i])
+	end
 
 	-- Hide the blizzard layers
 	hooksecurefunc("GuildRoster_UpdateTradeSkills", function()

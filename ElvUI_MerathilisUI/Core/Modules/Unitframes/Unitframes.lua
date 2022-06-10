@@ -100,8 +100,29 @@ function module:UnitFrames_Configure_ClassBar(_, f)
 	end
 end
 
-function module:UnitFrames_UpdateAuraSettings(_, _, a)
-	MER:CreateShadow(a)
+function module:UnitFrames_PostUpdateAura(_, _, button)
+	local db = UF.db.colors
+	local enemyNPC = not button.isFriend and not button.isPlayer
+	local r, g, b
+	r = E.private.mui.skins.shadow.color.r or 0
+	g = E.private.mui.skins.shadow.color.g or 0
+	b = E.private.mui.skins.shadow.color.b or 0
+
+	if button.isDebuff then
+		if enemyNPC then
+			if db.auraByType then
+				r, g, b = .9, .1, .1
+			end
+		elseif db.auraByDispels and button.debuffType and E.BadDispels[button.spellID] and E:IsDispellableByMe(button.debuffType) then
+			r, g, b = .05, .85, .94
+		elseif db.auraByType then
+			local color = _G.DebuffTypeColor[button.debuffType] or _G.DebuffTypeColor.none
+			r, g, b = color.r, color.g, color.b
+		end
+	elseif db.auraByDispels and button.isStealable and not button.isFriend then
+		r, g, b = .93, .91, .55
+	end
+	MER:CreateShadow(button, 3, r, g, b)
 end
 
 function module:CreateUFShadows()
@@ -109,7 +130,7 @@ function module:CreateUFShadows()
 	self:SecureHook(UF, "Configure_Threat", "UnitFrames_Configure_Threat")
 	self:SecureHook(UF, "Configure_Power", "UnitFrames_Configure_Power")
 	self:SecureHook(UF, "Configure_ClassBar", "UnitFrames_Configure_ClassBar")
-	self:SecureHook(UF, "UpdateAuraSettings", "UnitFrames_UpdateAuraSettings")
+	self:SecureHook(UF, "PostUpdateAura", "UnitFrames_PostUpdateAura")
 end
 
 function module:StyleUFs()

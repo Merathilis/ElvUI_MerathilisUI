@@ -848,8 +848,8 @@ options.widgets = {
 							min = 0,
 							max = 3,
 							step = 0.01
-						},
-					},
+						}
+					}
 				},
 				selected = {
 					order = 3,
@@ -885,54 +885,70 @@ options.widgets = {
 							values = LSM:HashTable("statusbar")
 						},
 						backdropClassColor = {
-							order = 4,
+							order = 3,
 							type = "toggle",
 							name = L["Backdrop Class Color"],
 							width = 1.5
 						},
 						backdropColor = {
-							order = 5,
+							order = 4,
 							type = "color",
 							name = L["Backdrop Color"],
-							hasAlpha = true,
+							hasAlpha = false,
 							hidden = function(info)
 								return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].backdropClassColor
 							end,
 							get = function(info)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								local default = V.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
-								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b
 							end,
-							set = function(info, r, g, b, a)
+							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
-								db.r, db.g, db.b, db.a = r, g, b, a
+								db.r, db.g, db.b = r, g, b
 							end
 						},
+						backdropAlpha = {
+							order = 5,
+							type = "range",
+							name = L["Backdrop Alpha"],
+							min = 0,
+							max = 1,
+							step = 0.01
+						},
 						borderClassColor = {
-							order = 4,
+							order = 6,
 							type = "toggle",
 							name = L["Border Class Color"],
 							width = 1.5
 						},
 						borderColor = {
-							order = 5,
+							order = 7,
 							type = "color",
 							name = L["Border Color"],
-							hasAlpha = true,
+							hasAlpha = false,
 							hidden = function(info)
 								return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].borderClassColor
 							end,
 							get = function(info)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								local default = V.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
-								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 							end,
 							set = function(info, r, g, b, a)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
-								db.r, db.g, db.b, db.a = r, g, b, a
+								db.r, db.g, db.b = r, g, b
 							end
 						},
-					},
+						borderAlpha = {
+							order = 8,
+							type = "range",
+							name = L["Border Alpha"],
+							min = 0,
+							max = 1,
+							step = 0.01
+						}
+					}
 				},
 				text = {
 					order = 4,

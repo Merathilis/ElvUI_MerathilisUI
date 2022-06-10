@@ -894,7 +894,7 @@ function module:UpdateBar(id)
 
 	local numRows = ceil((buttonID - 1) / barDB.buttonsPerRow)
 	local numCols = buttonID > barDB.buttonsPerRow and barDB.buttonsPerRow or (buttonID - 1)
-	local newBarWidth = barDB.backdropSpacing + numCols * barDB.buttonWidth + (numCols - 1) * barDB.spacing
+	local newBarWidth = 2 * barDB.backdropSpacing + numCols * barDB.buttonWidth + (numCols - 1) * barDB.spacing
 	local newBarHeight = 2 * barDB.backdropSpacing + numRows * barDB.buttonHeight + (numRows - 1) * barDB.spacing
 	bar:Size(newBarWidth, newBarHeight)
 
