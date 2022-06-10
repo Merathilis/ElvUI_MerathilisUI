@@ -1,12 +1,13 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
 local LSM = E.Libs.LSM
+local module = MER.Modules.Skins
+local WS = module.Widgets
 
 local _G = _G
 local abs = abs
 local type = type
 
-function module:HandleTreeGroup(widget)
+function WS:HandleTreeGroup(widget)
 	if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.treeGroupButton.enable then
 		return button
 	end
