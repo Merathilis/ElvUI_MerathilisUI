@@ -11,7 +11,26 @@ local function LoadSkin()
 
 	local PVEFrame = _G.PVEFrame
 	PVEFrame:Styling()
-	MER:CreateShadow(PVEFrame)
+
+	local frames = {
+		_G.PVEFrame,
+		_G.LFGDungeonReadyDialog,
+		_G.LFGDungeonReadyStatus,
+		_G.LFDRoleCheckPopup,
+		_G.ReadyCheckFrame,
+		_G.QueueStatusFrame,
+		_G.LFDReadyCheckPopup,
+		_G.LFGListInviteDialog,
+		_G.LFGListApplicationDialog
+	}
+
+	for _, frame in pairs(frames) do
+		MER:CreateShadow(frame)
+	end
+
+	for i = 1, 3 do
+		module:ReskinTab(_G["PVEFrameTab" .. i])
+	end
 
 	local iconSize = 56-2*E.mult
 	for i = 1, 3 do

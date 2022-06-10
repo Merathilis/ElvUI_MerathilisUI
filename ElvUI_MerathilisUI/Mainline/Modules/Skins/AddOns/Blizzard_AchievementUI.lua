@@ -25,6 +25,10 @@ local function LoadSkin()
 		_G.AchievementFrameCategoriesContainer.backdrop:Hide()
 	end
 
+	for i = 1, 3 do
+		module:ReskinTab(_G["AchievementFrameTab" .. i])
+	end
+
 	for i = 1, 7 do
 		local bu = _G["AchievementFrameAchievementsContainerButton"..i]
 		if bu.backdrop then

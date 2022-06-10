@@ -265,6 +265,18 @@ function module:Reposition(frame, target, border, top, bottom, left, right)
 	frame:SetPoint("BOTTOMRIGHT", target, "BOTTOMRIGHT", right + border, -bottom - border)
 end
 
+function module:ReskinTab(tab)
+	if not tab then
+		return
+	end
+
+	if tab.GetName then
+		F.SetFontOutline(_G[tab:GetName() .. "Text"])
+	end
+
+	MER:CreateBackdropShadow(tab)
+end
+
 function module:ReskinAS(AS)
 	-- Reskin AddOnSkins
 	function AS:SkinFrame(frame, template, override, kill)

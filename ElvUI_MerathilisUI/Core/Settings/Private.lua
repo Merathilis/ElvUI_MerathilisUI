@@ -106,14 +106,13 @@ V.skins = {
 				alpha = 1,
 				animationType = "FADE",
 				animationDuration = 0.2,
-				removeBorderEffect = true
 			},
 			selected = {
 				enable = true,
 				texture = "RenAscensionL",
 				backdropClassColor = false,
 				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.75},
-				borderClassColor = true,
+				borderClassColor = false,
 				borderColor = {r = 0.145, g = 0.353, b = 0.698, a = 0},
 			},
 			text = {

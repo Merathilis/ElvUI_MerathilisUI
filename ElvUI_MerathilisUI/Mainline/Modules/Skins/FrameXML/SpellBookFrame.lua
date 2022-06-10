@@ -36,6 +36,10 @@ local function LoadSkin()
 		SpellBookFrame.pagebackdrop:Hide()
 	end
 
+	for i = 1, 5 do
+		module:ReskinTab(_G["SpellBookFrameTabButton" .. i])
+	end
+
 	for i = 1, _G.SPELLS_PER_PAGE do
 		local bu = _G["SpellButton"..i]
 

@@ -13,15 +13,23 @@ local function LoadSkin()
 	end
 
 	_G.GuildBankFrame:Styling()
-	MER:CreateBackdropShadow(_G.GuildBankFrame)
+	MER:CreateShadow(_G.GuildBankFrame)
 	_G.GuildBankPopupFrame:Styling()
-	MER:CreateBackdropShadow(_G.GuildBankPopupFrame)
+	MER:CreateShadow(_G.GuildBankPopupFrame)
 
 	for i = 1, 4 do
 		local tab = _G["GuildBankFrameTab"..i]
+		module:ReskinTab(tab)
 
 		if i ~= 1 then
 			tab:SetPoint("LEFT", _G["GuildBankFrameTab"..i-1], "RIGHT", -15, 0)
+		end
+	end
+
+	for i = 1, 8 do
+		local tab = _G["GuildBankTab" .. i]
+		if tab then
+			MER:CreateShadow(tab.Button)
 		end
 	end
 

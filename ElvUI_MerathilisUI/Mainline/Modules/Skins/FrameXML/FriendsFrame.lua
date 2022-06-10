@@ -24,7 +24,20 @@ local function LoadSkin()
 
 	local FriendsFrame = _G.FriendsFrame
 	FriendsFrame:Styling()
-	MER:CreateBackdropShadow(FriendsFrame)
+
+	local frames = {
+		_G.FriendsFrame,
+		_G.FriendsFriendsFrame,
+		_G.AddFriendFrame,
+		_G.RecruitAFriendFrame.SplashFrame,
+		_G.RecruitAFriendRewardsFrame,
+		_G.RecruitAFriendRecruitmentFrame,
+		_G.FriendsFrameBattlenetFrame.BroadcastFrame
+	}
+
+	for _, frame in pairs(frames) do
+		MER:CreateShadow(frame)
+	end
 
 	-- A check for german clients cause the font is sometimes tooo huge (tested with Expressway 11)
 	if GetLocale() == 'deDE' then
@@ -34,6 +47,10 @@ local function LoadSkin()
 				F.ResetTabAnchor(tab)
 			end
 		end
+	end
+
+	for i = 1, 4 do
+		module:ReskinTab(_G["FriendsFrameTab" .. i])
 	end
 
 	-- Animated Icon

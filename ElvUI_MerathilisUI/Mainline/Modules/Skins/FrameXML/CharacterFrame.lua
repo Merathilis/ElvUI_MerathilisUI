@@ -28,6 +28,12 @@ local function LoadSkin()
 
 	CharacterFrame:Styling()
 	MER:CreateShadow(CharacterFrame)
+	MER:CreateShadow(_G.GearManagerDialogPopup)
+	MER:CreateShadow(_G.EquipmentFlyoutFrameButtons)
+
+	for i = 1, 4 do
+		module:ReskinTab(_G["CharacterFrameTab" .. i])
+	end
 
 	if CharacterModelFrame and CharacterModelFrame.BackgroundTopLeft and CharacterModelFrame.BackgroundTopLeft:IsShown() then
 		CharacterModelFrame.BackgroundTopLeft:Hide()
