@@ -253,14 +253,15 @@ module.Spells = {
 		[16] = {text = GetSpellInfo(159901),icon = F.GetIconFromID("spell", 159901),secure = {buttonType = "spell",ID = 159901}, UseTooltip = true},-- Verdant
 		[17] = {text = GetSpellInfo(159897),icon = F.GetIconFromID("spell", 159897),secure = {buttonType = "spell",ID = 159897}, UseTooltip = true},-- Vigilant
 
-		[18] = {text = GetSpellInfo(348537),icon = F.GetIconFromID("spell", 348537),secure = {buttonType = "spell",ID = 348537}, UseTooltip = true},-- De Other Side
-		[19] = {text = GetSpellInfo(348534),icon = F.GetIconFromID("spell", 348534),secure = {buttonType = "spell",ID = 348534}, UseTooltip = true}, -- Halls of Atonement
-		[20] = {text = GetSpellInfo(348533),icon = F.GetIconFromID("spell", 348533),secure = {buttonType = "spell",ID = 348533}, UseTooltip = true}, -- Mists of Tirna Scithe
-		[21] = {text = GetSpellInfo(348531),icon = F.GetIconFromID("spell", 348531),secure = {buttonType = "spell",ID = 348531}, UseTooltip = true}, -- Plaguefall
-		[22] = {text = GetSpellInfo(348538),icon = F.GetIconFromID("spell", 348538),secure = {buttonType = "spell",ID = 348538}, UseTooltip = true}, -- Sanguine Depths
-		[23] = {text = GetSpellInfo(348535),icon = F.GetIconFromID("spell", 348535),secure = {buttonType = "spell",ID = 348535}, UseTooltip = true}, -- Spires of Ascension
-		[24] = {text = GetSpellInfo(348529),icon = F.GetIconFromID("spell", 348529),secure = {buttonType = "spell",ID = 348529}, UseTooltip = true}, -- The Necrotic Wake
-		[25] = {text = GetSpellInfo(348536),icon = F.GetIconFromID("spell", 348536),secure = {buttonType = "spell",ID = 348536}, UseTooltip = true}, -- Theater of Pain
+		[18] = {text = GetSpellInfo(354468),icon = F.GetIconFromID("spell", 354468),secure = {buttonType = "spell",ID = 354468}, UseTooltip = true}, -- De Other Side
+		[19] = {text = GetSpellInfo(354465),icon = F.GetIconFromID("spell", 354465),secure = {buttonType = "spell",ID = 354465}, UseTooltip = true}, -- Halls of Atonement
+		[20] = {text = GetSpellInfo(354464),icon = F.GetIconFromID("spell", 354464),secure = {buttonType = "spell",ID = 354464}, UseTooltip = true}, -- Mists of Tirna Scithe
+		[21] = {text = GetSpellInfo(354463),icon = F.GetIconFromID("spell", 354463),secure = {buttonType = "spell",ID = 354463}, UseTooltip = true}, -- Plaguefall
+		[22] = {text = GetSpellInfo(354469),icon = F.GetIconFromID("spell", 354469),secure = {buttonType = "spell",ID = 354469}, UseTooltip = true}, -- Sanguine Depths
+		[23] = {text = GetSpellInfo(354466),icon = F.GetIconFromID("spell", 354466),secure = {buttonType = "spell",ID = 354466}, UseTooltip = true}, -- Spires of Ascension
+		[24] = {text = GetSpellInfo(354462),icon = F.GetIconFromID("spell", 354462),secure = {buttonType = "spell",ID = 354462}, UseTooltip = true}, -- The Necrotic Wake
+		[25] = {text = GetSpellInfo(354467),icon = F.GetIconFromID("spell", 354467),secure = {buttonType = "spell",ID = 354467}, UseTooltip = true}, -- Theater of Pain
+		[26] = {text = GetSpellInfo(367416),icon = F.GetIconFromID("spell", 367416),secure = {buttonType = "spell",ID = 367416}, UseTooltip = true}, -- Tazavesh, the Veiled Market
 	},
 }
 
