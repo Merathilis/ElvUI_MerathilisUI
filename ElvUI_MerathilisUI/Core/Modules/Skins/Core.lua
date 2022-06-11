@@ -193,6 +193,27 @@ function module:ShadowOverlay()
 	self.f:SetAlpha(0.7)
 end
 
+function module:CreateLowerShadow(frame)
+	if not frame.shadow then
+		MER:CreateShadow(frame)
+		local parentFrameLevel = frame:GetFrameLevel()
+		frame.shadow:SetFrameLevel(parentFrameLevel > 0 and parentFrameLevel - 1 or 0)
+	end
+end
+
+function module:UpdateShadowColor(shadow, r, g, b)
+	if not shadow or not shadow.SetBackdropColor or not shadow.SetBackdropBorderColor then
+		return
+	end
+
+	r = r or E.private.mui.skins.shadow.color.r or 0
+	g = g or E.private.mui.skins.shadow.color.g or 0
+	b = b or E.private.mui.skins.shadow.color.b or 0
+
+	shadow:SetBackdropColor(r, g, b, 0)
+	shadow:SetBackdropBorderColor(r, g, b, 0.618)
+end
+
 function module:Initialize()
 	if not E.private.mui.skins.enable then
 		return

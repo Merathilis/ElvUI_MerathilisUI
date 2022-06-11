@@ -2,7 +2,7 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
 local NP = E.NamePlates
 local UF = E.UnitFrames
-local AB = E.ActionBars
+local S = MER.Modules.Skins
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -13,9 +13,7 @@ function module:PostUpdateDebuffs(_, button)
 	local db = (self.isNameplate and NP.db.colors) or UF.db.colors
 	local enemyNPC = not button.isFriend and not button.isPlayer
 
-	if not button.shadow then
-		button:CreateShadow()
-	end
+	S:CreateLowerShadow(button)
 
 	local r, g, b
 	if button.isDebuff then
@@ -33,24 +31,7 @@ function module:PostUpdateDebuffs(_, button)
 		r, g, b = .93, .91, .55
 	end
 
-	if not r then
-		r, g, b = unpack((self.isNameplate and E.media.bordercolor) or E.media.unitframeBorderColor)
-	end
-
-	button:SetBackdropBorderColor(r, g, b)
-	button.shadow:SetBackdropBorderColor(r, g, b)
-	button.icon:SetDesaturated(button.isDebuff and enemyNPC and button.canDesaturate)
-	button.matches = nil -- stackAuras
-
-	if button.needsIconTrim then
-		AB:TrimIcon(button)
-		button.needsIconTrim = nil
-	end
-
-	if button.needsUpdateCooldownPosition and (button.cd and button.cd.timer and button.cd.timer.text) then
-		UF:UpdateAuraCooldownPosition(button)
-	end
-
+	S:UpdateShadowColor(button.shadow, r, g, b)
 end
 
 function module:LoadAuras()
