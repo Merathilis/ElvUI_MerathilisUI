@@ -29,6 +29,9 @@ local function LoadSkin()
 	local QuestFrame = _G.QuestFrame
 	_G.QuestFrameDetailPanelBg:SetAlpha(0)
 
+	QuestFrame:Styling()
+	MER:CreateShadow(QuestFrame)
+
 	-- Stop here if parchment reomover is enabled.
 	if E.private.skins.parchmentRemoverEnable then return end
 
@@ -65,9 +68,6 @@ local function LoadSkin()
 	--------------------------
 	--- QuestFrameProgress ---
 	--------------------------
-	_G.QuestFrame:Styling()
-	MER:CreateBackdropShadow(_G.QuestFrame)
-
 	_G.QuestProgressScrollFrame:HookScript("OnShow", function(self)
 		if self.backdrop then
 			self.backdrop:Hide()
