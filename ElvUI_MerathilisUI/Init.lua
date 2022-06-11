@@ -95,17 +95,6 @@ function MER:Initialize()
 		return
 	end
 
-	self.initialized = true
-
-	self:UpdateScripts() -- Database need update first
-	self:InitializeModules()
-
-	self:AddMoverCategories()
-
-	EP:RegisterPlugin(addon, MER.OptionsCallback)
-	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
-	self:RegisterEvent('PLAYER_ENTERING_WORLD')
-
 	for name, module in self:IterateModules() do
 		Engine[2].Developer.InjectLogger(module)
 	end
@@ -119,6 +108,17 @@ function MER:Initialize()
 	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
+
+	self.initialized = true
+
+	self:UpdateScripts() -- Database need update first
+	self:InitializeModules()
+
+	self:AddMoverCategories()
+
+	EP:RegisterPlugin(addon, MER.OptionsCallback)
+	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
 do
