@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
+local mui
 
 local _G = _G
 local next, pairs, table, getmetatable = next, pairs, table, getmetatable

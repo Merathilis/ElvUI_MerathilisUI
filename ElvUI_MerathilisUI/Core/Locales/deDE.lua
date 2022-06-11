@@ -523,6 +523,7 @@ L["Update canceled."] = "Aktualisierung abgebrochen."
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = "Gegenstandsinformation ist nicht verfügbar. Dieses kann ein bisschen dauern um die Informationen zu sammeln. Das Menü wird automatisch geöffnet, wenn alle Informationen gesammelt wurden. Erneutes Aufrufen des Menüs während der Aktualisierung, wird den Vorgang abbrechen."
 L["Update complete. Opening menu."] = "Aktualisierung komplett. Menü wird geöffnet."
 L["Hide Coordinates"] = "Verstecke Koordinaten"
+L["Dungeon Teleports"] = "Instanzteleports"
 
 -- Maps
 L["MiniMap Buttons"] = "Minikartensymbole"

@@ -535,6 +535,7 @@ L["Update canceled."] = "更新取消"
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = "物品信息不可用.请等待一小会.当所有信息变得可用时，菜单将自动打开时.在更新期间再次调用菜单将取消它."
 L["Update complete. Opening menu."] = "更新完成，正在打开菜单."
 L["Hide Coordinates"] = "隐藏坐标"
+L["Dungeon Teleports"] = true
 
 -- Maps
 L["MiniMap"] = "小地图"
