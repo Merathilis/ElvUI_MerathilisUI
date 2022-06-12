@@ -15,16 +15,15 @@ function module:Auras_UpdateAura(_, button)
 
 	local r, g, b
 
-	if button.debuffType and (not button.debuffTypeWT or button.debuffTypeWT ~= button.debuffType) then
+	if button.debuffType and (not button.debuffTypeMER or button.debuffTypeMER ~= button.debuffType) then
 		local color = button.filter == "HARMFUL" and A.db.colorDebuffs and _G.DebuffTypeColor[button.debuffType]
-		button.debuffTypeWT = button.debuffType
+
+		button.debuffTypeMER = button.debuffType
 
 		if color then
-			r, g, b = color.r, color.g, color.b
+			S:UpdateShadowColor(button.shadow, r, g, b)
 		end
 	end
-
-	S:UpdateShadowColor(button.shadow, r, g, b)
 end
 
 function module:Auras_UpdateTempEnchant(_, button, index, expiration)
