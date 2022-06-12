@@ -11,7 +11,7 @@ local function WeakAuras_PrintProfile()
 
 		frame:StripTextures()
 		frame:CreateBackdrop("Transparent")
-		MER:CreateShadow(frame)
+		module:CreateShadow(frame)
 
 		for _, child in pairs {frame:GetChildren()} do
 			if child:GetNumRegions() == 3 then
@@ -108,7 +108,7 @@ local function Skin_WeakAuras(f, fType)
 			end
 			f.icon:SetTexCoord(f.icon:GetTexCoord())
 			f:CreateBackdrop()
-			MER:CreateBackdropShadow(f, true)
+			module:CreateBackdropShadow(f, true)
 			f.backdrop.Center:StripTextures()
 			f.backdrop:SetFrameLevel(0)
 			f.backdrop.icon = f.icon
@@ -126,7 +126,7 @@ local function Skin_WeakAuras(f, fType)
 			f:CreateBackdrop()
 			f.backdrop.Center:StripTextures()
 			f.backdrop:SetFrameLevel(0)
-			MER:CreateBackdropShadow(f, true)
+			module:CreateBackdropShadow(f, true)
 			f.icon:SetTexCoord(unpack(E.TexCoords))
 			f.icon.SetTexCoord = E.noop
 			f.iconFrame:SetAllPoints(f.icon)
@@ -188,7 +188,7 @@ local function LoadSkin()
 
 	local profilingWindow = _G.WeakAuras.frames["RealTime Profiling Window"]
 	if profilingWindow then
-		MER:CreateShadow(profilingWindow)
+		module:CreateShadow(profilingWindow)
 		module:SecureHook(profilingWindow, "UpdateButtons", ProfilingWindow_UpdateButtons)
 		module:SecureHook(_G.WeakAuras, "PrintProfile", WeakAuras_PrintProfile)
 	end

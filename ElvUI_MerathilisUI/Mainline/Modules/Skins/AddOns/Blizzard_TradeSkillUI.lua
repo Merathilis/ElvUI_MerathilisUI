@@ -12,7 +12,7 @@ local function LoadSkin()
 	-- MainFrame
 	local frame = _G.TradeSkillFrame
 	frame:Styling()
-	MER:CreateShadow(frame)
+	module:CreateShadow(frame)
 
 	if frame.bg1 then
 		frame.bg1:Hide()

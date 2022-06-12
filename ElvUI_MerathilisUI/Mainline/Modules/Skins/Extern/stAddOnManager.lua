@@ -17,6 +17,7 @@ local function LoadSkin()
 			if stFrame then
 				stFrame:Styling()
 				stFrame.AddOns:SetTemplate("Transparent")
+				module:CreateBackdropShadow(stFrame)
 			end
 			f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		end

@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_ObjectiveTracker')
+local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
@@ -81,7 +82,7 @@ function module:CosmeticBar(header)
 		backdrop:SetTemplate()
 		backdrop:SetOutside(bar, 1, 1)
 		backdrop.Center:SetAlpha(0)
-		MER:CreateShadow(backdrop, 2, nil, nil, nil, true)
+		S:CreateShadow(backdrop, 2, nil, nil, nil, true)
 		bar.backdrop = backdrop
 		header.MERCosmeticBar = bar
 	end

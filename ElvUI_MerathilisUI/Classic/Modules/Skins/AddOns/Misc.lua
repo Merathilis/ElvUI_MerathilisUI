@@ -31,7 +31,7 @@ local function LoadSkin()
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
-		MER:CreateBackdropShadow(_G[skins[i]])
+		module:CreateBackdropShadow(_G[skins[i]])
 	end
 
 	--DropDownMenu
@@ -42,7 +42,7 @@ local function LoadSkin()
 		local Backdrop = _G[listFrameName.."Backdrop"]
 		if Backdrop and not Backdrop.IsSkinned then
 			Backdrop:Styling()
-			MER:CreateShadow(Backdrop)
+			module:CreateShadow(Backdrop)
 			Backdrop.IsSkinned = true
 		end
 
@@ -60,9 +60,9 @@ local function LoadSkin()
 		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
 			if not _G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
-				MER:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
+				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
-				MER:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
+				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
 			end
 		end)
 	end

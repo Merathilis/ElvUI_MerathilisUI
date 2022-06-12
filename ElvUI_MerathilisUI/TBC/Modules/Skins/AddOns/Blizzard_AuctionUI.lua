@@ -13,7 +13,7 @@ local function LoadSkin()
 	if AuctionFrame.backdrop then
 		AuctionFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(AuctionFrame)
+	module:CreateBackdropShadow(AuctionFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_AuctionUI", LoadSkin)

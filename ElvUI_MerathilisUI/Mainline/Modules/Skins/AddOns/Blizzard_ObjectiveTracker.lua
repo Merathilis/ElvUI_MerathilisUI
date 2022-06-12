@@ -22,13 +22,13 @@ function module:SkinItemButton(block)
 	if not item then
 		return
 	end
-	MER:CreateShadow(item)
+	module:CreateShadow(item)
 end
 
 function module:SkinFindGroupButton(block)
 	if block.hasGroupFinderButton and block.groupFinderButton then
 		if block.groupFinderButton and not block.groupFinderButton.MERStyle then
-			MER:CreateShadow(block.groupFinderButton)
+			module:CreateShadow(block.groupFinderButton)
 			block.groupFinderButton.MERStyle = true
 		end
 	end
@@ -44,11 +44,11 @@ function module:SkinProgressBars(_, _, line)
 	local label = bar.Label
 
 	-- Bar Shadow
-	MER:CreateBackdropShadow(bar)
+	module:CreateBackdropShadow(bar)
 
 	-- Adjust the font position
 	if icon then
-		MER:CreateBackdropShadow(progressBar)
+		module:CreateBackdropShadow(progressBar)
 		icon:Point("LEFT", bar, "RIGHT", E.PixelMode and 7 or 11, 0)
 	end
 
@@ -71,7 +71,7 @@ function module:SkinTimerBars(_, _, line)
 	if bar.MER.Style then
 		return
 	end
-	MER:CreateBackdropShadow(bar)
+	module:CreateBackdropShadow(bar)
 end
 
 local function LoadSkin()

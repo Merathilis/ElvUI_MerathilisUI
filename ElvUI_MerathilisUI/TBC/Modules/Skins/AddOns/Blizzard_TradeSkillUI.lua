@@ -14,7 +14,7 @@ local function LoadSkin()
 	if frame.backdrop then
 		frame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(frame)
+	module:CreateBackdropShadow(frame)
 end
 
 S:AddCallbackForAddon("Blizzard_TradeSkillUI", LoadSkin)

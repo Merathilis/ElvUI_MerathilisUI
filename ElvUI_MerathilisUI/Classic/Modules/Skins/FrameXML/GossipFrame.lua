@@ -18,7 +18,7 @@ local function LoadSkin()
 	if GossipFrame.backdrop then
 		GossipFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(GossipFrame)
+	module:CreateBackdropShadow(GossipFrame)
 
 	_G.GossipGreetingScrollFrame:StripTextures()
 

@@ -10,9 +10,9 @@ local function LoadSkin()
 	end
 
 	_G.MacroFrame:Styling()
-	MER:CreateBackdropShadow(_G.MacroFrame)
+	module:CreateBackdropShadow(_G.MacroFrame)
 	_G.MacroPopupFrame:Styling()
-	MER:CreateBackdropShadow(_G.MacroPopupFrame)
+	module:CreateBackdropShadow(_G.MacroPopupFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_MacroUI", LoadSkin)

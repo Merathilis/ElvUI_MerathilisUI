@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Notification
-local MERS = MER.Modules.Skins
+local ES = MER.Modules.Skins
 
 -- Credits RealUI
 local unpack, type, pairs = unpack, type, pairs
@@ -127,15 +127,15 @@ function module:CreateToast()
 	toast:SetSize(bannerWidth, bannerHeight)
 	toast:SetPoint("TOP", E.UIParent, "TOP")
 	toast:Hide()
-	MERS:CreateBD(toast, .45)
+	ES:CreateBD(toast, .45)
 	toast:Styling()
-	MER:CreateBackdropShadow(toast, true)
+	ES:CreateBackdropShadow(toast, true)
 	toast:CreateCloseButton(10)
 
 	local icon = toast:CreateTexture(nil, "OVERLAY")
 	icon:SetSize(32, 32)
 	icon:SetPoint("LEFT", toast, "LEFT", 9, 0)
-	MERS:CreateBG(icon)
+	ES:CreateBG(icon)
 	toast.icon = icon
 
 	local sep = toast:CreateTexture(nil, "BACKGROUND")

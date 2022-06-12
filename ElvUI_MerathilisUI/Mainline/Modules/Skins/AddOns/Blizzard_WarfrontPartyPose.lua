@@ -12,7 +12,7 @@ local function LoadSkin()
 
 	local WarfrontsPartyPoseFrame = _G.WarfrontsPartyPoseFrame
 	WarfrontsPartyPoseFrame:Styling()
-	MER:CreateShadow(WarfrontsPartyPoseFrame)
+	module:CreateShadow(WarfrontsPartyPoseFrame)
 
 	WarfrontsPartyPoseFrame.ModelScene:SetAlpha(.8)
 	WarfrontsPartyPoseFrame.OverlayElements.Topper:Hide()

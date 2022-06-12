@@ -13,7 +13,7 @@ local function LoadSkin()
 	if LFGParentFrame.backdrop then
 		LFGParentFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(LFGParentFrame)
+	module:CreateBackdropShadow(LFGParentFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_LookingForGroupUI", LoadSkin)

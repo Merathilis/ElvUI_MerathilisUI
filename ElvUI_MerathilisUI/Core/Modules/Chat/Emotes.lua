@@ -1,7 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Emotes')
+local S = MER:GetModule('MER_Skins')
 local CH = E:GetModule("Chat")
-local S = E:GetModule("Skins")
+local ES = E:GetModule("Skins")
 
 local _G = _G
 local pairs = pairs
@@ -89,8 +90,8 @@ local function CreateEmoteTableFrame()
 	frame:StripTextures()
 	frame:CreateBackdrop("Transparent")
 	frame.backdrop:Styling()
-	MER:CreateShadowModule(frame.backdrop)
-	S:HandleCloseButton(_G.MER_EmoteTableFrameClose)
+	S:CreateShadowModule(frame.backdrop)
+	ES:HandleCloseButton(_G.MER_EmoteTableFrameClose)
 
 	frame:SetWidth(column * (width + space) + 24)
 	frame:Point("BOTTOMLEFT", _G.LeftChatPanel, "TOPLEFT", 0, 5)

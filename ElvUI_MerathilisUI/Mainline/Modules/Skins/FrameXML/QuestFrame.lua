@@ -30,7 +30,7 @@ local function LoadSkin()
 	_G.QuestFrameDetailPanelBg:SetAlpha(0)
 
 	QuestFrame:Styling()
-	MER:CreateShadow(QuestFrame)
+	module:CreateShadow(QuestFrame)
 
 	-- Stop here if parchment reomover is enabled.
 	if E.private.skins.parchmentRemoverEnable then return end

@@ -27,9 +27,9 @@ local function LoadSkin()
 	local CharacterModelFrame = _G.CharacterModelFrame
 
 	CharacterFrame:Styling()
-	MER:CreateShadow(CharacterFrame)
-	MER:CreateShadow(_G.GearManagerDialogPopup)
-	MER:CreateShadow(_G.EquipmentFlyoutFrameButtons)
+	module:CreateShadow(CharacterFrame)
+	module:CreateShadow(_G.GearManagerDialogPopup)
+	module:CreateShadow(_G.EquipmentFlyoutFrameButtons)
 
 	for i = 1, 4 do
 		module:ReskinTab(_G["CharacterFrameTab" .. i])

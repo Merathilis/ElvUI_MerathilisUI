@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local S = MER:GetModule('MER_Skins')
 local AFK = E:GetModule('AFK')
 
 local _G = _G
@@ -196,7 +197,7 @@ local function Initialize()
 		AFK.AFKMode.Panel:CreateBackdrop('Transparent')
 		AFK.AFKMode.Panel:SetFrameStrata('FULLSCREEN')
 		AFK.AFKMode.Panel:Styling()
-		MER:CreateShadow(AFK.AFKMode.Panel)
+		S:CreateShadow(AFK.AFKMode.Panel)
 
 		E["frames"][AFK.AFKMode.Panel] = true
 		AFK.AFKMode.Panel.ignoreFrameTemplates = true

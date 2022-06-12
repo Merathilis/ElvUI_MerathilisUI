@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_ChatBar')
+local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM
 
 local _G = _G
@@ -92,7 +93,7 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 		button.colorBlock = button:CreateTexture(nil, "ARTWORK")
 		button.colorBlock:SetAllPoints()
 		button:CreateBackdrop("Transparent")
-		MER:CreateShadow(button.backdrop, 3, nil, nil, nil, true)
+		module:CreateShadow(button.backdrop, 3, nil, nil, nil, true)
 
 		button.text = button:CreateFontString(nil, "OVERLAY")
 		button.text:Point("CENTER", button, "CENTER", 0, 0)
@@ -415,7 +416,7 @@ function module:CreateBar()
 	bar.backdrop:Styling()
 	bar:ClearAllPoints()
 	bar:Point("BOTTOMLEFT", _G.LeftChatPanel, "TOPLEFT", 6, 3)
-	MER:CreateBackdropShadow(bar)
+	S:CreateBackdropShadow(bar)
 
 	self.bar = bar
 

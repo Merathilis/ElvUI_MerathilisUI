@@ -44,7 +44,7 @@ local function LoadSkin()
 
 	local MailFrame = _G.MailFrame
 	MailFrame:Styling()
-	MER:CreateShadow(MailFrame)
+	module:CreateShadow(MailFrame)
 
 	-- InboxFrame
 	for i = 1, _G.INBOXITEMS_TO_DISPLAY do
@@ -79,7 +79,7 @@ local function LoadSkin()
 	local OpenMailFrame = _G.OpenMailFrame
 	OpenMailFrame:Styling()
 	_G.OpenMailScrollFrame:SetTemplate("Transparent")
-	MER:CreateShadow(OpenMailFrame)
+	module:CreateShadow(OpenMailFrame)
 
 	OpenMailFrame:SetPoint("TOPLEFT", _G.InboxFrame, "TOPRIGHT", 5, 0)
 	_G.OpenMailFrameIcon:Hide()

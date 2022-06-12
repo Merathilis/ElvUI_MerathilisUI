@@ -11,7 +11,7 @@ local function LoadSkin()
 
 	local IslandsQueueFrame = _G.IslandsQueueFrame
 	IslandsQueueFrame:Styling()
-	MER:CreateBackdropShadow(IslandsQueueFrame)
+	module:CreateBackdropShadow(IslandsQueueFrame)
 
 	IslandsQueueFrame.HelpButton:Hide()
 

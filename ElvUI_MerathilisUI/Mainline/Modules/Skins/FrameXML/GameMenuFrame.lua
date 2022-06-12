@@ -12,7 +12,7 @@ local function LoadSkin()
 	local GameMenuFrame = _G.GameMenuFrame
 	if GameMenuFrame and not GameMenuFrame.IsStyled then
 		GameMenuFrame:Styling()
-		MER:CreateShadow(GameMenuFrame)
+		module:CreateShadow(GameMenuFrame)
 		GameMenuFrame.IsStyled = true
 	end
 

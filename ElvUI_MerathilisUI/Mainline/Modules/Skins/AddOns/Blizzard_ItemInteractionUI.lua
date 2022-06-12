@@ -13,7 +13,7 @@ local function LoadSkin()
 	if ItemInteractionFrame.backdrop then
 		ItemInteractionFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(ItemInteractionFrame)
+	module:CreateBackdropShadow(ItemInteractionFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_ItemInteractionUI", LoadSkin)

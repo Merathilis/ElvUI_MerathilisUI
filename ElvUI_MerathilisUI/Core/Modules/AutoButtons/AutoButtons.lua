@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_AutoButtons')
+local S = MER:GetModule('MER_Skins')
 local AB = E:GetModule('ActionBars')
 
 local _G = _G
@@ -583,7 +584,7 @@ function module:CreateButton(name, barDB)
 
 	button:StyleButton()
 
-	MER:CreateShadowModule(button)
+	S:CreateShadowModule(button)
 
 	return button
 end
@@ -1029,7 +1030,7 @@ end
 function module:CreateAll()
 	for i = 1, 5 do
 		self:CreateBar(i)
-		MER:CreateShadowModule(self.bars[i].backdrop)
+		S:CreateShadowModule(self.bars[i].backdrop)
 	end
 end
 

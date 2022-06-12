@@ -15,7 +15,7 @@ local function UpdateToken()
 			TokenFramePopup.backdrop.styling = true
 		end
 	end
-	MER:CreateShadow(TokenFramePopup)
+	module:CreateShadow(TokenFramePopup)
 end
 
 local function LoadSkin()

@@ -47,7 +47,7 @@ local function LoadSkin()
 
 	for _, frame in pairs(frames) do
 		if frame then
-			MER:CreateShadow(frame)
+			module:CreateShadow(frame)
 		end
 	end
 
@@ -79,7 +79,7 @@ local function LoadSkin()
 	end
 
 	GarrisonLandingPage:Styling()
-	MER:CreateBackdropShadow(GarrisonLandingPage)
+	module:CreateBackdropShadow(GarrisonLandingPage)
 
 	-- Report
 	local Report = GarrisonLandingPage.Report
@@ -213,7 +213,7 @@ local function LoadSkin()
 	-- [[ Shadowlands Missions ]]
 	local CovenantMissionFrame = _G.CovenantMissionFrame
 	CovenantMissionFrame:Styling()
-	MER:CreateBackdropShadow(CovenantMissionFrame)
+	module:CreateBackdropShadow(CovenantMissionFrame)
 
 	CovenantMissionFrame.RaisedBorder:SetAlpha(0)
 	_G.CovenantMissionFrameMissions.RaisedFrameEdges:SetAlpha(0)

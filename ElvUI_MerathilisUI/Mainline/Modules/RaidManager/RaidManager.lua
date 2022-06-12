@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RaidManager')
-local S = E:GetModule('Skins')
+local S = MER:GetModule('MER_Skins')
+local ES = E:GetModule('Skins')
 
 local _G = _G
 local ipairs, next, pairs, select, unpack = ipairs, next, pairs, select, unpack
@@ -78,7 +79,7 @@ local function ReSkinButton(button, ...)
 			region:Hide()
 		end
 	end
-	S:HandleButton(button)
+	ES:HandleButton(button)
 end
 
 local function lockraidmarkframe()
@@ -226,7 +227,7 @@ function module:CreateRaidManager()
 
 	RaidManagerFrame:CreateBackdrop("Transparent")
 	RaidManagerFrame.backdrop:Styling()
-	MER:CreateShadowModule(RaidManagerFrame.backdrop)
+	S:CreateShadowModule(RaidManagerFrame.backdrop)
 
 	-- Top Title
 	RaidManagerFrame.title = RaidManagerFrame:CreateFontString(nil, "OVERLAY")
@@ -284,7 +285,7 @@ function module:CreateRaidManager()
 	PullButton:ClearAllPoints()
 	PullButton:Point("TOPRIGHT", RaidManagerFrame, "TOP", -5, -40)
 	PullButton:Size(RaidManagerFrame:GetWidth()/2-20, 25)
-	S:HandleButton(PullButton)
+	ES:HandleButton(PullButton)
 
 	PullButton.text = PullButton:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	PullButton.text:Point("CENTER")
@@ -324,7 +325,7 @@ function module:CreateRaidManager()
 	ReadyCheckButton:ClearAllPoints()
 	ReadyCheckButton:Point("LEFT", PullButton, "RIGHT", 10, 0)
 	ReadyCheckButton:Size(RaidManagerFrame:GetWidth()/2-20, 25)
-	S:HandleButton(ReadyCheckButton)
+	ES:HandleButton(ReadyCheckButton)
 
 	ReadyCheckButton.text = ReadyCheckButton:CreateFontString(nil, "OVERLAY")
 	ReadyCheckButton.text:SetAllPoints(ReadyCheckButton)
@@ -344,7 +345,7 @@ function module:CreateRaidManager()
 	RolePollButton:ClearAllPoints()
 	RolePollButton:Point("TOP", PullButton, "BOTTOM", 0, -8)
 	RolePollButton:Size(RaidManagerFrame:GetWidth()/2-20, 25)
-	S:HandleButton(RolePollButton)
+	ES:HandleButton(RolePollButton)
 
 	RolePollButton.text = RolePollButton:CreateFontString(nil, "OVERLAY")
 	RolePollButton.text:SetAllPoints(RolePollButton)
@@ -365,7 +366,7 @@ function module:CreateRaidManager()
 
 	ConvertGroupButton.text = ConvertGroupButton:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	ConvertGroupButton.text:Point("CENTER")
-	S:HandleButton(ConvertGroupButton)
+	ES:HandleButton(ConvertGroupButton)
 
 	ConvertGroupButton:SetScript("OnEvent", function(self, event, arg1)
 		if not IsInGroup() then
@@ -400,7 +401,7 @@ function module:CreateRaidManager()
 	RaidMarkFrame:Hide()
 	RaidMarkFrame:CreateBackdrop("Transparent")
 	RaidMarkFrame.backdrop:Styling()
-	MER:CreateShadowModule(RaidMarkFrame.backdrop)
+	S:CreateShadowModule(RaidMarkFrame.backdrop)
 
 	RaidMarkFrame:RegisterForDrag("LeftButton")
 	RaidMarkFrame:SetScript("OnDragStart", function(self) self:StartMoving() end)
@@ -494,7 +495,7 @@ function module:CreateRaidInfo()
 	header.backdrop:SetAllPoints()
 	header.backdrop:SetBackdropColor(0, 0, 0, 0.3)
 	header.backdrop:Styling()
-	MER:CreateShadowModule(header.backdrop)
+	S:CreateShadowModule(header.backdrop)
 	E.FrameLocks[header] = true
 
 	E:CreateMover(header, "MER_RaidManager", L["Raid Manager"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,misc')
@@ -623,7 +624,7 @@ function module:CreateRaidInfo()
 	rcFrame:CreateBackdrop("Transparent")
 	rcFrame.backdrop:SetAllPoints()
 	rcFrame.backdrop:Styling()
-	MER:CreateShadowModule(rcFrame.backdrop)
+	S:CreateShadowModule(rcFrame.backdrop)
 	F.CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", _G.READY_CHECK, true, "TOP", 0, -8)
 
 	local rc = F.CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", "", false, "TOP", 0, -25)

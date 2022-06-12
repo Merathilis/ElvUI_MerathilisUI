@@ -14,7 +14,7 @@ local function LoadSkin()
 	if CharacterFrame.backdrop then
 		CharacterFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(CharacterFrame)
+	module:CreateBackdropShadow(CharacterFrame)
 end
 
 S:AddCallback("CharacterFrame", LoadSkin)

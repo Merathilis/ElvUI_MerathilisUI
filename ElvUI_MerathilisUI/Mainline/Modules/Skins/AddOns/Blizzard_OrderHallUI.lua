@@ -16,7 +16,7 @@ local function LoadSkin()
 	end
 	OrderHallTalentFrame.backdrop:Styling()
 
-	MER:CreateBackdropShadow(OrderHallTalentFrame)
+	module:CreateBackdropShadow(OrderHallTalentFrame)
 
 	hooksecurefunc(OrderHallTalentFrame, "RefreshAllData", function(self)
 		if self.talentRankPool then

@@ -21,7 +21,7 @@ local function LoadSkin()
 		CollectionsJournal:CreateBackdrop('Transparent')
 		CollectionsJournal.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(CollectionsJournal)
+	module:CreateBackdropShadow(CollectionsJournal)
 
 	for i = 1, 5 do
 		module:ReskinTab(_G["CollectionsJournalTab" .. i])

@@ -1,6 +1,7 @@
 ---@diagnostic disable: 211
 local MER, F, E, _, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Actionbars')
+local S = MER:GetModule('MER_Skins')
 local AB = E:GetModule('ActionBars')
 
 local _G = _G
@@ -44,7 +45,7 @@ function module:ActionBar_Shadow(bar, type)
 
 	if bar.db.backdrop then
 		if not bar.backdrop.shadow then
-			MER:CreateBackdropShadow(bar, true)
+			S:CreateBackdropShadow(bar, true)
 		end
 		if bar.backdrop.shadow then
 			bar.backdrop.shadow:Show()
@@ -58,17 +59,17 @@ function module:ActionBar_Shadow(bar, type)
 	if type == "PLAYER" then
 		for i = 1, NUM_ACTIONBAR_BUTTONS do
 			local button = bar.buttons[i]
-			MER:CreateBackdropShadow(button, true)
+			S:CreateBackdropShadow(button, true)
 		end
 	elseif type == "PET" then
 		for i = 1, NUM_PET_ACTION_SLOTS do
 			local button = _G["PetActionButton" .. i]
-			MER:CreateBackdropShadow(button, true)
+			S:CreateBackdropShadow(button, true)
 		end
 	elseif type == "STANCE" then
 		for i = 1, NUM_STANCE_SLOTS do
 			local button = _G["ElvUI_StanceBarButton" .. i]
-			MER:CreateBackdropShadow(button, true)
+			S:CreateBackdropShadow(button, true)
 		end
 	end
 end
@@ -89,7 +90,7 @@ end
 function module:SkinZoneAbilities(button)
 	for spellButton in button.SpellButtonContainer:EnumerateActive() do
 		if spellButton and spellButton.IsSkinned then
-			MER:CreateShadow(spellButton)
+			module:CreateShadow(spellButton)
 		end
 	end
 end
@@ -101,8 +102,8 @@ function module:ActionBar_LoadKeyBinder()
 		return
 	end
 
-	MER:CreateShadow(frame)
-	MER:CreateBackdropShadow(frame.header, true)
+	module:CreateShadow(frame)
+	S:CreateBackdropShadow(frame.header, true)
 end
 
 local function ReskinVehicleExit()
@@ -111,7 +112,7 @@ local function ReskinVehicleExit()
 	end
 
 	local button = _G.MainMenuBarVehicleLeaveButton
-	MER:CreateBackdropShadow(button, true)
+	S:CreateBackdropShadow(button, true)
 	local tex = button:GetNormalTexture()
 	if tex then
 		tex:SetTexture(MER.Media.Textures.arrow)
@@ -174,13 +175,13 @@ function module:Initialize()
 		for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
 			local button = _G["ExtraActionButton" .. i]
 			if button then
-				MER:CreateShadow(button)
+				module:CreateShadow(button)
 			end
 		end
 	end
 
 	self:SecureHook(AB, "SetupFlyoutButton", function(_, button)
-		MER:CreateBackdropShadow(button, true)
+		S:CreateBackdropShadow(button, true)
 	end)
 
 	-- Keybind

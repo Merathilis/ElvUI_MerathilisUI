@@ -1,6 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Bags')
+local S = MER:GetModule('MER_Skins')
 local B = E:GetModule('Bags')
+
 
 local _G = _G
 local unpack = unpack
@@ -18,11 +20,11 @@ function module:SkinBags()
 	end
 
 	if B.BagFrame then
-		MER:CreateShadow(B.BagFrame)
+		S:CreateShadow(B.BagFrame)
 	end
 
 	if B.BagFrame.ContainerHolder then
-		MER:CreateShadow(B.BagFrame.ContainerHolder)
+		S:CreateShadow(B.BagFrame.ContainerHolder)
 	end
 end
 
@@ -33,11 +35,11 @@ function module:SkinBank()
 	end
 
 	if B.BankFrame then
-		MER:CreateShadow(B.BankFrame)
+		S:CreateShadow(B.BankFrame)
 	end
 
 	if B.BankFrame.ContainerHolder then
-		MER:CreateShadow(B.BankFrame.ContainerHolder)
+		S:CreateShadow(B.BankFrame.ContainerHolder)
 	end
 end
 
@@ -48,7 +50,7 @@ function module:ReskinSellFrame()
 	end
 
 	if _G.ElvUIVendorGraysFrame then
-		MER:CreateShadow(_G.ElvUIVendorGraysFrame)
+		S:CreateShadow(_G.ElvUIVendorGraysFrame)
 	end
 end
 hooksecurefunc(B, "CreateSellFrame", module.ReskinSellFrame)
@@ -70,7 +72,7 @@ function module:SkinBlizzBags()
 
 	if _G.BankFrame then
 		_G.BankFrame:Styling()
-		MER:CreateShadow(_G.BankFrame)
+		S:CreateShadow(_G.BankFrame)
 	end
 end
 

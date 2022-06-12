@@ -19,7 +19,7 @@ local function LoadSkin()
 
 	module:CreateBD(QuestChoiceFrame, .5)
 	QuestChoiceFrame:Styling()
-	MER:CreateBackdropShadow(QuestChoiceFrame)
+	module:CreateBackdropShadow(QuestChoiceFrame)
 
 	for i = 1, 15 do
 		select(i, QuestChoiceFrame:GetRegions()):Hide()

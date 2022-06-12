@@ -15,7 +15,7 @@ local function LoadSkin()
 	frame:StripTextures()
 	frame:CreateBackdrop('Transparent')
 	frame.backdrop:Styling()
-	MER:CreateBackdropShadow(frame)
+	module:CreateBackdropShadow(frame)
 
 	hooksecurefunc(frame, 'SetUpCovenantData', function(self)
 		self.NineSlice:Hide()

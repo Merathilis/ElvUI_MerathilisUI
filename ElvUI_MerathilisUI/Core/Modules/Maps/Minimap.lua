@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Minimap')
+local S = MER:GetModule('MER_Skins')
 local LCG = LibStub('LibCustomGlow-1.0')
 
 local _G = _G
@@ -76,6 +77,7 @@ end
 function module:StyleMinimap()
 	if not E.db.mui.maps.minimap.rectangleMinimap.enable then
 		Minimap:Styling(true, true, false)
+		S:CreateBackdropShadow(Minimap)
 	end
 end
 

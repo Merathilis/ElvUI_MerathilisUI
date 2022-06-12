@@ -15,7 +15,7 @@ local function LoadSkin()
 	frame:HookScript('OnShow', function()
 		if not frame.IsStyled then
 			frame:Styling()
-			MER:CreateBackdropShadow(frame)
+			module:CreateBackdropShadow(frame)
 
 			local UpgradesTab = frame.UpgradesTab
 			local TalentList = frame.UpgradesTab.TalentsList

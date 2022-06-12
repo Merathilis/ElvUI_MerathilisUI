@@ -11,7 +11,7 @@ local function LoadSkin()
 
 	local frame = _G.AnimaDiversionFrame
 	frame:Styling()
-	MER:CreateBackdropShadow(frame)
+	module:CreateBackdropShadow(frame)
 end
 
 S:AddCallbackForAddon("Blizzard_AnimaDiversionUI", LoadSkin)

@@ -18,7 +18,7 @@ local function LoadSkin()
 		_G.AchievementFrame:CreateBackdrop('Transparent')
 		_G.AchievementFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(_G.AchievementFrame)
+	module:CreateBackdropShadow(_G.AchievementFrame)
 
 	-- Hide the ElvUI default backdrop
 	if _G.AchievementFrameCategoriesContainer.backdrop then

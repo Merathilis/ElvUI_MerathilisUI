@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local ES = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -49,18 +50,18 @@ local function LoadSkin()
 	end
 
 	_G.DressUpFrame:Styling()
-	MER:CreateShadow(_G.DressUpFrame)
+	ES:CreateShadow(_G.DressUpFrame)
 
 	_G.DressUpFrame.OutfitDetailsPanel:Styling()
-	MER:CreateShadow(_G.DressUpFrame.OutfitDetailsPanel)
+	ES:CreateShadow(_G.DressUpFrame.OutfitDetailsPanel)
 
 	-- Wardrobe edit frame
 	_G.WardrobeOutfitFrame:Styling()
-	MER:CreateBackdropShadow(_G.WardrobeOutfitFrame)
+	ES:CreateBackdropShadow(_G.WardrobeOutfitFrame)
 
 	-- AuctionHouse
 	_G.SideDressUpFrame:Styling()
-	MER:CreateBackdropShadow(_G.SideDressUpFrame)
+	ES:CreateBackdropShadow(_G.SideDressUpFrame)
 
 	-- Undress Button
 	UndressButton()

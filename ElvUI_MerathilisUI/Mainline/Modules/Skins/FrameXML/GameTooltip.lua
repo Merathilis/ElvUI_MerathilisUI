@@ -46,7 +46,7 @@ local function LoadSkin()
 		if frame and not frame.IsSkinned then
 			frame:Styling()
 			frame.IsSkinned = true
-			MER:CreateShadow(frame)
+			module:CreateShadow(frame)
 		end
 	end
 end

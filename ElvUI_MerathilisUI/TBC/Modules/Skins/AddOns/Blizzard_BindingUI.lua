@@ -27,7 +27,7 @@ local function LoadSkin()
 
 	local KeyBindingFrame = _G.KeyBindingFrame
 	KeyBindingFrame.backdrop:Styling()
-	MER:CreateBackdropShadow(KeyBindingFrame)
+	module:CreateBackdropShadow(KeyBindingFrame)
 
 	for i = 1, _G.KEY_BINDINGS_DISPLAYED do
 		local button1 = _G["KeyBindingFrameKeyBinding"..i.."Key1Button"]

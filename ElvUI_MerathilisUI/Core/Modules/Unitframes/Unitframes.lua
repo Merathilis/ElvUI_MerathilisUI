@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
+local S = MER:GetModule('MER_Skins')
 local UF = E:GetModule('UnitFrames')
 
 local hooksecurefunc = hooksecurefunc
@@ -33,7 +34,7 @@ end
 function module:UnitFrames_UpdateNameSettings(_, f)
 	if f.shadow then return end
 
-	MER:CreateBackdropShadow(f.Health, true)
+	S:CreateBackdropShadow(f.Health, true)
 end
 
 function module:UnitFrames_Configure_Threat(_, f)
@@ -66,7 +67,7 @@ function module:UnitFrames_Configure_Power(_, f)
 		local shadow = f.Power.backdrop.shadow
 		if f.POWERBAR_DETACHED then
 			if not shadow then
-				MER:CreateBackdropShadow(f.Power, true)
+				S:CreateBackdropShadow(f.Power, true)
 			else
 				shadow:Show()
 			end
@@ -83,7 +84,7 @@ function module:UnitFrames_Configure_ClassBar(_, f)
 
 	local bars = f[f.ClassBar]
 	if bars and not bars.backdrop.shadow then
-		MER:CreateShadow(bars.backdrop)
+		S:CreateShadow(bars.backdrop)
 	end
 
 	if f.shadow then
@@ -122,7 +123,7 @@ function module:UnitFrames_PostUpdateAura(_, _, button)
 	elseif db.auraByDispels and button.isStealable and not button.isFriend then
 		r, g, b = .93, .91, .55
 	end
-	MER:CreateShadow(button, 3, r, g, b)
+	S:CreateShadow(button, 3, r, g, b)
 end
 
 function module:CreateUFShadows()

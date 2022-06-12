@@ -12,7 +12,7 @@ local function LoadSkin()
 	local frame = _G.SoulbindViewer
 	frame.Background:Hide()
 	frame:Styling()
-	MER:CreateBackdropShadow(frame)
+	module:CreateBackdropShadow(frame)
 end
 
 S:AddCallbackForAddon('Blizzard_Soulbinds', LoadSkin)

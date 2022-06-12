@@ -11,7 +11,7 @@ local function LoadSkin()
 
 	local EventTraceFrame = _G.EventTrace
 	EventTraceFrame:Styling()
-	MER:CreateBackdropShadow(EventTraceFrame)
+	module:CreateBackdropShadow(EventTraceFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_EventTrace", LoadSkin)
