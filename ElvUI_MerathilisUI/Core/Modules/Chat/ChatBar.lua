@@ -93,7 +93,7 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 		button.colorBlock = button:CreateTexture(nil, "ARTWORK")
 		button.colorBlock:SetAllPoints()
 		button:CreateBackdrop("Transparent")
-		module:CreateShadow(button.backdrop, 3, nil, nil, nil, true)
+		S:CreateShadow(button.backdrop, 3, nil, nil, nil, true)
 
 		button.text = button:CreateFontString(nil, "OVERLAY")
 		button.text:Point("CENTER", button, "CENTER", 0, 0)

@@ -35,7 +35,7 @@ function module:CreateShadow(frame, size, r, g, b, force)
 		return
 	end
 
-	if not frame or frame.__shadow or frame.shadow and frame.shadow.__mer then
+	if not frame or frame.__shadow or frame.shadow and frame.shadow.__MER then
 		return
 	end
 
@@ -57,7 +57,7 @@ function module:CreateShadow(frame, size, r, g, b, force)
 	shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = size + 1})
 	shadow:SetBackdropColor(r, g, b, 0)
 	shadow:SetBackdropBorderColor(r, g, b, 0.618)
-	shadow.__mer = true
+	shadow.__MER = true
 
 	frame.shadow = shadow
 	frame.__shadow = 1
@@ -76,7 +76,7 @@ function module:CreateLowerShadow(frame, force)
 end
 
 function module:UpdateShadowColor(shadow, r, g, b)
-	if not shadow or not shadow.__mer then
+	if not shadow or not shadow.__MER then
 		return
 	end
 
@@ -86,6 +86,32 @@ function module:UpdateShadowColor(shadow, r, g, b)
 
 	shadow:SetBackdropColor(r, g, b, 0)
 	shadow:SetBackdropBorderColor(r, g, b, 0.618)
+end
+
+do
+	local function colorCallback(shadow, r, g, b)
+		if not r or not g or not b then
+			return
+		end
+
+		if r == E.db.general.bordercolor.r and g == E.db.general.bordercolor.g and b == E.db.general.bordercolor.b then
+			module:UpdateShadowColor(shadow)
+		else
+			module:UpdateShadowColor(shadow, r, g, b)
+		end
+	end
+
+	function module:BindShadowColorWithBorder(shadow, borderParent)
+		if not shadow or not shadow.__MER or not borderParent or not borderParent.SetBackdropBorderColor then
+			return
+		end
+
+		hooksecurefunc(borderParent, "SetBackdropBorderColor", function(_, ...)
+			colorCallback(shadow, ...)
+		end)
+
+		colorCallback(shadow, borderParent:GetBackdropBorderColor())
+	end
 end
 
 do
