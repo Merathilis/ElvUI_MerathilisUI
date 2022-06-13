@@ -167,15 +167,6 @@ do
 	end
 end
 
-function module:DisableAddOnSkin(key)
-	if _G.AddOnSkins then
-		local AS = _G.AddOnSkins[1]
-		if AS and AS.db[key] then
-			AS:SetOption(key, false)
-		end
-	end
-end
-
 function module:ShadowOverlay()
 	-- Based on ncShadow
 	if not E.private.mui.skins.shadowOverlay then return end

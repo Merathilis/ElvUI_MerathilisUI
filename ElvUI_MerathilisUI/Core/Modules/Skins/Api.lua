@@ -578,6 +578,15 @@ function module:SkinTextWithStateWidget(_, widgetFrame)
 	end
 end
 
+function module:DisableAddOnSkin(key)
+	if _G.AddOnSkins then
+		local AS = _G.AddOnSkins[1]
+		if AS and AS.db[key] then
+			AS:SetOption(key, false)
+		end
+	end
+end
+
 -- keep the colors updated
 function module:UpdateMedia()
 	rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA = unpack(E.media.rgbvaluecolor)
