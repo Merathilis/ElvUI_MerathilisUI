@@ -5,9 +5,6 @@ local AB = E:GetModule('ActionBars')
 
 local _G = _G
 
-local C_TimerAfter = C_Timer.After
-local hooksecurefunc = hooksecurefunc
-
 function module:SkinButton(button, useBackdrop)
 	S:CreateLowerShadow(button)
 
@@ -32,11 +29,11 @@ function module:SkinBar(bar, type)
 	end
 
 	bar.backdrop:SetTemplate("Transparent")
+	bar.backdrop:Styling()
 	if bar.db.backdrop then
 		if not bar.backdrop.shadow then
 			S:CreateBackdropShadow(bar, true)
 		end
-		bar.backdrop:Styling()
 		bar.backdrop.shadow:Show()
 	else
 		if bar.backdrop.shadow then
@@ -138,7 +135,7 @@ function module:Initialize()
 	-- Vehicle leave button
 	do
 		local button = _G.MainMenuBarVehicleLeaveButton
-		self:CreateBackdropShadow(button, true)
+		S:CreateBackdropShadow(button, true)
 
 		local tex = button:GetNormalTexture()
 		if tex then

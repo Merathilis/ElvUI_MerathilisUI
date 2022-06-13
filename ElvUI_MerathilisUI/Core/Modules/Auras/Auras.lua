@@ -3,49 +3,22 @@ local module = MER:GetModule('MER_Auras')
 local S = MER:GetModule('MER_Skins')
 local A = E:GetModule("Auras")
 
-local GetInventoryItemQuality = GetInventoryItemQuality
-local GetItemQualityColor = GetItemQualityColor
-
-function module:Auras_CreateIcon(_, button)
-	S:CreateLowerShadow(button)
-end
-
-function module:Auras_UpdateAura(_, button)
-	S:CreateLowerShadow(button)
-
-	local r, g, b
-
-	if button.debuffType and (not button.debuffTypeMER or button.debuffTypeMER ~= button.debuffType) then
-		local color = button.filter == "HARMFUL" and A.db.colorDebuffs and _G.DebuffTypeColor[button.debuffType]
-
-		button.debuffTypeMER = button.debuffType
-
-		if color then
-			S:UpdateShadowColor(button.shadow, r, g, b)
-		end
+function module:Auras_SkinIcon(_, button)
+	if not button.__MERSkin then
+		S:CreateLowerShadow(button)
+		S:BindShadowColorWithBorder(button.shadow, button)
+		button.__MERSkin = true
 	end
-end
-
-function module:Auras_UpdateTempEnchant(_, button, index, expiration)
-	S:CreateLowerShadow(button)
-
-	local r, g, b
-
-	if expiration then
-		local quality = A.db.colorEnchants and GetInventoryItemQuality("player", index)
-
-		if quality and quality > 1 then
-			r, g, b = GetItemQualityColor(quality)
-		end
-	end
-
-	S:UpdateShadowColor(button.shadow, r, g, b)
 end
 
 function module:Auras_Shadow()
-	self:SecureHook(A, "CreateIcon", "Auras_CreateIcon")
-	self:SecureHook(A, "UpdateAura", "Auras_UpdateAura")
-	self:SecureHook(A, "UpdateTempEnchant", "Auras_UpdateTempEnchant")
+	if not E.private.mui.skins.shadow and not E.private.mui.skins.shadow.enable then
+		return
+	end
+
+	self:SecureHook(A, "CreateIcon", "Auras_SkinIcon")
+	self:SecureHook(A, "UpdateAura", "Auras_SkinIcon")
+	self:SecureHook(A, "UpdateTempEnchant", "Auras_SkinIcon")
 end
 
 function module:Initialize()
