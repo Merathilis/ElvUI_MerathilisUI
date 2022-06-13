@@ -89,8 +89,8 @@ end
 
 function module:SkinZoneAbilities(button)
 	for spellButton in button.SpellButtonContainer:EnumerateActive() do
-		if spellButton and spellButton.IsSkinned then
-			module:CreateShadow(spellButton)
+		if spellButton and spellButton.__MERSkin then
+			S:CreateShadow(spellButton)
 		end
 	end
 end
@@ -102,7 +102,7 @@ function module:ActionBar_LoadKeyBinder()
 		return
 	end
 
-	module:CreateShadow(frame)
+	S:CreateShadow(frame)
 	S:CreateBackdropShadow(frame.header, true)
 end
 
@@ -175,7 +175,7 @@ function module:Initialize()
 		for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
 			local button = _G["ExtraActionButton" .. i]
 			if button then
-				module:CreateShadow(button)
+				S:CreateShadow(button)
 			end
 		end
 	end

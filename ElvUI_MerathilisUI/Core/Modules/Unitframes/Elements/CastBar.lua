@@ -7,9 +7,9 @@ local hooksecurefunc = hooksecurefunc
 function module:Configure_Castbar(frame)
 	local castbar = frame.Castbar
 
-	if castbar.backdrop and not castbar.isStyled then
+	if castbar.backdrop and not castbar.__MERSkin then
 		castbar.backdrop:Styling(false, false, true)
-		castbar.isStyled = true
+		castbar.__MERSkin = true
 	end
 end
 

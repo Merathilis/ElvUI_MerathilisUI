@@ -30,7 +30,7 @@ end
 
 local function SkinOverviewInfo(self, _, index)
 	local header = self.overviews[index]
-	if not header.isSkinned then
+	if not header.__MERSkin then
 
 		header.descriptionBG:SetAlpha(0)
 		header.descriptionBGBottom:SetAlpha(0)
@@ -45,7 +45,7 @@ local function SkinOverviewInfo(self, _, index)
 		header.button.expandedIcon:SetTextColor(1, 1, 1)
 		header.button.expandedIcon.SetTextColor = E.noop
 
-		header.isSkinned = true
+		header.__MERSkin = true
 	end
 end
 
@@ -66,7 +66,7 @@ local function SkinAbilitiesInfo()
 	local index = 1
 	local header = _G["EncounterJournalInfoHeader"..index]
 	while header do
-		if not header.isSkinned then
+		if not header.__MERSkin then
 			header.flashAnim.Play = E.noop
 
 			header.descriptionBG:SetAlpha(0)
@@ -89,7 +89,7 @@ local function SkinAbilitiesInfo()
 			header.button.bg:SetFrameLevel(header.button.bg:GetFrameLevel() - 1)
 			header.button.abilityIcon:SetTexCoord(.08, .92, .08, .92)
 
-			header.isSkinned = true
+			header.__MERSkin = true
 		end
 
 		if header.button.abilityIcon:IsShown() then

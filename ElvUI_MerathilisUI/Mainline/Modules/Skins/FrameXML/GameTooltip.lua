@@ -43,10 +43,10 @@ local function LoadSkin()
 	}
 
 	for _, frame in pairs(tooltips) do
-		if frame and not frame.IsSkinned then
+		if frame and not frame.__MERSkin then
 			frame:Styling()
-			frame.IsSkinned = true
 			module:CreateShadow(frame)
+			frame.__MERSkin = true
 		end
 	end
 end

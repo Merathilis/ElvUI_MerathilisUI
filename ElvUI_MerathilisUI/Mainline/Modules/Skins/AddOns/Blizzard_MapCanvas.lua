@@ -12,9 +12,9 @@ local function MapCanvasDetailLayerMixin_RefreshDetailTiles(self)
 	local layerInfo = layers[self.layerIndex]
 
 	for detailTile in self.detailTilePool:EnumerateActive() do
-		if not detailTile.isSkinned then
+		if not detailTile.__MERSkin then
 			detailTile:SetSize(layerInfo.tileWidth, layerInfo.tileHeight)
-			detailTile.isSkinned = true
+			detailTile.__MERSkin = true
 		end
 	end
 end

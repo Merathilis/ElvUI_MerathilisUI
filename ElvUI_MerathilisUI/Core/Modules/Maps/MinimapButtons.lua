@@ -116,7 +116,7 @@ local function ClickFunc()
 end
 
 function module:SkinMinimapButton(Button)
-	if (not Button) or Button.isSkinned then return end
+	if (not Button) or Button.__MERSkin then return end
 
 	local Name = Button.GetName and Button:GetName()
 	if not Name then return end
@@ -179,7 +179,7 @@ function module:SkinMinimapButton(Button)
 		Button.backdrop:Styling()
 	end
 
-	Button.isSkinned = true
+	Button.__MERSkin = true
 	tinsert(module.Buttons, Button)
 end
 

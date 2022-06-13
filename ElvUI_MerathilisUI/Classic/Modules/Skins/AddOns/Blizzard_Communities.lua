@@ -33,18 +33,18 @@ local function LoadSkin()
 	-- Active Communities
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)
 		if clubInfo then
-			if self.bg and self.bg.backdrop and not self.IsStyled then
+			if self.bg and self.bg.backdrop and not self.__MERSkin then
 				module:CreateGradient(self.bg.backdrop)
-				self.IsStyled = true
+				self.__MERSkin = true
 			end
 		end
 	end)
 
 	-- Add Community Button
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetAddCommunity", function(self)
-		if self.bg and self.bg.backdrop and not self.IsStyled then
+		if self.bg and self.bg.backdrop and not self.__MERSkin then
 			module:CreateGradient(self.bg.backdrop)
-			self.IsStyled = true
+			self.__MERSkin = true
 		end
 	end)
 

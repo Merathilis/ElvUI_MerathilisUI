@@ -12,7 +12,7 @@ local function StyleElvUIConfig()
 
 	local frame = E:Config_GetWindow()
 
-	if frame and not frame.IsStyled then
+	if frame and not frame.__MERSkin then
 		frame:Styling()
 		module:CreateShadow(frame)
 
@@ -22,7 +22,7 @@ local function StyleElvUIConfig()
 			frame.leftHolder.slider.thumb:SetAlpha(1)
 		end
 
-		frame.IsStyled = true
+		frame.__MERSkin = true
 	end
 end
 

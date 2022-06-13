@@ -457,7 +457,7 @@ function module:ReskinAS(AS)
 	end
 
 	function AS:SkinTab(Tab, Strip)
-		if Tab.isSkinned then return end
+		if Tab.__MERSkin then return end
 		local TabName = Tab:GetName()
 
 		if TabName then
@@ -499,11 +499,11 @@ function module:ReskinAS(AS)
 		Tab.Backdrop:Point("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
 		Tab.Backdrop:Point("BOTTOMRIGHT", -10, 3)
 
-		Tab.isSkinned = true
+		Tab.__MERSkin = true
 	end
 
 	function AS:SkinButton(Button, Strip)
-		if Button.isSkinned then return end
+		if Button.__MERSkin then return end
 
 		local ButtonName = Button.GetName and Button:GetName()
 		local foundArrow

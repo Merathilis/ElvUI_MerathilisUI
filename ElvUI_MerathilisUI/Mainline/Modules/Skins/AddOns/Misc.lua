@@ -49,17 +49,17 @@ local function LoadSkin()
 		local listFrameName = listFrame:GetName()
 
 		local Backdrop = _G[listFrameName.."Backdrop"]
-		if Backdrop and not Backdrop.IsSkinned then
+		if Backdrop and not Backdrop.__MERSkin then
 			Backdrop:Styling()
 			module:CreateBackdropShadow(Backdrop)
-			Backdrop.IsSkinned = true
+			Backdrop.__MERSkin = true
 		end
 
 		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
-		if menuBackdrop and not menuBackdrop.IsSkinned then
+		if menuBackdrop and not menuBackdrop.__MERSkin then
 			menuBackdrop:Styling()
 			module:CreateBackdropShadow(Backdrop)
-			menuBackdrop.IsSkinned = true
+			menuBackdrop.__MERSkin = true
 		end
 	end)
 

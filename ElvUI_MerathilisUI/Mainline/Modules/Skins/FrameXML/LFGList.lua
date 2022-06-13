@@ -42,11 +42,11 @@ local function LoadSkin()
 		local bu = self.CategoryButtons[btnIndex]
 
 		if bu then
-			if not bu.IsStyled then
+			if not bu.__MERSkin then
 				bu.Icon:SetTexCoord(.01, .99, .01, .99)
 				module:CreateGradient(bu)
 
-				bu.IsStyled = true
+				bu.__MERSkin = true
 			end
 		end
 	end)

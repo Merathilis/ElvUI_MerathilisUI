@@ -16,9 +16,9 @@ local function LoadSkin()
 
 	-- /run BNToastFrame:AddToast(BN_TOAST_TYPE_ONLINE, 1)
 	hooksecurefunc(BNToastFrame, 'ShowToast', function(self)
-		if not self.IsSkinned then
+		if not self.__MERSkin then
 			S:HandleCloseButton(self.CloseButton)
-			self.IsSkinned = true
+			self.__MERSkin = true
 		end
 	end)
 end

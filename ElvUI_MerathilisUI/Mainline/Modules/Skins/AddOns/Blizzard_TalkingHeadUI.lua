@@ -10,7 +10,7 @@ local function LoadSkin()
 	end
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
-	if TalkingHeadFrame and not TalkingHeadFrame.IsSkinned then
+	if TalkingHeadFrame and not TalkingHeadFrame.__MERSkin then
 		TalkingHeadFrame:Styling()
 		module:CreateBackdropShadow(TalkingHeadFrame, true)
 
@@ -39,7 +39,7 @@ local function LoadSkin()
 		TalkingHeadFrame.TextFrame.Text:SetShadowColor(0, 0, 0, 1)
 		TalkingHeadFrame.TextFrame.Text:SetShadowOffset(2, -2)
 
-		TalkingHeadFrame.IsSkinned = true
+		TalkingHeadFrame.__MERSkin = true
 	end
 end
 

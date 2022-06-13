@@ -302,6 +302,16 @@ options.reset = {
 				end)
 			end
 		},
+		raidmarkers = {
+			order = 7,
+			type = "execute",
+			name = L["Raid Markers"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Raid Markers"], nil, function()
+					E:CopyTable(E.db.mui.raidmarkers, P.raidmarkers)
+				end)
+			end
+		},
 		spacer1 = {
 			order = 20,
 			type = "description",

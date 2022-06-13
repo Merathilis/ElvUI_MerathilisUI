@@ -13,7 +13,7 @@ local function LoadSkin()
 	local frame = _G.CovenantSanctumFrame
 
 	frame:HookScript('OnShow', function()
-		if not frame.IsStyled then
+		if not frame.__MERSkin then
 			frame:Styling()
 			module:CreateBackdropShadow(frame)
 
@@ -31,7 +31,7 @@ local function LoadSkin()
 				end
 			end
 
-			frame.IsStyled = true
+			frame.__MERSkin = true
 		end
 	end)
 end

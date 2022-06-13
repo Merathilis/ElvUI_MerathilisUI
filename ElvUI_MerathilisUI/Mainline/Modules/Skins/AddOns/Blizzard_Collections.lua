@@ -273,13 +273,13 @@ local function LoadSkin()
 	progressBar.text:SetPoint("CENTER", 0, 1)
 
 	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
-		if not button.IsStyled then
+		if not button.__MERSkin then
 			local bg = module:CreateBDFrame(button)
 			bg:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, -2)
 			bg:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 0, 2)
 			bg:SetPoint("RIGHT", button.name, "RIGHT", 2, 0)
 			module:CreateGradient(bg)
-			button.IsStyled = true
+			button.__MERSkin = true
 		end
 	end)
 
@@ -287,11 +287,11 @@ local function LoadSkin()
 	hooksecurefunc(HeirloomsJournal, "LayoutCurrentPage", function()
 		for i = 1, #HeirloomsJournal.heirloomHeaderFrames do
 			local header = HeirloomsJournal.heirloomHeaderFrames[i]
-			if not header.IsStyled then
+			if not header.__MERSkin then
 				header.text:SetTextColor(1, 1, 1)
 				header.text:FontTemplate(E["media"].normFont, 16, "OUTLINE")
 
-				header.IsStyled = true
+				header.__MERSkin = true
 			end
 		end
 	end)

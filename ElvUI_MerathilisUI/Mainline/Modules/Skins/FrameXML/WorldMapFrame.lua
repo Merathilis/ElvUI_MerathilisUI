@@ -59,12 +59,12 @@ local function LoadSkin()
 	end
 
 	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", function(_, dialog)
-		if not dialog.IsStyled then
+		if not dialog.__MERSkin then
 			if dialog.backdrop then
 				dialog.backdrop:Styling()
 			end
 			module:CreateBackdropShadow(dialog)
-			dialog.isStyled = true
+			dialog.__MERSkin = true
 		end
 	end)
 end
