@@ -2175,12 +2175,6 @@ function MER:SetupAddOns()
 		tinsert(addonNames, "ProjectAzilroka")
 	end
 
-	-- BenikUI
-	if E:IsAddOnEnabled("ElvUI_BenikUI") then
-		MER:LoadBenikUIProfile()
-		tinsert(addonNames, "ElvUI_BenikUI")
-	end
-
 	if checkTable(addonNames) ~= nil then
 		local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"].."\n")
 

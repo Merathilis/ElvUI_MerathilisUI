@@ -724,7 +724,6 @@ L["Installed"] = "安装"
 L["MSG_MER_ELV_OUTDATED"] = "您的ElvUI版本比推荐使用|cffff7d0aMerathilisUI|r的版本旧. 你的版本是 |cff00c0fa%.2f|r (推荐版本 |cff00c0fa%.2f|r). MerathilisUI未加载. 请更新你的ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = "你已经同时启用了Location Plus和Shadow＆Light.选择要禁用的插件"
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[在这里,您可以选择S＆L的布局.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[在这里,您可以选择BenikUI的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[在这里,您可以选择BigWigs的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[在这里,您可以选择Deadly Boss Mods的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[在这里,您可以选择Details!的布局.]]

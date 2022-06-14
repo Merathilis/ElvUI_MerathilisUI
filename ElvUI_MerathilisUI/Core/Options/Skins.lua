@@ -25,7 +25,6 @@ local SupportedProfiles = {
 	{"AddOnSkins", "AddOnSkins"},
 	{"BigWigs", "BigWigs"},
 	{"Details", "Details"},
-	{"ElvUI_BenikUI", "BenikUI"},
 	{"ElvUI_FCT", "FCT"},
 	{"ProjectAzilroka", "ProjectAzilroka"},
 	{"ls_Toasts", "ls_Toasts"},
@@ -1728,8 +1727,6 @@ for _, v in ipairs(SupportedProfiles) do
 				E:StaticPopup_Show("PRIVATE_RL")
 			elseif addon == 'DBM-Core' then
 				E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
-			elseif addon == 'ElvUI_BenikUI' then
-				E:StaticPopup_Show("MUI_INSTALL_BUI_LAYOUT")
 			elseif addon == 'Skada' then
 				MER:LoadSkadaProfile()
 				E:StaticPopup_Show('PRIVATE_RL')

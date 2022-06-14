@@ -1,6 +1,5 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<script file="AddOnSkins.lua"/>
-	<script file="BenikUI.lua"/>
 	<script file="BigWigs.lua"/>
 	<script file="DeadlyBossMods.lua"/>
 	<script file="Details.lua"/>
