@@ -262,7 +262,7 @@ local function Initialize()
 		playerModel.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\bubble")
 
 		playerModel.tex.text = playerModel:CreateFontString(nil, "OVERLAY")
-		playerModel.tex.text:FontTemplate(E.LSM:Fetch("font", "Merathilis BadaBoom"), 20, "OUTLINE")
+		playerModel.tex.text:FontTemplate(nil, 20, "OUTLINE")
 		playerModel.tex.text:SetText("AFK ... maybe!?")
 		playerModel.tex.text:SetPoint("CENTER", playerModel.tex, "CENTER", 0, 10)
 		playerModel.tex.text:SetJustifyH("CENTER")
