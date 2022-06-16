@@ -34,8 +34,8 @@ local function ProfilingWindow_UpdateButtons(frame)
 
 	for _, button in pairs {frame.titleFrame:GetChildren()} do
 		if not button.MERStyle and button.GetNormalTexture then
-			local normalTexturePath = button:GetNormalTexture():GetTexture()
-			if normalTexturePath == "Interface\\BUTTONS\\UI-Panel-CollapseButton-Up" then
+			local normalTextureID = button:GetNormalTexture():GetTexture()
+			if normalTextureID == 252125 then
 				button:StripTextures()
 
 				button.Texture = button:CreateTexture(nil, "OVERLAY")
