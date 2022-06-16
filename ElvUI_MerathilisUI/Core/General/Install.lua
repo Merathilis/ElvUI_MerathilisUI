@@ -1072,7 +1072,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["extraActionButton"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["extraActionButton"]["hotkeyFontOutline"] = "OUTLINE"
 
-	E.db["movers"]["ElvAB_1"] = "BOTTOM,UIParent,BOTTOM,0,111"
+	E.db["movers"]["ElvAB_1"] = "BOTTOM,UIParent,BOTTOM,0,113"
 	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,146"
 	E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,0,177"
 	E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
