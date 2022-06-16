@@ -28,29 +28,68 @@ local SetCVar = SetCVar
 
 local function SetupCVars()
 	-- Setup CVars
-	SetCVar("autoQuestProgress", 1)
-	SetCVar("guildMemberNotify", 1)
-	SetCVar("TargetNearestUseNew", 1)
-	SetCVar("cameraSmoothStyle", 0)
-	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
-	SetCVar("UberTooltips", 1)
-	SetCVar("lockActionBars", 1)
-	SetCVar("chatMouseScroll", 1)
-	SetCVar("violenceLevel", 5)
-	SetCVar("blockTrades", 0)
-	SetCVar("countdownForCooldowns", 1)
-	SetCVar("showQuestTrackingTooltips", 1)
-	SetCVar("ffxGlow", 0)
-	SetCVar("floatingCombatTextCombatState", "1")
+	SetCVar('autoQuestProgress', 1)
+	SetCVar('guildMemberNotify', 1)
+	SetCVar('TargetNearestUseNew', 1)
+	SetCVar('cameraSmoothStyle', 0)
+	SetCVar('cameraDistanceMaxZoomFactor', 2.6)
+	SetCVar('UberTooltips', 1)
+	SetCVar('lockActionBars', 1)
+	SetCVar('chatMouseScroll', 1)
+	SetCVar('countdownForCooldowns', 1)
+	SetCVar('showQuestTrackingTooltips', 1)
+	SetCVar('ffxGlow', 0)
+	SetCVar('floatingCombatTextCombatState', "1")
 
-	--nameplates
-	SetCVar("ShowClassColorInNameplate", 1)
+	-- Nameplates
+	SetCVar('ShowClassColorInNameplate', 1)
+	SetCVar('nameplateLargerScale', 1)
+	SetCVar('nameplateLargeTopInset', -1)
+	SetCVar('nameplateMinAlpha', 1)
+	SetCVar('nameplateMinScale', 1)
+	SetCVar('nameplateMotion', 1)
+	SetCVar('nameplateOccludedAlphaMult', 1)
+	SetCVar('nameplateOtherBottomInset', -1)
+	SetCVar('nameplateOtherTopInset', -1)
+	SetCVar('nameplateOverlapH', 1.1)
+	SetCVar('nameplateOverlapV', 1.8)
+	SetCVar('nameplateSelectedScale', 1)
+	SetCVar('nameplateSelfAlpha', 1)
+	SetCVar('nameplateSelfTopInset', -1)
+
+	SetCVar('UnitNameEnemyGuardianName', 1)
+	SetCVar('UnitNameEnemyMinionName', 1)
+	SetCVar('UnitNameEnemyPetName', 1)
+	SetCVar('UnitNameEnemyPlayerName', 1)
+
+	if not E.Classic then
+		SetCVar('UnitNameEnemyTotem', 1)
+	end
+
+	if not E.Retail then
+		SetCVar('nameplateNotSelectedAlpha', 1)
+		SetCVar('autoLootDefault', 1)
+		SetCVar('instantQuestText', 1)
+		SetCVar('profanityFilter', 0)
+	end
+
 
 	if F.IsDeveloper() and F.IsDeveloperRealm() then
-		SetCVar("taintLog", 1)
+		SetCVar('taintLog', 1)
+		SetCVar('maxFPS', 165)
+		SetCVar('maxFPSBk', 60)
+		SetCVar('maxFPSLoading', 30)
+		SetCVar('violenceLevel', 5)
+		SetCVar('blockTrades', 0)
+		SetCVar('RAIDweatherDensity', 0)
+		SetCVar('weatherDensity', 0)
+		SetCVar('SpellQueueWindow', 180)
 	else
-		SetCVar("taintLog", 0)
+		SetCVar('taintLog', 0)
 	end
+
+	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:SetValue('SHIFT')
+	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:RefreshValue()
 
 	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
 	PluginInstallStepComplete:Show()
