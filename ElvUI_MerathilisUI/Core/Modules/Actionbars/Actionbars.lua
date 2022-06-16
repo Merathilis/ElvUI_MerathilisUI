@@ -91,6 +91,41 @@ function module:ElvUI_ActionBar_LoadKeyBinder()
 	S:CreateBackdropShadow(frame.header, true)
 end
 
+function module:StyleVehicleExitButton()
+	if not E.private.actionbar.enable then
+		return
+	end
+
+	local button = _G.MainMenuBarVehicleLeaveButton
+	S:CreateBackdropShadow(button, true)
+
+	local tex = button:GetNormalTexture()
+	if tex then
+		tex:ClearAllPoints()
+		tex:SetPoint("TOPLEFT", button, "TOPLEFT", 4, -4)
+		tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
+		tex:SetTexture(MER.Media.Textures.arrow)
+		tex:SetTexCoord(0, 1, 0, 1)
+		tex:SetVertexColor(1, 1, 1)
+	end
+
+	tex = button:GetPushedTexture()
+	if tex then
+		tex:ClearAllPoints()
+		tex:SetPoint("TOPLEFT", button, "TOPLEFT", 4, -4)
+		tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
+		tex:SetTexture(MER.Media.Textures.arrow)
+		tex:SetTexCoord(0, 1, 0, 1)
+		tex:SetVertexColor(1, 0, 0)
+	end
+
+	tex = button:GetHighlightTexture()
+	if tex then
+		tex:SetTexture(nil)
+		tex:Hide()
+	end
+end
+
 function module:Initialize()
 	if E.private.actionbar.enable ~= true then return; end
 
@@ -98,6 +133,7 @@ function module:Initialize()
 
 	if E.Retail then
 		self:EquipSpecBar()
+		self:StyleVehicleExitButton()
 	end
 
 	-- ElvUI action bar
@@ -127,47 +163,9 @@ function module:Initialize()
 
 	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
 		local button = _G["ExtraActionButton" .. i]
-		if button then
-			S:CreateShadow(button)
+		if button and button.backdrop then
+			S:CreateBackdropShadow(button.backdrop, true)
 		end
-	end
-
-	-- Vehicle leave button
-	do
-		local button = _G.MainMenuBarVehicleLeaveButton
-		S:CreateBackdropShadow(button, true)
-
-		local tex = button:GetNormalTexture()
-		if tex then
-			tex:ClearAllPoints()
-			tex:SetPoint("TOPLEFT", button, "TOPLEFT", 4, -4)
-			tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
-			tex:SetTexture(MER.Media.Textures.arrow)
-			tex:SetTexCoord(0, 1, 0, 1)
-			tex:SetVertexColor(1, 1, 1)
-		end
-
-		tex = button:GetPushedTexture()
-		if tex then
-			tex:ClearAllPoints()
-			tex:SetPoint("TOPLEFT", button, "TOPLEFT", 4, -4)
-			tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
-			tex:SetTexture(MER.Media.Textures.arrow)
-			tex:SetTexCoord(0, 1, 0, 1)
-			tex:SetVertexColor(1, 0, 0)
-		end
-
-		tex = button:GetHighlightTexture()
-		if tex then
-			tex:SetTexture(nil)
-			tex:Hide()
-		end
-	end
-
-	-- Extra action bar
-	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
-		local button = _G["ExtraActionButton" .. i]
-		S:CreateBackdropShadow(button.backdrop, true)
 	end
 
 	-- Flyout
