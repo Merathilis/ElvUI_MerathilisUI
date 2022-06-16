@@ -73,6 +73,8 @@ function module:ElvUI_PositionAndSizeBarShapeShift()
 end
 
 function module:SkinZoneAbilities(button)
+	if not E.Retail then return end
+
 	for spellButton in button.SpellButtonContainer:EnumerateActive() do
 		if spellButton and spellButton.IsSkinned then
 			module:CreateShadow(spellButton)
@@ -117,6 +119,9 @@ function module:Skin_ElvUI_ActionBars()
 		module:SkinBar(_G.ElvUI_StanceBar, "STANCE")
 		module:SecureHook(AB, "PositionAndSizeBarShapeShift", "ElvUI_PositionAndSizeBarShapeShift")
 	end
+
+	-- Zone Button
+	module:SecureHook(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", "SkinZoneAbilities")
 
 	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
 		local button = _G["ExtraActionButton" .. i]
