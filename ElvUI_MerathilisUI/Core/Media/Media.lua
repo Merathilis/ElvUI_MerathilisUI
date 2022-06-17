@@ -56,6 +56,7 @@ AddMedia("barTalents", "MicroBar/Talents.tga", "Icons")
 AddMedia("barToyBox", "MicroBar/ToyBox.tga", "Icons")
 AddMedia("barVolume", "MicroBar/Volume.tga", "Icons")
 
+AddMedia("calendar", "Calendar.tga", "Icons")
 AddMedia("convert", "Convert.tga", "Icons")
 AddMedia("favorite", "Favorite.tga", "Icons")
 AddMedia("general", "General.tga", "Icons")

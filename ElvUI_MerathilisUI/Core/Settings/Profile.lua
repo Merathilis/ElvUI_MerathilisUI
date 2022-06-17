@@ -873,9 +873,16 @@ P.panels = {
 
 P.smb = {
 	enable = true,
-	size = 30,
-	perRow = 6,
-	spacing = 1,
+	mouseOver = false,
+	buttonsPerRow = 8,
+	buttonSize = 24,
+	backdrop = true,
+	backdropSpacing = 2,
+	spacing = 2,
+	inverseDirection = false,
+	orientation = "HORIZONTAL",
+	calendar = false,
+	garrison = false
 }
 
 P.locPanel = {

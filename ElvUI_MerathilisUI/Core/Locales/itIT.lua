@@ -542,7 +542,35 @@ L["Distance Text"] = true
 L["Only Number"] = true
 
 -- SMB
-L["Button Settings"] = true
+L["Minimap Buttons"] = true
+L["Add an extra bar to collect minimap buttons."] = true
+L["Toggle minimap buttons bar."] = true
+L["Mouse Over"] = true
+L["Only show minimap buttons bar when you mouse over it."] = true
+L["Minimap Buttons Bar"] = true
+L["Bar Backdrop"] = true
+L["Show a backdrop of the bar."] = true
+L["Backdrop Spacing"] = true
+L["The spacing between the backdrop and the buttons."] = true
+L["Inverse Direction"] = true
+L["Reverse the direction of adding buttons."] = true
+L["Orientation"] = true
+L["Arrangement direction of the bar."] = true
+L["Drag"] = true
+L["Horizontal"] = true
+L["Vertical"] = true
+L["Buttons"] = true
+L["Buttons Per Row"] = true
+L["The amount of buttons to display per row."] = true
+L["Button Size"] = true
+L["The size of the buttons."] = true
+L["Button Spacing"] = true
+L["The spacing between buttons."] = true
+L["Blizzard Buttons"] = true
+L["Calendar"] = true
+L["Add calendar button to the bar."] = true
+L["Garrison"] = true
+L["Add garrison button to the bar."] = true
 
 -- Raid Marks
 L["Raid Markers"] = true

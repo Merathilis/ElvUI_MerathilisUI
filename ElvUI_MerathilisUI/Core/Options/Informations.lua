@@ -312,6 +312,16 @@ options.reset = {
 				end)
 			end
 		},
+		smb = {
+			order = 8,
+			type = "execute",
+			name = L["Minimap Buttons"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Minimap Buttons"], nil, function()
+					E:CopyTable(E.db.mui.smb, P.smb)
+				end)
+			end
+		},
 		spacer1 = {
 			order = 20,
 			type = "description",
