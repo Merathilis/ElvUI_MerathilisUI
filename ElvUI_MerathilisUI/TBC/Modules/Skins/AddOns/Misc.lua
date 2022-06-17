@@ -91,12 +91,6 @@ local function LoadSkin()
 	-- Chat Config
 	_G.ChatConfigFrame:Styling()
 
-	-- ElvUI Stuff
-	_G.LeftChatDataPanel:Styling()
-	_G.RightChatDataPanel:Styling()
-	_G.ElvUI_TopPanel:Styling()
-	_G.ElvUI_BottomPanel:Styling()
-
 	-- Mirror Timers
 	if _G.MirrorTimer1StatusBar.backdrop then
 		_G.MirrorTimer1StatusBar.backdrop:Styling()

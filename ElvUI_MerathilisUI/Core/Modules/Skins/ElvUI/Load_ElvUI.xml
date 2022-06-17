@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='ActionBars.lua'/>
-	<Script file='ElvUI_OptionsUI.lua'/>
+	<Script file='OptionsUI.lua'/>
+	<Script file='Misc.lua'/>
 </Ui>
