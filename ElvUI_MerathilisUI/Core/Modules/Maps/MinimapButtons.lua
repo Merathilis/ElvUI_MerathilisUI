@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_MiniMapButtons')
+local S = MER:GetModule('MER_Skins')
 
 local _G = _G
 local pairs, select, tostring, unpack = pairs, select, tostring, unpack
@@ -177,6 +178,7 @@ function module:SkinMinimapButton(Button)
 	if not Button.ignoreTemplate then
 		Button:CreateBackdrop("Transparent")
 		Button.backdrop:Styling()
+		S:CreateShadowModule(Button.backdrop)
 	end
 
 	Button.__MERSkin = true
