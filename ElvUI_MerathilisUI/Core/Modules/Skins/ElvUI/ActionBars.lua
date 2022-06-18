@@ -133,6 +133,7 @@ function module:Skin_ElvUI_ActionBars()
 	-- Vehicle leave button
 	do
 		local button = _G.MainMenuBarVehicleLeaveButton
+
 		module:CreateBackdropShadow(button, true)
 
 		local tex = button:GetNormalTexture()
@@ -140,7 +141,7 @@ function module:Skin_ElvUI_ActionBars()
 			tex:ClearAllPoints()
 			tex:SetPoint("TOPLEFT", button, "TOPLEFT", 4, -4)
 			tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
-			tex:SetTexture(MER.Media.Textures.arrowDown)
+			tex:SetTexture(MER.Media.Textures.arrow)
 			tex:SetTexCoord(0, 1, 0, 1)
 			tex:SetVertexColor(1, 1, 1)
 		end
@@ -150,7 +151,7 @@ function module:Skin_ElvUI_ActionBars()
 			tex:ClearAllPoints()
 			tex:SetPoint("TOPLEFT", button, "TOPLEFT", 4, -4)
 			tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
-			tex:SetTexture(MER.Media.Textures.arrowDown)
+			tex:SetTexture(MER.Media.Textures.arrow)
 			tex:SetTexCoord(0, 1, 0, 1)
 			tex:SetVertexColor(1, 0, 0)
 		end
@@ -171,4 +172,4 @@ function module:Skin_ElvUI_ActionBars()
 	module:ElvUI_ActionBar_LoadKeyBinder()
 end
 
-S:AddCallback("Skin_ElvUI_ActionBars")
+module:AddCallback("Skin_ElvUI_ActionBars")
