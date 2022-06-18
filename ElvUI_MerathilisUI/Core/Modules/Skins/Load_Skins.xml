@@ -3,4 +3,5 @@
 	<Script file='API.lua'/>
 	<Include file='Widgets\Load_Widgets.xml'/>
 	<Include file='ElvUI\Load_ElvUI.xml'/>
+	<Include file='Extern\Load_Extern.xml'/>
 </Ui>
