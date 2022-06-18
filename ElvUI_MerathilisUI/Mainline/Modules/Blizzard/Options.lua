@@ -491,11 +491,19 @@ options.objectiveTracker = {
 					name = L["Short Header"],
 					desc = L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."]
 				},
-				color = {
+				classColor = {
 					order = 5,
+					type = "toggle",
+					name = L["Class Color"]
+				},
+				color = {
+					order = 6,
 					type = "color",
 					name = L["Color"],
 					hasAlpha = false,
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or E.db.mui.blizzard.objectiveTracker.header.classColor
+					end,
 					get = function(info)
 						local db = E.db.mui.blizzard.objectiveTracker.header.color
 						local default = P.blizzard.objectiveTracker.header.color
@@ -655,6 +663,102 @@ options.objectiveTracker = {
 					min = 5,
 					max = 60,
 					step = 1
+				},
+			},
+		},
+		backdrop = {
+			order = 8,
+			type = "group",
+			inline = true,
+			name = L["Backdrop"],
+			disabled = function()
+				return not E.db.mui.blizzard.objectiveTracker.enable
+			end,
+			get = function(info)
+				return E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]] = value
+				module:UpdateBackdrop()
+			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"]
+				},
+				transparent = {
+					order = 2,
+					type = "toggle",
+					name = L["Transparent"],
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+					end
+				},
+				betterAlign1 = {
+					order = 3,
+					type = "description",
+					name = "",
+					width = "full"
+				},
+				topLeftOffsetX = {
+					order = 4,
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+					end,
+					name = L["Top Left Offset X"],
+					type = "range",
+					min = -100,
+					max = 100,
+					step = 1,
+					width = 1.2
+				},
+				topLeftOffsetY = {
+					order = 5,
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+					end,
+					name = L["Top Left Offset Y"],
+					type = "range",
+					min = -100,
+					max = 100,
+					step = 1,
+					width = 1.2
+				},
+				betterAlign2 = {
+					order = 6,
+					type = "description",
+					name = "",
+					width = "full"
+				},
+				bottomRightOffsetX = {
+					order = 7,
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+					end,
+					name = L["Bottom Right Offset X"],
+					type = "range",
+					min = -100,
+					max = 100,
+					step = 1,
+					width = 1.2
+				},
+				bottomRightOffsetY = {
+					order = 8,
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+					end,
+					name = L["Bottom Right Offset Y"],
+					type = "range",
+					min = -100,
+					max = 100,
+					step = 1,
+					width = 1.2
 				},
 			},
 		},

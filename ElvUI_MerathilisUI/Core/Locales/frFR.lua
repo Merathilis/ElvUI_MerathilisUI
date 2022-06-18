@@ -821,6 +821,11 @@ L["Change the color of quest titles."] = true
 L["Use Class Color"] = true
 L["Highlight Color"] = true
 L["Title"] = true
+L["Bottom Right Offset X"] = true
+L["Bottom Right Offset Y"] = true
+L["Top Left Offset X"] = true
+L["Top Left Offset Y"] = true
+L["Transparent"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

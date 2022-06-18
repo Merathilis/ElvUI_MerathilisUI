@@ -841,6 +841,11 @@ L["Change the color of quest titles."] = "修改任务标题文字颜色."
 L["Use Class Color"] = "使用职业颜色"
 L["Highlight Color"] = "高亮颜色"
 L["Title"] = "标题"
+L["Bottom Right Offset X"] = true
+L["Bottom Right Offset Y"] = true
+L["Top Left Offset X"] = true
+L["Top Left Offset Y"] = true
+L["Transparent"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.

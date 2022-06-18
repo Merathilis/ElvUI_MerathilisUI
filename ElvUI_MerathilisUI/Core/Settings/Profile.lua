@@ -29,10 +29,19 @@ P.blizzard = {
 		colorfulProgress = true,
 		percentage = false,
 		colorfulPercentage = false,
+		backdrop = {
+			enable = false,
+			transparent = true,
+			topLeftOffsetX = 0,
+			topLeftOffsetY = 0,
+			bottomRightOffsetX = 0,
+			bottomRightOffsetY = 0,
+		},
 		header = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize + 2,
 			style = "OUTLINE",
+			classColor = false,
 			color = {r = 1, g = 1, b = 1},
 			shortHeader = true
 		},
