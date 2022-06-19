@@ -72,16 +72,6 @@ function module:ElvUI_PositionAndSizeBarShapeShift()
 	module:SkinBar(_G.ElvUI_StanceBar, "STANCE")
 end
 
-function module:SkinZoneAbilities(button)
-	if not E.Retail then return end
-
-	for spellButton in button.SpellButtonContainer:EnumerateActive() do
-		if spellButton and spellButton.IsSkinned then
-			module:CreateShadow(spellButton)
-		end
-	end
-end
-
 function module:ElvUI_ActionBar_LoadKeyBinder()
 	local frame = _G.ElvUIBindPopupWindow
 	if not frame then
@@ -118,16 +108,6 @@ function module:Skin_ElvUI_ActionBars()
 	if not E.private.actionbar.masque.stanceBar then
 		module:SkinBar(_G.ElvUI_StanceBar, "STANCE")
 		module:SecureHook(AB, "PositionAndSizeBarShapeShift", "ElvUI_PositionAndSizeBarShapeShift")
-	end
-
-	-- Zone Button
-	module:SecureHook(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", "SkinZoneAbilities")
-
-	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
-		local button = _G["ExtraActionButton" .. i]
-		if button and button.backdrop then
-			module:CreateBackdropShadow(button.backdrop, true)
-		end
 	end
 
 	-- Vehicle leave button
