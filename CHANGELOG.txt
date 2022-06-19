@@ -1,3 +1,9 @@
-[b][color=orange]v5.07[/color], 10.06.2022[/b][list]
-[*]Added shadows on Auras and UnitFrame Auras. Many many thx @DaveA50
-[*]Fixed an issue with Tab fonts are not changeable. Because Mera is dumb >.<[/list]
+[b][color=orange]v5.08[/color], xx.06.2022[/b][list]
+[*]Added Mything Dungeon Ports to the LocPanel Port Menu
+[*]Small install fixes
+[*]Updated my Minimap Button Code. YES, IT IS DIFFERNT; NO, YOU CANT CHANGE IT BACK!!!
+[*]Code Optimization
+[*]Added some TBC items to AutoButtons: THX modblaze
+[*]Also changed the defaults for AutoButtons
+[*]Some Skin updates
+[*]Added an Tooltip line to show the Covenant[/list]
