@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
-
 local format = format
 local find = string.find
 local select = select

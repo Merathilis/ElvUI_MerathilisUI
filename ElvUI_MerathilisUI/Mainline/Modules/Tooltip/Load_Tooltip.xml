@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Achievement.lua"/>
+	<Script file="Covenants.lua"/>
 	<Script file="DominationRank.lua"/>
 	<Script file="KeystoneInfo.lua"/>
 	<Script file="Progress.lua"/>

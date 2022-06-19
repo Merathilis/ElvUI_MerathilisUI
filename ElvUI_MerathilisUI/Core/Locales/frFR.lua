@@ -287,6 +287,14 @@ L["Show icon"] = "Afficher l'icône"
 L["Show the spell icon along with the name."] = "Montrer l'icône du sort avec le nom."
 L["Domination Rank"] = true
 L["Show the rank of shards."] = true
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = true
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
 
 -- Notification
 L["Notification"] = "Notification"

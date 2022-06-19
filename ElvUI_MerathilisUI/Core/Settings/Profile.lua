@@ -990,6 +990,10 @@ P.tooltip = {
 		}
 	},
 	dominationRank = true,
+	covenant = {
+		enable = true,
+		showNotInGroup = false,
+	}
 }
 
 P.errorFilters = {

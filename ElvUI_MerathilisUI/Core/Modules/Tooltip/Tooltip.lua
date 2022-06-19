@@ -44,7 +44,7 @@ end
 function module:Initialize()
 	if E.private.tooltip.enable ~= true then return end
 
-	self.db = E.db.mui.tooltip
+	module.db = E.db.mui.tooltip
 
 	for index, func in next, self.load do
 		xpcall(func, errorhandler)
@@ -52,6 +52,7 @@ function module:Initialize()
 	end
 
 	module:ReskinTooltipIcons()
+	module:CovenantInfo()
 end
 
 function module:ProfileUpdate()

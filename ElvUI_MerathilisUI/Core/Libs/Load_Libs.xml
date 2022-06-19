@@ -1,3 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Include file="oUF_Plugins\oUF_Plugins.xml"/>
+	<Include file="LibOpenRaid\lib.xml"/>
 </Ui>

@@ -287,6 +287,14 @@ L["Show icon"] = "Show icon"
 L["Show the spell icon along with the name."] = "Show the spell icon along with the name."
 L["Domination Rank"] = "지배조각 등급"
 L["Show the rank of shards."] = "지배의 조각 등급을 표시합니다"
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = true
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
 
 -- Notification
 L["Notification"] = "알림 표시"

@@ -291,6 +291,14 @@ L["Show icon"] = "Показать значок"
 L["Show the spell icon along with the name."] = "Показать значок заклинания вместе с названием."
 L["Domination Rank"] = "Ранг Господства"
 L["Show the rank of shards."] = "Показать ранг осколков."
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = true
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
 
 -- Notification
 L["Notification"] = "Уведомления"

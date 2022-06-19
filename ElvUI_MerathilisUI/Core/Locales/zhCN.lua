@@ -290,6 +290,14 @@ L["Show icon"] = "显示图标"
 L["Show the spell icon along with the name."] = "在腐化特效名称前显示其图标。"
 L["Domination Rank"] = "統御等級"
 L["Show the rank of shards."] = "显示统御碎片的等级."
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = true
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
 
 -- Notification
 L["Notification"] = "通知"

@@ -281,6 +281,14 @@ L["Show icon"] = "顯示圖示"
 L["Show the spell icon along with the name."] = "顯示法術圖示以及名稱。"
 L["Domination Rank"] = "統御等級"
 L["Show the rank of shards."] = "顯示統御碎片的等級."
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = true
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
 
 -- Notification
 L["Notification"] = "通知"
