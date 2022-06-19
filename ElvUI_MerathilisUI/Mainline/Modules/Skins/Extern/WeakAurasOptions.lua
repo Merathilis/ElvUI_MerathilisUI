@@ -110,13 +110,11 @@ function module:WeakAurasMultiLineEditBox(Constructor)
 		local onShow = widget.frame:GetScript("OnShow")
 		widget.frame:SetScript("OnShow", function(frame)
 			onShow(frame)
-			local self = frame.obj
-
-			if not self then
+			if not frame.obj or not frame.obj. extraButtons then
 				return
 			end
 
-			for _, button in pairs(self.extraButtons) do
+			for _, button in pairs(frame.obj.extraButtons) do
 				if not button.MERStyle then
 					S:HandleButton(button)
 					button.MERStyle = true
