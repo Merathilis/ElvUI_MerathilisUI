@@ -15,22 +15,22 @@ local GetNumAddOns = GetNumAddOns
 local C_CVar_SetCVar = C_CVar.SetCVar
 local C_UI_Reload = C_UI.Reload
 
-local function AddCommand(name, keys, func)
-	if not SlashCmdList[name] then
-		SlashCmdList[name] = func
+function MER:AddCommand(name, keys, func)
+	if not _G.SlashCmdList["MERATHILISUI_" .. name] then
+		_G.SlashCmdList["MERATHILISUI_" .. name] = func
 
 		if type(keys) == "table" then
 			for i, key in next, keys do
 				if strsub(key, 1, 1) ~= "/" then
 					key = "/" .. key
 				end
-				_G["SLASH_" .. name .. i] = key
+				_G["SLASH_MERATHILISUI_" .. name .. i] = key
 			end
 		else
 			if strsub(keys, 1, 1) ~= "/" then
 				keys = "/" .. keys
 			end
-			_G["SLASH_" .. name .. "1"] = keys
+			_G["SLASH_MERATHILISUI_" .. name .. "1"] = keys
 		end
 	end
 end
@@ -45,7 +45,7 @@ do
 		["BugSack"] = true
 	}
 
-	AddCommand("MERATHILISUI_ERROR", "/muidebug", function(msg)
+	MER:AddCommand("ERROR", "/muidebug", function(msg)
 		local switch = strlower(msg)
 		if switch == "on" or switch == "1" then
 			for i = 1, GetNumAddOns() do

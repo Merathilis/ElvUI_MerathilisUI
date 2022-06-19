@@ -806,7 +806,16 @@ P.maps = {
 			size = E.db.general.fontSize + 2,
 			style = "OUTLINE",
 			color = {r = 1, g = 1, b = 1},
-		}
+		},
+		waypointParse = {
+			enable = true,
+			worldMapInput = true,
+			command = true,
+			commandKeys = {
+				["wtgo"] = true,
+				["goto"] = true,
+			},
+		},
 	},
 	worldMap = {
 		scale = {

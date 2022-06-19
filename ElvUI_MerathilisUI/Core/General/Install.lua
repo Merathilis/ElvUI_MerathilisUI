@@ -258,6 +258,7 @@ function MER:SetupLayout()
 	E.global["general"]["autoScale"] = true
 	E.global["general"]["animateConfig"] = false
 	E.global["general"]["smallerWorldMap"] = false
+	E.global["general"]["WorldMapCoordinates"]["position"] = "BOTTOMLEFT"
 	E.global["general"]["commandBarSetting"] = "ENABLED"
 	E.global["general"]["showMissingTalentAlert"] = true
 

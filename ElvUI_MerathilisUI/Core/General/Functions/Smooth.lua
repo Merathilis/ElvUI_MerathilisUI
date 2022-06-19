@@ -1,7 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 -- Credits ls_UI
-
 local next, Lerp, tonumber = next, Lerp, tonumber
 local abs = math.abs
 
