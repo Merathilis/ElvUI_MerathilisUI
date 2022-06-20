@@ -863,6 +863,10 @@ L["Top Left Offset X"] = "Versatz oben links X"
 L["Top Left Offset Y"] = "Versatz oben links Y"
 L["Transparent"] = true
 
+-- Talents
+L["Talents"] = "Talente"
+L["This feature improves the Talent Window by:\n\nAdding an Extra Button to swap between specializations.\nAdding an Extra Button to use and track duration for Codices and Tomes."] = "Diese Funktion verbessert das Talentfenster um:\n\nEine zusätzliche Taste um schnell zwischen den Spezialisierungen zu wechseln.\nZusätzliche Tasten für Kodexe um schnell die Talente zu wechseln."
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.
 

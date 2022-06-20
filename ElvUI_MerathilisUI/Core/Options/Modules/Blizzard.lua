@@ -7,10 +7,24 @@ local format = string.format
 
 local ObjectiveTracker_Update = ObjectiveTracker_Update
 
-options.objectiveTracker = {
+options.blizzard = {
+	type = "group",
+	name = E.NewSign..L["Blizzard"],
+	get = function(info) return E.db.mui.blizzard[info[#info]] end,
+	set = function(info, value) E.db.mui.blizzard[info[#info]] = value; end,
+	args = {
+		name = {
+			order = 1,
+			type = "header",
+			name = F.cOption(L["Blizzard"], 'orange'),
+		},
+	},
+}
+
+options.blizzard.args.objectiveTracker = {
+	order = 1,
 	type = "group",
 	name = L["Objective Tracker"],
-	childGroups = 'tab',
 	get = function(info) return E.db.mui.blizzard.objectiveTracker[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard.objectiveTracker[info[#info]] = value; ObjectiveTracker_Update(); end,
 	args = {
@@ -761,6 +775,42 @@ options.objectiveTracker = {
 					width = 1.2
 				},
 			},
+		},
+	},
+}
+
+options.blizzard.args.talents = {
+	order = 2,
+	type = "group",
+	name = E.NewSign..L["Talents"],
+	get = function(info) return E.db.mui.blizzard.talents[info[#info]] end,
+	set = function(info, value) E.db.mui.blizzard.talents[info[#info]] = value; end,
+	args = {
+		name = {
+			order = 1,
+			type = "header",
+			name = F.cOption(L["Talents"], 'orange'),
+		},
+		description = {
+			order = 2,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."],
+					fontSize = "medium"
+				},
+			},
+		},
+		enable = {
+			order = 3,
+			type = "toggle",
+			name = L["Enable"],
+			width = "full",
+			set = function(info, value) E.db.mui.blizzard.talents[info[#info]] = value;	E:StaticPopup_Show("PRIVATE_RL") end,
 		},
 	},
 }

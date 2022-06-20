@@ -2,6 +2,7 @@
 	<Script file='ActionBars.lua'/>
 	<Script file='AutoButtons.lua'/>
 	<Script file='Bags.lua'/>
+	<Script file='Blizzard.lua'/>
 	<Script file='Chat.lua'/>
 	<Script file='CombatAlert.lua'/>
 	<Script file='Cooldowns.lua'/>

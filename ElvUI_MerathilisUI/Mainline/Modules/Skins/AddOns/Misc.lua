@@ -77,6 +77,13 @@ local function LoadSkin()
 		end)
 	end
 
+	--LibDropDown
+	local DropDown = _G.ElvUI_MerathilisUIMenuBackdrop
+	if DropDown then
+		DropDown:Styling()
+		module:CreateShadow(DropDown)
+	end
+
 	if _G.CopyChatFrame then
 		_G.CopyChatFrame:Styling()
 	end

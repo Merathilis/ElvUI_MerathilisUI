@@ -23,6 +23,9 @@ P.merchant = {
 }
 
 P.blizzard = {
+	talents = {
+		enable = true,
+	},
 	objectiveTracker = {
 		enable = true,
 		noDash = true,
@@ -891,7 +894,7 @@ P.panels = {
 
 P.smb = {
 	enable = true,
-	mouseOver = false,
+	mouseOver = true,
 	buttonsPerRow = 8,
 	buttonSize = 24,
 	backdrop = true,
