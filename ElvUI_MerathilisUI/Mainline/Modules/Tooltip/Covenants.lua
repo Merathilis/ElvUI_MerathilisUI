@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Tooltip')
-local OP = _G.LibStub("LibOpenRaid-1.0", true)
+local lib = MER.Libs.LOR
 
 local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 local UnitName = UnitName
@@ -32,7 +32,7 @@ function module:GetCovenant(unit)
 		fullName = name.."-"..realm
 	end
 
-	local info = OP.GetAllUnitsInfo()
+	local info = lib.GetAllUnitsInfo()
 
 	if not info then
 		return
