@@ -2,7 +2,7 @@
 ## Interface-Classic: 11402
 ## Interface-BCC: 20504
 ## Author: Merathilis
-## Version: 5.08
+## Version: 5.09
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
