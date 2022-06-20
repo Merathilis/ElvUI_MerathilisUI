@@ -179,20 +179,17 @@ function FlightPoints_CreateFlyPathTable()
 	firstshow = false
 end
 
-function MER:CheckProfile()
-	-- WorldFlightMap don't like this, so stop right here
+function FlightPoints_OnEvent(self, event, ...)
 	local db = E.db.mui or {}
 
 	if not (db and db.general) or type(db.general) ~= 'table' then
 		db.general = {}
 	end
 
-	if not E.db.mui.general.FlightPoint or IsAddOnLoaded("WorldFlightMap") then
+	if not db.general.FlightPoint or IsAddOnLoaded("WorldFlightMap") then
 		return
 	end
-end
 
-function FlightPoints_OnEvent(self, event, ...)
 	if event == "TAXIMAP_OPENED" then
 		firstshow = true
 		FlightPoints_CreateFlyPathTable()
@@ -224,6 +221,4 @@ function FlightPoints_OnEvent(self, event, ...)
 		FlightPointsTaxiChoice:Hide()
 		taxinodeinfos = {}
 	end
-
-	E:Delay(5, MER.CheckProfile)
 end
