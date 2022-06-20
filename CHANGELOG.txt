@@ -1,4 +1,4 @@
-[b][color=orange]v5.08[/color], xx.06.2022[/b][list]
+[b][color=orange]v5.08[/color], 20.06.2022[/b][list]
 [*]Added Mything Dungeon Ports to the LocPanel Port Menu
 [*]Small install fixes
 [*]Updated my Minimap Button Code. YES, IT IS DIFFERNT; NO, YOU CANT CHANGE IT BACK!!!
