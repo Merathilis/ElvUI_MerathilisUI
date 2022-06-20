@@ -13,7 +13,7 @@ local function LoadSkin()
 	if CraftFrame.backdrop then
 		CraftFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(CraftFrame)
+	module:CreateBackdropShadow(CraftFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_CraftUI", LoadSkin)

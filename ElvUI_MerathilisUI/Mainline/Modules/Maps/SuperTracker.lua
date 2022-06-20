@@ -3,11 +3,18 @@ local module = MER:GetModule('MER_SuperTracker')
 
 local _G = _G
 
+local tonumber = tonumber
+local tinsert = tinsert
+
 local C_Map_ClearUserWaypoint = C_Map.ClearUserWaypoint
+local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Map_HasUserWaypoint = C_Map.HasUserWaypoint
+local C_Map_CanSetUserWaypointOnMap = C_Map.CanSetUserWaypointOnMap
 local C_Navigation_GetDistance = C_Navigation.GetDistance
 local C_SuperTrack_SetSuperTrackedUserWaypoint = C_SuperTrack.SetSuperTrackedUserWaypoint
 local IsAddOnLoaded = IsAddOnLoaded
+local UiMapPoint_CreateFromCoordinates = UiMapPoint.CreateFromCoordinates
+local C_Map_SetUserWaypoint = C_Map.SetUserWaypoint
 
 function module:ReskinDistanceText()
 	if not _G.SuperTrackedFrame or not _G.SuperTrackedFrame.DistanceText then
@@ -58,6 +65,191 @@ function module:NoLimit()
 	end, true)
 end
 
+function module.commandHandler(msg, isPreview)
+	-- Global Command Handler
+	if isPreview and type(isPreview) == "table" then
+		isPreview = false
+	end
+
+	if not msg or msg == "" then
+		if isPreview then
+			return false, L["No Arg"]
+		else
+			F.Print(L["The argument is needed."])
+			return
+		end
+	end
+
+	msg =
+		F.Strings.Replace(
+		msg,
+		{
+			["　"] = " ",
+			["．"] = ".",
+			[","] = " ",
+			["，"] = " ",
+			["/"] = " ",
+			["|"] = " ",
+			["＂"] = " ",
+			["'"] = " ",
+			['"'] = " ",
+			["["] = " ",
+			["]"] = " ",
+			["("] = " ",
+			[")"] = " ",
+			["（"] = " ",
+			["）"] = " ",
+			["的"] = " ",
+			["在"] = " ",
+			["于"] = " "
+		}
+	)
+
+	local numbers = {}
+	local words = {F.Strings.Split(msg .. " ", " ")}
+
+	if #words < 3 then
+		if isPreview then
+			return false, L["invalid"]
+		else
+			F.Print(L["The argument is invalid."])
+			return
+		end
+	end
+
+	for _, n in ipairs(words) do
+		local num = tonumber(n)
+
+		if not strmatch(n, "%.$") and num then
+			tinsert(numbers, num)
+		end
+	end
+
+	if #numbers < 2 then
+		if isPreview then
+			return false, L["invalid"]
+		else
+			F.Print(L["The argument is invalid."])
+			return
+		end
+	end
+
+	if numbers[1] > 100 or numbers[2] > 100 then
+		if isPreview then
+			return false, L["illegal"]
+		else
+			F.Print(L["The coordinates contain illegal number."])
+			return
+		end
+	end
+
+
+   if isPreview then
+		local waypointString = numbers[1] .. ", " .. numbers[2]
+		if numbers[3] then
+			waypointString = waypointString .. ", " .. numbers[3]
+		end
+		return true, waypointString
+	else
+		module:SetWaypoint(unpack(numbers))
+	end
+end
+
+function module:SetWaypoint(x, y, z)
+	local mapID = C_Map_GetBestMapForUnit("player")
+
+	-- colored waypoint string
+	local waypointString = "|cff209cee(" .. x .. ", " .. y
+	if z then
+		waypointString = waypointString .. ", " .. z
+	end
+	waypointString = waypointString .. ")|r"
+
+	-- if not scaled, just do it here
+	if x > 1 and y > 1 then
+		x = x / 100
+		y = y / 100
+		z = z and z / 100
+	end
+
+	if x > 1 or y > 1 or (z and z > 1) then
+		F.Print(L["The coordinates contain illegal number."])
+		return
+	end
+
+	if C_Map_CanSetUserWaypointOnMap(mapID) then
+		C_Map_SetUserWaypoint(UiMapPoint_CreateFromCoordinates(mapID, x, y, z))
+		F.Print(format(L["Waypoint %s has been set."], waypointString))
+	else
+		self:Log("warning", L["Can not set waypoint on this map."])
+	end
+end
+
+function module:WaypointParse()
+	if not self.db.waypointParse.enable then
+		return
+	end
+
+    if self.db.waypointParse.command then
+        local keys = {}
+        for k, _ in pairs(self.db.waypointParse.commandKeys) do
+            tinsert(keys, k)
+        end
+        MER:AddCommand("SUPER_TRACKER", keys, self.commandHandler)
+    end
+
+	if not self.db.waypointParse.worldMapInput then
+		return
+	end
+
+	-- Input Text Edit Box
+	local editBox = F.Widgets.New("Input", _G.WorldMapFrame, 200, 20, function(eb)
+		self.commandHandler(eb:GetText(), false)
+		eb:ClearFocus()
+	end)
+
+	editBox:SetPoint("TOPLEFT", _G.WorldMapFrame, "TOPLEFT", 3, -8)
+	editBox:SetAutoFocus(false)
+
+	-- Placeholder
+	local placeholder = editBox:CreateFontString(nil, "ARTWORK")
+	placeholder:FontTemplate(nil, nil, "OUTLINE")
+	placeholder:SetText("|cff666666" .. L["Go to ..."] .. "|r")
+	placeholder:SetPoint("CENTER", editBox, "CENTER", 0, 0)
+
+	editBox:HookScript("OnEditFocusGained", function()
+		placeholder:Hide()
+	end)
+
+	editBox:HookScript("OnEditFocusLost", function(eb)
+		local inputText = eb:GetText()
+		if not inputText or gsub(inputText, " ", "") == "" then
+			placeholder:Show()
+			return
+		end
+		placeholder:Hide()
+	end)
+
+	-- Status Text
+	local statusText = editBox:CreateFontString(nil, "ARTWORK")
+	statusText:FontTemplate(nil, nil, "OUTLINE")
+	statusText:SetPoint("LEFT", editBox, "RIGHT", 5, 0)
+
+	-- worldquest-questmarker-questionmark
+	editBox:SetScript("OnTextChanged", function(eb)
+		local inputText = eb:GetText()
+		if not inputText or gsub(inputText, " ", "") == "" then
+			statusText:SetText("")
+			return
+		end
+
+		local success, preview = self.commandHandler(inputText, true)
+		statusText:SetText("|cff" .. (success and "00d1b2" or "999999") .. preview .. "|r")
+	end)
+
+	F.Widgets.AddTooltip(editBox, format("%s\n%s", F.cOption((L["Smart Waypoint"]), 'gradient'), L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."]), "ANCHOR_TOPLEFT", -13, 12)
+end
+
 function module:USER_WAYPOINT_UPDATED()
 	if C_Map_HasUserWaypoint() then
 		if self.db and self.db.autoTrackWaypoint then
@@ -98,6 +290,7 @@ function module:Initialize()
 
 	self:NoLimit()
 	self:ReskinDistanceText()
+	self:WaypointParse()
 end
 
 MER:RegisterModule(module:GetName())

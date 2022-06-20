@@ -76,6 +76,12 @@ build/
 *.pidb
 *.scc
 
+/__pycache__/
+/.vscode/
+*.code-workspace
+*.psd
+*.exe
+
 # Visual C++ cache files
 ipch/
 *.aps

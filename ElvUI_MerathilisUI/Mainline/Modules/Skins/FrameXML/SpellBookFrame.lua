@@ -31,7 +31,7 @@ local function LoadSkin()
 
 	local SpellBookFrame = _G.SpellBookFrame
 	SpellBookFrame:Styling()
-	MER:CreateShadow(SpellBookFrame)
+	module:CreateShadow(SpellBookFrame)
 	if SpellBookFrame.pagebackdrop then
 		SpellBookFrame.pagebackdrop:Hide()
 	end

@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
 if not IsAddOnLoaded("ProjectAzilroka") then return end
 
 local _G = _G
@@ -17,6 +16,7 @@ local function LoadSkin()
 			if stFrame then
 				stFrame:Styling()
 				stFrame.AddOns:SetTemplate("Transparent")
+				module:CreateShadow(stFrame)
 			end
 			f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		end

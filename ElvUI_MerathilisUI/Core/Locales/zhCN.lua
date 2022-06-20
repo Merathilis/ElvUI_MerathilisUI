@@ -290,6 +290,14 @@ L["Show icon"] = "显示图标"
 L["Show the spell icon along with the name."] = "在腐化特效名称前显示其图标。"
 L["Domination Rank"] = "統御等級"
 L["Show the rank of shards."] = "显示统御碎片的等级."
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = true
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
 
 -- Notification
 L["Notification"] = "通知"
@@ -535,6 +543,7 @@ L["Update canceled."] = "更新取消"
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = "物品信息不可用.请等待一小会.当所有信息变得可用时，菜单将自动打开时.在更新期间再次调用菜单将取消它."
 L["Update complete. Opening menu."] = "更新完成，正在打开菜单."
 L["Hide Coordinates"] = "隐藏坐标"
+L["Dungeon Teleports"] = true
 
 -- Maps
 L["MiniMap"] = "小地图"
@@ -557,9 +566,61 @@ L["No Distance Limitation"] = "无距离限制"
 L["Force to track the target even if it over 1000 yds."] = "强制追踪超过 1000 码的目标."
 L["Distance Text"] = "距离文字"
 L["Only Number"] = "仅数字"
+L["Add Command"] = "添加命令"
+L["Add a input box to the world map."] = "在世界地图中添加一个输入框."
+L["Are you sure to delete the %s command?"] = "你确定要删除 %s 命令?"
+L["Can not set waypoint on this map."] = "无法在这个地图上设置路径点."
+L["Command"] = "命令"
+L["Command Configuration"] = "命令设置"
+L["Command List"] = "命令列表"
+L["Delete Command"] = "删除命令"
+L["Delete the selected command."] = "删除选中的命令."
+L["Enable to use the command to set the waypoint."] = "启用使用命令设置路径点的功能."
+L["Go to ..."] = "前往 ..."
+L["Input Box"] = "输入框"
+L["New Command"] = "新命令"
+L["No Arg"] = "无参数"
+L["Smart Waypoint"] = "智能路径点"
+L["The argument is invalid."] = "参数无效."
+L["The argument is needed."] = "需要参数."
+L["The command to set a waypoint."] = "设置路径点的命令."
+L["The coordinates contain illegal number."] = "坐标包含非法数字."
+L["Waypoint %s has been set."] = "已设置 %s 路径点."
+L["Waypoint Parse"] = "路径点解析"
+L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = "你可以在这里粘贴任何包含坐标的文字, 然后按 回车键 设置路径点."
+L["illegal"] = "非法"
+L["invalid"] = "无效"
 
 -- SMB
-L["Button Settings"] = "按键设置"
+L["Minimap Buttons"] = "小地图按钮"
+L["Add an extra bar to collect minimap buttons."] = "添加一个额外的条来收集小地图图标."
+L["Toggle minimap buttons bar."] = "开关小地图按钮条."
+L["Mouse Over"] = "鼠标滑过显示"
+L["Only show minimap buttons bar when you mouse over it."] = "只在鼠标滑过时显示小地图按钮条."
+L["Minimap Buttons Bar"] = "小地图按钮条"
+L["Bar Backdrop"] = "条背景"
+L["Show a backdrop of the bar."] = "为条添加一个背景."
+L["Backdrop Spacing"] = "背景间距"
+L["The spacing between the backdrop and the buttons."] = "背景与按钮之间的间隙."
+L["Inverse Direction"] = "反向"
+L["Reverse the direction of adding buttons."] = "反转添加按钮时的方向."
+L["Orientation"] = "按钮对齐方向"
+L["Arrangement direction of the bar."] = "条的成长方向."
+L["Drag"] = "拖拽"
+L["Horizontal"] = "水平"
+L["Vertical"] = "垂直"
+L["Buttons"] = "按钮数"
+L["Buttons Per Row"] = "每行按钮数"
+L["The amount of buttons to display per row."] = "每行显示多少个按钮数"
+L["Button Size"] = "按钮大小"
+L["The size of the buttons."] = "按钮的大小."
+L["Button Spacing"] = "按钮间距"
+L["The spacing between buttons."] = "两个按钮间的距离."
+L["Blizzard Buttons"] = "暴雪按钮"
+L["Calendar"] = "日历"
+L["Add calendar button to the bar."] = "添加日历按钮到条上."
+L["Garrison"] = "要塞"
+L["Add garrison button to the bar."] = "添加要塞按钮到条上."
 
 -- Raid Marks
 L["Raid Markers"] = "团队标记"
@@ -723,7 +784,6 @@ L["Installed"] = "安装"
 L["MSG_MER_ELV_OUTDATED"] = "您的ElvUI版本比推荐使用|cffff7d0aMerathilisUI|r的版本旧. 你的版本是 |cff00c0fa%.2f|r (推荐版本 |cff00c0fa%.2f|r). MerathilisUI未加载. 请更新你的ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = "你已经同时启用了Location Plus和Shadow＆Light.选择要禁用的插件"
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[在这里,您可以选择S＆L的布局.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[在这里,您可以选择BenikUI的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[在这里,您可以选择BigWigs的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[在这里,您可以选择Deadly Boss Mods的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[在这里,您可以选择Details!的布局.]]
@@ -813,6 +873,15 @@ L["Change the color of quest titles."] = "修改任务标题文字颜色."
 L["Use Class Color"] = "使用职业颜色"
 L["Highlight Color"] = "高亮颜色"
 L["Title"] = "标题"
+L["Bottom Right Offset X"] = true
+L["Bottom Right Offset Y"] = true
+L["Top Left Offset X"] = true
+L["Top Left Offset Y"] = true
+L["Transparent"] = true
+
+-- Talents
+L["Talents"] = true
+L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.

@@ -19,17 +19,17 @@ local function LoadSkin()
 	end
 
 	CalendarFrame.backdrop:Styling()
-	MER:CreateBackdropShadow(CalendarFrame)
+	module:CreateBackdropShadow(CalendarFrame)
 	CalendarCreateEventFrame:Styling()
-	MER:CreateBackdropShadow(CalendarCreateEventFrame)
+	module:CreateBackdropShadow(CalendarCreateEventFrame)
 	CalendarViewHolidayFrame:Styling()
-	MER:CreateBackdropShadow(CalendarViewHolidayFrame)
+	module:CreateBackdropShadow(CalendarViewHolidayFrame)
 	CalendarViewEventFrame:Styling()
-	MER:CreateBackdropShadow(CalendarViewEventFrame)
+	module:CreateBackdropShadow(CalendarViewEventFrame)
 	CalendarMassInviteFrame:Styling()
-	MER:CreateBackdropShadow(CalendarMassInviteFrame)
+	module:CreateBackdropShadow(CalendarMassInviteFrame)
 	CalendarViewRaidFrame:Styling()
-	MER:CreateBackdropShadow(CalendarViewRaidFrame)
+	module:CreateBackdropShadow(CalendarViewRaidFrame)
 
 	for i = 1, 42 do
 		_G["CalendarDayButton"..i.."DarkFrame"]:SetAlpha(.5)

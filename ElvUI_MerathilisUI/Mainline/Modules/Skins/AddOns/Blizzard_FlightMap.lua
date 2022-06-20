@@ -11,7 +11,7 @@ local function LoadSkin()
 
 	local FlightMapFrame = _G.FlightMapFrame
 	FlightMapFrame:Styling()
-	MER:CreateShadow(FlightMapFrame)
+	module:CreateShadow(FlightMapFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_FlightMap", LoadSkin)

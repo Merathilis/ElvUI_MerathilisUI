@@ -28,7 +28,7 @@ local function LoadSkin()
 
 	local PlayerTalentFrame = _G.PlayerTalentFrame
 	PlayerTalentFrame:Styling()
-	MER:CreateShadow(PlayerTalentFrame)
+	module:CreateShadow(PlayerTalentFrame)
 
 	for i = 1, 3 do
 		module:ReskinTab(_G["PlayerTalentFrameTab" .. i])
@@ -199,7 +199,7 @@ local function LoadSkin()
 
 	local PlayerTalentFrameTalentsPvpTalentFrameTalentList = _G.PlayerTalentFrameTalentsPvpTalentFrameTalentList
 	PlayerTalentFrameTalentsPvpTalentFrameTalentList:Styling()
-	MER:CreateShadow(PlayerTalentFrameTalentsPvpTalentFrameTalentList)
+	module:CreateShadow(PlayerTalentFrameTalentsPvpTalentFrameTalentList)
 
 	for _, Button in pairs(PvpTalentFrame.TalentList.ScrollFrame.buttons) do
 		if Button then

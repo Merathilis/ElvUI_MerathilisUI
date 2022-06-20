@@ -11,7 +11,7 @@ local function LoadSkin()
 
 	local AddonList = _G.AddonList
 	AddonList:Styling()
-	MER:CreateBackdropShadow(AddonList)
+	module:CreateBackdropShadow(AddonList)
 	_G.AddonCharacterDropDown:SetWidth(170)
 end
 

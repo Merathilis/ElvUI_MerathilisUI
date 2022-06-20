@@ -11,11 +11,11 @@ local function LoadSkin()
 
 	local TimeManagerFrame = _G.TimeManagerFrame
 	TimeManagerFrame:Styling()
-	MER:CreateBackdropShadow(TimeManagerFrame)
+	module:CreateBackdropShadow(TimeManagerFrame)
 
 	local StopwatchFrame = _G.StopwatchFrame
 	StopwatchFrame:Styling()
-	MER:CreateBackdropShadow(StopwatchFrame)
+	module:CreateBackdropShadow(StopwatchFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_TimeManager", LoadSkin)

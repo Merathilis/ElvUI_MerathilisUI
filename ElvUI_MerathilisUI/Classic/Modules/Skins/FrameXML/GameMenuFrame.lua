@@ -11,10 +11,10 @@ local function LoadSkin()
 	end
 
 	local GameMenuFrame = _G.GameMenuFrame
-	if GameMenuFrame and not GameMenuFrame.IsStyled then
+	if GameMenuFrame and not GameMenuFrame.__MERSkin then
 		GameMenuFrame:Styling()
-		MER:CreateShadow(GameMenuFrame)
-		GameMenuFrame.IsStyled = true
+		module:CreateShadow(GameMenuFrame)
+		GameMenuFrame.__MERSkin = true
 	end
 
 	-- GameMenu Header Color

@@ -7,7 +7,7 @@ local locale = (E.global.general.locale and E.global.general.locale ~= "auto") a
 local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 
 local _G = _G
-local next = next
+local next, type = next, type
 local print = print
 
 local collectgarbage = collectgarbage
@@ -65,7 +65,7 @@ MER.Modules.Mail = MER:NewModule('MER_Mail', 'AceHook-3.0')
 MER.Modules.MicroBar = MER:NewModule('MER_MicroBar', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.MiniMap = MER:NewModule('MER_Minimap', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.RectangleMinimap = MER:NewModule('MER_RectangleMinimap', 'AceHook-3.0', 'AceEvent-3.0')
-MER.Modules.MiniMapButtons = MER:NewModule('MER_MiniMapButtons', 'AceTimer-3.0')
+MER.Modules.MiniMapButtons = MER:NewModule('MER_MiniMapButtons', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.Misc = MER:NewModule('MER_Misc', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.NamePlates = MER:NewModule('MER_NamePlates', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.NamePlateAuras = MER:NewModule('MER_NameplateAuras', 'AceEvent-3.0')
@@ -82,6 +82,7 @@ MER.Modules.RandomToy = MER:NewModule('MER_RandomToy', 'AceEvent-3.0')
 MER.Modules.Reminder = MER:NewModule('MER_Reminder', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.Skins = MER:NewModule('MER_Skins', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.SuperTracker = MER:NewModule('MER_SuperTracker', 'AceHook-3.0', 'AceEvent-3.0')
+MER.Modules.Talent = MER:NewModule('MER_Talent', 'AceTimer-3.0', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.Tooltip = MER:NewModule('MER_Tooltip', 'AceTimer-3.0', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.UnitFrames = MER:NewModule('MER_UnitFrames', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.VehicleBar = MER:NewModule('MER_VehicleBar', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
@@ -89,22 +90,34 @@ MER.Modules.WidgetSkin = MER:NewModule('MER_WidgetSkin', 'AceHook-3.0', 'AceEven
 MER.Modules.WorldMap = MER:NewModule('MER_WorldMap', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.ZoneText = MER:NewModule('MER_ZoneText', 'AceHook-3.0')
 
+-- Libraries
+do
+	MER.Libs = {}
+	MER.LibsMinor = {}
+
+	function MER:AddLib(name, major, minor)
+		if not name then
+			return
+		end
+
+		-- in this case: `major` is the lib table and `minor` is the minor version
+		if type(major) == 'table' and type(minor) == 'number' then
+			MER.Libs[name], MER.LibsMinor[name] = major, minor
+		else -- in this case: `major` is the lib name and `minor` is the silent switch
+			MER.Libs[name], MER.LibsMinor[name] = _G.LibStub(major, minor)
+		end
+	end
+
+	MER:AddLib('LDF', 'LibDeflate')
+	MER:AddLib('LDD', 'LibDropDown')
+	MER:AddLib('LOR', 'LibOpenRaid-1.0')
+end
+
 function MER:Initialize()
 	-- ElvUI -> MerathilisUI -> MerathilisUI Modules
 	if not self:CheckElvUIVersion() then
 		return
 	end
-
-	self.initialized = true
-
-	self:UpdateScripts() -- Database need update first
-	self:InitializeModules()
-
-	self:AddMoverCategories()
-
-	EP:RegisterPlugin(addon, MER.OptionsCallback)
-	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
-	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 
 	for name, module in self:IterateModules() do
 		Engine[2].Developer.InjectLogger(module)
@@ -119,6 +132,17 @@ function MER:Initialize()
 	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
+
+	self.initialized = true
+
+	self:UpdateScripts() -- Database need update first
+	self:InitializeModules()
+
+	self:AddMoverCategories()
+
+	EP:RegisterPlugin(addon, MER.OptionsCallback)
+	self:SecureHook(E, 'UpdateAll', 'UpdateModules')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
 do

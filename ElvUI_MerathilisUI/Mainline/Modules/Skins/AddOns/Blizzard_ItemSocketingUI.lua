@@ -12,7 +12,7 @@ local function LoadSkin()
 
 	local ItemSocketingFrame = _G["ItemSocketingFrame"]
 	ItemSocketingFrame:Styling()
-	MER:CreateBackdropShadow(ItemSocketingFrame)
+	module:CreateBackdropShadow(ItemSocketingFrame)
 
 	ItemSocketingFrame:DisableDrawLayer("ARTWORK")
 

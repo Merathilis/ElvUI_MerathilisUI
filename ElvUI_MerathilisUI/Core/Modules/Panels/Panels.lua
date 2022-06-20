@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Panels')
+local S = MER:GetModule('MER_Skins')
 
 local CreateFrame = CreateFrame
 
@@ -53,7 +54,7 @@ function module:CreatePanels()
 	topLeftStyle:Size(panelSize, 4)
 	topLeftStyle:Point("TOPLEFT", E.UIParent, "TOPLEFT", 2, -8)
 	MER_TopLeftStyle = topLeftStyle
-	MER:CreateShadow(topLeftStyle)
+	S:CreateShadow(topLeftStyle)
 	topLeftStyle:Hide(topLeftStyle)
 
 	local TopLeftStylePanel = CreateFrame("Frame", "MER_TopLeftExtraStyle", E.UIParent, 'BackdropTemplate')
@@ -71,7 +72,7 @@ function module:CreatePanels()
 	bottomLeftSytle:Size(panelSize, 4)
 	bottomLeftSytle:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 10)
 	MER_BottomLeftStyle = bottomLeftSytle
-	MER:CreateShadow(bottomLeftSytle)
+	S:CreateShadow(bottomLeftSytle)
 	bottomLeftSytle:Hide()
 
 	local BottomLeftStylePanel = CreateFrame("Frame", "MER_BottomLeftExtraStyle", E.UIParent, 'BackdropTemplate')
@@ -89,7 +90,7 @@ function module:CreatePanels()
 	topRightStyle:Size(panelSize, 4)
 	topRightStyle:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -8)
 	MER_TopRightStyle = topRightStyle
-	MER:CreateShadow(topRightStyle)
+	S:CreateShadow(topRightStyle)
 	topRightStyle:Hide()
 
 	local TopRightStylePanel = CreateFrame("Frame", "MER_TopRightExtraStyle", E.UIParent, 'BackdropTemplate')
@@ -107,7 +108,7 @@ function module:CreatePanels()
 	bottomRightStyle:Size(panelSize, 4)
 	bottomRightStyle:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 10)
 	MER_BottomRightStyle = bottomRightStyle
-	MER:CreateShadow(bottomRightStyle)
+	S:CreateShadow(bottomRightStyle)
 	bottomRightStyle:Hide()
 
 	local BottomRightStylePanel = CreateFrame("Frame", "MER_BottomRightExtraStyle", E.UIParent, 'BackdropTemplate')

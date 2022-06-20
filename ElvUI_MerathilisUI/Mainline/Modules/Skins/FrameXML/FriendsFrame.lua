@@ -36,7 +36,7 @@ local function LoadSkin()
 	}
 
 	for _, frame in pairs(frames) do
-		MER:CreateShadow(frame)
+		module:CreateShadow(frame)
 	end
 
 	-- A check for german clients cause the font is sometimes tooo huge (tested with Expressway 11)

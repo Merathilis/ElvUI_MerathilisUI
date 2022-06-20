@@ -31,7 +31,7 @@ local function LoadSkin()
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
-		MER:CreateBackdropShadow(_G[skins[i]])
+		module:CreateBackdropShadow(_G[skins[i]])
 	end
 
 	--DropDownMenu
@@ -40,16 +40,16 @@ local function LoadSkin()
 		local listFrameName = listFrame:GetName()
 
 		local Backdrop = _G[listFrameName.."Backdrop"]
-		if Backdrop and not Backdrop.IsSkinned then
+		if Backdrop and not Backdrop.__MERSkin then
 			Backdrop:Styling()
-			MER:CreateShadow(Backdrop)
-			Backdrop.IsSkinned = true
+			module:CreateShadow(Backdrop)
+			Backdrop.__MERSkin = true
 		end
 
 		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
-		if menuBackdrop and not menuBackdrop.IsSkinned then
+		if menuBackdrop and not menuBackdrop.__MERSkin then
 			menuBackdrop:Styling()
-			menuBackdrop.IsSkinned = true
+			menuBackdrop.__MERSkin = true
 		end
 	end)
 
@@ -60,9 +60,9 @@ local function LoadSkin()
 		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
 			if not _G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
-				MER:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
+				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
-				MER:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
+				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
 			end
 		end)
 	end
@@ -89,12 +89,6 @@ local function LoadSkin()
 
 	-- Chat Config
 	_G.ChatConfigFrame:Styling()
-
-	-- ElvUI Stuff
-	_G.LeftChatDataPanel:Styling()
-	_G.RightChatDataPanel:Styling()
-	_G.ElvUI_TopPanel:Styling()
-	_G.ElvUI_BottomPanel:Styling()
 
 	-- Mirror Timers
 	if _G.MirrorTimer1StatusBar.backdrop then

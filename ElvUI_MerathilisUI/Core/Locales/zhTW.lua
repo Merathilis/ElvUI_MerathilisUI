@@ -281,6 +281,14 @@ L["Show icon"] = "顯示圖示"
 L["Show the spell icon along with the name."] = "顯示法術圖示以及名稱。"
 L["Domination Rank"] = "統御等級"
 L["Show the rank of shards."] = "顯示統御碎片的等級."
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = true
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
 
 -- Notification
 L["Notification"] = "通知"
@@ -513,6 +521,7 @@ L["Update canceled."] = true
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = true
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
+L["Dungeon Teleports"] = true
 
 -- Maps
 L["MiniMap Buttons"] = true
@@ -534,9 +543,61 @@ L["No Distance Limitation"] = "無距離限制"
 L["Force to track the target even if it over 1000 yds."] = "強制追蹤超過 1000 碼的目標."
 L["Distance Text"] = "距離文字"
 L["Only Number"] = "只有數字"
+L["Add Command"] = "新增指令"
+L["Add a input box to the world map."] = "添加一個輸入框到世界地圖."
+L["Are you sure to delete the %s command?"] = "你是否確定刪除 %s 指令?"
+L["Can not set waypoint on this map."] = "無法在此地圖上設定地圖標記."
+L["Command"] = "指令"
+L["Command Configuration"] = "指令設定"
+L["Command List"] = "指令列表"
+L["Delete Command"] = "刪除指令"
+L["Delete the selected command."] = "刪除選中的指令."
+L["Enable to use the command to set the waypoint."] = "啟用使用指令設定地圖標記的功能."
+L["Go to ..."] = "前往 ..."
+L["Input Box"] = "輸入框"
+L["New Command"] = "新指令"
+L["No Arg"] = "無參數"
+L["Smart Waypoint"] = "智能地圖標記"
+L["The argument is invalid."] = "參數無效."
+L["The argument is needed."] = "需要參數."
+L["The command to set a waypoint."] = "設置地圖標記的指令."
+L["The coordinates contain illegal number."] = "坐標包含非法數字."
+L["Waypoint %s has been set."] = "已設定 %s 地圖標記."
+L["Waypoint Parse"] = "地圖標記解析"
+L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = "你可以在這裡貼上任何包含座標的文字, 並按下 輸入鍵(Enter) 設定地圖標記."
+L["illegal"] = "非法"
+L["invalid"] = "無效"
 
 -- SMB
-L["Button Settings"] = "按鍵設定"
+L["Minimap Buttons"] = "小地圖按鍵"
+L["Add an extra bar to collect minimap buttons."] = "添加一個額外的條來蒐集小地圖按鍵."
+L["Toggle minimap buttons bar."] = "開關小地圖按鍵條."
+L["Mouse Over"] = "滑鼠滑過顯示"
+L["Only show minimap buttons bar when you mouse over it."] = "只在滑鼠經過時顯示小地圖按鍵條."
+L["Minimap Buttons Bar"] = "小地圖按鍵條"
+L["Bar Backdrop"] = "條背景"
+L["Show a backdrop of the bar."] = "顯示條背景."
+L["Backdrop Spacing"] = "背景間距"
+L["The spacing between the backdrop and the buttons."] = "背景與按鍵之間的間隙."
+L["Inverse Direction"] = "反向"
+L["Reverse the direction of adding buttons."] = "反轉添加按鍵的方向."
+L["Orientation"] = "按鍵對齊方向"
+L["Arrangement direction of the bar."] = "條的增長方向."
+L["Drag"] = "拖拽"
+L["Horizontal"] = "水平"
+L["Vertical"] = "垂直"
+L["Buttons"] = "按鍵數"
+L["Buttons Per Row"] = "每行按鍵數"
+L["The amount of buttons to display per row."] = "每行所顯示的按鍵數量."
+L["Button Size"] = "按鍵尺寸"
+L["The size of the buttons."] = "按鍵的尺寸."
+L["Button Spacing"] = "按鍵間距"
+L["The spacing between buttons."] = "兩個按鍵間的距離."
+L["Blizzard Buttons"] = "暴雪按鍵"
+L["Calendar"] = "行事曆"
+L["Add calendar button to the bar."] = "添加行事曆按鍵到條上."
+L["Garrison"] = "要塞"
+L["Add garrison button to the bar."] = "添加要塞按鍵到條上."
 
 --Raid Marks
 L["Raid Markers"] = "團隊標記"
@@ -699,7 +760,6 @@ L["Installed"] = true
 L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for BenikUI.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[Here you can choose the layout for Deadly Boss Mods.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
@@ -788,6 +848,15 @@ L["Change the color of quest titles."] = true
 L["Use Class Color"] = true
 L["Highlight Color"] = true
 L["Title"] = true
+L["Bottom Right Offset X"] = true
+L["Bottom Right Offset Y"] = true
+L["Top Left Offset X"] = true
+L["Top Left Offset Y"] = true
+L["Transparent"] = true
+
+-- Talents
+L["Talents"] = true
+L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

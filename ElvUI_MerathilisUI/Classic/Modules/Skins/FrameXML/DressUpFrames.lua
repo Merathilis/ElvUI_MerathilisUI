@@ -13,7 +13,7 @@ local function LoadSkin()
 	if DressUpFrame.backdrop then
 		DressUpFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(_G.DressUpFrame)
+	module:CreateBackdropShadow(_G.DressUpFrame)
 end
 
 S:AddCallback("DressUpFrame", LoadSkin)

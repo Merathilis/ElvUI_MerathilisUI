@@ -15,7 +15,7 @@ local function LoadSkin()
 	end
 
 	_G.PVPReadyDialog:Styling()
-	MER:CreateBackdropShadow(_G.PVPReadyDialog)
+	module:CreateBackdropShadow(_G.PVPReadyDialog)
 
 	local PVPQueueFrame = _G.PVPQueueFrame
 	local HonorFrame = _G.HonorFrame

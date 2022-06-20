@@ -19,32 +19,32 @@ local function LoadSkin()
 		CommunitiesFrame.backdrop:Styling()
 	end
 
-	MER:CreateBackdropShadow(CommunitiesFrame)
-	MER:CreateShadow(CommunitiesFrame.ChatTab)
-	MER:CreateShadow(CommunitiesFrame.RosterTab)
-	MER:CreateShadow(CommunitiesFrame.GuildBenefitsTab)
-	MER:CreateShadow(CommunitiesFrame.GuildInfoTab)
-	MER:CreateBackdropShadow(CommunitiesFrame.GuildMemberDetailFrame)
-	MER:CreateBackdropShadow(CommunitiesFrame.ClubFinderInvitationFrame)
+	module:CreateBackdropShadow(CommunitiesFrame)
+	module:CreateShadow(CommunitiesFrame.ChatTab)
+	module:CreateShadow(CommunitiesFrame.RosterTab)
+	module:CreateShadow(CommunitiesFrame.GuildBenefitsTab)
+	module:CreateShadow(CommunitiesFrame.GuildInfoTab)
+	module:CreateBackdropShadow(CommunitiesFrame.GuildMemberDetailFrame)
+	module:CreateBackdropShadow(CommunitiesFrame.ClubFinderInvitationFrame)
 	if _G.CommunitiesGuildLogFrame then
-		MER:CreateBackdropShadow(_G.CommunitiesGuildLogFrame)
+		module:CreateBackdropShadow(_G.CommunitiesGuildLogFrame)
 	end
 
 	-- Active Communities
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)
 		if clubInfo then
-			if self.bg and self.bg.backdrop and not self.IsStyled then
+			if self.bg and self.bg.backdrop and not self.__MERSkin then
 				module:CreateGradient(self.bg.backdrop)
-				self.IsStyled = true
+				self.__MERSkin = true
 			end
 		end
 	end)
 
 	-- Add Community Button
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetAddCommunity", function(self)
-		if self.bg and self.bg.backdrop and not self.IsStyled then
+		if self.bg and self.bg.backdrop and not self.__MERSkin then
 			module:CreateGradient(self.bg.backdrop)
-			self.IsStyled = true
+			self.__MERSkin = true
 		end
 	end)
 

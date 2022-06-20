@@ -13,7 +13,7 @@ local function LoadSkin()
 
 	local function SkinLFGuild(self)
 		self:Styling()
-		MER:CreateBackdropShadow(self)
+		module:CreateBackdropShadow(self)
 	end
 	hooksecurefunc("LookingForGuildFrame_OnShow", SkinLFGuild)
 

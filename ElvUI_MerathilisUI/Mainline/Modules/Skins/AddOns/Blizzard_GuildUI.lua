@@ -33,7 +33,7 @@ local function LoadSkin()
 	end
 
 	_G.GuildFrame:Styling()
-	MER:CreateShadow(_G.GuildFrame)
+	module:CreateShadow(_G.GuildFrame)
 
 	for i = 1, 5 do
 		module:ReskinTab(_G["GuildFrameTab" .. i])

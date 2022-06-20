@@ -47,6 +47,34 @@ options.tooltip = {
 			desc = L["Show the rank of shards."],
 			hidden = not E.Retail,
 		},
+		covenant = {
+			order = 7,
+			type = "group",
+			guiInline = true,
+			name = "",
+			get = function(info) return E.db.mui.tooltip.covenant[info[#info]] end,
+			set = function(info, value) E.db.mui.tooltip.covenant[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			hidden = not E.Retail,
+			args = {
+				header0 = {
+					order = 0,
+					type = "header",
+					name = E.NewSign..F.cOption(L["Covenant"], 'orange'),
+				},
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Shows the Players Covenant on the Tooltip."]
+				},
+				showNotInGroup = {
+					order = 2,
+					type = "toggle",
+					name = L["Show not in group"],
+					desc = L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"],
+				},
+			},
+		},
 		nameHover = {
 			order = 11,
 			type = "group",

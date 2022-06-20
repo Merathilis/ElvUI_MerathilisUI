@@ -40,7 +40,7 @@ local function LoadSkin()
 	if QuestLogFrame.backdrop then
 		QuestLogFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(QuestLogFrame)
+	module:CreateBackdropShadow(QuestLogFrame)
 
 	hooksecurefunc('QuestWatch_Update', CreateHeaderPanels)
 end

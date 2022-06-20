@@ -291,6 +291,14 @@ L["Show icon"] = "Показать значок"
 L["Show the spell icon along with the name."] = "Показать значок заклинания вместе с названием."
 L["Domination Rank"] = "Ранг Господства"
 L["Show the rank of shards."] = "Показать ранг осколков."
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = true
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
 
 -- Notification
 L["Notification"] = "Уведомления"
@@ -523,6 +531,7 @@ L["Update canceled."] = true
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = true
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
+L["Dungeon Teleports"] = true
 
 -- Maps
 L["MiniMap Buttons"] = true
@@ -544,9 +553,61 @@ L["No Distance Limitation"] = "Без ограничения расстояни�
 L["Force to track the target even if it over 1000 yds."] = "Принудительно отслеживать цель, даже если она дальше чем 1000 м."
 L["Distance Text"] = "Текст дистанции"
 L["Only Number"] = "Только цифры"
+L["Add Command"] = true
+L["Add a input box to the world map."] = true
+L["Are you sure to delete the %s command?"] = true
+L["Can not set waypoint on this map."] = true
+L["Command"] = true
+L["Command Configuration"] = true
+L["Command List"] = true
+L["Delete Command"] = true
+L["Delete the selected command."] = true
+L["Enable to use the command to set the waypoint."] = true
+L["Go to ..."] = true
+L["Input Box"] = true
+L["New Command"] = true
+L["No Arg"] = true
+L["Smart Waypoint"] = true
+L["The argument is invalid."] = true
+L["The argument is needed."] = true
+L["The command to set a waypoint."] = true
+L["The coordinates contain illegal number."] = true
+L["Waypoint %s has been set."] = true
+L["Waypoint Parse"] = true
+L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = true
+L["illegal"] = true
+L["invalid"] = true
 
 -- SMB
-L["Button Settings"] = "Параметры кнопок"
+L["Minimap Buttons"] = "Кнопки миникарты"
+L["Add an extra bar to collect minimap buttons."] = "Добавляет дополнительную панель для сбора кнопок миникарты."
+L["Toggle minimap buttons bar."] = "Переключить панель кнопок миникарты."
+L["Mouse Over"] = "При наведении"
+L["Only show minimap buttons bar when you mouse over it."] = "Показывать панель кнопок миникарты только при наведении на нее указателя мыши."
+L["Minimap Buttons Bar"] = "Панель кнопок миникарты"
+L["Bar Backdrop"] = "Фон панели"
+L["Show a backdrop of the bar."] = "Покажите фон панели."
+L["Backdrop Spacing"] = "Отступ фона"
+L["The spacing between the backdrop and the buttons."] = "Расстояние между фоном панели и кнопками."
+L["Inverse Direction"] = "Обратное направление"
+L["Reverse the direction of adding buttons."] = "Меняет направление добавления кнопок на противоположное."
+L["Orientation"] = "Ориентация"
+L["Arrangement direction of the bar."] = "Устройство направления панели."
+L["Drag"] = "Тянуть"
+L["Horizontal"] = "Горизонтально"
+L["Vertical"] = "Вертикально"
+L["Buttons"] = "Кнопок"
+L["Buttons Per Row"] = "Кнопок в ряду"
+L["The amount of buttons to display per row."] = "Количество кнопок в каждом ряду"
+L["Button Size"] = "Размер кнопок"
+L["The size of the buttons."] = "Размер кнопок."
+L["Button Spacing"] = "Отступ кнопок"
+L["The spacing between buttons."] = "Расстояние между кнопками."
+L["Blizzard Buttons"] = "Кнопки Blizzard"
+L["Calendar"] = "Календарь"
+L["Add calendar button to the bar."] = "Добавить кнопку календаря на панель."
+L["Garrison"] = "Гарнизон"
+L["Add garrison button to the bar."] = "Добавить кнопку гарнизона на панель."
 
 -- Raid Marks
 L["Raid Markers"] = "Метки рейда"
@@ -709,7 +770,6 @@ L["Installed"] = true
 L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for BenikUI.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[Here you can choose the layout for Deadly Boss Mods.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
@@ -797,6 +857,15 @@ L["Change the color of quest titles."] = true
 L["Use Class Color"] = true
 L["Highlight Color"] = true
 L["Title"] = true
+L["Bottom Right Offset X"] = true
+L["Bottom Right Offset Y"] = true
+L["Top Left Offset X"] = true
+L["Top Left Offset Y"] = true
+L["Transparent"] = true
+
+-- Talents
+L["Talents"] = true
+L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

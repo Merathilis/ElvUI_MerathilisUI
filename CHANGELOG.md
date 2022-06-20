@@ -1,4 +1,11 @@
 ### Changes ###
 
-  * Added shadows on Auras and UnitFrame Auras. Many many thx @DaveA50
-  * Fixed an issue with Tab fonts are not changeable. Because Mera is dumb >.<
+  * Added Mything Dungeon Ports to the LocPanel Port Menu
+  * Small install fixes
+  * Updated my Minimap Button Code. YES, IT IS DIFFERNT; NO, YOU CANT CHANGE IT BACK!!!
+  * Code Optimization
+  * TBC: Added some TBC items to AutoButtons: THX modblaze
+  * Also changed the defaults for AutoButtons
+  * Some Skin updates
+  * Added an Tooltip line to show the Covenant
+  * Added quick Buttons to the Talent Window to switch Specc and more

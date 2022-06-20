@@ -16,7 +16,7 @@ local function LoadSkin()
 
 	local AzeriteEssenceUI = _G.AzeriteEssenceUI
 	AzeriteEssenceUI:Styling()
-	MER:CreateBackdropShadow(AzeriteEssenceUI)
+	module:CreateBackdropShadow(AzeriteEssenceUI)
 
 	for _, button in pairs(AzeriteEssenceUI.EssenceList.buttons) do
 		if button.backdrop then

@@ -7,9 +7,9 @@ local hooksecurefunc = hooksecurefunc
 function module:Configure_Power(frame)
 	local power = frame.Power
 
-	if power and not power.isStyled then
+	if power and not power.__MERSkin then
 		power:Styling(false, false, true)
-		power.isStyled = true
+		power.__MERSkin = true
 	end
 end
 

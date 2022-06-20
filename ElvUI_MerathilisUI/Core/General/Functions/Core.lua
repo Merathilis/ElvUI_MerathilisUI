@@ -32,7 +32,9 @@ local UIParent = UIParent
 local C_Covenants_GetCovenantData = C_Covenants and C_Covenants.GetCovenantData
 local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
 
--- Class Color stuff
+--[[----------------------------------
+--	Color Functions
+--]]----------------------------------
 F.ClassColors = {}
 local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 for class, value in pairs(colors) do
@@ -147,6 +149,41 @@ function F.SetFontOutline(text, font, size)
 	text:FontTemplate(font or fontName, size or fontHeight, "OUTLINE")
 	text:SetShadowColor(0, 0, 0, 0)
 	text.SetShadowColor = E.noop
+end
+
+do
+	local color = {
+		start = { r = 1.000, g = 0.647, b = 0.008 },
+		complete = { r = 0.180, g = 0.835, b = 0.451 }
+	}
+
+	function F.GetProgressColor(progress)
+		local r = (color.complete.r - color.start.r) * progress + color.start.r
+		local g = (color.complete.g - color.start.g) * progress + color.start.g
+		local b = (color.complete.r - color.start.b) * progress + color.start.b
+
+		-- algorithm to let the color brighter
+		local addition = 0.35
+		r = min(r + abs(0.5 - progress) * addition, r)
+		g = min(g + abs(0.5 - progress) * addition, g)
+		b = min(b + abs(0.5 - progress) * addition, b)
+
+		return {r = r, g = g, b = b}
+	end
+end
+
+function F.SetVertexColorDB(tex, db)
+	if not tex or not tex.GetVertexColor then
+		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture to handling")
+		return
+	end
+
+	if not db or type(db) ~= "table" then
+		 F.Developer.LogDebug("Functions.SetVertexColorDB: No texture color database")
+		return
+	end
+
+	tex:SetVertexColor(db.r, db.g, db.b, db.a)
 end
 
 function F.cOption(name, color)
@@ -364,9 +401,29 @@ do
 			return iLvlDB[link]
 		end
 	end
+
+	local pattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
+	function F.GetRealItemLevelByLink(link)
+		E.ScanTooltip:SetOwner(_G.UIParent, "ANCHOR_NONE")
+		E.ScanTooltip:ClearLines()
+		E.ScanTooltip:SetHyperlink(link)
+
+		for i = 2, 5 do
+			local leftText = _G[E.ScanTooltip:GetName() .. "TextLeft" .. i]
+			if leftText then
+				local text = leftText:GetText() or ""
+				local level = strmatch(text, pattern)
+				if level then
+					return level
+				end
+			end
+		end
+	end
 end
 
--- Skin Stuff
+--[[----------------------------------
+--	Skin Functions
+--]]----------------------------------
 do
 	function F:ResetTabAnchor(size, outline)
 		local text = self.Text or (self.GetName and _G[self:GetName().."Text"])
@@ -505,7 +562,9 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 	return config
 end
 
--- frame text
+--[[----------------------------------
+--	Text Functions
+--]]----------------------------------
 function F.CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	local text = f:CreateFontString(nil, layer)
 	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
@@ -709,59 +768,4 @@ function F.SetCallback(callback, target, times, ...)
 	end
 
 	E:Delay(0.1, F.SetCallback, callback, target, times+1, ...)
-end
-
-do
-	local pattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
-	function F.GetRealItemLevelByLink(link)
-		E.ScanTooltip:SetOwner(_G.UIParent, "ANCHOR_NONE")
-		E.ScanTooltip:ClearLines()
-		E.ScanTooltip:SetHyperlink(link)
-
-		for i = 2, 5 do
-			local leftText = _G[E.ScanTooltip:GetName() .. "TextLeft" .. i]
-			if leftText then
-				local text = leftText:GetText() or ""
-				local level = strmatch(text, pattern)
-				if level then
-					return level
-				end
-			end
-		end
-	end
-end
-
-do
-	local color = {
-		start = { r = 1.000, g = 0.647, b = 0.008 },
-		complete = { r = 0.180, g = 0.835, b = 0.451 }
-	}
-
-	function F.GetProgressColor(progress)
-		local r = (color.complete.r - color.start.r) * progress + color.start.r
-		local g = (color.complete.g - color.start.g) * progress + color.start.g
-		local b = (color.complete.r - color.start.b) * progress + color.start.b
-
-		-- algorithm to let the color brighter
-		local addition = 0.35
-		r = min(r + abs(0.5 - progress) * addition, r)
-		g = min(g + abs(0.5 - progress) * addition, g)
-		b = min(b + abs(0.5 - progress) * addition, b)
-
-		return {r = r, g = g, b = b}
-	end
-end
-
-function F.SetVertexColorDB(tex, db)
-	if not tex or not tex.GetVertexColor then
-		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture to handling")
-		return
-	end
-
-	if not db or type(db) ~= "table" then
-		 F.Developer.LogDebug("Functions.SetVertexColorDB: No texture color database")
-		return
-	end
-
-	tex:SetVertexColor(db.r, db.g, db.b, db.a)
 end

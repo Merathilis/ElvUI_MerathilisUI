@@ -7,10 +7,24 @@ local format = string.format
 
 local ObjectiveTracker_Update = ObjectiveTracker_Update
 
-options.objectiveTracker = {
+options.blizzard = {
+	type = "group",
+	name = E.NewSign..L["Blizzard"],
+	get = function(info) return E.db.mui.blizzard[info[#info]] end,
+	set = function(info, value) E.db.mui.blizzard[info[#info]] = value; end,
+	args = {
+		name = {
+			order = 1,
+			type = "header",
+			name = F.cOption(L["Blizzard"], 'orange'),
+		},
+	},
+}
+
+options.blizzard.args.objectiveTracker = {
+	order = 1,
 	type = "group",
 	name = L["Objective Tracker"],
-	childGroups = 'tab',
 	get = function(info) return E.db.mui.blizzard.objectiveTracker[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard.objectiveTracker[info[#info]] = value; ObjectiveTracker_Update(); end,
 	args = {
@@ -491,11 +505,19 @@ options.objectiveTracker = {
 					name = L["Short Header"],
 					desc = L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."]
 				},
-				color = {
+				classColor = {
 					order = 5,
+					type = "toggle",
+					name = L["Class Color"]
+				},
+				color = {
+					order = 6,
 					type = "color",
 					name = L["Color"],
 					hasAlpha = false,
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or E.db.mui.blizzard.objectiveTracker.header.classColor
+					end,
 					get = function(info)
 						local db = E.db.mui.blizzard.objectiveTracker.header.color
 						local default = P.blizzard.objectiveTracker.header.color
@@ -657,6 +679,138 @@ options.objectiveTracker = {
 					step = 1
 				},
 			},
+		},
+		backdrop = {
+			order = 8,
+			type = "group",
+			inline = true,
+			name = L["Backdrop"],
+			disabled = function()
+				return not E.db.mui.blizzard.objectiveTracker.enable
+			end,
+			get = function(info)
+				return E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]] = value
+				module:UpdateBackdrop()
+			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"]
+				},
+				transparent = {
+					order = 2,
+					type = "toggle",
+					name = L["Transparent"],
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+					end
+				},
+				betterAlign1 = {
+					order = 3,
+					type = "description",
+					name = "",
+					width = "full"
+				},
+				topLeftOffsetX = {
+					order = 4,
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+					end,
+					name = L["Top Left Offset X"],
+					type = "range",
+					min = -100,
+					max = 100,
+					step = 1,
+					width = 1.2
+				},
+				topLeftOffsetY = {
+					order = 5,
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+					end,
+					name = L["Top Left Offset Y"],
+					type = "range",
+					min = -100,
+					max = 100,
+					step = 1,
+					width = 1.2
+				},
+				betterAlign2 = {
+					order = 6,
+					type = "description",
+					name = "",
+					width = "full"
+				},
+				bottomRightOffsetX = {
+					order = 7,
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+					end,
+					name = L["Bottom Right Offset X"],
+					type = "range",
+					min = -100,
+					max = 100,
+					step = 1,
+					width = 1.2
+				},
+				bottomRightOffsetY = {
+					order = 8,
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+					end,
+					name = L["Bottom Right Offset Y"],
+					type = "range",
+					min = -100,
+					max = 100,
+					step = 1,
+					width = 1.2
+				},
+			},
+		},
+	},
+}
+
+options.blizzard.args.talents = {
+	order = 2,
+	type = "group",
+	name = E.NewSign..L["Talents"],
+	get = function(info) return E.db.mui.blizzard.talents[info[#info]] end,
+	set = function(info, value) E.db.mui.blizzard.talents[info[#info]] = value; end,
+	args = {
+		name = {
+			order = 1,
+			type = "header",
+			name = F.cOption(L["Talents"], 'orange'),
+		},
+		description = {
+			order = 2,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."],
+					fontSize = "medium"
+				},
+			},
+		},
+		enable = {
+			order = 3,
+			type = "toggle",
+			name = L["Enable"],
+			width = "full",
+			set = function(info, value) E.db.mui.blizzard.talents[info[#info]] = value;	E:StaticPopup_Show("PRIVATE_RL") end,
 		},
 	},
 }

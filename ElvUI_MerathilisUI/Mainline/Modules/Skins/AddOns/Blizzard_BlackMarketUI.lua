@@ -27,7 +27,7 @@ local function LoadSkin()
 	select(4, BlackMarketFrame.HotDeal:GetRegions()):Hide()
 
 	BlackMarketFrame:Styling()
-	MER:CreateBackdropShadow(BlackMarketFrame)
+	module:CreateBackdropShadow(BlackMarketFrame)
 
 	module:CreateBG(BlackMarketFrame.HotDeal.Item)
 

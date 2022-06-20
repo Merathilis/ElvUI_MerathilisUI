@@ -1,5 +1,6 @@
 ﻿local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RaidMarkers')
+local S = MER:GetModule('MER_Skins')
 
 local _G = _G
 local format = string.format
@@ -215,7 +216,7 @@ function module:Initialize()
 
 	if self.frame.backdrop then
 		self.frame.backdrop:SetAllPoints()
-		MER:CreateBackdropShadow(self.frame)
+		S:CreateBackdropShadow(self.frame)
 	end
 
 	self:UpdateWorldMarkersAndTooltips()

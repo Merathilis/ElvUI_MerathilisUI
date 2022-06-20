@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_ObjectiveTracker')
+local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
@@ -81,7 +82,7 @@ function module:CosmeticBar(header)
 		backdrop:SetTemplate()
 		backdrop:SetOutside(bar, 1, 1)
 		backdrop.Center:SetAlpha(0)
-		MER:CreateShadow(backdrop, 2, nil, nil, nil, true)
+		S:CreateShadow(backdrop, 2, nil, nil, nil, true)
 		bar.backdrop = backdrop
 		header.MERCosmeticBar = bar
 	end
@@ -160,7 +161,12 @@ function module:ChangeQuestHeaderStyle()
 			F.SetFontDB(modules.Header.Text, self.db.header)
 			modules.Header.Text:SetShadowColor(0, 0, 0, 0)
 			modules.Header.Text.SetShadowColor = E.noop
-			modules.Header.Text:SetTextColor(self.db.header.color.r, self.db.header.color.g, self.db.header.color.b)
+
+			local r = self.db.header.classColor and F.r or self.db.header.color.r
+			local g = self.db.header.classColor and F.g or self.db.header.color.g
+			local b = self.db.header.classColor and F.b or self.db.header.color.b
+
+			modules.Header.Text:SetTextColor(r, g, b)
 			if self.db.header.shortHeader then
 				modules.Header.Text:SetText(self:ShortTitle(modules.Header.Text:GetText()))
 			end
@@ -287,6 +293,37 @@ function module:ShortTitle(str)
 	return str
 end
 
+function module:UpdateBackdrop()
+	if not _G.ObjectiveTrackerBlocksFrame then
+		return
+	end
+
+	local db = self.db.backdrop
+	local backdrop = _G.ObjectiveTrackerBlocksFrame.backdrop
+
+	if not db.enable then
+		if backdrop then
+			backdrop:Hide()
+		end
+		return
+	end
+
+	if not backdrop then
+		if self.db.backdrop.enable then
+			_G.ObjectiveTrackerBlocksFrame:CreateBackdrop()
+			backdrop = _G.ObjectiveTrackerBlocksFrame.backdrop
+			S:CreateShadow(backdrop)
+			backdrop:Styling()
+		end
+	end
+
+	backdrop:Show()
+	backdrop:SetTemplate(db.transparent and "Transparent")
+	backdrop:ClearAllPoints()
+	backdrop:SetPoint("TOPLEFT", _G.ObjectiveTrackerBlocksFrame, "TOPLEFT", db.topLeftOffsetX - 30, db.topLeftOffsetY + 10)
+	backdrop:SetPoint("BOTTOMRIGHT", _G.ObjectiveTrackerBlocksFrame, "BOTTOMRIGHT", db.bottomRightOffsetX + 10, db.bottomRightOffsetY - 10)
+end
+
 function module:Initialize()
 	self.db = E.db.mui.blizzard.objectiveTracker
 	if not self.db.enable then
@@ -294,6 +331,7 @@ function module:Initialize()
 	end
 
 	self:UpdateTextWidth()
+	self:UpdateBackdrop()
 
 	if not self.initialized then
 		local trackerModules = {

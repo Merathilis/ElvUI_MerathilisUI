@@ -44,6 +44,7 @@ local DCPT = DCP:CreateTexture(nil, "BORDER")
 DCPT:SetAllPoints(DCP)
 MERS:CreateBDFrame(DCP)
 MERS:CreateSD(DCP, 2, 2)
+MERS:CreateBackdropShadow(DCP)
 
 local defaultSettings = {
 	["enable"] = false,
@@ -233,18 +234,17 @@ function DCP:ADDON_LOADED(addon)
 			end
 		end
 	end
-	-- self:SetPoint("CENTER", E.UIParent,"BOTTOMLEFT", MERData_DCP.x, MERData_DCP.y)
-	E:CreateMover(DCP, "MER_CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,cooldownFlash')
+
 	self:UnregisterEvent("ADDON_LOADED")
 end
 
 function DCP:SPELL_UPDATE_COOLDOWN()
-	for i, getCooldownDetails in pairs(module.cooldowns) do
+	for _, getCooldownDetails in pairs(module.cooldowns) do
 		getCooldownDetails.resetCache()
 	end
 end
 
-function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,lineID,spellID)
+function DCP:UNIT_SPELLCAST_SUCCEEDED(unit, _, spellID)
 	if (unit == "player") then
 		local texture = GetSpellTexture(spellID)
 		local t1 = GetInventoryItemTexture("player", 13)
@@ -258,27 +258,28 @@ function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,lineID,spellID)
 end
 
 function DCP:COMBAT_LOG_EVENT_UNFILTERED()
-	local _, event, _, _, _, sourceFlags, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
-	if (event == "SPELL_CAST_SUCCESS") then
-		if (bit.band(sourceFlags,COMBATLOG_OBJECT_TYPE_PET) == COMBATLOG_OBJECT_TYPE_PET and bit.band(sourceFlags,COMBATLOG_OBJECT_AFFILIATION_MINE) == COMBATLOG_OBJECT_AFFILIATION_MINE) then
+	local _, eventType, _, _, _, sourceFlags, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
+	local isPet = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_TYPE_PET) == _G.COMBATLOG_OBJECT_TYPE_PET
+	local isMine = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_AFFILIATION_MINE) == _G.COMBATLOG_OBJECT_AFFILIATION_MINE
+
+	if eventType == 'SPELL_CAST_SUCCESS' then
+		if isPet and isMine then
 			local name = GetSpellInfo(spellID)
 			local index = GetPetActionIndexByName(name)
-			if (index and not select(7, GetPetActionInfo(index))) then
-				module.watching[spellID] = {GetTime(),"pet",index}
-			elseif (not index and spellID) then
-				module.watching[spellID] = {GetTime(),"spell",spellID}
+			if index and not select(7, GetPetActionInfo(index)) then
+				module.watching[spellID] = { GetTime(), 'pet', index }
+			elseif not index and spellID then
+				module.watching[spellID] = { GetTime(), 'spell', spellID }
 			else
 				return
 			end
-			if (not self:IsMouseEnabled()) then
-				self:SetScript("OnUpdate", OnUpdate)
-			end
+			self:SetScript('OnUpdate', OnUpdate)
 		end
 	end
 end
 
 function DCP:PLAYER_ENTERING_WORLD()
-	local inInstance,instanceType = IsInInstance()
+	local inInstance, instanceType = IsInInstance()
 	if (inInstance and instanceType == "arena") then
 		self:SetScript("OnUpdate", nil)
 		wipe(module.cooldowns)
@@ -287,18 +288,18 @@ function DCP:PLAYER_ENTERING_WORLD()
 end
 
 hooksecurefunc("UseAction", function(slot)
-	local actionType,itemID = GetActionInfo(slot)
+	local actionType, itemID = GetActionInfo(slot)
 	if (actionType == "item") then
 		local texture = GetActionTexture(slot)
-		module.watching[itemID] = {GetTime(),"item",texture}
+		module.watching[itemID] = { GetTime(),"item", texture }
 	end
 end)
 
 hooksecurefunc("UseInventoryItem", function(slot)
-	local itemID = GetInventoryItemID("player", slot);
+	local itemID = GetInventoryItemID("player", slot)
 	if (itemID) then
 		local texture = GetInventoryItemTexture("player", slot)
-		module.watching[itemID] = {GetTime(),"item",texture}
+		module.watching[itemID] = { GetTime(),"item", texture }
 	end
 end)
 
@@ -306,7 +307,7 @@ hooksecurefunc("UseContainerItem", function(bag,slot)
 	local itemID = GetContainerItemID(bag, slot)
 	if (itemID) then
 		local texture = select(10, GetItemInfo(itemID))
-		module.watching[itemID] = {GetTime(),"item",texture}
+		module.watching[itemID] = { GetTime(),"item", texture }
 	end
 end)
 
@@ -347,6 +348,8 @@ function module:Initialize()
 
 	DCP.TextFrame:FontTemplate(E.db.general.font, 18, "OUTLINE")
 	DCP.TextFrame:SetShadowOffset(2, -2)
+
+	E:CreateMover(DCP, "MER_CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,cooldownFlash')
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.cooldownFlash

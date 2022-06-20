@@ -13,9 +13,9 @@ local function LoadSkin()
 	end
 
 	_G.GuildBankFrame:Styling()
-	MER:CreateShadow(_G.GuildBankFrame)
+	module:CreateShadow(_G.GuildBankFrame)
 	_G.GuildBankPopupFrame:Styling()
-	MER:CreateShadow(_G.GuildBankPopupFrame)
+	module:CreateShadow(_G.GuildBankPopupFrame)
 
 	for i = 1, 4 do
 		local tab = _G["GuildBankFrameTab"..i]
@@ -29,7 +29,7 @@ local function LoadSkin()
 	for i = 1, 8 do
 		local tab = _G["GuildBankTab" .. i]
 		if tab then
-			MER:CreateShadow(tab.Button)
+			module:CreateShadow(tab.Button)
 		end
 	end
 

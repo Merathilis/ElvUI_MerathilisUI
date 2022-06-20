@@ -28,7 +28,6 @@ local IsUsableItem = IsUsableItem
 local ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat = ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat
 local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
-local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
 local C_Garrison_IsPlayerInGarrison = C_Garrison and C_Garrison.IsPlayerInGarrison
 local C_ToyBox_IsToyUsable = E.Retail and C_ToyBox.IsToyUsable
@@ -252,6 +251,15 @@ module.Spells = {
 		[15] = {text = GetSpellInfo(159898),icon = F.GetIconFromID("spell", 159898),secure = {buttonType = "spell",ID = 159898}, UseTooltip = true},-- Skies
 		[16] = {text = GetSpellInfo(159901),icon = F.GetIconFromID("spell", 159901),secure = {buttonType = "spell",ID = 159901}, UseTooltip = true},-- Verdant
 		[17] = {text = GetSpellInfo(159897),icon = F.GetIconFromID("spell", 159897),secure = {buttonType = "spell",ID = 159897}, UseTooltip = true},-- Vigilant
+		[18] = {text = GetSpellInfo(354468),icon = F.GetIconFromID("spell", 354468),secure = {buttonType = "spell",ID = 354468}, UseTooltip = true}, -- De Other Side
+		[19] = {text = GetSpellInfo(354465),icon = F.GetIconFromID("spell", 354465),secure = {buttonType = "spell",ID = 354465}, UseTooltip = true}, -- Halls of Atonement
+		[20] = {text = GetSpellInfo(354464),icon = F.GetIconFromID("spell", 354464),secure = {buttonType = "spell",ID = 354464}, UseTooltip = true}, -- Mists of Tirna Scithe
+		[21] = {text = GetSpellInfo(354463),icon = F.GetIconFromID("spell", 354463),secure = {buttonType = "spell",ID = 354463}, UseTooltip = true}, -- Plaguefall
+		[22] = {text = GetSpellInfo(354469),icon = F.GetIconFromID("spell", 354469),secure = {buttonType = "spell",ID = 354469}, UseTooltip = true}, -- Sanguine Depths
+		[23] = {text = GetSpellInfo(354466),icon = F.GetIconFromID("spell", 354466),secure = {buttonType = "spell",ID = 354466}, UseTooltip = true}, -- Spires of Ascension
+		[24] = {text = GetSpellInfo(354462),icon = F.GetIconFromID("spell", 354462),secure = {buttonType = "spell",ID = 354462}, UseTooltip = true}, -- The Necrotic Wake
+		[25] = {text = GetSpellInfo(354467),icon = F.GetIconFromID("spell", 354467),secure = {buttonType = "spell",ID = 354467}, UseTooltip = true}, -- Theater of Pain
+		[26] = {text = GetSpellInfo(367416),icon = F.GetIconFromID("spell", 367416),secure = {buttonType = "spell",ID = 367416}, UseTooltip = true}, -- Tazavesh, the Veiled Market
 	},
 }
 
@@ -631,11 +639,11 @@ function module:PopulateDropdown(click)
 			tinsert(module.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 			module:SpellList(module.Spells[E.myclass], module.MainMenu)
 			if module:SpellList(module.Spells.challenge, nil, true) then
-				tinsert(module.MainMenu, {text = CHALLENGE_MODE.." >>",icon = F.GetIconFromID("achiev", 6378), func = function()
+				tinsert(module.MainMenu, {text = L["Dungeon Teleports"].." >>",icon = F.GetIconFromID("achiev", 6378), func = function()
 					twipe(module.SecondaryMenu)
 					MENU_WIDTH = module.db.portals.customWidth and module.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 					tinsert(module.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(module.MainMenu); ToggleFrame(module.Menu2); module:PopulateDropdown() end})
-					tinsert(module.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
+					tinsert(module.SecondaryMenu, {text = L["Dungeon Teleports"]..":", title = true, nohighlight = true})
 					module:SpellList(module.Spells.challenge, module.SecondaryMenu)
 					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
 					DD:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)

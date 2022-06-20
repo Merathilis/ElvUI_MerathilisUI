@@ -13,7 +13,7 @@ local function LoadSkin()
 
 	local ArtifactFrame = _G.ArtifactFrame
 	ArtifactFrame:Styling()
-	MER:CreateBackdropShadow(_G.ArtifactFrame)
+	module:CreateBackdropShadow(_G.ArtifactFrame)
 
 	for i = 1, 2 do
 		module:ReskinTab(_G['ArtifactFrameTab' .. i])

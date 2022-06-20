@@ -11,8 +11,8 @@ local function LoadSkin()
 
 	local Frame = _G.AuctionHouseFrame
 	Frame:Styling()
-	MER:CreateShadow(Frame)
-	MER:CreateShadow(Frame.WoWTokenResults.GameTimeTutorial)
+	module:CreateShadow(Frame)
+	module:CreateShadow(Frame.WoWTokenResults.GameTimeTutorial)
 
 	local ItemBuyFrame = Frame.ItemBuyFrame
 	module:CreateGradient(ItemBuyFrame.ItemDisplay)

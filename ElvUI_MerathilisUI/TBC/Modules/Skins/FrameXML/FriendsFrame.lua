@@ -26,7 +26,7 @@ local function LoadSkin()
 	if FriendsFrame.backdrop then
 		FriendsFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(FriendsFrame)
+	module:CreateBackdropShadow(FriendsFrame)
 
 	-- Animated Icon
 	_G.FriendsFrameIcon:SetPoint("TOPLEFT", FriendsFrame, "TOPLEFT", 0, 0)

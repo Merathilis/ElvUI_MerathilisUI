@@ -40,7 +40,7 @@ local function LoadSkin()
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
-		MER:CreateBackdropShadow(_G[skins[i]])
+		module:CreateBackdropShadow(_G[skins[i]])
 	end
 
 	--DropDownMenu
@@ -49,17 +49,17 @@ local function LoadSkin()
 		local listFrameName = listFrame:GetName()
 
 		local Backdrop = _G[listFrameName.."Backdrop"]
-		if Backdrop and not Backdrop.IsSkinned then
+		if Backdrop and not Backdrop.__MERSkin then
 			Backdrop:Styling()
-			MER:CreateBackdropShadow(Backdrop)
-			Backdrop.IsSkinned = true
+			module:CreateBackdropShadow(Backdrop)
+			Backdrop.__MERSkin = true
 		end
 
 		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
-		if menuBackdrop and not menuBackdrop.IsSkinned then
+		if menuBackdrop and not menuBackdrop.__MERSkin then
 			menuBackdrop:Styling()
-			MER:CreateBackdropShadow(Backdrop)
-			menuBackdrop.IsSkinned = true
+			module:CreateBackdropShadow(Backdrop)
+			menuBackdrop.__MERSkin = true
 		end
 	end)
 
@@ -70,11 +70,18 @@ local function LoadSkin()
 		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
 			if not _G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
-				MER:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
+				module:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
-				MER:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
+				module:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
 			end
 		end)
+	end
+
+	--LibDropDown
+	local DropDown = _G.ElvUI_MerathilisUIMenuBackdrop
+	if DropDown then
+		DropDown:Styling()
+		module:CreateShadow(DropDown)
 	end
 
 	if _G.CopyChatFrame then
@@ -100,16 +107,10 @@ local function LoadSkin()
 	-- What's New
 	_G.SplashFrame:CreateBackdrop('Transparent')
 	_G.SplashFrame.backdrop:Styling()
-	MER:CreateShadow(_G.SplashFrame)
+	module:CreateShadow(_G.SplashFrame)
 
 	-- Chat Config
 	_G.ChatConfigFrame:Styling()
-
-	-- ElvUI Stuff
-	_G.LeftChatDataPanel:Styling()
-	_G.RightChatDataPanel:Styling()
-	_G.ElvUI_TopPanel:Styling()
-	_G.ElvUI_BottomPanel:Styling()
 
 	-- Mirror Timers
 	if _G.MirrorTimer1StatusBar.backdrop then

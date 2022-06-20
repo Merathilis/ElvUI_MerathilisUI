@@ -14,14 +14,14 @@ local function LoadSkin()
 		PVPMatchScoreboard:CreateBackdrop('Transparent')
 		PVPMatchScoreboard.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(PVPMatchScoreboard)
+	module:CreateBackdropShadow(PVPMatchScoreboard)
 
 	local PVPMatchResults = _G.PVPMatchResults
 	if not PVPMatchResults.backdrop then
 		PVPMatchResults:CreateBackdrop('Transparent')
 		PVPMatchResults.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(PVPMatchResults)
+	module:CreateBackdropShadow(PVPMatchResults)
 end
 
 S:AddCallbackForAddon("Blizzard_PVPMatch", LoadSkin)

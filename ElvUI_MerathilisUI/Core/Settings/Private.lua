@@ -209,6 +209,8 @@ V.skins = {
 
 	addonSkins = {
 		enable = true,
+		ace3 = true,
+		ace3DropdownBackdrop = true,
 		abp = true,
 		bw = true,
 		xiv = true,

@@ -11,7 +11,7 @@ local function LoadSkin()
 
 	local frame = _G.CovenantPreviewFrame
 	frame:Styling()
-	MER:CreateBackdropShadow(frame)
+	module:CreateBackdropShadow(frame)
 
 	frame.Title:DisableDrawLayer('BACKGROUND')
 	frame.Background:SetAlpha(0)

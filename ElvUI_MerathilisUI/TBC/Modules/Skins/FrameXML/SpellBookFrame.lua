@@ -13,7 +13,7 @@ local function LoadSkin()
 	if SpellBookFrame.backdrop then
 		SpellBookFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(SpellBookFrame)
+	module:CreateBackdropShadow(SpellBookFrame)
 
 	for i = 1, SPELLS_PER_PAGE do
 		local button = _G["SpellButton"..i]

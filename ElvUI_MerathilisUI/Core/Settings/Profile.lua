@@ -23,16 +23,28 @@ P.merchant = {
 }
 
 P.blizzard = {
+	talents = {
+		enable = true,
+	},
 	objectiveTracker = {
 		enable = true,
 		noDash = true,
 		colorfulProgress = true,
 		percentage = false,
 		colorfulPercentage = false,
+		backdrop = {
+			enable = false,
+			transparent = true,
+			topLeftOffsetX = 0,
+			topLeftOffsetY = 0,
+			bottomRightOffsetX = 0,
+			bottomRightOffsetY = 0,
+		},
 		header = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize + 2,
 			style = "OUTLINE",
+			classColor = false,
 			color = {r = 1, g = 1, b = 1},
 			shortHeader = true
 		},
@@ -426,7 +438,7 @@ local function Potions()
 	if E.Classic then
 		return "POTION,FLASK,UTILITY"
 	elseif E.TBC then
-		return "POTION,FLASK,UTILITY"
+		return "POTIONTBC,FLASKTBC,CAULDRONTBC,ELIXIRTBC,ORETBC,UTILITY"
 	elseif E.Retail then
 		return "POTIONSL,FLASKSL,UTILITY"
 	end
@@ -450,7 +462,7 @@ P.autoButtons = {
 		backdropSpacing = 1,
 		buttonWidth = 35,
 		buttonHeight = 30,
-		buttonsPerRow = 12,
+		buttonsPerRow = 6,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -492,7 +504,7 @@ P.autoButtons = {
 		backdropSpacing = 1,
 		buttonWidth = 35,
 		buttonHeight = 30,
-		buttonsPerRow = 12,
+		buttonsPerRow = 6,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -535,7 +547,7 @@ P.autoButtons = {
 		backdropSpacing = 1,
 		buttonWidth = 35,
 		buttonHeight = 30,
-		buttonsPerRow = 12,
+		buttonsPerRow = 6,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -797,7 +809,16 @@ P.maps = {
 			size = E.db.general.fontSize + 2,
 			style = "OUTLINE",
 			color = {r = 1, g = 1, b = 1},
-		}
+		},
+		waypointParse = {
+			enable = true,
+			worldMapInput = true,
+			command = true,
+			commandKeys = {
+				["wtgo"] = true,
+				["goto"] = true,
+			},
+		},
 	},
 	worldMap = {
 		scale = {
@@ -873,9 +894,16 @@ P.panels = {
 
 P.smb = {
 	enable = true,
-	size = 30,
-	perRow = 6,
-	spacing = 1,
+	mouseOver = true,
+	buttonsPerRow = 8,
+	buttonSize = 24,
+	backdrop = true,
+	backdropSpacing = 2,
+	spacing = 2,
+	inverseDirection = false,
+	orientation = "HORIZONTAL",
+	calendar = false,
+	garrison = false
 }
 
 P.locPanel = {
@@ -965,6 +993,10 @@ P.tooltip = {
 		}
 	},
 	dominationRank = true,
+	covenant = {
+		enable = true,
+		showNotInGroup = false,
+	}
 }
 
 P.errorFilters = {

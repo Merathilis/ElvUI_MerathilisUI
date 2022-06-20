@@ -25,7 +25,7 @@ local function LoadSkin()
 	}
 
 	for _, frame in pairs(frames) do
-		MER:CreateShadow(frame)
+		module:CreateShadow(frame)
 	end
 
 	for i = 1, 3 do

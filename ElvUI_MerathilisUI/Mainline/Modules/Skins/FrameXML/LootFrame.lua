@@ -27,7 +27,7 @@ local function LoadSkin()
 
 	-- Boss Banner
 	hooksecurefunc('BossBanner_ConfigureLootFrame', function(lootFrame)
-		if not lootFrame.isSkinned then
+		if not lootFrame.__MERSkin then
 			local iconHitBox = lootFrame.IconHitBox
 
 			S:HandleIcon(lootFrame.Icon, true)
@@ -38,7 +38,7 @@ local function LoadSkin()
 			lootFrame.Anim:HookScript("OnPlay", HideIconBG)
 			lootFrame.Anim:HookScript("OnFinished", ShowIconBG)
 
-			lootFrame.isSkinned = true
+			lootFrame.__MERSkin = true
 		end
 	end)
 end

@@ -1,17 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
---Cache global variables
 local unpack = unpack
---WoW API / Variables
+
 local IsAddOnLoaded = IsAddOnLoaded
 
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: AddOnSkins, AddOnSkinsDB, LibStub
-
 function MER:LoadAddOnSkinsProfile()
-	--[[----------------------------------
-	--	AddOnSkins - Settings
-	--]]----------------------------------
 	local AS = unpack(AddOnSkins)
 
 	AS.data:SetProfile("MerathilisUI")

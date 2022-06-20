@@ -288,6 +288,14 @@ L["Show icon"] = "Show icon"
 L["Show the spell icon along with the name."] = "Show the spell icon along with the name."
 L["Domination Rank"] = true
 L["Show the rank of shards."] = true
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = true
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
 
 -- Notification
 L["Notification"] = true
@@ -520,6 +528,7 @@ L["Update canceled."] = true
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = true
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
+L["Dungeon Teleports"] = true
 
 -- Maps
 L["MiniMap Buttons"] = true
@@ -541,9 +550,61 @@ L["No Distance Limitation"] = true
 L["Force to track the target even if it over 1000 yds."] = true
 L["Distance Text"] = true
 L["Only Number"] = true
+L["Add Command"] = true
+L["Add a input box to the world map."] = true
+L["Are you sure to delete the %s command?"] = true
+L["Can not set waypoint on this map."] = true
+L["Command"] = true
+L["Command Configuration"] = true
+L["Command List"] = true
+L["Delete Command"] = true
+L["Delete the selected command."] = true
+L["Enable to use the command to set the waypoint."] = true
+L["Go to ..."] = true
+L["Input Box"] = true
+L["New Command"] = true
+L["No Arg"] = true
+L["Smart Waypoint"] = true
+L["The argument is invalid."] = true
+L["The argument is needed."] = true
+L["The command to set a waypoint."] = true
+L["The coordinates contain illegal number."] = true
+L["Waypoint %s has been set."] = true
+L["Waypoint Parse"] = true
+L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = true
+L["illegal"] = true
+L["invalid"] = true
 
 -- SMB
-L["Button Settings"] = true
+L["Minimap Buttons"] = true
+L["Add an extra bar to collect minimap buttons."] = true
+L["Toggle minimap buttons bar."] = true
+L["Mouse Over"] = true
+L["Only show minimap buttons bar when you mouse over it."] = true
+L["Minimap Buttons Bar"] = true
+L["Bar Backdrop"] = true
+L["Show a backdrop of the bar."] = true
+L["Backdrop Spacing"] = true
+L["The spacing between the backdrop and the buttons."] = true
+L["Inverse Direction"] = true
+L["Reverse the direction of adding buttons."] = true
+L["Orientation"] = true
+L["Arrangement direction of the bar."] = true
+L["Drag"] = true
+L["Horizontal"] = true
+L["Vertical"] = true
+L["Buttons"] = true
+L["Buttons Per Row"] = true
+L["The amount of buttons to display per row."] = true
+L["Button Size"] = true
+L["The size of the buttons."] = true
+L["Button Spacing"] = true
+L["The spacing between buttons."] = true
+L["Blizzard Buttons"] = true
+L["Calendar"] = true
+L["Add calendar button to the bar."] = true
+L["Garrison"] = true
+L["Add garrison button to the bar."] = true
 
 -- Raid Marks
 L["Raid Markers"] = true
@@ -706,7 +767,6 @@ L["Installed"] = true
 L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). Please update your ElvUI to avoid errors."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for BenikUI.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[Here you can choose the layout for Deadly Boss Mods.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
@@ -795,6 +855,15 @@ L["Change the color of quest titles."] = true
 L["Use Class Color"] = true
 L["Highlight Color"] = true
 L["Title"] = true
+L["Bottom Right Offset X"] = true
+L["Bottom Right Offset Y"] = true
+L["Top Left Offset X"] = true
+L["Top Left Offset Y"] = true
+L["Transparent"] = true
+
+-- Talents
+L["Talents"] = true
+L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

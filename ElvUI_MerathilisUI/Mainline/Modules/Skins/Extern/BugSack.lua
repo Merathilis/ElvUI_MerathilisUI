@@ -5,39 +5,85 @@ if not IsAddOnLoaded("BugSack") then return; end
 
 local _G = _G
 
-local function BugSack_Open()
-	local BugSackFrame = _G.BugSackFrame
-
-	if BugSackFrame.MERStyle then
+function module:BugSack_InterfaceOptionOnShow(frame)
+	if frame.__MERSkin then
 		return
 	end
 
-	BugSackFrame:StripTextures()
-	BugSackFrame:CreateBackdrop('Transparent')
-	if BugSackFrame.backdrop then
-		BugSackFrame.backdrop:Styling()
-	end
-	MER:CreateBackdropShadow(BugSackFrame)
+	if _G.BugSackFontSize then
+		local dropdown = _G.BugSackFontSize
+		S:HandleDropDownBox(dropdown)
 
-	for _, child in pairs {_G.BugSackFrame:GetChildren()} do
+		local point, relativeTo, relativePoint, xOffset, yOffset = dropdown:GetPoint(1)
+		dropdown:ClearAllPoints()
+		dropdown:SetPoint(point, relativeTo, relativePoint, xOffset - 1, yOffset)
+
+		dropdown.__MERSkinMarked = true
+	end
+
+	if _G.BugSackSoundDropdown then
+		local dropdown = _G.BugSackSoundDropdown
+		S:HandleDropDownBox(dropdown)
+
+		local point, relativeTo, relativePoint = dropdown:GetPoint(1)
+		dropdown:ClearAllPoints()
+		dropdown:SetPoint(point, relativeTo, relativePoint)
+
+		dropdown.__MERSkinMarked = true
+	end
+
+	for _, child in pairs {frame:GetChildren()} do
+		if child.__MERSkinMarked then
+			child.__MERSkinMarked = nil
+		else
+			local objectType = child:GetObjectType()
+			if objectType == "Button" then
+				S:HandleButton(child)
+			elseif objectType == "CheckButton" then
+				S:HandleButton(child)
+
+				-- fix master channel checkbox position
+				local point, relativeTo, relativePoint = child:GetPoint(1)
+				if point == "LEFT" and relativeTo == _G.BugSackSoundDropdown then
+					child:ClearAllPoints()
+					child:SetPoint(point, relativeTo, relativePoint, 0, 3)
+				end
+			end
+		end
+	end
+
+	frame.__MERSkin = true
+end
+
+ function module:BugSack_OpenSack()
+	if _G.BugSackFrame.__MERSkin then
+		return
+	end
+
+	local bugSackFrame = _G.BugSackFrame
+
+	bugSackFrame:StripTextures()
+	bugSackFrame:SetTemplate("Transparent")
+	bugSackFrame:Styling()
+	module:CreateShadow(bugSackFrame)
+
+	for _, child in pairs {bugSackFrame:GetChildren()} do
 		local numRegions = child:GetNumRegions()
 
 		if numRegions == 1 then
 			local text = child:GetRegions()
-			if text and text.SetText then
+			if text and text:GetObjectType() == "FontString" then
 				F.SetFontOutline(text)
-				text.MERStyle = true
 			end
 		elseif numRegions == 4 then
 			S:HandleCloseButton(child)
-			child.MERStyle = true
 		end
 	end
 
 	S:HandleScrollBar(_G.BugSackScrollScrollBar)
 
 	for _, region in pairs {_G.BugSackScrollText:GetRegions()} do
-		if region and region.SetText then
+		if region and region:GetObjectType() == "FontString" then
 			F.SetFontOutline(region)
 		end
 	end
@@ -54,31 +100,34 @@ local function BugSack_Open()
 
 	for _, tab in pairs(tabs) do
 		S:HandleTab(tab)
-		tab.backdrop:SetTemplate("Transparent")
-		MER:CreateBackdropShadow(tab)
+		module:CreateBackdropShadow(tab)
 
 		local point, relativeTo, relativePoint, xOffset, yOffset = tab:GetPoint(1)
-		tab:ClearAllPoints()
-		if yOffset ~= 0 then
-			yOffset = -1
-		end
-		tab:Point(point, relativeTo, relativePoint, xOffset, yOffset)
 
-		local text = _G[tab:GetName() .. "Text"]
-		if text then
-			F.SetFontOutline(text)
+		tab:ClearAllPoints()
+
+		if yOffset ~= 0 then
+			yOffset = -2
 		end
+
+		tab:SetPoint(point, relativeTo, relativePoint, xOffset, yOffset)
 	end
 
-	BugSackFrame.MERStyle = true
+	bugSackFrame.__MERSkin = true
 end
 
-local function LoadSkin()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bs then return end
+function module:BugSack()
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bs then
+		return
+	end
 
+	if not _G.BugSack then
+		return
+	end
+
+	module:SecureHookScript(_G.BugSack.frame, "OnShow", "BugSack_InterfaceOptionOnShow")
+	module:SecureHook(_G.BugSack, "OpenSack", "BugSack_OpenSack")
 	module:DisableAddOnSkin("BugSack")
-
-	module:SecureHook(_G.BugSack, "OpenSack", BugSack_Open)
 end
 
-module:AddCallbackForAddon("BugSack", LoadSkin)
+module:AddCallbackForAddon("BugSack")

@@ -13,7 +13,7 @@ local function LoadSkin()
 	if PlayerTalentFrame.backdrop then
 		PlayerTalentFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(_G.PlayerTalentFrame)
+	module:CreateBackdropShadow(_G.PlayerTalentFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_TalentUI", LoadSkin)

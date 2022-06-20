@@ -12,9 +12,9 @@ local function StyleElvUIConfig()
 
 	local frame = E:Config_GetWindow()
 
-	if frame and not frame.IsStyled then
+	if frame and not frame.__MERSkin then
 		frame:Styling()
-		MER:CreateShadow(frame)
+		module:CreateShadow(frame)
 
 		if frame.leftHolder then
 			frame.leftHolder.slider:SetThumbTexture(E.media.normTex)
@@ -22,7 +22,7 @@ local function StyleElvUIConfig()
 			frame.leftHolder.slider.thumb:SetAlpha(1)
 		end
 
-		frame.IsStyled = true
+		frame.__MERSkin = true
 	end
 end
 
@@ -32,7 +32,7 @@ local function StyleElvUIInstall()
 	local frame = _G.ElvUIInstallFrame
 	if frame then
 		frame:Styling()
-		MER:CreateShadow(frame)
+		module:CreateShadow(frame)
 	end
 end
 
@@ -62,7 +62,7 @@ local function Skin_ElvUI_OptionsUI()
 
 	if _G.ElvUIInstallFrame then
 		_G.ElvUIInstallFrame:Styling()
-		MER:CreateShadow(_G.ElvUIInstallFrame)
+		module:CreateShadow(_G.ElvUIInstallFrame)
 	else
 		module:SecureHook(E, "Install", StyleElvUIInstall)
 	end

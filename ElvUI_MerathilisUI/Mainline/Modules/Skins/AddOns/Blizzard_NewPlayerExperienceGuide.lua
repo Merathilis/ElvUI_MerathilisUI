@@ -11,7 +11,7 @@ local function LoadSkin()
 
 	local frame = _G.GuideFrame
 	frame:Styling()
-	MER:CreateShadow(frame)
+	module:CreateShadow(frame)
 end
 
 S:AddCallbackForAddon("Blizzard_NewPlayerExperienceGuide", LoadSkin)

@@ -110,13 +110,11 @@ function module:WeakAurasMultiLineEditBox(Constructor)
 		local onShow = widget.frame:GetScript("OnShow")
 		widget.frame:SetScript("OnShow", function(frame)
 			onShow(frame)
-			local self = frame.obj
-
-			if not self then
+			if not frame.obj or not frame.obj. extraButtons then
 				return
 			end
 
-			for _, button in pairs(self.extraButtons) do
+			for _, button in pairs(frame.obj.extraButtons) do
 				if not button.MERStyle then
 					S:HandleButton(button)
 					button.MERStyle = true
@@ -360,7 +358,7 @@ do
 		frame.backdrop:SetInside(frame, 2, 2)
 		frame.backdrop.Center:Kill()
 		frame.backdrop:SetBackdropBorderColor(1, 1, 1)
-		MER:CreateShadow(frame.backdrop, 4, 1, 1, 1, true)
+		module:CreateShadow(frame.backdrop, 4, 1, 1, 1, true)
 
 		-- Mover Buttons
 		for _, child in pairs {frame:GetChildren()} do
@@ -373,7 +371,7 @@ do
 						button:StripTextures()
 						button:Size(16, 16)
 						button:CreateBackdrop()
-						MER:CreateShadow(button.backdrop)
+						module:CreateShadow(button.backdrop)
 						button.Texture = button.backdrop:CreateTexture(nil, "OVERLAY")
 						button.Texture:SetTexture(E.Media.Textures.ArrowUp)
 						button.Texture:Point("CENTER")
@@ -444,7 +442,7 @@ function module:WeakAuras_ShowOptions()
 	frame:SetBackdrop(nil)
 	frame:CreateBackdrop("Transparent")
 	frame.backdrop:Styling()
-	MER:CreateBackdropShadow(frame)
+	module:CreateBackdropShadow(frame)
 
 	for _, region in pairs {frame:GetRegions()} do
 		if region:GetObjectType() == "Texture" then
@@ -508,7 +506,7 @@ function module:WeakAuras_ShowOptions()
 			if text and strfind(text, "^WeakAuras%s%d") then -- Title
 				child:SetFrameLevel(3)
 				child:CreateBackdrop()
-				MER:CreateBackdropShadow(child, true)
+				module:CreateBackdropShadow(child, true)
 				F.SetFontOutline(firstRegion)
 				recognized = true
 			end
@@ -581,7 +579,7 @@ function module:WeakAuras_ShowOptions()
 		if frameStrata == "FULLSCREEN" then
 			child:StripTextures()
 			child:CreateBackdrop("Transparent")
-			MER:CreateShadow(child.backdrop)
+			module:CreateShadow(child.backdrop)
 			for _, subChild in pairs {child:GetChildren()} do
 				if subChild.GetObjectType and subChild:GetObjectType() == "EditBox" then
 					S:HandleEditBox(subChild)
@@ -600,7 +598,7 @@ function module:WeakAuras_ShowOptions()
 		snippetsFrame:StripTextures()
 		snippetsFrame:CreateBackdrop("Transparent")
 		snippetsFrame.backdrop:Styling()
-		MER:CreateBackdropShadow(snippetsFrame)
+		module:CreateBackdropShadow(snippetsFrame)
 		ReskinChildButton(snippetsFrame)
 	end
 
@@ -657,7 +655,7 @@ function module:WeakAuras_TextEditor()
 	frame:SetBackdrop(nil)
 	frame:CreateBackdrop("Transparent")
 	frame.backdrop:Styling()
-	MER:CreateShadow(frame)
+	module:CreateShadow(frame)
 
 	for _, child in pairs {frame:GetChildren()} do
 		if child.Text then

@@ -14,11 +14,11 @@ local function LoadSkin()
 	if ChannelFrame.backdrop then
 		ChannelFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(ChannelFrame)
+	module:CreateBackdropShadow(ChannelFrame)
 
 	local CreateChannelPopup = _G.CreateChannelPopup
 	CreateChannelPopup.backdrop:Styling()
-	MER:CreateBackdropShadow(CreateChannelPopup)
+	module:CreateBackdropShadow(CreateChannelPopup)
 end
 
 S:AddCallbackForAddon("Blizzard_Channels", LoadSkin)

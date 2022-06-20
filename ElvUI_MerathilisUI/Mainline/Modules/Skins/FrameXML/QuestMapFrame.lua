@@ -73,7 +73,7 @@ local function LoadSkin()
 		end
 	end)
 	_G.QuestLogPopupDetailFrame:Styling()
-	MER:CreateBackdropShadow(_G.QuestLogPopupDetailFrame)
+	module:CreateBackdropShadow(_G.QuestLogPopupDetailFrame)
 
 	-- Show map button
 	local ShowMapButton = _G.QuestLogPopupDetailFrame.ShowMapButton

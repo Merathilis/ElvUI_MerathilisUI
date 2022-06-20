@@ -10,7 +10,7 @@ local function LoadSkin()
 	end
 
 	_G.GuildControlUI:Styling()
-	MER:CreateBackdropShadow(_G.GuildControlUI)
+	module:CreateBackdropShadow(_G.GuildControlUI)
 end
 
 S:AddCallbackForAddon("Blizzard_GuildControlUI", LoadSkin)

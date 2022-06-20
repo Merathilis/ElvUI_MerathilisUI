@@ -11,7 +11,7 @@ local function LoadSkin()
 
 	local AzeriteEmpoweredItemUI = _G.AzeriteEmpoweredItemUI
 	AzeriteEmpoweredItemUI:Styling()
-	MER:CreateBackdropShadow(AzeriteEmpoweredItemUI)
+	module:CreateBackdropShadow(AzeriteEmpoweredItemUI)
 end
 
 S:AddCallbackForAddon("Blizzard_AzeriteUI", LoadSkin)

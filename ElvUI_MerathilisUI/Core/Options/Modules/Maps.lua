@@ -8,9 +8,16 @@ local LSM = E.LSM
 local _G = _G
 local format = string.format
 
+local envs = {
+	superTracker = {
+		inputCommand = nil,
+		selectedCommand = nil
+	}
+}
+
 options.maps = {
 	type = "group",
-	name = L["Maps"],
+	name = E.NewSign..L["Maps"],
 	get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 	set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	disabled = function() return not E.private.general.minimap.enable end,
@@ -343,57 +350,178 @@ options.maps = {
 		smb = {
 			order = 6,
 			type = "group",
-			name = L["Minimap Buttons"],
+			name = E.NewSign..L["Minimap Buttons"],
 			get = function(info) return E.db.mui.smb[ info[#info] ] end,
 			set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update() end,
 			args = {
-				enable = {
+				desc = {
 					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					width = "full",
-					get = function(info) return E.db.mui.smb.enable end,
-					set = function(info, value) E.db.mui.smb.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
-				},
-				credits = {
-					order = 2,
 					type = "group",
-					name = L["Credits"],
-					guiInline = true,
+					inline = true,
+					name = L["Description"],
 					args = {
-						credit = {
+						feature = {
 							order = 1,
 							type = "description",
-							name = format("|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r"),
-						},
-					},
+							name = L["Add an extra bar to collect minimap buttons."],
+							fontSize = "medium"
+						}
+					}
 				},
-				minimapButtons = {
+				enable = {
+					order = 2,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Toggle minimap buttons bar."],
+					get = function(info)
+						return E.db.mui.smb[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.smb[info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end
+				},
+				mouseOver = {
 					order = 3,
+					type = "toggle",
+					name = L["Mouse Over"],
+					desc = L["Only show minimap buttons bar when you mouse over it."],
+					get = function(info)
+						return E.db.mui.smb[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.smb[info[#info]] = value
+						SMB:UpdateMouseOverConfig()
+					end
+				},
+				barConfig = {
+					order = 4,
 					type = "group",
-					name = L["Button Settings"],
-					guiInline = true,
+					inline = true,
+					name = L["Minimap Buttons Bar"],
+					get = function(info)
+						return E.db.mui.smb[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.smb[info[#info]] = value
+						SMB:UpdateLayout()
+					end,
 					args = {
-						size = {
+						backdrop = {
 							order = 1,
-							type = "range",
-							name = L["Button Size"],
-							min = 20, max = 36, step = 1,
-							disabled = function() return not E.db.mui.smb.enable end,
+							type = "toggle",
+							name = L["Bar Backdrop"],
+							desc = L["Show a backdrop of the bar."]
 						},
-						perRow = {
+						backdropSpacing = {
 							order = 2,
 							type = "range",
+							name = L["Backdrop Spacing"],
+							desc = L["The spacing between the backdrop and the buttons."],
+							min = 0,
+							max = 30,
+							step = 1
+						},
+						inverseDirection = {
+							order = 3,
+							type = "toggle",
+							name = L["Inverse Direction"],
+							desc = L["Reverse the direction of adding buttons."]
+						},
+						orientation = {
+							order = 4,
+							type = "select",
+							name = L["Orientation"],
+							desc = L["Arrangement direction of the bar."],
+							values = {
+								NOANCHOR = L["Drag"],
+								HORIZONTAL = L["Horizontal"],
+								VERTICAL = L["Vertical"]
+							},
+							set = function(info, value)
+								E.db.mui.smb[info[#info]] = value
+								if value == "NOANCHOR" and E.db.mui.smb.calendar then
+									E:StaticPopup_Show("PRIVATE_RL")
+								else
+									SMB:UpdateLayout()
+								end
+							end
+						}
+					}
+				},
+				buttonsConfig = {
+					order = 5,
+					type = "group",
+					inline = true,
+					name = L["Buttons"],
+					get = function(info)
+						return E.db.mui.smb[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.smb[info[#info]] = value
+						SMB:UpdateLayout()
+					end,
+					args = {
+						buttonsPerRow = {
+							order = 1,
+							type = "range",
 							name = L["Buttons Per Row"],
-							min = 1, max = 100, step = 1,
-							disabled = function() return not E.db.mui.smb.enable end,
+							desc = L["The amount of buttons to display per row."],
+							min = 1,
+							max = 30,
+							step = 1
+						},
+						buttonSize = {
+							order = 2,
+							type = "range",
+							name = L["Button Size"],
+							desc = L["The size of the buttons."],
+							get = function(info)
+								return E.db.mui.smb[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.smb[info[#info]] = value
+								SMB:SkinMinimapButtons()
+							end,
+							min = 15,
+							max = 60,
+							step = 1
 						},
 						spacing = {
 							order = 3,
 							type = "range",
 							name = L["Button Spacing"],
-							min = 0, max = 10, step = 1,
-							disabled = function() return not E.db.mui.smb.enable end,
+							desc = L["The spacing between buttons."],
+							min = 0,
+							max = 30,
+							step = 1
+						}
+					}
+				},
+				blizzardButtonsConfig = {
+					order = 6,
+					type = "group",
+					inline = true,
+					name = L["Blizzard Buttons"],
+					get = function(info)
+						return E.db.mui.smb[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.smb[info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+					args = {
+						calendar = {
+							order = 1,
+							type = "toggle",
+							name = L["Calendar"],
+							desc = L["Add calendar button to the bar."]
+						},
+						garrison = {
+							order = 2,
+							type = "toggle",
+							name = L["Garrison"],
+							desc = L["Add garrison button to the bar."]
 						},
 					},
 				},
@@ -446,7 +574,7 @@ options.maps = {
 		superTracker = {
 			order = 8,
 			type = "group",
-			name = L["Super Tracker"],
+			name = E.NewSign..L["Super Tracker"],
 			hidden = not E.Retail,
 			get = function(info)
 				return E.db.mui.maps.superTracker[info[#info]]
@@ -561,6 +689,123 @@ options.maps = {
 							end,
 						},
 					},
+				},
+				waypointParse = {
+					order = 5,
+					type = "group",
+					name = L["Waypoint Parse"],
+					inline = true,
+					get = function(info)
+						return E.db.mui.maps.superTracker.waypointParse[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.superTracker.waypointParse[info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"]
+						},
+						worldMapInput = {
+							order = 2,
+							type = "toggle",
+							name = L["Input Box"],
+							desc = L["Add a input box to the world map."]
+						},
+						command = {
+							order = 3,
+							type = "toggle",
+							name = L["Command"],
+							desc = L["Enable to use the command to set the waypoint."]
+						},
+						commandConfiguration = {
+							order = 4,
+							type = "group",
+							name = L["Command Configuration"],
+							hidden = function()
+								return not E.db.mui.maps.superTracker.waypointParse.command
+							end,
+							args = {
+								commandInput = {
+									order = 1,
+									type = "input",
+									name = L["New Command"],
+									desc = L["The command to set a waypoint."],
+									get = function(info)
+										return envs.superTracker.inputCommand
+									end,
+									set = function(info, value)
+										envs.superTracker.inputCommand = value
+									end
+								},
+								addCommand = {
+									order = 2,
+									type = "execute",
+									name = L["Add Command"],
+									disabled = function()
+										return not envs.superTracker.inputCommand
+									end,
+									func = function()
+										if not envs.superTracker.inputCommand then
+											return
+										end
+
+										E.db.mui.maps.superTracker.waypointParse.commandKeys[envs.superTracker.inputCommand] = true
+										E:StaticPopup_Show("PRIVATE_RL")
+									end
+								},
+								betterAlign = {
+									order = 3,
+									type = "description",
+									name = " ",
+									width = "full"
+								},
+								commandList = {
+									order = 4,
+									type = "select",
+									name = L["Command List"],
+									values = function()
+										local keys = {}
+										for k, _ in pairs(E.db.mui.maps.superTracker.waypointParse.commandKeys) do
+											keys[k] = k
+										end
+										return keys
+									end,
+									get = function(info)
+										return envs.superTracker.selectedCommand
+									end,
+									set = function(info, value)
+										envs.superTracker.selectedCommand = value
+									end
+								},
+								deleteCommand = {
+									order = 5,
+									type = "execute",
+									name = L["Delete Command"],
+									desc = L["Delete the selected command."],
+									confirm = function()
+										return format(
+											L["Are you sure to delete the %s command?"],
+											F.CreateColorString(envs.superTracker.selectedCommand, E.db.general.valuecolor)
+										)
+									end,
+									disabled = function()
+										return not envs.superTracker.selectedCommand
+									end,
+									func = function()
+										if not envs.superTracker.selectedCommand then
+											return
+										end
+
+										E.db.mui.maps.superTracker.waypointParse.commandKeys[envs.superTracker.selectedCommand] = nil
+										E:StaticPopup_Show("PRIVATE_RL")
+									end
+								}
+							}
+						}
+					}
 				},
 			},
 		},

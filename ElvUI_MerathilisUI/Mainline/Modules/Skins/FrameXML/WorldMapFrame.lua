@@ -18,7 +18,7 @@ local function LoadSkin()
 	end
 
 	_G.WorldMapFrame.backdrop:Styling()
-	MER:CreateBackdropShadow(_G.WorldMapFrame)
+	module:CreateBackdropShadow(_G.WorldMapFrame)
 
 	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
 	frame:Size(230, 20)
@@ -59,12 +59,12 @@ local function LoadSkin()
 	end
 
 	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", function(_, dialog)
-		if not dialog.IsStyled then
+		if not dialog.__MERSkin then
 			if dialog.backdrop then
 				dialog.backdrop:Styling()
 			end
-			MER:CreateBackdropShadow(dialog)
-			dialog.isStyled = true
+			module:CreateBackdropShadow(dialog)
+			dialog.__MERSkin = true
 		end
 	end)
 end

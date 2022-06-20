@@ -10,9 +10,9 @@ function module:Update_PetFrame(frame)
 	-- Only looks good on Transparent
 	if E.db.unitframe.colors.transparentHealth then
 		if db.style then
-			if frame and frame.Health and not frame.isStyled then
+			if frame and frame.Health and not frame.__MERSkin then
 				frame.Health:Styling(false, false, true)
-				frame.isStyled = true
+				frame.__MERSkin = true
 			end
 		end
 	end

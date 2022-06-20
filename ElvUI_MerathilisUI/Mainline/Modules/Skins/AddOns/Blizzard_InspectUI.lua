@@ -41,7 +41,7 @@ local function LoadSkin()
 	if _G.InspectFrame.backdrop then
 		_G.InspectFrame.backdrop:Styling()
 	end
-	MER:CreateShadow(_G.InspectFrame)
+	module:CreateShadow(_G.InspectFrame)
 
 	for i = 1, 4 do
 		module:ReskinTab(_G["InspectFrameTab" .. i])
