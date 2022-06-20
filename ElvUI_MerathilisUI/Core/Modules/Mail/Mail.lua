@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Mail')
-local S = E:GetModule('Skins')
+local S = MER:GetModule('MER_Skins')
+local ES = E:GetModule('Skins')
 
 -- Credits: WindTools :)
 local _G = _G
@@ -122,7 +123,7 @@ function module:ConstructFrame()
 	frame:Point("BOTTOMRIGHT", _G.MailFrame, "BOTTOMRIGHT", 152, 1)
 	frame:CreateBackdrop("Transparent")
 	frame.backdrop:Styling()
-	module:CreateShadow(frame)
+	S:CreateShadow(frame)
 	frame:EnableMouse(true)
 
 	self.frame = frame
@@ -219,7 +220,7 @@ function module:ConstructNameButtons()
 
 		button:SetText("")
 		button:RegisterForClicks("LeftButtonDown", "RightButtonDown")
-		S:HandleButton(button)
+		ES:HandleButton(button)
 
 		button:SetScript("OnClick", function(self, mouseButton)
 			if mouseButton == "LeftButton" then
@@ -254,8 +255,8 @@ function module:ConstructPageController()
 	local pagePrevButton = CreateFrame("Button", "MER_MailPagePrevButton", self.frame, "SecureActionButtonTemplate")
 	pagePrevButton:Size(14)
 	SetButtonTexture(pagePrevButton, E.Media.Textures.ArrowUp)
-	pagePrevButton.normalTex:SetRotation(S.ArrowRotation.left)
-	pagePrevButton.hoverTex:SetRotation(S.ArrowRotation.left)
+	pagePrevButton.normalTex:SetRotation(ES.ArrowRotation.left)
+	pagePrevButton.hoverTex:SetRotation(ES.ArrowRotation.left)
 	pagePrevButton:Point("BOTTOMLEFT", self.frame, "BOTTOMLEFT", 8, 8)
 	pagePrevButton:RegisterForClicks("AnyUp")
 
@@ -269,8 +270,8 @@ function module:ConstructPageController()
 	local pageNextButton = CreateFrame("Button", "MER_MailPageNextButton", self.frame, "SecureActionButtonTemplate")
 	pageNextButton:Size(14)
 	SetButtonTexture(pageNextButton, E.Media.Textures.ArrowUp)
-	pageNextButton.normalTex:SetRotation(S.ArrowRotation.right)
-	pageNextButton.hoverTex:SetRotation(S.ArrowRotation.right)
+	pageNextButton.normalTex:SetRotation(ES.ArrowRotation.right)
+	pageNextButton.hoverTex:SetRotation(ES.ArrowRotation.right)
 	pageNextButton:Point("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", -8, 8)
 	pageNextButton:RegisterForClicks("AnyUp")
 
@@ -296,7 +297,7 @@ function module:ConstructPageController()
 		end
 	end)
 
-	S:HandleSliderFrame(slider)
+	ES:HandleSliderFrame(slider)
 
 	local pageIndicater = slider:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
 	pageIndicater:Point("BOTTOM", slider, "TOP", 0, 6)
