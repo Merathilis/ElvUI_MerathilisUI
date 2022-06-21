@@ -110,7 +110,10 @@ do
 
 	MER:AddLib('LDF', 'LibDeflate')
 	MER:AddLib('LDD', 'LibDropDown')
-	MER:AddLib('LOR', 'LibOpenRaid-1.0')
+
+	if E.Retail then
+		MER:AddLib('LOR', 'LibOpenRaid-1.0')
+	end
 end
 
 function MER:Initialize()
