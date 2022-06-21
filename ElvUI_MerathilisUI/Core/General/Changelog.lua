@@ -12,7 +12,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed little typos in the Mail Module",
+		"• TBC: Fixed an error which loads retail stuff",
+		"• Fix an Flight Point error",
 
 	" ",
 	"Notes:",
