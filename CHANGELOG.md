@@ -1,4 +1,4 @@
 ### Changes ###
 
-  * TBC: Fixed an error which loads retail stuff
-  * Fix an Flight Point error
+  * Fixed an error on UnitFrames Buffs/Debuffs Shadows
+  * Fixed the Flight Mode Options
