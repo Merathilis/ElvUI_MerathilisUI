@@ -18,8 +18,6 @@ local RegisterStateDriver = RegisterStateDriver
 local SetRaidTarget = SetRaidTarget
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_PartyInfo_DoCountdown = C_PartyInfo.DoCountdown
-
 local lastClear = 0
 
 local TargetToWorld = {
@@ -206,7 +204,7 @@ function module:CreateBar()
 		self.bar.backdrop:Styling()
 	end
 
-	E:CreateMover(self.barAnchor, "MER_RaidMarkersBarAnchor", L["Raid Markers Bar"], nil, nil, nil, "ALL,PARTY,RAID,MERATHILISUI", function() return E.db.mui.combat.raidmarkers.enable end, "mui,modules,raidmarkers")
+	E:CreateMover(self.barAnchor, "MER_RaidMarkersBarAnchor", L["Raid Markers Bar"], nil, nil, nil, "ALL,PARTY,RAID,MERATHILISUI", function() return E.db.mui.raidmarkers.enable end, "mui,modules,raidmarkers")
 end
 
 function module:CreateButtons()
