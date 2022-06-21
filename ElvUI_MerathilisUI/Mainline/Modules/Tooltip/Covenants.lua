@@ -9,11 +9,12 @@ local IsInGroup, IsInRaid = IsInGroup, IsInRaid
 local UnitInParty, UnitInRaid = UnitInParty, UnitInRaid
 
 local covenants = {
-	"|cff72cff8 Kyrian|r",
-	"|cff971243 Venthyr|r",
-	"|cff1e88e5 Night Fae|r",
-	"|cff00897b Necrolord|r",
+	"|cff72cff8" .. L["Kyrian"] .. "|r",
+	"|cff971243" .. L["Venthyr"] .. "|r",
+	"|cff1e88e5" .. L["NightFae"] .. "|r",
+	"|cff00897b" .. L["Necrolord"] .. "|r"
 }
+
 local icons = {
 	[[Interface\Icons\UI_Sigil_Kyrian]], --kyrian
 	[[Interface\Icons\UI_Sigil_Venthyr]], --venthyr
