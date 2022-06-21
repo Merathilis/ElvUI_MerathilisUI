@@ -688,8 +688,8 @@ function module:CreateFlightMode()
 end
 
 function module:Initialize()
-	-- module.db = E.db.mui.flightMode
-	-- if not module.db.enable then return end
+	module.db = E.db.mui.flightMode
+	if not module.db.enable then return end
 
 	module:CreateFlightMode()
 	module:Toggle()
