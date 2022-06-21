@@ -1,3 +1,4 @@
 ### Changes ###
 
-  * Fixed little typos in the Mail Module
+  * TBC: Fixed an error which loads retail stuff
+  * Fix an Flight Point error

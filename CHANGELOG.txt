@@ -1,2 +1,3 @@
 [b][color=orange]v5.08[/color], 20.06.2022[/b][list]
-[*]Fixed little typos in the Mail Module[/list]
+[*]TBC: Fixed an error which loads retail stuff
+[*]Fix an Flight Point error[/list]
