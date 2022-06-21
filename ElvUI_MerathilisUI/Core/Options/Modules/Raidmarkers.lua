@@ -11,155 +11,236 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 options.raidmarkers = {
 	type = "group",
 	name = L["Raid Markers"],
-	get = function(info) return E.db.mui.raidmarkers[ info[#info] ] end,
 	args = {
 		name = {
-			order = 1,
+			order = 0,
 			type = "header",
 			name = F.cOption(L["Raid Markers"], 'orange'),
 		},
-		credits = {
-			order = 2,
+		desc = {
+			order = 1,
 			type = "group",
-			name = F.cOption(L["Credits"], 'orange'),
-			guiInline = true,
+			inline = true,
+			name = L["Description"],
 			args = {
-				tukui = {
+				feature = {
 					order = 1,
 					type = "description",
-					name = format("|cff9482c9Shadow & Light - Darth & Repooc|r"),
-				},
-			},
+					name = L["Add an extra bar to let you set raid markers efficiently."],
+					fontSize = "medium"
+				}
+			}
 		},
-		marksheader = {
+		enable = {
+			order = 2,
+			type = "toggle",
+			name = L["Enable"],
+			desc = L["Toggle raid markers bar."],
+			get = function(info)
+				return E.db.mui.raidmarkers[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.raidmarkers[info[#info]] = value
+				module:ProfileUpdate()
+			end
+		},
+		inverse = {
 			order = 3,
+			type = "toggle",
+			name = L["Inverse Mode"],
+			desc = L["Swap the functionality of normal click and click with modifier keys."],
+			get = function(info)
+				return E.db.mui.raidmarkers[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.raidmarkers[info[#info]] = value
+				module:ToggleSettings()
+			end,
+			disabled = function()
+				return not E.db.mui.raidmarkers.enable
+			end,
+			width = 2
+		},
+		visibilityConfig = {
+			order = 4,
 			type = "group",
-			name = F.cOption(L["Raid Markers"], 'orange'),
-			guiInline = true,
+			inline = true,
+			name = L["Visibility"],
+			get = function(info)
+				return E.db.mui.raidmarkers[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.raidmarkers[info[#info]] = value
+				module:ToggleSettings()
+			end,
+			disabled = function()
+				return not E.db.mui.raidmarkers.enable
+			end,
 			args = {
-				info = {
+				visibility = {
+					type = "select",
 					order = 1,
-					type = "description",
-					name = L["Options for panels providing fast access to raid markers and flares."],
-				},
-				enable = {
-					order = 5,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Show/Hide raid marks."],
-					set = function(info, value) E.db.mui.raidmarkers.enable = value; module:Visibility() end,
-				},
-				reset = {
-					order = 6,
-					type = 'execute',
-					name = L["Restore Defaults"],
-					desc = L["Reset these options to defaults"],
-					disabled = function() return not E.db.mui.raidmarkers.enable end,
-					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					func = function() F.Reset("marks") end,
-				},
-				space1 = {
-					order = 7,
-					type = 'description',
-					name = "",
-					hidden = function() return not E.db.mui.raidmarkers.enable end,
-				},
-				backdrop = {
-					type = 'toggle',
-					order = 8,
-					name = L["Backdrop"],
-					disabled = function() return not E.db.mui.raidmarkers.enable end,
-					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.backdrop = value; module:Backdrop() end,
-				},
-				buttonSize = {
-					order = 9,
-					type = 'range',
-					name = L["Button Size"],
-					min = 16, max = 40, step = 1,
-					disabled = function() return not E.db.mui.raidmarkers.enable end,
-					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.buttonSize = value; module:UpdateBar() end,
-				},
-				spacing = {
-					order = 10,
-					type = 'range',
-					name = L["Button Spacing"],
-					min = -4, max = 10, step = 1,
-					disabled = function() return not E.db.mui.raidmarkers.enable end,
-					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.spacing = value; module:UpdateBar() end,
-				},
-				orientation = {
-					order = 11,
-					type = 'select',
-					name = L["Orientation"],
-					disabled = function() return not E.db.mui.raidmarkers.enable end,
-					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.orientation = value; module:UpdateBar() end,
+					name = L["Visibility"],
 					values = {
-						["HORIZONTAL"] = L["Horizontal"],
-						["VERTICAL"] = L["Vertical"],
-					},
+						DEFAULT = L["Default"],
+						INPARTY = L["In Party"],
+						ALWAYS = L["Always Display"]
+					}
 				},
-				reverse = {
-					type = 'toggle',
-					order = 12,
-					name = L["Reverse"],
-					disabled = function() return not E.db.mui.raidmarkers.enable end,
-					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.reverse = value; module:UpdateBar() end,
+				mouseOver = {
+					order = 2,
+					type = "toggle",
+					name = L["Mouse Over"],
+					desc = L["Only show raid markers bar when you mouse over it."]
+				},
+				tooltip = {
+					order = 3,
+					type = "toggle",
+					name = L["Tooltip"],
+					desc = L["Show the tooltip when you mouse over the button."]
 				},
 				modifier = {
-					order = 13,
-					type = 'select',
+					order = 4,
+					type = "select",
 					name = L["Modifier Key"],
 					desc = L["Set the modifier key for placing world markers."],
-					disabled = function() return not E.db.mui.raidmarkers.enable end,
-					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.modifier = value; module:UpdateWorldMarkersAndTooltips() end,
 					values = {
-						["shift-"] = SHIFT_KEY,
-						["ctrl-"] = CTRL_KEY,
-						["alt-"] = ALT_KEY,
-					},
+						shift = L["Shift Key"],
+						ctrl = L["Ctrl Key"],
+						alt = L["Alt Key"]
+					}
+				}
+			}
+		},
+		barConfig = {
+			order = 5,
+			type = "group",
+			inline = true,
+			name = L["Raid Markers Bar"],
+			get = function(info)
+				return E.db.mui.raidmarkers[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.raidmarkers[info[#info]] = value
+				module:ToggleSettings()
+			end,
+			disabled = function()
+				return not E.db.mui.raidmarkers.enable
+			end,
+			args = {
+				backdrop = {
+					order = 1,
+					type = "toggle",
+					name = L["Bar Backdrop"],
+					desc = L["Show a backdrop of the bar."]
 				},
-				visibility = {
-					type = 'select',
-					order = 14,
-					name = L["Visibility"],
-					disabled = function() return not E.db.mui.raidmarkers.enable end,
-					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.visibility = value; module:Visibility() end,
+				backdropSpacing = {
+					order = 2,
+					type = "range",
+					name = L["Backdrop Spacing"],
+					desc = L["The spacing between the backdrop and the buttons."],
+					min = 1,
+					max = 30,
+					step = 1
+				},
+				orientation = {
+					order = 3,
+					type = "select",
+					name = L["Orientation"],
+					desc = L["Arrangement direction of the bar."],
 					values = {
-						["DEFAULT"] = DEFAULT,
-						["INPARTY"] = AGGRO_WARNING_IN_PARTY,
-						["ALWAYS"] = L["Always Display"],
-						["CUSTOM"] = CUSTOM,
-					},
+						HORIZONTAL = L["Horizontal"],
+						VERTICAL = L["Vertical"]
+					}
+				}
+			}
+		},
+		raidButtons = {
+			order = 6,
+			type = "group",
+			inline = true,
+			name = L["Raid Buttons"],
+			get = function(info)
+				return E.db.mui.raidmarkers[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.raidmarkers[info[#info]] = value
+				module:UpdateBar()
+			end,
+			disabled = function()
+				return not E.db.mui.raidmarkers.enable
+			end,
+			args = {
+				readyCheck = {
+					order = 1,
+					type = "toggle",
+					name = L["Ready Check"] .. " / " .. L["Advanced Combat Logging"],
+					desc = format(
+						"%s\n%s",
+						L["Left Click to ready check."],
+						L["Right click to toggle advanced combat logging."]
+					),
+					width = 2
 				},
-				customVisibility = {
-					order = 15,
-					type = 'input',
-					width = 'full',
-					name = L["Visibility State"],
-					disabled = function() return E.db.mui.raidmarkers.visibility ~= "CUSTOM" or not E.db.mui.raidmarkers.enable end,
-					hidden = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.customVisibility = value; module:Visibility() end,
+				countDown = {
+					order = 2,
+					type = "toggle",
+					name = L["Count Down"]
 				},
-				mouseover = {
-					order = 16,
-					type = 'toggle',
-					name = L["Mouseover"],
-					disabled = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.mouseover = value; module:UpdateMouseover() end,
+				countDownTime = {
+					order = 3,
+					type = "range",
+					name = L["Count Down Time"],
+					desc = L["Count down time in seconds."],
+					min = 1,
+					max = 30,
+					step = 1
+				}
+			}
+		},
+		buttonsConfig = {
+			order = 7,
+			type = "group",
+			inline = true,
+			name = L["Buttons"],
+			get = function(info)
+				return E.db.mui.raidmarkers[info[#info]]
+			end,
+			set = function(info, value)
+				 E.db.mui.raidmarkers[info[#info]] = value
+				module:ToggleSettings()
+			end,
+			disabled = function()
+				return not E.db.mui.raidmarkers.enable
+			end,
+			args = {
+				buttonSize = {
+					order = 1,
+					type = "range",
+					name = L["Button Size"],
+					desc = L["The size of the buttons."],
+					min = 15,
+					max = 60,
+					step = 1
 				},
-				notooltip = {
-					order = 17,
-					type = 'toggle',
-					name = L["No tooltips"],
-					disabled = function() return not E.db.mui.raidmarkers.enable end,
-					set = function(info, value) E.db.mui.raidmarkers.notooltip = value end,
+				spacing = {
+					order = 2,
+					type = "range",
+					name = L["Button Spacing"],
+					desc = L["The spacing between buttons."],
+					min = 1,
+					max = 30,
+					step = 1
+				},
+				buttonBackdrop = {
+					order = 3,
+					type = "toggle",
+					name = L["Button Backdrop"]
+				},
+				buttonAnimation = {
+					order = 4,
+					type = "toggle",
+					name = L["Button Animation"]
 				},
 			},
 		},

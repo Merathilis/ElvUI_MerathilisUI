@@ -944,16 +944,21 @@ P.locPanel = {
 
 P.raidmarkers = {
 	enable = true,
-	visibility = "INPARTY",
-	customVisibility = "[noexists, nogroup] hide; show",
+	mouseOver = false,
+	tooltip = true,
+	visibility = "DEFAULT",
 	backdrop = true,
-	buttonSize = 18,
-	spacing = 2,
+	backdropSpacing = 3,
+	buttonSize = 20,
+	buttonBackdrop = true,
+	buttonAnimation = true,
+	spacing = 4,
 	orientation = "HORIZONTAL",
-	modifier = "shift-",
-	reverse = false,
-	mouseover = false,
-	notooltip = false,
+	modifier = "shift",
+	readyCheck = true,
+	countDown = true,
+	countDownTime = 5,
+	inverse = false
 }
 
 P.raidmanager = {
