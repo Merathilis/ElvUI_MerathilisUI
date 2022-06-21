@@ -1,13 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
-local NP = E.NamePlates
 local UF = E.UnitFrames
 local S = MER.Modules.Skins
-
-local _G = _G
-local pairs, unpack = pairs, unpack
-
-local hooksecurefunc = hooksecurefunc
 
 function module:ElvUI_PostUpdateDebuffs(uf, _, button)
 	if uf.isNameplate then

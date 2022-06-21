@@ -299,6 +299,10 @@ L["Covenant: "] = true
 L["Shows the Players Covenant on the Tooltip."] = true
 L["Show not in group"] = true
 L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
+L["Kyrian"] = "Кирии"
+L["Venthyr"] = "Вентир"
+L["NightFae"] = "Ночной народец"
+L["Necrolord"] = "Некролорд"
 
 -- Notification
 L["Notification"] = "Уведомления"

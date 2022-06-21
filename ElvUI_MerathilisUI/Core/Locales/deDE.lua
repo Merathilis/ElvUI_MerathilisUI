@@ -298,6 +298,10 @@ L["Covenant: "] = "Pakt: "
 L["Shows the Players Covenant on the Tooltip."] = "Zeigt den Pakt vom Spieler am Tooltip an."
 L["Show not in group"] = "Zeige nicht in Gruppe"
 L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = "Zeigt die Pakt-Linie an wenn nicht in Gruppe. Zeigt an: <Nicht in Gruppe>"
+L["Kyrian"] = "Kyrianer"
+L["Venthyr"] = true
+L["NightFae"] = "Nachtfae"
+L["Necrolord"] = "Nekrolords"
 
 -- Notification
 L["Notification"] = "Benachrichtigungen"
