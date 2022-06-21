@@ -182,7 +182,7 @@ function module:CreateBar()
 	end
 
 	local frame = CreateFrame("Frame", "MER_RaidBar", E.UIParent, "SecureHandlerStateTemplate")
-	frame:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 320, 15)
+	frame:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 225)
 	frame:SetFrameStrata("DIALOG")
 	self.barAnchor = frame
 

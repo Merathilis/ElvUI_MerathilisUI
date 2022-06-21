@@ -31,8 +31,10 @@ module.ArrowRotation = {
 }
 
 function module:CreateShadow(frame, size, r, g, b, force)
-	if not force and not E.private.mui.skins.shadow and E.private.mui.skins.shadow.enable then
-		return
+	if not force then
+		if not E.private.mui.skins.enable or not E.private.mui.skins.shadow.enable then
+			return
+		end
 	end
 
 	if not frame or frame.__shadow or frame.shadow and frame.shadow.__MER then
