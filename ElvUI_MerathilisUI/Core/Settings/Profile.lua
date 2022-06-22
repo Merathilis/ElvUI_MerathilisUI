@@ -128,6 +128,7 @@ P.cvars = {
 		removeChatDelay = true,
 		screenshotQuality = 10,
 		showTutorials = false,
+		cameraFov = 90,
 	},
 	combatText = {
 		worldTextScale = 0.75,
