@@ -76,7 +76,6 @@ end
 
 function module:StyleMinimap()
 	if not E.db.mui.maps.minimap.rectangleMinimap.enable then
-		Minimap:Styling(true, true, false)
 		S:CreateBackdropShadow(Minimap)
 	end
 end
