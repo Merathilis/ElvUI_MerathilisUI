@@ -84,6 +84,7 @@ local function SetupCVars()
 		SetCVar('RAIDweatherDensity', 0)
 		SetCVar('weatherDensity', 0)
 		SetCVar('SpellQueueWindow', 180)
+		SetCVar('camerafov', 100)
 	else
 		SetCVar('taintLog', 0)
 	end
