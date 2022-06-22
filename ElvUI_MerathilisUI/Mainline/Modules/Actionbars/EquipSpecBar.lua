@@ -20,14 +20,18 @@ local SetLootSpecialization = SetLootSpecialization
 local SetSpecialization = SetSpecialization
 
 function MAB:CreateSpecBar()
-	if E.db.mui.actionbars.specBar.enable ~= true then return end
+	local db = E.db.mui.actionbars.specBar
+
+	if not db.enable then
+		return
+	end
 
 	local Spacing, Mult = 4, 1
 	local Size = E.db.mui.actionbars.specBar.size or 24
 
 	local specBar = CreateFrame("Frame", nil, E.UIParent)
-	specBar:SetFrameStrata("BACKGROUND")
-	specBar:SetFrameLevel(0)
+	specBar:SetFrameStrata(db.frameStrata or "BACKGROUND")
+	specBar:SetFrameLevel(db.frameLevel or 1)
 	specBar:Size(40, 40)
 	specBar:CreateBackdrop("Transparent")
 	specBar:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 177)
@@ -122,14 +126,18 @@ function MAB:CreateSpecBar()
 end
 
 function MAB:CreateEquipBar()
-	if E.db.mui.actionbars.equipBar.enable ~= true then return end
+	local db = E.db.mui.actionbars.equipBar
+
+	if not db.enable then
+		return
+	end
 
 	local Size = E.db.mui.actionbars.equipBar.size or 32
 
 	local GearTexture = "Interface\\WorldMap\\GEAR_64GREY"
 	local EquipmentSets = CreateFrame("Frame", nil, E.UIParent)
-	EquipmentSets:SetFrameStrata("BACKGROUND")
-	EquipmentSets:SetFrameLevel(0)
+	EquipmentSets:SetFrameStrata(db.frameStrata or "BACKGROUND")
+	EquipmentSets:SetFrameLevel(db.frameLevel or 1)
 	EquipmentSets:Size(32, 32)
 	EquipmentSets:CreateBackdrop("Transparent")
 	EquipmentSets:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 20, 177)

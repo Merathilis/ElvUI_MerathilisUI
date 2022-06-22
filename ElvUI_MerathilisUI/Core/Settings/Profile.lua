@@ -392,11 +392,15 @@ P.actionbars = {
 	specBar = {
 		enable = true,
 		mouseover = false,
+		frameStrata = "BACKGROUND",
+		frameLevel = 1,
 		size = 20,
 	},
 	equipBar = {
 		enable = true,
 		mouseover = false,
+		frameStrata = "BACKGROUND",
+		frameLevel = 1,
 		size = 28,
 	},
 	randomToy = {
