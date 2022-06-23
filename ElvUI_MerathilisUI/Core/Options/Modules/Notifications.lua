@@ -56,6 +56,13 @@ options.Notification = {
 			desc = L["If a Rare Mob or a treasure gets spotted on the minimap."],
 			disabled = function() return not E.db.mui.notification.enable end,
 		},
+		rarePrint = {
+			order = 7,
+			type = "toggle",
+			name = L["Vignette Print"],
+			desc = L["Prints a clickable Link with Coods in the Chat."],
+			disabled = function() return not E.db.mui.notification.enable end,
+		},
 		invites = {
 			order = 8,
 			type = "toggle",

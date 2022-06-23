@@ -722,6 +722,18 @@ function F.ReskinRole(self, role)
 	end
 end
 
+-- Atlas info
+function F.GetTextureStrByAtlas(info, sizeX, sizeY)
+	local file = info and info.file
+	if not file then return end
+
+	local width, height, txLeft, txRight, txTop, txBottom = info.width, info.height, info.leftTexCoord, info.rightTexCoord, info.topTexCoord, info.bottomTexCoord
+	local atlasWidth = width / (txRight-txLeft)
+	local atlasHeight = height / (txBottom-txTop)
+
+	return format("|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d|t", file, (sizeX or 0), (sizeY or 0), atlasWidth, atlasHeight, atlasWidth*txLeft, atlasWidth*txRight, atlasHeight*txTop, atlasHeight*txBottom)
+end
+
 function F.SplitString(delimiter, subject)
 	if not subject or subject == "" then
 		return {}
@@ -750,6 +762,8 @@ function F.SplitString(delimiter, subject)
 
 	return unpack(results)
 end
+
+
 
 function F.SetCallback(callback, target, times, ...)
 	times = times or 0
