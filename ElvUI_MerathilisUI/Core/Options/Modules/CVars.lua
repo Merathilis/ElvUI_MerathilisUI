@@ -125,7 +125,7 @@ options.cvars = {
 					order = 10,
 					type = "range",
 					name = L["cameraFov"],
-					min = 50, max = 120, step = 1,
+					min = 50, max = 90, step = 1,
 					desc = L["\n\nDefault: |cff00ff090|r"],
 					get = function()
 							return tonumber(GetCVar("camerafov"))
