@@ -73,7 +73,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 			self.lastMinimapRare.id = vignetteGUID
 
 			if module.db.rarePrint then
-				local currentTime = "|cff00ff00["..date("%H:%M:%S").."]|r" or ""
+				local currentTime = E.db.chat.timeStampFormat == 1 and "|cff00ff00["..date("%H:%M:%S").."]|r" or ""
 				local nameString
 				local mapID = C_Map_GetBestMapForUnit("player")
 				local position = mapID and C_VignetteInfo_GetVignettePosition(vignetteInfo.vignetteGUID, mapID)
