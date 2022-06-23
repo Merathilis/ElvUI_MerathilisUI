@@ -366,6 +366,7 @@ P.notification = {
 	noSound = false,
 	mail = true,
 	vignette = true,
+	rarePrint = true,
 	invites = true,
 	guildEvents = true,
 	paragon = true,

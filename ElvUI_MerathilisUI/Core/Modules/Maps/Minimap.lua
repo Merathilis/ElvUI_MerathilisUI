@@ -15,6 +15,8 @@ local hooksecurefunc = hooksecurefunc
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
 function module:CheckStatus()
+	if not Minimap.backdrop then return end
+
 	local inv = C_Calendar_GetNumPendingInvites()
 	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
 
@@ -27,6 +29,28 @@ function module:CheckStatus()
 	else -- None of the above
 		LCG.PixelGlow_Stop(Minimap.backdrop)
 	end
+
+	-- Minimap Combat Backdrop
+	local anim = Minimap.backdrop:CreateAnimationGroup()
+	anim:SetLooping("BOUNCE")
+
+	anim.fader = anim:CreateAnimation("Alpha")
+	anim.fader:SetFromAlpha(.8)
+	anim.fader:SetToAlpha(.2)
+	anim.fader:SetDuration(1)
+	anim.fader:SetSmoothing("OUT")
+
+	local function UpdateMinimapAnim(event)
+		if event == "PLAYER_REGEN_DISABLED" then
+			Minimap.backdrop:SetBackdropBorderColor(1, 0, 0)
+			anim:Play()
+		elseif not InCombatLockdown() then
+			anim:Stop()
+			Minimap.backdrop:SetBackdropBorderColor(0, 0, 0)
+		end
+	end
+	MER:RegisterEvent("PLAYER_REGEN_ENABLED", UpdateMinimapAnim)
+	MER:RegisterEvent("PLAYER_REGEN_DISABLED", UpdateMinimapAnim)
 end
 
 function module:MiniMapCoords()
