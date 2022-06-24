@@ -392,6 +392,7 @@ P.datatexts = {
 }
 
 P.actionbars = {
+	keyfeedback = true,
 	specBar = {
 		enable = true,
 		mouseover = false,

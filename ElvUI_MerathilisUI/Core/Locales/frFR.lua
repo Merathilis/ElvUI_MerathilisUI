@@ -348,8 +348,8 @@ L["Blacklist Item"] = true
 L["Whitelist Item"] = true
 L["Add Item ID"] = true
 L["Delete Item ID"] = true
-L["Custom Glow"] = true
-L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
+L["Spell Feedback"] = true
+L["Creates a texture to show the recently pressed buttons."] = true
 
 -- AutoButtons
 L["AutoButtons"] = "BoutonsAuto"

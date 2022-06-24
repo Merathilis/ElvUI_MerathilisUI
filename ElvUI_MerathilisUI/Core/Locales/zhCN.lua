@@ -352,8 +352,8 @@ L["Blacklist Item"] = "黑名单物品"
 L["Whitelist Item"] = "白名单物品"
 L["Add Item ID"] = "添加物品ID"
 L["Delete Item ID"] = "删除物品ID"
-L["Custom Glow"] = "自定义高亮"
-L["Replaces the default Actionbar glow for procs with an own pixel glow."] = "将动作条按钮的触发高亮替换为像素风格"
+L["Spell Feedback"] = true
+L["Creates a texture to show the recently pressed buttons."] = true
 
 -- AutoButtons
 L["AutoButtons"] = "自动按键"

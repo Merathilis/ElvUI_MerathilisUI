@@ -3,7 +3,7 @@ local options = MER.options.modules.args
 
 options.actionbars = {
 	type = "group",
-	name = L["ActionBars"],
+	name = E.NewSign..L["ActionBars"],
 	hidden = not E.Retail,
 	get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 	set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -18,7 +18,14 @@ options.actionbars = {
 			type = "group",
 			name = F.cOption(L["General"], 'orange'),
 			guiInline = true,
-			args = { },
+			args = {
+				keyfeedback = {
+					order = 1,
+					type = "toggle",
+					name = E.NewSign..L["Spell Feedback"],
+					desc = L["Creates a texture to show the recently pressed buttons."],
+				},
+			},
 		},
 		specBar = {
 			order = 3,

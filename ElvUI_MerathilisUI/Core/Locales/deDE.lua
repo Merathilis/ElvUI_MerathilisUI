@@ -353,8 +353,8 @@ L["Blacklist Item"] = "Schwarze Liste Gegenstand"
 L["Whitelist Item"] = "Weiße Liste Gegenstand"
 L["Add Item ID"] = "Füge Gegenstands ID hinzu"
 L["Delete Item ID"] = "Entferne Gegenstands ID"
-L["Custom Glow"] = "Benutzerdefinertes Leuchten"
-L["Replaces the default Actionbar glow for procs with an own pixel glow."] = "Ersetzt das Standard Aktionleistenleuchten mit einem eigenen Pixel Leuchten."
+L["Spell Feedback"] = "Zauber Feedback"
+L["Creates a texture to show the recently pressed buttons."] = "Zeigt eine Textur für die zuletzt gedrückten Tasten."
 
 -- AutoButtons
 L["AutoButtons"] = "Autom. Tasten"
