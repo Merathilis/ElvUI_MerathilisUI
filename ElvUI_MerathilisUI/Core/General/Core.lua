@@ -11,7 +11,7 @@ MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 
-MER.MaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion()
+MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
 
 -- Masque support
 MER.MSQ = _G.LibStub('Masque', true)

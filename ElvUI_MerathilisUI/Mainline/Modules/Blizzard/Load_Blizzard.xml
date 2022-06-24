@@ -1,4 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Filter.lua"/>
+	<Script file="FriendsList.lua"/>
 	<Script file="ObjectiveTracker.lua"/>
 	<Script file="Talent.lua"/>
 </Ui>

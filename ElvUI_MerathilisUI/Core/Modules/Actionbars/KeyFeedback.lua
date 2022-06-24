@@ -158,7 +158,7 @@ local MirrorActionButtonDown = function(action)
 	if not HasAction(action) then
 		return
 	end
-	if C_PetBattles.IsInBattle() then
+	if E.Retail and C_PetBattles.IsInBattle() then
 		return
 	end
 
