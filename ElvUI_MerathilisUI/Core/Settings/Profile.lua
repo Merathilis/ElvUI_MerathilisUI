@@ -83,6 +83,38 @@ P.blizzard = {
 			customColorHighlight = {r = 0.282, g = 0.859, b = 0.984}
 		},
 	},
+	filter = {
+		enable = true,
+		unblockProfanityFilter = true,
+	},
+	friendsList = {
+		enable = true,
+		level = true,
+		hideMaxLevel = true,
+		useGameColor = true,
+		useClassColor = true,
+		useNoteAsName = false,
+		textures = {
+			game = "Modern",
+			status = "Square",
+			factionIcon = false
+		},
+		areaColor = {
+			r = 1,
+			g = 1,
+			b = 1
+		},
+		nameFont = {
+			name = E.db.general.font,
+			size = 13,
+			style = "OUTLINE"
+		},
+		infoFont = {
+			name = E.db.general.font,
+			size = 12,
+			style = "OUTLINE"
+		},
+	},
 }
 
 P.CombatAlert = {

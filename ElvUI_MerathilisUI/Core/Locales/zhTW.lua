@@ -899,6 +899,35 @@ L["Top Left Offset X"] = true
 L["Top Left Offset Y"] = true
 L["Transparent"] = true
 
+-- Filter
+L["Filter"] = "過濾器"
+L["Unblock the profanity filter."] = "解鎖不當言詞過濾器."
+L["Profanity Filter"] = "不當言詞過濾器"
+L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = "啟用此項目將解鎖不當言詞過濾器的設定.[中國大陸伺服器]"
+
+-- Friends List
+L["Friends List"] = "好友名單"
+L["Add additional information to the friend frame."] = "為好友框架增添額外訊息."
+L["Modify the texture of status and make name colorful."] = "修改狀態標示材質, 彩色化好友名."
+L["Enhanced Texture"] = "材質增強"
+L["Game Icons"] = "遊戲圖示"
+L["Default"] = "預設"
+L["Modern"] = "現代"
+L["Status Icon Pack"] = "狀態圖標包"
+L["Diablo 3"] = "暗黑破壞神 III"
+L["Square"] = "方塊"
+L["Faction Icon"] = "陣營圖示"
+L["Use faction icon instead of WoW icon."] = "使用陣營圖示來替代魔獸世界遊戲圖示."
+L["Name"] = "名字"
+L["Level"] = "等級"
+L["Hide Max Level"] = "隱藏滿級"
+L["Use Note As Name"] = "使用註記作為名字"
+L["Replace the Real ID or the character name of friends with your notes."] = "將好友的 Real ID 或角色名稱替換為你的註記."
+L["Use Game Color"] = "使用遊戲顏色"
+L["Change the color of the name to the in-playing game style."] = "根據遊玩遊戲風格來修改名字顏色."
+L["Use Class Color"] = "使用職業顏色"
+L["Font Setting"] = "字型設定"
+
 -- Talents
 L["Talents"] = true
 L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."] = true

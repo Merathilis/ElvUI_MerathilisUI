@@ -381,6 +381,13 @@ function MER:CheckCompatibility()
 		"private.WT.skins.addons.weakAurasOptions"
 	)
 
+	CheckWindtools(
+		L["Friends List"],
+		L["Friend List"],
+		"db.mui.blizzard.friendsList.enable",
+		"db.WT.social.friendList.enable"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],

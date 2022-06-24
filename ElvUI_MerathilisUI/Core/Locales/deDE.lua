@@ -908,6 +908,35 @@ L["Top Left Offset X"] = "Versatz oben links X"
 L["Top Left Offset Y"] = "Versatz oben links Y"
 L["Transparent"] = true
 
+-- Filter
+L["Filter"] = true
+L["Unblock the profanity filter."] = "Entsperre den Obszönitätsfilter."
+L["Profanity Filter"] = "Obszönitätsfilter"
+L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = "Wenn Du diese Option aktivierst, wird die Einstellung des Profanitätsfilters aufgehoben. [CN Server]"
+
+-- Friends List
+L["Friends List"] = "Freundesliste"
+L["Add additional information to the friend frame."] = "Fügt der Freundesliste zusätzliche Informationen hinzu."
+L["Modify the texture of status and make name colorful."] = "Ändere die Textur des Status und mache den Namen farblich."
+L["Enhanced Texture"] = "Verbesserte Textur"
+L["Game Icons"] = "Spielsymbole"
+L["Default"] = "Standard"
+L["Modern"] = true
+L["Status Icon Pack"] = "Status Symbolpack"
+L["Diablo 3"] = true
+L["Square"] = "Quadrat"
+L["Faction Icon"] = "Fraktions Symbol"
+L["Use faction icon instead of WoW icon."] = "Verwende das Fraktionssymbol anstelle des WoW-Symbols."
+L["Name"] = true
+L["Level"] = "Stufe"
+L["Hide Max Level"] = "Verstecke auf Max Level"
+L["Use Note As Name"] = "Notiz als Namen"
+L["Replace the Real ID or the character name of friends with your notes."] = "Ersetze die Real ID oder den Charakternamen von Freunden durch Deine Notizen."
+L["Use Game Color"] = "Verwende Spielfarbe"
+L["Change the color of the name to the in-playing game style."] = "Ändere die Farbe des Namens in dem Spielstil."
+L["Use Class Color"] = "Verwende Klassenfarbe"
+L["Font Setting"] = "Schrifteinstellungen"
+
 -- Talents
 L["Talents"] = "Talente"
 L["This feature improves the Talent Window by:\n\nAdding an Extra Button to swap between specializations.\nAdding an Extra Button to use and track duration for Codices and Tomes."] = "Diese Funktion verbessert das Talentfenster um:\n\nEine zusätzliche Taste um schnell zwischen den Spezialisierungen zu wechseln.\nZusätzliche Tasten für Kodexe um schnell die Talente zu wechseln."
