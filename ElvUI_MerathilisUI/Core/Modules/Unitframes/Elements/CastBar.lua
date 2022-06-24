@@ -46,14 +46,25 @@ function module:Configure_Castbar(frame)
 				frame.Castbar.ButtonIcon.bg.shadow:Hide()
 			end
 
-			-- |-- Icon --| ---------------- Time Bar ---------------|
-			-- |---------------- MERShadowBackdrop ------------------|
-			MERBg:ClearAllPoints()
-			MERBg:Point("TOPRIGHT", frame.Castbar.backdrop, "TOPRIGHT")
-			MERBg:Point("BOTTOMRIGHT", frame.Castbar.backdrop, "BOTTOMRIGHT")
-			MERBg:Point("TOPLEFT", iconBg, "TOPLEFT")
-			MERBg:Point("BOTTOMLEFT", iconBg, "BOTTOMLEFT")
-			MERBg.mode = "Attach"
+			if frame.ORIENTATION == "LEFT" then
+				-- |-- Icon --| ---------------- Time Bar ---------------|
+				-- |---------------- MERShadowBackdrop ------------------|
+				MERBg:ClearAllPoints()
+				MERBg:Point("TOPRIGHT", frame.Castbar.backdrop, "TOPRIGHT")
+				MERBg:Point("BOTTOMRIGHT", frame.Castbar.backdrop, "BOTTOMRIGHT")
+				MERBg:Point("TOPLEFT", iconBg, "TOPLEFT")
+				MERBg:Point("BOTTOMLEFT", iconBg, "BOTTOMLEFT")
+				MERBg.mode = "Attach"
+			elseif frame.ORIENTATION == "RIGHT" then
+				-- |----------------- Time Bar ---------------|-- Icon --|
+				-- |---------------- MERShadowBackdrop ------------------|
+				MERBg:ClearAllPoints()
+				MERBg:Point("TOPLEFT", frame.Castbar.backdrop, "TOPLEFT")
+				MERBg:Point("BOTTOMLEFT", frame.Castbar.backdrop, "BOTTOMLEFT")
+				MERBg:Point("TOPRIGHT", iconBg, "TOPRIGHT")
+				MERBg:Point("BOTTOMRIGHT", iconBg, "BOTTOMRIGHT")
+				MERBg.mode = "Attach"
+			end
 		end
 	end
 
