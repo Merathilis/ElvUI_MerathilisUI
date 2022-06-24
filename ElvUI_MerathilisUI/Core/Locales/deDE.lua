@@ -906,7 +906,7 @@ L["Bottom Right Offset X"] = "Versatz unten Rechts X"
 L["Bottom Right Offset Y"] = "Versatz unten Rechts Y"
 L["Top Left Offset X"] = "Versatz oben links X"
 L["Top Left Offset Y"] = "Versatz oben links Y"
-L["Transparent"] = true
+L["Transparent"] = "Transparent"
 
 -- Filter
 L["Filter"] = true

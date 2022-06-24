@@ -28,7 +28,7 @@ But if you install another Layout over mine, you must adjust it manually.
 |cffff8000Newest additions are marked with: |r]=]
 
 -- Core Options
-L["Login Message"] = true
+L["Login Message"] = "Messaggio Di Accesso"
 L["Enable/Disable the Login Message in Chat"] = true
 L["Log Level"] = true
 L["Only display log message that the level is higher than you choose."] = true
@@ -96,7 +96,7 @@ L["Custom Online Message"] = true
 L["Chat Link"] = true
 L["Add extra information on the link, so that you can get basic information but do not need to click"] = true
 L["Additional Information"] = true
-L["Level"] = true
+L["Level"] = "Livello"
 L["Translate Item"] = true
 L["Translate the name in item links into your language."] = true
 L["Icon"] = true
@@ -923,7 +923,7 @@ L["Square"] = true
 L["Faction Icon"] = true
 L["Use faction icon instead of WoW icon."] = true
 L["Name"] = true
-L["Level"] = true
+L["Level"] = "Livello"
 L["Hide Max Level"] = true
 L["Use Note As Name"] = true
 L["Replace the Real ID or the character name of friends with your notes."] = true
