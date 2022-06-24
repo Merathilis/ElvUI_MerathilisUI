@@ -29,8 +29,15 @@ function module:CheckStatus()
 	else -- None of the above
 		LCG.PixelGlow_Stop(Minimap.backdrop)
 	end
+end
 
-	-- Minimap Combat Backdrop
+function module:MinimapCombatCheck()
+	if not Minimap.backdrop then return end
+
+	if not E.db.mui.CombatAlert.minimapAlert then
+		return
+	end
+
 	local anim = Minimap.backdrop:CreateAnimationGroup()
 	anim:SetLooping("BOUNCE")
 
@@ -54,7 +61,7 @@ function module:CheckStatus()
 end
 
 function module:MiniMapCoords()
-	if E.db.mui.maps.minimap.coords.enable ~= true then return end
+	if not E.db.mui.maps.minimap.coords.enable then return end
 
 	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
 	local Coords = F.CreateText(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
@@ -149,6 +156,7 @@ function module:Initialize()
 	self:MinimapPing()
 	self:StyleMinimap()
 	self:QueueStatus()
+	self:MinimapCombatCheck()
 
 	if E.db.mui.maps.minimap.flash then
 		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")

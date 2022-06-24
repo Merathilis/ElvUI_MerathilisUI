@@ -87,6 +87,7 @@ P.blizzard = {
 
 P.CombatAlert = {
 	enable = true,
+	minimapAlert = true,
 	font = {
 		name = "Expressway",
 		size = 28,
