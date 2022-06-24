@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Notification
+local module = MER:GetModule('MER_Notification')
 
 local _G = _G
 local format = string.format
