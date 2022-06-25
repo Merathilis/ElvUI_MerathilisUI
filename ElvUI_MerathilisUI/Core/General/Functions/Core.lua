@@ -237,6 +237,23 @@ function F.PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 
+function F.TablePrint(tbl, indent)
+	if not indent then indent = 0 end
+
+	local formatting
+	for k, v in pairs(tbl) do
+		formatting = string.rep("  ", indent) .. k .. ": "
+		if type(v) == "table" then
+			print(formatting)
+			F.TablePrint(v, indent+1)
+		elseif type(v) == 'boolean' then
+			print(formatting .. tostring(v))
+		else
+			print(formatting .. v)
+		end
+	end
+end
+
 -- LocPanel
 function F.GetIconFromID(type, id)
 	local path
