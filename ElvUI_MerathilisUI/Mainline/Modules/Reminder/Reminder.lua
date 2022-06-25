@@ -23,8 +23,103 @@ local UnitInVehicle = UnitInVehicle
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 local UnitLevel = UnitLevel
 
-_Reminder = module
-_CreatedReminders = {}
+module.CreatedReminders = {}
+
+module.ReminderList = {
+	MAGE = {
+		[1] = { -- Arcane Intellect
+			["spellGroup"] = {
+				[1459] = true,
+				["defaultIcon"] = 1459,  -- Arcane Intellect
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+		},
+	},
+
+	PRIEST = {
+		[2] = { -- Power Word: Fortitude
+			["spellGroup"] = {
+				[21562] = true,
+				["defaultIcon"] = 21562, -- Power Word: Fortitude
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+		},
+	},
+
+	ROGUE = {
+		[1] = { -- Poisons
+			["spellGroup"] = {
+				[8679] = true,	 -- Wound Poison
+				[2823] = true,	 -- Deadly Poison
+				[3408] = true,	 -- Crippling Poison
+				[5761] = true, -- Numbing Poison
+				[108211] = true, -- Leeching Poison
+				[315584] = true, -- Instant Poison
+				["defaultIcon"] = 2823,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			--["tree"] = 1,
+		},
+	},
+
+	SHAMAN = {
+		[1] = { -- Lightning Shield
+			["spellGroup"] = {
+				[192106] = true, -- Lightning Shield
+				["defaultIcon"] = 192106,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			["tree"] = 1
+		},
+		[2] = { -- Lightning Shield
+			["spellGroup"] = {
+				[192106] = true, -- Lightning Shield
+				["defaultIcon"] = 192106,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			["tree"] = 2,
+		},
+		[3] = { -- Water Shield
+			["spellGroup"] = {
+				[52127] = true, -- Water Shield
+				["defaultIcon"] = 52127,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			["tree"] = 3,
+		},
+	},
+
+	WARRIOR = {
+		[1] = { -- Battle Shout
+			["spellGroup"] = {
+				[6673] = true, -- Battle Shout
+				["defaultIcon"] = 6673,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+		},
+	},
+}
 
 function module:PlayerHasFilteredBuff(frame, db, checkPersonal)
 	for buff, value in pairs(db) do
@@ -73,9 +168,12 @@ function module:CanSpellBeUsed(id)
 end
 
 function module:ReminderIcon_OnUpdate(elapsed)
-	if self.ForceShow and self.icon:GetTexture() then return; end
+	if self.ForceShow and self.icon:GetTexture() then
+		return
+	end
+
 	if(self.elapsed and self.elapsed > 0.2) then
-		local db = MER.ReminderList[E.myclass][self.groupName]
+		local db = module.ReminderList[E.myclass][self.groupName]
 		if not db or not db.enable or UnitIsDeadOrGhost("player") then return; end
 		if db.CDSpell then
 			local filterCheck = module:FilterCheck(self)
@@ -127,9 +225,9 @@ end
 
 function module:FilterCheck(frame, isReverse)
 	local _, instanceType = IsInInstance()
-	local roleCheck, treeCheck, combatCheck, instanceCheck, PVPCheck, talentCheck
+	local roleCheck, treeCheck, combatCheck, instanceCheck, PVPCheck
 
-	local db = MER.ReminderList[E.myclass][frame.groupName]
+	local db = module.ReminderList[E.myclass][frame.groupName]
 
 	if db.role then
 		if db.role == E:GetPlayerRole() or db.role == "ANY" then
@@ -190,7 +288,7 @@ end
 function module:ReminderIcon_OnEvent(event, unit)
 	if (event == "UNIT_AURA" and unit ~= "player") then return end
 
-	local db = MER.ReminderList[E.myclass][self.groupName]
+	local db = module.ReminderList[E.myclass][self.groupName]
 
 	self.cooldown:Hide()
 	self:SetAlpha(0)
@@ -202,7 +300,7 @@ function module:ReminderIcon_OnEvent(event, unit)
 		self.icon:SetTexture(nil)
 
 		if not db then
-			_CreatedReminders[self.groupName] = nil
+			module.CreatedReminders[self.groupName] = nil
 		end
 		return
 	end
@@ -214,7 +312,7 @@ function module:ReminderIcon_OnEvent(event, unit)
 	if db.negateGroup and module:PlayerHasFilteredBuff(self, db.negateGroup) and not self.ForceShow then return end
 
 	local hasOffhandWeapon = C_PaperDollInfo_OffhandHasWeapon()
-	local hasMainHandEnchant, _, _, hasOffHandEnchant, _, _ = GetWeaponEnchantInfo()
+	local hasMainHandEnchant, _, _, hasOffHandEnchant = GetWeaponEnchantInfo()
 	local hasBuff, hasDebuff
 	if db.spellGroup and not db.CDSpell then
 		for buff, value in pairs(db.spellGroup) do
@@ -237,9 +335,9 @@ function module:ReminderIcon_OnEvent(event, unit)
 			self:UnregisterAllEvents()
 			self:RegisterEvent("UNIT_AURA")
 			self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
-			if E.Retail then
-				self:RegisterEvent("PLAYER_TALENT_UPDATE")
-			end
+			self:RegisterEvent("PLAYER_TALENT_UPDATE")
+			self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+
 			if db.combat then
 				self:RegisterEvent("PLAYER_REGEN_ENABLED")
 				self:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -309,10 +407,8 @@ function module:ReminderIcon_OnEvent(event, unit)
 		return
 	end
 
-	if E.Retail then
-		if not self.icon:GetTexture() or UnitInVehicle("player") then
-			return
-		end
+	if not self.icon:GetTexture() or UnitInVehicle("player") then
+		return
 	end
 
 	local filterCheck = module:FilterCheck(self)
@@ -360,31 +456,39 @@ function module:ReminderIcon_OnEvent(event, unit)
 end
 
 function module:CreateReminder(name, index)
-	if _CreatedReminders[name] or not E.db.unitframe.units.player.enable then return end
+	if module.CreatedReminders[name] or not E.db.unitframe.units.player.enable then return end
 
 	local size = module.db.size or 30
 	local ElvFrame = _G.ElvUF_Player
 
-	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, E.UIParent)
-	frame:Size(size or (ElvFrame:GetHeight() -4))
-	frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
+	local holder = CreateFrame("Frame", MER.Title.."Reminder", E.UIParent)
+	holder:SetSize(40, 40)
+	holder:ClearAllPoints()
+	holder:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
+
+	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, holder)
+	frame:SetSize(size, size)
+	frame:ClearAllPoints()
+	frame:SetPoint("CENTER", holder)
 	frame:SetFrameStrata(ElvFrame:GetFrameStrata())
-	frame.groupName = name
-
-	E:CreateMover(frame, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
-
-	frame.icon = frame:CreateTexture(nil, "OVERLAY")
-	frame.icon:SetAllPoints()
-	S:HandleIcon(frame.icon)
 	frame:EnableMouse(false)
 	frame:SetAlpha(0)
+	frame.groupName = name
+
+	E:CreateMover(holder, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
+
+	local icon = frame:CreateTexture(nil, "OVERLAY")
+	icon:SetAllPoints()
+	S:HandleIcon(icon)
+	frame.icon = icon
 
 	-- Used for Glow
-	frame.overlay = CreateFrame("Button", nil, frame)
-	frame.overlay:SetOutside(frame, 2, 2)
+	local overlay = CreateFrame("Button", nil, frame)
+	overlay:SetOutside(frame, 2, 2)
+	frame.overlay = overlay
 
 	local cd = CreateFrame("Cooldown", nil, frame)
-	cd:SetAllPoints(frame.icon)
+	cd:SetAllPoints(icon)
 	E:RegisterCooldown(cd)
 	frame.cooldown = cd
 
@@ -392,11 +496,12 @@ function module:CreateReminder(name, index)
 	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	frame:SetScript("OnEvent", module.ReminderIcon_OnEvent)
 
-	_CreatedReminders[name] = frame
+	-- module.CreatedReminders[name] = frame
+	table.insert(module.CreatedReminders, frame)
 end
 
 function module:CheckForNewReminders()
-	local db = MER.ReminderList[E.myclass]
+	local db = module.ReminderList[E.myclass]
 	if not db then return end
 
 	local index = 0
