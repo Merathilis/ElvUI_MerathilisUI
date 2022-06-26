@@ -30,4 +30,4 @@ function module:ElvUI_Misc()
 	end
 end
 
-S:AddCallback("ElvUI_Misc")
+module:AddCallback("ElvUI_Misc")
