@@ -68,20 +68,6 @@ local RaidCounts = {
 	totalDAMAGER = 0,
 }
 
-local function ReSkinButton(button, ...)
-	button:SetParent(_G.RaidManagerFrame)
-	button:ClearAllPoints()
-	button:Point(...)
-	button:Size(_G.RaidManagerFrame:GetWidth()/2-20, 25)
-	for j = 1, button:GetNumRegions() do
-		local region = select(j, button:GetRegions())
-		if region:GetObjectType() == "Texture" then
-			region:Hide()
-		end
-	end
-	ES:HandleButton(button)
-end
-
 local function lockraidmarkframe()
 	_G.RaidMarkFrame:EnableMouse(false)
 	_G.RaidMarkFrame:ClearAllPoints()
@@ -200,16 +186,6 @@ local function UpdateIcons(self)
 	end
 end
 
---Change border when mouse is inside the button
-local function ButtonEnter(self)
-	self.backdrop:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
-end
-
---Change border back to normal when mouse leaves button
-local function ButtonLeave(self)
-	self.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
-end
-
 function module:CreateRaidManager()
 	-- Main Frame
 	local RaidManagerFrame = CreateFrame("Frame", "RaidManagerFrame", E.UIParent)
@@ -258,27 +234,25 @@ function module:CreateRaidManager()
 		RaidManagerFrame.Close.tex:SetVertexColor(1, 1, 1)
 	end)
 
-	if E.Retail then
-		if _G.CompactRaidFrameManager then
-			local WorldMarkButton = _G.CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton
-			WorldMarkButton:SetParent(RaidManagerFrame)
-			WorldMarkButton:ClearAllPoints()
-			WorldMarkButton:Point("TOPRIGHT", RaidManagerFrame, "TOPRIGHT", -5, -3)
-			WorldMarkButton:Size(18, 18)
+	if _G.CompactRaidFrameManager then
+		local WorldMarkButton = _G.CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton
+		WorldMarkButton:SetParent(RaidManagerFrame)
+		WorldMarkButton:ClearAllPoints()
+		WorldMarkButton:Point("TOPRIGHT", RaidManagerFrame, "TOPRIGHT", -5, -3)
+		WorldMarkButton:Size(18, 18)
 
-			WorldMarkButton:HookScript("OnEvent", function(self, event)
-				if UnitIsGroupAssistant("player") or UnitIsGroupLeader("player") or (IsInGroup() and not IsInRaid()) then
-					self:Enable()
-				else
-					self:Disable()
-				end
-			end)
+		WorldMarkButton:HookScript("OnEvent", function(self, event)
+			if UnitIsGroupAssistant("player") or UnitIsGroupLeader("player") or (IsInGroup() and not IsInRaid()) then
+				self:Enable()
+			else
+				self:Disable()
+			end
+		end)
 
-			WorldMarkButton:RegisterEvent("GROUP_ROSTER_UPDATE")
-			WorldMarkButton:RegisterEvent("PLAYER_ENTERING_WORLD")
-		else
-			E:StaticPopup_Show('WARNING_BLIZZARD_ADDONS')
-		end
+		WorldMarkButton:RegisterEvent("GROUP_ROSTER_UPDATE")
+		WorldMarkButton:RegisterEvent("PLAYER_ENTERING_WORLD")
+	else
+		E:StaticPopup_Show('WARNING_BLIZZARD_ADDONS')
 	end
 
 	local PullButton = CreateFrame("Button", "RaidManagerFramePullButton", RaidManagerFrame, "UIPanelButtonTemplate")
@@ -333,11 +307,11 @@ function module:CreateRaidManager()
 	ReadyCheckButton.text:SetText(_G.READY_CHECK)
 
 	ReadyCheckButton:SetScript("OnClick", function()
-		if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(MER.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
+		if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(MER.RedColor.._G.ERR_NOT_IN_COMBAT) return end
 		if IsInGroup() and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid())) then
 			DoReadyCheck()
 		else
-			_G.UIErrorsFrame:AddMessage(MER.InfoColor.._G.ERR_NOT_LEADER)
+			_G.UIErrorsFrame:AddMessage(MER.RedColor.._G.ERR_NOT_LEADER)
 		end
 	end)
 
@@ -356,7 +330,7 @@ function module:CreateRaidManager()
 		if IsInGroup() and not HasLFGRestrictions() and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid())) then
 			InitiateRolePoll()
 		else
-			_G.UIErrorsFrame:AddMessage(MER.InfoColor.._G.ERR_NOT_LEADER)
+			_G.UIErrorsFrame:AddMessage(MER.RedColor.._G.ERR_NOT_LEADER)
 		end
 	end)
 
@@ -582,6 +556,7 @@ function module:CreateRaidInfo()
 	res:Size(22, 22)
 	res:Point("LEFT", 5, 0)
 	F.PixelIcon(res, GetSpellTexture(20484))
+
 	res.Count = F.CreateText(res, "OVERLAY", 16, "OUTLINE", "0")
 	res.Count:ClearAllPoints()
 	res.Count:Point("LEFT", res, "RIGHT", 10, 0)

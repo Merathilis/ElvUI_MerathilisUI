@@ -85,6 +85,10 @@ AddMedia("PepeArt", "PepeArt.tga", "Textures")
 AddMedia("PepoLove", "pepoLove.tga", "Textures")
 AddMedia("Pushed", "pushed.tga", "Textures")
 
+AddMedia("Tank", "Tank.tga", "Textures")
+AddMedia("Healer", "Healer.tga", "Textures")
+AddMedia("DPS", "dps.tga", "Textures")
+
 -- Fonts
 LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])
 LSM:Register("font","PrototypeRU", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE_RU.TTF]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
