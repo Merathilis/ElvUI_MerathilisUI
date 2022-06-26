@@ -40,7 +40,7 @@ module.ReminderList = {
 	},
 
 	PRIEST = {
-		[2] = { -- Power Word: Fortitude
+		[1] = { -- Power Word: Fortitude
 			["spellGroup"] = {
 				[21562] = true,
 				["defaultIcon"] = 21562, -- Power Word: Fortitude
@@ -160,7 +160,7 @@ function module:CanSpellBeUsed(id)
 	local start, duration, enabled = GetSpellCooldown(name)
 	if enabled == 0 or start == nil or duration == nil then
 		return false
-	elseif start > 0 and duration > 1.5 then	--On Cooldown
+	elseif start > 0 and duration > 1.5 then --On Cooldown
 		return false
 	else --Off Cooldown
 		return true
@@ -506,8 +506,8 @@ function module:CheckForNewReminders()
 
 	local index = 0
 	for groupName, _ in pairs(db) do
-		index = index + 1
 		module:CreateReminder(groupName, index)
+		index = index + 1
 	end
 end
 
@@ -516,8 +516,6 @@ function module:Initialize()
 	if not module.db.enable then return end
 
 	hooksecurefunc(UF, 'LoadUnits', module.CheckForNewReminders)
-
-	module.initialized = true
 end
 
 MER:RegisterModule(module:GetName())
