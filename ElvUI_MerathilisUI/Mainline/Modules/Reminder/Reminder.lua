@@ -478,38 +478,37 @@ function module:CreateReminder(name, index)
 	holder:SetSize(40, 40)
 	holder:ClearAllPoints()
 	holder:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
-
-	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, holder)
-	frame:SetSize(size, size)
-	frame:ClearAllPoints()
-	frame:SetPoint("CENTER", holder)
-	frame:SetFrameStrata(ElvFrame:GetFrameStrata())
-	frame:EnableMouse(false)
-	frame:SetAlpha(0)
-	frame.groupName = name
-
 	E:CreateMover(holder, "MER_ReminderMover"..index, L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
 
-	local icon = frame:CreateTexture(nil, "OVERLAY")
+	local button = CreateFrame("Button", "MER_ReminderIcon"..index, holder)
+	button:SetSize(size, size)
+	button:ClearAllPoints()
+	button:SetPoint("CENTER", holder, "CENTER", 0, 0)
+	button:SetFrameStrata(ElvFrame:GetFrameStrata())
+	button:EnableMouse(false)
+	button:SetAlpha(0)
+	button.groupName = name
+
+	local icon = button:CreateTexture(nil, "OVERLAY")
 	icon:SetAllPoints()
 	S:HandleIcon(icon)
-	frame.icon = icon
+	button.icon = icon
 
 	-- Used for Glow
-	local overlay = CreateFrame("Button", nil, frame)
+	local overlay = CreateFrame("Button", nil, button)
 	overlay:SetOutside(frame, 2, 2)
-	frame.overlay = overlay
+	button.overlay = overlay
 
-	local cd = CreateFrame("Cooldown", nil, frame)
+	local cd = CreateFrame("Cooldown", nil, button)
 	cd:SetAllPoints(icon)
 	E:RegisterCooldown(cd)
-	frame.cooldown = cd
+	button.cooldown = cd
 
-	frame:RegisterUnitEvent("UNIT_AURA", "player")
-	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-	frame:SetScript("OnEvent", module.ReminderIcon_OnEvent)
+	button:RegisterUnitEvent("UNIT_AURA", "player")
+	button:RegisterEvent("PLAYER_ENTERING_WORLD")
+	button:SetScript("OnEvent", module.ReminderIcon_OnEvent)
 
-	tinsert(module.CreatedReminders, frame)
+	tinsert(module.CreatedReminders, button)
 end
 
 function module:CheckForNewReminders()
