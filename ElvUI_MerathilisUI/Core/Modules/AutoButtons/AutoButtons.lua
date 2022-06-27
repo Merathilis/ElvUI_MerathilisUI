@@ -637,7 +637,7 @@ local moduleList = {
 function module:CreateButton(name, barDB)
 	local button = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate, BackdropTemplate")
 	button:Size(barDB.buttonWidth, barDB.buttonHeight)
-	button:SetTemplate("Default")
+	button:SetTemplate()
 	button:SetClampedToScreen(true)
 	button:SetAttribute("type", "item")
 	button:EnableMouse(false)
