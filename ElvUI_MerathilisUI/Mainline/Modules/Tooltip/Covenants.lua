@@ -64,21 +64,22 @@ function module:AddCovenantTooltip()
 		end
 	end
 
-
 	local covenantId = module:GetCovenant(unit)
-	if not covenantId then
-		self:AddLine(L["Covenant: <Checking...>"], nil, nil, nil, true)
-		return
-	end
-	if covenantId == 0 then
-		self:AddLine(L["Covenant: <None - Too low>"], nil, nil, nil, true)
-		return
-	end
 
-	local message = "|T"..icons[covenantId]..":16|t"..covenants[covenantId]
+	if IsShiftKeyDown() then
+		if not covenantId then
+			self:AddLine(L["Covenant: <Checking...>"], nil, nil, nil, true)
+			return
+		end
+		if covenantId == 0 then
+			self:AddLine(L["Covenant: <None - Too low>"], nil, nil, nil, true)
+			return
+		end
 
-	if message and message ~= "" and IsShiftKeyDown() then
-		self:AddLine(L["Covenant: "]..message, nil, nil, nil, true)
+		local message = "|T"..icons[covenantId]..":16|t"..covenants[covenantId]
+		if message then
+			self:AddLine(L["Covenant: "]..message, nil, nil, nil, true)
+		end
 	end
 end
 
