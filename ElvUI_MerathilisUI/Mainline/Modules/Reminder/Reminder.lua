@@ -6,6 +6,7 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, select, type, unpack= pairs, select, type, unpack
+local tinsert = table.insert
 
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 local C_PaperDollInfo_OffhandHasWeapon = C_PaperDollInfo.OffhandHasWeapon
@@ -81,20 +82,9 @@ module.ReminderList = {
 			["instance"] = true,
 			["pvp"] = true,
 			["strictFilter"] = true,
-			["tree"] = 1
+			["tree"] = 1, 2
 		},
-		[2] = { -- Lightning Shield
-			["spellGroup"] = {
-				[192106] = true, -- Lightning Shield
-				["defaultIcon"] = 192106,
-			},
-			["enable"] = true,
-			["instance"] = true,
-			["pvp"] = true,
-			["strictFilter"] = true,
-			["tree"] = 2,
-		},
-		[3] = { -- Water Shield
+		[2] = { -- Water Shield
 			["spellGroup"] = {
 				[52127] = true, -- Water Shield
 				["defaultIcon"] = 52127,
@@ -104,6 +94,29 @@ module.ReminderList = {
 			["pvp"] = true,
 			["strictFilter"] = true,
 			["tree"] = 3,
+		},
+		[3] = { -- Flametongue Weapon
+			["spellGroup"] = {
+				[318038] = true,
+				["defaultIcon"] = 318038,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			["weaponCheck"] = true,
+		},
+		[4] = { -- Windfury Weapon
+			["spellGroup"] = {
+				[33757] = true,
+				["defaultIcon"] = 33757,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			["weaponCheck"] = true,
+			-- ["tree"] = 2,
 		},
 	},
 
@@ -461,7 +474,7 @@ function module:CreateReminder(name, index)
 	local size = module.db.size or 30
 	local ElvFrame = _G.ElvUF_Player
 
-	local holder = CreateFrame("Frame", MER.Title.."Reminder", E.UIParent)
+	local holder = CreateFrame("Frame", MER.Title.."Reminder"..index, E.UIParent)
 	holder:SetSize(40, 40)
 	holder:ClearAllPoints()
 	holder:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
@@ -475,7 +488,7 @@ function module:CreateReminder(name, index)
 	frame:SetAlpha(0)
 	frame.groupName = name
 
-	E:CreateMover(holder, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
+	E:CreateMover(holder, "MER_ReminderMover"..index, L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
 
 	local icon = frame:CreateTexture(nil, "OVERLAY")
 	icon:SetAllPoints()
@@ -496,8 +509,7 @@ function module:CreateReminder(name, index)
 	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	frame:SetScript("OnEvent", module.ReminderIcon_OnEvent)
 
-	-- module.CreatedReminders[name] = frame
-	table.insert(module.CreatedReminders, frame)
+	tinsert(module.CreatedReminders, frame)
 end
 
 function module:CheckForNewReminders()
