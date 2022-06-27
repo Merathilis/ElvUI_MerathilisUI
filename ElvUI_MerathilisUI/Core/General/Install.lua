@@ -1165,9 +1165,11 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["invertPower"] = true
 	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
 	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
-	E.db["unitframe"]["colors"]["useDeadBackdrop"] = true
-	E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
-	E.db["unitframe"]["colors"]["classbackdrop"] = false
+	E.db["unitframe"]["colors"]["useDeadBackdrop"] = false
+	E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
+	E.db["unitframe"]["colors"]["classbackdrop"] = true
+	E.db["unitframe"]["colors"]["healthMultiplier"] = 0.75
+
 	E.db["unitframe"]["debuffHighlighting"] = "FILL"
 
 	-- Frame Glow
