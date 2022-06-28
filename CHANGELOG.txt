@@ -1,4 +1,4 @@
-[b][color=orange]v5.11[/color], 21.06.2022[/b][list]
+[b][color=orange]v5.12[/color], 28.06.2022[/b][list]
 [*]Updated RaidMarker Code
 [*]Added Frame Strata & Frame Level Option for the Equip/SpeccBar
 [*]Added CVar: Camera FOV to the Option
