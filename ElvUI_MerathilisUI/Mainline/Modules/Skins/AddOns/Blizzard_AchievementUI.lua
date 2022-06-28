@@ -14,11 +14,9 @@ local function LoadSkin()
 		return
 	end
 
-	if not _G.AchievementFrame.backdrop then
-		_G.AchievementFrame:CreateBackdrop('Transparent')
-		_G.AchievementFrame.backdrop:Styling()
-	end
-	module:CreateBackdropShadow(_G.AchievementFrame)
+	local AchievementFrame = _G.AchievementFrame
+	AchievementFrame:Styling()
+	module:CreateBackdropShadow(AchievementFrame)
 
 	-- Hide the ElvUI default backdrop
 	if _G.AchievementFrameCategoriesContainer.backdrop then
@@ -87,9 +85,9 @@ local function LoadSkin()
 
 	_G.AchievementFrameSummaryCategoriesStatusBarTitle:SetTextColor(1, 1, 1)
 
-	_G.AchievementFrame.searchBox:ClearAllPoints()
-	_G.AchievementFrame.searchBox:SetPoint("BOTTOMRIGHT", _G.AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -2)
-	_G.AchievementFrame.searchBox:SetSize(100, 20)
+	AchievementFrame.searchBox:ClearAllPoints()
+	AchievementFrame.searchBox:SetPoint("BOTTOMRIGHT", _G.AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -2)
+	AchievementFrame.searchBox:SetSize(100, 20)
 end
 
 S:AddCallbackForAddon("Blizzard_AchievementUI", LoadSkin)
