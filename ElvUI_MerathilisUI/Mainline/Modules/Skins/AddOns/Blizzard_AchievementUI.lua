@@ -15,7 +15,7 @@ local function LoadSkin()
 	end
 
 	local AchievementFrame = _G.AchievementFrame
-	AchievementFrame:Styling()
+	AchievementFrame.backdrop:Styling()
 	module:CreateBackdropShadow(AchievementFrame)
 
 	-- Hide the ElvUI default backdrop
