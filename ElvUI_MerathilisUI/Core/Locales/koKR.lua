@@ -577,6 +577,12 @@ L["Waypoint Parse"] = "웨이포인트 분석"
 L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = "여기에 좌표가 포함된 텍스트를 붙여넣은 다음 Enter 키를 눌러 웨이포인트를 설정할 수 있습니다."
 L["illegal"] = "허용되지 않음"
 L["invalid"] = "무효"
+L["Because of %s, this module will not be loaded."] = true
+L["This module will help you to reveal and resize maps."] = true
+L["Reveal"] = true
+L["Use Colored Fog"] = true
+L["Remove Fog of War from your world map."] = true
+L["Style Fog of War with special color."] = true
 
 -- SMB
 L["Minimap Buttons"] = "미니맵 버튼 통합 바"

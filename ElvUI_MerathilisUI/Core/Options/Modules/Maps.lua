@@ -2,6 +2,7 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule('MER_Minimap')
 local SMB = MER:GetModule('MER_MiniMapButtons')
 local RM = MER:GetModule('MER_RectangleMinimap')
+local WM = MER:GetModule('MER_WorldMap')
 local options = MER.options.modules.args
 local LSM = E.LSM
 
@@ -128,12 +129,90 @@ options.maps = {
 		worldMap = {
 			order = 4,
 			type = "group",
-			name = L["World Map"],
+			name = E.NewSign..L["World Map"],
 			get = function(info) return E.db.mui.maps.worldMap[info[#info]] end,
 			set = function(info, value) E.db.mui.maps.worldMap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			args = {
-				scale = {
+				desc = {
 					order = 1,
+					type = "group",
+					inline = true,
+					name = L["Description"],
+					args = {
+						feature = {
+							order = 1,
+							type = "description",
+							name = function()
+								if WM.StopRunning then
+									return format(
+										"|cffff3860" .. L["Because of %s, this module will not be loaded."] .. "|r",
+										WM.StopRunning
+									)
+								else
+									return L["This module will help you to reveal and resize maps."]
+								end
+							end,
+							fontSize = "medium"
+						}
+					}
+				},
+				enable = {
+					order = 2,
+					type = "toggle",
+					name = E.NewSign..L["Enable"]
+				},
+				reveal = {
+					order = 3,
+					type = "group",
+					inline = true,
+					name = E.NewSign..L["Reveal"],
+					get = function(info)
+						return E.db.mui.maps.worldMap.reveal[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.worldMap.reveal[info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+							desc = L["Remove Fog of War from your world map."]
+						},
+						useColor = {
+							order = 2,
+							type = "toggle",
+							name = L["Use Colored Fog"],
+							disabled = function()
+								return not E.db.mui.maps.worldMap.reveal.enable
+							end,
+							desc = L["Style Fog of War with special color."]
+						},
+						color = {
+							order = 3,
+							type = "color",
+							hasAlpha = true,
+							name = L["Color"],
+							disabled = function()
+								return not E.db.mui.maps.worldMap.reveal.useColor or
+									not E.db.mui.maps.worldMap.reveal.enable
+							end,
+							get = function(info)
+								local db = E.db.mui.maps.worldMap.reveal[info[#info]]
+								local default = P.maps.worldMap.reveal[info[#info]]
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(info, r, g, b, a)
+								local db = E.db.mui.maps.worldMap.reveal[info[#info]]
+								db.r, db.g, db.b, db.a = r, g, b, a
+								E:StaticPopup_Show("PRIVATE_RL")
+							end
+						}
+					}
+				},
+				scale = {
+					order = 4,
 					type = "group",
 					name = L["Scale"],
 					desc = L["Resize world map."],

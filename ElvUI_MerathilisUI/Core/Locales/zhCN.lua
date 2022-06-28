@@ -594,6 +594,12 @@ L["Waypoint Parse"] = "路径点解析"
 L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = "你可以在这里粘贴任何包含坐标的文字, 然后按 回车键 设置路径点."
 L["illegal"] = "非法"
 L["invalid"] = "无效"
+L["Because of %s, this module will not be loaded."] = true
+L["This module will help you to reveal and resize maps."] = true
+L["Reveal"] = true
+L["Use Colored Fog"] = true
+L["Remove Fog of War from your world map."] = true
+L["Style Fog of War with special color."] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地图按钮"

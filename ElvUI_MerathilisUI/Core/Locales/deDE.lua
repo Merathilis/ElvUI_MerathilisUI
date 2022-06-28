@@ -581,6 +581,12 @@ L["Waypoint Parse"] = "wegpunktanalyse"
 L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = "Du kannst hier einen beliebigen Text einfügen, der Koordinaten enthält, und die EINGABETASTE drücken, um den Wegpunkt auf der Karte festzulegen."
 L["illegal"] = true
 L["invalid"] = "ungültig"
+L["Because of %s, this module will not be loaded."] = "Aufgrund von %s wird dieses Modul nicht geladen."
+L["This module will help you to reveal and resize maps."] = "Dieses Modul hilft Dir, beim Anzeigen und Ändern der Kartengröße."
+L["Reveal"] = "Aufdecken"
+L["Use Colored Fog"] = "Verwende farbigen Nebel"
+L["Remove Fog of War from your world map."] = "Entferne Nebel des Krieges von deiner Weltkarte."
+L["Style Fog of War with special color."] = "Style Nebel des Krieges mit einer besonderen Farbe."
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

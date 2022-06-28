@@ -861,9 +861,15 @@ P.maps = {
 		},
 	},
 	worldMap = {
+		enable = true,
+		reveal = {
+			enable = true,
+			useColor = true,
+			color = {r = 0, g = 0, b = 0, a = 0.50}
+		},
 		scale = {
 			enable = true,
-			size = 1.15
+			size = 1.24
 		},
 	},
 }

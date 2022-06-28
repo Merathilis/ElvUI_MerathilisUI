@@ -388,6 +388,13 @@ function MER:CheckCompatibility()
 		"db.WT.social.friendList.enable"
 	)
 
+	CheckWindtools(
+		L["World Map"],
+		L["World Map"],
+		"db.mui.maps.worldMap.enable",
+		"private.WT.maps.worldMap.enable"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],

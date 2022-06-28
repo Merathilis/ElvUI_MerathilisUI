@@ -578,6 +578,12 @@ L["Waypoint Parse"] = true
 L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = true
 L["illegal"] = true
 L["invalid"] = true
+L["Because of %s, this module will not be loaded."] = true
+L["This module will help you to reveal and resize maps."] = true
+L["Reveal"] = true
+L["Use Colored Fog"] = true
+L["Remove Fog of War from your world map."] = true
+L["Style Fog of War with special color."] = true
 
 -- SMB
 L["Minimap Buttons"] = true
