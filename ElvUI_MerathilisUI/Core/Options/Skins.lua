@@ -1650,7 +1650,7 @@ options.addonskins = {
 	name = L["AddOnSkins"],
 	get = function(info) return E.private.mui.skins.addonSkins[ info[#info] ] end,
 	set = function(info, value) E.private.mui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-	disabled = function() return not E.private.mui.skins.enable or not E.private.mui.skins.addonSkins.enable end,
+	disabled = function() return not E.private.mui.skins.enable end,
 	args = {
 		info = {
 			order = 1,
@@ -1687,6 +1687,14 @@ for _, v in ipairs(DecorAddons) do
 		disabled = function() return not IsAddOnLoaded(addonName) end,
 	}
 end
+
+options.addonskins.args.ace3 = {
+	order = 6,
+	type = "toggle",
+	name = L["Ace3"],
+	get = function(info) return E.private.mui.skins.addonSkins[ info[#info] ] end,
+	set = function(info, value) E.private.mui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+}
 
 options.profiles = {
 	order = 5,
