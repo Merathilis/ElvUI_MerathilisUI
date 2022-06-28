@@ -26,7 +26,7 @@ end
 function MER:CreateSplash()
 	local frame = CreateFrame("Frame", nil, E.UIParent)
 	frame:SetSize(300, 150)
-	frame:SetPoint("CENTER", E.UIParent, "BOTTOM", -500, GetScreenHeight()*.618)
+	frame:SetPoint("CENTER", E.UIParent, "BOTTOM", -500, GetScreenHeight() * 0.618)
 	frame:SetFrameStrata("HIGH")
 	frame:SetAlpha(0)
 	frame:Hide()
@@ -43,9 +43,9 @@ function MER:CreateSplash()
 	version:SetTextColor(1, 0.5, 0.25, 1)
 
 	local delayTime = 0
-	local timer1 = .5
+	local timer1 = 0.5
 	local timer2 = 2
-	local timer3 = .2
+	local timer3 = 0.2
 
 	local anim = frame:CreateAnimationGroup()
 	anim.move1 = anim:CreateAnimation("Translation")

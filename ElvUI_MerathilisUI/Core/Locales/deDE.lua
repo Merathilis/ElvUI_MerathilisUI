@@ -353,8 +353,8 @@ L["Blacklist Item"] = "Schwarze Liste Gegenstand"
 L["Whitelist Item"] = "Weiße Liste Gegenstand"
 L["Add Item ID"] = "Füge Gegenstands ID hinzu"
 L["Delete Item ID"] = "Entferne Gegenstands ID"
-L["Custom Glow"] = "Benutzerdefinertes Leuchten"
-L["Replaces the default Actionbar glow for procs with an own pixel glow."] = "Ersetzt das Standard Aktionleistenleuchten mit einem eigenen Pixel Leuchten."
+L["Spell Feedback"] = "Zauber Feedback"
+L["Creates a texture to show the recently pressed buttons."] = "Zeigt eine Textur für die zuletzt gedrückten Tasten."
 
 -- AutoButtons
 L["AutoButtons"] = "Autom. Tasten"
@@ -906,7 +906,36 @@ L["Bottom Right Offset X"] = "Versatz unten Rechts X"
 L["Bottom Right Offset Y"] = "Versatz unten Rechts Y"
 L["Top Left Offset X"] = "Versatz oben links X"
 L["Top Left Offset Y"] = "Versatz oben links Y"
-L["Transparent"] = true
+L["Transparent"] = "Transparent"
+
+-- Filter
+L["Filter"] = true
+L["Unblock the profanity filter."] = "Entsperre den Obszönitätsfilter."
+L["Profanity Filter"] = "Obszönitätsfilter"
+L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = "Wenn Du diese Option aktivierst, wird die Einstellung des Profanitätsfilters aufgehoben. [CN Server]"
+
+-- Friends List
+L["Friends List"] = "Freundesliste"
+L["Add additional information to the friend frame."] = "Fügt der Freundesliste zusätzliche Informationen hinzu."
+L["Modify the texture of status and make name colorful."] = "Ändere die Textur des Status und mache den Namen farblich."
+L["Enhanced Texture"] = "Verbesserte Textur"
+L["Game Icons"] = "Spielsymbole"
+L["Default"] = "Standard"
+L["Modern"] = true
+L["Status Icon Pack"] = "Status Symbolpack"
+L["Diablo 3"] = true
+L["Square"] = "Quadrat"
+L["Faction Icon"] = "Fraktions Symbol"
+L["Use faction icon instead of WoW icon."] = "Verwende das Fraktionssymbol anstelle des WoW-Symbols."
+L["Name"] = true
+L["Level"] = "Stufe"
+L["Hide Max Level"] = "Verstecke auf Max Level"
+L["Use Note As Name"] = "Notiz als Namen"
+L["Replace the Real ID or the character name of friends with your notes."] = "Ersetze die Real ID oder den Charakternamen von Freunden durch Deine Notizen."
+L["Use Game Color"] = "Verwende Spielfarbe"
+L["Change the color of the name to the in-playing game style."] = "Ändere die Farbe des Namens in dem Spielstil."
+L["Use Class Color"] = "Verwende Klassenfarbe"
+L["Font Setting"] = "Schrifteinstellungen"
 
 -- Talents
 L["Talents"] = "Talente"

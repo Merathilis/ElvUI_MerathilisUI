@@ -28,7 +28,7 @@ But if you install another Layout over mine, you must adjust it manually.
 |cffff8000Newest additions are marked with: |r]=]
 
 -- Core Options
-L["Login Message"] = true
+L["Login Message"] = "Messaggio Di Accesso"
 L["Enable/Disable the Login Message in Chat"] = true
 L["Log Level"] = true
 L["Only display log message that the level is higher than you choose."] = true
@@ -96,7 +96,7 @@ L["Custom Online Message"] = true
 L["Chat Link"] = true
 L["Add extra information on the link, so that you can get basic information but do not need to click"] = true
 L["Additional Information"] = true
-L["Level"] = true
+L["Level"] = "Livello"
 L["Translate Item"] = true
 L["Translate the name in item links into your language."] = true
 L["Icon"] = true
@@ -347,8 +347,8 @@ L["Blacklist Item"] = true
 L["Whitelist Item"] = true
 L["Add Item ID"] = true
 L["Delete Item ID"] = true
-L["Custom Glow"] = true
-L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
+L["Spell Feedback"] = true
+L["Creates a texture to show the recently pressed buttons."] = true
 
 -- AutoButtons
 L["AutoButtons"] = true
@@ -902,6 +902,35 @@ L["Bottom Right Offset Y"] = true
 L["Top Left Offset X"] = true
 L["Top Left Offset Y"] = true
 L["Transparent"] = true
+
+-- Filter
+L["Filter"] = true
+L["Unblock the profanity filter."] = true
+L["Profanity Filter"] = true
+L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = true
+
+-- Friends List
+L["Friends List"] = true
+L["Add additional information to the friend frame."] = true
+L["Modify the texture of status and make name colorful."] = true
+L["Enhanced Texture"] = true
+L["Game Icons"] = true
+L["Default"] = true
+L["Modern"] = true
+L["Status Icon Pack"] = true
+L["Diablo 3"] = true
+L["Square"] = true
+L["Faction Icon"] = true
+L["Use faction icon instead of WoW icon."] = true
+L["Name"] = true
+L["Level"] = "Livello"
+L["Hide Max Level"] = true
+L["Use Note As Name"] = true
+L["Replace the Real ID or the character name of friends with your notes."] = true
+L["Use Game Color"] = true
+L["Change the color of the name to the in-playing game style."] = true
+L["Use Class Color"] = true
+L["Font Setting"] = true
 
 -- Talents
 L["Talents"] = true

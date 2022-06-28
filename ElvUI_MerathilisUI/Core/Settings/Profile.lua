@@ -83,10 +83,43 @@ P.blizzard = {
 			customColorHighlight = {r = 0.282, g = 0.859, b = 0.984}
 		},
 	},
+	filter = {
+		enable = true,
+		unblockProfanityFilter = true,
+	},
+	friendsList = {
+		enable = true,
+		level = true,
+		hideMaxLevel = true,
+		useGameColor = true,
+		useClassColor = true,
+		useNoteAsName = false,
+		textures = {
+			game = "Modern",
+			status = "Square",
+			factionIcon = false
+		},
+		areaColor = {
+			r = 1,
+			g = 1,
+			b = 1
+		},
+		nameFont = {
+			name = E.db.general.font,
+			size = 13,
+			style = "OUTLINE"
+		},
+		infoFont = {
+			name = E.db.general.font,
+			size = 12,
+			style = "OUTLINE"
+		},
+	},
 }
 
 P.CombatAlert = {
 	enable = true,
+	minimapAlert = true,
 	font = {
 		name = "Expressway",
 		size = 28,
@@ -128,6 +161,7 @@ P.cvars = {
 		removeChatDelay = true,
 		screenshotQuality = 10,
 		showTutorials = false,
+		cameraFov = 90,
 	},
 	combatText = {
 		worldTextScale = 0.75,
@@ -365,6 +399,7 @@ P.notification = {
 	noSound = false,
 	mail = true,
 	vignette = true,
+	rarePrint = true,
 	invites = true,
 	guildEvents = true,
 	paragon = true,
@@ -389,14 +424,19 @@ P.datatexts = {
 }
 
 P.actionbars = {
+	keyfeedback = true,
 	specBar = {
 		enable = true,
 		mouseover = false,
+		frameStrata = "BACKGROUND",
+		frameLevel = 1,
 		size = 20,
 	},
 	equipBar = {
 		enable = true,
 		mouseover = false,
+		frameStrata = "BACKGROUND",
+		frameLevel = 1,
 		size = 28,
 	},
 	randomToy = {
@@ -462,7 +502,7 @@ P.autoButtons = {
 		backdropSpacing = 1,
 		buttonWidth = 35,
 		buttonHeight = 30,
-		buttonsPerRow = 6,
+		buttonsPerRow = 12,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -504,7 +544,7 @@ P.autoButtons = {
 		backdropSpacing = 1,
 		buttonWidth = 35,
 		buttonHeight = 30,
-		buttonsPerRow = 6,
+		buttonsPerRow = 12,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -547,7 +587,7 @@ P.autoButtons = {
 		backdropSpacing = 1,
 		buttonWidth = 35,
 		buttonHeight = 30,
-		buttonsPerRow = 6,
+		buttonsPerRow = 12,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -935,7 +975,7 @@ P.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952",
+		hsPrio = "190237,54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,

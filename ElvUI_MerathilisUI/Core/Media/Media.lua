@@ -83,6 +83,11 @@ AddMedia("ROLES", "UI-LFG-ICON-ROLES.tga", "Textures")
 AddMedia("exchange", "Exchange.tga", "Textures")
 AddMedia("PepeArt", "PepeArt.tga", "Textures")
 AddMedia("PepoLove", "pepoLove.tga", "Textures")
+AddMedia("Pushed", "pushed.tga", "Textures")
+
+AddMedia("Tank", "Tank.tga", "Textures")
+AddMedia("Healer", "Healer.tga", "Textures")
+AddMedia("DPS", "dps.tga", "Textures")
 
 -- Fonts
 LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])

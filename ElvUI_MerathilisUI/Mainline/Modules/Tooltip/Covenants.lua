@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Tooltip')
+local TT = E:GetModule('Tooltip')
 local lib = MER.Libs.LOR
 
 local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
@@ -63,20 +64,23 @@ function module:AddCovenantTooltip()
 		end
 	end
 
-
 	local covenantId = module:GetCovenant(unit)
-	if not covenantId then
-		self:AddLine(L["Covenant: <Checking...>"], nil, nil, nil, true)
-		return
-	end
-	if covenantId == 0 then
-		self:AddLine(L["Covenant: <None - Too low>"], nil, nil, nil, true)
-		return
-	end
 
-	local message = "|T"..icons[covenantId]..":16|t"..covenants[covenantId]
+	if IsShiftKeyDown() then
+		if not covenantId then
+			self:AddLine(L["Covenant: <Checking...>"], nil, nil, nil, true)
+			return
+		end
+		if covenantId == 0 then
+			self:AddLine(L["Covenant: <None - Too low>"], nil, nil, nil, true)
+			return
+		end
 
-	self:AddLine(L["Covenant: "]..message, nil, nil, nil, true)
+		local message = "|T"..icons[covenantId]..":16|t"..covenants[covenantId]
+		if message then
+			self:AddLine(L["Covenant: "]..message, nil, nil, nil, true)
+		end
+	end
 end
 
 function module:HookTooltip()

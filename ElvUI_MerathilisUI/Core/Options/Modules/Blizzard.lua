@@ -1,11 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_ObjectiveTracker')
+local OT = MER:GetModule('MER_ObjectiveTracker')
+local FL = MER:GetModule('MER_FriendsList')
+local FT = MER:GetModule('MER_Filter')
 local options = MER.options.modules.args
 local LSM = E.Libs.LSM
 
 local format = string.format
 
 local ObjectiveTracker_Update = ObjectiveTracker_Update
+local FriendsFrame_Update = FriendsFrame_Update
 
 options.blizzard = {
 	type = "group",
@@ -112,7 +115,7 @@ options.blizzard.args.objectiveTracker = {
 			end,
 			set = function(info, value)
 				E.db.mui.blizzard.objectiveTracker.cosmeticBar[info[#info]] = value
-				module:ChangeQuestHeaderStyle()
+				OT:ChangeQuestHeaderStyle()
 			end,
 			args = {
 				enable = {
@@ -235,7 +238,7 @@ options.blizzard.args.objectiveTracker = {
 					end,
 					set = function(info, value)
 						E.db.mui.blizzard.objectiveTracker.cosmeticBar.color[info[#info]] = value
-						module:ChangeQuestHeaderStyle()
+						OT:ChangeQuestHeaderStyle()
 					end,
 					args = {
 						mode = {
@@ -266,7 +269,7 @@ options.blizzard.args.objectiveTracker = {
 							set = function(info, r, g, b, a)
 								local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.normalColor
 								db.r, db.g, db.b, db.a = r, g, b, a
-								module:ChangeQuestHeaderStyle()
+								OT:ChangeQuestHeaderStyle()
 							end
 						},
 						gradientColor1 = {
@@ -287,7 +290,7 @@ options.blizzard.args.objectiveTracker = {
 							set = function(info, r, g, b, a)
 								local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.gradientColor1
 								db.r, db.g, db.b, db.a = r, g, b, a
-								module:ChangeQuestHeaderStyle()
+								OT:ChangeQuestHeaderStyle()
 							end
 						},
 						gradientColor2 = {
@@ -308,7 +311,7 @@ options.blizzard.args.objectiveTracker = {
 							set = function(info, r, g, b, a)
 								local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.gradientColor2
 								db.r, db.g, db.b, db.a = r, g, b, a
-								module:ChangeQuestHeaderStyle()
+								OT:ChangeQuestHeaderStyle()
 							end
 						}
 					}
@@ -349,7 +352,7 @@ options.blizzard.args.objectiveTracker = {
 								db.cosmeticBar.color.normalColor = {r = 0.000, g = 0.659, b = 1.000, a = 1}
 								db.cosmeticBar.color.gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1}
 								db.cosmeticBar.color.gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 1}
-								module:ChangeQuestHeaderStyle()
+								OT:ChangeQuestHeaderStyle()
 							end
 						},
 						preset1 = {
@@ -374,7 +377,7 @@ options.blizzard.args.objectiveTracker = {
 								db.cosmeticBar.color.normalColor = {r = 0.000, g = 0.659, b = 1.000, a = 1}
 								db.cosmeticBar.color.gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1}
 								db.cosmeticBar.color.gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 0}
-								module:ChangeQuestHeaderStyle()
+								OT:ChangeQuestHeaderStyle()
 							end
 						},
 						preset2 = {
@@ -399,7 +402,7 @@ options.blizzard.args.objectiveTracker = {
 								db.cosmeticBar.color.normalColor = {r = 0.000, g = 0.659, b = 1.000, a = 1}
 								db.cosmeticBar.color.gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1}
 								db.cosmeticBar.color.gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 1}
-								module:ChangeQuestHeaderStyle()
+								OT:ChangeQuestHeaderStyle()
 							end
 						},
 						preset3 = {
@@ -424,7 +427,7 @@ options.blizzard.args.objectiveTracker = {
 								db.cosmeticBar.color.normalColor = {r = 0.681, g = 0.681, b = 0.681, a = 0.681}
 								db.cosmeticBar.color.gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1}
 								db.cosmeticBar.color.gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 1}
-								module:ChangeQuestHeaderStyle()
+								OT:ChangeQuestHeaderStyle()
 							end
 						},
 						preset4 = {
@@ -449,7 +452,7 @@ options.blizzard.args.objectiveTracker = {
 								db.cosmeticBar.color.normalColor = {r = 0.681, g = 0.681, b = 0.681, a = 0.681}
 								db.cosmeticBar.color.gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1}
 								db.cosmeticBar.color.gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 1}
-								module:ChangeQuestHeaderStyle()
+								OT:ChangeQuestHeaderStyle()
 							end
 						},
 					},
@@ -526,7 +529,7 @@ options.blizzard.args.objectiveTracker = {
 					set = function(info, r, g, b)
 						local db = E.db.mui.blizzard.objectiveTracker.header.color
 						db.r, db.g, db.b = r, g, b
-						module:ChangeQuestHeaderStyle()
+						OT:ChangeQuestHeaderStyle()
 					end
 				},
 			},
@@ -693,7 +696,7 @@ options.blizzard.args.objectiveTracker = {
 			end,
 			set = function(info, value)
 				E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]] = value
-				module:UpdateBackdrop()
+				OT:UpdateBackdrop()
 			end,
 			args = {
 				enable = {
@@ -812,5 +815,290 @@ options.blizzard.args.talents = {
 			width = "full",
 			set = function(info, value) E.db.mui.blizzard.talents[info[#info]] = value;	E:StaticPopup_Show("PRIVATE_RL") end,
 		},
+	},
+}
+
+options.blizzard.args.filter = {
+	order = 3,
+	type = "group",
+	name = E.NewSign..L["Filter"],
+	get = function(info)
+		return E.db.mui.blizzard.filter[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.blizzard.filter[info[#info]] = value
+		FT:ProfileUpdate()
+	end,
+	args = {
+		desc = {
+			order = 0,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = L["Unblock the profanity filter."],
+					fontSize = "medium"
+				},
+			},
+		},
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+			width = "full"
+		},
+		unblockProfanityFilter = {
+			order = 2,
+			type = "toggle",
+			name = L["Profanity Filter"],
+			desc = L["Enable this option will unblock the setting of profanity filter. [CN Server]"],
+			disabled = function()
+				return not E.db.mui.blizzard.filter.enable
+			end
+		},
+	},
+}
+
+options.blizzard.args.friendsList = {
+	order = 4,
+	type = "group",
+	name = E.NewSign..L["Friends List"],
+	get = function(info)
+		return E.db.mui.blizzard.friendsList[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.blizzard.friendsList[info[#info]] = value
+		FriendsFrame_Update()
+	end,
+	args = {
+		header = {
+			order = 0,
+			type = "header",
+			name = F.cOption(L["Friends List"], 'orange'),
+		},
+		desc = {
+			order = 1,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature1 = {
+					order = 1,
+					type = "description",
+					name = L["Add additional information to the friend frame."],
+					fontSize = "medium"
+				},
+				feature2 = {
+					order = 2,
+					type = "description",
+					name = L["Modify the texture of status and make name colorful."],
+					fontSize = "medium"
+				},
+			},
+		},
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+			set = function(info, value)
+				E.db.mui.blizzard.friendsList[info[#info]] = value
+				FL:ProfileUpdate()
+			end
+		},
+		textures = {
+			order = 2,
+			type = "group",
+			inline = true,
+			name = L["Enhanced Texture"],
+			get = function(info)
+				return E.db.mui.blizzard.friendsList.textures[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.blizzard.friendsList.textures[info[#info]] = value
+				FriendsFrame_Update()
+			end,
+			disabled = function()
+				return not E.db.mui.blizzard.friendsList.enable
+			end,
+			args = {
+				game = {
+					name = L["Game Icons"],
+					order = 1,
+					type = "select",
+					values = {
+						Default = L["Default"],
+						Modern = L["Modern"]
+					}
+				},
+				status = {
+					name = L["Status Icon Pack"],
+					order = 2,
+					type = "select",
+					values = {
+						Default = L["Default"],
+						D3 = L["Diablo 3"],
+						Square = L["Square"]
+					}
+				},
+				factionIcon = {
+					order = 3,
+					type = "toggle",
+					name = L["Faction Icon"],
+					desc = L["Use faction icon instead of WoW icon."]
+				}
+			}
+		},
+		name = {
+			order = 3,
+			type = "group",
+			inline = true,
+			name = L["Name"],
+			disabled = function()
+				return not E.db.mui.blizzard.friendsList.enable
+			end,
+			args = {
+				level = {
+					order = 1,
+					type = "toggle",
+					name = L["Level"]
+				},
+				hideMaxLevel = {
+					order = 2,
+					type = "toggle",
+					name = L["Hide Max Level"],
+					disabled = function()
+						return not E.db.mui.blizzard.friendsList.level
+					end
+				},
+				useNoteAsName = {
+					order = 3,
+					type = "toggle",
+					name = L["Use Note As Name"],
+					desc = L["Replace the Real ID or the character name of friends with your notes."]
+				},
+				useGameColor = {
+					order = 4,
+					type = "toggle",
+					name = L["Use Game Color"],
+					desc = L["Change the color of the name to the in-playing game style."]
+				},
+				useClassColor = {
+					order = 5,
+					type = "toggle",
+					name = L["Use Class Color"]
+				},
+				font = {
+					order = 6,
+					type = "group",
+					name = L["Font Setting"],
+					get = function(info)
+						return E.db.mui.blizzard.friendsList.nameFont[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.blizzard.friendsList.nameFont[info[#info]] = value
+						FriendsFrame_Update()
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font")
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = {
+								NONE = L["None"],
+								OUTLINE = L["OUTLINE"],
+								MONOCHROME = L["MONOCHROME"],
+								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+								THICKOUTLINE = L["THICKOUTLINE"]
+							}
+						},
+						size = {
+							order = 3,
+							name = L["Size"],
+							type = "range",
+							min = 5,
+							max = 60,
+							step = 1
+						}
+					}
+				}
+			}
+		},
+		info = {
+			order = 4,
+			type = "group",
+			inline = true,
+			name = L["Information"],
+			disabled = function()
+				return not E.db.mui.blizzard.friendsList.enable
+			end,
+			args = {
+				font = {
+					order = 2,
+					type = "group",
+					name = L["Font Setting"],
+					get = function(info)
+						return E.db.mui.blizzard.friendsList.infoFont[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.blizzard.friendsList.infoFont[info[#info]] = value
+						FriendsFrame_Update()
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font")
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = {
+								NONE = L["None"],
+								OUTLINE = L["OUTLINE"],
+								MONOCHROME = L["MONOCHROME"],
+								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+								THICKOUTLINE = L["THICKOUTLINE"]
+							}
+						},
+						size = {
+							order = 3,
+							name = L["Size"],
+							type = "range",
+							min = 5,
+							max = 60,
+							step = 1
+						},
+						areaColor = {
+							order = 4,
+							type = "color",
+							name = L["Color"],
+							hasAlpha = false,
+							get = function()
+								local colordb = E.db.mui.blizzard.friendsList.areaColor
+								local default = P.blizzard.friendsList.areaColor
+								return colordb.r, colordb.g, colordb.b, nil, default.r, default.g, default.b
+							end,
+							set = function(_, r, g, b)
+								E.db.mui.blizzard.friendsList.areaColor = {r = r, g = g, b = b}
+								FriendsFrame_Update()
+							end
+						}
+					}
+				}
+			}
+		}
 	},
 }

@@ -11,11 +11,9 @@ local function StyleElvUIConfig()
 	if InCombatLockdown() or not E.private.skins.ace3Enable then return end
 
 	local frame = E:Config_GetWindow()
+	-- Shadow & Styling handled via Ace3 Skin
 
 	if frame and not frame.__MERSkin then
-		frame:Styling()
-		module:CreateShadow(frame)
-
 		if frame.leftHolder then
 			frame.leftHolder.slider:SetThumbTexture(E.media.normTex)
 			frame.leftHolder.slider.thumb:SetVertexColor(unpack(E.media.rgbvaluecolor))

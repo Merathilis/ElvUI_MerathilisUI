@@ -19,8 +19,13 @@ options.CombatAlert = {
 			name = L["Enable"],
 			desc = L["Enable/Disable the combat message if you enter/leave the combat."]
 		},
-		font = {
+		minimapAlert = {
 			order = 3,
+			type = "toggle",
+			name = L["Enable"],
+		},
+		font = {
+			order = 4,
 			name = F.cOption(L["Font"], 'orange'),
 			type = "group",
 			guiInline = true,
@@ -54,7 +59,7 @@ options.CombatAlert = {
 			},
 		},
 		style = {
-			order = 4,
+			order = 5,
 			name = F.cOption(L["Style"], 'orange'),
 			type = "group",
 			guiInline = true,
@@ -118,7 +123,7 @@ options.CombatAlert = {
 			},
 		},
 		custom_text = {
-			order = 5,
+			order = 6,
 			name = F.cOption(L["Custom Text"], 'orange'),
 			type = "group",
 			guiInline = true,

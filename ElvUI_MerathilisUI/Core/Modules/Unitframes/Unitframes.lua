@@ -77,7 +77,9 @@ function module:StyleUFs()
 end
 
 function module:Initialize()
-	if E.private.unitframe.enable ~= true then return end
+	if not E.private.unitframe.enable then
+		return
+	end
 
 	local db = E.db.mui.unitframes
 

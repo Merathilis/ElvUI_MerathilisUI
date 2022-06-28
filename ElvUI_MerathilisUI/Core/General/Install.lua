@@ -1125,9 +1125,9 @@ function MER:SetupActionbars()
 	E.db["movers"]["ZoneAbility"] = "BOTTOM,UIParent,BOTTOM,305,92"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 	E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,304,140"
-	E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-219,197"
-	E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-219,233"
-	E.db["movers"]["AutoButtonBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-219,269"
+	E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,197"
+	E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,234"
+	E.db["movers"]["AutoButtonBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,269"
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -1165,9 +1165,11 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["invertPower"] = true
 	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
 	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
-	E.db["unitframe"]["colors"]["useDeadBackdrop"] = true
-	E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
-	E.db["unitframe"]["colors"]["classbackdrop"] = false
+	E.db["unitframe"]["colors"]["useDeadBackdrop"] = false
+	E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
+	E.db["unitframe"]["colors"]["classbackdrop"] = true
+	E.db["unitframe"]["colors"]["healthMultiplier"] = 0.75
+
 	E.db["unitframe"]["debuffHighlighting"] = "FILL"
 
 	-- Frame Glow
