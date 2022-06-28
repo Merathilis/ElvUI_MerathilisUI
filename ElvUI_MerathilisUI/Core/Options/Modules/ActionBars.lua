@@ -4,7 +4,6 @@ local options = MER.options.modules.args
 options.actionbars = {
 	type = "group",
 	name = E.NewSign..L["ActionBars"],
-	hidden = not E.Retail,
 	get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 	set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
