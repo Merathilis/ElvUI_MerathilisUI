@@ -1,8 +1,6 @@
 -- German localization file for deDE
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 
-L["Enable"] = "Aktiviert"
-
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = " wurde geladen. Für Fehler oder Vorschläge besuche bitte: "
 
