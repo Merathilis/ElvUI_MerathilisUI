@@ -1185,9 +1185,9 @@ P.armory = {
 	transmog = {
 		enable = true,
 	},
-	illusion = {
-		enable = true,
-	},
+	-- illusion = {
+		-- enable = false,
+	-- },
 	warning = {
 		enable = true,
 	},
