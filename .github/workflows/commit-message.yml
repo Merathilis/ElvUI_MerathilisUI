@@ -1,0 +1,17 @@
+name: commit message
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Push commit message to discord
+      uses: baked-libs/discord-webhook@main
+      with:
+        id: ${{ secrets.DISCORD_WEBHOOK_ID_PRIVATE }}
+        token: ${{ secrets.DISCORD_WEBHOOK_TOKEN_PRIVATE }}
