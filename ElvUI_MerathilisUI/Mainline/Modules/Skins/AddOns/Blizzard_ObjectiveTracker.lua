@@ -68,7 +68,7 @@ end
 function module:SkinTimerBars(_, _, line)
 	local timerBar = line and line.TimerBar
 	local bar = timerBar and timerBar.Bar
-	if bar.MER.Style then
+	if bar.MERStyle then
 		return
 	end
 	module:CreateBackdropShadow(bar)
