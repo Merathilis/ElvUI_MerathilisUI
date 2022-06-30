@@ -2,9 +2,7 @@ local E, _, V, P, G = unpack(ElvUI)
 local addon, Engine = ...
 local EP = E.Libs.EP
 local AceAddon = E.Libs.AceAddon
-
-local locale = (E.global.general.locale and E.global.general.locale ~= "auto") and E.global.general.locale or GetLocale()
-local L = E.Libs.ACL:GetLocale('ElvUI', locale)
+local L = E.Libs.ACL:GetLocale("ElvUI", E.global.general.locale)
 
 local _G = _G
 local next, type = next, type

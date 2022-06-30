@@ -1,5 +1,4 @@
-local MER, F, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local options = MER.options.modules.args
 
 options.datatexts = {

@@ -2,6 +2,7 @@
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "frFR")
 
 -- Core
+L["Enable"] = "Activer"
 L[" is loaded. For any issues or suggestions, please visit "] = true
 
 -- General Options
