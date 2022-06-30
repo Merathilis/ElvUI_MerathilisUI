@@ -49,6 +49,10 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		return
 	end
 
+	if not E.private.mui.skins.enable then
+		return
+	end
+
 	if f:GetObjectType() == "Texture" then
 		f = f:GetParent()
 	end
