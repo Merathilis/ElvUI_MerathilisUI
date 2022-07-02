@@ -173,7 +173,7 @@ function MAB:CreateEquipBar()
 
 	EquipmentSets.Flyout = CreateFrame("Button", nil, EquipmentSets)
 	EquipmentSets.Flyout:SetFrameStrata(EquipmentSets:GetFrameStrata())
-	EquipmentSets.Flyout:SetFrameLevel(EquipmentSets:GetFrameLevel())
+	EquipmentSets.Flyout:SetFrameLevel(EquipmentSets:GetFrameLevel()+1)
 	EquipmentSets.Flyout:Point("TOP", EquipmentSets, "TOP", 0, 0)
 	EquipmentSets.Flyout:Size(23, 11)
 	EquipmentSets.Flyout.Arrow = EquipmentSets.Flyout:CreateTexture(nil, "OVERLAY", "ActionBarFlyoutButton-ArrowUp")
