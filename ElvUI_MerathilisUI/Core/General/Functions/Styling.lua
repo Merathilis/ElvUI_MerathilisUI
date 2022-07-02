@@ -57,6 +57,10 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		f = f:GetParent()
 	end
 
+	if not f.SetBackdrop then
+		_G.Mixin(f, _G.BackdropTemplateMixin)
+	end
+
 	local frameName = f.GetName and f:GetName()
 
 	local style = CreateFrame("Frame", frameName or nil, f, "BackdropTemplate")
@@ -102,6 +106,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		if not E.private.mui.skins.style then mshadow:Hide() end
 	end
 
+	style:SetFrameStrata(f:GetFrameStrata())
 	style:SetFrameLevel(f:GetFrameLevel() + 1)
 	f.styling = style
 

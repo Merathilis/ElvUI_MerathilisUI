@@ -57,7 +57,7 @@ function module:AceConfigDialog()
 	end
 
 	local lib = _G.LibStub("AceConfigDialog-3.0")
-	module:CreateShadow(lib.popup)
+	self:CreateShadow(lib.popup)
 	lib.popup:Styling()
 end
 
