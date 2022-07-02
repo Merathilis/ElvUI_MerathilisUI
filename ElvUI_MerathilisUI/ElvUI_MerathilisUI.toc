@@ -1,6 +1,4 @@
 ## Interface: 90205
-## Interface-Classic: 11402
-## Interface-BCC: 20504
 ## Author: Merathilis
 ## Version: 5.13
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r

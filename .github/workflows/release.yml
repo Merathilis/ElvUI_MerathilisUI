@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - '**'
+    paths-ignore:
+      - '.github/**'
 
 jobs:
   build:
@@ -22,16 +24,8 @@ jobs:
           fetch-depth: 100
       - name: Setup Environment
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - name: Retail
+      - name: Release Job
         uses: BigWigsMods/packager@master
-      - name: Classic
-        uses: BigWigsMods/packager@master
-        with:
-          args: -g classic
-      - name: Burning Crusade Classic
-        uses: BigWigsMods/packager@master
-        with:
-          args: -g bcc
       - name: Github Actions
         uses: actions/upload-artifact@v2
         with:
