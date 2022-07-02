@@ -42,10 +42,20 @@ function MER:UpdateStyling()
 	end
 end
 
+local function GrabFrame(f)
+	if f and f.backdrop then
+		f = f.backdrop
+	else
+		f = f
+	end
+
+	return f
+end
+
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 
-	if not f or f.MERStyle or f.styling then
+	if not f or f.__MER or f.styling then
 		return
 	end
 
@@ -63,7 +73,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 	local frameName = f.GetName and f:GetName()
 
-	local style = CreateFrame("Frame", frameName or nil, f, "BackdropTemplate")
+	local style = CreateFrame("Frame", frameName or nil, GrabFrame(f), "BackdropTemplate")
 
 	if not(useStripes) then
 		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
@@ -108,10 +118,13 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 	style:SetFrameStrata(f:GetFrameStrata())
 	style:SetFrameLevel(f:GetFrameLevel() + 1)
+	style:SetAllPoints(f)
 	f.styling = style
 
 	MER.Styling[style] = true
-	f.MERStyle = true
+	f.__MER = true
+
+	MER:UpdateStyling()
 end
 
 local BlizzardFrameRegions = {
