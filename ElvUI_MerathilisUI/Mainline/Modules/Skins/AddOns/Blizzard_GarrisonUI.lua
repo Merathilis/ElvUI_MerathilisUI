@@ -173,6 +173,10 @@ local function LoadSkin()
 	GarrisonLandingPage:Styling()
 	module:CreateBackdropShadow(GarrisonLandingPage)
 
+	local followerList = GarrisonLandingPage.FollowerList
+	followerList:StripTextures()
+	hooksecurefunc(GarrisonLandingPageFollowerList, "UpdateFollowers", UpdateFollowerList)
+
 	-- Report
 	local Report = GarrisonLandingPage.Report
 	local scrollFrame = Report.List.listScroll
