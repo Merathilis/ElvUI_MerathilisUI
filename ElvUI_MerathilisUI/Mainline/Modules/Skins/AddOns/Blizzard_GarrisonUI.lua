@@ -10,6 +10,98 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
+local function UpdateFollowerQuality(self, followerInfo)
+	if followerInfo then
+		local color = E.QualityColors[followerInfo.quality or 1]
+		self.Portrait.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
+	end
+end
+
+local function UpdateFollowerList(self)
+	local followerFrame = self:GetParent()
+	local scrollFrame = followerFrame.FollowerList.listScroll
+	local buttons = scrollFrame.buttons
+
+	for i = 1, #buttons do
+		local button = buttons[i].Follower
+		local portrait = button.PortraitFrame
+
+		if not button.restyled then
+			button.BG:Hide()
+			button.Selection:SetTexture("")
+			button.AbilitiesBG:SetTexture("")
+			button.bg = module:CreateBDFrame(button, .25)
+			module:CreateGradient(button.bg)
+
+			local hl = button:GetHighlightTexture()
+			hl:SetColorTexture(r, g, b, .1)
+			hl:ClearAllPoints()
+			hl:SetInside(button.bg)
+
+			if portrait then
+				S:HandleGarrisonPortrait(portrait)
+				portrait:ClearAllPoints()
+				portrait:SetPoint("TOPLEFT", 4, -1)
+				hooksecurefunc(portrait, "SetupPortrait", UpdateFollowerQuality)
+			end
+
+			if button.BusyFrame then
+				button.BusyFrame:SetInside(button.bg)
+			end
+
+			button.restyled = true
+		end
+
+		if button.Counters then
+			for i = 1, #button.Counters do
+				local counter = button.Counters[i]
+				if counter and not counter.backdrop then
+					S:HandleIcon(counter.Icon, true)
+				end
+			end
+		end
+
+		if button.Selection:IsShown() then
+			button.bg:SetBackdropColor(r, g, b, .2)
+		else
+			button.bg:SetBackdropColor(0, 0, 0, .25)
+		end
+	end
+end
+
+local function ReskinMissionFrame(self)
+	self:StripTextures()
+	self:Styling()
+	module:CreateBackdropShadow(self)
+	self.GarrCorners:Hide()
+	if self.OverlayElements then self.OverlayElements:SetAlpha(0) end
+	if self.ClassHallIcon then self.ClassHallIcon:Hide() end
+	if self.TitleScroll then
+		self.TitleScroll:StripTextures()
+		select(4, self.TitleScroll:GetRegions()):SetTextColor(1, .8, 0)
+	end
+
+	for i = 1, 3 do
+		local tab = _G[self:GetName().."Tab"..i]
+		if tab then
+			S:HandleTab(tab)
+		end
+	end
+
+	if self.MapTab then
+		self.MapTab.ScrollContainer.Child.TiledBackground:Hide()
+	end
+
+	self.FollowerTab:StripTextures()
+
+	local missionList = self.MissionTab.MissionList
+	missionList:StripTextures()
+
+	local FollowerList = self.FollowerList
+	FollowerList:StripTextures()
+	hooksecurefunc(FollowerList, "UpdateFollowers", UpdateFollowerList)
+end
+
 local function LoadSkin()
 	if not module:CheckDB("garrison", "garrison") then
 		return
@@ -212,13 +304,9 @@ local function LoadSkin()
 
 	-- [[ Shadowlands Missions ]]
 	local CovenantMissionFrame = _G.CovenantMissionFrame
-	CovenantMissionFrame:Styling()
-	module:CreateBackdropShadow(CovenantMissionFrame)
+	ReskinMissionFrame(CovenantMissionFrame)
 
-	CovenantMissionFrame.RaisedBorder:SetAlpha(0)
 	_G.CovenantMissionFrameMissions.RaisedFrameEdges:SetAlpha(0)
-	_G.CovenantMissionFrameMissions.MaterialFrame.LeftFiligree:SetAlpha(0)
-	_G.CovenantMissionFrameMissions.MaterialFrame.RightFiligree:SetAlpha(0)
 
 	hooksecurefunc(CovenantMissionFrame, "SetupTabs", function(self)
 		self.MapTab:SetShown(not self.Tab2:IsShown())
