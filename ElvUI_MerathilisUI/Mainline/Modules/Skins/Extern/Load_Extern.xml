@@ -8,6 +8,7 @@
 	<Script file="ls_Toasts.lua"/>
 	<Script file="Pawn.lua"/>
 	<Script file="stAddOnManager.lua"/>
+	<Script file="TLDRMissions.lua"/>
 	<Script file="WeakAuras.lua"/>
 	<Script file="WeakAurasOptions.lua"/>
 </Ui>
