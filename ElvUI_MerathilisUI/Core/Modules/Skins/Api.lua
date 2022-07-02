@@ -67,7 +67,7 @@ end
 
 function module:CreateLowerShadow(frame, force)
 	if not force then
-		if not E.private.mui.skins or not E.private.mui.skins.shadow.enable then
+		if not E.private.mui.skins.enable or not E.private.mui.skins.shadow.enable then
 			return
 		end
 	end
@@ -118,7 +118,7 @@ end
 
 do
 	local function createBackdropShadow(frame, defaultTemplate)
-		if not E.private.mui.skins or not E.private.mui.skins.shadow.enable then
+		if not E.private.mui.skins.enable or not E.private.mui.skins.shadow.enable then
 			return
 		end
 
@@ -128,7 +128,7 @@ do
 
 		module:CreateShadow(frame.backdrop)
 
-		if frame.backdrop.shadow.__mer then
+		if frame.backdrop.shadow.__MER then
 			frame.__shadow = frame.backdrop.__shadow + 1
 		end
 	end

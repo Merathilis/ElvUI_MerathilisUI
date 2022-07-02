@@ -77,6 +77,7 @@ AddMedia("buttonMinus", "Button/Minus.tga", "Icons")
 AddMedia("buttonPlus", "Button/Plus.tga", "Icons")
 AddMedia("buttonForward", "Button/Forward.tga", "Icons")
 
+AddMedia("anchor", "anchor.tga", "Textures")
 AddMedia("arrow", "arrow.tga", "Textures")
 AddMedia("pepeSmall", "pepeSmall.tga", "Textures")
 AddMedia("ROLES", "UI-LFG-ICON-ROLES.tga", "Textures")

@@ -8,7 +8,6 @@ options.general = {
 	type = "group",
 	name = L["General"],
 	childGroups = "tab",
-	hidden = function() return IsAddOnLoaded("ElvUI_SLE") end,
 	args = {
 		header = {
 			order = 1,

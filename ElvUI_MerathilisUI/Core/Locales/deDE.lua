@@ -2,6 +2,7 @@
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 
 -- Core
+L["Enable"] = "Eingeschaltet"
 L[" is loaded. For any issues or suggestions, please visit "] = " wurde geladen. Für Fehler oder Vorschläge besuche bitte: "
 
 -- General Options
@@ -558,29 +559,35 @@ L["Force to track the target even if it over 1000 yds."] = "Zeigt den Wegpunkt n
 L["Distance Text"] = "Distanztext"
 L["Only Number"] = "Nur Nummer"
 L["Add Command"] = "Befehl hinzufügen"
-L["Add a input box to the world map."] = "Fügt eine Eingabebox der Weltkarte hinzu."
+L["Add a input box to the world map."] = "Fügt ein Eingabefeld der Weltkarte hinzu."
 L["Are you sure to delete the %s command?"] = "Bist du dir sicher %s diesen Befehl zu löschen?"
 L["Can not set waypoint on this map."] = "Kann keinen Wegpunkt auf dieser Karte setzen."
 L["Command"] = "Befehl"
 L["Command Configuration"] = "Befehlkonfiguration"
-L["Command List"] = "Befehlliste"
+L["Command List"] = "Befehlsliste"
 L["Delete Command"] = "Befehl löschen"
 L["Delete the selected command."] = "Lösche den ausgewählten Befehl."
 L["Enable to use the command to set the waypoint."] = "Aktivieren um diesen Befehl zu verwenden um Wegpunkte zu setzen."
 L["Go to ..."] = "Gehe zu ..."
-L["Input Box"] = "Eingabebox"
+L["Input Box"] = "Eingabefeld"
 L["New Command"] = "Neuer Befehl"
 L["No Arg"] = "Kein Argument"
 L["Smart Waypoint"] = "Intelligenter Wegpunkt"
 L["The argument is invalid."] = "Das Argument ist ungültig."
 L["The argument is needed."] = "Das Argument wird benötigt."
 L["The command to set a waypoint."] = "Der Befehl um einen Wegpunkt zu setzen."
-L["The coordinates contain illegal number."] = "Die Koordinaten enthalten illegale Nummern."
+L["The coordinates contain illegal number."] = "Die Koordinaten enthalten verbotene Nummern."
 L["Waypoint %s has been set."] = "Wegpunkt %s wurde gesetzt."
 L["Waypoint Parse"] = "wegpunktanalyse"
 L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = "Du kannst hier einen beliebigen Text einfügen, der Koordinaten enthält, und die EINGABETASTE drücken, um den Wegpunkt auf der Karte festzulegen."
-L["illegal"] = true
-L["invalid"] = "ungültig"
+L["illegal"] = "Verboten"
+L["invalid"] = "Ungültig"
+L["Because of %s, this module will not be loaded."] = "Aufgrund von %s wird dieses Modul nicht geladen."
+L["This module will help you to reveal and resize maps."] = "Dieses Modul hilft Dir, beim Anzeigen und Ändern der Kartengröße."
+L["Reveal"] = "Aufdecken"
+L["Use Colored Fog"] = "Verwende farbigen Nebel"
+L["Remove Fog of War from your world map."] = "Entferne Nebel des Krieges von deiner Weltkarte."
+L["Style Fog of War with special color."] = "Style Nebel des Krieges mit einer besonderen Farbe."
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

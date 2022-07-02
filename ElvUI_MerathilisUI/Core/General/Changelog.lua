@@ -12,15 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Updated RaidMarker Code",
-		"• Added Frame Strata & Frame Level Option for the Equip/SpeccBar",
-		"• Added CVar: Camera FOV to the Option",
-		"• Added a clickable link for the Notification in Chat",
-		"• Adjust the defaults for AutoButtons",
-		"• Added a Combat Indicator to the Minimap (Red Background)",
-		"• Added a Spell Feedback Frame (Shows pressed Abilitys)",
-		"• Every Reminder should now have his own Mover",
-		"• Only show the Covenant in Tooltip if you press Shift",
+		"• Added a Map Reveal feature",
+		"• Fixed EquipBar Flyout Button FrameLevel",
+		"• Finally fixed Transmog indicator after 8 Month.. lul",
+		"• Try to prevent a LUA Error on profile switch",
 
 	" ",
 	"Notes:",

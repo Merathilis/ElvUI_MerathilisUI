@@ -67,6 +67,10 @@ end
 function module:CosmeticBar(header)
 	local bar = header.MERCosmeticBar
 
+	if not self.db or not self.db.cosmeticBar then
+		return
+	end
+
 	if not self.db.cosmeticBar.enable then
 		if bar then
 			bar:Hide()

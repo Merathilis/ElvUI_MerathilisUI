@@ -11,6 +11,23 @@ module.enteredLoad = {}
 
 local AceGUI
 
+function module:ShadowOverlay()
+	-- Based on ncShadow
+	if not E.private.mui.skins.shadowOverlay then return end
+
+	self.f = CreateFrame("Frame", MER.Title.."ShadowBackground")
+	self.f:Point("TOPLEFT")
+	self.f:Point("BOTTOMRIGHT")
+	self.f:SetFrameLevel(0)
+	self.f:SetFrameStrata("BACKGROUND")
+
+	self.f.tex = self.f:CreateTexture()
+	self.f.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Overlay]])
+	self.f.tex:SetAllPoints(self.f)
+
+	self.f:SetAlpha(0.7)
+end
+
 function module:CheckDB(elvuiKey, MERKey)
 	if elvuiKey then
 		MERKey = MERKey or elvuiKey
@@ -124,6 +141,9 @@ function module:ADDON_LOADED(_, addonName)
 	end
 end
 
+--[[
+	Ace3 Stuff
+]]
 function module:ReskinWidgets(AceGUI)
 	for name, oldFunc in pairs(AceGUI.WidgetRegistry) do
 		module:UpdateWidget(AceGUI, name, oldFunc)
@@ -165,23 +185,6 @@ do
 			alreadyDialogSkined = true
 		end
 	end
-end
-
-function module:ShadowOverlay()
-	-- Based on ncShadow
-	if not E.private.mui.skins.shadowOverlay then return end
-
-	self.f = CreateFrame("Frame", MER.Title.."ShadowBackground")
-	self.f:Point("TOPLEFT")
-	self.f:Point("BOTTOMRIGHT")
-	self.f:SetFrameLevel(0)
-	self.f:SetFrameStrata("BACKGROUND")
-
-	self.f.tex = self.f:CreateTexture()
-	self.f.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Overlay]])
-	self.f.tex:SetAllPoints(self.f)
-
-	self.f:SetAlpha(0.7)
 end
 
 function module:Initialize()

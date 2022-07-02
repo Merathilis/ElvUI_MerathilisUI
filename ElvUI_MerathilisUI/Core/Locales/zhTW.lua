@@ -2,6 +2,7 @@
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhTW")
 
 -- Core
+L["Enable"] = "啟用"
 L[" is loaded. For any issues or suggestions, please visit "] = true
 
 -- General Options
@@ -571,6 +572,12 @@ L["Waypoint Parse"] = "地圖標記解析"
 L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = "你可以在這裡貼上任何包含座標的文字, 並按下 輸入鍵(Enter) 設定地圖標記."
 L["illegal"] = "非法"
 L["invalid"] = "無效"
+L["Because of %s, this module will not be loaded."] = true
+L["This module will help you to reveal and resize maps."] = true
+L["Reveal"] = true
+L["Use Colored Fog"] = true
+L["Remove Fog of War from your world map."] = true
+L["Style Fog of War with special color."] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地圖按鍵"
