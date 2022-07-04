@@ -18,7 +18,7 @@ local envs = {
 
 options.maps = {
 	type = "group",
-	name = E.NewSign..L["Maps"],
+	name = L["Maps"],
 	get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 	set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	disabled = function() return not E.private.general.minimap.enable end,
@@ -129,7 +129,7 @@ options.maps = {
 		worldMap = {
 			order = 4,
 			type = "group",
-			name = E.NewSign..L["World Map"],
+			name = L["World Map"],
 			get = function(info) return E.db.mui.maps.worldMap[info[#info]] end,
 			set = function(info, value) E.db.mui.maps.worldMap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			args = {
@@ -159,13 +159,13 @@ options.maps = {
 				enable = {
 					order = 2,
 					type = "toggle",
-					name = E.NewSign..L["Enable"]
+					name = L["Enable"]
 				},
 				reveal = {
 					order = 3,
 					type = "group",
 					inline = true,
-					name = E.NewSign..L["Reveal"],
+					name = L["Reveal"],
 					get = function(info)
 						return E.db.mui.maps.worldMap.reveal[info[#info]]
 					end,
@@ -429,7 +429,7 @@ options.maps = {
 		smb = {
 			order = 6,
 			type = "group",
-			name = E.NewSign..L["Minimap Buttons"],
+			name = L["Minimap Buttons"],
 			get = function(info) return E.db.mui.smb[ info[#info] ] end,
 			set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update() end,
 			args = {
@@ -653,7 +653,7 @@ options.maps = {
 		superTracker = {
 			order = 8,
 			type = "group",
-			name = E.NewSign..L["Super Tracker"],
+			name = L["Super Tracker"],
 			hidden = not E.Retail,
 			get = function(info)
 				return E.db.mui.maps.superTracker[info[#info]]
