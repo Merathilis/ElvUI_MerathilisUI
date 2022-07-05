@@ -42,20 +42,10 @@ function MER:UpdateStyling()
 	end
 end
 
-local function GrabFrame(f)
-	if f and f.backdrop then
-		f = f.backdrop
-	else
-		f = f
-	end
-
-	return f
-end
-
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 
-	if not f or f.__MER or f.styling and frame.styling.__MER then
+	if not f or f.__MER or f.styling then
 		return
 	end
 
@@ -67,9 +57,13 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		f = f:GetParent()
 	end
 
+	if not f.SetBackdrop then
+		_G.Mixin(f, _G.BackdropTemplateMixin)
+	end
+
 	local frameName = f.GetName and f:GetName()
 
-	local style = CreateFrame("Frame", frameName or nil, GrabFrame(f), "BackdropTemplate")
+	local style = CreateFrame("Frame", frameName or nil, f, "BackdropTemplate")
 
 	if not(useStripes) then
 		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
@@ -116,7 +110,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	style:SetFrameLevel(f:GetFrameLevel() + 1)
 	style:SetAllPoints(f)
 	f.styling = style
-	f.__MER = 1
+	f.__MER = true
 
 	MER.Styling[style] = true
 end
