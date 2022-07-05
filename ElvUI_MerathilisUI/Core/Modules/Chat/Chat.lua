@@ -77,8 +77,8 @@ end
 
 function module:StyleChat()
 	-- Style the chat
-	_G.LeftChatPanel.backdrop:Styling()
-	_G.RightChatPanel.backdrop:Styling()
+	_G.LeftChatPanel:Styling()
+	_G.RightChatPanel:Styling()
 
 	S:CreateBackdropShadow(_G.LeftChatPanel, true)
 	S:CreateBackdropShadow(_G.RightChatPanel, true)

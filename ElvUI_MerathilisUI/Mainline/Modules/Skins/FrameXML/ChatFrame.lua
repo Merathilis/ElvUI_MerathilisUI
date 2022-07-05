@@ -34,7 +34,6 @@ local function LoadSkin()
 		end
 	end
 
-
 	do
 		local ChatMenus = {
 			_G.ChatMenu,
