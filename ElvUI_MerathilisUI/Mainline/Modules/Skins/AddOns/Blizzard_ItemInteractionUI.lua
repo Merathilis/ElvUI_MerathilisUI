@@ -5,15 +5,13 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkin()
-	if not module:CheckDB("itemInteraction", "itemInteraction ") then
+	if not module:CheckDB("itemInteraction", "itemInteraction") then
 		return
 	end
 
 	local ItemInteractionFrame = _G.ItemInteractionFrame
-	if ItemInteractionFrame.backdrop then
-		ItemInteractionFrame.backdrop:Styling()
-	end
-	module:CreateBackdropShadow(ItemInteractionFrame)
+	ItemInteractionFrame:Styling()
+	module:CreateShadow(ItemInteractionFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_ItemInteractionUI", LoadSkin)

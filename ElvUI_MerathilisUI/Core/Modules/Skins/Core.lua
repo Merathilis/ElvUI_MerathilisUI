@@ -34,6 +34,7 @@ function module:CheckDB(elvuiKey, MERKey)
 		if not (E.private.skins.blizzard.enable and E.private.skins.blizzard[elvuiKey]) then
 			return false
 		end
+
 		if not (E.private.mui.skins.blizzard.enable and E.private.mui.skins.blizzard[MERKey]) then
 			return false
 		end
