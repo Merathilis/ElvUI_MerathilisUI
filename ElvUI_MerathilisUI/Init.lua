@@ -67,6 +67,7 @@ MER.Modules.MicroBar = MER:NewModule('MER_MicroBar', 'AceEvent-3.0', 'AceHook-3.
 MER.Modules.MiniMap = MER:NewModule('MER_Minimap', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.RectangleMinimap = MER:NewModule('MER_RectangleMinimap', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.MiniMapButtons = MER:NewModule('MER_MiniMapButtons', 'AceHook-3.0', 'AceEvent-3.0')
+MER.Modules.MiniMapPing = MER:NewModule('MER_MiniMapPing', 'AceEvent-3.0')
 MER.Modules.Misc = MER:NewModule('MER_Misc', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.NamePlates = MER:NewModule('MER_NamePlates', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.NamePlateAuras = MER:NewModule('MER_NameplateAuras', 'AceEvent-3.0')

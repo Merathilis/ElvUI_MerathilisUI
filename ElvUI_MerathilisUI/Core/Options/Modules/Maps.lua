@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule('MER_Minimap')
+local MP = MER:GetModule('MER_MiniMapPing')
 local SMB = MER:GetModule('MER_MiniMapButtons')
 local RM = MER:GetModule('MER_RectangleMinimap')
 local WM = MER:GetModule('MER_WorldMap')
@@ -243,7 +244,7 @@ options.maps = {
 			type = "group",
 			name = L["Minimap Ping"],
 			get = function(info) return E.db.mui.maps.minimap.ping[ info[#info] ] end,
-			set = function(info, value) E.db.mui.maps.minimap.ping[ info[#info] ] = value; MM:UpdatePing(); end,
+			set = function(info, value) E.db.mui.maps.minimap.ping[ info[#info] ] = value; MP:ProfileUpdate(); end,
 			args = {
 				enable = {
 					order = 1,
