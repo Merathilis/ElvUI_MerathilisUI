@@ -341,6 +341,10 @@ L["MER_DuelCancel_PET"] = "Haustierkampf Duell Anfrage von %s abgelehnt."
 L["Show your PvP killing blows as a popup."] = "Zeigt deine PvP Kills als ein Popup an."
 L["Sound"] = "Sound"
 L["Play sound when killing blows popup is shown."] = "Spielt einen Sound wenn das Popup angezeigt wird."
+L["PvP Auto Release"] = "PVP Auto freilassen"
+L["Automatically release body when killed inside a battleground."] = "Lass den Körper automatisch frei, wenn Du auf einem Schlachtfeld getötet wurdest."
+L["Check for rebirth mechanics"] = "Überprüfe die Wiedergeburtsmechanik"
+L["Do not release if reincarnation or soulstone is up."] = "Nicht freigeben, wenn Reinkarnation oder Seelenstein vorhanden sind."
 
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"

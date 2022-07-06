@@ -330,6 +330,10 @@ L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
 L["Show your PvP killing blows as a popup."] = true
 L["Sound"] = "声效"
 L["Play sound when killing blows popup is shown."] = true
+L["PvP Auto Release"] = true
+L["Automatically release body when killed inside a battleground."] = true
+L["Check for rebirth mechanics"] = true
+L["Do not release if reincarnation or soulstone is up."] = true
 
 -- Actionbars
 L["Specialization Bar"] = true

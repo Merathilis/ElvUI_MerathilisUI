@@ -1023,6 +1023,8 @@ P.pvp = {
 		enable = true,
 		sound = true,
 	},
+	rebirth = true,
+	autorelease = false,
 }
 
 P.tooltip = {
