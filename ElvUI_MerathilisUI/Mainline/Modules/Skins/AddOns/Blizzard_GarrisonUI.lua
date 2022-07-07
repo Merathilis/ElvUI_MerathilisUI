@@ -332,7 +332,6 @@ local function LoadSkin()
 	module:CreateGradient(_G.CovenantMissionFrameFollowersListScrollFrameScrollBar.backdrop)
 
 	-- AddOn Support
-
 	local function reskinWidgetFont(font, r, g, b)
 		if font and font.SetTextColor then
 			font:SetTextColor(r, g, b)
@@ -398,7 +397,7 @@ local function LoadSkin()
 					local region = select(i, frame:GetRegions())
 					if region then
 						local width, height = region:GetSize()
-						if F:Round(width) == 17 and F:Round(height) == 17 then
+						if E:Round(width) == 17 and E:Round(height) == 17 then
 							if abilityIndex1 then
 								abilityIndex2 = i
 							else

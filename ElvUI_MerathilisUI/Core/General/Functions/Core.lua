@@ -254,16 +254,6 @@ function F.TablePrint(tbl, indent)
 	end
 end
 
---[[----------------------------------
---	Math Functions
---]]----------------------------------
-function F:Round(number, idp)
-	idp = idp or 0
-	local mult = 10 ^ idp
-	return floor(number * mult + .5) / mult
-end
-
-
 -- LocPanel
 function F.GetIconFromID(type, id)
 	local path
