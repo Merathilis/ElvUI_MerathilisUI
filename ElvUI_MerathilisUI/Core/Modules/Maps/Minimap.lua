@@ -112,7 +112,7 @@ function module:StyleMinimap()
 end
 
 function module:QueueStatus()
-	if E.private.general.minimap.enable ~= true or not E.db.mui.maps.minimap.queueStatus or not E.Retail then return end
+	if not E.private.general.minimap.enable or not E.db.mui.maps.minimap.queueStatus or not E.Retail then return end
 
 	-- QueueStatus Button
 	_G.QueueStatusMinimapButtonBorder:Hide()
@@ -137,7 +137,7 @@ function module:QueueStatus()
 end
 
 function module:Initialize()
-	if E.private.general.minimap.enable ~= true or not E.Retail then return end
+	if not E.private.general.minimap.enable or not E.Retail then return end
 
 	local db = E.db.mui.maps
 
@@ -153,7 +153,6 @@ function module:Initialize()
 	end
 
 	self:MiniMapCoords()
-	self:MinimapPing()
 	self:StyleMinimap()
 	self:QueueStatus()
 	self:MinimapCombatCheck()
@@ -165,6 +164,8 @@ function module:Initialize()
 		self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
 		self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")
 	end
+
+	self:MinimapPing()
 end
 
 MER:RegisterModule(module:GetName())
