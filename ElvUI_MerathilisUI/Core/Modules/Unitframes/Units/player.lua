@@ -26,12 +26,12 @@ function module:Update_PlayerFrame(frame)
 	module:CreateHighlight(frame)
 
 	if db.swing.enable then
-		if not frame:IsElementEnabled('Swing') then
-			frame:EnableElement('Swing')
+		if not frame:IsElementEnabled('Swing_MER') then
+			frame:EnableElement('Swing_MER')
 		end
 	else
-		if frame:IsElementEnabled('Swing') then
-			frame:DisableElement('Swing')
+		if frame:IsElementEnabled('Swing_MER') then
+			frame:DisableElement('Swing_MER')
 		end
 	end
 
