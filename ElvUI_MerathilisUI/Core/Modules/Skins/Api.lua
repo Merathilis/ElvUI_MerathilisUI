@@ -428,7 +428,7 @@ function module:ReskinTab(tab)
 	end
 
 	if tab.GetName then
-		F.SetFontOutline(_G[tab:GetName() .. "Text"])
+		F.SetFontOutline(_G[tab:GetName().."Text"])
 	end
 
 	self:CreateBackdropShadow(tab)

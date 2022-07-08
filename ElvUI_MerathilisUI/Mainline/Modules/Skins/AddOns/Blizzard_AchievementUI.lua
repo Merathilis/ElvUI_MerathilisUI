@@ -24,7 +24,7 @@ local function LoadSkin()
 	end
 
 	for i = 1, 3 do
-		module:ReskinTab(_G["AchievementFrameTab" .. i])
+		module:ReskinTab(_G["AchievementFrameTab"..i])
 	end
 
 	for i = 1, 7 do
