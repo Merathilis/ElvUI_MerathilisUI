@@ -1,5 +1,6 @@
-[b][color=orange]v5.13[/color], 02.07.2022[/b][list]
-[*]Added a "Map Reveal" feature
-[*]Fixed EquipBar Flyout Button FrameLevel
-[*]Finally fixed Transmog indicator after 8 Month.. lul
-[*]Try to prevent a LUA Error on profile switch[/list]
+[b][color=orange]v5.14[/color], xx.07.2022[/b][list]
+[*]Added a Skin for TLDR Missions
+[*]Added back the Skin for VenturePlan
+[*]Fixed PlayerChoice Skin Style
+[*]Swing Bar was scuffed a long time???
+[*]Added an option to expand the Character Frame (Armory)[/list]
