@@ -116,10 +116,26 @@ options.armory = {
 					name = L["Only Relevant Stats"],
 					desc = L["Show only those primary stats relevant to your spec."],
 				},
+				color = {
+					order = 2,
+					type = "color",
+					name = COLOR_PICKER,
+					get = function(info)
+						local t = E.db.mui.armory.stats[ info[#info] ]
+						local d = P.armory.stats[info[#info]]
+						return t.r, t.g, t.b, d.r, d.g, d.b
+					end,
+					set = function(info, r, g, b)
+						E.db.mui.armory.stats[ info[#info] ] = {}
+						local t = E.db.mui.armory.stats[ info[#info] ]
+						t.r, t.g, t.b = r, g, b
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+				},
 				Stats = {
+					order = 4,
 					type = 'group',
 					name = STAT_CATEGORY_ATTRIBUTES,
-					order = 2,
 					guiInline = true,
 					get = function(info) return E.db.mui.armory.stats.List[ info[#info] ] end,
 					set = function(info, value) E.db.mui.armory.stats.List[ info[#info] ] = value; module:ToggleStats() end,
