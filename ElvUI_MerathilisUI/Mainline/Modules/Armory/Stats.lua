@@ -47,7 +47,8 @@ local RED_FONT_COLOR_CODE = RED_FONT_COLOR_CODE
 local CreateFrame = CreateFrame
 --GLOBALS:
 
-local totalShown = 0
+MERAY.totalShown = 0
+MERAY.ScrollStepMultiplier = 5
 
 --Replacing broken Blizz function and adding some decimals
 --Atteack speed
@@ -349,7 +350,7 @@ function MERAY:ToggleStats()
 end
 
 function MERAY:PaperDollFrame_UpdateStats()
-	totalShown = 0
+	MERAY.totalShown = 0
 	local total = GetAverageItemLevel()
 	_G["CharacterStatsPane"].ItemLevelCategory:Point("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
 	_G["CharacterStatsPane"].AttributesCategory:Point("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
@@ -425,7 +426,7 @@ function MERAY:PaperDollFrame_UpdateStats()
 						statFrame:Point("TOP", lastAnchor, "BOTTOM", 0, statYOffset);
 					end
 					if statFrame:IsShown() then
-						totalShown = totalShown + 1
+						MERAY.totalShown = MERAY.totalShown + 1
 						numStatInCat = numStatInCat + 1;
 						-- statFrame.Background:SetShown((numStatInCat % 2) == 0);
 						lastAnchor = statFrame;
@@ -439,7 +440,7 @@ function MERAY:PaperDollFrame_UpdateStats()
 	end
 	-- release the current stat frame
 	_G["CharacterStatsPane"].statsFramePool:Release(statFrame);
-	if totalShown > 12 then
+	if MERAY.totalShown > 12 then
 		MERAY.Scrollbar:Show()
 	else
 		MERAY.Scrollbar:Hide()
@@ -467,6 +468,7 @@ function MERAY:BuildScrollBar()
 	MERAY.Scrollbar:SetValue(0)
 	MERAY.Scrollbar:SetWidth(8)
 	MERAY.Scrollbar:SetScript("OnValueChanged", function (self, value)
+		local offset = value > 1 and self:GetParent():GetVerticalScrollRange()/(MERAY.totalShown*MERAY.ScrollStepMultiplier) or 1
 		self:GetParent():SetVerticalScroll(value)
 	end)
 	E:GetModule("Skins"):HandleScrollBar(MERAY.Scrollbar)
@@ -489,23 +491,10 @@ function MERAY:BuildScrollBar()
 
 	-- Enable mousewheel scrolling
 	MERAY.ScrollFrame:EnableMouseWheel(true)
-	MERAY.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
-		if totalShown > 12 then
-			MERAY.Scrollbar:SetMinMaxValues(1, 45)
-		else
-			MERAY.Scrollbar:SetMinMaxValues(1, 1)
-		end
-
+	MERAY.ScrollFrame:SetScript("OnMouseWheel", function(_, delta)
 		local cur_val = MERAY.Scrollbar:GetValue()
-		local min_val, max_val = MERAY.Scrollbar:GetMinMaxValues()
 
-		if delta < 0 and cur_val < max_val then
-			cur_val = math_min(max_val, cur_val + 22)
-			MERAY.Scrollbar:SetValue(cur_val)
-		elseif delta > 0 and cur_val > min_val then
-			cur_val = math_max(min_val, cur_val - 22)
-			MERAY.Scrollbar:SetValue(cur_val)
-		end
+		MERAY.Scrollbar:SetValue(cur_val - delta*MERAY.totalShown)
 	end)
 
 	PaperDollSidebarTab1:HookScript("OnShow", function(self,event)
