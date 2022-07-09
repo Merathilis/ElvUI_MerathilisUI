@@ -74,6 +74,7 @@ local function ReskinMainPanel(gui)
 	handleOptionLine("Gear")
 	handleOptionLine("SanctumFeature")
 	handleOptionLine("Sacrifice")
+	handleOptionLine("AnythingForXP")
 
 	S:HandleButton(gui.CalculateButton)
 	S:HandleButton(gui.AbortButton)
@@ -121,14 +122,12 @@ function module:TLDRMissions()
 		return
 	end
 
-	-- Toggle button in Mission Table
-	if _G.TLDRMissionsToggleButton then
-		S:HandleButton(_G.TLDRMissionsToggleButton)
-	end
+	S:HandleButton(_G.TLDRMissionsToggleButton)
 
 	-- Main GUI
 	if _G.TLDRMissionsFrame then
 		local gui = _G.TLDRMissionsFrame
+		S:HandleButton(gui.shortcutButton)
 		S:HandleCloseButton(gui.CloseButton)
 		gui:StripTextures()
 		gui:SetTemplate("Transparent")
