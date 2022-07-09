@@ -1170,6 +1170,8 @@ P.armory = {
 		enable = true,
 		colorStyle = "VALUE",
 		color = {r = 1, g = 1, b = 0},
+		setArmor = true,
+		setArmorColor = {r = 0, g = 1, b = 0, a = 1},
 	},
 	transmog = {
 		enable = true,

@@ -423,6 +423,8 @@ L["Warnings"] = true
 L["Shows an indicator for missing sockets and enchants."] = true
 L["Expanded Size"] = true
 L["This will increase the Character Frame size a bit."] = true
+L["Armor Set"] = true
+L["Armor Set Gradient Texture Color"] = true
 
 -- Media
 L["MER_MEDIA_ZONES"] = {

@@ -428,6 +428,8 @@ L["Warnings"] = "Warnungen"
 L["Shows an indicator for missing sockets and enchants."] = "Zeigt einen Indikator für fehlende Sockel und Verzauberungen an."
 L["Expanded Size"] = "Erweiterte Größe"
 L["This will increase the Character Frame size a bit."] = "Dieses wird das Charakterfenster etwas vergrößern."
+L["Armor Set"] = true
+L["Armor Set Gradient Texture Color"] = true
 
 -- Media
 L["MER_MEDIA_ZONES"] = {

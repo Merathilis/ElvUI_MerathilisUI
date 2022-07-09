@@ -260,7 +260,7 @@ function module:UpdatePaperDoll()
 			if (itemLink and itemLink ~= nil) then
 				if type(itemLink) ~= "string" then return end
 
-				local _, _, itemRarity, _, _, _, _, _, _ = GetItemInfo(itemLink)
+				local _, _, itemRarity, _, _, _, _, _, _, _, _, _, _, _, _, setID = GetItemInfo(itemLink)
 
 				-- Durability
 				if module.db.durability.enable then
@@ -275,7 +275,9 @@ function module:UpdatePaperDoll()
 				-- Gradiation
 				if module.db.gradient.enable then
 					frame.Gradiation.Texture:Show()
-					if itemRarity and module.db.gradient.colorStyle == "RARITY" then
+					if module.db.gradient.setArmor and setID then
+						frame.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.gradient.setArmorColor))
+					elseif itemRarity and module.db.gradient.colorStyle == "RARITY" then
 						local r, g, b = GetItemQualityColor(itemRarity)
 						frame.Gradiation.Texture:SetVertexColor(r, g, b)
 					elseif module.db.gradient.colorStyle == "VALUE" then
