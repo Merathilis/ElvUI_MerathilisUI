@@ -424,6 +424,8 @@ L["Empty Socket"] = true
 L["Not Enchanted"] = true
 L["Warnings"] = true
 L["Shows an indicator for missing sockets and enchants."] = true
+L["Expanded Size"] = true
+L["This will increase the Character Frame size a bit."] = true
 
 -- Media
 L["Zone Text"] = "区域文字"

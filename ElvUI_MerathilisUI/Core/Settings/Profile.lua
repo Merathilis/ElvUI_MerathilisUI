@@ -1132,6 +1132,7 @@ P.cooldownFlash = {
 P.armory = {
 	enable = true,
 	undressButton = true,
+	expandSize = false,
 	durability = {
 		enable = true,
 		onlydamaged = true,

@@ -342,6 +342,7 @@ L["Automatically release body when killed inside a battleground."] = true
 L["Check for rebirth mechanics"] = true
 L["Do not release if reincarnation or soulstone is up."] = true
 
+
 -- Actionbars
 L["Specialization Bar"] = true
 L["EquipSet Bar"] = true
@@ -422,6 +423,8 @@ L["Empty Socket"] = true
 L["Not Enchanted"] = true
 L["Warnings"] = true
 L["Shows an indicator for missing sockets and enchants."] = true
+L["Expanded Size"] = true
+L["This will increase the Character Frame size a bit."] = true
 
 -- Media
 L["MER_MEDIA_ZONES"] = {

@@ -18,7 +18,7 @@ local fontStyleList = {
 
 options.armory = {
 	type = "group",
-	name = L["Armory"],
+	name = E.NewSign..L["Armory"],
 	disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,
 	get = function(info) return E.db.mui.armory[ info[#info] ] end,
 	set = function(info, value) E.db.mui.armory[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -29,24 +29,30 @@ options.armory = {
 			name = F.cOption(L["Armory"], 'orange'),
 		},
 		enable = {
-			type = "toggle",
 			order = 2,
+			type = "toggle",
 			name = L["Enable"],
 			desc = L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."],
 		},
 		undressButton = {
-			type = "toggle",
 			order = 3,
+			type = "toggle",
 			name = L["Undress Button"],
 		},
+		expandSize = {
+			order = 4,
+			type = "toggle",
+			name = E.NewSign..L["Expanded Size"],
+			desc = L["This will increase the Character Frame size a bit."],
+		},
 		spacer = {
-			type = "description",
 			order = 8,
+			type = "description",
 			name = ""
 		},
 		information = {
-			type = "description",
 			order = 9,
+			type = "description",
 			name = L["ARMORY_DESC"],
 		},
 		durability = {

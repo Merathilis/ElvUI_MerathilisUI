@@ -28,6 +28,8 @@ local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetApp
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 
+local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
+
 local initialized = false
 local maxGemSlots = 5
 
@@ -401,6 +403,79 @@ function module:BuildInformation()
 			end
 		end
 	end
+
+	hooksecurefunc("CharacterFrame_Collapse", function()
+		if E.db.mui.armory.enable and E.db.mui.armory.expandSize and _G["PaperDollFrame"]:IsShown() then
+			_G["CharacterFrame"]:SetWidth(448)
+		end
+	end)
+	hooksecurefunc("CharacterFrame_Expand", function()
+		if E.db.mui.armory.enable and E.db.mui.armory.expandSize and _G["PaperDollFrame"]:IsShown() then
+			_G["CharacterFrame"]:SetWidth(650)
+		end
+	end)
+	hooksecurefunc("CharacterFrame_ShowSubFrame", function(frameName)
+		if not E.db.mui.armory.enable and not E.db.mui.armory.expandSize then return end
+		if frameName == "PaperDollFrame" or frameName == "PetPaperDollFrame" then return end
+		if _G["CharacterFrame"]:GetWidth() > PANEL_DEFAULT_WIDTH + 1 then
+			_G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
+		end
+	end)
+
+	--[[hooksecurefunc('PaperDollFrame_SetLevel', function()
+		if E.db.mui.armory.expandSize then
+			_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
+
+			_G["CharacterFrameTitleText"]:ClearAllPoints()
+			_G["CharacterFrameTitleText"]:Point('TOP', _G["CharacterModelFrame"], 0, 45)
+			_G["CharacterFrameTitleText"]:SetParent(_G["CharacterFrame"])
+
+			_G["CharacterLevelText"]:ClearAllPoints()
+			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, 2)
+			_G["CharacterLevelText"]:SetParent(_G["CharacterFrame"])
+		end
+	end)]]
+end
+
+function module:ExpandSize()
+	if not module.db.expandSize then
+		return
+	end
+
+	_G["CharacterFrame"]:SetHeight(444)
+
+	_G["CharacterHandsSlot"]:SetPoint('TOPRIGHT', _G["CharacterFrameInsetRight"], 'TOPLEFT', -4, -2)
+
+	_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
+
+	_G["CharacterModelFrame"]:ClearAllPoints()
+	_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"], 0, 5)
+	_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
+	_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
+
+	if _G["PaperDollFrame"]:IsShown() then --Setting up width for the main frame
+		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
+		_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
+	end
+
+	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
+		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
+		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
+
+		if _G["CharacterModelFrame"].backdrop then
+			_G["CharacterModelFrame"].backdrop:Hide()
+		end
+	end
+
+	--Overlay resize to match new width
+	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
+	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
+
+	if E.db.general.itemLevel.displayCharacterInfo then
+		M:UpdatePageInfo(_G["CharacterFrame"], "Character")
+	end
 end
 
 function module:firstGarrisonToast()
@@ -450,6 +525,7 @@ function module:Initialize()
 	end
 
 	self:ForUpdateAll()
+	self:ExpandSize()
 
 	-- Stats
 	if not IsAddOnLoaded("DejaCharacterStats") then

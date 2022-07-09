@@ -426,6 +426,8 @@ L["Empty Socket"] = "Leerer Sockel"
 L["Not Enchanted"] = "Nicht verzaubert"
 L["Warnings"] = "Warnungen"
 L["Shows an indicator for missing sockets and enchants."] = "Zeigt einen Indikator für fehlende Sockel und Verzauberungen an."
+L["Expanded Size"] = "Erweiteiterte Größe"
+L["This will increase the Character Frame size a bit."] = "Dieses wird das Character Fenster etwas vergrößern."
 
 -- Media
 L["MER_MEDIA_ZONES"] = {
