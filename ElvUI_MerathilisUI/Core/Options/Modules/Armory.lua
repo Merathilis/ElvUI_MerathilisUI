@@ -221,7 +221,7 @@ options.armory = {
 		gradient = {
 			order = 24,
 			type = 'group',
-			name = L["Gradient"],
+			name = E.NewSign..L["Gradient"],
 			disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 			get = function(info) return E.db.mui.armory.gradient[ info[#info] ] end,
 			set = function(info, value) E.db.mui.armory.gradient[ info[#info] ] = value; module:UpdatePaperDoll() end,

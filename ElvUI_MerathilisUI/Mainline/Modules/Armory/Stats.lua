@@ -1,14 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MERAY = MER:GetModule('MER_Armory')
+local module = MER:GetModule('MER_Armory')
 local LSM = E.LSM or E.Libs.LSM
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local unpack = unpack
 local format = string.format
 local math_min, math_max = math.min, math.max
--- WoW API / Variables
+
 local GetCombatRating, GetCombatRatingBonus = GetCombatRating, GetCombatRatingBonus
 local GetMeleeHaste, UnitAttackSpeed = GetMeleeHaste, UnitAttackSpeed
 local GetVersatilityBonus = GetVersatilityBonus
@@ -45,10 +43,9 @@ local MAX_SPELL_SCHOOLS = MAX_SPELL_SCHOOLS
 local RED_FONT_COLOR_CODE = RED_FONT_COLOR_CODE
 
 local CreateFrame = CreateFrame
---GLOBALS:
 
-MERAY.totalShown = 0
-MERAY.ScrollStepMultiplier = 5
+module.totalShown = 0
+module.ScrollStepMultiplier = 5
 
 --Replacing broken Blizz function and adding some decimals
 --Atteack speed
@@ -280,7 +277,7 @@ local function CharacterStatFrameCategoryTemplate(Button)
 	bg:SetVertexColor(r * 0.7, g * 0.7, b * 0.7)
 end
 
-function MERAY:CreateStatCategory(catName, text, noop)
+function module:CreateStatCategory(catName, text, noop)
 	if not _G["CharacterStatsPane"][catName] then
 		_G["CharacterStatsPane"][catName] = CreateFrame("Frame", nil, _G["CharacterStatsPane"], "CharacterStatFrameCategoryTemplate")
 		_G["CharacterStatsPane"][catName].Title:SetText(text)
@@ -292,7 +289,7 @@ function MERAY:CreateStatCategory(catName, text, noop)
 	return catName
 end
 
-function MERAY:ResetAllStats()
+function module:ResetAllStats()
 	PAPERDOLL_STATCATEGORIES = {
 		[1] = {
 			categoryFrame = "AttributesCategory",
@@ -308,7 +305,7 @@ function MERAY:ResetAllStats()
 			},
 		},
 		[2] = {
-			categoryFrame = MERAY:CreateStatCategory("OffenseCategory", STAT_CATEGORY_ATTACK),
+			categoryFrame = module:CreateStatCategory("OffenseCategory", STAT_CATEGORY_ATTACK),
 			stats = {
 				[1] = { stat = "ATTACK_DAMAGE", option = true, hideAt = 0 },
 				[2] = { stat = "ATTACK_AP", option = true, hideAt = 0 },
@@ -331,7 +328,7 @@ function MERAY:ResetAllStats()
 			},
 		},
 		[4] = {
-			categoryFrame = MERAY:CreateStatCategory("DefenceCategory", DEFENSE),
+			categoryFrame = module:CreateStatCategory("DefenceCategory", DEFENSE),
 			stats = {
 				[1] = { stat = "ARMOR", roles = { "TANK" } },
 				[2] = { stat = "AVOIDANCE", hideAt = 0 },
@@ -344,13 +341,13 @@ function MERAY:ResetAllStats()
 	};
 end
 
-function MERAY:ToggleStats()
-	MERAY:ResetAllStats()
+function module:ToggleStats()
+	module:ResetAllStats()
 	PaperDollFrame_UpdateStats();
 end
 
-function MERAY:PaperDollFrame_UpdateStats()
-	MERAY.totalShown = 0
+function module:PaperDollFrame_UpdateStats()
+	module.totalShown = 0
 	local total = GetAverageItemLevel()
 	_G["CharacterStatsPane"].ItemLevelCategory:Point("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
 	_G["CharacterStatsPane"].AttributesCategory:Point("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
@@ -374,7 +371,7 @@ function MERAY:PaperDollFrame_UpdateStats()
 
 	local lastAnchor;
 
-	MERAY:BuildScrollBar()
+	module:BuildScrollBar()
 
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 		local catFrame = _G["CharacterStatsPane"][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame];
@@ -426,7 +423,7 @@ function MERAY:PaperDollFrame_UpdateStats()
 						statFrame:Point("TOP", lastAnchor, "BOTTOM", 0, statYOffset);
 					end
 					if statFrame:IsShown() then
-						MERAY.totalShown = MERAY.totalShown + 1
+						module.totalShown = module.totalShown + 1
 						numStatInCat = numStatInCat + 1;
 						-- statFrame.Background:SetShown((numStatInCat % 2) == 0);
 						lastAnchor = statFrame;
@@ -440,76 +437,76 @@ function MERAY:PaperDollFrame_UpdateStats()
 	end
 	-- release the current stat frame
 	_G["CharacterStatsPane"].statsFramePool:Release(statFrame);
-	if MERAY.totalShown > 12 then
-		MERAY.Scrollbar:Show()
+	if module.totalShown > 12 then
+		module.Scrollbar:Show()
 	else
-		MERAY.Scrollbar:Hide()
+		module.Scrollbar:Hide()
 	end
 end
 
-function MERAY:BuildScrollBar()
+function module:BuildScrollBar()
 	local CharacterFrameInsetRight = _G.CharacterFrameInsetRight
-	MERAY.ScrollframeParentFrame = CreateFrame("Frame", nil, CharacterFrameInsetRight)
-	MERAY.ScrollframeParentFrame:Size(198, 352)
-	MERAY.ScrollframeParentFrame:Point("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
+	module.ScrollframeParentFrame = CreateFrame("Frame", nil, CharacterFrameInsetRight)
+	module.ScrollframeParentFrame:Size(198, 352)
+	module.ScrollframeParentFrame:Point("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
 
 	--Scrollframe
-	MERAY.ScrollFrame = CreateFrame("ScrollFrame", "MER_ScrollFrame", MERAY.ScrollframeParentFrame)
-	MERAY.ScrollFrame:Point("TOP")
-	MERAY.ScrollFrame:Size(MERAY.ScrollframeParentFrame:GetSize())
+	module.ScrollFrame = CreateFrame("ScrollFrame", "MER_ScrollFrame", module.ScrollframeParentFrame)
+	module.ScrollFrame:Point("TOP")
+	module.ScrollFrame:Size(module.ScrollframeParentFrame:GetSize())
 
 	--Scrollbar
-	MERAY.Scrollbar = CreateFrame("Slider", "MERAY_Scrollbar", MERAY.ScrollFrame, "UIPanelScrollBarTemplate")
-	MERAY.Scrollbar:Point("TOPLEFT", CharacterFrameInsetRight, "TOPRIGHT", -12, -20)
-	MERAY.Scrollbar:Point("BOTTOMLEFT", CharacterFrameInsetRight, "BOTTOMRIGHT", -12, 18)
-	MERAY.Scrollbar:SetMinMaxValues(1, 2)
-	MERAY.Scrollbar:SetValueStep(1)
-	MERAY.Scrollbar.scrollStep = 1
-	MERAY.Scrollbar:SetValue(0)
-	MERAY.Scrollbar:SetWidth(8)
-	MERAY.Scrollbar:SetScript("OnValueChanged", function (self, value)
-		local offset = value > 1 and self:GetParent():GetVerticalScrollRange()/(MERAY.totalShown*MERAY.ScrollStepMultiplier) or 1
+	module.Scrollbar = CreateFrame("Slider", "module_Scrollbar", module.ScrollFrame, "UIPanelScrollBarTemplate")
+	module.Scrollbar:Point("TOPLEFT", CharacterFrameInsetRight, "TOPRIGHT", -12, -20)
+	module.Scrollbar:Point("BOTTOMLEFT", CharacterFrameInsetRight, "BOTTOMRIGHT", -12, 18)
+	module.Scrollbar:SetMinMaxValues(1, 2)
+	module.Scrollbar:SetValueStep(1)
+	module.Scrollbar.scrollStep = 1
+	module.Scrollbar:SetValue(0)
+	module.Scrollbar:SetWidth(8)
+	module.Scrollbar:SetScript("OnValueChanged", function (self, value)
+		local offset = value > 1 and self:GetParent():GetVerticalScrollRange()/(module.totalShown*module.ScrollStepMultiplier) or 1
 		self:GetParent():SetVerticalScroll(value)
 	end)
-	E:GetModule("Skins"):HandleScrollBar(MERAY.Scrollbar)
-	MERAY.Scrollbar:Hide()
+	E:GetModule("Skins"):HandleScrollBar(module.Scrollbar)
+	module.Scrollbar:Hide()
 
-	--MERAY.ScrollChild Frame
-	MERAY.ScrollChild = CreateFrame("Frame", nil, MERAY.ScrollFrame)
-	MERAY.ScrollChild:Size(MERAY.ScrollFrame:GetSize())
-	MERAY.ScrollFrame:SetScrollChild(MERAY.ScrollChild)
+	--module.ScrollChild Frame
+	module.ScrollChild = CreateFrame("Frame", nil, module.ScrollFrame)
+	module.ScrollChild:Size(module.ScrollFrame:GetSize())
+	module.ScrollFrame:SetScrollChild(module.ScrollChild)
 
 	local CharacterStatsPane = _G.CharacterStatsPane
 	CharacterStatsPane:ClearAllPoints()
-	CharacterStatsPane:SetParent(MERAY.ScrollChild)
-	CharacterStatsPane:Size(MERAY.ScrollChild:GetSize())
-	CharacterStatsPane:Point("TOP", MERAY.ScrollChild, "TOP", 0, 0)
+	CharacterStatsPane:SetParent(module.ScrollChild)
+	CharacterStatsPane:Size(module.ScrollChild:GetSize())
+	CharacterStatsPane:Point("TOP", module.ScrollChild, "TOP", 0, 0)
 
 	CharacterStatsPane.ClassBackground:ClearAllPoints()
 	CharacterStatsPane.ClassBackground:SetParent(CharacterFrameInsetRight)
 	CharacterStatsPane.ClassBackground:Point("CENTER")
 
 	-- Enable mousewheel scrolling
-	MERAY.ScrollFrame:EnableMouseWheel(true)
-	MERAY.ScrollFrame:SetScript("OnMouseWheel", function(_, delta)
-		local cur_val = MERAY.Scrollbar:GetValue()
+	module.ScrollFrame:EnableMouseWheel(true)
+	module.ScrollFrame:SetScript("OnMouseWheel", function(_, delta)
+		local cur_val = module.Scrollbar:GetValue()
 
-		MERAY.Scrollbar:SetValue(cur_val - delta*MERAY.totalShown)
+		module.Scrollbar:SetValue(cur_val - delta*module.totalShown)
 	end)
 
 	PaperDollSidebarTab1:HookScript("OnShow", function(self,event)
-		MERAY.ScrollframeParentFrame:Show()
+		module.ScrollframeParentFrame:Show()
 	end)
 
 	PaperDollSidebarTab1:HookScript("OnClick", function(self,event)
-		MERAY.ScrollframeParentFrame:Show()
+		module.ScrollframeParentFrame:Show()
 	end)
 
 	PaperDollSidebarTab2:HookScript("OnClick", function(self,event)
-		MERAY.ScrollframeParentFrame:Hide()
+		module.ScrollframeParentFrame:Hide()
 	end)
 
 	PaperDollSidebarTab3:HookScript("OnClick", function(self,event)
-		MERAY.ScrollframeParentFrame:Hide()
+		module.ScrollframeParentFrame:Hide()
 	end)
 end
