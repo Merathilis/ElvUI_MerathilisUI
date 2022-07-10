@@ -27,12 +27,21 @@ Engine[6] = P.mui
 Engine[7] = G.mui
 _G[addon] = Engine
 
-MER.Version = GetAddOnMetadata(addon, "Version")
+do
+	-- when packager packages a new version for release
+	-- '@project-version@' is replaced with the version number
+	-- which is the latest tag
+	Engine.version = '@project-version@'
 
-_G.ElvDB.MerathilisUIAlpha = false
---@alpha@
-_G.ElvDB.MerathilisUIAlpha = true
---@end-alpha@
+	if strfind(Engine.version, 'project%-version') then
+		Engine.version = 'development'
+	end
+
+	MER.Version = Engine.version
+	MER.IsDevelop = MER.Version == 'development'
+
+	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
+end
 
 -- Modules
 MER.Modules = {}
@@ -129,7 +138,7 @@ function MER:Initialize()
 		return
 	end
 
-	if ElvDB.MerathilisUIAlpha then
+	if MER.IsDevelop then
 		Engine[2].Print("You are using an alpha build! Go download the release build if you have issues! Do not come for support!")
 	end
 
@@ -167,7 +176,7 @@ do
 		if isInitialLogin then
 			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
 			if E.db.mui.installed and E.global.mui.core.LoginMsg then
-				print(icon..''..self.Title..format("v|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+				print(icon..''..self.Title..format("|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 			end
 
 			self:SplashScreen()

@@ -7,7 +7,6 @@ local pcall = pcall
 local tinsert = table.insert
 
 MER.dummy = function() return end
-MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 
