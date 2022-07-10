@@ -1,4 +1,4 @@
-## Interface: 11403
+## Interface: @toc-version-classic@
 ## Author: Merathilis
 ## Version: 5.13
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
