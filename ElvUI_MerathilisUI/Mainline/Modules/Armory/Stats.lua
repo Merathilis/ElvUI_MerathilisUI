@@ -344,6 +344,25 @@ end
 function module:ToggleStats()
 	module:ResetAllStats()
 	PaperDollFrame_UpdateStats();
+
+	_G.CharacterFrame:HookScript('OnShow', module.UpdateCharacterItemLevel)
+	_G.CharacterFrame.ItemLevelText:SetText('')
+end
+
+function module:UpdateCharacterItemLevel(frame, which)
+	if not frame or which ~= 'Character' then return end
+
+	if not E.db.general.itemLevel.displayCharacterInfo then return end
+	local total, equipped = GetAverageItemLevel()
+	if E.db.mui.armory.stats.IlvlFull then
+		if E.db.mui.armory.stats.IlvlColor then
+			local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+			local avColor = E.db.mui.armory.stats.AverageColor
+			frame.ItemLevelText:SetFormattedText('%s%.2f|r |cffffffff/|r %s%.2f|r', E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
+		else
+			frame.ItemLevelText:SetFormattedText('%.2f / %.2f', equipped, total)
+		end
+	end
 end
 
 function module:PaperDollFrame_UpdateStats()

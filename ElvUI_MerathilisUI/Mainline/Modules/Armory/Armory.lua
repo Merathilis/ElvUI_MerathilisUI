@@ -651,8 +651,11 @@ function module:Initialize()
 
 	-- Stats
 	if not IsAddOnLoaded("DejaCharacterStats") then
-		hooksecurefunc("PaperDollFrame_UpdateStats", module.PaperDollFrame_UpdateStats)
 		module:ToggleStats()
+		hooksecurefunc("PaperDollFrame_UpdateStats", module.PaperDollFrame_UpdateStats)
+		hooksecurefunc(M, 'UpdateCharacterItemLevel', module.UpdateCharacterItemLevel)
+		hooksecurefunc(M, 'ToggleItemLevelInfo', module.UpdateCharacterItemLevel)
+		hooksecurefunc(M, 'UpdateAverageString', module.UpdateCharacterItemLevel)
 	end
 end
 

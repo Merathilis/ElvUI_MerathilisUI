@@ -1143,6 +1143,9 @@ P.armory = {
 	stats = {
 		OnlyPrimary = true,
 		color = {r = 1, g = 1, b = 0},
+		IlvlFull = false,
+		IlvlColor = false,
+		AverageColor = {r = 0, g = 1, b = .59},
 		statFonts = {
 			font = "Expressway",
 			size = 11,

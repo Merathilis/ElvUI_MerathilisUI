@@ -430,6 +430,12 @@ L["Expanded Size"] = "Erweiterte Größe"
 L["This will increase the Character Frame size a bit."] = "Dieses wird das Charakterfenster etwas vergrößern."
 L["Armor Set"] = "Rüstungsset"
 L["Armor Set Gradient Texture Color"] = "Rüstungssettextur Verlaufsfarbe"
+L["Full Item Level"] = true
+L["Show both equipped and average item levels."] = true
+L["Item Level Coloring"] = true
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
+L["Color of Average"] = true
+L["Sets the color of average item level."] = true
 
 -- Media
 L["MER_MEDIA_ZONES"] = {
