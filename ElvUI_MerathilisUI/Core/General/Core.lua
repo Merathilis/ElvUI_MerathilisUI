@@ -19,11 +19,13 @@ MER.MSQ = _G.LibStub('Masque', true)
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
 
---Info Color RGB: 0, 192, 250
-MER.InfoColor = "|cFF00c0fa"
+MER.InfoColor = "|cFF00c0fa" --Info Color RGB: 0, 192, 250
 MER.GreyColor = "|cffB5B5B5"
 MER.RedColor = "|cffff2735"
 MER.GreenColor = "|cff3a9d36"
+MER.YellowColor = "|cffffff00"
+MER.BlueColor = "|cff82c5ff"
+MER.WhiteColor = "|cffffffff"
 
 MER.LineString = MER.GreyColor.."---------------"
 

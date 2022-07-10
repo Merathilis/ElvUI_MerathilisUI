@@ -40,16 +40,14 @@ function MER:UpdateScripts() -- DB Convert
 
 	isFirstLine = true
 
-	if profileVersion <= 5.06 then
-		if not E.global.mui and not E.global.mui.core or type(E.global.mui.core) ~= 'table' then
-			E.global.mui.core = {}
+	local updated = false
+	if profileVersion <= 5.14 then
+		if E.db.mui.armory.stats then
+			E.db.mui.armory.stats.color = {r = F.r, g = F.g, b = F.b} -- First time color adjustments
 		end
 
-		if E.private.mui.core or type(E.private.mui.core) == 'table' then
-			E.private.mui.core = nil
-		end
-
-		UpdateMessage(L["Core"] .. " - " .. L["Update Database"], profileVersion)
+		UpdateMessage(L["Armory"] .. " - " .. L["Color Adjustment"], profileVersion)
+		updated = true
 	end
 
 	if not isFirstLine then

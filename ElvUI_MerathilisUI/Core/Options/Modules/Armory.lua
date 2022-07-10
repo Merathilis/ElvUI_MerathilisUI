@@ -105,7 +105,7 @@ options.armory = {
 		},
 		stats = {
 			type = 'group',
-			name = STAT_CATEGORY_ATTRIBUTES,
+			name = E.NewSign..STAT_CATEGORY_ATTRIBUTES,
 			order = 22,
 			disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 			get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
@@ -120,7 +120,7 @@ options.armory = {
 				color = {
 					order = 2,
 					type = "color",
-					name = COLOR_PICKER,
+					name = E.NewSign..COLOR_PICKER,
 					get = function(info)
 						local t = E.db.mui.armory.stats[ info[#info] ]
 						local d = P.armory.stats[info[#info]]
@@ -304,6 +304,7 @@ options.armory = {
 					order = 4,
 					type = 'toggle',
 					name = E.NewSign..L["Armor Set"],
+					desc = L["Colors Set Items in a different color."],
 				},
 				setArmorColor = {
 					order = 6,

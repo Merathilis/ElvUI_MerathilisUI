@@ -427,6 +427,7 @@ L["Shows an indicator for missing sockets and enchants."] = true
 L["Expanded Size"] = true
 L["This will increase the Character Frame size a bit."] = true
 L["Armor Set"] = true
+L["Colors Set Items in a different color."] = true
 L["Armor Set Gradient Texture Color"] = true
 L["Full Item Level"] = true
 L["Show both equipped and average item levels."] = true

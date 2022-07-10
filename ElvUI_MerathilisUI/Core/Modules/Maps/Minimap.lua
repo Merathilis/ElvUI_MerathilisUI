@@ -64,7 +64,7 @@ function module:MiniMapCoords()
 	if not E.db.mui.maps.minimap.coords.enable then return end
 
 	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
-	local Coords = F.CreateText(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
+	local Coords = F.CreateText(Minimap, "OVERLAY", 12, "OUTLINE", nil, nil, "CENTER")
 	Coords:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	Coords:Hide()
 
