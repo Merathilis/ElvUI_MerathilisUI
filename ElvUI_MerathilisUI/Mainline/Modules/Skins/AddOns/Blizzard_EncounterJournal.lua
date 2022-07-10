@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
-local S = E.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -30,7 +30,7 @@ end
 
 local function SkinOverviewInfo(self, _, index)
 	local header = self.overviews[index]
-	if not header.isSkinned then
+	if not header.__MERSkin then
 
 		header.descriptionBG:SetAlpha(0)
 		header.descriptionBGBottom:SetAlpha(0)
@@ -45,7 +45,7 @@ local function SkinOverviewInfo(self, _, index)
 		header.button.expandedIcon:SetTextColor(1, 1, 1)
 		header.button.expandedIcon.SetTextColor = E.noop
 
-		header.isSkinned = true
+		header.__MERSkin = true
 	end
 end
 
@@ -66,7 +66,7 @@ local function SkinAbilitiesInfo()
 	local index = 1
 	local header = _G["EncounterJournalInfoHeader"..index]
 	while header do
-		if not header.isSkinned then
+		if not header.__MERSkin then
 			header.flashAnim.Play = E.noop
 
 			header.descriptionBG:SetAlpha(0)
@@ -89,7 +89,7 @@ local function SkinAbilitiesInfo()
 			header.button.bg:SetFrameLevel(header.button.bg:GetFrameLevel() - 1)
 			header.button.abilityIcon:SetTexCoord(.08, .92, .08, .92)
 
-			header.isSkinned = true
+			header.__MERSkin = true
 		end
 
 		if header.button.abilityIcon:IsShown() then
@@ -176,12 +176,14 @@ local function SkinEJButton(button)
 	select(6, button:GetRegions()):Hide()
 end
 
-function module:Blizzard_EncounterJournal()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.mui.skins.blizzard.encounterjournal ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("encounterjournal", "encounterjournal") then
+		return
+	end
 
 	local EncounterJournal = _G.EncounterJournal
 	EncounterJournal:Styling()
-	MER:CreateBackdropShadow(EncounterJournal)
+	module:CreateBackdropShadow(EncounterJournal)
 
 	if EncounterJournal.navBar.backdrop then
 		EncounterJournal.navBar.backdrop:Hide()
@@ -503,4 +505,4 @@ function module:Blizzard_EncounterJournal()
 	end)
 end
 
-module:AddCallbackForAddon("Blizzard_EncounterJournal")
+S:AddCallbackForAddon("Blizzard_EncounterJournal", LoadSkin)

@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Mail')
-local S = E:GetModule('Skins')
+local S = MER:GetModule('MER_Skins')
+local ES = E:GetModule('Skins')
 
 -- Credits: WindTools :)
 local _G = _G
@@ -103,9 +104,9 @@ function module:ShowContextText(button)
 	}
 
 	if not button.class then
-		tinsert(menu, {text = L["Remove From Favorites"], func = function() if button.name then E.global.mui.contacts.favorites[button.name .. "-" .. button.realm] = nil self:ChangeCategory("FAVORITE") end end, notCheckable = true})
+		tinsert(menu, {text = L["Remove From Favorites"], func = function() if button.name then E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = nil self:ChangeCategory("FAVORITE") end end, notCheckable = true})
 	else
-		tinsert(menu, {text = L["Add To Favorites"], func = function() if button.name then E.global.mui.contacts.favorites[button.name .. "-" .. button.realm] = true end end, notCheckable = true})
+		tinsert(menu, {text = L["Add To Favorites"], func = function() if button.name then E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = true end end, notCheckable = true})
 	end
 
 	EasyMenu(menu, self.contextMenuFrame, "cursor", 0, 0, "MENU")
@@ -122,7 +123,7 @@ function module:ConstructFrame()
 	frame:Point("BOTTOMRIGHT", _G.MailFrame, "BOTTOMRIGHT", 152, 1)
 	frame:CreateBackdrop("Transparent")
 	frame.backdrop:Styling()
-	MER:CreateShadow(frame)
+	S:CreateShadow(frame)
 	frame:EnableMouse(true)
 
 	self.frame = frame
@@ -219,7 +220,7 @@ function module:ConstructNameButtons()
 
 		button:SetText("")
 		button:RegisterForClicks("LeftButtonDown", "RightButtonDown")
-		S:HandleButton(button)
+		ES:HandleButton(button)
 
 		button:SetScript("OnClick", function(self, mouseButton)
 			if mouseButton == "LeftButton" then
@@ -254,8 +255,8 @@ function module:ConstructPageController()
 	local pagePrevButton = CreateFrame("Button", "MER_MailPagePrevButton", self.frame, "SecureActionButtonTemplate")
 	pagePrevButton:Size(14)
 	SetButtonTexture(pagePrevButton, E.Media.Textures.ArrowUp)
-	pagePrevButton.normalTex:SetRotation(S.ArrowRotation.left)
-	pagePrevButton.hoverTex:SetRotation(S.ArrowRotation.left)
+	pagePrevButton.normalTex:SetRotation(ES.ArrowRotation.left)
+	pagePrevButton.hoverTex:SetRotation(ES.ArrowRotation.left)
 	pagePrevButton:Point("BOTTOMLEFT", self.frame, "BOTTOMLEFT", 8, 8)
 	pagePrevButton:RegisterForClicks("AnyUp")
 
@@ -269,8 +270,8 @@ function module:ConstructPageController()
 	local pageNextButton = CreateFrame("Button", "MER_MailPageNextButton", self.frame, "SecureActionButtonTemplate")
 	pageNextButton:Size(14)
 	SetButtonTexture(pageNextButton, E.Media.Textures.ArrowUp)
-	pageNextButton.normalTex:SetRotation(S.ArrowRotation.right)
-	pageNextButton.hoverTex:SetRotation(S.ArrowRotation.right)
+	pageNextButton.normalTex:SetRotation(ES.ArrowRotation.right)
+	pageNextButton.hoverTex:SetRotation(ES.ArrowRotation.right)
 	pageNextButton:Point("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", -8, 8)
 	pageNextButton:RegisterForClicks("AnyUp")
 
@@ -296,7 +297,7 @@ function module:ConstructPageController()
 		end
 	end)
 
-	S:HandleSliderFrame(slider)
+	ES:HandleSliderFrame(slider)
 
 	local pageIndicater = slider:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
 	pageIndicater:Point("BOTTOM", slider, "TOP", 0, 6)
@@ -419,8 +420,9 @@ end
 
 function module:UpdateAltsTable()
 	if not self.altsTable then
-		self.altsTable = E.global.mui.contacts.alts
+		self.altsTable = E.global.mui.mail.contacts.alts
 	end
+
 	if not self.altsTable[E.myrealm] then
 		self.altsTable[E.myrealm] = {}
 	end
@@ -510,7 +512,7 @@ end
 function module:BuildFavoriteData()
 	data = {}
 
-	for fullName in pairs(E.global.mui.contacts.favorites) do
+	for fullName in pairs(E.global.mui.mail.contacts.favorites) do
 		local name, realm = F.SplitString("-", fullName)
 		realm = realm or E.myrealm
 		tinsert(data, {name = name, realm = realm})

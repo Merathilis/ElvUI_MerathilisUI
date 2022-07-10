@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Minimap')
+local S = MER:GetModule('MER_Skins')
 local LCG = LibStub('LibCustomGlow-1.0')
 
 local _G = _G
@@ -14,6 +15,8 @@ local hooksecurefunc = hooksecurefunc
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
 function module:CheckStatus()
+	if not Minimap.backdrop then return end
+
 	local inv = C_Calendar_GetNumPendingInvites()
 	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
 
@@ -28,8 +31,37 @@ function module:CheckStatus()
 	end
 end
 
+function module:MinimapCombatCheck()
+	if not Minimap.backdrop then return end
+
+	if not E.db.mui.CombatAlert.minimapAlert then
+		return
+	end
+
+	local anim = Minimap.backdrop:CreateAnimationGroup()
+	anim:SetLooping("BOUNCE")
+
+	anim.fader = anim:CreateAnimation("Alpha")
+	anim.fader:SetFromAlpha(.8)
+	anim.fader:SetToAlpha(.2)
+	anim.fader:SetDuration(1)
+	anim.fader:SetSmoothing("OUT")
+
+	local function UpdateMinimapAnim(event)
+		if event == "PLAYER_REGEN_DISABLED" then
+			Minimap.backdrop:SetBackdropBorderColor(1, 0, 0)
+			anim:Play()
+		elseif not InCombatLockdown() then
+			anim:Stop()
+			Minimap.backdrop:SetBackdropBorderColor(0, 0, 0)
+		end
+	end
+	MER:RegisterEvent("PLAYER_REGEN_ENABLED", UpdateMinimapAnim)
+	MER:RegisterEvent("PLAYER_REGEN_DISABLED", UpdateMinimapAnim)
+end
+
 function module:MiniMapCoords()
-	if E.db.mui.maps.minimap.coords.enable ~= true then return end
+	if not E.db.mui.maps.minimap.coords.enable then return end
 
 	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
 	local Coords = F.CreateText(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
@@ -75,12 +107,12 @@ end
 
 function module:StyleMinimap()
 	if not E.db.mui.maps.minimap.rectangleMinimap.enable then
-		Minimap:Styling(true, true, false)
+		S:CreateBackdropShadow(Minimap)
 	end
 end
 
 function module:QueueStatus()
-	if E.private.general.minimap.enable ~= true or not E.db.mui.maps.minimap.queueStatus or not E.Retail then return end
+	if not E.private.general.minimap.enable or not E.db.mui.maps.minimap.queueStatus or not E.Retail then return end
 
 	-- QueueStatus Button
 	_G.QueueStatusMinimapButtonBorder:Hide()
@@ -105,7 +137,7 @@ function module:QueueStatus()
 end
 
 function module:Initialize()
-	if E.private.general.minimap.enable ~= true or not E.Retail then return end
+	if not E.private.general.minimap.enable or not E.Retail then return end
 
 	local db = E.db.mui.maps
 
@@ -121,9 +153,9 @@ function module:Initialize()
 	end
 
 	self:MiniMapCoords()
-	self:MinimapPing()
 	self:StyleMinimap()
 	self:QueueStatus()
+	self:MinimapCombatCheck()
 
 	if E.db.mui.maps.minimap.flash then
 		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
@@ -132,6 +164,8 @@ function module:Initialize()
 		self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
 		self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")
 	end
+
+	self:MinimapPing()
 end
 
 MER:RegisterModule(module:GetName())

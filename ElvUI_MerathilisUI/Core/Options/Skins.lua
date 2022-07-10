@@ -17,14 +17,15 @@ local DecorAddons = {
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
-	{"EventTracker", L["EventTracker"], "et"},
+	{"TLDRMissions", L["TLDRMissions"], "tldr"},
+	{"WeakAuras", L["WeakAuras"], "wa"},
+	{"WeakAurasOptions", L["WeakAuras Options"], "waOptions"},
 }
 
 local SupportedProfiles = {
 	{"AddOnSkins", "AddOnSkins"},
 	{"BigWigs", "BigWigs"},
 	{"Details", "Details"},
-	{"ElvUI_BenikUI", "BenikUI"},
 	{"ElvUI_FCT", "FCT"},
 	{"ProjectAzilroka", "ProjectAzilroka"},
 	{"ls_Toasts", "ls_Toasts"},
@@ -66,7 +67,7 @@ options.general = {
 					type = "toggle",
 					name = L["MerathilisUI Style"],
 					desc = L["Creates decorative stripes and a gradient on some frames"],
-					set = function(info, value) E.private.mui.skins[ info[#info] ] = value; F:UpdateStyling() end,
+					set = function(info, value) E.private.mui.skins[ info[#info] ] = value; MER:UpdateStyling() end,
 				},
 				shadowOverlay = {
 					order = 4,
@@ -123,7 +124,7 @@ options.general = {
 options.widgets = {
 	order = 2,
 	type = "group",
-	name = E.NewSign..L["Widgets"],
+	name = L["Widgets"],
 	disabled = function() return not E.private.mui.skins.enable end,
 	args = {
 		desc = {
@@ -358,8 +359,8 @@ options.widgets = {
 							min = 0,
 							max = 1,
 							step = 0.01
-						}
-					}
+						},
+					},
 				},
 				text = {
 					order = 3,
@@ -480,19 +481,13 @@ options.widgets = {
 							dialogControl = "LSM30_Statusbar",
 							values = LSM:HashTable("statusbar")
 						},
-						removeBorderEffect = {
-							order = 3,
-							type = "toggle",
-							name = L["Remove Border Effect"],
-							width = 1.5
-						},
 						classColor = {
-							order = 4,
+							order = 3,
 							type = "toggle",
 							name = L["Class Color"]
 						},
 						color = {
-							order = 5,
+							order = 4,
 							type = "color",
 							name = L["Color"],
 							hasAlpha = false,
@@ -510,7 +505,7 @@ options.widgets = {
 							end
 						},
 						alpha = {
-							order = 6,
+							order = 5,
 							type = "range",
 							name = L["Alpha"],
 							min = 0,
@@ -518,7 +513,7 @@ options.widgets = {
 							step = 0.01
 						},
 						animationType = {
-							order = 7,
+							order = 6,
 							type = "select",
 							name = L["Animation Type"],
 							desc = L["The type of animation activated when a button is hovered."],
@@ -528,15 +523,15 @@ options.widgets = {
 							}
 						},
 						animationDuration = {
-							order = 8,
+							order = 7,
 							type = "range",
 							name = L["Animation Duration"],
 							desc = L["The duration of the animation in seconds."],
 							min = 0,
 							max = 3,
 							step = 0.01
-						}
-					}
+						},
+					},
 				},
 				selected = {
 					order = 3,
@@ -853,8 +848,8 @@ options.widgets = {
 							min = 0,
 							max = 3,
 							step = 0.01
-						},
-					},
+						}
+					}
 				},
 				selected = {
 					order = 3,
@@ -890,54 +885,70 @@ options.widgets = {
 							values = LSM:HashTable("statusbar")
 						},
 						backdropClassColor = {
-							order = 4,
+							order = 3,
 							type = "toggle",
 							name = L["Backdrop Class Color"],
 							width = 1.5
 						},
 						backdropColor = {
-							order = 5,
+							order = 4,
 							type = "color",
 							name = L["Backdrop Color"],
-							hasAlpha = true,
+							hasAlpha = false,
 							hidden = function(info)
 								return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].backdropClassColor
 							end,
 							get = function(info)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								local default = V.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
-								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b
 							end,
-							set = function(info, r, g, b, a)
+							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
-								db.r, db.g, db.b, db.a = r, g, b, a
+								db.r, db.g, db.b = r, g, b
 							end
 						},
+						backdropAlpha = {
+							order = 5,
+							type = "range",
+							name = L["Backdrop Alpha"],
+							min = 0,
+							max = 1,
+							step = 0.01
+						},
 						borderClassColor = {
-							order = 4,
+							order = 6,
 							type = "toggle",
 							name = L["Border Class Color"],
 							width = 1.5
 						},
 						borderColor = {
-							order = 5,
+							order = 7,
 							type = "color",
 							name = L["Border Color"],
-							hasAlpha = true,
+							hasAlpha = false,
 							hidden = function(info)
 								return E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].borderClassColor
 							end,
 							get = function(info)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								local default = V.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
-								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 							end,
 							set = function(info, r, g, b, a)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
-								db.r, db.g, db.b, db.a = r, g, b, a
+								db.r, db.g, db.b = r, g, b
 							end
 						},
-					},
+						borderAlpha = {
+							order = 8,
+							type = "range",
+							name = L["Border Alpha"],
+							min = 0,
+							max = 1,
+							step = 0.01
+						}
+					}
 				},
 				text = {
 					order = 4,
@@ -1199,25 +1210,31 @@ options.blizzard = {
 			type = "description",
 			name = MER.InfoColor..L["MER_SKINS_DESC"],
 			fontSize = "medium",
+			width = "full",
 		},
 		space = {
 			order = 2,
 			type = "description",
 			name = '',
 		},
-		header = {
+		enable = {
 			order = 3,
+			type = "toggle",
+			name = L["Enable"],
+		},
+		header = {
+			order = 4,
 			type = "header",
 			name = F.cOption(L["Blizzard"], 'orange'),
 		},
 		gotoskins = {
-			order = 4,
+			order = 5,
 			type = "execute",
 			name = L["ElvUI Skins"],
 			func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "skins") end,
 		},
 		enableAll = {
-			order = 5,
+			order = 6,
 			type = "execute",
 			name = L["Enable All"],
 			func = function()
@@ -1228,7 +1245,7 @@ options.blizzard = {
 			end
 		},
 		disableAll = {
-			order = 6,
+			order = 7,
 			type = "execute",
 			name = L["Disable All"],
 			func = function()
@@ -1241,7 +1258,7 @@ options.blizzard = {
 			end
 		},
 		space2 = {
-			order = 7,
+			order = 8,
 			type = "description",
 			name = '',
 		},
@@ -1369,6 +1386,11 @@ options.blizzard = {
 			type = "toggle",
 			name = L["Craft"],
 			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.craft end,
+		},
+		eventToast = {
+			type = "toggle",
+			name = L["Event Toast Manager"],
+			disabled = function() return not E.private.skins.blizzard.enable end,
 		},
 	},
 }
@@ -1599,6 +1621,21 @@ if E.Retail then
 		name = L["Guide Frame"],
 		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guide end,
 	}
+	options.blizzard.args.weeklyRewards = {
+		type = "toggle",
+		name = L["Weekly Rewards"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.weeklyRewards end,
+	}
+	options.blizzard.args.misc = {
+		type = "toggle",
+		name = L["Misc"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.misc end,
+	}
+	options.blizzard.args.tooltip = {
+		type = "toggle",
+		name = L["Tooltip"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tooltip end,
+	}
 elseif E.Classic then
 	options.blizzard.args.craft = {
 		type = "toggle",
@@ -1627,15 +1664,20 @@ options.addonskins = {
 			type = "description",
 			name = '',
 		},
-		header = {
+		enable = {
 			order = 3,
+			type = "toggle",
+			name = L["Enable"],
+		},
+		header = {
+			order = 4,
 			type = "header",
 			name = F.cOption(L["AddOnSkins"], 'orange'),
 		},
 	},
 }
 
-local addorder = 3
+local addorder = 5
 for _, v in ipairs(DecorAddons) do
 	local addonName, addonString, addonOption, Notes = unpack(v)
 	options.addonskins.args[addonOption] = {
@@ -1646,6 +1688,14 @@ for _, v in ipairs(DecorAddons) do
 		disabled = function() return not IsAddOnLoaded(addonName) end,
 	}
 end
+
+options.addonskins.args.ace3 = {
+	order = 6,
+	type = "toggle",
+	name = L["Ace3"],
+	get = function(info) return E.private.mui.skins.addonSkins[ info[#info] ] end,
+	set = function(info, value) E.private.mui.skins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+}
 
 options.profiles = {
 	order = 5,
@@ -1686,8 +1736,6 @@ for _, v in ipairs(SupportedProfiles) do
 				E:StaticPopup_Show("PRIVATE_RL")
 			elseif addon == 'DBM-Core' then
 				E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
-			elseif addon == 'ElvUI_BenikUI' then
-				E:StaticPopup_Show("MUI_INSTALL_BUI_LAYOUT")
 			elseif addon == 'Skada' then
 				MER:LoadSkadaProfile()
 				E:StaticPopup_Show('PRIVATE_RL')

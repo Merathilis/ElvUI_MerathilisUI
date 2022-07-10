@@ -32,7 +32,9 @@ local UIParent = UIParent
 local C_Covenants_GetCovenantData = C_Covenants and C_Covenants.GetCovenantData
 local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
 
--- Class Color stuff
+--[[----------------------------------
+--	Color Functions
+--]]----------------------------------
 F.ClassColors = {}
 local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 for class, value in pairs(colors) do
@@ -53,9 +55,12 @@ end
 
 function F.CreateColorString(text, db)
 	if not text or not type(text) == "string" then
+		F.Developer.LogDebug("Functions.CreateColorString: text not found")
 		return
 	end
+
 	if not db or type(db) ~= "table" then
+		F.Developer.LogDebug("Functions.CreateColorString: db not found")
 		return
 	end
 	local hex = db.r and db.g and db.b and E:RGBToHex(db.r, db.g, db.b) or "|cffffffff"
@@ -65,9 +70,11 @@ end
 
 function F.CreateClassColorString(text, englishClass)
 	if not text or not type(text) == "string" then
+		F.Developer.LogDebug("Functions.CreateClassColorString: text not found")
 		return
 	end
 	if not englishClass or type(englishClass) ~= "string" then
+		F.Developer.LogDebug("Functions.CreateClassColorString: class not found")
 		return
 	end
 
@@ -98,9 +105,12 @@ end
 
 function F.SetFontDB(text, db)
 	if not text or not text.GetFont then
+		F.Developer.LogDebug("Functions.SetFontDB: text not found")
 		return
 	end
+
 	if not db or type(db) ~= "table" then
+		F.Developer.LogDebug("Functions.SetFontDB: db not found")
 		return
 	end
 
@@ -109,9 +119,12 @@ end
 
 function F.SetFontColorDB(text, db)
 	if not text or not text.GetFont then
+		F.Developer.LogDebug("Functions.SetFontColorDB: text not found")
 		return
 	end
+
 	if not db or type(db) ~= "table" then
+		F.Developer.LogDebug("Functions.SetFontColorWithDB: db not found")
 		return
 	end
 
@@ -120,7 +133,7 @@ end
 
 function F.SetFontOutline(text, font, size)
 	if not text or not text.GetFont then
-		F.DebugMessage("Function", "[3]No font found to handle font style")
+		F.Developer.LogDebug("Functions.SetFontOutline: text not found")
 		return
 	end
 	local fontName, fontHeight = text:GetFont()
@@ -138,6 +151,41 @@ function F.SetFontOutline(text, font, size)
 	text.SetShadowColor = E.noop
 end
 
+do
+	local color = {
+		start = { r = 1.000, g = 0.647, b = 0.008 },
+		complete = { r = 0.180, g = 0.835, b = 0.451 }
+	}
+
+	function F.GetProgressColor(progress)
+		local r = (color.complete.r - color.start.r) * progress + color.start.r
+		local g = (color.complete.g - color.start.g) * progress + color.start.g
+		local b = (color.complete.r - color.start.b) * progress + color.start.b
+
+		-- algorithm to let the color brighter
+		local addition = 0.35
+		r = min(r + abs(0.5 - progress) * addition, r)
+		g = min(g + abs(0.5 - progress) * addition, g)
+		b = min(b + abs(0.5 - progress) * addition, b)
+
+		return {r = r, g = g, b = b}
+	end
+end
+
+function F.SetVertexColorDB(tex, db)
+	if not tex or not tex.GetVertexColor then
+		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture to handling")
+		return
+	end
+
+	if not db or type(db) ~= "table" then
+		 F.Developer.LogDebug("Functions.SetVertexColorDB: No texture color database")
+		return
+	end
+
+	tex:SetVertexColor(db.r, db.g, db.b, db.a)
+end
+
 function F.cOption(name, color)
 	local hex
 	if color == 'orange' then
@@ -151,29 +199,6 @@ function F.cOption(name, color)
 	end
 
 	return (hex):format(name)
-end
-
-function F.DebugMessage(module, text)
-	if not (E.private and E.private.mui and E.private.WT.core.debugMode) then
-		return
-	end
-
-	if not text then
-		return
-	end
-
-	if not module then
-		module = "Function"
-		text = "No Module Name>" .. text
-	end
-
-	if type(module) ~= "string" and module.GetName then
-		module = module:GetName()
-	end
-
-	local message = format("[WT - %s] %s", module, text)
-
-	E:Delay(0.1, print, message)
 end
 
 do
@@ -210,6 +235,23 @@ end
 
 function F.PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
+end
+
+function F.TablePrint(tbl, indent)
+	if not indent then indent = 0 end
+
+	local formatting
+	for k, v in pairs(tbl) do
+		formatting = string.rep("  ", indent) .. k .. ": "
+		if type(v) == "table" then
+			print(formatting)
+			F.TablePrint(v, indent+1)
+		elseif type(v) == "boolean" then
+			print(formatting .. tostring(v))
+		else
+			print(formatting .. v)
+		end
+	end
 end
 
 -- LocPanel
@@ -376,6 +418,38 @@ do
 			return iLvlDB[link]
 		end
 	end
+
+	local pattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
+	function F.GetRealItemLevelByLink(link)
+		E.ScanTooltip:SetOwner(_G.UIParent, "ANCHOR_NONE")
+		E.ScanTooltip:ClearLines()
+		E.ScanTooltip:SetHyperlink(link)
+
+		for i = 2, 5 do
+			local leftText = _G[E.ScanTooltip:GetName() .. "TextLeft" .. i]
+			if leftText then
+				local text = leftText:GetText() or ""
+				local level = strmatch(text, pattern)
+				if level then
+					return level
+				end
+			end
+		end
+	end
+end
+
+--[[----------------------------------
+--	Skin Functions
+--]]----------------------------------
+do
+	function F:ResetTabAnchor(size, outline)
+		local text = self.Text or (self.GetName and _G[self:GetName().."Text"])
+		if text then
+			text:SetPoint("CENTER", self)
+		end
+	end
+	hooksecurefunc("PanelTemplates_SelectTab", F.ResetTabAnchor)
+	hooksecurefunc("PanelTemplates_DeselectTab", F.ResetTabAnchor)
 end
 
 -- Check Chat channels
@@ -505,7 +579,9 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 	return config
 end
 
--- frame text
+--[[----------------------------------
+--	Text Functions
+--]]----------------------------------
 function F.CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	local text = f:CreateFontString(nil, layer)
 	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
@@ -663,6 +739,18 @@ function F.ReskinRole(self, role)
 	end
 end
 
+-- Atlas info
+function F.GetTextureStrByAtlas(info, sizeX, sizeY)
+	local file = info and info.file
+	if not file then return end
+
+	local width, height, txLeft, txRight, txTop, txBottom = info.width, info.height, info.leftTexCoord, info.rightTexCoord, info.topTexCoord, info.bottomTexCoord
+	local atlasWidth = width / (txRight-txLeft)
+	local atlasHeight = height / (txBottom-txTop)
+
+	return format("|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d|t", file, (sizeX or 0), (sizeY or 0), atlasWidth, atlasHeight, atlasWidth*txLeft, atlasWidth*txRight, atlasHeight*txTop, atlasHeight*txBottom)
+end
+
 function F.SplitString(delimiter, subject)
 	if not subject or subject == "" then
 		return {}
@@ -692,6 +780,8 @@ function F.SplitString(delimiter, subject)
 	return unpack(results)
 end
 
+
+
 function F.SetCallback(callback, target, times, ...)
 	times = times or 0
 	if times >= 10 then
@@ -709,56 +799,4 @@ function F.SetCallback(callback, target, times, ...)
 	end
 
 	E:Delay(0.1, F.SetCallback, callback, target, times+1, ...)
-end
-
-do
-	local pattern = gsub(ITEM_LEVEL, "%%d", "(%%d+)")
-	function F.GetRealItemLevelByLink(link)
-		E.ScanTooltip:SetOwner(_G.UIParent, "ANCHOR_NONE")
-		E.ScanTooltip:ClearLines()
-		E.ScanTooltip:SetHyperlink(link)
-
-		for i = 2, 5 do
-			local leftText = _G[E.ScanTooltip:GetName() .. "TextLeft" .. i]
-			if leftText then
-				local text = leftText:GetText() or ""
-				local level = strmatch(text, pattern)
-				if level then
-					return level
-				end
-			end
-		end
-	end
-end
-
-do
-	local color = {
-		start = { r = 1.000, g = 0.647, b = 0.008 },
-		complete = { r = 0.180, g = 0.835, b = 0.451 }
-	}
-
-	function F.GetProgressColor(progress)
-		local r = (color.complete.r - color.start.r) * progress + color.start.r
-		local g = (color.complete.g - color.start.g) * progress + color.start.g
-		local b = (color.complete.r - color.start.b) * progress + color.start.b
-
-		-- algorithm to let the color brighter
-		local addition = 0.35
-		r = min(r + abs(0.5 - progress) * addition, r)
-		g = min(g + abs(0.5 - progress) * addition, g)
-		b = min(b + abs(0.5 - progress) * addition, b)
-
-		return {r = r, g = g, b = b}
-	end
-end
-
-function F.SetVertexColorDB(tex, db)
-	if not tex or not tex.GetVertexColor then
-		return
-	end
-	if not db or type(db) ~= "table" then
-		return
-	end
-
-	tex:SetVertexColor(db.r, db.g, db.b, db.a)
 end

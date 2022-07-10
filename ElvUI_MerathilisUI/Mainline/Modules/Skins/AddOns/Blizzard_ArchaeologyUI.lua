@@ -4,14 +4,16 @@ local S = E:GetModule('Skins')
 
 local select, unpack = select, unpack
 
-function module:Blizzard_ArchaeologyUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.archaeology ~= true or E.private.mui.skins.blizzard.Archaeology ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("archaeology", "Archaeology") then
+		return
+	end
 
 	local ArchaeologyFrame = _G.ArchaeologyFrame
 	ArchaeologyFrame:DisableDrawLayer("BACKGROUND")	-- Hide the Parchment
 
 	ArchaeologyFrame:Styling()
-	MER:CreateShadow(ArchaeologyFrame)
+	module:CreateShadow(ArchaeologyFrame)
 
 	_G.ArchaeologyFrameSummaryPageTitle:SetTextColor(1, 1, 1)
 	_G.ArchaeologyFrameArtifactPageHistoryTitle:SetTextColor(1, 1, 1)
@@ -44,4 +46,4 @@ function module:Blizzard_ArchaeologyUI()
 	_G.ArchaeologyFrameArtifactPageIcon:SetTexCoord(unpack(E.TexCoords))
 end
 
-module:AddCallbackForAddon("Blizzard_ArchaeologyUI")
+S:AddCallbackForAddon("Blizzard_ArchaeologyUI", LoadSkin)

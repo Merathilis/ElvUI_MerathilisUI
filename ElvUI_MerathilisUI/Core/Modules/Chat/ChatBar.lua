@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_ChatBar')
+local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM
 
 local _G = _G
@@ -31,7 +32,7 @@ local RandomRoll = RandomRoll
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 
-local normalChannelsIndex = {"SAY", "YELL", "PARTY", "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER", "EMOTE"}
+local normalChannelsIndex = {"SAY", "YELL", "PARTY", E.Retail and "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER", "EMOTE"}
 
 local checkFunctions = {
 	PARTY = function()
@@ -92,6 +93,7 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 		button.colorBlock = button:CreateTexture(nil, "ARTWORK")
 		button.colorBlock:SetAllPoints()
 		button:CreateBackdrop("Transparent")
+		S:CreateShadow(button.backdrop, 3, nil, nil, nil, true)
 
 		button.text = button:CreateFontString(nil, "OVERLAY")
 		button.text:Point("CENTER", button, "CENTER", 0, 0)
@@ -128,12 +130,12 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 		button:SetScript("OnLeave", function(self)
 			_G.GameTooltip:Hide()
 			if module.db.style == "BLOCK" then
-				--self.backdrop.shadow:SetBackdropBorderColor(0, 0, 0)
+				self.backdrop.shadow:SetBackdropBorderColor(0, 0, 0)
 
 				if not module.db.blockShadow then
-					--if self.backdrop.shadow then
-						--self.backdrop.shadow:Hide()
-					--end
+					if self.backdrop.shadow then
+						self.backdrop.shadow:Hide()
+					end
 				end
 			else
 				local fontName, _, fontFlags = self.text:GetFont()
@@ -414,6 +416,7 @@ function module:CreateBar()
 	bar.backdrop:Styling()
 	bar:ClearAllPoints()
 	bar:Point("BOTTOMLEFT", _G.LeftChatPanel, "TOPLEFT", 6, 3)
+	S:CreateBackdropShadow(bar)
 
 	self.bar = bar
 

@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
@@ -11,17 +12,19 @@ local function MapCanvasDetailLayerMixin_RefreshDetailTiles(self)
 	local layerInfo = layers[self.layerIndex]
 
 	for detailTile in self.detailTilePool:EnumerateActive() do
-		if not detailTile.isSkinned then
+		if not detailTile.__MERSkin then
 			detailTile:SetSize(layerInfo.tileWidth, layerInfo.tileHeight)
-			detailTile.isSkinned = true
+			detailTile.__MERSkin = true
 		end
 	end
 end
 
-function module:Blizzard_MapCanvas()
-	if E.private.skins.blizzard.enable ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("worldmap", "worldmap") then
+		return
+	end
 
 	hooksecurefunc(_G.MapCanvasDetailLayerMixin, "RefreshDetailTiles", MapCanvasDetailLayerMixin_RefreshDetailTiles)
 end
 
-module:AddCallbackForAddon("Blizzard_MapCanvas")
+S:AddCallbackForAddon("Blizzard_MapCanvas", LoadSkin)

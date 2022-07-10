@@ -21,11 +21,16 @@ local function UpdateGreetingFrame()
 	end
 end
 
-function module:QuestFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.mui.skins.blizzard.quest ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("quest", "quest") then
+		return
+	end
 
 	local QuestFrame = _G.QuestFrame
 	_G.QuestFrameDetailPanelBg:SetAlpha(0)
+
+	QuestFrame:Styling()
+	module:CreateShadow(QuestFrame)
 
 	-- Stop here if parchment reomover is enabled.
 	if E.private.skins.parchmentRemoverEnable then return end
@@ -63,9 +68,6 @@ function module:QuestFrame()
 	--------------------------
 	--- QuestFrameProgress ---
 	--------------------------
-	_G.QuestFrame:Styling()
-	MER:CreateBackdropShadow(_G.QuestFrame)
-
 	_G.QuestProgressScrollFrame:HookScript("OnShow", function(self)
 		if self.backdrop then
 			self.backdrop:Hide()
@@ -164,4 +166,4 @@ function module:QuestFrame()
 	MER.NPC:Register(QuestFrame)
 end
 
-module:AddCallback("QuestFrame")
+S:AddCallback("QuestFrame", LoadSkin)

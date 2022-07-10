@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local select = select
@@ -8,18 +9,22 @@ local GetAchievementInfo = GetAchievementInfo
 local GetAchievementNumCriteria = GetAchievementNumCriteria
 local hooksecurefunc = hooksecurefunc
 
-function module:Blizzard_AchievementUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.mui.skins.blizzard.achievement ~= true then return end
-
-	if not _G.AchievementFrame.backdrop then
-		_G.AchievementFrame:CreateBackdrop('Transparent')
-		_G.AchievementFrame.backdrop:Styling()
+local function LoadSkin()
+	if not module:CheckDB("achievement", "achievement") then
+		return
 	end
-	MER:CreateBackdropShadow(_G.AchievementFrame)
+
+	local AchievementFrame = _G.AchievementFrame
+	AchievementFrame.backdrop:Styling()
+	module:CreateBackdropShadow(AchievementFrame)
 
 	-- Hide the ElvUI default backdrop
 	if _G.AchievementFrameCategoriesContainer.backdrop then
 		_G.AchievementFrameCategoriesContainer.backdrop:Hide()
+	end
+
+	for i = 1, 3 do
+		module:ReskinTab(_G["AchievementFrameTab"..i])
 	end
 
 	for i = 1, 7 do
@@ -80,9 +85,9 @@ function module:Blizzard_AchievementUI()
 
 	_G.AchievementFrameSummaryCategoriesStatusBarTitle:SetTextColor(1, 1, 1)
 
-	_G.AchievementFrame.searchBox:ClearAllPoints()
-	_G.AchievementFrame.searchBox:SetPoint("BOTTOMRIGHT", _G.AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -2)
-	_G.AchievementFrame.searchBox:SetSize(100, 20)
+	AchievementFrame.searchBox:ClearAllPoints()
+	AchievementFrame.searchBox:SetPoint("BOTTOMRIGHT", _G.AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -2)
+	AchievementFrame.searchBox:SetSize(100, 20)
 end
 
-module:AddCallbackForAddon("Blizzard_AchievementUI")
+S:AddCallbackForAddon("Blizzard_AchievementUI", LoadSkin)

@@ -1,15 +1,18 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local select, unpack = select, unpack
 
-function module:Blizzard_ItemSocketingUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.socket ~= true or E.private.mui.skins.blizzard.socket ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("socket", "socket") then
+		return
+	end
 
 	local ItemSocketingFrame = _G["ItemSocketingFrame"]
 	ItemSocketingFrame:Styling()
-	MER:CreateBackdropShadow(ItemSocketingFrame)
+	module:CreateBackdropShadow(ItemSocketingFrame)
 
 	ItemSocketingFrame:DisableDrawLayer("ARTWORK")
 
@@ -37,4 +40,4 @@ function module:Blizzard_ItemSocketingUI()
 	end
 end
 
-module:AddCallbackForAddon("Blizzard_ItemSocketingUI")
+S:AddCallbackForAddon("Blizzard_ItemSocketingUI", LoadSkin)

@@ -1,13 +1,13 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
-local S = E.Skins
+local module = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 if not IsAddOnLoaded("ActionBarProfiles") then return end
 
 local _G = _G
 local pairs = pairs
 
-function module:ActionBarProfiles()
-	if E.private.mui.skins.addonSkins.abp ~= true then return; end
+local function LoadSkin()
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.abp then return; end
 
 	S:HandleScrollBar(_G.PaperDollActionBarProfilesPaneScrollBar, 5)
 	S:HandleButton(_G.PaperDollActionBarProfilesPaneUseProfile)
@@ -39,4 +39,4 @@ function module:ActionBarProfiles()
 	S:HandleCheckBox(_G.PaperDollActionBarProfilesSaveDialogOptionBindings)
 end
 
-module:AddCallbackForAddon("ActionBarProfiles")
+module:AddCallbackForAddon("ActionBarProfiles", LoadSkin)

@@ -23,16 +23,28 @@ P.merchant = {
 }
 
 P.blizzard = {
+	talents = {
+		enable = true,
+	},
 	objectiveTracker = {
 		enable = true,
 		noDash = true,
 		colorfulProgress = true,
 		percentage = false,
 		colorfulPercentage = false,
+		backdrop = {
+			enable = false,
+			transparent = true,
+			topLeftOffsetX = 0,
+			topLeftOffsetY = 0,
+			bottomRightOffsetX = 0,
+			bottomRightOffsetY = 0,
+		},
 		header = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize + 2,
 			style = "OUTLINE",
+			classColor = false,
 			color = {r = 1, g = 1, b = 1},
 			shortHeader = true
 		},
@@ -71,10 +83,43 @@ P.blizzard = {
 			customColorHighlight = {r = 0.282, g = 0.859, b = 0.984}
 		},
 	},
+	filter = {
+		enable = true,
+		unblockProfanityFilter = true,
+	},
+	friendsList = {
+		enable = true,
+		level = true,
+		hideMaxLevel = true,
+		useGameColor = true,
+		useClassColor = true,
+		useNoteAsName = false,
+		textures = {
+			game = "Modern",
+			status = "Square",
+			factionIcon = false
+		},
+		areaColor = {
+			r = 1,
+			g = 1,
+			b = 1
+		},
+		nameFont = {
+			name = E.db.general.font,
+			size = 13,
+			style = "OUTLINE"
+		},
+		infoFont = {
+			name = E.db.general.font,
+			size = 12,
+			style = "OUTLINE"
+		},
+	},
 }
 
 P.CombatAlert = {
 	enable = true,
+	minimapAlert = true,
 	font = {
 		name = "Expressway",
 		size = 28,
@@ -116,6 +161,7 @@ P.cvars = {
 		removeChatDelay = true,
 		screenshotQuality = 10,
 		showTutorials = false,
+		cameraFov = 90,
 	},
 	combatText = {
 		worldTextScale = 0.75,
@@ -259,12 +305,6 @@ P.chat = {
 				color = {r = 0.72, g = 0.27, b = 0.86, a = 1},
 				abbr = L["Community"]
 			},
-			emote = {
-				enable = true,
-				icon = true,
-				color = {r = 1, g = 0.33, b = 0.52, a = 1},
-				abbr = L["Wind Emote"]
-			},
 			roll = {
 				enable = true,
 				icon = true,
@@ -359,6 +399,7 @@ P.notification = {
 	noSound = false,
 	mail = true,
 	vignette = true,
+	rarePrint = true,
 	invites = true,
 	guildEvents = true,
 	paragon = true,
@@ -383,14 +424,19 @@ P.datatexts = {
 }
 
 P.actionbars = {
+	keyfeedback = true,
 	specBar = {
 		enable = true,
 		mouseover = false,
+		frameStrata = "BACKGROUND",
+		frameLevel = 1,
 		size = 20,
 	},
 	equipBar = {
 		enable = true,
 		mouseover = false,
+		frameStrata = "BACKGROUND",
+		frameLevel = 1,
 		size = 28,
 	},
 	randomToy = {
@@ -432,7 +478,7 @@ local function Potions()
 	if E.Classic then
 		return "POTION,FLASK,UTILITY"
 	elseif E.TBC then
-		return "POTION,FLASK,UTILITY"
+		return "POTIONTBC,FLASKTBC,CAULDRONTBC,ELIXIRTBC,ORETBC,UTILITY"
 	elseif E.Retail then
 		return "POTIONSL,FLASKSL,UTILITY"
 	end
@@ -773,7 +819,7 @@ P.maps = {
 		ping = {
 			enable = true,
 			xOffset = 0,
-			yOffset = 0,
+			yOffset = 2,
 			fadeInTime = 0.5,
 			stayTime = 3,
 			fadeOutTime = 0.5,
@@ -803,12 +849,27 @@ P.maps = {
 			size = E.db.general.fontSize + 2,
 			style = "OUTLINE",
 			color = {r = 1, g = 1, b = 1},
-		}
+		},
+		waypointParse = {
+			enable = true,
+			worldMapInput = true,
+			command = true,
+			commandKeys = {
+				["wtgo"] = true,
+				["goto"] = true,
+			},
+		},
 	},
 	worldMap = {
+		enable = true,
+		reveal = {
+			enable = true,
+			useColor = true,
+			color = {r = 0, g = 0, b = 0, a = 0.50}
+		},
 		scale = {
 			enable = true,
-			size = 1.15
+			size = 1.24
 		},
 	},
 }
@@ -879,9 +940,16 @@ P.panels = {
 
 P.smb = {
 	enable = true,
-	size = 30,
-	perRow = 6,
-	spacing = 1,
+	mouseOver = true,
+	buttonsPerRow = 8,
+	buttonSize = 24,
+	backdrop = true,
+	backdropSpacing = 2,
+	spacing = 2,
+	inverseDirection = false,
+	orientation = "HORIZONTAL",
+	calendar = false,
+	garrison = false
 }
 
 P.locPanel = {
@@ -913,7 +981,7 @@ P.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952",
+		hsPrio = "190237,54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
@@ -922,16 +990,21 @@ P.locPanel = {
 
 P.raidmarkers = {
 	enable = true,
-	visibility = "INPARTY",
-	customVisibility = "[noexists, nogroup] hide; show",
-	backdrop = false,
-	buttonSize = 18,
-	spacing = 2,
+	mouseOver = false,
+	tooltip = true,
+	visibility = "DEFAULT",
+	backdrop = true,
+	backdropSpacing = 3,
+	buttonSize = 20,
+	buttonBackdrop = true,
+	buttonAnimation = true,
+	spacing = 4,
 	orientation = "HORIZONTAL",
-	modifier = "shift-",
-	reverse = false,
-	mouseover = false,
-	notooltip = false,
+	modifier = "shift",
+	readyCheck = true,
+	countDown = true,
+	countDownTime = 5,
+	inverse = false
 }
 
 P.raidmanager = {
@@ -950,6 +1023,8 @@ P.pvp = {
 		enable = true,
 		sound = true,
 	},
+	rebirth = true,
+	autorelease = false,
 }
 
 P.tooltip = {
@@ -971,58 +1046,48 @@ P.tooltip = {
 		}
 	},
 	dominationRank = true,
+	covenant = {
+		enable = true,
+		showNotInGroup = false,
+	}
 }
 
-P.errorFilters = {
-	[INTERRUPTED] = false,
-	[ERR_ABILITY_COOLDOWN] = true,
-	[ERR_ATTACK_CHANNEL] = false,
-	[ERR_ATTACK_CHARMED] = false,
-	[ERR_ATTACK_CONFUSED] = false,
-	[ERR_ATTACK_DEAD] = false,
-	[ERR_ATTACK_FLEEING] = false,
-	[ERR_ATTACK_MOUNTED] = true,
-	[ERR_ATTACK_PACIFIED] = false,
-	[ERR_ATTACK_STUNNED] = false,
-	[ERR_ATTACK_NO_ACTIONS] = false,
-	[ERR_AUTOFOLLOW_TOO_FAR] = false,
-	[ERR_BADATTACKFACING] = false,
-	[ERR_BADATTACKPOS] = false,
-	[ERR_CLIENT_LOCKED_OUT] = false,
-	[ERR_GENERIC_NO_TARGET] = true,
-	[ERR_GENERIC_NO_VALID_TARGETS] = true,
-	[ERR_GENERIC_STUNNED] = false,
-	[ERR_INVALID_ATTACK_TARGET] = true,
-	[ERR_ITEM_COOLDOWN] = true,
-	[ERR_NOEMOTEWHILERUNNING] = false,
-	[ERR_NOT_IN_COMBAT] = false,
-	[ERR_NOT_WHILE_DISARMED] = false,
-	[ERR_NOT_WHILE_FALLING] = false,
-	[ERR_NOT_WHILE_MOUNTED] = true,
-	[ERR_NO_ATTACK_TARGET] = true,
-	[ERR_OUT_OF_ENERGY] = true,
-	[ERR_OUT_OF_FOCUS] = true,
-	[ERR_OUT_OF_MANA] = true,
-	[ERR_OUT_OF_RAGE] = true,
-	[ERR_OUT_OF_RANGE] = true,
-	[ERR_OUT_OF_RUNES] = true,
-	[ERR_OUT_OF_RUNIC_POWER] = true,
-	[ERR_SPELL_COOLDOWN] = true,
-	[ERR_SPELL_OUT_OF_RANGE] = false,
-	[ERR_TOO_FAR_TO_INTERACT] = false,
-	[ERR_USE_BAD_ANGLE] = false,
-	[ERR_USE_CANT_IMMUNE] = false,
-	[ERR_USE_TOO_FAR] = false,
-	[SPELL_FAILED_BAD_IMPLICIT_TARGETS] = true,
-	[SPELL_FAILED_BAD_TARGETS] = true,
-	[SPELL_FAILED_CASTER_AURASTATE] = true,
-	[SPELL_FAILED_NO_COMBO_POINTS] = true,
-	[SPELL_FAILED_SPELL_IN_PROGRESS] = true,
-	[SPELL_FAILED_TARGET_AURASTATE] = true,
-	[SPELL_FAILED_TOO_CLOSE] = false,
-	[SPELL_FAILED_UNIT_NOT_INFRONT] = false,
-	[SPELL_FAILED_NOT_ON_MOUNTED] = true,
-	[SPELL_FAILED_NOT_MOUNTED] = true,
+P.itemLevel = {
+	enable = true,
+	flyout = {
+		enable = true,
+		useBagsFontSetting = false,
+		qualityColor = true,
+		font = {
+			name = "Expressway",
+			size = 11,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+	},
+	scrappingMachine = {
+		enable = true,
+		useBagsFontSetting = false,
+		qualityColor = true,
+		font = {
+			name = "Expressway",
+			size = 13,
+			style = "OUTLINE",
+			xOffset = 0,
+			yOffset = 0,
+			color = {
+				r = 1,
+				g = 1,
+				b = 1
+			},
+		},
+	},
 }
 
 P.raidBuffs = {
@@ -1067,6 +1132,7 @@ P.cooldownFlash = {
 P.armory = {
 	enable = true,
 	undressButton = true,
+	expandSize = false,
 	durability = {
 		enable = true,
 		onlydamaged = true,
@@ -1076,6 +1142,7 @@ P.armory = {
 	},
 	stats = {
 		OnlyPrimary = true,
+		color = {r = 1, g = 1, b = 0},
 		statFonts = {
 			font = "Expressway",
 			size = 11,
@@ -1104,13 +1171,15 @@ P.armory = {
 		enable = true,
 		colorStyle = "VALUE",
 		color = {r = 1, g = 1, b = 0},
+		setArmor = true,
+		setArmorColor = {r = 0, g = 1, b = 0, a = 1},
 	},
 	transmog = {
 		enable = true,
 	},
-	illusion = {
-		enable = true,
-	},
+	-- illusion = {
+		-- enable = false,
+	-- },
 	warning = {
 		enable = true,
 	},

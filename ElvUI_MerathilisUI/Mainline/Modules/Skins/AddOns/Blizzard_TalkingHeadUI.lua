@@ -1,15 +1,18 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
-function module:Blizzard_TalkingHeadUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talkinghead ~= true or not E.private.mui.skins.blizzard.talkinghead then return end
+local function LoadSkin()
+	if not module:CheckDB("talkinghead", "talkinghead") then
+		return
+	end
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
-	if TalkingHeadFrame and not TalkingHeadFrame.IsSkinned then
+	if TalkingHeadFrame and not TalkingHeadFrame.__MERSkin then
 		TalkingHeadFrame:Styling()
-		MER:CreateBackdropShadow(TalkingHeadFrame, true)
+		module:CreateBackdropShadow(TalkingHeadFrame, true)
 
 		TalkingHeadFrame.BackgroundFrame.TextBackground:SetAtlas(nil)
 		TalkingHeadFrame.PortraitFrame.Portrait:SetAtlas(nil)
@@ -36,8 +39,8 @@ function module:Blizzard_TalkingHeadUI()
 		TalkingHeadFrame.TextFrame.Text:SetShadowColor(0, 0, 0, 1)
 		TalkingHeadFrame.TextFrame.Text:SetShadowOffset(2, -2)
 
-		TalkingHeadFrame.IsSkinned = true
+		TalkingHeadFrame.__MERSkin = true
 	end
 end
 
-module:AddCallbackForAddon("Blizzard_TalkingHeadUI")
+S:AddCallbackForAddon("Blizzard_TalkingHeadUI", LoadSkin)

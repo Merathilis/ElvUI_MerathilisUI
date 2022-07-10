@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_AutoButtons')
+local S = MER:GetModule('MER_Skins')
 local AB = E:GetModule('ActionBars')
 
 local _G = _G
@@ -501,6 +502,87 @@ local openableItems = {
 	191139,
 }
 
+local tbcOre = {
+	23424,
+	23425,
+	23426,
+	23427,
+	2770,
+	2771,
+	2775,
+	2772,
+	2776,
+	3858,
+	7911,
+	10620,
+	14891,
+}
+
+local tbcPotions = {
+	33093,
+	33092,
+	22849,
+	22839,
+	22838,
+	22837,
+	22836,
+	28962,
+	34440,
+	22871,
+	22828,
+	22826,
+	22846,
+	22844,
+	22847,
+	22842,
+	22841,
+	22850,
+	22829,
+	28100,
+	31677,
+	22832,
+	28101,
+}
+
+local tbcElixirs = {
+	22848,
+	22840,
+	22835,
+	22834,
+	22833,
+	32067,
+	31679,
+	32068,
+	28104,
+	22831,
+	32062,
+	22830,
+	22825,
+	32063,
+	22827,
+	22824,
+	28103,
+	28102,
+	22823,
+}
+
+local tbcFlasks = {
+	22866,
+	22854,
+	22853,
+	22851,
+	22861,
+	33208,
+}
+
+local tbcCauldrons = {
+	32852,
+	32851,
+	32850,
+	32849,
+	32839,
+}
+
 local questItemList = {}
 local function UpdateQuestItemList()
 	if not E.Retail then return end
@@ -545,12 +627,17 @@ local moduleList = {
 	["BANNER"] = banners,
 	["UTILITY" ] = utilities,
 	["OPENABLE"] = openableItems,
+	["ORETBC"] = tbcOre,
+	["POTIONTBC"] = tbcPotions,
+	["FLASKSTBC"] = tbcFlasks,
+	["CAULDRONTBC"] = tbcCauldrons,
+	["ELIXIRTBC"] = tbcElixirs,
 }
 
 function module:CreateButton(name, barDB)
 	local button = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate, BackdropTemplate")
 	button:Size(barDB.buttonWidth, barDB.buttonHeight)
-	button:SetTemplate("Default")
+	button:SetTemplate()
 	button:SetClampedToScreen(true)
 	button:SetAttribute("type", "item")
 	button:EnableMouse(false)
@@ -583,7 +670,7 @@ function module:CreateButton(name, barDB)
 
 	button:StyleButton()
 
-	MER:CreateShadowModule(button)
+	S:CreateShadowModule(button)
 
 	return button
 end
@@ -712,8 +799,14 @@ function module:SetUpButton(button, questItemData, slotID)
 			button:SetAttribute("type", "macro")
 			button:SetAttribute("macrotext", "/use " .. button.slotID)
 		elseif button.itemName then
-			button:SetAttribute("type", "item")
-			button:SetAttribute("item", button.itemName)
+			if button.itemID == 172347 then
+				-- Heavy Desolate Armor Kit
+				button:SetAttribute("type", "macro")
+				button:SetAttribute("macrotext", "/use " .. button.itemName .. "\n/use 5")
+			else
+				button:SetAttribute("type", "item")
+				button:SetAttribute("item", button.itemName)
+			end
 		end
 	end
 end
@@ -888,7 +981,7 @@ function module:UpdateBar(id)
 
 	local numRows = ceil((buttonID - 1) / barDB.buttonsPerRow)
 	local numCols = buttonID > barDB.buttonsPerRow and barDB.buttonsPerRow or (buttonID - 1)
-	local newBarWidth = barDB.backdropSpacing + numCols * barDB.buttonWidth + (numCols - 1) * barDB.spacing
+	local newBarWidth = 2 * barDB.backdropSpacing + numCols * barDB.buttonWidth + (numCols - 1) * barDB.spacing
 	local newBarHeight = 2 * barDB.backdropSpacing + numRows * barDB.buttonHeight + (numRows - 1) * barDB.spacing
 	bar:Size(newBarWidth, newBarHeight)
 
@@ -1023,7 +1116,7 @@ end
 function module:CreateAll()
 	for i = 1, 5 do
 		self:CreateBar(i)
-		MER:CreateShadowModule(self.bars[i].backdrop)
+		S:CreateShadowModule(self.bars[i].backdrop)
 	end
 end
 

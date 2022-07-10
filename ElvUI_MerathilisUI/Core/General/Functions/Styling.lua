@@ -42,71 +42,14 @@ function MER:UpdateStyling()
 	end
 end
 
-function MER:CreateShadow(frame, size, r, g, b, force)
-	if not (E.private.mui.skins.shadow and E.private.mui.skins.shadow.enable) and not force then return end
-
-	if not frame or frame.MERShadow or frame.shadow then return end
-
-	if frame:GetObjectType() == "Texture" then
-		frame = frame:GetParent()
-	end
-
-	r = r or E.private.mui.skins.shadow.color.r or 0
-	g = g or E.private.mui.skins.shadow.color.g or 0
-	b = b or E.private.mui.skins.shadow.color.b or 0
-
-	size = size or 3
-	size = size + E.private.mui.skins.shadow.increasedSize or 0
-
-	local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-	shadow:SetFrameStrata(frame:GetFrameStrata())
-	shadow:SetFrameLevel(frame:GetFrameLevel() or 1)
-	shadow:SetOutside(frame, size, size)
-	shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = size + 1})
-	shadow:SetBackdropColor(r, g, b, 0)
-	shadow:SetBackdropBorderColor(r, g, b, 0.618)
-
-	frame.shadow = shadow
-	frame.MERShadow = true
-end
-
-function MER:CreateBackdropShadow(frame, defaultTemplate)
-	if not frame or frame.MERShadow then return end
-
-	if frame.backdrop then
-		if not defaultTemplate then
-			frame.backdrop:SetTemplate("Transparent")
-		end
-		self:CreateShadow(frame.backdrop)
-		frame.MERShadow = true
-	elseif frame.CreateBackdrop and not self:IsHooked(frame, "CreateBackdrop") then
-		self:SecureHook(frame, "CreateBackdrop", function()
-			if self:IsHooked(frame, "CreateBackdrop") then
-				self:Unhook(frame, "CreateBackdrop")
-			end
-			if frame.backdrop then
-				if not defaultTemplate then
-					frame.backdrop:SetTemplate("Transparent")
-				end
-				self:CreateShadow(frame.backdrop)
-				frame.MERShadow = true
-			end
-		end)
-	end
-end
-
-function MER:CreateShadowModule(frame)
-	if not frame then return end
-
-	if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
-		MER:CreateShadow(frame)
-	end
-end
-
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 
-	if not f or f.MERStyle or f.styling then
+	if not f or f.__style or f.style or f.style__MER then
+		return
+	end
+
+	if not E.private.mui.skins.enable then
 		return
 	end
 
@@ -159,11 +102,15 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		if not E.private.mui.skins.style then mshadow:Hide() end
 	end
 
+	style:SetFrameStrata(f:GetFrameStrata())
 	style:SetFrameLevel(f:GetFrameLevel() + 1)
-	f.styling = style
+	style:SetAllPoints(f)
+	style.__MER = true
+
+	f.style = style
+	f.__style = 1
 
 	MER.Styling[style] = true
-	f.MERStyle = true
 end
 
 local BlizzardFrameRegions = {

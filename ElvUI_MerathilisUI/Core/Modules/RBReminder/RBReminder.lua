@@ -82,6 +82,7 @@ module.Weapon_Enchants = {
 	6188, -- Shadowcore Oil
 	6190, -- Embalmer's Oil
 	6200, -- Shaded Sharpening Stone
+	6201, -- Shaded Weightstone
 }
 
 local function EnchantsID(id)

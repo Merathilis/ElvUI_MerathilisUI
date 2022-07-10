@@ -1,15 +1,18 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
-function module:Blizzard_AuctionHouseUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.auctionhouse ~= true or not E.private.mui.skins.blizzard.auctionhouse then return end
+local function LoadSkin()
+	if not module:CheckDB("auctionhouse", "auctionhouse") then
+		return
+	end
 
 	local Frame = _G.AuctionHouseFrame
 	Frame:Styling()
-	MER:CreateShadow(Frame)
-	MER:CreateShadow(Frame.WoWTokenResults.GameTimeTutorial)
+	module:CreateShadow(Frame)
+	module:CreateShadow(Frame.WoWTokenResults.GameTimeTutorial)
 
 	local ItemBuyFrame = Frame.ItemBuyFrame
 	module:CreateGradient(ItemBuyFrame.ItemDisplay)
@@ -29,4 +32,4 @@ function module:Blizzard_AuctionHouseUI()
 	module:CreateGradient(AuctionsFrame.CommoditiesList.ScrollFrame)
 end
 
-module:AddCallbackForAddon("Blizzard_AuctionHouseUI")
+S:AddCallbackForAddon("Blizzard_AuctionHouseUI", LoadSkin)

@@ -221,7 +221,7 @@ options.microBar = {
 							end,
 							get = function(info)
 								local db = E.db.mui.microBar[info[#info]]
-								local default = P.mui.microBar[info[#info]]
+								local default = P.microBar[info[#info]]
 								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
 							end,
 							set = function(info, r, g, b, a)

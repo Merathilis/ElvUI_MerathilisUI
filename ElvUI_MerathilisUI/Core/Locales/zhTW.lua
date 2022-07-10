@@ -2,6 +2,7 @@
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhTW")
 
 -- Core
+L["Enable"] = "啟用"
 L[" is loaded. For any issues or suggestions, please visit "] = true
 
 -- General Options
@@ -30,8 +31,9 @@ But if you install another Layout over mine, you must adjust it manually.
 -- Core Options
 L["Login Message"] = "登入資訊"
 L["Enable/Disable the Login Message in Chat"] = true
-L["Debug Mode"] = "偵錯模式"
-L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "如果你安裝了其他 ElvUI 插件, 不推薦启用偵錯模式."
+L["Log Level"] = "日誌等級"
+L["Only display log message that the level is higher than you choose."] = "只顯示高於所選等級的日志訊息."
+L["Set to 2 if you do not understand the meaning of log level."] = "如果你不理解日志等級的意思, 設置為 2 就好."
 
 -- Bags
 L["Equipment Manager"] = true
@@ -280,6 +282,18 @@ L["Show icon"] = "顯示圖示"
 L["Show the spell icon along with the name."] = "顯示法術圖示以及名稱。"
 L["Domination Rank"] = "統御等級"
 L["Show the rank of shards."] = "顯示統御碎片的等級."
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = "誓盟"
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
+L["Kyrian"] = "琪瑞安族"
+L["Venthyr"] = "汎希爾族"
+L["NightFae"] = "暗夜妖精"
+L["Necrolord"] = "死靈領主"
 
 -- Notification
 L["Notification"] = "通知"
@@ -316,6 +330,10 @@ L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
 L["Show your PvP killing blows as a popup."] = true
 L["Sound"] = "声效"
 L["Play sound when killing blows popup is shown."] = true
+L["PvP Auto Release"] = true
+L["Automatically release body when killed inside a battleground."] = true
+L["Check for rebirth mechanics"] = true
+L["Do not release if reincarnation or soulstone is up."] = true
 
 -- Actionbars
 L["Specialization Bar"] = true
@@ -329,8 +347,8 @@ L["Blacklist Item"] = true
 L["Whitelist Item"] = true
 L["Add Item ID"] = true
 L["Delete Item ID"] = true
-L["Custom Glow"] = "自訂閃光"
-L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
+L["Spell Feedback"] = true
+L["Creates a texture to show the recently pressed buttons."] = true
 
 -- AutoButtons
 L["AutoButtons"] = "自動按鍵"
@@ -397,6 +415,10 @@ L["Empty Socket"] = true
 L["Not Enchanted"] = true
 L["Warnings"] = true
 L["Shows an indicator for missing sockets and enchants."] = true
+L["Expanded Size"] = true
+L["This will increase the Character Frame size a bit."] = true
+L["Armor Set"] = true
+L["Armor Set Gradient Texture Color"] = true
 
 -- Media
 L["MER_MEDIA_ZONES"] = {
@@ -512,6 +534,7 @@ L["Update canceled."] = true
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = true
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
+L["Dungeon Teleports"] = true
 
 -- Maps
 L["MiniMap Buttons"] = true
@@ -533,23 +556,122 @@ L["No Distance Limitation"] = "無距離限制"
 L["Force to track the target even if it over 1000 yds."] = "強制追蹤超過 1000 碼的目標."
 L["Distance Text"] = "距離文字"
 L["Only Number"] = "只有數字"
+L["Add Command"] = "新增指令"
+L["Add a input box to the world map."] = "添加一個輸入框到世界地圖."
+L["Are you sure to delete the %s command?"] = "你是否確定刪除 %s 指令?"
+L["Can not set waypoint on this map."] = "無法在此地圖上設定地圖標記."
+L["Command"] = "指令"
+L["Command Configuration"] = "指令設定"
+L["Command List"] = "指令列表"
+L["Delete Command"] = "刪除指令"
+L["Delete the selected command."] = "刪除選中的指令."
+L["Enable to use the command to set the waypoint."] = "啟用使用指令設定地圖標記的功能."
+L["Go to ..."] = "前往 ..."
+L["Input Box"] = "輸入框"
+L["New Command"] = "新指令"
+L["No Arg"] = "無參數"
+L["Smart Waypoint"] = "智能地圖標記"
+L["The argument is invalid."] = "參數無效."
+L["The argument is needed."] = "需要參數."
+L["The command to set a waypoint."] = "設置地圖標記的指令."
+L["The coordinates contain illegal number."] = "坐標包含非法數字."
+L["Waypoint %s has been set."] = "已設定 %s 地圖標記."
+L["Waypoint Parse"] = "地圖標記解析"
+L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = "你可以在這裡貼上任何包含座標的文字, 並按下 輸入鍵(Enter) 設定地圖標記."
+L["illegal"] = "非法"
+L["invalid"] = "無效"
+L["Because of %s, this module will not be loaded."] = true
+L["This module will help you to reveal and resize maps."] = true
+L["Reveal"] = true
+L["Use Colored Fog"] = true
+L["Remove Fog of War from your world map."] = true
+L["Style Fog of War with special color."] = true
 
 -- SMB
-L["Button Settings"] = "按鍵設定"
+L["Minimap Buttons"] = "小地圖按鍵"
+L["Add an extra bar to collect minimap buttons."] = "添加一個額外的條來蒐集小地圖按鍵."
+L["Toggle minimap buttons bar."] = "開關小地圖按鍵條."
+L["Mouse Over"] = "滑鼠滑過顯示"
+L["Only show minimap buttons bar when you mouse over it."] = "只在滑鼠經過時顯示小地圖按鍵條."
+L["Minimap Buttons Bar"] = "小地圖按鍵條"
+L["Bar Backdrop"] = "條背景"
+L["Show a backdrop of the bar."] = "顯示條背景."
+L["Backdrop Spacing"] = "背景間距"
+L["The spacing between the backdrop and the buttons."] = "背景與按鍵之間的間隙."
+L["Inverse Direction"] = "反向"
+L["Reverse the direction of adding buttons."] = "反轉添加按鍵的方向."
+L["Orientation"] = "按鍵對齊方向"
+L["Arrangement direction of the bar."] = "條的增長方向."
+L["Drag"] = "拖拽"
+L["Horizontal"] = "水平"
+L["Vertical"] = "垂直"
+L["Buttons"] = "按鍵數"
+L["Buttons Per Row"] = "每行按鍵數"
+L["The amount of buttons to display per row."] = "每行所顯示的按鍵數量."
+L["Button Size"] = "按鍵尺寸"
+L["The size of the buttons."] = "按鍵的尺寸."
+L["Button Spacing"] = "按鍵間距"
+L["The spacing between buttons."] = "兩個按鍵間的距離."
+L["Blizzard Buttons"] = "暴雪按鍵"
+L["Calendar"] = "行事曆"
+L["Add calendar button to the bar."] = "添加行事曆按鍵到條上."
+L["Garrison"] = "要塞"
+L["Add garrison button to the bar."] = "添加要塞按鍵到條上."
 
 --Raid Marks
 L["Raid Markers"] = "團隊標記"
-L["Click to clear the mark."] = true
-L["Click to mark the target."] = true
-L["%sClick to remove all worldmarkers."] = true
-L["%sClick to place a worldmarker."] = true
-L["Raid Marker Bar"] = true
-L["Options for panels providing fast access to raid markers and flares."] = true
-L["Show/Hide raid marks."] = true
-L["Reverse"] = true
+L["Raid Markers Bar"] = "團隊標記條"
+L["Raid Utility"] = "團隊工具"
+L["Left Click to mark the target with this mark."] = "左鍵單擊來設定這個標記."
+L["Right Click to clear the mark on the target."] = "右鍵點選以清除目標的標記."
+L["%s + Left Click to place this worldmarker."] = "%s + 左鍵點擊 放置這個光柱."
+L["%s + Right Click to clear this worldmarker."] = "%s + 右鍵點擊 清除這個光柱."
+L["%s + Left Click to mark the target with this mark."] = "%s + 點擊 設定這個標記."
+L["%s + Right Click to clear the mark on the target."] = "%s + 右鍵點擊 清除目標標記."
+L["Click to clear all marks."] = "點選清除所有標記"
+L["takes 3s"] = "需 3 秒"
+L["%s + Click to remove all worldmarkers."] = "%s + 點擊 清除所有光柱."
+L["Click to remove all worldmarkers."] = "點擊清除所有世界標記."
+L["%s + Click to clear all marks."] = "%s + 點擊 清除所有標記."
+L["Left Click to ready check."] = "左鍵點擊: 團隊確認"
+L["Right click to toggle advanced combat logging."] = "右鍵點擊: 開關高級戰鬥記錄."
+L["Left Click to start count down."] = "左鍵點擊: 開始倒數."
+L["Add an extra bar to let you set raid markers efficiently."] = "添加一個額外的條來使你設定團隊標記更有效率."
+L["Toggle raid markers bar."] = "開關團隊標記條."
+L["Inverse Mode"] = "反向模式"
+L["Swap the functionality of normal click and click with modifier keys."] = "對調正常點擊和按下修飾鍵時進行點擊的功能."
+L["Visibility"] = "可見性"
+L["In Party"] = "在隊伍中"
+L["Always Display"] = "總是顯示"
+L["Mouse Over"] = "滑鼠滑過顯示"
+L["Only show raid markers bar when you mouse over it."] = "只在滑鼠經過時顯示團隊標記條."
+L["Tooltip"] = "浮動提示"
+L["Show the tooltip when you mouse over the button."] = "滑鼠置於按鈕上時顯示浮動提示."
 L["Modifier Key"] = "組合鍵"
 L["Set the modifier key for placing world markers."] = "設定標示團隊光柱的組合鍵"
-L["Visibility State"] = "顯示狀態"
+L["Shift Key"] = "Shift 鍵"
+L["Ctrl Key"] = "Ctrl 鍵"
+L["Alt Key"] = "Alt 鍵"
+L["Bar Backdrop"] = "條背景"
+L["Show a backdrop of the bar."] = "顯示條背景."
+L["Backdrop Spacing"] = "背景間距"
+L["The spacing between the backdrop and the buttons."] = "背景與按鍵之間的間隙."
+L["Orientation"] = "按鍵對齊方向"
+L["Arrangement direction of the bar."] = "條的增長方向."
+L["Raid Buttons"] = "Raid 按鍵"
+L["Ready Check"] = "準備確認"
+L["Advanced Combat Logging"] = "高級戰鬥記錄"
+L["Left Click to ready check."] = "左鍵點擊: 團隊確認"
+L["Right click to toggle advanced combat logging."] = "右鍵點擊: 開關高級戰鬥記錄."
+L["Count Down"] = "倒數"
+L["Count Down Time"] = "倒數時間"
+L["Count down time in seconds."] = "倒數時間秒數."
+L["Button Size"] = "按鍵尺寸"
+L["The size of the buttons."] = "按鍵的尺寸."
+L["Button Spacing"] = "按鍵間距"
+L["The spacing between buttons."] = "兩個按鍵間的距離."
+L["Button Backdrop"] = "按鍵背景"
+L["Button Animation"] = "按鍵動畫"
 
 -- Raid Buffs
 L["Raid Buff Reminder"] = true
@@ -698,7 +820,6 @@ L["Installed"] = true
 L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for BenikUI.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[Here you can choose the layout for Deadly Boss Mods.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
@@ -723,12 +844,12 @@ L["Enable/Disable"] = true
 L["decor."] = true
 L["MerathilisUI Button Style"] = true
 L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"] = true
-L["Additional Backdrop"] = true
-L["Remove Border Effect"] = true
-L["Animation Type"] = true
-L["The type of animation activated when a button is hovered."] = true
-L["Animation Duration"] = true
-L["The duration of the animation in seconds."] = true
+L["Additional Backdrop"] = "附加背景"
+L["Remove Border Effect"] = "移除邊框效果"
+L["Animation Type"] = "動畫類型"
+L["The type of animation activated when a button is hovered."] = "按鍵經過時顯示的動畫類型."
+L["Animation Duration"] = "動畫時間"
+L["The duration of the animation in seconds."] = "動畫持續時間 (秒)."
 L["Backdrop Class Color"] = "背景職業色"
 L["Border Class Color"] = "邊框職業色"
 L["Border Color"] = "邊框顏色"
@@ -737,7 +858,7 @@ L["Selected Backdrop & Border"] = "選中時背景和邊框"
 L["Selected Class Color"] = "選中時職業顏色"
 L["Selected Color"] = "選中時顏色"
 L["Tab"] = "標籤"
-L["Tree Group Button"] = true
+L["Tree Group Button"] = "樹狀分組按鍵"
 
 -- Panels
 L["Top Left Panel"] = true
@@ -750,43 +871,81 @@ L["Bottom Right Panel"] = true
 L["Bottom Right Extra Panel"] = true
 
 -- Objective Tracker
-L["1. Customize the font of Objective Tracker."] = true
-L["2. Add colorful progress text to the quest."] = true
-L["Progress"] = true
-L["No Dash"] = true
-L["Colorful Progress"] = true
-L["Percentage"] = true
-L["Add percentage text after quest text."] = true
-L["Colorful Percentage"] = true
-L["Make the additional percentage text be colored."] = true
-L["Cosmetic Bar"] = true
-L["Border"] = true
-L["Border Alpha"] = true
-L["Width Mode"] = true
-L["'Absolute' mode means the width of the bar is fixed."] = true
-L["'Dynamic' mode will also add the width of header text."] = true
-L["'Absolute' mode means the height of the bar is fixed."] = true
-L["'Dynamic' mode will also add the height of header text."] = true
-L["Absolute"] = true
-L["Dyanamic"] = true
-L["Color Mode"] = true
-L["Gradient"] = true
-L["Class Color"] = true
-L["Normal Color"] = true
-L["Gradient Color 1"] = true
-L["Gradient Color 2"] = true
-L["Presets"] = true
-L["Preset %d"] = true
-L["Here are some example presets, just try them!"] = true
-L["Default"] = true
-L["Header"] = true
-L["Short Header"] = true
-L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = true
-L["Title Color"] = true
-L["Change the color of quest titles."] = true
-L["Use Class Color"] = true
-L["Highlight Color"] = true
-L["Title"] = true
+L["1. Customize the font of Objective Tracker."] = "1. 自訂任務追蹤字型."
+L["2. Add colorful progress text to the quest."] = "2. 為任務添加彩色進度文字."
+L["Progress"] = "進度"
+L["No Dash"] = "無標記"
+L["Colorful Progress"] = "彩色進度"
+L["Percentage"] = "百分比"
+L["Add percentage text after quest text."] = "在任務文本後添加百分比文字."
+L["Colorful Percentage"] = "彩色百分比"
+L["Make the additional percentage text be colored."] = "使得額外的百分比文字為彩色顯示."
+L["Cosmetic Bar"] = "裝飾條"
+L["Border"] = "邊框"
+L["Border Alpha"] = "邊框透明度"
+L["Width Mode"] = "寬度模式"
+L["'Absolute' mode means the width of the bar is fixed."] = "'絕對'模式代表條的寬度是固定的."
+L["'Dynamic' mode will also add the width of header text."] = "'動態'模式同時會自動加上加入標題文字的寬度."
+L["'Absolute' mode means the height of the bar is fixed."] = "'絕對'模式代表條的高度是固定的."
+L["'Dynamic' mode will also add the height of header text."] = "'動態'模式同時會自動加上標題文字的高度."
+L["Absolute"] = "絕對"
+L["Dyanamic"] = "動態"
+L["Color Mode"] = "顏色模式"
+L["Gradient"] = "漸層"
+L["Class Color"] = "職業顏色"
+L["Normal Color"] = "正常顏色"
+L["Gradient Color 1"] = "漸層顏色 1"
+L["Gradient Color 2"] = "漸層顏色 2"
+L["Presets"] = "預調設定"
+L["Preset %d"] = "預調設定 %d"
+L["Here are some example presets, just try them!"] = "這裡有一些預調的設定範例, 趕快試一試!"
+L["Default"] = "預設"
+L["Header"] = "頂部"
+L["Short Header"] = "簡短頂部"
+L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = "使用簡短頂部替代, 比如 『譴罪之塔』托迦司 到 托迦司."
+L["Title Color"] = "標題顏色"
+L["Change the color of quest titles."] = "修改任務標題文字顏色."
+L["Use Class Color"] = "使用職業顏色"
+L["Highlight Color"] = "強調色"
+L["Title"] = "標題"
+L["Bottom Right Offset X"] = "右下 X 偏移"
+L["Bottom Right Offset Y"] = "右下 Y 偏移"
+L["Top Left Offset X"] = "左上 X 軸偏移"
+L["Top Left Offset Y"] = "左上 Y 軸偏移"
+L["Transparent"] = "透明"
+
+-- Filter
+L["Filter"] = "過濾器"
+L["Unblock the profanity filter."] = "解鎖不當言詞過濾器."
+L["Profanity Filter"] = "不當言詞過濾器"
+L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = "啟用此項目將解鎖不當言詞過濾器的設定.[中國大陸伺服器]"
+
+-- Friends List
+L["Friends List"] = "好友名單"
+L["Add additional information to the friend frame."] = "為好友框架增添額外訊息."
+L["Modify the texture of status and make name colorful."] = "修改狀態標示材質, 彩色化好友名."
+L["Enhanced Texture"] = "材質增強"
+L["Game Icons"] = "遊戲圖示"
+L["Default"] = "預設"
+L["Modern"] = "現代"
+L["Status Icon Pack"] = "狀態圖標包"
+L["Diablo 3"] = "暗黑破壞神 III"
+L["Square"] = "方塊"
+L["Faction Icon"] = "陣營圖示"
+L["Use faction icon instead of WoW icon."] = "使用陣營圖示來替代魔獸世界遊戲圖示."
+L["Name"] = "名字"
+L["Level"] = "等級"
+L["Hide Max Level"] = "隱藏滿級"
+L["Use Note As Name"] = "使用註記作為名字"
+L["Replace the Real ID or the character name of friends with your notes."] = "將好友的 Real ID 或角色名稱替換為你的註記."
+L["Use Game Color"] = "使用遊戲顏色"
+L["Change the color of the name to the in-playing game style."] = "根據遊玩遊戲風格來修改名字顏色."
+L["Use Class Color"] = "使用職業顏色"
+L["Font Setting"] = "字型設定"
+
+-- Talents
+L["Talents"] = "天賦"
+L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

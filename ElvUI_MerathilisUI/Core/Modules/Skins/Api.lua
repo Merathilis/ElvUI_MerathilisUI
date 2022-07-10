@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
 local S = E.Skins
+local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
 local assert, pairs, unpack, type = assert, pairs, unpack, type
@@ -29,24 +30,182 @@ module.ArrowRotation = {
 	['RIGHT'] = 1.57,
 }
 
--- Create shadow for textures
-function module:CreateSD(f, m, s, n)
-	if f.Shadow then return end
-
-	local frame = f
-	if f:GetObjectType() == "Texture" then
-		frame = f:GetParent()
+function module:CreateShadow(frame, size, r, g, b, force)
+	if not force then
+		if not E.private.mui.skins.enable or not E.private.mui.skins.shadow.enable then
+			return
+		end
 	end
 
-	local lvl = frame:GetFrameLevel()
-	f.Shadow = CreateFrame("Frame", nil, frame)
-	f.Shadow:SetPoint("TOPLEFT", f, -m, m)
-	f.Shadow:SetPoint("BOTTOMRIGHT", f, m, -m)
-	f.Shadow:CreateBackdrop()
-	f.Shadow.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
-	f.Shadow.backdrop:SetFrameLevel(n or lvl)
+	if not frame or frame.__shadow or frame.shadow and frame.shadow.__MER then
+		return
+	end
 
-	return f.Shadow
+	if frame:GetObjectType() == "Texture" then
+		frame = frame:GetParent()
+	end
+
+	r = r or E.private.mui.skins.shadow.color.r or 0
+	g = g or E.private.mui.skins.shadow.color.g or 0
+	b = b or E.private.mui.skins.shadow.color.b or 0
+
+	size = size or 3
+	size = size + E.private.mui.skins.shadow.increasedSize or 0
+
+	local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	shadow:SetFrameStrata(frame:GetFrameStrata())
+	shadow:SetFrameLevel(frame:GetFrameLevel() or 1)
+	shadow:SetOutside(frame, size, size)
+	shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = size + 1})
+	shadow:SetBackdropColor(r, g, b, 0)
+	shadow:SetBackdropBorderColor(r, g, b, 0.618)
+	shadow.__MER = true
+
+	frame.shadow = shadow
+	frame.__shadow = 1
+end
+
+function module:CreateLowerShadow(frame, force)
+	if not force then
+		if not E.private.mui.skins.enable or not E.private.mui.skins.shadow.enable then
+			return
+		end
+	end
+
+	module:CreateShadow(frame)
+	local parentFrameLevel = frame:GetFrameLevel()
+	frame.shadow:SetFrameLevel(parentFrameLevel > 0 and parentFrameLevel - 1 or 0)
+end
+
+function module:UpdateShadowColor(shadow, r, g, b)
+	if not shadow or not shadow.__MER then
+		return
+	end
+
+	r = r or E.private.mui.skins.shadow.color.r or 0
+	g = g or E.private.mui.skins.shadow.color.g or 0
+	b = b or E.private.mui.skins.shadow.color.b or 0
+
+	shadow:SetBackdropColor(r, g, b, 0)
+	shadow:SetBackdropBorderColor(r, g, b, 0.618)
+end
+
+do
+	local function colorCallback(shadow, r, g, b)
+		if not r or not g or not b then
+			return
+		end
+
+		if r == E.db.general.bordercolor.r and g == E.db.general.bordercolor.g and b == E.db.general.bordercolor.b then
+			module:UpdateShadowColor(shadow)
+		else
+			module:UpdateShadowColor(shadow, r, g, b)
+		end
+	end
+
+	function module:BindShadowColorWithBorder(shadow, borderParent)
+		if not shadow or not shadow.__MER or not borderParent or not borderParent.SetBackdropBorderColor then
+			return
+		end
+
+		hooksecurefunc(borderParent, "SetBackdropBorderColor", function(_, ...)
+			colorCallback(shadow, ...)
+		end)
+
+		colorCallback(shadow, borderParent:GetBackdropBorderColor())
+	end
+end
+
+do
+	local function createBackdropShadow(frame, defaultTemplate)
+		if not E.private.mui.skins.enable or not E.private.mui.skins.shadow.enable then
+			return
+		end
+
+		if not defaultTemplate then
+			frame.backdrop:SetTemplate("Transparent")
+		end
+
+		module:CreateShadow(frame.backdrop)
+
+		if frame.backdrop.shadow.__MER then
+			frame.__shadow = frame.backdrop.__shadow + 1
+		end
+	end
+
+	--[[
+		Create a shadow for the backdrop of the frame
+		@param {frame} frame
+		@param {string} template
+	]]
+	function module:CreateBackdropShadow(frame, template)
+		if not frame or frame.__shadow then
+			return
+		end
+
+		if frame.backdrop then
+			createBackdropShadow(frame, template)
+		elseif frame.CreateBackdrop and not self:IsHooked(frame, "CreateBackdrop") then
+			self:SecureHook(frame, "CreateBackdrop", function(...)
+				if self:IsHooked(frame, "CreateBackdrop") then
+					self:Unhook(frame, "CreateBackdrop")
+				end
+				createBackdropShadow(...)
+			end)
+		end
+	end
+
+	--[[
+	Create shadow of backdrop that created by ElvUI skin function
+	The function is automatically repeat several times for waiting ElvUI done
+		the modifying/creating of backdrop
+	!!! It only check for 2 seconds (20 times in total)
+	@param {object} frame
+	@param {string} [tried=20] time
+]]
+	function module:TryCreateBackdropShadow(frame, tried)
+		if not frame or frame.__shadow then
+			return
+		end
+
+		tried = tried or 20
+
+		if frame.backdrop then
+			createBackdropShadow(frame)
+		else
+			if tried >= 0 then
+				E:Delay(0.1, self.TryCreateBackdropShadow, self, frame, tried - 1)
+			end
+		end
+	end
+end
+
+function module:CreateShadowModule(frame)
+	if not frame then return end
+
+	if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
+		module:CreateShadow(frame)
+	end
+end
+
+-- Backdrop shadow
+local shadowBackdrop = {edgeFile = LSM:Fetch("border", "ElvUI GlowBorder")}
+function module:CreateSD(self, size, override)
+	if self.__shadow then return end
+
+	local frame = self
+	if self:IsObjectType("Texture") then
+		frame = self:GetParent()
+	end
+
+	shadowBackdrop.edgeSize = size or 5
+	self.__shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	self.__shadow:SetOutside(self, size or 4, size or 4)
+	self.__shadow:SetBackdrop(shadowBackdrop)
+	self.__shadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .4)
+	self.__shadow:SetFrameLevel(1)
+
+	return self.__shadow
 end
 
 function module:CreateBG(frame)
@@ -126,9 +285,7 @@ do
 		return frame[element] or FrameName and (_G[FrameName..element] or strfind(FrameName, element)) or nil
 	end
 
-	function module:HandleScrollBar(_, frame, thumbTrimY, thumbTrimX)
-		local parent = frame:GetParent()
-
+	function module:HandleScrollBar(_, frame)
 		local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
 
 		if Thumb and Thumb.backdrop then
@@ -185,7 +342,7 @@ function module:SkinPanel(panel)
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
 	panel.tex:SetGradient("VERTICAL", rgbValueColorR, rgbValueColorG, rgbValueColorB)
-	MER:CreateShadow(panel)
+	module:CreateShadow(panel)
 end
 
 local buttons = {
@@ -236,12 +393,45 @@ function module:ApplyConfigArrows()
 end
 hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
 
+do
+	local DeleteRegions = {
+		"Center",
+		"BottomEdge",
+		"LeftEdge",
+		"RightEdge",
+		"TopEdge",
+		"BottomLeftCorner",
+		"BottomRightCorner",
+		"TopLeftCorner",
+		"TopRightCorner"
+	}
+	function module:StripEdgeTextures(frame)
+		for _, regionKey in pairs(DeleteRegions) do
+			if frame[regionKey] then
+				frame[regionKey]:Kill()
+			end
+		end
+	end
+end
+
 function module:Reposition(frame, target, border, top, bottom, left, right)
 	frame:ClearAllPoints()
 	frame:SetPoint("TOPLEFT", target, "TOPLEFT", -left - border, top + border)
 	frame:SetPoint("TOPRIGHT", target, "TOPRIGHT", right + border, top + border)
 	frame:SetPoint("BOTTOMLEFT", target, "BOTTOMLEFT", -left - border, -bottom - border)
 	frame:SetPoint("BOTTOMRIGHT", target, "BOTTOMRIGHT", right + border, -bottom - border)
+end
+
+function module:ReskinTab(tab)
+	if not tab then
+		return
+	end
+
+	if tab.GetName then
+		F.SetFontOutline(_G[tab:GetName().."Text"])
+	end
+
+	self:CreateBackdropShadow(tab)
 end
 
 function module:ReskinAS(AS)
@@ -256,7 +446,7 @@ function module:ReskinAS(AS)
 		end
 
 		AS:SetTemplate(frame, template)
-		MER:CreateShadow(frame)
+		module:CreateShadow(frame)
 
 		if insetFrame then
 			AS:SkinFrame(insetFrame)
@@ -288,12 +478,12 @@ function module:ReskinAS(AS)
 		end
 
 		if frame.Backdrop then
-			MER:CreateShadow(frame.Backdrop)
+			module:CreateShadow(frame.Backdrop)
 		end
 	end
 
 	function AS:SkinTab(Tab, Strip)
-		if Tab.isSkinned then return end
+		if Tab.__MERSkin then return end
 		local TabName = Tab:GetName()
 
 		if TabName then
@@ -335,11 +525,11 @@ function module:ReskinAS(AS)
 		Tab.Backdrop:Point("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
 		Tab.Backdrop:Point("BOTTOMRIGHT", -10, 3)
 
-		Tab.isSkinned = true
+		Tab.__MERSkin = true
 	end
 
 	function AS:SkinButton(Button, Strip)
-		if Button.isSkinned then return end
+		if Button.__MERSkin then return end
 
 		local ButtonName = Button.GetName and Button:GetName()
 		local foundArrow
@@ -411,6 +601,15 @@ function module:SkinTextWithStateWidget(_, widgetFrame)
 	local text = widgetFrame.Text
 	if text then
 		text:SetTextColor(1, 1, 1)
+	end
+end
+
+function module:DisableAddOnSkin(key)
+	if _G.AddOnSkins then
+		local AS = _G.AddOnSkins[1]
+		if AS and AS.db[key] then
+			AS:SetOption(key, false)
+		end
 	end
 end
 

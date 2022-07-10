@@ -1,17 +1,20 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 
-function module:Blizzard_Contribution()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.contribution ~= true or E.private.mui.skins.blizzard.contribution ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("contribution", "contribution") then
+		return
+	end
 
 	--Main Frame
 	_G.ContributionCollectionFrame:StripTextures()
 	module:CreateBD(_G.ContributionCollectionFrame, .25)
 	_G.ContributionCollectionFrame:Styling()
-	MER:CreateBackdropShadow(_G.ContributionCollectionFrame)
+	module:CreateBackdropShadow(_G.ContributionCollectionFrame)
 
 	local function styleText(self)
 		self.Description:SetVertexColor(1, 1, 1)
@@ -24,4 +27,4 @@ function module:Blizzard_Contribution()
 	hooksecurefunc(_G.ContributionRewardMixin, "Setup", styleRewardText)
 end
 
-module:AddCallbackForAddon("Blizzard_Contribution")
+S:AddCallbackForAddon("Blizzard_Contribution", LoadSkin)

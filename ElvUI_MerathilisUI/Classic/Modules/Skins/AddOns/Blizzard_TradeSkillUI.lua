@@ -1,9 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
-function module:Blizzard_TradeSkillUI()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tradeskill ~= true or not E.private.mui.skins.blizzard.tradeskill then return; end
 
 	-- MainFrame
@@ -11,7 +12,7 @@ function module:Blizzard_TradeSkillUI()
 	if frame.backdrop then
 		frame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(frame)
+	module:CreateBackdropShadow(frame)
 end
 
-module:AddCallbackForAddon("Blizzard_TradeSkillUI")
+S:AddCallbackForAddon("Blizzard_TradeSkillUI", LoadSkin)

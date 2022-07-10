@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local select = select
@@ -11,11 +12,13 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:WorldMapFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.private.mui.skins.blizzard.worldmap ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("worldmap", "worldmap") then
+		return
+	end
 
 	_G.WorldMapFrame.backdrop:Styling()
-	MER:CreateBackdropShadow(_G.WorldMapFrame)
+	module:CreateBackdropShadow(_G.WorldMapFrame)
 
 	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
 	frame:Size(230, 20)
@@ -56,14 +59,14 @@ function module:WorldMapFrame()
 	end
 
 	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", function(_, dialog)
-		if not dialog.IsStyled then
+		if not dialog.__MERSkin then
 			if dialog.backdrop then
 				dialog.backdrop:Styling()
 			end
-			MER:CreateBackdropShadow(dialog)
-			dialog.isStyled = true
+			module:CreateBackdropShadow(dialog)
+			dialog.__MERSkin = true
 		end
 	end)
 end
 
-module:AddCallback("WorldMapFrame")
+S:AddCallback("WorldMapFrame", LoadSkin)

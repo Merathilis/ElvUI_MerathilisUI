@@ -1,11 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
-V.core = {
-	LoginMsg = true,
-	debugMode = false,
-	compatibilityCheck = true,
-}
-
 V.general = {
 	install_complete = nil,
 }
@@ -72,9 +66,11 @@ V.skins = {
 				enable = true,
 				texture = "RenAscensionL",
 				backdropClassColor = false,
-				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.4},
+				backdropColor = {r = 0.322, g = 0.608, b = 0.961},
+				backdropAlpha = 0.4,
 				borderClassColor = false,
-				borderColor = {r = 0.145, g = 0.353, b = 0.698, a = 1},
+				borderColor = {r = 0.145, g = 0.353, b = 0.698},
+				borderAlpha = 1
 			},
 			text = {
 				enable = true,
@@ -85,8 +81,8 @@ V.skins = {
 				font = {
 					name = E.db.general.font,
 					style = "OUTLINE"
-				},
-			},
+				}
+			}
 		},
 		checkBox = {
 			enable = true,
@@ -110,14 +106,13 @@ V.skins = {
 				alpha = 1,
 				animationType = "FADE",
 				animationDuration = 0.2,
-				removeBorderEffect = true
 			},
 			selected = {
 				enable = true,
 				texture = "RenAscensionL",
 				backdropClassColor = false,
 				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.75},
-				borderClassColor = true,
+				borderClassColor = false,
 				borderColor = {r = 0.145, g = 0.353, b = 0.698, a = 0},
 			},
 			text = {
@@ -134,6 +129,7 @@ V.skins = {
 		},
 	},
 	blizzard = {
+		enable = true,
 		character = true,
 		encounterjournal = true,
 		gossip = true,
@@ -194,7 +190,7 @@ V.skins = {
 		GMChat = true,
 		Archaeology = true,
 		AzeriteEssence = true,
-		ItemInteraction = true,
+		itemInteraction = true,
 		animaDiversion = true,
 		soulbinds = true,
 		covenantSanctum = true,
@@ -205,9 +201,16 @@ V.skins = {
 		covenantRenown = true,
 		guide = true,
 		craft = true,
+		eventToast = true,
+		weeklyRewards = true,
+		misc = true,
+		tooltip = true,
 	},
 
 	addonSkins = {
+		enable = true,
+		ace3 = true,
+		ace3DropdownBackdrop = true,
 		abp = true,
 		bw = true,
 		xiv = true,
@@ -219,5 +222,8 @@ V.skins = {
 		cl = true,
 		cbn = true,
 		et = true,
+		wa = true,
+		waOptions = true,
+		tldr = true,
 	},
 }

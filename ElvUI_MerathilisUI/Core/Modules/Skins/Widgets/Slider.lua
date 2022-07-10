@@ -1,13 +1,15 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
 local LSM = E.Libs.LSM
+local module = MER.Modules.Skins
+local WS = module.Widgets
 local S = E.Skins
 
-function module:HandleSliderFrame(_, slider)
+function WS:HandleSliderFrame(_, slider)
 	if not self:IsReady() then
 		self:RegisterLazyLoad(slider, function()
 			self:HandleSliderFrame(nil, slider)
 		end)
+		return
 	end
 
 	local db = E.private.mui.skins.widgets.slider
@@ -25,4 +27,4 @@ function module:HandleSliderFrame(_, slider)
 	F.SetVertexColorDB(slider:GetThumbTexture(), db.classColor and module.ClassColor or db.color)
 end
 
-module:SecureHook(S, "HandleSliderFrame")
+WS:SecureHook(S, "HandleSliderFrame")

@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -9,8 +10,10 @@ local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:Blizzard_Collections()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or E.private.mui.skins.blizzard.collections ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("collections", "collections") then
+		return
+	end
 
 	local CollectionsJournal = _G.CollectionsJournal
 
@@ -18,7 +21,11 @@ function module:Blizzard_Collections()
 		CollectionsJournal:CreateBackdrop('Transparent')
 		CollectionsJournal.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(CollectionsJournal)
+	module:CreateBackdropShadow(CollectionsJournal)
+
+	for i = 1, 5 do
+		module:ReskinTab(_G["CollectionsJournalTab" .. i])
+	end
 
 	_G.CollectionsJournalTab2:SetPoint("LEFT", _G.CollectionsJournalTab1, "RIGHT", -15, 0)
 	_G.CollectionsJournalTab3:SetPoint("LEFT", _G.CollectionsJournalTab2, "RIGHT", -15, 0)
@@ -266,13 +273,13 @@ function module:Blizzard_Collections()
 	progressBar.text:SetPoint("CENTER", 0, 1)
 
 	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
-		if not button.IsStyled then
+		if not button.__MERSkin then
 			local bg = module:CreateBDFrame(button)
 			bg:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, -2)
 			bg:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 0, 2)
 			bg:SetPoint("RIGHT", button.name, "RIGHT", 2, 0)
 			module:CreateGradient(bg)
-			button.IsStyled = true
+			button.__MERSkin = true
 		end
 	end)
 
@@ -280,11 +287,11 @@ function module:Blizzard_Collections()
 	hooksecurefunc(HeirloomsJournal, "LayoutCurrentPage", function()
 		for i = 1, #HeirloomsJournal.heirloomHeaderFrames do
 			local header = HeirloomsJournal.heirloomHeaderFrames[i]
-			if not header.IsStyled then
+			if not header.__MERSkin then
 				header.text:SetTextColor(1, 1, 1)
 				header.text:FontTemplate(E["media"].normFont, 16, "OUTLINE")
 
-				header.IsStyled = true
+				header.__MERSkin = true
 			end
 		end
 	end)
@@ -392,4 +399,4 @@ function module:Blizzard_Collections()
 	end
 end
 
-module:AddCallbackForAddon("Blizzard_Collections")
+S:AddCallbackForAddon("Blizzard_Collections", LoadSkin)

@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -20,12 +21,18 @@ local MAX_TALENT_TIERS = 7
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:Blizzard_TalentUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or not E.private.mui.skins.blizzard.talent then return; end
+local function LoadSkin()
+	if not module:CheckDB("talent", "talent") then
+		return
+	end
 
 	local PlayerTalentFrame = _G.PlayerTalentFrame
 	PlayerTalentFrame:Styling()
-	MER:CreateShadow(PlayerTalentFrame)
+	module:CreateShadow(PlayerTalentFrame)
+
+	for i = 1, 3 do
+		module:ReskinTab(_G["PlayerTalentFrameTab" .. i])
+	end
 
 	for _, Frame in pairs({ _G.PlayerTalentFrameSpecialization, _G.PlayerTalentFramePetSpecialization }) do
 		Frame:StripTextures()
@@ -192,6 +199,7 @@ function module:Blizzard_TalentUI()
 
 	local PlayerTalentFrameTalentsPvpTalentFrameTalentList = _G.PlayerTalentFrameTalentsPvpTalentFrameTalentList
 	PlayerTalentFrameTalentsPvpTalentFrameTalentList:Styling()
+	module:CreateShadow(PlayerTalentFrameTalentsPvpTalentFrameTalentList)
 
 	for _, Button in pairs(PvpTalentFrame.TalentList.ScrollFrame.buttons) do
 		if Button then
@@ -226,4 +234,4 @@ function module:Blizzard_TalentUI()
 	end
 end
 
-module:AddCallbackForAddon("Blizzard_TalentUI")
+S:AddCallbackForAddon('Blizzard_TalentUI', LoadSkin)

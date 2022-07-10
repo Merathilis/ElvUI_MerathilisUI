@@ -1,12 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 if not IsAddOnLoaded("ProjectAzilroka") then return end
 
 local _G = _G
 local CreateFrame = CreateFrame
 
-function module:ProjectAzilroka()
-	if E.private.mui.skins.addonSkins.pa ~= true then return end
+local function LoadSkin()
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.pa then return end
 
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -16,10 +16,11 @@ function module:ProjectAzilroka()
 			if stFrame then
 				stFrame:Styling()
 				stFrame.AddOns:SetTemplate("Transparent")
+				module:CreateShadow(stFrame)
 			end
 			f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		end
 	end)
 end
 
-module:AddCallbackForAddon("ProjectAzilroka")
+module:AddCallbackForAddon("ProjectAzilroka", LoadSkin)

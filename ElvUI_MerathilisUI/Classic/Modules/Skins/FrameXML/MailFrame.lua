@@ -1,5 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local A = F.Animation
+local S = E:GetModule('Skins')
 
 local _G = _G
 local unpack = unpack
@@ -12,8 +14,10 @@ local GetInboxInvoiceInfo = GetInboxInvoiceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:MailFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or not E.private.mui.skins.blizzard.mail then return end
+local function LoadSkin()
+	if not module:CheckDB("mail", "mail") then
+		return
+	end
 
 	local MiniMapMailFrame = _G.MiniMapMailFrame
 
@@ -34,13 +38,13 @@ function module:MailFrame()
 			MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", _G.MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)
 			MiniMapMailFrame.highlight.tex:SetVertexColor(r, g, b)
 
-			MER:CreatePulse(MiniMapMailFrame, 1, 1)
+			A:CreatePulse(MiniMapMailFrame, 1, 1)
 		end
 	end)
 
 	local MailFrame = _G.MailFrame
 	MailFrame.backdrop:Styling()
-	MER:CreateBackdropShadow(MailFrame)
+	module:CreateBackdropShadow(MailFrame)
 
 	-- InboxFrame
 	for i = 1, _G.INBOXITEMS_TO_DISPLAY do
@@ -63,7 +67,7 @@ function module:MailFrame()
 	-- OpenMailFrame
 	local OpenMailFrame = _G.OpenMailFrame
 	OpenMailFrame:Styling()
-	MER:CreateShadow(OpenMailFrame)
+	module:CreateShadow(OpenMailFrame)
 
 	OpenMailFrame:SetPoint("TOPLEFT", _G.InboxFrame, "TOPRIGHT", 5, 0)
 	_G.OpenMailFrameIcon:Hide()
@@ -111,4 +115,4 @@ function module:MailFrame()
 	end)
 end
 
-module:AddCallback("MailFrame")
+S:AddCallback("MailFrame", LoadSkin)

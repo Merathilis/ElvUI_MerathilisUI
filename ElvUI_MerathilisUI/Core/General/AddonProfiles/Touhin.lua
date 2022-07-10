@@ -11,7 +11,7 @@ function MER:LoadTouhinProfile()
 		["anchor_y"] = 249.000579833984,
 		["bgFile"] = "RenAscensionL",
 		["showMoney"] = false,
-		["font"] = "Merathilis Expressway",
+		["font"] = "Expressway",
 		["anchor_x"] = 57.0003356933594,
 		["edgeFile"] = "None",
 		["anchor_point"] = "LEFT",

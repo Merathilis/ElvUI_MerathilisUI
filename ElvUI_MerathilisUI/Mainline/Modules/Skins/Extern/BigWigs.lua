@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 
 local _G = _G
 local select, unpack = select, unpack
@@ -118,8 +118,8 @@ f:SetScript('OnEvent', function(self, event, msg)
 	end
 end)
 
-function module:BigWigs_QueueTimer()
-	if not E.private.mui.skins.addonSkins.bw then return end
+local function LoadSkin()
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bw then return end
 
 	if _G.BigWigsLoader then
 		_G.BigWigsLoader.RegisterMessage("MerathilisUI", "BigWigs_FrameCreated", function(_, frame, name)
@@ -147,4 +147,4 @@ function module:BigWigs_QueueTimer()
 	end
 end
 
-module:AddCallbackForAddon("BigWigs_QueueTimer")
+module:AddCallbackForAddon("BigWigs_QueueTimer", LoadSkin)

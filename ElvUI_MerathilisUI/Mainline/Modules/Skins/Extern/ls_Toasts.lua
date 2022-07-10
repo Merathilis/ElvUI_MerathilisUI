@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:GetModule('MER_Skins')
 
 local unpack = unpack
 
@@ -61,6 +62,7 @@ LST:RegisterSkin("MerathilisUI", {
 LST.RegisterCallback({}, "SetSkin", function(_, toast)
 	if toast and not toast.skinned then
 		toast:Styling()
+		module:CreateBackdropShadow(toast)
 		toast.skinned = true
 	end
 end)

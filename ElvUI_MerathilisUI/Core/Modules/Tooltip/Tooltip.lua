@@ -6,6 +6,8 @@ local next = next
 local xpcall = xpcall
 local tinsert = table.insert
 
+local C_ChallengeMode_GetDungeonScoreRarityColor = E.Retail and C_ChallengeMode.GetDungeonScoreRarityColor
+
 module.load = {}
 module.updateProfile = {}
 
@@ -34,10 +36,15 @@ end
 
 ------
 
+function module.GetDungeonScore(score)
+	local color = C_ChallengeMode_GetDungeonScoreRarityColor(score) or HIGHLIGHT_FONT_COLOR
+	return color:WrapTextInColorCode(score)
+end
+
 function module:Initialize()
 	if E.private.tooltip.enable ~= true then return end
 
-	self.db = E.db.mui.tooltip
+	module.db = E.db.mui.tooltip
 
 	for index, func in next, self.load do
 		xpcall(func, errorhandler)
@@ -45,6 +52,7 @@ function module:Initialize()
 	end
 
 	module:ReskinTooltipIcons()
+	module:CovenantInfo()
 end
 
 function module:ProfileUpdate()

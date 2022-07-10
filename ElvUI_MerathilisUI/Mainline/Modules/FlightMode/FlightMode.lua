@@ -565,7 +565,7 @@ function module:CreateFlightMode()
 	module.FlightMode.Panel:Size((GetScreenWidth()/2), 80)
 	module.FlightMode.Panel:CreateBackdrop('Transparent')
 	module.FlightMode.Panel:SetFrameStrata('FULLSCREEN')
-	MER:CreateShadow(module.FlightMode.Panel)
+	MERS:CreateShadow(module.FlightMode.Panel)
 	module.FlightMode.Panel:Styling()
 
 	module.FlightMode.PanelIcon = CreateFrame('Frame', nil, module.FlightMode.Panel, 'BackdropTemplate')
@@ -692,13 +692,6 @@ function module:Initialize()
 	if not module.db.enable then return end
 
 	module:CreateFlightMode()
-
-	function module:ForUpdateAll()
-		module.db = E.db.mui.flightMode
-		module:Resize()
-	end
-	module:ForUpdateAll()
-
 	module:Toggle()
 	module:Resize()
 

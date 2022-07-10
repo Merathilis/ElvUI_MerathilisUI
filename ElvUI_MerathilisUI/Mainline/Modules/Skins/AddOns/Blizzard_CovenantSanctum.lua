@@ -1,18 +1,21 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local ipairs = ipairs
 
-function module:Blizzard_CovenantSanctum()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.covenantSanctum) or E.private.mui.skins.blizzard.covenantSanctum ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("covenantSanctum", "covenantSanctum") then
+		return
+	end
 
 	local frame = _G.CovenantSanctumFrame
 
 	frame:HookScript('OnShow', function()
-		if not frame.IsStyled then
+		if not frame.__MERSkin then
 			frame:Styling()
-			MER:CreateBackdropShadow(frame)
+			module:CreateBackdropShadow(frame)
 
 			local UpgradesTab = frame.UpgradesTab
 			local TalentList = frame.UpgradesTab.TalentsList
@@ -28,9 +31,9 @@ function module:Blizzard_CovenantSanctum()
 				end
 			end
 
-			frame.IsStyled = true
+			frame.__MERSkin = true
 		end
 	end)
 end
 
-module:AddCallbackForAddon('Blizzard_CovenantSanctum')
+S:AddCallbackForAddon('Blizzard_CovenantSanctum', LoadSkin)

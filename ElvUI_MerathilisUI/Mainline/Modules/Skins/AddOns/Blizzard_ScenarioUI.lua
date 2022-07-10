@@ -1,6 +1,7 @@
 
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
@@ -30,13 +31,15 @@ function module:SkinMawBuffsContainer(container)
 
 	container:CreateBackdrop("Transparent")
 	self:Reposition(container.backdrop, container, 1, -10, -10, -16, -3)
-	MER:CreateBackdropShadow(container)
+	module:CreateBackdropShadow(container)
+	module:CreateGradient(container.backdrop)
 
 	local blockList = container.List
 	blockList:StripTextures()
 	blockList:CreateBackdrop("Transparent")
 	self:Reposition(blockList.backdrop, blockList, 1, -11, -11, -6, -6)
-	MER:CreateBackdropShadow(blockList)
+	module:CreateBackdropShadow(blockList)
+	module:CreateGradient(blockList.backdrop)
 end
 
 function module:ScenarioStage_CustomizeBlock(stageBlock, scenarioType, widgetSetID, textureKitID)
@@ -47,7 +50,8 @@ function module:ScenarioStage_CustomizeBlock(stageBlock, scenarioType, widgetSet
 		stageBlock:CreateBackdrop("Transparent")
 		stageBlock.backdrop:ClearAllPoints()
 		stageBlock.backdrop:SetInside(stageBlock.GlowTexture, 4, 2)
-		MER:CreateShadow(stageBlock.backdrop)
+		module:CreateShadow(stageBlock.backdrop)
+		module:CreateGradient(stageBlock.backdrop)
 	end
 end
 
@@ -68,7 +72,7 @@ function module:Scenario_ChallengeMode_ShowBlock()
 			child.backdrop:SetOutside(child.Portrait)
 			child.Portrait:SetTexture(texPath)
 			child.Portrait:SetTexCoord(unpack(E.TexCoords))
-			child.windStyle = true
+			child.MERStyle = true
 		end
 	end
 
@@ -83,7 +87,7 @@ function module:Scenario_ChallengeMode_ShowBlock()
 	block:CreateBackdrop("Transparent")
 	block.backdrop:ClearAllPoints()
 	block.backdrop:SetInside(block, 6, 2)
-	MER:CreateBackdropShadow(block)
+	module:CreateBackdropShadow(block)
 
 	-- Time bar
 	block.StatusBar:CreateBackdrop()
@@ -130,14 +134,16 @@ function module:ScenarioStageWidgetContainer()
 	end
 end
 
-function module:ScenarioUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or not E.private.mui.skins.blizzard.objectiveTracker then return end
+local function LoadSkin()
+	if not module:CheckDB("objectiveTracker", "objectiveTracker") then
+		return
+	end
 
-	self:SecureHook("ScenarioStage_CustomizeBlock")
-	self:SecureHook("Scenario_ChallengeMode_ShowBlock")
-	self:SecureHook(_G.SCENARIO_CONTENT_TRACKER_MODULE, "Update", "ScenarioStageWidgetContainer")
-	self:SkinMawBuffsContainer(_G.ScenarioBlocksFrame.MawBuffsBlock.Container)
-	self:SkinMawBuffsContainer(_G.MawBuffsBelowMinimapFrame.Container)
+	module:SecureHook("ScenarioStage_CustomizeBlock")
+	module:SecureHook("Scenario_ChallengeMode_ShowBlock")
+	module:SecureHook(_G.SCENARIO_CONTENT_TRACKER_MODULE, "Update", "ScenarioStageWidgetContainer")
+	module:SkinMawBuffsContainer(_G.ScenarioBlocksFrame.MawBuffsBlock.Container)
+	module:SkinMawBuffsContainer(_G.MawBuffsBelowMinimapFrame.Container)
 end
 
-module:AddCallback("ScenarioUI")
+S:AddCallback("ScenarioUI", LoadSkin)

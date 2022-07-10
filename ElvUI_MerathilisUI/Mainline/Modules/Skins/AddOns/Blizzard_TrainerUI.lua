@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local next, unpack = next, unpack
@@ -9,12 +10,15 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:Blizzard_TrainerUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.trainer ~= true or E.private.mui.skins.blizzard.trainer ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("trainer", "trainer") then
+		return
+	end
+
 
 	local ClassTrainerFrame = _G.ClassTrainerFrame
 	ClassTrainerFrame:Styling()
-	MER:CreateShadow(ClassTrainerFrame)
+	module:CreateShadow(ClassTrainerFrame)
 
 	_G.ClassTrainerStatusBarSkillRank:ClearAllPoints()
 	_G.ClassTrainerStatusBarSkillRank:SetPoint("CENTER", _G.ClassTrainerStatusBar, "CENTER", 0, 0)
@@ -69,4 +73,4 @@ function module:Blizzard_TrainerUI()
 	module:CreateBD(bd, .25)
 end
 
-module:AddCallbackForAddon("Blizzard_TrainerUI")
+S:AddCallbackForAddon("Blizzard_TrainerUI", LoadSkin)

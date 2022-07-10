@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -23,14 +24,20 @@ local function SecondaryProfession(button)
 	button.rank:SetPoint("BOTTOMLEFT", button.statusBar, "TOPLEFT", 3, 4)
 end
 
-function module:SpellBookFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.mui.skins.blizzard.spellbook ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("spellbook", "spellbook") then
+		return
+	end
 
 	local SpellBookFrame = _G.SpellBookFrame
 	SpellBookFrame:Styling()
-	MER:CreateShadow(SpellBookFrame)
+	module:CreateShadow(SpellBookFrame)
 	if SpellBookFrame.pagebackdrop then
 		SpellBookFrame.pagebackdrop:Hide()
+	end
+
+	for i = 1, 5 do
+		module:ReskinTab(_G["SpellBookFrameTabButton" .. i])
 	end
 
 	for i = 1, _G.SPELLS_PER_PAGE do
@@ -161,4 +168,4 @@ function module:SpellBookFrame()
 	end)
 end
 
-module:AddCallback("SpellBookFrame")
+S:AddCallback("SpellBookFrame", LoadSkin)

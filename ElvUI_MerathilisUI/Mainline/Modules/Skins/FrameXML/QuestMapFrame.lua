@@ -1,11 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local select = select
 
-function module:QuestMapFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or not E.private.mui.skins.blizzard.quest then return; end
+local function LoadSkin()
+	if not module:CheckDB("quest", "quest") then
+		return
+	end
 
 	-- Stop here if parchment reomover is enabled.
 	if E.private.skins.parchmentRemoverEnable then return end
@@ -70,7 +73,7 @@ function module:QuestMapFrame()
 		end
 	end)
 	_G.QuestLogPopupDetailFrame:Styling()
-	MER:CreateBackdropShadow(_G.QuestLogPopupDetailFrame)
+	module:CreateBackdropShadow(_G.QuestLogPopupDetailFrame)
 
 	-- Show map button
 	local ShowMapButton = _G.QuestLogPopupDetailFrame.ShowMapButton
@@ -102,4 +105,4 @@ function module:QuestMapFrame()
 	_G.QuestMapFrame.CampaignOverview.BG:SetAlpha(0)
 end
 
-module:AddCallback("QuestMapFrame")
+S:AddCallback("QuestMapFrame", LoadSkin)

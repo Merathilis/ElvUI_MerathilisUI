@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
-local S = E.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -13,8 +13,10 @@ local function ShowIconBG(anim)
 	anim.__owner.Icon.backdrop:SetAlpha(1)
 end
 
-function module:LootFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.loot ~= true or not E.private.mui.skins.blizzard.loot then return end
+local function LoadSkin()
+	if not module:CheckDB("loot", "loot") then
+		return
+	end
 
 	_G.BonusRollFrame:Styling()
 	_G.LootHistoryFrame:Styling()
@@ -25,7 +27,7 @@ function module:LootFrame()
 
 	-- Boss Banner
 	hooksecurefunc('BossBanner_ConfigureLootFrame', function(lootFrame)
-		if not lootFrame.isSkinned then
+		if not lootFrame.__MERSkin then
 			local iconHitBox = lootFrame.IconHitBox
 
 			S:HandleIcon(lootFrame.Icon, true)
@@ -36,9 +38,9 @@ function module:LootFrame()
 			lootFrame.Anim:HookScript("OnPlay", HideIconBG)
 			lootFrame.Anim:HookScript("OnFinished", ShowIconBG)
 
-			lootFrame.isSkinned = true
+			lootFrame.__MERSkin = true
 		end
 	end)
 end
 
-module:AddCallback("LootFrame")
+S:AddCallback("LootFrame", LoadSkin)

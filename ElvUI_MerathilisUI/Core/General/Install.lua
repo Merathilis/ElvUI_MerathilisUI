@@ -28,29 +28,68 @@ local SetCVar = SetCVar
 
 local function SetupCVars()
 	-- Setup CVars
-	SetCVar("autoQuestProgress", 1)
-	SetCVar("guildMemberNotify", 1)
-	SetCVar("TargetNearestUseNew", 1)
-	SetCVar("cameraSmoothStyle", 0)
-	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
-	SetCVar("UberTooltips", 1)
-	SetCVar("lockActionBars", 1)
-	SetCVar("chatMouseScroll", 1)
-	SetCVar("violenceLevel", 5)
-	SetCVar("blockTrades", 0)
-	SetCVar("countdownForCooldowns", 1)
-	SetCVar("showQuestTrackingTooltips", 1)
-	SetCVar("ffxGlow", 0)
-	SetCVar("floatingCombatTextCombatState", "1")
+	SetCVar('autoQuestProgress', 1)
+	SetCVar('guildMemberNotify', 1)
+	SetCVar('TargetNearestUseNew', 1)
+	SetCVar('cameraSmoothStyle', 0)
+	SetCVar('cameraDistanceMaxZoomFactor', 2.6)
+	SetCVar('UberTooltips', 1)
+	SetCVar('lockActionBars', 1)
+	SetCVar('chatMouseScroll', 1)
+	SetCVar('countdownForCooldowns', 1)
+	SetCVar('showQuestTrackingTooltips', 1)
+	SetCVar('ffxGlow', 0)
+	SetCVar('floatingCombatTextCombatState', "1")
 
-	--nameplates
-	SetCVar("ShowClassColorInNameplate", 1)
+	-- Nameplates
+	SetCVar('ShowClassColorInNameplate', 1)
+	SetCVar('nameplateLargerScale', 1)
+	SetCVar('nameplateLargeTopInset', -1)
+	SetCVar('nameplateMinAlpha', 1)
+	SetCVar('nameplateMinScale', 1)
+	SetCVar('nameplateMotion', 1)
+	SetCVar('nameplateOccludedAlphaMult', 1)
+	SetCVar('nameplateOtherBottomInset', -1)
+	SetCVar('nameplateOtherTopInset', -1)
+	SetCVar('nameplateOverlapH', 1.1)
+	SetCVar('nameplateOverlapV', 1.8)
+	SetCVar('nameplateSelectedScale', 1)
+	SetCVar('nameplateSelfAlpha', 1)
+	SetCVar('nameplateSelfTopInset', -1)
+
+	SetCVar('UnitNameEnemyGuardianName', 1)
+	SetCVar('UnitNameEnemyMinionName', 1)
+	SetCVar('UnitNameEnemyPetName', 1)
+	SetCVar('UnitNameEnemyPlayerName', 1)
+
+	if not E.Classic then
+		SetCVar('UnitNameEnemyTotem', 1)
+	end
+
+	if not E.Retail then
+		SetCVar('nameplateNotSelectedAlpha', 1)
+		SetCVar('autoLootDefault', 1)
+		SetCVar('instantQuestText', 1)
+		SetCVar('profanityFilter', 0)
+	end
+
 
 	if F.IsDeveloper() and F.IsDeveloperRealm() then
-		SetCVar("taintLog", 1)
+		SetCVar('taintLog', 1)
+		SetCVar('maxFPS', 165)
+		SetCVar('maxFPSBk', 60)
+		SetCVar('maxFPSLoading', 30)
+		SetCVar('violenceLevel', 5)
+		SetCVar('blockTrades', 0)
+		SetCVar('RAIDweatherDensity', 0)
+		SetCVar('weatherDensity', 0)
+		SetCVar('SpellQueueWindow', 180)
 	else
-		SetCVar("taintLog", 0)
+		SetCVar('taintLog', 0)
 	end
+
+	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:SetValue('SHIFT')
+	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:RefreshValue()
 
 	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
 	PluginInstallStepComplete:Show()
@@ -219,6 +258,7 @@ function MER:SetupLayout()
 	E.global["general"]["autoScale"] = true
 	E.global["general"]["animateConfig"] = false
 	E.global["general"]["smallerWorldMap"] = false
+	E.global["general"]["WorldMapCoordinates"]["position"] = "BOTTOMLEFT"
 	E.global["general"]["commandBarSetting"] = "ENABLED"
 	E.global["general"]["showMissingTalentAlert"] = true
 
@@ -281,7 +321,7 @@ function MER:SetupLayout()
 	--	ProfileDB - Auras
 	--]]----------------------------------
 	E.db["auras"]["fadeThreshold"] = 10
-	E.db["auras"]["buffs"]["timeFont"] = "Merathilis Gotham Narrow Black"
+	E.db["auras"]["buffs"]["timeFont"] = "Gotham Narrow Black"
 	E.db["auras"]["buffs"]["timeFontSize"] = 11
 	E.db["auras"]["buffs"]["timeFontOutline"] = "OUTLINE"
 	E.db["auras"]["buffs"]["timeYOffset"] = 34
@@ -289,16 +329,16 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 	E.db["auras"]["buffs"]["verticalSpacing"] = 12
 	E.db["auras"]["buffs"]["size"] = 32
-	E.db["auras"]["buffs"]["countFont"] = "Merathilis Gotham Narrow Black"
+	E.db["auras"]["buffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["auras"]["buffs"]["countFontSize"] = 11
 	E.db["auras"]["buffs"]["countFontOutline"] = "OUTLINE"
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 34
-	E.db["auras"]["debuffs"]["countFont"] = "Merathilis Gotham Narrow Black"
+	E.db["auras"]["debuffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
 	E.db["auras"]["debuffs"]["countFontOutline"] = "OUTLINE"
-	E.db["auras"]["debuffs"]["timeFont"] = "Merathilis Gotham Narrow Black"
+	E.db["auras"]["debuffs"]["timeFont"] = "Gotham Narrow Black"
 	E.db["auras"]["debuffs"]["timeFontSize"] = 12
 	E.db["auras"]["debuffs"]["timeFontOutline"] = "OUTLINE"
 	E.db["auras"]["cooldown"]["override"] = true
@@ -424,33 +464,33 @@ function MER:SetupLayout()
 
 	-- Player
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
-	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
-	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = '[name:abbrev:long]'
-	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["size"] = 20
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["yOffset"] = 2
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFont"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFont"] = 'Merathilis Gotham Narrow Black Black'
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
 	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["PLAYER"]["level"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["PLAYER"]["level"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["PLAYER"]["level"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
@@ -458,37 +498,37 @@ function MER:SetupLayout()
 
 	-- Friendly Player
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["enable"] = false
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["size"] = 20
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["yOffset"] = 13
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFont"] = 'Merathilis Gotham Narrow Black Black'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFont"] = 'Gotham Narrow Black'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = 'Merathilis Gotham Narrow Black Black'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["yOffset"] = -9
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
@@ -503,37 +543,37 @@ function MER:SetupLayout()
 
 	-- Enemy Player
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["healPrediction"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["enable"] = false
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "Merathilis Gotham Narrow Black Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["size"] = 20
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["yOffset"] = 2
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFont"] = 'Merathilis Gotham Narrow Black Black'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFont"] = 'Gotham Narrow Black'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFont"] = 'Merathilis Gotham Narrow Black'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
@@ -548,12 +588,12 @@ function MER:SetupLayout()
 
 	-- Friendly NPC
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = '[name:abbrev:long]'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["enable"] = false
@@ -575,11 +615,11 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["format"] = '[difficultycolor][level]'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
@@ -592,7 +632,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["position"] = 'RIGHT'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = 8
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["enable"] = false
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["font"] = "Expressway"
@@ -605,17 +645,17 @@ function MER:SetupLayout()
 
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev:long]'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["enable"] = false
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 26
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["height"] = 18
@@ -632,19 +672,19 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["height"] = 18
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["spacing"] = 2
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 33
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFont"] = 'Merathilis Gotham Narrow Black'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["keepSizeRatio"] = false
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["format"] = '[difficultycolor][level]'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["yOffset"] = -9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
@@ -661,7 +701,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = 'RIGHT'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["font"] = "Gotham Narrow Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["font"] = "Expressway"
@@ -1072,7 +1112,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["extraActionButton"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["extraActionButton"]["hotkeyFontOutline"] = "OUTLINE"
 
-	E.db["movers"]["ElvAB_1"] = "BOTTOM,UIParent,BOTTOM,0,111"
+	E.db["movers"]["ElvAB_1"] = "BOTTOM,UIParent,BOTTOM,0,113"
 	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,146"
 	E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,0,177"
 	E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
@@ -1086,7 +1126,7 @@ function MER:SetupActionbars()
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 	E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,304,140"
 	E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,197"
-	E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,233"
+	E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,234"
 	E.db["movers"]["AutoButtonBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,269"
 
 	E:StaggeredUpdateAll(nil, true)
@@ -1103,7 +1143,7 @@ function MER:SetupUnitframes()
 	--[[----------------------------------
 	--	UnitFrames - General
 	--]]----------------------------------
-	E.db["unitframe"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["unitframe"]["font"] = "Gotham Narrow Black"
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
@@ -1125,9 +1165,11 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["invertPower"] = true
 	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
 	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
-	E.db["unitframe"]["colors"]["useDeadBackdrop"] = true
-	E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
-	E.db["unitframe"]["colors"]["classbackdrop"] = false
+	E.db["unitframe"]["colors"]["useDeadBackdrop"] = false
+	E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
+	E.db["unitframe"]["colors"]["classbackdrop"] = true
+	E.db["unitframe"]["colors"]["healthMultiplier"] = 0.75
+
 	E.db["unitframe"]["debuffHighlighting"] = "FILL"
 
 	-- Frame Glow
@@ -1152,7 +1194,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
 	E.db["unitframe"]["cooldown"]["secondsColor"]["b"] = 0
 	E.db["unitframe"]["cooldown"]["fonts"]["enable"] = true
-	E.db["unitframe"]["cooldown"]["fonts"]["font"] = "Merathilis Gotham Narrow Black"
+	E.db["unitframe"]["cooldown"]["fonts"]["font"] = "Gotham Narrow Black"
 	E.db["unitframe"]["cooldown"]["fonts"]["fontSize"] = 16
 	E.db["unitframe"]["cooldown"]["hoursColor"]["r"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["g"] = 0.4
@@ -1232,7 +1274,7 @@ function MER:SetupUnitframes()
 	if E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] then E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = nil end
 
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
 		["size"] = 11,
 		["justifyH"] = "LEFT",
@@ -1242,7 +1284,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
 		["size"] = 11,
 		["justifyH"] = "RIGHT",
@@ -1252,7 +1294,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Resting"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
 		["size"] = 10,
 		["justifyH"] = "CENTER",
@@ -1262,7 +1304,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["MERPower"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
 		["size"] = 12,
 		["justifyH"] = "CENTER",
@@ -1272,7 +1314,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
 		["size"] = 12,
 		["justifyH"] = "CENTER",
@@ -1282,7 +1324,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Group"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
 		["size"] = 11,
 		["justifyH"] = "LEFT",
@@ -1414,7 +1456,7 @@ function MER:SetupUnitframes()
 
 	-- Create own customText
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["justifyH"] = "RIGHT",
 		["fontOutline"] = "OUTLINE",
 		["xOffset"] = 2,
@@ -1424,7 +1466,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Frame",
 	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["size"] = 11,
 		["fontOutline"] = "OUTLINE",
 		["justifyH"] = "RIGHT",
@@ -1434,7 +1476,7 @@ function MER:SetupUnitframes()
 		["xOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Life"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["size"] = 11,
 		["fontOutline"] = "OUTLINE",
 		["justifyH"] = "LEFT",
@@ -1444,7 +1486,7 @@ function MER:SetupUnitframes()
 		["xOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["MERPower"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["size"] = 11,
 		["fontOutline"] = "OUTLINE",
 		["justifyH"] = "RIGHT",
@@ -1471,7 +1513,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPRIGHT"
 	E.db["unitframe"]["units"]["target"]["buffs"]["minDuration"] = 0
 	E.db["unitframe"]["units"]["target"]["buffs"]["maxDuration"] = 0
-	E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,PlayerBuffs,nonPersonal"
+	E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Blacklist,Personal,Boss,Whitelist,PlayerBuffs,nonPersonal"
 	E.db["unitframe"]["units"]["target"]["buffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["target"]["buffs"]["countFontSize"] = 9
 	E.db["unitframe"]["units"]["target"]["buffs"]["durationPosition"] = "TOP"
@@ -1640,7 +1682,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["justifyH"] = "CENTER",
 		["fontOutline"] = "OUTLINE",
 		["xOffset"] = 0,
@@ -1650,7 +1692,7 @@ function MER:SetupUnitframes()
 		["text_format"] = "[statustimer]",
 	}
 	E.db["unitframe"]["units"]["raid"]["customTexts"]["name1"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["size"] = 9,
 		["fontOutline"] = "OUTLINE",
 		["justifyH"] = "CENTER",
@@ -1739,7 +1781,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["text_format"] = "[statustimer]",
 		["yOffset"] = -12,
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["justifyH"] = "CENTER",
 		["fontOutline"] = "OUTLINE",
 		["xOffset"] = 0,
@@ -1750,7 +1792,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["text_format"] = "[namecolor][name:medium]",
 		["yOffset"] = 0,
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["justifyH"] = "CENTER",
 		["fontOutline"] = "OUTLINE",
 		["xOffset"] = 0,
@@ -1898,7 +1940,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["party"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["party"]["customTexts"]["name1"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["size"] = 11,
 		["fontOutline"] = "OUTLINE",
 		["justifyH"] = "CENTER",
@@ -1908,7 +1950,7 @@ function MER:SetupUnitframes()
 		["text_format"] = "[namecolor][name:medium]",
 	}
 	E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
-		["font"] = "Merathilis Gotham Narrow Black",
+		["font"] = "Gotham Narrow Black",
 		["justifyH"] = "CENTER",
 		["fontOutline"] = "OUTLINE",
 		["xOffset"] = 0,
@@ -2173,12 +2215,6 @@ function MER:SetupAddOns()
 	if E:IsAddOnEnabled("ProjectAzilroka") then
 		MER:LoadPAProfile()
 		tinsert(addonNames, "ProjectAzilroka")
-	end
-
-	-- BenikUI
-	if E:IsAddOnEnabled("ElvUI_BenikUI") then
-		MER:LoadBenikUIProfile()
-		tinsert(addonNames, "ElvUI_BenikUI")
 	end
 
 	if checkTable(addonNames) ~= nil then

@@ -1,9 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 if not IsAddOnLoaded("cargBags_Nivaya") then return; end
 
-function module:cargBags_Nivaya()
-	if E.private.mui.skins.addonSkins.cbn ~= true then return end
+local function LoadSkin()
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.cbn then return end
 
 	-- Default Containers from cargBags_Nivaya
 	local frames = {
@@ -37,4 +37,4 @@ function module:cargBags_Nivaya()
 	end
 end
 
-module:AddCallbackForAddon("cargBags_Nivaya")
+module:AddCallbackForAddon("cargBags_Nivaya", LoadSkin)

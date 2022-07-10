@@ -600,7 +600,7 @@ options.chat = {
 	},
 }
 
-local channels = {"SAY", "YELL", "EMOTE", "PARTY", "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER"}
+local channels = {"SAY", "YELL", "EMOTE", "PARTY", "RAID", "RAID_WARNING", "GUILD", "OFFICER"}
 for index, name in ipairs(channels) do
 	options.chat.args.chatBar.args.channels.args[name] = {
 		order = index,
@@ -631,6 +631,56 @@ for index, name in ipairs(channels) do
 				end,
 				set = function(info, r, g, b, a)
 					E.db.mui.chat.chatBar.channels[name].color = {
+						r = r,
+						g = g,
+						b = b,
+						a = a
+					}
+					CB:UpdateBar()
+				end
+			},
+			abbr = {
+				order = 3,
+				type = "input",
+				hidden = function()
+					return not (E.db.mui.chat.chatBar.style == "TEXT")
+				end,
+				name = L["Abbreviation"]
+			}
+		}
+	}
+end
+
+if E.Retail then
+	options.chat.args.chatBar.args.channels.args.INSTANCE = {
+		order = index,
+		type = "group",
+		name = _G.INSTANCE,
+		get = function(info)
+			return E.db.mui.chat.chatBar.channels.INSTANCE[info[#info]]
+		end,
+		set = function(info, value)
+			E.db.mui.chat.chatBar.channels.INSTANCE[info[#info]] = value
+			CB:UpdateBar()
+		end,
+		args = {
+			enable = {
+				order = 1,
+				type = "toggle",
+				name = L["Enable"]
+			},
+			color = {
+				order = 2,
+				type = "color",
+				name = L["Color"],
+				hasAlpha = true,
+				get = function(info)
+					local colordb = E.db.mui.chat.chatBar.channels.INSTANCE.color
+					local default = P.chat.chatBar.channels.INSTANCE.color
+					return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g, default.b, default.a
+				end,
+				set = function(info, r, g, b, a)
+					E.db.mui.chat.chatBar.channels.INSTANCE.color = {
 						r = r,
 						g = g,
 						b = b,

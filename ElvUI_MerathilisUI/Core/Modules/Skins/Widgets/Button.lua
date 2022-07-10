@@ -1,11 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
 local LSM = E.Libs.LSM
+local module = MER.Modules.Skins
+local WS = module.Widgets
 local S = E.Skins
 
 local _G = _G
 
-function module:HandleButton(_, button)
+function WS:HandleButton(_, button)
 	if not button or button.MERSkin then
 		return
 	end
@@ -14,6 +15,7 @@ function module:HandleButton(_, button)
 		self:RegisterLazyLoad(button, function()
 			self:HandleButton(nil, button)
 		end)
+		return
 	end
 
 	if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.button.enable then
@@ -57,10 +59,10 @@ function module:HandleButton(_, button)
 		self:SecureHook(button, "SetScript", function(frame, scriptType)
 			if scriptType == "OnEnter" then
 				self:Unhook(frame, "OnEnter")
-				-- self:SecureHookScript(frame, "OnEnter", onEnter)
+				self:SecureHookScript(frame, "OnEnter", button.MERAnimation.onEnter)
 			elseif scriptType == "OnLeave" then
 				self:Unhook(frame, "OnLeave")
-				-- self:SecureHookScript(frame, "OnLeave", onEnter)
+				self:SecureHookScript(frame, "OnLeave", button.MERAnimation.onLeave)
 			end
 		end)
 
@@ -72,7 +74,7 @@ function module:HandleButton(_, button)
 	button.MERSkin = true
 end
 
-function module:ElvUI_Config_SetButtonColor(_, btn)
+function WS:ElvUI_Config_SetButtonColor(_, btn)
 	if not E.private.mui or not E.private.mui.skins.enable then
 		return
 	end
@@ -101,5 +103,5 @@ function module:ElvUI_Config_SetButtonColor(_, btn)
 	end
 end
 
-module:SecureHook(S, 'HandleButton')
-module:SecureHook(E, 'Config_SetButtonColor', 'ElvUI_Config_SetButtonColor')
+WS:SecureHook(S, 'HandleButton')
+WS:SecureHook(E, 'Config_SetButtonColor', 'ElvUI_Config_SetButtonColor')

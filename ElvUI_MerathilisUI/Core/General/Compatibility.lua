@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local ES = E.Skins
+local S = MER:GetModule('MER_Skins')
 
 local _G = _G
 local format = format
@@ -12,9 +13,9 @@ local IsAddOnLoaded = IsAddOnLoaded
 function MER:ConstructCompatibilityFrame()
 	local frame = CreateFrame("Frame", "MERCompatibilityFrame", E.UIParent)
 	frame:Size(550, 500)
-	frame:Point("CENTER")
+	frame:SetPoint("CENTER")
 	frame:CreateBackdrop("Transparent")
-	MER:CreateShadowModule(frame.backdrop)
+	S:CreateShadowModule(frame.backdrop)
 	frame.backdrop:Styling()
 	frame.numModules = 0
 	frame:Hide()
@@ -27,18 +28,14 @@ function MER:ConstructCompatibilityFrame()
 	frame:SetFrameStrata("TOOLTIP")
 	frame:SetFrameLevel(9000)
 
-	local close = CreateFrame("Button", "MERCompatibilityFrameCloseButton", frame, "UIPanelCloseButton, BackdropTemplate")
-	close:Point("TOPRIGHT", frame.backdrop, "TOPRIGHT")
-	ES:HandleCloseButton(close)
-	close:SetScript("OnClick", function()
-		frame:Hide()
-	end)
+	local close = F.Widgets.New("CloseButton", frame)
+	close:SetPoint("TOPRIGHT", frame.backdrop, "TOPRIGHT")
 
 	local title = frame:CreateFontString(nil, "ARTWORK")
 	title:FontTemplate()
 	F.SetFontOutline(title, nil, "2")
 	title:SetText(MER.Title .. " " .. L["Compatibility Check"])
-	title:Point("TOP", frame, "TOP", 0, -10)
+	title:SetPoint("TOP", frame, "TOP", 0, -10)
 
 	local desc = frame:CreateFontString(nil, "ARTWORK")
 	desc:FontTemplate()
@@ -46,7 +43,7 @@ function MER:ConstructCompatibilityFrame()
 	desc:Width(420)
 	F.SetFontOutline(desc, nil, "-1")
 	desc:SetText(L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] .. " " .. format(L["Have a good time with %s!"], MER.Title))
-	desc:Point("TOPLEFT", frame, "TOPLEFT", 10, -40)
+	desc:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -40)
 
 	local largeTip = frame:CreateFontString(nil, "ARTWORK")
 	largeTip:FontTemplate()
@@ -55,12 +52,12 @@ function MER:ConstructCompatibilityFrame()
 	F.SetFontOutline(largeTip, nil, "7")
 	largeTip:SetText(format("%s %s %s", F.CreateColorString("[", E.db.general.valuecolor), L["Choose the module you would like to |cff00ff00use|r"], F.CreateColorString("]", E.db.general.valuecolor))
 	)
-	largeTip:Point("TOPLEFT", desc, "BOTTOMLEFT", 0, -10)
+	largeTip:SetPoint("TOPLEFT", desc, "BOTTOMLEFT", 0, -10)
 
 	local tex = frame:CreateTexture("MERCompatibilityFrameIllustration", "ARTWORK")
 	tex:Size(64)
 	tex:SetTexture(MER.Media.Textures.PepeArt)
-	tex:Point("TOPRIGHT", frame, "TOPRIGHT", -20, -25)
+	tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -20, -25)
 
 	local bottomDesc = frame:CreateFontString(nil, "ARTWORK")
 	bottomDesc:FontTemplate()
@@ -69,7 +66,7 @@ function MER:ConstructCompatibilityFrame()
 	F.SetFontOutline(bottomDesc, nil, "-1")
 	bottomDesc:SetText(E.NewSign .. format(L["If you find the %s module conflicts with another addon, alert me via Discord."], MER.Title) .. "\n" .. L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."])
 	--bottomDesc:SetText("|cffff0000*|r " .. L["The feature is just a part of that module."])
-	bottomDesc:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
+	bottomDesc:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
 
 	local completeButton = CreateFrame("Button", "MERCompatibilityFrameCompleteButton", frame, "OptionsButtonTemplate, BackdropTemplate")
 	completeButton.Text:SetText(L["Complete"])
@@ -77,7 +74,7 @@ function MER:ConstructCompatibilityFrame()
 	completeButton.Text:SetJustifyV("CENTER")
 	F.SetFontOutline(completeButton.Text, E.db.general.font, "4")
 	completeButton:Size(350, 35)
-	completeButton:Point("BOTTOM", bottomDesc, "TOP", 0, 10)
+	completeButton:SetPoint("BOTTOM", bottomDesc, "TOP", 0, 10)
 	ES:HandleButton(completeButton)
 	completeButton:SetScript("OnClick", function()
 		frame:Hide()
@@ -85,9 +82,9 @@ function MER:ConstructCompatibilityFrame()
 
 	local scrollFrameParent = CreateFrame("ScrollFrame", "MERCompatibilityFrameScrollFrameParent", frame, "UIPanelScrollFrameTemplate")
 	scrollFrameParent:CreateBackdrop("Transparent")
-	scrollFrameParent:Point("TOPLEFT", largeTip, "BOTTOMLEFT", 0, -10)
-	scrollFrameParent:Point("RIGHT", frame, "RIGHT", -32, 0)
-	scrollFrameParent:Point("BOTTOM", completeButton, "TOP", 0, 10)
+	scrollFrameParent:SetPoint("TOPLEFT", largeTip, "BOTTOMLEFT", 0, -10)
+	scrollFrameParent:SetPoint("RIGHT", frame, "RIGHT", -32, 0)
+	scrollFrameParent:SetPoint("BOTTOM", completeButton, "TOP", 0, 10)
 	ES:HandleScrollBar(scrollFrameParent.ScrollBar)
 
 	local scrollFrame = CreateFrame("Frame", "MERCompatibilityFrameScrollFrame", scrollFrameParent)
@@ -110,7 +107,7 @@ local function AddButtonToCompatibilityFrame(data)
 	leftButton.Text:SetJustifyV("CENTER")
 	F.SetFontOutline(leftButton.Text, E.db.general.font)
 	leftButton:Size(220, 40)
-	leftButton:Point("TOPLEFT", frame.scrollFrame, "TOPLEFT", 5, -frame.numModules * 50 + 45)
+	leftButton:SetPoint("TOPLEFT", frame.scrollFrame, "TOPLEFT", 5, -frame.numModules * 50 + 45)
 	ES:HandleButton(leftButton)
 	leftButton:SetScript("OnClick", function(self)
 		data.func1()
@@ -124,11 +121,11 @@ local function AddButtonToCompatibilityFrame(data)
 	end)
 
 	local middleTexture = frame.scrollFrame:CreateTexture("MERCompatibilityFrameMiddleTexture" .. frame.numModules, "ARTWORK")
-	middleTexture:Point("CENTER")
+	middleTexture:SetPoint("CENTER")
 	middleTexture:Size(20)
 	middleTexture:SetTexture(MER.Media.Icons.convert)
 	middleTexture:SetVertexColor(1, 1, 1)
-	middleTexture:Point("CENTER", frame.scrollFrame, "TOP", 0, -frame.numModules * 50 + 25)
+	middleTexture:SetPoint("CENTER", frame.scrollFrame, "TOP", 0, -frame.numModules * 50 + 25)
 
 	local rightButton = CreateFrame("Button", "MERCompatibilityFrameRightButton" .. frame.numModules, frame.scrollFrame, "OptionsButtonTemplate, BackdropTemplate")
 	rightButton.Text:SetText(format("%s\n%s", data.module2, data.plugin2))
@@ -136,7 +133,7 @@ local function AddButtonToCompatibilityFrame(data)
 	rightButton.Text:SetJustifyV("CENTER")
 	F.SetFontOutline(rightButton.Text, E.db.general.font)
 	rightButton:Size(220, 40)
-	rightButton:Point("TOPRIGHT", frame.scrollFrame, "TOPRIGHT", -5, -frame.numModules * 50 + 45)
+	rightButton:SetPoint("TOPRIGHT", frame.scrollFrame, "TOPRIGHT", -5, -frame.numModules * 50 + 45)
 	ES:HandleButton(rightButton)
 	rightButton:SetScript("OnClick", function(self)
 		data.func2()
@@ -162,7 +159,7 @@ local function GetDatabaseRealValue(path)
 				end
 				accessValue = accessValue[key]
 			else
-				F.DebugMessage("Compatibility", "DB Path Error: " .. path)
+				F.Developer.LogWarning("[Compatibility] database path not found\n" .. path)
 				return
 			end
 		end
@@ -210,7 +207,7 @@ local CheckWindtools = GetCheckCompatibilityFunction("ElvUI_Windtools", L["Windt
 local CheckShadowAndLight = GetCheckCompatibilityFunction("ElvUI_SLE", L["Shadow & Light"])
 
 function MER:CheckCompatibility()
-	if not E.private.mui.core.compatibilityCheck then
+	if not E.global.mui.core.compatibilityCheck then
 		return
 	end
 
@@ -368,6 +365,34 @@ function MER:CheckCompatibility()
 		format("%s-%s-%s", L["Skins"], L["Widgets"], L["Tree Group Button"]),
 		"private.mui.skins.widgets.treeGroupButton.enable",
 		"private.WT.skins.widgets.treeGroupButton.enable"
+	)
+
+	CheckWindtools(
+		L["WeakAuras"],
+		format("%s-%s-%s", L["Skins"], L["Addons"], L["WeakAuras"]),
+		"private.mui.skins.addonSkins.wa",
+		"private.WT.skins.addons.weakAuras"
+	)
+
+	CheckWindtools(
+		L["WeakAuras Options"],
+		format("%s-%s-%s", L["Skins"], L["Addons"], L["WeakAuras Options"]),
+		"private.mui.skins.addonSkins.waOptions",
+		"private.WT.skins.addons.weakAurasOptions"
+	)
+
+	CheckWindtools(
+		L["Friends List"],
+		L["Friend List"],
+		"db.mui.blizzard.friendsList.enable",
+		"db.WT.social.friendList.enable"
+	)
+
+	CheckWindtools(
+		L["World Map"],
+		L["World Map"],
+		"db.mui.maps.worldMap.enable",
+		"private.WT.maps.worldMap.enable"
 	)
 
 	CheckShadowAndLight(

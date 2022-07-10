@@ -16,9 +16,9 @@ function module:Update_PlayerFrame(frame)
 	-- Only looks good on Transparent
 	if E.db.unitframe.colors.transparentHealth then
 		if db.style then
-			if frame and frame.Health and not frame.isStyled then
+			if frame and frame.Health and not frame.__MERSkin then
 				frame.Health:Styling(false, false, true)
-				frame.isStyled = true
+				frame.__MERSkin = true
 			end
 		end
 	end
@@ -26,12 +26,12 @@ function module:Update_PlayerFrame(frame)
 	module:CreateHighlight(frame)
 
 	if db.swing.enable then
-		if not frame:IsElementEnabled('Swing') then
-			frame:EnableElement('Swing')
+		if not frame:IsElementEnabled('Swing_MER') then
+			frame:EnableElement('Swing_MER')
 		end
 	else
-		if frame:IsElementEnabled('Swing') then
-			frame:DisableElement('Swing')
+		if frame:IsElementEnabled('Swing_MER') then
+			frame:DisableElement('Swing_MER')
 		end
 	end
 

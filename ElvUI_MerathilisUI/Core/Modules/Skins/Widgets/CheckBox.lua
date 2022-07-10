@@ -1,9 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
 local LSM = E.Libs.LSM
+local module = MER.Modules.Skins
+local WS = module.Widgets
 local S = E.Skins
 
-function module:HandleAce3CheckBox(check)
+function WS:HandleAce3CheckBox(check)
 	if not E.private.skins.checkBoxSkin then
 		return
 	end
@@ -34,11 +35,11 @@ do
 	S.Ace3_CheckBoxSetDesaturated_Changed = S.Ace3_CheckBoxSetDesaturated
 	function S.Ace3_CheckBoxSetDesaturated(check, value)
 		S.Ace3_CheckBoxSetDesaturated_Changed(check, value)
-		module:HandleAce3CheckBox(check)
+		WS:HandleAce3CheckBox(check)
 	end
 end
 
-function module:HandleCheckBox(_, check)
+function WS:HandleCheckBox(_, check)
 	if not E.private.skins.checkBoxSkin then
 		return
 	end
@@ -89,4 +90,4 @@ function module:HandleCheckBox(_, check)
 	end
 end
 
-module:SecureHook(S, 'HandleCheckBox')
+WS:SecureHook(S, 'HandleCheckBox')

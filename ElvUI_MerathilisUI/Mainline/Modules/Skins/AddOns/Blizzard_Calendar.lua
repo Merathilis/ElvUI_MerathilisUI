@@ -1,30 +1,35 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local unpack = unpack
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:Blizzard_Calendar()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.mui.skins.blizzard.calendar ~= true then return end
-
-	if not _G.CalendarFrame.backdrop then
-		_G.CalendarFrame:CreateBackdrop('Transparent')
+local function LoadSkin()
+	if not module:CheckDB("calendar", "calendar") then
+		return
 	end
 
-	_G.CalendarFrame.backdrop:Styling()
-	MER:CreateBackdropShadow(_G.CalendarFrame)
-	_G.CalendarCreateEventFrame:Styling()
-	MER:CreateBackdropShadow(_G.CalendarCreateEventFrame)
-	_G.CalendarViewHolidayFrame:Styling()
-	MER:CreateBackdropShadow(_G.CalendarViewHolidayFrame)
-	_G.CalendarViewEventFrame:Styling()
-	MER:CreateBackdropShadow(_G.CalendarViewEventFrame)
-	_G.CalendarMassInviteFrame:Styling()
-	MER:CreateBackdropShadow(_G.CalendarMassInviteFrame)
-	_G.CalendarViewRaidFrame:Styling()
-	MER:CreateBackdropShadow(_G.CalendarViewRaidFrame)
+	local CalendarFrame = _G.CalendarFrame
+
+	if not CalendarFrame.backdrop then
+		CalendarFrame:CreateBackdrop('Transparent')
+	end
+
+	CalendarFrame.backdrop:Styling()
+	module:CreateBackdropShadow(CalendarFrame)
+	CalendarCreateEventFrame:Styling()
+	module:CreateBackdropShadow(CalendarCreateEventFrame)
+	CalendarViewHolidayFrame:Styling()
+	module:CreateBackdropShadow(CalendarViewHolidayFrame)
+	CalendarViewEventFrame:Styling()
+	module:CreateBackdropShadow(CalendarViewEventFrame)
+	CalendarMassInviteFrame:Styling()
+	module:CreateBackdropShadow(CalendarMassInviteFrame)
+	CalendarViewRaidFrame:Styling()
+	module:CreateBackdropShadow(CalendarViewRaidFrame)
 
 	for i = 1, 42 do
 		_G["CalendarDayButton"..i.."DarkFrame"]:SetAlpha(.5)
@@ -52,4 +57,4 @@ function module:Blizzard_Calendar()
 	_G.CalendarTodayFrame:SetBackdropBorderColor(r, g, b)
 end
 
-module:AddCallbackForAddon("Blizzard_Calendar")
+S:AddCallbackForAddon("Blizzard_Calendar", LoadSkin)

@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 function module:SkinOjectiveTrackerHeaders()
 	local frame = _G.ObjectiveTrackerFrame.MODULES
@@ -21,13 +22,13 @@ function module:SkinItemButton(block)
 	if not item then
 		return
 	end
-	MER:CreateShadow(item)
+	module:CreateShadow(item)
 end
 
 function module:SkinFindGroupButton(block)
 	if block.hasGroupFinderButton and block.groupFinderButton then
 		if block.groupFinderButton and not block.groupFinderButton.MERStyle then
-			MER:CreateShadow(block.groupFinderButton)
+			module:CreateShadow(block.groupFinderButton)
 			block.groupFinderButton.MERStyle = true
 		end
 	end
@@ -43,11 +44,11 @@ function module:SkinProgressBars(_, _, line)
 	local label = bar.Label
 
 	-- Bar Shadow
-	MER:CreateBackdropShadow(bar)
+	module:CreateBackdropShadow(bar)
 
 	-- Adjust the font position
 	if icon then
-		MER:CreateBackdropShadow(progressBar)
+		module:CreateBackdropShadow(progressBar)
 		icon:Point("LEFT", bar, "RIGHT", E.PixelMode and 7 or 11, 0)
 	end
 
@@ -67,14 +68,16 @@ end
 function module:SkinTimerBars(_, _, line)
 	local timerBar = line and line.TimerBar
 	local bar = timerBar and timerBar.Bar
-	if bar.MER.Style then
+	if bar.MERStyle then
 		return
 	end
-	MER:CreateBackdropShadow(bar)
+	module:CreateBackdropShadow(bar)
 end
 
-function module:ObjectiveTracker()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or not E.private.mui.skins.blizzard.objectiveTracker then return end
+local function LoadSkin()
+	if not module:CheckDB("objectiveTracker", "objectiveTracker") then
+		return
+	end
 
 	module:SecureHook("ObjectiveTracker_Update", "SkinOjectiveTrackerHeaders")
 	module:SecureHook("QuestObjectiveSetupBlockButton_FindGroup", "SkinFindGroupButton")
@@ -90,4 +93,4 @@ function module:ObjectiveTracker()
 	module:SecureHook(_G.ACHIEVEMENT_TRACKER_MODULE, "AddTimerBar", "SkinTimerBars")
 end
 
-module:AddCallback("ObjectiveTracker")
+S:AddCallback("ObjectiveTracker", LoadSkin)

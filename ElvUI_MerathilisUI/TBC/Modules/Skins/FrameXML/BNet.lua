@@ -1,24 +1,26 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
-local S = E.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 
-function module:BNet()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("misc", "misc") then
+		return
+	end
 
 	local BNToastFrame = _G.BNToastFrame
 	BNToastFrame:Styling()
-	MER:CreateShadow(BNToastFrame)
+	module:CreateShadow(BNToastFrame)
 
 	-- /run BNToastFrame:AddToast(BN_TOAST_TYPE_ONLINE, 1)
 	hooksecurefunc(BNToastFrame, 'ShowToast', function(self)
-		if not self.IsSkinned then
+		if not self.__MERSkin then
 			S:HandleCloseButton(self.CloseButton)
-			self.IsSkinned = true
+			self.__MERSkin = true
 		end
 	end)
 end
 
-module:AddCallback("BNet")
+S:AddCallback("BNet", LoadSkin)

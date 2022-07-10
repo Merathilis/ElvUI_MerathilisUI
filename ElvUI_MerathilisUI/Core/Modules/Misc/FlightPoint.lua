@@ -180,11 +180,15 @@ function FlightPoints_CreateFlyPathTable()
 end
 
 function FlightPoints_OnEvent(self, event, ...)
-	-- WorldFlightMap don't like this, so stop right here
-	if not (E.db.mui and E.db.mui.general) or type(E.db.mui.general) ~= 'table' then
-		E.db.mui.general = {}
+	local db = E.db.mui or {}
+
+	if not (db and db.general) or type(db.general) ~= 'table' then
+		db.general = {}
 	end
-	if not E.db.mui.general.FlightPoint or IsAddOnLoaded("WorldFlightMap") then return; end
+
+	if not db.general.FlightPoint or IsAddOnLoaded("WorldFlightMap") then
+		return
+	end
 
 	if event == "TAXIMAP_OPENED" then
 		firstshow = true

@@ -1,16 +1,19 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
-function module:GameMenuFrame()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
+local function LoadSkin()
+	if not module:CheckDB("misc", "misc") then
+		return
+	end
 
 	local GameMenuFrame = _G.GameMenuFrame
-	if GameMenuFrame and not GameMenuFrame.IsStyled then
+	if GameMenuFrame and not GameMenuFrame.__MERSkin then
 		GameMenuFrame:Styling()
-		MER:CreateShadow(GameMenuFrame)
-		GameMenuFrame.IsStyled = true
+		module:CreateShadow(GameMenuFrame)
+		GameMenuFrame.__MERSkin = true
 	end
 
 	-- GameMenu Header Color
@@ -22,4 +25,4 @@ function module:GameMenuFrame()
 	end
 end
 
-module:AddCallback("GameMenuFrame")
+S:AddCallback("GameMenuFrame", LoadSkin)

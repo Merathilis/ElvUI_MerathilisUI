@@ -1,6 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
 local S = E.Skins
+local WS = MER.Modules.WidgetSkin
+module.Widgets = WS
 
 local abs = abs
 local pcall = pcall
@@ -42,12 +44,12 @@ local animationFunctions = {
 	}
 }
 
-function module.IsUglyYellow(...)
+function WS.IsUglyYellow(...)
 	local r, g, b = ...
 	return abs(r - 1) + abs(g - 0.82) + abs(b) < 0.02
 end
 
-function module.Animation(texture, aType, duration, data)
+function WS.Animation(texture, aType, duration, data)
 	local aType = strlower(aType)
 	local group = texture:CreateAnimationGroup()
 
@@ -110,6 +112,8 @@ function module.Animation(texture, aType, duration, data)
 		resultTable.group = group
 
 		function resultTable.onEnter(frame)
+			resultTable.onStatusChange(frame)
+
 			if not texture:IsShown() then
 				return
 			end
@@ -149,7 +153,7 @@ function module.Animation(texture, aType, duration, data)
 	end
 end
 
-function module:Ace3_RegisterAsWidget(_, widget)
+function WS:Ace3_RegisterAsWidget(_, widget)
 	local widgetType = widget.type
 
 	if not widgetType then
@@ -161,7 +165,7 @@ function module:Ace3_RegisterAsWidget(_, widget)
 	end
 end
 
-function module:Ace3_RegisterAsContainer(_, widget)
+function WS:Ace3_RegisterAsContainer(_, widget)
 	local widgetType = widget.type
 
 	if not widgetType then
@@ -173,18 +177,18 @@ function module:Ace3_RegisterAsContainer(_, widget)
 	end
 end
 
-module:SecureHook(S, "Ace3_RegisterAsWidget")
-module:SecureHook(S, "Ace3_RegisterAsContainer")
+WS:SecureHook(S, "Ace3_RegisterAsWidget")
+WS:SecureHook(S, "Ace3_RegisterAsContainer")
 
-module.LazyLoadTable = {}
+WS.LazyLoadTable = {}
 
-function module:IsReady()
+function WS:IsReady()
 	return E.private and E.private.mui and E.private.mui.skins and E.private.mui.skins.widgets
 end
 
-function module:RegisterLazyLoad(frame, func)
+function WS:RegisterLazyLoad(frame, func)
 	if not frame then
-		F.DebugMessage(module, "frame is nil.")
+		self:Log("debug", "frame is nil.")
 		return
 	end
 
@@ -192,7 +196,7 @@ function module:RegisterLazyLoad(frame, func)
 		if self[func] and type(self[func]) == "function" then
 			func = self[func]
 		else
-			F.DebugMessage(module, func .. " is not a function.")
+			self:Log("debug", func .. " is not a function.")
 			return
 		end
 	end
@@ -200,7 +204,7 @@ function module:RegisterLazyLoad(frame, func)
 	self.LazyLoadTable[frame] = func
 end
 
-function module:LazyLoad()
+function WS:LazyLoad()
 	for frame, func in pairs(self.LazyLoadTable) do
 		if frame and func then
 			pcall(func, self, frame)
@@ -210,9 +214,9 @@ function module:LazyLoad()
 	wipe(self.LazyLoadTable)
 end
 
-function module:PLAYER_ENTERING_WORLD()
+function WS:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	self:LazyLoad()
 end
 
-module:RegisterEvent("PLAYER_ENTERING_WORLD")
+WS:RegisterEvent("PLAYER_ENTERING_WORLD")

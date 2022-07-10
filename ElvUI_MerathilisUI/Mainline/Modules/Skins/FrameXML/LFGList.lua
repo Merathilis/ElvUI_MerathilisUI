@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs, select = pairs, select
@@ -24,8 +25,10 @@ local function HeaderOnLeave(self)
 	self.hl:Hide()
 end
 
-function module:LFGList()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or not E.private.mui.skins.blizzard.lfg then return; end
+local function LoadSkin()
+	if not module:CheckDB("lfg", "lfg") then
+		return
+	end
 
 	local LFGListFrame = _G.LFGListFrame
 
@@ -39,11 +42,11 @@ function module:LFGList()
 		local bu = self.CategoryButtons[btnIndex]
 
 		if bu then
-			if not bu.IsStyled then
+			if not bu.__MERSkin then
 				bu.Icon:SetTexCoord(.01, .99, .01, .99)
 				module:CreateGradient(bu)
 
-				bu.IsStyled = true
+				bu.__MERSkin = true
 			end
 		end
 	end)
@@ -197,4 +200,4 @@ function module:LFGList()
 	module:CreateBD(LFGListInviteDialog)
 end
 
-module:AddCallback("LFGList")
+S:AddCallback("LFGList", LoadSkin)

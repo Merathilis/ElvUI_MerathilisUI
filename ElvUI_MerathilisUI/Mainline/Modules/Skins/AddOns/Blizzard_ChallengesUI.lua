@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local ipairs, select = ipairs, select
@@ -47,14 +48,16 @@ local function UpdateIcons(self)
 	end
 end
 
-function module:Blizzard_ChallengesUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.mui.skins.blizzard.challenges ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("lfg", "challenges") then
+		return
+	end
 
 	local KeyStoneFrame = _G.ChallengesKeystoneFrame
 	KeyStoneFrame:Styling()
-	MER:CreateBackdropShadow(KeyStoneFrame)
+	module:CreateBackdropShadow(KeyStoneFrame)
 
 	hooksecurefunc("ChallengesFrame_Update", UpdateIcons)
 end
 
-module:AddCallbackForAddon("Blizzard_ChallengesUI")
+S:AddCallbackForAddon("Blizzard_ChallengesUI", LoadSkin)

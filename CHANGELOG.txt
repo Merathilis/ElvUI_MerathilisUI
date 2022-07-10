@@ -1,6 +1,6 @@
-[b][color=orange]v4.992[/color], 29.05.2022[/b][list]
-[*]Small Layout Update. (Again, if you want it, do the install!
-[*]Dont load the GCD Module on Classic or TBC >.>
-[*]Fixed a taint... gosh, that was a hard one
-[*]Fixed some errors here and there
-[*]Code changes there and here[/list]
+[b][color=orange]v5.14[/color], xx.07.2022[/b][list]
+[*]Added a Skin for TLDR Missions
+[*]Added back the Skin for VenturePlan
+[*]Fixed PlayerChoice Skin Style
+[*]Swing Bar was scuffed a long time???
+[*]Added an option to expand the Character Frame (Armory)[/list]

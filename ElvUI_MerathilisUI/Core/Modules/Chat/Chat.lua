@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Chat')
+local S = MER:GetModule('MER_Skins')
 local CH = E:GetModule('Chat')
 local LO = E:GetModule('Layout')
 
@@ -76,17 +77,17 @@ end
 
 function module:StyleChat()
 	-- Style the chat
-	_G.LeftChatPanel.backdrop:Styling()
-	_G.RightChatPanel.backdrop:Styling()
+	_G.LeftChatPanel:Styling()
+	_G.RightChatPanel:Styling()
 
-	MER:CreateBackdropShadow(_G.LeftChatPanel, true)
-	MER:CreateBackdropShadow(_G.RightChatPanel, true)
+	S:CreateBackdropShadow(_G.LeftChatPanel, true)
+	S:CreateBackdropShadow(_G.RightChatPanel, true)
 end
 
 function module:StyleVoicePanel()
 	if _G.ElvUIChatVoicePanel then
 		_G.ElvUIChatVoicePanel:Styling()
-		MER:CreateShadow(_G.ElvUIChatVoicePanel)
+		S:CreateShadow(_G.ElvUIChatVoicePanel)
 	end
 end
 

@@ -456,15 +456,19 @@ for i = 1, 5 do
 				type = "input",
 				name = L["Button Groups"],
 				desc = format(
-					"%s %s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
+					"%s %s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
 					L["Set the type and order of button groups."],
 					L["You can separate the groups with a comma."],
 					FormatDesc("QUEST", L["Quest Items"]),
 					FormatDesc("EQUIP", L["Equipments"]),
 					FormatDesc("POTION", L["Potions"]),
 					FormatDesc("POTIONSL", format("%s (%s)", L["Potions"], L["Shadowlands"])),
+					FormatDesc("POTIONTBC", format("%s (%s)", L["Potions"], L["TBC"])),
 					FormatDesc("FLASK", L["Flasks"]),
 					FormatDesc("FLASKSL", format("%s (%s)", L["Flasks"], L["Shadowlands"])),
+					FormatDesc("FLASKTBC", format("%s (%s)", L["Flasks"], L["TBC"])),
+					FormatDesc("CAULDRONTBC", format("%s (%s)", L["Cauldrons"], L["TBC"])),
+					FormatDesc("ELIXIRTBC", format("%s (%s)", L["Elixirs"], L["TBC"])),
 					FormatDesc("FOODVENDOR", format("%s (%s)", L["Food"], L["Sold by vendor"])),
 					FormatDesc("MAGEFOOD", format("%s (%s)", L["Food"], L["Crafted by mage"])),
 					FormatDesc("TORGHAST", L["Torghast Items"]),
@@ -473,6 +477,7 @@ for i = 1, 5 do
 					FormatDesc("BANNER", L["Banners"]),
 					FormatDesc("UTILITY", L["Utilities"]),
 					FormatDesc("OPENABLE", L["Openable Items"]),
+					FormatDesc("ORETBC", format("%s (%s)", L["Ores"], L["TBC"])),
 					FormatDesc("CUSTOM", L["Custom Items"])
 				),
 				width = "full"

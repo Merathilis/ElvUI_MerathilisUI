@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local getn = getn
@@ -10,8 +11,10 @@ local C_TimerAfter = C_Timer.After
 
 local MAX_STATIC_POPUPS = 4
 
-function module:BlizzMisc()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
+local function LoadSkin()
+	if not module:CheckDB("misc", "misc") then
+		return
+	end
 
 	-- Graveyard button (a bit ugly if you press it)
 	_G.GhostFrame:StripTextures()
@@ -37,7 +40,7 @@ function module:BlizzMisc()
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
-		MER:CreateBackdropShadow(_G[skins[i]])
+		module:CreateBackdropShadow(_G[skins[i]])
 	end
 
 	--DropDownMenu
@@ -46,15 +49,17 @@ function module:BlizzMisc()
 		local listFrameName = listFrame:GetName()
 
 		local Backdrop = _G[listFrameName.."Backdrop"]
-		if Backdrop and not Backdrop.IsSkinned then
+		if Backdrop and not Backdrop.__MERSkin then
 			Backdrop:Styling()
-			Backdrop.IsSkinned = true
+			module:CreateBackdropShadow(Backdrop)
+			Backdrop.__MERSkin = true
 		end
 
 		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
-		if menuBackdrop and not menuBackdrop.IsSkinned then
+		if menuBackdrop and not menuBackdrop.__MERSkin then
 			menuBackdrop:Styling()
-			menuBackdrop.IsSkinned = true
+			module:CreateBackdropShadow(Backdrop)
+			menuBackdrop.__MERSkin = true
 		end
 	end)
 
@@ -65,9 +70,18 @@ function module:BlizzMisc()
 		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
 			if not _G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
+				module:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
+				module:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
 			end
 		end)
+	end
+
+	--LibDropDown
+	local DropDown = _G.ElvUI_MerathilisUIMenuBackdrop
+	if DropDown then
+		DropDown:Styling()
+		module:CreateShadow(DropDown)
 	end
 
 	if _G.CopyChatFrame then
@@ -93,16 +107,10 @@ function module:BlizzMisc()
 	-- What's New
 	_G.SplashFrame:CreateBackdrop('Transparent')
 	_G.SplashFrame.backdrop:Styling()
-	MER:CreateShadow(_G.SplashFrame)
+	module:CreateShadow(_G.SplashFrame)
 
 	-- Chat Config
 	_G.ChatConfigFrame:Styling()
-
-	-- ElvUI Stuff
-	_G.LeftChatDataPanel:Styling()
-	_G.RightChatDataPanel:Styling()
-	_G.ElvUI_TopPanel:Styling()
-	_G.ElvUI_BottomPanel:Styling()
 
 	-- Mirror Timers
 	if _G.MirrorTimer1StatusBar.backdrop then
@@ -126,4 +134,4 @@ function module:BlizzMisc()
 	end
 end
 
-module:AddCallback("BlizzMisc")
+S:AddCallback("BlizzMisc", LoadSkin)

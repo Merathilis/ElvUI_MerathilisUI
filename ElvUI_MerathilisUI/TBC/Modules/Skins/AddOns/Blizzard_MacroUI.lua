@@ -1,19 +1,22 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
-function module:Blizzard_MacroUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.macro ~= true or not E.private.mui.skins.blizzard.macro then return end
+local function LoadSkin()
+	if not module:CheckDB("macro", "macro") then
+		return
+	end
 
 	local MacroFrame = _G.MacroFrame
 	if MacroFrame.backdrop then
 		MacroFrame.backdrop:Styling()
 	end
-	MER:CreateBackdropShadow(_G.MacroFrame)
+	module:CreateBackdropShadow(_G.MacroFrame)
 
 	_G.MacroPopupFrame:Styling()
-	MER:CreateBackdropShadow(_G.MacroPopupFrame)
+	module:CreateBackdropShadow(_G.MacroPopupFrame)
 end
 
-module:AddCallbackForAddon("Blizzard_MacroUI")
+S:AddCallbackForAddon("Blizzard_MacroUI", LoadSkin)

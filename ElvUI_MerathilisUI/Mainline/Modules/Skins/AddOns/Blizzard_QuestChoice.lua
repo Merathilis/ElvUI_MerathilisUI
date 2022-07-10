@@ -1,11 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local unpack, select = unpack, select
 
-function module:Blizzard_QuestChoice()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.questChoice ~= true or E.private.mui.skins.blizzard.questChoice ~= true then return; end
+local function LoadSkin()
+	if not module:CheckDB("questChoice", "questChoice") then
+		return
+	end
 
 	local QuestChoiceFrame = _G.QuestChoiceFrame
 	QuestChoiceFrame:StripTextures()
@@ -16,7 +19,7 @@ function module:Blizzard_QuestChoice()
 
 	module:CreateBD(QuestChoiceFrame, .5)
 	QuestChoiceFrame:Styling()
-	MER:CreateBackdropShadow(QuestChoiceFrame)
+	module:CreateBackdropShadow(QuestChoiceFrame)
 
 	for i = 1, 15 do
 		select(i, QuestChoiceFrame:GetRegions()):Hide()
@@ -53,4 +56,4 @@ function module:Blizzard_QuestChoice()
 	end
 end
 
-module:AddCallbackForAddon("Blizzard_QuestChoice")
+S:AddCallbackForAddon("Blizzard_QuestChoice", LoadSkin)

@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
-local S = E.Skins
+local ES = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 local _G = _G
 
@@ -43,25 +44,27 @@ local function UndressButton()
 	end)
 end
 
-function module:DressUpFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true or E.private.mui.skins.blizzard.dressingroom ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("dressingroom", "dressingroom") then
+		return
+	end
 
 	_G.DressUpFrame:Styling()
-	MER:CreateShadow(_G.DressUpFrame)
+	ES:CreateShadow(_G.DressUpFrame)
 
 	_G.DressUpFrame.OutfitDetailsPanel:Styling()
-	MER:CreateShadow(_G.DressUpFrame.OutfitDetailsPanel)
+	ES:CreateShadow(_G.DressUpFrame.OutfitDetailsPanel)
 
 	-- Wardrobe edit frame
 	_G.WardrobeOutfitFrame:Styling()
-	MER:CreateBackdropShadow(_G.WardrobeOutfitFrame)
+	ES:CreateBackdropShadow(_G.WardrobeOutfitFrame)
 
 	-- AuctionHouse
 	_G.SideDressUpFrame:Styling()
-	MER:CreateBackdropShadow(_G.SideDressUpFrame)
+	ES:CreateBackdropShadow(_G.SideDressUpFrame)
 
 	-- Undress Button
 	UndressButton()
 end
 
-module:AddCallback("DressUpFrame")
+S:AddCallback("DressUpFrame", LoadSkin)

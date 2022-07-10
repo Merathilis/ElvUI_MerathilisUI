@@ -2,6 +2,7 @@
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhCN")
 
 -- Core
+L["Enable"] = "启用"
 L[" is loaded. For any issues or suggestions, please visit "] = " 已加载。如有任何问题或建议，请访问 "
 
 -- General Options
@@ -30,8 +31,9 @@ L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r 是ElvUI的扩展. 它�
 -- Core Options
 L["Login Message"] = "登陆信息"
 L["Enable/Disable the Login Message in Chat"] = "在聊天框中启用/禁用登录消息"
-L["Debug Mode"] = "除错模式"
-L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = "如果你同时安装了其他 ElvUI 增强插件, 不推荐启用调试模式."
+L["Log Level"] = "日志等级"
+L["Only display log message that the level is higher than you choose."] = "只显示高于选择等级的日志信息."
+L["Set to 2 if you do not understand the meaning of log level."] = "如果你不理解什么是日志级别, 设置为 2 就行."
 
 -- Bags
 L["Equipment Manager"] = "装备管理"
@@ -140,7 +142,7 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe,
 
 -- Extended Vendor
 L["Extended Vendor"] = true
-L["Enhanced NameplateAuras"] = true
+L["Enhanced NameplateAuras"] = "增强姓名板光环"
 
 -- FlightMode
 L["FlightMode"] = "飞行模式"
@@ -289,6 +291,18 @@ L["Show icon"] = "显示图标"
 L["Show the spell icon along with the name."] = "在腐化特效名称前显示其图标。"
 L["Domination Rank"] = "統御等級"
 L["Show the rank of shards."] = "显示统御碎片的等级."
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = "盟约"
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
+L["Kyrian"] = "格里恩"
+L["Venthyr"] = "温西尔"
+L["NightFae"] = "法夜"
+L["Necrolord"] = "通灵领主"
 
 -- Notification
 L["Notification"] = "通知"
@@ -326,6 +340,10 @@ L["MER_DuelCancel_PET"] = "已拒绝来自 %s 的宠物对战请求."
 L["Show your PvP killing blows as a popup."] = "将PvP击杀弹出显示"
 L["Sound"] = "声音"
 L["Play sound when killing blows popup is shown."] = "当PvP击杀时播放音效"
+L["PvP Auto Release"] = true
+L["Automatically release body when killed inside a battleground."] = true
+L["Check for rebirth mechanics"] = true
+L["Do not release if reincarnation or soulstone is up."] = true
 
 -- Actionbars
 L["Specialization Bar"] = "专业条"
@@ -339,8 +357,8 @@ L["Blacklist Item"] = "黑名单物品"
 L["Whitelist Item"] = "白名单物品"
 L["Add Item ID"] = "添加物品ID"
 L["Delete Item ID"] = "删除物品ID"
-L["Custom Glow"] = "自定义高亮"
-L["Replaces the default Actionbar glow for procs with an own pixel glow."] = "将动作条按钮的触发高亮替换为像素风格"
+L["Spell Feedback"] = true
+L["Creates a texture to show the recently pressed buttons."] = true
 
 -- AutoButtons
 L["AutoButtons"] = "自动按键"
@@ -406,6 +424,10 @@ L["Empty Socket"] = true
 L["Not Enchanted"] = true
 L["Warnings"] = true
 L["Shows an indicator for missing sockets and enchants."] = true
+L["Expanded Size"] = true
+L["This will increase the Character Frame size a bit."] = true
+L["Armor Set"] = true
+L["Armor Set Gradient Texture Color"] = true
 
 -- Media
 L["Zone Text"] = "区域文字"
@@ -534,6 +556,7 @@ L["Update canceled."] = "更新取消"
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = "物品信息不可用.请等待一小会.当所有信息变得可用时，菜单将自动打开时.在更新期间再次调用菜单将取消它."
 L["Update complete. Opening menu."] = "更新完成，正在打开菜单."
 L["Hide Coordinates"] = "隐藏坐标"
+L["Dungeon Teleports"] = true
 
 -- Maps
 L["MiniMap"] = "小地图"
@@ -556,23 +579,122 @@ L["No Distance Limitation"] = "无距离限制"
 L["Force to track the target even if it over 1000 yds."] = "强制追踪超过 1000 码的目标."
 L["Distance Text"] = "距离文字"
 L["Only Number"] = "仅数字"
+L["Add Command"] = "添加命令"
+L["Add a input box to the world map."] = "在世界地图中添加一个输入框."
+L["Are you sure to delete the %s command?"] = "你确定要删除 %s 命令?"
+L["Can not set waypoint on this map."] = "无法在这个地图上设置路径点."
+L["Command"] = "命令"
+L["Command Configuration"] = "命令设置"
+L["Command List"] = "命令列表"
+L["Delete Command"] = "删除命令"
+L["Delete the selected command."] = "删除选中的命令."
+L["Enable to use the command to set the waypoint."] = "启用使用命令设置路径点的功能."
+L["Go to ..."] = "前往 ..."
+L["Input Box"] = "输入框"
+L["New Command"] = "新命令"
+L["No Arg"] = "无参数"
+L["Smart Waypoint"] = "智能路径点"
+L["The argument is invalid."] = "参数无效."
+L["The argument is needed."] = "需要参数."
+L["The command to set a waypoint."] = "设置路径点的命令."
+L["The coordinates contain illegal number."] = "坐标包含非法数字."
+L["Waypoint %s has been set."] = "已设置 %s 路径点."
+L["Waypoint Parse"] = "路径点解析"
+L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = "你可以在这里粘贴任何包含坐标的文字, 然后按 回车键 设置路径点."
+L["illegal"] = "非法"
+L["invalid"] = "无效"
+L["Because of %s, this module will not be loaded."] = true
+L["This module will help you to reveal and resize maps."] = true
+L["Reveal"] = true
+L["Use Colored Fog"] = true
+L["Remove Fog of War from your world map."] = true
+L["Style Fog of War with special color."] = true
 
 -- SMB
-L["Button Settings"] = "按键设置"
+L["Minimap Buttons"] = "小地图按钮"
+L["Add an extra bar to collect minimap buttons."] = "添加一个额外的条来收集小地图图标."
+L["Toggle minimap buttons bar."] = "开关小地图按钮条."
+L["Mouse Over"] = "鼠标滑过显示"
+L["Only show minimap buttons bar when you mouse over it."] = "只在鼠标滑过时显示小地图按钮条."
+L["Minimap Buttons Bar"] = "小地图按钮条"
+L["Bar Backdrop"] = "条背景"
+L["Show a backdrop of the bar."] = "为条添加一个背景."
+L["Backdrop Spacing"] = "背景间距"
+L["The spacing between the backdrop and the buttons."] = "背景与按钮之间的间隙."
+L["Inverse Direction"] = "反向"
+L["Reverse the direction of adding buttons."] = "反转添加按钮时的方向."
+L["Orientation"] = "按钮对齐方向"
+L["Arrangement direction of the bar."] = "条的成长方向."
+L["Drag"] = "拖拽"
+L["Horizontal"] = "水平"
+L["Vertical"] = "垂直"
+L["Buttons"] = "按钮数"
+L["Buttons Per Row"] = "每行按钮数"
+L["The amount of buttons to display per row."] = "每行显示多少个按钮数"
+L["Button Size"] = "按钮大小"
+L["The size of the buttons."] = "按钮的大小."
+L["Button Spacing"] = "按钮间距"
+L["The spacing between buttons."] = "两个按钮间的距离."
+L["Blizzard Buttons"] = "暴雪按钮"
+L["Calendar"] = "日历"
+L["Add calendar button to the bar."] = "添加日历按钮到条上."
+L["Garrison"] = "要塞"
+L["Add garrison button to the bar."] = "添加要塞按钮到条上."
 
 -- Raid Marks
 L["Raid Markers"] = "团队标记"
-L["Click to clear the mark."] = "点击清理标记."
-L["Click to mark the target."] = "点击标记目标."
-L["%sClick to remove all worldmarkers."] = "%s点击移除所有的世界标记."
-L["%sClick to place a worldmarker."] = "%s点击放置一个世界标记."
-L["Raid Marker Bar"] = "团队标记条"
-L["Options for panels providing fast access to raid markers and flares."] = "面板选项可快速访问团队标记和耀斑."
-L["Show/Hide raid marks."] = "显示/隐藏Raid标记."
-L["Reverse"] = "反转"
-L["Modifier Key"] = "快捷键"
-L["Set the modifier key for placing world markers."] = "设置用于放置世界标记的快捷键."
-L["Visibility State"] = "可见状态"
+L["Raid Markers Bar"] = "团队标记条"
+L["Raid Utility"] = "团队工具"
+L["Left Click to mark the target with this mark."] = "左键点击以标记目标"
+L["Right Click to clear the mark on the target."] = "右键点选以清除目标的标记."
+L["%s + Left Click to place this worldmarker."] = "%s + 左键点击 放置这个光柱."
+L["%s + Right Click to clear this worldmarker."] = "%s + 右键点击 清除这个光柱."
+L["%s + Left Click to mark the target with this mark."] = "%s + 点击 以标记目标"
+L["%s + Right Click to clear the mark on the target."] = "%s + 右键点选 以清除目标的标记"
+L["Click to clear all marks."] = "点选清除所有标记"
+L["takes 3s"] = "需 3 秒"
+L["%s + Click to remove all worldmarkers."] = "%s + 点击 清除所有光柱."
+L["Click to remove all worldmarkers."] = "点击清除所有光柱."
+L["%s + Click to clear all marks."] = "%s + 点击 清除所有标记"
+L["Left Click to ready check."] = "左键点击: 团队确认"
+L["Right click to toggle advanced combat logging."] = "右键点击: 开关高级战斗记录."
+L["Left Click to start count down."] = "左键点击: 开始倒数."
+L["Add an extra bar to let you set raid markers efficiently."] = "添加一个额外的条让你更加效率得设定团队标记."
+L["Toggle raid markers bar."] = "开关团队标记条."
+L["Inverse Mode"] = "反向模式"
+L["Swap the functionality of normal click and click with modifier keys."] = "对调正常点击和按下修饰键时点击的功能."
+L["Visibility"] = "可见性"
+L["In Party"] = "在小队中"
+L["Always Display"] = "总是显示"
+L["Mouse Over"] = "鼠标滑过显示"
+L["Only show raid markers bar when you mouse over it."] = "只在鼠标滑过时显示团队标记条."
+L["Tooltip"] = "鼠标提示"
+L["Show the tooltip when you mouse over the button."] = "在鼠标悬浮时添加提示."
+L["Modifier Key"] = "组合键"
+L["Set the modifier key for placing world markers."] = "设定标示团队光柱的组合键"
+L["Shift Key"] = "Shift 键"
+L["Ctrl Key"] = "Ctrl 键"
+L["Alt Key"] = "Alt 键"
+L["Bar Backdrop"] = "条背景"
+L["Show a backdrop of the bar."] = "为条添加一个背景."
+L["Backdrop Spacing"] = "背景间距"
+L["The spacing between the backdrop and the buttons."] = "背景与按钮之间的间隙."
+L["Orientation"] = "按钮对齐方向"
+L["Arrangement direction of the bar."] = "条的成长方向."
+L["Raid Buttons"] = "Raid 按钮"
+L["Ready Check"] = "准备确认"
+L["Advanced Combat Logging"] = "高级战斗记录"
+L["Left Click to ready check."] = "左键点击: 团队确认"
+L["Right click to toggle advanced combat logging."] = "右键点击: 开关高级战斗记录."
+L["Count Down"] = "倒数"
+L["Count Down Time"] = "倒数时间"
+L["Count down time in seconds."] = "倒数时间秒数."
+L["Button Size"] = "按钮大小"
+L["The size of the buttons."] = "按钮的大小."
+L["Button Spacing"] = "按钮间距"
+L["The spacing between buttons."] = "两个按钮间的距离."
+L["Button Backdrop"] = "按钮背景"
+L["Button Animation"] = "按钮动画"
 
 -- Raid Buffs
 L["Raid Buff Reminder"] = "团队BUFF提醒"
@@ -722,7 +844,6 @@ L["Installed"] = "安装"
 L["MSG_MER_ELV_OUTDATED"] = "您的ElvUI版本比推荐使用|cffff7d0aMerathilisUI|r的版本旧. 你的版本是 |cff00c0fa%.2f|r (推荐版本 |cff00c0fa%.2f|r). MerathilisUI未加载. 请更新你的ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = "你已经同时启用了Location Plus和Shadow＆Light.选择要禁用的插件"
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[在这里,您可以选择S＆L的布局.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[在这里,您可以选择BenikUI的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[在这里,您可以选择BigWigs的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[在这里,您可以选择Deadly Boss Mods的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[在这里,您可以选择Details!的布局.]]
@@ -748,12 +869,12 @@ L["decor."] = "装饰"
 L["Enables/Disables a shadow overlay to darken the screen."] = true
 L["MerathilisUI Button Style"] = true
 L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"] = true
-L["Additional Backdrop"] = true
-L["Remove Border Effect"] = true
-L["Animation Type"] = true
-L["The type of animation activated when a button is hovered."] = true
-L["Animation Duration"] = true
-L["The duration of the animation in seconds."] = true
+L["Additional Backdrop"] = "额外背景"
+L["Remove Border Effect"] = "移除边框效果"
+L["Animation Type"] = "动画类型"
+L["The type of animation activated when a button is hovered."] = "当按钮被滑过时的动画类型."
+L["Animation Duration"] = "动画时间"
+L["The duration of the animation in seconds."] = "动画持续时间 (秒)."
 L["Backdrop Class Color"] = "背景职业颜色"
 L["Border Class Color"] = "边框职业颜色"
 L["Border Color"] = "边框颜色"
@@ -762,7 +883,7 @@ L["Selected Backdrop & Border"] = "选中时背景和边框"
 L["Selected Class Color"] = "选中职业颜色"
 L["Selected Color"] = "选中颜色"
 L["Tab"] = "选项卡"
-L["Tree Group Button"] = true
+L["Tree Group Button"] = "树状分组按钮"
 
 -- Panels
 L["Top Left Panel"] = "左上面板"
@@ -812,6 +933,44 @@ L["Change the color of quest titles."] = "修改任务标题文字颜色."
 L["Use Class Color"] = "使用职业颜色"
 L["Highlight Color"] = "高亮颜色"
 L["Title"] = "标题"
+L["Bottom Right Offset X"] = "右下角 X 偏移"
+L["Bottom Right Offset Y"] = "右下角 Y 偏移"
+L["Top Left Offset X"] = "左上角 X 轴偏移"
+L["Top Left Offset Y"] = "左上角 Y 轴偏移"
+L["Transparent"] = "透明"
+
+-- Filter
+L["Filter"] = "过滤器"
+L["Unblock the profanity filter."] = "解锁语言过滤器."
+L["Profanity Filter"] = "语言过滤器"
+L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = "开启这个选项将解锁语言过滤器的设定.[国服]"
+
+-- Friends List
+L["Friends List"] = "好友列表"
+L["Add additional information to the friend frame."] = "为好友框体添加额外的信息."
+L["Modify the texture of status and make name colorful."] = "设定状态的材质, 彩色化名字."
+L["Enhanced Texture"] = "材质增强"
+L["Game Icons"] = "游戏图标"
+L["Default"] = "默认"
+L["Modern"] = "现代"
+L["Status Icon Pack"] = "状态图标包"
+L["Diablo 3"] = "暗黑破坏神 III"
+L["Square"] = "方块"
+L["Faction Icon"] = "阵营图标"
+L["Use faction icon instead of WoW icon."] = "使用阵营图标来代替魔兽世界游戏图标."
+L["Name"] = "姓名"
+L["Level"] = "等级"
+L["Hide Max Level"] = "隐藏满级"
+L["Use Note As Name"] = "使用备注作为名字"
+L["Replace the Real ID or the character name of friends with your notes."] = "使用你的备注替换好友的战网名或角色名."
+L["Use Game Color"] = "使用游戏颜色"
+L["Change the color of the name to the in-playing game style."] = "根据正在游玩的游戏的风格来改变姓名颜色."
+L["Use Class Color"] = "使用职业颜色"
+L["Font Setting"] = "字体设定"
+
+-- Talents
+L["Talents"] = "天赋"
+L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.

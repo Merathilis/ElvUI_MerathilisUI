@@ -24,6 +24,7 @@ local DONATORS = {
 	'zarbol',
 	'Olli2k',
 	'Dlarge',
+	'N3',
 }
 tsort(DONATORS, SortList)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -41,8 +42,59 @@ options.name = {
 	type = "group",
 	name = L["Information"],
 	args = {
-		support = {
+		header = {
+			order = 0,
+			type = "header",
+			name = F.cOption(L["Information"], 'orange'),
+		},
+		LoginMsg = {
+			order = 1,
+			type = "toggle",
+			name = L["Login Message"],
+			desc = L["Enable/Disable the Login Message in Chat"],
+			get = function(info)
+				return E.global.mui.core.LoginMsg
+			end,
+			set = function(info, value)
+				E.global.mui.core.LoginMsg = value
+			end
+		},
+		compatibilityCheck = {
 			order = 2,
+			type = "toggle",
+			name = L["Compatibility Check"],
+			desc = L["Help you to enable/disable the modules for a better experience with other plugins."],
+			get = function(info)
+				return E.global.mui.core.compatibilityCheck
+			end,
+			set = function(info, value)
+				E.global.mui.core.compatibilityCheck = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end
+		},
+		logLevel = {
+			order = 3,
+			type = "select",
+			name = L["Log Level"],
+			desc = L["Only display log message that the level is higher than you choose."] ..
+				"\n|cffff3860" .. L["Set to 2 if you do not understand the meaning of log level."] .. "|r",
+			get = function(info)
+				return E.global.mui.core.logLevel
+			end,
+			set = function(info, value)
+				E.global.mui.core.logLevel = value
+			end,
+			hidden = function()
+			end,
+			values = {
+				[1] = "1 - |cffff3860[ERROR]|r",
+				[2] = "2 - |cffffdd57[WARNING]|r",
+				[3] = "3 - |cff209cee[INFO]|r",
+				[4] = "4 - |cff00d1b2[DEBUG]|r"
+			},
+		},
+		support = {
+			order = 4,
 			type = "group",
 			name = F.cOption(L["Support & Downloads"], 'orange'),
 			guiInline = true,
@@ -100,7 +152,7 @@ options.name = {
 			},
 		},
 		testing = {
-			order = 4,
+			order = 5,
 			type = "group",
 			name = F.cOption(L["Testing & Inspiration"], 'orange'),
 			guiInline = true,
@@ -113,7 +165,7 @@ options.name = {
 			},
 		},
 		donors = {
-			order = 5,
+			order = 7,
 			type = 'group',
 			name = F.cOption(L["Donations"], 'orange'),
 			guiInline = true,
@@ -133,7 +185,7 @@ options.name = {
 			},
 		},
 		version = {
-			order = 5,
+			order = 8,
 			type = "group",
 			name = F.cOption(L["Version"], 'orange'),
 			guiInline = true,
@@ -150,44 +202,6 @@ options.name = {
 				}
 			},
 		},
-		LoginMsg = {
-			order = 990,
-			type = "toggle",
-			name = L["Login Message"],
-			desc = L["Enable/Disable the Login Message in Chat"],
-			get = function(info)
-				return E.private.mui.core.LoginMsg
-			end,
-			set = function(info, value)
-				E.private.mui.core.LoginMsg = value
-			end
-		},
-		compatibilityCheck = {
-			order = 991,
-			type = "toggle",
-			name = L["Compatibility Check"],
-			desc = L["Help you to enable/disable the modules for a better experience with other plugins."],
-			get = function(info)
-				return E.private.mui.core.compatibilityCheck
-			end,
-			set = function(info, value)
-				E.private.mui.core.compatibilityCheck = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end
-		},
-		debugMode = {
-			order = 992,
-			type = "toggle",
-			name = L["Debug Mode"],
-			desc = L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."],
-			get = function(info)
-				return E.private.mui.core.debugMode
-			end,
-			set = function(info, value)
-				E.private.mui.core.debugMode = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end
-		}
 	},
 }
 
@@ -205,7 +219,7 @@ local DEVELOPER = {
 local nameString = strjoin(", ", unpack(DEVELOPER))
 
 options.name.args.coding = {
-	order = 3,
+	order = 6,
 	type = "group",
 	name = F.cOption(L["Coding"], 'orange'),
 	guiInline = true,
@@ -285,6 +299,26 @@ options.reset = {
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Micro Bar"], nil, function()
 					E:CopyTable(E.db.mui.cooldownFlash, P.cooldownFlash)
+				end)
+			end
+		},
+		raidmarkers = {
+			order = 7,
+			type = "execute",
+			name = L["Raid Markers"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Raid Markers"], nil, function()
+					E:CopyTable(E.db.mui.raidmarkers, P.raidmarkers)
+				end)
+			end
+		},
+		smb = {
+			order = 8,
+			type = "execute",
+			name = L["Minimap Buttons"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Minimap Buttons"], nil, function()
+					E:CopyTable(E.db.mui.smb, P.smb)
 				end)
 			end
 		},

@@ -1,11 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
 
-function module:GameTooltip()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("tooltip", "tooltip") then
+		return
+	end
 
 	-- tooltips
 	local tooltips = {
@@ -40,12 +43,12 @@ function module:GameTooltip()
 	}
 
 	for _, frame in pairs(tooltips) do
-		if frame and not frame.IsSkinned then
+		if frame and not frame.__MERSkin then
 			frame:Styling()
-			frame.IsSkinned = true
-			MER:CreateShadow(frame)
+			module:CreateShadow(frame)
+			frame.__MERSkin = true
 		end
 	end
 end
 
-module:AddCallback("GameTooltip")
+S:AddCallback("GameTooltip", LoadSkin)

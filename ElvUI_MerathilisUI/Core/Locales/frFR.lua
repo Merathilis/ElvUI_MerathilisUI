@@ -2,6 +2,7 @@
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "frFR")
 
 -- Core
+L["Enable"] = "Activer"
 L[" is loaded. For any issues or suggestions, please visit "] = true
 
 -- General Options
@@ -28,10 +29,11 @@ But if you install another Layout over mine, you must adjust it manually.
 |cffff8000Newest additions are marked with: |r]=]
 
 -- Core Options
-L["Login Message"] = true
+L["Login Message"] = "Message de connexion"
 L["Enable/Disable the Login Message in Chat"] = true
-L["Debug Mode"] = true
-L["If you installed other ElvUI Plugins, enabling debug mode is not a suggestion."] = true
+L["Log Level"] = true
+L["Only display log message that the level is higher than you choose."] = true
+L["Set to 2 if you do not understand the meaning of log level."] = true
 
 -- Bags
 L["Equipment Manager"] = true
@@ -92,15 +94,15 @@ L["Item Level Links"] = true
 L["Filter"] = "Filtre"
 L["Block"] = "Bloc"
 L["Custom Online Message"] = true
-L["Chat Link"] = true
+L["Chat Link"] = "Lien de discussion"
 L["Add extra information on the link, so that you can get basic information but do not need to click"] = true
-L["Additional Information"] = true
-L["Level"] = true
+L["Additional Information"] = "Information complémentaire"
+L["Level"] = "Niveau"
 L["Translate Item"] = true
 L["Translate the name in item links into your language."] = true
-L["Icon"] = true
-L["Armor Category"] = true
-L["Weapon Category"] = true
+L["Icon"] = "Icône"
+L["Armor Category"] = "Catégorie d'armure"
+L["Weapon Category"] = "Catégorie d'arme"
 L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 
 -- Combat Alert
@@ -118,7 +120,7 @@ L["Color"] = "Couleur"
 L["Information"] = "Information"
 L["Support & Downloads"] = true
 L["Tukui"] = true
-L["Github"] = true
+L["Github"] = "Github"
 L["CurseForge"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
@@ -127,9 +129,9 @@ L["Here you can download the latest development version."] = true
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = true
-L["Are you sure you want to reset %s module?"] = true
-L["Reset All Modules"] = true
-L["Reset all %s modules."] = true
+L["Are you sure you want to reset %s module?"] = "Êtes-vous sûr de vouloir réinitialiser le module %s ?"
+L["Reset All Modules"] = "Réinitialiser tous les modules"
+L["Reset all %s modules."] = "Réinitialiser tous les modules %s."
 
 -- GameMenu
 L["GameMenu"] = true
@@ -286,6 +288,18 @@ L["Show icon"] = "Afficher l'icône"
 L["Show the spell icon along with the name."] = "Montrer l'icône du sort avec le nom."
 L["Domination Rank"] = true
 L["Show the rank of shards."] = true
+L["Covenant: <Not in Group>"] = true
+L["Covenant: <Checking...>"] = true
+L["Covenant: <None - Too low>"] = true
+L["Covenant"] = true
+L["Covenant: "] = true
+L["Shows the Players Covenant on the Tooltip."] = true
+L["Show not in group"] = true
+L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
+L["Kyrian"] = true
+L["Venthyr"] = true
+L["NightFae"] = true
+L["Necrolord"] = true
 
 -- Notification
 L["Notification"] = "Notification"
@@ -322,6 +336,10 @@ L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
 L["Show your PvP killing blows as a popup."] = true
 L["Sound"] = "Son"
 L["Play sound when killing blows popup is shown."] = true
+L["PvP Auto Release"] = true
+L["Automatically release body when killed inside a battleground."] = true
+L["Check for rebirth mechanics"] = true
+L["Do not release if reincarnation or soulstone is up."] = true
 
 -- Actionbars
 L["Specialization Bar"] = true
@@ -335,8 +353,8 @@ L["Blacklist Item"] = true
 L["Whitelist Item"] = true
 L["Add Item ID"] = true
 L["Delete Item ID"] = true
-L["Custom Glow"] = true
-L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
+L["Spell Feedback"] = true
+L["Creates a texture to show the recently pressed buttons."] = true
 
 -- AutoButtons
 L["AutoButtons"] = "BoutonsAuto"
@@ -403,6 +421,10 @@ L["Empty Socket"] = true
 L["Not Enchanted"] = true
 L["Warnings"] = true
 L["Shows an indicator for missing sockets and enchants."] = true
+L["Expanded Size"] = true
+L["This will increase the Character Frame size a bit."] = true
+L["Armor Set"] = true
+L["Armor Set Gradient Texture Color"] = true
 
 -- Media
 L["MER_MEDIA_ZONES"] = {
@@ -518,6 +540,7 @@ L["Update canceled."] = true
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = true
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
+L["Dungeon Teleports"] = true
 
 -- Maps
 L["MiniMap Buttons"] = true
@@ -539,23 +562,122 @@ L["No Distance Limitation"] = "Aucune limitation de distance"
 L["Force to track the target even if it over 1000 yds."] = "Toujours suivre la cible même si elle est au delà de 1000 mètres."
 L["Distance Text"] = true
 L["Only Number"] = "Seulement le nombre"
+L["Add Command"] = true
+L["Add a input box to the world map."] = true
+L["Are you sure to delete the %s command?"] = true
+L["Can not set waypoint on this map."] = true
+L["Command"] = true
+L["Command Configuration"] = true
+L["Command List"] = true
+L["Delete Command"] = true
+L["Delete the selected command."] = true
+L["Enable to use the command to set the waypoint."] = true
+L["Go to ..."] = true
+L["Input Box"] = true
+L["New Command"] = true
+L["No Arg"] = true
+L["Smart Waypoint"] = true
+L["The argument is invalid."] = true
+L["The argument is needed."] = true
+L["The command to set a waypoint."] = true
+L["The coordinates contain illegal number."] = true
+L["Waypoint %s has been set."] = true
+L["Waypoint Parse"] = true
+L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = true
+L["illegal"] = true
+L["invalid"] = true
+L["Because of %s, this module will not be loaded."] = true
+L["This module will help you to reveal and resize maps."] = true
+L["Reveal"] = true
+L["Use Colored Fog"] = true
+L["Remove Fog of War from your world map."] = true
+L["Style Fog of War with special color."] = true
 
 -- SMB
-L["Button Settings"] = true
+L["Minimap Buttons"] = "Bouton de la minicarte"
+L["Add an extra bar to collect minimap buttons."] = "Ajoute une barre supplémentaire pour regrouper les boutons de la mini-carte."
+L["Toggle minimap buttons bar."] = "Afficher la barre de boutons de la minicarte."
+L["Mouse Over"] = "Au survol"
+L["Only show minimap buttons bar when you mouse over it."] = "Afficher uniquement la barre de boutons de la mini-carte au su²rvol de la souris."
+L["Minimap Buttons Bar"] = "Barre de boutons de la minicarte"
+L["Bar Backdrop"] = "Fond de la barre"
+L["Show a backdrop of the bar."] = "Montrer le fond de la barre."
+L["Backdrop Spacing"] = "Espacement du fond"
+L["The spacing between the backdrop and the buttons."] = "Espace entre le fond et les boutons."
+L["Inverse Direction"] = "Direction inversée"
+L["Reverse the direction of adding buttons."] = "Inverser le sens d'ajout des boutons."
+L["Orientation"] = true
+L["Arrangement direction of the bar."] = "Sens d'orientation de la barre."
+L["Drag"] = "Glisser"
+L["Horizontal"] = "Horizontale"
+L["Vertical"] = "Verticale"
+L["Buttons"] = "Boutons"
+L["Buttons Per Row"] = "Boutons par ligne"
+L["The amount of buttons to display per row."] = "Nombre de boutons à afficher par ligne."
+L["Button Size"] = "Taille des boutons"
+L["The size of the buttons."] = "La taille des boutons."
+L["Button Spacing"] = "Espacement des boutons"
+L["The spacing between buttons."] = "Espacement entre deux boutons."
+L["Blizzard Buttons"] = "Boutons Blizzard"
+L["Calendar"] = "Calendrier"
+L["Add calendar button to the bar."] = "Ajoute un bouton Calendrier à la barre."
+L["Garrison"] = "Fief"
+L["Add garrison button to the bar."] = true
 
 -- Raid Marks
 L["Raid Markers"] = "Marqueurs pour les raids"
-L["Click to clear the mark."] = true
-L["Click to mark the target."] = true
-L["%sClick to remove all worldmarkers."] = true
-L["%sClick to place a worldmarker."] = true
-L["Raid Marker Bar"] = true
-L["Options for panels providing fast access to raid markers and flares."] = true
-L["Show/Hide raid marks."] = true
-L["Reverse"] = true
+L["Raid Markers Bar"] = "Barre de marqueurs pour les raids"
+L["Raid Utility"] = "Utilitaire de raid"
+L["Left Click to mark the target with this mark."] = "Clic gauche pour marquer la cible avec cette marque."
+L["Right Click to clear the mark on the target."] = "Clic droit pour enlever la marque sur la cible."
+L["%s + Left Click to place this worldmarker."] = "%s + clic gauche pour placer ce marqueur de terrain."
+L["%s + Right Click to clear this worldmarker."] = "%s + clic droit pour effacer ce marqueur de terrain."
+L["%s + Left Click to mark the target with this mark."] = "%s + clic gauche pour marquer la cible avec cette marque."
+L["%s + Right Click to clear the mark on the target."] = "%s + clic droit pour effacer la marque de la cible."
+L["Click to clear all marks."] = "Cliquer pour effacer toutes les marques."
+L["takes 3s"] = true
+L["%s + Click to remove all worldmarkers."] = "%s + Cliquer pour supprimer tous les marqueurs de terrain."
+L["Click to remove all worldmarkers."] = "Cliquer pour supprimer tous les marqueurs de terrain."
+L["%s + Click to clear all marks."] = "%s + Cliquer pour effacer toutes les marques."
+L["Left Click to ready check."] = "Clic gauche pour vérifier si les joueurs sont prêts."
+L["Right click to toggle advanced combat logging."] = "Clic droit pour afficher le journal de combat avancé."
+L["Left Click to start count down."] = "Clic gauche pour démarrer le compte à rebours."
+L["Add an extra bar to let you set raid markers efficiently."] = "Ajoute une barre supplémentaire pour vous permettre de définir les marqueurs pour les raids."
+L["Toggle raid markers bar."] = "Affiche la barre des marqueurs pour les raids"
+L["Inverse Mode"] = "Mode inversé"
+L["Swap the functionality of normal click and click with modifier keys."] = true
+L["Visibility"] = "Visibilité"
+L["In Party"] = "En groupe"
+L["Always Display"] = "Toujours afficher"
+L["Mouse Over"] = "Au survol"
+L["Only show raid markers bar when you mouse over it."] = "Afficher uniquement la barre des marqueurs pour les raids au survol de la souris."
+L["Tooltip"] = "Infobulle"
+L["Show the tooltip when you mouse over the button."] = "Afficher l'infobulle lorsque vous passez la souris sur le bouton."
 L["Modifier Key"] = "Touche de modification"
 L["Set the modifier key for placing world markers."] = "Définir la touche pour placer des marqueurs de terrain."
-L["Visibility State"] = "État de visibilité"
+L["Shift Key"] = "Touche Maj"
+L["Ctrl Key"] = "Touche Ctrl"
+L["Alt Key"] = "Touche Alt"
+L["Bar Backdrop"] = "Fond de la barre"
+L["Show a backdrop of the bar."] = "Montrer le fond de la barre."
+L["Backdrop Spacing"] = "Espacement du fond"
+L["The spacing between the backdrop and the buttons."] = "Espace entre le fond et les boutons."
+L["Orientation"] = true
+L["Arrangement direction of the bar."] = "Sens d'orientation de la barre."
+L["Raid Buttons"] = "Boutons de raid"
+L["Ready Check"] = "Vérifier si les joueurs sont prêts"
+L["Advanced Combat Logging"] = "Journal de combat avancé"
+L["Left Click to ready check."] = "Clic gauche pour vérifier si les joueurs sont prêts."
+L["Right click to toggle advanced combat logging."] = "Clic droit pour afficher le journal de combat avancé."
+L["Count Down"] = "Compte à rebours"
+L["Count Down Time"] = "Durée du compte à rebours"
+L["Count down time in seconds."] = "Durée du compte à rebours en secondes"
+L["Button Size"] = "Taille des boutons"
+L["The size of the buttons."] = "La taille des boutons."
+L["Button Spacing"] = "Espacement des boutons"
+L["The spacing between buttons."] = "Espacement entre deux boutons."
+L["Button Backdrop"] = true
+L["Button Animation"] = true
 
 -- Raid Buffs
 L["Raid Buff Reminder"] = true
@@ -703,7 +825,6 @@ L["Installed"] = true
 L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for BenikUI.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[Here you can choose the layout for Deadly Boss Mods.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
@@ -732,11 +853,11 @@ L["Additional Backdrop"] = true
 L["Remove Border Effect"] = true
 L["Animation Type"] = true
 L["The type of animation activated when a button is hovered."] = true
-L["Animation Duration"] = true
+L["Animation Duration"] = "Durée de l'animation"
 L["The duration of the animation in seconds."] = true
 L["Backdrop Class Color"] = true
 L["Border Class Color"] = true
-L["Border Color"] = true
+L["Border Color"] = "Couleur de la bordure"
 L["Normal Class Color"] = true
 L["Selected Backdrop & Border"] = true
 L["Selected Class Color"] = true
@@ -755,17 +876,17 @@ L["Bottom Right Panel"] = true
 L["Bottom Right Extra Panel"] = true
 
 -- Objective Tracker
-L["1. Customize the font of Objective Tracker."] = true
-L["2. Add colorful progress text to the quest."] = true
-L["Progress"] = true
-L["No Dash"] = true
-L["Colorful Progress"] = true
-L["Percentage"] = true
-L["Add percentage text after quest text."] = true
-L["Colorful Percentage"] = true
-L["Make the additional percentage text be colored."] = true
+L["1. Customize the font of Objective Tracker."] = "1. Personnalise la police du suivi de quêtes."
+L["2. Add colorful progress text to the quest."] = "2. Met le texte de progression des quêtes en couleur."
+L["Progress"] = "Progression"
+L["No Dash"] = "Pas de tiret"
+L["Colorful Progress"] = "Progrès coloré"
+L["Percentage"] = "Pourcentage"
+L["Add percentage text after quest text."] = "Ajoute le pourcentage après le texte de la quête."
+L["Colorful Percentage"] = "Pourcentage coloré"
+L["Make the additional percentage text be colored."] = "Met le texte de pourcentage supplémentaire en couleur."
 L["Cosmetic Bar"] = true
-L["Border"] = true
+L["Border"] = "Bordure"
 L["Border Alpha"] = true
 L["Width Mode"] = true
 L["'Absolute' mode means the width of the bar is fixed."] = true
@@ -776,22 +897,60 @@ L["Absolute"] = true
 L["Dyanamic"] = true
 L["Color Mode"] = true
 L["Gradient"] = true
-L["Class Color"] = true
-L["Normal Color"] = true
+L["Class Color"] = "Couleur de la classe"
+L["Normal Color"] = "Couleur normale"
 L["Gradient Color 1"] = true
 L["Gradient Color 2"] = true
 L["Presets"] = true
 L["Preset %d"] = true
 L["Here are some example presets, just try them!"] = true
-L["Default"] = true
-L["Header"] = true
-L["Short Header"] = true
-L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = true
-L["Title Color"] = true
-L["Change the color of quest titles."] = true
-L["Use Class Color"] = true
-L["Highlight Color"] = true
-L["Title"] = true
+L["Default"] = "Défaut"
+L["Header"] = "Entête"
+L["Short Header"] = "Courte entête"
+L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = "Utiliser plutôt un nom court. Par exemple : Tourment, La tour des Damnés."
+L["Title Color"] = "Couleur du titre"
+L["Change the color of quest titles."] = "Change la coleur des titres des quêtes."
+L["Use Class Color"] = "Utiliser la couleur de la classe"
+L["Highlight Color"] = "Couleur de surbrillance"
+L["Title"] = "Titre"
+L["Bottom Right Offset X"] = true
+L["Bottom Right Offset Y"] = true
+L["Top Left Offset X"] = true
+L["Top Left Offset Y"] = true
+L["Transparent"] = "Transparent"
+
+-- Filter
+L["Filter"] = "Filtre"
+L["Unblock the profanity filter."] = "Débloque le filtre à jurons."
+L["Profanity Filter"] = "Filtre à obscénités"
+L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = "Activer cette option débloquera le filtrage des obscénités. [Serveur CN]"
+
+-- Friends List
+L["Friends List"] = "Liste d'amis"
+L["Add additional information to the friend frame."] = "Ajoute des informations supplémentaires à la fenêtre des contacts."
+L["Modify the texture of status and make name colorful."] = "Modifier la texture du statut et mettre le nom en coleur."
+L["Enhanced Texture"] = "Texture améliorée"
+L["Game Icons"] = "Icônes de jeu"
+L["Default"] = "Défaut"
+L["Modern"] = "Moderne"
+L["Status Icon Pack"] = true
+L["Diablo 3"] = "Diablo 3"
+L["Square"] = "Carré"
+L["Faction Icon"] = "Icône de faction"
+L["Use faction icon instead of WoW icon."] = "Utiliser l'icône de faction au lieu de l'icône WoW."
+L["Name"] = "Nom"
+L["Level"] = "Niveau"
+L["Hide Max Level"] = "Masquer le niveau maximum"
+L["Use Note As Name"] = true
+L["Replace the Real ID or the character name of friends with your notes."] = true
+L["Use Game Color"] = "Utiliser la couleur du jeu"
+L["Change the color of the name to the in-playing game style."] = "Change la couleur du nom pour prendre celui de jeu."
+L["Use Class Color"] = "Utiliser la couleur de la classe"
+L["Font Setting"] = "Paramètre de la police"
+
+-- Talents
+L["Talents"] = "Talents"
+L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
@@ -810,14 +969,14 @@ L["This will create and apply profile for "] = true
 L["Changelog"] = "Changelog"
 
 -- Compatibility
-L["Compatibility Check"] = true
-L["Help you to enable/disable the modules for a better experience with other plugins."] = true
-L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = true
-L["Have a good time with %s!"] = true
+L["Compatibility Check"] = "Vérification de compatibilité"
+L["Help you to enable/disable the modules for a better experience with other plugins."] = "Vous aide à activer/désactiver les modules pour une meilleure expérience avec d'autres plugins."
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "Il existe de nombreux addons ou plugins pour ElvUI, mais WindTools peut remplacer certains d'entre eux qui ont les mêmes fonctionnalités."
+L["Have a good time with %s!"] = "Amusez-vous bien avec %s !"
 L["Choose the module you would like to |cff00ff00use|r"] = true
-L["If you find the %s module conflicts with another addon, alert me via Discord."] = true
+L["If you find the %s module conflicts with another addon, alert me via Discord."] = "Si vous constatez que l'addon %s est en conflit avec un autre addon, prévenez-moi via Discord."
 L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = true
-L["Complete"] = true
+L["Complete"] = "Complet"
 
 -- Debug
 L["Usage"] = true

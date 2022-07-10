@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local getn = getn
@@ -10,8 +11,10 @@ local C_TimerAfter = C_Timer.After
 
 local MAX_STATIC_POPUPS = 4
 
-function module:Misc()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
+local function LoadSkin()
+	if not module:CheckDB("misc", "misc") then
+		return
+	end
 
 	local skins = {
 		"StaticPopup1",
@@ -28,7 +31,7 @@ function module:Misc()
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
-		MER:CreateBackdropShadow(_G[skins[i]])
+		module:CreateBackdropShadow(_G[skins[i]])
 	end
 
 	--DropDownMenu
@@ -37,15 +40,16 @@ function module:Misc()
 		local listFrameName = listFrame:GetName()
 
 		local Backdrop = _G[listFrameName.."Backdrop"]
-		if Backdrop and not Backdrop.IsSkinned then
+		if Backdrop and not Backdrop.__MERSkin then
 			Backdrop:Styling()
-			Backdrop.IsSkinned = true
+			module:CreateShadow(Backdrop)
+			Backdrop.__MERSkin = true
 		end
 
 		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
-		if menuBackdrop and not menuBackdrop.IsSkinned then
+		if menuBackdrop and not menuBackdrop.__MERSkin then
 			menuBackdrop:Styling()
-			menuBackdrop.IsSkinned = true
+			menuBackdrop.__MERSkin = true
 		end
 	end)
 
@@ -56,7 +60,9 @@ function module:Misc()
 		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
 			if not _G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
+				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
+				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
 			end
 		end)
 	end
@@ -84,12 +90,6 @@ function module:Misc()
 	-- Chat Config
 	_G.ChatConfigFrame:Styling()
 
-	-- ElvUI Stuff
-	_G.LeftChatDataPanel:Styling()
-	_G.RightChatDataPanel:Styling()
-	_G.ElvUI_TopPanel:Styling()
-	_G.ElvUI_BottomPanel:Styling()
-
 	-- Mirror Timers
 	if _G.MirrorTimer1StatusBar.backdrop then
 		_G.MirrorTimer1StatusBar.backdrop:Styling()
@@ -112,4 +112,4 @@ function module:Misc()
 	end
 end
 
-module:AddCallback("Misc")
+S:AddCallback("Misc", LoadSkin)

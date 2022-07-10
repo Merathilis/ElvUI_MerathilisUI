@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
 local LSM = E.Libs.LSM
+local module = MER.Modules.Skins
+local WS = module.Widgets
 local S = E.Skins
 
 local _G = _G
@@ -9,12 +10,12 @@ local unpack = unpack
 local RaiseFrameLevel = RaiseFrameLevel
 local LowerFrameLevel = LowerFrameLevel
 
-function module:HandleTab(_, tab, noBackdrop, template)
+function WS:HandleTab(_, tab, noBackdrop, template)
 	if noBackdrop then
 		return
 	end
 
-	if not tab or tab.MERSkin then
+	if not tab or tab.MERSkinned then
 		return
 	end
 
@@ -35,7 +36,7 @@ function module:HandleTab(_, tab, noBackdrop, template)
 		local text = tab.text or tab.Text or tab.GetName and tab:GetName() and _G[tab:GetName() .. "Text"]
 		if text and text.GetTextColor then
 			F.SetFontDB(text, db.text.font)
-			tab.windWidgetText = text
+			tab.MERText = text
 		end
 	end
 
@@ -54,7 +55,7 @@ function module:HandleTab(_, tab, noBackdrop, template)
 			bg:SetDrawLayer(layer, subLayer)
 		end
 
-		F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
+		F.SetVertexColorDB(bg, db.backdrop.classColor and MER.ClassColor or db.backdrop.color)
 
 		tab.MERAnimation = self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
 
@@ -67,15 +68,15 @@ function module:HandleTab(_, tab, noBackdrop, template)
 		self:SecureHook(tab, "SetScript", function(frame, scriptType)
 			if scriptType == "OnEnter" then
 				self:Unhook(frame, "OnEnter")
-				-- self:SecureHookScript(frame, "OnEnter", onEnter)
+				self:SecureHookScript(frame, "OnEnter", tab.MERAnimation.onEnter)
 			elseif scriptType == "OnLeave" then
 				self:Unhook(frame, "OnLeave")
-				-- self:SecureHookScript(frame, "OnLeave", onLeave)
+				self:SecureHookScript(frame, "OnLeave", tab.MERAnimation.onLeave)
 			end
 		end)
 	end
 
-	tab.MERSkin = true
+	tab.MERSkinned = true
 end
 
 do
@@ -91,14 +92,14 @@ do
 
 		local db = E.private.mui.skins.widgets.tab
 
-		if db.text.enable and tab.windWidgetText then
+		if db.text.enable and tab.MERText then
 			local color
 			if selected then
 				color = db.text.selectedClassColor and module.ClassColor or db.text.selectedColor
 			else
 				color = db.text.normalClassColor and module.ClassColor or db.text.normalColor
 			end
-			tab.windWidgetText:SetTextColor(color.r, color.g, color.b)
+			tab.MERText:SetTextColor(color.r, color.g, color.b)
 		end
 
 		if not db.selected.enable then
@@ -132,5 +133,5 @@ do
 	end
 end
 
-module:SecureHook(S, 'HandleTab')
-module:SecureHook(S, 'Ace3_SkinTab', 'HandleTab')
+WS:SecureHook(S, "HandleTab")
+WS:SecureHook(S, "Ace3_SkinTab", "HandleTab")

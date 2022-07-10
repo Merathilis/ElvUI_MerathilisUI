@@ -1,11 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local options = MER.options.modules.args
 
+local GetCVar = GetCVar
 local SetCVar = SetCVar
 
 options.cvars = {
 	type = "group",
 	name = L["CVars"],
+	get = function(info) return E.db.mui.cvars[ info[#info] ] end,
+	set = function(info, value) E.db.mui.cvars[ info[#info] ] = value; end,
 	args = {
 		header = {
 			order = 1,
@@ -100,6 +103,9 @@ options.cvars = {
 					min = 1, max = 10, step = 1,
 					name = L["screenshotQuality"],
 					desc = L["screenshotQuality_DESC"],
+					get = function()
+							return tonumber(GetCVar("screenshotQuality"))
+						end,
 					set = function(info, value)
 						E.db.mui.cvars.general[info[#info]] = value
 						SetCVar("screenshotQuality", value)
@@ -113,6 +119,20 @@ options.cvars = {
 					set = function(info, value)
 						E.db.mui.cvars.general[info[#info]] = value
 						SetCVar("showTutorials", (value == true and 1 or 0))
+					end,
+				},
+				cameraFov = {
+					order = 10,
+					type = "range",
+					name = L["cameraFov"],
+					min = 50, max = 90, step = 1,
+					desc = L["\n\nDefault: |cff00ff090|r"],
+					get = function()
+							return tonumber(GetCVar("camerafov"))
+						end,
+					set = function(info, value)
+						E.db.mui.cvars.general[info[#info]] = value
+						SetCVar("cameraFov", value)
 					end,
 				},
 			},

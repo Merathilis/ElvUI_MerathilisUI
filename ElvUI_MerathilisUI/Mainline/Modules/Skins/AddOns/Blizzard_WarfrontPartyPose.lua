@@ -1,15 +1,18 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 local unpack = unpack
 
-function module:Blizzard_WarfrontsPartyPoseUI()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.islandsPartyPose ~= true or E.private.mui.skins.blizzard.IslandsPartyPose ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("IslandsPartyPose", "islandsPartyPose") then
+		return
+	end
 
 	local WarfrontsPartyPoseFrame = _G.WarfrontsPartyPoseFrame
 	WarfrontsPartyPoseFrame:Styling()
-	MER:CreateShadow(WarfrontsPartyPoseFrame)
+	module:CreateShadow(WarfrontsPartyPoseFrame)
 
 	WarfrontsPartyPoseFrame.ModelScene:SetAlpha(.8)
 	WarfrontsPartyPoseFrame.OverlayElements.Topper:Hide()
@@ -31,4 +34,4 @@ function module:Blizzard_WarfrontsPartyPoseUI()
 	module:CreateBDFrame(rewardFrame.Icon)
 end
 
-module:AddCallbackForAddon("Blizzard_WarfrontsPartyPoseUI")
+S:AddCallbackForAddon("Blizzard_WarfrontsPartyPoseUI", LoadSkin)

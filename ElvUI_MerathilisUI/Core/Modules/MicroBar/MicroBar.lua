@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_MicroBar')
+local S = MER:GetModule('MER_Skins')
 local DT = E:GetModule('DataTexts')
 
 -- Credits: fang2hou - ElvUI_Windtools (and me for the initial idea ^^)
@@ -549,9 +550,9 @@ function module:ConstructBar()
 	rightPanel.backdrop:Styling()
 	bar.rightPanel = rightPanel
 
-	MER:CreateShadowModule(leftPanel.backdrop)
-	MER:CreateShadowModule(middlePanel.backdrop)
-	MER:CreateShadowModule(rightPanel.backdrop)
+	S:CreateShadowModule(leftPanel.backdrop)
+	S:CreateShadowModule(middlePanel.backdrop)
+	S:CreateShadowModule(rightPanel.backdrop)
 
 	self.bar = bar
 

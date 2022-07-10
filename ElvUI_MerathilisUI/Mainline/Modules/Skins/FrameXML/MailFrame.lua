@@ -1,5 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local A = F.Animation
+local S = E:GetModule("Skins")
 
 local _G = _G
 local unpack = unpack
@@ -12,8 +14,10 @@ local GetInboxInvoiceInfo = GetInboxInvoiceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function module:MailFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.mui.skins.blizzard.mail ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("mail", "mail") then
+		return
+	end
 
 	local MiniMapMailFrame = _G.MiniMapMailFrame
 
@@ -34,17 +38,17 @@ function module:MailFrame()
 			MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", _G.MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)
 			MiniMapMailFrame.highlight.tex:SetVertexColor(r, g, b)
 
-			MER:CreatePulse(MiniMapMailFrame, 1, 1)
+			A:CreatePulse(MiniMapMailFrame, 1, 1)
 		end
 	end)
 
 	local MailFrame = _G.MailFrame
 	MailFrame:Styling()
-	MER:CreateShadow(MailFrame)
+	module:CreateShadow(MailFrame)
 
 	-- InboxFrame
 	for i = 1, _G.INBOXITEMS_TO_DISPLAY do
-		local bg = _G["MailItem"..i]
+		local bg = _G["MailItem" .. i]
 		bg:StripTextures()
 
 		if bg.backdrop then
@@ -52,7 +56,7 @@ function module:MailFrame()
 		end
 		module:CreateBD(bg, .25)
 
-		local b = _G["MailItem"..i.."Button"]
+		local b = _G["MailItem" .. i .. "Button"]
 		b:StripTextures()
 		b:CreateBackdrop("Transparent", true)
 		b:StyleButton()
@@ -74,8 +78,8 @@ function module:MailFrame()
 	-- OpenMailFrame
 	local OpenMailFrame = _G.OpenMailFrame
 	OpenMailFrame:Styling()
-	_G.OpenMailScrollFrame:SetTemplate('Transparent')
-	MER:CreateShadow(OpenMailFrame)
+	_G.OpenMailScrollFrame:SetTemplate("Transparent")
+	module:CreateShadow(OpenMailFrame)
 
 	OpenMailFrame:SetPoint("TOPLEFT", _G.InboxFrame, "TOPRIGHT", 5, 0)
 	_G.OpenMailFrameIcon:Hide()
@@ -123,4 +127,4 @@ function module:MailFrame()
 	end)
 end
 
-module:AddCallback("MailFrame")
+S:AddCallback("MailFrame", LoadSkin)

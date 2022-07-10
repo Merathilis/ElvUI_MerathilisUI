@@ -1,6 +1,6 @@
-local MER, F, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_LFGInfo')
+local TT = MER:GetModule('MER_Tooltip')
 local UF = E:GetModule("UnitFrames")
 
 local _G = _G
@@ -11,10 +11,14 @@ local wipe = wipe
 local tinsert = table.insert
 local tremove = table.remove
 
+local HEADER_COLON = _G.HEADER_COLON
+local C_LFGList_GetActivityInfoTable = C_LFGList.GetActivityInfoTable
 local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local C_LFGList_GetSearchResultMemberInfo = C_LFGList.GetSearchResultMemberInfo
 
 local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
+
+local scoreFormat = MER.GreyColor.."(%s) |r%s"
 
 local displayOrder = {
 	[1] = "TANK",
@@ -26,14 +30,6 @@ local roleText = {
 	TANK = "|cff00a8ff" .. L["Tank"] .. "|r",
 	HEALER = "|cff2ecc71" .. L["Healer"] .. "|r",
 	DAMAGER = "|cffe74c3c" .. L["DPS"] .. "|r"
-}
-
-local RoleIconTextures = {
-	DEFAULT = {
-		TANK = E.Media.Textures.Tank,
-		HEALER = E.Media.Textures.Healer,
-		DAMAGER = E.Media.Textures.DPS
-	}
 }
 
 local function GetIconString(role, mode)
@@ -222,13 +218,52 @@ function module:AddGroupInfo(tooltip, resultID)
 	tooltip:Show()
 end
 
+local factionStr = {
+	[0] = "Horde",
+	[1] = "Alliance",
+}
+
+function module:ShowLeaderOverallScore(self)
+	local resultID = self.resultID
+	local searchResultInfo = resultID and C_LFGList_GetSearchResultInfo(resultID)
+	if searchResultInfo then
+		local activityInfo = C_LFGList_GetActivityInfoTable(searchResultInfo.activityID, nil, searchResultInfo.isWarMode)
+		if activityInfo then
+			local showScore = activityInfo.isMythicPlusActivity and searchResultInfo.leaderOverallDungeonScore
+				or activityInfo.isRatedPvpActivity and searchResultInfo.leaderPvpRatingInfo and searchResultInfo.leaderPvpRatingInfo.rating
+			if showScore then
+				local oldName = self.ActivityName:GetText()
+				oldName = gsub(oldName, ".-"..HEADER_COLON, "") -- Tazavesh
+				self.ActivityName:SetFormattedText(scoreFormat, TT.GetDungeonScore(showScore), oldName)
+
+				if not self.crossFactionLogo then
+					local logo = self:CreateTexture(nil, "OVERLAY")
+					logo:SetPoint("TOPLEFT", -6, 5)
+					logo:SetSize(24, 24)
+					self.crossFactionLogo = logo
+				end
+			end
+		end
+
+		if self.crossFactionLogo then
+			if searchResultInfo.crossFactionListing then
+				self.crossFactionLogo:Hide()
+			else
+				self.crossFactionLogo:SetTexture("Interface\\Timer\\"..factionStr[searchResultInfo.leaderFactionGroup].."-Logo")
+				self.crossFactionLogo:Show()
+			end
+		end
+	end
+end
+
 function module:Initialize()
 	local db = E.db.mui.misc.lfgInfo
-	if not db.enable then return end
+	if not db.enable or IsAddOnLoaded('WindDungeonHelper') then return end
 
 	module:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
 	module:SecureHook("LFGListGroupDataDisplayEnumerate_Update", "UpdateEnumerate")
 	module:SecureHook("LFGListGroupDataDisplayRoleCount_Update", "UpdateRoleCount")
+	module:SecureHook("LFGListSearchEntry_Update", "ShowLeaderOverallScore")
 end
 
 MER:RegisterModule(module:GetName())

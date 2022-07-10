@@ -1,12 +1,21 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Auras')
+local S = MER:GetModule('MER_Skins')
 local A = E:GetModule("Auras")
 
 function module:Auras_SkinIcon(_, button)
-	MER:CreateShadow(button)
+	if not button.__MERSkin then
+		S:CreateLowerShadow(button)
+		S:BindShadowColorWithBorder(button.shadow, button)
+		button.__MERSkin = true
+	end
 end
 
 function module:Auras_Shadow()
+	if not E.private.mui.skins.shadow and not E.private.mui.skins.shadow.enable then
+		return
+	end
+
 	self:SecureHook(A, "CreateIcon", "Auras_SkinIcon")
 	self:SecureHook(A, "UpdateAura", "Auras_SkinIcon")
 	self:SecureHook(A, "UpdateTempEnchant", "Auras_SkinIcon")

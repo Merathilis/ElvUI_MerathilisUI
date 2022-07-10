@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_Minimap')
+local module = MER:GetModule('MER_MiniMapPing')
 local LSM = E.LSM
 
 local _G = _G
@@ -24,37 +24,52 @@ function module:TryFadeOut()
 	hideTimes = max(hideTimes - 1, 0)
 end
 
-function module:MINIMAP_PING(_, unit)
-	self.db = E.db.mui.maps.minimap.ping
+do
+	local temp = {}
+	function module:MINIMAP_PING(_, unit, x, y)
+		if self.db and self.db.onlyInCombat and not InCombatLockdown() then
+			return
+		end
 
-	if self.db and self.db.onlyInCombat and not InCombatLockdown() then
-		return
+		local time = time()
+		if temp then
+			if temp.unit == unit and temp.x == x and temp.y == y then
+				if time < 3 + temp.time then
+					return
+				end
+			end
+		end
+
+		temp = {
+			unit = unit,
+			x = x,
+			y = y,
+			time = time
+		}
+
+		local englishClass = select(2, UnitClass(unit))
+		local name, realm = UnitName(unit)
+
+		if realm and self.db.addRealm and realm ~= E.myrealm then
+			name = name .. " - " .. realm
+		end
+
+		if self.db.classColor then
+			name = F.CreateClassColorString(name, englishClass)
+		else
+			name = F.CreateColorString(name, self.db.customColor)
+		end
+
+		self.text:SetText(name)
+		if self.db.fadeInTime == 0 then
+			self.text:Show()
+		else
+			E:UIFrameFadeIn(self.text, self.db.fadeInTime, 0, 1)
+		end
+		hideTimes = hideTimes + 1
+
+		E:Delay(module.db.stayTime, module.TryFadeOut, module)
 	end
-
-	local englishClass = select(2, UnitClass(unit))
-	local name, realm = UnitName(unit)
-
-	if realm and self.db.addRealm and realm ~= E.myrealm then
-		name = name .. " - " .. realm
-	end
-
-	if self.db.classColor then
-		name = F.CreateClassColorString(name, englishClass)
-	else
-		name = F.CreateColorString(name, self.db.customColor)
-	end
-
-	self.text:SetText(name)
-	if self.db.fadeInTime == 0 then
-		self.text:Show()
-	else
-		E:UIFrameFadeIn(self.text, self.db.fadeInTime, 0, 1)
-	end
-	hideTimes = hideTimes + 1
-
-	C_Timer_After(self.db.stayTime, function()
-		module:TryFadeOut()
-	end)
 end
 
 function module:UpdateText()
@@ -63,7 +78,7 @@ function module:UpdateText()
 		self.text = text
 	end
 
-	self.text:FontTemplate(LSM:Fetch("font", self.db.font.name), self.db.font.size, self.db.font.style)
+	F.SetFontDB(self.text, self.db.font)
 	self.text:ClearAllPoints()
 	self.text:Point("CENTER", _G.Minimap, "CENTER", self.db.xOffset, self.db.yOffset)
 end
@@ -85,7 +100,7 @@ function module:UpdatePing()
 	end
 end
 
-function module:MinimapPing()
+function module:Initialize()
 	self.db = E.db.mui.maps.minimap.ping
 
 	if not self.db or not self.db.enable then
@@ -94,4 +109,24 @@ function module:MinimapPing()
 
 	self:UpdateText()
 	self:RegisterEvent("MINIMAP_PING")
+	self.initialized = true
 end
+
+function module:ProfileUpdate()
+	self.db = E.db.WT.maps.whoClicked
+
+	if self.db and self.db.enable then
+		self:UpdateText()
+		if not self.initialized then
+			self:RegisterEvent("MINIMAP_PING")
+			self.initialized = true
+		end
+	else
+		if self.initialized then
+			self:UnregisterEvent("MINIMAP_PING")
+			self.initialized = false
+		end
+	end
+end
+
+MER:RegisterModule(module:GetName())

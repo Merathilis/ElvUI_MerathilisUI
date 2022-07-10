@@ -1,7 +1,8 @@
 ### Changes ###
 
-  * Small Layout Update. (Again, if you want it, do the install!
-  * Dont load the GCD Module on Classic or TBC >.>
-  * Fixed a taint... gosh, that was a hard one
-  * Fixed some errors here and there
-  * Code changes there and here
+  * Added a Skin for TLDR Missions
+  * Added back the Skin for VenturePlan
+  * Fixed PlayerChoice Skin Style
+  * Swing Bar was scuffed a long time???
+  * Added an option to expand the Character Frame (Armory)
+

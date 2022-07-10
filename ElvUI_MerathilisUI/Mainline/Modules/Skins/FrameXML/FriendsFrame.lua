@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER.Modules.Skins
+local S = E:GetModule('Skins')
 
 local _G = _G
 
@@ -16,12 +17,41 @@ function FriendsCount_OnEvent(event, ...)
 	_G.MER_FriendsCounter:SetText(bnetCount.."|cff416380/200|r")
 end
 
-function module:FriendsFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.mui.skins.blizzard.friends ~= true then return end
+local function LoadSkin()
+	if not module:CheckDB("friends", "friends") then
+		return
+	end
 
 	local FriendsFrame = _G.FriendsFrame
 	FriendsFrame:Styling()
-	MER:CreateBackdropShadow(FriendsFrame)
+
+	local frames = {
+		_G.FriendsFrame,
+		_G.FriendsFriendsFrame,
+		_G.AddFriendFrame,
+		_G.RecruitAFriendFrame.SplashFrame,
+		_G.RecruitAFriendRewardsFrame,
+		_G.RecruitAFriendRecruitmentFrame,
+		_G.FriendsFrameBattlenetFrame.BroadcastFrame
+	}
+
+	for _, frame in pairs(frames) do
+		module:CreateShadow(frame)
+	end
+
+	-- A check for german clients cause the font is sometimes tooo huge (tested with Expressway 11)
+	if GetLocale() == 'deDE' then
+		for i = 1, 4 do
+			local tab = _G["FriendsFrameTab"..i]
+			if tab then
+				F.ResetTabAnchor(tab)
+			end
+		end
+	end
+
+	for i = 1, 4 do
+		module:ReskinTab(_G["FriendsFrameTab" .. i])
+	end
 
 	-- Animated Icon
 	_G.FriendsFrameIcon:SetPoint("TOPLEFT", FriendsFrame, "TOPLEFT", 0, 0)
@@ -51,4 +81,4 @@ function module:FriendsFrame()
 	end
 end
 
-module:AddCallback("FriendsFrame")
+S:AddCallback("FriendsFrame", LoadSkin)
