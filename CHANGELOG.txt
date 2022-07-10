@@ -1,6 +1,6 @@
-[b][color=orange]v5.14[/color], xx.07.2022[/b][list]
+[b][color=orange]v5.14[/color], 10.07.2022[/b][list]
 [*]Added a Skin for TLDR Missions
 [*]Added back the Skin for VenturePlan
 [*]Fixed PlayerChoice Skin Style
 [*]Swing Bar was scuffed a long time???
-[*]Added an option to expand the Character Frame (Armory)[/list]
+[*]Added more options to my Armory[/list]
