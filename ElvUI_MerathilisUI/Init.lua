@@ -29,6 +29,11 @@ _G[addon] = Engine
 
 MER.Version = GetAddOnMetadata(addon, "Version")
 
+_G.ElvDB.MerathilisUIAlpha = false
+--@alpha@
+_G.ElvDB.MerathilisUIAlpha = true
+--@end-alpha@
+
 -- Modules
 MER.Modules = {}
 MER.Modules.ActionBars = MER:NewModule('MER_Actionbars', 'AceEvent-3.0', 'AceHook-3.0')
@@ -122,6 +127,10 @@ function MER:Initialize()
 	-- ElvUI -> MerathilisUI -> MerathilisUI Modules
 	if not self:CheckElvUIVersion() then
 		return
+	end
+
+	if ElvDB.MerathilisUIAlpha then
+		Engine[2].Print("You are using an alpha build! Go download the release build if you have issues! Do not come for support!")
 	end
 
 	for name, module in self:IterateModules() do
