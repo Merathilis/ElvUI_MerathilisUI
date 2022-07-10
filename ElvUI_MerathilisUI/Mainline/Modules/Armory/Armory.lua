@@ -28,6 +28,8 @@ local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetApp
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 
+local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
+
 local initialized = false
 local maxGemSlots = 5
 
@@ -258,7 +260,7 @@ function module:UpdatePaperDoll()
 			if (itemLink and itemLink ~= nil) then
 				if type(itemLink) ~= "string" then return end
 
-				local _, _, itemRarity, _, _, _, _, _, _ = GetItemInfo(itemLink)
+				local _, _, itemRarity, _, _, _, _, _, _, _, _, _, _, _, _, setID = GetItemInfo(itemLink)
 
 				-- Durability
 				if module.db.durability.enable then
@@ -273,7 +275,9 @@ function module:UpdatePaperDoll()
 				-- Gradiation
 				if module.db.gradient.enable then
 					frame.Gradiation.Texture:Show()
-					if itemRarity and module.db.gradient.colorStyle == "RARITY" then
+					if module.db.gradient.setArmor and setID then
+						frame.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.gradient.setArmorColor))
+					elseif itemRarity and module.db.gradient.colorStyle == "RARITY" then
 						local r, g, b = GetItemQualityColor(itemRarity)
 						frame.Gradiation.Texture:SetVertexColor(r, g, b)
 					elseif module.db.gradient.colorStyle == "VALUE" then
@@ -401,6 +405,79 @@ function module:BuildInformation()
 			end
 		end
 	end
+
+	hooksecurefunc("CharacterFrame_Collapse", function()
+		if E.db.mui.armory.enable and E.db.mui.armory.expandSize and _G["PaperDollFrame"]:IsShown() then
+			_G["CharacterFrame"]:SetWidth(448)
+		end
+	end)
+	hooksecurefunc("CharacterFrame_Expand", function()
+		if E.db.mui.armory.enable and E.db.mui.armory.expandSize and _G["PaperDollFrame"]:IsShown() then
+			_G["CharacterFrame"]:SetWidth(650)
+		end
+	end)
+	hooksecurefunc("CharacterFrame_ShowSubFrame", function(frameName)
+		if not E.db.mui.armory.enable and not E.db.mui.armory.expandSize then return end
+		if frameName == "PaperDollFrame" or frameName == "PetPaperDollFrame" then return end
+		if _G["CharacterFrame"]:GetWidth() > PANEL_DEFAULT_WIDTH + 1 then
+			_G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
+		end
+	end)
+
+	--[[hooksecurefunc('PaperDollFrame_SetLevel', function()
+		if E.db.mui.armory.expandSize then
+			_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
+
+			_G["CharacterFrameTitleText"]:ClearAllPoints()
+			_G["CharacterFrameTitleText"]:Point('TOP', _G["CharacterModelFrame"], 0, 45)
+			_G["CharacterFrameTitleText"]:SetParent(_G["CharacterFrame"])
+
+			_G["CharacterLevelText"]:ClearAllPoints()
+			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, 2)
+			_G["CharacterLevelText"]:SetParent(_G["CharacterFrame"])
+		end
+	end)]]
+end
+
+function module:ExpandSize()
+	if not module.db.expandSize then
+		return
+	end
+
+	_G["CharacterFrame"]:SetHeight(444)
+
+	_G["CharacterHandsSlot"]:SetPoint('TOPRIGHT', _G["CharacterFrameInsetRight"], 'TOPLEFT', -4, -2)
+
+	_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
+
+	_G["CharacterModelFrame"]:ClearAllPoints()
+	_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"], 0, 5)
+	_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
+	_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
+
+	if _G["PaperDollFrame"]:IsShown() then --Setting up width for the main frame
+		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
+		_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
+	end
+
+	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
+		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
+		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
+
+		if _G["CharacterModelFrame"].backdrop then
+			_G["CharacterModelFrame"].backdrop:Hide()
+		end
+	end
+
+	--Overlay resize to match new width
+	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
+	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
+
+	if E.db.general.itemLevel.displayCharacterInfo then
+		M:UpdatePageInfo(_G["CharacterFrame"], "Character")
+	end
 end
 
 function module:firstGarrisonToast()
@@ -412,6 +489,130 @@ function module:CheckOptions(which)
 	if not E.private.skins.blizzard.enable then return false end
 	if (which == 'Character' and not E.private.skins.blizzard.character) then return false end
 	return true
+end
+
+local function StatsPane(type)
+	_G.CharacterStatsPane[type]:StripTextures()
+
+	if _G.CharacterStatsPane[type] and _G.CharacterStatsPane[type].backdrop then
+		_G.CharacterStatsPane[type].backdrop:Hide()
+	end
+end
+
+local function CharacterStatFrameCategoryTemplate(frame)
+	frame:StripTextures()
+
+	local bg = frame.Background
+	bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+	bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+	bg:ClearAllPoints()
+	bg:SetPoint("CENTER", 0, -5)
+	bg:SetSize(210, 30)
+	bg:SetVertexColor(F.unpackColor(module.db.stats.color))
+end
+
+-- Copied from ElvUI
+local function ColorizeStatPane(frame)
+	if frame.leftGrad then
+		frame.leftGrad:StripTextures()
+	end
+	if frame.rightGrad then
+		frame.rightGrad:StripTextures()
+	end
+
+	local r, g, b = F.unpackColor(module.db.stats.color)
+
+	frame.leftGrad = frame:CreateTexture(nil, "BORDER")
+	frame.leftGrad:SetWidth(80)
+	frame.leftGrad:SetHeight(frame:GetHeight())
+	frame.leftGrad:SetPoint("LEFT", frame, "CENTER")
+	frame.leftGrad:SetTexture(E.media.blankTex)
+	frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.75, r, g, b, 0)
+
+	frame.rightGrad = frame:CreateTexture(nil, "BORDER")
+	frame.rightGrad:SetWidth(80)
+	frame.rightGrad:SetHeight(frame:GetHeight())
+	frame.rightGrad:SetPoint("RIGHT", frame, "CENTER")
+	frame.rightGrad:SetTexture(E.media.blankTex)
+	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
+end
+
+local function SkinSLEArmory()
+	if not IsAddOnLoaded("ElvUI_SLE") then
+		return
+	end
+	local db = E.db.sle.armory
+
+	if not db and db.character.enable then
+		return
+	end
+
+	if CharacterStatsPane.OffenseCategory then
+		CharacterStatsPane.OffenseCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		StatsPane("OffenseCategory")
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
+	end
+
+	if CharacterStatsPane.DefenceCategory then
+		CharacterStatsPane.DefenceCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		StatsPane("DefenceCategory")
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenceCategory)
+	end
+end
+
+function module:SkinCharacterStatsPane()
+	local CharacterStatsPane = _G.CharacterStatsPane
+
+	_G.CharacterModelFrame:DisableDrawLayer("BACKGROUND")
+	_G.CharacterModelFrame:DisableDrawLayer("BORDER")
+	_G.CharacterModelFrame:DisableDrawLayer("OVERLAY")
+
+	if not IsAddOnLoaded("DejaCharacterStats") then
+		CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		CharacterStatsPane.AttributesCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		CharacterStatsPane.EnhancementsCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+
+		StatsPane("EnhancementsCategory")
+		StatsPane("ItemLevelCategory")
+		StatsPane("AttributesCategory")
+
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.ItemLevelCategory)
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.AttributesCategory)
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.EnhancementsCategory)
+
+		CharacterStatsPane.ItemLevelFrame.Background:SetAlpha(0)
+		ColorizeStatPane(CharacterStatsPane.ItemLevelFrame)
+
+		E:Delay(0.2, SkinSLEArmory)
+
+		hooksecurefunc("PaperDollFrame_UpdateStats", function()
+			for _, Table in ipairs({_G.CharacterStatsPane.statsFramePool:EnumerateActive()}) do
+				if type(Table) == "table" then
+					for statFrame in pairs(Table) do
+						ColorizeStatPane(statFrame)
+						if statFrame.Background:IsShown() then
+							statFrame.leftGrad:Show()
+							statFrame.rightGrad:Show()
+						else
+							statFrame.leftGrad:Hide()
+							statFrame.rightGrad:Hide()
+						end
+					end
+				end
+			end
+		end)
+	end
+
+	-- CharacterFrame Class Texture
+	local ClassTexture = _G.ClassTexture
+	if not ClassTexture then
+		ClassTexture = _G.CharacterFrameInsetRight:CreateTexture(nil, "BORDER")
+		ClassTexture:SetPoint("BOTTOM", _G.CharacterFrameInsetRight, "BOTTOM", 0, 40)
+		ClassTexture:SetSize(126, 120)
+		ClassTexture:SetAlpha(.25)
+		ClassTexture:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\ClassIcons\\CLASS-" .. E.myclass)
+		ClassTexture:SetDesaturated(true)
+	end
 end
 
 function module:Initialize()
@@ -445,16 +646,16 @@ function module:Initialize()
 		_G["CharacterModelFrame"]:Point('BOTTOM', _G["CharacterMainHandSlot"])
 	end
 
-	function module:ForUpdateAll()
-		module.db = E.db.mui.armory
-	end
-
-	self:ForUpdateAll()
+	self:SkinCharacterStatsPane()
+	self:ExpandSize()
 
 	-- Stats
 	if not IsAddOnLoaded("DejaCharacterStats") then
-		hooksecurefunc("PaperDollFrame_UpdateStats", module.PaperDollFrame_UpdateStats)
 		module:ToggleStats()
+		hooksecurefunc("PaperDollFrame_UpdateStats", module.PaperDollFrame_UpdateStats)
+		hooksecurefunc(M, 'UpdateCharacterItemLevel', module.UpdateCharacterItemLevel)
+		hooksecurefunc(M, 'ToggleItemLevelInfo', module.UpdateCharacterItemLevel)
+		hooksecurefunc(M, 'UpdateAverageString', module.UpdateCharacterItemLevel)
 	end
 end
 

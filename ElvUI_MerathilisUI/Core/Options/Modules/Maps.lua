@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule('MER_Minimap')
+local MP = MER:GetModule('MER_MiniMapPing')
 local SMB = MER:GetModule('MER_MiniMapButtons')
 local RM = MER:GetModule('MER_RectangleMinimap')
 local WM = MER:GetModule('MER_WorldMap')
@@ -18,7 +19,7 @@ local envs = {
 
 options.maps = {
 	type = "group",
-	name = E.NewSign..L["Maps"],
+	name = L["Maps"],
 	get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 	set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	disabled = function() return not E.private.general.minimap.enable end,
@@ -129,7 +130,7 @@ options.maps = {
 		worldMap = {
 			order = 4,
 			type = "group",
-			name = E.NewSign..L["World Map"],
+			name = L["World Map"],
 			get = function(info) return E.db.mui.maps.worldMap[info[#info]] end,
 			set = function(info, value) E.db.mui.maps.worldMap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			args = {
@@ -159,13 +160,13 @@ options.maps = {
 				enable = {
 					order = 2,
 					type = "toggle",
-					name = E.NewSign..L["Enable"]
+					name = L["Enable"]
 				},
 				reveal = {
 					order = 3,
 					type = "group",
 					inline = true,
-					name = E.NewSign..L["Reveal"],
+					name = L["Reveal"],
 					get = function(info)
 						return E.db.mui.maps.worldMap.reveal[info[#info]]
 					end,
@@ -243,7 +244,7 @@ options.maps = {
 			type = "group",
 			name = L["Minimap Ping"],
 			get = function(info) return E.db.mui.maps.minimap.ping[ info[#info] ] end,
-			set = function(info, value) E.db.mui.maps.minimap.ping[ info[#info] ] = value; MM:UpdatePing(); end,
+			set = function(info, value) E.db.mui.maps.minimap.ping[ info[#info] ] = value; MP:ProfileUpdate(); end,
 			args = {
 				enable = {
 					order = 1,
@@ -429,7 +430,7 @@ options.maps = {
 		smb = {
 			order = 6,
 			type = "group",
-			name = E.NewSign..L["Minimap Buttons"],
+			name = L["Minimap Buttons"],
 			get = function(info) return E.db.mui.smb[ info[#info] ] end,
 			set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update() end,
 			args = {
@@ -653,7 +654,7 @@ options.maps = {
 		superTracker = {
 			order = 8,
 			type = "group",
-			name = E.NewSign..L["Super Tracker"],
+			name = L["Super Tracker"],
 			hidden = not E.Retail,
 			get = function(info)
 				return E.db.mui.maps.superTracker[info[#info]]

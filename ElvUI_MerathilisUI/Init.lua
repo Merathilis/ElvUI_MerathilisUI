@@ -27,7 +27,21 @@ Engine[6] = P.mui
 Engine[7] = G.mui
 _G[addon] = Engine
 
-MER.Version = GetAddOnMetadata(addon, "Version")
+do
+	-- when packager packages a new version for release
+	-- '@project-version@' is replaced with the version number
+	-- which is the latest tag
+	Engine.version = '@project-version@'
+
+	if strfind(Engine.version, 'project%-version') then
+		Engine.version = 'development'
+	end
+
+	MER.Version = Engine.version
+	MER.IsDevelop = MER.Version == 'development'
+
+	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
+end
 
 -- Modules
 MER.Modules = {}
@@ -57,6 +71,7 @@ MER.Modules.FriendsList = MER:NewModule('MER_FriendsList', 'AceHook-3.0')
 MER.Modules.GameMenu = MER:NewModule('MER_GameMenu')
 MER.Modules.HealPrediction = MER:NewModule('MER_HealPrediction', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.InstanceDifficulty = MER:NewModule('MER_InstanceDifficulty', 'AceEvent-3.0')
+MER.Modules.ItemLevel = MER:NewModule('MER_ItemLevel', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.Layout = MER:NewModule('MER_Layout', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.LFGInfo = MER:NewModule('MER_LFGInfo', 'AceHook-3.0')
 MER.Modules.LocPanel = MER:NewModule('MER_LocPanel', 'AceTimer-3.0', 'AceEvent-3.0')
@@ -66,6 +81,7 @@ MER.Modules.MicroBar = MER:NewModule('MER_MicroBar', 'AceEvent-3.0', 'AceHook-3.
 MER.Modules.MiniMap = MER:NewModule('MER_Minimap', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.RectangleMinimap = MER:NewModule('MER_RectangleMinimap', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.MiniMapButtons = MER:NewModule('MER_MiniMapButtons', 'AceHook-3.0', 'AceEvent-3.0')
+MER.Modules.MiniMapPing = MER:NewModule('MER_MiniMapPing', 'AceEvent-3.0')
 MER.Modules.Misc = MER:NewModule('MER_Misc', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.NamePlates = MER:NewModule('MER_NamePlates', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.NamePlateAuras = MER:NewModule('MER_NameplateAuras', 'AceEvent-3.0')
@@ -122,6 +138,10 @@ function MER:Initialize()
 		return
 	end
 
+	if MER.IsDevelop then
+		Engine[2].Print("You are using an alpha build! Go download the release build if you have issues! Do not come for support!")
+	end
+
 	for name, module in self:IterateModules() do
 		Engine[2].Developer.InjectLogger(module)
 	end
@@ -156,7 +176,7 @@ do
 		if isInitialLogin then
 			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
 			if E.db.mui.installed and E.global.mui.core.LoginMsg then
-				print(icon..''..self.Title..format("v|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+				print(icon..''..self.Title..format("|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 			end
 
 			self:SplashScreen()

@@ -21,6 +21,29 @@ local Opponents = {}
 
 -- Credits: Shadow&Light
 
+function module:Release()
+	local resOptions = GetSortedSelfResurrectOptions()
+	if (mdoule.db.rebirth and not resOptions[1]) or not module.db.rebirth then RepopMe() end
+end
+
+function module:Dead()
+	local inInstance, instanceType = IsInInstance()
+
+	if not module.db.autorelease then
+		return
+	 end
+
+	if (inInstance and instanceType == "pvp") then
+		module:Release()
+		return
+	end
+	-- auto resurrection for world PvP area...when active
+	for index = 1, GetNumWorldPVPAreas() do
+		local _, localizedName, isActive, canQueue = GetWorldPVPAreaInfo(index)
+		if (GetRealZoneText() == localizedName and isActive) or (GetRealZoneText() == localizedName and canQueue) then module:Release() end
+	end
+end
+
 function module:BlockDuel(event, name)
 	local cancelled = false
 
@@ -70,12 +93,9 @@ end
 function module:Initialize()
 	module.db = E.db.mui.pvp
 
-	function module:ForUpdateAll()
-		module.db = E.db.mui.pvp
-	end
-
-	self:RegisterEvent("DUEL_REQUESTED", "BlockDuel")
-	self:RegisterEvent("PET_BATTLE_PVP_DUEL_REQUESTED", "BlockDuel")
+	self:RegisterEvent('PLAYER_DEAD', 'Dead')
+	self:RegisterEvent('DUEL_REQUESTED', 'BlockDuel')
+	self:RegisterEvent('PET_BATTLE_PVP_DUEL_REQUESTED', 'BlockDuel')
 
 	if E.db.mui.pvp.killingBlow.enable then
 		--Hook to blizz function for boss kill banner
@@ -93,9 +113,9 @@ function module:Initialize()
 				end
 			end
 		end)
+		self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "LogParse")
+		self:RegisterEvent("UPDATE_BATTLEFIELD_SCORE", "OpponentsTable")
 	end
-	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "LogParse")
-	self:RegisterEvent("UPDATE_BATTLEFIELD_SCORE", "OpponentsTable")
 end
 
 MER:RegisterModule(module:GetName())

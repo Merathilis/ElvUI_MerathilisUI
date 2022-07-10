@@ -337,6 +337,11 @@ L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
 L["Show your PvP killing blows as a popup."] = true
 L["Sound"] = true
 L["Play sound when killing blows popup is shown."] = true
+L["PvP Auto Release"] = true
+L["Automatically release body when killed inside a battleground."] = true
+L["Check for rebirth mechanics"] = true
+L["Do not release if reincarnation or soulstone is up."] = true
+
 
 -- Actionbars
 L["Specialization Bar"] = true
@@ -418,6 +423,17 @@ L["Empty Socket"] = true
 L["Not Enchanted"] = true
 L["Warnings"] = true
 L["Shows an indicator for missing sockets and enchants."] = true
+L["Expanded Size"] = true
+L["This will increase the Character Frame size a bit."] = true
+L["Armor Set"] = true
+L["Colors Set Items in a different color."] = true
+L["Armor Set Gradient Texture Color"] = true
+L["Full Item Level"] = true
+L["Show both equipped and average item levels."] = true
+L["Item Level Coloring"] = true
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
+L["Color of Average"] = true
+L["Sets the color of average item level."] = true
 
 -- Media
 L["MER_MEDIA_ZONES"] = {

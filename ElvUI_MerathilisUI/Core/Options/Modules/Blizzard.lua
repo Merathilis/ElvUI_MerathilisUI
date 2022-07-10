@@ -12,7 +12,7 @@ local FriendsFrame_Update = FriendsFrame_Update
 
 options.blizzard = {
 	type = "group",
-	name = E.NewSign..L["Blizzard"],
+	name = L["Blizzard"],
 	get = function(info) return E.db.mui.blizzard[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard[info[#info]] = value; end,
 	args = {
@@ -785,7 +785,7 @@ options.blizzard.args.objectiveTracker = {
 options.blizzard.args.talents = {
 	order = 2,
 	type = "group",
-	name = E.NewSign..L["Talents"],
+	name = L["Talents"],
 	get = function(info) return E.db.mui.blizzard.talents[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard.talents[info[#info]] = value; end,
 	args = {
@@ -821,7 +821,7 @@ options.blizzard.args.talents = {
 options.blizzard.args.filter = {
 	order = 3,
 	type = "group",
-	name = E.NewSign..L["Filter"],
+	name = L["Filter"],
 	get = function(info)
 		return E.db.mui.blizzard.filter[info[#info]]
 	end,
@@ -865,7 +865,7 @@ options.blizzard.args.filter = {
 options.blizzard.args.friendsList = {
 	order = 4,
 	type = "group",
-	name = E.NewSign..L["Friends List"],
+	name = L["Friends List"],
 	get = function(info)
 		return E.db.mui.blizzard.friendsList[info[#info]]
 	end,

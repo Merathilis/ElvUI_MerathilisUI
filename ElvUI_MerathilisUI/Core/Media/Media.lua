@@ -79,6 +79,7 @@ AddMedia("buttonForward", "Button/Forward.tga", "Icons")
 
 AddMedia("anchor", "anchor.tga", "Textures")
 AddMedia("arrow", "arrow.tga", "Textures")
+AddMedia("arrowUp", "arrowUp.tga", "Textures")
 AddMedia("pepeSmall", "pepeSmall.tga", "Textures")
 AddMedia("ROLES", "UI-LFG-ICON-ROLES.tga", "Textures")
 AddMedia("exchange", "Exchange.tga", "Textures")

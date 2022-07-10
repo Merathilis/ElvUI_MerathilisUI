@@ -3,7 +3,7 @@ local options = MER.options.modules.args
 
 options.actionbars = {
 	type = "group",
-	name = E.NewSign..L["ActionBars"],
+	name = L["ActionBars"],
 	get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 	set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
@@ -21,7 +21,7 @@ options.actionbars = {
 				keyfeedback = {
 					order = 1,
 					type = "toggle",
-					name = E.NewSign..L["Spell Feedback"],
+					name = L["Spell Feedback"],
 					desc = L["Creates a texture to show the recently pressed buttons."],
 				},
 			},

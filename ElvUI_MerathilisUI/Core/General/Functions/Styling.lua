@@ -45,7 +45,7 @@ end
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 
-	if not f or f.MERStyle or f.styling then
+	if not f or f.__style or f.style or f.style__MER then
 		return
 	end
 
@@ -55,10 +55,6 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 	if f:GetObjectType() == "Texture" then
 		f = f:GetParent()
-	end
-
-	if not f.SetBackdrop then
-		_G.Mixin(f, _G.BackdropTemplateMixin)
 	end
 
 	local frameName = f.GetName and f:GetName()
@@ -108,10 +104,13 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 
 	style:SetFrameStrata(f:GetFrameStrata())
 	style:SetFrameLevel(f:GetFrameLevel() + 1)
-	f.styling = style
+	style:SetAllPoints(f)
+	style.__MER = true
+
+	f.style = style
+	f.__style = 1
 
 	MER.Styling[style] = true
-	f.MERStyle = true
 end
 
 local BlizzardFrameRegions = {

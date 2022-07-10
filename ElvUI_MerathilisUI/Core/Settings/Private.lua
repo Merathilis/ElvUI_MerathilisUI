@@ -190,7 +190,7 @@ V.skins = {
 		GMChat = true,
 		Archaeology = true,
 		AzeriteEssence = true,
-		ItemInteraction = true,
+		itemInteraction = true,
 		animaDiversion = true,
 		soulbinds = true,
 		covenantSanctum = true,
@@ -224,5 +224,6 @@ V.skins = {
 		et = true,
 		wa = true,
 		waOptions = true,
+		tldr = true,
 	},
 }

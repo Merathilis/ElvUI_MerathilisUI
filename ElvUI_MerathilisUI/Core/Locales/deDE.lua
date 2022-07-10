@@ -341,6 +341,10 @@ L["MER_DuelCancel_PET"] = "Haustierkampf Duell Anfrage von %s abgelehnt."
 L["Show your PvP killing blows as a popup."] = "Zeigt deine PvP Kills als ein Popup an."
 L["Sound"] = "Sound"
 L["Play sound when killing blows popup is shown."] = "Spielt einen Sound wenn das Popup angezeigt wird."
+L["PvP Auto Release"] = "PVP Auto freilassen"
+L["Automatically release body when killed inside a battleground."] = "Lass den Körper automatisch frei, wenn Du auf einem Schlachtfeld getötet wurdest."
+L["Check for rebirth mechanics"] = "Überprüfe die Wiedergeburtsmechanik"
+L["Do not release if reincarnation or soulstone is up."] = "Nicht freigeben, wenn Reinkarnation oder Seelenstein vorhanden sind."
 
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"
@@ -422,6 +426,17 @@ L["Empty Socket"] = "Leerer Sockel"
 L["Not Enchanted"] = "Nicht verzaubert"
 L["Warnings"] = "Warnungen"
 L["Shows an indicator for missing sockets and enchants."] = "Zeigt einen Indikator für fehlende Sockel und Verzauberungen an."
+L["Expanded Size"] = "Erweiterte Größe"
+L["This will increase the Character Frame size a bit."] = "Dieses wird das Charakterfenster etwas vergrößern."
+L["Armor Set"] = "Rüstungsset"
+L["Colors Set Items in a different color."] = "Färbt Elemente in einer anderen Farbe ein."
+L["Armor Set Gradient Texture Color"] = "Rüstungssettextur Verlaufsfarbe"
+L["Full Item Level"] = "Volle Gegenstandsstufe"
+L["Show both equipped and average item levels."] = "Zeige sowohl ausgerüstete als auch durchschnittliche Gegenstandsstufen."
+L["Item Level Coloring"] = "Gegenstandsstufen Färbung"
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Werte der Farbcode Gegenstandsebenen. Ausgestattet mit Farbverlauf, Durchschnitt - ausgewählte Farbe."
+L["Color of Average"] = "Durchschnittsfarbe"
+L["Sets the color of average item level."] = "Legt die Farbe der durchschnittlichen Gegenstandsstufe fest."
 
 -- Media
 L["MER_MEDIA_ZONES"] = {
@@ -722,7 +737,7 @@ L["alwaysCompareItems_DESC"] = "Zeigen Sie immer Tooltips zum Vergleichen von El
 L["breakUpLargeNumbers"] = "Große Zahlen umbrechen"
 L["breakUpLargeNumbers_DESC"] = "Schaltet die Verwendung von Kommas in großer Zahlen um\r\rStandard: |cff00ff001|r"
 L["scriptErrors"] = "Scriptfehler"
-L["enableWoWMouse"] = true
+L["enableWoWMouse"] = "aktiviereWoWMouse"
 L["trackQuestSorting"] = "Verfolge Questsortierung"
 L["trackQuestSorting_DESC"] = "Neue Verfolgungsaufgaben werden am Zielverfolgungsort aufgelistet \r\r Standard: Oben"
 L["autoLootDefault"] = "Autom. Looten"

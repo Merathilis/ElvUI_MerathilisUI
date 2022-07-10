@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Armory')
 local options = MER.options.modules.args
+local M = E.Misc
 local LSM = E.LSM
 
 local _G = _G
@@ -18,7 +19,7 @@ local fontStyleList = {
 
 options.armory = {
 	type = "group",
-	name = L["Armory"],
+	name = E.NewSign..L["Armory"],
 	disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,
 	get = function(info) return E.db.mui.armory[ info[#info] ] end,
 	set = function(info, value) E.db.mui.armory[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -29,24 +30,30 @@ options.armory = {
 			name = F.cOption(L["Armory"], 'orange'),
 		},
 		enable = {
-			type = "toggle",
 			order = 2,
+			type = "toggle",
 			name = L["Enable"],
 			desc = L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."],
 		},
 		undressButton = {
-			type = "toggle",
 			order = 3,
+			type = "toggle",
 			name = L["Undress Button"],
 		},
+		expandSize = {
+			order = 4,
+			type = "toggle",
+			name = E.NewSign..L["Expanded Size"],
+			desc = L["This will increase the Character Frame size a bit."],
+		},
 		spacer = {
-			type = "description",
 			order = 8,
+			type = "description",
 			name = ""
 		},
 		information = {
-			type = "description",
 			order = 9,
+			type = "description",
 			name = L["ARMORY_DESC"],
 		},
 		durability = {
@@ -98,11 +105,11 @@ options.armory = {
 		},
 		stats = {
 			type = 'group',
-			name = STAT_CATEGORY_ATTRIBUTES,
+			name = E.NewSign..STAT_CATEGORY_ATTRIBUTES,
 			order = 22,
 			disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 			get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
-			set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats() end,
+			set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats(); M:UpdateCharacterItemLevel() end,
 			args = {
 				OnlyPrimary = {
 					order = 1,
@@ -110,10 +117,67 @@ options.armory = {
 					name = L["Only Relevant Stats"],
 					desc = L["Show only those primary stats relevant to your spec."],
 				},
+				color = {
+					order = 2,
+					type = "color",
+					name = E.NewSign..COLOR_PICKER,
+					get = function(info)
+						local t = E.db.mui.armory.stats[ info[#info] ]
+						local d = P.armory.stats[info[#info]]
+						return t.r, t.g, t.b, d.r, d.g, d.b
+					end,
+					set = function(info, r, g, b)
+						E.db.mui.armory.stats[ info[#info] ] = {}
+						local t = E.db.mui.armory.stats[ info[#info] ]
+						t.r, t.g, t.b = r, g, b
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+				},
+				ItemLevel = {
+					order = 3,
+					type = 'group',
+					name = E.NewSign..STAT_AVERAGE_ITEM_LEVEL,
+					guiInline = true,
+					args = {
+						IlvlFull = {
+							order = 1,
+							type = 'toggle',
+							name = L["Full Item Level"],
+							desc = L["Show both equipped and average item levels."],
+						},
+						IlvlColor = {
+							order = 2,
+							type = 'toggle',
+							name = L["Item Level Coloring"],
+							desc = L["Color code item levels values. Equipped will be gradient, average - selected color."],
+							disabled = function() return not E.db.mui.armory.stats.IlvlFull end,
+						},
+						AverageColor = {
+							type = 'color',
+							order = 3,
+							name = L["Color of Average"],
+							desc = L["Sets the color of average item level."],
+							hasAlpha = false,
+							disabled = function() return not E.db.mui.armory.stats.IlvlFull end,
+							get = function(info)
+								local t = E.db.mui.armory.stats[info[#info]]
+								local d = P.armory.stats[info[#info]]
+								return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+							end,
+							set = function(info, r, g, b, a)
+								E.db.mui.armory.stats[info[#info]] = {}
+								local t = E.db.mui.armory.stats[info[#info]]
+								t.r, t.g, t.b, t.a = r, g, b, a
+								M:UpdateCharacterItemLevel()
+								module:PaperDollFrame_UpdateStats()
+							end,
+						},
+					},
+				},
 				Stats = {
+					order = 4,
 					type = 'group',
 					name = STAT_CATEGORY_ATTRIBUTES,
-					order = 2,
 					guiInline = true,
 					get = function(info) return E.db.mui.armory.stats.List[ info[#info] ] end,
 					set = function(info, value) E.db.mui.armory.stats.List[ info[#info] ] = value; module:ToggleStats() end,
@@ -199,7 +263,7 @@ options.armory = {
 		gradient = {
 			order = 24,
 			type = 'group',
-			name = L["Gradient"],
+			name = E.NewSign..L["Gradient"],
 			disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 			get = function(info) return E.db.mui.armory.gradient[ info[#info] ] end,
 			set = function(info, value) E.db.mui.armory.gradient[ info[#info] ] = value; module:UpdatePaperDoll() end,
@@ -235,6 +299,29 @@ options.armory = {
 						t.r, t.g, t.b = r, g, b
 						module:UpdatePaperDoll()
 					end,
+				},
+				setArmor = {
+					order = 4,
+					type = 'toggle',
+					name = E.NewSign..L["Armor Set"],
+					desc = L["Colors Set Items in a different color."],
+				},
+				setArmorColor = {
+					order = 6,
+					type = 'color',
+					name = E.NewSign..L["Armor Set Gradient Texture Color"],
+					get = function(info)
+						local t = E.db.mui.armory.gradient[ info[#info] ]
+						local d = P.armory.gradient[info[#info]]
+						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+					end,
+					set = function(info, r, g, b, a)
+						E.db.mui.armory.gradient[ info[#info] ] = {}
+						local t = E.db.mui.armory.gradient[ info[#info] ]
+						t.r, t.g, t.b, t.a = r, g, b, a
+						module:UpdatePaperDoll()
+					end,
+					disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo or not E.db.mui.armory.gradient.setArmor end,
 				},
 			},
 		},

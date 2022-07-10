@@ -582,8 +582,8 @@ end
 --[[----------------------------------
 --	Text Functions
 --]]----------------------------------
-function F.CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
-	local text = f:CreateFontString(nil, layer)
+function F.CreateText(f, layer, size, outline, text, color, anchor, x, y)
+	text = f:CreateFontString(nil, layer)
 	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
 	text:SetHeight(text:GetStringHeight()+30)
 
@@ -593,12 +593,29 @@ function F.CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 		text:SetText("")
 	end
 
-	if classcolor and type(classcolor) == "boolean" then
-		text:SetTextColor(F.r, F.g, F.b)
-	elseif classcolor == "system" then
-		text:SetTextColor(1, .8, 0)
-	elseif classcolor == "white" then
-		text:SetTextColor(1, 1, 1)
+	local r, g, b
+	if color and type(color) == "boolean" then
+		r, g, b = F.r, F.g, F.b
+	elseif color == "info" then
+		r, g, b = E:HexToRGB(MER.InfoColor)
+	elseif colour == 'YELLOW' then
+		r, g, b = E:HexToRgb(MER.YellowColor)
+	elseif colour == 'RED' then
+		r, g, b = E:HexToRgb(MER.RedColor)
+	elseif colour == 'GREEN' then
+		r, g, b = E:HexToRgb(MER.GreenColor)
+	elseif colour == 'BLUE' then
+		r, g, b = E:HexToRgb(MER.BlueColor)
+	elseif colour == 'GREY' then
+		r, g, b = E:HexToRgb(MER.GreyColor)
+	else
+		r, g, b = 255, 255, 255
+	end
+
+	if type(color) == "table" then
+		text:SetTextColor(color[1], color[2], color[3])
+	else
+		text:SetTextColor(r / 255, g / 255, b / 255)
 	end
 
 	if (anchor and x and y) then

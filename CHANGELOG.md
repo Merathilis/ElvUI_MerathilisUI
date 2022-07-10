@@ -1,7 +1,8 @@
 ### Changes ###
 
-  * Added a "Map Reveal" feature
-  * Fixed EquipBar Flyout Button FrameLevel
-  * Finally fixed Transmog indicator after 8 Month.. lul
-  * Try to prevent a LUA Error on profile switch
+  * Added a Skin for TLDR Missions
+  * Added back the Skin for VenturePlan
+  * Fixed PlayerChoice Skin Style
+  * Swing Bar was scuffed a long time???
+  * Added more options to my Armory
 

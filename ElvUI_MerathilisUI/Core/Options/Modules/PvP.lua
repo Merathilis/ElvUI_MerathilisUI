@@ -33,8 +33,33 @@ options.pvp = {
 			type = "description",
 			name = '',
 		},
-		duels = {
+		autorelease = {
 			order = 3,
+			type = 'group',
+			name = F.cOption(L["PvP Auto Release"], 'orange'),
+			guiInline = true,
+			args = {
+				enable = {
+					order = 1,
+					type = 'toggle',
+					name = L["Enable"],
+					desc = L["Automatically release body when killed inside a battleground."],
+					get = function(_) return E.db.mui.pvp.autorelease end,
+					set = function(_, value) E.db.mui.pvp.autorelease = value end
+				},
+				rebirth = {
+					order = 2,
+					type = 'toggle',
+					name = L["Check for rebirth mechanics"],
+					desc = L["Do not release if reincarnation or soulstone is up."],
+					disabled = function() return not E.db.mui.pvp.autorelease end,
+					get = function(info) return E.db.mui.pvp[info[#info]] end,
+					set = function(info, value) E.db.mui.pvp[info[#info]] = value end
+				},
+			},
+		},
+		duels = {
+			order = 4,
 			type = "group",
 			name = F.cOption(L["Duels"], 'orange'),
 			guiInline = true,
@@ -60,7 +85,7 @@ options.pvp = {
 			},
 		},
 		killingBlow = {
-			order = 4,
+			order = 5,
 			type = "group",
 			name = F.cOption(KILLING_BLOWS, 'orange'),
 			guiInline = true,

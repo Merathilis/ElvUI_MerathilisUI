@@ -188,24 +188,24 @@ function module:CreateShadowModule(frame)
 	end
 end
 
--- Create shadow for textures
-function module:CreateSD(f, m, s, n)
-	if f.Shadow then return end
+-- Backdrop shadow
+local shadowBackdrop = {edgeFile = LSM:Fetch("border", "ElvUI GlowBorder")}
+function module:CreateSD(self, size, override)
+	if self.__shadow then return end
 
-	local frame = f
-	if f:GetObjectType() == "Texture" then
-		frame = f:GetParent()
+	local frame = self
+	if self:IsObjectType("Texture") then
+		frame = self:GetParent()
 	end
 
-	local lvl = frame:GetFrameLevel()
-	f.Shadow = CreateFrame("Frame", nil, frame)
-	f.Shadow:SetPoint("TOPLEFT", f, -m, m)
-	f.Shadow:SetPoint("BOTTOMRIGHT", f, m, -m)
-	f.Shadow:CreateBackdrop()
-	f.Shadow.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
-	f.Shadow.backdrop:SetFrameLevel(n or lvl)
+	shadowBackdrop.edgeSize = size or 5
+	self.__shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	self.__shadow:SetOutside(self, size or 4, size or 4)
+	self.__shadow:SetBackdrop(shadowBackdrop)
+	self.__shadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .4)
+	self.__shadow:SetFrameLevel(1)
 
-	return f.Shadow
+	return self.__shadow
 end
 
 function module:CreateBG(frame)
@@ -428,7 +428,7 @@ function module:ReskinTab(tab)
 	end
 
 	if tab.GetName then
-		F.SetFontOutline(_G[tab:GetName() .. "Text"])
+		F.SetFontOutline(_G[tab:GetName().."Text"])
 	end
 
 	self:CreateBackdropShadow(tab)

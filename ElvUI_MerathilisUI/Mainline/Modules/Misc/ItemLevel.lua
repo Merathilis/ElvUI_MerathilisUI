@@ -1,91 +1,139 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local MI = MER:GetModule('MER_Misc')
+local module = MER:GetModule('MER_ItemLevel')
+local B = E:GetModule("Bags")
+local LSM = E.Libs.LSM
 
 local _G = _G
-local pairs, select = pairs, select
+local format = format
+local pairs, select, type = pairs, select, type
 
-local hooksecurefunc = hooksecurefunc
-local GetContainerItemLink = GetContainerItemLink
-local GetInventoryItemLink = GetInventoryItemLink
-local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
+local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
+local Item = Item
+local ItemLocation = ItemLocation
+local IsAddOnLoaded = IsAddOnLoaded
 
--- ItemLevel on Flyoutbuttons
-local function UpdateFlyoutLevel(button, bag, slot, quality)
-	if not button.iLvl then
-		button.iLvl = F.CreateText(button, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
-		button.iLvl:ClearAllPoints()
-		button.iLvl:Point("BOTTOMRIGHT", 1, -8)
-	end
+local C_Item_DoesItemExist = C_Item.DoesItemExist
 
-	local link, level
-	if bag then
-		link = GetContainerItemLink(bag, slot)
-		level = F.GetItemLevel(link, bag, slot)
+local EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION = EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION
+
+local function UpdateFlyoutItemLevelTextStyle(text, db)
+	if db.useBagsFontSetting then
+		text:FontTemplate(LSM:Fetch("font", B.db.itemLevelFont), B.db.itemLevelFontSize, B.db.itemLevelFontOutline)
+		text:ClearAllPoints()
+		text:Point(B.db.itemLevelPosition, B.db.itemLevelxOffset, B.db.itemLevelyOffset)
 	else
-		link = GetInventoryItemLink("player", slot)
-		level = F.GetItemLevel(link, "player", slot)
-	end
-
-	local color = ITEM_QUALITY_COLORS[quality or 1]
-	button.iLvl:SetText(level)
-	if color then
-		button.iLvl:SetTextColor(color.r, color.g, color.b)
+		F.SetFontDB(text, db.font)
+		text:ClearAllPoints()
+		text:Point("BOTTOMRIGHT", db.font.xOffset, db.font.yOffset)
 	end
 end
 
-local function SetupFlyoutLevel(self)
-	local location = self.location
-	if not location or location >= EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION then
-		if self.iLvl then self.iLvl:SetText("") end
+local function RefreshItemLevel(text, db, location)
+	if not text or not C_Item_DoesItemExist(location) then
 		return
 	end
 
-	local _, _, bags, voidStorage, slot, bag = EquipmentManager_UnpackLocation(location)
-	if voidStorage then return end
-	local quality = select(13, EquipmentManager_GetItemInfoByLocation(location))
-	if bags then
-		UpdateFlyoutLevel(self, bag, slot, quality)
-	else
-		UpdateFlyoutLevel(self, nil, slot, quality)
-	end
+	UpdateFlyoutItemLevelTextStyle(text, db)
+
+	local item = Item:CreateFromItemLocation(location)
+	item:ContinueOnItemLoad(function()
+		text:SetText(item:GetCurrentItemLevel())
+		F.SetFontColorDB(text, db.qualityColor and item:GetItemQualityColor() or db.font.color)
+	end)
 end
 
-local function ScrappingMachineUpdate(self)
-	if not self.iLvl then
-		self.iLvl = F.CreateText(self, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
-		self.iLvl:ClearAllPoints()
-		self.iLvl:Point("BOTTOMRIGHT", 1, -8)
+function module:FlyoutButton(button)
+	local flyout = _G.EquipmentFlyoutFrame
+	local buttons = flyout.buttons
+	local flyoutSettings = flyout.button:GetParent().flyoutSettings
+
+	if not self.db.enable or not self.db.flyout.enable then
+		if buttons then
+			for _, button in pairs(buttons) do
+				if button.itemLevel then
+					button.itemLevel:SetText("")
+				end
+			end
+		end
+		return
 	end
 
-	if not self.itemLink then self.iLvl:SetText("") return end
-
-	local quality = 1
-	if self.itemLocation and not self.item:IsItemEmpty() and self.item:GetItemName() then
-		quality = self.item:GetItemQuality()
-	end
-
-	local level = F.GetItemLevel(self.itemLink)
-	local color = ITEM_QUALITY_COLORS[quality or 1]
-	self.iLvl:SetText(level)
-	if color then
-		self.iLvl:SetTextColor(color.r, color.g, color.b)
-	end
-end
-
-local function ScrappingiLvL(event, addon)
-	if addon == "Blizzard_ScrappingMachineUI" then
-		for button in pairs(_G["ScrappingMachineFrame"].ItemSlots.scrapButtons.activeObjects) do
-			hooksecurefunc(button, "RefreshIcon", ScrappingMachineUpdate)
+	for _, button in pairs(buttons) do
+		if not button.itemLevel then
+			button.itemLevel = button:CreateFontString(nil, "ARTWORK", nil, 1)
+			UpdateFlyoutItemLevelTextStyle(button.itemLevel, self.db.flyout)
 		end
 
-		MER:UnregisterEvent(event, ScrappingiLvL)
+		local itemLocation
+
+		if flyoutSettings.useItemLocation then
+			itemLocation = button.itemLocation
+		elseif
+			button.location and type(button.location) == "number" and
+				not (button.location >= EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION)
+		 then
+			local bags, voidStorage, slot, bag = select(3, EquipmentManager_UnpackLocation(button.location))
+			if not voidStorage then
+				if bags then
+					itemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot)
+				else
+					itemLocation = ItemLocation:CreateFromEquipmentSlot(slot)
+				end
+			end
+		end
+
+		if itemLocation then
+			RefreshItemLevel(button.itemLevel, self.db.flyout, itemLocation)
+		else
+			button.itemLevel:SetText("")
+		end
 	end
 end
 
-function MI:ItemLevel()
-	-- iLvl on FlyoutButtons
-	hooksecurefunc("EquipmentFlyout_DisplayButton", SetupFlyoutLevel)
+function module:ScrappingMachineButton(button)
+	if not self.db.enable or not self.db.scrappingMachine.enable or not button.itemLocation then
+		if button.itemLevel then
+			button.itemLevel:SetText("")
+		end
+		return
+	end
 
-	--ItemLevel on Scrapping Machine
-	MER:RegisterEvent("ADDON_LOADED", ScrappingiLvL)
+	if not button.itemLevel then
+		button.itemLevel = button:CreateFontString(nil, "ARTWORK", nil, 1)
+	end
+
+	RefreshItemLevel(button.itemLevel, self.db.scrappingMachine, button.itemLocation)
 end
+
+function module:ADDON_LOADED(_, addon)
+	if addon == "Blizzard_ScrappingMachineUI" then
+		self:UnregisterEvent("ADDON_LOADED")
+		self:HookScrappingMachine()
+	end
+end
+
+function module:HookScrappingMachine()
+	if _G.ScrappingMachineFrame then
+		for button in pairs(_G.ScrappingMachineFrame.ItemSlots.scrapButtons.activeObjects) do
+			self:SecureHook(button, "RefreshIcon", "ScrappingMachineButton")
+		end
+	end
+end
+
+function module:ProfileUpdate()
+	self.db = E.db.mui.itemLevel
+
+	if self.db.enable and not self.initialized then
+		self:SecureHook("EquipmentFlyout_UpdateItems", "FlyoutButton")
+		if not IsAddOnLoaded("Blizzard_ScrappingMachineUI") then
+			self:RegisterEvent("ADDON_LOADED")
+		else
+			self:HookScrappingMachine()
+		end
+		self.initialized = true
+	end
+end
+
+module.Initialize = module.ProfileUpdate
+
+MER:RegisterModule(module:GetName())
