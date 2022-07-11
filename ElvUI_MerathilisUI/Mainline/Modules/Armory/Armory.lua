@@ -309,7 +309,7 @@ function module:UpdatePaperDoll()
 						if ItemTexture then
 							frame.Illusion.Texture:SetTexture(ItemTexture)
 							frame.Illusion:Show()
-							_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionStrings(select(2, C_Transmog_GetSlotVisualInfo(transmogLocation)))
+							_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionStrings(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation)))
 						end
 					else
 						frame.Illusion:Hide()
