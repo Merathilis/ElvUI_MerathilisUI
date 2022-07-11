@@ -346,21 +346,21 @@ options.armory = {
 						},
 					},
 				},
-				-- illusion = {
-					-- order = 2,
-					-- type = "group",
-					-- name = L["Illusion"],
-					-- get = function(info) return E.db.mui.armory.illusion[ info[#info] ] end,
-					-- set = function(info, value) E.db.mui.armory.illusion[ info[#info] ] = value; module:UpdatePaperDoll() end,
-					-- args = {
-						-- enable = {
-							-- type = "toggle",
-							-- order = 1,
-							-- name = L["Enable"],
-							-- desc = L["Shows an indictor for weapon illusions."],
-						-- },
-					-- },
-				-- },
+				illusion = {
+					order = 2,
+					type = "group",
+					name = L["Illusion"],
+					get = function(info) return E.db.mui.armory.illusion[ info[#info] ] end,
+					set = function(info, value) E.db.mui.armory.illusion[ info[#info] ] = value; module:UpdatePaperDoll() end,
+					args = {
+						enable = {
+							type = "toggle",
+							order = 1,
+							name = L["Enable"],
+							desc = L["Shows an indictor for weapon illusions."],
+						},
+					},
+				},
 				warning = {
 					order = 3,
 					type = "group",
