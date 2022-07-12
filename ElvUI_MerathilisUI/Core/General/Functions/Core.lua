@@ -46,6 +46,35 @@ for class, value in pairs(colors) do
 end
 F.r, F.g, F.b = F.ClassColors[E.myclass].r, F.ClassColors[E.myclass].g, F.ClassColors[E.myclass].b
 
+function F.ClassColor(class)
+	local color = F.ClassColors[class]
+	if not color then
+		return  1, 1, 1
+	end
+
+	return color.r, color.g, color.b
+end
+
+function F.UnitColor(unit)
+	local r, g, b = 1, 1, 1
+	if UnitIsPlayer(unit) then
+		local class = select(2, UnitClass(unit))
+		if class then
+			r, g, b = F.ClassColor(class)
+		end
+	elseif UnitIsTapDenied(unit) then
+		r, g, b = .6, .6, .6
+	else
+		local reaction = UnitReaction(unit, "player")
+		if reaction then
+			local color = FACTION_BAR_COLORS[reaction]
+			r, g, b = color.r, color.g, color.b
+		end
+	end
+
+	return r, g, b
+end
+
 local defaultColor = { r = 1, g = 1, b = 1, a = 1 }
 function F.unpackColor(color)
 	if not color then color = defaultColor end
