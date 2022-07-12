@@ -130,6 +130,7 @@ L["Coding"] = true
 L["Testing & Inspiration"] = "Tester & Inspiration"
 L["Development Version"] = "Entwicklungsversion"
 L["Here you can download the latest development version."] = "Hier findest du den Download zu meiner Development Version."
+L["Donations"] = "Spenden"
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffffffffMerathilis|r|cffff8000UI|r Modulen."
@@ -322,9 +323,14 @@ L["Enable Vignette"] = "Aktiviere Vignette"
 L["If a Rare Mob or a treasure gets spotted on the minimap."] = "Zeigt an, wenn ein Rare Mob, oder ein Schatz auf der Minikarte erscheint."
 L["Enable Invites"] = "Aktiviere Einladungen"
 L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
-L["No Sounds"] = "Keine Sounds"
+L["No Sounds"] = "Keine Töne"
 L["Domination Rank"] = "Splitter der Herrschaft Rang"
 L["Show the rank of shards."] = "Zeigt den Rang vom Splitter."
+L["Vignette Print"] = "Vignettenlink"
+L["Prints a clickable Link with Coords in the Chat."] = "Fügt einen anklickbaren Link mit Koordinaten im Chat hinzu."
+L["Quick Join"] = "Schnellbeitritt"
+L["Title Font"] = "Titel Schriftart"
+L["Text Font"] = "Text Schriftart"
 
 -- DataTexts
 -- DataBars
@@ -439,6 +445,17 @@ L["Color of Average"] = "Durchschnittsfarbe"
 L["Sets the color of average item level."] = "Legt die Farbe der durchschnittlichen Gegenstandsstufe fest."
 
 -- Media
+L["Zone Text"] = "Gebietstext"
+L["Font Size"] = "Schriftgröße"
+L["Subzone Text"] = "Unterzonentext"
+L["PvP Status Text"] = "PvP Statustext"
+L["Misc Texts"] = "Sonstiger Text"
+L["Mail Text"] = "Post Text"
+L["Chat Editbox Text"] = true
+L["Gossip and Quest Frames Text"] = "Tratsch und Questfenster Texte"
+L["Objective Tracker Header Text"] = "Questverfolgungs Kopfzeilentext"
+L["Objective Tracker Text"] = "Questverfolgungs Text"
+L["Banner Big Text"] = "Banner Großer Text"
 L["MER_MEDIA_ZONES"] = {
 	"Washington",
 	"Moscow",
@@ -823,7 +840,7 @@ L["Please click the button below to setup your datatexts."] = "Bitte drücke die
 L["Please click the button below to setup your Unitframes."] = "Bitte drücke die Taste unten, um die Einheitenfenster einzustellen."
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = "Bitte drücke die Taste unten, um die ElvUI AddOns einzustellen. Weitere AddOns Profile findest Du in meinen Einstellungen unter - Skins/AddOns."
 L["DataTexts"] = "Infotexte"
-L["General Layout"] = "Generelles Layout"
+L["General Layout"] = "Allgemeines Layout"
 L["Setup ActionBars"] = "Aktionsleisten einstellen"
 L["Setup UnitFrames"] = "Einheitenfenster einstellen"
 L["Setup Datatexts"] = "Infotexte einstellen"
@@ -875,6 +892,8 @@ L["Selected Class Color"] = "Ausgewählte Klassenfarbe"
 L["Selected Color"] = "Ausgewählte Farbe"
 L["Tab"] = true
 L["Tree Group Button"] = "Baumstrukturtaste" --Wie kacke dass klingt
+L["General"] = "Allgemein"
+L["Shadow Color"] = "Schattenfarbe"
 
 -- Panels
 L["Top Left Panel"] = "Leiste oben links"

@@ -129,6 +129,7 @@ L["Coding"] = "代码"
 L["Testing & Inspiration"] = "测试与灵感"
 L["Development Version"] = "开发版本"
 L["Here you can download the latest development version."] = "您可以从这里下载最新的开发版本."
+L["Donations"] = true
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = "你能在这里找到所有不同的选项 |cffffffffMerathilis|r|cffff8000UI|r 模块."
@@ -323,6 +324,11 @@ L["If a Rare Mob or a treasure gets spotted on the minimap."] = "如果在小地
 L["Enable Invites"] = "启用邀请"
 L["Enable Guild Events"] = "启用公会活动"
 L["No Sounds"] = "没有声音"
+L["Vignette Print"] = true
+L["Prints a clickable Link with Coords in the Chat."] = true
+L["Quick Join"] = true
+L["Title Font"] = true
+L["Text Font"] = true
 
 -- DataTexts
 -- DataBars
@@ -891,6 +897,8 @@ L["Selected Class Color"] = "选中职业颜色"
 L["Selected Color"] = "选中颜色"
 L["Tab"] = "选项卡"
 L["Tree Group Button"] = "树状分组按钮"
+L["General"] = true
+L["Shadow Color"] = true
 
 -- Panels
 L["Top Left Panel"] = "左上面板"

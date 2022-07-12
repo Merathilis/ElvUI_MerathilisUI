@@ -128,6 +128,7 @@ L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["Development Version"] = "Дев. версия"
 L["Here you can download the latest development version."] = true
+L["Donations"] = true
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = true
@@ -324,6 +325,11 @@ L["If a Rare Mob or a treasure gets spotted on the minimap."] = true
 L["Enable Invites"] = true
 L["Enable Guild Events"] = true
 L["No Sounds"] = true
+L["Vignette Print"] = true
+L["Prints a clickable Link with Coords in the Chat."] = true
+L["Quick Join"] = true
+L["Title Font"] = true
+L["Text Font"] = true
 
 -- DataTexts
 -- DataBars
@@ -444,6 +450,17 @@ L["Color of Average"] = true
 L["Sets the color of average item level."] = true
 
 -- Media
+L["Zone Text"] = true
+L["Font Size"] = true
+L["Subzone Text"] = true
+L["PvP Status Text"] = true
+L["Misc Texts"] = true
+L["Mail Text"] = true
+L["Chat Editbox Text"] = true
+L["Gossip and Quest Frames Text"] = true
+L["Objective Tracker Header Text"] = true
+L["Objective Tracker Text"] = true
+L["Banner Big Text"] = true
 L["MER_MEDIA_ZONES"] = {
 	"Washington",
 	"Moscow",
@@ -881,6 +898,9 @@ L["Selected Backdrop & Border"] = "Выбранный фон и рамка"
 L["Selected Class Color"] = "Выбранный цвет класса"
 L["Selected Color"] = "Выбранный цвет"
 L["Tab"] = "Вкладка"
+L["Tree Group Button"] = true
+L["General"] = true
+L["Shadow Color"] = true
 
 -- Panels
 L["Top Left Panel"] = true
