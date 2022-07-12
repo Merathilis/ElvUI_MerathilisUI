@@ -4,6 +4,7 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "koKR")
 -- Core
 L["Enable"] = "사용"
 L[" is loaded. For any issues or suggestions, please visit "] = true
+L["Font"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -15,7 +16,10 @@ L["Logout Timer"] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = "옵션"
-L["Desciption"] = true
+L["Description"] = true
+L["General"] = true
+L["Modules"] = true
+L["Media"] = true
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI. It adds:
 
 - a lot of new features
@@ -246,6 +250,11 @@ L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
 L["Maw ThreatBar"] = true
 L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L["Miscellaneous"] = true
+L["Guild News Item Level"] = true
+L["Spell Alert Scale"] = true
+L["Add Title"] = true
+L["Display an additional title."] = true
 L.ANNOUNCE_FP_PRE = "{rt1} %s has prepared a %s. {rt1}"
 L.ANNOUNCE_FP_CLICK = "{rt1} %s is casting %s. Click! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s used a %s. {rt1}"
@@ -889,7 +898,6 @@ L["Selected Class Color"] = "선택한 클래스 색상"
 L["Selected Color"] = "선택한 색상"
 L["Tab"] = "탭"
 L["Tree Group Button"] = true
-L["General"] = true
 L["Shadow Color"] = true
 
 -- Panels
@@ -903,6 +911,7 @@ L["Bottom Right Panel"] = true
 L["Bottom Right Extra Panel"] = true
 
 -- Objective Tracker
+L["Objective Tracker"] = true
 L["1. Customize the font of Objective Tracker."] = "1. 퀘스트 추적기의 글꼴을 설정합니다."
 L["2. Add colorful progress text to the quest."] = "2. 퀘스트 진행도에 따른 색상을 추가합니다."
 L["Progress"] = "진행 상황"
@@ -945,6 +954,7 @@ L["Bottom Right Offset Y"] = "오른쪽 하단 오프셋 Y"
 L["Top Left Offset X"] = "왼쪽 상단 오프셋 X"
 L["Top Left Offset Y"] = "왼쪽 상단 오프셋 Y"
 L["Transparent"] = "반투명화"
+L["Style"] = true
 
 -- Filter
 L["Filter"] = "필터"

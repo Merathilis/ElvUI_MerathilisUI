@@ -4,6 +4,7 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 -- Core
 L["Enable"] = "Eingeschaltet"
 L[" is loaded. For any issues or suggestions, please visit "] = " wurde geladen. Für Fehler oder Vorschläge besuche bitte: "
+L["Font"] = "Schriftart"
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Plugin für |cffff7d0aElvUI|r von\nMerathilis."
@@ -15,7 +16,10 @@ L["Logout Timer"] = "Auslogzeit"
 L["SplashScreen"] = "Startbildschirm"
 L["Enable/Disable the Splash Screen on Login."] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
 L["Options"] = "Einstellungen"
-L["Desciption"] = "Beschreibung"
+L["Description"] = "Beschreibung"
+L["General"] = "Allgemein"
+L["Modules"] = "Module"
+L["Media"] = "Medien"
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r ist eine Erweiterung für ElvUI. Sie ergänzt:
 
 - viele neue Funktionen
@@ -250,6 +254,11 @@ L["Item Alerts"] = "Gegenstandsalarm"
 L["Announce in chat when someone placed an usefull item."] = "Kündigt im Chat an, wenn jemand einen nützlichen Gegenstand stellt."
 L["Maw ThreatBar"] = "Schlund Bedrohungleiste"
 L["Replace the Maw Threat Display, with a simple StatusBar"] = "Ersetzt die Schlundbedrohungsanzeige mit einer einfachen Statusleiste."
+L["Miscellaneous"] = "Sonstiges"
+L["Guild News Item Level"] = "Gildennachrichten Gegenstandsstufe"
+L["Spell Alert Scale"] = "Zauberwarnung Skalierung"
+L["Add Title"] = "Titel hinzufügen"
+L["Display an additional title."] = "Zusätzlichen Titel anzeigen."
 L.ANNOUNCE_FP_PRE = "{rt1} %s bereitet ein %s vor. {rt1}"
 L.ANNOUNCE_FP_CLICK = "{rt1} %s zaubert ein %s. Klick! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s benutzte %s. {rt1}"
@@ -892,7 +901,6 @@ L["Selected Class Color"] = "Ausgewählte Klassenfarbe"
 L["Selected Color"] = "Ausgewählte Farbe"
 L["Tab"] = true
 L["Tree Group Button"] = "Baumstrukturtaste" --Wie kacke dass klingt
-L["General"] = "Allgemein"
 L["Shadow Color"] = "Schattenfarbe"
 
 -- Panels
@@ -906,7 +914,8 @@ L["Bottom Right Panel"] = "Leiste unten rechts"
 L["Bottom Right Extra Panel"] = "Extra Leiste unten rechts"
 
 -- Objective Tracker
-L["1. Customize the font of Objective Tracker."] = "1. Passe die Schriftart vom Questtracker an."
+L["Objective Tracker"] = "Questverfolgung"
+L["1. Customize the font of Objective Tracker."] = "1. Passe die Schriftart von der Questverfolgung an."
 L["2. Add colorful progress text to the quest."] = "2. Füge der Quest einen farblichen Fortschrittstext hinzu."
 L["Progress"] = "Fortschritt"
 L["No Dash"] = "Kein Strich"
@@ -948,6 +957,7 @@ L["Bottom Right Offset Y"] = "Versatz unten Rechts Y"
 L["Top Left Offset X"] = "Versatz oben links X"
 L["Top Left Offset Y"] = "Versatz oben links Y"
 L["Transparent"] = "Transparent"
+L["Style"] = "Stil"
 
 -- Filter
 L["Filter"] = true

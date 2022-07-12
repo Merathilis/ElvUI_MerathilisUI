@@ -4,6 +4,7 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhTW")
 -- Core
 L["Enable"] = "啟用"
 L[" is loaded. For any issues or suggestions, please visit "] = true
+L["Font"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -15,7 +16,10 @@ L["Logout Timer"] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = "設定"
-L["Desciption"] = true
+L["Description"] = true
+L["General"] = true
+L["Modules"] = true
+L["Media"] = true
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI. It adds:
 
 - a lot of new features
@@ -883,7 +887,6 @@ L["Selected Class Color"] = "選中時職業顏色"
 L["Selected Color"] = "選中時顏色"
 L["Tab"] = "標籤"
 L["Tree Group Button"] = "樹狀分組按鍵"
-L["General"] = true
 L["Shadow Color"] = true
 
 -- Panels
@@ -897,6 +900,7 @@ L["Bottom Right Panel"] = true
 L["Bottom Right Extra Panel"] = true
 
 -- Objective Tracker
+L["Objective Tracker"] = true
 L["1. Customize the font of Objective Tracker."] = "1. 自訂任務追蹤字型."
 L["2. Add colorful progress text to the quest."] = "2. 為任務添加彩色進度文字."
 L["Progress"] = "進度"
@@ -939,6 +943,7 @@ L["Bottom Right Offset Y"] = "右下 Y 偏移"
 L["Top Left Offset X"] = "左上 X 軸偏移"
 L["Top Left Offset Y"] = "左上 Y 軸偏移"
 L["Transparent"] = "透明"
+L["Style"] = true
 
 -- Filter
 L["Filter"] = "過濾器"

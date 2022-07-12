@@ -4,6 +4,7 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "frFR")
 -- Core
 L["Enable"] = "Activer"
 L[" is loaded. For any issues or suggestions, please visit "] = true
+L["Font"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -15,7 +16,10 @@ L["Logout Timer"] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = "Options"
-L["Desciption"] = true
+L["Description"] = true
+L["General"] = true
+L["Modules"] = true
+L["Media"] = true
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r est une extension d'ElvUI. Cela ajoute:
 
 - a lot of new features
@@ -246,6 +250,11 @@ L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
 L["Maw ThreatBar"] = true
 L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L["Miscellaneous"] = true
+L["Guild News Item Level"] = true
+L["Spell Alert Scale"] = true
+L["Add Title"] = true
+L["Display an additional title."] = true
 L.ANNOUNCE_FP_PRE = "{rt1} %s a préparé un %s. {rt1}"
 L.ANNOUNCE_FP_CLICK = "{rt1} %s invoque %s. Cliquez ! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s a utilisé : %s. {rt1}"
@@ -888,7 +897,6 @@ L["Selected Class Color"] = true
 L["Selected Color"] = true
 L["Tab"] = true
 L["Tree Group Button"] = true
-L["General"] = true
 L["Shadow Color"] = true
 
 -- Panels
@@ -902,6 +910,7 @@ L["Bottom Right Panel"] = true
 L["Bottom Right Extra Panel"] = true
 
 -- Objective Tracker
+L["Objective Tracker"] = true
 L["1. Customize the font of Objective Tracker."] = "1. Personnalise la police du suivi de quêtes."
 L["2. Add colorful progress text to the quest."] = "2. Met le texte de progression des quêtes en couleur."
 L["Progress"] = "Progression"
@@ -944,6 +953,7 @@ L["Bottom Right Offset Y"] = true
 L["Top Left Offset X"] = true
 L["Top Left Offset Y"] = true
 L["Transparent"] = "Transparent"
+L["Style"] = true
 
 -- Filter
 L["Filter"] = "Filtre"

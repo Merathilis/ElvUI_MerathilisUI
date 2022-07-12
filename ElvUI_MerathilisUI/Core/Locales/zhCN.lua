@@ -4,6 +4,7 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhCN")
 -- Core
 L["Enable"] = "启用"
 L[" is loaded. For any issues or suggestions, please visit "] = " 已加载。如有任何问题或建议，请访问 "
+L["Font"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -15,7 +16,10 @@ L["Logout Timer"] = "登出计时器"
 L["SplashScreen"] = "闪屏"
 L["Enable/Disable the Splash Screen on Login."] = "在登录时启用/禁用启动画面."
 L["Options"] = "选项"
-L["Desciption"] = "描述"
+L["Description"] = "描述"
+L["General"] = true
+L["Modules"] = true
+L["Media"] = true
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r 是ElvUI的扩展. 它增加了:
 
 - 大量新特性
@@ -250,6 +254,11 @@ L["Item Alerts"] = "物品通告"
 L["Announce in chat when someone placed an usefull item."] = "当有玩家放置某些物品时将在聊天栏通知"
 L["Maw ThreatBar"] = true
 L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L["Miscellaneous"] = true
+L["Guild News Item Level"] = true
+L["Spell Alert Scale"] = true
+L["Add Title"] = true
+L["Display an additional title."] = true
 L.ANNOUNCE_FP_PRE = "{rt1} %s 放置了 %s {rt1}"
 L.ANNOUNCE_FP_CLICK = "{rt1} %s 正在开启 %s... 请点击 ! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s 使用了 %s。 {rt1}"
@@ -897,7 +906,6 @@ L["Selected Class Color"] = "选中职业颜色"
 L["Selected Color"] = "选中颜色"
 L["Tab"] = "选项卡"
 L["Tree Group Button"] = "树状分组按钮"
-L["General"] = true
 L["Shadow Color"] = true
 
 -- Panels
@@ -911,6 +919,7 @@ L["Bottom Right Panel"] = "右下面板"
 L["Bottom Right Extra Panel"] = "右下额外面板"
 
 -- Objective Tracker
+L["Objective Tracker"] = true
 L["1. Customize the font of Objective Tracker."] = "1. 自定义任务追踪的字体."
 L["2. Add colorful progress text to the quest."] = "2. 为任务添加彩色的进度文字."
 L["Progress"] = "进度"
@@ -953,6 +962,7 @@ L["Bottom Right Offset Y"] = "右下角 Y 偏移"
 L["Top Left Offset X"] = "左上角 X 轴偏移"
 L["Top Left Offset Y"] = "左上角 Y 轴偏移"
 L["Transparent"] = "透明"
+L["Style"] = true
 
 -- Filter
 L["Filter"] = "过滤器"
