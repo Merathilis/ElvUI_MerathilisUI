@@ -990,3 +990,5 @@ L["Debug Enviroment"] = "偵錯環境"
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "你可以使用 |cff00ff00/muidebug off|r 指令來退出偵錯模式."
 L["After you stop debuging, %s will reenable the addons automatically."] = "在停止偵錯模式後, %s 將自動重新啟用插件."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "在提交錯誤報告前, 請先使用 %s 命令啟用除錯模式並再次測試."
+L["Error"] = true
+L["Warning"] = true

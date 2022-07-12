@@ -27,6 +27,7 @@ local function LoadSkin()
 	optionalReagents:ClearAllPoints()
 	optionalReagents:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", 40, 0)
 	optionalReagents:Styling()
+	module:CreateShadow(optionalReagents)
 end
 
 S:AddCallbackForAddon("Blizzard_TradeSkillUI", LoadSkin)

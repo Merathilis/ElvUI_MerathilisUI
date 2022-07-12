@@ -139,7 +139,7 @@ function MER:Initialize()
 	end
 
 	if MER.IsDevelop then
-		Engine[2].Print("You are using an alpha build! Go download the release build if you have issues! Do not come for support!")
+		Engine[2].DebugPrint("You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help", "warning")
 	end
 
 	for name, module in self:IterateModules() do

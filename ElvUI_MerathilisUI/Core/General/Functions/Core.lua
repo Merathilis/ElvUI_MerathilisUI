@@ -262,6 +262,22 @@ function F.Print(text)
 	print(message)
 end
 
+function F.DebugPrint(text, msgtype)
+	if not text then
+		return
+	end
+
+	local message
+	if msgtype == 'error' then
+		message = format("%s: %s", MER.Title..MER.RedColor..L["Error"].."|r", text)
+	elseif msgtype == 'warning' then
+		message = format("%s: %s", MER.Title..MER.YellowColor..L["Warning"].."|r", text)
+	elseif msgtype == 'info' then
+		message = format("%s: %s", MER.Title..MER.InfoColor..L["Information"].."|r", text)
+	end
+	print(message)
+end
+
 function F.PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
@@ -825,8 +841,6 @@ function F.SplitString(delimiter, subject)
 
 	return unpack(results)
 end
-
-
 
 function F.SetCallback(callback, target, times, ...)
 	times = times or 0
