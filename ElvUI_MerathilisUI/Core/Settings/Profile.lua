@@ -115,6 +115,7 @@ P.blizzard = {
 			style = "OUTLINE"
 		},
 	},
+	simplifyErrors = true,
 }
 
 P.CombatAlert = {

@@ -24,8 +24,28 @@ options.blizzard = {
 	},
 }
 
+options.blizzard.args.general = {
+	order = 2,
+	type = "group",
+	name = E.NewSign..L["General"],
+	get = function(info) return E.db.mui.blizzard[info[#info]] end,
+	set = function(info, value) E.db.mui.blizzard[info[#info]] = value; end,
+	args = {
+		name = {
+			order = 0,
+			type = "header",
+			name = F.cOption(L["General"], 'orange'),
+		},
+		simplifyErrors = {
+			order = 1,
+			type "toggle",
+			name = L["Simplify Error"],
+		}
+	},
+}
+
 options.blizzard.args.objectiveTracker = {
-	order = 1,
+	order = 2,
 	type = "group",
 	name = L["Objective Tracker"],
 	get = function(info) return E.db.mui.blizzard.objectiveTracker[info[#info]] end,
@@ -783,7 +803,7 @@ options.blizzard.args.objectiveTracker = {
 }
 
 options.blizzard.args.talents = {
-	order = 2,
+	order = 3,
 	type = "group",
 	name = L["Talents"],
 	get = function(info) return E.db.mui.blizzard.talents[info[#info]] end,
@@ -819,7 +839,7 @@ options.blizzard.args.talents = {
 }
 
 options.blizzard.args.filter = {
-	order = 3,
+	order = 4,
 	type = "group",
 	name = L["Filter"],
 	get = function(info)
@@ -863,7 +883,7 @@ options.blizzard.args.filter = {
 }
 
 options.blizzard.args.friendsList = {
-	order = 4,
+	order = 5,
 	type = "group",
 	name = L["Friends List"],
 	get = function(info)
