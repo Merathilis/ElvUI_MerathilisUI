@@ -38,7 +38,7 @@ options.blizzard.args.general = {
 		},
 		simplifyErrors = {
 			order = 1,
-			type "toggle",
+			type = "toggle",
 			name = L["Simplify Error"],
 		}
 	},
