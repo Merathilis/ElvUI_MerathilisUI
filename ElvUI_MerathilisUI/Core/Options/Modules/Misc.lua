@@ -394,7 +394,7 @@ options.misc = {
 
 options.itemLevel = {
 	type = "group",
-	name = E.NewSign..L["Item Level"],
+	name = L["Item Level"],
 	get = function(info)
 		return E.db.mui.itemLevel[info[#info]]
 	end,

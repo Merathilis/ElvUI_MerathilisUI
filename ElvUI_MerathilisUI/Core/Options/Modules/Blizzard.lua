@@ -12,7 +12,7 @@ local FriendsFrame_Update = FriendsFrame_Update
 
 options.blizzard = {
 	type = "group",
-	name = L["Blizzard"],
+	name = E.NewSign..L["Blizzard"],
 	get = function(info) return E.db.mui.blizzard[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard[info[#info]] = value; end,
 	args = {
@@ -39,13 +39,13 @@ options.blizzard.args.general = {
 		simplifyErrors = {
 			order = 1,
 			type = "toggle",
-			name = L["Simplify Error"],
+			name = E.NewSign..L["Simplify Error"],
 		}
 	},
 }
 
 options.blizzard.args.objectiveTracker = {
-	order = 2,
+	order = 3,
 	type = "group",
 	name = L["Objective Tracker"],
 	get = function(info) return E.db.mui.blizzard.objectiveTracker[info[#info]] end,
@@ -803,7 +803,7 @@ options.blizzard.args.objectiveTracker = {
 }
 
 options.blizzard.args.talents = {
-	order = 3,
+	order = 4,
 	type = "group",
 	name = L["Talents"],
 	get = function(info) return E.db.mui.blizzard.talents[info[#info]] end,
@@ -839,7 +839,7 @@ options.blizzard.args.talents = {
 }
 
 options.blizzard.args.filter = {
-	order = 4,
+	order = 5,
 	type = "group",
 	name = L["Filter"],
 	get = function(info)
@@ -883,7 +883,7 @@ options.blizzard.args.filter = {
 }
 
 options.blizzard.args.friendsList = {
-	order = 5,
+	order = 6,
 	type = "group",
 	name = L["Friends List"],
 	get = function(info)
