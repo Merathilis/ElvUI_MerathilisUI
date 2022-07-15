@@ -1,0 +1,32 @@
+## Interface: 30400
+## Author: Merathilis
+## Version: 5.13
+## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
+## Notes: A decorative edit for ElvUI + additional features.
+## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
+## RequiredDeps: ElvUI
+## DefaultState: Enabled
+## SavedVariables: MERData
+## SavedVariablesPerCharacter: MERDataPerChar
+## OptionalDeps: SharedMedia, BigWigs, ls_Toasts
+## X-Credits: Benik, Blazeflack, Azilroka, Simpy, Nihilistzsche, Darth Predator, fgprodigal, siweia, Solor, Elv, fang2hou & all AddOn Authors who inspired me.
+## X-ElvVersion: 3.00
+## X-Curse-Project-Name: MerathilisUI
+## X-Curse-Project-ID: 97589
+## X-WoWI-ID: 24117
+## X-Wago-ID: VBNBZVNx
+
+## X-Tukui-ProjectID: 1
+## X-Tukui-ProjectFolders: ElvUI_MerathilisUI
+
+Core\Libs\Load_Libs.xml
+Init.lua
+Core\Locales\Load_Locales.xml
+Core\Media\Load_Media.xml
+Core\Settings\Load_Settings.xml
+Core\General\Load_General.xml
+Core\Modules\Load_Modules.xml
+Core\Options\Load_Options.xml
+Bindings.xml
+
+Wrath\Load.xml

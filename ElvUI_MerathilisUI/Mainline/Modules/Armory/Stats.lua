@@ -513,19 +513,19 @@ function module:BuildScrollBar()
 		module.Scrollbar:SetValue(cur_val - delta*module.totalShown)
 	end)
 
-	PaperDollSidebarTab1:HookScript("OnShow", function(self,event)
+	PaperDollSidebarTab1:HookScript("OnShow", function(self, event)
 		module.ScrollframeParentFrame:Show()
 	end)
 
-	PaperDollSidebarTab1:HookScript("OnClick", function(self,event)
+	PaperDollSidebarTab1:HookScript("OnClick", function(self, event)
 		module.ScrollframeParentFrame:Show()
 	end)
 
-	PaperDollSidebarTab2:HookScript("OnClick", function(self,event)
+	PaperDollSidebarTab2:HookScript("OnClick", function(self, event)
 		module.ScrollframeParentFrame:Hide()
 	end)
 
-	PaperDollSidebarTab3:HookScript("OnClick", function(self,event)
+	PaperDollSidebarTab3:HookScript("OnClick", function(self, event)
 		module.ScrollframeParentFrame:Hide()
 	end)
 end
