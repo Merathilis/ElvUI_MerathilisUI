@@ -22,7 +22,7 @@ options.CombatAlert = {
 		minimapAlert = {
 			order = 3,
 			type = "toggle",
-			name = L["Enable"],
+			name = L["Minimap Combat Alert"],
 		},
 		font = {
 			order = 4,
