@@ -569,16 +569,7 @@ local function ColorizeStatPane(frame)
 	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
 end
 
-local function SkinSLEArmory()
-	if not IsAddOnLoaded("ElvUI_SLE") then
-		return
-	end
-	local db = E.db.sle.armory
-
-	if not db and db.character.enable then
-		return
-	end
-
+local function SkinAdditionalStats()
 	if CharacterStatsPane.OffenseCategory then
 		CharacterStatsPane.OffenseCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
 		StatsPane("OffenseCategory")
@@ -615,7 +606,7 @@ function module:SkinCharacterStatsPane()
 		CharacterStatsPane.ItemLevelFrame.Background:SetAlpha(0)
 		ColorizeStatPane(CharacterStatsPane.ItemLevelFrame)
 
-		E:Delay(0.2, SkinSLEArmory)
+		E:Delay(0.2, SkinAdditionalStats)
 
 		hooksecurefunc("PaperDollFrame_UpdateStats", function()
 			for _, Table in ipairs({_G.CharacterStatsPane.statsFramePool:EnumerateActive()}) do
