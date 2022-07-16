@@ -26,6 +26,7 @@ options.misc = {
 			order = 3,
 			type = "toggle",
 			name = L["Guild News Item Level"],
+			desc = L["Add Item level Infos in Guild News"],
 			get = function(info) return E.private.mui.misc[ info[#info] ] end,
 			set = function(info, value) E.private.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		},
@@ -38,6 +39,7 @@ options.misc = {
 			order = 5,
 			type = "toggle",
 			name = L["Fun Stuff"],
+			desc = L["Change the NPC Talk Frame."],
 		},
 		wowheadlinks = {
 			order = 6,
