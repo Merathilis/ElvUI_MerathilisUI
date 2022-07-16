@@ -330,7 +330,9 @@ P.colors = {
 
 P.mail = {
 	enable = true,
-	defaultPage = "ALTS"
+	defaultPage = "ALTS",
+	saveRecipient = true,
+
 }
 
 P.misc = {

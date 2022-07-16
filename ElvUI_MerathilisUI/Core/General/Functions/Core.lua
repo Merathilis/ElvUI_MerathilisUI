@@ -299,6 +299,52 @@ function F.TablePrint(tbl, indent)
 	end
 end
 
+-- Tooltip Stuff
+function F:HideTooltip()
+	_G.GameTooltip:Hide()
+end
+
+local function Tooltip_OnEnter(self)
+	_G.GameTooltip:SetOwner(self, self.anchor, 0, 4)
+	_G.GameTooltip:ClearLines()
+
+	if self.title then
+		_G.GameTooltip:AddLine(self.title)
+	end
+
+	local r, g, b
+
+	if tonumber(self.text) then
+		_G.GameTooltip:SetSpellByID(self.text)
+	elseif self.text then
+		if self.color == 'CLASS' then
+			r, g, b = F.r, F.g, F.b
+		elseif self.color == 'SYSTEM' then
+			r, g, b = 1, 0.8, 0
+		elseif self.color == 'BLUE' then
+			r, g, b = 0.6, 0.8, 1
+		elseif self.color == 'RED' then
+			r, g, b = 0.9, 0.3, 0.3
+		end
+		if self.blankLine then
+			_G.GameTooltip:AddLine(' ')
+		end
+
+		_G.GameTooltip:AddLine(self.text, r, g, b, 1)
+	end
+
+	_G.GameTooltip:Show()
+end
+
+function F:AddTooltip(anchor, text, color, blankLine)
+	self.anchor = anchor
+	self.text = text
+	self.color = color
+	self.blankLine = blankLine
+	self:HookScript('OnEnter', Tooltip_OnEnter)
+	self:HookScript('OnLeave', F.HideTooltip)
+end
+
 -- LocPanel
 function F.GetIconFromID(type, id)
 	local path
