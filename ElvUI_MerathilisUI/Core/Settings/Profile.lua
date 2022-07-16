@@ -115,7 +115,6 @@ P.blizzard = {
 			style = "OUTLINE"
 		},
 	},
-	simplifyErrors = true,
 }
 
 P.CombatAlert = {
@@ -385,8 +384,9 @@ P.misc = {
 			name = "Expressway",
 			size = 10,
 			style = "OUTLINE",
-		}
-	}
+		},
+	},
+	simplifyErrors = true,
 }
 
 P.nameHover = {

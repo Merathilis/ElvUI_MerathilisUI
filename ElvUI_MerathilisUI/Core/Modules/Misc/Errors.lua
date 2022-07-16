@@ -1,5 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_Errors')
+local module = MER:GetModule('MER_Misc')
+
+local _G = _G
+
+local CreateFrame = CreateFrame
+local InCombatLockdown = InCombatLockdown
 
 local holdtime = 0.52
 local fadeintime = 0.08
@@ -77,10 +82,10 @@ local function OnEvent(_, _, msg)
 	end
 end
 
-function module:Initialize()
+function module:Errors()
 	CreateErrorFrames()
 
-	if E.db.mui.blizzard.simplifyErrors then
+	if E.db.mui.misc.simplifyErrors then
 		_G.UIErrorsFrame:UnregisterEvent('UI_ERROR_MESSAGE')
 		MER:RegisterEvent('UI_ERROR_MESSAGE', OnEvent)
 	else
@@ -89,4 +94,5 @@ function module:Initialize()
 	end
 end
 
-MER:RegisterModule(module:GetName())
+module:AddCallback("Errors")
+module:AddCallbackForUpdate("Errors")

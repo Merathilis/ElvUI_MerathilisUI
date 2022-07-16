@@ -2,13 +2,15 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 local _G = _G
 local format = string.format
-local print, pairs = print, pairs
+local pairs = pairs
 local pcall = pcall
 local tinsert = table.insert
 
 MER.dummy = function() return end
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+
+MER.IsNewPatch = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
 
 MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
 

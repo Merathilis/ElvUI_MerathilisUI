@@ -12,7 +12,7 @@ local FriendsFrame_Update = FriendsFrame_Update
 
 options.blizzard = {
 	type = "group",
-	name = E.NewSign..L["Blizzard"],
+	name = L["Blizzard"],
 	get = function(info) return E.db.mui.blizzard[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard[info[#info]] = value; end,
 	args = {
@@ -21,26 +21,6 @@ options.blizzard = {
 			type = "header",
 			name = F.cOption(L["Blizzard"], 'orange'),
 		},
-	},
-}
-
-options.blizzard.args.general = {
-	order = 2,
-	type = "group",
-	name = E.NewSign..L["General"],
-	get = function(info) return E.db.mui.blizzard[info[#info]] end,
-	set = function(info, value) E.db.mui.blizzard[info[#info]] = value; end,
-	args = {
-		name = {
-			order = 0,
-			type = "header",
-			name = F.cOption(L["General"], 'orange'),
-		},
-		simplifyErrors = {
-			order = 1,
-			type = "toggle",
-			name = E.NewSign..L["Simplify Error"],
-		}
 	},
 }
 

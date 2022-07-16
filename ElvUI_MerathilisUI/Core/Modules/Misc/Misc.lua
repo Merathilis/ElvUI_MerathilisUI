@@ -98,7 +98,7 @@ local function UpdateWhoList()
 	end
 end
 
-function module:Initialize()
+function module:Misc()
 	local db = E.db.mui.misc
 
 	if E.Retail then
@@ -119,4 +119,4 @@ function module:Initialize()
 	module:ReputationInit()
 end
 
-MER:RegisterModule(module:GetName())
+module:AddCallback("Misc")

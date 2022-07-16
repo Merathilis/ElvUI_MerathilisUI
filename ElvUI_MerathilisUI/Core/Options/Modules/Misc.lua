@@ -7,7 +7,7 @@ local LSM = E.LSM
 
 options.misc = {
 	type = "group",
-	name = L["Miscellaneous"],
+	name = E.NewSign..L["Miscellaneous"],
 	get = function(info) return E.db.mui.misc[ info[#info] ] end,
 	set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
@@ -389,6 +389,11 @@ options.misc = {
 				},
 			},
 		},
+		simplifyErrors = {
+			order = 25,
+			type = "toggle",
+			name = E.NewSign..L["Simplify Error"],
+		}
 	},
 }
 
