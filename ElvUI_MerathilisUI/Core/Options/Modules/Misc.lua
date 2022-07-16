@@ -45,6 +45,12 @@ options.misc = {
 			name = L["Wowhead Links"],
 			desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
 		},
+		hideBossBanner = {
+			order = 7,
+			type = "toggle",
+			name = E.NewSign..L["Hide Boss Banner"],
+			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
+		},		
 		spellAlert = {
 			order = 10,
 			type = "range",
@@ -374,7 +380,7 @@ options.misc = {
 			},
 		},
 		macros = {
-			order = 24,
+			order = 25,
 			type = "group",
 			name = F.cOption(L["Macros"], 'orange'),
 			guiInline = true,
@@ -388,12 +394,6 @@ options.misc = {
 					set = function() return end,
 				},
 			},
-		},
-		hideBossBanner = {
-			order = 25,
-			type = "toggle",
-			name = E.NewSign..L["Hide Boss Banner"],
-			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
 		},
 	},
 }
