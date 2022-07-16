@@ -43,11 +43,10 @@ function MER:UpdateScripts() -- DB Convert
 	local updated = false
 	if profileVersion and profileVersion <= 5.15 then
 		if E.db.mui.blizzard.simplifyerrors then
-			E.db.mui.misc.simplifyErrors = E.db.mui.blizzard.simplifyerrors
+			E.db.mui.blizzard.simplifyerrors = nil
 		end
-		E.db.mui.blizzard.simplifyerrors = nil
 
-		UpdateMessage(L["Blizzard"] .. " - " .. L["Simplify Errors"], profileVersion)
+		UpdateMessage(L["Misc"] .. " - " .. L["Profile Cleanup"], profileVersion)
 		updated = true
 	end
 

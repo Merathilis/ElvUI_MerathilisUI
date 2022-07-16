@@ -2,7 +2,6 @@
 	<Script file="Core.lua"/>
 	<Script file="Misc.lua"/>
 	<Script file="Afk.lua"/>
-	<Script file="Errors.lua"/>
 	<Script file="Cursor.lua"/>
 	<Script file="FlightPoint.lua"/>
 	<Include file="FlightPoint.xml" />

@@ -386,7 +386,6 @@ P.misc = {
 			style = "OUTLINE",
 		},
 	},
-	simplifyErrors = true,
 	hideBossBanner = false,
 }
 
