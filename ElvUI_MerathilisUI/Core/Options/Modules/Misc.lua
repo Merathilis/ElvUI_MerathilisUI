@@ -393,7 +393,13 @@ options.misc = {
 			order = 25,
 			type = "toggle",
 			name = E.NewSign..L["Simplify Error"],
-		}
+		},
+		hideBossBanner = {
+			order = 26,
+			type = "toggle",
+			name = E.NewSign..L["Hide Boss Banner"],
+			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
+		},
 	},
 }
 

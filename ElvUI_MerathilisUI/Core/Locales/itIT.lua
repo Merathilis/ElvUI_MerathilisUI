@@ -259,6 +259,8 @@ L.ANNOUNCE_FP_PRE = "{rt1} %s ha preparato un/una %s. {rt1}"
 L.ANNOUNCE_FP_CLICK ="{rt1} %s sta lanciando %s. Cliccate! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s ha utilizzato un/una %s. {rt1}"
 L.ANNOUNCE_FP_CAST = "{rt1} %s sta lanciando %s. {rt1}"
+L["Hide Boss Banner"] = true
+L["This will hide the popup, that shows loot, after you kill a boss"] = true
 
 -- Nameplates
 L["NamePlates"] = true
