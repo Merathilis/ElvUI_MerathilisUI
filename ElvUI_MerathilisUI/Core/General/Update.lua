@@ -41,7 +41,7 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion <= 5.14 then
+	if profileVersion and profileVersion <= 5.14 then
 		if E.db.mui.armory.stats then
 			E.db.mui.armory.stats.color = {r = F.r, g = F.g, b = F.b} -- First time color adjustments
 		end
