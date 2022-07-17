@@ -6,33 +6,40 @@ local pairs = pairs
 local pcall = pcall
 local tinsert = table.insert
 
-MER.dummy = function() return end
-MER.ElvUIV = tonumber(E.version)
-MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+local GetAddOnMetadata =GetAddOnMetadata
+local GetBuildInfo = GetBuildInfo
+local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
+local InCombatLockdown = InCombatLockdown
 
-MER.IsNewPatch = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
+do
+	MER.dummy = function() return end
+	MER.ElvUIV = tonumber(E.version)
+	MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 
-MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
+	MER.IsNewPatch = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
 
--- Masque support
-MER.MSQ = _G.LibStub('Masque', true)
+	MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
 
-MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
-MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
+	-- Masque support
+	MER.MSQ = _G.LibStub('Masque', true)
 
-MER.InfoColor = "|cFF00c0fa" --Info Color RGB: 0, .75, .98
-MER.GreyColor = "|cffB5B5B5"
-MER.RedColor = "|cffff2735"
-MER.GreenColor = "|cff3a9d36"
-MER.YellowColor = "|cffffff00"
-MER.BlueColor = "|cff82c5ff"
-MER.WhiteColor = "|cffffffff"
+	MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
+	MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
 
-MER.LineString = MER.GreyColor.."---------------"
+	MER.InfoColor = "|cFF00c0fa" --Info Color RGB: 0, .75, .98
+	MER.GreyColor = "|cffB5B5B5"
+	MER.RedColor = "|cffff2735"
+	MER.GreenColor = "|cff3a9d36"
+	MER.YellowColor = "|cffffff00"
+	MER.BlueColor = "|cff82c5ff"
+	MER.WhiteColor = "|cffffffff"
 
-MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
-MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
-MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
+	MER.LineString = MER.GreyColor.."---------------"
+
+	MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
+	MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
+	MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
+end
 
 MER.RegisteredModules = {}
 

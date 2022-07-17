@@ -26,7 +26,7 @@ V.skins = {
 			enable = true,
 			backdrop = {
 				enable = true,
-				texture = "RenAscensionL",
+				texture = "Gradient",
 				classColor = false,
 				color = {r = 0, g = 0.752, b = 0.980},
 				alpha = 1,
@@ -55,7 +55,7 @@ V.skins = {
 			enable = true,
 			backdrop = {
 				enable = true,
-				texture = "RenAscensionL",
+				texture = "Gradient",
 				classColor = false,
 				color = {r = 0, g = 0.752, b = 0.980},
 				alpha = 1,
@@ -64,7 +64,7 @@ V.skins = {
 			},
 			selected = {
 				enable = true,
-				texture = "RenAscensionL",
+				texture = "Gradient",
 				backdropClassColor = false,
 				backdropColor = {r = 0.322, g = 0.608, b = 0.961},
 				backdropAlpha = 0.4,
@@ -86,13 +86,13 @@ V.skins = {
 		},
 		checkBox = {
 			enable = true,
-			texture = "RenAscensionL",
+			texture = "Gradient",
 			classColor = false,
 			color = {r = 0, g = 0.752, b = 0.980, a = 1}
 		},
 		slider = {
 			enable = true,
-			texture = "RenAscensionL",
+			texture = "Gradient",
 			classColor = false,
 			color = {r = 0, g = 0.752, b = 0.980, a = 1}
 		},
@@ -100,7 +100,7 @@ V.skins = {
 			enable = true,
 			backdrop = {
 				enable = true,
-				texture = "RenAscensionL",
+				texture = "Gradient",
 				classColor = false,
 				color = {r = 0, g = 0.752, b = 0.980},
 				alpha = 1,
@@ -109,7 +109,7 @@ V.skins = {
 			},
 			selected = {
 				enable = true,
-				texture = "RenAscensionL",
+				texture = "Gradient",
 				backdropClassColor = false,
 				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.75},
 				borderClassColor = false,

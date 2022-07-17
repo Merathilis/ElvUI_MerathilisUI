@@ -50,7 +50,7 @@ P.blizzard = {
 		},
 		cosmeticBar = {
 			enable = true,
-			texture = "RenAscensionL",
+			texture = "Gradient",
 			widthMode = "ABSOLUTE",
 			heightMode = "ABSOLUTE",
 			width = 212,
@@ -230,7 +230,7 @@ P.chat = {
 		buttonHeight = 5,
 		spacing = 5,
 		orientation = "HORIZONTAL",
-		tex = "RenAscensionL",
+		tex = "Gradient",
 		font = {
 			name = E.db.general.font,
 			size = 12,
