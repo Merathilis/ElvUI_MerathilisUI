@@ -328,13 +328,29 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 	E.db["auras"]["buffs"]["verticalSpacing"] = 12
-	E.db["auras"]["buffs"]["size"] = 32
+	if IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
+		E.db["auras"]["buffs"]["keepSizeRatio"] = false
+		E.db["auras"]["buffs"]["height"] = 28
+		E.db["auras"]["buffs"]["size"] = 32
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-17"
+	else
+		E.db["auras"]["buffs"]["size"] = 32
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-15"
+	end
 	E.db["auras"]["buffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["auras"]["buffs"]["countFontSize"] = 11
 	E.db["auras"]["buffs"]["countFontOutline"] = "OUTLINE"
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
-	E.db["auras"]["debuffs"]["size"] = 34
+	if IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
+		E.db["auras"]["debuffs"]["keepSizeRatio"] = false
+		E.db["auras"]["debuffs"]["height"] = 30
+		E.db["auras"]["debuffs"]["size"] = 34
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-155"
+	else
+		E.db["auras"]["debuffs"]["size"] = 34
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-155"
+	end
 	E.db["auras"]["debuffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
 	E.db["auras"]["debuffs"]["countFontOutline"] = "OUTLINE"
@@ -367,14 +383,6 @@ function MER:SetupLayout()
 	E.db["auras"]["cooldown"]["hoursColor"]["r"] = 1
 	E.db["auras"]["cooldown"]["hoursColor"]["g"] = 1
 	E.db["auras"]["cooldown"]["hoursColor"]["b"] = 1
-
-	if E.db.mui.panels.stylePanels.topRightPanel then
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-15"
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-155"
-	else
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-3"
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-120"
-	end
 
 	--[[----------------------------------
 	--	ProfileDB - Bags
