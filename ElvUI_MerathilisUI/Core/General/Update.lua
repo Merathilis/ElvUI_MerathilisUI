@@ -41,12 +41,12 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion <= 5.14 then
-		if E.db.mui.armory.stats then
-			E.db.mui.armory.stats.color = {r = F.r, g = F.g, b = F.b} -- First time color adjustments
+	if profileVersion and profileVersion <= 5.15 then
+		if E.db.mui.blizzard.simplifyerrors then
+			E.db.mui.blizzard.simplifyerrors = nil
 		end
 
-		UpdateMessage(L["Armory"] .. " - " .. L["Color Adjustment"], profileVersion)
+		UpdateMessage(L["Misc"] .. " - " .. L["Profile Cleanup"], profileVersion)
 		updated = true
 	end
 

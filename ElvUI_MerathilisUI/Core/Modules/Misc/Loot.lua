@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_Loot')
+local module = MER:GetModule('MER_Misc')
 local LCG = LibStub('LibCustomGlow-1.0')
 local M = E:GetModule('Misc')
 
@@ -32,8 +32,8 @@ function module:LOOT_OPENED(_, autoloot)
 	end
 end
 
-function module:Initialize()
+function module:Loot()
 	hooksecurefunc(M, "LOOT_OPENED", module.LOOT_OPENED)
 end
 
-MER:RegisterModule(module:GetName())
+module:AddCallback("Loot")

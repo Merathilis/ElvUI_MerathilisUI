@@ -50,7 +50,7 @@ P.blizzard = {
 		},
 		cosmeticBar = {
 			enable = true,
-			texture = "RenAscensionL",
+			texture = "Gradient",
 			widthMode = "ABSOLUTE",
 			heightMode = "ABSOLUTE",
 			width = 212,
@@ -230,7 +230,7 @@ P.chat = {
 		buttonHeight = 5,
 		spacing = 5,
 		orientation = "HORIZONTAL",
-		tex = "RenAscensionL",
+		tex = "Gradient",
 		font = {
 			name = E.db.general.font,
 			size = 12,
@@ -330,7 +330,9 @@ P.colors = {
 
 P.mail = {
 	enable = true,
-	defaultPage = "ALTS"
+	defaultPage = "ALTS",
+	saveRecipient = true,
+
 }
 
 P.misc = {
@@ -384,8 +386,9 @@ P.misc = {
 			name = "Expressway",
 			size = 10,
 			style = "OUTLINE",
-		}
-	}
+		},
+	},
+	hideBossBanner = false,
 }
 
 P.nameHover = {
@@ -1180,9 +1183,9 @@ P.armory = {
 	transmog = {
 		enable = true,
 	},
-	-- illusion = {
-		-- enable = false,
-	-- },
+	illusion = {
+		enable = true,
+	},
 	warning = {
 		enable = true,
 	},

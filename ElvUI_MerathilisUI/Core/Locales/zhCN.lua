@@ -4,6 +4,11 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhCN")
 -- Core
 L["Enable"] = "启用"
 L[" is loaded. For any issues or suggestions, please visit "] = " 已加载。如有任何问题或建议，请访问 "
+L["Font"] = true
+L["Size"] = true
+L["Width"] = true
+L["Height"] = true
+L["Alpha"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -15,7 +20,10 @@ L["Logout Timer"] = "登出计时器"
 L["SplashScreen"] = "闪屏"
 L["Enable/Disable the Splash Screen on Login."] = "在登录时启用/禁用启动画面."
 L["Options"] = "选项"
-L["Desciption"] = "描述"
+L["Description"] = "描述"
+L["General"] = true
+L["Modules"] = true
+L["Media"] = true
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r 是ElvUI的扩展. 它增加了:
 
 - 大量新特性
@@ -129,6 +137,7 @@ L["Coding"] = "代码"
 L["Testing & Inspiration"] = "测试与灵感"
 L["Development Version"] = "开发版本"
 L["Here you can download the latest development version."] = "您可以从这里下载最新的开发版本."
+L["Donations"] = true
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = "你能在这里找到所有不同的选项 |cffffffffMerathilis|r|cffff8000UI|r 模块."
@@ -228,6 +237,7 @@ L["Name Hover"] = "名字悬停"
 L["Shows the Unit Name on the mouse."] = "显示鼠标指向的单位名称."
 L["Undress"] = "解除装备"
 L["Flashing Cursor"] = "鼠标闪光"
+L["Lights up the cursor to make it easier to see."] = true
 L["Accept Quest"] = "接受任务"
 L["Placed Item"] = "放置物品"
 L["Stranger"] = "陌生人"
@@ -240,6 +250,7 @@ L["MISC_PARAGON"] = "巅峰"
 L["MISC_PARAGON_REPUTATION"] = "巅峰声望"
 L["MISC_PARAGON_NOTIFY"] = "最高声望 - 接收奖励."
 L["Fun Stuff"] = "有趣的玩意儿"
+L["Change the NPC Talk Frame."] = true
 L["Press CTRL + C to copy."] = "按下 CTRL + C 复制"
 L["Wowhead Links"] = "Wowhead 链接"
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "在成就和地图框体上添加 Wowhead 链接"
@@ -249,10 +260,30 @@ L["Item Alerts"] = "物品通告"
 L["Announce in chat when someone placed an usefull item."] = "当有玩家放置某些物品时将在聊天栏通知"
 L["Maw ThreatBar"] = true
 L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L["Miscellaneous"] = true
+L["Guild News Item Level"] = true
+L["Add Item level Infos in Guild News"] = true
+L["Spell Alert Scale"] = true
+L["Add Title"] = true
+L["Display an additional title."] = true
+L["Add LFG group info to tooltip."] = true
+L["Reskin Icon"] = true
+L["Change role icons."] = true
+L["Line"] = true
+L["Alerts"] = true
+L["Call to Arms"] = true
+L["Feasts"] = true
+L["Toys"] = true
+L["Random Toy"] = true
+L["Creates a random toy macro."] = true
+L["Text Style"] = true
+L["COLOR"] = true
 L.ANNOUNCE_FP_PRE = "{rt1} %s 放置了 %s {rt1}"
 L.ANNOUNCE_FP_CLICK = "{rt1} %s 正在开启 %s... 请点击 ! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s 使用了 %s。 {rt1}"
 L.ANNOUNCE_FP_CAST = "{rt1} %s 开启了 %s {rt1}"
+L["Hide Boss Banner"] = true
+L["This will hide the popup, that shows loot, after you kill a boss"] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
@@ -323,6 +354,11 @@ L["If a Rare Mob or a treasure gets spotted on the minimap."] = "如果在小地
 L["Enable Invites"] = "启用邀请"
 L["Enable Guild Events"] = "启用公会活动"
 L["No Sounds"] = "没有声音"
+L["Vignette Print"] = true
+L["Prints a clickable Link with Coords in the Chat."] = true
+L["Quick Join"] = true
+L["Title Font"] = true
+L["Text Font"] = true
 
 -- DataTexts
 -- DataBars
@@ -891,6 +927,7 @@ L["Selected Class Color"] = "选中职业颜色"
 L["Selected Color"] = "选中颜色"
 L["Tab"] = "选项卡"
 L["Tree Group Button"] = "树状分组按钮"
+L["Shadow Color"] = true
 
 -- Panels
 L["Top Left Panel"] = "左上面板"
@@ -903,6 +940,7 @@ L["Bottom Right Panel"] = "右下面板"
 L["Bottom Right Extra Panel"] = "右下额外面板"
 
 -- Objective Tracker
+L["Objective Tracker"] = true
 L["1. Customize the font of Objective Tracker."] = "1. 自定义任务追踪的字体."
 L["2. Add colorful progress text to the quest."] = "2. 为任务添加彩色的进度文字."
 L["Progress"] = "进度"
@@ -945,6 +983,7 @@ L["Bottom Right Offset Y"] = "右下角 Y 偏移"
 L["Top Left Offset X"] = "左上角 X 轴偏移"
 L["Top Left Offset Y"] = "左上角 Y 轴偏移"
 L["Transparent"] = "透明"
+L["Style"] = true
 
 -- Filter
 L["Filter"] = "过滤器"
@@ -1016,3 +1055,5 @@ L["Debug Enviroment"] = "调试环境"
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "你可以使用 |cff00ff00/muidebug off|r 命令来退出调试模式."
 L["After you stop debuging, %s will reenable the addons automatically."] = "在你停止调试后, %s 将自动重新启用插件."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "在提交一个错误报告之前, 请先用 %s 命令启用调试模式并再测试一次."
+L["Error"] = true
+L["Warning"] = true

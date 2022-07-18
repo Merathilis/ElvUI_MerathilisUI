@@ -4,6 +4,11 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhTW")
 -- Core
 L["Enable"] = "啟用"
 L[" is loaded. For any issues or suggestions, please visit "] = true
+L["Font"] = true
+L["Size"] = true
+L["Width"] = true
+L["Height"] = true
+L["Alpha"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -15,7 +20,10 @@ L["Logout Timer"] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = "設定"
-L["Desciption"] = true
+L["Description"] = true
+L["General"] = true
+L["Modules"] = true
+L["Media"] = true
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI. It adds:
 
 - a lot of new features
@@ -126,6 +134,7 @@ L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["Development Version"] = "開發版"
 L["Here you can download the latest development version."] = true
+L["Donations"] = true
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = true
@@ -219,6 +228,7 @@ L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
 L["Undress"] = true
 L["Flashing Cursor"] = true
+L["Lights up the cursor to make it easier to see."] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
@@ -231,6 +241,7 @@ L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
 L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
 L["Fun Stuff"] = true
+L["Change the NPC Talk Frame."] = true
 L["Press CTRL + C to copy."] = true
 L["Wowhead Links"] = true
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
@@ -240,10 +251,30 @@ L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
 L["Maw ThreatBar"] = true
 L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L["Miscellaneous"] = true
+L["Guild News Item Level"] = true
+L["Add Item level Infos in Guild News"] = true
+L["Spell Alert Scale"] = true
+L["Add Title"] = true
+L["Display an additional title."] = true
+L["Add LFG group info to tooltip."] = true
+L["Reskin Icon"] = true
+L["Change role icons."] = true
+L["Line"] = true
+L["Alerts"] = true
+L["Call to Arms"] = true
+L["Feasts"] = true
+L["Toys"] = true
+L["Random Toy"] = true
+L["Creates a random toy macro."] = true
+L["Text Style"] = true
+L["COLOR"] = true
 L.ANNOUNCE_FP_PRE = "{rt1} %s 放置了 %s {rt1}"
 L.ANNOUNCE_FP_CLICK = "{rt1} %s 正在開啟 %s... 請點擊 ! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s 使用了 %s。 {rt1}"
 L.ANNOUNCE_FP_CAST = "{rt1} %s 開啟了 %s {rt1}"
+L["Hide Boss Banner"] = true
+L["This will hide the popup, that shows loot, after you kill a boss"] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -314,6 +345,11 @@ L["If a Rare Mob or a treasure gets spotted on the minimap."] = true
 L["Enable Invites"] = true
 L["Enable Guild Events"] = true
 L["No Sounds"] = true
+L["Vignette Print"] = true
+L["Prints a clickable Link with Coords in the Chat."] = true
+L["Quick Join"] = true
+L["Title Font"] = true
+L["Text Font"] = true
 
 -- DataTexts
 -- DataBars
@@ -428,6 +464,17 @@ L["Color of Average"] = true
 L["Sets the color of average item level."] = true
 
 -- Media
+L["Zone Text"] = true
+L["Font Size"] = true
+L["Subzone Text"] = true
+L["PvP Status Text"] = true
+L["Misc Texts"] = true
+L["Mail Text"] = true
+L["Chat Editbox Text"] = true
+L["Gossip and Quest Frames Text"] = true
+L["Objective Tracker Header Text"] = true
+L["Objective Tracker Text"] = true
+L["Banner Big Text"] = true
 L["MER_MEDIA_ZONES"] = {
 	"Washington",
 	"Moscow",
@@ -866,6 +913,7 @@ L["Selected Class Color"] = "選中時職業顏色"
 L["Selected Color"] = "選中時顏色"
 L["Tab"] = "標籤"
 L["Tree Group Button"] = "樹狀分組按鍵"
+L["Shadow Color"] = true
 
 -- Panels
 L["Top Left Panel"] = true
@@ -878,6 +926,7 @@ L["Bottom Right Panel"] = true
 L["Bottom Right Extra Panel"] = true
 
 -- Objective Tracker
+L["Objective Tracker"] = true
 L["1. Customize the font of Objective Tracker."] = "1. 自訂任務追蹤字型."
 L["2. Add colorful progress text to the quest."] = "2. 為任務添加彩色進度文字."
 L["Progress"] = "進度"
@@ -920,6 +969,7 @@ L["Bottom Right Offset Y"] = "右下 Y 偏移"
 L["Top Left Offset X"] = "左上 X 軸偏移"
 L["Top Left Offset Y"] = "左上 Y 軸偏移"
 L["Transparent"] = "透明"
+L["Style"] = true
 
 -- Filter
 L["Filter"] = "過濾器"
@@ -990,3 +1040,5 @@ L["Debug Enviroment"] = "偵錯環境"
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "你可以使用 |cff00ff00/muidebug off|r 指令來退出偵錯模式."
 L["After you stop debuging, %s will reenable the addons automatically."] = "在停止偵錯模式後, %s 將自動重新啟用插件."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "在提交錯誤報告前, 請先使用 %s 命令啟用除錯模式並再次測試."
+L["Error"] = true
+L["Warning"] = true

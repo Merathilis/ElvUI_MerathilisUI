@@ -75,7 +75,6 @@ MER.Modules.ItemLevel = MER:NewModule('MER_ItemLevel', 'AceHook-3.0', 'AceEvent-
 MER.Modules.Layout = MER:NewModule('MER_Layout', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.LFGInfo = MER:NewModule('MER_LFGInfo', 'AceHook-3.0')
 MER.Modules.LocPanel = MER:NewModule('MER_LocPanel', 'AceTimer-3.0', 'AceEvent-3.0')
-MER.Modules.Loot = MER:NewModule('MER_Loot', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.Mail = MER:NewModule('MER_Mail', 'AceHook-3.0')
 MER.Modules.MicroBar = MER:NewModule('MER_MicroBar', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.MiniMap = MER:NewModule('MER_Minimap', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
@@ -139,7 +138,7 @@ function MER:Initialize()
 	end
 
 	if MER.IsDevelop then
-		Engine[2].Print("You are using an alpha build! Go download the release build if you have issues! Do not come for support!")
+		Engine[2].DebugPrint("You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help", "warning")
 	end
 
 	for name, module in self:IterateModules() do

@@ -7,7 +7,7 @@ local LSM = E.LSM
 
 options.misc = {
 	type = "group",
-	name = L["Miscellaneous"],
+	name = E.NewSign..L["Miscellaneous"],
 	get = function(info) return E.db.mui.misc[ info[#info] ] end,
 	set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
@@ -26,6 +26,7 @@ options.misc = {
 			order = 3,
 			type = "toggle",
 			name = L["Guild News Item Level"],
+			desc = L["Add Item level Infos in Guild News"],
 			get = function(info) return E.private.mui.misc[ info[#info] ] end,
 			set = function(info, value) E.private.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		},
@@ -38,6 +39,7 @@ options.misc = {
 			order = 5,
 			type = "toggle",
 			name = L["Fun Stuff"],
+			desc = L["Change the NPC Talk Frame."],
 		},
 		wowheadlinks = {
 			order = 6,
@@ -45,6 +47,12 @@ options.misc = {
 			name = L["Wowhead Links"],
 			desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
 		},
+		hideBossBanner = {
+			order = 7,
+			type = "toggle",
+			name = E.NewSign..L["Hide Boss Banner"],
+			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
+		},		
 		spellAlert = {
 			order = 10,
 			type = "range",
@@ -374,7 +382,7 @@ options.misc = {
 			},
 		},
 		macros = {
-			order = 24,
+			order = 25,
 			type = "group",
 			name = F.cOption(L["Macros"], 'orange'),
 			guiInline = true,
@@ -394,7 +402,7 @@ options.misc = {
 
 options.itemLevel = {
 	type = "group",
-	name = E.NewSign..L["Item Level"],
+	name = L["Item Level"],
 	get = function(info)
 		return E.db.mui.itemLevel[info[#info]]
 	end,

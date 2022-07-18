@@ -2,35 +2,44 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 local _G = _G
 local format = string.format
-local print, pairs = print, pairs
+local pairs = pairs
 local pcall = pcall
 local tinsert = table.insert
 
-MER.dummy = function() return end
-MER.ElvUIV = tonumber(E.version)
-MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+local GetAddOnMetadata =GetAddOnMetadata
+local GetBuildInfo = GetBuildInfo
+local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
+local InCombatLockdown = InCombatLockdown
 
-MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
+do
+	MER.dummy = function() return end
+	MER.ElvUIV = tonumber(E.version)
+	MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 
--- Masque support
-MER.MSQ = _G.LibStub('Masque', true)
+	MER.IsNewPatch = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
 
-MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
-MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
+	MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
 
-MER.InfoColor = "|cFF00c0fa" --Info Color RGB: 0, 192, 250
-MER.GreyColor = "|cffB5B5B5"
-MER.RedColor = "|cffff2735"
-MER.GreenColor = "|cff3a9d36"
-MER.YellowColor = "|cffffff00"
-MER.BlueColor = "|cff82c5ff"
-MER.WhiteColor = "|cffffffff"
+	-- Masque support
+	MER.MSQ = _G.LibStub('Masque', true)
 
-MER.LineString = MER.GreyColor.."---------------"
+	MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
+	MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
 
-MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
-MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
-MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
+	MER.InfoColor = "|cFF00c0fa" --Info Color RGB: 0, .75, .98
+	MER.GreyColor = "|cffB5B5B5"
+	MER.RedColor = "|cffff2735"
+	MER.GreenColor = "|cff3a9d36"
+	MER.YellowColor = "|cffffff00"
+	MER.BlueColor = "|cff82c5ff"
+	MER.WhiteColor = "|cffffffff"
+
+	MER.LineString = MER.GreyColor.."---------------"
+
+	MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
+	MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
+	MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
+end
 
 MER.RegisteredModules = {}
 

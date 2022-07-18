@@ -26,6 +26,7 @@ local UnitSex = UnitSex
 
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
+local C_TransmogCollection_GetIllusionStrings = C_TransmogCollection.GetIllusionStrings
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 
 local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
@@ -255,6 +256,8 @@ function module:UpdatePaperDoll()
 			frame.Gradiation.Texture:Hide()
 			frame.Transmog.Texture:Hide()
 			frame.Transmog.Link = nil
+			frame.Illusion:Hide()
+			frame.Illusion.Link = nil
 
 			itemLink = GetInventoryItemLink(unit, slot)
 			if (itemLink and itemLink ~= nil) then
@@ -294,6 +297,22 @@ function module:UpdatePaperDoll()
 					if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(transmogLocation) then
 						frame.Transmog.Texture:Show()
 						frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation))))
+					end
+				end
+
+				-- Illussion
+				if module.db.illusion.enable then
+					if (slot == 16 or slot == 17) then
+						local transmogLocation = TransmogUtil.GetTransmogLocation((frame.ID), Enum.TransmogType.Appearance, Enum.TransmogModification.Main)
+						local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(transmogLocation)
+
+						if ItemTexture then
+							frame.Illusion.Texture:SetTexture(ItemTexture)
+							frame.Illusion:Show()
+							_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionStrings(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation)))
+						end
+					else
+						frame.Illusion:Hide()
 					end
 				end
 			end
@@ -387,6 +406,19 @@ function module:BuildInformation()
 			frame.Transmog:Point("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
 			frame.Transmog.Texture:SetTexCoord(0, 1, 0, 1)
 		end
+
+		-- Illusion Info
+		frame.Illusion = CreateFrame('Button', nil, frame)
+		frame.Illusion:Size(14)
+		frame.Illusion:SetPoint('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
+		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
+		frame.Illusion:SetScript('OnLeave', self.Tooltip_OnLeave)
+		frame.Illusion:CreateBackdrop()
+		frame.Illusion.backdrop:SetBackdropBorderColor(1, .5, 1)
+
+		frame.Illusion.Texture = frame.Illusion:CreateTexture(nil, 'OVERLAY')
+		frame.Illusion.Texture:SetInside()
+		frame.Illusion.Texture:SetTexCoord(.1, .9, .1, .9)
 	end
 
 	for _, SlotName in pairs(gearList) do
@@ -537,16 +569,7 @@ local function ColorizeStatPane(frame)
 	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
 end
 
-local function SkinSLEArmory()
-	if not IsAddOnLoaded("ElvUI_SLE") then
-		return
-	end
-	local db = E.db.sle.armory
-
-	if not db and db.character.enable then
-		return
-	end
-
+local function SkinAdditionalStats()
 	if CharacterStatsPane.OffenseCategory then
 		CharacterStatsPane.OffenseCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
 		StatsPane("OffenseCategory")
@@ -583,7 +606,7 @@ function module:SkinCharacterStatsPane()
 		CharacterStatsPane.ItemLevelFrame.Background:SetAlpha(0)
 		ColorizeStatPane(CharacterStatsPane.ItemLevelFrame)
 
-		E:Delay(0.2, SkinSLEArmory)
+		E:Delay(0.2, SkinAdditionalStats)
 
 		hooksecurefunc("PaperDollFrame_UpdateStats", function()
 			for _, Table in ipairs({_G.CharacterStatsPane.statsFramePool:EnumerateActive()}) do

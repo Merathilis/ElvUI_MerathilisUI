@@ -51,10 +51,13 @@ local function LoadSkin()
 	infoText:SetPoint("TOP", _G["TradeFrameRecipientNameText"], "BOTTOM", 0, -5)
 
 	local function UpdateColor()
+		local r, g, b = F.UnitColor("NPC")
+		TradeFrameRecipientNameText:SetTextColor(r, g, b)
+
 		local guid = UnitGUID("NPC")
 		if not guid then return end
-		local text = "|cffff0000"..L["Stranger"]
 
+		local text = "|cffff0000"..L["Stranger"]
 		if C_BattleNet_GetGameAccountInfoByGUID(guid) or C_FriendList_IsFriend(guid) then
 			text = "|cffffff00".._G.FRIEND
 		elseif IsGuildMember(guid) then
@@ -62,7 +65,6 @@ local function LoadSkin()
 		end
 		infoText:SetText(text)
 	end
-
 	hooksecurefunc("TradeFrame_Update", UpdateColor)
 end
 

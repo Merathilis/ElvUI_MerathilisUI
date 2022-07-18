@@ -39,7 +39,7 @@ function MER:CreateSplash()
 	local version = F.CreateText(frame, "OVERLAY", 14, nil, nil, nil, "CENTER")
 	version:FontTemplate(nil, 14, nil)
 	version:Point("TOP", tex, "BOTTOM", 0, 10)
-	version:SetFormattedText("v%s", MER.Version)
+	version:SetFormattedText("%s", MER.Version)
 	version:SetTextColor(1, 0.5, 0.25, 1)
 
 	local delayTime = 0

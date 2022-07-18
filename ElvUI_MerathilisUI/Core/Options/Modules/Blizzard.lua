@@ -25,7 +25,7 @@ options.blizzard = {
 }
 
 options.blizzard.args.objectiveTracker = {
-	order = 1,
+	order = 3,
 	type = "group",
 	name = L["Objective Tracker"],
 	get = function(info) return E.db.mui.blizzard.objectiveTracker[info[#info]] end,
@@ -783,7 +783,7 @@ options.blizzard.args.objectiveTracker = {
 }
 
 options.blizzard.args.talents = {
-	order = 2,
+	order = 4,
 	type = "group",
 	name = L["Talents"],
 	get = function(info) return E.db.mui.blizzard.talents[info[#info]] end,
@@ -819,7 +819,7 @@ options.blizzard.args.talents = {
 }
 
 options.blizzard.args.filter = {
-	order = 3,
+	order = 5,
 	type = "group",
 	name = L["Filter"],
 	get = function(info)
@@ -863,7 +863,7 @@ options.blizzard.args.filter = {
 }
 
 options.blizzard.args.friendsList = {
-	order = 4,
+	order = 6,
 	type = "group",
 	name = L["Friends List"],
 	get = function(info)

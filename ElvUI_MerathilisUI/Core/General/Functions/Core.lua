@@ -46,6 +46,35 @@ for class, value in pairs(colors) do
 end
 F.r, F.g, F.b = F.ClassColors[E.myclass].r, F.ClassColors[E.myclass].g, F.ClassColors[E.myclass].b
 
+function F.ClassColor(class)
+	local color = F.ClassColors[class]
+	if not color then
+		return  1, 1, 1
+	end
+
+	return color.r, color.g, color.b
+end
+
+function F.UnitColor(unit)
+	local r, g, b = 1, 1, 1
+	if UnitIsPlayer(unit) then
+		local class = select(2, UnitClass(unit))
+		if class then
+			r, g, b = F.ClassColor(class)
+		end
+	elseif UnitIsTapDenied(unit) then
+		r, g, b = .6, .6, .6
+	else
+		local reaction = UnitReaction(unit, "player")
+		if reaction then
+			local color = FACTION_BAR_COLORS[reaction]
+			r, g, b = color.r, color.g, color.b
+		end
+	end
+
+	return r, g, b
+end
+
 local defaultColor = { r = 1, g = 1, b = 1, a = 1 }
 function F.unpackColor(color)
 	if not color then color = defaultColor end
@@ -233,6 +262,22 @@ function F.Print(text)
 	print(message)
 end
 
+function F.DebugPrint(text, msgtype)
+	if not text then
+		return
+	end
+
+	local message
+	if msgtype == 'error' then
+		message = format("%s: %s", MER.Title..MER.RedColor..L["Error"].."|r", text)
+	elseif msgtype == 'warning' then
+		message = format("%s: %s", MER.Title..MER.YellowColor..L["Warning"].."|r", text)
+	elseif msgtype == 'info' then
+		message = format("%s: %s", MER.Title..MER.InfoColor..L["Information"].."|r", text)
+	end
+	print(message)
+end
+
 function F.PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
@@ -252,6 +297,52 @@ function F.TablePrint(tbl, indent)
 			print(formatting .. v)
 		end
 	end
+end
+
+-- Tooltip Stuff
+function F:HideTooltip()
+	_G.GameTooltip:Hide()
+end
+
+local function Tooltip_OnEnter(self)
+	_G.GameTooltip:SetOwner(self, self.anchor, 0, 4)
+	_G.GameTooltip:ClearLines()
+
+	if self.title then
+		_G.GameTooltip:AddLine(self.title)
+	end
+
+	local r, g, b
+
+	if tonumber(self.text) then
+		_G.GameTooltip:SetSpellByID(self.text)
+	elseif self.text then
+		if self.color == 'CLASS' then
+			r, g, b = F.r, F.g, F.b
+		elseif self.color == 'SYSTEM' then
+			r, g, b = 1, 0.8, 0
+		elseif self.color == 'BLUE' then
+			r, g, b = 0.6, 0.8, 1
+		elseif self.color == 'RED' then
+			r, g, b = 0.9, 0.3, 0.3
+		end
+		if self.blankLine then
+			_G.GameTooltip:AddLine(' ')
+		end
+
+		_G.GameTooltip:AddLine(self.text, r, g, b, 1)
+	end
+
+	_G.GameTooltip:Show()
+end
+
+function F:AddTooltip(anchor, text, color, blankLine)
+	self.anchor = anchor
+	self.text = text
+	self.color = color
+	self.blankLine = blankLine
+	self:HookScript('OnEnter', Tooltip_OnEnter)
+	self:HookScript('OnLeave', F.HideTooltip)
 end
 
 -- LocPanel
@@ -593,29 +684,16 @@ function F.CreateText(f, layer, size, outline, text, color, anchor, x, y)
 		text:SetText("")
 	end
 
-	local r, g, b
 	if color and type(color) == "boolean" then
-		r, g, b = F.r, F.g, F.b
+		text:SetTextColor(F.r, F.g, F.b)
+	elseif color == "system" then
+		text:SetTextColor(1, .8, 0)
 	elseif color == "info" then
-		r, g, b = E:HexToRGB(MER.InfoColor)
-	elseif colour == 'YELLOW' then
-		r, g, b = E:HexToRgb(MER.YellowColor)
-	elseif colour == 'RED' then
-		r, g, b = E:HexToRgb(MER.RedColor)
-	elseif colour == 'GREEN' then
-		r, g, b = E:HexToRgb(MER.GreenColor)
-	elseif colour == 'BLUE' then
-		r, g, b = E:HexToRgb(MER.BlueColor)
-	elseif colour == 'GREY' then
-		r, g, b = E:HexToRgb(MER.GreyColor)
-	else
-		r, g, b = 255, 255, 255
-	end
-
-	if type(color) == "table" then
-		text:SetTextColor(color[1], color[2], color[3])
-	else
-		text:SetTextColor(r / 255, g / 255, b / 255)
+		text:SetTextColor(0, .75, .98)
+	elseif color == "red" then
+		text:SetTextColor(1, 0, 0)
+	elseif color == "white" then
+		text:SetTextColor(1, 1, 1)
 	end
 
 	if (anchor and x and y) then
@@ -796,8 +874,6 @@ function F.SplitString(delimiter, subject)
 
 	return unpack(results)
 end
-
-
 
 function F.SetCallback(callback, target, times, ...)
 	times = times or 0

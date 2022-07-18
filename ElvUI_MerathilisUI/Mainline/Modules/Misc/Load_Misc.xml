@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Alerts.lua"/>
+	<Script file="BossBanner.lua"/>
 	<Script file="ItemLevel.lua"/>
 	<Script file="LfgInfo.lua"/>
 	<Script file="MawWidgetFrame.lua"/>

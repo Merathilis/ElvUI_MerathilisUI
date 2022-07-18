@@ -4,6 +4,11 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 -- Core
 L["Enable"] = "Eingeschaltet"
 L[" is loaded. For any issues or suggestions, please visit "] = " wurde geladen. Für Fehler oder Vorschläge besuche bitte: "
+L["Font"] = "Schriftart"
+L["Size"] = "Größe"
+L["Width"] = "Breite"
+L["Height"] = "Höhe"
+L["Alpha"] = "Transparenz"
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Plugin für |cffff7d0aElvUI|r von\nMerathilis."
@@ -15,7 +20,10 @@ L["Logout Timer"] = "Auslogzeit"
 L["SplashScreen"] = "Startbildschirm"
 L["Enable/Disable the Splash Screen on Login."] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
 L["Options"] = "Einstellungen"
-L["Desciption"] = "Beschreibung"
+L["Description"] = "Beschreibung"
+L["General"] = "Allgemein"
+L["Modules"] = "Module"
+L["Media"] = "Medien"
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r ist eine Erweiterung für ElvUI. Sie ergänzt:
 
 - viele neue Funktionen
@@ -130,6 +138,7 @@ L["Coding"] = true
 L["Testing & Inspiration"] = "Tester & Inspiration"
 L["Development Version"] = "Entwicklungsversion"
 L["Here you can download the latest development version."] = "Hier findest du den Download zu meiner Development Version."
+L["Donations"] = "Spenden"
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffffffffMerathilis|r|cffff8000UI|r Modulen."
@@ -228,6 +237,7 @@ L["Name Hover"] = "Namen MouseOver"
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Undress"] = "Ausziehen"
 L["Flashing Cursor"] = "Blinkender Mauszeiger"
+L["Lights up the cursor to make it easier to see."] = "Läßt den Cursor aufleuchten um ihn besser zu erkennen."
 L["Accept Quest"] = "Quest annehmen"
 L["Placed Item"] = "Platzierter Gegenstand"
 L["Stranger"] = "Fremder"
@@ -240,6 +250,7 @@ L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
 L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
 L["Fun Stuff"] = "Lustiges Zeugs"
+L["Change the NPC Talk Frame."] = "Ändert das NPC Sprechfenster ab."
 L["Press CTRL + C to copy."] = "Drücke STRG + C zum Kopieren."
 L["Wowhead Links"] = true
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "Fügt Wowhead Links dem Erfolgfenster und der Weltkarte hinzu."
@@ -249,10 +260,30 @@ L["Item Alerts"] = "Gegenstandsalarm"
 L["Announce in chat when someone placed an usefull item."] = "Kündigt im Chat an, wenn jemand einen nützlichen Gegenstand stellt."
 L["Maw ThreatBar"] = "Schlund Bedrohungleiste"
 L["Replace the Maw Threat Display, with a simple StatusBar"] = "Ersetzt die Schlundbedrohungsanzeige mit einer einfachen Statusleiste."
+L["Miscellaneous"] = "Sonstiges"
+L["Guild News Item Level"] = "Gildennachrichten Gegenstandsstufe"
+L["Add Item level Infos in Guild News"] = "Fügt den Gildennachrichten die Gegenstandsstufe an."
+L["Spell Alert Scale"] = "Zauberwarnung Skalierung"
+L["Add Title"] = "Titel hinzufügen"
+L["Display an additional title."] = "Zusätzlichen Titel anzeigen."
+L["Add LFG group info to tooltip."] = "LFG Gruppeninformationen zum Tooltip hinzufügen."
+L["Reskin Icon"] = "Symbole skinnen"
+L["Change role icons."] = "Rollensymbole werden durch neue ersetzt"
+L["Line"] = "Linie"
+L["Alerts"] = "Warnungen"
+L["Call to Arms"] = "Ruf zu den Waffen"
+L["Feasts"] = "Festmähler"
+L["Toys"] = "Spielzeuge"
+L["Random Toy"] = "Zufälliges Spielzeug"
+L["Creates a random toy macro."] = "Erzeugt ein zufälliges Spielzeugmakro."
+L["Text Style"] = "Textstil"
+L["COLOR"] = "Farbe"
 L.ANNOUNCE_FP_PRE = "{rt1} %s bereitet ein %s vor. {rt1}"
 L.ANNOUNCE_FP_CLICK = "{rt1} %s zaubert ein %s. Klick! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s benutzte %s. {rt1}"
 L.ANNOUNCE_FP_CAST = "{rt1} %s zaubert ein %s. {rt1}"
+L["Hide Boss Banner"] = "Verstecke Boss Banner"
+L["This will hide the popup, that shows loot, after you kill a boss"] = "Dies wird das Popup verbergen, das Beute anzeigt, nachdem Du einen Boss getötet hast."
 
 -- Nameplates
 L["NamePlates"] = "Namensplaketten"
@@ -322,9 +353,14 @@ L["Enable Vignette"] = "Aktiviere Vignette"
 L["If a Rare Mob or a treasure gets spotted on the minimap."] = "Zeigt an, wenn ein Rare Mob, oder ein Schatz auf der Minikarte erscheint."
 L["Enable Invites"] = "Aktiviere Einladungen"
 L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
-L["No Sounds"] = "Keine Sounds"
+L["No Sounds"] = "Keine Töne"
 L["Domination Rank"] = "Splitter der Herrschaft Rang"
 L["Show the rank of shards."] = "Zeigt den Rang vom Splitter."
+L["Vignette Print"] = "Vignettenlink"
+L["Prints a clickable Link with Coords in the Chat."] = "Fügt einen anklickbaren Link mit Koordinaten im Chat hinzu."
+L["Quick Join"] = "Schnellbeitritt"
+L["Title Font"] = "Titel Schriftart"
+L["Text Font"] = "Text Schriftart"
 
 -- DataTexts
 -- DataBars
@@ -439,6 +475,17 @@ L["Color of Average"] = "Durchschnittsfarbe"
 L["Sets the color of average item level."] = "Legt die Farbe der durchschnittlichen Gegenstandsstufe fest."
 
 -- Media
+L["Zone Text"] = "Gebietstext"
+L["Font Size"] = "Schriftgröße"
+L["Subzone Text"] = "Unterzonentext"
+L["PvP Status Text"] = "PvP Statustext"
+L["Misc Texts"] = "Sonstiger Text"
+L["Mail Text"] = "Post Text"
+L["Chat Editbox Text"] = true
+L["Gossip and Quest Frames Text"] = "Tratsch und Questfenster Texte"
+L["Objective Tracker Header Text"] = "Questverfolgungs Kopfzeilentext"
+L["Objective Tracker Text"] = "Questverfolgungs Text"
+L["Banner Big Text"] = "Banner Großer Text"
 L["MER_MEDIA_ZONES"] = {
 	"Washington",
 	"Moscow",
@@ -823,7 +870,7 @@ L["Please click the button below to setup your datatexts."] = "Bitte drücke die
 L["Please click the button below to setup your Unitframes."] = "Bitte drücke die Taste unten, um die Einheitenfenster einzustellen."
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = "Bitte drücke die Taste unten, um die ElvUI AddOns einzustellen. Weitere AddOns Profile findest Du in meinen Einstellungen unter - Skins/AddOns."
 L["DataTexts"] = "Infotexte"
-L["General Layout"] = "Generelles Layout"
+L["General Layout"] = "Allgemeines Layout"
 L["Setup ActionBars"] = "Aktionsleisten einstellen"
 L["Setup UnitFrames"] = "Einheitenfenster einstellen"
 L["Setup Datatexts"] = "Infotexte einstellen"
@@ -875,6 +922,7 @@ L["Selected Class Color"] = "Ausgewählte Klassenfarbe"
 L["Selected Color"] = "Ausgewählte Farbe"
 L["Tab"] = true
 L["Tree Group Button"] = "Baumstrukturtaste" --Wie kacke dass klingt
+L["Shadow Color"] = "Schattenfarbe"
 
 -- Panels
 L["Top Left Panel"] = "Leiste oben links"
@@ -887,7 +935,8 @@ L["Bottom Right Panel"] = "Leiste unten rechts"
 L["Bottom Right Extra Panel"] = "Extra Leiste unten rechts"
 
 -- Objective Tracker
-L["1. Customize the font of Objective Tracker."] = "1. Passe die Schriftart vom Questtracker an."
+L["Objective Tracker"] = "Questverfolgung"
+L["1. Customize the font of Objective Tracker."] = "1. Passe die Schriftart von der Questverfolgung an."
 L["2. Add colorful progress text to the quest."] = "2. Füge der Quest einen farblichen Fortschrittstext hinzu."
 L["Progress"] = "Fortschritt"
 L["No Dash"] = "Kein Strich"
@@ -929,6 +978,7 @@ L["Bottom Right Offset Y"] = "Versatz unten Rechts Y"
 L["Top Left Offset X"] = "Versatz oben links X"
 L["Top Left Offset Y"] = "Versatz oben links Y"
 L["Transparent"] = "Transparent"
+L["Style"] = "Stil"
 
 -- Filter
 L["Filter"] = true
@@ -999,3 +1049,5 @@ L["Debug Enviroment"] = "Debug Umgebung"
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "Du kannst den Befehl |cff00ff00/muidebug off|r verwenden, um den Debug Modus zu verlassen."
 L["After you stop debuging, %s will reenable the addons automatically."] = "Nachdem Du das Debuggen beendet hast, wird %s die Addons automatisch aktivieren."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "Bevor Du einen Fehler meldest, aktiviere bitte den Debug Modus mit dem %s Befehl und teste es noch einmal."
+L["Error"] = "Fehler"
+L["Warning"] = "Warnung"
