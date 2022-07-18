@@ -1,4 +1,4 @@
-[b][color=orange]v5.15[/color], 10.07.2022[/b][list]
+[b][color=orange]v5.15[/color], 18.07.2022[/b][list]
 [*]Fixed my Style to be on the Chat Backdrop again
 [*]Added back the Illusion Display on the Armory
 [*]Fixed a missing shadow on the AdventureMap skin
