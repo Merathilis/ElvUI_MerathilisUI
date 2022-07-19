@@ -17,11 +17,16 @@ local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID
 local GetContainerItemLink = GetContainerItemLink
 local GetContainerNumSlots = GetContainerNumSlots
+local GetSpellDescription = GetSpellDescription
 local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
+local UnitClass = UnitClass
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
+local UnitIsPlayer = UnitIsPlayer
+local UnitIsTapDenied = UnitIsTapDenied
+local UnitReaction = UnitReaction
 local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
@@ -67,7 +72,7 @@ function F.UnitColor(unit)
 	else
 		local reaction = UnitReaction(unit, "player")
 		if reaction then
-			local color = FACTION_BAR_COLORS[reaction]
+			local color = _G.FACTION_BAR_COLORS[reaction]
 			r, g, b = color.r, color.g, color.b
 		end
 	end
@@ -378,8 +383,8 @@ do
 	local enchantString = gsub(_G.ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
 	local essenceTextureID = 2975691
 	local essenceDescription = GetSpellDescription(277253)
-	local ITEM_SPELL_TRIGGER_ONEQUIP = ITEM_SPELL_TRIGGER_ONEQUIP
-	local RETRIEVING_ITEM_INFO = RETRIEVING_ITEM_INFO
+	local ITEM_SPELL_TRIGGER_ONEQUIP = _G.ITEM_SPELL_TRIGGER_ONEQUIP
+	local RETRIEVING_ITEM_INFO = _G.RETRIEVING_ITEM_INFO
 
 	local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
 	F.ScanTip = tip
