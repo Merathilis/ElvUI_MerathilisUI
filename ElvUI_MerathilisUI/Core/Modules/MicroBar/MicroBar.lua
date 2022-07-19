@@ -71,42 +71,43 @@ local ScrollButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:
 local friendOnline = gsub(_G.ERR_FRIEND_ONLINE_SS, "\124Hplayer:%%s\124h%[%%s%]\124h", "")
 local friendOffline = gsub(_G.ERR_FRIEND_OFFLINE_S, "%%s", "")
 
-local Heartstones = {
+local Hearthstones = {
 	6948,
 }
 
 if E.Retail then
-	tinsert(Heartstones, 64488)
-	tinsert(Heartstones, 93672)
-	tinsert(Heartstones, 110560)
-	tinsert(Heartstones, 140192)
-	tinsert(Heartstones, 141605)
-	tinsert(Heartstones, 142542)
-	tinsert(Heartstones, 162973)
-	tinsert(Heartstones, 163045)
-	tinsert(Heartstones, 165669)
-	tinsert(Heartstones, 165670)
-	tinsert(Heartstones, 165802)
-	tinsert(Heartstones, 166746)
-	tinsert(Heartstones, 166747)
-	tinsert(Heartstones, 168907)
-	tinsert(Heartstones, 172179)
-	tinsert(Heartstones, 48933)
-	tinsert(Heartstones, 87215)
-	tinsert(Heartstones, 132517)
-	tinsert(Heartstones, 132524)
-	tinsert(Heartstones, 151652)
-	tinsert(Heartstones, 168807)
-	tinsert(Heartstones, 168808)
-	tinsert(Heartstones, 172924)
-	tinsert(Heartstones, 180290)
-	tinsert(Heartstones, 182773)
-	tinsert(Heartstones, 183716)
-	tinsert(Heartstones, 184353)
-	tinsert(Heartstones, 188952) --	Dominated Hearthstone
+	tinsert(Hearthstones, 64488)
+	tinsert(Hearthstones, 93672)
+	tinsert(Hearthstones, 110560)
+	tinsert(Hearthstones, 140192)
+	tinsert(Hearthstones, 141605)
+	tinsert(Hearthstones, 142542)
+	tinsert(Hearthstones, 162973)
+	tinsert(Hearthstones, 163045)
+	tinsert(Hearthstones, 165669)
+	tinsert(Hearthstones, 165670)
+	tinsert(Hearthstones, 165802)
+	tinsert(Hearthstones, 166746)
+	tinsert(Hearthstones, 166747)
+	tinsert(Hearthstones, 168907)
+	tinsert(Hearthstones, 172179)
+	tinsert(Hearthstones, 48933)
+	tinsert(Hearthstones, 87215)
+	tinsert(Hearthstones, 132517)
+	tinsert(Hearthstones, 132524)
+	tinsert(Hearthstones, 151652)
+	tinsert(Hearthstones, 168807)
+	tinsert(Hearthstones, 168808)
+	tinsert(Hearthstones, 172924)
+	tinsert(Hearthstones, 180290)
+	tinsert(Hearthstones, 182773)
+	tinsert(Hearthstones, 183716)
+	tinsert(Hearthstones, 184353)
+	tinsert(Hearthstones, 188952) --	Dominated Hearthstone
+	tinsert(Hearthstones, 193588) -- Timewalker's Hearthstone
 end
 
-local HeartstonesTable
+local HearthstonesTable
 
 local function AddDoubleLineForItem(itemID, prefix)
 	if type(itemID) == "string" then
@@ -115,7 +116,7 @@ local function AddDoubleLineForItem(itemID, prefix)
 
 	prefix = prefix and prefix .. " " or ""
 
-	local name = HeartstonesTable[tostring(itemID)]
+	local name = HearthstonesTable[tostring(itemID)]
 	if not name then return end
 
 	local texture = GetItemIcon(itemID)
@@ -1117,23 +1118,23 @@ end
 
 function module:UpdateHomeButton()
 	ButtonTypes.HOME.item = {
-		item1 = HeartstonesTable[self.db.home.left],
-		item2 = HeartstonesTable[self.db.home.right]
+		item1 = HearthstonesTable[self.db.home.left],
+		item2 = HearthstonesTable[self.db.home.right]
 	}
 end
 
 function module:UpdateHearthStoneTable()
-	HeartstonesTable = {}
+	HearthstonesTable = {}
 
 	local index = 0
 	local itemEngine = CreateFromMixins(ItemMixin)
 
 	local function GetNextHearthStoneInfo()
 		index = index + 1
-		if Heartstones[index] then
-			itemEngine:SetItemID(Heartstones[index])
+		if Hearthstones[index] then
+			itemEngine:SetItemID(Hearthstones[index])
 			itemEngine:ContinueOnItemLoad(function()
-				HeartstonesTable[tostring(Heartstones[index])] = itemEngine:GetItemName()
+				HearthstonesTable[tostring(Hearthstones[index])] = itemEngine:GetItemName()
 				GetNextHearthStoneInfo()
 			end)
 		else
@@ -1148,7 +1149,7 @@ function module:UpdateHearthStoneTable()
 end
 
 function module:GetHearthStoneTable()
-	return HeartstonesTable
+	return HearthstonesTable
 end
 
 function module:GetAvailableButtons()
