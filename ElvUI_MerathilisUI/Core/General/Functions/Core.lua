@@ -676,6 +676,13 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 end
 
 --[[----------------------------------
+--	Dropdown Menu
+--]]----------------------------------
+do
+	F.EasyMenu = CreateFrame('Frame', MER.Title .. 'EasyMenu', E.UIParent, 'UIDropDownMenuTemplate')
+end
+
+--[[----------------------------------
 --	Text Functions
 --]]----------------------------------
 function F.CreateText(f, layer, size, outline, text, color, anchor, x, y)

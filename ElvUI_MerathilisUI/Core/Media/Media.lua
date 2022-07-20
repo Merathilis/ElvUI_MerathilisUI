@@ -127,6 +127,7 @@ LSM:Register("statusbar","MerathilisLight", [[Interface\AddOns\ElvUI_MerathilisU
 LSM:Register("statusbar","MerathilisFeint", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\MerathilisFeint.tga]])
 LSM:Register("statusbar","MerathilisBorder", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\Border.tga]])
 LSM:Register("statusbar","Gradient", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\gradient1.tga]])
+LSM:Register("statusbar","MER_NormTex", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\MERNormTex.tga]])
 LSM:Register("statusbar","Lyn1", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\lyn1.tga]])
 LSM:Register("statusbar","Skullflower", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\Skullflower.tga]])
 LSM:Register("statusbar","SkullflowerLight", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\SkullflowerLight.tga]])

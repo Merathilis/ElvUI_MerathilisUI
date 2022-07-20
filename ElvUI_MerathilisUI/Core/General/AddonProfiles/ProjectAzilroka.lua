@@ -41,5 +41,5 @@ function MER:LoadPAProfile()
 	PA.db["stAddonManager"]["ButtonWidth"] = 20
 	PA.db["stAddonManager"]["Font"] = "Expressway"
 	PA.db["stAddonManager"]["ClassColor"] = true
-	PA.db["stAddonManager"]["CheckTexture"] = "Gradient"
+	PA.db["stAddonManager"]["CheckTexture"] = "MER_NormTex"
 end
