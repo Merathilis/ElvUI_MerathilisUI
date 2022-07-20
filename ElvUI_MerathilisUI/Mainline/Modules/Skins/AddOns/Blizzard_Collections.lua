@@ -352,8 +352,6 @@ local function LoadSkin()
 
 	module:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
 
-	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
-
 	local slots = {
 		"Head",
 		"Shoulder",
@@ -397,6 +395,45 @@ local function LoadSkin()
 	for i = 2, 5 do
 		select(i, _G.WardrobeOutfitEditFrame.EditBox:GetRegions()):Hide()
 	end
+
+	-- Change the Transmog Frame Size
+	WardrobeFrame:SetWidth(1200)
+
+	WardrobeTransmogFrame:SetWidth(530)
+	WardrobeTransmogFrame:SetHeight(WardrobeFrame:GetHeight() -130)
+	WardrobeTransmogFrame:SetPoint("TOP", WardrobeFrame, 0, 0)
+	WardrobeTransmogFrame.ModelScene:ClearAllPoints()
+	WardrobeTransmogFrame.ModelScene:SetPoint("TOP", WardrobeTransmogFrame, "TOP", 20, 10)
+	WardrobeTransmogFrame.ModelScene:SetAllPoints(WardrobeTransmogFrame)
+
+	_G.WardrobeOutfitDropDown:ClearAllPoints()
+	_G.WardrobeOutfitDropDown:SetPoint("TOPLEFT", WardrobeTransmogFrame, "TOPLEFT", 0, 50)
+
+	WardrobeTransmogFrame.HeadButton:ClearAllPoints()
+	WardrobeTransmogFrame.HeadButton:SetPoint("TOPLEFT", WardrobeTransmogFrame, "TOPLEFT", 20, 0)
+
+	WardrobeTransmogFrame.ShoulderButton:ClearAllPoints()
+	WardrobeTransmogFrame.ShoulderButton:SetPoint("TOP", WardrobeTransmogFrame.HeadButton, "TOP", 0, -55)
+
+	WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:ClearAllPoints()
+	WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:SetPoint("BOTTOM", WardrobeCollectionFrame, "BOTTOM", -240, 40)
+
+	WardrobeTransmogFrame.HandsButton:ClearAllPoints()
+	WardrobeTransmogFrame.HandsButton:SetPoint("TOP", WardrobeTransmogFrame, "TOP", 240, -120)
+
+	WardrobeTransmogFrame.MainHandButton:ClearAllPoints()
+	WardrobeTransmogFrame.MainHandButton:SetPoint("TOP", WardrobeTransmogFrame, "BOTTOM", -50, 50)
+
+	WardrobeTransmogFrame.SecondaryHandButton:ClearAllPoints()
+	WardrobeTransmogFrame.SecondaryHandButton:SetPoint("TOP", WardrobeTransmogFrame, "BOTTOM", 50, 50)
+
+	WardrobeTransmogFrame.MainHandEnchantButton:ClearAllPoints()
+	WardrobeTransmogFrame.MainHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.MainHandButton, "BOTTOM", 0, -28)
+	WardrobeTransmogFrame.SecondaryHandEnchantButton:ClearAllPoints()
+	WardrobeTransmogFrame.SecondaryHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.SecondaryHandButton, "BOTTOM", 0, -28)
+
+	WardrobeTransmogFrame.SpecButton:ClearAllPoints()
+	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
 end
 
 S:AddCallbackForAddon("Blizzard_Collections", LoadSkin)
