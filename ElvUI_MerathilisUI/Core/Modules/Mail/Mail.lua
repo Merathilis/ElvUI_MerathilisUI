@@ -702,7 +702,7 @@ function module:CollectGoldButton()
 	_G.OpenAllMail:SetSize(80, 20)
 
 	local button = module:MailBox_CreateButton(_G.InboxFrame, 80, 20, '', {'BOTTOMLEFT', _G.MailFrame, 'BOTTOM', 2, 16})
-	button:HookScript('OnClick', module.MailBox_CollectAllGold)
+	button:SetScript('OnClick', module.MailBox_CollectAllGold)
 	button:HookScript('OnEnter', module.TotalCash_OnEnter)
 	button:HookScript('OnLeave', module.TotalCash_OnLeave)
 
