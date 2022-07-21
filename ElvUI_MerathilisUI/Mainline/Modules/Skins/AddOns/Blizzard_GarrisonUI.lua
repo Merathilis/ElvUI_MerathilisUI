@@ -235,7 +235,7 @@ local function LoadSkin()
 	select(2, FollowerList:GetRegions()):Hide()
 
 	-- Ship follower list
-	local FollowerList = GarrisonLandingPage.ShipFollowerList
+	FollowerList = GarrisonLandingPage.ShipFollowerList
 
 	FollowerList:GetRegions():Hide()
 	select(2, FollowerList:GetRegions()):Hide()
@@ -561,7 +561,10 @@ local function LoadSkin()
 					widget:StripTextures()
 					module:CreateBDFrame(widget, 1)
 				elseif otype == "MissionToast" then
-					widget:CreateBackdrop()
+					if not widget.backdrop then
+						widget:CreateBackdrop('Tramsparent')
+					end
+					module:CreateGradient(widget.backdrop)
 					if widget.Background then widget.Background:Hide() end
 					if widget.Detail then widget.Detail:SetFontObject("Game13Font") end
 				elseif otype == "RewardFrame" then
