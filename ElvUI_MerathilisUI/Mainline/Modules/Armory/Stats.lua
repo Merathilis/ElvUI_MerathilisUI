@@ -390,8 +390,6 @@ function module:PaperDollFrame_UpdateStats()
 
 	local lastAnchor;
 
-	module:BuildScrollBar()
-
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 		local catFrame = _G["CharacterStatsPane"][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame];
 		catFrame.Title:FontTemplate(LSM:Fetch('font', E.db.mui.armory.stats.catFonts.font), E.db.mui.armory.stats.catFonts.size, E.db.mui.armory.stats.catFonts.outline)

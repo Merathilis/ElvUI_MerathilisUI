@@ -676,6 +676,7 @@ function module:Initialize()
 	end
 
 	self:SkinCharacterStatsPane()
+	self:BuildScrollBar()
 	self:ExpandSize()
 
 	-- Stats
