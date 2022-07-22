@@ -476,39 +476,45 @@ function module:ExpandSize()
 		return
 	end
 
-	_G["CharacterFrame"]:SetHeight(444)
+	_G.CharacterFrame:SetHeight(470)
 
-	_G["CharacterHandsSlot"]:SetPoint('TOPRIGHT', _G["CharacterFrameInsetRight"], 'TOPLEFT', -4, -2)
+	_G.CharacterHandsSlot:SetPoint('TOPRIGHT', _G.CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
 
-	_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
+	_G.CharacterMainHandSlot:SetPoint('BOTTOMLEFT', _G.PaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
 
-	_G["CharacterModelFrame"]:ClearAllPoints()
-	_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"], 0, 5)
-	_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
-	_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
+	_G.CharacterModelFrame:ClearAllPoints()
+	_G.CharacterModelFrame:SetPoint('TOPLEFT', _G.CharacterHeadSlot, 0, 5)
+	_G.CharacterModelFrame:SetPoint('RIGHT', _G.CharacterHandsSlot)
+	_G.CharacterModelFrame:SetPoint('BOTTOM', _G.CharacterMainHandSlot)
 
-	if _G["PaperDollFrame"]:IsShown() then --Setting up width for the main frame
-		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
-		_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
+	if _G.PaperDollFrame:IsShown() then --Setting up width for the main frame
+		_G.CharacterFrame:SetWidth(_G.CharacterFrame.Expanded and 650 or 444)
+		_G.CharacterFrameInsetRight:SetPoint('TOPLEFT', _G.CharacterFrameInset, 'TOPRIGHT', 110, 0)
 	end
 
-	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
-		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
-		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
+	if _G.CharacterModelFrame and _G.CharacterModelFrame.BackgroundTopLeft and _G.CharacterModelFrame.BackgroundTopLeft:IsShown() then
+		_G.CharacterModelFrame.BackgroundTopLeft:Hide()
+		_G.CharacterModelFrame.BackgroundTopRight:Hide()
+		_G.CharacterModelFrame.BackgroundBotLeft:Hide()
+		_G.CharacterModelFrame.BackgroundBotRight:Hide()
 
-		if _G["CharacterModelFrame"].backdrop then
-			_G["CharacterModelFrame"].backdrop:Hide()
+		if _G.CharacterModelFrame.backdrop then
+			_G.CharacterModelFrame.backdrop:Hide()
 		end
 	end
 
-	--Overlay resize to match new width
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
+	-- Overlay resize to match new width
+	_G.CharacterModelFrameBackgroundOverlay:SetPoint('TOPLEFT', _G.CharacterModelFrame, -4, 0)
+	_G.CharacterModelFrameBackgroundOverlay:SetPoint('BOTTOMRIGHT', _G.CharacterModelFrame, 4, 0)
+
+	_G.PaperDollEquipmentManagerPane:ClearAllPoints()
+	_G.PaperDollEquipmentManagerPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
+
+	_G.PaperDollTitlesPane:ClearAllPoints()
+	_G.PaperDollTitlesPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
 
 	if E.db.general.itemLevel.displayCharacterInfo then
-		M:UpdatePageInfo(_G["CharacterFrame"], "Character")
+		M:UpdatePageInfo(_G.CharacterFrame, "Character")
 	end
 end
 
