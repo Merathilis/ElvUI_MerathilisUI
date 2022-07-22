@@ -765,7 +765,7 @@ function module:ArrangeDefaultElements()
 		if sendPrice > GetMoney() then
 			colorStr = '|cffff0000'
 		end
-		_G.GameTooltip:AddLine(_G.SEND_MAIL_COST .. colorStr .. E:FormatMoney(sendPrice))
+		_G.GameTooltip:AddLine(_G.SEND_MAIL_COST..colorStr..E:FormatMoney(sendPrice))
 		_G.GameTooltip:Show()
 	end)
 	_G.SendMailMailButton:HookScript('OnLeave', F.HideTooltip)
