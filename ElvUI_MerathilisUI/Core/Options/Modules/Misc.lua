@@ -52,7 +52,7 @@ options.misc = {
 			type = "toggle",
 			name = E.NewSign..L["Hide Boss Banner"],
 			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
-		},		
+		},
 		spellAlert = {
 			order = 10,
 			type = "range",
@@ -267,6 +267,12 @@ options.misc = {
 					type = "toggle",
 					name = L["Highest Quest Reward"],
 					desc = L["Automatically select the item with the highest reward."],
+				},
+				questTool = {
+					order = 2,
+					type = "toggle",
+					name = L["Quest Tool"],
+					desc = L["Some helper function for quests."],
 				},
 			},
 		},

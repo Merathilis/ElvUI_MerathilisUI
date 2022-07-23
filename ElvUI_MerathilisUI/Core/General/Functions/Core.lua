@@ -858,6 +858,12 @@ function F.GetTextureStrByAtlas(info, sizeX, sizeY)
 	return format("|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d|t", file, (sizeX or 0), (sizeY or 0), atlasWidth, atlasHeight, atlasWidth*txLeft, atlasWidth*txRight, atlasHeight*txTop, atlasHeight*txBottom)
 end
 
+-- GUID to npcID
+function F.GetNPCID(guid)
+	local id = tonumber(strmatch((guid or ""), "%-(%d-)%-%x-$"))
+	return id
+end
+
 function F.SplitString(delimiter, subject)
 	if not subject or subject == "" then
 		return {}

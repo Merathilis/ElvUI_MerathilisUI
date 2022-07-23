@@ -60,7 +60,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 
 		local atlasInfo = C_Texture_GetAtlasInfo(vignetteInfo.atlasName)
 		if not atlasInfo then return end
-		local tex = F.GetTextureStrByAtlas(atlasInfo, 14, 14)
+		local tex = F.GetTextureStrByAtlas(atlasInfo, 15, 15)
 		if not tex then return end
 
 		-- For Debugging: uncomment this

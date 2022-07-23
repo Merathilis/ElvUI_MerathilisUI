@@ -4,6 +4,7 @@
 	<Script file="ItemLevel.lua"/>
 	<Script file="LfgInfo.lua"/>
 	<Script file="MawWidgetFrame.lua"/>
+	<Script file="QuestTools.lua"/>
 	<Script file="RandomToy.lua"/>
 	<Script file="WoWHeadLinks.lua"/>
 </Ui>
