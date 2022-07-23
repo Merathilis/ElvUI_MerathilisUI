@@ -58,7 +58,7 @@ local function LoadSkin()
 		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
 		if menuBackdrop and not menuBackdrop.__MERSkin then
 			menuBackdrop:Styling()
-			module:CreateBackdropShadow(Backdrop)
+			module:CreateShadow(menuBackdrop)
 			menuBackdrop.__MERSkin = true
 		end
 	end)
@@ -70,9 +70,9 @@ local function LoadSkin()
 		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
 			if not _G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
-				module:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
+				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
-				module:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
+				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
 			end
 		end)
 	end
