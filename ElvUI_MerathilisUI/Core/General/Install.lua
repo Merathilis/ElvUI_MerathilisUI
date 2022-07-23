@@ -1277,7 +1277,16 @@ function MER:SetupUnitframes()
 	if not E.db["unitframe"]["units"]["player"]["customTexts"] then
 		E.db["unitframe"]["units"]["player"]["customTexts"] = {}
 	end
-
+	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
+		["font"] = "Gotham Narrow Black",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = 16,
+		["size"] = 11,
+		["text_format"] = "[mUI:class:icon] [mUI-name:health:abbrev{class}]",
+		["attachTextTo"] = "Frame",
+	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
 		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
@@ -1467,7 +1476,7 @@ function MER:SetupUnitframes()
 		["xOffset"] = 2,
 		["yOffset"] = 16,
 		["size"] = 11,
-		["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}]",
+		["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}] [mUI:class:icon]",
 		["attachTextTo"] = "Frame",
 	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {

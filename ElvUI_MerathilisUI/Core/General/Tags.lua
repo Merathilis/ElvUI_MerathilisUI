@@ -16,6 +16,22 @@ local UnitName = UnitName
 local UnitPower = UnitPower
 local IsResting = IsResting
 
+-- Alternate Class Icons by Releaf
+local ClassIcons = {
+	["WARRIOR"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Warrior.tga:0:0:0:0|t",
+	["PALADIN"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Paladin.tga:0:0:0:0|t",
+	["HUNTER"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Hunter.tga:0:0:0:0|t",
+	["ROGUE"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Rogue.tga:0:0:0:0|t",
+	["PRIEST"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Priest.tga:0:0:0:0|t",
+	["DEATHKNIGHT"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\DeathKnight.tga:0:0:0:0|t",
+	["SHAMAN"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Shaman.tga:0:0:0:0|t",
+	["MAGE"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Mage.tga:0:0:0:0|t",
+	["WARLOCK"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Warlock.tga:0:0:0:0|t",
+	["MONK"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Monk.tga:0:0:0:0|t",
+	["DRUID"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Druid.tga:0:0:0:0|t",
+	["DEMONHUNTER"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\DemonHunter.tga:0:0:0:0|t",
+}
+
 local function shortenNumber(number)
 	if type(number) ~= "number" then
 		number = tonumber(number)
@@ -129,7 +145,16 @@ E:AddTag('name:abbrev-translit', 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNI
 	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
 end)
 
+E:AddTag("mUI:class:icon", "UNIT_NAME_UPDATE", function(unit)
+	if not UnitIsPlayer(unit) then return end
+	local icon
+	local _ , classes = UnitClass(unit)
+	icon = ClassIcons[classes]
+	return icon
+end)
+
 E:AddTagInfo("health:current-mUI", "MerathilisUI", "Displays current HP (2.04B, 2.04M, 204k, 204)")
 E:AddTagInfo("power:current-mUI", "MerathilisUI", "Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag")
 E:AddTagInfo("mUI-resting", "MerathilisUI", "Displays a text if the player is in a resting area = zZz")
 E:AddTagInfo("name:abbrev-translit", "MerathilisUI", "Displays a shorten name and will convert cyrillics. Игорь = !Igor")
+E:AddTagInfo('mUI:class:icon', "MerathilisUI", L["Shows Class Icons recolored by Releaf on Player targets"])
