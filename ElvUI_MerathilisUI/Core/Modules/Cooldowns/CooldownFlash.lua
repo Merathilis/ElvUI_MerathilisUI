@@ -30,14 +30,6 @@ module.cooldowns, module.animating, module.watching = { }, { }, { }
 local DCP = CreateFrame("Frame", nil, E.UIParent)
 DCP:SetAlpha(0)
 DCP:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
-
-DCP.TextFrame = DCP:CreateFontString(nil, "ARTWORK")
-DCP.TextFrame:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
-DCP.TextFrame:SetShadowOffset(2,-2)
-DCP.TextFrame:Point("CENTER",DCP,"CENTER")
-DCP.TextFrame:Width(185)
-DCP.TextFrame:SetJustifyH("CENTER")
-DCP.TextFrame:SetTextColor(1, 1, 1)
 module.DCP = DCP
 
 local DCPT = DCP:CreateTexture(nil, "BORDER")
@@ -191,16 +183,12 @@ local function OnUpdate(_,update)
 		if (runtimer > (module.db.fadeInTime + module.db.holdTime + module.db.fadeOutTime)) then
 			tremove(module.animating, 1)
 			runtimer = 0
-			DCP.TextFrame:SetText(nil)
 			DCPT:SetTexture(nil)
 			DCPT:SetVertexColor(1, 1, 1)
 			DCP:SetAlpha(0)
 			DCP:SetSize(module.db.iconSize, module.db.iconSize)
 		else
 			if (not DCPT:GetTexture()) then
-				if (module.animating[1][3] ~= nil and module.db.showSpellName) then
-					DCP.TextFrame:SetText(module.animating[1][3])
-				end
 				DCPT:SetTexture(module.animating[1][1])
 				S:HandleIcon(DCPT)
 				if module.animating[1][2] then
@@ -345,9 +333,6 @@ function module:Initialize()
 
 	DCP:Size(self.db.iconSize, self.db.iconSize)
 	DCP:Point("CENTER", E.UIParent, "CENTER")
-
-	DCP.TextFrame:FontTemplate(E.db.general.font, 18, "OUTLINE")
-	DCP.TextFrame:SetShadowOffset(2, -2)
 
 	E:CreateMover(DCP, "MER_CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,cooldownFlash')
 

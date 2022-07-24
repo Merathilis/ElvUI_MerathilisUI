@@ -1128,7 +1128,6 @@ P.cooldownFlash = {
 	ignoredSpells = "",
 	invertIgnored = false,
 	enablePet = false,
-	showSpellName = false,
 	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
 }
