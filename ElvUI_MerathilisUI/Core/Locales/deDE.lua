@@ -473,6 +473,7 @@ L["Item Level Coloring"] = "Gegenstandsstufen Färbung"
 L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Werte der Farbcode Gegenstandsebenen. Ausgestattet mit Farbverlauf, Durchschnitt - ausgewählte Farbe."
 L["Color of Average"] = "Durchschnittsfarbe"
 L["Sets the color of average item level."] = "Legt die Farbe der durchschnittlichen Gegenstandsstufe fest."
+L["Warning Gradient Texture Color"] = "Warnung Verlaufsfarbe"
 
 -- Media
 L["Zone Text"] = "Gebietstext"

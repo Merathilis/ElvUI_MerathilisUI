@@ -60,7 +60,7 @@ local slots = {
 	["Trinket1Slot"] = { true, false },
 }
 
-local slotIDs = {
+local slotIDs = { -- Not the actual Char Frame IDs
 	[1] = "HeadSlot",
 	[2] = "NeckSlot",
 	[3] = "ShoulderSlot",
@@ -177,6 +177,7 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 		if noChant then message = message..'|cffff0000'..L["Not Enchanted"]..'|r\n' end
 		Slot.Warning.Reason = message or nil
 		Slot.Warning:Show()
+		Slot.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.gradient.warningColor))
 	else
 		Slot.Warning:Hide()
 	end
@@ -318,6 +319,8 @@ function module:UpdatePaperDoll()
 			end
 		end
 	end
+
+	M:UpdatePageInfo(_G['CharacterFrame'], 'Character')
 end
 
 function module:InitialUpdatePaperDoll()
@@ -358,6 +361,16 @@ function module:BuildInformation()
 		elseif id <= 16 then -- Right Side
 			frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT")
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
+		end
+
+		if module.db.expandSize then
+			if id == 18 then
+				frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT")
+				frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
+			elseif id == 19 then
+				frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT")
+				frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
+			end
 		end
 
 		-- Missing Enchants/Gems Warning
@@ -455,20 +468,6 @@ function module:BuildInformation()
 			_G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
 		end
 	end)
-
-	--[[hooksecurefunc('PaperDollFrame_SetLevel', function()
-		if E.db.mui.armory.expandSize then
-			_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
-
-			_G["CharacterFrameTitleText"]:ClearAllPoints()
-			_G["CharacterFrameTitleText"]:Point('TOP', _G["CharacterModelFrame"], 0, 45)
-			_G["CharacterFrameTitleText"]:SetParent(_G["CharacterFrame"])
-
-			_G["CharacterLevelText"]:ClearAllPoints()
-			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, 2)
-			_G["CharacterLevelText"]:SetParent(_G["CharacterFrame"])
-		end
-	end)]]
 end
 
 function module:ExpandSize()

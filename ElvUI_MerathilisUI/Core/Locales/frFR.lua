@@ -468,6 +468,7 @@ L["Item Level Coloring"] = true
 L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
 L["Color of Average"] = true
 L["Sets the color of average item level."] = true
+L["Warning Gradient Texture Color"] = true
 
 -- Media
 L["Zone Text"] = true

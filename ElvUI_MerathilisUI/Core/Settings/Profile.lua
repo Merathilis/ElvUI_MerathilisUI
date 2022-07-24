@@ -1178,6 +1178,7 @@ P.armory = {
 		color = {r = 1, g = 1, b = 0},
 		setArmor = true,
 		setArmorColor = {r = 0, g = 1, b = 0, a = 1},
+		warningColor = {r = 1, g = 0, b = 0, a = 1}
 	},
 	transmog = {
 		enable = true,

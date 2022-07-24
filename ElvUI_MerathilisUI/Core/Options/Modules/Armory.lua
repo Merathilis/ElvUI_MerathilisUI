@@ -323,6 +323,23 @@ options.armory = {
 					end,
 					disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo or not E.db.mui.armory.gradient.setArmor end,
 				},
+				warningColor = {
+					order = 7,
+					type = 'color',
+					name = L["Warning Gradient Texture Color"],
+					get = function(info)
+						local t = E.db.mui.armory.gradient[ info[#info] ]
+						local d = P.armory.gradient[info[#info]]
+						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+					end,
+					set = function(info, r, g, b, a)
+						E.db.mui.armory.gradient[ info[#info] ] = {}
+						local t = E.db.mui.armory.gradient[ info[#info] ]
+						t.r, t.g, t.b, t.a = r, g, b, a
+						module:UpdatePaperDoll()
+					end,
+					disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
+				},
 			},
 		},
 		indicators = {
