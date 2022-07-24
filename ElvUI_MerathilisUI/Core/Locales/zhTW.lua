@@ -754,7 +754,6 @@ L["Fadein duration"] = true
 L["Fadeout duration"] = true
 L["Duration time"] = true
 L["Animation size"] = true
-L["Display spell name"] = true
 L["Watch on pet spell"] = true
 L["Transparency"] = true
 L["Test"] = "測試"

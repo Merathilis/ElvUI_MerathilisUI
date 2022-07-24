@@ -764,7 +764,6 @@ L["Fadein duration"] = "Einblendzeit"
 L["Fadeout duration"] = "Ausblendzeit"
 L["Duration time"] = "Dauer"
 L["Animation size"] = "Animationsgröße"
-L["Display spell name"] = "Zeige Zaubernamen"
 L["Watch on pet spell"] = "Überwache Begleiterzauber"
 L["Transparency"] = "Transparenz"
 L["Test"] = true
