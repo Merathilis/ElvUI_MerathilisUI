@@ -339,7 +339,6 @@ P.misc = {
 	gmotd = true,
 	quest = {
 		selectQuestReward =	true,
-		questTool = true,
 	},
 	cursor = false,
 	lfgInfo = {

@@ -268,12 +268,6 @@ options.misc = {
 					name = L["Highest Quest Reward"],
 					desc = L["Automatically select the item with the highest reward."],
 				},
-				questTool = {
-					order = 2,
-					type = "toggle",
-					name = L["Quest Tool"],
-					desc = L["Some helper function for quests."],
-				},
 			},
 		},
 		paragon = {
