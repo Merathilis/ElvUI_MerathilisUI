@@ -1419,15 +1419,6 @@ function MER:SetupUnitframes()
 		E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
 		E.db["unitframe"]["units"]["player"]["cutaway"]["power"]["enabled"] = true
 	end
-	if IsAddOnLoaded("ElvUI_DynamicStatusIcons") then
-		if F.IsDeveloper() and F.IsDeveloperRealm() then
-			E.db["unitframe"]["units"]["player"]["DynamicStatusIcons"]["yOffset"] = 30
-			E.db["unitframe"]["units"]["player"]["DynamicStatusIcons"]["anchorPoint"] = "TOPRIGHT"
-			E.db["unitframe"]["units"]["player"]["DynamicStatusIcons"]["faceright"] = true
-			E.db["unitframe"]["units"]["player"]["DynamicStatusIcons"]["xOffset"] = 0
-			E.db["unitframe"]["units"]["player"]["DynamicStatusIcons"]["scale"] = 0.75
-		end
-	end
 
 	-- Target
 	E.db["unitframe"]["units"]["target"]["width"] = 200
@@ -1568,11 +1559,6 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["CombatIcon"]["yOffset"] = 0
 	if E.Retail then
 		E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
-	end
-	if IsAddOnLoaded("ElvUI_DynamicStatusIcons") then
-		if F.IsDeveloper() and F.IsDeveloperRealm() then
-			E.db["unitframe"]["units"]["target"]["DynamicStatusIcons"]["enable"] = false
-		end
 	end
 
 	-- TargetTarget
