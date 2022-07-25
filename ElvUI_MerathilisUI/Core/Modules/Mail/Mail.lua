@@ -142,7 +142,7 @@ function module:ConstructFrame()
 	frame:Point("BOTTOMRIGHT", _G.MailFrame, "BOTTOMRIGHT", 152, 1)
 	frame:CreateBackdrop("Transparent")
 	frame.backdrop:Styling()
-	S:CreateShadow(frame)
+	S:CreateBackdropShadow(frame)
 	frame:EnableMouse(true)
 
 	self.frame = frame
