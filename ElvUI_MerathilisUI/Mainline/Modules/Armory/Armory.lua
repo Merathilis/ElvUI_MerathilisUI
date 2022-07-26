@@ -654,69 +654,74 @@ function module:SkinCharacterStatsPane()
 end
 
 function module:AddCharacterIcon()
-	if module.db.classIcon then
-		-- Class Icon Holder
-		local ClassIconHolder = CreateFrame("Frame", "MER_ClassIcon", E.UIParent)
-		ClassIconHolder:SetSize(20, 20)
-		ClassIconHolder:SetParent("PaperDollFrame")
-
-		ClassIconTexture = ClassIconHolder:CreateTexture()
-		ClassIconTexture:SetAllPoints(ClassIconHolder)
-
-		CharacterLevelText:SetWidth(300)
-
-		ClassSymbolFrame = ("|T"..(MER.ClassIcons[E.myclass]..".tga:0:0:0:0|t"))
-
-		hooksecurefunc('PaperDollFrame_SetLevel', function()
-			CharacterFrameTitleText:ClearAllPoints()
-			CharacterFrameTitleText:SetPoint('TOP', _G.CharacterModelFrame, 0, 50)
-			CharacterFrameTitleText:SetParent(_G.CharacterFrame)
-			CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), E.db.general.fontSize+2, E.db.general.fontStyle)
-			CharacterFrameTitleText:SetTextColor(F.r, F.g, F.b)
-			CharacterFrameTitleText:SetShadowColor(0, 0, 0, 0.8)
-			CharacterFrameTitleText:SetShadowOffset(2, -1)
-
-			CharacterLevelText:ClearAllPoints()
-			CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
-			CharacterLevelText:SetDrawLayer("OVERLAY")
-		end)
-
-		hooksecurefunc("CharacterFrame_Collapse", function()
-			if PaperDollFrame:IsShown() then
-				CharacterText = CharacterFrameTitleText:GetText()
-				if not CharacterText:match("|T") then
-					CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
-				end
-			end
-		end)
-
-		hooksecurefunc("CharacterFrame_Expand", function()
-			if PaperDollFrame:IsShown() then
-				CharacterText = CharacterFrameTitleText:GetText()
-				if not CharacterText:match("|T") then
-					CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
-				end
-			end
-		end)
-
-		hooksecurefunc("ReputationFrame_Update", function()
-			if ReputationFrame:IsShown() then
-				CharacterText = CharacterFrameTitleText:GetText()
-				if not CharacterText:match("|T") then
-					CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
-				end
-			end
-		end)
-
-		hooksecurefunc("TokenFrame_Update", function()
-			if TokenFrame:IsShown() then
-				CharacterText = CharacterFrameTitleText:GetText()
-				if not CharacterText:match("|T") then
-					CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
-				end
-			end
-		end)
+	if not module.db.classIcon then
+		return
 	end
+
+	local CharacterFrameTitleText = _G.CharacterFrameTitleText
+	local CharacterLevelText = _G.CharacterLevelText
+
+	-- Class Icon Holder
+	local ClassIconHolder = CreateFrame("Frame", "MER_ClassIcon", E.UIParent)
+	ClassIconHolder:SetSize(20, 20)
+	ClassIconHolder:SetParent("PaperDollFrame")
+
+	local ClassIconTexture = ClassIconHolder:CreateTexture()
+	ClassIconTexture:SetAllPoints(ClassIconHolder)
+
+	CharacterLevelText:SetWidth(300)
+
+	ClassSymbolFrame = ("|T"..(MER.ClassIcons[E.myclass]..".tga:0:0:0:0|t"))
+
+	hooksecurefunc('PaperDollFrame_SetLevel', function()
+		CharacterFrameTitleText:ClearAllPoints()
+		CharacterFrameTitleText:SetPoint('TOP', _G.CharacterModelFrame, 0, 50)
+		CharacterFrameTitleText:SetParent(_G.CharacterFrame)
+		CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), E.db.general.fontSize+2, E.db.general.fontStyle)
+		CharacterFrameTitleText:SetTextColor(F.r, F.g, F.b)
+		CharacterFrameTitleText:SetShadowColor(0, 0, 0, 0.8)
+		CharacterFrameTitleText:SetShadowOffset(2, -1)
+
+		CharacterLevelText:ClearAllPoints()
+		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
+		CharacterLevelText:SetDrawLayer("OVERLAY")
+	end)
+
+	hooksecurefunc("CharacterFrame_Collapse", function()
+		if PaperDollFrame:IsShown() then
+			CharacterText = CharacterFrameTitleText:GetText()
+			if not CharacterText:match("|T") then
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+			end
+		end
+	end)
+
+	hooksecurefunc("CharacterFrame_Expand", function()
+		if PaperDollFrame:IsShown() then
+			CharacterText = CharacterFrameTitleText:GetText()
+			if not CharacterText:match("|T") then
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+			end
+		end
+	end)
+
+	hooksecurefunc("ReputationFrame_Update", function()
+		if ReputationFrame:IsShown() then
+			CharacterText = CharacterFrameTitleText:GetText()
+			if not CharacterText:match("|T") then
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+			end
+		end
+	end)
+
+	hooksecurefunc("TokenFrame_Update", function()
+		if TokenFrame:IsShown() then
+			CharacterText = CharacterFrameTitleText:GetText()
+			if not CharacterText:match("|T") then
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+			end
+		end
+	end)
 
 	if E.db.general.itemLevel.displayCharacterInfo then
 		M:UpdatePageInfo(_G.CharacterFrame, "Character")
@@ -726,7 +731,7 @@ end
 function module:Initialize()
 	module.db = E.db.mui.armory
 
-	if not module.db.enable or E.private.skins.blizzard.character ~= true then return end
+	if not module.db.enable or not E.private.skins.blizzard.character then return end
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
 
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)

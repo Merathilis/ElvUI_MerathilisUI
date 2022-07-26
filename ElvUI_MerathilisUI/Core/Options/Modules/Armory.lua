@@ -130,12 +130,12 @@ options.armory = {
 					get = function(info)
 						local t = E.db.mui.armory.stats[ info[#info] ]
 						local d = P.armory.stats[info[#info]]
-						return t.r, t.g, t.b, d.r, d.g, d.b
+						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 					end,
 					set = function(info, r, g, b)
 						E.db.mui.armory.stats[ info[#info] ] = {}
 						local t = E.db.mui.armory.stats[ info[#info] ]
-						t.r, t.g, t.b = r, g, b
+						t.r, t.g, t.b, t.a = r, g, b, a
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 				},
