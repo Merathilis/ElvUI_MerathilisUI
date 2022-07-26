@@ -16,22 +16,6 @@ local UnitName = UnitName
 local UnitPower = UnitPower
 local IsResting = IsResting
 
--- Alternate Class Icons by Releaf
-local ClassIcons = {
-	["WARRIOR"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Warrior.tga:0:0:0:0|t",
-	["PALADIN"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Paladin.tga:0:0:0:0|t",
-	["HUNTER"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Hunter.tga:0:0:0:0|t",
-	["ROGUE"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Rogue.tga:0:0:0:0|t",
-	["PRIEST"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Priest.tga:0:0:0:0|t",
-	["DEATHKNIGHT"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\DeathKnight.tga:0:0:0:0|t",
-	["SHAMAN"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Shaman.tga:0:0:0:0|t",
-	["MAGE"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Mage.tga:0:0:0:0|t",
-	["WARLOCK"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Warlock.tga:0:0:0:0|t",
-	["MONK"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Monk.tga:0:0:0:0|t",
-	["DRUID"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Druid.tga:0:0:0:0|t",
-	["DEMONHUNTER"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\DemonHunter.tga:0:0:0:0|t",
-}
-
 local function shortenNumber(number)
 	if type(number) ~= "number" then
 		number = tonumber(number)
@@ -149,7 +133,7 @@ E:AddTag("mUI:class:icon", "UNIT_NAME_UPDATE", function(unit)
 	if not UnitIsPlayer(unit) then return end
 	local icon
 	local _ , classes = UnitClass(unit)
-	icon = ClassIcons[classes]
+	icon = MER.TagClassIcons[classes]
 	return icon
 end)
 

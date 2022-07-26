@@ -1135,6 +1135,7 @@ P.armory = {
 	enable = true,
 	undressButton = true,
 	expandSize = true,
+	classIcon = true,
 	durability = {
 		enable = true,
 		onlydamaged = true,

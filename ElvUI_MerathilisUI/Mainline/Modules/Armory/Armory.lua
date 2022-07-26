@@ -34,6 +34,9 @@ local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
 local initialized = false
 local maxGemSlots = 5
 
+local ClassSymbolFrame
+local CharacterText --check character text
+
 local gearList = {
 	'HeadSlot', 'HandsSlot', 'NeckSlot', 'WaistSlot', 'ShoulderSlot', 'LegsSlot', 'BackSlot', 'FeetSlot', 'ChestSlot', 'Finger0Slot',
 	'ShirtSlot', 'Finger1Slot', 'TabardSlot', 'Trinket0Slot', 'WristSlot', 'Trinket1Slot', 'SecondaryHandSlot', 'MainHandSlot'
@@ -650,6 +653,76 @@ function module:SkinCharacterStatsPane()
 	end
 end
 
+function module:AddCharacterIcon()
+	if module.db.classIcon then
+		-- Class Icon Holder
+		local ClassIconHolder = CreateFrame("Frame", "MER_ClassIcon", E.UIParent)
+		ClassIconHolder:SetSize(20, 20)
+		ClassIconHolder:SetParent("PaperDollFrame")
+
+		ClassIconTexture = ClassIconHolder:CreateTexture()
+		ClassIconTexture:SetAllPoints(ClassIconHolder)
+
+		CharacterLevelText:SetWidth(300)
+
+		ClassSymbolFrame = ("|T"..(MER.ClassIcons[E.myclass]..".tga:0:0:0:0|t"))
+
+		hooksecurefunc('PaperDollFrame_SetLevel', function()
+			CharacterFrameTitleText:ClearAllPoints()
+			CharacterFrameTitleText:SetPoint('TOP', _G.CharacterModelFrame, 0, 50)
+			CharacterFrameTitleText:SetParent(_G.CharacterFrame)
+			CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), E.db.general.fontSize+2, E.db.general.fontStyle)
+			CharacterFrameTitleText:SetTextColor(F.r, F.g, F.b)
+			CharacterFrameTitleText:SetShadowColor(0, 0, 0, 0.8)
+			CharacterFrameTitleText:SetShadowOffset(2, -1)
+
+			CharacterLevelText:ClearAllPoints()
+			CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
+			CharacterLevelText:SetDrawLayer("OVERLAY")
+		end)
+
+		hooksecurefunc("CharacterFrame_Collapse", function()
+			if PaperDollFrame:IsShown() then
+				CharacterText = CharacterFrameTitleText:GetText()
+				if not CharacterText:match("|T") then
+					CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+				end
+			end
+		end)
+
+		hooksecurefunc("CharacterFrame_Expand", function()
+			if PaperDollFrame:IsShown() then
+				CharacterText = CharacterFrameTitleText:GetText()
+				if not CharacterText:match("|T") then
+					CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+				end
+			end
+		end)
+
+		hooksecurefunc("ReputationFrame_Update", function()
+			if ReputationFrame:IsShown() then
+				CharacterText = CharacterFrameTitleText:GetText()
+				if not CharacterText:match("|T") then
+					CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+				end
+			end
+		end)
+
+		hooksecurefunc("TokenFrame_Update", function()
+			if TokenFrame:IsShown() then
+				CharacterText = CharacterFrameTitleText:GetText()
+				if not CharacterText:match("|T") then
+					CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+				end
+			end
+		end)
+	end
+
+	if E.db.general.itemLevel.displayCharacterInfo then
+		M:UpdatePageInfo(_G.CharacterFrame, "Character")
+	end
+end
+
 function module:Initialize()
 	module.db = E.db.mui.armory
 
@@ -684,6 +757,7 @@ function module:Initialize()
 	self:SkinCharacterStatsPane()
 	self:BuildScrollBar()
 	self:ExpandSize()
+	self:AddCharacterIcon()
 
 	-- Stats
 	if not IsAddOnLoaded("DejaCharacterStats") then

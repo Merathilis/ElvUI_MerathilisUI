@@ -19,7 +19,7 @@ local fontStyleList = {
 
 options.armory = {
 	type = "group",
-	name = L["Armory"],
+	name = E.NewSign..L["Armory"],
 	disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,
 	get = function(info) return E.db.mui.armory[ info[#info] ] end,
 	set = function(info, value) E.db.mui.armory[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -45,6 +45,12 @@ options.armory = {
 			type = "toggle",
 			name = L["Expanded Size"],
 			desc = L["This will increase the Character Frame size a bit."],
+		},
+		classIcon = {
+			order = 5,
+			type = "toggle",
+			name = E.NewSign..L["Class Icon"],
+			desc = L["Adds an class icon next to the name."],
 		},
 		spacer = {
 			order = 8,
@@ -263,7 +269,7 @@ options.armory = {
 		gradient = {
 			order = 24,
 			type = 'group',
-			name = L["Gradient"],
+			name = E.NewSign..L["Gradient"],
 			disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 			get = function(info) return E.db.mui.armory.gradient[ info[#info] ] end,
 			set = function(info, value) E.db.mui.armory.gradient[ info[#info] ] = value; module:UpdatePaperDoll() end,
@@ -326,7 +332,7 @@ options.armory = {
 				warningColor = {
 					order = 7,
 					type = 'color',
-					name = L["Warning Gradient Texture Color"],
+					name = E.NewSign..L["Warning Gradient Texture Color"],
 					get = function(info)
 						local t = E.db.mui.armory.gradient[ info[#info] ]
 						local d = P.armory.gradient[info[#info]]
