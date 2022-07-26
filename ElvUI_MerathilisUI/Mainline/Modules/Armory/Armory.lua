@@ -515,6 +515,13 @@ function module:ExpandSize()
 	if E.db.general.itemLevel.displayCharacterInfo then
 		M:UpdatePageInfo(_G.CharacterFrame, "Character")
 	end
+
+	--Pawn Button sucks A$$
+	if IsAddOnLoaded('Pawn') then
+		if _G.PawnUI_InventoryPawnButton then
+			_G.PawnUI_InventoryPawnButton:SetFrameStrata('DIALOG')
+		end
+	end
 end
 
 function module:firstGarrisonToast()
