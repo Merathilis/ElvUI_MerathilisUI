@@ -130,6 +130,8 @@ V.skins = {
 	},
 	blizzard = {
 		enable = true,
+		arena = true,
+		arenaRegistrar = true,
 		character = true,
 		encounterjournal = true,
 		gossip = true,
@@ -205,6 +207,9 @@ V.skins = {
 		weeklyRewards = true,
 		misc = true,
 		tooltip = true,
+		bgmap = true,
+		bgscore = true,
+		barber = true,
 	},
 
 	addonSkins = {
