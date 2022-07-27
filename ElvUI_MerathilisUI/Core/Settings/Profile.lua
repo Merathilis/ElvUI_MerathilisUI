@@ -1156,7 +1156,7 @@ P.armory = {
 		},
 		catFonts = {
 			font = "Expressway",
-			size = 12,
+			size = 14,
 			outline = "OUTLINE",
 		},
 		List = {
