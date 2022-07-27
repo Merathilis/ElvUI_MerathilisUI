@@ -89,11 +89,12 @@ E:AddTag("power:current-mUI", "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOW
 	local CurrentPower = UnitPower(unit)
 	local String
 
-	if CurrentPower	> 0 then
+	if CurrentPower	>= 0 then
 		String = shortenNumber(CurrentPower)
 	else
 		return nil
 	end
+
 	return String
 end)
 
