@@ -343,6 +343,7 @@ function module:BuildInformation()
 	for id, slotName in pairs(slotIDs) do
 		if not id then return end
 		local frame = _G["Character"..slotIDs[id]]
+		local slotHeight = frame:GetHeight()
 
 		-- Durability
 		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
@@ -351,7 +352,7 @@ function module:BuildInformation()
 
 		-- Gradiation
 		frame.Gradiation = CreateFrame('Frame', nil, frame)
-		frame.Gradiation:Size(110, _G["Character"..slotName]:GetHeight()+4)
+		frame.Gradiation:Size(120, slotHeight + 4)
 		frame.Gradiation:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
 
 		frame.Gradiation.Texture = frame.Gradiation:CreateTexture(nil, "OVERLAY")
@@ -359,19 +360,21 @@ function module:BuildInformation()
 		frame.Gradiation.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\textures\\Gradation')
 
 		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT")
+			frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT", - _G["Character"..slotName]:GetWidth()-4, 0)
 			frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
 		elseif id <= 16 then -- Right Side
-			frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT")
+			frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT", _G["Character"..slotName]:GetWidth()+4, 0)
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
 		end
 
 		if module.db.expandSize then
+			frame.Gradiation:Size(140, slotHeight + 4)
 			if id == 18 then
-				frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT")
+				print(frame.Gradiation:GetWidth())
+				frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT", _G["Character"..slotName]:GetWidth()+4, 0)
 				frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
 			elseif id == 19 then
-				frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT")
+				frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT", - _G["Character"..slotName]:GetWidth()-4, 0)
 				frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
 			end
 		end
