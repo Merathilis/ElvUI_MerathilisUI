@@ -370,7 +370,6 @@ function module:BuildInformation()
 		if module.db.expandSize then
 			frame.Gradiation:Size(140, slotHeight + 4)
 			if id == 18 then
-				print(frame.Gradiation:GetWidth())
 				frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT", _G["Character"..slotName]:GetWidth()+4, 0)
 				frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
 			elseif id == 19 then
