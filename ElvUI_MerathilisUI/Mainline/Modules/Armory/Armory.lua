@@ -37,12 +37,14 @@ local maxGemSlots = 5
 local ClassSymbolFrame
 local CharacterText --check character text
 
-local gearList = {
+module.Constants = {}
+
+module.Constants.gearList = {
 	'HeadSlot', 'HandsSlot', 'NeckSlot', 'WaistSlot', 'ShoulderSlot', 'LegsSlot', 'BackSlot', 'FeetSlot', 'ChestSlot', 'Finger0Slot',
 	'ShirtSlot', 'Finger1Slot', 'TabardSlot', 'Trinket0Slot', 'WristSlot', 'Trinket1Slot', 'SecondaryHandSlot', 'MainHandSlot'
 }
 
-local slots = {
+module.Constants.slots = {
 	["HeadSlot"] = { true, true },
 	["NeckSlot"] = { true, false },
 	["ShoulderSlot"] = { true, true },
@@ -63,7 +65,7 @@ local slots = {
 	["Trinket1Slot"] = { true, false },
 }
 
-local slotIDs = { -- Not the actual Char Frame IDs
+module.Constants.slotIDs = { -- Not the actual Char Frame IDs
 	[1] = "HeadSlot",
 	[2] = "NeckSlot",
 	[3] = "ShoulderSlot",
@@ -84,7 +86,7 @@ local slotIDs = { -- Not the actual Char Frame IDs
 	[19] = "SecondaryHandSlot",
 }
 
-local enchantSlots = {
+module.Constants.enchantSlots = {
 	['HeadSlot'] = false,
 	['NeckSlot'] = false,
 	['ShoulderSlot'] = false,
@@ -158,7 +160,7 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 	if not SlotName then return end --No slot?
 	local noChant, noGem = false, false
 
-	if iLvl and (enchantSlots[SlotName] == true or enchantSlots[SlotName] == primaryStat) and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
+	if iLvl and (module.Constants.enchantSlots[SlotName] == true or module.Constants.enchantSlots[SlotName] == primaryStat) and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
 		local classID, subclassID = select(12, GetItemInfo(Slot.itemLink))
 		if (classID == 4 and subclassID == 6) or (classID == 4 and subclassID == 0 and Slot.ID == 17) then --Shields are special
 			noChant = false
@@ -250,7 +252,7 @@ function module:UpdatePaperDoll()
 	local frame, slot, current, maximum, r, g, b
 	local itemLink
 
-	for k, _ in pairs(slots) do
+	for k, _ in pairs(module.Constants.slots) do
 		frame = _G[("Character")..k]
 
 		slot = GetInventorySlotInfo(k)
@@ -340,9 +342,9 @@ end
 function module:BuildInformation()
 	module.db = E.db.mui.armory
 
-	for id, slotName in pairs(slotIDs) do
+	for id, slotName in pairs(module.Constants.slotIDs) do
 		if not id then return end
-		local frame = _G["Character"..slotIDs[id]]
+		local frame = _G["Character"..module.Constants.slotIDs[id]]
 		local slotHeight = frame:GetHeight()
 
 		-- Durability
@@ -439,7 +441,7 @@ function module:BuildInformation()
 		frame.Illusion.Texture:SetTexCoord(.1, .9, .1, .9)
 	end
 
-	for _, SlotName in pairs(gearList) do
+	for _, SlotName in pairs(module.Constants.gearList) do
 		local Slot = _G["Character"..SlotName]
 		Slot.ID = GetInventorySlotInfo(SlotName)
 
@@ -697,7 +699,6 @@ function module:AddCharacterIcon()
 		CharacterFrameTitleText:SetTextColor(F.r, F.g, F.b)
 		CharacterFrameTitleText:SetShadowColor(0, 0, 0, 0.8)
 		CharacterFrameTitleText:SetShadowOffset(2, -1)
-		-- E:TextGradient(CharacterFrameTitleText:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"])
 
 		CharacterLevelText:ClearAllPoints()
 		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
