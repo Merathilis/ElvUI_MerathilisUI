@@ -740,7 +740,7 @@ function module:AddCharacterIcon()
 		end
 	end)
 
-	hooksecurefunc(CharacterFrame, 'SetTitle', function()
+	hooksecurefunc(CharacterFrame, "SetTitle", function()
 		colorTitleText()
 	end)
 
