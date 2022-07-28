@@ -709,7 +709,8 @@ function module:AddCharacterIcon()
 		if PaperDollFrame:IsShown() then
 			CharacterText = CharacterFrameTitleText:GetText()
 			if not CharacterText:match("|T") then
-				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+				local titleText = E:TextGradient(CharacterText, 0.99,0.24,0.26, 0.99,0.59,0.28, 1,0.87,0.29, 0.42,0.99,0.39, 0.32,0.76,0.98, 0.63,0.36,0.98, 0.77,0.47,0.98)
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..titleText)
 			end
 		end
 	end)
@@ -718,7 +719,8 @@ function module:AddCharacterIcon()
 		if PaperDollFrame:IsShown() then
 			CharacterText = CharacterFrameTitleText:GetText()
 			if not CharacterText:match("|T") then
-				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+				local titleText = E:TextGradient(CharacterText, 0.99,0.24,0.26, 0.99,0.59,0.28, 1,0.87,0.29, 0.42,0.99,0.39, 0.32,0.76,0.98, 0.63,0.36,0.98, 0.77,0.47,0.98)
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..titleText)
 			end
 		end
 	end)
@@ -727,7 +729,8 @@ function module:AddCharacterIcon()
 		if ReputationFrame:IsShown() then
 			CharacterText = CharacterFrameTitleText:GetText()
 			if not CharacterText:match("|T") then
-				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+				local titleText = E:TextGradient(CharacterText, 0.99,0.24,0.26, 0.99,0.59,0.28, 1,0.87,0.29, 0.42,0.99,0.39, 0.32,0.76,0.98, 0.63,0.36,0.98, 0.77,0.47,0.98)
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..titleText)
 			end
 		end
 	end)
@@ -736,7 +739,8 @@ function module:AddCharacterIcon()
 		if TokenFrame:IsShown() then
 			CharacterText = CharacterFrameTitleText:GetText()
 			if not CharacterText:match("|T") then
-				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+				local titleText = E:TextGradient(CharacterText, 0.99,0.24,0.26, 0.99,0.59,0.28, 1,0.87,0.29, 0.42,0.99,0.39, 0.32,0.76,0.98, 0.63,0.36,0.98, 0.77,0.47,0.98)
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..titleText)
 			end
 		end
 	end)
