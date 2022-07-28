@@ -705,44 +705,43 @@ function module:AddCharacterIcon()
 		CharacterLevelText:SetDrawLayer("OVERLAY")
 	end)
 
+	local titleText, coloredTitleText
+
+	local function colorTitleText()
+		CharacterText = CharacterFrameTitleText:GetText()
+		coloredTitleText = E:TextGradient(CharacterText, 0.99,0.24,0.26, 0.99,0.59,0.28, 1,0.87,0.29, 0.42,0.99,0.39, 0.32,0.76,0.98, 0.63,0.36,0.98, 0.77,0.47,0.98)
+		if not CharacterText:match("|T") then
+			titleText = ClassSymbolFrame.." "..coloredTitleText
+		end
+		CharacterFrameTitleText:SetText(titleText)
+	end
+
 	hooksecurefunc("CharacterFrame_Collapse", function()
 		if PaperDollFrame:IsShown() then
-			CharacterText = CharacterFrameTitleText:GetText()
-			if not CharacterText:match("|T") then
-				local titleText = E:TextGradient(CharacterText, 0.99,0.24,0.26, 0.99,0.59,0.28, 1,0.87,0.29, 0.42,0.99,0.39, 0.32,0.76,0.98, 0.63,0.36,0.98, 0.77,0.47,0.98)
-				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..titleText)
-			end
+			colorTitleText()
 		end
 	end)
 
 	hooksecurefunc("CharacterFrame_Expand", function()
 		if PaperDollFrame:IsShown() then
-			CharacterText = CharacterFrameTitleText:GetText()
-			if not CharacterText:match("|T") then
-				local titleText = E:TextGradient(CharacterText, 0.99,0.24,0.26, 0.99,0.59,0.28, 1,0.87,0.29, 0.42,0.99,0.39, 0.32,0.76,0.98, 0.63,0.36,0.98, 0.77,0.47,0.98)
-				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..titleText)
-			end
+			colorTitleText()
 		end
 	end)
 
 	hooksecurefunc("ReputationFrame_Update", function()
 		if ReputationFrame:IsShown() then
-			CharacterText = CharacterFrameTitleText:GetText()
-			if not CharacterText:match("|T") then
-				local titleText = E:TextGradient(CharacterText, 0.99,0.24,0.26, 0.99,0.59,0.28, 1,0.87,0.29, 0.42,0.99,0.39, 0.32,0.76,0.98, 0.63,0.36,0.98, 0.77,0.47,0.98)
-				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..titleText)
-			end
+			colorTitleText()
 		end
 	end)
 
 	hooksecurefunc("TokenFrame_Update", function()
 		if TokenFrame:IsShown() then
-			CharacterText = CharacterFrameTitleText:GetText()
-			if not CharacterText:match("|T") then
-				local titleText = E:TextGradient(CharacterText, 0.99,0.24,0.26, 0.99,0.59,0.28, 1,0.87,0.29, 0.42,0.99,0.39, 0.32,0.76,0.98, 0.63,0.36,0.98, 0.77,0.47,0.98)
-				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..titleText)
-			end
+			colorTitleText()
 		end
+	end)
+
+	hooksecurefunc(CharacterFrame, 'SetTitle', function()
+		colorTitleText()
 	end)
 
 	if E.db.general.itemLevel.displayCharacterInfo then
