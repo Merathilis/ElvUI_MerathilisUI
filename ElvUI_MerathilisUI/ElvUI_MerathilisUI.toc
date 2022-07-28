@@ -1,4 +1,4 @@
-## Interface: 90205
+## Interface: @toc-version-retail@
 ## Author: Merathilis
 ## Version: @project-version@
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r

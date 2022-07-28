@@ -286,6 +286,7 @@ function module:CreateStatCategory(catName, text, noop)
 
 		CharacterStatFrameCategoryTemplate(_G["CharacterStatsPane"][catName])
 	end
+
 	return catName
 end
 
@@ -389,8 +390,6 @@ function module:PaperDollFrame_UpdateStats()
 	local statFrame = _G["CharacterStatsPane"].statsFramePool:Acquire();
 
 	local lastAnchor;
-
-	module:BuildScrollBar()
 
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 		local catFrame = _G["CharacterStatsPane"][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame];

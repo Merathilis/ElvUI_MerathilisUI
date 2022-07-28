@@ -84,14 +84,8 @@ options.cooldowns = {
 					min = 0.5, max = 2, step = 0.1,
 					hidden = function() return not E.db.mui.cooldownFlash.enable end,
 				},
-				showSpellName = {
-					order = 10,
-					name = L["Display spell name"],
-					type = "toggle",
-					hidden = function() return not E.db.mui.cooldownFlash.enable end,
-				},
 				enablePet = {
-					order = 11,
+					order = 10,
 					name = L["Watch on pet spell"],
 					type = "toggle",
 					get = function(info) return E.db.mui.cooldownFlash[ info[#info] ] end,
@@ -99,7 +93,7 @@ options.cooldowns = {
 					hidden = function() return not E.db.mui.cooldownFlash.enable end,
 				},
 				test = {
-					order = 12,
+					order = 11,
 					name = L["Test"],
 					type = "execute",
 					func = function() CF:TestMode() end,

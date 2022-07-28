@@ -154,7 +154,7 @@ end
 
 function module:ChangeQuestHeaderStyle()
 	local frame = _G.ObjectiveTrackerFrame.MODULES
-	if not self.db or not frame then
+	if not self.db or not self.db.header or not frame then
 		return
 	end
 

@@ -89,11 +89,12 @@ E:AddTag("power:current-mUI", "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOW
 	local CurrentPower = UnitPower(unit)
 	local String
 
-	if CurrentPower	> 0 then
+	if CurrentPower	>= 0 then
 		String = shortenNumber(CurrentPower)
 	else
 		return nil
 	end
+
 	return String
 end)
 
@@ -129,7 +130,16 @@ E:AddTag('name:abbrev-translit', 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNI
 	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
 end)
 
-E:AddTagInfo("health:current-mUI", "MerathilisUI", "Displays current HP (2.04B, 2.04M, 204k, 204)")
-E:AddTagInfo("power:current-mUI", "MerathilisUI", "Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag")
-E:AddTagInfo("mUI-resting", "MerathilisUI", "Displays a text if the player is in a resting area = zZz")
-E:AddTagInfo("name:abbrev-translit", "MerathilisUI", "Displays a shorten name and will convert cyrillics. Игорь = !Igor")
+E:AddTag("mUI:class:icon", "UNIT_NAME_UPDATE", function(unit)
+	if not UnitIsPlayer(unit) then return end
+	local icon
+	local _ , classes = UnitClass(unit)
+	icon = MER.TagClassIcons[classes]
+	return icon
+end)
+
+E:AddTagInfo("health:current-mUI", MER.Title, "Displays current HP (2.04B, 2.04M, 204k, 204)")
+E:AddTagInfo("power:current-mUI", MER.Title, "Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag")
+E:AddTagInfo("mUI-resting", MER.Title, "Displays a text if the player is in a resting area = zZz")
+E:AddTagInfo("name:abbrev-translit", MER.Title, "Displays a shorten name and will convert cyrillics. Игорь = !Igor")
+E:AddTagInfo('mUI:class:icon', MER.Title, L["Shows Class Icons recolored by Releaf on Player targets"])

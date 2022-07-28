@@ -19,7 +19,7 @@ local fontStyleList = {
 
 options.armory = {
 	type = "group",
-	name = L["Armory"],
+	name = E.NewSign..L["Armory"],
 	disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,
 	get = function(info) return E.db.mui.armory[ info[#info] ] end,
 	set = function(info, value) E.db.mui.armory[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -45,6 +45,12 @@ options.armory = {
 			type = "toggle",
 			name = L["Expanded Size"],
 			desc = L["This will increase the Character Frame size a bit."],
+		},
+		classIcon = {
+			order = 5,
+			type = "toggle",
+			name = E.NewSign..L["Class Icon"],
+			desc = L["Adds an class icon next to the name."],
 		},
 		spacer = {
 			order = 8,
@@ -105,7 +111,7 @@ options.armory = {
 		},
 		stats = {
 			type = 'group',
-			name = STAT_CATEGORY_ATTRIBUTES,
+			name = E.NewSign..STAT_CATEGORY_ATTRIBUTES,
 			order = 22,
 			disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 			get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
@@ -121,20 +127,28 @@ options.armory = {
 					order = 2,
 					type = "color",
 					name = COLOR_PICKER,
+					disabled = function() return E.db.mui.armory.stats.classColorGradient end,
 					get = function(info)
 						local t = E.db.mui.armory.stats[ info[#info] ]
 						local d = P.armory.stats[info[#info]]
-						return t.r, t.g, t.b, d.r, d.g, d.b
+						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 					end,
 					set = function(info, r, g, b)
 						E.db.mui.armory.stats[ info[#info] ] = {}
 						local t = E.db.mui.armory.stats[ info[#info] ]
-						t.r, t.g, t.b = r, g, b
+						t.r, t.g, t.b, t.a = r, g, b, a
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 				},
-				ItemLevel = {
+				classColorGradient = {
 					order = 3,
+					type = "toggle",
+					name = E.NewSign..L["Class Color Gradient"],
+					get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
+					set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				},
+				ItemLevel = {
+					order = 4,
 					type = 'group',
 					name = STAT_AVERAGE_ITEM_LEVEL,
 					guiInline = true,
@@ -175,7 +189,7 @@ options.armory = {
 					},
 				},
 				Stats = {
-					order = 4,
+					order = 5,
 					type = 'group',
 					name = STAT_CATEGORY_ATTRIBUTES,
 					guiInline = true,
@@ -263,7 +277,7 @@ options.armory = {
 		gradient = {
 			order = 24,
 			type = 'group',
-			name = L["Gradient"],
+			name = E.NewSign..L["Gradient"],
 			disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 			get = function(info) return E.db.mui.armory.gradient[ info[#info] ] end,
 			set = function(info, value) E.db.mui.armory.gradient[ info[#info] ] = value; module:UpdatePaperDoll() end,
@@ -322,6 +336,23 @@ options.armory = {
 						module:UpdatePaperDoll()
 					end,
 					disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo or not E.db.mui.armory.gradient.setArmor end,
+				},
+				warningColor = {
+					order = 7,
+					type = 'color',
+					name = E.NewSign..L["Warning Gradient Texture Color"],
+					get = function(info)
+						local t = E.db.mui.armory.gradient[ info[#info] ]
+						local d = P.armory.gradient[info[#info]]
+						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+					end,
+					set = function(info, r, g, b, a)
+						E.db.mui.armory.gradient[ info[#info] ] = {}
+						local t = E.db.mui.armory.gradient[ info[#info] ]
+						t.r, t.g, t.b, t.a = r, g, b, a
+						module:UpdatePaperDoll()
+					end,
+					disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 				},
 			},
 		},

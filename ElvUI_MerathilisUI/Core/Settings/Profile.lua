@@ -984,7 +984,7 @@ P.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "190237,54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952",
+		hsPrio = "193588,190237,54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
@@ -1127,7 +1127,6 @@ P.cooldownFlash = {
 	ignoredSpells = "",
 	invertIgnored = false,
 	enablePet = false,
-	showSpellName = false,
 	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
 }
@@ -1135,7 +1134,8 @@ P.cooldownFlash = {
 P.armory = {
 	enable = true,
 	undressButton = true,
-	expandSize = false,
+	expandSize = true,
+	classIcon = true,
 	durability = {
 		enable = true,
 		onlydamaged = true,
@@ -1145,7 +1145,8 @@ P.armory = {
 	},
 	stats = {
 		OnlyPrimary = true,
-		color = {r = 1, g = 1, b = 0},
+		color = {r = 1, g = 1, b = 0, a = 1},
+		classColorGradient = true,
 		IlvlFull = false,
 		IlvlColor = false,
 		AverageColor = {r = 0, g = 1, b = .59},
@@ -1156,7 +1157,7 @@ P.armory = {
 		},
 		catFonts = {
 			font = "Expressway",
-			size = 12,
+			size = 13,
 			outline = "OUTLINE",
 		},
 		List = {
@@ -1179,6 +1180,7 @@ P.armory = {
 		color = {r = 1, g = 1, b = 0},
 		setArmor = true,
 		setArmorColor = {r = 0, g = 1, b = 0, a = 1},
+		warningColor = {r = 1, g = 0, b = 0, a = 1}
 	},
 	transmog = {
 		enable = true,

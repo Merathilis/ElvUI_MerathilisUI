@@ -17,11 +17,16 @@ local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID
 local GetContainerItemLink = GetContainerItemLink
 local GetContainerNumSlots = GetContainerNumSlots
+local GetSpellDescription = GetSpellDescription
 local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
+local UnitClass = UnitClass
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
+local UnitIsPlayer = UnitIsPlayer
+local UnitIsTapDenied = UnitIsTapDenied
+local UnitReaction = UnitReaction
 local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
@@ -35,6 +40,26 @@ local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCov
 --[[----------------------------------
 --	Color Functions
 --]]----------------------------------
+F.ClassGradient = {
+	["WARRIOR"] = {r1 = 0.60, g1 = 0.40, b1 = 0.20, r2 = 0.66, g2 = 0.53, b2 = 0.34},
+	["PALADIN"] = {r1 = 0.9, g1 = 0.47, b1 = 0.64, r2 = 0.96, g2 = 0.65, b2 = 0.83},
+	["HUNTER"] = {r1 = 0.58, g1 = 0.69, b1 = 0.29, r2 = 0.78, g2 = 1, b2 = 0.38},
+	["ROGUE"] = {r1 = 1, g1 = 0.68, b1 = 0, r2 = 1, g2 = 0.83, b2 = 0.25},
+	["PRIEST"] = {r1 = 0.65, g1 = 0.65, b1 = 0.65, r2 = 0.98, g2 = 0.98, b2 = 0.98},
+	["DEATHKNIGHT"] = {r1 = 0.79, g1 = 0.07, b1 = 0.14, r2 = 1, g2 = 0.18, b2 = 0.23},
+	["SHAMAN"] = {r1 = 0, g1 = 0.25, b1 = 0.50, r2 = 0, g2 = 0.43, b2 = 0.87},
+	["MAGE"] = {r1 = 0, g1 = 0.73, b1 = 0.83, r2 = 0.49, g2 = 0.87, b2 = 1},
+	["WARLOCK"] = {r1 = 0.50, g1 = 0.30, b1 = 0.70, r2 = 0.7, g2= 0.53, b2 = 0.83},
+	["MONK"] = {r1 = 0, g1 = 0.77, b1 = 0.45, r2 = 0.22, g2 = 0.90, b2 = 1},
+	["DRUID"] = {r1 = 1, g1 = 0.23, b1 = 0.0, r2 = 1, g2 = 0.48, b2 = 0.03},
+	["DEMONHUNTER"] = {r1 = 0.36, g1 = 0.13, b1 = 0.57, r2 = 0.74, g2 = 0.19, b2 = 1},
+
+	["NPCFRIENDLY"] = {r1 = 0.30, g1 = 0.85, b1 = 0.2, r2 = 0.34, g2 = 0.62, b2 = 0.40},
+	["NPCNEUTRAL"] = {r1 = 0.71, g1 = 0.63, b1 = 0.15, r2 = 1, g2 = 0.85, b2 = 0.20},
+	["NPCUNFRIENDLY"] = {r1 = 0.84, g1 = 0.30, b1 = 0, r2 = 0.83, g2 = 0.45, b2 = 0},
+	["NPCHOSTILE"] = {r1 = 0.31, g1 = 0.06, b1 = 0.07, r2 = 1, g2 = 0.15, b2 = 0.15},
+}
+
 F.ClassColors = {}
 local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 for class, value in pairs(colors) do
@@ -67,7 +92,7 @@ function F.UnitColor(unit)
 	else
 		local reaction = UnitReaction(unit, "player")
 		if reaction then
-			local color = FACTION_BAR_COLORS[reaction]
+			local color = _G.FACTION_BAR_COLORS[reaction]
 			r, g, b = color.r, color.g, color.b
 		end
 	end
@@ -378,8 +403,8 @@ do
 	local enchantString = gsub(_G.ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
 	local essenceTextureID = 2975691
 	local essenceDescription = GetSpellDescription(277253)
-	local ITEM_SPELL_TRIGGER_ONEQUIP = ITEM_SPELL_TRIGGER_ONEQUIP
-	local RETRIEVING_ITEM_INFO = RETRIEVING_ITEM_INFO
+	local ITEM_SPELL_TRIGGER_ONEQUIP = _G.ITEM_SPELL_TRIGGER_ONEQUIP
+	local RETRIEVING_ITEM_INFO = _G.RETRIEVING_ITEM_INFO
 
 	local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
 	F.ScanTip = tip
@@ -671,6 +696,13 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 end
 
 --[[----------------------------------
+--	Dropdown Menu
+--]]----------------------------------
+do
+	F.EasyMenu = CreateFrame('Frame', MER.Title .. 'EasyMenu', E.UIParent, 'UIDropDownMenuTemplate')
+end
+
+--[[----------------------------------
 --	Text Functions
 --]]----------------------------------
 function F.CreateText(f, layer, size, outline, text, color, anchor, x, y)
@@ -844,6 +876,12 @@ function F.GetTextureStrByAtlas(info, sizeX, sizeY)
 	local atlasHeight = height / (txBottom-txTop)
 
 	return format("|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d|t", file, (sizeX or 0), (sizeY or 0), atlasWidth, atlasHeight, atlasWidth*txLeft, atlasWidth*txRight, atlasHeight*txTop, atlasHeight*txBottom)
+end
+
+-- GUID to npcID
+function F.GetNPCID(guid)
+	local id = tonumber(strmatch((guid or ""), "%-(%d-)%-%x-$"))
+	return id
 end
 
 function F.SplitString(delimiter, subject)

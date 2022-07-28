@@ -142,7 +142,7 @@ function module:ConstructFrame()
 	frame:Point("BOTTOMRIGHT", _G.MailFrame, "BOTTOMRIGHT", 152, 1)
 	frame:CreateBackdrop("Transparent")
 	frame.backdrop:Styling()
-	S:CreateShadow(frame)
+	S:CreateBackdropShadow(frame)
 	frame:EnableMouse(true)
 
 	self.frame = frame
@@ -702,7 +702,7 @@ function module:CollectGoldButton()
 	_G.OpenAllMail:SetSize(80, 20)
 
 	local button = module:MailBox_CreateButton(_G.InboxFrame, 80, 20, '', {'BOTTOMLEFT', _G.MailFrame, 'BOTTOM', 2, 16})
-	button:HookScript('OnClick', module.MailBox_CollectAllGold)
+	button:SetScript('OnClick', module.MailBox_CollectAllGold)
 	button:HookScript('OnEnter', module.TotalCash_OnEnter)
 	button:HookScript('OnLeave', module.TotalCash_OnLeave)
 
@@ -765,7 +765,7 @@ function module:ArrangeDefaultElements()
 		if sendPrice > GetMoney() then
 			colorStr = '|cffff0000'
 		end
-		_G.GameTooltip:AddLine(_G.SEND_MAIL_COST .. colorStr .. E:FormatMoney(sendPrice))
+		_G.GameTooltip:AddLine(_G.SEND_MAIL_COST..colorStr..E:FormatMoney(sendPrice))
 		_G.GameTooltip:Show()
 	end)
 	_G.SendMailMailButton:HookScript('OnLeave', F.HideTooltip)

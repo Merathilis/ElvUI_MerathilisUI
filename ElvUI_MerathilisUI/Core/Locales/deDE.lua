@@ -473,6 +473,8 @@ L["Item Level Coloring"] = "Gegenstandsstufen Färbung"
 L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Werte der Farbcode Gegenstandsebenen. Ausgestattet mit Farbverlauf, Durchschnitt - ausgewählte Farbe."
 L["Color of Average"] = "Durchschnittsfarbe"
 L["Sets the color of average item level."] = "Legt die Farbe der durchschnittlichen Gegenstandsstufe fest."
+L["Warning Gradient Texture Color"] = "Warnung Verlaufsfarbe"
+L["Class Color Gradient"] = "Klassenfarbenverlauf"
 
 -- Media
 L["Zone Text"] = "Gebietstext"
@@ -764,7 +766,6 @@ L["Fadein duration"] = "Einblendzeit"
 L["Fadeout duration"] = "Ausblendzeit"
 L["Duration time"] = "Dauer"
 L["Animation size"] = "Animationsgröße"
-L["Display spell name"] = "Zeige Zaubernamen"
 L["Watch on pet spell"] = "Überwache Begleiterzauber"
 L["Transparency"] = "Transparenz"
 L["Test"] = true

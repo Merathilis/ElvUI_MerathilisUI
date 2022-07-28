@@ -462,8 +462,8 @@ function MER:LoadOmniCDProfile()
 					},
 					["textures"] = {
 						["statusBar"] = {
-							["BG"] = "Gradient",
-							["bar"] = "Gradient",
+							["BG"] = "MER_NormTex",
+							["bar"] = "MER_NormTex",
 						},
 					},
 				},

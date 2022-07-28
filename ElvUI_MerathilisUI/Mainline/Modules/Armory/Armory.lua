@@ -34,12 +34,17 @@ local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
 local initialized = false
 local maxGemSlots = 5
 
-local gearList = {
+local ClassSymbolFrame
+local CharacterText --check character text
+
+module.Constants = {}
+
+module.Constants.gearList = {
 	'HeadSlot', 'HandsSlot', 'NeckSlot', 'WaistSlot', 'ShoulderSlot', 'LegsSlot', 'BackSlot', 'FeetSlot', 'ChestSlot', 'Finger0Slot',
 	'ShirtSlot', 'Finger1Slot', 'TabardSlot', 'Trinket0Slot', 'WristSlot', 'Trinket1Slot', 'SecondaryHandSlot', 'MainHandSlot'
 }
 
-local slots = {
+module.Constants.slots = {
 	["HeadSlot"] = { true, true },
 	["NeckSlot"] = { true, false },
 	["ShoulderSlot"] = { true, true },
@@ -60,7 +65,7 @@ local slots = {
 	["Trinket1Slot"] = { true, false },
 }
 
-local slotIDs = {
+module.Constants.slotIDs = { -- Not the actual Char Frame IDs
 	[1] = "HeadSlot",
 	[2] = "NeckSlot",
 	[3] = "ShoulderSlot",
@@ -81,7 +86,7 @@ local slotIDs = {
 	[19] = "SecondaryHandSlot",
 }
 
-local enchantSlots = {
+module.Constants.enchantSlots = {
 	['HeadSlot'] = false,
 	['NeckSlot'] = false,
 	['ShoulderSlot'] = false,
@@ -155,7 +160,7 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 	if not SlotName then return end --No slot?
 	local noChant, noGem = false, false
 
-	if iLvl and (enchantSlots[SlotName] == true or enchantSlots[SlotName] == primaryStat) and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
+	if iLvl and (module.Constants.enchantSlots[SlotName] == true or module.Constants.enchantSlots[SlotName] == primaryStat) and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
 		local classID, subclassID = select(12, GetItemInfo(Slot.itemLink))
 		if (classID == 4 and subclassID == 6) or (classID == 4 and subclassID == 0 and Slot.ID == 17) then --Shields are special
 			noChant = false
@@ -177,6 +182,7 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 		if noChant then message = message..'|cffff0000'..L["Not Enchanted"]..'|r\n' end
 		Slot.Warning.Reason = message or nil
 		Slot.Warning:Show()
+		Slot.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.gradient.warningColor))
 	else
 		Slot.Warning:Hide()
 	end
@@ -246,7 +252,7 @@ function module:UpdatePaperDoll()
 	local frame, slot, current, maximum, r, g, b
 	local itemLink
 
-	for k, _ in pairs(slots) do
+	for k, _ in pairs(module.Constants.slots) do
 		frame = _G[("Character")..k]
 
 		slot = GetInventorySlotInfo(k)
@@ -318,6 +324,8 @@ function module:UpdatePaperDoll()
 			end
 		end
 	end
+
+	M:UpdatePageInfo(_G['CharacterFrame'], 'Character')
 end
 
 function module:InitialUpdatePaperDoll()
@@ -334,9 +342,10 @@ end
 function module:BuildInformation()
 	module.db = E.db.mui.armory
 
-	for id, slotName in pairs(slotIDs) do
+	for id, slotName in pairs(module.Constants.slotIDs) do
 		if not id then return end
-		local frame = _G["Character"..slotIDs[id]]
+		local frame = _G["Character"..module.Constants.slotIDs[id]]
+		local slotHeight = frame:GetHeight()
 
 		-- Durability
 		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
@@ -345,7 +354,7 @@ function module:BuildInformation()
 
 		-- Gradiation
 		frame.Gradiation = CreateFrame('Frame', nil, frame)
-		frame.Gradiation:Size(110, _G["Character"..slotName]:GetHeight()+4)
+		frame.Gradiation:Size(120, slotHeight + 4)
 		frame.Gradiation:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
 
 		frame.Gradiation.Texture = frame.Gradiation:CreateTexture(nil, "OVERLAY")
@@ -353,11 +362,22 @@ function module:BuildInformation()
 		frame.Gradiation.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\textures\\Gradation')
 
 		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT")
+			frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT", - _G["Character"..slotName]:GetWidth()-4, 0)
 			frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
 		elseif id <= 16 then -- Right Side
-			frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT")
+			frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT", _G["Character"..slotName]:GetWidth()+4, 0)
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
+		end
+
+		if module.db.expandSize then
+			frame.Gradiation:Size(140, slotHeight + 4)
+			if id == 18 then
+				frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT", _G["Character"..slotName]:GetWidth()+4, 0)
+				frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
+			elseif id == 19 then
+				frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT", - _G["Character"..slotName]:GetWidth()-4, 0)
+				frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
+			end
 		end
 
 		-- Missing Enchants/Gems Warning
@@ -421,7 +441,7 @@ function module:BuildInformation()
 		frame.Illusion.Texture:SetTexCoord(.1, .9, .1, .9)
 	end
 
-	for _, SlotName in pairs(gearList) do
+	for _, SlotName in pairs(module.Constants.gearList) do
 		local Slot = _G["Character"..SlotName]
 		Slot.ID = GetInventorySlotInfo(SlotName)
 
@@ -455,20 +475,6 @@ function module:BuildInformation()
 			_G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
 		end
 	end)
-
-	--[[hooksecurefunc('PaperDollFrame_SetLevel', function()
-		if E.db.mui.armory.expandSize then
-			_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
-
-			_G["CharacterFrameTitleText"]:ClearAllPoints()
-			_G["CharacterFrameTitleText"]:Point('TOP', _G["CharacterModelFrame"], 0, 45)
-			_G["CharacterFrameTitleText"]:SetParent(_G["CharacterFrame"])
-
-			_G["CharacterLevelText"]:ClearAllPoints()
-			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, 2)
-			_G["CharacterLevelText"]:SetParent(_G["CharacterFrame"])
-		end
-	end)]]
 end
 
 function module:ExpandSize()
@@ -476,39 +482,52 @@ function module:ExpandSize()
 		return
 	end
 
-	_G["CharacterFrame"]:SetHeight(444)
+	_G.CharacterFrame:SetHeight(470)
 
-	_G["CharacterHandsSlot"]:SetPoint('TOPRIGHT', _G["CharacterFrameInsetRight"], 'TOPLEFT', -4, -2)
+	_G.CharacterHandsSlot:SetPoint('TOPRIGHT', _G.CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
 
-	_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
+	_G.CharacterMainHandSlot:SetPoint('BOTTOMLEFT', _G.PaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
 
-	_G["CharacterModelFrame"]:ClearAllPoints()
-	_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"], 0, 5)
-	_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
-	_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
+	_G.CharacterModelFrame:ClearAllPoints()
+	_G.CharacterModelFrame:SetPoint('TOPLEFT', _G.CharacterHeadSlot, 0, 5)
+	_G.CharacterModelFrame:SetPoint('RIGHT', _G.CharacterHandsSlot)
+	_G.CharacterModelFrame:SetPoint('BOTTOM', _G.CharacterMainHandSlot)
 
-	if _G["PaperDollFrame"]:IsShown() then --Setting up width for the main frame
-		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
-		_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
+	if _G.PaperDollFrame:IsShown() then --Setting up width for the main frame
+		_G.CharacterFrame:SetWidth(_G.CharacterFrame.Expanded and 650 or 444)
+		_G.CharacterFrameInsetRight:SetPoint('TOPLEFT', _G.CharacterFrameInset, 'TOPRIGHT', 110, 0)
 	end
 
-	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
-		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
-		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
+	if _G.CharacterModelFrame and _G.CharacterModelFrame.BackgroundTopLeft and _G.CharacterModelFrame.BackgroundTopLeft:IsShown() then
+		_G.CharacterModelFrame.BackgroundTopLeft:Hide()
+		_G.CharacterModelFrame.BackgroundTopRight:Hide()
+		_G.CharacterModelFrame.BackgroundBotLeft:Hide()
+		_G.CharacterModelFrame.BackgroundBotRight:Hide()
 
-		if _G["CharacterModelFrame"].backdrop then
-			_G["CharacterModelFrame"].backdrop:Hide()
+		if _G.CharacterModelFrame.backdrop then
+			_G.CharacterModelFrame.backdrop:Hide()
 		end
 	end
 
-	--Overlay resize to match new width
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
+	-- Overlay resize to match new width
+	_G.CharacterModelFrameBackgroundOverlay:SetPoint('TOPLEFT', _G.CharacterModelFrame, -4, 0)
+	_G.CharacterModelFrameBackgroundOverlay:SetPoint('BOTTOMRIGHT', _G.CharacterModelFrame, 4, 0)
+
+	_G.PaperDollEquipmentManagerPane:ClearAllPoints()
+	_G.PaperDollEquipmentManagerPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
+
+	_G.PaperDollTitlesPane:ClearAllPoints()
+	_G.PaperDollTitlesPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
 
 	if E.db.general.itemLevel.displayCharacterInfo then
-		M:UpdatePageInfo(_G["CharacterFrame"], "Character")
+		M:UpdatePageInfo(_G.CharacterFrame, "Character")
+	end
+
+	--Pawn Button sucks A$$
+	if IsAddOnLoaded('Pawn') then
+		if _G.PawnUI_InventoryPawnButton then
+			_G.PawnUI_InventoryPawnButton:SetFrameStrata('DIALOG')
+		end
 	end
 end
 
@@ -571,13 +590,21 @@ end
 
 local function SkinAdditionalStats()
 	if CharacterStatsPane.OffenseCategory then
-		CharacterStatsPane.OffenseCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		if module.db.stats.classColorGradient then
+			CharacterStatsPane.OffenseCategory.Title:SetText(E:TextGradient(CharacterStatsPane.OffenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		else
+			CharacterStatsPane.OffenseCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		end
 		StatsPane("OffenseCategory")
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
 	end
 
 	if CharacterStatsPane.DefenceCategory then
-		CharacterStatsPane.DefenceCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		if module.db.stats.classColorGradient then
+			CharacterStatsPane.DefenceCategory.Title:SetText(E:TextGradient(CharacterStatsPane.DefenceCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		else
+			CharacterStatsPane.DefenceCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		end
 		StatsPane("DefenceCategory")
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenceCategory)
 	end
@@ -591,9 +618,15 @@ function module:SkinCharacterStatsPane()
 	_G.CharacterModelFrame:DisableDrawLayer("OVERLAY")
 
 	if not IsAddOnLoaded("DejaCharacterStats") then
-		CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
-		CharacterStatsPane.AttributesCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
-		CharacterStatsPane.EnhancementsCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		if module.db.stats.classColorGradient then
+			CharacterStatsPane.ItemLevelCategory.Title:SetText(E:TextGradient(CharacterStatsPane.ItemLevelCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+			CharacterStatsPane.AttributesCategory.Title:SetText(E:TextGradient(CharacterStatsPane.AttributesCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+			CharacterStatsPane.EnhancementsCategory.Title:SetText(E:TextGradient(CharacterStatsPane.EnhancementsCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		else
+			CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+			CharacterStatsPane.AttributesCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+			CharacterStatsPane.EnhancementsCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		end
 
 		StatsPane("EnhancementsCategory")
 		StatsPane("ItemLevelCategory")
@@ -638,10 +671,85 @@ function module:SkinCharacterStatsPane()
 	end
 end
 
+function module:AddCharacterIcon()
+	if not module.db.classIcon then
+		return
+	end
+
+	local CharacterFrameTitleText = _G.CharacterFrameTitleText
+	local CharacterLevelText = _G.CharacterLevelText
+
+	-- Class Icon Holder
+	local ClassIconHolder = CreateFrame("Frame", "MER_ClassIcon", E.UIParent)
+	ClassIconHolder:SetSize(20, 20)
+	ClassIconHolder:SetParent("PaperDollFrame")
+
+	local ClassIconTexture = ClassIconHolder:CreateTexture()
+	ClassIconTexture:SetAllPoints(ClassIconHolder)
+
+	CharacterLevelText:SetWidth(300)
+
+	ClassSymbolFrame = ("|T"..(MER.ClassIcons[E.myclass]..".tga:0:0:0:0|t"))
+
+	hooksecurefunc('PaperDollFrame_SetLevel', function()
+		CharacterFrameTitleText:ClearAllPoints()
+		CharacterFrameTitleText:SetPoint('TOP', _G.CharacterModelFrame, 0, 50)
+		CharacterFrameTitleText:SetParent(_G.CharacterFrame)
+		CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), E.db.general.fontSize+2, E.db.general.fontStyle)
+		CharacterFrameTitleText:SetTextColor(F.r, F.g, F.b)
+		CharacterFrameTitleText:SetShadowColor(0, 0, 0, 0.8)
+		CharacterFrameTitleText:SetShadowOffset(2, -1)
+
+		CharacterLevelText:ClearAllPoints()
+		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
+		CharacterLevelText:SetDrawLayer("OVERLAY")
+	end)
+
+	hooksecurefunc("CharacterFrame_Collapse", function()
+		if PaperDollFrame:IsShown() then
+			CharacterText = CharacterFrameTitleText:GetText()
+			if not CharacterText:match("|T") then
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+			end
+		end
+	end)
+
+	hooksecurefunc("CharacterFrame_Expand", function()
+		if PaperDollFrame:IsShown() then
+			CharacterText = CharacterFrameTitleText:GetText()
+			if not CharacterText:match("|T") then
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+			end
+		end
+	end)
+
+	hooksecurefunc("ReputationFrame_Update", function()
+		if ReputationFrame:IsShown() then
+			CharacterText = CharacterFrameTitleText:GetText()
+			if not CharacterText:match("|T") then
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+			end
+		end
+	end)
+
+	hooksecurefunc("TokenFrame_Update", function()
+		if TokenFrame:IsShown() then
+			CharacterText = CharacterFrameTitleText:GetText()
+			if not CharacterText:match("|T") then
+				CharacterFrameTitleText:SetText(ClassSymbolFrame.." "..CharacterFrameTitleText:GetText())
+			end
+		end
+	end)
+
+	if E.db.general.itemLevel.displayCharacterInfo then
+		M:UpdatePageInfo(_G.CharacterFrame, "Character")
+	end
+end
+
 function module:Initialize()
 	module.db = E.db.mui.armory
 
-	if not module.db.enable or E.private.skins.blizzard.character ~= true then return end
+	if not module.db.enable or not E.private.skins.blizzard.character then return end
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
 
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)
@@ -670,7 +778,9 @@ function module:Initialize()
 	end
 
 	self:SkinCharacterStatsPane()
+	self:BuildScrollBar()
 	self:ExpandSize()
+	self:AddCharacterIcon()
 
 	-- Stats
 	if not IsAddOnLoaded("DejaCharacterStats") then

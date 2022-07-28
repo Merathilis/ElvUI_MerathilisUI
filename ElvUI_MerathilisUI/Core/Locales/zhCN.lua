@@ -471,6 +471,8 @@ L["Item Level Coloring"] = true
 L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
 L["Color of Average"] = true
 L["Sets the color of average item level."] = true
+L["Warning Gradient Texture Color"] = true
+L["Class Color Gradient"] = true
 
 -- Media
 L["Zone Text"] = "区域文字"
@@ -766,7 +768,6 @@ L["Fadein duration"] = "淡入持续时间"
 L["Fadeout duration"] = "淡出持续时间"
 L["Duration time"] = "持续时间"
 L["Animation size"] = "动画大小"
-L["Display spell name"] = "显示法术名"
 L["Watch on pet spell"] = "观看宠物法术"
 L["Transparency"] = "透明度"
 L["Test"] = "测试"

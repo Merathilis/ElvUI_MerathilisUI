@@ -4,9 +4,11 @@ ignore:
     - .gitattributes
     - .gitignore
     - .github/*
+    - .editorconfig
+    - .luacheckrc
     - m4.png
     - README.md
-    - README_Curse.txt
+    - README_CURSE.txt
     - README_TUKUI.txt
     - CHANGELOG.md
     - CHANGELOG.txt

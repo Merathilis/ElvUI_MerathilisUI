@@ -239,8 +239,8 @@ function MER:SetupLayout()
 	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["normTex"] = "Gradient"
-	E.private["general"]["glossTex"] = "Gradient"
+	E.private["general"]["normTex"] = "MER_NormTex"
+	E.private["general"]["glossTex"] = "MER_NormTex"
 	E.private["general"]["nameplateFont"] = "Expressway"
 	E.private["general"]["nameplateLargeFont"] = "Expressway"
 
@@ -305,7 +305,7 @@ function MER:SetupLayout()
 	E.db["general"]["altPowerBar"]["font"] = "Expressway"
 	E.db["general"]["altPowerBar"]["fontSize"] = 11
 	E.db["general"]["altPowerBar"]["fontOutline"] = "OUTLINE"
-	E.db["general"]["altPowerBar"]["statusBar"] = "Gradient"
+	E.db["general"]["altPowerBar"]["statusBar"] = "MER_NormTex"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
 	E.db["general"]["altPowerBar"]["smoothbars"] = true
@@ -452,7 +452,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["stackFont"] = "Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["smoothbars"] = true
-	E.db["nameplates"]["statusbar"] = "Gradient"
+	E.db["nameplates"]["statusbar"] = "MER_NormTex"
 	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
 
 	-- Cooldowns
@@ -837,7 +837,7 @@ function MER:SetupLayout()
 	E.private["general"]["dmgfont"] = "Expressway"
 
 	E.db["databars"]["customTexture"] = true
-	E.db["databars"]["statusbar"] = "Gradient"
+	E.db["databars"]["statusbar"] = "MER_NormTex"
 
 	E.db["databars"]["experience"]["enable"] = true
 	E.db["databars"]["experience"]["mouseover"] = false
@@ -1155,7 +1155,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
-	E.db["unitframe"]["statusbar"] = "Gradient"
+	E.db["unitframe"]["statusbar"] = "MER_NormTex"
 	E.db["unitframe"]["colors"]["castColor"] = {
 		["r"] = 0.1,
 		["g"] = 0.1,
@@ -1189,7 +1189,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
-	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "Gradient"
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MER_NormTex"
 
 	--Cooldowns
 	E.db["unitframe"]["cooldown"]["override"] = true
@@ -1274,13 +1274,19 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["player"]["castbar"]["iconAttachedTo"] = "Castbar"
 	E.db["unitframe"]["units"]["player"]["castbar"]["timeToHold"] = 0.8
 
-	if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
-	-- Delete old customTexts/ Create empty table
-	E.db["unitframe"]["units"]["player"]["customTexts"] = {}
-
-	-- Create own customText
-	if E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] then E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = nil end
-
+	if not E.db["unitframe"]["units"]["player"]["customTexts"] then
+		E.db["unitframe"]["units"]["player"]["customTexts"] = {}
+	end
+	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
+		["font"] = "Gotham Narrow Black",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = 16,
+		["size"] = 11,
+		["text_format"] = "[mUI:class:icon] [mUI-name:health:abbrev{class}]",
+		["attachTextTo"] = "Frame",
+	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
 		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
@@ -1470,7 +1476,7 @@ function MER:SetupUnitframes()
 		["xOffset"] = 2,
 		["yOffset"] = 16,
 		["size"] = 11,
-		["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}]",
+		["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}] [mUI:class:icon]",
 		["attachTextTo"] = "Frame",
 	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {

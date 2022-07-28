@@ -148,7 +148,7 @@ function MER:LoadBigWigsProfile()
 			["emphasizeScale"] = 1.1,
 			["barStyle"] = "MerathilisUI",
 			["emphasizeGrowup"] = true,
-			["texture"] = "Gradient",
+			["texture"] = "MER_NormTex",
 		}
 		BigWigs3DB["namespaces"]["BigWigs_Plugins_Bars"]["profiles"][heal] = {
 			["outline"] = "OUTLINE",

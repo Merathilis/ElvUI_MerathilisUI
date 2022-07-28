@@ -52,7 +52,7 @@ options.misc = {
 			type = "toggle",
 			name = E.NewSign..L["Hide Boss Banner"],
 			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
-		},		
+		},
 		spellAlert = {
 			order = 10,
 			type = "range",
