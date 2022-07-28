@@ -111,7 +111,7 @@ options.armory = {
 		},
 		stats = {
 			type = 'group',
-			name = STAT_CATEGORY_ATTRIBUTES,
+			name = E.NewSign..STAT_CATEGORY_ATTRIBUTES,
 			order = 22,
 			disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 			get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
@@ -127,6 +127,7 @@ options.armory = {
 					order = 2,
 					type = "color",
 					name = COLOR_PICKER,
+					disabled = function() return E.db.mui.armory.stats.classColorGradient end,
 					get = function(info)
 						local t = E.db.mui.armory.stats[ info[#info] ]
 						local d = P.armory.stats[info[#info]]
@@ -139,8 +140,15 @@ options.armory = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 				},
-				ItemLevel = {
+				classColorGradient = {
 					order = 3,
+					type = "toggle",
+					name = E.NewSign..L["Class Color Gradient"],
+					get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
+					set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				},
+				ItemLevel = {
+					order = 4,
 					type = 'group',
 					name = STAT_AVERAGE_ITEM_LEVEL,
 					guiInline = true,
@@ -181,7 +189,7 @@ options.armory = {
 					},
 				},
 				Stats = {
-					order = 4,
+					order = 5,
 					type = 'group',
 					name = STAT_CATEGORY_ATTRIBUTES,
 					guiInline = true,

@@ -286,6 +286,7 @@ function module:CreateStatCategory(catName, text, noop)
 
 		CharacterStatFrameCategoryTemplate(_G["CharacterStatsPane"][catName])
 	end
+
 	return catName
 end
 

@@ -588,13 +588,21 @@ end
 
 local function SkinAdditionalStats()
 	if CharacterStatsPane.OffenseCategory then
-		CharacterStatsPane.OffenseCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		if module.db.stats.classColorGradient then
+			CharacterStatsPane.OffenseCategory.Title:SetText(E:TextGradient(CharacterStatsPane.OffenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		else
+			CharacterStatsPane.OffenseCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		end
 		StatsPane("OffenseCategory")
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
 	end
 
 	if CharacterStatsPane.DefenceCategory then
-		CharacterStatsPane.DefenceCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		if module.db.stats.classColorGradient then
+			CharacterStatsPane.DefenceCategory.Title:SetText(E:TextGradient(CharacterStatsPane.DefenceCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		else
+			CharacterStatsPane.DefenceCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		end
 		StatsPane("DefenceCategory")
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenceCategory)
 	end
@@ -608,9 +616,15 @@ function module:SkinCharacterStatsPane()
 	_G.CharacterModelFrame:DisableDrawLayer("OVERLAY")
 
 	if not IsAddOnLoaded("DejaCharacterStats") then
-		CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
-		CharacterStatsPane.AttributesCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
-		CharacterStatsPane.EnhancementsCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		if module.db.stats.classColorGradient then
+			CharacterStatsPane.ItemLevelCategory.Title:SetText(E:TextGradient(CharacterStatsPane.ItemLevelCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+			CharacterStatsPane.AttributesCategory.Title:SetText(E:TextGradient(CharacterStatsPane.AttributesCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+			CharacterStatsPane.EnhancementsCategory.Title:SetText(E:TextGradient(CharacterStatsPane.EnhancementsCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		else
+			CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+			CharacterStatsPane.AttributesCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+			CharacterStatsPane.EnhancementsCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+		end
 
 		StatsPane("EnhancementsCategory")
 		StatsPane("ItemLevelCategory")
@@ -683,6 +697,7 @@ function module:AddCharacterIcon()
 		CharacterFrameTitleText:SetTextColor(F.r, F.g, F.b)
 		CharacterFrameTitleText:SetShadowColor(0, 0, 0, 0.8)
 		CharacterFrameTitleText:SetShadowOffset(2, -1)
+		-- E:TextGradient(CharacterFrameTitleText:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"])
 
 		CharacterLevelText:ClearAllPoints()
 		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
