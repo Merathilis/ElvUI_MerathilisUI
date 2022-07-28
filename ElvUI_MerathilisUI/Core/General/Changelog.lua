@@ -12,12 +12,12 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed my Style to be on the Chat Backdrop again.",
-		"• Added back the Illusion Display on the Armory",
-		"• Fixed a missing shadow on the AdventureMap skin",
-		"• Added an option to hide the BossBanner (the thing that shows loot if you kill a boss)",
-		"• Some QoL Mail Box Adjustments",
-		"• Use a new Texture: SHINEYYYYYY",
+		"• Add Timewalker Hearthstone to the LocPanel & MicroBar",
+		"• Expand the Wardrobe Frame.. Boomer Edition",
+		"• Changed the main texture again.. you will need to do my install to use my changes or do it on your own",
+		"• Fixed some styling things",
+		"• Adjust the Armory more",
+		"• Added a new Tag: [mUI:class:icon]",
 
 	" ",
 	"Notes:",
