@@ -1132,16 +1132,35 @@ P.cooldownFlash = {
 }
 
 P.armory = {
-	enable = true,
-	undressButton = true,
-	expandSize = true,
-	classIcon = true,
-	durability = {
+	character = {
 		enable = true,
-		onlydamaged = true,
-		font = "Expressway",
-		textSize = 11,
-		fontOutline = "OUTLINE",
+		undressButton = true,
+		expandSize = true,
+		classIcon = true,
+		durability = {
+			enable = true,
+			onlydamaged = true,
+			font = "Expressway",
+			textSize = 11,
+			fontOutline = "OUTLINE",
+		},
+		gradient = {
+			enable = true,
+			colorStyle = "VALUE",
+			color = {r = 1, g = 1, b = 0},
+			setArmor = true,
+			setArmorColor = {r = 0, g = 1, b = 0, a = 1},
+			warningColor = {r = 1, g = 0, b = 0, a = 1}
+		},
+		transmog = {
+			enable = true,
+		},
+		illusion = {
+			enable = true,
+		},
+		warning = {
+			enable = true,
+		},
 	},
 	stats = {
 		OnlyPrimary = true,
@@ -1173,23 +1192,6 @@ P.armory = {
 			FOCUS_REGEN = false,
 			MOVESPEED = false,
 		},
-	},
-	gradient = {
-		enable = true,
-		colorStyle = "VALUE",
-		color = {r = 1, g = 1, b = 0},
-		setArmor = true,
-		setArmorColor = {r = 0, g = 1, b = 0, a = 1},
-		warningColor = {r = 1, g = 0, b = 0, a = 1}
-	},
-	transmog = {
-		enable = true,
-	},
-	illusion = {
-		enable = true,
-	},
-	warning = {
-		enable = true,
 	},
 }
 
