@@ -9,6 +9,10 @@ L["Size"] = true
 L["Width"] = true
 L["Height"] = true
 L["Alpha"] = true
+L["Outline"] = "描邊"
+L["X-Offset"] = true
+L["Y-Offset"] = true
+L["Icon Size"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -397,7 +401,6 @@ L["The width of the buttons."] = "按鍵的寬度."
 L["Button Height"] = "按鍵高度"
 L["The height of the buttons."] = "按鍵的高度."
 L["Counter"] = "計數"
-L["Outline"] = "描邊"
 L["Button Groups"] = "按鍵组"
 L["Key Binding"] = "按鍵綁定"
 L["Custom Items"] = "自訂物品"
@@ -593,6 +596,18 @@ L["Hide Coordinates"] = true
 L["Dungeon Teleports"] = true
 
 -- Maps
+L["Maps"] = true
+L["World Map"] = true
+L["Instance Difficulty"] = true
+L["Rectangle Minimap"] = true
+L["Duration"] = true
+L["Fade Out"] = true
+L["Scale"] = true
+L["Reskin the instance diffculty in text style."] = true
+L["Hide Blizzard"] = true
+L["Change the shape of ElvUI minimap."] = true
+L["Height Percentage"] = true
+L["Percentage of ElvUI minimap size."] = true
 L["MiniMap Buttons"] = true
 L["Minimap Ping"] = "小地圖點擊"
 L["Add Server Name"] = "添加伺服器"
@@ -642,6 +657,8 @@ L["Reveal"] = true
 L["Use Colored Fog"] = true
 L["Remove Fog of War from your world map."] = true
 L["Style Fog of War with special color."] = true
+L["Resize world map."] = true
+L["LFG Queue"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地圖按鍵"
@@ -750,7 +767,8 @@ L["Reminder"] = true
 L["Reminds you on self Buffs."] = true
 
 -- Cooldowns
-L["CooldownFlash"] = true
+L["Cooldowns"] = true
+L["Cooldown Flash"] = true
 L["Settings"] = true
 L["Fadein duration"] = true
 L["Fadeout duration"] = true

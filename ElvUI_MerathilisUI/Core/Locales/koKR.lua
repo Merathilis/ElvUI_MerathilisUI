@@ -9,6 +9,10 @@ L["Size"] = true
 L["Width"] = true
 L["Height"] = true
 L["Alpha"] = true
+L["Outline"] = "외곽선"
+L["X-Offset"] = true
+L["Y-Offset"] = true
+L["Icon Size"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -403,7 +407,6 @@ L["The width of the buttons."] = "버튼의 너비입니다."
 L["Button Height"] = "버튼 높이"
 L["The height of the buttons."] = "버튼의 높이입니다."
 L["Counter"] = "개수 글씨 설정"
-L["Outline"] = "외곽선"
 L["Button Groups"] = "버튼 그룹"
 L["Key Binding"] = "단축키 글씨 설정"
 L["Custom Items"] = "사용자 지정 아이템"
@@ -599,6 +602,18 @@ L["Hide Coordinates"] = true
 L["Dungeon Teleports"] = true
 
 -- Maps
+L["Maps"] = true
+L["World Map"] = true
+L["Instance Difficulty"] = true
+L["Rectangle Minimap"] = true
+L["Duration"] = true
+L["Fade Out"] = true
+L["Scale"] = true
+L["Reskin the instance diffculty in text style."] = true
+L["Hide Blizzard"] = true
+L["Change the shape of ElvUI minimap."] = true
+L["Height Percentage"] = true
+L["Percentage of ElvUI minimap size."] = true
 L["MiniMap Buttons"] = true
 L["Minimap Ping"] = "미니맵 핑"
 L["Add Server Name"] = "서버명 추가"
@@ -648,6 +663,8 @@ L["Reveal"] = true
 L["Use Colored Fog"] = true
 L["Remove Fog of War from your world map."] = true
 L["Style Fog of War with special color."] = true
+L["Resize world map."] = true
+L["LFG Queue"] = true
 
 -- SMB
 L["Minimap Buttons"] = "미니맵 버튼 통합 바"
@@ -756,7 +773,8 @@ L["Reminder"] = true
 L["Reminds you on self Buffs."] = true
 
 -- Cooldowns
-L["CooldownFlash"] = true
+L["Cooldowns"] = true
+L["Cooldown Flash"] = true
 L["Settings"] = true
 L["Fadein duration"] = true
 L["Fadeout duration"] = true
