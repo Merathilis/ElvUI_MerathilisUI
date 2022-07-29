@@ -696,9 +696,6 @@ function module:AddCharacterIcon()
 		CharacterFrameTitleText:SetPoint('TOP', _G.CharacterModelFrame, 0, 50)
 		CharacterFrameTitleText:SetParent(_G.CharacterFrame)
 		CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), E.db.general.fontSize+2, E.db.general.fontStyle)
-		CharacterFrameTitleText:SetTextColor(F.r, F.g, F.b)
-		CharacterFrameTitleText:SetShadowColor(0, 0, 0, 0.8)
-		CharacterFrameTitleText:SetShadowOffset(2, -1)
 
 		CharacterLevelText:ClearAllPoints()
 		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
@@ -709,7 +706,7 @@ function module:AddCharacterIcon()
 
 	local function colorTitleText()
 		CharacterText = CharacterFrameTitleText:GetText()
-		coloredTitleText = E:TextGradient(CharacterText, 0.99,0.24,0.26, 0.99,0.59,0.28, 1,0.87,0.29, 0.42,0.99,0.39, 0.32,0.76,0.98, 0.63,0.36,0.98, 0.77,0.47,0.98)
+		coloredTitleText = E:TextGradient(CharacterText, F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"])
 		if not CharacterText:match("|T") then
 			titleText = ClassSymbolFrame.." "..coloredTitleText
 		end
