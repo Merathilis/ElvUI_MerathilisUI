@@ -3,12 +3,13 @@ local module = MER:GetModule('MER_Armory')
 local M = E:GetModule('Misc')
 local LSM = E.LSM or E.Libs.LSM
 
-local unpack = unpack
+local pairs, type, unpack = pairs, type, unpack
 
 local GetInventoryItemDurability = GetInventoryItemDurability
 local GetInventorySlotInfo = GetInventorySlotInfo
 local GetItemQualityColor = GetItemQualityColor
 
+local CreateFrame = CreateFrame
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_TransmogCollection_GetIllusionStrings = C_TransmogCollection.GetIllusionStrings

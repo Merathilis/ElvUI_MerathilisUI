@@ -5,11 +5,8 @@ local M = E:GetModule('Misc')
 local _G = _G
 local select = select
 local strlower = strlower
-local type = type
 local gsub = gsub
-local pairs = pairs
 
-local CreateFrame = CreateFrame
 local GetItemGem = GetItemGem
 local GetInventoryItemLink = GetInventoryItemLink
 local GetItemInfo = GetItemInfo
