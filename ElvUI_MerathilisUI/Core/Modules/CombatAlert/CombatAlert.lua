@@ -148,13 +148,6 @@ function module:Initialize()
 	self:RegisterEvent('PLAYER_REGEN_ENABLED')
 	self:RegisterEvent('PLAYER_REGEN_DISABLED')
 
-	function module:ForUpdateAll()
-		local db = E.db.mui.CombatAlert
-		module:CreateAlert()
-		module:RefreshAlert()
-	end
-	module:ForUpdateAll()
-
 	E:CreateMover(self.alert, 'alertFrameMover', L["Enter Combat Alert"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', function() return EnterCombatAlert.db.enable; end, 'mui,modules,CombatAlert')
 end
 

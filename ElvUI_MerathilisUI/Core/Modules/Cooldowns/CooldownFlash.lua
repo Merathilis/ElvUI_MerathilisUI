@@ -334,12 +334,6 @@ function module:Initialize()
 	DCP:Point("CENTER", E.UIParent, "CENTER")
 
 	E:CreateMover(DCP, "MER_CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,cooldownFlash')
-
-	function module:ForUpdateAll()
-		module.db = E.db.mui.cooldownFlash
-	end
-
-	self:ForUpdateAll()
 end
 
 MER:RegisterModule(module:GetName())

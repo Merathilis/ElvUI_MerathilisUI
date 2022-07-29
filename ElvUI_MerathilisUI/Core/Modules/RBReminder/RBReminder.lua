@@ -336,13 +336,6 @@ function module:Initialize()
 	self.frame:SetScript("OnEvent", OnAuraChange)
 
 	E:CreateMover(self.frame, "MER_RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,modules,raidBuffs')
-
-	function module:ForUpdateAll()
-		module.db = E.db.mui.raidBuffs
-		self:Visibility()
-	end
-
-	self:ForUpdateAll()
 end
 
 MER:RegisterModule(module:GetName())

@@ -240,13 +240,6 @@ function module:Initialize()
 
 	self:CreatePanels()
 	self:Resize()
-
-	function module:ForUpdateAll()
-		local db = E.db.mui.panels
-		self:UpdatePanels()
-		self:Resize()
-	end
-	self:ForUpdateAll()
 end
 
 MER:RegisterModule(module:GetName())

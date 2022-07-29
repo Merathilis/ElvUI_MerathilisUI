@@ -422,12 +422,6 @@ function module:Initialize()
 	Talentless:SetScript('OnEvent', function(self, event, ...)
 		self[event](self, ...)
 	end)
-
-	function module:ForUpdateAll()
-		module.db = E.db.mui.blizzard.talents
-	end
-
-	self:ForUpdateAll()
 end
 
 MER:RegisterModule(module:GetName())

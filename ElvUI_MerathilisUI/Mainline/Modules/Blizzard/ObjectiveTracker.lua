@@ -357,13 +357,6 @@ function module:Initialize()
 		self.initialized = true
 	end
 
-	function module:ForUpdateAll()
-		module.db = E.db.mui.blizzard.objectiveTracker
-	end
-
-	self:ForUpdateAll()
-
-
 	E:Delay(1,function()
 		for _, child in pairs {_G.ObjectiveTrackerBlocksFrame:GetChildren()} do
 			if child and child.HeaderText then
