@@ -13,6 +13,7 @@ L["Outline"] = "외곽선"
 L["X-Offset"] = true
 L["Y-Offset"] = true
 L["Icon Size"] = true
+L["Font Outline"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -335,6 +336,8 @@ L["Kyrian"] = "키리안"
 L["Venthyr"] = "벤티르"
 L["NightFae"] = "나이트 페이"
 L["Necrolord"] = "강령군주"
+L["Pet Battle"] = true
+L["Tooltip Icons"] = true
 
 -- Notification
 L["Notification"] = "알림 표시"
@@ -941,6 +944,10 @@ L["Tree Group Button"] = true
 L["Shadow Color"] = true
 
 -- Panels
+L["Panels"] = true
+L["Top Panel"] = true
+L["Bottom Panel"] = true
+L["Style Panels"] = true
 L["Top Left Panel"] = true
 L["Top Left Extra Panel"] = true
 L["Top Right Panel"] = true

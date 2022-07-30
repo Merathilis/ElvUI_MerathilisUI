@@ -9,10 +9,11 @@ L["Size"] = "Größe"
 L["Width"] = "Breite"
 L["Height"] = "Höhe"
 L["Alpha"] = "Transparenz"
-L["Outline"] = "Umriss"
+L["Outline"] = "Kontur"
 L["X-Offset"] = "X-Versatz"
 L["Y-Offset"] = "Y-Versatz"
 L["Icon Size"] = "Symbolgröße"
+L["Font Outline"] = "Kontur der Schrift"
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Plugin für |cffff7d0aElvUI|r von\nMerathilis."
@@ -338,6 +339,8 @@ L["Kyrian"] = "Kyrianer"
 L["Venthyr"] = true
 L["NightFae"] = "Nachtfae"
 L["Necrolord"] = "Nekrolords"
+L["Pet Battle"] = "Haustierkampf"
+L["Tooltip Icons"] = "Tooltip Symbole"
 
 -- Notification
 L["Notification"] = "Benachrichtigungen"
@@ -944,6 +947,10 @@ L["Tree Group Button"] = "Baumstrukturtaste" --Wie kacke dass klingt
 L["Shadow Color"] = "Schattenfarbe"
 
 -- Panels
+L["Panels"] = "Leisten"
+L["Top Panel"] = "Obere Leiste"
+L["Bottom Panel"] = "Untere Leiste"
+L["Style Panels"] = "Stilleisten"
 L["Top Left Panel"] = "Leiste oben links"
 L["Top Left Extra Panel"] = "Extra Leiste oben links"
 L["Top Right Panel"] = "Leiste oben rechts"

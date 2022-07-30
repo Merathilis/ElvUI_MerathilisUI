@@ -13,6 +13,7 @@ L["Outline"] = "描边"
 L["X-Offset"] = true
 L["Y-Offset"] = true
 L["Icon Size"] = true
+L["Font Outline"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -338,6 +339,8 @@ L["Kyrian"] = "格里恩"
 L["Venthyr"] = "温西尔"
 L["NightFae"] = "法夜"
 L["Necrolord"] = "通灵领主"
+L["Pet Battle"] = true
+L["Tooltip Icons"] = true
 
 -- Notification
 L["Notification"] = "通知"
@@ -949,6 +952,10 @@ L["Tree Group Button"] = "树状分组按钮"
 L["Shadow Color"] = true
 
 -- Panels
+L["Panels"] = true
+L["Top Panel"] = true
+L["Bottom Panel"] = true
+L["Style Panels"] = true
 L["Top Left Panel"] = "左上面板"
 L["Top Left Extra Panel"] = "左上额外面板"
 L["Top Right Panel"] = "右上面板"
