@@ -147,6 +147,7 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 	if not Slot.Warning then return end
 	Slot.Warning.Reason = nil
 	local window = strlower(which)
+	if not (E.db.mui.armory[window] and E.db.mui.armory[window].enable and E.db.mui.armory[window].warning and E.db.mui.armory[window].warning.enable) then Slot['Warning']:Hide(); return end --if something is disdbled
 	local SlotName = gsub(Slot:GetName(), which, '')
 	if not SlotName then return end --No slot?
 	local noChant, noGem = false, false

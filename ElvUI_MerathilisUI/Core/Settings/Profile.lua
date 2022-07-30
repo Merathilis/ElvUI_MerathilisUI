@@ -1137,6 +1137,7 @@ P.armory = {
 		undressButton = true,
 		expandSize = true,
 		classIcon = true,
+		showWarning = true,
 		durability = {
 			enable = true,
 			onlydamaged = true,
@@ -1171,6 +1172,9 @@ P.armory = {
 			setArmor = true,
 			setArmorColor = {r = 0, g = 1, b = 0, a = 1},
 			warningColor = {r = 1, g = 0, b = 0, a = 1}
+		},
+		warning = {
+			enable = true,
 		},
 	},
 	stats = {

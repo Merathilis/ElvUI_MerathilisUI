@@ -35,8 +35,8 @@ options.armory = {
 			desc = "",
 			get = function(info) return E.db.mui.armory.character[ info[#info] ] end,
 			set = function(info, value)
-				E.db.mui.armory.character.enable = value;
-				E:StaticPopup_Show("PRIVATE_RL");
+				E.db.mui.armory.character.enable = value
+				E:StaticPopup_Show("PRIVATE_RL")
 				M:UpdatePageInfo(_G.CharacterFrame, 'Character')
 
 				if not E.db.general.itemLevel.displayCharacterInfo then
@@ -74,7 +74,7 @@ options.armory = {
 				classIcon = {
 					order = 5,
 					type = "toggle",
-					name = E.NewSign..L["Class Icon"],
+					name = L["Class Icon"],
 					desc = L["Adds an class icon next to the name."],
 				},
 				spacer = {
@@ -156,14 +156,14 @@ options.armory = {
 							order = 3,
 							type = "color",
 							name = COLOR_PICKER,
-							disabled = function() return E.db.mui.armory.character.gradient.colorStyle == "RARITY" or E.db.mui.armory.character.gradient.colorStyle == "VALUE" or not E.db.mui.armory.enable or not E.db.mui.armory.gradient.enable end,
+							disabled = function() return E.db.mui.armory.character.gradient.colorStyle == "RARITY" or E.db.mui.armory.character.gradient.colorStyle == "VALUE" or not E.db.mui.armory.character.enable or not E.db.mui.armory.character.gradient.enable end,
 							get = function(info)
 								local t = E.db.mui.armory.character.gradient[ info[#info] ]
 								local d = P.armory.character.gradient[info[#info]]
 								return t.r, t.g, t.b, d.r, d.g, d.b
 							end,
 							set = function(info, r, g, b)
-								E.db.mui.armory.gradient[ info[#info] ] = {}
+								E.db.mui.armory.character.gradient[ info[#info] ] = {}
 								local t = E.db.mui.armory.character.gradient[ info[#info] ]
 								t.r, t.g, t.b = r, g, b
 								module:UpdatePaperDoll()
@@ -262,6 +262,121 @@ options.armory = {
 									desc = L["Shows an arrow indictor for currently transmogrified items."],
 								},
 							},
+						},
+					},
+				},
+			},
+		},
+		Inspect = {
+			order = 3,
+			type = "group",
+			name = E.NewSign..L["Inspect Armory"],
+			get = function(info) return E.db.mui.armory.inspect[ info[#info] ] end,
+			set = function(info, value)
+				E.db.mui.armory.character.enable = value;
+				E:StaticPopup_Show("PRIVATE_RL");
+				M:UpdatePageInfo(_G.InspectFrame, 'Inspect')
+
+				if not E.db.general.itemLevel.displayCharacterInfo then
+					M:ClearPageInfo(_G.InspectFrame, 'Inspect')
+				end
+			end,
+			args = {
+				header = {
+					order = 0,
+					type = "header",
+					name = F.cOption(L["Inspect Armory"], 'orange'),
+				},
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."],
+				},
+				information = {
+					order = 2,
+					type = "description",
+					name = L["ARMORY_DESC"],
+				},
+				gradient = {
+					order = 3,
+					type = 'group',
+					name = E.NewSign..L["Gradient"],
+					disabled = function() return not E.db.mui.armory.inspect.enable or not E.db.general.itemLevel.displayCharacterInfo end,
+					get = function(info) return E.db.mui.armory.inspect.gradient[ info[#info] ] end,
+					set = function(info, value) E.db.mui.armory.inspect.gradient[ info[#info] ] = value; module:UpdateInspect() end,
+					args = {
+						enable = {
+							type = 'toggle',
+							name = L["Enable"],
+							order = 1,
+						},
+						colorStyle = {
+							order = 2,
+							type = "select",
+							name = COLOR,
+							values = {
+								["RARITY"] = RARITY,
+								["VALUE"] = L["Value"],
+								["CUSTOM"] = CUSTOM,
+							},
+						},
+						color = {
+							order = 3,
+							type = "color",
+							name = COLOR_PICKER,
+							disabled = function() return E.db.mui.armory.inspect.gradient.colorStyle == "RARITY" or E.db.mui.armory.inspect.gradient.colorStyle == "VALUE" or not E.db.mui.armory.inspect.enable or not E.db.mui.armory.inspect.gradient.enable end,
+							get = function(info)
+								local t = E.db.mui.armory.inspect.gradient[ info[#info] ]
+								local d = P.armory.inspect.gradient[info[#info]]
+								return t.r, t.g, t.b, d.r, d.g, d.b
+							end,
+							set = function(info, r, g, b)
+								E.db.mui.armory.inspect.gradient[ info[#info] ] = {}
+								local t = E.db.mui.armory.inspect.gradient[ info[#info] ]
+								t.r, t.g, t.b = r, g, b
+								module:UpdateInspect()
+							end,
+						},
+						setArmor = {
+							order = 4,
+							type = 'toggle',
+							name = L["Armor Set"],
+							desc = L["Colors Set Items in a different color."],
+						},
+						setArmorColor = {
+							order = 6,
+							type = 'color',
+							name = L["Armor Set Gradient Texture Color"],
+							get = function(info)
+								local t = E.db.mui.armory.inspect.gradient[ info[#info] ]
+								local d = P.armory.inspect.gradient[info[#info]]
+								return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+							end,
+							set = function(info, r, g, b, a)
+								E.db.mui.armory.inspect.gradient[ info[#info] ] = {}
+								local t = E.db.mui.armory.inspect.gradient[ info[#info] ]
+								t.r, t.g, t.b, t.a = r, g, b, a
+								module:UpdateInspect()
+							end,
+							disabled = function() return not E.db.mui.armory.inspect.enable or not E.db.general.itemLevel.displayCharacterInfo or not E.db.mui.armory.inspect.gradient.setArmor end,
+						},
+						warningColor = {
+							order = 7,
+							type = 'color',
+							name = E.NewSign..L["Warning Gradient Texture Color"],
+							get = function(info)
+								local t = E.db.mui.armory.inspect.gradient[ info[#info] ]
+								local d = P.armory.inspect.gradient[info[#info]]
+								return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+							end,
+							set = function(info, r, g, b, a)
+								E.db.mui.armory.inspect.gradient[ info[#info] ] = {}
+								local t = E.db.mui.armory.inspect.gradient[ info[#info] ]
+								t.r, t.g, t.b, t.a = r, g, b, a
+								module:UpdatePaperDoll()
+							end,
+							disabled = function() return not E.db.mui.armory.inspect.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 						},
 					},
 				},
