@@ -1,5 +1,5 @@
--- Italian localization file for itIT
-local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "itIT")
+-- Italian localization file for esMX
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "esMX")
 
 -- Core
 L["Enable"] = true
