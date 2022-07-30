@@ -64,6 +64,7 @@ options.armory = {
 					order = 3,
 					type = "toggle",
 					name = L["Undress Button"],
+					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 				},
 				expandSize = {
 					order = 4,
@@ -76,14 +77,15 @@ options.armory = {
 					type = "toggle",
 					name = L["Class Icon"],
 					desc = L["Adds an class icon next to the name."],
+					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 				},
 				spacer = {
-					order = 6,
+					order = 7,
 					type = "description",
 					name = ""
 				},
 				durability = {
-					order = 7,
+					order = 8,
 					type = "group",
 					name = L["Durability"],
 					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
@@ -130,7 +132,7 @@ options.armory = {
 					},
 				},
 				gradient = {
-					order = 8,
+					order = 9,
 					type = 'group',
 					name = E.NewSign..L["Gradient"],
 					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
@@ -212,7 +214,7 @@ options.armory = {
 					},
 				},
 				indicators = {
-					order = 9,
+					order = 10,
 					type = "group",
 					name = L["Indicators"],
 					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
@@ -271,9 +273,10 @@ options.armory = {
 			order = 3,
 			type = "group",
 			name = E.NewSign..L["Inspect Armory"],
+			desc = "",
 			get = function(info) return E.db.mui.armory.inspect[ info[#info] ] end,
 			set = function(info, value)
-				E.db.mui.armory.character.enable = value;
+				E.db.mui.armory.inspect.enable = value;
 				E:StaticPopup_Show("PRIVATE_RL");
 				M:UpdatePageInfo(_G.InspectFrame, 'Inspect')
 
@@ -310,11 +313,13 @@ options.armory = {
 							type = 'toggle',
 							name = L["Enable"],
 							order = 1,
+							disabled = function() return not E.db.mui.armory.inspect.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 						},
 						colorStyle = {
 							order = 2,
 							type = "select",
 							name = COLOR,
+							disabled = function() return not E.db.mui.armory.inspect.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 							values = {
 								["RARITY"] = RARITY,
 								["VALUE"] = L["Value"],
@@ -343,11 +348,13 @@ options.armory = {
 							type = 'toggle',
 							name = L["Armor Set"],
 							desc = L["Colors Set Items in a different color."],
+							disabled = function() return not E.db.mui.armory.inspect.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 						},
 						setArmorColor = {
 							order = 6,
 							type = 'color',
 							name = L["Armor Set Gradient Texture Color"],
+							disabled = function() return not E.db.mui.armory.inspect.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 							get = function(info)
 								local t = E.db.mui.armory.inspect.gradient[ info[#info] ]
 								local d = P.armory.inspect.gradient[info[#info]]
@@ -365,6 +372,7 @@ options.armory = {
 							order = 7,
 							type = 'color',
 							name = E.NewSign..L["Warning Gradient Texture Color"],
+							disabled = function() return not E.db.mui.armory.inspect.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 							get = function(info)
 								local t = E.db.mui.armory.inspect.gradient[ info[#info] ]
 								local d = P.armory.inspect.gradient[info[#info]]

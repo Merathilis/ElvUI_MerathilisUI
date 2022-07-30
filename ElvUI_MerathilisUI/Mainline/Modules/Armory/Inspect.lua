@@ -49,7 +49,18 @@ function module:UpdateInspect()
 end
 
 function module:BuildInspect()
-	module.db = E.db.mui.armory
+	if not _G["InspectFrame"] then return end
+	if not module.db.inspect.enable then return end
+
+	-- Increase the Size
+	_G["InspectFrame"]:Size(450, 444)
+
+	_G["InspectMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["InspectPaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
+
+	_G["InspectModelFrame"]:ClearAllPoints()
+	_G["InspectModelFrame"]:SetPoint('TOPLEFT', _G["InspectHeadSlot"], 0, 5)
+	_G["InspectModelFrame"]:SetPoint('RIGHT', _G["InspectHandsSlot"])
+	_G["InspectModelFrame"]:SetPoint('BOTTOM', _G["InspectMainHandSlot"])
 
 	for id, slotName in pairs(module.Constants.slotIDs) do
 		if not id then return end
@@ -73,6 +84,14 @@ function module:BuildInspect()
 			elseif id <= 16 then -- Right Side
 				frame.Gradiation:Point("RIGHT", _G["Inspect"..slotName], "LEFT", _G["Inspect"..slotName]:GetWidth()+4, 0)
 				frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
+			elseif id == 18 then
+				frame.Gradiation:Size(160, slotHeight + 4)
+				frame.Gradiation:Point("RIGHT", _G["Inspect"..slotName], "LEFT", _G["Inspect"..slotName]:GetWidth()+4, 0)
+				frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
+			elseif id == 19 then
+				frame.Gradiation:Size(160, slotHeight + 4)
+				frame.Gradiation:Point("LEFT", _G["Inspect"..slotName], "RIGHT", - _G["Inspect"..slotName]:GetWidth()-4, 0)
+				frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
 			end
 			frame.Gradiation:Hide()
 		end
@@ -104,6 +123,8 @@ function module:BuildInspect()
 end
 
 function module:PreSetup()
+	if not _G["InspectFrame"] then return end
+	if not module.db.inspect.enable then return end
 	MER:RegisterEvent("INSPECT_READY", function()
 		if not E.db.general.itemLevel.displayInspectInfo then
 			module:UpdateInspectInfo()
