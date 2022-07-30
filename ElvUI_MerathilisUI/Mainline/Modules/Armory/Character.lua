@@ -36,8 +36,8 @@ function module:UpdatePaperDoll()
 		if slot and slot ~= '' then
 			-- Reset Data first
 			frame.DurabilityInfo:SetText("")
-			frame.Gradiation.Texture:Hide()
-			frame.Transmog.Texture:Hide()
+			frame.Gradiation:Hide()
+			frame.Transmog:Hide()
 			frame.Transmog.Link = nil
 			frame.Illusion:Hide()
 			frame.Illusion.Link = nil
@@ -60,7 +60,7 @@ function module:UpdatePaperDoll()
 
 				-- Gradiation
 				if module.db.character.gradient.enable then
-					frame.Gradiation.Texture:Show()
+					frame.Gradiation:Show()
 					if module.db.character.gradient.setArmor and setID then
 						frame.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.character.gradient.setArmorColor))
 					elseif itemRarity and module.db.character.gradient.colorStyle == "RARITY" then
@@ -78,7 +78,7 @@ function module:UpdatePaperDoll()
 					local transmogLocation = TransmogUtil.GetTransmogLocation((frame.ID), Enum.TransmogType.Appearance, Enum.TransmogModification.Main)
 
 					if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(transmogLocation) then
-						frame.Transmog.Texture:Show()
+						frame.Transmog:Show()
 						frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation))))
 					end
 				end
@@ -107,8 +107,7 @@ end
 
 function module:InitialUpdatePaperDoll()
 	module:UnregisterEvent("PLAYER_ENTERING_WORLD")
-
-	self:BuildInformation()
+	self:BuildCharacter()
 
 	-- update player info
 	self:ScheduleTimer("UpdatePaperDoll", 5)
@@ -116,7 +115,7 @@ function module:InitialUpdatePaperDoll()
 	initialized = true
 end
 
-function module:BuildInformation()
+function module:BuildCharacter()
 	module.db = E.db.mui.armory
 
 	for id, slotName in pairs(module.Constants.slotIDs) do
@@ -124,98 +123,108 @@ function module:BuildInformation()
 		local frame = _G["Character"..module.Constants.slotIDs[id]]
 		local slotHeight = frame:GetHeight()
 
-		-- Durability
-		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
-		frame.DurabilityInfo:Point("TOP", frame, "TOP", 0, -2)
-		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", module.db.character.durability.font), module.db.character.durability.textSize, module.db.character.durability.fontOutline)
-
-		-- Gradiation
-		frame.Gradiation = CreateFrame('Frame', nil, frame)
-		frame.Gradiation:Size(120, slotHeight + 4)
-		frame.Gradiation:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
-
-		frame.Gradiation.Texture = frame.Gradiation:CreateTexture(nil, "OVERLAY")
-		frame.Gradiation.Texture:SetInside()
-		frame.Gradiation.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\textures\\Gradation')
-
-		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT", - _G["Character"..slotName]:GetWidth()-4, 0)
-			frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
-		elseif id <= 16 then -- Right Side
-			frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT", _G["Character"..slotName]:GetWidth()+4, 0)
-			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
+		if not frame.DurabilityInfo then
+			-- Durability
+			frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
+			frame.DurabilityInfo:Point("TOP", frame, "TOP", 0, -2)
+			frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", module.db.character.durability.font), module.db.character.durability.textSize, module.db.character.durability.fontOutline)
 		end
 
-		if module.db.character.expandSize then
-			frame.Gradiation:Size(140, slotHeight + 4)
-			if id == 18 then
-				frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT", _G["Character"..slotName]:GetWidth()+4, 0)
-				frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
-			elseif id == 19 then
+		if not frame.Gradiation then
+			-- Gradiation
+			frame.Gradiation = CreateFrame('Frame', nil, frame)
+			frame.Gradiation:Size(120, slotHeight + 4)
+			frame.Gradiation:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
+
+			frame.Gradiation.Texture = frame.Gradiation:CreateTexture(nil, "OVERLAY")
+			frame.Gradiation.Texture:SetInside()
+			frame.Gradiation.Texture:SetTexture(module.Constants.Gradiation)
+
+			if id <= 7 or id == 17 or id == 11 then -- Left Size
 				frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT", - _G["Character"..slotName]:GetWidth()-4, 0)
 				frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
+			elseif id <= 16 then -- Right Side
+				frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT", _G["Character"..slotName]:GetWidth()+4, 0)
+				frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
+			end
+
+			if module.db.character.expandSize then
+				frame.Gradiation:Size(160, slotHeight + 4)
+				if id == 18 then
+					frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT", _G["Character"..slotName]:GetWidth()+4, 0)
+					frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
+				elseif id == 19 then
+					frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT", - _G["Character"..slotName]:GetWidth()-4, 0)
+					frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
+				end
 			end
 		end
 
-		-- Missing Enchants/Gems Warning
-		frame.Warning = CreateFrame('Frame', nil, frame)
-		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Warning:Size(7, 41)
-			frame.Warning:SetPoint("RIGHT", _G["Character"..slotName], "LEFT", 0, 0)
-		elseif id <= 16 then -- Right Side
-			frame.Warning:Size(7, 41)
-			frame.Warning:SetPoint("LEFT", _G["Character"..slotName], "RIGHT", 0, 0)
-		elseif id == 18 or id == 19 then -- Main Hand/ OffHand
-			frame.Warning:Size(41, 7)
-			frame.Warning:SetPoint("TOP", _G["Character"..slotName], "BOTTOM", 0, 0)
+		if not frame.Warning then
+			-- Missing Enchants/Gems Warning
+			frame.Warning = CreateFrame('Frame', nil, frame)
+			if id <= 7 or id == 17 or id == 11 then -- Left Size
+				frame.Warning:Size(7, 41)
+				frame.Warning:SetPoint("RIGHT", _G["Character"..slotName], "LEFT", 0, 0)
+			elseif id <= 16 then -- Right Side
+				frame.Warning:Size(7, 41)
+				frame.Warning:SetPoint("LEFT", _G["Character"..slotName], "RIGHT", 0, 0)
+			elseif id == 18 or id == 19 then -- Main Hand/ OffHand
+				frame.Warning:Size(41, 7)
+				frame.Warning:SetPoint("TOP", _G["Character"..slotName], "BOTTOM", 0, 0)
+			end
+
+			frame.Warning.Texture = frame.Warning:CreateTexture(nil, "BACKGROUND")
+			frame.Warning.Texture:SetInside()
+			frame.Warning.Texture:SetTexture("Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\Minimalist")
+			frame.Warning.Texture:SetVertexColor(1, 0, 0)
+
+			frame.Warning:SetScript("OnEnter", self.Warning_OnEnter)
+			frame.Warning:SetScript("OnLeave", self.Tooltip_OnLeave)
+			frame.Warning:Hide()
 		end
 
-		frame.Warning.Texture = frame.Warning:CreateTexture(nil, "BACKGROUND")
-		frame.Warning.Texture:SetInside()
-		frame.Warning.Texture:SetTexture("Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\Minimalist")
-		frame.Warning.Texture:SetVertexColor(1, 0, 0)
+		if not frame.Transmog then
+			-- Transmog Info
+			frame.Transmog = CreateFrame('Button', nil, frame)
+			frame.Transmog:Size(12)
+			frame.Transmog:SetScript('OnEnter', self.Transmog_OnEnter)
+			frame.Transmog:SetScript('OnLeave', self.Transmog_OnLeave)
 
-		frame.Warning:SetScript("OnEnter", self.Warning_OnEnter)
-		frame.Warning:SetScript("OnLeave", self.Tooltip_OnLeave)
-		frame.Warning:Hide()
+			frame.Transmog.Texture = frame.Transmog:CreateTexture(nil, 'OVERLAY')
+			frame.Transmog.Texture:SetInside()
+			frame.Transmog.Texture:SetTexture(MER.Media.Textures.anchor)
+			frame.Transmog.Texture:SetVertexColor(1, .5, 1)
 
-		-- Transmog Info
-		frame.Transmog = CreateFrame('Button', nil, frame)
-		frame.Transmog:Size(12)
-		frame.Transmog:SetScript('OnEnter', self.Transmog_OnEnter)
-		frame.Transmog:SetScript('OnLeave', self.Transmog_OnLeave)
-
-		frame.Transmog.Texture = frame.Transmog:CreateTexture(nil, 'OVERLAY')
-		frame.Transmog.Texture:SetInside()
-		frame.Transmog.Texture:SetTexture(MER.Media.Textures.anchor)
-		frame.Transmog.Texture:SetVertexColor(1, .5, 1)
-
-		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Transmog:Point("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
-			frame.Transmog.Texture:SetTexCoord(0, 1, 1, 0)
-		elseif id <= 16 then -- Right Side
-			frame.Transmog:Point("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
-			frame.Transmog.Texture:SetTexCoord(1, 0, 1, 0)
-		elseif id == 18 then -- Main Hand
-			frame.Transmog:Point("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
-			frame.Transmog.Texture:SetTexCoord(1, 0, 0, 1)
-		elseif id == 19 then -- Off Hand
-			frame.Transmog:Point("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
-			frame.Transmog.Texture:SetTexCoord(0, 1, 0, 1)
+			if id <= 7 or id == 17 or id == 11 then -- Left Size
+				frame.Transmog:Point("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
+				frame.Transmog.Texture:SetTexCoord(0, 1, 1, 0)
+			elseif id <= 16 then -- Right Side
+				frame.Transmog:Point("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
+				frame.Transmog.Texture:SetTexCoord(1, 0, 1, 0)
+			elseif id == 18 then -- Main Hand
+				frame.Transmog:Point("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
+				frame.Transmog.Texture:SetTexCoord(1, 0, 0, 1)
+			elseif id == 19 then -- Off Hand
+				frame.Transmog:Point("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
+				frame.Transmog.Texture:SetTexCoord(0, 1, 0, 1)
+			end
 		end
 
-		-- Illusion Info
-		frame.Illusion = CreateFrame('Button', nil, frame)
-		frame.Illusion:Size(14)
-		frame.Illusion:SetPoint('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
-		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
-		frame.Illusion:SetScript('OnLeave', self.Tooltip_OnLeave)
-		frame.Illusion:CreateBackdrop()
-		frame.Illusion.backdrop:SetBackdropBorderColor(1, .5, 1)
+		if not frame.Illusion then
+			-- Illusion Info
+			frame.Illusion = CreateFrame('Button', nil, frame)
+			frame.Illusion:Size(14)
+			frame.Illusion:SetPoint('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
+			frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
+			frame.Illusion:SetScript('OnLeave', self.Tooltip_OnLeave)
+			frame.Illusion:CreateBackdrop()
+			frame.Illusion.backdrop:SetBackdropBorderColor(1, .5, 1)
 
-		frame.Illusion.Texture = frame.Illusion:CreateTexture(nil, 'OVERLAY')
-		frame.Illusion.Texture:SetInside()
-		frame.Illusion.Texture:SetTexCoord(.1, .9, .1, .9)
+			frame.Illusion.Texture = frame.Illusion:CreateTexture(nil, 'OVERLAY')
+			frame.Illusion.Texture:SetInside()
+			frame.Illusion.Texture:SetTexCoord(.1, .9, .1, .9)
+		end
 	end
 
 	for _, SlotName in pairs(module.Constants.gearList) do

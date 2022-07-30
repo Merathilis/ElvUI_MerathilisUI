@@ -20,6 +20,14 @@ local UnitSex = UnitSex
 local initialized = false
 
 module.Constants = {}
+
+module.Constants.Character_Defaults_Cached = false
+module.Constants.Inspect_Defaults_Cached = false
+module.Constants.Character_Defaults = {}
+module.Constants.Inspect_Defaults = {}
+
+module.Constants.Gradiation = 'Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\textures\\Gradation'
+
 module.Constants.maxGemSlots = 5
 
 module.Constants.gearList = {
@@ -210,9 +218,25 @@ end
 function module:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 	if not module:CheckOptions(which) then return end
 	Slot.itemLink = GetInventoryItemLink((which == 'Character' and 'player') or _G['InspectFrame'].unit, Slot.ID)
+	if not Slot.itemLink then return end
 
 	module:UpdateGemInfo(Slot, which)
 	module:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort, module[which.."PrimaryStat"])
+end
+
+function module:UpdateInspectInfo()
+	if not _G['InspectFrame'] then return end --In case update for frame is called before it is actually created
+	if not module.Constants.Inspect_Defaults_Cached then
+		module:LoadAndSetupInspect()
+	end
+
+	if E.db.mui.armory.inspect.enable then
+		M:UpdatePageInfo(_G['InspectFrame'], 'Inspect')
+	end
+
+	if not E.db.general.itemLevel.displayInspectInfo then
+		M:ClearPageInfo(_G['InspectFrame'], 'Inspect')
+	end
 end
 
 function module:UpdateCharacterInfo(event)
@@ -268,6 +292,11 @@ function module:Initialize()
 
 			self:BuildScrollBar()
 		end
+	end
+
+	if module:CheckOptions('Inspect') then
+		hooksecurefunc(M, 'UpdateInspectInfo', module.UpdateInspectInfo)
+		module:PreSetup()
 	end
 end
 
