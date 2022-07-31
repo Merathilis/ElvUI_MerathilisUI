@@ -64,14 +64,17 @@ function module:BuildInspect()
 	if not module.db.inspect.enable then return end
 
 	-- Increase the Size
-	_G["InspectFrame"]:Size(450, 444)
+	_G.InspectFrame:Size(450, 444)
 
-	_G["InspectMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["InspectPaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
+	_G.InspectMainHandSlot:SetPoint('BOTTOMLEFT', _G.InspectPaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
 
-	_G["InspectModelFrame"]:ClearAllPoints()
-	_G["InspectModelFrame"]:SetPoint('TOPLEFT', _G["InspectHeadSlot"], 0, 5)
-	_G["InspectModelFrame"]:SetPoint('RIGHT', _G["InspectHandsSlot"])
-	_G["InspectModelFrame"]:SetPoint('BOTTOM', _G["InspectMainHandSlot"])
+	_G.InspectModelFrame:ClearAllPoints()
+	_G.InspectModelFrame:SetPoint('TOPLEFT', _G.InspectHeadSlot, 0, 5)
+	_G.InspectModelFrame:SetPoint('RIGHT', _G.InspectHandsSlot)
+	_G.InspectModelFrame:SetPoint('BOTTOM', _G.InspectMainHandSlot)
+
+	_G.InspectGuildFrameBanner:ClearAllPoints()
+	_G.InspectGuildFrameBanner:Point("TOP", _G.InspectFrameInset, "TOP", 0, -4)
 
 	for id, slotName in pairs(module.Constants.slotIDs) do
 		if not id then return end
@@ -171,6 +174,8 @@ function module:AddInspectIcon(unit)
 			_G.InspectFrameTitleText:SetWidth(200)
 			if not InspectText:match("|T") then
 				titleText = ClassSymbolFrame.." "..coloredTitleText
+			else
+				return
 			end
 			_G.InspectFrameTitleText:SetText(titleText)
 		end
