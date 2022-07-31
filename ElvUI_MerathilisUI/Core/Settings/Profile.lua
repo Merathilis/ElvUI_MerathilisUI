@@ -1165,6 +1165,7 @@ P.armory = {
 	},
 	inspect = {
 		enable = true,
+		classIcon = true,
 		gradient = {
 			enable = true,
 			colorStyle = "RARITY",

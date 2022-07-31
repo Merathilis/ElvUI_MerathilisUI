@@ -9,6 +9,7 @@ local GetInventoryItemDurability = GetInventoryItemDurability
 local GetInventorySlotInfo = GetInventorySlotInfo
 local GetItemQualityColor = GetItemQualityColor
 
+local CharacterStatsPane = _G.CharacterStatsPane
 local CreateFrame = CreateFrame
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
@@ -64,7 +65,7 @@ function module:UpdatePaperDoll()
 					if module.db.character.gradient.setArmor and setID then
 						frame.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.character.gradient.setArmorColor))
 					elseif itemRarity and module.db.character.gradient.colorStyle == "RARITY" then
-						local r, g, b = GetItemQualityColor(itemRarity)
+						r, g, b = GetItemQualityColor(itemRarity)
 						frame.Gradiation.Texture:SetVertexColor(r, g, b)
 					elseif module.db.character.gradient.colorStyle == "VALUE" then
 						frame.Gradiation.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
@@ -176,7 +177,7 @@ function module:BuildCharacter()
 
 			frame.Warning.Texture = frame.Warning:CreateTexture(nil, "BACKGROUND")
 			frame.Warning.Texture:SetInside()
-			frame.Warning.Texture:SetTexture("Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\Minimalist")
+			frame.Warning.Texture:SetTexture(module.Constants.WarningTexture)
 			frame.Warning.Texture:SetVertexColor(1, 0, 0)
 
 			frame.Warning:SetScript("OnEnter", self.Warning_OnEnter)
@@ -481,7 +482,7 @@ function module:AddCharacterIcon()
 		CharacterFrameTitleText:ClearAllPoints()
 		CharacterFrameTitleText:SetPoint('TOP', _G.CharacterModelFrame, 0, 50)
 		CharacterFrameTitleText:SetParent(_G.CharacterFrame)
-		CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), E.db.general.fontSize+2, E.db.general.fontStyle)
+		CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), 16, E.db.general.fontStyle)
 
 		CharacterLevelText:ClearAllPoints()
 		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)

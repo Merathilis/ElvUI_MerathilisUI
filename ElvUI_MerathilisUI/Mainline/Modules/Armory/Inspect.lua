@@ -3,6 +3,17 @@ local module = MER:GetModule('MER_Armory')
 local M = E:GetModule('Misc')
 local LSM = E.LSM or E.Libs.LSM
 
+local _G = _G
+local pairs = pairs
+
+local GetInventorySlotInfo = GetInventorySlotInfo
+local GetInventoryItemLink = GetInventoryItemLink
+local GetItemInfo = GetItemInfo
+local GetPlayerInfoByGUID = GetPlayerInfoByGUID
+
+local InspectText
+local ClassSymbolFrame
+
 function module:UpdateInspect()
 	if not _G["InspectFrame"] then return end
 	if not module.db.inspect.enable then return end
@@ -33,7 +44,7 @@ function module:UpdateInspect()
 					if module.db.inspect.gradient.setArmor and setID then
 						frame.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.inspect.gradient.setArmorColor))
 					elseif itemRarity and module.db.inspect.gradient.colorStyle == "RARITY" then
-						local r, g, b = GetItemQualityColor(itemRarity)
+						r, g, b = GetItemQualityColor(itemRarity)
 						frame.Gradiation.Texture:SetVertexColor(r, g, b)
 					elseif module.db.inspect.gradient.colorStyle == "VALUE" then
 						frame.Gradiation.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
@@ -112,7 +123,7 @@ function module:BuildInspect()
 
 			frame.Warning.Texture = frame.Warning:CreateTexture(nil, "BACKGROUND")
 			frame.Warning.Texture:SetInside()
-			frame.Warning.Texture:SetTexture("Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\Minimalist")
+			frame.Warning.Texture:SetTexture(module.Constants.WarningTexture)
 			frame.Warning.Texture:SetVertexColor(1, 0, 0)
 --
 			frame.Warning:SetScript("OnEnter", self.Warning_OnEnter)
@@ -123,9 +134,12 @@ function module:BuildInspect()
 end
 
 function module:PreSetup()
-	if not _G["InspectFrame"] then return end
 	if not module.db.inspect.enable then return end
-	MER:RegisterEvent("INSPECT_READY", function()
+	MER:RegisterEvent("INSPECT_READY", function(_, unit)
+		E:Delay(0.1, function() --Needs a bit delay
+			self:AddInspectIcon(unit)
+		end)
+
 		if not E.db.general.itemLevel.displayInspectInfo then
 			module:UpdateInspectInfo()
 
@@ -133,6 +147,36 @@ function module:PreSetup()
 			M:ClearPageInfo(_G["InspectFrame"], "Inspect")
 		end
 	end)
+end
+
+function module:AddInspectIcon(unit)
+	if not _G["InspectFrame"] then return end
+	if not module.db.inspect.classIcon then
+		return
+	end
+
+	local titleText, coloredTitleText
+
+	local _, class, _, race = GetPlayerInfoByGUID(unit)
+	if class or race then
+		local classColor = E:ClassColor(class, true)
+		ClassSymbolFrame = ("|T"..(MER.ClassIcons[class]..".tga:0:0:0:0|t"))
+		InspectText = _G.InspectFrameTitleText:GetText()
+
+		if InspectText then
+			coloredTitleText = E:TextGradient(InspectText, F.ClassGradient[class]["r1"], F.ClassGradient[class]["g1"], F.ClassGradient[class]["b1"], F.ClassGradient[class]["r2"], F.ClassGradient[class]["g2"], F.ClassGradient[class]["b2"])
+
+			_G.InspectFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), 16, E.db.general.fontStyle)
+			_G.InspectFrameTitleText:SetTextColor(classColor.r, classColor.g, classColor.b)
+			_G.InspectFrameTitleText:SetWidth(200)
+			if not InspectText:match("|T") then
+				titleText = ClassSymbolFrame.." "..coloredTitleText
+			end
+			_G.InspectFrameTitleText:SetText(titleText)
+		end
+	end
+
+	M:UpdatePageInfo(_G['InspectFrame'], 'Inspect')
 end
 
 function module:LoadAndSetupInspect()

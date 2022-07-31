@@ -27,6 +27,7 @@ module.Constants.Character_Defaults = {}
 module.Constants.Inspect_Defaults = {}
 
 module.Constants.Gradiation = 'Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\textures\\Gradation'
+module.Constants.WarningTexture = 'Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\Minimalist'
 
 module.Constants.maxGemSlots = 5
 
@@ -272,7 +273,6 @@ function module:Initialize()
 	module:RegisterEvent("SOCKET_INFO_UPDATE", "UpdatePaperDoll", false)
 	module:RegisterEvent("COMBAT_RATING_UPDATE", "UpdatePaperDoll", false)
 	module:RegisterEvent("MASTERY_UPDATE", "UpdatePaperDoll", false)
-
 	module:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
 
 	hooksecurefunc(M, 'UpdatePageInfo', module.UpdatePageInfo)
