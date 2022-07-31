@@ -25,7 +25,10 @@ local function LoadSkin()
 	}
 
 	for _, frame in pairs(frames) do
-		module:CreateShadow(frame)
+		if frame then
+			module:CreateShadow(frame)
+			frame:Styling()
+		end
 	end
 
 	for i = 1, 3 do
