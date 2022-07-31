@@ -245,14 +245,6 @@ local function LoadSkin()
 	if GarrisonMissionFrame.backdrop then GarrisonMissionFrame.backdrop:Hide() end
 	GarrisonMissionFrame:Styling()
 
-	hooksecurefunc("GarrisonMissonListTab_SetSelected", function(tab, isSelected)
-		if isSelected then
-			tab.backdrop:SetBackdropColor(r, g, b, .2)
-		else
-			tab.backdrop:SetBackdropColor(0, 0, 0, .25)
-		end
-	end)
-
 	-- [[ Monuments ]]
 	local GarrisonMonumentFrame = _G.GarrisonMonumentFrame
 
