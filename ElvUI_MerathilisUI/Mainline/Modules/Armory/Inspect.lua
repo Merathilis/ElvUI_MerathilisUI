@@ -169,7 +169,7 @@ function module:AddInspectIcon(unit)
 		if InspectText then
 			coloredTitleText = E:TextGradient(InspectText, F.ClassGradient[class]["r1"], F.ClassGradient[class]["g1"], F.ClassGradient[class]["b1"], F.ClassGradient[class]["r2"], F.ClassGradient[class]["g2"], F.ClassGradient[class]["b2"])
 
-			_G.InspectFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), 16, E.db.general.fontStyle)
+			_G.InspectFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), 13, E.db.general.fontStyle)
 			_G.InspectFrameTitleText:SetTextColor(classColor.r, classColor.g, classColor.b)
 			_G.InspectFrameTitleText:SetWidth(200)
 			if not InspectText:match("|T") then

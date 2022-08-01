@@ -482,7 +482,7 @@ function module:AddCharacterIcon()
 		CharacterFrameTitleText:ClearAllPoints()
 		CharacterFrameTitleText:SetPoint('TOP', _G.CharacterModelFrame, 0, 50)
 		CharacterFrameTitleText:SetParent(_G.CharacterFrame)
-		CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), 16, E.db.general.fontStyle)
+		CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), E.db.general.fontSize+2, E.db.general.fontStyle)
 
 		CharacterLevelText:ClearAllPoints()
 		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
