@@ -1333,16 +1333,18 @@ function MER:SetupUnitframes()
 		["xOffset"] = 0,
 		["yOffset"] = 0,
 	}
-	E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = {
-		["font"] = "Gotham Narrow Black",
-		["fontOutline"] = "OUTLINE",
-		["size"] = 12,
-		["justifyH"] = "CENTER",
-		["text_format"] = "[additionalmana:current:shortvalue]",
-		["attachTextTo"] = "AdditionalPower",
-		["xOffset"] = 0,
-		["yOffset"] = 0,
-	}
+	if E.Retail then
+		E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = {
+			["font"] = "Gotham Narrow Black",
+			["fontOutline"] = "OUTLINE",
+			["size"] = 12,
+			["justifyH"] = "CENTER",
+			["text_format"] = "[additionalmana:current:shortvalue]",
+			["attachTextTo"] = "AdditionalPower",
+			["xOffset"] = 0,
+			["yOffset"] = 0,
+		}
+	end
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Group"] = {
 		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",

@@ -89,11 +89,14 @@ function MER:AddMoverCategories()
 end
 
 function MER:CheckElvUIVersion()
-	-- ElvUI versions check
-	if MER.ElvUIV < MER.ElvUIX then
-		E:StaticPopup_Show("VERSION_MISMATCH")
-		return false-- If ElvUI Version is outdated stop right here. So things don't get broken.
+	if E.Retail then
+		-- ElvUI versions check
+		if MER.ElvUIV < MER.ElvUIX then
+			E:StaticPopup_Show("VERSION_MISMATCH")
+			return false-- If ElvUI Version is outdated stop right here. So things don't get broken.
+		end
 	end
+
 	return true
 end
 

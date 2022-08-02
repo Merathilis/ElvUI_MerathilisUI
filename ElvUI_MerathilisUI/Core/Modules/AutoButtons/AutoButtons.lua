@@ -583,6 +583,35 @@ local tbcCauldrons = {
 	32839,
 }
 
+local wrathPotions = {
+	33448,
+	40068,
+	40070,
+	40073,
+	40076,
+	40078,
+	40081,
+	40087,
+	40093,
+	40097,
+	40109,
+	40211,
+	40212,
+	40213,
+	40214,
+	40215,
+	40216,
+	40217,
+}
+
+local wrathFlasks = {
+	40079,
+	44939,
+	46376,
+	46377,
+	46379,
+}
+
 local questItemList = {}
 local function UpdateQuestItemList()
 	if not E.Retail then return end
@@ -632,6 +661,8 @@ local moduleList = {
 	["FLASKSTBC"] = tbcFlasks,
 	["CAULDRONTBC"] = tbcCauldrons,
 	["ELIXIRTBC"] = tbcElixirs,
+	["POTIONSWRATH"] = wrathPotions,
+	["FLASKWRATH"] = wrathFlasks,
 }
 
 function module:CreateButton(name, barDB)

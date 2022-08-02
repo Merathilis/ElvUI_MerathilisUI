@@ -482,6 +482,8 @@ local function Potions()
 		return "POTION,FLASK,UTILITY"
 	elseif E.TBC then
 		return "POTIONTBC,FLASKTBC,CAULDRONTBC,ELIXIRTBC,ORETBC,UTILITY"
+	elseif E.Wrath then
+		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
 		return "POTIONSL,FLASKSL,UTILITY"
 	end
