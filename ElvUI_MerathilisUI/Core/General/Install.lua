@@ -2204,7 +2204,7 @@ function MER:SetupDts()
 		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "Missions"
 		E.db["datatexts"]["panels"]["MER_RightChatTop"][2] = "Durability"
 		E.db["datatexts"]["panels"]["MER_RightChatTop"][3] = "Gold"
-	elseif E.Classic or E.TBC then
+	elseif E.Classic or E.TBC or E.Wrath then
 		E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 2
 		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "Durability"
 		E.db["datatexts"]["panels"]["MER_RightChatTop"][2] = "Gold"

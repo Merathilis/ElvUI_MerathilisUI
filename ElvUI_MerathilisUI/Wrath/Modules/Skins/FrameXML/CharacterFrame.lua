@@ -10,8 +10,12 @@ local function LoadSkin()
 	end
 
 	local CharacterFrame = _G.CharacterFrame
-	CharacterFrame.backdrop:Styling()
+	CharacterFrame.backdrop:Styling() -- need to be on the backdrop otherwise its huuuuge
 	module:CreateBackdropShadow(CharacterFrame)
+
+	local GearManager = _G.GearManagerDialog
+	GearManager:Styling()
+	module:CreateShadow(GearManager)
 end
 
 S:AddCallback("CharacterFrame", LoadSkin)
