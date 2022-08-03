@@ -1038,18 +1038,6 @@ P.tooltip = {
 	petIcon = true,
 	keystone = true,
 	titleColor = true,
-	progressInfo = {
-		enable = true,
-		raid = {
-			enable = true,
-			Uldir = false,
-			BattleOfDazaralor = false,
-			CrucibleOfStorms = false,
-			EternalPalace = true,
-			Nyalotha = true,
-			CastleNathria = true,
-		}
-	},
 	dominationRank = true,
 	covenant = {
 		enable = true,

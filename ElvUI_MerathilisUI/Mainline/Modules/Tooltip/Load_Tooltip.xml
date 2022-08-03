@@ -3,5 +3,4 @@
 	<Script file="Covenants.lua"/>
 	<Script file="DominationRank.lua"/>
 	<Script file="KeystoneInfo.lua"/>
-	<Script file="Progress.lua"/>
 </Ui>
