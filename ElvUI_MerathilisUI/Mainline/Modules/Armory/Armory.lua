@@ -169,10 +169,15 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 		end
 	end
 
-	if (noChant or noGem) then --If anything us missing
+	if (noChant or noGem) then --If anything else is missing
 		local message = ''
-		if noGem then message = message..'|cffff0000'..L["Empty Socket"]..'|r\n' end
-		if noChant then message = message..'|cffff0000'..L["Not Enchanted"]..'|r\n' end
+		if noGem then
+			message = message..'|cffff0000'..L["Empty Socket"]..'|r\n'
+		end
+
+		if noChant then
+			message = message..'|cffff0000'..L["Not Enchanted"]..'|r\n'
+		end
 		Slot.Warning.Reason = message or nil
 		Slot.Warning:Show()
 		Slot.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.character.gradient.warningColor))
@@ -265,8 +270,7 @@ end
 function module:Initialize()
 	module.db = E.db.mui.armory
 
-	-- if not module.db.enable or not E.private.skins.blizzard.character then return end
-	if not E.db.general.itemLevel.displayCharacterInfo then return end
+	if not E.db.general.itemLevel.displayCharacterInfo or not E.private.skins.blizzard.character then return end
 
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)
 	module:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdatePaperDoll", false)
@@ -299,6 +303,8 @@ function module:Initialize()
 		hooksecurefunc(M, 'UpdateInspectInfo', module.UpdateInspectInfo)
 		module:PreSetup()
 	end
+
+	initialized = true
 end
 
 MER:RegisterModule(module:GetName())

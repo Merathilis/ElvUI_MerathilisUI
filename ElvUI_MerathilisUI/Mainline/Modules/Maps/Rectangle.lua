@@ -27,6 +27,7 @@ function module:ChangeShape()
 	local heightPct = fileID / 128
 	local newHeight = E.MinimapSize * heightPct
 	local diff = E.MinimapSize - newHeight
+	local halfDiff = ceil(diff / 2)
 
 	Minimap:SetClampedToScreen(true)
 	Minimap:SetMaskTexture(texturePath)
@@ -52,6 +53,12 @@ function module:ChangeShape()
 	if Minimap.location then
 		Minimap.location:ClearAllPoints()
 		Minimap.location:Point("TOP", MMHolder, "TOP", 0, -5)
+	end
+
+	if MinimapPanel:IsShown() then
+		MinimapPanel:ClearAllPoints()
+		MinimapPanel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", -E.Border, (E.PixelMode and 0 or -3) + halfDiff)
+		MinimapPanel:Point("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", E.Border, -23 + halfDiff)
 	end
 
 	self:MMHolder_Size()
