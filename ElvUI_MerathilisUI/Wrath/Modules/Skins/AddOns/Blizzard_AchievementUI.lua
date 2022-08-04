@@ -27,15 +27,6 @@ local function LoadSkin()
 		module:ReskinTab(_G["AchievementFrameTab"..i])
 	end
 
-	--[[
-	for i = 1, 7 do
-		local bu = _G["AchievementFrameAchievementsContainerButton"..i]
-		if bu.backdrop then
-			module:CreateGradient(bu.backdrop)
-		end
-	end
-	]]
-
 	hooksecurefunc("AchievementButton_DisplayAchievement", function(button, category, achievement)
 		local _, _, _, completed = GetAchievementInfo(category, achievement)
 		if completed then
@@ -78,20 +69,6 @@ local function LoadSkin()
 			end
 		end
 	end)
-
-	for i = 1, 12 do
-		local label = _G["AchievementFrameSummaryCategoriesCategory"..i.."Label"]
-
-		label:SetTextColor(1, 1, 1)
-	end
-
-	--[[
-	_G.AchievementFrameSummaryCategoriesStatusBarTitle:SetTextColor(1, 1, 1)
-
-	AchievementFrame.searchBox:ClearAllPoints()
-	AchievementFrame.searchBox:SetPoint("BOTTOMRIGHT", _G.AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -2)
-	AchievementFrame.searchBox:SetSize(100, 20)
-	]]
 end
 
 S:AddCallbackForAddon("Blizzard_AchievementUI", LoadSkin)
