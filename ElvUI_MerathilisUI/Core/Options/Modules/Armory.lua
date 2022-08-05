@@ -34,8 +34,7 @@ options.armory = {
 			name = L["Character Armory"],
 			desc = "",
 			get = function(info) return E.db.mui.armory.character[ info[#info] ] end,
-			set = function(info, value)
-				E.db.mui.armory.character.enable = value
+			set = function(info, value) E.db.mui.armory.character[ info[#info] ] = value;
 				E:StaticPopup_Show("PRIVATE_RL")
 				M:UpdatePageInfo(_G.CharacterFrame, 'Character')
 
@@ -71,6 +70,7 @@ options.armory = {
 					type = "toggle",
 					name = L["Expanded Size"],
 					desc = L["This will increase the Character Frame size a bit."],
+					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 				},
 				classIcon = {
 					order = 5,
