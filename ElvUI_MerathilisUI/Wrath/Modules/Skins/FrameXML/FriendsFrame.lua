@@ -50,6 +50,15 @@ local function LoadSkin()
 
 	local FriendsFriendsFrame = _G.FriendsFriendsFrame
 	FriendsFriendsFrame.backdrop:Styling()
+
+	-- Guild Frame
+	local GuildMemberDetailFrame = _G.GuildMemberDetailFrame
+	GuildMemberDetailFrame:Styling()
+	module:CreateShadow(GuildMemberDetailFrame)
+
+	local GuildInfoFrame = _G.GuildInfoFrame
+	GuildInfoFrame.backdrop:Styling()
+	module:CreateBackdropShadow(GuildInfoFrame)
 end
 
 S:AddCallback("FriendsFrame", LoadSkin)
