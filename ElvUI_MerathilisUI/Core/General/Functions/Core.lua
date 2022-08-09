@@ -138,6 +138,22 @@ function F.CreateClassColorString(text, englishClass)
 	return hex .. text .. "|r"
 end
 
+function F.GradientColors(unitclass, invert, alpha)
+	if invert then
+		if alpha then
+			return F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, 1, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, 1
+		else
+			return F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1
+		end
+	else
+		if alpha then
+			return F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, 1, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, 1
+		else
+			return F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2
+		end
+	end
+end
+
 do
 	function F.RGBToHex(r, g, b)
 		if r then

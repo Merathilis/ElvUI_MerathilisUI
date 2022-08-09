@@ -1100,6 +1100,7 @@ P.reminder = {
 
 P.nameplates = {
 	castbarShield = true,
+	gradient = true,
 	enhancedAuras = {
 		enable = true,
 	},

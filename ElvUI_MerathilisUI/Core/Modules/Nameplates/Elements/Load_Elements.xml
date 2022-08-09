@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='Auras.lua'/>
 	<Script file='Castbar.lua'/>
+	<Script file='Health.lua'/>
 </Ui>
