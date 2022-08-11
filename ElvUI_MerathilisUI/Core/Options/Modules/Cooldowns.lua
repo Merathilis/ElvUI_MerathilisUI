@@ -52,14 +52,14 @@ options.cooldowns = {
 					order = 5,
 					name = L["Fadein duration"],
 					type = "range",
-					min = 0.5, max = 2.5, step = 0.1,
+					min = 0.3, max = 2.5, step = 0.1,
 					hidden = function() return not E.db.mui.cooldownFlash.enable end,
 				},
 				fadeOutTime = {
 					order = 6,
 					name = L["Fadeout duration"],
 					type = "range",
-					min = 0.5, max = 2.5, step = 0.1,
+					min = 0.3, max = 2.5, step = 0.1,
 					hidden = function() return not E.db.mui.cooldownFlash.enable end,
 				},
 				maxAlpha = {
