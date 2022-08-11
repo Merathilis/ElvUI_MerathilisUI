@@ -4,7 +4,7 @@ local options = MER.options.modules.args
 
 options.cooldowns = {
 	type = "group",
-	name = L["Cooldowns"],
+	name = E.NewSign..L["Cooldowns"],
 	args = {
 		cooldownFlash = {
 			order = 1,
@@ -32,7 +32,7 @@ options.cooldowns = {
 						},
 					},
 				},
-				toggle = {
+				enable = {
 					order = 3,
 					type = "toggle",
 					name = L["Enable"],
@@ -103,3 +103,76 @@ options.cooldowns = {
 		},
 	},
 }
+
+do
+	local selectedKey
+	local tempID
+
+	options.cooldowns.args.cooldownFlash.args.ignoredSpells = {
+		order = 99,
+		type = "group",
+		inline = true,
+		name = E.NewSign..L["Blacklist"],
+		disabled = function() return not E.db.mui.cooldownFlash.enable end,
+		args = {
+			name = {
+				order = 1,
+				type = "input",
+				name = L["Spell Name"],
+				get = function()
+					return tempID
+				end,
+				set = function(_, value)
+					tempID = value
+				end
+			},
+			addButton = {
+				order = 3,
+				type = "execute",
+				name = L["Add"],
+				func = function()
+					if tempID then
+						E.db.mui.cooldownFlash.ignoredSpells[tempID] = true
+						tempID = nil
+					else
+						F.Print(L["Please set the name first."])
+					end
+				end
+			},
+			spacer = {
+				order = 4,
+				type = "description",
+				name = " ",
+				width = "full"
+			},
+			listTable = {
+				order = 5,
+				type = "select",
+				name = L["Spell List"],
+				get = function()
+					return selectedKey
+				end,
+				set = function(_, value)
+					selectedKey = value
+				end,
+				values = function()
+					local result = {}
+					for fullID in pairs(E.db.mui.cooldownFlash.ignoredSpells) do
+						result[fullID] = fullID
+					end
+					return result
+				end
+			},
+			deleteButton = {
+				order = 6,
+				type = "execute",
+				name = L["Delete"],
+				func = function()
+					if selectedKey then
+						E.db.mui.cooldownFlash.ignoredSpells[selectedKey] = nil
+					end
+				end
+			},
+		},
+	}
+end

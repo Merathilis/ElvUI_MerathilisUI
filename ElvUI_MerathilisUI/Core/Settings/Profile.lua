@@ -332,7 +332,6 @@ P.mail = {
 	enable = true,
 	defaultPage = "ALTS",
 	saveRecipient = true,
-
 }
 
 P.misc = {
@@ -1115,7 +1114,7 @@ P.cooldownFlash = {
 	iconSize = 40,
 	holdTime = 0.3,
 	petOverlay = {1, 1, 1},
-	ignoredSpells = "",
+	ignoredSpells = {},
 	invertIgnored = false,
 	enablePet = false,
 	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
