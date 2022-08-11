@@ -18,24 +18,30 @@ function module:Health_UpdateColor(_, unit)
 	local isPlayer = UnitIsPlayer(unit)
 	local reaction = UnitReaction(unit, 'player')
 
-	if element then
-		if reaction and reaction >= 5 then
-			reactionType = "NPCFRIENDLY"
-		elseif reaction and reaction == 4 then
-			reactionType = "NPCNEUTRAL"
-		elseif reaction and reaction == 3 then
-			reactionType = "NPCUNFRIENDLY"
-		elseif reaction and reaction <= 2 then
-			reactionType = "NPCHOSTILE"
-		end
+	local sf = NP:StyleFilterChanges(unit)
 
-		if class and isPlayer then
-			element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(class))
-		elseif reaction and (unit.CurrentlyBeingTanked ~= unit.."isbeingtanked") then
-			if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
-				element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors("TAPPED", false, false))
-			else
-				element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(reactionType))
+	if element then
+		if sf.HealthColor then
+			return
+		else
+			if reaction and reaction >= 5 then
+				reactionType = "NPCFRIENDLY"
+			elseif reaction and reaction == 4 then
+				reactionType = "NPCNEUTRAL"
+			elseif reaction and reaction == 3 then
+				reactionType = "NPCUNFRIENDLY"
+			elseif reaction and reaction <= 2 then
+				reactionType = "NPCHOSTILE"
+			end
+
+			if class and isPlayer then
+				element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(class))
+			elseif reaction then
+				if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
+					element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors("TAPPED", false, false))
+				else
+					element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(reactionType))
+				end
 			end
 		end
 	end
