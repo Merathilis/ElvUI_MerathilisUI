@@ -28,7 +28,7 @@ options.nameplates = {
 					order = 2,
 					type = "toggle",
 					name = E.NewSign..L["Gradient"],
-					desc = L["Adds a gradient color to the NamePlates."],
+					desc = L["|cffFF0000WARING:|r Adds a gradient color to the NamePlates. This will overwrite some default ElvUI NP settings, if you dont want this, please disable this feature."],
 				},
 			},
 		},
