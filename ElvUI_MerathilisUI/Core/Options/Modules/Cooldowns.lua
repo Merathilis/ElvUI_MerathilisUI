@@ -106,7 +106,7 @@ options.cooldowns = {
 
 do
 	local selectedKey
-	local tempID
+	local tempName
 
 	options.cooldowns.args.cooldownFlash.args.ignoredSpells = {
 		order = 99,
@@ -120,10 +120,10 @@ do
 				type = "input",
 				name = L["Spell Name"],
 				get = function()
-					return tempID
+					return tempName
 				end,
 				set = function(_, value)
-					tempID = value
+					tempName = value
 				end
 			},
 			addButton = {
@@ -131,9 +131,9 @@ do
 				type = "execute",
 				name = L["Add"],
 				func = function()
-					if tempID then
-						E.db.mui.cooldownFlash.ignoredSpells[tempID] = true
-						tempID = nil
+					if tempName then
+						E.db.mui.cooldownFlash.ignoredSpells[tempName] = true
+						tempName = nil
 					else
 						F.Print(L["Please set the name first."])
 					end
