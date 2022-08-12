@@ -29,7 +29,8 @@ function module:SkinBar(bar, type)
 	end
 
 	bar.backdrop:SetTemplate("Transparent")
-	bar.backdrop:Styling()
+	bar:Styling() -- the style needs to be on the bar, not on the backdrop otherwise i break Beniks Style function
+
 	if bar.db.backdrop then
 		if not bar.backdrop.shadow then
 			module:CreateBackdropShadow(bar, true)
