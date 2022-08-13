@@ -40,7 +40,7 @@ MERS:CreateSD(DCP, 2, 2)
 MERS:CreateBackdropShadow(DCP)
 
 local defaultSettings = {
-	enable= false,
+	enable = false,
 	fadeInTime = 0.3,
 	fadeOutTime = 0.6,
 	maxAlpha = 0.8,
@@ -68,6 +68,7 @@ local function tcount(tab)
 	for _ in pairs(tab) do
 		n = n + 1
 	end
+
 	return n
 end
 
