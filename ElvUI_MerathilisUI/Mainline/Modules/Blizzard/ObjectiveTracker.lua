@@ -309,6 +309,7 @@ function module:UpdateBackdrop()
 		if backdrop then
 			backdrop:Hide()
 		end
+
 		return
 	end
 
