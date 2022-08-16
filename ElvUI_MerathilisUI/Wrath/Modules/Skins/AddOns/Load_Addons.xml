@@ -3,4 +3,12 @@
 	<Script file="Blizzard_AuctionUI.lua"/>
 	<Script file="Blizzard_BarbershopUI.lua"/>
 	<Script file="Blizzard_BattlefieldMap.lua"/>
+	<Script file="Blizzard_Channels.lua"/>
+	<Script file="Blizzard_Communities.lua"/>
+	<Script file="Blizzard_EventTrace.lua"/>
+	<Script file="Blizzard_LookingForGroupUI.lua"/>
+	<Script file="Blizzard_MacroUI.lua"/>
+	<Script file="Blizzard_TalentUI.lua"/>
+	<Script file="Blizzard_TimeManager.lua"/>
+	<Script file="Misc.lua"/>
 </Ui>

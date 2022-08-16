@@ -46,6 +46,18 @@ local function StyleSeparatorLine(self, frame, lastButton)
 	end
 end
 
+local function ElvUI_SkinMoverPopup()
+    if not _G.ElvUIMoverPopupWindow then
+        return
+    end
+
+	_G.ElvUIMoverPopupWindow:Styling()
+    module:CreateShadow(_G.ElvUIMoverPopupWindow)
+
+	_G.ElvUIMoverPopupWindow.header:Styling()
+    module:CreateShadow(_G.ElvUIMoverPopupWindow.header)
+end
+
 local function Skin_ElvUI_OptionsUI()
 	if not E.private.mui.skins.enable then
 		return
@@ -66,6 +78,8 @@ local function Skin_ElvUI_OptionsUI()
 	end
 
 	module:SecureHook(E, "Config_CreateSeparatorLine", StyleSeparatorLine)
+
+	module:SecureHook(E, "ToggleMoveMode", ElvUI_SkinMoverPopup)
 end
 
 S:AddCallback("ElvUI_OptionsUI", Skin_ElvUI_OptionsUI)

@@ -9,6 +9,11 @@ L["Size"] = true
 L["Width"] = true
 L["Height"] = true
 L["Alpha"] = true
+L["Outline"] = "描邊"
+L["X-Offset"] = true
+L["Y-Offset"] = true
+L["Icon Size"] = true
+L["Font Outline"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -288,19 +293,6 @@ L["Keystone"] = "鑰石"
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
 L["Title Color"] = "標題顏色"
 L["Change the color of the title in the Tooltip."] = true
-L["Progress Info"] = true
-L["Shows raid progress of a character in the tooltip"] = true
-L["Mythic"] = "傳奇"
-L["Heroic"] = "英雄"
-L["Normal"] = "普通"
-L["LFR"] = true
-L["Uldir"] = true
-L["BattleOfDazaralor"] = "Battle Of Dazaralor"
-L["CrucibleOfStorms"] = "Crucible Of Storms"
-L["Eternal Palace"] = "Eternal Palace"
-L["Ny'alotha"] = true
-L["Castle Nathria"] = "納撒亞城"
-L["Sanctum of Domination"] = "統御聖所"
 L["FACTION"] = "陣營"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "啟動艾澤萊晶岩之力"
 L["Only Icons"] = true
@@ -325,6 +317,8 @@ L["Kyrian"] = "琪瑞安族"
 L["Venthyr"] = "汎希爾族"
 L["NightFae"] = "暗夜妖精"
 L["Necrolord"] = "死靈領主"
+L["Pet Battle"] = true
+L["Tooltip Icons"] = true
 
 -- Notification
 L["Notification"] = "通知"
@@ -397,7 +391,6 @@ L["The width of the buttons."] = "按鍵的寬度."
 L["Button Height"] = "按鍵高度"
 L["The height of the buttons."] = "按鍵的高度."
 L["Counter"] = "計數"
-L["Outline"] = "描邊"
 L["Button Groups"] = "按鍵组"
 L["Key Binding"] = "按鍵綁定"
 L["Custom Items"] = "自訂物品"
@@ -593,6 +586,18 @@ L["Hide Coordinates"] = true
 L["Dungeon Teleports"] = true
 
 -- Maps
+L["Maps"] = true
+L["World Map"] = true
+L["Instance Difficulty"] = true
+L["Rectangle Minimap"] = true
+L["Duration"] = true
+L["Fade Out"] = true
+L["Scale"] = true
+L["Reskin the instance diffculty in text style."] = true
+L["Hide Blizzard"] = true
+L["Change the shape of ElvUI minimap."] = true
+L["Height Percentage"] = true
+L["Percentage of ElvUI minimap size."] = true
 L["MiniMap Buttons"] = true
 L["Minimap Ping"] = "小地圖點擊"
 L["Add Server Name"] = "添加伺服器"
@@ -642,6 +647,8 @@ L["Reveal"] = true
 L["Use Colored Fog"] = true
 L["Remove Fog of War from your world map."] = true
 L["Style Fog of War with special color."] = true
+L["Resize world map."] = true
+L["LFG Queue"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地圖按鍵"
@@ -750,7 +757,8 @@ L["Reminder"] = true
 L["Reminds you on self Buffs."] = true
 
 -- Cooldowns
-L["CooldownFlash"] = true
+L["Cooldowns"] = true
+L["Cooldown Flash"] = true
 L["Settings"] = true
 L["Fadein duration"] = true
 L["Fadeout duration"] = true
@@ -851,6 +859,7 @@ L["This part of the installation process sets up your chat fonts and colors."] =
 L["This part of the installation changes the default ElvUI look."] = true
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = true
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = true
+L["This part of the installation process will change your NamePlates."] = true
 L["This part of the installation process will reposition your Unitframes."] = true
 L["This part of the installation process will apply changes to ElvUI Plugins"] = true
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = true
@@ -858,11 +867,13 @@ L["Please click the button below to apply the new layout."] = true
 L["Please click the button below to setup your chat windows."] = true
 L["Please click the button below to setup your actionbars."] = true
 L["Please click the button below to setup your datatexts."] = true
+L["Please click the button below to setup your NamePlates."] = true
 L["Please click the button below to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
 L["DataTexts"] = "資訊文字"
 L["General Layout"] = true
 L["Setup ActionBars"] = true
+L["Setup NamePlates"] = true
 L["Setup UnitFrames"] = true
 L["Setup Chat"] = "設定對話視窗"
 L["Setup Datatexts"] = true
@@ -917,6 +928,10 @@ L["Tree Group Button"] = "樹狀分組按鍵"
 L["Shadow Color"] = true
 
 -- Panels
+L["Panels"] = true
+L["Top Panel"] = true
+L["Bottom Panel"] = true
+L["Style Panels"] = true
 L["Top Left Panel"] = true
 L["Top Left Extra Panel"] = true
 L["Top Right Panel"] = true

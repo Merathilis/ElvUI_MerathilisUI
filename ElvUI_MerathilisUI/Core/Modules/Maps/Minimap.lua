@@ -136,8 +136,16 @@ function module:QueueStatus()
 	hooksecurefunc("EyeTemplate_StopAnimating", function() anim:Stop() end)
 end
 
+function module:StyleMinimapRightClickMenu()
+	-- Style the ElvUI's MiddleClick-Menu on the Minimap
+	local Menu = _G.MinimapRightClickMenu
+	if Menu then
+		Menu:Styling()
+	end
+end
+
 function module:Initialize()
-	if not E.private.general.minimap.enable or not E.Retail then return end
+	if not E.private.general.minimap.enable then return end
 
 	local db = E.db.mui.maps
 
@@ -146,14 +154,9 @@ function module:Initialize()
 		Minimap:CreateBackdrop("Default", true)
 	end
 
-	-- Style the ElvUI's MiddleClick-Menu on the Minimap
-	local Menu = _G.MinimapRightClickMenu
-	if Menu then
-		Menu:Styling()
-	end
-
 	self:MiniMapCoords()
 	self:StyleMinimap()
+	self:StyleMinimapRightClickMenu()
 	self:QueueStatus()
 	self:MinimapCombatCheck()
 

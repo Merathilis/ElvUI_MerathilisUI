@@ -216,7 +216,6 @@ options.maps = {
 					order = 4,
 					type = "group",
 					name = L["Scale"],
-					desc = L["Resize world map."],
 					get = function(info) return E.db.mui.maps.worldMap.scale[info[#info]] end,
 					set = function(info, value) E.db.mui.maps.worldMap.scale[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					guiInline = true,

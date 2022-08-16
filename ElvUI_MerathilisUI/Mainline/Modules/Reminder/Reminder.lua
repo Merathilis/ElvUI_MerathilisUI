@@ -481,7 +481,11 @@ function module:CreateReminder(name, index)
 	local holder = CreateFrame("Frame", MER.Title.."Reminder"..index, E.UIParent)
 	holder:SetSize(40, 40)
 	holder:ClearAllPoints()
-	holder:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
+	if ElvFrame then
+		holder:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
+	else
+		holder:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 573, 199)
+	end
 	E:CreateMover(holder, "MER_ReminderMover"..index, L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
 
 	local button = CreateFrame("Button", "MER_ReminderIcon"..index, holder)

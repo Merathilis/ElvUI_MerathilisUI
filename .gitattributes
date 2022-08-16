@@ -38,6 +38,7 @@
 *.py            text
 
 *.blp           binary
+*.png           binary
 *.tga           binary
 *.ogg           binary
 *.ttf           binary

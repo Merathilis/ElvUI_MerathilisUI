@@ -77,8 +77,14 @@ end
 
 function module:StyleChat()
 	-- Style the chat
-	_G.LeftChatPanel.backdrop:Styling()
-	_G.RightChatPanel.backdrop:Styling()
+
+	if IsAddOnLoaded('ElvUI_BenikUI') and E.db.benikui.general.benikuiStyle then
+		_G.LeftChatPanel:Styling()
+		_G.RightChatPanel:Styling()
+	else
+		_G.LeftChatPanel.backdrop:Styling()
+		_G.RightChatPanel.backdrop:Styling()
+	end
 
 	S:CreateBackdropShadow(_G.LeftChatPanel, true)
 	S:CreateBackdropShadow(_G.RightChatPanel, true)

@@ -663,11 +663,11 @@ function module:ConstructTimeArea()
 			DT.RegisteredDataTexts["System"].eventFunc()
 			DT.RegisteredDataTexts["System"].onEnter()
 		elseif mouseButton == "LeftButton" then
-			if E.Retail then
+			if E.Retail or E.Wrath then
 				if not InCombatLockdown() then
 					ToggleCalendar()
 				end
-			elseif E.Classic then
+			elseif E.Classic or E.TBC then
 				return
 			else
 				_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)

@@ -9,6 +9,11 @@ L["Size"] = true
 L["Width"] = true
 L["Height"] = true
 L["Alpha"] = true
+L["Outline"] = "描边"
+L["X-Offset"] = true
+L["Y-Offset"] = true
+L["Icon Size"] = true
+L["Font Outline"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -297,19 +302,6 @@ L["Keystone"] = "大秘境钥匙"
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "鼠标提示中添加大米钥匙的词缀描述"
 L["Title Color"] = "标题颜色"
 L["Change the color of the title in the Tooltip."] = "改变鼠标提示中标题的颜色"
-L["Progress Info"] = "进度信息"
-L["Shows raid progress of a character in the tooltip"] = "鼠标提示中显示角色的副本进度"
-L["Mythic"] = "史诗"
-L["Heroic"] = "英雄"
-L["Normal"] = "普通"
-L["LFR"] = "寻求组队"
-L["Uldir"] = "奥迪尔"
-L["BattleOfDazaralor"] = "达萨罗之战"
-L["CrucibleOfStorms"] = "风暴熔炉"
-L["EternalPalace"] = "永恒王宫"
-L["Nyalotha"] = "尼奥罗萨"
-L["Castle Nathria"] = "纳斯利亚堡"
-L["Sanctum of Domination"] = "统御圣所"
 L["FACTION"] = "阵营"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "已激活的艾泽里特之力"
 L["Only Icons"] = "仅图标"
@@ -334,6 +326,8 @@ L["Kyrian"] = "格里恩"
 L["Venthyr"] = "温西尔"
 L["NightFae"] = "法夜"
 L["Necrolord"] = "通灵领主"
+L["Pet Battle"] = true
+L["Tooltip Icons"] = true
 
 -- Notification
 L["Notification"] = "通知"
@@ -407,7 +401,6 @@ L["The width of the buttons."] = "按键的宽度"
 L["Button Height"] = "按键高度"
 L["The height of the buttons."] = "按键的高度"
 L["Counter"] = "计数"
-L["Outline"] = "描边"
 L["Button Groups"] = "按键组"
 L["Key Binding"] = "按键绑定"
 L["Custom Items"] = "自订物品"
@@ -604,6 +597,18 @@ L["Hide Coordinates"] = "隐藏坐标"
 L["Dungeon Teleports"] = true
 
 -- Maps
+L["Maps"] = true
+L["World Map"] = true
+L["Instance Difficulty"] = true
+L["Rectangle Minimap"] = true
+L["Duration"] = true
+L["Fade Out"] = true
+L["Scale"] = true
+L["Reskin the instance diffculty in text style."] = true
+L["Hide Blizzard"] = true
+L["Change the shape of ElvUI minimap."] = true
+L["Height Percentage"] = true
+L["Percentage of ElvUI minimap size."] = true
 L["MiniMap"] = "小地图"
 L["MiniMap Buttons"] = "小地图按钮"
 L["Minimap Ping"] = "小地图点击"
@@ -654,6 +659,8 @@ L["Reveal"] = true
 L["Use Colored Fog"] = true
 L["Remove Fog of War from your world map."] = true
 L["Style Fog of War with special color."] = true
+L["Resize world map."] = true
+L["LFG Queue"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地图按钮"
@@ -762,7 +769,8 @@ L["Reminder"] = "常驻BUFF提醒"
 L["Reminds you on self Buffs."] = "提醒你自己的BUFF"
 
 -- Cooldowns
-L["CooldownFlash"] = "冷却闪光"
+L["Cooldowns"] = true
+L["Cooldown Flash"] = "冷却闪光"
 L["Settings"] = "设置"
 L["Fadein duration"] = "淡入持续时间"
 L["Fadeout duration"] = "淡出持续时间"
@@ -865,6 +873,7 @@ L["This part of the installation process sets up your chat fonts and colors."] =
 L["This part of the installation changes the default ElvUI look."] = "安装过程的此部分更改了默认的ElvUI外观."
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = "这部分安装过程将填充MerathilisUI数据文本.\r|cffff8000这不会触及ElvUI数据文本|r"
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = "这部分安装过程将重新布局您的动作条并启用背景"
+L["This part of the installation process will change your NamePlates."] = true
 L["This part of the installation process will reposition your Unitframes."] = "这部分安装过程将重新布局您的单位框体."
 L["This part of the installation process will apply changes to ElvUI Plugins"] = "这部分安装过程将对ElvUI插件应用更改"
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = "此步骤更改了一些魔兽世界的默认选项.这些选项是根据%s作者的需求量身定制的,并不是此配置功能所必需的(一些cvar的修改)"
@@ -872,11 +881,13 @@ L["Please click the button below to apply the new layout."] = "请单击下面�
 L["Please click the button below to setup your chat windows."] = "请单击下面的按钮设置聊天窗口."
 L["Please click the button below to setup your actionbars."] = "请单击下面的按钮设置动作条."
 L["Please click the button below to setup your datatexts."] = "请单击下面的按钮来设置数据文本."
+L["Please click the button below to setup your NamePlates."] = true
 L["Please click the button below to setup your Unitframes."] = "请单击下面的按钮设置单位框架."
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = "请单击下面的按钮以设置ElvUI AddOns.对于其他Addon配置文件,请进入我的选项 - 皮肤/插件"
 L["DataTexts"] = "数据文本"
 L["General Layout"] = true
 L["Setup ActionBars"] = true
+L["Setup NamePlates"] = true
 L["Setup UnitFrames"] = true
 L["Setup Datatexts"] = "设置数据文本"
 L["Setup Addons"] = "设置插件"
@@ -931,6 +942,10 @@ L["Tree Group Button"] = "树状分组按钮"
 L["Shadow Color"] = true
 
 -- Panels
+L["Panels"] = true
+L["Top Panel"] = true
+L["Bottom Panel"] = true
+L["Style Panels"] = true
 L["Top Left Panel"] = "左上面板"
 L["Top Left Extra Panel"] = "左上额外面板"
 L["Top Right Panel"] = "右上面板"

@@ -437,6 +437,20 @@ function MER:CheckCompatibility()
 		"private.sle.skins.merchant.enable"
 	)
 
+	CheckShadowAndLight(
+		L["Character Armory"],
+		L["Character Armory"],
+		"db.mui.armory.character.enable",
+		"db.sle.armory.character.enable"
+	)
+
+	CheckShadowAndLight(
+		L["Inspect Armory"],
+		L["Inspect Armory"],
+		"db.mui.armory.inspect.enable",
+		"db.sle.armory.inspect.enable"
+	)
+
 	if self.CompatibilityFrame.numModules > 0 then
 		self.CompatibilityFrame:Show()
 	end

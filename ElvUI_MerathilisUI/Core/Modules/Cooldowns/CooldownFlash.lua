@@ -25,6 +25,7 @@ local GetContainerItemID = GetContainerItemID
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local hooksecurefunc = hooksecurefunc
 
+local ignoredSpells, invertIgnored
 module.cooldowns, module.animating, module.watching = { }, { }, { }
 
 local DCP = CreateFrame("Frame", nil, E.UIParent)
@@ -39,19 +40,24 @@ MERS:CreateSD(DCP, 2, 2)
 MERS:CreateBackdropShadow(DCP)
 
 local defaultSettings = {
-	["enable"] = false,
-	["fadeInTime"] = 0.3,
-	["fadeOutTime"] = 0.6,
-	["maxAlpha"] = 0.8,
-	["animScale"] = 1.5,
-	["iconSize"] = 50,
-	["holdTime"] = 0.3,
-	["petOverlay"] = {1, 1, 1},
-	["ignoredSpells"] = "",
-	["invertIgnored"] = false,
-	["enablePet"] = false,
-	["x"] = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
-	["y"] = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
+	enable = false,
+	fadeInTime = 0.3,
+	fadeOutTime = 0.6,
+	maxAlpha = 0.8,
+	animScale = 1.5,
+	iconSize = 50,
+	holdTime = 0.3,
+	petOverlay = {1, 1, 1},
+	ignoredSpells = {},
+	invertIgnored = false,
+	enablePet = false,
+	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
+	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
+}
+
+local defaultSettingsPerChar = {
+    ignoredSpells = {},
+    invertIgnored = false,
 }
 
 -----------------------
@@ -62,6 +68,7 @@ local function tcount(tab)
 	for _ in pairs(tab) do
 		n = n + 1
 	end
+
 	return n
 end
 
@@ -88,11 +95,12 @@ local function memoize(f)
 end
 
 local function GetPetActionIndexByName(name)
-	for i=1, _G.NUM_PET_ACTION_SLOTS, 1 do
+	for i = 1, _G.NUM_PET_ACTION_SLOTS, 1 do
 		if (GetPetActionInfo(i) == name) then
 			return i
 		end
 	end
+
 	return nil
 end
 
@@ -222,6 +230,20 @@ function DCP:ADDON_LOADED(addon)
 		end
 	end
 
+	if (not MERData_DCPCharacter) then
+		MERData_DCPCharacter = {unpack(defaultSettingsPerChar)}
+
+		if (MERData_DCP.ignoredSpells) then
+			MERData_DCPCharacter.ignoredSpells = MERData_DCP.ignoredSpells
+		end
+	else
+		for i, v in pairs(defaultSettingsPerChar) do
+			if (not MERData_DCPCharacter[i]) then
+				MERData_DCPCharacter = v
+			end
+		end
+	end
+
 	self:UnregisterEvent("ADDON_LOADED")
 end
 
@@ -334,12 +356,6 @@ function module:Initialize()
 	DCP:Point("CENTER", E.UIParent, "CENTER")
 
 	E:CreateMover(DCP, "MER_CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,cooldownFlash')
-
-	function module:ForUpdateAll()
-		module.db = E.db.mui.cooldownFlash
-	end
-
-	self:ForUpdateAll()
 end
 
 MER:RegisterModule(module:GetName())

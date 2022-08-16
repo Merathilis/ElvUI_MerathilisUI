@@ -1,8 +1,9 @@
 ### Changes ###
 
-  * Add Timewalker Hearthstone to the LocPanel & MicroBar
-  * Expand the Wardrobe Frame.. Boomer Edition
-  * Changed the main texture again.. you will need to do my install to use my changes or do it on your own
-  * Fixed some styling things
-  * Adjust the Armory more
-  * Added a new Tag: [mUI:class:icon]
+  * Added also an Inspect Armory
+  * Added an own install step for the NamePlate Settings
+  * Wrath: Initial work on WotLK Classic
+  * Removed the Progress Info in the Tooltip. If you used it, please use Raider.io
+  * Added a simple gradient to the NamePlates. Idea Eltreum
+  * Added a Blacklist option for CooldownFlash
+  * Fix styling issues with BenikUI

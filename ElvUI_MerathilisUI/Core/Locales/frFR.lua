@@ -9,6 +9,11 @@ L["Size"] = true
 L["Width"] = true
 L["Height"] = true
 L["Alpha"] = true
+L["Outline"] = true
+L["X-Offset"] = true
+L["Y-Offset"] = true
+L["Icon Size"] = true
+L["Font Outline"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -331,6 +336,8 @@ L["Kyrian"] = true
 L["Venthyr"] = true
 L["NightFae"] = true
 L["Necrolord"] = true
+L["Pet Battle"] = true
+L["Tooltip Icons"] = true
 
 -- Notification
 L["Notification"] = "Notification"
@@ -403,7 +410,6 @@ L["The width of the buttons."] = "La largeur des boutons."
 L["Button Height"] = "Hauteur des boutons"
 L["The height of the buttons."] = "La hauteur des boutons."
 L["Counter"] = "Compteur"
-L["Outline"] = "Contour"
 L["Button Groups"] = "Groupes de boutons"
 L["Key Binding"] = "Raccourcis clavier"
 L["Custom Items"] = "Objets personnalisés"
@@ -599,6 +605,18 @@ L["Hide Coordinates"] = true
 L["Dungeon Teleports"] = true
 
 -- Maps
+L["Maps"] = true
+L["World Map"] = true
+L["Instance Difficulty"] = true
+L["Rectangle Minimap"] = true
+L["Duration"] = true
+L["Fade Out"] = true
+L["Scale"] = true
+L["Reskin the instance diffculty in text style."] = true
+L["Hide Blizzard"] = true
+L["Change the shape of ElvUI minimap."] = true
+L["Height Percentage"] = true
+L["Percentage of ElvUI minimap size."] = true
 L["MiniMap Buttons"] = true
 L["Minimap Ping"] = "Ping de la minicarte"
 L["Add Server Name"] = "Ajouter un nom de serveur"
@@ -648,6 +666,8 @@ L["Reveal"] = true
 L["Use Colored Fog"] = true
 L["Remove Fog of War from your world map."] = true
 L["Style Fog of War with special color."] = true
+L["Resize world map."] = true
+L["LFG Queue"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Bouton de la minicarte"
@@ -756,7 +776,8 @@ L["Reminder"] = true
 L["Reminds you on self Buffs."] = true
 
 -- Cooldowns
-L["CooldownFlash"] = true
+L["Cooldowns"] = true
+L["Cooldown Flash"] = true
 L["Settings"] = true
 L["Fadein duration"] = true
 L["Fadeout duration"] = true
@@ -857,6 +878,7 @@ L["This part of the installation process sets up your chat fonts and colors."] =
 L["This part of the installation changes the default ElvUI look."] = true
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = true
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = true
+L["This part of the installation process will change your NamePlates."] = true
 L["This part of the installation process will reposition your Unitframes."] = true
 L["This part of the installation process will apply changes to ElvUI Plugins"] = true
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = true
@@ -864,11 +886,13 @@ L["Please click the button below to apply the new layout."] = true
 L["Please click the button below to setup your chat windows."] = true
 L["Please click the button below to setup your actionbars."] = true
 L["Please click the button below to setup your datatexts."] = true
+L["Please click the button below to setup your NamePlates."] = true
 L["Please click the button below to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
 L["DataTexts"] = "Textes d'informations"
 L["General Layout"] = true
 L["Setup ActionBars"] = true
+L["Setup NamePlates"] = true
 L["Setup UnitFrames"] = true
 L["Setup Datatexts"] = true
 L["Setup Addons"] = true
@@ -922,6 +946,10 @@ L["Tree Group Button"] = true
 L["Shadow Color"] = true
 
 -- Panels
+L["Panels"] = true
+L["Top Panel"] = true
+L["Bottom Panel"] = true
+L["Style Panels"] = true
 L["Top Left Panel"] = true
 L["Top Left Extra Panel"] = true
 L["Top Right Panel"] = true

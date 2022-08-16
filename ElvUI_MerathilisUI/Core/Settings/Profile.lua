@@ -332,7 +332,6 @@ P.mail = {
 	enable = true,
 	defaultPage = "ALTS",
 	saveRecipient = true,
-
 }
 
 P.misc = {
@@ -482,6 +481,8 @@ local function Potions()
 		return "POTION,FLASK,UTILITY"
 	elseif E.TBC then
 		return "POTIONTBC,FLASKTBC,CAULDRONTBC,ELIXIRTBC,ORETBC,UTILITY"
+	elseif E.Wrath then
+		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
 		return "POTIONSL,FLASKSL,UTILITY"
 	end
@@ -1036,18 +1037,6 @@ P.tooltip = {
 	petIcon = true,
 	keystone = true,
 	titleColor = true,
-	progressInfo = {
-		enable = true,
-		raid = {
-			enable = true,
-			Uldir = false,
-			BattleOfDazaralor = false,
-			CrucibleOfStorms = false,
-			EternalPalace = true,
-			Nyalotha = true,
-			CastleNathria = true,
-		}
-	},
 	dominationRank = true,
 	covenant = {
 		enable = true,
@@ -1110,6 +1099,7 @@ P.reminder = {
 
 P.nameplates = {
 	castbarShield = true,
+	gradient = true,
 	enhancedAuras = {
 		enable = true,
 	},
@@ -1124,7 +1114,7 @@ P.cooldownFlash = {
 	iconSize = 40,
 	holdTime = 0.3,
 	petOverlay = {1, 1, 1},
-	ignoredSpells = "",
+	ignoredSpells = {},
 	invertIgnored = false,
 	enablePet = false,
 	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
@@ -1132,16 +1122,51 @@ P.cooldownFlash = {
 }
 
 P.armory = {
-	enable = true,
-	undressButton = true,
-	expandSize = true,
-	classIcon = true,
-	durability = {
+	character = {
 		enable = true,
-		onlydamaged = true,
-		font = "Expressway",
-		textSize = 11,
-		fontOutline = "OUTLINE",
+		undressButton = true,
+		expandSize = true,
+		classIcon = true,
+		showWarning = true,
+		durability = {
+			enable = true,
+			onlydamaged = true,
+			font = "Expressway",
+			textSize = 11,
+			fontOutline = "OUTLINE",
+		},
+		gradient = {
+			enable = true,
+			colorStyle = "VALUE",
+			color = {r = 1, g = 1, b = 0},
+			setArmor = true,
+			setArmorColor = {r = 0, g = 1, b = 0, a = 1},
+			warningColor = {r = 1, g = 0, b = 0, a = 1}
+		},
+		transmog = {
+			enable = true,
+		},
+		illusion = {
+			enable = true,
+		},
+		warning = {
+			enable = true,
+		},
+	},
+	inspect = {
+		enable = true,
+		classIcon = true,
+		gradient = {
+			enable = true,
+			colorStyle = "RARITY",
+			color = {r = 1, g = 1, b = 0},
+			setArmor = true,
+			setArmorColor = {r = 0, g = 1, b = 0, a = 1},
+			warningColor = {r = 1, g = 0, b = 0, a = 1}
+		},
+		warning = {
+			enable = true,
+		},
 	},
 	stats = {
 		OnlyPrimary = true,
@@ -1173,23 +1198,6 @@ P.armory = {
 			FOCUS_REGEN = false,
 			MOVESPEED = false,
 		},
-	},
-	gradient = {
-		enable = true,
-		colorStyle = "VALUE",
-		color = {r = 1, g = 1, b = 0},
-		setArmor = true,
-		setArmorColor = {r = 0, g = 1, b = 0, a = 1},
-		warningColor = {r = 1, g = 0, b = 0, a = 1}
-	},
-	transmog = {
-		enable = true,
-	},
-	illusion = {
-		enable = true,
-	},
-	warning = {
-		enable = true,
 	},
 }
 

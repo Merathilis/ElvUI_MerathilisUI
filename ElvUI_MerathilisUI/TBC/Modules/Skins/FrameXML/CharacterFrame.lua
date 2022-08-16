@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -9,11 +9,8 @@ local function LoadSkin()
 		return
 	end
 
-	-- Hide ElvUI Backdrop
 	local CharacterFrame = _G.CharacterFrame
-	if CharacterFrame.backdrop then
-		CharacterFrame.backdrop:Styling()
-	end
+	CharacterFrame.backdrop:Styling()
 	module:CreateBackdropShadow(CharacterFrame)
 end
 

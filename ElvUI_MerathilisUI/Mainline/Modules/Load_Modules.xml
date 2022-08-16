@@ -4,6 +4,7 @@
 	<Include file='Armory\Load_Armory.xml'/>
 	<Include file='Blizzard\Load_Blizzard.xml'/>
 	<Include file='Chat\Load_Chat.xml'/>
+	<Include file="ExtendedVendor\Load_ExtendedVendor.xml"/>
 	<Include file='FlightMode\Load_FlightMode.xml'/>
 	<Include file='Maps\Load_Maps.xml'/>
 	<Include file='Misc\Load_Misc.xml'/>

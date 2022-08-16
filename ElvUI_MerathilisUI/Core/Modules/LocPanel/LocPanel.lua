@@ -730,17 +730,6 @@ function module:Initialize()
 	self:Toggle()
 	self:ToggleCoords()
 
-	function module:ForUpdateAll()
-		local db = E.db.mui.locPanel
-		self:Resize()
-		self:Template()
-		self:Fonts()
-		self:Toggle()
-		self:ToggleCoords()
-	end
-
-	self:ForUpdateAll()
-
 	self:RegisterEvent("UNIT_AURA")
 	self:RegisterEvent("CHAT_MSG_SKILL")
 end

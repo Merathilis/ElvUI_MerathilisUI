@@ -73,7 +73,6 @@ local function SetupCVars()
 		SetCVar('profanityFilter', 0)
 	end
 
-
 	if F.IsDeveloper() and F.IsDeveloperRealm() then
 		SetCVar('taintLog', 1)
 		SetCVar('maxFPS', 165)
@@ -438,311 +437,6 @@ function MER:SetupLayout()
 
 	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,194"
 	E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,194"
-
-	--[[----------------------------------
-	--	ProfileDB - NamePlate
-	--]]----------------------------------
-	-- General
-	E.db["nameplates"]["threat"]["enable"] = false
-	E.db["nameplates"]["threat"]["useThreatColor"] = false
-	E.db["nameplates"]["clampToScreen"] = true
-	E.db["nameplates"]["colors"]["glowColor"] = {r = 0, g = 191/255, b = 250/255, a = 1}
-	E.db["nameplates"]["font"] = "Expressway"
-	E.db["nameplates"]["fontSize"] = 12
-	E.db["nameplates"]["stackFont"] = "Expressway"
-	E.db["nameplates"]["stackFontSize"] = 9
-	E.db["nameplates"]["smoothbars"] = true
-	E.db["nameplates"]["statusbar"] = "MER_NormTex"
-	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
-
-	-- Cooldowns
-	E.db["nameplates"]["cooldown"]["override"] = true
-	E.db["nameplates"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
-	E.db["nameplates"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
-	E.db["nameplates"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
-	E.db["nameplates"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
-	E.db["nameplates"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
-	E.db["nameplates"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
-	E.db["nameplates"]["cooldown"]["secondsColor"]["b"] = 0
-	E.db["nameplates"]["cooldown"]["fonts"]["enable"] = true
-	E.db["nameplates"]["cooldown"]["fonts"]["font"] = "Expressway"
-	E.db["nameplates"]["cooldown"]["daysColor"]["g"] = 0.4
-	E.db["nameplates"]["cooldown"]["daysColor"]["r"] = 0.4
-	E.db["nameplates"]["cooldown"]["hoursColor"]["r"] = 0.4
-
-	-- Player
-	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
-	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
-	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = '[name:abbrev:long]'
-	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["size"] = 20
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["yOffset"] = 2
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFont"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["PLAYER"]["level"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["PLAYER"]["level"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["sourceInterrupt"] = true
-	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
-	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["iconPosition"] = 'LEFT'
-
-	-- Friendly Player
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["yOffset"] = -9
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["enable"] = false
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["size"] = 20
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["yOffset"] = 13
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFont"] = 'Gotham Narrow Black'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["yOffset"] = -9
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["sourceInterrupt"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconPosition"] = 'LEFT'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconSize"] = 21
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconOffsetX"] = -2
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconOffsetY"] = -1
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["enable"] = false
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["font"] = "Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontOutline"] = "OUTLINE"
-
-	-- Enemy Player
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["healPrediction"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["yOffset"] = -9
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["enable"] = false
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["size"] = 20
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["yOffset"] = 2
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["font"] = "Expressway"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFont"] = 'Gotham Narrow Black'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["sourceInterrupt"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconPosition"] = 'LEFT'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconSize"] = 21
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconOffsetX"] = -2
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconOffsetY"] = -1
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["enable"] = false
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["font"] = "Expressway"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontOutline"] = "OUTLINE"
-
-	-- Friendly NPC
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = '[name:abbrev:long]'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["yOffset"] = -9
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["enable"] = false
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["text"]["font"] = "Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["text"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["size"] = 20
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["yOffset"] = 13
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["font"] = "Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["countFont"] = 'Expressway'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["countFontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["font"] = "Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFont"] = 'Expressway'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["yOffset"] = -9
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["format"] = '[difficultycolor][level]'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterrupt"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["yOffset"] = -10
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconPosition"] = 'LEFT'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconSize"] = 21
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconOffsetX"] = -2
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconOffsetY"] = -1
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["timeToHold"] = 0.8
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["position"] = 'RIGHT'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = 8
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["enable"] = false
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["font"] = "Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontOutline"] = "OUTLINE"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["xOffset"] = 1
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["yOffset"] = 0
-
-	-- Enemy NPC
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev:long]'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["yOffset"] = -9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["enable"] = false
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 26
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["height"] = 18
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 13
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["font"] = "Expressway"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFont"] = 'Expressway'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["priority"] = 'Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 26
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["height"] = 18
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["spacing"] = 2
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 33
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["keepSizeRatio"] = false
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["format"] = '[difficultycolor][level]'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["yOffset"] = -9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterrupt"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconPosition"] = 'LEFT'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconSize"] = 21
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconOffsetX"] = -2
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconOffsetY"] = -1
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 0.8
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["yOffset"] = -10
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 1
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 0
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = 'RIGHT'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["font"] = "Gotham Narrow Black"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["enable"] = false
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["font"] = "Expressway"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontOutline"] = "OUTLINE"
-
-	-- TARGETED
-	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.06 -- 106% scale
-	E.db["nameplates"]["units"]["TARGET"]["glowStyle"] = "style8"
-	E.db["nameplates"]["units"]["TARGET"]["arrow"] = 'ArrowRed'
-	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
-	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
-	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
-
-	--[[----------------------------------
-	--	ProfileDB - Style Filter
-	--]]----------------------------------
-	if E.Retail then
-		for _, filterName in pairs({'MerathilisUI_Neutral'}) do
-			E.global["nameplates"]["filters"][filterName] = {}
-			E.NamePlates:StyleFilterCopyDefaults(E.global["nameplates"]["filters"][filterName])
-			E.db["nameplates"]["filters"][filterName] = { triggers = { enable = true } }
-		end
-
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["actions"]["nameOnly"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["notTarget"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["outOfCombat"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["outOfVehicle"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["enable"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["neutral"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["reputation"] = true
-	end
-
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
@@ -1143,6 +837,318 @@ function MER:SetupActionbars()
 	PluginInstallStepComplete:Show()
 end
 
+function MER:SetupNamePlates()
+	--[[----------------------------------
+	--	ProfileDB - NamePlate
+	--]]----------------------------------
+
+	-- General
+	E.db["nameplates"]["threat"]["enable"] = false
+	E.db["nameplates"]["threat"]["useThreatColor"] = false
+	E.db["nameplates"]["clampToScreen"] = true
+	E.db["nameplates"]["colors"]["glowColor"] = {r = 0, g = 191/255, b = 250/255, a = 1}
+	E.db["nameplates"]["font"] = "Expressway"
+	E.db["nameplates"]["fontSize"] = 12
+	E.db["nameplates"]["stackFont"] = "Expressway"
+	E.db["nameplates"]["stackFontSize"] = 9
+	E.db["nameplates"]["smoothbars"] = true
+	E.db["nameplates"]["statusbar"] = "MER_NormTex"
+	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
+
+	-- Cooldowns
+	E.db["nameplates"]["cooldown"]["override"] = true
+	E.db["nameplates"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
+	E.db["nameplates"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
+	E.db["nameplates"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
+	E.db["nameplates"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
+	E.db["nameplates"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
+	E.db["nameplates"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
+	E.db["nameplates"]["cooldown"]["secondsColor"]["b"] = 0
+	E.db["nameplates"]["cooldown"]["fonts"]["enable"] = true
+	E.db["nameplates"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["nameplates"]["cooldown"]["daysColor"]["g"] = 0.4
+	E.db["nameplates"]["cooldown"]["daysColor"]["r"] = 0.4
+	E.db["nameplates"]["cooldown"]["hoursColor"]["r"] = 0.4
+
+	-- Player
+	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = '[name:abbrev:long]'
+	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["size"] = 20
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["yOffset"] = 2
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFont"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFontSize"] = 8
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["numAuras"] = 8
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["size"] = 24
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFontSize"] = 8
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["PLAYER"]["level"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["PLAYER"]["level"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["sourceInterrupt"] = true
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["iconPosition"] = 'LEFT'
+
+	-- Friendly Player
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["yOffset"] = -9
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["enable"] = false
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["size"] = 20
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["yOffset"] = 13
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFont"] = 'Gotham Narrow Black'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFontSize"] = 8
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["numAuras"] = 8
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["size"] = 24
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFontSize"] = 8
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["yOffset"] = -9
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["sourceInterrupt"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconPosition"] = 'LEFT'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconSize"] = 21
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconOffsetX"] = -2
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconOffsetY"] = -1
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontOutline"] = "OUTLINE"
+
+	-- Enemy Player
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["healPrediction"] = true
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["yOffset"] = -9
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["enable"] = false
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["size"] = 20
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["yOffset"] = 2
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFont"] = 'Gotham Narrow Black'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFontSize"] = 8
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 8
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["size"] = 24
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFontSize"] = 8
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["sourceInterrupt"] = true
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconPosition"] = 'LEFT'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconSize"] = 21
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconOffsetX"] = -2
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconOffsetY"] = -1
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontOutline"] = "OUTLINE"
+
+	-- Friendly NPC
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = '[name:abbrev:long]'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["yOffset"] = -9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["enable"] = false
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["text"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["size"] = 20
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["yOffset"] = 13
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["countFont"] = 'Expressway'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["countFontOutline"] = 'OUTLINE'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["countFontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["numAuras"] = 8
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["size"] = 24
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFont"] = 'Expressway'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFontOutline"] = 'OUTLINE'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["yOffset"] = -9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["format"] = '[difficultycolor][level]'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterrupt"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["yOffset"] = -10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconPosition"] = 'LEFT'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconSize"] = 21
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconOffsetX"] = -2
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconOffsetY"] = -1
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["timeToHold"] = 0.8
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = 8
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["xOffset"] = 1
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["yOffset"] = 0
+
+	-- Enemy NPC
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev:long]'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["yOffset"] = -9
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["enable"] = false
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 26
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["height"] = 18
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 13
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFont"] = 'Expressway'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFontOutline"] = 'OUTLINE'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["priority"] = 'Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 26
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["height"] = 18
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["spacing"] = 2
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 33
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFont"] = 'Gotham Narrow Black'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontOutline"] = 'OUTLINE'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontSize"] = 8
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["keepSizeRatio"] = false
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["format"] = '[difficultycolor][level]'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["yOffset"] = -9
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterrupt"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconPosition"] = 'LEFT'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconSize"] = 21
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconOffsetX"] = -2
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconOffsetY"] = -1
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 0.8
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["yOffset"] = -10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 1
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 0
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["font"] = "Gotham Narrow Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontOutline"] = "OUTLINE"
+
+	-- TARGETED
+	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.06 -- 106% scale
+	E.db["nameplates"]["units"]["TARGET"]["glowStyle"] = "style8"
+	E.db["nameplates"]["units"]["TARGET"]["arrow"] = 'ArrowRed'
+	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
+	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
+	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
+
+	--[[----------------------------------
+	--	ProfileDB - Style Filter
+	--]]----------------------------------
+	if E.Retail then
+		for _, filterName in pairs({'MerathilisUI_Neutral'}) do
+			E.global["nameplates"]["filters"][filterName] = {}
+			E.NamePlates:StyleFilterCopyDefaults(E.global["nameplates"]["filters"][filterName])
+			E.db["nameplates"]["filters"][filterName] = { triggers = { enable = true } }
+		end
+
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["actions"]["nameOnly"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["notTarget"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["outOfCombat"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["outOfVehicle"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["enable"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["neutral"] = true
+		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["reputation"] = true
+	end
+
+	E:StaggeredUpdateAll(nil, true)
+
+	PluginInstallStepComplete.message = MER.Title..L["NamePlates Set"]
+	PluginInstallStepComplete:Show()
+end
+
 function MER:SetupUnitframes()
 	if not E.db.movers then
 		E.db.movers = {}
@@ -1322,21 +1328,23 @@ function MER:SetupUnitframes()
 		["fontOutline"] = "OUTLINE",
 		["size"] = 12,
 		["justifyH"] = "CENTER",
-		["text_format"] = "[power:current:shortvalue]",
+		["text_format"] = "[power:current-mUI]",
 		["attachTextTo"] = "Power",
 		["xOffset"] = 0,
 		["yOffset"] = 0,
 	}
-	E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = {
-		["font"] = "Gotham Narrow Black",
-		["fontOutline"] = "OUTLINE",
-		["size"] = 12,
-		["justifyH"] = "CENTER",
-		["text_format"] = "[additionalmana:current:shortvalue]",
-		["attachTextTo"] = "AdditionalPower",
-		["xOffset"] = 0,
-		["yOffset"] = 0,
-	}
+	if E.Retail then
+		E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = {
+			["font"] = "Gotham Narrow Black",
+			["fontOutline"] = "OUTLINE",
+			["size"] = 12,
+			["justifyH"] = "CENTER",
+			["text_format"] = "[additionalmana:current:shortvalue]",
+			["attachTextTo"] = "AdditionalPower",
+			["xOffset"] = 0,
+			["yOffset"] = 0,
+		}
+	end
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Group"] = {
 		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
@@ -2196,7 +2204,7 @@ function MER:SetupDts()
 		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "Missions"
 		E.db["datatexts"]["panels"]["MER_RightChatTop"][2] = "Durability"
 		E.db["datatexts"]["panels"]["MER_RightChatTop"][3] = "Gold"
-	elseif E.Classic or E.TBC then
+	elseif E.Classic or E.TBC or E.Wrath then
 		E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 2
 		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "Durability"
 		E.db["datatexts"]["panels"]["MER_RightChatTop"][2] = "Gold"
@@ -2322,6 +2330,15 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["Setup ActionBars"])
 		end,
 		[7] = function()
+			PluginInstallFrame.SubTitle:SetText(L["NamePlates"])
+			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will change your NamePlates."])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your NamePlates."])
+			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupNamePlates() end)
+			PluginInstallFrame.Option1:SetText(L["Setup NamePlates"])
+		end,
+		[8] = function()
 			PluginInstallFrame.SubTitle:SetText(L["UnitFrames"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will reposition your Unitframes."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your Unitframes."])
@@ -2330,7 +2347,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupUnitframes() end)
 			PluginInstallFrame.Option1:SetText(L["Setup UnitFrames"])
 		end,
-		[8] = function()
+		[9] = function()
 			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will apply changes to ElvUI Plugins"])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"])
@@ -2339,7 +2356,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupAddOns() end)
 			PluginInstallFrame.Option1:SetText(L["Setup Addons"])
 		end,
-		[9] = function()
+		[10] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
 			PluginInstallFrame.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
@@ -2364,9 +2381,10 @@ MER.installTable = {
 		[4] = L["Chat"],
 		[5] = L["DataTexts"],
 		[6] = L["ActionBars"],
-		[7] = L["UnitFrames"],
-		[8] = ADDONS,
-		[9] = L["Installation Complete"],
+		[7] = L["NamePlates"],
+		[8] = L["UnitFrames"],
+		[9] = ADDONS,
+		[10] = L["Installation Complete"],
 	},
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],
 	StepTitleWidth = 200,

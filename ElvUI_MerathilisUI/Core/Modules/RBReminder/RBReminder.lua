@@ -294,6 +294,7 @@ function module:Initialize()
 	if not E.Retail then return end
 
 	module.db = E.db.mui.raidBuffs
+	if not module.db.enable then return end
 
 	-- Anchor
 	self.Anchor = CreateFrame("Frame", "RaidBuffAnchor", E.UIParent)
@@ -337,12 +338,7 @@ function module:Initialize()
 
 	E:CreateMover(self.frame, "MER_RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,modules,raidBuffs')
 
-	function module:ForUpdateAll()
-		module.db = E.db.mui.raidBuffs
-		self:Visibility()
-	end
-
-	self:ForUpdateAll()
+	self:Visibility()
 end
 
 MER:RegisterModule(module:GetName())

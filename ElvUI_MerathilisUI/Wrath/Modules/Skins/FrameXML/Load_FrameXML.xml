@@ -2,5 +2,13 @@
 	<Script file="AddonList.lua"/>
 	<Script file="Arena.lua"/>
 	<Script file="ArenaRegistrar.lua"/>
+	<Script file="CharacterFrame.lua"/>
+	<Script file="FriendsFrame.lua"/>
+	<Script file="GameMenuFrame.lua"/>
+	<Script file="GossipFrame.lua"/>
+	<Script file="MerchantFrame.lua"/>
+	<Script file="QuestFrame.lua"/>
+	<Script file="QuestLogFrame.lua"/>
+	<Script file="SpellBookFrame.lua"/>
 	<Script file="WorldStateFrame.lua"/>
 </Ui>

@@ -214,6 +214,7 @@ local DEVELOPER = {
 	E:TextGradient('Simpy but my name needs to be longer', 0.27,0.72,0.86, 0.51,0.36,0.80, 0.69,0.28,0.94, 0.94,0.28,0.63, 1.00,0.51,0.00, 0.27,0.96,0.43),
 	'fgprodigal',
 	AddColor('fang2hou'),
+	'|cff1784d1Eltreum|r',
 }
 
 local nameString = strjoin(", ", unpack(DEVELOPER))

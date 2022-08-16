@@ -58,6 +58,16 @@ F.ClassGradient = {
 	["NPCNEUTRAL"] = {r1 = 0.71, g1 = 0.63, b1 = 0.15, r2 = 1, g2 = 0.85, b2 = 0.20},
 	["NPCUNFRIENDLY"] = {r1 = 0.84, g1 = 0.30, b1 = 0, r2 = 0.83, g2 = 0.45, b2 = 0},
 	["NPCHOSTILE"] = {r1 = 0.31, g1 = 0.06, b1 = 0.07, r2 = 1, g2 = 0.15, b2 = 0.15},
+
+	["TAPPED"] = {r1 = 0.6, g1 = 0.6, b1 = 0.60, r2 = 0, g2 = 0, b2 = 0},
+
+	["GOODTHREAT"] = {r1 = 0.1999995559454, g1 = 0.7098023891449, b1 = 0, r2 = 1, g2 = 0, b2 = 0},
+	["BADTHREAT"] = {r1 = 0.99999779462814, g1 = 0.1764702051878, b1 = 0.1764702051878, r2 = 1, g2 = 0, b2 = 0},
+	["GOODTHREATTRANSITION"] = {r1 = 0.99999779462814, g1 = 0.85097849369049, b1 = 0.1999995559454, r2 = 1, g2 = 0, b2 = 0},
+	["BADTHREATTRANSITION"] = {r1 = 0.99999779462814, g1 = 0.50980281829834, b1 = 0.1999995559454, r2 = 1, g2 = 0, b2 = 0},
+	["OFFTANK"] = {r1 = 0.95686066150665, g1 = 0.54901838302612, b1 = 0.72941017150879, r2 = 1, g2 = 0, b2 = 0},
+	["OFFTANKBADTHREATTRANSITION"]  = {r1 = 0.77646887302399, g1 = 0.60784178972244, b1 = 0.4274500310421, r2 = 1, g2 = 0, b2 = 0},
+	["OFFTANKGOODTHREATTRANSITION"]  = {r1 = 0.37646887302399, g1 = 0.90784178972244, b1 = 0.9274500310421, r2 = 1, g2 = 0, b2 = 0},
 }
 
 F.ClassColors = {}
@@ -136,6 +146,22 @@ function F.CreateClassColorString(text, englishClass)
 	local hex = r and g and b and E:RGBToHex(r, g, b) or "|cffffffff"
 
 	return hex .. text .. "|r"
+end
+
+function F.GradientColors(unitclass, invert, alpha)
+	if invert then
+		if alpha then
+			return F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, 1, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, 1
+		else
+			return F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1
+		end
+	else
+		if alpha then
+			return F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, 1, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, 1
+		else
+			return F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2
+		end
+	end
 end
 
 do

@@ -85,14 +85,6 @@ function module:Initialize()
 	if IsAddOnLoaded("ElvUI_SLE") then return; end
 
 	module.db = E.db.mui.media
-	function module:ForUpdateAll()
-		module.db = E.db.mui.media
-
-		if module.db.zoneText.enable then
-			hooksecurefunc("SetZoneText", ZoneTextPos)
-		end
-	end
-	self:ForUpdateAll()
 
 	if module.db.zoneText.enable then
 		hooksecurefunc("SetZoneText", ZoneTextPos)
