@@ -10,6 +10,7 @@ local reactionType
 
 function module:Health_UpdateColor(_, unit)
 	if not E.db.mui.nameplates.gradient then return end
+	if E.db.nameplates.threat.enable then return end
 
 	if not unit or self.unit ~= unit then return end
 	local element = self.Health
