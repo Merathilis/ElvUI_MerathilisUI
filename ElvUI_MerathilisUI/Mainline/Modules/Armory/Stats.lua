@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Armory')
+local M = E:GetModule('Misc')
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
@@ -23,247 +24,65 @@ local PaperDollFrame_SetLabelAndText = PaperDollFrame_SetLabelAndText
 local UnitSex = UnitSex
 local MovementSpeed_OnEnter, MovementSpeed_OnUpdate = MovementSpeed_OnEnter, MovementSpeed_OnUpdate
 local UnitClass, GetSpecialization, GetSpecializationRole = UnitClass, GetSpecialization, GetSpecializationRole
-
-local LE_UNIT_STAT_STRENGTH, LE_UNIT_STAT_AGILITY, LE_UNIT_STAT_INTELLECT = LE_UNIT_STAT_STRENGTH, LE_UNIT_STAT_AGILITY, LE_UNIT_STAT_INTELLECT
-local STAT_ATTACK_SPEED_BASE_TOOLTIP = STAT_ATTACK_SPEED_BASE_TOOLTIP
-local FONT_COLOR_CODE_CLOSE, HIGHLIGHT_FONT_COLOR_CODE = FONT_COLOR_CODE_CLOSE, HIGHLIGHT_FONT_COLOR_CODE
-local ATTACK_SPEED = ATTACK_SPEED
-local PAPERDOLLFRAME_TOOLTIP_FORMAT = PAPERDOLLFRAME_TOOLTIP_FORMAT
-local WEAPON_SPEED = WEAPON_SPEED
-local STAT_LIFESTEAL, CR_LIFESTEAL_TOOLTIP, CR_LIFESTEAL = STAT_LIFESTEAL, CR_LIFESTEAL_TOOLTIP, CR_LIFESTEAL
-local STAT_CRITICAL_STRIKE, CR_CRIT_SPELL, CR_CRIT_RANGED, CR_CRIT_MELEE, CR_CRIT_TOOLTIP = STAT_CRITICAL_STRIKE, CR_CRIT_SPELL, CR_CRIT_RANGED, CR_CRIT_MELEE, CR_CRIT_TOOLTIP
-local CR_CRIT_PARRY_RATING_TOOLTIP, CR_PARRY = CR_CRIT_PARRY_RATING_TOOLTIP, CR_PARRY
-local CR_HASTE_MELEE, STAT_HASTE, STAT_HASTE_TOOLTIP, STAT_HASTE_BASE_TOOLTIP = CR_HASTE_MELEE, STAT_HASTE, STAT_HASTE_TOOLTIP, STAT_HASTE_BASE_TOOLTIP
-local STAT_PARRY, PARRY_CHANCE, CR_PARRY_TOOLTIP = STAT_PARRY, PARRY_CHANCE, CR_PARRY_TOOLTIP
-local STAT_DODGE, DODGE_CHANCE, CR_DODGE_TOOLTIP, CR_DODGE = STAT_DODGE, DODGE_CHANCE, CR_DODGE_TOOLTIP, CR_DODGE
-local STAT_AVOIDANCE, CR_AVOIDANCE_TOOLTIP, CR_AVOIDANCE = STAT_AVOIDANCE, CR_AVOIDANCE_TOOLTIP, CR_AVOIDANCE
-local CR_VERSATILITY_DAMAGE_DONE, CR_VERSATILITY_DAMAGE_TAKEN, STAT_VERSATILITY, VERSATILITY_TOOLTIP_FORMAT, CR_VERSATILITY_TOOLTIP = CR_VERSATILITY_DAMAGE_DONE, CR_VERSATILITY_DAMAGE_TAKEN, STAT_VERSATILITY, VERSATILITY_TOOLTIP_FORMAT, CR_VERSATILITY_TOOLTIP
-local STAT_MASTERY = STAT_MASTERY
-local MAX_SPELL_SCHOOLS = MAX_SPELL_SCHOOLS
-local RED_FONT_COLOR_CODE = RED_FONT_COLOR_CODE
-
 local CreateFrame = CreateFrame
 
 module.totalShown = 0
 module.ScrollStepMultiplier = 5
+module.OriginalPaperdollStats = PAPERDOLL_STATCATEGORIES
 
---Replacing broken Blizz function and adding some decimals
---Atteack speed
-function PaperDollFrame_SetAttackSpeed(statFrame, unit)
-	local meleeHaste = GetMeleeHaste();
-	local speed, offhandSpeed = UnitAttackSpeed(unit);
-	local displaySpeedxt
+function module:BuildNewStats()
+	module:CreateStatCategory("OffenseCategory", STAT_CATEGORY_ATTACK)
+	module:CreateStatCategory("DefenceCategory", DEFENSE)
 
-	local displaySpeed = format("%.2f", speed);
-	if ( offhandSpeed ) then
-		offhandSpeed = format("%.2f", offhandSpeed);
-	end
-	if ( offhandSpeed ) then
-		displaySpeedxt =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed;
-	else
-		displaySpeedxt =  BreakUpLargeNumbers(displaySpeed);
-	end
-	PaperDollFrame_SetLabelAndText(statFrame, WEAPON_SPEED, displaySpeed, false, speed);
-
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED).." "..displaySpeed..FONT_COLOR_CODE_CLOSE;
-	statFrame.tooltip2 = format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste));
-
-	statFrame:Show();
-end
-
---Moving speed
-function PaperDollFrame_SetMovementSpeed(statFrame, unit)
-	statFrame.wasSwimming = nil;
-	statFrame.unit = unit;
-	MovementSpeed_OnUpdate(statFrame);
-
-	statFrame.onEnterFunc = MovementSpeed_OnEnter;
-	-- TODO: Fix if we decide to show movement speed
-	-- statFrame:SetScript("OnUpdate", MovementSpeed_OnUpdate);
-
-	statFrame:Show();
-end
-
--- Versatility
-function PaperDollFrame_SetVersatility(statFrame, unit)
-	if ( unit ~= "player" ) then
-		statFrame:Hide();
-		return;
-	end
-
-	local versatility = GetCombatRating(CR_VERSATILITY_DAMAGE_DONE);
-	local versatilityDamageBonus = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_DONE) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_DONE);
-	local versatilityDamageTakenReduction = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_TAKEN) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_TAKEN);
-	-- PaperDollFrame_SetLabelAndText Format Change
-	PaperDollFrame_SetLabelAndText(statFrame, STAT_VERSATILITY, format("%.2f%%", versatilityDamageBonus) .. " / " .. format("%.2f%%", versatilityDamageTakenReduction), false, versatilityDamageBonus);
-
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(VERSATILITY_TOOLTIP_FORMAT, STAT_VERSATILITY, versatilityDamageBonus, versatilityDamageTakenReduction) .. FONT_COLOR_CODE_CLOSE;
-	statFrame.tooltip2 = format(CR_VERSATILITY_TOOLTIP, versatilityDamageBonus, versatilityDamageTakenReduction, BreakUpLargeNumbers(versatility), versatilityDamageBonus, versatilityDamageTakenReduction);
-
-	statFrame:Show();
-end
-
--- Mastery
-function PaperDollFrame_SetMastery(statFrame, unit)
-	if ( unit ~= "player" ) then
-		statFrame:Hide();
-		return;
-	end
-	--if (UnitLevel("player") < SHOW_MASTERY_LEVEL) then
-		--statFrame:Hide();
-		--return;
-	--end
-
-	local mastery = GetMasteryEffect();
-	-- PaperDollFrame_SetLabelAndText Format Change
-	PaperDollFrame_SetLabelAndText(statFrame, STAT_MASTERY, format("%.2f%%", mastery), false, mastery);
-	statFrame.onEnterFunc = Mastery_OnEnter;
-	statFrame:Show();
-end
-
--- Leech (Lifesteal)
-function PaperDollFrame_SetLifesteal(statFrame, unit)
-	if ( unit ~= "player" ) then
-		statFrame:Hide();
-		return;
-	end
-
-	local lifesteal = GetLifesteal();
-	-- PaperDollFrame_SetLabelAndText Format Change
-	PaperDollFrame_SetLabelAndText(statFrame, STAT_LIFESTEAL, format("%.2f%%", lifesteal), false, lifesteal);
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_LIFESTEAL) .. " " .. format("%.2f%%", lifesteal) .. FONT_COLOR_CODE_CLOSE;
-
-	statFrame.tooltip2 = format(CR_LIFESTEAL_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_LIFESTEAL)), GetCombatRatingBonus(CR_LIFESTEAL));
-
-	statFrame:Show();
-end
-
--- Avoidance
-function PaperDollFrame_SetAvoidance(statFrame, unit)
-	if ( unit ~= "player" ) then
-		statFrame:Hide();
-		return;
-	end
-
-	local avoidance = GetAvoidance();
-	-- PaperDollFrame_SetLabelAndText Format Change
-	PaperDollFrame_SetLabelAndText(statFrame, STAT_AVOIDANCE, format("%.2f%%", avoidance), false, avoidance);
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_AVOIDANCE) .. " " .. format("%.2f%%", avoidance) .. FONT_COLOR_CODE_CLOSE;
-
-	statFrame.tooltip2 = format(CR_AVOIDANCE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_AVOIDANCE)), GetCombatRatingBonus(CR_AVOIDANCE));
-
-	statFrame:Show();
-end
-
--- Dodge Chance
-function PaperDollFrame_SetDodge(statFrame, unit)
-	if (unit ~= "player") then
-		statFrame:Hide();
-		return;
-	end
-
-	local chance = GetDodgeChance();
-	-- PaperDollFrame_SetLabelAndText Format Change
-	PaperDollFrame_SetLabelAndText(statFrame, STAT_DODGE, format("%.2f%%", chance), false, chance);
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, DODGE_CHANCE).." "..format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
-	statFrame.tooltip2 = format(CR_DODGE_TOOLTIP, GetCombatRating(CR_DODGE), GetCombatRatingBonus(CR_DODGE));
-	statFrame:Show();
-end
-
--- Parry Chance
-function PaperDollFrame_SetParry(statFrame, unit)
-	if (unit ~= "player") then
-		statFrame:Hide();
-		return;
-	end
-
-	local chance = GetParryChance();
-	-- PaperDollFrame_SetLabelAndText Format Change
-	PaperDollFrame_SetLabelAndText(statFrame, STAT_PARRY, format("%.2f%%", chance), false, chance);
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, PARRY_CHANCE).." "..format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
-	statFrame.tooltip2 = format(CR_PARRY_TOOLTIP, GetCombatRating(CR_PARRY), GetCombatRatingBonus(CR_PARRY));
-	statFrame:Show();
-end
-
--- Crit Chance
-function PaperDollFrame_SetCritChance(statFrame, unit)
-	if ( unit ~= "player" ) then
-		statFrame:Hide();
-		return;
-	end
-
-	local rating;
-	local spellCrit, rangedCrit, meleeCrit;
-	local critChance;
-
-	-- Start at 2 to skip physical damage
-	local holySchool = 2;
-	local minCrit = GetSpellCritChance(holySchool);
-	statFrame.spellCrit = {};
-	statFrame.spellCrit[holySchool] = minCrit;
-	local spellCrit;
-	for i=(holySchool+1), MAX_SPELL_SCHOOLS do
-		spellCrit = GetSpellCritChance(i);
-		minCrit = math_min(minCrit, spellCrit);
-		statFrame.spellCrit[i] = spellCrit;
-	end
-	spellCrit = minCrit
-	rangedCrit = GetRangedCritChance();
-	meleeCrit = GetCritChance();
-
-	if (spellCrit >= rangedCrit and spellCrit >= meleeCrit) then
-		critChance = spellCrit;
-		rating = CR_CRIT_SPELL;
-	elseif (rangedCrit >= meleeCrit) then
-		critChance = rangedCrit;
-		rating = CR_CRIT_RANGED;
-	else
-		critChance = meleeCrit;
-		rating = CR_CRIT_MELEE;
-	end
-
-	-- PaperDollFrame_SetLabelAndText Format Change
-	PaperDollFrame_SetLabelAndText(statFrame, STAT_CRITICAL_STRIKE, format("%.2f%%", critChance), false, critChance);
-
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_CRITICAL_STRIKE).." "..format("%.2f%%", critChance)..FONT_COLOR_CODE_CLOSE;
-	local extraCritChance = GetCombatRatingBonus(rating);
-	local extraCritRating = GetCombatRating(rating);
-	if (GetCritChanceProvidesParryEffect()) then
-		statFrame.tooltip2 = format(CR_CRIT_PARRY_RATING_TOOLTIP, BreakUpLargeNumbers(extraCritRating), extraCritChance, GetCombatRatingBonusForCombatRatingValue(CR_PARRY, extraCritRating));
-	else
-		statFrame.tooltip2 = format(CR_CRIT_TOOLTIP, BreakUpLargeNumbers(extraCritRating), extraCritChance);
-	end
-	statFrame:Show();
-end
-
--- Haste
-function PaperDollFrame_SetHaste(statFrame, unit)
-	if ( unit ~= "player" ) then
-		statFrame:Hide();
-		return;
-	end
-
-	local haste = GetHaste();
-	local rating = CR_HASTE_MELEE;
-
-	local hasteFormatString;
-	if (haste < 0) then
-		hasteFormatString = RED_FONT_COLOR_CODE.."%s"..FONT_COLOR_CODE_CLOSE;
-	else
-		hasteFormatString = "%s";
-	end
-	-- PaperDollFrame_SetLabelAndText Format Change
-	PaperDollFrame_SetLabelAndText(statFrame, STAT_HASTE, format(hasteFormatString, format("%.2f%%", haste)), false, haste);
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_HASTE) .. " " .. format(hasteFormatString, format("%.2f%%", haste)) .. FONT_COLOR_CODE_CLOSE;
-
-	local _, class = UnitClass(unit);
-	statFrame.tooltip2 = _G["STAT_HASTE_"..class.."_TOOLTIP"];
-	if (not statFrame.tooltip2) then
-		statFrame.tooltip2 = STAT_HASTE_TOOLTIP;
-	end
-	statFrame.tooltip2 = statFrame.tooltip2 .. format(STAT_HASTE_BASE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(rating)), GetCombatRatingBonus(rating));
-
-	statFrame:Show();
+	module.ChangedStats = {
+		[1] = {
+			categoryFrame = "AttributesCategory",
+			stats = {
+				[1] = { stat = "STRENGTH", primary = LE_UNIT_STAT_STRENGTH },
+				[2] = { stat = "AGILITY", primary = LE_UNIT_STAT_AGILITY },
+				[3] = { stat = "INTELLECT", primary = LE_UNIT_STAT_INTELLECT },
+				[4] = { stat = "STAMINA" },
+				[5] = { stat = "HEALTH", option = true },
+				[6] = { stat = "POWER", option = true },
+				[7] = { stat = "ALTERNATEMANA", option = true, classes = {"PRIEST", "SHAMAN", "DRUID"} },
+				[8] = { stat = "MOVESPEED", option = true },
+			},
+		},
+		[2] = {
+			categoryFrame = "OffenseCategory",
+			stats = {
+				[1] = { stat = "ATTACK_DAMAGE", option = true, hideAt = 0 },
+				[2] = { stat = "ATTACK_AP", option = true, hideAt = 0 },
+				[3] = { stat = "ATTACK_ATTACKSPEED", option = true, hideAt = 0 },
+				[4] = { stat = "SPELLPOWER", option = true, hideAt = 0 },
+				[5] = { stat = "MANAREGEN", option = true, power = "MANA" },
+				[6] = { stat = "ENERGY_REGEN", option = true, power = "ENERGY", hideAt = 0, roles = {"TANK", "DAMAGER"}, classes = {"ROUGE", "DRUID", "MONK"} },
+				[7] = { stat = "FOCUS_REGEN", option = true, power = "FOCUS", hideAt = 0, classes = {"HUNTER"} },
+				[8] = { stat = "RUNE_REGEN", option = true, power = "RUNIC_POWER", hideAt = 0, classes = {"DEATHKNIGHT"} },
+			},
+		},
+		[3] = {
+			categoryFrame = "EnhancementsCategory",
+			stats = {
+				[1] = { stat = "CRITCHANCE", hideAt = 0 },
+				[2] = { stat = "HASTE", hideAt = 0 },
+				[3] = { stat = "MASTERY", hideAt = 0 },
+				[4] = { stat = "VERSATILITY", hideAt = 0 },
+				[5] = { stat = "LIFESTEAL", hideAt = 0 },
+			},
+		},
+		[4] = {
+			categoryFrame = "DefenceCategory",
+			stats = {
+				[1] = { stat = "ARMOR", roles = { "TANK" } },
+				[2] = { stat = "AVOIDANCE", hideAt = 0 },
+				[3] = { stat = "DODGE", roles = {"TANK"} },
+				[4] = { stat = "PARRY", hideAt = 0, roles = {"TANK"} },
+				[5] = { stat = "BLOCK", hideAt = 0, roles = {"TANK"} },
+				[6] = { stat = "STAGGER", hideAt = 0, roles = {"TANK"}, classes = {"MONK"} },
+			},
+		},
+	};
 end
 
 local function CharacterStatFrameCategoryTemplate(Button)
@@ -290,64 +109,226 @@ function module:CreateStatCategory(catName, text, noop)
 	return catName
 end
 
-function module:ResetAllStats()
-	PAPERDOLL_STATCATEGORIES = {
-		[1] = {
-			categoryFrame = "AttributesCategory",
-			stats = {
-				[1] = { stat = "STRENGTH", primary = LE_UNIT_STAT_STRENGTH },
-				[2] = { stat = "AGILITY", primary = LE_UNIT_STAT_AGILITY },
-				[3] = { stat = "INTELLECT", primary = LE_UNIT_STAT_INTELLECT },
-				[4] = { stat = "STAMINA" },
-				[5] = { stat = "HEALTH", option = true },
-				[6] = { stat = "POWER", option = true },
-				[7] = { stat = "ALTERNATEMANA", option = true, classes = {"PRIEST", "SHAMAN", "DRUID"} },
-				[8] = { stat = "MOVESPEED", option = true },
-			},
-		},
-		[2] = {
-			categoryFrame = module:CreateStatCategory("OffenseCategory", STAT_CATEGORY_ATTACK),
-			stats = {
-				[1] = { stat = "ATTACK_DAMAGE", option = true, hideAt = 0 },
-				[2] = { stat = "ATTACK_AP", option = true, hideAt = 0 },
-				[3] = { stat = "ATTACK_ATTACKSPEED", option = true, hideAt = 0 },
-				[4] = { stat = "SPELLPOWER", option = true, hideAt = 0 },
-				[5] = { stat = "MANAREGEN", option = true, power = "MANA" },
-				[6] = { stat = "ENERGY_REGEN", option = true, power = "ENERGY", hideAt = 0, roles = {"TANK", "DAMAGER"}, classes = {"ROUGE", "DRUID", "MONK"} },
-				[7] = { stat = "FOCUS_REGEN", option = true, power = "FOCUS", hideAt = 0, classes = {"HUNTER"} },
-				[8] = { stat = "RUNE_REGEN", option = true, power = "RUNIC_POWER", hideAt = 0, classes = {"DEATHKNIGHT"} },
-			},
-		},
-		[3] = {
-			categoryFrame = "EnhancementsCategory",
-			stats = {
-				[1] = { stat = "CRITCHANCE", hideAt = 0 },
-				[2] = { stat = "HASTE", hideAt = 0 },
-				[3] = { stat = "MASTERY", hideAt = 0 },
-				[4] = { stat = "VERSATILITY", hideAt = 0 },
-				[5] = { stat = "LIFESTEAL", hideAt = 0 },
-			},
-		},
-		[4] = {
-			categoryFrame = module:CreateStatCategory("DefenceCategory", DEFENSE),
-			stats = {
-				[1] = { stat = "ARMOR", roles = { "TANK" } },
-				[2] = { stat = "AVOIDANCE", hideAt = 0 },
-				[3] = { stat = "DODGE", roles = {"TANK"} },
-				[4] = { stat = "PARRY", hideAt = 0, roles = {"TANK"} },
-				[5] = { stat = "BLOCK", hideAt = 0, roles = {"TANK"} },
-				[6] = { stat = "STAGGER", hideAt = 0, roles = {"TANK"}, classes = {"MONK"} },
-			},
-		},
-	};
-end
+--Replacing broken Blizz function and adding some decimals
+function module:ReplaceBlizzGlobals()
 
-function module:ToggleStats()
-	module:ResetAllStats()
-	PaperDollFrame_UpdateStats();
+	--Atteack speed
+	function PaperDollFrame_SetAttackSpeed(statFrame, unit)
+		local meleeHaste = GetMeleeHaste();
+		local speed, offhandSpeed = UnitAttackSpeed(unit);
+		local displaySpeedxt
 
-	_G.CharacterFrame:HookScript('OnShow', module.UpdateCharacterItemLevel)
-	_G.CharacterFrame.ItemLevelText:SetText('')
+		local displaySpeed = format("%.2f", speed);
+		if ( offhandSpeed ) then
+			offhandSpeed = format("%.2f", offhandSpeed);
+		end
+		if ( offhandSpeed ) then
+			displaySpeedxt =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed;
+		else
+			displaySpeedxt =  BreakUpLargeNumbers(displaySpeed);
+		end
+		PaperDollFrame_SetLabelAndText(statFrame, WEAPON_SPEED, displaySpeed, false, speed);
+
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED).." "..displaySpeed..FONT_COLOR_CODE_CLOSE;
+		statFrame.tooltip2 = format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste));
+
+		statFrame:Show();
+	end
+
+	--Moving speed
+	function PaperDollFrame_SetMovementSpeed(statFrame, unit)
+		statFrame.wasSwimming = nil;
+		statFrame.unit = unit;
+		MovementSpeed_OnUpdate(statFrame);
+
+		statFrame.onEnterFunc = MovementSpeed_OnEnter;
+		-- TODO: Fix if we decide to show movement speed
+		-- statFrame:SetScript("OnUpdate", MovementSpeed_OnUpdate);
+
+		statFrame:Show();
+	end
+
+	-- Versatility
+	function PaperDollFrame_SetVersatility(statFrame, unit)
+		if ( unit ~= "player" ) then
+			statFrame:Hide();
+			return;
+		end
+
+		local versatility = GetCombatRating(CR_VERSATILITY_DAMAGE_DONE);
+		local versatilityDamageBonus = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_DONE) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_DONE);
+		local versatilityDamageTakenReduction = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_TAKEN) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_TAKEN);
+		-- PaperDollFrame_SetLabelAndText Format Change
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_VERSATILITY, format("%.2f%%", versatilityDamageBonus) .. " / " .. format("%.2f%%", versatilityDamageTakenReduction), false, versatilityDamageBonus);
+
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(VERSATILITY_TOOLTIP_FORMAT, STAT_VERSATILITY, versatilityDamageBonus, versatilityDamageTakenReduction) .. FONT_COLOR_CODE_CLOSE;
+		statFrame.tooltip2 = format(CR_VERSATILITY_TOOLTIP, versatilityDamageBonus, versatilityDamageTakenReduction, BreakUpLargeNumbers(versatility), versatilityDamageBonus, versatilityDamageTakenReduction);
+
+		statFrame:Show();
+	end
+
+	-- Mastery
+	function PaperDollFrame_SetMastery(statFrame, unit)
+		if ( unit ~= "player" ) then
+			statFrame:Hide();
+			return;
+		end
+		--if (UnitLevel("player") < SHOW_MASTERY_LEVEL) then
+			--statFrame:Hide();
+			--return;
+		--end
+
+		local mastery = GetMasteryEffect();
+		-- PaperDollFrame_SetLabelAndText Format Change
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_MASTERY, format("%.2f%%", mastery), false, mastery);
+		statFrame.onEnterFunc = Mastery_OnEnter;
+		statFrame:Show();
+	end
+
+	-- Leech (Lifesteal)
+	function PaperDollFrame_SetLifesteal(statFrame, unit)
+		if ( unit ~= "player" ) then
+			statFrame:Hide();
+			return;
+		end
+
+		local lifesteal = GetLifesteal();
+		-- PaperDollFrame_SetLabelAndText Format Change
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_LIFESTEAL, format("%.2f%%", lifesteal), false, lifesteal);
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_LIFESTEAL) .. " " .. format("%.2f%%", lifesteal) .. FONT_COLOR_CODE_CLOSE;
+
+		statFrame.tooltip2 = format(CR_LIFESTEAL_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_LIFESTEAL)), GetCombatRatingBonus(CR_LIFESTEAL));
+
+		statFrame:Show();
+	end
+
+	-- Avoidance
+	function PaperDollFrame_SetAvoidance(statFrame, unit)
+		if ( unit ~= "player" ) then
+			statFrame:Hide();
+			return;
+		end
+
+		local avoidance = GetAvoidance();
+		-- PaperDollFrame_SetLabelAndText Format Change
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_AVOIDANCE, format("%.2f%%", avoidance), false, avoidance);
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_AVOIDANCE) .. " " .. format("%.2f%%", avoidance) .. FONT_COLOR_CODE_CLOSE;
+
+		statFrame.tooltip2 = format(CR_AVOIDANCE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_AVOIDANCE)), GetCombatRatingBonus(CR_AVOIDANCE));
+
+		statFrame:Show();
+	end
+
+	-- Dodge Chance
+	function PaperDollFrame_SetDodge(statFrame, unit)
+		if (unit ~= "player") then
+			statFrame:Hide();
+			return;
+		end
+
+		local chance = GetDodgeChance();
+		-- PaperDollFrame_SetLabelAndText Format Change
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_DODGE, format("%.2f%%", chance), false, chance);
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, DODGE_CHANCE).." "..format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
+		statFrame.tooltip2 = format(CR_DODGE_TOOLTIP, GetCombatRating(CR_DODGE), GetCombatRatingBonus(CR_DODGE));
+		statFrame:Show();
+	end
+
+	-- Parry Chance
+	function PaperDollFrame_SetParry(statFrame, unit)
+		if (unit ~= "player") then
+			statFrame:Hide();
+			return;
+		end
+
+		local chance = GetParryChance();
+		-- PaperDollFrame_SetLabelAndText Format Change
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_PARRY, format("%.2f%%", chance), false, chance);
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, PARRY_CHANCE).." "..format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
+		statFrame.tooltip2 = format(CR_PARRY_TOOLTIP, GetCombatRating(CR_PARRY), GetCombatRatingBonus(CR_PARRY));
+		statFrame:Show();
+	end
+
+	-- Crit Chance
+	function PaperDollFrame_SetCritChance(statFrame, unit)
+		if ( unit ~= "player" ) then
+			statFrame:Hide();
+			return;
+		end
+
+		local rating;
+		local spellCrit, rangedCrit, meleeCrit;
+		local critChance;
+
+		-- Start at 2 to skip physical damage
+		local holySchool = 2;
+		local minCrit = GetSpellCritChance(holySchool);
+		statFrame.spellCrit = {};
+		statFrame.spellCrit[holySchool] = minCrit;
+		local spellCrit;
+		for i=(holySchool+1), MAX_SPELL_SCHOOLS do
+			spellCrit = GetSpellCritChance(i);
+			minCrit = math_min(minCrit, spellCrit);
+			statFrame.spellCrit[i] = spellCrit;
+		end
+		spellCrit = minCrit
+		rangedCrit = GetRangedCritChance();
+		meleeCrit = GetCritChance();
+
+		if (spellCrit >= rangedCrit and spellCrit >= meleeCrit) then
+			critChance = spellCrit;
+			rating = CR_CRIT_SPELL;
+		elseif (rangedCrit >= meleeCrit) then
+			critChance = rangedCrit;
+			rating = CR_CRIT_RANGED;
+		else
+			critChance = meleeCrit;
+			rating = CR_CRIT_MELEE;
+		end
+
+		-- PaperDollFrame_SetLabelAndText Format Change
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_CRITICAL_STRIKE, format("%.2f%%", critChance), false, critChance);
+
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_CRITICAL_STRIKE).." "..format("%.2f%%", critChance)..FONT_COLOR_CODE_CLOSE;
+		local extraCritChance = GetCombatRatingBonus(rating);
+		local extraCritRating = GetCombatRating(rating);
+		if (GetCritChanceProvidesParryEffect()) then
+			statFrame.tooltip2 = format(CR_CRIT_PARRY_RATING_TOOLTIP, BreakUpLargeNumbers(extraCritRating), extraCritChance, GetCombatRatingBonusForCombatRatingValue(CR_PARRY, extraCritRating));
+		else
+			statFrame.tooltip2 = format(CR_CRIT_TOOLTIP, BreakUpLargeNumbers(extraCritRating), extraCritChance);
+		end
+		statFrame:Show();
+	end
+
+	-- Haste
+	function PaperDollFrame_SetHaste(statFrame, unit)
+		if ( unit ~= "player" ) then
+			statFrame:Hide();
+			return;
+		end
+
+		local haste = GetHaste();
+		local rating = CR_HASTE_MELEE;
+
+		local hasteFormatString;
+		if (haste < 0) then
+			hasteFormatString = RED_FONT_COLOR_CODE.."%s"..FONT_COLOR_CODE_CLOSE;
+		else
+			hasteFormatString = "%s";
+		end
+		-- PaperDollFrame_SetLabelAndText Format Change
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_HASTE, format(hasteFormatString, format("%.2f%%", haste)), false, haste);
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_HASTE) .. " " .. format(hasteFormatString, format("%.2f%%", haste)) .. FONT_COLOR_CODE_CLOSE;
+
+		local _, class = UnitClass(unit);
+		statFrame.tooltip2 = _G["STAT_HASTE_"..class.."_TOOLTIP"];
+		if (not statFrame.tooltip2) then
+			statFrame.tooltip2 = STAT_HASTE_TOOLTIP;
+		end
+		statFrame.tooltip2 = statFrame.tooltip2 .. format(STAT_HASTE_BASE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(rating)), GetCombatRatingBonus(rating));
+
+		statFrame:Show();
+	end
 end
 
 function module:UpdateCharacterItemLevel(frame, which)
@@ -462,6 +443,25 @@ function module:PaperDollFrame_UpdateStats()
 	end
 end
 
+function module:ToggleArmory()
+	PAPERDOLL_STATCATEGORIES = E.db.mui.armory.stats.enable and module.ChangedStats or module.OriginalPaperdollStats
+
+	if E.db.mui.armory.stats.enable then
+		_G['CharacterStatsPane']['OffenseCategory']:Show()
+		_G['CharacterStatsPane']['DefenceCategory']:Show()
+		_G.CharacterFrame.ItemLevelText:SetText('')
+	else
+		_G['CharacterStatsPane']['OffenseCategory']:Hide()
+		_G['CharacterStatsPane']['DefenceCategory']:Hide()
+	end
+
+	PaperDollFrame_UpdateStats()
+	M:UpdateCharacterItemLevel()
+	if not E.db.general.itemLevel.displayCharacterInfo then
+		_G.CharacterFrame.ItemLevelText:SetText('')
+	end
+end
+
 function module:BuildScrollBar()
 	local CharacterFrameInsetRight = _G.CharacterFrameInsetRight
 	module.ScrollframeParentFrame = CreateFrame("Frame", nil, CharacterFrameInsetRight)
@@ -527,4 +527,21 @@ function module:BuildScrollBar()
 	PaperDollSidebarTab3:HookScript("OnClick", function(self, event)
 		module.ScrollframeParentFrame:Hide()
 	end)
+end
+
+function module:InitStats()
+	if IsAddOnLoaded("DejaCharacterStats") then return end
+	if not E.db.mui.armory.stats.enable then return end
+
+	module:ReplaceBlizzGlobals()
+	hooksecurefunc("PaperDollFrame_UpdateStats", module.PaperDollFrame_UpdateStats)
+	hooksecurefunc(M, 'UpdateCharacterItemLevel', module.UpdateCharacterItemLevel)
+	hooksecurefunc(M, 'ToggleItemLevelInfo', module.UpdateCharacterItemLevel)
+	hooksecurefunc(M, 'UpdateAverageString', module.UpdateCharacterItemLevel)
+
+	module:BuildScrollBar()
+	module:BuildNewStats()
+	module:ToggleArmory()
+
+	_G.CharacterFrame:HookScript('OnShow', module.UpdateCharacterItemLevel)
 end

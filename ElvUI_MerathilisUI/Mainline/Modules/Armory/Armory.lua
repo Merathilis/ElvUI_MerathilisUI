@@ -287,22 +287,15 @@ function module:Initialize()
 
 		hooksecurefunc(M, 'UpdateCharacterInfo', module.UpdateCharacterInfo)
 		module:UpdateCharacterInfo()
-
-		if not IsAddOnLoaded("DejaCharacterStats") then
-			module:ToggleStats()
-			hooksecurefunc("PaperDollFrame_UpdateStats", module.PaperDollFrame_UpdateStats)
-			hooksecurefunc(M, 'UpdateCharacterItemLevel', module.UpdateCharacterItemLevel)
-			hooksecurefunc(M, 'ToggleItemLevelInfo', module.UpdateCharacterItemLevel)
-			hooksecurefunc(M, 'UpdateAverageString', module.UpdateCharacterItemLevel)
-
-			self:BuildScrollBar()
-		end
 	end
 
 	if module:CheckOptions('Inspect') then
 		hooksecurefunc(M, 'UpdateInspectInfo', module.UpdateInspectInfo)
 		module:PreSetup()
 	end
+
+	-- Stats
+	module:InitStats()
 
 	initialized = true
 end

@@ -396,16 +396,22 @@ options.armory = {
 			order = 22,
 			disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 			get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
-			set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats(); M:UpdateCharacterItemLevel() end,
+			set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats(); M:UpdateCharacterItemLevel() E:StaticPopup_Show("PRIVATE_RL") end,
 			args = {
-				OnlyPrimary = {
+				enable = {
 					order = 1,
+					type = 'toggle',
+					name = L["Enable"],
+				},
+				OnlyPrimary = {
+					order = 2,
 					type = "toggle",
 					name = L["Only Relevant Stats"],
 					desc = L["Show only those primary stats relevant to your spec."],
+					disabled = function() return not E.db.mui.armory.stats.enable end,
 				},
 				color = {
-					order = 2,
+					order = 3,
 					type = "color",
 					name = COLOR_PICKER,
 					disabled = function() return E.db.mui.armory.stats.classColorGradient end,
@@ -422,17 +428,18 @@ options.armory = {
 					end,
 				},
 				classColorGradient = {
-					order = 3,
+					order = 4,
 					type = "toggle",
 					name = E.NewSign..L["Class Color Gradient"],
 					get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
-					set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					set = function(info, value) E.db.mui.armory.stats[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				},
 				ItemLevel = {
-					order = 4,
+					order = 5,
 					type = 'group',
 					name = STAT_AVERAGE_ITEM_LEVEL,
 					guiInline = true,
+					disabled = function() return not E.db.mui.armory.stats.enable end,
 					args = {
 						IlvlFull = {
 							order = 1,
@@ -470,12 +477,13 @@ options.armory = {
 					},
 				},
 				Stats = {
-					order = 5,
+					order = 6,
 					type = 'group',
 					name = STAT_CATEGORY_ATTRIBUTES,
 					guiInline = true,
 					get = function(info) return E.db.mui.armory.stats.List[ info[#info] ] end,
-					set = function(info, value) E.db.mui.armory.stats.List[ info[#info] ] = value; module:ToggleStats() end,
+					set = function(info, value) E.db.mui.armory.stats.List[ info[#info] ] = value; PaperDollFrame_UpdateStats(); M:UpdateCharacterItemLevel() end,
+					disabled = function() return not E.db.mui.armory.stats.enable end,
 					args = {
 						HEALTH = { order = 1, type = "toggle", name = HEALTH,},
 						POWER = { order = 2, type = "toggle", name = function() local power = _G[select(2, UnitPowerType('player'))] or L["Power"]; return power end},

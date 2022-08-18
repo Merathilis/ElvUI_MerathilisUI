@@ -1169,6 +1169,7 @@ P.armory = {
 		},
 	},
 	stats = {
+		enable = true,
 		OnlyPrimary = true,
 		color = {r = 1, g = 1, b = 0, a = 1},
 		classColorGradient = true,
