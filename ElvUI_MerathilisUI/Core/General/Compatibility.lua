@@ -205,6 +205,7 @@ end
 local CheckBenikUI = GetCheckCompatibilityFunction("ElvUI_BenikUI", L["BenikUI"])
 local CheckWindtools = GetCheckCompatibilityFunction("ElvUI_Windtools", L["Windtools"])
 local CheckShadowAndLight = GetCheckCompatibilityFunction("ElvUI_SLE", L["Shadow & Light"])
+local CheckEltruism = GetCheckCompatibilityFunction("ElvUI_EltreumUI", L["EltreumUI"])
 
 function MER:CheckCompatibility()
 	if not E.global.mui.core.compatibilityCheck then
@@ -449,6 +450,20 @@ function MER:CheckCompatibility()
 		L["Inspect Armory"],
 		"db.mui.armory.inspect.enable",
 		"db.sle.armory.inspect.enable"
+	)
+
+	CheckEltruism(
+		L["Class Icon"],
+		format("%s-%s", L["Skins"], L["Add Class Icons to Character Panel"]),
+		"db.mui.armory.character.classIcon",
+		"db.ElvUI_EltreumUI.skins.classiconsoncharacterpanel"
+	)
+
+	CheckEltruism(
+		L["Gradient"],
+		L["Enable Gradient Nameplates"],
+		"db.mui.nameplates.gradient",
+		"db.ElvUI_EltreumUI.gradientmode.npenable"
 	)
 
 	if self.CompatibilityFrame.numModules > 0 then
