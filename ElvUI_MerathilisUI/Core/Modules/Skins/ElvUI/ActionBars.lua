@@ -28,6 +28,8 @@ function module:SkinBar(bar, type)
 		return
 	end
 
+	if not E.db.actionbar.bar1.backdrop then return end
+
 	bar.backdrop:SetTemplate("Transparent")
 	bar:Styling() -- the style needs to be on the bar, not on the backdrop otherwise i break Beniks Style function
 
