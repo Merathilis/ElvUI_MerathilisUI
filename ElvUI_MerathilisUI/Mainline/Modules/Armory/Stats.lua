@@ -32,7 +32,7 @@ module.OriginalPaperdollStats = PAPERDOLL_STATCATEGORIES
 
 function module:BuildNewStats()
 	module:CreateStatCategory("OffenseCategory", STAT_CATEGORY_ATTACK)
-	module:CreateStatCategory("DefenceCategory", DEFENSE)
+	module:CreateStatCategory("DefenseCategory", DEFENSE)
 
 	module.ChangedStats = {
 		[1] = {
@@ -72,7 +72,7 @@ function module:BuildNewStats()
 			},
 		},
 		[4] = {
-			categoryFrame = "DefenceCategory",
+			categoryFrame = "DefenseCategory",
 			stats = {
 				[1] = { stat = "ARMOR", roles = { "TANK" } },
 				[2] = { stat = "AVOIDANCE", hideAt = 0 },
