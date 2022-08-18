@@ -9,17 +9,17 @@ function module:SkinButton(button, useBackdrop)
 	module:CreateLowerShadow(button)
 
 	if not button.__MERSkin then
-		if button.shadow and button.shadow.__MER then
-			module:BindShadowColorWithBorder(button.shadow, button)
+		if button.mshadow and button.mshadow.__MER then
+			module:BindShadowColorWithBorder(button.mshadow, button)
 		end
 
 		button.__MERSkin = true
 	end
 
 	if useBackdrop then
-		button.shadow:Hide()
+		button.mshadow:Hide()
 	else
-		button.shadow:Show()
+		button.mshadow:Show()
 	end
 end
 
@@ -28,19 +28,16 @@ function module:SkinBar(bar, type)
 		return
 	end
 
-	if not E.db.actionbar.bar1.backdrop then return end
-
 	bar.backdrop:SetTemplate("Transparent")
-	bar:Styling() -- the style needs to be on the bar, not on the backdrop otherwise i break Beniks Style function
 
 	if bar.db.backdrop then
-		if not bar.backdrop.shadow then
+		if not bar.backdrop.mshadow then
 			module:CreateBackdropShadow(bar, true)
 		end
-		bar.backdrop.shadow:Show()
+		bar.backdrop.mshadow:Show()
 	else
-		if bar.backdrop.shadow then
-			bar.backdrop.shadow:Hide()
+		if bar.backdrop.mshadow then
+			bar.backdrop.mshadow:Hide()
 		end
 	end
 
@@ -94,8 +91,9 @@ function module:Skin_ElvUI_ActionBars()
 	-- ElvUI action bar
 	if not E.private.actionbar.masque.actionbars then
 		for id = 1, 10 do
-			local bar = _G["ElvUI_Bar" .. id]
+			local bar = _G["ElvUI_Bar"..id]
 			module:SkinBar(bar, "PLAYER")
+			bar.backdrop:Styling()
 		end
 
 		module:SecureHook(AB, "PositionAndSizeBar", "ElvUI_PositionAndSizeBar")
