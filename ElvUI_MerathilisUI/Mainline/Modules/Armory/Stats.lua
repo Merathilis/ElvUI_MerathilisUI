@@ -265,7 +265,7 @@ function module:ReplaceBlizzGlobals()
 		local minCrit = GetSpellCritChance(holySchool);
 		statFrame.spellCrit = {};
 		statFrame.spellCrit[holySchool] = minCrit;
-		local spellCrit;
+
 		for i=(holySchool+1), MAX_SPELL_SCHOOLS do
 			spellCrit = GetSpellCritChance(i);
 			minCrit = math_min(minCrit, spellCrit);
@@ -349,7 +349,7 @@ end
 
 function module:PaperDollFrame_UpdateStats()
 	module.totalShown = 0
-	local total = GetAverageItemLevel()
+
 	_G["CharacterStatsPane"].ItemLevelCategory:Point("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
 	_G["CharacterStatsPane"].AttributesCategory:Point("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
 
@@ -483,7 +483,6 @@ function module:BuildScrollBar()
 	module.Scrollbar:SetValue(0)
 	module.Scrollbar:SetWidth(8)
 	module.Scrollbar:SetScript("OnValueChanged", function (self, value)
-		local offset = value > 1 and self:GetParent():GetVerticalScrollRange()/(module.totalShown*module.ScrollStepMultiplier) or 1
 		self:GetParent():SetVerticalScroll(value)
 	end)
 	E:GetModule("Skins"):HandleScrollBar(module.Scrollbar)
