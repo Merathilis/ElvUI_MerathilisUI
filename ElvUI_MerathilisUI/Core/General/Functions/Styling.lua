@@ -45,7 +45,7 @@ end
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 
-	if not f or f.__style or f.style or f.style__MER then
+	if not f or f.__style or f.MERstyle or f.style__MER then
 		return
 	end
 
@@ -107,7 +107,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	style:SetAllPoints(f)
 	style.__MER = true
 
-	f.style = style
+	f.MERstyle = style
 	f.__style = 1
 
 	MER.Styling[style] = true
