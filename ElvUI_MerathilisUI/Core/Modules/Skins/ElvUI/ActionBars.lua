@@ -9,17 +9,17 @@ function module:SkinButton(button, useBackdrop)
 	module:CreateLowerShadow(button)
 
 	if not button.__MERSkin then
-		if button.mshadow and button.mshadow.__MER then
-			module:BindShadowColorWithBorder(button.mshadow, button)
+		if button.shadow and button.shadow.__MER then
+			module:BindShadowColorWithBorder(button.shadow, button)
 		end
 
 		button.__MERSkin = true
 	end
 
 	if useBackdrop then
-		button.mshadow:Hide()
+		button.shadow:Hide()
 	else
-		button.mshadow:Show()
+		button.shadow:Show()
 	end
 end
 
@@ -31,13 +31,13 @@ function module:SkinBar(bar, type)
 	bar.backdrop:SetTemplate("Transparent")
 
 	if bar.db.backdrop then
-		if not bar.backdrop.mshadow then
+		if not bar.backdrop.shadow then
 			module:CreateBackdropShadow(bar, true)
 		end
-		bar.backdrop.mshadow:Show()
+		bar.backdrop.shadow:Show()
 	else
-		if bar.backdrop.mshadow then
-			bar.backdrop.mshadow:Hide()
+		if bar.backdrop.shadow then
+			bar.backdrop.shadow:Hide()
 		end
 	end
 
