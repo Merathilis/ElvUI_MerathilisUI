@@ -1,4 +1,3 @@
 [b][color=orange]v5.20/color], 21.08.2022[/b][list]
 [*]Finally fixed now really all issues with BenikUI styling and mine
-[*]But i broke Windtools, so i fixed this also.. f my life
-[/list]
+[*]But i broke Windtools, so i fixed this also.. f my life[/list]
