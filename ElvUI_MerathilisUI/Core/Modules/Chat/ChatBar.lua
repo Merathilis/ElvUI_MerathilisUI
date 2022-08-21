@@ -102,13 +102,13 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 
 		button:SetScript("OnEnter", function(self)
 			if module.db.style == "BLOCK" then
-				if self.backdrop.shadow then
-					self.backdrop.shadow:SetBackdropBorderColor(
+				if self.backdrop.mshadow then
+					self.backdrop.mshadow:SetBackdropBorderColor(
 						ElvUIValueColor.r,
 						ElvUIValueColor.g,
 						ElvUIValueColor.b
 					)
-					self.backdrop.shadow:Show()
+					self.backdrop.mshadow:Show()
 				end
 			else
 				local fontName, _, fontFlags = self.text:GetFont()
@@ -130,11 +130,11 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 		button:SetScript("OnLeave", function(self)
 			_G.GameTooltip:Hide()
 			if module.db.style == "BLOCK" then
-				self.backdrop.shadow:SetBackdropBorderColor(0, 0, 0)
+				self.backdrop.mshadow:SetBackdropBorderColor(0, 0, 0)
 
 				if not module.db.blockShadow then
-					if self.backdrop.shadow then
-						self.backdrop.shadow:Hide()
+					if self.backdrop.mshadow then
+						self.backdrop.mshadow:Hide()
 					end
 				end
 			else
@@ -158,11 +158,11 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 
 		self.bar[name].colorBlock:Show()
 		self.bar[name].backdrop:Show()
-		if self.bar[name].backdrop.shadow then
+		if self.bar[name].backdrop.mshadow then
 			if self.db.blockShadow then
-				self.bar[name].backdrop.shadow:Show()
+				self.bar[name].backdrop.mshadow:Show()
 			else
-				self.bar[name].backdrop.shadow:Hide()
+				self.bar[name].backdrop.mshadow:Hide()
 			end
 		end
 

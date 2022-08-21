@@ -40,7 +40,7 @@ local function LoadSkin()
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
-		module:CreateBackdropShadow(_G[skins[i]])
+		module:CreateShadow(_G[skins[i]])
 	end
 
 	--DropDownMenu

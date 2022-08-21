@@ -28,16 +28,16 @@ end
 
 function MER:UpdateStyling()
 	if E.private.mui.skins.style then
-		for style in pairs(MER.Styling) do
-			if style.stripes then style.stripes:Show() end
-			if style.gradient then style.gradient:Show() end
-			if style.mshadow then style.mshadow:Show() end
+		for MERstyle in pairs(MER.Styling) do
+			if MERstyle.stripes then MERstyle.stripes:Show() end
+			if MERstyle.gradient then MERstyle.gradient:Show() end
+			if MERstyle.mshadow then MERstyle.mshadow:Show() end
 		end
 	else
-		for style in pairs(MER.Styling) do
-			if style.stripes then style.stripes:Hide() end
-			if style.gradient then style.gradient:Hide() end
-			if style.mshadow then style.mshadow:Hide() end
+		for MERstyle in pairs(MER.Styling) do
+			if MERstyle.stripes then MERstyle.stripes:Hide() end
+			if MERstyle.gradient then MERstyle.gradient:Hide() end
+			if MERstyle.mshadow then MERstyle.mshadow:Hide() end
 		end
 	end
 end
@@ -45,7 +45,7 @@ end
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 
-	if not f or f.__style or f.style or f.style__MER then
+	if not f or f.__style or f.MERstyle or f.style__MER then
 		return
 	end
 
@@ -107,7 +107,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	style:SetAllPoints(f)
 	style.__MER = true
 
-	f.style = style
+	f.MERstyle = style
 	f.__style = 1
 
 	MER.Styling[style] = true
