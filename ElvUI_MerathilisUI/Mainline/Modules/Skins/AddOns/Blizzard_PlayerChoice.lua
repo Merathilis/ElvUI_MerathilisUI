@@ -20,9 +20,9 @@ local function ChangeOptions()
 
 	if _G.PlayerChoiceFrame.mshadow then
 		if needDisable then
-			_G.PlayerChoiceFrame.mshadow:Hide()
+			_G.PlayerChoiceFrame.shadow:Hide()
 		else
-			_G.PlayerChoiceFrame.mshadow:Show()
+			_G.PlayerChoiceFrame.shadow:Show()
 		end
 	end
 
