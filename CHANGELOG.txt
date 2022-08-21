@@ -1,5 +1,2 @@
-[b][color=orange]v5.18[/color], 18.08.2022[/b][list]
-[*]Fixed some troubles with my Styling
-[*]Added compatibility checks with ElvUI_EltreumUI
-[*]Added an Option to disable the Armory Stats
-[*]Skin Immersion (Enhance the AddOnSkin for it)[/list]
+[b][color=orange]v5.19[/color], 21.08.2022[/b][list]
+[*]Finally fixed now really all issues with BenikUI styling and mine[/list]
