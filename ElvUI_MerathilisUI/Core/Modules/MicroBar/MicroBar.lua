@@ -178,7 +178,17 @@ local ButtonTypes = {
 		click = {
 			LeftButton = ToggleAllBags
 		},
-		tooltips = "Bags"
+		tooltips = function()
+			if IsModifierKeyDown() then
+				DT.tooltip:ClearLines()
+				DT.RegisteredDataTexts["Gold"].onEnter()
+				DT.tooltip:Show()
+			else
+				DT.tooltip:ClearLines()
+				DT.RegisteredDataTexts["Bags"].onEnter()
+				DT.tooltip:Show()
+			end
+		end,
 	},
 	BLIZZARD_SHOP = {
 		name = _G.BLIZZARD_STORE,
@@ -503,6 +513,11 @@ local ButtonTypes = {
 		end
 	},
 }
+
+function module:ShowAdvancedBagsTooltip()
+	DT.RegisteredDataTexts["Gold"].onEnter()
+	DT.RegisteredDataTexts["Gold"].onLeave()
+end
 
 function module:ShowAdvancedTimeTooltip(panel)
 	DT.RegisteredDataTexts["Time"].onEnter()
