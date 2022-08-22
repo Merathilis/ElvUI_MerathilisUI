@@ -277,50 +277,47 @@ function module:ExpandSize()
 		return
 	end
 
-	if E.Retail then
-		_G.CharacterFrame:SetHeight(470)
-		_G.CharacterHandsSlot:SetPoint('TOPRIGHT', _G.CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
-		_G.CharacterMainHandSlot:SetPoint('BOTTOMLEFT', _G.PaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
 
-		_G.CharacterModelFrame:ClearAllPoints()
-		_G.CharacterModelFrame:SetPoint('TOPLEFT', _G.CharacterHeadSlot, 0, 5)
-		_G.CharacterModelFrame:SetPoint('RIGHT', _G.CharacterHandsSlot)
-		_G.CharacterModelFrame:SetPoint('BOTTOM', _G.CharacterMainHandSlot)
+	_G.CharacterFrame:SetHeight(470)
+	_G.CharacterHandsSlot:SetPoint('TOPRIGHT', _G.CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
+	_G.CharacterMainHandSlot:SetPoint('BOTTOMLEFT', _G.PaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
 
-		if _G.PaperDollFrame:IsShown() then --Setting up width for the main frame
-			_G.CharacterFrame:SetWidth(_G.CharacterFrame.Expanded and 650 or 444)
-			_G.CharacterFrameInsetRight:SetPoint('TOPLEFT', _G.CharacterFrameInset, 'TOPRIGHT', 110, 0)
-		end
+	_G.CharacterModelFrame:ClearAllPoints()
+	_G.CharacterModelFrame:SetPoint('TOPLEFT', _G.CharacterHeadSlot, 0, 5)
+	_G.CharacterModelFrame:SetPoint('RIGHT', _G.CharacterHandsSlot)
+	_G.CharacterModelFrame:SetPoint('BOTTOM', _G.CharacterMainHandSlot)
 
-		if _G.CharacterModelFrame and _G.CharacterModelFrame.BackgroundTopLeft and _G.CharacterModelFrame.BackgroundTopLeft:IsShown() then
-			_G.CharacterModelFrame.BackgroundTopLeft:Hide()
-			_G.CharacterModelFrame.BackgroundTopRight:Hide()
-			_G.CharacterModelFrame.BackgroundBotLeft:Hide()
-			_G.CharacterModelFrame.BackgroundBotRight:Hide()
-
-			if _G.CharacterModelFrame.backdrop then
-				_G.CharacterModelFrame.backdrop:Hide()
-			end
-		end
-
-		-- Overlay resize to match new width
-		_G.CharacterModelFrameBackgroundOverlay:SetPoint('TOPLEFT', _G.CharacterModelFrame, -4, 0)
-		_G.CharacterModelFrameBackgroundOverlay:SetPoint('BOTTOMRIGHT', _G.CharacterModelFrame, 4, 0)
-
-		_G.PaperDollEquipmentManagerPane:ClearAllPoints()
-		_G.PaperDollEquipmentManagerPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
-
-		_G.PaperDollTitlesPane:ClearAllPoints()
-		_G.PaperDollTitlesPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
-
-		if E.db.general.itemLevel.displayCharacterInfo then
-			M:UpdatePageInfo(_G.CharacterFrame, "Character")
-		end
-	elseif E.Wrath then
-		print("YAY")
+	if _G.PaperDollFrame:IsShown() then --Setting up width for the main frame
+		_G.CharacterFrame:SetWidth(_G.CharacterFrame.Expanded and 650 or 444)
+		_G.CharacterFrameInsetRight:SetPoint('TOPLEFT', _G.CharacterFrameInset, 'TOPRIGHT', 110, 0)
 	end
 
-	--Pawn Button sucks A$$
+	if _G.CharacterModelFrame and _G.CharacterModelFrame.BackgroundTopLeft and _G.CharacterModelFrame.BackgroundTopLeft:IsShown() then
+		_G.CharacterModelFrame.BackgroundTopLeft:Hide()
+		_G.CharacterModelFrame.BackgroundTopRight:Hide()
+		_G.CharacterModelFrame.BackgroundBotLeft:Hide()
+		_G.CharacterModelFrame.BackgroundBotRight:Hide()
+
+		if _G.CharacterModelFrame.backdrop then
+			_G.CharacterModelFrame.backdrop:Hide()
+		end
+	end
+
+	-- Overlay resize to match new width
+	_G.CharacterModelFrameBackgroundOverlay:SetPoint('TOPLEFT', _G.CharacterModelFrame, -4, 0)
+	_G.CharacterModelFrameBackgroundOverlay:SetPoint('BOTTOMRIGHT', _G.CharacterModelFrame, 4, 0)
+
+	_G.PaperDollEquipmentManagerPane:ClearAllPoints()
+	_G.PaperDollEquipmentManagerPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
+
+	_G.PaperDollTitlesPane:ClearAllPoints()
+	_G.PaperDollTitlesPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
+
+	if E.db.general.itemLevel.displayCharacterInfo then
+		M:UpdatePageInfo(_G.CharacterFrame, "Character")
+	end
+
+		--Pawn Button sucks A$$
 	if IsAddOnLoaded('Pawn') then
 		if _G.PawnUI_InventoryPawnButton then
 			_G.PawnUI_InventoryPawnButton:SetFrameStrata('DIALOG')
