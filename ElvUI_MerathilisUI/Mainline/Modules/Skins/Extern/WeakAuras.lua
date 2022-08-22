@@ -80,6 +80,8 @@ local function ProfilingWindow_UpdateButtons(frame)
 end
 
 local function ApplyElvCDs(region, data)
+	if not E.private.mui.skins.addonSkins.waCooldowns then return end
+
 	local cd = region.cooldown.CooldownSettings or {}
 	cd.font = E.Libs.LSM:Fetch('font', E.db.cooldown.fonts.font)
 	cd.fontSize = E.db.cooldown.fonts.fontSize

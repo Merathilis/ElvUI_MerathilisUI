@@ -1674,6 +1674,11 @@ options.addonskins = {
 			type = "header",
 			name = F.cOption(L["AddOnSkins"], 'orange'),
 		},
+		waCooldowns = {
+			order = 99,
+			type = "toggle",
+			name = L["WeakAuras Cooldowns"]
+		}
 	},
 }
 
