@@ -1200,6 +1200,10 @@ P.armory = {
 			MOVESPEED = false,
 		},
 	},
+	--Wrath Related
+	StatOrder = "12345",
+	StatExpand = true,
+	PetHappiness = true,
 }
 
 P.flightMode = {

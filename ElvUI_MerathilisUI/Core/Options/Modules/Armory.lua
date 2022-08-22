@@ -64,6 +64,7 @@ options.armory = {
 					type = "toggle",
 					name = L["Undress Button"],
 					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
+					hidden = function() return not E.Retail end,
 				},
 				expandSize = {
 					order = 4,
@@ -78,6 +79,7 @@ options.armory = {
 					name = L["Class Icon"],
 					desc = L["Adds an class icon next to the name."],
 					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
+					hidden = function() return not E.Retail end,
 				},
 				spacer = {
 					order = 7,
@@ -90,7 +92,8 @@ options.armory = {
 					name = L["Durability"],
 					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 					get = function(info) return E.db.mui.armory.character.durability[ info[#info] ] end,
-					set = function(info, value) E.db.mui.armory.character.durability[ info[#info] ] = value; module:UpdatePaperDoll() end,
+					set = function(info, value) E.db.mui.armory.character.durability[info[#info]] = value; module:UpdatePaperDoll() end,
+					hidden = function() return not E.Retail end,
 					args = {
 						enable = {
 							type = "toggle",
@@ -136,6 +139,7 @@ options.armory = {
 					type = 'group',
 					name = E.NewSign..L["Gradient"],
 					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
+					hidden = function() return not E.Retail end,
 					get = function(info) return E.db.mui.armory.character.gradient[ info[#info] ] end,
 					set = function(info, value) E.db.mui.armory.character.gradient[ info[#info] ] = value; module:UpdatePaperDoll() end,
 					args = {
@@ -217,6 +221,7 @@ options.armory = {
 					order = 10,
 					type = "group",
 					name = L["Indicators"],
+					hidden = function() return not E.Retail end,
 					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 					args = {
 						transmog = {
@@ -274,6 +279,7 @@ options.armory = {
 			type = "group",
 			name = E.NewSign..L["Inspect Armory"],
 			desc = "",
+			hidden = function() return not E.Retail end,
 			get = function(info) return E.db.mui.armory.inspect[ info[#info] ] end,
 			set = function(info, value)
 				E.db.mui.armory.inspect.enable = value;
@@ -395,6 +401,7 @@ options.armory = {
 			name = E.NewSign..STAT_CATEGORY_ATTRIBUTES,
 			order = 22,
 			disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
+			hidden = function() return not E.Retail end,
 			get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
 			set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats(); M:UpdateCharacterItemLevel() E:StaticPopup_Show("PRIVATE_RL") end,
 			args = {
@@ -504,6 +511,7 @@ options.armory = {
 			type = "group",
 			name = STAT_CATEGORY_ATTRIBUTES..": "..L["Fonts"],
 			order = 23,
+			hidden = function() return not E.Retail end,
 			args = {
 				statFonts = {
 					type = 'group',

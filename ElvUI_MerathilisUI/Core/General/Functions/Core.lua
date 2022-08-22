@@ -164,6 +164,12 @@ function F.GradientColors(unitclass, invert, alpha)
 	end
 end
 
+function F.GradientName(name, unitclass)
+	local text = E:TextGradient(name, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1)
+
+	return text
+end
+
 do
 	function F.RGBToHex(r, g, b)
 		if r then
@@ -956,4 +962,25 @@ function F.SetCallback(callback, target, times, ...)
 	end
 
 	E:Delay(0.1, F.SetCallback, callback, target, times+1, ...)
+end
+
+do
+	-- Handle close button
+	function F:Texture_OnEnter()
+		if self:IsEnabled() then
+			if self.bg then
+				self.bg:SetBackdropColor(cr, cg, cb, .25)
+			else
+				self.__texture:SetVertexColor(0, .6, 1)
+			end
+		end
+	end
+
+	function F:Texture_OnLeave()
+		if self.bg then
+			self.bg:SetBackdropColor(0, 0, 0, .25)
+		else
+			self.__texture:SetVertexColor(1, 1, 1)
+		end
+	end
 end

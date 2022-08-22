@@ -113,6 +113,10 @@ function module:Misc()
 		hooksecurefunc(_G.WhoListScrollFrame, 'update', UpdateWhoList)
 	end
 
+	if E.Wrath then
+		module:Armory()
+	end
+
 	module:LoadGMOTD()
 	module:LoadQuest()
 	module:LoadnameHover()
