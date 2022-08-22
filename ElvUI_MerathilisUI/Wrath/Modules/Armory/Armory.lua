@@ -382,7 +382,7 @@ function M:AddCharacterIcon()
 	ClassSymbolFrame = ("|T"..(MER.ClassIcons[E.myclass]..".tga:0:0:0:0|t"))
 
 	E:Delay(0, function() -- otherwise it will just return "name"
-		CharacterNameText:SetFont(E.LSM:Fetch('font', E.db.general.font), 18, E.db.general.fontStyle)
+		CharacterNameText:SetFont(E.LSM:Fetch('font', E.db.general.font), 16, E.db.general.fontStyle)
 		CharacterNameText:SetShadowColor(0, 0, 0, 0.6)
 		CharacterNameText:SetShadowOffset(2, -1)
 
