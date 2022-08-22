@@ -11,6 +11,7 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 options.raidmarkers = {
 	type = "group",
 	name = L["Raid Markers"],
+	hidden = not E.Retail,
 	args = {
 		name = {
 			order = 0,

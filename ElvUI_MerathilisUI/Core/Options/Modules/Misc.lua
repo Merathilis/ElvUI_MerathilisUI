@@ -74,6 +74,7 @@ options.misc = {
 				E.db.mui.misc.lfgInfo[info[#info]] = value
 			end,
 			disabled = function() return IsAddOnLoaded('WindDungeonHelper') end,
+			hidden = not E.Retail,
 			args = {
 				enable = {
 					order = 1,
@@ -276,7 +277,8 @@ options.misc = {
 			name = F.cOption(L["MISC_PARAGON_REPUTATION"], 'orange'),
 			guiInline = true,
 			get = function(info) return E.db.mui.misc.paragon[ info[#info] ] end,
-			set = function(info, value) E.db.mui.misc.paragon[ info[#info] ] = value; end,
+			set = function(info, value) E.db.mui.misc.paragon[info[#info]] = value; end,
+			hidden = not E.Retail,
 			args = {
 				enable = {
 					order = 1,
@@ -318,6 +320,7 @@ options.misc = {
 			type = "group",
 			name = F.cOption(L["Maw ThreatBar"], 'orange'),
 			guiInline = true,
+			hidden = not E.Retail,
 			args = {
 				enable = {
 					order = 1,
@@ -410,6 +413,7 @@ options.itemLevel = {
 		E.db.mui.itemLevel[info[#info]] = value
 		IL:ProfileUpdate()
 	end,
+	hidden = not E.Retail,
 	args = {
 		header = {
 			order = 0,
