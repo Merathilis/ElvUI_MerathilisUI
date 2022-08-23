@@ -65,7 +65,7 @@ end
 
 function module:UpdateMerchantPositions()
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
-		local button = _G["MerchantItem" .. i]
+		local button = _G["MerchantItem"..i]
 		button:Show()
 		button:ClearAllPoints()
 
