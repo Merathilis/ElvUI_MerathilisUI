@@ -345,7 +345,9 @@ local arrowDegree = {
 	["right"] = -90,
 }
 function module:SetupArrow(self, direction)
-	self:SetTexture(MER.Media.Textures.ArrowUp)
+	if not self then return end
+
+	self:SetTexture(MER.Media.Textures.arrowUp)
 	self:SetRotation(rad(arrowDegree[direction]))
 end
 
@@ -361,7 +363,7 @@ function module:ReskinArrow(self, direction)
 
 	local tex = self:CreateTexture(nil, "ARTWORK")
 	tex:SetAllPoints()
-	module.SetupArrow(tex, direction)
+	-- module.SetupArrow(tex, direction)
 	self.__texture = tex
 
 	self:HookScript("OnEnter", F.Texture_OnEnter)

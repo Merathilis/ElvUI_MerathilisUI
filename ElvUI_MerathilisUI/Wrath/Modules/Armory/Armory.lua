@@ -327,11 +327,11 @@ end
 
 local function ToggleStatPanel(texture)
 	if E.db.mui.armory.StatExpand then
-		-- S:SetupArrow(texture, "left")
+		S:SetupArrow(texture, "left")
 		CharacterAttributesFrame:Hide()
 		M.StatPanel2:Show()
 	else
-		-- S:SetupArrow(texture, "right")
+		S:SetupArrow(texture, "right")
 		CharacterAttributesFrame:SetShown(not M.hasOtherAddon)
 		M.StatPanel2:Hide()
 	end
@@ -455,7 +455,7 @@ function M:Armory()
 	-- Expand button
 	local bu = CreateFrame("Button", nil, PaperDollFrame)
 	bu:SetPoint("RIGHT", CharacterFrameCloseButton, "LEFT", -3, 0)
-	ES:HandleNextPrevButton(bu, "right")
+	S:ReskinArrow(bu, "right")
 
 	bu:SetScript("OnClick", function(self)
 		E.db.mui.armory.StatExpand = not E.db.mui.armory.StatExpand
