@@ -21,7 +21,7 @@ function module:SkinButton(i)
 	item:Size(155, 45)
 	item:StripTextures(true)
 	item:CreateBackdrop("Transparent")
-	item.backdrop:Point("TOPLEFT", -3, 2)
+	item.backdrop:Point("TOPLEFT", -1, 3)
 	item.backdrop:Point("BOTTOMRIGHT", 2, -3)
 	MERS:CreateGradient(item.backdrop)
 
@@ -42,6 +42,25 @@ function module:SkinButton(i)
 	icon:Point("BOTTOMRIGHT", -1, 1)
 
 	S:HandleIconBorder(button.IconBorder)
+end
+
+function module:UpdateBuybacks()
+	for i = 1, _G.BUYBACK_ITEMS_PER_PAGE do
+		local item = _G['MerchantItem' .. i]
+		--[[
+		local button = _G['MerchantItem'..i..'ItemButton']
+		local icon = _G['MerchantItem'..i..'ItemButtonIconTexture']
+		local money = _G['MerchantItem'..i..'MoneyFrame']
+		local nameFrame = _G['MerchantItem'..i..'NameFrame']
+		local name = _G['MerchantItem'..i..'Name']
+		local slot = _G['MerchantItem' .. i .. 'SlotTexture']
+		]]
+
+		if item.backdrop then
+			item.backdrop:SetTemplate('Transparent')
+			MERS:CreateGradient(item.backdrop)
+		end
+	end
 end
 
 function module:UpdateMerchantPositions()
@@ -109,7 +128,7 @@ function module:Initialize()
 	_G.MerchantFrame:SetWidth(30 + self.db.numberOfPages * 330)
 
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
-		if not _G["MerchantItem" .. i] then
+		if not _G["MerchantItem"..i] then
 			CreateFrame("Frame", "MerchantItem" .. i, _G.MerchantFrame, "MerchantItemTemplate")
 			self:SkinButton(i)
 		end
@@ -126,6 +145,7 @@ function module:Initialize()
 
 	self:SecureHook("MerchantFrame_UpdateMerchantInfo", "UpdateMerchantPositions")
 	self:SecureHook("MerchantFrame_UpdateBuybackInfo", "UpdateBuybackPositions")
+	self:UpdateBuybacks()
 end
 
 MER:RegisterModule(module:GetName())

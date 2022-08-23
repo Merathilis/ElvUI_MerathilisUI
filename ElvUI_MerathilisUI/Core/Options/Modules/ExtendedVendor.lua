@@ -17,7 +17,6 @@ options.merchant = {
 	disabled = function()
 		return module.StopRunning
 	end,
-	hidden = not E.Retail,
 	args = {
 		header = {
 			order = 1,

@@ -1643,6 +1643,7 @@ elseif E.Classic then
 		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.craft end,
 	}
 elseif E.TBC then
+elseif E.Wrath then
 end
 
 options.addonskins = {
