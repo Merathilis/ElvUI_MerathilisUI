@@ -1,8 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_ItemLevel')
-local ES = MER:GetModule('MER_Skins')
+local S = MER:GetModule('MER_Skins')
 local B = E:GetModule("Bags")
-local S = E:GetModule("Skins")
+local ES = E:GetModule("Skins")
 local LSM = E.Libs.LSM
 
 local _G = _G
@@ -162,19 +162,12 @@ function module:CreateItemTexture(slot, relF, x, y)
 	icon:SetPoint(relF, x, y)
 	icon:SetSize(14, 14)
 
-	S:HandleIcon(icon, true)
+	ES:HandleIcon(icon, true)
 	icon.backdrop:SetFrameLevel(3)
 	icon.backdrop:Hide()
+	icon.bg = icon.backdrop
 
 	return icon
-end
-
-function module:CreateColorBorder()
-	local frame = CreateFrame("Frame", nil, self)
-	frame:SetAllPoints()
-
-	ES:CreateShadow(frame)
-	frame.shadow:SetFrameLevel(5)
 end
 
 function module:CreateItemString(frame, strType)
@@ -194,21 +187,10 @@ function module:CreateItemString(frame, strType)
 				local iconY = index > 15 and 20 or 2
 				slotFrame["textureIcon"..i] = module:CreateItemTexture(slotFrame, relF, iconX, iconY)
 			end
-			-- module.CreateColorBorder(slotFrame)
 		--end
 	end
 
 	frame.fontCreated = true
-end
-
-function module:ItemBorderSetColor(slotFrame, r, g, b)
-	if slotFrame.shadow then
-		slotFrame.shadow:SetBackdropBorderColor(r, g, b)
-	end
-
-	if slotFrame.backdrop then
-		slotFrame.backdrop:SetBackdropBorderColor(r, g, b)
-	end
 end
 
 local pending = {}
@@ -222,7 +204,7 @@ function module:ItemLevel_UpdateGemInfo(link, unit, index, slotFrame)
 		if info then
 			local gemStep = 1
 			for i = 1, 5 do
-				local texture = slotFrame["textureIcon"..i]
+				local texture = slotFrame["textureIcon" .. i]
 				local bg = texture.bg
 				local gem = info.gems and info.gems[gemStep]
 				if gem then
@@ -246,7 +228,6 @@ function module:RefreshButtonInfo()
 				local quality, level = select(3, GetItemInfo(link))
 				if quality then
 					local color = E.QualityColors[quality]
-					-- module:ItemBorderSetColor(slotFrame, color.r, color.g, color.b)
 					if level and level > 1 and quality > 1 then
 						slotFrame.iLvlText:SetText(level)
 						slotFrame.iLvlText:SetTextColor(color.r, color.g, color.b)
@@ -283,7 +264,6 @@ function module:ItemLevel_SetupLevel(frame, strType, unit)
 				texture:SetTexture(nil)
 				texture.backdrop:Hide()
 			end
-			-- module:ItemBorderSetColor(slotFrame, 0, 0, 0)
 
 			local itemTexture = GetInventoryItemTexture(unit, index)
 			if itemTexture then
@@ -292,7 +272,6 @@ function module:ItemLevel_SetupLevel(frame, strType, unit)
 					local quality, level = select(3, GetItemInfo(link))
 					if quality then
 						local color = E.QualityColors[quality]
-						-- module:ItemBorderSetColor(slotFrame, color.r, color.g, color.b)
 						if level and level > 1 and quality > 1 then
 							slotFrame.iLvlText:SetText(level)
 							slotFrame.iLvlText:SetTextColor(color.r, color.g, color.b)
