@@ -20,6 +20,16 @@ local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
 local ClassSymbolFrame
 local CharacterText --check character text
 
+local InCombatLockdown = InCombatLockdown
+local EquipmentManager_UnequipItemInSlot = EquipmentManager_UnequipItemInSlot
+local EquipmentManager_RunAction = EquipmentManager_RunAction
+
+local function UnequipItemInSlot(i)
+	if InCombatLockdown() then return end
+	local action = EquipmentManager_UnequipItemInSlot(i)
+	EquipmentManager_RunAction(action)
+end
+
 function module:UpdatePaperDoll()
 	module.db = E.db.mui.armory
 	if not module.db.character.enable then return end
@@ -532,6 +542,24 @@ function module:AddCharacterIcon()
 	end
 end
 
+function module:UndressButton()
+	-- Undress Button
+	if E.db.mui.armory.character.undressButton then
+		local bu = F.Widgets.New("Button", _G.PaperDollFrame, format("|cff70C0F5%s", L["Undress"]), 60, 20,
+		function()
+			for i = 1, 17 do
+				local texture = GetInventoryItemTexture('player', i)
+				if texture then
+					UnequipItemInSlot(i)
+				end
+			end
+		end)
+
+		bu:SetPoint("TOPRIGHT", _G.CharacterFrame, "TOPLEFT", 70, -35)
+		bu:SetFrameStrata("HIGH")
+	end
+end
+
 function module:LoadAndSetupCharacter()
 	if not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo then
 		return
@@ -541,4 +569,5 @@ function module:LoadAndSetupCharacter()
 	self:SkinCharacterStatsPane()
 	self:ExpandSize()
 	self:AddCharacterIcon()
+	self:UndressButton()
 end

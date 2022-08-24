@@ -3,19 +3,6 @@ local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
-local format = string.format
-
-local GetInventoryItemTexture = GetInventoryItemTexture
-
-local InCombatLockdown = InCombatLockdown
-local EquipmentManager_UnequipItemInSlot = EquipmentManager_UnequipItemInSlot
-local EquipmentManager_RunAction = EquipmentManager_RunAction
-
-local function UnequipItemInSlot(i)
-	if InCombatLockdown() then return end
-	local action = EquipmentManager_UnequipItemInSlot(i)
-	EquipmentManager_RunAction(action)
-end
 
 local function LoadSkin()
 	if not module:CheckDB("character", "character") then
@@ -45,22 +32,6 @@ local function LoadSkin()
 		if _G.CharacterModelFrame.backdrop then
 			_G.CharacterModelFrame.backdrop:Hide()
 		end
-	end
-
-	-- Undress Button
-	if E.db.mui.armory.undressButton then
-		local bu = F.Widgets.New("Button", _G.PaperDollFrame, format("|cff70C0F5%s", L["Undress"]), 60, 20,
-		function()
-			for i = 1, 17 do
-				local texture = GetInventoryItemTexture('player', i)
-				if texture then
-					UnequipItemInSlot(i)
-				end
-			end
-		end)
-
-		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 70, -35)
-		bu:SetFrameStrata("HIGH")
 	end
 end
 
