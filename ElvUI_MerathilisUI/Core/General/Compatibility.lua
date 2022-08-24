@@ -463,7 +463,7 @@ function MER:CheckCompatibility()
 		L["Gradient"],
 		L["Enable Gradient Nameplates"],
 		"db.mui.nameplates.gradient",
-		"db.ElvUI_EltreumUI.gradientmode.npenable"
+		"db.ElvUI_EltreumUI.unitframes.gradientmode.npenable "
 	)
 
 	if self.CompatibilityFrame.numModules > 0 then
