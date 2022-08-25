@@ -162,10 +162,9 @@ function module:CreateItemTexture(slot, relF, x, y)
 	icon:SetPoint(relF, x, y)
 	icon:SetSize(14, 14)
 
-	ES:HandleIcon(icon, true)
-	icon.backdrop:SetFrameLevel(3)
-	icon.backdrop:Hide()
-
+	icon.bg = S:CreateBDFrame(icon, 25)
+	icon.bg:SetFrameLevel(3)
+	icon.bg:Hide()
 	return icon
 end
 
@@ -195,7 +194,7 @@ end
 local pending = {}
 
 local gemSlotBlackList = {
-	[16]=true, [17]=true, [18]=true,	-- ignore weapons, until I find a better way
+	[16] = true, [17] = true, [18] = true,	-- ignore weapons, until I find a better way
 }
 function module:ItemLevel_UpdateGemInfo(link, unit, index, slotFrame)
 	if not gemSlotBlackList[index] then
@@ -203,13 +202,14 @@ function module:ItemLevel_UpdateGemInfo(link, unit, index, slotFrame)
 		if info then
 			local gemStep = 1
 			for i = 1, 5 do
-				local texture = slotFrame["textureIcon"..i]
-				local backdrop = texture.backdrop
+				local texture = slotFrame["textureIcon" .. i]
+				local bg = texture.bg
 				local gem = info.gems and info.gems[gemStep]
 				if gem then
+					print(gem)
 					texture:SetTexture(gem)
-					backdrop:SetBackdropBorderColor(0, 0, 0)
-					backdrop:Show()
+					bg:SetBackdropBorderColor(0, 0, 0, 1)
+					bg:Show()
 
 					gemStep = gemStep + 1
 				end
@@ -261,7 +261,7 @@ function module:ItemLevel_SetupLevel(frame, strType, unit)
 			for i = 1, 5 do
 				local texture = slotFrame["textureIcon"..i]
 				texture:SetTexture(nil)
-				texture.backdrop:Hide()
+				texture.bg:Hide()
 			end
 
 			local itemTexture = GetInventoryItemTexture(unit, index)
