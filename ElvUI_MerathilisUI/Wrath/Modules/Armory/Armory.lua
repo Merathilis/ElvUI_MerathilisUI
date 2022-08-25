@@ -138,7 +138,8 @@ end
 local function CreateStatRow(parent, index)
 	local frame = CreateFrame("Frame", "$parentRow"..index, parent, "StatFrameTemplate")
 	frame:SetWidth(180)
-	frame:SetPoint("TOP", parent.header, "BOTTOM", 0, -2 - (index-1)*16)
+	frame:SetPoint("TOP", parent.header, "BOTTOM", 0, -2 - (index - 1) * 16)
+
 	local background = frame:CreateTexture(nil, "BACKGROUND")
 	background:SetAtlas("UI-Character-Info-Line-Bounce", true)
 	background:SetAlpha(.3)
@@ -178,6 +179,7 @@ local function CreatePlayerILvl(parent, category)
 	local header = CreateFrame("Frame", "$parentHeader", frame, "CharacterStatFrameCategoryTemplate")
 	header:SetPoint("TOP", 0, 10)
 	header.Background:Hide()
+	header.Title:FontTemplate(nil, 14)
 	header.Title:SetText(E:TextGradient(category, F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
 	frame.header = header
 
@@ -208,6 +210,7 @@ local function CreateStatHeader(parent, index, category)
 	local header = CreateFrame("Frame", "$parentHeader", frame, "CharacterStatFrameCategoryTemplate")
 	header:SetPoint("TOP")
 	header.Background:Hide()
+	header.Title:FontTemplate(nil, 14)
 	header.Title:SetText(E:TextGradient(_G[category], F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
 	frame.header = header
 
@@ -306,8 +309,10 @@ end
 
 function M:SortAddOnPanels()
 	local prev
+
 	for _, frame in pairs(PaperDollFrame.__statPanels) do
 		frame:ClearAllPoints()
+
 		if not prev then
 			if M.StatPanel2:IsShown() then
 				frame:SetPoint("TOPLEFT", M.StatPanel2, "TOPRIGHT", 3, 0)
@@ -338,7 +343,7 @@ function M:Armory()
 
 	M.hasOtherAddon = IsAddOnLoaded("CharacterStatsTBC")
 
-	local statPanel = CreateFrame("Frame", "NDuiStatPanel", PaperDollFrame)
+	local statPanel = CreateFrame("Frame", "MER_StatPanel", PaperDollFrame)
 	statPanel:SetSize(200, 424)
 	statPanel:SetPoint("TOPLEFT", PaperDollFrame, "TOPRIGHT", -30, -12)
 
@@ -368,7 +373,7 @@ function M:Armory()
 	end)
 
 	-- Player iLvl
-	CreatePlayerILvl(stat, STAT_AVERAGE_ITEM_LEVEL)
+	CreatePlayerILvl(stat, _G.STAT_AVERAGE_ITEM_LEVEL)
 	hooksecurefunc("PaperDollFrame_UpdateStats", M.UpdatePlayerILvl)
 
 	-- Player stats

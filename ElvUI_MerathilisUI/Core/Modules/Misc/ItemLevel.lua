@@ -165,7 +165,6 @@ function module:CreateItemTexture(slot, relF, x, y)
 	ES:HandleIcon(icon, true)
 	icon.backdrop:SetFrameLevel(3)
 	icon.backdrop:Hide()
-	icon.bg = icon.backdrop
 
 	return icon
 end
@@ -185,7 +184,7 @@ function module:CreateItemString(frame, strType)
 				local offset = (i-1)*18 + 5
 				local iconX = x > 0 and x+offset or x-offset
 				local iconY = index > 15 and 20 or 2
-				slotFrame["textureIcon"..i] = module:CreateItemTexture(slotFrame, relF, iconX, iconY)
+				slotFrame["textureIcon" .. i] = module:CreateItemTexture(slotFrame, relF, iconX, iconY)
 			end
 		--end
 	end
@@ -204,13 +203,13 @@ function module:ItemLevel_UpdateGemInfo(link, unit, index, slotFrame)
 		if info then
 			local gemStep = 1
 			for i = 1, 5 do
-				local texture = slotFrame["textureIcon" .. i]
-				local bg = texture.bg
+				local texture = slotFrame["textureIcon"..i]
+				local backdrop = texture.backdrop
 				local gem = info.gems and info.gems[gemStep]
 				if gem then
 					texture:SetTexture(gem)
-					bg:SetBackdropBorderColor(0, 0, 0)
-					bg:Show()
+					backdrop:SetBackdropBorderColor(0, 0, 0)
+					backdrop:Show()
 
 					gemStep = gemStep + 1
 				end
@@ -301,13 +300,13 @@ local function GetItemSlotLevel(unit, index)
 end
 
 local function GetILvlTextColor(level)
-	if level >= 150 then
+	if level >= 213 then
 		return 1, .5, 0
-	elseif level >= 115 then
+	elseif level >= 200 then
 		return .63, .2, .93
-	elseif level >= 80 then
+	elseif level >= 187 then
 		return 0, .43, .87
-	elseif level >= 45 then
+	elseif level >= 174 then
 		return .12, 1, 0
 	else
 		return 1, 1, 1

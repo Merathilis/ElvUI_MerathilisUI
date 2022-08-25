@@ -287,7 +287,6 @@ function module:ExpandSize()
 		return
 	end
 
-
 	_G.CharacterFrame:SetHeight(470)
 	_G.CharacterHandsSlot:SetPoint('TOPRIGHT', _G.CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
 	_G.CharacterMainHandSlot:SetPoint('BOTTOMLEFT', _G.PaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
