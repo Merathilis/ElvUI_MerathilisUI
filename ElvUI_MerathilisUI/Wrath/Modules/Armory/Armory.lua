@@ -330,11 +330,13 @@ function M:AddCharacterIcon()
 	ClassSymbolFrame = ("|T"..(MER.ClassIcons[E.myclass]..".tga:0:0:0:0|t"))
 
 	E:Delay(0, function() -- otherwise it will just return "name"
-		CharacterNameText:SetFont(E.LSM:Fetch('font', E.db.general.font), 16, E.db.general.fontStyle)
-		CharacterNameText:SetShadowColor(0, 0, 0, 0.6)
-		CharacterNameText:SetShadowOffset(2, -1)
+		if not (CharacterNameText:GetText():match("|T")) then
+			CharacterNameText:SetFont(E.LSM:Fetch('font', E.db.general.font), 16, E.db.general.fontStyle)
+			CharacterNameText:SetShadowColor(0, 0, 0, 0.6)
+			CharacterNameText:SetShadowOffset(2, -1)
 
-		CharacterNameText:SetText(ClassSymbolFrame .. " " .. F.GradientName(CharacterNameText:GetText(), E.myclass))
+			CharacterNameText:SetText(ClassSymbolFrame .. " " .. F.GradientName(CharacterNameText:GetText(), E.myclass))
+		end
 	end)
 end
 
@@ -392,9 +394,9 @@ function M:Armory()
 	BuildListFromValue()
 	BuildValueFromList()
 	CharacterNameFrame:ClearAllPoints()
-	CharacterNameFrame:SetPoint("TOPLEFT", CharacterFrame, 130, -20)
+	CharacterNameFrame:SetPoint("TOPLEFT", _G.CharacterFrame, 130, -20)
 	PaperDollFrame.__statPanels = {}
-	GearManagerDialog:SetFrameStrata("DIALOG")
+	_G.GearManagerDialog:SetFrameStrata("DIALOG")
 
 	-- Update data
 	hooksecurefunc("ToggleCharacter", UpdateStats)
@@ -402,7 +404,7 @@ function M:Armory()
 
 	-- Expand button
 	local bu = CreateFrame("Button", nil, PaperDollFrame)
-	bu:SetPoint("RIGHT", CharacterFrameCloseButton, "LEFT", -3, 0)
+	bu:SetPoint("RIGHT", _G.CharacterFrameCloseButton, "LEFT", -3, 0)
 	S:ReskinArrow(bu, "right")
 
 	bu:SetScript("OnClick", function(self)
@@ -430,12 +432,19 @@ function M:Armory()
 				frame:ClearAllPoints()
 				frame:SetPoint("TOPLEFT", PaperDollFrame, 65, -78)
 				ToggleStatPanel(bu.__texture)
-				CharacterResistanceFrame:Show()
+				_G.CharacterResistanceFrame:Show()
 			end
 		end
-		resetModelAnchor(CharacterModelFrame)
-		hooksecurefunc(CharacterModelFrame, "SetPoint", resetModelAnchor)
+		resetModelAnchor(_G.CharacterModelFrame)
+		hooksecurefunc(_G.CharacterModelFrame, "SetPoint", resetModelAnchor)
 	end
 
 	hooksecurefunc("PaperDollFrame_SetLevel", M.AddCharacterIcon)
+
+	local EventFrame = CreateFrame("Frame")
+	EventFrame:RegisterUnitEvent("UNIT_NAME_UPDATE", "player")
+	EventFrame:RegisterUnitEvent("PLAYER_ENTERING_WORLD")
+	EventFrame:SetScript("OnEvent", function()
+		M:AddCharacterIcon()
+	end)
 end
