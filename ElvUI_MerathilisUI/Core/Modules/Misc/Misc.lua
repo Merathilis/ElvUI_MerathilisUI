@@ -99,7 +99,7 @@ local function UpdateWhoList()
 end
 
 function module:Misc()
-	local db = E.db.mui.misc
+	self.db = E.db.mui.misc
 
 	if E.Retail then
 		E.RegisterCallback(module, "RoleChanged", "SetRole")
@@ -111,10 +111,6 @@ function module:Misc()
 
 		hooksecurefunc('WhoList_Update', UpdateWhoList)
 		hooksecurefunc(_G.WhoListScrollFrame, 'update', UpdateWhoList)
-	end
-
-	if E.Wrath then
-		module:Armory()
 	end
 
 	module:LoadGMOTD()

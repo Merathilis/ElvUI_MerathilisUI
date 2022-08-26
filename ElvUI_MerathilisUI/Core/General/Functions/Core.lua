@@ -428,13 +428,12 @@ function F.SplitList(list, variable, cleanup)
 	end
 end
 
-do
-	-- Tooltip scanning stuff. Credits siweia, with permission.
+do -- Tooltip scanning stuff. Credits siweia, with permission.
 	local iLvlDB = {}
-	local itemLevelString = gsub(_G.ITEM_LEVEL, "%%d", "")
-	local RETRIEVING_ITEM_INFO = _G.RETRIEVING_ITEM_INFO
+	local itemLevelString = "^"..gsub(ITEM_LEVEL, "%%d", "")
+	local RETRIEVING_ITEM_INFO = RETRIEVING_ITEM_INFO
 
-	local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
+	local tip = CreateFrame("GameTooltip", "mUI_ScanTooltip", nil, "GameTooltipTemplate")
 	F.ScanTip = tip
 
 	function F:InspectItemTextures()

@@ -448,3 +448,5 @@ function M:Armory()
 		M:AddCharacterIcon()
 	end)
 end
+
+M:AddCallback("Armory")

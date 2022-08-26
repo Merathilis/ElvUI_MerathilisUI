@@ -172,7 +172,7 @@ function module:CreateItemString(frame, strType)
 	if frame.fontCreated then return end
 
 	for index, slot in pairs(inspectSlots) do
-		--if index ~= 4 then	-- need color border for some shirts
+		-- if index ~= 4 then	-- need color border for some shirts
 			local slotFrame = _G[strType..slot.."Slot"]
 			slotFrame.iLvlText = F.CreateText(slotFrame, "OVERLAY", 10)
 			slotFrame.iLvlText:ClearAllPoints()
@@ -183,18 +183,17 @@ function module:CreateItemString(frame, strType)
 				local offset = (i-1)*18 + 5
 				local iconX = x > 0 and x+offset or x-offset
 				local iconY = index > 15 and 20 or 2
-				slotFrame["textureIcon" .. i] = module:CreateItemTexture(slotFrame, relF, iconX, iconY)
+				slotFrame["textureIcon"..i] = module:CreateItemTexture(slotFrame, relF, iconX, iconY)
 			end
-		--end
+		-- end
 	end
 
 	frame.fontCreated = true
 end
 
 local pending = {}
-
 local gemSlotBlackList = {
-	[16] = true, [17] = true, [18] = true,	-- ignore weapons, until I find a better way
+	[16] = true, [17] = true, [18] = true,
 }
 function module:ItemLevel_UpdateGemInfo(link, unit, index, slotFrame)
 	if not gemSlotBlackList[index] then
@@ -202,11 +201,10 @@ function module:ItemLevel_UpdateGemInfo(link, unit, index, slotFrame)
 		if info then
 			local gemStep = 1
 			for i = 1, 5 do
-				local texture = slotFrame["textureIcon" .. i]
+				local texture = slotFrame["textureIcon"..i]
 				local bg = texture.bg
 				local gem = info.gems and info.gems[gemStep]
 				if gem then
-					print(gem)
 					texture:SetTexture(gem)
 					bg:SetBackdropBorderColor(0, 0, 0, 1)
 					bg:Show()
