@@ -59,7 +59,7 @@ options.tooltip = {
 				header0 = {
 					order = 0,
 					type = "header",
-					name = E.NewSign..F.cOption(L["Covenant"], 'orange'),
+					name = F.cOption(L["Covenant"], 'orange'),
 				},
 				enable = {
 					order = 1,

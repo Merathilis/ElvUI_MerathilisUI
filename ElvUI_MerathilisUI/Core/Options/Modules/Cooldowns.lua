@@ -4,7 +4,7 @@ local options = MER.options.modules.args
 
 options.cooldowns = {
 	type = "group",
-	name = E.NewSign..L["Cooldowns"],
+	name = L["Cooldowns"],
 	args = {
 		cooldownFlash = {
 			order = 1,
@@ -112,7 +112,7 @@ do
 		order = 99,
 		type = "group",
 		inline = true,
-		name = E.NewSign..L["Blacklist"],
+		name = L["Blacklist"],
 		disabled = function() return not E.db.mui.cooldownFlash.enable end,
 		args = {
 			name = {

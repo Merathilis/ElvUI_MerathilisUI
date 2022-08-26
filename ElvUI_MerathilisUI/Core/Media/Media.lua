@@ -118,9 +118,17 @@ AddMedia("PepeArt", "PepeArt.tga", "Textures")
 AddMedia("PepoLove", "pepoLove.tga", "Textures")
 AddMedia("Pushed", "pushed.tga", "Textures")
 
-AddMedia("Tank", "Tank.tga", "Textures")
-AddMedia("Healer", "Healer.tga", "Textures")
-AddMedia("DPS", "dps.tga", "Textures")
+AddMedia("sunTank", "RoleIcons/SunUI/Tank.tga", "Textures")
+AddMedia("sunHealer", "RoleIcons/SunUI/Healer.tga", "Textures")
+AddMedia("sunDPS", "RoleIcons/SunUI/DPS.tga", "Textures")
+
+AddMedia("svuiTank", "RoleIcons/SVUI/Tank.tga", "Textures")
+AddMedia("svuiHealer", "RoleIcons/SVUI/Healer.tga", "Textures")
+AddMedia("svuiDPS", "RoleIcons/SVUI/DPS.tga", "Textures")
+
+AddMedia("lynTank", "RoleIcons/LynUI/Tank.tga", "Textures")
+AddMedia("lynHealer", "RoleIcons/LynUI/Healer.tga", "Textures")
+AddMedia("lynDPS", "RoleIcons/LynUI/DPS.tga", "Textures")
 
 -- Fonts
 LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])

@@ -396,6 +396,13 @@ function MER:CheckCompatibility()
 		"private.WT.maps.worldMap.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["UnitFrames"], L["Role Icons"]),
+		format("%s-%s", L["UnitFrames"], L["Role Icon"]),
+		"db.mui.unitframes.roleIcons.enable",
+		"private.WT.unitFrames.roleIcon.enable"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],

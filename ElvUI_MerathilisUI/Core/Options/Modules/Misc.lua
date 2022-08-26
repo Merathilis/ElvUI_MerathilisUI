@@ -7,7 +7,7 @@ local LSM = E.LSM
 
 options.misc = {
 	type = "group",
-	name = E.NewSign..L["Miscellaneous"],
+	name = L["Miscellaneous"],
 	get = function(info) return E.db.mui.misc[ info[#info] ] end,
 	set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
@@ -50,7 +50,7 @@ options.misc = {
 		hideBossBanner = {
 			order = 7,
 			type = "toggle",
-			name = E.NewSign..L["Hide Boss Banner"],
+			name = L["Hide Boss Banner"],
 			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
 		},
 		spellAlert = {

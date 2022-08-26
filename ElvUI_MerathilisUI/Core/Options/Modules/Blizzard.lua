@@ -329,7 +329,7 @@ options.blizzard.args.objectiveTracker = {
 						tip = {
 							order = 1,
 							type = "description",
-							name = E.NewSign .. L["Here are some example presets, just try them!"]
+							name = L["Here are some example presets, just try them!"]
 						},
 						default = {
 							order = 2,

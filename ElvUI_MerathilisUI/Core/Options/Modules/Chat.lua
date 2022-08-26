@@ -529,7 +529,7 @@ options.chat = {
 		chatLink = {
 			order = 40,
 			type = "group",
-			name = E.NewSign..F.cOption(L["Chat Link"], 'orange'),
+			name = F.cOption(L["Chat Link"], 'orange'),
 			guiInline = true,
 			get = function(info)
 				return E.db.mui.chat.chatLink[info[#info]]

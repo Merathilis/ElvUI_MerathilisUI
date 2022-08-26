@@ -812,7 +812,10 @@ P.unitframes = {
 	},
 	style = true,
 	raidIcons = true,
-	roleIcons = true,
+	roleIcons = {
+		enable = true,
+		roleIconStyle = "SUNUI",
+	},
 	highlight = true,
 	auras = true,
 }

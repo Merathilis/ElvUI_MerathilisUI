@@ -4,7 +4,7 @@ local options = MER.options.modules.args
 
 options.nameplates = {
 	type = "group",
-	name = E.NewSign..L["NamePlates"],
+	name = L["NamePlates"],
 	get = function(info) return E.db.mui.nameplates[ info[#info] ] end,
 	set = function(info, value) E.db.mui.nameplates[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
 	args = {
@@ -27,7 +27,7 @@ options.nameplates = {
 				gradient  = {
 					order = 2,
 					type = "toggle",
-					name = E.NewSign..L["Gradient"],
+					name = L["Gradient"],
 					desc = L["|cffFF0000WARING:|r Adds a gradient color to the NamePlates. This will overwrite some default ElvUI NP settings, if you dont want this, please disable this feature."],
 				},
 			},
