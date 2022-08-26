@@ -72,7 +72,7 @@ options.general = {
 				shadowOverlay = {
 					order = 4,
 					type = "toggle",
-					name = L["MerathilisUI Shadows"],
+					name = L["Screen Shadow Overlay"],
 					desc = L["Enables/Disables a shadow overlay to darken the screen."],
 				},
 				shadow = {
