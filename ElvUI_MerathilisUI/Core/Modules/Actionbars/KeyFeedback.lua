@@ -8,27 +8,12 @@ end)
 
 keyFeedback:RegisterEvent('PLAYER_LOGIN')
 
-local settings = {
-	point = 'CENTER',
-	x = 0,
-	y = 0,
-	enableCastLine = true,
-	enableCooldown = true,
-	enablePushEffect = true,
-	enableCast = true,
-	enableCastFlash = true,
-	lineIconSize = 28,
-	mirrorSize = 32,
-	lineDirection = 'LEFT',
-	forceUseActionHook = true, -- Probably ElvUI needs this
-}
-
 function keyFeedback:PLAYER_LOGIN()
-	if not E.db.mui.actionbars.keyfeedback then
+	if not E.db.mui.actionbars.keyfeedback.enable then
 		return
 	end
 
-	self.db = settings
+	self.db = E.db.mui.actionbars.keyfeedback
 
 	if self.db.forceUseActionHook then
 		self.mirror = self:CreateFeedbackButton(true)
@@ -245,6 +230,10 @@ end
 
 function keyFeedback:RefreshSettings()
 	local db = self.db
+	if not db.enable then
+		return
+	end
+
 	self.mirror:SetSize(db.mirrorSize, db.mirrorSize)
 
 	self:RegisterUnitEvent('UNIT_SPELLCAST_SUCCEEDED', 'player')
