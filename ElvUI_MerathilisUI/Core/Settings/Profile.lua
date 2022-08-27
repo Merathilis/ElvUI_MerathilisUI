@@ -197,11 +197,12 @@ P.cvars = {
 }
 
 P.chat = {
-	chatButton = true,
-	hidePlayerBrackets = true,
-	hideChat = false,
-	customOnlineMessage = true,
-	emotes = true,
+	general = {
+		chatButton = true,
+		hideChat = false,
+		customOnlineMessage = true,
+		emotes = true,
+	},
 	filter = {
 		enable = true,
 		keywords = "",
