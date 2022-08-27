@@ -459,6 +459,13 @@ function MER:CheckCompatibility()
 		"db.sle.armory.inspect.enable"
 	)
 
+	CheckShadowAndLight(
+		format("%s-%s", L["UnitFrames"], L["Role Icons"]),
+		format("%s-%s", L["UnitFrames"], L["Role Icon"]),
+		"db.mui.unitframes.roleIcons.enable",
+		"db.sle.unitframes.roleIcons.enable"
+	)
+
 	CheckEltruism(
 		L["Class Icon"],
 		format("%s-%s", L["Skins"], L["Add Class Icons to Character Panel"]),
