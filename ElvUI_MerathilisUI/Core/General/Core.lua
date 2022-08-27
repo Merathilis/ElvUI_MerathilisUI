@@ -16,6 +16,9 @@ do
 	MER.ElvUIV = tonumber(E.version)
 	MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 
+	MER.Locale = GetLocale()
+	MER.ChineseLocale = strsub(MER.Locale, 0, 2) == "zh"
+
 	MER.IsRetail = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
 	MER.IsWrath = select(4, GetBuildInfo()) >= 30400
 
