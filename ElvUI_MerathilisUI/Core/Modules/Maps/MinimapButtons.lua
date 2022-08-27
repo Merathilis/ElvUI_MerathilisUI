@@ -29,7 +29,15 @@ local IgnoreList = {
 		"DroodFocusMinimapButton",
 		"QueueStatusMinimapButton",
 		"TimeManagerClockButton",
-		"MinimapZoneTextButton"
+		"MinimapZoneTextButton",
+		"MiniMapTracking",
+		"MinimapZoomIn",
+		"MinimapZoomOut",
+		"TukuiMinimapZone",
+		"TukuiMinimapCoord",
+		"RecipeRadarMinimapButtonFrame",
+		"InstanceDifficultyFrame",
+		"BattlefieldMinimap",
 	},
 	startWith = {
 		"Archy",
