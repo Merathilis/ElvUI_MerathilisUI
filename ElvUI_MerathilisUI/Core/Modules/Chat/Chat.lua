@@ -12,32 +12,23 @@ local BetterDate = BetterDate
 local gsub = string.gsub
 local CreateFrame = CreateFrame
 local ChatTypeInfo = ChatTypeInfo
-local GetRealmName = GetRealmName
 local hooksecurefunc = hooksecurefunc
 local UIParent = UIParent
 
 local ChatFrame_SystemEventHandler = ChatFrame_SystemEventHandler
-local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
-
-function module:RemoveCurrentRealmName(msg, author, ...)
-	local realmName = gsub(GetRealmName(), " ", "")
-
-	if msg and msg:find("-" .. realmName) then
-		return false, gsub(msg, "%-"..realmName, ""), author, ...
-	end
-end
 
 function module:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
 	local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
 	if isHistory == "ElvUI_ChatHistory" then historyTimestamp = historyTime end
 
 	if (CH.db.timeStampFormat and CH.db.timeStampFormat ~= 'NONE' ) then
-		local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or time());
-		timeStamp = gsub(timeStamp, ' $', '') --Remove space at the end of the string
+		local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or CH:GetChatTime())
+		timeStamp = gsub(timeStamp, ' $', '')
 		timeStamp = timeStamp:gsub('AM', ' AM')
 		timeStamp = timeStamp:gsub('PM', ' PM')
+
 		if CH.db.useCustomTimeColor then
 			local color = CH.db.customTimeColor
 			local hexColor = E:RGBToHex(color.r, color.g, color.b)
@@ -195,7 +186,7 @@ function module:UpdateSeperators()
 end
 
 function module:CreateChatButtons()
-	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end
+	if not E.db.mui.chat.chatButton or not E.private.chat.enable then return end
 
 	E.db.mui.chat.expandPanel = 150
 	E.db.mui.chat.panelHeight = E.db.mui.chat.panelHeight or E.db.chat.panelHeight
@@ -256,12 +247,62 @@ function module:CreateChatButtons()
 	end)
 end
 
+function module:UpdateRoleIcons()
+	if not self.db or not self.db.roleIcons.enable then
+		return
+	end
+
+	local pack = self.db.roleIcons.enable and self.db.roleIcons.roleIconStyle or "DEFAULT"
+	local sizeString = self.db.roleIcons.enable and format(":%d:%d", self.db.roleIcons.roleIconSize, self.db.roleIcons.roleIconSize) or ":16:16"
+
+	if pack ~= "DEFAULT" then
+		sizeString = sizeString and (sizeString .. ":0:0:64:64:2:62:0:58")
+	end
+
+	if pack == "SUNUI" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.sunTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.sunHealer, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.sunDPS, sizeString)
+		}
+	elseif pack == "LYNUI" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.lynTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.lynHealer, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.lynDPS, sizeString)
+		}
+	elseif pack == "SVUI" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.svuiTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.svuiHealer, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.svuiDPS, sizeString)
+		}
+	elseif pack == "DEFAULT" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(E.Media.Textures.Tank, sizeString),
+			HEALER = E:TextureString(E.Media.Textures.Healer, sizeString),
+			DAMAGER = E:TextureString(E.Media.Textures.DPS, sizeString)
+		}
+	end
+end
+
+function module:AddCustomEmojis()
+	--Custom Emojis
+	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"
+
+	-- Twitch Emojis
+	CH:AddSmiley(':monkaomega:', format(t, 'monkaomega'))
+	CH:AddSmiley(':salt:', format(t, 'salt'))
+	CH:AddSmiley(':sadge:', format(t, 'sadge'))
+end
+
 function module:Initialize()
-	if E.private.chat.enable ~= true then return; end
+	self.db = E.db.mui.chat
+	if not self.db or not E.private.chat.enable then
+		return
+	end
 
-	local db = E.db.mui.chat
-
-	if db.customOnlineMessage then
+	if self.db.customOnlineMessage then
 		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["ERR_FRIEND_ONLINE"]
 		_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["ERR_FRIEND_OFFLINE"]
 
@@ -269,10 +310,6 @@ function module:Initialize()
 		_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L["BN_INLINE_TOAST_FRIEND_OFFLINE"]
 	end
 
-	-- Remove the Realm Name from system messages
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", module.RemoveCurrentRealmName)
-
-	module:EasyChannel()
 	module:StyleChat()
 	module:StyleVoicePanel()
 	if E.Retail then
@@ -282,13 +319,8 @@ function module:Initialize()
 	module:LoadChatFade()
 	module:UpdateSeperators()
 	module:CreateChatButtons()
-
-	--Custom Emojis
-	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"
-
-	-- Twitch Emojis
-	CH:AddSmiley(':monkaomega:', format(t, 'monkaomega'))
-	CH:AddSmiley(':salt:', format(t, 'salt'))
+	module:UpdateRoleIcons()
+	module:AddCustomEmojis()
 end
 
 function module:Configure_All()

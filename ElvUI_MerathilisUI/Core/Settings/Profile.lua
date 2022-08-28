@@ -202,6 +202,11 @@ P.chat = {
 	hideChat = false,
 	customOnlineMessage = true,
 	emotes = true,
+	roleIcons = {
+		enable = true,
+		roleIconSize = 16,
+		roleIconStyle = "SUNUI",
+	},
 	filter = {
 		enable = true,
 		keywords = "",

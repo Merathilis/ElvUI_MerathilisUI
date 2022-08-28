@@ -383,28 +383,14 @@ options.unitframes.args.roleIcons = {
 		E:StaticPopup_Show("PRIVATE_RL")
 	end,
 	args = {
-		desc = {
-			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["Change the default role icons."],
-					fontSize = "medium"
-				}
-			}
-		},
 		enable = {
-			order = 2,
+			order = 1,
 			type = "toggle",
 			name = L["Enable"],
 			width = "full"
 		},
 		roleIconStyle = {
-			order = 3,
+			order = 2,
 			type = "select",
 			name = L["Style"],
 			values = {
