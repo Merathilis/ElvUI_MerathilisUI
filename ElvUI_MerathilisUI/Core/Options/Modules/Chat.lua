@@ -18,37 +18,33 @@ options.chat = {
 			type = "header",
 			name = F.cOption(L["Chat"], 'orange'),
 		},
-		general = {
+		chatButton = {
 			order = 2,
-			type = "group",
-			name = F.cOption(L["General"], 'orange'),
-			guiInline = true,
-			get = function(info) return E.db.mui.chat[ info[#info] ] end,
-			set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-			args = {
-				chatButton = {
-					order = 1,
-					type = "toggle",
-					name = L["Chat Menu"],
-					desc = L["Create a chat button to increase the chat size."],
-				},
-				hideChat = {
-					order = 2,
-					type = "toggle",
-					name = L["Hide Community Chat"],
-					desc = L["Adds an overlay to the Community Chat. Useful for streamers."],
-				},
-				emotes = {
-					order = 3,
-					type = "toggle",
-					name = L["Emotes"],
-				},
-				customOnlineMessage = {
-					order = 4,
-					type = "toggle",
-					name = L["Custom Online Message"],
-				},
-			},
+			type = "toggle",
+			name = L["Chat Menu"],
+			desc = L["Create a chat button to increase the chat size."],
+		},
+		hidePlayerBrackets = {
+			order = 3,
+			type = "toggle",
+			name = L["Hide Player Brackets"],
+			desc = L["Removes brackets around the person who posts a chat message."],
+		},
+		hideChat = {
+			order = 4,
+			type = "toggle",
+			name = L["Hide Community Chat"],
+			desc = L["Adds an overlay to the Community Chat. Useful for streamers."],
+		},
+		emotes = {
+			order = 5,
+			type = "toggle",
+			name = L["Emotes"],
+		},
+		customOnlineMessage = {
+			order = 6,
+			type = "toggle",
+			name = L["Custom Online Message"],
 		},
 		seperators = {
 			order = 10,

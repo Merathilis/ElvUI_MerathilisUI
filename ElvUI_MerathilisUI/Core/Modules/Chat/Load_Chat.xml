@@ -3,7 +3,7 @@
 	<Script file="ChatBar.lua"/>
 	<Script file="ChatFade.lua"/>
 	<Script file="ChatLinks.lua"/>
-	<Script file="ChatStyle.lua"/>
 	<Script file="DamageMeterFilter.lua"/>
+	<Script file="EasyChannel.lua"/>
 	<Script file="Emotes.lua"/>
 </Ui>

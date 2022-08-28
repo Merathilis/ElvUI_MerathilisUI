@@ -172,7 +172,7 @@ function module:LoadChatEmote()
 end
 
 function module:Initialize()
-	if not E.db.mui.chat.general.emotes or not E.private.chat.enable then return end
+	if E.db.mui.chat.emotes ~= true or E.private.chat.enable ~= true then return end
 
 	local Emote = self.ChatEmote
 	local ChatEmote = CreateFrame("Button", "mUIEmote", _G.LeftChatPanel)
