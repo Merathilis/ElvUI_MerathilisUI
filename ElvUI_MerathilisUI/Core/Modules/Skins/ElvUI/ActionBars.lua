@@ -94,6 +94,11 @@ function module:Skin_ElvUI_ActionBars()
 			local bar = _G["ElvUI_Bar"..id]
 			module:SkinBar(bar, "PLAYER")
 			bar.backdrop:Styling()
+			if bar and bar.backdrop and bar.backdrop.MERstyle then
+				print("bar: "..id, "skinned")
+			elseif not bar.backdrop.MERstyle then
+				print("bar: "..id, "not skinned")
+			end
 		end
 
 		module:SecureHook(AB, "PositionAndSizeBar", "ElvUI_PositionAndSizeBar")

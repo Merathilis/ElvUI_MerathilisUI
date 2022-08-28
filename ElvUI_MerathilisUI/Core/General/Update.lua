@@ -46,8 +46,13 @@ function MER:UpdateScripts() -- DB Convert
 		if E.db.mui.unitframes.roleIcons and type(E.db.mui.unitframes.roleIcons) ~= 'table' then
 			E.db.mui.unitframes.roleIcons = {}
 		end
-
 		UpdateMessage(L["UnitFrames"] .. " - " .. L["Role Icons"], profileVersion)
+
+		if E.db.mui.actionbars.keyfeedback and type(E.db.mui.actionbars.keyfeedback) ~= 'table' then
+			E.db.mui.actionbars.keyfeedback = {}
+		end
+		UpdateMessage(L["ActionBars"] .. " - " .. L["KeyFeedback"], profileVersion)
+
 		updated = true
 	end
 
