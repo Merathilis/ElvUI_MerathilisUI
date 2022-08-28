@@ -89,29 +89,24 @@ function module:Skin_ElvUI_ActionBars()
 	end
 
 	-- ElvUI action bar
-	if not E.private.actionbar.masque.actionbars then
+	if not IsAddOnLoaded('Masque') and not E.private.actionbar.masque.actionbars then
 		for id = 1, 10 do
 			local bar = _G["ElvUI_Bar"..id]
 			module:SkinBar(bar, "PLAYER")
 			bar.backdrop:Styling()
-			if bar and bar.backdrop and bar.backdrop.MERstyle then
-				print("bar: "..id, "skinned")
-			elseif not bar.backdrop.MERstyle then
-				print("bar: "..id, "not skinned")
-			end
 		end
 
 		module:SecureHook(AB, "PositionAndSizeBar", "ElvUI_PositionAndSizeBar")
 	end
 
 	-- Pet bar
-	if not E.private.actionbar.masque.petBar then
+	if not IsAddOnLoaded('Masque') and not E.private.actionbar.masque.petBar then
 		module:SkinBar(_G.ElvUI_BarPet, "PET")
 		module:SecureHook(AB, "PositionAndSizeBarPet", "ElvUI_PositionAndSizeBarPet")
 	end
 
 	-- Stance bar
-	if not E.private.actionbar.masque.stanceBar then
+	if not IsAddOnLoaded('Masque') and not E.private.actionbar.masque.stanceBar then
 		module:SkinBar(_G.ElvUI_StanceBar, "STANCE")
 		module:SecureHook(AB, "PositionAndSizeBarShapeShift", "ElvUI_PositionAndSizeBarShapeShift")
 	end

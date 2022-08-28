@@ -7,7 +7,6 @@ local LO = E:GetModule('Layout')
 local _G = _G
 local unpack = unpack
 local format = format
-local time = time
 local BetterDate = BetterDate
 local gsub = string.gsub
 local CreateFrame = CreateFrame

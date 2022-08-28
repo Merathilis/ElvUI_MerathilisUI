@@ -738,6 +738,7 @@ options.chat.args.roleIcons = {
 	end,
 	set = function(info, value)
 		E.db.mui.chat.roleIcons[info[#info]] = value
+		module:UpdateRoleIcons()
 		E:StaticPopup_Show("PRIVATE_RL")
 	end,
 	args = {
