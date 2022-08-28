@@ -2,7 +2,16 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Chat')
 local CH = E:GetModule('Chat')
 
+local _G = _G
+local unpack = unpack
 local format = format
+
+local CreateFrame = CreateFrame
+local ChatTypeInfo = ChatTypeInfo
+local hooksecurefunc = hooksecurefunc
+local UIParent = UIParent
+
+local ChatFrame_SystemEventHandler = ChatFrame_SystemEventHandler
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
@@ -78,10 +87,10 @@ function module:Configure_All()
 end
 
 function module:Initialize()
-	self.db = E.db.mui.chat
-	if not self.db or not E.private.chat.enable then
+	if not E.private.chat.enable then
 		return
 	end
+	self.db = E.db.mui.chat
 
 	if self.db.general.customOnlineMessage then
 		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["ERR_FRIEND_ONLINE"]
@@ -91,13 +100,16 @@ function module:Initialize()
 		_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L["BN_INLINE_TOAST_FRIEND_OFFLINE"]
 	end
 
-	module:ChatStyle()
 
+	self:StyleChat()
+	self:StyleVoicePanel()
 	if E.Retail then
-		module:ChatFilter()
+		self:ChatFilter()
 	end
-	module:DamageMeterFilter()
-	module:LoadChatFade()
+	self:DamageMeterFilter()
+	self:LoadChatFade()
+	self:UpdateSeperators()
+	self:CreateChatButtons()
 
 	--Custom Emojis
 	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"
@@ -105,6 +117,14 @@ function module:Initialize()
 	-- Twitch Emojis
 	CH:AddSmiley(':monkaomega:', format(t, 'monkaomega'))
 	CH:AddSmiley(':salt:', format(t, 'salt'))
+end
+
+function module:ProfileUpdate()
+	self.db = E.db.mui.chat
+	if not self.db then
+		return
+	end
+
 end
 
 MER:RegisterModule(module:GetName())

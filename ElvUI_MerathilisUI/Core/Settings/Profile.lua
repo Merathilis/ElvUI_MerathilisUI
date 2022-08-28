@@ -203,15 +203,6 @@ P.chat = {
 		customOnlineMessage = true,
 		emotes = true,
 	},
-	chatText = {
-		enable = true,
-		abbreviation = "SHORT",
-		removeBrackets = true,
-		roleIconSize = 16,
-		roleIconStyle = "SUNUI",
-		removeRealm = true,
-		customAbbreviation = {},
-	},
 	filter = {
 		enable = true,
 		keywords = "",

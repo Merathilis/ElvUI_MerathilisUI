@@ -1,8 +1,7 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, _, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Chat')
 local S = MER:GetModule('MER_Skins')
 local LO = E:GetModule('Layout')
-local CH = E:GetModule('Chat')
 
 function module:StyleChat()
 	-- Style the chat
@@ -26,7 +25,7 @@ function module:StyleVoicePanel()
 end
 
 function module:CreateSeparators()
-	if not E.db.mui.chat.seperators.enable  then return end
+	if E.db.mui.chat.seperators.enable ~= true then return end
 
 	--Left Chat Tab Separator
 	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel, "BackdropTemplate")
@@ -129,15 +128,4 @@ function module:CreateChatButtons()
 		end
 		GameTooltip:Hide()
 	end)
-end
-
-function module:ChatStyle()
-	if not E.private.chat.enable then
-		return
-	end
-
-	module:StyleChat()
-	module:StyleVoicePanel()
-	module:UpdateSeperators()
-	module:CreateChatButtons()
 end
