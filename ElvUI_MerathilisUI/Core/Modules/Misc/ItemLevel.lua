@@ -161,6 +161,7 @@ function module:CreateItemTexture(slot, relF, x, y)
 	local icon = slot:CreateTexture()
 	icon:SetPoint(relF, x, y)
 	icon:SetSize(14, 14)
+	icon:SetTexCoord(unpack(E.TexCoords))
 
 	icon.bg = S:CreateBDFrame(icon, 25)
 	icon.bg:SetFrameLevel(3)
