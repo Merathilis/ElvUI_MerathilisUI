@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Chat')
+local CH = E:GetModule('Chat')
 local options = MER.options.modules.args
 local CB = MER:GetModule('MER_ChatBar')
 local CL = MER:GetModule('MER_ChatLink')
@@ -739,7 +740,7 @@ options.chat.args.roleIcons = {
 	set = function(info, value)
 		E.db.mui.chat.roleIcons[info[#info]] = value
 		module:UpdateRoleIcons()
-		E:StaticPopup_Show("PRIVATE_RL")
+		CH:CheckLFGRoles() -- We need to call GROUP_ROSTER_UPDATE to run the Update, so do it with this function
 	end,
 	args = {
 		enable = {
