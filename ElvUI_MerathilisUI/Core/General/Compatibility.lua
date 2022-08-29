@@ -403,6 +403,13 @@ function MER:CheckCompatibility()
 		"private.WT.unitFrames.roleIcon.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["Chat"], L["Role Icons"]),
+		L["Chat Text"],
+		"db.mui.chat.roleIcons.enable",
+		"db.WT.social.chatText.enable"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],
