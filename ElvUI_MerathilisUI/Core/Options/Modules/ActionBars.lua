@@ -18,12 +18,6 @@ options.actionbars = {
 			name = F.cOption(L["General"], 'orange'),
 			guiInline = true,
 			args = {
-				keyfeedback = {
-					order = 1,
-					type = "toggle",
-					name = L["Spell Feedback"],
-					desc = L["Creates a texture to show the recently pressed buttons."],
-				},
 			},
 		},
 		specBar = {
@@ -134,7 +128,7 @@ options.actionbars = {
 			name = F.cOption(L["KeyFeedback"], 'orange'),
 			guiInline = true,
 			disabled = function() return not E.private.actionbar.enable end,
-			get = function(info) return E.db.mui.actionbars.keyfeedback[ info[#info] ] end,
+			get = function(info) return E.db.mui.actionbars.keyfeedback[info[#info]] end,
 			set = function(info, value) E.db.mui.actionbars.keyfeedback[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			args = {
 				enable = {

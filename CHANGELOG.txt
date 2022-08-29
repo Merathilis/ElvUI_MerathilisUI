@@ -3,5 +3,4 @@
 [*]Replace default Blizzard CD Text with the ElvUI ones on WeakAuras. Credits DaveA50
 [*]Hide some options that are not available on non Retail, forgot these
 [*]Let the extended Merchant frame also work on non Retail Clients
-[*]Added options to the Chat & UnitFrames to change the RoleIcon Style
-[/list]
+[*]Added options to the Chat & UnitFrames to change the RoleIcon Style[/list]
