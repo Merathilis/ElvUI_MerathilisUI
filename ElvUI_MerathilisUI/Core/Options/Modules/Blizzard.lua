@@ -30,6 +30,7 @@ options.blizzard.args.objectiveTracker = {
 	name = L["Objective Tracker"],
 	get = function(info) return E.db.mui.blizzard.objectiveTracker[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard.objectiveTracker[info[#info]] = value; ObjectiveTracker_Update(); end,
+	hidden = not E.Retail,
 	args = {
 		name = {
 			order = 1,
@@ -328,7 +329,7 @@ options.blizzard.args.objectiveTracker = {
 						tip = {
 							order = 1,
 							type = "description",
-							name = E.NewSign .. L["Here are some example presets, just try them!"]
+							name = L["Here are some example presets, just try them!"]
 						},
 						default = {
 							order = 2,
@@ -788,6 +789,7 @@ options.blizzard.args.talents = {
 	name = L["Talents"],
 	get = function(info) return E.db.mui.blizzard.talents[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard.talents[info[#info]] = value; end,
+	hidden = not E.Retail,
 	args = {
 		name = {
 			order = 1,

@@ -118,6 +118,7 @@ module.PortItems = {
 	{95568, nil, true}, --Sunreaver beakon
 	{87548}, --Pandaria Arch
 	{180817}, --Cypher of Relocation
+	{151016}, --Fractured Necrolyte Skull
 }
 module.EngineerItems = {
 	{18984, nil, true}, --Dimensional Ripper - Everlook

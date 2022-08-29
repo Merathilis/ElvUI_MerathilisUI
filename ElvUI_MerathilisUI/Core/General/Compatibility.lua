@@ -396,6 +396,20 @@ function MER:CheckCompatibility()
 		"private.WT.maps.worldMap.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["UnitFrames"], L["Role Icons"]),
+		format("%s-%s", L["UnitFrames"], L["Role Icon"]),
+		"db.mui.unitframes.roleIcons.enable",
+		"private.WT.unitFrames.roleIcon.enable"
+	)
+
+	CheckWindtools(
+		format("%s-%s", L["Chat"], L["Role Icons"]),
+		L["Chat Text"],
+		"db.mui.chat.roleIcons.enable",
+		"db.WT.social.chatText.enable"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],
@@ -452,6 +466,13 @@ function MER:CheckCompatibility()
 		"db.sle.armory.inspect.enable"
 	)
 
+	CheckShadowAndLight(
+		format("%s-%s", L["UnitFrames"], L["Role Icons"]),
+		format("%s-%s", L["UnitFrames"], L["Role Icon"]),
+		"db.mui.unitframes.roleIcons.enable",
+		"db.sle.unitframes.roleIcons.enable"
+	)
+
 	CheckEltruism(
 		L["Class Icon"],
 		format("%s-%s", L["Skins"], L["Add Class Icons to Character Panel"]),
@@ -463,7 +484,7 @@ function MER:CheckCompatibility()
 		L["Gradient"],
 		L["Enable Gradient Nameplates"],
 		"db.mui.nameplates.gradient",
-		"db.ElvUI_EltreumUI.gradientmode.npenable"
+		"db.ElvUI_EltreumUI.unitframes.gradientmode.npenable "
 	)
 
 	if self.CompatibilityFrame.numModules > 0 then

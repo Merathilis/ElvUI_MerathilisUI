@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Chat')
+local CH = E:GetModule('Chat')
 local options = MER.options.modules.args
 local CB = MER:GetModule('MER_ChatBar')
 local CL = MER:GetModule('MER_ChatLink')
@@ -9,7 +10,7 @@ local _G = _G
 
 options.chat = {
 	type = "group",
-	name = L["Chat"],
+	name = E.NewSign .. L["Chat"],
 	get = function(info) return E.db.mui.chat[ info[#info] ] end,
 	set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
@@ -529,7 +530,7 @@ options.chat = {
 		chatLink = {
 			order = 40,
 			type = "group",
-			name = E.NewSign..F.cOption(L["Chat Link"], 'orange'),
+			name = F.cOption(L["Chat Link"], 'orange'),
 			guiInline = true,
 			get = function(info)
 				return E.db.mui.chat.chatLink[info[#info]]
@@ -700,3 +701,70 @@ if E.Retail then
 		}
 	}
 end
+
+local SampleStrings = {}
+do
+	local icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.sunTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.sunHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.sunDPS, ":16:16")
+	SampleStrings.sunui = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.lynTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.lynHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.lynDPS, ":16:16")
+	SampleStrings.lynui = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.svuiTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.svuiHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.svuiDPS, ":16:16")
+	SampleStrings.svui = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(E.Media.Textures.Tank, ":16:16") .. " "
+	icons = icons .. E:TextureString(E.Media.Textures.Healer, ":16:16") .. " "
+	icons = icons .. E:TextureString(E.Media.Textures.DPS, ":16:16")
+	SampleStrings.elvui = icons
+end
+
+options.chat.args.roleIcons = {
+	order = 7,
+	type = "group",
+	name = E.NewSign .. F.cOption(L["Role Icons"], "orange"),
+	guiInline = true,
+	get = function(info)
+		return E.db.mui.chat.roleIcons[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.chat.roleIcons[info[#info]] = value
+		module:UpdateRoleIcons()
+		CH:CheckLFGRoles() -- We need to call GROUP_ROSTER_UPDATE to run the Update, so do it with this function
+	end,
+	args = {
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+			width = "full"
+		},
+		roleIconStyle = {
+			order = 1,
+			type = "select",
+			name = L["Style"],
+			values = {
+				DEFAULT = SampleStrings.elvui,
+				SUNUI = SampleStrings.sunui,
+				LYNUI = SampleStrings.lynui,
+				SVUI = SampleStrings.svui,
+			}
+		},
+		roleIconSize = {
+			order = 2,
+			type = "range",
+			name = L["Size"],
+			min = 5, max = 25, step = 1
+		},
+	},
+}

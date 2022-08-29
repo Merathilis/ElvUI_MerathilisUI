@@ -79,6 +79,30 @@ local function ProfilingWindow_UpdateButtons(frame)
 	end
 end
 
+local function ApplyElvCDs(region, data)
+	if not E.private.mui.skins.addonSkins.waCooldowns then return end
+
+	local cd = region.cooldown.CooldownSettings or {}
+	cd.font = E.Libs.LSM:Fetch('font', E.db.cooldown.fonts.font)
+	cd.fontSize = E.db.cooldown.fonts.fontSize
+	cd.fontOutline = E.db.cooldown.fonts.fontOutline
+
+	region.cooldown.CooldownSettings = cd
+	region.cooldown.forceDisabled = nil
+
+	if _G.WeakAuras.GetData( data.id ).cooldownTextDisabled then
+		region.cooldown.hideText = true
+		region.cooldown.noCooldownCount = true
+	else
+		-- We want to see CDs, but we want Elv to handle them.
+		region.cooldown.hideText = false
+		region.cooldown.noCooldownCount = true -- This is OK because the setting itself is in the aura data.
+	end
+
+	region.cooldown:SetHideCountdownNumbers( region.cooldown.noCooldownCount )
+	E:RegisterCooldown( region.cooldown )
+end
+
 local function Skin_WeakAuras(f, fType)
 	-- Modified from NDui WeakAuras Skins
 	if fType == "icon" then
@@ -161,6 +185,7 @@ local function LoadSkin()
 	regionTypes.icon.create = function(parent, data)
 		local region = Create_Icon(parent, data)
 		Skin_WeakAuras(region, "icon")
+		ApplyElvCDs(region, data)
 		return region
 	end
 
@@ -172,6 +197,7 @@ local function LoadSkin()
 
 	regionTypes.icon.modify = function(parent, region, data)
 		Modify_Icon(parent, region, data)
+		ApplyElvCDs(region, data)
 		Skin_WeakAuras(region, "icon")
 	end
 

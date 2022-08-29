@@ -99,7 +99,7 @@ local function UpdateWhoList()
 end
 
 function module:Misc()
-	local db = E.db.mui.misc
+	self.db = E.db.mui.misc
 
 	if E.Retail then
 		E.RegisterCallback(module, "RoleChanged", "SetRole")

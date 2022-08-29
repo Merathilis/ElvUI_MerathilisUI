@@ -11,14 +11,24 @@ local GetItemQualityColor = GetItemQualityColor
 
 local CharacterStatsPane = _G.CharacterStatsPane
 local CreateFrame = CreateFrame
-local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
-local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
-local C_TransmogCollection_GetIllusionStrings = C_TransmogCollection.GetIllusionStrings
-local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
+local C_Transmog_GetSlotInfo = C_Transmog and C_Transmog.GetSlotInfo
+local C_Transmog_GetSlotVisualInfo = C_Transmog and C_Transmog.GetSlotVisualInfo
+local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection and C_TransmogCollection.GetAppearanceSourceInfo
+local C_TransmogCollection_GetIllusionStrings = C_TransmogCollection and C_TransmogCollection.GetIllusionStrings
 
 local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
 local ClassSymbolFrame
 local CharacterText --check character text
+
+local InCombatLockdown = InCombatLockdown
+local EquipmentManager_UnequipItemInSlot = EquipmentManager_UnequipItemInSlot
+local EquipmentManager_RunAction = EquipmentManager_RunAction
+
+local function UnequipItemInSlot(i)
+	if InCombatLockdown() then return end
+	local action = EquipmentManager_UnequipItemInSlot(i)
+	EquipmentManager_RunAction(action)
+end
 
 function module:UpdatePaperDoll()
 	module.db = E.db.mui.armory
@@ -278,9 +288,7 @@ function module:ExpandSize()
 	end
 
 	_G.CharacterFrame:SetHeight(470)
-
 	_G.CharacterHandsSlot:SetPoint('TOPRIGHT', _G.CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
-
 	_G.CharacterMainHandSlot:SetPoint('BOTTOMLEFT', _G.PaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
 
 	_G.CharacterModelFrame:ClearAllPoints()
@@ -318,7 +326,7 @@ function module:ExpandSize()
 		M:UpdatePageInfo(_G.CharacterFrame, "Character")
 	end
 
-	--Pawn Button sucks A$$
+		--Pawn Button sucks A$$
 	if IsAddOnLoaded('Pawn') then
 		if _G.PawnUI_InventoryPawnButton then
 			_G.PawnUI_InventoryPawnButton:SetFrameStrata('DIALOG')
@@ -383,14 +391,14 @@ local function SkinAdditionalStats()
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
 	end
 
-	if CharacterStatsPane.DefenceCategory then
+	if CharacterStatsPane.DefenseCategory then
 		if module.db.stats.classColorGradient then
-			CharacterStatsPane.DefenceCategory.Title:SetText(E:TextGradient(CharacterStatsPane.DefenceCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+			CharacterStatsPane.DefenseCategory.Title:SetText(E:TextGradient(CharacterStatsPane.DefenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
 		else
-			CharacterStatsPane.DefenceCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
+			CharacterStatsPane.DefenseCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
 		end
-		StatsPane("DefenceCategory")
-		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenceCategory)
+		StatsPane("DefenseCategory")
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenseCategory)
 	end
 end
 
@@ -533,6 +541,24 @@ function module:AddCharacterIcon()
 	end
 end
 
+function module:UndressButton()
+	-- Undress Button
+	if E.db.mui.armory.character.undressButton then
+		local bu = F.Widgets.New("Button", _G.PaperDollFrame, format("|cff70C0F5%s", L["Undress"]), 60, 20,
+		function()
+			for i = 1, 17 do
+				local texture = GetInventoryItemTexture('player', i)
+				if texture then
+					UnequipItemInSlot(i)
+				end
+			end
+		end)
+
+		bu:SetPoint("TOPRIGHT", _G.CharacterFrame, "TOPLEFT", 70, -35)
+		bu:SetFrameStrata("HIGH")
+	end
+end
+
 function module:LoadAndSetupCharacter()
 	if not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo then
 		return
@@ -542,4 +568,5 @@ function module:LoadAndSetupCharacter()
 	self:SkinCharacterStatsPane()
 	self:ExpandSize()
 	self:AddCharacterIcon()
+	self:UndressButton()
 end

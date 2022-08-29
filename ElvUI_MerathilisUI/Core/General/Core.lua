@@ -16,7 +16,8 @@ do
 	MER.ElvUIV = tonumber(E.version)
 	MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 
-	MER.IsNewPatch = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
+	MER.IsRetail = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
+	MER.IsWrath = select(4, GetBuildInfo()) >= 30400
 
 	MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
 

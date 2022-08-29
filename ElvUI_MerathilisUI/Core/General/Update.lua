@@ -41,12 +41,18 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion and profileVersion <= 5.15 then
-		if E.db.mui.blizzard.simplifyerrors then
-			E.db.mui.blizzard.simplifyerrors = nil
+	if profileVersion and profileVersion <= 5.21 then
+		-- Role Icons is now a table instead of a bool
+		if E.db.mui.unitframes.roleIcons and type(E.db.mui.unitframes.roleIcons) ~= 'table' then
+			E.db.mui.unitframes.roleIcons = {}
 		end
+		UpdateMessage(L["UnitFrames"] .. " - " .. L["Role Icons"], profileVersion)
 
-		UpdateMessage(L["Misc"] .. " - " .. L["Profile Cleanup"], profileVersion)
+		if E.db.mui.actionbars.keyfeedback and type(E.db.mui.actionbars.keyfeedback) ~= 'table' then
+			E.db.mui.actionbars.keyfeedback = {}
+		end
+		UpdateMessage(L["ActionBars"] .. " - " .. L["KeyFeedback"], profileVersion)
+
 		updated = true
 	end
 

@@ -337,6 +337,39 @@ function module:ReskinIcon(icon, backdrop)
 	end
 end
 
+-- Handle arrows
+local arrowDegree = {
+	["up"] = 0,
+	["down"] = 180,
+	["left"] = 90,
+	["right"] = -90,
+}
+function module:SetupArrow(self, direction)
+	if not self then return end
+
+	self:SetTexture(MER.Media.Textures.arrowUp)
+	self:SetRotation(rad(arrowDegree[direction]))
+end
+
+function module:ReskinArrow(self, direction)
+	self:SetSize(16, 16)
+	S:HandleButton(self, true)
+	self:SetDisabledTexture(E.media.normTex)
+
+	local dis = self:GetDisabledTexture()
+	dis:SetVertexColor(0, 0, 0, .3)
+	dis:SetDrawLayer("OVERLAY")
+	dis:SetAllPoints()
+
+	local tex = self:CreateTexture(nil, "ARTWORK")
+	tex:SetAllPoints()
+	-- module.SetupArrow(tex, direction)
+	self.__texture = tex
+
+	self:HookScript("OnEnter", F.Texture_OnEnter)
+	self:HookScript("OnLeave", F.Texture_OnLeave)
+end
+
 function module:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()

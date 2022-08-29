@@ -339,7 +339,7 @@ function module:DisableCooldownFlash()
 end
 
 function module:TestMode()
-	tinsert(module.animating, {"Interface\\Icons\\achievement_guildperk_ladyluck_rank2", nil, "Spell Name"})
+	tinsert(module.animating, {"Interface\\Icons\\Ability_CriticalStrike", nil, "Spell Name"})
 	DCP:SetScript("OnUpdate", OnUpdate)
 end
 

@@ -7,7 +7,7 @@ local format = string.format
 
 options.unitframes = {
 	type = "group",
-	name = L["UnitFrames"],
+	name = E.NewSign..L["UnitFrames"],
 	get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 	set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; end,
 	disabled = function() return not E.private.unitframe.enable end,
@@ -36,12 +36,6 @@ options.unitframes = {
 					type = "toggle",
 					name = L["Raid Icon"],
 					desc = L["Change the default raid icons."],
-				},
-				roleIcons = {
-					order = 3,
-					type = "toggle",
-					name = L["Role Icon"],
-					desc = L["Change the default role icons."],
 				},
 				highlight = {
 					order = 4,
@@ -160,7 +154,7 @@ options.unitframes = {
 			},
 		},
 		healPrediction = {
-			order = 5,
+			order = 6,
 			type = "group",
 			name = F.cOption(L["Heal Prediction"], 'orange'),
 			desc = L["Changes the Heal Prediction texture to the default Blizzard ones."],
@@ -344,6 +338,66 @@ options.unitframes = {
 						},
 					},
 				},
+			},
+		},
+	},
+}
+
+local SampleStrings = {}
+do
+	local icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.sunTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.sunHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.sunDPS, ":16:16")
+	SampleStrings.sunui = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.lynTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.lynHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.lynDPS, ":16:16")
+	SampleStrings.lynui = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.svuiTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.svuiHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.svuiDPS, ":16:16")
+	SampleStrings.svui = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(E.Media.Textures.Tank, ":16:16") .. " "
+	icons = icons .. E:TextureString(E.Media.Textures.Healer, ":16:16") .. " "
+	icons = icons .. E:TextureString(E.Media.Textures.DPS, ":16:16")
+	SampleStrings.elvui = icons
+end
+
+options.unitframes.args.roleIcons = {
+	order = 5,
+	type = "group",
+	name = E.NewSign .. F.cOption(L["Role Icons"], "orange"),
+	guiInline = true,
+	get = function(info)
+		return E.db.mui.unitframes.roleIcons[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.unitframes.roleIcons[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
+	end,
+	args = {
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+			width = "full"
+		},
+		roleIconStyle = {
+			order = 2,
+			type = "select",
+			name = L["Style"],
+			values = {
+				DEFAULT = SampleStrings.elvui,
+				SUNUI = SampleStrings.sunui,
+				LYNUI = SampleStrings.lynui,
+				SVUI = SampleStrings.svui,
 			},
 		},
 	},

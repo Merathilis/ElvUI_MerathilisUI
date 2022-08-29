@@ -202,6 +202,11 @@ P.chat = {
 	hideChat = false,
 	customOnlineMessage = true,
 	emotes = true,
+	roleIcons = {
+		enable = true,
+		roleIconSize = 16,
+		roleIconStyle = "SUNUI",
+	},
 	filter = {
 		enable = true,
 		keywords = "",
@@ -230,7 +235,7 @@ P.chat = {
 		buttonHeight = 5,
 		spacing = 5,
 		orientation = "HORIZONTAL",
-		tex = "Gradient",
+		tex = "MER_NormTex",
 		font = {
 			name = E.db.general.font,
 			size = 12,
@@ -426,7 +431,6 @@ P.datatexts = {
 }
 
 P.actionbars = {
-	keyfeedback = true,
 	specBar = {
 		enable = true,
 		mouseover = false,
@@ -473,6 +477,21 @@ P.actionbars = {
 			[153180] = true,
 			[128807] = true,
 		},
+	},
+	keyfeedback = {
+		enable = true,
+		point = 'CENTER',
+		x = 0,
+		y = 0,
+		enableCastLine = true,
+		enableCooldown = true,
+		enablePushEffect = true,
+		enableCast = true,
+		enableCastFlash = true,
+		lineIconSize = 28,
+		mirrorSize = 32,
+		lineDirection = 'RIGHT',
+		forceUseActionHook = true, -- Probably ElvUI needs this
 	},
 }
 
@@ -798,7 +817,10 @@ P.unitframes = {
 	},
 	style = true,
 	raidIcons = true,
-	roleIcons = true,
+	roleIcons = {
+		enable = true,
+		roleIconStyle = "SUNUI",
+	},
 	highlight = true,
 	auras = true,
 }
@@ -1200,6 +1222,10 @@ P.armory = {
 			MOVESPEED = false,
 		},
 	},
+	--Wrath Related
+	StatOrder = "12345",
+	StatExpand = true,
+	PetHappiness = true,
 }
 
 P.flightMode = {
