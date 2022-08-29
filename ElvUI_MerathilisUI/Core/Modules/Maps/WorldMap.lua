@@ -140,7 +140,7 @@ function module:Reveal()
 end
 
 function module:Scale()
-	if not E.Retail and not self.db.scale.enable then
+	if not self.db.scale.enable then
 		return
 	end
 
@@ -172,9 +172,10 @@ function module:Initialize()
 
 	if E.Retail then
 		_G.QuestMapFrame:SetScript("OnHide", nil) -- fix potential toggle taint with HandyNotes or any other WQ AddOn
+
+		self:Scale()
 	end
 
-	self:Scale()
 	self:Reveal()
 end
 
