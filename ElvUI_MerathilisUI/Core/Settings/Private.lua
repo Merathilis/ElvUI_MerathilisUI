@@ -229,7 +229,7 @@ V.skins = {
 		et = true,
 		wa = true,
 		waOptions = true,
-		waCooldowns = true,
+		waCooldowns = false,
 		tldr = true,
 	},
 }
