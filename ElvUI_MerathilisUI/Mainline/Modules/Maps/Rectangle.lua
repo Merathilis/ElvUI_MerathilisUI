@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RectangleMinimap')
 local MM = E:GetModule('Minimap')
+local S = MER:GetModule('MER_Skins')
 
 local _G = _G
 local floor = floor
@@ -39,6 +40,7 @@ function module:ChangeShape()
 	Minimap:Point("TOPLEFT", MMHolder, "TOPLEFT", E.Border, -E.Border + diff / 2)
 	Minimap.backdrop:SetOutside(Minimap, 1, -(diff / 2) + 1)
 	MinimapBackdrop:SetOutside(Minimap.backdrop)
+	S:CreateBackdropShadow(Minimap)
 
 	if _G.HybridMinimap then
 		local mapCanvas = _G.HybridMinimap.MapCanvas

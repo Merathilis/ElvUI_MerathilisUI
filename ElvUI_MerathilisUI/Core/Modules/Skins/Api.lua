@@ -370,6 +370,59 @@ function module:ReskinArrow(self, direction)
 	self:HookScript("OnLeave", F.Texture_OnLeave)
 end
 
+	-- Handle collapse
+	local function updateCollapseTexture(texture, collapsed)
+		if collapsed then
+			texture:SetTexCoord(0, .4375, 0, .4375)
+		else
+			texture:SetTexCoord(.5625, 1, 0, .4375)
+		end
+	end
+
+local function resetCollapseTexture(self, texture)
+	if self.settingTexture then return end
+	self.settingTexture = true
+	self:SetNormalTexture("")
+
+	if texture and texture ~= "" then
+		if strfind(texture, "Plus") or strfind(texture, "Closed") then
+			self.__texture:DoCollapse(true)
+		elseif strfind(texture, "Minus") or strfind(texture, "Open") then
+			self.__texture:DoCollapse(false)
+		end
+		self.bg:Show()
+	else
+		self.bg:Hide()
+	end
+	self.settingTexture = nil
+end
+
+function module:ReskinCollapse(self, isAtlas)
+	self:SetHighlightTexture("")
+	self:SetPushedTexture("")
+	self:SetDisabledTexture("")
+
+	local bg = module:CreateBDFrame(self, .25, true)
+	bg:ClearAllPoints()
+	bg:SetSize(13, 13)
+	bg:SetPoint("TOPLEFT", self:GetNormalTexture())
+	self.bg = bg
+
+	self.__texture = bg:CreateTexture(nil, "OVERLAY")
+	self.__texture:SetPoint("CENTER")
+	self.__texture:SetSize(7, 7)
+	self.__texture:SetTexture("Interface\\Buttons\\UI-PlusMinus-Buttons")
+	self.__texture.DoCollapse = updateCollapseTexture
+
+	self:HookScript("OnEnter", F.Texture_OnEnter)
+	self:HookScript("OnLeave", F.Texture_OnLeave)
+	if isAtlas then
+		hooksecurefunc(self, "SetNormalAtlas", resetCollapseTexture)
+	else
+		hooksecurefunc(self, "SetNormalTexture", resetCollapseTexture)
+	end
+end
+
 function module:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()

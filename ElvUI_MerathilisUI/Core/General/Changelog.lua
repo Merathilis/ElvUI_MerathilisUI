@@ -12,12 +12,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added the ElvUI Gold-Datatext to the MicroBar Bag Icon. Thx Heather for the idea",
-		"• Replace default Blizzard CD Text with the ElvUI ones on WeakAuras. Credits DaveA50",
-		"• Hide some options that are not available on non Retail, forgot these",
-		"• Let the extended Merchant frame also work on non Retail Clients",
-		"• Added options to the Chat & UnitFrames to change the RoleIcon Style",
-		"• Added more options to the the ActionBars KeyFeedback",
+		"• Forgot to remove old Options for KeyFeedback... derp",
+		"• Added a Shadow on the Rectangle Minimap",
+		"• Added a simple Header for the QuestWatch Frame on Wrath",
 
 	" ",
 	"Notes:",
