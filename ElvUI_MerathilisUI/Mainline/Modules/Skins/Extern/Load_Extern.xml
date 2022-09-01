@@ -1,7 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="ActionBarProfiles.lua"/>
 	<Script file="BenikUI.lua"/>
-	<Script file="BigWigs.lua"/>
 	<Script file="BugSack.lua"/>
 	<Script file="cargBags_Nivaya.lua"/>
 	<Script file="Clique.lua"/>
@@ -10,6 +9,4 @@
 	<Script file="Pawn.lua"/>
 	<Script file="stAddOnManager.lua"/>
 	<Script file="TLDRMissions.lua"/>
-	<Script file="WeakAuras.lua"/>
-	<Script file="WeakAurasOptions.lua"/>
 </Ui>
