@@ -54,7 +54,8 @@ local IgnoreList = {
 		"NauticusMiniIcon",
 		"WestPointer",
 		"Cork",
-		"DugisArrowMinimapPoint"
+		"DugisArrowMinimapPoint",
+		"QuestieFrame",
 	},
 	partial = {
 		"Node",
