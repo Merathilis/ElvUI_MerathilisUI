@@ -49,3 +49,7 @@ body:
       options:
         - label: I have confirmed that I have read the [Changelog](https://github.com/Merathilis/ElvUI_MerathilisUI/blob/development/CHANGELOG.md) and done the [Troubleshooting Steps](https://github.com/Merathilis/ElvUI_MerathilisUI/wiki/Troubleshooting).
           required: true
+        - label: I have disabled all addons except the AddOns called 'ElvUI' and 'ElvUI OptionsUI' and 'ElvUI_MerathilisUI' by using `/muidebug on`? This is important in order to rule out that any of your other addons are causing the issue. If you manage to pinpoint a conflict between ElvUI and/or MerathilisUI and another addon, make sure you include that information.
+          required: true
+        - label: I have verfied my issue doesn't exist in the default UI.
+          required: true
