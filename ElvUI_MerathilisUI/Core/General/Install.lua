@@ -2011,6 +2011,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["pet"]["castbar"]["height"] = 10
 	E.db["unitframe"]["units"]["pet"]["castbar"]["insideInfoPanel"] = true
 	E.db["unitframe"]["units"]["pet"]["buffs"]["enable"] = true
+	E.db["unitframe"]["units"]["pet"]["buffs"]["countFont"] = "Expressway"
+	E.db["unitframe"]["units"]["pet"]["buffs"]["countFontSize"] = 8
 	E.db["unitframe"]["units"]["pet"]["debuffs"]["fontSize"] = 10
 	E.db["unitframe"]["units"]["pet"]["debuffs"]["attachTo"] = "FRAME"
 	E.db["unitframe"]["units"]["pet"]["debuffs"]["sizeOverride"] = 0
@@ -2019,7 +2021,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["pet"]["debuffs"]["perrow"] = 5
 	E.db["unitframe"]["units"]["pet"]["debuffs"]["anchorPoint"] = "TOPLEFT"
 	E.db["unitframe"]["units"]["pet"]["debuffs"]["countFont"] = "Expressway"
-	E.db["unitframe"]["units"]["pet"]["debuffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["countFontSize"] = 8
 	E.db["unitframe"]["units"]["pet"]["health"]["position"] = "LEFT"
 	E.db["unitframe"]["units"]["pet"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["pet"]["health"]["xOffset"] = 0
