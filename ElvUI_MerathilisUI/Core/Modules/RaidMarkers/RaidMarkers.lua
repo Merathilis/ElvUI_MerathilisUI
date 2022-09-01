@@ -429,7 +429,11 @@ end
 function module:ProfileUpdate()
 	self.db = E.db.mui.raidmarkers
 
-	if self.db.enable and not self.bar then
+	if not E.Retail then
+		return
+	end
+
+	if self.db.enable and not self.bar or E.Retail then
 		self:CreateBar()
 		return
 	end
@@ -446,7 +450,9 @@ function module:Initialize()
 
 	self.db = E.db.mui.raidmarkers
 
-	self:CreateBar()
+	if E.Retail then
+		self:CreateBar()
+	end
 end
 
 MER:RegisterModule(module:GetName())
