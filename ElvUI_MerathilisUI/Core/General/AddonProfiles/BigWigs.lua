@@ -12,14 +12,14 @@ function MER:LoadBigWigsProfile()
 	--]]----------------------------------
 	local main = MER.Title
 
-	-- Required to add profiles to DB
+	-- Required to add profiles to BigWigs
 	if not IsAddOnLoaded("BigWigs_Core") then LoadAddOn("BigWigs_Core") end
 
-	-- Required to add profiles to Plugins DB
+	-- Required to add profiles to Plugins BigWigs
 	if not IsAddOnLoaded("BigWigs_Plugins") then LoadAddOn("BigWigs_Plugins") end
 
-	local DB = E.Retail and BigWigs3DB or BigWigsClassicDB
-	local iconDB = E.Retail and BigWigsIconDB or BigWigsIconClassicDB
+	local DB = E.Retail and _G.BigWigs3DB or _G.BigWigsClassicDB
+	local iconDB = E.Retail and _G.BigWigsIconDB or _G.BigWigsIconClassicDB
 
 	DB["profiles"] = DB["profiles"] or {}
 
