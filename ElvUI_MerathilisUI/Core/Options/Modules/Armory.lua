@@ -72,6 +72,7 @@ options.armory = {
 					name = L["Expanded Size"],
 					desc = L["This will increase the Character Frame size a bit."],
 					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
+					hidden = function() return not E.Retail end,
 				},
 				classIcon = {
 					order = 5,
