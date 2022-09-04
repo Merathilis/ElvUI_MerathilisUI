@@ -21,6 +21,7 @@ local IgnoreList = {
 	full = {
 		"AsphyxiaUIMinimapHelpButton",
 		"AsphyxiaUIMinimapVersionButton",
+		"BattlefieldMinimap",
 		"ElvConfigToggle",
 		"ElvUIConfigToggle",
 		"ElvUI_ConsolidatedBuffs",
@@ -29,6 +30,7 @@ local IgnoreList = {
 		"DroodFocusMinimapButton",
 		"QueueStatusMinimapButton",
 		"TimeManagerClockButton",
+		"MiniMapBattlefieldFrame",
 		"MinimapZoneTextButton",
 		"MiniMapTracking",
 		"MinimapZoomIn",
@@ -37,7 +39,6 @@ local IgnoreList = {
 		"TukuiMinimapCoord",
 		"RecipeRadarMinimapButtonFrame",
 		"InstanceDifficultyFrame",
-		"BattlefieldMinimap",
 	},
 	startWith = {
 		"Archy",
