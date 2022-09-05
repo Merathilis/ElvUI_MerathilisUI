@@ -39,6 +39,7 @@ local BNET_CLIENT_WOW = BNET_CLIENT_WOW
 local BNET_CLIENT_WTCG = BNET_CLIENT_WTCG
 
 local CINEMATIC_NAME_2 = CINEMATIC_NAME_2
+local CINEMATIC_NAME_3 = CINEMATIC_NAME_3
 
 local WOW_PROJECT_MAINLINE = WOW_PROJECT_MAINLINE
 local WOW_PROJECT_CLASSIC = WOW_PROJECT_CLASSIC
@@ -210,6 +211,21 @@ local MaxLevel = {
 	[BNET_CLIENT_WOW] = MER.MaxLevelForPlayerExpansion
 }
 
+local classicVersionTable = {
+	[WOW_PROJECT_CLASSIC] = {
+		code = BNET_CLIENT_WOW .. "C",
+		name = nil
+	},
+	[WOW_PROJECT_CLASSIC_TBC] = {
+		code = BNET_CLIENT_WOW .. "C_TBC",
+		name = CINEMATIC_NAME_2
+	},
+	[WOW_PROJECT_CLASSIC_WRATH] = {
+		code = BNET_CLIENT_WOW .. "C_WRATH",
+		name = CINEMATIC_NAME_3
+	}
+}
+
 local BNColor = {
 	[BNET_CLIENT_ARCADE] = {r = 0.509, g = 0.772, b = 1},
 	[BNET_CLIENT_CRASH4] = {r = 0.509, g = 0.772, b = 1},
@@ -316,25 +332,12 @@ function module:UpdateFriendButton(button)
 				isInCurrentRegion = gameAccountInfo.isInCurrentRegion or false
 				regionID = gameAccountInfo.regionID or false
 
-				if gameAccountInfo.wowProjectID == WOW_PROJECT_CLASSIC then
-					game = BNET_CLIENT_WOW .. "C" -- Classic
+				if classicVersionTable[gameAccountInfo.wowProjectID] then
+					local versionInfomation = classicVersionTable[gameAccountInfo.wowProjectID]
+					game = versionInfomation.code
+					local versionSuffix = versionInfomation.name and " (" .. versionInfomation.name .. ")" or ""
 					local serverStrings = {strsplit(" - ", gameAccountInfo.richPresence)}
-					server = serverStrings[#serverStrings] or BNET_FRIEND_TOOLTIP_WOW_CLASSIC
-					server = server .. "*"
-				elseif gameAccountInfo.wowProjectID == WOW_PROJECT_CLASSIC_TBC then
-					game = BNET_CLIENT_WOW .. "C_TBC" -- TBC
-					local serverStrings = {strsplit(" - ", gameAccountInfo.richPresence)}
-					server =
-						serverStrings[#serverStrings] or
-						BNET_FRIEND_TOOLTIP_WOW_CLASSIC .. " (" .. CINEMATIC_NAME_2 .. ")"
-					server = server .. "*"
-				elseif gameAccountInfo.wowProjectID == WOW_PROJECT_CLASSIC_WRATH then
-					game = BNET_CLIENT_WOW .. "C_WRATH" -- WRATH
-					local serverStrings = {strsplit(" - ", gameAccountInfo.richPresence)}
-					server =
-						serverStrings[#serverStrings] or
-						BNET_FRIEND_TOOLTIP_WOW_CLASSIC .. " (" .. CINEMATIC_NAME_2 .. ")"
-					server = server .. "*"
+					server = (serverStrings[#serverStrings] or BNET_FRIEND_TOOLTIP_WOW_CLASSIC .. versionSuffix) .. "*"
 				else
 					server = gameAccountInfo.realmDisplayName or ""
 				end
