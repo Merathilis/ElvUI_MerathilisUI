@@ -43,6 +43,7 @@ local CINEMATIC_NAME_2 = CINEMATIC_NAME_2
 local WOW_PROJECT_MAINLINE = WOW_PROJECT_MAINLINE
 local WOW_PROJECT_CLASSIC = WOW_PROJECT_CLASSIC
 local WOW_PROJECT_CLASSIC_TBC = 5
+local WOW_PROJECT_CLASSIC_WRATH = 11
 
 local FRIENDS_TEXTURE_AFK, FRIENDS_TEXTURE_DND = FRIENDS_TEXTURE_AFK, FRIENDS_TEXTURE_DND
 local FRIENDS_TEXTURE_OFFLINE, FRIENDS_TEXTURE_ONLINE = FRIENDS_TEXTURE_OFFLINE, FRIENDS_TEXTURE_ONLINE
@@ -86,6 +87,10 @@ local gameIcons = {
 	[BNET_CLIENT_WOW .. "C_TBC"] = {
 		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
 		Modern = MediaPath .. "GameIcons\\WoWC"
+	},
+	[BNET_CLIENT_WOW .. "C_WRATH"] = {
+		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
+		Modern = MediaPath .. "GameIcons\\WoWWRATH"
 	},
 	[BNET_CLIENT_D2] = {
 		Default = BNet_GetClientTexture(BNET_CLIENT_D2),
@@ -201,6 +206,7 @@ local RegionLocales = {
 local MaxLevel = {
 	[BNET_CLIENT_WOW .. "C"] = 60,
 	[BNET_CLIENT_WOW .. "C_TBC"] = 70,
+	[BNET_CLIENT_WOW .. "C_WRATH"] = 80,
 	[BNET_CLIENT_WOW] = MER.MaxLevelForPlayerExpansion
 }
 
@@ -317,6 +323,13 @@ function module:UpdateFriendButton(button)
 					server = server .. "*"
 				elseif gameAccountInfo.wowProjectID == WOW_PROJECT_CLASSIC_TBC then
 					game = BNET_CLIENT_WOW .. "C_TBC" -- TBC
+					local serverStrings = {strsplit(" - ", gameAccountInfo.richPresence)}
+					server =
+						serverStrings[#serverStrings] or
+						BNET_FRIEND_TOOLTIP_WOW_CLASSIC .. " (" .. CINEMATIC_NAME_2 .. ")"
+					server = server .. "*"
+				elseif gameAccountInfo.wowProjectID == WOW_PROJECT_CLASSIC_WRATH then
+					game = BNET_CLIENT_WOW .. "C_WRATH" -- WRATH
 					local serverStrings = {strsplit(" - ", gameAccountInfo.richPresence)}
 					server =
 						serverStrings[#serverStrings] or
