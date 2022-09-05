@@ -389,6 +389,14 @@ L["Add Item ID"] = "Füge Gegenstands ID hinzu"
 L["Delete Item ID"] = "Entferne Gegenstands ID"
 L["Spell Feedback"] = "Zauber Feedback"
 L["Creates a texture to show the recently pressed buttons."] = "Zeigt eine Textur für die zuletzt gedrückten Tasten."
+L["Frame Strata"] = "Fensterschicht"
+L["Frame Level"] = "Fensterebene"
+L["KeyFeedback"] = "Tastenrückmeldung"
+L["Mirror"] = "Spiegeln"
+L["Mirror Button Size"] = "Spiegeln Tastengröße"
+L["Mirror Direction"] = "Spiegelrichtung"
+L["LEFT"] = "LINKS"
+L["RIGHT"] = "RECHTS"
 
 -- AutoButtons
 L["AutoButtons"] = "Autom. Tasten"
@@ -783,6 +791,8 @@ L["Show Icons"] = "Zeige Symbol"
 L["Show In Party"] = "Zeige in Gruppe"
 L["Show In Raid"] = "Zeige im Schlachtzug"
 L["Show In Arena"] = "Zeige in Arenen"
+L["Spell Name"] = "Zaubername"
+L["Spell List"] = "Zauberliste"
 
 -- CVars
 L["\n\nDefault: |cff00ff001|r"] = "\n\nStandard: |cff00ff001|r"

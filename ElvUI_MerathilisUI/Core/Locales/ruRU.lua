@@ -389,6 +389,14 @@ L["Add Item ID"] = true
 L["Delete Item ID"] = true
 L["Spell Feedback"] = true
 L["Creates a texture to show the recently pressed buttons."] = true
+L["Frame Strata"] = true
+L["Frame Level"] = true
+L["KeyFeedback"] = true
+L["Mirror"] = true
+L["Mirror Button Size"] = true
+L["Mirror Direction"] = true
+L["LEFT"] = true
+L["RIGHT"] = true
 
 -- AutoButtons
 L["AutoButtons"] = "Автоматические кнопки"
@@ -790,6 +798,8 @@ L["Show Icons"] = true
 L["Show In Party"] = true
 L["Show In Raid"] = true
 L["Show In Arena"] = true
+L["Spell Name"] = true
+L["Spell List"] = true
 
 -- CVars
 L["\n\nDefault: |cff00ff001|r"] = true

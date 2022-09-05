@@ -389,6 +389,14 @@ L["Add Item ID"] = "添加物品ID"
 L["Delete Item ID"] = "删除物品ID"
 L["Spell Feedback"] = true
 L["Creates a texture to show the recently pressed buttons."] = true
+L["Frame Strata"] = true
+L["Frame Level"] = true
+L["KeyFeedback"] = true
+L["Mirror"] = true
+L["Mirror Button Size"] = true
+L["Mirror Direction"] = true
+L["LEFT"] = true
+L["RIGHT"] = true
 
 -- AutoButtons
 L["AutoButtons"] = "自动按键"
@@ -787,6 +795,8 @@ L["Show Icons"] = "显示图标"
 L["Show In Party"] = "在小队中显示"
 L["Show In Raid"] = "在团队中显示"
 L["Show In Arena"] = "在竞技场中显示"
+L["Spell Name"] = true
+L["Spell List"] = true
 
 -- CVars
 L["\n\nDefault: |cff00ff001|r"] = "\n\n默认: |cff00ff00开|r"
