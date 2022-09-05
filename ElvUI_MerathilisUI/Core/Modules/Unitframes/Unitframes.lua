@@ -73,6 +73,17 @@ function module:StyleUFs()
 	self:CreateUFShadows()
 end
 
+function module:Setup()
+	-- Units
+	module:StyleUFs()
+
+	-- Auras
+	module:LoadAuras()
+
+	-- RoleIcons
+	module:Configure_RoleIcons()
+end
+
 function module:Initialize()
 	if not E.private.unitframe.enable then
 		return
@@ -80,17 +91,8 @@ function module:Initialize()
 
 	local db = E.db.mui.unitframes
 
-	-- Units
-	self:StyleUFs()
-
-	-- RaidIcons
+	hooksecurefunc(UF, "LoadUnits", module.Setup)
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
-
-	-- Auras
-	self:LoadAuras()
-
-	-- RoleIcons
-	self:Configure_RoleIcons()
 
 	self:RegisterEvent("ADDON_LOADED")
 end
