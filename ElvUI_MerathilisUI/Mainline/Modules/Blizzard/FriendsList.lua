@@ -59,7 +59,7 @@ local BNET_FRIEND_TOOLTIP_WOW_CLASSIC = BNET_FRIEND_TOOLTIP_WOW_CLASSIC
 local MediaPath = "Interface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\FriendList\\"
 
 --[[
-/run for i,v in pairs(_G) do if type(v)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end
+    /run for i,v in pairs(_G) do if type(v)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end
 ]]
 
 local cache = {}
