@@ -915,7 +915,7 @@ L["MER_ADDONSKINS_DESC"] = [[此部分旨在修改一些外部插件外观.
 请注意，如果插件控制面板中未加载插件，其中一些选项将|cff636363被禁用|r.]]
 L["Creates decorative stripes and a gradient on some frames"] = "在一些框架上创建条纹材质和渐变"
 L["MerathilisUI Style"] = "MerathilisUI 样式"
-L["MerathilisUI Shadows"] = "MerathilisUI 阴影"
+L["Screen Shadow Overlay"] = true
 L["Undress Button"] = "解除装备按钮"
 L["Subpages"] = "子页面"
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "子页面有10个物品, 这个选项设置了一页里有多少子页面"
@@ -940,6 +940,14 @@ L["Selected Color"] = "选中颜色"
 L["Tab"] = "选项卡"
 L["Tree Group Button"] = "树状分组按钮"
 L["Shadow Color"] = true
+L["These skins will affect all widgets handled by ElvUI Skins."] = true
+L["Texture"] = true
+L["Backdrop Color"] = true
+L["Check Box"] = true
+L["Slider"] = true
+L["Backdrop Alpha"] = true
+L["Enable All"] = true
+L["Disable All"] = true
 
 -- Panels
 L["Panels"] = true

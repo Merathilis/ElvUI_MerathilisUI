@@ -905,7 +905,7 @@ L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external ad
 Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
 L["MerathilisUI Style"] = true
 L["Creates decorative stripes and a gradient on some frames"] = true
-L["MerathilisUI Shadows"] = true
+L["Screen Shadow Overlay"] = true
 L["Enables/Disables a shadow overlay to darken the screen."] = true
 L["Undress Button"] = true
 L["Subpages"] = true
@@ -930,6 +930,14 @@ L["Selected Color"] = true
 L["Tab"] = true
 L["Tree Group Button"] = true
 L["Shadow Color"] = true
+L["These skins will affect all widgets handled by ElvUI Skins."] = true
+L["Texture"] = true
+L["Backdrop Color"] = true
+L["Check Box"] = true
+L["Slider"] = true
+L["Backdrop Alpha"] = true
+L["Enable All"] = true
+L["Disable All"] = true
 
 -- Panels
 L["Panels"] = true

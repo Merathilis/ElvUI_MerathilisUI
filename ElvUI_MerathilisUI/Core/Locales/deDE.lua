@@ -909,7 +909,7 @@ L["MER_ADDONSKINS_DESC"] = [[Diese Abschnitt ist dazu gedacht, um das Aussehen v
 Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn nicht geladen wurde.]]
 L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
-L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
+L["Screen Shadow Overlay"] = "Bildschirmschatten Overlay"
 L["Enables/Disables a shadow overlay to darken the screen."] = "Aktiviert/Deaktiviert ein Schattenoverlay um den Bildschirm abzudunkeln."
 L["Undress Button"] = "Ausziehen Taste"
 L["Subpages"] = "Unterseiten"
@@ -934,6 +934,14 @@ L["Selected Color"] = "Ausgewählte Farbe"
 L["Tab"] = true
 L["Tree Group Button"] = "Baumstrukturtaste" --Wie kacke dass klingt
 L["Shadow Color"] = "Schattenfarbe"
+L["These skins will affect all widgets handled by ElvUI Skins."] = "Diese Skins wirken sich auf alle Widgets aus, die von ElvUI Skins verwaltet werden."
+L["Texture"] = "Textur"
+L["Backdrop Color"] = "Hintergrundfarbe"
+L["Check Box"] = "Auswahlfeld"
+L["Slider"] = "Schieberegler"
+L["Backdrop Alpha"] = "Hingrund Transparenz"
+L["Enable All"] = "Aktiviere Alles"
+L["Disable All"] = "Deaktiviere Alles"
 
 -- Panels
 L["Panels"] = "Leisten"
