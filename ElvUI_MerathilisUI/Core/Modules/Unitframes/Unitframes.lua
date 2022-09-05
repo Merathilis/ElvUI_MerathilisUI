@@ -66,9 +66,6 @@ function module:StyleUFs()
 	-- Raid
 	self:InitRaid()
 
-	-- Raid40
-	self:InitRaid40()
-
 	-- Boss
 	self:InitBoss()
 

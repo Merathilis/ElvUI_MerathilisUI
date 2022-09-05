@@ -3,11 +3,6 @@ local module = MER:GetModule('MER_UnitFrames')
 local UF = E:GetModule('UnitFrames')
 
 local RoleIconTextures = {
-	DEFAULT = {
-		TANK = E.Media.Textures.Tank,
-		HEALER = E.Media.Textures.Healer,
-		DAMAGER = E.Media.Textures.DPS
-	},
 	SUNUI = {
 		TANK = MER.Media.Textures.sunTank,
 		HEALER = MER.Media.Textures.sunHealer,
@@ -22,6 +17,11 @@ local RoleIconTextures = {
 		TANK = MER.Media.Textures.lynTank,
 		HEALER = MER.Media.Textures.lynHealer,
 		DAMAGER = MER.Media.Textures.lynDPS
+	},
+	DEFAULT = {
+		TANK = E.Media.Textures.Tank,
+		HEALER = E.Media.Textures.Healer,
+		DAMAGER = E.Media.Textures.DPS
 	},
 }
 
