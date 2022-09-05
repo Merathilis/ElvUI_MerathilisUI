@@ -90,7 +90,7 @@ local gameIcons = {
 	},
 	[BNET_CLIENT_WOW .. "C_WRATH"] = {
 		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
-		Modern = MediaPath .. "GameIcons\\WoWWRATH"
+		Modern = MediaPath .. "GameIcons\\WoWWLK"
 	},
 	[BNET_CLIENT_D2] = {
 		Default = BNet_GetClientTexture(BNET_CLIENT_D2),
