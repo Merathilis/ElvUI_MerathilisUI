@@ -27,6 +27,7 @@ do
 	MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
 	MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
 
+	MER.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
 	MER.InfoColor = "|cFF00c0fa" --Info Color RGB: 0, .75, .98
 	MER.GreyColor = "|cffB5B5B5"
 	MER.RedColor = "|cffff2735"
