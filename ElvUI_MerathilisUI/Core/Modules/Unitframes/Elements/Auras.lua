@@ -14,11 +14,3 @@ function module:ElvUI_PostUpdateDebuffs(uf, _, button)
 		button.__MERSkin = true
 	end
 end
-
-function module:LoadAuras()
-	if E.private.unitframe.enable ~= true or E.db.mui.unitframes.auras ~= true then return end
-
-	-- Auras
-	self:SecureHook(UF, "PostUpdateAura", "ElvUI_PostUpdateDebuffs")
-end
-

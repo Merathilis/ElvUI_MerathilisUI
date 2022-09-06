@@ -19,9 +19,3 @@ function module:Update_RaidFrames(frame)
 
 	module:CreateHighlight(frame)
 end
-
-function module:InitRaid()
-	if not E.db.unitframe.units.raid1.enable or not E.db.unitframe.units.raid2.enable or not E.db.unitframe.units.raid3.enable then return end
-
-	hooksecurefunc(UF, "Update_RaidFrames", module.Update_RaidFrames)
-end

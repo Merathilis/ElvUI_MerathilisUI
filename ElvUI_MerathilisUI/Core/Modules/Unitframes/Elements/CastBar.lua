@@ -70,7 +70,3 @@ function module:Configure_Castbar(frame)
 
 	S:CreateShadow(MERBg)
 end
-
-function module:InitCastBar()
-	hooksecurefunc(UF, "Configure_Castbar", module.Configure_Castbar)
-end

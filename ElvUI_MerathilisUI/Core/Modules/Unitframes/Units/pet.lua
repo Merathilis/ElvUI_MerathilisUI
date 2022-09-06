@@ -19,9 +19,3 @@ function module:Update_PetFrame(frame)
 
 	module:CreateHighlight(frame)
 end
-
-function module:InitPet()
-	if not E.db.unitframe.units.pet.enable then return end
-
-	hooksecurefunc(UF, "Update_PetFrame", module.Update_PetFrame)
-end
