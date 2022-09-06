@@ -70,6 +70,7 @@ options.unitframes = {
 					type = "select",
 					name = L["Select Model"],
 					style = 'radio',
+					disabled = function() return not E.db.mui.unitframes.power.enable end,
 					values = {
 						["DEFAULT"] = L["Default"],
 						["CUSTOM"] = CUSTOM,

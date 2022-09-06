@@ -312,8 +312,17 @@ local ButtonTypes = {
 	GROUP_FINDER = {
 		name = _G.LFG_TITLE,
 		icon = MER.Media.Icons.barGroupFinder,
-		macro = {
-			LeftButton = "/click LFDMicroButton"
+		click = {
+			LeftButton = function()
+				if E.Retail then
+					ToggleLFDParentFrame()
+				elseif E.TBC or E.Wrath then
+					if not IsAddOnLoaded('Blizzard_LookingForGroupUI') then
+						UIParentLoadAddOn('Blizzard_LookingForGroupUI')
+					end
+					_G.ToggleLFGParentFrame()
+				end
+			end,
 		},
 		tooltips = {
 			_G.LFG_TITLE
