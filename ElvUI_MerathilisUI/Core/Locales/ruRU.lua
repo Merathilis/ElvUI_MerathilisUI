@@ -561,6 +561,19 @@ L["Set All Absorb Style to %s"] = "Установить весь стиль по
 L["The absorb style %s and %s is highly recommended with %s tweaks."] = "Стиль поглощения %s и %s настоятельно рекомендуется с настройками %s."
 L["The selected texture will override the ElvUI default absorb bar texture."] = "Выбранная текстура переопределит стандартную текстуру полосы поглощения ElvUI."
 L["Use the texture from Blizzard Raid Frames."] = "Используйте текстуру из Blizzard Raid Frames."
+L["Raid Icon"] = true
+L["Change the default raid icons."] = true
+L["Highlight"] = true
+L["Adds an own highlight to the Unitframes"] = true
+L["Auras"] = true
+L["Adds an shadow around the auras"] = true
+L["Power"] = true
+L["Enable the animated Power Bar"] = true
+L["Select Model"] = true
+L["Type the Model ID"] = true
+L["Role Icons"] = true
+L["Heal Prediction"] = true
+L["Add an additional overlay to the absorb bar."] = true
 
 -- LocationPanel
 L["Location Panel"] = true

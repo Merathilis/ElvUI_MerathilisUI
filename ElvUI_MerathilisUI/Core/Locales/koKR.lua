@@ -551,6 +551,19 @@ L["Set All Absorb Style to %s"] = "모든 피해흡수 스타일을 %s(으)로 �
 L["The absorb style %s and %s is highly recommended with %s tweaks."] = "피해흡수 스타일을 %s 및 %s로 설정하여 %s의 수정과 함께 표시하는 것을 강력히 추천합니다."
 L["The selected texture will override the ElvUI default absorb bar texture."] = "선택한 텍스쳐는 ElvUI 기본 피해흡수 바 텍스처를 무시합니다."
 L["Use the texture from Blizzard Raid Frames."] = "블리자드 공격대 프레임의 텍스처를 사용합니다."
+L["Raid Icon"] = true
+L["Change the default raid icons."] = true
+L["Highlight"] = true
+L["Adds an own highlight to the Unitframes"] = true
+L["Auras"] = true
+L["Adds an shadow around the auras"] = true
+L["Power"] = true
+L["Enable the animated Power Bar"] = true
+L["Select Model"] = true
+L["Type the Model ID"] = true
+L["Role Icons"] = true
+L["Heal Prediction"] = true
+L["Add an additional overlay to the absorb bar."] = true
 
 -- LocationPanel
 L["Location Panel"] = true
