@@ -51,8 +51,77 @@ options.unitframes = {
 				},
 			},
 		},
-		gcd = {
+		power = {
 			order = 3,
+			type = "group",
+			name = F.cOption(L["Power"], 'orange'),
+			guiInline = true,
+			get = function(info) return E.db.mui.unitframes.power[ info[#info] ] end,
+			set = function(info, value) E.db.mui.unitframes.power[info[#info]] = value; E:StaticPopup_Show("CONFIG_RL"); end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Enable the animated Power Bar"],
+				},
+				type = {
+					order = 2,
+					type = "select",
+					name = L["Select Model"],
+					style = 'radio',
+					values = {
+						["DEFAULT"] = L["Default"],
+						["CUSTOM"] = CUSTOM,
+					},
+					sorting = {
+						"DEFAULT",
+						"CUSTOM",
+					},
+				},
+				customModel = {
+					order = 3,
+					type = "input",
+					name = function()
+						if E.Retail then
+							return L["Type the Model ID"]
+						else
+							return L["Type the Model Path, e.g.: spells/corruption_impactdot_med_base.m2"]
+						end
+					end,
+					width = "full",
+					disabled = function() return E.db.mui.unitframes.power.type == "DEFAULT" or not E.db.mui.unitframes.power.enable end,
+					validate = function(_, value)
+						if E.Retail then
+							if tonumber(value) ~= nil then
+								return true
+							else
+								return E:StaticPopup_Show("VERSION_MISMATCH") and false
+							end
+						else
+							return true
+						end
+					end,
+					get = function()
+						if E.Retail then
+							return tostring(E.db.mui.unitframes.power.retailModel)
+						else
+							return tostring(E.db.mui.unitframes.power.classicModel)
+						end
+					end,
+					set = function(_, value)
+						if E.Retail then
+							E.db.mui.unitframes.power.retailModel = tonumber(value)
+						else
+							E.db.mui.unitframes.power.classicModel = tostring(value)
+						end
+					end,
+					E:StaticPopup_Show("CONFIG_RL");
+				},
+			},
+		},
+		gcd = {
+			order = 4,
 			type = "group",
 			name = F.cOption(L["GCD Bar"], 'orange'),
 			guiInline = true,
@@ -86,7 +155,7 @@ options.unitframes = {
 			},
 		},
 		swing = {
-			order = 4,
+			order = 5,
 			type = "group",
 			name = F.cOption(L["Swing Bar"], 'orange'),
 			guiInline = true,

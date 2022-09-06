@@ -802,6 +802,12 @@ P.unitframes = {
 		blizzardOverAbsorbGlow = true,
 		blizzardAbsorbOverlay = true,
 	},
+	power = {
+		enable = true,
+		type = "DEFAULT",
+		retailModel = 1715069,
+		classicModel = "spells/arcanepower_state_chest.m2",
+	},
 	swing = {
 		enable = false,
 		mcolor = { r = .8, g = .8, b = .8 },
