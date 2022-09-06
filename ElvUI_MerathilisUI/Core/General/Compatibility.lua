@@ -427,7 +427,7 @@ function MER:CheckCompatibility()
 	CheckShadowAndLight(
 		L["Raid Markers"],
 		L["Raid Markers"],
-		"db.mui.combat.raidmarkers.enable",
+		"db.mui.raidmarkers.enable",
 		"db.sle.raidmarkers.enable"
 	)
 
@@ -441,14 +441,14 @@ function MER:CheckCompatibility()
 	CheckShadowAndLight(
 		format("%s-%s", L["Objective Tracker"], L["Cosmetic Bar"]),
 		format("%s-%s", L["Skins"], L["Underline"]),
-		"private.mui.quest.objectiveTracker.enable",
+		"db.mui.blizzard.objectiveTracker.enable",
 		"db.sle.skins.objectiveTracker.underline"
 	)
 
 	CheckShadowAndLight(
 		L["Merchant"],
 		format("%s-%s", L["Item"], L["Extend Merchant Pages"]),
-		"private.mui.item.extendMerchantPages.enable",
+		"db.mui.merchant.enable",
 		"private.sle.skins.merchant.enable"
 	)
 
