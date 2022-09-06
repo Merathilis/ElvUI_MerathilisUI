@@ -54,7 +54,7 @@ options.unitframes = {
 		power = {
 			order = 3,
 			type = "group",
-			name = F.cOption(L["Power"], 'orange'),
+			name = E.NewSign..F.cOption(L["Power"], 'orange'),
 			guiInline = true,
 			get = function(info) return E.db.mui.unitframes.power[ info[#info] ] end,
 			set = function(info, value) E.db.mui.unitframes.power[info[#info]] = value; E:StaticPopup_Show("CONFIG_RL"); end,
