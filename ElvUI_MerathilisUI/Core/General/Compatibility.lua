@@ -420,7 +420,7 @@ function MER:CheckCompatibility()
 	CheckShadowAndLight(
 		L["Rectangle Minimap"],
 		L["Rectangle Minimap"],
-		"db.mui.maps.rectangleMinimap.enable",
+		"db.mui.maps.minimap.rectangleMinimap.enable",
 		"private.sle.minimap.rectangle"
 	)
 
