@@ -118,6 +118,7 @@ AddMedia("PepeArt", "PepeArt.tga", "Textures")
 AddMedia("PepoLove", "pepoLove.tga", "Textures")
 AddMedia("Pushed", "pushed.tga", "Textures")
 
+-- Role Icons
 AddMedia("sunTank", "RoleIcons/SunUI/Tank.tga", "Textures")
 AddMedia("sunHealer", "RoleIcons/SunUI/Healer.tga", "Textures")
 AddMedia("sunDPS", "RoleIcons/SunUI/DPS.tga", "Textures")
@@ -129,6 +130,26 @@ AddMedia("svuiDPS", "RoleIcons/SVUI/DPS.tga", "Textures")
 AddMedia("lynTank", "RoleIcons/LynUI/Tank.tga", "Textures")
 AddMedia("lynHealer", "RoleIcons/LynUI/Healer.tga", "Textures")
 AddMedia("lynDPS", "RoleIcons/LynUI/DPS.tga", "Textures")
+
+AddMedia("customTank", "RoleIcons/Custom/Tank.tga", "Textures")
+AddMedia("customHeal", "RoleIcons/Custom/Healer.tga", "Textures")
+AddMedia("customDPS", "RoleIcons/Custom/DPS.tga", "Textures")
+
+AddMedia("glowTank", "RoleIcons/Glow/Tank.tga", "Textures")
+AddMedia("glowHeal", "RoleIcons/Glow/Healer.tga", "Textures")
+AddMedia("glowDPS", "RoleIcons/Glow/DPS.tga", "Textures")
+
+AddMedia("gravedTank", "RoleIcons/Graved/Tank.tga", "Textures")
+AddMedia("gravedHeal", "RoleIcons/Graved/Healer.tga", "Textures")
+AddMedia("gravedDPS", "RoleIcons/Graved/DPS.tga", "Textures")
+
+AddMedia("mainTank", "RoleIcons/Main/Tank.tga", "Textures")
+AddMedia("mainHeal", "RoleIcons/Main/Healer.tga", "Textures")
+AddMedia("mainDPS", "RoleIcons/Main/DPS.tga", "Textures")
+
+AddMedia("whiteTank", "RoleIcons/White/Tank.tga", "Textures")
+AddMedia("whiteHeal", "RoleIcons/White/Healer.tga", "Textures")
+AddMedia("whiteDPS", "RoleIcons/White/DPS.tga", "Textures")
 
 -- Fonts
 LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])

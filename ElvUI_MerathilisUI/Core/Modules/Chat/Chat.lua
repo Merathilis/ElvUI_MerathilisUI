@@ -282,6 +282,42 @@ function module:UpdateRoleIcons()
 			HEALER = E:TextureString(E.Media.Textures.Healer, sizeString),
 			DAMAGER = E:TextureString(E.Media.Textures.DPS, sizeString)
 		}
+	elseif pack == "CUSTOM" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.customTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.customHeal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.customDPS, sizeString)
+		}
+	elseif pack == "GLOW" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.glowTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.glowHeal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.glowDPS, sizeString)
+		}
+	elseif pack == "GLOW1" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.glow1Tank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.glow1Heal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.gravedDPS, sizeString)
+		}
+	elseif pack == "GRAVED" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.gravedTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.gravedHeal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.glow1DPS, sizeString)
+		}
+	elseif pack == "MAIN" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.mainTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.mainHeal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.mainDPS, sizeString)
+		}
+	elseif pack == "WHITE" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.whiteTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.whiteHeal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.whiteDPS, sizeString)
+		}
 	end
 end
 
