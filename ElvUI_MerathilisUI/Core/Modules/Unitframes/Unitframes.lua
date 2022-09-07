@@ -10,23 +10,24 @@ function module:ADDON_LOADED(event, addon)
 	module:UnregisterEvent(event)
 end
 
-function module:CreateHighlight(self)
+function module:CreateHighlight(frame)
+	if not frame then return end
 	if not E.db.mui.unitframes.highlight then return end
 
-	local hl = self:CreateTexture(nil, "BACKGROUND")
+	local hl = frame:CreateTexture(nil, "BACKGROUND")
 	hl:SetAllPoints()
 	hl:SetTexture("Interface\\PETBATTLES\\PetBattle-SelectedPetGlow")
 	hl:SetTexCoord(0, 1, .5, 1)
 	hl:SetVertexColor(1, 1, .6)
 	hl:SetBlendMode("ADD")
 	hl:Hide()
-	self.Highlight = hl
+	frame.Highlight = hl
 
-	self:HookScript("OnEnter", function()
-		self.Highlight:Show()
+	frame:HookScript("OnEnter", function()
+		frame.Highlight:Show()
 	end)
-	self:HookScript("OnLeave", function()
-		self.Highlight:Hide()
+	frame:HookScript("OnLeave", function()
+		frame.Highlight:Hide()
 	end)
 end
 
@@ -64,8 +65,8 @@ function module:CreateAnimatedBars(frame)
 			frame.animation:SetInside(frame:GetStatusBarTexture(), 0, 0)
 
 			frame.animation:Show()
-			else
-				frame.animation:Hide()
+		else
+			frame.animation:Hide()
 		end
 
 		if not frame.modelFrame then
@@ -86,6 +87,7 @@ function module:CreateAnimatedBars(frame)
 
 			frame.modelFrame:SetAllPoints(frame:GetStatusBarTexture())
 			frame.modelFrame:SetClipsChildren(true)
+
 			frame.modelFrame:Show()
 		else
 			frame.modelFrame:Hide()
