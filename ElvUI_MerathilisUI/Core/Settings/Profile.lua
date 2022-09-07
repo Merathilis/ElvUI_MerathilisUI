@@ -807,6 +807,7 @@ P.unitframes = {
 		type = "DEFAULT",
 		retailModel = 1715069,
 		classicModel = "spells/arcanepower_state_chest.m2",
+		texture = E.db.unitframe.statusbar,
 	},
 	swing = {
 		enable = false,
