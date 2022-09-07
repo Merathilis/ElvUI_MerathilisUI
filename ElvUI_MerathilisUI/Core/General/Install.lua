@@ -2015,7 +2015,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["height"] = -1
 	if E.Retail then
-		E.db["unitframe"]["units"]["raid1"]["cutaway"]["health"]["enabled"] = true
+		E.db["unitframe"]["units"]["raid3"]["cutaway"]["health"]["enabled"] = true
 	end
 
 	-- Party
