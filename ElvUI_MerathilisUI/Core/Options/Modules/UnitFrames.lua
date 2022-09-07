@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
+local HP = MER:GetModule('MER_HealPrediction')
 local options = MER.options.modules.args
 local LSM = E.Libs.LSM
 
@@ -246,7 +247,7 @@ options.unitframes = {
 			end,
 			set = function(info, value)
 				E.db.mui.unitframes.healPrediction[info[#info]] = value
-				module:ProfileUpdate()
+				HP:ProfileUpdate()
 			end,
 			args = {
 				desc = {
@@ -283,7 +284,7 @@ options.unitframes = {
 					end,
 					set = function(info, value)
 						E.db.mui.unitframes.healPrediction.texture[info[#info]] = value
-						module:ProfileUpdate()
+						HP:ProfileUpdate()
 					end,
 					args = {
 						enable = {
