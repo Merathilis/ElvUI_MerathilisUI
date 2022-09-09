@@ -33,14 +33,11 @@ end
 
 function module:CreateAnimatedBars(frame)
 	if not frame then return end
-	if not E.Retail then return end
-
 	local db = E.db.mui.unitframes.power
 
 	if db and db.enable then
 		if not frame.__MERAnim then
 			frame.__MERAnim = CreateFrame("FRAME", nil, frame.Power) -- Main Frame
-			print("what?")
 
 			if not frame.animation then
 				local animation = CreateFrame("PlayerModel", "MER_PowerBarEffect", frame.__MERAnim)
@@ -52,7 +49,7 @@ function module:CreateAnimatedBars(frame)
 					animation:SetPortraitZoom(1)
 					animation:SetAlpha(0.65)
 				elseif db.type == "CUSTOM" then
-					animation:SetModel(db.retailModel)
+					animation:SetModel(db.model)
 				end
 
 				animation:SetAllPoints(frame:GetStatusBarTexture())
@@ -72,19 +69,18 @@ function module:CreateAnimatedBars(frame)
 				sparkle:SetPoint("RIGHT", frame.__MERAnim)
 				sparkle:SetInside(frame:GetStatusBarTexture(), 0, 0)
 				sparkle:SetSize(h*2, h)
-				sparkle:SetAlpha(0.20)
+				sparkle:SetAlpha(0.2)
 
 				frame.sparkle = sparkle
 			end
 
 			frame.__MERAnim:SetAllPoints(frame:GetStatusBarTexture())
 			frame.__MERAnim:SetInside(frame:GetStatusBarTexture(), 0, 0)
-			frame.__MERAnim:SetFrameLevel(frame:GetFrameLevel()+2)
+			frame.__MERAnim:SetFrameLevel(frame:GetFrameLevel())
 			frame.__MERAnim:SetClipsChildren(true)
+			frame.__MERAnim:Show()
 
 			frame.__MERAnim = frame
-
-			frame.__MERAnim:Show()
 		else
 			frame.__MERAnim:Hide()
 		end
