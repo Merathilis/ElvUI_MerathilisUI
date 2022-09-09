@@ -103,7 +103,7 @@ if E.Retail then
 	tinsert(Hearthstones, 182773)
 	tinsert(Hearthstones, 183716)
 	tinsert(Hearthstones, 184353)
-	tinsert(Hearthstones, 188952) --	Dominated Hearthstone
+	tinsert(Hearthstones, 188952) -- Dominated Hearthstone
 	tinsert(Hearthstones, 193588) -- Timewalker's Hearthstone
 end
 
