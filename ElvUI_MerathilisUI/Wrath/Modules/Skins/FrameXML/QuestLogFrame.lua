@@ -15,7 +15,9 @@ local function LoadSkin()
 
 	local QuestLogDetailFrame = _G.QuestLogDetailFrame
 	QuestLogDetailFrame.backdrop:Styling() -- need to be on the backdrop >.>
-	module:CreateBackdropShadow(QuestLogDetailFrame)
+    module:CreateBackdropShadow(QuestLogDetailFrame)
+
+
 end
 
 S:AddCallback("QuestFrame", LoadSkin)

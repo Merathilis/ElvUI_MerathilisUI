@@ -7,6 +7,7 @@
 	<Script file="GameMenuFrame.lua"/>
 	<Script file="GossipFrame.lua"/>
 	<Script file="MerchantFrame.lua"/>
+	<Script file="QuestInfo.lua"/>
 	<Script file="QuestWatchFrame.lua"/>
 	<Script file="QuestLogFrame.lua"/>
 	<Script file="SpellBookFrame.lua"/>
