@@ -33,64 +33,60 @@ end
 
 function module:CreateAnimatedBars(frame)
 	if not frame then return end
+	if not E.Retail then return end
+
 	local db = E.db.mui.unitframes.power
 
 	if db and db.enable then
-		if not frame.animation then
-			local animation = CreateFrame("PlayerModel", "MER_PowerBarEffect", frame.Power)
-			frame.animation = animation
+		if not frame.__MERAnim then
+			frame.__MERAnim = CreateFrame("FRAME", nil, frame.Power) -- Main Frame
+			print("what?")
 
-			if db.type == "DEFAULT" then
-				if E.Retail then
-					frame.animation:SetModel(1715069)
-					frame.animation:MakeCurrentCameraCustom()
-					frame.animation:SetTransform(-0.035, 0, 0, rad(270), 0, 0, 0.580)
-					frame.animation:SetPortraitZoom(1)
-					frame.animation:SetAlpha(0.65)
-				else
-					frame.animation:SetModel("spells/arcanepower_state_chest.m2")
-					frame.animation:SetPosition(1.1, 0, 0)
-					frame.animation:SetAlpha(0.65)
+			if not frame.animation then
+				local animation = CreateFrame("PlayerModel", "MER_PowerBarEffect", frame.__MERAnim)
+
+				if db.type == "DEFAULT" then
+					animation:SetModel(1715069)
+					animation:MakeCurrentCameraCustom()
+					animation:SetTransform(-0.035, 0, 0, rad(270), 0, 0, 0.580)
+					animation:SetPortraitZoom(1)
+					animation:SetAlpha(0.65)
+				elseif db.type == "CUSTOM" then
+					animation:SetModel(db.retailModel)
 				end
-			elseif db.type == "CUSTOM" then
-				if E.Retail then
-					frame.animation:SetModel(db.retailModel)
-				else
-					frame.animation:SetModel(db.classicModel)
-				end
+
+				animation:SetAllPoints(frame:GetStatusBarTexture())
+				animation:SetInside(frame:GetStatusBarTexture(), 0, 0)
+
+				frame.animation = animation
 			end
 
-			frame.animation:SetAllPoints(frame:GetStatusBarTexture())
-			frame.animation:SetFrameLevel(frame:GetFrameLevel()+1)
-			frame.animation:SetInside(frame:GetStatusBarTexture(), 0, 0)
+			if not frame.sparkle then
+				local sparkle = CreateFrame("PlayerModel", nil, frame.__MERAnim)
+				sparkle:SetKeepModelOnHide(true)
+				sparkle:SetModel(1630153)
+				sparkle:ClearTransform()
+				sparkle:SetPosition(4, 0.32, 1.85, 0)
 
-			frame.animation:Show()
+				local h = frame:GetHeight()
+				sparkle:SetPoint("RIGHT", frame.__MERAnim)
+				sparkle:SetInside(frame:GetStatusBarTexture(), 0, 0)
+				sparkle:SetSize(h*2, h)
+				sparkle:SetAlpha(0.20)
+
+				frame.sparkle = sparkle
+			end
+
+			frame.__MERAnim:SetAllPoints(frame:GetStatusBarTexture())
+			frame.__MERAnim:SetInside(frame:GetStatusBarTexture(), 0, 0)
+			frame.__MERAnim:SetFrameLevel(frame:GetFrameLevel()+2)
+			frame.__MERAnim:SetClipsChildren(true)
+
+			frame.__MERAnim = frame
+
+			frame.__MERAnim:Show()
 		else
-			frame.animation:Hide()
-		end
-
-		if not frame.modelFrame then
-			frame.modelFrame = CreateFrame("FRAME", nil, frame.Power)
-
-			local sparkle = CreateFrame("PlayerModel", nil, frame.modelFrame)
-			frame.modelFrame.sparkle = sparkle
-			frame.modelFrame.sparkle:SetKeepModelOnHide(true)
-
-			frame.modelFrame.sparkle:SetModel(1630153)
-			frame.modelFrame.sparkle:ClearTransform()
-			frame.modelFrame.sparkle:SetPosition(4, 0.32, 1.85, 0)
-
-			local h = frame:GetHeight()
-			frame.modelFrame.sparkle:SetPoint("RIGHT", frame.modelFrame)
-			frame.modelFrame.sparkle:SetSize(h*2, h)
-			frame.modelFrame.sparkle:SetAlpha(0.20)
-
-			frame.modelFrame:SetAllPoints(frame:GetStatusBarTexture())
-			frame.modelFrame:SetClipsChildren(true)
-
-			frame.modelFrame:Show()
-		else
-			frame.modelFrame:Hide()
+			frame.__MERAnim:Hide()
 		end
 	end
 end
@@ -123,13 +119,13 @@ function module:LoadUnits()
 	-- Castbar
 	hooksecurefunc(UF, "Configure_Castbar", module.Configure_Castbar)
 	-- Power
-    hooksecurefunc(UF, "Configure_Power", module.Configure_Power)
+	hooksecurefunc(UF, "Configure_Power", module.Configure_Power)
 	-- Power Textures
 	module:ChangePowerBarTexture()
 	hooksecurefunc(UF, 'Update_AllFrames', module.ChangeUnitPowerBarTexture)
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
-    -- Auras
+	-- Auras
 	if db.auras then
 		module:SecureHook(UF, "PostUpdateAura", "ElvUI_PostUpdateDebuffs")
 	end

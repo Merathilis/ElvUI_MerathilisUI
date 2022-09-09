@@ -21,7 +21,7 @@ function module:Update_PlayerFrame(frame)
 		end
 	end
 
-	if not frame.Power.animation then
+	if not frame.__MERAnim then
 		module:CreateAnimatedBars(frame.Power)
 	end
 
