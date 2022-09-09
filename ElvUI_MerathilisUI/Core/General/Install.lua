@@ -1175,16 +1175,6 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["castReactionColor"] = false
 	E.db["unitframe"]["colors"]["powerclass"] = false
 	E.db["unitframe"]["colors"]["healthclass"] = false
-	E.db["unitframe"]["colors"]["power"]["PAIN"] = { g = 0.5098039215686274 }
-	E.db["unitframe"]["colors"]["power"]["MANA"] = { r = 0.31, g = 0.45, b = 0.63 }
-	E.db["unitframe"]["colors"]["power"]["FURY"] = { r = 0.298, g = 1, b = 0 }
-    E.db["unitframe"]["colors"]["power"]["FOCUS"] = { r = 0, g = 0.5019, b = 0.250 }
-    E.db["unitframe"]["colors"]["power"]["ALT_POWER"] = { r = 0, g = 0.541, b = 1 }
-    E.db["unitframe"]["colors"]["power"]["RUNIC_POWER"] = { r = 0, g = 0.894, b = 0 }
-    E.db["unitframe"]["colors"]["power"]["ENERGY"] = { r = 0, g = 0.960, b = 0.411 }
-    E.db["unitframe"]["colors"]["power"]["MAELSTROM"] = { r = 0, g = 0.501, b = 0 }
-    E.db["unitframe"]["colors"]["power"]["LUNAR_POWER"] = { r = 0, g = 0.619, b = 0.972 }
-	E.db["unitframe"]["colors"]["power"]["RAGE"] = { r = 0.780, g = 0.137, b = 0.184 }
 	E.db["unitframe"]["colors"]["invertPower"] = true
 	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
 	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
@@ -1768,7 +1758,7 @@ function MER:SetupUnitframes()
 		E.db["unitframe"]["units"]["raid1"]["cutaway"]["health"]["enabled"] = true
 	end
 
-    -- Raid2
+	-- Raid2
 	E.db["unitframe"]["units"]["raid2"]["enable"] = true
 	E.db["unitframe"]["units"]["raid2"]["height"] = 35
 	E.db["unitframe"]["units"]["raid2"]["width"] = 83
@@ -1893,7 +1883,7 @@ function MER:SetupUnitframes()
 		E.db["unitframe"]["units"]["raid2"]["cutaway"]["health"]["enabled"] = true
 	end
 
-    -- Raid3
+	-- Raid3
 	E.db["unitframe"]["units"]["raid3"]["enable"] = true
 	E.db["unitframe"]["units"]["raid3"]["height"] = 35
 	E.db["unitframe"]["units"]["raid3"]["width"] = 83
