@@ -586,6 +586,7 @@ local tbcCauldrons = {
 
 local wrathPotions = {
 	33448,
+	39327,
 	40068,
 	40070,
 	40073,
