@@ -58,6 +58,7 @@ options.armory = {
 					order = 2,
 					type = "description",
 					name = L["ARMORY_DESC"],
+					hidden = function() return not E.Retail end,
 				},
 				undressButton = {
 					order = 3,
