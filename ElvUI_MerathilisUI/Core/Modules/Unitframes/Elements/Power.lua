@@ -7,8 +7,9 @@ local LSM = E.LSM
 local hooksecurefunc = hooksecurefunc
 
 function module:Configure_Power(frame)
-	local power = frame.Power
-	local db = E.db.mui.unitframes.power
+	local db = frame.db
+    local power = frame.Power
+	power.origParent = frame
 
 	if power and not power.__MERSkin then
 		power:Styling(false, false, true)

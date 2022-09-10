@@ -129,8 +129,8 @@ function module:LoadUnits()
 	hooksecurefunc(UF, "Configure_Power", module.Configure_Power)
 	-- Power Textures
 	module:ChangePowerBarTexture()
-	hooksecurefunc(UF, 'Update_AllFrames', module.ChangeUnitPowerBarTexture)
 	hooksecurefunc(UF, 'Update_StatusBars', module.ChangePowerBarTexture)
+	hooksecurefunc(UF, 'Update_AllFrames', module.ChangeUnitPowerBarTexture)
 	hooksecurefunc(AB, 'StyleShapeShift', module.ChangeUnitPowerBarTexture)
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
