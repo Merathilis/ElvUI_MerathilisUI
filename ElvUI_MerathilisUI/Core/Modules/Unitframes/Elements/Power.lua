@@ -53,4 +53,3 @@ end
 function module:ChangePowerBarTexture()
 	module:ChangeUnitPowerBarTexture()
 end
-hooksecurefunc(UF, 'Update_StatusBars', module.ChangePowerBarTexture)

@@ -21,10 +21,8 @@ function module:Update_PlayerFrame(frame)
 		end
 	end
 
-	if E.Retail then
-		if not frame.__MERAnim then
-			module:CreateAnimatedBars(frame.Power)
-		end
+	if not frame.__MERAnim then
+		module:CreateAnimatedBars(frame.Power)
 	end
 
 	-- Only looks good on Transparent

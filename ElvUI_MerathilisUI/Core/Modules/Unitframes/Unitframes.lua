@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
 local UF = E:GetModule('UnitFrames')
+local AB = E:GetModule('ActionBars')
 
 local hooksecurefunc = hooksecurefunc
 
@@ -43,13 +44,23 @@ function module:CreateAnimatedBars(frame)
 				local animation = CreateFrame("PlayerModel", "MER_PowerBarEffect", frame.__MERAnim)
 
 				if db.type == "DEFAULT" then
-					animation:SetModel(1715069)
-					animation:MakeCurrentCameraCustom()
-					animation:SetTransform(-0.035, 0, 0, rad(270), 0, 0, 0.580)
-					animation:SetPortraitZoom(1)
-					animation:SetAlpha(0.65)
+					if E.Retail then
+						animation:SetModel(1715069)
+						animation:MakeCurrentCameraCustom()
+						animation:SetTransform(-0.035, 0, 0, rad(270), 0, 0, 0.580)
+						animation:SetPortraitZoom(1)
+						animation:SetAlpha(0.65)
+					else
+						animation:SetModel("spells/arcanepower_state_chest.m2")
+						animation:SetPosition(1.1, 0, 0)
+						animation:SetAlpha(0.65)
+					end
 				elseif db.type == "CUSTOM" then
-					animation:SetModel(db.model)
+					if E.Retail then
+						animation:SetModel(db.retailModel)
+					else
+						animation:SetModel(db.classicModel)
+					end
 				end
 
 				animation:SetAllPoints(frame:GetStatusBarTexture())
@@ -119,6 +130,8 @@ function module:LoadUnits()
 	-- Power Textures
 	module:ChangePowerBarTexture()
 	hooksecurefunc(UF, 'Update_AllFrames', module.ChangeUnitPowerBarTexture)
+	hooksecurefunc(UF, 'Update_StatusBars', module.ChangePowerBarTexture)
+	hooksecurefunc(AB, 'StyleShapeShift', module.ChangeUnitPowerBarTexture)
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 	-- Auras
