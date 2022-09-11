@@ -104,7 +104,9 @@ if E.Retail then
 	tinsert(Hearthstones, 183716)
 	tinsert(Hearthstones, 184353)
 	tinsert(Hearthstones, 188952) -- Dominated Hearthstone
-	tinsert(Hearthstones, 193588) -- Timewalker's Hearthstone
+    tinsert(Hearthstones, 193588) -- Timewalker's Hearthstone
+elseif E.Wrath then
+	tinsert(Hearthstones, 184871)
 end
 
 local HearthstonesTable
