@@ -344,7 +344,9 @@ P.misc = {
 	quest = {
 		selectQuestReward =	true,
 	},
-	cursor = false,
+	cursor = {
+		enable = false,
+	},
 	lfgInfo = {
 		enable = true,
 		title = true,

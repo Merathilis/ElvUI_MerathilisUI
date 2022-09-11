@@ -491,7 +491,8 @@ function MER:SetupLayout()
 		E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["enable"] = true
 		E.db["general"]["cropIcon"] = 0
 		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
-		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
+        E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
+		E.db["mui"]["misc"]["cursor"]["enable"] = true
 	else
 		E.db["general"]["cropIcon"] = 2
 		E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["enable"] = false
@@ -1176,8 +1177,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["powerclass"] = false
 	E.db["unitframe"]["colors"]["healthclass"] = false
 	E.db["unitframe"]["colors"]["power"]["MANA"] = { r = 0, g = 0.66, b = 1 }
-    E.db["unitframe"]["colors"]["power"]["RAGE"] = { r = 0.780, g = 0.125, b = 0.184 }
-    E.db["unitframe"]["colors"]["power"]["FOCUS"] = { r = 1, g = 0.50, b = 0.25 }
+	E.db["unitframe"]["colors"]["power"]["RAGE"] = { r = 0.780, g = 0.125, b = 0.184 }
+	E.db["unitframe"]["colors"]["power"]["FOCUS"] = { r = 1, g = 0.50, b = 0.25 }
 	E.db["unitframe"]["colors"]["power"]["ENERGY"] = { r = 1, g = 0.96, b = 0.41 }
 	E.db["unitframe"]["colors"]["power"]["PAIN"] = { r = 1, g = 0.51, b = 0, atlas = '_DemonHunter-DemonicPainBar' }
 	E.db["unitframe"]["colors"]["power"]["FURY"] = { r = 0.298, g = 1, b = 0, atlas = '_DemonHunter-DemonicFuryBar'}

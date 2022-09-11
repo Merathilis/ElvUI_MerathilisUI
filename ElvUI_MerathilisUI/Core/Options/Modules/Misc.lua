@@ -34,6 +34,8 @@ options.misc = {
 			order = 4,
 			type = "toggle",
 			name = L["Flashing Cursor"],
+			get = function(info) return E.db.mui.misc.cursor.enable end,
+			set = function(info, value) E.db.mui.misc.cursor.enable = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		},
 		funstuff = {
 			order = 5,
