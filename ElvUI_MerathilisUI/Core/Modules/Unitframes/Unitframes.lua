@@ -34,6 +34,8 @@ end
 
 function module:CreateAnimatedBars(frame)
 	if not frame then return end
+	if not E.db.unitframe.units.player.power.enable then return end -- only Player for now
+
 	local db = E.db.mui.unitframes.power
 
 	if db and db.enable then
@@ -90,8 +92,6 @@ function module:CreateAnimatedBars(frame)
 			frame.__MERAnim:SetFrameLevel(frame:GetFrameLevel())
 			frame.__MERAnim:SetClipsChildren(true)
 			frame.__MERAnim:Show()
-
-			frame.__MERAnim = frame
 		else
 			frame.__MERAnim:Hide()
 		end
