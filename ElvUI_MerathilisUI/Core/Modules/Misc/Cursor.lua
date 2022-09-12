@@ -14,6 +14,16 @@ local speed = 0
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
 local function OnUpdate(_, elapsed)
+	if speed + 1 == speed then
+		speed = 0
+	end
+	if x + 1 == x then
+		x = 0
+	end
+	if y + 1 == y then
+		y = 0
+	end
+
 	local dX = x
 	local dY = y
 
@@ -37,13 +47,17 @@ local function OnUpdate(_, elapsed)
 	end
 end
 
-function module:Initialize()
-	if E.db.mui.misc.cursor ~= true then return end
+function module:UpdateColor()
 
-	module.Frame = CreateFrame("Frame", nil, UIParent)
+end
+
+function module:Initialize()
+	if not E.db.mui.misc.cursor.enable then return end
+
+	module.Frame = CreateFrame("Frame", nil, E.UIParent)
 	module.Frame:SetFrameStrata("TOOLTIP")
 
-	module.Texture = module.Frame:CreateTexture()
+	module.Texture = module.Frame:CreateTexture(nil, "OVERLAY")
 	module.Texture:SetTexture([[Interface\Cooldown\star4]])
 	module.Texture:SetBlendMode("ADD")
 	module.Texture:SetAlpha(0.5)

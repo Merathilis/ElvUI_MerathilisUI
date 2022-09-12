@@ -10,11 +10,22 @@ local MediaPath = "Interface/Addons/ElvUI_MerathilisUI/Core/Media/"
 
 do
 	local cuttedIconTemplate = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
+	local cuttedIconAspectRatioTemplate = "|T%s:%d:%d:0:0:64:64:%d:%d:%d:%d|t"
 	local textureTemplate = "|T%s:%d:%d|t"
 	local aspectRatioTemplate = "|T%s:0:aspectRatio|t"
 	local s = 14
 
-	function F.GetIconString(icon, height, width)
+	function F.GetIconString(icon, height, width, aspectRatio)
+		if aspectRatio and height and height > 0 and width and width > 0 then
+			local proportionality = height / width
+			local offset = ceil((54 - 54 * proportionality) / 2)
+			if proportionality > 1 then
+				return format(cuttedIconAspectRatioTemplate, icon, height, width, 5 + offset, 59 - offset, 5, 59)
+			elseif proportionality < 1 then
+				return format(cuttedIconAspectRatioTemplate, icon, height, width, 5, 59, 5 + offset, 59 - offset)
+			end
+		end
+
 		width = width or height
 		return format(cuttedIconTemplate, icon, height or s, width or s)
 	end
@@ -118,6 +129,7 @@ AddMedia("PepeArt", "PepeArt.tga", "Textures")
 AddMedia("PepoLove", "pepoLove.tga", "Textures")
 AddMedia("Pushed", "pushed.tga", "Textures")
 
+-- Role Icons
 AddMedia("sunTank", "RoleIcons/SunUI/Tank.tga", "Textures")
 AddMedia("sunHealer", "RoleIcons/SunUI/Healer.tga", "Textures")
 AddMedia("sunDPS", "RoleIcons/SunUI/DPS.tga", "Textures")
@@ -129,6 +141,26 @@ AddMedia("svuiDPS", "RoleIcons/SVUI/DPS.tga", "Textures")
 AddMedia("lynTank", "RoleIcons/LynUI/Tank.tga", "Textures")
 AddMedia("lynHealer", "RoleIcons/LynUI/Healer.tga", "Textures")
 AddMedia("lynDPS", "RoleIcons/LynUI/DPS.tga", "Textures")
+
+AddMedia("customTank", "RoleIcons/Custom/Tank.tga", "Textures")
+AddMedia("customHeal", "RoleIcons/Custom/Healer.tga", "Textures")
+AddMedia("customDPS", "RoleIcons/Custom/DPS.tga", "Textures")
+
+AddMedia("glowTank", "RoleIcons/Glow/Tank.tga", "Textures")
+AddMedia("glowHeal", "RoleIcons/Glow/Healer.tga", "Textures")
+AddMedia("glowDPS", "RoleIcons/Glow/DPS.tga", "Textures")
+
+AddMedia("gravedTank", "RoleIcons/Graved/Tank.tga", "Textures")
+AddMedia("gravedHeal", "RoleIcons/Graved/Healer.tga", "Textures")
+AddMedia("gravedDPS", "RoleIcons/Graved/DPS.tga", "Textures")
+
+AddMedia("mainTank", "RoleIcons/Main/Tank.tga", "Textures")
+AddMedia("mainHeal", "RoleIcons/Main/Healer.tga", "Textures")
+AddMedia("mainDPS", "RoleIcons/Main/DPS.tga", "Textures")
+
+AddMedia("whiteTank", "RoleIcons/White/Tank.tga", "Textures")
+AddMedia("whiteHeal", "RoleIcons/White/Healer.tga", "Textures")
+AddMedia("whiteDPS", "RoleIcons/White/DPS.tga", "Textures")
 
 -- Fonts
 LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])

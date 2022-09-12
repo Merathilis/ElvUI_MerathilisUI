@@ -9,7 +9,7 @@ end)
 keyFeedback:RegisterEvent('PLAYER_LOGIN')
 
 function keyFeedback:PLAYER_LOGIN()
-	if not E.db.mui.actionbars.keyfeedback.enable then
+	if not E.private.actionbar.enable or not E.db.mui.actionbars.keyfeedback.enable then
 		return
 	end
 

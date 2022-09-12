@@ -420,14 +420,14 @@ function MER:CheckCompatibility()
 	CheckShadowAndLight(
 		L["Rectangle Minimap"],
 		L["Rectangle Minimap"],
-		"db.mui.maps.rectangleMinimap.enable",
+		"db.mui.maps.minimap.rectangleMinimap.enable",
 		"private.sle.minimap.rectangle"
 	)
 
 	CheckShadowAndLight(
 		L["Raid Markers"],
 		L["Raid Markers"],
-		"db.mui.combat.raidmarkers.enable",
+		"db.mui.raidmarkers.enable",
 		"db.sle.raidmarkers.enable"
 	)
 
@@ -441,14 +441,14 @@ function MER:CheckCompatibility()
 	CheckShadowAndLight(
 		format("%s-%s", L["Objective Tracker"], L["Cosmetic Bar"]),
 		format("%s-%s", L["Skins"], L["Underline"]),
-		"private.mui.quest.objectiveTracker.enable",
+		"db.mui.blizzard.objectiveTracker.enable",
 		"db.sle.skins.objectiveTracker.underline"
 	)
 
 	CheckShadowAndLight(
 		L["Merchant"],
 		format("%s-%s", L["Item"], L["Extend Merchant Pages"]),
-		"private.mui.item.extendMerchantPages.enable",
+		"db.mui.merchant.enable",
 		"private.sle.skins.merchant.enable"
 	)
 
@@ -484,7 +484,14 @@ function MER:CheckCompatibility()
 		L["Gradient"],
 		L["Enable Gradient Nameplates"],
 		"db.mui.nameplates.gradient",
-		"db.ElvUI_EltreumUI.unitframes.gradientmode.npenable "
+		"db.ElvUI_EltreumUI.unitframes.gradientmode.npenable"
+	)
+
+	CheckEltruism(
+		L["Power"],
+		format("%s-%s", L["Models"], L["Enable Models/Effects"]),
+		"db.mui.unitframes.power.enable",
+		"db.ElvUI_EltreumUI.unitframes.models.unitframe"
 	)
 
 	if self.CompatibilityFrame.numModules > 0 then

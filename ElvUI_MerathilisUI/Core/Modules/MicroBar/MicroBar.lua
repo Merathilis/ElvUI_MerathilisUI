@@ -103,8 +103,10 @@ if E.Retail then
 	tinsert(Hearthstones, 182773)
 	tinsert(Hearthstones, 183716)
 	tinsert(Hearthstones, 184353)
-	tinsert(Hearthstones, 188952) --	Dominated Hearthstone
-	tinsert(Hearthstones, 193588) -- Timewalker's Hearthstone
+	tinsert(Hearthstones, 188952) -- Dominated Hearthstone
+    tinsert(Hearthstones, 193588) -- Timewalker's Hearthstone
+elseif E.Wrath then
+	tinsert(Hearthstones, 184871)
 end
 
 local HearthstonesTable
@@ -312,8 +314,17 @@ local ButtonTypes = {
 	GROUP_FINDER = {
 		name = _G.LFG_TITLE,
 		icon = MER.Media.Icons.barGroupFinder,
-		macro = {
-			LeftButton = "/click LFDMicroButton"
+		click = {
+			LeftButton = function()
+				if E.Retail then
+					ToggleLFDParentFrame()
+				elseif E.TBC or E.Wrath then
+					if not IsAddOnLoaded('Blizzard_LookingForGroupUI') then
+						UIParentLoadAddOn('Blizzard_LookingForGroupUI')
+					end
+					_G.ToggleLFGParentFrame()
+				end
+			end,
 		},
 		tooltips = {
 			_G.LFG_TITLE

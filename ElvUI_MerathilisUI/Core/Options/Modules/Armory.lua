@@ -20,7 +20,7 @@ local fontStyleList = {
 options.armory = {
 	type = "group",
 	name = L["Armory"],
-	disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,
+	-- disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,
 	childGroups = "tab",
 	args = {
 		header = {
@@ -58,6 +58,7 @@ options.armory = {
 					order = 2,
 					type = "description",
 					name = L["ARMORY_DESC"],
+					hidden = function() return not E.Retail end,
 				},
 				undressButton = {
 					order = 3,
@@ -72,6 +73,7 @@ options.armory = {
 					name = L["Expanded Size"],
 					desc = L["This will increase the Character Frame size a bit."],
 					disabled = function() return not E.db.mui.armory.character.enable or not E.db.general.itemLevel.displayCharacterInfo end,
+					hidden = function() return not E.Retail end,
 				},
 				classIcon = {
 					order = 5,

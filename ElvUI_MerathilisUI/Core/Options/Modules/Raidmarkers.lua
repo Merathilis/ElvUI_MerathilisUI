@@ -4,10 +4,6 @@ local options = MER.options.modules.args
 
 local format = string.format
 
-local SHIFT_KEY, CTRL_KEY, ALT_KEY = SHIFT_KEY, CTRL_KEY, ALT_KEY
-local AGGRO_WARNING_IN_PARTY = AGGRO_WARNING_IN_PARTY
-local CUSTOM, DEFAULT = CUSTOM, DEFAULT
-
 options.raidmarkers = {
 	type = "group",
 	name = L["Raid Markers"],
@@ -176,11 +172,7 @@ options.raidmarkers = {
 					order = 1,
 					type = "toggle",
 					name = L["Ready Check"] .. " / " .. L["Advanced Combat Logging"],
-					desc = format(
-						"%s\n%s",
-						L["Left Click to ready check."],
-						L["Right click to toggle advanced combat logging."]
-					),
+					desc = format("%s\n%s", L["Left Click to ready check."], L["Right click to toggle advanced combat logging."]),
 					width = 2
 				},
 				countDown = {
@@ -208,7 +200,7 @@ options.raidmarkers = {
 				return E.db.mui.raidmarkers[info[#info]]
 			end,
 			set = function(info, value)
-				 E.db.mui.raidmarkers[info[#info]] = value
+				E.db.mui.raidmarkers[info[#info]] = value
 				module:ToggleSettings()
 			end,
 			disabled = function()

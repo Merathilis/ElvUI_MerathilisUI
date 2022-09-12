@@ -379,6 +379,14 @@ L["Add Item ID"] = true
 L["Delete Item ID"] = true
 L["Spell Feedback"] = true
 L["Creates a texture to show the recently pressed buttons."] = true
+L["Frame Strata"] = true
+L["Frame Level"] = true
+L["KeyFeedback"] = true
+L["Mirror"] = true
+L["Mirror Button Size"] = true
+L["Mirror Direction"] = true
+L["LEFT"] = true
+L["RIGHT"] = true
 
 -- AutoButtons
 L["AutoButtons"] = "自動按鍵"
@@ -537,6 +545,19 @@ L["Set All Absorb Style to %s"] = "設置全部吸收類型為 %s"
 L["The absorb style %s and %s is highly recommended with %s tweaks."] = "非常推薦使用 %s 和 %s 的吸收條風格來與 %s修改配合顯示."
 L["The selected texture will override the ElvUI default absorb bar texture."] = "選擇的材質將覆蓋ElvUI預設吸收條的材質."
 L["Use the texture from Blizzard Raid Frames."] = "使用遊戲內建的團隊框架圖示."
+L["Raid Icon"] = true
+L["Change the default raid icons."] = true
+L["Highlight"] = true
+L["Adds an own highlight to the Unitframes"] = true
+L["Auras"] = true
+L["Adds an shadow around the auras"] = true
+L["Power"] = true
+L["Enable the animated Power Bar"] = true
+L["Select Model"] = true
+L["Type the Model ID"] = true
+L["Role Icons"] = true
+L["Heal Prediction"] = true
+L["Add an additional overlay to the absorb bar."] = true
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -774,6 +795,8 @@ L["Show Icons"] = true
 L["Show In Party"] = true
 L["Show In Raid"] = true
 L["Show In Arena"] = true
+L["Spell Name"] = true
+L["Spell List"] = true
 
 -- CVars
 L["\n\nDefault: |cff00ff001|r"] = true
@@ -901,7 +924,7 @@ L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external ad
 Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
 L["MerathilisUI Style"] = true
 L["Creates decorative stripes and a gradient on some frames"] = true
-L["MerathilisUI Shadows"] = true
+L["Screen Shadow Overlay"] = true
 L["Enables/Disables a shadow overlay to darken the screen."] = true
 L["Undress Button"] = true
 L["Subpages"] = true
@@ -926,6 +949,14 @@ L["Selected Color"] = "選中時顏色"
 L["Tab"] = "標籤"
 L["Tree Group Button"] = "樹狀分組按鍵"
 L["Shadow Color"] = true
+L["These skins will affect all widgets handled by ElvUI Skins."] = true
+L["Texture"] = true
+L["Backdrop Color"] = true
+L["Check Box"] = true
+L["Slider"] = true
+L["Backdrop Alpha"] = true
+L["Enable All"] = true
+L["Disable All"] = true
 
 -- Panels
 L["Panels"] = true

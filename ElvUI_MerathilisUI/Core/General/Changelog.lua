@@ -12,9 +12,13 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Forgot to remove old Options for KeyFeedback... derp",
-		"• Added a Shadow on the Rectangle Minimap",
-		"• Added a simple Header for the QuestWatch Frame on Wrath",
+		"• Fixed some option not showing on non Retail",
+		"• Updated Details/BigWigs Profiles to also work on non Retail",
+		"• Take account to recent ElvUI changes to the UnitFrames",
+		"• Added Options for Chat & UnitFrames to change the Role Icons",
+		"• Added an Option to change the Player Power Bar texture",
+		"• Added an animation to the Player Power Bar (UnitFrames)",
+		"• Fixed the MicroBar LFG click",
 
 	" ",
 	"Notes:",

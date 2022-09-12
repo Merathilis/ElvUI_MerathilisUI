@@ -383,34 +383,6 @@ function module:CreateRaidManager()
 	RaidMarkFrame:SetClampedToScreen(true)
 	RaidMarkFrame:SetMovable(true)
 
-	RaidMarkFrame.lockbutton = CreateFrame("Button", nil, RaidMarkFrame)
-	RaidMarkFrame.lockbutton:Point("TOPRIGHT", -3, -3)
-	RaidMarkFrame.lockbutton:Size(15, 15)
-
-	RaidMarkFrame.lockbutton.tex = RaidMarkFrame.lockbutton:CreateTexture(nil, "BACKGROUND")
-	RaidMarkFrame.lockbutton.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\Icons\\Lock")
-	RaidMarkFrame.lockbutton.tex:SetAllPoints(RaidMarkFrame.lockbutton)
-
-	RaidMarkFrame.lockbutton:SetScript("OnClick", Lock)
-	RaidMarkFrame:SetScript("OnEvent", Lock)
-	RaidMarkFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-
-	RaidManagerFrame.toggleraidmark = CreateFrame("Button", nil, RaidManagerFrame)
-	RaidManagerFrame.toggleraidmark:Point("BOTTOMRIGHT", -22, 1)
-	RaidManagerFrame.toggleraidmark:Size(26, 26)
-
-	RaidManagerFrame.toggleraidmark.tex = RaidManagerFrame.toggleraidmark:CreateTexture(nil, "BACKGROUND")
-	RaidManagerFrame.toggleraidmark.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\Icons\\Achievement")
-	RaidManagerFrame.toggleraidmark.tex:SetAllPoints(RaidManagerFrame.toggleraidmark)
-	RaidManagerFrame.toggleraidmark:SetScript("OnEnter", function()
-		RaidManagerFrame.toggleraidmark.tex:SetVertexColor(F.r, F.g, F.b)
-	end)
-	RaidManagerFrame.toggleraidmark:SetScript("OnLeave", function()
-		RaidManagerFrame.toggleraidmark.tex:SetVertexColor(1, 1, 1)
-	end)
-
-	RaidManagerFrame.toggleraidmark:SetScript("OnClick", ToggleRaidMarkFrame)
-
 	--Role Icons
 	local RoleIcons = CreateFrame("Frame", "RaidManagerRoleIcons", RaidManagerFrame)
 	RoleIcons:Point("LEFT", RaidManagerFrame, "RIGHT", -1, 0)

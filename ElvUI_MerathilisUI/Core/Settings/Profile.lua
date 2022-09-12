@@ -50,7 +50,7 @@ P.blizzard = {
 		},
 		cosmeticBar = {
 			enable = true,
-			texture = "Gradient",
+			texture = "MER_NormTex",
 			widthMode = "ABSOLUTE",
 			heightMode = "ABSOLUTE",
 			width = 212,
@@ -344,7 +344,10 @@ P.misc = {
 	quest = {
 		selectQuestReward =	true,
 	},
-	cursor = false,
+	cursor = {
+		enable = false,
+		color = {r = 1, g = 1, b = 1},
+	},
 	lfgInfo = {
 		enable = true,
 		title = true,
@@ -801,6 +804,13 @@ P.unitframes = {
 		},
 		blizzardOverAbsorbGlow = true,
 		blizzardAbsorbOverlay = true,
+	},
+	power = {
+		enable = true,
+		type = "DEFAULT",
+		retailModel = 1715069,
+		classicModel = "spells/arcanepower_state_chest.m2",
+		texture = E.db.unitframe.statusbar,
 	},
 	swing = {
 		enable = false,

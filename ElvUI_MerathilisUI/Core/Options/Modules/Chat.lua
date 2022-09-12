@@ -727,6 +727,36 @@ do
 	icons = icons .. E:TextureString(E.Media.Textures.Healer, ":16:16") .. " "
 	icons = icons .. E:TextureString(E.Media.Textures.DPS, ":16:16")
 	SampleStrings.elvui = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.customTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.customHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.customDPS, ":16:16")
+	SampleStrings.custom = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.glowTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.glowHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.glowDPS, ":16:16")
+	SampleStrings.glow = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.gravedTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.gravedHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.gravedDPS, ":16:16")
+	SampleStrings.graved = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.mainTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.mainHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.mainDPS, ":16:16")
+	SampleStrings.main = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.whiteTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.whiteHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.whiteDPS, ":16:16")
+	SampleStrings.white = icons
 end
 
 options.chat.args.roleIcons = {
@@ -758,6 +788,11 @@ options.chat.args.roleIcons = {
 				SUNUI = SampleStrings.sunui,
 				LYNUI = SampleStrings.lynui,
 				SVUI = SampleStrings.svui,
+				CUSTOM = SampleStrings.custom,
+				GLOW = SampleStrings.glow,
+				GRAVED = SampleStrings.graved,
+				MAIN = SampleStrings.main,
+				WHITE = SampleStrings.white,
 			}
 		},
 		roleIconSize = {

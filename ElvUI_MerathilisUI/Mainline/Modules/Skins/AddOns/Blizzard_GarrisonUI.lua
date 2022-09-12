@@ -330,7 +330,7 @@ local function LoadSkin()
 		end
 	end
 
-	-- VenturePlan, 4.22 and higher
+	-- VenturePlan, 4.30 and higher
 	if IsAddOnLoaded("VenturePlan") then
 		local ANIMA_TEXTURE = 3528288
 		local ANIMA_SPELLID = {[347555] = 3, [345706] = 5, [336327] = 35, [336456] = 250}
@@ -428,13 +428,16 @@ local function LoadSkin()
 			end
 		end
 
-		local VPFollowers, VPTroops, VPBooks = {}, {}, {}
-		function VPEX_OnUIObjectCreated(otype, widget, peek)
+		local VPFollowers, VPTroops, VPBooks, numButtons = {}, {}, {}, 0
+		function _G.VPEX_OnUIObjectCreated(otype, widget, peek)
 			if widget:IsObjectType("Frame") then
 				if otype == "MissionButton" then
 					S:HandleButton(peek("ViewButton"))
 					S:HandleButton(peek("DoomRunButton"))
 					S:HandleButton(peek("TentativeClear"))
+					if peek("GroupHints") then
+						S:HandleButton(peek("GroupHints"))
+					end
 					reskinWidgetFont(peek("Description"), 1, 1, 1)
 					reskinWidgetFont(peek("enemyHP"), 1, 1, 1)
 					reskinWidgetFont(peek("enemyATK"), 1, 1, 1)
@@ -459,9 +462,7 @@ local function LoadSkin()
 					widget:StripTextures()
 					S:HandleButton(peek("UnButton"))
 					S:HandleButton(peek("StartButton"))
-					if peek("StartButton"):GetWidth() < 50 then -- only adjust the unmodified VP
-						peek("StartButton"):SetText("|T"..MER.Media.Textures.arrowUp..":16|t")
-					end
+					peek("StartButton"):SetText("|T"..MER.Media.Textures.arrowUp..":16|t")
 				elseif otype == "ILButton" then
 					widget:DisableDrawLayer("BACKGROUND")
 					local bg = module:CreateBDFrame(widget, .25)
@@ -469,10 +470,9 @@ local function LoadSkin()
 					bg:SetPoint("BOTTOMRIGHT", 2, -2)
 					module:CreateBDFrame(widget.Icon, .25)
 				elseif otype == "IconButton" then
-					S:HandleIcon(widget:GetNormalTexture())
+					S:HandleIcon(widget.Icon)
 					widget:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 					widget:SetPushedTexture(nil)
-					widget.Icon:SetTexCoord(unpack(E.TexCoords))
 					widget:SetSize(46, 46)
 					tinsert(VPBooks, widget)
 				elseif otype == "AdventurerRoster" then
@@ -493,7 +493,7 @@ local function LoadSkin()
 						book:ClearAllPoints()
 						book:SetPoint("BOTTOMLEFT", 24, -46 + i*50)
 					end
-				elseif otype == "AdventurerButton" then
+				elseif otype == "AdventurerListButton" then
 					widget.bg = module:CreateBDFrame(peek("Portrait"), 1)
 					peek("Hi"):SetColorTexture(1, 1, 1, .25)
 					peek("Hi"):SetInside(widget.bg)
@@ -502,7 +502,8 @@ local function LoadSkin()
 					peek("PortraitT").__owner = widget
 					hooksecurefunc(peek("PortraitT"), "SetShown", updateSelectedBorder)
 
-					if peek("PortraitR"):GetAtlas() == "Adventurers-Followers-Frame" then
+					numButtons = numButtons + 1
+					if numButtons > 2 then
 						peek("UsedBorder"):SetTexture(nil)
 						peek("UsedBorder").__shadow = module:CreateSD(peek("Portrait"), 5, true)
 						peek("UsedBorder").__shadow:SetBackdropBorderColor(peek("UsedBorder"):GetVertexColor())

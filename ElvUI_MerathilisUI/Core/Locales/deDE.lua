@@ -44,7 +44,7 @@ Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell
 -- Core Options
 L["Login Message"] = "Login Nachricht"
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
-L["Log Level"] = true
+L["Log Level"] = "Loglevel"
 L["Only display log message that the level is higher than you choose."] = "Zeigt nur die Log Nachrichten an über dem Level dass du ausgewählt hast"
 L["Set to 2 if you do not understand the meaning of log level."] = "Setze auf 2 wenn du keine Ahnung vom Log Level hast. :)"
 
@@ -136,10 +136,10 @@ L["Color"] = "Farbe"
 -- Information
 L["Information"] = "Informationen"
 L["Support & Downloads"] = "Unterstützung & Downloads"
-L["Tukui"] = true
-L["Github"] = true
-L["CurseForge"] = true
-L["Coding"] = true
+L["Tukui"] = true -- no need to translate
+L["Github"] = true -- no need to translate
+L["CurseForge"] = true -- no need to translate
+L["Coding"] = true -- no need to translate
 L["Testing & Inspiration"] = "Tester & Inspiration"
 L["Development Version"] = "Entwicklungsversion"
 L["Here you can download the latest development version."] = "Hier findest du den Download zu meiner Development Version."
@@ -209,7 +209,7 @@ L["Custom"] = "Benutzerdefiniert"
 L["Additional Text"] = "Zusätzlicher Text"
 L["Interval"] = "Intervall"
 L["The interval of updating."] = "Aktualisierungsintervall"
-L["Home"] = true
+L["Home"] = true -- no need to translate
 L["Left Button"] = "Linke Taste"
 L["Right Button"] = "Rechte Taste"
 L["Left Panel"] = "Linkes Panel"
@@ -257,7 +257,7 @@ L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
 L["Fun Stuff"] = "Lustiges Zeugs"
 L["Change the NPC Talk Frame."] = "Ändert das NPC Sprechfenster ab."
 L["Press CTRL + C to copy."] = "Drücke STRG + C zum Kopieren."
-L["Wowhead Links"] = true
+L["Wowhead Links"] = true -- no need to translate
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "Fügt Wowhead Links dem Erfolgfenster und der Weltkarte hinzu."
 L["Highest Quest Reward"] = "Höchste Questbelohnung"
 L["Automatically select the item with the highest reward."] = "Wählt automatisch den Gegenstand mit dem höchsten Wert aus."
@@ -389,6 +389,14 @@ L["Add Item ID"] = "Füge Gegenstands ID hinzu"
 L["Delete Item ID"] = "Entferne Gegenstands ID"
 L["Spell Feedback"] = "Zauber Feedback"
 L["Creates a texture to show the recently pressed buttons."] = "Zeigt eine Textur für die zuletzt gedrückten Tasten."
+L["Frame Strata"] = "Fensterschicht"
+L["Frame Level"] = "Fensterebene"
+L["KeyFeedback"] = "Tastenrückmeldung"
+L["Mirror"] = "Spiegeln"
+L["Mirror Button Size"] = "Spiegeln Tastengröße"
+L["Mirror Direction"] = "Spiegelrichtung"
+L["LEFT"] = "LINKS"
+L["RIGHT"] = "RECHTS"
 
 -- AutoButtons
 L["AutoButtons"] = "Autom. Tasten"
@@ -416,8 +424,8 @@ L["Crafted by mage"] = "Hergestellt vom Magier"
 L["Banners"] = "Banner"
 L["Utilities"] = "Werkzeuge"
 L["Fade Time"] = "Ausblendzeit"
-L["Alpha Min"] = true -- No need to translate
-L["Alpha Max"] = true -- No need to translate
+L["Alpha Min"] = "Transparens Min"
+L["Alpha Max"] = "Transparenz Max"
 
 -- Armory
 L["Armory"] = "Arsenal"
@@ -475,7 +483,7 @@ L["Subzone Text"] = "Unterzonentext"
 L["PvP Status Text"] = "PvP Statustext"
 L["Misc Texts"] = "Sonstiger Text"
 L["Mail Text"] = "Post Text"
-L["Chat Editbox Text"] = true
+L["Chat Editbox Text"] = "Chat Editierboxtext"
 L["Gossip and Quest Frames Text"] = "Tratsch und Questfenster Texte"
 L["Objective Tracker Header Text"] = "Questverfolgungs Kopfzeilentext"
 L["Objective Tracker Text"] = "Questverfolgungs Text"
@@ -547,6 +555,19 @@ L["Set All Absorb Style to %s"] = "Alle Absorptionsstile auf %s setzen"
 L["The absorb style %s and %s is highly recommended with %s tweaks."] = "Der Absorptionsstil %s und %s wird mit %s Optimierungen dringend empfohlen."
 L["The selected texture will override the ElvUI default absorb bar texture."] = "Die ausgewählte Textur überschreibt die standardmäßige ElvUI Absorptionsleistentextur."
 L["Use the texture from Blizzard Raid Frames."] = "Verwende die Textur von Blizzard Schlachtzugsfenster."
+L["Raid Icon"] = "Schlachtzugsymbol"
+L["Change the default raid icons."] = "Ändert das Standard Schlachtzugsymbol"
+L["Highlight"] = "Leuchten"
+L["Adds an own highlight to the Unitframes"] = "Fügt den Einheitsfenstern ein eigenes Leuchten hinzu"
+L["Auras"] = "Auren"
+L["Adds an shadow around the auras"] = "Fügt Schatten um die Auren hinzu"
+L["Power"] = "Kraftleiste"
+L["Enable the animated Power Bar"] = "Animierte Kraftleiste aktivieren"
+L["Select Model"] = "Wähle Modell"
+L["Type the Model ID"] = "Gib die Modell ID an"
+L["Role Icons"] = "Rollensymbole"
+L["Heal Prediction"] = "Heilungshervorsage"
+L["Add an additional overlay to the absorb bar."] = "Füge der Absorptionsleiste eine zusätzliche Überlagerung hinzu."
 
 -- LocationPanel
 L["Location Panel"] = "Standort Panel"
@@ -675,7 +696,7 @@ L["Reverse the direction of adding buttons."] = "Kehre die Richtung des Hinzufü
 L["Orientation"] = "Orientierung"
 L["Arrangement direction of the bar."] = "Arrangierrichtung der Bar."
 L["Drag"] = "Ziehen"
-L["Horizontal"] = true
+L["Horizontal"] = true -- no need to translate
 L["Vertical"] = "Vertikal"
 L["Buttons"] = "Tasten"
 L["Buttons Per Row"] = "Tasten pro Zeile"
@@ -717,7 +738,7 @@ L["In Party"] = "In Gruppe"
 L["Always Display"] = "Immer anzeigen"
 L["Mouse Over"] = "Mouseover"
 L["Only show raid markers bar when you mouse over it."] = "Zeige die Raid-Markierungsleiste nur an, wenn mit der Maus darüber gefahren wird."
-L["Tooltip"] = true
+L["Tooltip"] = true -- no need to translate
 L["Show the tooltip when you mouse over the button."] = "Zeige die Raid-Markierungsleiste nur an, wenn mit der Maus darüber gefahren wird."
 L["Modifier Key"] = "Modifier Taste"
 L["Set the modifier key for placing world markers."] = "Unterbreche die Automatisierung, indem Du eine Modifizierertaste drückst."
@@ -775,7 +796,7 @@ L["Duration time"] = "Dauer"
 L["Animation size"] = "Animationsgröße"
 L["Watch on pet spell"] = "Überwache Begleiterzauber"
 L["Transparency"] = "Transparenz"
-L["Test"] = true
+L["Test"] = true -- no need to translate
 L["Sort Upwards"] = "Abwärts sortieren"
 L["Sort by Expiration Time"] = "Nach Abklingzeit sortieren"
 L["Show Self Cooldown"] = "Zeige eigene Abklingzeiten"
@@ -783,6 +804,8 @@ L["Show Icons"] = "Zeige Symbol"
 L["Show In Party"] = "Zeige in Gruppe"
 L["Show In Raid"] = "Zeige im Schlachtzug"
 L["Show In Arena"] = "Zeige in Arenen"
+L["Spell Name"] = "Zaubername"
+L["Spell List"] = "Zauberliste"
 
 -- CVars
 L["\n\nDefault: |cff00ff001|r"] = "\n\nStandard: |cff00ff001|r"
@@ -804,7 +827,7 @@ L["showTutorials"] = "Zeige Tutorials"
 L["WorldTextScale"] = "Welt Textgröße"
 L["WorldTextScale_DESC"] = "Größe der Welt Schadenszahlen, Ehrfarungsgewinn, Artefaktgewinn, etc \r\r Standard: 1.0"
 L["floatingCombatTextCombatDamageDirectionalScale"] = true
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (deaktiviert = keine Richtungsnummern\r\rStandard: |cff00ff001|r"
+L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Richtung der Schadenszahlen Bewegungsskalierung (deaktiviert = keine Richtungsnummern\r\rStandard: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, sofern sie aktualisiert wurde."
@@ -838,7 +861,7 @@ L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/De
 
 -- Install
 L["Welcome"] = "Willkommen"
-L["|cffff7d0aMerathilisUI|r Installation"] = true
+L["|cffff7d0aMerathilisUI|r Installation"] = true -- no need to translate
 L["MerathilisUI Set"] = "MerathilisUI gesetzt"
 L["MerathilisUI didn't find any supported addons for profile creation"] = "MerathilisUI konnte keine Addonprofile finden, die unterstützt werden."
 L["MerathilisUI successfully created and applied profile(s) for:"] = "MerathilisUI hat erfolgreich ein Profil erstellt und angewandt für:"
@@ -886,7 +909,7 @@ L["Setup NamePlates"] = "Namensplaketten einstellen"
 L["Setup UnitFrames"] = "Einheitenfenster einstellen"
 L["Setup Datatexts"] = "Infotexte einstellen"
 L["Setup Addons"] = "Addons einstellen"
-L["ElvUI AddOns"] = true
+L["ElvUI AddOns"] = true -- no need to translate
 L["Finish"] = "Fertig"
 L["Installed"] = "Installiert"
 
@@ -909,7 +932,7 @@ L["MER_ADDONSKINS_DESC"] = [[Diese Abschnitt ist dazu gedacht, um das Aussehen v
 Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn nicht geladen wurde.]]
 L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
-L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
+L["Screen Shadow Overlay"] = "Bildschirmschatten Overlay"
 L["Enables/Disables a shadow overlay to darken the screen."] = "Aktiviert/Deaktiviert ein Schattenoverlay um den Bildschirm abzudunkeln."
 L["Undress Button"] = "Ausziehen Taste"
 L["Subpages"] = "Unterseiten"
@@ -931,9 +954,17 @@ L["Normal Class Color"] = "Normale Klassenfarbe"
 L["Selected Backdrop & Border"] = "Ausgewählter Hintergrund & Rahmen"
 L["Selected Class Color"] = "Ausgewählte Klassenfarbe"
 L["Selected Color"] = "Ausgewählte Farbe"
-L["Tab"] = true
+L["Tab"] = true -- no need to translate
 L["Tree Group Button"] = "Baumstrukturtaste" --Wie kacke dass klingt
 L["Shadow Color"] = "Schattenfarbe"
+L["These skins will affect all widgets handled by ElvUI Skins."] = "Diese Skins wirken sich auf alle Widgets aus, die von ElvUI Skins verwaltet werden."
+L["Texture"] = "Textur"
+L["Backdrop Color"] = "Hintergrundfarbe"
+L["Check Box"] = "Auswahlfeld"
+L["Slider"] = "Schieberegler"
+L["Backdrop Alpha"] = "Hingrund Transparenz"
+L["Enable All"] = "Aktiviere Alles"
+L["Disable All"] = "Deaktiviere Alles"
 
 -- Panels
 L["Panels"] = "Leisten"
@@ -996,7 +1027,7 @@ L["Transparent"] = "Transparent"
 L["Style"] = "Stil"
 
 -- Filter
-L["Filter"] = true
+L["Filter"] = true -- no need to translate
 L["Unblock the profanity filter."] = "Entsperre den Obszönitätsfilter."
 L["Profanity Filter"] = "Obszönitätsfilter"
 L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = "Wenn Du diese Option aktivierst, wird die Einstellung des Profanitätsfilters aufgehoben. [CN Server]"
@@ -1008,13 +1039,13 @@ L["Modify the texture of status and make name colorful."] = "Ändere die Textur 
 L["Enhanced Texture"] = "Verbesserte Textur"
 L["Game Icons"] = "Spielsymbole"
 L["Default"] = "Standard"
-L["Modern"] = true
+L["Modern"] = true -- no need to translate
 L["Status Icon Pack"] = "Status Symbolpack"
 L["Diablo 3"] = true
 L["Square"] = "Quadrat"
 L["Faction Icon"] = "Fraktions Symbol"
 L["Use faction icon instead of WoW icon."] = "Verwende das Fraktionssymbol anstelle des WoW-Symbols."
-L["Name"] = true
+L["Name"] = true -- no need to translate
 L["Level"] = "Stufe"
 L["Hide Max Level"] = "Verstecke auf Max Level"
 L["Use Note As Name"] = "Notiz als Namen"
@@ -1034,10 +1065,10 @@ L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.
 |cffff0000ACHTUNG:|r Vorhandene Profile werden überschrieben/gelöscht. Wenn du meine Profile nicht anweden möchtest, bitte drücke nicht die unteren Tasten.]]
 
 -- Addons
-L["Skins/AddOns"] = true
+L["Skins/AddOns"] = true -- no need to translate
 L["Profiles"] = "Profile"
-L["BigWigs"] = true
-L["MasterPlan"] = true
+L["BigWigs"] = true -- no need to translate
+L["MasterPlan"] = true -- no need to translate
 L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen und anwenden für "
 

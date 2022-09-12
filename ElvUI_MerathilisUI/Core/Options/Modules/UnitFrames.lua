@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
+local HP = MER:GetModule('MER_HealPrediction')
 local options = MER.options.modules.args
 local LSM = E.Libs.LSM
 
@@ -51,8 +52,89 @@ options.unitframes = {
 				},
 			},
 		},
-		gcd = {
+		power = {
 			order = 3,
+			type = "group",
+			name = E.NewSign..F.cOption(L["Power"], 'orange'),
+			guiInline = true,
+			get = function(info) return E.db.mui.unitframes.power[ info[#info] ] end,
+			set = function(info, value) E.db.mui.unitframes.power[info[#info]] = value; E:StaticPopup_Show("CONFIG_RL"); end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Enable the animated Power Bar"],
+				},
+				type = {
+					order = 2,
+					type = "select",
+					name = L["Select Model"],
+					style = 'radio',
+					disabled = function() return not E.db.mui.unitframes.power.enable end,
+					values = {
+						["DEFAULT"] = L["Default"],
+						["CUSTOM"] = CUSTOM,
+					},
+					sorting = {
+						"DEFAULT",
+						"CUSTOM",
+					},
+				},
+				customModel = {
+					order = 3,
+					type = "input",
+					name = function()
+						if E.Retail then
+							return L["Type the Model ID"]
+						else
+							return L["Type the Model Path, e.g.: spells/corruption_impactdot_med_base.m2"]
+						end
+					end,
+					width = "full",
+					disabled = function() return E.db.mui.unitframes.power.type == "DEFAULT" or not E.db.mui.unitframes.power.enable end,
+					validate = function(_, value)
+						if E.Retail then
+							if tonumber(value) ~= nil then
+								return true
+							else
+								return E:StaticPopup_Show("VERSION_MISMATCH") and false
+							end
+						else
+							return true
+						end
+					end,
+					get = function()
+						if E.Retail then
+							return tostring(E.db.mui.unitframes.power.retailModel)
+						else
+							return tostring(E.db.mui.unitframes.power.classicModel)
+						end
+					end,
+					set = function(_, value)
+						if E.Retail then
+							E.db.mui.unitframes.power.retailModel = tonumber(value)
+						else
+							E.db.mui.unitframes.power.classicModel = tostring(value)
+						end
+					end,
+					E:StaticPopup_Show("CONFIG_RL");
+				},
+				texture = {
+					order = 5,
+					type = "select",
+					name = L['Power'],
+					desc = L['Power statusbar texture.'],
+					dialogControl = 'LSM30_Statusbar',
+					values = LSM:HashTable("statusbar"),
+					-- function() return not E.db.mui.unitframes.power.enable end,
+					get = function(info) return E.db.mui.unitframes.power[ info[#info] ] end,
+					set = function(info, value) E.db.mui.unitframes.power[ info[#info] ] = value; module:ChangePowerBarTexture() end,
+				},
+			},
+		},
+		gcd = {
+			order = 4,
 			type = "group",
 			name = F.cOption(L["GCD Bar"], 'orange'),
 			guiInline = true,
@@ -86,7 +168,7 @@ options.unitframes = {
 			},
 		},
 		swing = {
-			order = 4,
+			order = 5,
 			type = "group",
 			name = F.cOption(L["Swing Bar"], 'orange'),
 			guiInline = true,
@@ -165,7 +247,7 @@ options.unitframes = {
 			end,
 			set = function(info, value)
 				E.db.mui.unitframes.healPrediction[info[#info]] = value
-				module:ProfileUpdate()
+				HP:ProfileUpdate()
 			end,
 			args = {
 				desc = {
@@ -202,7 +284,7 @@ options.unitframes = {
 					end,
 					set = function(info, value)
 						E.db.mui.unitframes.healPrediction.texture[info[#info]] = value
-						module:ProfileUpdate()
+						HP:ProfileUpdate()
 					end,
 					args = {
 						enable = {
@@ -368,6 +450,36 @@ do
 	icons = icons .. E:TextureString(E.Media.Textures.Healer, ":16:16") .. " "
 	icons = icons .. E:TextureString(E.Media.Textures.DPS, ":16:16")
 	SampleStrings.elvui = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.customTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.customHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.customDPS, ":16:16")
+	SampleStrings.custom = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.glowTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.glowHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.glowDPS, ":16:16")
+	SampleStrings.glow = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.gravedTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.gravedHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.gravedDPS, ":16:16")
+	SampleStrings.graved = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.mainTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.mainHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.mainDPS, ":16:16")
+	SampleStrings.main = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.whiteTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.whiteHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.whiteDPS, ":16:16")
+	SampleStrings.white = icons
 end
 
 options.unitframes.args.roleIcons = {
@@ -398,6 +510,11 @@ options.unitframes.args.roleIcons = {
 				SUNUI = SampleStrings.sunui,
 				LYNUI = SampleStrings.lynui,
 				SVUI = SampleStrings.svui,
+				CUSTOM = SampleStrings.custom,
+				GLOW = SampleStrings.glow,
+				GRAVED = SampleStrings.graved,
+				MAIN = SampleStrings.main,
+				WHITE = SampleStrings.white,
 			},
 		},
 	},

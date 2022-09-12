@@ -41,17 +41,12 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion and profileVersion <= 5.21 then
-		-- Role Icons is now a table instead of a bool
-		if E.db.mui.unitframes.roleIcons and type(E.db.mui.unitframes.roleIcons) ~= 'table' then
-			E.db.mui.unitframes.roleIcons = {}
+	if profileVersion and profileVersion <= 5.23 then
+		-- Cursor is now a table instead of a bool
+		if E.db.mui.misc.cursor and type(E.db.mui.misc.cursor) ~= 'table' then
+			E.db.mui.misc.cursor = {}
 		end
-		UpdateMessage(L["UnitFrames"] .. " - " .. L["Role Icons"], profileVersion)
-
-		if E.db.mui.actionbars.keyfeedback and type(E.db.mui.actionbars.keyfeedback) ~= 'table' then
-			E.db.mui.actionbars.keyfeedback = {}
-		end
-		UpdateMessage(L["ActionBars"] .. " - " .. L["KeyFeedback"], profileVersion)
+		UpdateMessage(L["Miscellaneous"] .. " - " .. L["Flashing Cursor"], profileVersion)
 
 		updated = true
 	end

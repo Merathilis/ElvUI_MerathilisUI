@@ -31,7 +31,7 @@ local function ReplaceWidgetBarTexture(self, atlas)
 end
 
 local function ReskinWidgetStatusBar(bar)
-	if bar:IsForbidden() then return end
+	if not bar or bar:IsForbidden() then return end
 
 	if bar and not bar.styled then
 		if bar.BG then bar.BG:SetAlpha(0) end
@@ -90,7 +90,7 @@ local function ReskinPVPCaptureBar(self)
 end
 
 local function ReskinSpellDisplayWidget(spell)
-	if spell:IsForbidden() then return end
+	if not spell or spell:IsForbidden() then return end
 
 	if not spell.backdrop then
 		spell.Border:SetAlpha(0)

@@ -39,10 +39,12 @@ local BNET_CLIENT_WOW = BNET_CLIENT_WOW
 local BNET_CLIENT_WTCG = BNET_CLIENT_WTCG
 
 local CINEMATIC_NAME_2 = CINEMATIC_NAME_2
+local CINEMATIC_NAME_3 = CINEMATIC_NAME_3
 
 local WOW_PROJECT_MAINLINE = WOW_PROJECT_MAINLINE
 local WOW_PROJECT_CLASSIC = WOW_PROJECT_CLASSIC
 local WOW_PROJECT_CLASSIC_TBC = 5
+local WOW_PROJECT_CLASSIC_WRATH = 11
 
 local FRIENDS_TEXTURE_AFK, FRIENDS_TEXTURE_DND = FRIENDS_TEXTURE_AFK, FRIENDS_TEXTURE_DND
 local FRIENDS_TEXTURE_OFFLINE, FRIENDS_TEXTURE_ONLINE = FRIENDS_TEXTURE_OFFLINE, FRIENDS_TEXTURE_ONLINE
@@ -57,7 +59,7 @@ local BNET_FRIEND_TOOLTIP_WOW_CLASSIC = BNET_FRIEND_TOOLTIP_WOW_CLASSIC
 local MediaPath = "Interface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\FriendList\\"
 
 --[[
-/run for i,v in pairs(_G) do if type(v)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end
+    /run for i,v in pairs(_G) do if type(v)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end
 ]]
 
 local cache = {}
@@ -86,6 +88,10 @@ local gameIcons = {
 	[BNET_CLIENT_WOW .. "C_TBC"] = {
 		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
 		Modern = MediaPath .. "GameIcons\\WoWC"
+	},
+	[BNET_CLIENT_WOW .. "C_WRATH"] = {
+		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
+		Modern = MediaPath .. "GameIcons\\WoWWLK"
 	},
 	[BNET_CLIENT_D2] = {
 		Default = BNet_GetClientTexture(BNET_CLIENT_D2),
@@ -201,7 +207,23 @@ local RegionLocales = {
 local MaxLevel = {
 	[BNET_CLIENT_WOW .. "C"] = 60,
 	[BNET_CLIENT_WOW .. "C_TBC"] = 70,
+	[BNET_CLIENT_WOW .. "C_WRATH"] = 80,
 	[BNET_CLIENT_WOW] = MER.MaxLevelForPlayerExpansion
+}
+
+local classicVersionTable = {
+	[WOW_PROJECT_CLASSIC] = {
+		code = BNET_CLIENT_WOW .. "C",
+		name = nil
+	},
+	[WOW_PROJECT_CLASSIC_TBC] = {
+		code = BNET_CLIENT_WOW .. "C_TBC",
+		name = CINEMATIC_NAME_2
+	},
+	[WOW_PROJECT_CLASSIC_WRATH] = {
+		code = BNET_CLIENT_WOW .. "C_WRATH",
+		name = CINEMATIC_NAME_3
+	}
 }
 
 local BNColor = {
@@ -310,18 +332,12 @@ function module:UpdateFriendButton(button)
 				isInCurrentRegion = gameAccountInfo.isInCurrentRegion or false
 				regionID = gameAccountInfo.regionID or false
 
-				if gameAccountInfo.wowProjectID == WOW_PROJECT_CLASSIC then
-					game = BNET_CLIENT_WOW .. "C" -- Classic
+				if classicVersionTable[gameAccountInfo.wowProjectID] then
+					local versionInfomation = classicVersionTable[gameAccountInfo.wowProjectID]
+					game = versionInfomation.code
+					local versionSuffix = versionInfomation.name and " (" .. versionInfomation.name .. ")" or ""
 					local serverStrings = {strsplit(" - ", gameAccountInfo.richPresence)}
-					server = serverStrings[#serverStrings] or BNET_FRIEND_TOOLTIP_WOW_CLASSIC
-					server = server .. "*"
-				elseif gameAccountInfo.wowProjectID == WOW_PROJECT_CLASSIC_TBC then
-					game = BNET_CLIENT_WOW .. "C_TBC" -- TBC
-					local serverStrings = {strsplit(" - ", gameAccountInfo.richPresence)}
-					server =
-						serverStrings[#serverStrings] or
-						BNET_FRIEND_TOOLTIP_WOW_CLASSIC .. " (" .. CINEMATIC_NAME_2 .. ")"
-					server = server .. "*"
+					server = (serverStrings[#serverStrings] or BNET_FRIEND_TOOLTIP_WOW_CLASSIC .. versionSuffix) .. "*"
 				else
 					server = gameAccountInfo.realmDisplayName or ""
 				end

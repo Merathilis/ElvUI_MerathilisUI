@@ -341,7 +341,7 @@ function M:AddCharacterIcon()
 end
 
 function M:Armory()
-	if not E.private.skins.blizzard.character then return end
+	if not E.db.mui.armory.character.enable or not (E.private.skins.blizzard.enable or E.private.skins.blizzard.character) then return end
 
 	M.hasOtherAddon = IsAddOnLoaded("CharacterStatsTBC")
 

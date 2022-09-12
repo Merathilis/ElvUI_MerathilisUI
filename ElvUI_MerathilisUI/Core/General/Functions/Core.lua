@@ -222,7 +222,7 @@ function F.SetFontOutline(text, font, size)
 		F.Developer.LogDebug("Functions.SetFontOutline: text not found")
 		return
 	end
-	local fontName, fontHeight = text:GetFont()
+	local fontName, fontHeight, fontStyle = text:GetFont()
 
 	if size and type(size) == "string" then
 		size = fontHeight + tonumber(size)
@@ -232,7 +232,7 @@ function F.SetFontOutline(text, font, size)
 		font = LSM:Fetch("font", font)
 	end
 
-	text:FontTemplate(font or fontName, size or fontHeight, "OUTLINE")
+	text:FontTemplate(font or fontName, size or fontHeight, fontStyle or "OUTLINE")
 	text:SetShadowColor(0, 0, 0, 0)
 	text.SetShadowColor = E.noop
 end
