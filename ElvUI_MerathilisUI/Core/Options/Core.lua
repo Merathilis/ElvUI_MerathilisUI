@@ -83,7 +83,7 @@ function MER:OptionsCallback()
 				order = 4,
 				type = "execute",
 				name = L["Changelog"],
-				desc = L['Open the changelog window.'],
+				desc = L["Open the changelog window."],
 				customWidth = 140,
 				func = function() MER:ToggleChangeLog(); E:ToggleOptionsUI() end,
 			},

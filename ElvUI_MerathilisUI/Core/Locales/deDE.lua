@@ -47,8 +47,10 @@ L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login
 L["Log Level"] = "Loglevel"
 L["Only display log message that the level is higher than you choose."] = "Zeigt nur die Log Nachrichten an über dem Level dass du ausgewählt hast"
 L["Set to 2 if you do not understand the meaning of log level."] = "Setze auf 2 wenn du keine Ahnung vom Log Level hast. :)"
+L["Open the changelog window."] = "Öffne das Changelog Fenster."
 
 -- Bags
+L["Equip Manager"] = "Ausrüstungsmanager"
 L["Equipment Manager"] = "Ausrüstungsmanager"
 L["Equipment Set Overlay"] = "Ausrüstungssetanzeige"
 L["Show the associated equipment sets for the items in your bags (or bank)."] = "Zeigt verbundene Ausrüstungssets auf Gegenständen in deinen Taschen und in der Bank an."
@@ -157,6 +159,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe,
 
 -- Extended Vendor
 L["Extended Vendor"] = "Erweiterter Händler"
+L["Extends the merchant page to show more items."] = "Erweitert die Händlerseite, um mehr Gegenstände anzuzeigen."
+L["Number of Pages"] = "Anzahl der Seiten"
+L["The number of pages shown in the merchant frame."] = "Die Anzahl der im Händlerfenster angezeigten Seiten."
 
 -- FlightMode
 L["FlightMode"] = "Flugmodus"
@@ -426,6 +431,9 @@ L["Utilities"] = "Werkzeuge"
 L["Fade Time"] = "Ausblendzeit"
 L["Alpha Min"] = "Transparens Min"
 L["Alpha Max"] = "Transparenz Max"
+L["Inherit Global Fade"] = "Erben globales Verblassen"
+L["Anchor Point"] = "Ankerpunkt"
+L["The first button anchors itself to this point on the bar."] = "Die erste Taste verankert sich an diesem Punkt auf der Leiste."
 
 -- Armory
 L["Armory"] = "Arsenal"
@@ -605,15 +613,16 @@ L["Show relocation spells in the list."] = "Zeigt Teleportzauber in der Liste an
 L["Show engineer gadgets"] = "Zeige Ingenieursspielereien."
 L["Show items used only by engineers when the profession is learned."] = "Zeigt Gegenstände, die nur von Ingenieuren genutzt werden können, sowie wenn der Beruf erlernt wurde, an."
 L["Ignore missing info"] = "Ignoriere fehlende Informationen"
-L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
-When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
-By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
+L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Aufgrund der Funktionsweise des Clients können einige Artikelinformationen für einen bestimmten Zeitraum nicht verfügbar sein. Dies geschieht meistens bei Spielzeuginformationen.
+Wenn das Menü aufgerufen wird, wartet es, bis alle Informationen verfügbar sind, bevor es angezeigt wird. Dies kann dazu führen, dass sich das Menü nach einiger Zeit öffnet, abhängig davon, wie schnell der Server Info-Anfragen beantwortet.
+Wenn Du diese Option aktivierst, ignoriert das Menü Elemente mit fehlenden Informationen, was dazu führt, dass sie nicht in der Liste angezeigt werden.]]
 L["Info for some items is not available yet. Please try again later"] = "Informationen für einige Gegenstände sind zur Zeit nicht verfügbar. Bitte später noch einmal versuchen"
 L["Update canceled."] = "Aktualisierung abgebrochen."
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = "Gegenstandsinformation ist nicht verfügbar. Dieses kann ein bisschen dauern um die Informationen zu sammeln. Das Menü wird automatisch geöffnet, wenn alle Informationen gesammelt wurden. Erneutes Aufrufen des Menüs während der Aktualisierung, wird den Vorgang abbrechen."
 L["Update complete. Opening menu."] = "Aktualisierung komplett. Menü wird geöffnet."
 L["Hide Coordinates"] = "Verstecke Koordinaten"
 L["Dungeon Teleports"] = "Instanzteleports"
+L["Hide In Combat"] = "Im Kampf ausblenden"
 
 -- Maps
 L["Maps"] = "Karten"
@@ -962,9 +971,28 @@ L["Texture"] = "Textur"
 L["Backdrop Color"] = "Hintergrundfarbe"
 L["Check Box"] = "Auswahlfeld"
 L["Slider"] = "Schieberegler"
-L["Backdrop Alpha"] = "Hingrund Transparenz"
+L["Backdrop Alpha"] = "Hintergrund Transparenz"
 L["Enable All"] = "Aktiviere Alles"
 L["Disable All"] = "Deaktiviere Alles"
+
+L["Spellbook"] = "Zauberbuch"
+L["Character Frame"] = "Charakterfenster"
+L["Gossip Frame"] = "Tratschfenster"
+L["Quest Frames"] = "Questfenster"
+L["TALENTS"] = "Talente"
+L["AUCTIONS"] = "Auktionen"
+L["FRIENDS"] = "Freunde"
+L["GUILD"] = "Gilde"
+L["Mail Frame"] = "Mailfenster"
+L["WORLD_MAP"] = "Weltkarte"
+L["Guild Control Frame"] = "Gildenkontrollfenster"
+L["MACROS"] = "Makros"
+L["GUILD_BANK"] = "Gildenbank"
+L["FLIGHT_MAP"] = "Flugkarte"
+L["Help Frame"] = "Hilfefenster"
+L["Loot Frames"] = "Beutefenster"
+L["CHANNELS"] = "Kanäle"
+L["Raid Frame"] = "Raidfenster"
 
 -- Panels
 L["Panels"] = "Leisten"
@@ -993,7 +1021,7 @@ L["Colorful Percentage"] = "Farblicher Prozentsatz"
 L["Make the additional percentage text be colored."] = "Lasse den zusätzlichen prozentualen Text farbig werden."
 L["Cosmetic Bar"] = "Kosmetische Leiste"
 L["Border"] = "Rand"
-L["Border Alpha"] = "Rand Transparenz"
+L["Border Alpha"] = "Rahmen Transparenz"
 L["Width Mode"] = "Breitenmodus"
 L["'Absolute' mode means the width of the bar is fixed."] = "Der Modus 'Absolut' bedeutet, dass die Breite des Balkens festgelegt ist."
 L["'Dynamic' mode will also add the width of header text."] = "Der Modus 'Dynamisch' fügt auch die Breite des Kopfzeilentexts hinzu."
@@ -1025,6 +1053,7 @@ L["Top Left Offset X"] = "Versatz oben links X"
 L["Top Left Offset Y"] = "Versatz oben links Y"
 L["Transparent"] = "Transparent"
 L["Style"] = "Stil"
+L["Height Mode"] = "Höhenmodus"
 
 -- Filter
 L["Filter"] = true -- no need to translate
@@ -1057,7 +1086,7 @@ L["Font Setting"] = "Schrifteinstellungen"
 
 -- Talents
 L["Talents"] = "Talente"
-L["This feature improves the Talent Window by:\n\nAdding an Extra Button to swap between specializations.\nAdding an Extra Button to use and track duration for Codices and Tomes."] = "Diese Funktion verbessert das Talentfenster um:\n\nEine zusätzliche Taste um schnell zwischen den Spezialisierungen zu wechseln.\nZusätzliche Tasten für Kodexe um schnell die Talente zu wechseln."
+L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."] = "Diese Funktion verbessert das Talentfenster um:\n\nEine zusätzliche Taste um schnell zwischen den Spezialisierungen zu wechseln.\nZusätzliche Tasten für Kodexe um schnell die Talente zu wechseln."
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

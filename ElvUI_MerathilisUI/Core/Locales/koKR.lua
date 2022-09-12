@@ -47,8 +47,10 @@ L["Enable/Disable the Login Message in Chat"] = true
 L["Log Level"] = "로그 레벨"
 L["Only display log message that the level is higher than you choose."] = "선택한 수준 이상의 로그 메시지만 표시합니다."
 L["Set to 2 if you do not understand the meaning of log level."] = "로그 레벨의 의미를 잘 모를 경우 2로 설정하세요."
+L["Open the changelog window."] = true
 
 -- Bags
+L["Equip Manager"] = true
 L["Equipment Manager"] = true
 L["Equipment Set Overlay"] = true
 L["Show the associated equipment sets for the items in your bags (or bank)."] = true
@@ -153,6 +155,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe,
 
 -- Extended Vendor
 L["Extended Vendor"] = true
+L["Extends the merchant page to show more items."] = true
+L["Number of Pages"] = true
+L["The number of pages shown in the merchant frame."] = true
 
 -- FlightMode
 L["FlightMode"] = true
@@ -423,6 +428,9 @@ L["Custom Items"] = "사용자 지정 아이템"
 L["Fade Time"] = "사라지는 시간 설정"
 L["Alpha Min"] = "최소 알파값"
 L["Alpha Max"] = "최대 알파값"
+L["Inherit Global Fade"] = true
+L["Anchor Point"] = true
+L["The first button anchors itself to this point on the bar."] = true
 
 -- Armory
 L["Armory"] = "전투정보실"
@@ -611,6 +619,7 @@ L["Item info is not available. Waiting for it. This can take some time. Menu wil
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
 L["Dungeon Teleports"] = true
+L["Hide In Combat"] = true
 
 -- Maps
 L["Maps"] = true
@@ -963,6 +972,24 @@ L["Slider"] = true
 L["Backdrop Alpha"] = true
 L["Enable All"] = true
 L["Disable All"] = true
+L["Spellbook"] = true
+L["Character Frame"] = true
+L["Gossip Frame"] = true
+L["Quest Frames"] = true
+L["TALENTS"] = true
+L["AUCTIONS"] = true
+L["FRIENDS"] = true
+L["GUILD"] = true
+L["Mail Frame"] = true
+L["WORLD_MAP"] = true
+L["Guild Control Frame"] = true
+L["MACROS"] = true
+L["GUILD_BANK"] = true
+L["FLIGHT_MAP"] = true
+L["Help Frame"] = true
+L["Loot Frames"] = true
+L["CHANNELS"] = true
+L["Raid Frame"] = true
 
 -- Panels
 L["Panels"] = true
@@ -1023,6 +1050,7 @@ L["Top Left Offset X"] = "왼쪽 상단 오프셋 X"
 L["Top Left Offset Y"] = "왼쪽 상단 오프셋 Y"
 L["Transparent"] = "반투명화"
 L["Style"] = true
+L["Height Mode"] = true
 
 -- Filter
 L["Filter"] = "필터"
