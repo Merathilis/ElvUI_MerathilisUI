@@ -40,7 +40,7 @@ function module:CreateAnimatedBars(frame)
 
 	if db and db.enable then
 		if not frame.__MERAnim then
-			frame.__MERAnim = CreateFrame("FRAME", nil, frame.Power) -- Main Frame
+			frame.__MERAnim = CreateFrame("FRAME", nil, frame) -- Main Frame
 
 			if not frame.animation then
 				local animation = CreateFrame("PlayerModel", "MER_PowerBarEffect", frame.__MERAnim)
@@ -65,7 +65,7 @@ function module:CreateAnimatedBars(frame)
 					end
 				end
 
-				animation:SetAllPoints(frame:GetStatusBarTexture())
+				animation:SetKeepModelOnHide(true)
 				animation:SetInside(frame:GetStatusBarTexture(), 0, 0)
 
 				frame.animation = animation
@@ -88,9 +88,6 @@ function module:CreateAnimatedBars(frame)
 			end
 
 			frame.__MERAnim:SetAllPoints(frame:GetStatusBarTexture())
-			frame.__MERAnim:SetInside(frame:GetStatusBarTexture(), 0, 0)
-			frame.__MERAnim:SetFrameLevel(frame:GetFrameLevel())
-			frame.__MERAnim:SetClipsChildren(true)
 			frame.__MERAnim:Show()
 		else
 			frame.__MERAnim:Hide()
