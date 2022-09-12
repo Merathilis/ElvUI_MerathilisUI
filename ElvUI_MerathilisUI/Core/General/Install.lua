@@ -2107,6 +2107,12 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["party"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 	E.db["unitframe"]["units"]["party"]["healPrediction"]["height"] = -1
 	E.db["unitframe"]["units"]["party"]["cutaway"]["health"]["enabled"] = true
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["size"] = 12
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["texture"] = "COMBAT"
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["customTexture"] = ""
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["anchorPoint"] = "LEFT"
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["yOffset"] = 10
 	if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["party"]["customTexts"] = {}
