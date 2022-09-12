@@ -2,14 +2,15 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule('MER_Misc')
 local SA = MER:GetModule('MER_SpellAlert')
 local IL = MER:GetModule('MER_ItemLevel')
+local CU = MER:GetModule('MER_Cursor')
 local options = MER.options.modules.args
 local LSM = E.LSM
 
 options.misc = {
 	type = "group",
-	name = L["Miscellaneous"],
-	get = function(info) return E.db.mui.misc[ info[#info] ] end,
-	set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+	name = E.NewSign..L["Miscellaneous"],
+	get = function(info) return E.db.mui.misc[info[#info]] end,
+	set = function(info, value) E.db.mui.misc[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
 		header = {
 			order = 1,
@@ -27,30 +28,23 @@ options.misc = {
 			type = "toggle",
 			name = L["Guild News Item Level"],
 			desc = L["Add Item level Infos in Guild News"],
-			get = function(info) return E.private.mui.misc[ info[#info] ] end,
-			set = function(info, value) E.private.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-		},
-		cursor = {
-			order = 4,
-			type = "toggle",
-			name = L["Flashing Cursor"],
-			get = function(info) return E.db.mui.misc.cursor.enable end,
-			set = function(info, value) E.db.mui.misc.cursor.enable = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			get = function(info) return E.private.mui.misc[info[#info]] end,
+			set = function(info, value) E.private.mui.misc[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		},
 		funstuff = {
-			order = 5,
+			order = 4,
 			type = "toggle",
 			name = L["Fun Stuff"],
 			desc = L["Change the NPC Talk Frame."],
 		},
 		wowheadlinks = {
-			order = 6,
+			order = 5,
 			type = "toggle",
 			name = L["Wowhead Links"],
 			desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
 		},
 		hideBossBanner = {
-			order = 7,
+			order = 6,
 			type = "toggle",
 			name = L["Hide Boss Banner"],
 			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
@@ -63,6 +57,49 @@ options.misc = {
 			hidden = not E.Retail,
 			get = function(info) return E.db.mui.misc.spellAlert end,
 			set = function(info, value) E.db.mui.misc.spellAlert = value; SA:Resize() end,
+		},
+		cursor = {
+			order = 11,
+			type = "group",
+			name = E.NewSign..F.cOption(L["Flashing Cursor"], 'orange'),
+			guiInline = true,
+			get = function(info) return E.db.mui.misc.cursor[info[#info]] end,
+			set = function(info, value) E.db.mui.misc.cursor[info[#info]] = value; CU:UpdateColor(); end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				colorType = {
+					order = 2,
+					name = L["Color Type"],
+					type = "select",
+					disabled = function() return not E.db.mui.misc.cursor.enable end,
+					set = function(info, value) E.db.mui.misc.cursor[info[#info]] = value; end,
+					values = {
+						["DEFAULT"] = L["Default"],
+						["CLASS"] = L["Class"],
+						["CUSTOM"] = L["Custom"],
+					},
+				},
+				customColor = {
+					type = "color",
+					order = 3,
+					name = L["Custom Color"],
+					disabled = function() return not E.db.mui.misc.cursor.enable or E.db.mui.misc.cursor.colorType ~= "CUSTOM" end,
+					get = function(info)
+						local t = E.db.mui.misc.cursor[info[#info]]
+						local d = P.misc.cursor[info[#info]]
+						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+					end,
+					set = function(info, r, g, b)
+						E.db.mui.misc.cursor[info[#info]] = {}
+						local t = E.db.mui.misc.cursor[info[#info]]
+						t.r, t.g, t.b = r, g, b
+					end,
+				},
+			},
 		},
 		lfgInfo = {
 			order = 15,
@@ -220,8 +257,8 @@ options.misc = {
 			type = "group",
 			name = F.cOption(L["Alerts"], 'orange'),
 			guiInline = true,
-			get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
-			set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			get = function(info) return E.db.mui.misc.alerts[info[#info]] end,
+			set = function(info, value) E.db.mui.misc.alerts[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			args = {
 				lfg = {
 					order = 1,
@@ -262,8 +299,8 @@ options.misc = {
 			type = "group",
 			name = F.cOption(L["Quest"], 'orange'),
 			guiInline = true,
-			get = function(info) return E.db.mui.misc.quest[ info[#info] ] end,
-			set = function(info, value) E.db.mui.misc.quest[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			get = function(info) return E.db.mui.misc.quest[info[#info]] end,
+			set = function(info, value) E.db.mui.misc.quest[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			args = {
 				selectQuestReward = {
 					order = 1,
@@ -278,7 +315,7 @@ options.misc = {
 			type = "group",
 			name = F.cOption(L["MISC_PARAGON_REPUTATION"], 'orange'),
 			guiInline = true,
-			get = function(info) return E.db.mui.misc.paragon[ info[#info] ] end,
+			get = function(info) return E.db.mui.misc.paragon[info[#info]] end,
 			set = function(info, value) E.db.mui.misc.paragon[info[#info]] = value; end,
 			hidden = not E.Retail,
 			args = {
@@ -306,12 +343,12 @@ options.misc = {
 					disabled = function() return not E.db.mui.misc.paragon.enable end,
 					hasAlpha = false,
 					get = function(info)
-						local t = E.db.mui.misc.paragon[ info[#info] ]
+						local t = E.db.mui.misc.paragon[info[#info]]
 						local d = P.misc.paragon[info[#info]]
 						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 					end,
 					set = function(info, r, g, b, a)
-						local t = E.db.mui.misc.paragon[ info[#info] ]
+						local t = E.db.mui.misc.paragon[info[#info]]
 						t.r, t.g, t.b, t.a = r, g, b, a
 					end,
 				},
@@ -329,31 +366,31 @@ options.misc = {
 					type = "toggle",
 					name = L["Enable"],
 					desc = L["Replace the Maw Threat Display, with a simple StatusBar"],
-					get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
-					set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end
+					get = function(info) return E.db.mui.misc.mawThreatBar[info[#info]] end,
+					set = function(info, value) E.db.mui.misc.mawThreatBar[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end
 				},
 				width = {
 					order = 2,
 					type = "range",
 					name = L["Width"],
 					min = 100, max = 400, step = 10,
-					get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
-					set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+					get = function(info) return E.db.mui.misc.mawThreatBar[info[#info]] end,
+					set = function(info, value) E.db.mui.misc.mawThreatBar[info[#info]] = value; MI:UpdateMawBarLayout() end,
 				},
 				height = {
 					order = 3,
 					type = "range",
 					name = L["Height"],
 					min = 8, max = 20, step = 1,
-					get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
-					set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+					get = function(info) return E.db.mui.misc.mawThreatBar[info[#info]] end,
+					set = function(info, value) E.db.mui.misc.mawThreatBar[info[#info]] = value; MI:UpdateMawBarLayout() end,
 				},
 				fontGroup = {
 					order = 4,
 					type = "group",
 					name = L["Font"],
-					get = function(info) return E.db.mui.misc.mawThreatBar.font[ info[#info] ] end,
-					set = function(info, value) E.db.mui.misc.mawThreatBar.font[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+					get = function(info) return E.db.mui.misc.mawThreatBar.font[info[#info]] end,
+					set = function(info, value) E.db.mui.misc.mawThreatBar.font[info[#info]] = value; MI:UpdateMawBarLayout() end,
 					args = {
 						name = {
 							order = 1,

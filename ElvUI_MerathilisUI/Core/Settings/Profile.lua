@@ -346,7 +346,8 @@ P.misc = {
 	},
 	cursor = {
 		enable = false,
-		color = {r = 1, g = 1, b = 1},
+		colorType = "CLASS",
+		customColor = {r = 0, g = .75, b = .98}
 	},
 	lfgInfo = {
 		enable = true,
