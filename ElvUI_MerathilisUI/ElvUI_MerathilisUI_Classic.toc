@@ -10,7 +10,7 @@
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, BigWigs, ls_Toasts
 ## X-Credits: Benik, Blazeflack, Azilroka, Simpy, Nihilistzsche, Darth Predator, fgprodigal, siweia, Solor, Elv, fang2hou & all AddOn Authors who inspired me.
-## X-ElvVersion: 1.72
+## X-ElvVersion: 12.85
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
 ## X-WoWI-ID: 24117
