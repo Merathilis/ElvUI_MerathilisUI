@@ -346,6 +346,7 @@ P.misc = {
 	},
 	cursor = {
 		enable = false,
+		color = {r = 1, g = 1, b = 1},
 	},
 	lfgInfo = {
 		enable = true,

@@ -47,6 +47,10 @@ local function OnUpdate(_, elapsed)
 	end
 end
 
+function module:UpdateColor()
+
+end
+
 function module:Initialize()
 	if not E.db.mui.misc.cursor.enable then return end
 
