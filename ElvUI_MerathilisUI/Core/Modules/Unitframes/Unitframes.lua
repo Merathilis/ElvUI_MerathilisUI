@@ -46,23 +46,13 @@ function module:CreateAnimatedBars(frame)
 				local animation = CreateFrame("PlayerModel", "MER_PowerBarEffect", frame.__MERAnim)
 
 				if db.type == "DEFAULT" then
-					if E.Retail then
-						animation:SetModel(1715069)
-						animation:MakeCurrentCameraCustom()
-						animation:SetTransform(-0.035, 0, 0, rad(270), 0, 0, 0.580)
-						animation:SetPortraitZoom(1)
-						animation:SetAlpha(0.65)
-					else
-						animation:SetModel("spells/arcanepower_state_chest.m2")
-						animation:SetPosition(1.1, 0, 0)
-						animation:SetAlpha(0.65)
-					end
+					animation:SetModel(1715069)
+					animation:MakeCurrentCameraCustom()
+					animation:SetTransform(-0.035, 0, 0, rad(270), 0, 0, 0.580)
+					animation:SetPortraitZoom(1)
+					animation:SetAlpha(0.65)
 				elseif db.type == "CUSTOM" then
-					if E.Retail then
-						animation:SetModel(db.retailModel)
-					else
-						animation:SetModel(db.classicModel)
-					end
+					animation:SetModel(db.model)
 				end
 
 				animation:SetKeepModelOnHide(true)

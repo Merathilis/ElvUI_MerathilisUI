@@ -265,8 +265,6 @@ module.Spells = {
 		[26] = {text = GetSpellInfo(367416),icon = F.GetIconFromID("spell", 367416),secure = {buttonType = "spell", ID = 367416}, UseTooltip = true}, -- Tazavesh, the Veiled Market
 		[27] = {text = GetSpellInfo(373262),icon = F.GetIconFromID("spell", 373262),secure = {buttonType = "spell", ID = 373262}, UseTooltip = true,}, -- Karazhan
 		[28] = {text = GetSpellInfo(373274),icon = F.GetIconFromID("spell", 373274),secure = {buttonType = "spell", ID = 373274}, UseTooltip = true,}, -- Mechagnome
-
-
 	},
 }
 
