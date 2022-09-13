@@ -258,7 +258,6 @@ end
 
 function module:Initialize()
 	local db = E.db.mui.misc.lfgInfo
-	if not db.enable or IsAddOnLoaded('WindDungeonHelper') then return end
 
 	module:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
 	module:SecureHook("LFGListGroupDataDisplayEnumerate_Update", "UpdateEnumerate")
