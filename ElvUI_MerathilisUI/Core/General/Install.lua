@@ -1645,6 +1645,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid1"]["enable"] = true
 	E.db["unitframe"]["units"]["raid1"]["height"] = 35
 	E.db["unitframe"]["units"]["raid1"]["width"] = 83
+	E.db["unitframe"]["units"]["raid1"]["threatStyle"] = "GLOW"
 	E.db["unitframe"]["units"]["raid1"]["orientation"] = "MIDDLE"
 	E.db["unitframe"]["units"]["raid1"]["horizontalSpacing"] = 3
 	E.db["unitframe"]["units"]["raid1"]["verticalSpacing"] = 2
@@ -1769,6 +1770,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid2"]["enable"] = true
 	E.db["unitframe"]["units"]["raid2"]["height"] = 35
 	E.db["unitframe"]["units"]["raid2"]["width"] = 83
+	E.db["unitframe"]["units"]["raid2"]["threatStyle"] = "GLOW"
 	E.db["unitframe"]["units"]["raid2"]["orientation"] = "MIDDLE"
 	E.db["unitframe"]["units"]["raid2"]["horizontalSpacing"] = 3
 	E.db["unitframe"]["units"]["raid2"]["verticalSpacing"] = 2
@@ -1893,6 +1895,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid3"]["enable"] = true
 	E.db["unitframe"]["units"]["raid3"]["height"] = 35
 	E.db["unitframe"]["units"]["raid3"]["width"] = 83
+	E.db["unitframe"]["units"]["raid3"]["threatStyle"] = "GLOW"
 	E.db["unitframe"]["units"]["raid3"]["orientation"] = "MIDDLE"
 	E.db["unitframe"]["units"]["raid3"]["horizontalSpacing"] = 3
 	E.db["unitframe"]["units"]["raid3"]["verticalSpacing"] = 2
