@@ -385,6 +385,7 @@ end
 
 function module:ShowItemLevel()
 	if not E.Wrath then return end
+	if not E.db.mui.armory.character.enable or not (E.private.skins.blizzard.enable or E.private.skins.blizzard.character) then return end
 
 	-- iLvl on CharacterFrame
 	CharacterFrame:HookScript("OnShow", module.ItemLevel_UpdatePlayer)
