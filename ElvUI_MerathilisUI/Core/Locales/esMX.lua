@@ -1,4 +1,4 @@
--- Italian localization file for esMX
+-- Spanish localization file for esMX
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "esMX")
 
 -- Core

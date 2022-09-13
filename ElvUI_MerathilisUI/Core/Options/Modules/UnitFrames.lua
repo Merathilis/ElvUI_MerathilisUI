@@ -96,10 +96,10 @@ options.unitframes = {
 						end
 					end,
 					get = function()
-						return tostring(E.db.mui.unitframes.power.retailModel)
+						return tostring(E.db.mui.unitframes.power.model)
 					end,
 					set = function(_, value)
-						E.db.mui.unitframes.power.retailModel = tonumber(value)
+						E.db.mui.unitframes.power.model = tonumber(value)
 					end,
 					E:StaticPopup_Show("CONFIG_RL");
 				},
