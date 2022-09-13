@@ -262,7 +262,9 @@ module.Spells = {
 		[23] = {text = GetSpellInfo(354466),icon = F.GetIconFromID("spell", 354466),secure = {buttonType = "spell",ID = 354466}, UseTooltip = true}, -- Spires of Ascension
 		[24] = {text = GetSpellInfo(354462),icon = F.GetIconFromID("spell", 354462),secure = {buttonType = "spell",ID = 354462}, UseTooltip = true}, -- The Necrotic Wake
 		[25] = {text = GetSpellInfo(354467),icon = F.GetIconFromID("spell", 354467),secure = {buttonType = "spell",ID = 354467}, UseTooltip = true}, -- Theater of Pain
-		[26] = {text = GetSpellInfo(367416),icon = F.GetIconFromID("spell", 367416),secure = {buttonType = "spell",ID = 367416}, UseTooltip = true}, -- Tazavesh, the Veiled Market
+		[26] = {text = GetSpellInfo(367416),icon = F.GetIconFromID("spell", 367416),secure = {buttonType = "spell", ID = 367416}, UseTooltip = true}, -- Tazavesh, the Veiled Market
+		[27] = {text = GetSpellInfo(373262),icon = F.GetIconFromID("spell", 373262),secure = {buttonType = "spell", ID = 373262}, UseTooltip = true,}, -- Karazhan
+		[28] = {text = GetSpellInfo(373274),icon = F.GetIconFromID("spell", 373274),secure = {buttonType = "spell", ID = 373274}, UseTooltip = true,}, -- Mechagnome
 	},
 }
 

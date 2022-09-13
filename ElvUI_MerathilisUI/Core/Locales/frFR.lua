@@ -47,8 +47,10 @@ L["Enable/Disable the Login Message in Chat"] = true
 L["Log Level"] = true
 L["Only display log message that the level is higher than you choose."] = true
 L["Set to 2 if you do not understand the meaning of log level."] = true
+L["Open the changelog window."] = true
 
 -- Bags
+L["Equip Manager"] = true
 L["Equipment Manager"] = true
 L["Equipment Set Overlay"] = true
 L["Show the associated equipment sets for the items in your bags (or bank)."] = true
@@ -153,6 +155,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe,
 
 -- Extended Vendor
 L["Extended Vendor"] = true
+L["Extends the merchant page to show more items."] = true
+L["Number of Pages"] = true
+L["The number of pages shown in the merchant frame."] = true
 
 -- FlightMode
 L["FlightMode"] = true
@@ -436,6 +441,9 @@ L["Custom Items"] = "Objets personnalisés"
 L["Fade Time"] = "Durée du fondu"
 L["Alpha Min"] = "Alpha Min"
 L["Alpha Max"] = "Alpha Max"
+L["Inherit Global Fade"] = true
+L["Anchor Point"] = true
+L["The first button anchors itself to this point on the bar."] = true
 
 -- Armory
 L["Armory"] = "Armurerie"
@@ -624,6 +632,7 @@ L["Item info is not available. Waiting for it. This can take some time. Menu wil
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
 L["Dungeon Teleports"] = true
+L["Hide In Combat"] = true
 
 -- Maps
 L["Maps"] = true
@@ -975,6 +984,24 @@ L["Slider"] = true
 L["Backdrop Alpha"] = true
 L["Enable All"] = true
 L["Disable All"] = true
+L["Spellbook"] = true
+L["Character Frame"] = true
+L["Gossip Frame"] = true
+L["Quest Frames"] = true
+L["TALENTS"] = true
+L["AUCTIONS"] = true
+L["FRIENDS"] = true
+L["GUILD"] = true
+L["Mail Frame"] = true
+L["WORLD_MAP"] = true
+L["Guild Control Frame"] = true
+L["MACROS"] = true
+L["GUILD_BANK"] = true
+L["FLIGHT_MAP"] = true
+L["Help Frame"] = true
+L["Loot Frames"] = true
+L["CHANNELS"] = true
+L["Raid Frame"] = true
 
 -- Panels
 L["Panels"] = true
@@ -1035,6 +1062,7 @@ L["Top Left Offset X"] = true
 L["Top Left Offset Y"] = true
 L["Transparent"] = "Transparent"
 L["Style"] = true
+L["Height Mode"] = true
 
 -- Filter
 L["Filter"] = "Filtre"

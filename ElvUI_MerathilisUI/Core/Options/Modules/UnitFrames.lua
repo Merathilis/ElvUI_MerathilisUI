@@ -84,39 +84,22 @@ options.unitframes = {
 				customModel = {
 					order = 3,
 					type = "input",
-					name = function()
-						if E.Retail then
-							return L["Type the Model ID"]
-						else
-							return L["Type the Model Path, e.g.: spells/corruption_impactdot_med_base.m2"]
-						end
-					end,
+					name = L["Type the Model ID"],
+
 					width = "full",
 					disabled = function() return E.db.mui.unitframes.power.type == "DEFAULT" or not E.db.mui.unitframes.power.enable end,
 					validate = function(_, value)
-						if E.Retail then
-							if tonumber(value) ~= nil then
-								return true
-							else
-								return E:StaticPopup_Show("VERSION_MISMATCH") and false
-							end
-						else
+						if tonumber(value) ~= nil then
 							return true
+						else
+							return E:StaticPopup_Show("VERSION_MISMATCH") and false
 						end
 					end,
 					get = function()
-						if E.Retail then
-							return tostring(E.db.mui.unitframes.power.retailModel)
-						else
-							return tostring(E.db.mui.unitframes.power.classicModel)
-						end
+						return tostring(E.db.mui.unitframes.power.model)
 					end,
 					set = function(_, value)
-						if E.Retail then
-							E.db.mui.unitframes.power.retailModel = tonumber(value)
-						else
-							E.db.mui.unitframes.power.classicModel = tostring(value)
-						end
+						E.db.mui.unitframes.power.model = tonumber(value)
 					end,
 					E:StaticPopup_Show("CONFIG_RL");
 				},

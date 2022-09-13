@@ -47,8 +47,10 @@ L["Enable/Disable the Login Message in Chat"] = true
 L["Log Level"] = "日誌等級"
 L["Only display log message that the level is higher than you choose."] = "只顯示高於所選等級的日志訊息."
 L["Set to 2 if you do not understand the meaning of log level."] = "如果你不理解日志等級的意思, 設置為 2 就好."
+L["Open the changelog window."] = true
 
 -- Bags
+L["Equip Manager"] = true
 L["Equipment Manager"] = true
 L["Equipment Set Overlay"] = true
 L["Show the associated equipment sets for the items in your bags (or bank)."] = true
@@ -154,6 +156,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe,
 -- Extended Vendor
 L["Extended Vendor"] = true
 L["Enhanced NameplateAuras"] = true
+L["Extends the merchant page to show more items."] = true
+L["Number of Pages"] = true
+L["The number of pages shown in the merchant frame."] = true
 
 -- FlightMode
 L["FlightMode"] = true
@@ -417,6 +422,9 @@ L["Custom Items"] = "自訂物品"
 L["Fade Time"] = "漸變時間"
 L["Alpha Min"] = "最小透明度"
 L["Alpha Max"] = "最大透明度"
+L["Inherit Global Fade"] = true
+L["Anchor Point"] = true
+L["The first button anchors itself to this point on the bar."] = true
 
 -- Armory
 L["Armory"] = "英雄榜"
@@ -605,6 +613,7 @@ L["Item info is not available. Waiting for it. This can take some time. Menu wil
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
 L["Dungeon Teleports"] = true
+L["Hide In Combat"] = true
 
 -- Maps
 L["Maps"] = true
@@ -957,6 +966,24 @@ L["Slider"] = true
 L["Backdrop Alpha"] = true
 L["Enable All"] = true
 L["Disable All"] = true
+L["Spellbook"] = true
+L["Character Frame"] = true
+L["Gossip Frame"] = true
+L["Quest Frames"] = true
+L["TALENTS"] = true
+L["AUCTIONS"] = true
+L["FRIENDS"] = true
+L["GUILD"] = true
+L["Mail Frame"] = true
+L["WORLD_MAP"] = true
+L["Guild Control Frame"] = true
+L["MACROS"] = true
+L["GUILD_BANK"] = true
+L["FLIGHT_MAP"] = true
+L["Help Frame"] = true
+L["Loot Frames"] = true
+L["CHANNELS"] = true
+L["Raid Frame"] = true
 
 -- Panels
 L["Panels"] = true
@@ -1017,6 +1044,7 @@ L["Top Left Offset X"] = "左上 X 軸偏移"
 L["Top Left Offset Y"] = "左上 Y 軸偏移"
 L["Transparent"] = "透明"
 L["Style"] = true
+L["Height Mode"] = true
 
 -- Filter
 L["Filter"] = "過濾器"

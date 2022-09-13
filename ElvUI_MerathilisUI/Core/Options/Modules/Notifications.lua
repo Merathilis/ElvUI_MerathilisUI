@@ -60,7 +60,7 @@ options.Notification = {
 			order = 7,
 			type = "toggle",
 			name = L["Vignette Print"],
-			desc = L["Prints a clickable Link with Coods in the Chat."],
+			desc = L["Prints a clickable Link with Coords in the Chat."],
 			disabled = function() return not E.db.mui.notification.enable end,
 		},
 		invites = {

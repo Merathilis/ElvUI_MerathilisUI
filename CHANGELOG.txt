@@ -1,7 +1,4 @@
-[b][color=orange]v5.23/color], 12.09.2022[/b][list]
-[*]Fixed some option not showing on non Retail
-[*]Updated Details/BigWigs Profiles to also work on non Retail
-[*]Take account to recent ElvUI changes to the UnitFrames
-[*]Added Options for Chat & UnitFrames to change the Role Icons
-[*]Added an animation to the Player Power Bar (UnitFrames)
-[*]Fixed the MicroBar LFG click[/list]
+[b][color=orange]v5.24/color], 13.09.2022[/b][list]
+[*]Added Karazhan & Mechagnome to the LocPanel Dungeon Teleports
+[*]Option to change the Flashing Cursor Color
+[*]Fix some issues with the animated Power Bar and make it Retail only[/list]

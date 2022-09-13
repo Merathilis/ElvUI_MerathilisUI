@@ -34,36 +34,28 @@ end
 
 function module:CreateAnimatedBars(frame)
 	if not frame then return end
+	if not E.db.unitframe.units.player.power.enable then return end -- only Player for now
+
 	local db = E.db.mui.unitframes.power
 
 	if db and db.enable then
 		if not frame.__MERAnim then
-			frame.__MERAnim = CreateFrame("FRAME", nil, frame.Power) -- Main Frame
+			frame.__MERAnim = CreateFrame("FRAME", nil, frame) -- Main Frame
 
 			if not frame.animation then
 				local animation = CreateFrame("PlayerModel", "MER_PowerBarEffect", frame.__MERAnim)
 
 				if db.type == "DEFAULT" then
-					if E.Retail then
-						animation:SetModel(1715069)
-						animation:MakeCurrentCameraCustom()
-						animation:SetTransform(-0.035, 0, 0, rad(270), 0, 0, 0.580)
-						animation:SetPortraitZoom(1)
-						animation:SetAlpha(0.65)
-					else
-						animation:SetModel("spells/arcanepower_state_chest.m2")
-						animation:SetPosition(1.1, 0, 0)
-						animation:SetAlpha(0.65)
-					end
+					animation:SetModel(1715069)
+					animation:MakeCurrentCameraCustom()
+					animation:SetTransform(-0.035, 0, 0, rad(270), 0, 0, 0.580)
+					animation:SetPortraitZoom(1)
+					animation:SetAlpha(0.65)
 				elseif db.type == "CUSTOM" then
-					if E.Retail then
-						animation:SetModel(db.retailModel)
-					else
-						animation:SetModel(db.classicModel)
-					end
+					animation:SetModel(db.model)
 				end
 
-				animation:SetAllPoints(frame:GetStatusBarTexture())
+				animation:SetKeepModelOnHide(true)
 				animation:SetInside(frame:GetStatusBarTexture(), 0, 0)
 
 				frame.animation = animation
@@ -86,12 +78,7 @@ function module:CreateAnimatedBars(frame)
 			end
 
 			frame.__MERAnim:SetAllPoints(frame:GetStatusBarTexture())
-			frame.__MERAnim:SetInside(frame:GetStatusBarTexture(), 0, 0)
-			frame.__MERAnim:SetFrameLevel(frame:GetFrameLevel())
-			frame.__MERAnim:SetClipsChildren(true)
 			frame.__MERAnim:Show()
-
-			frame.__MERAnim = frame
 		else
 			frame.__MERAnim:Hide()
 		end

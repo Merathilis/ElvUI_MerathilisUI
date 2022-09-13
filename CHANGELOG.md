@@ -1,9 +1,6 @@
 ### Changes ###
 
-  * Fixed some option not showing on non Retail
-  * Updated Details/BigWigs Profiles to also work on non Retail
-  * Take account to recent ElvUI changes to the UnitFrames
-  * Added Options for Chat & UnitFrames to change the Role Icons
-  * Added an Option to change the Player Power Bar texture
-  * Added an animation to the Player Power Bar (UnitFrames)
-  * Fixed the MicroBar LFG click
+  * Added Karazhan & Mechagnome to the LocPanel Dungeon Teleports
+  * Option to change the Flashing Cursor Color
+  * Fix some issues with the animated Power Bar and make it Retail only[
+
