@@ -1184,7 +1184,6 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["power"]["MAELSTROM"] = { r = 0, g = 0.5, b = 1, atlas = '_Shaman-MaelstromBar' }
 	E.db["unitframe"]["colors"]["power"]["LUNAR_POWER"] = { r = 0, g = 0.619, b = 0.972, atlas = '_Druid-LunarBar' }
 	E.db["unitframe"]["colors"]["invertPower"] = true
-	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
 	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
 	E.db["unitframe"]["colors"]["useDeadBackdrop"] = false
 	E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
