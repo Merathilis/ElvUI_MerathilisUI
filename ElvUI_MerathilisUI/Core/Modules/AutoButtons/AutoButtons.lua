@@ -703,8 +703,6 @@ function module:CreateButton(name, barDB)
 
 	button:StyleButton()
 
-	S:CreateShadowModule(button)
-
 	return button
 end
 
