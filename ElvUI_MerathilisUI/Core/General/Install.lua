@@ -1916,7 +1916,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["font"] = "Expressway"
 	E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["fontSize"] = 10
 	E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["size"] = 20
-	E.db["unitframe"]["units"]["raid3"]["numGroups"] = 5
+	E.db["unitframe"]["units"]["raid3"]["numGroups"] = 8
 	E.db["unitframe"]["units"]["raid3"]["growthDirection"] = "RIGHT_UP"
 	E.db["unitframe"]["units"]["raid3"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["raid3"]["name"]["text_format"] = ""
