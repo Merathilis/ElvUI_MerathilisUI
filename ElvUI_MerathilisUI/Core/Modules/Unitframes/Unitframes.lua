@@ -82,6 +82,8 @@ function module:CreateAnimatedBars(frame)
 		else
 			frame.__MERAnim:Hide()
 		end
+
+		frame.__MERAnim:RegisterEvent("PLAYER_ENTERING_WORLD")
 	end
 end
 
