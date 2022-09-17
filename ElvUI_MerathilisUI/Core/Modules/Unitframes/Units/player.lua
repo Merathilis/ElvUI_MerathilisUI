@@ -37,12 +37,6 @@ function module:Update_PlayerFrame(frame)
 		end
 	end
 
-	if frame and frame.Health and frame.Health.backdrop and frame.Health.backdrop.shadow then
-		F.Print("Shadow is on the Player Frame")
-	else
-		F.Print("Shadow is NOT on the Player Frame")
-	end
-
 	module:CreateHighlight(frame)
 
 	if db.swing.enable then
