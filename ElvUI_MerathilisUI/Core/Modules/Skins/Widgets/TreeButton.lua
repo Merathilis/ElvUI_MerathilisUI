@@ -9,7 +9,7 @@ local type = type
 
 function WS:HandleTreeGroup(widget)
 	if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.treeGroupButton.enable then
-		return button
+		return
 	end
 
 	if not self:IsReady() then
@@ -19,23 +19,23 @@ function WS:HandleTreeGroup(widget)
 
 	local db = E.private.mui.skins.widgets.treeGroupButton
 
-	if widget.CreateButton then
-		widget.CreateButton_Changed = widget.CreateButton
+	if widget.CreateButton and not widget.CreateButton_ then
+		widget.CreateButton_ = widget.CreateButton
 		widget.CreateButton = function(...)
-			local button = widget.CreateButton_Changed(...)
+			local button = widget.CreateButton_(...)
 
 			if db.text.enable then
 				local text = button.text or button.Text or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
 				if text and text.GetTextColor then
 					F.SetFontDB(text, db.text.font)
 
-					text.SetPoint_Changed = text.SetPoint
+					text.SetPoint_ = text.SetPoint
 					text.SetPoint = function(text, point, arg1, arg2, arg3, arg4)
 						if point == "LEFT" and type(arg2) == "number" and abs(arg2 - 2) < 0.1 then
 							arg2 = 0
 						end
 
-						text.SetPoint_Changed(text, point, arg1, arg2, arg3, arg4)
+						text.SetPoint_(text, point, arg1, arg2, arg3, arg4)
 					end
 
 					button.MERText = text
@@ -90,7 +90,7 @@ function WS:HandleTreeGroup(widget)
 			end
 
 			if db.selected.enable or db.text.enable then
-				button.LockHighlight_Changed = button.LockHighlight
+				button.LockHighlight_ = button.LockHighlight
 				button.LockHighlight = function(frame)
 					if frame.backdrop then
 						frame.backdrop:Show()
@@ -101,7 +101,7 @@ function WS:HandleTreeGroup(widget)
 						frame.MERText:SetTextColor(color.r, color.g, color.b)
 					end
 				end
-				button.UnlockHighlight_Changed = button.UnlockHighlight
+				button.UnlockHighlight_ = button.UnlockHighlight
 				button.UnlockHighlight = function(frame)
 					if frame.backdrop then
 						frame.backdrop:Hide()
