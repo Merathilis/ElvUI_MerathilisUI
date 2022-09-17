@@ -3,7 +3,7 @@ local module = MER:GetModule('MER_UnitFrames')
 local S = MER:GetModule('MER_Skins')
 
 function module:UnitFrames_UpdateNameSettings(_, f)
-	-- if f.shadow then return end
+	if f.shadow then return end
 
 	S:CreateBackdropShadow(f.Health, true)
 	if f.USE_PORTRAIT then
