@@ -18,10 +18,12 @@ function WS:HandleSliderFrame(_, slider)
 		return
 	end
 
-	if not slider.MERSkinned then
+	if not slider.MERSkinned and not slider.StripTextures_ and not slider.SetThumbTexture_ then
 		slider:SetThumbTexture(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
-		-- slider.SetThumbTexture = E.noop
-
+		slider.StripTextures_ = slider.StripTextures
+		slider.StripTextures = E.noop
+		slider.SetThumbTexture_ = slider.SetThumbTexture
+		slider.SetThumbTexture = E.noop
 		slider.MERSkinned = true
 	end
 
