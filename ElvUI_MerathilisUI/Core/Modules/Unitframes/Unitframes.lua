@@ -77,6 +77,39 @@ function module:CreateAnimatedBars(frame)
 				frame.sparkle = sparkle
 			end
 
+			if not frame.full then
+				local full = CreateFrame("StatusBar", nil, frame.__MERAnim, "FullResourcePulseFrame")
+				frame.full = full
+
+				local w, h = frame:GetWidth(), frame:GetHeight()
+				frame.full:ClearAllPoints()
+				frame.full:SetPoint("Right", frame, "RIGHT")
+				frame.full:SetSize(w, h)
+
+				frame.full.SpikeFrame:SetSize(w, h)
+				frame.full.PulseFrame:SetSize(w, h)
+				frame.full.SpikeFrame.AlertSpikeStay:SetSize(w / 4, h * 2)
+				frame.full.PulseFrame.YellowGlow:SetSize(w / 4, h * 3)
+				frame.full.PulseFrame.SoftGlow:SetSize(w / 4, h * 3)
+
+				frame.full:Initialize(true)
+				frame.full:SetMaxValue(UnitPowerMax("player"))
+				frame.full.currValue = UnitPower("player")
+
+				frame.full:RegisterUnitEvent("UNIT_POWER_FREQUENT", "player")
+				frame.full:RegisterUnitEvent("UNIT_MAXPOWER", "player")
+				frame.full:SetScript("OnEvent", function(self, event, ...)
+					if event == "UNIT_MAXPOWER" then
+						self:SetMaxValue(UnitPowerMax("player"))
+					end
+					if event == "UNIT_POWER_FREQUENT" then
+						local currValue = UnitPower("player")
+						self:StartAnimIfFull(self.currValue, currValue)
+						self.currValue = currValue
+					end
+				end)
+			end
+
 			frame.__MERAnim:SetAllPoints(frame:GetStatusBarTexture())
 			frame.__MERAnim:Show()
 		else
@@ -84,6 +117,8 @@ function module:CreateAnimatedBars(frame)
 		end
 
 		frame.__MERAnim:RegisterEvent("PLAYER_ENTERING_WORLD")
+		frame.__MERAnim:RegisterEvent("PORTRAITS_UPDATED")
+		frame.__MERAnim:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	end
 end
 
