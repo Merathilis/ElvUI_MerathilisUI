@@ -1,4 +1,4 @@
-[b][color=orange]v5.24/color], 19.09.2022[/b][list]
+[b][color=orange]v5.25[/color], 19.09.2022[/b][list]
 [*]Fixed a potential C-Stack Overflow in the Widget Skins
 [*]Fixed some Layout (Install) whooopsis
 [*]Visual improvements to the animated Power Bar
