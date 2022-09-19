@@ -11,7 +11,7 @@ local function LoadSkin()
 			for _, row in ipairs(instancia.barras) do
 				if row and row.textura then
 					hooksecurefunc(row.textura, "SetVertexColor", function(_, r, g, b)
-						row.textura:SetTexture("Interface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\StatusBars\\Line7pixel")
+						row.textura:SetTexture("Interface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\StatusBars\\Line4pixel")
 						row.textura:SetGradientAlpha("Horizontal", r-0.5, g-0.5, b-0.5, 0.9, r+0.2, g+0.2, b+0.2, 0.9)
 					end)
 				end
