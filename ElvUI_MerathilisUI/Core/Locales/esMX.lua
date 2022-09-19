@@ -42,7 +42,7 @@ But if you install another Layout over mine, you must adjust it manually.
 |cffff8000Newest additions are marked with: |r]=]
 
 -- Core Options
-L["Login Message"] = "Messaggio Di Accesso"
+L["Login Message"] = true
 L["Enable/Disable the Login Message in Chat"] = true
 L["Log Level"] = true
 L["Only display log message that the level is higher than you choose."] = true
@@ -284,10 +284,10 @@ L["Random Toy"] = true
 L["Creates a random toy macro."] = true
 L["Text Style"] = true
 L["COLOR"] = true
-L.ANNOUNCE_FP_PRE = "{rt1} %s ha preparato un/una %s. {rt1}"
-L.ANNOUNCE_FP_CLICK ="{rt1} %s sta lanciando %s. Cliccate! {rt1}"
-L.ANNOUNCE_FP_USE = "{rt1} %s ha utilizzato un/una %s. {rt1}"
-L.ANNOUNCE_FP_CAST = "{rt1} %s sta lanciando %s. {rt1}"
+L.ANNOUNCE_FP_PRE = "{rt1} %s has prepared a %s. {rt1}"
+L.ANNOUNCE_FP_CLICK = "{rt1} %s is casting %s. Click! {rt1}"
+L.ANNOUNCE_FP_USE = "{rt1} %s used a %s.{rt1} "
+L.ANNOUNCE_FP_CAST = "{rt1} %s is casting %s. {rt1}"
 L["Hide Boss Banner"] = true
 L["This will hide the popup, that shows loot, after you kill a boss"] = true
 
@@ -988,6 +988,36 @@ L["Help Frame"] = true
 L["Loot Frames"] = true
 L["CHANNELS"] = true
 L["Raid Frame"] = true
+L["Craft"] = true
+L["Event Toast Manager"] = true
+L["Quest Choice"] = true
+L["Orderhall"] = true
+L["Contribution"] = true
+L["Calendar Frame"] = true
+L["Merchant Frame"] = true
+L["PvP Frames"] = true
+L["LF Guild Frame"] = true
+L["TalkingHead"] = true
+L["Minimap"] = true
+L["Trainer Frame"] = true
+L["Socket Frame"] = true
+L["Item Upgrade"] = true
+L["Trade"] = true
+L["Allied Races"] = true
+L["Archaeology Frame"] = true
+L["Azerite Essence"] = true
+L["Item Interaction"] = true
+L["Anima Diversion"] = true
+L["Soulbinds"] = true
+L["Covenant Sanctum"] = true
+L["Covenant Preview"] = true
+L["Covenant Renown"] = true
+L["Player Choice"] = true
+L["Chromie Time"] = true
+L["LevelUp Display"] = true
+L["Guide Frame"] = true
+L["Weekly Rewards"] = true
+L["Misc"] = true
 
 -- Panels
 L["Panels"] = true

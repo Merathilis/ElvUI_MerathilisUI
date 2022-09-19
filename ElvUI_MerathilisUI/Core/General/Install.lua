@@ -519,6 +519,8 @@ function MER:SetupLayout()
 	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-474,120"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
 	E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-65"
+	E.db["movers"]["TotemTrackerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
+	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
 	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-148"
@@ -1184,7 +1186,6 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["power"]["MAELSTROM"] = { r = 0, g = 0.5, b = 1, atlas = '_Shaman-MaelstromBar' }
 	E.db["unitframe"]["colors"]["power"]["LUNAR_POWER"] = { r = 0, g = 0.619, b = 0.972, atlas = '_Druid-LunarBar' }
 	E.db["unitframe"]["colors"]["invertPower"] = true
-	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
 	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
 	E.db["unitframe"]["colors"]["useDeadBackdrop"] = false
 	E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
@@ -1917,7 +1918,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["font"] = "Expressway"
 	E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["fontSize"] = 10
 	E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["size"] = 20
-	E.db["unitframe"]["units"]["raid3"]["numGroups"] = 5
+	E.db["unitframe"]["units"]["raid3"]["numGroups"] = 8
 	E.db["unitframe"]["units"]["raid3"]["growthDirection"] = "RIGHT_UP"
 	E.db["unitframe"]["units"]["raid3"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["raid3"]["name"]["text_format"] = ""
@@ -2302,9 +2303,9 @@ function MER:SetupUnitframes()
 	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,89"
 	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,209"
 	E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,230"
-	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,243,209"
-	E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,243,188"
-	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-554,209"
+	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,209"
+	E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,188"
+	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-540,209"
 	E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,293"
 	E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,273"
 	E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-513,277"
@@ -2314,8 +2315,8 @@ function MER:SetupUnitframes()
 	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,245,350"
 	E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
 	E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
-	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,554,209"
-	E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,554,200"
+	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,540,209"
+	E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,540,200"
 	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
 	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"

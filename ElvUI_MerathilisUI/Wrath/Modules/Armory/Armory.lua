@@ -9,6 +9,7 @@ local tonumber, tostring, max = tonumber, tostring, max
 
 local PaperDollFrame = _G.PaperDollFrame
 local CharacterNameText = _G.CharacterNameText
+local EquipmentManager_EquipSet = EquipmentManager_EquipSet
 
 local ClassSymbolFrame
 
@@ -340,6 +341,49 @@ function M:AddCharacterIcon()
 	end)
 end
 
+function M:SelectEquipSet()
+	if InCombatLockdown() then UIErrorsFrame:AddMessage(MER.InfoColor .. ERR_NOT_IN_COMBAT) return end
+
+	local selectedSet = _G.GearManagerDialog.selectedSet
+	local name = selectedSet and selectedSet.id
+	if name then
+		PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
+		EquipmentManager_EquipSet(name)
+	end
+end
+
+function M:ExGearManager()
+	_G.GearManagerDialog.Title:SetJustifyH("LEFT")
+	_G.GearManagerDialog.Title:SetPoint("TOPLEFT", 12, -12)
+	_G.GearManagerDialog:SetFrameStrata("DIALOG")
+	_G.GearManagerDialog:SetSize(339, 70)
+	_G.GearManagerDialog:ClearAllPoints()
+	_G.GearManagerDialog:SetPoint("BOTTOMLEFT", PaperDollFrame, "TOPLEFT", 10, -18)
+
+	local prevButton
+	for i = 1, 10 do
+		local button = _G["GearSetButton" .. i]
+		button:ClearAllPoints()
+		button:SetSize(28, 28)
+		if not prevButton then
+			button:SetPoint("BOTTOMLEFT", 10, 10)
+		else
+			button:SetPoint("LEFT", prevButton, "RIGHT", 5, 0)
+		end
+		prevButton = button
+
+		button:SetScript("OnDoubleClick", M.SelectEquipSet)
+	end
+
+	local names = { "EquipSet", "DeleteSet", "SaveSet" }
+	for i, name in pairs(names) do
+		local button = _G["GearManagerDialog" .. name]
+		button:SetSize(60, 20)
+		button:ClearAllPoints()
+		button:SetPoint("TOPRIGHT", 35 - 62 * i, -9)
+	end
+end
+
 function M:Armory()
 	if not E.db.mui.armory.character.enable or not (E.private.skins.blizzard.enable or E.private.skins.blizzard.character) then return end
 
@@ -396,7 +440,7 @@ function M:Armory()
 	CharacterNameFrame:ClearAllPoints()
 	CharacterNameFrame:SetPoint("TOPLEFT", _G.CharacterFrame, 130, -20)
 	PaperDollFrame.__statPanels = {}
-	_G.GearManagerDialog:SetFrameStrata("DIALOG")
+	M:ExGearManager()
 
 	-- Update data
 	hooksecurefunc("ToggleCharacter", UpdateStats)

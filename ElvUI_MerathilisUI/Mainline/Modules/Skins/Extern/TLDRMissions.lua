@@ -117,11 +117,26 @@ local function ReskinProfilePanel(gui)
 	-- S:ReskinTab(gui.ProfileTabButton)
 end
 
+function module:TLDRDropdown(level)
+	local bd = _G["L_TLDR_DropDownList" .. level .. "Backdrop"]
+	local mbd = _G["L_TLDR_DropDownList" .. level .. "MenuBackdrop"]
+	if bd and not bd.template then
+		bd:SetTemplate("Transparent")
+		module:CreateShadow(bd)
+	end
+	if mbd and not mbd.template then
+		mbd:SetTemplate("Transparent")
+		module:CreateShadow(mbd)
+	end
+end
+
 function module:TLDRMissions()
 	if not E.private.mui.skins.enable or not E.private.mui.skins.addonSkins.tldr then
 		return
 	end
 
+	self:TLDRDropdown(1)
+	self:TLDRDropdown(2)
 	S:HandleButton(_G.TLDRMissionsToggleButton)
 
 	-- Main GUI
