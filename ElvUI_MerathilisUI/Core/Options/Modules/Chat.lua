@@ -10,7 +10,7 @@ local _G = _G
 
 options.chat = {
 	type = "group",
-	name = E.NewSign .. L["Chat"],
+	name = L["Chat"],
 	get = function(info) return E.db.mui.chat[ info[#info] ] end,
 	set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
@@ -762,7 +762,7 @@ end
 options.chat.args.roleIcons = {
 	order = 7,
 	type = "group",
-	name = E.NewSign .. F.cOption(L["Role Icons"], "orange"),
+	name = F.cOption(L["Role Icons"], "orange"),
 	guiInline = true,
 	get = function(info)
 		return E.db.mui.chat.roleIcons[info[#info]]

@@ -69,7 +69,7 @@ options.unitframes = {
 				full = {
 					order = 2,
 					type = "toggle",
-					name = L["Full Power Animation"],
+					name = E.NewSign .. L["Full Power Animation"],
 				},
 				type = {
 					order = 3,
@@ -473,7 +473,7 @@ end
 options.unitframes.args.roleIcons = {
 	order = 5,
 	type = "group",
-	name = E.NewSign .. F.cOption(L["Role Icons"], "orange"),
+	name = F.cOption(L["Role Icons"], "orange"),
 	guiInline = true,
 	get = function(info)
 		return E.db.mui.unitframes.roleIcons[info[#info]]
