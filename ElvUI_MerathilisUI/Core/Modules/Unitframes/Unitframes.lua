@@ -129,6 +129,7 @@ function module:CreateAnimatedBars(frame)
 
 		frame.__MERAnim:RegisterEvent("PLAYER_ENTERING_WORLD")
 		frame.__MERAnim:RegisterEvent("PORTRAITS_UPDATED")
+		frame.__MERAnim:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 		frame.__MERAnim:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	end
 end
@@ -141,7 +142,6 @@ function module:CreateUFShadows()
 end
 
 function module:LoadUnits()
-	local db = E.db.mui.unitframes
 	-- Player
 	hooksecurefunc(UF, "Update_PlayerFrame", module.Update_PlayerFrame)
 	-- Target
@@ -169,10 +169,6 @@ function module:LoadUnits()
 	hooksecurefunc(AB, 'StyleShapeShift', module.ChangeUnitPowerBarTexture)
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
-	-- Auras
-	if db.auras then
-		module:SecureHook(UF, "PostUpdateAura", "ElvUI_PostUpdateDebuffs")
-	end
 	-- RoleIcons
 	module:Configure_RoleIcons()
 	-- Shadows
@@ -184,7 +180,14 @@ function module:Initialize()
 		return
 	end
 
+	local db = E.db.mui.unitframes
+
 	hooksecurefunc(UF, "LoadUnits", module.LoadUnits)
+
+	-- Auras, keep it outside of LoadUnits
+	if db.auras then
+		module:SecureHook(UF, "PostUpdateAura", "ElvUI_PostUpdateDebuffs")
+	end
 
 	self:RegisterEvent("ADDON_LOADED")
 end
