@@ -227,6 +227,7 @@ V.skins = {
 		cl = true,
 		cbn = true,
 		et = true,
+		dt = true,
 		wa = true,
 		waOptions = true,
 		waCooldowns = false,

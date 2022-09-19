@@ -17,6 +17,7 @@ local DecorAddons = {
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
+	{"Details", L["Details"], "dt"},
 	{"TLDRMissions", L["TLDRMissions"], "tldr"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"WeakAurasOptions", L["WeakAuras Options"], "waOptions"},
