@@ -12,9 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added Karazhan & Mechagnome to the LocPanel Dungeon Teleports",
-		"• Option to change the Flashing Cursor Color",
-		"• Fix some issues with the animated Power Bar and make it Retail only",
+		"• Fixed a potential C-Stack Overflow in the Widget Skins",
+		"• Fixed some Layout (Install) whooopsis",
+		"• Visual improvements to the animated Power Bar",
+		"• Update spanish locale file",
 
 	" ",
 	"Notes:",

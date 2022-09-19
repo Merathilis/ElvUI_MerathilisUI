@@ -1,4 +1,5 @@
-[b][color=orange]v5.24/color], 13.09.2022[/b][list]
-[*]Added Karazhan & Mechagnome to the LocPanel Dungeon Teleports
-[*]Option to change the Flashing Cursor Color
-[*]Fix some issues with the animated Power Bar and make it Retail only[/list]
+[b][color=orange]v5.24/color], 19.09.2022[/b][list]
+[*]Fixed a potential C-Stack Overflow in the Widget Skins
+[*]Fixed some Layout (Install) whooopsis
+[*]Visual improvements to the animated Power Bar
+[*]Update spanish locale file[/list]
