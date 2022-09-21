@@ -111,6 +111,7 @@ options.misc = {
 			end,
 			set = function(info, value)
 				E.db.mui.misc.lfgInfo[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			hidden = not E.Retail,
 			args = {

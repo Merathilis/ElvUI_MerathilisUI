@@ -44,7 +44,7 @@ local function GetIconString(role, mode)
 end
 
 function module:ReskinIcon(parent, icon, role, class)
-	self.db = E.db.mui.misc.lfgInfo
+    self.db = E.db.mui.misc.lfgInfo
 
 	-- Beautiful square icons
 	if role then
@@ -258,6 +258,11 @@ end
 
 function module:Initialize()
 	local db = E.db.mui.misc.lfgInfo
+
+	if not db.enable then
+		return
+	end
+
 
 	module:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
 	module:SecureHook("LFGListGroupDataDisplayEnumerate_Update", "UpdateEnumerate")
