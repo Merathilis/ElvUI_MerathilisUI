@@ -12,10 +12,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed a potential C-Stack Overflow in the Widget Skins",
-		"• Fixed some Layout (Install) whooopsis",
-		"• Visual improvements to the animated Power Bar",
-		"• Update spanish locale file",
+		"• Fixed a styling issue with the Unitframes",
+		"• Added a Details Skin, disabled by default for now",
+		"• Added a 'Full Animation' on the animated Power Bar",
 
 	" ",
 	"Notes:",
