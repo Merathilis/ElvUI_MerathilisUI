@@ -263,7 +263,6 @@ function module:Initialize()
 		return
 	end
 
-
 	module:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
 	module:SecureHook("LFGListGroupDataDisplayEnumerate_Update", "UpdateEnumerate")
 	module:SecureHook("LFGListGroupDataDisplayRoleCount_Update", "UpdateRoleCount")
