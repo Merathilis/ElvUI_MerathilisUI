@@ -151,6 +151,8 @@ function module:Initialize()
 	-- Player
 	hooksecurefunc(UF, "Update_PlayerFrame", module.Update_PlayerFrame)
 	-- Target
+	hooksecurefunc(UF, "Update_TargetFrame", module.Update_TargetFrame)
+	-- TargetTarget
 	hooksecurefunc(UF, "Update_TargetTargetFrame", module.Update_TargetTargetFrame)
 	-- Pet
 	hooksecurefunc(UF, "Update_PetFrame", module.Update_PetFrame)
