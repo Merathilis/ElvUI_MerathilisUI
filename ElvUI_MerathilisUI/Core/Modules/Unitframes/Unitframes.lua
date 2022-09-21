@@ -141,7 +141,13 @@ function module:CreateUFShadows()
 	self:SecureHook(UF, "Configure_ClassBar", "UnitFrames_Configure_ClassBar")
 end
 
-function module:LoadUnits()
+function module:Initialize()
+	if not E.private.unitframe.enable then
+		return
+	end
+
+	local db = E.db.mui.unitframes
+
 	-- Player
 	hooksecurefunc(UF, "Update_PlayerFrame", module.Update_PlayerFrame)
 	-- Target
@@ -173,18 +179,7 @@ function module:LoadUnits()
 	module:Configure_RoleIcons()
 	-- Shadows
 	module:CreateUFShadows()
-end
-
-function module:Initialize()
-	if not E.private.unitframe.enable then
-		return
-	end
-
-	local db = E.db.mui.unitframes
-
-	hooksecurefunc(UF, "LoadUnits", module.LoadUnits)
-
-	-- Auras, keep it outside of LoadUnits
+	--Auras
 	if db.auras then
 		module:SecureHook(UF, "PostUpdateAura", "ElvUI_PostUpdateDebuffs")
 	end
