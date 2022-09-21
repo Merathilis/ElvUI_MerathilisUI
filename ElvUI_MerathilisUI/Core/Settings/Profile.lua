@@ -808,6 +808,7 @@ P.unitframes = {
 	},
 	power = {
 		enable = true,
+		full = true,
 		type = "DEFAULT",
 		model = 1715069,
 		texture = E.db.unitframe.statusbar,

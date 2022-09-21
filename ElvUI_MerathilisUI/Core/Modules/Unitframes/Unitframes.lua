@@ -77,37 +77,48 @@ function module:CreateAnimatedBars(frame)
 				frame.sparkle = sparkle
 			end
 
-			if not frame.full then
-				local full = CreateFrame("StatusBar", nil, frame.__MERAnim, "FullResourcePulseFrame")
-				frame.full = full
+			if db.full then
+				local powerType = UnitPowerType("player")
 
-				local w, h = frame:GetWidth(), frame:GetHeight()
-				frame.full:ClearAllPoints()
-				frame.full:SetPoint("Right", frame, "RIGHT")
-				frame.full:SetSize(w, h)
+				if not frame.full then
+					local full = CreateFrame("StatusBar", nil, frame.__MERAnim, "FullResourcePulseFrame")
+					frame.full = full
 
-				frame.full.SpikeFrame:SetSize(w, h)
-				frame.full.PulseFrame:SetSize(w, h)
-				frame.full.SpikeFrame.AlertSpikeStay:SetSize(w / 4, h * 2)
-				frame.full.PulseFrame.YellowGlow:SetSize(w / 4, h * 3)
-				frame.full.PulseFrame.SoftGlow:SetSize(w / 4, h * 3)
+					local w, h = frame:GetWidth(), frame:GetHeight()
+					frame.full:ClearAllPoints()
+					frame.full:SetPoint("Right", frame, "RIGHT")
+					frame.full:SetSize(w, h)
 
-				frame.full:Initialize(true)
-				frame.full:SetMaxValue(UnitPowerMax("player"))
-				frame.full.currValue = UnitPower("player")
+					frame.full.SpikeFrame:SetSize(w, h)
+					frame.full.PulseFrame:SetSize(w, h)
+					frame.full.SpikeFrame.AlertSpikeStay:SetSize(w / 4, h * 2)
+					frame.full.PulseFrame.YellowGlow:SetSize(w / 4, h * 3)
+					frame.full.PulseFrame.SoftGlow:SetSize(w / 4, h * 3)
 
-				frame.full:RegisterUnitEvent("UNIT_POWER_FREQUENT", "player")
-				frame.full:RegisterUnitEvent("UNIT_MAXPOWER", "player")
-				frame.full:SetScript("OnEvent", function(self, event, ...)
-					if event == "UNIT_MAXPOWER" then
-						self:SetMaxValue(UnitPowerMax("player"))
+					frame.full:Initialize(true)
+					frame.full:SetMaxValue(UnitPowerMax("player"))
+					frame.full.currValue = UnitPower("player", powerType)
+
+					frame.full:RegisterUnitEvent("UNIT_POWER_FREQUENT", "player")
+					frame.full:RegisterUnitEvent("UNIT_MAXPOWER", "player")
+					frame.full:SetScript("OnEvent", function(self, event, ...)
+						if event == "UNIT_MAXPOWER" then
+							self:SetMaxValue(UnitPowerMax("player"))
+						end
+						if event == "UNIT_POWER_FREQUENT" then
+							local currValue = UnitPower("player", powerType)
+							self:StartAnimIfFull(self.currValue, currValue)
+							self.currValue = currValue
+						end
+					end)
+
+					-- FrameXML\UnitFrame.lua > fullPowerAnim
+					if powerType == 1 or powerType == 2 or powerType == 3 or powerType == 6 or powerType == 11 or powerType == 17 or powerType == 18 then
+						frame.full:Show()
+					else
+						frame.full:Hide()
 					end
-					if event == "UNIT_POWER_FREQUENT" then
-						local currValue = UnitPower("player")
-						self:StartAnimIfFull(self.currValue, currValue)
-						self.currValue = currValue
-					end
-				end)
+				end
 			end
 
 			frame.__MERAnim:SetAllPoints(frame:GetStatusBarTexture())
@@ -118,6 +129,7 @@ function module:CreateAnimatedBars(frame)
 
 		frame.__MERAnim:RegisterEvent("PLAYER_ENTERING_WORLD")
 		frame.__MERAnim:RegisterEvent("PORTRAITS_UPDATED")
+		frame.__MERAnim:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 		frame.__MERAnim:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	end
 end
@@ -129,11 +141,18 @@ function module:CreateUFShadows()
 	self:SecureHook(UF, "Configure_ClassBar", "UnitFrames_Configure_ClassBar")
 end
 
-function module:LoadUnits()
+function module:Initialize()
+	if not E.private.unitframe.enable then
+		return
+	end
+
 	local db = E.db.mui.unitframes
+
 	-- Player
 	hooksecurefunc(UF, "Update_PlayerFrame", module.Update_PlayerFrame)
 	-- Target
+	hooksecurefunc(UF, "Update_TargetFrame", module.Update_TargetFrame)
+	-- TargetTarget
 	hooksecurefunc(UF, "Update_TargetTargetFrame", module.Update_TargetTargetFrame)
 	-- Pet
 	hooksecurefunc(UF, "Update_PetFrame", module.Update_PetFrame)
@@ -158,22 +177,14 @@ function module:LoadUnits()
 	hooksecurefunc(AB, 'StyleShapeShift', module.ChangeUnitPowerBarTexture)
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
-	-- Auras
-	if db.auras then
-		module:SecureHook(UF, "PostUpdateAura", "ElvUI_PostUpdateDebuffs")
-	end
 	-- RoleIcons
 	module:Configure_RoleIcons()
 	-- Shadows
 	module:CreateUFShadows()
-end
-
-function module:Initialize()
-	if not E.private.unitframe.enable then
-		return
+	--Auras
+	if db.auras then
+		module:SecureHook(UF, "PostUpdateAura", "ElvUI_PostUpdateDebuffs")
 	end
-
-	hooksecurefunc(UF, "LoadUnits", module.LoadUnits)
 
 	self:RegisterEvent("ADDON_LOADED")
 end

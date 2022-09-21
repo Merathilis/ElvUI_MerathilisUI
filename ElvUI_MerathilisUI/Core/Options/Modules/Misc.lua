@@ -8,7 +8,7 @@ local LSM = E.LSM
 
 options.misc = {
 	type = "group",
-	name = E.NewSign..L["Miscellaneous"],
+	name = L["Miscellaneous"],
 	get = function(info) return E.db.mui.misc[info[#info]] end,
 	set = function(info, value) E.db.mui.misc[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
@@ -61,7 +61,7 @@ options.misc = {
 		cursor = {
 			order = 11,
 			type = "group",
-			name = E.NewSign..F.cOption(L["Flashing Cursor"], 'orange'),
+			name = F.cOption(L["Flashing Cursor"], 'orange'),
 			guiInline = true,
 			get = function(info) return E.db.mui.misc.cursor[info[#info]] end,
 			set = function(info, value) E.db.mui.misc.cursor[info[#info]] = value; CU:UpdateColor(); end,
@@ -111,6 +111,7 @@ options.misc = {
 			end,
 			set = function(info, value)
 				E.db.mui.misc.lfgInfo[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			hidden = not E.Retail,
 			args = {

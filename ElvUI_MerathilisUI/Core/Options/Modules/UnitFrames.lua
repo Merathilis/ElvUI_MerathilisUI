@@ -66,8 +66,13 @@ options.unitframes = {
 					name = L["Enable"],
 					desc = L["Enable the animated Power Bar"],
 				},
-				type = {
+				full = {
 					order = 2,
+					type = "toggle",
+					name = E.NewSign .. L["Full Power Animation"],
+				},
+				type = {
+					order = 3,
 					type = "select",
 					name = L["Select Model"],
 					style = 'radio',
@@ -82,7 +87,7 @@ options.unitframes = {
 					},
 				},
 				customModel = {
-					order = 3,
+					order = 4,
 					type = "input",
 					name = L["Type the Model ID"],
 
@@ -468,7 +473,7 @@ end
 options.unitframes.args.roleIcons = {
 	order = 5,
 	type = "group",
-	name = E.NewSign .. F.cOption(L["Role Icons"], "orange"),
+	name = F.cOption(L["Role Icons"], "orange"),
 	guiInline = true,
 	get = function(info)
 		return E.db.mui.unitframes.roleIcons[info[#info]]
