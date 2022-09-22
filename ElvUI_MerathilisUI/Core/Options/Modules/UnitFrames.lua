@@ -70,6 +70,7 @@ options.unitframes = {
 					order = 2,
 					type = "toggle",
 					name = E.NewSign .. L["Full Power Animation"],
+					disabled = function() return not E.db.mui.unitframes.power.enable end,
 				},
 				type = {
 					order = 3,
