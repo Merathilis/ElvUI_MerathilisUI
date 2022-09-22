@@ -17,11 +17,13 @@ local function GradientBars()
 				if row and row.textura then
 					hooksecurefunc(row.textura, "SetVertexColor", function(_, r, g, b)
 						row.textura:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\StatusBars\\Line4pixel")
-						if row.minha_tabela then
+						if row.minha_tabela and row.minha_tabela.name then
 							class = row.minha_tabela:class()
-							row.textura:SetGradientAlpha("Horizontal", GradientColorClass(class))
-						else
-							row.textura:SetGradientAlpha("Horizontal", r - 0.5, g - 0.5, b - 0.5, 0.9, r + 0.2, g + 0.2, b + 0.2, 0.9)
+							if class ~= 'UNKNOW' then
+								row.textura:SetGradientAlpha("Horizontal", GradientColorClass(class))
+							else
+								row.textura:SetGradientAlpha("Horizontal", r - 0.5, g - 0.5, b - 0.5, 0.9, r + 0.2, g + 0.2, b + 0.2, 0.9)
+							end
 						end
 					end)
 				end
