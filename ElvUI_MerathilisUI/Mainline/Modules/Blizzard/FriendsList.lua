@@ -405,7 +405,7 @@ function module:UpdateFriendButton(button)
 		end
 
 		local iconGroup = self.db.textures.factionIcon and faction or game
-		local iconTex = gameIcons[iconGroup][self.db.textures.game] or BNet_GetClientTexture(game)
+		local iconTex = gameIcons[iconGroup] and gameIcons[iconGroup][self.db.textures.game] or BNet_GetClientTexture(game)
 		button.gameIcon:SetTexture(iconTex)
 		button.gameIcon:Show()
 		button.gameIcon:SetAlpha(1)
