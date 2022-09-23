@@ -16,7 +16,7 @@ local function GradientBars()
 			for _, row in next, instancia.barras do
 				if row and row.textura then
 					hooksecurefunc(row.textura, "SetVertexColor", function(_, r, g, b)
-						row.textura:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\StatusBars\\Line4pixel")
+						-- row.textura:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\StatusBars\\Line4pixel")
 						if row.minha_tabela and row.minha_tabela.name then
 							class = row.minha_tabela:class()
 							if class ~= 'UNKNOW' then
