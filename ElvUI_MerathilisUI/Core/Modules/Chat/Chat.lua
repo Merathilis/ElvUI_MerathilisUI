@@ -331,10 +331,48 @@ function module:AddCustomEmojis()
 	CH:AddSmiley(':sadge:', format(t, 'sadge'))
 end
 
-function module:ReplaceSystemMessages()
-	if not module.db.customOnlineMessage then return end
+local onlinestring
+local offlinestring
 
+function module:ReplaceSystemMessage(_, event, message, ...)
+	if E.locale == "deDE" then
+		onlinestring = "online"
+		offlinestring = "offline"
+	elseif E.locale == "enUS" or E.locale == "enGB" or E.locale == "enCN" or E.locale == "enTW" then
+		onlinestring = "online"
+		offlinestring = "offline"
+	elseif E.locale == "zhCN" then
+		onlinestring = "在线"
+		offlinestring = "下线了"
+	elseif E.locale == "zhTW" then
+		onlinestring = "目前在線"
+		offlinestring = "下線了"
+	elseif E.locale == "esMX" or E.locale == "esES" then
+		onlinestring = "conectado"
+		offlinestring = " desconectado"
+	elseif E.locale == "frFR" then
+		onlinestring = "en ligne "
+		offlinestring = "déconnecter"
+	elseif E.locale == "itIT" then
+		onlinestring = "online"
+		offlinestring = "offline"
+	elseif E.locale == "koKR" then
+		onlinestring = "접속 중"
+		offlinestring = "님이 게임을 종료했습니다."
+	elseif E.locale == "ptBR" or E.locale == "ptPT" then
+		onlinestring = "conectado"
+		offlinestring = "desconectou"
+	elseif E.locale == "ruRU" then
+		onlinestring = "В сети"
+		offlinestring = "выходит из игрового"
+	end
 
+	if message:find(onlinestring) then --german, english, italian all use the same online/offline
+		return false, gsub(message, onlinestring, "cff298F00" .. onlinestring .. "|r"), ...
+	end
+	if message:find(offlinestring) then
+		return false, gsub(message, offlinestring, "|cffff0000" .. offlinestring .. "|r"), ...
+	end
 end
 
 function module:Initialize()
@@ -344,11 +382,10 @@ function module:Initialize()
 	end
 
 	if module.db.customOnlineMessage then
-		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["ERR_FRIEND_ONLINE"]
-		_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["ERR_FRIEND_OFFLINE"]
-
-		_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "%s"..L["BN_INLINE_TOAST_FRIEND_ONLINE"]
-		_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L["BN_INLINE_TOAST_FRIEND_OFFLINE"]
+		ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", module.ReplaceSystemMessage)
+		ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_INLINE_TOAST_ALERT", module.ReplaceSystemMessage)
+		ChatFrame_AddMessageEventFilter("ROLE_CHANGED_INFORM", module.ReplaceSystemMessage)
+		ChatFrame_AddMessageEventFilter("PLAYER_ROLES_ASSIGNED", module.ReplaceSystemMessage)
 	end
 
 	module:StyleChat()
