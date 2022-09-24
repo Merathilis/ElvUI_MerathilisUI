@@ -331,13 +331,19 @@ function module:AddCustomEmojis()
 	CH:AddSmiley(':sadge:', format(t, 'sadge'))
 end
 
+function module:ReplaceSystemMessages()
+	if not module.db.customOnlineMessage then return end
+
+
+end
+
 function module:Initialize()
-	self.db = E.db.mui.chat
-	if not self.db or not E.private.chat.enable then
+	module.db = E.db.mui.chat
+	if not module.db or not E.private.chat.enable then
 		return
 	end
 
-	if self.db.customOnlineMessage then
+	if module.db.customOnlineMessage then
 		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["ERR_FRIEND_ONLINE"]
 		_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["ERR_FRIEND_OFFLINE"]
 

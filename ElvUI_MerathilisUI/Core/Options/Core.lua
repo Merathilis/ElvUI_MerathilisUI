@@ -92,7 +92,7 @@ function MER:OptionsCallback()
 				type = "execute",
 				name = L["|cffffffffMerathilis|r|cffff7d0aUI|r Discord"],
 				customWidth = 140,
-				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/s4B76at55Y") end,
+				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/28We6esE9v") end,
 			},
 		},
 	}
