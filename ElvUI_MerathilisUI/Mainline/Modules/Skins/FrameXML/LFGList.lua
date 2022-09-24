@@ -161,7 +161,7 @@ local function LoadSkin()
 	end
 
 	module:CreateBD(ActivityFinder.Dialog)
-	ActivityFinder.Dialog.backdrop:SetBackdropColor(.2, .2, .2, .9)
+	ActivityFinder.Dialog:SetBackdropColor(.2, .2, .2, .9)
 
 	-- Application dialog ]]
 	local LFGListApplicationDialog = _G.LFGListApplicationDialog

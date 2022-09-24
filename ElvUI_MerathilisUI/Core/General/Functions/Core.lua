@@ -670,6 +670,8 @@ end
 --	Text Functions
 --]]----------------------------------
 function F.CreateText(f, layer, size, outline, text, color, anchor, x, y)
+	if not f then return end
+
 	text = f:CreateFontString(nil, layer)
 	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
 	text:SetHeight(text:GetStringHeight()+30)
@@ -914,5 +916,13 @@ do
 		else
 			self.__texture:SetVertexColor(1, 1, 1)
 		end
+	end
+end
+
+function F:TogglePanel(frame)
+	if frame:IsShown() then
+		frame:Hide()
+	else
+		frame:Show()
 	end
 end

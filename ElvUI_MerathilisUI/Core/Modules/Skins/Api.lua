@@ -337,6 +337,31 @@ function module:ReskinIcon(icon, backdrop)
 	end
 end
 
+function module:PixelIcon(self, texture, highlight)
+	if not self then return end
+
+	self.bg = module:CreateBDFrame(self)
+	self.bg:SetAllPoints()
+	self.Icon = self:CreateTexture(nil, "ARTWORK")
+	self.Icon:SetInside(self.bg)
+	self.Icon:SetTexCoord(unpack(E.TexCoords))
+	if texture then
+		local atlas = strmatch(texture, "Atlas:(.+)$")
+		if atlas then
+			self.Icon:SetAtlas(atlas)
+		else
+			self.Icon:SetTexture(texture)
+		end
+	end
+	if highlight and type(highlight) == "boolean" then
+		self:EnableMouse(true)
+		self.HL = self:CreateTexture(nil, "HIGHLIGHT")
+		self.HL:SetColorTexture(1, 1, 1, .25)
+		self.HL:SetInside(self.bg)
+	end
+end
+
+
 -- Handle arrows
 local arrowDegree = {
 	["up"] = 0,
@@ -698,6 +723,58 @@ function module:DisableAddOnSkin(key)
 		end
 	end
 end
+
+function module:SetBorderColor()
+	self:SetBackdropBorderColor(0, 0, 0)
+end
+
+--[[----------------------------------
+--	GUI Functions
+--]] ----------------------------------
+do
+	function module:CreateButton(width, height, text, fontSize, outline)
+		local bu = CreateFrame("Button", nil, self, "BackdropTemplate")
+		bu:SetSize(width, height)
+		if type(text) == "boolean" then
+			module:PixelIcon(bu, fontSize, true)
+		else
+			S:HandleButton(bu)
+			bu.text = F.CreateText(bu, "OVERLAY", fontSize or 14, outline or "Outline", text)
+		end
+
+		return bu
+	end
+
+	function module:CreateCheckBox()
+		local cb = CreateFrame("CheckButton", nil, self, "InterfaceOptionsBaseCheckButtonTemplate")
+		cb:SetScript("OnClick", nil) -- reset onclick handler
+		S:HandleCheckBox(cb)
+
+		cb.Type = "CheckBox"
+		return cb
+	end
+
+	local function editBoxClearFocus(self)
+		self:ClearFocus()
+	end
+
+	function module:CreateEditBox(width, height)
+		local eb = CreateFrame("EditBox", nil, self)
+		eb:SetSize(width, height)
+		eb:SetAutoFocus(false)
+		eb:SetTextInsets(5, 5, 0, 0)
+		eb:FontTemplate(nil, E.db.general.fontSize + 2)
+		eb:CreateBackdrop('Transparent')
+		eb.backdrop:SetAllPoints()
+		module:CreateGradient(eb.backdrop)
+		eb:SetScript("OnEscapePressed", editBoxClearFocus)
+		eb:SetScript("OnEnterPressed", editBoxClearFocus)
+
+		eb.Type = "EditBox"
+		return eb
+	end
+end
+
 
 -- keep the colors updated
 function module:UpdateMedia()

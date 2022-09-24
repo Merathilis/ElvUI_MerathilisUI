@@ -5,6 +5,7 @@
 	<Script file="frFR.lua"/>
 	<Script file="itIT.lua"/>
 	<Script file="koKR.lua"/>
+	<Script file="ptBR.lua"/>
 	<Script file="ruRU.lua"/>
 	<Script file="zhCN.lua"/>
 	<Script file="zhTW.lua"/>

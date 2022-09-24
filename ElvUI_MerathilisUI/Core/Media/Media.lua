@@ -162,6 +162,8 @@ AddMedia("whiteTank", "RoleIcons/White/Tank.tga", "Textures")
 AddMedia("whiteHeal", "RoleIcons/White/Healer.tga", "Textures")
 AddMedia("whiteDPS", "RoleIcons/White/DPS.tga", "Textures")
 
+AddMedia("emptyTex", "bgTex.blp", "Textures")
+
 -- Fonts
 LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])
 LSM:Register("font","PrototypeRU", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE_RU.TTF]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)

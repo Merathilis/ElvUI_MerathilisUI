@@ -12,3 +12,7 @@ G.mail = {
 		favorites = {},
 	}
 }
+
+G.bags = {
+	CustomJunkList = {}
+}
