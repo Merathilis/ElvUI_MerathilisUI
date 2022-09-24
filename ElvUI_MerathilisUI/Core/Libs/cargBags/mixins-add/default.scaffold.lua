@@ -41,6 +41,7 @@ local function ItemButton_Scaffold(self)
 	if not self.Cooldown then
 		self.Cooldown = _G[name.."Cooldown"]
 	end
+	ElvUI[1]:RegisterCooldown(self.Cooldown)
 	if not self.Quest then
 		self.Quest = _G[name.."IconQuestTexture"]
 	end
@@ -65,7 +66,7 @@ local function ItemButton_Update(self, item)
 	end
 	self.count = item.count -- Thank you Blizz for not using local variables >.> (BankFrame.lua @ 234 )
 
-	self:ButtonUpdateCooldown(item)
+	-- self:ButtonUpdateCooldown(item)
 	self:ButtonUpdateLock(item)
 	self:ButtonUpdateQuest(item)
 

@@ -19,84 +19,6 @@ local IsCosmeticItem = IsCosmeticItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
 local GetItemInfo, GetContainerItemID, SplitContainerItem = GetItemInfo, GetContainerItemID, SplitContainerItem
 
-local C_EquipmentSet = C_EquipmentSet
-local C_EquipmentSet_GetEquipmentSetID = C_EquipmentSet.GetEquipmentSetID
-local C_EquipmentSet_GetEquipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs
-local C_EquipmentSet_GetNumEquipmentSets = C_EquipmentSet.GetNumEquipmentSets
-local C_EquipmentSet_GetEquipmentSetInfo = C_EquipmentSet.GetEquipmentSetInfo
-local C_EquipmentSet_GetItemLocations = C_EquipmentSet.GetItemLocations
-local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
-local GetContainerNumSlots = GetContainerNumSlots
-
-
-local updateTimer
-module.containers = {}
-module.infoArray = {}
-module.equipmentMap = {}
-
-local function Utf8Sub(str, start, numChars)
-	local currentIndex = start
-	while numChars > 0 and currentIndex <= #str do
-		local char = byte(str, currentIndex)
-
-		if char > 240 then
-			currentIndex = currentIndex + 4
-		elseif char > 225 then
-			currentIndex = currentIndex + 3
-		elseif char > 192 then
-			currentIndex = currentIndex + 2
-		else
-			currentIndex = currentIndex + 1
-		end
-
-		numChars = numChars - 1
-	end
-
-	return str:sub(start, currentIndex - 1)
-end
-
-local function MapKey(bag, slot)
-	return format("%d_%d", bag, slot)
-end
-
-local quickFormat = {
-	[0] = function(font, map) font:SetText() end,
-	[1] = function(font, map) font:SetFormattedText("|cff70C0F5%s|r", Utf8Sub(map[1], 1, 4)) end,
-	[2] = function(font, map) font:SetFormattedText("|cff70C0F5%s %s|r", Utf8Sub(map[1], 1, 4), Utf8Sub(map[2], 1, 4)) end,
-	[3] = function(font, map) font:SetFormattedText("|cff70C0F5%s %s %s|r", Utf8Sub(map[1], 1, 4), Utf8Sub(map[2], 1, 4), Utf8Sub(map[3], 1, 4)) end,
-}
-
-local function BuildEquipmentMap(clear)
-	-- clear mapped names
-	for k, v in pairs(module.equipmentMap) do
-		twipe(v)
-	end
-
-	if clear then return end
-
-	local name, player, bank, bags, slot, bag, key
-	local equipmentSetIDs = C_EquipmentSet_GetEquipmentSetIDs()
-
-	for index = 1, C_EquipmentSet_GetNumEquipmentSets() do
-		name = C_EquipmentSet_GetEquipmentSetInfo(equipmentSetIDs[index]);
-		local equipmentSetID = C_EquipmentSet_GetEquipmentSetID(name)
-		if equipmentSetID then
-			local SetInfoTable = C_EquipmentSet_GetItemLocations(equipmentSetID)
-			for _, location in pairs(SetInfoTable) do
-				if type(location) == "number" and (location < -1 or location > 1) then
-					player, bank, bags, _, slot, bag = EquipmentManager_UnpackLocation(location)
-					if ((bank or bags) and slot and bag) then
-						key = MapKey(bag, slot)
-						module.equipmentMap[key] = module.equipmentMap[key] or {}
-						tinsert(module.equipmentMap[key], name)
-					end
-				end
-			end
-		end
-	end
-end
-
-
 local sortCache = {}
 function module:ReverseSort()
 	for bag = 0, 4 do
@@ -360,9 +282,9 @@ end
 
 local function updateDepositButtonStatus(bu)
 	if module.db.AutoDeposit then
-		bu.bg:SetBackdropBorderColor(1, .8, 0)
+		bu.backdrop:SetBackdropBorderColor(1, .8, 0)
 	else
-		S.SetBorderColor(bu.bg)
+		S.SetBorderColor(bu.backdrop)
 	end
 end
 
@@ -395,10 +317,10 @@ local function ToggleBackpacks(self)
 	local parent = self.__owner
 	F:TogglePanel(parent.BagBar)
 	if parent.BagBar:IsShown() then
-		self.bg:SetBackdropBorderColor(1, .8, 0)
+		self.backdrop:SetBackdropBorderColor(1, .8, 0)
 		PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
 	else
-		S.SetBorderColor(self.bg)
+		S.SetBorderColor(self.backdrop)
 		PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE)
 	end
 end
@@ -549,9 +471,17 @@ function module:CreateSplitButton()
 
 	local splitFrame = CreateFrame("Frame", nil, self)
 	splitFrame:SetSize(100, 50)
-	splitFrame:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -5)
-	F.CreateText(splitFrame, "OVERLAY", 14, "OUTLINE", L["SplitCount"], "system", "TOP", 1, -5)
+	splitFrame:SetPoint("TOPRIGHT", self, "TOPLEFT", 0, -1)
 	splitFrame:CreateBackdrop('Transparent')
+	splitFrame.backdrop:Styling()
+	S:CreateBackdropShadow(splitFrame)
+
+	splitFrame.Text = splitFrame:CreateFontString(nil, "ARTWORK")
+	splitFrame.Text:FontTemplate(nil, 14, "OUTLINE")
+	splitFrame.Text:SetText(L["SplitCount"])
+	splitFrame.Text:SetTextColor(1, .8, 0)
+	splitFrame.Text:SetPoint("TOP", 1, -5)
+
 	splitFrame:Hide()
 
 	local editbox = S.CreateEditBox(splitFrame, 90, 20)
@@ -563,7 +493,7 @@ function module:CreateSplitButton()
 	bu.Icon:SetPoint("TOPLEFT", -1, 3)
 	bu.Icon:SetPoint("BOTTOMRIGHT", 1, -3)
 	bu.__turnOff = function()
-		S.SetBorderColor(bu.bg)
+		S.SetBorderColor(bu.backdrop)
 		bu.text = nil
 		splitFrame:Hide()
 		splitEnable = nil
@@ -572,7 +502,7 @@ function module:CreateSplitButton()
 		module:SelectToggleButton(1)
 		splitEnable = not splitEnable
 		if splitEnable then
-			self.bg:SetBackdropBorderColor(1, .8, 0)
+			self.backdrop:SetBackdropBorderColor(1, .8, 0)
 			self.text = enabledText
 			splitFrame:Show()
 			editbox:SetText(module.db.SplitCount)
@@ -678,7 +608,7 @@ function module:CreateFavouriteButton()
 	bu.Icon:SetPoint("TOPLEFT", -5, 2.5)
 	bu.Icon:SetPoint("BOTTOMRIGHT", 5, -1.5)
 	bu.__turnOff = function()
-		S.SetBorderColor(bu.bg)
+		S.SetBorderColor(bu.backdrop)
 		bu.text = nil
 		favouriteEnable = nil
 	end
@@ -686,7 +616,7 @@ function module:CreateFavouriteButton()
 		module:SelectToggleButton(2)
 		favouriteEnable = not favouriteEnable
 		if favouriteEnable then
-			self.bg:SetBackdropBorderColor(1, .8, 0)
+			self.backdrop:SetBackdropBorderColor(1, .8, 0)
 			self.text = enabledText
 		else
 			self.__turnOff()
@@ -733,7 +663,7 @@ function module:CreateJunkButton()
 	bu.Icon:SetPoint("TOPLEFT", E.mult, -3)
 	bu.Icon:SetPoint("BOTTOMRIGHT", -E.mult, -3)
 	bu.__turnOff = function()
-		S.SetBorderColor(bu.bg)
+		S.SetBorderColor(bu.backdrop)
 		bu.text = nil
 		customJunkEnable = nil
 	end
@@ -746,7 +676,7 @@ function module:CreateJunkButton()
 		module:SelectToggleButton(3)
 		customJunkEnable = not customJunkEnable
 		if customJunkEnable then
-			self.bg:SetBackdropBorderColor(1, .8, 0)
+			self.backdrop:SetBackdropBorderColor(1, .8, 0)
 			self.text = enabledText
 		else
 			bu.__turnOff()
@@ -787,7 +717,7 @@ function module:CreateDeleteButton()
 	bu.Icon:SetPoint("TOPLEFT", 3, -2)
 	bu.Icon:SetPoint("BOTTOMRIGHT", -1, 2)
 	bu.__turnOff = function()
-		S.SetBorderColor(bu.bg)
+		S.SetBorderColor(bu.backdrop)
 		bu.text = nil
 		deleteEnable = nil
 	end
@@ -795,7 +725,7 @@ function module:CreateDeleteButton()
 		module:SelectToggleButton(4)
 		deleteEnable = not deleteEnable
 		if deleteEnable then
-			self.bg:SetBackdropBorderColor(1, .8, 0)
+			self.backdrop:SetBackdropBorderColor(1, .8, 0)
 			self.text = enabledText
 		else
 			bu.__turnOff()
@@ -1129,18 +1059,6 @@ function module:Initialize()
 			end
 		end
 
-		if self.EquipOverlay then
-			self.EquipOverlay:SetAllPoints()
-
-			local key = MapKey(bag, slot)
-			if module.equipmentMap[key] then
-				quickFormat[#module.equipmentMap[key] < 4 and #module.equipmentMap[key] or 3](self.EquipOverlay, module.equipmentMap[key])
-
-			else
-				quickFormat[0](self.EquipOverlay, nil)
-			end
-		end
-
 		if self.glowFrame then
 			if C_NewItems_IsNewItem(item.bagId, item.slotId) then
 				LCG.ShowOverlayGlow(self.glowFrame)
@@ -1244,6 +1162,7 @@ function module:Initialize()
 		self:SetClampedToScreen(true)
 		self:CreateBackdrop('Transparent')
 		self.backdrop:Styling()
+		S:CreateBackdropShadow(self)
 
 		local label
 		if strmatch(name, "AzeriteItem$") then

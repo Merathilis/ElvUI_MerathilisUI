@@ -340,10 +340,10 @@ end
 function module:PixelIcon(self, texture, highlight)
 	if not self then return end
 
-	self.bg = module:CreateBDFrame(self)
-	self.bg:SetAllPoints()
+	self:CreateBackdrop()
+	self.backdrop:SetAllPoints()
 	self.Icon = self:CreateTexture(nil, "ARTWORK")
-	self.Icon:SetInside(self.bg)
+	self.Icon:SetInside(self.backdrop)
 	self.Icon:SetTexCoord(unpack(E.TexCoords))
 	if texture then
 		local atlas = strmatch(texture, "Atlas:(.+)$")
@@ -357,7 +357,7 @@ function module:PixelIcon(self, texture, highlight)
 		self:EnableMouse(true)
 		self.HL = self:CreateTexture(nil, "HIGHLIGHT")
 		self.HL:SetColorTexture(1, 1, 1, .25)
-		self.HL:SetInside(self.bg)
+		self.HL:SetInside(self.backdrop)
 	end
 end
 
