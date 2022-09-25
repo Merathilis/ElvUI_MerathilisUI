@@ -13,12 +13,12 @@ options.bags = {
 	-- hidden = not E.Retail,
 	args = {
 		header = {
-			order = 1,
+			order = 0,
 			type = "header",
 			name = F.cOption(L["Bags"], 'orange'),
 		},
 		Enable = {
-			order = 2,
+			order = 1,
 			type = "toggle",
 			name = L["Enable"],
 			get = function(info) return E.db.mui.bags[info[#info]] end,
@@ -26,9 +26,15 @@ options.bags = {
 			width = "full",
 		},
 		spacer = {
-			order = 3,
+			order = 2,
 			type = "description",
 			name = "",
+			fontSize = "medium",
+		},
+		header1 = {
+			order = 3,
+			type = "description",
+			name = L["BANK_DESC"],
 		},
 		ItemFilter = {
 			order = 4,
@@ -114,7 +120,7 @@ options.bags = {
 			values = {
 				[1] = L["Forward"],
 				[2] = L["Backwards"],
-				[3] = DISABLE,
+				[3] = _G.DISABLE,
 			}
 		},
 		spacer1 = {
@@ -183,13 +189,13 @@ options.bags = {
 			type = "group",
 			guiInline = true,
 			name = F.cOption(L["Equip Manager"], 'orange'),
+			hidden = function() return not E.private.bags.enable end,
 			args = {
 				equipOverlay = {
-					type = "toggle",
 					order = 1,
+					type = "toggle",
 					name = L["Equipment Set Overlay"],
 					desc = L["Show the associated equipment sets for the items in your bags (or bank)."],
-					disabled = function() return not E.private.bags.enable end,
 					get = function(info) return E.db.mui.bags.equipOverlay end,
 					set = function(info, value) E.db.mui.bags.equipOverlay = value; MERBI:ToggleSettings(); end,
 				},

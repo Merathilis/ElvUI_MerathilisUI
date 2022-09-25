@@ -146,7 +146,7 @@ function module:CreateInfoFrame()
 	search.textFilters = BagSmartFilter
 
 	infoFrame.title = SEARCH
-	F.AddTooltip(infoFrame, "ANCHOR_TOPLEFT", MER.InfoColor .. L["BagSearchTip"])
+	F.AddTooltip(infoFrame, "ANCHOR_TOPLEFT", MER.InfoColor .. L["Bag Search Tip"])
 end
 
 local function ToggleWidgetButtons(self)
@@ -311,7 +311,7 @@ function module:CreateDepositButton()
 		end
 	end)
 	bu.title = REAGENTBANK_DEPOSIT
-	F.AddTooltip(bu, "ANCHOR_TOP", MER.InfoColor .. L["AutoDepositTip"])
+	F.AddTooltip(bu, "ANCHOR_TOP", MER.InfoColor .. L["Auto Deposit Tip"])
 	updateDepositButtonStatus(bu)
 
 	return bu
@@ -343,7 +343,7 @@ function module:CreateSortButton(name)
 	local bu = S.CreateButton(self, 22, 22, true, "Interface\\Icons\\INV_Pet_Broom")
 	bu:SetScript("OnClick", function()
 		if module.db.BagSortMode == 3 then
-			UIErrorsFrame:AddMessage(MER.InfoColor .. L["BagSortDisabled"])
+			UIErrorsFrame:AddMessage(MER.InfoColor .. L["Bag Sort Disabled"])
 			return
 		end
 
