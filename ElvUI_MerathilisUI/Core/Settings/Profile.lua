@@ -20,6 +20,7 @@ P.bags = {
 	BagsWidth = 12,
 	BankWidth = 12,
 	BagsiLvl = true,
+	BindType = true,
 	BagSortMode = 2,
 	ItemFilter = true,
 	CustomItems = {},

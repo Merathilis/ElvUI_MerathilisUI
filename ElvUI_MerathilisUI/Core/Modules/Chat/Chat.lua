@@ -335,7 +335,7 @@ local onlinestring
 local offlinestring
 
 local function ReplaceSystemMessage(_, event, message, ...)
-	if not module.db.customOnlineMessage then
+	if not E.db.mui.chat.customOnlineMessage then
 		return
 	end
 

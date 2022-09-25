@@ -4,7 +4,6 @@ local cargBags = ns.cargBags
 local MER, F, E, L, V, P, G = unpack(ns)
 local module = MER:GetModule('MER_Bags')
 local S = MER:GetModule('MER_Skins')
-local LCG = E.Libs.CustomGlow
 
 local _G = _G
 local strmatch, unpack, ceil = string.match, unpack, math.ceil
@@ -18,6 +17,9 @@ local C_Soulbinds_IsItemConduitByItemInfo = C_Soulbinds.IsItemConduitByItemInfo
 local IsCosmeticItem = IsCosmeticItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
 local GetItemInfo, GetContainerItemID, SplitContainerItem = GetItemInfo, GetContainerItemID, SplitContainerItem
+
+local C_EquipmentSet_GetNumEquipmentSets = C_EquipmentSet.GetNumEquipmentSets
+local C_EquipmentSet_GetEquipmentSetInfo = C_EquipmentSet.GetEquipmentSetInfo
 
 local sortCache = {}
 function module:ReverseSort()
@@ -762,6 +764,32 @@ function module:ButtonOnClick(btn)
 	deleteButtonOnClick(self)
 end
 
+local function CheckBoundStatus(itemLink, bagID, slotID, string)
+	local tip = F.ScanTip
+	tip:SetOwner(_G.UIParent, 'ANCHOR_NONE')
+	if bagID and type(bagID) == 'string' then
+		tip:SetInventoryItem(bagID, slotID)
+	elseif bagID and type(bagID) == 'number' then
+		tip:SetBagItem(bagID, slotID)
+	else
+		tip:SetHyperlink(itemLink)
+	end
+
+	for i = 2, 6 do
+		local line = _G[tip:GetName() .. 'TextLeft' .. i]
+		if line then
+			local text = line:GetText() or ''
+			local found = strfind(text, string)
+			if found then
+				return true
+			end
+		end
+	end
+
+	return false
+end
+
+
 function module:UpdateAllBags()
 	if self.Bags and self.Bags:IsShown() then
 		self.Bags:BAG_UPDATE()
@@ -925,16 +953,41 @@ function module:Initialize()
 		self.iLvl:SetText("")
 		self.iLvl:SetPoint("BOTTOMLEFT", 1, 2)
 
-		self.EquipOverlay = self:CreateFontString(nil, "ARTWORK")
-		self.EquipOverlay:FontTemplate(nil, 11, "OUTLINE")
-		self.EquipOverlay:SetWordWrap(true)
-		self.EquipOverlay:SetJustifyH('CENTER')
-		self.EquipOverlay:SetJustifyV('MIDDLE')
+		self.BindType = self:CreateFontString(nil, "ARTWORK")
+		self.BindType:FontTemplate(nil, module.db.FontSize, "OUTLINE")
+		self.BindType:SetText("")
+		self.BindType:SetPoint("TOPLEFT", 2, -2)
 
-		if showNewItem then
-			self.glowFrame = CreateFrame("Frame", nil, self)
-			self.glowFrame:SetInside()
-		end
+		local flash = self:CreateTexture(nil, "ARTWORK")
+		flash:SetTexture('Interface\\Cooldown\\star4')
+		flash:SetInside()
+		-- flash:SetPoint('TOPLEFT', -20, 20)
+		-- flash:SetPoint('BOTTOMRIGHT', 20, -20)
+		flash:SetBlendMode('ADD')
+		flash:SetAlpha(0)
+		local anim = flash:CreateAnimationGroup()
+		anim:SetLooping('REPEAT')
+		anim.rota = anim:CreateAnimation('Rotation')
+		anim.rota:SetDuration(1)
+		anim.rota:SetDegrees(-90)
+		anim.fader = anim:CreateAnimation('Alpha')
+		anim.fader:SetFromAlpha(0)
+		anim.fader:SetToAlpha(0.5)
+		anim.fader:SetDuration(0.5)
+		anim.fader:SetSmoothing('OUT')
+		anim.fader2 = anim:CreateAnimation('Alpha')
+		anim.fader2:SetStartDelay(0.5)
+		anim.fader2:SetFromAlpha(0.5)
+		anim.fader2:SetToAlpha(0)
+		anim.fader2:SetDuration(1.2)
+		anim.fader2:SetSmoothing('OUT')
+		self:HookScript('OnHide', function()
+			if anim:IsPlaying() then
+				anim:Stop()
+			end
+		end)
+		self.anim = anim
+		self.ShowNewItems = showNewItem
 
 		self:HookScript("OnClick", module.ButtonOnClick)
 
@@ -951,9 +1004,10 @@ function module:Initialize()
 	end
 
 	function MyButton:ItemOnEnter()
-		if self.glowFrame then
-			LCG.HideOverlayGlow(self.glowFrame)
-			C_NewItems_RemoveNewItem(self.bagId, self.slotId)
+		if self.ShowNewItems then
+			if self.anim:IsPlaying() then
+				self.anim:Stop()
+			end
 		end
 	end
 
@@ -973,6 +1027,10 @@ function module:Initialize()
 
 	local function isItemNeedsLevel(item)
 		return item.link and item.quality > 1 and module:IsItemHasLevel(item)
+	end
+
+	local function isItemExist(item)
+		return item.link
 	end
 
 	local function GetIconOverlayAtlas(item)
@@ -1060,11 +1118,14 @@ function module:Initialize()
 			end
 		end
 
-		if self.glowFrame then
+		if self.ShowNewItems then
 			if C_NewItems_IsNewItem(item.bagId, item.slotId) then
-				LCG.ShowOverlayGlow(self.glowFrame)
+				self.anim:Play()
 			else
-				LCG.HideOverlayGlow(self.glowFrame)
+				if self.anim:IsPlaying() then
+					self.anim:Stop()
+				end
+
 			end
 		end
 
@@ -1074,6 +1135,29 @@ function module:Initialize()
 			self:SetBackdropColor(unpack(color))
 		else
 			self:SetBackdropColor(.3, .3, .3, .3)
+		end
+
+		if module.db.BindType and isItemExist(item) then
+			local itemLink = GetContainerItemLink(item.bagId, item.slotId)
+			if not itemLink then
+				return
+			end
+
+			local isBOA = CheckBoundStatus(item.link, item.bagId, item.slotId, _G.ITEM_BNETACCOUNTBOUND)
+				or CheckBoundStatus(item.link, item.bagId, item.slotId, _G.ITEM_BIND_TO_BNETACCOUNT)
+				or CheckBoundStatus(item.link, item.bagId, item.slotId, _G.ITEM_ACCOUNTBOUND)
+			local isSoulBound = CheckBoundStatus(item.link, item.bagId, item.slotId, _G.ITEM_SOULBOUND)
+			local _, _, itemRarity, _, _, _, _, _, _, _, _, _, _, bindType = GetItemInfo(itemLink)
+
+			if isBOA or itemRarity == 7 or itemRarity == 8 then
+				self.BindType:SetText('|cff00ccffBOA|r')
+			elseif bindType == 2 and not isSoulBound then
+				self.BindType:SetText('|cff1eff00BOE|r')
+			else
+				self.BindType:SetText('')
+			end
+		else
+			self.BindType:SetText('')
 		end
 
 		-- Hide empty tooltip
@@ -1169,25 +1253,25 @@ function module:Initialize()
 		if strmatch(name, "AzeriteItem$") then
 			label = L["Azerite Armor"]
 		elseif strmatch(name, "Equipment$") then
-			label = BAG_FILTER_EQUIPMENT
+			label = _G.BAG_FILTER_EQUIPMENT
 		elseif strmatch(name, "EquipSet$") then
 			label = L["Equipement Set"]
 		elseif name == "BankLegendary" then
-			label = LOOT_JOURNAL_LEGENDARIES
+			label = _G.LOOT_JOURNAL_LEGENDARIES
 		elseif strmatch(name, "Consumable$") then
-			label = BAG_FILTER_CONSUMABLES
+			label = _G.BAG_FILTER_CONSUMABLES
 		elseif name == "Junk" then
-			label = BAG_FILTER_JUNK
+			label = _G.BAG_FILTER_JUNK
 		elseif strmatch(name, "Collection") then
-			label = COLLECTIONS
+			label = _G.COLLECTIONS
 		elseif strmatch(name, "Goods") then
-			label = AUCTION_CATEGORY_TRADE_GOODS
+			label = _G.AUCTION_CATEGORY_TRADE_GOODS
 		elseif strmatch(name, "Quest") then
-			label = QUESTS_LABEL
+			label = _G.QUESTS_LABEL
 		elseif strmatch(name, "Anima") then
-			label = POWER_TYPE_ANIMA
+			label = _G.POWER_TYPE_ANIMA
 		elseif name == "BagRelic" then
-			label = L["KorthiaRelic"]
+			label = L["Korthia Relic"]
 		elseif strmatch(name, "Custom%d") then
 			label = GetCustomGroupTitle(settings.Index)
 		end
