@@ -19,7 +19,7 @@
 ## X-Tukui-ProjectID: 1
 ## X-Tukui-ProjectFolders: ElvUI_MerathilisUI
 
-Core\Libs\Load_Libs.xml
+Mainline\Libs.xml
 Init.lua
 Core\Locales\Load_Locales.xml
 Core\Media\Load_Media.xml

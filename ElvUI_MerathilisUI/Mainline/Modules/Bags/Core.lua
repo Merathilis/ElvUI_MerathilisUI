@@ -4,6 +4,7 @@ local cargBags = ns.cargBags
 local MER, F, E, L, V, P, G = unpack(ns)
 local module = MER:GetModule('MER_Bags')
 local S = MER:GetModule('MER_Skins')
+local B = E:GetModule('Bags')
 
 local _G = _G
 local strmatch, unpack, ceil = string.match, unpack, math.ceil
@@ -18,8 +19,24 @@ local IsCosmeticItem = IsCosmeticItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
 local GetItemInfo, GetContainerItemID, SplitContainerItem = GetItemInfo, GetContainerItemID, SplitContainerItem
 
-local C_EquipmentSet_GetNumEquipmentSets = C_EquipmentSet.GetNumEquipmentSets
-local C_EquipmentSet_GetEquipmentSetInfo = C_EquipmentSet.GetEquipmentSetInfo
+local itemSpellID = {
+	-- Deposit Anima: Infuse (value) stored Anima into your covenant's Reservoir.
+	[347555] = 3,
+	[345706] = 5,
+	[336327] = 35,
+	[336456] = 250,
+
+	-- Deliver Relic: Submit your findings to Archivist Roh-Suir to generate (value) Cataloged Research.
+	[356931] = 6,
+	[356933] = 1,
+	[356934] = 8,
+	[356935] = 16,
+	[356936] = 48,
+	[356937] = 26,
+	[356938] = 100,
+	[356939] = 150,
+	[356940] = 300
+}
 
 local sortCache = {}
 function module:ReverseSort()
@@ -958,6 +975,11 @@ function module:Initialize()
 		self.BindType:SetText("")
 		self.BindType:SetPoint("TOPLEFT", 2, -2)
 
+		self.CenterText = self:CreateFontString(nil, 'ARTWORK', nil, 1)
+		self.CenterText:SetPoint('CENTER', 0, 0)
+		self.CenterText:FontTemplate(nil, module.db.FontSize, "OUTLINE")
+		self.CenterText:SetTextColor(B.db.itemInfoColor.r, B.db.itemInfoColor.g, B.db.itemInfoColor.b)
+
 		local flash = self:CreateTexture(nil, "ARTWORK")
 		flash:SetTexture('Interface\\Cooldown\\star4')
 		flash:SetInside()
@@ -1067,6 +1089,8 @@ function module:Initialize()
 	end
 
 	function MyButton:OnUpdateButton(item)
+		local texture, count, locked, rarity, readable, _, itemLink, _, noValue, itemID, isBound = GetContainerItemInfo(item.bagId, item.slotId)
+
 		if self.JunkIcon then
 			if (MerchantFrame:IsShown() or customJunkEnable) and
 				(item.quality == LE_ITEM_QUALITY_POOR or E.global.mui.bags.CustomJunkList[item.id]) and item.hasPrice then
@@ -1138,7 +1162,6 @@ function module:Initialize()
 		end
 
 		if module.db.BindType and isItemExist(item) then
-			local itemLink = GetContainerItemLink(item.bagId, item.slotId)
 			if not itemLink then
 				return
 			end
@@ -1158,6 +1181,18 @@ function module:Initialize()
 			end
 		else
 			self.BindType:SetText('')
+		end
+
+		if module.db.CenterText and isItemExist(item) then
+			if itemLink then
+				local _, spellID = GetItemSpell(itemLink)
+				local mult = E.Retail and B.db.itemInfo and itemSpellID[spellID]
+				if mult then
+					self.CenterText:SetText(mult * count)
+				end
+			end
+		else
+			self.CenterText:SetText('')
 		end
 
 		-- Hide empty tooltip
