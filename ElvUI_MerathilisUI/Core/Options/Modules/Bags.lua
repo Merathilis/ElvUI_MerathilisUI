@@ -36,6 +36,7 @@ options.bags = {
 			name = L["Item Filter"],
 			get = function(_, key) return E.db.mui.bags[key] end,
 			set = function(_, key, value) E.db.mui.bags[key] = value; module:UpdateAllBags() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 			values = {
 				FilterJunk = L["Junk"],
 				FilterConsumable = L["Consumable"],
@@ -57,13 +58,16 @@ options.bags = {
 			name = L["Collect Empty Slots"],
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		SpecialBagsColor = {
 			order = 6,
 			type = "toggle",
 			name = L["Special Bags Color"],
+			desc = L["|nShow color for special bags:|n- Herb bag|n- Mining bag|n- Gem bag|n- Enchanted mageweave pouch"],
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		ShowNewItem = {
 			order = 7,
@@ -71,6 +75,7 @@ options.bags = {
 			name = L["New Item Glow"],
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		BagsiLvl = {
 			order = 8,
@@ -78,6 +83,7 @@ options.bags = {
 			name = L["Show ItemLevel"],
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		PetTrash = {
 			order = 9,
@@ -86,6 +92,7 @@ options.bags = {
 			desc = L["|nIn patch 9.1, you can buy 3 battle pets by using specific trash items. Keep this enabled, will sort these items into Collection Filter, and won't be sold by auto junk selling."],
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		iLvlToShow = {
 			order = 10,
@@ -94,13 +101,16 @@ options.bags = {
 			min = 1, max = 500, step = 1,
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		BagSortMode = {
 			order = 11,
 			type = "select",
 			name = L["BagSort Mode"],
+			desc = L["|nIf you have empty slots after bag sort, please disable bags module, and turn off all bags filter in default ui containers."],
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; updateBagSortOrder() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 			values = {
 				[1] = L["Forward"],
 				[2] = L["Backwards"],
@@ -116,17 +126,21 @@ options.bags = {
 			order = 13,
 			type = "range",
 			name = L["Bags per Row"],
+			desc = L["|nIf Bags ItemFilter enabled, change the bags per row for anchoring."],
 			min = 1, max = 20, step = 1,
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllAnchors() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		BankPerRow = {
 			order = 14,
 			type = "range",
 			name = L["Bank bags per Row"],
+			desc = L["|nIf Bags ItemFilter enabled, change the bank bags per row for anchoring."],
 			min = 1, max = 20, step = 1,
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllAnchors() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		IconSize = {
 			order = 15,
@@ -135,6 +149,7 @@ options.bags = {
 			min = 20, max = 50, step = 1,
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateBagSize() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		FontSize = {
 			order = 16,
@@ -143,6 +158,7 @@ options.bags = {
 			min = 10, max = 50, step = 1,
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateBagSize() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		BagsWidth = {
 			order = 17,
@@ -151,6 +167,7 @@ options.bags = {
 			min = 10, max = 40, step = 1,
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateBagSize() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		BankWidth = {
 			order = 18,
@@ -159,9 +176,10 @@ options.bags = {
 			min = 10, max = 40, step = 1,
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateBagSize() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		equipManager = {
-			order = 20,
+			order = 40,
 			type = "group",
 			guiInline = true,
 			name = F.cOption(L["Equip Manager"], 'orange'),

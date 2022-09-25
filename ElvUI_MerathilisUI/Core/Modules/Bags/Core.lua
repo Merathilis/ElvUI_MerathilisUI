@@ -1,13 +1,13 @@
 local _, ns = ...
-local MER, F, E, L, V, P, G = unpack(ns)
+local cargBags = ns.cargBags
 
+local MER, F, E, L, V, P, G = unpack(ns)
 local module = MER:GetModule('MER_Bags')
 local S = MER:GetModule('MER_Skins')
-local ES = E:GetModule('Skins')
 local LCG = E.Libs.CustomGlow
 
-local cargBags = ns.cargBags
-local ipairs, strmatch, unpack, ceil = ipairs, string.match, unpack, math.ceil
+local _G = _G
+local strmatch, unpack, ceil = string.match, unpack, math.ceil
 local LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_RARE, LE_ITEM_QUALITY_HEIRLOOM = Enum.ItemQuality.Poor, Enum.ItemQuality.Rare, Enum.ItemQuality.Heirloom
 local LE_ITEM_CLASS_CONTAINER = LE_ITEM_CLASS_CONTAINER
 local SortBankBags, SortReagentBankBags, SortBags = SortBankBags, SortReagentBankBags, SortBags
@@ -120,11 +120,13 @@ function module:CreateInfoFrame()
 	local infoFrame = CreateFrame("Button", nil, self)
 	infoFrame:SetPoint("TOPLEFT", 10, 0)
 	infoFrame:SetSize(140, 32)
+
 	local icon = infoFrame:CreateTexture(nil, "ARTWORK")
 	icon:SetSize(20, 20)
 	icon:SetPoint("LEFT", 0, -1)
 	icon:SetTexture("Interface\\Common\\UI-Searchbox-Icon")
 	icon:SetVertexColor(F.r, F.g, F.b)
+
 	local hl = infoFrame:CreateTexture(nil, "HIGHLIGHT")
 	hl:SetSize(20, 20)
 	hl:SetPoint("LEFT", 0, -1)
@@ -136,7 +138,7 @@ function module:CreateInfoFrame()
 	search:SetPoint("LEFT", 0, 5)
 	search:DisableDrawLayer("BACKGROUND")
 
-	local bg = S:CreateBDFrame(search, 0, true)
+	local bg = S:CreateBDFrame(search, .5, true)
 	bg:SetPoint("TOPLEFT", -5, -5)
 	bg:SetPoint("BOTTOMRIGHT", 5, 5)
 	search.textFilters = BagSmartFilter
@@ -467,7 +469,7 @@ local function saveSplitCount(self)
 end
 
 function module:CreateSplitButton()
-	local enabledText = MER.InfoColor .. L["SplitMode Enabled"]
+	local enabledText = MER.InfoColor .. L["Split Mode Enabled"]
 
 	local splitFrame = CreateFrame("Frame", nil, self)
 	splitFrame:SetSize(100, 50)
@@ -512,7 +514,7 @@ function module:CreateSplitButton()
 		self:GetScript("OnEnter")(self)
 	end)
 	bu:SetScript("OnHide", bu.__turnOff)
-	bu.title = L["QuickSplit"]
+	bu.title = L["Quick Split"]
 	F.AddTooltip(bu, "ANCHOR_TOP")
 
 	toggleButtons[1] = bu
@@ -602,7 +604,7 @@ function module:CreateFavouriteButton()
 	end
 	module.CustomMenu = menuList
 
-	local enabledText = MER.InfoColor .. L["FavouriteMode Enabled"]
+	local enabledText = MER.InfoColor .. L["Favourite Mode Enabled"]
 
 	local bu = S.CreateButton(self, 22, 22, true, "Interface\\Common\\friendship-heart")
 	bu.Icon:SetPoint("TOPLEFT", -5, 2.5)
@@ -624,7 +626,7 @@ function module:CreateFavouriteButton()
 		self:GetScript("OnEnter")(self)
 	end)
 	bu:SetScript("OnHide", bu.__turnOff)
-	bu.title = L["FavouriteMode"]
+	bu.title = L["Favourite Mode"]
 	F.AddTooltip(bu, "ANCHOR_TOP")
 
 	toggleButtons[2] = bu
@@ -657,7 +659,7 @@ StaticPopupDialogs["MER_WIPE_JUNK_LIST"] = {
 
 local customJunkEnable
 function module:CreateJunkButton()
-	local enabledText = MER.InfoColor .. L["JunkMode Enabled"]
+	local enabledText = MER.InfoColor .. L["Junk Mode Enabled"]
 
 	local bu = S.CreateButton(self, 22, 22, true, "Interface\\BUTTONS\\UI-GroupLoot-Coin-Up")
 	bu.Icon:SetPoint("TOPLEFT", E.mult, -3)
@@ -685,7 +687,7 @@ function module:CreateJunkButton()
 		self:GetScript("OnEnter")(self)
 	end)
 	bu:SetScript("OnHide", bu.__turnOff)
-	bu.title = L["CustomJunkMode"]
+	bu.title = L["Custom Junk Mode"]
 	F.AddTooltip(bu, "ANCHOR_TOP")
 
 	toggleButtons[3] = bu
@@ -711,7 +713,7 @@ end
 
 local deleteEnable
 function module:CreateDeleteButton()
-	local enabledText = MER.InfoColor .. L["DeleteMode Enabled"]
+	local enabledText = MER.InfoColor .. L["Delete Mode Enabled"]
 
 	local bu = S.CreateButton(self, 22, 22, true, "Interface\\Buttons\\UI-GroupLoot-Pass-Up")
 	bu.Icon:SetPoint("TOPLEFT", 3, -2)
@@ -733,7 +735,7 @@ function module:CreateDeleteButton()
 		self:GetScript("OnEnter")(self)
 	end)
 	bu:SetScript("OnHide", bu.__turnOff)
-	bu.title = L["ItemDeleteMode"]
+	bu.title = L["Item Delete Mode"]
 	F.AddTooltip(bu, "ANCHOR_TOP")
 
 	toggleButtons[4] = bu
@@ -900,8 +902,9 @@ function module:Initialize()
 		self.IconOverlay:SetInside()
 		self.IconOverlay2:SetInside()
 
-		S:CreateBD(self, .3)
+		self:CreateBackdrop('Transparent')
 		self:SetBackdropColor(.3, .3, .3, .3)
+		S:CreateGradient(self.backdrop)
 
 		local parentFrame = CreateFrame("Frame", nil, self)
 		parentFrame:SetAllPoints()
@@ -912,10 +915,9 @@ function module:Initialize()
 		self.Favourite:SetSize(30, 30)
 		self.Favourite:SetPoint("TOPLEFT", -12, 9)
 
-		self.QuestTag = self:CreateFontString(nil, "ARTWORK")
-		self.QuestTag:FontTemplate(nil, 30, "OUTLINE")
-		self.QuestTag:SetText("!")
-		self.QuestTag:SetTextColor(1, .8, 0)
+		self.QuestTag = self:CreateTexture(nil, "ARTWORK")
+		self.QuestTag:SetTexture(_G.TEXTURE_ITEM_QUEST_BANG)
+		self.QuestTag:SetAllPoints()
 		self.QuestTag:SetPoint("LEFT", 3, 0)
 
 		self.iLvl = self:CreateFontString(nil, "ARTWORK")
@@ -931,8 +933,7 @@ function module:Initialize()
 
 		if showNewItem then
 			self.glowFrame = CreateFrame("Frame", nil, self)
-			self.glowFrame:SetPoint("CENTER")
-			self.glowFrame:SetSize(iconSize+8, iconSize+8)
+			self.glowFrame:SetInside()
 		end
 
 		self:HookScript("OnClick", module.ButtonOnClick)
@@ -1240,7 +1241,7 @@ function module:Initialize()
 	local function updateBagSize(button)
 		button:SetSize(iconSize, iconSize)
 		if button.glowFrame then
-			button.glowFrame:SetSize(iconSize + 8, iconSize + 8)
+			button.glowFrame:SetInside(button)
 		end
 		button.Count:FontTemplate(nil, module.db.FontSize)
 		button.iLvl:FontTemplate(nil, module.db.FontSize)
