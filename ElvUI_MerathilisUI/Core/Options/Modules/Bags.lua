@@ -9,7 +9,7 @@ end
 
 options.bags = {
 	type = "group",
-	name = L["Bags"],
+	name = E.NewSign .. L["Bags"],
 	-- hidden = not E.Retail,
 	args = {
 		header = {

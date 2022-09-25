@@ -170,7 +170,7 @@ function module:Initialize()
 	end
 
 	-- Only adjust the settings for me
-	if F.IsDeveloper() and F.IsDeveloperRealm() then
+	if F.IsDeveloper() then
 		module:AdjustSettings()
 	end
 

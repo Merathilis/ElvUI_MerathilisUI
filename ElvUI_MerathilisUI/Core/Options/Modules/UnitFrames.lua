@@ -8,7 +8,7 @@ local format = string.format
 
 options.unitframes = {
 	type = "group",
-	name = E.NewSign..L["UnitFrames"],
+	name = L["UnitFrames"],
 	get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 	set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; end,
 	disabled = function() return not E.private.unitframe.enable end,
@@ -55,7 +55,7 @@ options.unitframes = {
 		power = {
 			order = 3,
 			type = "group",
-			name = E.NewSign..F.cOption(L["Power"], 'orange'),
+			name = F.cOption(L["Power"], 'orange'),
 			guiInline = true,
 			get = function(info) return E.db.mui.unitframes.power[ info[#info] ] end,
 			set = function(info, value) E.db.mui.unitframes.power[info[#info]] = value; E:StaticPopup_Show("CONFIG_RL"); end,
@@ -69,7 +69,7 @@ options.unitframes = {
 				full = {
 					order = 2,
 					type = "toggle",
-					name = E.NewSign .. L["Full Power Animation"],
+					name = L["Full Power Animation"],
 					disabled = function() return not E.db.mui.unitframes.power.enable end,
 				},
 				type = {
