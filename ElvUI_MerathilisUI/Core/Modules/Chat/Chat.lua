@@ -334,7 +334,11 @@ end
 local onlinestring
 local offlinestring
 
-function module:ReplaceSystemMessage(_, event, message, ...)
+local function ReplaceSystemMessage(_, event, message, ...)
+	if not module.db.customOnlineMessage then
+		return
+	end
+
 	if E.locale == "deDE" then
 		onlinestring = "online"
 		offlinestring = "offline"
@@ -368,24 +372,23 @@ function module:ReplaceSystemMessage(_, event, message, ...)
 	end
 
 	if message:find(onlinestring) then --german, english, italian all use the same online/offline
-		return false, gsub(message, onlinestring, "cff298F00" .. onlinestring .. "|r"), ...
+		return false, gsub(message, onlinestring, "|cff298F00"..onlinestring.."|r"), ...
 	end
+
 	if message:find(offlinestring) then
-		return false, gsub(message, offlinestring, "|cffff0000" .. offlinestring .. "|r"), ...
+		return false, gsub(message, offlinestring, "|cffff0000"..offlinestring.."|r"), ...
 	end
 end
+
+ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", ReplaceSystemMessage)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_INLINE_TOAST_ALERT", ReplaceSystemMessage)
+ChatFrame_AddMessageEventFilter("ROLE_CHANGED_INFORM", ReplaceSystemMessage)
+ChatFrame_AddMessageEventFilter("PLAYER_ROLES_ASSIGNED", ReplaceSystemMessage)
 
 function module:Initialize()
 	module.db = E.db.mui.chat
 	if not module.db or not E.private.chat.enable then
 		return
-	end
-
-	if module.db.customOnlineMessage then
-		ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", module.ReplaceSystemMessage)
-		ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_INLINE_TOAST_ALERT", module.ReplaceSystemMessage)
-		ChatFrame_AddMessageEventFilter("ROLE_CHANGED_INFORM", module.ReplaceSystemMessage)
-		ChatFrame_AddMessageEventFilter("PLAYER_ROLES_ASSIGNED", module.ReplaceSystemMessage)
 	end
 
 	module:StyleChat()
