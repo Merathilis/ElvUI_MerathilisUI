@@ -18,42 +18,43 @@ LICENSE
 	along with cargBags; if not, write to the Free Software
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-DESCRIPTION:
-	Item keys which require tooltip parsing to work
+DESCRIPTION
+	The bag sieve just places items in the right containers based on their bagID
+
+DEPENDENCIES
+	mixins\parseBags.lua (optional)
 ]]
 local _, ns = ...
-local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 
-local bindTypeToString = {
-	[ITEM_BIND_ON_USE] = "equip",
-	[ITEM_BIND_ON_EQUIP] = "equip",
-	[ITEM_BIND_ON_PICKUP] = "pickup",
-	[ITEM_SOULBOUND] = "soul",
-	[ITEM_BIND_QUEST] = "quest",
-	[ITEM_ACCOUNTBOUND] = "account",
-	[ITEM_BIND_TO_ACCOUNT] = "account",
-	[ITEM_BNETACCOUNTBOUND] = "account",
-}
+local Implementation = cargBags.classes.Implementation
 
-cargBags.itemKeys["bindOn"] = function(i)
-	if not i.link then return end
+--[[!
+	Returns a container for a specific item [replaces virtual function]
+	@param item <ItemTable>
+	@returns container <Container>
+]]
+function Implementation:GetContainerForItem(item)
+	return item.bagID and self.bagToContainer and self.bagToContainer[item.bagID]
+end
 
-	local tip = F.ScanTip
-	if not tip then return end
+local Container = cargBags.classes.Container
 
-	tip:SetOwner(UIParent, "ANCHOR_NONE")
-	tip:SetBagItem(i.bagId, i.slotId)
+--[[!
+	Sets the handled bags for a container
+	@param bags <BagType>
+]]
+function Container:SetBags(bags)
+	if(cargBags.ParseBags) then
+		bags = cargBags:ParseBags(bags)
+	end
 
-	for j = 2, 5 do
-		local line = _G["mUI_ScanTooltipTextLeft"..j]
-		local lineText = line and line:GetText()
-		if not lineText then break end
+	if(not bags) then return end
 
-		local bindOn = bindTypeToString[lineText]
-		if bindOn then
-			i.bindOn = bindOn
-			return bindOn
-		end
+	self.implementation.bagToContainer = self.implementation.bagToContainer or {}
+	local b2c = self.implementation.bagToContainer
+
+	for i, bagID in pairs(bags) do
+		b2c[bagID] = self
 	end
 end

@@ -119,6 +119,8 @@ AddMedia("buttonMinus", "Button/Minus.tga", "Icons")
 AddMedia("buttonPlus", "Button/Plus.tga", "Icons")
 AddMedia("buttonForward", "Button/Forward.tga", "Icons")
 
+AddMedia("sort", "Sort.tga", "Icons")
+
 AddMedia("anchor", "anchor.tga", "Textures")
 AddMedia("arrow", "arrow.tga", "Textures")
 AddMedia("arrowUp", "arrowUp.tga", "Textures")

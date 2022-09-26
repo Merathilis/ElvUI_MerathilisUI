@@ -9,7 +9,7 @@ end
 
 options.bags = {
 	type = "group",
-	name = E.Retail and E.NewSign .. L["Bags"] or L["Bags"],
+	name = E.NewSign .. L["Bags"],
 	-- hidden = not E.Retail,
 	args = {
 		header = {
@@ -23,7 +23,6 @@ options.bags = {
 			name = L["Enable"],
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-			hidden = not E.Retail,
 			width = "full",
 		},
 		spacer = {
@@ -31,13 +30,11 @@ options.bags = {
 			type = "description",
 			name = "",
 			fontSize = "medium",
-			hidden = not E.Retail,
 		},
 		header1 = {
 			order = 3,
 			type = "description",
 			name = L["BANK_DESC"],
-			hidden = not E.Retail,
 		},
 		ItemFilter = {
 			order = 4,
@@ -46,20 +43,15 @@ options.bags = {
 			get = function(_, key) return E.db.mui.bags[key] end,
 			set = function(_, key, value) E.db.mui.bags[key] = value; module:UpdateAllBags() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 			values = {
 				FilterJunk = L["Junk"],
 				FilterConsumable = L["Consumable"],
-				FilterAzerite = L["Azerite"],
 				FilterEquipment = L["Equipments"],
 				FilterEquipSet = L["EquipSets"],
-				FilterLegendary = L["Legendarys"],
 				FilterCollection = L["Collection"],
 				FilterFavourite = L["Favorite"],
 				FilterGoods = L["Goods"],
 				FilterQuest = L["Quest"],
-				FilterAnima = L["Anima"],
-				FilterRelic = L["Relic"],
 			},
 		},
 		GatherEmpty = {
@@ -69,7 +61,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		SpecialBagsColor = {
 			order = 6,
@@ -79,7 +70,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		ShowNewItem = {
 			order = 7,
@@ -97,7 +87,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		PetTrash = {
 			order = 9,
@@ -127,7 +116,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		BagSortMode = {
 			order = 12,
@@ -137,7 +125,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; updateBagSortOrder() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 			values = {
 				[1] = L["Forward"],
 				[2] = L["Backwards"],
@@ -159,7 +146,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllAnchors() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		BankPerRow = {
 			order = 15,
@@ -170,7 +156,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllAnchors() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		IconSize = {
 			order = 16,
@@ -180,7 +165,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateBagSize() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		FontSize = {
 			order = 17,
@@ -190,7 +174,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateBagSize() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		BagsWidth = {
 			order = 18,
@@ -200,7 +183,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateBagSize() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		BankWidth = {
 			order = 19,
@@ -210,7 +192,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateBagSize() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		equipManager = {
 			order = 40,
@@ -232,3 +213,12 @@ options.bags = {
 	},
 }
 
+local itemFilter = options.bags.args.ItemFilter.values
+if E.Retail then
+	itemFilter.FilterAzerite = L["Azerite"]
+	itemFilter.FilterAnima = L["Anima"]
+	itemFilter.FilterRelic = L["Relic"]
+	itemFilter.FilterLegendary = L["Legendarys"]
+elseif E.Classic or E.TBC or E.Wrath then
+	itemFilter.FilterAmmo = L["Ammo"]
+end

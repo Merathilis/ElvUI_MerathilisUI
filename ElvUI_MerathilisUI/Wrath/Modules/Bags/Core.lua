@@ -8,53 +8,16 @@ local B = E:GetModule('Bags')
 
 local _G = _G
 local strmatch, unpack, ceil = string.match, unpack, math.ceil
-local LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_RARE, LE_ITEM_QUALITY_HEIRLOOM = Enum.ItemQuality.Poor, Enum.ItemQuality.Rare, Enum.ItemQuality.Heirloom
-local LE_ITEM_CLASS_CONTAINER = LE_ITEM_CLASS_CONTAINER
-local SortBankBags, SortReagentBankBags, SortBags = SortBankBags, SortReagentBankBags, SortBags
+local LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_RARE = LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_RARE
+local LE_ITEM_CLASS_QUIVER, LE_ITEM_CLASS_CONTAINER = LE_ITEM_CLASS_QUIVER, LE_ITEM_CLASS_CONTAINER
 local GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem = GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem
-local C_NewItems_IsNewItem, C_NewItems_RemoveNewItem, C_Timer_After = C_NewItems.IsNewItem, C_NewItems.RemoveNewItem, C_Timer.After
-local C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID
-local C_Soulbinds_IsItemConduitByItemInfo = C_Soulbinds.IsItemConduitByItemInfo
-local IsCosmeticItem = IsCosmeticItem
+local C_NewItems_IsNewItem, C_NewItems_RemoveNewItem = C_NewItems.IsNewItem, C_NewItems.RemoveNewItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
-local GetItemInfo, GetContainerItemID, SplitContainerItem = GetItemInfo, GetContainerItemID, SplitContainerItem
-
-local itemSpellID = {
-	-- Deposit Anima: Infuse (value) stored Anima into your covenant's Reservoir.
-	[347555] = 3,
-	[345706] = 5,
-	[336327] = 35,
-	[336456] = 250,
-
-	-- Deliver Relic: Submit your findings to Archivist Roh-Suir to generate (value) Cataloged Research.
-	[356931] = 6,
-	[356933] = 1,
-	[356934] = 8,
-	[356935] = 16,
-	[356936] = 48,
-	[356937] = 26,
-	[356938] = 100,
-	[356939] = 150,
-	[356940] = 300
-}
-
-local sortCache = {}
-function module:ReverseSort()
-	for bag = 0, 4 do
-		local numSlots = GetContainerNumSlots(bag)
-		for slot = 1, numSlots do
-			local texture, _, locked = GetContainerItemInfo(bag, slot)
-			if (slot <= numSlots / 2) and texture and not locked and not sortCache["b" .. bag .. "s" .. slot] then
-				PickupContainerItem(bag, slot)
-				PickupContainerItem(bag, numSlots + 1 - slot)
-				sortCache["b" .. bag .. "s" .. slot] = true
-			end
-		end
-	end
-
-	module.Bags.isSorting = false
-	module:UpdateAllBags()
-end
+local SortBankBags, SortBags, InCombatLockdown, ClearCursor = SortBankBags, SortBags, InCombatLockdown, ClearCursor
+local GetContainerItemID, SplitContainerItem = GetContainerItemID, SplitContainerItem
+local NUM_BAG_SLOTS = NUM_BAG_SLOTS or 4
+local NUM_BANKBAGSLOTS = NUM_BANKBAGSLOTS or 7
+local ITEM_STARTS_QUEST = ITEM_STARTS_QUEST
 
 local anchorCache = {}
 
@@ -238,9 +201,6 @@ local function CloseOrRestoreBags(self, btn)
 		local bag = self.__owner.main
 		local bank = self.__owner.bank
 		local reagent = self.__owner.reagent
-		C.db["TempAnchor"][bag:GetName()] = nil
-		C.db["TempAnchor"][bank:GetName()] = nil
-		C.db["TempAnchor"][reagent:GetName()] = nil
 		bag:ClearAllPoints()
 		bag:SetPoint(unpack(bag.__anchor))
 		bank:ClearAllPoints()
@@ -264,82 +224,13 @@ function module:CreateCloseButton(f)
 	return bu
 end
 
-function module:CreateReagentButton(f)
-	local bu = S.CreateButton(self, 22, 22, true, "Atlas:Reagents")
-	bu.Icon:SetPoint("BOTTOMRIGHT", -E.mult, -E.mult)
-	bu:RegisterForClicks("AnyUp")
-	bu:SetScript("OnClick", function(_, btn)
-		if not IsReagentBankUnlocked() then
-			StaticPopup_Show("CONFIRM_BUY_REAGENTBANK_TAB")
-		else
-			PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-			ReagentBankFrame:Show()
-			BankFrame.selectedTab = 2
-			f.reagent:Show()
-			f.bank:Hide()
-			if btn == "RightButton" then DepositReagentBank() end
-		end
-	end)
-	bu.title = REAGENT_BANK
-	F.AddTooltip(bu, "ANCHOR_TOP")
-
-	return bu
-end
-
-function module:CreateBankButton(f)
-	local bu = S.CreateButton(self, 22, 22, true, "Atlas:Banker")
-	bu:SetScript("OnClick", function()
-		PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-		ReagentBankFrame:Hide()
-		BankFrame.selectedTab = 1
-		f.reagent:Hide()
-		f.bank:Show()
-	end)
-	bu.title = BANK
-	F.AddTooltip(bu, "ANCHOR_TOP")
-
-	return bu
-end
-
-local function updateDepositButtonStatus(bu)
-	if module.db.AutoDeposit then
-		bu.backdrop:SetBackdropBorderColor(1, .8, 0)
-	else
-		S.SetBorderColor(bu.backdrop)
-	end
-end
-
-function module:AutoDeposit()
-	if module.db.AutoDeposit and not IsShiftKeyDown() then
-		DepositReagentBank()
-	end
-end
-
-function module:CreateDepositButton()
-	local bu = S.CreateButton(self, 22, 22, true, "Atlas:GreenCross")
-	bu.Icon:SetOutside()
-	bu:RegisterForClicks("AnyUp")
-	bu:SetScript("OnClick", function(_, btn)
-		if btn == "RightButton" then
-			module.db.AutoDeposit = not module.db.AutoDeposit
-			updateDepositButtonStatus(bu)
-		else
-			DepositReagentBank()
-		end
-	end)
-	bu.title = REAGENTBANK_DEPOSIT
-	F.AddTooltip(bu, "ANCHOR_TOP", MER.InfoColor .. L["Auto Deposit Tip"])
-	updateDepositButtonStatus(bu)
-
-	return bu
-end
-
 local function ToggleBackpacks(self)
 	local parent = self.__owner
 	F:TogglePanel(parent.BagBar)
 	if parent.BagBar:IsShown() then
 		self.backdrop:SetBackdropBorderColor(1, .8, 0)
 		PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
+		if parent.keyring and parent.keyring:IsShown() then parent.keyToggle:Click() end
 	else
 		S.SetBorderColor(self.backdrop)
 		PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE)
@@ -352,35 +243,49 @@ function module:CreateBagToggle()
 	bu:SetScript("OnClick", ToggleBackpacks)
 	bu.title = BACKPACK_TOOLTIP
 	F.AddTooltip(bu, "ANCHOR_TOP")
+	self.bagToggle = bu
+
+	return bu
+end
+
+function module:CreateKeyToggle()
+	local bu = S.CreateButton(self, 22, 22, true, "Interface\\ICONS\\INV_Misc_Key_12")
+
+	bu:SetScript("OnClick", function()
+		ToggleFrame(self.keyring)
+		if self.keyring:IsShown() then
+			bu.backdrop:SetBackdropBorderColor(1, .8, 0)
+			PlaySound(SOUNDKIT.KEY_RING_OPEN)
+			if self.BagBar and self.BagBar:IsShown() then self.bagToggle:Click() end
+		else
+			S.SetBorderColor(bu.backdrop)
+			PlaySound(SOUNDKIT.KEY_RING_CLOSE)
+		end
+	end)
+	bu.title = KEYRING
+	F.AddTooltip(bu, "ANCHOR_TOP")
+	self.keyToggle = bu
 
 	return bu
 end
 
 function module:CreateSortButton(name)
-	local bu = S.CreateButton(self, 22, 22, true, "Interface\\Icons\\INV_Pet_Broom")
+	local bu = S.CreateButton(self, 22, 22, true, MER.Media.Icons.sort)
 	bu:SetScript("OnClick", function()
 		if module.db.BagSortMode == 3 then
 			UIErrorsFrame:AddMessage(MER.InfoColor .. L["Bag Sort Disabled"])
 			return
 		end
 
+		if InCombatLockdown() then
+			UIErrorsFrame:AddMessage(MER.InfoColor .. ERR_NOT_IN_COMBAT)
+			return
+		end
+
 		if name == "Bank" then
 			SortBankBags()
-		elseif name == "Reagent" then
-			SortReagentBankBags()
 		else
-			if module.db.BagSortMode == 1 then
-				SortBags()
-			elseif module.db.BagSortMode == 2 then
-				if InCombatLockdown() then
-					UIErrorsFrame:AddMessage(MER.InfoColor .. ERR_NOT_IN_COMBAT)
-				else
-					SortBags()
-					wipe(sortCache)
-					module.Bags.isSorting = true
-					C_Timer_After(.5, module.ReverseSort)
-				end
-			end
+			SortBags()
 		end
 	end)
 	bu.title = L["Sort"]
@@ -389,66 +294,57 @@ function module:CreateSortButton(name)
 	return bu
 end
 
-function module:GetContainerEmptySlot(bagID)
-	for slotID = 1, GetContainerNumSlots(bagID) do
-		if not GetContainerItemID(bagID, slotID) then
-			return slotID
+function module:GetContainerEmptySlot(bagID, bagGroup)
+	if cargBags.BagGroups[bagID] == bagGroup then
+		for slotID = 1, GetContainerNumSlots(bagID) do
+			if not GetContainerItemID(bagID, slotID) then
+				return slotID
+			end
 		end
 	end
 end
 
-function module:GetEmptySlot(name)
-	if name == "Bag" then
-		for bagID = 0, 4 do
-			local slotID = module:GetContainerEmptySlot(bagID)
+function module:GetEmptySlot(bagType, bagGroup)
+	if bagType == "Bag" then
+		for bagID = 0, NUM_BAG_SLOTS do
+			local slotID = module:GetContainerEmptySlot(bagID, bagGroup)
 			if slotID then
 				return bagID, slotID
 			end
 		end
-	elseif name == "Bank" then
-		local slotID = module:GetContainerEmptySlot(-1)
+	elseif bagType == "Bank" then
+		local slotID = module:GetContainerEmptySlot(-1, bagGroup)
 		if slotID then
 			return -1, slotID
 		end
-		-- if DB.isNewPatch then
-			-- for bagID = 6, 12 do
-				-- local slotID = module:GetContainerEmptySlot(bagID)
-				-- if slotID then
-					-- return bagID, slotID
-				-- end
-			-- end
-		-- else
-			for bagID = 5, 11 do
-				local slotID = module:GetContainerEmptySlot(bagID)
-				if slotID then
-					return bagID, slotID
-				end
+		for bagID = NUM_BAG_SLOTS + 1, NUM_BAG_SLOTS + NUM_BANKBAGSLOTS do
+			local slotID = module:GetContainerEmptySlot(bagID, bagGroup)
+			if slotID then
+				return bagID, slotID
 			end
-		-- end
-	elseif name == "Reagent" then
-		local slotID = module:GetContainerEmptySlot(-3)
-		if slotID then
-			return -3, slotID
 		end
 	end
 end
 
 function module:FreeSlotOnDrop()
-	local bagID, slotID = module:GetEmptySlot(self.__name)
+	local bagID, slotID = module:GetEmptySlot(self.__owner.Settings.BagType, self.__owner.bagGroup)
 	if slotID then
 		PickupContainerItem(bagID, slotID)
 	end
 end
 
 local freeSlotContainer = {
-	["Bag"] = true,
-	["Bank"] = true,
-	["Reagent"] = true,
+	["Bag"] = 0,
+	["Bank"] = 0,
+	["AmmoItem"] = E.myclass == "WARLOCK" and 1 or E.myclass == "HUNTER" and -1,
+	["BankAmmoItem"] = E.myclass == "WARLOCK" and 1 or E.myclass == "HUNTER" and -1,
 }
 
 function module:CreateFreeSlots()
 	local name = self.name
-	if not freeSlotContainer[name] then return end
+	local bagGroup = freeSlotContainer[name]
+	if not bagGroup then return end
+	self.bagGroup = bagGroup
 
 	local slot = CreateFrame("Button", name .. "FreeSlot", self, "BackdropTemplate")
 	slot:SetSize(self.iconSize, self.iconSize)
@@ -460,16 +356,17 @@ function module:CreateFreeSlots()
 	slot:SetScript("OnMouseUp", module.FreeSlotOnDrop)
 	slot:SetScript("OnReceiveDrag", module.FreeSlotOnDrop)
 	F.AddTooltip(slot, "ANCHOR_RIGHT", L["FreeSlots"])
-	slot.__name = name
+	slot.__owner = self
 
 	local tag = self:SpawnPlugin("TagDisplay", "[space]", slot)
-	tag:FontTemplate(nil, module.db.FontSize + 2)
+	tag:FontTemplate(nil, module.db.FontSize + 2, "OUTLINE")
 	tag:SetTextColor(.6, .8, 1)
 	tag:SetPoint("CENTER", 1, 0)
-	tag.__name = name
+	tag.__owner = self
 	slot.tag = tag
 
 	self.freeSlot = slot
+
 end
 
 local toggleButtons = {}
@@ -626,8 +523,8 @@ function module:CreateFavouriteButton()
 	local enabledText = MER.InfoColor .. L["Favourite Mode Enabled"]
 
 	local bu = S.CreateButton(self, 22, 22, true, "Interface\\Common\\friendship-heart")
-	bu.Icon:SetPoint("TOPLEFT", -5, 2.5)
-	bu.Icon:SetPoint("BOTTOMRIGHT", 5, -1.5)
+	bu.Icon:SetPoint("TOPLEFT", -5, 0)
+	bu.Icon:SetPoint("BOTTOMRIGHT", 5, -5)
 	bu.__turnOff = function()
 		S.SetBorderColor(bu.backdrop)
 		bu.text = nil
@@ -656,7 +553,7 @@ end
 local function favouriteOnClick(self)
 	if not favouriteEnable then return end
 
-	local texture, _, _, quality, _, _, link, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
+	local texture, _, _, quality, _, _, link, _, _, itemID = GetContainerItemInfo(self.bagID, self.slotID)
 	if texture and quality > LE_ITEM_QUALITY_POOR then
 		ClearCursor()
 		module.selectItemID = itemID
@@ -717,7 +614,7 @@ end
 local function customJunkOnClick(self)
 	if not customJunkEnable then return end
 
-	local texture, _, _, _, _, _, _, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
+	local texture, _, _, _, _, _, _, _, _, itemID = GetContainerItemInfo(self.bagID, self.slotID)
 	local price = select(11, GetItemInfo(itemID))
 	if texture and price > 0 then
 		if E.global.mui.bags.CustomJunkList[itemID] then
@@ -738,7 +635,7 @@ function module:CreateDeleteButton()
 	bu.Icon:SetPoint("TOPLEFT", 3, -2)
 	bu.Icon:SetPoint("BOTTOMRIGHT", -1, 2)
 	bu.__turnOff = function()
-		S.SetBorderColor(bu.backdrop)
+		bu.backdrop:SetBackdropBorderColor(0, 0, 0)
 		bu.text = nil
 		deleteEnable = nil
 	end
@@ -765,10 +662,10 @@ end
 local function deleteButtonOnClick(self)
 	if not deleteEnable then return end
 
-	local texture, _, _, quality = GetContainerItemInfo(self.bagId, self.slotId)
+	local texture, _, _, quality = GetContainerItemInfo(self.bagID, self.slotID)
 	if IsControlKeyDown() and IsAltKeyDown() and texture and
 		(quality < LE_ITEM_QUALITY_RARE or quality == LE_ITEM_QUALITY_HEIRLOOM) then
-		PickupContainerItem(self.bagId, self.slotId)
+		PickupContainerItem(self.bagID, self.slotID)
 		DeleteCursorItem()
 	end
 end
@@ -780,32 +677,6 @@ function module:ButtonOnClick(btn)
 	customJunkOnClick(self)
 	deleteButtonOnClick(self)
 end
-
-local function CheckBoundStatus(itemLink, bagID, slotID, string)
-	local tip = F.ScanTip
-	tip:SetOwner(_G.UIParent, 'ANCHOR_NONE')
-	if bagID and type(bagID) == 'string' then
-		tip:SetInventoryItem(bagID, slotID)
-	elseif bagID and type(bagID) == 'number' then
-		tip:SetBagItem(bagID, slotID)
-	else
-		tip:SetHyperlink(itemLink)
-	end
-
-	for i = 2, 6 do
-		local line = _G[tip:GetName() .. 'TextLeft' .. i]
-		if line then
-			local text = line:GetText() or ''
-			local found = strfind(text, string)
-			if found then
-				return true
-			end
-		end
-	end
-
-	return false
-end
-
 
 function module:UpdateAllBags()
 	if self.Bags and self.Bags:IsShown() then
@@ -821,6 +692,29 @@ function module:CloseBags()
 	CloseAllBags()
 end
 
+local questItemCache = {}
+function module:IsAcceptableQuestItem(link)
+	if not link then return end
+
+	local canAccept = questItemCache[link]
+	if not canAccept then
+		F.ScanTip:SetOwner(UIParent, "ANCHOR_NONE")
+		F.ScanTip:SetHyperlink(link)
+
+		for i = 2, F.ScanTip:NumLines() do
+			local line = _G["mUI_ScanTooltipTextLeft" .. i]
+			local lineText = line and line:GetText()
+			if lineText and strmatch(lineText, ITEM_STARTS_QUEST) then
+				canAccept = true
+				questItemCache[link] = true
+				break
+			end
+		end
+	end
+
+	return canAccept
+end
+
 function module:Initialize()
 	module.db = E.db.mui.bags
 	if not module.db.Enable then
@@ -833,7 +727,6 @@ function module:Initialize()
 	-- Settings
 	local iconSize = module.db.IconSize
 	local showNewItem = module.db.ShowNewItem
-	local hasCanIMogIt = IsAddOnLoaded("CanIMogIt")
 	local hasPawn = IsAddOnLoaded("Pawn")
 
 	-- Init
@@ -843,10 +736,9 @@ function module:Initialize()
 	Backpack:HookScript("OnHide", function() PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE) end)
 
 	module.Bags = Backpack
-	module.BagsType = {}
-	module.BagsType[0] = 0 -- backpack
-	module.BagsType[-1] = 0 -- bank
-	module.BagsType[-3] = 0 -- reagent
+	cargBags.BagGroups = {}
+	cargBags.BagGroups[0] = 0 -- backpack
+	cargBags.BagGroups[-1] = 0 -- bank
 
 	local f = {}
 	local filters = module:GetFilters()
@@ -864,15 +756,13 @@ function module:Initialize()
 		for i = 1, 5 do
 			AddNewContainer("Bag", i, "BagCustom" .. i, filters["bagCustom" .. i])
 		end
+		AddNewContainer("Bag", 6, "AmmoItem", filters.bagAmmo)
 		AddNewContainer("Bag", 8, "EquipSet", filters.bagEquipSet)
-		AddNewContainer("Bag", 6, "AzeriteItem", filters.bagAzeriteItem)
 		AddNewContainer("Bag", 7, "Equipment", filters.bagEquipment)
 		AddNewContainer("Bag", 9, "BagCollection", filters.bagCollection)
-		AddNewContainer("Bag", 13, "Consumable", filters.bagConsumable)
+		AddNewContainer("Bag", 11, "Consumable", filters.bagConsumable)
 		AddNewContainer("Bag", 10, "BagGoods", filters.bagGoods)
-		AddNewContainer("Bag", 14, "BagQuest", filters.bagQuest)
-		AddNewContainer("Bag", 11, "BagAnima", filters.bagAnima)
-		AddNewContainer("Bag", 12, "BagRelic", filters.bagRelic)
+		AddNewContainer("Bag", 12, "BagQuest", filters.bagQuest)
 
 		f.main = MyContainer:New("Bag", { Bags = "bags", BagType = "Bag" })
 		f.main.__anchor = { "BOTTOMRIGHT", -4, 50 }
@@ -880,18 +770,23 @@ function module:Initialize()
 		f.main:SetFilter(filters.onlyBags, true)
 		E:CreateMover(f.main, "MER_BagMover", L["Bags"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,bags')
 
+		local keyring = MyContainer:New("Keyring", { BagType = "Bag", Parent = f.main })
+		keyring:SetFilter(filters.onlyKeyring, true)
+		keyring:SetPoint("TOPRIGHT", f.main, "BOTTOMRIGHT", 0, -5)
+		keyring:Hide()
+		f.main.keyring = keyring
+
 		for i = 1, 5 do
 			AddNewContainer("Bank", i, "BankCustom" .. i, filters["bankCustom" .. i])
 		end
+		AddNewContainer("Bank", 6, "BankAmmoItem", filters.bankAmmo)
 		AddNewContainer("Bank", 8, "BankEquipSet", filters.bankEquipSet)
-		AddNewContainer("Bank", 6, "BankAzeriteItem", filters.bankAzeriteItem)
 		AddNewContainer("Bank", 9, "BankLegendary", filters.bankLegendary)
 		AddNewContainer("Bank", 7, "BankEquipment", filters.bankEquipment)
 		AddNewContainer("Bank", 10, "BankCollection", filters.bankCollection)
-		AddNewContainer("Bank", 13, "BankConsumable", filters.bankConsumable)
+		AddNewContainer("Bank", 12, "BankConsumable", filters.bankConsumable)
 		AddNewContainer("Bank", 11, "BankGoods", filters.bankGoods)
-		AddNewContainer("Bank", 14, "BankQuest", filters.bankQuest)
-		AddNewContainer("Bank", 12, "BankAnima", filters.bankAnima)
+		AddNewContainer("Bank", 13, "BankQuest", filters.bankQuest)
 
 		f.bank = MyContainer:New("Bank", { Bags = "bank", BagType = "Bank" })
 		f.bank.__anchor = { "BOTTOMLEFT", 4, 47 }
@@ -899,12 +794,6 @@ function module:Initialize()
 		f.bank:SetFilter(filters.onlyBank, true)
 		f.bank:Hide()
 		E:CreateMover(f.bank, "MER_BankMover", L["Bank"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,bags')
-
-		f.reagent = MyContainer:New("Reagent", { Bags = "bankreagent", BagType = "Bank" })
-		f.reagent:SetFilter(filters.onlyReagent, true)
-		f.reagent.__anchor = { "BOTTOMLEFT", f.bank }
-		f.reagent:SetPoint(unpack(f.reagent.__anchor))
-		f.reagent:Hide()
 	end
 
 	local initBagType
@@ -920,11 +809,7 @@ function module:Initialize()
 	end
 
 	function Backpack:OnBankClosed()
-		BankFrame.selectedTab = 1
-		BankFrame:Hide()
 		self:GetContainer("Bank"):Hide()
-		self:GetContainer("Reagent"):Hide()
-		ReagentBankFrame:Hide()
 	end
 
 	local MyButton = Backpack:GetItemButtonClass()
@@ -943,8 +828,6 @@ function module:Initialize()
 		self.Count:SetPoint("BOTTOMRIGHT", -1, 2)
 		self.Count:FontTemplate(nil, module.db.FontSize)
 		self.Cooldown:SetInside()
-		self.IconOverlay:SetInside()
-		self.IconOverlay2:SetInside()
 
 		self:CreateBackdrop('Transparent')
 		self:SetBackdropColor(.3, .3, .3, .3)
@@ -959,25 +842,16 @@ function module:Initialize()
 		self.Favourite:SetSize(30, 30)
 		self.Favourite:SetPoint("TOPLEFT", -12, 9)
 
-		self.QuestTag = self:CreateTexture(nil, "ARTWORK")
-		self.QuestTag:SetTexture(_G.TEXTURE_ITEM_QUEST_BANG)
-		self.QuestTag:SetAllPoints()
-		self.QuestTag:SetPoint("LEFT", 3, 0)
+		self.Quest = self:CreateFontString(nil, "ARTWORK")
+		self.Quest:FontTemplate(nil, module.db.FontSize, "OUTLINE")
+		self.Quest:SetText("!")
+		self.Quest:SetTextColor(1, .8, 0)
+		self.Quest:SetPoint("LEFT", 3, 0)
 
 		self.iLvl = self:CreateFontString(nil, "ARTWORK")
 		self.iLvl:FontTemplate(nil, module.db.FontSize, "OUTLINE")
 		self.iLvl:SetText("")
 		self.iLvl:SetPoint("BOTTOMLEFT", 1, 2)
-
-		self.BindType = self:CreateFontString(nil, "ARTWORK")
-		self.BindType:FontTemplate(nil, module.db.FontSize, "OUTLINE")
-		self.BindType:SetText("")
-		self.BindType:SetPoint("TOPLEFT", 2, -2)
-
-		self.CenterText = self:CreateFontString(nil, 'ARTWORK', nil, 1)
-		self.CenterText:SetPoint('CENTER', 0, 0)
-		self.CenterText:FontTemplate(nil, module.db.FontSize, "OUTLINE")
-		self.CenterText:SetTextColor(B.db.itemInfoColor.r, B.db.itemInfoColor.g, B.db.itemInfoColor.b)
 
 		local flash = self:CreateTexture(nil, "ARTWORK")
 		flash:SetTexture('Interface\\Cooldown\\star4')
@@ -1011,17 +885,6 @@ function module:Initialize()
 		self.ShowNewItems = showNewItem
 
 		self:HookScript("OnClick", module.ButtonOnClick)
-
-		if hasCanIMogIt then
-			self.canIMogIt = parentFrame:CreateTexture(nil, "OVERLAY")
-			self.canIMogIt:SetSize(13, 13)
-			self.canIMogIt:SetPoint(unpack(CanIMogIt.ICON_LOCATIONS[CanIMogItOptions["iconLocation"]]))
-		end
-
-		-- if DB.isNewPatch and not self.ProfessionQualityOverlay then
-			-- self.ProfessionQualityOverlay = self:CreateTexture(nil, "OVERLAY")
-			-- self.ProfessionQualityOverlay:SetPoint("TOPLEFT", -3, 2)
-		-- end
 	end
 
 	function MyButton:ItemOnEnter()
@@ -1032,9 +895,10 @@ function module:Initialize()
 		end
 	end
 
-	local bagTypeColor = {
+	local bagGroupColor = {
+		[-1] = { .67, .83, .45, .25 },
 		[0] = { .3, .3, .3, .3 },
-		[1] = false,
+		[1] = { .53, .53, .93, .25 },
 		[2] = { 0, .5, 0, .25 },
 		[3] = { .8, 0, .8, .25 },
 		[4] = { 1, .8, 0, .25 },
@@ -1050,46 +914,15 @@ function module:Initialize()
 		return item.link and item.quality > 1 and module:IsItemHasLevel(item)
 	end
 
-	local function isItemExist(item)
-		return item.link
-	end
-
-	local function GetIconOverlayAtlas(item)
-		if not item.link then return end
-
-		if C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID(item.link) then
-			return "AzeriteIconFrame"
-		elseif IsCosmeticItem(item.link) then
-			return "CosmeticIconFrame"
-		elseif C_Soulbinds_IsItemConduitByItemInfo(item.link) then
-			return "ConduitIconFrame", "ConduitIconFrame-Corners"
-		end
-	end
-
-	local function UpdateCanIMogIt(self, item)
-		if not self.canIMogIt then return end
-
-		local text, unmodifiedText = CanIMogIt:GetTooltipText(nil, item.bagId, item.slotId)
-		if text and text ~= "" then
-			local icon = CanIMogIt.tooltipOverlayIcons[unmodifiedText]
-			self.canIMogIt:SetTexture(icon)
-			self.canIMogIt:Show()
-		else
-			self.canIMogIt:Hide()
-		end
-	end
-
 	local function UpdatePawnArrow(self, item)
 		if not hasPawn then return end
 		if not PawnIsContainerItemAnUpgrade then return end
 		if self.UpgradeIcon then
-			self.UpgradeIcon:SetShown(PawnIsContainerItemAnUpgrade(item.bagId, item.slotId))
+			self.UpgradeIcon:SetShown(PawnIsContainerItemAnUpgrade(item.bagID, item.slotID))
 		end
 	end
 
-	function MyButton:OnUpdateButton(item)
-		local texture, count, locked, rarity, readable, _, itemLink, _, noValue, itemID, isBound = GetContainerItemInfo(item.bagId, item.slotId)
-
+	function MyButton:OnUpdate(item)
 		if self.JunkIcon then
 			if (MerchantFrame:IsShown() or customJunkEnable) and
 				(item.quality == LE_ITEM_QUALITY_POOR or E.global.mui.bags.CustomJunkList[item.id]) and item.hasPrice then
@@ -1099,26 +932,6 @@ function module:Initialize()
 			end
 		end
 
-		self.IconOverlay:SetVertexColor(1, 1, 1)
-		self.IconOverlay:Hide()
-		self.IconOverlay2:Hide()
-		local atlas, secondAtlas = GetIconOverlayAtlas(item)
-		if atlas then
-			self.IconOverlay:SetAtlas(atlas)
-			self.IconOverlay:Show()
-			if secondAtlas then
-				local color = E.QualityColors[item.quality or 1]
-				self.IconOverlay:SetVertexColor(color.r, color.g, color.b)
-				self.IconOverlay2:SetAtlas(secondAtlas)
-				self.IconOverlay2:Show()
-			end
-		end
-
-		if self.ProfessionQualityOverlay then -- isNewPatch
-			self.ProfessionQualityOverlay:SetAtlas(nil)
-			SetItemCraftingQualityOverlay(self, item.link)
-		end
-
 		if module.db.CustomItems[item.id] and not module.db.ItemFilter then
 			self.Favourite:Show()
 		else
@@ -1126,15 +939,9 @@ function module:Initialize()
 		end
 
 		self.iLvl:SetText("")
-		if module.db.BagsiLvl then
+		if module.db.BagsiLvl and isItemNeedsLevel(item) then
 			local level = item.level -- ilvl for keystone and battlepet
-			if not level and isItemNeedsLevel(item) then
-				local ilvl = F.GetItemLevel(item.link, item.bagId ~= -1 and item.bagId, item.slotId) -- SetBagItem return nil for default bank slots
-				if ilvl and ilvl > module.db.iLvlToShow then
-					level = ilvl
-				end
-			end
-			if level then
+			if level and level > module.db.iLvlToShow then
 				local color = E.QualityColors[item.quality]
 				self.iLvl:SetText(level)
 				self.iLvl:SetTextColor(color.r, color.g, color.b)
@@ -1142,78 +949,38 @@ function module:Initialize()
 		end
 
 		if self.ShowNewItems then
-			if C_NewItems_IsNewItem(item.bagId, item.slotId) then
+			if C_NewItems_IsNewItem(item.bagID, item.slotID) then
 				self.anim:Play()
 			else
 				if self.anim:IsPlaying() then
 					self.anim:Stop()
 				end
-
 			end
 		end
 
 		if module.db.SpecialBagsColor then
-			local bagType = module.BagsType[item.bagId]
-			local color = bagTypeColor[bagType] or bagTypeColor[0]
+			local bagType = module.BagsType[item.bagID]
+			local color = bagGroupColor[bagType] or bagGroupColor[0]
 			self:SetBackdropColor(unpack(color))
 		else
 			self:SetBackdropColor(.3, .3, .3, .3)
 		end
 
-		if module.db.BindType and isItemExist(item) then
-			if not itemLink then
-				return
-			end
-
-			local isBOA = CheckBoundStatus(item.link, item.bagId, item.slotId, _G.ITEM_BNETACCOUNTBOUND)
-				or CheckBoundStatus(item.link, item.bagId, item.slotId, _G.ITEM_BIND_TO_BNETACCOUNT)
-				or CheckBoundStatus(item.link, item.bagId, item.slotId, _G.ITEM_ACCOUNTBOUND)
-			local isSoulBound = CheckBoundStatus(item.link, item.bagId, item.slotId, _G.ITEM_SOULBOUND)
-			local _, _, itemRarity, _, _, _, _, _, _, _, _, _, _, bindType = GetItemInfo(itemLink)
-
-			if isBOA or itemRarity == 7 or itemRarity == 8 then
-				self.BindType:SetText('|cff00ccffBOA|r')
-			elseif bindType == 2 and not isSoulBound then
-				self.BindType:SetText('|cff1eff00BOE|r')
-			else
-				self.BindType:SetText('')
-			end
-		else
-			self.BindType:SetText('')
-		end
-
-		if module.db.CenterText and isItemExist(item) then
-			if itemLink then
-				local _, spellID = GetItemSpell(itemLink)
-				local mult = E.Retail and B.db.itemInfo and itemSpellID[spellID]
-				if mult then
-					self.CenterText:SetText(mult * count)
-				end
-			end
-		else
-			self.CenterText:SetText('')
-		end
-
 		-- Hide empty tooltip
-		if not item.texture and GameTooltip:GetOwner() == self then
-			GameTooltip:Hide()
+		if GameTooltip:GetOwner() == self then
+			if item.texture then
+				self:UpdateTooltip()
+			else
+				GameTooltip:Hide()
+			end
 		end
-
-		-- Support CanIMogIt
-		UpdateCanIMogIt(self, item)
 
 		-- Support Pawn
 		UpdatePawnArrow(self, item)
 	end
 
 	function MyButton:OnUpdateQuest(item)
-		if item.questID and not item.questActive then
-			self.QuestTag:Show()
-		else
-			self.QuestTag:Hide()
-		end
-
-		if item.questID or item.isQuestItem then
+		if item.isQuestItem then
 			self.backdrop:SetBackdropBorderColor(.8, .8, 0)
 		elseif item.quality and item.quality > -1 then
 			local color = E.QualityColors[item.quality]
@@ -1221,6 +988,8 @@ function module:Initialize()
 		else
 			self.backdrop:SetBackdropBorderColor(0, 0, 0)
 		end
+
+		self.Quest:SetShown(item.isQuestItem and module:IsAcceptableQuestItem(item.link))
 	end
 
 	function module:UpdateAllAnchors()
@@ -1283,29 +1052,30 @@ function module:Initialize()
 		self.backdrop:Styling()
 		S:CreateBackdropShadow(self)
 
+		self.iconSize = iconSize
+		module.CreateFreeSlots(self)
+
 		local label
-		if strmatch(name, "AzeriteItem$") then
-			label = L["Azerite Armor"]
+		if strmatch(name, "AmmoItem$") then
+			label = E.myclass == "HUNTER" and INVTYPE_AMMO or SOUL_SHARDS
 		elseif strmatch(name, "Equipment$") then
-			label = _G.BAG_FILTER_EQUIPMENT
+			label = BAG_FILTER_EQUIPMENT
 		elseif strmatch(name, "EquipSet$") then
 			label = L["Equipement Set"]
 		elseif name == "BankLegendary" then
-			label = _G.LOOT_JOURNAL_LEGENDARIES
+			label = LOOT_JOURNAL_LEGENDARIES
 		elseif strmatch(name, "Consumable$") then
-			label = _G.BAG_FILTER_CONSUMABLES
+			label = BAG_FILTER_CONSUMABLES
 		elseif name == "Junk" then
-			label = _G.BAG_FILTER_JUNK
+			label = BAG_FILTER_JUNK
 		elseif strmatch(name, "Collection") then
-			label = _G.COLLECTIONS
+			label = COLLECTIONS
+		elseif name == "Keyring" then
+			label = KEYRING
 		elseif strmatch(name, "Goods") then
-			label = _G.AUCTION_CATEGORY_TRADE_GOODS
+			label = AUCTION_CATEGORY_TRADE_GOODS
 		elseif strmatch(name, "Quest") then
-			label = _G.QUESTS_LABEL
-		elseif strmatch(name, "Anima") then
-			label = _G.POWER_TYPE_ANIMA
-		elseif name == "BagRelic" then
-			label = L["Korthia Relic"]
+			label = QUESTS_LABEL
 		elseif strmatch(name, "Custom%d") then
 			label = GetCustomGroupTitle(settings.Index)
 		end
@@ -1319,27 +1089,23 @@ function module:Initialize()
 			return
 		end
 
-		self.iconSize = iconSize
 		module.CreateInfoFrame(self)
-		module.CreateFreeSlots(self)
 
 		local buttons = {}
 		buttons[1] = module.CreateCloseButton(self, f)
-		buttons[2] = module.CreateSortButton(self, name)
 		if name == "Bag" then
-			module.CreateBagBar(self, settings, --[[DB.isNewPatch and 5 or]] 4)
+			module.CreateBagBar(self, settings, NUM_BAG_SLOTS)
+			buttons[2] = module.CreateSortButton(self, name)
 			buttons[3] = module.CreateBagToggle(self)
-			buttons[4] = module.CreateSplitButton(self)
-			buttons[5] = module.CreateFavouriteButton(self)
-			buttons[6] = module.CreateJunkButton(self)
-			buttons[7] = module.CreateDeleteButton(self)
+			buttons[4] = module.CreateKeyToggle(self)
+			buttons[5] = module.CreateSplitButton(self)
+			buttons[6] = module.CreateFavouriteButton(self)
+			buttons[7] = module.CreateJunkButton(self)
+			buttons[8] = module.CreateDeleteButton(self)
 		elseif name == "Bank" then
-			module.CreateBagBar(self, settings, 7)
-			buttons[3] = module.CreateBagToggle(self)
-			buttons[4] = module.CreateReagentButton(self, f)
-		elseif name == "Reagent" then
-			buttons[3] = module.CreateDepositButton(self)
-			buttons[4] = module.CreateBankButton(self, f)
+			module.CreateBagBar(self, settings, NUM_BANKBAGSLOTS)
+			buttons[2] = module.CreateBagToggle(self)
+			buttons[3] = module.CreateSortButton(self, name)
 		end
 
 		for i = 1, #buttons do
@@ -1358,9 +1124,6 @@ function module:Initialize()
 
 	local function updateBagSize(button)
 		button:SetSize(iconSize, iconSize)
-		if button.glowFrame then
-			button.glowFrame:SetInside(button)
-		end
 		button.Count:FontTemplate(nil, module.db.FontSize)
 		button.iLvl:FontTemplate(nil, module.db.FontSize)
 	end
@@ -1395,9 +1158,7 @@ function module:Initialize()
 		self.Icon:SetTexCoord(unpack(E.TexCoords))
 	end
 
-	function BagButton:OnUpdateButton()
-		self:SetBackdropBorderColor(0, 0, 0)
-
+	function BagButton:OnUpdate()
 		local id = GetInventoryItemID("player", (self.GetInventorySlot and self:GetInventorySlot()) or self.invID)
 		if not id then return end
 		local _, _, quality, _, _, _, _, _, _, _, _, classID, subClassID = GetItemInfo(id)
@@ -1405,12 +1166,16 @@ function module:Initialize()
 		local color = E.QualityColors[quality]
 		if not self.hidden and not self.notBought then
 			self.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
+		else
+			self.backdrop:SetBackdropBorderColor(0, 0, 0)
 		end
 
 		if classID == LE_ITEM_CLASS_CONTAINER then
-			module.BagsType[self.bagId] = subClassID or 0
+			cargBags.BagGroups[self.bagID] = subClassID or 0
+		elseif classID == LE_ITEM_CLASS_QUIVER then
+			cargBags.BagGroups[self.bagID] = -1
 		else
-			module.BagsType[self.bagId] = 0
+			cargBags.BagGroups[self.bagID] = 0
 		end
 	end
 
@@ -1424,8 +1189,9 @@ function module:Initialize()
 	module.initComplete = true
 
 	MER:RegisterEvent("TRADE_SHOW", module.OpenBags)
-	MER:RegisterEvent("TRADE_CLOSED", module.CloseBags)
-	MER:RegisterEvent("BANKFRAME_OPENED", module.AutoDeposit)
+	-- MER:RegisterEvent("TRADE_CLOSED", module.CloseBags)
+	MER:RegisterEvent("AUCTION_HOUSE_SHOW", module.OpenBags)
+	MER:RegisterEvent("AUCTION_HOUSE_CLOSED", module.CloseBags)
 
 	-- Fixes
 	BankFrame.GetRight = function() return f.bank:GetRight() end

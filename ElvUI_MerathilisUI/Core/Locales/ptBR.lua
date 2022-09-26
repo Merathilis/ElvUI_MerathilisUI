@@ -57,6 +57,7 @@ L["BANK_DESC"] = [=[If you have my Bags enabled the ElvUI Bags will be forced to
 L["Item Filter"] = true
 L["Junk"] = true
 L["Consumable"] = true
+L["Ammo"] = true
 L["Azerite"] = true
 L["Equipments"] = true
 L["EquipSets"] = true

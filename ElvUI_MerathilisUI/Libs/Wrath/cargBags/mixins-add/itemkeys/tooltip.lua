@@ -39,11 +39,11 @@ local bindTypeToString = {
 cargBags.itemKeys["bindOn"] = function(i)
 	if not i.link then return end
 
-	local tip = F.ScanTip
+	local tip = B.ScanTip
 	if not tip then return end
 
 	tip:SetOwner(UIParent, "ANCHOR_NONE")
-	tip:SetBagItem(i.bagId, i.slotId)
+	tip:SetBagItem(i.bagID, i.slotID)
 
 	for j = 2, 5 do
 		local line = _G["mUI_ScanTooltipTextLeft"..j]

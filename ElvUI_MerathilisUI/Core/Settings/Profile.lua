@@ -38,6 +38,7 @@ P.bags = {
 	HideWidgets = true,
 
 	FilterJunk = true,
+	FilterAmmo = true,
 	FilterConsumable = true,
 	FilterAzerite = false,
 	FilterEquipment = true,

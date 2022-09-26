@@ -50,62 +50,60 @@ L["Set to 2 if you do not understand the meaning of log level."] = "Setze auf 2 
 L["Open the changelog window."] = "Öffne das Changelog Fenster."
 
 -- Bags
-L["BANK_DESC"] = [=[If you have my Bags enabled the ElvUI Bags will be forced to be disabled! So if you want the ElvUI back, you need to disable my Bags first and then enable the ElvUI Bags again.]=]
-L["Item Filter"] = true
-L["Junk"] = true
-L["Consumable"] = true
+L["BANK_DESC"] = [=[Wenn du meine Taschen aktiviert hast, werden automatisch die ElvUI Taschen deaktiviert nach dem Reload. Wenn du die ElvUI Taschen wieder benutzen möchtest, musst du zuerst meine Taschen deaktivieren
+dann die ElvUI Taschen wieder aktivieren.]=]
+L["Item Filter"] = "Gegenstandsfilter"
+L["Junk"] = "Müll"
+L["Consumable"] = "Verbrauchbares"
+L["Ammo"] = "Munition"
 L["Azerite"] = true
-L["Equipments"] = true
-L["EquipSets"] = true
-L["Legendarys"] = true
-L["Collection"] = true
-L["Favorite"] = true
-L["Goods"] = true
+L["Equipments"] = "Ausrüstung"
+L["EquipSets"] = "Ausrüstungssets"
+L["Legendarys"] = "Legendär"
+L["Collection"] = "Sammlung"
+L["Favorite"] = "Favorit"
+L["Goods"] = "Handelswaren"
 L["Quest"] = true
 L["Anima"] = true
-L["Relic"] = true
-L["Collect Empty Slots"] = true
-L["Special Bags Color"] = true
+L["Relic"] = "Relikt"
+L["Collect Empty Slots"] = "Fasse Leere Slots zusammen"
+L["Special Bags Color"] = "Besondere Taschen Farbe"
 L["|nShow color for special bags:|n- Herb bag|n- Mining bag|n- Gem bag|n- Enchanted mageweave pouch"] = true
-L["New Item Glow"] = true
-L["Show ItemLevel"] = true
+L["New Item Glow"] = "Neues Gegenstandsleuchten"
+L["Show ItemLevel"] = "Zeige Itemlevel"
 L["Pet Trash Currencies"] = true
-L[
-	"|nIn patch 9.1, you can buy 3 battle pets by using specific trash items. Keep this enabled, will sort these items into Collection Filter, and won't be sold by auto junk selling."
-	] = true
+L["|nIn patch 9.1, you can buy 3 battle pets by using specific trash items. Keep this enabled, will sort these items into Collection Filter, and won't be sold by auto junk selling."] = true
 L["ItemLevel Threshold"] = true
 L["BagSort Mode"] = true
-L[
-	"|nIf you have empty slots after bag sort, please disable bags module, and turn off all bags filter in default ui containers."
-	] = true
-L["Forward"] = true
-L["Backwards"] = true
-L["Bags per Row"] = true
+L["|nIf you have empty slots after bag sort, please disable bags module, and turn off all bags filter in default ui containers."] = true
+L["Forward"] = "Vorwärts"
+L["Backwards"] = "Rückwärts"
+L["Bags per Row"] = "Taschen per Reihe"
 L["|nIf Bags ItemFilter enabled, change the bags per row for anchoring."] = true
-L["Bank bags per Row"] = true
+L["Bank bags per Row"] = "Bank Taschen per Reihe"
 L["|nIf Bags ItemFilter enabled, change the bank bags per row for anchoring."] = true
-L["Icon Size"] = true
-L["Font Size"] = true
-L["Bags Width"] = true
-L["Bank Width"] = true
+L["Icon Size"] = "Symbolgröße"
+L["Font Size"] = "Schriftgröße"
+L["Bags Width"] = "Taschen Breite"
+L["Bank Width"] = "Bank Breite"
 L["Bag Search Tip"] = "|nClick to search your bag items.|nYou can type in item names or item equip locations.|n'boe' for items that bind on equip and 'quest' for quest items.|n|nPress key ESC to clear editbox."
 L["Auto Deposit Tip"] = "|nLeft click to deposit reagents, right click to switch auto deposit.|nIf the button border shown, the reagents from your bags would auto deposit once you open your BankFrame."
 L["Bag Sort Disabled"] = "BagSort has been disabled in the Options."
 L["Sort"] = true
 L["FreeSlots"] = "Total free slots"
 L["Split Mode Enabled"] = "|nClick to split stacked items in your bags.|nYou can change 'split count' for each click thru the editbox."
-L["Quick Split"] = true
-L["Favourite Mode"] = true
+L["Quick Split"] = "Schnelle Aufteilung"
+L["Favourite Mode"] = "Favoritenmodus"
 L["Favourite Mode Enabled"] = "|nYou can now star items.|nIf 'Bags ItemFilter' enabled, the item you starred will add to Preferences filter slots.|nThis is not available to trash."
 L["Reset junklist warning"] = "Are you sure to wipe the custom junk list?"
 L["Junk Mode Enabled"] = "|nClick to tag item as junk.|nIf 'Autosell Junk' enabled, these items would be sold as well.|nThe list is saved account-wide, and won't be in the export data.|nYou can hold CTRL+ALT and click to wipe the custom junk list."
 L["Custom Junk Mode"] = "Custom Junk List"
 L["Delete Mode Enabled"] = "|nYou can destroy container item by holding CTRL+ALT. The item can be heirlooms or its quality lower then rare (blue)."
-L["Item Delete Mode"] = true
+L["Item Delete Mode"] = "Gegenstandszerstörungsmodus"
 L["Azerite Armor"] = true
-L["Equipement Set"] = true
+L["Equipement Set"] = "Ausrüstungssets"
 L["Korthia Relic"] = true
-L["StupidShiftKey"] = true
+L["StupidShiftKey"] = "Shift Taste = Doof"
 L["Equipment Set Overlay"] = "Ausrüstungssetanzeige"
 L["Show the associated equipment sets for the items in your bags (or bank)."] = "Zeigt verbundene Ausrüstungssets auf Gegenständen in deinen Taschen und in der Bank an."
 

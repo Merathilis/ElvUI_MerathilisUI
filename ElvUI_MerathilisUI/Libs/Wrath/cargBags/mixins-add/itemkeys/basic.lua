@@ -19,41 +19,30 @@ LICENSE
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 DESCRIPTION:
-	Item keys which require tooltip parsing to work
+	A few simple item keys, mostly ones resulting through pattern matching
 ]]
+
 local _, ns = ...
-local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 
-local bindTypeToString = {
-	[ITEM_BIND_ON_USE] = "equip",
-	[ITEM_BIND_ON_EQUIP] = "equip",
-	[ITEM_BIND_ON_PICKUP] = "pickup",
-	[ITEM_SOULBOUND] = "soul",
-	[ITEM_BIND_QUEST] = "quest",
-	[ITEM_ACCOUNTBOUND] = "account",
-	[ITEM_BIND_TO_ACCOUNT] = "account",
-	[ITEM_BNETACCOUNTBOUND] = "account",
-}
+-- Returns the numeric item id (12345)
+cargBags.itemKeys["id"] = function(i)
+	return i.link and tonumber(i.link:match("item:(%d+)"))
+end
 
-cargBags.itemKeys["bindOn"] = function(i)
-	if not i.link then return end
+--	Returns the type of the parent bag
+cargBags.itemKeys["bagType"] = function(i)
+	return select(2, GetContainerNumFreeSlots(i.bagID))
+end
 
-	local tip = F.ScanTip
-	if not tip then return end
+-- Returns the item string (12345:0:0:0)
+cargBags.itemKeys["string"] = function(i)
+	return i.link and i.link:match("item:(%d+:%d+:%d+:%d+)")
+end
 
-	tip:SetOwner(UIParent, "ANCHOR_NONE")
-	tip:SetBagItem(i.bagId, i.slotId)
-
-	for j = 2, 5 do
-		local line = _G["mUI_ScanTooltipTextLeft"..j]
-		local lineText = line and line:GetText()
-		if not lineText then break end
-
-		local bindOn = bindTypeToString[lineText]
-		if bindOn then
-			i.bindOn = bindOn
-			return bindOn
-		end
-	end
+cargBags.itemKeys["stats"] = function(i)
+	if(not i.link or not GetItemStats) then return end
+	local stats = GetItemStats(i.link)
+	i.stats = stats
+	return stats
 end
