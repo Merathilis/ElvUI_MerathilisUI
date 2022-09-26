@@ -1277,7 +1277,7 @@ function module:Initialize()
 
 	function MyContainer:OnCreate(name, settings)
 		self.Settings = settings
-		self:SetFrameStrata("DIALOG")
+		self:SetFrameStrata("HIGH")
 		self:SetClampedToScreen(true)
 		self:CreateBackdrop('Transparent')
 		self.backdrop:Styling()
