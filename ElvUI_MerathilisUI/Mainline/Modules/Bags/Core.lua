@@ -15,6 +15,7 @@ local GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem = GetConta
 local C_NewItems_IsNewItem, C_NewItems_RemoveNewItem, C_Timer_After = C_NewItems.IsNewItem, C_NewItems.RemoveNewItem, C_Timer.After
 local C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID
 local C_Soulbinds_IsItemConduitByItemInfo = C_Soulbinds.IsItemConduitByItemInfo
+local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
 local IsCosmeticItem = IsCosmeticItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
 local GetItemInfo, GetContainerItemID, SplitContainerItem = GetItemInfo, GetContainerItemID, SplitContainerItem
@@ -806,7 +807,6 @@ local function CheckBoundStatus(itemLink, bagID, slotID, string)
 	return false
 end
 
-
 function module:UpdateAllBags()
 	if self.Bags and self.Bags:IsShown() then
 		self.Bags:BAG_UPDATE()
@@ -978,12 +978,13 @@ function module:Initialize()
 		self.CenterText:SetPoint('CENTER', 0, 0)
 		self.CenterText:FontTemplate(nil, module.db.FontSize, "OUTLINE")
 		self.CenterText:SetTextColor(B.db.itemInfoColor.r, B.db.itemInfoColor.g, B.db.itemInfoColor.b)
+		self.CenterText:SetText("")
 
 		local flash = self:CreateTexture(nil, "ARTWORK")
 		flash:SetTexture('Interface\\Cooldown\\star4')
-		flash:SetInside()
-		-- flash:SetPoint('TOPLEFT', -20, 20)
-		-- flash:SetPoint('BOTTOMRIGHT', 20, -20)
+		-- flash:SetInside()
+		flash:SetPoint('TOPLEFT', -15, 15)
+		flash:SetPoint('BOTTOMRIGHT', 15, -15)
 		flash:SetBlendMode('ADD')
 		flash:SetAlpha(0)
 		local anim = flash:CreateAnimationGroup()
@@ -1052,6 +1053,10 @@ function module:Initialize()
 
 	local function isItemExist(item)
 		return item.link
+	end
+
+	local function isAnimaItem(item)
+		return item.id and C_Item_IsAnimaItemByID(item.id)
 	end
 
 	local function GetIconOverlayAtlas(item)
@@ -1182,13 +1187,15 @@ function module:Initialize()
 			self.BindType:SetText('')
 		end
 
-		if module.db.CenterText and isItemExist(item) then
-			if itemLink then
-				local _, spellID = GetItemSpell(itemLink)
-				local mult = E.Retail and B.db.itemInfo and itemSpellID[spellID]
-				if mult then
-					self.CenterText:SetText(mult * count)
-				end
+		if module.db.CenterText and isAnimaItem(item) then
+			if not itemLink then
+				return
+			end
+
+			local _, spellID = GetItemSpell(itemLink)
+			local mult = itemSpellID[spellID]
+			if mult then
+				self.CenterText:SetText(mult * count)
 			end
 		else
 			self.CenterText:SetText('')
