@@ -7,7 +7,7 @@ local LSM = E.LSM
 
 function module:Configure_Power(frame)
 	local db = frame.db
-    local power = frame.Power
+	local power = frame.Power
 	power.origParent = frame
 
 	if power and not power.__MERSkin then
@@ -37,15 +37,11 @@ function module:UnitFrames_Configure_Power(_, f)
 end
 
 function module:ChangeUnitPowerBarTexture()
-    local bar = LSM:Fetch("statusbar", E.db.mui.unitframes.power.texture)
+	local bar = LSM:Fetch("statusbar", E.db.mui.unitframes.power.texture)
 
-	for _, unitName in pairs(UF.units) do
-		local frameNameUnit = E:StringTitle(unitName)
-		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
-
-		local unitframe = _G["ElvUF_"..frameNameUnit]
-		if unitframe and unitframe.Power then
-			unitframe.Power:SetStatusBarTexture(bar)
+	for _, frame in pairs(UF.units) do
+		if frame.Power then
+			frame.Power:SetStatusBarTexture(bar)
 		end
 	end
 end

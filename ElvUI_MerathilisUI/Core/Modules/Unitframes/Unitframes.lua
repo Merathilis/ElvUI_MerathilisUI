@@ -126,6 +126,8 @@ function module:CreateAnimatedBars(frame)
 		frame.__MERAnim:RegisterEvent("PORTRAITS_UPDATED")
 		frame.__MERAnim:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 		frame.__MERAnim:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+		frame.__MERAnim:RegisterEvent("CINEMATIC_STOP")
+		frame.__MERAnim:RegisterUnitEvent("PLAYER_FLAGS_CHANGED", "player")
 	else
 		frame.__MERAnim:Hide()
 	end
