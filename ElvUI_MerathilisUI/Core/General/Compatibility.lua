@@ -410,6 +410,14 @@ function MER:CheckCompatibility()
 		"db.WT.social.chatText.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["Misc"], L["Spell Alert Scale"]),
+		format("%s-%s", L["Misc"], L["Spell Activation Alert"]),
+		"db.mui.misc.spellAlert.enable",
+		"db.WT.misc.spellActivationAlert.enable"
+	)
+
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],

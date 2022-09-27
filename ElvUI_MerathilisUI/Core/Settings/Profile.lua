@@ -407,7 +407,10 @@ P.misc = {
 			alpha = 1
 		},
 	},
-	spellAlert = 0.65,
+	spellAlert = {
+		enable = true,
+		scale = 0.65,
+	},
 	alerts = {
 		announce = true,
 		itemAlert = true,

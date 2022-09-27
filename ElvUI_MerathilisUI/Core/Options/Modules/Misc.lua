@@ -6,9 +6,13 @@ local CU = MER:GetModule('MER_Cursor')
 local options = MER.options.modules.args
 local LSM = E.LSM
 
+local C_CVar_GetCVar = C_CVar.GetCVar
+local C_CVar_GetCVarBool = C_CVar.GetCVarBool
+local C_CVar_SetCVar = C_CVar.SetCVar
+
 options.misc = {
 	type = "group",
-	name = L["Miscellaneous"],
+	name = E.NewSign .. L["Miscellaneous"],
 	get = function(info) return E.db.mui.misc[info[#info]] end,
 	set = function(info, value) E.db.mui.misc[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
@@ -51,12 +55,84 @@ options.misc = {
 		},
 		spellAlert = {
 			order = 10,
-			type = "range",
-			name = L["Spell Alert Scale"],
-			min = 0.4, max = 1.5, step = 0.01,
+			type = "group",
+			name = E.NewSign .. F.cOption(L["Spell Alert Scale"], 'orange'),
+			guiInline = true,
 			hidden = not E.Retail,
-			get = function(info) return E.db.mui.misc.spellAlert end,
-			set = function(info, value) E.db.mui.misc.spellAlert = value; SA:Resize() end,
+			get = function(info) return E.db.mui.misc.spellAlert[info[#info]] end,
+			set = function(info, value) E.db.mui.misc.spellAlert[info[#info]] = value; SA:Update() end,
+			args = {
+				desc = {
+					order = 1,
+					type = "group",
+					inline = true,
+					name = L["Description"],
+					args = {
+						feature = {
+							order = 1,
+							type = "description",
+							name = L["Spell activation alert frame customizations."],
+							fontSize = "medium"
+						}
+					}
+				},
+				enable = {
+					order = 2,
+					type = "toggle",
+					name = L["Enable"]
+				},
+				visability = {
+					order = 3,
+					type = "toggle",
+					name = L["Visablity"],
+					desc = L["Enable/Disable the spell activation alert frame."],
+					get = function(info)
+						return C_CVar_GetCVarBool("displaySpellActivationOverlays")
+					end,
+					set = function(info, value)
+						C_CVar_SetCVar("displaySpellActivationOverlays", value and "1" or "0")
+					end,
+					disabled = function()
+						return not E.db.mui.misc.spellAlert.enable
+					end,
+				},
+				opacity = {
+					order = 4,
+					type = "range",
+					name = L["Opacity"],
+					desc = L["Set the opacity of the spell activation alert frame. (Blizzard CVar)"],
+					get = function(info)
+						return tonumber(C_CVar_GetCVar("spellActivationOverlayOpacity"))
+					end,
+					set = function(info, value)
+						C_CVar_SetCVar("spellActivationOverlayOpacity", value)
+						SA:Update()
+						SA:Preview()
+					end,
+					min = 0, max = 1, step = 0.01,
+					disabled = function()
+						return not E.db.mui.misc.spellAlert.enable
+					end,
+				},
+				scale = {
+					order = 5,
+					type = "range",
+					name = L["Scale"],
+					desc = L["Set the scale of the spell activation alert frame."],
+					min = 0.1, max = 5, step = 0.01,
+					disabled = function()
+						return not E.db.mui.misc.spellAlert.enable
+					end,
+					set = function(info, value)
+						E.db.mui.misc.spellAlert[info[#info]] = value
+						SA:Update()
+						SA:Preview()
+					end,
+					disabled = function()
+						return not E.db.mui.misc.spellAlert.enable
+					end,
+				},
+			},
 		},
 		cursor = {
 			order = 11,
