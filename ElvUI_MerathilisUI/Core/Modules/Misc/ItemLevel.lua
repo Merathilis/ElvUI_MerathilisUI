@@ -266,7 +266,7 @@ function module:ItemLevel_SetupLevel(frame, strType, unit)
 			local itemTexture = GetInventoryItemTexture(unit, index)
 			if itemTexture then
 				local link = GetInventoryItemLink(unit, index)
-				if link then
+				if link and not strfind(link, ':6544:') then
 					local quality, level = select(3, GetItemInfo(link))
 					if quality then
 						local color = E.QualityColors[quality]

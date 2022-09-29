@@ -33,8 +33,11 @@ CALLBACKS
 ]]
 
 local addon, ns = ...
+local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 local Implementation = cargBags.classes.Implementation
+
+-- local ContainerIDToInventoryID = MER.isNewPatch and C_Container.ContainerIDToInventoryID or ContainerIDToInventoryID
 
 function Implementation:GetBagButtonClass()
 	return self:GetClass("BagButton", true, "BagButton")

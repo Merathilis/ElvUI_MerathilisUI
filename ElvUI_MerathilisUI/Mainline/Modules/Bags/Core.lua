@@ -19,6 +19,13 @@ local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
 local IsCosmeticItem = IsCosmeticItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
 local GetItemInfo, GetContainerItemID, SplitContainerItem = GetItemInfo, GetContainerItemID, SplitContainerItem
+if MER.isNewPatch then
+	GetContainerItemID = C_Container.GetContainerItemID
+	GetContainerNumSlots = C_Container.GetContainerNumSlots
+	SortBags = C_Container.SortBags
+	SortBankBags = C_Container.SortBankBags
+	SortReagentBankBags = C_Container.SortReagentBankBags
+end
 
 local itemSpellID = {
 	-- Deposit Anima: Infuse (value) stored Anima into your covenant's Reservoir.
@@ -44,7 +51,14 @@ function module:ReverseSort()
 	for bag = 0, 4 do
 		local numSlots = GetContainerNumSlots(bag)
 		for slot = 1, numSlots do
-			local texture, _, locked = GetContainerItemInfo(bag, slot)
+			local texture, locked
+			if MER.isNewPatch then
+				local info = C_Container.GetContainerItemInfo(bag, slot)
+				texture = info and info.iconFileID
+				locked = info and info.isLocked
+			else
+				texture, _, locked = GetContainerItemInfo(bag, slot)
+			end
 			if (slot <= numSlots / 2) and texture and not locked and not sortCache["b" .. bag .. "s" .. slot] then
 				PickupContainerItem(bag, slot)
 				PickupContainerItem(bag, numSlots + 1 - slot)
@@ -547,7 +561,15 @@ local function splitOnClick(self)
 
 	PickupContainerItem(self.bagId, self.slotId)
 
-	local texture, itemCount, locked = GetContainerItemInfo(self.bagId, self.slotId)
+	local texture, itemCount, locked
+	if MER.isNewPatch then
+		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+		texture = info and info.iconFileID
+		itemCount = info and info.stackCount
+		locked = info and info.isLocked
+	else
+		texture, itemCount, locked = GetContainerItemInfo(self.bagId, self.slotId)
+	end
 	if texture and not locked and itemCount and itemCount > module.db.SplitCount then
 		SplitContainerItem(self.bagId, self.slotId, module.db.SplitCount)
 
@@ -657,7 +679,16 @@ end
 local function favouriteOnClick(self)
 	if not favouriteEnable then return end
 
-	local texture, _, _, quality, _, _, link, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
+	local texture, quality, link, itemID
+	if MER.isNewPatch then
+		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+		texture = info and info.iconFileID
+		quality = info and info.quality
+		link = info and info.hyperlink
+		itemID = info and info.itemID
+	else
+		texture, _, _, quality, _, _, link, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
+	end
 	if texture and quality > LE_ITEM_QUALITY_POOR then
 		ClearCursor()
 		module.selectItemID = itemID
@@ -718,7 +749,14 @@ end
 local function customJunkOnClick(self)
 	if not customJunkEnable then return end
 
-	local texture, _, _, _, _, _, _, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
+	local texture, itemID
+	if MER.isNewPatch then
+		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+		texture = info and info.iconFileID
+		itemID = info and info.itemID
+	else
+		texture, _, _, _, _, _, _, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
+	end
 	local price = select(11, GetItemInfo(itemID))
 	if texture and price > 0 then
 		if E.global.mui.bags.CustomJunkList[itemID] then
@@ -766,7 +804,14 @@ end
 local function deleteButtonOnClick(self)
 	if not deleteEnable then return end
 
-	local texture, _, _, quality = GetContainerItemInfo(self.bagId, self.slotId)
+	local texture, quality
+	if MER.isNewPatch then
+		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+		texture = info and info.iconFileID
+		quality = info and info.quality
+	else
+		texture, _, _, quality = GetContainerItemInfo(self.bagId, self.slotId)
+	end
 	if IsControlKeyDown() and IsAltKeyDown() and texture and
 		(quality < LE_ITEM_QUALITY_RARE or quality == LE_ITEM_QUALITY_HEIRLOOM) then
 		PickupContainerItem(self.bagId, self.slotId)

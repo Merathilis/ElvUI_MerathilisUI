@@ -18,6 +18,7 @@ do
 
 	MER.IsRetail = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
 	MER.IsWrath = select(4, GetBuildInfo()) >= 30400
+	MER.IsNewPatch = select(4, GetBuildInfo()) >= 100000 -- 10.0
 
 	MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
 
