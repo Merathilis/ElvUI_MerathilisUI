@@ -15,7 +15,7 @@ function MER:LoadAddOnSkinsProfile()
 	AS.db['EmbedSexyCooldown'] = false
 	AS.db['TransparentEmbed'] = false
 	AS.db['EmbedIsHidden'] = false
-	AS.db['EmbedFrameStrata'] = '4-HIGH'
+	AS.db['EmbedFrameStrata'] = '3-MEDIUM'
 	AS.db['EmbedFrameLevel'] = 50
 	AS.db['RecountBackdrop'] = false
 	AS.db['SkadaBackdrop'] = false
