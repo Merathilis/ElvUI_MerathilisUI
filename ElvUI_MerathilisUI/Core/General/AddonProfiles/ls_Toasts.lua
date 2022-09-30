@@ -1,15 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
---Cache global variables
---WoW API / Variables
--- GLOBALS:
-
 function MER:LoadLSProfile()
-	--[[----------------------------------
+		--[[----------------------------------
 	--	ls_Toasts - Settings
-	--]]----------------------------------
+	--]] ----------------------------------
+	local profileName = F.Profiles.Default
 
-	LS_TOASTS_GLOBAL_CONFIG.profiles["MerathilisUI"] = {
+	LS_TOASTS_GLOBAL_CONFIG.profiles[profileName] = {
 		["anchors"] = {
 			[1] = {
 				["point"] = {
@@ -22,7 +19,7 @@ function MER:LoadLSProfile()
 			},
 		},
 		["font"] = {
-			["name"] = "Merathilis Expressway",
+			["name"] = "Expressway",
 			["size"] = 11,
 		},
 		["colors"] = {

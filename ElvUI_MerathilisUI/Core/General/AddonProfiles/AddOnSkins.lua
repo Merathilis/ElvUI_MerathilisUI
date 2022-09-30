@@ -6,8 +6,9 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 function MER:LoadAddOnSkinsProfile()
 	local AS = unpack(AddOnSkins)
+	local profileName = F.Profiles.Default
 
-	AS.data:SetProfile("MerathilisUI")
+	AS.data:SetProfile(profileName)
 
 	AS.db['EmbedOoC'] = false
 	AS.db['EmbedOoCDelay'] = 10
