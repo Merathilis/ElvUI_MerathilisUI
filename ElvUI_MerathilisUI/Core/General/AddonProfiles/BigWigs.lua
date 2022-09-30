@@ -10,7 +10,7 @@ function MER:LoadBigWigsProfile()
 	--[[----------------------------------
 	--	BigWigs - Settings
 	--]]----------------------------------
-	local main = MER.Title
+	local main = F.Profiles.Default
 
 	-- Required to add profiles to BigWigs
 	if not IsAddOnLoaded("BigWigs_Core") then LoadAddOn("BigWigs_Core") end
@@ -90,6 +90,7 @@ function MER:LoadBigWigsProfile()
 		["outline"] = "OUTLINE",
 		["emphasizeScale"] = 1.1,
 		["barStyle"] = "MerathilisUI",
+		["growup"] = true,
 		["emphasizeGrowup"] = true,
 		["texture"] = "MER_NormTex",
 	}
