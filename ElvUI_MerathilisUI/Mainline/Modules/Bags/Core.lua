@@ -987,7 +987,12 @@ function module:Initialize()
 		self.Icon:SetTexCoord(unpack(E.TexCoords))
 		self.Count:SetPoint("BOTTOMRIGHT", -1, 2)
 		self.Count:FontTemplate(nil, module.db.FontSize)
+
 		self.Cooldown:SetInside()
+		self.Cooldown.CooldownOverride = 'bags'
+		self.Cooldown:HookScript('OnHide', B.Cooldown_OnHide)
+		E:RegisterCooldown(self.Cooldown)
+
 		self.IconOverlay:SetInside()
 		self.IconOverlay2:SetInside()
 

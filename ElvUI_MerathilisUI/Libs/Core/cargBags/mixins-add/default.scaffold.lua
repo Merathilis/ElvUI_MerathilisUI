@@ -39,9 +39,8 @@ local function ItemButton_Scaffold(self)
 		self.Count = _G[name.."Count"]
 	end
 	if not self.Cooldown then
-		self.Cooldown = _G[name.."Cooldown"]
+		self.Cooldown = _G[name .. "Cooldown"]
 	end
-	ElvUI[1]:RegisterCooldown(self.Cooldown)
 	if not self.Quest then
 		self.Quest = _G[name.."IconQuestTexture"]
 	end
