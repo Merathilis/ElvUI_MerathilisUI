@@ -2,6 +2,7 @@
 	<Script file="AddonList.lua"/>
 	<Script file="BNet.lua"/>
 	<Script file="CharacterFrame.lua"/>
+	<Script file="ChatBubbles.lua"/>
 	<Script file="ChatFrame.lua"/>
 	<Script file="CinematicFrame.lua"/>
 	<Script file="DressUpFrames.lua"/>

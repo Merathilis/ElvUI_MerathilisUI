@@ -1637,6 +1637,11 @@ if E.Retail then
 		name = L["Tooltip"],
 		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tooltip end,
 	}
+	options.blizzard.args.chatBubbles = {
+		type = "toggle",
+		name = L["Chat Bubbles"],
+		disabled = function() return not E.private.skins.blizzard.enable or E.private.general.chatBubbles ~= "nobackdrop" end,
+	}
 elseif E.Classic then
 	options.blizzard.args.craft = {
 		type = "toggle",

@@ -210,6 +210,7 @@ V.skins = {
 		bgmap = true,
 		bgscore = true,
 		barber = true,
+		chatBubbles = true,
 	},
 
 	addonSkins = {

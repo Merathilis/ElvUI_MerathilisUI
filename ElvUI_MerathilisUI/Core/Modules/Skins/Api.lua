@@ -188,24 +188,45 @@ function module:CreateShadowModule(frame)
 	end
 end
 
--- Backdrop shadow
-local shadowBackdrop = {edgeFile = LSM:Fetch("border", "ElvUI GlowBorder")}
-function module:CreateSD(self, size, override)
-	if self.__shadow then return end
+function module:CreateTex(f)
+	assert(f, "doesn't exist!")
 
-	local frame = self
-	if self:IsObjectType("Texture") then
-		frame = self:GetParent()
+	if f.__bgTex then return end
+
+	local frame = f
+	if f:IsObjectType("Texture") then frame = f:GetParent() end
+
+	local tex = frame:CreateTexture(nil, "BACKGROUND", nil, 1)
+	tex:SetAllPoints(f)
+	tex:SetTexture(MER.Media.Textures.emptyTex, true, true)
+	tex:SetHorizTile(true)
+	tex:SetVertTile(true)
+	tex:SetBlendMode("ADD")
+
+	f.__bgTex = tex
+end
+
+
+-- Backdrop shadow
+local shadowBackdrop = {edgeFile = MER.Media.Textures.glowTex}
+function module:CreateSD(f, size, override)
+	assert(f, "doesn't exist!")
+
+	if f.__SDshadow then return end
+
+	local frame = f
+	if f:IsObjectType("Texture") then
+		frame = f:GetParent()
 	end
 
 	shadowBackdrop.edgeSize = size or 5
-	self.__shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-	self.__shadow:SetOutside(self, size or 4, size or 4)
-	self.__shadow:SetBackdrop(shadowBackdrop)
-	self.__shadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .4)
-	self.__shadow:SetFrameLevel(1)
+	f.__SDshadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	f.__SDshadow:SetOutside(f, size or 4, size or 4)
+	f.__SDshadow:SetBackdrop(shadowBackdrop)
+	f.__SDshadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .4)
+	f.__SDshadow:SetFrameLevel(1)
 
-	return self.__shadow
+	return f.__SDshadow
 end
 
 function module:CreateBG(frame)
@@ -266,6 +287,24 @@ function module:CreateBDFrame(f, a)
 		bg:SetFrameLevel(0)
 	end
 	module:CreateBD(bg, a or .5)
+
+	return bg
+end
+
+function module:SetBD(f, a, x, y, x2, y2, gradient)
+	assert(f, "doesn't exist!")
+
+	local bg = module:CreateBDFrame(f, a)
+	if x then
+		bg:SetPoint("TOPLEFT", f, x, y)
+		bg:SetPoint("BOTTOMRIGHT", f, x2, y2)
+	end
+	module:CreateSD(bg)
+	module:CreateTex(bg)
+
+	if gradient then
+		module:CreateGradient(bg)
+	end
 
 	return bg
 end
