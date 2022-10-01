@@ -110,7 +110,7 @@ P.blizzard = {
 		},
 		info = {
 			name = E.db.general.font,
-			size = E.db.general.fontSize - 1,
+			size = E.db.general.fontSize,
 			style = "OUTLINE"
 		},
 		titleColor = {
