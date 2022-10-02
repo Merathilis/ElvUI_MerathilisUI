@@ -752,7 +752,7 @@ function module:Initialize()
 	end
 
 	function Backpack:OnInit()
-		AddNewContainer("Bag", 15, "Junk", filters.bagsJunk)
+		AddNewContainer("Bag", 13, "Junk", filters.bagsJunk)
 		for i = 1, 5 do
 			AddNewContainer("Bag", i, "BagCustom" .. i, filters["bagCustom" .. i])
 		end
@@ -855,9 +855,8 @@ function module:Initialize()
 
 		local flash = self:CreateTexture(nil, "ARTWORK")
 		flash:SetTexture('Interface\\Cooldown\\star4')
-		flash:SetInside()
-		-- flash:SetPoint('TOPLEFT', -20, 20)
-		-- flash:SetPoint('BOTTOMRIGHT', 20, -20)
+		flash:SetPoint('TOPLEFT', -15, 15)
+		flash:SetPoint('BOTTOMRIGHT', 15, -15)
 		flash:SetBlendMode('ADD')
 		flash:SetAlpha(0)
 		local anim = flash:CreateAnimationGroup()
