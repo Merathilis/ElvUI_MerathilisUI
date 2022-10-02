@@ -866,6 +866,28 @@ function module:CloseBags()
 	CloseAllBags()
 end
 
+function module:UpdateCooldown(slot)
+	local start, duration, enabled = GetContainerItemCooldown(slot.bagId, slot.slotId)
+	if duration > 0 and enabled == 0 then
+		SetItemButtonTextureVertexColor(slot, 0.4, 0.4, 0.4)
+	else
+		SetItemButtonTextureVertexColor(slot, 1, 1, 1)
+	end
+
+	local cd = slot.Cooldown
+	if duration > 0 and enabled == 1 then
+		local newStart, newDuration = not cd.start or cd.start ~= start, not cd.duration or cd.duration ~= duration
+		if newStart or newDuration then
+			cd:SetCooldown(start, duration)
+
+			cd.start = start
+			cd.duration = duration
+		end
+	else
+		cd:Hide()
+	end
+end
+
 function module:Initialize()
 	module.db = E.db.mui.bags
 	if not module.db.Enable then
@@ -1205,6 +1227,10 @@ function module:Initialize()
 				end
 
 			end
+		end
+
+		if self.Cooldown then
+			module:UpdateCooldown(self)
 		end
 
 		if module.db.SpecialBagsColor then
