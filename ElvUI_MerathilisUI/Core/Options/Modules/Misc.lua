@@ -53,6 +53,12 @@ options.misc = {
 			name = L["Hide Boss Banner"],
 			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
 		},
+		quickDelete = {
+			order = 7,
+			type = "toggle",
+			name = E.NewSign .. L["Quick Delete"],
+			desc = L["This will add the 'DELETE' text to the Item Delete Dialog."],
+		},
 		spellAlert = {
 			order = 10,
 			type = "group",

@@ -437,6 +437,7 @@ P.misc = {
 		},
 	},
 	hideBossBanner = false,
+	quickDelete = true,
 }
 
 P.nameHover = {
