@@ -1553,6 +1553,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["buffs"]["keepSizeRatio"] = false
 	E.db["unitframe"]["units"]["target"]["buffs"]["height"] = 18
 	E.db["unitframe"]["units"]["target"]["buffs"]["spacing"] = 1
+	E.db["unitframe"]["units"]["target"]["buffs"]["growthX"] = "LEFT"
+	E.db["unitframe"]["units"]["target"]["buffs"]["attachTo"] = "FRAME"
 	E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 	E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
 	E.db["unitframe"]["units"]["target"]["raidicon"]["size"] = 18
