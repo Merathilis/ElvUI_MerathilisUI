@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='ActionBars.lua'/>
 	<Script file='Bags.lua'/>
+	<Script file='DataPanels.lua'/>
 	<Script file='DataTexts.lua'/>
 	<Script file='OptionsUI.lua'/>
 	<Script file='Misc.lua'/>

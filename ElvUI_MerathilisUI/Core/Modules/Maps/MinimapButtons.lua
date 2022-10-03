@@ -581,7 +581,7 @@ function module:CreateFrames()
 	self.bar:Styling()
 	S:CreateShadowModule(self.bar.backdrop)
 
-	E:CreateMover(self.barAnchor, "MERMinimapButtonBarAnchor", L["Minimap Buttons Bar"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", function() return E.db.mui.smb.enable end, "mui,modules,maps")
+	E:CreateMover(self.barAnchor, "MER_MinimapButtonBarAnchor", L["Minimap Buttons Bar"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", function() return E.db.mui.smb.enable end, "mui,modules,maps")
 end
 
 function module:SetUpdateHook()

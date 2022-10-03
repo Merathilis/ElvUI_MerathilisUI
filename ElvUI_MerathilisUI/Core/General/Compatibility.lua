@@ -280,13 +280,6 @@ function MER:CheckCompatibility()
 		"private.WT.maps.minimapButtons.enable"
 	)
 
-	CheckWindtools(
-		L["Rectangle Minimap"],
-		L["Rectangle Minimap"],
-		"db.mui.maps.minimap.rectangleMinimap.enable",
-		"db.WT.maps.rectangleMinimap.enable"
-	)
-
 	CheckWindtools(L["Chat Bar"], L["Chat Bar"], "db.mui.chat.chatBar.enable", "db.WT.social.chatBar.enable")
 
 	CheckWindtools(L["Chat Link"], L["Chat Link"], "db.mui.chat.chatLink.enable", "db.WT.social.chatLink.enable")
@@ -423,13 +416,6 @@ function MER:CheckCompatibility()
 		L["Enhanced Shadow"],
 		"private.mui.skins.shadow",
 		"private.sle.module.shadows.enable"
-	)
-
-	CheckShadowAndLight(
-		L["Rectangle Minimap"],
-		L["Rectangle Minimap"],
-		"db.mui.maps.minimap.rectangleMinimap.enable",
-		"private.sle.minimap.rectangle"
 	)
 
 	CheckShadowAndLight(

@@ -37,6 +37,23 @@ local SupportedProfiles = {
 
 local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"])
 
+local function UpdateToggleDirection()
+	MER:GetModule('MER_Skins'):RefreshToggleDirection()
+end
+
+StaticPopupDialogs["RESET_DETAILS"] = {
+	text = L["Reset Details check"],
+	button1 = YES,
+	button2 = NO,
+	OnAccept = function()
+		MER:GetModule('MER_Skins'):ResetDetailsAnchor(true)
+	end,
+	whileDead = 1,
+}
+local function ResetDetails()
+	StaticPopup_Show("RESET_DETAILS")
+end
+
 options.general = {
 	order = 1,
 	type = 'group',
@@ -76,8 +93,21 @@ options.general = {
 					name = L["Screen Shadow Overlay"],
 					desc = L["Enables/Disables a shadow overlay to darken the screen."],
 				},
-				shadow = {
+				toggleDirection = {
 					order = 5,
+					type = "select",
+					name = L["Toggle Direction"],
+					set = function(_, value) E.private.mui.skins.toggleDirection = value; UpdateToggleDirection(); end,
+					values = {
+						[1] = L["LEFT"],
+						[2] = L["RIGHT"],
+						[3] = L["TOP"],
+						[4] = L["BOTTOM"],
+						[5] = _G.DISABLE,
+					},
+				},
+				shadow = {
+					order = 8,
 					type = "group",
 					name = F.cOption(L["Shadows"], 'orange'),
 					guiInline = true,
@@ -1782,3 +1812,45 @@ for _, v in ipairs(SupportedProfiles) do
 		disabled = function() return not IsAddOnLoaded(addon) end,
 	}
 end
+
+options.Embed = {
+	order = 6,
+	type = "group",
+	name = L["Embed Settings"],
+	get = function(info) return E.private.mui.skins.embed[info[#info]] end,
+	set = function(info, value) E.private.mui.skins.embed[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+	args = {
+		info = {
+			order = 1,
+			type = "description",
+			name = MER.InfoColor .. L["With this option you can embed your Details into an own Panel."],
+			fontSize = "medium",
+		},
+		header = {
+			order = 2,
+			type = "header",
+			name = F.cOption(L["Embed Settings"], 'orange'),
+		},
+		spacer1 = {
+			order = 3,
+			type = "description",
+			name = ' ',
+		},
+		enable = {
+			order = 4,
+			type = "toggle",
+			name = L["Enable"],
+		},
+		details = {
+			order = 5,
+			type = "execute",
+			name = L["Reset Settings"],
+			func = function()
+				ResetDetails()
+			end,
+			disabled = function()
+				return not E.private.mui.skins.embed.enable
+			end,
+		},
+	},
+}

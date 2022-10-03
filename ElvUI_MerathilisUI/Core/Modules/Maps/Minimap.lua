@@ -78,18 +78,6 @@ function module:MiniMapCoords()
 		Coords:Point(pos, 0, 0)
 	end
 
-	if E.db.mui.maps.minimap.rectangleMinimap.enable then
-		if pos == "BOTTOM" then
-			Coords:Point(pos, 0, 32)
-		elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
-			Coords:Point(pos, 0, -32)
-		elseif pos == "TOP" and E.db.general.minimap.locationText == 'HIDE' then
-			Coords:Point(pos, 0, -2)
-		else
-			Coords:Point(pos, 0, 0)
-		end
-	end
-
 	Minimap:HookScript("OnUpdate",function()
 		if select(2, GetInstanceInfo()) == "none" then
 			local x, y = E.MapInfo.x or 0, E.MapInfo.y or 0
@@ -106,9 +94,7 @@ function module:MiniMapCoords()
 end
 
 function module:StyleMinimap()
-	if not E.db.mui.maps.minimap.rectangleMinimap.enable then
-		S:CreateBackdropShadow(Minimap)
-	end
+	S:CreateBackdropShadow(Minimap)
 end
 
 function module:QueueStatus()
