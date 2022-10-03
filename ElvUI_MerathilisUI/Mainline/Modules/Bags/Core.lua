@@ -1117,6 +1117,7 @@ function module:Initialize()
 		[8] = { .8, .8, .8, .25 },
 		[9] = { .4, .6, 1, .25 },
 		[10] = { .8, 0, 0, .25 },
+		[11] = { .2, .8, .2, .25 },
 	}
 
 	local function isItemNeedsLevel(item)
