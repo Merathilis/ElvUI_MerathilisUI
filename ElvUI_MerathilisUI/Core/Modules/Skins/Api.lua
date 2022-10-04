@@ -849,6 +849,19 @@ hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)
 module:SecureHook(S, "HandleScrollBar")
 module:SecureHook(S, "SkinTextWithStateWidget")
 
+StaticPopupDialogs["RESET_DETAILS"] = {
+	text = L["Reset Details check"],
+	button1 = YES,
+	button2 = NO,
+	OnAccept = function()
+		module:ResetDetailsAnchor(true)
+	end,
+	whileDead = 1,
+}
+local function ResetDetails()
+	StaticPopup_Show("RESET_DETAILS")
+end
+
 function module:GetToggleDirection()
 	local direc = E.private.mui.skins.toggleDirection
 	if direc == 1 then

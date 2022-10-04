@@ -101,9 +101,9 @@ function module:ResetDetailsAnchor(force)
 	if instance1 and (force or IsDefaultAnchor(instance1)) then
 		if instance2 then
 			height = 96
-			EmbedWindow(instance2, -3, 175, 340, height)
+			EmbedWindow(instance2, -3, 175, 260, height)
 		end
-		EmbedWindow(instance1, -3, 49, 340, height)
+		EmbedWindow(instance1, -3, 49, 260, height)
 	end
 
 	return instance1
@@ -130,8 +130,8 @@ local function ReskinDetails()
 	function listener:OnDetailsEvent(event, instance)
 		if event == "DETAILS_INSTANCE_OPEN" then
 			if not instance.styled and instance:GetId() == 2 then
-				instance1:SetSize(340, 96)
-				EmbedWindow(instance, -3, 175, 340, 96)
+				instance1:SetSize(260, 96)
+				EmbedWindow(instance, -3, 175, 260, 96)
 			end
 			SetupInstance(instance)
 		end
@@ -140,7 +140,7 @@ local function ReskinDetails()
 	-- Reset to one window
 	Details.OpenWelcomeWindow = function()
 		if instance1 then
-			EmbedWindow(instance1, -3, 24, 320, 96)
+			EmbedWindow(instance1, -3, 24, 260, 96)
 		end
 	end
 

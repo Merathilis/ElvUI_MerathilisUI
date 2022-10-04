@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:GetModule('MER_Skins')
 local options = MER.options.skins.args
 local LSM = E.Libs.LSM
 
@@ -38,20 +39,7 @@ local SupportedProfiles = {
 local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"])
 
 local function UpdateToggleDirection()
-	MER:GetModule('MER_Skins'):RefreshToggleDirection()
-end
-
-StaticPopupDialogs["RESET_DETAILS"] = {
-	text = L["Reset Details check"],
-	button1 = YES,
-	button2 = NO,
-	OnAccept = function()
-		MER:GetModule('MER_Skins'):ResetDetailsAnchor(true)
-	end,
-	whileDead = 1,
-}
-local function ResetDetails()
-	StaticPopup_Show("RESET_DETAILS")
+	module:RefreshToggleDirection()
 end
 
 options.general = {
@@ -1846,7 +1834,7 @@ options.Embed = {
 			type = "execute",
 			name = L["Reset Settings"],
 			func = function()
-				ResetDetails()
+				module:ResetDetailsAnchor(true)
 			end,
 			disabled = function()
 				return not E.private.mui.skins.embed.enable

@@ -206,7 +206,7 @@ function module:CreateChatButtons()
 	ChatButton.tex:SetInside()
 	ChatButton.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\chatButton")
 
-	ChatButton:SetScript("OnMouseUp", function (self, btn)
+	ChatButton:SetScript("OnMouseUp", function(self, btn)
 		if InCombatLockdown() then return end
 		if btn == "LeftButton" then
 			if E.db.mui.chat.isExpanded then

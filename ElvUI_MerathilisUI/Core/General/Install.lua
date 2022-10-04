@@ -2347,7 +2347,7 @@ function MER:SetupDts()
 		enable = true,
 		backdrop = true,
 		border = true,
-		panelTransparency = false,
+		panelTransparency = true,
 		numPoints = 2,
 		"Durability",
 		"Gold",
