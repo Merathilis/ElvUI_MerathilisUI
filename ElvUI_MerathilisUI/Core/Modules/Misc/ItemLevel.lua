@@ -316,6 +316,40 @@ function module:ItemLevel_UpdatePlayer()
 	module:ItemLevel_SetupLevel(_G.CharacterFrame, "Character", "player")
 end
 
+local function GetItemQualityAndLevel(link)
+	local _, _, quality, level, _, _, _, _, _, _, _, classID = GetItemInfo(link)
+	if quality and quality > 1 and level and level > 1 and F.iLvlClassIDs[classID] then
+		return quality, level
+	end
+end
+
+function module:ItemLevel_UpdateMerchant(link)
+	if not self.iLvl then
+		self.iLvl = B.CreateFS(_G[self:GetName() .. "ItemButton"], DB.Font[2] + 1, "", false, "BOTTOMLEFT", 1, 1)
+	end
+	self.iLvl:SetText("")
+	if link then
+		local quality, level = GetItemQualityAndLevel(link)
+		if quality and level then
+			local color = E.QualityColors[quality]
+			self.iLvl:SetText(level)
+			self.iLvl:SetTextColor(color.r, color.g, color.b)
+		end
+	end
+end
+
+function module:ItemLevel_UpdateTradePlayer(index)
+	local button = _G["TradePlayerItem" .. index]
+	local link = GetTradePlayerItemLink(index)
+	module:ItemLevel_UpdateMerchant(button, link)
+end
+
+function module:ItemLevel_UpdateTradeTarget(index)
+	local button = _G["TradeRecipientItem" .. index]
+	local link = GetTradeTargetItemLink(index)
+	module:ItemLevel_UpdateMerchant(button, link)
+end
+
 function module:UpdateUnitILvl(unit, text)
 	if not text then return end
 
@@ -404,6 +438,13 @@ function module:ShowItemLevel()
 	module.QualityUpdater = CreateFrame("Frame")
 	module.QualityUpdater:Hide()
 	module.QualityUpdater:SetScript("OnUpdate", module.RefreshButtonInfo)
+
+	-- iLvl on MerchantFrame
+	hooksecurefunc("MerchantFrameItem_UpdateQuality", module.ItemLevel_UpdateMerchant)
+
+	-- iLvl on TradeFrame
+	hooksecurefunc("TradeFrame_UpdatePlayerItem", module.ItemLevel_UpdateTradePlayer)
+	hooksecurefunc("TradeFrame_UpdateTargetItem", module.ItemLevel_UpdateTradeTarget)
 end
 
 function module:ProfileUpdate()

@@ -2,10 +2,12 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Skins')
 
 local function GradientColorClass(class)
-	if class ~= nil then
+	if class then
 		return F.ClassGradient[class].r1 - 0.2, F.ClassGradient[class].g1 - 0.2,
 			F.ClassGradient[class].b1 - 0.2, 0.9, F.ClassGradient[class].r2 + 0.2,
 			F.ClassGradient[class].g2 + 0.2, F.ClassGradient[class].b2 + 0.2, 0.9
+	else
+		return 1, 1, 1, 1
 	end
 end
 
@@ -33,30 +35,26 @@ local function GradientBars()
 end
 
 local function SetupInstance(instance)
-	if instance.styled then return end
-	-- if window is hidden on init, show it and hide later
+	if instance.skinned then return end
+
 	if not instance.baseframe then
 		instance:ShowWindow()
 		instance.wasHidden = true
 	end
-	-- reset texture if using Details default texture
-	-- local needReset = instance.row_info.texture == "BantoBar"
-	-- instance:ChangeSkin("Minimalistic")
-	-- instance:InstanceWallpaper(false)
-	-- instance:DesaturateMenu(true)
-	-- instance:HideMainIcon(false)
-	-- instance:SetBackdropTexture("None") -- if block window from resizing, then back to "Details Ground", needs review
-	-- instance:MenuAnchor(16, 3)
-	-- instance:ToolbarMenuButtonsSize(1)
-	-- instance:AttributeMenu(true, 0, 3, DB.Font[1], 13, { 1, 1, 1 }, 1, true)
-	-- instance:SetBarSettings(needReset and 18, needReset and "normTex")
-	-- instance:SetBarTextSettings(needReset and 14, DB.Font[1], nil, nil, nil, true, true)
+	instance:ChangeSkin("ElvUI Style II")
+	instance:InstanceWallpaper(false)
+	instance:DesaturateMenu(true)
+	instance:HideMainIcon(false)
+	instance:SetBackdropTexture("None")
+	instance:MenuAnchor(20, 2)
+	instance:ToolbarMenuButtonsSize(1)
 
-	local bg = module:SetBD(instance.baseframe)
-	bg:SetPoint("TOPLEFT", -1, 18)
-	instance.baseframe.bg = bg
+	instance.baseframe:CreateBackdrop('Transparent')
+	instance.baseframe.backdrop:SetPoint("TOPLEFT", -1, 18)
+	instance.baseframe.backdrop:Styling()
+	module:CreateBackdropShadow(instance.baseframe)
 
-	if instance:GetId() < 4 then -- only the top 3 windows
+	if instance:GetId() < 4 then
 		local open, close = module:CreateToggle(instance.baseframe)
 		open:HookScript("OnClick", function()
 			instance:ShowWindow()
@@ -64,13 +62,12 @@ local function SetupInstance(instance)
 		close:HookScript("OnClick", function()
 			instance:HideWindow()
 		end)
-		-- hide window if hidden on init
 		if instance.wasHidden then
 			close:Click()
 		end
 	end
 
-	instance.styled = true
+	instance.skinned = true
 end
 
 local function EmbedWindow(instance, x, y, width, height)
@@ -104,7 +101,7 @@ function module:ResetDetailsAnchor(force)
 	if instance1 and (force or IsDefaultAnchor(instance1)) then
 		if instance2 then
 			height = 96
-			EmbedWindow(instance2, -3, 140, 340, height)
+			EmbedWindow(instance2, -3, 175, 340, height)
 		end
 		EmbedWindow(instance1, -3, 49, 340, height)
 	end
@@ -114,7 +111,6 @@ end
 
 local function ReskinDetails()
 	local Details = _G.Details
-	-- instance table can be nil sometimes
 	Details.tabela_instancias = Details.tabela_instancias or {}
 	Details.instances_amount = Details.instances_amount or 5
 
@@ -134,9 +130,8 @@ local function ReskinDetails()
 	function listener:OnDetailsEvent(event, instance)
 		if event == "DETAILS_INSTANCE_OPEN" then
 			if not instance.styled and instance:GetId() == 2 then
-				print(instance:GetId())
-				instance1:SetSize(320, 96)
-				EmbedWindow(instance, -3, 140, 320, 96)
+				instance1:SetSize(340, 96)
+				EmbedWindow(instance, -3, 175, 340, 96)
 			end
 			SetupInstance(instance)
 		end

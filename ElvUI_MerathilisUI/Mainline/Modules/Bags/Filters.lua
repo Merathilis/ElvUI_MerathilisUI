@@ -3,7 +3,6 @@ local MER, F, E, L, V, P, G = unpack(ns)
 local module = MER:GetModule('MER_Bags')
 
 local LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_COMMON, LE_ITEM_QUALITY_LEGENDARY = Enum.ItemQuality.Poor, Enum.ItemQuality.Common, Enum.ItemQuality.Legendary
-local LE_ITEM_CLASS_GEM, LE_ITEM_GEM_ARTIFACTRELIC = LE_ITEM_CLASS_GEM, LE_ITEM_GEM_ARTIFACTRELIC
 local LE_ITEM_CLASS_CONSUMABLE, LE_ITEM_CLASS_ITEM_ENHANCEMENT = LE_ITEM_CLASS_CONSUMABLE, LE_ITEM_CLASS_ITEM_ENHANCEMENT
 local LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLANEOUS_MOUNT, LE_ITEM_MISCELLANEOUS_COMPANION_PET = LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLANEOUS_MOUNT, LE_ITEM_MISCELLANEOUS_COMPANION_PET
 local LE_ITEM_CLASS_WEAPON, LE_ITEM_CLASS_ARMOR, LE_ITEM_CLASS_TRADEGOODS = LE_ITEM_CLASS_WEAPON, LE_ITEM_CLASS_ARMOR, LE_ITEM_CLASS_TRADEGOODS
@@ -56,13 +55,8 @@ local function isAzeriteArmor(item)
 	return C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID(item.link)
 end
 
-local iLvlClassIDs = {
-	[LE_ITEM_CLASS_GEM] = LE_ITEM_GEM_ARTIFACTRELIC,
-	[LE_ITEM_CLASS_ARMOR] = 0,
-	[LE_ITEM_CLASS_WEAPON] = 0,
-}
 function module:IsItemHasLevel(item)
-	local index = iLvlClassIDs[item.classID]
+	local index = F.iLvlClassIDs[item.classID]
 	return index and (index == 0 or index == item.subClassID)
 end
 

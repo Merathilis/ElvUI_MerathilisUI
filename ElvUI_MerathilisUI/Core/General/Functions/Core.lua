@@ -17,7 +17,6 @@ local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID
 local GetContainerItemLink = GetContainerItemLink
 local GetContainerNumSlots = GetContainerNumSlots
-local GetSpellDescription = GetSpellDescription
 local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
@@ -36,6 +35,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UIParent = UIParent
 local C_Covenants_GetCovenantData = C_Covenants and C_Covenants.GetCovenantData
 local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
+local LE_ITEM_CLASS_GEM, LE_ITEM_GEM_ARTIFACTRELIC = LE_ITEM_CLASS_GEM, LE_ITEM_GEM_ARTIFACTRELIC
 
 --[[----------------------------------
 --	Color Functions
@@ -54,6 +54,7 @@ F.ClassGradient = {
 	["DRUID"] = { r1 = 1, g1 = 0.23, b1 = 0.0, r2 = 1, g2 = 0.48, b2 = 0.03 },
     ["DEMONHUNTER"] = { r1 = 0.36, g1 = 0.13, b1 = 0.57, r2 = 0.74, g2 = 0.19, b2 = 1 },
 	["EVOKER"] = { r1 = 0.20, g1 = 0.58, b1 = 0.50, r2 = 0, g2 = 1, b2 = 0.60 }, --Temp, maybe
+	["PET"] = { r1 = 0.97, g1 = 0.55, b1 = 0.73, r2 = 1, g2 = 0, b2 = 0 },
 
 	["NPCFRIENDLY"] = { r1 = 0.30, g1 = 0.85, b1 = 0.2, r2 = 0.34, g2 = 0.62, b2 = 0.40 },
 	["NPCNEUTRAL"] = { r1 = 0.71, g1 = 0.63, b1 = 0.15, r2 = 1, g2 = 0.85, b2 = 0.20 },
@@ -428,6 +429,12 @@ function F.SplitList(list, variable, cleanup)
 		list[word] = true
 	end
 end
+
+F.iLvlClassIDs = {
+	[LE_ITEM_CLASS_GEM] = LE_ITEM_GEM_ARTIFACTRELIC,
+	[LE_ITEM_CLASS_ARMOR] = 0,
+	[LE_ITEM_CLASS_WEAPON] = 0,
+}
 
 do -- Tooltip scanning stuff. Credits siweia, with permission.
 	local iLvlDB = {}

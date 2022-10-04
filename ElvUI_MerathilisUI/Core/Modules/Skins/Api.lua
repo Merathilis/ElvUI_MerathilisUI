@@ -318,19 +318,11 @@ function module:CreateBD(f, a)
 end
 
 local function Menu_OnEnter(self)
-	self.bg:SetBackdropBorderColor(F.r, F.g, F.b)
+	self.backdrop:SetBackdropBorderColor(F.r, F.g, F.b)
 end
 
 local function Menu_OnLeave(self)
-	self.bg:SetBackdropBorderColor(0, 0, 0)
-end
-
-local function Menu_OnMouseUp(self)
-	self.bg:SetBackdropColor(0, 0, 0, 1)
-end
-
-local function Menu_OnMouseDown(self)
-	self.bg:SetBackdropColor(F.r, F.g, F.b, .25)
+	self.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
 end
 
 function module:ReskinMenuButton(button)
@@ -338,11 +330,12 @@ function module:ReskinMenuButton(button)
 
 	button:StripTextures()
 
-	button.bg = module:SetBD(button)
+	if not button.backdrop then
+		button:CreateBackdrop('Transparent')
+		button.backdrop:Styling()
+	end
 	button:SetScript("OnEnter", Menu_OnEnter)
 	button:SetScript("OnLeave", Menu_OnLeave)
-	button:HookScript("OnMouseUp", Menu_OnMouseUp)
-	button:HookScript("OnMouseDown", Menu_OnMouseDown)
 end
 
 -- ClassColored ScrollBars
@@ -877,7 +870,6 @@ local function CreateToggleButton(parent)
 	bu.text = bu:CreateFontString(nil, "OVERLAY")
 	bu.text:FontTemplate(nil, 18)
 	bu.text:SetAllPoints()
-	-- bu.text = F:CreateText(bu, "OVERLAY", 18, "OUTLINE", nil, true)
 	module:ReskinMenuButton(bu)
 
 	return bu
@@ -887,7 +879,7 @@ function module:CreateToggle(frame)
 	local close = CreateToggleButton(frame)
 	frame.closeButton = close
 
-	local open = CreateToggleButton(UIParent)
+	local open = CreateToggleButton(E.UIParent)
 	open:Hide()
 	frame.openButton = open
 
@@ -906,7 +898,7 @@ end
 
 function module:SetToggleDirection(frame)
 	local str1, str2, rel1, rel2, x, y, width, height = module:GetToggleDirection()
-	local parent = frame.bg
+	local parent = frame.backdrop
 	local close = frame.closeButton
 	local open = frame.openButton
 	close:ClearAllPoints()
