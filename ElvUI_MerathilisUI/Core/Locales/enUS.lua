@@ -672,7 +672,6 @@ L["Hide In Combat"] = true
 L["Maps"] = true
 L["World Map"] = true
 L["Instance Difficulty"] = true
-L["Rectangle Minimap"] = true
 L["Duration"] = true
 L["Fade Out"] = true
 L["Scale"] = true

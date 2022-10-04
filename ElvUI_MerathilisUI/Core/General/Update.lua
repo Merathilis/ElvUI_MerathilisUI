@@ -48,6 +48,11 @@ function MER:UpdateScripts() -- DB Convert
 		end
 		UpdateMessage(L["Miscellaneous"] .. " - " .. L["Spell Alert Scale"], profileVersion)
 
+		--Remove old DTPanel
+		if E.db["datatexts"]["panels"]["MER_RightChatTop"] then
+			E.db["datatexts"]["panels"]["MER_RightChatTop"] = nil
+		end
+
 		updated = true
 	end
 

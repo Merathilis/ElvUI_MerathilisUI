@@ -126,7 +126,7 @@ L["Expand the chat"] = "Развернуть чат"
 L["Chat Menu"] = "Меню чата"
 L["Create a chat button to increase the chat size."] = "Создайте кнопку чата, чтобы увеличить размер чата."
 L["Hide Player Brackets"] = "Скрыть скобки игроков"
-L["Removes brackets around the person who posts a chat message."] = "Удаляет скобки вокруг ника игрока, который отправляет сообщение в чат."
+L["Removes brackets around the person who posts a chat message."] = 'Удаляет скобки вокруг ника игрока, который отправляет сообщение в чат."
 L["Hide Chat Side Panel"] = "Скрыть боковую панель чата"
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = "Удаляет боковую панель чата. |cffFF0000ПРЕДУПРЕЖДЕНИЕ: Если вы отключите эту опцию, вы должны будете настроить макет.|r"
 L["Chat Bar"] = "Панель чата"
@@ -167,7 +167,6 @@ L["Translate the name in item links into your language."] = "Переведит�
 L["Icon"] = "Иконка"
 L["Armor Category"] = "Категория брони"
 L["Weapon Category"] = "Категория оружия"
-
 
 -- Combat Alert
 L["Combat Alert"] = "Сигнал боя"
@@ -549,6 +548,7 @@ L["Gossip and Quest Frames Text"] = "Текст сплетен и заданий
 L["Objective Tracker Header Text"] = "Текст заголовка отслеживания заданий"
 L["Objective Tracker Text"] = "Текст отслеживания заданий"
 L["Banner Big Text"] = "Большой текст баннера"
+
 L["MER_MEDIA_ZONES"] = {
 	"Washington",
 	"Moscow",
@@ -682,7 +682,6 @@ L["Hide In Combat"] = "Скрывать в бою"
 L["Maps"] = "Карты"
 L["World Map"] = "Карта мира"
 L["Instance Difficulty"] = "Сложность подземелья"
-L["Rectangle Minimap"] = "Прямоугольная миникарта"
 L["Duration"] = true
 L["Fade Out"] = true
 L["Scale"] = "Масштаб"

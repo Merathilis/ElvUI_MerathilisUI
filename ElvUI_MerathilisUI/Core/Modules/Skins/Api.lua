@@ -317,6 +317,34 @@ function module:CreateBD(f, a)
 	f.backdrop:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
 
+local function Menu_OnEnter(self)
+	self.bg:SetBackdropBorderColor(F.r, F.g, F.b)
+end
+
+local function Menu_OnLeave(self)
+	self.bg:SetBackdropBorderColor(0, 0, 0)
+end
+
+local function Menu_OnMouseUp(self)
+	self.bg:SetBackdropColor(0, 0, 0, 1)
+end
+
+local function Menu_OnMouseDown(self)
+	self.bg:SetBackdropColor(F.r, F.g, F.b, .25)
+end
+
+function module:ReskinMenuButton(button)
+	assert(button, "doesn't exist!")
+
+	button:StripTextures()
+
+	button.bg = module:SetBD(button)
+	button:SetScript("OnEnter", Menu_OnEnter)
+	button:SetScript("OnLeave", Menu_OnLeave)
+	button:HookScript("OnMouseUp", Menu_OnMouseUp)
+	button:HookScript("OnMouseDown", Menu_OnMouseDown)
+end
+
 -- ClassColored ScrollBars
 do
 	local function GrabScrollBarElement(frame, element)
@@ -814,7 +842,6 @@ do
 	end
 end
 
-
 -- keep the colors updated
 function module:UpdateMedia()
 	rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA = unpack(E.media.rgbvaluecolor)
@@ -828,3 +855,86 @@ hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)
 -- hook the skin functions from ElvUI
 module:SecureHook(S, "HandleScrollBar")
 module:SecureHook(S, "SkinTextWithStateWidget")
+
+function module:GetToggleDirection()
+	local direc = E.private.mui.skins.toggleDirection
+	if direc == 1 then
+		return ">", "<", "RIGHT", "LEFT", -2, 0, 20, 80
+	elseif direc == 2 then
+		return "<", ">", "LEFT", "RIGHT", 2, 0, 20, 80
+	elseif direc == 3 then
+		return "∨", "∧", "BOTTOM", "TOP", 0, 2, 80, 20
+	else
+		return "∧", "∨", "TOP", "BOTTOM", 0, -2, 80, 20
+	end
+end
+
+local toggleFrames = {}
+
+local function CreateToggleButton(parent)
+	local bu = CreateFrame("Button", nil, parent)
+	bu:SetSize(20, 80)
+	bu.text = bu:CreateFontString(nil, "OVERLAY")
+	bu.text:FontTemplate(nil, 18)
+	bu.text:SetAllPoints()
+	-- bu.text = F:CreateText(bu, "OVERLAY", 18, "OUTLINE", nil, true)
+	module:ReskinMenuButton(bu)
+
+	return bu
+end
+
+function module:CreateToggle(frame)
+	local close = CreateToggleButton(frame)
+	frame.closeButton = close
+
+	local open = CreateToggleButton(UIParent)
+	open:Hide()
+	frame.openButton = open
+
+	open:SetScript("OnClick", function()
+		open:Hide()
+	end)
+	close:SetScript("OnClick", function()
+		open:Show()
+	end)
+
+	module:SetToggleDirection(frame)
+	tinsert(toggleFrames, frame)
+
+	return open, close
+end
+
+function module:SetToggleDirection(frame)
+	local str1, str2, rel1, rel2, x, y, width, height = module:GetToggleDirection()
+	local parent = frame.bg
+	local close = frame.closeButton
+	local open = frame.openButton
+	close:ClearAllPoints()
+	close:SetPoint(rel1, parent, rel2, x, y)
+	close:SetSize(width, height)
+	open:ClearAllPoints()
+	open:SetPoint(rel1, parent, rel1, -x, -y)
+	open:SetSize(width, height)
+
+	if E.private.mui.skins.toggleDirection == 5 then
+		close:SetScale(.001)
+		close:SetAlpha(0)
+		open:SetScale(.001)
+		open:SetAlpha(0)
+		close.text:SetText("")
+		open.text:SetText("")
+	else
+		close:SetScale(1)
+		close:SetAlpha(1)
+		open:SetScale(1)
+		open:SetAlpha(1)
+		close.text:SetText(str1)
+		open.text:SetText(str2)
+	end
+end
+
+function module:RefreshToggleDirection()
+	for _, frame in pairs(toggleFrames) do
+		module:SetToggleDirection(frame)
+	end
+end

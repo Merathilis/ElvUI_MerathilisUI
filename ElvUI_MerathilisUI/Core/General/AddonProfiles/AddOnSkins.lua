@@ -34,7 +34,7 @@ function MER:LoadAddOnSkinsProfile()
 	AS.db['HideChatFrame'] = 'NONE'
 	AS.db['Parchment'] = false
 	AS.db['ParchmentRemover'] = false
-	AS.db['SkinDebug'] = false
+	AS.db['SkinDebug'] = true
 	AS.db['LoginMsg'] = false
 	AS.db['EmbedSystemMessage'] = false
 	AS.db['ElvUISkinModule'] = true
