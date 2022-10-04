@@ -541,22 +541,28 @@ function module:AddCharacterIcon()
 	end
 end
 
-function module:UndressButton()
-	-- Undress Button
-	if E.db.mui.armory.character.undressButton then
-		local bu = F.Widgets.New("Button", _G.PaperDollFrame, format("|cff70C0F5%s", L["Undress"]), 60, 20,
-		function()
-			for i = 1, 17 do
-				local texture = GetInventoryItemTexture('player', i)
-				if texture then
-					UnequipItemInSlot(i)
-				end
-			end
-		end)
+local function UnequipItemInSlot(i)
+	local action = EquipmentManager_UnequipItemInSlot(i)
+	EquipmentManager_RunAction(action)
+end
 
-		bu:SetPoint("TOPRIGHT", _G.CharacterFrame, "TOPLEFT", 70, -35)
-		bu:SetFrameStrata("HIGH")
-	end
+function module:UndressButton()
+	if not E.db.mui.armory.character.undressButton then return end
+
+	local button = CreateFrame("Button", nil, _G.CharacterFrameInsetRight)
+	button:SetSize(34, 38)
+	button:SetPoint("RIGHT", _G.PaperDollSidebarTab1, "LEFT", -4, 0)
+	F.PixelIcon(button, "Interface\\ICONS\\SPELL_SHADOW_TWISTEDFAITH", true)
+	F.AddTooltip(button, "ANCHOR_TOPRIGHT", L["Double Click to Undress"], 'WHITE')
+
+	button:SetScript("OnDoubleClick", function()
+		for i = 1, 17 do
+			local texture = GetInventoryItemTexture("player", i)
+			if texture then
+				UnequipItemInSlot(i)
+			end
+		end
+	end)
 end
 
 function module:LoadAndSetupCharacter()
