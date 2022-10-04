@@ -273,6 +273,8 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.6
 	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 8
 	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 1
+	E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
+	E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 1.1
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["mail"]["texture"] = "Mail2"
@@ -284,7 +286,7 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -5
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 30
+	E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 0
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
 	E.db["general"]["minimap"]["size"] = 210

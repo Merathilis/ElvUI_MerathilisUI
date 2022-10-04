@@ -1804,7 +1804,7 @@ end
 options.Embed = {
 	order = 6,
 	type = "group",
-	name = L["Embed Settings"],
+	name = E.NewSign .. L["Embed Settings"],
 	get = function(info) return E.private.mui.skins.embed[info[#info]] end,
 	set = function(info, value) E.private.mui.skins.embed[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 	args = {
