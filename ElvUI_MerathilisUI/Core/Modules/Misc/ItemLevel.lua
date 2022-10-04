@@ -338,18 +338,6 @@ function module:ItemLevel_UpdateMerchant(link)
 	end
 end
 
-function module:ItemLevel_UpdateTradePlayer(index)
-	local button = _G["TradePlayerItem" .. index]
-	local link = GetTradePlayerItemLink(index)
-	module:ItemLevel_UpdateMerchant(button, link)
-end
-
-function module:ItemLevel_UpdateTradeTarget(index)
-	local button = _G["TradeRecipientItem" .. index]
-	local link = GetTradeTargetItemLink(index)
-	module:ItemLevel_UpdateMerchant(button, link)
-end
-
 function module:UpdateUnitILvl(unit, text)
 	if not text then return end
 
@@ -441,10 +429,6 @@ function module:ShowItemLevel()
 
 	-- iLvl on MerchantFrame
 	hooksecurefunc("MerchantFrameItem_UpdateQuality", module.ItemLevel_UpdateMerchant)
-
-	-- iLvl on TradeFrame
-	hooksecurefunc("TradeFrame_UpdatePlayerItem", module.ItemLevel_UpdateTradePlayer)
-	hooksecurefunc("TradeFrame_UpdateTargetItem", module.ItemLevel_UpdateTradeTarget)
 end
 
 function module:ProfileUpdate()
