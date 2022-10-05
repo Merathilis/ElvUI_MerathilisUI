@@ -289,7 +289,7 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 0
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
-	E.db["general"]["minimap"]["size"] = 210
+	E.db["general"]["minimap"]["size"] = 180
 	E.db["general"]["minimap"]["locationFontSize"] = 10
 	E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 	E.db["general"]["minimap"]["locationFont"] = "Expressway"
@@ -331,10 +331,10 @@ function MER:SetupLayout()
 		E.db["auras"]["buffs"]["keepSizeRatio"] = false
 		E.db["auras"]["buffs"]["height"] = 28
 		E.db["auras"]["buffs"]["size"] = 32
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-221,-17"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-17"
 	else
 		E.db["auras"]["buffs"]["size"] = 32
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-221,-17"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-17"
 	end
 	E.db["auras"]["buffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["auras"]["buffs"]["countFontSize"] = 11
@@ -346,10 +346,10 @@ function MER:SetupLayout()
 		E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 		E.db["auras"]["debuffs"]["height"] = 30
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-220,-185"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-184"
 	else
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-220,-185"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-184"
 
 	end
 	E.db["auras"]["debuffs"]["countFont"] = "Gotham Narrow Black"
