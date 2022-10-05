@@ -98,10 +98,15 @@ function module:ResetDetailsAnchor(force)
 	local height = 144
 	local instance1 = Details:GetInstance(1)
 	local instance2 = Details:GetInstance(2)
+	local instance3 = Details:GetInstance(3)
 	if instance1 and (force or IsDefaultAnchor(instance1)) then
 		if instance2 then
 			height = 96
 			EmbedWindow(instance2, -3, 175, 340, height)
+		end
+		if instance3 then
+			height = 96
+			EmbedWindow(instance3, -3, 301, 340, height)
 		end
 		EmbedWindow(instance1, -3, 49, 340, height)
 	end
