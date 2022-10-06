@@ -102,11 +102,11 @@ function module:ResetDetailsAnchor(force)
 	if instance1 and (force or IsDefaultAnchor(instance1)) then
 		if instance2 then
 			height = 96
-			EmbedWindow(instance2, -3, 175, 340, height)
+			EmbedWindow(instance2, -3, 165, 340, height)
 		end
 		if instance3 then
 			height = 96
-			EmbedWindow(instance3, -3, 301, 340, height)
+			EmbedWindow(instance3, -3, 284, 340, height)
 		end
 		EmbedWindow(instance1, -3, 49, 340, height)
 	end
@@ -130,17 +130,21 @@ local function ReskinDetails()
 	-- Reanchor
 	local instance1 = module:ResetDetailsAnchor()
 
+	--[[
 	local listener = Details:CreateEventListener()
 	listener:RegisterEvent("DETAILS_INSTANCE_OPEN")
 	function listener:OnDetailsEvent(event, instance)
 		if event == "DETAILS_INSTANCE_OPEN" then
 			if not instance.styled and instance:GetId() == 2 then
 				instance1:SetSize(340, 96)
-				EmbedWindow(instance, -3, 175, 340, 96)
+				EmbedWindow(instance, -3, 165, 340, 96)
+			end
+			if not instance.styled and instance:GetId() == 3 then
+				EmbedWindow(instance, -3, 284, 340, 96)
 			end
 			SetupInstance(instance)
 		end
-	end
+	end]]
 
 	-- Reset to one window
 	Details.OpenWelcomeWindow = function()
