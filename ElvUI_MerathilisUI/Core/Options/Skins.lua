@@ -42,6 +42,10 @@ local function UpdateToggleDirection()
 	module:RefreshToggleDirection()
 end
 
+local function ResetDetails()
+	StaticPopup_Show("RESET_DETAILS")
+end
+
 options.general = {
 	order = 1,
 	type = 'group',
@@ -1834,7 +1838,7 @@ options.Embed = {
 			type = "execute",
 			name = L["Reset Settings"],
 			func = function()
-				module:ResetDetailsAnchor(true)
+				ResetDetails()
 			end,
 			disabled = function()
 				return not E.private.mui.skins.embed.enable

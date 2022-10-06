@@ -325,6 +325,14 @@ local function Menu_OnLeave(self)
 	self.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
 end
 
+local function Menu_OnMouseUp(self)
+	self.backdrop:SetBackdropColor(0, 0, 0, .45)
+end
+
+local function Menu_OnMouseDown(self)
+	self.backdrop:SetBackdropColor(F.r, F.g, F.b, .25)
+end
+
 function module:ReskinMenuButton(button)
 	assert(button, "doesn't exist!")
 
@@ -336,6 +344,8 @@ function module:ReskinMenuButton(button)
 	end
 	button:SetScript("OnEnter", Menu_OnEnter)
 	button:SetScript("OnLeave", Menu_OnLeave)
+	button:HookScript("OnMouseUp", Menu_OnMouseUp)
+	button:HookScript("OnMouseDown", Menu_OnMouseDown)
 end
 
 -- ClassColored ScrollBars
@@ -858,9 +868,6 @@ StaticPopupDialogs["RESET_DETAILS"] = {
 	end,
 	whileDead = 1,
 }
-local function ResetDetails()
-	StaticPopup_Show("RESET_DETAILS")
-end
 
 function module:GetToggleDirection()
 	local direc = E.private.mui.skins.toggleDirection
