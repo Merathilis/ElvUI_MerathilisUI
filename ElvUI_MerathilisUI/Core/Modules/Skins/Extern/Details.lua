@@ -3,11 +3,9 @@ local module = MER:GetModule('MER_Skins')
 
 local function GradientColorClass(class)
 	if class then
-		return F.ClassGradient[class].r1 - 0.2, F.ClassGradient[class].g1 - 0.2,
-			F.ClassGradient[class].b1 - 0.2, 0.9, F.ClassGradient[class].r2 + 0.2,
-			F.ClassGradient[class].g2 + 0.2, F.ClassGradient[class].b2 + 0.2, 0.9
-	else
-		return 1, 1, 1, 1
+		return F.DetailsGradient[class].r1 - 0.2, F.DetailsGradient[class].g1 - 0.2,
+			F.DetailsGradient[class].b1 - 0.2, 0.9, F.DetailsGradient[class].r2 + 0.2,
+			F.DetailsGradient[class].g2 + 0.2, F.DetailsGradient[class].b2 + 0.2, 0.9
 	end
 end
 
