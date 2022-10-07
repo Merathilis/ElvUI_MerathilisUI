@@ -1210,10 +1210,11 @@ function module:Initialize()
 	local shiftUpdater = CreateFrame("Frame", nil, f.main)
 	shiftUpdater:SetScript("OnUpdate", onUpdate)
 
-	-- if DB.isNewPatch then
-		-- MicroButtonAndBagsBar:Hide()
-		-- MicroButtonAndBagsBar:UnregisterAllEvents()
-	-- end
+	_G.BankFrame:SetScale(0.0001)
+	_G.BankFrame:SetAlpha(0)
+	_G.BankFrame:SetScript('OnShow', nil)
+	_G.BankFrame:ClearAllPoints()
+	_G.BankFrame:Point('TOPLEFT')
 end
 
 MER:RegisterModule(module:GetName())
