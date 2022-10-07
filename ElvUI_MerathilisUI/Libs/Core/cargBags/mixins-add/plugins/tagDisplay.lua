@@ -111,8 +111,8 @@ local function GetNumFreeSlots(name)
 	if name == "Bag" then
 		return CalculateTotalNumberOfFreeBagSlots()
 	elseif name == "Bank" then
-		local numFreeSlots = --[[MER.isNewPatch and 0 or]] GetContainerNumFreeSlots(-1) -- todo: bagID not allow to be negative in 45779, wait for blizz to fix itself
-		-- if DB.isNewPatch then
+		local numFreeSlots = GetContainerNumFreeSlots(-1)
+		-- if MER.isNewPatch then
 			-- for bagID = 6, 12 do
 				-- numFreeSlots = numFreeSlots + GetContainerNumFreeSlots(bagID)
 			-- end
