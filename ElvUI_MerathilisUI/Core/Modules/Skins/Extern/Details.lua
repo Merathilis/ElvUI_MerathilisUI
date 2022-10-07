@@ -167,7 +167,6 @@ local function ReskinDetails()
 	-- Reanchor
 	local instance1 = module:ResetDetailsAnchor()
 
-	--[[
 	local listener = Details:CreateEventListener()
 	listener:RegisterEvent("DETAILS_INSTANCE_OPEN")
 	function listener:OnDetailsEvent(event, instance)
@@ -181,7 +180,7 @@ local function ReskinDetails()
 			end
 			SetupInstance(instance)
 		end
-	end]]
+	end
 
 	-- Reset to one window
 	Details.OpenWelcomeWindow = function()
