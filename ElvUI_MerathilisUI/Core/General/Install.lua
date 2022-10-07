@@ -326,7 +326,7 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["timeYOffset"] = 34
 	E.db["auras"]["buffs"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 4
-	E.db["auras"]["buffs"]["verticalSpacing"] = 0
+	E.db["auras"]["buffs"]["verticalSpacing"] = 10
 	if IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
 		E.db["auras"]["buffs"]["keepSizeRatio"] = false
 		E.db["auras"]["buffs"]["height"] = 28
@@ -341,7 +341,7 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["countFontOutline"] = "OUTLINE"
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 4
-	E.db["auras"]["debuffs"]["verticalSpacing"] = 0
+	E.db["auras"]["debuffs"]["verticalSpacing"] = 10
 	if IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
 		E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 		E.db["auras"]["debuffs"]["height"] = 30
