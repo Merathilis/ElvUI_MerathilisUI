@@ -16,12 +16,6 @@ local function LoadSkin()
 		return
 	end
 
-	-- Graveyard button (a bit ugly if you press it)
-	_G.GhostFrame:StripTextures()
-	_G.GhostFrameContentsFrame:StripTextures()
-	_G.GhostFrame:CreateBackdrop("Transparent")
-	_G.GhostFrame.backdrop:Styling()
-
 	local skins = {
 		"StaticPopup1",
 		"StaticPopup2",
