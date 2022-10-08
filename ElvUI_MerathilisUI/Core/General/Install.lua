@@ -2028,6 +2028,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
 	E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
 	E.db["unitframe"]["units"]["party"]["disableMouseoverGlow"] = false
+	E.db["unitframe"]["units"]["party"]["showPlayer"] = false
 	E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
 	E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 32
 	E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
@@ -2318,7 +2319,7 @@ function MER:SetupUnitframes()
 	E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
 	E.db["movers"]["ElvUF_Raid2Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
 	E.db["movers"]["ElvUF_Raid3Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
-	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,245,350"
+	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,268,326"
 	E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
 	E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
 	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,540,209"
