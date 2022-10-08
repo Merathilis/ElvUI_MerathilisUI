@@ -12,15 +12,19 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed a styling issue with the Unitframes",
-		"• Added a Details Skin, disabled by default for now",
-		"• Added a 'Full Animation' on the animated Power Bar",
+		"• >> WITH THIS VERSION YOU GET SOME MASSIVE CHANGES: <<",
+		"• If you want that everything looks fine, you need to do the install again (it will overwrite your changes)",
+		"  if you don't want to do that, you need to adjust it manually. Please do not come in my discord afterwards. >.<",
+		"• Added an own Bag Module based on cargBags",
+		"• Added an own Embed Module to use Details in an own Panel. Credits siweia - NDUI",
+		"• Main Layout Updates",
 
 	" ",
 	"Notes:",
 		"• As always, if you want my latest layout, do the install again",
 		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muidebug on' and test again",
+		"• You can disable almost everything in the Option. I would sugguest you to back up your profiles regularly"
 
 		-- "• ''",
 }
