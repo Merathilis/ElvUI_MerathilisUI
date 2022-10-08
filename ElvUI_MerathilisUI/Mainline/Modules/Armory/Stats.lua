@@ -532,7 +532,7 @@ end
 
 function module:InitStats()
 	if IsAddOnLoaded("DejaCharacterStats") then return end
-	if not E.db.mui.armory.stats.enable then return end
+	if not E.db.mui.armory.stats.enable or not E.db.mui.armory.character.enable then return end
 
 	module:ReplaceBlizzGlobals()
 	hooksecurefunc("PaperDollFrame_UpdateStats", module.PaperDollFrame_UpdateStats)
