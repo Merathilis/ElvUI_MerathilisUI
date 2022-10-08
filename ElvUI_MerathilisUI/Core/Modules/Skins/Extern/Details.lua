@@ -55,7 +55,7 @@ local function GradientBars()
 				if row and row.textura then
 					hooksecurefunc(row.textura, "SetVertexColor", function(_, r, g, b)
 						if row.minha_tabela and row.minha_tabela.name then
-							class = row.minha_tabela:class() --from details api returns class of that row
+							class = row.minha_tabela:class()
 							if class ~= 'UNKNOW' and classes[class] then
 								row.textura:SetGradientAlpha("Horizontal", GradientColorClass(class))
 							else
