@@ -86,6 +86,7 @@ L["|nIf Bags ItemFilter enabled, change the bags per row for anchoring."] = "«|
 L["Bank bags per Row"] = "Банковских сумок в ряду"
 L["|nIf Bags ItemFilter enabled, change the bank bags per row for anchoring."] = "|nЕсли фильтр предметов сумок включен, измените количество сумок в ряду для привязки."
 L["Icon Size"] = "Размер значка"
+L["Icon Spacing"] = true
 L["Font Size"] = "Размер шрифта"
 L["Bags Width"] = "Ширина сумки"
 L["Bank Width"] = "Ширина банка"

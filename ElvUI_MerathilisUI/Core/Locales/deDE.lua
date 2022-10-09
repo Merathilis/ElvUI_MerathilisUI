@@ -83,6 +83,7 @@ L["|nIf Bags ItemFilter enabled, change the bags per row for anchoring."] = "|nW
 L["Bank bags per Row"] = "Banktaschen per Reihe"
 L["|nIf Bags ItemFilter enabled, change the bank bags per row for anchoring."] = "|nWenn Taschen Gegenstandsfilter aktiviert ist, ändere die Banktaschen pro Reihe für die Verankerung."
 L["Icon Size"] = "Symbolgröße"
+L["Icon Spacing"] = "Symbolabstand"
 L["Font Size"] = "Schriftgröße"
 L["Bags Width"] = "Taschen Breite"
 L["Bank Width"] = "Bank Breite"

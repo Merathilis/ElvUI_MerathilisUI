@@ -1009,7 +1009,7 @@ function module:Initialize()
 
 		local columns = module:GetContainerColumns(self.Settings.BagType)
 		local offset = 38
-		local spacing = 3
+		local spacing = module.db.IconSpacing or 3
 		local xOffset = 5
 		local yOffset = -offset + xOffset
 		local _, height = self:LayoutButtons("grid", columns, spacing, xOffset, yOffset)

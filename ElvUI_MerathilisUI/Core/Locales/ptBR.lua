@@ -89,6 +89,7 @@ L["|nIf Bags ItemFilter enabled, change the bags per row for anchoring."] = true
 L["Bank bags per Row"] = true
 L["|nIf Bags ItemFilter enabled, change the bank bags per row for anchoring."] = true
 L["Icon Size"] = true
+L["Icon Spacing"] = true
 L["Font Size"] = true
 L["Bags Width"] = true
 L["Bank Width"] = true

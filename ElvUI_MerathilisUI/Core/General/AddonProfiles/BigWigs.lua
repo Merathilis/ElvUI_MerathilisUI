@@ -76,10 +76,10 @@ function MER:LoadBigWigsProfile()
 	}
 	DB["namespaces"]["BigWigs_Plugins_Bars"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Bars"]["profiles"] or {}
 	DB["namespaces"]["BigWigs_Plugins_Bars"]["profiles"][profileName] = {
-		["BigWigsEmphasizeAnchor_y"] = 256,
-		["BigWigsEmphasizeAnchor_x"] = 457,
-		["BigWigsAnchor_y"] = 24,
-		["BigWigsAnchor_x"] = 835,
+		["BigWigsEmphasizeAnchor_y"] = 232,
+		["BigWigsEmphasizeAnchor_x"] = 455,
+		["BigWigsAnchor_y"] = 258,
+		["BigWigsAnchor_x"] = 1159,
 		["BigWigsAnchor_width"] = 212,
 		["BigWigsAnchor_height"] = 18,
 		["BigWigsEmphasizeAnchor_height"] = 28,

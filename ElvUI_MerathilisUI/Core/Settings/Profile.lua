@@ -16,6 +16,7 @@ P.general = {
 P.bags = {
 	Enable = true,
 	IconSize = 34,
+	IconSpacing = 3,
 	FontSize = 11,
 	BagsWidth = 12,
 	BankWidth = 12,
