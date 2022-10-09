@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModules('MER_Notifications')
+local module = MER:GetModule('MER_Notification')
 local S = MER:GetModule('MER_Skins')
 
 -- Credits RealUI
