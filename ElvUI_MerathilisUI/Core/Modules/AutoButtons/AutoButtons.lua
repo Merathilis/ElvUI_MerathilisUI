@@ -205,6 +205,50 @@ local food = {
 	168314,
 	168315,
 	169280,
+	42996,
+	34750,
+	44953,
+	34757,
+	43001,
+	34755,
+	43490,
+	42993,
+	34768,
+	34756,
+	43005,
+	34763,
+	34759,
+	43480,
+	34749,
+	34761,
+	34751,
+	42994,
+	34752,
+	34766,
+	34764,
+	34765,
+	34747,
+	34758,
+	34754,
+	34748,
+	43488,
+	34769,
+	42995,
+	43492,
+	34762,
+	34760,
+	43478,
+	43015,
+	34767,
+	43000,
+	43268,
+	42998,
+	43004,
+	42997,
+	42999,
+	42942,
+	45279,
+	6657,
 }
 
 -- Foods added in Shadowlands (Crafted by cooking)
@@ -306,6 +350,17 @@ local foodShadowlandsVendor = {
 }
 
 local conjuredManaFood = {
+	22044, -- mana gem TBC
+	33312, -- mana gem WRATH
+	36892, -- healthstone WRATH
+	36893, -- healthstone WRATH
+	36894, -- healthstone WRATH
+	36891, -- healthstone WRATH
+	36890, -- healthstone WRATH
+	36889, -- healthstone WRATH
+	22105, -- healthstone TBC
+	22104, -- healthstone TBC
+	22103, -- healthstone TBC
 	34062,
 	43518,
 	43523,
@@ -344,6 +399,8 @@ local utilities = {
 	172346,
 	172347,
 	172233,
+	34721, -- First Aid bandage WRATH
+	34722, -- First Aid bandage WRATH
 }
 
 local torghastItems = {
@@ -585,6 +642,8 @@ local tbcCauldrons = {
 }
 
 local wrathPotions = {
+	25539,
+	33447,
 	33448,
 	39327,
 	40068,
@@ -604,6 +663,17 @@ local wrathPotions = {
 	40215,
 	40216,
 	40217,
+	43569,
+	43570,
+	40077,
+	41166,
+	42545,
+	22850,
+	34440,
+	39671,
+	40067,
+
+
 }
 
 local wrathFlasks = {
@@ -612,7 +682,42 @@ local wrathFlasks = {
 	46376,
 	46377,
 	46379,
+	45006,
+	45007,
+	45008,
+	45009,
+	46378,
+	47499,
+	40079,
+	44939,
+	32764,
+	32765,
+	32766,
+
 }
+
+local wrathElixirs = {
+	39666,
+	40068,
+	40070,
+	40072,
+	40073,
+	40076,
+	40078,
+	40097,
+	40109,
+	44325,
+	44327,
+	44328,
+	44329,
+	44330,
+	44331,
+	44332,
+	8827, -- waterwalking elixir
+	8529, -- noggenfogger elixir
+
+}
+
 
 local questItemList = {}
 local function UpdateQuestItemList()
@@ -665,6 +770,7 @@ local moduleList = {
 	["ELIXIRTBC"] = tbcElixirs,
 	["POTIONSWRATH"] = wrathPotions,
 	["FLASKWRATH"] = wrathFlasks,
+	["ELIXIRWRATH"] = wrathElixirs,
 }
 
 function module:CreateButton(name, barDB)
