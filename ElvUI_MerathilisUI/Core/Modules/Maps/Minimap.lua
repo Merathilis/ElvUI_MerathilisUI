@@ -98,31 +98,6 @@ function module:StyleMinimap()
 	S:CreateBackdropShadow(Minimap)
 end
 
-function module:QueueStatus()
-	if not E.private.general.minimap.enable or not E.db.mui.maps.minimap.queueStatus or not E.Retail then return end
-
-	-- QueueStatus Button
-	_G.QueueStatusMinimapButtonBorder:Hide()
-	_G.QueueStatusMinimapButtonIconTexture:SetTexture(nil)
-
-	local queueIcon = Minimap:CreateTexture(nil, "ARTWORK")
-	queueIcon:Point("CENTER", _G.QueueStatusMinimapButton)
-	queueIcon:SetSize(50, 50)
-	queueIcon:SetTexture("Interface\\Minimap\\Raid_Icon")
-
-	local anim = queueIcon:CreateAnimationGroup()
-	anim:SetLooping("REPEAT")
-	anim.rota = anim:CreateAnimation("Rotation")
-	anim.rota:SetDuration(2)
-	anim.rota:SetDegrees(360)
-
-	hooksecurefunc("QueueStatusFrame_Update", function()
-		queueIcon:SetShown(_G.QueueStatusMinimapButton:IsShown())
-	end)
-	hooksecurefunc("EyeTemplate_StartAnimating", function() anim:Play() end)
-	hooksecurefunc("EyeTemplate_StopAnimating", function() anim:Stop() end)
-end
-
 function module:StyleMinimapRightClickMenu()
 	-- Style the ElvUI's MiddleClick-Menu on the Minimap
 	local Menu = _G.MinimapRightClickMenu
@@ -144,7 +119,6 @@ function module:Initialize()
 	self:MiniMapCoords()
 	self:StyleMinimap()
 	self:StyleMinimapRightClickMenu()
-	self:QueueStatus()
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
 	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")

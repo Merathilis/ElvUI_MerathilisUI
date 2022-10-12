@@ -881,7 +881,6 @@ P.unitframes = {
 P.maps = {
 	minimap = {
 		flash = true,
-		queueStatus = true,
 		instanceDifficulty = {
 			enable = true,
 			hideBlizzard = true,
