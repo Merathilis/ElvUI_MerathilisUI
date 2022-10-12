@@ -969,7 +969,7 @@ function module:Initialize()
 
 		f.reagent = MyContainer:New("Reagent", { Bags = "bankreagent", BagType = "Bank" })
 		f.reagent:SetFilter(filters.onlyReagent, true)
-		f.reagent.__anchor = { "BOTTOMLEFT", f.bank }
+		f.reagent.__anchor = { "BOTTOM", f.bank , 0, -70}
 		f.reagent:SetPoint(unpack(f.reagent.__anchor))
 		f.reagent:Hide()
 	end

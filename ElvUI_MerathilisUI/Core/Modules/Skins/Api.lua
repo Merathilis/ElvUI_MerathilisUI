@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
-local S = E.Skins
+local module = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
