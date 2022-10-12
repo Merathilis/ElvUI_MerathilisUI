@@ -11,6 +11,7 @@ local GetItemQualityColor = GetItemQualityColor
 
 local CharacterStatsPane = _G.CharacterStatsPane
 local CreateFrame = CreateFrame
+local CreateColor = CreateColor
 local C_Transmog_GetSlotInfo = C_Transmog and C_Transmog.GetSlotInfo
 local C_Transmog_GetSlotVisualInfo = C_Transmog and C_Transmog.GetSlotVisualInfo
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection and C_TransmogCollection.GetAppearanceSourceInfo
@@ -370,14 +371,22 @@ local function ColorizeStatPane(frame)
 	frame.leftGrad:SetHeight(frame:GetHeight())
 	frame.leftGrad:SetPoint("LEFT", frame, "CENTER")
 	frame.leftGrad:SetTexture(E.media.blankTex)
-	frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.75, r, g, b, 0)
+	if MER.IsNewPatch then
+		frame.leftGrad:SetGradient("Horizontal", CreateColor(r, g, b, 0.75), CreateColor(r, g, b, 0))
+	else
+		frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.75, r, g, b, 0)
+	end
 
 	frame.rightGrad = frame:CreateTexture(nil, "BORDER")
 	frame.rightGrad:SetWidth(80)
 	frame.rightGrad:SetHeight(frame:GetHeight())
 	frame.rightGrad:SetPoint("RIGHT", frame, "CENTER")
 	frame.rightGrad:SetTexture(E.media.blankTex)
-	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
+	if MER.IsNewPatch then
+		frame.rightGrad:SetGradient("Horizontal", CreateColor(r, g, b, 0), CreateColor(r, g, b, 0.75))
+	else
+		frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
+	end
 end
 
 local function SkinAdditionalStats()

@@ -4,12 +4,12 @@ local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
-local pairs = pairs
+local pairs, tonumber = pairs, tonumber
 local format = format
 local max = max
 local strmatch = strmatch
-local tonumber = tonumber
 
+local CreateColor = CreateColor
 local C_QuestLog_GetTitleForQuestID = C_QuestLog.GetTitleForQuestID
 local CreateFrame = CreateFrame
 local ObjectiveTracker_Update = ObjectiveTracker_Update
@@ -118,17 +118,32 @@ function module:CosmeticBar(header)
 		)
 	elseif self.db.cosmeticBar.color.mode == "GRADIENT" then
 		bar:SetVertexColor(1, 1, 1)
-		bar:SetGradientAlpha(
-			"HORIZONTAL",
-			self.db.cosmeticBar.color.gradientColor1.r,
-			self.db.cosmeticBar.color.gradientColor1.g,
-			self.db.cosmeticBar.color.gradientColor1.b,
-			self.db.cosmeticBar.color.gradientColor1.a,
-			self.db.cosmeticBar.color.gradientColor2.r,
-			self.db.cosmeticBar.color.gradientColor2.g,
-			self.db.cosmeticBar.color.gradientColor2.b,
-			self.db.cosmeticBar.color.gradientColor2.a
-		)
+		if MER.IsNewPatch then
+			bar:SetGradient(
+				"HORIZONTAL", CreateColor(
+				self.db.cosmeticBar.color.gradientColor1.r,
+				self.db.cosmeticBar.color.gradientColor1.g,
+				self.db.cosmeticBar.color.gradientColor1.b,
+				self.db.cosmeticBar.color.gradientColor1.a),
+				CreateColor(
+				self.db.cosmeticBar.color.gradientColor2.r,
+				self.db.cosmeticBar.color.gradientColor2.g,
+				self.db.cosmeticBar.color.gradientColor2.b,
+				self.db.cosmeticBar.color.gradientColor2.a)
+			)
+		else
+			bar:SetGradientAlpha(
+				"HORIZONTAL",
+					self.db.cosmeticBar.color.gradientColor1.r,
+					self.db.cosmeticBar.color.gradientColor1.g,
+					self.db.cosmeticBar.color.gradientColor1.b,
+					self.db.cosmeticBar.color.gradientColor1.a,
+					self.db.cosmeticBar.color.gradientColor2.r,
+					self.db.cosmeticBar.color.gradientColor2.g,
+					self.db.cosmeticBar.color.gradientColor2.b,
+					self.db.cosmeticBar.color.gradientColor2.a
+			)
+		end
 	end
 
 	bar.backdrop:SetAlpha(self.db.cosmeticBar.borderAlpha)
