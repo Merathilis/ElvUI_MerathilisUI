@@ -439,6 +439,7 @@ P.misc = {
 	},
 	hideBossBanner = false,
 	quickDelete = true,
+	quickMenu = true,
 }
 
 P.nameHover = {

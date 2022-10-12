@@ -59,6 +59,13 @@ options.misc = {
 			name = E.NewSign .. L["Quick Delete"],
 			desc = L["This will add the 'DELETE' text to the Item Delete Dialog."],
 		},
+		quickMenu = {
+			order = 8,
+			type = "toggle",
+			name = E.NewSign .. L["Quick Menu"],
+			desc = L["Shows additional Buttons on your Dropdown for quick actions."],
+		},
+
 		spellAlert = {
 			order = 10,
 			type = "group",
