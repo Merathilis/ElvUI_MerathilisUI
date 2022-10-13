@@ -30,6 +30,32 @@ module.ArrowRotation = {
 	['RIGHT'] = 1.57,
 }
 
+do
+	local regions = {
+		"Center",
+		"BottomEdge",
+		"LeftEdge",
+		"RightEdge",
+		"TopEdge",
+		"BottomLeftCorner",
+		"BottomRightCorner",
+		"TopLeftCorner",
+		"TopRightCorner"
+	}
+
+	--[[
+		Strip edge textures
+		@param {frame} frame
+	]]
+	function module:StripEdgeTextures(frame)
+		for _, regionKey in pairs(regions) do
+			if frame[regionKey] then
+				frame[regionKey]:Kill()
+			end
+		end
+	end
+end
+
 function module:CreateShadow(frame, size, r, g, b, force)
 	if not force then
 		if not E.private.mui.skins.enable or not E.private.mui.skins.shadow.enable then
