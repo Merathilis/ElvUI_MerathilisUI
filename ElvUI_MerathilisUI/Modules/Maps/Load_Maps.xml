@@ -1,7 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="Minimap.lua"/>
-	<Script file="MinimapButtons.lua"/>
-	<Script file="MinimapPing.lua"/>
-	<Script file="Rectangle.lua"/>
-	<Script file="Options.lua"/>
-</Ui>

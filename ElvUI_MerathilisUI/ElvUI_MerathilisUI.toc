@@ -1,6 +1,6 @@
-## Interface: 90001
+## Interface: 90207
 ## Author: Merathilis
-## Version: 4.62
+## Version: @project-version@
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
@@ -9,20 +9,24 @@
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, BigWigs, ls_Toasts
-## X-Credits: Benik, Blazeflack, Azilroka, Simpy, NihilisticPandemonium, Darth Predator, fgprodigal, siweia, Solor, Elv, fang2hou & all AddOn Authors who inspired me.
-## X-ElvVersion: 12.08
-## X-Curse-Packaged-Version: 4.62
+## X-Credits: Benik, Blazeflack, Azilroka, Simpy, Nihilistzsche, Darth Predator, fgprodigal, siweia, Solor, Elv, fang2hou & all AddOn Authors who inspired me.
+## X-ElvVersion: 12.90
 ## X-Curse-Project-Name: MerathilisUI
-## X-Curse-Project-ID: merathilis-ui
+## X-Curse-Project-ID: 97589
+## X-WoWI-ID: 24117
+## X-Wago-ID: VBNBZVNx
+
 ## X-Tukui-ProjectID: 1
 ## X-Tukui-ProjectFolders: ElvUI_MerathilisUI
 
-Libs\Load_Libs.xml
-Locales\Load_Locales.xml
+Mainline\Libs.xml
 Init.lua
-Settings\Load_Settings.xml
-Core\Load_Core.xml
-Media\Load_Media.xml
-Modules\Load_Modules.xml
-Layout\Load_Layout.xml
+Core\Locales\Load_Locales.xml
+Core\Media\Load_Media.xml
+Core\Settings\Load_Settings.xml
+Core\General\Load_General.xml
+Core\Modules\Load_Modules.xml
+Core\Options\Load_Options.xml
 Bindings.xml
+
+Mainline\Load.xml

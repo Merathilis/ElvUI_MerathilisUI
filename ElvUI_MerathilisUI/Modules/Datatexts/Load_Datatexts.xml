@@ -1,5 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="DataTexts.lua"/>
-	<Script file="Time.lua"/>
-	<Script file="Options.lua"/>
-</Ui>

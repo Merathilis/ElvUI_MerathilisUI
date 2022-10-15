@@ -1,0 +1,10 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Core.lua"/>
+	<Script file="CallToArms.lua"/>
+	<Script file="Durability.lua"/>
+	<Script file="Guild.lua"/>
+	<Script file="Mail.lua"/>
+	<Script file="Quest.lua"/>
+	<Script file="SocialQueue.lua"/>
+	<Script file="Vignette.lua"/>
+</Ui>

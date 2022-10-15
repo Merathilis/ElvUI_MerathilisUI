@@ -1,0 +1,6 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Include file="AddOns\Load_AddOns.xml"/>
+	<Include file="ElvUI\Load_ElvUI.xml"/>
+	<Include file="Extern\Load_Extern.xml"/>
+	<Include file="FrameXML\Load_FrameXML.xml"/>
+</Ui>

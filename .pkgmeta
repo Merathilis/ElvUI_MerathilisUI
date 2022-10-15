@@ -1,0 +1,21 @@
+package-as: ElvUI_MerathilisUI
+
+ignore:
+    - .gitattributes
+    - .gitignore
+    - .github/*
+    - .editorconfig
+    - .luacheckrc
+    - m4.png
+    - README.md
+    - README_CURSE.txt
+    - README_TUKUI.txt
+    - CHANGELOG.md
+    - CHANGELOG.txt
+
+manual-changelog:
+  filename: CHANGELOG.md
+  markup-type: markdown
+
+move-folders:
+    ElvUI_MerathilisUI/ElvUI_MerathilisUI: ElvUI_MerathilisUI

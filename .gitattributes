@@ -1,5 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+* text eol=lf
 
 # Custom for Visual Studio
 *.cs     diff=csharp
@@ -20,3 +21,24 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+.gitattributes  text
+.gitignore      text
+.editorconfig   text
+
+.luacheckrc     text
+.pkgmeta        text
+
+*.lua           text
+*.xml           text
+*.toc           text
+
+*.yml           text
+*.md            text
+*.py            text
+
+*.blp           binary
+*.png           binary
+*.tga           binary
+*.ogg           binary
+*.ttf           binary
