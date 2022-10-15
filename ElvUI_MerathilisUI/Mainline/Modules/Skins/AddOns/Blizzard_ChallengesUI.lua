@@ -41,9 +41,10 @@ local function UpdateIcons(self)
 			end
 		end
 
-		party:GetRegions():SetAlpha(0)
-		select(3, party:GetRegions()):SetAlpha(0)
-		module:CreateBD(party, .3)
+		--ToDO: Check this part
+		-- party:GetRegions():SetAlpha(0)
+		-- select(3, party:GetRegions()):SetAlpha(0)
+		-- module:CreateBD(party, .3)
 		angryStyle = true
 	end
 end
