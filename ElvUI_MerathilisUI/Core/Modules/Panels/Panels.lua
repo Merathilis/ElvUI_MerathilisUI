@@ -15,7 +15,7 @@ function module:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
-	panel.tex:SetGradient("VERTICAL", CreateColor(color.r, color.g, color.b, 1), CreateColor(0, 0, 0, 1)) --ToDO:
+	panel.tex:SetGradient("VERTICAL", CreateColor(color.r, color.g, color.b, 1), CreateColor(0, 0, 0, 1)) --ToDO: WoW10 check this
 end
 
 -- Style Panels

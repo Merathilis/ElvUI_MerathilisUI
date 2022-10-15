@@ -34,7 +34,7 @@ local function UpdateIcons(self)
 		local scheduel, party = select(4, self:GetChildren())
 		scheduel:GetRegions():SetAlpha(0)
 		select(3, scheduel:GetRegions()):SetAlpha(0)
-		module:CreateBD(scheduel, .3)
+		scheduel:CreateBackdrop('Transparent')
 		if scheduel.Entries then
 			for i = 1, 3 do
 				HandleAffixIcons(scheduel.Entries[i])

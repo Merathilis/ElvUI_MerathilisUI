@@ -36,7 +36,7 @@ local function LoadSkin()
 			MiniMapMailFrame.highlight.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\Mail")
 			MiniMapMailFrame.highlight.tex:SetPoint("TOPLEFT", _G.MiniMapMailIcon, "TOPLEFT", -2, 2)
 			MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", _G.MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)
-			MiniMapMailFrame.highlight.tex:SetVertexColor(r, g, b)
+			MiniMapMailFrame.highlight.tex:SetVertexColor(r, g, b, 1)
 
 			A:CreatePulse(MiniMapMailFrame, 1, 1)
 		end

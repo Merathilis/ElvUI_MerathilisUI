@@ -199,7 +199,7 @@ function module:WeakAurasDisplayButton(Constructor)
 			expandButton.Texture = expandButton.backdrop:CreateTexture(nil, "OVERLAY")
 			expandButton.Texture:Size(12, 12)
 			expandButton.Texture:SetTexture(MER.Media.Icons.buttonPlus)
-			expandButton.Texture:SetVertexColor(.5, .5, .5)
+			expandButton.Texture:SetVertexColor(.5, .5, .5, 1)
 			expandButton.Texture:Point("CENTER")
 			expandButton:HookScript("OnEnter", function(self)
 				if not self.disabled and self.backdrop then
@@ -217,21 +217,21 @@ function module:WeakAurasDisplayButton(Constructor)
 			widget.DisableExpand = function(frame)
 				DisableExpand(frame)
 				expandButton.Texture:SetTexture(MER.Media.Icons.buttonPlus)
-				expandButton.Texture:SetVertexColor(0.3, 0.3, 0.3)
+				expandButton.Texture:SetVertexColor(0.3, 0.3, 0.3, 1)
 			end
 
 			local Expand = widget.Expand
 			widget.Expand = function(frame)
 				Expand(frame)
 				expandButton.Texture:SetTexture(MER.Media.Icons.buttonMinus)
-				expandButton.Texture:SetVertexColor(1, 1, 1)
+				expandButton.Texture:SetVertexColor(1, 1, 1, 1)
 			end
 
 			local Collapse = widget.Collapse
 			widget.Collapse = function(frame)
 				Collapse(frame)
 				expandButton.Texture:SetTexture(MER.Media.Icons.buttonPlus)
-				expandButton.Texture:SetVertexColor(1, 1, 1)
+				expandButton.Texture:SetVertexColor(1, 1, 1, 1)
 			end
 		end
 
@@ -296,7 +296,7 @@ function module:WeakAurasLoadedHeaderButton(Constructor)
 			expandButton.Texture = expandButton.backdrop:CreateTexture(nil, "OVERLAY")
 			expandButton.Texture:Size(12, 12)
 			expandButton.Texture:SetTexture(MER.Media.Icons.buttonPlus)
-			expandButton.Texture:SetVertexColor(.5, .5, .5)
+			expandButton.Texture:SetVertexColor(.5, .5, .5, 1)
 			expandButton.Texture:Point("CENTER")
 			expandButton:HookScript("OnEnter", function(self)
 				if not self.disabled and self.backdrop then
@@ -314,21 +314,21 @@ function module:WeakAurasLoadedHeaderButton(Constructor)
 			widget.DisableExpand = function(frame)
 				DisableExpand(frame)
 				expandButton.Texture:SetTexture(MER.Media.Icons.buttonPlus)
-				expandButton.Texture:SetVertexColor(0.3, 0.3, 0.3)
+				expandButton.Texture:SetVertexColor(0.3, 0.3, 0.3, 1)
 			end
 
 			local Expand = widget.Expand
 			widget.Expand = function(frame)
 				Expand(frame)
 				expandButton.Texture:SetTexture(MER.Media.Icons.buttonMinus)
-				expandButton.Texture:SetVertexColor(1, 1, 1)
+				expandButton.Texture:SetVertexColor(1, 1, 1, 1)
 			end
 
 			local Collapse = widget.Collapse
 			widget.Collapse = function(frame)
 				Collapse(frame)
 				expandButton.Texture:SetTexture(MER.Media.Icons.buttonPlus)
-				expandButton.Texture:SetVertexColor(1, 1, 1)
+				expandButton.Texture:SetVertexColor(1, 1, 1, 1)
 			end
 		end
 
@@ -386,7 +386,7 @@ do
 
 						button:HookScript("OnLeave", function(self)
 							if self.Texture then
-								self.Texture:SetVertexColor(1, 1, 1)
+								self.Texture:SetVertexColor(1, 1, 1, 1)
 							end
 						end	)
 					end
@@ -549,7 +549,7 @@ function module:WeakAuras_ShowOptions()
 
 					button:HookScript("OnLeave", function(self)
 						if self.Texture then
-							self.Texture:SetVertexColor(1, 1, 1)
+							self.Texture:SetVertexColor(1, 1, 1, 1)
 						end
 					end)
 

@@ -116,7 +116,7 @@ local function AddButtonToCompatibilityFrame(data)
 		if _G[name] then
 			_G[name]:SetTexture(E.Media.Textures.ArrowUp)
 			_G[name]:SetRotation(ES.ArrowRotation.left)
-			_G[name]:SetVertexColor(0, 1, 0)
+			_G[name]:SetVertexColor(0, 1, 0, 1)
 		end
 	end)
 
@@ -124,7 +124,7 @@ local function AddButtonToCompatibilityFrame(data)
 	middleTexture:SetPoint("CENTER")
 	middleTexture:Size(20)
 	middleTexture:SetTexture(MER.Media.Icons.convert)
-	middleTexture:SetVertexColor(1, 1, 1)
+	middleTexture:SetVertexColor(1, 1, 1, 1)
 	middleTexture:SetPoint("CENTER", frame.scrollFrame, "TOP", 0, -frame.numModules * 50 + 25)
 
 	local rightButton = CreateFrame("Button", "MERCompatibilityFrameRightButton" .. frame.numModules, frame.scrollFrame, "OptionsButtonTemplate, BackdropTemplate")
@@ -142,7 +142,7 @@ local function AddButtonToCompatibilityFrame(data)
 		if _G[name] then
 			_G[name]:SetTexture(E.Media.Textures.ArrowUp)
 			_G[name]:SetRotation(ES.ArrowRotation.right)
-			_G[name]:SetVertexColor(1, 0, 0)
+			_G[name]:SetVertexColor(1, 0, 0, 1)
 		end
 	end)
 end

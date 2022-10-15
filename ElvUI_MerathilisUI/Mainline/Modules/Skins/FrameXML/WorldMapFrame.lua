@@ -23,7 +23,7 @@ local function LoadSkin()
 	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
 	frame:Size(230, 20)
 	frame:SetPoint("TOP", 0, 21)
-	module:CreateBD(frame, .25)
+	frame:CreateBackdrop('Transparent')
 
 	frame.text = frame:CreateFontString(nil, "ARTWORK")
 	frame.text:FontTemplate()

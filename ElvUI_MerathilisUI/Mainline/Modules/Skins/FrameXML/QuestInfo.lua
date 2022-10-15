@@ -69,7 +69,7 @@ local function RestyleSpellButton(bu)
 	bg:SetPoint("TOPLEFT", 2, -1)
 	bg:SetPoint("BOTTOMRIGHT", 0, 14)
 	bg:SetFrameLevel(0)
-	module:CreateBD(bg, .25)
+	bg:CreateBackdrop('Transparent')
 end
 
 local function RestyleRewardButton(bu, isMapQuestInfo)
@@ -201,16 +201,16 @@ local function LoadSkin()
 
 		if numSpellRewards > 0 then
 			for spellHeader in rewardsFrame.spellHeaderPool:EnumerateActive() do
-				spellHeader:SetVertexColor(1, 1, 1)
+				spellHeader:SetVertexColor(1, 1, 1, 1)
 			end
 		end
 	end)
 
 	hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", function(self, r)
 		if r == 0 then
-			self:SetTextColor(.8, .8, .8)
+			self:SetTextColor(.8, .8, .8, 1)
 		elseif r == .2 then
-			self:SetTextColor(1, 1, 1)
+			self:SetTextColor(1, 1, 1, 1)
 		end
 	end)
 

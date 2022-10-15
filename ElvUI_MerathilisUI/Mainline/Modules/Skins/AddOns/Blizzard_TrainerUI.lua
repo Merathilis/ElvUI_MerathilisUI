@@ -27,7 +27,7 @@ local function LoadSkin()
 	bg:SetPoint("TOPLEFT", 42, -2)
 	bg:SetPoint("BOTTOMRIGHT", 0, 2)
 	bg:SetFrameLevel(_G.ClassTrainerFrameSkillStepButton:GetFrameLevel()-1)
-	module:CreateBD(bg, .25)
+	bg:CreateBackdrop('Transparent')
 
 	_G.ClassTrainerFrameSkillStepButton.selectedTex:SetPoint("TOPLEFT", 43, -3)
 	_G.ClassTrainerFrameSkillStepButton.selectedTex:SetPoint("BOTTOMRIGHT", -1, 3)
@@ -70,7 +70,7 @@ local function LoadSkin()
 	bd:SetPoint("TOPLEFT", -1, 1)
 	bd:SetPoint("BOTTOMRIGHT", 1, -1)
 	bd:SetFrameLevel(_G.ClassTrainerStatusBar:GetFrameLevel()-1)
-	module:CreateBD(bd, .25)
+	bd:CreateBackdrop('Transparent')
 end
 
 S:AddCallbackForAddon("Blizzard_TrainerUI", LoadSkin)

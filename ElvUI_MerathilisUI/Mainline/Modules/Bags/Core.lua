@@ -1177,7 +1177,7 @@ function module:Initialize()
 			end
 		end
 
-		self.IconOverlay:SetVertexColor(1, 1, 1)
+		self.IconOverlay:SetVertexColor(1, 1, 1, 1)
 		self.IconOverlay:Hide()
 		self.IconOverlay2:Hide()
 		local atlas, secondAtlas = GetIconOverlayAtlas(item)

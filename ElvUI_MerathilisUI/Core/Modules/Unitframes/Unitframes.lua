@@ -19,7 +19,7 @@ function module:CreateHighlight(frame)
 	hl:SetAllPoints()
 	hl:SetTexture("Interface\\PETBATTLES\\PetBattle-SelectedPetGlow")
 	hl:SetTexCoord(0, 1, .5, 1)
-	hl:SetVertexColor(1, 1, .6)
+	hl:SetVertexColor(1, 1, .6, 1)
 	hl:SetBlendMode("ADD")
 	hl:Hide()
 	frame.Highlight = hl

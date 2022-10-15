@@ -231,7 +231,7 @@ function module:CreateRaidManager()
 		RaidManagerFrame.Close.tex:SetVertexColor(F.r, F.g, F.b)
 	end)
 	RaidManagerFrame.Close:SetScript("OnLeave", function()
-		RaidManagerFrame.Close.tex:SetVertexColor(1, 1, 1)
+		RaidManagerFrame.Close.tex:SetVertexColor(1, 1, 1, 1)
 	end)
 
 	if _G.CompactRaidFrameManager then

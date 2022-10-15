@@ -47,7 +47,7 @@ local defaultSettings = {
 	animScale = 1.5,
 	iconSize = 50,
 	holdTime = 0.3,
-	petOverlay = {1, 1, 1},
+	petOverlay = {1, 1, 1, 1},
 	ignoredSpells = {},
 	invertIgnored = false,
 	enablePet = false,
@@ -191,7 +191,7 @@ local function OnUpdate(_,update)
 			tremove(module.animating, 1)
 			runtimer = 0
 			DCPT:SetTexture(nil)
-			DCPT:SetVertexColor(1, 1, 1)
+			DCPT:SetVertexColor(1, 1, 1, 1)
 			DCP:SetAlpha(0)
 			DCP:SetSize(module.db.iconSize, module.db.iconSize)
 		else

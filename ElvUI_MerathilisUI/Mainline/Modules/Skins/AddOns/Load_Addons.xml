@@ -15,6 +15,7 @@
 	<Script file="Blizzard_ChallengesUI.lua"/>
 	<Script file="Blizzard_Channels.lua"/>
 	<Script file="Blizzard_ChromieTimeUI.lua"/>
+	<Script file="Blizzard_ClassTalentUI.lua"/>
 	<Script file="Blizzard_ClickBindingUI.lua"/>
 	<Script file="Blizzard_Collections.lua"/>
 	<Script file="Blizzard_Communities.lua"/>
@@ -53,7 +54,6 @@
 	<Script file="Blizzard_ScenarioUI.lua"/>
 	<Script file="Blizzard_ScrappingMachineUI.lua"/>
 	<Script file="Blizzard_Soulbinds.lua"/>
-	<Script file="Blizzard_TalentUI.lua"/>
 	<Script file="Blizzard_TalkingHeadUI.lua"/>
 	<Script file="Blizzard_TimeManager.lua"/>
 	<Script file="Blizzard_TokenUI.lua"/>

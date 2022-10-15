@@ -51,7 +51,7 @@ local function ProfilingWindow_UpdateButtons(frame)
 
 				button:HookScript("OnLeave", function(self)
 					if self.Texture then
-						self.Texture:SetVertexColor(1, 1, 1)
+						self.Texture:SetVertexColor(1, 1, 1, 1)
 					end
 				end)
 

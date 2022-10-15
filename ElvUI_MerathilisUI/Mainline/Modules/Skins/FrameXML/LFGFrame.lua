@@ -38,7 +38,7 @@ local function StyleRewardButton(button)
 	button.bg2:SetPoint("TOPLEFT", na, "TOPLEFT", 10, 0)
 	button.bg2:SetPoint("BOTTOMRIGHT", na, "BOTTOMRIGHT", -1, 0)
 	button.bg2:SetFrameStrata("BACKGROUND")
-	module:CreateBD(button.bg2, .25)
+	button.bg2:CreateBackdrop('Transparent')
 	module:CreateGradient(button.bg2)
 end
 

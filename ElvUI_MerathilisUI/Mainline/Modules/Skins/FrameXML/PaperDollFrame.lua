@@ -13,7 +13,7 @@ local function LoadSkin()
 		return
 	end
 
-	_G.GearManagerDialogPopup:Styling()
+	-- _G.GearManagerDialogPopup:Styling()
 end
 
 S:AddCallback("PaperDollFrame", LoadSkin)

@@ -246,15 +246,15 @@ local function LoadSkin()
 		end
 	end)
 
-	hooksecurefunc(searchResults.scrollFrame, "update", function(self)
-		for i = 1, #self.buttons do
-			local result = self.buttons[i]
-
-			if result.icon:GetTexCoord() == 0 then
-				result.icon:SetTexCoord(unpack(E.TexCoords))
-			end
-		end
-	end)
+	-- hooksecurefunc(searchResults.scrollFrame, "update", function(self)
+		-- for i = 1, #self.buttons do
+			-- local result = self.buttons[i]
+--
+			-- if result.icon:GetTexCoord() == 0 then
+				-- result.icon:SetTexCoord(unpack(E.TexCoords))
+			-- end
+		-- end
+	-- end)
 
 	--[[ NavBar ]]
 	EncounterJournal.navBar:SetWidth(550)
@@ -268,8 +268,8 @@ local function LoadSkin()
 	local instanceSelect = EncounterJournal.instanceSelect
 	instanceSelect.bg:Hide()
 
-	hooksecurefunc("EncounterJournal_ListInstances", listInstances)
-	listInstances()
+	-- hooksecurefunc("EncounterJournal_ListInstances", listInstances)
+	-- listInstances()
 
 	--[[ EncounterFrame ]]
 	local encounter = EncounterJournal.encounter
@@ -319,7 +319,7 @@ local function LoadSkin()
 		bg:SetPoint("TOPLEFT")
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(item:GetFrameLevel() - 1)
-		module:CreateBD(bg, .25)
+		bg:CreateBackdrop('Transparent')
 
 		module:CreateGradient(bg)
 	end
@@ -371,7 +371,7 @@ local function LoadSkin()
 
 		suggestion.bg:Hide()
 
-		module:CreateBD(suggestion, .25)
+		suggestion:CreateBackdrop('Transparent')
 		module:CreateGradient(suggestion)
 
 		suggestion.icon:SetPoint("TOPLEFT", 135, -15)
@@ -393,7 +393,7 @@ local function LoadSkin()
 
 			suggestion.bg:Hide()
 
-			module:CreateBD(suggestion, .25)
+			suggestion:CreateBackdrop('Transparent')
 			module:CreateGradient(suggestion)
 
 			suggestion.icon:SetPoint("TOPLEFT", 10, -10)

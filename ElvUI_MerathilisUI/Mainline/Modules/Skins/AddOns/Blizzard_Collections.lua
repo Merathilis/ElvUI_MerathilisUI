@@ -52,9 +52,9 @@ local function LoadSkin()
 	MountJournal.MountDisplay.ShadowOverlay:Hide()
 	_G.PetJournalTutorialButton.Ring:Hide()
 
-	module:CreateBD(MountJournal.MountCount, .25)
-	module:CreateBD(PetJournal.PetCount, .25)
-	module:CreateBD(MountJournal.MountDisplay.ModelScene, .25)
+	MountJournal.MountCount:CreateBackdrop('Transparent')
+	PetJournal.PetCount:CreateBackdrop('Transparent')
+	MountJournal.MountDisplay.ModelScene:CreateBackdrop('Transparent')
 
 	-- Mount list
 	for _, bu in pairs(MountJournal.ListScrollFrame.buttons) do
@@ -149,7 +149,7 @@ local function LoadSkin()
 	card.PetInfo.icon:SetTexCoord(unpack(E.TexCoords))
 	card.PetInfo.icon.bg = module:CreateBG(card.PetInfo.icon)
 
-	module:CreateBD(card, .25)
+	card:CreateBackdrop('Transparent')
 
 	for i = 2, 12 do
 		select(i, card.xpBar:GetRegions()):Hide()
@@ -196,7 +196,7 @@ local function LoadSkin()
 		bu.setButton:GetRegions():SetPoint("TOPLEFT", bu.icon, -5, 5)
 		bu.setButton:GetRegions():SetPoint("BOTTOMRIGHT", bu.icon, 5, -5)
 
-		module:CreateBD(bu, .25)
+		bu:CreateBackdrop('Transparent')
 
 		hooksecurefunc(bu.qualityBorder, "SetVertexColor", function(_, r, g, b)
 			bu.name:SetTextColor(r, g, b)

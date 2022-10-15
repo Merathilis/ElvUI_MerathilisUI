@@ -112,7 +112,7 @@ end
 
 -- from Leatrix_Maps
 local function TexturePool_ResetVertexColor(pool, texture)
-	texture:SetVertexColor(1, 1, 1)
+	texture:SetVertexColor(1, 1, 1, 1)
 	texture:SetAlpha(1)
 	return TexturePool_HideAndClearAnchors(pool, texture)
 end

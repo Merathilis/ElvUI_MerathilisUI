@@ -54,7 +54,7 @@ local function LoadSkin()
 
 	_G.SpellBookPageText:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	hooksecurefunc("SpellButton_UpdateButton", function(self)
+	--[[hooksecurefunc("SpellButton_UpdateButton", function(self)
 		if SpellBookFrame.bookType == _G.BOOKTYPE_PROFESSION then return end
 
 		local slot, slotType = SpellBook_GetSpellBookSlot(self)
@@ -81,7 +81,7 @@ local function LoadSkin()
 		if ic.bg then
 			ic.bg:SetShown(ic:IsShown())
 		end
-	end)
+	end)]]
 
 	-- Professions
 	local professions = {"PrimaryProfession1", "PrimaryProfession2", "SecondaryProfession1", "SecondaryProfession2", "SecondaryProfession3"}

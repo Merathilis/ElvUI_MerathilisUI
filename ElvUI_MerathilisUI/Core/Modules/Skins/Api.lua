@@ -10,9 +10,6 @@ local strfind = strfind
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 
-local alpha
-local backdropcolorr, backdropcolorg, backdropcolorb
-local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
 local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA
 local bordercolorr, bordercolorg, bordercolorb
@@ -265,7 +262,7 @@ function module:CreateBG(frame)
 	bg:Point("TOPLEFT", frame, -E.mult, E.mult)
 	bg:Point("BOTTOMRIGHT", frame, E.mult, -E.mult)
 	bg:SetTexture(E.media.normTex)
-	bg:SetVertexColor(0, 0, 0)
+	bg:SetVertexColor(0, 0, 0, 1)
 
 	return bg
 end
@@ -312,7 +309,7 @@ function module:CreateBDFrame(f, a)
 	else
 		bg:SetFrameLevel(0)
 	end
-	module:CreateBD(bg, a or .5)
+	bg:CreateBackdrop()
 
 	return bg
 end
@@ -333,14 +330,6 @@ function module:SetBD(f, a, x, y, x2, y2, gradient)
 	end
 
 	return bg
-end
-
-function module:CreateBD(f, a)
-	assert(f, "doesn't exist!")
-
-	f:CreateBackdrop()
-	f.backdrop:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
-	f.backdrop:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
 
 local function Menu_OnEnter(self)
@@ -396,7 +385,7 @@ function module:HandleSliderFrame(_, frame)
 	local thumb = frame:GetThumbTexture()
 	if thumb then
 		local r, g, b = unpack(E.media.rgbvaluecolor)
-		thumb:SetVertexColor(r, g, b)
+		thumb:SetVertexColor(r, g, b, 1)
 	end
 end
 
@@ -456,7 +445,6 @@ function module:PixelIcon(self, texture, highlight)
 		self.HL:SetInside(self.backdrop)
 	end
 end
-
 
 -- Handle arrows
 local arrowDegree = {
@@ -572,7 +560,7 @@ local function replaceConfigArrows(button)
 		button.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\arrow')
 		button.img:SetSize(12, 12)
 		button.img:Point('CENTER')
-		button.img:SetVertexColor(1, 1, 1)
+		button.img:SetVertexColor(1, 1, 1, 1)
 
 		button:HookScript('OnMouseDown', function(btn)
 			if btn:IsEnabled() then
@@ -763,7 +751,7 @@ function module:ReskinAS(AS)
 			Button.Icon:SetTexture([[Interface\AddOns\AddOnSkins\Media\Textures\Arrow]])
 			Button.Icon:SetSnapToPixelGrid(false)
 			Button.Icon:SetTexelSnappingBias(0)
-			Button.Icon:SetVertexColor(1, 1, 1)
+			Button.Icon:SetVertexColor(1, 1, 1, 1)
 			Button.Icon:SetRotation(AS.ArrowRotation['right'])
 		end
 
@@ -875,8 +863,6 @@ end
 function module:UpdateMedia()
 	rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA = unpack(E.media.rgbvaluecolor)
 	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E.media.unitframeBorderColor)
-	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E.media.backdropfadecolor)
-	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E.media.backdropcolor)
 	bordercolorr, bordercolorg, bordercolorb = unpack(E.media.bordercolor)
 end
 hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)

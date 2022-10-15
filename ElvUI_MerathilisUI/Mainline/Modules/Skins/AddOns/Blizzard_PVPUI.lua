@@ -78,7 +78,7 @@ local function LoadSkin()
 		local bg = CreateFrame("Frame", nil, bu)
 		bg:SetPoint("TOPLEFT", 2, 0)
 		bg:SetPoint("BOTTOMRIGHT", -1, 2)
-		module:CreateBD(bg, 0)
+		bg:CreateBackdrop('Transparent')
 		bg:SetFrameLevel(bu:GetFrameLevel()-1)
 
 		bu.tex = module:CreateGradient(bu)

@@ -98,7 +98,7 @@ module.Constants.enchantSlots = {
 
 function module:Transmog_OnEnter()
 	if self.Link and self.Link ~= '' then
-		self.Texture:SetVertexColor(1, .8, 1)
+		self.Texture:SetVertexColor(1, .8, 1, 1)
 		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
 
 		self:SetScript('OnUpdate', function()
@@ -111,7 +111,7 @@ function module:Transmog_OnEnter()
 end
 
 function module:Transmog_OnLeave()
-	self.Texture:SetVertexColor(1, .5, 1)
+	self.Texture:SetVertexColor(1, .5, 1, 1)
 
 	self:SetScript('OnUpdate', nil)
 	_G["GameTooltip"]:Hide()

@@ -15,7 +15,7 @@ local function LoadSkin()
 
 	CharacterFrame:Styling()
 	module:CreateShadow(CharacterFrame)
-	module:CreateShadow(_G.GearManagerDialogPopup)
+	-- module:CreateShadow(_G.GearManagerDialogPopup)
 	module:CreateShadow(_G.EquipmentFlyoutFrameButtons)
 
 	for i = 1, 4 do

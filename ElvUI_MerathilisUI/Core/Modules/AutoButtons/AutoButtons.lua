@@ -759,9 +759,9 @@ function module:SetUpButton(button, questItemData, slotID)
 			if (duration and duration > 0 and enable and enable == 0) then
 				self.tex:SetVertexColor(0.4, 0.4, 0.4)
 			elseif IsItemInRange(self.itemID, "target") == false then
-				self.tex:SetVertexColor(1, 0, 0)
+				self.tex:SetVertexColor(1, 0, 0, 1)
 			else
-				self.tex:SetVertexColor(1, 1, 1)
+				self.tex:SetVertexColor(1, 1, 1, 1)
 			end
 		end
 	elseif button.slotID then

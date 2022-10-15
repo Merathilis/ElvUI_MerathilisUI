@@ -191,7 +191,7 @@ local function LoadSkin()
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(button:GetFrameLevel() - 1)
 
-		module:CreateBD(bg, .25)
+		bg:CreateBackdrop('Transparent')
 		module:CreateGradient(bg)
 	end
 
@@ -249,13 +249,13 @@ local function LoadSkin()
 	local GarrisonMonumentFrame = _G.GarrisonMonumentFrame
 
 	GarrisonMonumentFrame.Background:Hide()
-	module:CreateBD(GarrisonMonumentFrame)
+	GarrisonMonumentFrame:CreateBackdrop('Transparent')
 	GarrisonMonumentFrame:Styling()
 
 	-- [[ Shipyard ]]
 	local GarrisonShipyardFrame = _G.GarrisonShipyardFrame
 	if GarrisonShipyardFrame.backdrop then GarrisonShipyardFrame.backdrop:Hide() end
-	module:CreateBD(GarrisonShipyardFrame, .25)
+	GarrisonShipyardFrame:CreateBackdrop('Transparent')
 	GarrisonShipyardFrame:Styling()
 
 	local shipyardTab = GarrisonShipyardFrame.FollowerTab
@@ -271,7 +271,7 @@ local function LoadSkin()
 	for i = 1, 10 do
 		select(i, shipyardMission.RewardsFrame:GetRegions()):Hide()
 	end
-	module:CreateBD(shipyardMission.RewardsFrame, .25)
+	shipyardMission.RewardsFrame:CreateBackdrop('Transparent')
 
 	GarrisonShipyardFrame.MissionCompleteBackground:GetRegions():Hide()
 	GarrisonShipyardFrame.MissionTab.MissionList.CompleteDialog:GetRegions():Hide()
@@ -280,7 +280,7 @@ local function LoadSkin()
 
 	local OrderHallMissionFrame = _G.OrderHallMissionFrame
 	if OrderHallMissionFrame.backdrop then OrderHallMissionFrame.backdrop:Hide() end
-	module:CreateBD(OrderHallMissionFrame, .25)
+	OrderHallMissionFrame:CreateBackdrop('Transparent')
 	OrderHallMissionFrame:Styling()
 
 	 --Missions
@@ -292,7 +292,7 @@ local function LoadSkin()
 	for i = 1, 10 do
 		select(i, MissionPage.RewardsFrame:GetRegions()):Hide()
 	end
-	module:CreateBD(MissionPage.RewardsFrame, .25)
+	MissionPage.RewardsFrame:CreateBackdrop('Transparent')
 
 	-- [[ BFA Mission UI]]
 	local BFAMissionFrame = _G.BFAMissionFrame

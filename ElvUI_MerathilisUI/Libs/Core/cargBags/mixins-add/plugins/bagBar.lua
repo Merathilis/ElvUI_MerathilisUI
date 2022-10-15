@@ -97,11 +97,11 @@ function BagButton:UpdateButton()
 
 	if (self.bagId > maxBagSlots) then
 		if (self.bagId - maxBagSlots <= GetNumBankSlots()) then
-			self.Icon:SetVertexColor(1, 1, 1)
+			self.Icon:SetVertexColor(1, 1, 1, 1)
 			self.notBought = nil
 		else
 			self.notBought = true
-			self.Icon:SetVertexColor(1, 0, 0)
+			self.Icon:SetVertexColor(1, 0, 0, 1)
 		end
 	end
 

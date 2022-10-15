@@ -48,7 +48,7 @@ local function LoadSkin()
 	end
 
 	_G.CalendarWeekdaySelectedTexture:SetDesaturated(true)
-	_G.CalendarWeekdaySelectedTexture:SetVertexColor(r, g, b)
+	_G.CalendarWeekdaySelectedTexture:SetVertexColor(r, g, b, 1)
 
 	_G.CalendarViewEventAcceptButton.flashTexture:SetTexture("")
 	_G.CalendarViewEventTentativeButton.flashTexture:SetTexture("")
