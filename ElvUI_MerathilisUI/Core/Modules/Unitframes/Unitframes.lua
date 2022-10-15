@@ -46,7 +46,7 @@ function module:CreateAnimatedBars(frame)
 			if db.type == "DEFAULT" then
 				animation:SetModel(1715069)
 				animation:MakeCurrentCameraCustom()
-				animation:SetTransform(-0.035, 0, 0, rad(270), 0, 0, 0.580)
+				-- animation:SetTransform(-0.035, 0, 0, rad(270), 0, 0, 0.580)
 				animation:SetPortraitZoom(1)
 				animation:SetAlpha(0.65)
 			elseif db.type == "CUSTOM" then

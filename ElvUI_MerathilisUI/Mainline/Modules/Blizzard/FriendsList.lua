@@ -8,7 +8,7 @@ local strmatch = strmatch
 local strsplit = strsplit
 
 local BNConnected = BNConnected
-local BNet_GetClientTexture = BNet_GetClientTexture
+local BNet_GetClientEmbeddedAtlas = BNet_GetClientEmbeddedAtlas
 local FriendsFrame_Update = FriendsFrame_Update
 local GetQuestDifficultyColor = GetQuestDifficultyColor
 
@@ -66,67 +66,67 @@ local cache = {}
 
 local gameIcons = {
 	["Alliance"] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_WOW),
 		Modern = MediaPath .. "GameIcons\\Alliance"
 	},
 	["Horde"] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_WOW),
 		Modern = MediaPath .. "GameIcons\\Horde"
 	},
 	["Neutral"] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_WOW),
 		Modern = MediaPath .. "GameIcons\\WoW"
 	},
 	[BNET_CLIENT_WOW] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_WOW),
 		Modern = MediaPath .. "GameIcons\\WoWSL"
 	},
 	[BNET_CLIENT_WOW .. "C"] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_WOW),
 		Modern = MediaPath .. "GameIcons\\WoW"
 	},
 	[BNET_CLIENT_WOW .. "C_TBC"] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_WOW),
 		Modern = MediaPath .. "GameIcons\\WoWC"
 	},
 	[BNET_CLIENT_WOW .. "C_WRATH"] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_WOW),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_WOW),
 		Modern = MediaPath .. "GameIcons\\WoWWLK"
 	},
 	[BNET_CLIENT_D2] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_D2),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_D2),
 		Modern = MediaPath .. "GameIcons\\D2"
 	},
 	[BNET_CLIENT_D3] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_D3),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_D3),
 		Modern = MediaPath .. "GameIcons\\D3"
 	},
 	[BNET_CLIENT_WTCG] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_WTCG),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_WTCG),
 		Modern = MediaPath .. "GameIcons\\HS"
 	},
 	[BNET_CLIENT_SC] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_SC),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_SC),
 		Modern = MediaPath .. "GameIcons\\SC"
 	},
 	[BNET_CLIENT_SC2] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_SC2),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_SC2),
 		Modern = MediaPath .. "GameIcons\\SC2"
 	},
 	[BNET_CLIENT_APP] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_APP),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_APP),
 		Modern = MediaPath .. "GameIcons\\App"
 	},
 	["BSAp"] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_APP),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_APP),
 		Modern = MediaPath .. "GameIcons\\Mobile"
 	},
 	[BNET_CLIENT_HEROES] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_HEROES),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_HEROES),
 		Modern = MediaPath .. "GameIcons\\HotS"
 	},
 	[BNET_CLIENT_OVERWATCH] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_OVERWATCH),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_OVERWATCH),
 		Modern = MediaPath .. "GameIcons\\OW"
 	},
 	[BNET_CLIENT_COD] = {
@@ -134,43 +134,43 @@ local gameIcons = {
 		Modern = MediaPath .. "GameIcons\\COD"
 	},
 	[BNET_CLIENT_COD_BOCW] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_COD_BOCW),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_COD_BOCW),
 		Modern = MediaPath .. "GameIcons\\COD_CW"
 	},
 	[BNET_CLIENT_COD_MW] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_COD_MW),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_COD_MW),
 		Modern = MediaPath .. "GameIcons\\COD_MW"
 	},
 	[BNET_CLIENT_COD_MW2] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_COD_MW2),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_COD_MW2),
 		Modern = MediaPath .. "GameIcons\\COD_MW2"
 	},
 	[BNET_CLIENT_WC3] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_WC3),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_WC3),
 		Modern = MediaPath .. "GameIcons\\WC3"
 	},
 	[BNET_CLIENT_CLNT] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_CLNT),
-		Modern = BNet_GetClientTexture(BNET_CLIENT_CLNT)
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_CLNT),
+		Modern = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_CLNT)
 	},
 	[BNET_CLIENT_CRASH4] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_CRASH4),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_CRASH4),
 		Modern = MediaPath .. "GameIcons\\CRASH4"
 	},
 	[BNET_CLIENT_ARCADE] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_ARCADE),
-		Modern = BNet_GetClientTexture(BNET_CLIENT_ARCADE)
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_ARCADE),
+		Modern = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_ARCADE)
 	},
 	[BNET_CLIENT_COD_VANGUARD] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_COD_VANGUARD),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_COD_VANGUARD),
 		Modern = MediaPath .. "GameIcons\\COD_VG"
 	},
 	[BNET_CLIENT_DI] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_DI),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_DI),
 		Modern = MediaPath .. "GameIcons\\DI"
 	},
 	[BNET_CLIENT_ARCLIGHT] = {
-		Default = BNet_GetClientTexture(BNET_CLIENT_ARCLIGHT),
+		Default = BNet_GetClientEmbeddedAtlas(BNET_CLIENT_ARCLIGHT),
 		Modern = MediaPath .. "GameIcons\\ARCLIGHT"
 	}
 }
@@ -405,7 +405,7 @@ function module:UpdateFriendButton(button)
 		end
 
 		local iconGroup = self.db.textures.factionIcon and faction or game
-		local iconTex = gameIcons[iconGroup] and gameIcons[iconGroup][self.db.textures.game] or BNet_GetClientTexture(game)
+		local iconTex = gameIcons[iconGroup] and gameIcons[iconGroup][self.db.textures.game] or BNet_GetClientEmbeddedAtlas(game)..name
 		button.gameIcon:SetTexture(iconTex)
 		button.gameIcon:Show()
 		button.gameIcon:SetAlpha(1)

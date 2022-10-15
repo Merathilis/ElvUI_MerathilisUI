@@ -68,7 +68,7 @@ function MER:ConstructCompatibilityFrame()
 	--bottomDesc:SetText("|cffff0000*|r " .. L["The feature is just a part of that module."])
 	bottomDesc:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
 
-	local completeButton = CreateFrame("Button", "MERCompatibilityFrameCompleteButton", frame, "OptionsButtonTemplate, BackdropTemplate")
+	local completeButton = CreateFrame("Button", "MERCompatibilityFrameCompleteButton", frame, "UIPanelButtonTemplate")
 	completeButton.Text:SetText(L["Complete"])
 	completeButton.Text:SetJustifyH("CENTER")
 	completeButton.Text:SetJustifyV("CENTER")

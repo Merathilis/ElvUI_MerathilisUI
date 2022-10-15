@@ -19,12 +19,11 @@ local function LoadSkin()
 		return
 	end
 
-	local MiniMapMailFrame = _G.MiniMapMailFrame
+	local MiniMapMailFrame = _G.MiniMapMailFrame or _G.MinimapCluster.MailFrame
 
 	-- Change the Minimap Mail icon
 	_G.MiniMapMailIcon:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\Mail")
 	_G.MiniMapMailIcon:SetSize(16, 16)
-	MiniMapMailFrame:Raise()
 
 	MiniMapMailFrame:SetScript("OnShow", function()
 		if not MiniMapMailFrame.highlight then

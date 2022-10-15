@@ -46,8 +46,6 @@ local function LoadSkin()
 	GossipFrame:Styling()
 	module:CreateBackdropShadow(GossipFrame)
 
-	_G.GossipGreetingScrollFrame:StripTextures()
-
 	if _G.GossipFrameInset then
 		_G.GossipFrameInset:Hide() -- Parchment
 	end
@@ -56,38 +54,10 @@ local function LoadSkin()
 		GossipFrame.Background:Hide()
 	end
 
-	if _G.GossipGreetingScrollFrame.backdrop then
-		_G.GossipGreetingScrollFrame.backdrop:Hide()
-	end
-
 	_G.QuestFont:SetTextColor(1, 1, 1)
 
-	hooksecurefunc("GossipFrameUpdate", function()
-		for button in GossipFrame.titleButtonPool:EnumerateActive() do
-			if not button.styled then
-				ReplaceGossipText(button, button:GetText())
-				hooksecurefunc(button, "SetText", ReplaceGossipText)
-				hooksecurefunc(button, "SetFormattedText", ReplaceGossipFormat)
-
-				button.styled = true
-			end
-		end
-	end)
-
-	for i = 1, 4 do
-		local notch = _G["NPCFriendshipStatusBarNotch"..i]
-		if notch then
-			notch:SetColorTexture(0, 0, 0)
-			notch:SetSize(E.mult, 16)
-		end
-	end
-	select(7, _G.NPCFriendshipStatusBar:GetRegions()):Hide()
-
-	_G.NPCFriendshipStatusBar.icon:SetPoint("TOPLEFT", -30, 7)
-	module:CreateBDFrame(_G.NPCFriendshipStatusBar, .25)
-
 	MER.NPC:Register(GossipFrame)
-	hooksecurefunc("GossipTitleButton_OnClick", function() MER.NPC:PlayerTalksFirst() end)
+	-- hooksecurefunc("GossipTitleButton_OnClick", function() MER.NPC:PlayerTalksFirst() end)
 end
 
 S:AddCallback("GossipFrame", LoadSkin)

@@ -36,12 +36,12 @@ function module:Health_UpdateColor(_, unit)
 			end
 
 			if class and isPlayer then
-				element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(class))
+				element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1), CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
 			elseif reaction then
 				if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
-					element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors("TAPPED", false, false))
+					element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(0.6, 0.6, 0.60, 1), CreateColor(0, 0, 0, 1))
 				else
-					element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(reactionType))
+					-- element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.GradientColors(reactionType).r1, F.GradientColors(reactionType).g1, F.GradientColors(reactionType).b1, 1), CreateColor(F.GradientColors(reactionType).r2, F.GradientColors(reactionType).g2, F.GradientColors(reactionType).b2, 1))
 				end
 			end
 		end

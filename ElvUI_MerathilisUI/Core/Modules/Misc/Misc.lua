@@ -121,7 +121,7 @@ function module:Misc()
 		module:QuickMenu()
 
 		hooksecurefunc('WhoList_Update', UpdateWhoList)
-		hooksecurefunc(_G.WhoListScrollFrame, 'update', UpdateWhoList)
+		-- hooksecurefunc(_G.WhoListScrollFrame, 'update', UpdateWhoList)
 	end
 
 	module:LoadGMOTD()

@@ -35,7 +35,7 @@ module.DCP = DCP
 
 local DCPT = DCP:CreateTexture(nil, "BORDER")
 DCPT:SetAllPoints(DCP)
-MERS:CreateBDFrame(DCP)
+-- MERS:CreateBDFrame(DCP)
 MERS:CreateSD(DCP, 2, 2)
 MERS:CreateBackdropShadow(DCP)
 
