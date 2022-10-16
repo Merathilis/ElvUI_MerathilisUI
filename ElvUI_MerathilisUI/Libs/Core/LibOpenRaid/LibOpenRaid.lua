@@ -34,10 +34,10 @@ TODO:
     - add into gear info how many tier set parts the player has
     - raid lockouts normal-heroic-mythic
     - soulbind character (covenant choise) - probably not used in 10.0
-    
+
 BUGS:
     - after a /reload, it is not starting new tickers for spells under cooldown
-    
+
 --]=]
 
 
@@ -58,7 +58,7 @@ LIB_OPEN_RAID_CAN_LOAD = false
     end
 
     LIB_OPEN_RAID_CAN_LOAD = true
-    
+
 --default values
     openRaidLib.inGroup = false
     openRaidLib.UnitIDCache = {}
@@ -300,12 +300,12 @@ LIB_OPEN_RAID_CAN_LOAD = false
     openRaidLib.Schedules = {
         registeredUniqueTimers = {}
     }
-    
+
     --run a scheduled function with its payload
     local triggerScheduledTick = function(tickerObject)
         local payload = tickerObject.payload
         local callback = tickerObject.callback
-    
+
         local result, errortext = pcall(callback, _G.unpack(payload))
         if (not result) then
             sendChatMessage("openRaidLib: error on scheduler:", tickerObject.scheduleName, tickerObject.stack, errortext)
@@ -441,7 +441,7 @@ LIB_OPEN_RAID_CAN_LOAD = false
             end
         end
     end
-    
+
     function openRaidLib.RegisterCallback(addonObject, event, callbackMemberName)
         --check of integrity
         local integrity = checkRegisterDataIntegrity(addonObject, event, callbackMemberName)
@@ -599,7 +599,7 @@ LIB_OPEN_RAID_CAN_LOAD = false
 
                 openRaidLib.firstEnteringWorld = true
             end
-            
+
             openRaidLib.internalCallback.TriggerEvent("onEnterWorld")
         end,
 
@@ -1061,7 +1061,7 @@ function openRaidLib.UnitInfoManager.GetPlayerFullInfo()
 
     --pvp talents
     local pvpTalents = openRaidLib.UnitInfoManager.GetPlayerPvPTalents()
-    playerInfo[6] = pvpTalents    
+    playerInfo[6] = pvpTalents
 
     return playerInfo
 end
@@ -1183,7 +1183,7 @@ openRaidLib.internalCallback.RegisterCallback("onLeaveCombat", openRaidLib.UnitI
         weaponEnchant = 0,
         noGems = {},
         noEnchants = {},
-    }    
+    }
 
     function openRaidLib.GetAllUnitsGear()
         return openRaidLib.GearManager.GetAllUnitsGear()
@@ -1348,7 +1348,7 @@ openRaidLib.internalCallback.RegisterCallback("onLeaveCombat", openRaidLib.UnitI
         --[2] int durability
         --[3] int weapon enchant
         --[4] table with integers of equipSlot without enchant
-        --[5] table with integers of equipSlot which has a gem slot but the slot is empty            
+        --[5] table with integers of equipSlot which has a gem slot but the slot is empty
 
         local dataToSend = CONST_COMM_GEARINFO_FULL_PREFIX .. ","
         local playerGearInfo = openRaidLib.GearManager.GetPlayerFullGearInfo()
@@ -2039,8 +2039,8 @@ openRaidLib.commHandler.RegisterComm(CONST_COMM_COOLDOWNFULLLIST_PREFIX, openRai
     --ATM we are obligated to do this due to C_MythicPlus.GetOwnedKeystoneMapID() return the same mapID for the two Tazavesh dungeons
     local getMythicPlusMapID = function()
         for backpackId = 0, 4 do
-            for slotId = 1, GetContainerNumSlots(backpackId) do
-                local itemId = GetContainerItemID(backpackId, slotId)
+            for slotId = 1, C_Container.GetContainerNumSlots(backpackId) do
+                local itemId = C_Container.GetContainerItemID(backpackId, slotId)
                 if (itemId == LIB_OPEN_RAID_MYTHICKEYSTONE_ITEMID) then
                     local itemLink = GetContainerItemLink(backpackId, slotId)
                     local destroyedItemLink = itemLink:gsub("|", "")

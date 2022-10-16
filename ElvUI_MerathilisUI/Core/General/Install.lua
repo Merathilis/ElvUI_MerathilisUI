@@ -87,9 +87,6 @@ local function SetupCVars()
 		SetCVar('taintLog', 0)
 	end
 
-	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:SetValue('SHIFT')
-	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:RefreshValue()
-
 	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
 	PluginInstallStepComplete:Show()
 end
@@ -126,7 +123,6 @@ local function SetupChat()
 	for _, name in ipairs(_G.CHAT_FRAMES) do
 		local frame = _G[name]
 		local id = frame:GetID()
-		local chatName = FCF_GetChatWindowInfo(id)
 
 		if E.private.chat.enable then
 			CH:FCFTab_UpdateColors(CH:GetTab(_G[name]))

@@ -49,7 +49,7 @@ local itemSpellID = {
 local sortCache = {}
 function module:ReverseSort()
 	for bag = 0, 4 do
-		local numSlots = GetContainerNumSlots(bag)
+		local numSlots = C_Container.GetContainerNumSlots(bag)
 		for slot = 1, numSlots do
 			local texture, locked
 			if MER.isNewPatch then
@@ -57,11 +57,11 @@ function module:ReverseSort()
 				texture = info and info.iconFileID
 				locked = info and info.isLocked
 			else
-				texture, _, locked = GetContainerItemInfo(bag, slot)
+				texture, _, locked = C_Container.GetContainerItemInfo(bag, slot)
 			end
 			if (slot <= numSlots / 2) and texture and not locked and not sortCache["b" .. bag .. "s" .. slot] then
-				PickupContainerItem(bag, slot)
-				PickupContainerItem(bag, numSlots + 1 - slot)
+				C_Container.PickupContainerItem(bag, slot)
+				C_Container.PickupContainerItem(bag, numSlots + 1 - slot)
 				sortCache["b" .. bag .. "s" .. slot] = true
 			end
 		end
@@ -385,12 +385,12 @@ function module:CreateSortButton(name)
 			SortReagentBankBags()
 		else
 			if module.db.BagSortMode == 1 then
-				SortBags()
+				C_Container.SortBags()
 			elseif module.db.BagSortMode == 2 then
 				if InCombatLockdown() then
 					UIErrorsFrame:AddMessage(MER.InfoColor .. ERR_NOT_IN_COMBAT)
 				else
-					SortBags()
+					C_Container.SortBags()
 					wipe(sortCache)
 					module.Bags.isSorting = true
 					C_Timer_After(.5, module.ReverseSort)
@@ -559,7 +559,7 @@ end
 local function splitOnClick(self)
 	if not splitEnable then return end
 
-	PickupContainerItem(self.bagId, self.slotId)
+	C_Container.PickupContainerItem(self.bagId, self.slotId)
 
 	local texture, itemCount, locked
 	if MER.isNewPatch then
@@ -568,14 +568,14 @@ local function splitOnClick(self)
 		itemCount = info and info.stackCount
 		locked = info and info.isLocked
 	else
-		texture, itemCount, locked = GetContainerItemInfo(self.bagId, self.slotId)
+		texture, itemCount, locked = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
 	end
 	if texture and not locked and itemCount and itemCount > module.db.SplitCount then
 		SplitContainerItem(self.bagId, self.slotId, module.db.SplitCount)
 
 		local bagID, slotID = module:GetEmptySlot("Bag")
 		if slotID then
-			PickupContainerItem(bagID, slotID)
+			C_Container.PickupContainerItem(bagID, slotID)
 		end
 	end
 end
@@ -687,7 +687,7 @@ local function favouriteOnClick(self)
 		link = info and info.hyperlink
 		itemID = info and info.itemID
 	else
-		texture, _, _, quality, _, _, link, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
+		texture, _, _, quality, _, _, link, _, _, itemID = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
 	end
 	if texture and quality > LE_ITEM_QUALITY_POOR then
 		ClearCursor()
@@ -750,13 +750,10 @@ local function customJunkOnClick(self)
 	if not customJunkEnable then return end
 
 	local texture, itemID
-	if MER.isNewPatch then
-		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
-		texture = info and info.iconFileID
-		itemID = info and info.itemID
-	else
-		texture, _, _, _, _, _, _, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
-	end
+	local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+	texture = info and info.iconFileID
+	itemID = info and info.itemID
+
 	local price = select(11, GetItemInfo(itemID))
 	if texture and price > 0 then
 		if E.global.mui.bags.CustomJunkList[itemID] then
@@ -805,16 +802,13 @@ local function deleteButtonOnClick(self)
 	if not deleteEnable then return end
 
 	local texture, quality
-	if MER.isNewPatch then
-		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
-		texture = info and info.iconFileID
-		quality = info and info.quality
-	else
-		texture, _, _, quality = GetContainerItemInfo(self.bagId, self.slotId)
-	end
+	local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+	texture = info and info.iconFileID
+	quality = info and info.quality
+
 	if IsControlKeyDown() and IsAltKeyDown() and texture and
 		(quality < LE_ITEM_QUALITY_RARE or quality == LE_ITEM_QUALITY_HEIRLOOM) then
-		PickupContainerItem(self.bagId, self.slotId)
+		C_Container.PickupContainerItem(self.bagId, self.slotId)
 		DeleteCursorItem()
 	end
 end
@@ -867,8 +861,9 @@ function module:CloseBags()
 end
 
 function module:UpdateCooldown(slot)
-	local start, duration, enabled = GetContainerItemCooldown(slot.bagId, slot.slotId)
-	if duration > 0 and enabled == 0 then
+	local start, duration, enabled = C_Container.GetContainerItemCooldown(slot.bagId, slot.slotId)
+	CooldownFrame_Set(self.Cooldown, start, duration, enable)
+	if (duration > 0 and enabled == 0) then
 		SetItemButtonTextureVertexColor(slot, 0.4, 0.4, 0.4)
 	else
 		SetItemButtonTextureVertexColor(slot, 1, 1, 1)
@@ -1166,7 +1161,7 @@ function module:Initialize()
 	end
 
 	function MyButton:OnUpdateButton(item)
-		local texture, count, locked, rarity, readable, _, itemLink, _, noValue, itemID, isBound = GetContainerItemInfo(item.bagId, item.slotId)
+		local texture, count, locked, rarity, readable, _, itemLink, _, noValue, itemID, isBound = C_Container.GetContainerItemInfo(item.bagId, item.slotId)
 
 		if self.JunkIcon then
 			if (MerchantFrame:IsShown() or customJunkEnable) and
@@ -1231,7 +1226,7 @@ function module:Initialize()
 		end
 
 		if self.Cooldown then
-			module:UpdateCooldown(self)
+			-- module:UpdateCooldown(self) --ToDO: WoW10
 		end
 
 		if module.db.SpecialBagsColor then

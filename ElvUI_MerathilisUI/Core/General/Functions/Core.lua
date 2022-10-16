@@ -434,9 +434,9 @@ function F.SplitList(list, variable, cleanup)
 end
 
 F.iLvlClassIDs = {
-	[LE_ITEM_CLASS_GEM] = LE_ITEM_GEM_ARTIFACTRELIC,
-	[LE_ITEM_CLASS_ARMOR] = 0,
-	[LE_ITEM_CLASS_WEAPON] = 0,
+	[Enum.ItemClass.Gem] = Enum.ItemGemSubclass.Artifactrelic,
+	[Enum.ItemClass.Armor] = 0,
+	[Enum.ItemClass.Weapon] = 0,
 }
 
 do -- Tooltip scanning stuff. Credits siweia, with permission.
