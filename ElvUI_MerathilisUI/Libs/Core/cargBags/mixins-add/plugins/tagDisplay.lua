@@ -43,6 +43,8 @@ local _, ns = ...
 local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 
+local GetContainerNumFreeSlots = --[[MER.IsNewPatch and C_Container.GetContainerNumFreeSlots or]] GetContainerNumFreeSlots
+
 local tagPool, tagEvents, object = {}, {}
 local function tagger(tag, ...) return object.tags[tag] and object.tags[tag](object, ...) or "" end
 
@@ -109,13 +111,13 @@ local function GetNumFreeSlots(name)
 	if name == "Bag" then
 		return CalculateTotalNumberOfFreeBagSlots()
 	elseif name == "Bank" then
-		local numFreeSlots = C_Container.GetContainerNumFreeSlots(-1)
+		local numFreeSlots = GetContainerNumFreeSlots(-1)
 			for bagID = 6, 12 do
-			numFreeSlots = numFreeSlots + C_Container.GetContainerNumFreeSlots(bagID)
+			numFreeSlots = numFreeSlots + GetContainerNumFreeSlots(bagID)
 			end
 		return numFreeSlots
 	elseif name == "Reagent" then
-		return C_Container.GetContainerNumFreeSlots(-3)
+		return GetContainerNumFreeSlots(-3)
 	end
 end
 

@@ -8,7 +8,6 @@ local B = E:GetModule('Bags')
 
 local _G = _G
 local strmatch, unpack, ceil = string.match, unpack, math.ceil
-local LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_RARE, LE_ITEM_QUALITY_HEIRLOOM = Enum.ItemQuality.Poor, Enum.ItemQuality.Rare, Enum.ItemQuality.Heirloom
 local LE_ITEM_CLASS_CONTAINER = LE_ITEM_CLASS_CONTAINER
 local SortBankBags, SortReagentBankBags, SortBags = SortBankBags, SortReagentBankBags, SortBags
 local GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem = GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem
@@ -18,7 +17,7 @@ local C_Soulbinds_IsItemConduitByItemInfo = C_Soulbinds.IsItemConduitByItemInfo
 local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
 local IsCosmeticItem = IsCosmeticItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
-local GetItemInfo, GetContainerItemID, SplitContainerItem = GetItemInfo, GetContainerItemID, SplitContainerItem
+local GetItemInfo, SplitContainerItem = GetItemInfo, SplitContainerItem
 if MER.isNewPatch then
 	GetContainerItemID = C_Container.GetContainerItemID
 	GetContainerNumSlots = C_Container.GetContainerNumSlots
@@ -49,19 +48,19 @@ local itemSpellID = {
 local sortCache = {}
 function module:ReverseSort()
 	for bag = 0, 4 do
-		local numSlots = C_Container.GetContainerNumSlots(bag)
+		local numSlots = GetContainerNumSlots(bag)
 		for slot = 1, numSlots do
 			local texture, locked
 			if MER.isNewPatch then
-				local info = C_Container.GetContainerItemInfo(bag, slot)
+				local info = GetContainerItemInfo(bag, slot)
 				texture = info and info.iconFileID
 				locked = info and info.isLocked
 			else
-				texture, _, locked = C_Container.GetContainerItemInfo(bag, slot)
+				texture, _, locked = GetContainerItemInfo(bag, slot)
 			end
 			if (slot <= numSlots / 2) and texture and not locked and not sortCache["b" .. bag .. "s" .. slot] then
-				C_Container.PickupContainerItem(bag, slot)
-				C_Container.PickupContainerItem(bag, numSlots + 1 - slot)
+				PickupContainerItem(bag, slot)
+				PickupContainerItem(bag, numSlots + 1 - slot)
 				sortCache["b" .. bag .. "s" .. slot] = true
 			end
 		end
@@ -385,12 +384,12 @@ function module:CreateSortButton(name)
 			SortReagentBankBags()
 		else
 			if module.db.BagSortMode == 1 then
-				C_Container.SortBags()
+				SortBags()
 			elseif module.db.BagSortMode == 2 then
 				if InCombatLockdown() then
 					UIErrorsFrame:AddMessage(MER.InfoColor .. ERR_NOT_IN_COMBAT)
 				else
-					C_Container.SortBags()
+					SortBags()
 					wipe(sortCache)
 					module.Bags.isSorting = true
 					C_Timer_After(.5, module.ReverseSort)
@@ -559,23 +558,23 @@ end
 local function splitOnClick(self)
 	if not splitEnable then return end
 
-	C_Container.PickupContainerItem(self.bagId, self.slotId)
+	PickupContainerItem(self.bagId, self.slotId)
 
 	local texture, itemCount, locked
 	if MER.isNewPatch then
-		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+		local info = GetContainerItemInfo(self.bagId, self.slotId)
 		texture = info and info.iconFileID
 		itemCount = info and info.stackCount
 		locked = info and info.isLocked
 	else
-		texture, itemCount, locked = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+		texture, itemCount, locked = GetContainerItemInfo(self.bagId, self.slotId)
 	end
 	if texture and not locked and itemCount and itemCount > module.db.SplitCount then
 		SplitContainerItem(self.bagId, self.slotId, module.db.SplitCount)
 
 		local bagID, slotID = module:GetEmptySlot("Bag")
 		if slotID then
-			C_Container.PickupContainerItem(bagID, slotID)
+			PickupContainerItem(bagID, slotID)
 		end
 	end
 end
@@ -681,15 +680,16 @@ local function favouriteOnClick(self)
 
 	local texture, quality, link, itemID
 	if MER.isNewPatch then
-		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+		local info = GetContainerItemInfo(self.bagId, self.slotId)
 		texture = info and info.iconFileID
 		quality = info and info.quality
 		link = info and info.hyperlink
 		itemID = info and info.itemID
 	else
-		texture, _, _, quality, _, _, link, _, _, itemID = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+		texture, _, _, quality, _, _, link, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
 	end
-	if texture and quality > LE_ITEM_QUALITY_POOR then
+	if texture and quality > Enum.ItemQuality.Poor then
+
 		ClearCursor()
 		module.selectItemID = itemID
 		module.CustomMenu[1].text = link
@@ -802,13 +802,13 @@ local function deleteButtonOnClick(self)
 	if not deleteEnable then return end
 
 	local texture, quality
-	local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+	local info = GetContainerItemInfo(self.bagId, self.slotId)
 	texture = info and info.iconFileID
 	quality = info and info.quality
 
 	if IsControlKeyDown() and IsAltKeyDown() and texture and
-		(quality < LE_ITEM_QUALITY_RARE or quality == LE_ITEM_QUALITY_HEIRLOOM) then
-		C_Container.PickupContainerItem(self.bagId, self.slotId)
+		(quality < Enum.ItemQuality.Rare or quality == Enum.ItemQuality.Heirloom) then
+		PickupContainerItem(self.bagId, self.slotId)
 		DeleteCursorItem()
 	end
 end
@@ -1161,11 +1161,11 @@ function module:Initialize()
 	end
 
 	function MyButton:OnUpdateButton(item)
-		local texture, count, locked, rarity, readable, _, itemLink, _, noValue, itemID, isBound = C_Container.GetContainerItemInfo(item.bagId, item.slotId)
+		local texture, count, locked, rarity, readable, _, itemLink, _, noValue, itemID, isBound = GetContainerItemInfo(item.bagId, item.slotId)
 
 		if self.JunkIcon then
 			if (MerchantFrame:IsShown() or customJunkEnable) and
-				(item.quality == LE_ITEM_QUALITY_POOR or E.global.mui.bags.CustomJunkList[item.id]) and item.hasPrice then
+				(item.quality == Enum.ItemQuality.Poor or E.global.mui.bags.CustomJunkList[item.id]) and item.hasPrice then
 				self.JunkIcon:Show()
 			else
 				self.JunkIcon:Hide()

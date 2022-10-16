@@ -21,6 +21,7 @@ local _, ns = ...
 local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 
+local GetContainerNumSlots = --[[MER.IsNewPatch and C_Container.GetContainerNumSlots or]] GetContainerNumSlots
 --[[!
 	@class Implementation
 		The Implementation-class serves as the basis for your cargBags-instance, handling
@@ -334,6 +335,7 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 	return i
 end
 
+--[[ MER.IsNewPatch
 function Implementation:GetItemInfo(bagID, slotID, i)
 	i = i or defaultItem
 	for k in pairs(i) do i[k] = nil end
@@ -369,8 +371,7 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 	end
 
 	return i
-end
-
+end]]
 
 --[[!
 	Updates the defined slot, creating/removing buttons as necessary
@@ -413,7 +414,7 @@ function Implementation:UpdateBag(bagID)
 	if(closed) then
 		numSlots, closed = 0
 	else
-		numSlots = C_Container.GetContainerNumSlots(bagID)
+		numSlots = GetContainerNumSlots(bagID)
 	end
 	local lastSlots = self.bagSizes[bagID] or 0
 	self.bagSizes[bagID] = numSlots

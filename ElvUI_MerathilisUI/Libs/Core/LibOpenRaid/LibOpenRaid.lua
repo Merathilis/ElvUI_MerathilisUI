@@ -2039,8 +2039,8 @@ openRaidLib.commHandler.RegisterComm(CONST_COMM_COOLDOWNFULLLIST_PREFIX, openRai
     --ATM we are obligated to do this due to C_MythicPlus.GetOwnedKeystoneMapID() return the same mapID for the two Tazavesh dungeons
     local getMythicPlusMapID = function()
         for backpackId = 0, 4 do
-            for slotId = 1, C_Container.GetContainerNumSlots(backpackId) do
-                local itemId = C_Container.GetContainerItemID(backpackId, slotId)
+            for slotId = 1, --[[MER.IsNewPatch and C_Container.GetContainerNumSlots(backpackId) or]] GetContainerNumSlots(backpackId) do
+            local itemId = --[[MER.IsNewPatch and C_Container.GetContainerItemID(backpackId, slotId) or]] GetContainerItemID(backpackId, slotId)
                 if (itemId == LIB_OPEN_RAID_MYTHICKEYSTONE_ITEMID) then
                     local itemLink = GetContainerItemLink(backpackId, slotId)
                     local destroyedItemLink = itemLink:gsub("|", "")

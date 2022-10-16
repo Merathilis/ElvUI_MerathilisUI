@@ -127,7 +127,7 @@ function module:Misc()
 	module:LoadGMOTD()
 	module:LoadQuest()
 	module:LoadnameHover()
-	module:ReputationInit()
+	-- module:ReputationInit()
 end
 
 module:AddCallback("Misc")
