@@ -167,15 +167,6 @@ local function listInstances()
 	end
 end
 
-local function SkinEJButton(button)
-	button.UpLeft:SetAlpha(0)
-	button.UpRight:SetAlpha(0)
-	button.DownLeft:SetAlpha(0)
-	button.DownRight:SetAlpha(0)
-	select(5, button:GetRegions()):Hide()
-	select(6, button:GetRegions()):Hide()
-end
-
 local function LoadSkin()
 	if not module:CheckDB("encounterjournal", "encounterjournal") then
 		return
@@ -246,16 +237,6 @@ local function LoadSkin()
 		end
 	end)
 
-	-- hooksecurefunc(searchResults.scrollFrame, "update", function(self)
-		-- for i = 1, #self.buttons do
-			-- local result = self.buttons[i]
---
-			-- if result.icon:GetTexCoord() == 0 then
-				-- result.icon:SetTexCoord(unpack(E.TexCoords))
-			-- end
-		-- end
-	-- end)
-
 	--[[ NavBar ]]
 	EncounterJournal.navBar:SetWidth(550)
 	EncounterJournal.navBar:SetPoint("TOPLEFT", 20, -22)
@@ -268,61 +249,14 @@ local function LoadSkin()
 	local instanceSelect = EncounterJournal.instanceSelect
 	instanceSelect.bg:Hide()
 
-	-- hooksecurefunc("EncounterJournal_ListInstances", listInstances)
-	-- listInstances()
-
 	--[[ EncounterFrame ]]
 	local encounter = EncounterJournal.encounter
-
-	--[[ InstanceFrame ]]
-	_G.EncounterJournalEncounterFrameInstanceFrameLoreScrollFrameScrollChildLore:SetTextColor(1, 1, 1)
 
 	--[[ Info ]]
 	local info = encounter.info
 	info:DisableDrawLayer("BACKGROUND")
 
 	info.encounterTitle:SetTextColor(1, 1, 1)
-
-	SkinEJButton(info.difficulty)
-
-	info.detailsScroll.child.description:SetTextColor(1, 1, 1)
-
-	info.overviewScroll.child.loreDescription:SetTextColor(1, 1, 1)
-	info.overviewScroll.child.header:Hide()
-	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChildTitle:SetFontObject("GameFontNormalLarge")
-	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChildTitle:SetTextColor(1, 1, 1)
-	info.overviewScroll.child.overviewDescription.Text:SetTextColor(1, 1, 1)
-
-	SkinEJButton(info.lootScroll.filter)
-	SkinEJButton(info.lootScroll.slotFilter)
-
-	local encLoot = info.lootScroll.buttons
-	for i = 1, #encLoot do
-		local item = encLoot[i].lootFrame
-
-		item.boss:SetTextColor(1, 1, 1)
-		item.slot:SetTextColor(1, 1, 1)
-		item.armorType:SetTextColor(1, 1, 1)
-
-		item.bossTexture:SetAlpha(0)
-		item.bosslessTexture:SetAlpha(0)
-
-		item.icon:SetTexCoord(unpack(E.TexCoords))
-		item.icon:SetDrawLayer("OVERLAY")
-		module:CreateBG(item.icon)
-
-		if item.backdrop then
-			item.backdrop:Hide()
-		end
-
-		local bg = CreateFrame("Frame", nil, item)
-		bg:SetPoint("TOPLEFT")
-		bg:SetPoint("BOTTOMRIGHT", 0, 1)
-		bg:SetFrameLevel(item:GetFrameLevel() - 1)
-		bg:CreateBackdrop('Transparent')
-
-		module:CreateGradient(bg)
-	end
 
 	info.model.dungeonBG:Hide()
 	_G.EncounterJournalEncounterFrameInfoModelFrameShadow:Hide()
@@ -350,12 +284,6 @@ local function LoadSkin()
 			tab.backdrop:Styling()
 		end
 	end
-
-	--Encounter Instance Frame
-	local EncounterInstance = EncounterJournal.encounter.instance
-	EncounterInstance.loreScroll.child.lore:SetTextColor(1, 1, 1)
-
-	_G.EncounterJournalEncounterFrameInstanceFrame.titleBG:SetAlpha(0)
 
 	-- [[ Loot ]]
 	local LootJournal = _G["EncounterJournal"].LootJournal

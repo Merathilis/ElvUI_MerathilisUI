@@ -438,10 +438,14 @@ function module:PaperDollFrame_UpdateStats()
 	end
 	-- release the current stat frame
 	_G["CharacterStatsPane"].statsFramePool:Release(statFrame)
-	if module.totalShown > 12 then
-		module.Scrollbar:Show()
+    if module.totalShown > 12 then
+		if module.Scrollbar then
+			module.Scrollbar:Show()
+		end
 	else
-		module.Scrollbar:Hide()
+		if module.Scrollbar then
+			module.Scrollbar:Hide()
+		end
 	end
 end
 

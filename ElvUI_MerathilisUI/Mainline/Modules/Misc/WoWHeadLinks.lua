@@ -204,5 +204,5 @@ function MI:WowHeadLinks()
 	if E.db.mui.misc.wowheadlinks ~= true then return end
 
 	self:WorldMapLinks()
-	self:AchievementLinks()
+	-- self:AchievementLinks()
 end

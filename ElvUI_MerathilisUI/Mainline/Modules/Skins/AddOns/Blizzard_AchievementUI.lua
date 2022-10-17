@@ -15,22 +15,22 @@ local function LoadSkin()
 	end
 
 	local AchievementFrame = _G.AchievementFrame
-	AchievementFrame.backdrop:Styling()
+	AchievementFrame:Styling()
 	module:CreateBackdropShadow(AchievementFrame)
 
 	-- Hide the ElvUI default backdrop
-	if _G.AchievementFrameCategoriesContainer.backdrop then
-		_G.AchievementFrameCategoriesContainer.backdrop:Hide()
-	end
+	-- if _G.AchievementFrameCategoriesContainer.backdrop then
+		-- _G.AchievementFrameCategoriesContainer.backdrop:Hide()
+	-- end
 
 	for i = 1, 3 do
-		module:ReskinTab(_G["AchievementFrameTab"..i])
+		-- module:ReskinTab(_G["AchievementFrameTab"..i])
 	end
 
 	for i = 1, 7 do
 		local bu = _G["AchievementFrameAchievementsContainerButton"..i]
-		if bu.backdrop then
-			module:CreateGradient(bu.backdrop)
+		if bu then
+			module:CreateGradient(bu)
 		end
 	end
 

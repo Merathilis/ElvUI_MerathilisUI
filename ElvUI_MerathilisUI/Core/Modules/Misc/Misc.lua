@@ -43,61 +43,6 @@ function module:SetRole()
 	end
 end
 
--- Colors
-local function classColor(class, showRGB)
-	local color = F.ClassColors[E.UnlocalizedClasses[class] or class]
-	if not color then color = F.ClassColors['PRIEST'] end
-
-	if showRGB then
-		return color.r, color.g, color.b
-	else
-		return '|c'..color.colorStr
-	end
-end
-
-local function diffColor(level)
-	return F.RGBToHex(GetQuestDifficultyColor(level))
-end
-
--- Whoframe
-local columnTable = {}
-local function UpdateWhoList()
-	local scrollFrame = _G.WhoListScrollFrame
-	local offset = HybridScrollFrame_GetOffset(scrollFrame)
-	local buttons = scrollFrame.buttons
-	local numButtons = #buttons
-	local numWhos = C_FriendList_GetNumWhoResults()
-
-	local playerZone = GetRealZoneText()
-	local playerGuild = GetGuildInfo('player')
-	local playerRace = UnitRace('player')
-
-	for i = 1, numButtons do
-		local button = buttons[i]
-		local index = offset + i
-		if index <= numWhos then
-			local nameText = button.Name
-			local levelText = button.Level
-			local variableText = button.Variable
-
-			local info = C_FriendList_GetWhoInfo(index)
-			local guild, level, race, zone, class = info.fullGuildName, info.level, info.raceStr, info.area, info.filename
-			if zone == playerZone then zone = '|cff00ff00'..zone end
-			if guild == playerGuild then guild = '|cff00ff00'..guild end
-			if race == playerRace then race = '|cff00ff00'..race end
-
-			twipe(columnTable)
-			tinsert(columnTable, zone)
-			tinsert(columnTable, guild)
-			tinsert(columnTable, race)
-
-			nameText:SetTextColor(classColor(class, true))
-			levelText:SetText(diffColor(level)..level)
-			variableText:SetText(columnTable[UIDropDownMenu_GetSelectedID(_G.WhoFrameDropDown)])
-		end
-	end
-end
-
 function module:Misc()
 	self.db = E.db.mui.misc
 
@@ -119,9 +64,6 @@ function module:Misc()
 		module:WowHeadLinks()
 		module:AddAlerts()
 		module:QuickMenu()
-
-		hooksecurefunc('WhoList_Update', UpdateWhoList)
-		-- hooksecurefunc(_G.WhoListScrollFrame, 'update', UpdateWhoList)
 	end
 
 	module:LoadGMOTD()
