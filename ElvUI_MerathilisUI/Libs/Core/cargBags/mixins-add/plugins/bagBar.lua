@@ -37,8 +37,8 @@ local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 local Implementation = cargBags.classes.Implementation
 
-local ContainerIDToInventoryID = --[[MER.IsNewPatch and C_Container.ContainerIDToInventoryID or]] ContainerIDToInventoryID
-local maxBagSlots = --[[MER.IsNewPatch and 5 or]] NUM_BAG_SLOTS
+local ContainerIDToInventoryID = --[[MER.IsPTR and C_Container.ContainerIDToInventoryID or]] ContainerIDToInventoryID
+local maxBagSlots = --[[MER.IsPTR and 5 or]] NUM_BAG_SLOTS
 
 function Implementation:GetBagButtonClass()
 	return self:GetClass("BagButton", true, "BagButton")

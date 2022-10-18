@@ -18,7 +18,8 @@ local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
 local IsCosmeticItem = IsCosmeticItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
 local GetItemInfo, SplitContainerItem = GetItemInfo, SplitContainerItem
-if MER.isNewPatch then
+
+if MER.IsPTR then
 	GetContainerItemID = C_Container.GetContainerItemID
 	GetContainerNumSlots = C_Container.GetContainerNumSlots
 	SortBags = C_Container.SortBags
@@ -51,7 +52,7 @@ function module:ReverseSort()
 		local numSlots = GetContainerNumSlots(bag)
 		for slot = 1, numSlots do
 			local texture, locked
-			if MER.isNewPatch then
+			if MER.IsPTR then
 				local info = GetContainerItemInfo(bag, slot)
 				texture = info and info.iconFileID
 				locked = info and info.isLocked
@@ -424,7 +425,7 @@ function module:GetEmptySlot(name)
 		if slotID then
 			return -1, slotID
 		end
-		-- if DB.isNewPatch then
+		-- if DB.IsPTR then
 			-- for bagID = 6, 12 do
 				-- local slotID = module:GetContainerEmptySlot(bagID)
 				-- if slotID then
@@ -561,7 +562,7 @@ local function splitOnClick(self)
 	PickupContainerItem(self.bagId, self.slotId)
 
 	local texture, itemCount, locked
-	if MER.isNewPatch then
+	if MER.IsPTR then
 		local info = GetContainerItemInfo(self.bagId, self.slotId)
 		texture = info and info.iconFileID
 		itemCount = info and info.stackCount
@@ -679,7 +680,7 @@ local function favouriteOnClick(self)
 	if not favouriteEnable then return end
 
 	local texture, quality, link, itemID
-	if MER.isNewPatch then
+	if MER.IsPTR then
 		local info = GetContainerItemInfo(self.bagId, self.slotId)
 		texture = info and info.iconFileID
 		quality = info and info.quality
@@ -1086,7 +1087,7 @@ function module:Initialize()
 			self.canIMogIt:SetPoint(unpack(CanIMogIt.ICON_LOCATIONS[CanIMogItOptions["iconLocation"]]))
 		end
 
-		-- if DB.isNewPatch and not self.ProfessionQualityOverlay then
+		-- if DB.IsPTR and not self.ProfessionQualityOverlay then
 			-- self.ProfessionQualityOverlay = self:CreateTexture(nil, "OVERLAY")
 			-- self.ProfessionQualityOverlay:SetPoint("TOPLEFT", -3, 2)
 		-- end
@@ -1524,10 +1525,10 @@ function module:Initialize()
 	local shiftUpdater = CreateFrame("Frame", nil, f.main)
 	shiftUpdater:SetScript("OnUpdate", onUpdate)
 
-	-- if DB.isNewPatch then
-		-- MicroButtonAndBagsBar:Hide()
-		-- MicroButtonAndBagsBar:UnregisterAllEvents()
-	-- end
+	if MER.IsPTR then
+		MicroButtonAndBagsBar:Hide()
+		MicroButtonAndBagsBar:UnregisterAllEvents()
+	end
 end
 
 MER:RegisterModule(module:GetName())

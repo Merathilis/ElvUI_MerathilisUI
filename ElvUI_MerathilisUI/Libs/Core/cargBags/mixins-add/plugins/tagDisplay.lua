@@ -43,7 +43,7 @@ local _, ns = ...
 local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 
-local GetContainerNumFreeSlots = --[[MER.IsNewPatch and C_Container.GetContainerNumFreeSlots or]] GetContainerNumFreeSlots
+local GetContainerNumFreeSlots = --[[MER.IsPTR and C_Container.GetContainerNumFreeSlots or]] GetContainerNumFreeSlots
 
 local tagPool, tagEvents, object = {}, {}
 local function tagger(tag, ...) return object.tags[tag] and object.tags[tag](object, ...) or "" end

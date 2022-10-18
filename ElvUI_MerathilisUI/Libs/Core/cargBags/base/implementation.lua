@@ -21,7 +21,8 @@ local _, ns = ...
 local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 
-local GetContainerNumSlots = --[[MER.IsNewPatch and C_Container.GetContainerNumSlots or]] GetContainerNumSlots
+local GetContainerNumSlots = --[[MER.IsPTR and C_Container.GetContainerNumSlots or]] GetContainerNumSlots
+
 --[[!
 	@class Implementation
 		The Implementation-class serves as the basis for your cargBags-instance, handling
@@ -335,7 +336,7 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 	return i
 end
 
---[[ MER.IsNewPatch
+--[[ MER.IsPTR
 function Implementation:GetItemInfo(bagID, slotID, i)
 	i = i or defaultItem
 	for k in pairs(i) do i[k] = nil end
