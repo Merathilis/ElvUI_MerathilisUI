@@ -24,7 +24,7 @@ local function LoadSkin()
 	-- end
 
 	for i = 1, 3 do
-		-- module:ReskinTab(_G["AchievementFrameTab"..i])
+		module:ReskinTab(_G["AchievementFrameTab"..i])
 	end
 
 	for i = 1, 7 do
@@ -34,7 +34,7 @@ local function LoadSkin()
 		end
 	end
 
-	hooksecurefunc("AchievementButton_DisplayAchievement", function(button, category, achievement)
+	--[[hooksecurefunc("AchievementButton_DisplayAchievement", function(button, category, achievement)
 		local _, _, _, completed = GetAchievementInfo(category, achievement)
 		if completed then
 			if button.accountWide then
@@ -49,7 +49,7 @@ local function LoadSkin()
 				button.label:SetTextColor(.65, .65, .65)
 			end
 		end
-	end)
+	end)]]
 
 	hooksecurefunc("AchievementObjectives_DisplayCriteria", function(objectivesFrame, id)
 		for i = 1, GetAchievementNumCriteria(id) do
@@ -76,18 +76,6 @@ local function LoadSkin()
 			end
 		end
 	end)
-
-	for i = 1, 12 do
-		local label = _G["AchievementFrameSummaryCategoriesCategory"..i.."Label"]
-
-		label:SetTextColor(1, 1, 1)
-	end
-
-	_G.AchievementFrameSummaryCategoriesStatusBarTitle:SetTextColor(1, 1, 1)
-
-	AchievementFrame.searchBox:ClearAllPoints()
-	AchievementFrame.searchBox:SetPoint("BOTTOMRIGHT", _G.AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -2)
-	AchievementFrame.searchBox:SetSize(100, 20)
 end
 
 S:AddCallbackForAddon("Blizzard_AchievementUI", LoadSkin)
