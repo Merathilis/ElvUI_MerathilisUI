@@ -16,12 +16,7 @@ local function LoadSkin()
 
 	local AchievementFrame = _G.AchievementFrame
 	AchievementFrame:Styling()
-	module:CreateBackdropShadow(AchievementFrame)
-
-	-- Hide the ElvUI default backdrop
-	-- if _G.AchievementFrameCategoriesContainer.backdrop then
-		-- _G.AchievementFrameCategoriesContainer.backdrop:Hide()
-	-- end
+	module:CreateShadow(AchievementFrame)
 
 	for i = 1, 3 do
 		module:ReskinTab(_G["AchievementFrameTab"..i])
@@ -33,23 +28,6 @@ local function LoadSkin()
 			module:CreateGradient(bu)
 		end
 	end
-
-	--[[hooksecurefunc("AchievementButton_DisplayAchievement", function(button, category, achievement)
-		local _, _, _, completed = GetAchievementInfo(category, achievement)
-		if completed then
-			if button.accountWide then
-				button.label:SetTextColor(0, .6, 1)
-			else
-				button.label:SetTextColor(.9, .9, .9)
-			end
-		else
-			if button.accountWide then
-				button.label:SetTextColor(0, .3, .5)
-			else
-				button.label:SetTextColor(.65, .65, .65)
-			end
-		end
-	end)]]
 
 	hooksecurefunc("AchievementObjectives_DisplayCriteria", function(objectivesFrame, id)
 		for i = 1, GetAchievementNumCriteria(id) do
