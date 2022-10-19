@@ -3,6 +3,7 @@ local module = MER:GetModule('MER_UnitFrames')
 local UF = E:GetModule('UnitFrames')
 local AB = E:GetModule('ActionBars')
 
+local CreateVector3D = CreateVector3D
 local hooksecurefunc = hooksecurefunc
 
 function module:ADDON_LOADED(event, addon)
@@ -47,8 +48,7 @@ function module:CreateAnimatedBars(frame)
 				animation:SetModel(1715069)
 				animation:MakeCurrentCameraCustom()
 				animation:SetPortraitZoom(1)
-				animation:SetScale(15)
-				animation:SetPosition(-0.25, 0, 0, 0)
+				animation:SetTransform(CreateVector3D(-0.035, 0, 0), CreateVector3D(rad(270), 0, 0), 0.580)
 				animation:SetAlpha(0.65)
 			elseif db.type == "CUSTOM" then
 				animation:SetModel(db.model)
