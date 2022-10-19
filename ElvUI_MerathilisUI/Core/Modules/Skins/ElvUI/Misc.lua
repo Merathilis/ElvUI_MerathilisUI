@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -27,6 +27,13 @@ function module:ElvUI_Misc()
 	local ElvUI_BottomPanel = _G.ElvUI_BottomPanel
 	if ElvUI_BottomPanel then
 		ElvUI_BottomPanel:Styling()
+    end
+
+	local ElvUI_MinimapClusterBackdrop = _G.ElvUI_MinimapClusterBackdrop
+	if ElvUI_MinimapClusterBackdrop then
+		ElvUI_MinimapClusterBackdrop:SetTemplate('Transparent')
+		ElvUI_MinimapClusterBackdrop:Styling()
+		module:CreateBackdropShadow(ElvUI_MinimapClusterBackdrop)
 	end
 end
 
