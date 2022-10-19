@@ -27,6 +27,19 @@ local UnitLevel = UnitLevel
 module.CreatedReminders = {}
 
 module.ReminderList = {
+	DRUID = {
+		[1] = { -- Mark of the Wild
+			["spellGroup"] = {
+				[1126] = true,
+				["defaultIcon"] = 1126, -- Mark of the Wild
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+		},
+	},
+
 	MAGE = {
 		[1] = { -- Arcane Intellect
 			["spellGroup"] = {
