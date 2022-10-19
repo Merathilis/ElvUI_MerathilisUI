@@ -682,11 +682,9 @@ L["Hide In Combat"] = "Скрывать в бою"
 -- Maps
 L["Maps"] = "Карты"
 L["World Map"] = "Карта мира"
-L["Instance Difficulty"] = "Сложность подземелья"
 L["Duration"] = true
 L["Fade Out"] = true
 L["Scale"] = "Масштаб"
-L["Reskin the instance diffculty in text style."] = "Измените сложность подземелья в текстовом стиле."
 L["Hide Blizzard"] = true
 L["Change the shape of ElvUI minimap."] = "Измените форму миникарты ElvUI."
 L["Height Percentage"] = true

@@ -677,11 +677,9 @@ L["Hide In Combat"] = true
 -- Maps
 L["Maps"] = true
 L["World Map"] = true
-L["Instance Difficulty"] = true
 L["Duration"] = true
 L["Fade Out"] = true
 L["Scale"] = true
-L["Reskin the instance diffculty in text style."] = true
 L["Hide Blizzard"] = true
 L["Change the shape of ElvUI minimap."] = true
 L["Height Percentage"] = true

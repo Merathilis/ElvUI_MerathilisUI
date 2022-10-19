@@ -882,15 +882,6 @@ P.unitframes = {
 P.maps = {
 	minimap = {
 		flash = true,
-		instanceDifficulty = {
-			enable = true,
-			hideBlizzard = true,
-			font = {
-				name = E.db.general.font,
-				size = E.db.general.fontSize,
-				style = "OUTLINE",
-			},
-		},
 		coords = {
 			enable = true,
 			position = "BOTTOM",

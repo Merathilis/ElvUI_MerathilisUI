@@ -371,22 +371,14 @@ local function ColorizeStatPane(frame)
 	frame.leftGrad:SetHeight(frame:GetHeight())
 	frame.leftGrad:SetPoint("LEFT", frame, "CENTER")
 	frame.leftGrad:SetTexture(E.media.blankTex)
-	if MER.IsNewPatch then
-		frame.leftGrad:SetGradient("Horizontal", CreateColor(r, g, b, 0.75), CreateColor(r, g, b, 0))
-	else
-		frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.75, r, g, b, 0)
-	end
+	frame.leftGrad:SetGradient("Horizontal", CreateColor(r, g, b, 0.75), CreateColor(r, g, b, 0))
 
 	frame.rightGrad = frame:CreateTexture(nil, "BORDER")
 	frame.rightGrad:SetWidth(80)
 	frame.rightGrad:SetHeight(frame:GetHeight())
 	frame.rightGrad:SetPoint("RIGHT", frame, "CENTER")
 	frame.rightGrad:SetTexture(E.media.blankTex)
-	if MER.IsNewPatch then
-		frame.rightGrad:SetGradient("Horizontal", CreateColor(r, g, b, 0), CreateColor(r, g, b, 0.75))
-	else
-		frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
-	end
+	frame.rightGrad:SetGradient("Horizontal", CreateColor(r, g, b, 0), CreateColor(r, g, b, 0.75))
 end
 
 local function SkinAdditionalStats()

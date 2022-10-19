@@ -306,13 +306,6 @@ function MER:CheckCompatibility()
 	)
 
 	CheckWindtools(
-		L["Raid Difficulty"],
-		L["Instance Difficulty"],
-		"db.mui.maps.minimap.instanceDifficulty.enable",
-		"private.WT.maps.instanceDifficulty.enable"
-	)
-
-	CheckWindtools(
 		L["Merchant"],
 		format("%s-%s", L["Item"], L["Extend Merchant Pages"]),
 		"db.mui.merchant.enable",
