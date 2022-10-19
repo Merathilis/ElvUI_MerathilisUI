@@ -215,7 +215,6 @@ function keyFeedback:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellID)
 		if self.db.enableCastLine then
 			local frame = self.iconPool:Acquire()
 			local texture = select(3, GetSpellInfo(spellID))
-			print(texture)
 			frame.icon:SetTexture(texture)
 			frame.icon:SetTexCoord(unpack(E.TexCoords))
 			frame:Show()
@@ -290,9 +289,9 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 	mirror.NormalTexture:SetPoint('BOTTOMRIGHT', 15, -15)
 
 	mirror:StripTextures()
-	local bg = S:CreateBDFrame(mirror)
-	bg:SetBackdropBorderColor(0, 0, 0)
-	S:CreateShadow(bg)
+	-- local bg = S:CreateBDFrame(mirror)
+	-- bg:SetBackdropBorderColor(0, 0, 0)
+	-- S:CreateShadow(bg)
 
 	mirror.cooldown:SetEdgeTexture('Interface\\Cooldown\\edge')
 	mirror.cooldown:SetSwipeColor(0, 0, 0)
@@ -348,8 +347,8 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 		pushedCircle.grow = gag
 
 		local ga1 = gag:CreateAnimation('Scale')
-		ga1:SetFromScale(0.1, 0.1)
-		ga1:SetToScale(1.3, 1.3)
+		ga1:SetScaleFrom(0.1, 0.1)
+		ga1:SetScaleTo(1.3, 1.3)
 		ga1:SetDuration(0.3)
 		ga1:SetOrder(2)
 
@@ -427,8 +426,8 @@ local PoolIconCreationFunc = function(pool)
 	local f = CreateFrame('Button', MER.Title .. 'KeyFeedbackPoolIcon' .. id, hdr, 'ActionButtonTemplate')
 
 	f:StripTextures()
-	local bg = S:CreateBDFrame(f)
-	bg:SetBackdropBorderColor(0, 0, 0)
+	-- local bg = S:CreateBDFrame(f)
+	-- bg:SetBackdropBorderColor(0, 0, 0)
 	S:CreateShadow(bg)
 
 	f:EnableMouse(false)

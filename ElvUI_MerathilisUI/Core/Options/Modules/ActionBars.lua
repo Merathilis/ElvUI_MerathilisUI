@@ -122,7 +122,7 @@ options.actionbars = {
 				},
 			},
 		},
-		keyfeedback = {
+		--[=[keyfeedback = {
 			order = 4,
 			type = "group",
 			name = F.cOption(L["KeyFeedback"], 'orange'),
@@ -167,6 +167,6 @@ options.actionbars = {
 					},
 				},
 			},
-		},
+		},]=]
 	},
 }
