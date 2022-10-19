@@ -313,21 +313,11 @@ function module:ExpandSize()
 		end
 	end
 
-	-- Overlay resize to match new width
-	_G.CharacterModelSceneBackgroundOverlay:SetPoint('TOPLEFT', _G.CharacterModelScene, -4, 0)
-	_G.CharacterModelSceneBackgroundOverlay:SetPoint('BOTTOMRIGHT', _G.CharacterModelScene, 4, 0)
-
-	_G.PaperDollEquipmentManagerPane:ClearAllPoints()
-	_G.PaperDollEquipmentManagerPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
-
-	_G.PaperDollTitlesPane:ClearAllPoints()
-	_G.PaperDollTitlesPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
-
 	if E.db.general.itemLevel.displayCharacterInfo then
 		M:UpdatePageInfo(_G.CharacterFrame, "Character")
 	end
 
-		--Pawn Button sucks A$$
+	--Pawn Button sucks A$$
 	if IsAddOnLoaded('Pawn') then
 		if _G.PawnUI_InventoryPawnButton then
 			_G.PawnUI_InventoryPawnButton:SetFrameStrata('DIALOG')
@@ -476,9 +466,8 @@ function module:AddCharacterIcon()
 	local CharacterLevelText = _G.CharacterLevelText
 
 	-- Class Icon Holder
-	local ClassIconHolder = CreateFrame("Frame", "MER_ClassIcon", E.UIParent)
+	local ClassIconHolder = CreateFrame("Frame", "MER_ClassIcon", _G.PaperDollFrame)
 	ClassIconHolder:SetSize(20, 20)
-	ClassIconHolder:SetParent("PaperDollFrame")
 
 	local ClassIconTexture = ClassIconHolder:CreateTexture()
 	ClassIconTexture:SetAllPoints(ClassIconHolder)
