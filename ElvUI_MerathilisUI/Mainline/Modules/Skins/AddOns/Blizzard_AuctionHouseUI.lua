@@ -24,12 +24,12 @@ local function LoadSkin()
 
 	local ItemSellFrame = Frame.ItemSellFrame
 	module:CreateGradient(ItemSellFrame.ItemDisplay)
-	module:CreateGradient(Frame.ItemSellList.ScrollFrame)
+	module:CreateGradient(Frame.ItemSellList.ScrollBox)
 
 	local AuctionsFrame = _G.AuctionHouseFrameAuctionsFrame
 	module:CreateGradient(AuctionsFrame.ItemDisplay)
-	module:CreateGradient(AuctionsFrame.ItemList.ScrollFrame)
-	module:CreateGradient(AuctionsFrame.CommoditiesList.ScrollFrame)
+	module:CreateGradient(AuctionsFrame.ItemList.ScrollBox)
+	module:CreateGradient(AuctionsFrame.CommoditiesList.ScrollBox)
 end
 
 S:AddCallbackForAddon("Blizzard_AuctionHouseUI", LoadSkin)
