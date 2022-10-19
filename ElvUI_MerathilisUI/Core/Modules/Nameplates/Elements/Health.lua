@@ -42,7 +42,7 @@ function module:Health_UpdateColor(_, unit)
 				if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
 					element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(0.6, 0.6, 0.60, 1), CreateColor(0, 0, 0, 1))
 				else
-					element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[reactionType].r2, F.ClassGradient[reactionType].g2, F.ClassGradient[reactionType].b2, 1), CreateColor(F.ClassGradient[reactionType].r1, F.ClassGradient[reactionType].g1, F.ClassGradient[reactionType].b1, 1))
+					element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[reactionType].r1, F.ClassGradient[reactionType].g1, F.ClassGradient[reactionType].b1, 1), CreateColor(F.ClassGradient[reactionType].r2, F.ClassGradient[reactionType].g2, F.ClassGradient[reactionType].b2, 1))
 				end
 			end
 		end
