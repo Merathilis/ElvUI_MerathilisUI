@@ -212,6 +212,8 @@ V.skins = {
 		bgscore = true,
 		barber = true,
 		chatBubbles = true,
+		expansionLanding = true,
+		majorFactions = true,
 	},
 
 	addonSkins = {
