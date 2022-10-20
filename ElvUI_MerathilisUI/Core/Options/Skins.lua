@@ -18,11 +18,15 @@ local DecorAddons = {
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
-	{"Details", E.NewSign..L["Details"], "dt"},
+	-- {"Details", E.NewSign..L["Details"], "dt"},
 	{"TLDRMissions", L["TLDRMissions"], "tldr"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"WeakAurasOptions", L["WeakAuras Options"], "waOptions"},
 }
+
+if E.Retail then
+	tinsert(DecorAddons, {"Details", E.NewSign .. L["Details"], "dt" })
+end
 
 local SupportedProfiles = {
 	{"AddOnSkins", "AddOnSkins"},
