@@ -284,7 +284,7 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["tracking"]["hide"] = true
+	E.private["general"]["minimap"]["hideTracking"] = true
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
 	E.db["general"]["minimap"]["size"] = 180
