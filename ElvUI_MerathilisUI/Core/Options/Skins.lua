@@ -1675,7 +1675,7 @@ if E.Retail then
 		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.majorFactions end,
 	}
 
-	elseif E.Classic then
+elseif E.Classic then
 	options.blizzard.args.craft = {
 		type = "toggle",
 		name = L["Craft"],
