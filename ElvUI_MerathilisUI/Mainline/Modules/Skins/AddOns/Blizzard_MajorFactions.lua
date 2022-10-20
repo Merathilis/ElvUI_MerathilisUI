@@ -20,7 +20,6 @@ local function LoadSkin()
 		self.Divider:Hide()
 		self.CloseButton.Border:Hide()
 	end)
-
 end
 
 S:AddCallbackForAddon("Blizzard_MajorFactions", LoadSkin)
