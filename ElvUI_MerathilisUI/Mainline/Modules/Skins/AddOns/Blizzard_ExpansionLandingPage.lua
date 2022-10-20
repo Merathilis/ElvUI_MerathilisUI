@@ -26,7 +26,6 @@ local function LoadSkin()
 			end
 		end
 	end
-
 end
 
 S:AddCallbackForAddon("Blizzard_ExpansionLandingPage", LoadSkin)
