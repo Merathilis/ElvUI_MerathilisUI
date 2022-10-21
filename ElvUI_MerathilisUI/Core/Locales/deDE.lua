@@ -441,12 +441,6 @@ L["Spell Feedback"] = "Zauber Feedback"
 L["Creates a texture to show the recently pressed buttons."] = "Zeigt eine Textur für die zuletzt gedrückten Tasten."
 L["Frame Strata"] = "Fensterschicht"
 L["Frame Level"] = "Fensterebene"
-L["KeyFeedback"] = "Tastenrückmeldung"
-L["Mirror"] = "Spiegeln"
-L["Mirror Button Size"] = "Spiegeln Tastengröße"
-L["Mirror Direction"] = "Spiegelrichtung"
-L["LEFT"] = "LINKS"
-L["RIGHT"] = "RECHTS"
 
 -- AutoButtons
 L["AutoButtons"] = "Autom. Tasten"
