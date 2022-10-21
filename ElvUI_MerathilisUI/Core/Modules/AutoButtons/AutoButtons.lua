@@ -251,7 +251,6 @@ local food = {
 	6657,
 }
 
--- Foods added in Shadowlands (Crafted by cooking)
 local foodShadowlands = {
 	172040,
 	172041,
@@ -274,7 +273,6 @@ local foodShadowlands = {
 	184682,
 }
 
--- Food sold by a vendor (Shadowlands)
 local foodShadowlandsVendor = {
 	173759,
 	173760,
@@ -672,8 +670,6 @@ local wrathPotions = {
 	34440,
 	39671,
 	40067,
-
-
 }
 
 local wrathFlasks = {
@@ -693,7 +689,6 @@ local wrathFlasks = {
 	32764,
 	32765,
 	32766,
-
 }
 
 local wrathElixirs = {
@@ -715,7 +710,6 @@ local wrathElixirs = {
 	44332,
 	8827, -- waterwalking elixir
 	8529, -- noggenfogger elixir
-
 }
 
 
