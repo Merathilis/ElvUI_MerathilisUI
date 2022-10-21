@@ -368,8 +368,8 @@ function module:CreateButtons()
 				animGroup:Stop()
 				tex.__fromScale = currentScale
 				tex.__toScale = 1.3
-				scaleAnim:SetFromScale(currentScale, currentScale)
-				scaleAnim:SetToScale(1.3, 1.3)
+				scaleAnim:SetScaleFrom(currentScale, currentScale)
+				scaleAnim:SetScaleTo(1.3, 1.3)
 				scaleAnim:SetDuration((1.3 - currentScale) * 0.618)
 				animGroup:Play()
 			end
@@ -394,8 +394,8 @@ function module:CreateButtons()
 				animGroup:Stop()
 				tex.__fromScale = currentScale
 				tex.__toScale = 1
-				scaleAnim:SetFromScale(currentScale, currentScale)
-				scaleAnim:SetToScale(1, 1)
+				scaleAnim:SetScaleFrom(currentScale, currentScale)
+				scaleAnim:SetScaleTo(1, 1)
 				scaleAnim:SetDuration((currentScale - 1) * 0.618)
 				animGroup:Play()
 			end
