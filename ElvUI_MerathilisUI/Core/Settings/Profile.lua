@@ -550,7 +550,7 @@ local function Potions()
 	elseif E.Wrath then
 		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
-		return "POTIONSL,FLASKSL,UTILITY"
+		return "POTIONSL,POTIONSDF,FLASKSL,FLASKDF,UTILITY"
 	end
 end
 
@@ -685,7 +685,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODSL,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODSL,FOODDF,CUSTOM"
 	},
 	bar4 = {
 		enable = false,

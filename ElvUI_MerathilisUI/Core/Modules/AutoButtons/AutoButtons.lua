@@ -101,7 +101,6 @@ if E.Classic then
 	tinsert(potions, 13444)
 end
 
--- Potion added in Shadowlands (require level >= 50)
 local potionsShadowlands = {
 	5512,
 	171263,
@@ -127,6 +126,10 @@ local potionsShadowlands = {
 	183823,
 	184090,
 	187802,
+}
+
+local potionsDragonflight = {
+
 }
 
 -- Flasks (require level >= 40)
@@ -156,6 +159,10 @@ local flasksShadowlands = {
 
 	181468, -- Veiled Augment Rune
 	190384, -- Eternal Augment Rune
+}
+
+local flasksDragonflight = {
+
 }
 
 -- Foods (Crafted by cooking)
@@ -303,6 +310,10 @@ local foodShadowlandsVendor = {
 	184201,
 	184202,
 	184281,
+}
+
+local foodDragonflight = {
+
 }
 
 local conjuredManaFood = {
@@ -665,6 +676,9 @@ local moduleList = {
 	["ELIXIRTBC"] = tbcElixirs,
 	["POTIONSWRATH"] = wrathPotions,
 	["FLASKWRATH"] = wrathFlasks,
+    ["POTIONSDF"] = potionsDragonflight,
+    ["FLASKDF"] = flasksDragonflight,
+	["FOODDF"] = foodDragonflight,
 }
 
 function module:CreateButton(name, barDB)
