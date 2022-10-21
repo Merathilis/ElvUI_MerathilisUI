@@ -439,12 +439,6 @@ L["Spell Feedback"] = true
 L["Creates a texture to show the recently pressed buttons."] = true
 L["Frame Strata"] = true
 L["Frame Level"] = true
-L["KeyFeedback"] = true
-L["Mirror"] = true
-L["Mirror Button Size"] = true
-L["Mirror Direction"] = true
-L["LEFT"] = true
-L["RIGHT"] = true
 
 -- AutoButtons
 L["AutoButtons"] = true
