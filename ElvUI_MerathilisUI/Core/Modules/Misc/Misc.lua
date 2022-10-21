@@ -118,6 +118,7 @@ function module:Misc()
 		module:CreateMawWidgetFrame()
 		module:WowHeadLinks()
 		module:AddAlerts()
+		module:QuickMenu()
 
 		hooksecurefunc('WhoList_Update', UpdateWhoList)
 		hooksecurefunc(_G.WhoListScrollFrame, 'update', UpdateWhoList)

@@ -18,11 +18,14 @@ local DecorAddons = {
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
-	{"Details", E.NewSign..L["Details"], "dt"},
 	{"TLDRMissions", L["TLDRMissions"], "tldr"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"WeakAurasOptions", L["WeakAuras Options"], "waOptions"},
 }
+
+if E.Retail then
+	tinsert(DecorAddons, {"Details", E.NewSign .. L["Details"], "dt" })
+end
 
 local SupportedProfiles = {
 	{"AddOnSkins", "AddOnSkins"},
@@ -40,6 +43,10 @@ local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully cre
 
 local function UpdateToggleDirection()
 	module:RefreshToggleDirection()
+end
+
+local function ResetDetails()
+	StaticPopup_Show("RESET_DETAILS")
 end
 
 options.general = {
@@ -1834,7 +1841,7 @@ options.Embed = {
 			type = "execute",
 			name = L["Reset Settings"],
 			func = function()
-				module:ResetDetailsAnchor(true)
+				ResetDetails()
 			end,
 			disabled = function()
 				return not E.private.mui.skins.embed.enable

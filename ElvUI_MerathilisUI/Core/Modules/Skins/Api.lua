@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
-local S = E.Skins
+local module = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
@@ -29,6 +29,32 @@ module.ArrowRotation = {
 	['LEFT'] = -1.57,
 	['RIGHT'] = 1.57,
 }
+
+do
+	local regions = {
+		"Center",
+		"BottomEdge",
+		"LeftEdge",
+		"RightEdge",
+		"TopEdge",
+		"BottomLeftCorner",
+		"BottomRightCorner",
+		"TopLeftCorner",
+		"TopRightCorner"
+	}
+
+	--[[
+		Strip edge textures
+		@param {frame} frame
+	]]
+	function module:StripEdgeTextures(frame)
+		for _, regionKey in pairs(regions) do
+			if frame[regionKey] then
+				frame[regionKey]:Kill()
+			end
+		end
+	end
+end
 
 function module:CreateShadow(frame, size, r, g, b, force)
 	if not force then
@@ -325,6 +351,14 @@ local function Menu_OnLeave(self)
 	self.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
 end
 
+local function Menu_OnMouseUp(self)
+	self.backdrop:SetBackdropColor(0, 0, 0, .45)
+end
+
+local function Menu_OnMouseDown(self)
+	self.backdrop:SetBackdropColor(F.r, F.g, F.b, .25)
+end
+
 function module:ReskinMenuButton(button)
 	assert(button, "doesn't exist!")
 
@@ -336,6 +370,8 @@ function module:ReskinMenuButton(button)
 	end
 	button:SetScript("OnEnter", Menu_OnEnter)
 	button:SetScript("OnLeave", Menu_OnLeave)
+	button:HookScript("OnMouseUp", Menu_OnMouseUp)
+	button:HookScript("OnMouseDown", Menu_OnMouseDown)
 end
 
 -- ClassColored ScrollBars
@@ -858,9 +894,6 @@ StaticPopupDialogs["RESET_DETAILS"] = {
 	end,
 	whileDead = 1,
 }
-local function ResetDetails()
-	StaticPopup_Show("RESET_DETAILS")
-end
 
 function module:GetToggleDirection()
 	local direc = E.private.mui.skins.toggleDirection

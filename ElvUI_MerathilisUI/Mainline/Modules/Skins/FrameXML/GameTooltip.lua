@@ -1,9 +1,38 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
+local TT = E:GetModule("Tooltip")
 local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
+
+function module:SetTooltipStyle(_, tt)
+	if tt and tt ~= E.ScanTooltip and not tt.IsEmbedded and not tt:IsForbidden() then
+		if tt.widgetContainer then
+			if tt.TopOverlay then
+				tt.TopOverlay:StripTextures()
+			end
+			if tt.BottomOverlay then
+				tt.BottomOverlay:StripTextures()
+			end
+			if tt.NineSlice then
+				module:StripEdgeTextures(tt.NineSlice)
+			end
+			tt:SetTemplate("Transparent")
+		end
+		module:CreateShadow(tt)
+	end
+end
+
+function module:TTGameTooltip_SetDefaultAnchor(_, tt)
+	if (tt.StatusBar) then
+		module:CreateShadow(tt.StatusBar)
+	end
+
+	if _G.GameTooltipStatusBar then
+		module:CreateShadow(_G.GameTooltipStatusBar, 6)
+	end
+end
 
 local function LoadSkin()
 	if not module:CheckDB("tooltip", "tooltip") then
@@ -49,6 +78,9 @@ local function LoadSkin()
 			frame.__MERSkin = true
 		end
 	end
+
+	module:SecureHook(TT, "SetStyle", "SetTooltipStyle")
+	module:SecureHook(TT, "GameTooltip_SetDefaultAnchor", "TTGameTooltip_SetDefaultAnchor")
 end
 
-S:AddCallback("GameTooltip", LoadSkin)
+module:AddCallback("GameTooltip", LoadSkin)

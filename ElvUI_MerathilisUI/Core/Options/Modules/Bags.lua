@@ -172,8 +172,17 @@ options.bags = {
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateBagSize() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
 		},
-		FontSize = {
+		IconSpacing = {
 			order = 17,
+			type = "range",
+			name = L["Icon Spacing"],
+			min = 0, max = 30, step = 1,
+			get = function(info) return E.db.mui.bags[info[#info]] end,
+			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateBagSize() end,
+			disabled = function() return not E.db.mui.bags.Enable end,
+		},
+		FontSize = {
+			order = 18,
 			type = "range",
 			name = L["Font Size"],
 			min = 10, max = 50, step = 1,
@@ -182,7 +191,7 @@ options.bags = {
 			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		BagsWidth = {
-			order = 18,
+			order = 19,
 			type = "range",
 			name = L["Bags Width"],
 			min = 10, max = 40, step = 1,
@@ -191,7 +200,7 @@ options.bags = {
 			disabled = function() return not E.db.mui.bags.Enable end,
 		},
 		BankWidth = {
-			order = 19,
+			order = 20,
 			type = "range",
 			name = L["Bank Width"],
 			min = 10, max = 40, step = 1,

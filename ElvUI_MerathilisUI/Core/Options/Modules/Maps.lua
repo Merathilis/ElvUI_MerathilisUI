@@ -39,11 +39,6 @@ options.maps = {
 					name = L["Blinking Minimap"],
 					desc = L["Enable the blinking animation for new mail or pending invites."],
 				},
-				queueStatus  = {
-					order = 2,
-					type = "toggle",
-					name = L["LFG Queue"],
-				},
 			},
 		},
 		instanceDifficulty = {

@@ -70,9 +70,11 @@ function module:StyleChat()
 
 	if _G.LeftChatPanel.backdrop then
 		_G.LeftChatPanel.backdrop:Styling()
+		S:CreateGradient(_G.LeftChatPanel.backdrop)
 	end
 	if _G.RightChatPanel.backdrop then
 		_G.RightChatPanel.backdrop:Styling()
+		S:CreateGradient(_G.RightChatPanel.backdrop)
 	end
 
 	S:CreateBackdropShadow(_G.LeftChatPanel, true)

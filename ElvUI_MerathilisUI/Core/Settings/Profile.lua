@@ -16,6 +16,7 @@ P.general = {
 P.bags = {
 	Enable = true,
 	IconSize = 34,
+	IconSpacing = 3,
 	FontSize = 11,
 	BagsWidth = 12,
 	BankWidth = 12,
@@ -438,6 +439,7 @@ P.misc = {
 	},
 	hideBossBanner = false,
 	quickDelete = true,
+	quickMenu = true,
 }
 
 P.nameHover = {
@@ -880,7 +882,6 @@ P.unitframes = {
 P.maps = {
 	minimap = {
 		flash = true,
-		queueStatus = true,
 		instanceDifficulty = {
 			enable = true,
 			hideBlizzard = true,
@@ -1015,11 +1016,11 @@ P.panels = {
 P.smb = {
 	enable = true,
 	mouseOver = true,
-	buttonsPerRow = 8,
+	buttonsPerRow = 7,
 	buttonSize = 24,
 	backdrop = true,
 	backdropSpacing = 3,
-	spacing = 2,
+	spacing = 1,
 	inverseDirection = false,
 	orientation = "HORIZONTAL",
 	calendar = false,

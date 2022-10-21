@@ -289,7 +289,7 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 0
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
-	E.db["general"]["minimap"]["size"] = 210
+	E.db["general"]["minimap"]["size"] = 180
 	E.db["general"]["minimap"]["locationFontSize"] = 10
 	E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 	E.db["general"]["minimap"]["locationFont"] = "Expressway"
@@ -326,30 +326,30 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["timeYOffset"] = 34
 	E.db["auras"]["buffs"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 4
-	E.db["auras"]["buffs"]["verticalSpacing"] = 0
+	E.db["auras"]["buffs"]["verticalSpacing"] = 10
 	if IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
 		E.db["auras"]["buffs"]["keepSizeRatio"] = false
 		E.db["auras"]["buffs"]["height"] = 28
 		E.db["auras"]["buffs"]["size"] = 32
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-221,-17"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-18"
 	else
 		E.db["auras"]["buffs"]["size"] = 32
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-221,-17"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-18"
 	end
 	E.db["auras"]["buffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["auras"]["buffs"]["countFontSize"] = 11
 	E.db["auras"]["buffs"]["countFontOutline"] = "OUTLINE"
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 4
-	E.db["auras"]["debuffs"]["verticalSpacing"] = 0
+	E.db["auras"]["debuffs"]["verticalSpacing"] = 10
 	if IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
 		E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 		E.db["auras"]["debuffs"]["height"] = 30
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-220,-185"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-184"
 	else
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-220,-185"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-184"
 
 	end
 	E.db["auras"]["debuffs"]["countFont"] = "Gotham Narrow Black"
@@ -507,7 +507,7 @@ function MER:SetupLayout()
 	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,240,-15"
 	E.db["movers"]["MER_MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
 	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-60"
-	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-254"
+	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-222"
 
 
 	--[[----------------------------------
@@ -2028,6 +2028,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
 	E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
 	E.db["unitframe"]["units"]["party"]["disableMouseoverGlow"] = false
+	E.db["unitframe"]["units"]["party"]["showPlayer"] = false
 	E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
 	E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 32
 	E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
@@ -2318,7 +2319,7 @@ function MER:SetupUnitframes()
 	E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
 	E.db["movers"]["ElvUF_Raid2Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
 	E.db["movers"]["ElvUF_Raid3Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
-	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,245,350"
+	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,268,326"
 	E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
 	E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
 	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,540,209"

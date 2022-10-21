@@ -1009,7 +1009,7 @@ function module:Initialize()
 
 		local columns = module:GetContainerColumns(self.Settings.BagType)
 		local offset = 38
-		local spacing = 3
+		local spacing = module.db.IconSpacing or 3
 		local xOffset = 5
 		local yOffset = -offset + xOffset
 		local _, height = self:LayoutButtons("grid", columns, spacing, xOffset, yOffset)
@@ -1060,7 +1060,7 @@ function module:Initialize()
 		elseif strmatch(name, "Equipment$") then
 			label = BAG_FILTER_EQUIPMENT
 		elseif strmatch(name, "EquipSet$") then
-			label = L["Equipement Set"]
+			label = L["Equipment Set"]
 		elseif name == "BankLegendary" then
 			label = LOOT_JOURNAL_LEGENDARIES
 		elseif strmatch(name, "Consumable$") then
@@ -1210,10 +1210,11 @@ function module:Initialize()
 	local shiftUpdater = CreateFrame("Frame", nil, f.main)
 	shiftUpdater:SetScript("OnUpdate", onUpdate)
 
-	-- if DB.isNewPatch then
-		-- MicroButtonAndBagsBar:Hide()
-		-- MicroButtonAndBagsBar:UnregisterAllEvents()
-	-- end
+	_G.BankFrame:SetScale(0.0001)
+	_G.BankFrame:SetAlpha(0)
+	_G.BankFrame:SetScript('OnShow', nil)
+	_G.BankFrame:ClearAllPoints()
+	_G.BankFrame:Point('TOPLEFT')
 end
 
 MER:RegisterModule(module:GetName())

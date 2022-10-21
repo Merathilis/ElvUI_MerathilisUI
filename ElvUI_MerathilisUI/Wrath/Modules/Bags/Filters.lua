@@ -124,7 +124,7 @@ end
 
 local function isEmptySlot(item)
 	if not E.db.mui.bags.GatherEmpty then return end
-	return module.initComplete and not item.texture and module.BagsType[item.bagID] == 0
+	return module.initComplete and not item.texture and (E.db.mui.bags.ItemFilter or cargBags.BagGroups[item.bagID] == 0)
 end
 
 local function isItemKeyRing(item)

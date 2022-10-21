@@ -969,7 +969,7 @@ function module:Initialize()
 
 		f.reagent = MyContainer:New("Reagent", { Bags = "bankreagent", BagType = "Bank" })
 		f.reagent:SetFilter(filters.onlyReagent, true)
-		f.reagent.__anchor = { "BOTTOMLEFT", f.bank }
+		f.reagent.__anchor = { "BOTTOM", f.bank , 0, -70}
 		f.reagent:SetPoint(unpack(f.reagent.__anchor))
 		f.reagent:Hide()
 	end
@@ -1325,7 +1325,7 @@ function module:Initialize()
 
 		local columns = module:GetContainerColumns(self.Settings.BagType)
 		local offset = 38
-		local spacing = 3
+		local spacing = module.db.IconSpacing or 3
 		local xOffset = 5
 		local yOffset = -offset + xOffset
 		local _, height = self:LayoutButtons("grid", columns, spacing, xOffset, yOffset)
@@ -1373,7 +1373,7 @@ function module:Initialize()
 		elseif strmatch(name, "Equipment$") then
 			label = _G.BAG_FILTER_EQUIPMENT
 		elseif strmatch(name, "EquipSet$") then
-			label = L["Equipement Set"]
+			label = L["Equipment Set"]
 		elseif name == "BankLegendary" then
 			label = _G.LOOT_JOURNAL_LEGENDARIES
 		elseif strmatch(name, "Consumable$") then

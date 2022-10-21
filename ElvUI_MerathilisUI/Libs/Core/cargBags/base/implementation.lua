@@ -21,8 +21,6 @@ local _, ns = ...
 local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 
--- local GetContainerNumSlots = MER.isNewPatch and C_Container.GetContainerNumSlots or GetContainerNumSlots
-
 --[[!
 	@class Implementation
 		The Implementation-class serves as the basis for your cargBags-instance, handling
@@ -417,11 +415,7 @@ function Implementation:UpdateBag(bagID)
 	if(closed) then
 		numSlots, closed = 0
 	else
-		-- if MER.isNewPatch and bagID < 0 then
-			-- numSlots = 0 -- todo: bagID not allow to be negative in 45779, wait for blizz to fix itself
-		-- else
-			numSlots = GetContainerNumSlots(bagID)
-		-- end
+		numSlots = GetContainerNumSlots(bagID)
 	end
 	local lastSlots = self.bagSizes[bagID] or 0
 	self.bagSizes[bagID] = numSlots
