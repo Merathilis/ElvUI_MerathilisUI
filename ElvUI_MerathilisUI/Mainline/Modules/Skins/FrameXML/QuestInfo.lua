@@ -73,22 +73,37 @@ local function RestyleSpellButton(bu)
 end
 
 local function RestyleRewardButton(bu, isMapQuestInfo)
-	bu.Icon:SetTexCoord(unpack(E.TexCoords))
-	bu.Icon:SetDrawLayer("OVERLAY")
-	bu.NameFrame:SetAlpha(0)
-	bu.Count:ClearAllPoints()
-	bu.Count:SetPoint("BOTTOMRIGHT", bu.Icon, "BOTTOMRIGHT", 2, 0)
-	bu.Count:SetDrawLayer("OVERLAY")
+	if bu.Icon then
+		bu.Icon:SetTexCoord(unpack(E.TexCoords))
+		bu.Icon:SetDrawLayer("OVERLAY")
+	end
 
-	local bg = module:CreateBDFrame(bu, .25)
-	bg:SetFrameStrata("BACKGROUND")
+	if bu.NameFrame then
+		bu.NameFrame:SetAlpha(0)
+	end
+
+	if bu.Count then
+		bu.Count:ClearAllPoints()
+		bu.Count:SetPoint("BOTTOMRIGHT", bu.Icon, "BOTTOMRIGHT", 2, 0)
+		bu.Count:SetDrawLayer("OVERLAY")
+    end
+
+	if bu.RewardAmount then
+		bu.RewardAmount:ClearAllPoints()
+		bu.RewardAmount:SetPoint("BOTTOMRIGHT", bu.Icon, "BOTTOMRIGHT", 2, 0)
+		bu.RewardAmount:SetDrawLayer("OVERLAY")
+	end
+
+	bu:CreateBackdrop('Transparent')
+	bu.backdrop:SetFrameStrata("BACKGROUND")
+	module:CreateGradient(bu.backdrop)
 
 	if isMapQuestInfo then
-		bg:SetPoint("TOPLEFT", bu.NameFrame, 1, 1)
-		bg:SetPoint("BOTTOMRIGHT", bu.NameFrame, -3, 0)
+		bu.backdrop:SetPoint("TOPLEFT", bu.NameFrame, 1, 1)
+		bu.backdrop:SetPoint("BOTTOMRIGHT", bu.NameFrame, -3, 0)
 	else
-		bg:SetPoint("TOPLEFT", bu, 1, 1)
-		bg:SetPoint("BOTTOMRIGHT", bu, -3, 1)
+		bu.backdrop:SetPoint("TOPLEFT", bu, 1, 1)
+		bu.backdrop:SetPoint("BOTTOMRIGHT", bu, -3, 1)
 	end
 
 	if bu.CircleBackground then
@@ -96,7 +111,7 @@ local function RestyleRewardButton(bu, isMapQuestInfo)
 		bu.CircleBackgroundGlow:SetAlpha(0)
 	end
 
-	bu.bg = bg
+	bu.bg = bu.backdrop
 end
 
 local function HookTextColor_Yellow(self, r, g, b)
@@ -166,9 +181,9 @@ local function LoadSkin()
 		module:CreateBDFrame(icon)
 		nameFrame:Hide()
 
-		local bg = module:CreateBDFrame(nameFrame, .25)
-		bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 2)
-		bg:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 101, -1)
+		nameFrame:CreateBackdrop('Transparent')
+		nameFrame.backdrop:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 2)
+		nameFrame.backdrop:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 101, -1)
 	end
 
 	-- Title Reward
@@ -177,13 +192,14 @@ local function LoadSkin()
 		local icon = frame.Icon
 
 		icon:SetTexCoord(unpack(E.TexCoords))
-		module:CreateBDFrame(icon)
+		icon:CreateBackdrop('Transparent')
 		for i = 2, 4 do
 			select(i, frame:GetRegions()):Hide()
 		end
-		local bg = module:CreateBDFrame(frame, .25)
-		bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 2)
-		bg:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 220, -1)
+
+		frame:CreateBackdrop('Transparent')
+		frame.backdrop:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 2)
+		frame.backdrop:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 220, -1)
 	end
 
 	-- Follower Rewards
@@ -204,7 +220,14 @@ local function LoadSkin()
 				spellHeader:SetVertexColor(1, 1, 1, 1)
 			end
 		end
-	end)
+
+		-- WoW10 new MajorFaction Rewards thing
+		for spellIcon in rewardsFrame.reputationRewardPool:EnumerateActive() do
+			RestyleRewardButton(spellIcon)
+		end
+    end)
+
+	-- Major Faction Rewards
 
 	hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", function(self, r)
 		if r == 0 then
