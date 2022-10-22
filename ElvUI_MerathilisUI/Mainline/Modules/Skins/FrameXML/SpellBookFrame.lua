@@ -66,8 +66,6 @@ local function LoadSkin()
 		bu.TextBackground:Hide()
 		bu.TextBackground2:Hide()
 		bu.UnlearnedFrame:SetAlpha(0)
-		bu:SetCheckedTexture()
-		bu:SetPushedTexture()
 
 		hooksecurefunc(bu, "UpdateButton", HandleSpellButton)
 	end
