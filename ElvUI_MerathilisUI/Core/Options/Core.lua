@@ -5,6 +5,7 @@ local format = format
 local CreateTextureMarkup = CreateTextureMarkup
 local IsAddOnLoaded = IsAddOnLoaded
 
+local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14:64:64|t]]
 local logo = CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/Core/Media/textures/m2", 64, 64, 20, 20, 0, 1, 0, 1, 0, -1)
 
 MER.options = {
@@ -67,7 +68,7 @@ function MER:OptionsCallback()
 			logo = {
 				order = 2,
 				type = "description",
-				name = L["MER_DESC"]..E.NewSign,
+				name = L["MER_DESC"] .. newSignIgnored,
 				fontSize = "medium",
 				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\mUI1.tga", 200, 200 end,
 			},

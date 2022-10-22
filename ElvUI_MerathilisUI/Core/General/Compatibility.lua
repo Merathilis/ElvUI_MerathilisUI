@@ -10,6 +10,8 @@ local strlen, strsplit = strlen, strsplit
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
+local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14:64:64|t]]
+
 function MER:ConstructCompatibilityFrame()
 	local frame = CreateFrame("Frame", "MERCompatibilityFrame", E.UIParent)
 	frame:Size(550, 500)
@@ -64,7 +66,7 @@ function MER:ConstructCompatibilityFrame()
 	bottomDesc:SetJustifyH("LEFT")
 	bottomDesc:Width(530)
 	F.SetFontOutline(bottomDesc, nil, "-1")
-	bottomDesc:SetText(E.NewSign .. format(L["If you find the %s module conflicts with another addon, alert me via Discord."], MER.Title) .. "\n" .. L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."])
+	bottomDesc:SetText(newSignIgnored .. format(L["If you find the %s module conflicts with another addon, alert me via Discord."], MER.Title) .. "\n" .. L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."])
 	--bottomDesc:SetText("|cffff0000*|r " .. L["The feature is just a part of that module."])
 	bottomDesc:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
 
