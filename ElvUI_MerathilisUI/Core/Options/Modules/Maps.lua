@@ -505,14 +505,8 @@ options.maps = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					args = {
-						calendar = {
-							order = 1,
-							type = "toggle",
-							name = L["Calendar"],
-							desc = L["Add calendar button to the bar."]
-						},
 						garrison = {
-							order = 2,
+							order = 1,
 							type = "toggle",
 							name = L["Garrison"],
 							desc = L["Add garrison button to the bar."]

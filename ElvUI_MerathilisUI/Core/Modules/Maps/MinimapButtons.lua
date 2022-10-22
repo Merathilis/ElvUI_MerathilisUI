@@ -84,18 +84,12 @@ local moveButtons = {}
 do
 	local modified = false
 	function module:UpdateGarrisonMinimapIcon(icon)
-		icon = icon or _G.GarrisonLandingPageMinimapButton
+        icon = icon or _G.ExpansionLandingPageMinimapButton
 
 		if not icon then
 			return
 		end
 		icon:SetScale(E.uiscale)
-
-		local box = _G.GarrisonLandingPageTutorialBox
-		if box then
-			box:SetScale(E.uiscale)
-			box:SetClampedToScreen(true)
-		end
 
 		if not modified then
 			icon.AlertText:Hide()
@@ -124,7 +118,7 @@ end
 do
 	local originalFunction = MM.HandleGarrisonButton
 	function MM:HandleGarrisonButton()
-		local icon = _G.GarrisonLandingPageMinimapButton
+		local icon = _G.ExpansionLandingPageMinimapButton
 
 		if not icon or not icon.isMinimapButton or InCombatLockdown() then
 			return originalFunction(self)
@@ -230,23 +224,23 @@ function module:SkinButton(frame)
 		end
 	end
 
-	if name ~= "GarrisonLandingPageMinimapButton" and tmp ~= 2 then
-		frame:SetPushedTexture(nil)
-		frame:SetDisabledTexture(nil)
-		frame:SetHighlightTexture(nil)
+	if name ~= "ExpansionLandingPageMinimapButton" and tmp ~= 2 then
+		frame:SetPushedTexture('')
+		frame:SetDisabledTexture('')
+		frame:SetHighlightTexture('')
 	elseif name == "DBMMinimapButton" then
 		frame:SetNormalTexture("Interface\\Icons\\INV_Helmet_87")
 	elseif name == "SmartBuff_MiniMapButton" then
 		frame:SetNormalTexture(select(3, GetSpellInfo(12051)))
-	elseif name == "GarrisonLandingPageMinimapButton" and self.db.garrison then
+	elseif name == "ExpansionLandingPageMinimapButton" and self.db.garrison then
 		if not frame.isMinimapButton then
-			self:UpdateGarrisonMinimapIcon(_G.GarrisonLandingPageMinimapButton)
+			self:UpdateGarrisonMinimapIcon(_G.ExpansionLandingPageMinimapButton)
 			frame.isMinimapButton = true
 		end
 	elseif name == "GRM_MinimapButton" then
 		frame.GRM_MinimapButtonBorder:Hide()
-		frame:SetPushedTexture(nil)
-		frame:SetHighlightTexture(nil)
+		frame:SetPushedTexture('')
+		frame:SetHighlightTexture('')
 		frame.SetPushedTexture = E.noop
 		frame.SetHighlightTexture = E.noop
 		if frame:HasScript("OnEnter") then
@@ -531,7 +525,7 @@ function module:SkinMinimapButtons()
 	end
 
 	if self.db.garrison then
-		self:SkinButton(_G.GarrisonLandingPageMinimapButton)
+		self:SkinButton(_G.ExpansionLandingPageMinimapButton)
 	end
 
 	self:UpdateLayout()
