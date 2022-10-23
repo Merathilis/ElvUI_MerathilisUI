@@ -58,7 +58,7 @@ local function LoadSkin()
 	KeyStoneFrame:Styling()
 	module:CreateBackdropShadow(KeyStoneFrame)
 
-	hooksecurefunc("ChallengesFrame_Update", UpdateIcons)
+	hooksecurefunc(_G.ChallengesFrameMixin, 'Update', UpdateIcons)
 end
 
 S:AddCallbackForAddon("Blizzard_ChallengesUI", LoadSkin)
