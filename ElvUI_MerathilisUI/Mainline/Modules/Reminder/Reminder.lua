@@ -76,6 +76,7 @@ module.ReminderList = {
 		[1] = { -- Lightning Shield
 			["spellGroup"] = {
 				[192106] = true, -- Lightning Shield
+				[974] = true, -- Earth Shield
 				["defaultIcon"] = 192106,
 			},
 			["enable"] = true,
@@ -88,6 +89,7 @@ module.ReminderList = {
 		[2] = { -- Water Shield
 			["spellGroup"] = {
 				[52127] = true, -- Water Shield
+				[974] = true, -- Earth Shield
 				["defaultIcon"] = 52127,
 			},
 			["enable"] = true,
