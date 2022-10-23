@@ -209,12 +209,6 @@ L["Extends the merchant page to show more items."] = "Расширяет стр�
 L["Number of Pages"] = "Количество страниц"
 L["The number of pages shown in the merchant frame."] = "Количество страниц, отображаемых в рамке продавца."
 
--- FlightMode
-L["FlightMode"] = "Режим полета"
-L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Улучшите режим полета |cff00c0faBenikUI|r.\nЧтобы полностью отключить режим полета, перейдите к параметрам |cff00c0faBenikUI|r."
-L["Exit FlightMode"] = "Выйти из режима полета"
-L["Left Click to Request Stop"] = "Щелкните левой кнопкой мыши, чтобы запросить остановку"
-
 -- FlightPoint
 L["Flight Point"] = "Точка полета"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Включить/отключить точки полета MerathilisUI на карте полета."

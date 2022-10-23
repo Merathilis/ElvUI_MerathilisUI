@@ -208,12 +208,6 @@ L["Extends the merchant page to show more items."] = "Erweitert die Händlerseit
 L["Number of Pages"] = "Anzahl der Seiten"
 L["The number of pages shown in the merchant frame."] = "Die Anzahl der im Händlerfenster angezeigten Seiten."
 
--- FlightMode
-L["FlightMode"] = "Flugmodus"
-L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Erweitert den |cff00c0faBenikUI|r Flugmodus.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
-L["Exit FlightMode"] = "Verlasse Flugmodus"
-L["Left Click to Request Stop"] = "Linksklick um zu landen"
-
 -- FlightPoint
 L["Flight Point"] = "Flugpunkt"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert/Deaktiviert die MerathilisUI Flugpunkte auf der Flugkarte."

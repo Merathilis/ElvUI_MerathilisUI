@@ -1252,8 +1252,3 @@ P.armory = {
 	StatExpand = true,
 	PetHappiness = true,
 }
-
-P.flightMode = {
-	enable = true,
-	BenikFlightMode = true,
-}

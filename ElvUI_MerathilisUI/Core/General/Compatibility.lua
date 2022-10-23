@@ -214,9 +214,6 @@ function MER:CheckCompatibility()
 
 	self:ConstructCompatibilityFrame()
 
-	-- BenikUI
-	CheckBenikUI(L["FlightMode"], L["Flight Mode"], "db.mui.flightMode.enable", "db.benikui.misc.flightMode.enable")
-
 	-- Windtools
 	CheckWindtools(
 		L["AutoButtons"],
