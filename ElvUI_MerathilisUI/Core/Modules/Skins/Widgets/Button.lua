@@ -52,8 +52,14 @@ function WS:HandleButton(_, button)
 
 		self:SecureHookScript(button, "OnEnter", button.MERAnimation.onEnter)
 		self:SecureHookScript(button, "OnLeave", button.MERAnimation.onLeave)
-		-- self:SecureHook(button, "Disable", button.MERAnimation.onStatusChange)
-		-- self:SecureHook(button, "Enable", button.MERAnimation.onStatusChange)
+
+		if button.Disable then
+			self:SecureHook(button, "Disable", button.MERAnimation.onStatusChange)
+		end
+
+		if button.Enable then
+			self:SecureHook(button, "Enable", button.MERAnimation.onStatusChange)
+		end
 
 		-- Avoid the hook is flushed
 		self:SecureHook(button, "SetScript", function(frame, scriptType)
