@@ -15,4 +15,3 @@ local function LoadSkin()
 end
 
 S:AddCallbackForAddon('Blizzard_ClassTalentUI', LoadSkin)
-
