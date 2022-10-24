@@ -999,8 +999,8 @@ P.smb = {
 	spacing = 1,
 	inverseDirection = false,
 	orientation = "HORIZONTAL",
-	calendar = false,
-	garrison = false
+	-- calendar = false,
+	expansionLandingPage = false
 }
 
 P.locPanel = {
