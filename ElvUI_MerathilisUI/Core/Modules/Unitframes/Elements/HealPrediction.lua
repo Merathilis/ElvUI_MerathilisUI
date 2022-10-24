@@ -31,13 +31,13 @@ function module:ConstructTextures(frame)
 	local absorb = frame.MERAbsorb
 
 	if not absorb.overlay then
-		local overlay = absorb:CreateTexture(nil, "OVERLAY")
+		local overlay = absorb:CreateTexture(nil, "OVERLAY", nil, 6)
 		overlay:SetTexture("Interface/RaidFrame/Shield-Overlay", true, true)
 		absorb.overlay = overlay
 	end
 
 	if not absorb.glow then
-		local glow = absorb:CreateTexture(nil, "OVERLAY")
+		local glow = absorb:CreateTexture(nil, "OVERLAY", nil, 7)
 		glow:SetTexture("Interface/RaidFrame/Shield-Overshield")
 		glow:SetBlendMode("ADD")
 		glow:SetWidth(16)
