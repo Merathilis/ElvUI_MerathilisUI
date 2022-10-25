@@ -68,7 +68,8 @@ function MER:ConstructCompatibilityFrame()
 	--bottomDesc:SetText("|cffff0000*|r " .. L["The feature is just a part of that module."])
 	bottomDesc:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
 
-	local completeButton = CreateFrame("Button", "MERCompatibilityFrameCompleteButton", frame, "UIPanelButtonTemplate")
+	local completeButton = CreateFrame("Button", "MERCompatibilityFrameCompleteButton", frame, "UIPanelButtonTemplate, BackdropTemplate")
+
 	completeButton.Text:SetText(L["Complete"])
 	completeButton.Text:SetJustifyH("CENTER")
 	completeButton.Text:SetJustifyV("CENTER")
@@ -101,7 +102,8 @@ local function AddButtonToCompatibilityFrame(data)
 	local frame = MER.CompatibilityFrame
 	frame.numModules = frame.numModules + 1
 
-	local leftButton = CreateFrame("Button", "MERCompatibilityFrameLeftButton" .. frame.numModules, frame.scrollFrame, "OptionsButtonTemplate, BackdropTemplate")
+	local leftButton = CreateFrame("Button", "MERCompatibilityFrameLeftButton" .. frame.numModules, frame.scrollFrame, "UIPanelButtonTemplate, BackdropTemplate")
+
 	leftButton.Text:SetText(format("%s\n%s", data.module1, data.plugin1))
 	leftButton.Text:SetJustifyH("CENTER")
 	leftButton.Text:SetJustifyV("CENTER")
@@ -127,7 +129,8 @@ local function AddButtonToCompatibilityFrame(data)
 	middleTexture:SetVertexColor(1, 1, 1, 1)
 	middleTexture:SetPoint("CENTER", frame.scrollFrame, "TOP", 0, -frame.numModules * 50 + 25)
 
-	local rightButton = CreateFrame("Button", "MERCompatibilityFrameRightButton" .. frame.numModules, frame.scrollFrame, "OptionsButtonTemplate, BackdropTemplate")
+	local rightButton = CreateFrame("Button", "MERCompatibilityFrameRightButton" .. frame.numModules, frame.scrollFrame, "UIPanelButtonTemplate, BackdropTemplate")
+
 	rightButton.Text:SetText(format("%s\n%s", data.module2, data.plugin2))
 	rightButton.Text:SetJustifyH("CENTER")
 	rightButton.Text:SetJustifyV("CENTER")
