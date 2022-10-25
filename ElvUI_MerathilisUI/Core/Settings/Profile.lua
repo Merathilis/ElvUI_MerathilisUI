@@ -130,11 +130,11 @@ P.blizzard = {
 		level = true,
 		hideMaxLevel = true,
 		useGameColor = true,
-		useClassColor = true,
+		useClientColor = true,
 		useNoteAsName = false,
 		textures = {
-			game = "Modern",
-			status = "Square",
+			client = "modern",
+			status = "square",
 			factionIcon = false
 		},
 		areaColor = {
