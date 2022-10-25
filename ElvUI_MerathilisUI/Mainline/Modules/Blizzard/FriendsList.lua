@@ -391,10 +391,8 @@ function module:UpdateFriendButton(button)
 		if texOrAtlas then
 			if self.db.textures.client == "blizzard" then
 				button.gameIcon:SetAtlas(texOrAtlas)
-				print("atlas: " .. texOrAtlas)
 			else
 				button.gameIcon:SetTexture(texOrAtlas)
-				print("tex: " .. texOrAtlas)
 			end
 			button.gameIcon:Show()
 			button.gameIcon:SetAlpha(1)
