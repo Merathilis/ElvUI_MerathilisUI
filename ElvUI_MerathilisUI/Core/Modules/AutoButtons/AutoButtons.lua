@@ -782,13 +782,13 @@ local moduleList = {
 }
 
 function module:CreateButton(name, barDB)
-	local button = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate, BackdropTemplate")
+	local button = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate")
 	button:Size(barDB.buttonWidth, barDB.buttonHeight)
 	button:SetTemplate()
 	button:SetClampedToScreen(true)
 	button:SetAttribute("type", "item")
 	button:EnableMouse(false)
-	button:RegisterForClicks("AnyUp")
+	button:RegisterForClicks("AnyDown")
 
 	local tex = button:CreateTexture(nil, "OVERLAY", nil)
 	tex:Point("TOPLEFT", button, "TOPLEFT", 1, -1)
