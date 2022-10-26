@@ -42,7 +42,6 @@ local PlaySound = PlaySound
 local RegisterStateDriver = RegisterStateDriver
 local Screenshot = Screenshot
 local ShowUIPanel = ShowUIPanel
-local ToggleAllBags = ToggleAllBags
 local ToggleCalendar = ToggleCalendar
 local ToggleCharacter = ToggleCharacter
 local ToggleFrame = ToggleFrame
@@ -178,7 +177,9 @@ local ButtonTypes = {
 		name = L["Bags"],
 		icon = MER.Media.Icons.barBags,
 		click = {
-			LeftButton = ToggleAllBags
+			LeftButton = function()
+				_G.ToggleAllBags()
+			end,
 		},
 		tooltips = function()
 			if IsModifierKeyDown() then
@@ -287,13 +288,6 @@ local ButtonTypes = {
 				if not InCombatLockdown() then
 					-- Open game menu | From ElvUI
 					if not _G.GameMenuFrame:IsShown() then
-						if _G.VideoOptionsFrame:IsShown() then
-							_G.VideoOptionsFrameCancel:Click()
-						elseif _G.AudioOptionsFrame:IsShown() then
-							_G.AudioOptionsFrameCancel:Click()
-						elseif _G.InterfaceOptionsFrame:IsShown() then
-							_G.InterfaceOptionsFrameCancel:Click()
-						end
 						CloseMenus()
 						CloseAllWindows()
 						PlaySound(850) --IG_MAINMENU_OPEN

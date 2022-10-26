@@ -1,6 +1,6 @@
 ﻿local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_LocPanel')
-local DD = MER.Modules.DropDown
+local DD = MER:GetModule('MER_DropDown')
 
 local _G = _G
 local format, split = string.format, string.split
