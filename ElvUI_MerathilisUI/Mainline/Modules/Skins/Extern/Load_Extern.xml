@@ -4,7 +4,6 @@
 	<Script file="BugSack.lua"/>
 	<Script file="cargBags_Nivaya.lua"/>
 	<Script file="Clique.lua"/>
-	<Script file="Details.lua"/>
 	<Script file="Immersion.lua"/>
 	<Script file="ls_Toasts.lua"/>
 	<Script file="Pawn.lua"/>
