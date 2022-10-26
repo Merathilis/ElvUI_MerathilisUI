@@ -394,7 +394,6 @@ function module:UpdateFriendButton(button)
 			else
 				button.gameIcon:SetTexture(texOrAtlas)
 			end
-			button.gameIcon:Show()
 			button.gameIcon:SetAlpha(1)
 		end
 	else
