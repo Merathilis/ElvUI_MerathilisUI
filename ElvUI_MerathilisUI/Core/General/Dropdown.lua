@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.DropDown
+local module = MER:GetModule('MER_DropDown')
 
 local _G = _G
 local format = string.format
@@ -51,6 +51,8 @@ end
 
 local function CreateListButton(frame)
 	local button = CreateFrame("Button", nil, frame, "SecureActionButtonTemplate")
+
+	button:RegisterForClicks('AnyUp', 'AnyDown')
 
 	button.hoverTex = button:CreateTexture(nil, 'OVERLAY')
 	button.hoverTex:SetAllPoints()
