@@ -366,7 +366,7 @@ function module:UpdateFriendButton(button)
 				buttonText = F.CreateColorString(area, self.db.areaColor)
 			end
 
-			if not isInCurrentRegion and regionLocales[regionID] and not E.db.WT.social.filter.unblockProfanityFilter then
+			if not isInCurrentRegion and regionLocales[regionID] and not E.db.mui.blizzard.filter.unblockProfanityFilter then
 				-- Unblocking profanity filter will change the region
 				local regionText = format("[%s]", regionLocales[regionID])
 				buttonText = buttonText .. " " .. F.CreateColorString(regionText, { r = 0.62, g = 0.62, b = 0.62 })
