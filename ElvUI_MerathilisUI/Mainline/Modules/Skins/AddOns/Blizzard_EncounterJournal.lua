@@ -180,14 +180,16 @@ local function LoadSkin()
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
 			if not child.styled then
-				child.boss:SetTextColor(1, 1, 1)
-				child.slot:SetTextColor(1, 1, 1)
-				child.armorType:SetTextColor(1, 1, 1)
-				child.bossTexture:SetAlpha(0)
-				child.bosslessTexture:SetAlpha(0)
-				child.IconBorder:SetAlpha(0)
-				child.icon:SetPoint("TOPLEFT", 1, -1)
-				S:HandleIcon(child.icon)
+				if child.boss then child.boss:SetTextColor(1, 1, 1) end
+				if child.slot then child.slot:SetTextColor(1, 1, 1) end
+				if child.armorType then child.armorType:SetTextColor(1, 1, 1) end
+				if child.bossTexture then child.bossTexture:SetAlpha(0) end
+				if child.bosslessTexture then child.bosslessTexture:SetAlpha(0) end
+				if child.IconBorder then child.IconBorder:SetAlpha(0) end
+				if child.icon then
+					child.icon:SetPoint("TOPLEFT", 1, -1)
+					S:HandleIcon(child.icon)
+				end
 
 				child:CreateBackdrop('Transparent')
 				child.backdrop:SetPoint("TOPLEFT")
