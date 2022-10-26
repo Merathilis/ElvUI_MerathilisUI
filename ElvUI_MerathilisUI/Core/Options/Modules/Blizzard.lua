@@ -926,13 +926,13 @@ options.blizzard.args.friendsList = {
 				return not E.db.mui.blizzard.friendsList.enable
 			end,
 			args = {
-				game = {
+				client = {
 					name = L["Game Icons"],
 					order = 1,
 					type = "select",
 					values = {
-						Default = L["Default"],
-						Modern = L["Modern"]
+						blizzard = L["Blizzard"],
+						modern = L["Modern"]
 					}
 				},
 				status = {
@@ -940,9 +940,9 @@ options.blizzard.args.friendsList = {
 					order = 2,
 					type = "select",
 					values = {
-						Default = L["Default"],
-						D3 = L["Diablo 3"],
-						Square = L["Square"]
+						default = L["Default"],
+						d3 = L["Diablo 3"],
+						square = L["Square"]
 					}
 				},
 				factionIcon = {
@@ -981,10 +981,10 @@ options.blizzard.args.friendsList = {
 					name = L["Use Note As Name"],
 					desc = L["Replace the Real ID or the character name of friends with your notes."]
 				},
-				useGameColor = {
+				useClientColor = {
 					order = 4,
 					type = "toggle",
-					name = L["Use Game Color"],
+					name = L["Use Client Color"],
 					desc = L["Change the color of the name to the in-playing game style."]
 				},
 				useClassColor = {

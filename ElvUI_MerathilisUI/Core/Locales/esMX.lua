@@ -50,8 +50,64 @@ L["Set to 2 if you do not understand the meaning of log level."] = true
 L["Open the changelog window."] = true
 
 -- Bags
-L["Equip Manager"] = true
-L["Equipment Manager"] = true
+L["BANK_DESC"] = [=[If you have my Bags enabled the ElvUI Bags will be forced to be disabled! So if you want the ElvUI back, you need to disable my Bags first and then enable the ElvUI Bags again.]=]
+L["Item Filter"] = true
+L["Junk"] = true
+L["Consumable"] = true
+L["Ammo"] = true
+L["Azerite"] = true
+L["Equipments"] = true
+L["EquipSets"] = true
+L["Legendarys"] = true
+L["Collection"] = true
+L["Favorite"] = true
+L["Goods"] = true
+L["Quest"] = true
+L["Anima"] = true
+L["Relic"] = true
+L["Collect Empty Slots"] = true
+L["Special Bags Color"] = true
+L["|nShow color for special bags:|n- Herb bag|n- Mining bag|n- Gem bag|n- Enchanted mageweave pouch"] = true
+L["New Item Glow"] = true
+L["Show ItemLevel"] = true
+L["Pet Trash Currencies"] = true
+L[
+	"|nIn patch 9.1, you can buy 3 battle pets by using specific trash items. Keep this enabled, will sort these items into Collection Filter, and won't be sold by auto junk selling."
+	] = true
+L["ItemLevel Threshold"] = true
+L["BagSort Mode"] = true
+L[
+	"|nIf you have empty slots after bag sort, please disable bags module, and turn off all bags filter in default ui containers."
+	] = true
+L["Forward"] = true
+L["Backwards"] = true
+L["Bags per Row"] = true
+L["|nIf Bags ItemFilter enabled, change the bags per row for anchoring."] = true
+L["Bank bags per Row"] = true
+L["|nIf Bags ItemFilter enabled, change the bank bags per row for anchoring."] = true
+L["Icon Size"] = true
+L["Icon Spacing"] = true
+L["Font Size"] = true
+L["Bags Width"] = true
+L["Bank Width"] = true
+L["Bag Search Tip"] = "|nClick to search your bag items.|nYou can type in item names or item equip locations.|n'boe' for items that bind on equip and 'quest' for quest items.|n|nPress key ESC to clear editbox."
+L["Auto Deposit Tip"] = "|nLeft click to deposit reagents, right click to switch auto deposit.|nIf the button border shown, the reagents from your bags would auto deposit once you open your BankFrame."
+L["Bag Sort Disabled"] = "BagSort has been disabled in the Options."
+L["Sort"] = true
+L["FreeSlots"] = "Total free slots"
+L["Split Mode Enabled"] = "|nClick to split stacked items in your bags.|nYou can change 'split count' for each click thru the editbox."
+L["Quick Split"] = true
+L["Favourite Mode"] = true
+L["Favourite Mode Enabled"] = "|nYou can now star items.|nIf 'Bags ItemFilter' enabled, the item you starred will add to Preferences filter slots.|nThis is not available to trash."
+L["Reset junklist warning"] = "Are you sure to wipe the custom junk list?"
+L["Junk Mode Enabled"] = "|nClick to tag item as junk.|nIf 'Autosell Junk' enabled, these items would be sold as well.|nThe list is saved account-wide, and won't be in the export data.|nYou can hold CTRL+ALT and click to wipe the custom junk list."
+L["Custom Junk Mode"] = "Custom Junk List"
+L["Delete Mode Enabled"] = "|nYou can destroy container item by holding CTRL+ALT. The item can be heirlooms or its quality lower then rare (blue)."
+L["Item Delete Mode"] = true
+L["Azerite Armor"] = true
+L["Equipment Set"] = true
+L["Korthia Relic"] = true
+L["StupidShiftKey"] = true
 L["Equipment Set Overlay"] = true
 L["Show the associated equipment sets for the items in your bags (or bank)."] = true
 
@@ -59,14 +115,6 @@ L["Show the associated equipment sets for the items in your bags (or bank)."] = 
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
 L["BACK"] = "Indietro"
-L["ERR_FRIEND_ONLINE"] = "se ha |cff298F00conectado|r."
-L["ERR_FRIEND_OFFLINE"] = "se ha |cffff0000desconectado|r."
-L["BN_INLINE_TOAST_FRIEND_ONLINE"] = " se ha |cff298F00conectado|r."
-L["BN_INLINE_TOAST_FRIEND_OFFLINE"] = " se ha |cffff0000desconectado|r."
-L["has come |cff298F00online|r."] = true -- Guild Message
-L["has gone |cffff0000offline|r."] = true -- Guild Message
-L[" has come |cff298F00online|r."] = true -- Battle.Net Message
-L[" has gone |cffff0000offline|r."] = true -- Battle.Net Message
 L["|cFF00c0failvl|r: %d"] = true
 L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = true
 L["Requires level: %d - %d"] = true
@@ -159,12 +207,6 @@ L["Extends the merchant page to show more items."] = true
 L["Number of Pages"] = true
 L["The number of pages shown in the merchant frame."] = true
 
--- FlightMode
-L["FlightMode"] = true
-L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
-L["Exit FlightMode"] = true
-L["Left Click to Request Stop"] = true
-
 -- FlightPoint
 L["Flight Point"] = true
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
@@ -241,7 +283,7 @@ L["Skill gains"] = true
 L[" members"] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
-L["Undress"] = true
+L["Double Click to Undress"] = true
 L["Flashing Cursor"] = true
 L["Lights up the cursor to make it easier to see."] = true
 L["Accept Quest"] = true
@@ -391,12 +433,6 @@ L["Spell Feedback"] = true
 L["Creates a texture to show the recently pressed buttons."] = true
 L["Frame Strata"] = true
 L["Frame Level"] = true
-L["KeyFeedback"] = true
-L["Mirror"] = true
-L["Mirror Button Size"] = true
-L["Mirror Direction"] = true
-L["LEFT"] = true
-L["RIGHT"] = true
 
 -- AutoButtons
 L["AutoButtons"] = true
@@ -623,12 +659,9 @@ L["Hide In Combat"] = true
 -- Maps
 L["Maps"] = true
 L["World Map"] = true
-L["Instance Difficulty"] = true
-L["Rectangle Minimap"] = true
 L["Duration"] = true
 L["Fade Out"] = true
 L["Scale"] = true
-L["Reskin the instance diffculty in text style."] = true
 L["Hide Blizzard"] = true
 L["Change the shape of ElvUI minimap."] = true
 L["Height Percentage"] = true

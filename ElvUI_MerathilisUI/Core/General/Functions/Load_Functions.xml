@@ -3,6 +3,7 @@
 	<Script file="Styling.lua"/>
 	<Script file="Animations.lua"/>
 	<Script file="Developer.lua"/>
+	<Script file="Profiles.lua"/>
 	<Script file="Commands.lua"/>
 	<Script file="Smooth.lua"/>
 	<Script file="Strings.lua"/>

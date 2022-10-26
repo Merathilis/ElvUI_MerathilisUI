@@ -62,42 +62,8 @@ local function LoadSkin()
 		button.Reward.Icon:SetInside(button.Reward)
 	end
 
-	-- Honor frame specific
-	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do
-		bu.Bg:Hide()
-		bu.Border:Hide()
-
-		-- Hide ElvUI backdrop
-		if bu.backdrop then
-			bu.backdrop:Hide()
-		end
-
-		bu:SetNormalTexture("")
-		bu:SetHighlightTexture("")
-
-		local bg = CreateFrame("Frame", nil, bu)
-		bg:SetPoint("TOPLEFT", 2, 0)
-		bg:SetPoint("BOTTOMRIGHT", -1, 2)
-		module:CreateBD(bg, 0)
-		bg:SetFrameLevel(bu:GetFrameLevel()-1)
-
-		bu.tex = module:CreateGradient(bu)
-		bu.tex:SetDrawLayer("BACKGROUND")
-		bu.tex:SetPoint("TOPLEFT", bg, 1, -1)
-		bu.tex:SetPoint("BOTTOMRIGHT", bg, -1, 1)
-
-		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(r, g, b, .2)
-		bu.SelectedTexture:SetAllPoints(bu.tex)
-
-		bu.Icon:SetTexCoord(unpack(E.TexCoords))
-		bu.Icon.bg = module:CreateBG(bu.Icon)
-		bu.Icon.bg:SetDrawLayer("BACKGROUND", 1)
-		bu.Icon:SetPoint("TOPLEFT", 5, -3)
-	end
-
 	-- Conquest
-	for _, bu in pairs({ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.RatedBG}) do
+	for _, bu in pairs({ConquestFrame.RatedSoloShuffle, ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.RatedBG }) do
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
 		bu.SelectedTexture:SetColorTexture(r, g, b, .25)
 		bu.SelectedTexture:SetAllPoints()

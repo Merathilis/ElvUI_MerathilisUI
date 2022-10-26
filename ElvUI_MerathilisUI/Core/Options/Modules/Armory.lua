@@ -419,8 +419,15 @@ options.armory = {
 					desc = L["Show only those primary stats relevant to your spec."],
 					disabled = function() return not E.db.mui.armory.stats.enable end,
 				},
-				color = {
+				classColorGradient = {
 					order = 3,
+					type = "toggle",
+					name = L["Class Color Gradient"],
+					get = function(info) return E.db.mui.armory.stats[info[#info]] end,
+					set = function(info, value) E.db.mui.armory.stats[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				},
+				color = {
+					order = 4,
 					type = "color",
 					name = COLOR_PICKER,
 					disabled = function() return E.db.mui.armory.stats.classColorGradient end,
@@ -435,13 +442,6 @@ options.armory = {
 						t.r, t.g, t.b, t.a = r, g, b, a
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
-				},
-				classColorGradient = {
-					order = 4,
-					type = "toggle",
-					name = L["Class Color Gradient"],
-					get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
-					set = function(info, value) E.db.mui.armory.stats[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				},
 				ItemLevel = {
 					order = 5,

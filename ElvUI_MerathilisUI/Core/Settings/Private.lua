@@ -12,6 +12,7 @@ V.skins = {
 	enable = true,
 	style = true,
 	shadowOverlay = false,
+	toggleDirection = 1,
 	shadow = {
 		enable = true,
 		increasedSize = 0,
@@ -210,6 +211,9 @@ V.skins = {
 		bgmap = true,
 		bgscore = true,
 		barber = true,
+		chatBubbles = true,
+		expansionLanding = true,
+		majorFactions = true,
 	},
 
 	addonSkins = {
@@ -227,10 +231,14 @@ V.skins = {
 		cl = true,
 		cbn = true,
 		et = true,
-		dt = false,
+		dt = true,
 		wa = true,
 		waOptions = true,
 		waCooldowns = false,
 		tldr = true,
 	},
+
+	embed = {
+		enable = true,
+	}
 }

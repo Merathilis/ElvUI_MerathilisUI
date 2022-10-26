@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
-local S = E.Skins
+local module = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
@@ -10,9 +10,6 @@ local strfind = strfind
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 
-local alpha
-local backdropcolorr, backdropcolorg, backdropcolorb
-local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
 local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA
 local bordercolorr, bordercolorg, bordercolorb
@@ -29,6 +26,32 @@ module.ArrowRotation = {
 	['LEFT'] = -1.57,
 	['RIGHT'] = 1.57,
 }
+
+do
+	local regions = {
+		"Center",
+		"BottomEdge",
+		"LeftEdge",
+		"RightEdge",
+		"TopEdge",
+		"BottomLeftCorner",
+		"BottomRightCorner",
+		"TopLeftCorner",
+		"TopRightCorner"
+	}
+
+	--[[
+		Strip edge textures
+		@param {frame} frame
+	]]
+	function module:StripEdgeTextures(frame)
+		for _, regionKey in pairs(regions) do
+			if frame[regionKey] then
+				frame[regionKey]:Kill()
+			end
+		end
+	end
+end
 
 function module:CreateShadow(frame, size, r, g, b, force)
 	if not force then
@@ -188,24 +211,45 @@ function module:CreateShadowModule(frame)
 	end
 end
 
--- Backdrop shadow
-local shadowBackdrop = {edgeFile = LSM:Fetch("border", "ElvUI GlowBorder")}
-function module:CreateSD(self, size, override)
-	if self.__shadow then return end
+function module:CreateTex(f)
+	assert(f, "doesn't exist!")
 
-	local frame = self
-	if self:IsObjectType("Texture") then
-		frame = self:GetParent()
+	if f.__bgTex then return end
+
+	local frame = f
+	if f:IsObjectType("Texture") then frame = f:GetParent() end
+
+	local tex = frame:CreateTexture(nil, "BACKGROUND", nil, 1)
+	tex:SetAllPoints(f)
+	tex:SetTexture(MER.Media.Textures.emptyTex, true, true)
+	tex:SetHorizTile(true)
+	tex:SetVertTile(true)
+	tex:SetBlendMode("ADD")
+
+	f.__bgTex = tex
+end
+
+
+-- Backdrop shadow
+local shadowBackdrop = {edgeFile = MER.Media.Textures.glowTex}
+function module:CreateSD(f, size, override)
+	assert(f, "doesn't exist!")
+
+	if f.__SDshadow then return end
+
+	local frame = f
+	if f:IsObjectType("Texture") then
+		frame = f:GetParent()
 	end
 
 	shadowBackdrop.edgeSize = size or 5
-	self.__shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-	self.__shadow:SetOutside(self, size or 4, size or 4)
-	self.__shadow:SetBackdrop(shadowBackdrop)
-	self.__shadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .4)
-	self.__shadow:SetFrameLevel(1)
+	f.__SDshadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	f.__SDshadow:SetOutside(f, size or 4, size or 4)
+	f.__SDshadow:SetBackdrop(shadowBackdrop)
+	f.__SDshadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .4)
+	f.__SDshadow:SetFrameLevel(1)
 
-	return self.__shadow
+	return f.__SDshadow
 end
 
 function module:CreateBG(frame)
@@ -218,7 +262,7 @@ function module:CreateBG(frame)
 	bg:Point("TOPLEFT", frame, -E.mult, E.mult)
 	bg:Point("BOTTOMRIGHT", frame, E.mult, -E.mult)
 	bg:SetTexture(E.media.normTex)
-	bg:SetVertexColor(0, 0, 0)
+	bg:SetVertexColor(0, 0, 0, 1)
 
 	return bg
 end
@@ -265,17 +309,58 @@ function module:CreateBDFrame(f, a)
 	else
 		bg:SetFrameLevel(0)
 	end
-	module:CreateBD(bg, a or .5)
+	bg:CreateBackdrop()
 
 	return bg
 end
 
-function module:CreateBD(f, a)
+function module:SetBD(f, a, x, y, x2, y2, gradient)
 	assert(f, "doesn't exist!")
 
-	f:CreateBackdrop()
-	f.backdrop:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
-	f.backdrop:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+	local bg = module:CreateBDFrame(f, a)
+	if x then
+		bg:SetPoint("TOPLEFT", f, x, y)
+		bg:SetPoint("BOTTOMRIGHT", f, x2, y2)
+	end
+	module:CreateSD(bg)
+	module:CreateTex(bg)
+
+	if gradient then
+		module:CreateGradient(bg)
+	end
+
+	return bg
+end
+
+local function Menu_OnEnter(self)
+	self.backdrop:SetBackdropBorderColor(F.r, F.g, F.b)
+end
+
+local function Menu_OnLeave(self)
+	self.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
+end
+
+local function Menu_OnMouseUp(self)
+	self.backdrop:SetBackdropColor(0, 0, 0, .45)
+end
+
+local function Menu_OnMouseDown(self)
+	self.backdrop:SetBackdropColor(F.r, F.g, F.b, .25)
+end
+
+function module:ReskinMenuButton(button)
+	assert(button, "doesn't exist!")
+
+	button:StripTextures()
+
+	if not button.backdrop then
+		button:CreateBackdrop('Transparent')
+		button.backdrop:Styling()
+	end
+	button:SetScript("OnEnter", Menu_OnEnter)
+	button:SetScript("OnLeave", Menu_OnLeave)
+	button:HookScript("OnMouseUp", Menu_OnMouseUp)
+	button:HookScript("OnMouseDown", Menu_OnMouseDown)
 end
 
 -- ClassColored ScrollBars
@@ -300,7 +385,7 @@ function module:HandleSliderFrame(_, frame)
 	local thumb = frame:GetThumbTexture()
 	if thumb then
 		local r, g, b = unpack(E.media.rgbvaluecolor)
-		thumb:SetVertexColor(r, g, b)
+		thumb:SetVertexColor(r, g, b, 1)
 	end
 end
 
@@ -334,6 +419,30 @@ function module:ReskinIcon(icon, backdrop)
 
 	if backdrop then
 		icon:CreateBackdrop()
+	end
+end
+
+function module:PixelIcon(self, texture, highlight)
+	if not self then return end
+
+	self:CreateBackdrop()
+	self.backdrop:SetAllPoints()
+	self.Icon = self:CreateTexture(nil, "ARTWORK")
+	self.Icon:SetInside(self.backdrop)
+	self.Icon:SetTexCoord(unpack(E.TexCoords))
+	if texture then
+		local atlas = strmatch(texture, "Atlas:(.+)$")
+		if atlas then
+			self.Icon:SetAtlas(atlas)
+		else
+			self.Icon:SetTexture(texture)
+		end
+	end
+	if highlight and type(highlight) == "boolean" then
+		self:EnableMouse(true)
+		self.HL = self:CreateTexture(nil, "HIGHLIGHT")
+		self.HL:SetColorTexture(1, 1, 1, .25)
+		self.HL:SetInside(self.backdrop)
 	end
 end
 
@@ -451,7 +560,7 @@ local function replaceConfigArrows(button)
 		button.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\arrow')
 		button.img:SetSize(12, 12)
 		button.img:Point('CENTER')
-		button.img:SetVertexColor(1, 1, 1)
+		button.img:SetVertexColor(1, 1, 1, 1)
 
 		button:HookScript('OnMouseDown', function(btn)
 			if btn:IsEnabled() then
@@ -511,10 +620,6 @@ end
 function module:ReskinTab(tab)
 	if not tab then
 		return
-	end
-
-	if tab.GetName then
-		F.SetFontOutline(_G[tab:GetName().."Text"])
 	end
 
 	self:CreateBackdropShadow(tab)
@@ -642,7 +747,7 @@ function module:ReskinAS(AS)
 			Button.Icon:SetTexture([[Interface\AddOns\AddOnSkins\Media\Textures\Arrow]])
 			Button.Icon:SetSnapToPixelGrid(false)
 			Button.Icon:SetTexelSnappingBias(0)
-			Button.Icon:SetVertexColor(1, 1, 1)
+			Button.Icon:SetVertexColor(1, 1, 1, 1)
 			Button.Icon:SetRotation(AS.ArrowRotation['right'])
 		end
 
@@ -699,12 +804,61 @@ function module:DisableAddOnSkin(key)
 	end
 end
 
+function module:SetBorderColor()
+	self:SetBackdropBorderColor(0, 0, 0)
+end
+
+--[[----------------------------------
+--	GUI Functions
+--]] ----------------------------------
+do
+	function module:CreateButton(width, height, text, fontSize, outline)
+		local bu = CreateFrame("Button", nil, self, "BackdropTemplate")
+		bu:SetSize(width, height)
+		if type(text) == "boolean" then
+			module:PixelIcon(bu, fontSize, true)
+		else
+			S:HandleButton(bu)
+			bu.text = F.CreateText(bu, "OVERLAY", fontSize or 14, outline or "Outline", text)
+		end
+
+		return bu
+	end
+
+	function module:CreateCheckBox()
+		local cb = CreateFrame("CheckButton", nil, self, "InterfaceOptionsBaseCheckButtonTemplate")
+		cb:SetScript("OnClick", nil) -- reset onclick handler
+		S:HandleCheckBox(cb)
+
+		cb.Type = "CheckBox"
+		return cb
+	end
+
+	local function editBoxClearFocus(self)
+		self:ClearFocus()
+	end
+
+	function module:CreateEditBox(width, height)
+		local eb = CreateFrame("EditBox", nil, self)
+		eb:SetSize(width, height)
+		eb:SetAutoFocus(false)
+		eb:SetTextInsets(5, 5, 0, 0)
+		eb:FontTemplate(nil, E.db.general.fontSize + 2)
+		eb:CreateBackdrop('Transparent')
+		eb.backdrop:SetAllPoints()
+		module:CreateGradient(eb.backdrop)
+		eb:SetScript("OnEscapePressed", editBoxClearFocus)
+		eb:SetScript("OnEnterPressed", editBoxClearFocus)
+
+		eb.Type = "EditBox"
+		return eb
+	end
+end
+
 -- keep the colors updated
 function module:UpdateMedia()
 	rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA = unpack(E.media.rgbvaluecolor)
 	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E.media.unitframeBorderColor)
-	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E.media.backdropfadecolor)
-	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E.media.backdropcolor)
 	bordercolorr, bordercolorg, bordercolorb = unpack(E.media.bordercolor)
 end
 hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)
@@ -712,3 +866,95 @@ hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)
 -- hook the skin functions from ElvUI
 module:SecureHook(S, "HandleScrollBar")
 module:SecureHook(S, "SkinTextWithStateWidget")
+
+StaticPopupDialogs["RESET_DETAILS"] = {
+	text = L["Reset Details check"],
+	button1 = YES,
+	button2 = NO,
+	OnAccept = function()
+		module:ResetDetailsAnchor(true)
+	end,
+	whileDead = 1,
+}
+
+function module:GetToggleDirection()
+	local direc = E.private.mui.skins.toggleDirection
+	if direc == 1 then
+		return ">", "<", "RIGHT", "LEFT", -2, 0, 20, 80
+	elseif direc == 2 then
+		return "<", ">", "LEFT", "RIGHT", 2, 0, 20, 80
+	elseif direc == 3 then
+		return "∨", "∧", "BOTTOM", "TOP", 0, 2, 80, 20
+	else
+		return "∧", "∨", "TOP", "BOTTOM", 0, -2, 80, 20
+	end
+end
+
+local toggleFrames = {}
+
+local function CreateToggleButton(parent)
+	local bu = CreateFrame("Button", nil, parent)
+	bu:SetSize(20, 80)
+	bu.text = bu:CreateFontString(nil, "OVERLAY")
+	bu.text:FontTemplate(nil, 18)
+	bu.text:SetAllPoints()
+	module:ReskinMenuButton(bu)
+
+	return bu
+end
+
+function module:CreateToggle(frame)
+	local close = CreateToggleButton(frame)
+	frame.closeButton = close
+
+	local open = CreateToggleButton(E.UIParent)
+	open:Hide()
+	frame.openButton = open
+
+	open:SetScript("OnClick", function()
+		open:Hide()
+	end)
+	close:SetScript("OnClick", function()
+		open:Show()
+	end)
+
+	module:SetToggleDirection(frame)
+	tinsert(toggleFrames, frame)
+
+	return open, close
+end
+
+function module:SetToggleDirection(frame)
+	local str1, str2, rel1, rel2, x, y, width, height = module:GetToggleDirection()
+	local parent = frame.backdrop
+	local close = frame.closeButton
+	local open = frame.openButton
+	close:ClearAllPoints()
+	close:SetPoint(rel1, parent, rel2, x, y)
+	close:SetSize(width, height)
+	open:ClearAllPoints()
+	open:SetPoint(rel1, parent, rel1, -x, -y)
+	open:SetSize(width, height)
+
+	if E.private.mui.skins.toggleDirection == 5 then
+		close:SetScale(.001)
+		close:SetAlpha(0)
+		open:SetScale(.001)
+		open:SetAlpha(0)
+		close.text:SetText("")
+		open.text:SetText("")
+	else
+		close:SetScale(1)
+		close:SetAlpha(1)
+		open:SetScale(1)
+		open:SetAlpha(1)
+		close.text:SetText(str1)
+		open.text:SetText(str2)
+	end
+end
+
+function module:RefreshToggleDirection()
+	for _, frame in pairs(toggleFrames) do
+		module:SetToggleDirection(frame)
+	end
+end

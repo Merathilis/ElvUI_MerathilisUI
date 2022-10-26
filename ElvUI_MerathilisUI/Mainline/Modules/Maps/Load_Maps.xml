@@ -1,5 +1,3 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file='InstanceDifficulty.lua'/>
-	<Script file='Rectangle.lua'/>
 	<Script file='SuperTracker.lua'/>
 </Ui>

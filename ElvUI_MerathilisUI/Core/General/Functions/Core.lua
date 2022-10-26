@@ -17,7 +17,6 @@ local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID
 local GetContainerItemLink = GetContainerItemLink
 local GetContainerNumSlots = GetContainerNumSlots
-local GetSpellDescription = GetSpellDescription
 local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
@@ -36,6 +35,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UIParent = UIParent
 local C_Covenants_GetCovenantData = C_Covenants and C_Covenants.GetCovenantData
 local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
+local LE_ITEM_CLASS_GEM, LE_ITEM_GEM_ARTIFACTRELIC = LE_ITEM_CLASS_GEM, LE_ITEM_GEM_ARTIFACTRELIC
 
 --[[----------------------------------
 --	Color Functions
@@ -52,7 +52,8 @@ F.ClassGradient = {
 	["WARLOCK"] = { r1 = 0.50, g1 = 0.30, b1 = 0.70, r2 = 0.7, g2 = 0.53, b2 = 0.83 },
 	["MONK"] = { r1 = 0, g1 = 0.77, b1 = 0.45, r2 = 0.22, g2 = 0.90, b2 = 1 },
 	["DRUID"] = { r1 = 1, g1 = 0.23, b1 = 0.0, r2 = 1, g2 = 0.48, b2 = 0.03 },
-	["DEMONHUNTER"] = { r1 = 0.36, g1 = 0.13, b1 = 0.57, r2 = 0.74, g2 = 0.19, b2 = 1 },
+    ["DEMONHUNTER"] = { r1 = 0.36, g1 = 0.13, b1 = 0.57, r2 = 0.74, g2 = 0.19, b2 = 1 },
+	["EVOKER"] = { r1 = 0.20, g1 = 0.58, b1 = 0.50, r2 = 0, g2 = 1, b2 = 0.60 },
 
 	["NPCFRIENDLY"] = { r1 = 0.30, g1 = 0.85, b1 = 0.2, r2 = 0.34, g2 = 0.62, b2 = 0.40 },
 	["NPCNEUTRAL"] = { r1 = 0.71, g1 = 0.63, b1 = 0.15, r2 = 1, g2 = 0.85, b2 = 0.20 },
@@ -67,7 +68,7 @@ F.ClassGradient = {
 	["BADTHREATTRANSITION"] = { r1 = 0.99999779462814, g1 = 0.50980281829834, b1 = 0.1999995559454, r2 = 1, g2 = 0, b2 = 0 },
 	["OFFTANK"] = { r1 = 0.95686066150665, g1 = 0.54901838302612, b1 = 0.72941017150879, r2 = 1, g2 = 0, b2 = 0 },
 	["OFFTANKBADTHREATTRANSITION"] = { r1 = 0.77646887302399, g1 = 0.60784178972244, b1 = 0.4274500310421, r2 = 1, g2 = 0, b2 = 0 },
-	["OFFTANKGOODTHREATTRANSITION"] = { r1 = 0.37646887302399, g1 = 0.90784178972244, b1 = 0.9274500310421, r2 = 1, g2 = 0, b2 = 0 }
+	["OFFTANKGOODTHREATTRANSITION"] = { r1 = 0.37646887302399, g1 = 0.90784178972244, b1 = 0.9274500310421, r2 = 1, g2 = 0, b2 = 0 },
 }
 
 F.ClassColors = {}
@@ -356,50 +357,54 @@ function F.TablePrint(tbl, indent)
 	end
 end
 
--- Tooltip Stuff
-function F:HideTooltip()
-	_G.GameTooltip:Hide()
-end
-
-local function Tooltip_OnEnter(self)
-	_G.GameTooltip:SetOwner(self, self.anchor, 0, 4)
-	_G.GameTooltip:ClearLines()
-
-	if self.title then
-		_G.GameTooltip:AddLine(self.title)
+do
+	-- Tooltip Stuff
+	function F:HideTooltip()
+		_G.GameTooltip:Hide()
 	end
 
-	local r, g, b
+	local function Tooltip_OnEnter(self)
+		_G.GameTooltip:SetOwner(self, self.anchor, 0, 4)
+		_G.GameTooltip:ClearLines()
 
-	if tonumber(self.text) then
-		_G.GameTooltip:SetSpellByID(self.text)
-	elseif self.text then
-		if self.color == 'CLASS' then
-			r, g, b = F.r, F.g, F.b
-		elseif self.color == 'SYSTEM' then
-			r, g, b = 1, 0.8, 0
-		elseif self.color == 'BLUE' then
-			r, g, b = 0.6, 0.8, 1
-		elseif self.color == 'RED' then
-			r, g, b = 0.9, 0.3, 0.3
-		end
-		if self.blankLine then
-			_G.GameTooltip:AddLine(' ')
+		if self.title then
+			_G.GameTooltip:AddLine(self.title)
 		end
 
-		_G.GameTooltip:AddLine(self.text, r, g, b, 1)
+		local r, g, b
+
+		if tonumber(self.text) then
+			_G.GameTooltip:SetSpellByID(self.text)
+		elseif self.text then
+			if self.color == 'CLASS' then
+				r, g, b = F.r, F.g, F.b
+			elseif self.color == 'SYSTEM' then
+				r, g, b = 1, 0.8, 0
+			elseif self.color == 'BLUE' then
+				r, g, b = 0.6, 0.8, 1
+			elseif self.color == 'RED' then
+				r, g, b = 0.9, 0.3, 0.3
+			elseif self.color == 'WHITE' then
+				r, g, b = 1, 1, 1
+			end
+			if self.blankLine then
+				_G.GameTooltip:AddLine(' ')
+			end
+
+			_G.GameTooltip:AddLine(self.text, r, g, b, 1)
+		end
+
+		_G.GameTooltip:Show()
 	end
 
-	_G.GameTooltip:Show()
-end
-
-function F:AddTooltip(anchor, text, color, blankLine)
-	self.anchor = anchor
-	self.text = text
-	self.color = color
-	self.blankLine = blankLine
-	self:HookScript('OnEnter', Tooltip_OnEnter)
-	self:HookScript('OnLeave', F.HideTooltip)
+	function F:AddTooltip(anchor, text, color, showTips)
+		self.anchor = anchor
+		self.text = text
+		self.color = color
+		if showTips then self.title = L["Tips"] end
+		self:HookScript('OnEnter', Tooltip_OnEnter)
+		self:HookScript('OnLeave', F.HideTooltip)
+	end
 end
 
 -- LocPanel
@@ -427,6 +432,12 @@ function F.SplitList(list, variable, cleanup)
 		list[word] = true
 	end
 end
+
+F.iLvlClassIDs = {
+	[Enum.ItemClass.Gem] = Enum.ItemGemSubclass.Artifactrelic,
+	[Enum.ItemClass.Armor] = 0,
+	[Enum.ItemClass.Weapon] = 0,
+}
 
 do -- Tooltip scanning stuff. Credits siweia, with permission.
 	local iLvlDB = {}
@@ -474,6 +485,7 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 			elseif arg1 and type(arg1) == "number" then
 				tip:SetBagItem(arg1, arg2)
 			else
+				if link then link = gsub(link, ':6544:', '::') end
 				tip:SetHyperlink(link)
 			end
 
@@ -670,6 +682,8 @@ end
 --	Text Functions
 --]]----------------------------------
 function F.CreateText(f, layer, size, outline, text, color, anchor, x, y)
+	if not f then return end
+
 	text = f:CreateFontString(nil, layer)
 	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
 	text:SetHeight(text:GetStringHeight()+30)
@@ -903,7 +917,7 @@ do
 			if self.bg then
 				self.bg:SetBackdropColor(cr, cg, cb, .25)
 			else
-				self.__texture:SetVertexColor(0, .6, 1)
+				self.__texture:SetVertexColor(0, .6, 1, 1)
 			end
 		end
 	end
@@ -912,7 +926,15 @@ do
 		if self.bg then
 			self.bg:SetBackdropColor(0, 0, 0, .25)
 		else
-			self.__texture:SetVertexColor(1, 1, 1)
+			self.__texture:SetVertexColor(1, 1, 1, 1)
 		end
+	end
+end
+
+function F:TogglePanel(frame)
+	if frame:IsShown() then
+		frame:Hide()
+	else
+		frame:Show()
 	end
 end

@@ -150,7 +150,7 @@ local function LoadSkin()
 		ic:SetTexCoord(unpack(E.TexCoords))
 		ic:SetDrawLayer("OVERLAY")
 
-		module:CreateBD(bu, .25)
+		bu:CreateBackdrop('Transparent')
 
 		na:Hide()
 		co:SetDrawLayer("OVERLAY")
@@ -158,7 +158,7 @@ local function LoadSkin()
 		local line = CreateFrame("Frame", nil, bu)
 		line:SetSize(1, 40)
 		line:SetPoint("RIGHT", ic, 1, 0)
-		module:CreateBD(line)
+		line:CreateBackdrop('Transparent')
 	end
 
 	_G.QuestDetailScrollFrame:SetWidth(302) -- else these buttons get cut off

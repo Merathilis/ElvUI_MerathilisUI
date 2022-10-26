@@ -119,6 +119,8 @@ AddMedia("buttonMinus", "Button/Minus.tga", "Icons")
 AddMedia("buttonPlus", "Button/Plus.tga", "Icons")
 AddMedia("buttonForward", "Button/Forward.tga", "Icons")
 
+AddMedia("sort", "Sort.tga", "Icons")
+
 AddMedia("anchor", "anchor.tga", "Textures")
 AddMedia("arrow", "arrow.tga", "Textures")
 AddMedia("arrowUp", "arrowUp.tga", "Textures")
@@ -161,6 +163,9 @@ AddMedia("mainDPS", "RoleIcons/Main/DPS.tga", "Textures")
 AddMedia("whiteTank", "RoleIcons/White/Tank.tga", "Textures")
 AddMedia("whiteHeal", "RoleIcons/White/Healer.tga", "Textures")
 AddMedia("whiteDPS", "RoleIcons/White/DPS.tga", "Textures")
+
+AddMedia("emptyTex", "bgTex.blp", "Textures")
+AddMedia("glowTex", "glowTex.blp", "Textures")
 
 -- Fonts
 LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])

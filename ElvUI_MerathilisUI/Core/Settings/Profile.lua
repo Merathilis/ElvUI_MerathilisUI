@@ -14,6 +14,44 @@ P.general = {
 }
 
 P.bags = {
+	Enable = true,
+	IconSize = 34,
+	IconSpacing = 3,
+	FontSize = 11,
+	BagsWidth = 12,
+	BankWidth = 12,
+	BagsiLvl = true,
+	BindType = true,
+	CenterText = true,
+	BagSortMode = 2,
+	ItemFilter = true,
+	CustomItems = {},
+	CustomNames = {},
+	GatherEmpty = false,
+	ShowNewItem = true,
+	SplitCount = 1,
+	SpecialBagsColor = false,
+	iLvlToShow = 1,
+	AutoDeposit = false,
+	PetTrash = true,
+	BagsPerRow = 6,
+	BankPerRow = 10,
+	HideWidgets = true,
+
+	FilterJunk = true,
+	FilterAmmo = true,
+	FilterConsumable = true,
+	FilterAzerite = false,
+	FilterEquipment = true,
+	FilterLegendary = true,
+	FilterCollection = true,
+	FilterFavourite = true,
+	FilterGoods = false,
+	FilterQuest = false,
+	FilterEquipSet = false,
+	FilterAnima = false,
+	FilterRelic = false,
+
 	equipOverlay = true,
 }
 
@@ -73,7 +111,7 @@ P.blizzard = {
 		},
 		info = {
 			name = E.db.general.font,
-			size = E.db.general.fontSize - 1,
+			size = E.db.general.fontSize,
 			style = "OUTLINE"
 		},
 		titleColor = {
@@ -92,11 +130,11 @@ P.blizzard = {
 		level = true,
 		hideMaxLevel = true,
 		useGameColor = true,
-		useClassColor = true,
+		useClientColor = true,
 		useNoteAsName = false,
 		textures = {
-			game = "Modern",
-			status = "Square",
+			client = "modern",
+			status = "square",
 			factionIcon = false
 		},
 		areaColor = {
@@ -221,7 +259,7 @@ P.chat = {
 	},
 	seperators = {
 		enable = true,
-		visibility = "SHOWBOTH",
+		visibility = "LEFT",
 	},
 	chatBar = {
 		enable = true,
@@ -370,7 +408,10 @@ P.misc = {
 			alpha = 1
 		},
 	},
-	spellAlert = 0.65,
+	spellAlert = {
+		enable = true,
+		scale = 0.65,
+	},
 	alerts = {
 		announce = true,
 		itemAlert = true,
@@ -397,6 +438,8 @@ P.misc = {
 		},
 	},
 	hideBossBanner = false,
+	quickDelete = true,
+	quickMenu = true,
 }
 
 P.nameHover = {
@@ -482,21 +525,6 @@ P.actionbars = {
 			[128807] = true,
 		},
 	},
-	keyfeedback = {
-		enable = true,
-		point = 'CENTER',
-		x = 0,
-		y = 0,
-		enableCastLine = true,
-		enableCooldown = true,
-		enablePushEffect = true,
-		enableCast = true,
-		enableCastFlash = true,
-		lineIconSize = 28,
-		mirrorSize = 32,
-		lineDirection = 'RIGHT',
-		forceUseActionHook = true, -- Probably ElvUI needs this
-	},
 }
 
 local function Potions()
@@ -507,7 +535,7 @@ local function Potions()
 	elseif E.Wrath then
 		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
-		return "POTIONSL,FLASKSL,UTILITY"
+		return "POTIONSL,POTIONSDF,FLASKSL,FLASKDF,UTILITY"
 	end
 end
 
@@ -524,12 +552,12 @@ P.autoButtons = {
 		fadeTime = 0.3,
 		alphaMin = 1,
 		alphaMax = 1,
-		numButtons = 12,
+		numButtons = 10,
 		backdrop = true,
 		backdropSpacing = 1,
-		buttonWidth = 35,
-		buttonHeight = 30,
-		buttonsPerRow = 12,
+		buttonWidth = 30,
+		buttonHeight = 26,
+		buttonsPerRow = 10,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -566,12 +594,12 @@ P.autoButtons = {
 		fadeTime = 0.3,
 		alphaMin = 1,
 		alphaMax = 1,
-		numButtons = 12,
+		numButtons = 10,
 		backdrop = true,
 		backdropSpacing = 1,
-		buttonWidth = 35,
-		buttonHeight = 30,
-		buttonsPerRow = 12,
+		buttonWidth = 30,
+		buttonHeight = 26,
+		buttonsPerRow = 10,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -609,12 +637,12 @@ P.autoButtons = {
 		fadeTime = 0.3,
 		alphaMin = 1,
 		alphaMax = 1,
-		numButtons = 12,
+		numButtons = 10,
 		backdrop = true,
 		backdropSpacing = 1,
-		buttonWidth = 35,
-		buttonHeight = 30,
-		buttonsPerRow = 12,
+		buttonWidth = 30,
+		buttonHeight = 26,
+		buttonsPerRow = 10,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -642,7 +670,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODSL,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODSL,FOODDF,CUSTOM"
 	},
 	bar4 = {
 		enable = false,
@@ -839,16 +867,6 @@ P.unitframes = {
 P.maps = {
 	minimap = {
 		flash = true,
-		queueStatus = true,
-		instanceDifficulty = {
-			enable = true,
-			hideBlizzard = true,
-			font = {
-				name = E.db.general.font,
-				size = E.db.general.fontSize,
-				style = "OUTLINE",
-			},
-		},
 		coords = {
 			enable = true,
 			position = "BOTTOM",
@@ -869,10 +887,6 @@ P.maps = {
 				size = 12,
 				style = "OUTLINE"
 			},
-		},
-		rectangleMinimap = {
-			enable = false,
-			heightPercentage = 0.8
 		},
 	},
 	superTracker = {
@@ -978,15 +992,15 @@ P.panels = {
 P.smb = {
 	enable = true,
 	mouseOver = true,
-	buttonsPerRow = 8,
+	buttonsPerRow = 7,
 	buttonSize = 24,
 	backdrop = true,
-	backdropSpacing = 2,
-	spacing = 2,
+	backdropSpacing = 3,
+	spacing = 1,
 	inverseDirection = false,
 	orientation = "HORIZONTAL",
-	calendar = false,
-	garrison = false
+	-- calendar = false,
+	expansionLandingPage = false
 }
 
 P.locPanel = {
@@ -1035,6 +1049,8 @@ P.raidmarkers = {
 	buttonSize = 20,
 	buttonBackdrop = true,
 	buttonAnimation = true,
+	buttonAnimationDuration = 0.2,
+	buttonAnimationScale = 1.33,
 	spacing = 4,
 	orientation = "HORIZONTAL",
 	modifier = "shift",
@@ -1146,7 +1162,7 @@ P.cooldownFlash = {
 	animScale = 1.5,
 	iconSize = 40,
 	holdTime = 0.3,
-	petOverlay = {1, 1, 1},
+	petOverlay = {1, 1, 1, 1},
 	ignoredSpells = {},
 	invertIgnored = false,
 	enablePet = false,
@@ -1204,8 +1220,8 @@ P.armory = {
 	stats = {
 		enable = true,
 		OnlyPrimary = true,
-		color = {r = 1, g = 1, b = 0, a = 1},
 		classColorGradient = true,
+		color = {r = 1, g = 1, b = 0, a = 1},
 		IlvlFull = false,
 		IlvlColor = false,
 		AverageColor = {r = 0, g = 1, b = .59},
@@ -1237,9 +1253,4 @@ P.armory = {
 	StatOrder = "12345",
 	StatExpand = true,
 	PetHappiness = true,
-}
-
-P.flightMode = {
-	enable = true,
-	BenikFlightMode = true,
 }

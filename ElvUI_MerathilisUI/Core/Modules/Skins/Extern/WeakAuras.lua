@@ -51,7 +51,7 @@ local function ProfilingWindow_UpdateButtons(frame)
 
 				button:HookScript("OnLeave", function(self)
 					if self.Texture then
-						self.Texture:SetVertexColor(1, 1, 1)
+						self.Texture:SetVertexColor(1, 1, 1, 1)
 					end
 				end)
 
@@ -79,7 +79,7 @@ local function ProfilingWindow_UpdateButtons(frame)
 	end
 end
 
-local function ApplyElvCDs(region, data)
+local function ApplyElvCDs(region, data) -- Needs an Update
 	if not E.private.mui.skins.addonSkins.waCooldowns then return end
 
 	local cd = region.cooldown.CooldownSettings or {}
@@ -178,46 +178,16 @@ local function LoadSkin()
 		module:RawHook(_G.WeakAuras, "RegisterRegionOptions", "WeakAuras_RegisterRegionOptions")
 	end
 
-	local regionTypes = _G.WeakAuras.regionTypes
-	local Create_Icon, Modify_Icon = regionTypes.icon.create, regionTypes.icon.modify
-	local Create_AuraBar, Modify_AuraBar = regionTypes.aurabar.create, regionTypes.aurabar.modify
-
-	regionTypes.icon.create = function(parent, data)
-		local region = Create_Icon(parent, data)
-		Skin_WeakAuras(region, "icon")
-		ApplyElvCDs(region, data)
-		return region
+	local function OnPrototypeCreate(region)
+		Skin_WeakAuras(region, region.regionType)
 	end
 
-	regionTypes.aurabar.create = function(parent)
-		local region = Create_AuraBar(parent)
-		Skin_WeakAuras(region, "aurabar")
-		return region
+	local function OnPrototypeModifyFinish(_, region)
+		Skin_WeakAuras(region, region.regionType)
 	end
 
-	regionTypes.icon.modify = function(parent, region, data)
-		Modify_Icon(parent, region, data)
-		ApplyElvCDs(region, data)
-		Skin_WeakAuras(region, "icon")
-	end
-
-	regionTypes.aurabar.modify = function(parent, region, data)
-		Modify_AuraBar(parent, region, data)
-		Skin_WeakAuras(region, "aurabar")
-	end
-
-	for weakAura, regions in pairs(_G.WeakAuras.regions) do
-		if regions.regionType == "icon" or regions.regionType == "aurabar" then
-			Skin_WeakAuras(regions.region, regions.regionType)
-		end
-	end
-
-	local profilingWindow = _G.WeakAuras.frames["RealTime Profiling Window"]
-	if profilingWindow then
-		module:CreateShadow(profilingWindow)
-		module:SecureHook(profilingWindow, "UpdateButtons", ProfilingWindow_UpdateButtons)
-		module:SecureHook(_G.WeakAuras, "PrintProfile", WeakAuras_PrintProfile)
-	end
+	hooksecurefunc(_G.WeakAuras.regionPrototype, "create", OnPrototypeCreate)
+	hooksecurefunc(_G.WeakAuras.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
 end
 
 module:AddCallbackForAddon("WeakAuras", LoadSkin)

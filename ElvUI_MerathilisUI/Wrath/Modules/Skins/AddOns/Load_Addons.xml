@@ -6,6 +6,7 @@
 	<Script file="Blizzard_Channels.lua"/>
 	<Script file="Blizzard_Communities.lua"/>
 	<Script file="Blizzard_EventTrace.lua"/>
+	<Script file="Blizzard_InspectUI.lua"/>
 	<Script file="Blizzard_LookingForGroupUI.lua"/>
 	<Script file="Blizzard_MacroUI.lua"/>
 	<Script file="Blizzard_TalentUI.lua"/>

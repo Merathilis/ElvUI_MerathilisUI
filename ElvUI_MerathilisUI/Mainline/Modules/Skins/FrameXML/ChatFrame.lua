@@ -9,9 +9,8 @@ local function LoadSkin()
 	if E.private.chat.enable ~= true then return; end
 
 	local VoiceChatPromptActivateChannel = _G["VoiceChatPromptActivateChannel"]
-	module:CreateBD(VoiceChatPromptActivateChannel)
 	VoiceChatPromptActivateChannel:Styling()
-	module:CreateBD(_G.VoiceChatChannelActivatedNotification)
+	_G.VoiceChatChannelActivatedNotification:CreateBackdrop('Transparent')
 	_G.VoiceChatChannelActivatedNotification:Styling()
 
 	-- Revert my Styling function on these buttons

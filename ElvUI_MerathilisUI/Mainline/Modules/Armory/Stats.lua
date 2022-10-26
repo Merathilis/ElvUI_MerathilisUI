@@ -438,10 +438,14 @@ function module:PaperDollFrame_UpdateStats()
 	end
 	-- release the current stat frame
 	_G["CharacterStatsPane"].statsFramePool:Release(statFrame)
-	if module.totalShown > 12 then
-		module.Scrollbar:Show()
+    if module.totalShown > 12 then
+		if module.Scrollbar then
+			module.Scrollbar:Show()
+		end
 	else
-		module.Scrollbar:Hide()
+		if module.Scrollbar then
+			module.Scrollbar:Hide()
+		end
 	end
 end
 
@@ -532,7 +536,7 @@ end
 
 function module:InitStats()
 	if IsAddOnLoaded("DejaCharacterStats") then return end
-	if not E.db.mui.armory.stats.enable then return end
+	if not E.db.mui.armory.stats.enable or not E.db.mui.armory.character.enable then return end
 
 	module:ReplaceBlizzGlobals()
 	hooksecurefunc("PaperDollFrame_UpdateStats", module.PaperDollFrame_UpdateStats)

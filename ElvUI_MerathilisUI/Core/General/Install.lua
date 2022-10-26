@@ -73,7 +73,7 @@ local function SetupCVars()
 		SetCVar('profanityFilter', 0)
 	end
 
-	if F.IsDeveloper() and F.IsDeveloperRealm() then
+	if F.IsDeveloper() then
 		SetCVar('taintLog', 1)
 		SetCVar('maxFPS', 165)
 		SetCVar('maxFPSBk', 60)
@@ -86,9 +86,6 @@ local function SetupCVars()
 	else
 		SetCVar('taintLog', 0)
 	end
-
-	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:SetValue('SHIFT')
-	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:RefreshValue()
 
 	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
 	PluginInstallStepComplete:Show()
@@ -126,7 +123,6 @@ local function SetupChat()
 	for _, name in ipairs(_G.CHAT_FRAMES) do
 		local frame = _G[name]
 		local id = frame:GetID()
-		local chatName = FCF_GetChatWindowInfo(id)
 
 		if E.private.chat.enable then
 			CH:FCFTab_UpdateColors(CH:GetTab(_G[name]))
@@ -188,7 +184,7 @@ local function SetupChat()
 	E.db["chat"]["panelHeightRight"] = 146
 	E.db["chat"]["panelWidthRight"] = 288
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT_INSIDE"
-	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
+	E.db["chat"]["panelBackdrop"] = "LEFT"
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
 	E.db["chat"]["copyChatLines"] = true
 	E.db["chat"]["panelColor"] = {r = .06, g = .06, b = .06, a = .45}
@@ -200,7 +196,7 @@ local function SetupChat()
 	E.db["chat"]["tabSelector"] = "BOX"
 	E.db["chat"]["tabSelectorColor"] = {r = F.r, g = F.g, b = F.b}
 
-	if F.IsDeveloper() and F.IsDeveloperRealm() then
+	if F.IsDeveloper() then
 		E.db["chat"]["timeStampFormat"] = "%H:%M "
 	end
 
@@ -268,26 +264,29 @@ function MER:SetupLayout()
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 	E.db["general"]["interruptAnnounce"] = "RAID"
+	E.db["general"]["minimap"]["clusterDisable"] = true
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
 	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.6
 	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 1.1
+	E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 0
+	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 0.7
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["mail"]["texture"] = "Mail2"
 	E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"
 	E.db["general"]["minimap"]["icons"]["mail"]["scale"] = 1
-	E.db["general"]["minimap"]["icons"]["mail"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = -5
+	E.db["general"]["minimap"]["icons"]["mail"]["xOffset"] = 5
+	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = 5
 	E.db["general"]["minimap"]["icons"]["difficulty"]["xOffset"] = 5
 	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -5
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 30
+	E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 0
+	E.private["general"]["minimap"]["hideTracking"] = true
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
-	E.db["general"]["minimap"]["size"] = 144
+	E.db["general"]["minimap"]["size"] = 180
 	E.db["general"]["minimap"]["locationFontSize"] = 10
 	E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 	E.db["general"]["minimap"]["locationFont"] = "Expressway"
@@ -323,30 +322,31 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["timeFontOutline"] = "OUTLINE"
 	E.db["auras"]["buffs"]["timeYOffset"] = 34
 	E.db["auras"]["buffs"]["timeXOffset"] = 0
-	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
-	E.db["auras"]["buffs"]["verticalSpacing"] = 12
+	E.db["auras"]["buffs"]["horizontalSpacing"] = 4
+	E.db["auras"]["buffs"]["verticalSpacing"] = 10
 	if IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
 		E.db["auras"]["buffs"]["keepSizeRatio"] = false
 		E.db["auras"]["buffs"]["height"] = 28
 		E.db["auras"]["buffs"]["size"] = 32
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-17"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-18"
 	else
 		E.db["auras"]["buffs"]["size"] = 32
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-15"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-18"
 	end
 	E.db["auras"]["buffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["auras"]["buffs"]["countFontSize"] = 11
 	E.db["auras"]["buffs"]["countFontOutline"] = "OUTLINE"
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
-	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
+	E.db["auras"]["debuffs"]["horizontalSpacing"] = 4
+	E.db["auras"]["debuffs"]["verticalSpacing"] = 10
 	if IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
 		E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 		E.db["auras"]["debuffs"]["height"] = 30
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-155"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-184"
 	else
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-155"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-184"
 	end
 	E.db["auras"]["debuffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
@@ -384,12 +384,7 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	ProfileDB - Bags
 	--]]----------------------------------
-	-- check if cargBags are enabled
-	if IsAddOnLoaded("cargBags_Nivaya") then
-		E.private["bags"]["enable"] = false
-	else
-		E.private["bags"]["enable"] = true
-	end
+	E.private["bags"]["enable"] = false
 	E.db["bags"]["itemLevelFont"] = "Expressway"
 	E.db["bags"]["itemLevelFontSize"] = 9
 	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
@@ -482,18 +477,16 @@ function MER:SetupLayout()
 	E.db["mui"]["locPanel"]["colorType"] = "DEFAULT"
 	E.db["mui"]["locPanel"]["colorType_Coords"] = "CLASS"
 
-	if F.IsDeveloper() and F.IsDeveloperRealm() then
+	if F.IsDeveloper() then
 		E.db["mui"]["pvp"]["duels"]["regular"] = true
 		E.db["mui"]["pvp"]["duels"]["pet"] = true
 		E.db["mui"]["pvp"]["duels"]["announce"] = true
-		E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["enable"] = true
 		E.db["general"]["cropIcon"] = 0
 		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
         E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
 		E.db["mui"]["misc"]["cursor"]["enable"] = true
 	else
 		E.db["general"]["cropIcon"] = 2
-		E.db["mui"]["maps"]["minimap"]["rectangleMinimap"]["enable"] = false
 	end
 
 	E.db["movers"]["MER_SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"
@@ -502,9 +495,10 @@ function MER:SetupLayout()
 	E.db["movers"]["MER_MicroBarMover"] = "TOP,ElvUIParent,TOP,0,-19"
 	E.db["movers"]["MER_OrderhallMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2-2"
 	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-12"
-	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,240,-15"
+	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,268,-15"
 	E.db["movers"]["MER_MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
 	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-60"
+	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-222"
 
 	--[[----------------------------------
 	--	Movers - Layout
@@ -515,12 +509,12 @@ function MER:SetupLayout()
 	E.db["movers"]["LootFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-495,-457"
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,465"
-	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-85,-300"
 	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-474,120"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
 	E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-65"
 	E.db["movers"]["TotemTrackerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
 	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
+
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
 	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-148"
@@ -602,7 +596,8 @@ function MER:SetupLayout()
 	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,1"
 	E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,470,1"
 	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,62"
-	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,47"
+	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-17"
+	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
 
 	E:StaggeredUpdateAll(nil, true)
@@ -814,9 +809,9 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["extraActionButton"]["hotkeyFont"] = "Expressway"
 	E.db["actionbar"]["extraActionButton"]["hotkeyFontOutline"] = "OUTLINE"
 
-	E.db["movers"]["ElvAB_1"] = "BOTTOM,UIParent,BOTTOM,0,113"
+	E.db["movers"]["ElvAB_1"] = "BOTTOM,UIParent,BOTTOM,0,115"
 	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,146"
-	E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,0,177"
+	E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,0,175"
 	E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
 	E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,430,47"
 	E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,13"
@@ -827,9 +822,9 @@ function MER:SetupActionbars()
 	E.db["movers"]["ZoneAbility"] = "BOTTOM,UIParent,BOTTOM,305,92"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 	E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,304,140"
-	E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,197"
-	E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,234"
-	E.db["movers"]["AutoButtonBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,269"
+	E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-28,216"
+	E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-28,247"
+	E.db["movers"]["AutoButtonBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-28,279"
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -1232,7 +1227,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["cooldown"]["daysIndicator"]["g"] = 0.4
 
 	-- GCD Bar
-	if F.IsDeveloper() and F.IsDeveloperRealm() then
+	if F.IsDeveloper() then
 		E.db["mui"]["unitframes"]["gcd"]["enable"] = true
 		E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
 		E.db["mui"]["unitframes"]["power"]["texture"] = "Asphyxia"
@@ -1553,6 +1548,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["buffs"]["keepSizeRatio"] = false
 	E.db["unitframe"]["units"]["target"]["buffs"]["height"] = 18
 	E.db["unitframe"]["units"]["target"]["buffs"]["spacing"] = 1
+	E.db["unitframe"]["units"]["target"]["buffs"]["growthX"] = "LEFT"
+	E.db["unitframe"]["units"]["target"]["buffs"]["attachTo"] = "FRAME"
 	E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 	E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
 	E.db["unitframe"]["units"]["target"]["raidicon"]["size"] = 18
@@ -1733,7 +1730,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["text_format"] = "[namecolor][name:medium]",
 	}
-	if F.IsDeveloper() and F.IsDeveloperRealm() then
+	if F.IsDeveloper() then
 		E.db["unitframe"]["units"]["raid1"]["customTexts"]["Elv"] = {
 			["font"] = "Expressway",
 			["justifyH"] = "RIGHT",
@@ -1858,7 +1855,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["text_format"] = "[namecolor][name:medium]",
 	}
-	if F.IsDeveloper() and F.IsDeveloperRealm() then
+	if F.IsDeveloper() then
 		E.db["unitframe"]["units"]["raid2"]["customTexts"]["Elv"] = {
 			["font"] = "Expressway",
 			["justifyH"] = "RIGHT",
@@ -1983,7 +1980,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["text_format"] = "[namecolor][name:medium]",
 	}
-	if F.IsDeveloper() and F.IsDeveloperRealm() then
+	if F.IsDeveloper() then
 		E.db["unitframe"]["units"]["raid3"]["customTexts"]["Elv"] = {
 			["font"] = "Expressway",
 			["justifyH"] = "RIGHT",
@@ -2022,6 +2019,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
 	E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
 	E.db["unitframe"]["units"]["party"]["disableMouseoverGlow"] = false
+	E.db["unitframe"]["units"]["party"]["showPlayer"] = false
 	E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
 	E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 32
 	E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
@@ -2135,7 +2133,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Frame",
 		["text_format"] = "[statustimer]",
 	}
-	if F.IsDeveloper() and F.IsDeveloperRealm() then
+	if F.IsDeveloper() then
 		E.db["unitframe"]["units"]["party"]["customTexts"]["Elv"] = {
 			["font"] = "Expressway",
 			["justifyH"] = "RIGHT",
@@ -2312,7 +2310,7 @@ function MER:SetupUnitframes()
 	E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
 	E.db["movers"]["ElvUF_Raid2Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
 	E.db["movers"]["ElvUF_Raid3Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
-	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,245,350"
+	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,268,326"
 	E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
 	E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
 	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,540,209"
@@ -2339,36 +2337,17 @@ function MER:SetupDts()
 	E.db["chat"]["RightChatDataPanelAnchor"] = "ABOVE_CHAT"
 	E.db["chat"]["LeftChatDataPanelAnchor"] = "ABOVE_CHAT"
 
-	E.db["datatexts"]["panels"]["MinimapPanel"]["enable"] = false
+	E.db["datatexts"]["panels"]["MinimapPanel"] = {
+		enable = true,
+		backdrop = true,
+		border = true,
+		panelTransparency = true,
+		numPoints = 2,
+		"Durability",
+		"Gold",
+	}
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
-
-	-- Create custom DT Panels
-	E.DataTexts:BuildPanelFrame("MER_RightChatTop")
-
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["enable"] = true
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["border"] = false
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["tooltipYOffset"] = 4
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["tooltipAnchor"] = "ANCHOR_TOPLEFT"
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["backdrop"] = false
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["width"] = 288
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["tooltipXOffset"] = 3
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["panelTransparency"] = false
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["frameStrata"] = "MEDIUM"
-
-	if E.Retail then
-		E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 3
-		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "Missions"
-		E.db["datatexts"]["panels"]["MER_RightChatTop"][2] = "Durability"
-		E.db["datatexts"]["panels"]["MER_RightChatTop"][3] = "Gold"
-	elseif E.Classic or E.TBC or E.Wrath then
-		E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 2
-		E.db["datatexts"]["panels"]["MER_RightChatTop"][1] = "Durability"
-		E.db["datatexts"]["panels"]["MER_RightChatTop"][2] = "Gold"
-	end
-	E.db["datatexts"]["panels"]["MER_RightChatTop"]["enable"] = true
-
-	E.db["movers"]["DTPanelMER_RightChatTopMover"] = "CENTER,MER_RightChatTopDT,CENTER"
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -2518,7 +2497,8 @@ MER.installTable = {
 			PluginInstallFrame.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/ZhNqCu2") end)
+			PluginInstallFrame.Option1:SetScript("OnClick", function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/28We6esE9v") end)
+
 			PluginInstallFrame.Option1:SetText(L["|cffff7d0aMerathilisUI|r Discord"])
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript("OnClick", function() InstallComplete() end)

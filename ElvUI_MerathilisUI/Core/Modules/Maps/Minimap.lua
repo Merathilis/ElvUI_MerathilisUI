@@ -15,15 +15,15 @@ local hooksecurefunc = hooksecurefunc
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
 function module:CheckStatus()
-	if not Minimap.backdrop then return end
+	if not Minimap.backdrop or not E.db.mui.maps.minimap.flash then return end
 
 	local inv = C_Calendar_GetNumPendingInvites()
 	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
 
 	if inv > 0 and mail then -- New invites and mail
-		LCG.PixelGlow_Start(Minimap.backdrop, {242, 5/255, 5/255, 1}, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(Minimap.backdrop, {1, 0, 0, 1}, 8, -0.25, nil, 1)
 	elseif inv > 0 and not mail then -- New invites and no mail
-		LCG.PixelGlow_Start(Minimap.backdrop, {1, 30/255, 60/255, 1}, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(Minimap.backdrop, {1, 1, 0, 1}, 8, -0.25, nil, 1)
 	elseif inv == 0 and mail then -- No invites and new mail
 		LCG.PixelGlow_Start(Minimap.backdrop, {r, g, b, 1}, 8, -0.25, nil, 1)
 	else -- None of the above
@@ -39,6 +39,7 @@ function module:MinimapCombatCheck()
 	end
 
 	local anim = Minimap.backdrop:CreateAnimationGroup()
+	Minimap.backdrop:SetFrameStrata("BACKGROUND")
 	anim:SetLooping("BOUNCE")
 
 	anim.fader = anim:CreateAnimation("Alpha")
@@ -78,18 +79,6 @@ function module:MiniMapCoords()
 		Coords:Point(pos, 0, 0)
 	end
 
-	if E.db.mui.maps.minimap.rectangleMinimap.enable then
-		if pos == "BOTTOM" then
-			Coords:Point(pos, 0, 32)
-		elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
-			Coords:Point(pos, 0, -32)
-		elseif pos == "TOP" and E.db.general.minimap.locationText == 'HIDE' then
-			Coords:Point(pos, 0, -2)
-		else
-			Coords:Point(pos, 0, 0)
-		end
-	end
-
 	Minimap:HookScript("OnUpdate",function()
 		if select(2, GetInstanceInfo()) == "none" then
 			local x, y = E.MapInfo.x or 0, E.MapInfo.y or 0
@@ -106,34 +95,7 @@ function module:MiniMapCoords()
 end
 
 function module:StyleMinimap()
-	if not E.db.mui.maps.minimap.rectangleMinimap.enable then
-		S:CreateBackdropShadow(Minimap)
-	end
-end
-
-function module:QueueStatus()
-	if not E.private.general.minimap.enable or not E.db.mui.maps.minimap.queueStatus or not E.Retail then return end
-
-	-- QueueStatus Button
-	_G.QueueStatusMinimapButtonBorder:Hide()
-	_G.QueueStatusMinimapButtonIconTexture:SetTexture(nil)
-
-	local queueIcon = Minimap:CreateTexture(nil, "ARTWORK")
-	queueIcon:Point("CENTER", _G.QueueStatusMinimapButton)
-	queueIcon:SetSize(50, 50)
-	queueIcon:SetTexture("Interface\\Minimap\\Raid_Icon")
-
-	local anim = queueIcon:CreateAnimationGroup()
-	anim:SetLooping("REPEAT")
-	anim.rota = anim:CreateAnimation("Rotation")
-	anim.rota:SetDuration(2)
-	anim.rota:SetDegrees(360)
-
-	hooksecurefunc("QueueStatusFrame_Update", function()
-		queueIcon:SetShown(_G.QueueStatusMinimapButton:IsShown())
-	end)
-	hooksecurefunc("EyeTemplate_StartAnimating", function() anim:Play() end)
-	hooksecurefunc("EyeTemplate_StopAnimating", function() anim:Stop() end)
+	S:CreateBackdropShadow(Minimap)
 end
 
 function module:StyleMinimapRightClickMenu()
@@ -157,17 +119,14 @@ function module:Initialize()
 	self:MiniMapCoords()
 	self:StyleMinimap()
 	self:StyleMinimapRightClickMenu()
-	self:QueueStatus()
+
+	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
+	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")
+	self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckStatus")
+	self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
+	self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")
+
 	self:MinimapCombatCheck()
-
-	if E.db.mui.maps.minimap.flash then
-		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
-		self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")
-		self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckStatus")
-		self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
-		self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")
-	end
-
 	self:MinimapPing()
 end
 

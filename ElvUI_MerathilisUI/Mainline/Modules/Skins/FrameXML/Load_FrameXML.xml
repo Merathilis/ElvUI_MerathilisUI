@@ -2,6 +2,7 @@
 	<Script file="AddonList.lua"/>
 	<Script file="BNet.lua"/>
 	<Script file="CharacterFrame.lua"/>
+	<Script file="ChatBubbles.lua"/>
 	<Script file="ChatFrame.lua"/>
 	<Script file="CinematicFrame.lua"/>
 	<Script file="DressUpFrames.lua"/>
@@ -10,6 +11,7 @@
 	<Include file="FriendsFrame.xml"/>
 	<Script file="GameMenuFrame.lua"/>
 	<Script file="GameTooltip.lua"/>
+	<Script file="GhostFrame.lua"/>
 	<Script file="GossipFrame.lua"/>
 	<Script file="HelpFrame.lua"/>
 	<Script file="ItemTextFrame.lua"/>
@@ -29,6 +31,7 @@
 	<Script file="ReputationFrame.lua"/>
 	<Script file="SpellBookFrame.lua"/>
 	<Script file="StackSplitFrame.lua"/>
+	<Script file="TalkingHeadUI.lua"/>
 	<Script file="TaxiFrame.lua"/>
 	<Script file="TradeFrame.lua"/>
 	<Script file="UIDropDownMenu.lua"/>

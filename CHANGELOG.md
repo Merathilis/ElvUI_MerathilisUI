@@ -1,6 +1,11 @@
 ### Changes ###
 
-  * Fixed a styling issue with the Unitframes
-  * Added a Details Skin, disabled by default for now
-  * Added an "Full Animation" on the animated Power Bar
+  * >> WITH THIS VERSION YOU GET SOME MASSIVE CHANGES: <<
+  * >> PRE PATCH FOR DRAGONFLIGHT <<
+  * If you want that everything looks fine, you need to do the install again (it will overwrite your changes), if you don't want to do that, you need to adjust it manually. Please do not come in my discord afterwards. >.<
+  * Added an own Bag Module based on cargBags
+  * Added an own Embed Module to use Details in an own Panel. Credits siweia - NDUI
+  * A lot of Skin and Dragonflight Code changes, should be up to date 85%, if not i will work on it
+  * Will there be bugs or errors? Well, probably yes
+  * Main Layout Updates
 

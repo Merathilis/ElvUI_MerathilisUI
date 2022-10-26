@@ -41,12 +41,17 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion and profileVersion <= 5.23 then
+	if profileVersion and profileVersion <= 5.27 then
 		-- Cursor is now a table instead of a bool
-		if E.db.mui.misc.cursor and type(E.db.mui.misc.cursor) ~= 'table' then
-			E.db.mui.misc.cursor = {}
+		if E.db.mui.misc.spellAlert and type(E.db.mui.misc.spellAlert) ~= 'table' then
+			E.db.mui.misc.spellAlert = {}
 		end
-		UpdateMessage(L["Miscellaneous"] .. " - " .. L["Flashing Cursor"], profileVersion)
+		UpdateMessage(L["Miscellaneous"] .. " - " .. L["Spell Alert Scale"], profileVersion)
+
+		--Remove old DTPanel
+		if E.db["datatexts"]["panels"]["MER_RightChatTop"] then
+			E.db["datatexts"]["panels"]["MER_RightChatTop"] = nil
+		end
 
 		updated = true
 	end

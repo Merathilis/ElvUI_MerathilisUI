@@ -142,10 +142,12 @@ end
 function module:HookTooltipMethod()
 	if _G.GameTooltip:IsForbidden() then return; end
 
-	self:HookScript("OnTooltipSetItem", module.HookTooltipSetItem)
-	self:HookScript("OnTooltipSetSpell", module.HookTooltipSetSpell)
-	self:HookScript("OnTooltipSetUnit", module.HookTooltipSetUnit)
-	self:HookScript("OnTooltipCleared", module.HookTooltipCleared)
+	if not MER.IsPTR then
+		self:HookScript("OnTooltipSetItem", module.HookTooltipSetItem)
+		self:HookScript("OnTooltipSetSpell", module.HookTooltipSetSpell)
+		self:HookScript("OnTooltipSetUnit", module.HookTooltipSetUnit)
+		self:HookScript("OnTooltipCleared", module.HookTooltipCleared)
+	end
 end
 
 function module:ReskinRewardIcon()

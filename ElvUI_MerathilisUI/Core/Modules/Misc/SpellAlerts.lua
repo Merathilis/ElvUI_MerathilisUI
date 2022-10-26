@@ -1,34 +1,67 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule('MER_SpellAlert', 'AceEvent-3.0')
+local module = MER:GetModule('MER_SpellAlert')
 
 local _G = _G
-local GetCVar = GetCVar
+local pairs = pairs
+local tonumber = tonumber
 
-function module:UpdatePosition()
-	_G.SpellActivationOverlayFrame:SetScale(E.db.mui.misc.spellAlert or 1)
+local SpellActivationOverlay_ShowOverlay = SpellActivationOverlay_ShowOverlay
+local C_CVar_GetCVar = C_CVar.GetCVar
 
-	_G.SpellActivationOverlayFrame:SetFrameStrata('MEDIUM')
-	_G.SpellActivationOverlayFrame:SetFrameLevel(1)
+function module:PLAYER_ENTERING_WORLD()
+	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	self:Update()
 end
 
-function module:UpdateAppearance()
-	_G.SpellActivationOverlayFrame:SetAlpha(GetCVar('spellActivationOverlayOpacity'))
+function module:Update()
+	if not E.db.mui.misc.spellAlert then
+		return
+	end
+
+	local scale = 1
+	if E.db.mui.misc.spellAlert.enable then
+		scale = E.db.mui.misc.spellAlert.scale or scale
+	end
+
+	local opacity = tonumber(C_CVar_GetCVar("spellActivationOverlayOpacity"))
+
+	_G.SpellActivationOverlayFrame:SetAlpha(opacity)
+	_G.SpellActivationOverlayFrame:SetScale(scale)
 end
 
-function module:Resize()
-	_G.SpellActivationOverlayFrame:SetScale(E.db.mui.misc.spellAlert or 1)
-end
+function module:Preview()
+	self.previewID = (self.previewID or 0) + 1
+	local _previewID = self.previewID
 
-function module:PLAYER_LOGIN()
-	if not E.Retail then return end
+	local examples = {
+		["TOP"] = { false, true, 449488 },
+		["BOTTOM"] = { true, false, 449487 },
+		["RIGHT"] = { true, true, 450929 },
+		["LEFT"] = { false, false, 449490 }
+	}
 
-	module:UpdatePosition()
-	module:UpdateAppearance()
-	module:Resize()
+	for position, data in pairs(examples) do
+		SpellActivationOverlay_ShowOverlay(_G.SpellActivationOverlayFrame, 123986, data[3], position, 1, 255, 255, 255, data[1], data[2])
+
+	end
+
+	E:Delay(2,function()
+		if _previewID == self.previewID then
+			_G.SpellActivationOverlay_HideAllOverlays(_G.SpellActivationOverlayFrame)
+		end
+	end)
 end
 
 function module:Initialize()
-	self:RegisterEvent('PLAYER_LOGIN')
+	if not E.db.mui.misc.spellAlert.enable or not E.Retail then
+		return
+	end
+
+	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+end
+
+function module:ProfileUpdate()
+	self:Update()
 end
 
 MER:RegisterModule(module:GetName())

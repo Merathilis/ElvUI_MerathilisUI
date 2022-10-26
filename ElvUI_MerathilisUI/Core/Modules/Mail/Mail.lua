@@ -74,7 +74,7 @@ local function SetButtonTexture(button, texture, r, g, b)
 	normalTex:Point("CENTER")
 	normalTex:Size(button:GetSize())
 	normalTex:SetTexture(texture)
-	normalTex:SetVertexColor(1, 1, 1)
+	normalTex:SetVertexColor(1, 1, 1, 1)
 	button.normalTex = normalTex
 
 	local hoverTex = button:CreateTexture(nil, "ARTWORK")
@@ -84,7 +84,7 @@ local function SetButtonTexture(button, texture, r, g, b)
 	if not r or not g or not b then
 		r, g, b = unpack(E.media.rgbvaluecolor)
 	end
-	hoverTex:SetVertexColor(r, g, b)
+	hoverTex:SetVertexColor(r, g, b, 1)
 	hoverTex:SetAlpha(0)
 	button.hoverTex = hoverTex
 

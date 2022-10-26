@@ -71,9 +71,9 @@ local function ReskinPVPCaptureBar(self)
 	self.NeutralBar:SetTexture(E.media.normTex)
 	self.RightBar:SetTexture(E.media.normTex)
 
-	self.LeftBar:SetVertexColor(.2, .6, 1)
-	self.NeutralBar:SetVertexColor(.8, .8, .8)
-	self.RightBar:SetVertexColor(.9, .2, .2)
+	self.LeftBar:SetVertexColor(.2, .6, 1, 1)
+	self.NeutralBar:SetVertexColor(.8, .8, .8, 1)
+	self.RightBar:SetVertexColor(.9, .2, .2, 1)
 
 	self.LeftLine:SetAlpha(0)
 	self.RightLine:SetAlpha(0)

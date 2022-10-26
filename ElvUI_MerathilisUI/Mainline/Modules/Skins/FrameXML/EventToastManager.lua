@@ -19,10 +19,10 @@ local function LoadSkin()
 			title:FontTemplate(nil, 22, 'OUTLINE')
 		end
 		if gLine then
-			gLine:SetVertexColor(F.r, F.g, F.b)
+			gLine:SetVertexColor(F.r, F.g, F.b, 1)
 		end
 		if gLine2 then
-			gLine2:SetVertexColor(F.r, F.g, F.b)
+			gLine2:SetVertexColor(F.r, F.g, F.b, 1)
 		end
 	end)
 end

@@ -43,63 +43,18 @@ function module:SetRole()
 	end
 end
 
--- Colors
-local function classColor(class, showRGB)
-	local color = F.ClassColors[E.UnlocalizedClasses[class] or class]
-	if not color then color = F.ClassColors['PRIEST'] end
-
-	if showRGB then
-		return color.r, color.g, color.b
-	else
-		return '|c'..color.colorStr
-	end
-end
-
-local function diffColor(level)
-	return F.RGBToHex(GetQuestDifficultyColor(level))
-end
-
--- Whoframe
-local columnTable = {}
-local function UpdateWhoList()
-	local scrollFrame = _G.WhoListScrollFrame
-	local offset = HybridScrollFrame_GetOffset(scrollFrame)
-	local buttons = scrollFrame.buttons
-	local numButtons = #buttons
-	local numWhos = C_FriendList_GetNumWhoResults()
-
-	local playerZone = GetRealZoneText()
-	local playerGuild = GetGuildInfo('player')
-	local playerRace = UnitRace('player')
-
-	for i = 1, numButtons do
-		local button = buttons[i]
-		local index = offset + i
-		if index <= numWhos then
-			local nameText = button.Name
-			local levelText = button.Level
-			local variableText = button.Variable
-
-			local info = C_FriendList_GetWhoInfo(index)
-			local guild, level, race, zone, class = info.fullGuildName, info.level, info.raceStr, info.area, info.filename
-			if zone == playerZone then zone = '|cff00ff00'..zone end
-			if guild == playerGuild then guild = '|cff00ff00'..guild end
-			if race == playerRace then race = '|cff00ff00'..race end
-
-			twipe(columnTable)
-			tinsert(columnTable, zone)
-			tinsert(columnTable, guild)
-			tinsert(columnTable, race)
-
-			nameText:SetTextColor(classColor(class, true))
-			levelText:SetText(diffColor(level)..level)
-			variableText:SetText(columnTable[UIDropDownMenu_GetSelectedID(_G.WhoFrameDropDown)])
-		end
-	end
-end
-
 function module:Misc()
 	self.db = E.db.mui.misc
+
+	-- Quick delete
+	local deleteDialog = StaticPopupDialogs["DELETE_GOOD_ITEM"]
+	if deleteDialog.OnShow then
+		hooksecurefunc(deleteDialog, "OnShow", function(self)
+			if E.db.mui.misc.quickDelete then
+				self.editBox:SetText(_G.DELETE_ITEM_CONFIRM_STRING)
+			end
+		end)
+	end
 
 	if E.Retail then
 		E.RegisterCallback(module, "RoleChanged", "SetRole")
@@ -108,15 +63,13 @@ function module:Misc()
 		module:CreateMawWidgetFrame()
 		module:WowHeadLinks()
 		module:AddAlerts()
-
-		hooksecurefunc('WhoList_Update', UpdateWhoList)
-		hooksecurefunc(_G.WhoListScrollFrame, 'update', UpdateWhoList)
+		module:QuickMenu()
 	end
 
 	module:LoadGMOTD()
 	module:LoadQuest()
 	module:LoadnameHover()
-	module:ReputationInit()
+	-- module:ReputationInit()
 end
 
 module:AddCallback("Misc")

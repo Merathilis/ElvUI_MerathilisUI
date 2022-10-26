@@ -70,9 +70,11 @@ function module:StyleChat()
 
 	if _G.LeftChatPanel.backdrop then
 		_G.LeftChatPanel.backdrop:Styling()
+		S:CreateGradient(_G.LeftChatPanel.backdrop)
 	end
 	if _G.RightChatPanel.backdrop then
 		_G.RightChatPanel.backdrop:Styling()
+		S:CreateGradient(_G.RightChatPanel.backdrop)
 	end
 
 	S:CreateBackdropShadow(_G.LeftChatPanel, true)
@@ -206,7 +208,7 @@ function module:CreateChatButtons()
 	ChatButton.tex:SetInside()
 	ChatButton.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\chatButton")
 
-	ChatButton:SetScript("OnMouseUp", function (self, btn)
+	ChatButton:SetScript("OnMouseUp", function(self, btn)
 		if InCombatLockdown() then return end
 		if btn == "LeftButton" then
 			if E.db.mui.chat.isExpanded then
@@ -331,18 +333,64 @@ function module:AddCustomEmojis()
 	CH:AddSmiley(':sadge:', format(t, 'sadge'))
 end
 
-function module:Initialize()
-	self.db = E.db.mui.chat
-	if not self.db or not E.private.chat.enable then
+local onlinestring
+local offlinestring
+
+local function ReplaceSystemMessage(_, event, message, ...)
+	if not E.db.mui.chat.customOnlineMessage then
 		return
 	end
 
-	if self.db.customOnlineMessage then
-		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["ERR_FRIEND_ONLINE"]
-		_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["ERR_FRIEND_OFFLINE"]
+	if E.locale == "deDE" then
+		onlinestring = "online"
+		offlinestring = "offline"
+	elseif E.locale == "enUS" or E.locale == "enGB" or E.locale == "enCN" or E.locale == "enTW" then
+		onlinestring = "online"
+		offlinestring = "offline"
+	elseif E.locale == "zhCN" then
+		onlinestring = "在线"
+		offlinestring = "下线了"
+	elseif E.locale == "zhTW" then
+		onlinestring = "目前在線"
+		offlinestring = "下線了"
+	elseif E.locale == "esMX" or E.locale == "esES" then
+		onlinestring = "conectado"
+		offlinestring = " desconectado"
+	elseif E.locale == "frFR" then
+		onlinestring = "en ligne "
+		offlinestring = "déconnecter"
+	elseif E.locale == "itIT" then
+		onlinestring = "online"
+		offlinestring = "offline"
+	elseif E.locale == "koKR" then
+		onlinestring = "접속 중"
+		offlinestring = "님이 게임을 종료했습니다."
+	elseif E.locale == "ptBR" or E.locale == "ptPT" then
+		onlinestring = "conectado"
+		offlinestring = "desconectou"
+	elseif E.locale == "ruRU" then
+		onlinestring = "В сети"
+		offlinestring = "выходит из игрового"
+	end
 
-		_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "%s"..L["BN_INLINE_TOAST_FRIEND_ONLINE"]
-		_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L["BN_INLINE_TOAST_FRIEND_OFFLINE"]
+	if message:find(onlinestring) then --german, english, italian all use the same online/offline
+		return false, gsub(message, onlinestring, "|cff298F00"..onlinestring.."|r"), ...
+	end
+
+	if message:find(offlinestring) then
+		return false, gsub(message, offlinestring, "|cffff0000"..offlinestring.."|r"), ...
+	end
+end
+
+ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", ReplaceSystemMessage)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_INLINE_TOAST_ALERT", ReplaceSystemMessage)
+ChatFrame_AddMessageEventFilter("ROLE_CHANGED_INFORM", ReplaceSystemMessage)
+ChatFrame_AddMessageEventFilter("PLAYER_ROLES_ASSIGNED", ReplaceSystemMessage)
+
+function module:Initialize()
+	module.db = E.db.mui.chat
+	if not module.db or not E.private.chat.enable then
+		return
 	end
 
 	module:StyleChat()

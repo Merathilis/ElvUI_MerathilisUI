@@ -59,7 +59,7 @@ function module:UpdateColor()
 		colorDB = db.customColor
 	end
 
-	module.Texture:SetVertexColor(colorDB.r, colorDB.g, colorDB.b)
+	module.Texture:SetVertexColor(colorDB.r, colorDB.g, colorDB.b, 1)
 end
 
 function module:Initialize()

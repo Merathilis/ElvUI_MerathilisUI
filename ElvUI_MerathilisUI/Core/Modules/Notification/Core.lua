@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Notification
-local ES = MER.Modules.Skins
+local module = MER:GetModule('MER_Notification')
+local S = MER:GetModule('MER_Skins')
 
 -- Credits RealUI
 local unpack, type, pairs = unpack, type, pairs
@@ -127,15 +127,16 @@ function module:CreateToast()
 	toast:SetSize(bannerWidth, bannerHeight)
 	toast:SetPoint("TOP", E.UIParent, "TOP")
 	toast:Hide()
-	ES:CreateBD(toast, .45)
-	toast:Styling()
-	ES:CreateBackdropShadow(toast, true)
+	toast:CreateBackdrop('Transparent')
+	toast.backdrop:Styling()
+	S:CreateBackdropShadow(toast, true)
+	S:CreateGradient(toast.backdrop)
 	toast:CreateCloseButton(10)
 
 	local icon = toast:CreateTexture(nil, "OVERLAY")
 	icon:SetSize(32, 32)
 	icon:SetPoint("LEFT", toast, "LEFT", 9, 0)
-	ES:CreateBG(icon)
+	S:CreateBG(icon)
 	toast.icon = icon
 
 	local sep = toast:CreateTexture(nil, "BACKGROUND")
@@ -143,22 +144,22 @@ function module:CreateToast()
 	sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
 	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
 
-	local title = F.CreateText(toast, "OVERLAY")
+	local title = toast:CreateFontString(nil, 'OVERLAY')
+	F.SetFontDB(title, db.titleFont)
 	title:SetShadowOffset(1, -1)
-	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, 3)
+	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -5)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
 	title:SetJustifyH("LEFT")
 	title:SetNonSpaceWrap(true)
-	F.SetFontDB(title, db.titleFont)
 	toast.title = title
 
-	local text = F.CreateText(toast, "OVERLAY")
+	local text = toast:CreateFontString(nil, 'OVERLAY')
+	F.SetFontDB(text, db.textFont)
 	text:SetShadowOffset(1, -1)
-	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 20)
+	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 17)
 	text:SetPoint("RIGHT", toast, -9, 0)
 	text:SetJustifyH("LEFT")
 	text:SetWidth(toast:GetRight() - sep:GetLeft() - 5)
-	F.SetFontDB(text, db.textFont)
 	toast.text = text
 
 	toast.AnimIn = CreateAnimationGroup(toast)

@@ -27,6 +27,19 @@ local UnitLevel = UnitLevel
 module.CreatedReminders = {}
 
 module.ReminderList = {
+	DRUID = {
+		[1] = { -- Mark of the Wild
+			["spellGroup"] = {
+				[1126] = true,
+				["defaultIcon"] = 1126, -- Mark of the Wild
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+		},
+	},
+
 	MAGE = {
 		[1] = { -- Arcane Intellect
 			["spellGroup"] = {
@@ -76,6 +89,7 @@ module.ReminderList = {
 		[1] = { -- Lightning Shield
 			["spellGroup"] = {
 				[192106] = true, -- Lightning Shield
+				[974] = true, -- Earth Shield
 				["defaultIcon"] = 192106,
 			},
 			["enable"] = true,
@@ -88,6 +102,7 @@ module.ReminderList = {
 		[2] = { -- Water Shield
 			["spellGroup"] = {
 				[52127] = true, -- Water Shield
+				[974] = true, -- Earth Shield
 				["defaultIcon"] = 52127,
 			},
 			["enable"] = true,

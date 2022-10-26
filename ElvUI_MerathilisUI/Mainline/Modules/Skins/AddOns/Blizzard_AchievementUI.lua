@@ -15,13 +15,8 @@ local function LoadSkin()
 	end
 
 	local AchievementFrame = _G.AchievementFrame
-	AchievementFrame.backdrop:Styling()
-	module:CreateBackdropShadow(AchievementFrame)
-
-	-- Hide the ElvUI default backdrop
-	if _G.AchievementFrameCategoriesContainer.backdrop then
-		_G.AchievementFrameCategoriesContainer.backdrop:Hide()
-	end
+	AchievementFrame:Styling()
+	module:CreateShadow(AchievementFrame)
 
 	for i = 1, 3 do
 		module:ReskinTab(_G["AchievementFrameTab"..i])
@@ -29,27 +24,10 @@ local function LoadSkin()
 
 	for i = 1, 7 do
 		local bu = _G["AchievementFrameAchievementsContainerButton"..i]
-		if bu.backdrop then
-			module:CreateGradient(bu.backdrop)
+		if bu then
+			module:CreateGradient(bu)
 		end
 	end
-
-	hooksecurefunc("AchievementButton_DisplayAchievement", function(button, category, achievement)
-		local _, _, _, completed = GetAchievementInfo(category, achievement)
-		if completed then
-			if button.accountWide then
-				button.label:SetTextColor(0, .6, 1)
-			else
-				button.label:SetTextColor(.9, .9, .9)
-			end
-		else
-			if button.accountWide then
-				button.label:SetTextColor(0, .3, .5)
-			else
-				button.label:SetTextColor(.65, .65, .65)
-			end
-		end
-	end)
 
 	hooksecurefunc("AchievementObjectives_DisplayCriteria", function(objectivesFrame, id)
 		for i = 1, GetAchievementNumCriteria(id) do
@@ -76,18 +54,6 @@ local function LoadSkin()
 			end
 		end
 	end)
-
-	for i = 1, 12 do
-		local label = _G["AchievementFrameSummaryCategoriesCategory"..i.."Label"]
-
-		label:SetTextColor(1, 1, 1)
-	end
-
-	_G.AchievementFrameSummaryCategoriesStatusBarTitle:SetTextColor(1, 1, 1)
-
-	AchievementFrame.searchBox:ClearAllPoints()
-	AchievementFrame.searchBox:SetPoint("BOTTOMRIGHT", _G.AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -2)
-	AchievementFrame.searchBox:SetSize(100, 20)
 end
 
 S:AddCallbackForAddon("Blizzard_AchievementUI", LoadSkin)

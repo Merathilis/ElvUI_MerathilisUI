@@ -10,6 +10,8 @@ local strlen, strsplit = strlen, strsplit
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
+local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14:64:64|t]]
+
 function MER:ConstructCompatibilityFrame()
 	local frame = CreateFrame("Frame", "MERCompatibilityFrame", E.UIParent)
 	frame:Size(550, 500)
@@ -64,11 +66,12 @@ function MER:ConstructCompatibilityFrame()
 	bottomDesc:SetJustifyH("LEFT")
 	bottomDesc:Width(530)
 	F.SetFontOutline(bottomDesc, nil, "-1")
-	bottomDesc:SetText(E.NewSign .. format(L["If you find the %s module conflicts with another addon, alert me via Discord."], MER.Title) .. "\n" .. L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."])
+	bottomDesc:SetText(newSignIgnored .. format(L["If you find the %s module conflicts with another addon, alert me via Discord."], MER.Title) .. "\n" .. L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."])
 	--bottomDesc:SetText("|cffff0000*|r " .. L["The feature is just a part of that module."])
 	bottomDesc:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
 
-	local completeButton = CreateFrame("Button", "MERCompatibilityFrameCompleteButton", frame, "OptionsButtonTemplate, BackdropTemplate")
+	local completeButton = CreateFrame("Button", "MERCompatibilityFrameCompleteButton", frame, "UIPanelButtonTemplate, BackdropTemplate")
+
 	completeButton.Text:SetText(L["Complete"])
 	completeButton.Text:SetJustifyH("CENTER")
 	completeButton.Text:SetJustifyV("CENTER")
@@ -101,7 +104,8 @@ local function AddButtonToCompatibilityFrame(data)
 	local frame = MER.CompatibilityFrame
 	frame.numModules = frame.numModules + 1
 
-	local leftButton = CreateFrame("Button", "MERCompatibilityFrameLeftButton" .. frame.numModules, frame.scrollFrame, "OptionsButtonTemplate, BackdropTemplate")
+	local leftButton = CreateFrame("Button", "MERCompatibilityFrameLeftButton" .. frame.numModules, frame.scrollFrame, "UIPanelButtonTemplate, BackdropTemplate")
+
 	leftButton.Text:SetText(format("%s\n%s", data.module1, data.plugin1))
 	leftButton.Text:SetJustifyH("CENTER")
 	leftButton.Text:SetJustifyV("CENTER")
@@ -116,7 +120,7 @@ local function AddButtonToCompatibilityFrame(data)
 		if _G[name] then
 			_G[name]:SetTexture(E.Media.Textures.ArrowUp)
 			_G[name]:SetRotation(ES.ArrowRotation.left)
-			_G[name]:SetVertexColor(0, 1, 0)
+			_G[name]:SetVertexColor(0, 1, 0, 1)
 		end
 	end)
 
@@ -124,10 +128,11 @@ local function AddButtonToCompatibilityFrame(data)
 	middleTexture:SetPoint("CENTER")
 	middleTexture:Size(20)
 	middleTexture:SetTexture(MER.Media.Icons.convert)
-	middleTexture:SetVertexColor(1, 1, 1)
+	middleTexture:SetVertexColor(1, 1, 1, 1)
 	middleTexture:SetPoint("CENTER", frame.scrollFrame, "TOP", 0, -frame.numModules * 50 + 25)
 
-	local rightButton = CreateFrame("Button", "MERCompatibilityFrameRightButton" .. frame.numModules, frame.scrollFrame, "OptionsButtonTemplate, BackdropTemplate")
+	local rightButton = CreateFrame("Button", "MERCompatibilityFrameRightButton" .. frame.numModules, frame.scrollFrame, "UIPanelButtonTemplate, BackdropTemplate")
+
 	rightButton.Text:SetText(format("%s\n%s", data.module2, data.plugin2))
 	rightButton.Text:SetJustifyH("CENTER")
 	rightButton.Text:SetJustifyV("CENTER")
@@ -142,7 +147,7 @@ local function AddButtonToCompatibilityFrame(data)
 		if _G[name] then
 			_G[name]:SetTexture(E.Media.Textures.ArrowUp)
 			_G[name]:SetRotation(ES.ArrowRotation.right)
-			_G[name]:SetVertexColor(1, 0, 0)
+			_G[name]:SetVertexColor(1, 0, 0, 1)
 		end
 	end)
 end
@@ -214,9 +219,6 @@ function MER:CheckCompatibility()
 
 	self:ConstructCompatibilityFrame()
 
-	-- BenikUI
-	CheckBenikUI(L["FlightMode"], L["Flight Mode"], "db.mui.flightMode.enable", "db.benikui.misc.flightMode.enable")
-
 	-- Windtools
 	CheckWindtools(
 		L["AutoButtons"],
@@ -280,13 +282,6 @@ function MER:CheckCompatibility()
 		"private.WT.maps.minimapButtons.enable"
 	)
 
-	CheckWindtools(
-		L["Rectangle Minimap"],
-		L["Rectangle Minimap"],
-		"db.mui.maps.minimap.rectangleMinimap.enable",
-		"db.WT.maps.rectangleMinimap.enable"
-	)
-
 	CheckWindtools(L["Chat Bar"], L["Chat Bar"], "db.mui.chat.chatBar.enable", "db.WT.social.chatBar.enable")
 
 	CheckWindtools(L["Chat Link"], L["Chat Link"], "db.mui.chat.chatLink.enable", "db.WT.social.chatLink.enable")
@@ -310,13 +305,6 @@ function MER:CheckCompatibility()
 		L["Super Tracker"],
 		"db.mui.maps.superTracker.enable",
 		"private.WT.maps.superTracker.enable"
-	)
-
-	CheckWindtools(
-		L["Raid Difficulty"],
-		L["Instance Difficulty"],
-		"db.mui.maps.minimap.instanceDifficulty.enable",
-		"private.WT.maps.instanceDifficulty.enable"
 	)
 
 	CheckWindtools(
@@ -410,18 +398,19 @@ function MER:CheckCompatibility()
 		"db.WT.social.chatText.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["Misc"], L["Spell Alert Scale"]),
+		format("%s-%s", L["Misc"], L["Spell Activation Alert"]),
+		"db.mui.misc.spellAlert.enable",
+		"db.WT.misc.spellActivationAlert.enable"
+	)
+
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],
 		"private.mui.skins.shadow",
 		"private.sle.module.shadows.enable"
-	)
-
-	CheckShadowAndLight(
-		L["Rectangle Minimap"],
-		L["Rectangle Minimap"],
-		"db.mui.maps.minimap.rectangleMinimap.enable",
-		"private.sle.minimap.rectangle"
 	)
 
 	CheckShadowAndLight(

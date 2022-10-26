@@ -6,8 +6,9 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 function MER:LoadAddOnSkinsProfile()
 	local AS = unpack(AddOnSkins)
+	local profileName = F.Profiles.Default
 
-	AS.data:SetProfile("MerathilisUI")
+	AS.data:SetProfile(profileName)
 
 	AS.db['EmbedOoC'] = false
 	AS.db['EmbedOoCDelay'] = 10
@@ -15,7 +16,7 @@ function MER:LoadAddOnSkinsProfile()
 	AS.db['EmbedSexyCooldown'] = false
 	AS.db['TransparentEmbed'] = false
 	AS.db['EmbedIsHidden'] = false
-	AS.db['EmbedFrameStrata'] = '4-HIGH'
+	AS.db['EmbedFrameStrata'] = '3-MEDIUM'
 	AS.db['EmbedFrameLevel'] = 50
 	AS.db['RecountBackdrop'] = false
 	AS.db['SkadaBackdrop'] = false
@@ -33,7 +34,7 @@ function MER:LoadAddOnSkinsProfile()
 	AS.db['HideChatFrame'] = 'NONE'
 	AS.db['Parchment'] = false
 	AS.db['ParchmentRemover'] = false
-	AS.db['SkinDebug'] = false
+	AS.db['SkinDebug'] = true
 	AS.db['LoginMsg'] = false
 	AS.db['EmbedSystemMessage'] = false
 	AS.db['ElvUISkinModule'] = true

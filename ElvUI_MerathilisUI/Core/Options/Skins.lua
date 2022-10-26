@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:GetModule('MER_Skins')
 local options = MER.options.skins.args
 local LSM = E.Libs.LSM
 
@@ -17,11 +18,14 @@ local DecorAddons = {
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
-	{"Details", E.NewSign..L["Details"], "dt"},
 	{"TLDRMissions", L["TLDRMissions"], "tldr"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"WeakAurasOptions", L["WeakAuras Options"], "waOptions"},
 }
+
+if E.Retail then
+	tinsert(DecorAddons, {"Details", E.NewSign .. L["Details"], "dt" })
+end
 
 local SupportedProfiles = {
 	{"AddOnSkins", "AddOnSkins"},
@@ -36,6 +40,14 @@ local SupportedProfiles = {
 }
 
 local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"])
+
+local function UpdateToggleDirection()
+	module:RefreshToggleDirection()
+end
+
+local function ResetDetails()
+	StaticPopup_Show("RESET_DETAILS")
+end
 
 options.general = {
 	order = 1,
@@ -76,8 +88,21 @@ options.general = {
 					name = L["Screen Shadow Overlay"],
 					desc = L["Enables/Disables a shadow overlay to darken the screen."],
 				},
-				shadow = {
+				toggleDirection = {
 					order = 5,
+					type = "select",
+					name = L["Toggle Direction"],
+					set = function(_, value) E.private.mui.skins.toggleDirection = value; UpdateToggleDirection(); end,
+					values = {
+						[1] = L["LEFT"],
+						[2] = L["RIGHT"],
+						[3] = L["TOP"],
+						[4] = L["BOTTOM"],
+						[5] = _G.DISABLE,
+					},
+				},
+				shadow = {
+					order = 8,
 					type = "group",
 					name = F.cOption(L["Shadows"], 'orange'),
 					guiInline = true,
@@ -1637,6 +1662,22 @@ if E.Retail then
 		name = L["Tooltip"],
 		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tooltip end,
 	}
+	options.blizzard.args.chatBubbles = {
+		type = "toggle",
+		name = L["Chat Bubbles"],
+		disabled = function() return not E.private.skins.blizzard.enable or E.private.general.chatBubbles ~= "nobackdrop" end,
+	}
+	options.blizzard.args.expansionLanding = {
+		type = "toggle",
+		name = L["Expansion LandingPage"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.expansionLanding end,
+	}
+	options.blizzard.args.majorFactions = {
+		type = "toggle",
+		name = L["Major Factions"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.majorFactions end,
+	}
+
 elseif E.Classic then
 	options.blizzard.args.craft = {
 		type = "toggle",
@@ -1777,3 +1818,45 @@ for _, v in ipairs(SupportedProfiles) do
 		disabled = function() return not IsAddOnLoaded(addon) end,
 	}
 end
+
+options.Embed = {
+	order = 6,
+	type = "group",
+	name = E.NewSign .. L["Embed Settings"],
+	get = function(info) return E.private.mui.skins.embed[info[#info]] end,
+	set = function(info, value) E.private.mui.skins.embed[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+	args = {
+		info = {
+			order = 1,
+			type = "description",
+			name = MER.InfoColor .. L["With this option you can embed your Details into an own Panel."],
+			fontSize = "medium",
+		},
+		header = {
+			order = 2,
+			type = "header",
+			name = F.cOption(L["Embed Settings"], 'orange'),
+		},
+		spacer1 = {
+			order = 3,
+			type = "description",
+			name = ' ',
+		},
+		enable = {
+			order = 4,
+			type = "toggle",
+			name = L["Enable"],
+		},
+		details = {
+			order = 5,
+			type = "execute",
+			name = L["Reset Settings"],
+			func = function()
+				ResetDetails()
+			end,
+			disabled = function()
+				return not E.private.mui.skins.embed.enable
+			end,
+		},
+	},
+}

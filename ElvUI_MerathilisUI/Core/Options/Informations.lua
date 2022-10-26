@@ -3,6 +3,8 @@ local options = MER.options.information.args
 
 local tconcat, tsort = table.concat, table.sort
 
+local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14:64:64|t]]
+
 local function AddColor(string)
 	if type(string) ~= "string" then
 		string = tostring(string)
@@ -146,7 +148,7 @@ options.name = {
 					order = 8,
 					type = "description",
 					fontSize = "medium",
-					name = E.NewSign .. " |cffe74c3c" .. format(L["Before you submit a bug, please enable debug mode with %s and test it one more time."], "|cff00ff00/muidebug|r") .."|r",
+					name = newSignIgnored .. " |cffe74c3c" .. format(L["Before you submit a bug, please enable debug mode with %s and test it one more time."], "|cff00ff00/muidebug|r") .."|r",
 					width = "full"
 				},
 			},
