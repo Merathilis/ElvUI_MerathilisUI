@@ -434,9 +434,9 @@ function F.SplitList(list, variable, cleanup)
 end
 
 F.iLvlClassIDs = {
-	[LE_ITEM_CLASS_GEM] = LE_ITEM_GEM_ARTIFACTRELIC,
-	[LE_ITEM_CLASS_ARMOR] = 0,
-	[LE_ITEM_CLASS_WEAPON] = 0,
+	[Enum.ItemClass.Gem] = Enum.ItemGemSubclass.Artifactrelic,
+	[Enum.ItemClass.Armor] = 0,
+	[Enum.ItemClass.Weapon] = 0,
 }
 
 do -- Tooltip scanning stuff. Credits siweia, with permission.
@@ -917,7 +917,7 @@ do
 			if self.bg then
 				self.bg:SetBackdropColor(cr, cg, cb, .25)
 			else
-				self.__texture:SetVertexColor(0, .6, 1)
+				self.__texture:SetVertexColor(0, .6, 1, 1)
 			end
 		end
 	end
@@ -926,7 +926,7 @@ do
 		if self.bg then
 			self.bg:SetBackdropColor(0, 0, 0, .25)
 		else
-			self.__texture:SetVertexColor(1, 1, 1)
+			self.__texture:SetVertexColor(1, 1, 1, 1)
 		end
 	end
 end

@@ -12,12 +12,12 @@ local function LoadSkin()
 
 	--Main Frame
 	_G.ContributionCollectionFrame:StripTextures()
-	module:CreateBD(_G.ContributionCollectionFrame, .25)
+	_G.ContributionCollectionFrame:CreateBackdrop('Transparent')
 	_G.ContributionCollectionFrame:Styling()
 	module:CreateBackdropShadow(_G.ContributionCollectionFrame)
 
 	local function styleText(self)
-		self.Description:SetVertexColor(1, 1, 1)
+		self.Description:SetVertexColor(1, 1, 1, 1)
 	end
 	hooksecurefunc(_G.ContributionMixin, "Setup", styleText)
 

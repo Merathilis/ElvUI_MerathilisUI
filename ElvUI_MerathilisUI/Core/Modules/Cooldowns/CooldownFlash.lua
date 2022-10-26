@@ -35,7 +35,7 @@ module.DCP = DCP
 
 local DCPT = DCP:CreateTexture(nil, "BORDER")
 DCPT:SetAllPoints(DCP)
-MERS:CreateBDFrame(DCP)
+-- MERS:CreateBDFrame(DCP)
 MERS:CreateSD(DCP, 2, 2)
 MERS:CreateBackdropShadow(DCP)
 
@@ -47,7 +47,7 @@ local defaultSettings = {
 	animScale = 1.5,
 	iconSize = 50,
 	holdTime = 0.3,
-	petOverlay = {1, 1, 1},
+	petOverlay = {1, 1, 1, 1},
 	ignoredSpells = {},
 	invertIgnored = false,
 	enablePet = false,
@@ -191,7 +191,7 @@ local function OnUpdate(_,update)
 			tremove(module.animating, 1)
 			runtimer = 0
 			DCPT:SetTexture(nil)
-			DCPT:SetVertexColor(1, 1, 1)
+			DCPT:SetVertexColor(1, 1, 1, 1)
 			DCP:SetAlpha(0)
 			DCP:SetSize(module.db.iconSize, module.db.iconSize)
 		else
@@ -312,6 +312,7 @@ hooksecurefunc("UseInventoryItem", function(slot)
 	end
 end)
 
+--ToDO: WoW10
 hooksecurefunc("UseContainerItem", function(bag,slot)
 	local itemID = GetContainerItemID(bag, slot)
 	if (itemID) then

@@ -44,4 +44,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_TalkingHeadUI", LoadSkin)
+S:AddCallback("TalkingHeadUI", LoadSkin)

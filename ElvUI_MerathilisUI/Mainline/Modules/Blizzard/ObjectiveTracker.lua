@@ -117,7 +117,7 @@ function module:CosmeticBar(header)
 			self.db.cosmeticBar.color.normalColor.a
 		)
 	elseif self.db.cosmeticBar.color.mode == "GRADIENT" then
-		bar:SetVertexColor(1, 1, 1)
+		bar:SetVertexColor(1, 1, 1, 1)
 		if MER.IsNewPatch then
 			bar:SetGradient(
 				"HORIZONTAL", CreateColor(

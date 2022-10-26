@@ -2,10 +2,6 @@ local _, ns = ...
 local MER, F, E, L, V, P, G = unpack(ns)
 local module = MER:GetModule('MER_Bags')
 
-local LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_COMMON, LE_ITEM_QUALITY_LEGENDARY = Enum.ItemQuality.Poor, Enum.ItemQuality.Common, Enum.ItemQuality.Legendary
-local LE_ITEM_CLASS_CONSUMABLE, LE_ITEM_CLASS_ITEM_ENHANCEMENT = LE_ITEM_CLASS_CONSUMABLE, LE_ITEM_CLASS_ITEM_ENHANCEMENT
-local LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLANEOUS_MOUNT, LE_ITEM_MISCELLANEOUS_COMPANION_PET = LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLANEOUS_MOUNT, LE_ITEM_MISCELLANEOUS_COMPANION_PET
-local LE_ITEM_CLASS_WEAPON, LE_ITEM_CLASS_ARMOR, LE_ITEM_CLASS_TRADEGOODS = LE_ITEM_CLASS_WEAPON, LE_ITEM_CLASS_ARMOR, LE_ITEM_CLASS_TRADEGOODS
 local C_ToyBox_GetToyInfo = C_ToyBox.GetToyInfo
 local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
 local C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID
@@ -38,8 +34,7 @@ end
 local function isItemJunk(item)
 	if not E.db.mui.bags.ItemFilter then return end
 	if not E.db.mui.bags.FilterJunk then return end
-	return (item.quality == LE_ITEM_QUALITY_POOR or E.global.mui.bags.CustomJunkList[item.id]) and item.hasPrice and
-		not module:IsPetTrashCurrency(item.id)
+	return (item.quality == Enum.ItemQuality.Poor or E.global.mui.bags.CustomJunkList[item.id]) and item.hasPrice and not module:IsPetTrashCurrency(item.id)
 end
 
 local function isItemEquipSet(item)
@@ -63,12 +58,12 @@ end
 local function isItemEquipment(item)
 	if not E.db.mui.bags.ItemFilter then return end
 	if not E.db.mui.bags.FilterEquipment then return end
-	return item.link and item.quality > LE_ITEM_QUALITY_COMMON and module:IsItemHasLevel(item)
+	return item.link and item.quality > Enum.ItemQuality.Common and module:IsItemHasLevel(item)
 end
 
 local consumableIDs = {
-	[LE_ITEM_CLASS_CONSUMABLE] = true,
-	[LE_ITEM_CLASS_ITEM_ENHANCEMENT] = true,
+	[Enum.ItemClass.Consumable] = true,
+	[Enum.ItemClass.ItemEnhancement] = true,
 }
 local function isItemConsumable(item)
 	if not E.db.mui.bags.ItemFilter then return end
@@ -80,7 +75,7 @@ end
 local function isItemLegendary(item)
 	if not E.db.mui.bags.ItemFilter then return end
 	if not E.db.mui.bags.FilterLegendary then return end
-	return item.quality == LE_ITEM_QUALITY_LEGENDARY
+	return item.quality == Enum.ItemQuality.Legendary
 end
 
 local isPetToy = {
@@ -88,8 +83,8 @@ local isPetToy = {
 }
 
 local collectionIDs = {
-	[LE_ITEM_MISCELLANEOUS_MOUNT] = LE_ITEM_CLASS_MISCELLANEOUS,
-	[LE_ITEM_MISCELLANEOUS_COMPANION_PET] = LE_ITEM_CLASS_MISCELLANEOUS,
+	[Enum.ItemMiscellaneousSubclass.Mount] = Enum.ItemClass.Miscellaneous,
+	[Enum.ItemMiscellaneousSubclass.CompanionPet] = Enum.ItemClass.Miscellaneous,
 }
 local function isMountOrPet(item)
 	return not isPetToy[item.id] and item.subClassID and collectionIDs[item.subClassID] == item.classID
@@ -132,7 +127,7 @@ local function isTradeGoods(item)
 	if not E.db.mui.bags.ItemFilter then return end
 	if not E.db.mui.bags.FilterGood then return end
 	if isCustomFilter(item) == false then return end
-	return item.classID == LE_ITEM_CLASS_TRADEGOODS
+	return item.classID == Enum.ItemClass.Tradegoods
 end
 
 local function isQuestItem(item)

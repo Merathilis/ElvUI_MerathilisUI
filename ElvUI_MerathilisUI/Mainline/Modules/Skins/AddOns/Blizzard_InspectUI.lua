@@ -121,7 +121,7 @@ local function LoadSkin()
 	bg:SetPoint("TOPLEFT", roleIcon, 2, -1)
 	bg:SetPoint("BOTTOMRIGHT", roleIcon, -1, 2)
 
-	for i = 1, 4 do
+	for i = 1, 3 do
 		local tab = _G["InspectFrameTab"..i]
 		if i ~= 1 then
 			tab:SetPoint("LEFT", _G["InspectFrameTab"..i-1], "RIGHT", -15, 0)

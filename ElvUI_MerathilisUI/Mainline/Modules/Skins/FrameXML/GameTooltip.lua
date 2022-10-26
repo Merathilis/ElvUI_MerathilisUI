@@ -69,6 +69,7 @@ local function LoadSkin()
 		_G.QuestScrollFrame.WarCampaignTooltip,
 		_G.DataTextTooltip,
 		_G.BattlePetTooltip,
+		_G.SettingsTooltip,
 	}
 
 	for _, frame in pairs(tooltips) do

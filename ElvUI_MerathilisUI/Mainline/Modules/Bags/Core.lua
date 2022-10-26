@@ -8,7 +8,6 @@ local B = E:GetModule('Bags')
 
 local _G = _G
 local strmatch, unpack, ceil = string.match, unpack, math.ceil
-local LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_RARE, LE_ITEM_QUALITY_HEIRLOOM = Enum.ItemQuality.Poor, Enum.ItemQuality.Rare, Enum.ItemQuality.Heirloom
 local LE_ITEM_CLASS_CONTAINER = LE_ITEM_CLASS_CONTAINER
 local SortBankBags, SortReagentBankBags, SortBags = SortBankBags, SortReagentBankBags, SortBags
 local GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem = GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem
@@ -18,8 +17,9 @@ local C_Soulbinds_IsItemConduitByItemInfo = C_Soulbinds.IsItemConduitByItemInfo
 local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
 local IsCosmeticItem = IsCosmeticItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
-local GetItemInfo, GetContainerItemID, SplitContainerItem = GetItemInfo, GetContainerItemID, SplitContainerItem
-if MER.isNewPatch then
+local GetItemInfo, SplitContainerItem = GetItemInfo, SplitContainerItem
+
+if MER.IsPTR then
 	GetContainerItemID = C_Container.GetContainerItemID
 	GetContainerNumSlots = C_Container.GetContainerNumSlots
 	SortBags = C_Container.SortBags
@@ -52,8 +52,8 @@ function module:ReverseSort()
 		local numSlots = GetContainerNumSlots(bag)
 		for slot = 1, numSlots do
 			local texture, locked
-			if MER.isNewPatch then
-				local info = C_Container.GetContainerItemInfo(bag, slot)
+			if MER.IsPTR then
+				local info = GetContainerItemInfo(bag, slot)
 				texture = info and info.iconFileID
 				locked = info and info.isLocked
 			else
@@ -425,7 +425,7 @@ function module:GetEmptySlot(name)
 		if slotID then
 			return -1, slotID
 		end
-		-- if DB.isNewPatch then
+		-- if DB.IsPTR then
 			-- for bagID = 6, 12 do
 				-- local slotID = module:GetContainerEmptySlot(bagID)
 				-- if slotID then
@@ -562,8 +562,8 @@ local function splitOnClick(self)
 	PickupContainerItem(self.bagId, self.slotId)
 
 	local texture, itemCount, locked
-	if MER.isNewPatch then
-		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+	if MER.IsPTR then
+		local info = GetContainerItemInfo(self.bagId, self.slotId)
 		texture = info and info.iconFileID
 		itemCount = info and info.stackCount
 		locked = info and info.isLocked
@@ -680,8 +680,8 @@ local function favouriteOnClick(self)
 	if not favouriteEnable then return end
 
 	local texture, quality, link, itemID
-	if MER.isNewPatch then
-		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+	if MER.IsPTR then
+		local info = GetContainerItemInfo(self.bagId, self.slotId)
 		texture = info and info.iconFileID
 		quality = info and info.quality
 		link = info and info.hyperlink
@@ -689,7 +689,8 @@ local function favouriteOnClick(self)
 	else
 		texture, _, _, quality, _, _, link, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
 	end
-	if texture and quality > LE_ITEM_QUALITY_POOR then
+	if texture and quality > Enum.ItemQuality.Poor then
+
 		ClearCursor()
 		module.selectItemID = itemID
 		module.CustomMenu[1].text = link
@@ -750,13 +751,10 @@ local function customJunkOnClick(self)
 	if not customJunkEnable then return end
 
 	local texture, itemID
-	if MER.isNewPatch then
-		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
-		texture = info and info.iconFileID
-		itemID = info and info.itemID
-	else
-		texture, _, _, _, _, _, _, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
-	end
+	local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
+	texture = info and info.iconFileID
+	itemID = info and info.itemID
+
 	local price = select(11, GetItemInfo(itemID))
 	if texture and price > 0 then
 		if E.global.mui.bags.CustomJunkList[itemID] then
@@ -805,15 +803,12 @@ local function deleteButtonOnClick(self)
 	if not deleteEnable then return end
 
 	local texture, quality
-	if MER.isNewPatch then
-		local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
-		texture = info and info.iconFileID
-		quality = info and info.quality
-	else
-		texture, _, _, quality = GetContainerItemInfo(self.bagId, self.slotId)
-	end
+	local info = GetContainerItemInfo(self.bagId, self.slotId)
+	texture = info and info.iconFileID
+	quality = info and info.quality
+
 	if IsControlKeyDown() and IsAltKeyDown() and texture and
-		(quality < LE_ITEM_QUALITY_RARE or quality == LE_ITEM_QUALITY_HEIRLOOM) then
+		(quality < Enum.ItemQuality.Rare or quality == Enum.ItemQuality.Heirloom) then
 		PickupContainerItem(self.bagId, self.slotId)
 		DeleteCursorItem()
 	end
@@ -867,8 +862,9 @@ function module:CloseBags()
 end
 
 function module:UpdateCooldown(slot)
-	local start, duration, enabled = GetContainerItemCooldown(slot.bagId, slot.slotId)
-	if duration > 0 and enabled == 0 then
+	local start, duration, enabled = C_Container.GetContainerItemCooldown(slot.bagId, slot.slotId)
+	CooldownFrame_Set(self.Cooldown, start, duration, enable)
+	if (duration > 0 and enabled == 0) then
 		SetItemButtonTextureVertexColor(slot, 0.4, 0.4, 0.4)
 	else
 		SetItemButtonTextureVertexColor(slot, 1, 1, 1)
@@ -1091,7 +1087,7 @@ function module:Initialize()
 			self.canIMogIt:SetPoint(unpack(CanIMogIt.ICON_LOCATIONS[CanIMogItOptions["iconLocation"]]))
 		end
 
-		-- if DB.isNewPatch and not self.ProfessionQualityOverlay then
+		-- if DB.IsPTR and not self.ProfessionQualityOverlay then
 			-- self.ProfessionQualityOverlay = self:CreateTexture(nil, "OVERLAY")
 			-- self.ProfessionQualityOverlay:SetPoint("TOPLEFT", -3, 2)
 		-- end
@@ -1170,14 +1166,14 @@ function module:Initialize()
 
 		if self.JunkIcon then
 			if (MerchantFrame:IsShown() or customJunkEnable) and
-				(item.quality == LE_ITEM_QUALITY_POOR or E.global.mui.bags.CustomJunkList[item.id]) and item.hasPrice then
+				(item.quality == Enum.ItemQuality.Poor or E.global.mui.bags.CustomJunkList[item.id]) and item.hasPrice then
 				self.JunkIcon:Show()
 			else
 				self.JunkIcon:Hide()
 			end
 		end
 
-		self.IconOverlay:SetVertexColor(1, 1, 1)
+		self.IconOverlay:SetVertexColor(1, 1, 1, 1)
 		self.IconOverlay:Hide()
 		self.IconOverlay2:Hide()
 		local atlas, secondAtlas = GetIconOverlayAtlas(item)
@@ -1231,7 +1227,7 @@ function module:Initialize()
 		end
 
 		if self.Cooldown then
-			module:UpdateCooldown(self)
+			-- module:UpdateCooldown(self) --ToDO: WoW10
 		end
 
 		if module.db.SpecialBagsColor then
@@ -1529,10 +1525,10 @@ function module:Initialize()
 	local shiftUpdater = CreateFrame("Frame", nil, f.main)
 	shiftUpdater:SetScript("OnUpdate", onUpdate)
 
-	-- if DB.isNewPatch then
-		-- MicroButtonAndBagsBar:Hide()
-		-- MicroButtonAndBagsBar:UnregisterAllEvents()
-	-- end
+	if MER.IsPTR then
+		MicroButtonAndBagsBar:Hide()
+		MicroButtonAndBagsBar:UnregisterAllEvents()
+	end
 end
 
 MER:RegisterModule(module:GetName())

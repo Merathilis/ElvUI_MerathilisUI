@@ -87,9 +87,6 @@ local function SetupCVars()
 		SetCVar('taintLog', 0)
 	end
 
-	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:SetValue('SHIFT')
-	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:RefreshValue()
-
 	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
 	PluginInstallStepComplete:Show()
 end
@@ -126,7 +123,6 @@ local function SetupChat()
 	for _, name in ipairs(_G.CHAT_FRAMES) do
 		local frame = _G[name]
 		local id = frame:GetID()
-		local chatName = FCF_GetChatWindowInfo(id)
 
 		if E.private.chat.enable then
 			CH:FCFTab_UpdateColors(CH:GetTab(_G[name]))
@@ -268,25 +264,26 @@ function MER:SetupLayout()
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 	E.db["general"]["interruptAnnounce"] = "RAID"
+	E.db["general"]["minimap"]["clusterDisable"] = true
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
 	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.6
-	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 8
-	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 1
-	E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
+	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
+	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 1.1
+	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 0.7
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["mail"]["texture"] = "Mail2"
 	E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"
 	E.db["general"]["minimap"]["icons"]["mail"]["scale"] = 1
-	E.db["general"]["minimap"]["icons"]["mail"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = -5
+	E.db["general"]["minimap"]["icons"]["mail"]["xOffset"] = 5
+	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = 5
 	E.db["general"]["minimap"]["icons"]["difficulty"]["xOffset"] = 5
 	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -5
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 0
+	E.private["general"]["minimap"]["hideTracking"] = true
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
 	E.db["general"]["minimap"]["size"] = 180
@@ -350,7 +347,6 @@ function MER:SetupLayout()
 	else
 		E.db["auras"]["debuffs"]["size"] = 34
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-184"
-
 	end
 	E.db["auras"]["debuffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
@@ -388,12 +384,7 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	ProfileDB - Bags
 	--]]----------------------------------
-	-- check if cargBags are enabled
-	if IsAddOnLoaded("cargBags_Nivaya") then
-		E.private["bags"]["enable"] = false
-	else
-		E.private["bags"]["enable"] = true
-	end
+	E.private["bags"]["enable"] = false
 	E.db["bags"]["itemLevelFont"] = "Expressway"
 	E.db["bags"]["itemLevelFontSize"] = 9
 	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
@@ -504,11 +495,10 @@ function MER:SetupLayout()
 	E.db["movers"]["MER_MicroBarMover"] = "TOP,ElvUIParent,TOP,0,-19"
 	E.db["movers"]["MER_OrderhallMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2-2"
 	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-12"
-	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,240,-15"
+	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,268,-15"
 	E.db["movers"]["MER_MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
 	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-60"
 	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-222"
-
 
 	--[[----------------------------------
 	--	Movers - Layout
@@ -519,12 +509,12 @@ function MER:SetupLayout()
 	E.db["movers"]["LootFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-495,-457"
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,465"
-	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-85,-300"
 	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-474,120"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
 	E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-65"
 	E.db["movers"]["TotemTrackerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
 	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
+
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
 	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-148"
@@ -607,6 +597,7 @@ function MER:SetupLayout()
 	E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,470,1"
 	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,62"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-17"
+	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
 
 	E:StaggeredUpdateAll(nil, true)

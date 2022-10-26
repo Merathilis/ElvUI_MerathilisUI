@@ -21,6 +21,8 @@ local _, ns = ...
 local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 
+local GetContainerNumSlots = --[[MER.IsPTR and C_Container.GetContainerNumSlots or]] GetContainerNumSlots
+
 --[[!
 	@class Implementation
 		The Implementation-class serves as the basis for your cargBags-instance, handling
@@ -334,44 +336,42 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 	return i
 end
 
---[[
-if MER.isNewPatch then
-	function Implementation:GetItemInfo(bagID, slotID, i)
+--[[ MER.IsPTR
+function Implementation:GetItemInfo(bagID, slotID, i)
 	i = i or defaultItem
 	for k in pairs(i) do i[k] = nil end
-		i.bagId = bagID
-		i.slotId = slotID
+	i.bagId = bagID
+	i.slotId = slotID
 
-		local texture, count, locked, quality, itemLink, noValue, itemID
-		local info = C_Container.GetContainerItemInfo(bagID, slotID)
-		if info then
-			i.texture, i.count, i.locked, i.quality, i.link, i.id, i.hasPrice = info.iconFileID, info.stackCount, info.isLocked, info.quality, info.hyperlink, info.itemID, (not info.hasNoValue)
+	local texture, count, locked, quality, itemLink, noValue, itemID
+	local info = C_Container.GetContainerItemInfo(bagID, slotID)
+	if info then
+		i.texture, i.count, i.locked, i.quality, i.link, i.id, i.hasPrice = info.iconFileID, info.stackCount, info.isLocked, info.quality, info.hyperlink, info.itemID, (not info.hasNoValue)
 
-			i.isInSet, i.setName = C_Container.GetContainerItemEquipmentSetInfo(bagID, slotID)
+		i.isInSet, i.setName = C_Container.GetContainerItemEquipmentSetInfo(bagID, slotID)
 
-			i.cdStart, i.cdFinish, i.cdEnable = C_Container.GetContainerItemCooldown(bagID, slotID)
+		i.cdStart, i.cdFinish, i.cdEnable = C_Container.GetContainerItemCooldown(bagID, slotID)
 
-			local questInfo = C_Container.GetContainerItemQuestInfo(bagID, slotID)
-			i.isQuestItem, i.questID, i.questActive = questInfo.isQuestItem, questInfo.questID, questInfo.isActive
+		local questInfo = C_Container.GetContainerItemQuestInfo(bagID, slotID)
+		i.isQuestItem, i.questID, i.questActive = questInfo.isQuestItem, questInfo.questID, questInfo.isActive
 
-			i.name, _, _, _, _, i.type, i.subType, _, i.equipLoc, _, _, i.classID, i.subClassID = GetItemInfo(i.link)
-			i.equipLoc = _G[i.equipLoc] -- INVTYPE to localized string
+		i.name, _, _, _, _, i.type, i.subType, _, i.equipLoc, _, _, i.classID, i.subClassID = GetItemInfo(i.link)
+		i.equipLoc = _G[i.equipLoc] -- INVTYPE to localized string
 
-			if i.id == PET_CAGE then
-				local petID, petLevel, petName = strmatch(i.link, "|H%w+:(%d+):(%d+):.-|h%[(.-)%]|h")
-				i.name = petName
-				i.id = tonumber(petID) or 0
-				i.level = tonumber(petLevel) or 0
-				i.classID = LE_ITEM_CLASS_MISCELLANEOUS
-				i.subClassID = LE_ITEM_MISCELLANEOUS_COMPANION_PET
-			elseif MYTHIC_KEYSTONES[i.id] then
-				i.level, i.name = strmatch(i.link, "|H%w+:%d+:%d+:(%d+):.-|h%[(.-)%]|h")
-				i.level = tonumber(i.level) or 0
-			end
+		if i.id == PET_CAGE then
+			local petID, petLevel, petName = strmatch(i.link, "|H%w+:(%d+):(%d+):.-|h%[(.-)%]|h")
+			i.name = petName
+			i.id = tonumber(petID) or 0
+			i.level = tonumber(petLevel) or 0
+			i.classID = LE_ITEM_CLASS_MISCELLANEOUS
+			i.subClassID = LE_ITEM_MISCELLANEOUS_COMPANION_PET
+		elseif MYTHIC_KEYSTONES[i.id] then
+			i.level, i.name = strmatch(i.link, "|H%w+:%d+:%d+:(%d+):.-|h%[(.-)%]|h")
+			i.level = tonumber(i.level) or 0
 		end
-
-		return i
 	end
+
+	return i
 end]]
 
 --[[!

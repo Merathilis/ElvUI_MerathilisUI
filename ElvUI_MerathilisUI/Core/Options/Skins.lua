@@ -1667,6 +1667,17 @@ if E.Retail then
 		name = L["Chat Bubbles"],
 		disabled = function() return not E.private.skins.blizzard.enable or E.private.general.chatBubbles ~= "nobackdrop" end,
 	}
+	options.blizzard.args.expansionLanding = {
+		type = "toggle",
+		name = L["Expansion LandingPage"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.expansionLanding end,
+	}
+	options.blizzard.args.majorFactions = {
+		type = "toggle",
+		name = L["Major Factions"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.majorFactions end,
+	}
+
 elseif E.Classic then
 	options.blizzard.args.craft = {
 		type = "toggle",

@@ -101,7 +101,6 @@ if E.Classic then
 	tinsert(potions, 13444)
 end
 
--- Potion added in Shadowlands (require level >= 50)
 local potionsShadowlands = {
 	5512,
 	171263,
@@ -127,6 +126,10 @@ local potionsShadowlands = {
 	183823,
 	184090,
 	187802,
+}
+
+local potionsDragonflight = {
+
 }
 
 -- Flasks (require level >= 40)
@@ -156,6 +159,10 @@ local flasksShadowlands = {
 
 	181468, -- Veiled Augment Rune
 	190384, -- Eternal Augment Rune
+}
+
+local flasksDragonflight = {
+
 }
 
 -- Foods (Crafted by cooking)
@@ -345,6 +352,10 @@ local foodShadowlandsVendor = {
 	184201,
 	184202,
 	184281,
+}
+
+local foodDragonflight = {
+
 }
 
 local conjuredManaFood = {
@@ -765,16 +776,19 @@ local moduleList = {
 	["POTIONSWRATH"] = wrathPotions,
 	["FLASKWRATH"] = wrathFlasks,
 	["ELIXIRWRATH"] = wrathElixirs,
+    ["POTIONSDF"] = potionsDragonflight,
+    ["FLASKDF"] = flasksDragonflight,
+	["FOODDF"] = foodDragonflight,
 }
 
 function module:CreateButton(name, barDB)
-	local button = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate, BackdropTemplate")
+	local button = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate")
 	button:Size(barDB.buttonWidth, barDB.buttonHeight)
 	button:SetTemplate()
 	button:SetClampedToScreen(true)
 	button:SetAttribute("type", "item")
 	button:EnableMouse(false)
-	button:RegisterForClicks("AnyUp")
+	button:RegisterForClicks("AnyDown")
 
 	local tex = button:CreateTexture(nil, "OVERLAY", nil)
 	tex:Point("TOPLEFT", button, "TOPLEFT", 1, -1)
@@ -859,9 +873,9 @@ function module:SetUpButton(button, questItemData, slotID)
 			if (duration and duration > 0 and enable and enable == 0) then
 				self.tex:SetVertexColor(0.4, 0.4, 0.4)
 			elseif IsItemInRange(self.itemID, "target") == false then
-				self.tex:SetVertexColor(1, 0, 0)
+				self.tex:SetVertexColor(1, 0, 0, 1)
 			else
-				self.tex:SetVertexColor(1, 1, 1)
+				self.tex:SetVertexColor(1, 1, 1, 1)
 			end
 		end
 	elseif button.slotID then

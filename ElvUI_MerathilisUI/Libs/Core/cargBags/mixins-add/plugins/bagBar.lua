@@ -37,8 +37,8 @@ local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 local Implementation = cargBags.classes.Implementation
 
--- local ContainerIDToInventoryID = MER.isNewPatch and C_Container.ContainerIDToInventoryID or ContainerIDToInventoryID
-local maxBagSlots = --[[MER.isNewPatch and 5 or]] NUM_BAG_SLOTS
+local ContainerIDToInventoryID = --[[MER.IsPTR and C_Container.ContainerIDToInventoryID or]] ContainerIDToInventoryID
+local maxBagSlots = --[[MER.IsPTR and 5 or]] NUM_BAG_SLOTS
 
 function Implementation:GetBagButtonClass()
 	return self:GetClass("BagButton", true, "BagButton")
@@ -61,7 +61,7 @@ function BagButton:Create(bagID)
 	buttonNum = buttonNum+1
 	local name = addon.."BagButton"..buttonNum
 	local isBankBag
-	-- if MER.isNewPatch then
+	-- if MER.IsNewPatch then
 		-- isBankBag = bagID > 5 and bagID < 13
 	-- else
 		isBankBag = bagID > 4 and bagID < 12
@@ -97,11 +97,11 @@ function BagButton:UpdateButton()
 
 	if (self.bagId > maxBagSlots) then
 		if (self.bagId - maxBagSlots <= GetNumBankSlots()) then
-			self.Icon:SetVertexColor(1, 1, 1)
+			self.Icon:SetVertexColor(1, 1, 1, 1)
 			self.notBought = nil
 		else
 			self.notBought = true
-			self.Icon:SetVertexColor(1, 0, 0)
+			self.Icon:SetVertexColor(1, 0, 0, 1)
 		end
 	end
 

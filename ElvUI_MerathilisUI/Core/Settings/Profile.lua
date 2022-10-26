@@ -130,11 +130,11 @@ P.blizzard = {
 		level = true,
 		hideMaxLevel = true,
 		useGameColor = true,
-		useClassColor = true,
+		useClientColor = true,
 		useNoteAsName = false,
 		textures = {
-			game = "Modern",
-			status = "Square",
+			client = "modern",
+			status = "square",
 			factionIcon = false
 		},
 		areaColor = {
@@ -535,7 +535,7 @@ local function Potions()
 	elseif E.Wrath then
 		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
-		return "POTIONSL,FLASKSL,UTILITY"
+		return "POTIONSL,POTIONSDF,FLASKSL,FLASKDF,UTILITY"
 	end
 end
 
@@ -670,7 +670,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODSL,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODSL,FOODDF,CUSTOM"
 	},
 	bar4 = {
 		enable = false,
@@ -867,15 +867,6 @@ P.unitframes = {
 P.maps = {
 	minimap = {
 		flash = true,
-		instanceDifficulty = {
-			enable = true,
-			hideBlizzard = true,
-			font = {
-				name = E.db.general.font,
-				size = E.db.general.fontSize,
-				style = "OUTLINE",
-			},
-		},
 		coords = {
 			enable = true,
 			position = "BOTTOM",
@@ -1008,8 +999,8 @@ P.smb = {
 	spacing = 1,
 	inverseDirection = false,
 	orientation = "HORIZONTAL",
-	calendar = false,
-	garrison = false
+	-- calendar = false,
+	expansionLandingPage = false
 }
 
 P.locPanel = {
@@ -1058,6 +1049,8 @@ P.raidmarkers = {
 	buttonSize = 20,
 	buttonBackdrop = true,
 	buttonAnimation = true,
+	buttonAnimationDuration = 0.2,
+	buttonAnimationScale = 1.33,
 	spacing = 4,
 	orientation = "HORIZONTAL",
 	modifier = "shift",
@@ -1169,7 +1162,7 @@ P.cooldownFlash = {
 	animScale = 1.5,
 	iconSize = 40,
 	holdTime = 0.3,
-	petOverlay = {1, 1, 1},
+	petOverlay = {1, 1, 1, 1},
 	ignoredSpells = {},
 	invertIgnored = false,
 	enablePet = false,
@@ -1260,9 +1253,4 @@ P.armory = {
 	StatOrder = "12345",
 	StatExpand = true,
 	PetHappiness = true,
-}
-
-P.flightMode = {
-	enable = true,
-	BenikFlightMode = true,
 }

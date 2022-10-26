@@ -24,7 +24,7 @@ local function LoadSkin()
 	end
 
 	hooksecurefunc("TokenFrame_Update", UpdateToken)
-	hooksecurefunc(_G.TokenFrameContainer, "update", UpdateToken)
+	-- hooksecurefunc(_G.TokenFrameContainer, "update", UpdateToken)
 end
 
 S:AddCallbackForAddon("Blizzard_TokenUI", LoadSkin)

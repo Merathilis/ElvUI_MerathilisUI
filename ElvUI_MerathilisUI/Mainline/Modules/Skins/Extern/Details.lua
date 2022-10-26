@@ -25,9 +25,7 @@ local DetailsGradient = {
 
 local function GradientColorClass(class)
 	if class then
-		return DetailsGradient[class].r1 - 0.2, DetailsGradient[class].g1 - 0.2,
-			DetailsGradient[class].b1 - 0.2, 0.9, DetailsGradient[class].r2 + 0.2,
-			DetailsGradient[class].g2 + 0.2, DetailsGradient[class].b2 + 0.2, 0.9
+		return
 	end
 end
 
@@ -57,12 +55,12 @@ local function GradientBars()
 						if row.minha_tabela and row.minha_tabela.name then
 							class = row.minha_tabela:class()
 							if class ~= 'UNKNOW' and classes[class] then
-								row.textura:SetGradientAlpha("Horizontal", GradientColorClass(class))
+								row.textura:SetGradient("Horizontal", CreateColor(DetailsGradient[class].r1 - 0.2, DetailsGradient[class].g1 - 0.2,	DetailsGradient[class].b1 - 0.2, 0.9), CreateColor(DetailsGradient[class].r2 + 0.2, DetailsGradient[class].g2 + 0.2, DetailsGradient[class].b2 + 0.2, 0.9))
 							else
-								row.textura:SetGradientAlpha("Horizontal", r - 0.5, g - 0.5, b - 0.5, 0.9, r + 0.2, g + 0.2, b + 0.2, 0.9)
+								row.textura:SetGradient("Horizontal", CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9), CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9))
 							end
 						else
-							row.textura:SetGradientAlpha("Horizontal", r - 0.5, g - 0.5, b - 0.5, 0.9, r + 0.2, g + 0.2, b + 0.2, 0.9)
+							row.textura:SetGradient("Horizontal", CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9), CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9))
 						end
 					end)
 				end
@@ -189,14 +187,16 @@ local function ReskinDetails()
 		end
 	end
 
-	-- Disable some AddOnSkins settings
-	local AS = unpack(AddOnSkins)
-	AS.db["EmbedSystem"] = false
-	AS.db["EmbedSystemDual"] = false
-	AS.db["EmbedBelowTop"] = false
-	AS.db["EmbedMain"] = ""
-	AS.db["EmbedLeft"] = ""
-	AS.db["EmbedRight"] = ""
+    -- Disable some AddOnSkins settings
+	if IsAddOnLoaded('AddOnSkins') then
+		local AS = unpack(AddOnSkins)
+		AS.db["EmbedSystem"] = false
+		AS.db["EmbedSystemDual"] = false
+		AS.db["EmbedBelowTop"] = false
+		AS.db["EmbedMain"] = ""
+		AS.db["EmbedLeft"] = ""
+		AS.db["EmbedRight"] = ""
+	end
 end
 
 local function LoadSkin()

@@ -146,7 +146,7 @@ function module:BuildCharacter()
 			-- Gradiation
 			frame.Gradiation = CreateFrame('Frame', nil, frame)
 			frame.Gradiation:Size(120, slotHeight + 4)
-			frame.Gradiation:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
+			frame.Gradiation:SetFrameLevel(_G["CharacterModelScene"]:GetFrameLevel() - 1)
 
 			frame.Gradiation.Texture = frame.Gradiation:CreateTexture(nil, "OVERLAY")
 			frame.Gradiation.Texture:SetInside()
@@ -275,11 +275,11 @@ function module:BuildCharacter()
 	end)
 
 	-- Adjust a bit the Model Size
-	if _G["CharacterModelFrame"]:GetHeight() == 320 then
-		_G["CharacterModelFrame"]:ClearAllPoints()
-		_G["CharacterModelFrame"]:Point('TOPLEFT', _G["CharacterHeadSlot"])
-		_G["CharacterModelFrame"]:Point('RIGHT', _G["CharacterHandsSlot"])
-		_G["CharacterModelFrame"]:Point('BOTTOM', _G["CharacterMainHandSlot"])
+	if _G["CharacterModelScene"]:GetHeight() == 320 then
+		_G["CharacterModelScene"]:ClearAllPoints()
+		_G["CharacterModelScene"]:Point('TOPLEFT', _G["CharacterHeadSlot"])
+		_G["CharacterModelScene"]:Point('RIGHT', _G["CharacterHandsSlot"])
+		_G["CharacterModelScene"]:Point('BOTTOM', _G["CharacterMainHandSlot"])
 	end
 end
 
@@ -292,42 +292,32 @@ function module:ExpandSize()
 	_G.CharacterHandsSlot:SetPoint('TOPRIGHT', _G.CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
 	_G.CharacterMainHandSlot:SetPoint('BOTTOMLEFT', _G.PaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
 
-	_G.CharacterModelFrame:ClearAllPoints()
-	_G.CharacterModelFrame:SetPoint('TOPLEFT', _G.CharacterHeadSlot, 0, 5)
-	_G.CharacterModelFrame:SetPoint('RIGHT', _G.CharacterHandsSlot)
-	_G.CharacterModelFrame:SetPoint('BOTTOM', _G.CharacterMainHandSlot)
+	_G.CharacterModelScene:ClearAllPoints()
+	_G.CharacterModelScene:SetPoint('TOPLEFT', _G.CharacterHeadSlot, 0, 5)
+	_G.CharacterModelScene:SetPoint('RIGHT', _G.CharacterHandsSlot)
+	_G.CharacterModelScene:SetPoint('BOTTOM', _G.CharacterMainHandSlot)
 
 	if _G.PaperDollFrame:IsShown() then --Setting up width for the main frame
 		_G.CharacterFrame:SetWidth(_G.CharacterFrame.Expanded and 650 or 444)
 		_G.CharacterFrameInsetRight:SetPoint('TOPLEFT', _G.CharacterFrameInset, 'TOPRIGHT', 110, 0)
 	end
 
-	if _G.CharacterModelFrame and _G.CharacterModelFrame.BackgroundTopLeft and _G.CharacterModelFrame.BackgroundTopLeft:IsShown() then
-		_G.CharacterModelFrame.BackgroundTopLeft:Hide()
-		_G.CharacterModelFrame.BackgroundTopRight:Hide()
-		_G.CharacterModelFrame.BackgroundBotLeft:Hide()
-		_G.CharacterModelFrame.BackgroundBotRight:Hide()
+	if _G.CharacterModelScene and _G.CharacterModelScene.BackgroundTopLeft and _G.CharacterModelScene.BackgroundTopLeft:IsShown() then
+		_G.CharacterModelScene.BackgroundTopLeft:Hide()
+		_G.CharacterModelScene.BackgroundTopRight:Hide()
+		_G.CharacterModelScene.BackgroundBotLeft:Hide()
+		_G.CharacterModelScene.BackgroundBotRight:Hide()
 
-		if _G.CharacterModelFrame.backdrop then
-			_G.CharacterModelFrame.backdrop:Hide()
+		if _G.CharacterModelScene.backdrop then
+			_G.CharacterModelScene.backdrop:Hide()
 		end
 	end
-
-	-- Overlay resize to match new width
-	_G.CharacterModelFrameBackgroundOverlay:SetPoint('TOPLEFT', _G.CharacterModelFrame, -4, 0)
-	_G.CharacterModelFrameBackgroundOverlay:SetPoint('BOTTOMRIGHT', _G.CharacterModelFrame, 4, 0)
-
-	_G.PaperDollEquipmentManagerPane:ClearAllPoints()
-	_G.PaperDollEquipmentManagerPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
-
-	_G.PaperDollTitlesPane:ClearAllPoints()
-	_G.PaperDollTitlesPane:SetPoint("RIGHT", _G.CharacterFrame, "RIGHT", -30, -20)
 
 	if E.db.general.itemLevel.displayCharacterInfo then
 		M:UpdatePageInfo(_G.CharacterFrame, "Character")
 	end
 
-		--Pawn Button sucks A$$
+	--Pawn Button sucks A$$
 	if IsAddOnLoaded('Pawn') then
 		if _G.PawnUI_InventoryPawnButton then
 			_G.PawnUI_InventoryPawnButton:SetFrameStrata('DIALOG')
@@ -371,22 +361,14 @@ local function ColorizeStatPane(frame)
 	frame.leftGrad:SetHeight(frame:GetHeight())
 	frame.leftGrad:SetPoint("LEFT", frame, "CENTER")
 	frame.leftGrad:SetTexture(E.media.blankTex)
-	if MER.IsNewPatch then
-		frame.leftGrad:SetGradient("Horizontal", CreateColor(r, g, b, 0.75), CreateColor(r, g, b, 0))
-	else
-		frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.75, r, g, b, 0)
-	end
+	frame.leftGrad:SetGradient("Horizontal", CreateColor(r, g, b, 0.75), CreateColor(r, g, b, 0))
 
 	frame.rightGrad = frame:CreateTexture(nil, "BORDER")
 	frame.rightGrad:SetWidth(80)
 	frame.rightGrad:SetHeight(frame:GetHeight())
 	frame.rightGrad:SetPoint("RIGHT", frame, "CENTER")
 	frame.rightGrad:SetTexture(E.media.blankTex)
-	if MER.IsNewPatch then
-		frame.rightGrad:SetGradient("Horizontal", CreateColor(r, g, b, 0), CreateColor(r, g, b, 0.75))
-	else
-		frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
-	end
+	frame.rightGrad:SetGradient("Horizontal", CreateColor(r, g, b, 0), CreateColor(r, g, b, 0.75))
 end
 
 local function SkinAdditionalStats()
@@ -417,9 +399,9 @@ function module:SkinCharacterStatsPane()
 
 	local CharacterStatsPane = _G.CharacterStatsPane
 
-	_G.CharacterModelFrame:DisableDrawLayer("BACKGROUND")
-	_G.CharacterModelFrame:DisableDrawLayer("BORDER")
-	_G.CharacterModelFrame:DisableDrawLayer("OVERLAY")
+	_G.CharacterModelScene:DisableDrawLayer("BACKGROUND")
+	_G.CharacterModelScene:DisableDrawLayer("BORDER")
+	_G.CharacterModelScene:DisableDrawLayer("OVERLAY")
 
 	if not IsAddOnLoaded("DejaCharacterStats") then
 		if module.db.stats.classColorGradient then
@@ -484,9 +466,8 @@ function module:AddCharacterIcon()
 	local CharacterLevelText = _G.CharacterLevelText
 
 	-- Class Icon Holder
-	local ClassIconHolder = CreateFrame("Frame", "MER_ClassIcon", E.UIParent)
+	local ClassIconHolder = CreateFrame("Frame", "MER_ClassIcon", _G.PaperDollFrame)
 	ClassIconHolder:SetSize(20, 20)
-	ClassIconHolder:SetParent("PaperDollFrame")
 
 	local ClassIconTexture = ClassIconHolder:CreateTexture()
 	ClassIconTexture:SetAllPoints(ClassIconHolder)
@@ -497,7 +478,7 @@ function module:AddCharacterIcon()
 
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		CharacterFrameTitleText:ClearAllPoints()
-		CharacterFrameTitleText:SetPoint('TOP', _G.CharacterModelFrame, 0, 50)
+		CharacterFrameTitleText:SetPoint('TOP', _G.CharacterModelScene, 0, 50)
 		CharacterFrameTitleText:SetParent(_G.CharacterFrame)
 		CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), E.db.general.fontSize+2, E.db.general.fontStyle)
 

@@ -211,12 +211,6 @@ L["Extends the merchant page to show more items."] = true
 L["Number of Pages"] = true
 L["The number of pages shown in the merchant frame."] = true
 
--- FlightMode
-L["FlightMode"] = "飞行模式"
-L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "增强 |cff00c0faBenikUI|r 的飞行模式, 如需完全禁用飞行模式, 请前往 |cff00c0faBenikUI|r 选项."
-L["Exit FlightMode"] = "退出飞行模式"
-L["Left Click to Request Stop"] = "左键点击来请求停止"
-
 -- FlightPoint
 L["Flight Point"] = "飞行点"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "在飞行地图上启用/禁用MerathilisUI飞行点."
@@ -677,11 +671,9 @@ L["Hide In Combat"] = true
 -- Maps
 L["Maps"] = true
 L["World Map"] = true
-L["Instance Difficulty"] = true
 L["Duration"] = true
 L["Fade Out"] = true
 L["Scale"] = true
-L["Reskin the instance diffculty in text style."] = true
 L["Hide Blizzard"] = true
 L["Change the shape of ElvUI minimap."] = true
 L["Height Percentage"] = true

@@ -43,6 +43,12 @@ function WS:HandleTreeGroup(widget)
 			end
 
 			if db.backdrop.enable then
+				button:SetHighlightTexture("")
+				if button.highlight then
+					button.highlight:SetTexture("")
+					button.highlight:Hide()
+				end
+
 				-- Create background
 				button:SetHighlightTexture("")
 

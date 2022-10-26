@@ -17,55 +17,53 @@ local function UpdateFollowerQuality(self, followerInfo)
 	end
 end
 
-local function UpdateFollowerList(self)
-	local followerFrame = self:GetParent()
-	local scrollFrame = followerFrame.FollowerList.listScroll
-	local buttons = scrollFrame.buttons
+local function ReskinFollowerButton(button)
+	if not button.IsSkinned then
+		button.BG:Hide()
+		button.Selection:SetTexture()
+		button.AbilitiesBG:SetTexture()
+		button:CreateBackdrop('Transparent')
 
-	for i = 1, #buttons do
-		local button = buttons[i].Follower
+		local hl = button:GetHighlightTexture()
+		hl:SetColorTexture(r, g, b, .1)
+		hl:ClearAllPoints()
+		hl:SetInside(button.bg)
+
 		local portrait = button.PortraitFrame
-
-		if not button.restyled then
-			button.BG:Hide()
-			button.Selection:SetTexture("")
-			button.AbilitiesBG:SetTexture("")
-			button.bg = module:CreateBDFrame(button, .25)
-			module:CreateGradient(button.bg)
-
-			local hl = button:GetHighlightTexture()
-			hl:SetColorTexture(r, g, b, .1)
-			hl:ClearAllPoints()
-			hl:SetInside(button.bg)
-
-			if portrait then
-				S:HandleGarrisonPortrait(portrait)
-				portrait:ClearAllPoints()
-				portrait:SetPoint("TOPLEFT", 4, -1)
-				hooksecurefunc(portrait, "SetupPortrait", UpdateFollowerQuality)
-			end
-
-			if button.BusyFrame then
-				button.BusyFrame:SetInside(button.bg)
-			end
-
-			button.restyled = true
+		if portrait then
+			S:HandleGarrisonPortrait(portrait)
+			portrait:ClearAllPoints()
+			portrait:SetPoint("TOPLEFT", 4, -1)
+			hooksecurefunc(portrait, "SetupPortrait", UpdateFollowerQuality)
 		end
 
-		if button.Counters then
-			for i = 1, #button.Counters do
-				local counter = button.Counters[i]
-				if counter and not counter.backdrop then
-					S:HandleIcon(counter.Icon, true)
-				end
-			end
+		if button.BusyFrame then
+			button.BusyFrame:SetInside(button.bg)
 		end
 
-		if button.Selection:IsShown() then
-			button.bg:SetBackdropColor(r, g, b, .2)
-		else
-			button.bg:SetBackdropColor(0, 0, 0, .25)
+		button.styled = true
+	end
+
+	if button.Counters then
+		for i = 1, #button.Counters do
+			local counter = button.Counters[i]
+			if counter and not counter.Icon.backdrop then
+				S:HandleIcon(counter.Icon, true)
+			end
 		end
+	end
+
+	if button.Selection:IsShown() then
+		button.backdrop:SetBackdropColor(r, g, b, .2)
+	else
+		button.backdrop:SetBackdropColor(0, 0, 0, .25)
+	end
+end
+
+local function ReskinFollowerButtons(self)
+	for i = 1, self.ScrollTarget:GetNumChildren() do
+		local child = select(i, self.ScrollTarget:GetChildren())
+		ReskinFollowerButton(child.Follower)
 	end
 end
 
@@ -99,7 +97,7 @@ local function ReskinMissionFrame(self)
 
 	local FollowerList = self.FollowerList
 	FollowerList:StripTextures()
-	hooksecurefunc(FollowerList, "UpdateFollowers", UpdateFollowerList)
+	hooksecurefunc(FollowerList.ScrollBox, "Update", ReskinFollowerButtons)
 end
 
 local function LoadSkin()
@@ -175,12 +173,13 @@ local function LoadSkin()
 
 	local followerList = GarrisonLandingPage.FollowerList
 	followerList:StripTextures()
-	hooksecurefunc(GarrisonLandingPageFollowerList, "UpdateFollowers", UpdateFollowerList)
+	-- hooksecurefunc(GarrisonLandingPageFollowerList, "UpdateFolloShowFollowers", UpdateFollowerList)
 
 	-- Report
 	local Report = GarrisonLandingPage.Report
 	local scrollFrame = Report.List.listScroll
 
+	--[[
 	local buttons = scrollFrame.buttons
 	for i = 1, #buttons do
 		local button = buttons[i]
@@ -191,9 +190,9 @@ local function LoadSkin()
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(button:GetFrameLevel() - 1)
 
-		module:CreateBD(bg, .25)
+		bg:CreateBackdrop('Transparent')
 		module:CreateGradient(bg)
-	end
+	end]]
 
 	for _, tab in pairs({Report.InProgress, Report.Available}) do
 		tab:SetHighlightTexture("")
@@ -249,13 +248,13 @@ local function LoadSkin()
 	local GarrisonMonumentFrame = _G.GarrisonMonumentFrame
 
 	GarrisonMonumentFrame.Background:Hide()
-	module:CreateBD(GarrisonMonumentFrame)
+	GarrisonMonumentFrame:CreateBackdrop('Transparent')
 	GarrisonMonumentFrame:Styling()
 
 	-- [[ Shipyard ]]
 	local GarrisonShipyardFrame = _G.GarrisonShipyardFrame
 	if GarrisonShipyardFrame.backdrop then GarrisonShipyardFrame.backdrop:Hide() end
-	module:CreateBD(GarrisonShipyardFrame, .25)
+	GarrisonShipyardFrame:CreateBackdrop('Transparent')
 	GarrisonShipyardFrame:Styling()
 
 	local shipyardTab = GarrisonShipyardFrame.FollowerTab
@@ -271,7 +270,7 @@ local function LoadSkin()
 	for i = 1, 10 do
 		select(i, shipyardMission.RewardsFrame:GetRegions()):Hide()
 	end
-	module:CreateBD(shipyardMission.RewardsFrame, .25)
+	shipyardMission.RewardsFrame:CreateBackdrop('Transparent')
 
 	GarrisonShipyardFrame.MissionCompleteBackground:GetRegions():Hide()
 	GarrisonShipyardFrame.MissionTab.MissionList.CompleteDialog:GetRegions():Hide()
@@ -280,10 +279,10 @@ local function LoadSkin()
 
 	local OrderHallMissionFrame = _G.OrderHallMissionFrame
 	if OrderHallMissionFrame.backdrop then OrderHallMissionFrame.backdrop:Hide() end
-	module:CreateBD(OrderHallMissionFrame, .25)
+	OrderHallMissionFrame:CreateBackdrop('Transparent')
 	OrderHallMissionFrame:Styling()
 
-	 --Missions
+	--Missions
 	local Mission = _G.OrderHallMissionFrameMissions
 	Mission.CompleteDialog:StripTextures()
 	Mission.CompleteDialog:CreateBackdrop("Transparent")
@@ -292,7 +291,7 @@ local function LoadSkin()
 	for i = 1, 10 do
 		select(i, MissionPage.RewardsFrame:GetRegions()):Hide()
 	end
-	module:CreateBD(MissionPage.RewardsFrame, .25)
+	MissionPage.RewardsFrame:CreateBackdrop('Transparent')
 
 	-- [[ BFA Mission UI]]
 	local BFAMissionFrame = _G.BFAMissionFrame
@@ -319,9 +318,6 @@ local function LoadSkin()
 	CovenantMissionFrame.FollowerTab.RaisedFrameEdges:SetAlpha(0)
 	CovenantMissionFrame.FollowerTab.HealFollowerFrame.ButtonFrame:SetAlpha(0)
 	_G.CovenantMissionFrameFollowers.ElevatedFrame:SetAlpha(0)
-	_G.CovenantMissionFrameFollowersListScrollFrameScrollBar:DisableDrawLayer("BACKGROUND")
-	_G.CovenantMissionFrameFollowersListScrollFrameScrollBar:CreateBackdrop('Transparent')
-	module:CreateGradient(_G.CovenantMissionFrameFollowersListScrollFrameScrollBar.backdrop)
 
 	-- AddOn Support
 	local function reskinWidgetFont(font, r, g, b)

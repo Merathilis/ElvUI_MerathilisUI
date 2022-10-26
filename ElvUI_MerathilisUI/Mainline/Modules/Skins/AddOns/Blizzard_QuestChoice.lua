@@ -17,7 +17,7 @@ local function LoadSkin()
 		QuestChoiceFrame.backdrop:Hide()
 	end
 
-	module:CreateBD(QuestChoiceFrame, .5)
+	QuestChoiceFrame:CreateBackdrop('Transparent')
 	QuestChoiceFrame:Styling()
 	module:CreateBackdropShadow(QuestChoiceFrame)
 

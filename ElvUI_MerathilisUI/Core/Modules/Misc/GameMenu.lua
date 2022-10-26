@@ -64,25 +64,6 @@ MER.NPCS = {
 	173992, -- Torghast Lurker
 }
 
-MER.PEPE = {
-	[1] = "1246563",
-	[2] = "1131783",
-	[3] = "1131795",
-	[4] = "1131797",
-	[5] = "1131798",
-	[6] = "1534076",
-	[7] = "1386540",
-	[8] = "1859375",
-	[9] = "1861550",
-	[10] = "3011956",
-	[11] = "3209343",
-	[12] = "3855982",
-	[13] = "3866273",
-	[14] = "3866274",
-	[15] = "3866275",
-	--[1] = "1041861", -- Big Pepe -- its too big for the game menu
-}
-
 --[[
 	0 = idle
 	1 = death
@@ -205,20 +186,6 @@ local function NPC_Model(self)
 	UIFrameFadeIn(self, 1, self:GetAlpha(), 1)
 end
 
-local function Pepe_Model(self)
-	local npc = MER.PEPE
-	local mod = random(1, #npc)
-	local id = npc[mod]
-
-	self:ClearModel()
-	self:SetModel(id)
-	self:SetSize(150, 150)
-	self:SetCamDistanceScale(1)
-	self:SetFacing(6)
-	self:SetAlpha(1)
-	UIFrameFadeIn(self, 1, self:GetAlpha(), 1)
-end
-
 function module:GameMenu()
 	-- GameMenu Frame
 	if not GameMenuFrame.MUIbottomPanel then
@@ -227,8 +194,8 @@ function module:GameMenu()
 		bottomPanel:SetFrameLevel(0)
 		bottomPanel:Point("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:Width(GetScreenWidth() + (E.Border*2))
-		MERS:CreateBD(bottomPanel, .5)
-		bottomPanel:Styling()
+		bottomPanel:CreateBackdrop('Transparent')
+		bottomPanel.backdrop:Styling()
 
 		bottomPanel.ignoreFrameTemplates = true
 		bottomPanel.ignoreBackdropColors = true
@@ -256,8 +223,8 @@ function module:GameMenu()
 		topPanel:SetFrameLevel(0)
 		topPanel:Point("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:Width(GetScreenWidth() + (E.Border*2))
-		MERS:CreateBD(topPanel, .5)
-		topPanel:Styling()
+		topPanel:CreateBackdrop('Transparent')
+		topPanel.backdrop:Styling()
 
 		topPanel.ignoreFrameTemplates = true
 		topPanel.ignoreBackdropColors = true
@@ -304,18 +271,6 @@ function module:GameMenu()
 		npcModel.isIdle = nil
 		npcModel:Size(256)
 		npcModel:Show()
-	end
-
-	if E.Retail and not GameMenuFrame.pepeHolder then
-		GameMenuFrame.pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
-		GameMenuFrame.pepeHolder:Size(150)
-		GameMenuFrame.pepeHolder:SetPoint("BOTTOM", GameMenuFrame, "TOP", 0, -50)
-
-		local pepeModel = CreateFrame("PlayerModel", nil, GameMenuFrame.pepeHolder)
-		pepeModel:Point("CENTER", GameMenuFrame.pepeHolder, "CENTER")
-		pepeModel:SetScript("OnShow", Pepe_Model)
-		pepeModel.isIdle = nil
-		pepeModel:Show()
 	end
 end
 

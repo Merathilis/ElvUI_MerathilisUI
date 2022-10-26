@@ -51,7 +51,6 @@ end
 
 local function ReskinMainPanel(gui)
 	S:HandleTab(gui.MainTabButton, nil, "Transparent")
-	-- S:ReskinTab(gui.MainTabButton)
 	gui.MainTabButton:ClearAllPoints()
 	gui.MainTabButton:SetPoint("TOPLEFT", gui, "BOTTOMLEFT", 0, -1)
 
@@ -86,7 +85,6 @@ end
 
 local function ReskinAdvancedPanel(gui)
 	S:HandleTab(gui.AdvancedTabButton, nil, "Transparent")
-	-- S:ReskinTab(gui.AdvancedTabButton)
 
 	S:HandleRadioButton(gui.HardestRadioButton)
 	S:HandleRadioButton(gui.EasiestRadioButton)
@@ -114,7 +112,6 @@ end
 
 local function ReskinProfilePanel(gui)
 	S:HandleTab(gui.ProfileTabButton, nil, "Transparent")
-	-- S:ReskinTab(gui.ProfileTabButton)
 end
 
 function module:TLDRDropdown(level)

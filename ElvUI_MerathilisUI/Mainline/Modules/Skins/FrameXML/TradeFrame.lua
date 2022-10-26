@@ -46,9 +46,10 @@ local function LoadSkin()
 	end
 
 	-- Display text on the TradeFrame if unit is a known person
-	local infoText = F.CreateText(TradeFrame, "OVERLAY", 16, "")
-	infoText:ClearAllPoints()
-	infoText:SetPoint("TOP", _G["TradeFrameRecipientNameText"], "BOTTOM", 0, -5)
+	TradeFrame.text = TradeFrame:CreateFontString(nil, 'OVERLAY')
+	TradeFrame.text:FontTemplate(nil, 16, "OUTLINE")
+	TradeFrame.text:ClearAllPoints()
+	TradeFrame.text:SetPoint("TOP", _G["TradeFrameRecipientNameText"], "BOTTOM", 0, -5)
 
 	local function UpdateColor()
 		local r, g, b = F.UnitColor("NPC")
@@ -63,7 +64,7 @@ local function LoadSkin()
 		elseif IsGuildMember(guid) then
 			text = "|cff00ff00".._G.GUILD
 		end
-		infoText:SetText(text)
+		TradeFrame.text:SetText(text)
 	end
 	hooksecurefunc("TradeFrame_Update", UpdateColor)
 end

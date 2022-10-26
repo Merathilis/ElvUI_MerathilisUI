@@ -42,10 +42,10 @@ local function LoadSkin()
 		bg:SetPoint("TOPLEFT", 2, 0)
 		bg:SetPoint("BOTTOMRIGHT", -1, 0)
 		bg:SetFrameLevel(header:GetFrameLevel()-1)
-		module:CreateBD(bg, .25)
+		bg:CreateBackdrop('Transparent')
 	end
 
-	module:CreateBD(BlackMarketFrame.HotDeal, .25)
+	BlackMarketFrame.HotDeal:CreateBackdrop('Transparent')
 
 	hooksecurefunc("BlackMarketScrollFrame_Update", function()
 		local buttons = _G.BlackMarketScrollFrame.buttons
@@ -67,7 +67,7 @@ local function LoadSkin()
 				bg:SetPoint("TOPLEFT")
 				bg:SetPoint("BOTTOMRIGHT", 0, 5)
 				bg:SetFrameLevel(bu:GetFrameLevel()-1)
-				module:CreateBD(bg, 0)
+				bg:CreateBackdrop('Transparent')
 
 				local tex = bu:CreateTexture(nil, "BACKGROUND")
 				tex:SetPoint("TOPLEFT")

@@ -3,6 +3,7 @@ local module = MER:GetModule('MER_UnitFrames')
 local UF = E:GetModule('UnitFrames')
 local AB = E:GetModule('ActionBars')
 
+local CreateVector3D = CreateVector3D
 local hooksecurefunc = hooksecurefunc
 
 function module:ADDON_LOADED(event, addon)
@@ -19,7 +20,7 @@ function module:CreateHighlight(frame)
 	hl:SetAllPoints()
 	hl:SetTexture("Interface\\PETBATTLES\\PetBattle-SelectedPetGlow")
 	hl:SetTexCoord(0, 1, .5, 1)
-	hl:SetVertexColor(1, 1, .6)
+	hl:SetVertexColor(1, 1, .6, 1)
 	hl:SetBlendMode("ADD")
 	hl:Hide()
 	frame.Highlight = hl
@@ -46,8 +47,8 @@ function module:CreateAnimatedBars(frame)
 			if db.type == "DEFAULT" then
 				animation:SetModel(1715069)
 				animation:MakeCurrentCameraCustom()
-				animation:SetTransform(-0.035, 0, 0, rad(270), 0, 0, 0.580)
 				animation:SetPortraitZoom(1)
+				animation:SetTransform(CreateVector3D(-0.035, 0, 0), CreateVector3D(rad(270), 0, 0), 0.580)
 				animation:SetAlpha(0.65)
 			elseif db.type == "CUSTOM" then
 				animation:SetModel(db.model)

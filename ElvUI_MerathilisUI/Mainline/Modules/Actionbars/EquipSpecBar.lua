@@ -176,7 +176,9 @@ function MAB:CreateEquipBar()
 	EquipmentSets.Flyout:SetFrameLevel(EquipmentSets:GetFrameLevel()+1)
 	EquipmentSets.Flyout:Point("TOP", EquipmentSets, "TOP", 0, 0)
 	EquipmentSets.Flyout:Size(23, 11)
-	EquipmentSets.Flyout.Arrow = EquipmentSets.Flyout:CreateTexture(nil, "OVERLAY", "ActionBarFlyoutButton-ArrowUp")
+
+	EquipmentSets.Flyout.Arrow = EquipmentSets.Flyout:CreateTexture(nil, "OVERLAY")
+	EquipmentSets.Flyout.Arrow:SetAtlas("UI-HUD-ActionBar-Flyout")
 	EquipmentSets.Flyout.Arrow:SetAllPoints()
 	EquipmentSets.Flyout:SetScript("OnEnter", function(self)
 		_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -187,7 +189,7 @@ function MAB:CreateEquipBar()
 
 	EquipmentSets.Flyout:SetScript("OnLeave", GameTooltip_Hide)
 	EquipmentSets.Flyout:SetScript("OnClick", function()
-		for i = 1, 10 do
+		for i = 1, C_EquipmentSet.GetNumEquipmentSets() do
 			if EquipmentSets.Button[i]:IsShown() then
 				EquipmentSets.Button[i]:Hide()
 			else
@@ -208,7 +210,7 @@ function MAB:CreateEquipBar()
 		end
 	end)
 
-	for i = 1, 10 do
+	for i = 1, C_EquipmentSet.GetNumEquipmentSets() do
 		local Button = CreateFrame("Button", nil, EquipmentSets.Flyout)
 		Button:Hide()
 		Button:Size(Size, Size)
@@ -274,7 +276,7 @@ function MAB:CreateEquipBar()
 	EquipmentSets.Button:RegisterUnitEvent('UNIT_INVENTORY_CHANGED', 'player')
 	EquipmentSets.Button:SetScript("OnEvent", function(self)
 		local Index, SetEquipped = 1
-		for i = 1, 10 do
+		for i = 1, C_EquipmentSet.GetNumEquipmentSets() do
 			local _, Icon, SpecIndex, IsEquipped = C_EquipmentSet.GetEquipmentSetInfo(i - 1)
 			self[i]:SetNormalTexture(GearTexture)
 			self[i]:SetID(i)
