@@ -314,35 +314,8 @@ options.maps = {
 				},
 			},
 		},
-		coords = {
-			order = 5,
-			type = "group",
-			name = L["Coordinates"],
-			get = function(info) return E.db.mui.maps.minimap.coords[ info[#info] ] end,
-			set = function(info, value) E.db.mui.maps.minimap.coords[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-			args = {
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-				},
-				position = {
-					order = 2,
-					type = "select",
-					name = L["Position"],
-					values = {
-						["TOP"] = L["Top"],
-						["BOTTOM"] = L["Bottom"],
-						["LEFT"] = L["Left"],
-						["RIGHT"] = L["Right"],
-						["CENTER"] = L["Center"],
-					},
-					disabled = function() return not E.db.mui.maps.minimap.coords.enable end,
-				},
-			},
-		},
 		smb = {
-			order = 6,
+			order = 5,
 			type = "group",
 			name = L["Minimap Buttons"],
 			get = function(info) return E.db.mui.smb[ info[#info] ] end,
@@ -516,7 +489,7 @@ options.maps = {
 			},
 		},
 		superTracker = {
-			order = 7,
+			order = 6,
 			type = "group",
 			name = L["Super Tracker"],
 			hidden = not E.Retail,

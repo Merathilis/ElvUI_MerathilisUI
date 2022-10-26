@@ -18,7 +18,9 @@ function module:CheckStatus()
 	if not Minimap.backdrop or not E.db.mui.maps.minimap.flash then return end
 
 	local inv = C_Calendar_GetNumPendingInvites()
-	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
+	local mailFrame = _G.MinimapCluster.MailFrame or _G.MiniMapMailFrame
+	local mail = mailFrame:IsShown() and true or false
+
 
 	if inv > 0 and mail then -- New invites and mail
 		LCG.PixelGlow_Start(Minimap.backdrop, {1, 0, 0, 1}, 8, -0.25, nil, 1)
@@ -61,39 +63,6 @@ function module:MinimapCombatCheck()
 	MER:RegisterEvent("PLAYER_REGEN_DISABLED", UpdateMinimapAnim)
 end
 
-function module:MiniMapCoords()
-	if not E.db.mui.maps.minimap.coords.enable then return end
-
-	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
-	local Coords = F.CreateText(Minimap, "OVERLAY", 12, "OUTLINE", nil, nil, "CENTER")
-	Coords:SetTextColor(unpack(E["media"].rgbvaluecolor))
-	Coords:Hide()
-
-	if pos == "BOTTOM" then
-		Coords:Point(pos, 0, 2)
-	elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
-		Coords:Point(pos, 0, -12)
-	elseif pos == "TOP" and E.db.general.minimap.locationText == 'HIDE' then
-		Coords:Point(pos, 0, -2)
-	else
-		Coords:Point(pos, 0, 0)
-	end
-
-	Minimap:HookScript("OnUpdate",function()
-		if select(2, GetInstanceInfo()) == "none" then
-			local x, y = E.MapInfo.x or 0, E.MapInfo.y or 0
-			if x and y and x > 0 and y > 0 then
-				Coords:SetText(format("%d,%d", x*100, y*100))
-			else
-				Coords:SetText("")
-			end
-		end
-	end)
-
-	Minimap:HookScript("OnEnter", function() Coords:Show() end)
-	Minimap:HookScript("OnLeave", function() Coords:Hide() end)
-end
-
 function module:StyleMinimap()
 	S:CreateBackdropShadow(Minimap)
 end
@@ -116,7 +85,6 @@ function module:Initialize()
 		Minimap:CreateBackdrop("Default", true)
 	end
 
-	self:MiniMapCoords()
 	self:StyleMinimap()
 	self:StyleMinimapRightClickMenu()
 

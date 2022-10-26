@@ -867,10 +867,6 @@ P.unitframes = {
 P.maps = {
 	minimap = {
 		flash = true,
-		coords = {
-			enable = true,
-			position = "BOTTOM",
-		},
 		ping = {
 			enable = true,
 			xOffset = 0,
