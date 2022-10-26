@@ -18,11 +18,7 @@ options.datatexts = {
 			name = F.cOption(L["General"], 'orange'),
 			guiInline = true,
 			args = {
-				RightChatDataText = {
-					order = 1,
-					type = "toggle",
-					name = L["Right Chat DataText"],
-				},
+
 			},
 		},
 	},
