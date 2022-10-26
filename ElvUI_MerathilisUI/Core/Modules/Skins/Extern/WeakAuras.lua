@@ -79,7 +79,7 @@ local function ProfilingWindow_UpdateButtons(frame)
 	end
 end
 
-local function ApplyElvCDs(region, data) -- Needs an Update
+local function ApplyElvCDs(region, data)
 	if not E.private.mui.skins.addonSkins.waCooldowns then return end
 
 	local cd = region.cooldown.CooldownSettings or {}
@@ -182,8 +182,11 @@ local function LoadSkin()
 		Skin_WeakAuras(region, region.regionType)
 	end
 
-	local function OnPrototypeModifyFinish(_, region)
+	local function OnPrototypeModifyFinish(_, region, data)
 		Skin_WeakAuras(region, region.regionType)
+		if region.regionType == 'icon' then
+			ApplyElvCDs(region, data)
+		end
 	end
 
 	hooksecurefunc(_G.WeakAuras.regionPrototype, "create", OnPrototypeCreate)
