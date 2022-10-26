@@ -1,4 +1,4 @@
-[b][color=orange]v5.27[/color], xx.xx.2022[/b][list]
+[b][color=orange]v5.27[/color], 26.10.2022[/b][list]
 [*]>> WITH THIS VERSION YOU GET SOME MASSIVE CHANGES: <<
 [*]>> PRE PATCH FOR DRAGONFLIGHT <<
 [*]If you want that everything looks fine, you need to do the install again (it will overwrite your changes)
