@@ -204,8 +204,10 @@ local function LoadSkin()
 		return
 	end
 
-	if E.private.mui.skins.addonSkins.dt then
-		GradientBars()
+    if E.private.mui.skins.addonSkins.dt then
+		if E.Retail then
+			GradientBars()
+		end
 	end
 
 	if E.private.mui.skins.embed and E.private.mui.skins.embed.enable then
