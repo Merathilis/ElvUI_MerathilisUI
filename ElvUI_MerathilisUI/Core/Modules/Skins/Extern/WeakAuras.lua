@@ -103,7 +103,7 @@ local function ApplyElvCDs(region, data) -- Needs an Update
 	E:RegisterCooldown( region.cooldown )
 end
 
-local function Skin_WeakAuras(f, fType)
+local function Skin_WeakAuras(f, fType, data)
 	-- Modified from NDui WeakAuras Skins
 	if fType == "icon" then
 		if not f.MERStyle then
@@ -146,8 +146,9 @@ local function Skin_WeakAuras(f, fType)
 			f.MERStyle = true
 		end
 	elseif fType == "aurabar" then
-		if not f.MERStyle then
+		if not f.MERStyle and data ~= nil and data.height>2 then
 			f:CreateBackdrop()
+			f:Styling()
 			f.backdrop.Center:StripTextures()
 			f.backdrop:SetFrameLevel(0)
 			module:CreateBackdropShadow(f, true)
@@ -182,8 +183,8 @@ local function LoadSkin()
 		Skin_WeakAuras(region, region.regionType)
 	end
 
-	local function OnPrototypeModifyFinish(_, region)
-		Skin_WeakAuras(region, region.regionType)
+	local function OnPrototypeModifyFinish(_, region, data)
+		Skin_WeakAuras(region, region.regionType, data)
 	end
 
 	hooksecurefunc(_G.WeakAuras.regionPrototype, "create", OnPrototypeCreate)
