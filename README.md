@@ -8,7 +8,7 @@
 
 <br>
 
-![Image of MerathilsUI](https://imgur.com/a/Kz08mWE)
+![Image of MerathilsUI](https://i.imgur.com/a7P7p3a.jpg)
 
 ---
 
