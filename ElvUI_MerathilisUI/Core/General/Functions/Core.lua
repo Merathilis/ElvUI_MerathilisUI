@@ -678,43 +678,6 @@ do
 	F.EasyMenu = CreateFrame('Frame', MER.Title .. 'EasyMenu', E.UIParent, 'UIDropDownMenuTemplate')
 end
 
---[[----------------------------------
---	Text Functions
---]]----------------------------------
-function F.CreateText(f, layer, size, outline, text, color, anchor, x, y)
-	if not f then return end
-
-	text = f:CreateFontString(nil, layer)
-	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
-	text:SetHeight(text:GetStringHeight()+30)
-
-	if text then
-		text:SetText(text)
-	else
-		text:SetText("")
-	end
-
-	if color and type(color) == "boolean" then
-		text:SetTextColor(F.r, F.g, F.b)
-	elseif color == "system" then
-		text:SetTextColor(1, .8, 0)
-	elseif color == "info" then
-		text:SetTextColor(0, .75, .98)
-	elseif color == "red" then
-		text:SetTextColor(1, 0, 0)
-	elseif color == "white" then
-		text:SetTextColor(1, 1, 1)
-	end
-
-	if (anchor and x and y) then
-		text:Point(anchor, x, y)
-	else
-		text:Point("CENTER", 1, 0)
-	end
-
-	return text
-end
-
 -- Inform us of the patch info we play on.
 MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
 MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
