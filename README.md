@@ -8,7 +8,7 @@
 
 <br>
 
-![Image of MerathilsUI](https://www.tukui.org/addons/Merathilis/1653845252/screenshot.png)
+![Image of MerathilsUI](https://imgur.com/a/Kz08mWE)
 
 ---
 
