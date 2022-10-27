@@ -1,14 +1,14 @@
 <div align="center">
 <img src="m4.png"/><br>
-<img src="https://img.shields.io/badge/ElvUI-12.92-blue.svg?longCache=true&style=for-the-badge"/>
-<img src="https://img.shields.io/badge/Version-5.28-orange.svg?longCache=true&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/ElvUI-12.94-blue.svg?longCache=true&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Version-5.29-orange.svg?longCache=true&style=for-the-badge"/>
 </div>
 
 ---
 
 <br>
 
-![Image of MerathilsUI](https://www.tukui.org/addons/Merathilis/1653845252/screenshot.png)
+![Image of MerathilsUI](https://i.imgur.com/a7P7p3a.jpg)
 
 ---
 

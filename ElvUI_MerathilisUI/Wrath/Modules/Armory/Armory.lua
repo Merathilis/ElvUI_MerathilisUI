@@ -194,8 +194,10 @@ local function CreatePlayerILvl(parent, category)
 	iLvlFrame.background:Show()
 	iLvlFrame.background:SetAtlas("UI-Character-Info-ItemLevel-Bounce", true)
 
-	M.PlayerILvl = F.CreateText(iLvlFrame, "OVERLAY", 20)
+	M.PlayerILvl = iLvlFrame:CreateFontString(nil, "OVERLAY")
+	M.PlayerILvl:FontTemplate(nil, 20)
 end
+
 function M:UpdatePlayerILvl()
 	IL:UpdateUnitILvl("player", M.PlayerILvl)
 end

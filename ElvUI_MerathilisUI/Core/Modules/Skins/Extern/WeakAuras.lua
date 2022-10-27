@@ -2,6 +2,8 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
+local WeakAuras = _G.WeakAuras
+
 local function WeakAuras_PrintProfile()
 	local frame = _G.WADebugEditBox.Background
 
@@ -79,31 +81,7 @@ local function ProfilingWindow_UpdateButtons(frame)
 	end
 end
 
-local function ApplyElvCDs(region, data) -- Needs an Update
-	if not E.private.mui.skins.addonSkins.waCooldowns then return end
-
-	local cd = region.cooldown.CooldownSettings or {}
-	cd.font = E.Libs.LSM:Fetch('font', E.db.cooldown.fonts.font)
-	cd.fontSize = E.db.cooldown.fonts.fontSize
-	cd.fontOutline = E.db.cooldown.fonts.fontOutline
-
-	region.cooldown.CooldownSettings = cd
-	region.cooldown.forceDisabled = nil
-
-	if _G.WeakAuras.GetData( data.id ).cooldownTextDisabled then
-		region.cooldown.hideText = true
-		region.cooldown.noCooldownCount = true
-	else
-		-- We want to see CDs, but we want Elv to handle them.
-		region.cooldown.hideText = false
-		region.cooldown.noCooldownCount = true -- This is OK because the setting itself is in the aura data.
-	end
-
-	region.cooldown:SetHideCountdownNumbers( region.cooldown.noCooldownCount )
-	E:RegisterCooldown( region.cooldown )
-end
-
-local function Skin_WeakAuras(f, fType)
+local function Skin_WeakAuras(f, fType, data)
 	-- Modified from NDui WeakAuras Skins
 	if fType == "icon" then
 		if not f.MERStyle then
@@ -146,8 +124,9 @@ local function Skin_WeakAuras(f, fType)
 			f.MERStyle = true
 		end
 	elseif fType == "aurabar" then
-		if not f.MERStyle then
+		if not f.MERStyle and data ~= nil and data.height>2 then
 			f:CreateBackdrop()
+			f:Styling()
 			f.backdrop.Center:StripTextures()
 			f.backdrop:SetFrameLevel(0)
 			module:CreateBackdropShadow(f, true)
@@ -174,20 +153,29 @@ local function LoadSkin()
 	end
 
 	-- Handle the options region type registration
-	if _G.WeakAuras and _G.WeakAuras.RegisterRegionOptions then
-		module:RawHook(_G.WeakAuras, "RegisterRegionOptions", "WeakAuras_RegisterRegionOptions")
+	if WeakAuras and WeakAuras.RegisterRegionOptions then
+		module:RawHook(WeakAuras, "RegisterRegionOptions", "WeakAuras_RegisterRegionOptions")
 	end
 
 	local function OnPrototypeCreate(region)
 		Skin_WeakAuras(region, region.regionType)
 	end
 
-	local function OnPrototypeModifyFinish(_, region)
-		Skin_WeakAuras(region, region.regionType)
+	local function OnPrototypeModifyFinish(_, region, data)
+		Skin_WeakAuras(region, region.regionType, data)
 	end
 
-	hooksecurefunc(_G.WeakAuras.regionPrototype, "create", OnPrototypeCreate)
-	hooksecurefunc(_G.WeakAuras.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
+	module:SecureHook(WeakAuras.regionPrototype, "create", OnPrototypeCreate)
+	module:SecureHook(WeakAuras.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
+
+	-- Real Time Profiling Window
+	local profilingWindow = WeakAuras.RealTimeProfilingWindow
+	if profilingWindow then
+		module:CreateShadow(profilingWindow)
+		module:SecureHook(profilingWindow, "UpdateButtons", ProfilingWindow_UpdateButtons)
+		module:SecureHook(WeakAuras, "PrintProfile", WeakAuras_PrintProfile)
+	end
+
 end
 
 module:AddCallbackForAddon("WeakAuras", LoadSkin)

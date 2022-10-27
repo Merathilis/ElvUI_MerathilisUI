@@ -12,11 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix the gradient from the Panels on non Retail... whoopsi",
-		"• Fix gradient on non Retail... whoopsi²",
-		"• Fix Location Panel DropDown click. Thx @Repooc",
-		"• Fix Encounter Journal Skin",
-		"• Fix some Minimap related errors",
+		"• Update WeakAura Skin. Thx @DaveA50",
+		"• Fix Button clicks with latest ElvUI Version. There is also now an Option to change it: Information -> Button Click",
+		"• Update some Skins",
+		"• Small Layout changes",
 
 	" ",
 	"Notes:",
@@ -115,7 +114,8 @@ function MER:CreateChangelog()
 	title:CreateBackdrop("Transparent")
 	title.backdrop:Styling()
 
-	title.text = F.CreateText(title, "OVERLAY", 15, nil, nil, nil, "CENTER")
+	title.text = title:CreateFontString(nil, "OVERLAY")
+	title.text:FontTemplate(nil, 15)
 	title.text:Point("CENTER", title, 0, -1)
 	title.text:SetText(MER.Title.. "- ChangeLog "..format("|cff00c0fa%s|r", MER.Version))
 
@@ -130,7 +130,8 @@ function MER:CreateChangelog()
 	close:Disable()
 	frame.close = close
 
-	local countdown = F.CreateText(close, "OVERLAY", 12, nil, nil, nil, "CENTER")
+	local countdown = close:CreateFontString(nil, "OVERLAY")
+	countdown:FontTemplate(nil, 12)
 	countdown:Point("LEFT", close.Text, "RIGHT", 3, 0)
 	countdown:SetTextColor(DISABLED_FONT_COLOR:GetRGB())
 	frame.countdown = countdown
@@ -144,7 +145,8 @@ function MER:CreateChangelog()
 		if i <= #ChangeLogData then
 			local string, isURL = ModifiedString(GetChangeLogInfo(i))
 
-			button.Text = F.CreateText(button, "OVERLAY", 12, nil, nil, nil, "CENTER")
+			button.Text = button:CreateFontString(nil, "OVERLAY")
+			button.Text:FontTemplate(nil, 12)
 			button.Text.isURL = isURL
 			button.Text:SetText(string)
 			button.Text:Point("LEFT", 0, 0)

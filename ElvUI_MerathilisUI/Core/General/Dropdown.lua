@@ -52,7 +52,7 @@ end
 local function CreateListButton(frame)
 	local button = CreateFrame("Button", nil, frame, "SecureActionButtonTemplate")
 
-	button:RegisterForClicks('AnyUp', 'AnyDown')
+	button:RegisterForClicks(E.global.mui.core.buttonFix)
 
 	button.hoverTex = button:CreateTexture(nil, 'OVERLAY')
 	button.hoverTex:SetAllPoints()

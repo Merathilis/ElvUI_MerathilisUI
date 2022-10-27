@@ -819,7 +819,9 @@ do
 			module:PixelIcon(bu, fontSize, true)
 		else
 			S:HandleButton(bu)
-			bu.text = F.CreateText(bu, "OVERLAY", fontSize or 14, outline or "Outline", text)
+			bu.text = bu:CreateFontString(nil, "OVERLAY")
+			bu.text:FontTemplate(nil, fontSize or 14, outline or "OUTLINE")
+			bu.text:SetText(text)
 		end
 
 		return bu

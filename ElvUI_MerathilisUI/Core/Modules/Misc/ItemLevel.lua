@@ -175,7 +175,8 @@ function module:CreateItemString(frame, strType)
 	for index, slot in pairs(inspectSlots) do
 		-- if index ~= 4 then	-- need color border for some shirts
 			local slotFrame = _G[strType..slot.."Slot"]
-			slotFrame.iLvlText = F.CreateText(slotFrame, "OVERLAY", 10)
+			slotFrame.iLvlText = slotFrame:CreateFontString(nil, "OVERLAY")
+			slotFrame.iLvlText:FontTemplate(nil, 10)
 			slotFrame.iLvlText:ClearAllPoints()
 			slotFrame.iLvlText:SetPoint("BOTTOMRIGHT", slotFrame, "BOTTOMRIGHT", 0, -7)
 
@@ -367,7 +368,8 @@ local function AnchorInspectRotate()
 	InspectModelFrameRotateLeftButton:ClearAllPoints()
 	InspectModelFrameRotateLeftButton:SetPoint("LEFT", InspectModelFrameRotateRightButton, "RIGHT", 4, 0)
 
-	module.InspectILvl = F.CreateText(_G.InspectPaperDollFrame, "OVERLAY", 15)
+	module.InspectILvl = _G.InspectPaperDollFrame:CreateFontString(nil, "OVERLAY")
+	module.InspectILvl:FontTemplate(nil, 15)
 	module.InspectILvl:ClearAllPoints()
 	module.InspectILvl:SetPoint("TOP", _G.InspectLevelText, "BOTTOM", 0, -4)
 
