@@ -2,6 +2,8 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
+local WeakAuras = _G.WeakAuras
+
 local function WeakAuras_PrintProfile()
 	local frame = _G.WADebugEditBox.Background
 
@@ -151,8 +153,8 @@ local function LoadSkin()
 	end
 
 	-- Handle the options region type registration
-	if _G.WeakAuras and _G.WeakAuras.RegisterRegionOptions then
-		module:RawHook(_G.WeakAuras, "RegisterRegionOptions", "WeakAuras_RegisterRegionOptions")
+	if WeakAuras and WeakAuras.RegisterRegionOptions then
+		module:RawHook(WeakAuras, "RegisterRegionOptions", "WeakAuras_RegisterRegionOptions")
 	end
 
 	local function OnPrototypeCreate(region)
@@ -163,8 +165,17 @@ local function LoadSkin()
 		Skin_WeakAuras(region, region.regionType, data)
 	end
 
-	hooksecurefunc(_G.WeakAuras.regionPrototype, "create", OnPrototypeCreate)
-	hooksecurefunc(_G.WeakAuras.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
+	module:SecureHook(WeakAuras.regionPrototype, "create", OnPrototypeCreate)
+	module:SecureHook(WeakAuras.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
+
+	-- Real Time Profiling Window
+	local profilingWindow = WeakAuras.RealTimeProfilingWindow
+	if profilingWindow then
+		module:CreateShadow(profilingWindow)
+		module:SecureHook(profilingWindow, "UpdateButtons", ProfilingWindow_UpdateButtons)
+		module:SecureHook(WeakAuras, "PrintProfile", WeakAuras_PrintProfile)
+	end
+
 end
 
 module:AddCallbackForAddon("WeakAuras", LoadSkin)
