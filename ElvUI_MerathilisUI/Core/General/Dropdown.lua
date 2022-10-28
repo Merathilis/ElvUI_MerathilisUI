@@ -24,7 +24,7 @@ module.RegisteredMenus = {}
 local function OnClick(btn)
 	if btn.func then btn.func() end
 
-	btn:GetParent():Hide()
+	E:Delay(.1, function() btn:GetParent():Hide() end)
 end
 
 local function OnEnter(btn)
