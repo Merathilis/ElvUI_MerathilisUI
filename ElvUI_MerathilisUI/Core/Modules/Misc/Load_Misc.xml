@@ -10,7 +10,6 @@
 	<Script file="ItemLevel.lua"/>
 	<Script file="Loot.lua"/>
 	<Script file="NameHover.lua"/>
-	<Script file="Reputation.lua"/>
 	<Script file="Quest.lua"/>
 	<Script file="SpellAlerts.lua"/>
 </Ui>
