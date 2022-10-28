@@ -3,7 +3,7 @@ local options = MER.options.information.args
 
 local tconcat, tsort = table.concat, table.sort
 
-local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14:64:64|t]]
+local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 
 local function AddColor(string)
 	if type(string) ~= "string" then

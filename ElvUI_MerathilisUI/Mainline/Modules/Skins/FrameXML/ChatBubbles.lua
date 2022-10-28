@@ -10,7 +10,7 @@ local function SkinChatBubble(chatbubble)
 
 	local frame = chatbubble:GetChildren()
 	if frame and not frame:IsForbidden() then
-		local bg = module:SetBD(frame, nil, nil, nil, nil, true)
+		local bg = module:SetBD(frame, nil, nil, nil, true)
 		bg:SetScale(UIParent:GetEffectiveScale())
 		bg:SetInside(frame, 4, 4) -- needs probably adjustments
 
