@@ -318,10 +318,13 @@ function module:UpdateFriendButton(button)
 
 	-- Status icon
 	if status then
-		button.status:SetTexture(statusIcons[self.db.textures.status][status])
+		local pack = self.db.textures.status
+		if statusIcons[pack] then
+			button.status:SetTexture(statusIcons[pack][status])
+		end
 	end
 
-	if game and game ~= "" then
+	if gameName then
 		local buttonTitle, buttonText
 
 		-- override Real ID or name with note
