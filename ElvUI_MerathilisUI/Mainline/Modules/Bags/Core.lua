@@ -862,8 +862,9 @@ function module:CloseBags()
 end
 
 function module:UpdateCooldown(slot)
-	local start, duration, enabled = C_Container.GetContainerItemCooldown(slot.bagId, slot.slotId)
-	CooldownFrame_Set(self.Cooldown, start, duration, enable)
+	local start, duration, enabled = --[[C_Container.GetContainerItemCooldown]] GetContainerItemCooldown(slot.bagId, slot.slotId)
+
+	CooldownFrame_Set(slot.Cooldown, start, duration, enable)
 	if (duration > 0 and enabled == 0) then
 		SetItemButtonTextureVertexColor(slot, 0.4, 0.4, 0.4)
 	else
@@ -1227,7 +1228,7 @@ function module:Initialize()
 		end
 
 		if self.Cooldown then
-			-- module:UpdateCooldown(self) --ToDO: WoW10
+			module:UpdateCooldown(self) --ToDO: WoW10
 		end
 
 		if module.db.SpecialBagsColor then
