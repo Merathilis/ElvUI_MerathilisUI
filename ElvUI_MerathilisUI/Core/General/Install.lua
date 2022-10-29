@@ -1232,7 +1232,6 @@ function MER:SetupUnitframes()
 	if F.IsDeveloper() then
 		E.db["mui"]["unitframes"]["gcd"]["enable"] = true
 		E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
-		E.db["mui"]["unitframes"]["power"]["texture"] = "Asphyxia"
 	end
 
 	-- Player
