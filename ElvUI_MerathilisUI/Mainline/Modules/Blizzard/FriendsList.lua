@@ -405,27 +405,6 @@ function module:UpdateFriendButton(button)
 		end
 	end
 
-	-- Button Texture
-	if not button.left then
-		button.left = button:CreateTexture(nil, 'BACKGROUND')
-		button.left:SetWidth(button:GetWidth() / 2)
-		button.left:SetHeight(32)
-		button.left:SetPoint("LEFT", button, "CENTER")
-		button.left:SetTexture(E.LSM:Fetch('statusbar', E.media.normTex))
-
-		button.left:SetGradient("Horizontal", CreateColor(.243, .57, 1, .15), CreateColor(.243, .57, 1, 0))
-	end
-
-	if not button.right then
-		button.right = button:CreateTexture(nil, 'BACKGROUND')
-		button.right:SetWidth(button:GetWidth() / 2)
-		button.right:SetHeight(32)
-		button.right:SetPoint("RIGHT", button, "CENTER")
-		button.right:SetTexture(E.LSM:Fetch('statusbar', E.media.normTex))
-
-		button.right:SetGradient("Horizontal", CreateColor(.243, .57, 1, .0), CreateColor(.243, .57, 1, .15))
-	end
-
 	-- font style hack
 	if not cache.name then
 		local name, size, style = button.name:GetFont()
