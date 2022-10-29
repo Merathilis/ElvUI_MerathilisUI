@@ -214,6 +214,8 @@ V.skins = {
 		chatBubbles = true,
 		expansionLanding = true,
 		majorFactions = true,
+		blizzardOptions = true,
+		editor = true,
 	},
 
 	addonSkins = {
