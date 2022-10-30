@@ -18,8 +18,9 @@ local function LoadSkin()
 	AchievementFrame:Styling()
 	module:CreateShadow(AchievementFrame)
 
-	for i = 1, 3 do
-		module:ReskinTab(_G["AchievementFrameTab"..i])
+    for i = 1, 3 do
+		local tab = _G["AchievementFrameTab"..i]
+		module:ReskinTab(tab)
 	end
 
 	for i = 1, 7 do

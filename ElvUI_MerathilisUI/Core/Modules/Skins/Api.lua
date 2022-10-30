@@ -621,6 +621,9 @@ function module:ReskinTab(tab)
 		return
 	end
 
+	if tab.backdrop then
+		tab.backdrop:Styling()
+	end
 	self:CreateBackdropShadow(tab)
 end
 
