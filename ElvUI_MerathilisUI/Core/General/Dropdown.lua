@@ -21,7 +21,7 @@ local TITLE_OFFSET = 10
 
 module.RegisteredMenus = {}
 
-local function OnClick(btn)
+local function OnMouseUp(btn)
 	if btn.func then btn.func() end
 
 	E:Delay(.1, function() btn:GetParent():Hide() end)
@@ -52,8 +52,7 @@ end
 local function CreateListButton(frame)
 	local button = CreateFrame("Button", nil, frame, "SecureActionButtonTemplate")
 
-	button:RegisterForClicks(E.global.mui.core.buttonFix)
-
+	button:RegisterForClicks('LeftButtonUp', 'LeftButtonDown')
 	button.hoverTex = button:CreateTexture(nil, 'OVERLAY')
 	button.hoverTex:SetAllPoints()
 	button.hoverTex:SetTexture(E.Media.Textures.Highlight)
@@ -65,9 +64,10 @@ local function CreateListButton(frame)
 	button.text:SetAllPoints()
 	button.text:FontTemplate()
 
+	button:EnableMouse(true)
 	button:SetScript("OnEnter", OnEnter)
 	button:SetScript("OnLeave", OnLeave)
-	button:HookScript("OnClick", OnClick)
+	module:SecureHookScript(button, 'OnMouseUp', OnMouseUp)
 
 	return button
 end
