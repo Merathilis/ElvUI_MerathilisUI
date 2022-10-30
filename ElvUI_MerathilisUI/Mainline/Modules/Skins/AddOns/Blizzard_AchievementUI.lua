@@ -18,7 +18,7 @@ local function LoadSkin()
 	AchievementFrame:Styling()
 	module:CreateShadow(AchievementFrame)
 
-    for i = 1, 3 do
+	for i = 1, 3 do
 		local tab = _G["AchievementFrameTab"..i]
 		module:ReskinTab(tab)
 	end
@@ -29,20 +29,6 @@ local function LoadSkin()
 			module:CreateGradient(bu)
 		end
 	end
-
-	hooksecurefunc("AchievementObjectives_DisplayCriteria", function(objectivesFrame, id)
-		for i = 1, GetAchievementNumCriteria(id) do
-			local name = _G["AchievementFrameCriteria"..i.."Name"]
-			if name and select(2, name:GetTextColor()) == 0 then
-				name:SetTextColor(1, 1, 1)
-			end
-
-			local bu = _G["AchievementFrameMeta"..i]
-			if bu and select(2, bu.label:GetTextColor()) == 0 then
-				bu.label:SetTextColor(1, 1, 1)
-			end
-		end
-	end)
 
 	hooksecurefunc("AchievementFrameSummary_UpdateAchievements", function()
 		for i = 1, _G.ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS do
@@ -55,6 +41,30 @@ local function LoadSkin()
 			end
 		end
 	end)
+
+	hooksecurefunc(_G.AchievementFrameCategories.ScrollBox, 'Update', function(frame)
+		for _, child in next, { frame.ScrollTarget:GetChildren() } do
+			local button = child.Button
+			if button and not button.IsSkinned then
+				if button.backdrop then
+					module:CreateGradient(button.backdrop)
+				end
+				button.IsSkinned = true
+			end
+		end
+	end)
+
+	hooksecurefunc(_G.AchievementFrameAchievements.ScrollBox, 'Update', function(frame)
+		for _, child in next, { frame.ScrollTarget:GetChildren() } do
+			if not child.IsSkinned then
+				if child.backdrop then
+					module:CreateGradient(child.backdrop)
+				end
+				child.IsSkinned = true
+			end
+		end
+	end)
+
 end
 
 S:AddCallbackForAddon("Blizzard_AchievementUI", LoadSkin)
