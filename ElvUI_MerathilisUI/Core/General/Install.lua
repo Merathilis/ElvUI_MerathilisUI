@@ -280,7 +280,7 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = 5
 	E.db["general"]["minimap"]["icons"]["difficulty"]["position"] = "TOPLEFT"
 	E.db["general"]["minimap"]["icons"]["difficulty"]["xOffset"] = 14
-    E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -13
+	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -13
 	E.db["general"]["minimap"]["icons"]["difficulty"]["scale"] = 1
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
@@ -485,8 +485,9 @@ function MER:SetupLayout()
 		E.db["mui"]["pvp"]["duels"]["announce"] = true
 		E.db["general"]["cropIcon"] = 0
 		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
-        E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
+		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
 		E.db["mui"]["misc"]["cursor"]["enable"] = true
+		E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
 	else
 		E.db["general"]["cropIcon"] = 2
 	end
