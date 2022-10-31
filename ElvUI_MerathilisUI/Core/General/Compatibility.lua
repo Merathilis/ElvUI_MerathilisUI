@@ -10,7 +10,7 @@ local strlen, strsplit = strlen, strsplit
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
-local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14:64:64|t]]
+local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 
 function MER:ConstructCompatibilityFrame()
 	local frame = CreateFrame("Frame", "MERCompatibilityFrame", E.UIParent)

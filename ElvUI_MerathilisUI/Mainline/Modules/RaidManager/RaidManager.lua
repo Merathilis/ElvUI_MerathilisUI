@@ -586,12 +586,12 @@ function module:CreateRaidInfo()
 	rcFrame.Text:FontTemplate(nil, 14, "OUTLINE")
 	rcFrame.Text:SetText(_G.READY_CHECK)
 	rcFrame.Text:ClearAllPoints()
-	rcFrame.Text:SetPoint("TOP", rcFrame, "BOTTOM", 0, -8)
+	rcFrame.Text:SetPoint("BOTTOM", rcFrame, "TOP", 0, -20)
 
 	local rc = rcFrame:CreateFontString(nil, "OVERLAY")
 	rc:FontTemplate(nil, 14, "OUTLINE")
-	rc:SetText("")
-	rc:SetPoint("TOP", rcFrame, "BOTTOM", 0, -25)
+    rc:SetText("")
+	rc:SetPoint("TOP", rcFrame.Text, "BOTTOM", 0, -10)
 
 	local count, total
 	local function hideRCFrame()

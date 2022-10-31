@@ -52,6 +52,12 @@ function module:ReskinSellFrame()
 	if _G.ElvUIVendorGraysFrame then
 		S:CreateShadow(_G.ElvUIVendorGraysFrame)
 	end
+
+	if E.private.bags.bagBar then
+		for _, buttons in pairs(B.BagBar.buttons) do
+			S:CreateShadow(buttons)
+		end
+	end
 end
 hooksecurefunc(B, "CreateSellFrame", module.ReskinSellFrame)
 

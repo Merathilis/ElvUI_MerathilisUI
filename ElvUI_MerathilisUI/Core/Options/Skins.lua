@@ -1677,6 +1677,17 @@ if E.Retail then
 		name = L["Major Factions"],
 		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.majorFactions end,
 	}
+	options.blizzard.args.blizzardOptions = {
+		type = "toggle",
+		name = L["Settings Panel"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.blizzardOptions end,
+	}
+	options.blizzard.args.editor = {
+		type = "toggle",
+		name = L["Editor Mode"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.editor end,
+	}
+
 
 elseif E.Classic then
 	options.blizzard.args.craft = {

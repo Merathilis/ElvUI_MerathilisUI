@@ -1043,6 +1043,22 @@ function module:Initialize()
 		end
 	end
 
+	local function SetFrameMovable(f, v)
+		f:SetMovable(true)
+		f:SetUserPlaced(true)
+		f:RegisterForClicks("LeftButtonDown", "LeftButtonUp", "RightButtonDown", "RightButtonUp")
+		if v then
+			f:SetScript("OnMouseDown", function()
+				f:ClearAllPoints()
+				f:StartMoving()
+			end)
+			f:SetScript("OnMouseUp", f.StopMovingOrSizing)
+		else
+			f:SetScript("OnMouseDown", nil)
+			f:SetScript("OnMouseUp", nil)
+		end
+	end
+
 	function MyContainer:OnCreate(name, settings)
 		self.Settings = settings
 		self:SetFrameStrata("HIGH")
@@ -1094,6 +1110,7 @@ function module:Initialize()
 		buttons[1] = module.CreateCloseButton(self, f)
 		if name == "Bag" then
 			module.CreateBagBar(self, settings, NUM_BAG_SLOTS)
+			SetFrameMovable(self, true)
 			buttons[2] = module.CreateSortButton(self, name)
 			buttons[3] = module.CreateBagToggle(self)
 			buttons[4] = module.CreateKeyToggle(self)
@@ -1103,6 +1120,7 @@ function module:Initialize()
 			buttons[8] = module.CreateDeleteButton(self)
 		elseif name == "Bank" then
 			module.CreateBagBar(self, settings, NUM_BANKBAGSLOTS)
+			SetFrameMovable(self, true)
 			buttons[2] = module.CreateBagToggle(self)
 			buttons[3] = module.CreateSortButton(self, name)
 		end

@@ -419,11 +419,6 @@ P.misc = {
 		portals = true,
 		toys = true,
 	},
-	paragon = {
-		enable = true,
-		textStyle = "PARAGON",
-		paragonColor = {r = 0.9, g = 0.8, b = 0.6},
-	},
 	funstuff = true,
 	wowheadlinks = true,
 	respec = true,
@@ -524,6 +519,21 @@ P.actionbars = {
 			[153180] = true,
 			[128807] = true,
 		},
+	},
+	keyfeedback = {
+		enable = false,
+		point = 'CENTER',
+		x = 0,
+		y = 0,
+		enableCastLine = true,
+		enableCooldown = true,
+		enablePushEffect = true,
+		enableCast = true,
+		enableCastFlash = true,
+		lineIconSize = 28,
+		mirrorSize = 32,
+		lineDirection = 'RIGHT',
+		forceUseActionHook = true, -- Probably ElvUI needs this
 	},
 }
 

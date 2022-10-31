@@ -862,8 +862,9 @@ function module:CloseBags()
 end
 
 function module:UpdateCooldown(slot)
-	local start, duration, enabled = C_Container.GetContainerItemCooldown(slot.bagId, slot.slotId)
-	CooldownFrame_Set(self.Cooldown, start, duration, enable)
+	local start, duration, enabled = --[[C_Container.GetContainerItemCooldown]] GetContainerItemCooldown(slot.bagId, slot.slotId)
+
+	CooldownFrame_Set(slot.Cooldown, start, duration, enable)
 	if (duration > 0 and enabled == 0) then
 		SetItemButtonTextureVertexColor(slot, 0.4, 0.4, 0.4)
 	else
@@ -1227,7 +1228,7 @@ function module:Initialize()
 		end
 
 		if self.Cooldown then
-			-- module:UpdateCooldown(self) --ToDO: WoW10
+			module:UpdateCooldown(self) --ToDO: WoW10
 		end
 
 		if module.db.SpecialBagsColor then
@@ -1355,6 +1356,22 @@ function module:Initialize()
 		end
 	end
 
+	local function SetFrameMovable(f, v)
+		f:SetMovable(true)
+		f:SetUserPlaced(true)
+		f:RegisterForClicks("LeftButtonDown", "LeftButtonUp", "RightButtonDown", "RightButtonUp")
+		if v then
+			f:SetScript("OnMouseDown", function()
+				f:ClearAllPoints()
+				f:StartMoving()
+			end)
+			f:SetScript("OnMouseUp", f.StopMovingOrSizing)
+		else
+			f:SetScript("OnMouseDown", nil)
+			f:SetScript("OnMouseUp", nil)
+		end
+	end
+
 	function MyContainer:OnCreate(name, settings)
 		self.Settings = settings
 		self:SetFrameStrata("HIGH")
@@ -1408,6 +1425,7 @@ function module:Initialize()
 		buttons[2] = module.CreateSortButton(self, name)
 		if name == "Bag" then
 			module.CreateBagBar(self, settings, --[[DB.isNewPatch and 5 or]] 4)
+			SetFrameMovable(self, true)
 			buttons[3] = module.CreateBagToggle(self)
 			buttons[4] = module.CreateSplitButton(self)
 			buttons[5] = module.CreateFavouriteButton(self)
@@ -1415,6 +1433,7 @@ function module:Initialize()
 			buttons[7] = module.CreateDeleteButton(self)
 		elseif name == "Bank" then
 			module.CreateBagBar(self, settings, 7)
+			SetFrameMovable(self, true)
 			buttons[3] = module.CreateBagToggle(self)
 			buttons[4] = module.CreateReagentButton(self, f)
 		elseif name == "Reagent" then

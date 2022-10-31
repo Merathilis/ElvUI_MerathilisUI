@@ -6,6 +6,7 @@
 	<Script file="ChatFrame.lua"/>
 	<Script file="CinematicFrame.lua"/>
 	<Script file="DressUpFrames.lua"/>
+	<Script file="EditorManagerFrame.lua"/>
 	<Script file="EventToastManager.lua"/>
 	<Script file="FriendsFrame.lua"/>
 	<Include file="FriendsFrame.xml"/>
@@ -29,6 +30,7 @@
 	<Script file="RecruitAFriendFrame.lua"/>
 	<Script file="ReportFrame.lua"/>
 	<Script file="ReputationFrame.lua"/>
+	<Script file="SettingsPanel.lua"/>
 	<Script file="SpellBookFrame.lua"/>
 	<Script file="StackSplitFrame.lua"/>
 	<Script file="TalkingHeadUI.lua"/>

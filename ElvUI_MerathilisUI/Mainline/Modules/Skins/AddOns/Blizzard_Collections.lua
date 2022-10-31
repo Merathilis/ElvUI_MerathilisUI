@@ -225,7 +225,7 @@ local function LoadSkin()
 
 		button.name:SetPoint("LEFT", button, "RIGHT", 9, 0)
 
-		local bg = module:CreateBDFrame(button)
+		local bg = module:CreateBDFrame(button, .25)
 		bg:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, -2)
 		bg:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 0, 2)
 		bg:SetPoint("RIGHT", button.name, "RIGHT", 0, 0)

@@ -229,7 +229,6 @@ function module:CreateTex(f)
 	f.__bgTex = tex
 end
 
-
 -- Backdrop shadow
 local shadowBackdrop = {edgeFile = MER.Media.Textures.glowTex}
 function module:CreateSD(f, size, override)
@@ -297,27 +296,27 @@ function module:CreateBackdrop(frame)
 	frame.backdrop = backdrop
 end
 
-function module:CreateBDFrame(f, a)
+function module:CreateBDFrame(f)
 	assert(f, "doesn't exist!")
 
-	local parent = f.IsObjectType and f:IsObjectType("Texture") and f:GetParent() or f
+	local parent = f.IsObjectType and f:IsObjectType('Texture') and f:GetParent() or f
 
-	local bg = CreateFrame("Frame", nil, parent, "BackdropTemplate")
+	local bg = CreateFrame('Frame', nil, parent, 'BackdropTemplate')
 	bg:SetOutside(f)
 	if (parent:GetFrameLevel() - 1) >= 0 then
 		bg:SetFrameLevel(parent:GetFrameLevel() - 1)
 	else
 		bg:SetFrameLevel(0)
 	end
-	bg:CreateBackdrop()
+	bg:SetTemplate('Transparent')
 
 	return bg
 end
 
-function module:SetBD(f, a, x, y, x2, y2, gradient)
+function module:SetBD(f, x, y, x2, y2, gradient)
 	assert(f, "doesn't exist!")
 
-	local bg = module:CreateBDFrame(f, a)
+	local bg = module:CreateBDFrame(f)
 	if x then
 		bg:SetPoint("TOPLEFT", f, x, y)
 		bg:SetPoint("BOTTOMRIGHT", f, x2, y2)
@@ -622,6 +621,9 @@ function module:ReskinTab(tab)
 		return
 	end
 
+	if tab.backdrop then
+		tab.backdrop:Styling()
+	end
 	self:CreateBackdropShadow(tab)
 end
 

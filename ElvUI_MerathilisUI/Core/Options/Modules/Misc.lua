@@ -393,50 +393,6 @@ options.misc = {
 				},
 			},
 		},
-		paragon = {
-			order = 22,
-			type = "group",
-			name = F.cOption(L["MISC_PARAGON_REPUTATION"], 'orange'),
-			guiInline = true,
-			get = function(info) return E.db.mui.misc.paragon[info[#info]] end,
-			set = function(info, value) E.db.mui.misc.paragon[info[#info]] = value; end,
-			hidden = not E.Retail,
-			args = {
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-				},
-				textStyle = {
-					order = 2,
-					type = "select",
-					name = L["Text Style"],
-					disabled = function() return not E.db.mui.misc.paragon.enable end,
-					values = {
-						["PARAGON"] = L["MISC_PARAGON"],
-						["CURRENT"] = L["Current"],
-						["VALUE"] = L["Value"],
-						["DEFICIT"] = L["Deficit"],
-					},
-				},
-				paragonColor = {
-					order = 3,
-					name = L["COLOR"],
-					type = "color",
-					disabled = function() return not E.db.mui.misc.paragon.enable end,
-					hasAlpha = false,
-					get = function(info)
-						local t = E.db.mui.misc.paragon[info[#info]]
-						local d = P.misc.paragon[info[#info]]
-						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-					end,
-					set = function(info, r, g, b, a)
-						local t = E.db.mui.misc.paragon[info[#info]]
-						t.r, t.g, t.b, t.a = r, g, b, a
-					end,
-				},
-			},
-		},
 		mawThreatBar = {
 			order = 24,
 			type = "group",

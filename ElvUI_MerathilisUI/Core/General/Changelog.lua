@@ -12,10 +12,12 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Update WeakAura Skin. Thx @DaveA50",
-		"• Fix Button clicks with latest ElvUI Version. There is also now an Option to change it: Information -> Button Click",
-		"• Update some Skins",
-		"• Small Layout changes",
+		"• Wrath: Fix Item Level display... whoopsi",
+		"• Update FriendsFrame Skin",
+		"• Updated Cooldown Display on Bags",
+		"• Make the Bags movable even without Mover",
+		"• Add back KeyFeedback. Note: It should work fine on classic but not retail",
+		"• Drop TBC support",
 
 	" ",
 	"Notes:",
