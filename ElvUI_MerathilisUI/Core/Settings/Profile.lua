@@ -520,6 +520,21 @@ P.actionbars = {
 			[128807] = true,
 		},
 	},
+	keyfeedback = {
+		enable = true,
+		point = 'CENTER',
+		x = 0,
+		y = 0,
+		enableCastLine = true,
+		enableCooldown = true,
+		enablePushEffect = true,
+		enableCast = true,
+		enableCastFlash = true,
+		lineIconSize = 28,
+		mirrorSize = 32,
+		lineDirection = 'RIGHT',
+		forceUseActionHook = true, -- Probably ElvUI needs this
+	},
 }
 
 local function Potions()
