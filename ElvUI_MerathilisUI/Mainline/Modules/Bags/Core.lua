@@ -425,21 +425,12 @@ function module:GetEmptySlot(name)
 		if slotID then
 			return -1, slotID
 		end
-		-- if DB.IsPTR then
-			-- for bagID = 6, 12 do
-				-- local slotID = module:GetContainerEmptySlot(bagID)
-				-- if slotID then
-					-- return bagID, slotID
-				-- end
-			-- end
-		-- else
-			for bagID = 5, 11 do
-				local slotID = module:GetContainerEmptySlot(bagID)
-				if slotID then
-					return bagID, slotID
-				end
+		for bagID = 6, 12 do
+			local slotID = module:GetContainerEmptySlot(bagID)
+			if slotID then
+				return bagID, slotID
 			end
-		-- end
+		end
 	elseif name == "Reagent" then
 		local slotID = module:GetContainerEmptySlot(-3)
 		if slotID then
@@ -596,8 +587,8 @@ StaticPopupDialogs["MER_RENAMECUSTOMGROUP"] = {
 		module.db.CustomNames[index] = text ~= "" and text or nil
 
 		module.CustomMenu[index + 2].text = GetCustomGroupTitle(index)
-		module.ContainerGroups["Bag"][index].label:SetText(GetCustomGroupTitle(index))
-		module.ContainerGroups["Bank"][index].label:SetText(GetCustomGroupTitle(index))
+		module.ContainerGroups["Bag"][index + 1].label:SetText(GetCustomGroupTitle(index))
+		module.ContainerGroups["Bank"][index + 1].label:SetText(GetCustomGroupTitle(index))
 	end,
 	EditBoxOnEscapePressed = function(self)
 		self:GetParent():Hide()
