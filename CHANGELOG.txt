@@ -1,5 +1,7 @@
-[b][color=orange]v5.29[/color], 27.10.2022[/b][list]
-[*]Update WeakAura Skin. Thx @DaveA50
-[*]Fix Button clicks with latest ElvUI Version. There is also now an Option to change it: Information -> Button Click
-[*]Update some Skins
-[*]Small Layout changes[/list]
+[b][color=orange]v5.30[/color], 31.10.2022[/b][list]
+[*]Wrath: Fix Item Level display... whoopsi
+[*]Update FriendsFrame Skin
+[*]Updated Cooldown Display on Bags
+[*]Make the Bags movable even without Mover
+[*]Add back KeyFeedback. Note: It should work fine on classic but not retail
+[*]Drop TBC support[/list]
