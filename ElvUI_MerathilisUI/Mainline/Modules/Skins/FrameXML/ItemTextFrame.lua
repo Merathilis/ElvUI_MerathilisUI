@@ -11,6 +11,9 @@ local function LoadSkin()
 
 	local ItemTextFrame = _G.ItemTextFrame
 	ItemTextFrame:Styling()
+
+	_G.ItemTextPageText:SetTextColor("P", 1, 1, 1)
+	_G.ItemTextPageText.SetTextColor = E.noop
 end
 
 S:AddCallback("ItemTextFrame", LoadSkin)
