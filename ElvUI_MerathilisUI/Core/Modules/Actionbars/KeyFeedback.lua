@@ -11,6 +11,10 @@ end)
 keyFeedback:RegisterEvent('PLAYER_LOGIN')
 
 function keyFeedback:PLAYER_LOGIN()
+	if not E.db.mui.actionbars.keyfeedback then
+		E.db.mui.actionbars.keyfeedback = {}
+	end
+
 	if not E.private.actionbar.enable or not E.db.mui.actionbars.keyfeedback.enable then
 		return
 	end
@@ -288,8 +292,8 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 	local db = self.db
 
 	local mirror = CreateFrame('Button', MER.Title .. 'KeyFeedbackMirror', self, 'ActionButtonTemplate')
-	mirror:SetHeight(db.mirrorSize)
-	mirror:SetWidth(db.mirrorSize)
+	mirror:SetHeight(db.mirrorSize or 32)
+	mirror:SetWidth(db.mirrorSize or 32)
 	mirror.NormalTexture:ClearAllPoints()
 
 	local bg = S:CreateBDFrame(mirror)
@@ -445,8 +449,8 @@ local PoolIconCreationFunc = function(pool)
 	S:CreateShadow(bg)
 
 	f:EnableMouse(false)
-	f:SetHeight(db.lineIconSize)
-	f:SetWidth(db.lineIconSize)
+	f:SetHeight(db.lineIconSize or 28)
+	f:SetWidth(db.lineIconSize or 28)
 	f:SetPoint('BOTTOM', hdr, 'BOTTOM', 0, -0)
 
 	local t = f.icon

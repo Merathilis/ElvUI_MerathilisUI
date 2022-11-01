@@ -279,9 +279,9 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["mail"]["xOffset"] = 5
 	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = 5
 	E.db["general"]["minimap"]["icons"]["difficulty"]["position"] = "TOPLEFT"
-	E.db["general"]["minimap"]["icons"]["difficulty"]["xOffset"] = 14
-	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -13
-	E.db["general"]["minimap"]["icons"]["difficulty"]["scale"] = 1
+	E.db["general"]["minimap"]["icons"]["difficulty"]["xOffset"] = 13
+	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -5
+	E.db["general"]["minimap"]["icons"]["difficulty"]["scale"] = 0.9
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 0
@@ -450,9 +450,11 @@ function MER:SetupLayout()
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
 
-	--[[----------------------------------
+		--[[----------------------------------
 	--	Skins - Layout
-	--]]----------------------------------
+	--]] ----------------------------------
+	E.private["skins"]["parchmentRemoverEnable"] = true
+
 	if IsAddOnLoaded("ls_Toasts") then
 		E.private["skins"]["blizzard"]["alertframes"] = false
 	else

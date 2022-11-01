@@ -12,12 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Wrath: Fix Item Level display... whoopsi",
-		"• Update FriendsFrame Skin",
-		"• Updated Cooldown Display on Bags",
-		"• Make the Bags movable even without Mover",
-		"• Add back KeyFeedback. Note: It should work fine on classic but not retail",
-		"• Drop TBC support",
+		"• Fix black Text on the Gossip Frame",
+		"• Updated the Minimap Button Backdrop",
+		"• Many updates on Skins",
+		"• Updated Bag Code",
 
 	" ",
 	"Notes:",

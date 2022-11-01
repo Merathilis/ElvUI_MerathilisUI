@@ -788,7 +788,7 @@ function module:CreateButton(name, barDB)
 	button:SetClampedToScreen(true)
 	button:SetAttribute("type", "item")
 	button:EnableMouse(false)
-	button:RegisterForClicks(E.global.mui.core.buttonFix)
+	button:RegisterForClicks("AnyDown")
 
 	local tex = button:CreateTexture(nil, "OVERLAY", nil)
 	tex:Point("TOPLEFT", button, "TOPLEFT", 1, -1)

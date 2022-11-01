@@ -1119,6 +1119,9 @@ L["Top Left Offset Y"] = "Versatz oben links Y"
 L["Transparent"] = "Transparent"
 L["Style"] = "Stil"
 L["Height Mode"] = "Höhenmodus"
+L["Menu Title"] = true
+L["it shows when objective tracker is collapsed."] = true
+
 
 -- Filter
 L["Filter"] = true -- no need to translate

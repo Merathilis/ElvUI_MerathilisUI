@@ -425,21 +425,12 @@ function module:GetEmptySlot(name)
 		if slotID then
 			return -1, slotID
 		end
-		-- if DB.IsPTR then
-			-- for bagID = 6, 12 do
-				-- local slotID = module:GetContainerEmptySlot(bagID)
-				-- if slotID then
-					-- return bagID, slotID
-				-- end
-			-- end
-		-- else
-			for bagID = 5, 11 do
-				local slotID = module:GetContainerEmptySlot(bagID)
-				if slotID then
-					return bagID, slotID
-				end
+		for bagID = 6, 12 do
+			local slotID = module:GetContainerEmptySlot(bagID)
+			if slotID then
+				return bagID, slotID
 			end
-		-- end
+		end
 	elseif name == "Reagent" then
 		local slotID = module:GetContainerEmptySlot(-3)
 		if slotID then
@@ -596,8 +587,8 @@ StaticPopupDialogs["MER_RENAMECUSTOMGROUP"] = {
 		module.db.CustomNames[index] = text ~= "" and text or nil
 
 		module.CustomMenu[index + 2].text = GetCustomGroupTitle(index)
-		module.ContainerGroups["Bag"][index].label:SetText(GetCustomGroupTitle(index))
-		module.ContainerGroups["Bank"][index].label:SetText(GetCustomGroupTitle(index))
+		module.ContainerGroups["Bag"][index + 1].label:SetText(GetCustomGroupTitle(index))
+		module.ContainerGroups["Bank"][index + 1].label:SetText(GetCustomGroupTitle(index))
 	end,
 	EditBoxOnEscapePressed = function(self)
 		self:GetParent():Hide()
@@ -924,19 +915,20 @@ function module:Initialize()
 	end
 
 	function Backpack:OnInit()
-		AddNewContainer("Bag", 15, "Junk", filters.bagsJunk)
+		AddNewContainer("Bag", 1, "BagReagent", filters.onlyBagReagent)
+		AddNewContainer("Bag", 16, "Junk", filters.bagsJunk)
 		for i = 1, 5 do
-			AddNewContainer("Bag", i, "BagCustom" .. i, filters["bagCustom" .. i])
+			AddNewContainer("Bag", i+1, "BagCustom" .. i, filters["bagCustom" .. i])
 		end
-		AddNewContainer("Bag", 8, "EquipSet", filters.bagEquipSet)
-		AddNewContainer("Bag", 6, "AzeriteItem", filters.bagAzeriteItem)
-		AddNewContainer("Bag", 7, "Equipment", filters.bagEquipment)
-		AddNewContainer("Bag", 9, "BagCollection", filters.bagCollection)
-		AddNewContainer("Bag", 13, "Consumable", filters.bagConsumable)
-		AddNewContainer("Bag", 10, "BagGoods", filters.bagGoods)
-		AddNewContainer("Bag", 14, "BagQuest", filters.bagQuest)
-		AddNewContainer("Bag", 11, "BagAnima", filters.bagAnima)
-		AddNewContainer("Bag", 12, "BagRelic", filters.bagRelic)
+		AddNewContainer("Bag", 9, "EquipSet", filters.bagEquipSet)
+		AddNewContainer("Bag", 7, "AzeriteItem", filters.bagAzeriteItem)
+		AddNewContainer("Bag", 8, "Equipment", filters.bagEquipment)
+		AddNewContainer("Bag", 10, "BagCollection", filters.bagCollection)
+		AddNewContainer("Bag", 14, "Consumable", filters.bagConsumable)
+		AddNewContainer("Bag", 11, "BagGoods", filters.bagGoods)
+		AddNewContainer("Bag", 15, "BagQuest", filters.bagQuest)
+		AddNewContainer("Bag", 12, "BagAnima", filters.bagAnima)
+		AddNewContainer("Bag", 13, "BagRelic", filters.bagRelic)
 
 		f.main = MyContainer:New("Bag", { Bags = "bags", BagType = "Bag" })
 		f.main.__anchor = { "BOTTOMRIGHT", -4, 50 }
@@ -1404,7 +1396,9 @@ function module:Initialize()
 		elseif name == "BagRelic" then
 			label = L["Korthia Relic"]
 		elseif strmatch(name, "Custom%d") then
-			label = GetCustomGroupTitle(settings.Index)
+			label = GetCustomGroupTitle(settings.Index - 1)
+		elseif name == "BagReagent" then
+			label = L["ReagentBag"]
 		end
 		if label then
 			self.label = self:CreateFontString(nil, "ARTWORK")

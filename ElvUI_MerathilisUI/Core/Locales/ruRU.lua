@@ -1133,6 +1133,8 @@ L["Top Left Offset Y"] = "Верхнее левое смещение Y"
 L["Transparent"] = "Прозрачный"
 L["Style"] = "Стиль"
 L["Height Mode"] = "Режим высоты"
+L["Menu Title"] = true
+L["it shows when objective tracker is collapsed."] = true
 
 -- Filter
 L["Filter"] = "Фильтр"

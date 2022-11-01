@@ -1132,6 +1132,8 @@ L["Top Left Offset Y"] = true
 L["Transparent"] = "Transparent"
 L["Style"] = true
 L["Height Mode"] = true
+L["Menu Title"] = true
+L["it shows when objective tracker is collapsed."] = true
 
 -- Filter
 L["Filter"] = "Filtre"

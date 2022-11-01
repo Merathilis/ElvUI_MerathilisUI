@@ -12,7 +12,7 @@ local C_CVar_SetCVar = C_CVar.SetCVar
 
 options.misc = {
 	type = "group",
-	name = E.NewSign .. L["Miscellaneous"],
+	name = L["Miscellaneous"],
 	get = function(info) return E.db.mui.misc[info[#info]] end,
 	set = function(info, value) E.db.mui.misc[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
@@ -56,20 +56,20 @@ options.misc = {
 		quickDelete = {
 			order = 7,
 			type = "toggle",
-			name = E.NewSign .. L["Quick Delete"],
+			name = L["Quick Delete"],
 			desc = L["This will add the 'DELETE' text to the Item Delete Dialog."],
 		},
 		quickMenu = {
 			order = 8,
 			type = "toggle",
-			name = E.NewSign .. L["Quick Menu"],
+			name = L["Quick Menu"],
 			desc = L["Shows additional Buttons on your Dropdown for quick actions."],
 		},
 
 		spellAlert = {
 			order = 10,
 			type = "group",
-			name = E.NewSign .. F.cOption(L["Spell Alert Scale"], 'orange'),
+			name = F.cOption(L["Spell Alert Scale"], 'orange'),
 			guiInline = true,
 			hidden = not E.Retail,
 			get = function(info) return E.db.mui.misc.spellAlert[info[#info]] end,

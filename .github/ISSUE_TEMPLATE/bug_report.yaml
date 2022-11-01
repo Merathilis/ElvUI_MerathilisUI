@@ -32,7 +32,7 @@ body:
     attributes:
       label: Suggested Solution/Workaround
       description: If you have any idea how we could solve it let us know.
-      placeholder: "Make sure type the command: '/muierror' on then test."
+      placeholder: "Make sure type the command: '/muidebug on' on then test."
     validations:
       required: false
   - type: textarea

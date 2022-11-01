@@ -95,24 +95,6 @@ options.name = {
 				[4] = "4 - |cff00d1b2[DEBUG]|r"
 			},
 		},
-		buttonFix = {
-			order = 4,
-			type = "select",
-			name = L["Button Fix"],
-			desc = L["Fix Blizzard Button Bug."],
-			get = function(info)
-				return E.global.mui.core.buttonFix
-			end,
-			set = function(info, value)
-				E.global.mui.core.buttonFix = value
-			end,
-			hidden = function()
-			end,
-			values = {
-				["AnyDown"] = "AnyDown",
-				["AnyUp"] = "AnyUp"
-			}
-		},
 		support = {
 			order = 5,
 			type = "group",
