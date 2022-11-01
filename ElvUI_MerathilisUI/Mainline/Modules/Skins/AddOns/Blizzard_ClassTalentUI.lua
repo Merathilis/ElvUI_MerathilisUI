@@ -12,6 +12,10 @@ local function LoadSkin()
 	local ClassTalentFrame = _G.ClassTalentFrame
 	ClassTalentFrame:Styling()
 	module:CreateShadow(ClassTalentFrame)
+
+	for _, tab in next, { ClassTalentFrame.TabSystem:GetChildren() } do
+		module:ReskinTab(tab)
+	end
 end
 
 S:AddCallbackForAddon('Blizzard_ClassTalentUI', LoadSkin)

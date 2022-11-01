@@ -44,8 +44,20 @@ local function LoadSkin()
 	EncounterJournal:Styling()
 	module:CreateShadow(EncounterJournal)
 
-	local SuggestFrame = _G.EncounterJournalSuggestFrame
+	-- Bottom tabs
+	local tabs = {
+		_G.EncounterJournalSuggestTab,
+		_G.EncounterJournalDungeonTab,
+		_G.EncounterJournalRaidTab,
+		_G.EncounterJournalLootJournalTab
+	}
 
+	for _, tab in pairs(tabs) do
+		module:ReskinTab(tab)
+	end
+
+
+	local SuggestFrame = _G.EncounterJournalSuggestFrame
 	-- Suggestion 1
 	local suggestion = SuggestFrame.Suggestion1
 	suggestion.bg:Hide()
@@ -106,15 +118,11 @@ local function LoadSkin()
 		end
 	end)
 
-	local tabs = { "overviewTab", "modelTab", "bossTab", "lootTab" }
-	for _, name in pairs(tabs) do
+	for _, name in next, { "overviewTab", "modelTab", "bossTab", "lootTab" } do
 		local tab = EncounterJournal.encounter.info[name]
-
-		if tab and tab.backdrop then
-			tab:Styling()
-			module:CreateGradient(tab.backdrop)
-			module:CreateShadow(tab)
-		end
+		tab.backdrop:Styling()
+		module:CreateGradient(tab.backdrop)
+		module:CreateBackdropShadow(tab)
 	end
 
 	-- Encounter Frame
