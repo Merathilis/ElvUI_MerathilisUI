@@ -462,8 +462,8 @@ options.maps = {
 							min = 0,
 							max = 30,
 							step = 1
-						}
-					}
+						},
+					},
 				},
 				blizzardButtonsConfig = {
 					order = 6,

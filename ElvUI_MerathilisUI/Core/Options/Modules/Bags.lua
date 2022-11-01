@@ -15,7 +15,7 @@ end
 
 options.bags = {
 	type = "group",
-	name = E.NewSign .. L["Bags"],
+	name = L["Bags"],
 	-- hidden = not E.Retail,
 	args = {
 		header = {

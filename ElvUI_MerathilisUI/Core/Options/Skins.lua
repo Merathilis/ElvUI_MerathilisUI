@@ -24,7 +24,7 @@ local DecorAddons = {
 }
 
 if E.Retail then
-	tinsert(DecorAddons, {"Details", E.NewSign .. L["Details"], "dt" })
+	tinsert(DecorAddons, {"Details", L["Details"], "dt" })
 end
 
 local SupportedProfiles = {
@@ -1833,7 +1833,7 @@ end
 options.Embed = {
 	order = 6,
 	type = "group",
-	name = E.NewSign .. L["Embed Settings"],
+	name = L["Embed Settings"],
 	get = function(info) return E.private.mui.skins.embed[info[#info]] end,
 	set = function(info, value) E.private.mui.skins.embed[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 	args = {
