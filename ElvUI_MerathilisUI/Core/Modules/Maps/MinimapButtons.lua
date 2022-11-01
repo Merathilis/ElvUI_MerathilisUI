@@ -57,6 +57,7 @@ local IgnoreList = {
 		"Cork",
 		"DugisArrowMinimapPoint",
 		"QuestieFrame",
+		"TTMinimapButton",
 	},
 	partial = {
 		"Node",
