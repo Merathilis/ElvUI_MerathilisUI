@@ -84,7 +84,7 @@ local moveButtons = {}
 do
 	local modified = false
 	function module:UpdateExpansionLandingPageMinimapIcon(icon)
-        icon = icon or _G.ExpansionLandingPageMinimapButton
+		icon = icon or _G.ExpansionLandingPageMinimapButton
 
 		if not icon then
 			return
@@ -435,7 +435,7 @@ function module:UpdateLayout()
 		end
 
 		if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
-			if not self.db.backdrop then
+			if self.db.backdrop then
 				frame.backdrop.shadow:Show()
 			else
 				frame.backdrop.shadow:Hide()
@@ -537,7 +537,7 @@ function module:CreateFrames()
 	self.bar = frame
 
 	self:SkinMinimapButtons()
-	self.bar:Styling()
+	self.bar.backdrop:Styling()
 	S:CreateShadowModule(self.bar.backdrop)
 
 	E:CreateMover(self.barAnchor, "MER_MinimapButtonBarAnchor", L["Minimap Buttons Bar"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", function() return E.db.mui.smb.enable end, "mui,modules,maps")
