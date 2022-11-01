@@ -450,9 +450,11 @@ function MER:SetupLayout()
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
 
-	--[[----------------------------------
+		--[[----------------------------------
 	--	Skins - Layout
-	--]]----------------------------------
+	--]] ----------------------------------
+	E.private["skins"]["parchmentRemoverEnable"] = true
+
 	if IsAddOnLoaded("ls_Toasts") then
 		E.private["skins"]["blizzard"]["alertframes"] = false
 	else
