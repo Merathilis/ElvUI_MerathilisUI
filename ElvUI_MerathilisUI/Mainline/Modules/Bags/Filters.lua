@@ -27,6 +27,10 @@ local function isItemInBag(item)
 	return item.bagId >= 0 and item.bagId <= 4
 end
 
+local function isItemInBagReagent(item)
+	return item.bagId == 5
+end
+
 local function isItemInBank(item)
 	return item.bagId == -1 or item.bagId >= 5 and item.bagId <= 11
 end
@@ -189,6 +193,7 @@ function module:GetFilters()
 	filters.bagAnima = function(item) return isItemInBag(item) and isAnimaItem(item) end
 	filters.bankAnima = function(item) return isItemInBank(item) and isAnimaItem(item) end
 	filters.bagRelic = function(item) return isItemInBag(item) and isKorthiaRelic(item) end
+	filters.onlyBagReagent = function(item) return isItemInBagReagent(item) end
 
 	for i = 1, 5 do
 		filters["bagCustom" .. i] = function(item) return isItemInBag(item) and isItemCustom(item, i) end
