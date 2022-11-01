@@ -60,7 +60,9 @@ function module:SkinProgressBars(_, _, line)
 	end
 
 	-- Change the Font
-	F.SetFontOutline(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
+	if not E.db.mui.blizzard.objectiveTracker.menuTitle.enable then
+		F.SetFontOutline(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
+	end
 
 	progressBar.MERStyle = true
 end

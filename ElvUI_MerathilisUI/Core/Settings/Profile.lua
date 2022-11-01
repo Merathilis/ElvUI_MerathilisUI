@@ -120,6 +120,16 @@ P.blizzard = {
 			customColorNormal = {r = 0, g = 0.752, b = 0.980},
 			customColorHighlight = {r = 0.282, g = 0.859, b = 0.984}
 		},
+		menuTitle = {
+			enable = true,
+			classColor = false,
+			color = { r = 0.000, g = 0.659, b = 1.000 },
+			font = {
+				name = E.db.general.font,
+				size = E.db.general.fontSize,
+				style = "OUTLINE",
+			},
+		},
 	},
 	filter = {
 		enable = true,

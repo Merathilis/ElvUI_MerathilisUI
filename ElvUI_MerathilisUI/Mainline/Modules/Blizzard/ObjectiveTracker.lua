@@ -202,6 +202,24 @@ function module:HandleTitleText(text)
 	SetTextColorHook(text)
 end
 
+function module:HandleMenuText(text)
+	F.SetFontDB(text, self.db.menuTitle.font)
+	local height = text:GetStringHeight() + 2
+	if height ~= text:GetHeight() then
+		text:SetHeight(height)
+	end
+
+	if not text.IsHooked then
+		text.IsHooked = true
+		if self.db.menuTitle.classColor then
+			text:SetTextColor(F.r, F.g, F.b)
+		else
+			text:SetTextColor(self.db.menuTitle.color.r, self.db.menuTitle.color.g, self.db.menuTitle.color.b)
+		end
+		text.SetTextColor = E.noop
+	end
+end
+
 function module:HandleInfoText(text)
 	self:ColorfulProgression(text)
 	F.SetFontDB(text, self.db.info)
@@ -380,6 +398,10 @@ function module:Initialize()
 			end
 		end
 	end)
+
+	if _G.ObjectiveTrackerFrame.HeaderMenu then
+		self:HandleMenuText(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
+	end
 
 	ObjectiveTracker_Update()
 end
