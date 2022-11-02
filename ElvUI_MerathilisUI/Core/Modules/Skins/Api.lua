@@ -271,7 +271,7 @@ function module:CreateGradient(f)
 	assert(f, "doesn't exist!")
 
 	local tex = f:CreateTexture(nil, "BORDER")
-	tex:SetInside()
+	tex:SetInside(f)
 	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\gradient.tga]])
 	tex:SetVertexColor(.3, .3, .3, .15)
 

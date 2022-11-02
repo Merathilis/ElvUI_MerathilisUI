@@ -87,7 +87,7 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 		local button = CreateFrame("Button", nil, self.bar, "SecureActionButtonTemplate, BackdropTemplate")
 		button:StripTextures()
 		button:SetBackdropBorderColor(0, 0, 0)
-		button:RegisterForClicks("AnyDown")
+		button:RegisterForClicks("AnyUp", "AnyDown")
 		button:SetScript("OnMouseUp", func)
 
 		button.colorBlock = button:CreateTexture(nil, "ARTWORK")

@@ -75,6 +75,27 @@ function module:StyleMinimapRightClickMenu()
 	end
 end
 
+local function ReplaceFlag(self)
+	self:SetTexture(MER.Media.Textures.flag)
+end
+
+local function ReskinDifficulty(frame)
+	frame.Border:Hide()
+	ReplaceFlag(frame.Background)
+	hooksecurefunc(frame.Background, "SetAtlas", ReplaceFlag)
+end
+
+function module:InstanceDifficulty()
+	local instDifficulty = _G.MinimapCluster.InstanceDifficulty
+	if instDifficulty then
+		instDifficulty:SetParent(Minimap)
+
+		ReskinDifficulty(instDifficulty.Instance)
+		ReskinDifficulty(instDifficulty.Guild)
+		ReskinDifficulty(instDifficulty.ChallengeMode)
+	end
+end
+
 function module:Initialize()
 	if not E.private.general.minimap.enable then return end
 
@@ -87,6 +108,10 @@ function module:Initialize()
 
 	self:StyleMinimap()
 	self:StyleMinimapRightClickMenu()
+
+	if E.Retail then
+		self:InstanceDifficulty()
+	end
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
 	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")

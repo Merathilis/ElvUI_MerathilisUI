@@ -9,6 +9,7 @@ local strlen, strsplit = strlen, strsplit
 
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
+local GetAddOnEnableState = GetAddOnEnableState
 
 local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 
@@ -218,6 +219,16 @@ function MER:CheckCompatibility()
 	end
 
 	self:ConstructCompatibilityFrame()
+
+	do -- Disable InCompatible AddOns
+		local alwaysDisable = {
+			'ZygorGuidesViewer',
+		}
+
+		for _, addon in next, alwaysDisable do
+			DisableAddOn(addon)
+		end
+	end
 
 	-- Windtools
 	CheckWindtools(

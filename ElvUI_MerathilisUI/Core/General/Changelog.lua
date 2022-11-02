@@ -12,10 +12,14 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix black Text on the Gossip Frame",
-		"• Updated the Minimap Button Backdrop",
-		"• Many updates on Skins",
-		"• Updated Bag Code",
+		"• Prevent a C-Stack error on the Garrison Skin",
+		"• Added Backstab as reference spell for oUF_GCD #50",
+		"• Bring back the annoying Spell Feedback, you are welcome <3",
+		"• Changed my code to register any Button press if up or down. >.<",
+		"• Fixed some backdrop issues on MinimapButton Bar. Thx Murava",
+		"• Replaced the Minimap Difficulty texture on the Minimap. Thx NDUI",
+		"• Zygor Guides causes some crashes with different AddOn, so i disable it!",
+		"• Updated some skins",
 
 	" ",
 	"Notes:",

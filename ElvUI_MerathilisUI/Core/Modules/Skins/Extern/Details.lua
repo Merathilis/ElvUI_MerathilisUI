@@ -87,6 +87,7 @@ local function SetupInstance(instance)
 	instance.baseframe:CreateBackdrop('Transparent')
 	instance.baseframe.backdrop:SetPoint("TOPLEFT", -1, 18)
 	instance.baseframe.backdrop:Styling()
+	module:CreateGradient(instance.baseframe.backdrop)
 	module:CreateBackdropShadow(instance.baseframe)
 
 	if instance:GetId() < 4 then
@@ -187,7 +188,7 @@ local function ReskinDetails()
 		end
 	end
 
-    -- Disable some AddOnSkins settings
+	-- Disable some AddOnSkins settings
 	if IsAddOnLoaded('AddOnSkins') then
 		local AS = unpack(AddOnSkins)
 		AS.db["EmbedSystem"] = false
@@ -204,7 +205,7 @@ local function LoadSkin()
 		return
 	end
 
-    if E.private.mui.skins.addonSkins.dt then
+	if E.private.mui.skins.addonSkins.dt then
 		if E.Retail then
 			GradientBars()
 		end

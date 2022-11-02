@@ -68,17 +68,6 @@ end
 function module:StyleChat()
 	-- Style the chat
 
-	if _G.LeftChatPanel.backdrop then
-		_G.LeftChatPanel.backdrop:Styling()
-		S:CreateGradient(_G.LeftChatPanel.backdrop)
-	end
-	if _G.RightChatPanel.backdrop then
-		_G.RightChatPanel.backdrop:Styling()
-		S:CreateGradient(_G.RightChatPanel.backdrop)
-	end
-
-	S:CreateBackdropShadow(_G.LeftChatPanel, true)
-	S:CreateBackdropShadow(_G.RightChatPanel, true)
 end
 
 function module:StyleVoicePanel()

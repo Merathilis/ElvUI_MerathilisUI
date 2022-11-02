@@ -131,6 +131,8 @@ AddMedia("PepeArt", "PepeArt.tga", "Textures")
 AddMedia("PepoLove", "pepoLove.tga", "Textures")
 AddMedia("Pushed", "pushed.tga", "Textures")
 
+AddMedia("flag", "flag.tga", "Textures")
+
 -- Role Icons
 AddMedia("sunTank", "RoleIcons/SunUI/Tank.tga", "Textures")
 AddMedia("sunHealer", "RoleIcons/SunUI/Healer.tga", "Textures")
