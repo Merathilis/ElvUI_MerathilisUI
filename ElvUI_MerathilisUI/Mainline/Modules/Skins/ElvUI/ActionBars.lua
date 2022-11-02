@@ -60,6 +60,12 @@ function module:ElvUI_ActionBar_SkinBar(bar, type)
 			local button = _G["ElvUI_StanceBarButton" .. i]
 			self:ElvUI_ActionBar_SkinButton(button, bar.db.backdrop)
 		end
+	elseif type == "MICRO" then
+		for _, name in next, AB.MICRO_BUTTONS do
+			local button = _G[name]
+			self:ElvUI_ActionBar_SkinButton(button, bar.db.backdrop)
+			button:Styling()
+		end
 	end
 end
 
@@ -74,6 +80,10 @@ end
 
 function module:ElvUI_ActionBar_PositionAndSizeBarShapeShift()
 	self:ElvUI_ActionBar_SkinBar(_G.ElvUI_StanceBar, "STANCE")
+end
+
+function module:ElvUI_UpdateMicroButtons()
+	self:ElvUI_ActionBar_SkinBar(_G.ElvUI_MicroBar, "MICRO")
 end
 
 function module:SkinZoneAbilities(button)
@@ -113,6 +123,11 @@ function module:Skin_ElvUI_ActionBars()
 		self:SecureHook(AB, "PositionAndSizeBarShapeShift", "ElvUI_ActionBar_PositionAndSizeBarShapeShift")
 	end
 
+	-- Micro bar
+	if not E.private.actionbar.masque.microBar then
+		self:ElvUI_ActionBar_SkinBar(_G.ElvUI_BarMicro, "MICRO")
+		self:SecureHook(AB, "UpdateMicroButtons", "ElvUI_UpdateMicroButtons")
+	end
 
 	-- Zone Button
 	module:SecureHook(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", "SkinZoneAbilities")
