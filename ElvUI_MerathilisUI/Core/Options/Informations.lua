@@ -29,6 +29,7 @@ local DONATORS = {
 	'N3',
 	'Aary',
 	'Daniel',
+	'skychilde',
 }
 tsort(DONATORS, SortList)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
