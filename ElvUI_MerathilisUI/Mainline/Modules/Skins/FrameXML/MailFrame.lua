@@ -21,10 +21,6 @@ local function LoadSkin()
 
 	local MiniMapMailFrame = _G.MiniMapMailFrame or _G.MinimapCluster.MailFrame
 
-	-- Change the Minimap Mail icon
-	_G.MiniMapMailIcon:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\Mail")
-	_G.MiniMapMailIcon:SetSize(16, 16)
-
 	MiniMapMailFrame:SetScript("OnShow", function()
 		if not MiniMapMailFrame.highlight then
 			MiniMapMailFrame.highlight = CreateFrame("Frame", nil, MiniMapMailFrame)
@@ -42,6 +38,13 @@ local function LoadSkin()
 	local MailFrame = _G.MailFrame
 	MailFrame:Styling()
 	module:CreateShadow(MailFrame)
+
+	for i = 1, 2 do
+		module:ReskinTab(_G["MailFrameTab"..i])
+	end
+
+	_G.MailFrameTab2:ClearAllPoints()
+	_G.MailFrameTab2:SetPoint("TOPLEFT", _G.MailFrameTab1, "TOPRIGHT", -5, 0)
 
 	-- InboxFrame
 	for i = 1, _G.INBOXITEMS_TO_DISPLAY do
