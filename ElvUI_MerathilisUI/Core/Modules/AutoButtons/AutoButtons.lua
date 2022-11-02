@@ -398,6 +398,7 @@ local utilities = {
 	49040,
 	109076,
 	132514,
+	132516,
 	153023,
 	171285,
 	171286,
@@ -408,6 +409,7 @@ local utilities = {
 	172346,
 	172347,
 	172233,
+	182749,
 	34721, -- First Aid bandage WRATH
 	34722, -- First Aid bandage WRATH
 }
@@ -776,8 +778,8 @@ local moduleList = {
 	["POTIONSWRATH"] = wrathPotions,
 	["FLASKWRATH"] = wrathFlasks,
 	["ELIXIRWRATH"] = wrathElixirs,
-    ["POTIONSDF"] = potionsDragonflight,
-    ["FLASKDF"] = flasksDragonflight,
+	["POTIONSDF"] = potionsDragonflight,
+	["FLASKDF"] = flasksDragonflight,
 	["FOODDF"] = foodDragonflight,
 }
 
