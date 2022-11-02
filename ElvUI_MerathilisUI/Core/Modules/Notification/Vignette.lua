@@ -60,11 +60,11 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 
 		local atlasInfo = C_Texture_GetAtlasInfo(vignetteInfo.atlasName)
 		if not atlasInfo then return end
-		local tex = F.GetTextureStrByAtlas(atlasInfo)
+		local tex = F.GetTextureStrByAtlas(atlasInfo, 15, 15)
 		if not tex then return end
 
 		-- For Debugging: uncomment this
-		-- F.Print("Vignette-ID:"..vignetteInfo.vignetteID, "Vignette-Name:"..vignetteInfo.name)
+		-- F.DebugPrint("Vignette-ID: "..vignetteInfo.vignetteID.."Vignette-Name: "..vignetteInfo.name, "warning")
 		if VignetteBlackListIDs[vignetteInfo.vignetteID] or not isUsefulAtlas(vignetteInfo) then return end
 
 		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id then

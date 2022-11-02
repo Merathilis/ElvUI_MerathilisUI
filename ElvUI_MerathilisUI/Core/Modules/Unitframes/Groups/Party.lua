@@ -19,9 +19,3 @@ function module:Update_PartyFrames(frame)
 
 	module:CreateHighlight(frame)
 end
-
-function module:InitParty()
-	if not E.db.unitframe.units.party.enable then return end
-
-	hooksecurefunc(UF, "Update_PartyFrames", module.Update_PartyFrames)
-end

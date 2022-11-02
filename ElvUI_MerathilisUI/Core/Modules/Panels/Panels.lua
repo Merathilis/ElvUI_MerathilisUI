@@ -15,7 +15,11 @@ function module:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
-	panel.tex:SetGradient("VERTICAL", color.r, color.g, color.b)
+	if E.Retail then
+		panel.tex:SetGradient("VERTICAL", CreateColor(color.r, color.g, color.b, 1), CreateColor(0, 0, 0, 1)) --ToDO: WoW10 check this
+	else
+		panel.tex:SetGradient("VERTICAL", color.r, color.g, color.b)
+	end
 end
 
 -- Style Panels
@@ -200,14 +204,14 @@ function module:UpdateColors()
 	module:SkinPanel(MER_TopRightStyle)
 	module:SkinPanel(MER_BottomRightStyle)
 
-	MER:CreateGradientFrame(MER_TopLeftExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, .5, 0)
-	MER:CreateGradientFrame(MER_TopLeftExtraStyle1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, .7, 0)
-	MER:CreateGradientFrame(MER_BottomLeftExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, .5, 0)
-	MER:CreateGradientFrame(MER_BottomLeftStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, .7, 0)
-	MER:CreateGradientFrame(MER_TopRightExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, 0, .5)
-	MER:CreateGradientFrame(MER_TopRightStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, 0, .7)
-	MER:CreateGradientFrame(MER_BottomRightExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, 0, .5)
-	MER:CreateGradientFrame(MER_BottomRightStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, 0, .7)
+	MER:CreateGradientFrame(MER_TopLeftExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, .5, 0, 0, 0, 0)
+	MER:CreateGradientFrame(MER_TopLeftExtraStyle1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, .7, color.r, color.g, color.b, 0)
+	MER:CreateGradientFrame(MER_BottomLeftExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, .5, 0, 0, 0, 0)
+	MER:CreateGradientFrame(MER_BottomLeftStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, .7, color.r, color.g, color.b, 0)
+	MER:CreateGradientFrame(MER_TopRightExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, 0, 0, 0, 0, .5)
+	MER:CreateGradientFrame(MER_TopRightStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, 0, color.r, color.g, color.b, .7)
+	MER:CreateGradientFrame(MER_BottomRightExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, 0, 0, 0, 0, .5)
+	MER:CreateGradientFrame(MER_BottomRightStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, 0, color.r, color.g, color.b, .7)
 end
 
 function module:Resize()
@@ -240,13 +244,6 @@ function module:Initialize()
 
 	self:CreatePanels()
 	self:Resize()
-
-	function module:ForUpdateAll()
-		local db = E.db.mui.panels
-		self:UpdatePanels()
-		self:Resize()
-	end
-	self:ForUpdateAll()
 end
 
 MER:RegisterModule(module:GetName())

@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
-local S = E:GetModule("Skins")
+local module = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 local _G = _G
 
@@ -10,10 +10,11 @@ local function LoadSkin()
 	end
 
 	local ReportFrame = _G.ReportFrame
-	if not ReportFrame.backdrop then
-		ReportFrame:CreateBackdrop('Transparent')
-		ReportFrame.backdrop:Styling()
-	end
+	ReportFrame:Styling()
+
+	local ShadowContainer = CreateFrame("Frame", nil, ReportFrame)
+	ShadowContainer:SetAllPoints(ReportFrame)
+	module:CreateShadow(ShadowContainer)
 end
 
 S:AddCallback("mUIReportFrame", LoadSkin)

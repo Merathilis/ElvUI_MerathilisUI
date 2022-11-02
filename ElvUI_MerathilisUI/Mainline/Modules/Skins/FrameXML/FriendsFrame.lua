@@ -1,11 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
 
 local AnimateTexCoords = AnimateTexCoords
 local hooksecurefunc = hooksecurefunc
+local CreateColor = CreateColor
 
 function FriendsCount_OnLoad(self)
 	self:RegisterEvent("BN_FRIEND_LIST_SIZE_CHANGED")
@@ -15,6 +16,33 @@ end
 function FriendsCount_OnEvent(event, ...)
 	local bnetCount = BNGetNumFriends();
 	_G.MER_FriendsCounter:SetText(bnetCount.."|cff416380/200|r")
+end
+
+local function UpdateFriendsButton(button)
+	if not button.right then
+		button.right = button:CreateTexture(nil, "BACKGROUND")
+		button.right:SetWidth(button:GetWidth() / 2)
+		button.right:SetHeight(32)
+		button.right:SetPoint("LEFT", button, "CENTER", 0)
+		button.right:SetTexture(E.LSM:Fetch("statusbar", E.media.normTex))
+		button.right:SetGradient("HORIZONTAL", CreateColor(.243, .57, 1, 0), CreateColor(.243, .57, 1, .25))
+
+		if button.gameIcon then
+			button.gameIcon:HookScript("OnShow", function()
+				button.right:Show()
+			end)
+
+			button.gameIcon:HookScript("OnHide", function()
+				button.right:Hide()
+			end)
+
+			if button.gameIcon:IsShown() then
+				button.right:Show()
+			else
+				button.right:Hide()
+			end
+		end
+	end
 end
 
 local function LoadSkin()
@@ -79,6 +107,7 @@ local function LoadSkin()
 	if _G.FriendsFrameBattlenetFrame.BroadcastFrame.backdrop then
 		_G.FriendsFrameBattlenetFrame.BroadcastFrame.backdrop:Styling()
 	end
+	module:SecureHook("FriendsFrame_UpdateFriendButton", UpdateFriendsButton)
 end
 
 S:AddCallback("FriendsFrame", LoadSkin)

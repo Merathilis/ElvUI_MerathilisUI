@@ -20,8 +20,12 @@ local GetContainerNumSlots = GetContainerNumSlots
 local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
+local UnitClass = UnitClass
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
+local UnitIsPlayer = UnitIsPlayer
+local UnitIsTapDenied = UnitIsTapDenied
+local UnitReaction = UnitReaction
 local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
@@ -31,10 +35,42 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UIParent = UIParent
 local C_Covenants_GetCovenantData = C_Covenants and C_Covenants.GetCovenantData
 local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
+local LE_ITEM_CLASS_GEM, LE_ITEM_GEM_ARTIFACTRELIC = LE_ITEM_CLASS_GEM, LE_ITEM_GEM_ARTIFACTRELIC
 
 --[[----------------------------------
 --	Color Functions
 --]]----------------------------------
+F.ClassGradient = {
+	["WARRIOR"] = { r1 = 0.60, g1 = 0.40, b1 = 0.20, r2 = 0.66, g2 = 0.53, b2 = 0.34 },
+	["PALADIN"] = { r1 = 0.9, g1 = 0.47, b1 = 0.64, r2 = 0.96, g2 = 0.65, b2 = 0.83 },
+	["HUNTER"] = { r1 = 0.58, g1 = 0.69, b1 = 0.29, r2 = 0.78, g2 = 1, b2 = 0.38 },
+	["ROGUE"] = { r1 = 1, g1 = 0.68, b1 = 0, r2 = 1, g2 = 0.83, b2 = 0.25 },
+	["PRIEST"] = { r1 = 0.65, g1 = 0.65, b1 = 0.65, r2 = 0.98, g2 = 0.98, b2 = 0.98 },
+	["DEATHKNIGHT"] = { r1 = 0.79, g1 = 0.07, b1 = 0.14, r2 = 1, g2 = 0.18, b2 = 0.23 },
+	["SHAMAN"] = { r1 = 0, g1 = 0.25, b1 = 0.50, r2 = 0, g2 = 0.43, b2 = 0.87 },
+	["MAGE"] = { r1 = 0, g1 = 0.73, b1 = 0.83, r2 = 0.49, g2 = 0.87, b2 = 1 },
+	["WARLOCK"] = { r1 = 0.50, g1 = 0.30, b1 = 0.70, r2 = 0.7, g2 = 0.53, b2 = 0.83 },
+	["MONK"] = { r1 = 0, g1 = 0.77, b1 = 0.45, r2 = 0.22, g2 = 0.90, b2 = 1 },
+	["DRUID"] = { r1 = 1, g1 = 0.23, b1 = 0.0, r2 = 1, g2 = 0.48, b2 = 0.03 },
+    ["DEMONHUNTER"] = { r1 = 0.36, g1 = 0.13, b1 = 0.57, r2 = 0.74, g2 = 0.19, b2 = 1 },
+	["EVOKER"] = { r1 = 0.20, g1 = 0.58, b1 = 0.50, r2 = 0, g2 = 1, b2 = 0.60 },
+
+	["NPCFRIENDLY"] = { r1 = 0.30, g1 = 0.85, b1 = 0.2, r2 = 0.34, g2 = 0.62, b2 = 0.40 },
+	["NPCNEUTRAL"] = { r1 = 0.71, g1 = 0.63, b1 = 0.15, r2 = 1, g2 = 0.85, b2 = 0.20 },
+	["NPCUNFRIENDLY"] = { r1 = 0.84, g1 = 0.30, b1 = 0, r2 = 0.83, g2 = 0.45, b2 = 0 },
+	["NPCHOSTILE"] = { r1 = 0.31, g1 = 0.06, b1 = 0.07, r2 = 1, g2 = 0.15, b2 = 0.15 },
+
+	["TAPPED"] = { r1 = 0.6, g1 = 0.6, b1 = 0.60, r2 = 0, g2 = 0, b2 = 0 },
+
+	["GOODTHREAT"] = { r1 = 0.1999995559454, g1 = 0.7098023891449, b1 = 0, r2 = 1, g2 = 0, b2 = 0 },
+	["BADTHREAT"] = { r1 = 0.99999779462814, g1 = 0.1764702051878, b1 = 0.1764702051878, r2 = 1, g2 = 0, b2 = 0 },
+	["GOODTHREATTRANSITION"] = { r1 = 0.99999779462814, g1 = 0.85097849369049, b1 = 0.1999995559454, r2 = 1, g2 = 0, b2 = 0 },
+	["BADTHREATTRANSITION"] = { r1 = 0.99999779462814, g1 = 0.50980281829834, b1 = 0.1999995559454, r2 = 1, g2 = 0, b2 = 0 },
+	["OFFTANK"] = { r1 = 0.95686066150665, g1 = 0.54901838302612, b1 = 0.72941017150879, r2 = 1, g2 = 0, b2 = 0 },
+	["OFFTANKBADTHREATTRANSITION"] = { r1 = 0.77646887302399, g1 = 0.60784178972244, b1 = 0.4274500310421, r2 = 1, g2 = 0, b2 = 0 },
+	["OFFTANKGOODTHREATTRANSITION"] = { r1 = 0.37646887302399, g1 = 0.90784178972244, b1 = 0.9274500310421, r2 = 1, g2 = 0, b2 = 0 },
+}
+
 F.ClassColors = {}
 local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 for class, value in pairs(colors) do
@@ -45,6 +81,35 @@ for class, value in pairs(colors) do
 	F.ClassColors[class].colorStr = value.colorStr
 end
 F.r, F.g, F.b = F.ClassColors[E.myclass].r, F.ClassColors[E.myclass].g, F.ClassColors[E.myclass].b
+
+function F.ClassColor(class)
+	local color = F.ClassColors[class]
+	if not color then
+		return  1, 1, 1
+	end
+
+	return color.r, color.g, color.b
+end
+
+function F.UnitColor(unit)
+	local r, g, b = 1, 1, 1
+	if UnitIsPlayer(unit) then
+		local class = select(2, UnitClass(unit))
+		if class then
+			r, g, b = F.ClassColor(class)
+		end
+	elseif UnitIsTapDenied(unit) then
+		r, g, b = .6, .6, .6
+	else
+		local reaction = UnitReaction(unit, "player")
+		if reaction then
+			local color = _G.FACTION_BAR_COLORS[reaction]
+			r, g, b = color.r, color.g, color.b
+		end
+	end
+
+	return r, g, b
+end
 
 local defaultColor = { r = 1, g = 1, b = 1, a = 1 }
 function F.unpackColor(color)
@@ -82,6 +147,28 @@ function F.CreateClassColorString(text, englishClass)
 	local hex = r and g and b and E:RGBToHex(r, g, b) or "|cffffffff"
 
 	return hex .. text .. "|r"
+end
+
+function F.GradientColors(unitclass, invert, alpha)
+	if invert then
+		if alpha then
+			return F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, 1, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, 1
+		else
+			return F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1
+		end
+	else
+		if alpha then
+			return F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, 1, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, 1
+		else
+			return F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2
+		end
+	end
+end
+
+function F.GradientName(name, unitclass)
+	local text = E:TextGradient(name, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1)
+
+	return text
 end
 
 do
@@ -136,7 +223,7 @@ function F.SetFontOutline(text, font, size)
 		F.Developer.LogDebug("Functions.SetFontOutline: text not found")
 		return
 	end
-	local fontName, fontHeight = text:GetFont()
+	local fontName, fontHeight, fontStyle = text:GetFont()
 
 	if size and type(size) == "string" then
 		size = fontHeight + tonumber(size)
@@ -146,7 +233,7 @@ function F.SetFontOutline(text, font, size)
 		font = LSM:Fetch("font", font)
 	end
 
-	text:FontTemplate(font or fontName, size or fontHeight, "OUTLINE")
+	text:FontTemplate(font or fontName, size or fontHeight, fontStyle or "OUTLINE")
 	text:SetShadowColor(0, 0, 0, 0)
 	text.SetShadowColor = E.noop
 end
@@ -233,6 +320,22 @@ function F.Print(text)
 	print(message)
 end
 
+function F.DebugPrint(text, msgtype)
+	if not text then
+		return
+	end
+
+	local message
+	if msgtype == 'error' then
+		message = format("%s: %s", MER.Title..MER.RedColor..L["Error"].."|r", text)
+	elseif msgtype == 'warning' then
+		message = format("%s: %s", MER.Title..MER.YellowColor..L["Warning"].."|r", text)
+	elseif msgtype == 'info' then
+		message = format("%s: %s", MER.Title..MER.InfoColor..L["Information"].."|r", text)
+	end
+	print(message)
+end
+
 function F.PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
@@ -251,6 +354,56 @@ function F.TablePrint(tbl, indent)
 		else
 			print(formatting .. v)
 		end
+	end
+end
+
+do
+	-- Tooltip Stuff
+	function F:HideTooltip()
+		_G.GameTooltip:Hide()
+	end
+
+	local function Tooltip_OnEnter(self)
+		_G.GameTooltip:SetOwner(self, self.anchor, 0, 4)
+		_G.GameTooltip:ClearLines()
+
+		if self.title then
+			_G.GameTooltip:AddLine(self.title)
+		end
+
+		local r, g, b
+
+		if tonumber(self.text) then
+			_G.GameTooltip:SetSpellByID(self.text)
+		elseif self.text then
+			if self.color == 'CLASS' then
+				r, g, b = F.r, F.g, F.b
+			elseif self.color == 'SYSTEM' then
+				r, g, b = 1, 0.8, 0
+			elseif self.color == 'BLUE' then
+				r, g, b = 0.6, 0.8, 1
+			elseif self.color == 'RED' then
+				r, g, b = 0.9, 0.3, 0.3
+			elseif self.color == 'WHITE' then
+				r, g, b = 1, 1, 1
+			end
+			if self.blankLine then
+				_G.GameTooltip:AddLine(' ')
+			end
+
+			_G.GameTooltip:AddLine(self.text, r, g, b, 1)
+		end
+
+		_G.GameTooltip:Show()
+	end
+
+	function F:AddTooltip(anchor, text, color, showTips)
+		self.anchor = anchor
+		self.text = text
+		self.color = color
+		if showTips then self.title = L["Tips"] end
+		self:HookScript('OnEnter', Tooltip_OnEnter)
+		self:HookScript('OnLeave', F.HideTooltip)
 	end
 end
 
@@ -280,88 +433,36 @@ function F.SplitList(list, variable, cleanup)
 	end
 end
 
-do
-	-- Tooltip scanning stuff. Credits siweia, with permission.
+F.iLvlClassIDs = {
+	[Enum.ItemClass.Gem] = Enum.ItemGemSubclass.Artifactrelic,
+	[Enum.ItemClass.Armor] = 0,
+	[Enum.ItemClass.Weapon] = 0,
+}
+
+do -- Tooltip scanning stuff. Credits siweia, with permission.
 	local iLvlDB = {}
-	local itemLevelString = gsub(_G.ITEM_LEVEL, "%%d", "")
-	local enchantString = gsub(_G.ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
-	local essenceTextureID = 2975691
-	local essenceDescription = GetSpellDescription(277253)
-	local ITEM_SPELL_TRIGGER_ONEQUIP = ITEM_SPELL_TRIGGER_ONEQUIP
+	local itemLevelString = "^"..gsub(ITEM_LEVEL, "%%d", "")
 	local RETRIEVING_ITEM_INFO = RETRIEVING_ITEM_INFO
 
-	local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
+	local tip = CreateFrame("GameTooltip", "mUI_ScanTooltip", nil, "GameTooltipTemplate")
 	F.ScanTip = tip
 
-	function F.InspectItemTextures()
+	function F:InspectItemTextures()
 		if not tip.gems then
 			tip.gems = {}
 		else
 			wipe(tip.gems)
 		end
 
-		if not tip.essences then
-			tip.essences = {}
-		else
-			for _, essences in pairs(tip.essences) do
-				wipe(essences)
-			end
-		end
-
-		local step = 1
-		for i = 1, 10 do
+		for i = 1, 5 do
 			local tex = _G["mUI_ScanTooltipTexture"..i]
 			local texture = tex and tex:IsShown() and tex:GetTexture()
 			if texture then
-				if texture == essenceTextureID then
-					local selected = (tip.gems[i-1] ~= essenceTextureID and tip.gems[i-1]) or nil
-					if not tip.essences[step] then tip.essences[step] = {} end
-					tip.essences[step][1] = selected		--essence texture if selected or nil
-					tip.essences[step][2] = tex:GetAtlas()	--atlas place 'tooltip-heartofazerothessence-major' or 'tooltip-heartofazerothessence-minor'
-					tip.essences[step][3] = texture			--border texture placed by the atlas
-
-					step = step + 1
-					if selected then tip.gems[i-1] = nil end
-				else
-					tip.gems[i] = texture
-				end
+				tip.gems[i] = texture
 			end
 		end
 
-		return tip.gems, tip.essences
-	end
-
-	function F.InspectItemInfo(text, slotInfo)
-		local itemLevel = strfind(text, itemLevelString) and strmatch(text, "(%d+)%)?$")
-		if itemLevel then
-			slotInfo.iLvl = tonumber(itemLevel)
-		end
-
-		local enchant = strmatch(text, enchantString)
-		if enchant then
-			slotInfo.enchantText = enchant
-		end
-	end
-
-	function F.CollectEssenceInfo(index, lineText, slotInfo)
-		local step = 1
-		local essence = slotInfo.essences[step]
-		if essence and next(essence) and (strfind(lineText, ITEM_SPELL_TRIGGER_ONEQUIP, nil, true) and strfind(lineText, essenceDescription, nil, true)) then
-			for i = 5, 2, -1 do
-				local line = _G["mUI_ScanTooltipTextLeft"..index-i]
-				local text = line and line:GetText()
-
-				if text and (not strmatch(text, "^[ +]")) and essence and next(essence) then
-					local r, g, b = line:GetTextColor()
-					essence[4] = r
-					essence[5] = g
-					essence[6] = b
-
-					step = step + 1
-					essence = slotInfo.essences[step]
-				end
-			end
-		end
+		return tip.gems
 	end
 
 	function F.GetItemLevel(link, arg1, arg2, fullScan)
@@ -372,22 +473,7 @@ do
 			if not tip.slotInfo then tip.slotInfo = {} else wipe(tip.slotInfo) end
 
 			local slotInfo = tip.slotInfo
-			slotInfo.gems, slotInfo.essences = F.InspectItemTextures()
-
-			for i = 1, tip:NumLines() do
-				local line = _G["mUI_ScanTooltipTextLeft"..i]
-				if not line then break end
-
-				local text = line:GetText()
-				if text then
-					if i == 1 and text == RETRIEVING_ITEM_INFO then
-						return "tooSoon"
-					else
-						F.InspectItemInfo(text, slotInfo)
-						F.CollectEssenceInfo(i, text, slotInfo)
-					end
-				end
-			end
+			slotInfo.gems = F:InspectItemTextures()
 
 			return slotInfo
 		else
@@ -399,11 +485,17 @@ do
 			elseif arg1 and type(arg1) == "number" then
 				tip:SetBagItem(arg1, arg2)
 			else
+				if link then link = gsub(link, ':6544:', '::') end
 				tip:SetHyperlink(link)
 			end
 
+			local firstLine = _G.mUI_ScanTooltipTextLeft1:GetText()
+			if firstLine == RETRIEVING_ITEM_INFO then
+				return "tooSoon"
+			end
+
 			for i = 2, 5 do
-				local line = _G[tip:GetName().."TextLeft"..i] or _G["mUI_ScanTooltipTextLeft"..i]
+				local line = _G["mUI_ScanTooltipTextLeft"..i]
 				if not line then break end
 
 				local text = line:GetText()
@@ -580,34 +672,10 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 end
 
 --[[----------------------------------
---	Text Functions
+--	Dropdown Menu
 --]]----------------------------------
-function F.CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
-	local text = f:CreateFontString(nil, layer)
-	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
-	text:SetHeight(text:GetStringHeight()+30)
-
-	if text then
-		text:SetText(text)
-	else
-		text:SetText("")
-	end
-
-	if classcolor and type(classcolor) == "boolean" then
-		text:SetTextColor(F.r, F.g, F.b)
-	elseif classcolor == "system" then
-		text:SetTextColor(1, .8, 0)
-	elseif classcolor == "white" then
-		text:SetTextColor(1, 1, 1)
-	end
-
-	if (anchor and x and y) then
-		text:Point(anchor, x, y)
-	else
-		text:Point("CENTER", 1, 0)
-	end
-
-	return text
+do
+	F.EasyMenu = CreateFrame('Frame', MER.Title .. 'EasyMenu', E.UIParent, 'UIDropDownMenuTemplate')
 end
 
 -- Inform us of the patch info we play on.
@@ -751,6 +819,12 @@ function F.GetTextureStrByAtlas(info, sizeX, sizeY)
 	return format("|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d|t", file, (sizeX or 0), (sizeY or 0), atlasWidth, atlasHeight, atlasWidth*txLeft, atlasWidth*txRight, atlasHeight*txTop, atlasHeight*txBottom)
 end
 
+-- GUID to npcID
+function F.GetNPCID(guid)
+	local id = tonumber(strmatch((guid or ""), "%-(%d-)%-%x-$"))
+	return id
+end
+
 function F.SplitString(delimiter, subject)
 	if not subject or subject == "" then
 		return {}
@@ -780,8 +854,6 @@ function F.SplitString(delimiter, subject)
 	return unpack(results)
 end
 
-
-
 function F.SetCallback(callback, target, times, ...)
 	times = times or 0
 	if times >= 10 then
@@ -799,4 +871,33 @@ function F.SetCallback(callback, target, times, ...)
 	end
 
 	E:Delay(0.1, F.SetCallback, callback, target, times+1, ...)
+end
+
+do
+	-- Handle close button
+	function F:Texture_OnEnter()
+		if self:IsEnabled() then
+			if self.bg then
+				self.bg:SetBackdropColor(cr, cg, cb, .25)
+			else
+				self.__texture:SetVertexColor(0, .6, 1, 1)
+			end
+		end
+	end
+
+	function F:Texture_OnLeave()
+		if self.bg then
+			self.bg:SetBackdropColor(0, 0, 0, .25)
+		else
+			self.__texture:SetVertexColor(1, 1, 1, 1)
+		end
+	end
+end
+
+function F:TogglePanel(frame)
+	if frame:IsShown() then
+		frame:Hide()
+	else
+		frame:Show()
+	end
 end

@@ -5,11 +5,11 @@ function MER:LoadTouhinProfile()
 	--	Touhin - Settings
 	--]]----------------------------------
 
-	TouhinDB.profiles["MerathilisUI"] = {
+	TouhinDB.profiles[F.Profiles.Default] = {
 		["edgeSize"] = 1,
 		["scale"] = 0.9,
 		["anchor_y"] = 249.000579833984,
-		["bgFile"] = "RenAscensionL",
+		["bgFile"] = "MER_NormTex",
 		["showMoney"] = false,
 		["font"] = "Expressway",
 		["anchor_x"] = 57.0003356933594,

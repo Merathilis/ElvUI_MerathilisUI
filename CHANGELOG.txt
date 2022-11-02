@@ -1,6 +1,5 @@
-[b][color=orange]v5.14[/color], xx.07.2022[/b][list]
-[*]Added a Skin for TLDR Missions
-[*]Added back the Skin for VenturePlan
-[*]Fixed PlayerChoice Skin Style
-[*]Swing Bar was scuffed a long time???
-[*]Added an option to expand the Character Frame (Armory)[/list]
+[b][color=orange]v5.31[/color], 01.11.2022[/b][list]
+[*]Fix black Text on the Gossip Frame
+[*]Updated the Minimap Button Backdrop
+[*]Many updates on Skins
+[*]Updated Bag Code[/list]

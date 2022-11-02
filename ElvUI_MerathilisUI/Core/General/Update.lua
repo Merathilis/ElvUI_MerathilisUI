@@ -40,16 +40,20 @@ function MER:UpdateScripts() -- DB Convert
 
 	isFirstLine = true
 
-	if profileVersion <= 5.06 then
-		if not E.global.mui and not E.global.mui.core or type(E.global.mui.core) ~= 'table' then
-			E.global.mui.core = {}
+	local updated = false
+	if profileVersion and profileVersion <= 5.27 then
+		-- Cursor is now a table instead of a bool
+		if E.db.mui.misc.spellAlert and type(E.db.mui.misc.spellAlert) ~= 'table' then
+			E.db.mui.misc.spellAlert = {}
+		end
+		UpdateMessage(L["Miscellaneous"] .. " - " .. L["Spell Alert Scale"], profileVersion)
+
+		--Remove old DTPanel
+		if E.db["datatexts"]["panels"]["MER_RightChatTop"] then
+			E.db["datatexts"]["panels"]["MER_RightChatTop"] = nil
 		end
 
-		if E.private.mui.core or type(E.private.mui.core) == 'table' then
-			E.private.mui.core = nil
-		end
-
-		UpdateMessage(L["Core"] .. " - " .. L["Update Database"], profileVersion)
+		updated = true
 	end
 
 	if not isFirstLine then

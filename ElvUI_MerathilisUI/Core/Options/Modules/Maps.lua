@@ -2,7 +2,6 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule('MER_Minimap')
 local MP = MER:GetModule('MER_MiniMapPing')
 local SMB = MER:GetModule('MER_MiniMapButtons')
-local RM = MER:GetModule('MER_RectangleMinimap')
 local WM = MER:GetModule('MER_WorldMap')
 local options = MER.options.modules.args
 local LSM = E.LSM
@@ -39,91 +38,6 @@ options.maps = {
 					type = "toggle",
 					name = L["Blinking Minimap"],
 					desc = L["Enable the blinking animation for new mail or pending invites."],
-				},
-				queueStatus  = {
-					order = 2,
-					type = "toggle",
-					name = L["LFG Queue"],
-				},
-			},
-		},
-		instanceDifficulty = {
-			order = 6,
-			type = "group",
-			name = L["Instance Difficulty"],
-			get = function(info)
-				return E.db.mui.maps.minimap.instanceDifficulty[info[#info]]
-			end,
-			set = function(info, value)
-				E.db.mui.maps.minimap.instanceDifficulty[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			args = {
-				desc = {
-					order = 1,
-					type = "group",
-					inline = true,
-					name = L["Description"],
-					args = {
-						feature = {
-							order = 1,
-							type = "description",
-							name = L["Reskin the instance diffculty in text style."],
-							fontSize = "medium"
-						}
-					}
-				},
-				enable = {
-					order = 2,
-					type = "toggle",
-					name = L["Enable"],
-				},
-				hideBlizzard = {
-					order = 3,
-					type = "toggle",
-					name = L["Hide Blizzard"],
-				},
-				font = {
-					order = 4,
-					type = "group",
-					name = L["Font"],
-					guiInline = true,
-					get = function(info)
-						return E.db.mui.maps.minimap.instanceDifficulty.font[info[#info]]
-					end,
-					set = function(info, value)
-						E.db.mui.maps.minimap.instanceDifficulty.font[info[#info]] = value
-						E:StaticPopup_Show("PRIVATE_RL")
-					end,
-					args = {
-						name = {
-							order = 1,
-							type = "select",
-							dialogControl = "LSM30_Font",
-							name = L["Font"],
-							values = LSM:HashTable("font")
-						},
-						style = {
-							order = 2,
-							type = "select",
-							name = L["Outline"],
-							values = {
-								NONE = L["None"],
-								OUTLINE = L["OUTLINE"],
-								MONOCHROME = L["MONOCHROME"],
-								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							}
-						},
-						size = {
-							order = 3,
-							name = L["Size"],
-							type = "range",
-							min = 5,
-							max = 60,
-							step = 1
-						},
-					},
 				},
 			},
 		},
@@ -216,9 +130,9 @@ options.maps = {
 					order = 4,
 					type = "group",
 					name = L["Scale"],
-					desc = L["Resize world map."],
 					get = function(info) return E.db.mui.maps.worldMap.scale[info[#info]] end,
 					set = function(info, value) E.db.mui.maps.worldMap.scale[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					hidden = not E.Retail,
 					guiInline = true,
 					args = {
 						enable = {
@@ -400,35 +314,8 @@ options.maps = {
 				},
 			},
 		},
-		coords = {
-			order = 5,
-			type = "group",
-			name = L["Coordinates"],
-			get = function(info) return E.db.mui.maps.minimap.coords[ info[#info] ] end,
-			set = function(info, value) E.db.mui.maps.minimap.coords[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-			args = {
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-				},
-				position = {
-					order = 2,
-					type = "select",
-					name = L["Position"],
-					values = {
-						["TOP"] = L["Top"],
-						["BOTTOM"] = L["Bottom"],
-						["LEFT"] = L["Left"],
-						["RIGHT"] = L["Right"],
-						["CENTER"] = L["Center"],
-					},
-					disabled = function() return not E.db.mui.maps.minimap.coords.enable end,
-				},
-			},
-		},
 		smb = {
-			order = 6,
+			order = 5,
 			type = "group",
 			name = L["Minimap Buttons"],
 			get = function(info) return E.db.mui.smb[ info[#info] ] end,
@@ -575,8 +462,8 @@ options.maps = {
 							min = 0,
 							max = 30,
 							step = 1
-						}
-					}
+						},
+					},
 				},
 				blizzardButtonsConfig = {
 					order = 6,
@@ -591,14 +478,8 @@ options.maps = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					args = {
-						calendar = {
-							order = 1,
-							type = "toggle",
-							name = L["Calendar"],
-							desc = L["Add calendar button to the bar."]
-						},
 						garrison = {
-							order = 2,
+							order = 1,
 							type = "toggle",
 							name = L["Garrison"],
 							desc = L["Add garrison button to the bar."]
@@ -607,52 +488,8 @@ options.maps = {
 				},
 			},
 		},
-		rectangle = {
-			order = 7,
-			type = "group",
-			name = L["Rectangle Minimap"],
-			hidden = not E.Retail,
-			get = function(info)
-				return E.db.mui.maps.minimap.rectangleMinimap[info[#info]]
-			end,
-			set = function(info, value)
-				E.db.mui.maps.minimap.rectangleMinimap[info[#info]] = value
-				RM:ChangeShape()
-			end,
-			args = {
-				desc = {
-					order = 1,
-					type = "group",
-					inline = true,
-					name = L["Description"],
-					args = {
-						feature = {
-							order = 1,
-							type = "description",
-							name = L["Change the shape of ElvUI minimap."],
-							fontSize = "medium"
-						}
-					}
-				},
-				enable = {
-					order = 2,
-					type = "toggle",
-					name = L["Enable"],
-					width = "full"
-				},
-				heightPercentage = {
-					order = 3,
-					type = "range",
-					name = L["Height Percentage"],
-					desc = L["Percentage of ElvUI minimap size."],
-					min = 0.01,
-					max = 1,
-					step = 0.01
-				},
-			},
-		},
 		superTracker = {
-			order = 8,
+			order = 6,
 			type = "group",
 			name = L["Super Tracker"],
 			hidden = not E.Retail,

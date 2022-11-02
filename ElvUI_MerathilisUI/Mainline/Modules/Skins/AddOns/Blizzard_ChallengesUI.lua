@@ -34,16 +34,17 @@ local function UpdateIcons(self)
 		local scheduel, party = select(4, self:GetChildren())
 		scheduel:GetRegions():SetAlpha(0)
 		select(3, scheduel:GetRegions()):SetAlpha(0)
-		module:CreateBD(scheduel, .3)
+		scheduel:CreateBackdrop('Transparent')
 		if scheduel.Entries then
 			for i = 1, 3 do
 				HandleAffixIcons(scheduel.Entries[i])
 			end
 		end
 
-		party:GetRegions():SetAlpha(0)
-		select(3, party:GetRegions()):SetAlpha(0)
-		module:CreateBD(party, .3)
+		--ToDO: Check this part
+		-- party:GetRegions():SetAlpha(0)
+		-- select(3, party:GetRegions()):SetAlpha(0)
+		-- module:CreateBD(party, .3)
 		angryStyle = true
 	end
 end
@@ -57,7 +58,7 @@ local function LoadSkin()
 	KeyStoneFrame:Styling()
 	module:CreateBackdropShadow(KeyStoneFrame)
 
-	hooksecurefunc("ChallengesFrame_Update", UpdateIcons)
+	hooksecurefunc(_G.ChallengesFrame, 'Update', UpdateIcons)
 end
 
 S:AddCallbackForAddon("Blizzard_ChallengesUI", LoadSkin)

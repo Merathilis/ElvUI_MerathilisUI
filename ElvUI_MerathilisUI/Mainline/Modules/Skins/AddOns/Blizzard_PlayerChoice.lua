@@ -26,15 +26,15 @@ local function ChangeOptions()
 		end
 	end
 
-	if _G.PlayerChoiceFrame.style and (_G.PlayerChoiceFrame.style.stripes and _G.PlayerChoiceFrame.style.mshadow and _G.PlayerChoiceFrame.style.gradient) then
+	if _G.PlayerChoiceFrame.MERstyle and (_G.PlayerChoiceFrame.MERstyle.stripes and _G.PlayerChoiceFrame.MERstyle.mshadow and _G.PlayerChoiceFrame.MERstyle.gradient) then
 		if needDisable then
-			_G.PlayerChoiceFrame.style.stripes:Hide()
-			_G.PlayerChoiceFrame.style.mshadow:Hide()
-			_G.PlayerChoiceFrame.style.gradient:Hide()
+			_G.PlayerChoiceFrame.MERstyle.stripes:Hide()
+			_G.PlayerChoiceFrame.MERstyle.mshadow:Hide()
+			_G.PlayerChoiceFrame.MERstyle.gradient:Hide()
 		else
-			_G.PlayerChoiceFrame.style.stripes:Show()
-			_G.PlayerChoiceFrame.style.mshadow:Show()
-			_G.PlayerChoiceFrame.style.gradient:Show()
+			_G.PlayerChoiceFrame.MERstyle.stripes:Show()
+			_G.PlayerChoiceFrame.MERstyle.mshadow:Show()
+			_G.PlayerChoiceFrame.MERstyle.gradient:Show()
 		end
 	end
 end

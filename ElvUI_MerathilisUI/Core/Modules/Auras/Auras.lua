@@ -16,7 +16,6 @@ function module:Auras_Shadow()
 		return
 	end
 
-	self:SecureHook(A, "CreateIcon", "Auras_SkinIcon")
 	self:SecureHook(A, "UpdateAura", "Auras_SkinIcon")
 	self:SecureHook(A, "UpdateTempEnchant", "Auras_SkinIcon")
 end

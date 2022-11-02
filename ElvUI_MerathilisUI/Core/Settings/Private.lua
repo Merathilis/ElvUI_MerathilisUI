@@ -11,7 +11,8 @@ V.misc = {
 V.skins = {
 	enable = true,
 	style = true,
-	shadowOverlay = true,
+	shadowOverlay = false,
+	toggleDirection = 1,
 	shadow = {
 		enable = true,
 		increasedSize = 0,
@@ -26,7 +27,7 @@ V.skins = {
 			enable = true,
 			backdrop = {
 				enable = true,
-				texture = "RenAscensionL",
+				texture = "MER_NormTex",
 				classColor = false,
 				color = {r = 0, g = 0.752, b = 0.980},
 				alpha = 1,
@@ -55,7 +56,7 @@ V.skins = {
 			enable = true,
 			backdrop = {
 				enable = true,
-				texture = "RenAscensionL",
+				texture = "MER_NormTex",
 				classColor = false,
 				color = {r = 0, g = 0.752, b = 0.980},
 				alpha = 1,
@@ -64,7 +65,7 @@ V.skins = {
 			},
 			selected = {
 				enable = true,
-				texture = "RenAscensionL",
+				texture = "MER_NormTex",
 				backdropClassColor = false,
 				backdropColor = {r = 0.322, g = 0.608, b = 0.961},
 				backdropAlpha = 0.4,
@@ -86,13 +87,13 @@ V.skins = {
 		},
 		checkBox = {
 			enable = true,
-			texture = "RenAscensionL",
+			texture = "MER_NormTex",
 			classColor = false,
 			color = {r = 0, g = 0.752, b = 0.980, a = 1}
 		},
 		slider = {
 			enable = true,
-			texture = "RenAscensionL",
+			texture = "MER_NormTex",
 			classColor = false,
 			color = {r = 0, g = 0.752, b = 0.980, a = 1}
 		},
@@ -100,7 +101,7 @@ V.skins = {
 			enable = true,
 			backdrop = {
 				enable = true,
-				texture = "RenAscensionL",
+				texture = "MER_NormTex",
 				classColor = false,
 				color = {r = 0, g = 0.752, b = 0.980},
 				alpha = 1,
@@ -109,7 +110,7 @@ V.skins = {
 			},
 			selected = {
 				enable = true,
-				texture = "RenAscensionL",
+				texture = "MER_NormTex",
 				backdropClassColor = false,
 				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.75},
 				borderClassColor = false,
@@ -130,6 +131,8 @@ V.skins = {
 	},
 	blizzard = {
 		enable = true,
+		arena = true,
+		arenaRegistrar = true,
 		character = true,
 		encounterjournal = true,
 		gossip = true,
@@ -205,6 +208,14 @@ V.skins = {
 		weeklyRewards = true,
 		misc = true,
 		tooltip = true,
+		bgmap = true,
+		bgscore = true,
+		barber = true,
+		chatBubbles = true,
+		expansionLanding = true,
+		majorFactions = true,
+		blizzardOptions = true,
+		editor = true,
 	},
 
 	addonSkins = {
@@ -222,8 +233,14 @@ V.skins = {
 		cl = true,
 		cbn = true,
 		et = true,
+		dt = true,
 		wa = true,
 		waOptions = true,
+		waCooldowns = false,
 		tldr = true,
 	},
+
+	embed = {
+		enable = true,
+	}
 }

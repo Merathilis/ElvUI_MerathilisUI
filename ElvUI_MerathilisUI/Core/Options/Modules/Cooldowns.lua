@@ -32,7 +32,7 @@ options.cooldowns = {
 						},
 					},
 				},
-				toggle = {
+				enable = {
 					order = 3,
 					type = "toggle",
 					name = L["Enable"],
@@ -52,14 +52,14 @@ options.cooldowns = {
 					order = 5,
 					name = L["Fadein duration"],
 					type = "range",
-					min = 0.5, max = 2.5, step = 0.1,
+					min = 0.3, max = 2.5, step = 0.1,
 					hidden = function() return not E.db.mui.cooldownFlash.enable end,
 				},
 				fadeOutTime = {
 					order = 6,
 					name = L["Fadeout duration"],
 					type = "range",
-					min = 0.5, max = 2.5, step = 0.1,
+					min = 0.3, max = 2.5, step = 0.1,
 					hidden = function() return not E.db.mui.cooldownFlash.enable end,
 				},
 				maxAlpha = {
@@ -84,14 +84,8 @@ options.cooldowns = {
 					min = 0.5, max = 2, step = 0.1,
 					hidden = function() return not E.db.mui.cooldownFlash.enable end,
 				},
-				showSpellName = {
-					order = 10,
-					name = L["Display spell name"],
-					type = "toggle",
-					hidden = function() return not E.db.mui.cooldownFlash.enable end,
-				},
 				enablePet = {
-					order = 11,
+					order = 10,
 					name = L["Watch on pet spell"],
 					type = "toggle",
 					get = function(info) return E.db.mui.cooldownFlash[ info[#info] ] end,
@@ -99,7 +93,7 @@ options.cooldowns = {
 					hidden = function() return not E.db.mui.cooldownFlash.enable end,
 				},
 				test = {
-					order = 12,
+					order = 11,
 					name = L["Test"],
 					type = "execute",
 					func = function() CF:TestMode() end,
@@ -109,3 +103,76 @@ options.cooldowns = {
 		},
 	},
 }
+
+do
+	local selectedKey
+	local tempName
+
+	options.cooldowns.args.cooldownFlash.args.ignoredSpells = {
+		order = 99,
+		type = "group",
+		inline = true,
+		name = L["Blacklist"],
+		disabled = function() return not E.db.mui.cooldownFlash.enable end,
+		args = {
+			name = {
+				order = 1,
+				type = "input",
+				name = L["Spell Name"],
+				get = function()
+					return tempName
+				end,
+				set = function(_, value)
+					tempName = value
+				end
+			},
+			addButton = {
+				order = 3,
+				type = "execute",
+				name = L["Add"],
+				func = function()
+					if tempName then
+						E.db.mui.cooldownFlash.ignoredSpells[tempName] = true
+						tempName = nil
+					else
+						F.Print(L["Please set the name first."])
+					end
+				end
+			},
+			spacer = {
+				order = 4,
+				type = "description",
+				name = " ",
+				width = "full"
+			},
+			listTable = {
+				order = 5,
+				type = "select",
+				name = L["Spell List"],
+				get = function()
+					return selectedKey
+				end,
+				set = function(_, value)
+					selectedKey = value
+				end,
+				values = function()
+					local result = {}
+					for fullID in pairs(E.db.mui.cooldownFlash.ignoredSpells) do
+						result[fullID] = fullID
+					end
+					return result
+				end
+			},
+			deleteButton = {
+				order = 6,
+				type = "execute",
+				name = L["Delete"],
+				func = function()
+					if selectedKey then
+						E.db.mui.cooldownFlash.ignoredSpells[selectedKey] = nil
+					end
+				end
+			},
+		},
+	}
+end

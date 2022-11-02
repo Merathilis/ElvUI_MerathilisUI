@@ -42,7 +42,6 @@ local PlaySound = PlaySound
 local RegisterStateDriver = RegisterStateDriver
 local Screenshot = Screenshot
 local ShowUIPanel = ShowUIPanel
-local ToggleAllBags = ToggleAllBags
 local ToggleCalendar = ToggleCalendar
 local ToggleCharacter = ToggleCharacter
 local ToggleFrame = ToggleFrame
@@ -71,42 +70,45 @@ local ScrollButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:
 local friendOnline = gsub(_G.ERR_FRIEND_ONLINE_SS, "\124Hplayer:%%s\124h%[%%s%]\124h", "")
 local friendOffline = gsub(_G.ERR_FRIEND_OFFLINE_S, "%%s", "")
 
-local Heartstones = {
+local Hearthstones = {
 	6948,
 }
 
 if E.Retail then
-	tinsert(Heartstones, 64488)
-	tinsert(Heartstones, 93672)
-	tinsert(Heartstones, 110560)
-	tinsert(Heartstones, 140192)
-	tinsert(Heartstones, 141605)
-	tinsert(Heartstones, 142542)
-	tinsert(Heartstones, 162973)
-	tinsert(Heartstones, 163045)
-	tinsert(Heartstones, 165669)
-	tinsert(Heartstones, 165670)
-	tinsert(Heartstones, 165802)
-	tinsert(Heartstones, 166746)
-	tinsert(Heartstones, 166747)
-	tinsert(Heartstones, 168907)
-	tinsert(Heartstones, 172179)
-	tinsert(Heartstones, 48933)
-	tinsert(Heartstones, 87215)
-	tinsert(Heartstones, 132517)
-	tinsert(Heartstones, 132524)
-	tinsert(Heartstones, 151652)
-	tinsert(Heartstones, 168807)
-	tinsert(Heartstones, 168808)
-	tinsert(Heartstones, 172924)
-	tinsert(Heartstones, 180290)
-	tinsert(Heartstones, 182773)
-	tinsert(Heartstones, 183716)
-	tinsert(Heartstones, 184353)
-	tinsert(Heartstones, 188952) --	Dominated Hearthstone
+	tinsert(Hearthstones, 64488)
+	tinsert(Hearthstones, 93672)
+	tinsert(Hearthstones, 110560)
+	tinsert(Hearthstones, 140192)
+	tinsert(Hearthstones, 141605)
+	tinsert(Hearthstones, 142542)
+	tinsert(Hearthstones, 162973)
+	tinsert(Hearthstones, 163045)
+	tinsert(Hearthstones, 165669)
+	tinsert(Hearthstones, 165670)
+	tinsert(Hearthstones, 165802)
+	tinsert(Hearthstones, 166746)
+	tinsert(Hearthstones, 166747)
+	tinsert(Hearthstones, 168907)
+	tinsert(Hearthstones, 172179)
+	tinsert(Hearthstones, 48933)
+	tinsert(Hearthstones, 87215)
+	tinsert(Hearthstones, 132517)
+	tinsert(Hearthstones, 132524)
+	tinsert(Hearthstones, 151652)
+	tinsert(Hearthstones, 168807)
+	tinsert(Hearthstones, 168808)
+	tinsert(Hearthstones, 172924)
+	tinsert(Hearthstones, 180290)
+	tinsert(Hearthstones, 182773)
+	tinsert(Hearthstones, 183716)
+	tinsert(Hearthstones, 184353)
+	tinsert(Hearthstones, 188952) -- Dominated Hearthstone
+    tinsert(Hearthstones, 193588) -- Timewalker's Hearthstone
+elseif E.Wrath then
+	tinsert(Hearthstones, 184871)
 end
 
-local HeartstonesTable
+local HearthstonesTable
 
 local function AddDoubleLineForItem(itemID, prefix)
 	if type(itemID) == "string" then
@@ -115,7 +117,7 @@ local function AddDoubleLineForItem(itemID, prefix)
 
 	prefix = prefix and prefix .. " " or ""
 
-	local name = HeartstonesTable[tostring(itemID)]
+	local name = HearthstonesTable[tostring(itemID)]
 	if not name then return end
 
 	local texture = GetItemIcon(itemID)
@@ -175,9 +177,21 @@ local ButtonTypes = {
 		name = L["Bags"],
 		icon = MER.Media.Icons.barBags,
 		click = {
-			LeftButton = ToggleAllBags
+			LeftButton = function()
+				_G.ToggleAllBags()
+			end,
 		},
-		tooltips = "Bags"
+		tooltips = function()
+			if IsModifierKeyDown() then
+				DT.tooltip:ClearLines()
+				DT.RegisteredDataTexts["Gold"].onEnter()
+				DT.tooltip:Show()
+			else
+				DT.tooltip:ClearLines()
+				DT.RegisteredDataTexts["Bags"].onEnter()
+				DT.tooltip:Show()
+			end
+		end,
 	},
 	BLIZZARD_SHOP = {
 		name = _G.BLIZZARD_STORE,
@@ -274,13 +288,6 @@ local ButtonTypes = {
 				if not InCombatLockdown() then
 					-- Open game menu | From ElvUI
 					if not _G.GameMenuFrame:IsShown() then
-						if _G.VideoOptionsFrame:IsShown() then
-							_G.VideoOptionsFrameCancel:Click()
-						elseif _G.AudioOptionsFrame:IsShown() then
-							_G.AudioOptionsFrameCancel:Click()
-						elseif _G.InterfaceOptionsFrame:IsShown() then
-							_G.InterfaceOptionsFrameCancel:Click()
-						end
 						CloseMenus()
 						CloseAllWindows()
 						PlaySound(850) --IG_MAINMENU_OPEN
@@ -301,8 +308,17 @@ local ButtonTypes = {
 	GROUP_FINDER = {
 		name = _G.LFG_TITLE,
 		icon = MER.Media.Icons.barGroupFinder,
-		macro = {
-			LeftButton = "/click LFDMicroButton"
+		click = {
+			LeftButton = function()
+				if E.Retail then
+					ToggleLFDParentFrame()
+				elseif E.TBC or E.Wrath then
+					if not IsAddOnLoaded('Blizzard_LookingForGroupUI') then
+						UIParentLoadAddOn('Blizzard_LookingForGroupUI')
+					end
+					_G.ToggleLFGParentFrame()
+				end
+			end,
 		},
 		tooltips = {
 			_G.LFG_TITLE
@@ -503,6 +519,11 @@ local ButtonTypes = {
 	},
 }
 
+function module:ShowAdvancedBagsTooltip()
+	DT.RegisteredDataTexts["Gold"].onEnter()
+	DT.RegisteredDataTexts["Gold"].onLeave()
+end
+
 function module:ShowAdvancedTimeTooltip(panel)
 	DT.RegisteredDataTexts["Time"].onEnter()
 	DT.RegisteredDataTexts["Time"].onLeave()
@@ -533,7 +554,7 @@ function module:ConstructBar()
 	middlePanel:SetPoint("CENTER")
 	middlePanel:CreateBackdrop("Transparent")
 	middlePanel.backdrop:Styling()
-	middlePanel:RegisterForClicks("AnyUp")
+	middlePanel:RegisterForClicks("AnyDown")
 	bar.middlePanel = middlePanel
 
 	local leftPanel = CreateFrame("Frame", "MicroBarLeftPanel", bar)
@@ -662,11 +683,11 @@ function module:ConstructTimeArea()
 			DT.RegisteredDataTexts["System"].eventFunc()
 			DT.RegisteredDataTexts["System"].onEnter()
 		elseif mouseButton == "LeftButton" then
-			if E.Retail then
+			if E.Retail or E.Wrath then
 				if not InCombatLockdown() then
 					ToggleCalendar()
 				end
-			elseif E.Classic then
+			elseif E.Classic or E.TBC then
 				return
 			else
 				_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
@@ -832,7 +853,7 @@ function module:ConstructButton()
 
 	local button = CreateFrame("Button", nil, self.bar, "SecureActionButtonTemplate")
 	button:SetSize(self.db.buttonSize, self.db.buttonSize)
-	button:RegisterForClicks("AnyUp")
+	button:RegisterForClicks("AnyDown")
 
 	local normalTex = button:CreateTexture(nil, "ARTWORK")
 	normalTex:SetPoint("CENTER")
@@ -1117,23 +1138,23 @@ end
 
 function module:UpdateHomeButton()
 	ButtonTypes.HOME.item = {
-		item1 = HeartstonesTable[self.db.home.left],
-		item2 = HeartstonesTable[self.db.home.right]
+		item1 = HearthstonesTable[self.db.home.left],
+		item2 = HearthstonesTable[self.db.home.right]
 	}
 end
 
 function module:UpdateHearthStoneTable()
-	HeartstonesTable = {}
+	HearthstonesTable = {}
 
 	local index = 0
 	local itemEngine = CreateFromMixins(ItemMixin)
 
 	local function GetNextHearthStoneInfo()
 		index = index + 1
-		if Heartstones[index] then
-			itemEngine:SetItemID(Heartstones[index])
+		if Hearthstones[index] then
+			itemEngine:SetItemID(Hearthstones[index])
 			itemEngine:ContinueOnItemLoad(function()
-				HeartstonesTable[tostring(Heartstones[index])] = itemEngine:GetItemName()
+				HearthstonesTable[tostring(Hearthstones[index])] = itemEngine:GetItemName()
 				GetNextHearthStoneInfo()
 			end)
 		else
@@ -1148,7 +1169,7 @@ function module:UpdateHearthStoneTable()
 end
 
 function module:GetHearthStoneTable()
-	return HeartstonesTable
+	return HearthstonesTable
 end
 
 function module:GetAvailableButtons()

@@ -2,14 +2,19 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule('MER_Misc')
 local SA = MER:GetModule('MER_SpellAlert')
 local IL = MER:GetModule('MER_ItemLevel')
+local CU = MER:GetModule('MER_Cursor')
 local options = MER.options.modules.args
 local LSM = E.LSM
+
+local C_CVar_GetCVar = C_CVar.GetCVar
+local C_CVar_GetCVarBool = C_CVar.GetCVarBool
+local C_CVar_SetCVar = C_CVar.SetCVar
 
 options.misc = {
 	type = "group",
 	name = L["Miscellaneous"],
-	get = function(info) return E.db.mui.misc[ info[#info] ] end,
-	set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+	get = function(info) return E.db.mui.misc[info[#info]] end,
+	set = function(info, value) E.db.mui.misc[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
 		header = {
 			order = 1,
@@ -26,33 +31,164 @@ options.misc = {
 			order = 3,
 			type = "toggle",
 			name = L["Guild News Item Level"],
-			get = function(info) return E.private.mui.misc[ info[#info] ] end,
-			set = function(info, value) E.private.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-		},
-		cursor = {
-			order = 4,
-			type = "toggle",
-			name = L["Flashing Cursor"],
+			desc = L["Add Item level Infos in Guild News"],
+			get = function(info) return E.private.mui.misc[info[#info]] end,
+			set = function(info, value) E.private.mui.misc[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		},
 		funstuff = {
-			order = 5,
+			order = 4,
 			type = "toggle",
 			name = L["Fun Stuff"],
+			desc = L["Change the NPC Talk Frame."],
 		},
 		wowheadlinks = {
-			order = 6,
+			order = 5,
 			type = "toggle",
 			name = L["Wowhead Links"],
 			desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
 		},
+		hideBossBanner = {
+			order = 6,
+			type = "toggle",
+			name = L["Hide Boss Banner"],
+			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
+		},
+		quickDelete = {
+			order = 7,
+			type = "toggle",
+			name = L["Quick Delete"],
+			desc = L["This will add the 'DELETE' text to the Item Delete Dialog."],
+		},
+		quickMenu = {
+			order = 8,
+			type = "toggle",
+			name = L["Quick Menu"],
+			desc = L["Shows additional Buttons on your Dropdown for quick actions."],
+		},
+
 		spellAlert = {
 			order = 10,
-			type = "range",
-			name = L["Spell Alert Scale"],
-			min = 0.4, max = 1.5, step = 0.01,
+			type = "group",
+			name = F.cOption(L["Spell Alert Scale"], 'orange'),
+			guiInline = true,
 			hidden = not E.Retail,
-			get = function(info) return E.db.mui.misc.spellAlert end,
-			set = function(info, value) E.db.mui.misc.spellAlert = value; SA:Resize() end,
+			get = function(info) return E.db.mui.misc.spellAlert[info[#info]] end,
+			set = function(info, value) E.db.mui.misc.spellAlert[info[#info]] = value; SA:Update() end,
+			args = {
+				desc = {
+					order = 1,
+					type = "group",
+					inline = true,
+					name = L["Description"],
+					args = {
+						feature = {
+							order = 1,
+							type = "description",
+							name = L["Spell activation alert frame customizations."],
+							fontSize = "medium"
+						}
+					}
+				},
+				enable = {
+					order = 2,
+					type = "toggle",
+					name = L["Enable"]
+				},
+				visability = {
+					order = 3,
+					type = "toggle",
+					name = L["Visablity"],
+					desc = L["Enable/Disable the spell activation alert frame."],
+					get = function(info)
+						return C_CVar_GetCVarBool("displaySpellActivationOverlays")
+					end,
+					set = function(info, value)
+						C_CVar_SetCVar("displaySpellActivationOverlays", value and "1" or "0")
+					end,
+					disabled = function()
+						return not E.db.mui.misc.spellAlert.enable
+					end,
+				},
+				opacity = {
+					order = 4,
+					type = "range",
+					name = L["Opacity"],
+					desc = L["Set the opacity of the spell activation alert frame. (Blizzard CVar)"],
+					get = function(info)
+						return tonumber(C_CVar_GetCVar("spellActivationOverlayOpacity"))
+					end,
+					set = function(info, value)
+						C_CVar_SetCVar("spellActivationOverlayOpacity", value)
+						SA:Update()
+						SA:Preview()
+					end,
+					min = 0, max = 1, step = 0.01,
+					disabled = function()
+						return not E.db.mui.misc.spellAlert.enable
+					end,
+				},
+				scale = {
+					order = 5,
+					type = "range",
+					name = L["Scale"],
+					desc = L["Set the scale of the spell activation alert frame."],
+					min = 0.1, max = 5, step = 0.01,
+					disabled = function()
+						return not E.db.mui.misc.spellAlert.enable
+					end,
+					set = function(info, value)
+						E.db.mui.misc.spellAlert[info[#info]] = value
+						SA:Update()
+						SA:Preview()
+					end,
+					disabled = function()
+						return not E.db.mui.misc.spellAlert.enable
+					end,
+				},
+			},
+		},
+		cursor = {
+			order = 11,
+			type = "group",
+			name = F.cOption(L["Flashing Cursor"], 'orange'),
+			guiInline = true,
+			get = function(info) return E.db.mui.misc.cursor[info[#info]] end,
+			set = function(info, value) E.db.mui.misc.cursor[info[#info]] = value; CU:UpdateColor(); end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				colorType = {
+					order = 2,
+					name = L["Color Type"],
+					type = "select",
+					disabled = function() return not E.db.mui.misc.cursor.enable end,
+					set = function(info, value) E.db.mui.misc.cursor[info[#info]] = value; end,
+					values = {
+						["DEFAULT"] = L["Default"],
+						["CLASS"] = L["Class"],
+						["CUSTOM"] = L["Custom"],
+					},
+				},
+				customColor = {
+					type = "color",
+					order = 3,
+					name = L["Custom Color"],
+					disabled = function() return not E.db.mui.misc.cursor.enable or E.db.mui.misc.cursor.colorType ~= "CUSTOM" end,
+					get = function(info)
+						local t = E.db.mui.misc.cursor[info[#info]]
+						local d = P.misc.cursor[info[#info]]
+						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+					end,
+					set = function(info, r, g, b)
+						E.db.mui.misc.cursor[info[#info]] = {}
+						local t = E.db.mui.misc.cursor[info[#info]]
+						t.r, t.g, t.b = r, g, b
+					end,
+				},
+			},
 		},
 		lfgInfo = {
 			order = 15,
@@ -64,8 +200,9 @@ options.misc = {
 			end,
 			set = function(info, value)
 				E.db.mui.misc.lfgInfo[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
-			disabled = function() return IsAddOnLoaded('WindDungeonHelper') end,
+			hidden = not E.Retail,
 			args = {
 				enable = {
 					order = 1,
@@ -92,9 +229,6 @@ options.misc = {
 					order = 4,
 					type = "group",
 					name = F.cOption(L["Icon"], 'orange'),
-					disabled = function()
-						return IsAddOnLoaded('WindDungeonHelper') or not E.db.mui.misc.lfgInfo.enable
-					end,
 					get = function(info)
 						return E.db.mui.misc.lfgInfo.icon[info[#info]]
 					end,
@@ -136,9 +270,6 @@ options.misc = {
 					order = 5,
 					type = "group",
 					name = F.cOption(L["Line"], 'orange'),
-					disabled = function()
-						return IsAddOnLoaded('WindDungeonHelper') or not E.db.mui.misc.lfgInfo.enable
-					end,
 					get = function(info)
 						return E.db.mui.misc.lfgInfo.line[info[#info]]
 					end,
@@ -209,8 +340,8 @@ options.misc = {
 			type = "group",
 			name = F.cOption(L["Alerts"], 'orange'),
 			guiInline = true,
-			get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
-			set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			get = function(info) return E.db.mui.misc.alerts[info[#info]] end,
+			set = function(info, value) E.db.mui.misc.alerts[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			args = {
 				lfg = {
 					order = 1,
@@ -251,8 +382,8 @@ options.misc = {
 			type = "group",
 			name = F.cOption(L["Quest"], 'orange'),
 			guiInline = true,
-			get = function(info) return E.db.mui.misc.quest[ info[#info] ] end,
-			set = function(info, value) E.db.mui.misc.quest[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			get = function(info) return E.db.mui.misc.quest[info[#info]] end,
+			set = function(info, value) E.db.mui.misc.quest[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			args = {
 				selectQuestReward = {
 					order = 1,
@@ -262,85 +393,43 @@ options.misc = {
 				},
 			},
 		},
-		paragon = {
-			order = 22,
-			type = "group",
-			name = F.cOption(L["MISC_PARAGON_REPUTATION"], 'orange'),
-			guiInline = true,
-			get = function(info) return E.db.mui.misc.paragon[ info[#info] ] end,
-			set = function(info, value) E.db.mui.misc.paragon[ info[#info] ] = value; end,
-			args = {
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-				},
-				textStyle = {
-					order = 2,
-					type = "select",
-					name = L["Text Style"],
-					disabled = function() return not E.db.mui.misc.paragon.enable end,
-					values = {
-						["PARAGON"] = L["MISC_PARAGON"],
-						["CURRENT"] = L["Current"],
-						["VALUE"] = L["Value"],
-						["DEFICIT"] = L["Deficit"],
-					},
-				},
-				paragonColor = {
-					order = 3,
-					name = L["COLOR"],
-					type = "color",
-					disabled = function() return not E.db.mui.misc.paragon.enable end,
-					hasAlpha = false,
-					get = function(info)
-						local t = E.db.mui.misc.paragon[ info[#info] ]
-						local d = P.misc.paragon[info[#info]]
-						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-					end,
-					set = function(info, r, g, b, a)
-						local t = E.db.mui.misc.paragon[ info[#info] ]
-						t.r, t.g, t.b, t.a = r, g, b, a
-					end,
-				},
-			},
-		},
 		mawThreatBar = {
 			order = 24,
 			type = "group",
 			name = F.cOption(L["Maw ThreatBar"], 'orange'),
 			guiInline = true,
+			hidden = not E.Retail,
 			args = {
 				enable = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
 					desc = L["Replace the Maw Threat Display, with a simple StatusBar"],
-					get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
-					set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end
+					get = function(info) return E.db.mui.misc.mawThreatBar[info[#info]] end,
+					set = function(info, value) E.db.mui.misc.mawThreatBar[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end
 				},
 				width = {
 					order = 2,
 					type = "range",
 					name = L["Width"],
 					min = 100, max = 400, step = 10,
-					get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
-					set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+					get = function(info) return E.db.mui.misc.mawThreatBar[info[#info]] end,
+					set = function(info, value) E.db.mui.misc.mawThreatBar[info[#info]] = value; MI:UpdateMawBarLayout() end,
 				},
 				height = {
 					order = 3,
 					type = "range",
 					name = L["Height"],
 					min = 8, max = 20, step = 1,
-					get = function(info) return E.db.mui.misc.mawThreatBar[ info[#info] ] end,
-					set = function(info, value) E.db.mui.misc.mawThreatBar[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+					get = function(info) return E.db.mui.misc.mawThreatBar[info[#info]] end,
+					set = function(info, value) E.db.mui.misc.mawThreatBar[info[#info]] = value; MI:UpdateMawBarLayout() end,
 				},
 				fontGroup = {
 					order = 4,
 					type = "group",
 					name = L["Font"],
-					get = function(info) return E.db.mui.misc.mawThreatBar.font[ info[#info] ] end,
-					set = function(info, value) E.db.mui.misc.mawThreatBar.font[ info[#info] ] = value; MI:UpdateMawBarLayout() end,
+					get = function(info) return E.db.mui.misc.mawThreatBar.font[info[#info]] end,
+					set = function(info, value) E.db.mui.misc.mawThreatBar.font[info[#info]] = value; MI:UpdateMawBarLayout() end,
 					args = {
 						name = {
 							order = 1,
@@ -374,7 +463,7 @@ options.misc = {
 			},
 		},
 		macros = {
-			order = 24,
+			order = 25,
 			type = "group",
 			name = F.cOption(L["Macros"], 'orange'),
 			guiInline = true,
@@ -394,7 +483,7 @@ options.misc = {
 
 options.itemLevel = {
 	type = "group",
-	name = E.NewSign..L["Item Level"],
+	name = L["Item Level"],
 	get = function(info)
 		return E.db.mui.itemLevel[info[#info]]
 	end,
@@ -402,6 +491,7 @@ options.itemLevel = {
 		E.db.mui.itemLevel[info[#info]] = value
 		IL:ProfileUpdate()
 	end,
+	hidden = not E.Retail,
 	args = {
 		header = {
 			order = 0,

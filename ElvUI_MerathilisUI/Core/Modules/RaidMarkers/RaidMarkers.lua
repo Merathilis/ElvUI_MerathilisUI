@@ -368,9 +368,9 @@ function module:CreateButtons()
 				animGroup:Stop()
 				tex.__fromScale = currentScale
 				tex.__toScale = 1.3
-				scaleAnim:SetFromScale(currentScale, currentScale)
-				scaleAnim:SetToScale(1.3, 1.3)
-				scaleAnim:SetDuration((1.3 - currentScale) * 0.618)
+				scaleAnim:SetScaleFrom(currentScale, currentScale)
+				scaleAnim:SetScaleTo(1.3, 1.3)
+				scaleAnim:SetDuration((module.db.buttonAnimationScale - currentScale) / (module.db.buttonAnimationScale - 1) * module.db.buttonAnimationDuration)
 				animGroup:Play()
 			end
 
@@ -394,9 +394,9 @@ function module:CreateButtons()
 				animGroup:Stop()
 				tex.__fromScale = currentScale
 				tex.__toScale = 1
-				scaleAnim:SetFromScale(currentScale, currentScale)
-				scaleAnim:SetToScale(1, 1)
-				scaleAnim:SetDuration((currentScale - 1) * 0.618)
+				scaleAnim:SetScaleFrom(currentScale, currentScale)
+				scaleAnim:SetScaleTo(1, 1)
+				scaleAnim:SetDuration(module.db.buttonAnimationDuration * (currentScale - 1) / (module.db.buttonAnimationScale - 1))
 				animGroup:Play()
 			end
 
@@ -429,7 +429,11 @@ end
 function module:ProfileUpdate()
 	self.db = E.db.mui.raidmarkers
 
-	if self.db.enable and not self.bar then
+	if not E.Retail then
+		return
+	end
+
+	if self.db.enable and not self.bar or E.Retail then
 		self:CreateBar()
 		return
 	end
@@ -446,7 +450,9 @@ function module:Initialize()
 
 	self.db = E.db.mui.raidmarkers
 
-	self:CreateBar()
+	if E.Retail then
+		self:CreateBar()
+	end
 end
 
 MER:RegisterModule(module:GetName())

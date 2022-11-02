@@ -7,10 +7,24 @@ local hooksecurefunc = hooksecurefunc
 function module:Update_PlayerFrame(frame)
 	local db = E.db.mui.unitframes
 
-	if not frame.Swing then module:Construct_Swing(frame) end
-	if not frame.CounterBar then module:Construct_CounterBar(frame) end
+	if not frame.Swing then
+		module:Construct_Swing(frame)
+	end
+
+	if not frame.CounterBar then
+		module:Construct_CounterBar(frame)
+	end
+
 	if E.Retail then
-		if not frame.GCD then module:Construct_GCD(frame) end
+		if not frame.GCD then
+			module:Construct_GCD(frame)
+		end
+	end
+
+	if E.Retail then
+		if not frame.__MERAnim then
+			module:CreateAnimatedBars(frame.Power)
+		end
 	end
 
 	-- Only looks good on Transparent
@@ -54,10 +68,4 @@ function module:Update_PlayerFrame(frame)
 			frame:DisableElement('CounterBar')
 		end
 	end
-end
-
-function module:InitPlayer()
-	if not E.db.unitframe.units.player.enable then return end
-
-	hooksecurefunc(UF, "Update_PlayerFrame", module.Update_PlayerFrame)
 end

@@ -5,6 +5,18 @@ if not L then return; end
 -- Core
 L["Enable"] = true
 L[" is loaded. For any issues or suggestions, please visit "] = true
+L["Font"] = true
+L["Size"] = true
+L["Width"] = true
+L["Height"] = true
+L["Alpha"] = true
+L["Outline"] = true
+L["Y-Offset"] = true
+L["X-Offset"] = true
+L["Y-Offset"] = true
+L["Icon Size"] = true
+L["Font Outline"] = true
+
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -16,7 +28,10 @@ L["Logout Timer"] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = true
-L["Desciption"] = true
+L["Description"] = true
+L["General"] = true
+L["Modules"] = true
+L["Media"] = true
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI. It adds:
 
 - a lot of new features
@@ -35,9 +50,63 @@ L["Enable/Disable the Login Message in Chat"] = true
 L["Log Level"] = true
 L["Only display log message that the level is higher than you choose."] = true
 L["Set to 2 if you do not understand the meaning of log level."] = true
+L["Open the changelog window."] = true
 
 -- Bags
-L["Equipment Manager"] = true
+L["BANK_DESC"] = [=[If you have my Bags enabled the ElvUI Bags will be forced to be disabled! So if you want the ElvUI back, you need to disable my Bags first and then enable the ElvUI Bags again.]=]
+L["Item Filter"] = true
+L["Junk"] = true
+L["Consumable"] = true
+L["Ammo"] = true
+L["Azerite"] = true
+L["Equipments"] = true
+L["EquipSets"] = true
+L["Legendarys"] = true
+L["Collection"] = true
+L["Favorite"] = true
+L["Goods"] = true
+L["Quest"] = true
+L["Anima"] = true
+L["Relic"] = true
+L["Collect Empty Slots"] = true
+L["Special Bags Color"] = true
+L["|nShow color for special bags:|n- Herb bag|n- Mining bag|n- Gem bag|n- Enchanted mageweave pouch"] = true
+L["New Item Glow"] = true
+L["Show ItemLevel"] = true
+L["Pet Trash Currencies"] = true
+L["|nIn patch 9.1, you can buy 3 battle pets by using specific trash items. Keep this enabled, will sort these items into Collection Filter, and won't be sold by auto junk selling."] = true
+L["ItemLevel Threshold"] = true
+L["BagSort Mode"] = true
+L["|nIf you have empty slots after bag sort, please disable bags module, and turn off all bags filter in default ui containers."] = true
+L["Forward"] = true
+L["Backwards"] = true
+L["Bags per Row"] = true
+L["|nIf Bags ItemFilter enabled, change the bags per row for anchoring."] = true
+L["Bank bags per Row"] = true
+L["|nIf Bags ItemFilter enabled, change the bank bags per row for anchoring."] = true
+L["Icon Size"] = true
+L["Icon Spacing"] = true
+L["Font Size"] = true
+L["Bags Width"] = true
+L["Bank Width"] = true
+L["Bag Search Tip"] = "|nClick to search your bag items.|nYou can type in item names or item equip locations.|n'boe' for items that bind on equip and 'quest' for quest items.|n|nPress key ESC to clear editbox."
+L["Auto Deposit Tip"] = "|nLeft click to deposit reagents, right click to switch auto deposit.|nIf the button border shown, the reagents from your bags would auto deposit once you open your BankFrame."
+L["Bag Sort Disabled"] = "BagSort has been disabled in the Options."
+L["Sort"] = true
+L["FreeSlots"] = "Total free slots"
+L["Split Mode Enabled"] = "|nClick to split stacked items in your bags.|nYou can change 'split count' for each click thru the editbox."
+L["Quick Split"] = true
+L["Favourite Mode"] = true
+L["Favourite Mode Enabled"] = "|nYou can now star items.|nIf 'Bags ItemFilter' enabled, the item you starred will add to Preferences filter slots.|nThis is not available to trash."
+L["Reset junklist warning"] = "Are you sure to wipe the custom junk list?"
+L["Junk Mode Enabled"] = "|nClick to tag item as junk.|nIf 'Autosell Junk' enabled, these items would be sold as well.|nThe list is saved account-wide, and won't be in the export data.|nYou can hold CTRL+ALT and click to wipe the custom junk list."
+L["Custom Junk Mode"] = "Custom Junk List"
+L["Delete Mode Enabled"] = "|nYou can destroy container item by holding CTRL+ALT. The item can be heirlooms or its quality lower then rare (blue)."
+L["Item Delete Mode"] = true
+L["Azerite Armor"] = true
+L["Equipment Set"] = true
+L["Korthia Relic"] = true
+L["StupidShiftKey"] = true
 L["Equipment Set Overlay"] = true
 L["Show the associated equipment sets for the items in your bags (or bank)."] = true
 
@@ -45,14 +114,6 @@ L["Show the associated equipment sets for the items in your bags (or bank)."] = 
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
 L["BACK"] = "Back"
-L["ERR_FRIEND_ONLINE"] = "has come |cff298F00online|r."
-L["ERR_FRIEND_OFFLINE"] = "has gone |cffff0000offline|r."
-L["BN_INLINE_TOAST_FRIEND_ONLINE"] = " has come |cff298F00online|r."
-L["BN_INLINE_TOAST_FRIEND_OFFLINE"] = " has gone |cffff0000offline|r."
-L["has come |cff298F00online|r."] = true -- Guild Message
-L["has gone |cffff0000offline|r."] = true -- Guild Message
-L[" has come |cff298F00online|r."] = true -- Battle.Net Message
-L[" has gone |cffff0000offline|r."] = true -- Battle.Net Message
 L["|cFF00c0failvl|r: %d"] = true
 L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = true
 L["Requires level: %d - %d"] = true
@@ -127,6 +188,7 @@ L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["Development Version"] = "Dev. Version"
 L["Here you can download the latest development version."] = true
+L["Donations"] = true
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = true
@@ -140,12 +202,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe,
 
 -- Extended Vendor
 L["Extended Vendor"] = true
-
--- FlightMode
-L["FlightMode"] = true
-L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
-L["Exit FlightMode"] = true
-L["Left Click to Request Stop"] = true
+L["Extends the merchant page to show more items."] = true
+L["Number of Pages"] = true
+L["The number of pages shown in the merchant frame."] = true
 
 -- FlightPoint
 L["Flight Point"] = true
@@ -223,8 +282,9 @@ L["Skill gains"] = true
 L[" members"] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
-L["Undress"] = true
+L["Double Click to Undress"] = true
 L["Flashing Cursor"] = true
+L["Lights up the cursor to make it easier to see."] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
@@ -238,6 +298,7 @@ L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
 L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
 L["Fun Stuff"] = true
+L["Change the NPC Talk Frame."] = true
 L["Press CTRL + C to copy."] = true
 L["Wowhead Links"] = true
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
@@ -247,10 +308,30 @@ L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
 L["Maw ThreatBar"] = true
 L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L["Miscellaneous"] = true
+L["Guild News Item Level"] = true
+L["Add Item level Infos in Guild News"] = true
+L["Spell Alert Scale"] = true
+L["Add Title"] = true
+L["Display an additional title."] = true
+L["Add LFG group info to tooltip."] = true
+L["Reskin Icon"] = true
+L["Change role icons."] = true
+L["Line"] = true
+L["Alerts"] = true
+L["Call to Arms"] = true
+L["Feasts"] = true
+L["Toys"] = true
+L["Random Toy"] = true
+L["Creates a random toy macro."] = true
+L["Text Style"] = true
+L["COLOR"] = true
 L.ANNOUNCE_FP_PRE = "{rt1} %s has prepared a %s. {rt1}"
 L.ANNOUNCE_FP_CLICK = "{rt1} %s is casting %s. Click! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s used a %s.{rt1} "
 L.ANNOUNCE_FP_CAST = "{rt1} %s is casting %s. {rt1}"
+L["Hide Boss Banner"] = true
+L["This will hide the popup, that shows loot, after you kill a boss"] = true
 
 -- Nameplates
 L["NamePlates"] = true
@@ -268,19 +349,6 @@ L["Keystone"] = true
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
 L["Title Color"] = true
 L["Change the color of the title in the Tooltip."] = true
-L["Progress Info"] = true
-L["Shows raid progress of a character in the tooltip"] = true
-L["Mythic"] = true
-L["Heroic"] = true
-L["Normal"] = true
-L["LFR"] = true
-L["Uldir"] = true
-L["Battle Of Dazaralor"] = "Battle Of Dazaralor"
-L["Crucible Of Storms"] = "Crucible Of Storms"
-L["Eternal Palace"] = "Eternal Palace"
-L["Ny'alotha"] = true
-L["Castle Nathria"] = true
-L["Sanctum of Domination"] = true
 L["FACTION"] = "Faction"
 L["Only Icons"] = true
 L["Use the new style tooltip."] = "Use the new style tooltip."
@@ -301,6 +369,8 @@ L["Kyrian"] = true
 L["Venthyr"] = true
 L["NightFae"] = true
 L["Necrolord"] = true
+L["Pet Battle"] = true
+L["Tooltip Icons"] = true
 
 -- Notification
 L["Notification"] = true
@@ -321,6 +391,11 @@ L["If a Rare Mob or a treasure gets spotted on the minimap."] = true
 L["Enable Invites"] = true
 L["Enable Guild Events"] = true
 L["No Sounds"] = true
+L["Vignette Print"] = true
+L["Prints a clickable Link with Coords in the Chat."] = true
+L["Quick Join"] = true
+L["Title Font"] = true
+L["Text Font"] = true
 
 -- DataTexts
 -- DataBars
@@ -357,6 +432,14 @@ L["Add Item ID"] = true
 L["Delete Item ID"] = true
 L["Spell Feedback"] = true
 L["Creates a texture to show the recently pressed buttons."] = true
+L["Frame Strata"] = true
+L["Frame Level"] = true
+L["KeyFeedback"] = true
+L["Mirror"] = true
+L["Mirror Button Size"] = true
+L["Mirror Direction"] = true
+L["LEFT"] = true
+L["RIGHT"] = true
 
 -- AutoButtons
 L["AutoButtons"] = true
@@ -369,7 +452,6 @@ L["The width of the buttons."] = true
 L["Button Height"] = true
 L["The height of the buttons."] = true
 L["Counter"] = true
-L["Outline"] = true
 L["Button Groups"] = true
 L["Key Binding"] = true
 L["Custom Items"] = true
@@ -388,6 +470,9 @@ L["Custom Items"] = true
 L["Fade Time"] = true
 L["Alpha Min"] = true
 L["Alpha Max"] = true
+L["Inherit Global Fade"] = true
+L["Anchor Point"] = true
+L["The first button anchors itself to this point on the bar."] = true
 
 -- Armory
 L["Armory"] = true
@@ -426,9 +511,29 @@ L["Shows an indicator for missing sockets and enchants."] = true
 L["Expanded Size"] = true
 L["This will increase the Character Frame size a bit."] = true
 L["Armor Set"] = true
+L["Colors Set Items in a different color."] = true
 L["Armor Set Gradient Texture Color"] = true
+L["Full Item Level"] = true
+L["Show both equipped and average item levels."] = true
+L["Item Level Coloring"] = true
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
+L["Color of Average"] = true
+L["Sets the color of average item level."] = true
+L["Warning Gradient Texture Color"] = true
+L["Class Color Gradient"] = true
 
 -- Media
+L["Zone Text"] = true
+L["Font Size"] = true
+L["Subzone Text"] = true
+L["PvP Status Text"] = true
+L["Misc Texts"] = true
+L["Mail Text"] = true
+L["Chat Editbox Text"] = true
+L["Gossip and Quest Frames Text"] = true
+L["Objective Tracker Header Text"] = true
+L["Objective Tracker Text"] = true
+L["Banner Big Text"] = true
 L["MER_MEDIA_ZONES"] = {
 	"Washington",
 	"Moscow",
@@ -485,7 +590,7 @@ L["Blizzard Absorb Overlay"] = true
 L["Blizzard Over Absorb Glow"] = true
 L["Blizzard Style"] = true
 L["Change the color of the absorb bar."] = true
-L["Custom Texture"] = "Benutzerdefinierte Textur"
+L["Custom Texture"] = true
 L["Enable the replacing of ElvUI absorb bar textures."] = true
 L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = true
 L["Max Overflow"] = true
@@ -496,6 +601,19 @@ L["Set All Absorb Style to %s"] = true
 L["The absorb style %s and %s is highly recommended with %s tweaks."] = true
 L["The selected texture will override the ElvUI default absorb bar texture."] = true
 L["Use the texture from Blizzard Raid Frames."] = true
+L["Raid Icon"] = true
+L["Change the default raid icons."] = true
+L["Highlight"] = true
+L["Adds an own highlight to the Unitframes"] = true
+L["Auras"] = true
+L["Adds an shadow around the auras"] = true
+L["Power"] = true
+L["Enable the animated Power Bar"] = true
+L["Select Model"] = true
+L["Type the Model ID"] = true
+L["Role Icons"] = true
+L["Heal Prediction"] = true
+L["Add an additional overlay to the absorb bar."] = true
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -543,8 +661,18 @@ L["Item info is not available. Waiting for it. This can take some time. Menu wil
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
 L["Dungeon Teleports"] = true
+L["Hide In Combat"] = true
 
 -- Maps
+L["Maps"] = true
+L["World Map"] = true
+L["Duration"] = true
+L["Fade Out"] = true
+L["Scale"] = true
+L["Hide Blizzard"] = true
+L["Change the shape of ElvUI minimap."] = true
+L["Height Percentage"] = true
+L["Percentage of ElvUI minimap size."] = true
 L["MiniMap Buttons"] = true
 L["Minimap Ping"] = true
 L["Add Server Name"] = true
@@ -594,6 +722,8 @@ L["Reveal"] = true
 L["Use Colored Fog"] = true
 L["Remove Fog of War from your world map."] = true
 L["Style Fog of War with special color."] = true
+L["Resize world map."] = true
+L["LFG Queue"] = true
 
 -- SMB
 L["Minimap Buttons"] = true
@@ -702,13 +832,13 @@ L["Reminder"] = true
 L["Reminds you on self Buffs."] = true
 
 -- Cooldowns
-L["CooldownFlash"] = true
+L["Cooldowns"] = true
+L["Cooldown Flash"] = true
 L["Settings"] = true
 L["Fadein duration"] = true
 L["Fadeout duration"] = true
 L["Duration time"] = true
 L["Animation size"] = true
-L["Display spell name"] = true
 L["Watch on pet spell"] = true
 L["Transparency"] = true
 L["Test"] = true
@@ -719,6 +849,8 @@ L["Show Icons"] = true
 L["Show In Party"] = true
 L["Show In Raid"] = true
 L["Show In Arena"] = true
+L["Spell Name"] = true
+L["Spell List"] = true
 
 -- CVars
 L["\n\nDefault: |cff00ff001|r"] = true
@@ -804,6 +936,7 @@ L["This part of the installation process sets up your chat fonts and colors."] =
 L["This part of the installation changes the default ElvUI look."] = true
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = true
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = true
+L["This part of the installation process will change your NamePlates."] = true
 L["This part of the installation process will reposition your Unitframes."] = true
 L["This part of the installation process will apply changes to ElvUI Plugins"] = true
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = true
@@ -811,13 +944,14 @@ L["Please click the button below to apply the new layout."] = true
 L["Please click the button below to setup your chat windows."] = true
 L["Please click the button below to setup your actionbars."] = true
 L["Please click the button below to setup your datatexts."] = true
+L["Please click the button below to setup your NamePlates."] = true
 L["Please click the button below to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
 L["DataTexts"] = true
 L["General Layout"] = true
 L["Setup ActionBars"] = true
+L["Setup NamePlates"] = true
 L["Setup UnitFrames"] = true
-L["Setup Datatexts"] = true
 L["Setup Datatexts"] = true
 L["Setup Addons"] = true
 L["ElvUI AddOns"] = true
@@ -843,7 +977,7 @@ L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external ad
 Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
 L["MerathilisUI Style"] = true
 L["Creates decorative stripes and a gradient on some frames"] = true
-L["MerathilisUI Shadows"] = true
+L["Screen Shadow Overlay"] = true
 L["Enables/Disables a shadow overlay to darken the screen."] = true
 L["Undress Button"] = true
 L["Subpages"] = true
@@ -867,8 +1001,69 @@ L["Selected Class Color"] = true
 L["Selected Color"] = true
 L["Tab"] = true
 L["Tree Group Button"] = true
+L["Shadow Color"] = true
+L["These skins will affect all widgets handled by ElvUI Skins."] = true
+L["Texture"] = true
+L["Backdrop Color"] = true
+L["Check Box"] = true
+L["Slider"] = true
+L["Backdrop Alpha"] = true
+L["Enable All"] = true
+L["Disable All"] = true
+L["Spellbook"] = true
+L["Character Frame"] = true
+L["Gossip Frame"] = true
+L["Quest Frames"] = true
+L["TALENTS"] = true
+L["AUCTIONS"] = true
+L["FRIENDS"] = true
+L["GUILD"] = true
+L["Mail Frame"] = true
+L["WORLD_MAP"] = true
+L["Guild Control Frame"] = true
+L["MACROS"] = true
+L["GUILD_BANK"] = true
+L["FLIGHT_MAP"] = true
+L["Help Frame"] = true
+L["Loot Frames"] = true
+L["CHANNELS"] = true
+L["Raid Frame"] = true
+L["Craft"] = true
+L["Event Toast Manager"] = true
+L["Quest Choice"] = true
+L["Orderhall"] = true
+L["Contribution"] = true
+L["Calendar Frame"] = true
+L["Merchant Frame"] = true
+L["PvP Frames"] = true
+L["LF Guild Frame"] = true
+L["TalkingHead"] = true
+L["Minimap"] = true
+L["Trainer Frame"] = true
+L["Socket Frame"] = true
+L["Item Upgrade"] = true
+L["Trade"] = true
+L["Allied Races"] = true
+L["Archaeology Frame"] = true
+L["Azerite Essence"] = true
+L["Item Interaction"] = true
+L["Anima Diversion"] = true
+L["Soulbinds"] = true
+L["Covenant Sanctum"] = true
+L["Covenant Preview"] = true
+L["Covenant Renown"] = true
+L["Player Choice"] = true
+L["Chromie Time"] = true
+L["LevelUp Display"] = true
+L["Guide Frame"] = true
+L["Weekly Rewards"] = true
+L["Misc"] = true
 
 -- Panels
+L["Panels"] = true
+L["Top Panel"] = true
+L["Bottom Panel"] = true
+L["Style Panels"] = true
 L["Top Left Panel"] = true
 L["Top Left Extra Panel"] = true
 L["Top Right Panel"] = true
@@ -879,6 +1074,7 @@ L["Bottom Right Panel"] = true
 L["Bottom Right Extra Panel"] = true
 
 -- Objective Tracker
+L["Objective Tracker"] = true
 L["1. Customize the font of Objective Tracker."] = true
 L["2. Add colorful progress text to the quest."] = true
 L["Progress"] = true
@@ -921,6 +1117,10 @@ L["Bottom Right Offset Y"] = true
 L["Top Left Offset X"] = true
 L["Top Left Offset Y"] = true
 L["Transparent"] = true
+L["Style"] = true
+L["Height Mode"] = true
+L["Menu Title"] = true
+L["it shows when objective tracker is collapsed."] = true
 
 -- Filter
 L["Filter"] = true
@@ -991,3 +1191,5 @@ L["Debug Enviroment"] = true
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = true
 L["After you stop debuging, %s will reenable the addons automatically."] = true
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = true
+L["Error"] = true
+L["Warning"] = true

@@ -25,19 +25,20 @@ options.blizzard = {
 }
 
 options.blizzard.args.objectiveTracker = {
-	order = 1,
+	order = 3,
 	type = "group",
 	name = L["Objective Tracker"],
 	get = function(info) return E.db.mui.blizzard.objectiveTracker[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard.objectiveTracker[info[#info]] = value; ObjectiveTracker_Update(); end,
+	hidden = not E.Retail,
 	args = {
 		name = {
-			order = 1,
+			order = -1,
 			type = "header",
 			name = F.cOption(L["Objective Tracker"], 'orange'),
 		},
 		description = {
-			order = 2,
+			order = 0,
 			type = "group",
 			inline = true,
 			name = L["Description"],
@@ -57,7 +58,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		enable = {
-			order = 3,
+			order = 1,
 			type = "toggle",
 			name = L["Enable"],
 			width = "full",
@@ -67,7 +68,7 @@ options.blizzard.args.objectiveTracker = {
 			end
 		},
 		progress = {
-			order = 4,
+			order = 2,
 			type = "group",
 			inline = true,
 			name = L["Progress"],
@@ -103,7 +104,7 @@ options.blizzard.args.objectiveTracker = {
 			}
 		},
 		cosmeticBar = {
-			order = 5,
+			order = 3,
 			type = "group",
 			inline = true,
 			name = L["Cosmetic Bar"],
@@ -328,7 +329,7 @@ options.blizzard.args.objectiveTracker = {
 						tip = {
 							order = 1,
 							type = "description",
-							name = E.NewSign .. L["Here are some example presets, just try them!"]
+							name = L["Here are some example presets, just try them!"]
 						},
 						default = {
 							order = 2,
@@ -460,7 +461,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		header = {
-			order = 6,
+			order = 4,
 			type = "group",
 			inline = true,
 			name = L["Header"],
@@ -535,7 +536,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		titleColor = {
-			order = 7,
+			order = 5,
 			type = "group",
 			inline = true,
 			name = L["Title Color"],
@@ -594,7 +595,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		title = {
-			order = 8,
+			order = 6,
 			type = "group",
 			inline = true,
 			name = L["Title"],
@@ -639,7 +640,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		info = {
-			order = 9,
+			order = 7,
 			type = "group",
 			inline = true,
 			name = L["Information"],
@@ -779,15 +780,113 @@ options.blizzard.args.objectiveTracker = {
 				},
 			},
 		},
+		menuTitle = {
+			order = 9,
+			type = "group",
+			inline = true,
+			name = L["Menu Title"] .. " (" .. L["it shows when objective tracker is collapsed."] .. ")",
+			disabled = function()
+				return not E.db.mui.blizzard.objectiveTracker.enable
+			end,
+			get = function(info)
+				return E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Change the color of quest titles."]
+				},
+				classColor = {
+					order = 2,
+					type = "toggle",
+					name = L["Use Class Color"],
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.menuTitle.enable
+					end
+				},
+				color = {
+					order = 3,
+					type = "color",
+					name = L["Color"],
+					hasAlpha = false,
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.menuTitle.enable or
+							E.db.mui.blizzard.objectiveTracker.menuTitle.classColor
+					end,
+					get = function(info)
+						local db = E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+						local default = P.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+					end,
+					set = function(info, r, g, b)
+						local db = E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+						db.r, db.g, db.b = r, g, b
+					end
+				},
+				font = {
+					order = 4,
+					type = "group",
+					inline = true,
+					name = L["Font"],
+					disabled = function()
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.menuTitle.enable
+					end,
+					get = function(info)
+						return E.db.mui.blizzard.objectiveTracker[info[#info - 2]][info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.blizzard.objectiveTracker[info[#info - 2]][info[#info - 1]][info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font")
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = {
+								NONE = L["None"],
+								OUTLINE = L["OUTLINE"],
+								MONOCHROME = L["MONOCHROME"],
+								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+								THICKOUTLINE = L["THICKOUTLINE"]
+							}
+						},
+						size = {
+							order = 3,
+							name = L["Size"],
+							type = "range",
+							min = 5, max = 60, step = 1,
+						},
+					},
+				},
+			},
+		},
 	},
 }
 
 options.blizzard.args.talents = {
-	order = 2,
+	order = 4,
 	type = "group",
 	name = L["Talents"],
 	get = function(info) return E.db.mui.blizzard.talents[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard.talents[info[#info]] = value; end,
+	hidden = not E.Retail,
 	args = {
 		name = {
 			order = 1,
@@ -819,7 +918,7 @@ options.blizzard.args.talents = {
 }
 
 options.blizzard.args.filter = {
-	order = 3,
+	order = 5,
 	type = "group",
 	name = L["Filter"],
 	get = function(info)
@@ -863,7 +962,7 @@ options.blizzard.args.filter = {
 }
 
 options.blizzard.args.friendsList = {
-	order = 4,
+	order = 6,
 	type = "group",
 	name = L["Friends List"],
 	get = function(info)
@@ -924,13 +1023,13 @@ options.blizzard.args.friendsList = {
 				return not E.db.mui.blizzard.friendsList.enable
 			end,
 			args = {
-				game = {
+				client = {
 					name = L["Game Icons"],
 					order = 1,
 					type = "select",
 					values = {
-						Default = L["Default"],
-						Modern = L["Modern"]
+						blizzard = L["Blizzard"],
+						modern = L["Modern"]
 					}
 				},
 				status = {
@@ -938,9 +1037,9 @@ options.blizzard.args.friendsList = {
 					order = 2,
 					type = "select",
 					values = {
-						Default = L["Default"],
-						D3 = L["Diablo 3"],
-						Square = L["Square"]
+						default = L["Default"],
+						d3 = L["Diablo 3"],
+						square = L["Square"]
 					}
 				},
 				factionIcon = {
@@ -979,10 +1078,10 @@ options.blizzard.args.friendsList = {
 					name = L["Use Note As Name"],
 					desc = L["Replace the Real ID or the character name of friends with your notes."]
 				},
-				useGameColor = {
+				useClientColor = {
 					order = 4,
 					type = "toggle",
-					name = L["Use Game Color"],
+					name = L["Use Client Color"],
 					desc = L["Change the color of the name to the in-playing game style."]
 				},
 				useClassColor = {

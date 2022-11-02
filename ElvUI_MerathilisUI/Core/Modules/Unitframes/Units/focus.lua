@@ -19,9 +19,3 @@ function module:Update_FocusFrame(frame)
 
 	module:CreateHighlight(frame)
 end
-
-function module:InitFocus()
-	if not E.db.unitframe.units.focus.enable then return end
-
-	hooksecurefunc(UF, "Update_FocusFrame", module.Update_FocusFrame)
-end

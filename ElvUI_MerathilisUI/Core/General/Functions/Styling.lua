@@ -14,7 +14,7 @@ local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
 
 MER.Styling = {}
 
-function MER:CreateGradientFrame(frame, w, h, o, r, g, b, a1, a2)
+function MER:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 	assert(frame, "doesn't exist!")
 
 	frame:Size(w, h)
@@ -22,22 +22,27 @@ function MER:CreateGradientFrame(frame, w, h, o, r, g, b, a1, a2)
 
 	local gf = frame:CreateTexture(nil, "BACKGROUND")
 	gf:SetAllPoints()
-	gf:SetTexture(E.media.blankTex)
-	gf:SetGradientAlpha(o, r, g, b, a1, r, g, b, a2)
+    gf:SetTexture(E.media.blankTex)
+
+	if E.Retail then
+		gf:SetGradient(o, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
+	else
+		gf:SetGradientAlpha(o, r1, g1, b1, a1, r2, g2, b2, a2)
+	end
 end
 
 function MER:UpdateStyling()
 	if E.private.mui.skins.style then
-		for style in pairs(MER.Styling) do
-			if style.stripes then style.stripes:Show() end
-			if style.gradient then style.gradient:Show() end
-			if style.mshadow then style.mshadow:Show() end
+		for MERstyle in pairs(MER.Styling) do
+			if MERstyle.stripes then MERstyle.stripes:Show() end
+			if MERstyle.gradient then MERstyle.gradient:Show() end
+			if MERstyle.mshadow then MERstyle.mshadow:Show() end
 		end
 	else
-		for style in pairs(MER.Styling) do
-			if style.stripes then style.stripes:Hide() end
-			if style.gradient then style.gradient:Hide() end
-			if style.mshadow then style.mshadow:Hide() end
+		for MERstyle in pairs(MER.Styling) do
+			if MERstyle.stripes then MERstyle.stripes:Hide() end
+			if MERstyle.gradient then MERstyle.gradient:Hide() end
+			if MERstyle.mshadow then MERstyle.mshadow:Hide() end
 		end
 	end
 end
@@ -45,7 +50,7 @@ end
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 
-	if not f or f.__style or f.style or f.style__MER then
+	if not f or f.__style or f.MERstyle or f.style__MER then
 		return
 	end
 
@@ -62,7 +67,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	local style = CreateFrame("Frame", frameName or nil, f, "BackdropTemplate")
 
 	if not(useStripes) then
-		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
+		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER")
 		stripes:ClearAllPoints()
 		stripes:Point("TOPLEFT", 1, -1)
 		stripes:Point("BOTTOMRIGHT", -1, 1)
@@ -77,7 +82,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	end
 
 	if not(useGradient) then
-		local gradient = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
+		local gradient = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER")
 		gradient:ClearAllPoints()
 		gradient:Point("TOPLEFT", 1, -1)
 		gradient:Point("BOTTOMRIGHT", -1, 1)
@@ -90,7 +95,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	end
 
 	if not(useShadow) then
-		local mshadow = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
+		local mshadow = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER")
 		mshadow:SetInside(f, 0, 0)
 		mshadow:Width(shadowOverlayWidth or 33)
 		mshadow:Height(shadowOverlayHeight or 33)
@@ -107,7 +112,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	style:SetAllPoints(f)
 	style.__MER = true
 
-	f.style = style
+	f.MERstyle = style
 	f.__style = 1
 
 	MER.Styling[style] = true

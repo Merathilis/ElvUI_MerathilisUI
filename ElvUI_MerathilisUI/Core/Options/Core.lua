@@ -5,6 +5,7 @@ local format = format
 local CreateTextureMarkup = CreateTextureMarkup
 local IsAddOnLoaded = IsAddOnLoaded
 
+local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 local logo = CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/Core/Media/textures/m2", 64, 64, 20, 20, 0, 1, 0, 1, 0, -1)
 
 MER.options = {
@@ -67,7 +68,7 @@ function MER:OptionsCallback()
 			logo = {
 				order = 2,
 				type = "description",
-				name = L["MER_DESC"]..E.NewSign,
+				name = L["MER_DESC"]..newSignIgnored,
 				fontSize = "medium",
 				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\mUI1.tga", 200, 200 end,
 			},
@@ -83,7 +84,7 @@ function MER:OptionsCallback()
 				order = 4,
 				type = "execute",
 				name = L["Changelog"],
-				desc = L['Open the changelog window.'],
+				desc = L["Open the changelog window."],
 				customWidth = 140,
 				func = function() MER:ToggleChangeLog(); E:ToggleOptionsUI() end,
 			},
@@ -92,7 +93,7 @@ function MER:OptionsCallback()
 				type = "execute",
 				name = L["|cffffffffMerathilis|r|cffff7d0aUI|r Discord"],
 				customWidth = 140,
-				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/s4B76at55Y") end,
+				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/28We6esE9v") end,
 			},
 		},
 	}

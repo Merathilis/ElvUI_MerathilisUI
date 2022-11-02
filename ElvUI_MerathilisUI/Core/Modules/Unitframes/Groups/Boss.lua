@@ -19,9 +19,3 @@ function module:Update_BossFrames(frame)
 
 	module:CreateHighlight(frame)
 end
-
-function module:InitBoss()
-	if not E.db.unitframe.units.boss.enable then return end
-
-	hooksecurefunc(UF, "Update_BossFrames", module.Update_BossFrames)
-end

@@ -70,6 +70,9 @@ module.ReminderBuffs = {
 		6673, -- Battle Shout
 		264761, -- War-Scroll of Battle
 	},
+	Versatility = { -- DragonFlight
+		1126, -- Mark of the Wild
+	},
 	Weapon = {
 		1, -- just a fallback
 	},
@@ -100,6 +103,7 @@ local darunebuffs = module.ReminderBuffs["DefiledAugmentRune"]
 local intellectbuffs = module.ReminderBuffs["Intellect"]
 local staminabuffs = module.ReminderBuffs["Stamina"]
 local attackpowerbuffs = module.ReminderBuffs["AttackPower"]
+local versatilitybuffs = module.ReminderBuffs["Versatility"]
 local custombuffs = module.ReminderBuffs["Custom"]
 local weaponEnch = module.ReminderBuffs["Weapon"]
 
@@ -145,7 +149,7 @@ local function OnAuraChange(self, event, arg1, unit)
 	end
 
 	if (darunebuffs and darunebuffs[1]) then
-	DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs[1])))
+		DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs[1])))
 		for i, darunebuffs in pairs(darunebuffs) do
 			local spellname = select(1, GetSpellInfo(darunebuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
@@ -165,7 +169,7 @@ local function OnAuraChange(self, event, arg1, unit)
 
 	if module.db.class then
 		if (intellectbuffs and intellectbuffs[1]) then
-		IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs[1])))
+			IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs[1])))
 			for i, intellectbuffs in pairs(intellectbuffs) do
 				local spellname = select(1, GetSpellInfo(intellectbuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
@@ -184,7 +188,7 @@ local function OnAuraChange(self, event, arg1, unit)
 		end
 
 		if (staminabuffs and staminabuffs[1]) then
-		StaminaFrame.t:SetTexture(select(3, GetSpellInfo(staminabuffs[1])))
+			StaminaFrame.t:SetTexture(select(3, GetSpellInfo(staminabuffs[1])))
 			for i, staminabuffs in pairs(staminabuffs) do
 				local spellname = select(1, GetSpellInfo(staminabuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
@@ -203,7 +207,7 @@ local function OnAuraChange(self, event, arg1, unit)
 		end
 
 		if (attackpowerbuffs and attackpowerbuffs[1]) then
-		AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(attackpowerbuffs[1])))
+			AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(attackpowerbuffs[1])))
 			for i, attackpowerbuffs in pairs(attackpowerbuffs) do
 				local spellname = select(1, GetSpellInfo(attackpowerbuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
@@ -220,6 +224,26 @@ local function OnAuraChange(self, event, arg1, unit)
 				end
 			end
 		end
+
+		if (versatilitybuffs and versatilitybuffs[1]) then
+			VersatilityFrame.t:SetTexture(select(3, GetSpellInfo(versatilitybuffs[1])))
+			for i, versatilitybuffs in pairs(versatilitybuffs) do
+				local spellname = select(1, GetSpellInfo(versatilitybuffs))
+				if AuraUtil_FindAuraByName(spellname, "player") then
+					VersatilityFrame.t:SetTexture(select(3, GetSpellInfo(versatilitybuffs)))
+					VersatilityFrame:SetAlpha(module.db.alpha)
+					LCG.PixelGlow_Stop(VersatilityFrame)
+					break
+				else
+					VersatilityFrame:SetAlpha(1)
+					VersatilityFrame.t:SetTexture(select(3, GetSpellInfo(1126)))
+					if module.db.glow then
+						LCG.PixelGlow_Start(VersatilityFrame, color, nil, -0.25, nil, 1)
+					end
+				end
+			end
+		end
+
 	end
 
 	if (weaponEnch and weaponEnch[1]) then
@@ -294,6 +318,7 @@ function module:Initialize()
 	if not E.Retail then return end
 
 	module.db = E.db.mui.raidBuffs
+	if not module.db.enable then return end
 
 	-- Anchor
 	self.Anchor = CreateFrame("Frame", "RaidBuffAnchor", E.UIParent)
@@ -308,7 +333,8 @@ function module:Initialize()
 		self:CreateIconBuff("IntellectFrame", RaidBuffReminder, true)
 		self:CreateIconBuff("StaminaFrame", IntellectFrame, false)
 		self:CreateIconBuff("AttackPowerFrame", StaminaFrame, false)
-		self:CreateIconBuff("FlaskFrame", AttackPowerFrame, false)
+		self:CreateIconBuff("VersatilityFrame", AttackPowerFrame, false)
+		self:CreateIconBuff("FlaskFrame", VersatilityFrame, false)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 		self:CreateIconBuff("DARuneFrame", FoodFrame, false)
 		self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
@@ -337,12 +363,7 @@ function module:Initialize()
 
 	E:CreateMover(self.frame, "MER_RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,modules,raidBuffs')
 
-	function module:ForUpdateAll()
-		module.db = E.db.mui.raidBuffs
-		self:Visibility()
-	end
-
-	self:ForUpdateAll()
+	self:Visibility()
 end
 
 MER:RegisterModule(module:GetName())

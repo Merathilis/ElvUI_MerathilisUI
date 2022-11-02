@@ -1,8 +1,7 @@
 ### Changes ###
 
-  * Added a Skin for TLDR Missions
-  * Added back the Skin for VenturePlan
-  * Fixed PlayerChoice Skin Style
-  * Swing Bar was scuffed a long time???
-  * Added an option to expand the Character Frame (Armory)
+  * Fix black Text on the Gossip Frame
+  * Updated the Minimap Button Backdrop
+  * Many updates on Skins
+  * Updated Bag Code
 

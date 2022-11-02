@@ -51,27 +51,6 @@ local function LoadSkin()
 		end
 	end)
 
-	-- Invite frame
-	if not _G.LFGListInviteDialog.backdrop then
-		_G.LFGListInviteDialog:CreateBackdrop('Transparent')
-		_G.LFGListInviteDialog:Styling()
-	end
-
-	if not _G.LFGDungeonReadyDialog.backdrop then
-		_G.LFGDungeonReadyDialog:CreateBackdrop('Transparent')
-		_G.LFGDungeonReadyDialog.backdrop:Styling()
-	end
-
-	if not _G.LFGDungeonReadyStatus.backdrop then
-		_G.LFGDungeonReadyStatus:CreateBackdrop('Transparent')
-		_G.LFGDungeonReadyStatus.backdrop:Styling()
-	end
-
-	if not _G.LFGInvitePopup.backdrop then
-		_G.LFGInvitePopup:CreateBackdrop('Transparent')
-		_G.LFGInvitePopup.backdrop:Styling()
-	end
-
 	_G.LFGListInviteDialog.GroupName:ClearAllPoints()
 	_G.LFGListInviteDialog.GroupName:SetPoint("TOP", 0, -33)
 
@@ -121,7 +100,7 @@ local function LoadSkin()
 			hl:Hide()
 			result.hl = hl
 
-			module:CreateBD(result, .5)
+			result:CreateBackdrop('Transparent')
 
 			result:HookScript("OnEnter", ResultOnEnter)
 			result:HookScript("OnLeave", ResultOnLeave)
@@ -153,7 +132,7 @@ local function LoadSkin()
 		hl:Hide()
 		header.hl = hl
 
-		module:CreateBD(header, .25)
+		header:CreateBackdrop('Transparent')
 
 		header:HookScript("OnEnter", HeaderOnEnter)
 		header:HookScript("OnLeave", HeaderOnLeave)
@@ -181,8 +160,8 @@ local function LoadSkin()
 		select(i, ActivityFinder.Dialog.BorderFrame:GetRegions()):Hide()
 	end
 
-	module:CreateBD(ActivityFinder.Dialog)
-	ActivityFinder.Dialog.backdrop:SetBackdropColor(.2, .2, .2, .9)
+	ActivityFinder.Dialog:CreateBackdrop('Transparent')
+	ActivityFinder.Dialog:SetBackdropColor(.2, .2, .2, .9)
 
 	-- Application dialog ]]
 	local LFGListApplicationDialog = _G.LFGListApplicationDialog
@@ -192,12 +171,12 @@ local function LoadSkin()
 		select(i, LFGListApplicationDialog.Description:GetRegions()):Hide()
 	end
 
-	module:CreateBD(LFGListApplicationDialog)
-	module:CreateBD(LFGListApplicationDialog.Description, .25)
+	LFGListApplicationDialog:CreateBackdrop('Transparent')
+	LFGListApplicationDialog.Description:CreateBackdrop('Transparent')
 
 	-- [[ Invite dialog ]]
 	local LFGListInviteDialog = _G.LFGListInviteDialog
-	module:CreateBD(LFGListInviteDialog)
+	LFGListInviteDialog:CreateBackdrop('Transparent')
 end
 
 S:AddCallback("LFGList", LoadSkin)

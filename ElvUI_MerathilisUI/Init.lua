@@ -27,12 +27,21 @@ Engine[6] = P.mui
 Engine[7] = G.mui
 _G[addon] = Engine
 
-MER.Version = GetAddOnMetadata(addon, "Version")
+do
+	-- when packager packages a new version for release
+	-- '@project-version@' is replaced with the version number
+	-- which is the latest tag
+	Engine.version = '@project-version@'
 
-_G.ElvDB.MerathilisUIAlpha = false
---@alpha@
-_G.ElvDB.MerathilisUIAlpha = true
---@end-alpha@
+	if strfind(Engine.version, 'project%-version') then
+		Engine.version = 'development'
+	end
+
+	MER.Version = Engine.version
+	MER.IsDevelop = MER.Version == 'development'
+
+	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
+end
 
 -- Modules
 MER.Modules = {}
@@ -52,12 +61,10 @@ MER.Modules.CVars = MER:NewModule('MER_CVars')
 MER.Modules.DashBoard = MER:NewModule('MER_DashBoard', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.DataBars = MER:NewModule('MER_DataBars')
 MER.Modules.DataTexts = MER:NewModule('MER_DataTexts', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
-MER.Modules.DropDown = MER:NewModule('MER_DropDown', 'AceEvent-3.0')
+MER.Modules.DropDown = MER:NewModule('MER_DropDown', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.Emotes = MER:NewModule('MER_Emotes')
 MER.Modules.ExtendedVendor = MER:NewModule('MER_ExtendedVendor', 'AceHook-3.0')
 MER.Modules.Filter = MER:NewModule('MER_Filter', 'AceEvent-3.0')
-MER.Modules.FlightMode = MER:NewModule('MER_FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0')
-MER.Modules.FlightModeBUI = MER:NewModule('MER_BUIFlightMode')
 MER.Modules.FriendsList = MER:NewModule('MER_FriendsList', 'AceHook-3.0')
 MER.Modules.GameMenu = MER:NewModule('MER_GameMenu')
 MER.Modules.HealPrediction = MER:NewModule('MER_HealPrediction', 'AceHook-3.0', 'AceEvent-3.0')
@@ -66,11 +73,9 @@ MER.Modules.ItemLevel = MER:NewModule('MER_ItemLevel', 'AceHook-3.0', 'AceEvent-
 MER.Modules.Layout = MER:NewModule('MER_Layout', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.LFGInfo = MER:NewModule('MER_LFGInfo', 'AceHook-3.0')
 MER.Modules.LocPanel = MER:NewModule('MER_LocPanel', 'AceTimer-3.0', 'AceEvent-3.0')
-MER.Modules.Loot = MER:NewModule('MER_Loot', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.Mail = MER:NewModule('MER_Mail', 'AceHook-3.0')
 MER.Modules.MicroBar = MER:NewModule('MER_MicroBar', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.MiniMap = MER:NewModule('MER_Minimap', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
-MER.Modules.RectangleMinimap = MER:NewModule('MER_RectangleMinimap', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.MiniMapButtons = MER:NewModule('MER_MiniMapButtons', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.MiniMapPing = MER:NewModule('MER_MiniMapPing', 'AceEvent-3.0')
 MER.Modules.Misc = MER:NewModule('MER_Misc', 'AceEvent-3.0', 'AceHook-3.0')
@@ -88,6 +93,7 @@ MER.Modules.RaidMarkers = MER:NewModule('MER_RaidMarkers', 'AceEvent-3.0')
 MER.Modules.RandomToy = MER:NewModule('MER_RandomToy', 'AceEvent-3.0')
 MER.Modules.Reminder = MER:NewModule('MER_Reminder', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.Skins = MER:NewModule('MER_Skins', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+MER.Modules.SpellAlert = MER:NewModule('MER_SpellAlert', 'AceEvent-3.0')
 MER.Modules.SuperTracker = MER:NewModule('MER_SuperTracker', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.Talent = MER:NewModule('MER_Talent', 'AceTimer-3.0', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.Tooltip = MER:NewModule('MER_Tooltip', 'AceTimer-3.0', 'AceHook-3.0', 'AceEvent-3.0')
@@ -129,8 +135,8 @@ function MER:Initialize()
 		return
 	end
 
-	if ElvDB.MerathilisUIAlpha then
-		Engine[2].Print("You are using an alpha build! Go download the release build if you have issues! Do not come for support!")
+	if MER.IsDevelop then
+		Engine[2].DebugPrint("You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help", "warning")
 	end
 
 	for name, module in self:IterateModules() do
@@ -167,7 +173,7 @@ do
 		if isInitialLogin then
 			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
 			if E.db.mui.installed and E.global.mui.core.LoginMsg then
-				print(icon..''..self.Title..format("v|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+				print(icon..''..self.Title..format("|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 			end
 
 			self:SplashScreen()

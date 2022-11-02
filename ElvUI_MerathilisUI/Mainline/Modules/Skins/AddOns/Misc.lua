@@ -16,20 +16,11 @@ local function LoadSkin()
 		return
 	end
 
-	-- Graveyard button (a bit ugly if you press it)
-	_G.GhostFrame:StripTextures()
-	_G.GhostFrameContentsFrame:StripTextures()
-	_G.GhostFrame:CreateBackdrop("Transparent")
-	_G.GhostFrame.backdrop:Styling()
-
 	local skins = {
 		"StaticPopup1",
 		"StaticPopup2",
 		"StaticPopup3",
 		"StaticPopup4",
-		"InterfaceOptionsFrame",
-		"VideoOptionsFrame",
-		"AudioOptionsFrame",
 		"AutoCompleteBox",
 		"ReadyCheckFrame",
 		"StackSplitFrame",
@@ -39,8 +30,10 @@ local function LoadSkin()
 	}
 
 	for i = 1, getn(skins) do
-		_G[skins[i]]:Styling()
-		module:CreateBackdropShadow(_G[skins[i]])
+		if skins then
+			_G[skins[i]]:Styling()
+			module:CreateShadow(_G[skins[i]])
+		end
 	end
 
 	--DropDownMenu
@@ -58,7 +51,7 @@ local function LoadSkin()
 		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
 		if menuBackdrop and not menuBackdrop.__MERSkin then
 			menuBackdrop:Styling()
-			module:CreateBackdropShadow(Backdrop)
+			module:CreateShadow(menuBackdrop)
 			menuBackdrop.__MERSkin = true
 		end
 	end)
@@ -70,9 +63,9 @@ local function LoadSkin()
 		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
 			if not _G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
-				module:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
+				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
-				module:CreateBackdropShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
+				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
 			end
 		end)
 	end
@@ -113,17 +106,7 @@ local function LoadSkin()
 	_G.ChatConfigFrame:Styling()
 
 	-- Mirror Timers
-	if _G.MirrorTimer1StatusBar.backdrop then
-		_G.MirrorTimer1StatusBar.backdrop:Styling()
-	end
-
-	if _G.MirrorTimer2StatusBar.backdrop then
-		_G.MirrorTimer2StatusBar.backdrop:Styling()
-	end
-
-	if _G.MirrorTimer3StatusBar.backdrop then
-		_G.MirrorTimer3StatusBar.backdrop:Styling()
-	end
+	-- ToDO: WoW10
 
 	-- DataStore
 	if IsAddOnLoaded("DataStore") then

@@ -29,7 +29,7 @@ function module:SkinBar(bar, type)
 	end
 
 	bar.backdrop:SetTemplate("Transparent")
-	bar.backdrop:Styling()
+
 	if bar.db.backdrop then
 		if not bar.backdrop.shadow then
 			module:CreateBackdropShadow(bar, true)
@@ -89,26 +89,27 @@ function module:Skin_ElvUI_ActionBars()
 	end
 
 	-- ElvUI action bar
-	if not E.private.actionbar.masque.actionbars then
-		for id = 1, 10 do
-			local bar = _G["ElvUI_Bar" .. id]
-			module:SkinBar(bar, "PLAYER")
-		end
-
-		module:SecureHook(AB, "PositionAndSizeBar", "ElvUI_PositionAndSizeBar")
-	end
+	-- if not IsAddOnLoaded('Masque') and not E.private.actionbar.masque.actionbars then
+		-- for id = 1, 10 do
+			-- local bar = _G["ElvUI_Bar"..id]
+			-- module:SkinBar(bar, "PLAYER")
+			-- bar.backdrop:Styling()
+		-- end
+--
+		-- module:SecureHook(AB, "PositionAndSizeBar", "ElvUI_PositionAndSizeBar")
+	-- end
 
 	-- Pet bar
-	if not E.private.actionbar.masque.petBar then
-		module:SkinBar(_G.ElvUI_BarPet, "PET")
-		module:SecureHook(AB, "PositionAndSizeBarPet", "ElvUI_PositionAndSizeBarPet")
-	end
+	-- if not IsAddOnLoaded('Masque') and not E.private.actionbar.masque.petBar then
+		-- module:SkinBar(_G.ElvUI_BarPet, "PET")
+		-- module:SecureHook(AB, "PositionAndSizeBarPet", "ElvUI_PositionAndSizeBarPet")
+	-- end
 
 	-- Stance bar
-	if not E.private.actionbar.masque.stanceBar then
-		module:SkinBar(_G.ElvUI_StanceBar, "STANCE")
-		module:SecureHook(AB, "PositionAndSizeBarShapeShift", "ElvUI_PositionAndSizeBarShapeShift")
-	end
+	-- if not IsAddOnLoaded('Masque') and not E.private.actionbar.masque.stanceBar then
+		-- module:SkinBar(_G.ElvUI_StanceBar, "STANCE")
+		-- module:SecureHook(AB, "PositionAndSizeBarShapeShift", "ElvUI_PositionAndSizeBarShapeShift")
+	-- end
 
 	-- Vehicle leave button
 	do
@@ -123,7 +124,7 @@ function module:Skin_ElvUI_ActionBars()
 			tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
 			tex:SetTexture(MER.Media.Textures.arrow)
 			tex:SetTexCoord(0, 1, 0, 1)
-			tex:SetVertexColor(1, 1, 1)
+			tex:SetVertexColor(1, 1, 1, 1)
 		end
 
 		tex = button:GetPushedTexture()
@@ -133,7 +134,7 @@ function module:Skin_ElvUI_ActionBars()
 			tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
 			tex:SetTexture(MER.Media.Textures.arrow)
 			tex:SetTexCoord(0, 1, 0, 1)
-			tex:SetVertexColor(1, 0, 0)
+			tex:SetVertexColor(1, 0, 0, 1)
 		end
 
 		tex = button:GetHighlightTexture()
@@ -144,12 +145,12 @@ function module:Skin_ElvUI_ActionBars()
 	end
 
 	-- Flyout
-	module:SecureHook(AB, "SetupFlyoutButton", function(_, button)
-		module:CreateShadow(button)
-	end)
+	-- module:SecureHook(AB, "SetupFlyoutButton", function(_, button)
+		-- module:CreateShadow(button)
+	-- end)
 
 	-- Keybind
-	module:ElvUI_ActionBar_LoadKeyBinder()
+	-- module:ElvUI_ActionBar_LoadKeyBinder()
 end
 
 module:AddCallback("Skin_ElvUI_ActionBars")

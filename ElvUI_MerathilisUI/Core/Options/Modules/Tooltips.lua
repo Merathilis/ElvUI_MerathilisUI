@@ -59,7 +59,7 @@ options.tooltip = {
 				header0 = {
 					order = 0,
 					type = "header",
-					name = E.NewSign..F.cOption(L["Covenant"], 'orange'),
+					name = F.cOption(L["Covenant"], 'orange'),
 				},
 				enable = {
 					order = 1,
@@ -110,88 +110,6 @@ options.tooltip = {
 						["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 						["THICKOUTLINE"] = "THICKOUTLINE",
 					},
-				},
-			},
-		},
-		progressInfo = {
-			order = 12,
-			type = "group",
-			name = "",
-			guiInline = true,
-			disabled = function() return not E.private.tooltip.enable end,
-			hidden = not E.Retail,
-			get = function(info) return E.db.mui.tooltip.progressInfo[ info[#info] ] end,
-			set = function(info, value) E.db.mui.tooltip.progressInfo[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-			args = {
-				header2 = {
-					order = 0,
-					type = "header",
-					name = F.cOption(L["Progress Info"], 'orange'),
-				},
-				raid = {
-					order = 1,
-					name = L["Raid"],
-					type = "group",
-					get = function(info) return E.db.mui.tooltip.progressInfo.raid[info[#info]] end,
-					set = function(info, value) E.db.mui.tooltip.progressInfo.raid[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					disabled = function() return not not E.private.tooltip.enable or not E.db.mui.tooltip.progressInfo.enable end,
-					args = {
-						enable = {
-							order = 1,
-							type = "toggle",
-							name = L["Enable"],
-							width = "full",
-							disabled = function() return not E.db.mui.tooltip.progressInfo.enable end,
-						},
-						Uldir = {
-							order = 2,
-							type = "toggle",
-							name = L["Uldir"],
-							disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
-						},
-						BattleOfDazaralor = {
-							order = 3,
-							type = "toggle",
-							name = L["Battle Of Dazaralor"],
-							disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
-						},
-						CrucibleOfStorms = {
-							order = 4,
-							type = "toggle",
-							name = L["Crucible Of Storms"],
-							disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
-						},
-						EternalPalace = {
-							order = 5,
-							type = "toggle",
-							name = L["Eternal Palace"],
-							disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
-						},
-						Nyalotha = {
-							order = 6,
-							type = "toggle",
-							name = L["Ny'alotha"],
-							disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
-						},
-						CastleNathria = {
-							order = 7,
-							type = "toggle",
-							name = L["Castle Nathria"],
-							disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
-						},
-						SanctumofDomination = {
-							order = 8,
-							type = "toggle",
-							name = L["Sanctum of Domination"],
-							disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
-						},
-						SepulcheroftheFirstOnes = {
-							order = 9,
-							type = "toggle",
-							name = L["Sepulcher of the First Ones"],
-							disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
-						}
-					}
 				},
 			},
 		},

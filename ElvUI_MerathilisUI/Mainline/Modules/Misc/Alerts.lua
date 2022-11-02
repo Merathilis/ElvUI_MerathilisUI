@@ -60,7 +60,7 @@ function module:PlacedItemAlert()
 end
 
 --[[---------------------
-  Various Alerts
+	Various Alerts
 ------------------------]]
 local frame = CreateFrame('Frame')
 frame:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')

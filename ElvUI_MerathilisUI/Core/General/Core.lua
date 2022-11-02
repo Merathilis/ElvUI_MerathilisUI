@@ -2,34 +2,48 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 local _G = _G
 local format = string.format
-local print, pairs = print, pairs
+local pairs = pairs
 local pcall = pcall
 local tinsert = table.insert
 
-MER.dummy = function() return end
-MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
-MER.ElvUIV = tonumber(E.version)
-MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+local GetAddOnMetadata =GetAddOnMetadata
+local GetBuildInfo = GetBuildInfo
+local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
+local InCombatLockdown = InCombatLockdown
 
-MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
+do
+	MER.dummy = function() return end
+	MER.ElvUIV = tonumber(E.version)
+	MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 
--- Masque support
-MER.MSQ = _G.LibStub('Masque', true)
+	MER.IsRetail = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
+	MER.IsWrath = select(4, GetBuildInfo()) >= 30400
+	MER.IsNewPatch = select(4, GetBuildInfo()) >= 100000 -- 10.0
+	MER.IsPTR = select(4, GetBuildInfo()) == 100002 -- 10.0.2
 
-MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
-MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
+	MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
 
---Info Color RGB: 0, 192, 250
-MER.InfoColor = "|cFF00c0fa"
-MER.GreyColor = "|cffB5B5B5"
-MER.RedColor = "|cffff2735"
-MER.GreenColor = "|cff3a9d36"
+	-- Masque support
+	MER.MSQ = _G.LibStub('Masque', true)
 
-MER.LineString = MER.GreyColor.."---------------"
+	MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
+	MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
 
-MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
-MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
-MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
+	MER.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
+	MER.InfoColor = "|cFF00c0fa" --Info Color RGB: 0, .75, .98
+	MER.GreyColor = "|cffB5B5B5"
+	MER.RedColor = "|cffff2735"
+	MER.GreenColor = "|cff3a9d36"
+	MER.YellowColor = "|cffffff00"
+	MER.BlueColor = "|cff82c5ff"
+	MER.WhiteColor = "|cffffffff"
+
+	MER.LineString = MER.GreyColor.."---------------"
+
+	MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
+	MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
+	MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
+end
 
 MER.RegisteredModules = {}
 
@@ -79,11 +93,14 @@ function MER:AddMoverCategories()
 end
 
 function MER:CheckElvUIVersion()
-	-- ElvUI versions check
-	if MER.ElvUIV < MER.ElvUIX then
-		E:StaticPopup_Show("VERSION_MISMATCH")
-		return false-- If ElvUI Version is outdated stop right here. So things don't get broken.
+	if E.Retail then
+		-- ElvUI versions check
+		if MER.ElvUIV < MER.ElvUIX then
+			E:StaticPopup_Show("VERSION_MISMATCH")
+			return false-- If ElvUI Version is outdated stop right here. So things don't get broken.
+		end
 	end
+
 	return true
 end
 

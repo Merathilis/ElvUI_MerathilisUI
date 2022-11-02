@@ -4,12 +4,12 @@ local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
-local pairs = pairs
+local pairs, tonumber = pairs, tonumber
 local format = format
 local max = max
 local strmatch = strmatch
-local tonumber = tonumber
 
+local CreateColor = CreateColor
 local C_QuestLog_GetTitleForQuestID = C_QuestLog.GetTitleForQuestID
 local CreateFrame = CreateFrame
 local ObjectiveTracker_Update = ObjectiveTracker_Update
@@ -117,18 +117,33 @@ function module:CosmeticBar(header)
 			self.db.cosmeticBar.color.normalColor.a
 		)
 	elseif self.db.cosmeticBar.color.mode == "GRADIENT" then
-		bar:SetVertexColor(1, 1, 1)
-		bar:SetGradientAlpha(
-			"HORIZONTAL",
-			self.db.cosmeticBar.color.gradientColor1.r,
-			self.db.cosmeticBar.color.gradientColor1.g,
-			self.db.cosmeticBar.color.gradientColor1.b,
-			self.db.cosmeticBar.color.gradientColor1.a,
-			self.db.cosmeticBar.color.gradientColor2.r,
-			self.db.cosmeticBar.color.gradientColor2.g,
-			self.db.cosmeticBar.color.gradientColor2.b,
-			self.db.cosmeticBar.color.gradientColor2.a
-		)
+		bar:SetVertexColor(1, 1, 1, 1)
+		if MER.IsNewPatch then
+			bar:SetGradient(
+				"HORIZONTAL", CreateColor(
+				self.db.cosmeticBar.color.gradientColor1.r,
+				self.db.cosmeticBar.color.gradientColor1.g,
+				self.db.cosmeticBar.color.gradientColor1.b,
+				self.db.cosmeticBar.color.gradientColor1.a),
+				CreateColor(
+				self.db.cosmeticBar.color.gradientColor2.r,
+				self.db.cosmeticBar.color.gradientColor2.g,
+				self.db.cosmeticBar.color.gradientColor2.b,
+				self.db.cosmeticBar.color.gradientColor2.a)
+			)
+		else
+			bar:SetGradientAlpha(
+				"HORIZONTAL",
+					self.db.cosmeticBar.color.gradientColor1.r,
+					self.db.cosmeticBar.color.gradientColor1.g,
+					self.db.cosmeticBar.color.gradientColor1.b,
+					self.db.cosmeticBar.color.gradientColor1.a,
+					self.db.cosmeticBar.color.gradientColor2.r,
+					self.db.cosmeticBar.color.gradientColor2.g,
+					self.db.cosmeticBar.color.gradientColor2.b,
+					self.db.cosmeticBar.color.gradientColor2.a
+			)
+		end
 	end
 
 	bar.backdrop:SetAlpha(self.db.cosmeticBar.borderAlpha)
@@ -154,7 +169,7 @@ end
 
 function module:ChangeQuestHeaderStyle()
 	local frame = _G.ObjectiveTrackerFrame.MODULES
-	if not self.db or not frame then
+	if not self.db or not self.db.header or not frame then
 		return
 	end
 
@@ -185,6 +200,24 @@ function module:HandleTitleText(text)
 		text:SetHeight(height)
 	end
 	SetTextColorHook(text)
+end
+
+function module:HandleMenuText(text)
+	F.SetFontDB(text, self.db.menuTitle.font)
+	local height = text:GetStringHeight() + 2
+	if height ~= text:GetHeight() then
+		text:SetHeight(height)
+	end
+
+	if not text.IsHooked then
+		text.IsHooked = true
+		if self.db.menuTitle.classColor then
+			text:SetTextColor(F.r, F.g, F.b)
+		else
+			text:SetTextColor(self.db.menuTitle.color.r, self.db.menuTitle.color.g, self.db.menuTitle.color.b)
+		end
+		text.SetTextColor = E.noop
+	end
 end
 
 function module:HandleInfoText(text)
@@ -309,6 +342,7 @@ function module:UpdateBackdrop()
 		if backdrop then
 			backdrop:Hide()
 		end
+
 		return
 	end
 
@@ -357,13 +391,6 @@ function module:Initialize()
 		self.initialized = true
 	end
 
-	function module:ForUpdateAll()
-		module.db = E.db.mui.blizzard.objectiveTracker
-	end
-
-	self:ForUpdateAll()
-
-
 	E:Delay(1,function()
 		for _, child in pairs {_G.ObjectiveTrackerBlocksFrame:GetChildren()} do
 			if child and child.HeaderText then
@@ -371,6 +398,10 @@ function module:Initialize()
 			end
 		end
 	end)
+
+	if _G.ObjectiveTrackerFrame.HeaderMenu then
+		self:HandleMenuText(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
+	end
 
 	ObjectiveTracker_Update()
 end

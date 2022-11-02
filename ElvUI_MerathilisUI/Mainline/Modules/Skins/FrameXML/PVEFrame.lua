@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -25,7 +25,10 @@ local function LoadSkin()
 	}
 
 	for _, frame in pairs(frames) do
-		module:CreateShadow(frame)
+		if frame then
+			module:CreateShadow(frame)
+			frame:Styling()
+		end
 	end
 
 	for i = 1, 3 do

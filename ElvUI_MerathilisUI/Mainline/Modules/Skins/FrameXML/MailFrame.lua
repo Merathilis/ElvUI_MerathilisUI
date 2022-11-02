@@ -19,12 +19,11 @@ local function LoadSkin()
 		return
 	end
 
-	local MiniMapMailFrame = _G.MiniMapMailFrame
+	local MiniMapMailFrame = _G.MiniMapMailFrame or _G.MinimapCluster.MailFrame
 
 	-- Change the Minimap Mail icon
 	_G.MiniMapMailIcon:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\Mail")
 	_G.MiniMapMailIcon:SetSize(16, 16)
-	MiniMapMailFrame:Raise()
 
 	MiniMapMailFrame:SetScript("OnShow", function()
 		if not MiniMapMailFrame.highlight then
@@ -36,9 +35,7 @@ local function LoadSkin()
 			MiniMapMailFrame.highlight.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\Mail")
 			MiniMapMailFrame.highlight.tex:SetPoint("TOPLEFT", _G.MiniMapMailIcon, "TOPLEFT", -2, 2)
 			MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", _G.MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)
-			MiniMapMailFrame.highlight.tex:SetVertexColor(r, g, b)
-
-			A:CreatePulse(MiniMapMailFrame, 1, 1)
+			MiniMapMailFrame.highlight.tex:SetVertexColor(r, g, b, 1)
 		end
 	end)
 
@@ -54,7 +51,8 @@ local function LoadSkin()
 		if bg.backdrop then
 			bg.backdrop:Hide()
 		end
-		module:CreateBD(bg, .25)
+		bg:CreateBackdrop('Transparent')
+
 
 		local b = _G["MailItem" .. i .. "Button"]
 		b:StripTextures()
@@ -66,10 +64,6 @@ local function LoadSkin()
 	local SendMailFrame = _G.SendMailFrame
 	local SendMailScrollFrame = _G.SendMailScrollFrame
 	SendMailScrollFrame:SetTemplate("Transparent")
-
-	for i = 4, 7 do
-		select(i, SendMailFrame:GetRegions()):Hide()
-	end
 
 	select(4, SendMailScrollFrame:GetRegions()):Hide()
 	_G.SendMailBodyEditBox:SetPoint("TOPLEFT", 2, -2)
@@ -83,8 +77,6 @@ local function LoadSkin()
 
 	OpenMailFrame:SetPoint("TOPLEFT", _G.InboxFrame, "TOPRIGHT", 5, 0)
 	_G.OpenMailFrameIcon:Hide()
-	_G.OpenMailTitleText:ClearAllPoints()
-	_G.OpenMailTitleText:SetPoint("TOP", 0, -4)
 	_G.OpenMailHorizontalBarLeft:Hide()
 
 	local OpenMailScrollFrame = _G.OpenMailScrollFrame

@@ -50,6 +50,7 @@ function module:ScenarioStage_CustomizeBlock(stageBlock, scenarioType, widgetSet
 		stageBlock:CreateBackdrop("Transparent")
 		stageBlock.backdrop:ClearAllPoints()
 		stageBlock.backdrop:SetInside(stageBlock.GlowTexture, 4, 2)
+		stageBlock.backdrop:Styling()
 		module:CreateShadow(stageBlock.backdrop)
 		module:CreateGradient(stageBlock.backdrop)
 	end

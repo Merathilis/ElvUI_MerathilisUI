@@ -16,6 +16,8 @@ local function LoadSkin()
 	AdventureMapQuestChoiceDialog.CloseButton:SetPoint("TOPRIGHT", -5, -5)
 	AdventureMapQuestChoiceDialog.DeclineButton:SetPoint("BOTTOMRIGHT", -5, 5)
 	AdventureMapQuestChoiceDialog.AcceptButton:SetPoint("BOTTOMLEFT", 5, 5)
+
+	module:CreateShadow(AdventureMapQuestChoiceDialog)
 end
 
 S:AddCallbackForAddon("Blizzard_AdventureMap", LoadSkin)

@@ -96,3 +96,11 @@ E.PopupDialogs.MERATHILISUI_RESET_ALL_MODULES = {
 	whileDead = 1,
 	hideOnEscape = true
 }
+
+E.PopupDialogs.MERATHILISUI_INVALIDPOWER = {
+	text = L["Invalid Model, you need to add a Model ID/Path"],
+	button1 = _G.OKAY,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+}

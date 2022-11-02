@@ -1,44 +1,41 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Armory')
 local M = E:GetModule('Misc')
-local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
-local select, unpack = select, unpack
+local select = select
 local strlower = strlower
-local type = type
 local gsub = gsub
-local pairs = pairs
 
-local CreateFrame = CreateFrame
 local GetItemGem = GetItemGem
 local GetInventoryItemLink = GetInventoryItemLink
-local GetInventoryItemDurability = GetInventoryItemDurability
-local GetInventorySlotInfo = GetInventorySlotInfo
 local GetItemInfo = GetItemInfo
-local GetItemQualityColor = GetItemQualityColor
 local GetSpecialization = GetSpecialization
 local GetSpecializationInfo = GetSpecializationInfo
 local InCombatLockdown = InCombatLockdown
-local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
 local UnitSex = UnitSex
 
-local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
-local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
-local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
-
-local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
-
 local initialized = false
-local maxGemSlots = 5
 
-local gearList = {
+module.Constants = {}
+
+module.Constants.Character_Defaults_Cached = false
+module.Constants.Inspect_Defaults_Cached = false
+module.Constants.Character_Defaults = {}
+module.Constants.Inspect_Defaults = {}
+
+module.Constants.Gradiation = 'Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\textures\\Gradation'
+module.Constants.WarningTexture = 'Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\Minimalist'
+
+module.Constants.maxGemSlots = 5
+
+module.Constants.gearList = {
 	'HeadSlot', 'HandsSlot', 'NeckSlot', 'WaistSlot', 'ShoulderSlot', 'LegsSlot', 'BackSlot', 'FeetSlot', 'ChestSlot', 'Finger0Slot',
 	'ShirtSlot', 'Finger1Slot', 'TabardSlot', 'Trinket0Slot', 'WristSlot', 'Trinket1Slot', 'SecondaryHandSlot', 'MainHandSlot'
 }
 
-local slots = {
+module.Constants.slots = {
 	["HeadSlot"] = { true, true },
 	["NeckSlot"] = { true, false },
 	["ShoulderSlot"] = { true, true },
@@ -59,7 +56,7 @@ local slots = {
 	["Trinket1Slot"] = { true, false },
 }
 
-local slotIDs = {
+module.Constants.slotIDs = { -- Not the actual Char Frame IDs
 	[1] = "HeadSlot",
 	[2] = "NeckSlot",
 	[3] = "ShoulderSlot",
@@ -80,7 +77,7 @@ local slotIDs = {
 	[19] = "SecondaryHandSlot",
 }
 
-local enchantSlots = {
+module.Constants.enchantSlots = {
 	['HeadSlot'] = false,
 	['NeckSlot'] = false,
 	['ShoulderSlot'] = false,
@@ -101,7 +98,7 @@ local enchantSlots = {
 
 function module:Transmog_OnEnter()
 	if self.Link and self.Link ~= '' then
-		self.Texture:SetVertexColor(1, .8, 1)
+		self.Texture:SetVertexColor(1, .8, 1, 1)
 		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
 
 		self:SetScript('OnUpdate', function()
@@ -114,7 +111,7 @@ function module:Transmog_OnEnter()
 end
 
 function module:Transmog_OnLeave()
-	self.Texture:SetVertexColor(1, .5, 1)
+	self.Texture:SetVertexColor(1, .5, 1, 1)
 
 	self:SetScript('OnUpdate', nil)
 	_G["GameTooltip"]:Hide()
@@ -131,7 +128,7 @@ function module:Tooltip_OnLeave()
 end
 
 function module:Warning_OnEnter()
-	if module.db.enable and self.Reason then
+	if module.db.character.enable and self.Reason then
 		_G['GameTooltip']:SetOwner(self, 'ANCHOR_RIGHT')
 		_G['GameTooltip']:AddLine(self.Reason, 1, 1, 1)
 		_G['GameTooltip']:Show()
@@ -139,7 +136,7 @@ function module:Warning_OnEnter()
 end
 
 function module:Gem_OnEnter()
-	if module.db.enable and self.Link then
+	if module.db.character.enable and self.Link then
 		_G['GameTooltip']:SetOwner(self, 'ANCHOR_RIGHT')
 		_G['GameTooltip']:SetHyperlink(self.Link)
 		_G['GameTooltip']:Show()
@@ -150,11 +147,12 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 	if not Slot.Warning then return end
 	Slot.Warning.Reason = nil
 	local window = strlower(which)
+	if not (E.db.mui.armory[window] and E.db.mui.armory[window].enable and E.db.mui.armory[window].warning and E.db.mui.armory[window].warning.enable) then Slot['Warning']:Hide(); return end --if something is disdbled
 	local SlotName = gsub(Slot:GetName(), which, '')
 	if not SlotName then return end --No slot?
 	local noChant, noGem = false, false
 
-	if iLvl and (enchantSlots[SlotName] == true or enchantSlots[SlotName] == primaryStat) and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
+	if iLvl and (module.Constants.enchantSlots[SlotName] == true or module.Constants.enchantSlots[SlotName] == primaryStat) and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
 		local classID, subclassID = select(12, GetItemInfo(Slot.itemLink))
 		if (classID == 4 and subclassID == 6) or (classID == 4 and subclassID == 0 and Slot.ID == 17) then --Shields are special
 			noChant = false
@@ -164,18 +162,24 @@ function module:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 	end
 
 	if gems and Slot.ID ~= 2 then --If gems found and not neck
-		for i = 1, maxGemSlots do
+		for i = 1, module.Constants.maxGemSlots do
 			local texture = Slot['textureSlot'..i]
 			if (texture and texture:GetTexture()) and (Slot['MER_Gem'..i] and not Slot['MER_Gem'..i].Link) then noGem = true; break end --If there is a texture (e.g. actual slot), but no link = no gem installed
 		end
 	end
 
-	if (noChant or noGem) then --If anything us missing
+	if (noChant or noGem) then --If anything else is missing
 		local message = ''
-		if noGem then message = message..'|cffff0000'..L["Empty Socket"]..'|r\n' end
-		if noChant then message = message..'|cffff0000'..L["Not Enchanted"]..'|r\n' end
+		if noGem then
+			message = message..'|cffff0000'..L["Empty Socket"]..'|r\n'
+		end
+
+		if noChant then
+			message = message..'|cffff0000'..L["Not Enchanted"]..'|r\n'
+		end
 		Slot.Warning.Reason = message or nil
 		Slot.Warning:Show()
+		Slot.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.character.gradient.warningColor))
 	else
 		Slot.Warning:Hide()
 	end
@@ -186,13 +190,13 @@ function module:UpdateGemInfo(Slot, which)
 	if not unit then return end
 	module.db = E.db.mui.armory
 
-	for i = 1, maxGemSlots do
+	for i = 1, module.Constants.maxGemSlots do
 		local GemLink
 		if not Slot['MER_Gem'..i] then return end
 		if Slot.itemLink then
 			if Slot.ID == 2 then
 				local window = strlower(which)
-				if module.db.warning.enable then
+				if module.db[window].warning.enable then
 					if which == 'Character' and Slot['textureSlotEssenceType'..i] then
 						Slot['textureSlotEssenceType'..i]:Hide()
 					elseif which == 'Inspect' and Slot['textureSlotBackdrop'..i] then
@@ -220,9 +224,25 @@ end
 function module:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 	if not module:CheckOptions(which) then return end
 	Slot.itemLink = GetInventoryItemLink((which == 'Character' and 'player') or _G['InspectFrame'].unit, Slot.ID)
+	if not Slot.itemLink then return end
 
 	module:UpdateGemInfo(Slot, which)
 	module:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort, module[which.."PrimaryStat"])
+end
+
+function module:UpdateInspectInfo()
+	if not _G['InspectFrame'] then return end --In case update for frame is called before it is actually created
+	if not module.Constants.Inspect_Defaults_Cached then
+		module:LoadAndSetupInspect()
+	end
+
+	if E.db.mui.armory.inspect.enable then
+		M:UpdatePageInfo(_G['InspectFrame'], 'Inspect')
+	end
+
+	if not E.db.general.itemLevel.displayInspectInfo then
+		M:ClearPageInfo(_G['InspectFrame'], 'Inspect')
+	end
 end
 
 function module:UpdateCharacterInfo(event)
@@ -235,251 +255,6 @@ function module:UpdateCharacterInfo(event)
 	end
 end
 
-function module:UpdatePaperDoll()
-	module.db = E.db.mui.armory
-	if not module.db.enable then return end
-
-	local unit = "player"
-	if not unit then return end
-
-	local frame, slot, current, maximum, r, g, b
-	local itemLink
-
-	for k, _ in pairs(slots) do
-		frame = _G[("Character")..k]
-
-		slot = GetInventorySlotInfo(k)
-		if slot and slot ~= '' then
-			-- Reset Data first
-			frame.DurabilityInfo:SetText("")
-			frame.Gradiation.Texture:Hide()
-			frame.Transmog.Texture:Hide()
-			frame.Transmog.Link = nil
-
-			itemLink = GetInventoryItemLink(unit, slot)
-			if (itemLink and itemLink ~= nil) then
-				if type(itemLink) ~= "string" then return end
-
-				local _, _, itemRarity, _, _, _, _, _, _, _, _, _, _, _, _, setID = GetItemInfo(itemLink)
-
-				-- Durability
-				if module.db.durability.enable then
-					frame.DurabilityInfo:SetText()
-					current, maximum = GetInventoryItemDurability(slot)
-					if current and maximum and (not module.db.durability.onlydamaged or current < maximum) then
-						r, g, b = E:ColorGradient((current / maximum), 1, 0, 0, 1, 1, 0, 0, 1, 0)
-						frame.DurabilityInfo:SetFormattedText("%s%.0f%%|r", E:RGBToHex(r, g, b), (current / maximum) * 100)
-					end
-				end
-
-				-- Gradiation
-				if module.db.gradient.enable then
-					frame.Gradiation.Texture:Show()
-					if module.db.gradient.setArmor and setID then
-						frame.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.gradient.setArmorColor))
-					elseif itemRarity and module.db.gradient.colorStyle == "RARITY" then
-						local r, g, b = GetItemQualityColor(itemRarity)
-						frame.Gradiation.Texture:SetVertexColor(r, g, b)
-					elseif module.db.gradient.colorStyle == "VALUE" then
-						frame.Gradiation.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
-					else
-						frame.Gradiation.Texture:SetVertexColor(F.unpackColor(module.db.gradient.color))
-					end
-				end
-
-				-- Transmog
-				if module.db.transmog.enable then
-					local transmogLocation = TransmogUtil.GetTransmogLocation((frame.ID), Enum.TransmogType.Appearance, Enum.TransmogModification.Main)
-
-					if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(transmogLocation) then
-						frame.Transmog.Texture:Show()
-						frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation))))
-					end
-				end
-			end
-		end
-	end
-end
-
-function module:InitialUpdatePaperDoll()
-	module:UnregisterEvent("PLAYER_ENTERING_WORLD")
-
-	self:BuildInformation()
-
-	-- update player info
-	self:ScheduleTimer("UpdatePaperDoll", 5)
-
-	initialized = true
-end
-
-function module:BuildInformation()
-	module.db = E.db.mui.armory
-
-	for id, slotName in pairs(slotIDs) do
-		if not id then return end
-		local frame = _G["Character"..slotIDs[id]]
-
-		-- Durability
-		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
-		frame.DurabilityInfo:Point("TOP", frame, "TOP", 0, -2)
-		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", module.db.durability.font), module.db.durability.textSize, module.db.durability.fontOutline)
-
-		-- Gradiation
-		frame.Gradiation = CreateFrame('Frame', nil, frame)
-		frame.Gradiation:Size(110, _G["Character"..slotName]:GetHeight()+4)
-		frame.Gradiation:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
-
-		frame.Gradiation.Texture = frame.Gradiation:CreateTexture(nil, "OVERLAY")
-		frame.Gradiation.Texture:SetInside()
-		frame.Gradiation.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\textures\\Gradation')
-
-		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT")
-			frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
-		elseif id <= 16 then -- Right Side
-			frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT")
-			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
-		end
-
-		-- Missing Enchants/Gems Warning
-		frame.Warning = CreateFrame('Frame', nil, frame)
-		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Warning:Size(7, 41)
-			frame.Warning:SetPoint("RIGHT", _G["Character"..slotName], "LEFT", 0, 0)
-		elseif id <= 16 then -- Right Side
-			frame.Warning:Size(7, 41)
-			frame.Warning:SetPoint("LEFT", _G["Character"..slotName], "RIGHT", 0, 0)
-		elseif id == 18 or id == 19 then -- Main Hand/ OffHand
-			frame.Warning:Size(41, 7)
-			frame.Warning:SetPoint("TOP", _G["Character"..slotName], "BOTTOM", 0, 0)
-		end
-
-		frame.Warning.Texture = frame.Warning:CreateTexture(nil, "BACKGROUND")
-		frame.Warning.Texture:SetInside()
-		frame.Warning.Texture:SetTexture("Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\Minimalist")
-		frame.Warning.Texture:SetVertexColor(1, 0, 0)
-
-		frame.Warning:SetScript("OnEnter", self.Warning_OnEnter)
-		frame.Warning:SetScript("OnLeave", self.Tooltip_OnLeave)
-		frame.Warning:Hide()
-
-		-- Transmog Info
-		frame.Transmog = CreateFrame('Button', nil, frame)
-		frame.Transmog:Size(12)
-		frame.Transmog:SetScript('OnEnter', self.Transmog_OnEnter)
-		frame.Transmog:SetScript('OnLeave', self.Transmog_OnLeave)
-
-		frame.Transmog.Texture = frame.Transmog:CreateTexture(nil, 'OVERLAY')
-		frame.Transmog.Texture:SetInside()
-		frame.Transmog.Texture:SetTexture(MER.Media.Textures.anchor)
-		frame.Transmog.Texture:SetVertexColor(1, .5, 1)
-
-		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Transmog:Point("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
-			frame.Transmog.Texture:SetTexCoord(0, 1, 1, 0)
-		elseif id <= 16 then -- Right Side
-			frame.Transmog:Point("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
-			frame.Transmog.Texture:SetTexCoord(1, 0, 1, 0)
-		elseif id == 18 then -- Main Hand
-			frame.Transmog:Point("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
-			frame.Transmog.Texture:SetTexCoord(1, 0, 0, 1)
-		elseif id == 19 then -- Off Hand
-			frame.Transmog:Point("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
-			frame.Transmog.Texture:SetTexCoord(0, 1, 0, 1)
-		end
-	end
-
-	for _, SlotName in pairs(gearList) do
-		local Slot = _G["Character"..SlotName]
-		Slot.ID = GetInventorySlotInfo(SlotName)
-
-		-- Gems
-		for t = 1, maxGemSlots do
-			if Slot["textureSlot"..t] then
-				Slot["MER_Gem"..t] = CreateFrame("Frame", nil, Slot)
-				Slot["MER_Gem"..t]:SetPoint("TOPLEFT", Slot["textureSlot"..t])
-				Slot["MER_Gem"..t]:SetPoint("BOTTOMRIGHT", Slot["textureSlot"..t])
-				Slot["MER_Gem"..t]:SetScript("OnEnter", module.Gem_OnEnter)
-				Slot["MER_Gem"..t]:SetScript("OnLeave", module.Tooltip_OnLeave)
-				Slot["MER_Gem"..t].frame = "character"
-			end
-		end
-	end
-
-	hooksecurefunc("CharacterFrame_Collapse", function()
-		if E.db.mui.armory.enable and E.db.mui.armory.expandSize and _G["PaperDollFrame"]:IsShown() then
-			_G["CharacterFrame"]:SetWidth(448)
-		end
-	end)
-	hooksecurefunc("CharacterFrame_Expand", function()
-		if E.db.mui.armory.enable and E.db.mui.armory.expandSize and _G["PaperDollFrame"]:IsShown() then
-			_G["CharacterFrame"]:SetWidth(650)
-		end
-	end)
-	hooksecurefunc("CharacterFrame_ShowSubFrame", function(frameName)
-		if not E.db.mui.armory.enable and not E.db.mui.armory.expandSize then return end
-		if frameName == "PaperDollFrame" or frameName == "PetPaperDollFrame" then return end
-		if _G["CharacterFrame"]:GetWidth() > PANEL_DEFAULT_WIDTH + 1 then
-			_G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
-		end
-	end)
-
-	--[[hooksecurefunc('PaperDollFrame_SetLevel', function()
-		if E.db.mui.armory.expandSize then
-			_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
-
-			_G["CharacterFrameTitleText"]:ClearAllPoints()
-			_G["CharacterFrameTitleText"]:Point('TOP', _G["CharacterModelFrame"], 0, 45)
-			_G["CharacterFrameTitleText"]:SetParent(_G["CharacterFrame"])
-
-			_G["CharacterLevelText"]:ClearAllPoints()
-			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, 2)
-			_G["CharacterLevelText"]:SetParent(_G["CharacterFrame"])
-		end
-	end)]]
-end
-
-function module:ExpandSize()
-	if not module.db.expandSize then
-		return
-	end
-
-	_G["CharacterFrame"]:SetHeight(444)
-
-	_G["CharacterHandsSlot"]:SetPoint('TOPRIGHT', _G["CharacterFrameInsetRight"], 'TOPLEFT', -4, -2)
-
-	_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
-
-	_G["CharacterModelFrame"]:ClearAllPoints()
-	_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"], 0, 5)
-	_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
-	_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
-
-	if _G["PaperDollFrame"]:IsShown() then --Setting up width for the main frame
-		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
-		_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
-	end
-
-	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
-		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
-		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
-
-		if _G["CharacterModelFrame"].backdrop then
-			_G["CharacterModelFrame"].backdrop:Hide()
-		end
-	end
-
-	--Overlay resize to match new width
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
-
-	if E.db.general.itemLevel.displayCharacterInfo then
-		M:UpdatePageInfo(_G["CharacterFrame"], "Character")
-	end
-end
-
 function module:firstGarrisonToast()
 	module:UnregisterEvent("GARRISON_MISSION_FINISHED")
 	self:ScheduleTimer("UpdatePaperDoll", 7)
@@ -487,173 +262,41 @@ end
 
 function module:CheckOptions(which)
 	if not E.private.skins.blizzard.enable then return false end
-	if (which == 'Character' and not E.private.skins.blizzard.character) then return false end
+	if (which == 'Character' and not E.private.skins.blizzard.character) or (which == 'Inspect' and not E.private.skins.blizzard.inspect) then return false end
 	return true
-end
-
-local function StatsPane(type)
-	_G.CharacterStatsPane[type]:StripTextures()
-
-	if _G.CharacterStatsPane[type] and _G.CharacterStatsPane[type].backdrop then
-		_G.CharacterStatsPane[type].backdrop:Hide()
-	end
-end
-
-local function CharacterStatFrameCategoryTemplate(frame)
-	frame:StripTextures()
-
-	local bg = frame.Background
-	bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-	bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-	bg:ClearAllPoints()
-	bg:SetPoint("CENTER", 0, -5)
-	bg:SetSize(210, 30)
-	bg:SetVertexColor(F.unpackColor(module.db.stats.color))
-end
-
--- Copied from ElvUI
-local function ColorizeStatPane(frame)
-	if frame.leftGrad then
-		frame.leftGrad:StripTextures()
-	end
-	if frame.rightGrad then
-		frame.rightGrad:StripTextures()
-	end
-
-	local r, g, b = F.unpackColor(module.db.stats.color)
-
-	frame.leftGrad = frame:CreateTexture(nil, "BORDER")
-	frame.leftGrad:SetWidth(80)
-	frame.leftGrad:SetHeight(frame:GetHeight())
-	frame.leftGrad:SetPoint("LEFT", frame, "CENTER")
-	frame.leftGrad:SetTexture(E.media.blankTex)
-	frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.75, r, g, b, 0)
-
-	frame.rightGrad = frame:CreateTexture(nil, "BORDER")
-	frame.rightGrad:SetWidth(80)
-	frame.rightGrad:SetHeight(frame:GetHeight())
-	frame.rightGrad:SetPoint("RIGHT", frame, "CENTER")
-	frame.rightGrad:SetTexture(E.media.blankTex)
-	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
-end
-
-local function SkinSLEArmory()
-	if not IsAddOnLoaded("ElvUI_SLE") then
-		return
-	end
-	local db = E.db.sle.armory
-
-	if not db and db.character.enable then
-		return
-	end
-
-	if CharacterStatsPane.OffenseCategory then
-		CharacterStatsPane.OffenseCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
-		StatsPane("OffenseCategory")
-		CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
-	end
-
-	if CharacterStatsPane.DefenceCategory then
-		CharacterStatsPane.DefenceCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
-		StatsPane("DefenceCategory")
-		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenceCategory)
-	end
-end
-
-function module:SkinCharacterStatsPane()
-	local CharacterStatsPane = _G.CharacterStatsPane
-
-	_G.CharacterModelFrame:DisableDrawLayer("BACKGROUND")
-	_G.CharacterModelFrame:DisableDrawLayer("BORDER")
-	_G.CharacterModelFrame:DisableDrawLayer("OVERLAY")
-
-	if not IsAddOnLoaded("DejaCharacterStats") then
-		CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
-		CharacterStatsPane.AttributesCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
-		CharacterStatsPane.EnhancementsCategory.Title:SetTextColor(F.unpackColor(module.db.stats.color))
-
-		StatsPane("EnhancementsCategory")
-		StatsPane("ItemLevelCategory")
-		StatsPane("AttributesCategory")
-
-		CharacterStatFrameCategoryTemplate(CharacterStatsPane.ItemLevelCategory)
-		CharacterStatFrameCategoryTemplate(CharacterStatsPane.AttributesCategory)
-		CharacterStatFrameCategoryTemplate(CharacterStatsPane.EnhancementsCategory)
-
-		CharacterStatsPane.ItemLevelFrame.Background:SetAlpha(0)
-		ColorizeStatPane(CharacterStatsPane.ItemLevelFrame)
-
-		E:Delay(0.2, SkinSLEArmory)
-
-		hooksecurefunc("PaperDollFrame_UpdateStats", function()
-			for _, Table in ipairs({_G.CharacterStatsPane.statsFramePool:EnumerateActive()}) do
-				if type(Table) == "table" then
-					for statFrame in pairs(Table) do
-						ColorizeStatPane(statFrame)
-						if statFrame.Background:IsShown() then
-							statFrame.leftGrad:Show()
-							statFrame.rightGrad:Show()
-						else
-							statFrame.leftGrad:Hide()
-							statFrame.rightGrad:Hide()
-						end
-					end
-				end
-			end
-		end)
-	end
-
-	-- CharacterFrame Class Texture
-	local ClassTexture = _G.ClassTexture
-	if not ClassTexture then
-		ClassTexture = _G.CharacterFrameInsetRight:CreateTexture(nil, "BORDER")
-		ClassTexture:SetPoint("BOTTOM", _G.CharacterFrameInsetRight, "BOTTOM", 0, 40)
-		ClassTexture:SetSize(126, 120)
-		ClassTexture:SetAlpha(.25)
-		ClassTexture:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\ClassIcons\\CLASS-" .. E.myclass)
-		ClassTexture:SetDesaturated(true)
-	end
 end
 
 function module:Initialize()
 	module.db = E.db.mui.armory
 
-	if not module.db.enable or E.private.skins.blizzard.character ~= true then return end
-	if not E.db.general.itemLevel.displayCharacterInfo then return end
+	if not E.db.general.itemLevel.displayCharacterInfo or not E.private.skins.blizzard.character then return end
 
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)
 	module:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdatePaperDoll", false)
 	module:RegisterEvent("SOCKET_INFO_UPDATE", "UpdatePaperDoll", false)
 	module:RegisterEvent("COMBAT_RATING_UPDATE", "UpdatePaperDoll", false)
 	module:RegisterEvent("MASTERY_UPDATE", "UpdatePaperDoll", false)
-
 	module:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
-	module:RegisterEvent("PLAYER_ENTERING_WORLD", "InitialUpdatePaperDoll")
 
 	hooksecurefunc(M, 'UpdatePageInfo', module.UpdatePageInfo)
 	hooksecurefunc(M, 'UpdatePageStrings', module.UpdatePageStrings)
 
 	if module:CheckOptions('Character') then
+		module:LoadAndSetupCharacter()
+
 		hooksecurefunc(M, 'UpdateCharacterInfo', module.UpdateCharacterInfo)
 		module:UpdateCharacterInfo()
 	end
 
-	-- Adjust a bit the Model Size
-	if _G["CharacterModelFrame"]:GetHeight() == 320 then
-		_G["CharacterModelFrame"]:ClearAllPoints()
-		_G["CharacterModelFrame"]:Point('TOPLEFT', _G["CharacterHeadSlot"])
-		_G["CharacterModelFrame"]:Point('RIGHT', _G["CharacterHandsSlot"])
-		_G["CharacterModelFrame"]:Point('BOTTOM', _G["CharacterMainHandSlot"])
+	if module:CheckOptions('Inspect') then
+		hooksecurefunc(M, 'UpdateInspectInfo', module.UpdateInspectInfo)
+		module:PreSetup()
 	end
-
-	self:SkinCharacterStatsPane()
-	self:ExpandSize()
 
 	-- Stats
-	if not IsAddOnLoaded("DejaCharacterStats") then
-		hooksecurefunc("PaperDollFrame_UpdateStats", module.PaperDollFrame_UpdateStats)
-		module:ToggleStats()
-	end
+	module:InitStats()
+
+	initialized = true
 end
 
 MER:RegisterModule(module:GetName())

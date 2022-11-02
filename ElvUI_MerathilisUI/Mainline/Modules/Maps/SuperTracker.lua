@@ -47,6 +47,31 @@ function module:HookPin()
 	end
 end
 
+function module:HookDistanceText()
+	_G.SuperTrackedFrame.DistanceText.__MERSetText = _G.SuperTrackedFrame.DistanceText.SetText
+
+	self:SecureHook(_G.SuperTrackedFrame.DistanceText, "SetText", function(frame, text)
+		if not self or not self.db or not text then
+			return
+		end
+
+		-- Fix the distance text if distance > 1000
+		if self.db.noLimit and strmatch(text, "%d%d%d%d.%d+") then
+			text = gsub(text, "(%d+)%.%d+", "%1")
+		end
+
+		if self.db.noUnit then
+			local after, isChanged = gsub(text, "(.*)%s.*$", "%1")
+			if isChanged == 0 then
+				after = gsub(text, "[^0-9%.].*$", "")
+			end
+			text = after
+		end
+
+		frame:__MERSetText(text)
+	end)
+end
+
 function module:NoLimit()
 	if not _G.SuperTrackedFrame then
 		return
@@ -190,13 +215,13 @@ function module:WaypointParse()
 		return
 	end
 
-    if self.db.waypointParse.command then
-        local keys = {}
-        for k, _ in pairs(self.db.waypointParse.commandKeys) do
-            tinsert(keys, k)
-        end
-        MER:AddCommand("SUPER_TRACKER", keys, self.commandHandler)
-    end
+	if self.db.waypointParse.command then
+		local keys = {}
+		for k, _ in pairs(self.db.waypointParse.commandKeys) do
+			tinsert(keys, k)
+		end
+		MER:AddCommand("SUPER_TRACKER", keys, self.commandHandler)
+	end
 
 	if not self.db.waypointParse.worldMapInput then
 		return
@@ -291,6 +316,10 @@ function module:Initialize()
 	self:NoLimit()
 	self:ReskinDistanceText()
 	self:WaypointParse()
+
+	if self.db.noLimit or self.db.noUnit then
+		self:HookDistanceText()
+	end
 end
 
 MER:RegisterModule(module:GetName())

@@ -10,10 +10,9 @@ local function LoadSkin()
 	end
 
 	local RaidInfoFrame = _G.RaidInfoFrame
-	if RaidInfoFrame.backdrop then
-		RaidInfoFrame.backdrop:Styling()
-	end
-	module:CreateBackdropShadow(RaidInfoFrame)
+	RaidInfoFrame:Styling()
+
+	module:CreateShadow(RaidInfoFrame)
 end
 
 S:AddCallback("RaidFrame", LoadSkin)

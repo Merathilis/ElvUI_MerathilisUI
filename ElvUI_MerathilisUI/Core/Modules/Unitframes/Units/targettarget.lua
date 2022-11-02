@@ -19,9 +19,3 @@ function module:Update_TargetTargetFrame(frame)
 
 	module:CreateHighlight(frame)
 end
-
-function module:InitTargetTarget()
-	if not E.db.unitframe.units.targettarget.enable then return end
-
-	hooksecurefunc(UF, "Update_TargetTargetFrame", module.Update_TargetTargetFrame)
-end

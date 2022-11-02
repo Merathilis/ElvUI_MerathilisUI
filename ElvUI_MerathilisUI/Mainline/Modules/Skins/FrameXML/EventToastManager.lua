@@ -13,8 +13,16 @@ local function LoadSkin()
 	hooksecurefunc(_G.EventToastManagerFrame, 'DisplayToast', function(self)
 		local toast = self.currentDisplayingToast
 		local title = toast and toast.Title
+		local gLine = toast and toast.GLine
+		local gLine2 = toast and toast.GLine2
 		if title then
 			title:FontTemplate(nil, 22, 'OUTLINE')
+		end
+		if gLine then
+			gLine:SetVertexColor(F.r, F.g, F.b, 1)
+		end
+		if gLine2 then
+			gLine2:SetVertexColor(F.r, F.g, F.b, 1)
 		end
 	end)
 end

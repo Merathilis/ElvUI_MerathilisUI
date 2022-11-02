@@ -7,11 +7,12 @@ function MER:LoadOmniCDProfile()
 	--	OmnicCD - Settings
 	--]]----------------------------------
 
+	local profileName = F.Profiles.Default
 	if OmniCDDB then twipe(OmniCDDB) end
 
 	OmniCDDB = {
 		["profileKeys"] = {
-			[E.mynameRealm] = "MerathilisUI",
+			[E.mynameRealm] = profileName,
 		},
 		["cooldowns"] = {
 		},
@@ -24,7 +25,7 @@ function MER:LoadOmniCDProfile()
 		},
 		["version"] = 2.51,
 		["profiles"] = {
-			["MerathilisUI"] = {
+			[profileName] = {
 				["Party"] = {
 					["noneZoneSetting"] = "party",
 					["party"] = {
@@ -462,8 +463,8 @@ function MER:LoadOmniCDProfile()
 					},
 					["textures"] = {
 						["statusBar"] = {
-							["BG"] = "RenAscensionL",
-							["bar"] = "RenAscensionL",
+							["BG"] = "MER_NormTex",
+							["bar"] = "MER_NormTex",
 						},
 					},
 				},

@@ -51,7 +51,6 @@ end
 
 local function ReskinMainPanel(gui)
 	S:HandleTab(gui.MainTabButton, nil, "Transparent")
-	-- S:ReskinTab(gui.MainTabButton)
 	gui.MainTabButton:ClearAllPoints()
 	gui.MainTabButton:SetPoint("TOPLEFT", gui, "BOTTOMLEFT", 0, -1)
 
@@ -86,7 +85,6 @@ end
 
 local function ReskinAdvancedPanel(gui)
 	S:HandleTab(gui.AdvancedTabButton, nil, "Transparent")
-	-- S:ReskinTab(gui.AdvancedTabButton)
 
 	S:HandleRadioButton(gui.HardestRadioButton)
 	S:HandleRadioButton(gui.EasiestRadioButton)
@@ -114,7 +112,19 @@ end
 
 local function ReskinProfilePanel(gui)
 	S:HandleTab(gui.ProfileTabButton, nil, "Transparent")
-	-- S:ReskinTab(gui.ProfileTabButton)
+end
+
+function module:TLDRDropdown(level)
+	local bd = _G["L_TLDR_DropDownList" .. level .. "Backdrop"]
+	local mbd = _G["L_TLDR_DropDownList" .. level .. "MenuBackdrop"]
+	if bd and not bd.template then
+		bd:SetTemplate("Transparent")
+		module:CreateShadow(bd)
+	end
+	if mbd and not mbd.template then
+		mbd:SetTemplate("Transparent")
+		module:CreateShadow(mbd)
+	end
 end
 
 function module:TLDRMissions()
@@ -122,6 +132,8 @@ function module:TLDRMissions()
 		return
 	end
 
+	self:TLDRDropdown(1)
+	self:TLDRDropdown(2)
 	S:HandleButton(_G.TLDRMissionsToggleButton)
 
 	-- Main GUI

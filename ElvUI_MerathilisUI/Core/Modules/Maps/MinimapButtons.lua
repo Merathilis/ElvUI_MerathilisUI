@@ -21,6 +21,7 @@ local IgnoreList = {
 	full = {
 		"AsphyxiaUIMinimapHelpButton",
 		"AsphyxiaUIMinimapVersionButton",
+		"BattlefieldMinimap",
 		"ElvConfigToggle",
 		"ElvUIConfigToggle",
 		"ElvUI_ConsolidatedBuffs",
@@ -29,7 +30,15 @@ local IgnoreList = {
 		"DroodFocusMinimapButton",
 		"QueueStatusMinimapButton",
 		"TimeManagerClockButton",
-		"MinimapZoneTextButton"
+		"MiniMapBattlefieldFrame",
+		"MinimapZoneTextButton",
+		"MiniMapTracking",
+		"MinimapZoomIn",
+		"MinimapZoomOut",
+		"TukuiMinimapZone",
+		"TukuiMinimapCoord",
+		"RecipeRadarMinimapButtonFrame",
+		"InstanceDifficultyFrame",
 	},
 	startWith = {
 		"Archy",
@@ -46,7 +55,9 @@ local IgnoreList = {
 		"NauticusMiniIcon",
 		"WestPointer",
 		"Cork",
-		"DugisArrowMinimapPoint"
+		"DugisArrowMinimapPoint",
+		"QuestieFrame",
+		"TTMinimapButton",
 	},
 	partial = {
 		"Node",
@@ -73,19 +84,13 @@ local moveButtons = {}
 
 do
 	local modified = false
-	function module:UpdateGarrisonMinimapIcon(icon)
-		icon = icon or _G.GarrisonLandingPageMinimapButton
+	function module:UpdateExpansionLandingPageMinimapIcon(icon)
+		icon = icon or _G.ExpansionLandingPageMinimapButton
 
 		if not icon then
 			return
 		end
 		icon:SetScale(E.uiscale)
-
-		local box = _G.GarrisonLandingPageTutorialBox
-		if box then
-			box:SetScale(E.uiscale)
-			box:SetClampedToScreen(true)
-		end
 
 		if not modified then
 			icon.AlertText:Hide()
@@ -112,14 +117,14 @@ do
 end
 
 do
-	local originalFunction = MM.HandleGarrisonButton
-	function MM:HandleGarrisonButton()
-		local icon = _G.GarrisonLandingPageMinimapButton
+	local originalFunction = MM.HandleExpansionButton
+	function MM:HandleExpansionButton()
+		local icon = _G.ExpansionLandingPageMinimapButton
 
 		if not icon or not icon.isMinimapButton or InCombatLockdown() then
 			return originalFunction(self)
 		else
-			return module:UpdateGarrisonMinimapIcon(icon)
+			return module:UpdateExpansionLandingPageMinimapIcon(icon)
 		end
 	end
 end
@@ -167,9 +172,7 @@ function module:SetButtonMouseOver(button, frame, rawhook)
 end
 
 function module:SkinButton(frame)
-	if not self.db.calendar then
-		tinsert(IgnoreList.full, "GameTimeFrame")
-	end
+	tinsert(IgnoreList.full, "GameTimeFrame")
 
 	if frame == nil or frame:GetName() == nil or not frame:IsVisible() then
 		return
@@ -220,23 +223,23 @@ function module:SkinButton(frame)
 		end
 	end
 
-	if name ~= "GarrisonLandingPageMinimapButton" and tmp ~= 2 then
-		frame:SetPushedTexture(nil)
-		frame:SetDisabledTexture(nil)
-		frame:SetHighlightTexture(nil)
+	if name ~= "ExpansionLandingPageMinimapButton" and tmp ~= 2 then
+		frame:SetPushedTexture('')
+		frame:SetDisabledTexture('')
+		frame:SetHighlightTexture('')
 	elseif name == "DBMMinimapButton" then
 		frame:SetNormalTexture("Interface\\Icons\\INV_Helmet_87")
 	elseif name == "SmartBuff_MiniMapButton" then
 		frame:SetNormalTexture(select(3, GetSpellInfo(12051)))
-	elseif name == "GarrisonLandingPageMinimapButton" and self.db.garrison then
+	elseif name == "ExpansionLandingPageMinimapButton" and self.db.garrison then
 		if not frame.isMinimapButton then
-			self:UpdateGarrisonMinimapIcon(_G.GarrisonLandingPageMinimapButton)
+			self:UpdateGarrisonMinimapIcon(_G.ExpansionLandingPageMinimapButton)
 			frame.isMinimapButton = true
 		end
 	elseif name == "GRM_MinimapButton" then
 		frame.GRM_MinimapButtonBorder:Hide()
-		frame:SetPushedTexture(nil)
-		frame:SetHighlightTexture(nil)
+		frame:SetPushedTexture('')
+		frame:SetHighlightTexture('')
 		frame.SetPushedTexture = E.noop
 		frame.SetHighlightTexture = E.noop
 		if frame:HasScript("OnEnter") then
@@ -267,12 +270,6 @@ function module:SkinButton(frame)
 
 			frame.original = original
 
-			if name == "GameTimeFrame" and region:IsObjectType("FontString") then
-				region:SetDrawLayer("ARTWORK")
-				region:SetParent(frame)
-				frame.MERToday = region
-			end
-
 			if region:IsObjectType("Texture") then
 				local t = region:GetTexture()
 
@@ -299,33 +296,6 @@ function module:SkinButton(frame)
 					region:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -2, 2)
 
 					region:SetDrawLayer("ARTWORK")
-					if (name == "GameTimeFrame") then
-						if not frame.MERTex then
-							local tex = frame:CreateTexture()
-							tex:SetTexture(MER.Media.Icons.calendar)
-							tex:SetPoint("TOPLEFT", frame, "TOPLEFT", 2, -2)
-							tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -2, 2)
-							frame.MERTex = tex
-						end
-
-						if (region:GetName() == "GameTimeCalendarInvitesTexture") then
-							region:SetTexCoord(0.03125, 0.6484375, 0.03125, 0.8671875)
-							region:SetDrawLayer("ARTWORK", 1)
-						elseif (region:GetName() == "GameTimeCalendarInvitesGlow") then
-							region:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-						elseif (region:GetName() == "GameTimeCalendarEventAlarmTexture") then
-							region:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-						elseif (region:GetName() == "GameTimeTexture") then
-							region:SetTexCoord(0.0, 0.390625, 0.0, 0.78125)
-						else
-							region:SetTexCoord(0.0, 0.390625, 0.0, 0.78125)
-							if not frame.MERTex or frame.MERTex ~= region then
-								if not frame.backdrop or frame.backdrop ~= region then
-									region:SetTexture(nil)
-								end
-							end
-						end
-					end
 
 					if (name == "PS_MinimapButton") then
 						region.SetPoint = E.noop
@@ -466,7 +436,7 @@ function module:UpdateLayout()
 		end
 
 		if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
-			if not self.db.backdrop then
+			if self.db.backdrop then
 				frame.backdrop.shadow:Show()
 			else
 				frame.backdrop.shadow:Hide()
@@ -520,8 +490,8 @@ function module:SkinMinimapButtons()
 		self:SkinButton(child)
 	end
 
-	if self.db.garrison then
-		self:SkinButton(_G.GarrisonLandingPageMinimapButton)
+	if self.db.expansionLandingPage then
+		self:SkinButton(_G.ExpansionLandingPageMinimapButton)
 	end
 
 	self:UpdateLayout()
@@ -555,12 +525,12 @@ function module:CreateFrames()
 		return
 	end
 
-	local frame = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
-	frame:SetPoint("BOTTOMRIGHT", _G.MMHolder, "TOPRIGHT", -2, 2)
+	local frame = CreateFrame("Frame", nil, E.UIParent)
+	frame:SetPoint("BOTTOMRIGHT", MM.holder, "TOPRIGHT", -2, 2)
 	frame:SetFrameStrata("BACKGROUND")
 	self.barAnchor = frame
 
-	frame = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
+	frame = CreateFrame("Frame", nil, E.UIParent)
 	frame:SetFrameStrata("LOW")
 	frame:CreateBackdrop("Transparent")
 	frame:ClearAllPoints()
@@ -568,10 +538,10 @@ function module:CreateFrames()
 	self.bar = frame
 
 	self:SkinMinimapButtons()
-	self.bar:Styling()
+	self.bar.backdrop:Styling()
 	S:CreateShadowModule(self.bar.backdrop)
 
-	E:CreateMover(self.barAnchor, "MERMinimapButtonBarAnchor", L["Minimap Buttons Bar"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", function() return E.db.mui.smb.enable end, "mui,modules,maps")
+	E:CreateMover(self.barAnchor, "MER_MinimapButtonBarAnchor", L["Minimap Buttons Bar"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", function() return E.db.mui.smb.enable end, "mui,modules,maps")
 end
 
 function module:SetUpdateHook()

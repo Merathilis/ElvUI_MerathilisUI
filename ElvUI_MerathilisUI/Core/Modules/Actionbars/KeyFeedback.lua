@@ -1,6 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local S = MER:GetModule('MER_Skins')
 
+-- Credits: FreeUI (andromeda)
+
 local keyFeedback = CreateFrame('Frame', MER.Title .. 'KeyFeedback', E.UIParent)
 keyFeedback:SetScript('OnEvent', function(self, event, ...)
 	return self[event](self, event, ...)
@@ -8,27 +10,16 @@ end)
 
 keyFeedback:RegisterEvent('PLAYER_LOGIN')
 
-local settings = {
-	point = 'CENTER',
-	x = 0,
-	y = 0,
-	enableCastLine = true,
-	enableCooldown = true,
-	enablePushEffect = true,
-	enableCast = true,
-	enableCastFlash = true,
-	lineIconSize = 28,
-	mirrorSize = 32,
-	lineDirection = 'LEFT',
-	forceUseActionHook = true, -- Probably ElvUI needs this
-}
-
 function keyFeedback:PLAYER_LOGIN()
 	if not E.db.mui.actionbars.keyfeedback then
+		E.db.mui.actionbars.keyfeedback = {}
+	end
+
+	if not E.private.actionbar.enable or not E.db.mui.actionbars.keyfeedback.enable then
 		return
 	end
 
-	self.db = settings
+	self.db = E.db.mui.actionbars.keyfeedback
 
 	if self.db.forceUseActionHook then
 		self.mirror = self:CreateFeedbackButton(true)
@@ -76,12 +67,7 @@ function keyFeedback:PLAYER_LOGIN()
 		local cooldownFrame = self.cooldown
 		local castDuration = self.castDuration or 0
 
-		if
-			keyFeedback.db.enableCast
-			and self.castSpellID
-			and self.castSpellID == GetActionSpellID(action)
-			and castDuration > cooldownDuration
-		then
+		if keyFeedback.db.enableCast and self.castSpellID and self.castSpellID == GetActionSpellID(action) and castDuration > cooldownDuration then
 			cooldownFrame:SetDrawEdge(true)
 			cooldownFrame:SetReverse(self.castInverted)
 			CooldownFrame_Set(cooldownFrame, self.castStartTime, castDuration, true, true, 1)
@@ -97,7 +83,7 @@ function keyFeedback:PLAYER_LOGIN()
 	self:SetSize(30, 30)
 	self:SetPoint('CENTER', _G.UIParent, 0, -270)
 
-	E:CreateMover(self, "SpellFeedback",  L['SpellFeedback'], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return E.db.mui.actionbars.keyfeedback end, "mui,modules,actionbars")
+	E:CreateMover(self, "SpellFeedback",  L["SpellFeedback"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return E.db.mui.actionbars.keyfeedback end, "mui,modules,actionbars")
 	self:RefreshSettings()
 end
 
@@ -245,6 +231,10 @@ end
 
 function keyFeedback:RefreshSettings()
 	local db = self.db
+	if not db.enable then
+		return
+	end
+
 	self.mirror:SetSize(db.mirrorSize, db.mirrorSize)
 
 	self:RegisterUnitEvent('UNIT_SPELLCAST_SUCCEEDED', 'player')
@@ -289,20 +279,30 @@ function keyFeedback:RefreshSettings()
 	end
 end
 
+local function MakeCompatibleAnimation(anim)
+	if anim:GetObjectType() == 'Scale' and anim.SetScaleFrom then
+		return anim
+	else
+		anim.SetScaleFrom = anim.SetFromScale
+		anim.SetScaleTo = anim.SetToScale
+	end
+end
+
 function keyFeedback:CreateFeedbackButton(autoKeyup)
 	local db = self.db
 
 	local mirror = CreateFrame('Button', MER.Title .. 'KeyFeedbackMirror', self, 'ActionButtonTemplate')
-	mirror:SetHeight(db.mirrorSize)
-	mirror:SetWidth(db.mirrorSize)
+	mirror:SetHeight(db.mirrorSize or 32)
+	mirror:SetWidth(db.mirrorSize or 32)
 	mirror.NormalTexture:ClearAllPoints()
-	mirror.NormalTexture:SetPoint('TOPLEFT', -15, 15)
-	mirror.NormalTexture:SetPoint('BOTTOMRIGHT', 15, -15)
 
-	mirror:StripTextures()
 	local bg = S:CreateBDFrame(mirror)
-	bg:SetBackdropBorderColor(0, 0, 0)
+	bg:SetBackdropBorderColor(0, 0, 0, 1)
 	S:CreateShadow(bg)
+
+	if mirror.SetPushedTexture then
+		mirror:SetPushedTexture(0)
+	end
 
 	mirror.cooldown:SetEdgeTexture('Interface\\Cooldown\\edge')
 	mirror.cooldown:SetSwipeColor(0, 0, 0)
@@ -357,9 +357,16 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 		local gag = pushedCircle:CreateAnimationGroup()
 		pushedCircle.grow = gag
 
-		local ga1 = gag:CreateAnimation('Scale')
-		ga1:SetFromScale(0.1, 0.1)
-		ga1:SetToScale(1.3, 1.3)
+		local ga1
+		if E.Retail then
+			ga1 = MakeCompatibleAnimation(gag:CreateAnimation('Scale'))
+			ga1:SetScaleFrom(0.1, 0.1)
+			ga1:SetScaleTo(1.3, 1.3)
+		else
+			ga1 = gag:CreateAnimation('Scale')
+			ga1:SetFromScale(0.1, 0.1)
+			ga1:SetToScale(1.3, 1.3)
+		end
 		ga1:SetDuration(0.3)
 		ga1:SetOrder(2)
 
@@ -442,8 +449,8 @@ local PoolIconCreationFunc = function(pool)
 	S:CreateShadow(bg)
 
 	f:EnableMouse(false)
-	f:SetHeight(db.lineIconSize)
-	f:SetWidth(db.lineIconSize)
+	f:SetHeight(db.lineIconSize or 28)
+	f:SetWidth(db.lineIconSize or 28)
 	f:SetPoint('BOTTOM', hdr, 'BOTTOM', 0, -0)
 
 	local t = f.icon
@@ -459,13 +466,23 @@ local PoolIconCreationFunc = function(pool)
 	local translateX = -100
 	local translateY = 0
 
-	local s1 = ag:CreateAnimation('Scale')
+	local s1
+	if E.Retail then
+		s1 = MakeCompatibleAnimation(ag:CreateAnimation('Scale'))
+	else
+		s1 = ag:CreateAnimation('Scale')
+	end
 	s1:SetScale(0.01, 1)
 	s1:SetDuration(0)
 	s1:SetOrigin(scaleOrigin, 0, 0)
 	s1:SetOrder(1)
 
-	local s2 = ag:CreateAnimation('Scale')
+	local s2
+	if E.Retail then
+		s2 = MakeCompatibleAnimation(ag:CreateAnimation('Scale'))
+	else
+		s2 = ag:CreateAnimation('Scale')
+	end
 	s2:SetScale(100, 1)
 	s2:SetDuration(0.5)
 	s2:SetOrigin(scaleOrigin, 0, 0)
@@ -514,37 +531,30 @@ local function PoolIconResetterFunc(pool, f)
 	f.ag:Stop()
 
 	local scaleOrigin, revOrigin, translateX, translateY
-	-- local sx1, sx2, sy1, sy2
 	if db.lineDirection == 'RIGHT' then
 		scaleOrigin = 'LEFT'
 		revOrigin = 'RIGHT'
-		-- sx1, sx2, sy1, sy2 = 0.01, 100, 1, 1
 		translateX = 100
 		translateY = 0
 	elseif db.lineDirection == 'TOP' then
 		scaleOrigin = 'BOTTOM'
 		revOrigin = 'TOP'
-		-- sx1, sx2, sy1, sy2 = 1,1, 0.01, 100
 		translateX = 0
 		translateY = 100
 	elseif db.lineDirection == 'BOTTOM' then
 		scaleOrigin = 'TOP'
 		revOrigin = 'BOTTOM'
-		-- sx1, sx2, sy1, sy2 = 1,1, 0.01, 100
 		translateX = 0
 		translateY = -100
 	else
 		scaleOrigin = 'RIGHT'
 		revOrigin = 'LEFT'
-		-- sx1, sx2, sy1, sy2 = 0.01, 100, 1, 1
 		translateX = -100
 		translateY = 0
 	end
 	local ag = f.ag
-	-- ag.s1:SetScale(sx1, sy1)
 	ag.s1:SetOrigin(scaleOrigin, 0, 0)
 
-	-- ag.s1:SetScale(sx2, sy2)
 	ag.s2:SetOrigin(scaleOrigin, 0, 0)
 	ag.t1:SetOffset(translateX, translateY)
 

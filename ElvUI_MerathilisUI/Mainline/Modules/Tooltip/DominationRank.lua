@@ -154,10 +154,12 @@ function MT:DominationRank()
 		return
 	end
 
-	_G.GameTooltip:HookScript("OnTooltipSetItem", Domination_CheckStatus)
-	_G.ItemRefTooltip:HookScript("OnTooltipSetItem", Domination_CheckStatus)
-	_G.ShoppingTooltip1:HookScript("OnTooltipSetItem", Domination_CheckStatus)
-	_G.EmbeddedItemTooltip:HookScript("OnTooltipSetItem", Domination_CheckStatus)
+	if not MER.IsPTR then
+		_G.GameTooltip:HookScript("OnTooltipSetItem", Domination_CheckStatus)
+		_G.ItemRefTooltip:HookScript("OnTooltipSetItem", Domination_CheckStatus)
+		_G.ShoppingTooltip1:HookScript("OnTooltipSetItem", Domination_CheckStatus)
+		_G.EmbeddedItemTooltip:HookScript("OnTooltipSetItem", Domination_CheckStatus)
+	end
 end
 
 MT:AddCallback('DominationRank')

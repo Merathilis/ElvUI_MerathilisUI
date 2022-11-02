@@ -48,11 +48,9 @@ MER.IsDevRealm = {
 }
 
 function F.IsDeveloper()
-	return MER.IsDev[E.myname] or false
-end
+	if not MER.IsDevelop then return end
 
-function F.IsDeveloperRealm()
-	return MER.IsDevRealm[E.myrealm] or false
+	return MER.IsDev[E.myname] and MER.IsDevRealm[E.myrealm] or false
 end
 
 --[[

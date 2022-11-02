@@ -1,6 +1,6 @@
 ﻿local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_LocPanel')
-local DD = MER.Modules.DropDown
+local DD = MER:GetModule('MER_DropDown')
 
 local _G = _G
 local format, split = string.format, string.split
@@ -96,6 +96,7 @@ module.Hearthstones = {
 	{183716, nil, true}, -- Venthyr Sinstone
 	{188952, nil, true}, -- Dominated Hearthstone
 	{190237, nil, true}, -- Broker Translocation Matrix
+	{193588, nil, true}, -- Timewalker's Hearthstone
 }
 
 module.PortItems = {
@@ -117,6 +118,7 @@ module.PortItems = {
 	{95568, nil, true}, --Sunreaver beakon
 	{87548}, --Pandaria Arch
 	{180817}, --Cypher of Relocation
+	{151016}, --Fractured Necrolyte Skull
 }
 module.EngineerItems = {
 	{18984, nil, true}, --Dimensional Ripper - Everlook
@@ -260,7 +262,9 @@ module.Spells = {
 		[23] = {text = GetSpellInfo(354466),icon = F.GetIconFromID("spell", 354466),secure = {buttonType = "spell",ID = 354466}, UseTooltip = true}, -- Spires of Ascension
 		[24] = {text = GetSpellInfo(354462),icon = F.GetIconFromID("spell", 354462),secure = {buttonType = "spell",ID = 354462}, UseTooltip = true}, -- The Necrotic Wake
 		[25] = {text = GetSpellInfo(354467),icon = F.GetIconFromID("spell", 354467),secure = {buttonType = "spell",ID = 354467}, UseTooltip = true}, -- Theater of Pain
-		[26] = {text = GetSpellInfo(367416),icon = F.GetIconFromID("spell", 367416),secure = {buttonType = "spell",ID = 367416}, UseTooltip = true}, -- Tazavesh, the Veiled Market
+		[26] = {text = GetSpellInfo(367416),icon = F.GetIconFromID("spell", 367416),secure = {buttonType = "spell", ID = 367416}, UseTooltip = true}, -- Tazavesh, the Veiled Market
+		[27] = {text = GetSpellInfo(373262),icon = F.GetIconFromID("spell", 373262),secure = {buttonType = "spell", ID = 373262}, UseTooltip = true,}, -- Karazhan
+		[28] = {text = GetSpellInfo(373274),icon = F.GetIconFromID("spell", 373274),secure = {buttonType = "spell", ID = 373274}, UseTooltip = true,}, -- Mechagnome
 	},
 }
 
@@ -728,17 +732,6 @@ function module:Initialize()
 	self:Template()
 	self:Toggle()
 	self:ToggleCoords()
-
-	function module:ForUpdateAll()
-		local db = E.db.mui.locPanel
-		self:Resize()
-		self:Template()
-		self:Fonts()
-		self:Toggle()
-		self:ToggleCoords()
-	end
-
-	self:ForUpdateAll()
 
 	self:RegisterEvent("UNIT_AURA")
 	self:RegisterEvent("CHAT_MSG_SKILL")

@@ -21,20 +21,6 @@ function module:LoadDataTexts()
 
 	MER_RightChatTopDT:Point("TOPRIGHT", _G.RightChatTab, "TOPRIGHT", 0, E.mult)
 	MER_RightChatTopDT:Point("BOTTOMLEFT", _G.RightChatTab, "BOTTOMLEFT", 0, E.mult)
-
-	hooksecurefunc(DT, "UpdatePanelInfo", function(DT, panelName, panel)
-		if not panel then return end
-		local db = panel.db or E.db.datatexts.panels[panelName] and DT.db.panels[panelName]
-		if not db then return end
-
-		-- Need to find a way to hide my styling if changing the option from a panel
-		if panel and not panel.styled then
-			if db.backdrop then
-				panel:Styling()
-			end
-			panel.styled = true
-		end
-	end)
 end
 
 function module:Initialize()

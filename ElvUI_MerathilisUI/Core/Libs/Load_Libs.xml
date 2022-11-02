@@ -1,6 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Include file="oUF_Plugins\oUF_Plugins.xml"/>
-	<Include file="LibDeflate\lib.xml"/>
-	<Include file="LibDropDown\embed.xml"/>
-	<Include file="LibOpenRaid\lib.xml"/>
-</Ui>

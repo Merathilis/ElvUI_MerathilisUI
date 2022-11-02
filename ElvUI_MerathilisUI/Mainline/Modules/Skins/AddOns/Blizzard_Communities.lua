@@ -52,14 +52,14 @@ local function LoadSkin()
 	end
 
 	-- Active Communities
-	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)
+	--[[hooksecurefunc(_G.CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)
 		if clubInfo then
 			if self.bg and self.bg.backdrop and not self.__MERSkin then
 				module:CreateGradient(self.bg.backdrop)
 				self.__MERSkin = true
 			end
 		end
-	end)
+	end)]]
 
 	-- Add Community Button
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetAddCommunity", function(self)
@@ -90,50 +90,10 @@ local function LoadSkin()
 		Dialog.backdrop:Styling()
 	end
 
-	-- Roster
-	module:CreateBDFrame(CommunitiesFrame.MemberList.ListScrollFrame, .25)
-
 	local DetailFrame = CommunitiesFrame.GuildMemberDetailFrame
 	DetailFrame:ClearAllPoints()
 	DetailFrame:SetPoint("TOPLEFT", CommunitiesFrame, "TOPRIGHT", 34, 0)
 	DetailFrame:Styling()
-
-	-- Guild Perks
-	hooksecurefunc("CommunitiesGuildPerks_Update", function(self)
-		local buttons = self.Container.buttons
-		for i = 1, #buttons do
-			local button = buttons[i]
-			if button and button.backdrop and not button.__MERSkin then
-				button.backdrop:SetTemplate("Transparent")
-				button.backdrop:SetPoint("TOPLEFT", button.Icon, -1, 1)
-				button.backdrop:SetPoint("BOTTOMRIGHT", button.Right, 1, -1)
-				module:CreateGradient(button.backdrop)
-				button.__MERSkin = true
-			end
-		end
-	end)
-
-	-- Guild Rewards
-	hooksecurefunc("CommunitiesGuildRewards_Update", function(self)
-		local buttons = self.RewardsContainer.buttons
-		for i = 1, #buttons do
-			local button = buttons[i]
-			if button and button.backdrop and not button.__MERSkin then
-				button.backdrop:SetTemplate("Transparent")
-				button.backdrop:SetPoint("TOPLEFT", button.Icon, 0, 1)
-				button.backdrop:SetPoint("BOTTOMRIGHT", 0, 3)
-				module:CreateGradient(button.backdrop)
-
-				if button.hover then
-					button.hover:SetInside(button.backdrop)
-					button.hover:SetColorTexture(r, g, b, 0.3)
-				end
-
-				button.DisabledBG:Hide()
-				button.__MERSkin = true
-			end
-		end
-	end)
 
 	if CommunitiesFrame.RecruitmentDialog.backdrop then
 		CommunitiesFrame.RecruitmentDialog.backdrop:Styling()

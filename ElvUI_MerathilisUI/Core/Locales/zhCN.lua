@@ -4,6 +4,16 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhCN")
 -- Core
 L["Enable"] = "启用"
 L[" is loaded. For any issues or suggestions, please visit "] = " 已加载。如有任何问题或建议，请访问 "
+L["Font"] = true
+L["Size"] = true
+L["Width"] = true
+L["Height"] = true
+L["Alpha"] = true
+L["Outline"] = "描边"
+L["X-Offset"] = true
+L["Y-Offset"] = true
+L["Icon Size"] = true
+L["Font Outline"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -15,7 +25,10 @@ L["Logout Timer"] = "登出计时器"
 L["SplashScreen"] = "闪屏"
 L["Enable/Disable the Splash Screen on Login."] = "在登录时启用/禁用启动画面."
 L["Options"] = "选项"
-L["Desciption"] = "描述"
+L["Description"] = "描述"
+L["General"] = true
+L["Modules"] = true
+L["Media"] = true
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r 是ElvUI的扩展. 它增加了:
 
 - 大量新特性
@@ -34,9 +47,67 @@ L["Enable/Disable the Login Message in Chat"] = "在聊天框中启用/禁用登
 L["Log Level"] = "日志等级"
 L["Only display log message that the level is higher than you choose."] = "只显示高于选择等级的日志信息."
 L["Set to 2 if you do not understand the meaning of log level."] = "如果你不理解什么是日志级别, 设置为 2 就行."
+L["Open the changelog window."] = true
 
 -- Bags
-L["Equipment Manager"] = "装备管理"
+L["BANK_DESC"] = [=[If you have my Bags enabled the ElvUI Bags will be forced to be disabled! So if you want the ElvUI back, you need to disable my Bags first and then enable the ElvUI Bags again.]=]
+L["Item Filter"] = true
+L["Junk"] = true
+L["Consumable"] = true
+L["Ammo"] = true
+L["Azerite"] = true
+L["Equipments"] = true
+L["EquipSets"] = true
+L["Legendarys"] = true
+L["Collection"] = true
+L["Favorite"] = true
+L["Goods"] = true
+L["Quest"] = true
+L["Anima"] = true
+L["Relic"] = true
+L["Collect Empty Slots"] = true
+L["Special Bags Color"] = true
+L["|nShow color for special bags:|n- Herb bag|n- Mining bag|n- Gem bag|n- Enchanted mageweave pouch"] = true
+L["New Item Glow"] = true
+L["Show ItemLevel"] = true
+L["Pet Trash Currencies"] = true
+L[
+	"|nIn patch 9.1, you can buy 3 battle pets by using specific trash items. Keep this enabled, will sort these items into Collection Filter, and won't be sold by auto junk selling."
+	] = true
+L["ItemLevel Threshold"] = true
+L["BagSort Mode"] = true
+L[
+	"|nIf you have empty slots after bag sort, please disable bags module, and turn off all bags filter in default ui containers."
+	] = true
+L["Forward"] = true
+L["Backwards"] = true
+L["Bags per Row"] = true
+L["|nIf Bags ItemFilter enabled, change the bags per row for anchoring."] = true
+L["Bank bags per Row"] = true
+L["|nIf Bags ItemFilter enabled, change the bank bags per row for anchoring."] = true
+L["Icon Size"] = true
+L["Icon Spacing"] = true
+L["Font Size"] = true
+L["Bags Width"] = true
+L["Bank Width"] = true
+L["Bag Search Tip"] = "|nClick to search your bag items.|nYou can type in item names or item equip locations.|n'boe' for items that bind on equip and 'quest' for quest items.|n|nPress key ESC to clear editbox."
+L["Auto Deposit Tip"] = "|nLeft click to deposit reagents, right click to switch auto deposit.|nIf the button border shown, the reagents from your bags would auto deposit once you open your BankFrame."
+L["Bag Sort Disabled"] = "BagSort has been disabled in the Options."
+L["Sort"] = true
+L["FreeSlots"] = "Total free slots"
+L["Split Mode Enabled"] = "|nClick to split stacked items in your bags.|nYou can change 'split count' for each click thru the editbox."
+L["Quick Split"] = true
+L["Favourite Mode"] = true
+L["Favourite Mode Enabled"] = "|nYou can now star items.|nIf 'Bags ItemFilter' enabled, the item you starred will add to Preferences filter slots.|nThis is not available to trash."
+L["Reset junklist warning"] = "Are you sure to wipe the custom junk list?"
+L["Junk Mode Enabled"] = "|nClick to tag item as junk.|nIf 'Autosell Junk' enabled, these items would be sold as well.|nThe list is saved account-wide, and won't be in the export data.|nYou can hold CTRL+ALT and click to wipe the custom junk list."
+L["Custom Junk Mode"] = "Custom Junk List"
+L["Delete Mode Enabled"] = "|nYou can destroy container item by holding CTRL+ALT. The item can be heirlooms or its quality lower then rare (blue)."
+L["Item Delete Mode"] = true
+L["Azerite Armor"] = true
+L["Equipment Set"] = true
+L["Korthia Relic"] = true
+L["StupidShiftKey"] = true
 L["Equipment Set Overlay"] = "套装文字"
 L["Show the associated equipment sets for the items in your bags (or bank)."] = "为你背包(银行)中的物品显示关联的套装."
 
@@ -44,14 +115,6 @@ L["Show the associated equipment sets for the items in your bags (or bank)."] = 
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
 L["BACK"] = "后退"
-L["ERR_FRIEND_ONLINE"] = "|cff298F00上线|r."
-L["ERR_FRIEND_OFFLINE"] = "|cffff0000离线|r."
-L["BN_INLINE_TOAST_FRIEND_ONLINE"] = "|cff298F00上线|r."
-L["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "|cffff0000离线|r."
-L["has come |cff298F00online|r."] = "|cff298F00上线|r." -- Guild Message
-L["has gone |cffff0000offline|r."] = "|cffff0000离线|r." -- Guild Message
-L[" has come |cff298F00online|r."] = "|cff298F00上线|r." -- Battle.Net Message
-L[" has gone |cffff0000offline|r."] = "|cffff0000离线|r." -- Battle.Net Message
 L["|cFF00c0failvl|r: %d"] = "|cFF00c0fa物品等级|r: %d"
 L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = "|CFF1EFF00%s|r |CFFFF0000出售.|r"
 L["Requires level: %d - %d"] = "需要等级: %d - %d"
@@ -129,6 +192,7 @@ L["Coding"] = "代码"
 L["Testing & Inspiration"] = "测试与灵感"
 L["Development Version"] = "开发版本"
 L["Here you can download the latest development version."] = "您可以从这里下载最新的开发版本."
+L["Donations"] = true
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] = "你能在这里找到所有不同的选项 |cffffffffMerathilis|r|cffff8000UI|r 模块."
@@ -143,12 +207,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe,
 -- Extended Vendor
 L["Extended Vendor"] = true
 L["Enhanced NameplateAuras"] = "增强姓名板光环"
-
--- FlightMode
-L["FlightMode"] = "飞行模式"
-L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "增强 |cff00c0faBenikUI|r 的飞行模式, 如需完全禁用飞行模式, 请前往 |cff00c0faBenikUI|r 选项."
-L["Exit FlightMode"] = "退出飞行模式"
-L["Left Click to Request Stop"] = "左键点击来请求停止"
+L["Extends the merchant page to show more items."] = true
+L["Number of Pages"] = true
+L["The number of pages shown in the merchant frame."] = true
 
 -- FlightPoint
 L["Flight Point"] = "飞行点"
@@ -226,8 +287,9 @@ L["Skill gains"] = "技能提升"
 L[" members"] = " 会员"
 L["Name Hover"] = "名字悬停"
 L["Shows the Unit Name on the mouse."] = "显示鼠标指向的单位名称."
-L["Undress"] = "解除装备"
+L["Double Click to Undress"] = true
 L["Flashing Cursor"] = "鼠标闪光"
+L["Lights up the cursor to make it easier to see."] = true
 L["Accept Quest"] = "接受任务"
 L["Placed Item"] = "放置物品"
 L["Stranger"] = "陌生人"
@@ -240,6 +302,7 @@ L["MISC_PARAGON"] = "巅峰"
 L["MISC_PARAGON_REPUTATION"] = "巅峰声望"
 L["MISC_PARAGON_NOTIFY"] = "最高声望 - 接收奖励."
 L["Fun Stuff"] = "有趣的玩意儿"
+L["Change the NPC Talk Frame."] = true
 L["Press CTRL + C to copy."] = "按下 CTRL + C 复制"
 L["Wowhead Links"] = "Wowhead 链接"
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "在成就和地图框体上添加 Wowhead 链接"
@@ -249,10 +312,30 @@ L["Item Alerts"] = "物品通告"
 L["Announce in chat when someone placed an usefull item."] = "当有玩家放置某些物品时将在聊天栏通知"
 L["Maw ThreatBar"] = true
 L["Replace the Maw Threat Display, with a simple StatusBar"] = true
+L["Miscellaneous"] = true
+L["Guild News Item Level"] = true
+L["Add Item level Infos in Guild News"] = true
+L["Spell Alert Scale"] = true
+L["Add Title"] = true
+L["Display an additional title."] = true
+L["Add LFG group info to tooltip."] = true
+L["Reskin Icon"] = true
+L["Change role icons."] = true
+L["Line"] = true
+L["Alerts"] = true
+L["Call to Arms"] = true
+L["Feasts"] = true
+L["Toys"] = true
+L["Random Toy"] = true
+L["Creates a random toy macro."] = true
+L["Text Style"] = true
+L["COLOR"] = true
 L.ANNOUNCE_FP_PRE = "{rt1} %s 放置了 %s {rt1}"
 L.ANNOUNCE_FP_CLICK = "{rt1} %s 正在开启 %s... 请点击 ! {rt1}"
 L.ANNOUNCE_FP_USE = "{rt1} %s 使用了 %s。 {rt1}"
 L.ANNOUNCE_FP_CAST = "{rt1} %s 开启了 %s {rt1}"
+L["Hide Boss Banner"] = true
+L["This will hide the popup, that shows loot, after you kill a boss"] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
@@ -266,19 +349,6 @@ L["Keystone"] = "大秘境钥匙"
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "鼠标提示中添加大米钥匙的词缀描述"
 L["Title Color"] = "标题颜色"
 L["Change the color of the title in the Tooltip."] = "改变鼠标提示中标题的颜色"
-L["Progress Info"] = "进度信息"
-L["Shows raid progress of a character in the tooltip"] = "鼠标提示中显示角色的副本进度"
-L["Mythic"] = "史诗"
-L["Heroic"] = "英雄"
-L["Normal"] = "普通"
-L["LFR"] = "寻求组队"
-L["Uldir"] = "奥迪尔"
-L["BattleOfDazaralor"] = "达萨罗之战"
-L["CrucibleOfStorms"] = "风暴熔炉"
-L["EternalPalace"] = "永恒王宫"
-L["Nyalotha"] = "尼奥罗萨"
-L["Castle Nathria"] = "纳斯利亚堡"
-L["Sanctum of Domination"] = "统御圣所"
 L["FACTION"] = "阵营"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "已激活的艾泽里特之力"
 L["Only Icons"] = "仅图标"
@@ -303,6 +373,8 @@ L["Kyrian"] = "格里恩"
 L["Venthyr"] = "温西尔"
 L["NightFae"] = "法夜"
 L["Necrolord"] = "通灵领主"
+L["Pet Battle"] = true
+L["Tooltip Icons"] = true
 
 -- Notification
 L["Notification"] = "通知"
@@ -323,6 +395,11 @@ L["If a Rare Mob or a treasure gets spotted on the minimap."] = "如果在小地
 L["Enable Invites"] = "启用邀请"
 L["Enable Guild Events"] = "启用公会活动"
 L["No Sounds"] = "没有声音"
+L["Vignette Print"] = true
+L["Prints a clickable Link with Coords in the Chat."] = true
+L["Quick Join"] = true
+L["Title Font"] = true
+L["Text Font"] = true
 
 -- DataTexts
 -- DataBars
@@ -359,6 +436,14 @@ L["Add Item ID"] = "添加物品ID"
 L["Delete Item ID"] = "删除物品ID"
 L["Spell Feedback"] = true
 L["Creates a texture to show the recently pressed buttons."] = true
+L["Frame Strata"] = true
+L["Frame Level"] = true
+L["KeyFeedback"] = true
+L["Mirror"] = true
+L["Mirror Button Size"] = true
+L["Mirror Direction"] = true
+L["LEFT"] = true
+L["RIGHT"] = true
 
 -- AutoButtons
 L["AutoButtons"] = "自动按键"
@@ -371,7 +456,6 @@ L["The width of the buttons."] = "按键的宽度"
 L["Button Height"] = "按键高度"
 L["The height of the buttons."] = "按键的高度"
 L["Counter"] = "计数"
-L["Outline"] = "描边"
 L["Button Groups"] = "按键组"
 L["Key Binding"] = "按键绑定"
 L["Custom Items"] = "自订物品"
@@ -389,6 +473,9 @@ L["Utilities"] = "实用"
 L["Fade Time"] = "淡入时间"
 L["Alpha Min"] = "最小透明度"
 L["Alpha Max"] = "最大透明度"
+L["Inherit Global Fade"] = true
+L["Anchor Point"] = true
+L["The first button anchors itself to this point on the bar."] = true
 
 -- Armory
 L["Armory"] = "角色界面"
@@ -427,7 +514,16 @@ L["Shows an indicator for missing sockets and enchants."] = true
 L["Expanded Size"] = true
 L["This will increase the Character Frame size a bit."] = true
 L["Armor Set"] = true
+L["Colors Set Items in a different color."] = true
 L["Armor Set Gradient Texture Color"] = true
+L["Full Item Level"] = true
+L["Show both equipped and average item levels."] = true
+L["Item Level Coloring"] = true
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
+L["Color of Average"] = true
+L["Sets the color of average item level."] = true
+L["Warning Gradient Texture Color"] = true
+L["Class Color Gradient"] = true
 
 -- Media
 L["Zone Text"] = "区域文字"
@@ -508,6 +604,19 @@ L["Set All Absorb Style to %s"] = "设置全部吸收样式为 %s"
 L["The absorb style %s and %s is highly recommended with %s tweaks."] = "非常推荐使用 %s 和 %s 的吸收风格来和 %s的修改进行搭配显示."
 L["The selected texture will override the ElvUI default absorb bar texture."] = "选定的材质会覆盖 ElvUI 默认吸收材质."
 L["Use the texture from Blizzard Raid Frames."] = "使用暴雪团队框架中的材质."
+L["Raid Icon"] = true
+L["Change the default raid icons."] = true
+L["Highlight"] = true
+L["Adds an own highlight to the Unitframes"] = true
+L["Auras"] = true
+L["Adds an shadow around the auras"] = true
+L["Power"] = true
+L["Enable the animated Power Bar"] = true
+L["Select Model"] = true
+L["Type the Model ID"] = true
+L["Role Icons"] = true
+L["Heal Prediction"] = true
+L["Add an additional overlay to the absorb bar."] = true
 
 -- LocationPanel
 L["Template"] = "模版"
@@ -557,8 +666,18 @@ L["Item info is not available. Waiting for it. This can take some time. Menu wil
 L["Update complete. Opening menu."] = "更新完成，正在打开菜单."
 L["Hide Coordinates"] = "隐藏坐标"
 L["Dungeon Teleports"] = true
+L["Hide In Combat"] = true
 
 -- Maps
+L["Maps"] = true
+L["World Map"] = true
+L["Duration"] = true
+L["Fade Out"] = true
+L["Scale"] = true
+L["Hide Blizzard"] = true
+L["Change the shape of ElvUI minimap."] = true
+L["Height Percentage"] = true
+L["Percentage of ElvUI minimap size."] = true
 L["MiniMap"] = "小地图"
 L["MiniMap Buttons"] = "小地图按钮"
 L["Minimap Ping"] = "小地图点击"
@@ -609,6 +728,8 @@ L["Reveal"] = true
 L["Use Colored Fog"] = true
 L["Remove Fog of War from your world map."] = true
 L["Style Fog of War with special color."] = true
+L["Resize world map."] = true
+L["LFG Queue"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地图按钮"
@@ -717,13 +838,13 @@ L["Reminder"] = "常驻BUFF提醒"
 L["Reminds you on self Buffs."] = "提醒你自己的BUFF"
 
 -- Cooldowns
-L["CooldownFlash"] = "冷却闪光"
+L["Cooldowns"] = true
+L["Cooldown Flash"] = "冷却闪光"
 L["Settings"] = "设置"
 L["Fadein duration"] = "淡入持续时间"
 L["Fadeout duration"] = "淡出持续时间"
 L["Duration time"] = "持续时间"
 L["Animation size"] = "动画大小"
-L["Display spell name"] = "显示法术名"
 L["Watch on pet spell"] = "观看宠物法术"
 L["Transparency"] = "透明度"
 L["Test"] = "测试"
@@ -735,6 +856,8 @@ L["Show Icons"] = "显示图标"
 L["Show In Party"] = "在小队中显示"
 L["Show In Raid"] = "在团队中显示"
 L["Show In Arena"] = "在竞技场中显示"
+L["Spell Name"] = true
+L["Spell List"] = true
 
 -- CVars
 L["\n\nDefault: |cff00ff001|r"] = "\n\n默认: |cff00ff00开|r"
@@ -821,6 +944,7 @@ L["This part of the installation process sets up your chat fonts and colors."] =
 L["This part of the installation changes the default ElvUI look."] = "安装过程的此部分更改了默认的ElvUI外观."
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = "这部分安装过程将填充MerathilisUI数据文本.\r|cffff8000这不会触及ElvUI数据文本|r"
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = "这部分安装过程将重新布局您的动作条并启用背景"
+L["This part of the installation process will change your NamePlates."] = true
 L["This part of the installation process will reposition your Unitframes."] = "这部分安装过程将重新布局您的单位框体."
 L["This part of the installation process will apply changes to ElvUI Plugins"] = "这部分安装过程将对ElvUI插件应用更改"
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = "此步骤更改了一些魔兽世界的默认选项.这些选项是根据%s作者的需求量身定制的,并不是此配置功能所必需的(一些cvar的修改)"
@@ -828,11 +952,13 @@ L["Please click the button below to apply the new layout."] = "请单击下面�
 L["Please click the button below to setup your chat windows."] = "请单击下面的按钮设置聊天窗口."
 L["Please click the button below to setup your actionbars."] = "请单击下面的按钮设置动作条."
 L["Please click the button below to setup your datatexts."] = "请单击下面的按钮来设置数据文本."
+L["Please click the button below to setup your NamePlates."] = true
 L["Please click the button below to setup your Unitframes."] = "请单击下面的按钮设置单位框架."
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = "请单击下面的按钮以设置ElvUI AddOns.对于其他Addon配置文件,请进入我的选项 - 皮肤/插件"
 L["DataTexts"] = "数据文本"
 L["General Layout"] = true
 L["Setup ActionBars"] = true
+L["Setup NamePlates"] = true
 L["Setup UnitFrames"] = true
 L["Setup Datatexts"] = "设置数据文本"
 L["Setup Addons"] = "设置插件"
@@ -860,7 +986,7 @@ L["MER_ADDONSKINS_DESC"] = [[此部分旨在修改一些外部插件外观.
 请注意，如果插件控制面板中未加载插件，其中一些选项将|cff636363被禁用|r.]]
 L["Creates decorative stripes and a gradient on some frames"] = "在一些框架上创建条纹材质和渐变"
 L["MerathilisUI Style"] = "MerathilisUI 样式"
-L["MerathilisUI Shadows"] = "MerathilisUI 阴影"
+L["Screen Shadow Overlay"] = true
 L["Undress Button"] = "解除装备按钮"
 L["Subpages"] = "子页面"
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "子页面有10个物品, 这个选项设置了一页里有多少子页面"
@@ -884,8 +1010,69 @@ L["Selected Class Color"] = "选中职业颜色"
 L["Selected Color"] = "选中颜色"
 L["Tab"] = "选项卡"
 L["Tree Group Button"] = "树状分组按钮"
+L["Shadow Color"] = true
+L["These skins will affect all widgets handled by ElvUI Skins."] = true
+L["Texture"] = true
+L["Backdrop Color"] = true
+L["Check Box"] = true
+L["Slider"] = true
+L["Backdrop Alpha"] = true
+L["Enable All"] = true
+L["Disable All"] = true
+L["Spellbook"] = true
+L["Character Frame"] = true
+L["Gossip Frame"] = true
+L["Quest Frames"] = true
+L["TALENTS"] = true
+L["AUCTIONS"] = true
+L["FRIENDS"] = true
+L["GUILD"] = true
+L["Mail Frame"] = true
+L["WORLD_MAP"] = true
+L["Guild Control Frame"] = true
+L["MACROS"] = true
+L["GUILD_BANK"] = true
+L["FLIGHT_MAP"] = true
+L["Help Frame"] = true
+L["Loot Frames"] = true
+L["CHANNELS"] = true
+L["Raid Frame"] = true
+L["Craft"] = true
+L["Event Toast Manager"] = true
+L["Quest Choice"] = true
+L["Orderhall"] = true
+L["Contribution"] = true
+L["Calendar Frame"] = true
+L["Merchant Frame"] = true
+L["PvP Frames"] = true
+L["LF Guild Frame"] = true
+L["TalkingHead"] = true
+L["Minimap"] = true
+L["Trainer Frame"] = true
+L["Socket Frame"] = true
+L["Item Upgrade"] = true
+L["Trade"] = true
+L["Allied Races"] = true
+L["Archaeology Frame"] = true
+L["Azerite Essence"] = true
+L["Item Interaction"] = true
+L["Anima Diversion"] = true
+L["Soulbinds"] = true
+L["Covenant Sanctum"] = true
+L["Covenant Preview"] = true
+L["Covenant Renown"] = true
+L["Player Choice"] = true
+L["Chromie Time"] = true
+L["LevelUp Display"] = true
+L["Guide Frame"] = true
+L["Weekly Rewards"] = true
+L["Misc"] = true
 
 -- Panels
+L["Panels"] = true
+L["Top Panel"] = true
+L["Bottom Panel"] = true
+L["Style Panels"] = true
 L["Top Left Panel"] = "左上面板"
 L["Top Left Extra Panel"] = "左上额外面板"
 L["Top Right Panel"] = "右上面板"
@@ -896,6 +1083,7 @@ L["Bottom Right Panel"] = "右下面板"
 L["Bottom Right Extra Panel"] = "右下额外面板"
 
 -- Objective Tracker
+L["Objective Tracker"] = true
 L["1. Customize the font of Objective Tracker."] = "1. 自定义任务追踪的字体."
 L["2. Add colorful progress text to the quest."] = "2. 为任务添加彩色的进度文字."
 L["Progress"] = "进度"
@@ -938,6 +1126,10 @@ L["Bottom Right Offset Y"] = "右下角 Y 偏移"
 L["Top Left Offset X"] = "左上角 X 轴偏移"
 L["Top Left Offset Y"] = "左上角 Y 轴偏移"
 L["Transparent"] = "透明"
+L["Style"] = true
+L["Height Mode"] = true
+L["Menu Title"] = true
+L["it shows when objective tracker is collapsed."] = true
 
 -- Filter
 L["Filter"] = "过滤器"
@@ -1009,3 +1201,5 @@ L["Debug Enviroment"] = "调试环境"
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "你可以使用 |cff00ff00/muidebug off|r 命令来退出调试模式."
 L["After you stop debuging, %s will reenable the addons automatically."] = "在你停止调试后, %s 将自动重新启用插件."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "在提交一个错误报告之前, 请先用 %s 命令启用调试模式并再测试一次."
+L["Error"] = true
+L["Warning"] = true

@@ -25,42 +25,39 @@ local GetContainerItemID = GetContainerItemID
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local hooksecurefunc = hooksecurefunc
 
+local ignoredSpells, invertIgnored
 module.cooldowns, module.animating, module.watching = { }, { }, { }
 
 local DCP = CreateFrame("Frame", nil, E.UIParent)
 DCP:SetAlpha(0)
 DCP:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
-
-DCP.TextFrame = DCP:CreateFontString(nil, "ARTWORK")
-DCP.TextFrame:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
-DCP.TextFrame:SetShadowOffset(2,-2)
-DCP.TextFrame:Point("CENTER",DCP,"CENTER")
-DCP.TextFrame:Width(185)
-DCP.TextFrame:SetJustifyH("CENTER")
-DCP.TextFrame:SetTextColor(1, 1, 1)
 module.DCP = DCP
 
 local DCPT = DCP:CreateTexture(nil, "BORDER")
 DCPT:SetAllPoints(DCP)
-MERS:CreateBDFrame(DCP)
+-- MERS:CreateBDFrame(DCP)
 MERS:CreateSD(DCP, 2, 2)
 MERS:CreateBackdropShadow(DCP)
 
 local defaultSettings = {
-	["enable"] = false,
-	["fadeInTime"] = 0.3,
-	["fadeOutTime"] = 0.6,
-	["maxAlpha"] = 0.8,
-	["animScale"] = 1.5,
-	["iconSize"] = 50,
-	["holdTime"] = 0.3,
-	["petOverlay"] = {1, 1, 1},
-	["ignoredSpells"] = "",
-	["invertIgnored"] = false,
-	["enablePet"] = false,
-	["showSpellName"] = false,
-	["x"] = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
-	["y"] = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
+	enable = false,
+	fadeInTime = 0.3,
+	fadeOutTime = 0.6,
+	maxAlpha = 0.8,
+	animScale = 1.5,
+	iconSize = 50,
+	holdTime = 0.3,
+	petOverlay = {1, 1, 1, 1},
+	ignoredSpells = {},
+	invertIgnored = false,
+	enablePet = false,
+	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
+	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
+}
+
+local defaultSettingsPerChar = {
+    ignoredSpells = {},
+    invertIgnored = false,
 }
 
 -----------------------
@@ -71,6 +68,7 @@ local function tcount(tab)
 	for _ in pairs(tab) do
 		n = n + 1
 	end
+
 	return n
 end
 
@@ -97,11 +95,12 @@ local function memoize(f)
 end
 
 local function GetPetActionIndexByName(name)
-	for i=1, _G.NUM_PET_ACTION_SLOTS, 1 do
+	for i = 1, _G.NUM_PET_ACTION_SLOTS, 1 do
 		if (GetPetActionInfo(i) == name) then
 			return i
 		end
 	end
+
 	return nil
 end
 
@@ -191,16 +190,12 @@ local function OnUpdate(_,update)
 		if (runtimer > (module.db.fadeInTime + module.db.holdTime + module.db.fadeOutTime)) then
 			tremove(module.animating, 1)
 			runtimer = 0
-			DCP.TextFrame:SetText(nil)
 			DCPT:SetTexture(nil)
-			DCPT:SetVertexColor(1, 1, 1)
+			DCPT:SetVertexColor(1, 1, 1, 1)
 			DCP:SetAlpha(0)
 			DCP:SetSize(module.db.iconSize, module.db.iconSize)
 		else
 			if (not DCPT:GetTexture()) then
-				if (module.animating[1][3] ~= nil and module.db.showSpellName) then
-					DCP.TextFrame:SetText(module.animating[1][3])
-				end
 				DCPT:SetTexture(module.animating[1][1])
 				S:HandleIcon(DCPT)
 				if module.animating[1][2] then
@@ -231,6 +226,20 @@ function DCP:ADDON_LOADED(addon)
 		for i, v in pairs(defaultSettings) do
 			if (not MERData_DCP[i]) then
 				MERData_DCP[i] = v
+			end
+		end
+	end
+
+	if (not MERData_DCPCharacter) then
+		MERData_DCPCharacter = {unpack(defaultSettingsPerChar)}
+
+		if (MERData_DCP.ignoredSpells) then
+			MERData_DCPCharacter.ignoredSpells = MERData_DCP.ignoredSpells
+		end
+	else
+		for i, v in pairs(defaultSettingsPerChar) do
+			if (not MERData_DCPCharacter[i]) then
+				MERData_DCPCharacter = v
 			end
 		end
 	end
@@ -303,6 +312,7 @@ hooksecurefunc("UseInventoryItem", function(slot)
 	end
 end)
 
+--ToDO: WoW10
 hooksecurefunc("UseContainerItem", function(bag,slot)
 	local itemID = GetContainerItemID(bag, slot)
 	if (itemID) then
@@ -330,7 +340,7 @@ function module:DisableCooldownFlash()
 end
 
 function module:TestMode()
-	tinsert(module.animating, {"Interface\\Icons\\achievement_guildperk_ladyluck_rank2", nil, "Spell Name"})
+	tinsert(module.animating, {"Interface\\Icons\\Ability_CriticalStrike", nil, "Spell Name"})
 	DCP:SetScript("OnUpdate", OnUpdate)
 end
 
@@ -346,16 +356,7 @@ function module:Initialize()
 	DCP:Size(self.db.iconSize, self.db.iconSize)
 	DCP:Point("CENTER", E.UIParent, "CENTER")
 
-	DCP.TextFrame:FontTemplate(E.db.general.font, 18, "OUTLINE")
-	DCP.TextFrame:SetShadowOffset(2, -2)
-
 	E:CreateMover(DCP, "MER_CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,cooldownFlash')
-
-	function module:ForUpdateAll()
-		module.db = E.db.mui.cooldownFlash
-	end
-
-	self:ForUpdateAll()
 end
 
 MER:RegisterModule(module:GetName())

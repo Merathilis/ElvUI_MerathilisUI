@@ -31,7 +31,7 @@ local function ReplaceWidgetBarTexture(self, atlas)
 end
 
 local function ReskinWidgetStatusBar(bar)
-	if bar:IsForbidden() then return end
+	if not bar or bar:IsForbidden() then return end
 
 	if bar and not bar.styled then
 		if bar.BG then bar.BG:SetAlpha(0) end
@@ -46,8 +46,10 @@ local function ReskinWidgetStatusBar(bar)
 		if bar.BorderGlow then bar.BorderGlow:SetAlpha(0) end
 
 		bar:CreateBackdrop('Transparent')
-		ReplaceWidgetBarTexture(bar, bar:GetStatusBarAtlas())
-		hooksecurefunc(bar, "SetStatusBarAtlas", ReplaceWidgetBarTexture)
+		if bar.GetStatusBarAtlas then
+			ReplaceWidgetBarTexture(bar, bar:GetStatusBarAtlas())
+			hooksecurefunc(bar, "SetStatusBarAtlas", ReplaceWidgetBarTexture)
+		end
 
 		bar.styled = true
 	end
@@ -71,9 +73,9 @@ local function ReskinPVPCaptureBar(self)
 	self.NeutralBar:SetTexture(E.media.normTex)
 	self.RightBar:SetTexture(E.media.normTex)
 
-	self.LeftBar:SetVertexColor(.2, .6, 1)
-	self.NeutralBar:SetVertexColor(.8, .8, .8)
-	self.RightBar:SetVertexColor(.9, .2, .2)
+	self.LeftBar:SetVertexColor(.2, .6, 1, 1)
+	self.NeutralBar:SetVertexColor(.8, .8, .8, 1)
+	self.RightBar:SetVertexColor(.9, .2, .2, 1)
 
 	self.LeftLine:SetAlpha(0)
 	self.RightLine:SetAlpha(0)
@@ -90,7 +92,7 @@ local function ReskinPVPCaptureBar(self)
 end
 
 local function ReskinSpellDisplayWidget(spell)
-	if spell:IsForbidden() then return end
+	if not spell or spell:IsForbidden() then return end
 
 	if not spell.backdrop then
 		spell.Border:SetAlpha(0)

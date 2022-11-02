@@ -1,0 +1,8 @@
+<Ui xmlns='http://www.blizzard.com/wow/ui/'>
+	<Include file='..\Libs\Core\LibDeflate\lib.xml'/>
+	<Include file='..\Libs\Core\LibDropDown\embed.xml'/>
+	<Include file='..\Libs\Core\oUF_Plugins\oUF_Plugins.xml'/>
+
+	<Include file='..\Libs\Core\cargBags\cargBags.xml'/>
+	<Include file='..\Libs\Core\LibOpenRaid\lib.xml'/>
+</Ui>

@@ -116,8 +116,6 @@ local function createInput(parent, width, height, onEnterPressed)
 	return frame
 end
 
-
-
 function F.Widgets.New(widgetType, ...)
 	if not widgetType then
 		return

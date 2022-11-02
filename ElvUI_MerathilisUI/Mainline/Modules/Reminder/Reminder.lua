@@ -27,6 +27,19 @@ local UnitLevel = UnitLevel
 module.CreatedReminders = {}
 
 module.ReminderList = {
+	DRUID = {
+		[1] = { -- Mark of the Wild
+			["spellGroup"] = {
+				[1126] = true,
+				["defaultIcon"] = 1126, -- Mark of the Wild
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+		},
+	},
+
 	MAGE = {
 		[1] = { -- Arcane Intellect
 			["spellGroup"] = {
@@ -76,6 +89,7 @@ module.ReminderList = {
 		[1] = { -- Lightning Shield
 			["spellGroup"] = {
 				[192106] = true, -- Lightning Shield
+				[974] = true, -- Earth Shield
 				["defaultIcon"] = 192106,
 			},
 			["enable"] = true,
@@ -88,6 +102,7 @@ module.ReminderList = {
 		[2] = { -- Water Shield
 			["spellGroup"] = {
 				[52127] = true, -- Water Shield
+				[974] = true, -- Earth Shield
 				["defaultIcon"] = 52127,
 			},
 			["enable"] = true,
@@ -481,7 +496,11 @@ function module:CreateReminder(name, index)
 	local holder = CreateFrame("Frame", MER.Title.."Reminder"..index, E.UIParent)
 	holder:SetSize(40, 40)
 	holder:ClearAllPoints()
-	holder:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
+	if ElvFrame then
+		holder:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
+	else
+		holder:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 573, 199)
+	end
 	E:CreateMover(holder, "MER_ReminderMover"..index, L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
 
 	local button = CreateFrame("Button", "MER_ReminderIcon"..index, holder)

@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -9,6 +9,19 @@ local hooksecurefunc = hooksecurefunc
 local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
+
+local function reskinFrameButton(self)
+	for i = 1, self.ScrollTarget:GetNumChildren() do
+		local child = select(i, self.ScrollTarget:GetChildren())
+		if not child.MERSkin then
+			if child then
+				module:CreateGradient(child)
+			end
+
+			child.MERSkin = true
+		end
+	end
+end
 
 local function LoadSkin()
 	if not module:CheckDB("collections", "collections") then
@@ -52,61 +65,15 @@ local function LoadSkin()
 	MountJournal.MountDisplay.ShadowOverlay:Hide()
 	_G.PetJournalTutorialButton.Ring:Hide()
 
-	module:CreateBD(MountJournal.MountCount, .25)
-	module:CreateBD(PetJournal.PetCount, .25)
-	module:CreateBD(MountJournal.MountDisplay.ModelScene, .25)
+	MountJournal.MountCount:CreateBackdrop('Transparent')
+	PetJournal.PetCount:CreateBackdrop('Transparent')
+	MountJournal.MountDisplay.ModelScene:CreateBackdrop('Transparent')
 
 	-- Mount list
-	for _, bu in pairs(MountJournal.ListScrollFrame.buttons) do
-		if bu then
-			module:CreateGradient(bu)
-
-			bu.DragButton.ActiveTexture:SetAlpha(0)
-
-			bu.pulseName = bu:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-			bu.pulseName:SetJustifyH("LEFT")
-			bu.pulseName:SetSize(147, 25)
-			bu.pulseName:SetAllPoints(bu.name)
-			bu.pulseName:Hide()
-
-			bu.pulseName.anim = bu.pulseName:CreateAnimationGroup()
-			bu.pulseName.anim:SetToFinalAlpha(true)
-
-			bu.pulseName.anim.alphaout = bu.pulseName.anim:CreateAnimation("Alpha")
-			bu.pulseName.anim.alphaout:SetOrder(1)
-			bu.pulseName.anim.alphaout:SetFromAlpha(1)
-			bu.pulseName.anim.alphaout:SetToAlpha(0)
-			bu.pulseName.anim.alphaout:SetDuration(1)
-
-			bu.pulseName.anim.alphain = bu.pulseName.anim:CreateAnimation("Alpha")
-			bu.pulseName.anim.alphain:SetOrder(2)
-			bu.pulseName.anim.alphain:SetFromAlpha(0)
-			bu.pulseName.anim.alphain:SetToAlpha(1)
-			bu.pulseName.anim.alphain:SetDuration(1)
-
-			hooksecurefunc(bu.name, "SetText", function(self, text)
-				bu.pulseName:SetText(text)
-				bu.pulseName:SetTextColor(unpack(E["media"].rgbvaluecolor))
-			end)
-
-			bu:HookScript("OnUpdate", function(self)
-				if self.active then
-					bu.pulseName:Show()
-					bu.pulseName.anim:Play()
-				elseif bu.pulseName.anim:IsPlaying() then
-					bu.pulseName:Hide()
-					bu.pulseName.anim:Stop()
-				end
-			end)
-		end
-	end
+	hooksecurefunc(MountJournal.ScrollBox, "Update", reskinFrameButton)
 
 	-- Pet list
-	for _, bu in pairs(PetJournal.listScroll.buttons) do
-		if bu then
-			module:CreateGradient(bu)
-		end
-	end
+	hooksecurefunc(PetJournal.ScrollBox, "Update", reskinFrameButton)
 
 	_G.PetJournalHealPetButtonBorder:Hide()
 	_G.PetJournalHealPetButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
@@ -149,7 +116,7 @@ local function LoadSkin()
 	card.PetInfo.icon:SetTexCoord(unpack(E.TexCoords))
 	card.PetInfo.icon.bg = module:CreateBG(card.PetInfo.icon)
 
-	module:CreateBD(card, .25)
+	card:CreateBackdrop('Transparent')
 
 	for i = 2, 12 do
 		select(i, card.xpBar:GetRegions()):Hide()
@@ -196,7 +163,7 @@ local function LoadSkin()
 		bu.setButton:GetRegions():SetPoint("TOPLEFT", bu.icon, -5, 5)
 		bu.setButton:GetRegions():SetPoint("BOTTOMRIGHT", bu.icon, 5, -5)
 
-		module:CreateBD(bu, .25)
+		bu:CreateBackdrop('Transparent')
 
 		hooksecurefunc(bu.qualityBorder, "SetVertexColor", function(_, r, g, b)
 			bu.name:SetTextColor(r, g, b)
@@ -258,7 +225,7 @@ local function LoadSkin()
 
 		button.name:SetPoint("LEFT", button, "RIGHT", 9, 0)
 
-		local bg = module:CreateBDFrame(button)
+		local bg = module:CreateBDFrame(button, .25)
 		bg:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, -2)
 		bg:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 0, 2)
 		bg:SetPoint("RIGHT", button.name, "RIGHT", 0, 0)
@@ -308,21 +275,6 @@ local function LoadSkin()
 	local SetsCollectionFrame = WardrobeCollectionFrame.SetsCollectionFrame
 	module:CreateBDFrame(SetsCollectionFrame.Model, .25)
 
-	local ScrollFrame = SetsCollectionFrame.ScrollFrame
-	for i = 1, #ScrollFrame.buttons do
-		local bu = ScrollFrame.buttons[i]
-		bu.Background:Hide()
-		bu.HighlightTexture:SetTexture("")
-		module:ReskinIcon(bu.Icon)
-
-		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(r, g, b, .25)
-		bu.SelectedTexture:ClearAllPoints()
-		bu.SelectedTexture:SetPoint("TOPLEFT", 1, -2)
-		bu.SelectedTexture:SetPoint("BOTTOMRIGHT", -1, 2)
-		module:CreateBDFrame(bu.SelectedTexture, .25)
-	end
-
 	local DetailsFrame = SetsCollectionFrame.DetailsFrame
 	DetailsFrame.ModelFadeTexture:Hide()
 	DetailsFrame.IconRowBackground:Hide()
@@ -351,8 +303,6 @@ local function LoadSkin()
 	WardrobeFrame:Styling()
 
 	module:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
-
-	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
 
 	local slots = {
 		"Head",
@@ -397,6 +347,45 @@ local function LoadSkin()
 	for i = 2, 5 do
 		select(i, _G.WardrobeOutfitEditFrame.EditBox:GetRegions()):Hide()
 	end
+
+	-- Change the Transmog Frame Size
+	WardrobeFrame:SetWidth(1200)
+
+	WardrobeTransmogFrame:SetWidth(530)
+	WardrobeTransmogFrame:SetHeight(WardrobeFrame:GetHeight() -130)
+	WardrobeTransmogFrame:SetPoint("TOP", WardrobeFrame, 0, 0)
+	WardrobeTransmogFrame.ModelScene:ClearAllPoints()
+	WardrobeTransmogFrame.ModelScene:SetPoint("TOP", WardrobeTransmogFrame, "TOP", 20, 10)
+	WardrobeTransmogFrame.ModelScene:SetAllPoints(WardrobeTransmogFrame)
+
+	_G.WardrobeOutfitDropDown:ClearAllPoints()
+	_G.WardrobeOutfitDropDown:SetPoint("TOPLEFT", WardrobeTransmogFrame, "TOPLEFT", 0, 50)
+
+	WardrobeTransmogFrame.HeadButton:ClearAllPoints()
+	WardrobeTransmogFrame.HeadButton:SetPoint("TOPLEFT", WardrobeTransmogFrame, "TOPLEFT", 20, 0)
+
+	WardrobeTransmogFrame.ShoulderButton:ClearAllPoints()
+	WardrobeTransmogFrame.ShoulderButton:SetPoint("TOP", WardrobeTransmogFrame.HeadButton, "TOP", 0, -55)
+
+	WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:ClearAllPoints()
+	WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:SetPoint("BOTTOM", WardrobeCollectionFrame, "BOTTOM", -240, 40)
+
+	WardrobeTransmogFrame.HandsButton:ClearAllPoints()
+	WardrobeTransmogFrame.HandsButton:SetPoint("TOP", WardrobeTransmogFrame, "TOP", 240, -120)
+
+	WardrobeTransmogFrame.MainHandButton:ClearAllPoints()
+	WardrobeTransmogFrame.MainHandButton:SetPoint("TOP", WardrobeTransmogFrame, "BOTTOM", -50, 50)
+
+	WardrobeTransmogFrame.SecondaryHandButton:ClearAllPoints()
+	WardrobeTransmogFrame.SecondaryHandButton:SetPoint("TOP", WardrobeTransmogFrame, "BOTTOM", 50, 50)
+
+	WardrobeTransmogFrame.MainHandEnchantButton:ClearAllPoints()
+	WardrobeTransmogFrame.MainHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.MainHandButton, "BOTTOM", 0, -28)
+	WardrobeTransmogFrame.SecondaryHandEnchantButton:ClearAllPoints()
+	WardrobeTransmogFrame.SecondaryHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.SecondaryHandButton, "BOTTOM", 0, -28)
+
+	WardrobeTransmogFrame.SpecButton:ClearAllPoints()
+	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
 end
 
 S:AddCallbackForAddon("Blizzard_Collections", LoadSkin)

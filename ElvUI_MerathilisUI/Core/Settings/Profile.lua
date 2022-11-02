@@ -14,6 +14,44 @@ P.general = {
 }
 
 P.bags = {
+	Enable = true,
+	IconSize = 34,
+	IconSpacing = 3,
+	FontSize = 11,
+	BagsWidth = 12,
+	BankWidth = 12,
+	BagsiLvl = true,
+	BindType = true,
+	CenterText = true,
+	BagSortMode = 2,
+	ItemFilter = true,
+	CustomItems = {},
+	CustomNames = {},
+	GatherEmpty = false,
+	ShowNewItem = true,
+	SplitCount = 1,
+	SpecialBagsColor = false,
+	iLvlToShow = 1,
+	AutoDeposit = false,
+	PetTrash = true,
+	BagsPerRow = 6,
+	BankPerRow = 10,
+	HideWidgets = true,
+
+	FilterJunk = true,
+	FilterAmmo = true,
+	FilterConsumable = true,
+	FilterAzerite = false,
+	FilterEquipment = true,
+	FilterLegendary = true,
+	FilterCollection = true,
+	FilterFavourite = true,
+	FilterGoods = false,
+	FilterQuest = false,
+	FilterEquipSet = false,
+	FilterAnima = false,
+	FilterRelic = false,
+
 	equipOverlay = true,
 }
 
@@ -50,7 +88,7 @@ P.blizzard = {
 		},
 		cosmeticBar = {
 			enable = true,
-			texture = "RenAscensionL",
+			texture = "MER_NormTex",
 			widthMode = "ABSOLUTE",
 			heightMode = "ABSOLUTE",
 			width = 212,
@@ -73,7 +111,7 @@ P.blizzard = {
 		},
 		info = {
 			name = E.db.general.font,
-			size = E.db.general.fontSize - 1,
+			size = E.db.general.fontSize,
 			style = "OUTLINE"
 		},
 		titleColor = {
@@ -81,6 +119,16 @@ P.blizzard = {
 			classColor = false,
 			customColorNormal = {r = 0, g = 0.752, b = 0.980},
 			customColorHighlight = {r = 0.282, g = 0.859, b = 0.984}
+		},
+		menuTitle = {
+			enable = true,
+			classColor = false,
+			color = { r = 0.000, g = 0.659, b = 1.000 },
+			font = {
+				name = E.db.general.font,
+				size = E.db.general.fontSize,
+				style = "OUTLINE",
+			},
 		},
 	},
 	filter = {
@@ -92,11 +140,11 @@ P.blizzard = {
 		level = true,
 		hideMaxLevel = true,
 		useGameColor = true,
-		useClassColor = true,
+		useClientColor = true,
 		useNoteAsName = false,
 		textures = {
-			game = "Modern",
-			status = "Square",
+			client = "modern",
+			status = "square",
 			factionIcon = false
 		},
 		areaColor = {
@@ -202,6 +250,11 @@ P.chat = {
 	hideChat = false,
 	customOnlineMessage = true,
 	emotes = true,
+	roleIcons = {
+		enable = true,
+		roleIconSize = 16,
+		roleIconStyle = "SUNUI",
+	},
 	filter = {
 		enable = true,
 		keywords = "",
@@ -216,7 +269,7 @@ P.chat = {
 	},
 	seperators = {
 		enable = true,
-		visibility = "SHOWBOTH",
+		visibility = "LEFT",
 	},
 	chatBar = {
 		enable = true,
@@ -230,7 +283,7 @@ P.chat = {
 		buttonHeight = 5,
 		spacing = 5,
 		orientation = "HORIZONTAL",
-		tex = "RenAscensionL",
+		tex = "MER_NormTex",
 		font = {
 			name = E.db.general.font,
 			size = 12,
@@ -330,7 +383,8 @@ P.colors = {
 
 P.mail = {
 	enable = true,
-	defaultPage = "ALTS"
+	defaultPage = "ALTS",
+	saveRecipient = true,
 }
 
 P.misc = {
@@ -338,7 +392,11 @@ P.misc = {
 	quest = {
 		selectQuestReward =	true,
 	},
-	cursor = false,
+	cursor = {
+		enable = false,
+		colorType = "CLASS",
+		customColor = {r = 0, g = .75, b = .98}
+	},
 	lfgInfo = {
 		enable = true,
 		title = true,
@@ -360,18 +418,16 @@ P.misc = {
 			alpha = 1
 		},
 	},
-	spellAlert = 0.65,
+	spellAlert = {
+		enable = true,
+		scale = 0.65,
+	},
 	alerts = {
 		announce = true,
 		itemAlert = true,
 		feasts = true,
 		portals = true,
 		toys = true,
-	},
-	paragon = {
-		enable = true,
-		textStyle = "PARAGON",
-		paragonColor = {r = 0.9, g = 0.8, b = 0.6},
 	},
 	funstuff = true,
 	wowheadlinks = true,
@@ -384,8 +440,11 @@ P.misc = {
 			name = "Expressway",
 			size = 10,
 			style = "OUTLINE",
-		}
-	}
+		},
+	},
+	hideBossBanner = false,
+	quickDelete = true,
+	quickMenu = true,
 }
 
 P.nameHover = {
@@ -424,7 +483,6 @@ P.datatexts = {
 }
 
 P.actionbars = {
-	keyfeedback = true,
 	specBar = {
 		enable = true,
 		mouseover = false,
@@ -472,6 +530,21 @@ P.actionbars = {
 			[128807] = true,
 		},
 	},
+	keyfeedback = {
+		enable = false,
+		point = 'CENTER',
+		x = 0,
+		y = 0,
+		enableCastLine = true,
+		enableCooldown = true,
+		enablePushEffect = true,
+		enableCast = true,
+		enableCastFlash = true,
+		lineIconSize = 28,
+		mirrorSize = 32,
+		lineDirection = 'RIGHT',
+		forceUseActionHook = true, -- Probably ElvUI needs this
+	},
 }
 
 local function Potions()
@@ -479,8 +552,10 @@ local function Potions()
 		return "POTION,FLASK,UTILITY"
 	elseif E.TBC then
 		return "POTIONTBC,FLASKTBC,CAULDRONTBC,ELIXIRTBC,ORETBC,UTILITY"
+	elseif E.Wrath then
+		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
-		return "POTIONSL,FLASKSL,UTILITY"
+		return "POTIONSL,POTIONSDF,FLASKSL,FLASKDF,UTILITY"
 	end
 end
 
@@ -497,12 +572,12 @@ P.autoButtons = {
 		fadeTime = 0.3,
 		alphaMin = 1,
 		alphaMax = 1,
-		numButtons = 12,
+		numButtons = 10,
 		backdrop = true,
 		backdropSpacing = 1,
-		buttonWidth = 35,
-		buttonHeight = 30,
-		buttonsPerRow = 12,
+		buttonWidth = 30,
+		buttonHeight = 26,
+		buttonsPerRow = 10,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -539,12 +614,12 @@ P.autoButtons = {
 		fadeTime = 0.3,
 		alphaMin = 1,
 		alphaMax = 1,
-		numButtons = 12,
+		numButtons = 10,
 		backdrop = true,
 		backdropSpacing = 1,
-		buttonWidth = 35,
-		buttonHeight = 30,
-		buttonsPerRow = 12,
+		buttonWidth = 30,
+		buttonHeight = 26,
+		buttonsPerRow = 10,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -582,12 +657,12 @@ P.autoButtons = {
 		fadeTime = 0.3,
 		alphaMin = 1,
 		alphaMax = 1,
-		numButtons = 12,
+		numButtons = 10,
 		backdrop = true,
 		backdropSpacing = 1,
-		buttonWidth = 35,
-		buttonHeight = 30,
-		buttonsPerRow = 12,
+		buttonWidth = 30,
+		buttonHeight = 26,
+		buttonsPerRow = 10,
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
@@ -615,7 +690,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODSL,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODSL,FOODDF,CUSTOM"
 	},
 	bar4 = {
 		enable = false,
@@ -779,6 +854,13 @@ P.unitframes = {
 		blizzardOverAbsorbGlow = true,
 		blizzardAbsorbOverlay = true,
 	},
+	power = {
+		enable = true,
+		full = true,
+		type = "DEFAULT",
+		model = 1715069,
+		texture = E.db.unitframe.statusbar,
+	},
 	swing = {
 		enable = false,
 		mcolor = { r = .8, g = .8, b = .8 },
@@ -794,7 +876,10 @@ P.unitframes = {
 	},
 	style = true,
 	raidIcons = true,
-	roleIcons = true,
+	roleIcons = {
+		enable = true,
+		roleIconStyle = "SUNUI",
+	},
 	highlight = true,
 	auras = true,
 }
@@ -802,20 +887,6 @@ P.unitframes = {
 P.maps = {
 	minimap = {
 		flash = true,
-		queueStatus = true,
-		instanceDifficulty = {
-			enable = true,
-			hideBlizzard = true,
-			font = {
-				name = E.db.general.font,
-				size = E.db.general.fontSize,
-				style = "OUTLINE",
-			},
-		},
-		coords = {
-			enable = true,
-			position = "BOTTOM",
-		},
 		ping = {
 			enable = true,
 			xOffset = 0,
@@ -832,10 +903,6 @@ P.maps = {
 				size = 12,
 				style = "OUTLINE"
 			},
-		},
-		rectangleMinimap = {
-			enable = false,
-			heightPercentage = 0.8
 		},
 	},
 	superTracker = {
@@ -941,15 +1008,15 @@ P.panels = {
 P.smb = {
 	enable = true,
 	mouseOver = true,
-	buttonsPerRow = 8,
+	buttonsPerRow = 7,
 	buttonSize = 24,
 	backdrop = true,
-	backdropSpacing = 2,
-	spacing = 2,
+	backdropSpacing = 3,
+	spacing = 1,
 	inverseDirection = false,
 	orientation = "HORIZONTAL",
-	calendar = false,
-	garrison = false
+	-- calendar = false,
+	expansionLandingPage = false
 }
 
 P.locPanel = {
@@ -981,7 +1048,7 @@ P.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "190237,54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952",
+		hsPrio = "193588,190237,54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
@@ -998,6 +1065,8 @@ P.raidmarkers = {
 	buttonSize = 20,
 	buttonBackdrop = true,
 	buttonAnimation = true,
+	buttonAnimationDuration = 0.2,
+	buttonAnimationScale = 1.33,
 	spacing = 4,
 	orientation = "HORIZONTAL",
 	modifier = "shift",
@@ -1033,18 +1102,6 @@ P.tooltip = {
 	petIcon = true,
 	keystone = true,
 	titleColor = true,
-	progressInfo = {
-		enable = true,
-		raid = {
-			enable = true,
-			Uldir = false,
-			BattleOfDazaralor = false,
-			CrucibleOfStorms = false,
-			EternalPalace = true,
-			Nyalotha = true,
-			CastleNathria = true,
-		}
-	},
 	dominationRank = true,
 	covenant = {
 		enable = true,
@@ -1107,6 +1164,7 @@ P.reminder = {
 
 P.nameplates = {
 	castbarShield = true,
+	gradient = true,
 	enhancedAuras = {
 		enable = true,
 	},
@@ -1120,29 +1178,69 @@ P.cooldownFlash = {
 	animScale = 1.5,
 	iconSize = 40,
 	holdTime = 0.3,
-	petOverlay = {1, 1, 1},
-	ignoredSpells = "",
+	petOverlay = {1, 1, 1, 1},
+	ignoredSpells = {},
 	invertIgnored = false,
 	enablePet = false,
-	showSpellName = false,
 	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
 }
 
 P.armory = {
-	enable = true,
-	undressButton = true,
-	expandSize = false,
-	durability = {
+	character = {
 		enable = true,
-		onlydamaged = true,
-		font = "Expressway",
-		textSize = 11,
-		fontOutline = "OUTLINE",
+		undressButton = true,
+		expandSize = true,
+		classIcon = true,
+		showWarning = true,
+		durability = {
+			enable = true,
+			onlydamaged = true,
+			font = "Expressway",
+			textSize = 11,
+			fontOutline = "OUTLINE",
+		},
+		gradient = {
+			enable = true,
+			colorStyle = "VALUE",
+			color = {r = 1, g = 1, b = 0},
+			setArmor = true,
+			setArmorColor = {r = 0, g = 1, b = 0, a = 1},
+			warningColor = {r = 1, g = 0, b = 0, a = 1}
+		},
+		transmog = {
+			enable = true,
+		},
+		illusion = {
+			enable = true,
+		},
+		warning = {
+			enable = true,
+		},
+	},
+	inspect = {
+		enable = true,
+		classIcon = true,
+		gradient = {
+			enable = true,
+			colorStyle = "RARITY",
+			color = {r = 1, g = 1, b = 0},
+			setArmor = true,
+			setArmorColor = {r = 0, g = 1, b = 0, a = 1},
+			warningColor = {r = 1, g = 0, b = 0, a = 1}
+		},
+		warning = {
+			enable = true,
+		},
 	},
 	stats = {
+		enable = true,
 		OnlyPrimary = true,
-		color = {r = 1, g = 1, b = 0},
+		classColorGradient = true,
+		color = {r = 1, g = 1, b = 0, a = 1},
+		IlvlFull = false,
+		IlvlColor = false,
+		AverageColor = {r = 0, g = 1, b = .59},
 		statFonts = {
 			font = "Expressway",
 			size = 11,
@@ -1150,7 +1248,7 @@ P.armory = {
 		},
 		catFonts = {
 			font = "Expressway",
-			size = 12,
+			size = 13,
 			outline = "OUTLINE",
 		},
 		List = {
@@ -1167,25 +1265,8 @@ P.armory = {
 			MOVESPEED = false,
 		},
 	},
-	gradient = {
-		enable = true,
-		colorStyle = "VALUE",
-		color = {r = 1, g = 1, b = 0},
-		setArmor = true,
-		setArmorColor = {r = 0, g = 1, b = 0, a = 1},
-	},
-	transmog = {
-		enable = true,
-	},
-	-- illusion = {
-		-- enable = false,
-	-- },
-	warning = {
-		enable = true,
-	},
-}
-
-P.flightMode = {
-	enable = true,
-	BenikFlightMode = true,
+	--Wrath Related
+	StatOrder = "12345",
+	StatExpand = true,
+	PetHappiness = true,
 }

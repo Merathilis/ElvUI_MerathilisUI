@@ -9,7 +9,7 @@ local type = type
 
 function WS:HandleTreeGroup(widget)
 	if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.treeGroupButton.enable then
-		return button
+		return
 	end
 
 	if not self:IsReady() then
@@ -19,7 +19,7 @@ function WS:HandleTreeGroup(widget)
 
 	local db = E.private.mui.skins.widgets.treeGroupButton
 
-	if widget.CreateButton then
+	if widget.CreateButton and not widget.CreateButton_Changed then
 		widget.CreateButton_Changed = widget.CreateButton
 		widget.CreateButton = function(...)
 			local button = widget.CreateButton_Changed(...)
@@ -43,6 +43,12 @@ function WS:HandleTreeGroup(widget)
 			end
 
 			if db.backdrop.enable then
+				button:SetHighlightTexture("")
+				if button.highlight then
+					button.highlight:SetTexture("")
+					button.highlight:Hide()
+				end
+
 				-- Create background
 				button:SetHighlightTexture("")
 

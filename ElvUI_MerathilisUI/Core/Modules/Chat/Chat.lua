@@ -7,37 +7,27 @@ local LO = E:GetModule('Layout')
 local _G = _G
 local unpack = unpack
 local format = format
-local time = time
 local BetterDate = BetterDate
 local gsub = string.gsub
 local CreateFrame = CreateFrame
 local ChatTypeInfo = ChatTypeInfo
-local GetRealmName = GetRealmName
 local hooksecurefunc = hooksecurefunc
 local UIParent = UIParent
 
 local ChatFrame_SystemEventHandler = ChatFrame_SystemEventHandler
-local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
-
-function module:RemoveCurrentRealmName(msg, author, ...)
-	local realmName = gsub(GetRealmName(), " ", "")
-
-	if msg and msg:find("-" .. realmName) then
-		return false, gsub(msg, "%-"..realmName, ""), author, ...
-	end
-end
 
 function module:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
 	local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
 	if isHistory == "ElvUI_ChatHistory" then historyTimestamp = historyTime end
 
 	if (CH.db.timeStampFormat and CH.db.timeStampFormat ~= 'NONE' ) then
-		local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or time());
-		timeStamp = gsub(timeStamp, ' $', '') --Remove space at the end of the string
+		local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or CH:GetChatTime())
+		timeStamp = gsub(timeStamp, ' $', '')
 		timeStamp = timeStamp:gsub('AM', ' AM')
 		timeStamp = timeStamp:gsub('PM', ' PM')
+
 		if CH.db.useCustomTimeColor then
 			local color = CH.db.customTimeColor
 			local hexColor = E:RGBToHex(color.r, color.g, color.b)
@@ -77,11 +67,7 @@ end
 
 function module:StyleChat()
 	-- Style the chat
-	_G.LeftChatPanel:Styling()
-	_G.RightChatPanel:Styling()
 
-	S:CreateBackdropShadow(_G.LeftChatPanel, true)
-	S:CreateBackdropShadow(_G.RightChatPanel, true)
 end
 
 function module:StyleVoicePanel()
@@ -190,7 +176,7 @@ function module:UpdateSeperators()
 end
 
 function module:CreateChatButtons()
-	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end
+	if not E.db.mui.chat.chatButton or not E.private.chat.enable then return end
 
 	E.db.mui.chat.expandPanel = 150
 	E.db.mui.chat.panelHeight = E.db.mui.chat.panelHeight or E.db.chat.panelHeight
@@ -211,7 +197,7 @@ function module:CreateChatButtons()
 	ChatButton.tex:SetInside()
 	ChatButton.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\chatButton")
 
-	ChatButton:SetScript("OnMouseUp", function (self, btn)
+	ChatButton:SetScript("OnMouseUp", function(self, btn)
 		if InCombatLockdown() then return end
 		if btn == "LeftButton" then
 			if E.db.mui.chat.isExpanded then
@@ -251,23 +237,151 @@ function module:CreateChatButtons()
 	end)
 end
 
-function module:Initialize()
-	if E.private.chat.enable ~= true then return; end
-
-	local db = E.db.mui.chat
-
-	if db.customOnlineMessage then
-		_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["ERR_FRIEND_ONLINE"]
-		_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["ERR_FRIEND_OFFLINE"]
-
-		_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "%s"..L["BN_INLINE_TOAST_FRIEND_ONLINE"]
-		_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L["BN_INLINE_TOAST_FRIEND_OFFLINE"]
+function module:UpdateRoleIcons()
+	if not self.db or not self.db.roleIcons.enable then
+		return
 	end
 
-	-- Remove the Realm Name from system messages
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", module.RemoveCurrentRealmName)
+	local pack = self.db.roleIcons.enable and self.db.roleIcons.roleIconStyle or "DEFAULT"
+	local sizeString = self.db.roleIcons.enable and format(":%d:%d", self.db.roleIcons.roleIconSize, self.db.roleIcons.roleIconSize) or ":16:16"
 
-	module:EasyChannel()
+	if pack ~= "DEFAULT" then
+		sizeString = sizeString and (sizeString .. ":0:0:64:64:2:62:0:58")
+	end
+
+	if pack == "SUNUI" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.sunTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.sunHealer, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.sunDPS, sizeString)
+		}
+	elseif pack == "LYNUI" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.lynTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.lynHealer, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.lynDPS, sizeString)
+		}
+	elseif pack == "SVUI" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.svuiTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.svuiHealer, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.svuiDPS, sizeString)
+		}
+	elseif pack == "DEFAULT" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(E.Media.Textures.Tank, sizeString),
+			HEALER = E:TextureString(E.Media.Textures.Healer, sizeString),
+			DAMAGER = E:TextureString(E.Media.Textures.DPS, sizeString)
+		}
+	elseif pack == "CUSTOM" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.customTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.customHeal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.customDPS, sizeString)
+		}
+	elseif pack == "GLOW" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.glowTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.glowHeal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.glowDPS, sizeString)
+		}
+	elseif pack == "GLOW1" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.glow1Tank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.glow1Heal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.gravedDPS, sizeString)
+		}
+	elseif pack == "GRAVED" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.gravedTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.gravedHeal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.glow1DPS, sizeString)
+		}
+	elseif pack == "MAIN" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.mainTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.mainHeal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.mainDPS, sizeString)
+		}
+	elseif pack == "WHITE" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.whiteTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.whiteHeal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.whiteDPS, sizeString)
+		}
+	end
+end
+
+function module:AddCustomEmojis()
+	--Custom Emojis
+	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"
+
+	-- Twitch Emojis
+	CH:AddSmiley(':monkaomega:', format(t, 'monkaomega'))
+	CH:AddSmiley(':salt:', format(t, 'salt'))
+	CH:AddSmiley(':sadge:', format(t, 'sadge'))
+end
+
+local onlinestring
+local offlinestring
+
+local function ReplaceSystemMessage(_, event, message, ...)
+	if not E.db.mui.chat.customOnlineMessage then
+		return
+	end
+
+	if E.locale == "deDE" then
+		onlinestring = "online"
+		offlinestring = "offline"
+	elseif E.locale == "enUS" or E.locale == "enGB" or E.locale == "enCN" or E.locale == "enTW" then
+		onlinestring = "online"
+		offlinestring = "offline"
+	elseif E.locale == "zhCN" then
+		onlinestring = "在线"
+		offlinestring = "下线了"
+	elseif E.locale == "zhTW" then
+		onlinestring = "目前在線"
+		offlinestring = "下線了"
+	elseif E.locale == "esMX" or E.locale == "esES" then
+		onlinestring = "conectado"
+		offlinestring = " desconectado"
+	elseif E.locale == "frFR" then
+		onlinestring = "en ligne "
+		offlinestring = "déconnecter"
+	elseif E.locale == "itIT" then
+		onlinestring = "online"
+		offlinestring = "offline"
+	elseif E.locale == "koKR" then
+		onlinestring = "접속 중"
+		offlinestring = "님이 게임을 종료했습니다."
+	elseif E.locale == "ptBR" or E.locale == "ptPT" then
+		onlinestring = "conectado"
+		offlinestring = "desconectou"
+	elseif E.locale == "ruRU" then
+		onlinestring = "В сети"
+		offlinestring = "выходит из игрового"
+	end
+
+	if message:find(onlinestring) then --german, english, italian all use the same online/offline
+		return false, gsub(message, onlinestring, "|cff298F00"..onlinestring.."|r"), ...
+	end
+
+	if message:find(offlinestring) then
+		return false, gsub(message, offlinestring, "|cffff0000"..offlinestring.."|r"), ...
+	end
+end
+
+ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", ReplaceSystemMessage)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_INLINE_TOAST_ALERT", ReplaceSystemMessage)
+ChatFrame_AddMessageEventFilter("ROLE_CHANGED_INFORM", ReplaceSystemMessage)
+ChatFrame_AddMessageEventFilter("PLAYER_ROLES_ASSIGNED", ReplaceSystemMessage)
+
+function module:Initialize()
+	module.db = E.db.mui.chat
+	if not module.db or not E.private.chat.enable then
+		return
+	end
+
 	module:StyleChat()
 	module:StyleVoicePanel()
 	if E.Retail then
@@ -277,13 +391,8 @@ function module:Initialize()
 	module:LoadChatFade()
 	module:UpdateSeperators()
 	module:CreateChatButtons()
-
-	--Custom Emojis
-	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"
-
-	-- Twitch Emojis
-	CH:AddSmiley(':monkaomega:', format(t, 'monkaomega'))
-	CH:AddSmiley(':salt:', format(t, 'salt'))
+	module:UpdateRoleIcons()
+	module:AddCustomEmojis()
 end
 
 function module:Configure_All()

@@ -3,6 +3,8 @@ local options = MER.options.information.args
 
 local tconcat, tsort = table.concat, table.sort
 
+local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
+
 local function AddColor(string)
 	if type(string) ~= "string" then
 		string = tostring(string)
@@ -94,7 +96,7 @@ options.name = {
 			},
 		},
 		support = {
-			order = 4,
+			order = 5,
 			type = "group",
 			name = F.cOption(L["Support & Downloads"], 'orange'),
 			guiInline = true,
@@ -146,13 +148,13 @@ options.name = {
 					order = 8,
 					type = "description",
 					fontSize = "medium",
-					name = E.NewSign .. " |cffe74c3c" .. format(L["Before you submit a bug, please enable debug mode with %s and test it one more time."], "|cff00ff00/muidebug|r") .."|r",
+					name = newSignIgnored .. " |cffe74c3c" .. format(L["Before you submit a bug, please enable debug mode with %s and test it one more time."], "|cff00ff00/muidebug|r") .."|r",
 					width = "full"
 				},
 			},
 		},
 		testing = {
-			order = 5,
+			order = 6,
 			type = "group",
 			name = F.cOption(L["Testing & Inspiration"], 'orange'),
 			guiInline = true,
@@ -214,6 +216,7 @@ local DEVELOPER = {
 	E:TextGradient('Simpy but my name needs to be longer', 0.27,0.72,0.86, 0.51,0.36,0.80, 0.69,0.28,0.94, 0.94,0.28,0.63, 1.00,0.51,0.00, 0.27,0.96,0.43),
 	'fgprodigal',
 	AddColor('fang2hou'),
+	'|cff1784d1Eltreum|r',
 }
 
 local nameString = strjoin(", ", unpack(DEVELOPER))
@@ -235,7 +238,7 @@ options.name.args.coding = {
 options.reset = {
 	order = 2,
 	type = "group",
-	name = E.NewSign..L["Reset"],
+	name = L["Reset"],
 	args = {
 		header = {
 			order = 0,

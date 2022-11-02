@@ -1,10 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
---Cache global variables
---Lua Variables
 local _G = _G
---WoW API / Variables
--- GLOBALS:
 
 function MER:LoadPAProfile()
 	--[[----------------------------------
@@ -41,5 +37,5 @@ function MER:LoadPAProfile()
 	PA.db["stAddonManager"]["ButtonWidth"] = 20
 	PA.db["stAddonManager"]["Font"] = "Expressway"
 	PA.db["stAddonManager"]["ClassColor"] = true
-	PA.db["stAddonManager"]["CheckTexture"] = "RenAscensionL"
+	PA.db["stAddonManager"]["CheckTexture"] = "MER_NormTex"
 end

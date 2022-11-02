@@ -18,12 +18,6 @@ options.actionbars = {
 			name = F.cOption(L["General"], 'orange'),
 			guiInline = true,
 			args = {
-				keyfeedback = {
-					order = 1,
-					type = "toggle",
-					name = L["Spell Feedback"],
-					desc = L["Creates a texture to show the recently pressed buttons."],
-				},
 			},
 		},
 		specBar = {
@@ -125,6 +119,52 @@ options.actionbars = {
 					name = L["Frame Level"],
 					min = 1, max = 256, step = 1,
 					disabled = function() return not E.private.actionbar.enable or not E.db.mui.actionbars.equipBar.enable end,
+				},
+			},
+		},
+		keyfeedback = {
+			order = 4,
+			type = "group",
+			name = F.cOption(L["KeyFeedback"], 'orange'),
+			guiInline = true,
+			disabled = function() return not E.private.actionbar.enable end,
+			get = function(info) return E.db.mui.actionbars.keyfeedback[info[#info]] end,
+			set = function(info, value) E.db.mui.actionbars.keyfeedback[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					disabled = function() return not E.private.actionbar.enable end,
+					width = "full",
+				},
+				mirrorSize = {
+					order = 2,
+					type = "range",
+					name = L["Button Size"],
+					min = 20, max = 60, step = 1,
+				},
+				enableCastLine = {
+					order = 3,
+					type = "toggle",
+					name = L["Mirror"],
+				},
+				lineIconSize = {
+					order = 4,
+					type = "range",
+					name = L["Mirror Button Size"],
+					min = 18, max = 62, step = 1,
+					disabled = function() return not E.db.mui.actionbars.keyfeedback.enableCastLine end,
+				},
+				lineDirection = {
+					order = 5,
+					type = "select",
+					name = L["Mirror Direction"],
+					disabled = function() return not E.db.mui.actionbars.keyfeedback.enableCastLine end,
+					values = {
+						LEFT = L["LEFT"],
+						RIGHT = L["RIGHT"],
+					},
 				},
 			},
 		},
