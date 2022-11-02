@@ -279,15 +279,6 @@ function keyFeedback:RefreshSettings()
 	end
 end
 
-local function MakeCompatibleAnimation(anim)
-	if anim:GetObjectType() == 'Scale' and anim.SetScaleFrom then
-		return anim
-	else
-		anim.SetScaleFrom = anim.SetFromScale
-		anim.SetScaleTo = anim.SetToScale
-	end
-end
-
 function keyFeedback:CreateFeedbackButton(autoKeyup)
 	local db = self.db
 
@@ -307,6 +298,7 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 	mirror.cooldown:SetEdgeTexture('Interface\\Cooldown\\edge')
 	mirror.cooldown:SetSwipeColor(0, 0, 0)
 	mirror.cooldown:SetHideCountdownNumbers(false)
+	mirror.cooldown:SetAllPoints(mirror)
 
 	mirror:Show()
 	mirror._elapsed = 0
@@ -357,13 +349,11 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 		local gag = pushedCircle:CreateAnimationGroup()
 		pushedCircle.grow = gag
 
-		local ga1
+		local ga1 = gag:CreateAnimation('Scale')
 		if E.Retail then
-			ga1 = MakeCompatibleAnimation(gag:CreateAnimation('Scale'))
 			ga1:SetScaleFrom(0.1, 0.1)
 			ga1:SetScaleTo(1.3, 1.3)
 		else
-			ga1 = gag:CreateAnimation('Scale')
 			ga1:SetFromScale(0.1, 0.1)
 			ga1:SetToScale(1.3, 1.3)
 		end
@@ -443,7 +433,10 @@ local PoolIconCreationFunc = function(pool)
 	pool.idCounter = pool.idCounter + 1
 	local f = CreateFrame('Button', MER.Title .. 'KeyFeedbackPoolIcon' .. id, hdr, 'ActionButtonTemplate')
 
-	f:StripTextures()
+	if f.SetNormalTexture then
+		f:SetNormalTexture(0)
+	end
+
 	local bg = S:CreateBDFrame(f)
 	bg:SetBackdropBorderColor(0, 0, 0)
 	S:CreateShadow(bg)
@@ -466,23 +459,13 @@ local PoolIconCreationFunc = function(pool)
 	local translateX = -100
 	local translateY = 0
 
-	local s1
-	if E.Retail then
-		s1 = MakeCompatibleAnimation(ag:CreateAnimation('Scale'))
-	else
-		s1 = ag:CreateAnimation('Scale')
-	end
+	local s1 = ag:CreateAnimation('Scale')
 	s1:SetScale(0.01, 1)
 	s1:SetDuration(0)
 	s1:SetOrigin(scaleOrigin, 0, 0)
 	s1:SetOrder(1)
 
-	local s2
-	if E.Retail then
-		s2 = MakeCompatibleAnimation(ag:CreateAnimation('Scale'))
-	else
-		s2 = ag:CreateAnimation('Scale')
-	end
+	local s2 = ag:CreateAnimation('Scale')
 	s2:SetScale(100, 1)
 	s2:SetDuration(0.5)
 	s2:SetOrigin(scaleOrigin, 0, 0)
