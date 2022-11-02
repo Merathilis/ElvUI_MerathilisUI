@@ -301,7 +301,7 @@ function module:CreateButtons()
 			end
 		end
 
-		button:RegisterForClicks("AnyDown")
+		button:RegisterForClicks("AnyUp", "AnyDown")
 
 		local tooltipText = ""
 

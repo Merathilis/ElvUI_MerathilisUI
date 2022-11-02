@@ -12,9 +12,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix black Text on the Gossip Frame",
-		"• Updated the Minimap Button Backdrop",
-		"• Many updates on Skins",
+		"• Prevent a C-Stack error on the Garrison Skin",
+		"• Added Backstab as reference spell for oUF_GCD #50",
+		"• Bring back the annoying Spell Feedback, you are welcome <3",
 		"• Updated Bag Code",
 
 	" ",

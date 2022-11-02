@@ -554,7 +554,7 @@ function module:ConstructBar()
 	middlePanel:SetPoint("CENTER")
 	middlePanel:CreateBackdrop("Transparent")
 	middlePanel.backdrop:Styling()
-	middlePanel:RegisterForClicks("AnyDown")
+	middlePanel:RegisterForClicks("AnyUp")
 	bar.middlePanel = middlePanel
 
 	local leftPanel = CreateFrame("Frame", "MicroBarLeftPanel", bar)
@@ -853,7 +853,7 @@ function module:ConstructButton()
 
 	local button = CreateFrame("Button", nil, self.bar, "SecureActionButtonTemplate")
 	button:SetSize(self.db.buttonSize, self.db.buttonSize)
-	button:RegisterForClicks("AnyDown")
+	button:RegisterForClicks("AnyUp", "AnyDown")
 
 	local normalTex = button:CreateTexture(nil, "ARTWORK")
 	normalTex:SetPoint("CENTER")
