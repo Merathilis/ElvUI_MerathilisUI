@@ -87,6 +87,7 @@ local function LoadSkin()
 			if frame and not frame.skinned then
 				frame:Styling()
 				frame.skinned = true
+				module:CreateShadow(frame)
 			end
 		end
 	end
@@ -103,7 +104,10 @@ local function LoadSkin()
 	module:CreateShadow(_G.SplashFrame)
 
 	-- Chat Config
-	_G.ChatConfigFrame:Styling()
+	if E.private.skins.blizzard.blizzardOptions then
+		_G.ChatConfigFrame:Styling()
+		module:CreateShadow(_G.ChatConfigFrame)
+	end
 
 	-- Mirror Timers
 	-- ToDO: WoW10
