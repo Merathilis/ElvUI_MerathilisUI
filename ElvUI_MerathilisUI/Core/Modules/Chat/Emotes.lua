@@ -99,7 +99,7 @@ local function CreateEmoteTableFrame()
 
 	frame.line = CreateFrame("Frame", nil, frame)
 	frame.line:Point("BOTTOM", frame, "TOP", 0, 0)
-	MER:CreateGradientFrame(frame.line, (column * (width + space) + 24), 2, "Horizontal", color.r, color.g, color.b, .7, 0)
+	MER:CreateGradientFrame(frame.line, (column * (width + space) + 24), 2, "Horizontal", color.r, color.g, color.b, .7, color.r, color.g, color.b, 0)
 
 	tinsert(UISpecialFrames, frame:GetDebugName())
 
