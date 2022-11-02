@@ -10,6 +10,7 @@ function module:Ace3_Frame(Constructor)
 		local widget = Constructor()
 
 		module:CreateShadow(widget.frame)
+		module:CreateGradient(widget.frame)
 		widget.frame:Styling()
 		return widget
 	end
