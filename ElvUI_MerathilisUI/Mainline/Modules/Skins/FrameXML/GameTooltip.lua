@@ -26,7 +26,7 @@ end
 
 function module:TTGameTooltip_SetDefaultAnchor(_, tt)
 	if (tt.StatusBar) then
-		module:CreateShadow(tt.StatusBar)
+		module:CreateBackdropShadow(tt.StatusBar)
 	end
 
 	if _G.GameTooltipStatusBar then
