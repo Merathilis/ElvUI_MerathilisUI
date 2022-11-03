@@ -880,7 +880,7 @@ options.blizzard.args.objectiveTracker = {
 	},
 }
 
-options.blizzard.args.talents = {
+--[=[options.blizzard.args.talents = {
 	order = 4,
 	type = "group",
 	name = L["Talents"],
@@ -915,7 +915,7 @@ options.blizzard.args.talents = {
 			set = function(info, value) E.db.mui.blizzard.talents[info[#info]] = value;	E:StaticPopup_Show("PRIVATE_RL") end,
 		},
 	},
-}
+}]=]
 
 options.blizzard.args.filter = {
 	order = 5,
