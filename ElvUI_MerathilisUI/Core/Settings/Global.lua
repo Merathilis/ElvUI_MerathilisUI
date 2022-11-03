@@ -4,6 +4,7 @@ G.core = {
 	LoginMsg = true,
 	logLevel = 2,
 	compatibilityCheck = true,
+	buttonFix = "AnyDown"
 }
 
 G.mail = {

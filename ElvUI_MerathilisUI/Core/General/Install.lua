@@ -490,6 +490,7 @@ function MER:SetupLayout()
 		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
 		E.db["mui"]["misc"]["cursor"]["enable"] = true
 		E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
+		E.private["mui"]["skins"]["shadowOverlay"] = true
 	else
 		E.db["general"]["cropIcon"] = 2
 	end

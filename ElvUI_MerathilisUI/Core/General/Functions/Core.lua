@@ -71,6 +71,16 @@ F.ClassGradient = {
 	["OFFTANKGOODTHREATTRANSITION"] = { r1 = 0.37646887302399, g1 = 0.90784178972244, b1 = 0.9274500310421, r2 = 1, g2 = 0, b2 = 0 },
 }
 
+do
+	F.ClassList = {}
+	for k, v in pairs(_G.LOCALIZED_CLASS_NAMES_MALE) do
+		F.ClassList[v] = k
+	end
+	for k, v in pairs(_G.LOCALIZED_CLASS_NAMES_FEMALE) do
+		F.ClassList[v] = k
+	end
+end
+
 F.ClassColors = {}
 local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 for class, value in pairs(colors) do
@@ -85,7 +95,7 @@ F.r, F.g, F.b = F.ClassColors[E.myclass].r, F.ClassColors[E.myclass].g, F.ClassC
 function F.ClassColor(class)
 	local color = F.ClassColors[class]
 	if not color then
-		return  1, 1, 1
+		return 1, 1, 1
 	end
 
 	return color.r, color.g, color.b

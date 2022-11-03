@@ -29,6 +29,7 @@ local DONATORS = {
 	'N3',
 	'Aary',
 	'Daniel',
+	'skychilde',
 }
 tsort(DONATORS, SortList)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -96,6 +97,25 @@ options.name = {
 				[3] = "3 - |cff209cee[INFO]|r",
 				[4] = "4 - |cff00d1b2[DEBUG]|r"
 			},
+		},
+		buttonFix = {
+			order = 4,
+			type = "select",
+			name = L["Button Fix"],
+			desc = L["Fix Blizzard Button Bug."],
+			get = function(info)
+				return E.global.mui.core.buttonFix
+			end,
+			set = function(info, value)
+				E.global.mui.core.buttonFix = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			hidden = function()
+			end,
+			values = {
+				["AnyDown"] = "AnyDown",
+				["AnyUp"] = "AnyUp"
+			}
 		},
 		support = {
 			order = 5,

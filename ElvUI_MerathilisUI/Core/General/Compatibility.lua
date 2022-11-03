@@ -220,16 +220,6 @@ function MER:CheckCompatibility()
 
 	self:ConstructCompatibilityFrame()
 
-	do -- Disable InCompatible AddOns
-		local alwaysDisable = {
-			'ZygorGuidesViewer',
-		}
-
-		for _, addon in next, alwaysDisable do
-			DisableAddOn(addon)
-		end
-	end
-
 	-- Windtools
 	CheckWindtools(
 		L["AutoButtons"],
