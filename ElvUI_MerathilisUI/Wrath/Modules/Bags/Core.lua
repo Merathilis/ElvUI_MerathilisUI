@@ -215,7 +215,7 @@ end
 
 function module:CreateCloseButton(f)
 	local bu = S.CreateButton(self, 22, 22, true, "Interface\\RAIDFRAME\\ReadyCheck-NotReady")
-	bu:RegisterForClicks("AnyUp", "AnyDown")
+	bu:RegisterForClicks("AnyUp")
 	bu.__owner = f
 	bu:SetScript("OnClick", CloseOrRestoreBags)
 	bu.title = CLOSE .. "/" .. RESET
