@@ -41,9 +41,10 @@ end
 
 local function UpdateNameFrame(self)
 	if not self.expanded then return end
-	if not self.backdrop then
-		self.Class:CreateBackdrop('Transparent')
+	if not self.bg then
+		self.bg = module:CreateBDFrame(self.Class)
 	end
+
 	local memberInfo = self:GetMemberInfo()
 	if memberInfo and memberInfo.classID then
 		local classInfo = C_CreatureInfo.GetClassInfo(memberInfo.classID)
@@ -98,8 +99,8 @@ local function LoadSkin()
 
 			local header = child.ProfessionHeader
 			if header and not header.styled then
-				for i = 1, 3 do
-					select(i, header:GetRegions()):Hide()
+				for j = 1, 3 do
+					select(j, header:GetRegions()):Hide()
 				end
 				header:CreateBackdrop('Transparent')
 				header.backdrop:SetInside()
@@ -111,12 +112,11 @@ local function LoadSkin()
 				header.styled = true
 			end
 
-			if child and child.backdrop then
-				child.backdrop:SetShown(child.Class:IsShown())
+			if child and child.bg then
+				child.bg:SetShown(child.Class:IsShown())
 			end
 		end
 	end)
-
 
 	-- Chat Tab
 	local Dialog = CommunitiesFrame.NotificationSettingsDialog
