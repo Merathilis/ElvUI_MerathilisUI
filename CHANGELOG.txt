@@ -1,4 +1,4 @@
-[b][color=orange]v5.33[/color], 02.11.2022[/b][list]
+[b][color=orange]v5.33[/color], 03.11.2022[/b][list]
 [*]Revert the double click on buttons and added back the option in: Information -> Button Fix
 [*]Added Gunshoes to AutoButtons
 [*]Fix a lua error on the ActionBar Backdrop
