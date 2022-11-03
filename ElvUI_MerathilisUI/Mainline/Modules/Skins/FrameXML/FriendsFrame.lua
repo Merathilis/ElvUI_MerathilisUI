@@ -67,16 +67,6 @@ local function LoadSkin()
 		module:CreateShadow(frame)
 	end
 
-	-- A check for german clients cause the font is sometimes tooo huge (tested with Expressway 11)
-	if GetLocale() == 'deDE' then
-		for i = 1, 4 do
-			local tab = _G["FriendsFrameTab"..i]
-			if tab then
-				F.ResetTabAnchor(tab)
-			end
-		end
-	end
-
 	for i = 1, 4 do
 		module:ReskinTab(_G["FriendsFrameTab" .. i])
 	end
@@ -85,6 +75,7 @@ local function LoadSkin()
 	_G.FriendsFrameIcon:SetPoint("TOPLEFT", FriendsFrame, "TOPLEFT", 0, 0)
 	_G.FriendsFrameIcon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Bnet]])
 	_G.FriendsFrameIcon:SetSize(36, 36)
+	_G.FriendsFrameIcon:Show()
 
 	hooksecurefunc(_G.FriendsFrameIcon, "SetTexture", function(self, texture)
 		if texture ~= [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Bnet]] then
@@ -108,6 +99,7 @@ local function LoadSkin()
 		_G.FriendsFrameBattlenetFrame.BroadcastFrame.backdrop:Styling()
 	end
 	module:SecureHook("FriendsFrame_UpdateFriendButton", UpdateFriendsButton)
+	print("end")
 end
 
 S:AddCallback("FriendsFrame", LoadSkin)
