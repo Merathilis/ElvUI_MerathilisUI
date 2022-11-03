@@ -136,16 +136,16 @@ function module:Skin_ElvUI_ActionBars()
 		self:SecureHook(AB, "UpdateMicroButtons", "ElvUI_UpdateMicroButtons")
 	end
 
-	-- Zone Button
-	self:SecureHook(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", "SkinZoneAbilities")
+	if E.Retail then
+		self:SecureHook(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", "SkinZoneAbilities")
 
-	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
-		local button = _G["ExtraActionButton" .. i]
-		if button and button.backdrop then
-			self:CreateBackdropShadow(button.backdrop, true)
+		for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
+			local button = _G["ExtraActionButton" .. i]
+			if button and button.backdrop then
+				self:CreateBackdropShadow(button.backdrop, true)
+			end
 		end
 	end
-
 end
 
 module:AddCallback("Skin_ElvUI_ActionBars")
