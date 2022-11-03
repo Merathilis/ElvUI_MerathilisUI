@@ -108,6 +108,7 @@ options.name = {
 			end,
 			set = function(info, value)
 				E.global.mui.core.buttonFix = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			hidden = function()
 			end,
