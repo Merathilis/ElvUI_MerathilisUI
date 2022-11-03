@@ -45,6 +45,24 @@ local function UpdateFriendsButton(button)
 	end
 end
 
+local function ClassColor(class, showRGB)
+	local color = F.ClassColors[F.ClassList[class] or class]
+
+	if not color then
+		color = F.ClassColors['PRIEST']
+	end
+
+	if showRGB then
+		return color.r, color.g, color.b
+	else
+		return '|c' .. color.colorStr
+	end
+end
+
+local function DiffColor(level)
+	return F.RGBToHex(GetQuestDifficultyColor(level))
+end
+
 local function LoadSkin()
 	if not module:CheckDB("friends", "friends") then
 		return
@@ -99,7 +117,43 @@ local function LoadSkin()
 		_G.FriendsFrameBattlenetFrame.BroadcastFrame.backdrop:Styling()
 	end
 	module:SecureHook("FriendsFrame_UpdateFriendButton", UpdateFriendsButton)
-	print("end")
+
+	-- Who Frame
+	local columnTable = {}
+	hooksecurefunc(_G.WhoFrame.ScrollBox, 'Update', function(self)
+		local playerZone = GetRealZoneText()
+		local playerGuild = GetGuildInfo('player')
+		local playerRace = UnitRace('player')
+
+		for i = 1, self.ScrollTarget:GetNumChildren() do
+			local button = select(i, self.ScrollTarget:GetChildren())
+
+			local nameText = button.Name
+			local levelText = button.Level
+			local variableText = button.Variable
+
+			local info = C_FriendList.GetWhoInfo(button.index)
+			local guild, level, race, zone, class = info.fullGuildName, info.level, info.raceStr, info.area, info.filename
+			if zone == playerZone then
+				zone = '|cff00ff00' .. zone
+			end
+			if guild == playerGuild then
+				guild = '|cff00ff00' .. guild
+			end
+			if race == playerRace then
+				race = '|cff00ff00' .. race
+			end
+
+			wipe(columnTable)
+			tinsert(columnTable, zone)
+			tinsert(columnTable, guild)
+			tinsert(columnTable, race)
+
+			nameText:SetTextColor(ClassColor(class, true))
+			levelText:SetText(DiffColor(level) .. level)
+			variableText:SetText(columnTable[UIDropDownMenu_GetSelectedID(_G.WhoFrameDropDown)])
+		end
+	end)
 end
 
 S:AddCallback("FriendsFrame", LoadSkin)
