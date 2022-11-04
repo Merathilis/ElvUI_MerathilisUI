@@ -334,7 +334,16 @@ local function StatsPane(type)
 end
 
 local function CharacterStatFrameCategoryTemplate(frame)
+	module.db = E.db.mui.armory
+
 	frame:StripTextures()
+
+	local r, g, b
+	if module.db.stats.classColorGradient then
+		r, g, b = F.r, F.g, F.b
+	else
+		r, g, b = F.unpackColor(module.db.stats.color)
+	end
 
 	local bg = frame.Background
 	bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
@@ -342,11 +351,13 @@ local function CharacterStatFrameCategoryTemplate(frame)
 	bg:ClearAllPoints()
 	bg:SetPoint("CENTER", 0, -5)
 	bg:SetSize(210, 30)
-	bg:SetVertexColor(F.unpackColor(module.db.stats.color))
+	bg:SetVertexColor(r, g, b)
 end
 
 -- Copied from ElvUI
 local function ColorizeStatPane(frame)
+	module.db = E.db.mui.armory
+
 	if frame.leftGrad then
 		frame.leftGrad:StripTextures()
 	end
@@ -354,7 +365,12 @@ local function ColorizeStatPane(frame)
 		frame.rightGrad:StripTextures()
 	end
 
-	local r, g, b = F.unpackColor(module.db.stats.color)
+	local r, g, b
+	if module.db.stats.classColorGradient then
+		r, g, b = F.r, F.g, F.b
+	else
+		r, g, b = F.unpackColor(module.db.stats.color)
+	end
 
 	frame.leftGrad = frame:CreateTexture(nil, "BORDER")
 	frame.leftGrad:SetWidth(80)
@@ -372,6 +388,8 @@ local function ColorizeStatPane(frame)
 end
 
 local function SkinAdditionalStats()
+	module.db = E.db.mui.armory
+
 	if CharacterStatsPane.OffenseCategory then
 		if module.db.stats.classColorGradient then
 			CharacterStatsPane.OffenseCategory.Title:SetText(E:TextGradient(CharacterStatsPane.OffenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))

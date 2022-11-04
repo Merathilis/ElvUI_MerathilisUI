@@ -436,7 +436,7 @@ options.armory = {
 						local d = P.armory.stats[info[#info]]
 						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 					end,
-					set = function(info, r, g, b)
+					set = function(info, r, g, b, a)
 						E.db.mui.armory.stats[ info[#info] ] = {}
 						local t = E.db.mui.armory.stats[ info[#info] ]
 						t.r, t.g, t.b, t.a = r, g, b, a
