@@ -1021,13 +1021,13 @@ function module:UpdateLayout()
 	end
 
 	if self.db.shadow then
-		if self.bar.leftPanel.backdrop.shadow then self.bar.leftPanel.backdrop.shadow:Show() end
-		if self.bar.middlePanel.backdrop.shadow then self.bar.middlePanel.backdrop.shadow:Show() end
-		if self.bar.rightPanel.backdrop.shadow then self.bar.rightPanel.backdrop.shadow:Show() end
+		if self.bar.leftPanel.backdrop.MERshadow then self.bar.leftPanel.backdrop.MERshadow:Show() end
+		if self.bar.middlePanel.backdrop.MERshadow then self.bar.middlePanel.backdrop.MERshadow:Show() end
+		if self.bar.rightPanel.backdrop.MERshadow then self.bar.rightPanel.backdrop.MERshadow:Show() end
 	else
-		if self.bar.leftPanel.backdrop.shadow then self.bar.leftPanel.backdrop.shadow:Hide() end
-		if self.bar.middlePanel.backdrop.shadow then self.bar.middlePanel.backdrop.shadow:Hide() end
-		if self.bar.rightPanel.backdrop.shadow then self.bar.rightPanel.backdrop.shadow:Hide() end
+		if self.bar.leftPanel.backdrop.MERshadow then self.bar.leftPanel.backdrop.MERshadow:Hide() end
+		if self.bar.middlePanel.backdrop.MERshadow then self.bar.middlePanel.backdrop.MERshadow:Hide() end
+		if self.bar.rightPanel.backdrop.MERshadow then self.bar.rightPanel.backdrop.MERshadow:Hide() end
 	end
 
 	local numLeftButtons, numRightButtons = 0, 0

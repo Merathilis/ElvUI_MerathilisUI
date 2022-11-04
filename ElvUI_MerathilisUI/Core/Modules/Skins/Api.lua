@@ -60,7 +60,7 @@ function module:CreateShadow(frame, size, r, g, b, force)
 		end
 	end
 
-	if not frame or frame.__shadow or frame.shadow and frame.shadow.__MER then
+	if not frame or frame.__shadow or frame.MERshadow and frame.shadow.__MER then
 		return
 	end
 
@@ -84,7 +84,7 @@ function module:CreateShadow(frame, size, r, g, b, force)
 	shadow:SetBackdropBorderColor(r, g, b, 0.618)
 	shadow.__MER = true
 
-	frame.shadow = shadow
+	frame.MERshadow = shadow
 	frame.__shadow = 1
 end
 
@@ -97,7 +97,7 @@ function module:CreateLowerShadow(frame, force)
 
 	module:CreateShadow(frame)
 	local parentFrameLevel = frame:GetFrameLevel()
-	frame.shadow:SetFrameLevel(parentFrameLevel > 0 and parentFrameLevel - 1 or 0)
+	frame.MERshadow:SetFrameLevel(parentFrameLevel > 0 and parentFrameLevel - 1 or 0)
 end
 
 function module:UpdateShadowColor(shadow, r, g, b)
@@ -151,7 +151,7 @@ do
 
 		module:CreateShadow(frame.backdrop)
 
-		if frame.backdrop.shadow.__MER then
+		if frame.backdrop.MERshadow.__MER then
 			frame.__shadow = frame.backdrop.__shadow + 1
 		end
 	end

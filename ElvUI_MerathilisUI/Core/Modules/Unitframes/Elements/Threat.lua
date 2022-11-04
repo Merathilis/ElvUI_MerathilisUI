@@ -4,7 +4,7 @@ local S = MER:GetModule('MER_Skins')
 local UF = E:GetModule('UnitFrames')
 
 function module:UnitFrames_Configure_Threat(_, f)
-	if f.shadow then return end
+	if f.MERshadow then return end
 
 	local threat = f.ThreatIndicator
 	if not threat then return end
@@ -16,11 +16,11 @@ function module:UnitFrames_Configure_Threat(_, f)
 			return
 		end
 		if parent.db and parent.db.threatStyle == "GLOW" then
-			if parent.Health and parent.Health.backdrop and parent.Health.backdrop.shadow then
-				parent.Health.backdrop.shadow:SetShown(not threat.MainGlow:IsShown())
+			if parent.Health and parent.Health.backdrop and parent.Health.backdrop.MERshadow then
+				parent.Health.backdrop.MERshadow:SetShown(not threat.MainGlow:IsShown())
 			end
-			if parent.Power and parent.Power.backdrop and parent.Power.backdrop.shadow and parent.USE_POWERBAR_OFFSET then
-				parent.Power.backdrop.shadow:SetShown(not threat.MainGlow:IsShown())
+			if parent.Power and parent.Power.backdrop and parent.Power.backdrop.MERshadow and parent.USE_POWERBAR_OFFSET then
+				parent.Power.backdrop.MERshadow:SetShown(not threat.MainGlow:IsShown())
 			end
 		end
 	end

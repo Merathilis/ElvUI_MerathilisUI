@@ -96,9 +96,9 @@ function module:CosmeticBar(header)
 		bar.backdrop:Hide()
 	else
 		if self.db.cosmeticBar.border == "SHADOW" then
-			bar.backdrop.shadow:Show()
+			bar.backdrop.MERshadow:Show()
 		else
-			bar.backdrop.shadow:Hide()
+			bar.backdrop.MERshadow:Hide()
 		end
 		bar.backdrop:Show()
 	end
