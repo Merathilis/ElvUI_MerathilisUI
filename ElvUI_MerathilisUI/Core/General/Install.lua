@@ -450,6 +450,10 @@ function MER:SetupLayout()
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
 
+	if F.IsDeveloper() then
+		E.db["tooltip"]["showElvUIUsers"] = true
+	end
+
 		--[[----------------------------------
 	--	Skins - Layout
 	--]] ----------------------------------
