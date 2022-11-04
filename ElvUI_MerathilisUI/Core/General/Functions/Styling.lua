@@ -8,6 +8,7 @@ local getmetatable = getmetatable
 local pairs, select, unpack = pairs, select, unpack
 
 local CreateFrame = CreateFrame
+local CreateColor = CreateColor
 
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
 local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)

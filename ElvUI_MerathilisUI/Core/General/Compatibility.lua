@@ -9,6 +9,7 @@ local strlen, strsplit = strlen, strsplit
 
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
+local GetAddOnEnableState = GetAddOnEnableState
 
 local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 

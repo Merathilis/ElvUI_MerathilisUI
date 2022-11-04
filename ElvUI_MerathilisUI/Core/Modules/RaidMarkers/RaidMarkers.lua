@@ -109,9 +109,9 @@ function module:UpdateButtons()
 
 		if button and button.backdrop.shadow then
 			if self.db.backdrop then
-				button.backdrop.shadow:Hide()
+				button.backdrop.MERshadow:Hide()
 			else
-				button.backdrop.shadow:Show()
+				button.backdrop.MERshadow:Show()
 			end
 		end
 
@@ -301,7 +301,7 @@ function module:CreateButtons()
 			end
 		end
 
-		button:RegisterForClicks("AnyDown")
+		button:RegisterForClicks(E.global.mui.core.buttonFix)
 
 		local tooltipText = ""
 

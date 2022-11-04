@@ -1,5 +1,6 @@
-[b][color=orange]v5.31[/color], 01.11.2022[/b][list]
-[*]Fix black Text on the Gossip Frame
-[*]Updated the Minimap Button Backdrop
-[*]Many updates on Skins
-[*]Updated Bag Code[/list]
+[b][color=orange]v5.33[/color], 03.11.2022[/b][list]
+[*]Revert the double click on buttons and added back the option in: Information -> Button Fix
+[*]Added Gunshoes to AutoButtons
+[*]Fix a lua error on the ActionBar Backdrop
+[*]Added back VehicleButton Exit skin
+[*]Gave the WhoFrame more colors[/list]

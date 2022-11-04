@@ -16,6 +16,13 @@ local function LoadSkin()
 	for _, tab in next, { ProfessionsFrame.TabSystem:GetChildren() } do
 		module:ReskinTab(tab)
 	end
+
+	local Log = ProfessionsFrame.CraftingPage.CraftingOutputLog
+	if Log.backdrop then
+		Log.backdrop:SetTemplate('Transparent')
+		Log.backdrop:Styling()
+		module:CreateBackdropShadow(Log)
+	end
 end
 
 S:AddCallbackForAddon('Blizzard_Professions', LoadSkin)

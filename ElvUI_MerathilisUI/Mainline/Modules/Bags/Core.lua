@@ -915,10 +915,10 @@ function module:Initialize()
 	end
 
 	function Backpack:OnInit()
-		AddNewContainer("Bag", 1, "BagReagent", filters.onlyBagReagent)
+		AddNewContainer("Bag", 6, "BagReagent", filters.onlyBagReagent)
 		AddNewContainer("Bag", 16, "Junk", filters.bagsJunk)
 		for i = 1, 5 do
-			AddNewContainer("Bag", i+1, "BagCustom" .. i, filters["bagCustom" .. i])
+			AddNewContainer("Bag", i, "BagCustom" .. i, filters["bagCustom" .. i])
 		end
 		AddNewContainer("Bag", 9, "EquipSet", filters.bagEquipSet)
 		AddNewContainer("Bag", 7, "AzeriteItem", filters.bagAzeriteItem)
@@ -1396,7 +1396,7 @@ function module:Initialize()
 		elseif name == "BagRelic" then
 			label = L["Korthia Relic"]
 		elseif strmatch(name, "Custom%d") then
-			label = GetCustomGroupTitle(settings.Index - 1)
+			label = GetCustomGroupTitle(settings.Index)
 		elseif name == "BagReagent" then
 			label = L["ReagentBag"]
 		end

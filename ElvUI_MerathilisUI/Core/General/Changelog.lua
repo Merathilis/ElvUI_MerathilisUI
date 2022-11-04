@@ -12,10 +12,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix black Text on the Gossip Frame",
-		"• Updated the Minimap Button Backdrop",
-		"• Many updates on Skins",
-		"• Updated Bag Code",
+		"• Revert the double click on buttons and added back the option in: Information -> Button Fix",
+		"• Added Gunshoes to AutoButtons",
+		"• Fix a lua error on the ActionBar Backdrop",
+		"• Added back VehicleButton Exit skin",
+		"• Gave the WhoFrame more colors",
 
 	" ",
 	"Notes:",

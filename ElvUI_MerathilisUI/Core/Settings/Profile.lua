@@ -531,7 +531,7 @@ P.actionbars = {
 		},
 	},
 	keyfeedback = {
-		enable = false,
+		enable = true,
 		point = 'CENTER',
 		x = 0,
 		y = 0,

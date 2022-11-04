@@ -116,8 +116,8 @@ local function Skin_WeakAuras(f, fType, data)
 			f.backdrop.icon = f.icon
 			f.backdrop:HookScript("OnUpdate", function(self)
 				self:SetAlpha(self.icon:GetAlpha())
-				if self.shadow then
-					self.shadow:SetAlpha(self.icon:GetAlpha())
+				if self.MERshadow then
+					self.MERshadow:SetAlpha(self.icon:GetAlpha())
 				end
 			end)
 
