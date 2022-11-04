@@ -61,9 +61,6 @@ P.merchant = {
 }
 
 P.blizzard = {
-	talents = {
-		enable = true,
-	},
 	objectiveTracker = {
 		enable = true,
 		noDash = true,
