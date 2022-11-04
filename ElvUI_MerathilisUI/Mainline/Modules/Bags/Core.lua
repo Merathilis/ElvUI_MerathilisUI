@@ -587,8 +587,8 @@ StaticPopupDialogs["MER_RENAMECUSTOMGROUP"] = {
 		module.db.CustomNames[index] = text ~= "" and text or nil
 
 		module.CustomMenu[index + 2].text = GetCustomGroupTitle(index)
-		module.ContainerGroups["Bag"][index + 1].label:SetText(GetCustomGroupTitle(index))
-		module.ContainerGroups["Bank"][index + 1].label:SetText(GetCustomGroupTitle(index))
+		module.ContainerGroups["Bag"][index].label:SetText(GetCustomGroupTitle(index))
+		module.ContainerGroups["Bank"][index].label:SetText(GetCustomGroupTitle(index))
 	end,
 	EditBoxOnEscapePressed = function(self)
 		self:GetParent():Hide()
