@@ -56,7 +56,6 @@ local function LoadSkin()
 		module:ReskinTab(tab)
 	end
 
-
 	local SuggestFrame = _G.EncounterJournalSuggestFrame
 	-- Suggestion 1
 	local suggestion = SuggestFrame.Suggestion1
@@ -187,24 +186,16 @@ local function LoadSkin()
 	hooksecurefunc(EncounterJournal.encounter.info.LootContainer.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
-			if not child.styled then
+			if not child.IsSkinned then
 				if child.boss then child.boss:SetTextColor(1, 1, 1) end
 				if child.slot then child.slot:SetTextColor(1, 1, 1) end
 				if child.armorType then child.armorType:SetTextColor(1, 1, 1) end
-				if child.bossTexture then child.bossTexture:SetAlpha(0) end
-				if child.bosslessTexture then child.bosslessTexture:SetAlpha(0) end
-				if child.IconBorder then child.IconBorder:SetAlpha(0) end
-				if child.icon then
-					child.icon:SetPoint("TOPLEFT", 1, -1)
-					S:HandleIcon(child.icon)
+
+				if child.backdrop then
+					module:CreateGradient(child.backdrop)
 				end
 
-				child:CreateBackdrop('Transparent')
-				child.backdrop:SetPoint("TOPLEFT")
-				child.backdrop:SetPoint("BOTTOMRIGHT", 0, 1)
-
-				module:CreateGradient(child.backdrop)
-				child.styled = true
+				child.IsSkinned = true
 			end
 		end
 	end)
