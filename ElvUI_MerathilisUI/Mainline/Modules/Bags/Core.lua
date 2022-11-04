@@ -1396,7 +1396,7 @@ function module:Initialize()
 		elseif name == "BagRelic" then
 			label = L["Korthia Relic"]
 		elseif strmatch(name, "Custom%d") then
-			label = GetCustomGroupTitle(settings.Index - 1)
+			label = GetCustomGroupTitle(settings.Index)
 		elseif name == "BagReagent" then
 			label = L["ReagentBag"]
 		end
