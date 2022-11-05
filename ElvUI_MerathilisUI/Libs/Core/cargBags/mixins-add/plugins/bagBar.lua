@@ -37,8 +37,8 @@ local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 local Implementation = cargBags.classes.Implementation
 
-local ContainerIDToInventoryID = --[[MER.IsPTR and C_Container.ContainerIDToInventoryID or]] ContainerIDToInventoryID
-local maxBagSlots = --[[MER.IsPTR and 5 or]] NUM_BAG_SLOTS
+local C_Container_ContainerIDToInventoryID = C_Container.ContainerIDToInventoryID
+local maxBagSlots = 5
 
 function Implementation:GetBagButtonClass()
 	return self:GetClass("BagButton", true, "BagButton")
@@ -60,15 +60,10 @@ local buttonNum = 0
 function BagButton:Create(bagID)
 	buttonNum = buttonNum+1
 	local name = addon.."BagButton"..buttonNum
-	local isBankBag
-	-- if MER.IsNewPatch then
-		-- isBankBag = bagID > 5 and bagID < 13
-	-- else
-		isBankBag = bagID > 4 and bagID < 12
-	-- end
+	local isBankBag = bagID > 5 and bagID < 13
 	local button = setmetatable(CreateFrame("ItemButton", name, nil, "BackdropTemplate"), self.__index)
 
-	local invID = (isBankBag and bagID - maxBagSlots) or ContainerIDToInventoryID(bagID)
+	local invID = (isBankBag and bagID - maxBagSlots) or C_Container_ContainerIDToInventoryID(bagID)
 	button.invID = invID
 	button:SetID(invID)
 	button.bagId = bagID
@@ -196,7 +191,7 @@ end
 
 local function onLock(self, _, bagID, slotID)
 	if(bagID == -1 and slotID > NUM_BANKGENERIC_SLOTS) then
-		bagID, slotID = ContainerIDToInventoryID(slotID - NUM_BANKGENERIC_SLOTS + maxBagSlots)
+		bagID, slotID = C_Container.ContainerIDToInventoryID(slotID - NUM_BANKGENERIC_SLOTS + maxBagSlots)
 	end
 
 	if(slotID) then return end
