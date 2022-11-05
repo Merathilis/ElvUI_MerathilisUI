@@ -23,12 +23,6 @@ local DetailsGradient = {
 	["MONSTER "] = { r1 = 0.97, g1 = 0.55, b1 = 0.73, r2 = 1, g2 = 0, b2 = 0 },
 }
 
-local function GradientColorClass(class)
-	if class then
-		return
-	end
-end
-
 local classes = {
 	["WARRIOR"] = true,
 	["PALADIN"] = true,
@@ -76,13 +70,6 @@ local function SetupInstance(instance)
 		instance:ShowWindow()
 		instance.wasHidden = true
 	end
-	instance:ChangeSkin("ElvUI Style II")
-	instance:InstanceWallpaper(false)
-	instance:DesaturateMenu(true)
-	instance:HideMainIcon(false)
-	instance:SetBackdropTexture("None")
-	instance:MenuAnchor(20, 2)
-	instance:ToolbarMenuButtonsSize(1)
 
 	instance.baseframe:CreateBackdrop('Transparent')
 	instance.baseframe.backdrop:SetPoint("TOPLEFT", -1, 18)
@@ -108,6 +95,7 @@ end
 
 local function EmbedWindow(instance, x, y, width, height)
 	if not instance.baseframe then return end
+
 	instance.baseframe:ClearAllPoints()
 	instance.baseframe:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", x, y)
 	instance:SetSize(width, height)
