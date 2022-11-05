@@ -31,15 +31,38 @@ function module:SetupTooltipIcon(icon)
 	end
 end
 
+local function GetUnit(self)
+	local _, unit = self and self:GetUnit()
+	if not unit then
+		local mFocus = GetMouseFocus()
+		unit = mFocus and (mFocus.unit or (mFocus.GetAttribute and mFocus:GetAttribute("unit"))) or "mouseover"
+	end
+
+	return unit
+end
+
+function module:InsertFactionFrame(faction)
+	if not self.factionFrame then
+		local f = self:CreateTexture(nil, "OVERLAY")
+		f:SetPoint("TOPRIGHT", 0, -5)
+		f:SetBlendMode("ADD")
+		f:SetScale(.5)
+		f:SetAlpha(.5)
+		self.factionFrame = f
+	end
+	self.factionFrame:SetTexture("Interface\\FriendsFrame\\PlusManz-" .. faction)
+	self.factionFrame:Show()
+end
+
+function module:OnTooltipCleared()
+	if self:IsForbidden() then return end
+
+	if self.factionFrame and self.factionFrame:IsShown() then
+		self.factionFrame:Hide()
+	end
+end
+
 function module:HookTooltipCleared()
-	if self.factionFrame and self.factionFrame:GetAlpha() ~= 0 then
-		self.factionFrame:SetAlpha(0)
-	end
-
-	if self.petIcon and self.petIcon:GetAlpha() ~= 0 then
-		self.petIcon:SetAlpha(0)
-	end
-
 	self.tipModified = false
 end
 
@@ -51,35 +74,53 @@ function module:ReskinRewardIcon()
 	self.Icon:SetTexCoord(unpack(E.TexCoords))
 end
 
+function module:OnTooltipSetUnit()
+	if self:IsForbidden() then return end
+
+	local unit = GetUnit(self)
+	if not unit or not UnitExists(unit) then return end
+
+	local IsPlayer = UnitIsPlayer(unit)
+	if IsPlayer then
+		if E.db.mui.tooltip.factionIcon then
+			local faction = UnitFactionGroup(unit)
+			if faction and faction ~= "Neutral" then
+				module.InsertFactionFrame(self, faction)
+			end
+		end
+	end
+end
+
 function module:ReskinTooltipIcons()
 	if E.db.mui.tooltip.tooltipIcon ~= true then return end
 
-	module.HookTooltipMethod(_G.GameTooltip)
-	module.HookTooltipMethod(_G.ItemRefTooltip)
-	module.HookTooltipMethod(_G.ElvUISpellBookTooltip)
-
-	TooltipDataProcessor_AddTooltipPostCall(Enum.TooltipDataType.Item, function(self)
-		if self == _G.GameTooltip or self == _G.ItemRefTooltip then
-			local _, link = self:GetItem()
-			if link then
-				module.SetupTooltipIcon(self, GetItemIcon(link))
-			end
-		end
-	end)
-	TooltipDataProcessor_AddTooltipPostCall(Enum.TooltipDataType.Spell, function(self)
-		if self == _G.GameTooltip or self == _G.ItemRefTooltip then
-			local _, id = self:GetSpell()
-			if id then
-				module.SetupTooltipIcon(self, GetSpellTexture(id))
-			end
-		end
-	end)
-
-	hooksecurefunc(_G.GameTooltip, "SetUnitAura", function(self)
-		module.SetupTooltipIcon(self)
-	end)
+	GameTooltip:HookScript("OnTooltipCleared", module.OnTooltipCleared)
 
 	if E.Retail then
+		TooltipDataProcessor_AddTooltipPostCall(Enum.TooltipDataType.Unit, module.OnTooltipSetUnit)
+
+		TooltipDataProcessor_AddTooltipPostCall(Enum.TooltipDataType.Item, function(self)
+			if self == _G.GameTooltip or self == _G.ItemRefTooltip then
+				local _, link = self:GetItem()
+				if link then
+					module.SetupTooltipIcon(self, GetItemIcon(link))
+				end
+			end
+		end)
+		TooltipDataProcessor_AddTooltipPostCall(Enum.TooltipDataType.Spell, function(self)
+			if self == _G.GameTooltip or self == _G.ItemRefTooltip then
+				local _, id = self:GetSpell()
+				if id then
+					module.SetupTooltipIcon(self, GetSpellTexture(id))
+				end
+			end
+		end)
+
+		hooksecurefunc(_G.GameTooltip, "SetUnitAura", function(self)
+			module.SetupTooltipIcon(self)
+		end)
+
+
 		hooksecurefunc(_G.GameTooltip, "SetAzeriteEssence", function(self)
 			module.SetupTooltipIcon(self)
 		end)

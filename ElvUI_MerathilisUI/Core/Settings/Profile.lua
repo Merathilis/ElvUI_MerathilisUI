@@ -1098,6 +1098,7 @@ P.pvp = {
 
 P.tooltip = {
 	tooltipIcon = true,
+	factionIcon = true,
 	titleColor = true,
 }
 

@@ -20,6 +20,12 @@ options.tooltip = {
 			name = L["Tooltip Icons"],
 			desc = L["Adds an icon for spells and items on your tooltip."],
 		},
+		factionIcon = {
+			order = 3,
+			type = "toggle",
+			name = L.FACTION,
+			desc = L["Adds an Icon for the faction on the tooltip."],
+		},
 		keystone = {
 			order = 5,
 			type = "toggle",
