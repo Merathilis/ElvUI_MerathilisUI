@@ -1098,15 +1098,7 @@ P.pvp = {
 
 P.tooltip = {
 	tooltipIcon = true,
-	factionIcon = true,
-	petIcon = true,
-	keystone = true,
 	titleColor = true,
-	dominationRank = true,
-	covenant = {
-		enable = true,
-		showNotInGroup = false,
-	}
 }
 
 P.itemLevel = {
