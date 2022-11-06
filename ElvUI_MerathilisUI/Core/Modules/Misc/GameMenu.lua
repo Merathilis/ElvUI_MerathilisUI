@@ -242,7 +242,7 @@ function module:GameMenu()
 
 		topPanel.factionLogo = topPanel:CreateTexture(nil, "ARTWORK")
 		topPanel.factionLogo:Point("CENTER", topPanel, "CENTER", 0, 0)
-		topPanel.factionLogo:Size(256, 250)
+		topPanel.factionLogo:Size(186, 186)
 		topPanel.factionLogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\ClassIcons\\CLASS-"..E.myclass)
 	end
 
@@ -255,21 +255,23 @@ function module:GameMenu()
 		local playerModel = CreateFrame("PlayerModel", nil, GameMenuFrame.modelHolder)
 		playerModel:Point("CENTER", GameMenuFrame.modelHolder, "CENTER")
 		playerModel:SetScript("OnShow", Player_Model)
-		playerModel.isIdle = nil
 		playerModel:Size(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models.
+		playerModel:SetScale(0.8)
+		playerModel.isIdle = nil
 		playerModel:Show()
 	end
 
 	if not GameMenuFrame.npcHolder then
 		GameMenuFrame.npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
-		 GameMenuFrame.npcHolder:SetSize(150, 150)
-		 GameMenuFrame.npcHolder:SetPoint("LEFT", GameMenuFrame, "RIGHT", 300, 0)
+		GameMenuFrame.npcHolder:SetSize(150, 150)
+		GameMenuFrame.npcHolder:SetPoint("LEFT", GameMenuFrame, "RIGHT", 300, 0)
 
 		local npcModel = CreateFrame("PlayerModel", nil, GameMenuFrame.npcHolder)
 		npcModel:Point("CENTER",  GameMenuFrame.npcHolder, "CENTER")
 		npcModel:SetScript("OnShow", NPC_Model)
 		npcModel.isIdle = nil
 		npcModel:Size(256)
+		npcModel:SetScale(0.8)
 		npcModel:Show()
 	end
 end
