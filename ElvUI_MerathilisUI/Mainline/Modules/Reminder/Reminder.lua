@@ -151,6 +151,19 @@ module.ReminderList = {
 			["strictFilter"] = true,
 		},
 	},
+
+	EVOKER = {
+		[1] = { -- Blessing of the Bronze
+			["spells"] = {
+				[381748] = true, -- Blessing of the Bronze
+				["defaultIcon"] = 381748,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+		},
+	},
 }
 
 function module:PlayerHasFilteredBuff(frame, db, checkPersonal)
