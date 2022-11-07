@@ -15,7 +15,7 @@ local C_EquipmentSet_GetNumEquipmentSets = C_EquipmentSet.GetNumEquipmentSets
 local C_EquipmentSet_GetEquipmentSetInfo = C_EquipmentSet.GetEquipmentSetInfo
 local C_EquipmentSet_GetItemLocations = C_EquipmentSet.GetItemLocations
 local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
-local GetContainerNumSlots = GetContainerNumSlots
+local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 
 -- Credits Shadow & Light - Darth & Repooc
 
@@ -113,7 +113,7 @@ local function UpdateBagInformation(clear)
 	BuildEquipmentMap(clear)
 	for _, container in pairs(module.containers) do
 		for _, bagID in ipairs(container.BagIDs) do
-			for slotID = 1, GetContainerNumSlots(bagID) do
+			for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
 				UpdateContainerFrame(container.Bags[bagID][slotID], bagID, slotID)
 			end
 		end
