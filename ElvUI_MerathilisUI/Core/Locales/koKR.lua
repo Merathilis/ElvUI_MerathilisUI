@@ -1152,10 +1152,6 @@ L["Change the color of the name to the in-playing game style."] = "이름 색상
 L["Use Class Color"] = "직업 색상 사용"
 L["Font Setting"] = "글꼴 설정"
 
--- Talents
-L["Talents"] = "전문화"
-L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."] = true
-
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 

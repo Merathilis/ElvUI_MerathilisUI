@@ -39,7 +39,8 @@ local function SetupCVars()
 	SetCVar('countdownForCooldowns', 1)
 	SetCVar('showQuestTrackingTooltips', 1)
 	SetCVar('ffxGlow', 0)
-	SetCVar('floatingCombatTextCombatState', "1")
+    SetCVar('floatingCombatTextCombatState', '1')
+	SetCVar('minimapTrackingShowAll', 1)
 
 	-- Nameplates
 	SetCVar('ShowClassColorInNameplate', 1)
@@ -449,6 +450,10 @@ function MER:SetupLayout()
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
+
+	if F.IsDeveloper() then
+		E.db["tooltip"]["showElvUIUsers"] = true
+	end
 
 		--[[----------------------------------
 	--	Skins - Layout

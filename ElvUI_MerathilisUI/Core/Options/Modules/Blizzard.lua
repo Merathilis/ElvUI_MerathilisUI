@@ -880,43 +880,6 @@ options.blizzard.args.objectiveTracker = {
 	},
 }
 
---[=[options.blizzard.args.talents = {
-	order = 4,
-	type = "group",
-	name = L["Talents"],
-	get = function(info) return E.db.mui.blizzard.talents[info[#info]] end,
-	set = function(info, value) E.db.mui.blizzard.talents[info[#info]] = value; end,
-	hidden = not E.Retail,
-	args = {
-		name = {
-			order = 1,
-			type = "header",
-			name = F.cOption(L["Talents"], 'orange'),
-		},
-		description = {
-			order = 2,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."],
-					fontSize = "medium"
-				},
-			},
-		},
-		enable = {
-			order = 3,
-			type = "toggle",
-			name = L["Enable"],
-			width = "full",
-			set = function(info, value) E.db.mui.blizzard.talents[info[#info]] = value;	E:StaticPopup_Show("PRIVATE_RL") end,
-		},
-	},
-}]=]
-
 options.blizzard.args.filter = {
 	order = 5,
 	type = "group",
