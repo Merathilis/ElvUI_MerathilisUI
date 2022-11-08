@@ -453,7 +453,8 @@ F.iLvlClassIDs = {
 
 do -- Tooltip scanning stuff. Credits siweia, with permission.
 	local iLvlDB = {}
-	local itemLevelString = "^"..gsub(ITEM_LEVEL, "%%d", "")
+	local itemLevelString = "^" .. gsub(ITEM_LEVEL, "%%d", "")
+	local enchantString = gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
 	local RETRIEVING_ITEM_INFO = RETRIEVING_ITEM_INFO
 
 	local tip = CreateFrame("GameTooltip", "mUI_ScanTooltip", nil, "GameTooltipTemplate")
@@ -477,16 +478,17 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 		return tip.gems
 	end
 
-	local slotData = { gems = {}, essence = {} }
+	local slotData = { gems = {}, gemsColor = {} }
 	function F.GetItemLevel(link, arg1, arg2, fullScan)
 		if fullScan then
 			local data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
 			if data then
 				wipe(slotData.gems)
-				wipe(slotData.essence) -- todo: no chance to test it yet
+				wipe(slotData.gemsColor)
 				slotData.iLvl = nil
 				slotData.enchantText = nil
 
+				local isHoA = data.args and data.args[2] and data.args[2].intVal == 158075
 				local num = 0
 				for i = 2, #data.lines do
 					local lineData = data.lines[i]
@@ -498,6 +500,12 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 							if found then
 								local level = strmatch(text, "(%d+)%)?$")
 								slotData.iLvl = tonumber(level) or 0
+							end
+						elseif isHoA then
+							if argVal[6] and argVal[6].field == "essenceIcon" then
+								num = num + 1
+								slotData.gems[num] = argVal[6].intVal
+								slotData.gemsColor[num] = argVal[3] and argVal[3].colorVal
 							end
 						else
 							local lineInfo = argVal[4] and argVal[4].field
