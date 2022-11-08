@@ -437,9 +437,9 @@ function module:UpdateLayout()
 
 		if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
 			if not self.db.backdrop then
-				frame.backdrop.shadow:Show()
+				frame.backdrop.MERshadow:Show()
 			else
-				frame.backdrop.shadow:Hide()
+				frame.backdrop.MERshadow:Hide()
 			end
 		end
 

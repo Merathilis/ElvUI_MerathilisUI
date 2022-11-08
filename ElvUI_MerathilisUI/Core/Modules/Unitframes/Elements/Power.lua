@@ -18,10 +18,10 @@ function module:Configure_Power(frame)
 end
 
 function module:UnitFrames_Configure_Power(_, f)
-	if f.shadow then return end
+	if f.MERshadow then return end
 
 	if f.USE_POWERBAR then
-		local shadow = f.Power.backdrop.shadow
+		local shadow = f.Power.backdrop.MERshadow
 		if f.POWERBAR_DETACHED then
 			if not shadow then
 				S:CreateBackdropShadow(f.Power, true)

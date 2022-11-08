@@ -157,7 +157,7 @@ local function LoadSkin()
 
 		local function reskinFollowerAbility(frame, index, first)
 			local ability = select(index, frame:GetRegions())
-			ability:SetMask(nil)
+			ability:SetMask('')
 			ability:SetSize(14, 14)
 			S:HandleIcon(ability, true)
 			ability.backdrop:SetFrameLevel(4)
@@ -225,7 +225,7 @@ local function LoadSkin()
 				elseif otype == "IconButton" then
 					S:HandleIcon(widget.Icon)
 					widget:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-					widget:SetPushedTexture(nil)
+					widget:SetPushedTexture('')
 					widget:SetSize(46, 46)
 					tinsert(VPBooks, widget)
 				elseif otype == "AdventurerRoster" then

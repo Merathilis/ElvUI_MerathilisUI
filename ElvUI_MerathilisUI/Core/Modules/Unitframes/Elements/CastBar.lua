@@ -30,8 +30,8 @@ function module:Configure_Castbar(frame)
 		if not MERBg.mode or MERBg.mode ~= "NotAttach" then
 			-- Icon shadow
 			S:CreateShadow(frame.Castbar.ButtonIcon.bg)
-			if frame.Castbar.ButtonIcon.bg.shadow then
-				frame.Castbar.ButtonIcon.bg.shadow:Show()
+			if frame.Castbar.ButtonIcon.bg.MERshadow then
+				frame.Castbar.ButtonIcon.bg.MERshadow:Show()
 			end
 
 			-- Bar shadow
@@ -42,8 +42,8 @@ function module:Configure_Castbar(frame)
 	else
 		if not MERBg.mode or MERBg.mode ~= "Attach" then
 			-- Disable icon shadow
-			if frame.Castbar.ButtonIcon.bg.shadow then
-				frame.Castbar.ButtonIcon.bg.shadow:Hide()
+			if frame.Castbar.ButtonIcon.bg.MERshadow then
+				frame.Castbar.ButtonIcon.bg.MERshadow:Hide()
 			end
 
 			if frame.ORIENTATION == "LEFT" then

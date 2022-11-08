@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -33,6 +33,27 @@ local function ModifyGuildNews(button, _, text, name, link, ...)
 	end
 end
 
+local CLASS_ICON_TCOORDS = CLASS_ICON_TCOORDS
+local function ClassIconTexCoord(self, class)
+	local tcoords = CLASS_ICON_TCOORDS[class]
+	self:SetTexCoord(tcoords[1] + .022, tcoords[2] - .025, tcoords[3] + .022, tcoords[4] - .025)
+end
+
+local function UpdateNameFrame(self)
+	if not self.expanded then return end
+	if not self.bg then
+		self.bg = module:CreateBDFrame(self.Class)
+	end
+
+	local memberInfo = self:GetMemberInfo()
+	if memberInfo and memberInfo.classID then
+		local classInfo = C_CreatureInfo.GetClassInfo(memberInfo.classID)
+		if classInfo then
+			ClassIconTexCoord(self.Class, classInfo.classFile)
+		end
+	end
+end
+
 local function LoadSkin()
 	if not module:CheckDB("communities", "communities") then
 		return
@@ -51,16 +72,6 @@ local function LoadSkin()
 		module:CreateBackdropShadow(_G.CommunitiesGuildLogFrame)
 	end
 
-	-- Active Communities
-	--[[hooksecurefunc(_G.CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)
-		if clubInfo then
-			if self.bg and self.bg.backdrop and not self.__MERSkin then
-				module:CreateGradient(self.bg.backdrop)
-				self.__MERSkin = true
-			end
-		end
-	end)]]
-
 	-- Add Community Button
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetAddCommunity", function(self)
 		if self.bg and self.bg.backdrop and not self.__MERSkin then
@@ -74,6 +85,38 @@ local function LoadSkin()
 		tab:GetRegions():Hide()
 		tab:GetHighlightTexture():SetColorTexture(r, g, b, .25)
 	end
+
+	local MemberList = CommunitiesFrame.MemberList
+	-- MemberList:CreateBackdrop('Transparent')
+
+	hooksecurefunc(MemberList.ScrollBox, "Update", function(self)
+		for i = 1, self.ScrollTarget:GetNumChildren() do
+			local child = select(i, self.ScrollTarget:GetChildren())
+			if not child.styled then
+				hooksecurefunc(child, "RefreshExpandedColumns", UpdateNameFrame)
+				child.styled = true
+			end
+
+			local header = child.ProfessionHeader
+			if header and not header.styled then
+				for j = 1, 3 do
+					select(j, header:GetRegions()):Hide()
+				end
+				header:CreateBackdrop('Transparent')
+				header.backdrop:SetInside()
+				header:SetHighlightTexture(E.media.normTex)
+				header:GetHighlightTexture():SetVertexColor(r, g, b, .25)
+				header:GetHighlightTexture():SetInside(header.backdrop)
+				header.Icon:CreateBackdrop()
+
+				header.styled = true
+			end
+
+			if child and child.bg then
+				child.bg:SetShown(child.Class:IsShown())
+			end
+		end
+	end)
 
 	-- Chat Tab
 	local Dialog = CommunitiesFrame.NotificationSettingsDialog

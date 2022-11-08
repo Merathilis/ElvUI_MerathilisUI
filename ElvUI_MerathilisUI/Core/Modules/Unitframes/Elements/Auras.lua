@@ -10,7 +10,7 @@ function module:ElvUI_PostUpdateDebuffs(uf, _, button)
 
 	if not button.__MERSkin then
 		S:CreateLowerShadow(button)
-		S:BindShadowColorWithBorder(button.shadow, button)
+		S:BindShadowColorWithBorder(button.MERshadow, button)
 		button.__MERSkin = true
 	end
 end

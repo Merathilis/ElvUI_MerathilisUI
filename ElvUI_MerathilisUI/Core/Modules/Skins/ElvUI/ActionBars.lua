@@ -13,20 +13,20 @@ function module:ElvUI_ActionBar_SkinButton(button, useBackdrop)
 	module:CreateLowerShadow(button)
 
 	if not button.__MERSkin then
-		if button.shadow and button.shadow.__MER then
-			module:BindShadowColorWithBorder(button.shadow, button)
+		if button.MERshadow and button.MERshadow.__MER then
+			module:BindShadowColorWithBorder(button.MERshadow, button)
 		end
 
 		button.__MERSkin = true
 	end
 
 	if useBackdrop then
-		if button.shadow then
-			button.shadow:Hide()
+		if button.MERshadow then
+			button.MERshadow:Hide()
 		end
 	else
-		if button.shadow then
-			button.shadow:Show()
+		if button.MERshadow then
+			button.MERshadow:Show()
 		end
 	end
 end
@@ -40,15 +40,15 @@ function module:ElvUI_ActionBar_SkinBar(bar, type)
 	bar.backdrop:Styling()
 
 	if bar.db.backdrop then
-		if not bar.backdrop.shadow then
+		if not bar.backdrop.MERshadow then
 			module:CreateBackdropShadow(bar, true)
 		end
-		if bar.backdrop.shadow then
-			bar.backdrop.shadow:Show()
+		if bar.backdrop.MERshadow then
+			bar.backdrop.MERshadow:Show()
 		end
 	else
-		if bar.backdrop.shadow then
-			bar.backdrop.shadow:Hide()
+		if bar.backdrop.MERshadow then
+			bar.backdrop.MERshadow:Hide()
 		end
 	end
 
@@ -67,7 +67,7 @@ function module:ElvUI_ActionBar_SkinBar(bar, type)
 			local button = _G["ElvUI_StanceBarButton" .. i]
 			module:ElvUI_ActionBar_SkinButton(button, bar.db.backdrop)
 		end
-	elseif type == "MICRO" then
+	elseif E.Retail and type == "MICRO" then
 		for _, name in next, AB.MICRO_BUTTONS do
 			local button = _G[name]
 			self:ElvUI_ActionBar_SkinButton(button, bar.db.backdrop)

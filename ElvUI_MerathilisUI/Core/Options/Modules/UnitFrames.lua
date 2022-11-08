@@ -66,14 +66,8 @@ options.unitframes = {
 					name = L["Enable"],
 					desc = L["Enable the animated Power Bar"],
 				},
-				full = {
-					order = 2,
-					type = "toggle",
-					name = L["Full Power Animation"],
-					disabled = function() return not E.db.mui.unitframes.power.enable end,
-				},
 				type = {
-					order = 3,
+					order = 2,
 					type = "select",
 					name = L["Select Model"],
 					style = 'radio',
@@ -88,7 +82,7 @@ options.unitframes = {
 					},
 				},
 				customModel = {
-					order = 4,
+					order = 3,
 					type = "input",
 					name = L["Type the Model ID"],
 
@@ -110,7 +104,7 @@ options.unitframes = {
 					E:StaticPopup_Show("CONFIG_RL");
 				},
 				texture = {
-					order = 5,
+					order = 4,
 					type = "select",
 					name = L['Power'],
 					desc = L['Power statusbar texture.'],

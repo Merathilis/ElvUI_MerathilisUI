@@ -61,9 +61,6 @@ P.merchant = {
 }
 
 P.blizzard = {
-	talents = {
-		enable = true,
-	},
 	objectiveTracker = {
 		enable = true,
 		noDash = true,
@@ -856,7 +853,6 @@ P.unitframes = {
 	},
 	power = {
 		enable = true,
-		full = true,
 		type = "DEFAULT",
 		model = 1715069,
 		texture = E.db.unitframe.statusbar,

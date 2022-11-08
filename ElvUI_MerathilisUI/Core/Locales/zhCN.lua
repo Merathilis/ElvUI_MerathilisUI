@@ -1160,10 +1160,6 @@ L["Change the color of the name to the in-playing game style."] = "根据正在�
 L["Use Class Color"] = "使用职业颜色"
 L["Font Setting"] = "字体设定"
 
--- Talents
-L["Talents"] = "天赋"
-L["This feature improves the Talent Window by:\n\n Adding an Extra Button to swap between specializations.\n Adding an Extra Button to use and track duration for Codices and Tomes."] = true
-
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.
 

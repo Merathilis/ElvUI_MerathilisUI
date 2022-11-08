@@ -76,50 +76,6 @@ function module:CreateAnimatedBars(frame)
 			frame.sparkle = sparkle
 		end
 
-		if db.full then
-			local powerType = UnitPowerType("player")
-
-			if not frame.full then
-				local full = CreateFrame("StatusBar", nil, frame.__MERAnim, "FullResourcePulseFrame")
-				frame.full = full
-
-				local w, h = frame:GetWidth(), frame:GetHeight()
-				frame.full:ClearAllPoints()
-				frame.full:SetPoint("Right", frame, "RIGHT")
-				frame.full:SetSize(w, h)
-
-				frame.full.SpikeFrame:SetSize(w, h)
-				frame.full.PulseFrame:SetSize(w, h)
-				frame.full.SpikeFrame.AlertSpikeStay:SetSize(w / 4, h * 2)
-				frame.full.PulseFrame.YellowGlow:SetSize(w / 4, h * 3)
-				frame.full.PulseFrame.SoftGlow:SetSize(w / 4, h * 3)
-
-				frame.full:Initialize(true)
-				frame.full:SetMaxValue(UnitPowerMax("player"))
-				frame.full.currValue = UnitPower("player", powerType)
-
-				frame.full:RegisterUnitEvent("UNIT_POWER_FREQUENT", "player")
-				frame.full:RegisterUnitEvent("UNIT_MAXPOWER", "player")
-				frame.full:SetScript("OnEvent", function(self, event, ...)
-					if event == "UNIT_MAXPOWER" then
-						self:SetMaxValue(UnitPowerMax("player"))
-					end
-					if event == "UNIT_POWER_FREQUENT" then
-						local currValue = UnitPower("player", powerType)
-						self:StartAnimIfFull(self.currValue, currValue)
-						self.currValue = currValue
-					end
-				end)
-
-				-- FrameXML\UnitFrame.lua > fullPowerAnim
-				if powerType == 1 or powerType == 2 or powerType == 3 or powerType == 6 or powerType == 11 or powerType == 17 or powerType == 18 then
-					frame.full:Show()
-				else
-					frame.full:Hide()
-				end
-			end
-		end
-
 		frame.__MERAnim:SetAllPoints(frame:GetStatusBarTexture())
 		frame.__MERAnim:Show()
 
