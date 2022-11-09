@@ -781,6 +781,16 @@ function module:ReskinAS(AS)
 	end
 end
 
+-- Disable AddOnSkins Skin
+function module:DisableAddOnSkins(key)
+	if _G.AddOnSkins then
+		local AS = _G.AddOnSkins[1]
+		if AS and AS.db[key] then
+			AS:SetOption(key, false)
+		end
+	end
+end
+
 -- Replace the Recap button script re-set function
 function S:UpdateRecapButton()
 	if self and self.button4 and self.button4:IsEnabled() then

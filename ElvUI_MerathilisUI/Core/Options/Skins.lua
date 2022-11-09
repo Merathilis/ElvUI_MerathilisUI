@@ -12,12 +12,13 @@ local IsAddOnLoaded = IsAddOnLoaded
 local DecorAddons = {
 	{"ActionBarProfiles", L["ActonBarProfiles"], "abp"},
 	{"BigWigs", L["BigWigs"], "bw"},
+	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
+	{"Clique", L["Clique"], "cl"},
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
 	{"BugSack", L["BugSack"], "bs",},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
+	{"PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf"},
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
-	{"Clique", L["Clique"], "cl"},
-	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
 	{"TLDRMissions", L["TLDRMissions"], "tldr"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"WeakAurasOptions", L["WeakAuras Options"], "waOptions"},
@@ -1728,11 +1729,6 @@ options.addonskins = {
 			type = "header",
 			name = F.cOption(L["AddOnSkins"], 'orange'),
 		},
-		waCooldowns = {
-			order = 99,
-			type = "toggle",
-			name = L["WeakAuras Cooldowns"]
-		}
 	},
 }
 
