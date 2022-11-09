@@ -11,6 +11,8 @@ local GetBuildInfo = GetBuildInfo
 local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown
 
+local C_CVar_GetCVarBool = C_CVar.GetCVarBool
+
 do
 	MER.dummy = function() return end
 	MER.ElvUIV = tonumber(E.version)
@@ -46,6 +48,15 @@ do
 end
 
 MER.RegisteredModules = {}
+
+MER.UseKeyDown = C_CVar_GetCVarBool("ActionButtonUseKeyDown")
+
+E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
+	text = L["You need to reload UI to make buttons work properly."],
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = _G.ReloadUI
+}
 
 _G.BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
 for i = 1, 5 do
@@ -113,4 +124,41 @@ function MER:CheckInstalledVersion()
 		MER:ToggleChangeLog()
 		self.showChangeLog = false
 	end
+end
+
+function MER:FixGame()
+	-- fix playstyle string
+	-- from Premade Groups Filter & LFMPlus
+	do
+		if C_LFGList.IsPlayerAuthenticatedForLFG(703) then
+			function C_LFGList.GetPlaystyleString(playstyle, activityInfo)
+				if not (activityInfo and playstyle and playstyle ~= 0 and
+					C_LFGList.GetLfgCategoryInfo(activityInfo.categoryID).showPlaystyleDropdown)
+				then
+					return nil
+				end
+				local globalStringPrefix
+				if activityInfo.isMythicPlusActivity then
+					globalStringPrefix = "GROUP_FINDER_PVE_PLAYSTYLE"
+				elseif activityInfo.isRatedPvpActivity then
+					globalStringPrefix = "GROUP_FINDER_PVP_PLAYSTYLE"
+				elseif activityInfo.isCurrentRaidActivity then
+					globalStringPrefix = "GROUP_FINDER_PVE_RAID_PLAYSTYLE"
+				elseif activityInfo.isMythicActivity then
+					globalStringPrefix = "GROUP_FINDER_PVE_MYTHICZERO_PLAYSTYLE"
+				end
+				return globalStringPrefix and _G[globalStringPrefix .. tostring(playstyle)] or nil
+			end
+
+			_G.LFGListEntryCreation_SetTitleFromActivityInfo = function(_)
+			end
+		end
+	end
+
+	-- Button Fix
+	self:RegisterEvent("CVAR_UPDATE", function(_, cvar, value)
+		if cvar == "ActionButtonUseKeyDown" and MER.UseKeyDown ~= (value == "1") then
+			E:StaticPopup_Show("MERATHILISUI_BUTTON_FIX_RELOAD")
+		end
+	end)
 end
