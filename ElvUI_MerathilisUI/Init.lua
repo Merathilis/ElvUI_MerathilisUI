@@ -196,6 +196,8 @@ do
 			end
 		end
 
+		self:FixGame()
+
 		E:Delay(1, collectgarbage, "collect")
 	end
 end

@@ -236,8 +236,8 @@ V.skins = {
 		dt = true,
 		wa = true,
 		waOptions = true,
-		waCooldowns = false,
 		tldr = true,
+		pf = true,
 	},
 
 	embed = {

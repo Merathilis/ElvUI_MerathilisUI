@@ -7,6 +7,7 @@
 	<Script file="Immersion.lua"/>
 	<Script file="ls_Toasts.lua"/>
 	<Script file="Pawn.lua"/>
+	<Script file="PremadeGroupsFilter.lua"/>
 	<Script file="stAddOnManager.lua"/>
 	<Script file="TLDRMissions.lua"/>
 </Ui>
