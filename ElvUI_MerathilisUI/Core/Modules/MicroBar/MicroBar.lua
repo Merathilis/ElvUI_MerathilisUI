@@ -51,9 +51,13 @@ local ToggleSpellBook = ToggleSpellBook
 local ToggleTimeManager = ToggleTimeManager
 local UnregisterStateDriver = UnregisterStateDriver
 
+local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
+local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
+local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
 local C_CVar_GetCVar = C_CVar.GetCVar
 local C_CVar_SetCVar = C_CVar.SetCVar
 local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
+local C_FriendList_GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
 local C_Garrison_GetCompleteMissions = C_Garrison and C_Garrison.GetCompleteMissions
 local C_Timer_After = C_Timer.After
 local C_Timer_NewTicker = C_Timer.NewTicker
@@ -257,10 +261,34 @@ local ButtonTypes = {
 			end
 		},
 		additionalText = function()
-			local friendsOnline = C_FriendList_GetNumFriends()
-			local _, bnOnline = BNGetNumFriends()
-			local totalOnline = friendsOnline + bnOnline
-			return totalOnline
+			local numBNOnlineFriend = select(2, BNGetNumFriends())
+
+			if module and module.db and module.db.friends and module.db.friends.showAllFriends then
+				local friendsOnline = C_FriendList_GetNumFriends() or 0
+				local totalOnline = friendsOnline + numBNOnlineFriend
+				return totalOnline
+			end
+
+			local number = C_FriendList_GetNumOnlineFriends() or 0
+
+			for i = 1, numBNOnlineFriend do
+				local accountInfo = C_BattleNet_GetFriendAccountInfo(i)
+				if accountInfo and accountInfo.gameAccountInfo and accountInfo.gameAccountInfo.isOnline then
+					local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(i)
+					if numGameAccounts and numGameAccounts > 0 then
+						for j = 1, numGameAccounts do
+							local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
+							if gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" then
+								number = number + 1
+							end
+						end
+					elseif accountInfo.gameAccountInfo.clientProgram == "WoW" then
+						number = number + 1
+					end
+				end
+			end
+
+			return number > 0 and number or ""
 		end,
 		tooltips = "Friends",
 		events = {
@@ -554,7 +582,7 @@ function module:ConstructBar()
 	middlePanel:SetPoint("CENTER")
 	middlePanel:CreateBackdrop("Transparent")
 	middlePanel.backdrop:Styling()
-	middlePanel:RegisterForClicks(E.global.mui.core.buttonFix)
+	middlePanel:RegisterForClicks(MER.UseKeyDown and "AnyDown" or "AnyUp")
 	bar.middlePanel = middlePanel
 
 	local leftPanel = CreateFrame("Frame", "MicroBarLeftPanel", bar)
@@ -853,7 +881,7 @@ function module:ConstructButton()
 
 	local button = CreateFrame("Button", nil, self.bar, "SecureActionButtonTemplate")
 	button:SetSize(self.db.buttonSize, self.db.buttonSize)
-	button:RegisterForClicks(E.global.mui.core.buttonFix)
+	button:RegisterForClicks(MER.UseKeyDown and "AnyDown" or "AnyUp")
 
 	local normalTex = button:CreateTexture(nil, "ARTWORK")
 	normalTex:SetPoint("CENTER")

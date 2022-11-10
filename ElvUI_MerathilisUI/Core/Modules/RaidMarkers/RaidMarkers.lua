@@ -301,7 +301,7 @@ function module:CreateButtons()
 			end
 		end
 
-		button:RegisterForClicks(E.global.mui.core.buttonFix)
+		button:RegisterForClicks(MER.UseKeyDown and "AnyDown" or "AnyUp")
 
 		local tooltipText = ""
 

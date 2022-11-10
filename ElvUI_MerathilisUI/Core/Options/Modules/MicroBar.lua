@@ -423,8 +423,32 @@ options.microBar = {
 				},
 			},
 		},
-		home = {
+		friends = {
 			order = 13,
+			type = "group",
+			name = L["Friends"],
+			disabled = function()
+				return not E.db.mui.microBar.enable
+			end,
+			get = function(info)
+				return E.db.mui.microBar.friends[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.microBar.friends[info[#info]] = value
+				MB:UpdateHomeButton()
+				MB:UpdateButtons()
+			end,
+			args = {
+				showAllFriends = {
+					order = 1,
+					type = "toggle",
+					name = L["Show All Friends"],
+					desc = L["Show all friends rather than only friends who currently playing WoW."]
+				}
+			}
+		},
+		home = {
+			order = 14,
 			type = "group",
 			name = L["Home"],
 			disabled = function()
@@ -441,7 +465,7 @@ options.microBar = {
 			args = {}
 		},
 		leftButtons = {
-			order = 14,
+			order = 15,
 			type = "group",
 			name = L["Left Panel"],
 			disabled = function()

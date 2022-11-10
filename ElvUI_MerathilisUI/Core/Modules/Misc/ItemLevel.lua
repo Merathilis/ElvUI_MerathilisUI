@@ -178,7 +178,7 @@ function module:CreateItemString(frame, strType)
 			slotFrame.iLvlText = slotFrame:CreateFontString(nil, "OVERLAY")
 			slotFrame.iLvlText:FontTemplate(nil, 10)
 			slotFrame.iLvlText:ClearAllPoints()
-			slotFrame.iLvlText:SetPoint("BOTTOMRIGHT", slotFrame, "BOTTOMRIGHT", 0, -7)
+			slotFrame.iLvlText:SetPoint("BOTTOMRIGHT", slotFrame, "BOTTOMRIGHT", 0, 0)
 
 			local relF, x = module:GetSlotAnchor(index)
 			for i = 1, 5 do

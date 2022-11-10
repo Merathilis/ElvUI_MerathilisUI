@@ -793,6 +793,9 @@ P.microBar = {
 	notification = true,
 	visibility = "[petbattle][combat] hide; show",
 	tooltipPosition = "ANCHOR_BOTTOM",
+	friends = {
+		showAllFriends = false,
+	},
 	time = {
 		localTime = true,
 		twentyFour = true,

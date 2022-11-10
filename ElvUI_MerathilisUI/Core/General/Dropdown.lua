@@ -52,7 +52,7 @@ end
 local function CreateListButton(frame)
 	local button = CreateFrame("Button", nil, frame, "SecureActionButtonTemplate")
 
-	button:RegisterForClicks('LeftButtonUp', 'LeftButtonDown')
+	button:RegisterForClicks(MER.UseKeyDown and "AnyDown" or "AnyUp")
 	button.hoverTex = button:CreateTexture(nil, 'OVERLAY')
 	button.hoverTex:SetAllPoints()
 	button.hoverTex:SetTexture(E.Media.Textures.Highlight)
