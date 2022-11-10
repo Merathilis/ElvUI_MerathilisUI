@@ -8,6 +8,7 @@ local select, unpack = select, unpack
 local format = string.format
 
 local C_Calendar_GetNumPendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
+local C_Garrison_HasGarrison = C_Garrison and C_Garrison.HasGarrison
 local GetInstanceInfo = GetInstanceInfo
 local Minimap = _G.Minimap
 local hooksecurefunc = hooksecurefunc
@@ -96,6 +97,57 @@ function module:InstanceDifficulty()
 	end
 end
 
+local function toggleExpansionLandingPageButton(_, ...)
+	if InCombatLockdown() then
+		_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.ERR_NOT_IN_COMBAT)
+		return
+	end
+
+	if not C_Garrison_HasGarrison(...) then
+		_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.CONTRIBUTION_TOOLTIP_UNLOCKED_WHEN_ACTIVE)
+		return
+	end
+
+	ShowGarrisonLandingPage(...)
+end
+
+module.ExpansionMenuList = {
+	{ text = _G.GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_9_0, notCheckable = true },
+	{ text = _G.WAR_CAMPAIGN, func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_8_0, notCheckable = true },
+	{ text = _G.ORDER_HALL_LANDING_PAGE_TITLE, func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_7_0, notCheckable = true },
+	{ text = _G.GARRISON_LANDING_PAGE_TITLE, func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_6_0, notCheckable = true },
+}
+
+function module:CreateExpansionLandingButton()
+	local button = _G.ExpansionLandingPageMinimapButton
+
+	if not button then
+		return
+	end
+
+	button:HookScript('OnMouseDown', function(self, btn)
+		if btn == 'RightButton' then
+			if _G.GarrisonLandingPage and _G.GarrisonLandingPage:IsShown() then
+				HideUIPanel(_G.GarrisonLandingPage)
+			end
+
+			if _G.ExpansionLandingPage and _G.ExpansionLandingPage:IsShown() then
+				HideUIPanel(_G.ExpansionLandingPage)
+			end
+
+			EasyMenu(module.ExpansionMenuList, F.EasyMenu, self, -80, 0, 'MENU', 1)
+		end
+	end)
+
+	button:SetScript('OnEnter', function(self)
+		_G.GameTooltip:SetOwner(self, 'ANCHOR_LEFT')
+		_G.GameTooltip:SetText(self.title, 1, 1, 1)
+		_G.GameTooltip:AddLine(self.description, nil, nil, nil, true)
+		_G.GameTooltip:AddLine(L["Right click to switch expansion"], nil, nil, nil, true)
+		_G.GameTooltip:Show()
+	end)
+end
+
 function module:Initialize()
 	if not E.private.general.minimap.enable then return end
 
@@ -111,6 +163,7 @@ function module:Initialize()
 
 	if E.Retail then
 		self:InstanceDifficulty()
+		self:CreateExpansionLandingButton()
 	end
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")

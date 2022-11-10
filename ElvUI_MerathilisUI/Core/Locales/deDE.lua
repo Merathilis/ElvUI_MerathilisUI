@@ -724,6 +724,7 @@ L["Remove Fog of War from your world map."] = "Entferne Nebel des Krieges von de
 L["Style Fog of War with special color."] = "Style Nebel des Krieges mit einer besonderen Farbe."
 L["Resize world map."] = "Größenveränderung der Weltkarte"
 L["LFG Queue"] = "LFG Warteschlange"
+L["Right click to switch expansion"] = "Rechtsklick um den Content umzuschalten"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

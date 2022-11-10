@@ -737,6 +737,7 @@ L["Remove Fog of War from your world map."] = "Удалите Туман вой�
 L["Style Fog of War with special color."] = "Стиль Туман войны с особым цветом."
 L["Resize world map."] = "Изменение размера карты мира."
 L["LFG Queue"] = "Очередь LFG"
+L["Right click to switch expansion"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Кнопки миникарты"

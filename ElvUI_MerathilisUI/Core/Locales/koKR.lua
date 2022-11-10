@@ -724,6 +724,7 @@ L["Remove Fog of War from your world map."] = true
 L["Style Fog of War with special color."] = true
 L["Resize world map."] = true
 L["LFG Queue"] = true
+L["Right click to switch expansion"] = true
 
 -- SMB
 L["Minimap Buttons"] = "미니맵 버튼 통합 바"
