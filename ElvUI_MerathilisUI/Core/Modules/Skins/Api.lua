@@ -60,7 +60,7 @@ function module:CreateShadow(frame, size, r, g, b, force)
 		end
 	end
 
-	if not frame or frame.__shadow or frame.MERshadow and frame.shadow.__MER then
+	if not frame or frame.__MERshadow or frame.MERshadow and frame.shadow.__MER then
 		return
 	end
 
@@ -85,7 +85,7 @@ function module:CreateShadow(frame, size, r, g, b, force)
 	shadow.__MER = true
 
 	frame.MERshadow = shadow
-	frame.__shadow = 1
+	frame.__MERshadow = 1
 end
 
 function module:CreateLowerShadow(frame, force)
@@ -152,7 +152,7 @@ do
 		module:CreateShadow(frame.backdrop)
 
 		if frame.backdrop.MERshadow.__MER then
-			frame.__shadow = frame.backdrop.__shadow + 1
+			frame.__MERshadow = frame.backdrop.__MERshadow + 1
 		end
 	end
 
@@ -162,7 +162,7 @@ do
 		@param {string} template
 	]]
 	function module:CreateBackdropShadow(frame, template)
-		if not frame or frame.__shadow then
+		if not frame or frame.__MERshadow then
 			return
 		end
 
@@ -187,7 +187,7 @@ do
 	@param {string} [tried=20] time
 ]]
 	function module:TryCreateBackdropShadow(frame, tried)
-		if not frame or frame.__shadow then
+		if not frame or frame.__MERshadow then
 			return
 		end
 
