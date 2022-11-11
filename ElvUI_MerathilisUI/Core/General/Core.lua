@@ -129,7 +129,7 @@ end
 function MER:FixGame()
 	-- fix playstyle string
 	-- from Premade Groups Filter & LFMPlus
-	do
+	if E.global.mui.core.fixLFG then
 		if C_LFGList.IsPlayerAuthenticatedForLFG(703) then
 			function C_LFGList.GetPlaystyleString(playstyle, activityInfo)
 				if not (activityInfo and playstyle and playstyle ~= 0 and
@@ -156,9 +156,11 @@ function MER:FixGame()
 	end
 
 	-- Button Fix
-	self:RegisterEvent("CVAR_UPDATE", function(_, cvar, value)
-		if cvar == "ActionButtonUseKeyDown" and MER.UseKeyDown ~= (value == "1") then
-			E:StaticPopup_Show("MERATHILISUI_BUTTON_FIX_RELOAD")
-		end
-	end)
+	if E.global.mui.core.fixCVAR then
+		self:RegisterEvent("CVAR_UPDATE", function(_, cvar, value)
+			if cvar == "ActionButtonUseKeyDown" and MER.UseKeyDown ~= (value == "1") then
+				E:StaticPopup_Show("MERATHILISUI_BUTTON_FIX_RELOAD")
+			end
+		end)
+	end
 end

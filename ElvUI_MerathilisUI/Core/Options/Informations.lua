@@ -52,54 +52,8 @@ options.name = {
 			type = "header",
 			name = F.cOption(L["Information"], 'orange'),
 		},
-		LoginMsg = {
-			order = 1,
-			type = "toggle",
-			name = L["Login Message"],
-			desc = L["Enable/Disable the Login Message in Chat"],
-			get = function(info)
-				return E.global.mui.core.LoginMsg
-			end,
-			set = function(info, value)
-				E.global.mui.core.LoginMsg = value
-			end
-		},
-		compatibilityCheck = {
-			order = 2,
-			type = "toggle",
-			name = L["Compatibility Check"],
-			desc = L["Help you to enable/disable the modules for a better experience with other plugins."],
-			get = function(info)
-				return E.global.mui.core.compatibilityCheck
-			end,
-			set = function(info, value)
-				E.global.mui.core.compatibilityCheck = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end
-		},
-		logLevel = {
-			order = 3,
-			type = "select",
-			name = L["Log Level"],
-			desc = L["Only display log message that the level is higher than you choose."] ..
-				"\n|cffff3860" .. L["Set to 2 if you do not understand the meaning of log level."] .. "|r",
-			get = function(info)
-				return E.global.mui.core.logLevel
-			end,
-			set = function(info, value)
-				E.global.mui.core.logLevel = value
-			end,
-			hidden = function()
-			end,
-			values = {
-				[1] = "1 - |cffff3860[ERROR]|r",
-				[2] = "2 - |cffffdd57[WARNING]|r",
-				[3] = "3 - |cff209cee[INFO]|r",
-				[4] = "4 - |cff00d1b2[DEBUG]|r"
-			},
-		},
 		support = {
-			order = 5,
+			order = 1,
 			type = "group",
 			name = F.cOption(L["Support & Downloads"], 'orange'),
 			guiInline = true,
@@ -157,7 +111,7 @@ options.name = {
 			},
 		},
 		testing = {
-			order = 6,
+			order = 2,
 			type = "group",
 			name = F.cOption(L["Testing & Inspiration"], 'orange'),
 			guiInline = true,
@@ -170,7 +124,7 @@ options.name = {
 			},
 		},
 		donors = {
-			order = 7,
+			order = 3,
 			type = 'group',
 			name = F.cOption(L["Donations"], 'orange'),
 			guiInline = true,
@@ -190,7 +144,7 @@ options.name = {
 			},
 		},
 		version = {
-			order = 8,
+			order = 10,
 			type = "group",
 			name = F.cOption(L["Version"], 'orange'),
 			guiInline = true,
