@@ -154,17 +154,13 @@ function module:LoadChatEmote()
 	end
 
 	function CH:InsertEmotions(msg)
-		for k, v in pairs(emotes) do
-			msg = gsub(msg, v[1], "|T" .. v[2] .. ":16|t")
-		end
-
 		for word in gmatch(msg, "%s-%S+%s*") do
 			word = strtrim(word)
-			local pattern = gsub(word, "([%(%)%.%%%+%-%*%?%[%^%$])", "%%%1")
+			local pattern = E:EscapeString(word)
 			local emoji = CH.Smileys[pattern]
-			if emoji and strmatch(msg, "[%s%p]-" .. pattern .. "[%s%p]*") then
+			if emoji and strmatch(msg, '[%s%p]-'..pattern..'[%s%p]*') then
 				local encode = E.Libs.Deflate:EncodeForPrint(word) -- btw keep `|h|cFFffffff|r|h` as it is
-				msg = gsub(msg, "([%s%p]-)" .. pattern .. "([%s%p]*)", (encode and ("%1|Helvmoji:%%" .. encode .. "|h|cFFffffff|r|h") or "%1") .. emoji .. "%2")
+				msg = gsub(msg, '([%s%p]-)'..pattern..'([%s%p]*)', (encode and ('%1|Helvmoji:%%'..encode..'|h|cFFffffff|r|h') or '%1')..emoji..'%2')
 			end
 		end
 		return msg
