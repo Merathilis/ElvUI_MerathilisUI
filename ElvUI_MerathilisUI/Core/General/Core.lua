@@ -56,7 +56,7 @@ E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
 		"%s\n%s\n\n|cffaaaaaa%s|r",
 		format(L["%s detects CVar %s has been changed."], MER.Title, "|cff209ceeActionButtonUseKeyDown|r"),
 		L["It will cause some buttons not work properly before UI reloading."],
-		format(L["You can disable this alert in [%s]-[%s]-[%s]"], MER.Title, L["Advanced Settings"], L["Game Fix"])
+		format(L["You can disable this alert in [%s]-[%s]-[%s]"], MER.Title, L["Advanced Settings"], L["Blizzard Fixes"])
 	),
 	button1 = L["Reload UI"],
 	button2 = _G.CANCEL,
