@@ -52,9 +52,14 @@ MER.RegisteredModules = {}
 MER.UseKeyDown = C_CVar_GetCVarBool("ActionButtonUseKeyDown")
 
 E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
-	text = L["You need to reload UI to make buttons work properly."],
-	button1 = ACCEPT,
-	button2 = CANCEL,
+	text = format(
+		"%s\n%s\n\n|cffaaaaaa%s|r",
+		format(L["%s detects CVar %s has been changed."], MER.Title, "|cff209ceeActionButtonUseKeyDown|r"),
+		L["It will cause some buttons not work properly before UI reloading."],
+		format(L["You can disable this alert in [%s]-[%s]-[%s]"], MER.Title, L["Advanced Settings"], L["Game Fix"])
+	),
+	button1 = L["Reload UI"],
+	button2 = _G.CANCEL,
 	OnAccept = _G.ReloadUI
 }
 
