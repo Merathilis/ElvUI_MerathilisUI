@@ -63,7 +63,7 @@ local function Skin_ElvUI_OptionsUI()
 		return
 	end
 
-	module:SecureHook(E, "ToggleOptionsUI", StyleElvUIConfig)
+	module:SecureHook(E, "ToggleOptions", StyleElvUIConfig)
 
 	if _G.PluginInstallFrame then
 		_G.PluginInstallFrame:Styling()
