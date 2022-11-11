@@ -4,11 +4,18 @@ local options = MER.options.advanced.args
 local _G = _G
 local format = format
 
+local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
+
 options.core = {
 	order = 1,
 	type = "group",
 	name = L["Core"],
 	args = {
+		header = {
+			order = 0,
+			type = "header",
+			name = F.cOption(L["General"], 'orange'),
+		},
 		loginMessage = {
 			order = 1,
 			type = "toggle",
@@ -38,8 +45,7 @@ options.core = {
 			order = 3,
 			type = "select",
 			name = L["Log Level"],
-			desc = L["Only display log message that the level is higher than you choose."] ..
-				"\n|cffff3860" .. L["Set to 2 if you do not understand the meaning of log level."] .. "|r",
+			desc = L["Only display log message that the level is higher than you choose."] .. "\n|cffff3860" .. L["Set to 2 if you do not understand the meaning of log level."] .. "|r",
 			get = function(info)
 				return E.global.mui.core.logLevel
 			end,
@@ -61,16 +67,18 @@ options.core = {
 options.gameFix = {
 	order = 2,
 	type = "group",
-	name = L["Game Fix"],
+	name = newSignIgnored..L["Blizzard Fixes"],
 	args = {
+		header = {
+			order = 0,
+			type = "header",
+			name = F.cOption(L["Blizzard Fixes"], 'orange'),
+		},
 		fixCVAR = {
 			order = 1,
 			type = "toggle",
 			name = L["CVar Alert"],
-			desc = format(
-				L["It will alert you to reload UI when you change the CVar %s."],
-				"|cff209ceeActionButtonUseKeyDown|r"
-			),
+			desc = format(L["It will alert you to reload UI when you change the CVar %s."], "|cff209ceeActionButtonUseKeyDown|r"),
 			get = function(info)
 				return E.global.mui.core.fixCVAR
 			end,

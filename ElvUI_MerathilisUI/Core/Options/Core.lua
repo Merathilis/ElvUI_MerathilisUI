@@ -41,7 +41,7 @@ MER.options = {
 	},
 	advanced = {
 		order = 111,
-		name = F.cOption(L["Advanced Settings"], 'gradient'),
+		name = newSignIgnored..F.cOption(L["Advanced Settings"], 'gradient'),
 		icon = MER.Media.Icons.innovation,
 		args = {},
 	},
