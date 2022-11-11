@@ -163,8 +163,8 @@ function module:LoadChatEmote()
 			local pattern = gsub(word, "([%(%)%.%%%+%-%*%?%[%^%$])", "%%%1")
 			local emoji = CH.Smileys[pattern]
 			if emoji and strmatch(msg, "[%s%p]-" .. pattern .. "[%s%p]*") then
-				local base64 = E.Libs.Base64:Encode(word)
-				msg = gsub(msg, "([%s%p]-)" .. pattern .. "([%s%p]*)", (base64 and ("%1|Helvmoji:%%" .. base64 .. "|h|cFFffffff|r|h") or "%1") .. emoji .. "%2")
+				local encode = E.Libs.Deflate:EncodeForPrint(word) -- btw keep `|h|cFFffffff|r|h` as it is
+				msg = gsub(msg, "([%s%p]-)" .. pattern .. "([%s%p]*)", (encode and ("%1|Helvmoji:%%" .. encode .. "|h|cFFffffff|r|h") or "%1") .. emoji .. "%2")
 			end
 		end
 		return msg
