@@ -12,13 +12,13 @@ MER.options = {
 	general = {
 		order = 101,
 		name = F.cOption(L["General"], 'gradient'),
-		icon = MER.Media.Icons.general,
+		icon = MER.Media.Icons.home,
 		args = {},
 	},
 	modules = {
 		order = 102,
 		name = F.cOption(L["Modules"], 'gradient'),
-		icon = MER.Media.Icons.modules,
+		icon = MER.Media.Icons.config,
 		args = {
 			info = {
 				order = 1,
@@ -30,25 +30,25 @@ MER.options = {
 	skins = {
 		order = 103,
 		name = F.cOption(L["Skins/AddOns"], 'gradient'),
-		icon = MER.Media.Icons.skins,
+		icon = MER.Media.Icons.bill,
 		args = {},
 	},
 	media = {
 		order = 104,
 		name = F.cOption(L["Media"], 'gradient'),
-		icon = MER.Media.Icons.media,
+		icon = MER.Media.Icons.system,
 		args = {},
 	},
 	advanced = {
 		order = 111,
 		name = newSignIgnored..F.cOption(L["Advanced Settings"], 'gradient'),
-		icon = MER.Media.Icons.innovation,
+		icon = MER.Media.Icons.tips,
 		args = {},
 	},
 	information = {
 		order = 112,
 		name = F.cOption(L["Information"], 'gradient'),
-		icon = MER.Media.Icons.information,
+		icon = MER.Media.Icons.save,
 		args = {},
 	},
 }

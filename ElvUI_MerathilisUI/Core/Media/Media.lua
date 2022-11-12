@@ -101,18 +101,23 @@ AddMedia("barVolume", "MicroBar/Volume.tga", "Icons")
 AddMedia("calendar", "Calendar.tga", "Icons")
 AddMedia("convert", "Convert.tga", "Icons")
 AddMedia("favorite", "Favorite.tga", "Icons")
-AddMedia("general", "General.tga", "Icons")
 AddMedia("information", "Information.tga", "Icons")
 AddMedia("innovation", "Innovation.tga", "Icons")
 AddMedia("list", "List.tga", "Icons")
 AddMedia("media", "Media.tga", "Icons")
 AddMedia("modules", "Modules.tga", "Icons")
 AddMedia("skins", "Skins.tga", "Icons")
-
 AddMedia("accept", "Accept.tga", "Icons")
-
 AddMedia("discord", "Discord.tga", "Icons")
 AddMedia("github", "Github.tga", "Icons")
+
+--Option Icons
+AddMedia("home", "Options/home.tga", "Icons")
+AddMedia("config", "Options/config.tga", "Icons")
+AddMedia("system", "Options/system.tga", "Icons")
+AddMedia("tips", "Options/tips.tga", "Icons")
+AddMedia("bill", "Options/bill.tga", "Icons")
+AddMedia("save", "Options/save.tga", "Icons")
 
 AddMedia("buttonLock", "Button/Lock.tga", "Icons")
 AddMedia("buttonUnlock", "Button/Unlock.tga", "Icons")
