@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local ElvUF = ElvUI.oUF
+local ElvUF = E.oUF
 assert(ElvUF, "ElvUI was unable to locate oUF.")
 local Translit = E.Libs.Translit
 local translitMark = "!"

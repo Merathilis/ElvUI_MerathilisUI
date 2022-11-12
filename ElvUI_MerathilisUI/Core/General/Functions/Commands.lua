@@ -38,7 +38,8 @@ end
 do
 	local AcceptableAddons = {
 		["ElvUI"] = true,
-		["ElvUI_OptionsUI"] = true,
+		["ElvUI_Libraries"] = true,
+		["ElvUI_Options"] = true,
 		["ElvUI_CPU"] = true,
 		["ElvUI_MerathilisUI"] = true,
 		["!BugGrabber"] = true,

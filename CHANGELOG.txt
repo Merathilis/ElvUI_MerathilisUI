@@ -1,6 +1,5 @@
-[b][color=orange]v5.35[/color], 10.11.2022[/b][list]
-[*]Automate the Button Fix
-[*]Wrath: Fix ItemLevel position on Inspect Frame
-[*]MicroBar: Added an option to show all friends instead only online friends
-[*]Added an own skin for PGF
-[*]Added a right click menu to the ExpansionLanding Button[/list]
+[b][color=orange]v5.36[/color], 12.11.2022[/b][list]
+[*]Added new option category: Advanced Settings
+[*]Added TargetTarget option to NameHover
+[*]Switch to LibDeflate
+[*]Take account for latest ElvUI Changes -> 13.01[/list]

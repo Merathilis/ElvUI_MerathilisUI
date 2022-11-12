@@ -58,12 +58,12 @@ local function ElvUI_SkinMoverPopup()
     module:CreateShadow(_G.ElvUIMoverPopupWindow.header)
 end
 
-local function Skin_ElvUI_OptionsUI()
+local function Skin_ElvUI_Options()
 	if not E.private.mui.skins.enable then
 		return
 	end
 
-	module:SecureHook(E, "ToggleOptionsUI", StyleElvUIConfig)
+	module:SecureHook(E, "ToggleOptions", StyleElvUIConfig)
 
 	if _G.PluginInstallFrame then
 		_G.PluginInstallFrame:Styling()
@@ -82,4 +82,4 @@ local function Skin_ElvUI_OptionsUI()
 	module:SecureHook(E, "ToggleMoveMode", ElvUI_SkinMoverPopup)
 end
 
-S:AddCallback("ElvUI_OptionsUI", Skin_ElvUI_OptionsUI)
+S:AddCallback("ElvUI_Options", Skin_ElvUI_Options)

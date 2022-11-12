@@ -39,8 +39,14 @@ MER.options = {
 		icon = MER.Media.Icons.media,
 		args = {},
 	},
-	information = {
+	advanced = {
 		order = 111,
+		name = newSignIgnored..F.cOption(L["Advanced Settings"], 'gradient'),
+		icon = MER.Media.Icons.innovation,
+		args = {},
+	},
+	information = {
+		order = 112,
 		name = F.cOption(L["Information"], 'gradient'),
 		icon = MER.Media.Icons.information,
 		args = {},
@@ -78,7 +84,7 @@ function MER:OptionsCallback()
 				name = L["Install"],
 				desc = L["Run the installation process."],
 				customWidth = 140,
-				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleOptionsUI() end,
+				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleOptions() end,
 			},
 			changelog = {
 				order = 4,
@@ -86,7 +92,7 @@ function MER:OptionsCallback()
 				name = L["Changelog"],
 				desc = L["Open the changelog window."],
 				customWidth = 140,
-				func = function() MER:ToggleChangeLog(); E:ToggleOptionsUI() end,
+				func = function() MER:ToggleChangeLog(); E:ToggleOptions() end,
 			},
 			discordButton = {
 				order = 5,
