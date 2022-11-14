@@ -121,7 +121,6 @@ do
 		end
 	end
 
-	MER:AddLib('LDF', 'LibDeflate')
 	MER:AddLib('LDD', 'LibDropDown')
 
 	if E.Retail then

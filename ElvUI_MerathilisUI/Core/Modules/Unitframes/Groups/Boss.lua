@@ -11,7 +11,7 @@ function module:Update_BossFrames(frame)
 	if E.db.unitframe.colors.transparentHealth then
 		if db.style then
 			if frame and frame.Health and not frame.__MERSkin then
-				frame.Health:Styling(false, false, true)
+				frame.Health:Styling(false, true)
 				frame.__MERSkin = true
 			end
 		end

@@ -9,7 +9,7 @@ function MER:LoadTouhinProfile()
 		["edgeSize"] = 1,
 		["scale"] = 0.9,
 		["anchor_y"] = 249.000579833984,
-		["bgFile"] = "MER_NormTex",
+		["bgFile"] = "Asphyxia",
 		["showMoney"] = false,
 		["font"] = "Expressway",
 		["anchor_x"] = 57.0003356933594,

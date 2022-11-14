@@ -1,5 +1,6 @@
-[b][color=orange]v5.36[/color], 12.11.2022[/b][list]
-[*]Added new option category: Advanced Settings
-[*]Added TargetTarget option to NameHover
-[*]Switch to LibDeflate
-[*]Take account for latest ElvUI Changes -> 13.01[/list]
+[b][color=orange]v5.37[/color], 14.11.2022[/b][list]
+[*]New Option Icons.. yay
+[*]Removed LibDeflate cause its in ElvUI
+[*]Added own Auctionator Skin. Credits Simpy <3
+[*]Remove the gradient from my Styling function
+[*]Added a gradient Castbar option works only on non Transparent[/list]

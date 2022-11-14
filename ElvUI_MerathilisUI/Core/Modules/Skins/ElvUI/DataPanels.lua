@@ -14,13 +14,11 @@ local function hookPanelSetTemplate(panel, template)
 	if template == "NoBackdrop" then
 		panel.MERshadow:Hide()
 		panel.MERstyle.stripes:Hide()
-		panel.MERstyle.gradient:Hide()
 		panel.MERstyle.mshadow:Hide()
 
 	else
 		panel.MERshadow:Show()
 		panel.MERstyle.stripes:Show()
-		panel.MERstyle.gradient:Show()
 		panel.MERstyle.mshadow:Show()
 	end
 end

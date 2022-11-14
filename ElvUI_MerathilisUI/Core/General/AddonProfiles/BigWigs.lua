@@ -92,7 +92,7 @@ function MER:LoadBigWigsProfile()
 		["barStyle"] = "MerathilisUI",
 		["growup"] = true,
 		["emphasizeGrowup"] = true,
-		["texture"] = "MER_NormTex",
+		["texture"] = "Asphyxia",
 	}
 	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] or {}
 	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"][profileName] = {

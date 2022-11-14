@@ -90,7 +90,14 @@ do
 		if not icon then
 			return
 		end
+		icon:SetIgnoreParentScale(true)
 		icon:SetScale(E.uiscale)
+
+		local box = _G.GarrisonLandingPageTutorialBox
+		if box then
+			box:SetScale(E.uiscale)
+			box:SetClampedToScreen(true)
+		end
 
 		if not modified then
 			icon.AlertText:Hide()
@@ -121,7 +128,7 @@ do
 	function MM:HandleExpansionButton()
 		local icon = _G.ExpansionLandingPageMinimapButton
 
-		if not icon or not icon.isMinimapButton or InCombatLockdown() then
+		if not icon or not icon.isMERMinimapButton or InCombatLockdown() then
 			return originalFunction(self)
 		else
 			return module:UpdateExpansionLandingPageMinimapIcon(icon)
@@ -177,7 +184,6 @@ function module:SkinButton(frame)
 	if frame == nil or frame:GetName() == nil or not frame:IsVisible() then
 		return
 	end
-
 	local tmp
 	local frameType = frame:GetObjectType()
 	if frameType == "Button" then
@@ -223,23 +229,21 @@ function module:SkinButton(frame)
 		end
 	end
 
-	if name ~= "ExpansionLandingPageMinimapButton" and tmp ~= 2 then
-		frame:SetPushedTexture('')
-		frame:SetDisabledTexture('')
-		frame:SetHighlightTexture('')
-	elseif name == "DBMMinimapButton" then
+	if name == "DBMMinimapButton" then
 		frame:SetNormalTexture("Interface\\Icons\\INV_Helmet_87")
 	elseif name == "SmartBuff_MiniMapButton" then
 		frame:SetNormalTexture(select(3, GetSpellInfo(12051)))
-	elseif name == "ExpansionLandingPageMinimapButton" and self.db.garrison then
-		if not frame.isMinimapButton then
-			self:UpdateGarrisonMinimapIcon(_G.ExpansionLandingPageMinimapButton)
-			frame.isMinimapButton = true
+	elseif name == "ExpansionLandingPageMinimapButton" then
+		if self.db.garrison then
+			if not frame.isMERMinimapButton then
+				frame.isMERMinimapButton = true
+				self:UpdateExpansionLandingPageMinimapIcon(_G.ExpansionLandingPageMinimapButton)
+			end
 		end
 	elseif name == "GRM_MinimapButton" then
 		frame.GRM_MinimapButtonBorder:Hide()
-		frame:SetPushedTexture('')
-		frame:SetHighlightTexture('')
+		frame:SetPushedTexture("")
+		frame:SetHighlightTexture("")
 		frame.SetPushedTexture = E.noop
 		frame.SetHighlightTexture = E.noop
 		if frame:HasScript("OnEnter") then
@@ -247,13 +251,21 @@ function module:SkinButton(frame)
 			frame.OldSetScript = frame.SetScript
 			frame.SetScript = E.noop
 		end
+	elseif strsub(name, 1, strlen("TomCats-")) == "TomCats-" then
+		frame:SetPushedTexture("")
+		frame:SetDisabledTexture("")
+		frame:GetHighlightTexture():Kill()
+	elseif tmp ~= 2 then
+		frame:SetPushedTexture("")
+		frame:SetDisabledTexture("")
+		frame:SetHighlightTexture("")
 	end
 
 	if not frame.isSkinned then
 		if tmp ~= 2 then
 			frame:HookScript("OnClick", self.DelayedUpdateLayout)
 		end
-		for _, region in pairs({frame:GetRegions()}) do
+		for _, region in pairs({ frame:GetRegions() }) do
 			local original = {}
 			original.Width, original.Height = frame:GetSize()
 			original.Point, original.relativeTo, original.relativePoint, original.xOfs, original.yOfs = frame:GetPoint()
@@ -270,6 +282,7 @@ function module:SkinButton(frame)
 
 			frame.original = original
 
+			-- TODO: Handling calendar
 			if region:IsObjectType("Texture") then
 				local t = region:GetTexture()
 
@@ -294,7 +307,6 @@ function module:SkinButton(frame)
 					region:ClearAllPoints()
 					region:SetPoint("TOPLEFT", frame, "TOPLEFT", 2, -2)
 					region:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -2, 2)
-
 					region:SetDrawLayer("ARTWORK")
 
 					if (name == "PS_MinimapButton") then

@@ -36,19 +36,17 @@ function MER:UpdateStyling()
 	if E.private.mui.skins.style then
 		for MERstyle in pairs(MER.Styling) do
 			if MERstyle.stripes then MERstyle.stripes:Show() end
-			if MERstyle.gradient then MERstyle.gradient:Show() end
 			if MERstyle.mshadow then MERstyle.mshadow:Show() end
 		end
 	else
 		for MERstyle in pairs(MER.Styling) do
 			if MERstyle.stripes then MERstyle.stripes:Hide() end
-			if MERstyle.gradient then MERstyle.gradient:Hide() end
 			if MERstyle.mshadow then MERstyle.mshadow:Hide() end
 		end
 	end
 end
 
-local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
+local function Styling(f, useStripes, useShadow)
 	assert(f, "doesn't exist!")
 
 	if not f or f.__style or f.MERstyle or f.style__MER then
@@ -82,26 +80,13 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		if not E.private.mui.skins.style then stripes:Hide() end
 	end
 
-	if not(useGradient) then
-		local gradient = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER")
-		gradient:ClearAllPoints()
-		gradient:Point("TOPLEFT", 1, -1)
-		gradient:Point("BOTTOMRIGHT", -1, 1)
-		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\gradient]])
-		gradient:SetVertexColor(.3, .3, .3, .15)
-
-		style.gradient = gradient
-
-		if not E.private.mui.skins.style then gradient:Hide() end
-	end
-
 	if not(useShadow) then
 		local mshadow = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER")
 		mshadow:SetInside(f, 0, 0)
-		mshadow:Width(shadowOverlayWidth or 33)
-		mshadow:Height(shadowOverlayHeight or 33)
+		mshadow:Width(33)
+		mshadow:Height(33)
 		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Overlay]])
-		mshadow:SetVertexColor(1, 1, 1, shadowOverlayAlpha or 0.6)
+		mshadow:SetVertexColor(1, 1, 1, 0.6)
 
 		style.mshadow = mshadow
 

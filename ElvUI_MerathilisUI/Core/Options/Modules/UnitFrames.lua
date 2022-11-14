@@ -8,7 +8,7 @@ local format = string.format
 
 options.unitframes = {
 	type = "group",
-	name = L["UnitFrames"],
+	name = E.NewSign..L["UnitFrames"],
 	get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 	set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; end,
 	disabled = function() return not E.private.unitframe.enable end,
@@ -116,8 +116,88 @@ options.unitframes = {
 				},
 			},
 		},
-		gcd = {
+		castbar = {
 			order = 4,
+			type = "group",
+			name = E.NewSign..F.cOption(L["Castbar"], 'orange'),
+			guiInline = true,
+			get = function(info) return E.db.mui.unitframes.castbar[ info[#info] ] end,
+			set = function(info, value) E.db.mui.unitframes.castbar[info[#info]] = value; E:StaticPopup_Show("CONFIG_RL"); end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				texture = {
+					order = 2,
+					type = "select",
+					name = L["Texture"],
+					dialogControl = "LSM30_Statusbar",
+					values = LSM:HashTable("statusbar"),
+					disabled = function()
+						return not E.db.mui.unitframes.castbar.enable
+					end,
+				},
+				spacer = {
+					order = 3,
+					type = "description",
+					name = " ",
+				},
+				spark = {
+					order = 10,
+					type = "group",
+					name = F.cOption(L["Spark"], 'orange'),
+					guiInline = true,
+					get = function(info) return E.db.mui.unitframes.castbar.spark[ info[#info] ] end,
+					set = function(info, value) E.db.mui.unitframes.castbar.spark[info[#info]] = value; E:StaticPopup_Show("CONFIG_RL"); end,
+					disabled = function()
+						return not E.db.mui.unitframes.castbar.enable
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+						},
+						texture = {
+							order = 2,
+							type = "select",
+							name = L["Spark Texture"],
+							dialogControl = "LSM30_Statusbar",
+							values = LSM:HashTable("statusbar")
+						},
+						color = {
+							order = 3,
+							type = "color",
+							name = _G.COLOR,
+							hasAlpha = false,
+							disabled = function() return not E.db.mui.unitframes.castbar.enable or not E.db.mui.unitframes.castbar.spark.enable end,
+							get = function(info)
+								local t = E.db.mui.unitframes.castbar.spark[info[#info]]
+								local d = P.unitframes.castbar.spark[info[#info]]
+								return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+							end,
+							set = function(info, r, g, b, a)
+								local t = E.db.mui.unitframes.castbar.spark[info[#info]]
+								t.r, t.g, t.b, t.a = r, g, b, a
+								E:StaticPopup_Show("CONFIG_RL")
+							end,
+						},
+						width = {
+							order = 4,
+							type = "range",
+							name = L["Size"],
+							min = 2, max = 10, step = 1,
+							disabled = function() return not E.db.mui.unitframes.castbar.enable or
+								not E.db.mui.unitframes.castbar.spark.enable end,
+						},
+					},
+				},
+			},
+		},
+		gcd = {
+			order = 5,
 			type = "group",
 			name = F.cOption(L["GCD Bar"], 'orange'),
 			guiInline = true,
@@ -134,7 +214,7 @@ options.unitframes = {
 				color = {
 					order = 2,
 					type = "color",
-					name = L["COLOR"],
+					name = _G.COLOR,
 					hasAlpha = false,
 					disabled = function() return not E.db.mui.unitframes.gcd.enable end,
 					get = function(info)
@@ -151,7 +231,7 @@ options.unitframes = {
 			},
 		},
 		swing = {
-			order = 5,
+			order = 6,
 			type = "group",
 			name = F.cOption(L["Swing Bar"], 'orange'),
 			guiInline = true,
@@ -219,7 +299,7 @@ options.unitframes = {
 			},
 		},
 		healPrediction = {
-			order = 6,
+			order = 7,
 			type = "group",
 			name = F.cOption(L["Heal Prediction"], 'orange'),
 			desc = L["Changes the Heal Prediction texture to the default Blizzard ones."],
