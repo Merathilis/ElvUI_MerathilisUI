@@ -69,4 +69,49 @@ function module:Configure_Castbar(frame)
 	end
 
 	S:CreateShadow(MERBg)
+
+	--Castbar was modified, re-apply settings
+	local unit = frame.unitframeType
+	if unit and (unit == 'player' or unit == 'target') then
+		module:UpdateSettings(unit)
+	end
+end
+
+local function ConfigureCastbarSpark(unit, unitframe)
+	local castbar = unitframe.Castbar
+	if not castbar then
+		return
+	end
+
+	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar and E.db.mui.unitframes.castbar.spark
+
+	castbar.Spark_:SetTexture(E.LSM:Fetch('statusbar', db.texture))
+	castbar.Spark_:SetBlendMode('BLEND')
+	castbar.Spark_:SetWidth(3)
+	castbar.Spark_:SetVertexColor(db.color.r, db.color.g, db.color.b, db.color.a or 1, 1, 1, 1)
+end
+
+local function ConfigureCastbar(unit, unitframe)
+	local db = E.db.unitframe.units[unit].castbar
+
+	if unit == 'player' or unit == 'target' then
+		ConfigureCastbarSpark(unit, unitframe)
+	end
+end
+
+function module:UpdateSettings(unit)
+	if unit then
+		local unitFrameName = 'ElvUF_'..E:StringTitle(unit)
+		local unitframe = _G[unitFrameName]
+		ConfigureCastbar(unit, unitframe)
+	end
+end
+
+function module:UpdateAllCastbars()
+	module:UpdateSettings('player')
+	module:UpdateSettings('target')
+	module:UpdateSettings('focus')
+	module:UpdateSettings('pet')
+	module:UpdateSettings('arena')
+	module:UpdateSettings('boss')
 end

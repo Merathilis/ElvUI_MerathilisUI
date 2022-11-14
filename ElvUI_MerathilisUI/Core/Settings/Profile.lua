@@ -861,6 +861,14 @@ P.unitframes = {
 		model = 1715069,
 		texture = E.db.unitframe.statusbar,
 	},
+	castbar = {
+		enable = true,
+		spark = {
+			enable = true,
+			texture = 'Gradient',
+			color = { r = .8, g = .8, b = .1 , a = 1},
+		},
+	},
 	swing = {
 		enable = false,
 		mcolor = { r = .8, g = .8, b = .8 },
