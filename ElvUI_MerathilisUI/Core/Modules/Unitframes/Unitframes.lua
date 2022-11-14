@@ -124,6 +124,7 @@ function module:Initialize()
 	hooksecurefunc(UF, "Update_BossFrames", module.Update_BossFrames)
 	-- Castbar
 	hooksecurefunc(UF, "Configure_Castbar", module.Configure_Castbar)
+	hooksecurefunc(UF, "LoadUnits", module.CastBarHooks)
 	hooksecurefunc(UF, "LoadUnits", module.UpdateAllCastbars)
 	-- Power
 	hooksecurefunc(UF, "Configure_Power", module.Configure_Power)

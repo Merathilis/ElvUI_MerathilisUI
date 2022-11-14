@@ -863,9 +863,10 @@ P.unitframes = {
 	},
 	castbar = {
 		enable = true,
+		texture = "Gradient",
 		spark = {
 			enable = true,
-			texture = 'Gradient',
+			texture = "Gradient",
 			width = 3,
 			color = { r = 0, g = .75, b = .98 , a = 1},
 		},

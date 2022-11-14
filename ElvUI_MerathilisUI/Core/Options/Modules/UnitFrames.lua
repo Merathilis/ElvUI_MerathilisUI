@@ -129,6 +129,13 @@ options.unitframes = {
 					type = "toggle",
 					name = L["Enable"],
 				},
+				texture = {
+					order = 2,
+					type = "select",
+					name = L["Spark Texture"],
+					dialogControl = "LSM30_Statusbar",
+					values = LSM:HashTable("statusbar")
+				},
 				spacer = {
 					order = 3,
 					type = "description",
@@ -137,7 +144,7 @@ options.unitframes = {
 				spark = {
 					order = 10,
 					type = "group",
-					name = F.cOption(L["Castbar"], 'orange'),
+					name = F.cOption(L["Spark"], 'orange'),
 					guiInline = true,
 					get = function(info) return E.db.mui.unitframes.castbar.spark[ info[#info] ] end,
 					set = function(info, value) E.db.mui.unitframes.castbar.spark[info[#info]] = value; E:StaticPopup_Show("CONFIG_RL"); end,

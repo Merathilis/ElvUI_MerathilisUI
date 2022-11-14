@@ -859,7 +859,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["stackFont"] = "Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["smoothbars"] = true
-	E.db["nameplates"]["statusbar"] = "Asphyxia"
+	E.db["nameplates"]["statusbar"] = "MER_NormTex"
 	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
 
 	-- Cooldowns

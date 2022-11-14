@@ -5,6 +5,9 @@ local UF = E.UnitFrames
 
 local hooksecurefunc = hooksecurefunc
 
+local MAX_BOSS_FRAMES = 8
+local units = { "Player", "Target", "Focus", "Pet" }
+
 function module:Configure_Castbar(frame)
 	if not frame.Castbar then
 		return
@@ -114,4 +117,51 @@ function module:UpdateAllCastbars()
 	module:UpdateSettings('pet')
 	module:UpdateSettings('arena')
 	module:UpdateSettings('boss')
+end
+
+function module:PostCast(unit, unitframe)
+	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
+	local castTexture = E.LSM:Fetch("statusbar", db.texture)
+
+	if not self.isTransparent then
+		self:SetStatusBarTexture(castTexture)
+	end
+end
+
+function module:PostCastInterruptible(unit, unitframe)
+	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
+	if unit == "vehicle" or unit == "player" then return end
+
+	local castTexture = E.LSM:Fetch("statusbar", db.texture)
+
+	if not self.isTransparent then
+		self:SetStatusBarTexture(castTexture)
+	end
+end
+
+function module:CastBarHooks()
+	for _, unit in pairs(units) do
+		local unitframe = _G["ElvUF_" .. unit];
+		local castbar = unitframe and unitframe.Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", module.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", module.PostCastInterruptible)
+		end
+	end
+
+	for i = 1, 5 do
+		local castbar = _G["ElvUF_Arena" .. i].Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", module.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", module.PostCastInterruptible)
+		end
+	end
+
+	for i = 1, MAX_BOSS_FRAMES do
+		local castbar = _G["ElvUF_Boss" .. i].Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", module.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", module.PostCastInterruptible)
+		end
+	end
 end
