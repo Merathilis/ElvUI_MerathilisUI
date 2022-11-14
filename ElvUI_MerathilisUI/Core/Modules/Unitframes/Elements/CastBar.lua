@@ -72,12 +72,6 @@ function module:Configure_Castbar(frame)
 	end
 
 	S:CreateShadow(MERBg)
-
-	--Castbar was modified, re-apply settings
-	local unit = frame.unitframeType
-	if unit and (unit == 'player' or unit == 'target') then
-		module:UpdateSettings(unit)
-	end
 end
 
 local function ConfigureCastbarSpark(unit, unitframe)
@@ -111,6 +105,12 @@ function module:UpdateSettings(unit)
 end
 
 function module:UpdateAllCastbars()
+	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
+
+	if not db.enable or not db.spark.enable then
+		return
+	end
+
 	module:UpdateSettings('player')
 	module:UpdateSettings('target')
 	module:UpdateSettings('focus')
@@ -169,6 +169,12 @@ function module:PostCastInterruptible(unit, unitframe)
 end
 
 function module:CastBarHooks()
+	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
+
+	if db and not db.enable then
+		return
+	end
+
 	for _, unit in pairs(units) do
 		local unitframe = _G["ElvUF_" .. unit]
 		local castbar = unitframe and unitframe.Castbar
