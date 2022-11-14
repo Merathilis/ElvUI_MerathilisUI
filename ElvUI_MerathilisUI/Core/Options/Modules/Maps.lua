@@ -478,10 +478,10 @@ options.maps = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					args = {
-						garrison = {
+						expansionLandingPage = {
 							order = 1,
 							type = "toggle",
-							name = L["Garrison"],
+							name = L["Expansion Landing Page"],
 							desc = L["Add garrison button to the bar."]
 						},
 					},

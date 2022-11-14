@@ -132,9 +132,12 @@ options.unitframes = {
 				texture = {
 					order = 2,
 					type = "select",
-					name = L["Spark Texture"],
+					name = L["Texture"],
 					dialogControl = "LSM30_Statusbar",
-					values = LSM:HashTable("statusbar")
+					values = LSM:HashTable("statusbar"),
+					disabled = function()
+						return not E.db.mui.unitframes.castbar.enable
+					end,
 				},
 				spacer = {
 					order = 3,
@@ -186,6 +189,8 @@ options.unitframes = {
 							type = "range",
 							name = L["Size"],
 							min = 2, max = 10, step = 1,
+							disabled = function() return not E.db.mui.unitframes.castbar.enable or
+								not E.db.mui.unitframes.castbar.spark.enable end,
 						},
 					},
 				},

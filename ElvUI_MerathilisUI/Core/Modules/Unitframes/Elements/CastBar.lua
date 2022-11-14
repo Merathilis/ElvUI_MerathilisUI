@@ -72,12 +72,6 @@ function module:Configure_Castbar(frame)
 	end
 
 	S:CreateShadow(MERBg)
-
-	--Castbar was modified, re-apply settings
-	local unit = frame.unitframeType
-	if unit and (unit == 'player' or unit == 'target') then
-		module:UpdateSettings(unit)
-	end
 end
 
 local function ConfigureCastbarSpark(unit, unitframe)
@@ -111,6 +105,12 @@ function module:UpdateSettings(unit)
 end
 
 function module:UpdateAllCastbars()
+	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
+
+	if not db.enable or not db.spark.enable then
+		return
+	end
+
 	module:UpdateSettings('player')
 	module:UpdateSettings('target')
 	module:UpdateSettings('focus')
@@ -122,9 +122,24 @@ end
 function module:PostCast(unit, unitframe)
 	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
 	local castTexture = E.LSM:Fetch("statusbar", db.texture)
+	local _, class = UnitClass(unit)
 
 	if not self.isTransparent then
 		self:SetStatusBarTexture(castTexture)
+	end
+
+	if not self.notInterruptible then
+		if E.Retail then
+			self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1), CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
+		else
+			self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1, F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
+		end
+	elseif self.notInterruptible then
+		if E.Retail then
+			self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1), CreateColor(F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1))
+		else
+			self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1, F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1)
+		end
 	end
 end
 
@@ -137,11 +152,31 @@ function module:PostCastInterruptible(unit, unitframe)
 	if not self.isTransparent then
 		self:SetStatusBarTexture(castTexture)
 	end
+
+	if not self.notInterruptible then
+		if E.Retail then
+			self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1), CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
+		else
+			self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1, F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
+		end
+	elseif self.notInterruptible then
+		if E.Retail then
+			self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1), CreateColor(F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1))
+		else
+			self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1, F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1)
+		end
+	end
 end
 
 function module:CastBarHooks()
+	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
+
+	if db and not db.enable then
+		return
+	end
+
 	for _, unit in pairs(units) do
-		local unitframe = _G["ElvUF_" .. unit];
+		local unitframe = _G["ElvUF_" .. unit]
 		local castbar = unitframe and unitframe.Castbar
 		if castbar then
 			hooksecurefunc(castbar, "PostCastStart", module.PostCast)
