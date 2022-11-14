@@ -132,6 +132,8 @@ function MER:CheckInstalledVersion()
 end
 
 function MER:FixGame()
+	if not E.Retail then return end
+
 	-- fix playstyle string
 	-- from Premade Groups Filter & LFMPlus
 	if E.global.mui.core.fixLFG then
