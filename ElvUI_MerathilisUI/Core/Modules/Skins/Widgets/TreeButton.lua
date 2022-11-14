@@ -17,7 +17,7 @@ function WS:HandleTreeGroup(widget)
 		return
 	end
 
-	local db = E.private.mui.skins.widgets.treeGroupButton
+	local db = E.private.mui and E.private.mui.skins and E.private.mui.skins.widgets and E.private.mui.skins.widgets.treeGroupButton
 
 	if widget.CreateButton and not widget.CreateButton_Changed then
 		widget.CreateButton_Changed = widget.CreateButton

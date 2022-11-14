@@ -22,7 +22,7 @@ function WS:HandleButton(_, button)
 		return
 	end
 
-	local db = E.private.mui.skins.widgets.button
+	local db = E.private.mui and E.private.mui.skins and E.private.mui.skins.widgets and E.private.mui.skins.widgets.button
 
 	if db.text.enable then
 		local text = button.Text or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
