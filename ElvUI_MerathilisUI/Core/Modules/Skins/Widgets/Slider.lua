@@ -12,7 +12,7 @@ function WS:HandleSliderFrame(_, slider)
 		return
 	end
 
-	local db = E.private.mui.skins.widgets.slider
+	local db = E.private.mui and E.private.mui.skins and E.private.mui.skins.widgets and E.private.mui.skins.widgets.slider
 
 	if not slider or not db or not db.enable then
 		return

@@ -18,7 +18,7 @@ function module:Construct_Swing(frame)
 	bar:SetPoint("TOP", frame.Castbar.Holder, "BOTTOM", 0, 1)
 	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel()+1)
 	bar:CreateBackdrop("Transparent")
-	bar.backdrop:Styling(false, false, true)
+	bar.backdrop:Styling()
 	MER:SmoothBar(bar)
 
 	local main = CreateFrame("StatusBar", nil, bar)

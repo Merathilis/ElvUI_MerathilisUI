@@ -11,7 +11,7 @@ function module:Configure_Power(frame)
 	power.origParent = frame
 
 	if power and not power.__MERSkin then
-		power:Styling(false, false, true)
+		power:Styling()
 
 		power.__MERSkin = true
 	end

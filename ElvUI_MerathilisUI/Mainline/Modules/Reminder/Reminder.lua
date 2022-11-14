@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Reminder')
--- local LCG = LibStub('LibCustomGlow-1.0')
+local LCG = LibStub('LibCustomGlow-1.0')
 local UF = E:GetModule('UnitFrames')
 local S = E:GetModule('Skins')
 
@@ -494,9 +494,9 @@ function module:ReminderIcon_OnEvent(event, unit)
 	local r, g, b = unpack(E["media"].rgbvaluecolor)
 	local color = {r, g, b, 1}
 	if self:GetAlpha() == 1 then
-		-- LCG.PixelGlow_Start(self.overlay, color, nil, 0.25, nil, 1)
+		LCG.PixelGlow_Start(self.overlay, color, nil, 0.25, nil, 1)
 	else
-		-- LCG.PixelGlow_Stop(self.overlay)
+		LCG.PixelGlow_Stop(self.overlay)
 	end
 end
 

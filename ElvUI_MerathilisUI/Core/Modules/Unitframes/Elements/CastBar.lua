@@ -5,6 +5,9 @@ local UF = E.UnitFrames
 
 local hooksecurefunc = hooksecurefunc
 
+local MAX_BOSS_FRAMES = 8
+local units = { "Player", "Target", "Focus", "Pet" }
+
 function module:Configure_Castbar(frame)
 	if not frame.Castbar then
 		return
@@ -69,4 +72,96 @@ function module:Configure_Castbar(frame)
 	end
 
 	S:CreateShadow(MERBg)
+
+	--Castbar was modified, re-apply settings
+	local unit = frame.unitframeType
+	if unit and (unit == 'player' or unit == 'target') then
+		module:UpdateSettings(unit)
+	end
+end
+
+local function ConfigureCastbarSpark(unit, unitframe)
+	local castbar = unitframe.Castbar
+	if not castbar then
+		return
+	end
+
+	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar and E.db.mui.unitframes.castbar.spark
+
+	castbar.Spark_:SetTexture(E.LSM:Fetch('statusbar', db.texture))
+	castbar.Spark_:SetBlendMode('BLEND')
+	castbar.Spark_:SetWidth(db.width or 3)
+	castbar.Spark_:SetVertexColor(db.color.r, db.color.g, db.color.b, db.color.a or 1, 1, 1, 1)
+end
+
+local function ConfigureCastbar(unit, unitframe)
+	local db = E.db.unitframe.units[unit].castbar
+
+	if unit == 'player' or unit == 'target' then
+		ConfigureCastbarSpark(unit, unitframe)
+	end
+end
+
+function module:UpdateSettings(unit)
+	if unit then
+		local unitFrameName = 'ElvUF_'..E:StringTitle(unit)
+		local unitframe = _G[unitFrameName]
+		ConfigureCastbar(unit, unitframe)
+	end
+end
+
+function module:UpdateAllCastbars()
+	module:UpdateSettings('player')
+	module:UpdateSettings('target')
+	module:UpdateSettings('focus')
+	module:UpdateSettings('pet')
+	module:UpdateSettings('arena')
+	module:UpdateSettings('boss')
+end
+
+function module:PostCast(unit, unitframe)
+	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
+	local castTexture = E.LSM:Fetch("statusbar", db.texture)
+
+	if not self.isTransparent then
+		self:SetStatusBarTexture(castTexture)
+	end
+end
+
+function module:PostCastInterruptible(unit, unitframe)
+	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
+	if unit == "vehicle" or unit == "player" then return end
+
+	local castTexture = E.LSM:Fetch("statusbar", db.texture)
+
+	if not self.isTransparent then
+		self:SetStatusBarTexture(castTexture)
+	end
+end
+
+function module:CastBarHooks()
+	for _, unit in pairs(units) do
+		local unitframe = _G["ElvUF_" .. unit];
+		local castbar = unitframe and unitframe.Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", module.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", module.PostCastInterruptible)
+		end
+	end
+
+	for i = 1, 5 do
+		local castbar = _G["ElvUF_Arena" .. i].Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", module.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", module.PostCastInterruptible)
+		end
+	end
+
+	for i = 1, MAX_BOSS_FRAMES do
+		local castbar = _G["ElvUF_Boss" .. i].Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", module.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", module.PostCastInterruptible)
+		end
+	end
 end

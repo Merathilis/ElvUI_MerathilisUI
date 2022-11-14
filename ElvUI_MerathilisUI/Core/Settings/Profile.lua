@@ -85,7 +85,7 @@ P.blizzard = {
 		},
 		cosmeticBar = {
 			enable = true,
-			texture = "MER_NormTex",
+			texture = "Asphyxia",
 			widthMode = "ABSOLUTE",
 			heightMode = "ABSOLUTE",
 			width = 212,
@@ -280,7 +280,7 @@ P.chat = {
 		buttonHeight = 5,
 		spacing = 5,
 		orientation = "HORIZONTAL",
-		tex = "MER_NormTex",
+		tex = "Asphyxia",
 		font = {
 			name = E.db.general.font,
 			size = 12,
@@ -860,6 +860,16 @@ P.unitframes = {
 		type = "DEFAULT",
 		model = 1715069,
 		texture = E.db.unitframe.statusbar,
+	},
+	castbar = {
+		enable = true,
+		texture = "Gradient",
+		spark = {
+			enable = true,
+			texture = "Gradient",
+			width = 3,
+			color = { r = 0, g = .75, b = .98 , a = 1},
+		},
 	},
 	swing = {
 		enable = false,

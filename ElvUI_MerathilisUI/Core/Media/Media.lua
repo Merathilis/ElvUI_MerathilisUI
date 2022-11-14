@@ -219,6 +219,7 @@ LSM:Register("statusbar","Duffed", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Me
 LSM:Register("statusbar","RenAscension", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\RenAscension.tga]])
 LSM:Register("statusbar","RenAscensionL", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\RenAscensionL.tga]])
 LSM:Register("statusbar","4Pixel", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\Line4pixel.tga]])
+LSM:Register("statusbar","Asphyxia", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\AsphyxiaNorm.tga]])
 
 -- Sounds
 LSM:Register("sound","warning", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Sounds\warning.ogg]])
