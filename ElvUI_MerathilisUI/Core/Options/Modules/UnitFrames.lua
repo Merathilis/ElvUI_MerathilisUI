@@ -132,7 +132,7 @@ options.unitframes = {
 				texture = {
 					order = 2,
 					type = "select",
-					name = L["Spark Texture"],
+					name = L["Texture"],
 					dialogControl = "LSM30_Statusbar",
 					values = LSM:HashTable("statusbar")
 				},
