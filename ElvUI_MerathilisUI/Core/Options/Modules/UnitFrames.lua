@@ -174,6 +174,12 @@ options.unitframes = {
 								E:StaticPopup_Show("CONFIG_RL")
 							end,
 						},
+						width = {
+							order = 4,
+							type = "range",
+							name = L["Size"],
+							min = 2, max = 10, step = 1,
+						},
 					},
 				},
 			},

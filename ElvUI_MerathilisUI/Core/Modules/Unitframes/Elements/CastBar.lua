@@ -87,7 +87,7 @@ local function ConfigureCastbarSpark(unit, unitframe)
 
 	castbar.Spark_:SetTexture(E.LSM:Fetch('statusbar', db.texture))
 	castbar.Spark_:SetBlendMode('BLEND')
-	castbar.Spark_:SetWidth(3)
+	castbar.Spark_:SetWidth(db.width or 3)
 	castbar.Spark_:SetVertexColor(db.color.r, db.color.g, db.color.b, db.color.a or 1, 1, 1, 1)
 end
 

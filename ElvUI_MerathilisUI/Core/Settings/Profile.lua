@@ -866,7 +866,8 @@ P.unitframes = {
 		spark = {
 			enable = true,
 			texture = 'Gradient',
-			color = { r = .8, g = .8, b = .1 , a = 1},
+			width = 3,
+			color = { r = 0, g = .75, b = .98 , a = 1},
 		},
 	},
 	swing = {
