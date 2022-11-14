@@ -362,7 +362,7 @@ end
             end
 
             local data = text
-            local LibDeflate = LibStub:GetLibrary("LibDeflate")
+            local LibDeflate = ElvUI[1].Libs.Deflate
             local dataCompressed = LibDeflate:DecodeForWoWAddonChannel(data)
             data = LibDeflate:DecompressDeflate(dataCompressed)
 

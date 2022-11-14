@@ -33,6 +33,21 @@ local function LoadSkin()
 			_G.CharacterModelFrame.backdrop:Hide()
 		end
 	end
+
+	hooksecurefunc(PaperDollFrame.EquipmentManagerPane.ScrollBox, "Update", function(self)
+		for i = 1, self.ScrollTarget:GetNumChildren() do
+			local child = select(i, self.ScrollTarget:GetChildren())
+			local r, g, b = unpack(E.media.rgbvaluecolor)
+			if child.icon and not child.styled then
+				child.HighlightBar:SetColorTexture(1, 1, 1, .25)
+				child.HighlightBar:SetDrawLayer("BACKGROUND")
+				child.SelectedBar:SetColorTexture(r, g, b, .25)
+				child.SelectedBar:SetDrawLayer("BACKGROUND")
+
+				child.styled = true
+			end
+		end
+	end)
 end
 
 S:AddCallback("CharacterFrame", LoadSkin)

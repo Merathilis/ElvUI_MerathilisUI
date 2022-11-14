@@ -53,5 +53,5 @@ body:
           required: true
         - label: I have verfied my issue doesn't exist in the default UI.
           required: true
-        - label: I gave you information above on which X-Pack i play: Classic, WotLK or Retail.
+        - label: I gave you information above on which XPack i play Classic, WotLK or Retail.
           required: true

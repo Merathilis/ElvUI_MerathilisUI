@@ -1,10 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 
 G.core = {
-	LoginMsg = true,
+	loginMsg = true,
 	logLevel = 2,
 	compatibilityCheck = true,
-	buttonFix = "AnyDown"
+	fixLFG = true,
+	fixCVAR = true,
 }
 
 G.mail = {

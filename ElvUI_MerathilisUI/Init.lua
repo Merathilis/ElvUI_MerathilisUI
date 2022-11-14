@@ -121,7 +121,6 @@ do
 		end
 	end
 
-	MER:AddLib('LDF', 'LibDeflate')
 	MER:AddLib('LDD', 'LibDropDown')
 
 	if E.Retail then
@@ -172,7 +171,7 @@ do
 
 		if isInitialLogin then
 			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
-			if E.db.mui.installed and E.global.mui.core.LoginMsg then
+			if E.db.mui.installed and E.global.mui.core.loginMsg then
 				print(icon..''..self.Title..format("|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 			end
 

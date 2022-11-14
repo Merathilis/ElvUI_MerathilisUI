@@ -314,7 +314,8 @@ function MER:SetupLayout()
 	E.db["general"]["resurrectSound"] = true
 	E.db["general"]["decimalLength"] = 0
 	E.db["general"]["customGlow"]["useColor"] = true
-	E.db["general"]["customGlow"]["color"] = {r = F.r, g = F.g, b = F.b}
+	E.db["general"]["customGlow"]["color"] = { r = F.r, g = F.g, b = F.b }
+	E.db["general"]["lootRoll"]["qualityItemLevel"] = true
 
 	--[[----------------------------------
 	--	ProfileDB - Auras

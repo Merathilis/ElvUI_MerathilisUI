@@ -43,14 +43,36 @@ local function Getcolor()
 	end
 end
 
+local function AddTargetInfos(self, unit)
+	local unitTarget = unit..'target'
+	if unit ~= 'player' and UnitExists(unitTarget) then
+		local targetColor
+		if UnitIsPlayer(unitTarget) and (not E.Retail or not UnitHasVehicleUI(unitTarget)) then
+			local _, class = UnitClass(unitTarget)
+			targetColor = E:ClassColor(class) or _G.PRIEST_COLOR
+		else
+			local reaction = UnitReaction(unitTarget, 'player')
+			targetColor = _G.FACTION_BAR_COLORS[reaction] or _G.PRIEST_COLOR
+		end
+
+		self.target:SetText(' > '..' '..UnitName(unitTarget))
+		self.target:SetTextColor(targetColor.r, targetColor.g, targetColor.b)
+	else
+		self.target:SetText('')
+	end
+end
+
 function MI:LoadnameHover()
-	if E.db.mui.nameHover.enable ~= true or IsAddOnLoaded("bdNameHover") then return end
+	if not E.db.mui.nameHover.enable or IsAddOnLoaded("bdNameHover") then return end
 
 	local db = E.db.mui.nameHover
 	local tooltip = CreateFrame("frame", nil)
 	tooltip:SetFrameStrata("TOOLTIP")
 	tooltip.text = tooltip:CreateFontString(nil, "OVERLAY")
 	tooltip.text:FontTemplate(nil, db.fontSize or 7, db.fontOutline or "OUTLINE")
+
+	tooltip.target = tooltip:CreateFontString(nil, "OVERLAY")
+	tooltip.target:FontTemplate(nil, db.fontSize or 7, db.fontOutline or "OUTLINE")
 
 	-- Show unit name at mouse
 	tooltip:SetScript("OnUpdate", function(tt)
@@ -59,7 +81,11 @@ function MI:LoadnameHover()
 		if not UnitExists("mouseover") then tt:Hide() return end
 
 		local x, y = GetCursorPosition()
-		tt.text:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y+15)
+		tt.text:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y + 15)
+
+		if E.db.mui.nameHover.targettarget then
+			tt.target:SetPoint("LEFT", tt.text, "RIGHT", 0, 0)
+		end
 	end)
 
 	tooltip:SetScript("OnEvent", function(tt)
@@ -74,7 +100,11 @@ function MI:LoadnameHover()
 		if DND then prefix = "|cffFF3333<DND>|r " end
 
 		tt.text:SetTextColor(Getcolor())
-		tt.text:SetText(prefix..name)
+		tt.text:SetText(prefix .. name)
+
+		if E.db.mui.nameHover.targettarget then
+			AddTargetInfos(tt, "mouseover")
+		end
 
 		tt:Show()
 	end)

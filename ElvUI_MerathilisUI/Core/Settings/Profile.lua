@@ -448,6 +448,7 @@ P.nameHover = {
 	enable = true,
 	fontSize = 7,
 	fontOutline = "OUTLINE",
+	targettarget = false,
 }
 
 P.notification = {

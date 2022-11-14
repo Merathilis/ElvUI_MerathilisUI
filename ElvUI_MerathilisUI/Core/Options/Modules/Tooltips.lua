@@ -69,6 +69,11 @@ options.tooltip = {
 						["THICKOUTLINE"] = "THICKOUTLINE",
 					},
 				},
+				targettarget = {
+					order = 4,
+					type = "toggle",
+					name = L["Display TargetTarget"],
+				},
 			},
 		},
 	},

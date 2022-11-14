@@ -12,13 +12,13 @@ MER.options = {
 	general = {
 		order = 101,
 		name = F.cOption(L["General"], 'gradient'),
-		icon = MER.Media.Icons.general,
+		icon = MER.Media.Icons.home,
 		args = {},
 	},
 	modules = {
 		order = 102,
 		name = F.cOption(L["Modules"], 'gradient'),
-		icon = MER.Media.Icons.modules,
+		icon = MER.Media.Icons.config,
 		args = {
 			info = {
 				order = 1,
@@ -30,19 +30,25 @@ MER.options = {
 	skins = {
 		order = 103,
 		name = F.cOption(L["Skins/AddOns"], 'gradient'),
-		icon = MER.Media.Icons.skins,
+		icon = MER.Media.Icons.bill,
 		args = {},
 	},
 	media = {
 		order = 104,
 		name = F.cOption(L["Media"], 'gradient'),
-		icon = MER.Media.Icons.media,
+		icon = MER.Media.Icons.system,
+		args = {},
+	},
+	advanced = {
+		order = 111,
+		name = newSignIgnored..F.cOption(L["Advanced Settings"], 'gradient'),
+		icon = MER.Media.Icons.tips,
 		args = {},
 	},
 	information = {
-		order = 111,
+		order = 112,
 		name = F.cOption(L["Information"], 'gradient'),
-		icon = MER.Media.Icons.information,
+		icon = MER.Media.Icons.save,
 		args = {},
 	},
 }
@@ -78,7 +84,7 @@ function MER:OptionsCallback()
 				name = L["Install"],
 				desc = L["Run the installation process."],
 				customWidth = 140,
-				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleOptionsUI() end,
+				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleOptions() end,
 			},
 			changelog = {
 				order = 4,
@@ -86,7 +92,7 @@ function MER:OptionsCallback()
 				name = L["Changelog"],
 				desc = L["Open the changelog window."],
 				customWidth = 140,
-				func = function() MER:ToggleChangeLog(); E:ToggleOptionsUI() end,
+				func = function() MER:ToggleChangeLog(); E:ToggleOptions() end,
 			},
 			discordButton = {
 				order = 5,

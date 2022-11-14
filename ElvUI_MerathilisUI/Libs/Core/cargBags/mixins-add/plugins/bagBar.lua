@@ -50,9 +50,9 @@ local BagButton = cargBags:NewClass("BagButton", nil, "ItemButton")
 BagButton.bgTex = [[Interface\Paperdoll\UI-PaperDoll-Slot-Bag]]
 BagButton.itemFadeAlpha = 0.1
 
-local function UpdateTooltip(self)
-	GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-	GameTooltip:SetInventoryItem("player", self:GetID())
+local function UpdateTooltip(self, id)
+	GameTooltip:SetOwner(self.bar, "ANCHOR_RIGHT")
+	GameTooltip:SetInventoryItem("player", id)
 	GameTooltip:Show()
 end
 
@@ -80,7 +80,7 @@ function BagButton:Create(bagID)
 
 	cargBags.SetScriptHandlers(button, "OnClick", "OnReceiveDrag", "OnEnter", "OnLeave", "OnDragStart")
 
-	if(button.OnCreate) then button:OnCreate(bagID) end
+	if (button.OnCreate) then button:OnCreate(bagID) end
 
 	return button
 end
@@ -92,15 +92,15 @@ function BagButton:UpdateButton()
 
 	if (self.bagId > maxBagSlots) then
 		if (self.bagId - maxBagSlots <= GetNumBankSlots()) then
-			self.Icon:SetVertexColor(1, 1, 1, 1)
+			self.Icon:SetVertexColor(1, 1, 1)
 			self.notBought = nil
 		else
 			self.notBought = true
-			self.Icon:SetVertexColor(1, 0, 0, 1)
+			self.Icon:SetVertexColor(1, 0, 0)
 		end
 	end
 
-	if(self.OnUpdateButton) then self:OnUpdateButton() end
+	if (self.OnUpdateButton) then self:OnUpdateButton() end
 end
 
 local function highlight(button, func, bagID)
@@ -110,8 +110,8 @@ end
 function BagButton:OnEnter()
 	local hlFunction = self.bar.highlightFunction
 
-	if(hlFunction) then
-		if(self.bar.isGlobal) then
+	if (hlFunction) then
+		if (self.bar.isGlobal) then
 			for _, container in pairs(self.implementation.contByID) do
 				container:ApplyToButtons(highlight, hlFunction, self.bagId)
 			end
@@ -121,19 +121,17 @@ function BagButton:OnEnter()
 	end
 
 	if self.isBankBag then
-		if GameTooltip:SetInventoryItem("player", self:GetInventorySlot()) then
-			BankFrameItemButton_OnEnter(self)
-		end
+		UpdateTooltip(self, self:GetInventorySlot())
 	else
-		UpdateTooltip(self)
+		UpdateTooltip(self, self:GetID())
 	end
 end
 
 function BagButton:OnLeave()
 	local hlFunction = self.bar.highlightFunction
 
-	if(hlFunction) then
-		if(self.bar.isGlobal) then
+	if (hlFunction) then
+		if (self.bar.isGlobal) then
 			for _, container in pairs(self.implementation.contByID) do
 				container:ApplyToButtons(highlight, hlFunction)
 			end
@@ -146,26 +144,26 @@ function BagButton:OnLeave()
 end
 
 function BagButton:OnClick(btn)
-	if InCombatLockdown() then UIErrorsFrame:AddMessage("|cff99ccff"..ERR_NOT_IN_COMBAT) return end -- PutItemInBag is secure in combat
+	if InCombatLockdown() then UIErrorsFrame:AddMessage("|cff99ccff" .. ERR_NOT_IN_COMBAT) return end -- PutItemInBag is secure in combat
 
-	if(self.notBought) then
+	if (self.notBought) then
 		BankFrame.nextSlotCost = GetBankSlotCost(GetNumBankSlots())
 		return StaticPopup_Show("CONFIRM_BUY_BANK_SLOT")
 	end
 
-	if(PutItemInBag((self.GetInventorySlot and self:GetInventorySlot()) or self.invID)) then return end
+	if (PutItemInBag((self.GetInventorySlot and self:GetInventorySlot()) or self.invID)) then return end
 
 	if btn ~= "RightButton" then return end
 	-- Somehow we need to disconnect this from the filter-sieve
 	local container = self.bar.container
-	if(container and container.SetFilter) then
-		if(not self.filter) then
+	if (container and container.SetFilter) then
+		if (not self.filter) then
 			local bagID = self.bagId
 			self.filter = function(i) return i.bagId ~= bagID end
 		end
 		self.hidden = not self.hidden
 
-		if(self.bar.isGlobal) then
+		if (self.bar.isGlobal) then
 			for _, container in pairs(container.implementation.contByID) do
 				container:SetFilter(self.filter, self.hidden)
 				container.implementation:OnEvent("BAG_UPDATE", self.bagId)
@@ -176,6 +174,7 @@ function BagButton:OnClick(btn)
 		end
 	end
 end
+
 BagButton.OnReceiveDrag = BagButton.OnClick
 
 function BagButton:OnDragStart()
@@ -194,10 +193,10 @@ local function onLock(self, _, bagID, slotID)
 		bagID, slotID = C_Container.ContainerIDToInventoryID(slotID - NUM_BANKGENERIC_SLOTS + maxBagSlots)
 	end
 
-	if(slotID) then return end
+	if (slotID) then return end
 
 	for _, button in pairs(self.buttons) do
-		if(button.invID == bagID) then
+		if (button.invID == bagID) then
 			return button:UpdateButton()
 		end
 	end
@@ -211,11 +210,11 @@ local disabled = {
 
 -- Register the plugin
 cargBags:RegisterPlugin("BagBar", function(self, bags)
-	if(cargBags.ParseBags) then
+	if (cargBags.ParseBags) then
 		bags = cargBags:ParseBags(bags)
 	end
 
-	local bar = CreateFrame("Frame",  nil, self)
+	local bar = CreateFrame("Frame", nil, self)
 	bar.container = self
 
 	bar.layouts = cargBags.classes.Container.layouts
@@ -223,8 +222,8 @@ cargBags:RegisterPlugin("BagBar", function(self, bags)
 
 	local buttonClass = self.implementation:GetBagButtonClass()
 	bar.buttons = {}
-	for i=1, #bags do
-		if(not disabled[bags[i]]) then -- Temporary until I include fake buttons for backpack, bankframe and keyring
+	for i = 1, #bags do
+		if (not disabled[bags[i]]) then -- Temporary until I include fake buttons for backpack, bankframe and keyring
 			local button = buttonClass:Create(bags[i])
 			button:SetParent(bar)
 			button.bar = bar
