@@ -1,7 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Minimap')
 local S = MER:GetModule('MER_Skins')
--- local LCG = LibStub('LibCustomGlow-1.0')
+local LCG = LibStub('LibCustomGlow-1.0')
 
 local _G = _G
 local select, unpack = select, unpack
@@ -166,11 +166,11 @@ function module:Initialize()
 		self:CreateExpansionLandingButton()
 	end
 
-	-- self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
-	-- self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")
-	-- self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckStatus")
-	-- self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
-	-- self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")
+	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
+	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")
+	self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckStatus")
+	self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
+	self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")
 
 	self:MinimapCombatCheck()
 	self:MinimapPing()

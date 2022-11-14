@@ -85,7 +85,7 @@ P.blizzard = {
 		},
 		cosmeticBar = {
 			enable = true,
-			texture = "MER_NormTex",
+			texture = "Asphyxia",
 			widthMode = "ABSOLUTE",
 			heightMode = "ABSOLUTE",
 			width = 212,
@@ -280,7 +280,7 @@ P.chat = {
 		buttonHeight = 5,
 		spacing = 5,
 		orientation = "HORIZONTAL",
-		tex = "MER_NormTex",
+		tex = "Asphyxia",
 		font = {
 			name = E.db.general.font,
 			size = 12,

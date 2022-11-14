@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RaidBuffs')
--- local LCG = LibStub('LibCustomGlow-1.0')
+local LCG = LibStub('LibCustomGlow-1.0')
 
 local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
 
@@ -118,12 +118,12 @@ local function OnAuraChange(self, event, arg1, unit)
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs)))
 				FlaskFrame:SetAlpha(module.db.alpha)
-				-- LCG.PixelGlow_Stop(FlaskFrame)
+				LCG.PixelGlow_Stop(FlaskFrame)
 				break
 			else
 				FlaskFrame:SetAlpha(1)
 				if module.db.glow then
-					-- LCG.PixelGlow_Start(FlaskFrame, color, nil, -0.25, nil, 1)
+					LCG.PixelGlow_Start(FlaskFrame, color, nil, -0.25, nil, 1)
 				end
 			end
 		end
@@ -136,13 +136,13 @@ local function OnAuraChange(self, event, arg1, unit)
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
 				FoodFrame:SetAlpha(module.db.alpha)
-				-- LCG.PixelGlow_Stop(FoodFrame)
+				LCG.PixelGlow_Stop(FoodFrame)
 				break
 			else
 				FoodFrame:SetAlpha(1)
 				FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
 				if module.db.glow then
-					-- LCG.PixelGlow_Start(FoodFrame, color, nil, -0.25, nil, 1)
+					LCG.PixelGlow_Start(FoodFrame, color, nil, -0.25, nil, 1)
 				end
 			end
 		end
@@ -155,13 +155,13 @@ local function OnAuraChange(self, event, arg1, unit)
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs)))
 				DARuneFrame:SetAlpha(module.db.alpha)
-				-- LCG.PixelGlow_Stop(DARuneFrame)
+				LCG.PixelGlow_Stop(DARuneFrame)
 				break
 			else
 				DARuneFrame:SetAlpha(1)
 				DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs)))
 				if module.db.glow then
-					-- LCG.PixelGlow_Start(DARuneFrame, color, nil, -0.25, nil, 1)
+					LCG.PixelGlow_Start(DARuneFrame, color, nil, -0.25, nil, 1)
 				end
 			end
 		end
@@ -175,13 +175,13 @@ local function OnAuraChange(self, event, arg1, unit)
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs)))
 					IntellectFrame:SetAlpha(module.db.alpha)
-					-- LCG.PixelGlow_Stop(IntellectFrame)
+					LCG.PixelGlow_Stop(IntellectFrame)
 					break
 				else
 					IntellectFrame:SetAlpha(1)
 					IntellectFrame.t:SetTexture(select(3, GetSpellInfo(1459)))
 					if module.db.glow then
-						-- LCG.PixelGlow_Start(IntellectFrame, color, nil, -0.25, nil, 1)
+						LCG.PixelGlow_Start(IntellectFrame, color, nil, -0.25, nil, 1)
 					end
 				end
 			end
@@ -194,13 +194,13 @@ local function OnAuraChange(self, event, arg1, unit)
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					StaminaFrame.t:SetTexture(select(3, GetSpellInfo(staminabuffs)))
 					StaminaFrame:SetAlpha(module.db.alpha)
-					-- LCG.PixelGlow_Stop(StaminaFrame)
+					LCG.PixelGlow_Stop(StaminaFrame)
 					break
 				else
 					StaminaFrame:SetAlpha(1)
 					StaminaFrame.t:SetTexture(select(3, GetSpellInfo(21562)))
 					if module.db.glow then
-						-- LCG.PixelGlow_Start(StaminaFrame, color, nil, -0.25, nil, 1)
+						LCG.PixelGlow_Start(StaminaFrame, color, nil, -0.25, nil, 1)
 					end
 				end
 			end
@@ -213,13 +213,13 @@ local function OnAuraChange(self, event, arg1, unit)
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(attackpowerbuffs)))
 					AttackPowerFrame:SetAlpha(module.db.alpha)
-					-- LCG.PixelGlow_Stop(AttackPowerFrame)
+					LCG.PixelGlow_Stop(AttackPowerFrame)
 					break
 				else
 					AttackPowerFrame:SetAlpha(1)
 					AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(6673)))
 					if module.db.glow then
-						-- LCG.PixelGlow_Start(AttackPowerFrame, color, nil, -0.25, nil, 1)
+						LCG.PixelGlow_Start(AttackPowerFrame, color, nil, -0.25, nil, 1)
 					end
 				end
 			end
@@ -232,13 +232,13 @@ local function OnAuraChange(self, event, arg1, unit)
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					VersatilityFrame.t:SetTexture(select(3, GetSpellInfo(versatilitybuffs)))
 					VersatilityFrame:SetAlpha(module.db.alpha)
-					-- LCG.PixelGlow_Stop(VersatilityFrame)
+					LCG.PixelGlow_Stop(VersatilityFrame)
 					break
 				else
 					VersatilityFrame:SetAlpha(1)
 					VersatilityFrame.t:SetTexture(select(3, GetSpellInfo(1126)))
 					if module.db.glow then
-						-- LCG.PixelGlow_Start(VersatilityFrame, color, nil, -0.25, nil, 1)
+						LCG.PixelGlow_Start(VersatilityFrame, color, nil, -0.25, nil, 1)
 					end
 				end
 			end
@@ -251,12 +251,12 @@ local function OnAuraChange(self, event, arg1, unit)
 		if (hasMainHandEnchant and EnchantsID(mainHandEnchantID)) or (hasOffHandEnchant and EnchantsID(offHandEnchantId)) then
 			WeaponFrame.t:SetTexture(GetInventoryItemTexture('player', 16))
 			WeaponFrame:SetAlpha(module.db.alpha)
-			-- LCG.PixelGlow_Stop(WeaponFrame)
+			LCG.PixelGlow_Stop(WeaponFrame)
 		else
 			WeaponFrame:SetAlpha(1)
 			WeaponFrame.t:SetTexture(GetInventoryItemTexture('player', 16))
 			if module.db.glow then
-				-- LCG.PixelGlow_Start(WeaponFrame, color, nil, -0.25, nil, 1)
+				LCG.PixelGlow_Start(WeaponFrame, color, nil, -0.25, nil, 1)
 			end
 		end
 	end
@@ -271,13 +271,13 @@ local function OnAuraChange(self, event, arg1, unit)
 			if F.CheckPlayerBuff(name) then
 				CustomFrame:SetAlpha(module.db.alpha)
 				custom = true
-				-- LCG.PixelGlow_Stop(CustomFrame)
+				LCG.PixelGlow_Stop(CustomFrame)
 				break
 			else
 				CustomFrame:SetAlpha(1)
 				custom = false
 				if module.db.glow then
-					-- LCG.PixelGlow_Start(CustomFrame, color, nil, -0.25, nil, 1)
+					LCG.PixelGlow_Start(CustomFrame, color, nil, -0.25, nil, 1)
 				end
 			end
 		end

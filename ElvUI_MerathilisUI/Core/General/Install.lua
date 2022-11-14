@@ -235,8 +235,8 @@ function MER:SetupLayout()
 	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["normTex"] = "MER_NormTex"
-	E.private["general"]["glossTex"] = "MER_NormTex"
+	E.private["general"]["normTex"] = "Asphyxia"
+	E.private["general"]["glossTex"] = "Asphyxia"
 	E.private["general"]["nameplateFont"] = "Expressway"
 	E.private["general"]["nameplateLargeFont"] = "Expressway"
 
@@ -304,7 +304,7 @@ function MER:SetupLayout()
 	E.db["general"]["altPowerBar"]["font"] = "Expressway"
 	E.db["general"]["altPowerBar"]["fontSize"] = 11
 	E.db["general"]["altPowerBar"]["fontOutline"] = "OUTLINE"
-	E.db["general"]["altPowerBar"]["statusBar"] = "MER_NormTex"
+	E.db["general"]["altPowerBar"]["statusBar"] = "Asphyxia"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
 	E.db["general"]["altPowerBar"]["smoothbars"] = true
@@ -538,7 +538,7 @@ function MER:SetupLayout()
 	E.private["general"]["dmgfont"] = "Expressway"
 
 	E.db["databars"]["customTexture"] = true
-	E.db["databars"]["statusbar"] = "MER_NormTex"
+	E.db["databars"]["statusbar"] = "Asphyxia"
 
 	E.db["databars"]["experience"]["enable"] = true
 	E.db["databars"]["experience"]["mouseover"] = false
@@ -859,7 +859,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["stackFont"] = "Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["smoothbars"] = true
-	E.db["nameplates"]["statusbar"] = "MER_NormTex"
+	E.db["nameplates"]["statusbar"] = "Asphyxia"
 	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
 
 	-- Cooldowns
@@ -1168,7 +1168,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
-	E.db["unitframe"]["statusbar"] = "MER_NormTex"
+	E.db["unitframe"]["statusbar"] = "Asphyxia"
 	E.db["unitframe"]["colors"]["castColor"] = {
 		["r"] = 0.1,
 		["g"] = 0.1,
@@ -1210,7 +1210,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
-	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MER_NormTex"
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "Asphyxia"
 
 	--Cooldowns
 	E.db["unitframe"]["cooldown"]["override"] = true
