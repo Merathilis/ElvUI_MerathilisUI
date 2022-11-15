@@ -1305,7 +1305,7 @@ function MER:SetupUnitframes()
 		["xOffset"] = 0,
 		["yOffset"] = 16,
 		["size"] = 11,
-		["text_format"] = "[mUI:class:icon] [mUI-name:health:abbrev{class}]",
+		["text_format"] = "[classicon-flatborder][mUI-name:health:abbrev{class}]",
 		["attachTextTo"] = "Frame",
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
@@ -1501,7 +1501,7 @@ function MER:SetupUnitframes()
 		["xOffset"] = 2,
 		["yOffset"] = 16,
 		["size"] = 11,
-		["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}] [mUI:class:icon]",
+		["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}][classicon-flatborder]",
 		["attachTextTo"] = "Frame",
 	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {

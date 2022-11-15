@@ -27,14 +27,20 @@ MER.options = {
 			},
 		},
 	},
-	skins = {
+	misc = {
 		order = 103,
+		name = F.cOption(L["Misc"], 'gradient'),
+		icon = MER.Media.Icons.more,
+		args = {},
+	},
+	skins = {
+		order = 104,
 		name = F.cOption(L["Skins/AddOns"], 'gradient'),
 		icon = MER.Media.Icons.bill,
 		args = {},
 	},
 	media = {
-		order = 104,
+		order = 105,
 		name = F.cOption(L["Media"], 'gradient'),
 		icon = MER.Media.Icons.system,
 		args = {},

@@ -911,3 +911,17 @@ function F:TogglePanel(frame)
 		frame:Show()
 	end
 end
+
+function F.In(val, tbl)
+	if not val or not tbl or type(tbl) ~= "table" then
+		return false
+	end
+
+	for _, v in pairs(tbl) do
+		if v == val then
+			return true
+		end
+	end
+
+	return false
+end
