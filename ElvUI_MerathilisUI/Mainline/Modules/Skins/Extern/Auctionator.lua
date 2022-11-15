@@ -493,6 +493,10 @@ function module:SkinAuctionator()
 end
 
 local function LoadSkin()
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.au then
+		return
+	end
+
 	if IsAddOnLoaded('Auctionator') then
 		module:SkinAuctionatorOptions()
 
