@@ -32,6 +32,13 @@ local function LoadSkin()
 		TutorialSingleKey:EnableMouse(false)
 		TutorialSingleKey:UnregisterAllEvents()
 	end
+
+	local KeyboardMouseConfirmButton = _G.NPE_KeyboardMouseConfirmButton or _G.KeyboardMouseConfirmButton
+	if KeyboardMouseConfirmButton then
+		KeyboardMouseConfirmButton:SetScale(0.00001)
+		KeyboardMouseConfirmButton:EnableMouse(false)
+		KeyboardMouseConfirmButton:UnregisterAllEvents()
+	end
 end
 
 S:AddCallbackForAddon("Blizzard_Tutorial", LoadSkin)
