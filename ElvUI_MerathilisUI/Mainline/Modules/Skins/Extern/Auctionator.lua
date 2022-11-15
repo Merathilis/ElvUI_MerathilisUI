@@ -226,8 +226,8 @@ local function SkinMainFrames()
 		} -- whack shit reference table >.>
 
 		for _, tab in next, _G.AuctionatorAHTabsContainer.Tabs do
-			tab:ClearAllPoints()
-			tab:Point('LEFT', ref[tab.frameRef], 'RIGHT', -5, 0)
+			-- tab:ClearAllPoints()
+			-- tab:Point('LEFT', ref[tab.frameRef], 'RIGHT', -5, 0)
 
 			S:HandleTab(tab)
 		end
