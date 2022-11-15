@@ -159,6 +159,7 @@ local function SkinMainFrames()
 	for _, button in next, {
 		-- Shopping
 		_G.AuctionatorShoppingLists_AddItem,
+		_G.AuctionatorTradeSkillSearch.SearchButton,
 		list.ManualSearch,
 		list.ExportCSV,
 		list.Rename,
