@@ -257,6 +257,11 @@ function module:ShowLeaderOverallScore(self)
 end
 
 function module:Initialize()
+	if IsAddOnLoaded("PremadeGroupsFilter") then
+		self.StopRunning = "PremadeGroupsFilter"
+		return
+	end
+
 	local db = E.db.mui.misc.lfgInfo
 
 	if not db.enable then
