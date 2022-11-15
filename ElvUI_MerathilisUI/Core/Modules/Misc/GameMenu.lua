@@ -243,7 +243,7 @@ function module:GameMenu()
 		topPanel.factionLogo = topPanel:CreateTexture(nil, "ARTWORK")
 		topPanel.factionLogo:Point("CENTER", topPanel, "CENTER", 0, 0)
 		topPanel.factionLogo:Size(186, 186)
-		topPanel.factionLogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\ClassIcons\\CLASS-"..E.myclass)
+		topPanel.factionLogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\ClassBanner\\CLASS-"..E.myclass)
 	end
 
 	-- Use this frame to control the position of the model - taken from ElvUI
