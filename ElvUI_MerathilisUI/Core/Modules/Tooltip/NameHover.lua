@@ -55,7 +55,7 @@ local function AddTargetInfos(self, unit)
 			targetColor = _G.FACTION_BAR_COLORS[reaction] or _G.PRIEST_COLOR
 		end
 
-		self.target:SetText(' > '..' '..UnitName(unitTarget))
+		self.target:SetText(' |cffffffff>|r '..' '..UnitName(unitTarget))
 		self.target:SetTextColor(targetColor.r, targetColor.g, targetColor.b)
 	else
 		self.target:SetText('')
