@@ -2,7 +2,7 @@
 
 ## Special Thanks
 
-- Merathilis
+- fang2hou
 - siweia
 - Azilroka
 - Blazeflack
