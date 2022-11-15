@@ -261,34 +261,36 @@ local ButtonTypes = {
 			end
 		},
 		additionalText = function()
-			local numBNOnlineFriend = select(2, BNGetNumFriends())
+			if E.Retail then
+				local numBNOnlineFriend = select(2, BNGetNumFriends())
 
-			if module and module.db and module.db.friends and module.db.friends.showAllFriends then
-				local friendsOnline = C_FriendList_GetNumFriends() or 0
-				local totalOnline = friendsOnline + numBNOnlineFriend
-				return totalOnline
-			end
+				if module and module.db and module.db.friends and module.db.friends.showAllFriends then
+					local friendsOnline = C_FriendList_GetNumFriends() or 0
+					local totalOnline = friendsOnline + numBNOnlineFriend
+					return totalOnline
+				end
 
-			local number = C_FriendList_GetNumOnlineFriends() or 0
+				local number = C_FriendList_GetNumOnlineFriends() or 0
 
-			for i = 1, numBNOnlineFriend do
-				local accountInfo = C_BattleNet_GetFriendAccountInfo(i)
-				if accountInfo and accountInfo.gameAccountInfo and accountInfo.gameAccountInfo.isOnline then
-					local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(i)
-					if numGameAccounts and numGameAccounts > 0 then
-						for j = 1, numGameAccounts do
-							local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
-							if gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" then
-								number = number + 1
+				for i = 1, numBNOnlineFriend do
+					local accountInfo = C_BattleNet_GetFriendAccountInfo(i)
+					if accountInfo and accountInfo.gameAccountInfo and accountInfo.gameAccountInfo.isOnline then
+						local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(i)
+						if numGameAccounts and numGameAccounts > 0 then
+							for j = 1, numGameAccounts do
+								local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
+								if gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" then
+									number = number + 1
+								end
 							end
+						elseif accountInfo.gameAccountInfo.clientProgram == "WoW" then
+							number = number + 1
 						end
-					elseif accountInfo.gameAccountInfo.clientProgram == "WoW" then
-						number = number + 1
 					end
 				end
-			end
 
-			return number > 0 and number or ""
+				return number > 0 and number or ""
+			end
 		end,
 		tooltips = "Friends",
 		events = {
@@ -546,6 +548,40 @@ local ButtonTypes = {
 		end
 	},
 }
+
+--[[
+if E.Retail then
+	tinsert(ButtonTypes.FRIENDS, { additionalText = function()
+		local numBNOnlineFriend = select(2, BNGetNumFriends())
+
+		if module and module.db and module.db.friends and module.db.friends.showAllFriends then
+			local friendsOnline = C_FriendList_GetNumFriends() or 0
+			local totalOnline = friendsOnline + numBNOnlineFriend
+			return totalOnline
+		end
+
+		local number = C_FriendList_GetNumOnlineFriends() or 0
+
+		for i = 1, numBNOnlineFriend do
+			local accountInfo = C_BattleNet_GetFriendAccountInfo(i)
+			if accountInfo and accountInfo.gameAccountInfo and accountInfo.gameAccountInfo.isOnline then
+				local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(i)
+				if numGameAccounts and numGameAccounts > 0 then
+					for j = 1, numGameAccounts do
+						local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
+						if gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" then
+							number = number + 1
+						end
+					end
+				elseif accountInfo.gameAccountInfo.clientProgram == "WoW" then
+					number = number + 1
+				end
+			end
+		end
+
+		return number > 0 and number or ""
+	end,})
+end]]
 
 function module:ShowAdvancedBagsTooltip()
 	DT.RegisteredDataTexts["Gold"].onEnter()
