@@ -256,12 +256,12 @@ local function OnAuraChange(self, event, arg1, unit)
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					CooldownFrame.t:SetTexture(select(3, GetSpellInfo(cooldowns)))
 					CooldownFrame:SetAlpha(module.db.alpha)
-					-- LCG.PixelGlow_Stop(CooldownFrame)
+					LCG.PixelGlow_Stop(CooldownFrame)
 				else
 					CooldownFrame:SetAlpha(1)
 					CooldownFrame.t:SetTexture(select(3, GetSpellInfo(381748)))
 					if module.db.glow then
-						-- LCG.PixelGlow_Start(CooldownFrame, color, nil, -0.25, nil, 1)
+						LCG.PixelGlow_Start(CooldownFrame, color, nil, -0.25, nil, 1)
 					end
 				end
 			end
