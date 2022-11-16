@@ -120,10 +120,10 @@ local function SkinMainFrames()
 	list.ListDropdown:ClearAllPoints()
 	list.ListDropdown:Point('RIGHT', list.Export, 'LEFT', -20, -2)
 	list.ShoppingResultsInset:StripTextures()
-	list.OneItemSearchButton:ClearAllPoints()
-	list.OneItemSearchButton:Point('LEFT', list.OneItemSearchBox, 'RIGHT', 3, 0)
-	list.OneItemSearchExtendedButton:ClearAllPoints()
-	list.OneItemSearchExtendedButton:Point('LEFT', list.OneItemSearchButton, 'RIGHT', 2, 0)
+	-- list.OneItemSearchButton:ClearAllPoints()
+	-- list.OneItemSearchButton:Point('LEFT', list.OneItemSearchBox, 'RIGHT', 3, 0)
+	-- list.OneItemSearchExtendedButton:ClearAllPoints()
+	-- list.OneItemSearchExtendedButton:Point('LEFT', list.OneItemSearchButton, 'RIGHT', 2, 0)
 	list.Export:ClearAllPoints()
 	list.Export:Point('RIGHT', list.Import, 'LEFT', -3, 0)
 
@@ -159,7 +159,7 @@ local function SkinMainFrames()
 	for _, button in next, {
 		-- Shopping
 		_G.AuctionatorShoppingLists_AddItem,
-		_G.AuctionatorTradeSkillSearch.SearchButton,
+		-- _G.AuctionatorTradeSkillSearch.SearchButton,
 		list.ManualSearch,
 		list.ExportCSV,
 		list.Rename,
@@ -167,8 +167,8 @@ local function SkinMainFrames()
 		list.Import,
 		list.AddItem,
 		list.SortItems,
-		list.OneItemSearchButton,
-		list.OneItemSearchExtendedButton,
+		-- list.OneItemSearchButton,
+		-- list.OneItemSearchExtendedButton,
 
 		--Selling
 		selling.SaleItemFrame.MaxButton,
