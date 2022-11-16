@@ -905,6 +905,10 @@ P.maps = {
 			},
 		},
 	},
+	rectangleMinimap = {
+		enable = false,
+		heightPercentage = 0.8
+	},
 	superTracker = {
 		enable = true,
 		noLimit = false,

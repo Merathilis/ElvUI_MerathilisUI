@@ -487,20 +487,6 @@ function MER:SetupLayout()
 	E.db["mui"]["locPanel"]["colorType"] = "DEFAULT"
 	E.db["mui"]["locPanel"]["colorType_Coords"] = "CLASS"
 
-	if F.IsDeveloper() then
-		E.db["mui"]["pvp"]["duels"]["regular"] = true
-		E.db["mui"]["pvp"]["duels"]["pet"] = true
-		E.db["mui"]["pvp"]["duels"]["announce"] = true
-		E.db["general"]["cropIcon"] = 0
-		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
-		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
-		E.db["mui"]["misc"]["cursor"]["enable"] = true
-		E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
-		E.private["mui"]["skins"]["shadowOverlay"] = true
-	else
-		E.db["general"]["cropIcon"] = 2
-	end
-
 	E.db["movers"]["MER_SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"
 	E.db["movers"]["MER_EquipmentSetsBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-75,14"
 	E.db["movers"]["MER_LocPanel_Mover"] = "TOP,ElvUIParent,TOP,0,0"
@@ -611,6 +597,36 @@ function MER:SetupLayout()
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-17"
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
+
+	if F.IsDeveloper() then
+		E.db["mui"]["pvp"]["duels"]["regular"] = true
+		E.db["mui"]["pvp"]["duels"]["pet"] = true
+		E.db["mui"]["pvp"]["duels"]["announce"] = true
+		E.db["general"]["cropIcon"] = 0
+		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
+		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
+		E.db["mui"]["misc"]["cursor"]["enable"] = true
+		E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
+		E.private["mui"]["skins"]["shadowOverlay"] = true
+
+		-- Rectangle Settings
+		E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
+		E.db["mui"]["maps"]["rectangleMinimap"]["heightPercentage"] = 0.65
+		E.db["general"]["minimap"]["clusterDisable"] = false
+		E.db["general"]["minimap"]["size"] = 221
+		E.db["mui"]["smb"]["buttonSize"] = 23
+		E.db["mui"]["smb"]["buttonsPerRow"] = 9
+		E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
+		E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
+		E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
+		E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 60
+		E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-17"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
+		E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-210"
+	else
+		E.db["general"]["cropIcon"] = 2
+	end
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -2385,6 +2401,11 @@ function MER:SetupDts()
 	}
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
+
+	if F.IsDeveloper() then
+		E.db["datatexts"]["panels"]["MinimapPanel"]["backdrop"] = false
+		E.db["datatexts"]["panels"]["MinimapPanel"]["border"] = false
+	end
 
 	E:StaggeredUpdateAll(nil, true)
 
