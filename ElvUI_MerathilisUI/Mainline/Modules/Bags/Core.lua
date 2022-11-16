@@ -1380,7 +1380,7 @@ function module:Initialize()
 		elseif strmatch(name, "Custom%d") then
 			label = GetCustomGroupTitle(settings.Index)
 		elseif name == "BagReagent" then
-			label = L["ReagentBag"]
+			label = _G.PROFESSIONS_COLUMN_HEADER_REAGENTS
 		end
 		if label then
 			self.label = self:CreateFontString(nil, "ARTWORK")
