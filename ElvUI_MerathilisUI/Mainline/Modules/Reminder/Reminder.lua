@@ -154,7 +154,7 @@ module.ReminderList = {
 
 	EVOKER = {
 		[1] = { -- Blessing of the Bronze
-			["spells"] = {
+			["spellGroup"] = {
 				[381748] = true, -- Blessing of the Bronze
 				["defaultIcon"] = 381748,
 			},
