@@ -39,21 +39,20 @@ local bindTypeToString = {
 cargBags.itemKeys["bindOn"] = function(i)
 	if not i.link then return end
 
-	local tip = F.ScanTip
-	if not tip then return end
-
-	tip:SetOwner(UIParent, "ANCHOR_NONE")
-	tip:SetBagItem(i.bagId, i.slotId)
-
-	for j = 2, 5 do
-		local line = _G["mUI_ScanTooltipTextLeft"..j]
-		local lineText = line and line:GetText()
-		if not lineText then break end
-
-		local bindOn = bindTypeToString[lineText]
-		if bindOn then
-			i.bindOn = bindOn
-			return bindOn
+	local data = C_TooltipInfo.GetBagItem(i.bagId, i.slotId)
+	if data then
+		for j = 2, 5 do
+			local lineData = data.lines[j]
+			if not lineData then break end
+			local argVal = lineData.args
+			if argVal then
+				local lineText = argVal[2] and argVal[2].stringVal
+				local bindOn = lineText and bindTypeToString[lineText]
+				if bindOn then
+					i.bindOn = bindOn
+					return bindOn
+				end
+			end
 		end
 	end
 end

@@ -50,9 +50,7 @@ function module:Initialize()
 		xpcall(func, errorhandler)
 		self.load[index] = nil
 	end
-
 	module:ReskinTooltipIcons()
-	module:CovenantInfo()
 end
 
 function module:ProfileUpdate()

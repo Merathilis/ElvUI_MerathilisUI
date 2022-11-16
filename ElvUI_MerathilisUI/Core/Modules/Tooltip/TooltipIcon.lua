@@ -5,17 +5,10 @@ local _G = _G
 local gsub, unpack = gsub, unpack
 
 local GetItemIcon = GetItemIcon
-local GetMouseFocus = GetMouseFocus
 local GetSpellTexture = GetSpellTexture
-local PET_TYPE_SUFFIX = PET_TYPE_SUFFIX
-local UnitExists = UnitExists
-local UnitFactionGroup = UnitFactionGroup
-local UnitIsPlayer = UnitIsPlayer
-local UnitIsBattlePet = UnitIsBattlePet
-local UnitBattlePetType = UnitBattlePetType
-local UnitBattlePetSpeciesID = UnitBattlePetSpeciesID
 local hooksecurefunc = hooksecurefunc
-local PET, ID, UNKNOWN = PET, ID, UNKOWN
+
+local TooltipDataProcessor_AddTooltipPostCall = TooltipDataProcessor.AddTooltipPostCall
 
 local newString = "0:0:64:64:5:59:5:59"
 
@@ -38,134 +31,96 @@ function module:SetupTooltipIcon(icon)
 	end
 end
 
-function module:HookTooltipCleared()
-	if self.factionFrame and self.factionFrame:GetAlpha() ~= 0 then
-		self.factionFrame:SetAlpha(0)
-	end
-
-	if self.petIcon and self.petIcon:GetAlpha() ~= 0 then
-		self.petIcon:SetAlpha(0)
-	end
-
-	self.tipModified = false
-end
-
-function module:HookTooltipSetItem()
-	if not self.tipModified then
-		local _, link = self:GetItem()
-		if link then
-			module.SetupTooltipIcon(self, GetItemIcon(link))
-		end
-
-		self.tipModified = true
-	end
-end
-
-function module:HookTooltipSetSpell()
-	if not self.tipModified then
-		local _, id = self:GetSpell()
-		if id then
-			module.SetupTooltipIcon(self, GetSpellTexture(id))
-		end
-
-		self.tipModified = true
-	end
-end
-
 local function GetUnit(self)
 	local _, unit = self and self:GetUnit()
 	if not unit then
 		local mFocus = GetMouseFocus()
 		unit = mFocus and (mFocus.unit or (mFocus.GetAttribute and mFocus:GetAttribute("unit"))) or "mouseover"
 	end
+
 	return unit
 end
 
-local function InsertFactionFrame(self, faction)
+function module:InsertFactionFrame(faction)
 	if not self.factionFrame then
 		local f = self:CreateTexture(nil, "OVERLAY")
 		f:SetPoint("TOPRIGHT", 0, -5)
-		f:SetSize(35, 35)
 		f:SetBlendMode("ADD")
+		f:SetScale(.5)
+		f:SetAlpha(.5)
 		self.factionFrame = f
 	end
-	self.factionFrame:SetTexture("Interface\\FriendsFrame\\PlusManz-"..faction)
-	self.factionFrame:SetAlpha(.5)
+	self.factionFrame:SetTexture("Interface\\FriendsFrame\\PlusManz-" .. faction)
+	self.factionFrame:Show()
 end
 
-local function InsertPetIcon(self, petType)
-	if not self.petIcon then
-		local f = self:CreateTexture(nil, "OVERLAY")
-		f:SetPoint("TOPRIGHT", -5, -5)
-		f:SetSize(35, 35)
-		f:SetBlendMode("ADD")
-		self.petIcon = f
+function module:OnTooltipCleared()
+	if self:IsForbidden() then return end
+
+	if self.factionFrame and self.factionFrame:IsShown() then
+		self.factionFrame:Hide()
 	end
-	self.petIcon:SetTexture("Interface\\PetBattles\\PetIcon-"..PET_TYPE_SUFFIX[petType])
-	self.petIcon:SetTexCoord(.188, .883, 0, .348)
-	self.petIcon:SetAlpha(1)
 end
 
-
-function module:HookTooltipSetUnit()
-	local unit = GetUnit(self)
-
-	if not self.tipModified then
-		if UnitExists(unit) then
-			if E.db.mui.tooltip.factionIcon then
-				if UnitIsPlayer(unit) then
-					local faction = UnitFactionGroup(unit)
-					if faction and faction ~= "Neutral" then
-						InsertFactionFrame(self, faction)
-					end
-				end
-			end
-
-			if E.Retail then
-				if UnitIsBattlePet(unit) then
-					if E.db.mui.tooltip.petIcon then
-						local _, unit = self:GetUnit()
-						InsertPetIcon(self, UnitBattlePetType(unit))
-
-						-- Pet ID
-						local speciesID = UnitBattlePetSpeciesID(unit)
-						self:AddDoubleLine(PET..ID..":", ((MER.InfoColor..speciesID.."|r") or (MER.GreyColor..UNKNOWN.."|r")))
-					end
-				end
-			end
-		end
-
-		self.tipModified = true
-	end
+function module:HookTooltipCleared()
+	self.tipModified = false
 end
 
 function module:HookTooltipMethod()
-	if _G.GameTooltip:IsForbidden() then return; end
-
-	if not MER.IsPTR then
-		self:HookScript("OnTooltipSetItem", module.HookTooltipSetItem)
-		self:HookScript("OnTooltipSetSpell", module.HookTooltipSetSpell)
-		self:HookScript("OnTooltipSetUnit", module.HookTooltipSetUnit)
-		self:HookScript("OnTooltipCleared", module.HookTooltipCleared)
-	end
+	self:HookScript("OnTooltipCleared", module.HookTooltipCleared)
 end
 
 function module:ReskinRewardIcon()
 	self.Icon:SetTexCoord(unpack(E.TexCoords))
 end
 
+function module:OnTooltipSetUnit()
+	if self:IsForbidden() then return end
+
+	local unit = GetUnit(self)
+	if not unit or not UnitExists(unit) then return end
+
+	local IsPlayer = UnitIsPlayer(unit)
+	if IsPlayer then
+		if E.db.mui.tooltip.factionIcon then
+			local faction = UnitFactionGroup(unit)
+			if faction and faction ~= "Neutral" then
+				module.InsertFactionFrame(self, faction)
+			end
+		end
+	end
+end
+
 function module:ReskinTooltipIcons()
 	if E.db.mui.tooltip.tooltipIcon ~= true then return end
 
-	module.HookTooltipMethod(_G.GameTooltip)
-	module.HookTooltipMethod(_G.ItemRefTooltip)
-	module.HookTooltipMethod(_G.ElvUISpellBookTooltip)
-
-	hooksecurefunc(_G.GameTooltip, "SetUnitAura", function(self)
-		module.SetupTooltipIcon(self)
-	end)
+	GameTooltip:HookScript("OnTooltipCleared", module.OnTooltipCleared)
 
 	if E.Retail then
+		TooltipDataProcessor_AddTooltipPostCall(Enum.TooltipDataType.Unit, module.OnTooltipSetUnit)
+
+		TooltipDataProcessor_AddTooltipPostCall(Enum.TooltipDataType.Item, function(self)
+			if self == _G.GameTooltip or self == _G.ItemRefTooltip then
+				local _, link = self:GetItem()
+				if link then
+					module.SetupTooltipIcon(self, GetItemIcon(link))
+				end
+			end
+		end)
+		TooltipDataProcessor_AddTooltipPostCall(Enum.TooltipDataType.Spell, function(self)
+			if self == _G.GameTooltip or self == _G.ItemRefTooltip then
+				local _, id = self:GetSpell()
+				if id then
+					module.SetupTooltipIcon(self, GetSpellTexture(id))
+				end
+			end
+		end)
+
+		hooksecurefunc(_G.GameTooltip, "SetUnitAura", function(self)
+			module.SetupTooltipIcon(self)
+		end)
+
+
 		hooksecurefunc(_G.GameTooltip, "SetAzeriteEssence", function(self)
 			module.SetupTooltipIcon(self)
 		end)

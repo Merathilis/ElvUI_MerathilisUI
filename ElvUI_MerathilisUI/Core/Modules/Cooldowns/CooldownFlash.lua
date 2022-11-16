@@ -313,13 +313,13 @@ hooksecurefunc("UseInventoryItem", function(slot)
 end)
 
 --ToDO: WoW10
-hooksecurefunc("UseContainerItem", function(bag,slot)
+--[[hooksecurefunc("UseContainerItem", function(bag,slot)
 	local itemID = GetContainerItemID(bag, slot)
 	if (itemID) then
 		local texture = select(10, GetItemInfo(itemID))
 		module.watching[itemID] = { GetTime(),"item", texture }
 	end
-end)
+end)]]
 
 function module:EnableCooldownFlash()
 	DCP:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")

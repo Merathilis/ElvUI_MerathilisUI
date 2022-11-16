@@ -70,8 +70,11 @@ module.ReminderBuffs = {
 		6673, -- Battle Shout
 		264761, -- War-Scroll of Battle
 	},
-	Versatility = { -- DragonFlight
+	Versatility = {
 		1126, -- Mark of the Wild
+	},
+	Cooldown_Reduce = {
+		381748, -- Blessing of the Bronze
 	},
 	Weapon = {
 		1, -- just a fallback
@@ -100,6 +103,7 @@ end
 local flaskbuffs = module.ReminderBuffs["Flask"]
 local foodbuffs = module.ReminderBuffs["Food"]
 local darunebuffs = module.ReminderBuffs["DefiledAugmentRune"]
+local cooldowns = module.ReminderBuffs["Cooldown_Reduce"]
 local intellectbuffs = module.ReminderBuffs["Intellect"]
 local staminabuffs = module.ReminderBuffs["Stamina"]
 local attackpowerbuffs = module.ReminderBuffs["AttackPower"]
@@ -148,6 +152,7 @@ local function OnAuraChange(self, event, arg1, unit)
 		end
 	end
 
+	--[[
 	if (darunebuffs and darunebuffs[1]) then
 		DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs[1])))
 		for i, darunebuffs in pairs(darunebuffs) do
@@ -165,7 +170,7 @@ local function OnAuraChange(self, event, arg1, unit)
 				end
 			end
 		end
-	end
+	end]]
 
 	if module.db.class then
 		if (intellectbuffs and intellectbuffs[1]) then
@@ -244,8 +249,26 @@ local function OnAuraChange(self, event, arg1, unit)
 			end
 		end
 
+		if (cooldowns and cooldowns[1]) then
+			CooldownFrame.t:SetTexture(select(3, GetSpellInfo(cooldowns[1])))
+			for i, cooldowns in pairs(cooldowns) do
+				local spellname = select(1, GetSpellInfo(cooldowns))
+				if AuraUtil_FindAuraByName(spellname, "player") then
+					CooldownFrame.t:SetTexture(select(3, GetSpellInfo(cooldowns)))
+					CooldownFrame:SetAlpha(module.db.alpha)
+					-- LCG.PixelGlow_Stop(CooldownFrame)
+				else
+					CooldownFrame:SetAlpha(1)
+					CooldownFrame.t:SetTexture(select(3, GetSpellInfo(381748)))
+					if module.db.glow then
+						-- LCG.PixelGlow_Start(CooldownFrame, color, nil, -0.25, nil, 1)
+					end
+				end
+			end
+		end
 	end
 
+	--[[
 	if (weaponEnch and weaponEnch[1]) then
 		local hasMainHandEnchant, _, _, mainHandEnchantID, hasOffHandEnchant, _, _, offHandEnchantId = GetWeaponEnchantInfo()
 		if (hasMainHandEnchant and EnchantsID(mainHandEnchantID)) or (hasOffHandEnchant and EnchantsID(offHandEnchantId)) then
@@ -259,7 +282,7 @@ local function OnAuraChange(self, event, arg1, unit)
 				LCG.PixelGlow_Start(WeaponFrame, color, nil, -0.25, nil, 1)
 			end
 		end
-	end
+	end]]
 
 	if custombuffs and custombuffs[1] then
 		for i, custombuffs in pairs(custombuffs) do
@@ -336,15 +359,16 @@ function module:Initialize()
 		self:CreateIconBuff("VersatilityFrame", AttackPowerFrame, false)
 		self:CreateIconBuff("FlaskFrame", VersatilityFrame, false)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
-		self:CreateIconBuff("DARuneFrame", FoodFrame, false)
-		self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
-		self:CreateIconBuff("CustomFrame", WeaponFrame, false)
+		self:CreateIconBuff("CooldownFrame", FoodFrame, false)
+		-- self:CreateIconBuff("DARuneFrame", FoodFrame, false)
+		-- self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
+		self:CreateIconBuff("CustomFrame", CooldownFrame, false)
 	else
 		self:CreateIconBuff("FlaskFrame", RaidBuffReminder, true)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
-		self:CreateIconBuff("DARuneFrame", FoodFrame, false)
-		self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
-		self:CreateIconBuff("CustomFrame", WeaponFrame, false)
+		-- self:CreateIconBuff("DARuneFrame", FoodFrame, false)
+		-- self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
+		self:CreateIconBuff("CustomFrame", FoodFrame, false)
 	end
 
 	if E.Retail then

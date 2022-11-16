@@ -21,7 +21,7 @@ local _, ns = ...
 local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 
-local GetContainerNumSlots = --[[MER.IsPTR and C_Container.GetContainerNumSlots or]] GetContainerNumSlots
+local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 
 --[[!
 	@class Implementation
@@ -336,7 +336,6 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 	return i
 end
 
---[[ MER.IsPTR
 function Implementation:GetItemInfo(bagID, slotID, i)
 	i = i or defaultItem
 	for k in pairs(i) do i[k] = nil end
@@ -372,7 +371,7 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 	end
 
 	return i
-end]]
+end
 
 --[[!
 	Updates the defined slot, creating/removing buttons as necessary
@@ -415,7 +414,7 @@ function Implementation:UpdateBag(bagID)
 	if(closed) then
 		numSlots, closed = 0
 	else
-		numSlots = GetContainerNumSlots(bagID)
+		numSlots = C_Container_GetContainerNumSlots(bagID)
 	end
 	local lastSlots = self.bagSizes[bagID] or 0
 	self.bagSizes[bagID] = numSlots

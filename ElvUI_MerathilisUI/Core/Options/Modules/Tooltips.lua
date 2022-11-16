@@ -26,54 +26,12 @@ options.tooltip = {
 			name = L.FACTION,
 			desc = L["Adds an Icon for the faction on the tooltip."],
 		},
-		petIcon = {
-			order = 4,
-			type = "toggle",
-			name = L["Pet Battle"],
-			desc = L["Adds an Icon for battle pets on the tooltip."],
-			hidden = not E.Retail,
-		},
 		keystone = {
 			order = 5,
 			type = "toggle",
 			name = L["Keystone"],
 			desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
 			hidden = not E.Retail,
-		},
-		dominationRank = {
-			order = 6,
-			type = "toggle",
-			name = L["Domination Rank"],
-			desc = L["Show the rank of shards."],
-			hidden = not E.Retail,
-		},
-		covenant = {
-			order = 7,
-			type = "group",
-			guiInline = true,
-			name = "",
-			get = function(info) return E.db.mui.tooltip.covenant[info[#info]] end,
-			set = function(info, value) E.db.mui.tooltip.covenant[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-			hidden = not E.Retail,
-			args = {
-				header0 = {
-					order = 0,
-					type = "header",
-					name = F.cOption(L["Covenant"], 'orange'),
-				},
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Shows the Players Covenant on the Tooltip."]
-				},
-				showNotInGroup = {
-					order = 2,
-					type = "toggle",
-					name = L["Show not in group"],
-					desc = L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"],
-				},
-			},
 		},
 		nameHover = {
 			order = 11,
