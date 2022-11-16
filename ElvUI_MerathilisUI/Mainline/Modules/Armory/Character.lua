@@ -493,6 +493,7 @@ function module:AddCharacterIcon()
 	CharacterLevelText:SetWidth(300)
 
 	ClassSymbolFrame = ("|T"..(MER.ClassIcons[E.myclass]..".tga:0:0:0:0|t"))
+	print(E.myclass)
 
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		CharacterFrameTitleText:ClearAllPoints()
