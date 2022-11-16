@@ -429,16 +429,6 @@ P.misc = {
 	funstuff = true,
 	wowheadlinks = true,
 	respec = true,
-	mawThreatBar = {
-		enable = true,
-		width = 250,
-		height = 16,
-		font = {
-			name = "Expressway",
-			size = 10,
-			style = "OUTLINE",
-		},
-	},
 	hideBossBanner = false,
 	quickDelete = true,
 	quickMenu = true,
@@ -1109,14 +1099,7 @@ P.pvp = {
 P.tooltip = {
 	tooltipIcon = true,
 	factionIcon = true,
-	petIcon = true,
-	keystone = true,
 	titleColor = true,
-	dominationRank = true,
-	covenant = {
-		enable = true,
-		showNotInGroup = false,
-	}
 }
 
 P.itemLevel = {

@@ -60,7 +60,6 @@ function module:Misc()
 		E.RegisterCallback(module, "RoleChanged", "SetRole")
 		module:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
 
-		module:CreateMawWidgetFrame()
 		module:WowHeadLinks()
 		module:AddAlerts()
 		module:QuickMenu()

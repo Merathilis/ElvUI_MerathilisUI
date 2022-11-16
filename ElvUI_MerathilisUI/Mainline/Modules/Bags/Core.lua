@@ -9,23 +9,25 @@ local B = E:GetModule('Bags')
 local _G = _G
 local strmatch, unpack, ceil = string.match, unpack, math.ceil
 local LE_ITEM_CLASS_CONTAINER = LE_ITEM_CLASS_CONTAINER
-local SortBankBags, SortReagentBankBags, SortBags = SortBankBags, SortReagentBankBags, SortBags
-local GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem = GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem
-local C_NewItems_IsNewItem, C_NewItems_RemoveNewItem, C_Timer_After = C_NewItems.IsNewItem, C_NewItems.RemoveNewItem, C_Timer.After
+local C_NewItems_IsNewItem, C_Timer_After = C_NewItems.IsNewItem, C_Timer.After
 local C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID
 local C_Soulbinds_IsItemConduitByItemInfo = C_Soulbinds.IsItemConduitByItemInfo
 local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
 local IsCosmeticItem = IsCosmeticItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
-local GetItemInfo, SplitContainerItem = GetItemInfo, SplitContainerItem
+local GetItemInfo = GetItemInfo
 
-if MER.IsPTR then
-	GetContainerItemID = C_Container.GetContainerItemID
-	GetContainerNumSlots = C_Container.GetContainerNumSlots
-	SortBags = C_Container.SortBags
-	SortBankBags = C_Container.SortBankBags
-	SortReagentBankBags = C_Container.SortReagentBankBags
-end
+local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
+local C_Container_GetContainerItemCooldown = C_Container.GetContainerItemCooldown
+local C_Container_GetContainerItemID = C_Container.GetContainerItemID
+local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
+local C_Container_SortBags = C_Container.SortBags
+local C_Container_SortBankBags = C_Container.SortBankBags
+local C_Container_PickupContainerItem = C_Container.PickupContainerItem
+local C_Container_SplitContainerItem = C_Container.SplitContainerItem
+
+local C_Container_SortReagentBankBags = C_Container.SortReagentBankBags
+
 
 local itemSpellID = {
 	-- Deposit Anima: Infuse (value) stored Anima into your covenant's Reservoir.
@@ -49,19 +51,14 @@ local itemSpellID = {
 local sortCache = {}
 function module:ReverseSort()
 	for bag = 0, 4 do
-		local numSlots = GetContainerNumSlots(bag)
+		local numSlots = C_Container_GetContainerNumSlots(bag)
 		for slot = 1, numSlots do
-			local texture, locked
-			if MER.IsPTR then
-				local info = GetContainerItemInfo(bag, slot)
-				texture = info and info.iconFileID
-				locked = info and info.isLocked
-			else
-				texture, _, locked = GetContainerItemInfo(bag, slot)
-			end
+			local info = C_Container_GetContainerItemInfo(bag, slot)
+			local texture = info and info.iconFileID
+			local locked = info and info.isLocked
 			if (slot <= numSlots / 2) and texture and not locked and not sortCache["b" .. bag .. "s" .. slot] then
-				PickupContainerItem(bag, slot)
-				PickupContainerItem(bag, numSlots + 1 - slot)
+				C_Container_PickupContainerItem(bag, slot)
+				C_Container_PickupContainerItem(bag, numSlots + 1 - slot)
 				sortCache["b" .. bag .. "s" .. slot] = true
 			end
 		end
@@ -380,17 +377,18 @@ function module:CreateSortButton(name)
 		end
 
 		if name == "Bank" then
-			SortBankBags()
+			C_Container_SortBankBags()
 		elseif name == "Reagent" then
-			SortReagentBankBags()
+			C_Container_SortReagentBankBags()
+
 		else
 			if module.db.BagSortMode == 1 then
-				SortBags()
+				C_Container_SortBags()
 			elseif module.db.BagSortMode == 2 then
 				if InCombatLockdown() then
 					UIErrorsFrame:AddMessage(MER.InfoColor .. ERR_NOT_IN_COMBAT)
 				else
-					SortBags()
+					C_Container_SortBags()
 					wipe(sortCache)
 					module.Bags.isSorting = true
 					C_Timer_After(.5, module.ReverseSort)
@@ -405,8 +403,8 @@ function module:CreateSortButton(name)
 end
 
 function module:GetContainerEmptySlot(bagID)
-	for slotID = 1, GetContainerNumSlots(bagID) do
-		if not GetContainerItemID(bagID, slotID) then
+	for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
+		if not C_Container_GetContainerItemID(bagID, slotID) then
 			return slotID
 		end
 	end
@@ -442,7 +440,7 @@ end
 function module:FreeSlotOnDrop()
 	local bagID, slotID = module:GetEmptySlot(self.__name)
 	if slotID then
-		PickupContainerItem(bagID, slotID)
+		C_Container_PickupContainerItem(bagID, slotID)
 	end
 end
 
@@ -550,23 +548,19 @@ end
 local function splitOnClick(self)
 	if not splitEnable then return end
 
-	PickupContainerItem(self.bagId, self.slotId)
+	C_Container_PickupContainerItem(self.bagId, self.slotId)
 
-	local texture, itemCount, locked
-	if MER.IsPTR then
-		local info = GetContainerItemInfo(self.bagId, self.slotId)
-		texture = info and info.iconFileID
-		itemCount = info and info.stackCount
-		locked = info and info.isLocked
-	else
-		texture, itemCount, locked = GetContainerItemInfo(self.bagId, self.slotId)
-	end
+	local info = C_Container_GetContainerItemInfo(self.bagId, self.slotId)
+	local texture = info and info.iconFileID
+	local itemCount = info and info.stackCount
+	local locked = info and info.isLocked
+
 	if texture and not locked and itemCount and itemCount > module.db.SplitCount then
-		SplitContainerItem(self.bagId, self.slotId, module.db.SplitCount)
+		C_Container_SplitContainerItem(self.bagId, self.slotId, module.db.SplitCount)
 
 		local bagID, slotID = module:GetEmptySlot("Bag")
 		if slotID then
-			PickupContainerItem(bagID, slotID)
+			C_Container_PickupContainerItem(bagID, slotID)
 		end
 	end
 end
@@ -670,16 +664,7 @@ end
 local function favouriteOnClick(self)
 	if not favouriteEnable then return end
 
-	local texture, quality, link, itemID
-	if MER.IsPTR then
-		local info = GetContainerItemInfo(self.bagId, self.slotId)
-		texture = info and info.iconFileID
-		quality = info and info.quality
-		link = info and info.hyperlink
-		itemID = info and info.itemID
-	else
-		texture, _, _, quality, _, _, link, _, _, itemID = GetContainerItemInfo(self.bagId, self.slotId)
-	end
+	local texture, _, _, quality, _, _, link, _, _, itemID = C_Container_GetContainerItemInfo(self.bagId, self.slotId)
 	if texture and quality > Enum.ItemQuality.Poor then
 
 		ClearCursor()
@@ -741,10 +726,9 @@ end
 local function customJunkOnClick(self)
 	if not customJunkEnable then return end
 
-	local texture, itemID
-	local info = C_Container.GetContainerItemInfo(self.bagId, self.slotId)
-	texture = info and info.iconFileID
-	itemID = info and info.itemID
+	local info = C_Container_GetContainerItemInfo(self.bagId, self.slotId)
+	local texture = info and info.iconFileID
+	local itemID = info and info.itemID
 
 	local price = select(11, GetItemInfo(itemID))
 	if texture and price > 0 then
@@ -793,14 +777,13 @@ end
 local function deleteButtonOnClick(self)
 	if not deleteEnable then return end
 
-	local texture, quality
-	local info = GetContainerItemInfo(self.bagId, self.slotId)
-	texture = info and info.iconFileID
-	quality = info and info.quality
+	local info = C_Container_GetContainerItemInfo(self.bagId, self.slotId)
+	local texture = info and info.iconFileID
+	local quality = info and info.quality
 
 	if IsControlKeyDown() and IsAltKeyDown() and texture and
 		(quality < Enum.ItemQuality.Rare or quality == Enum.ItemQuality.Heirloom) then
-		PickupContainerItem(self.bagId, self.slotId)
+		C_Container_PickupContainerItem(self.bagId, self.slotId)
 		DeleteCursorItem()
 	end
 end
@@ -853,7 +836,7 @@ function module:CloseBags()
 end
 
 function module:UpdateCooldown(slot)
-	local start, duration, enabled = --[[C_Container.GetContainerItemCooldown]] GetContainerItemCooldown(slot.bagId, slot.slotId)
+	local start, duration, enabled = C_Container_GetContainerItemCooldown(slot.bagId, slot.slotId)
 
 	CooldownFrame_Set(slot.Cooldown, start, duration, enable)
 	if (duration > 0 and enabled == 0) then
@@ -1080,10 +1063,10 @@ function module:Initialize()
 			self.canIMogIt:SetPoint(unpack(CanIMogIt.ICON_LOCATIONS[CanIMogItOptions["iconLocation"]]))
 		end
 
-		-- if DB.IsPTR and not self.ProfessionQualityOverlay then
-			-- self.ProfessionQualityOverlay = self:CreateTexture(nil, "OVERLAY")
-			-- self.ProfessionQualityOverlay:SetPoint("TOPLEFT", -3, 2)
-		-- end
+		if not self.ProfessionQualityOverlay then
+			self.ProfessionQualityOverlay = self:CreateTexture(nil, "OVERLAY")
+			self.ProfessionQualityOverlay:SetPoint("TOPLEFT", -3, 2)
+		end
 	end
 
 	function MyButton:ItemOnEnter()
@@ -1155,8 +1138,6 @@ function module:Initialize()
 	end
 
 	function MyButton:OnUpdateButton(item)
-		local texture, count, locked, rarity, readable, _, itemLink, _, noValue, itemID, isBound = GetContainerItemInfo(item.bagId, item.slotId)
-
 		if self.JunkIcon then
 			if (MerchantFrame:IsShown() or customJunkEnable) and
 				(item.quality == Enum.ItemQuality.Poor or E.global.mui.bags.CustomJunkList[item.id]) and item.hasPrice then
@@ -1181,7 +1162,7 @@ function module:Initialize()
 			end
 		end
 
-		if self.ProfessionQualityOverlay then -- isNewPatch
+		if self.ProfessionQualityOverlay then
 			self.ProfessionQualityOverlay:SetAtlas(nil)
 			SetItemCraftingQualityOverlay(self, item.link)
 		end
@@ -1232,7 +1213,7 @@ function module:Initialize()
 		end
 
 		if module.db.BindType and isItemExist(item) then
-			if not itemLink then
+			if not item.link then
 				return
 			end
 
@@ -1240,7 +1221,7 @@ function module:Initialize()
 				or CheckBoundStatus(item.link, item.bagId, item.slotId, _G.ITEM_BIND_TO_BNETACCOUNT)
 				or CheckBoundStatus(item.link, item.bagId, item.slotId, _G.ITEM_ACCOUNTBOUND)
 			local isSoulBound = CheckBoundStatus(item.link, item.bagId, item.slotId, _G.ITEM_SOULBOUND)
-			local _, _, itemRarity, _, _, _, _, _, _, _, _, _, _, bindType = GetItemInfo(itemLink)
+			local _, _, itemRarity, _, _, _, _, _, _, _, _, _, _, bindType = GetItemInfo(item.link)
 
 			if isBOA or itemRarity == 7 or itemRarity == 8 then
 				self.BindType:SetText('|cff00ccffBOA|r')
@@ -1254,11 +1235,11 @@ function module:Initialize()
 		end
 
 		if module.db.CenterText and isAnimaItem(item) then
-			if not itemLink then
+			if not item.link then
 				return
 			end
 
-			local _, spellID = GetItemSpell(itemLink)
+			local _, spellID = GetItemSpell(item.link)
 			local mult = itemSpellID[spellID]
 			if mult then
 				self.CenterText:SetText(mult * count)

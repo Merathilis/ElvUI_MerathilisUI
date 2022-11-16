@@ -2,7 +2,6 @@
 	<Script file="Alerts.lua"/>
 	<Script file="BossBanner.lua"/>
 	<Script file="LfgInfo.lua"/>
-	<Script file="MawWidgetFrame.lua"/>
 	<Script file="QuickMenu.lua"/>
 	<Script file="RandomToy.lua"/>
 	<Script file="WoWHeadLinks.lua"/>

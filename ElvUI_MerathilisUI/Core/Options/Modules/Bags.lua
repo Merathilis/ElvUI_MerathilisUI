@@ -16,7 +16,7 @@ end
 options.bags = {
 	type = "group",
 	name = L["Bags"],
-	-- hidden = not E.Retail,
+	hidden = E.Classic,
 	args = {
 		header = {
 			order = 0,

@@ -159,6 +159,7 @@ local function SkinMainFrames()
 	for _, button in next, {
 		-- Shopping
 		_G.AuctionatorShoppingLists_AddItem,
+		_G.AuctionatorTradeSkillSearch.SearchButton,
 		list.ManualSearch,
 		list.ExportCSV,
 		list.Rename,
@@ -226,8 +227,8 @@ local function SkinMainFrames()
 		} -- whack shit reference table >.>
 
 		for _, tab in next, _G.AuctionatorAHTabsContainer.Tabs do
-			tab:ClearAllPoints()
-			tab:Point('LEFT', ref[tab.frameRef], 'RIGHT', -5, 0)
+			-- tab:ClearAllPoints()
+			-- tab:Point('LEFT', ref[tab.frameRef], 'RIGHT', -5, 0)
 
 			S:HandleTab(tab)
 		end
@@ -493,6 +494,10 @@ function module:SkinAuctionator()
 end
 
 local function LoadSkin()
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.au then
+		return
+	end
+
 	if IsAddOnLoaded('Auctionator') then
 		module:SkinAuctionatorOptions()
 

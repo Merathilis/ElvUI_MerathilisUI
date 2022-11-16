@@ -1298,16 +1298,29 @@ function MER:SetupUnitframes()
 	if not E.db["unitframe"]["units"]["player"]["customTexts"] then
 		E.db["unitframe"]["units"]["player"]["customTexts"] = {}
 	end
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
-		["font"] = "Gotham Narrow Black",
-		["justifyH"] = "LEFT",
-		["fontOutline"] = "OUTLINE",
-		["xOffset"] = 0,
-		["yOffset"] = 16,
-		["size"] = 11,
-		["text_format"] = "[mUI:class:icon] [mUI-name:health:abbrev{class}]",
-		["attachTextTo"] = "Frame",
-	}
+	if E.Retail then
+		E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
+			["font"] = "Gotham Narrow Black",
+			["justifyH"] = "LEFT",
+			["fontOutline"] = "OUTLINE",
+			["xOffset"] = 0,
+			["yOffset"] = 16,
+			["size"] = 11,
+			["text_format"] = "[classicon-flatborder][mUI-name:health:abbrev{class}]",
+			["attachTextTo"] = "Frame",
+		}
+	else
+		E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
+			["font"] = "Gotham Narrow Black",
+			["justifyH"] = "LEFT",
+			["fontOutline"] = "OUTLINE",
+			["xOffset"] = 0,
+			["yOffset"] = 16,
+			["size"] = 11,
+			["text_format"] = "[mUI-name:health:abbrev{class}]",
+			["attachTextTo"] = "Frame",
+		}
+	end
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
 		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
@@ -1494,16 +1507,29 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["customTexts"] = {}
 
 	-- Create own customText
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
-		["font"] = "Gotham Narrow Black",
-		["justifyH"] = "RIGHT",
-		["fontOutline"] = "OUTLINE",
-		["xOffset"] = 2,
-		["yOffset"] = 16,
-		["size"] = 11,
-		["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}] [mUI:class:icon]",
-		["attachTextTo"] = "Frame",
-	}
+	if E.Retail then
+		E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
+			["font"] = "Gotham Narrow Black",
+			["justifyH"] = "RIGHT",
+			["fontOutline"] = "OUTLINE",
+			["xOffset"] = 2,
+			["yOffset"] = 16,
+			["size"] = 11,
+			["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}][classicon-flatborder]",
+			["attachTextTo"] = "Frame",
+		}
+	else
+		E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
+			["font"] = "Gotham Narrow Black",
+			["justifyH"] = "RIGHT",
+			["fontOutline"] = "OUTLINE",
+			["xOffset"] = 2,
+			["yOffset"] = 16,
+			["size"] = 11,
+			["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}]",
+			["attachTextTo"] = "Frame",
+		}
+	end
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
 		["font"] = "Gotham Narrow Black",
 		["size"] = 11,

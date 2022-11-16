@@ -206,9 +206,14 @@ function module:ItemLevel_UpdateGemInfo(link, unit, index, slotFrame)
 				local texture = slotFrame["textureIcon"..i]
 				local bg = texture.bg
 				local gem = info.gems and info.gems[gemStep]
+				local color = info.gemsColor and info.gemsColor[gemStep]
 				if gem then
 					texture:SetTexture(gem)
-					bg:SetBackdropBorderColor(0, 0, 0, 1)
+					if color then
+						bg:SetBackdropBorderColor(color.r, color.g, color.b)
+					else
+						bg:SetBackdropBorderColor(0, 0, 0)
+					end
 					bg:Show()
 
 					gemStep = gemStep + 1

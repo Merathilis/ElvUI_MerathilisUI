@@ -44,21 +44,104 @@ local function AddMedia(name, file, type)
 	MER.Media[type][name] = MediaPath .. type .. "/" .. file
 end
 
--- Alternate Class Icons by Releaf
-MER.TagClassIcons = {
-	["WARRIOR"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Warrior.tga:0:0:0:0|t",
-	["PALADIN"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Paladin.tga:0:0:0:0|t",
-	["HUNTER"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Hunter.tga:0:0:0:0|t",
-	["ROGUE"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Rogue.tga:0:0:0:0|t",
-	["PRIEST"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Priest.tga:0:0:0:0|t",
-	["DEATHKNIGHT"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\DeathKnight.tga:0:0:0:0|t",
-	["SHAMAN"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Shaman.tga:0:0:0:0|t",
-	["MAGE"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Mage.tga:0:0:0:0|t",
-	["WARLOCK"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Warlock.tga:0:0:0:0|t",
-	["MONK"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Monk.tga:0:0:0:0|t",
-	["DRUID"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\Druid.tga:0:0:0:0|t",
-	["DEMONHUNTER"] = "|TInterface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\Icons\\Classes\\DemonHunter.tga:0:0:0:0|t",
-}
+do
+	AddMedia("widgetsTips", "WidgetsTips.tga", "Textures")
+
+	local texTable = {
+		texWidth = 2048,
+		texHeight = 1024,
+		tipWidth = 512,
+		tipHeight = 170,
+		languages = {
+			enUS = 0
+		},
+		type = {
+			button = { 0, 0 },
+			checkBox = { 512, 0 },
+			tab = { 1024, 0 },
+			treeGroupButton = { 1536, 0 },
+			slider = { 0, 180 }
+		}
+	}
+
+	function F.GetWidgetTips(widgetType)
+		if not texTable.type[widgetType] then
+			return
+		end
+		local offsetY = texTable.languages[E.global.general.locale] or texTable.languages["enUS"]
+		if not offsetY then
+			return
+		end
+
+		local xStart = texTable.type[widgetType][1]
+		local yStart = texTable.type[widgetType][2] + offsetY
+		local xEnd = xStart + texTable.tipWidth
+		local yEnd = yStart + texTable.tipHeight
+
+		return { xStart / texTable.texWidth, xEnd / texTable.texWidth, yStart / texTable.texHeight, yEnd / texTable.texHeight }
+	end
+
+	function F.GetWidgetTipsString(widgetType)
+		if not texTable.type[widgetType] then
+			return
+		end
+		local offsetY = texTable.languages[E.global.general.locale] or texTable.languages["enUS"]
+		if not offsetY then
+			return
+		end
+
+		local xStart = texTable.type[widgetType][1]
+		local yStart = texTable.type[widgetType][2] + offsetY
+		local xEnd = xStart + texTable.tipWidth
+		local yEnd = yStart + texTable.tipHeight
+
+		return format(
+			"|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d:255:255:255|t",
+			MER.Media.Textures.widgetsTips,
+			ceil(texTable.tipHeight * 0.4),
+			ceil(texTable.tipWidth * 0.4),
+			texTable.texWidth,
+			texTable.texHeight,
+			xStart,
+			xEnd,
+			yStart,
+			yEnd
+		)
+	end
+end
+
+function F.GetClassIconStyleList()
+	return { "flat", "flatborder", "flatborder2", "round", "square", "warcraftflat" }
+end
+
+function F.GetClassIconWithStyle(class, style)
+	if not class or not F.In(strupper(class), _G.CLASS_SORT_ORDER) then
+		return
+	end
+
+	if not style or not F.In(style, F.GetClassIconStyleList()) then
+		return
+	end
+
+	return MediaPath .. "Icons/ClassIcon/" .. strlower(class) .. "_" .. style .. ".tga"
+end
+
+function F.GetClassIconStringWithStyle(class, style, width, height)
+	local path = F.GetClassIconWithStyle(class, style)
+	if not path then
+		return
+	end
+
+	if not width and not height then
+		return format("|T%s:0|t", path)
+	end
+
+	if not height then
+		height = width
+	end
+
+	return format("|T%s:%d:%d:0:0:64:64:0:64:0:64|t", path, height, width)
+end
 
 MER.ClassIcons = {
 	["WARRIOR"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/Warrior",
@@ -118,6 +201,8 @@ AddMedia("system", "Options/system.tga", "Icons")
 AddMedia("tips", "Options/tips.tga", "Icons")
 AddMedia("bill", "Options/bill.tga", "Icons")
 AddMedia("save", "Options/save.tga", "Icons")
+AddMedia("more", "Options/more.tga", "Icons")
+AddMedia("tool", "Options/tool.tga", "Icons")
 
 AddMedia("buttonLock", "Button/Lock.tga", "Icons")
 AddMedia("buttonUnlock", "Button/Unlock.tga", "Icons")

@@ -8,7 +8,7 @@ local format = string.format
 
 options.unitframes = {
 	type = "group",
-	name = E.NewSign..L["UnitFrames"],
+	name = L["UnitFrames"],
 	get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 	set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; end,
 	disabled = function() return not E.private.unitframe.enable end,
@@ -119,7 +119,7 @@ options.unitframes = {
 		castbar = {
 			order = 4,
 			type = "group",
-			name = E.NewSign..F.cOption(L["Castbar"], 'orange'),
+			name = F.cOption(L["Castbar"], 'orange'),
 			guiInline = true,
 			get = function(info) return E.db.mui.unitframes.castbar[ info[#info] ] end,
 			set = function(info, value) E.db.mui.unitframes.castbar[info[#info]] = value; E:StaticPopup_Show("CONFIG_RL"); end,
