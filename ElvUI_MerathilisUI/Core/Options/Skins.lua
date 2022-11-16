@@ -90,19 +90,6 @@ options.general = {
 					name = L["Screen Shadow Overlay"],
 					desc = L["Enables/Disables a shadow overlay to darken the screen."],
 				},
-				toggleDirection = {
-					order = 5,
-					type = "select",
-					name = L["Toggle Direction"],
-					set = function(_, value) E.private.mui.skins.toggleDirection = value; UpdateToggleDirection(); end,
-					values = {
-						[1] = L["LEFT"],
-						[2] = L["RIGHT"],
-						[3] = L["TOP"],
-						[4] = L["BOTTOM"],
-						[5] = _G.DISABLE,
-					},
-				},
 				shadow = {
 					order = 8,
 					type = "group",
@@ -1935,6 +1922,19 @@ options.Embed = {
 			disabled = function()
 				return not E.private.mui.skins.embed.enable
 			end,
+		},
+		toggleDirection = {
+			order = 5,
+			type = "select",
+			name = L["Toggle Direction"],
+			set = function(_, value) E.private.mui.skins.embed.toggleDirection = value; UpdateToggleDirection(); end,
+			values = {
+				[1] = L["LEFT"],
+				[2] = L["RIGHT"],
+				[3] = L["TOP"],
+				[4] = L["BOTTOM"],
+				[5] = _G.DISABLE,
+			},
 		},
 	},
 }

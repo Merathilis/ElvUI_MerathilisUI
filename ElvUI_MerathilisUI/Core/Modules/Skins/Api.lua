@@ -892,7 +892,7 @@ StaticPopupDialogs["RESET_DETAILS"] = {
 }
 
 function module:GetToggleDirection()
-	local direc = E.private.mui.skins.toggleDirection
+	local direc = E.private.mui.skins.embed.toggleDirection
 	if direc == 1 then
 		return ">", "<", "RIGHT", "LEFT", -2, 0, 20, 80
 	elseif direc == 2 then
@@ -950,7 +950,7 @@ function module:SetToggleDirection(frame)
 	open:SetPoint(rel1, parent, rel1, -x, -y)
 	open:SetSize(width, height)
 
-	if E.private.mui.skins.toggleDirection == 5 then
+	if E.private.mui.skins.embed.toggleDirection == 5 then
 		close:SetScale(.001)
 		close:SetAlpha(0)
 		open:SetScale(.001)
