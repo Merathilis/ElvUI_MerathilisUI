@@ -1235,6 +1235,7 @@ function module:Initialize()
 		end
 
 		if module.db.CenterText and isAnimaItem(item) then
+			local info = B:GetContainerItemInfo(item.bagId, item.slotId)
 			if not item.link then
 				return
 			end
@@ -1242,7 +1243,7 @@ function module:Initialize()
 			local _, spellID = GetItemSpell(item.link)
 			local mult = itemSpellID[spellID]
 			if mult then
-				self.CenterText:SetText(mult * count)
+				self.CenterText:SetText(mult * info.stackCount)
 			end
 		else
 			self.CenterText:SetText('')
@@ -1379,7 +1380,7 @@ function module:Initialize()
 		elseif strmatch(name, "Custom%d") then
 			label = GetCustomGroupTitle(settings.Index)
 		elseif name == "BagReagent" then
-			label = L["ReagentBag"]
+			label = _G.PROFESSIONS_COLUMN_HEADER_REAGENTS
 		end
 		if label then
 			self.label = self:CreateFontString(nil, "ARTWORK")

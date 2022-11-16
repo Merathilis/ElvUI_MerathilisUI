@@ -15,7 +15,7 @@ local C_EquipmentSet_GetNumEquipmentSets = C_EquipmentSet.GetNumEquipmentSets
 local C_EquipmentSet_GetEquipmentSetInfo = C_EquipmentSet.GetEquipmentSetInfo
 local C_EquipmentSet_GetItemLocations = C_EquipmentSet.GetItemLocations
 local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
-local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
+local C_Container_GetContainerNumSlots = GetContainerNumSlots or C_Container.GetContainerNumSlots
 
 -- Credits Shadow & Light - Darth & Repooc
 

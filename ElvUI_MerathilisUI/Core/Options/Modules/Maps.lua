@@ -2,6 +2,7 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule('MER_Minimap')
 local MP = MER:GetModule('MER_MiniMapPing')
 local SMB = MER:GetModule('MER_MiniMapButtons')
+local RM = MER:GetModule('MER_RectangleMinimap')
 local WM = MER:GetModule('MER_WorldMap')
 local options = MER.options.modules.args
 local LSM = E.LSM
@@ -314,8 +315,49 @@ options.maps = {
 				},
 			},
 		},
-		smb = {
+		rectangleMinimap = {
 			order = 5,
+			type = "group",
+			name = L["Rectangle Minimap"],
+			get = function(info)
+				return E.db.mui.maps.rectangleMinimap[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.maps.rectangleMinimap[info[#info]] = value
+				RM:ChangeShape()
+			end,
+			args = {
+				desc = {
+					order = 1,
+					type = "group",
+					inline = true,
+					name = L["Description"],
+					args = {
+						feature = {
+							order = 1,
+							type = "description",
+							name = L["Change the shape of ElvUI minimap."],
+							fontSize = "medium"
+						}
+					}
+				},
+				enable = {
+					order = 2,
+					type = "toggle",
+					name = L["Enable"],
+					width = "full"
+				},
+				heightPercentage = {
+					order = 3,
+					type = "range",
+					name = L["Height Percentage"],
+					desc = L["Percentage of ElvUI minimap size."],
+					min = 0.01, max = 1, step = 0.01
+				},
+			},
+		},
+		smb = {
+			order = 6,
 			type = "group",
 			name = L["Minimap Buttons"],
 			get = function(info) return E.db.mui.smb[ info[#info] ] end,
@@ -489,7 +531,7 @@ options.maps = {
 			},
 		},
 		superTracker = {
-			order = 6,
+			order = 7,
 			type = "group",
 			name = L["Super Tracker"],
 			hidden = not E.Retail,

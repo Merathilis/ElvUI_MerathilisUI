@@ -12,11 +12,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Forgot to add option for the Auctionator Skin >.>",
-		"• IMPORTANT: Changed the tag: [mUI:class:icon] you need to change it",
-		"• Remove the backdrop from the Quest Counter on the WorldMap",
-		"• Moved the Misc Category to my main Option section",
-		"• Added tips for Widget Skins. Credits fang2hou - Windtools",
+		"• Fix various compatibility errors with retail <=> classic",
+		"• Added back Rectangle Minimap (disabled by default)",
+		"• Move Tooltip Icons to Retail only due to incompatibility with Classic",
 
 	" ",
 	"Notes:",
