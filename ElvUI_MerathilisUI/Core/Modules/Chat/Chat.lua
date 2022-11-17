@@ -186,7 +186,7 @@ function module:CreateChatButtons()
 	ChatButton:ClearAllPoints()
 	ChatButton:Point("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 4, -8)
 	ChatButton:Size(13, 13)
-	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
+	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "ONLYRIGHT" then
 		ChatButton:SetAlpha(0)
 	else
 		ChatButton:SetAlpha(0.55)
@@ -228,7 +228,7 @@ function module:CreateChatButtons()
 	end)
 
 	ChatButton:SetScript("OnLeave", function(self)
-		if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
+		if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "ONLYRIGHT" then
 			self:SetAlpha(0)
 		else
 			self:SetAlpha(0.55)
@@ -389,7 +389,7 @@ function module:Initialize()
 	end
 	module:DamageMeterFilter()
 	module:LoadChatFade()
-	module:UpdateSeperators()
+	-- module:UpdateSeperators()
 	module:CreateChatButtons()
 	module:UpdateRoleIcons()
 	module:AddCustomEmojis()

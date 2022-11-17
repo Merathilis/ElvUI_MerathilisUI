@@ -86,7 +86,6 @@ function module:Configure_ChatFade()
 		_G.RightChatPanel:SetParent(self.fadeParent)
 		_G.LeftChatToggleButton:SetParent(self.fadeParent)
 		_G.RightChatToggleButton:SetParent(self.fadeParent)
-		_G.MER_RightChatTopDT:SetParent(self.fadeParent)
 	else
 		self:ShowChatFade()
 
@@ -114,6 +113,5 @@ function module:Configure_ChatFade()
 		_G.RightChatPanel:SetParent(E.UIParent)
 		_G.LeftChatToggleButton:SetParent(E.UIParent)
 		_G.RightChatToggleButton:SetParent(E.UIParent)
-		_G.MER_RightChatTopDT:SetParent(E.UIParent)
 	end
 end
