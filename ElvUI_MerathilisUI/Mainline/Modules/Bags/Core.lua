@@ -664,9 +664,13 @@ end
 local function favouriteOnClick(self)
 	if not favouriteEnable then return end
 
-	local texture, _, _, quality, _, _, link, _, _, itemID = C_Container_GetContainerItemInfo(self.bagId, self.slotId)
-	if texture and quality > Enum.ItemQuality.Poor then
+	local info = C_Container_GetContainerItemInfo(self.bagId, self.slotId)
+	local texture = info and info.iconFileID
+	local quality = info and info.quality
+	local link = info and info.hyperlink
+	local itemID = info and info.itemID
 
+	if texture and quality > Enum.ItemQuality.Poor then
 		ClearCursor()
 		module.selectItemID = itemID
 		module.CustomMenu[1].text = link
@@ -1520,10 +1524,8 @@ function module:Initialize()
 	local shiftUpdater = CreateFrame("Frame", nil, f.main)
 	shiftUpdater:SetScript("OnUpdate", onUpdate)
 
-	if MER.IsPTR then
-		MicroButtonAndBagsBar:Hide()
-		MicroButtonAndBagsBar:UnregisterAllEvents()
-	end
+	MicroButtonAndBagsBar:Hide()
+	MicroButtonAndBagsBar:UnregisterAllEvents()
 end
 
 MER:RegisterModule(module:GetName())
