@@ -306,7 +306,9 @@ local ButtonTypes = {
 					return
 				end
 			end
-			button.additionalText:SetFormattedText(button.additionalTextFormat, button.additionalTextFunc())
+			if E.Retail then
+				button.additionalText:SetFormattedText(button.additionalTextFormat, button.additionalTextFunc())
+			end
 		end,
 		notification = true,
 	},

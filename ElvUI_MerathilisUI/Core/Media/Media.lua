@@ -144,19 +144,19 @@ function F.GetClassIconStringWithStyle(class, style, width, height)
 end
 
 MER.ClassIcons = {
-	["WARRIOR"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/warrior_flatborder2.tga",
-	["PALADIN"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/paladin_flatborder2.tga",
-	["HUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/hunter_flatborder2.tga",
-	["ROGUE"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/rogue_flatborder2.tga",
-	["PRIEST"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/priest_flatborder2.tga",
-	["DEATHKNIGHT"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/deathknight_flatborder2.tga",
-	["SHAMAN"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/shaman_flatborder2.tga",
-	["MAGE"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/mage_flatborder2.tga",
-	["WARLOCK"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/warlock_flatborder2.tga",
-	["MONK"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/monk_flatborder2.tga",
-	["DRUID"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/druid_flatborder2.tga",
-	["DEMONHUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/demonhunter_flatborder2.tga",
-	["EVOKER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcons/evoker_flatborder2.tga",
+	["WARRIOR"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Warrior",
+	["PALADIN"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Paladin",
+	["HUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Hunter",
+	["ROGUE"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Rogue",
+	["PRIEST"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Priest",
+	["DEATHKNIGHT"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/DeathKnight",
+	["SHAMAN"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Shaman",
+	["MAGE"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Mage",
+	["WARLOCK"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Warlock",
+	["MONK"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Monk",
+	["DRUID"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Druid",
+	["DEMONHUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/DemonHunter",
+	["EVOKER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Evoker",
 }
 
 AddMedia("barAchievements", "MicroBar/Achievements.tga", "Icons")

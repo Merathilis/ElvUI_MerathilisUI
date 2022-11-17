@@ -613,7 +613,7 @@ function MER:SetupLayout()
 		E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
 		E.db["mui"]["maps"]["rectangleMinimap"]["heightPercentage"] = 0.65
 		E.db["general"]["minimap"]["clusterDisable"] = false
-		E.db["general"]["minimap"]["size"] = 221
+		E.db["general"]["minimap"]["size"] = 222
 		E.db["mui"]["smb"]["buttonSize"] = 23
 		E.db["mui"]["smb"]["buttonsPerRow"] = 9
 		E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0

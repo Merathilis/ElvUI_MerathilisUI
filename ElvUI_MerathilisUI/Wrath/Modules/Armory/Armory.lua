@@ -11,6 +11,8 @@ local PaperDollFrame = _G.PaperDollFrame
 local CharacterNameText = _G.CharacterNameText
 local EquipmentManager_EquipSet = EquipmentManager_EquipSet
 
+local ClassSymbolFrame
+
 local function SetCharacterStats(statsTable, category)
 	if category == "PLAYERSTAT_BASE_STATS" then
 		PaperDollFrame_SetStat(statsTable[1], 1)
@@ -329,13 +331,15 @@ function M:SortAddOnPanels()
 end
 
 function M:AddCharacterIcon()
+	ClassSymbolFrame = ("|T" .. (MER.ClassIcons[E.myclass] .. ".tga:0:0:0:0|t"))
+
 	E:Delay(0, function() -- otherwise it will just return "name"
 		if not (CharacterNameText:GetText():match("|T")) then
 			CharacterNameText:SetFont(E.LSM:Fetch('font', E.db.general.font), 16, E.db.general.fontStyle)
 			CharacterNameText:SetShadowColor(0, 0, 0, 0.6)
 			CharacterNameText:SetShadowOffset(2, -1)
 
-			CharacterNameText:SetText(F.GradientName(CharacterNameText:GetText(), E.myclass))
+			CharacterNameText:SetText(ClassSymbolFrame .. " " .. F.GradientName(CharacterNameText:GetText(), E.myclass))
 		end
 	end)
 end
