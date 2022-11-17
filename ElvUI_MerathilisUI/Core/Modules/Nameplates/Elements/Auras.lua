@@ -42,12 +42,12 @@ function module:PostUpdateAura(unit, button)
 
 		if width > height then
 			local aspect = height / width
-			button.icon:SetTexCoord(0.07, 0.93, (0.5 - (aspect / 2)) + 0.07, (0.5 + (aspect / 2)) - 0.07)
+			button.Icon:SetTexCoord(0.07, 0.93, (0.5 - (aspect / 2)) + 0.07, (0.5 + (aspect / 2)) - 0.07)
 		elseif height > width then
 			local aspect = width / height
-			button.icon:SetTexCoord((0.5 - (aspect / 2)) + 0.07, (0.5 + (aspect / 2)) - 0.07, 0.07, 0.93)
+			button.Icon:SetTexCoord((0.5 - (aspect / 2)) + 0.07, (0.5 + (aspect / 2)) - 0.07, 0.07, 0.93)
 		else
-			button.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+			button.Icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 		end
 
 		button:SetWidth(width)
@@ -74,10 +74,10 @@ function module:PostUpdateAura(unit, button)
 end
 
 function module:Construct_Auras(nameplate)
-	nameplate.Buffs.PostUpdateIcon = module.PostUpdateAura
-	nameplate.Debuffs.PostUpdateIcon = module.PostUpdateAura
+	nameplate.Buffs.PostUpdateButton = module.PostUpdateAura
+	nameplate.Debuffs.PostUpdateButton = module.PostUpdateAura
 
-	hooksecurefunc(nameplate.Debuffs, 'PostUpdateIcon', module.PostUpdateAura)
+	hooksecurefunc(nameplate.Debuffs, 'PostUpdateButton', module.PostUpdateAura)
 end
 
 function module:Construct_AuraIcon(button)
