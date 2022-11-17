@@ -17,16 +17,17 @@ local IsCosmeticItem = IsCosmeticItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
 local GetItemInfo = GetItemInfo
 
-local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
-local C_Container_GetContainerItemCooldown = C_Container.GetContainerItemCooldown
-local C_Container_GetContainerItemID = C_Container.GetContainerItemID
-local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
-local C_Container_SortBags = C_Container.SortBags
-local C_Container_SortBankBags = C_Container.SortBankBags
-local C_Container_PickupContainerItem = C_Container.PickupContainerItem
-local C_Container_SplitContainerItem = C_Container.SplitContainerItem
-
-local C_Container_SortReagentBankBags = C_Container.SortReagentBankBags
+local SetSortBagsRightToLeft = C_Container.SetSortBagsRightToLeft
+local SetInsertItemsLeftToRight = C_Container.SetInsertItemsLeftToRight
+local GetContainerItemInfo = C_Container.GetContainerItemInfo
+local GetContainerItemCooldown = C_Container.GetContainerItemCooldown
+local GetContainerItemID = C_Container.GetContainerItemID
+local GetContainerNumSlots = C_Container.GetContainerNumSlots
+local SortBags = C_Container.SortBags
+local SortBankBags = C_Container.SortBankBags
+local PickupContainerItem = C_Container.PickupContainerItem
+local SplitContainerItem = C_Container.SplitContainerItem
+local SortReagentBankBags = C_Container.SortReagentBankBags
 
 
 local itemSpellID = {
@@ -51,15 +52,15 @@ local itemSpellID = {
 local sortCache = {}
 function module:ReverseSort()
 	for bag = 0, 4 do
-		local numSlots = C_Container_GetContainerNumSlots(bag)
+		local numSlots = GetContainerNumSlots(bag)
 		for slot = 1, numSlots do
-			local info = C_Container_GetContainerItemInfo(bag, slot)
+			local info = GetContainerItemInfo(bag, slot)
 			local texture = info and info.iconFileID
 			local locked = info and info.isLocked
 			if (slot <= numSlots / 2) and texture and not locked and not sortCache["b" .. bag .. "s" .. slot] then
-				C_Container_PickupContainerItem(bag, slot)
-				C_Container_PickupContainerItem(bag, numSlots + 1 - slot)
-				sortCache["b" .. bag .. "s" .. slot] = true
+				PickupContainerItem(bag, slot)
+				PickupContainerItem(bag, numSlots + 1 - slot)
+				sortCache["b"..bag.."s"..slot] = true
 			end
 		end
 	end
@@ -250,9 +251,6 @@ local function CloseOrRestoreBags(self, btn)
 		local bag = self.__owner.main
 		local bank = self.__owner.bank
 		local reagent = self.__owner.reagent
-		C.db["TempAnchor"][bag:GetName()] = nil
-		C.db["TempAnchor"][bank:GetName()] = nil
-		C.db["TempAnchor"][reagent:GetName()] = nil
 		bag:ClearAllPoints()
 		bag:SetPoint(unpack(bag.__anchor))
 		bank:ClearAllPoints()
@@ -377,9 +375,9 @@ function module:CreateSortButton(name)
 		end
 
 		if name == "Bank" then
-			C_Container_SortBankBags()
+			SortBankBags()
 		elseif name == "Reagent" then
-			C_Container_SortReagentBankBags()
+			SortReagentBankBags()
 
 		else
 			if module.db.BagSortMode == 1 then
@@ -388,7 +386,7 @@ function module:CreateSortButton(name)
 				if InCombatLockdown() then
 					UIErrorsFrame:AddMessage(MER.InfoColor .. ERR_NOT_IN_COMBAT)
 				else
-					C_Container_SortBags()
+					SortBags()
 					wipe(sortCache)
 					module.Bags.isSorting = true
 					C_Timer_After(.5, module.ReverseSort)
@@ -403,8 +401,8 @@ function module:CreateSortButton(name)
 end
 
 function module:GetContainerEmptySlot(bagID)
-	for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
-		if not C_Container_GetContainerItemID(bagID, slotID) then
+	for slotID = 1, GetContainerNumSlots(bagID) do
+		if not GetContainerItemID(bagID, slotID) then
 			return slotID
 		end
 	end
@@ -440,7 +438,7 @@ end
 function module:FreeSlotOnDrop()
 	local bagID, slotID = module:GetEmptySlot(self.__name)
 	if slotID then
-		C_Container_PickupContainerItem(bagID, slotID)
+		PickupContainerItem(bagID, slotID)
 	end
 end
 
@@ -548,19 +546,19 @@ end
 local function splitOnClick(self)
 	if not splitEnable then return end
 
-	C_Container_PickupContainerItem(self.bagId, self.slotId)
+	PickupContainerItem(self.bagId, self.slotId)
 
-	local info = C_Container_GetContainerItemInfo(self.bagId, self.slotId)
+	local info = GetContainerItemInfo(self.bagId, self.slotId)
 	local texture = info and info.iconFileID
 	local itemCount = info and info.stackCount
 	local locked = info and info.isLocked
 
 	if texture and not locked and itemCount and itemCount > module.db.SplitCount then
-		C_Container_SplitContainerItem(self.bagId, self.slotId, module.db.SplitCount)
+		SplitContainerItem(self.bagId, self.slotId, module.db.SplitCount)
 
 		local bagID, slotID = module:GetEmptySlot("Bag")
 		if slotID then
-			C_Container_PickupContainerItem(bagID, slotID)
+			PickupContainerItem(bagID, slotID)
 		end
 	end
 end
@@ -664,7 +662,7 @@ end
 local function favouriteOnClick(self)
 	if not favouriteEnable then return end
 
-	local info = C_Container_GetContainerItemInfo(self.bagId, self.slotId)
+	local info = GetContainerItemInfo(self.bagId, self.slotId)
 	local texture = info and info.iconFileID
 	local quality = info and info.quality
 	local link = info and info.hyperlink
@@ -730,7 +728,7 @@ end
 local function customJunkOnClick(self)
 	if not customJunkEnable then return end
 
-	local info = C_Container_GetContainerItemInfo(self.bagId, self.slotId)
+	local info = GetContainerItemInfo(self.bagId, self.slotId)
 	local texture = info and info.iconFileID
 	local itemID = info and info.itemID
 
@@ -781,13 +779,13 @@ end
 local function deleteButtonOnClick(self)
 	if not deleteEnable then return end
 
-	local info = C_Container_GetContainerItemInfo(self.bagId, self.slotId)
+	local info = GetContainerItemInfo(self.bagId, self.slotId)
 	local texture = info and info.iconFileID
 	local quality = info and info.quality
 
 	if IsControlKeyDown() and IsAltKeyDown() and texture and
 		(quality < Enum.ItemQuality.Rare or quality == Enum.ItemQuality.Heirloom) then
-		C_Container_PickupContainerItem(self.bagId, self.slotId)
+		PickupContainerItem(self.bagId, self.slotId)
 		DeleteCursorItem()
 	end
 end
@@ -840,7 +838,7 @@ function module:CloseBags()
 end
 
 function module:UpdateCooldown(slot)
-	local start, duration, enabled = C_Container_GetContainerItemCooldown(slot.bagId, slot.slotId)
+	local start, duration, enabled = GetContainerItemCooldown(slot.bagId, slot.slotId)
 
 	CooldownFrame_Set(slot.Cooldown, start, duration, enable)
 	if (duration > 0 and enabled == 0) then

@@ -21,7 +21,7 @@ local _, ns = ...
 local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 
-local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
+local GetContainerNumSlots = C_Container.GetContainerNumSlots
 
 --[[!
 	@class Implementation
@@ -33,8 +33,6 @@ Implementation.instances = {}
 Implementation.itemKeys = {}
 
 local toBagSlot = cargBags.ToBagSlot
-local LE_ITEM_CLASS_MISCELLANEOUS = Enum.ItemClass.Miscellaneous or 15
-local LE_ITEM_MISCELLANEOUS_COMPANION_PET = Enum.ItemMiscellaneousSubclass.CompanionPet or 2
 local PET_CAGE = 82800
 local MYTHIC_KEYSTONES = {
 	[180653] = true,
@@ -310,42 +308,10 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 	i.bagId = bagID
 	i.slotId = slotID
 
-	local texture, count, locked, quality, _, _, itemLink, _, noValue, itemID = GetContainerItemInfo(bagID, slotID)
-
-	if itemLink then
-		i.texture, i.count, i.locked, i.quality, i.link, i.id = texture, count, locked, quality, itemLink, itemID
-		i.hasPrice = not noValue
-		i.isInSet, i.setName = GetContainerItemEquipmentSetInfo(bagID, slotID)
-		i.cdStart, i.cdFinish, i.cdEnable = GetContainerItemCooldown(bagID, slotID)
-		i.isQuestItem, i.questID, i.questActive = GetContainerItemQuestInfo(bagID, slotID)
-		i.name, _, _, _, _, i.type, i.subType, _, i.equipLoc, _, _, i.classID, i.subClassID = GetItemInfo(itemLink)
-		i.equipLoc = _G[i.equipLoc] -- INVTYPE to localized string
-
-		if itemID == PET_CAGE then
-			local petID, petLevel, petName = strmatch(itemLink, "|H%w+:(%d+):(%d+):.-|h%[(.-)%]|h")
-			i.name = petName
-			i.id = tonumber(petID) or 0
-			i.level = tonumber(petLevel) or 0
-			i.classID = LE_ITEM_CLASS_MISCELLANEOUS
-			i.subClassID = LE_ITEM_MISCELLANEOUS_COMPANION_PET
-		elseif MYTHIC_KEYSTONES[itemID] then
-			i.level, i.name = strmatch(itemLink, "|H%w+:%d+:%d+:(%d+):.-|h%[(.-)%]|h")
-			i.level = tonumber(i.level) or 0
-		end
-	end
-	return i
-end
-
-function Implementation:GetItemInfo(bagID, slotID, i)
-	i = i or defaultItem
-	for k in pairs(i) do i[k] = nil end
-	i.bagId = bagID
-	i.slotId = slotID
-
 	local texture, count, locked, quality, itemLink, noValue, itemID
 	local info = C_Container.GetContainerItemInfo(bagID, slotID)
 	if info then
-		i.texture, i.count, i.locked, i.quality, i.link, i.id, i.hasPrice = info.iconFileID, info.stackCount, info.isLocked, info.quality, info.hyperlink, info.itemID, (not info.hasNoValue)
+		i.texture, i.count, i.locked, i.quality, i.link, i.id, i.hasPrice = info.iconFileID, info.stackCount, info.isLocked, (info.quality or 1), info.hyperlink, info.itemID, (not info.hasNoValue)
 
 		i.isInSet, i.setName = C_Container.GetContainerItemEquipmentSetInfo(bagID, slotID)
 
@@ -362,8 +328,8 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 			i.name = petName
 			i.id = tonumber(petID) or 0
 			i.level = tonumber(petLevel) or 0
-			i.classID = LE_ITEM_CLASS_MISCELLANEOUS
-			i.subClassID = LE_ITEM_MISCELLANEOUS_COMPANION_PET
+			i.classID = Enum.ItemClass.Miscellaneous
+			i.subClassID = Enum.ItemMiscellaneousSubclass.CompanionPet
 		elseif MYTHIC_KEYSTONES[i.id] then
 			i.level, i.name = strmatch(i.link, "|H%w+:%d+:%d+:(%d+):.-|h%[(.-)%]|h")
 			i.level = tonumber(i.level) or 0
@@ -414,7 +380,7 @@ function Implementation:UpdateBag(bagID)
 	if(closed) then
 		numSlots, closed = 0
 	else
-		numSlots = C_Container_GetContainerNumSlots(bagID)
+		numSlots = GetContainerNumSlots(bagID)
 	end
 	local lastSlots = self.bagSizes[bagID] or 0
 	self.bagSizes[bagID] = numSlots
@@ -446,7 +412,7 @@ function Implementation:BAG_UPDATE(_, bagID, slotID)
 	elseif(bagID) then
 		self:UpdateBag(bagID)
 	else
-		for bagID = -3, 11 do
+		for bagID = -3, 12 do
 			self:UpdateBag(bagID)
 		end
 	end

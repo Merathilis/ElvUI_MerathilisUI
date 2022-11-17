@@ -40,18 +40,18 @@ cargBags.itemKeys["bindOn"] = function(i)
 	if not i.link then return end
 
 	local data = C_TooltipInfo.GetBagItem(i.bagId, i.slotId)
-	if data then
-		for j = 2, 5 do
-			local lineData = data.lines[j]
-			if not lineData then break end
-			local argVal = lineData.args
-			if argVal then
-				local lineText = argVal[2] and argVal[2].stringVal
-				local bindOn = lineText and bindTypeToString[lineText]
-				if bindOn then
-					i.bindOn = bindOn
-					return bindOn
-				end
+	if not data then return end
+
+	for j = 2, 5 do
+		local lineData = data.lines[j]
+		if not lineData then break end
+		local argVal = lineData.args
+		if argVal then
+			local lineText = argVal[2] and argVal[2].stringVal
+			local bindOn = lineText and bindTypeToString[lineText]
+			if bindOn then
+				i.bindOn = bindOn
+				return bindOn
 			end
 		end
 	end
