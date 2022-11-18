@@ -798,6 +798,22 @@ function module:ButtonOnClick(btn)
 	deleteButtonOnClick(self)
 end
 
+function module:CreateVendorGreyButton()
+	local bu = S.CreateButton(self, 22, 22, true, "Interface\\ICONS\\INV_Misc_Coin_01")
+	bu.Icon:SetPoint("TOPLEFT", E.mult, -1)
+	bu.Icon:SetPoint("BOTTOMRIGHT", -E.mult, -1)
+
+	bu:SetScript('OnEnter', B.Tooltip_Show)
+	bu:SetScript('OnLeave', GameTooltip_Hide)
+	bu:SetScript('OnClick', B.VendorGrayCheck)
+	bu.title = L["Vendor Grays"]
+	F.AddTooltip(bu, "ANCHOR_TOP")
+
+	toggleButtons[8] = bu
+
+	return bu
+end
+
 local function CheckBoundStatus(itemLink, bagID, slotID, string)
 	local tip = F.ScanTip
 	tip:SetOwner(_G.UIParent, 'ANCHOR_NONE')
@@ -1409,6 +1425,7 @@ function module:Initialize()
 			buttons[5] = module.CreateFavouriteButton(self)
 			buttons[6] = module.CreateJunkButton(self)
 			buttons[7] = module.CreateDeleteButton(self)
+			buttons[8] = module.CreateVendorGreyButton(self)
 		elseif name == "Bank" then
 			module.CreateBagBar(self, settings, 7)
 			SetFrameMovable(self, true)
