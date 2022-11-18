@@ -7,7 +7,7 @@ local hooksecurefunc = hooksecurefunc
 local pairs = pairs
 
 local function hookPanelSetTemplate(panel, template)
-	if not panel.shadow then
+	if not panel.MERshadow then
 		return
 	end
 
@@ -15,7 +15,6 @@ local function hookPanelSetTemplate(panel, template)
 		panel.MERshadow:Hide()
 		panel.MERstyle.stripes:Hide()
 		panel.MERstyle.mshadow:Hide()
-
 	else
 		panel.MERshadow:Show()
 		panel.MERstyle.stripes:Show()
@@ -27,8 +26,10 @@ local function createPanelShadow(panel)
 	if panel.MERshadow and panel.shadow.__MERSkin then
 		return
 	end
+
 	S:CreateShadow(panel)
 	panel:Styling()
+
 	hooksecurefunc(panel, "SetTemplate", hookPanelSetTemplate)
 	hookPanelSetTemplate(panel, panel.template)
 end
