@@ -3,6 +3,7 @@ local options = MER.options.misc.args
 local MI = MER:GetModule('MER_Misc')
 local SA = MER:GetModule('MER_SpellAlert')
 local CU = MER:GetModule('MER_Cursor')
+local LL = MER:GetModule('MER_LFGInfo')
 local LSM = E.LSM
 
 local _G = _G
@@ -265,20 +266,35 @@ options.lfgInfo = {
 			type = "header",
 			name = F.cOption(L["LFG Info"], 'orange'),
 		},
-		enable = {
+		feature = {
 			order = 2,
+			type = "description",
+			name = function()
+				if LL.StopRunning then
+					return format(
+						"|cffff3860" .. L["Because of %s, this module will not be loaded."] .. "|r",
+						LL.StopRunning
+					)
+				else
+					return L["Enhancments for the LFG list."]
+				end
+			end,
+			fontSize = "medium"
+		},
+		enable = {
+			order = 3,
 			type = "toggle",
 			name = L["Enable"],
 			desc = L["Add LFG group info to tooltip."]
 		},
 		title = {
-			order = 3,
+			order = 4,
 			type = "toggle",
 			name = L["Add Title"],
 			desc = L["Display an additional title."]
 		},
 		mode = {
-			order = 4,
+			order = 5,
 			name = L["Mode"],
 			type = "select",
 			values = {
@@ -287,7 +303,7 @@ options.lfgInfo = {
 			},
 		},
 		icon = {
-			order = 5,
+			order = 6,
 			type = "group",
 			name = L["Icon"],
 			guiInline = true,
@@ -329,7 +345,7 @@ options.lfgInfo = {
 			},
 		},
 		line = {
-			order = 6,
+			order = 7,
 			type = "group",
 			name = L["Line"],
 			guiInline = true,
