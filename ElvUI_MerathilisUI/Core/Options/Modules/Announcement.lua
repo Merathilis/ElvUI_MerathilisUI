@@ -451,103 +451,105 @@ options.announcement.args.utility = {
 	},
 }
 
-do
-	local categoryLocales = {
-		feasts = L["Feasts"],
-		bots = L["Bots"],
-		toys = L["Toys"],
-		portals = L["Portals"]
-	}
+if E.Retail then
+	do
+		local categoryLocales = {
+			feasts = L["Feasts"],
+			bots = L["Bots"],
+			toys = L["Toys"],
+			portals = L["Portals"]
+		}
 
-	local specialExampleSpell = {
-		feasts = 286050,
-		bots = 67826,
-		toys = 61031,
-		portals = 10059
-	}
+		local specialExampleSpell = {
+			feasts = 286050,
+			bots = 67826,
+			toys = 61031,
+			portals = 10059
+		}
 
-	local spellOptions = options.announcement.args.utility.args
-	local spellOrder = 10
-	local categoryOrder = 50
-	for categoryOrId, config in pairs(P.announcement.utility.spells) do
-		local groupName, groupOrder, exampleSpellId
-		local id = tonumber(categoryOrId)
-		if id then
-			groupName = GetSpellInfo(id)
-			exampleSpellId = id
-			groupOrder = spellOrder
-			spellOrder = spellOrder + 1
-		else
-			groupName = categoryLocales[categoryOrId]
-			exampleSpellId = specialExampleSpell[categoryOrId]
-			groupOrder = categoryOrder
-			categoryOrder = categoryOrder + 1
-		end
+		local spellOptions = options.announcement.args.utility.args
+		local spellOrder = 10
+		local categoryOrder = 50
+		for categoryOrId, config in pairs(P.announcement.utility.spells) do
+			local groupName, groupOrder, exampleSpellId
+			local id = tonumber(categoryOrId)
+			if id then
+				groupName = GetSpellInfo(id)
+				exampleSpellId = id
+				groupOrder = spellOrder
+				spellOrder = spellOrder + 1
+			else
+				groupName = categoryLocales[categoryOrId]
+				exampleSpellId = specialExampleSpell[categoryOrId]
+				groupOrder = categoryOrder
+				categoryOrder = categoryOrder + 1
+			end
 
-		exampleSpellId = exampleSpellId or 20484
+			exampleSpellId = exampleSpellId or 20484
 
-		spellOptions[categoryOrId] = {
-			order = groupOrder,
-			name = groupName,
-			type = "group",
-			get = function(info)
-				return E.db.mui.announcement.utility.spells[categoryOrId][info[#info]]
-			end,
-			set = function(info, value)
-				E.db.mui.announcement.utility.spells[categoryOrId][info[#info]] = value
-			end,
-			args = {
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"]
-				},
-				includePlayer = {
-					order = 2,
-					type = "toggle",
-					name = L["Include Player"],
-					desc = L["Uncheck this box, it will not send message if you cast the spell."]
-				},
-				raidWarning = {
-					order = 3,
-					type = "toggle",
-					name = L["Raid Warning"],
-					desc = L["If you have privilege, it would the message to raid warning(/rw) rather than raid(/r)."]
-				},
-				text = {
-					order = 4,
-					type = "input",
-					name = L["Text"],
-					desc = format(
-						"%s\n%s\n%s",
-						FormatDesc("%player%", L["Name of the player"]),
-						FormatDesc("%target%", L["Target name"]),
-						FormatDesc("%spell%", L["The spell link"])
-					),
-					width = 2.5
-				},
-				useDefaultText = {
-					order = 5,
-					type = "execute",
-					func = function()
-						E.db.mui.announcement.utility.spells[categoryOrId].text =
-						P.announcement.utility.spells[categoryOrId].text
-					end,
-					name = L["Default Text"]
-				},
-				example = {
-					order = 6,
-					type = "description",
-					name = function()
-						local message = E.db.mui.announcement.utility.spells[categoryOrId].text
-						message = gsub(message, "%%player%%", E.myname)
-						message = gsub(message, "%%target%%", L["Sylvanas"])
-						message = gsub(message, "%%spell%%", GetSpellLink(exampleSpellId))
-						return "\n" .. ImportantColorString(L["Example"]) .. ": " .. message .. "\n"
-					end
+			spellOptions[categoryOrId] = {
+				order = groupOrder,
+				name = groupName,
+				type = "group",
+				get = function(info)
+					return E.db.mui.announcement.utility.spells[categoryOrId][info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.announcement.utility.spells[categoryOrId][info[#info]] = value
+				end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"]
+					},
+					includePlayer = {
+						order = 2,
+						type = "toggle",
+						name = L["Include Player"],
+						desc = L["Uncheck this box, it will not send message if you cast the spell."]
+					},
+					raidWarning = {
+						order = 3,
+						type = "toggle",
+						name = L["Raid Warning"],
+						desc = L["If you have privilege, it would the message to raid warning(/rw) rather than raid(/r)."]
+					},
+					text = {
+						order = 4,
+						type = "input",
+						name = L["Text"],
+						desc = format(
+							"%s\n%s\n%s",
+							FormatDesc("%player%", L["Name of the player"]),
+							FormatDesc("%target%", L["Target name"]),
+							FormatDesc("%spell%", L["The spell link"])
+						),
+						width = 2.5
+					},
+					useDefaultText = {
+						order = 5,
+						type = "execute",
+						func = function()
+							E.db.mui.announcement.utility.spells[categoryOrId].text =
+							P.announcement.utility.spells[categoryOrId].text
+						end,
+						name = L["Default Text"]
+					},
+					example = {
+						order = 6,
+						type = "description",
+						name = function()
+							local message = E.db.mui.announcement.utility.spells[categoryOrId].text
+							message = gsub(message, "%%player%%", E.myname)
+							message = gsub(message, "%%target%%", L["Sylvanas"])
+							message = gsub(message, "%%spell%%", GetSpellLink(exampleSpellId))
+							return "\n" .. ImportantColorString(L["Example"]) .. ": " .. message .. "\n"
+						end
+					}
 				}
 			}
-		}
+		end
 	end
 end
 
