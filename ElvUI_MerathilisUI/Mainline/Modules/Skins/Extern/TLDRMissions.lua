@@ -132,6 +132,21 @@ function module:TLDRMissions()
 		return
 	end
 
+	-- Completely replace the 'AceGUI:Create' in TLDRMissions standalone libs
+	if _G.TLDRMissions then
+		local aceGUIStandalone = _G.TLDRMissions.LibStub("AceGUI-3.0", true)
+		if aceGUIStandalone then
+			aceGUIStandalone._Create = aceGUIStandalone.Create
+			aceGUIStandalone.Create = function(_, ...)
+				local aceGUI = _G.LibStub("AceGUI-3.0")
+				if aceGUI then
+					return aceGUI:Create(...)
+				end
+				return aceGUIStandalone:_Create(...)
+			end
+		end
+	end
+
 	self:TLDRDropdown(1)
 	self:TLDRDropdown(2)
 	S:HandleButton(_G.TLDRMissionsToggleButton)
@@ -158,14 +173,3 @@ function module:TLDRMissions()
 end
 
 module:AddCallbackForAddon("TLDRMissions")
-
--- Completely replace the 'AceGUI:Create' in TLDRMissions standalone libs
-if _G.TLDRMissions then
-	local aceGUIStandalone = _G.TLDRMissions.LibStub("AceGUI-3.0", true)
-	local aceGUIGlobel = _G.LibStub("AceGUI-3.0", true)
-	if aceGUIStandalone and aceGUIGlobel then
-		aceGUIStandalone.Create = function(_, ...)
-			return aceGUIGlobel:Create(...)
-		end
-	end
-end

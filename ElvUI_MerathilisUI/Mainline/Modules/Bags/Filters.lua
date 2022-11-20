@@ -54,15 +54,21 @@ local function isAzeriteArmor(item)
 	return C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID(item.link)
 end
 
+
+local iLvlClassIDs = {
+	[Enum.ItemClass.Gem] = Enum.ItemGemSubclass.Artifactrelic,
+	[Enum.ItemClass.Armor] = 0,
+	[Enum.ItemClass.Weapon] = 0,
+}
 function module:IsItemHasLevel(item)
-	local index = F.iLvlClassIDs[item.classID]
+	local index = iLvlClassIDs[item.classID]
 	return index and (index == 0 or index == item.subClassID)
 end
 
 local function isItemEquipment(item)
 	if not E.db.mui.bags.ItemFilter then return end
 	if not E.db.mui.bags.FilterEquipment then return end
-	return item.link and item.quality > Enum.ItemQuality.Common and module:IsItemHasLevel(item)
+	return item.link and item.quality and item.quality > Enum.ItemQuality.Common and module:IsItemHasLevel(item)
 end
 
 local consumableIDs = {
