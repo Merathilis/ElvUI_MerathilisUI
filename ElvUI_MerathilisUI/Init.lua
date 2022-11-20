@@ -46,6 +46,7 @@ end
 -- Modules
 MER.Modules = {}
 MER.Modules.ActionBars = MER:NewModule('MER_Actionbars', 'AceEvent-3.0', 'AceHook-3.0')
+MER.Modules.Announcement = MER:NewModule('MER_Announcement', 'AceEvent-3.0')
 MER.Modules.Armory = MER:NewModule('MER_Armory', 'AceEvent-3.0', 'AceConsole-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 MER.Modules.AutoButtons = MER:NewModule('MER_AutoButtons', 'AceEvent-3.0')
 MER.Modules.Auras = MER:NewModule('MER_Auras', 'AceHook-3.0')

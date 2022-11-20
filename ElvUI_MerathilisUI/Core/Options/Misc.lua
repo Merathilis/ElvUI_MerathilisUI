@@ -414,59 +414,6 @@ options.lfgInfo = {
 		},
 	},
 }
-
-options.alerts = {
-	order = 5,
-	type = "group",
-	name = L["Alerts"],
-	get = function(info)
-		return E.db.mui.misc.alerts[info[#info]]
-	end,
-	set = function(info, value)
-		E.db.mui.misc.alerts[info[#info]] = value
-		E:StaticPopup_Show("PRIVATE_RL")
-	end,
-	args = {
-		header = {
-			order = 1,
-			type = "header",
-			name = F.cOption(L["Alerts"], 'orange'),
-		},
-		lfg = {
-			order = 2,
-			type = "toggle",
-			name = L["Call to Arms"],
-		},
-		announce = {
-			order = 3,
-			type = "toggle",
-			name = L["Announce"],
-			desc = L["Skill gains"],
-		},
-		itemAlert = {
-			order = 4,
-			type = "toggle",
-			name = L["Item Alerts"],
-			desc = L["Announce in chat when someone placed an usefull item."],
-		},
-		feasts = {
-			order = 5,
-			type = "toggle",
-			name = L["Feasts"],
-		},
-		portals = {
-			order = 6,
-			type = "toggle",
-			name = L["Portals"],
-		},
-		toys = {
-			order = 7,
-			type = "toggle",
-			name = L["Toys"],
-		},
-	},
-}
-
 options.tags = {
 	order = 6,
 	type = "group",

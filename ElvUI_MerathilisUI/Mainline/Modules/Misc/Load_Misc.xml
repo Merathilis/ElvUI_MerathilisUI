@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="Alerts.lua"/>
 	<Script file="BossBanner.lua"/>
 	<Script file="LfgInfo.lua"/>
 	<Script file="QuickMenu.lua"/>

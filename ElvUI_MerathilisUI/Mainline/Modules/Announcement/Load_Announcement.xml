@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<!-- Core -->
+	<Script file='Core.lua'/>
+	<Script file='Authority.lua'/>
+	<Script file='Events.lua'/>
+	<!-- Submodule -->
+	<Script file='Keystone.lua'/>
+	<Script file='Quest.lua'/>
+	<Script file='ResetInstance.lua'/>
+	<Script file='Utility.lua'/>
+</Ui>
