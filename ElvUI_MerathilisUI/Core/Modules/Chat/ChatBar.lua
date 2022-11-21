@@ -307,7 +307,7 @@ function module:UpdateBar()
 		if not name or name == "" then
 			self:DisableButton("CLUB")
 		else
-			local chatFunc = function(self, mouseButton)
+			local chatFunc = function(_, mouseButton)
 				if mouseButton ~= "LeftButton" then
 					return
 				end
