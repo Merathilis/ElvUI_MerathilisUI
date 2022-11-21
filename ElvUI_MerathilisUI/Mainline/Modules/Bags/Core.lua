@@ -8,6 +8,7 @@ local B = E:GetModule('Bags')
 
 local _G = _G
 local strmatch, unpack, ceil = string.match, unpack, math.ceil
+
 local LE_ITEM_CLASS_CONTAINER = LE_ITEM_CLASS_CONTAINER
 local C_NewItems_IsNewItem, C_Timer_After = C_NewItems.IsNewItem, C_Timer.After
 local C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID
@@ -16,7 +17,6 @@ local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
 local IsCosmeticItem = IsCosmeticItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
 local GetItemInfo = GetItemInfo
-
 local SetSortBagsRightToLeft = C_Container.SetSortBagsRightToLeft
 local SetInsertItemsLeftToRight = C_Container.SetInsertItemsLeftToRight
 local GetContainerItemInfo = C_Container.GetContainerItemInfo
@@ -28,7 +28,6 @@ local SortBankBags = C_Container.SortBankBags
 local PickupContainerItem = C_Container.PickupContainerItem
 local SplitContainerItem = C_Container.SplitContainerItem
 local SortReagentBankBags = C_Container.SortReagentBankBags
-
 
 local itemSpellID = {
 	-- Deposit Anima: Infuse (value) stored Anima into your covenant's Reservoir.
@@ -162,15 +161,15 @@ function module:CreateInfoFrame()
 	infoFrame:SetSize(140, 32)
 
 	local icon = infoFrame:CreateTexture(nil, "ARTWORK")
-	icon:SetSize(20, 20)
-	icon:SetPoint("LEFT", 0, -1)
-	icon:SetTexture("Interface\\Common\\UI-Searchbox-Icon")
+	icon:SetAtlas("talents-search-match")
+	icon:SetSize(52, 52)
+	icon:SetPoint("LEFT", -15, 0)
 	icon:SetVertexColor(F.r, F.g, F.b)
 
 	local hl = infoFrame:CreateTexture(nil, "HIGHLIGHT")
-	hl:SetSize(20, 20)
-	hl:SetPoint("LEFT", 0, -1)
-	hl:SetTexture("Interface\\Common\\UI-Searchbox-Icon")
+	hl:SetAtlas("talents-search-match")
+	hl:SetSize(52, 52)
+	hl:SetPoint("LEFT", -15, 0)
 
 	local search = self:SpawnPlugin("SearchBar", infoFrame)
 	search.highlightFunction = highlightFunction
@@ -386,10 +385,9 @@ function module:CreateSortButton(name)
 			SortBankBags()
 		elseif name == "Reagent" then
 			SortReagentBankBags()
-
 		else
 			if module.db.BagSortMode == 1 then
-				C_Container_SortBags()
+				SortBags()
 			elseif module.db.BagSortMode == 2 then
 				if InCombatLockdown() then
 					UIErrorsFrame:AddMessage(MER.InfoColor .. ERR_NOT_IN_COMBAT)
@@ -630,15 +628,14 @@ end
 
 function module:CreateFavouriteButton()
 	local menuList = {
-		{ text = "", icon = 134400, isTitle = true, notCheckable = true, tCoordLeft = .08, tCoordRight = .92, tCoordTop = .08,
-			tCoordBottom = .92 },
-		{ text = NONE, arg1 = 0, func = module.MoveItemToCustomBag, checked = module.IsItemInCustomBag },
+		{text = "", icon = 134400, isTitle = true, notCheckable = true, tCoordLeft = .08, tCoordRight = .92, tCoordTop = .08, tCoordBottom = .92},
+		{text = NONE, arg1 = 0, func = module.MoveItemToCustomBag, checked = module.IsItemInCustomBag},
 	}
 	for i = 1, 5 do
 		tinsert(menuList, {
 			text = GetCustomGroupTitle(i), arg1 = i, func = module.MoveItemToCustomBag, checked = module.IsItemInCustomBag,
 			hasArrow = true,
-			menuList = { { text = BATTLE_PET_RENAME, arg1 = i, func = module.RenameCustomGroup } }
+			menuList = {{text = BATTLE_PET_RENAME, arg1 = i, func = module.RenameCustomGroup}}
 		})
 	end
 	module.CustomMenu = menuList
@@ -823,7 +820,12 @@ function module:CreateVendorGreyButton()
 	bu.title = L["Vendor Grays"]
 	F.AddTooltip(bu, "ANCHOR_TOP")
 
-	toggleButtons[8] = bu
+	bu.__turnOff = function()
+		S.SetBorderColor(bu.backdrop)
+		bu.text = nil
+	end
+
+	toggleButtons[5] = bu
 
 	return bu
 end
@@ -870,7 +872,7 @@ end
 function module:UpdateCooldown(slot)
 	local start, duration, enabled = GetContainerItemCooldown(slot.bagId, slot.slotId)
 
-	CooldownFrame_Set(slot.Cooldown, start, duration, enable)
+	CooldownFrame_Set(slot.Cooldown, start, duration)
 	if (duration > 0 and enabled == 0) then
 		SetItemButtonTextureVertexColor(slot, 0.4, 0.4, 0.4)
 	else
@@ -1505,7 +1507,7 @@ function module:Initialize()
 	end
 
 	function BagButton:OnUpdateButton()
-		self:SetBackdropBorderColor(0, 0, 0)
+		self.backdrop:SetBackdropBorderColor(0, 0, 0)
 
 		local id = GetInventoryItemID("player", (self.GetInventorySlot and self:GetInventorySlot()) or self.invID)
 		if not id then return end
@@ -1517,6 +1519,7 @@ function module:Initialize()
 		end
 
 		if classID == LE_ITEM_CLASS_CONTAINER then
+			print(LE_ITEM_CLASS_CONTAINER)
 			module.BagsType[self.bagId] = subClassID or 0
 		else
 			module.BagsType[self.bagId] = 0
