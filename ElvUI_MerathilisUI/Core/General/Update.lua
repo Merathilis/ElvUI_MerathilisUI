@@ -41,11 +41,11 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion and profileVersion <= 5.34 then
-		if E.db.mui.unitframes.power and E.db.mui.unitframes.power.full then
-			E.db.mui.unitframes.power.full = nil
+	if profileVersion and profileVersion <= 5.41 then
+		if E.db.mui.misc.alerts and type(E.db.mui.misc.alert) == 'table' then
+			E.db.mui.misc.alerts = nil
 		end
-		UpdateMessage(L["UnitFrames"] .. " - " .. L["Remove Full PowerBar Animation"], profileVersion)
+		UpdateMessage(L["Misc"] .. " - " .. L["Remove old Alerts DB"], profileVersion)
 
 		updated = true
 	end

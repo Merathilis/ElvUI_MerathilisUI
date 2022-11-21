@@ -3,6 +3,7 @@ local options = MER.options.misc.args
 local MI = MER:GetModule('MER_Misc')
 local SA = MER:GetModule('MER_SpellAlert')
 local CU = MER:GetModule('MER_Cursor')
+local LL = MER:GetModule('MER_LFGInfo')
 local LSM = E.LSM
 
 local _G = _G
@@ -265,20 +266,35 @@ options.lfgInfo = {
 			type = "header",
 			name = F.cOption(L["LFG Info"], 'orange'),
 		},
-		enable = {
+		feature = {
 			order = 2,
+			type = "description",
+			name = function()
+				if LL.StopRunning then
+					return format(
+						"|cffff3860" .. L["Because of %s, this module will not be loaded."] .. "|r",
+						LL.StopRunning
+					)
+				else
+					return L["Enhancments for the LFG list."]
+				end
+			end,
+			fontSize = "medium"
+		},
+		enable = {
+			order = 3,
 			type = "toggle",
 			name = L["Enable"],
 			desc = L["Add LFG group info to tooltip."]
 		},
 		title = {
-			order = 3,
+			order = 4,
 			type = "toggle",
 			name = L["Add Title"],
 			desc = L["Display an additional title."]
 		},
 		mode = {
-			order = 4,
+			order = 5,
 			name = L["Mode"],
 			type = "select",
 			values = {
@@ -287,7 +303,7 @@ options.lfgInfo = {
 			},
 		},
 		icon = {
-			order = 5,
+			order = 6,
 			type = "group",
 			name = L["Icon"],
 			guiInline = true,
@@ -329,7 +345,7 @@ options.lfgInfo = {
 			},
 		},
 		line = {
-			order = 6,
+			order = 7,
 			type = "group",
 			name = L["Line"],
 			guiInline = true,
@@ -398,64 +414,10 @@ options.lfgInfo = {
 		},
 	},
 }
-
-options.alerts = {
-	order = 5,
-	type = "group",
-	name = L["Alerts"],
-	get = function(info)
-		return E.db.mui.misc.alerts[info[#info]]
-	end,
-	set = function(info, value)
-		E.db.mui.misc.alerts[info[#info]] = value
-		E:StaticPopup_Show("PRIVATE_RL")
-	end,
-	args = {
-		header = {
-			order = 1,
-			type = "header",
-			name = F.cOption(L["Alerts"], 'orange'),
-		},
-		lfg = {
-			order = 2,
-			type = "toggle",
-			name = L["Call to Arms"],
-		},
-		announce = {
-			order = 3,
-			type = "toggle",
-			name = L["Announce"],
-			desc = L["Skill gains"],
-		},
-		itemAlert = {
-			order = 4,
-			type = "toggle",
-			name = L["Item Alerts"],
-			desc = L["Announce in chat when someone placed an usefull item."],
-		},
-		feasts = {
-			order = 5,
-			type = "toggle",
-			name = L["Feasts"],
-		},
-		portals = {
-			order = 6,
-			type = "toggle",
-			name = L["Portals"],
-		},
-		toys = {
-			order = 7,
-			type = "toggle",
-			name = L["Toys"],
-		},
-	},
-}
-
 options.tags = {
 	order = 6,
 	type = "group",
 	name = E.NewSign..L["Tags"],
-	hidden = not E.Retail,
 	args = {
 		desc = {
 			order = 0,
@@ -475,45 +437,45 @@ options.tags = {
 }
 
 do
-	if E.Retail then
-		local examples = {}
+	local examples = {}
 
-		local className = {
-			WARRIOR = L["Warrior"],
-			PALADIN = L["Paladin"],
-			HUNTER = L["Hunter"],
-			ROGUE = L["Rogue"],
-			PRIEST = L["Priest"],
-			DEATHKNIGHT = L["Deathknight"],
-			SHAMAN = L["Shaman"],
-			MAGE = L["Mage"],
-			WARLOCK = L["Warlock"],
-			DRUID = L["Druid"],
-			MONK = L["Monk"],
-			DEMONHUNTER = L["Demonhunter"],
-			EVOKER = L["Evoker"]
+	local className = {
+		WARRIOR = L["Warrior"],
+		PALADIN = L["Paladin"],
+		HUNTER = L["Hunter"],
+		ROGUE = L["Rogue"],
+		PRIEST = L["Priest"],
+		DEATHKNIGHT = L["Deathknight"],
+		SHAMAN = L["Shaman"],
+		MAGE = L["Mage"],
+		WARLOCK = L["Warlock"],
+		DRUID = L["Druid"],
+		MONK = L["Monk"],
+		DEMONHUNTER = L["Demonhunter"],
+		EVOKER = L["Evoker"]
+	}
+
+	for index, style in pairs(F.GetClassIconStyleList()) do
+		examples["classIcon_" .. style] = {
+			order = 5 + index,
+			name = L["Class Icon"] .. " - " .. style,
+			["PLAYER_ICON"] = {
+				order = 1,
+				type = "description",
+				image = function()
+					return F.GetClassIconWithStyle(E.myclass, style), 64, 64
+				end,
+				width = 1
+			},
+			["PLAYER_TAG"] = {
+				order = 2,
+				text = L["The class icon of the player's class"],
+				tag = "[classicon-" .. style .. "]",
+				width = 1.5
+			}
 		}
 
-		for index, style in pairs(F.GetClassIconStyleList()) do
-			examples["classIcon_" .. style] = {
-				order = 5 + index,
-				name = L["Class Icon"] .. " - " .. style,
-				["PLAYER_ICON"] = {
-					order = 1,
-					type = "description",
-					image = function()
-						return F.GetClassIconWithStyle(E.myclass, style), 64, 64
-					end,
-					width = 1
-				},
-				["PLAYER_TAG"] = {
-					order = 2,
-					text = L["The class icon of the player's class"],
-					tag = "[classicon-" .. style .. "]",
-					width = 1.5
-				}
-			}
-
+		if E.Retail then
 			for i = 1, GetNumClasses() do
 				local upperText = select(2, GetClassInfo(i))
 				local coloredClassName = GetClassColorString(upperText) .. className[upperText] .. "|r"
@@ -536,33 +498,32 @@ do
 					width = 1.5
 				}
 			end
+		end
 
-			for cat, catTable in pairs(examples) do
-				options.tags.args[cat] = {
-					order = catTable.order,
-					type = "group",
-					name = catTable.name,
-					args = {}
-				}
+		for cat, catTable in pairs(examples) do
+			options.tags.args[cat] = {
+				order = catTable.order,
+				type = "group",
+				name = catTable.name,
+				args = {}
+			}
 
-				local subIndex = 1
-				for key, data in pairs(catTable) do
-					if not F.In(key, { "name", "order" }) then
-						options.tags.args[cat].args[key] = {
-							order = data.order or subIndex,
-							type = data.type or "input",
-							width = data.width or "full",
-							name = data.text or "",
-							get = function()
-								return data.tag
-							end
-						}
-
-						if data.image then
-							options.tags.args[cat].args[key].image = data.image
+			local subIndex = 1
+			for key, data in pairs(catTable) do
+				if not F.In(key, { "name", "order" }) then
+					options.tags.args[cat].args[key] = {
+						order = data.order or subIndex,
+						type = data.type or "input",
+						width = data.width or "full",
+						name = data.text or "",
+						get = function()
+							return data.tag
 						end
-						subIndex = subIndex + 1
+					}
+					if data.image then
+						options.tags.args[cat].args[key].image = data.image
 					end
+					subIndex = subIndex + 1
 				end
 			end
 		end

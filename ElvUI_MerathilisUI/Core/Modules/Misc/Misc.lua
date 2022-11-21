@@ -61,7 +61,6 @@ function module:Misc()
 		module:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
 
 		module:WowHeadLinks()
-		module:AddAlerts()
 		module:QuickMenu()
 	end
 

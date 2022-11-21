@@ -55,7 +55,7 @@ function module:BugSack_InterfaceOptionOnShow(frame)
 	frame.__MERSkin = true
 end
 
- function module:BugSack_OpenSack()
+function module:BugSack_OpenSack()
 	if _G.BugSackFrame.__MERSkin then
 		return
 	end
@@ -88,8 +88,11 @@ end
 		end
 	end
 
+	_G.BugSackNextButton:SetSize(200, 30)
 	S:HandleButton(_G.BugSackNextButton)
+	_G.BugSackPrevButton:SetSize(200, 30)
 	S:HandleButton(_G.BugSackPrevButton)
+	_G.BugSackSendButton:SetSize(200, 30)
 	S:HandleButton(_G.BugSackSendButton)
 
 	local tabs = {

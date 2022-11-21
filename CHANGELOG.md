@@ -1,9 +1,7 @@
 ### Changes ###
 
-  * Fixed Pixel glow on RBReminder
-  * Added a reference spell to oUF_GCD
-  * Fixed Class Icon on the Character Skin
-  * Moved the Toggle Direction Option to the Embed Settings
-  * Fixed Enhanced NamePlate Auras
-  * Added a cool Evoker Class Crest. Thx Benik <3
-  * A lot of bag fixing
+  * Fixed my ChatButton
+  * Added Vendor-Grey Button on the Bags
+  * Overhault the Alerts. Thx fang2hou (Windtools)
+  * Many updated to the Bags >.>
+  * Added some Dragonflight Pets to my GameMenu

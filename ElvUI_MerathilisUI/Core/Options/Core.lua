@@ -17,7 +17,7 @@ MER.options = {
 	},
 	modules = {
 		order = 102,
-		name = F.cOption(L["Modules"], 'gradient'),
+		name = E.NewSign..F.cOption(L["Modules"], 'gradient'),
 		icon = MER.Media.Icons.config,
 		args = {
 			info = {
@@ -29,7 +29,7 @@ MER.options = {
 	},
 	misc = {
 		order = 103,
-		name = E.NewSign..F.cOption(L["Misc"], 'gradient'),
+		name = F.cOption(L["Misc"], 'gradient'),
 		icon = MER.Media.Icons.more,
 		args = {},
 	},

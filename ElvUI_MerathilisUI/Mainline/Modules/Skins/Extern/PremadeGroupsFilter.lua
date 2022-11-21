@@ -72,37 +72,21 @@ function module:PremadeGroupsFilter()
 		frame.MaxMinButtonFrame.MaximizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
 	end
 
-	if frame.MoveableToggle then
-		frame.MoveableToggle:Size(16)
-		frame.MoveableToggle:ClearAllPoints()
-		frame.MoveableToggle:Point("TOPLEFT", frame, "TOPLEFT", 4, -4)
-		for _, region in pairs {frame.MoveableToggle:GetRegions()} do
-			if region.GetTexture and strmatch(region:GetTexture(), "Locked") then
-				region:SetTexture(W.Media.Icons.buttonLock)
-			else
-				region:SetTexture(W.Media.Icons.buttonUnlock)
-			end
-			region:Size(16)
-			region:ClearAllPoints()
-			region:SetAllPoints(frame.MoveableToggle)
-		end
-	end
-
-	local lines = {
-		"Difficulty",
-		"Ilvl",
-		"Noilvl",
-		"Defeated",
-		"Members",
-		"Tanks",
-		"Heals",
-		"Dps"
-	}
-
-	for _, line in pairs(lines) do
+	for _, line in pairs(
+		{
+			"Difficulty",
+			"Ilvl",
+			"Noilvl",
+			"Defeated",
+			"Members",
+			"Tanks",
+			"Heals",
+			"Dps"
+		}
+	) do
 		if frame[line] then
 			if frame[line].Act then
-				S:HandleEditBox(frame[line].Act)
+				S:HandleCheckBox(frame[line].Act)
 				frame[line].Act:Size(24)
 				frame[line].Act:ClearAllPoints()
 				frame[line].Act:Point("LEFT", frame[line], "LEFT", 3, -3)
@@ -128,6 +112,12 @@ function module:PremadeGroupsFilter()
 				frame[line].Max.backdrop:SetOutside(frame[line].Max, 0, 0)
 			end
 		end
+	end
+
+	if frame.Sorting and frame.Sorting.SortingExpression then
+		S:HandleEditBox(frame.Sorting.SortingExpression)
+		frame.Sorting.SortingExpression.backdrop:ClearAllPoints()
+		frame.Sorting.SortingExpression.backdrop:SetOutside(frame.Sorting.SortingExpression, 1, -2)
 	end
 
 	if _G.UsePFGButton then
