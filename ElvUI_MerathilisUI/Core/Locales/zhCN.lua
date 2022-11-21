@@ -385,6 +385,7 @@ L["Prefix"] = true
 L["Channel"] = true
 L["Keystone"] = true
 L["Announce the new mythic keystone."] = true
+L["Heroism/Bloodlust"] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "

@@ -383,6 +383,7 @@ L["Prefix"] = true
 L["Channel"] = true
 L["Keystone"] = true
 L["Announce the new mythic keystone."] = true
+L["Heroism/Bloodlust"] = true
 
 -- Nameplates
 L["NamePlates"] = true

@@ -457,14 +457,16 @@ if E.Retail then
 			feasts = L["Feasts"],
 			bots = L["Bots"],
 			toys = L["Toys"],
-			portals = L["Portals"]
+			portals = L["Portals"],
+			hero = L["Heroism/Bloodlust"]
 		}
 
 		local specialExampleSpell = {
 			feasts = 286050,
 			bots = 67826,
 			toys = 61031,
-			portals = 10059
+			portals = 10059,
+			hero = 32182,
 		}
 
 		local spellOptions = options.announcement.args.utility.args

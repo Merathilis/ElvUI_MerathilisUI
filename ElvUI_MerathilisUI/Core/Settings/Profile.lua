@@ -501,6 +501,12 @@ P.announcement = {
 				includePlayer = true,
 				raidWarning = false,
 				text = L["{rt1} %player% opened %spell%! {rt1}"]
+			},
+			hero = {
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["{rt1} %player% used %spell% {rt1}"]
 			}
 		}
 	},
