@@ -1112,18 +1112,18 @@ function module:Initialize()
 	end
 
 	local bagTypeColor = {
-		[0] = {.3, .3, .3, .3},
+		[0] = { .3, .3, .3, .3 },
 		[1] = false,
-		[2] = {0, .5, 0, .25},
-		[3] = {.8, 0, .8, .25},
-		[4] = {1, .8, 0, .25},
-		[5] = {0, .8, .8, .25},
-		[6] = {.5, .4, 0, .25},
-		[7] = {.8, .5, .5, .25},
-		[8] = {.8, .8, .8, .25},
-		[9] = {.4, .6, 1, .25},
-		[10] = { .8, 0, 0, .25},
-		[11] = {.2, .8, .2, .25},
+		[2] = { 0, .5, 0, .25 },
+		[3] = { .8, 0, .8, .25 },
+		[4] = { 1, .8, 0, .25 },
+		[5] = { 0, .8, .8, .25 },
+		[6] = { .5, .4, 0, .25 },
+		[7] = { .8, .5, .5, .25 },
+		[8] = { .8, .8, .8, .25 },
+		[9] = { .4, .6, 1, .25 },
+		[10] = { .8, 0, 0, .25 },
+		[11] = { .2, .8, .2, .25 },
 	}
 
 	local function isItemNeedsLevel(item)
@@ -1238,7 +1238,7 @@ function module:Initialize()
 			module:UpdateCooldown(self) --ToDO: WoW10
 		end
 
-		if module.db.SpecialBagsColor then
+		if module.db.specialBagsColor then
 			local bagType = module.BagsType[item.bagId]
 			local color = bagTypeColor[bagType] or bagTypeColor[0]
 			self.backdrop:SetBackdropColor(unpack(color))
@@ -1435,7 +1435,7 @@ function module:Initialize()
 		buttons[1] = module.CreateCloseButton(self, f)
 		buttons[2] = module.CreateSortButton(self, name)
 		if name == "Bag" then
-			module.CreateBagBar(self, settings, --[[DB.isNewPatch and 5 or]] 4)
+			module.CreateBagBar(self, settings, 5)
 			SetFrameMovable(self, true)
 			buttons[3] = module.CreateBagToggle(self)
 			buttons[4] = module.CreateSplitButton(self)
@@ -1556,9 +1556,6 @@ function module:Initialize()
 
 	local shiftUpdater = CreateFrame("Frame", nil, f.main)
 	shiftUpdater:SetScript("OnUpdate", onUpdate)
-
-	MicroButtonAndBagsBar:Hide()
-	MicroButtonAndBagsBar:UnregisterAllEvents()
 end
 
 MER:RegisterModule(module:GetName())
