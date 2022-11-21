@@ -12,17 +12,16 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed Pixel glow on RBReminder",
-		"• Added a reference spell to oUF_GCD",
-		"• Fixed Class Icon on the Character Skin",
-		"• Moved the Toggle Direction Option to the Embed Settings",
-		"• Fixed Enhanced NamePlate Auras",
-		"• Added a cool Evoker Class Crest. Thx Benik <3",
-		"• A lot of bag fixing",
+		"• Fixed my ChatButton",
+		"• Added Vendor-Grey Button on the Bags",
+		"• Overhault the Alerts. Thx fang2hou (Windtools)",
+		"• Many updated to the Bags >.>",
+		"• Added some Dragonflight Pets to my GameMenu",
 
 	" ",
 	"Notes:",
 		"• As always, if you want my latest layout, do the install again",
+		"• New Addition you will find with the ! in the Options",
 		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muidebug on' and test again",
 		"• You can disable almost everything in the Option. I would sugguest you to back up your profiles regularly"
