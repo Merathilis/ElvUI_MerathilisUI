@@ -5,7 +5,7 @@ local M = E:GetModule('Minimap')
 
 local _G = _G
 
-local PANEL_HEIGHT = 19;
+local PANEL_HEIGHT = 19
 local SPACING = (E.PixelMode and 1 or 3)
 
 function module:ResizeMinimapPanels()
