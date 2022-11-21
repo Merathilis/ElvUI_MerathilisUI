@@ -62,6 +62,11 @@ MER.NPCS = {
 	171716, -- Indigo
 	173586, -- Leafadore
 	173992, -- Torghast Lurker
+	-- Dragonflight
+	183638, -- Ichabod
+	188861, -- Secretive Frogduck
+	189152, -- Lubbins
+	191627, -- Lord Basilton
 }
 
 --[[
