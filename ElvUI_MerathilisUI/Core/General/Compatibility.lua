@@ -406,6 +406,12 @@ function MER:CheckCompatibility()
 		"db.WT.misc.spellActivationAlert.enable"
 	)
 
+	CheckWindtools(
+		L["Announcement"],
+		L["Announcement"],
+		"db.mui.announcement.enable",
+		"db.WT.announcement.enable"
+	)
 
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
