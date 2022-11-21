@@ -921,10 +921,10 @@ function module:Initialize()
 	local f = {}
 	local filters = module:GetFilters()
 	local MyContainer = Backpack:GetContainerClass()
-	module.ContainerGroups = { ["Bag"] = {}, ["Bank"] = {} }
+	module.ContainerGroups = {["Bag"] = {}, ["Bank"] = {}}
 
 	local function AddNewContainer(bagType, index, name, filter)
-		local newContainer = MyContainer:New(name, { BagType = bagType, Index = index })
+		local newContainer = MyContainer:New(name, {BagType = bagType, Index = index})
 		newContainer:SetFilter(filter, true)
 		module.ContainerGroups[bagType][index] = newContainer
 	end
@@ -945,7 +945,7 @@ function module:Initialize()
 		AddNewContainer("Bag", 12, "BagAnima", filters.bagAnima)
 		AddNewContainer("Bag", 13, "BagRelic", filters.bagRelic)
 
-		f.main = MyContainer:New("Bag", { Bags = "bags", BagType = "Bag" })
+		f.main = MyContainer:New("Bag", {Bags = "bags", BagType = "Bag"})
 		f.main.__anchor = { "BOTTOMRIGHT", -4, 50 }
 		f.main:SetPoint(unpack(f.main.__anchor))
 		f.main:SetFilter(filters.onlyBags, true)
@@ -1023,7 +1023,7 @@ function module:Initialize()
 		self.IconOverlay2:SetInside()
 
 		self:CreateBackdrop('Transparent')
-		self:SetBackdropColor(.3, .3, .3, .3)
+		self.backdrop:SetBackdropColor(.3, .3, .3, .3)
 		S:CreateGradient(self.backdrop)
 
 		local parentFrame = CreateFrame("Frame", nil, self)
@@ -1110,18 +1110,18 @@ function module:Initialize()
 	end
 
 	local bagTypeColor = {
-		[0] = { .3, .3, .3, .3 },
+		[0] = {.3, .3, .3, .3},
 		[1] = false,
-		[2] = { 0, .5, 0, .25 },
-		[3] = { .8, 0, .8, .25 },
-		[4] = { 1, .8, 0, .25 },
-		[5] = { 0, .8, .8, .25 },
-		[6] = { .5, .4, 0, .25 },
-		[7] = { .8, .5, .5, .25 },
-		[8] = { .8, .8, .8, .25 },
-		[9] = { .4, .6, 1, .25 },
-		[10] = { .8, 0, 0, .25 },
-		[11] = { .2, .8, .2, .25 },
+		[2] = {0, .5, 0, .25},
+		[3] = {.8, 0, .8, .25},
+		[4] = {1, .8, 0, .25},
+		[5] = {0, .8, .8, .25},
+		[6] = {.5, .4, 0, .25},
+		[7] = {.8, .5, .5, .25},
+		[8] = {.8, .8, .8, .25},
+		[9] = {.4, .6, 1, .25},
+		[10] = { .8, 0, 0, .25},
+		[11] = {.2, .8, .2, .25},
 	}
 
 	local function isItemNeedsLevel(item)
@@ -1239,9 +1239,9 @@ function module:Initialize()
 		if module.db.SpecialBagsColor then
 			local bagType = module.BagsType[item.bagId]
 			local color = bagTypeColor[bagType] or bagTypeColor[0]
-			self:SetBackdropColor(unpack(color))
+			self.backdrop:SetBackdropColor(unpack(color))
 		else
-			self:SetBackdropColor(.3, .3, .3, .3)
+			self.backdrop:SetBackdropColor(.3, .3, .3, .3)
 		end
 
 		if module.db.BindType and isItemExist(item) then
