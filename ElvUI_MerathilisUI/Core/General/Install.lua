@@ -621,6 +621,9 @@ function MER:SetupLayout()
 		E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
 		E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
 		E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 60
+		E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
+		E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
+		E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 42
 		E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-17"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
@@ -2402,11 +2405,6 @@ function MER:SetupDts()
 	}
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
-
-	if F.IsDeveloper() then
-		E.db["datatexts"]["panels"]["MinimapPanel"]["backdrop"] = false
-		E.db["datatexts"]["panels"]["MinimapPanel"]["border"] = false
-	end
 
 	E:StaggeredUpdateAll(nil, true)
 
