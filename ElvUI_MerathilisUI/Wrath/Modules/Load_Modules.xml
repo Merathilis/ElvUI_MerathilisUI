@@ -2,4 +2,5 @@
 	<Include file='Skins\Load_Skins.xml'/>
 	<Include file='Armory\Load_Armory.xml'/>
 	<Include file='Bags\Load_Bags.xml'/>
+	<Include file='Tooltip\Load_Tooltip.xml'/>
 </Ui>
