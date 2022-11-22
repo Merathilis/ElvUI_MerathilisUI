@@ -29,6 +29,21 @@ local PickupContainerItem = C_Container.PickupContainerItem
 local SplitContainerItem = C_Container.SplitContainerItem
 local SortReagentBankBags = C_Container.SortReagentBankBags
 
+local bagTypeColor = {
+	[0] = { .3, .3, .3, .3 },
+	[1] = false,
+	[2] = { 0, .5, 0, .25 },
+	[3] = { .8, 0, .8, .25 },
+	[4] = { 1, .8, 0, .25 },
+	[5] = { 0, .8, .8, .25 },
+	[6] = { .5, .4, 0, .25 },
+	[7] = { .8, .5, .5, .25 },
+	[8] = { .8, .8, .8, .25 },
+	[9] = { .4, .6, 1, .25 },
+	[10] = { .8, 0, 0, .25 },
+	[11] = { .2, .8, .2, .25 },
+}
+
 local itemSpellID = {
 	-- Deposit Anima: Infuse (value) stored Anima into your covenant's Reservoir.
 	[347555] = 3,
@@ -68,8 +83,6 @@ function module:ReverseSort()
 	module:UpdateAllBags()
 end
 
-local anchorCache = {}
-
 local function CheckForBagReagent(name)
 	local pass = true
 	if name == "BagReagent" and GetContainerNumSlots(5) == 0 then
@@ -78,6 +91,7 @@ local function CheckForBagReagent(name)
 	return pass
 end
 
+local anchorCache = {}
 function module:UpdateBagsAnchor(parent, bags)
 	wipe(anchorCache)
 
@@ -290,8 +304,8 @@ function module:CreateReagentButton(f)
 			StaticPopup_Show("CONFIRM_BUY_REAGENTBANK_TAB")
 		else
 			PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-			ReagentBankFrame:Show()
-			BankFrame.selectedTab = 2
+			_G.ReagentBankFrame:Show()
+			_G.BankFrame.selectedTab = 2
 			f.reagent:Show()
 			f.bank:Hide()
 			if btn == "RightButton" then DepositReagentBank() end
@@ -626,16 +640,31 @@ function module:IsItemInCustomBag()
 	return (index == 0 and not module.db.CustomItems[itemID]) or (module.db.CustomItems[itemID] == index)
 end
 
+local menuList = {
+	{
+		text = "",
+		icon = 134400,
+		isTitle = true,
+		notCheckable = true,
+		tCoordLeft = .08,
+		tCoordRight = .92,
+		tCoordTop = .08,
+		tCoordBottom = .92,
+	},
+	{
+		text = _G.NONE,
+		arg1 = 0,
+		func = module.MoveItemToCustomBag,
+		checked = module.IsItemInCustomBag,
+	},
+}
+
 function module:CreateFavouriteButton()
-	local menuList = {
-		{text = "", icon = 134400, isTitle = true, notCheckable = true, tCoordLeft = .08, tCoordRight = .92, tCoordTop = .08, tCoordBottom = .92},
-		{text = NONE, arg1 = 0, func = module.MoveItemToCustomBag, checked = module.IsItemInCustomBag},
-	}
 	for i = 1, 5 do
 		tinsert(menuList, {
 			text = GetCustomGroupTitle(i), arg1 = i, func = module.MoveItemToCustomBag, checked = module.IsItemInCustomBag,
 			hasArrow = true,
-			menuList = {{text = BATTLE_PET_RENAME, arg1 = i, func = module.RenameCustomGroup}}
+			menuList = {{text = _G.BATTLE_PET_RENAME, arg1 = i, func = module.RenameCustomGroup}}
 		})
 	end
 	module.CustomMenu = menuList
@@ -909,7 +938,7 @@ function module:Initialize()
 	local hasPawn = IsAddOnLoaded("Pawn")
 
 	-- Init
-	local Backpack = cargBags:NewImplementation("MER_Backpack")
+	local Backpack = cargBags:NewImplementation(MER.Title.."Backpack")
 	Backpack:RegisterBlizzard()
 	Backpack:HookScript("OnShow", function() PlaySound(SOUNDKIT.IG_BACKPACK_OPEN) end)
 	Backpack:HookScript("OnHide", function() PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE) end)
@@ -982,7 +1011,7 @@ function module:Initialize()
 
 	local initBagType
 	function Backpack:OnBankOpened()
-		BankFrame:Show()
+		_G.BankFrame:Show()
 		self:GetContainer("Bank"):Show()
 
 		if not initBagType then
@@ -993,11 +1022,11 @@ function module:Initialize()
 	end
 
 	function Backpack:OnBankClosed()
-		BankFrame.selectedTab = 1
-		BankFrame:Hide()
+		_G.BankFrame.selectedTab = 1
+		_G.BankFrame:Hide()
 		self:GetContainer("Bank"):Hide()
 		self:GetContainer("Reagent"):Hide()
-		ReagentBankFrame:Hide()
+		_G.ReagentBankFrame:Hide()
 	end
 
 	local MyButton = Backpack:GetItemButtonClass()
@@ -1065,6 +1094,7 @@ function module:Initialize()
 		flash:SetPoint('BOTTOMRIGHT', 15, -15)
 		flash:SetBlendMode('ADD')
 		flash:SetAlpha(0)
+
 		local anim = flash:CreateAnimationGroup()
 		anim:SetLooping('REPEAT')
 		anim.rota = anim:CreateAnimation('Rotation')
@@ -1110,21 +1140,6 @@ function module:Initialize()
 			end
 		end
 	end
-
-	local bagTypeColor = {
-		[0] = { .3, .3, .3, .3 },
-		[1] = false,
-		[2] = { 0, .5, 0, .25 },
-		[3] = { .8, 0, .8, .25 },
-		[4] = { 1, .8, 0, .25 },
-		[5] = { 0, .8, .8, .25 },
-		[6] = { .5, .4, 0, .25 },
-		[7] = { .8, .5, .5, .25 },
-		[8] = { .8, .8, .8, .25 },
-		[9] = { .4, .6, 1, .25 },
-		[10] = { .8, 0, 0, .25 },
-		[11] = { .2, .8, .2, .25 },
-	}
 
 	local function isItemNeedsLevel(item)
 		return item.link and item.quality > 1 and module:IsItemHasLevel(item)
@@ -1417,7 +1432,7 @@ function module:Initialize()
 		elseif strmatch(name, "Custom%d") then
 			label = GetCustomGroupTitle(settings.Index)
 		elseif name == "BagReagent" then
-			label = L["ReagentBag"]
+			label = L["Reagent Bag"]
 		end
 		if label then
 			self.label = self:CreateFontString(nil, "ARTWORK")
@@ -1512,9 +1527,15 @@ function module:Initialize()
 		self.backdrop:SetBackdropBorderColor(0, 0, 0)
 
 		local id = GetInventoryItemID("player", (self.GetInventorySlot and self:GetInventorySlot()) or self.invID)
-		if not id then return end
+		if not id then
+			return
+		end
+
 		local _, _, quality, _, _, _, _, _, _, _, _, classID, subClassID = GetItemInfo(id)
-		if not quality or quality == 1 then quality = 0 end
+		if not quality or quality == 1 then
+			quality = 0
+		end
+
 		local color = E.QualityColors[quality]
 		if not self.hidden and not self.notBought then
 			self.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
