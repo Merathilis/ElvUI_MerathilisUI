@@ -894,7 +894,7 @@ function module:UpdateCooldown(slot)
 end
 
 function module:Initialize()
-	module.db = E.db.mui.bags
+	self.db = E.db.mui.bags
 	if not module.db.Enable then
 		return
 	end
@@ -923,10 +923,10 @@ function module:Initialize()
 	local f = {}
 	local filters = module:GetFilters()
 	local MyContainer = Backpack:GetContainerClass()
-	module.ContainerGroups = {["Bag"] = {}, ["Bank"] = {}}
+	module.ContainerGroups = { ["Bag"] = {}, ["Bank"] = {} }
 
 	local function AddNewContainer(bagType, index, name, filter)
-		local newContainer = MyContainer:New(name, {BagType = bagType, Index = index})
+		local newContainer = MyContainer:New(name, { BagType = bagType, Index = index })
 		newContainer:SetFilter(filter, true)
 		module.ContainerGroups[bagType][index] = newContainer
 	end
@@ -947,7 +947,7 @@ function module:Initialize()
 		AddNewContainer("Bag", 12, "BagAnima", filters.bagAnima)
 		AddNewContainer("Bag", 13, "BagRelic", filters.bagRelic)
 
-		f.main = MyContainer:New("Bag", {Bags = "bags", BagType = "Bag"})
+		f.main = MyContainer:New("Bag", { Bags = "bags", BagType = "Bag" })
 		f.main.__anchor = { "BOTTOMRIGHT", -4, 50 }
 		f.main:SetPoint(unpack(f.main.__anchor))
 		f.main:SetFilter(filters.onlyBags, true)
@@ -975,7 +975,7 @@ function module:Initialize()
 
 		f.reagent = MyContainer:New("Reagent", { Bags = "bankreagent", BagType = "Bank" })
 		f.reagent:SetFilter(filters.onlyReagent, true)
-		f.reagent.__anchor = { "BOTTOM", f.bank , 0, -70}
+		f.reagent.__anchor = { "BOTTOM", f.bank, 0, -70 }
 		f.reagent:SetPoint(unpack(f.reagent.__anchor))
 		f.reagent:Hide()
 	end
@@ -1238,7 +1238,7 @@ function module:Initialize()
 			module:UpdateCooldown(self) --ToDO: WoW10
 		end
 
-		if module.db.specialBagsColor then
+		if module.db.SpecialBagsColor then
 			local bagType = module.BagsType[item.bagId]
 			local color = bagTypeColor[bagType] or bagTypeColor[0]
 			self.backdrop:SetBackdropColor(unpack(color))
@@ -1395,29 +1395,29 @@ function module:Initialize()
 		if strmatch(name, "AzeriteItem$") then
 			label = L["Azerite Armor"]
 		elseif strmatch(name, "Equipment$") then
-			label = _G.BAG_FILTER_EQUIPMENT
+			label = BAG_FILTER_EQUIPMENT
 		elseif strmatch(name, "EquipSet$") then
-			label = L["Equipment Set"]
+			label = L["Equipement Set"]
 		elseif name == "BankLegendary" then
-			label = _G.LOOT_JOURNAL_LEGENDARIES
+			label = LOOT_JOURNAL_LEGENDARIES
 		elseif strmatch(name, "Consumable$") then
-			label = _G.BAG_FILTER_CONSUMABLES
+			label = BAG_FILTER_CONSUMABLES
 		elseif name == "Junk" then
-			label = _G.BAG_FILTER_JUNK
+			label = BAG_FILTER_JUNK
 		elseif strmatch(name, "Collection") then
-			label = _G.COLLECTIONS
+			label = COLLECTIONS
 		elseif strmatch(name, "Goods") then
-			label = _G.AUCTION_CATEGORY_TRADE_GOODS
+			label = AUCTION_CATEGORY_TRADE_GOODS
 		elseif strmatch(name, "Quest") then
-			label = _G.QUESTS_LABEL
+			label = QUESTS_LABEL
 		elseif strmatch(name, "Anima") then
-			label = _G.POWER_TYPE_ANIMA
+			label = POWER_TYPE_ANIMA
 		elseif name == "BagRelic" then
-			label = L["Korthia Relic"]
+			label = L["KorthiaRelic"]
 		elseif strmatch(name, "Custom%d") then
 			label = GetCustomGroupTitle(settings.Index)
 		elseif name == "BagReagent" then
-			label = _G.PROFESSIONS_COLUMN_HEADER_REAGENTS
+			label = L["ReagentBag"]
 		end
 		if label then
 			self.label = self:CreateFontString(nil, "ARTWORK")
@@ -1474,6 +1474,8 @@ function module:Initialize()
 		end
 		button.Count:FontTemplate(nil, module.db.FontSize)
 		button.iLvl:FontTemplate(nil, module.db.FontSize)
+		button.BindType:FontTemplate(nil, module.db.FontSize)
+		button.CenterText:FontTemplate(nil, module.db.FontSize)
 	end
 
 	function module:UpdateBagSize()
@@ -1519,7 +1521,6 @@ function module:Initialize()
 		end
 
 		if classID == LE_ITEM_CLASS_CONTAINER then
-			print(LE_ITEM_CLASS_CONTAINER)
 			module.BagsType[self.bagId] = subClassID or 0
 		else
 			module.BagsType[self.bagId] = 0
