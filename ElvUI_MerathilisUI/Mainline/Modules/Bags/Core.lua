@@ -1541,7 +1541,7 @@ function module:Initialize()
 			self.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
 		end
 
-		if classID == LE_ITEM_CLASS_CONTAINER then
+		if classID == Enum.ItemClass.Container then
 			module.BagsType[self.bagId] = subClassID or 0
 		else
 			module.BagsType[self.bagId] = 0
