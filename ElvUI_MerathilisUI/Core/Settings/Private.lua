@@ -241,7 +241,7 @@ V.skins = {
 	},
 
 	embed = {
-		enable = true,
+		enable = false,
 		toggleDirection = 1,
 	}
 }

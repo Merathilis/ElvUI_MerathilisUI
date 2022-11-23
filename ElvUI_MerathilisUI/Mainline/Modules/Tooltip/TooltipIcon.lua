@@ -131,5 +131,8 @@ function module:ReskinTooltipIcons()
 		-- Tooltip rewards icon
 		module.ReskinRewardIcon(_G.GameTooltip.ItemTooltip)
 		module.ReskinRewardIcon(_G.EmbeddedItemTooltip.ItemTooltip)
+	else
+
 	end
+
 end

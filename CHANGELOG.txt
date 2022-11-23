@@ -1,6 +1,5 @@
-[b][color=orange]v5.41[/color], 21.11.2022[/b][list]
-[*]Fixed my ChatButton
-[*]Added Vendor-Grey Button on the Bags
-[*]Overhault the Alerts. Thx fang2hou (Windtools)
-[*]Many updated to the Bags >.>
-[*]Added some Dragonflight Pets to my GameMenu/list]
+[b][color=orange]v5.42[/color], 23.11.2022[/b][list]
+[*]Tooltip Icons should also works on Classic again
+[*]Updated the WeakAuras & Auctionator Skin code
+[*]Disable my Embed Settings by default
+[*]Fixed Special Color options in Bags[/list]
