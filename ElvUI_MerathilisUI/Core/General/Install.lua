@@ -628,6 +628,7 @@ function MER:SetupLayout()
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-17"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
 		E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-210"
+		E.private["mui"]["skins"]["embed"]["enable"] = true
 	else
 		E.db["general"]["cropIcon"] = 2
 	end
