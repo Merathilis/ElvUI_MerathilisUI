@@ -19,7 +19,9 @@ local function LoadSkin()
 	end
 
 	_G.BonusRollFrame:Styling()
+	module:CreateShadow(_G.BonusRollFrame)
 	_G.LootHistoryFrame:Styling()
+	module:CreateShadow(_G.LootHistoryFrame)
 
 	if E.private.general.loot then
 		_G.ElvLootFrame:Styling()

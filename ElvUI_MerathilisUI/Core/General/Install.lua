@@ -85,6 +85,7 @@ local function SetupCVars()
 		SetCVar('weatherDensity', 0)
 		SetCVar('SpellQueueWindow', 180)
 		SetCVar('floatingCombatTextCombatDamageDirectionalScale', 1)
+		SetCVar('autoOpenLootHistory', 1)
 	else
 		SetCVar('taintLog', 0)
 	end
