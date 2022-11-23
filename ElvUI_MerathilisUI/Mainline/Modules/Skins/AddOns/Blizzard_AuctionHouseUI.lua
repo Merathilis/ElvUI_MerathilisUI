@@ -30,6 +30,13 @@ local function LoadSkin()
 	module:CreateGradient(AuctionsFrame.ItemDisplay)
 	module:CreateGradient(AuctionsFrame.ItemList.ScrollBox)
 	module:CreateGradient(AuctionsFrame.CommoditiesList.ScrollBox)
+
+	local tabs = {_G.AuctionHouseFrameBuyTab, _G.AuctionHouseFrameSellTab, _G.AuctionHouseFrameAuctionsTab}
+	for _, tab in pairs(tabs) do
+		if tab then
+			module:CreateBackdropShadow(tab)
+		end
+	end
 end
 
 S:AddCallbackForAddon("Blizzard_AuctionHouseUI", LoadSkin)
