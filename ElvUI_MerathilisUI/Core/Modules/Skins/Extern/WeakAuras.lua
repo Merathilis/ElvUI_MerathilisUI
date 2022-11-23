@@ -21,7 +21,7 @@ local function WeakAuras_PrintProfile()
 				local subChild = child:GetChildren()
 				S:HandleCloseButton(subChild)
 				subChild:ClearAllPoints()
-				subChild:Point("TOPRIGHT", frame, "TOPRIGHT", 3, 7)
+				subChild:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 3, 7)
 			end
 		end
 
@@ -39,11 +39,14 @@ local function ProfilingWindow_UpdateButtons(frame)
 			local normalTextureID = button:GetNormalTexture():GetTexture()
 			if normalTextureID == 252125 then
 				button:StripTextures()
+				button.SetNormalTexture = E.noop
+				button.SetPushedTexture = E.noop
+				button.SetHighlightTexture = E.noop
 
 				button.Texture = button:CreateTexture(nil, "OVERLAY")
-				button.Texture:Point("CENTER")
+				button.Texture:SetPoint("CENTER")
 				button.Texture:SetTexture(E.Media.Textures.ArrowUp)
-				button.Texture:Size(14, 14)
+				button.Texture:SetSize(14, 14)
 
 				button:HookScript("OnEnter", function(self)
 					if self.Texture then
@@ -58,8 +61,6 @@ local function ProfilingWindow_UpdateButtons(frame)
 				end)
 
 				button:HookScript("OnClick", function(self)
-					self:SetNormalTexture("")
-					self:SetPushedTexture("")
 					self.Texture:Show("")
 					if self:GetParent():GetParent().minimized then
 						button.Texture:SetRotation(S.ArrowRotation["down"])
@@ -69,11 +70,11 @@ local function ProfilingWindow_UpdateButtons(frame)
 				end)
 
 				button:SetHitRectInsets(6, 6, 7, 7)
-				button:Point("TOPRIGHT", frame.titleFrame, "TOPRIGHT", -19, 3)
+				button:SetPoint("TOPRIGHT", frame.titleFrame, "TOPRIGHT", -19, 3)
 			else
 				S:HandleCloseButton(button)
 				button:ClearAllPoints()
-				button:Point("TOPRIGHT", frame.titleFrame, "TOPRIGHT", 3, 5)
+				button:SetPoint("TOPRIGHT", frame.titleFrame, "TOPRIGHT", 3, 5)
 			end
 
 			button.MERStyle = true
