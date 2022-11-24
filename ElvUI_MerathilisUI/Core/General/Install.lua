@@ -454,10 +454,6 @@ function MER:SetupLayout()
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
 
-	if F.IsDeveloper() then
-		E.db["tooltip"]["showElvUIUsers"] = true
-	end
-
 		--[[----------------------------------
 	--	Skins - Layout
 	--]] ----------------------------------
@@ -606,6 +602,7 @@ function MER:SetupLayout()
 		E.db["mui"]["pvp"]["duels"]["pet"] = true
 		E.db["mui"]["pvp"]["duels"]["announce"] = true
 		E.db["general"]["cropIcon"] = 0
+		E.db["tooltip"]["showElvUIUsers"] = true
 		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
 		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
 		E.db["mui"]["misc"]["cursor"]["enable"] = true
