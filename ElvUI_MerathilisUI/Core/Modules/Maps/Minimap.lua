@@ -35,35 +35,6 @@ function module:CheckStatus()
 	end
 end
 
-function module:MinimapCombatCheck()
-	if not MM.holder then return end
-
-	if not E.db.mui.CombatAlert.minimapAlert then
-		return
-	end
-
-	local anim = MM.holder:CreateAnimationGroup()
-	anim:SetLooping("BOUNCE")
-
-	anim.fader = anim:CreateAnimation("Alpha")
-	anim.fader:SetFromAlpha(.8)
-	anim.fader:SetToAlpha(.2)
-	anim.fader:SetDuration(1)
-	anim.fader:SetSmoothing("OUT")
-
-	local function UpdateMinimapAnim(event)
-		if event == "PLAYER_REGEN_DISABLED" then
-			MM.holder:SetBackdropBorderColor(1, 0, 0)
-			anim:Play()
-		elseif not InCombatLockdown() then
-			anim:Stop()
-			MM.holder:SetBackdropBorderColor(0, 0, 0)
-		end
-	end
-	MER:RegisterEvent("PLAYER_REGEN_ENABLED", UpdateMinimapAnim)
-	MER:RegisterEvent("PLAYER_REGEN_DISABLED", UpdateMinimapAnim)
-end
-
 function module:StyleMinimap()
 	S:CreateBackdropShadow(Minimap)
 end
@@ -172,7 +143,6 @@ function module:Initialize()
 	self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
 	self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")
 
-	self:MinimapCombatCheck()
 	self:MinimapPing()
 end
 
