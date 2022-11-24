@@ -95,6 +95,7 @@ function module:CreateUFShadows()
 	self:SecureHook(UF, "Configure_Threat", "UnitFrames_Configure_Threat")
 	self:SecureHook(UF, "Configure_Power", "UnitFrames_Configure_Power")
 	self:SecureHook(UF, "Configure_ClassBar", "UnitFrames_Configure_ClassBar")
+	self:SecureHook(UF, "Configure_InfoPanel", "UnitFrames_Configure_InfoPanel")
 end
 
 function module:Initialize()
