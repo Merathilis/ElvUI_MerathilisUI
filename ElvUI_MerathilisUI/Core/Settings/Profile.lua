@@ -448,7 +448,7 @@ P.announcement = {
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% is handing out cookies, go and get one! {rt1}"]
+				text = L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"]
 			},
 			["54710"] = {
 				-- MOLL-E
