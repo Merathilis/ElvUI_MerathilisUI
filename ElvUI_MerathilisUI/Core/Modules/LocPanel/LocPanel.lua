@@ -144,6 +144,7 @@ module.Spells = {
 		[2] = {text = GetSpellInfo(147420),icon = F.GetIconFromID("spell", 147420),secure = {buttonType = "spell",ID = 147420}, UseTooltip = true},--One With Nature
 		[3] = {text = GetSpellInfo(193753),icon = F.GetIconFromID("spell", 193753),secure = {buttonType = "spell",ID = 193753}, UseTooltip = true},--Druid ClassHall
 	},
+	["EVOKER"] = {},
 	["HUNTER"] = {},
 	["MAGE"] = {
 		[1] = {text = GetSpellInfo(193759),icon = F.GetIconFromID("spell", 193759),secure = {buttonType = "spell",ID = 193759}, UseTooltip = true}, --Guardian place
