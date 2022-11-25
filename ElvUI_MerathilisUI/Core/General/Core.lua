@@ -13,39 +13,37 @@ local InCombatLockdown = InCombatLockdown
 
 local C_CVar_GetCVarBool = C_CVar.GetCVarBool
 
-do
-	MER.dummy = function() return end
-	MER.ElvUIV = tonumber(E.version)
-	MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+MER.dummy = function() return end
+MER.ElvUIV = tonumber(E.version)
+MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 
-	MER.IsRetail = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
-	MER.IsWrath = select(4, GetBuildInfo()) >= 30400
-	MER.IsNewPatch = select(4, GetBuildInfo()) >= 100000 -- 10.0
-	MER.IsPTR = select(4, GetBuildInfo()) == 100002 -- 10.0.2
+MER.IsRetail = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
+MER.IsWrath = select(4, GetBuildInfo()) >= 30400
+MER.IsNewPatch = select(4, GetBuildInfo()) >= 100000 -- 10.0
+MER.IsPTR = select(4, GetBuildInfo()) == 100002 -- 10.0.2
 
-	MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
+MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
 
-	-- Masque support
-	MER.MSQ = _G.LibStub('Masque', true)
+-- Masque support
+MER.MSQ = _G.LibStub('Masque', true)
 
-	MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
-	MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
+MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
+MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
 
-	MER.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
-	MER.InfoColor = "|cFF00c0fa" --Info Color RGB: 0, .75, .98
-	MER.GreyColor = "|cffB5B5B5"
-	MER.RedColor = "|cffff2735"
-	MER.GreenColor = "|cff3a9d36"
-	MER.YellowColor = "|cffffff00"
-	MER.BlueColor = "|cff82c5ff"
-	MER.WhiteColor = "|cffffffff"
+MER.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
+MER.InfoColor = "|cFF00c0fa" --Info Color RGB: 0, .75, .98
+MER.GreyColor = "|cffB5B5B5"
+MER.RedColor = "|cffff2735"
+MER.GreenColor = "|cff3a9d36"
+MER.YellowColor = "|cffffff00"
+MER.BlueColor = "|cff82c5ff"
+MER.WhiteColor = "|cffffffff"
 
-	MER.LineString = MER.GreyColor.."---------------"
+MER.LineString = MER.GreyColor.."---------------"
 
-	MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
-	MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
-	MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
-end
+MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
+MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
+MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
 
 MER.RegisteredModules = {}
 
