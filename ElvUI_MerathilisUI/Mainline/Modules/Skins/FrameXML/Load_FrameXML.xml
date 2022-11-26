@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="AddonList.lua"/>
+	<Script file="BagFrame.lua"/>
 	<Script file="BNet.lua"/>
 	<Script file="CharacterFrame.lua"/>
 	<Script file="ChatBubbles.lua"/>

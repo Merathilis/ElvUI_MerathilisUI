@@ -481,7 +481,7 @@ P.announcement = {
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} OMG, wealthy %player% puts %spell%! {rt1}"]
+				text = L["{rt1} %player% puts down %spell%! {rt1}"]
 			},
 			bots = {
 				enable = true,

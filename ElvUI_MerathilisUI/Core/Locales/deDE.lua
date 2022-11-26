@@ -334,6 +334,7 @@ L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"] = "{rt1} %play
 L["{rt1} %player% opened %spell%! {rt1}"] = "{rt1} %player% öffnet %spell%! {rt1}"
 L["{rt1} %player% puts %spell% {rt1}"] = "{rt1} %player% benutzt %spell% {rt1}"
 L["{rt1} %player% used %spell% {rt1}"] = "{rt1} %player% benutzt %spell% {rt1}"
+L["{rt1} %player% puts down %spell%! {rt1}"] = "{rt1} %player% bereitet ein %spell% zu."
 L["Completed"] = "Abgeschlossen"
 L["%s has been reseted"] = "%s wurde zurückgesetzt"
 L["Cannot reset %s (There are players in your party attempting to zone into an instance.)"] = "%s kann nicht zurückgesetzt werden (Es gibt Spieler in Ihrer Gruppe, die versuchen, eine Zone in eine Instanz zu betreten.)"
