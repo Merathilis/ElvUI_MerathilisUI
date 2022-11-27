@@ -239,13 +239,6 @@ function MER:CheckCompatibility()
 		"private.WT.tooltips.icon"
 	)
 
-	CheckWindtools(
-		format("%s-%s", L["Tooltip"], L["Domination Rank"]),
-		format("%s-%s", L["Tooltip"], L["Domination Rank"]),
-		"db.mui.tooltip.dominationRank",
-		"private.WT.tooltips.dominationRank"
-	)
-
 	CheckWindtools(L["LFG Info"], L["Group Info"], "db.mui.misc.lfgInfo.enable", "db.WT.tooltips.groupInfo.enable")
 
 	CheckWindtools(

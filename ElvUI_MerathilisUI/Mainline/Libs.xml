@@ -4,5 +4,4 @@
 	<Include file='..\Libs\Core\oUF_Plugins\oUF_Plugins.xml'/>
 
 	<Include file='..\Libs\Core\cargBags\cargBags.xml'/>
-	<Include file='..\Libs\Core\LibOpenRaid\lib.xml'/>
 </Ui>
