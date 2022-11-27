@@ -30,6 +30,7 @@ local referenceSpells = {
 	193455,			-- Cobra Shoot (Hunter)
 	585,			-- Smite (Priest)
 	35395,			-- Crusader Strike (Paladin)
+	275779,			-- Judgment (Paladin)
 	172,			-- Corruption (Warlock)
 	133,			-- Fireball (Mage)
 	116,			-- Frostbolt (Mage)
