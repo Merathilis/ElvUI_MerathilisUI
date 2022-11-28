@@ -975,7 +975,7 @@ P.unitframes = {
 	power = {
 		enable = true,
 		type = "DEFAULT",
-		model = 840943, --1715069
+		model = 1715069,
 		texture = E.db.unitframe.statusbar,
 	},
 	castbar = {

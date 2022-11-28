@@ -2376,6 +2376,14 @@ function MER:SetupUnitframes()
 	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
 
+
+	if F.IsDeveloper() then
+		if E.myclass == "WARRIOR" then
+			E.db["mui"]["unitframes"]["power"]["type"] = "CUSTOM"
+			E.db["mui"]["unitframes"]["power"]["model"] = 840943
+		end
+	end
+
 	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["UnitFrames Set"]

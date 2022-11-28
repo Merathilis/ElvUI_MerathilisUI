@@ -45,11 +45,11 @@ function module:CreateAnimatedBars(frame)
 			local animation = CreateFrame("PlayerModel", "MER_PowerBarEffect", frame.__MERAnim)
 
 			if db.type == "DEFAULT" then
-				animation:SetModel(840943) --1715069
+				animation:SetModel(1715069)
 				animation:MakeCurrentCameraCustom()
 				animation:SetPortraitZoom(1)
 				animation:SetTransform(CreateVector3D(-0.035, 0, 0), CreateVector3D(rad(270), 0, 0), 1)
-				animation:SetAlpha(1)
+				animation:SetAlpha(0.65)
 			elseif db.type == "CUSTOM" then
 				animation:SetModel(db.model)
 			end
