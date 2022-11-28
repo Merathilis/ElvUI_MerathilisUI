@@ -164,9 +164,9 @@ function T:Event(event, ...)
 	end
 end
 
-ET._GameTooltip_OnTooltipSetUnit = ET.GameTooltip_OnTooltipSetUnit
+ET._MER_GameTooltip_OnTooltipSetUnit = ET.GameTooltip_OnTooltipSetUnit
 function ET.GameTooltip_OnTooltipSetUnit(...)
-	ET._GameTooltip_OnTooltipSetUnit(...)
+	ET._MER_GameTooltip_OnTooltipSetUnit(...)
 
 	if not T then
 		return
