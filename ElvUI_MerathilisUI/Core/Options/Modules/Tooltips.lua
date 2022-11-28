@@ -22,7 +22,7 @@ options.tooltip = {
 			set = function(info, value)
 				E.db.mui.tooltip[info[#info]] = value
 			end,
-			width = "full",
+			hidden = not E.Retail,
 			values = {
 				NONE = L["None"],
 				SHIFT = L["Shift"],
@@ -34,34 +34,39 @@ options.tooltip = {
 				CTRL_ALT_SHIFT = format("%s + %s + %s", L["Ctrl"], L["Alt"], L["Shift"])
 			},
 		},
-		icon = {
+		spacer = {
 			order = 2,
+			type = "description",
+			name = " ",
+		},
+		icon = {
+			order = 3,
 			type = "toggle",
 			name = L["Tooltip Icons"],
 			desc = L["Adds an icon for spells and items on your tooltip."],
-			hidden = not E.Retail,
 		},
 		factionIcon = {
-			order = 3,
+			order = 4,
 			type = "toggle",
 			name = L.FACTION,
 			desc = L["Adds an Icon for the faction on the tooltip."],
-			hidden = not E.Retail,
 		},
 		petIcon = {
-			order = 3,
+			order = 5,
 			type = "toggle",
 			name = L["Pet Icon"],
-			desc = L["Add an icon for indicating the type of the pet."]
+			desc = L["Add an icon for indicating the type of the pet."],
+			hidden = not E.Retail,
 		},
 		petId = {
-			order = 4,
+			order = 6,
 			type = "toggle",
 			name = L["Pet ID"],
-			desc = L["Show battle pet species ID in tooltips."]
+			desc = L["Show battle pet species ID in tooltips."],
+			hidden = not E.Retail,
 		},
 		keystone = {
-			order = 5,
+			order = 7,
 			type = "toggle",
 			name = L["Keystone"],
 			desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
