@@ -124,10 +124,6 @@ do
 	end
 
 	MER:AddLib('LDD', 'LibDropDown')
-
-	if E.Retail then
-		MER:AddLib('LOR', 'LibOpenRaid-1.0')
-	end
 end
 
 function MER:Initialize()
