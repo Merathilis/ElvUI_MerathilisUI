@@ -117,7 +117,7 @@ function module:HookTooltipMethod()
 end
 
 function module:ReskinTooltipIcons()
-	if E.db.mui.tooltip.tooltipIcon ~= true then return end
+	if not E.db.mui.tooltip.icon then return end
 
 	module.HookTooltipMethod(_G.GameTooltip)
 	module.HookTooltipMethod(_G.ItemRefTooltip)

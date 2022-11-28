@@ -169,8 +169,16 @@ end
 
 function module:ChangeQuestHeaderStyle()
 	local frame = _G.ObjectiveTrackerFrame.MODULES
+	local NumQuests = select(2, C_QuestLog.GetNumQuestLogEntries())
 	if not self.db or not self.db.header or not frame then
 		return
+	end
+
+	local Text = _G.ObjectiveTrackerBlocksFrame and _G.ObjectiveTrackerBlocksFrame.QuestHeader and _G.ObjectiveTrackerBlocksFrame.QuestHeader.Text
+	if Text then
+		if NumQuests >= (_G.MAX_QUESTS - 5) then
+			Text:SetText(format("|Cffff0000%d/%d|r - %s", NumQuests, _G.MAX_QUESTS, _G.QUESTS_LABEL))
+		end
 	end
 
 	for i = 1, #frame do

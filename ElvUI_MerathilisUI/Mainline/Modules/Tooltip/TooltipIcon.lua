@@ -1,138 +1,175 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_Tooltip')
+local T = MER:GetModule('MER_Tooltip')
 
 local _G = _G
-local gsub, unpack = gsub, unpack
+local hooksecurefunc = hooksecurefunc
+local strfind = strfind
+local unpack = unpack
 
 local GetItemIcon = GetItemIcon
 local GetSpellTexture = GetSpellTexture
-local hooksecurefunc = hooksecurefunc
+local UnitBattlePetSpeciesID = UnitBattlePetSpeciesID
+local UnitBattlePetType = UnitBattlePetType
+local UnitFactionGroup = UnitFactionGroup
+local UnitIsBattlePet = UnitIsBattlePet
+local UnitIsPlayer = UnitIsPlayer
 
 local TooltipDataProcessor_AddTooltipPostCall = TooltipDataProcessor.AddTooltipPostCall
 
-local newString = "0:0:64:64:5:59:5:59"
+local Enum_TooltipDataType_Item = Enum.TooltipDataType.Item
+local Enum_TooltipDataType_Spell = Enum.TooltipDataType.Spell
 
-function module:SetupTooltipIcon(icon)
-	local title = icon and _G[self:GetName().."TextLeft1"]
-	if title then
-		title:SetFormattedText("|T%s:20:20:"..newString..":%d|t %s", icon, 20, title:GetText())
+local tooltips = {
+	"GameTooltip",
+	"ItemRefTooltip",
+	"ShoppingTooltip1",
+	"ShoppingTooltip2",
+	"ItemRefShoppingTooltip1",
+	"ItemRefShoppingTooltip2"
+}
+
+local PET_TYPE_SUFFIX = PET_TYPE_SUFFIX
+_G.BONUS_OBJECTIVE_REWARD_WITH_COUNT_FORMAT = "|T%1$s:16:16:0:0:64:64:5:59:5:59|t |cffffffff%2$s|r %3$s"
+_G.BONUS_OBJECTIVE_REWARD_FORMAT = "|T%1$s:16:16:0:0:64:64:5:59:5:59|t %2$s"
+
+local function setTooltipIcon(tt, data, type)
+	local getIcon = type == Enum_TooltipDataType_Item and GetItemIcon or GetSpellTexture
+	local icon = getIcon and getIcon(data.id)
+	local iconString = icon and F.GetIconString(icon, 18, 18, true)
+
+	local rowNumber = tt == _G.GameTooltip and 1 or 2
+	local row = _G[tt:GetName() .. "TextLeft" .. rowNumber]
+	local existingText = row and row:GetText()
+
+	if iconString and existingText and not strfind(existingText, "^|T") then
+		row:SetText(iconString .. " " .. existingText)
+	end
+end
+
+local function alignShoppingTooltip(tt)
+	if not tt or not tt.GetNumPoints or tt:GetNumPoints() < 2 or not tt.__SetPoint then
+		return
 	end
 
-	for i = 2, self:NumLines() do
-		local line = _G[self:GetName().."TextLeft"..i]
-		if not line then break end
-		local text = line:GetText() or ""
-		if text and text ~= "" then
-			local newText, count = gsub(text, "|T([^:]-):[%d+:]+|t", "|T%1:14:14:"..newString.."|t")
-			if count > 0 then
-				line:SetText(newText)
-			end
+	local shoppingTooltip1 = _G.ShoppingTooltip1
+	local shoppingTooltip2 = _G.ShoppingTooltip2
+
+	local point, anchorFrame = shoppingTooltip1:GetPoint(2)
+	if shoppingTooltip2:IsShown() then
+		if point == "TOP" then
+			shoppingTooltip1:ClearAllPoints()
+			shoppingTooltip1:SetPoint("TOPLEFT", anchorFrame, "TOPRIGHT", 3, 0)
+			shoppingTooltip2:ClearAllPoints()
+			shoppingTooltip2:SetPoint("TOPLEFT", shoppingTooltip1, "TOPRIGHT", 3, 0)
+		elseif point == "RIGHT" then
+			shoppingTooltip1:ClearAllPoints()
+			shoppingTooltip1:SetPoint("TOPRIGHT", anchorFrame, "TOPLEFT", -3, 0)
+			shoppingTooltip2:ClearAllPoints()
+			shoppingTooltip2:SetPoint("TOPRIGHT", shoppingTooltip1, "TOPLEFT", -3, 0)
 		end
-	end
-end
-
-local function GetUnit(self)
-	local _, unit = self and self:GetUnit()
-	if not unit then
-		local mFocus = GetMouseFocus()
-		unit = mFocus and (mFocus.unit or (mFocus.GetAttribute and mFocus:GetAttribute("unit"))) or "mouseover"
-	end
-
-	return unit
-end
-
-function module:InsertFactionFrame(faction)
-	if not self.factionFrame then
-		local f = self:CreateTexture(nil, "OVERLAY")
-		f:SetPoint("TOPRIGHT", 0, -5)
-		f:SetBlendMode("ADD")
-		f:SetScale(.5)
-		f:SetAlpha(.5)
-		self.factionFrame = f
-	end
-	self.factionFrame:SetTexture("Interface\\FriendsFrame\\PlusManz-" .. faction)
-	self.factionFrame:Show()
-end
-
-function module:OnTooltipCleared()
-	if self:IsForbidden() then return end
-
-	if self.factionFrame and self.factionFrame:IsShown() then
-		self.factionFrame:Hide()
-	end
-end
-
-function module:HookTooltipCleared()
-	self.tipModified = false
-end
-
-function module:HookTooltipMethod()
-	self:HookScript("OnTooltipCleared", module.HookTooltipCleared)
-end
-
-function module:ReskinRewardIcon()
-	self.Icon:SetTexCoord(unpack(E.TexCoords))
-end
-
-function module:OnTooltipSetUnit()
-	if self:IsForbidden() then return end
-
-	local unit = GetUnit(self)
-	if not unit or not UnitExists(unit) then return end
-
-	local IsPlayer = UnitIsPlayer(unit)
-	if IsPlayer then
-		if E.db.mui.tooltip.factionIcon then
-			local faction = UnitFactionGroup(unit)
-			if faction and faction ~= "Neutral" then
-				module.InsertFactionFrame(self, faction)
-			end
-		end
-	end
-end
-
-function module:ReskinTooltipIcons()
-	if E.db.mui.tooltip.tooltipIcon ~= true then return end
-
-	GameTooltip:HookScript("OnTooltipCleared", module.OnTooltipCleared)
-
-	if E.Retail then
-		TooltipDataProcessor_AddTooltipPostCall(Enum.TooltipDataType.Unit, module.OnTooltipSetUnit)
-
-		TooltipDataProcessor_AddTooltipPostCall(Enum.TooltipDataType.Item, function(self)
-			if self == _G.GameTooltip or self == _G.ItemRefTooltip then
-				local _, link = self:GetItem()
-				if link then
-					module.SetupTooltipIcon(self, GetItemIcon(link))
-				end
-			end
-		end)
-		TooltipDataProcessor_AddTooltipPostCall(Enum.TooltipDataType.Spell, function(self)
-			if self == _G.GameTooltip or self == _G.ItemRefTooltip then
-				local _, id = self:GetSpell()
-				if id then
-					module.SetupTooltipIcon(self, GetSpellTexture(id))
-				end
-			end
-		end)
-
-		hooksecurefunc(_G.GameTooltip, "SetUnitAura", function(self)
-			module.SetupTooltipIcon(self)
-		end)
-
-
-		hooksecurefunc(_G.GameTooltip, "SetAzeriteEssence", function(self)
-			module.SetupTooltipIcon(self)
-		end)
-		hooksecurefunc(_G.GameTooltip, "SetAzeriteEssenceSlot", function(self)
-			module.SetupTooltipIcon(self)
-		end)
-
-		-- Tooltip rewards icon
-		module.ReskinRewardIcon(_G.GameTooltip.ItemTooltip)
-		module.ReskinRewardIcon(_G.EmbeddedItemTooltip.ItemTooltip)
 	else
+		if point == "LEFT" then
+			shoppingTooltip1:ClearAllPoints()
+			shoppingTooltip1:SetPoint("TOPLEFT", anchorFrame, "TOPRIGHT", 3, 0)
+		elseif point == "RIGHT" then
+			shoppingTooltip1:ClearAllPoints()
+			shoppingTooltip1:SetPoint("TOPRIGHT", anchorFrame, "TOPLEFT", -3, 0)
+		end
+	end
+end
 
+local function getTooltipIconHandler(type)
+	return function(tt, data)
+		if not data or not data.id or not data.lines or not tt.GetName or not F.In(tt:GetName(), tooltips) then
+			return
+		end
+
+		setTooltipIcon(tt, data, type)
+	end
+end
+
+function T:ReskinRewardIcon(tt)
+	if tt and tt.Icon then
+		tt.Icon:SetTexCoord(unpack(E.TexCoords))
+		tt.IconBorder:Hide()
+	end
+end
+
+function T:AddFactionIcon(tt, unit, guid)
+	if UnitIsPlayer(unit) then
+		local faction = UnitFactionGroup(unit)
+		if faction and faction ~= "Neutral" then
+			if not tt.factionFrame then
+				local f = tt:CreateTexture(nil, "OVERLAY")
+				f:SetPoint("TOPRIGHT", 0, -5)
+				f:SetSize(35, 35)
+				f:SetBlendMode("ADD")
+				tt.factionFrame = f
+			end
+			tt.factionFrame:SetTexture("Interface\\FriendsFrame\\PlusManz-" .. faction)
+			tt.factionFrame:SetAlpha(0.5)
+		end
+	end
+end
+
+function T:ClearFactionIcon(tt)
+	if tt.factionFrame and tt.factionFrame:GetAlpha() ~= 0 then
+		tt.factionFrame:SetAlpha(0)
+	end
+end
+
+function T:AddPetIcon(tt, unit, guid)
+	if UnitIsBattlePet(unit) then
+		if not tt.petIcon then
+			local f = tt:CreateTexture(nil, "OVERLAY")
+			f:SetPoint("TOPRIGHT", -5, -5)
+			f:SetSize(35, 35)
+			f:SetBlendMode("ADD")
+			tt.petIcon = f
+		end
+		tt.petIcon:SetTexture("Interface\\PetBattles\\PetIcon-" .. PET_TYPE_SUFFIX[UnitBattlePetType(unit)])
+		tt.petIcon:SetTexCoord(.188, .883, 0, .348)
+		tt.petIcon:SetAlpha(1)
+	end
+end
+
+function T:ClearPetIcon(tt)
+	if tt.petIcon and tt.petIcon:GetAlpha() ~= 0 then
+		tt.petIcon:SetAlpha(0)
+	end
+end
+
+function T:AddPetID(tt, unit, guid)
+	if UnitIsBattlePet(unit) then
+		local speciesID = UnitBattlePetSpeciesID(unit)
+		speciesID = speciesID and F.CreateColorString(speciesID, E.db.general.valuecolor)
+		tt:AddDoubleLine(L["Pet ID"] .. ":", speciesID or ("|cffeeeeee" .. L["Unknown"] .. "|r"))
+	end
+end
+
+function T:Icons()
+	if E.db.mui.tooltip.icon then
+		TooltipDataProcessor_AddTooltipPostCall(Enum_TooltipDataType_Item, getTooltipIconHandler(Enum_TooltipDataType_Item))
+		TooltipDataProcessor_AddTooltipPostCall(Enum_TooltipDataType_Spell, getTooltipIconHandler(Enum_TooltipDataType_Spell))
+
+		_G.ShoppingTooltip1.__SetPoint = _G.ShoppingTooltip1.SetPoint
+		hooksecurefunc(_G.ShoppingTooltip1, "SetPoint", alignShoppingTooltip)
+
+		self:ReskinRewardIcon(_G.GameTooltip.ItemTooltip)
+		self:ReskinRewardIcon(_G.EmbeddedItemTooltip.ItemTooltip)
 	end
 
+	if E.db.mui.tooltip.factionIcon then
+		self:AddInspectInfoCallback(1, "AddFactionIcon", false, "ClearFactionIcon")
+	end
+
+	if E.db.mui.tooltip.petIcon then
+		self:AddInspectInfoCallback(2, "AddPetIcon", false, "ClearPetIcon")
+	end
+
+	if E.db.mui.tooltip.petId then
+		self:AddInspectInfoCallback(3, "AddPetID", false)
+	end
 end
+
+T:AddCallback("Icons")

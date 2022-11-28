@@ -454,10 +454,6 @@ function MER:SetupLayout()
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
 
-	if F.IsDeveloper() then
-		E.db["tooltip"]["showElvUIUsers"] = true
-	end
-
 		--[[----------------------------------
 	--	Skins - Layout
 	--]] ----------------------------------
@@ -508,7 +504,8 @@ function MER:SetupLayout()
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,229,-20"
 	E.db["movers"]["BNETMover"] = "TOP,ElvUIParent,TOP,0,-60"
 	E.db["movers"]["LootFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-495,-457"
-	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
+	E.db["movers"]["AlertFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,205,-210"
+	E.db["movers"]["VOICECHAT"] = "TOPLEFT,ElvUIParent,TOPLEFT,368,-210"
 	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,465"
 	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-474,120"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
@@ -606,6 +603,7 @@ function MER:SetupLayout()
 		E.db["mui"]["pvp"]["duels"]["pet"] = true
 		E.db["mui"]["pvp"]["duels"]["announce"] = true
 		E.db["general"]["cropIcon"] = 0
+		E.db["tooltip"]["showElvUIUsers"] = true
 		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
 		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
 		E.db["mui"]["misc"]["cursor"]["enable"] = true
@@ -2377,6 +2375,14 @@ function MER:SetupUnitframes()
 	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
 	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
+
+
+	if F.IsDeveloper() then
+		if E.myclass == "WARRIOR" then
+			E.db["mui"]["unitframes"]["power"]["type"] = "CUSTOM"
+			E.db["mui"]["unitframes"]["power"]["model"] = 840943
+		end
+	end
 
 	E:StaggeredUpdateAll(nil, true)
 

@@ -30,7 +30,7 @@ function module:ReskinDistanceText()
 end
 
 function module:HookPin()
-	if not self.db or not self.db.rightClickToClear then
+	if not self.db or not self.db.middleClickToClear then
 		return
 	end
 
@@ -38,7 +38,7 @@ function module:HookPin()
 		for pin in _G.WorldMapFrame:EnumeratePinsByTemplate("WaypointLocationPinTemplate") do
 			if not self:IsHooked(pin, "OnMouseClickAction") then
 				self:SecureHook(pin, "OnMouseClickAction", function(_, button)
-					if button == "RightButton" then
+					if button == "MiddleButton" then
 						C_Map_ClearUserWaypoint()
 					end
 				end)
@@ -299,11 +299,11 @@ function module:Initialize()
 		return
 	end
 
-	if self.db.rightClickToClear then
+	if self.db.middleClickToClear then
 		self:SecureHook(_G.WorldMapFrame, "Show", "HookPin")
 	end
 
-	if self.db.autoTrackWaypoint or self.db.rightClickToClear then
+	if self.db.autoTrackWaypoint or self.db.middleClickToClear then
 		self:RegisterEvent("USER_WAYPOINT_UPDATED")
 		self:USER_WAYPOINT_UPDATED()
 	end

@@ -164,7 +164,6 @@ P.blizzard = {
 
 P.CombatAlert = {
 	enable = true,
-	minimapAlert = true,
 	font = {
 		name = "Expressway",
 		size = 28,
@@ -448,7 +447,7 @@ P.announcement = {
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% is handing out cookies, go and get one! {rt1}"]
+				text = L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"]
 			},
 			["54710"] = {
 				-- MOLL-E
@@ -482,7 +481,7 @@ P.announcement = {
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} OMG, wealthy %player% puts %spell%! {rt1}"]
+				text = L["{rt1} %player% puts down %spell%! {rt1}"]
 			},
 			bots = {
 				enable = true,
@@ -696,7 +695,7 @@ P.autoButtons = {
 		buttonsPerRow = 10,
 		anchor = "TOPLEFT",
 		spacing = 3,
-		tooltip = true,
+		tooltip = false,
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -1041,7 +1040,7 @@ P.maps = {
 		enable = true,
 		noLimit = false,
 		autoTrackWaypoint = true,
-		rightClickToClear = true,
+		middleClickToClear = true,
 		distanceText = {
 			enable = true,
 			name = E.db.general.font,
@@ -1229,8 +1228,11 @@ P.pvp = {
 }
 
 P.tooltip = {
-	tooltipIcon = true,
+	modifier = "SHIFT",
+	icon = true,
 	factionIcon = true,
+	petIcon = true,
+	petId = true,
 	titleColor = true,
 }
 
