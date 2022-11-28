@@ -12,10 +12,13 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Tooltip Icons should also works on Classic again",
-		"• Updated the WeakAuras & Auctionator Skin code",
-		"• Disable my Embed Settings by default",
-		"• Fixed Special Color options in Bags",
+		"• Added back MirrorTimer Style",
+		"• Added my shadow the the UF InfoPanels",
+		"• Fix a potential lua error on the LocPanel for Evokers",
+		"• Added another reference spell for Prot Paladins to oUF_GCD",
+		"• Dropped Covenant Support in Tooltips",
+		"• Updated some skins",
+		"• Added own Immersion Skin",
 
 	" ",
 	"Notes:",
