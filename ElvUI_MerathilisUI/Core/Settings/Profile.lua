@@ -1228,8 +1228,11 @@ P.pvp = {
 }
 
 P.tooltip = {
-	tooltipIcon = true,
+	modifier = "SHIFT",
+	icon = true,
 	factionIcon = true,
+	petIcon = true,
+	petId = true,
 	titleColor = true,
 }
 

@@ -10,11 +10,31 @@ options.tooltip = {
 	set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
 		header = {
-			order = 1,
+			order = 0,
 			type = "header",
 			name = F.cOption(L["Tooltip"], 'orange'),
 		},
-		tooltipIcon = {
+		modifier = {
+			order = 1,
+			type = "select",
+			name = L["Modifier Key"],
+			desc = format(L["The modifer key to show additional information from %s."], MER.Title),
+			set = function(info, value)
+				E.db.mui.tooltip[info[#info]] = value
+			end,
+			width = "full",
+			values = {
+				NONE = L["None"],
+				SHIFT = L["Shift"],
+				CTRL = L["Ctrl"],
+				ALT = L["Alt"],
+				ALT_SHIFT = format("%s + %s", L["Alt"], L["Shift"]),
+				CTRL_SHIFT = format("%s + %s", L["Ctrl"], L["Shift"]),
+				CTRL_ALT = format("%s + %s", L["Ctrl"], L["Alt"]),
+				CTRL_ALT_SHIFT = format("%s + %s + %s", L["Ctrl"], L["Alt"], L["Shift"])
+			},
+		},
+		icon = {
 			order = 2,
 			type = "toggle",
 			name = L["Tooltip Icons"],
@@ -27,6 +47,18 @@ options.tooltip = {
 			name = L.FACTION,
 			desc = L["Adds an Icon for the faction on the tooltip."],
 			hidden = not E.Retail,
+		},
+		petIcon = {
+			order = 3,
+			type = "toggle",
+			name = L["Pet Icon"],
+			desc = L["Add an icon for indicating the type of the pet."]
+		},
+		petId = {
+			order = 4,
+			type = "toggle",
+			name = L["Pet ID"],
+			desc = L["Show battle pet species ID in tooltips."]
 		},
 		keystone = {
 			order = 5,
