@@ -5,7 +5,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function LoadSkin()
-	if not module:CheckDB("misc", "misc") then
+	if not module:CheckDB("misc", "misc") or not E.private.skins.blizzard.genericTrait then
 		return
 	end
 
