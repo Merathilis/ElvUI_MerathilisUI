@@ -44,7 +44,7 @@ end
 local function isItemEquipSet(item)
 	if not E.db.mui.bags.ItemFilter then return end
 	if not E.db.mui.bags.FilterEquipSet then return end
-	return item.isInSet
+	return item.isItemSet
 end
 
 local function isAzeriteArmor(item)
