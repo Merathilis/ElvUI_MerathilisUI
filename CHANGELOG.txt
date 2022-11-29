@@ -1,2 +1,6 @@
-[b][color=orange]v5.44[/color], 28.11.2022[/b][list]
-[*]Fixed a C-Stack error[/list]
+[b][color=orange]v5.45[/color], 29.11.2022[/b][list]
+[*]Fixed an error with LibOpenRaid
+[*]Removed LibCustomGlow, its back in ElvUI
+[*]Updated ExpansionLandingPage Skin
+[*]Temp workaround for EquipSets in Bags
+[*]Fixed an error on Mail Frame[/list]

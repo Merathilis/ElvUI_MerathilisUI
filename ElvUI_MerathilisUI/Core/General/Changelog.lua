@@ -12,7 +12,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed a C-Stack error",
+		"• Fixed an error with LibOpenRaid",
+		"• Removed LibCustomGlow, its back in ElvUI",
+		"• Updated ExpansionLandingPage Skin",
+		"• Temp workaround for EquipSets in Bags",
+		"• Fixed an error on Mail Frame",
 
 	" ",
 	"Notes:",
