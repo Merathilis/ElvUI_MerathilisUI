@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_RaidBuffs')
-local LCG = LibStub('LibCustomGlow-1.0')
+local LCG = E.Libs.CustomGlow
 
 local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
 

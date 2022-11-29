@@ -2,7 +2,7 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Minimap')
 local S = MER:GetModule('MER_Skins')
 local MM = E:GetModule('Minimap')
-local LCG = LibStub('LibCustomGlow-1.0')
+local LCG = E.Libs.CustomGlow
 
 local _G = _G
 local select, unpack = select, unpack
