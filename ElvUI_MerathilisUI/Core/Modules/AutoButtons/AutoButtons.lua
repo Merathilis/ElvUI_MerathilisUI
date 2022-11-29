@@ -129,7 +129,8 @@ local potionsShadowlands = {
 }
 
 local potionsDragonflight = {
-
+	191378,
+	191384,
 }
 
 -- Flasks (require level >= 40)
