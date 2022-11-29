@@ -26,6 +26,22 @@ local function LoadSkin()
 			end
 		end
 	end
+
+	if panel.MajorFactionList then
+		hooksecurefunc(panel.MajorFactionList.ScrollBox, 'Update', function(self)
+			for i = 1, self.ScrollTarget:GetNumChildren() do
+				local child = select(i, self.ScrollTarget:GetChildren())
+				if child.UnlockedState and not child.IsSkinned then
+					S:HandleCheckBox(child.UnlockedState.WatchFactionButton)
+					child.UnlockedState.WatchFactionButton:SetSize(32, 32)
+					child.UnlockedState.WatchFactionButton.Label:SetFontObject(Game20Font)
+					child.IsSkinned = true
+				end
+			end
+		end)
+	end
+
+	module:CreateShadow(frame)
 end
 
 S:AddCallbackForAddon("Blizzard_ExpansionLandingPage", LoadSkin)

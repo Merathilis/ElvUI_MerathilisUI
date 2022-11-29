@@ -39,7 +39,7 @@ local function SetupCVars()
 	SetCVar('countdownForCooldowns', 1)
 	SetCVar('showQuestTrackingTooltips', 1)
 	SetCVar('ffxGlow', 0)
-    SetCVar('floatingCombatTextCombatState', '1')
+	SetCVar('floatingCombatTextCombatState', '1')
 	SetCVar('minimapTrackingShowAll', 1)
 
 	-- Nameplates

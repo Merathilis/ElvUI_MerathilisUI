@@ -772,7 +772,7 @@ function module:ArrangeDefaultElements()
 end
 
 function module:LastMailSaver()
-	local mailSaver = CreateFrame('CheckButton', nil, _G.SendMailFrame, 'OptionsCheckButtonTemplate')
+	local mailSaver = CreateFrame('CheckButton', nil, _G.SendMailFrame, 'OptionsBaseCheckButtonTemplate')
 	mailSaver:SetHitRectInsets(0, 0, 0, 0)
 	mailSaver:SetPoint('LEFT', _G.SendMailNameEditBox, 'RIGHT', 0, 0)
 	mailSaver:SetSize(24, 24)
