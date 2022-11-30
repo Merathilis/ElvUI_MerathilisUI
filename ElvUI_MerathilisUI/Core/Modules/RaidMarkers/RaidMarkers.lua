@@ -5,6 +5,7 @@ local S = MER:GetModule('MER_Skins')
 local _G = _G
 local GameTooltip = _G.GameTooltip
 
+local abs = abs
 local format = format
 local gsub = gsub
 local strupper = strupper
@@ -362,7 +363,7 @@ function module:CreateButtons()
 			if module.db.buttonAnimation then
 				local progress = animGroup:GetProgress()
 				local currentScale = tex:GetScale()
-				if progress ~= 0 then
+				if abs(progress) > 0.002 and tex.__fromScale and tex.__toScale then
 					currentScale = tex.__fromScale + (tex.__toScale - tex.__fromScale) * progress
 				end
 				animGroup:Stop()
@@ -388,7 +389,7 @@ function module:CreateButtons()
 			if module.db.buttonAnimation then
 				local progress = animGroup:GetProgress()
 				local currentScale = tex:GetScale()
-				if progress ~= 0 then
+				if abs(progress) > 0.002 and tex.__fromScale and tex.__toScale then
 					currentScale = tex.__fromScale + (tex.__toScale - tex.__fromScale) * progress
 				end
 				animGroup:Stop()
