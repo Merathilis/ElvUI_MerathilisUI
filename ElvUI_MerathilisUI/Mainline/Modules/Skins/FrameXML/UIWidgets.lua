@@ -46,9 +46,9 @@ local function ReskinWidgetStatusBar(bar)
 		if bar.BorderGlow then bar.BorderGlow:SetAlpha(0) end
 
 		bar:CreateBackdrop('Transparent')
-		if bar.GetStatusBarAtlas then
-			ReplaceWidgetBarTexture(bar, bar:GetStatusBarAtlas())
-			hooksecurefunc(bar, "SetStatusBarAtlas", ReplaceWidgetBarTexture)
+		if bar.GetStatusBarTexture then
+			ReplaceWidgetBarTexture(bar, bar:GetStatusBarTexture())
+			hooksecurefunc(bar, "SetStatusBarTexture", ReplaceWidgetBarTexture)
 		end
 
 		bar.styled = true
