@@ -116,7 +116,7 @@ function module:ScenarioStageWidgetContainer()
 		local bar = widgetFrame.TimerBar
 
 		if bar and not bar.MERStyle then
-			hooksecurefunc(bar, "SetStatusBarAtlas", function(frame)
+			hooksecurefunc(bar, "SetStatusBarTexture", function(frame)
 				frame:SetStatusBarTexture(E.media.normTex)
 				frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
 			end)
