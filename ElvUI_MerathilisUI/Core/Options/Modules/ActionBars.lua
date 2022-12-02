@@ -12,6 +12,7 @@ options.actionbars = {
 			type = "header",
 			name = F.cOption(L["ActionBars"], 'orange'),
 		},
+		--[[
 		general = {
 			order = 2,
 			type = "group",
@@ -19,7 +20,7 @@ options.actionbars = {
 			guiInline = true,
 			args = {
 			},
-		},
+		},]]
 		specBar = {
 			order = 3,
 			type = "group",

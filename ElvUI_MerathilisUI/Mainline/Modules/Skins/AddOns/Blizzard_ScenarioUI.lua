@@ -102,39 +102,6 @@ function module:Scenario_ChallengeMode_ShowBlock()
 	block.MERStyle = true
 end
 
-function module:ScenarioStageWidgetContainer()
-	local contianer = _G.ScenarioStageBlock.WidgetContainer
-	if not contianer or not contianer.widgetFrames then
-		return
-	end
-
-	for _, widgetFrame in pairs(contianer.widgetFrames) do
-		if widgetFrame.Frame then
-			widgetFrame.Frame:SetAlpha(0)
-		end
-
-		local bar = widgetFrame.TimerBar
-
-		if bar and not bar.MERStyle then
-			hooksecurefunc(bar, "SetStatusBarTexture", function(frame)
-				frame:SetStatusBarTexture(E.media.normTex)
-				frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
-			end)
-			bar:CreateBackdrop("Transparent")
-			bar.MERStyle = true
-		end
-
-		if widgetFrame.CurrencyContainer then
-			for currencyFrame in widgetFrame.currencyPool:EnumerateActive() do
-				if not currencyFrame.MERStyle then
-					currencyFrame.Icon:SetTexCoord(unpack(E.TexCoords))
-					currencyFrame.MERStyle = true
-				end
-			end
-		end
-	end
-end
-
 local function LoadSkin()
 	if not module:CheckDB("objectiveTracker", "objectiveTracker") then
 		return
@@ -142,7 +109,6 @@ local function LoadSkin()
 
 	module:SecureHook("ScenarioStage_CustomizeBlock")
 	module:SecureHook("Scenario_ChallengeMode_ShowBlock")
-	module:SecureHook(_G.SCENARIO_CONTENT_TRACKER_MODULE, "Update", "ScenarioStageWidgetContainer")
 	module:SkinMawBuffsContainer(_G.ScenarioBlocksFrame.MawBuffsBlock.Container)
 	module:SkinMawBuffsContainer(_G.MawBuffsBelowMinimapFrame.Container)
 end
