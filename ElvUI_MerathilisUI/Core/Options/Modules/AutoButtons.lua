@@ -139,7 +139,7 @@ options.autoButtons = {
 					values = function()
 						local result = {}
 						for key in pairs(E.db.mui.autoButtons.blackList) do
-							result[key] = GetItemInfo(key)
+							result[key] = select(1, GetItemInfo(key))
 						end
 						return result
 					end

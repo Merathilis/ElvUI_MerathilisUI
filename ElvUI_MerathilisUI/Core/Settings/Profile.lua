@@ -670,7 +670,7 @@ local function Potions()
 	elseif E.Wrath then
 		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
-		return "POTIONSL,POTIONSDF,FLASKSL,FLASKDF,UTILITY"
+		return "POTIONSL,POTIONSDF,FLASKSL,FLASKDF,RUNEDF,UTILITY"
 	end
 end
 
