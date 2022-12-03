@@ -163,6 +163,11 @@ local function LoadSkin()
 
 	_G.QuestDetailScrollFrame:SetWidth(302) -- else these buttons get cut off
 
+	_G.QuestModelScene:Styling()
+	module:CreateShadow(_G.QuestModelScene)
+	_G.QuestNPCModelTextFrame:Styling()
+	module:CreateShadow(_G.QuestNPCModelTextFrame)
+
 	MER.NPC:Register(QuestFrame)
 end
 
