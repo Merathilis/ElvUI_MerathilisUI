@@ -465,7 +465,7 @@ local foodShadowlandsVendor = {
 }
 
 local foodDragonflight = {
-
+	197760,
 }
 
 local foodDragonflightVendor = {
@@ -742,6 +742,32 @@ local openableItems = {
 	191041,
 	191139,
 	192438,
+	-- 10.0
+	189765,
+	198863,
+	198864,
+	198865,
+	198866,
+	198867,
+	198868,
+	198869,
+	199472,
+	199473,
+	199474,
+	199475,
+	200069,
+	200070,
+	200072,
+	200073,
+	200095,
+	200468,
+	200513,
+	200516,
+	201754,
+	201755,
+	201817,
+	201818,
+	202142,
 }
 
 local tbcOre = {
@@ -897,7 +923,6 @@ local wrathElixirs = {
 	8827, -- waterwalking elixir
 	8529, -- noggenfogger elixir
 }
-
 
 local questItemList = {}
 local function UpdateQuestItemList()
