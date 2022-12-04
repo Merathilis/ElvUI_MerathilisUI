@@ -28,7 +28,6 @@ local IgnoreList = {
 		"HelpOpenTicketButton",
 		"MMHolder",
 		"DroodFocusMinimapButton",
-		"QueueStatusMinimapButton",
 		"TimeManagerClockButton",
 		"MiniMapBattlefieldFrame",
 		"MinimapZoneTextButton",
@@ -58,6 +57,7 @@ local IgnoreList = {
 		"DugisArrowMinimapPoint",
 		"QuestieFrame",
 		"TTMinimapButton",
+		"QueueStatusButton"
 	},
 	partial = {
 		"Node",

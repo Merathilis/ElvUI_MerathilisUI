@@ -12,11 +12,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an error with LibOpenRaid",
-		"• Removed LibCustomGlow, its back in ElvUI",
-		"• Updated ExpansionLandingPage Skin",
-		"• Temp workaround for EquipSets in Bags",
-		"• Fixed an error on Mail Frame",
+		"• Updated Armory to show missing enchants for DF",
+		"• Added Valdrakken Teleport/Portal spells to LocPanel",
+		"• Added many pots/flask/food/openable items to AutoButtons",
+		"• Fixed Shadows on Auras",
+		"• Updated LibDropdown to fix some errors with custom fonts",
 
 	" ",
 	"Notes:",

@@ -1,13 +1,14 @@
-local MAJOR, MINOR = 'LibDropDown', 4
+local MAJOR = 'LibDropDown'
 assert(LibStub, MAJOR .. ' requires LibStub')
 
+local MINOR = 8
 local lib, oldMinor = LibStub:NewLibrary(MAJOR, MINOR)
-if(not lib) then
+if not lib then
 	return
 end
 
-lib.dropdowns = {}
-lib.styles = {}
+lib.dropdowns = lib.dropdowns or {}
+lib.styles = lib.styles or {}
 
 --[[ LibDropDown:CloseAll(_ignore_)
 Closes all open dropdowns, even ones made with [Blizzard voodoo](https://www.townlong-yak.com/framexml/live/UIDropDownMenu.lua).
@@ -28,6 +29,16 @@ function lib:CloseAll(ignore)
 			menu:Hide()
 		end
 	end
+end
+
+if not lib.hookedCloseMenus then
+	lib.hookedCloseMenus = true
+	hooksecurefunc('CloseMenus', function()
+		-- close all our menus too
+		for menu in next, lib.dropdowns do
+			menu:Hide()
+		end
+	end)
 end
 
 --[[ LibDropDown:RegisterStyle(_name, data_)

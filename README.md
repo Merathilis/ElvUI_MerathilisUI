@@ -1,7 +1,7 @@
 <div align="center">
 <img src="m4.png"/><br>
-<img src="https://img.shields.io/badge/ElvUI-13.07-blue.svg?longCache=true&style=for-the-badge"/>
-<img src="https://img.shields.io/badge/Version-5.45-orange.svg?longCache=true&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/ElvUI-13.09-blue.svg?longCache=true&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Version-5.46-orange.svg?longCache=true&style=for-the-badge"/>
 </div>
 
 ---

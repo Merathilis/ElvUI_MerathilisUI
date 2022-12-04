@@ -670,7 +670,7 @@ local function Potions()
 	elseif E.Wrath then
 		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
-		return "POTIONSL,POTIONSDF,FLASKSL,FLASKDF,UTILITY"
+		return ",POTIONSDF,FLASKDF,RUNEDF,UTILITY"
 	end
 end
 
@@ -720,7 +720,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "QUEST,BANNER,EQUIP,TORGHAST,OPENABLE"
+		include = "QUEST,BANNER,EQUIP,OPENABLE"
 	},
 	bar2 = {
 		enable = true,
@@ -805,7 +805,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODSL,FOODDF,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODDF,CUSTOM"
 	},
 	bar4 = {
 		enable = false,
@@ -1052,6 +1052,7 @@ P.maps = {
 			enable = true,
 			worldMapInput = true,
 			command = true,
+			virtualTomTom = true,
 			commandKeys = {
 				["wtgo"] = true,
 				["goto"] = true,
