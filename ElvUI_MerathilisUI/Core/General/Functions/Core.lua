@@ -20,18 +20,12 @@ local GetContainerNumSlots = GetContainerNumSlots or (C_Container and C_Containe
 local PickupContainerItem = PickupContainerItem or (C_Container and C_Container.PickupContainerItem)
 local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
-local UnitClass = UnitClass
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
-local UnitIsPlayer = UnitIsPlayer
-local UnitIsTapDenied = UnitIsTapDenied
-local UnitReaction = UnitReaction
 local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
 
-local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UIParent = UIParent
 
 local C_Covenants_GetCovenantData = C_Covenants and C_Covenants.GetCovenantData
@@ -849,4 +843,15 @@ function F.In(val, tbl)
 	end
 
 	return false
+end
+
+function F.IsNaN(val)
+	return tostring(val) == tostring(0 / 0)
+end
+
+function F.Or(val, default)
+	if not val or F.IsNaN(val) then
+		return default
+	end
+	return val
 end

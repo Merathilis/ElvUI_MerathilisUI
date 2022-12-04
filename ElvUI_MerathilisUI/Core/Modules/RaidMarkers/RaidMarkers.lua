@@ -361,8 +361,8 @@ function module:CreateButtons()
 
 		button:SetScript("OnEnter", function(self)
 			if module.db.buttonAnimation then
-				local progress = animGroup:GetProgress()
-				local currentScale = tex:GetScale()
+				local progress = F.Or(animGroup:GetProgress(), 0)
+				local currentScale = F.Or(tex:GetScale(), 1)
 				if abs(progress) > 0.002 and tex.__fromScale and tex.__toScale then
 					currentScale = tex.__fromScale + (tex.__toScale - tex.__fromScale) * progress
 				end
@@ -387,8 +387,8 @@ function module:CreateButtons()
 
 		button:SetScript("OnLeave", function(self)
 			if module.db.buttonAnimation then
-				local progress = animGroup:GetProgress()
-				local currentScale = tex:GetScale()
+				local progress = F.Or(animGroup:GetProgress(), 0)
+				local currentScale = F.Or(tex:GetScale(), 1)
 				if abs(progress) > 0.002 and tex.__fromScale and tex.__toScale then
 					currentScale = tex.__fromScale + (tex.__toScale - tex.__fromScale) * progress
 				end
