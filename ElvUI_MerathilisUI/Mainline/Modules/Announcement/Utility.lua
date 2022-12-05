@@ -98,6 +98,7 @@ local PortalList = {
 	[120146] = true,
 	[224871] = true,
 	[344597] = true,
+	[395289] = true,
 }
 
 local ToyList = {
