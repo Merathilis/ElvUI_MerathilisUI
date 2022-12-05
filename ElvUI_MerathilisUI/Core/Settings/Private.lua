@@ -238,7 +238,8 @@ V.skins = {
 		tldr = true,
 		pf = true,
 		au = true,
-		imm = true
+		imm = true,
+		rio = true,
 	},
 
 	embed = {

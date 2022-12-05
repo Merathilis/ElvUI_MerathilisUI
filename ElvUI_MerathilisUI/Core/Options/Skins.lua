@@ -20,6 +20,7 @@ local DecorAddons = {
 	{"Immersion", L["Immersion"], "imm"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 	{"PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf"},
+	{"RaiderIO", L["RaiderIO"], "rio"},
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"TLDRMissions", L["TLDRMissions"], "tldr"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
