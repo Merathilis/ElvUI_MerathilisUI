@@ -25,13 +25,13 @@ function module:CheckStatus()
 
 
 	if inv > 0 and mail then -- New invites and mail
-		LCG.PixelGlow_Start(MM.holder, {1, 0, 0, 1}, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(MM.MapHolder, {1, 0, 0, 1}, 8, -0.25, nil, 1)
 	elseif inv > 0 and not mail then -- New invites and no mail
-		LCG.PixelGlow_Start(MM.holder, {1, 1, 0, 1}, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(MM.MapHolder, { 1, 1, 0, 1 }, 8, -0.25, nil, 1)
 	elseif inv == 0 and mail then -- No invites and new mail
-		LCG.PixelGlow_Start(MM.holder, {r, g, b, 1}, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(MM.MapHolder, { r, g, b, 1 }, 8, -0.25, nil, 1)
 	else -- None of the above
-		LCG.PixelGlow_Stop(MM.holder)
+		LCG.PixelGlow_Stop(MM.MapHolder)
 	end
 end
 
