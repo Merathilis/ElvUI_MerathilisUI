@@ -38,7 +38,7 @@ function RM:ChangeShape()
 	Minimap:SetClampRectInsets(0, 0, 0, 0)
 	_G.MinimapMover:SetClampRectInsets(0, 0, halfDiff * E.mult, -halfDiff * E.mult)
 	Minimap:ClearAllPoints()
-	Minimap:Point("TOPLEFT", MM.holder, "TOPLEFT", E.Border, -E.Border + halfDiff)
+	Minimap:SetPoint("TOPLEFT", MM.MapHolder, "TOPLEFT", E.Border, -E.Border + halfDiff)
 	Minimap.backdrop:SetOutside(Minimap, 1, -halfDiff + 1)
 	MinimapBackdrop:SetOutside(Minimap.backdrop)
 
@@ -54,13 +54,13 @@ function RM:ChangeShape()
 
 	if Minimap.location then
 		Minimap.location:ClearAllPoints()
-		Minimap.location:Point("TOP", MM.holder, "TOP", 0, -5)
+		Minimap.location:SetPoint("TOP", MM.MapHolder, "TOP", 0, -5)
 	end
 
 	if MinimapPanel:IsShown() then
 		MinimapPanel:ClearAllPoints()
-		MinimapPanel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", -E.Border, (E.PixelMode and 0 or -3) + halfDiff)
-		MinimapPanel:Point("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", E.Border, -23 + halfDiff)
+		MinimapPanel:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", -E.Border, (E.PixelMode and 0 or -3) + halfDiff)
+		MinimapPanel:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", E.Border, -23 + halfDiff)
 	end
 
 	self:Minimap_Holder_Size()
@@ -81,12 +81,11 @@ do
 		local newHeight = E.MinimapSize * fileID / 128
 
 		local borderWidth, borderHeight = E.PixelMode and 2 or 6, E.PixelMode and 2 or 8
-		local panelSize, joinPanel =
-		(MinimapPanel:IsShown() and MinimapPanel:GetHeight()) or (E.PixelMode and 1 or -1),
+		local panelSize, joinPanel = (MinimapPanel:IsShown() and MinimapPanel:GetHeight()) or (E.PixelMode and 1 or -1),
 			1
 		local holderHeight = newHeight + (panelSize - joinPanel)
 
-		MM.holder:Size(E.MinimapSize + borderWidth, holderHeight + borderHeight)
+		MM.MapHolder:Size(E.MinimapSize + borderWidth, holderHeight + borderHeight)
 		_G.MinimapMover:Size(E.MinimapSize + borderWidth, holderHeight + borderHeight)
 		isRunning = false
 	end
@@ -98,7 +97,7 @@ function RM:SetUpdateHook()
 		self:SecureHook(MM, "UpdateSettings", "ChangeShape")
 		self:SecureHook(MM, "Initialize", "ChangeShape")
 		self:SecureHook(E, "UpdateAll", "ChangeShape")
-		self:SecureHook(MM.holder, "Size", "Minimap_Holder_Size")
+		self:SecureHook(MM.MapHolder, "Size", "Minimap_Holder_Size")
 		self.initialized = true
 	end
 	self:ChangeShape()

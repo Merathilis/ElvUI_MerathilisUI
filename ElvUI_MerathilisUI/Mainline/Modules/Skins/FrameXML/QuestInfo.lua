@@ -254,6 +254,7 @@ local function LoadSkin()
 		_G.QuestInfoQuestType,
 		_G.QuestInfoGroupSize,
 		_G.QuestInfoRewardText,
+		_G.QuestInfoTimerText,
 		_G.QuestInfoSpellObjectiveLearnLabel,
 		_G.QuestInfoRewardsFrame.ItemChooseText,
 		_G.QuestInfoRewardsFrame.ItemReceiveText,

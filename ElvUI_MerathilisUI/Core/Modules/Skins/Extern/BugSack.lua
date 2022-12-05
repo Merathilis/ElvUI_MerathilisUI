@@ -88,12 +88,17 @@ function module:BugSack_OpenSack()
 		end
 	end
 
-	_G.BugSackNextButton:SetSize(200, 30)
-	S:HandleButton(_G.BugSackNextButton)
-	_G.BugSackPrevButton:SetSize(200, 30)
-	S:HandleButton(_G.BugSackPrevButton)
-	_G.BugSackSendButton:SetSize(200, 30)
-	S:HandleButton(_G.BugSackSendButton)
+	if _G.BugSackNextButton and _G.BugSackPrevButton and _G.BugSackSendButton then
+		local width, height = _G.BugSackSendButton:GetSize()
+		_G.BugSackSendButton:SetSize(width - 8, height)
+		_G.BugSackSendButton:ClearAllPoints()
+		_G.BugSackSendButton:SetPoint("LEFT", _G.BugSackPrevButton, "RIGHT", 4, 0)
+		_G.BugSackSendButton:SetPoint("RIGHT", _G.BugSackNextButton, "LEFT", -4, 0)
+
+		S:HandleButton(_G.BugSackNextButton)
+		S:HandleButton(_G.BugSackPrevButton)
+		S:HandleButton(_G.BugSackSendButton)
+	end
 
 	local tabs = {
 		_G.BugSackTabAll,

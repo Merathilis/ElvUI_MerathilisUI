@@ -274,9 +274,11 @@ function module:Initialize()
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)
 	module:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdatePaperDoll", false)
 	module:RegisterEvent("SOCKET_INFO_UPDATE", "UpdatePaperDoll", false)
-	module:RegisterEvent("COMBAT_RATING_UPDATE", "UpdatePaperDoll", false)
-	module:RegisterEvent("MASTERY_UPDATE", "UpdatePaperDoll", false)
-	module:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
+
+	--Appereantly this causes mini lags
+	-- module:RegisterEvent("COMBAT_RATING_UPDATE", "UpdatePaperDoll", false)
+	-- module:RegisterEvent("MASTERY_UPDATE", "UpdatePaperDoll", false)
+	-- module:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
 
 	hooksecurefunc(M, 'UpdatePageInfo', module.UpdatePageInfo)
 	hooksecurefunc(M, 'UpdatePageStrings', module.UpdatePageStrings)

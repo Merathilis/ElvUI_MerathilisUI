@@ -12,11 +12,12 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Updated Armory to show missing enchants for DF",
-		"• Added Valdrakken Teleport/Portal spells to LocPanel",
-		"• Added many pots/flask/food/openable items to AutoButtons",
-		"• Fixed Shadows on Auras",
-		"• Updated LibDropdown to fix some errors with custom fonts",
+		"• Fixed a C-Stack error... whoopsi",
+		"• Fixed Rectangle Minimap due to changes in ElvUI",
+		"• Fixed Minimap Button position due to changes in ElvUI",
+		"• Updated BugSack Skin",
+		"• Added new Portal to the announce",
+		"• Commented out a few Events on the Armory to prevent some micro lags -> needs feedback",
 
 	" ",
 	"Notes:",
