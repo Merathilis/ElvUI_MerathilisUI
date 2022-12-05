@@ -1,8 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_UnitFrames')
 local S = MER:GetModule('MER_Skins')
-local UF = E.UnitFrames
 
+local CreateColor = CreateColor
 local hooksecurefunc = hooksecurefunc
 
 local MAX_BOSS_FRAMES = 8
@@ -146,10 +146,11 @@ function module:PostCast(unit, unitframe)
 	end
 end
 
-function module:PostCastInterruptible(unit, unitframe)
+function module:PostCastInterruptible(unit)
 	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
 	if unit == "vehicle" or unit == "player" then return end
 
+	local _, class = UnitClass(unit)
 	local castTexture = E.LSM:Fetch("statusbar", db.texture)
 
 	if not self.isTransparent then
