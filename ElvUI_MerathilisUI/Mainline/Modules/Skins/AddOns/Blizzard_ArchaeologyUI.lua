@@ -39,7 +39,7 @@ local function LoadSkin()
 		select(3, bu:GetRegions()):SetTexCoord(unpack(E.TexCoords))
 		select(4, bu:GetRegions()):SetTextColor(1, 1, 1)
 		select(5, bu:GetRegions()):SetTextColor(1, 1, 1)
-		bu:CreateBackdrop("Transparent")
+		bu:SetTemplate("Transparent")
 		module:CreateGradient(bu)
 	end
 

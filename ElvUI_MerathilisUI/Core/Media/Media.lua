@@ -261,6 +261,7 @@ AddMedia("whiteDPS", "RoleIcons/White/DPS.tga", "Textures")
 
 AddMedia("emptyTex", "bgTex.blp", "Textures")
 AddMedia("glowTex", "glowTex.blp", "Textures")
+AddMedia("MinimapDifficulty", "minimap-difficulty.tga", "Textures")
 
 -- Fonts
 LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])

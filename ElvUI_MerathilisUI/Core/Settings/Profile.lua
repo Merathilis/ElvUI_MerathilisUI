@@ -1031,6 +1031,7 @@ P.maps = {
 				style = "OUTLINE"
 			},
 		},
+		difficulty = true,
 	},
 	rectangleMinimap = {
 		enable = false,

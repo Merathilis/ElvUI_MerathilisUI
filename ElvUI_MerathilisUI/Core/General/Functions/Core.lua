@@ -471,6 +471,20 @@ do
 	end
 	hooksecurefunc("PanelTemplates_SelectTab", F.ResetTabAnchor)
 	hooksecurefunc("PanelTemplates_DeselectTab", F.ResetTabAnchor)
+
+	-- Kill regions
+	F.HiddenFrame = CreateFrame('Frame')
+	F.HiddenFrame:Hide()
+
+	function F:HideObject()
+		if self.UnregisterAllEvents then
+			self:UnregisterAllEvents()
+			self:SetParent(F.HiddenFrame)
+		else
+			self.Show = self.Hide
+		end
+		self:Hide()
+	end
 end
 
 -- Check Chat channels

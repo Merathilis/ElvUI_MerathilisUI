@@ -60,7 +60,7 @@ local function LoadSkin()
 	-- Suggestion 1
 	local suggestion = SuggestFrame.Suggestion1
 	suggestion.bg:Hide()
-	suggestion:CreateBackdrop('Transparent')
+	suggestion:SetTemplate('Transparent')
 	module:CreateGradient(suggestion.backdrop)
 	suggestion.icon:SetPoint("TOPLEFT", 135, -15)
 
@@ -75,7 +75,7 @@ local function LoadSkin()
 		local suggestion = SuggestFrame["Suggestion" .. i]
 
 		suggestion.bg:Hide()
-		suggestion:CreateBackdrop('Transparent')
+		suggestion:SetTemplate('Transparent')
 		module:CreateGradient(suggestion.backdrop)
 		suggestion.icon:SetPoint("TOPLEFT", 10, -10)
 

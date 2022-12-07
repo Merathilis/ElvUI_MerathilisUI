@@ -41,7 +41,7 @@ local function LoadSkin()
 		for j = 1, NUM_SLOTS_PER_GUILDBANK_GROUP do
 			local button = _G["GuildBankColumn"..i.."Button"..j]
 			if button then
-				button:CreateBackdrop("Transparent")
+				button:SetTemplate("Transparent")
 				module:CreateGradient(button)
 			end
 		end

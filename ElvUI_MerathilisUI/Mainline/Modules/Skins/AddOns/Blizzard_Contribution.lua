@@ -12,7 +12,7 @@ local function LoadSkin()
 
 	--Main Frame
 	_G.ContributionCollectionFrame:StripTextures()
-	_G.ContributionCollectionFrame:CreateBackdrop('Transparent')
+	_G.ContributionCollectionFrame:SetTemplate('Transparent')
 	_G.ContributionCollectionFrame:Styling()
 	module:CreateBackdropShadow(_G.ContributionCollectionFrame)
 

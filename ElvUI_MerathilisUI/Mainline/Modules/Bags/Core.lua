@@ -1564,6 +1564,7 @@ function module:Initialize()
 	-- Fixes
 	BankFrame.GetRight = function() return f.bank:GetRight() end
 	BankFrameItemButton_Update = E.noop
+	F.HideObject("BankFrame")
 
 	local passedSystems = {
 		["TutorialReagentBag"] = true,
