@@ -110,7 +110,10 @@ local function AddKeystoneIcon(link)
 
 	if module.db.icon then
 		local texture = select(4, C_ChallengeMode_GetMapUIInfo(tonumber(mapID)))
-		link = format(ICON_STRING, texture) .. " " .. link
+		local icon = texture and format(ICON_STRING, texture)
+		if icon then
+			link = icon .. " " .. link
+		end
 	end
 
 	return link
@@ -128,7 +131,10 @@ local function AddConduitIcon(link)
 
 		if conduitItemID then
 			local texture = select(5, GetItemInfoInstant(conduitItemID))
-			link = format(ICON_STRING, texture) .. " " .. link
+			local icon = texture and format(ICON_STRING, texture)
+			if icon then
+				link = icon .. " " .. link
+			end
 		end
 	end
 
@@ -144,8 +150,10 @@ local function AddSpellInfo(link)
 
 	if module.db.icon then
 		local texture = GetSpellTexture(tonumber(id))
-		local icon = format(ICON_STRING, texture)
-		link = icon .. " |cff71d5ff" .. link .. "|r"
+		local icon = texture and format(ICON_STRING, texture)
+		if icon then
+			link = icon .. " |cff71d5ff" .. link .. "|r" -- I dk why the color is needed, but worked!
+		end
 	end
 
 	return link
@@ -160,8 +168,10 @@ local function AddEnchantInfo(link)
 
 	if module.db.icon then
 		local texture = GetSpellTexture(tonumber(id))
-		local icon = format(ICON_STRING, texture)
-		link = icon .. " " .. link
+		local icon = texture and format(ICON_STRING, texture)
+		if icon then
+			link = icon .. " " .. link
+		end
 	end
 
 	return link
@@ -176,8 +186,10 @@ local function AddPvPTalentInfo(link)
 
 	if module.db.icon then
 		local texture = select(3, GetPvpTalentInfoByID(tonumber(id)))
-		local icon = format(ICON_STRING, texture)
-		link = icon .. " " .. link
+		local icon = texture and format(ICON_STRING, texture)
+		if icon then
+			link = icon .. " " .. link
+		end
 	end
 
 	return link
@@ -192,8 +204,10 @@ local function AddTalentInfo(link)
 
 	if module.db.icon then
 		local texture = select(3, GetTalentInfoByID(tonumber(id)))
-		local icon = format(ICON_STRING, texture)
-		link = icon .. " " .. link
+		local icon = texture and format(ICON_STRING, texture)
+		if icon then
+			link = icon .. " " .. link
+		end
 	end
 
 	return link
