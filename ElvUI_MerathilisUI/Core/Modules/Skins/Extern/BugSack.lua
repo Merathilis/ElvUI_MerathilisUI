@@ -108,6 +108,7 @@ function module:BugSack_OpenSack()
 
 	for _, tab in pairs(tabs) do
 		S:HandleTab(tab)
+		tab.backdrop:Styling()
 		module:CreateBackdropShadow(tab)
 
 		local point, relativeTo, relativePoint, xOffset, yOffset = tab:GetPoint(1)
