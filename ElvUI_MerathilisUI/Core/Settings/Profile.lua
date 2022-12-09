@@ -559,6 +559,7 @@ P.misc = {
 	hideBossBanner = false,
 	quickDelete = true,
 	quickMenu = true,
+	tradeTabs = true,
 }
 
 P.nameHover = {

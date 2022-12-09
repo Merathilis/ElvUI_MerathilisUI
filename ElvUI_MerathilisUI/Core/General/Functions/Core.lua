@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM
 
 local _G = _G
@@ -682,6 +683,9 @@ end
 -- Icon Style
 function F.PixelIcon(self, texture, highlight)
 	if not self then return end
+
+	self.bg = S:CreateBDFrame(self)
+	self.bg:SetAllPoints()
 
 	self.Icon = self:CreateTexture(nil, "ARTWORK")
 	self.Icon:Point("TOPLEFT", E.mult, -E.mult)

@@ -88,13 +88,19 @@ options.general = {
 			get = function(info) return E.db.mui.misc.quest[info[#info]] end,
 			set = function(info, value) E.db.mui.misc.quest[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		},
-		spacer = {
+		tradeTabs = {
 			order = 9,
+			type = "toggle",
+			name = L["Trade Tabs"],
+			desc = L["Creates additional tabs on the Profession Frame"],
+		},
+		spacer = {
+			order = 10,
 			type = "description",
 			name = " ",
 		},
 		randomtoy = {
-			order = 10,
+			order = 11,
 			type = "input",
 			name = L["Random Toy Macro"],
 			desc = L["Creates a random toy macro."],
