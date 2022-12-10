@@ -48,8 +48,6 @@ function module:StyleMinimapRightClickMenu()
 end
 
 local function UpdateDifficultyFlag()
-	F.HideObject(_G.MinimapCluster.InstanceDifficulty)
-
 	local frame = _G.Minimap.DiffFlag
 	local text = _G.Minimap.DiffText
 
