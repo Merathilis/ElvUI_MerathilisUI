@@ -1467,7 +1467,7 @@ function module:Initialize()
 			buttons[8] = module.CreateVendorGreyButton(self)
 		elseif name == "Bank" then
 			module.CreateBagBar(self, settings, 7)
-			-- SetFrameMovable(self, true)
+			SetFrameMovable(self, true)
 			buttons[3] = module.CreateBagToggle(self)
 			buttons[4] = module.CreateReagentButton(self, f)
 		elseif name == "Reagent" then
