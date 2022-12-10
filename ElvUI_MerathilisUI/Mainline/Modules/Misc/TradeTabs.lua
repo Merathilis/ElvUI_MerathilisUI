@@ -96,7 +96,7 @@ end
 function module:TradeTabs_Reskin()
 	for _, tab in pairs(tabList) do
 		tab:SetCheckedTexture(E.media.normTex)
-		tab:GetCheckedTexture():SetAlpha(0.45)
+		tab:GetCheckedTexture():SetVertexColor(F.r, F.g, F.b, .65)
 		tab:GetRegions():Hide()
 		S:CreateBDFrame(tab)
 		local texture = tab:GetNormalTexture()
@@ -134,7 +134,7 @@ function module:TradeTabs_Create(spellID, toyID, itemID)
 	end
 
 	tab:SetNormalTexture(texture)
-	tab:GetHighlightTexture():SetColorTexture(F.r, F.g, F.b, 0.25)
+	tab:GetHighlightTexture():SetColorTexture(F.r, F.g, F.b, 0.5)
 	tab:Show()
 
 	tab.CD = CreateFrame("Cooldown", nil, tab, "CooldownFrameTemplate")
