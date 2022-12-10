@@ -12,14 +12,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed pixel glow on Minimap",
-		"• Fixed a potential castbar error <.<",
-		"• Fixed dual specc error",
-		"• Added back Trade Tabs to the Profession Frame",
-		"• Added AlreadyKnown",
-		"• Fixed an issue on the bank which hides a bag",
+		"• Fixed an issue with Instance Indicator on the Minimap",
+		"• Fixed RaiderIO Skin",
+		"• Small Updates to the UIWidgets",
+		" ",
 
-	" ",
 	"Notes:",
 		"• As always, if you want my latest layout, do the install again",
 		"• New Addition you will find with the ! in the Options",
