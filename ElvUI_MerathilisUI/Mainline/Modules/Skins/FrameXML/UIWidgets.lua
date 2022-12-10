@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -161,6 +161,58 @@ local function LoadSkin()
 	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, "Setup", function(self)
 		ReskinWidgetStatusBar(self.Bar)
 	end)
+
+	module:SecureHook(S, "SkinStatusBarWidget", function(_, widgetFrame)
+		if widgetFrame.Label then
+			F.SetFontOutline(widgetFrame.Label)
+		end
+		if widgetFrame.Bar then
+			module:CreateBackdropShadow(widgetFrame.Bar)
+			if widgetFrame.Bar.Label then
+				F.SetFontOutline(widgetFrame.Bar.Label)
+			end
+		end
+	end)
+
+	module:SecureHook(_G.UIWidgetTemplateStatusBarMixin, "Setup", function(widget)
+		local forbidden = widget:IsForbidden()
+		local bar = widget.Bar
+		local id = widget.widgetSetID
+
+		if forbidden or id == 283 or not bar or not bar.backdrop then
+			return
+		end
+
+		module:CreateBackdropShadow(bar)
+
+		if widget.Label then
+			F.SetFontOutline(widget.Label)
+		end
+
+		if bar.Label then
+			F.SetFontOutline(bar.Label)
+		end
+
+		if widget.isJailersTowerBar and module:CheckDB(nil, "scenario") then
+			bar:SetWidth(234)
+		end
+	end)
+
+	module:SecureHook(_G.UIWidgetTemplateCaptureBarMixin, "Setup", function(widget)
+		local bar = widget.Bar
+		if bar then
+			module:CreateBackdropShadow(bar)
+		end
+	end)
+
+	module:RawHook(S, "SkinTextWithStateWidget", function(_, widgetFrame)
+		local text = widgetFrame.Text
+		if not text then
+			return
+		end
+		F.SetFontOutline(text)
+		text:SetTextColor(1, 1, 1)
+	end, true)
 end
 
 S:AddCallback("UIWidgets", LoadSkin)
