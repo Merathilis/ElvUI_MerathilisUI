@@ -364,6 +364,7 @@ P.chat = {
 	},
 	chatLink = {
 		enable = true,
+		numbericalQualityTier = false,
 		translateItem = true,
 		level = true,
 		icon = true,
@@ -560,6 +561,15 @@ P.misc = {
 	quickDelete = true,
 	quickMenu = true,
 	tradeTabs = true,
+	alreadyKnown = {
+		enable = true,
+		mode = "COLOR",
+		color = {
+			r = 0,
+			g = 1,
+			b = 0
+		},
+	},
 }
 
 P.nameHover = {

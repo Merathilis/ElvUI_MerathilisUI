@@ -173,6 +173,8 @@ L["Icon"] = true
 L["Armor Category"] = true
 L["Weapon Category"] = true
 L["Filters some messages out of your chat, that some Spam AddOns use."] = true
+L["Display the level of the item on the item link."] = true
+L["Numberical Quality Tier"] = true
 
 -- Combat Alert
 L["Combat Alert"] = true

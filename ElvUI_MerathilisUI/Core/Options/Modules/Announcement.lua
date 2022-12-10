@@ -19,7 +19,7 @@ end
 
 options.announcement = {
 	type = "group",
-	name = E.NewSign..L["Announcement"],
+	name = L["Announcement"],
 	hidden = E.Classic,
 	args = {
 		header = {
