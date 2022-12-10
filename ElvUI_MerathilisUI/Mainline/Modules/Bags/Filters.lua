@@ -32,7 +32,7 @@ local function isItemInBagReagent(item)
 end
 
 local function isItemInBank(item)
-	return item.bagId == -1 or item.bagId >= 5 and item.bagId <= 11
+	return item.bagId == -1 or (item.bagId > 5 and item.bagId < 13)
 end
 
 local function isItemJunk(item)
