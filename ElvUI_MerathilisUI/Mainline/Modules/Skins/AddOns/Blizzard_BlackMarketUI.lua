@@ -42,10 +42,10 @@ local function LoadSkin()
 		bg:SetPoint("TOPLEFT", 2, 0)
 		bg:SetPoint("BOTTOMRIGHT", -1, 0)
 		bg:SetFrameLevel(header:GetFrameLevel()-1)
-		bg:CreateBackdrop('Transparent')
+		bg:SetTemplate('Transparent')
 	end
 
-	BlackMarketFrame.HotDeal:CreateBackdrop('Transparent')
+	BlackMarketFrame.HotDeal:SetTemplate('Transparent')
 end
 
 S:AddCallbackForAddon("Blizzard_BlackMarketUI", LoadSkin)

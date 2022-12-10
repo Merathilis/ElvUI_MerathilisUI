@@ -1,7 +1,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="AlreadyKnown.lua"/>
 	<Script file="BossBanner.lua"/>
 	<Script file="LfgInfo.lua"/>
 	<Script file="QuickMenu.lua"/>
 	<Script file="RandomToy.lua"/>
+	<Script file="TradeTabs.lua"/>
 	<Script file="WoWHeadLinks.lua"/>
 </Ui>

@@ -1,8 +1,8 @@
 ### Changes ###
 
-  * Fixed a C-Stack error... whoopsi
-  * Fixed Rectangle Minimap due to changes in ElvUI
-  * Fixed Minimap Button position due to changes in ElvUI
-  * Updated BugSack Skin
-  * Added new Portal to the announce
-  * Commented out a few Events on the Armory to prevent some micro lags -> needs feedback
+  * Fixed pixel glow on Minimap
+  * Fixed a potential castbar error <.<
+  * Fixed dual specc error
+  * Added back Trade Tabs to the Profession Frame
+  * Added AlreadyKnown
+  * Fixed an issue on the bank which hides a bag

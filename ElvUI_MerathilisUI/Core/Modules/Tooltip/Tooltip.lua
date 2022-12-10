@@ -6,6 +6,7 @@ local _G = _G
 local next = next
 local xpcall = xpcall
 local tinsert = table.insert
+local strsplit = strsplit
 
 local C_ChallengeMode_GetDungeonScoreRarityColor = E.Retail and C_ChallengeMode.GetDungeonScoreRarityColor
 
@@ -63,6 +64,8 @@ function T:ClearInspectInfo(tt)
 end
 
 function T:CheckModifier()
+	self.db = E.db.mui.tooltip
+
 	if not self.db or self.db.modifier == "NONE" then
 		return true
 	end
@@ -74,7 +77,7 @@ function T:CheckModifier()
 	}
 
 	local results = {}
-	for _, modifier in next, { strsplit("_", self.db.modifier) } do
+	for _, modifier in next, {strsplit("_", self.db.modifier)} do
 		tinsert(results, modifierStatus[modifier] or false)
 	end
 

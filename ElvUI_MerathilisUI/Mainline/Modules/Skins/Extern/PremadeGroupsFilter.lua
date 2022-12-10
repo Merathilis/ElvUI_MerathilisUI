@@ -81,7 +81,9 @@ function module:PremadeGroupsFilter()
 			"Members",
 			"Tanks",
 			"Heals",
-			"Dps"
+			"Dps",
+			"MPRating",
+			"PVPRating",
 		}
 	) do
 		if frame[line] then

@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM
 
 local _G = _G
@@ -471,6 +472,20 @@ do
 	end
 	hooksecurefunc("PanelTemplates_SelectTab", F.ResetTabAnchor)
 	hooksecurefunc("PanelTemplates_DeselectTab", F.ResetTabAnchor)
+
+	-- Kill regions
+	F.HiddenFrame = CreateFrame('Frame')
+	F.HiddenFrame:Hide()
+
+	function F:HideObject()
+		if self.UnregisterAllEvents then
+			self:UnregisterAllEvents()
+			self:SetParent(F.HiddenFrame)
+		else
+			self.Show = self.Hide
+		end
+		self:Hide()
+	end
 end
 
 -- Check Chat channels
@@ -668,6 +683,9 @@ end
 -- Icon Style
 function F.PixelIcon(self, texture, highlight)
 	if not self then return end
+
+	self.bg = S:CreateBDFrame(self)
+	self.bg:SetAllPoints()
 
 	self.Icon = self:CreateTexture(nil, "ARTWORK")
 	self.Icon:Point("TOPLEFT", E.mult, -E.mult)

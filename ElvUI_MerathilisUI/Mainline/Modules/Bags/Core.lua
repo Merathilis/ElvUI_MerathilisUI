@@ -938,7 +938,7 @@ function module:Initialize()
 	local hasPawn = IsAddOnLoaded("Pawn")
 
 	-- Init
-	local Backpack = cargBags:NewImplementation(MER.Title.."Backpack")
+	local Backpack = cargBags:NewImplementation("MER_Backpack")
 	Backpack:RegisterBlizzard()
 	Backpack:HookScript("OnShow", function() PlaySound(SOUNDKIT.IG_BACKPACK_OPEN) end)
 	Backpack:HookScript("OnHide", function() PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE) end)
@@ -1007,6 +1007,13 @@ function module:Initialize()
 		f.reagent.__anchor = { "BOTTOM", f.bank, 0, -70 }
 		f.reagent:SetPoint(unpack(f.reagent.__anchor))
 		f.reagent:Hide()
+
+		for bagType, groups in pairs(module.ContainerGroups) do
+			for _, container in ipairs(groups) do
+				local parent = Backpack.contByName[bagType]
+				container:SetParent(parent)
+			end
+		end
 	end
 
 	local initBagType
@@ -1527,15 +1534,9 @@ function module:Initialize()
 		self.backdrop:SetBackdropBorderColor(0, 0, 0)
 
 		local id = GetInventoryItemID("player", (self.GetInventorySlot and self:GetInventorySlot()) or self.invID)
-		if not id then
-			return
-		end
-
+		if not id then return end
 		local _, _, quality, _, _, _, _, _, _, _, _, classID, subClassID = GetItemInfo(id)
-		if not quality or quality == 1 then
-			quality = 0
-		end
-
+		if not quality or quality == 1 then quality = 0 end
 		local color = E.QualityColors[quality]
 		if not self.hidden and not self.notBought then
 			self.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
@@ -1564,6 +1565,7 @@ function module:Initialize()
 	-- Fixes
 	BankFrame.GetRight = function() return f.bank:GetRight() end
 	BankFrameItemButton_Update = E.noop
+	F.HideObject("BankFrame")
 
 	local passedSystems = {
 		["TutorialReagentBag"] = true,

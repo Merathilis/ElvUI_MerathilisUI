@@ -158,7 +158,6 @@ L["Filter"] = "Фильтр"
 L["Block"] = "Блокировать"
 L["Custom Online Message"] = "Пользовательское онлайн-сообщение"
 L["Filters some messages out of your chat, that some Spam AddOns use."] = "Отфильтровывает некоторые сообщения из вашего чата, которые используют некоторые аддоны для спама."
-
 L["Chat Link"] = "Ссылки чата"
 L["Add extra information on the link, so that you can get basic information but do not need to click"] = "Добавить дополнительную информацию по ссылке, чтобы вы могли получить основную информацию, не нажимая на нее."
 L["Additional Information"] = "Дополнительная информация"
@@ -168,6 +167,8 @@ L["Translate the name in item links into your language."] = "Переведит�
 L["Icon"] = "Иконка"
 L["Armor Category"] = "Категория брони"
 L["Weapon Category"] = "Категория оружия"
+L["Display the level of the item on the item link."] = true
+L["Numberical Quality Tier"] = true
 
 
 -- Combat Alert

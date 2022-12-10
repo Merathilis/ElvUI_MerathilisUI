@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local options = MER.options.misc.args
+local AK = MER:GetModule('MER_AlreadyKnown')
 local MI = MER:GetModule('MER_Misc')
 local SA = MER:GetModule('MER_SpellAlert')
 local CU = MER:GetModule('MER_Cursor')
@@ -88,13 +89,19 @@ options.general = {
 			get = function(info) return E.db.mui.misc.quest[info[#info]] end,
 			set = function(info, value) E.db.mui.misc.quest[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		},
-		spacer = {
+		tradeTabs = {
 			order = 9,
+			type = "toggle",
+			name = L["Trade Tabs"],
+			desc = L["Creates additional tabs on the Profession Frame"],
+		},
+		spacer = {
+			order = 10,
 			type = "description",
 			name = " ",
 		},
 		randomtoy = {
-			order = 10,
+			order = 11,
 			type = "input",
 			name = L["Random Toy Macro"],
 			desc = L["Creates a random toy macro."],
@@ -417,7 +424,7 @@ options.lfgInfo = {
 options.tags = {
 	order = 6,
 	type = "group",
-	name = E.NewSign..L["Tags"],
+	name = L["Tags"],
 	args = {
 		desc = {
 			order = 0,
@@ -529,3 +536,86 @@ do
 		end
 	end
 end
+
+options.alreadyKnown = {
+	order = 7,
+	type = "group",
+	name = E.NewSign..L["Already Known"],
+	get = function(info)
+		return E.db.mui.misc.alreadyKnown[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.misc.alreadyKnown[info[#info]] = value
+	end,
+	args = {
+		desc = {
+			order = 1,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = function()
+						if AK.StopRunning then
+							return format(
+								"|cffff3860" .. L["Because of %s, this module will not be loaded."] .. "|r",
+								AK.StopRunning
+							)
+						else
+							return L["Puts a overlay on already known learnable items on vendors and AH."]
+						end
+					end,
+					fontSize = "medium"
+				}
+			}
+		},
+		enable = {
+			order = 2,
+			type = "toggle",
+			name = L["Enable"],
+			disabled = function()
+				return AK.StopRunning
+			end,
+			set = function(info, value)
+				E.db.mui.misc.alreadyKnown[info[#info]] = value
+				AK:ToggleSetting()
+			end,
+			width = "full"
+		},
+		mode = {
+			order = 3,
+			name = L["Mode"],
+			type = "select",
+			disabled = function()
+				return AK.StopRunning
+			end,
+			values = {
+				COLOR = L["Custom Color"],
+				MONOCHROME = L["Monochrome"]
+			}
+		},
+		color = {
+			order = 4,
+			type = "color",
+			name = L["Color"],
+			disabled = function()
+				return AK.StopRunning
+			end,
+			hidden = function()
+				return not (E.db.mui.misc.alreadyKnown.mode == "COLOR")
+			end,
+			hasAlpha = false,
+			get = function(info)
+				local db = E.db.mui.misc.alreadyKnown.color
+				local default = P.misc.alreadyKnown.color
+				return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+			end,
+			set = function(info, r, g, b)
+				local db = E.db.mui.misc.alreadyKnown.color
+				db.r, db.g, db.b = r, g, b
+			end
+		}
+	}
+}

@@ -168,6 +168,8 @@ L["Icon"] = "Symbol"
 L["Armor Category"] = "Rüstungs Kategorie"
 L["Weapon Category"] = "Waffenkategorie"
 L["Filters some messages out of your chat, that some Spam AddOns use."] = "Filtert einige Nachrichten von Spam AddOns aus deinem Chat."
+L["Display the level of the item on the item link."] = "Zeige die Stufe des Gegenstands auf dem Gegenstandslink an."
+L["Numberical Quality Tier"] = "Numerische Qualitätsstufe"
 
 -- Combat Alert
 L["Combat Alert"] = "Kampfalarmierung"

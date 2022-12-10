@@ -167,6 +167,8 @@ L["Icon"] = "아이콘"
 L["Armor Category"] = "방어구 카테고리"
 L["Weapon Category"] = "무기 카테고리"
 L["Filters some messages out of your chat, that some Spam AddOns use."] = true
+L["Display the level of the item on the item link."] = true
+L["Numberical Quality Tier"] = true
 
 -- Combat Alert
 L["Combat Alert"] = "전투 알림"

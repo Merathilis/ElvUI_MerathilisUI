@@ -40,6 +40,13 @@ options.maps = {
 					name = L["Blinking Minimap"],
 					desc = L["Enable the blinking animation for new mail or pending invites."],
 				},
+				difficulty = {
+					order = 2,
+					type = "toggle",
+					name = L["Difficulty"],
+					desc = L["Use an own texture and text for the Instance Difficulty."],
+					hidden = not E.Retail,
+				}
 			},
 		},
 		worldMap = {

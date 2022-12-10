@@ -86,8 +86,10 @@ local function LoadSkin()
 	_G.NPCFriendshipStatusBar.icon:SetPoint("TOPLEFT", -30, 7)
 	module:CreateBDFrame(_G.NPCFriendshipStatusBar, .25)
 
-	MER.NPC:Register(GossipFrame)
-	hooksecurefunc("GossipTitleButton_OnClick", function() MER.NPC:PlayerTalksFirst() end)
+	if not IsAddOnLoaded("ElvUI_SLE") then
+		MER.NPC:Register(GossipFrame)
+		hooksecurefunc("GossipTitleButton_OnClick", function() MER.NPC:PlayerTalksFirst() end)
+	end
 end
 
 S:AddCallback("GossipFrame", LoadSkin)

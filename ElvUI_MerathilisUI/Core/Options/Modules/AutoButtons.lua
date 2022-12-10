@@ -9,7 +9,8 @@ local format = string.format
 local pairs = pairs
 local tonumber = tonumber
 
-local GetItemInfo = GetItemInfo
+local C_Item_GetItemIconByID = C_Item.GetItemIconByID
+local C_Item_GetItemNameByID = C_Item.GetItemNameByID
 
 local customListSelected1
 local customListSelected2
@@ -58,7 +59,7 @@ options.autoButtons = {
 					set = function(_, value)
 						local function _set()
 							local itemID = tonumber(value)
-							local itemName = select(1, GetItemInfo(itemID))
+							local itemName = C_Item_GetItemNameByID(itemID)
 							if itemName then
 								tinsert(E.db.mui.autoButtons.customList, itemID)
 								module:UpdateBars()
@@ -86,8 +87,8 @@ options.autoButtons = {
 						local list = E.db.mui.autoButtons.customList
 						local result = {}
 						for key, value in pairs(list) do
-							local name = select(1, GetItemInfo(value))
-							local tex = GetItemIcon(value)
+							local name = C_Item_GetItemNameByID(value)
+							local tex = C_Item_GetItemIconByID(value)
 							result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
 						end
 						return result
@@ -126,7 +127,7 @@ options.autoButtons = {
 					set = function(_, value)
 						local function _set()
 							local itemID = tonumber(value)
-							local itemName = select(1, GetItemInfo(itemID))
+							local itemName = C_Item_GetItemNameByID(itemID)
 							if itemName then
 								E.db.mui.autoButtons.blackList[itemID] = true
 								return module:UpdateBars()
@@ -153,8 +154,8 @@ options.autoButtons = {
 					values = function()
 						local result = {}
 						for key in pairs(E.db.mui.autoButtons.blackList) do
-							local name = select(1, GetItemInfo(key))
-							local tex = GetItemIcon(key)
+							local name = C_Item_GetItemNameByID(key)
+							local tex = C_Item_GetItemIconByID(key)
 							result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
 						end
 						return result
@@ -478,10 +479,10 @@ for i = 1, 5 do
 					FormatDesc("QUEST", L["Quest Items"]),
 					FormatDesc("EQUIP", L["Equipments"]),
 					FormatDesc("POTION", L["Potions"]),
-					FormatDesc("POTIONSL", format("%s (%s)", L["Potions"], L["Shadowlands"])),
+					FormatDesc("POTIONDF", format("%s (%s)", L["Potions"], L["Dragonflight"])),
 					FormatDesc("POTIONTBC", format("%s (%s)", L["Potions"], L["TBC"])),
 					FormatDesc("FLASK", L["Flasks"]),
-					FormatDesc("FLASKSL", format("%s (%s)", L["Flasks"], L["Shadowlands"])),
+					FormatDesc("FLASKDF", format("%s (%s)", L["Flasks"], L["Dragonflight"])),
 					FormatDesc("FLASKTBC", format("%s (%s)", L["Flasks"], L["TBC"])),
 					FormatDesc("CAULDRONTBC", format("%s (%s)", L["Cauldrons"], L["TBC"])),
 					FormatDesc("ELIXIRTBC", format("%s (%s)", L["Elixirs"], L["TBC"])),
@@ -489,7 +490,7 @@ for i = 1, 5 do
 					FormatDesc("MAGEFOOD", format("%s (%s)", L["Food"], L["Crafted by mage"])),
 					FormatDesc("TORGHAST", L["Torghast Items"]),
 					FormatDesc("FOOD", L["Food"]),
-					FormatDesc("FOODSL", format("%s (%s)", L["Food"], L["Shadowlands"])),
+					FormatDesc("FOODDF", format("%s (%s)", L["Food"], L["Dragonflight"])),
 					FormatDesc("BANNER", L["Banners"]),
 					FormatDesc("UTILITY", L["Utilities"]),
 					FormatDesc("OPENABLE", L["Openable Items"]),

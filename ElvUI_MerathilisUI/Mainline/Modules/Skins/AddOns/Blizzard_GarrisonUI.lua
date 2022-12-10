@@ -307,10 +307,8 @@ local function LoadSkin()
 					widget:StripTextures()
 					module:CreateBDFrame(widget, 1)
 				elseif otype == "MissionToast" then
-					if not widget.backdrop then
-						widget:CreateBackdrop('Tramsparent')
-					end
-					module:CreateGradient(widget.backdrop)
+					widget:SetTemplate('Tramsparent')
+					module:CreateGradient(widget)
 					if widget.Background then widget.Background:Hide() end
 					if widget.Detail then widget.Detail:SetFontObject("Game13Font") end
 				elseif otype == "RewardFrame" then

@@ -11,12 +11,9 @@ local function LoadSkin()
 	end
 
 	local OrderHallTalentFrame = _G.OrderHallTalentFrame
-	if not OrderHallTalentFrame.backdrop then
-		OrderHallTalentFrame:CreateBackdrop('Transparent')
-	end
-	OrderHallTalentFrame.backdrop:Styling()
+	OrderHallTalentFrame:Styling()
 
-	module:CreateBackdropShadow(OrderHallTalentFrame)
+	module:CreateShadow(OrderHallTalentFrame)
 
 	hooksecurefunc(OrderHallTalentFrame, "RefreshAllData", function(self)
 		if self.talentRankPool then

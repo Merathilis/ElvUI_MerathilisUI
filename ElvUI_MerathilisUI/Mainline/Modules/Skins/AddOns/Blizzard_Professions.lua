@@ -23,6 +23,9 @@ local function LoadSkin()
 		Log.backdrop:Styling()
 		module:CreateBackdropShadow(Log)
 	end
+
+	ProfessionsFrame.CraftingPage.RecipeList.BackgroundNineSlice:SetAlpha(.45)
+	ProfessionsFrame.CraftingPage.SchematicForm.Background:SetAlpha(.45)
 end
 
 S:AddCallbackForAddon('Blizzard_Professions', LoadSkin)

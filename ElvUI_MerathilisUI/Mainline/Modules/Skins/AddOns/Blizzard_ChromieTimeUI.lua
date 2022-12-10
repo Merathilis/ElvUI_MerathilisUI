@@ -12,9 +12,9 @@ local function LoadSkins()
 	local frame = _G.ChromieTimeFrame
 	frame:StripTextures()
 	frame.Background:Hide()
-	frame:CreateBackdrop('Transparent')
-	frame.backdrop:Styling()
-	module:CreateBackdropShadow(frame)
+	frame:SetTemplate('Transparent')
+	frame:Styling()
+	module:CreateShadow(frame)
 
 	local header = frame.Title
 	header:DisableDrawLayer('BACKGROUND')
