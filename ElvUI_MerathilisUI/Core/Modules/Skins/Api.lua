@@ -799,14 +799,6 @@ function S:UpdateRecapButton()
 	end
 end
 
---[[ HOOK TO THE UIWIDGET TYPES ]]
-function module:SkinTextWithStateWidget(_, widgetFrame)
-	local text = widgetFrame.Text
-	if text then
-		text:SetTextColor(1, 1, 1)
-	end
-end
-
 function module:DisableAddOnSkin(key)
 	if _G.AddOnSkins then
 		local AS = _G.AddOnSkins[1]
@@ -879,7 +871,6 @@ hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)
 
 -- hook the skin functions from ElvUI
 module:SecureHook(S, "HandleScrollBar")
-module:SecureHook(S, "SkinTextWithStateWidget")
 
 StaticPopupDialogs["RESET_DETAILS"] = {
 	text = L["Reset Details check"],
