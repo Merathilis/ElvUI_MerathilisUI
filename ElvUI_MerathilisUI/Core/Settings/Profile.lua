@@ -689,7 +689,9 @@ P.autoButtons = {
 	enable = true,
 	customList = {},
 	blackList = {
-		[183040] = true
+		[183040] = true,
+		[193757] = true,
+		[200563] = true,
 	},
 	bar1 = {
 		enable = true,
@@ -1042,7 +1044,16 @@ P.maps = {
 				style = "OUTLINE"
 			},
 		},
-		difficulty = true,
+	},
+	instanceDifficulty = {
+		enable = true,
+		hideBlizzard = true,
+		align = "LEFT",
+		font = {
+			name = E.db.general.font,
+			size = E.db.general.fontSize,
+			style = "OUTLINE"
+		},
 	},
 	rectangleMinimap = {
 		enable = false,
