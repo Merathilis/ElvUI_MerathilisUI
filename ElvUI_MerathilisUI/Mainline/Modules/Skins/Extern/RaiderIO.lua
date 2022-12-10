@@ -18,6 +18,7 @@ function module:RaiderIO_DelayedSkinning()
 		_G.RaiderIO_ProfileTooltip:StripTextures()
 		_G.RaiderIO_ProfileTooltip.NineSlice:Kill()
 		_G.RaiderIO_ProfileTooltip:SetTemplate("Transparent")
+		_G.RaiderIO_ProfileTooltip:Styling()
 		local point, relativeTo, relativePoint, xOffset, yOffset = _G.RaiderIO_ProfileTooltip:GetPoint()
 		if xOffset and yOffset and xOffset == 0 and yOffset == 0 then
 			_G.RaiderIO_ProfileTooltip.__SetPoint = _G.RaiderIO_ProfileTooltip.SetPoint
