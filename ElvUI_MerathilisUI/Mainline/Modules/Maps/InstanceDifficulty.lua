@@ -20,8 +20,8 @@ function module:UpdateFrame()
 	local numplayers = select(9, GetInstanceInfo())
 	local mplusdiff = select(1, C_ChallengeMode_GetActiveKeystoneInfo()) or ""
 
-	local norm = format("|cff1eff00%s|r", L["[Normal"])
-	local hero = format("|cff0070dd%s|r", L["[Heroic"])
+	local norm = format("|cff1eff00%s|r", L["Normal"])
+	local hero = format("|cff0070dd%s|r", L["Heroic"])
 	local myth = format("|cffa335ee%s|r", L["Mythic"])
 	local lfr = format("|cffff8000%s|r", L["Looking for Raid"])
 
