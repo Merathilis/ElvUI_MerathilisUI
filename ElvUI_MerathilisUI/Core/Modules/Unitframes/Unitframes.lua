@@ -48,7 +48,7 @@ function module:CreateAnimatedBars(frame)
 				animation:SetModel(1715069)
 				animation:MakeCurrentCameraCustom()
 				animation:SetPortraitZoom(1)
-				animation:SetTransform(CreateVector3D(-0.035, 0, 0), CreateVector3D(rad(270), 0, 0), 0.580)
+				animation:SetTransform(CreateVector3D(-0.035, 0, 0), CreateVector3D(rad(270), 0, 0), 1)
 				animation:SetAlpha(0.65)
 			elseif db.type == "CUSTOM" then
 				animation:SetModel(db.model)
@@ -95,6 +95,7 @@ function module:CreateUFShadows()
 	self:SecureHook(UF, "Configure_Threat", "UnitFrames_Configure_Threat")
 	self:SecureHook(UF, "Configure_Power", "UnitFrames_Configure_Power")
 	self:SecureHook(UF, "Configure_ClassBar", "UnitFrames_Configure_ClassBar")
+	self:SecureHook(UF, "Configure_InfoPanel", "UnitFrames_Configure_InfoPanel")
 end
 
 function module:Initialize()

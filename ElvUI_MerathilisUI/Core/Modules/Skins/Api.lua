@@ -799,14 +799,6 @@ function S:UpdateRecapButton()
 	end
 end
 
---[[ HOOK TO THE UIWIDGET TYPES ]]
-function module:SkinTextWithStateWidget(_, widgetFrame)
-	local text = widgetFrame.Text
-	if text then
-		text:SetTextColor(1, 1, 1)
-	end
-end
-
 function module:DisableAddOnSkin(key)
 	if _G.AddOnSkins then
 		local AS = _G.AddOnSkins[1]
@@ -879,7 +871,6 @@ hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)
 
 -- hook the skin functions from ElvUI
 module:SecureHook(S, "HandleScrollBar")
-module:SecureHook(S, "SkinTextWithStateWidget")
 
 StaticPopupDialogs["RESET_DETAILS"] = {
 	text = L["Reset Details check"],
@@ -892,7 +883,7 @@ StaticPopupDialogs["RESET_DETAILS"] = {
 }
 
 function module:GetToggleDirection()
-	local direc = E.private.mui.skins.toggleDirection
+	local direc = E.private.mui.skins.embed.toggleDirection
 	if direc == 1 then
 		return ">", "<", "RIGHT", "LEFT", -2, 0, 20, 80
 	elseif direc == 2 then
@@ -950,7 +941,7 @@ function module:SetToggleDirection(frame)
 	open:SetPoint(rel1, parent, rel1, -x, -y)
 	open:SetSize(width, height)
 
-	if E.private.mui.skins.toggleDirection == 5 then
+	if E.private.mui.skins.embed.toggleDirection == 5 then
 		close:SetScale(.001)
 		close:SetAlpha(0)
 		open:SetScale(.001)

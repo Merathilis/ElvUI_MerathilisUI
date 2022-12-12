@@ -331,7 +331,7 @@ function M:SortAddOnPanels()
 end
 
 function M:AddCharacterIcon()
-	ClassSymbolFrame = ("|T"..(MER.ClassIcons[E.myclass]..".tga:0:0:0:0|t"))
+	ClassSymbolFrame = ("|T" .. (MER.ClassIcons[E.myclass] .. ".tga:0:0:0:0|t"))
 
 	E:Delay(0, function() -- otherwise it will just return "name"
 		if not (CharacterNameText:GetText():match("|T")) then

@@ -25,6 +25,7 @@ local ReagentButtonInventorySlot = _G.ReagentButtonInventorySlot
 local ButtonInventorySlot = _G.ButtonInventorySlot
 local BANK_CONTAINER = BANK_CONTAINER or -1
 local REAGENTBANK_CONTAINER = REAGENTBANK_CONTAINER or -3
+local SplitContainerItem = C_Container.SplitContainerItem
 
 --[[!
 	@class ItemButton
@@ -86,7 +87,7 @@ function ItemButton:New(bagID, slotID)
 		button.UpdateTooltip = BankFrameItemButton_OnEnter
 		button.SplitStack = BankSplitStack
 	else
-		button.UpdateTooltip = ContainerFrameItemButton_OnUpdate
+		button.UpdateTooltip = ContainerFrameItemButtonMixin.OnUpdate
 	end
 
 	return button

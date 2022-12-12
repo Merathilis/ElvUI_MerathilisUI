@@ -2,6 +2,7 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule('MER_Minimap')
 local MP = MER:GetModule('MER_MiniMapPing')
 local SMB = MER:GetModule('MER_MiniMapButtons')
+local RM = MER:GetModule('MER_RectangleMinimap')
 local WM = MER:GetModule('MER_WorldMap')
 local options = MER.options.modules.args
 local LSM = E.LSM
@@ -314,8 +315,49 @@ options.maps = {
 				},
 			},
 		},
-		smb = {
+		rectangleMinimap = {
 			order = 5,
+			type = "group",
+			name = L["Rectangle Minimap"],
+			get = function(info)
+				return E.db.mui.maps.rectangleMinimap[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.maps.rectangleMinimap[info[#info]] = value
+				RM:ChangeShape()
+			end,
+			args = {
+				desc = {
+					order = 1,
+					type = "group",
+					inline = true,
+					name = L["Description"],
+					args = {
+						feature = {
+							order = 1,
+							type = "description",
+							name = L["Change the shape of ElvUI minimap."],
+							fontSize = "medium"
+						}
+					}
+				},
+				enable = {
+					order = 2,
+					type = "toggle",
+					name = L["Enable"],
+					width = "full"
+				},
+				heightPercentage = {
+					order = 3,
+					type = "range",
+					name = L["Height Percentage"],
+					desc = L["Percentage of ElvUI minimap size."],
+					min = 0.01, max = 1, step = 0.01
+				},
+			},
+		},
+		smb = {
+			order = 6,
 			type = "group",
 			name = L["Minimap Buttons"],
 			get = function(info) return E.db.mui.smb[ info[#info] ] end,
@@ -489,7 +531,7 @@ options.maps = {
 			},
 		},
 		superTracker = {
-			order = 6,
+			order = 7,
 			type = "group",
 			name = L["Super Tracker"],
 			hidden = not E.Retail,
@@ -534,11 +576,11 @@ options.maps = {
 							desc = L["Auto track the waypoint after setting."],
 							width = 1.5,
 						},
-						rightClickToClear = {
+						middleClickToClear = {
 							order = 2,
 							type = "toggle",
-							name = L["Right Click To Clear"],
-							desc = L["Right click the waypoint to clear it."],
+							name = L["Middle Click To Clear"],
+							desc = L["Middle click the waypoint to clear it."],
 							width = 1.5,
 						},
 						noLimit = {
@@ -637,8 +679,17 @@ options.maps = {
 							name = L["Command"],
 							desc = L["Enable to use the command to set the waypoint."]
 						},
-						commandConfiguration = {
+						virtualTomTom = {
 							order = 4,
+							type = "toggle",
+							name = L["Virtual TomTom"],
+							desc = L["Support TomTom-style /way command without TomTom."],
+							hidden = function()
+								return not E.db.mui.maps.superTracker.waypointParse.command
+							end
+						},
+						commandConfiguration = {
+							order = 5,
 							type = "group",
 							name = L["Command Configuration"],
 							hidden = function()
@@ -719,10 +770,100 @@ options.maps = {
 										E.db.mui.maps.superTracker.waypointParse.commandKeys[envs.superTracker.selectedCommand] = nil
 										E:StaticPopup_Show("PRIVATE_RL")
 									end
-								}
-							}
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		instanceDifficulty = {
+			order = 6,
+			type = "group",
+			name = L["Instance Difficulty"],
+			get = function(info)
+				return E.db.mui.maps.instanceDifficulty[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.maps.instanceDifficulty[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				desc = {
+					order = 1,
+					type = "group",
+					inline = true,
+					name = L["Description"],
+					args = {
+						feature = {
+							order = 1,
+							type = "description",
+							name = L["Reskin the instance diffculty in text style."],
+							fontSize = "medium"
 						}
 					}
+				},
+				enable = {
+					order = 2,
+					type = "toggle",
+					name = L["Enable"]
+				},
+				align = {
+					order = 3,
+					type = "select",
+					name = L["Text Align"],
+					values = {
+						LEFT = L["Left"],
+						CENTER = L["Center"],
+						RIGHT = L["Right"]
+					}
+				},
+				hideBlizzard = {
+					order = 4,
+					type = "toggle",
+					name = L["Hide Blizzard Indicator"]
+				},
+				font = {
+					order = 5,
+					type = "group",
+					name = L["Font"],
+					inline = true,
+					get = function(info)
+						return E.db.mui.maps.instanceDifficulty.font[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.instanceDifficulty.font[info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font")
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = {
+								NONE = L["None"],
+								OUTLINE = L["OUTLINE"],
+								MONOCHROME = L["MONOCHROME"],
+								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+								THICKOUTLINE = L["THICKOUTLINE"]
+							}
+						},
+						size = {
+							order = 3,
+							name = L["Size"],
+							type = "range",
+							min = 5,
+							max = 60,
+							step = 1
+						},
+					},
 				},
 			},
 		},

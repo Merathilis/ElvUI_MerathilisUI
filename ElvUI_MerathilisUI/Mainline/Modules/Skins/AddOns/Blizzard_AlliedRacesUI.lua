@@ -22,7 +22,7 @@ local function LoadSkin()
 
 	local scrollFrame = AlliedRacesFrame.RaceInfoFrame.ScrollFrame
 	scrollFrame.Child.ObjectivesFrame:StripTextures()
-	scrollFrame.Child.ObjectivesFrame:CreateBackdrop("Transparent")
+	scrollFrame.Child.ObjectivesFrame:SetTemplate("Transparent")
 	scrollFrame.ScrollBar.ScrollUpBorder:Hide()
 	scrollFrame.ScrollBar.ScrollDownBorder:Hide()
 

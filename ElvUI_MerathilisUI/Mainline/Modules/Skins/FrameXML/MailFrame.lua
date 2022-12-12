@@ -19,22 +19,6 @@ local function LoadSkin()
 		return
 	end
 
-	local MiniMapMailFrame = _G.MiniMapMailFrame or _G.MinimapCluster.MailFrame
-
-	MiniMapMailFrame:SetScript("OnShow", function()
-		if not MiniMapMailFrame.highlight then
-			MiniMapMailFrame.highlight = CreateFrame("Frame", nil, MiniMapMailFrame)
-			MiniMapMailFrame.highlight:SetAllPoints(MiniMapMailFrame)
-			MiniMapMailFrame.highlight:SetFrameLevel(MiniMapMailFrame:GetFrameLevel() + 1)
-
-			MiniMapMailFrame.highlight.tex = MiniMapMailFrame.highlight:CreateTexture()
-			MiniMapMailFrame.highlight.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\Mail")
-			MiniMapMailFrame.highlight.tex:SetPoint("TOPLEFT", _G.MiniMapMailIcon, "TOPLEFT", -2, 2)
-			MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", _G.MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)
-			MiniMapMailFrame.highlight.tex:SetVertexColor(r, g, b, 1)
-		end
-	end)
-
 	local MailFrame = _G.MailFrame
 	MailFrame:Styling()
 	module:CreateShadow(MailFrame)

@@ -46,10 +46,12 @@ end
 -- Modules
 MER.Modules = {}
 MER.Modules.ActionBars = MER:NewModule('MER_Actionbars', 'AceEvent-3.0', 'AceHook-3.0')
+MER.Modules.AlreadyKnown = MER:NewModule('MER_AlreadyKnown', 'AceEvent-3.0', 'AceHook-3.0')
+MER.Modules.Announcement = MER:NewModule('MER_Announcement', 'AceEvent-3.0')
 MER.Modules.Armory = MER:NewModule('MER_Armory', 'AceEvent-3.0', 'AceConsole-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 MER.Modules.AutoButtons = MER:NewModule('MER_AutoButtons', 'AceEvent-3.0')
 MER.Modules.Auras = MER:NewModule('MER_Auras', 'AceHook-3.0')
-MER.Modules.Bags = MER:NewModule('MER_Bags', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+MER.Modules.Bags = MER:NewModule('MER_Bags')
 MER.Modules.BagInfo = MER:NewModule("MER_BagInfo", 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.Chat = MER:NewModule('MER_Chat', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 MER.Modules.ChatBar = MER:NewModule('MER_ChatBar', 'AceEvent-3.0', 'AceHook-3.0')
@@ -68,7 +70,7 @@ MER.Modules.Filter = MER:NewModule('MER_Filter', 'AceEvent-3.0')
 MER.Modules.FriendsList = MER:NewModule('MER_FriendsList', 'AceHook-3.0')
 MER.Modules.GameMenu = MER:NewModule('MER_GameMenu')
 MER.Modules.HealPrediction = MER:NewModule('MER_HealPrediction', 'AceHook-3.0', 'AceEvent-3.0')
-MER.Modules.InstanceDifficulty = MER:NewModule('MER_InstanceDifficulty', 'AceEvent-3.0')
+MER.Modules.InstanceDifficulty = MER:NewModule('MER_InstanceDifficulty', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.ItemLevel = MER:NewModule('MER_ItemLevel', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.Layout = MER:NewModule('MER_Layout', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.LFGInfo = MER:NewModule('MER_LFGInfo', 'AceHook-3.0')
@@ -91,12 +93,13 @@ MER.Modules.RaidCD = MER:NewModule('MER_RaidCD', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.RaidManager = MER:NewModule('MER_RaidManager', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.RaidMarkers = MER:NewModule('MER_RaidMarkers', 'AceEvent-3.0')
 MER.Modules.RandomToy = MER:NewModule('MER_RandomToy', 'AceEvent-3.0')
+MER.Modules.Rectangle = MER:NewModule('MER_RectangleMinimap', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.Reminder = MER:NewModule('MER_Reminder', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.Skins = MER:NewModule('MER_Skins', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.SpellAlert = MER:NewModule('MER_SpellAlert', 'AceEvent-3.0')
 MER.Modules.SuperTracker = MER:NewModule('MER_SuperTracker', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.Talent = MER:NewModule('MER_Talent', 'AceTimer-3.0', 'AceHook-3.0', 'AceEvent-3.0')
-MER.Modules.Tooltip = MER:NewModule('MER_Tooltip', 'AceTimer-3.0', 'AceHook-3.0', 'AceEvent-3.0')
+MER.Modules.Tooltip = MER:NewModule('MER_Tooltip', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.UnitFrames = MER:NewModule('MER_UnitFrames', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.VehicleBar = MER:NewModule('MER_VehicleBar', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
 MER.Modules.WidgetSkin = MER:NewModule('MER_WidgetSkin', 'AceHook-3.0', 'AceEvent-3.0')
@@ -122,10 +125,6 @@ do
 	end
 
 	MER:AddLib('LDD', 'LibDropDown')
-
-	if E.Retail then
-		MER:AddLib('LOR', 'LibOpenRaid-1.0')
-	end
 end
 
 function MER:Initialize()

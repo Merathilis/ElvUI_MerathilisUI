@@ -252,7 +252,7 @@ end
 function module:SetTexture_HealComm(module, obj, texture)
 	local func = self.hooks[module].SetTexture_HealComm
 
-	if self.db and self.db.enable and self.db.texture.enable then
+	if self.db and self.db.enable and self.db.texture and self.db.texture.enable then
 		if self.db.texture.blizzardStyle then
 			texture = "Interface/RaidFrame/Shield-Fill"
 		elseif self.db.texture.custom then

@@ -115,20 +115,23 @@ function module:ScenarioStageWidgetContainer()
 
 		local bar = widgetFrame.TimerBar
 
-		if bar and not bar.MERStyle then
-			hooksecurefunc(bar, "SetStatusBarAtlas", function(frame)
-				frame:SetStatusBarTexture(E.media.normTex)
-				frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
+		if bar and not bar.__MERSkin then
+			bar.__SetStatusBarTexture = bar.SetStatusBarTexture
+			hooksecurefunc(bar, "SetStatusBarTexture", function(frame)
+				if frame.__SetStatusBarTexture then
+					frame:__SetStatusBarTexture(E.media.normTex)
+					frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
+				end
 			end)
 			bar:CreateBackdrop("Transparent")
-			bar.MERStyle = true
+			bar.__MERSkin = true
 		end
 
 		if widgetFrame.CurrencyContainer then
 			for currencyFrame in widgetFrame.currencyPool:EnumerateActive() do
-				if not currencyFrame.MERStyle then
+				if not currencyFrame.__MERSkin then
 					currencyFrame.Icon:SetTexCoord(unpack(E.TexCoords))
-					currencyFrame.MERStyle = true
+					currencyFrame.__MERSkin = true
 				end
 			end
 		end

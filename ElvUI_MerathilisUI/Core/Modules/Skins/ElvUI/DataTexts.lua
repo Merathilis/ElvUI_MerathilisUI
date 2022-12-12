@@ -5,7 +5,7 @@ local M = E:GetModule('Minimap')
 
 local _G = _G
 
-local PANEL_HEIGHT = 19;
+local PANEL_HEIGHT = 19
 local SPACING = (E.PixelMode and 1 or 3)
 
 function module:ResizeMinimapPanels()
@@ -22,8 +22,10 @@ function module:ElvUI_MinimapPanels()
 		self:ResizeMinimapPanels()
 	end
 
-	self:CreateShadow(_G.MinimapPanel)
-	_G.MinimapPanel:Styling()
+	if E.db.datatexts.panels.MinimapPanel.backdrop then
+		self:CreateShadow(_G.MinimapPanel)
+		_G.MinimapPanel:Styling()
+	end
 
 	hooksecurefunc(LO, 'ToggleChatPanels', module.ResizeMinimapPanels)
 	hooksecurefunc(M, 'UpdateSettings', module.ResizeMinimapPanels)

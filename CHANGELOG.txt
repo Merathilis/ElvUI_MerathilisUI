@@ -1,6 +1,4 @@
-[b][color=orange]v5.38[/color], 16.11.2022[/b][list]
-[*]Forgot to add option for the Auctionator Skin >.>
-[*]IMPORTANT: Changed the tag: [mUI:class:icon] you need to change it
-[*]Remove the backdrop from the Quest Counter on the WorldMap
-[*]Moved the Misc Category to my main Option section
-[*]Added tips for Widget Skins. Credits fang2hou - Windtools[/list]
+[b][color=orange]v5.49[/color], 10.12.2022[/b][list]
+[*]Fixed an issue with Instance Indicator on the Minimap
+[*]Fixed RaiderIO Skin
+[*]Small Updates to the UIWidgets[/list]

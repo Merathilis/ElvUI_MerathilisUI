@@ -23,7 +23,7 @@ local Opponents = {}
 
 function module:Release()
 	local resOptions = GetSortedSelfResurrectOptions()
-	if (mdoule.db.rebirth and not resOptions[1]) or not module.db.rebirth then RepopMe() end
+	if (module.db.rebirth and not resOptions[1]) or not module.db.rebirth then RepopMe() end
 end
 
 function module:Dead()

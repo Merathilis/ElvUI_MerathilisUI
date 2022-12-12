@@ -43,7 +43,7 @@ local _, ns = ...
 local MER, F, E, L, V, P, G = unpack(ns)
 local cargBags = ns.cargBags
 
-local C_Container_GetContainerNumFreeSlots = C_Container.GetContainerNumFreeSlots
+local GetContainerNumFreeSlots = C_Container.GetContainerNumFreeSlots
 
 local tagPool, tagEvents, object = {}, {}
 local function tagger(tag, ...) return object.tags[tag] and object.tags[tag](object, ...) or "" end
@@ -109,15 +109,24 @@ end
 -- Tags
 local function GetNumFreeSlots(name)
 	if name == "Bag" then
-		return CalculateTotalNumberOfFreeBagSlots()
-	elseif name == "Bank" then
-		local numFreeSlots = C_Container_GetContainerNumFreeSlots(-1)
-			for bagID = 6, 12 do
-			numFreeSlots = numFreeSlots + C_Container_GetContainerNumFreeSlots(bagID)
+		local totalFree, freeSlots, bagFamily = 0
+		for i = 0, 4 do -- reagent bank excluded
+			freeSlots, bagFamily = GetContainerNumFreeSlots(i)
+			if bagFamily == 0 then
+				totalFree = totalFree + freeSlots
 			end
+		end
+		return totalFree
+	elseif name == "Bank" then
+		local numFreeSlots = GetContainerNumFreeSlots(-1)
+		for bagID = 6, 12 do
+			numFreeSlots = numFreeSlots + GetContainerNumFreeSlots(bagID)
+		end
 		return numFreeSlots
 	elseif name == "Reagent" then
-		return C_Container_GetContainerNumFreeSlots(-3)
+		return GetContainerNumFreeSlots(-3)
+	elseif name == "BagReagent" then
+		return GetContainerNumFreeSlots(5)
 	end
 end
 
@@ -175,7 +184,7 @@ tagPool["money"] = function()
 	local str = ""
 	local gold, silver, copper = floor(money/1e4), floor(money/100) % 100, money % 100
 
-	if gold > 0 then str = str..gold..createAtlasCoin("gold").." " end
+	if gold > 0 then str = str..BreakUpLargeNumbers(gold)..createAtlasCoin("gold").." " end
 	if silver > 0 then str = str..silver..createAtlasCoin("silver").." " end
 	if copper > 0 then str = str..copper..createAtlasCoin("copper").." " end
 

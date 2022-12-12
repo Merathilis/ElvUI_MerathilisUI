@@ -30,6 +30,7 @@ local referenceSpells = {
 	193455,			-- Cobra Shoot (Hunter)
 	585,			-- Smite (Priest)
 	35395,			-- Crusader Strike (Paladin)
+	275779,			-- Judgment (Paladin)
 	172,			-- Corruption (Warlock)
 	133,			-- Fireball (Mage)
 	116,			-- Frostbolt (Mage)
@@ -37,10 +38,12 @@ local referenceSpells = {
 	188196,			-- Lightning Bold (Shaman)
 	1752,			-- Sinister Strike (Rogue)
 	53,				-- Backstab (Rogue)
+	200758,			-- Gloomblade (Rogue)
 	5176,			-- Wrath (Druid)
 	100780,			-- Tiger Palm (Monk)
 	162243,			-- Demon's Bite (Demon Hunter)
 	203555,			-- Demon Blades (Demon Hunter)
+	361469, 		-- Living Flame (Evoker)
 }
 
 local GetTime = GetTime

@@ -28,7 +28,6 @@ local IgnoreList = {
 		"HelpOpenTicketButton",
 		"MMHolder",
 		"DroodFocusMinimapButton",
-		"QueueStatusMinimapButton",
 		"TimeManagerClockButton",
 		"MiniMapBattlefieldFrame",
 		"MinimapZoneTextButton",
@@ -58,6 +57,7 @@ local IgnoreList = {
 		"DugisArrowMinimapPoint",
 		"QuestieFrame",
 		"TTMinimapButton",
+		"QueueStatusButton"
 	},
 	partial = {
 		"Node",
@@ -538,7 +538,7 @@ function module:CreateFrames()
 	end
 
 	local frame = CreateFrame("Frame", nil, E.UIParent)
-	frame:SetPoint("BOTTOMRIGHT", MM.holder, "TOPRIGHT", -2, 2)
+	frame:SetPoint("BOTTOMRIGHT", MM.MapHolder, "TOPRIGHT", -2, 2)
 	frame:SetFrameStrata("BACKGROUND")
 	self.barAnchor = frame
 

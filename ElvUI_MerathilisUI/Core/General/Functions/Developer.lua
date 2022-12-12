@@ -27,8 +27,8 @@ MER.IsDev = {
 	["Róhal"] = true,
 	["Brítt"] = true,
 	["Jahzzy"] = true,
-
 	["Dâmara"] = true,
+	["Meravoker"] = true,
 }
 
 -- Don't forget to update realm name(s) if we ever transfer realms.

@@ -12,15 +12,14 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Forgot to add option for the Auctionator Skin >.>",
-		"• IMPORTANT: Changed the tag: [mUI:class:icon] you need to change it",
-		"• Remove the backdrop from the Quest Counter on the WorldMap",
-		"• Moved the Misc Category to my main Option section",
-		"• Added tips for Widget Skins. Credits fang2hou - Windtools",
+		"• Fixed an issue with Instance Indicator on the Minimap",
+		"• Fixed RaiderIO Skin",
+		"• Small Updates to the UIWidgets",
+		" ",
 
-	" ",
 	"Notes:",
 		"• As always, if you want my latest layout, do the install again",
+		"• New Addition you will find with the ! in the Options",
 		"• If you are getting any errors or something is not working, make sure you are now using:",
 		"  '/muidebug on' and test again",
 		"• You can disable almost everything in the Option. I would sugguest you to back up your profiles regularly"

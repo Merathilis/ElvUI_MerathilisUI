@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM
 
 local _G = _G
@@ -14,193 +15,25 @@ local GetAchievementInfo = GetAchievementInfo
 local GetClassColor = GetClassColor
 local GetItemInfo = GetItemInfo
 local GetSpellInfo = GetSpellInfo
-local GetContainerItemID = GetContainerItemID
-local GetContainerItemLink = GetContainerItemLink
-local GetContainerNumSlots = GetContainerNumSlots
-local PickupContainerItem = PickupContainerItem
+local GetContainerItemID = GetContainerItemID or (C_Container and C_Container.GetContainerItemID)
+local GetContainerItemLink = GetContainerItemLink or (C_Container and C_Container.GetContainerItemLink)
+local GetContainerNumSlots = GetContainerNumSlots or (C_Container and C_Container.GetContainerNumSlots)
+local PickupContainerItem = PickupContainerItem or (C_Container and C_Container.PickupContainerItem)
 local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
-local UnitClass = UnitClass
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
-local UnitIsPlayer = UnitIsPlayer
-local UnitIsTapDenied = UnitIsTapDenied
-local UnitReaction = UnitReaction
 local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
 
-local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UIParent = UIParent
+
 local C_Covenants_GetCovenantData = C_Covenants and C_Covenants.GetCovenantData
 local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
-local C_TooltipInfo_GetInventoryItem = C_TooltipInfo.GetInventoryItem
-local C_TooltipInfo_GetBagItem = C_TooltipInfo.GetBagItem
-local C_TooltipInfo_GetHyperlink = C_TooltipInfo.GetHyperlink
-
---[[----------------------------------
---	Color Functions
---]]----------------------------------
-F.ClassGradient = {
-	["WARRIOR"] = { r1 = 0.60, g1 = 0.40, b1 = 0.20, r2 = 0.66, g2 = 0.53, b2 = 0.34 },
-	["PALADIN"] = { r1 = 0.9, g1 = 0.47, b1 = 0.64, r2 = 0.96, g2 = 0.65, b2 = 0.83 },
-	["HUNTER"] = { r1 = 0.58, g1 = 0.69, b1 = 0.29, r2 = 0.78, g2 = 1, b2 = 0.38 },
-	["ROGUE"] = { r1 = 1, g1 = 0.68, b1 = 0, r2 = 1, g2 = 0.83, b2 = 0.25 },
-	["PRIEST"] = { r1 = 0.65, g1 = 0.65, b1 = 0.65, r2 = 0.98, g2 = 0.98, b2 = 0.98 },
-	["DEATHKNIGHT"] = { r1 = 0.79, g1 = 0.07, b1 = 0.14, r2 = 1, g2 = 0.18, b2 = 0.23 },
-	["SHAMAN"] = { r1 = 0, g1 = 0.25, b1 = 0.50, r2 = 0, g2 = 0.43, b2 = 0.87 },
-	["MAGE"] = { r1 = 0, g1 = 0.73, b1 = 0.83, r2 = 0.49, g2 = 0.87, b2 = 1 },
-	["WARLOCK"] = { r1 = 0.50, g1 = 0.30, b1 = 0.70, r2 = 0.7, g2 = 0.53, b2 = 0.83 },
-	["MONK"] = { r1 = 0, g1 = 0.77, b1 = 0.45, r2 = 0.22, g2 = 0.90, b2 = 1 },
-	["DRUID"] = { r1 = 1, g1 = 0.23, b1 = 0.0, r2 = 1, g2 = 0.48, b2 = 0.03 },
-    ["DEMONHUNTER"] = { r1 = 0.36, g1 = 0.13, b1 = 0.57, r2 = 0.74, g2 = 0.19, b2 = 1 },
-	["EVOKER"] = { r1 = 0.20, g1 = 0.58, b1 = 0.50, r2 = 0, g2 = 1, b2 = 0.60 },
-
-	["NPCFRIENDLY"] = { r1 = 0.30, g1 = 0.85, b1 = 0.2, r2 = 0.34, g2 = 0.62, b2 = 0.40 },
-	["NPCNEUTRAL"] = { r1 = 0.71, g1 = 0.63, b1 = 0.15, r2 = 1, g2 = 0.85, b2 = 0.20 },
-	["NPCUNFRIENDLY"] = { r1 = 0.84, g1 = 0.30, b1 = 0, r2 = 0.83, g2 = 0.45, b2 = 0 },
-	["NPCHOSTILE"] = { r1 = 0.31, g1 = 0.06, b1 = 0.07, r2 = 1, g2 = 0.15, b2 = 0.15 },
-
-	["TAPPED"] = { r1 = 0.6, g1 = 0.6, b1 = 0.60, r2 = 0, g2 = 0, b2 = 0 },
-
-	["GOODTHREAT"] = { r1 = 0.1999995559454, g1 = 0.7098023891449, b1 = 0, r2 = 1, g2 = 0, b2 = 0 },
-	["BADTHREAT"] = { r1 = 0.99999779462814, g1 = 0.1764702051878, b1 = 0.1764702051878, r2 = 1, g2 = 0, b2 = 0 },
-	["GOODTHREATTRANSITION"] = { r1 = 0.99999779462814, g1 = 0.85097849369049, b1 = 0.1999995559454, r2 = 1, g2 = 0, b2 = 0 },
-	["BADTHREATTRANSITION"] = { r1 = 0.99999779462814, g1 = 0.50980281829834, b1 = 0.1999995559454, r2 = 1, g2 = 0, b2 = 0 },
-	["OFFTANK"] = { r1 = 0.95686066150665, g1 = 0.54901838302612, b1 = 0.72941017150879, r2 = 1, g2 = 0, b2 = 0 },
-	["OFFTANKBADTHREATTRANSITION"] = { r1 = 0.77646887302399, g1 = 0.60784178972244, b1 = 0.4274500310421, r2 = 1, g2 = 0, b2 = 0 },
-	["OFFTANKGOODTHREATTRANSITION"] = { r1 = 0.37646887302399, g1 = 0.90784178972244, b1 = 0.9274500310421, r2 = 1, g2 = 0, b2 = 0 },
-}
-
-do
-	F.ClassList = {}
-	for k, v in pairs(_G.LOCALIZED_CLASS_NAMES_MALE) do
-		F.ClassList[v] = k
-	end
-	for k, v in pairs(_G.LOCALIZED_CLASS_NAMES_FEMALE) do
-		F.ClassList[v] = k
-	end
-end
-
-F.ClassColors = {}
-local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
-for class, value in pairs(colors) do
-	F.ClassColors[class] = {}
-	F.ClassColors[class].r = value.r
-	F.ClassColors[class].g = value.g
-	F.ClassColors[class].b = value.b
-	F.ClassColors[class].colorStr = value.colorStr
-end
-F.r, F.g, F.b = F.ClassColors[E.myclass].r, F.ClassColors[E.myclass].g, F.ClassColors[E.myclass].b
-
-function F.ClassColor(class)
-	local color = F.ClassColors[class]
-	if not color then
-		return 1, 1, 1
-	end
-
-	return color.r, color.g, color.b
-end
-
-function F.UnitColor(unit)
-	local r, g, b = 1, 1, 1
-	if UnitIsPlayer(unit) then
-		local class = select(2, UnitClass(unit))
-		if class then
-			r, g, b = F.ClassColor(class)
-		end
-	elseif UnitIsTapDenied(unit) then
-		r, g, b = .6, .6, .6
-	else
-		local reaction = UnitReaction(unit, "player")
-		if reaction then
-			local color = _G.FACTION_BAR_COLORS[reaction]
-			r, g, b = color.r, color.g, color.b
-		end
-	end
-
-	return r, g, b
-end
-
-local defaultColor = { r = 1, g = 1, b = 1, a = 1 }
-function F.unpackColor(color)
-	if not color then color = defaultColor end
-
-	return color.r, color.g, color.b, color.a
-end
-
-function F.CreateColorString(text, db)
-	if not text or not type(text) == "string" then
-		F.Developer.LogDebug("Functions.CreateColorString: text not found")
-		return
-	end
-
-	if not db or type(db) ~= "table" then
-		F.Developer.LogDebug("Functions.CreateColorString: db not found")
-		return
-	end
-	local hex = db.r and db.g and db.b and E:RGBToHex(db.r, db.g, db.b) or "|cffffffff"
-
-	return hex .. text .. "|r"
-end
-
-function F.CreateClassColorString(text, englishClass)
-	if not text or not type(text) == "string" then
-		F.Developer.LogDebug("Functions.CreateClassColorString: text not found")
-		return
-	end
-	if not englishClass or type(englishClass) ~= "string" then
-		F.Developer.LogDebug("Functions.CreateClassColorString: class not found")
-		return
-	end
-
-	local r, g, b = GetClassColor(englishClass)
-	local hex = r and g and b and E:RGBToHex(r, g, b) or "|cffffffff"
-
-	return hex .. text .. "|r"
-end
-
-function F.GradientColors(unitclass, invert, alpha)
-	if invert then
-		if alpha then
-			return F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, 1, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, 1
-		else
-			return F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1
-		end
-	else
-		if alpha then
-			return F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, 1, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, 1
-		else
-			return F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2
-		end
-	end
-end
-
-function F.GradientName(name, unitclass)
-	local text = E:TextGradient(name, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1)
-
-	return text
-end
-
-do
-	function F.RGBToHex(r, g, b)
-		if r then
-			if type(r) == 'table' then
-				if r.r then
-					r, g, b = r.r, r.g, r.b
-				else
-					r, g, b = unpack(r)
-				end
-			end
-			return format('|cff%02x%02x%02x', r * 255, g * 255, b * 255)
-		end
-	end
-
-	function F.HexToRGB(hex)
-		return tonumber('0x' .. strsub(hex, 1, 2)) / 255, tonumber('0x' .. strsub(hex, 3, 4)) / 255, tonumber('0x' .. strsub(hex, 5, 6)) / 255
-	end
-end
+local C_TooltipInfo_GetInventoryItem = C_TooltipInfo and C_TooltipInfo.GetInventoryItem
+local C_TooltipInfo_GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
+local C_TooltipInfo_GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
 
 function F.SetFontDB(text, db)
 	if not text or not text.GetFont then
@@ -250,27 +83,6 @@ function F.SetFontOutline(text, font, size)
 	text.SetShadowColor = E.noop
 end
 
-do
-	local color = {
-		start = { r = 1.000, g = 0.647, b = 0.008 },
-		complete = { r = 0.180, g = 0.835, b = 0.451 }
-	}
-
-	function F.GetProgressColor(progress)
-		local r = (color.complete.r - color.start.r) * progress + color.start.r
-		local g = (color.complete.g - color.start.g) * progress + color.start.g
-		local b = (color.complete.r - color.start.b) * progress + color.start.b
-
-		-- algorithm to let the color brighter
-		local addition = 0.35
-		r = min(r + abs(0.5 - progress) * addition, r)
-		g = min(g + abs(0.5 - progress) * addition, g)
-		b = min(b + abs(0.5 - progress) * addition, b)
-
-		return {r = r, g = g, b = b}
-	end
-end
-
 function F.SetVertexColorDB(tex, db)
 	if not tex or not tex.GetVertexColor then
 		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture to handling")
@@ -278,7 +90,7 @@ function F.SetVertexColorDB(tex, db)
 	end
 
 	if not db or type(db) ~= "table" then
-		 F.Developer.LogDebug("Functions.SetVertexColorDB: No texture color database")
+		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture color database")
 		return
 	end
 
@@ -478,81 +290,154 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 		return tip.gems
 	end
 
-	local slotData = { gems = {}, gemsColor = {} }
-	function F.GetItemLevel(link, arg1, arg2, fullScan)
-		if fullScan then
-			local data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
-			if data then
-				wipe(slotData.gems)
-				wipe(slotData.gemsColor)
-				slotData.iLvl = nil
-				slotData.enchantText = nil
+	function F:GetEnchantText(link, slotInfo)
+		local enchantID = tonumber(strmatch(link, "item:%d+:(%d+):"))
+		if enchantID then
+			--[[for i = 1, tip:NumLines() do
+				local line = _G["NDui_ScanTooltipTextLeft"..i]
+				if not line then break end
+				local text = line:GetText()
+				if text then
+					if i == 1 and text == RETRIEVING_ITEM_INFO then
+						return "tooSoon"
+					elseif i ~= 1 then
+						local r, g, b = line:GetTextColor()
+						r = B:Round(r, 3)
+						g = B:Round(g, 3)
+						b = B:Round(b, 3)
+						if not (r == 1 and g == 1 and b == 1) then
+							return text
+						end
+					end
+				end
+			end]]
+			return _G.ACTION_ENCHANT_APPLIED
+		end
+	end
 
-				local isHoA = data.args and data.args[2] and data.args[2].intVal == 158075
-				local num = 0
-				for i = 2, #data.lines do
-					local lineData = data.lines[i]
-					local argVal = lineData and lineData.args
-					if argVal then
-						if not slotData.iLvl then
+	if E.Retail then
+		local slotData = { gems = {}, gemsColor = {} }
+		function F.GetItemLevel(link, arg1, arg2, fullScan)
+			if fullScan then
+				local data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
+				if data then
+					wipe(slotData.gems)
+					wipe(slotData.gemsColor)
+					slotData.iLvl = nil
+					slotData.enchantText = nil
+
+					local isHoA = data.args and data.args[2] and data.args[2].intVal == 158075
+					local num = 0
+					for i = 2, #data.lines do
+						local lineData = data.lines[i]
+						local argVal = lineData and lineData.args
+						if argVal then
+							if not slotData.iLvl then
+								local text = argVal[2] and argVal[2].stringVal
+								local found = text and strfind(text, itemLevelString)
+								if found then
+									local level = strmatch(text, "(%d+)%)?$")
+									slotData.iLvl = tonumber(level) or 0
+								end
+							elseif isHoA then
+								if argVal[6] and argVal[6].field == "essenceIcon" then
+									num = num + 1
+									slotData.gems[num] = argVal[6].intVal
+									slotData.gemsColor[num] = argVal[3] and argVal[3].colorVal
+								end
+							else
+								local lineInfo = argVal[4] and argVal[4].field
+								if lineInfo == "enchantID" then
+									local enchant = argVal[2] and argVal[2].stringVal
+									slotData.enchantText = strmatch(enchant, enchantString)
+								elseif lineInfo == "gemIcon" then
+									num = num + 1
+									slotData.gems[num] = argVal[4].intVal
+								elseif lineInfo == "socketType" then
+									num = num + 1
+									slotData.gems[num] = format("Interface\\ItemSocketingFrame\\UI-EmptySocket-%s", argVal[4].stringVal)
+								end
+							end
+						end
+					end
+					return slotData
+				end
+			else
+				if iLvlDB[link] then return iLvlDB[link] end
+
+				local data
+				if arg1 and type(arg1) == "string" then
+					data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
+				elseif arg1 and type(arg1) == "number" then
+					data = C_TooltipInfo_GetBagItem(arg1, arg2)
+				else
+					data = C_TooltipInfo_GetHyperlink(link, nil, nil, true)
+				end
+				if data then
+					for i = 2, 5 do
+						local lineData = data.lines[i]
+						if not lineData then break end
+						local argVal = lineData.args
+						if argVal then
 							local text = argVal[2] and argVal[2].stringVal
 							local found = text and strfind(text, itemLevelString)
 							if found then
 								local level = strmatch(text, "(%d+)%)?$")
-								slotData.iLvl = tonumber(level) or 0
-							end
-						elseif isHoA then
-							if argVal[6] and argVal[6].field == "essenceIcon" then
-								num = num + 1
-								slotData.gems[num] = argVal[6].intVal
-								slotData.gemsColor[num] = argVal[3] and argVal[3].colorVal
-							end
-						else
-							local lineInfo = argVal[4] and argVal[4].field
-							if lineInfo == "enchantID" then
-								local enchant = argVal[2] and argVal[2].stringVal
-								slotData.enchantText = strmatch(enchant, enchantString)
-							elseif lineInfo == "gemIcon" then
-								num = num + 1
-								slotData.gems[num] = argVal[4].intVal
-							elseif lineInfo == "socketType" then
-								num = num + 1
-								slotData.gems[num] = format("Interface\\ItemSocketingFrame\\UI-EmptySocket-%s", argVal[4].stringVal)
+								iLvlDB[link] = tonumber(level)
+								break
 							end
 						end
 					end
 				end
-				return slotData
-			end
-		else
-			if iLvlDB[link] then return iLvlDB[link] end
 
-			local data
-			if arg1 and type(arg1) == "string" then
-				data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
-			elseif arg1 and type(arg1) == "number" then
-				data = C_TooltipInfo_GetBagItem(arg1, arg2)
+				return iLvlDB[link]
+			end
+		end
+	else
+		function F.GetItemLevel(link, arg1, arg2, fullScan)
+			if fullScan then
+				tip:SetOwner(UIParent, "ANCHOR_NONE")
+				tip:SetInventoryItem(arg1, arg2)
+
+				if not tip.slotInfo then tip.slotInfo = {} else wipe(tip.slotInfo) end
+
+				local slotInfo = tip.slotInfo
+				slotInfo.gems = F:InspectItemTextures()
+				slotInfo.enchantText = F:GetEnchantText(link, slotInfo)
+
+				return slotInfo
 			else
-				data = C_TooltipInfo_GetHyperlink(link, nil, nil, true)
-			end
-			if data then
+				if iLvlDB[link] then return iLvlDB[link] end
+
+				tip:SetOwner(UIParent, "ANCHOR_NONE")
+				if arg1 and type(arg1) == "string" then
+					tip:SetInventoryItem(arg1, arg2)
+				elseif arg1 and type(arg1) == "number" then
+					tip:SetBagItem(arg1, arg2)
+				else
+					tip:SetHyperlink(link)
+				end
+
+				local firstLine = _G.mUI_ScanTooltipTextLeft1:GetText()
+				if firstLine == RETRIEVING_ITEM_INFO then
+					return "tooSoon"
+				end
+
 				for i = 2, 5 do
-					local lineData = data.lines[i]
-					if not lineData then break end
-					local argVal = lineData.args
-					if argVal then
-						local text = argVal[2] and argVal[2].stringVal
-						local found = text and strfind(text, itemLevelString)
-						if found then
-							local level = strmatch(text, "(%d+)%)?$")
-							iLvlDB[link] = tonumber(level)
-							break
-						end
+					local line = _G["mUI_ScanTooltipTextLeft" .. i]
+					if not line then break end
+
+					local text = line:GetText()
+					local found = text and strfind(text, itemLevelString)
+					if found then
+						local level = strmatch(text, "(%d+)%)?$")
+						iLvlDB[link] = tonumber(level)
+						break
 					end
 				end
-			end
 
-			return iLvlDB[link]
+				return iLvlDB[link]
+			end
 		end
 	end
 
@@ -587,6 +472,20 @@ do
 	end
 	hooksecurefunc("PanelTemplates_SelectTab", F.ResetTabAnchor)
 	hooksecurefunc("PanelTemplates_DeselectTab", F.ResetTabAnchor)
+
+	-- Kill regions
+	F.HiddenFrame = CreateFrame('Frame')
+	F.HiddenFrame:Hide()
+
+	function F:HideObject()
+		if self.UnregisterAllEvents then
+			self:UnregisterAllEvents()
+			self:SetParent(F.HiddenFrame)
+		else
+			self.Show = self.Hide
+		end
+		self:Hide()
+	end
 end
 
 -- Check Chat channels
@@ -785,6 +684,9 @@ end
 function F.PixelIcon(self, texture, highlight)
 	if not self then return end
 
+	self.bg = S:CreateBDFrame(self)
+	self.bg:SetAllPoints()
+
 	self.Icon = self:CreateTexture(nil, "ARTWORK")
 	self.Icon:Point("TOPLEFT", E.mult, -E.mult)
 	self.Icon:Point("BOTTOMRIGHT", -E.mult, E.mult)
@@ -959,4 +861,15 @@ function F.In(val, tbl)
 	end
 
 	return false
+end
+
+function F.IsNaN(val)
+	return tostring(val) == tostring(0 / 0)
+end
+
+function F.Or(val, default)
+	if not val or F.IsNaN(val) then
+		return default
+	end
+	return val
 end

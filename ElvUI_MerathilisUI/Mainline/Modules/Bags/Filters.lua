@@ -32,7 +32,7 @@ local function isItemInBagReagent(item)
 end
 
 local function isItemInBank(item)
-	return item.bagId == -1 or item.bagId >= 5 and item.bagId <= 11
+	return item.bagId == -1 or (item.bagId > 5 and item.bagId < 13)
 end
 
 local function isItemJunk(item)
@@ -44,7 +44,7 @@ end
 local function isItemEquipSet(item)
 	if not E.db.mui.bags.ItemFilter then return end
 	if not E.db.mui.bags.FilterEquipSet then return end
-	return item.isInSet
+	return item.isItemSet
 end
 
 local function isAzeriteArmor(item)
@@ -54,15 +54,21 @@ local function isAzeriteArmor(item)
 	return C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID(item.link)
 end
 
+
+local iLvlClassIDs = {
+	[Enum.ItemClass.Gem] = Enum.ItemGemSubclass.Artifactrelic,
+	[Enum.ItemClass.Armor] = 0,
+	[Enum.ItemClass.Weapon] = 0,
+}
 function module:IsItemHasLevel(item)
-	local index = F.iLvlClassIDs[item.classID]
+	local index = iLvlClassIDs[item.classID]
 	return index and (index == 0 or index == item.subClassID)
 end
 
 local function isItemEquipment(item)
 	if not E.db.mui.bags.ItemFilter then return end
 	if not E.db.mui.bags.FilterEquipment then return end
-	return item.link and item.quality > Enum.ItemQuality.Common and module:IsItemHasLevel(item)
+	return item.link and item.quality and item.quality > Enum.ItemQuality.Common and module:IsItemHasLevel(item)
 end
 
 local consumableIDs = {
@@ -104,6 +110,9 @@ local petTrashCurrenies = {
 	[36812] = true,
 	[62072] = true,
 	[67410] = true,
+
+	[192644] = true,
+	[192648] = true,
 }
 function module:IsPetTrashCurrency(itemID)
 	return E.db.mui.bags.PetTrash and petTrashCurrenies[itemID]
@@ -112,7 +121,7 @@ end
 local function isItemCollection(item)
 	if not E.db.mui.bags.ItemFilter then return end
 	if not E.db.mui.bags.FilterCollection then return end
-	return item.id and C_ToyBox_GetToyInfo(item.id) or isMountOrPet(item) or module:IsPetTrashCurrency(item.id)
+	return item.id and C_ToyBox_GetToyInfo(item.id) or isMountOrPet(item)
 end
 
 local function isItemCustom(item, index)
@@ -122,9 +131,10 @@ local function isItemCustom(item, index)
 	return customIndex and customIndex == index
 end
 
+local emptyBags = { [0] = true, [11] = true }
 local function isEmptySlot(item)
 	if not E.db.mui.bags.GatherEmpty then return end
-	return module.initComplete and not item.texture and module.BagsType[item.bagId] == 0
+	return module.initComplete and not item.texture and emptyBags[module.BagsType[item.bagId]]
 end
 
 local function isTradeGoods(item)
@@ -193,7 +203,7 @@ function module:GetFilters()
 	filters.bagAnima = function(item) return isItemInBag(item) and isAnimaItem(item) end
 	filters.bankAnima = function(item) return isItemInBank(item) and isAnimaItem(item) end
 	filters.bagRelic = function(item) return isItemInBag(item) and isKorthiaRelic(item) end
-	filters.onlyBagReagent = function(item) return isItemInBagReagent(item) end
+	filters.onlyBagReagent = function(item) return isItemInBagReagent(item) and not isEmptySlot(item) end
 
 	for i = 1, 5 do
 		filters["bagCustom" .. i] = function(item) return isItemInBag(item) and isItemCustom(item, i) end

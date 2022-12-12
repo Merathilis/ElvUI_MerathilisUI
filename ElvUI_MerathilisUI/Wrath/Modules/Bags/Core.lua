@@ -10,9 +10,11 @@ local _G = _G
 local strmatch, unpack, ceil = string.match, unpack, math.ceil
 local LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_RARE = LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_RARE
 local LE_ITEM_CLASS_QUIVER, LE_ITEM_CLASS_CONTAINER = LE_ITEM_CLASS_QUIVER, LE_ITEM_CLASS_CONTAINER
-local GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem = GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem
+local GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem = GetContainerNumSlots, GetContainerItemInfo,
+	PickupContainerItem
 local C_NewItems_IsNewItem, C_NewItems_RemoveNewItem = C_NewItems.IsNewItem, C_NewItems.RemoveNewItem
-local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem
+local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown,
+	DeleteCursorItem
 local SortBankBags, SortBags, InCombatLockdown, ClearCursor = SortBankBags, SortBags, InCombatLockdown, ClearCursor
 local GetContainerItemID, SplitContainerItem = GetContainerItemID, SplitContainerItem
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS or 4
@@ -441,11 +443,11 @@ end
 local function splitOnClick(self)
 	if not splitEnable then return end
 
-	PickupContainerItem(self.bagId, self.slotId)
+	PickupContainerItem(self.bagID, self.slotID)
 
-	local texture, itemCount, locked = GetContainerItemInfo(self.bagId, self.slotId)
+	local texture, itemCount, locked = GetContainerItemInfo(self.bagID, self.slotID)
 	if texture and not locked and itemCount and itemCount > module.db.SplitCount then
-		SplitContainerItem(self.bagId, self.slotId, module.db.SplitCount)
+		SplitContainerItem(self.bagID, self.slotID, module.db.SplitCount)
 
 		local bagID, slotID = module:GetEmptySlot("Bag")
 		if slotID then

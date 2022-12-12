@@ -144,18 +144,19 @@ function F.GetClassIconStringWithStyle(class, style, width, height)
 end
 
 MER.ClassIcons = {
-	["WARRIOR"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/Warrior",
-	["PALADIN"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/Paladin",
-	["HUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/Hunter",
-	["ROGUE"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/Rogue",
-	["PRIEST"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/Priest",
-	["DEATHKNIGHT"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/DeathKnight",
-	["SHAMAN"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/Shaman",
-	["MAGE"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/Mage",
-	["WARLOCK"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/Warlock",
-	["MONK"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/Monk",
-	["DRUID"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/Druid",
-	["DEMONHUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/Classes/DemonHunter",
+	["WARRIOR"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Warrior",
+	["PALADIN"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Paladin",
+	["HUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Hunter",
+	["ROGUE"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Rogue",
+	["PRIEST"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Priest",
+	["DEATHKNIGHT"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/DeathKnight",
+	["SHAMAN"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Shaman",
+	["MAGE"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Mage",
+	["WARLOCK"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Warlock",
+	["MONK"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Monk",
+	["DRUID"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Druid",
+	["DEMONHUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/DemonHunter",
+	["EVOKER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Evoker",
 }
 
 AddMedia("barAchievements", "MicroBar/Achievements.tga", "Icons")
@@ -191,6 +192,7 @@ AddMedia("media", "Media.tga", "Icons")
 AddMedia("modules", "Modules.tga", "Icons")
 AddMedia("skins", "Skins.tga", "Icons")
 AddMedia("accept", "Accept.tga", "Icons")
+AddMedia("complete", "Complete.tga", "Icons")
 AddMedia("discord", "Discord.tga", "Icons")
 AddMedia("github", "Github.tga", "Icons")
 
@@ -259,6 +261,7 @@ AddMedia("whiteDPS", "RoleIcons/White/DPS.tga", "Textures")
 
 AddMedia("emptyTex", "bgTex.blp", "Textures")
 AddMedia("glowTex", "glowTex.blp", "Textures")
+AddMedia("MinimapDifficulty", "minimap-difficulty.tga", "Textures")
 
 -- Fonts
 LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])
@@ -305,6 +308,7 @@ LSM:Register("statusbar","RenAscension", [[Interface\AddOns\ElvUI_MerathilisUI\C
 LSM:Register("statusbar","RenAscensionL", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\RenAscensionL.tga]])
 LSM:Register("statusbar","4Pixel", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\Line4pixel.tga]])
 LSM:Register("statusbar","Asphyxia", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\AsphyxiaNorm.tga]])
+LSM:Register("statusbar","Simpy19", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\simpy_tex19.tga]])
 
 -- Sounds
 LSM:Register("sound","warning", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Sounds\warning.ogg]])

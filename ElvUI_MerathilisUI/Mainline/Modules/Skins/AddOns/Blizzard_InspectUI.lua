@@ -34,13 +34,7 @@ local function LoadSkin()
 
 	_G.InspectModelFrame:DisableDrawLayer("OVERLAY")
 
-	if not _G.InspectFrame.backdrop then
-		_G.InspectFrame:CreateBackdrop('Transparent')
-	end
-
-	if _G.InspectFrame.backdrop then
-		_G.InspectFrame.backdrop:Styling()
-	end
+	_G.InspectFrame:Styling()
 	module:CreateShadow(_G.InspectFrame)
 
 	for i = 1, 4 do

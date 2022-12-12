@@ -16,9 +16,11 @@ local DecorAddons = {
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
 	{"Clique", L["Clique"], "cl"},
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
-	{"BugSack", L["BugSack"], "bs",},
+	{"BugSack", L["BugSack"], "bs"},
+	{"Immersion", L["Immersion"], "imm"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 	{"PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf"},
+	{"RaiderIO", L["RaiderIO"], "rio"},
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"TLDRMissions", L["TLDRMissions"], "tldr"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
@@ -89,19 +91,6 @@ options.general = {
 					type = "toggle",
 					name = L["Screen Shadow Overlay"],
 					desc = L["Enables/Disables a shadow overlay to darken the screen."],
-				},
-				toggleDirection = {
-					order = 5,
-					type = "select",
-					name = L["Toggle Direction"],
-					set = function(_, value) E.private.mui.skins.toggleDirection = value; UpdateToggleDirection(); end,
-					values = {
-						[1] = L["LEFT"],
-						[2] = L["RIGHT"],
-						[3] = L["TOP"],
-						[4] = L["BOTTOM"],
-						[5] = _G.DISABLE,
-					},
 				},
 				shadow = {
 					order = 8,
@@ -1935,6 +1924,19 @@ options.Embed = {
 			disabled = function()
 				return not E.private.mui.skins.embed.enable
 			end,
+		},
+		toggleDirection = {
+			order = 5,
+			type = "select",
+			name = L["Toggle Direction"],
+			set = function(_, value) E.private.mui.skins.embed.toggleDirection = value; UpdateToggleDirection(); end,
+			values = {
+				[1] = L["LEFT"],
+				[2] = L["RIGHT"],
+				[3] = L["TOP"],
+				[4] = L["BOTTOM"],
+				[5] = _G.DISABLE,
+			},
 		},
 	},
 }

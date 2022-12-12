@@ -12,6 +12,8 @@ local function LoadSkin()
 	local frame = _G.ExpansionLandingPage
 	local panel
 
+	module:CreateShadow(frame)
+
 	if frame.Overlay then
 		for i = 1, frame.Overlay:GetNumChildren() do
 			local child = select(i, frame.Overlay:GetChildren())
@@ -25,6 +27,25 @@ local function LoadSkin()
 				break
 			end
 		end
+	end
+
+	if not panel then return end
+
+	panel.NineSlice:SetAlpha(0)
+	panel.Background:SetAlpha(0)
+
+	if panel.MajorFactionList then
+		hooksecurefunc(panel.MajorFactionList.ScrollBox, 'Update', function(self)
+			for i = 1, self.ScrollTarget:GetNumChildren() do
+				local child = select(i, self.ScrollTarget:GetChildren())
+				if child.UnlockedState and not child.IsSkinned then
+					child.UnlockedState.WatchFactionButton:SetSize(28, 28)
+					S:HandleCheckBox(child.UnlockedState.WatchFactionButton)
+					child.UnlockedState.WatchFactionButton.Label:SetFontObject(Game20Font)
+					child.IsSkinned = true
+				end
+			end
+		end)
 	end
 end
 

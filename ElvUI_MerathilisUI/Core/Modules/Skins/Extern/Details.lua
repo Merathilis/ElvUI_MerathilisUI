@@ -112,6 +112,7 @@ local function IsDefaultAnchor(instance)
 	local frame = instance and instance.baseframe
 	if not frame then return end
 	local relF, _, relT, x, y = frame:GetPoint()
+
 	return (relF == "CENTER" and relT == "CENTER" and isDefaultOffset(x) and isDefaultOffset(y))
 end
 
@@ -174,17 +175,6 @@ local function ReskinDetails()
 		if instance1 then
 			EmbedWindow(instance1, -3, 24, 340, 96)
 		end
-	end
-
-	-- Disable some AddOnSkins settings
-	if IsAddOnLoaded('AddOnSkins') then
-		local AS = unpack(AddOnSkins)
-		AS.db["EmbedSystem"] = false
-		AS.db["EmbedSystemDual"] = false
-		AS.db["EmbedBelowTop"] = false
-		AS.db["EmbedMain"] = ""
-		AS.db["EmbedLeft"] = ""
-		AS.db["EmbedRight"] = ""
 	end
 end
 

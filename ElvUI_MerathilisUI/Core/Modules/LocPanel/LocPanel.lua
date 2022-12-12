@@ -144,6 +144,7 @@ module.Spells = {
 		[2] = {text = GetSpellInfo(147420),icon = F.GetIconFromID("spell", 147420),secure = {buttonType = "spell",ID = 147420}, UseTooltip = true},--One With Nature
 		[3] = {text = GetSpellInfo(193753),icon = F.GetIconFromID("spell", 193753),secure = {buttonType = "spell",ID = 193753}, UseTooltip = true},--Druid ClassHall
 	},
+	["EVOKER"] = {},
 	["HUNTER"] = {},
 	["MAGE"] = {
 		[1] = {text = GetSpellInfo(193759),icon = F.GetIconFromID("spell", 193759),secure = {buttonType = "spell",ID = 193759}, UseTooltip = true}, --Guardian place
@@ -184,7 +185,8 @@ module.Spells = {
 			[11] = {text = GetSpellInfo(176242),icon = F.GetIconFromID("spell", 176242),secure = {buttonType = "spell",ID = 176242}, UseTooltip = true},-- TP:Warspear
 			[12] = {text = GetSpellInfo(224869),icon = F.GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
 			[13] = {text = GetSpellInfo(281404),icon = F.GetIconFromID("spell", 281404),secure = {buttonType = "spell",ID = 281404}, UseTooltip = true},-- TP:Dazar'alor
-			[14] = {text = GetSpellInfo(344587),icon = F.GetIconFromID("spell", 344587),secure = {buttonType = "spell",ID = 344587}, UseTooltip = true},-- TP:Oribos
+			[14] = {text = GetSpellInfo(344587), icon = F.GetIconFromID("spell", 344587), secure = { buttonType = "spell", ID = 344587 }, UseTooltip = true}, -- TP:Oribos
+			[15] = {text = GetSpellInfo(395277), icon = F.GetIconFromID('spell', 395277), secure = { buttonType = 'spell', ID = 395277 }, UseTooltip = true}, -- TP:Valdrakken
 		},
 		["Alliance"] = {
 			[1] = {text = GetSpellInfo(3561),icon = F.GetIconFromID("spell", 3561),secure = {buttonType = "spell",ID = 3561}, UseTooltip = true},-- TP:Stormwind
@@ -200,7 +202,8 @@ module.Spells = {
 			[11] = {text = GetSpellInfo(176248),icon = F.GetIconFromID("spell", 176248),secure = {buttonType = "spell",ID = 176248}, UseTooltip = true},-- TP:StormShield
 			[12] = {text = GetSpellInfo(224869),icon = F.GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
 			[13] = {text = GetSpellInfo(281403),icon = F.GetIconFromID("spell", 281403),secure = {buttonType = "spell",ID = 281403}, UseTooltip = true},-- TP:Boralus
-			[14] = {text = GetSpellInfo(344587),icon = F.GetIconFromID("spell", 344587),secure = {buttonType = "spell",ID = 344587}, UseTooltip = true},-- TP:Oribos
+			[14] = {text = GetSpellInfo(344587), icon = F.GetIconFromID("spell", 344587),secure = {buttonType = "spell", ID = 344587}, UseTooltip = true}, -- TP:Oribos
+			[15] = {text = GetSpellInfo(395277), icon = F.GetIconFromID('spell', 395277),secure = {buttonType = 'spell', ID = 395277}, UseTooltip = true}, -- TP:Valdrakken
 		},
 	},
 	["portals"] = {
@@ -218,7 +221,8 @@ module.Spells = {
 			[11] = {text = GetSpellInfo(176244),icon = F.GetIconFromID("spell", 176244),secure = {buttonType = "spell",ID = 176244}, UseTooltip = true},-- P:Warspear
 			[12] = {text = GetSpellInfo(224871),icon = F.GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
 			[13] = {text = GetSpellInfo(281402),icon = F.GetIconFromID("spell", 281402),secure = {buttonType = "spell",ID = 281402}, UseTooltip = true},-- P:Dazar'alor
-			[14] = {text = GetSpellInfo(344597),icon = F.GetIconFromID("spell", 344597),secure = {buttonType = "spell",ID = 344597}, UseTooltip = true},-- P:Oribos
+			[14] = {text = GetSpellInfo(344597), icon = F.GetIconFromID("spell", 344597),secure = {buttonType = "spell", ID = 344597}, UseTooltip = true}, -- P:Oribos
+			[15] = {text = GetSpellInfo(395289), icon = F.GetIconFromID('spell', 395289),secure = {buttonType = 'spell', ID = 395289}, UseTooltip = true}, -- P:Valdrakken
 		},
 		["Alliance"] = {
 			[1] = {text = GetSpellInfo(10059),icon = F.GetIconFromID("spell", 10059),secure = {buttonType = "spell",ID = 10059}, UseTooltip = true},-- P:Stormwind
@@ -234,7 +238,8 @@ module.Spells = {
 			[11] = {text = GetSpellInfo(176246),icon = F.GetIconFromID("spell", 176246),secure = {buttonType = "spell",ID = 176246}, UseTooltip = true},-- P:StormShield
 			[12] = {text = GetSpellInfo(224871),icon = F.GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
 			[13] = {text = GetSpellInfo(281400),icon = F.GetIconFromID("spell", 281400),secure = {buttonType = "spell",ID = 281400}, UseTooltip = true},-- P:Boralus
-			[14] = {text = GetSpellInfo(344597),icon = F.GetIconFromID("spell", 344597),secure = {buttonType = "spell",ID = 344597}, UseTooltip = true},-- P:Oribos
+			[14] = {text = GetSpellInfo(344597), icon = F.GetIconFromID("spell", 344597),secure = {buttonType = "spell", ID = 344597}, UseTooltip = true}, -- P:Oribos
+			[15] = {text = GetSpellInfo(395289), icon = F.GetIconFromID('spell', 395289),secure = {buttonType = 'spell', ID = 395289 }, UseTooltip = true}, -- P:Valdrakken
 		},
 	},
 	["challenge"] = {

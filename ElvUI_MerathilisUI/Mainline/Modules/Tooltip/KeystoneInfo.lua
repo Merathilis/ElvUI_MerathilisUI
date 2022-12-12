@@ -67,6 +67,4 @@ end
 
 hooksecurefunc(ItemRefTooltip, 'SetHyperlink', DecorateTooltip)
 --_G.ItemRefTooltip:HookScript('OnTooltipSetItem', DecorateTooltip)
-if not MER.IsPTR then
-	_G.GameTooltip:HookScript('OnTooltipSetItem', DecorateTooltip)
-end
+TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, DecorateTooltip)

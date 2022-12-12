@@ -1,8 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Reminder')
-local LCG = LibStub('LibCustomGlow-1.0')
 local UF = E:GetModule('UnitFrames')
 local S = E:GetModule('Skins')
+local LCG = E.Libs.CustomGlow
 
 local _G = _G
 local pairs, select, type, unpack= pairs, select, type, unpack
@@ -154,7 +154,7 @@ module.ReminderList = {
 
 	EVOKER = {
 		[1] = { -- Blessing of the Bronze
-			["spells"] = {
+			["spellGroup"] = {
 				[381748] = true, -- Blessing of the Bronze
 				["defaultIcon"] = 381748,
 			},

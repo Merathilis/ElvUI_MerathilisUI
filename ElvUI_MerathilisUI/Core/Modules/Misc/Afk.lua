@@ -229,7 +229,7 @@ local function Initialize()
 	AFK.AFKMode.PlayerName = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.PlayerName:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
 	AFK.AFKMode.PlayerName:FontTemplate(nil, 26, 'OUTLINE')
-	AFK.AFKMode.PlayerName:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	AFK.AFKMode.PlayerName:SetTextColor(F.r, F.g, F.b or 1, 1, 1)
 	AFK.AFKMode.PlayerName:SetText(E.myname)
 
 	AFK.AFKMode.Guild = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')

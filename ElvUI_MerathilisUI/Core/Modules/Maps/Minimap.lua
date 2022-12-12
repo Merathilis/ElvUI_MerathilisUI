@@ -1,7 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Minimap')
 local S = MER:GetModule('MER_Skins')
-local LCG = LibStub('LibCustomGlow-1.0')
+local MM = E:GetModule('Minimap')
+local LCG = E.Libs.CustomGlow
 
 local _G = _G
 local select, unpack = select, unpack
@@ -16,7 +17,7 @@ local hooksecurefunc = hooksecurefunc
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
 function module:CheckStatus()
-	if not Minimap.backdrop or not E.db.mui.maps.minimap.flash then return end
+	if not E.db.mui.maps.minimap.flash then return end
 
 	local inv = C_Calendar_GetNumPendingInvites()
 	local mailFrame = _G.MinimapCluster.MailFrame or _G.MiniMapMailFrame
@@ -24,44 +25,14 @@ function module:CheckStatus()
 
 
 	if inv > 0 and mail then -- New invites and mail
-		LCG.PixelGlow_Start(Minimap.backdrop, {1, 0, 0, 1}, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(MM.MapHolder, {1, 0, 0, 1}, 8, -0.25, nil, 1)
 	elseif inv > 0 and not mail then -- New invites and no mail
-		LCG.PixelGlow_Start(Minimap.backdrop, {1, 1, 0, 1}, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(MM.MapHolder, { 1, 1, 0, 1 }, 8, -0.25, nil, 1)
 	elseif inv == 0 and mail then -- No invites and new mail
-		LCG.PixelGlow_Start(Minimap.backdrop, {r, g, b, 1}, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(MM.MapHolder, { r, g, b, 1 }, 8, -0.25, nil, 1)
 	else -- None of the above
-		LCG.PixelGlow_Stop(Minimap.backdrop)
+		LCG.PixelGlow_Stop(MM.MapHolder)
 	end
-end
-
-function module:MinimapCombatCheck()
-	if not Minimap.backdrop then return end
-
-	if not E.db.mui.CombatAlert.minimapAlert then
-		return
-	end
-
-	local anim = Minimap.backdrop:CreateAnimationGroup()
-	Minimap.backdrop:SetFrameStrata("BACKGROUND")
-	anim:SetLooping("BOUNCE")
-
-	anim.fader = anim:CreateAnimation("Alpha")
-	anim.fader:SetFromAlpha(.8)
-	anim.fader:SetToAlpha(.2)
-	anim.fader:SetDuration(1)
-	anim.fader:SetSmoothing("OUT")
-
-	local function UpdateMinimapAnim(event)
-		if event == "PLAYER_REGEN_DISABLED" then
-			Minimap.backdrop:SetBackdropBorderColor(1, 0, 0)
-			anim:Play()
-		elseif not InCombatLockdown() then
-			anim:Stop()
-			Minimap.backdrop:SetBackdropBorderColor(0, 0, 0)
-		end
-	end
-	MER:RegisterEvent("PLAYER_REGEN_ENABLED", UpdateMinimapAnim)
-	MER:RegisterEvent("PLAYER_REGEN_DISABLED", UpdateMinimapAnim)
 end
 
 function module:StyleMinimap()
@@ -73,27 +44,6 @@ function module:StyleMinimapRightClickMenu()
 	local Menu = _G.MinimapRightClickMenu
 	if Menu then
 		Menu:Styling()
-	end
-end
-
-local function ReplaceFlag(self)
-	self:SetTexture(MER.Media.Textures.flag)
-end
-
-local function ReskinDifficulty(frame)
-	frame.Border:Hide()
-	ReplaceFlag(frame.Background)
-	hooksecurefunc(frame.Background, "SetAtlas", ReplaceFlag)
-end
-
-function module:InstanceDifficulty()
-	local instDifficulty = _G.MinimapCluster.InstanceDifficulty
-	if instDifficulty then
-		instDifficulty:SetParent(Minimap)
-
-		ReskinDifficulty(instDifficulty.Instance)
-		ReskinDifficulty(instDifficulty.Guild)
-		ReskinDifficulty(instDifficulty.ChallengeMode)
 	end
 end
 
@@ -162,7 +112,6 @@ function module:Initialize()
 	self:StyleMinimapRightClickMenu()
 
 	if E.Retail then
-		self:InstanceDifficulty()
 		self:CreateExpansionLandingButton()
 	end
 
@@ -172,7 +121,6 @@ function module:Initialize()
 	self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
 	self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")
 
-	self:MinimapCombatCheck()
 	self:MinimapPing()
 end
 

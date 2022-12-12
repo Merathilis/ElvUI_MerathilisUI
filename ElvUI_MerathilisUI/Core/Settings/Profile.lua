@@ -164,7 +164,6 @@ P.blizzard = {
 
 P.CombatAlert = {
 	enable = true,
-	minimapAlert = true,
 	font = {
 		name = "Expressway",
 		size = 28,
@@ -365,6 +364,7 @@ P.chat = {
 	},
 	chatLink = {
 		enable = true,
+		numbericalQualityTier = false,
 		translateItem = true,
 		level = true,
 		icon = true,
@@ -382,6 +382,141 @@ P.mail = {
 	enable = true,
 	defaultPage = "ALTS",
 	saveRecipient = true,
+}
+
+P.announcement = {
+	enable = true,
+	quest = {
+		enable = false,
+		paused = true,
+		disableBlizzard = true,
+		includeDetails = true,
+		channel = {
+			party = "PARTY",
+			instance = "INSTANCE_CHAT",
+			raid = "RAID"
+		},
+		tag = {
+			enable = true,
+			color = { r = 0.490, g = 0.373, b = 1.000 }
+		},
+		suggestedGroup = {
+			enable = true,
+			color = { r = 1.000, g = 0.220, b = 0.220 }
+		},
+		level = {
+			enable = true,
+			color = { r = 0.773, g = 0.424, b = 0.941 },
+			hideOnMax = true
+		},
+		daily = {
+			enable = true,
+			color = { r = 1.000, g = 0.980, b = 0.396 }
+		},
+		weekly = {
+			enable = true,
+			color = { r = 0.196, g = 1.000, b = 0.494 }
+		},
+	},
+	resetInstance = {
+		enable = true,
+		prefix = true,
+		channel = {
+			party = "PARTY",
+			instance = "INSTANCE_CHAT",
+			raid = "RAID"
+		}
+	},
+	utility = {
+		enable = true,
+		channel = {
+			solo = "NONE",
+			party = "PARTY",
+			instance = "INSTANCE_CHAT",
+			raid = "RAID"
+		},
+		spells = {
+			["698"] = {
+				-- Ritual of Summoning
+				enable = true,
+				includePlayer = true,
+				raidWarning = true,
+				text = L["{rt1} %player% is casting %spell%, please assist! {rt1}"]
+			},
+			["29893"] = {
+				-- Create Soulwell
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"]
+			},
+			["54710"] = {
+				-- MOLL-E
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["{rt1} %player% puts %spell% {rt1}"]
+			},
+			["261602"] = {
+				-- Stampwhistle
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["{rt1} %player% used %spell% {rt1}"]
+			},
+			["195782"] = {
+				-- Summon Moonfeather Statue
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["{rt1} %player% used %spell% {rt1}"]
+			},
+			["190336"] = {
+				-- Conjure Refreshment
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"]
+			},
+			feasts = {
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["{rt1} %player% puts down %spell%! {rt1}"]
+			},
+			bots = {
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["{rt1} %player% puts %spell% {rt1}"]
+			},
+			toys = {
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["{rt1} %player% puts %spell% {rt1}"]
+			},
+			portals = {
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["{rt1} %player% opened %spell%! {rt1}"]
+			},
+			hero = {
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["{rt1} %player% used %spell% {rt1}"]
+			}
+		}
+	},
+	keystone = {
+		enable = true,
+		text = L["{rt1} My new keystone is %keystone%. {rt1}"],
+		channel = {
+			party = "PARTY"
+		}
+	}
 }
 
 P.misc = {
@@ -419,19 +554,22 @@ P.misc = {
 		enable = true,
 		scale = 0.65,
 	},
-	alerts = {
-		announce = true,
-		itemAlert = true,
-		feasts = true,
-		portals = true,
-		toys = true,
-	},
 	funstuff = true,
 	wowheadlinks = true,
 	respec = true,
 	hideBossBanner = false,
 	quickDelete = true,
 	quickMenu = true,
+	tradeTabs = true,
+	alreadyKnown = {
+		enable = true,
+		mode = "COLOR",
+		color = {
+			r = 0,
+			g = 1,
+			b = 0
+		},
+	},
 }
 
 P.nameHover = {
@@ -543,7 +681,7 @@ local function Potions()
 	elseif E.Wrath then
 		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
-		return "POTIONSL,POTIONSDF,FLASKSL,FLASKDF,UTILITY"
+		return ",POTIONSDF,FLASKDF,RUNEDF,UTILITY"
 	end
 end
 
@@ -551,7 +689,9 @@ P.autoButtons = {
 	enable = true,
 	customList = {},
 	blackList = {
-		[183040] = true
+		[183040] = true,
+		[193757] = true,
+		[200563] = true,
 	},
 	bar1 = {
 		enable = true,
@@ -568,7 +708,7 @@ P.autoButtons = {
 		buttonsPerRow = 10,
 		anchor = "TOPLEFT",
 		spacing = 3,
-		tooltip = true,
+		tooltip = false,
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -593,7 +733,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "QUEST,BANNER,EQUIP,TORGHAST,OPENABLE"
+		include = "QUEST,BANNER,EQUIP,OPENABLE"
 	},
 	bar2 = {
 		enable = true,
@@ -678,7 +818,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODSL,FOODDF,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODDF,CUSTOM"
 	},
 	bar4 = {
 		enable = false,
@@ -905,11 +1045,25 @@ P.maps = {
 			},
 		},
 	},
+	instanceDifficulty = {
+		enable = true,
+		hideBlizzard = true,
+		align = "LEFT",
+		font = {
+			name = E.db.general.font,
+			size = E.db.general.fontSize,
+			style = "OUTLINE"
+		},
+	},
+	rectangleMinimap = {
+		enable = false,
+		heightPercentage = 0.8
+	},
 	superTracker = {
 		enable = true,
 		noLimit = false,
 		autoTrackWaypoint = true,
-		rightClickToClear = true,
+		middleClickToClear = true,
 		distanceText = {
 			enable = true,
 			name = E.db.general.font,
@@ -921,6 +1075,7 @@ P.maps = {
 			enable = true,
 			worldMapInput = true,
 			command = true,
+			virtualTomTom = true,
 			commandKeys = {
 				["wtgo"] = true,
 				["goto"] = true,
@@ -1097,8 +1252,11 @@ P.pvp = {
 }
 
 P.tooltip = {
-	tooltipIcon = true,
+	modifier = "SHIFT",
+	icon = true,
 	factionIcon = true,
+	petIcon = true,
+	petId = true,
 	titleColor = true,
 }
 

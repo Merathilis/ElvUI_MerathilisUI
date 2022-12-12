@@ -12,7 +12,6 @@ V.skins = {
 	enable = true,
 	style = true,
 	shadowOverlay = false,
-	toggleDirection = 1,
 	shadow = {
 		enable = true,
 		increasedSize = 0,
@@ -239,9 +238,12 @@ V.skins = {
 		tldr = true,
 		pf = true,
 		au = true,
+		imm = true,
+		rio = true,
 	},
 
 	embed = {
-		enable = true,
+		enable = false,
+		toggleDirection = 1,
 	}
 }

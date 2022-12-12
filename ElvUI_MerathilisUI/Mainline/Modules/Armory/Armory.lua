@@ -82,16 +82,16 @@ module.Constants.enchantSlots = {
 	['NeckSlot'] = false,
 	['ShoulderSlot'] = false,
 	['WaistSlot'] = false,
-	['LegsSlot'] = false,
+	['LegsSlot'] = true,
 	['Finger0Slot'] = true,
 	['Finger1Slot'] = true,
 	['MainHandSlot'] = true,
-	['SecondaryHandSlot'] = false,
+	['SecondaryHandSlot'] = true,
 	['ChestSlot'] = true,
 	['BackSlot'] = true,
-	['FeetSlot'] = 2,
-	['WristSlot'] = 4,
-	['HandsSlot'] = 1,
+	['FeetSlot'] = true,
+	['WristSlot'] = true,
+	['HandsSlot'] = false,
 	['Trinket0Slot'] = false,
 	['Trinket1Slot'] = false,
 }
@@ -274,9 +274,11 @@ function module:Initialize()
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)
 	module:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdatePaperDoll", false)
 	module:RegisterEvent("SOCKET_INFO_UPDATE", "UpdatePaperDoll", false)
-	module:RegisterEvent("COMBAT_RATING_UPDATE", "UpdatePaperDoll", false)
-	module:RegisterEvent("MASTERY_UPDATE", "UpdatePaperDoll", false)
-	module:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
+
+	--Appereantly this causes mini lags
+	-- module:RegisterEvent("COMBAT_RATING_UPDATE", "UpdatePaperDoll", false)
+	-- module:RegisterEvent("MASTERY_UPDATE", "UpdatePaperDoll", false)
+	-- module:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
 
 	hooksecurefunc(M, 'UpdatePageInfo', module.UpdatePageInfo)
 	hooksecurefunc(M, 'UpdatePageStrings', module.UpdatePageStrings)

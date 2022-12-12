@@ -61,7 +61,7 @@ local function LoadSkin()
 
 	local CommunitiesFrame = _G.CommunitiesFrame
 	CommunitiesFrame:Styling()
-	module:CreateBackdropShadow(CommunitiesFrame)
+	module:CreateShadow(CommunitiesFrame)
 	module:CreateShadow(CommunitiesFrame.ChatTab)
 	module:CreateShadow(CommunitiesFrame.RosterTab)
 	module:CreateShadow(CommunitiesFrame.GuildBenefitsTab)

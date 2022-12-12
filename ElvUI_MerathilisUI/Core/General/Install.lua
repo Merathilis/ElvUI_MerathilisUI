@@ -39,7 +39,7 @@ local function SetupCVars()
 	SetCVar('countdownForCooldowns', 1)
 	SetCVar('showQuestTrackingTooltips', 1)
 	SetCVar('ffxGlow', 0)
-    SetCVar('floatingCombatTextCombatState', '1')
+	SetCVar('floatingCombatTextCombatState', '1')
 	SetCVar('minimapTrackingShowAll', 1)
 
 	-- Nameplates
@@ -84,6 +84,8 @@ local function SetupCVars()
 		SetCVar('RAIDweatherDensity', 0)
 		SetCVar('weatherDensity', 0)
 		SetCVar('SpellQueueWindow', 180)
+		SetCVar('floatingCombatTextCombatDamageDirectionalScale', 1)
+		SetCVar('autoOpenLootHistory', 1)
 	else
 		SetCVar('taintLog', 0)
 	end
@@ -254,7 +256,7 @@ function MER:SetupLayout()
 	E.global["general"]["autoScale"] = true
 	E.global["general"]["animateConfig"] = false
 	E.global["general"]["smallerWorldMap"] = false
-	E.global["general"]["WorldMapCoordinates"]["position"] = "BOTTOMLEFT"
+	E.global["general"]["WorldMapCoordinates"]["position"] = "BOTTOMRIGHT"
 	E.global["general"]["commandBarSetting"] = "ENABLED"
 	E.global["general"]["showMissingTalentAlert"] = true
 
@@ -452,10 +454,6 @@ function MER:SetupLayout()
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
 
-	if F.IsDeveloper() then
-		E.db["tooltip"]["showElvUIUsers"] = true
-	end
-
 		--[[----------------------------------
 	--	Skins - Layout
 	--]] ----------------------------------
@@ -486,20 +484,7 @@ function MER:SetupLayout()
 	E.db["mui"]["locPanel"]["template"] = "NoBackdrop"
 	E.db["mui"]["locPanel"]["colorType"] = "DEFAULT"
 	E.db["mui"]["locPanel"]["colorType_Coords"] = "CLASS"
-
-	if F.IsDeveloper() then
-		E.db["mui"]["pvp"]["duels"]["regular"] = true
-		E.db["mui"]["pvp"]["duels"]["pet"] = true
-		E.db["mui"]["pvp"]["duels"]["announce"] = true
-		E.db["general"]["cropIcon"] = 0
-		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
-		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
-		E.db["mui"]["misc"]["cursor"]["enable"] = true
-		E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
-		E.private["mui"]["skins"]["shadowOverlay"] = true
-	else
-		E.db["general"]["cropIcon"] = 2
-	end
+	E.private["mui"]["skins"]["embed"]["enable"] = true
 
 	E.db["movers"]["MER_SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"
 	E.db["movers"]["MER_EquipmentSetsBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-75,14"
@@ -519,7 +504,8 @@ function MER:SetupLayout()
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,229,-20"
 	E.db["movers"]["BNETMover"] = "TOP,ElvUIParent,TOP,0,-60"
 	E.db["movers"]["LootFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-495,-457"
-	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
+	E.db["movers"]["AlertFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,205,-210"
+	E.db["movers"]["VOICECHAT"] = "TOPLEFT,ElvUIParent,TOPLEFT,368,-210"
 	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,465"
 	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-474,120"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
@@ -611,6 +597,40 @@ function MER:SetupLayout()
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-17"
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
+
+	if F.IsDeveloper() then
+		E.db["mui"]["pvp"]["duels"]["regular"] = true
+		E.db["mui"]["pvp"]["duels"]["pet"] = true
+		E.db["mui"]["pvp"]["duels"]["announce"] = true
+		E.db["general"]["cropIcon"] = 0
+		E.db["tooltip"]["showElvUIUsers"] = true
+		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
+		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
+		E.db["mui"]["misc"]["cursor"]["enable"] = true
+		E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
+		E.private["mui"]["skins"]["shadowOverlay"] = true
+
+		-- Rectangle Settings
+		E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
+		E.db["mui"]["maps"]["rectangleMinimap"]["heightPercentage"] = 0.65
+		E.db["general"]["minimap"]["clusterDisable"] = false
+		E.db["general"]["minimap"]["size"] = 222
+		E.db["mui"]["smb"]["buttonSize"] = 23
+		E.db["mui"]["smb"]["buttonsPerRow"] = 9
+		E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
+		E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
+		E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
+		E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 60
+		E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
+		E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
+		E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 42
+		E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-17"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
+		E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-210"
+	else
+		E.db["general"]["cropIcon"] = 2
+	end
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -2355,6 +2375,14 @@ function MER:SetupUnitframes()
 	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
 	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
+
+
+	if F.IsDeveloper() then
+		if E.myclass == "WARRIOR" then
+			E.db["mui"]["unitframes"]["power"]["type"] = "CUSTOM"
+			E.db["mui"]["unitframes"]["power"]["model"] = 840943
+		end
+	end
 
 	E:StaggeredUpdateAll(nil, true)
 

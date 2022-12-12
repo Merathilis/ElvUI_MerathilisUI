@@ -27,7 +27,6 @@ local global = GetAddOnMetadata(parent, 'X-cargBags')
 --  class-generation, helper-functions and the Blizzard-replacement
 local cargBags = CreateFrame("Button")
 
-
 ns.cargBags = cargBags
 if(global) then
 	_G[global] = cargBags
