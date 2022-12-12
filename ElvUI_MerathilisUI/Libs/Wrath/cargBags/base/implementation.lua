@@ -303,7 +303,8 @@ function Implementation:GetItemInfo(bagID, slotID, i)
 	i.bagID = bagID
 	i.slotID = slotID
 
-	local texture, count, locked, quality, _, _, itemLink, _, noValue, itemID = GetContainerItemInfo(bagID, slotID)
+	local texture, count, locked, quality, _, _, itemLink, _, noValue, itemID = C_Container.GetContainerItemInfo(bagID,
+		slotID)
 
 	if itemLink then
 		i.texture, i.count, i.locked, i.quality, i.link, i.id = texture, count, locked, quality, itemLink, itemID
@@ -370,7 +371,7 @@ function Implementation:UpdateBag(bagID)
 	if(closed) then
 		numSlots, closed = 0
 	else
-		numSlots = GetContainerNumSlots(bagID)
+		numSlots = C_Container.GetContainerNumSlots(bagID)
 	end
 	local lastSlots = self.bagSizes[bagID] or 0
 	self.bagSizes[bagID] = numSlots

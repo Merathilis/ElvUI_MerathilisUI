@@ -96,15 +96,15 @@ local function GetNumFreeSlots(self)
 		local totalFree = 0
 		for i = 0, 4 do
 			if cargBags.BagGroups[i] == self.bagGroup then
-				totalFree = totalFree + GetContainerNumFreeSlots(i)
+				totalFree = totalFree + C_Container.GetContainerNumFreeSlots(i)
 			end
 		end
 		return totalFree
 	elseif bagType == "Bank" then
-		local totalFree = self.bagGroup == 0 and GetContainerNumFreeSlots(-1) or 0
+		local totalFree = self.bagGroup == 0 and C_Container.GetContainerNumFreeSlots(-1) or 0
 		for i = 5, 11 do
 			if cargBags.BagGroups[i] == self.bagGroup then
-				totalFree = totalFree + GetContainerNumFreeSlots(i)
+				totalFree = totalFree + C_Container.GetContainerNumFreeSlots(i)
 			end
 		end
 		return totalFree
