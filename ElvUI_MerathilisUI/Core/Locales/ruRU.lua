@@ -170,7 +170,6 @@ L["Weapon Category"] = "Категория оружия"
 L["Display the level of the item on the item link."] = true
 L["Numberical Quality Tier"] = true
 
-
 -- Combat Alert
 L["Combat Alert"] = "Сигнал боя"
 L["Enable/Disable the combat message if you enter/leave the combat."] = "Включить/выключить боевое сообщение, если вы входите/выходите из боя."
@@ -776,6 +775,26 @@ L["Style Fog of War with special color."] = "Стиль Туман войны с
 L["Resize world map."] = "Изменение размера карты мира."
 L["LFG Queue"] = "Очередь LFG"
 L["Right click to switch expansion"] = true
+L["Add trackers for world events in the bottom of world map."] = true
+L["Alert"] = true
+L["Alert Second"] = true
+L["Alert will be triggered when the remaining time is less than the set value."] = true
+L["Community Feast"] = true
+L["Cooking"] = true
+L["Dragonbane Keep"] = true
+L["Duration"] = true
+L["Event Tracker"] = true
+L["Feast"] = true
+L["In Progress"] = true
+L["Location"] = true
+L["Siege On Dragonbane Keep"] = true
+L["Status"] = true
+L["Waiting"] = true
+L["Weekly Reward"] = true
+L["%s will be started in %s!"] = true
+L["Next Event"] = true
+L["Stop Alert if Completed"] = true
+L["Stop alert when the event is completed in this week."] = true
 
 -- SMB
 L["Minimap Buttons"] = "Кнопки миникарты"

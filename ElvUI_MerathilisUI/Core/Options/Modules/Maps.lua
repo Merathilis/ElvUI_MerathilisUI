@@ -4,6 +4,7 @@ local MP = MER:GetModule('MER_MiniMapPing')
 local SMB = MER:GetModule('MER_MiniMapButtons')
 local RM = MER:GetModule('MER_RectangleMinimap')
 local WM = MER:GetModule('MER_WorldMap')
+local ET = MER:GetModule('MER_EventTracker')
 local options = MER.options.modules.args
 local LSM = E.LSM
 
@@ -19,7 +20,7 @@ local envs = {
 
 options.maps = {
 	type = "group",
-	name = L["Maps"],
+	name = E.NewSign..L["Maps"],
 	get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 	set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	disabled = function() return not E.private.general.minimap.enable end,
@@ -788,6 +789,7 @@ options.maps = {
 				E.db.mui.maps.instanceDifficulty[info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
+			hidden = not E.Retail,
 			args = {
 				desc = {
 					order = 1,
@@ -864,6 +866,198 @@ options.maps = {
 							step = 1
 						},
 					},
+				},
+			},
+		},
+		eventTracker = {
+			order = 7,
+			type = "group",
+			name = E.NewSign..L["Event Tracker"],
+			get = function(info)
+				return E.db.mui.maps.eventTracker[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.maps.eventTracker[info[#info]] = value
+				ET:ProfileUpdate()
+			end,
+			hidden = not E.Retail,
+			args = {
+				desc = {
+					order = 1,
+					type = "group",
+					inline = true,
+					name = L["Description"],
+					args = {
+						feature = {
+							order = 1,
+							type = "description",
+							name = L["Add trackers for world events in the bottom of world map."],
+							fontSize = "medium"
+						}
+					}
+				},
+				enable = {
+					order = 2,
+					type = "toggle",
+					name = L["Enable"],
+					width = "full"
+				},
+				style = {
+					order = 3,
+					type = "group",
+					inline = true,
+					name = L["Style"],
+					get = function(info)
+						return E.db.mui.maps.eventTracker[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.eventTracker[info[#info]] = value
+						ET:ProfileUpdate()
+					end,
+					args = {
+						height = {
+							order = 1,
+							type = "range",
+							name = L["Height"],
+							min = 20, max = 100, step = 1
+						},
+						spacing = {
+							order = 2,
+							type = "range",
+							name = L["Spacing"],
+							min = 0, max = 20, step = 1
+						}
+					}
+				},
+				font = {
+					order = 4,
+					type = "group",
+					inline = true,
+					name = L["Font"],
+					get = function(info)
+						return E.db.mui.maps.eventTracker.font[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.eventTracker.font[info[#info]] = value
+						ET:ProfileUpdate()
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font")
+						},
+						scale = {
+							order = 2,
+							type = "range",
+							name = L["Scale"],
+							min = 0.1, max = 5, step = 0.01,
+						},
+						outline = {
+							order = 3,
+							type = "select",
+							name = L["Outline"],
+							values = {
+								NONE = L["None"],
+								OUTLINE = L["OUTLINE"],
+								MONOCHROME = L["MONOCHROME"],
+								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+								THICKOUTLINE = L["THICKOUTLINE"]
+							}
+						}
+					}
+				},
+				communityFeast = {
+					order = 5,
+					type = "group",
+					inline = true,
+					name = L["Community Feast"],
+					get = function(info)
+						return E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]] = value
+						ET:ProfileUpdate()
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"]
+						},
+						desaturate = {
+							order = 2,
+							type = "toggle",
+							name = L["Desaturate"],
+							desc = L["Desaturate icon if the event is completed in this week."]
+						},
+						alert = {
+							order = 3,
+							type = "toggle",
+							name = L["Alert"]
+						},
+						second = {
+							order = 4,
+							type = "range",
+							name = L["Alert Second"],
+							desc = L["Alert will be triggered when the remaining time is less than the set value."],
+							min = 0, max = 15000, step = 1
+						},
+						stopAlertIfCompleted = {
+							order = 5,
+							type = "toggle",
+							name = L["Stop Alert if Completed"],
+							desc = L["Stop alert when the event is completed in this week."],
+							width = 2
+						}
+					}
+				},
+				siegeOnDragonbaneKeep = {
+					order = 6,
+					type = "group",
+					inline = true,
+					name = L["Siege On Dragonbane Keep"],
+					get = function(info)
+						return E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]] = value
+						ET:ProfileUpdate()
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"]
+						},
+						desaturate = {
+							order = 2,
+							type = "toggle",
+							name = L["Desaturate"],
+							desc = L["Desaturate icon if the event is completed in this week."]
+						},
+						alert = {
+							order = 3,
+							type = "toggle",
+							name = L["Alert"]
+						},
+						second = {
+							order = 4,
+							type = "range",
+							name = L["Alert Second"],
+							desc = L["Alert will be triggered when the remaining time is less than the set value."],
+							min = 0, max = 15000, step = 1
+						},
+						stopAlertIfCompleted = {
+							order = 5,
+							type = "toggle",
+							name = L["Stop Alert if Completed"],
+							desc = L["Stop alert when the event is completed in this week."],
+							width = 2
+						},
+					}
 				},
 			},
 		},

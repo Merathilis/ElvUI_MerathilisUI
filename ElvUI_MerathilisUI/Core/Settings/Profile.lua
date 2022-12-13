@@ -1094,6 +1094,31 @@ P.maps = {
 			size = 1.24
 		},
 	},
+	eventTracker = {
+		enable = true,
+		desaturate = true,
+		spacing = 10,
+		height = 38,
+		font = {
+			name = E.db.general.font,
+			scale = 1,
+			outline = "OUTLINE"
+		},
+		communityFeast = {
+			enable = true,
+			desaturate = false,
+			alert = true,
+			second = 600,
+			stopAlertIfCompleted = false
+		},
+		siegeOnDragonbaneKeep = {
+			enable = true,
+			desaturate = false,
+			alert = true,
+			second = 600,
+			stopAlertIfCompleted = false
+		},
+	},
 }
 
 P.media = {
