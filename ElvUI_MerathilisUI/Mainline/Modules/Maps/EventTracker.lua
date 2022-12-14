@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_EventTracker')
 local S = MER:GetModule('MER_Skins')
+local LSM = E.Libs.LSM
 
 local _G = _G
 local floor = floor
@@ -13,6 +14,7 @@ local CreateFrame = CreateFrame
 local GetCurrentRegion = GetCurrentRegion
 local GetLocale = GetLocale
 local GetServerTime = GetServerTime
+local PlaySoundFile = PlaySoundFile
 
 local C_Map_GetMapInfo = C_Map.GetMapInfo
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
@@ -169,9 +171,10 @@ local functionFactory = {
 					return
 				end
 
-				if self.timeLeft < self.args.alertSecond then
-					F.Print(format(L["%s will be started in %s!"], self.args.eventName, secondToTime(self.timeLeft)))
+				if self.timeLeft <= self.args.alertSecond then
 					self.args["alertCache"][self.nextEventIndex] = true
+					F.Print(format(L["%s will be started in %s!"], self.args.eventName, secondToTime(self.timeLeft)))
+					PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
 				end
 			end
 		},
@@ -366,14 +369,24 @@ function module:ConstructFrame()
 		return
 	end
 
-	local frame = CreateFrame("Frame", "MER_EventTracker", _G.WorldMapFrame)
-	frame:SetFrameStrata("MEDIUM")
-	frame:SetPoint("TOPLEFT", _G.WorldMapFrame.backdrop, "BOTTOMLEFT", 0, -3)
-	frame:SetPoint("TOPRIGHT", _G.WorldMapFrame.backdrop, "BOTTOMRIGHT", 0, -3)
+	local blizzard = not (E.private.skins.blizzard.enable and E.private.skins.blizzard.worldmap)
+
+	local frame = CreateFrame("Frame", "MER_EventTracker", _G.WorldMapFrame, blizzard and "TooltipBackdropTemplate")
+
+	if blizzard then
+		frame:SetPoint("TOPLEFT", _G.WorldMapFrame, "BOTTOMLEFT", -2, -3)
+		frame:SetPoint("TOPRIGHT", _G.WorldMapFrame, "BOTTOMRIGHT", 2, -3)
+	else
+		frame:SetPoint("TOPLEFT", _G.WorldMapFrame.backdrop, "BOTTOMLEFT", 0, -3)
+		frame:SetPoint("TOPRIGHT", _G.WorldMapFrame.backdrop, "BOTTOMRIGHT", 0, -3)
+
+		frame:SetTemplate("Transparent")
+		S:CreateShadowModule(frame)
+		frame:Styling()
+	end
+
 	frame:SetHeight(30)
-	frame:SetTemplate("Transparent")
-	frame:Styling()
-	S:CreateShadowModule(frame)
+	frame:SetFrameStrata("MEDIUM")
 
 	self.frame = frame
 end
@@ -393,6 +406,7 @@ function module:UpdateTrackers()
 			end
 
 			tracker.args.desaturate = self.db[data.dbKey].desaturate
+			tracker.args.soundFile = self.db[data.dbKey].soundFile
 
 			if self.db[data.dbKey].alert then
 				tracker.args.alert = true
@@ -425,17 +439,11 @@ function module:Initialize()
 end
 
 function module:ProfileUpdate()
-	if self.Initialize_ then
-		self:Initialize_()
-	else
-		self:Initialize()
-	end
+	self:Initialize()
 
 	if self.frame then
 		self.frame:SetShown(self.db.enable)
 	end
 end
-
-F.Developer.DelayInitialize(module, 5)
 
 MER:RegisterModule(module:GetName())
