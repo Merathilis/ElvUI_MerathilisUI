@@ -12,9 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an issue with Instance Indicator on the Minimap",
-		"• Fixed RaiderIO Skin",
-		"• Small Updates to the UIWidgets",
+		"• Fixed a typo on the Instance Indicator",
+		"• Added another reference spell to oUF_GCD",
+		"• Increase MAX_QUESTS to 35 now",
+		"• Added an Event Tracker on the Minimap. Credits ElvUI_Windtools",
 		" ",
 
 	"Notes:",

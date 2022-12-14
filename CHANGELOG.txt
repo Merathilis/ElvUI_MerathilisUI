@@ -1,4 +1,5 @@
 [b][color=orange]v5.49[/color], 10.12.2022[/b][list]
-[*]Fixed an issue with Instance Indicator on the Minimap
-[*]Fixed RaiderIO Skin
-[*]Small Updates to the UIWidgets[/list]
+[*]Fixed a typo on the Instance Indicator
+[*]Added another reference spell to oUF_GCD
+[*]Increase MAX_QUESTS to 35 now
+[*]Added an Event Tracker on the Minimap. Credits ElvUI_Windtools[/list]
