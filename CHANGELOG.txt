@@ -1,4 +1,4 @@
-[b][color=orange]v5.49[/color], 10.12.2022[/b][list]
+[b][color=orange]v5.50[/color], 14.12.2022[/b][list]
 [*]Fixed a typo on the Instance Indicator
 [*]Added another reference spell to oUF_GCD
 [*]Increase MAX_QUESTS to 35 now
