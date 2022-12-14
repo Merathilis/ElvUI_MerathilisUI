@@ -7,6 +7,7 @@ local min = min
 local format = format
 local strsub = strsub
 
+local CreateColor = CreateColor
 local GetClassColor = GetClassColor
 local UnitClass = UnitClass
 local UnitIsPlayer = UnitIsPlayer
@@ -139,6 +140,10 @@ function F.CreateClassColorString(text, englishClass)
 	return hex .. text .. "|r"
 end
 
+function F.CreateColorFromTable(colorTable)
+	return CreateColor(colorTable.r, colorTable.g, colorTable.b, colorTable.a)
+end
+
 function F.GradientColors(unitclass, invert, alpha)
 	if invert then
 		if alpha then
@@ -184,6 +189,28 @@ do
 	function F.HexToRGB(hex)
 		return tonumber('0x' .. strsub(hex, 1, 2)) / 255, tonumber('0x' .. strsub(hex, 3, 4)) / 255,
 			tonumber('0x' .. strsub(hex, 5, 6)) / 255
+	end
+
+	function F.StringWithHex(text, color)
+		return format("|cff%s%s|r", color, text)
+	end
+
+	local infoColors = {
+		greyLight = "b5b5b5",
+		primary = "00d1b2",
+		success = "48c774",
+		link = "3273dc",
+		info = "209cee",
+		danger = "ff3860",
+		warning = "ffdd57"
+	}
+
+	function F.StringByTemplate(text, template)
+		return F.StringWithHex(text, infoColors[template])
+	end
+
+	function F.RGBFromTemplate(template)
+		return F.HexToRGB(infoColors[template])
 	end
 
 	local color = {

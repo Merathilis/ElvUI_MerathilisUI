@@ -406,6 +406,13 @@ function MER:CheckCompatibility()
 		"db.WT.announcement.enable"
 	)
 
+	CheckWindtools(
+		L["Event Tracker"],
+		L["Event Tracker"],
+		"db.mui.maps.eventTracker.enable",
+		"db.WT.maps.eventTracker.enable"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],

@@ -38,6 +38,7 @@ local referenceSpells = {
 	188196,			-- Lightning Bold (Shaman)
 	1752,			-- Sinister Strike (Rogue)
 	53,				-- Backstab (Rogue)
+	200758,			-- Gloomblade (Rogue)
 	5176,			-- Wrath (Druid)
 	100780,			-- Tiger Palm (Monk)
 	162243,			-- Demon's Bite (Demon Hunter)
