@@ -12,10 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed a typo on the Instance Indicator",
-		"• Added another reference spell to oUF_GCD",
+		"• Fixed an issue for the Siege Timer for NA Servers",
+		"• Updated Orderhall skin",
 		"• Increase MAX_QUESTS to 35 now",
-		"• Added an Event Tracker on the Minimap. Credits ElvUI_Windtools",
+		"• Fixed an issue on AutoButton to not return names",
 		" ",
 
 	"Notes:",
