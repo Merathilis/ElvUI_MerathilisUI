@@ -766,14 +766,14 @@ L["Resize world map."] = "Größenveränderung der Weltkarte"
 L["LFG Queue"] = "LFG Warteschlange"
 L["Right click to switch expansion"] = "Rechtsklick um den Content umzuschalten"
 L["Add trackers for world events in the bottom of world map."] = "Tracker für Weltereignisse unten auf der Weltkarte hinzufügen."
-L["Alert"] = true
-L["Alert Second"] = true
+L["Alert"] = "Alarm"
+L["Alert Second"] = "Zweiter Alarm"
 L["Alert will be triggered when the remaining time is less than the set value."] = "Alarm wird ausgelöst, wenn die verbleibende Zeit unter dem eingestellten Wert liegt."
 L["Community Feast"] = "Gemeinschaftliches Festmahl"
 L["Cooking"] = "Kochen"
 L["Dragonbane Keep"] = "Drachenfluchfestung"
 L["Duration"] = "Dauer"
-L["Event Tracker"] = true
+L["Event Tracker"] = "Ereignis Tracker"
 L["Feast"] = "Festmahl"
 L["In Progress"] = "Im Gange"
 L["Location"] = "Standort"
@@ -785,6 +785,9 @@ L["%s will be started in %s!"] = "%s wird starten in %s"
 L["Next Event"] = "Nächstes Event"
 L["Stop Alert if Completed"] = "Stoppe Alarm wenn komplett"
 L["Stop alert when the event is completed in this week."] = "Stoppe Alarm wenn es für diese Woche abgeschlossen ist"
+L["Alert Sound"] = true
+L["Play sound when the alert is triggered."] = true
+L["Sound File"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"
@@ -1180,8 +1183,8 @@ L["Top Left Offset Y"] = "Versatz oben links Y"
 L["Transparent"] = "Transparent"
 L["Style"] = "Stil"
 L["Height Mode"] = "Höhenmodus"
-L["Menu Title"] = true
-L["it shows when objective tracker is collapsed."] = true
+L["Menu Title"] = "Menütitel"
+L["it shows when objective tracker is collapsed."] = "Wird angezeigt, wenn der Ziel Tracker zusammengeklappt ist."
 
 
 -- Filter

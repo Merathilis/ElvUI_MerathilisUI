@@ -795,6 +795,9 @@ L["%s will be started in %s!"] = true
 L["Next Event"] = true
 L["Stop Alert if Completed"] = true
 L["Stop alert when the event is completed in this week."] = true
+L["Alert Sound"] = true
+L["Play sound when the alert is triggered."] = true
+L["Sound File"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Кнопки миникарты"

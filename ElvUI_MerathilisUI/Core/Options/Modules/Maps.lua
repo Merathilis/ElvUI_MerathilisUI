@@ -998,19 +998,45 @@ options.maps = {
 							type = "toggle",
 							name = L["Alert"]
 						},
-						second = {
+						sound = {
 							order = 4,
+							type = "toggle",
+							name = L["Alert Sound"],
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end,
+							desc = L["Play sound when the alert is triggered"]
+						},
+						soundFile = {
+							order = 5,
+							type = "select",
+							dialogControl = "LSM30_Sound",
+							name = L["Sound File"],
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
+									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+							end,
+							values = LSM:HashTable("sound")
+						},
+						second = {
+							order = 6,
 							type = "range",
 							name = L["Alert Second"],
 							desc = L["Alert will be triggered when the remaining time is less than the set value."],
-							min = 0, max = 15000, step = 1
+							min = 0, max = 3600, step = 1,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
 						},
 						stopAlertIfCompleted = {
-							order = 5,
+							order = 7,
 							type = "toggle",
 							name = L["Stop Alert if Completed"],
 							desc = L["Stop alert when the event is completed in this week."],
-							width = 2
+							width = 2,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
 						}
 					}
 				},
@@ -1043,19 +1069,48 @@ options.maps = {
 							type = "toggle",
 							name = L["Alert"]
 						},
-						second = {
+						sound = {
 							order = 4,
+							type = "toggle",
+							name = L["Alert Sound"],
+							hidden = function(info)
+								return not E.db.WT.maps.eventTracker[info[#info - 1]].alert
+							end,
+							desc = L["Play sound when the alert is triggered"],
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
+						},
+						soundFile = {
+							order = 5,
+							type = "select",
+							dialogControl = "LSM30_Sound",
+							name = L["Sound File"],
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
+									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+							end,
+							values = LSM:HashTable("sound")
+						},
+						second = {
+							order = 6,
 							type = "range",
 							name = L["Alert Second"],
 							desc = L["Alert will be triggered when the remaining time is less than the set value."],
-							min = 0, max = 15000, step = 1
+							min = 0, max = 3600, step = 1,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
 						},
 						stopAlertIfCompleted = {
-							order = 5,
+							order = 7,
 							type = "toggle",
 							name = L["Stop Alert if Completed"],
 							desc = L["Stop alert when the event is completed in this week."],
-							width = 2
+							width = 2,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
 						},
 					}
 				},
