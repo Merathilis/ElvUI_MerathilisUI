@@ -23,20 +23,18 @@ module.VisibilityStates = {
 
 module.ReminderBuffs = {
 	Flask = {
-		-- BFA
-		251836,			-- Flask of the Currents (238 agi)
-		251837,			-- Flask of Endless Fathoms (238 int)
-		251838,			-- Flask of the Vast Horizon (357 sta)
-		251839,			-- Flask of the Undertow (238 str)
-		298836,			-- Greater Flask of the Currents
-		298837,			-- Greater Flask of Endless Fathoms
-		298839,			-- Greater Flask of the Vast Horizon
-		298841,			-- Greater Flask of the Undertow
+		-- Dragonflight
+		370652, -- Phial of Static Empowerment
+		370661, -- Phial of Icy Preservation
+		371172, -- Phial of Tepid Versatility
+		371186, -- Charged Phial of Alacrity
+		371204, -- Phial of Still Air
+		371339, -- Phial of Elemental Chaos
+		371354, -- Phial of the Eye in the Storm
+		371386, -- Phial of Charged Isolation
+		373257, -- Phial of Glacial Fury
+		374000, -- Iced Phial of Corrupting Rage
 
-		-- Shadowlands
-		307166,			-- Eternal FLask (190 stat)
-		307185,			-- Spectral Flask of Power (73 stat)
-		307187,			-- Spectral Flask of Stamina (109 sta)
 	},
 	DefiledAugmentRune = {
 		224001,			-- Defiled Augumentation (15 primary stat)
