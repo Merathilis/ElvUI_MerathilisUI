@@ -785,9 +785,9 @@ L["%s will be started in %s!"] = "%s wird starten in %s"
 L["Next Event"] = "Nächstes Event"
 L["Stop Alert if Completed"] = "Stoppe Alarm wenn komplett"
 L["Stop alert when the event is completed in this week."] = "Stoppe Alarm wenn es für diese Woche abgeschlossen ist"
-L["Alert Sound"] = true
-L["Play sound when the alert is triggered."] = true
-L["Sound File"] = true
+L["Alert Sound"] = "Alarmton"
+L["Play sound when the alert is triggered."] = "Ton abspielen, wenn der Alarm ausgelöst wird."
+L["Sound File"] = "Tondatei"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"
