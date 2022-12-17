@@ -7,7 +7,6 @@ local _G = _G
 local floor = floor
 local format = format
 local ipairs = ipairs
-local pairs = pairs
 local unpack = unpack
 
 local CreateFrame = CreateFrame
@@ -62,6 +61,13 @@ local function reskinStatusBar(bar)
 	bar:CreateBackdrop("Transparent")
 	bar:SetStatusBarTexture(E.media.normTex)
 	E:RegisterStatusBar(bar)
+end
+
+local function getGradientText(text, colorTable)
+	if not text or not colorTable then
+		return text
+	end
+	return E:TextGradient(text, colorTable[1].r, colorTable[1].g, colorTable[1].b, colorTable[2].r, colorTable[2].g, colorTable[2].b)
 end
 
 local functionFactory = {
@@ -171,10 +177,18 @@ local functionFactory = {
 					return
 				end
 
+				if self.args.filter and not self.args:filter() then
+					return
+				end
+
 				if self.timeLeft <= self.args.alertSecond then
 					self.args["alertCache"][self.nextEventIndex] = true
-					F.Print(format(L["%s will be started in %s!"], self.args.eventName, secondToTime(self.timeLeft)))
-					PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
+					local eventIconString = F.GetIconString(self.args.icon, 16, 16)
+					local gradientName = getGradientText(self.args.eventName, self.args.barColor)
+					F.Print(format( L["%s will be started in %s!"], eventIconString .. " " .. gradientName, secondToTime(self.timeLeft)))
+					if self.args.soundFile then
+						PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
+					end
 				end
 			end
 		},
@@ -230,6 +244,12 @@ local eventData = {
 			location = C_Map_GetMapInfo(2024).name,
 			label = L["Feast"],
 			runningText = L["Cooking"],
+			filter = function(args)
+				if args.stopAlertIfPlayerNotEnteredDragonlands and not C_QuestLog_IsQuestFlaggedCompleted(67700) then
+					return false
+				end
+				return true
+			end,
 			startTimestamp = (function()
 				local timestampTable = {
 					[1] = 1670776200, -- NA
@@ -261,6 +281,12 @@ local eventData = {
 			location = C_Map_GetMapInfo(2022).name,
 			barColor = colorPlatte.red,
 			runningText = L["In Progress"],
+			filter = function(args)
+				if args.stopAlertIfPlayerNotEnteredDragonlands and not C_QuestLog_IsQuestFlaggedCompleted(67700) then
+					return false
+				end
+				return true
+			end,
 			startTimestamp = (function()
 				local timestampTable = {
 					[1] = 1670770800, -- NA
@@ -369,21 +395,7 @@ function module:ConstructFrame()
 		return
 	end
 
-	local blizzard = not (E.private.skins.blizzard.enable and E.private.skins.blizzard.worldmap)
-
-	local frame = CreateFrame("Frame", "MER_EventTracker", _G.WorldMapFrame, blizzard and "TooltipBackdropTemplate")
-
-	if blizzard then
-		frame:SetPoint("TOPLEFT", _G.WorldMapFrame, "BOTTOMLEFT", -2, -3)
-		frame:SetPoint("TOPRIGHT", _G.WorldMapFrame, "BOTTOMRIGHT", 2, -3)
-	else
-		frame:SetPoint("TOPLEFT", _G.WorldMapFrame.backdrop, "BOTTOMLEFT", 0, -3)
-		frame:SetPoint("TOPRIGHT", _G.WorldMapFrame.backdrop, "BOTTOMRIGHT", 0, -3)
-
-		frame:SetTemplate("Transparent")
-		S:CreateShadowModule(frame)
-		frame:Styling()
-	end
+	local frame = CreateFrame("Frame", "WTEventTracker", _G.WorldMapFrame)
 
 	frame:SetHeight(30)
 	frame:SetFrameStrata("MEDIUM")
@@ -396,6 +408,39 @@ function module:UpdateTrackers()
 
 	self.frame:SetHeight(self.db.height)
 
+	self.frame:ClearAllPoints()
+	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.worldmap) then
+		self.frame:SetPoint("TOPLEFT", _G.WorldMapFrame, "BOTTOMLEFT", -2, self.db.yOffset)
+		self.frame:SetPoint("TOPRIGHT", _G.WorldMapFrame, "BOTTOMRIGHT", 2, self.db.yOffset)
+
+		if self.db.backdrop then
+			if not self.frame.backdrop then
+				self.frame.backdrop = CreateFrame("Frame", nil, self.frame, "TooltipBackdropTemplate")
+				self.frame.backdrop:SetAllPoints(self.frame)
+			end
+			self.frame.backdrop:Show()
+		else
+			if self.frame.backdrop then
+				self.frame.backdrop:Hide()
+			end
+		end
+	else
+		self.frame:SetPoint("TOPLEFT", _G.WorldMapFrame.backdrop, "BOTTOMLEFT", 1, self.db.yOffset)
+		self.frame:SetPoint("TOPRIGHT", _G.WorldMapFrame.backdrop, "BOTTOMRIGHT", -1, self.db.yOffset)
+
+		if self.db.backdrop then
+			if not self.frame.backdrop then
+				self.frame:CreateBackdrop("Transparent")
+				S:CreateShadowModule(self.frame.backdrop)
+			end
+			self.frame.backdrop:Show()
+		else
+			if self.frame.backdrop then
+				self.frame.backdrop:Hide()
+			end
+		end
+	end
+
 	local lastTracker = nil
 	for _, event in ipairs(eventList) do
 		local data = eventData[event]
@@ -406,12 +451,13 @@ function module:UpdateTrackers()
 			end
 
 			tracker.args.desaturate = self.db[data.dbKey].desaturate
-			tracker.args.soundFile = self.db[data.dbKey].soundFile
+			tracker.args.soundFile = self.db.sound and self.db[data.dbKey].soundFile
 
 			if self.db[data.dbKey].alert then
 				tracker.args.alert = true
 				tracker.args.alertSecond = self.db[data.dbKey].second
 				tracker.args.stopAlertIfCompleted = self.db[data.dbKey].stopAlertIfCompleted
+				tracker.args.stopAlertIfPlayerNotEnteredDragonlands = self.db[data.dbKey].stopAlertIfPlayerNotEnteredDragonlands
 			else
 				tracker.args.alertSecond = nil
 				tracker.args.stopAlertIfCompleted = nil

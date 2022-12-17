@@ -1099,6 +1099,8 @@ P.maps = {
 		desaturate = true,
 		spacing = 10,
 		height = 38,
+		yOffset = -3,
+		backdrop = true,
 		font = {
 			name = E.db.general.font,
 			scale = 1,
@@ -1111,7 +1113,8 @@ P.maps = {
 			sound = true,
 			soundFile = "OnePlus Surprise",
 			second = 600,
-			stopAlertIfCompleted = true
+			stopAlertIfCompleted = true,
+			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
 		siegeOnDragonbaneKeep = {
 			enable = true,
@@ -1120,7 +1123,8 @@ P.maps = {
 			sound = true,
 			soundFile = "OnePlus Surprise",
 			second = 600,
-			stopAlertIfCompleted = true
+			stopAlertIfCompleted = true,
+			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
 	},
 }

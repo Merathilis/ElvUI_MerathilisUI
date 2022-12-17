@@ -788,6 +788,9 @@ L["Stop alert when the event is completed in this week."] = "Stoppe Alarm wenn e
 L["Alert Sound"] = "Alarmton"
 L["Play sound when the alert is triggered."] = "Ton abspielen, wenn der Alarm ausgelöst wird."
 L["Sound File"] = "Tondatei"
+L["Only DF Character"] = "Nur Character in Dragonflight"
+L["Stop alert when the player have not entered Dragonlands yet."] = "Stopt den Alarm, wenn der Spieler noch nicht in Dragonflight angekommen ist."
+L["The offset of the frame from the bottom of world map. (Default is -3)"] = "Der Versatz vom Frame unter der Weltkarte. (Standard ist -3)"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"
