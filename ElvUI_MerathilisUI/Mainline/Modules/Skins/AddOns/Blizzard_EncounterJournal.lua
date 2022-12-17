@@ -58,25 +58,28 @@ local function LoadSkin()
 
 	local SuggestFrame = _G.EncounterJournalSuggestFrame
 	-- Suggestion 1
-	local suggestion = SuggestFrame.Suggestion1
-	suggestion.bg:Hide()
-	suggestion:SetTemplate('Transparent')
-	module:CreateGradient(suggestion.backdrop)
-	suggestion.icon:SetPoint("TOPLEFT", 135, -15)
+	local suggestion1 = SuggestFrame.Suggestion1
+	if suggestion1 then
+		suggestion1.bg:Hide()
+		suggestion1:SetTemplate('Transparent')
+		module:CreateGradient(suggestion1)
+		suggestion1.icon:SetPoint("TOPLEFT", 135, -15)
 
-	local centerDisplay = suggestion.centerDisplay
-	centerDisplay.title.text:SetTextColor(1, 1, 1)
-	centerDisplay.description.text:SetTextColor(.9, .9, .9)
+		local centerDisplay = suggestion1.centerDisplay
+		centerDisplay.title.text:SetTextColor(1, 1, 1)
+		centerDisplay.description.text:SetTextColor(.9, .9, .9)
 
-	local reward = suggestion.reward
-	reward.text:SetTextColor(.9, .9, .9)
+		local reward = suggestion1.reward
+		reward.text:SetTextColor(.9, .9, .9)
+	end
+
 
 	for i = 2, 3 do
 		local suggestion = SuggestFrame["Suggestion" .. i]
 
 		suggestion.bg:Hide()
 		suggestion:SetTemplate('Transparent')
-		module:CreateGradient(suggestion.backdrop)
+		module:CreateGradient(suggestion)
 		suggestion.icon:SetPoint("TOPLEFT", 10, -10)
 
 		local centerDisplay = suggestion.centerDisplay

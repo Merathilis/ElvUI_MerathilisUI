@@ -789,6 +789,9 @@ L["Stop alert when the event is completed in this week."] = true
 L["Alert Sound"] = true
 L["Play sound when the alert is triggered."] = true
 L["Sound File"] = true
+L["Only DF Character"] = true
+L["Stop alert when the player have not entered Dragonlands yet."] = true
+L["The offset of the frame from the bottom of world map. (Default is -3)"] = true
 
 -- SMB
 L["Minimap Buttons"] = true

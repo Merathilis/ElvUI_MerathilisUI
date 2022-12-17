@@ -926,6 +926,18 @@ options.maps = {
 							type = "range",
 							name = L["Spacing"],
 							min = 0, max = 20, step = 1
+						},
+						backdrop = {
+							order = 3,
+							type = "toggle",
+							name = L["Backdrop"]
+						},
+						yOffset = {
+							order = 4,
+							type = "range",
+							name = L["Y-Offset"],
+							desc = L["The offset of the frame from the bottom of world map. (Default is -3)"],
+							min = -300, max = 300, step = 1
 						}
 					}
 				},
@@ -1037,7 +1049,17 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end
-						}
+						},
+						stopAlertIfPlayerNotEnteredDragonlands = {
+							order = 8,
+							type = "toggle",
+							name = L["Only DF Character"],
+							desc = L["Stop alert when the player have not entered Dragonlands yet."],
+							width = 1.5,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
+						},
 					}
 				},
 				siegeOnDragonbaneKeep = {
@@ -1074,7 +1096,7 @@ options.maps = {
 							type = "toggle",
 							name = L["Alert Sound"],
 							hidden = function(info)
-								return not E.db.WT.maps.eventTracker[info[#info - 1]].alert
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end,
 							desc = L["Play sound when the alert is triggered"],
 							hidden = function(info)
@@ -1112,7 +1134,17 @@ options.maps = {
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end
 						},
-					}
+						stopAlertIfPlayerNotEnteredDragonlands = {
+							order = 8,
+							type = "toggle",
+							name = L["Only DF Character"],
+							desc = L["Stop alert when the player have not entered Dragonlands yet."],
+							width = 1.5,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
+						},
+					},
 				},
 			},
 		},

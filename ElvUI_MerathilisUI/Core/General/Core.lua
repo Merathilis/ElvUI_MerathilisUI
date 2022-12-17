@@ -161,7 +161,7 @@ function MER:FixGame()
 	end
 
 	-- Button Fix
-	if E.global.mui.core.fixCVAR then
+	if E.global.mui.core.cvarAlert then
 		self:RegisterEvent("CVAR_UPDATE", function(_, cvar, value)
 			if cvar == "ActionButtonUseKeyDown" and MER.UseKeyDown ~= (value == "1") then
 				E:StaticPopup_Show("MERATHILISUI_BUTTON_FIX_RELOAD")
