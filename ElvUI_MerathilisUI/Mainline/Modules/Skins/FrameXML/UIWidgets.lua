@@ -185,14 +185,6 @@ local function LoadSkin()
 
 		module:CreateBackdropShadow(bar)
 
-		if widget.Label then
-			F.SetFontOutline(widget.Label)
-		end
-
-		if bar.Label then
-			F.SetFontOutline(bar.Label)
-		end
-
 		if widget.isJailersTowerBar and module:CheckDB(nil, "scenario") then
 			bar:SetWidth(234)
 		end
