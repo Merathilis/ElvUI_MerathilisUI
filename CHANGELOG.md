@@ -1,6 +1,8 @@
 ### Changes ###
 
-  * Fixed an issue for the Siege Timer for NA Servers
-  * Updated Orderhall skin
-  * Increase MAX_QUESTS to 35 now
-  * Added an Event Tracker on the Minimap. Credits ElvUI_Windtools
+  * Use a Global Variable on AlreadyKnown
+  * Fixed an error on the Encounter Journal
+  * Added new Phial's to the RBReminder
+  * Changed the CVar Alert to default off
+  * Updated Event Tracker
+  * Removed some font settings on blizzards widgets

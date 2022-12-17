@@ -12,10 +12,12 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an issue for the Siege Timer for NA Servers",
-		"• Updated Orderhall skin",
-		"• Increase MAX_QUESTS to 35 now",
-		"• Fixed an issue on AutoButton to not return names",
+		"• Use a Global Variable on AlreadyKnown",
+		"• Fixed an error on the Encounter Journal",
+		"• Added new Phial's to the RBReminder",
+		"• Changed the CVar Alert to default off",
+		"• Updated Event Tracker",
+		"• Removed some font settings on blizzards widgets",
 		" ",
 
 	"Notes:",
