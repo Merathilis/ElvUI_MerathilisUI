@@ -74,16 +74,16 @@ options.gameFix = {
 			type = "header",
 			name = F.cOption(L["Blizzard Fixes"], 'orange'),
 		},
-		fixCVAR = {
+		cvarAlert = {
 			order = 1,
 			type = "toggle",
 			name = L["CVar Alert"],
 			desc = format(L["It will alert you to reload UI when you change the CVar %s."], "|cff209ceeActionButtonUseKeyDown|r"),
 			get = function(info)
-				return E.global.mui.core.fixCVAR
+				return E.global.mui.core.cvarAlert
 			end,
 			set = function(info, value)
-				E.global.mui.core.fixCVAR = value
+				E.global.mui.core.cvarAlert = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			width = "full"
