@@ -135,15 +135,12 @@ local function UpdateTimer()
 end
 hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 
-
 AFK.SetAFKMER = AFK.SetAFK
 function AFK:SetAFK(status)
 	self:SetAFKMER(status)
 	if E.db.mui.general.AFK ~= true then return end
 
 	local guildName = GetGuildInfo("player") or ""
-	local kit, vert, hei = F.GetConvCrest()
-	local adventuresEmblemFormat = "Adventures-EndCombat-%s"
 
 	if(status) then
 		if(IsInGuild()) then
@@ -153,16 +150,6 @@ function AFK:SetAFK(status)
 		else
 			if AFK.AFKMode.Guild then
 				AFK.AFKMode.Guild:SetText(L["No Guild"])
-			end
-		end
-
-		if E.Retail then
-			if kit then
-				if AFK.AFKMode.Panel then
-					AFK.AFKMode.Panel.crest:SetAtlas(adventuresEmblemFormat:format(kit), true)
-					AFK.AFKMode.Panel.crest:Point("BOTTOM", 0, vert or 14)
-					AFK.AFKMode.Panel.crest:Size(300, hei)
-				end
 			end
 		end
 
@@ -204,9 +191,12 @@ local function Initialize()
 		AFK.AFKMode.Panel.ignoreBackdropColors = true
 	end
 
-	if E.Retail and not AFK.AFKMode.Panel.crest then
+	if not AFK.AFKMode.Panel.crest then
 		AFK.AFKMode.Panel.crest = AFK.AFKMode.Panel:CreateTexture(nil, 'ARTWORK')
 		AFK.AFKMode.Panel.crest:SetDrawLayer('ARTWORK')
+		AFK.AFKMode.Panel.crest:Point("BOTTOM", AFK.AFKMode.Panel, "TOP", 0, -30)
+		AFK.AFKMode.Panel.crest:SetTexture(MER.Media.Textures.PepoBedge)
+		AFK.AFKMode.Panel.crest:Size(64)
 	end
 
 	AFK.AFKMode.MERVersion = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')

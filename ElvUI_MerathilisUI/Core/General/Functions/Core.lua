@@ -654,32 +654,6 @@ end
 MER:RegisterChatCommand("release", F.FixRelease)
 MER:RegisterChatCommand("repop", F.FixRelease)
 
--- Covenant Crest: Credits BenikUI
-function F.GetConvCrest()
-	if not E.Retail then return end
-
-	local covenantData = C_Covenants_GetCovenantData(C_Covenants_GetActiveCovenantID())
-	local kit = covenantData and covenantData.textureKit or nil
-
-	-- vertical position
-	local vky = kit == "Kyrian" and 0
-	local vve = kit == "Venthyr" and 18
-	local vni = kit == "NightFae" and 16
-	local vne = kit == "Necrolord" and 20
-
-	local vert = vky or vve or vni or vne
-
-	-- Height
-	local hky = kit == "Kyrian" and 150
-	local hve = kit == "Venthyr" and 120
-	local hni = kit == "NightFae" and 134
-	local hne = kit == "Necrolord" and 120
-
-	local hei = hky or hve or hni or hne
-
-	return kit, vert, hei
-end
-
 -- Icon Style
 function F.PixelIcon(self, texture, highlight)
 	if not self then return end
