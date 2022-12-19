@@ -812,7 +812,7 @@ function module:Initialize()
 	self:UpdateAltsTable()
 	self.db = E.db.mui.mail
 
-	if not self.db.enable or self.Initialized then
+	if not self.db.enable or self.Initialized or IsAddOnLoaded('Postal') then
 		return
 	end
 
