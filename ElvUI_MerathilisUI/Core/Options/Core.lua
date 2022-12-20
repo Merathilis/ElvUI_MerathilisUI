@@ -1,4 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local async = MER.Utilities.Async
 
 local format = format
 
@@ -29,7 +30,7 @@ MER.options = {
 	},
 	misc = {
 		order = 103,
-		name = E.NewSign..F.cOption(L["Misc"], 'gradient'),
+		name = F.cOption(L["Misc"], 'gradient'),
 		icon = MER.Media.Icons.more,
 		args = {},
 	},
@@ -121,4 +122,8 @@ function MER:OptionsCallback()
 			args = info.args
 		}
 	end
+
+	-- Data warmup
+	async.WithItemIDTable(E.db.mui.autoButtons.blackList, "key")
+	async.WithItemIDTable(E.db.mui.autoButtons.customList, "value")
 end

@@ -49,6 +49,10 @@ local colorPlatte = {
 		{ r = 0.92549, g = 0.00000, b = 0.54902, a = 1 },
 		{ r = 0.98824, g = 0.40392, b = 0.40392, a = 1 }
 	},
+	orange = {
+		{ r = 1, g = 0.23, b = 0.00, a = 1 },
+		{ r = 1, g = 0.48, b = 0.03, a = 1 }
+	},
 	running = {
 		{ r = 0.00000, g = 0.94902, b = 0.37647, a = 1 },
 		{ r = 0.01961, g = 0.45882, b = 0.90196, a = 1 }
@@ -237,7 +241,7 @@ local eventData = {
 			icon = 4687629,
 			type = "loopTimer",
 			questID = 70893,
-			duration = 15 * 60,
+			duration = 16 * 60,
 			interval = 3.5 * 60 * 60,
 			barColor = colorPlatte.blue,
 			eventName = L["Community Feast"],
@@ -274,7 +278,7 @@ local eventData = {
 			icon = 236469,
 			type = "loopTimer",
 			questID = 70866,
-			duration = 15 * 60,
+			duration = 10 * 60,
 			interval = 2 * 60 * 60,
 			eventName = L["Siege On Dragonbane Keep"],
 			label = L["Dragonbane Keep"],

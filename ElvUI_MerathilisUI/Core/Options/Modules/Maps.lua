@@ -20,7 +20,7 @@ local envs = {
 
 options.maps = {
 	type = "group",
-	name = E.NewSign..L["Maps"],
+	name = L["Maps"],
 	get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 	set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	disabled = function() return not E.private.general.minimap.enable end,
@@ -872,7 +872,7 @@ options.maps = {
 		eventTracker = {
 			order = 7,
 			type = "group",
-			name = E.NewSign..L["Event Tracker"],
+			name = L["Event Tracker"],
 			get = function(info)
 				return E.db.mui.maps.eventTracker[info[#info]]
 			end,

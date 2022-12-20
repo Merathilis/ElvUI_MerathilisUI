@@ -1,7 +1,6 @@
-[b][color=orange]v5.52[/color], 17.12.2022[/b][list]
-[*]Use a Global Variable on AlreadyKnown
-[*]Fixed an error on the Encounter Journal
-[*]Added new Phial's to the RBReminder
-[*]Changed the CVar Alert to default off
-[*]Updated Event Tracker
-[*]Removed some font settings on blizzards widgets[/list]
+[b][color=orange]v5.53[/color], 20.12.2022[/b][list]
+[*]Disabled KeyFeedback by default
+[*]Fixed a typo on LocPanel
+[*]Small updates to Event Tracker
+[*]New Texture on the AFK Screen <.<
+[*]Added Tooltip Icons for Toys, Mounts, Currencies & EquipSets[/list]

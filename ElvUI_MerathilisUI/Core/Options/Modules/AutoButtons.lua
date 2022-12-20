@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_AutoButtons')
 local options = MER.options.modules.args
+local async = MER.Utilities.Async
 local LSM = E.LSM
 
 local tinsert = table.insert
@@ -57,18 +58,11 @@ options.autoButtons = {
 						return ""
 					end,
 					set = function(_, value)
-						local function _set()
-							local itemID = tonumber(value)
-							local itemName = C_Item_GetItemNameByID(itemID)
-							if itemName then
-								tinsert(E.db.mui.autoButtons.customList, itemID)
-								module:UpdateBars()
-							else
-								error()
-							end
-						end
-
-						if not pcall(_set) then
+						local itemID = tonumber(value)
+						if async.WithItemID(itemID) then
+							tinsert(E.db.mui.autoButtons.customList, itemID)
+							module:UpdateBars()
+						else
 							F.Print(L["The item ID is invalid."])
 						end
 					end
@@ -87,9 +81,14 @@ options.autoButtons = {
 						local list = E.db.mui.autoButtons.customList
 						local result = {}
 						for key, value in pairs(list) do
-							local name = C_Item_GetItemNameByID(value)
-							local tex = C_Item_GetItemIconByID(value)
-							result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
+							async.WithItemID(
+								value,
+								function(item)
+									local name = item:GetItemName() or L["Unknown"]
+									local tex = item:GetItemIcon()
+									result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
+								end
+							)
 						end
 						return result
 					end
@@ -125,18 +124,11 @@ options.autoButtons = {
 						return ""
 					end,
 					set = function(_, value)
-						local function _set()
-							local itemID = tonumber(value)
-							local itemName = C_Item_GetItemNameByID(itemID)
-							if itemName then
-								E.db.mui.autoButtons.blackList[itemID] = true
-								return module:UpdateBars()
-							else
-								error()
-							end
-						end
-
-						if not pcall(_set) then
+						local itemID = tonumber(value)
+						if async.WithItemID(itemID) then
+							E.db.mui.autoButtons.blackList[itemID] = true
+							module:UpdateBars()
+						else
 							F.Print(L["The item ID is invalid."])
 						end
 					end
@@ -154,12 +146,14 @@ options.autoButtons = {
 					values = function()
 						local result = {}
 						for key in pairs(E.db.mui.autoButtons.blackList) do
-							local name = C_Item_GetItemNameByID(key)
-							local tex = C_Item_GetItemIconByID(key)
-							if not name then
-								name = C_Item_GetItemNameByID(key) or L["Unknown"]
-							end
-							result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
+							async.WithItemID(
+								key,
+								function(item)
+									local name = item:GetItemName() or L["Unknown"]
+									local tex = item:GetItemIcon()
+									result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
+								end
+							)
 						end
 						return result
 					end

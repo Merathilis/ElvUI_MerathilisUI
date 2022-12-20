@@ -722,3 +722,24 @@ options.announcement.args.keystone = {
 		}
 	}
 }
+
+options.announcement.args.general = {
+	order = 7,
+	type = "group",
+	name = L["General"],
+	get = function(info)
+		return E.db.mui.announcement[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.announcement[info[#info]] = value
+	end,
+	args = {
+		emoteFormat = {
+			order = 1,
+			type = "input",
+			name = L["Emote Format"],
+			desc = L["The text template used in emote channel."] .. "\n" .. format(L["Default is %s."], F.StringByTemplate(": %s", "info")),
+			width = 2
+		}
+	}
+}

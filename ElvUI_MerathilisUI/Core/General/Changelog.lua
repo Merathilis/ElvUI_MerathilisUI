@@ -12,12 +12,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Use a Global Variable on AlreadyKnown",
-		"• Fixed an error on the Encounter Journal",
-		"• Added new Phial's to the RBReminder",
-		"• Changed the CVar Alert to default off",
-		"• Updated Event Tracker",
-		"• Removed some font settings on blizzards widgets",
+		"• Disabled KeyFeedback by default",
+		"• Fixed a typo on LocPanel",
+		"• Small updates to Event Tracker",
+		"• New Texture on the AFK Screen <.<",
+		"• Added Tooltip Icons for Toys, Mounts, Currencies & EquipSets",
 		" ",
 
 	"Notes:",

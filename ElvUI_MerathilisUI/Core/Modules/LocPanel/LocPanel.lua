@@ -677,7 +677,7 @@ function module:PopulateDropdown(click)
 					tinsert(module.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
 					module:SpellList(module.Spells["portals"][faction], module.SecondaryMenu)
 					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
-					DD:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["DD_LocPanel"], MENU_WIDTH, module.db.portals.justify)
+					DD:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
 			end
 			if module.Spells["racials"][E.myrace] then

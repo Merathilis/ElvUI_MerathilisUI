@@ -17,15 +17,24 @@ local function LoadSkin()
 	CalendarFrame.backdrop:Styling()
 	module:CreateBackdropShadow(CalendarFrame)
 	_G.CalendarCreateEventFrame:Styling()
-	module:CreateBackdropShadow(_G.CalendarCreateEventFrame)
+	module:CreateShadow(_G.CalendarCreateEventFrame)
 	_G.CalendarViewHolidayFrame:Styling()
-	module:CreateBackdropShadow(_G.CalendarViewHolidayFrame)
+	module:CreateShadow(_G.CalendarViewHolidayFrame)
 	_G.CalendarViewEventFrame:Styling()
-	module:CreateBackdropShadow(_G.CalendarViewEventFrame)
+	module:CreateShadow(_G.CalendarViewEventFrame)
 	_G.CalendarMassInviteFrame:Styling()
-	module:CreateBackdropShadow(_G.CalendarMassInviteFrame)
+	module:CreateShadow(_G.CalendarMassInviteFrame)
 	_G.CalendarViewRaidFrame:Styling()
-	module:CreateBackdropShadow(_G.CalendarViewRaidFrame)
+	module:CreateShadow(_G.CalendarViewRaidFrame)
+
+	for index in next, _G.CLASS_SORT_ORDER do
+		local button = _G["CalendarClassButton" .. index]
+		if button then
+			module:CreateShadow(button)
+		end
+	end
+
+	module:CreateShadow(_G.CalendarClassTotalsButton)
 
 	for i = 1, 42 do
 		_G["CalendarDayButton"..i.."DarkFrame"]:SetAlpha(.5)

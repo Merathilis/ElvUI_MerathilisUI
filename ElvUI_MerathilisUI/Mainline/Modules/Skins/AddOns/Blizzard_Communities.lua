@@ -157,6 +157,10 @@ local function LoadSkin()
 	end
 
 	hooksecurefunc("GuildNewsButton_SetText", ModifyGuildNews)
+
+	local BossModel = _G.CommunitiesFrameGuildDetailsFrameNews.BossModel
+	module:CreateShadow(BossModel)
+	module:CreateShadow(BossModel.TextFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_Communities", LoadSkin)

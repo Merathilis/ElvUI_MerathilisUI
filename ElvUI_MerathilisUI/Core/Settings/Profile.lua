@@ -386,6 +386,7 @@ P.mail = {
 
 P.announcement = {
 	enable = true,
+	emoteFormat = ": %s",
 	quest = {
 		enable = false,
 		paused = true,
@@ -657,7 +658,7 @@ P.actionbars = {
 		},
 	},
 	keyfeedback = {
-		enable = true,
+		enable = false,
 		point = 'CENTER',
 		x = 0,
 		y = 0,
@@ -1111,7 +1112,7 @@ P.maps = {
 			desaturate = false,
 			alert = true,
 			sound = true,
-			soundFile = "OnePlus Surprise",
+			soundFile = "OnePlus Light",
 			second = 600,
 			stopAlertIfCompleted = true,
 			stopAlertIfPlayerNotEnteredDragonlands = true
@@ -1121,7 +1122,7 @@ P.maps = {
 			desaturate = false,
 			alert = true,
 			sound = true,
-			soundFile = "OnePlus Surprise",
+			soundFile = "OnePlus Light",
 			second = 600,
 			stopAlertIfCompleted = true,
 			stopAlertIfPlayerNotEnteredDragonlands = true
