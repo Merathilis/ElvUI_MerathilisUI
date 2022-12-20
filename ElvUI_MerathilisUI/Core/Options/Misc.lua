@@ -540,7 +540,7 @@ end
 options.alreadyKnown = {
 	order = 7,
 	type = "group",
-	name = E.NewSign..L["Already Known"],
+	name = L["Already Known"],
 	get = function(info)
 		return E.db.mui.misc.alreadyKnown[info[#info]]
 	end,
