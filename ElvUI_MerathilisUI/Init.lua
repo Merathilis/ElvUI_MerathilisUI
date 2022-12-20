@@ -107,6 +107,9 @@ MER.Modules.WidgetSkin = MER:NewModule('MER_WidgetSkin', 'AceHook-3.0', 'AceEven
 MER.Modules.WorldMap = MER:NewModule('MER_WorldMap', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.ZoneText = MER:NewModule('MER_ZoneText', 'AceHook-3.0')
 
+-- Utilities namespace
+MER.Utilities = {}
+
 -- Libraries
 do
 	MER.Libs = {}

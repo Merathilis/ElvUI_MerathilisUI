@@ -1069,6 +1069,9 @@ function module:CreateButton(name, barDB)
 
 	button:StyleButton()
 
+	S:CreateShadowModule(button)
+	S:BindShadowColorWithBorder(button.MERshadow, button)
+
 	return button
 end
 
