@@ -133,7 +133,7 @@ do
 		E:Delay(0.5, function()
 			if IsInGroup() then
 				cache = {}
-				module:SendUtilityConfig()
+				self:SendUtilityConfig()
 			end
 			waitSend = false
 		end)
