@@ -390,6 +390,7 @@ function module:Initialize()
 			_G.QUEST_TRACKER_MODULE,
 			_G.ACHIEVEMENT_TRACKER_MODULE,
 			_G.PROFESSION_RECIPE_TRACKER_MODULE,
+			-- _G.MONTHLY_ACTIVITIES_TRACKER_MODULE, -- 10.0.5
 		}
 
 		for _, module in pairs(trackerModules) do
