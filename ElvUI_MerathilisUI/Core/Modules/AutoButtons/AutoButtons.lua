@@ -821,6 +821,7 @@ local openableItems = {
 	201817,
 	201818,
 	202142,
+	202171,
 }
 
 local tbcOre = {
