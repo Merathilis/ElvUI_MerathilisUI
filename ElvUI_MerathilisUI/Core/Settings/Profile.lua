@@ -386,6 +386,7 @@ P.mail = {
 
 P.announcement = {
 	enable = true,
+	emoteFormat = ": %s",
 	quest = {
 		enable = false,
 		paused = true,
