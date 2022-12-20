@@ -220,9 +220,11 @@ AddMedia("arrowUp", "arrowUp.tga", "Textures")
 AddMedia("pepeSmall", "pepeSmall.tga", "Textures")
 AddMedia("ROLES", "UI-LFG-ICON-ROLES.tga", "Textures")
 AddMedia("exchange", "Exchange.tga", "Textures")
+AddMedia("Pushed", "pushed.tga", "Textures")
+
 AddMedia("PepeArt", "PepeArt.tga", "Textures")
 AddMedia("PepoLove", "pepoLove.tga", "Textures")
-AddMedia("Pushed", "pushed.tga", "Textures")
+AddMedia("PepoBedge", "bedge.tga", "Textures")
 
 AddMedia("flag", "flag.tga", "Textures")
 
@@ -311,7 +313,8 @@ LSM:Register("statusbar","Asphyxia", [[Interface\AddOns\ElvUI_MerathilisUI\Core\
 LSM:Register("statusbar","Simpy19", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\simpy_tex19.tga]])
 
 -- Sounds
-LSM:Register("sound","warning", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Sounds\warning.ogg]])
+LSM:Register("sound","warning",[[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Sounds\warning.ogg]])
+LSM:Register("sound","OnePlus Light",[[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Sounds\OnePlusLight.ogg]])
 
 -- Custom Textures
 E.media.roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\UI-LFG-ICON-ROLES]]

@@ -386,6 +386,7 @@ P.mail = {
 
 P.announcement = {
 	enable = true,
+	emoteFormat = ": %s",
 	quest = {
 		enable = false,
 		paused = true,
@@ -657,7 +658,7 @@ P.actionbars = {
 		},
 	},
 	keyfeedback = {
-		enable = true,
+		enable = false,
 		point = 'CENTER',
 		x = 0,
 		y = 0,
@@ -1092,6 +1093,39 @@ P.maps = {
 		scale = {
 			enable = true,
 			size = 1.24
+		},
+	},
+	eventTracker = {
+		enable = true,
+		desaturate = true,
+		spacing = 10,
+		height = 38,
+		yOffset = -3,
+		backdrop = true,
+		font = {
+			name = E.db.general.font,
+			scale = 1,
+			outline = "OUTLINE"
+		},
+		communityFeast = {
+			enable = true,
+			desaturate = false,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Light",
+			second = 600,
+			stopAlertIfCompleted = true,
+			stopAlertIfPlayerNotEnteredDragonlands = true
+		},
+		siegeOnDragonbaneKeep = {
+			enable = true,
+			desaturate = false,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Light",
+			second = 600,
+			stopAlertIfCompleted = true,
+			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
 	},
 }

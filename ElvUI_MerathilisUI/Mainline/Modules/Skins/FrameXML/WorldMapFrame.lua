@@ -10,6 +10,8 @@ local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 local C_QuestLog_GetMaxNumQuestsCanAccept = C_QuestLog.GetMaxNumQuestsCanAccept
 local hooksecurefunc = hooksecurefunc
 
+local MAX_QUESTS = 35 -- manually increase it
+
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
@@ -29,10 +31,10 @@ local function LoadSkin()
 	frame.text:SetTextColor(r, g, b)
 	frame.text:SetAllPoints()
 
-	frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()).."/"..C_QuestLog_GetMaxNumQuestsCanAccept().." "..L["Quests"])
+	frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()).."/"..--[[C_QuestLog_GetMaxNumQuestsCanAccept()]]MAX_QUESTS.." "..L["Quests"])
 
 	frame:SetScript("OnEvent", function(self, event)
-		frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()).."/"..C_QuestLog_GetMaxNumQuestsCanAccept().." "..L["Quests"])
+		frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()).."/"..--[[C_QuestLog_GetMaxNumQuestsCanAccept()]]MAX_QUESTS.." "..L["Quests"])
 	end)
 
 	if _G.QuestScrollFrame.Background then

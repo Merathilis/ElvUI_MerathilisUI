@@ -14,6 +14,8 @@ local C_QuestLog_GetTitleForQuestID = C_QuestLog.GetTitleForQuestID
 local CreateFrame = CreateFrame
 local ObjectiveTracker_Update = ObjectiveTracker_Update
 
+local MAX_QUESTS = 35
+
 local replaceRule = {}
 
 local function AddQuestTitleToReplaceRule(questID, text)
@@ -176,8 +178,8 @@ function module:ChangeQuestHeaderStyle()
 
 	local Text = _G.ObjectiveTrackerBlocksFrame and _G.ObjectiveTrackerBlocksFrame.QuestHeader and _G.ObjectiveTrackerBlocksFrame.QuestHeader.Text
 	if Text then
-		if NumQuests >= (_G.MAX_QUESTS - 5) then
-			Text:SetText(format("|Cffff0000%d/%d|r - %s", NumQuests, _G.MAX_QUESTS, _G.QUESTS_LABEL))
+		if NumQuests >= (MAX_QUESTS - 5) then
+			Text:SetText(format("|Cffff0000%d/%d|r - %s", NumQuests, MAX_QUESTS, _G.QUESTS_LABEL))
 		end
 	end
 
@@ -388,6 +390,7 @@ function module:Initialize()
 			_G.QUEST_TRACKER_MODULE,
 			_G.ACHIEVEMENT_TRACKER_MODULE,
 			_G.PROFESSION_RECIPE_TRACKER_MODULE,
+			-- _G.MONTHLY_ACTIVITIES_TRACKER_MODULE, -- 10.0.5
 		}
 
 		for _, module in pairs(trackerModules) do

@@ -765,6 +765,32 @@ L["Style Fog of War with special color."] = "Style Nebel des Krieges mit einer b
 L["Resize world map."] = "Größenveränderung der Weltkarte"
 L["LFG Queue"] = "LFG Warteschlange"
 L["Right click to switch expansion"] = "Rechtsklick um den Content umzuschalten"
+L["Add trackers for world events in the bottom of world map."] = "Tracker für Weltereignisse unten auf der Weltkarte hinzufügen."
+L["Alert"] = "Alarm"
+L["Alert Second"] = "Zweiter Alarm"
+L["Alert will be triggered when the remaining time is less than the set value."] = "Alarm wird ausgelöst, wenn die verbleibende Zeit unter dem eingestellten Wert liegt."
+L["Community Feast"] = "Gemeinschaftliches Festmahl"
+L["Cooking"] = "Kochen"
+L["Dragonbane Keep"] = "Drachenfluchfestung"
+L["Duration"] = "Dauer"
+L["Event Tracker"] = "Ereignis Tracker"
+L["Feast"] = "Festmahl"
+L["In Progress"] = "Im Gange"
+L["Location"] = "Standort"
+L["Siege On Dragonbane Keep"] = "Belagerung der Drachenfluchfestung"
+L["Status"] = true
+L["Waiting"] = "Warten"
+L["Weekly Reward"] = "Wöchentliche Belohnung"
+L["%s will be started in %s!"] = "%s wird starten in %s"
+L["Next Event"] = "Nächstes Event"
+L["Stop Alert if Completed"] = "Stoppe Alarm wenn komplett"
+L["Stop alert when the event is completed in this week."] = "Stoppe Alarm wenn es für diese Woche abgeschlossen ist"
+L["Alert Sound"] = "Alarmton"
+L["Play sound when the alert is triggered."] = "Ton abspielen, wenn der Alarm ausgelöst wird."
+L["Sound File"] = "Tondatei"
+L["Only DF Character"] = "Nur Character in Dragonflight"
+L["Stop alert when the player have not entered Dragonlands yet."] = "Stopt den Alarm, wenn der Spieler noch nicht in Dragonflight angekommen ist."
+L["The offset of the frame from the bottom of world map. (Default is -3)"] = "Der Versatz vom Frame unter der Weltkarte. (Standard ist -3)"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"
@@ -1160,8 +1186,8 @@ L["Top Left Offset Y"] = "Versatz oben links Y"
 L["Transparent"] = "Transparent"
 L["Style"] = "Stil"
 L["Height Mode"] = "Höhenmodus"
-L["Menu Title"] = true
-L["it shows when objective tracker is collapsed."] = true
+L["Menu Title"] = "Menütitel"
+L["it shows when objective tracker is collapsed."] = "Wird angezeigt, wenn der Ziel Tracker zusammengeklappt ist."
 
 
 -- Filter
