@@ -284,6 +284,16 @@ options.reset = {
 				end)
 			end
 		},
+		eventTracker = {
+			order = 9,
+			type = "execute",
+			name = L["Event Tracker"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Event Tracker"], nil, function()
+					E.db.mui.maps.eventTracker = P.maps.eventTracker
+				end)
+			end
+		},
 		spacer1 = {
 			order = 20,
 			type = "description",
