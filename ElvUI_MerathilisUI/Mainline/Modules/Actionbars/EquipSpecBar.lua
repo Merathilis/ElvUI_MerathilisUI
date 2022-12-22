@@ -223,8 +223,10 @@ function MAB:CreateEquipBar()
 		Button:Point("BOTTOM", i == 1 and EquipmentSets.Flyout or EquipmentSets.Button[i - 1], "TOP", 0, 3)
 		Button:SetScript("OnEnter", function(self)
 			local Name = C_EquipmentSet.GetEquipmentSetInfo(self:GetID())
-			_G.GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-			_G.GameTooltip:SetEquipmentSet(Name)
+			if Name then
+				_G.GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+				_G.GameTooltip:SetEquipmentSet(Name)
+			end
 		end)
 		Button:SetScript("OnClick", function(self)
 			local _, Icon, Index, IsEquipped = C_EquipmentSet.GetEquipmentSetInfo(self:GetID())
@@ -278,8 +280,8 @@ function MAB:CreateEquipBar()
 		local Index, SetEquipped = 1
 		for i = 1, C_EquipmentSet.GetNumEquipmentSets() do
 			local _, Icon, SpecIndex, IsEquipped = C_EquipmentSet.GetEquipmentSetInfo(i - 1)
-			self[i]:SetNormalTexture(GearTexture)
-			self[i]:SetID(i)
+			self[Index]:SetNormalTexture(GearTexture)
+			self[Index]:SetID(i)
 			if SpecIndex then
 				self[Index]:SetID(SpecIndex)
 				self[Index]:SetNormalTexture(Icon)
@@ -341,5 +343,5 @@ end
 
 function MAB:EquipSpecBar()
 	self:CreateSpecBar()
-	self:CreateEquipBar()
+	-- self:CreateEquipBar() -- Fix Me
 end
