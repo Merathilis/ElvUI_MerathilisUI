@@ -6,6 +6,7 @@
 	<Script file="Clique.lua"/>
 	<Script file="Immersion.lua"/>
 	<Script file="ls_Toasts.lua"/>
+	<Script file="OmniCD.lua"/>
 	<Script file="Pawn.lua"/>
 	<Script file="PremadeGroupsFilter.lua"/>
 	<Script file="RaiderIO.lua"/>

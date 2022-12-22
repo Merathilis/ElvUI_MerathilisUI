@@ -18,6 +18,7 @@ local DecorAddons = {
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
 	{"BugSack", L["BugSack"], "bs"},
 	{"Immersion", L["Immersion"], "imm"},
+	{"OmniCD", L["OmniCD"], "omniCD"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 	{"PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf"},
 	{"RaiderIO", L["RaiderIO"], "rio"},

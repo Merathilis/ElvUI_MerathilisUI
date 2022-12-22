@@ -240,6 +240,7 @@ V.skins = {
 		au = true,
 		imm = true,
 		rio = true,
+		omniCD = true,
 	},
 
 	embed = {
