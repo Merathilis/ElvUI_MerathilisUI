@@ -571,6 +571,15 @@ P.misc = {
 			b = 0
 		},
 	},
+	mute = {
+		enable = true,
+		mount = {
+		},
+		other = {
+			["Dragon"] = true,
+			["Jewelcrafting"] = false
+		}
+	}
 }
 
 P.nameHover = {

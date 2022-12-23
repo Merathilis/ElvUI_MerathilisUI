@@ -386,6 +386,13 @@ L["Channel"] = "Kanal"
 L["Keystone"] = "Schlüsselstein"
 L["Announce the new mythic keystone."] = "Kündige Deinen neuen mythischen Schlüsselstein an."
 L["Heroism/Bloodlust"] = "Heldentum/Blutlust"
+L["Mute"] = "Stummschalten"
+L["Disable some annoying sound effects."] = "Deaktiviert einige nervige Soundeffekte"
+L["Others"] = "Andere"
+L["Dragonriding"] = "Drachenreiten"
+L["Mute the sound of dragonriding."] = "Den Sound vom Drachenreiten stummschalten."
+L["Jewelcrafting"] = "Juwelenschleifen"
+L["Mute the sound of jewelcrafting."] = "Den Sound vom Juwelenschleifen stummschalten."
 
 -- Nameplates
 L["NamePlates"] = "Namensplaketten"

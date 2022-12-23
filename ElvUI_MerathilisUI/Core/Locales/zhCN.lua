@@ -388,6 +388,13 @@ L["Channel"] = true
 L["Keystone"] = true
 L["Announce the new mythic keystone."] = true
 L["Heroism/Bloodlust"] = true
+L["Mute"] = true
+L["Disable some annoying sound effects."] = true
+L["Others"] = true
+L["Dragonriding"] = true
+L["Mute the sound of dragonriding."] = true
+L["Jewelcrafting"] = true
+L["Mute the sound of jewelcrafting."] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
