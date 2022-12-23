@@ -576,7 +576,7 @@ P.misc = {
 		mount = {
 		},
 		other = {
-			["Dragon"] = true,
+			["Dragonriding"] = true,
 			["Jewelcrafting"] = false
 		}
 	}
