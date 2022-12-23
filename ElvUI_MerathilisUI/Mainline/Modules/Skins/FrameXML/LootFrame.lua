@@ -7,12 +7,12 @@ local hooksecurefunc = hooksecurefunc
 
 local C_LootHistory_GetNumItems = C_LootHistory.GetNumItems
 
-local function LootHistoryFrame_Update()
+function module:LootHistoryFrame_FullUpdate()
 	local numItems = C_LootHistory_GetNumItems()
 	for i = 1, numItems do
 		local frame = _G.LootHistoryFrame.itemFrames[i]
 		if frame and not frame.__MERSkin then
-			F.SetFontOutline(frame.WinnerRoll, nil, 13)
+			F.SetFontDB(frame.WinnerRoll, E.private.mui.skins.rollResult)
 			frame.__MERSkin = true
 		end
 	end
@@ -45,6 +45,8 @@ local function LoadSkin()
 		_G.ElvLootFrame:Styling()
 	end
 
+	module:SecureHook("LootHistoryFrame_FullUpdate")
+
 	-- Boss Banner
 	hooksecurefunc('BossBanner_ConfigureLootFrame', function(lootFrame)
 		if not lootFrame.__MERSkin then
@@ -61,8 +63,6 @@ local function LoadSkin()
 			lootFrame.__MERSkin = true
 		end
 	end)
-
-	hooksecurefunc('LootHistoryFrame_FullUpdate', LootHistoryFrame_Update)
 end
 
 S:AddCallback("LootFrame", LoadSkin)

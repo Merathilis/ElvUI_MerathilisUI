@@ -246,5 +246,16 @@ V.skins = {
 	embed = {
 		enable = false,
 		toggleDirection = 1,
-	}
+	},
+
+	errorMessage = {
+		name = E.db.general.font,
+		size = 15,
+		style = "OUTLINE"
+	},
+	rollResult = {
+		name = "Expressway",
+		size = 13,
+		style = "OUTLINE"
+	},
 }

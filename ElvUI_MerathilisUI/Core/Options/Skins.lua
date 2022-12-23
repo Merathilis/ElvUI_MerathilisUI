@@ -139,8 +139,106 @@ options.general = {
 	},
 }
 
-options.widgets = {
+options.font = {
 	order = 2,
+	type = "group",
+	name = E.NewSign..L["Fonts"],
+	args = {
+		errorMessage = {
+			order = 1,
+			type = "group",
+			inline = true,
+			name = L["Error Text"],
+			get = function(info)
+				return E.private.mui.skins.errorMessage[info[#info]]
+			end,
+			set = function(info, value)
+				E.private.mui.skins.errorMessage[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				header = {
+					order = 0,
+					type = 'header',
+					name = F.cOption(L["Error Text"], 'orange'),
+				},
+				name = {
+					order = 1,
+					type = "select",
+					dialogControl = "LSM30_Font",
+					name = L["Font"],
+					values = LSM:HashTable("font")
+				},
+				style = {
+					order = 2,
+					type = "select",
+					name = L["Outline"],
+					values = {
+						NONE = L["None"],
+						OUTLINE = L["OUTLINE"],
+						MONOCHROME = L["MONOCHROME"],
+						MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+						THICKOUTLINE = L["THICKOUTLINE"]
+					}
+				},
+				size = {
+					order = 3,
+					name = L["Size"],
+					type = "range",
+					min = 5, max = 60, step = 1
+				},
+			},
+		},
+		rollResult = {
+			order = 2,
+			type = "group",
+			inline = true,
+			name = L["Roll Result"],
+			get = function(info)
+				return E.private.mui.skins.rollResult[info[#info]]
+			end,
+			set = function(info, value)
+				E.private.mui.skins.rollResult[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				header = {
+					order = 0,
+					type = 'header',
+					name = F.cOption(L["Roll Result"], 'orange'),
+				},
+				name = {
+					order = 1,
+					type = "select",
+					dialogControl = "LSM30_Font",
+					name = L["Font"],
+					values = LSM:HashTable("font")
+				},
+				style = {
+					order = 2,
+					type = "select",
+					name = L["Outline"],
+					values = {
+						NONE = L["None"],
+						OUTLINE = L["OUTLINE"],
+						MONOCHROME = L["MONOCHROME"],
+						MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+						THICKOUTLINE = L["THICKOUTLINE"]
+					}
+				},
+				size = {
+					order = 3,
+					name = L["Size"],
+					type = "range",
+					min = 5, max = 60, step = 1
+				},
+			},
+		},
+	},
+}
+
+options.widgets = {
+	order = 3,
 	type = "group",
 	name = L["Widgets"],
 	disabled = function() return not E.private.mui.skins.enable end,
@@ -1286,7 +1384,7 @@ options.widgets = {
 }
 
 options.blizzard = {
-	order = 3,
+	order = 4,
 	type = "group",
 	name = L["Blizzard"],
 	get = function(info) return E.private.mui.skins.blizzard[ info[#info] ] end,
@@ -1762,7 +1860,7 @@ elseif E.Wrath then
 end
 
 options.addonskins = {
-	order = 4,
+	order = 5,
 	type = "group",
 	name = L["AddOnSkins"],
 	get = function(info) return E.private.mui.skins.addonSkins[ info[#info] ] end,
@@ -1793,7 +1891,7 @@ options.addonskins = {
 	},
 }
 
-local addorder = 5
+local addorder = 6
 for _, v in ipairs(DecorAddons) do
 	local addonName, addonString, addonOption, Notes = unpack(v)
 	options.addonskins.args[addonOption] = {
@@ -1806,7 +1904,7 @@ for _, v in ipairs(DecorAddons) do
 end
 
 options.addonskins.args.ace3 = {
-	order = 6,
+	order = 7,
 	type = "toggle",
 	name = L["Ace3"],
 	get = function(info) return E.private.mui.skins.addonSkins[ info[#info] ] end,
@@ -1814,7 +1912,7 @@ options.addonskins.args.ace3 = {
 }
 
 options.profiles = {
-	order = 5,
+	order = 8,
 	type = "group",
 	name = L["Profiles"],
 	args = {
@@ -1888,7 +1986,7 @@ for _, v in ipairs(SupportedProfiles) do
 end
 
 options.Embed = {
-	order = 6,
+	order = 9,
 	type = "group",
 	name = L["Embed Settings"],
 	get = function(info) return E.private.mui.skins.embed[info[#info]] end,
