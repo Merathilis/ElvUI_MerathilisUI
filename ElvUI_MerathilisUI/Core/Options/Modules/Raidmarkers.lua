@@ -163,6 +163,7 @@ options.raidmarkers = {
 			set = function(info, value)
 				E.db.mui.raidmarkers[info[#info]] = value
 				module:UpdateBar()
+				module:UpdateCountDownButton()
 			end,
 			disabled = function()
 				return not E.db.mui.raidmarkers.enable
