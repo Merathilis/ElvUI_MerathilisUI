@@ -294,6 +294,16 @@ options.reset = {
 				end)
 			end
 		},
+		bigWigsSkin = {
+			order = 10,
+			type = "execute",
+			name = L["BigWigs Skin"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["BigWigs Skin"], nil, function()
+					E.private.mui.skins.addonSkins.bw = V.skins.addonSkins.bw
+				end)
+			end
+		},
 		spacer1 = {
 			order = 20,
 			type = "description",

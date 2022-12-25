@@ -222,7 +222,6 @@ V.skins = {
 		ace3 = true,
 		ace3DropdownBackdrop = true,
 		abp = true,
-		bw = true,
 		xiv = true,
 		bui = true,
 		bs = true,
@@ -241,6 +240,35 @@ V.skins = {
 		imm = true,
 		rio = true,
 		omniCD = true,
+		bw = {
+			enable = true,
+			queueTimer = {
+				enable = true,
+				smooth = true,
+				spark = true,
+				colorLeft = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 },
+				colorRight = { r = 0.25882, g = 0.84314, b = 0.86667, a = 1 },
+				countDown = {
+					name = "Expressway",
+					size = 16,
+					style = "OUTLINE"
+				},
+			},
+			normalBar = {
+				smooth = true,
+				spark = true,
+				colorOverride = true,
+				colorLeft = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 },
+				colorRight = { r = 0.25882, g = 0.84314, b = 0.86667, a = 1 }
+			},
+			emphasizedBar = {
+				smooth = true,
+				spark = true,
+				colorOverride = true,
+				colorLeft = { r = 1, g = 0.23, b = 0.0, a = 1 },
+				colorRight = { r = 1, g = 0.48, b = 0.03, a = 1 }
+			},
+		},
 	},
 
 	embed = {

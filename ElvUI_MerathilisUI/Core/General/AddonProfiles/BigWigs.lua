@@ -93,6 +93,7 @@ function MER:LoadBigWigsProfile()
 		["growup"] = true,
 		["emphasizeGrowup"] = true,
 		["texture"] = "Asphyxia",
+		["spacing"] = 15,
 	}
 	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] or {}
 	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"][profileName] = {

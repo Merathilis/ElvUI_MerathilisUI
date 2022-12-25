@@ -36,16 +36,16 @@ local function LoadSkin()
 
 	_G.LootHistoryFrame:Styling()
 	module:CreateShadow(_G.LootHistoryFrame)
-	_G.LootHistoryFrame:SetWidth(300)
 	module:CreateShadow(_G.LootHistoryFrame.ResizeButton)
-	_G.LootHistoryFrame.ResizeButton:SetWidth(300)
 	_G.LootHistoryFrame.ResizeButton:SetTemplate('Transparent')
+	-- _G.LootHistoryFrame:SetWidth(300)
+	-- _G.LootHistoryFrame.ResizeButton:SetWidth(300)
 
 	if E.private.general.loot then
 		_G.ElvLootFrame:Styling()
 	end
 
-	module:SecureHook("LootHistoryFrame_FullUpdate")
+	-- module:SecureHook("LootHistoryFrame_FullUpdate")
 
 	-- Boss Banner
 	hooksecurefunc('BossBanner_ConfigureLootFrame', function(lootFrame)
