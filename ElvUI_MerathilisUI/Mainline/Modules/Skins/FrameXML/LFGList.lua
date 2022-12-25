@@ -32,6 +32,8 @@ local function LoadSkin()
 
 	local LFGListFrame = _G.LFGListFrame
 
+	S:HandleButton(_G.LFGListFrame.SearchPanel.ScrollBox.StartGroupButton)
+
 	-- Category selection
 	local CategorySelection = LFGListFrame.CategorySelection
 
@@ -45,7 +47,6 @@ local function LoadSkin()
 			if not bu.__MERSkin then
 				bu.Icon:SetTexCoord(.01, .99, .01, .99)
 				module:CreateGradient(bu)
-
 				bu.__MERSkin = true
 			end
 		end
