@@ -447,7 +447,7 @@ function module:UpdateLayout()
 			frame:SetPoint(anchor, self.bar, anchor, offsetX, offsetY)
 		end
 
-		if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
+		if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable and frame.backdrop.MERshadow then
 			if not self.db.backdrop then
 				frame.backdrop.MERshadow:Show()
 			else

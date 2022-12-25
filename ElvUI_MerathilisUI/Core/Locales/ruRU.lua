@@ -1143,6 +1143,26 @@ L["LevelUp Display"] = "Отображение повышения уровня"
 L["Guide Frame"] = "Рамка руководства"
 L["Weekly Rewards"] = "Еженедельные награды"
 L["Misc"] = "Разное"
+L["%s is not loaded."] = true
+L["BigWigs Bars"] = true
+L["BigWigs Skin"] = true
+L["Color Override"] = true
+L["Emphasized Bar"] = true
+L["Gradient color of the left part of the bar."] = true
+L["Gradient color of the right part of the bar."] = true
+L["How to change BigWigs bar style:"] = true
+L["Left Color"] = true
+L["Normal Bar"] = true
+L["Open BigWigs Options UI with /bw > Bars > Style."] = true
+L["Override the bar color."] = true
+L["Queue Timer"] = true
+L["Right Color"] = true
+L["Show spark on the bar."] = true
+L["Smooth"] = true
+L["Smooth the bar animation with ElvUI."] = true
+L["Spark"] = true
+L["The options below are only for BigWigs %s bar style."] = true
+L["You need to manually set the bar style to %s in BigWigs first."] = true
 
 -- Panels
 L["Panels"] = "Панели"
