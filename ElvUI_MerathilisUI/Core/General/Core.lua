@@ -49,6 +49,10 @@ MER.RegisteredModules = {}
 
 MER.UseKeyDown = C_CVar_GetCVarBool("ActionButtonUseKeyDown")
 
+local LBG = LibStub("LibButtonGlow-1.0")
+F.ShowOverlayGlow = LBG.ShowOverlayGlow
+F.HideOverlayGlow = LBG.HideOverlayGlow
+
 E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
 	text = format(
 		"%s\n%s\n\n|cffaaaaaa%s|r",

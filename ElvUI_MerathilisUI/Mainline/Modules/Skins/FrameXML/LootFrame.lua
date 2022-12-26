@@ -5,6 +5,19 @@ local S = E:GetModule('Skins')
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 
+local C_LootHistory_GetNumItems = C_LootHistory.GetNumItems
+
+function module:LootHistoryFrame_FullUpdate()
+	local numItems = C_LootHistory_GetNumItems()
+	for i = 1, numItems do
+		local frame = _G.LootHistoryFrame.itemFrames[i]
+		if frame and not frame.__MERSkin then
+			F.SetFontDB(frame.WinnerRoll, E.private.mui.skins.rollResult)
+			frame.__MERSkin = true
+		end
+	end
+end
+
 local function HideIconBG(anim)
 	anim.__owner.Icon.backdrop:SetAlpha(0)
 end
@@ -20,12 +33,19 @@ local function LoadSkin()
 
 	_G.BonusRollFrame:Styling()
 	module:CreateShadow(_G.BonusRollFrame)
+
 	_G.LootHistoryFrame:Styling()
 	module:CreateShadow(_G.LootHistoryFrame)
+	module:CreateShadow(_G.LootHistoryFrame.ResizeButton)
+	_G.LootHistoryFrame.ResizeButton:SetTemplate('Transparent')
+	-- _G.LootHistoryFrame:SetWidth(300)
+	-- _G.LootHistoryFrame.ResizeButton:SetWidth(300)
 
 	if E.private.general.loot then
 		_G.ElvLootFrame:Styling()
 	end
+
+	-- module:SecureHook("LootHistoryFrame_FullUpdate")
 
 	-- Boss Banner
 	hooksecurefunc('BossBanner_ConfigureLootFrame', function(lootFrame)

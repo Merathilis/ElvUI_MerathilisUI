@@ -69,8 +69,9 @@ local FeastList = {
 	[308458] = true,
 	[308462] = true,
 	[359336] = true,
+	[382423] = true,
 	[382427] = true,
-	[383063] = true,
+    [383063] = true,
 }
 
 local PortalList = {

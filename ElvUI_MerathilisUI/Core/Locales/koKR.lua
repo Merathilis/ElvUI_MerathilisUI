@@ -384,6 +384,13 @@ L["Channel"] = true
 L["Keystone"] = true
 L["Announce the new mythic keystone."] = true
 L["Heroism/Bloodlust"] = true
+L["Mute"] = true
+L["Disable some annoying sound effects."] = true
+L["Others"] = true
+L["Dragonriding"] = true
+L["Mute the sound of dragonriding."] = true
+L["Jewelcrafting"] = true
+L["Mute the sound of jewelcrafting."] = true
 
 -- Nameplates
 L["NamePlates"] = true
@@ -1125,6 +1132,26 @@ L["LevelUp Display"] = true
 L["Guide Frame"] = true
 L["Weekly Rewards"] = true
 L["Misc"] = true
+L["%s is not loaded."] = true
+L["BigWigs Bars"] = true
+L["BigWigs Skin"] = true
+L["Color Override"] = true
+L["Emphasized Bar"] = true
+L["Gradient color of the left part of the bar."] = true
+L["Gradient color of the right part of the bar."] = true
+L["How to change BigWigs bar style:"] = true
+L["Left Color"] = true
+L["Normal Bar"] = true
+L["Open BigWigs Options UI with /bw > Bars > Style."] = true
+L["Override the bar color."] = true
+L["Queue Timer"] = true
+L["Right Color"] = true
+L["Show spark on the bar."] = true
+L["Smooth"] = true
+L["Smooth the bar animation with ElvUI."] = true
+L["Spark"] = true
+L["The options below are only for BigWigs %s bar style."] = true
+L["You need to manually set the bar style to %s in BigWigs first."] = true
 
 -- Panels
 L["Panels"] = true

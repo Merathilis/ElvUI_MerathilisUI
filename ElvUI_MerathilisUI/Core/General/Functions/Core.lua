@@ -231,6 +231,15 @@ do
 	end
 end
 
+-- Glow Parent
+function F:CreateGlowFrame(size)
+	local frame = CreateFrame("Frame", nil, self)
+	frame:SetPoint("CENTER")
+	frame:SetSize(size + 4, size + 4)
+
+	return frame
+end
+
 -- LocPanel
 function F.GetIconFromID(type, id)
 	local path

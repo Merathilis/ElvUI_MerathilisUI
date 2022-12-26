@@ -30,13 +30,13 @@ MER.options = {
 	},
 	misc = {
 		order = 103,
-		name = F.cOption(L["Misc"], 'gradient'),
+		name = E.NewSign..F.cOption(L["Misc"], 'gradient'),
 		icon = MER.Media.Icons.more,
 		args = {},
 	},
 	skins = {
 		order = 104,
-		name = F.cOption(L["Skins/AddOns"], 'gradient'),
+		name = E.NewSign..F.cOption(L["Skins/AddOns"], 'gradient'),
 		icon = MER.Media.Icons.bill,
 		args = {},
 	},

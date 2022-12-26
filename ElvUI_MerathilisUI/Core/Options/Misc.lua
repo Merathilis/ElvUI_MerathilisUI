@@ -5,6 +5,7 @@ local MI = MER:GetModule('MER_Misc')
 local SA = MER:GetModule('MER_SpellAlert')
 local CU = MER:GetModule('MER_Cursor')
 local LL = MER:GetModule('MER_LFGInfo')
+local async = MER.Utilities.Async
 local LSM = E.LSM
 
 local _G = _G
@@ -381,41 +382,31 @@ options.lfgInfo = {
 					order = 4,
 					type = "range",
 					name = L["Width"],
-					min = 1,
-					max = 20,
-					step = 1
+					min = 1, max = 20, step = 1
 				},
 				height = {
 					order = 4,
 					type = "range",
 					name = L["Height"],
-					min = 1,
-					max = 20,
-					step = 1
+					min = 1, max = 20, step = 1
 				},
 				offsetX = {
 					order = 5,
 					type = "range",
 					name = L["X-Offset"],
-					min = -20,
-					max = 20,
-					step = 1
+					min = -20, max = 20, step = 1
 				},
 				offsetY = {
 					order = 6,
 					type = "range",
 					name = L["Y-Offset"],
-					min = -20,
-					max = 20,
-					step = 1
+					min = -20, max = 20, step = 1
 				},
 				alpha = {
 					order = 7,
 					type = "range",
 					name = L["Alpha"],
-					min = 0,
-					max = 1,
-					step = 0.01
+					min = 0, max = 1, step = 0.01
 				},
 			},
 		},
@@ -619,3 +610,134 @@ options.alreadyKnown = {
 		}
 	}
 }
+
+options.mute = {
+	order = 8,
+	type = "group",
+	name = E.NewSign..L["Mute"],
+	args = {
+		desc = {
+			order = 1,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = L["Disable some annoying sound effects."],
+					fontSize = "medium"
+				}
+			}
+		},
+		enable = {
+			order = 2,
+			type = "toggle",
+			name = L["Enable"],
+			get = function(info)
+				return E.db.mui.misc.mute.enable
+			end,
+			set = function(info, value)
+				E.db.mui.misc.misc.mute.enable = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end
+		},
+		mount = {
+			order = 3,
+			type = "group",
+			inline = true,
+			name = L["Mount"],
+			get = function(info)
+				return E.db.mui.misc.misc.mute[info[#info - 1]][tonumber(info[#info])]
+			end,
+			set = function(info, value)
+				E.db.mui.misc.misc.mute[info[#info - 1]][tonumber(info[#info])] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {}
+		},
+		other = {
+			order = 4,
+			type = "group",
+			inline = true,
+			name = L["Others"],
+			get = function(info)
+				return E.db.mui.misc.mute[info[#info - 1]][info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.misc.mute[info[#info - 1]][info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				["Dragonriding"] = {
+					order = 1,
+					type = "toggle",
+					name = L["Dragonriding"],
+					desc = L["Mute the sound of dragonriding."],
+					width = 1.3
+				},
+				["Jewelcrafting"] = {
+					order = 2,
+					type = "toggle",
+					name = L["Jewelcrafting"],
+					desc = L["Mute the sound of jewelcrafting."],
+					width = 1.3
+				}
+			}
+		}
+	}
+}
+
+do
+	for id in pairs(P.misc.mute.mount) do
+		async.WithSpellID(
+			id,
+			function(spell)
+				local icon = spell:GetSpellTexture()
+				local name = spell:GetSpellName()
+
+				local iconString = F.GetIconString(icon, 12, 12)
+
+				options.mute.args.mount.args[tostring(id)] = {
+					order = id,
+					type = "toggle",
+					name = iconString .. " " .. name,
+					width = 1.5
+				}
+			end
+		)
+	end
+
+	local itemList = {
+		["Smolderheart"] = {
+			id = 180873,
+			desc = nil
+		},
+		["Elegy of the Eternals"] = {
+			id = 188270,
+			desc = "|cffff3860" .. L["It will also affect the crying sound of all female Blood Elves."] .. "|r"
+		}
+	}
+
+	for name, data in pairs(itemList) do
+		async.WithItemID(
+			data.id,
+			function(item)
+				local icon = item:GetItemIcon()
+				local name = item:GetItemName()
+				local color = item:GetItemQualityColor()
+
+				local iconString = F.GetIconString(icon)
+				local nameString = F.CreateColorString(name, color)
+
+				options.mute.args.other.args[name] = {
+					order = data.id,
+					type = "toggle",
+					name = iconString .. " " .. nameString,
+					desc = data.desc,
+					width = 1.3
+				}
+			end
+		)
+	end
+end

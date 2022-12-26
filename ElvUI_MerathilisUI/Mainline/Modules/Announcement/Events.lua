@@ -33,6 +33,8 @@ function module:COMBAT_LOG_EVENT_UNFILTERED()
 end
 
 function module:PLAYER_ENTERING_WORLD()
+	self.playerEnteredWorld = true
+	self:Quest()
 	E:Delay(2, self.Keystone, self, "PLAYER_ENTERING_WORLD")
 	E:Delay(4, self.ResetAuthority, self)
 end
@@ -42,6 +44,9 @@ function module:CHALLENGE_MODE_COMPLETED()
 end
 
 function module:QUEST_LOG_UPDATE()
+	if not self.playerEnteredWorld then
+		return
+	end
 	self:Quest()
 end
 

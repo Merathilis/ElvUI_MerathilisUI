@@ -83,6 +83,22 @@ function module:RaiderIO_DelayedSkinning()
 	end
 end
 
+function module:RaiderIO_GuildWeeklyFrame()
+	E:Delay(0.15, function()
+		if _G.RaiderIO_GuildWeeklyFrame then
+			local frame = _G.RaiderIO_GuildWeeklyFrame
+			frame:StripTextures()
+			frame:SetTemplate("Transparent")
+			F.SetFontOutline(frame.Title)
+			frame.Title:SetShadowColor(0, 0, 0, 0)
+			F.SetFontOutline(frame.SubTitle)
+			frame.SubTitle:SetShadowColor(0, 0, 0, 0)
+			frame.SwitchGuildBest:SetSize(18, 18)
+			S:HandleCheckBox(frame.SwitchGuildBest)
+		end
+	end)
+end
+
 function module:RaiderIO()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.rio then
 		return
@@ -90,6 +106,7 @@ function module:RaiderIO()
 
 	module:DisableAddOnSkin("RaiderIO")
 	module:AddCallbackForEnterWorld("RaiderIO_DelayedSkinning")
+	module:SecureHook(_G.PVEFrame, "Show", "RaiderIO_GuildWeeklyFrame")
 end
 
 module:AddCallbackForAddon("RaiderIO")

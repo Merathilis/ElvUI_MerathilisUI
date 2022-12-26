@@ -571,6 +571,15 @@ P.misc = {
 			b = 0
 		},
 	},
+	mute = {
+		enable = true,
+		mount = {
+		},
+		other = {
+			["Dragonriding"] = true,
+			["Jewelcrafting"] = false
+		}
+	}
 }
 
 P.nameHover = {
@@ -682,7 +691,7 @@ local function Potions()
 	elseif E.Wrath then
 		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
-		return ",POTIONSDF,FLASKDF,RUNEDF,UTILITY"
+		return "POTIONSDF,FLASKDF,RUNEDF,UTILITY"
 	end
 end
 
