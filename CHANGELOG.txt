@@ -1,6 +1,7 @@
-[b][color=orange]v5.53[/color], 20.12.2022[/b][list]
-[*]Disabled KeyFeedback by default
-[*]Fixed a typo on LocPanel
-[*]Small updates to Event Tracker
-[*]New Texture on the AFK Screen <.<
-[*]Added Tooltip Icons for Toys, Mounts, Currencies & EquipSets[/list]
+[b][color=orange]v5.54[/color], 26.12.2022[/b][list]
+[*]Updated BigWigs Skins with new Options. You need to set the spacing to 15 inside of BigWigs on the Bars
+[*]Added an OmniCD Skin
+[*]Added Font options for some skin elements
+[*]Added a Mute Module to mute some annyoing sounds
+[*]Added a new glow for NewItems in Bags
+[*]Fix a possible nil error with EquipSets in Bags[/list]
