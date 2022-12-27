@@ -12,7 +12,24 @@ function module:LootHistoryFrame_FullUpdate()
 	for i = 1, numItems do
 		local frame = _G.LootHistoryFrame.itemFrames[i]
 		if frame and not frame.__MERSkin then
+			frame:SetWidth(256)
 			F.SetFontDB(frame.WinnerRoll, E.private.mui.skins.rollResult)
+			frame.__MERSkin = true
+		end
+	end
+
+	for _, frame in pairs(_G.LootHistoryFrame.unusedPlayerFrames) do
+		if frame and not frame.__MERSkin then
+			frame:SetWidth(256)
+			F.SetFontDB(frame.RollText, E.private.mui.skins.rollResult)
+			frame.__MERSkin = true
+		end
+	end
+
+	for _, frame in pairs(_G.LootHistoryFrame.usedPlayerFrames) do
+		if frame and not frame.__MERSkin then
+			frame:SetWidth(256)
+			F.SetFontDB(frame.RollText, E.private.mui.skins.rollResult)
 			frame.__MERSkin = true
 		end
 	end
@@ -38,14 +55,15 @@ local function LoadSkin()
 	module:CreateShadow(_G.LootHistoryFrame)
 	module:CreateShadow(_G.LootHistoryFrame.ResizeButton)
 	_G.LootHistoryFrame.ResizeButton:SetTemplate('Transparent')
-	-- _G.LootHistoryFrame:SetWidth(300)
-	-- _G.LootHistoryFrame.ResizeButton:SetWidth(300)
+	_G.LootHistoryFrame:SetWidth(300)
+	_G.LootHistoryFrame.ResizeButton:SetWidth(300)
+
+	module:SecureHook("LootHistoryFrame_FullUpdate")
 
 	if E.private.general.loot then
 		_G.ElvLootFrame:Styling()
 	end
 
-	-- module:SecureHook("LootHistoryFrame_FullUpdate")
 
 	-- Boss Banner
 	hooksecurefunc('BossBanner_ConfigureLootFrame', function(lootFrame)
