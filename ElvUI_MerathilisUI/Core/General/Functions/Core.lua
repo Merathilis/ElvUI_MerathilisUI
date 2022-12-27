@@ -640,29 +640,6 @@ SlashCmdList["WOWVERSION"] = function()
 	print("Patch:", MER.WoWPatch..", ".. "Build:", MER.WoWBuild..", ".. "Released", MER.WoWPatchReleaseDate..", ".. "Interface:", MER.TocVersion)
 end
 
--- Chat command to remove Heirlooms from the bags
-function F.CleanupHeirlooms()
-	for bag = 0, 4 do
-		for slot = 1, GetContainerNumSlots(bag) do
-			local name = GetContainerItemLink(bag, slot)
-			if name and find(name, "00ccff") then
-				F.Print(L["Removed: "]..name)
-				PickupContainerItem(bag, slot)
-				DeleteCursorItem()
-			end
-		end
-	end
-end
-MER:RegisterChatCommand("cleanboa", F.CleanupHeirlooms)
-
--- Fixes the issue when the dialog to release spirit does not come up.
-function F.FixRelease()
-	RetrieveCorpse()
-	RepopMe()
-end
-MER:RegisterChatCommand("release", F.FixRelease)
-MER:RegisterChatCommand("repop", F.FixRelease)
-
 -- Icon Style
 function F.PixelIcon(self, texture, highlight)
 	if not self then return end
