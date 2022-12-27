@@ -287,6 +287,7 @@ function module:BigWigs_QueueTimer()
 				local parent = frame:GetParent()
 				frame:StripTextures()
 				frame:CreateBackdrop("Transparent")
+				frame.backdrop:Styling()
 				self:CreateBackdropShadow(frame)
 
 				E:SetSmoothing(frame, db.smooth)
