@@ -21,7 +21,6 @@ local JoinPermanentChannel = JoinPermanentChannel
 local VoiceTranscriptionFrame_UpdateEditBox = VoiceTranscriptionFrame_UpdateEditBox
 local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateVisibility
 local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
-local GetLocale = GetLocale
 local LOOT = LOOT
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
@@ -115,7 +114,7 @@ local function SetupChat()
 	FCF_ResetChatWindows()
 
 	-- Join LFG channel in Classic and TBC (English client only)
-	if not E.Retail and GetLocale() == 'enUS' then
+	if not E.Retail and MER.Locale == 'enUS' then
 		JoinPermanentChannel('LookingForGroup')
 		ChatFrame_AddChannel(_G.ChatFrame1, 'LookingForGroup')
 	end

@@ -11,7 +11,6 @@ local unpack = unpack
 
 local CreateFrame = CreateFrame
 local GetCurrentRegion = GetCurrentRegion
-local GetLocale = GetLocale
 local GetServerTime = GetServerTime
 local PlaySoundFile = PlaySoundFile
 
@@ -264,7 +263,7 @@ local eventData = {
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
-				if region == 2 and GetLocale() ~= "koKR" then
+				if region == 2 and MER.Locale ~= "koKR" then
 					region = 4
 				end
 
@@ -301,7 +300,7 @@ local eventData = {
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
-				if region == 2 and GetLocale() ~= "koKR" then
+				if region == 2 and MER.Locale ~= "koKR" then
 					region = 4
 				end
 

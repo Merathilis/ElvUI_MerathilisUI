@@ -22,6 +22,7 @@ MER.IsWrath = select(4, GetBuildInfo()) >= 30400
 MER.IsNewPatch = select(4, GetBuildInfo()) >= 100000 -- 10.0
 MER.IsPTR = select(4, GetBuildInfo()) == 100002 -- 10.0.2
 
+MER.Locale = GetLocale()
 MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
 
 -- Masque support
