@@ -615,6 +615,7 @@ options.mute = {
 	order = 8,
 	type = "group",
 	name = E.NewSign..L["Mute"],
+	hidden = not E.Retail,
 	args = {
 		desc = {
 			order = 1,
@@ -703,6 +704,7 @@ options.mute = {
 }
 
 do
+	if not E.Retail then return end
 	for id in pairs(P.misc.mute.mount) do
 		async.WithSpellID(
 			id,
