@@ -638,7 +638,7 @@ options.mute = {
 				return E.db.mui.misc.mute.enable
 			end,
 			set = function(info, value)
-				E.db.mui.misc.misc.mute.enable = value
+				E.db.mui.misc.mute.enable = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end
 		},
@@ -648,10 +648,10 @@ options.mute = {
 			inline = true,
 			name = L["Mount"],
 			get = function(info)
-				return E.db.mui.misc.misc.mute[info[#info - 1]][tonumber(info[#info])]
+				return E.db.mui.misc.mute[info[#info - 1]][tonumber(info[#info])]
 			end,
 			set = function(info, value)
-				E.db.mui.misc.misc.mute[info[#info - 1]][tonumber(info[#info])] = value
+				E.db.mui.misc.mute[info[#info - 1]][tonumber(info[#info])] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {}
@@ -669,15 +669,29 @@ options.mute = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
-				["Dragonriding"] = {
+				["Tortollan"] = {
 					order = 1,
+					type = "toggle",
+					name = L["Tortollan"],
+					width = 1.3
+				},
+				["Crying"] = {
+					order = 2,
+					type = "toggle",
+					name = L["Crying"],
+					desc = L["Mute crying sounds of all races."] ..
+						"\n|cffff3860" .. L["It will affect the cry emote sound."] .. "|r",
+					width = 1.3
+				},
+				["Dragonriding"] = {
+					order = 3,
 					type = "toggle",
 					name = L["Dragonriding"],
 					desc = L["Mute the sound of dragonriding."],
 					width = 1.3
 				},
 				["Jewelcrafting"] = {
-					order = 2,
+					order = 4,
 					type = "toggle",
 					name = L["Jewelcrafting"],
 					desc = L["Mute the sound of jewelcrafting."],

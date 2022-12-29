@@ -574,8 +574,16 @@ P.misc = {
 	mute = {
 		enable = true,
 		mount = {
+			[63796] = false,
+			[229385] = false,
+			[339588] = false,
+			[312762] = false
 		},
 		other = {
+			["Crying"] = false,
+			["Tortollan"] = false,
+			["Smolderheart"] = false,
+			["Elegy of the Eternals"] = false,
 			["Dragonriding"] = true,
 			["Jewelcrafting"] = false
 		}
