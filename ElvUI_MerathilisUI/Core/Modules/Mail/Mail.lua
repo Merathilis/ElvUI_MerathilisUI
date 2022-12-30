@@ -123,14 +123,51 @@ function module:ShowContextText(button)
 	}
 
 	if not button.class then
-		tinsert(menu, {text = L["Remove From Favorites"], func = function() if button.name then E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = nil self:ChangeCategory("FAVORITE") end end, notCheckable = true})
+		tinsert(
+			menu,
+			{
+				text = L["Remove From Favorites"],
+				func = function()
+					if button.realm then
+						E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = nil
+						self:ChangeCategory("FAVORITE")
+					end
+				end,
+				notCheckable = true
+			}
+		)
 	else
-		tinsert(menu, {text = L["Add To Favorites"], func = function() if button.name then E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = true end end, notCheckable = true})
+		if button.dType and button.dType == "alt" then
+			tinsert(
+				menu,
+				{
+					text = L["Remove This Alt"],
+					func = function()
+						E.global.mui.mail.contacts.alts[button.realm][button.faction][button.name] = nil
+						self:BuildAltsData()
+						self:UpdatePage(currentPageIndex)
+					end,
+					notCheckable = true
+				}
+			)
+		end
+
+		tinsert(
+			menu,
+			{
+				text = L["Add To Favorites"],
+				func = function()
+					if button.realm then
+						E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = true
+					end
+				end,
+				notCheckable = true
+			}
+		)
 	end
 
 	EasyMenu(menu, self.contextMenuFrame, "cursor", 0, 0, "MENU")
 end
-
 
 function module:ConstructFrame()
 	if self.frame then
@@ -383,6 +420,7 @@ function module:UpdatePage(pageIndex)
 			local temp = data[(pageIndex - 1) * 14 + i]
 			local button = self.frame.nameButtons[i]
 			if temp then
+				button.dType = temp.dType
 				if temp.memberIndex then -- Only get guild member info if needed
 					local fullname, _, _, _, _, _, _, _, _, _, className = GetGuildRosterInfo(temp.memberIndex)
 					local name, realm = F.SplitString("-", fullname)
@@ -402,6 +440,7 @@ function module:UpdatePage(pageIndex)
 				button:SetText(button.class and F.CreateClassColorString(button.name, button.class) or button.name)
 				button:Show()
 			else
+				button.dType = nil
 				button:Hide()
 			end
 		end
@@ -462,7 +501,7 @@ function module:BuildAltsData()
 		for faction, characters in pairs(factions) do
 			for name, class in pairs(characters) do
 				if not (name == E.myname and realm == E.myrealm) then
-					tinsert(data,{name = name, realm = realm, class = class, faction = faction})
+					tinsert(data, { name = name, realm = realm, class = class, faction = faction, dType = "alt" })
 				end
 			end
 		end
@@ -479,7 +518,7 @@ function module:BuildFriendsData()
 		if info.connected then
 			local name, realm = F.SplitString("-", info.name)
 			realm = realm or E.myrealm
-			tinsert(data, {name = name, realm = realm, class = GetNonLocalizedClass(info.className)})
+			tinsert(data, { name = name, realm = realm, class = GetNonLocalizedClass(info.className), dType = "friend" })
 			tempKey[name .. "-" .. realm] = true
 		end
 	end
@@ -500,7 +539,9 @@ function module:BuildFriendsData()
 							gameAccountInfo.factionName == E.myfaction and
 							not tempKey[gameAccountInfo.characterName .. "-" .. gameAccountInfo.realmName]
 					 then
-						tinsert(data, {name = gameAccountInfo.characterName, realm = gameAccountInfo.realmName, class = GetNonLocalizedClass(gameAccountInfo.className), BNName = accountInfo.accountName})
+						tinsert(data,
+							{ name = gameAccountInfo.characterName, realm = gameAccountInfo.realmName,
+								class = GetNonLocalizedClass(gameAccountInfo.className), BNName = accountInfo.accountName, dType = "bnfriend" })
 					end
 				end
 			elseif
@@ -509,7 +550,10 @@ function module:BuildFriendsData()
 					accountInfo.gameAccountInfo.factionName == E.myfaction and
 					not tempKey[accountInfo.gameAccountInfo.characterName .. "-" .. accountInfo.gameAccountInfo.realmName]
 			 then
-				tinsert(data, {name = accountInfo.gameAccountInfo.characterName, realm = accountInfo.gameAccountInfo.realmName, class = GetNonLocalizedClass(accountInfo.gameAccountInfo.className), BNName = accountInfo.accountName})
+				tinsert(data,
+					{ name = accountInfo.gameAccountInfo.characterName, realm = accountInfo.gameAccountInfo.realmName,
+						class = GetNonLocalizedClass(accountInfo.gameAccountInfo.className), BNName = accountInfo.accountName,
+						dType = "bnfriend" })
 			end
 		end
 	end
@@ -524,7 +568,13 @@ function module:BuildGuildData()
 
 	local totalMembers = GetNumGuildMembers()
 	for i = 1, totalMembers do
-		tinsert(data, {memberIndex = i})
+		tinsert(
+			data,
+			{
+				memberIndex = i,
+				dType = "guild"
+			}
+		)
 	end
 end
 
@@ -534,7 +584,7 @@ function module:BuildFavoriteData()
 	for fullName in pairs(E.global.mui.mail.contacts.favorites) do
 		local name, realm = F.SplitString("-", fullName)
 		realm = realm or E.myrealm
-		tinsert(data, {name = name, realm = realm})
+		tinsert(data, { name = name, realm = realm, dType = "favorite" })
 	end
 end
 
