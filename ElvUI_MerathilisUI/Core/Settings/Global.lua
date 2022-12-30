@@ -18,3 +18,7 @@ G.mail = {
 G.bags = {
 	CustomJunkList = {}
 }
+
+G.maps = {
+	eventTracker = {}
+}

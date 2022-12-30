@@ -239,6 +239,7 @@ L["Toggle Contacts"] = true
 L["Online Friends"] = true
 L["Add To Favorites"] = true
 L["Remove From Favorites"] = true
+L["Remove This Alt"] = true
 
 -- MicroBar
 L["Backdrop"] = true
@@ -804,6 +805,16 @@ L["Sound File"] = true
 L["Only DF Character"] = true
 L["Stop alert when the player have not entered Dragonlands yet."] = true
 L["The offset of the frame from the bottom of world map. (Default is -3)"] = true
+L["Alert Timeout"] = true
+L["All nets can be collected"] = true
+L["Can be collected"] = true
+L["Can be set"] = true
+L["Fishing Net"] = true
+L["Fishing Nets"] = true
+L["Iskaaran Fishing Net"] = true
+L["Net #%d"] = true
+L["Net %s can be collected"] = true
+L["No Nets Set"] = true
 
 -- SMB
 L["Minimap Buttons"] = true

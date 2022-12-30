@@ -233,6 +233,7 @@ L["Toggle Contacts"] = "연락처 토글"
 L["Online Friends"] = "접속 중인 친구들"
 L["Add To Favorites"] = "즐겨찾기에 추가"
 L["Remove From Favorites"] = "즐겨 찾기에서 삭제하기"
+L["Remove This Alt"] = true
 
 -- MicroBar
 L["Backdrop"] = "배경"
@@ -797,6 +798,16 @@ L["Sound File"] = true
 L["Only DF Character"] = true
 L["Stop alert when the player have not entered Dragonlands yet."] = true
 L["The offset of the frame from the bottom of world map. (Default is -3)"] = true
+L["Alert Timeout"] = true
+L["All nets can be collected"] = true
+L["Can be collected"] = true
+L["Can be set"] = true
+L["Fishing Net"] = true
+L["Fishing Nets"] = true
+L["Iskaaran Fishing Net"] = true
+L["Net #%d"] = true
+L["Net %s can be collected"] = true
+L["No Nets Set"] = true
 
 -- SMB
 L["Minimap Buttons"] = "미니맵 버튼 통합 바"

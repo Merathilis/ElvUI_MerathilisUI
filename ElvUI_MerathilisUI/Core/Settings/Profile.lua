@@ -1144,6 +1144,13 @@ P.maps = {
 			stopAlertIfCompleted = true,
 			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
+		iskaaranFishingNet = {
+			enable = true,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Surprise",
+			disableAlertAfterHours = 48,
+		}
 	},
 }
 
