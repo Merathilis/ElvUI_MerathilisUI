@@ -1029,7 +1029,7 @@ local moduleList = {
 	["POTIONSWRATH"] = wrathPotions,
 	["FLASKWRATH"] = wrathFlasks,
 	["ELIXIRWRATH"] = wrathElixirs,
-	["POTIONSDF"] = potionsDragonflight,
+	["POTIONDF"] = potionsDragonflight,
 	["FLASKDF"] = flasksDragonflight,
 	["FOODDF"] = foodDragonflight,
 }
