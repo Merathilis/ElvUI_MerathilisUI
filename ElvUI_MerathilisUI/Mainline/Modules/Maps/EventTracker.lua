@@ -360,15 +360,15 @@ local functionFactory = {
 
 				if self.netTable then
 					for netIndex, timeLeft in pairs(self.netTable) do
-						if type(timeLeft) == "string" and timeLeft == "NOT_STARTED" then
-							tinsert(notStarted, netIndex)
-						else
-							if type(timeLeft) == "number" then
-								if timeLeft <= 0 then
-									tinsert(done, netIndex)
-								else
-									tinsert(waiting, netIndex)
-								end
+						if type(timeLeft) == "string" then
+							if timeLeft == "NOT_STARTED" then
+								tinsert(notStarted, netIndex)
+							end
+						elseif type(timeLeft) == "number" then
+							if timeLeft <= 0 then
+								tinsert(done, netIndex)
+							else
+								tinsert(waiting, netIndex)
 							end
 						end
 					end
@@ -426,10 +426,28 @@ local functionFactory = {
 
 					E:StopFlash(self.runningTip)
 				else
-					tip = F.StringByTemplate(L["No Nets Set"], "danger")
 					self.timerText:SetText("")
+					self.statusBar:GetStatusBarTexture():SetGradient(
+						"HORIZONTAL",
+						F.CreateColorFromTable(colorPlatte.running[1]),
+						F.CreateColorFromTable(colorPlatte.running[2])
+					)
 					self.statusBar:SetMinMaxValues(0, 1)
-					self.statusBar:SetValue(0)
+
+					if #done > 0 then
+						local netsText = ""
+						for i = 1, #done do
+							netsText = netsText .. "#" .. done[i]
+							if i ~= #done then
+								netsText = netsText .. ", "
+							end
+						end
+						tip = F.StringByTemplate(format(L["Net %s can be collected"], netsText), "success")
+						self.statusBar:SetValue(1)
+					else
+						tip = F.StringByTemplate(L["No Nets Set"], "danger")
+						self.statusBar:SetValue(0)
+					end
 
 					E:StopFlash(self.runningTip)
 				end
@@ -626,11 +644,11 @@ local eventData = {
 						end
 
 						local map = C_Map_GetBestMapForUnit("player")
-						local position = C_Map_GetPlayerMapPosition(map, "player")
-						if map ~= 2022 then
+						if not map or map ~= 2022 then
 							return
 						end
 
+						local position = C_Map_GetPlayerMapPosition(map, "player")
 						local lengthMap = {}
 
 						for i, netPos in ipairs(env.fishingNetPosition) do

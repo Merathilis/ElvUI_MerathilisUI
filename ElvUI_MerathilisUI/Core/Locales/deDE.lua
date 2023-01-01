@@ -808,7 +808,7 @@ L["Fishing Nets"] = "Fischnetze"
 L["Iskaaran Fishing Net"] = "Iskaaran Fischnetz"
 L["Net #%d"] = "Netz #%d"
 L["Net %s can be collected"] = "Netz %s kann eingesammelt werden"
-L["No Nets Set"] = "Keine Netze gesetzt"
+L["No Nets Set"] = "Keine Netze ausgelegt"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"
