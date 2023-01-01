@@ -1083,15 +1083,17 @@ function module:CreateButton(name, barDB)
 	button.bind = bind
 	button.cooldown = cooldown
 
-	button.SetTier = function(self, itemIDOrLink)
-		local level = C_TradeSkillUI_GetItemReagentQualityByItemInfo(itemIDOrLink) or C_TradeSkillUI_GetItemCraftedQualityByItemInfo(itemIDOrLink)
+	if E.Retail then
+		button.SetTier = function(self, itemIDOrLink)
+			local level = C_TradeSkillUI_GetItemReagentQualityByItemInfo(itemIDOrLink) or C_TradeSkillUI_GetItemCraftedQualityByItemInfo(itemIDOrLink)
 
-		if not level or level == 0 then
-			self.qualityTier:SetText("")
-			self.qualityTier:Hide()
-		else
-			self.qualityTier:SetText(CreateAtlasMarkup(format("Professions-Icon-Quality-Tier%d-Small", level)))
-			self.qualityTier:Show()
+			if not level or level == 0 then
+				self.qualityTier:SetText("")
+				self.qualityTier:Hide()
+			else
+				self.qualityTier:SetText(CreateAtlasMarkup(format("Professions-Icon-Quality-Tier%d-Small", level)))
+				self.qualityTier:Show()
+			end
 		end
 	end
 
@@ -1119,7 +1121,9 @@ function module:SetUpButton(button, itemData, slotID)
 	async.WithItemID(itemData.itemID, function(item)
 			button.itemName = item:GetItemName()
 			button.tex:SetTexture(item:GetItemIcon())
-			button:SetTier(itemData.itemID)
+			if E.Retail then
+				button:SetTier(itemData.itemID)
+			end
 		end)
 	elseif slotID then
 		button.slotID = slotID
@@ -1133,7 +1137,9 @@ function module:SetUpButton(button, itemData, slotID)
 				button:SetBackdropBorderColor(color.r, color.g, color.b)
 			end
 
-			button:SetTier(item:GetItemID())
+			if E.Retail then
+				button:SetTier(item:GetItemID())
+			end
 		end)
 	end
 
