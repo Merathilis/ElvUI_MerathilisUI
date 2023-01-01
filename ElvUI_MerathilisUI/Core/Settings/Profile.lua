@@ -870,6 +870,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -912,6 +917,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,

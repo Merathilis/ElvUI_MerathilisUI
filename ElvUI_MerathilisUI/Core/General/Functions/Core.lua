@@ -46,7 +46,9 @@ function F.SetFontDB(text, db)
 		return
 	end
 
-	text:FontTemplate(LSM:Fetch("font", db.name), db.size, db.style)
+	local fontName, fontHeight = text:GetFont()
+
+	text:FontTemplate(db.name and LSM:Fetch("font", db.name) or fontName, db.size or fontHeight, db.style or "NONE")
 end
 
 function F.SetFontColorDB(text, db)
