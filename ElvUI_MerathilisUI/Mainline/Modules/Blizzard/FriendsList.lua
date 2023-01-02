@@ -210,7 +210,7 @@ local function GetClassColor(className)
 		end
 	end
 
-	if GetLocale() == "deDE" or GetLocale() == "frFR" then
+	if MER.Locale == "deDE" or MER.Locale == "frFR" then
 		for class, localizedName in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
 			if className == localizedName then
 				return C_ClassColor_GetClassColor(class)

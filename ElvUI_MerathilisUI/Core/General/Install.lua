@@ -21,7 +21,6 @@ local JoinPermanentChannel = JoinPermanentChannel
 local VoiceTranscriptionFrame_UpdateEditBox = VoiceTranscriptionFrame_UpdateEditBox
 local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateVisibility
 local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
-local GetLocale = GetLocale
 local LOOT = LOOT
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
@@ -75,17 +74,22 @@ local function SetupCVars()
 	end
 
 	if F.IsDeveloper() then
-		SetCVar('taintLog', 1)
-		SetCVar('maxFPS', 165)
-		SetCVar('maxFPSBk', 60)
-		SetCVar('maxFPSLoading', 30)
-		SetCVar('violenceLevel', 5)
-		SetCVar('blockTrades', 0)
-		SetCVar('RAIDweatherDensity', 0)
-		SetCVar('weatherDensity', 0)
-		SetCVar('SpellQueueWindow', 180)
-		SetCVar('floatingCombatTextCombatDamageDirectionalScale', 1)
-		SetCVar('autoOpenLootHistory', 1)
+		C_CVar.SetCVar('taintLog', 1)
+		C_CVar.SetCVar('maxFPS', 165)
+		C_CVar.SetCVar('maxFPSBk', 60)
+		C_CVar.SetCVar('maxFPSLoading', 30)
+		C_CVar.SetCVar('violenceLevel', 5)
+		C_CVar.SetCVar('blockTrades', 0)
+		C_CVar.SetCVar('RAIDweatherDensity', 0)
+		C_CVar.SetCVar('weatherDensity', 0)
+		C_CVar.SetCVar('SpellQueueWindow', 180)
+		C_CVar.SetCVar('floatingCombatTextCombatDamageDirectionalScale', 1)
+		C_CVar.SetCVar('autoOpenLootHistory', 1)
+
+		C_CVar.SetCVar('showTutorials', 0)
+		C_CVar.SetCVar('showNPETutorials', 0)
+		C_CVar.SetCVar('hideAdventureJournalAlerts', 1)
+		C_CVar.RegisterCVar('hideHelptips', 1)
 	else
 		SetCVar('taintLog', 0)
 	end
@@ -115,7 +119,7 @@ local function SetupChat()
 	FCF_ResetChatWindows()
 
 	-- Join LFG channel in Classic and TBC (English client only)
-	if not E.Retail and GetLocale() == 'enUS' then
+	if not E.Retail and MER.Locale == 'enUS' then
 		JoinPermanentChannel('LookingForGroup')
 		ChatFrame_AddChannel(_G.ChatFrame1, 'LookingForGroup')
 	end

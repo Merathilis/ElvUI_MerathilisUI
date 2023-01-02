@@ -19,6 +19,7 @@ local wipe = wipe
 
 local CooldownFrame_Set = CooldownFrame_Set
 local CreateFrame = CreateFrame
+local CreateAtlasMarkup = CreateAtlasMarkup
 local GameTooltip = _G.GameTooltip
 local GetBindingKey = GetBindingKey
 local GetInventoryItemCooldown = GetInventoryItemCooldown
@@ -35,6 +36,8 @@ local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog and C_QuestLog.GetNumQuestLogEntries
+local C_TradeSkillUI_GetItemCraftedQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemCraftedQualityByItemInfo
+local C_TradeSkillUI_GetItemReagentQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemReagentQualityByItemInfo
 
 module.bars = {}
 
@@ -814,6 +817,7 @@ local openableItems = {
 	200095,
 	200468,
 	200513,
+	200515,
 	200516,
 	201754,
 	201755,
@@ -822,6 +826,7 @@ local openableItems = {
 	201818,
 	202142,
 	202171,
+	202080,
 }
 
 local tbcOre = {
@@ -1028,7 +1033,7 @@ local moduleList = {
 	["POTIONSWRATH"] = wrathPotions,
 	["FLASKWRATH"] = wrathFlasks,
 	["ELIXIRWRATH"] = wrathElixirs,
-	["POTIONSDF"] = potionsDragonflight,
+	["POTIONDF"] = potionsDragonflight,
 	["FLASKDF"] = flasksDragonflight,
 	["FOODDF"] = foodDragonflight,
 }
@@ -1047,6 +1052,16 @@ function module:CreateButton(name, barDB)
 	tex:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", -1, 1)
 	tex:SetTexCoord(unpack(E.TexCoords))
 
+	local qualityTier = button:CreateFontString(nil, "OVERLAY")
+	qualityTier:SetTextColor(1, 1, 1, 1)
+	qualityTier:SetPoint("TOPLEFT", button, "TOPLEFT")
+	qualityTier:SetJustifyH("CENTER")
+	F.SetFontDB(qualityTier, {
+		size = barDB.qualityTier.size,
+		name = E.db.general.font,
+		style = "OUTLINE"
+	})
+
 	local count = button:CreateFontString(nil, "OVERLAY")
 	count:SetTextColor(1, 1, 1, 1)
 	count:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT")
@@ -1063,9 +1078,24 @@ function module:CreateButton(name, barDB)
 	E:RegisterCooldown(cooldown)
 
 	button.tex = tex
+	button.qualityTier = qualityTier
 	button.count = count
 	button.bind = bind
 	button.cooldown = cooldown
+
+	if E.Retail then
+		button.SetTier = function(self, itemIDOrLink)
+			local level = C_TradeSkillUI_GetItemReagentQualityByItemInfo(itemIDOrLink) or C_TradeSkillUI_GetItemCraftedQualityByItemInfo(itemIDOrLink)
+
+			if not level or level == 0 then
+				self.qualityTier:SetText("")
+				self.qualityTier:Hide()
+			else
+				self.qualityTier:SetText(CreateAtlasMarkup(format("Professions-Icon-Quality-Tier%d-Small", level)))
+				self.qualityTier:Show()
+			end
+		end
+	end
 
 	button:StyleButton()
 
@@ -1075,34 +1105,40 @@ function module:CreateButton(name, barDB)
 	return button
 end
 
-function module:SetUpButton(button, questItemData, slotID)
+function module:SetUpButton(button, itemData, slotID)
 	button.itemName = nil
 	button.itemID = nil
 	button.spellName = nil
 	button.slotID = nil
 	button.countText = nil
 
-	if questItemData then
-		button.itemID = questItemData.itemID
-		button.countText = GetItemCount(questItemData.itemID, nil, true)
-		button.questLogIndex = questItemData.questLogIndex
+	if itemData then
+		button.itemID = itemData.itemID
+		button.countText = GetItemCount(itemData.itemID, nil, true)
+		button.questLogIndex = itemData.questLogIndex
 		button:SetBackdropBorderColor(0, 0, 0)
 
-		async.WithItemID( questItemData.itemID, function(item)
+	async.WithItemID(itemData.itemID, function(item)
 			button.itemName = item:GetItemName()
 			button.tex:SetTexture(item:GetItemIcon())
+			if E.Retail then
+				button:SetTier(itemData.itemID)
+			end
 		end)
 	elseif slotID then
 		button.slotID = slotID
 		async.WithItemSlotID(slotID, function(item)
-			if button.slotID == slotID then
-				button.itemName = item:GetItemName()
-				button.tex:SetTexture(item:GetItemIcon())
+			button.itemName = item:GetItemName()
+			button.tex:SetTexture(item:GetItemIcon())
 
-				local color = item:GetItemQualityColor()
-				if color then
-					button:SetBackdropBorderColor(color.r, color.g, color.b)
-				end
+			local color = item:GetItemQualityColor()
+
+			if color then
+				button:SetBackdropBorderColor(color.r, color.g, color.b)
+			end
+
+			if E.Retail then
+				button:SetTier(item:GetItemID())
 			end
 		end)
 	end
@@ -1114,6 +1150,7 @@ function module:SetUpButton(button, questItemData, slotID)
 	end
 
 	local OnUpdateFunction
+
 	if button.itemID then
 		OnUpdateFunction = function(self)
 			local start, duration, enable
@@ -1126,9 +1163,9 @@ function module:SetUpButton(button, questItemData, slotID)
 			if (duration and duration > 0 and enable and enable == 0) then
 				self.tex:SetVertexColor(0.4, 0.4, 0.4)
 			elseif IsItemInRange(self.itemID, "target") == false then
-				self.tex:SetVertexColor(1, 0, 0, 1)
+				self.tex:SetVertexColor(1, 0, 0)
 			else
-				self.tex:SetVertexColor(1, 1, 1, 1)
+				self.tex:SetVertexColor(1, 1, 1)
 			end
 		end
 	elseif button.slotID then
@@ -1153,10 +1190,13 @@ function module:SetUpButton(button, questItemData, slotID)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, barDB.fadeTime or 0.3 * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
+			E:UIFrameFadeIn(
+				bar,
+				barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent,
+				barDB.alphaMax
+			)
 		end
-		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
-		GameTooltip:ClearLines()
 
 		if barDB.tooltip then
 			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
@@ -1185,26 +1225,34 @@ function module:SetUpButton(button, questItemData, slotID)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, barDB.fadeTime or 0.3 * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
+			E:UIFrameFadeOut(
+				bar,
+				barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent,
+				barDB.alphaMin
+			)
 		end
+
 		GameTooltip:Hide()
 	end)
 
 	if not InCombatLockdown() then
 		button:EnableMouse(true)
 		button:Show()
+		button:SetAttribute("type", "macro")
+
+		local macroText
 		if button.slotID then
-			button:SetAttribute("type", "macro")
-			button:SetAttribute("macrotext", "/use " .. button.slotID)
+			macroText = "/use " .. button.slotID
 		elseif button.itemName then
+			macroText = "/use item:" .. button.itemID
 			if button.itemID == 172347 then
-				-- Heavy Desolate Armor Kit
-				button:SetAttribute("type", "macro")
-				button:SetAttribute("macrotext", "/use " .. button.itemName .. "\n/use 5")
-			else
-				button:SetAttribute("type", "item")
-				button:SetAttribute("item", button.itemName)
+				macroText = macroText .. "\n/use 5"
 			end
+		end
+
+		if macroText then
+			button:SetAttribute("macrotext", macroText)
 		end
 	end
 end

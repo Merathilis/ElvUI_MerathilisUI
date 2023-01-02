@@ -264,18 +264,14 @@ for i = 1, 5 do
 				type = "range",
 				name = L["Backdrop Spacing"],
 				desc = L["The spacing between the backdrop and the buttons."],
-				min = 1,
-				max = 30,
-				step = 1
+				min = 1, max = 30, step = 1
 			},
 			spacing = {
 				order = 6,
 				type = "range",
 				name = L["Button Spacing"],
 				desc = L["The spacing between buttons."],
-				min = 1,
-				max = 30,
-				step = 1
+				min = 1, max = 30, step = 1
 			},
 			betterOption2 = {
 				order = 7,
@@ -287,38 +283,63 @@ for i = 1, 5 do
 				order = 8,
 				type = "range",
 				name = L["Buttons"],
-				min = 1,
-				max = 12,
-				step = 1
+				min = 1, max = 12, step = 1
 			},
 			buttonWidth = {
 				order = 9,
 				type = "range",
 				name = L["Button Width"],
 				desc = L["The width of the buttons."],
-				min = 2,
-				max = 80,
-				step = 1
+				min = 2, max = 80, step = 1
 			},
 			buttonHeight = {
 				order = 10,
 				type = "range",
 				name = L["Button Height"],
 				desc = L["The height of the buttons."],
-				min = 2,
-				max = 60,
-				step = 1
+				min = 2, max = 60, step = 1
 			},
 			buttonsPerRow = {
 				order = 11,
 				type = "range",
 				name = L["Buttons Per Row"],
-				min = 1,
-				max = 12,
-				step = 1
+				min = 1, max = 12, step = 1
+			},
+			qualityTier = {
+				order = 12,
+				type = "group",
+				inline = true,
+				name = L["Crafting Quality Tier"],
+				get = function(info)
+					return E.db.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]] = value
+					E:StaticPopup_Show("PRIVATE_RL")
+				end,
+				args = {
+					size = {
+						order = 3,
+						name = L["Size"],
+						type = "range",
+						min = 5, max = 60, step = 1
+					},
+					xOffset = {
+						order = 4,
+						name = L["X-Offset"],
+						type = "range",
+						min = -100, max = 100, step = 1
+					},
+					yOffset = {
+						order = 5,
+						name = L["Y-Offset"],
+						type = "range",
+						min = -100, max = 100, step = 1
+					},
+				},
 			},
 			countFont = {
-				order = 12,
+				order = 13,
 				type = "group",
 				inline = true,
 				name = L["Counter"],
@@ -361,16 +382,16 @@ for i = 1, 5 do
 						order = 4,
 						name = L["X-Offset"],
 						type = "range",
-						min = -50,
-						max = 50,
+						min = -100,
+						max = 100,
 						step = 1
 					},
 					yOffset = {
 						order = 5,
 						name = L["Y-Offset"],
 						type = "range",
-						min = -50,
-						max = 50,
+						min = -100,
+						max = 100,
 						step = 1
 					},
 					color = {
@@ -392,7 +413,7 @@ for i = 1, 5 do
 				}
 			},
 			bindFont = {
-				order = 13,
+				order = 14,
 				type = "group",
 				inline = true,
 				name = L["Key Binding"],
@@ -427,25 +448,19 @@ for i = 1, 5 do
 						order = 3,
 						name = L["Size"],
 						type = "range",
-						min = 5,
-						max = 60,
-						step = 1
+						min = 5, max = 60, step = 1
 					},
 					xOffset = {
 						order = 4,
 						name = L["X-Offset"],
 						type = "range",
-						min = -50,
-						max = 50,
-						step = 1
+						min = -100, max = 100, step = 1
 					},
 					yOffset = {
 						order = 5,
 						name = L["Y-Offset"],
 						type = "range",
-						min = -50,
-						max = 50,
-						step = 1
+						min = -100, max = 100, step = 1
 					},
 					color = {
 						order = 6,
@@ -466,7 +481,7 @@ for i = 1, 5 do
 				}
 			},
 			include = {
-				order = 14,
+				order = 15,
 				type = "input",
 				name = L["Button Groups"],
 				desc = format(

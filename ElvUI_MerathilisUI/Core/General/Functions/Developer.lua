@@ -112,7 +112,7 @@ end
 	@param ...string Message
 ]]
 function F.Developer.LogWarning(...)
-	if E.global.mui.core.logLevel < 2 then
+	if E.global.mui and E.global.mui.core and E.global.mui.core.logLevel < 2 then
 		return
 	end
 
@@ -125,7 +125,7 @@ end
 	@param ...string Message
 ]]
 function F.Developer.LogInfo(...)
-	if E.global.mui.core.logLevel < 3 then
+	if E.global.mui and E.global.mui.core and E.global.mui.core.logLevel < 3 then
 		return
 	end
 
@@ -138,7 +138,7 @@ end
 	@param ...string Message
 ]]
 function F.Developer.LogDebug(...)
-	if E.global.mui.core.logLevel < 4 then
+	if E.global.mui and E.global.mui.core and E.global.mui.core.logLevel < 4 then
 		return
 	end
 

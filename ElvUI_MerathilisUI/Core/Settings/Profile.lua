@@ -516,7 +516,8 @@ P.announcement = {
 		text = L["{rt1} My new keystone is %keystone%. {rt1}"],
 		channel = {
 			party = "PARTY"
-		}
+		},
+		command = true,
 	}
 }
 
@@ -574,8 +575,16 @@ P.misc = {
 	mute = {
 		enable = true,
 		mount = {
+			[63796] = false,
+			[229385] = false,
+			[339588] = false,
+			[312762] = false
 		},
 		other = {
+			["Crying"] = false,
+			["Tortollan"] = false,
+			["Smolderheart"] = false,
+			["Elegy of the Eternals"] = false,
 			["Dragonriding"] = true,
 			["Jewelcrafting"] = false
 		}
@@ -691,7 +700,7 @@ local function Potions()
 	elseif E.Wrath then
 		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
-		return "POTIONSDF,FLASKDF,RUNEDF,UTILITY"
+		return "POTIONDF,FLASKDF,RUNEDF,UTILITY"
 	end
 end
 
@@ -719,6 +728,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = false,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -761,6 +775,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -804,6 +823,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -846,6 +870,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -888,6 +917,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -1136,6 +1170,13 @@ P.maps = {
 			stopAlertIfCompleted = true,
 			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
+		iskaaranFishingNet = {
+			enable = true,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Surprise",
+			disableAlertAfterHours = 48,
+		}
 	},
 }
 
