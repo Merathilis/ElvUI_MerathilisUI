@@ -465,6 +465,13 @@ P.announcement = {
 				raidWarning = false,
 				text = L["{rt1} %player% used %spell% {rt1}"]
 			},
+			["376664"] = {
+				-- Ohuna Perch
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["%player% used %spell%"]
+			},
 			["195782"] = {
 				-- Summon Moonfeather Statue
 				enable = true,
@@ -717,7 +724,7 @@ P.autoButtons = {
 		mouseOver = false,
 		globalFade = false,
 		fadeTime = 0.3,
-		alphaMin = 1,
+		alphaMin = 0,
 		alphaMax = 1,
 		numButtons = 10,
 		backdrop = true,
@@ -764,7 +771,7 @@ P.autoButtons = {
 		mouseOver = false,
 		globalFade = false,
 		fadeTime = 0.3,
-		alphaMin = 1,
+		alphaMin = 0,
 		alphaMax = 1,
 		numButtons = 10,
 		backdrop = true,
@@ -812,7 +819,7 @@ P.autoButtons = {
 		mouseOver = false,
 		globalFade = false,
 		fadeTime = 0.3,
-		alphaMin = 1,
+		alphaMin = 0,
 		alphaMax = 1,
 		numButtons = 10,
 		backdrop = true,

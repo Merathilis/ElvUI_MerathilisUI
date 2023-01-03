@@ -997,12 +997,17 @@ local function UpdateQuestItemList()
 	end
 end
 
+-- Usable Items beeing ignored for some reasons
+local forceUsableItems = {
+	[193634] = true -- Burgeoning Seed
+}
+
 local equipmentList = {}
 local function UpdateEquipmentList()
 	wipe(equipmentList)
 	for slotID = 1, 18 do
 		local itemID = GetInventoryItemID("player", slotID)
-		if itemID and IsUsableItem(itemID) then
+		if itemID and (IsUsableItem(itemID) or forceUsableItems[itemID]) then
 			tinsert(equipmentList, slotID)
 		end
 	end
