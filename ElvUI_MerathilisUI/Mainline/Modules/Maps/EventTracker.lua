@@ -87,10 +87,13 @@ end
 
 local env = {
 	fishingNetPosition = {
+		-- Waking Shores
 		[1] = { map = 2022, x = 0.63585, y = 0.75349 },
 		[2] = { map = 2022, x = 0.64514, y = 0.74178 },
+		-- Ohn'ahran Plains
 		[3] = { map = 2023, x = 0.80524, y = 0.78421 },
 		[4] = { map = 2023, x = 0.80477, y = 0.77743 },
+		-- Thaldraszus
 		[5] = { map = 2025, x = 0.56782, y = 0.65178 },
 		[6] = { map = 2025, x = 0.57756, y = 0.65491 },
 
