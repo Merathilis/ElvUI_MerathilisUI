@@ -109,6 +109,7 @@ if E.Retail then
 	tinsert(Hearthstones, 188952) -- Dominated Hearthstone
 	tinsert(Hearthstones, 193588) -- Timewalker's Hearthstone
 	tinsert(Hearthstones, 198156)
+	tinsert(Hearthstones, 200630)
 elseif E.Wrath then
 	tinsert(Hearthstones, 184871)
 end

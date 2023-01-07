@@ -798,6 +798,7 @@ local openableItems = {
 	191041,
 	191139,
 	192438,
+	194039,
 	198863,
 	198864,
 	198865,
@@ -819,6 +820,7 @@ local openableItems = {
 	200513,
 	200515,
 	200516,
+	201300,
 	201754,
 	201755,
 	201756,
@@ -1514,9 +1516,13 @@ function module:UpdateBar(id)
 		bar:GetParent():SetParent(AB.fadeParent)
 	else
 		if barDB.mouseOver then
-			bar:SetAlpha(barDB.alphaMin)
+			E:Delay(1, function()
+				bar:SetAlpha(barDB.alphaMin)
+			end)
 		else
-			bar:SetAlpha(barDB.alphaMax)
+			E:Delay(1,function()
+				bar:SetAlpha(barDB.alphaMax)
+			end)
 		end
 		bar:GetParent():SetParent(E.UIParent)
 	end
