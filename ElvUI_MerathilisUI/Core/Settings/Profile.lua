@@ -699,7 +699,7 @@ P.actionbars = {
 	},
 }
 
-local function Potions()
+local function Filter()
 	if E.Classic then
 		return "POTION,FLASK,UTILITY"
 	elseif E.TBC then
@@ -707,7 +707,7 @@ local function Potions()
 	elseif E.Wrath then
 		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
-		return "POTIONDF,FLASKDF,RUNEDF,UTILITY"
+		return "POTIONDF,FLASKDF,RUNE,UTILITY"
 	end
 end
 
@@ -764,7 +764,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "QUEST,BANNER,EQUIP,OPENABLE"
+		include = "QUEST,BANNER,EQUIP,PROF,OPENABLE"
 	},
 	bar2 = {
 		enable = true,
@@ -812,7 +812,7 @@ P.autoButtons = {
 			},
 		},
 		--include = "POTIONSL,FLASKSL,UTILITY"
-		include = Potions()
+		include = Filter()
 	},
 	bar3 = {
 		enable = true,

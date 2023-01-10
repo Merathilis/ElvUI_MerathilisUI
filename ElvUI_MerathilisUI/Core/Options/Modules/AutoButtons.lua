@@ -485,7 +485,7 @@ for i = 1, 5 do
 				type = "input",
 				name = L["Button Groups"],
 				desc = format(
-					"%s %s\n" .. strrep("\n%s", 19),
+					"%s %s\n" .. strrep("\n%s", 20),
 					L["Set the type and order of button groups."],
 					L["You can separate the groups with a comma."],
 					FormatDesc("QUEST", L["Quest Items"]),
@@ -506,6 +506,7 @@ for i = 1, 5 do
 					FormatDesc("UTILITY", L["Utilities"]),
 					FormatDesc("OPENABLE", L["Openable Items"]),
 					FormatDesc("ORETBC", format("%s (%s)", L["Ores"], L["TBC"])),
+					FormatDesc("PROF", L["Profession Items"]),
 					FormatDesc("CUSTOM", L["Custom Items"])
 				),
 				width = "full"
