@@ -360,18 +360,36 @@ local flasksDragonflight = {
 local runes = {
 	160053,
 	181468,
+	194817,
+	194819,
+	194820,
+	194821,
+	194822,
+	194823,
+	194824,
+	194825,
+	194826,
 	198491,
 	198492,
 	198493,
-	201325,
+	201325
 }
 
 -- Runes added in Dragonflight
 local runesDragonflight = {
+	194817,
+	194819,
+	194820,
+	194821,
+	194822,
+	194823,
+	194824,
+	194825,
+	194826,
 	198491,
 	198492,
 	198493,
-	201325,
+	201325
 }
 
 -- Foods (Crafted by cooking)
@@ -1237,7 +1255,7 @@ local moduleList = {
 	["ELIXIRWRATH"] = wrathElixirs,
 	["POTIONDF"] = potionsDragonflight,
 	["FLASKDF"] = flasksDragonflight,
-	["FOODDF"] = foodDragonflight,
+	["FOODDF"] = foodDragonflight
 }
 
 function module:CreateButton(name, barDB)
@@ -1544,16 +1562,24 @@ function module:CreateBar(id)
 	end
 
 	bar:SetScript("OnEnter", function(self)
-		if barDB.mouseOver then
+		if not barDB then
+			return
+		end
+
+		if not barDB.globalFade and barDB.mouseOver and barDB.alphaMax and barDB.alphaMin then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, barDB.fadeTime or 0.3 * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
+			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
 		end
 	end)
 
 	bar:SetScript("OnLeave", function(self)
-		if barDB.mouseOver then
+		if not barDB then
+			return
+		end
+
+		if not barDB.globalFade and barDB.mouseOver and barDB.alphaMax and barDB.alphaMin then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, barDB.fadeTime or 0.3 * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
+			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
 		end
 	end)
 
@@ -1729,6 +1755,7 @@ function module:UpdateBar(id)
 			else
 				bar:SetAlpha(barDB.alphaMax)
 			end
+
 			bar:GetParent():SetParent(E.UIParent)
 		end
 
