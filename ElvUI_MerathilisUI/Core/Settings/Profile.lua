@@ -1214,19 +1214,19 @@ P.media = {
 			enable = true,
 			font = "Expressway",
 			size = 12,
-			outline = "NONE",
+			outline = "OUTLINE",
 		},
 		gossip = {
 			enable = true,
 			font = "Expressway",
 			size = 12,
-			outline = "NONE",
+			outline = "OUTLINE",
 		},
 		questFontSuperHuge = {
 			enable = true,
 			font = "Expressway",
 			size = 24,
-			outline = "NONE",
+			outline = "OUTLINE",
 		},
 	},
 }
