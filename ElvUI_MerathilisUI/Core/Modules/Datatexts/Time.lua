@@ -35,21 +35,18 @@ local lockoutFormatString = { "%dd %02dh %02dm", "%dd %dh %02dm", "%02dh %02dm",
 local curHr, curMin, curAmPm
 local enteredFrame = false;
 
-local Update, lastPanel; -- UpValue
+local Update; -- UpValue
 local localizedName, isActive, startTime, canEnter
 local name, reset, difficultyId, locked, extended, isRaid, maxPlayers, numEncounters, encounterProgress
 local quests = {}
 local updateQuestTable = false
 
-local function ValueColorUpdate(hex)
+local function ValueColorUpdate(self, hex)
 	europeDisplayFormat = join("", "%02d", hex, ":|r%02d")
 	ukDisplayFormat = join("", "", "%d", hex, ":|r%02d", hex, " %s|r")
 
-	if lastPanel ~= nil then
-		Update(lastPanel, 20000)
-	end
+	Update(self, 20000)
 end
-E["valueColorUpdateFuncs"][ValueColorUpdate] = true
 
 local function ConvertTime(h, m)
 	local AmPm
@@ -276,8 +273,7 @@ function Update(self, t)
 		self.text:FontTemplate(nil, self.db.fontSize*1.8, self.db.fontOutline)
 		self.text:SetFormattedText(ukDisplayFormat, Hr, Min, APM[AmPm])
 	end
-	lastPanel = self
 	int = 5
 end
 
-DT:RegisterDatatext("MUI Time", MER.Title, { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, OnClick, OnEnter, OnLeave)
+DT:RegisterDatatext("MUI Time", MER.Title, { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, OnClick, OnEnter, OnLeave, nil, nil, ValueColorUpdate)
