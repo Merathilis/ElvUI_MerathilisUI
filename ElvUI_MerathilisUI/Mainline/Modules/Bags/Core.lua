@@ -1387,7 +1387,7 @@ function module:Initialize()
 		elseif strmatch(name, "Equipment$") then
 			label = BAG_FILTER_EQUIPMENT
 		elseif strmatch(name, "EquipSet$") then
-			label = L["Equipement Set"]
+			label = L["Equipment Set"]
 		elseif name == "BankLegendary" then
 			label = LOOT_JOURNAL_LEGENDARIES
 		elseif strmatch(name, "Consumable$") then
