@@ -25,22 +25,33 @@ local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 local C_Timer_NewTicker = C_Timer.NewTicker
 
-local function secondToTime(second)
-	local hour = floor(second / 3600)
-	local min = floor((second - hour * 3600) / 60)
-	local sec = floor(second - hour * 3600 - min * 60)
-
-	if hour == 0 then
-		return format("%02d:%02d", min, sec)
-	else
-		return format("%02d:%02d:%02d", hour, min, sec)
-	end
-end
-
 local eventList = {
 	"CommunityFeast",
 	"SiegeOnDragonbaneKeep",
 	"IskaaranFishingNet"
+}
+
+local env = {
+	fishingNetPosition = {
+		-- Waking Shores
+		[1] = { map = 2022, x = 0.63585, y = 0.75349 },
+		[2] = { map = 2022, x = 0.64514, y = 0.74178 },
+		-- Waking Shores / Lava
+		[3] = { map = 2022, x = 0.33757, y = 0.65032 },
+		[4] = { map = 2022, x = 0.34376, y = 0.64763 },
+		-- Ohn'ahran Plains
+		[5] = { map = 2023, x = 0.80524, y = 0.78421 },
+		[6] = { map = 2023, x = 0.80477, y = 0.77743 },
+		-- Thaldraszus
+		[7] = { map = 2025, x = 0.56782, y = 0.65178 },
+		[8] = { map = 2025, x = 0.57756, y = 0.65491 },
+	},
+	fishingNetWidgetIDToIndex = {
+		-- Waking Shores
+		[4203] = 1,
+		[4317] = 2,
+		[4399] = 3,
+	}
 }
 
 local colorPlatte = {
@@ -61,6 +72,18 @@ local colorPlatte = {
 		{ r = 0.21961, g = 0.93725, b = 0.49020, a = 1 }
 	}
 }
+
+local function secondToTime(second)
+	local hour = floor(second / 3600)
+	local min = floor((second - hour * 3600) / 60)
+	local sec = floor(second - hour * 3600 - min * 60)
+
+	if hour == 0 then
+		return format("%02d:%02d", min, sec)
+	else
+		return format("%02d:%02d:%02d", hour, min, sec)
+	end
+end
 
 local function reskinStatusBar(bar)
 	bar:SetFrameLevel(bar:GetFrameLevel() + 1)
@@ -84,24 +107,6 @@ local function getGradientText(text, colorTable)
 		colorTable[2].b
 	)
 end
-
-local env = {
-	fishingNetPosition = {
-		-- Waking Shores
-		[1] = { map = 2022, x = 0.63585, y = 0.75349 },
-		[2] = { map = 2022, x = 0.64514, y = 0.74178 },
-		-- Lava
-		[3] = { map = 2022, x = 0.33722, y = 0.65047 },
-		[4] = { map = 2022, x = 0.34376, y = 0.64763 },
-		-- Ohn'ahran Plains
-		[5] = { map = 2023, x = 0.80524, y = 0.78421 },
-		[6] = { map = 2023, x = 0.80477, y = 0.77743 },
-		-- Thaldraszus
-		[7] = { map = 2025, x = 0.56782, y = 0.65178 },
-		[8] = { map = 2025, x = 0.57756, y = 0.65491 },
-
-	}
-}
 
 local functionFactory = {
 	loopTimer = {
@@ -226,13 +231,7 @@ local functionFactory = {
 					self.args["alertCache"][self.nextEventIndex] = true
 					local eventIconString = F.GetIconString(self.args.icon, 16, 16)
 					local gradientName = getGradientText(self.args.eventName, self.args.barColor)
-					F.Print(
-						format(
-							L["%s will be started in %s!"],
-							eventIconString .. " " .. gradientName,
-							secondToTime(self.timeLeft)
-						)
-					)
+					F.Print(format(L["%s will be started in %s!"], eventIconString .. " " .. gradientName, secondToTime(self.timeLeft)))
 					if self.args.soundFile then
 						PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
 					end
@@ -252,44 +251,20 @@ local functionFactory = {
 				_G.GameTooltip:AddDoubleLine(L["Interval"], secondToTime(self.args.interval), 1, 1, 1)
 				_G.GameTooltip:AddDoubleLine(L["Duration"], secondToTime(self.args.duration), 1, 1, 1)
 				if self.nextEventTimestamp then
-					_G.GameTooltip:AddDoubleLine(
-						L["Next Event"],
-						date("%m/%d %H:%M:%S", self.nextEventTimestamp),
-						1,
-						1,
-						1
-					)
+					_G.GameTooltip:AddDoubleLine(L["Next Event"], date("%m/%d %H:%M:%S", self.nextEventTimestamp), 1, 1, 1)
 				end
 
 				_G.GameTooltip:AddLine(" ")
 				if self.isRunning then
-					_G.GameTooltip:AddDoubleLine(
-						L["Status"],
-						F.StringByTemplate(self.args.runningText, "success"),
-						1,
-						1,
-						1
-					)
+					_G.GameTooltip:AddDoubleLine(L["Status"], F.StringByTemplate(self.args.runningText, "success"), 1, 1, 1)
 				else
 					_G.GameTooltip:AddDoubleLine(L["Status"], F.StringByTemplate(L["Waiting"], "greyLight"), 1, 1, 1)
 				end
 
 				if self.isCompleted then
-					_G.GameTooltip:AddDoubleLine(
-						L["Weekly Reward"],
-						F.StringByTemplate(L["Completed"], "success"),
-						1,
-						1,
-						1
-					)
+					_G.GameTooltip:AddDoubleLine(L["Weekly Reward"], F.StringByTemplate(L["Completed"], "success"), 1, 1, 1)
 				else
-					_G.GameTooltip:AddDoubleLine(
-						L["Weekly Reward"],
-						F.StringByTemplate(L["Not Completed"], "danger"),
-						1,
-						1,
-						1
-					)
+					_G.GameTooltip:AddDoubleLine(L["Weekly Reward"], F.StringByTemplate(L["Not Completed"], "danger"), 1, 1, 1)
 				end
 
 				_G.GameTooltip:Show()
@@ -357,10 +332,18 @@ local functionFactory = {
 				self.netTable = {}
 				local now = GetServerTime()
 				for netIndex = 1, #env.fishingNetPosition do
-					if not db[netIndex] or db[netIndex] == 0 then
+					-- update db from old version
+					if type(db[netIndex]) ~= "table" then
+						db[netIndex] = nil
+					end
+
+					if not db[netIndex] or db[netIndex].time == 0 then
 						self.netTable[netIndex] = "NOT_STARTED"
 					else
-						self.netTable[netIndex] = db[netIndex] + self.args.interval - now
+						self.netTable[netIndex] = {
+							left = db[netIndex].time - now,
+							duration = db[netIndex].duration
+						}
 					end
 				end
 			end,
@@ -370,13 +353,13 @@ local functionFactory = {
 				local waiting = {}
 
 				if self.netTable then
-					for netIndex, timeLeft in pairs(self.netTable) do
-						if type(timeLeft) == "string" then
-							if timeLeft == "NOT_STARTED" then
+					for netIndex, timeData in pairs(self.netTable) do
+						if type(timeData) == "string" then
+							if timeData == "NOT_STARTED" then
 								tinsert(notStarted, netIndex)
 							end
-						elseif type(timeLeft) == "number" then
-							if timeLeft <= 0 then
+						elseif type(timeData) == "table" then
+							if timeData.left <= 0 then
 								tinsert(done, netIndex)
 							else
 								tinsert(waiting, netIndex)
@@ -414,10 +397,10 @@ local functionFactory = {
 						tip = L["Waiting"]
 					end
 
-					local maxTimeLeft = 0
+					local maxTimeIndex
 					for _, index in pairs(waiting) do
-						if self.netTable[index] > maxTimeLeft then
-							maxTimeLeft = self.netTable[index]
+						if not maxTimeIndex or self.netTable[index].left > self.netTable[maxTimeIndex].left then
+							maxTimeIndex = index
 						end
 					end
 
@@ -431,9 +414,9 @@ local functionFactory = {
 						)
 					end
 
-					self.timerText:SetText(secondToTime(maxTimeLeft))
-					self.statusBar:SetMinMaxValues(0, self.args.interval)
-					self.statusBar:SetValue(maxTimeLeft)
+					self.timerText:SetText(secondToTime(self.netTable[maxTimeIndex].left))
+					self.statusBar:SetMinMaxValues(0, self.netTable[maxTimeIndex].duration)
+					self.statusBar:SetValue(self.netTable[maxTimeIndex].left)
 
 					E:StopFlash(self.runningTip)
 				else
@@ -482,16 +465,16 @@ local functionFactory = {
 				local needAnnounce = false
 				local readyNets = {}
 
-				for netIndex, timeLeft in pairs(self.netTable) do
-					if type(timeLeft) == "number" and timeLeft <= 0 then
+				for netIndex, timeData in pairs(self.netTable) do
+					if type(timeData) == "table" and timeData.left <= 0 then
 						if not self.args["alertCache"][netIndex] then
 							self.args["alertCache"][netIndex] = {}
 						end
 
-						if not self.args["alertCache"][netIndex][db[netIndex]] then
-							self.args["alertCache"][netIndex][db[netIndex]] = true
+						if not self.args["alertCache"][netIndex][db[netIndex].time] then
+							self.args["alertCache"][netIndex][db[netIndex].time] = true
 							local hour = self.args.disableAlertAfterHours
-							if not hour or hour == 0 or (hour * 60 * 60 + timeLeft) > 0 then
+							if not hour or hour == 0 or (hour * 60 * 60 + timeData.left) > 0 then
 								tinsert(readyNets, netIndex)
 								needAnnounce = true
 							end
@@ -510,9 +493,7 @@ local functionFactory = {
 
 					local eventIconString = F.GetIconString(self.args.icon, 16, 16)
 					local gradientName = getGradientText(self.args.eventName, self.args.barColor)
-					F.Print(
-						format(eventIconString .. " " .. gradientName .. " " .. L["Net %s can be collected"], netsText)
-					)
+					F.Print(format(eventIconString .. " " .. gradientName .. " " .. L["Net %s can be collected"], netsText))
 					if self.args.soundFile then
 						PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
 					end
@@ -533,16 +514,16 @@ local functionFactory = {
 				end
 				_G.GameTooltip:AddLine(L["Fishing Nets"])
 
-				for netIndex, timeLeft in pairs(self.netTable) do
+				for netIndex, timeData in pairs(self.netTable) do
 					local text
-					if type(timeLeft) == "number" then
-						if timeLeft <= 0 then
+					if type(timeData) == "table" then
+						if timeData.left <= 0 then
 							text = F.StringByTemplate(L["Can be collected"], "success")
 						else
-							text = F.StringByTemplate(secondToTime(timeLeft), "info")
+							text = F.StringByTemplate(secondToTime(timeData.left), "info")
 						end
 					else
-						if timeLeft == "NOT_STARTED" then
+						if timeData == "NOT_STARTED" then
 							text = F.StringByTemplate(L["Can be set"], "warning")
 						end
 					end
@@ -693,7 +674,25 @@ local eventData = {
 								db[netIndex] = nil
 							end
 						elseif spellID == 377883 then -- Set Net
-							db[netIndex] = GetServerTime() - 2 -- cast time
+							E:Delay(0.5, function()
+								local namePlates = C_NamePlate.GetNamePlates(true)
+								if #namePlates > 0 then
+									for _, namePlate in ipairs(namePlates) do
+										if namePlate and namePlate.UnitFrame and namePlate.UnitFrame.WidgetContainer then
+											local container = namePlate.UnitFrame.WidgetContainer
+											if container.timerWidgets then
+												for id, widget in pairs(container.timerWidgets) do
+													if env.fishingNetWidgetIDToIndex[id] and env.fishingNetWidgetIDToIndex[id] == netIndex then
+														if widget.Bar and widget.Bar.value and widget.Bar.range then
+															db[netIndex] = {time = GetServerTime() + widget.Bar.value, duration = widget.Bar.range}
+														end
+													end
+												end
+											end
+										end
+									end
+								end
+							end)
 						end
 					end
 				}
@@ -942,3 +941,95 @@ function module:ProfileUpdate()
 end
 
 MER:RegisterModule(module:GetName())
+
+MER:AddCommand("EVENT_TRACKER", { "/wtet" }, function(msg)
+	if msg == "forceUpdate" then
+		local map = C_Map_GetBestMapForUnit("player")
+		if not map then
+			return
+		end
+
+		local position = C_Map_GetPlayerMapPosition(map, "player")
+
+		if not position then
+			return
+		end
+
+		local lengthMap = {}
+
+		for i, netPos in ipairs(env.fishingNetPosition) do
+			if map == netPos.map then
+				local length = math_pow(position.x - netPos.x, 2) + math_pow(position.y - netPos.y, 2)
+				lengthMap[i] = length
+			end
+		end
+
+		local min
+		local netIndex = 0
+		for i, length in pairs(lengthMap) do
+			if not min or length < min then
+				min = length
+				netIndex = i
+			end
+		end
+
+		if not min or netIndex <= 0 then
+			return
+		end
+
+		local db = module:GetPlayerDB("iskaaranFishingNet")
+
+		local namePlates = C_NamePlate.GetNamePlates(true)
+		if #namePlates > 0 then
+			for _, namePlate in ipairs(namePlates) do
+				if namePlate and namePlate.UnitFrame and namePlate.UnitFrame.WidgetContainer then
+					local container = namePlate.UnitFrame.WidgetContainer
+					if container.timerWidgets then
+						for id, widget in pairs(container.timerWidgets) do
+							if env.fishingNetWidgetIDToIndex[id] and env.fishingNetWidgetIDToIndex[id] == netIndex then
+								if widget.Bar and widget.Bar.value then
+									db[netIndex] = {time = GetServerTime() + widget.Bar.value, duration = widget.Bar.range}
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+
+	if msg == "findNet" then
+		local map = C_Map_GetBestMapForUnit("player")
+		if not map then
+			return
+		end
+
+		local position = C_Map_GetPlayerMapPosition(map, "player")
+
+		if not position then
+			return
+		end
+
+		local namePlates = C_NamePlate.GetNamePlates(true)
+		if #namePlates > 0 then
+			for _, namePlate in ipairs(namePlates) do
+				if namePlate and namePlate.UnitFrame and namePlate.UnitFrame.WidgetContainer then
+					local container = namePlate.UnitFrame.WidgetContainer
+					if container.timerWidgets then
+						for id, widget in pairs(container.timerWidgets) do
+							if widget.Bar and widget.Bar.value then
+								print("------------")
+								print("mapID", map)
+								print("mapName", C_Map_GetMapInfo(map).name)
+								print("position", position.x, position.y)
+								print("widgetID", id)
+								print("timeLeft", widget.Bar.value, secondToTime(widget.Bar.value))
+								print("------------")
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end)
