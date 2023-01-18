@@ -1,5 +1,6 @@
-[b][color=orange]v5.55[/color], 02.01.2023[/b][list]
-[*]Try to prevent some rare nil errors
-[*]Fix some non Retail issues"
-[*]Added more Mute options
-[*]Added Fishing Holes to the Event Tracker[/list]
+[b][color=orange]v5.56[/color], 18.01.2023[/b][list]
+[*]Added Profession Items to the AutoButtons
+[*]Fix errors on Wrath
+[*]Fixed an issues with the Zone Text options
+[*]Updated the tracking for Fishing Holes on the Event Tracker
+[*]Updated code along with ElvUI 13.20[/list]
