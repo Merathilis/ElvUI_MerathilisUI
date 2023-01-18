@@ -12,11 +12,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added Profession Items to the AutoButtons",
-		"• Fix errors on Wrath",
-		"• Fixed an issues with the Zone Text options",
-		"• Updated the tracking for Fishing Holes on the Event Tracker",
-		"• Updated code along with ElvUI 13.20",
+		"• Wrath: Drop cargBags support. Please reenable the ElvUI Bags",
+		"• Wrath: Fixed an error on CooldownFlash",
+		"• Retail: Fixed an error on the Auctionator Skin",
 		" ",
 
 	"Notes:",

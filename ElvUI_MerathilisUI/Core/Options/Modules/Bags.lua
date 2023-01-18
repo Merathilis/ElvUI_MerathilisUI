@@ -16,7 +16,7 @@ end
 options.bags = {
 	type = "group",
 	name = L["Bags"],
-	hidden = E.Classic,
+	hidden = E.Classic or E.TBC or E.Wrath,
 	args = {
 		header = {
 			order = 0,
@@ -58,6 +58,10 @@ options.bags = {
 				FilterFavourite = L["Favorite"],
 				FilterGoods = L["Goods"],
 				FilterQuest = L["Quest"],
+				FilterAzerite = L["Azerite"],
+				FilterAnima = L["Anima"],
+				FilterRelic = L["Relic"],
+				FilterLegendary = L["Legendarys"],
 			},
 		},
 		GatherEmpty = {
@@ -84,7 +88,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		BagsiLvl = {
 			order = 8,
@@ -102,7 +105,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		CenterText = {
 			order = 10,
@@ -112,7 +114,6 @@ options.bags = {
 			get = function(info) return E.db.mui.bags[info[#info]] end,
 			set = function(info, value) E.db.mui.bags[info[#info]] = value; module:UpdateAllBags() end,
 			disabled = function() return not E.db.mui.bags.Enable end,
-			hidden = not E.Retail,
 		},
 		iLvlToShow = {
 			order = 11,
@@ -141,7 +142,6 @@ options.bags = {
 			order = 13,
 			type = "description",
 			name = "",
-			hidden = not E.Retail,
 		},
 		BagsPerRow = {
 			order = 14,
@@ -228,12 +228,3 @@ options.bags = {
 	},
 }
 
-local itemFilter = options.bags.args.ItemFilter.values
-if E.Retail then
-	itemFilter.FilterAzerite = L["Azerite"]
-	itemFilter.FilterAnima = L["Anima"]
-	itemFilter.FilterRelic = L["Relic"]
-	itemFilter.FilterLegendary = L["Legendarys"]
-elseif E.Classic or E.TBC or E.Wrath then
-	itemFilter.FilterAmmo = L["Ammo"]
-end
