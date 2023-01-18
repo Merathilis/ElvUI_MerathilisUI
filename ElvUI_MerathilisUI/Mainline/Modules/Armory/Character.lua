@@ -47,12 +47,12 @@ function module:UpdatePaperDoll()
 		slot = GetInventorySlotInfo(k)
 		if slot and slot ~= '' then
 			-- Reset Data first
-			frame.DurabilityInfo:SetText("")
-			frame.Gradiation:Hide()
-			frame.Transmog:Hide()
-			frame.Transmog.Link = nil
-			frame.Illusion:Hide()
-			frame.Illusion.Link = nil
+			if frame.DurabilityInfo then frame.DurabilityInfo:SetText("") end
+			if frame.Gradiation then frame.Gradiation:Hide() end
+			if frame.Transmog then frame.Transmog:Hide() end
+			if frame.Transmog.Link then frame.Transmog.Link = nil end
+			if frame.Illusion then frame.Illusion:Hide() end
+			if frame.Illusion.Link then frame.Illusion.Link = nil end
 
 			itemLink = GetInventoryItemLink(unit, slot)
 			if (itemLink and itemLink ~= nil) then

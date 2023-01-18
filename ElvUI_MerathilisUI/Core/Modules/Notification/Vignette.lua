@@ -65,6 +65,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 
 		-- For Debugging: uncomment this:
 		-- F.DebugPrint("Vignette-ID: "..vignetteInfo.vignetteID.."Vignette-Name: "..vignetteInfo.name, "warning")
+
 		if VignetteBlackListIDs[vignetteInfo.vignetteID] or not isUsefulAtlas(vignetteInfo) then return end
 
 		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id then

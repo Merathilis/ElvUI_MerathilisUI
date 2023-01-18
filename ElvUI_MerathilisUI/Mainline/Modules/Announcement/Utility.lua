@@ -200,6 +200,9 @@ function module:Utility(event, sourceName, spellId)
 		if TryAnnounce(spellId, sourceName, 261602) then
 			return
 		end
+		if TryAnnounce(spellId, sourceName, 376664) then
+			return
+		end
 		if TryAnnounce(spellId, sourceName, 195782) then
 			return
 		end

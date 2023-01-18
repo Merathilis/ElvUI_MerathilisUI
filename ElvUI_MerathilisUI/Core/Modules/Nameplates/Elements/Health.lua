@@ -37,23 +37,24 @@ function module:Health_UpdateColor(_, unit)
 			end
 
 			if class and isPlayer then
-				if E.Retail then
-					element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1), CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
-				else
+				if E.Classic then
 					element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(class))
+				else
+					element:GetStatusBarTexture():SetGradient("HORIZONTAL",
+						CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1), CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
 				end
 			elseif reaction then
 				if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
-					if E.Retail then
-						element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(0.6, 0.6, 0.60, 1), CreateColor(0, 0, 0, 1))
-					else
+					if E.Classic then
 						element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors("TAPPED", false, false))
+					else
+						element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(0.6, 0.6, 0.60, 1), CreateColor(0, 0, 0, 1))
 					end
 				else
-					if E.Retail then
-						element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[reactionType].r1, F.ClassGradient[reactionType].g1, F.ClassGradient[reactionType].b1, 1), CreateColor(F.ClassGradient[reactionType].r2, F.ClassGradient[reactionType].g2, F.ClassGradient[reactionType].b2, 1))
-					else
+					if E.Classic then
 						element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(reactionType))
+					else
+						element:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[reactionType].r1, F.ClassGradient[reactionType].g1, F.ClassGradient[reactionType].b1, 1), CreateColor(F.ClassGradient[reactionType].r2, F.ClassGradient[reactionType].g2, F.ClassGradient[reactionType].b2, 1))
 					end
 				end
 			end

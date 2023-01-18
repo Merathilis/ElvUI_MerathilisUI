@@ -54,6 +54,7 @@ local UnregisterStateDriver = UnregisterStateDriver
 local C_BattleNet_GetFriendAccountInfo = C_BattleNet and C_BattleNet.GetFriendAccountInfo
 local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet and C_BattleNet.GetFriendGameAccountInfo
 local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet and C_BattleNet.GetFriendNumGameAccounts
+local C_Container_GetItemCooldown = C_Container.GetItemCooldown
 local C_CVar_GetCVar = C_CVar and C_CVar.GetCVar
 local C_CVar_SetCVar = C_CVar and C_CVar.SetCVar
 local C_FriendList_GetNumFriends = C_FriendList and C_FriendList.GetNumFriends
@@ -107,7 +108,9 @@ if E.Retail then
 	tinsert(Hearthstones, 183716)
 	tinsert(Hearthstones, 184353)
 	tinsert(Hearthstones, 188952) -- Dominated Hearthstone
-    tinsert(Hearthstones, 193588) -- Timewalker's Hearthstone
+	tinsert(Hearthstones, 193588) -- Timewalker's Hearthstone
+	tinsert(Hearthstones, 198156)
+	tinsert(Hearthstones, 200630)
 elseif E.Wrath then
 	tinsert(Hearthstones, 184871)
 end
@@ -126,7 +129,12 @@ local function AddDoubleLineForItem(itemID, prefix)
 
 	local texture = GetItemIcon(itemID)
 	local icon = format(IconString .. ":255:255:255|t", texture)
-	local startTime, duration = GetItemCooldown(itemID)
+	local startTime, duration
+	if E.Retail then
+		startTime, duration = GetItemCooldown(itemID)
+	elseif E.Wrath then
+		startTime, duration = C_Container_GetItemCooldown(itemID)
+	end
 	local cooldownTime = startTime + duration - GetTime()
 	local canUse = cooldownTime <= 0
 	local cooldownTimeString
@@ -550,40 +558,6 @@ local ButtonTypes = {
 		end
 	},
 }
-
---[[
-if E.Retail then
-	tinsert(ButtonTypes.FRIENDS, { additionalText = function()
-		local numBNOnlineFriend = select(2, BNGetNumFriends())
-
-		if module and module.db and module.db.friends and module.db.friends.showAllFriends then
-			local friendsOnline = C_FriendList_GetNumFriends() or 0
-			local totalOnline = friendsOnline + numBNOnlineFriend
-			return totalOnline
-		end
-
-		local number = C_FriendList_GetNumOnlineFriends() or 0
-
-		for i = 1, numBNOnlineFriend do
-			local accountInfo = C_BattleNet_GetFriendAccountInfo(i)
-			if accountInfo and accountInfo.gameAccountInfo and accountInfo.gameAccountInfo.isOnline then
-				local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(i)
-				if numGameAccounts and numGameAccounts > 0 then
-					for j = 1, numGameAccounts do
-						local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
-						if gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" then
-							number = number + 1
-						end
-					end
-				elseif accountInfo.gameAccountInfo.clientProgram == "WoW" then
-					number = number + 1
-				end
-			end
-		end
-
-		return number > 0 and number or ""
-	end,})
-end]]
 
 function module:ShowAdvancedBagsTooltip()
 	DT.RegisteredDataTexts["Gold"].onEnter()

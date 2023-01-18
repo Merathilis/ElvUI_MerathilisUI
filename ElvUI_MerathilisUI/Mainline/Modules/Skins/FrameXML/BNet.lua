@@ -21,6 +21,8 @@ local function LoadSkin()
 			self.__MERSkin = true
 		end
 	end)
+
+	module:CreateShadow(_G.BattleTagInviteFrame)
 end
 
 S:AddCallback("BNet", LoadSkin)

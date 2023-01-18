@@ -132,17 +132,17 @@ function module:PostCast(unit, unitframe)
 	end
 
 	if not self.notInterruptible then
-		if E.Retail then
+		-- if E.Retail then
 			self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1), CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
-		else
-			self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1, F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
-		end
+		-- else
+		-- 	self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1, F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
+		-- end
 	elseif self.notInterruptible then
-		if E.Retail then
+		-- if E.Retail then
 			self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1), CreateColor(F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1))
-		else
-			self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1, F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1)
-		end
+		-- else
+		-- 	self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1, F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1)
+		-- end
 	end
 end
 
@@ -158,17 +158,17 @@ function module:PostCastInterruptible(unit)
 	end
 
 	if not self.notInterruptible then
-		if E.Retail then
+		-- if E.Retail then
 			self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1), CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
-		else
-			self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1, F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
-		end
+		-- else
+		-- 	self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1, F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
+		-- end
 	elseif self.notInterruptible then
-		if E.Retail then
+		-- if E.Retail then
 			self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1), CreateColor(F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1))
-		else
-			self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1, F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1)
-		end
+		-- else
+		-- 	self:GetStatusBarTexture():SetGradientAlpha("HORIZONTAL", F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1, F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1)
+		-- end
 	end
 end
 

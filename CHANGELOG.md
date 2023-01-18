@@ -1,6 +1,7 @@
 ### Changes ###
 
-  * Try to prevent some rare nil errors
-  * Fix some non Retail issues
-  * Added more Mute options
-  * Added Fishing Holes to the Event Tracker
+  * Added Profession Items to the AutoButtons
+  * Fix errors on Wrath
+  * Fixed an issues with the Zone Text options
+  * Updated the tracking for Fishing Holes on the Event Tracker
+  * Updated code along with ElvUI 13.20

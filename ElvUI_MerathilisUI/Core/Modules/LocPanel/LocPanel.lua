@@ -97,6 +97,7 @@ module.Hearthstones = {
 	{188952, nil, true}, -- Dominated Hearthstone
 	{190237, nil, true}, -- Broker Translocation Matrix
 	{193588, nil, true}, -- Timewalker's Hearthstone
+	{200630, nil, true}, -- Ohn'ir Windsage's Hearthstone
 }
 
 module.PortItems = {
