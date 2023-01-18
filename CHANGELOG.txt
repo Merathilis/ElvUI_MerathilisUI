@@ -1,6 +1,4 @@
-[b][color=orange]v5.56[/color], 18.01.2023[/b][list]
-[*]Added Profession Items to the AutoButtons
-[*]Fix errors on Wrath
-[*]Fixed an issues with the Zone Text options
-[*]Updated the tracking for Fishing Holes on the Event Tracker
-[*]Updated code along with ElvUI 13.20[/list]
+[b][color=orange]v5.57[/color], 18.01.2023[/b][list]
+[*]Wrath: Drop cargBags support. Please reenable the ElvUI Bags
+[*]Wrath: Fixed an error on CooldownFlash
+[*]Retail: Fixed an error on the Auctionator Skin[/list]
