@@ -391,10 +391,12 @@ function MER:SetupLayout()
 	E.db["auras"]["cooldown"]["hoursColor"]["g"] = 1
 	E.db["auras"]["cooldown"]["hoursColor"]["b"] = 1
 
-	--[[----------------------------------
+		--[[----------------------------------
 	--	ProfileDB - Bags
-	--]]----------------------------------
-	E.private["bags"]["enable"] = false
+	--]] ----------------------------------
+	if not E.Retail then
+		E.private["bags"]["enable"] = false
+	end
 	E.db["bags"]["itemLevelFont"] = "Expressway"
 	E.db["bags"]["itemLevelFontSize"] = 9
 	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
