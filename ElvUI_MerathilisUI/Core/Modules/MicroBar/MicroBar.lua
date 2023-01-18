@@ -54,6 +54,7 @@ local UnregisterStateDriver = UnregisterStateDriver
 local C_BattleNet_GetFriendAccountInfo = C_BattleNet and C_BattleNet.GetFriendAccountInfo
 local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet and C_BattleNet.GetFriendGameAccountInfo
 local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet and C_BattleNet.GetFriendNumGameAccounts
+local C_Container_GetItemCooldown = C_Container.GetItemCooldown
 local C_CVar_GetCVar = C_CVar and C_CVar.GetCVar
 local C_CVar_SetCVar = C_CVar and C_CVar.SetCVar
 local C_FriendList_GetNumFriends = C_FriendList and C_FriendList.GetNumFriends
@@ -128,7 +129,12 @@ local function AddDoubleLineForItem(itemID, prefix)
 
 	local texture = GetItemIcon(itemID)
 	local icon = format(IconString .. ":255:255:255|t", texture)
-	local startTime, duration = GetItemCooldown(itemID)
+	local startTime, duration
+	if E.Retail then
+		startTime, duration = GetItemCooldown(itemID)
+	elseif E.Wrath then
+		startTime, duration = C_Container_GetItemCooldown(itemID)
+	end
 	local cooldownTime = startTime + duration - GetTime()
 	local canUse = cooldownTime <= 0
 	local cooldownTimeString
