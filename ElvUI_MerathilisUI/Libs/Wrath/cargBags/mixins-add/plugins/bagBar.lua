@@ -36,6 +36,8 @@ local addon, ns = ...
 local cargBags = ns.cargBags
 local Implementation = cargBags.classes.Implementation
 
+local ContainerIDToInventoryID = C_Container and C_Container.ContainerIDToInventoryID or ContainerIDToInventoryID
+
 function Implementation:GetBagButtonClass()
 	return self:GetClass("BagButton", true, "BagButton")
 end
@@ -57,7 +59,7 @@ function BagButton:Create(bagID)
 	local isBankBag = (bagID>=5 and bagID<=11)
 	local button = setmetatable(CreateFrame("Button", name, nil, "ItemButtonTemplate, BackdropTemplate"), self.__index)
 
-	local invID = (isBankBag and bagID-4) or ContainerIDToInventoryID(bagID)
+	local invID = (isBankBag and bagID-4) or C_Container.ContainerIDToInventoryID(bagID)
 	button.invID = invID
 	button:SetID(invID)
 	button.bagID = bagID

@@ -35,6 +35,7 @@ local IsUsableItem = IsUsableItem
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
+local C_Container_GetItemCooldown = C_Container.GetItemCooldown
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog and C_QuestLog.GetNumQuestLogEntries
 local C_Timer_NewTicker = C_Timer.NewTicker
 local C_TradeSkillUI_GetItemCraftedQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemCraftedQualityByItemInfo
@@ -1381,8 +1382,12 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			local start, duration, enable
 			if self.questLogIndex and self.questLogIndex > 0 then
 				start, duration, enable = GetQuestLogSpecialItemCooldown(self.questLogIndex)
-			else
-				start, duration, enable = GetItemCooldown(self.itemID)
+				else
+				if E.Retail then
+					start, duration, enable = GetItemCooldown(self.itemID)
+				elseif E.Wrath then
+					start, duration, enable = C_Container_GetItemCooldown(self.itemID)
+				end
 			end
 			CooldownFrame_Set(self.cooldown, start, duration, enable)
 			if (duration and duration > 0 and enable and enable == 0) then
@@ -1415,12 +1420,7 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(
-				bar,
-				barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin),
-				alphaCurrent,
-				barDB.alphaMax
-			)
+			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
 		end
 
 		if barDB.tooltip then

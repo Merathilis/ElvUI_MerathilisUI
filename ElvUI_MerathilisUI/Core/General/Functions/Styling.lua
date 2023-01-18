@@ -25,10 +25,10 @@ function MER:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 	gf:SetAllPoints()
     gf:SetTexture(E.media.blankTex)
 
-	if E.Retail then
-		gf:SetGradient(o, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
-	else
+	if E.Classic then
 		gf:SetGradientAlpha(o, r1, g1, b1, a1, r2, g2, b2, a2)
+	else
+		gf:SetGradient(o, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
 	end
 end
 

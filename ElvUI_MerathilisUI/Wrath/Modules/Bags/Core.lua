@@ -10,13 +10,20 @@ local _G = _G
 local strmatch, unpack, ceil = string.match, unpack, math.ceil
 local LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_RARE = LE_ITEM_QUALITY_POOR, LE_ITEM_QUALITY_RARE
 local LE_ITEM_CLASS_QUIVER, LE_ITEM_CLASS_CONTAINER = LE_ITEM_CLASS_QUIVER, LE_ITEM_CLASS_CONTAINER
-local GetContainerNumSlots, GetContainerItemInfo, PickupContainerItem = GetContainerNumSlots, GetContainerItemInfo,
-	PickupContainerItem
 local C_NewItems_IsNewItem, C_NewItems_RemoveNewItem = C_NewItems.IsNewItem, C_NewItems.RemoveNewItem
 local IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown, DeleteCursorItem = IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown,
 	DeleteCursorItem
-local SortBankBags, SortBags, InCombatLockdown, ClearCursor = SortBankBags, SortBags, InCombatLockdown, ClearCursor
-local GetContainerItemID, SplitContainerItem = GetContainerItemID, SplitContainerItem
+local InCombatLockdown, ClearCursor = InCombatLockdown, ClearCursor
+local SetSortBagsRightToLeft = C_Container.SetSortBagsRightToLeft
+local SetInsertItemsLeftToRight = C_Container.SetInsertItemsLeftToRight
+local GetContainerItemInfo = C_Container.GetContainerItemInfo
+local GetContainerItemID = C_Container.GetContainerItemID
+local GetContainerNumSlots = C_Container.GetContainerNumSlots
+-- local SortBags = C_Container.SortBags
+local SortBankBags = C_Container.SortBankBags
+local PickupContainerItem = C_Container.PickupContainerItem
+local SplitContainerItem = C_Container.SplitContainerItem
+
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS or 4
 local NUM_BANKBAGSLOTS = NUM_BANKBAGSLOTS or 7
 local ITEM_STARTS_QUEST = ITEM_STARTS_QUEST
