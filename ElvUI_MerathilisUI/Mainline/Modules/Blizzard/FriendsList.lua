@@ -16,15 +16,20 @@ local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
 local C_ClassColor_GetClassColor = C_ClassColor.GetClassColor
 local C_FriendList_GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
 
-local FRIENDS_TEXTURE_AFK, FRIENDS_TEXTURE_DND = FRIENDS_TEXTURE_AFK, FRIENDS_TEXTURE_DND
-local FRIENDS_TEXTURE_OFFLINE, FRIENDS_TEXTURE_ONLINE = FRIENDS_TEXTURE_OFFLINE, FRIENDS_TEXTURE_ONLINE
-local LOCALIZED_CLASS_NAMES_FEMALE = LOCALIZED_CLASS_NAMES_FEMALE
-local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
-
+local BNET_FRIEND_TOOLTIP_WOW_CLASSIC = BNET_FRIEND_TOOLTIP_WOW_CLASSIC
+local FRIENDS_BUTTON_TYPE_BNET = FRIENDS_BUTTON_TYPE_BNET
 local FRIENDS_BUTTON_TYPE_DIVIDER = FRIENDS_BUTTON_TYPE_DIVIDER
 local FRIENDS_BUTTON_TYPE_WOW = FRIENDS_BUTTON_TYPE_WOW
-local FRIENDS_BUTTON_TYPE_BNET = FRIENDS_BUTTON_TYPE_BNET
-local BNET_FRIEND_TOOLTIP_WOW_CLASSIC = BNET_FRIEND_TOOLTIP_WOW_CLASSIC
+local FRIENDS_TEXTURE_AFK = FRIENDS_TEXTURE_AFK
+local FRIENDS_TEXTURE_DND = FRIENDS_TEXTURE_DND
+local FRIENDS_TEXTURE_OFFLINE = FRIENDS_TEXTURE_OFFLINE
+local FRIENDS_TEXTURE_ONLINE = FRIENDS_TEXTURE_ONLINE
+local LOCALIZED_CLASS_NAMES_FEMALE = LOCALIZED_CLASS_NAMES_FEMALE
+local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
+local WOW_PROJECT_BURNING_CRUSADE_CLASSIC = 5
+local WOW_PROJECT_CLASSIC = 2
+local WOW_PROJECT_MAINLINE = WOW_PROJECT_MAINLINE
+local WOW_PROJECT_WRATH_CLASSIC = 11
 
 local MediaPath = "Interface\\Addons\\ElvUI_MerathilisUI\\Core\\Media\\FriendList\\"
 
@@ -131,7 +136,7 @@ for code, name in pairs(projectCodes) do
 end
 
 local expansionData = {
-	[1] = {
+	[WOW_PROJECT_MAINLINE] = {
 		name = "Retail",
 		suffix = nil,
 		maxLevel = GetMaxLevelForPlayerExpansion(),
@@ -140,7 +145,7 @@ local expansionData = {
 			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW")
 		}
 	},
-	[2] = {
+	[WOW_PROJECT_CLASSIC] = {
 		name = "Classic",
 		suffix = "Classic",
 		maxLevel = 60,
@@ -149,7 +154,7 @@ local expansionData = {
 			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW")
 		}
 	},
-	[5] = {
+	[WOW_PROJECT_BURNING_CRUSADE_CLASSIC] = {
 		name = "TBC",
 		suffix = "TBC",
 		maxLevel = 70,
@@ -158,7 +163,7 @@ local expansionData = {
 			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW")
 		}
 	},
-	[11] = {
+	[WOW_PROJECT_WRATH_CLASSIC] = {
 		name = "WotLK",
 		suffix = "WotLK",
 		maxLevel = 80,
@@ -210,7 +215,7 @@ local function GetClassColor(className)
 		end
 	end
 
-	if GetLocale() == "deDE" or GetLocale() == "frFR" then
+	if MER.Locale == "deDE" or MER.Locale == "frFR" then
 		for class, localizedName in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
 			if className == localizedName then
 				return C_ClassColor_GetClassColor(class)
@@ -378,6 +383,11 @@ function module:UpdateFriendButton(button)
 			end
 
 			button.info:SetText(buttonText)
+		end
+
+		-- temporary fix for upgrading db from old version
+		if self.db.textures.client ~= "blizzard" then
+			self.db.textures.client = "modern"
 		end
 
 		-- game icon

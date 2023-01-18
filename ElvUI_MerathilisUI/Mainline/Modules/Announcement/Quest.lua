@@ -16,40 +16,55 @@ local C_QuestLog_GetQuestTagInfo = C_QuestLog.GetQuestTagInfo
 
 local lastList
 
+local ignoreTagIDs = {
+	[128] = true,
+	[265] = true
+}
+
 local function GetQuests()
 	local quests = {}
 
 	for questIndex = 1, C_QuestLog_GetNumQuestLogEntries() do
 		local questInfo = C_QuestLog_GetInfo(questIndex)
-		local skip = questInfo.isHeader or questInfo.isBounty or questInfo.isHidde
+		if questInfo then
+			local skip = questInfo.isHeader or questInfo.isBounty or questInfo.isHidden
 
-		local tagInfo = C_QuestLog_GetQuestTagInfo(questInfo.questID)
+			if tagInfo and ignoreTagIDs[tagInfo.tagID] then
+				skip = true
+			end
 
-		if questInfo.isOnMap and tagInfo and tagInfo.worldQuestType then
-			skip = false
-		end
+			if questInfo.isOnMap and tagInfo and tagInfo.worldQuestType then
+				skip = false
+			end
 
-		if not skip then
-			quests[questInfo.questID] = {
-				title = questInfo.title,
-				questID = questInfo.questID,
-				level = questInfo.level,
-				suggestedGroup = questInfo.suggestedGroup,
-				isComplete = questInfo.isComplete,
-				frequency = questInfo.frequency,
-				tag = tagInfo and tagInfo.tagName,
-				worldQuestType = tagInfo and tagInfo.worldQuestType,
-				link = GetQuestLink(questInfo.questID)
-			}
+			if questInfo.isOnMap and tagInfo and tagInfo.tagID == 128 then
+				skip = false
+			end
 
-			for queryIndex = 1, GetNumQuestLeaderBoards(questIndex) do
-				local queryText = GetQuestLogLeaderBoard(queryIndex, questIndex)
-				local _, _, numItems, numNeeded, itemName = strfind(queryText, "(%d+)/(%d+) ?(.*)")
-				quests[questInfo.questID][queryIndex] = {
-					item = itemName,
-					numItems = numItems,
-					numNeeded = numNeeded
+			if not skip then
+				quests[questInfo.questID] = {
+					title = questInfo.title,
+					questID = questInfo.questID,
+					level = questInfo.level,
+					suggestedGroup = questInfo.suggestedGroup,
+					isComplete = questInfo.isComplete,
+					frequency = questInfo.frequency,
+					tag = tagInfo and tagInfo.tagName,
+					worldQuestType = tagInfo and tagInfo.worldQuestType,
+					link = GetQuestLink(questInfo.questID)
 				}
+
+				for queryIndex = 1, GetNumQuestLeaderBoards(questIndex) do
+					local queryText = GetQuestLogLeaderBoard(queryIndex, questIndex)
+					if queryText then
+						local _, _, numItems, numNeeded, itemName = strfind(queryText, "(%d+)/(%d+) ?(.*)")
+						quests[questInfo.questID][queryIndex] = {
+							item = itemName,
+							numItems = numItems,
+							numNeeded = numNeeded
+						}
+					end
+				end
 			end
 		end
 	end

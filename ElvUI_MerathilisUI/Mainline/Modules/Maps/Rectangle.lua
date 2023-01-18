@@ -3,13 +3,44 @@ local RM = MER:GetModule('MER_RectangleMinimap')
 local MM = E:GetModule("Minimap")
 
 local _G = _G
+local abs = abs
 local ceil = ceil
 local floor = floor
 local format = format
+local hooksecurefunc = hooksecurefunc
 local pairs = pairs
+local select = select
 local sqrt = sqrt
 
 local InCombatLockdown = InCombatLockdown
+local IsAddOnLoaded = IsAddOnLoaded
+
+function RM:HereBeDragons_Pins_AddMinimapIconMap(_, _, icon)
+	if icon.SetPoint then
+		hooksecurefunc(icon, "SetPoint", function(pin, arg1, _, arg3, _, arg5)
+			if self.db and self.db.enable and self.effectiveHeight and self.effectiveHeight > 0 then
+				if arg1 and arg1 == "CENTER" and arg3 and arg3 == "CENTER" then
+					if arg5 and abs(arg5) > self.effectiveHeight / 2 then
+						pin:SetAlpha(0)
+					else
+						pin:SetAlpha(1)
+					end
+				end
+			end
+		end)
+	end
+end
+
+function RM:HandyNotesFix()
+	local lib = _G.LibStub("HereBeDragons-Pins-2.0", true)
+	if not lib then
+		return
+	end
+
+	self.HereBeDragonsPinLib = lib
+
+	-- self:SecureHook(lib, "AddMinimapIconMap", "HereBeDragons_Pins_AddMinimapIconMap")
+end
 
 function RM:ChangeShape()
 	if not self.db then
@@ -64,6 +95,7 @@ function RM:ChangeShape()
 	end
 
 	self:Minimap_Holder_Size()
+	self.effectiveHeight = newHeight
 end
 
 do
@@ -121,6 +153,10 @@ function RM:Initialize()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED")
+
+	if IsAddOnLoaded("HandyNotes") then
+		self:HandyNotesFix()
+	end
 end
 
 function RM:ADDON_LOADED(_, addon)

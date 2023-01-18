@@ -465,6 +465,13 @@ P.announcement = {
 				raidWarning = false,
 				text = L["{rt1} %player% used %spell% {rt1}"]
 			},
+			["376664"] = {
+				-- Ohuna Perch
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["%player% used %spell%"]
+			},
 			["195782"] = {
 				-- Summon Moonfeather Statue
 				enable = true,
@@ -516,7 +523,8 @@ P.announcement = {
 		text = L["{rt1} My new keystone is %keystone%. {rt1}"],
 		channel = {
 			party = "PARTY"
-		}
+		},
+		command = true,
 	}
 }
 
@@ -571,6 +579,23 @@ P.misc = {
 			b = 0
 		},
 	},
+	mute = {
+		enable = true,
+		mount = {
+			[63796] = false,
+			[229385] = false,
+			[339588] = false,
+			[312762] = false
+		},
+		other = {
+			["Crying"] = false,
+			["Tortollan"] = false,
+			["Smolderheart"] = false,
+			["Elegy of the Eternals"] = false,
+			["Dragonriding"] = true,
+			["Jewelcrafting"] = false
+		}
+	}
 }
 
 P.nameHover = {
@@ -674,7 +699,7 @@ P.actionbars = {
 	},
 }
 
-local function Potions()
+local function Filter()
 	if E.Classic then
 		return "POTION,FLASK,UTILITY"
 	elseif E.TBC then
@@ -682,7 +707,7 @@ local function Potions()
 	elseif E.Wrath then
 		return "POTIONSWRATH,FLASKWRATH,UTILITY"
 	elseif E.Retail then
-		return ",POTIONSDF,FLASKDF,RUNEDF,UTILITY"
+		return "POTIONDF,FLASKDF,RUNE,UTILITY"
 	end
 end
 
@@ -699,7 +724,7 @@ P.autoButtons = {
 		mouseOver = false,
 		globalFade = false,
 		fadeTime = 0.3,
-		alphaMin = 1,
+		alphaMin = 0,
 		alphaMax = 1,
 		numButtons = 10,
 		backdrop = true,
@@ -710,6 +735,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = false,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -734,14 +764,14 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "QUEST,BANNER,EQUIP,OPENABLE"
+		include = "QUEST,BANNER,EQUIP,PROF,OPENABLE"
 	},
 	bar2 = {
 		enable = true,
 		mouseOver = false,
 		globalFade = false,
 		fadeTime = 0.3,
-		alphaMin = 1,
+		alphaMin = 0,
 		alphaMax = 1,
 		numButtons = 10,
 		backdrop = true,
@@ -752,6 +782,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -777,14 +812,14 @@ P.autoButtons = {
 			},
 		},
 		--include = "POTIONSL,FLASKSL,UTILITY"
-		include = Potions()
+		include = Filter()
 	},
 	bar3 = {
 		enable = true,
 		mouseOver = false,
 		globalFade = false,
 		fadeTime = 0.3,
-		alphaMin = 1,
+		alphaMin = 0,
 		alphaMax = 1,
 		numButtons = 10,
 		backdrop = true,
@@ -795,6 +830,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -837,6 +877,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -879,6 +924,11 @@ P.autoButtons = {
 		anchor = "TOPLEFT",
 		spacing = 3,
 		tooltip = true,
+		qualityTier = {
+			size = 16,
+			xOffset = 0,
+			yOffset = 0,
+		},
 		countFont = {
 			name = "Expressway",
 			size = 12,
@@ -1127,6 +1177,13 @@ P.maps = {
 			stopAlertIfCompleted = true,
 			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
+		iskaaranFishingNet = {
+			enable = true,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Surprise",
+			disableAlertAfterHours = 48,
+		}
 	},
 }
 
@@ -1157,19 +1214,19 @@ P.media = {
 			enable = true,
 			font = "Expressway",
 			size = 12,
-			outline = "NONE",
+			outline = "OUTLINE",
 		},
 		gossip = {
 			enable = true,
 			font = "Expressway",
 			size = 12,
-			outline = "NONE",
+			outline = "OUTLINE",
 		},
 		questFontSuperHuge = {
 			enable = true,
 			font = "Expressway",
 			size = 24,
-			outline = "NONE",
+			outline = "OUTLINE",
 		},
 	},
 }
@@ -1237,7 +1294,7 @@ P.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "193588,190237,54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952",
+		hsPrio = "200630,193588,190237,54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,

@@ -208,6 +208,24 @@ function module:CreateBar()
 	E:CreateMover(self.barAnchor, "MER_RaidMarkersBarAnchor", L["Raid Markers Bar"], nil, nil, nil, "ALL,PARTY,RAID,MERATHILISUI", function() return E.db.mui.raidmarkers.enable end, "mui,modules,raidmarkers")
 end
 
+function module:UpdateCountDownButton()
+	if not (self.db and self.bar and self.bar.buttons and self.bar.buttons[11]) then
+		return
+	end
+
+	local button = self.bar.buttons[11]
+	if IsAddOnLoaded("BigWigs") then
+		button:SetAttribute("macrotext1", "/pull " .. self.db.countDownTime)
+		button:SetAttribute("macrotext2", "/pull 0")
+	elseif IsAddOnLoaded("DBM-Core") then
+		button:SetAttribute("macrotext1", "/dbm pull " .. self.db.countDownTime)
+		button:SetAttribute("macrotext2", "/dbm pull 0")
+	else
+		button:SetAttribute("macrotext1", _G.SLASH_COUNTDOWN1 .. " " .. self.db.countDownTime)
+		button:SetAttribute("macrotext2", _G.SLASH_COUNTDOWN1 .. " " .. -1)
+	end
+end
+
 function module:CreateButtons()
 	self.modifierString = self.db.modifier:gsub("^%l", strupper)
 
@@ -235,17 +253,7 @@ function module:CreateButtons()
 			button:SetAttribute("type*", "macro")
 			button:SetAttribute(format("%s-type*", self.db.modifier), "macro")
 
-			if not self.db.inverse then
-				button:SetAttribute("macrotext1", format("/tm %d", i))
-				button:SetAttribute("macrotext2", "/tm 9")
-				button:SetAttribute(format("%s-macrotext1", self.db.modifier), format("/wm %d", TargetToWorld[i]))
-				button:SetAttribute(format("%s-macrotext2", self.db.modifier), format("/cwm %d", TargetToWorld[i]))
-			else
-				button:SetAttribute("macrotext1", format("/wm %d", TargetToWorld[i]))
-				button:SetAttribute("macrotext2", format("/cwm %d", TargetToWorld[i]))
-				button:SetAttribute(format("%s-macrotext1", self.db.modifier), format("/tm %d", i))
-				button:SetAttribute(format("%s-macrotext2", self.db.modifier), "/tm 9")
-			end
+			self:UpdateCountDownButton()
 
 			button.isMarkButton = true
 		elseif i == 9 then

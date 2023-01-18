@@ -17,12 +17,10 @@ local function LoadSkin()
 		module:ReskinTab(tab)
 	end
 
-	local Log = ProfessionsFrame.CraftingPage.CraftingOutputLog
-	if Log.backdrop then
-		Log.backdrop:SetTemplate('Transparent')
-		Log.backdrop:Styling()
-		module:CreateBackdropShadow(Log)
-	end
+	module:CreateShadow(ProfessionsFrame.OrdersPage.OrderView.CraftingOutputLog)
+	ProfessionsFrame.OrdersPage.OrderView.CraftingOutputLog:Styling()
+	module:CreateShadow(ProfessionsFrame.CraftingPage.CraftingOutputLog)
+	ProfessionsFrame.CraftingPage.CraftingOutputLog:Styling()
 
 	ProfessionsFrame.CraftingPage.RecipeList.BackgroundNineSlice:SetAlpha(.45)
 	ProfessionsFrame.CraftingPage.SchematicForm.Background:SetAlpha(.45)

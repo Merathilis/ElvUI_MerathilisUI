@@ -2,29 +2,13 @@ local MER, F, E, _, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_Misc')
 
 local _G = _G
-local pairs = pairs
-local twipe = table.wipe
-local tinsert = table.insert
-local strfind = string.find
-local gsub = gsub
 
 local hooksecurefunc = hooksecurefunc
-local C_FriendList_GetNumWhoResults = C_FriendList.GetNumWhoResults
-local C_FriendList_GetWhoInfo = C_FriendList.GetWhoInfo
-local GetGuildInfo = GetGuildInfo
-local GetQuestDifficultyColor = GetQuestDifficultyColor
 local GetNumGroupMembers = GetNumGroupMembers
-local GetRealZoneText = GetRealZoneText
 local GetSpecialization = GetSpecialization
 local UnitLevel = UnitLevel
-local UnitRace = UnitRace
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitSetRole = UnitSetRole
-local InCombatLockdown = InCombatLockdown
-local StaticPopupSpecial_Hide = StaticPopupSpecial_Hide
-local HybridScrollFrame_GetOffset = HybridScrollFrame_GetOffset
-local UIDropDownMenu_GetSelectedID = UIDropDownMenu_GetSelectedID
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 function module:SetRole()
 	if not E.Retail then return end

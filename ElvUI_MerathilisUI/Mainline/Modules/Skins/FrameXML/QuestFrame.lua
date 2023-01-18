@@ -168,6 +168,16 @@ local function LoadSkin()
 	_G.QuestNPCModelTextFrame:Styling()
 	module:CreateShadow(_G.QuestNPCModelTextFrame)
 
+	-- Friendship
+	for i = 1, 4 do
+		local notch = QuestFrame.FriendshipStatusBar["Notch" .. i]
+		if notch then
+			notch:SetColorTexture(0, 0, 0)
+			notch:SetSize(E.mult, 16)
+		end
+	end
+	QuestFrame.FriendshipStatusBar.BarBorder:Hide()
+
 	MER.NPC:Register(QuestFrame)
 end
 

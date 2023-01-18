@@ -32,6 +32,7 @@ local DONATORS = {
 	'skychilde',
 	'Grougwarth',
 	'Sylfarion',
+	'Andrey',
 }
 tsort(DONATORS, SortList)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -281,6 +282,26 @@ options.reset = {
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Minimap Buttons"], nil, function()
 					E:CopyTable(E.db.mui.smb, P.smb)
+				end)
+			end
+		},
+		eventTracker = {
+			order = 9,
+			type = "execute",
+			name = L["Event Tracker"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Event Tracker"], nil, function()
+					E.db.mui.maps.eventTracker = P.maps.eventTracker
+				end)
+			end
+		},
+		bigWigsSkin = {
+			order = 10,
+			type = "execute",
+			name = L["BigWigs Skin"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["BigWigs Skin"], nil, function()
+					E.private.mui.skins.addonSkins.bw = V.skins.addonSkins.bw
 				end)
 			end
 		},

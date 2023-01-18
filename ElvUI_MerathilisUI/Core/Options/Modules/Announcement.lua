@@ -723,7 +723,7 @@ options.announcement.args.keystone = {
 	}
 }
 
-options.general = {
+options.announcement.args.general = {
 	order = 7,
 	type = "group",
 	name = L["General"],

@@ -1,7 +1,5 @@
-[b][color=orange]v5.52[/color], 17.12.2022[/b][list]
-[*]Use a Global Variable on AlreadyKnown
-[*]Fixed an error on the Encounter Journal
-[*]Added new Phial's to the RBReminder
-[*]Changed the CVar Alert to default off
-[*]Updated Event Tracker
-[*]Removed some font settings on blizzards widgets[/list]
+[b][color=orange]v5.55[/color], 02.01.2023[/b][list]
+[*]Try to prevent some rare nil errors
+[*]Fix some non Retail issues"
+[*]Added more Mute options
+[*]Added Fishing Holes to the Event Tracker[/list]

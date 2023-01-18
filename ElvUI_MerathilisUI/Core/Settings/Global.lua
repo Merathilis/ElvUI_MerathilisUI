@@ -5,7 +5,7 @@ G.core = {
 	cvarAlert = false,
 	logLevel = 2,
 	loginMsg = true,
-	fixLFG = true,
+	fixLFG = false,
 }
 
 G.mail = {
@@ -17,4 +17,8 @@ G.mail = {
 
 G.bags = {
 	CustomJunkList = {}
+}
+
+G.maps = {
+	eventTracker = {}
 }

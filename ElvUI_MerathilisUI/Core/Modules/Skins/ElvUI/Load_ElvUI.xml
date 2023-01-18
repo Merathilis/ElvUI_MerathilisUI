@@ -4,6 +4,7 @@
 	<Script file='Chat.lua'/>
 	<Script file='DataPanels.lua'/>
 	<Script file='DataTexts.lua'/>
+	<Script file='LootRoll.lua'/>
 	<Script file='Options.lua'/>
 	<Script file='Misc.lua'/>
 </Ui>

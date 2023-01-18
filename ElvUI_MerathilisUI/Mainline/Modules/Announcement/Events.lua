@@ -6,6 +6,9 @@ local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 module.EventList = {
 	"CHALLENGE_MODE_COMPLETED",
 	"CHAT_MSG_ADDON",
+	"CHAT_MSG_PARTY",
+	"CHAT_MSG_PARTY_LEADER",
+	"CHAT_MSG_GUILD",
 	"CHAT_MSG_SYSTEM",
 	"COMBAT_LOG_EVENT_UNFILTERED",
 	"GROUP_ROSTER_UPDATE",
@@ -18,6 +21,18 @@ function module:CHAT_MSG_SYSTEM(event, text)
 	local data = {}
 
 	self:ResetInstance(text)
+end
+
+function module:CHAT_MSG_PARTY(event, ...)
+	self:KeystoneLink(event, ...)
+end
+
+function module:CHAT_MSG_PARTY_LEADER(event, ...)
+	self:KeystoneLink(event, ...)
+end
+
+function module:CHAT_MSG_GUILD(event, ...)
+	self:KeystoneLink(event, ...)
 end
 
 function module:COMBAT_LOG_EVENT_UNFILTERED()
@@ -33,7 +48,10 @@ function module:COMBAT_LOG_EVENT_UNFILTERED()
 end
 
 function module:PLAYER_ENTERING_WORLD()
+	self.playerEnteredWorld = true
+	self:Quest()
 	E:Delay(2, self.Keystone, self, "PLAYER_ENTERING_WORLD")
+	E:Delay(4, self.ResetAuthority, self)
 end
 
 function module:CHALLENGE_MODE_COMPLETED()
@@ -41,6 +59,9 @@ function module:CHALLENGE_MODE_COMPLETED()
 end
 
 function module:QUEST_LOG_UPDATE()
+	if not self.playerEnteredWorld then
+		return
+	end
 	self:Quest()
 end
 

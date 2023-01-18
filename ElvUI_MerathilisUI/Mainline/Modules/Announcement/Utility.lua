@@ -69,8 +69,9 @@ local FeastList = {
 	[308458] = true,
 	[308462] = true,
 	[359336] = true,
+	[382423] = true,
 	[382427] = true,
-	[383063] = true,
+    [383063] = true,
 }
 
 local PortalList = {
@@ -197,6 +198,9 @@ function module:Utility(event, sourceName, spellId)
 			return
 		end
 		if TryAnnounce(spellId, sourceName, 261602) then
+			return
+		end
+		if TryAnnounce(spellId, sourceName, 376664) then
 			return
 		end
 		if TryAnnounce(spellId, sourceName, 195782) then

@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
@@ -121,6 +121,15 @@ local function LoadSkin()
 		module:CreateShadow(_G.MirrorTimer3)
 	end
 
+	-- Error Text
+	if _G.UIErrorsFrame then
+		F.SetFontDB(_G.UIErrorsFrame, E.private.mui.skins.errorMessage)
+	end
+
+	if _G.ActionStatus.Text then
+		F.SetFontDB(_G.ActionStatus.Text, E.private.mui.skins.errorMessage)
+	end
+
 	-- DataStore
 	if IsAddOnLoaded("DataStore") then
 		local frame = _G.DataStoreFrame
@@ -128,6 +137,10 @@ local function LoadSkin()
 			frame:Styling()
 		end
 	end
+
+	module:SecureHook(S, "HandleIconSelectionFrame", function(_, frame)
+		module:CreateShadow(frame)
+	end)
 end
 
 S:AddCallback("BlizzMisc", LoadSkin)

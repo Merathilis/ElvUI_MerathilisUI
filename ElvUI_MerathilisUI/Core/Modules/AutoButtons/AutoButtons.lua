@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_AutoButtons')
+local async = MER.Utilities.Async
 local S = MER:GetModule('MER_Skins')
 local AB = E:GetModule('ActionBars')
 
@@ -18,6 +19,7 @@ local wipe = wipe
 
 local CooldownFrame_Set = CooldownFrame_Set
 local CreateFrame = CreateFrame
+local CreateAtlasMarkup = CreateAtlasMarkup
 local GameTooltip = _G.GameTooltip
 local GetBindingKey = GetBindingKey
 local GetInventoryItemCooldown = GetInventoryItemCooldown
@@ -30,11 +32,13 @@ local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local IsItemInRange = IsItemInRange
 local IsUsableItem = IsUsableItem
-local Item = Item
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog and C_QuestLog.GetNumQuestLogEntries
+local C_Timer_NewTicker = C_Timer.NewTicker
+local C_TradeSkillUI_GetItemCraftedQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemCraftedQualityByItemInfo
+local C_TradeSkillUI_GetItemReagentQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemReagentQualityByItemInfo
 
 module.bars = {}
 
@@ -356,18 +360,36 @@ local flasksDragonflight = {
 local runes = {
 	160053,
 	181468,
+	194817,
+	194819,
+	194820,
+	194821,
+	194822,
+	194823,
+	194824,
+	194825,
+	194826,
 	198491,
 	198492,
 	198493,
-	201325,
+	201325
 }
 
 -- Runes added in Dragonflight
 local runesDragonflight = {
+	194817,
+	194819,
+	194820,
+	194821,
+	194822,
+	194823,
+	194824,
+	194825,
+	194826,
 	198491,
 	198492,
 	198493,
-	201325,
+	201325
 }
 
 -- Foods (Crafted by cooking)
@@ -617,17 +639,6 @@ local utilities = {
 	109076,
 	132514,
 	132516,
-	153023,
-	171285,
-	171286,
-	171436,
-	171437,
-	171438,
-	171439,
-	172233,
-	172346,
-	172347,
-	182749,
 	191294,
 	191933,
 	191939,
@@ -641,12 +652,6 @@ local utilities = {
 	194817,
 	194819,
 	194820,
-	194821,
-	194822,
-	194823,
-	194824,
-	194825,
-	194826,
 	198160,
 	198161,
 	198162,
@@ -814,14 +819,17 @@ local openableItems = {
 	200095,
 	200468,
 	200513,
+	200515,
 	200516,
 	201754,
 	201755,
 	201756,
 	201817,
 	201818,
+	202079,
 	202142,
 	202171,
+	202080,
 }
 
 local tbcOre = {
@@ -978,6 +986,211 @@ local wrathElixirs = {
 	8529, -- noggenfogger elixir
 }
 
+-- Profession Items
+local professionItems = {
+	192131,
+	192132,
+	192443,
+	193891,
+	193897,
+	193898,
+	193899,
+	193900,
+	193901,
+	193902,
+	193903,
+	193904,
+	193905,
+	193907,
+	193909,
+	193910,
+	193913,
+	194039,
+	194040,
+	194041,
+	194042,
+	194043,
+	194044,
+	194045,
+	194046,
+	194047,
+	194054,
+	194055,
+	194061,
+	194062,
+	194063,
+	194064,
+	194078,
+	194079,
+	194080,
+	194081,
+	194697,
+	194698,
+	194699,
+	194700,
+	194702,
+	194703,
+	194704,
+	194708,
+	198156,
+	198454,
+	198510,
+	198518,
+	198519,
+	198520,
+	198521,
+	198522,
+	198523,
+	198524,
+	198525,
+	198526,
+	198527,
+	198528,
+	198599,
+	198606,
+	198607,
+	198608,
+	198609,
+	198610,
+	198611,
+	198612,
+	198613,
+	198656,
+	198658,
+	198659,
+	198660,
+	198662,
+	198663,
+	198664,
+	198667,
+	198669,
+	198670,
+	198675,
+	198680,
+	198682,
+	198683,
+	198684,
+	198685,
+	198686,
+	198687,
+	198689,
+	198690,
+	198692,
+	198693,
+	198694,
+	198696,
+	198697,
+	198699,
+	198702,
+	198703,
+	198704,
+	198710,
+	198711,
+	198712,
+	198789,
+	198798,
+	198799,
+	198800,
+	198836,
+	198837,
+	198841,
+	198963,
+	198964,
+	198965,
+	198966,
+	198967,
+	198968,
+	198969,
+	198970,
+	198971,
+	198972,
+	198973,
+	198974,
+	198975,
+	198976,
+	198977,
+	198978,
+	199115,
+	199122,
+	199128,
+	200677,
+	200678,
+	200972,
+	200973,
+	200974,
+	200975,
+	200976,
+	200977,
+	200978,
+	200979,
+	200980,
+	200981,
+	200982,
+	201003,
+	201004,
+	201005,
+	201006,
+	201007,
+	201008,
+	201009,
+	201010,
+	201011,
+	201012,
+	201013,
+	201014,
+	201015,
+	201016,
+	201017,
+	201018,
+	201019,
+	201020,
+	201023,
+	201268,
+	201269,
+	201270,
+	201271,
+	201272,
+	201273,
+	201274,
+	201275,
+	201276,
+	201277,
+	201278,
+	201279,
+	201280,
+	201281,
+	201282,
+	201283,
+	201284,
+	201285,
+	201286,
+	201287,
+	201288,
+	201289,
+	201300,
+	201301,
+	201356,
+	201357,
+	201358,
+	201359,
+	201360,
+	201700,
+	201705,
+	201706,
+	201708,
+	201709,
+	201710,
+	201711,
+	201712,
+	201713,
+	201715,
+	201716,
+	201717,
+	202011,
+	202014,
+	202016
+}
+
 local questItemList = {}
 local function UpdateQuestItemList()
 	if not E.Retail then return end
@@ -992,12 +1205,17 @@ local function UpdateQuestItemList()
 	end
 end
 
+-- Usable Items beeing ignored for some reasons
+local forceUsableItems = {
+	[193634] = true -- Burgeoning Seed
+}
+
 local equipmentList = {}
 local function UpdateEquipmentList()
 	wipe(equipmentList)
 	for slotID = 1, 18 do
 		local itemID = GetInventoryItemID("player", slotID)
-		if itemID and IsUsableItem(itemID) then
+		if itemID and (IsUsableItem(itemID) or forceUsableItems[itemID]) then
 			tinsert(equipmentList, slotID)
 		end
 	end
@@ -1020,6 +1238,7 @@ local moduleList = {
 	["BANNER"] = banners,
 	["UTILITY" ] = utilities,
 	["OPENABLE"] = openableItems,
+	["PROF"] = professionItems,
 	["ORETBC"] = tbcOre,
 	["POTIONTBC"] = tbcPotions,
 	["FLASKSTBC"] = tbcFlasks,
@@ -1028,9 +1247,9 @@ local moduleList = {
 	["POTIONSWRATH"] = wrathPotions,
 	["FLASKWRATH"] = wrathFlasks,
 	["ELIXIRWRATH"] = wrathElixirs,
-	["POTIONSDF"] = potionsDragonflight,
+	["POTIONDF"] = potionsDragonflight,
 	["FLASKDF"] = flasksDragonflight,
-	["FOODDF"] = foodDragonflight,
+	["FOODDF"] = foodDragonflight
 }
 
 function module:CreateButton(name, barDB)
@@ -1046,6 +1265,16 @@ function module:CreateButton(name, barDB)
 	tex:Point("TOPLEFT", button, "TOPLEFT", 1, -1)
 	tex:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", -1, 1)
 	tex:SetTexCoord(unpack(E.TexCoords))
+
+	local qualityTier = button:CreateFontString(nil, "OVERLAY")
+	qualityTier:SetTextColor(1, 1, 1, 1)
+	qualityTier:SetPoint("TOPLEFT", button, "TOPLEFT")
+	qualityTier:SetJustifyH("CENTER")
+	F.SetFontDB(qualityTier, {
+		size = barDB.qualityTier.size,
+		name = E.db.general.font,
+		style = "OUTLINE"
+	})
 
 	local count = button:CreateFontString(nil, "OVERLAY")
 	count:SetTextColor(1, 1, 1, 1)
@@ -1063,45 +1292,78 @@ function module:CreateButton(name, barDB)
 	E:RegisterCooldown(cooldown)
 
 	button.tex = tex
+	button.qualityTier = qualityTier
 	button.count = count
 	button.bind = bind
 	button.cooldown = cooldown
 
+	if E.Retail then
+		button.SetTier = function(self, itemIDOrLink)
+			local level = C_TradeSkillUI_GetItemReagentQualityByItemInfo(itemIDOrLink) or C_TradeSkillUI_GetItemCraftedQualityByItemInfo(itemIDOrLink)
+
+			if not level or level == 0 then
+				self.qualityTier:SetText("")
+				self.qualityTier:Hide()
+			else
+				self.qualityTier:SetText(CreateAtlasMarkup(format("Professions-Icon-Quality-Tier%d-Small", level)))
+				self.qualityTier:Show()
+			end
+		end
+	end
+
 	button:StyleButton()
+
+	S:CreateShadowModule(button)
+	S:BindShadowColorWithBorder(button.MERshadow, button)
 
 	return button
 end
 
-function module:SetUpButton(button, questItemData, slotID)
+function module:SetUpButton(button, itemData, slotID, waitGroup)
 	button.itemName = nil
 	button.itemID = nil
 	button.spellName = nil
 	button.slotID = nil
 	button.countText = nil
 
-	if questItemData then
-		button.itemID = questItemData.itemID
-		button.countText = GetItemCount(questItemData.itemID, nil, true)
-		button.questLogIndex = questItemData.questLogIndex
+	if itemData then
+		button.itemID = itemData.itemID
+		button.countText = GetItemCount(itemData.itemID, nil, true)
+		button.questLogIndex = itemData.questLogIndex
 		button:SetBackdropBorderColor(0, 0, 0)
 
-		local item = Item:CreateFromItemID(questItemData.itemID)
-		item:ContinueOnItemLoad(function()
+		waitGroup.count = waitGroup.count + 1
+		async.WithItemID(itemData.itemID, function(item)
 			button.itemName = item:GetItemName()
 			button.tex:SetTexture(item:GetItemIcon())
+			if E.Retail then
+				button:SetTier(itemData.itemID)
+				E:Delay(0.1, function()
+					-- delay for quality tier fetching and text changing
+					waitGroup.count = waitGroup.count - 1
+				end)
+			end
 		end)
 	elseif slotID then
 		button.slotID = slotID
-		local item = Item:CreateFromEquipmentSlot(slotID)
-		item:ContinueOnItemLoad(function()
-			if button.slotID == slotID then
-				button.itemName = item:GetItemName()
-				button.tex:SetTexture(item:GetItemIcon())
 
-				local color = item:GetItemQualityColor()
-				if color then
-					button:SetBackdropBorderColor(color.r, color.g, color.b)
-				end
+		waitGroup.count = waitGroup.count + 1
+		async.WithItemSlotID(slotID, function(item)
+			button.itemName = item:GetItemName()
+			button.tex:SetTexture(item:GetItemIcon())
+
+			local color = item:GetItemQualityColor()
+
+			if color then
+				button:SetBackdropBorderColor(color.r, color.g, color.b)
+			end
+
+			if E.Retail then
+				button:SetTier(item:GetItemID())
+				E:Delay(0.1, function()
+					-- delay for quality tier fetching and text changing
+					waitGroup.count = waitGroup.count - 1
+				end)
 			end
 		end)
 	end
@@ -1113,6 +1375,7 @@ function module:SetUpButton(button, questItemData, slotID)
 	end
 
 	local OnUpdateFunction
+
 	if button.itemID then
 		OnUpdateFunction = function(self)
 			local start, duration, enable
@@ -1125,9 +1388,9 @@ function module:SetUpButton(button, questItemData, slotID)
 			if (duration and duration > 0 and enable and enable == 0) then
 				self.tex:SetVertexColor(0.4, 0.4, 0.4)
 			elseif IsItemInRange(self.itemID, "target") == false then
-				self.tex:SetVertexColor(1, 0, 0, 1)
+				self.tex:SetVertexColor(1, 0, 0)
 			else
-				self.tex:SetVertexColor(1, 1, 1, 1)
+				self.tex:SetVertexColor(1, 1, 1)
 			end
 		end
 	elseif button.slotID then
@@ -1152,10 +1415,13 @@ function module:SetUpButton(button, questItemData, slotID)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, barDB.fadeTime or 0.3 * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
+			E:UIFrameFadeIn(
+				bar,
+				barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent,
+				barDB.alphaMax
+			)
 		end
-		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
-		GameTooltip:ClearLines()
 
 		if barDB.tooltip then
 			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
@@ -1184,26 +1450,34 @@ function module:SetUpButton(button, questItemData, slotID)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, barDB.fadeTime or 0.3 * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
+			E:UIFrameFadeOut(
+				bar,
+				barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent,
+				barDB.alphaMin
+			)
 		end
+
 		GameTooltip:Hide()
 	end)
 
 	if not InCombatLockdown() then
 		button:EnableMouse(true)
 		button:Show()
+		button:SetAttribute("type", "macro")
+
+		local macroText
 		if button.slotID then
-			button:SetAttribute("type", "macro")
-			button:SetAttribute("macrotext", "/use " .. button.slotID)
+			macroText = "/use " .. button.slotID
 		elseif button.itemName then
+			macroText = "/use item:" .. button.itemID
 			if button.itemID == 172347 then
-				-- Heavy Desolate Armor Kit
-				button:SetAttribute("type", "macro")
-				button:SetAttribute("macrotext", "/use " .. button.itemName .. "\n/use 5")
-			else
-				button:SetAttribute("type", "item")
-				button:SetAttribute("item", button.itemName)
+				macroText = macroText .. "\n/use 5"
 			end
+		end
+
+		if macroText then
+			button:SetAttribute("macrotext", macroText)
 		end
 	end
 end
@@ -1282,16 +1556,24 @@ function module:CreateBar(id)
 	end
 
 	bar:SetScript("OnEnter", function(self)
-		if barDB.mouseOver then
+		if not barDB then
+			return
+		end
+
+		if not barDB.globalFade and barDB.mouseOver and barDB.alphaMax and barDB.alphaMin then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, barDB.fadeTime or 0.3 * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
+			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
 		end
 	end)
 
 	bar:SetScript("OnLeave", function(self)
-		if barDB.mouseOver then
+		if not barDB then
+			return
+		end
+
+		if not barDB.globalFade and barDB.mouseOver and barDB.alphaMax and barDB.alphaMin then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, barDB.fadeTime or 0.3 * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
+			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
 		end
 	end)
 
@@ -1305,6 +1587,12 @@ function module:UpdateBar(id)
 
 	local bar = module.bars[id]
 	local barDB = self.db["bar" .. id]
+
+	if bar.waitGroup and bar.waitGroup.ticker then
+		bar.waitGroup.ticker:Cancel()
+	end
+
+	bar.waitGroup = { count = 0 }
 
 	if InCombatLockdown() then
 		self:UpdateBarTextOnCombat(id)
@@ -1323,11 +1611,11 @@ function module:UpdateBar(id)
 	end
 
 	local buttonID = 1
-	local function AddButtons(list)
+	local function addButtons(list)
 		for _, itemID in pairs(list) do
 			local count = GetItemCount(itemID)
 			if count and count > 0 and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
-				self:SetUpButton(bar.buttons[buttonID], {itemID = itemID})
+				self:SetUpButton(bar.buttons[buttonID], { itemID = itemID }, nil, bar.waitGroup)
 				self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 				buttonID = buttonID + 1
 			end
@@ -1337,11 +1625,11 @@ function module:UpdateBar(id)
 	for _, module in ipairs{strsplit("[, ]", barDB.include)} do
 		if buttonID <= barDB.numButtons then
 			if moduleList[module] then
-				AddButtons(moduleList[module])
+				addButtons(moduleList[module])
 			elseif module == "QUEST" then
 				for _, data in pairs(questItemList) do
 					if not self.db.blackList[data.itemID] then
-						self:SetUpButton(bar.buttons[buttonID], data)
+						self:SetUpButton(bar.buttons[buttonID], data, nil, bar.waitGroup)
 						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 						buttonID = buttonID + 1
 					end
@@ -1350,13 +1638,13 @@ function module:UpdateBar(id)
 				for _, slotID in pairs(equipmentList) do
 					local itemID = GetInventoryItemID("player", slotID)
 					if itemID and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
-						self:SetUpButton(bar.buttons[buttonID], nil, slotID)
+						self:SetUpButton(bar.buttons[buttonID], nil, slotID, bar.waitGroup)
 						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 						buttonID = buttonID + 1
 					end
 				end
 			elseif module == "CUSTOM" then
-				AddButtons(self.db.customList)
+				addButtons(self.db.customList)
 			end
 		end
 	end
@@ -1448,24 +1736,35 @@ function module:UpdateBar(id)
 		bar.backdrop:Hide()
 	end
 
-	bar.alphaMin = barDB.alphaMin or 0
-	bar.alphaMax = barDB.alphaMax or 1
-	bar.fadeTime = barDB.fadeTime or 0.3
+	local function updateAlpha()
+		bar.alphaMin = barDB.alphaMin
+		bar.alphaMax = barDB.alphaMax
 
-	if barDB.globalFade then
-		barDB.alphaMin = 1
-		barDB.alphaMax = 1
-
-		bar:SetAlpha(1)
-		bar:GetParent():SetParent(AB.fadeParent)
-	else
-		if barDB.mouseOver then
-			bar:SetAlpha(barDB.alphaMin)
+		if barDB.globalFade then
+			bar:SetAlpha(1)
+			bar:GetParent():SetParent(AB.fadeParent)
 		else
-			bar:SetAlpha(barDB.alphaMax)
+			if barDB.mouseOver then
+				bar:SetAlpha(barDB.alphaMin)
+			else
+				bar:SetAlpha(barDB.alphaMax)
+			end
+
+			bar:GetParent():SetParent(E.UIParent)
 		end
-		bar:GetParent():SetParent(E.UIParent)
+
+		if bar.waitGroup.ticker then
+			bar.waitGroup.ticker:Cancel()
+		end
+
+		bar.waitGroup = nil
 	end
+
+	bar.waitGroup.ticker = C_Timer_NewTicker(0.1, function()
+		if not bar.waitGroup or bar.waitGroup.count == 0 then
+			updateAlpha()
+		end
+	end)
 end
 
 function module:UpdateBars()

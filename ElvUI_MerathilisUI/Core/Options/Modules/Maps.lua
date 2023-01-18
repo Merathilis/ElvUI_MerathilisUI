@@ -20,7 +20,7 @@ local envs = {
 
 options.maps = {
 	type = "group",
-	name = E.NewSign..L["Maps"],
+	name = L["Maps"],
 	get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 	set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	disabled = function() return not E.private.general.minimap.enable end,
@@ -872,7 +872,7 @@ options.maps = {
 		eventTracker = {
 			order = 7,
 			type = "group",
-			name = E.NewSign..L["Event Tracker"],
+			name = L["Event Tracker"],
 			get = function(info)
 				return E.db.mui.maps.eventTracker[info[#info]]
 			end,
@@ -1140,6 +1140,63 @@ options.maps = {
 							name = L["Only DF Character"],
 							desc = L["Stop alert when the player have not entered Dragonlands yet."],
 							width = 1.5,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
+						},
+					},
+				},
+				iskaaranFishingNet = {
+					order = 7,
+					type = "group",
+					inline = true,
+					name = L["Iskaaran Fishing Net"],
+					get = function(info)
+						return E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]] = value
+						ET:ProfileUpdate()
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"]
+						},
+						alert = {
+							order = 2,
+							type = "toggle",
+							name = L["Alert"]
+						},
+						sound = {
+							order = 3,
+							type = "toggle",
+							name = L["Alert Sound"],
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end,
+							desc = L["Play sound when the alert is triggered."]
+						},
+						soundFile = {
+							order = 4,
+							type = "select",
+							dialogControl = "LSM30_Sound",
+							name = L["Sound File"],
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
+									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+							end,
+							values = LSM:HashTable("sound")
+						},
+						disableAlertAfterHours = {
+							order = 5,
+							type = "range",
+							name = L["Alert Timeout"],
+							desc = L["Alert will be disabled after the set value (hours)."],
+							min = 0,
+							max = 144,
+							step = 1,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end

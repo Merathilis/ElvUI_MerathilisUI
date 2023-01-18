@@ -22,6 +22,7 @@ MER.IsWrath = select(4, GetBuildInfo()) >= 30400
 MER.IsNewPatch = select(4, GetBuildInfo()) >= 100000 -- 10.0
 MER.IsPTR = select(4, GetBuildInfo()) == 100002 -- 10.0.2
 
+MER.Locale = GetLocale()
 MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
 
 -- Masque support
@@ -48,6 +49,10 @@ MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:51
 MER.RegisteredModules = {}
 
 MER.UseKeyDown = C_CVar_GetCVarBool("ActionButtonUseKeyDown")
+
+local LBG = LibStub("LibButtonGlow-1.0")
+F.ShowOverlayGlow = LBG.ShowOverlayGlow
+F.HideOverlayGlow = LBG.HideOverlayGlow
 
 E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
 	text = format(

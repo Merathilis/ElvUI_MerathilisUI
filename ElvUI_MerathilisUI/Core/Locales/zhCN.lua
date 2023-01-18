@@ -237,6 +237,7 @@ L["Toggle Contacts"] = "开/关通讯录"
 L["Online Friends"] = "在线好友"
 L["Add To Favorites"] = "添加到收藏"
 L["Remove From Favorites"] = "从收藏移除"
+L["Remove This Alt"] = true
 
 -- MicroBar
 L["Backdrop"] = "背景"
@@ -388,6 +389,13 @@ L["Channel"] = true
 L["Keystone"] = true
 L["Announce the new mythic keystone."] = true
 L["Heroism/Bloodlust"] = true
+L["Mute"] = true
+L["Disable some annoying sound effects."] = true
+L["Others"] = true
+L["Dragonriding"] = true
+L["Mute the sound of dragonriding."] = true
+L["Jewelcrafting"] = true
+L["Mute the sound of jewelcrafting."] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
@@ -809,6 +817,16 @@ L["Sound File"] = true
 L["Only DF Character"] = true
 L["Stop alert when the player have not entered Dragonlands yet."] = true
 L["The offset of the frame from the bottom of world map. (Default is -3)"] = true
+L["Alert Timeout"] = true
+L["All nets can be collected"] = true
+L["Can be collected"] = true
+L["Can be set"] = true
+L["Fishing Net"] = true
+L["Fishing Nets"] = true
+L["Iskaaran Fishing Net"] = true
+L["Net #%d"] = true
+L["Net %s can be collected"] = true
+L["No Nets Set"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地图按钮"
@@ -1146,6 +1164,26 @@ L["LevelUp Display"] = true
 L["Guide Frame"] = true
 L["Weekly Rewards"] = true
 L["Misc"] = true
+L["%s is not loaded."] = true
+L["BigWigs Bars"] = true
+L["BigWigs Skin"] = true
+L["Color Override"] = true
+L["Emphasized Bar"] = true
+L["Gradient color of the left part of the bar."] = true
+L["Gradient color of the right part of the bar."] = true
+L["How to change BigWigs bar style:"] = true
+L["Left Color"] = true
+L["Normal Bar"] = true
+L["Open BigWigs Options UI with /bw > Bars > Style."] = true
+L["Override the bar color."] = true
+L["Queue Timer"] = true
+L["Right Color"] = true
+L["Show spark on the bar."] = true
+L["Smooth"] = true
+L["Smooth the bar animation with ElvUI."] = true
+L["Spark"] = true
+L["The options below are only for BigWigs %s bar style."] = true
+L["You need to manually set the bar style to %s in BigWigs first."] = true
 
 -- Panels
 L["Panels"] = true

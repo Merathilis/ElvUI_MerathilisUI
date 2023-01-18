@@ -46,7 +46,9 @@ function F.SetFontDB(text, db)
 		return
 	end
 
-	text:FontTemplate(LSM:Fetch("font", db.name), db.size, db.style)
+	local fontName, fontHeight = text:GetFont()
+
+	text:FontTemplate(db.name and LSM:Fetch("font", db.name) or fontName, db.size or fontHeight, db.style or "NONE")
 end
 
 function F.SetFontColorDB(text, db)
@@ -229,6 +231,15 @@ do
 		self:HookScript('OnEnter', Tooltip_OnEnter)
 		self:HookScript('OnLeave', F.HideTooltip)
 	end
+end
+
+-- Glow Parent
+function F:CreateGlowFrame(size)
+	local frame = CreateFrame("Frame", nil, self)
+	frame:SetPoint("CENTER")
+	frame:SetSize(size + 4, size + 4)
+
+	return frame
 end
 
 -- LocPanel
@@ -630,29 +641,6 @@ _G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
 SlashCmdList["WOWVERSION"] = function()
 	print("Patch:", MER.WoWPatch..", ".. "Build:", MER.WoWBuild..", ".. "Released", MER.WoWPatchReleaseDate..", ".. "Interface:", MER.TocVersion)
 end
-
--- Chat command to remove Heirlooms from the bags
-function F.CleanupHeirlooms()
-	for bag = 0, 4 do
-		for slot = 1, GetContainerNumSlots(bag) do
-			local name = GetContainerItemLink(bag, slot)
-			if name and find(name, "00ccff") then
-				F.Print(L["Removed: "]..name)
-				PickupContainerItem(bag, slot)
-				DeleteCursorItem()
-			end
-		end
-	end
-end
-MER:RegisterChatCommand("cleanboa", F.CleanupHeirlooms)
-
--- Fixes the issue when the dialog to release spirit does not come up.
-function F.FixRelease()
-	RetrieveCorpse()
-	RepopMe()
-end
-MER:RegisterChatCommand("release", F.FixRelease)
-MER:RegisterChatCommand("repop", F.FixRelease)
 
 -- Icon Style
 function F.PixelIcon(self, texture, highlight)

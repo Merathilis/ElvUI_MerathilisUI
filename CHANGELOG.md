@@ -1,8 +1,6 @@
 ### Changes ###
 
-  * Use a Global Variable on AlreadyKnown
-  * Fixed an error on the Encounter Journal
-  * Added new Phial's to the RBReminder
-  * Changed the CVar Alert to default off
-  * Updated Event Tracker
-  * Removed some font settings on blizzards widgets
+  * Try to prevent some rare nil errors
+  * Fix some non Retail issues
+  * Added more Mute options
+  * Added Fishing Holes to the Event Tracker

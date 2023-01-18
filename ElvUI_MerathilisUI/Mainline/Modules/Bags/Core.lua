@@ -10,7 +10,7 @@ local _G = _G
 local strmatch, unpack, ceil = string.match, unpack, math.ceil
 
 local LE_ITEM_CLASS_CONTAINER = LE_ITEM_CLASS_CONTAINER
-local C_NewItems_IsNewItem, C_Timer_After = C_NewItems.IsNewItem, C_Timer.After
+local C_NewItems_IsNewItem, C_NewItems_RemoveNewItem, C_Timer_After = C_NewItems.IsNewItem, C_NewItems.RemoveNewItem, C_Timer.After
 local C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID
 local C_Soulbinds_IsItemConduitByItemInfo = C_Soulbinds.IsItemConduitByItemInfo
 local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
@@ -1094,37 +1094,9 @@ function module:Initialize()
 		self.CenterText:SetTextColor(B.db.itemInfoColor.r, B.db.itemInfoColor.g, B.db.itemInfoColor.b)
 		self.CenterText:SetText("")
 
-		local flash = self:CreateTexture(nil, "ARTWORK")
-		flash:SetTexture('Interface\\Cooldown\\star4')
-		-- flash:SetInside()
-		flash:SetPoint('TOPLEFT', -15, 15)
-		flash:SetPoint('BOTTOMRIGHT', 15, -15)
-		flash:SetBlendMode('ADD')
-		flash:SetAlpha(0)
-
-		local anim = flash:CreateAnimationGroup()
-		anim:SetLooping('REPEAT')
-		anim.rota = anim:CreateAnimation('Rotation')
-		anim.rota:SetDuration(1)
-		anim.rota:SetDegrees(-90)
-		anim.fader = anim:CreateAnimation('Alpha')
-		anim.fader:SetFromAlpha(0)
-		anim.fader:SetToAlpha(0.5)
-		anim.fader:SetDuration(0.5)
-		anim.fader:SetSmoothing('OUT')
-		anim.fader2 = anim:CreateAnimation('Alpha')
-		anim.fader2:SetStartDelay(0.5)
-		anim.fader2:SetFromAlpha(0.5)
-		anim.fader2:SetToAlpha(0)
-		anim.fader2:SetDuration(1.2)
-		anim.fader2:SetSmoothing('OUT')
-		self:HookScript('OnHide', function()
-			if anim:IsPlaying() then
-				anim:Stop()
-			end
-		end)
-		self.anim = anim
-		self.ShowNewItems = showNewItem
+		if showNewItem then
+			self.glowFrame = F.CreateGlowFrame(self, iconSize)
+		end
 
 		self:HookScript("OnClick", module.ButtonOnClick)
 
@@ -1141,10 +1113,9 @@ function module:Initialize()
 	end
 
 	function MyButton:ItemOnEnter()
-		if self.ShowNewItems then
-			if self.anim:IsPlaying() then
-				self.anim:Stop()
-			end
+		if self.glowFrame then
+			F.HideOverlayGlow(self.glowFrame)
+			C_NewItems_RemoveNewItem(self.bagId, self.slotId)
 		end
 	end
 
@@ -1245,14 +1216,11 @@ function module:Initialize()
 			end
 		end
 
-		if self.ShowNewItems then
+		if self.glowFrame then
 			if C_NewItems_IsNewItem(item.bagId, item.slotId) then
-				self.anim:Play()
+				F.ShowOverlayGlow(self.glowFrame)
 			else
-				if self.anim:IsPlaying() then
-					self.anim:Stop()
-				end
-
+				F.HideOverlayGlow(self.glowFrame)
 			end
 		end
 
@@ -1419,7 +1387,7 @@ function module:Initialize()
 		elseif strmatch(name, "Equipment$") then
 			label = BAG_FILTER_EQUIPMENT
 		elseif strmatch(name, "EquipSet$") then
-			label = L["Equipement Set"]
+			label = L["Equipment Set"]
 		elseif name == "BankLegendary" then
 			label = LOOT_JOURNAL_LEGENDARIES
 		elseif strmatch(name, "Consumable$") then
@@ -1492,7 +1460,7 @@ function module:Initialize()
 	local function updateBagSize(button)
 		button:SetSize(iconSize, iconSize)
 		if button.glowFrame then
-			button.glowFrame:SetInside(button)
+			button.glowFrame:SetSize(iconSize + 8, iconSize + 8)
 		end
 		button.Count:FontTemplate(nil, module.db.FontSize)
 		button.iLvl:FontTemplate(nil, module.db.FontSize)

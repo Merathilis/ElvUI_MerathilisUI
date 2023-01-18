@@ -31,30 +31,30 @@ local function ZoneTextPos()
 end
 
 function module:SetBlizzFonts()
-	module.db = E.db.mui.media
+	local db = E.db.mui.media
 
 	if E.private.general.replaceBlizzFonts then
-		if module.db.zoneText.enable then
-			_G["ZoneTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.zone.font), module.db.zoneText.zone.size) -- Main zone name
-			_G["PVPInfoTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.pvp.font), module.db.zoneText.pvp.size) -- PvP status for main zone
-			_G["PVPArenaTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.pvp.font), module.db.zoneText.pvp.size) -- PvP status for subzone
-			_G["SubZoneTextString"]:SetFont(E.LSM:Fetch('font', module.db.zoneText.subzone.font), module.db.zoneText.subzone.size) -- Subzone name
+		if db.zoneText.enable then
+			_G["ZoneTextString"]:SetFont(E.LSM:Fetch('font', db.zoneText.zone.font), db.zoneText.zone.size, db.zoneText.zone.outline) -- Main zone name
+			_G["PVPInfoTextString"]:SetFont(E.LSM:Fetch('font', db.zoneText.pvp.font), db.zoneText.pvp.size, db.zoneText.pvp.outline) -- PvP status for main zone
+			_G["PVPArenaTextString"]:SetFont(E.LSM:Fetch('font', db.zoneText.pvp.font), db.zoneText.pvp.size, db.zoneText.pvp.outline) -- PvP status for subzone
+			_G["SubZoneTextString"]:SetFont(E.LSM:Fetch('font', db.zoneText.subzone.font), db.zoneText.subzone.size, db.zoneText.subzone.outline) -- Subzone name
 		end
 
 		if E.Retail then
-			if module.db.miscText.mail.enable then
-				_G["SendMailBodyEditBox"]:SetFont(E.LSM:Fetch('font', module.db.miscText.mail.font), module.db.miscText.mail.size, 'OUTLINE') --Writing letter text
-				_G["OpenMailBodyText"]:SetFont(E.LSM:Fetch('font', module.db.miscText.mail.font), module.db.miscText.mail.size, 'OUTLINE') --Received letter text
+			if db.miscText.mail.enable then
+				_G["SendMailBodyEditBox"]:SetFont(E.LSM:Fetch('font', db.miscText.mail.font), db.miscText.mail.size, 'OUTLINE') --Writing letter text
+				-- _G["OpenMailBodyText"]:SetFont(E.LSM:Fetch('font', db.miscText.mail.font), db.miscText.mail.size, 'OUTLINE') --Received letter text
 			end
 		end
 
-		if module.db.miscText.gossip.enable then
-			_G["QuestFont"]:SetFont(E.LSM:Fetch('font', module.db.miscText.gossip.font), module.db.miscText.gossip.size) -- Font in Quest Log/Petitions and shit. It's fucking hedious with any outline so fuck it.
+		if db.miscText.gossip.enable then
+			_G["QuestFont"]:SetFont(E.LSM:Fetch('font', db.miscText.gossip.font), db.miscText.gossip.size, '') -- Font in Quest Log/Petitions and shit. It's fucking hedious with any outline so fuck it.
 		end
 
-		if module.db.miscText.questFontSuperHuge.enable then
-			_G["QuestFont_Super_Huge"]:SetFont(E.LSM:Fetch('font', module.db.miscText.questFontSuperHuge.font), module.db.miscText.questFontSuperHuge.size) -- No idea what that is for
-			_G["QuestFont_Enormous"]:SetFont(E.LSM:Fetch('font', module.db.miscText.questFontSuperHuge.font), module.db.miscText.questFontSuperHuge.size) -- No idea what that is for
+		if db.miscText.questFontSuperHuge.enable then
+			_G["QuestFont_Super_Huge"]:SetFont(E.LSM:Fetch('font', db.miscText.questFontSuperHuge.font), db.miscText.questFontSuperHuge.size, db.miscText.questFontSuperHuge.outline) -- No idea what that is for
+			_G["QuestFont_Enormous"]:SetFont(E.LSM:Fetch('font', db.miscText.questFontSuperHuge.font), db.miscText.questFontSuperHuge.size, db.miscText.questFontSuperHuge.outline) -- No idea what that is for
 		end
 	end
 end
@@ -90,8 +90,8 @@ function module:Initialize()
 		hooksecurefunc("SetZoneText", ZoneTextPos)
 	end
 
-	-- hooksecurefunc(E, "UpdateBlizzardFonts", module.SetBlizzFonts)
-	-- module.SetBlizzFonts()
+	hooksecurefunc(E, "UpdateBlizzardFonts", module.SetBlizzFonts)
+	module.SetBlizzFonts()
 end
 
 MER:RegisterModule(module:GetName())

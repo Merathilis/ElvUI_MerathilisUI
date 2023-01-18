@@ -31,7 +31,7 @@ local function LoadSkin()
 	local CollectionsJournal = _G.CollectionsJournal
 
 	CollectionsJournal:Styling()
-	module:CreateBackdropShadow(CollectionsJournal)
+	module:CreateShadow(CollectionsJournal)
 
 	for i = 1, 5 do
 		module:ReskinTab(_G["CollectionsJournalTab" .. i])
