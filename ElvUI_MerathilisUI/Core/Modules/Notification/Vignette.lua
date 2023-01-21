@@ -28,6 +28,7 @@ local VignetteExclusionMapIDs = {
 }
 
 local VignetteBlackListIDs = {
+	-- Shadowlands
 	[4024] = true, -- Soul Cage (The Maw and Torghast)
 	[4184] = true, -- Skoldus Hall
 	[4185] = true, -- Fracture Chambers
@@ -44,12 +45,14 @@ local VignetteBlackListIDs = {
 	[4582] = true, -- Ripe Purian (Bastion)
 	[4602] = true, -- Aimless Soul (The Maw)
 	[4617] = true, -- Imprisoned Soul (The Maw)
+	-- Dragonflight
+	[5485] = true, -- Tuskarr Tacklebox
 }
 
 local SOUND_TIMEOUT = 20
 function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	module.db = E.db.mui.notification
-	if not module.db.enable or not module.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
+	if not module.db.enable or (not module.db.vignette or not module.db.vignette.enable) or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
 
 	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
 	if inGroup or inRaid or inPartyLFG then return end
@@ -64,16 +67,16 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 		if not tex then return end
 
 		-- For Debugging: uncomment this:
-		-- F.DebugPrint("Vignette-ID: "..vignetteInfo.vignetteID.."Vignette-Name: "..vignetteInfo.name, "warning")
+		-- F.DebugPrint("Vignette-ID: "..vignetteInfo.vignetteID.." Vignette-Name: "..vignetteInfo.name, "warning")
 
-		if VignetteBlackListIDs[vignetteInfo.vignetteID] or not isUsefulAtlas(vignetteInfo) then return end
+		if (module.db.blacklist and VignetteBlackListIDs[vignetteInfo.vignetteID]) or not isUsefulAtlas(vignetteInfo) then return end
 
 		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id then
 			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:utf8sub(1, 28))
 			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
 			self.lastMinimapRare.id = vignetteGUID
 
-			if module.db.rarePrint then
+			if module.db.vignette and module.db.vignette.enable and module.db.vignette.print then
 				local currentTime = E.db.chat.timeStampFormat == 1 and "|cff00ff00["..date("%H:%M:%S").."]|r" or ""
 				local nameString
 				local mapID = C_Map_GetBestMapForUnit("player")
