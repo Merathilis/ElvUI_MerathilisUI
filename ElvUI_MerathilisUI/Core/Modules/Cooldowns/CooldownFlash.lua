@@ -25,6 +25,8 @@ local GetContainerItemID = GetContainerItemID
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local hooksecurefunc = hooksecurefunc
 
+local C_Container_GetItemCooldown = C_Container.GetItemCooldown
+
 local ignoredSpells, invertIgnored
 module.cooldowns, module.animating, module.watching = { }, { }, { }
 
@@ -129,7 +131,12 @@ local function OnUpdate(_,update)
 					end)
 				elseif (v[2] == "item") then
 					getCooldownDetails = memoize(function()
-						local start, duration, enabled = GetItemCooldown(i)
+						local start, duration, enabled
+						if E.Wrath then
+							start, duration, enabled = C_Container_GetItemCooldown(i)
+						else
+							start, duration, enabled = GetItemCooldown(i)
+						end
 						return {
 							name = GetItemInfo(i),
 							texture = v[3],

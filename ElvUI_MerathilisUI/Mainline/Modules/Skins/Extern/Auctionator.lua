@@ -36,7 +36,7 @@ local function SkinItem(item)
 		item:StyleButton()
 		item.backdrop:SetAllPoints()
 		item.EmptySlot:Hide()
-		item.IconMask:Hide()
+		-- item.IconMask:Hide()
 		item.Icon:SetInside(item.backdrop)
 		S:HandleIconBorder(item.IconBorder, item.backdrop)
 	end

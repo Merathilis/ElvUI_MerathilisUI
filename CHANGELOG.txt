@@ -1,5 +1,4 @@
-[b][color=orange]v5.55[/color], 02.01.2023[/b][list]
-[*]Try to prevent some rare nil errors
-[*]Fix some non Retail issues"
-[*]Added more Mute options
-[*]Added Fishing Holes to the Event Tracker[/list]
+[b][color=orange]v5.57[/color], 18.01.2023[/b][list]
+[*]Wrath: Drop cargBags support. Please reenable the ElvUI Bags
+[*]Wrath: Fixed an error on CooldownFlash
+[*]Retail: Fixed an error on the Auctionator Skin[/list]
