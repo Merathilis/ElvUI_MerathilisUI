@@ -203,61 +203,8 @@ options.spellAlert = {
 	},
 }
 
-options.cursor = {
-	order = 3,
-	type = "group",
-	name = L["Flashing Cursor"],
-	get = function(info) return
-		E.db.mui.misc.cursor[info[#info]]
-	end,
-	set = function(info, value)
-		E.db.mui.misc.cursor[info[#info]] = value
-		CU:UpdateColor()
-	end,
-	args = {
-		header = {
-			order = 1,
-			type = "header",
-			name = F.cOption(L["Flashing Cursor"], 'orange'),
-		},
-		enable = {
-			order = 2,
-			type = "toggle",
-			name = L["Enable"],
-		},
-		colorType = {
-			order = 3,
-			name = L["Color Type"],
-			type = "select",
-			disabled = function() return not E.db.mui.misc.cursor.enable end,
-			set = function(info, value) E.db.mui.misc.cursor[info[#info]] = value; end,
-			values = {
-				["DEFAULT"] = L["Default"],
-				["CLASS"] = L["Class"],
-				["CUSTOM"] = L["Custom"],
-			},
-		},
-		customColor = {
-			type = "color",
-			order = 4,
-			name = L["Custom Color"],
-			disabled = function() return not E.db.mui.misc.cursor.enable or E.db.mui.misc.cursor.colorType ~= "CUSTOM" end,
-			get = function(info)
-				local t = E.db.mui.misc.cursor[info[#info]]
-				local d = P.misc.cursor[info[#info]]
-				return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-			end,
-			set = function(info, r, g, b)
-				E.db.mui.misc.cursor[info[#info]] = {}
-				local t = E.db.mui.misc.cursor[info[#info]]
-				t.r, t.g, t.b = r, g, b
-			end,
-		},
-	},
-}
-
 options.lfgInfo = {
-	order = 4,
+	order = 3,
 	name = L["LFG Info"],
 	type = "group",
 	get = function(info)
