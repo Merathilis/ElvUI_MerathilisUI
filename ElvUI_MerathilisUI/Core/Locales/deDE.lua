@@ -446,6 +446,8 @@ L["Prints a clickable Link with Coords in the Chat."] = "Fügt einen anklickbare
 L["Quick Join"] = "Schnellbeitritt"
 L["Title Font"] = "Titel Schriftart"
 L["Text Font"] = "Text Schriftart"
+L["Debug Print"] = "Debuggausgabe"
+L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = "Aktiviere diese Option um eine Chatausgabe vom Namen und ID von den Vignetten auf der Minikarte zu erhalten."
 
 -- DataTexts
 -- DataBars

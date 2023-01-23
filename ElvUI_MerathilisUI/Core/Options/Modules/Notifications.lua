@@ -98,12 +98,12 @@ options.Notification = {
 					type = "toggle",
 					name = L["Vignette Print"],
 				},
-				blacklist = {
+				debugPrint = {
 					order = 3,
 					type = "toggle",
-					name = L["Blacklist"],
-					desc = L["Blacklists some spammy vignettes on the Minimap, such as Tuksarr Tacklebox"]
-				},
+					name = F.cOption(L["Debug Print"], 'red'),
+					desc = L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"]
+				}
 			},
 		},
 		fontSettings = {
@@ -196,3 +196,76 @@ options.Notification = {
 		},
 	},
 }
+
+do
+	local selectedKey
+	local tempID
+
+	options.Notification.args.vignette.args.blacklist = {
+		order = 4,
+		type = "group",
+		inline = true,
+		name = L["Blacklist"],
+		disabled = function() return not E.db.mui.notification.enable end,
+		args = {
+			name = {
+				order = 1,
+				type = "input",
+				name = L["Vignette ID"],
+				get = function()
+					return tonumber(tempID)
+				end,
+				set = function(_, value)
+					tempID = value
+				end
+			},
+			addButton = {
+				order = 3,
+				type = "execute",
+				name = L["Add"],
+				func = function()
+					if tempID then
+						E.db.mui.notification.vignette.blacklist[tonumber(tempID)] = true
+						tempID = nil
+					else
+						F.Print(L["Please set the ID first."])
+					end
+				end
+			},
+			spacer = {
+				order = 4,
+				type = "description",
+				name = " ",
+				width = "full"
+			},
+			listTable = {
+				order = 5,
+				type = "select",
+				name = L["Spell List"],
+				get = function()
+					return selectedKey
+				end,
+				set = function(_, value)
+					selectedKey = value
+				end,
+				values = function()
+					local result = {}
+					for fullID in pairs(E.db.mui.notification.vignette.blacklist) do
+						result[fullID] = fullID
+					end
+					return result
+				end
+			},
+			deleteButton = {
+				order = 6,
+				type = "execute",
+				name = L["Delete"],
+				func = function()
+					if selectedKey then
+						E.db.mui.notification.vignette.blacklist[selectedKey] = nil
+					end
+				end
+			},
+		},
+	}
+end

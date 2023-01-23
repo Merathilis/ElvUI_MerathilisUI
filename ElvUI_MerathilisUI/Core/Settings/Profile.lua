@@ -617,7 +617,10 @@ P.notification = {
 	vignette = {
 		enable = true,
 		print = true,
-		blacklist = true,
+		debugPrint = false,
+		blacklist = {
+			[5485] = true,
+		},
 	},
 	titleFont = {
 		name = "Expressway",
