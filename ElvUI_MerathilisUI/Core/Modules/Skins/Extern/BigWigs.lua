@@ -313,7 +313,7 @@ function module:BigWigs_QueueTimer()
 				end
 				F.SetFontDB(frame.text, db.countDown)
 				frame.text:ClearAllPoints()
-				frame.text:SetPoint("TOP", frame, "TOP", 0, -3)
+				frame.text:SetPoint("TOP", frame, "TOP", db.countDown.offsetX, db.countDown.offsetY)
 			end
 		end)
 

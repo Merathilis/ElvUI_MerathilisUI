@@ -251,7 +251,9 @@ V.skins = {
 				countDown = {
 					name = "Expressway",
 					size = 16,
-					style = "OUTLINE"
+					style = "OUTLINE",
+					offsetX = 0,
+					offsetY = -3
 				},
 			},
 			normalBar = {

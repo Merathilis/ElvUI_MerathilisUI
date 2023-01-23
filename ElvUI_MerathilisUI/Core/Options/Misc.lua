@@ -224,6 +224,10 @@ options.cursor = {
 			order = 2,
 			type = "toggle",
 			name = L["Enable"],
+			set = function(info, value)
+				E.db.mui.misc.cursor[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL");
+			end,
 		},
 		colorType = {
 			order = 3,
