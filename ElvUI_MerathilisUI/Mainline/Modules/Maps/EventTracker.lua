@@ -167,7 +167,7 @@ local functionFactory = {
 
 				if self.isRunning then
 					-- event ending tracking timer
-					self.timerText:SetText(C.StringByTemplate(secondToTime(self.timeLeft), "success"))
+					self.timerText:SetText(F.StringByTemplate(secondToTime(self.timeLeft), "success"))
 					self.statusBar:SetMinMaxValues(0, self.args.duration)
 					self.statusBar:SetValue(self.timeOver)
 					local tex = self.statusBar:GetStatusBarTexture()
