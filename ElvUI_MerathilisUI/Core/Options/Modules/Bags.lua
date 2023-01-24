@@ -3,14 +3,10 @@ local options = MER.options.modules.args
 local module = MER:GetModule('MER_Bags')
 local MERBI = MER:GetModule('MER_BagInfo')
 
-local C_Container_SetSortBagsRightToLeft = C_Container and C_Container.SetSortBagsRightToLeft -- MER.isNewPatch
+local C_Container_SetSortBagsRightToLeft = C_Container and C_Container.SetSortBagsRightToLeft
 
 local function updateBagSortOrder()
-	if MER.isNewPatch then
-		C_Container_SetSortBagsRightToLeft(E.db.mui.bags.BagSortMode == 1)
-	else
-		SetSortBagsRightToLeft(E.db.mui.bags.BagSortMode == 1)
-	end
+	return C_Container_SetSortBagsRightToLeft(E.db.mui.bags.BagSortMode == 1)
 end
 
 options.bags = {
