@@ -192,6 +192,10 @@ local functionFactory = {
 				end
 			end,
 			alert = function(self)
+				if not module.playerEnteredWorld then
+					return
+				end
+
 				if not self.args["alertCache"] then
 					self.args["alertCache"] = {}
 				end
@@ -217,6 +221,7 @@ local functionFactory = {
 					local eventIconString = F.GetIconString(self.args.icon, 16, 16)
 					local gradientName = getGradientText(self.args.eventName, self.args.barColor)
 					F.Print(format(L["%s will be started in %s!"], eventIconString .. " " .. gradientName, secondToTime(self.timeLeft)))
+
 					if self.args.soundFile then
 						PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
 					end
@@ -421,6 +426,10 @@ local functionFactory = {
 				self.runningTip:SetText(tip)
 			end,
 			alert = function(self)
+				if not module.playerEnteredWorld then
+					return
+				end
+
 				if not self.netTable then
 					return
 				end
@@ -478,7 +487,9 @@ local functionFactory = {
 
 					local eventIconString = F.GetIconString(self.args.icon, 16, 16)
 					local gradientName = getGradientText(self.args.eventName, self.args.barColor)
+
 					F.Print(format(eventIconString .. " " .. gradientName .. " " .. L["%s can be collected"], netsText))
+
 					if self.args.soundFile then
 						PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
 					end
@@ -782,7 +793,14 @@ function trackers:disable(event)
 	end
 end
 
-module.eventHandlers = {}
+module.eventHandlers = {
+	["PLAYER_ENTERING_WORLD"] = {
+		function() E:Delay(10, function()
+				module.playerEnteredWorld = true
+			end)
+		end
+	}
+}
 
 function module:HandlerEvent(event, ...)
 	if self.eventHandlers[event] then
