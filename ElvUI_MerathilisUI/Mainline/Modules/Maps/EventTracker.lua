@@ -901,7 +901,7 @@ function module:UpdateTrackers()
 			end
 
 			tracker.args.desaturate = self.db[data.dbKey].desaturate
-			tracker.args.soundFile = self.db.sound and self.db[data.dbKey].soundFile
+			tracker.args.soundFile = self.db[data.dbKey].sound and self.db[data.dbKey].soundFile
 
 			if self.db[data.dbKey].alert then
 				tracker.args.alert = true
