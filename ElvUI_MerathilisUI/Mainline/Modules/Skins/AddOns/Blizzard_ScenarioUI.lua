@@ -116,9 +116,9 @@ function module:ScenarioStageWidgetContainer()
 		local bar = widgetFrame.TimerBar
 
 		if bar and not bar.__MERSkin then
-			bar.__SetStatusBarTexture = bar.SetStatusBarTexture
+			bar.___SetStatusBarTexture = bar.SetStatusBarTexture
 			hooksecurefunc(bar, "SetStatusBarTexture", function(frame)
-				if frame.__SetStatusBarTexture then
+				if frame.___SetStatusBarTexture then
 					frame:__SetStatusBarTexture(E.media.normTex)
 					frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
 				end
