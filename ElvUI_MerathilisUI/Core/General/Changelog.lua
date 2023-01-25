@@ -12,9 +12,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Wrath: Drop cargBags support. Please reenable the ElvUI Bags",
-		"• Wrath: Fixed an error on CooldownFlash",
-		"• Retail: Fixed an error on the Auctionator Skin",
+		"• Take account to latest ElvUI Changes",
+		"• Update the Event Tracker on the Map (WIP)",
+		"• Fixed the Sound Alerts on the Event Tracker",
+		"• Added an blacklist option to hide some of the vignettes on my Notifications",
+		"• Few 10.0.5 changes",
 		" ",
 
 	"Notes:",

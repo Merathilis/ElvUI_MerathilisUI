@@ -609,13 +609,19 @@ P.notification = {
 	enable = true,
 	noSound = false,
 	mail = true,
-	vignette = true,
-	rarePrint = true,
 	invites = true,
 	guildEvents = true,
 	paragon = true,
 	quickJoin = true,
 	callToArms = false,
+	vignette = {
+		enable = true,
+		print = true,
+		debugPrint = false,
+		blacklist = {
+			[5485] = true,
+		},
+	},
 	titleFont = {
 		name = "Expressway",
 		size = 12,

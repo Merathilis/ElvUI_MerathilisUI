@@ -41,11 +41,12 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion and profileVersion <= 5.41 then
-		if E.db.mui.misc.alerts and type(E.db.mui.misc.alert) == 'table' then
-			E.db.mui.misc.alerts = nil
+	if profileVersion and profileVersion <= 5.58 then
+		if E.db.mui.notification and E.db.mui.notification.vignette and type(E.db.mui.notification.vignette) ~= 'table' then
+			E.db.mui.notification.vignette = {}
+			E.db.mui.notification.rarePrint = nil
 		end
-		UpdateMessage(L["Misc"] .. " - " .. L["Remove old Alerts DB"], profileVersion)
+		UpdateMessage(L["Notification"] .. " - " .. L["Vignette DB changes"], profileVersion)
 
 		updated = true
 	end

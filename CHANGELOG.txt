@@ -1,4 +1,6 @@
-[b][color=orange]v5.57[/color], 18.01.2023[/b][list]
-[*]Wrath: Drop cargBags support. Please reenable the ElvUI Bags
-[*]Wrath: Fixed an error on CooldownFlash
-[*]Retail: Fixed an error on the Auctionator Skin[/list]
+[b][color=orange]v5.58 for 10.0.5[/color], 25.01.2023[/b][list]
+[*]Take account to latest ElvUI Changes
+[*]Update the Event Tracker on the Map (WIP)
+[*]Fixed the Sound Alerts on the Event Tracker
+[*]Added an blacklist option to hide some of the vignettes on my Notifications
+[*]Few 10.0.5 changes[/list]

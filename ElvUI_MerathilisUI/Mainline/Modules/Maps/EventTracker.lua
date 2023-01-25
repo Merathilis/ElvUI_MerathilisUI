@@ -24,6 +24,7 @@ local C_Map_GetMapInfo = C_Map.GetMapInfo
 local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 local C_Timer_NewTicker = C_Timer.NewTicker
+local C_NamePlate_GetNamePlates = C_NamePlate.GetNamePlates
 
 local eventList = {
 	"CommunityFeast",
@@ -36,21 +37,21 @@ local env = {
 		-- Waking Shores
 		[1] = { map = 2022, x = 0.63585, y = 0.75349 },
 		[2] = { map = 2022, x = 0.64514, y = 0.74178 },
-		-- Waking Shores / Lava
-		[3] = { map = 2022, x = 0.33757, y = 0.65032 },
+		-- Lava
+		[3] = { map = 2022, x = 0.33722, y = 0.65047 },
 		[4] = { map = 2022, x = 0.34376, y = 0.64763 },
-		-- Ohn'ahran Plains
-		[5] = { map = 2023, x = 0.80524, y = 0.78421 },
-		[6] = { map = 2023, x = 0.80477, y = 0.77743 },
 		-- Thaldraszus
-		[7] = { map = 2025, x = 0.56782, y = 0.65178 },
-		[8] = { map = 2025, x = 0.57756, y = 0.65491 },
+		[5] = { map = 2025, x = 0.56782, y = 0.65178 },
+		[6] = { map = 2025, x = 0.57756, y = 0.65491 },
+		-- Ohn'ahran Plains
+		[7] = { map = 2023, x = 0.80522, y = 0.78433 },
+		[8] = { map = 2023, x = 0.80467, y = 0.77742 }
 	},
 	fishingNetWidgetIDToIndex = {
+		-- data mining: https://wow.tools/dbc/?dbc=uiwidget&build=10.0.5.47621#page=1&colFilter[3]=exact%3A2087
 		-- Waking Shores
 		[4203] = 1,
-		[4317] = 2,
-		[4399] = 3,
+		[4317] = 2
 	}
 }
 
@@ -97,15 +98,7 @@ local function getGradientText(text, colorTable)
 	if not text or not colorTable then
 		return text
 	end
-	return E:TextGradient(
-		text,
-		colorTable[1].r,
-		colorTable[1].g,
-		colorTable[1].b,
-		colorTable[2].r,
-		colorTable[2].g,
-		colorTable[2].b
-	)
+	return E:TextGradient(text, colorTable[1].r, colorTable[1].g, colorTable[1].b, colorTable[2].r, colorTable[2].g, colorTable[2].b)
 end
 
 local functionFactory = {
@@ -178,11 +171,7 @@ local functionFactory = {
 					self.statusBar:SetMinMaxValues(0, self.args.duration)
 					self.statusBar:SetValue(self.timeOver)
 					local tex = self.statusBar:GetStatusBarTexture()
-					tex:SetGradient(
-						"HORIZONTAL",
-						F.CreateColorFromTable(colorPlatte.running[1]),
-						F.CreateColorFromTable(colorPlatte.running[2])
-					)
+					tex:SetGradient("HORIZONTAL", F.CreateColorFromTable(colorPlatte.running[1]), F.CreateColorFromTable(colorPlatte.running[2]))
 					self.runningTip:Show()
 					E:Flash(self.runningTip, 1, true)
 				else
@@ -195,11 +184,7 @@ local functionFactory = {
 						self.statusBar:SetStatusBarColor(unpack(self.args.barColor))
 					else
 						local tex = self.statusBar:GetStatusBarTexture()
-						tex:SetGradient(
-							"HORIZONTAL",
-							F.CreateColorFromTable(self.args.barColor[1]),
-							F.CreateColorFromTable(self.args.barColor[2])
-						)
+						tex:SetGradient("HORIZONTAL", F.CreateColorFromTable(self.args.barColor[1]), F.CreateColorFromTable(self.args.barColor[2]))
 					end
 
 					E:StopFlash(self.runningTip)
@@ -207,6 +192,10 @@ local functionFactory = {
 				end
 			end,
 			alert = function(self)
+				if not module.playerEnteredWorld then
+					return
+				end
+
 				if not self.args["alertCache"] then
 					self.args["alertCache"] = {}
 				end
@@ -232,6 +221,7 @@ local functionFactory = {
 					local eventIconString = F.GetIconString(self.args.icon, 16, 16)
 					local gradientName = getGradientText(self.args.eventName, self.args.barColor)
 					F.Print(format(L["%s will be started in %s!"], eventIconString .. " " .. gradientName, secondToTime(self.timeLeft)))
+
 					if self.args.soundFile then
 						PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
 					end
@@ -332,7 +322,6 @@ local functionFactory = {
 				self.netTable = {}
 				local now = GetServerTime()
 				for netIndex = 1, #env.fishingNetPosition do
-					-- update db from old version
 					if type(db[netIndex]) ~= "table" then
 						db[netIndex] = nil
 					end
@@ -374,11 +363,7 @@ local functionFactory = {
 					tip = F.StringByTemplate(L["All nets can be collected"], "success")
 					self.timerText:SetText("")
 
-					self.statusBar:GetStatusBarTexture():SetGradient(
-						"HORIZONTAL",
-						F.CreateColorFromTable(colorPlatte.running[1]),
-						F.CreateColorFromTable(colorPlatte.running[2])
-					)
+					self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL", F.CreateColorFromTable(colorPlatte.running[1]), F.CreateColorFromTable(colorPlatte.running[2]))
 					self.statusBar:SetMinMaxValues(0, 1)
 					self.statusBar:SetValue(1)
 
@@ -407,11 +392,7 @@ local functionFactory = {
 					if type(self.args.barColor[1]) == "number" then
 						self.statusBar:SetStatusBarColor(unpack(self.args.barColor))
 					else
-						self.statusBar:GetStatusBarTexture():SetGradient(
-							"HORIZONTAL",
-							F.CreateColorFromTable(self.args.barColor[1]),
-							F.CreateColorFromTable(self.args.barColor[2])
-						)
+						self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL", F.CreateColorFromTable(self.args.barColor[1]), F.CreateColorFromTable(self.args.barColor[2]))
 					end
 
 					self.timerText:SetText(secondToTime(self.netTable[maxTimeIndex].left))
@@ -421,11 +402,7 @@ local functionFactory = {
 					E:StopFlash(self.runningTip)
 				else
 					self.timerText:SetText("")
-					self.statusBar:GetStatusBarTexture():SetGradient(
-						"HORIZONTAL",
-						F.CreateColorFromTable(colorPlatte.running[1]),
-						F.CreateColorFromTable(colorPlatte.running[2])
-					)
+					self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL", F.CreateColorFromTable(colorPlatte.running[1]), F.CreateColorFromTable(colorPlatte.running[2]))
 					self.statusBar:SetMinMaxValues(0, 1)
 
 					if #done > 0 then
@@ -449,6 +426,10 @@ local functionFactory = {
 				self.runningTip:SetText(tip)
 			end,
 			alert = function(self)
+				if not module.playerEnteredWorld then
+					return
+				end
+
 				if not self.netTable then
 					return
 				end
@@ -490,11 +471,11 @@ local functionFactory = {
 					local netsText = ""
 
 					if readyNets[1] and readyNets[2] then
-						netsText = netsText .. L["Net 1"] .. ", " .. L["Net 2"]
+						netsText = netsText .. format(L["Net #%d"], 1) .. ", " .. format(L["Net #%d"], 2)
 					elseif readyNets[1] then
-						netsText = netsText .. L["Net 1"]
+						netsText = netsText .. format(L["Net #%d"], 1)
 					elseif readyNets[2] then
-						netsText = netsText .. L["Net 2"]
+						netsText = netsText .. format(L["Net #%d"], 2)
 					end
 
 					if bonusReady then
@@ -506,7 +487,9 @@ local functionFactory = {
 
 					local eventIconString = F.GetIconString(self.args.icon, 16, 16)
 					local gradientName = getGradientText(self.args.eventName, self.args.barColor)
+
 					F.Print(format(eventIconString .. " " .. gradientName .. " " .. L["%s can be collected"], netsText))
+
 					if self.args.soundFile then
 						PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
 					end
@@ -655,7 +638,6 @@ local eventData = {
 		dbKey = "iskaaranFishingNet",
 		args = {
 			icon = 2159815,
-			interval = 10 * 60 * 60,
 			type = "triggerTimer",
 			filter = function()
 				return C_QuestLog_IsQuestFlaggedCompleted(70871)
@@ -677,6 +659,7 @@ local eventData = {
 						end
 
 						local position = C_Map_GetPlayerMapPosition(map, "player")
+
 						if not position then
 							return
 						end
@@ -710,8 +693,8 @@ local eventData = {
 								db[netIndex] = nil
 							end
 						elseif spellID == 377883 then -- Set Net
-							E:Delay(0.5, function()
-								local namePlates = C_NamePlate.GetNamePlates(true)
+						E:Delay(0.5, function()
+								local namePlates = C_NamePlate_GetNamePlates(true)
 								if #namePlates > 0 then
 									for _, namePlate in ipairs(namePlates) do
 										if namePlate and namePlate.UnitFrame and namePlate.UnitFrame.WidgetContainer then
@@ -720,7 +703,7 @@ local eventData = {
 												for id, widget in pairs(container.timerWidgets) do
 													if env.fishingNetWidgetIDToIndex[id] and env.fishingNetWidgetIDToIndex[id] == netIndex then
 														if widget.Bar and widget.Bar.value and widget.Bar.range then
-															db[netIndex] = {time = GetServerTime() + widget.Bar.value, duration = widget.Bar.range}
+															db[netIndex] = { time = GetServerTime() + widget.Bar.value, duration = widget.Bar.range }
 														end
 													end
 												end
@@ -810,7 +793,14 @@ function trackers:disable(event)
 	end
 end
 
-module.eventHandlers = {}
+module.eventHandlers = {
+	["PLAYER_ENTERING_WORLD"] = {
+		function() E:Delay(10, function()
+				module.playerEnteredWorld = true
+			end)
+		end
+	}
+}
 
 function module:HandlerEvent(event, ...)
 	if self.eventHandlers[event] then
@@ -837,8 +827,7 @@ function module:SetFont(target, size)
 		return
 	end
 
-	F.SetFontDB(target,
-		{
+	F.SetFontDB(target, {
 			name = self.db.font.name,
 			size = floor(size * self.db.font.scale),
 			style = self.db.font.outline
@@ -909,6 +898,7 @@ function module:UpdateTrackers()
 		if self.db.backdrop then
 			if not self.frame.backdrop then
 				self.frame:CreateBackdrop("Transparent")
+				self.frame:Styling()
 				S:CreateShadowModule(self.frame.backdrop)
 			end
 			self.frame.backdrop:Show()
@@ -929,7 +919,7 @@ function module:UpdateTrackers()
 			end
 
 			tracker.args.desaturate = self.db[data.dbKey].desaturate
-			tracker.args.soundFile = self.db.sound and self.db[data.dbKey].soundFile
+			tracker.args.soundFile = self.db[data.dbKey].sound and self.db[data.dbKey].soundFile
 
 			if self.db[data.dbKey].alert then
 				tracker.args.alert = true
@@ -1015,7 +1005,7 @@ MER:AddCommand("EVENT_TRACKER", { "/wtet" }, function(msg)
 
 		local db = module:GetPlayerDB("iskaaranFishingNet")
 
-		local namePlates = C_NamePlate.GetNamePlates(true)
+		local namePlates = C_NamePlate_GetNamePlates(true)
 		if #namePlates > 0 then
 			for _, namePlate in ipairs(namePlates) do
 				if namePlate and namePlate.UnitFrame and namePlate.UnitFrame.WidgetContainer then
@@ -1046,7 +1036,7 @@ MER:AddCommand("EVENT_TRACKER", { "/wtet" }, function(msg)
 			return
 		end
 
-		local namePlates = C_NamePlate.GetNamePlates(true)
+		local namePlates = C_NamePlate_GetNamePlates(true)
 		if #namePlates > 0 then
 			for _, namePlate in ipairs(namePlates) do
 				if namePlate and namePlate.UnitFrame and namePlate.UnitFrame.WidgetContainer then
@@ -1054,13 +1044,13 @@ MER:AddCommand("EVENT_TRACKER", { "/wtet" }, function(msg)
 					if container.timerWidgets then
 						for id, widget in pairs(container.timerWidgets) do
 							if widget.Bar and widget.Bar.value then
-								print("------------")
-								print("mapID", map)
-								print("mapName", C_Map_GetMapInfo(map).name)
-								print("position", position.x, position.y)
-								print("widgetID", id)
-								print("timeLeft", widget.Bar.value, secondToTime(widget.Bar.value))
-								print("------------")
+								F.Print("------------")
+								F.Print("mapID", map)
+								F.Print("mapName", C_Map_GetMapInfo(map).name)
+								F.Print("position", position.x, position.y)
+								F.Print("widgetID", id)
+								F.Print("timeLeft", widget.Bar.value, secondToTime(widget.Bar.value))
+								F.Print("------------")
 							end
 						end
 					end

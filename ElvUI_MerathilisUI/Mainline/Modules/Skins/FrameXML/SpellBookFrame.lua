@@ -153,7 +153,6 @@ local function LoadSkin()
 		if self.subSpellString then
 			self.subSpellString:SetTextColor(1, 1, 1)
 		end
-		-- isNewPatch
 		if self.SpellName then
 			self.SpellName:SetTextColor(1, 1, 1)
 		end

@@ -20,7 +20,7 @@ function module:CheckStatus()
 	if not E.db.mui.maps.minimap.flash then return end
 
 	local inv = C_Calendar_GetNumPendingInvites()
-	local mailFrame = _G.MinimapCluster.MailFrame or _G.MiniMapMailFrame
+	local mailFrame = _G.MinimapCluster.IndicatorFrame.MailFrame or _G.MiniMapMailFrame
 	local mail = mailFrame:IsShown() and true or false
 
 

@@ -447,6 +447,8 @@ L["Prints a clickable Link with Coords in the Chat."] = "Отображает к
 L["Quick Join"] = "Быстрое присоединение"
 L["Title Font"] = "Шрифт заголовка"
 L["Text Font"] = "Шрифт текста"
+L["Debug Print"] = true
+L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
 
 -- DataTexts
 -- DataBars
