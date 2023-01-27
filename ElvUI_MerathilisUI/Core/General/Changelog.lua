@@ -12,9 +12,7 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed a ScenarioUI error",
-		"• Fixed a Minimap MailFrame error on Wrath",
-		"• Fixed WorldMap Zoom Click bug",
+		"• Real fix for ScenarioUI error",
 
 		" ",
 
