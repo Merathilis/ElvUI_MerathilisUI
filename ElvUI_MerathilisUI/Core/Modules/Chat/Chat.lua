@@ -132,7 +132,7 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 end)
 
 function module:CreateSeparators()
-	if E.db.mui.chat.seperators.enable ~= true then return end
+	if not E.db.mui.chat.seperators.enable then return end
 
 	--Left Chat Tab Separator
 	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel, "BackdropTemplate")
@@ -142,6 +142,8 @@ function module:CreateSeparators()
 	ltabseparator:Point('TOPLEFT', _G.LeftChatPanel, 5, -24)
 	ltabseparator:Point('TOPRIGHT', _G.LeftChatPanel, -5, -24)
 	ltabseparator:SetTemplate('Transparent')
+	ltabseparator:Hide()
+	_G.LeftChatTabSeparator = ltabseparator
 
 	--Right Chat Tab Separator
 	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel, "BackdropTemplate")
@@ -151,27 +153,46 @@ function module:CreateSeparators()
 	rtabseparator:Point('TOPLEFT', _G.RightChatPanel, 5, -24)
 	rtabseparator:Point('TOPRIGHT', _G.RightChatPanel, -5, -24)
 	rtabseparator:SetTemplate('Transparent')
+	rtabseparator:Hide()
+	_G.RightChatTabSeparator = rtabseparator
 
 	module:UpdateSeperators()
 end
 hooksecurefunc(LO, "CreateChatPanels", module.CreateSeparators)
 
 function module:UpdateSeperators()
-	if E.db.mui.chat.seperators.enable ~= true then return end
+	if not E.db.mui.chat.seperators.enable then return end
 
-	local visibility = E.db.mui.chat.seperators.visibility
-	if visibility == 'SHOWBOTH' then
-		_G.LeftChatTabSeparator:Show()
-		_G.RightChatTabSeparator:Show()
-	elseif visibility =='HIDEBOTH' then
-		_G.LeftChatTabSeparator:Hide()
-		_G.RightChatTabSeparator:Hide()
-	elseif visibility =='LEFT' then
-		_G.LeftChatTabSeparator:Show()
-		_G.RightChatTabSeparator:Hide()
+	local myVisibility = E.db.mui.chat.seperators.visibility
+	local elvVisibility = E.db.chat.panelBackdrop
+	if myVisibility == 'SHOWBOTH' or elvVisibility == 'SHOWBOTH' then
+		if _G.LeftChatTabSeparator then
+			_G.LeftChatTabSeparator:Show()
+		end
+		if _G.RightChatTabSeparator then
+			_G.RightChatTabSeparator:Show()
+		end
+	elseif myVisibility == 'HIDEBOTH' or elvVisibility == 'HIDEBOTH' then
+		if _G.LeftChatTabSeparator then
+			_G.LeftChatTabSeparator:Hide()
+		end
+		if _G.RightChatTabSeparator then
+			_G.RightChatTabSeparator:Hide()
+		end
+	elseif myVisibility == 'LEFT' or elvVisibility == 'LEFT' then
+		if _G.LeftChatTabSeparator then
+			_G.LeftChatTabSeparator:Show()
+		end
+		if _G.RightChatTabSeparator then
+			_G.RightChatTabSeparator:Hide()
+		end
 	else
-		_G.LeftChatTabSeparator:Hide()
-		_G.RightChatTabSeparator:Show()
+		if _G.LeftChatTabSeparator then
+			_G.LeftChatTabSeparator:Hide()
+		end
+		if _G.RightChatTabSeparator then
+			_G.RightChatTabSeparator:Show()
+		end
 	end
 end
 
@@ -389,7 +410,7 @@ function module:Initialize()
 	end
 	module:DamageMeterFilter()
 	module:LoadChatFade()
-	-- module:UpdateSeperators()
+	module:UpdateSeperators()
 	module:CreateChatButtons()
 	module:UpdateRoleIcons()
 	module:AddCustomEmojis()
