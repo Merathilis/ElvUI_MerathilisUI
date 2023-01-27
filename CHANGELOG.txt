@@ -1,4 +1,2 @@
-[b][color=orange]v5.59[/color], 27.01.2023[/b][list]
-[*]Fixed a ScenarioUI error
-[*]Fixed a Minimap MailFrame error on Wrath
-[*]Fixed WorldMap Zoom Click bug[/list]
+[b][color=orange]v5.60[/color], 27.01.2023[/b][list]
+[*]Real fix for ScenarioUI error[/list]
