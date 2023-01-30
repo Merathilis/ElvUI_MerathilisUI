@@ -159,11 +159,22 @@ local VirtualDTEvent = {
 
 local VirtualDT = {
 	Friends = {
+		name = "Friends",
+		text = {
+			SetFormattedText = E.noop
+		}
+	},
+	System = {
+		name = "System"
+	},
+	Time = {
+		name = "Time",
 		text = {
 			SetFormattedText = E.noop
 		}
 	},
 	Guild = {
+		name = "Guild",
 		text = {
 			SetFormattedText = E.noop,
 			SetText = E.noop
@@ -1234,6 +1245,12 @@ function module:Initialize()
 	if InCombatLockdown() then
 		self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		return
+	end
+
+	for name, vDT in pairs(VirtualDT) do
+		if DT.RegisteredDataTexts[name] and DT.RegisteredDataTexts[name].colorUpdate then
+			DT.RegisteredDataTexts[name].colorUpdate(vDT, E.media.hexvaluecolor)
+		end
 	end
 
 	self:UpdateHearthStoneTable()
