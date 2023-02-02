@@ -215,6 +215,7 @@ V.skins = {
 		majorFactions = true,
 		blizzardOptions = true,
 		editor = true,
+		perksProgram = true,
 	},
 
 	addonSkins = {
