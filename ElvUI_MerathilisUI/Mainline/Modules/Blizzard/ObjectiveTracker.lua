@@ -195,6 +195,15 @@ function module:HandleMenuText(text)
 end
 
 function module:HandleInfoText(text)
+	-- Sometimes Blizzard not use dash icon, just put a dash in front of text
+	if self.db.noDash and text and text.GetText then
+		rawText = text:GetText()
+
+		if strfind(rawText, "^%- ") then
+			text:SetText(gsub(rawText, "^%- ", ""))
+		end
+	end
+
 	self:ColorfulProgression(text)
 	F.SetFontDB(text, self.db.info)
 	text:SetHeight(text:GetStringHeight())
