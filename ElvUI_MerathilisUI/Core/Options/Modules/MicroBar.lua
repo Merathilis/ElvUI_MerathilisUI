@@ -9,7 +9,8 @@ options.microBar = {
 	type = "group",
 	name = L["Micro Bar"],
 	get = function(info) return E.db.mui.microBar[ info[#info] ] end,
-	set = function(info, value) E.db.mui.microBar[ info[#info] ] = value; MB:ProfileUpdate(); end,
+	set = function(info, value) E.db.mui.microBar[info[#info]] = value; MB:ProfileUpdate(); end,
+	hidden = not E.Retail,
 	args = {
 		header = {
 			order = 1,
@@ -487,6 +488,10 @@ options.microBar = {
 }
 
 do
+	if not E.Retail then
+		return
+	end
+
 	local availableButtons = MB:GetAvailableButtons()
 	for i = 1, 7 do
 		options.microBar.args.leftButtons.args[tostring(i)] = {
