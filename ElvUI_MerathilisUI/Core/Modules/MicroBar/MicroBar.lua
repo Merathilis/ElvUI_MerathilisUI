@@ -59,16 +59,16 @@ local UnregisterStateDriver = UnregisterStateDriver
 local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
 local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
 local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
-local C_Covenants_GetActiveCovenantID = C_Covenants.GetActiveCovenantID
-local C_CovenantSanctumUI_GetRenownLevel = C_CovenantSanctumUI.GetRenownLevel
+local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
+local C_CovenantSanctumUI_GetRenownLevel = C_CovenantSanctumUI and C_CovenantSanctumUI.GetRenownLevel
 local C_CVar_GetCVar = C_CVar.GetCVar
 local C_CVar_GetCVarBool = C_CVar.GetCVarBool
 local C_CVar_SetCVar = C_CVar.SetCVar
 local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
 local C_FriendList_GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
-local C_Garrison_GetCompleteMissions = C_Garrison.GetCompleteMissions
+local C_Garrison_GetCompleteMissions = C_Garrison and C_Garrison.GetCompleteMissions
 local C_Timer_NewTicker = C_Timer.NewTicker
-local C_ToyBox_IsToyUsable = C_ToyBox.IsToyUsable
+local C_ToyBox_IsToyUsable = C_ToyBox and C_ToyBox.IsToyUsable
 
 local FollowerType_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0
 local FollowerType_9_0 = Enum.GarrisonFollowerType.FollowerType_9_0
@@ -1265,6 +1265,10 @@ function module:UpdateReknown()
 end
 
 function module:Initialize()
+	if not E.Retail then
+		return
+	end
+
 	self.db = E.db.mui.microBar
 	self.covenantCache = E.global.mui.microBar.covenantCache
 
