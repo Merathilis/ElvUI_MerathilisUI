@@ -281,9 +281,10 @@ module.Spells = {
 		[35] = {text = GetSpellInfo(393267),icon = F.GetIconFromID('spell', 393267),secure = {buttonType = 'spell',ID = 393267}, UseTooltip = true}, -- Brackenhide (Path of the Rotting Woods)
 		[36] = {text = GetSpellInfo(393273),icon = F.GetIconFromID('spell', 393273),secure = {buttonType = 'spell',ID = 393273}, UseTooltip = true}, -- Algeth'ar Academy (Path of the Draconic Diploma)
 		[37] = {text = GetSpellInfo(393276),icon = F.GetIconFromID('spell', 393276),secure = {buttonType = 'spell',ID = 393276}, UseTooltip = true}, -- Neltharus (Path of the Obsidian Hoard)
-		[38] = {text = GetSpellInfo(393283),icon = F.GetIconFromID('spell', 393283),secure = {buttonType = 'spell',ID = 393283}, UseTooltip = true}, -- Halls of Infusion (Path of the Titanic Reservoir)
-		[39] = {text = GetSpellInfo(393764),icon = F.GetIconFromID('spell', 393764),secure = {buttonType = 'spell',ID = 393764}, UseTooltip = true}, -- Halls of Valor (Path of Proven Worth)
-		[40] = {text = GetSpellInfo(393766),icon = F.GetIconFromID('spell', 393766),secure = {buttonType = 'spell',ID = 393766}, UseTooltip = true}, -- Court of Stars (Path of the Grand Magistrix)
+		[38] = {text = GetSpellInfo(393279),icon = F.GetIconFromID('spell', 393279),secure = {buttonType = 'spell',ID = 393279}, UseTooltip = true}, -- Azur Vault (Path of Arcane Secrets)
+		[39] = {text = GetSpellInfo(393283),icon = F.GetIconFromID('spell', 393283),secure = {buttonType = 'spell',ID = 393283}, UseTooltip = true}, -- Halls of Infusion (Path of the Titanic Reservoir)
+		[40] = {text = GetSpellInfo(393764),icon = F.GetIconFromID('spell', 393764),secure = {buttonType = 'spell',ID = 393764}, UseTooltip = true}, -- Halls of Valor (Path of Proven Worth)
+		[41] = {text = GetSpellInfo(393766),icon = F.GetIconFromID('spell', 393766),secure = {buttonType = 'spell',ID = 393766}, UseTooltip = true}, -- Court of Stars (Path of the Grand Magistrix)
 	},
 }
 
