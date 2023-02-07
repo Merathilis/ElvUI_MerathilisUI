@@ -110,9 +110,6 @@ local petTrashCurrenies = {
 	[36812] = true,
 	[62072] = true,
 	[67410] = true,
-
-	[192644] = true,
-	[192648] = true,
 }
 function module:IsPetTrashCurrency(itemID)
 	return E.db.mui.bags.PetTrash and petTrashCurrenies[itemID]

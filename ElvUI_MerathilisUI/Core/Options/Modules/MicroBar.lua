@@ -9,7 +9,8 @@ options.microBar = {
 	type = "group",
 	name = L["Micro Bar"],
 	get = function(info) return E.db.mui.microBar[ info[#info] ] end,
-	set = function(info, value) E.db.mui.microBar[ info[#info] ] = value; MB:ProfileUpdate(); end,
+	set = function(info, value) E.db.mui.microBar[info[#info]] = value; MB:ProfileUpdate(); end,
+	hidden = not E.Retail,
 	args = {
 		header = {
 			order = 1,
@@ -20,6 +21,7 @@ options.microBar = {
 			order = 2,
 			type = "toggle",
 			name = L["Enable"],
+			desc = L["Toggle the MicroBar."]
 		},
 		general = {
 			order = 10,
@@ -40,57 +42,43 @@ options.microBar = {
 				backdrop = {
 					order = 1,
 					type = "toggle",
-					name = L["Backdrop"],
+					name = L["Bar Backdrop"],
+					desc = L["Show a backdrop of the bar."]
 				},
 				backdropSpacing = {
 					order = 2,
 					type = "range",
 					name = L["Backdrop Spacing"],
 					desc = L["The spacing between the backdrop and the buttons."],
-					min = 1,
-					max = 30,
-					step = 1
-				},
-				shadow = {
-					order = 3,
-					type = "toggle",
-					name = L["Shadow"],
+					min = 1, max = 30, step = 1
 				},
 				timeAreaWidth = {
-					order = 4,
+					order = 3,
 					type = "range",
-					name = L["Time Width"],
-					min = 1,
-					max = 200,
-					step = 1
+					name = L["Time Area Width"],
+					min = 1, max = 200, step = 1
 				},
 				timeAreaHeight = {
-					order = 5,
+					order = 4,
 					type = "range",
-					name = L["Time Height"],
-					min = 1,
-					max = 100,
-					step = 1
+					name = L["Time Area Height"],
+					min = 1, max = 100, step = 1
 				},
 				spacing = {
-					order = 6,
+					order = 5,
 					type = "range",
 					name = L["Button Spacing"],
 					desc = L["The spacing between buttons."],
-					min = 1,
-					max = 30,
-					step = 1
+					min = 1, max = 30, step = 1
 				},
 				buttonSize = {
-					order = 7,
+					order = 6,
 					type = "range",
 					name = L["Button Size"],
 					desc = L["The size of the buttons."],
-					min = 2,
-					max = 80,
-					step = 1
-				},
-			},
+					min = 2, max = 80, step = 1
+				}
+			}
 		},
 		display = {
 			order = 11,
@@ -115,36 +103,37 @@ options.microBar = {
 					name = L["Bar"],
 					inline = true,
 					args = {
-						notification = {
+						mouseOver = {
 							order = 1,
 							type = "toggle",
-							name = L["Notification"],
-						},
-						mouseOver = {
-							order = 2,
-							type = "toggle",
 							name = L["Mouse Over"],
+							desc = L["Show the bar only mouse hovered the area."],
 							set = function(info, value)
 								E.db.mui.microBar[info[#info]] = value
 								MB:UpdateBar()
 							end
 						},
+						notification = {
+							order = 2,
+							type = "toggle",
+							name = L["Notification"],
+							desc = L["Add an indicator icon to buttons."]
+						},
 						fadeTime = {
 							order = 3,
 							type = "range",
 							name = L["Fade Time"],
-							min = 0,
-							max = 3,
-							step = 0.01
+							desc = L["The animation speed."],
+							min = 0, max = 3, step = 0.01
 						},
-						tooltipPosition = {
+						tooltipsAnchor = {
 							order = 4,
 							type = "select",
-							name = L["Tooltip Position"],
+							name = L["Tooltip Anchor"],
 							values = {
 								ANCHOR_TOP = L["TOP"],
 								ANCHOR_BOTTOM = L["BOTTOM"]
-							},
+							}
 						},
 						visibility = {
 							order = 5,
@@ -155,11 +144,11 @@ options.microBar = {
 								MB:UpdateBar()
 							end,
 							width = "full"
-						},
-					},
+						}
+					}
 				},
 				normal = {
-					order = 4,
+					order = 3,
 					type = "group",
 					name = L["Color"] .. " - " .. L["Normal"],
 					inline = true,
@@ -178,6 +167,7 @@ options.microBar = {
 						customNormalColor = {
 							order = 2,
 							type = "color",
+							hasAlpha = true,
 							name = L["Custom Color"],
 							hidden = function()
 								return E.db.mui.microBar.normalColor ~= "CUSTOM"
@@ -190,13 +180,12 @@ options.microBar = {
 							set = function(info, r, g, b, a)
 								local db = E.db.mui.microBar[info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, a
-								MB:UpdateButtons()
 							end
 						}
 					}
 				},
 				hover = {
-					order = 5,
+					order = 4,
 					type = "group",
 					name = L["Color"] .. " - " .. L["Hover"],
 					inline = true,
@@ -215,6 +204,7 @@ options.microBar = {
 						customHoverColor = {
 							order = 2,
 							type = "color",
+							hasAlpha = true,
 							name = L["Custom Color"],
 							hidden = function()
 								return E.db.mui.microBar.hoverColor ~= "CUSTOM"
@@ -227,13 +217,12 @@ options.microBar = {
 							set = function(info, r, g, b, a)
 								local db = E.db.mui.microBar[info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, a
-								MB:UpdateButtons()
 							end
 						}
 					}
 				},
 				additionalText = {
-					order = 6,
+					order = 5,
 					type = "group",
 					name = L["Additional Text"],
 					inline = true,
@@ -270,17 +259,13 @@ options.microBar = {
 							order = 3,
 							type = "range",
 							name = L["X-Offset"],
-							min = -100,
-							max = 100,
-							step = 1
+							min = -100, max = 100, step = 1
 						},
 						y = {
 							order = 4,
 							type = "range",
 							name = L["Y-Offset"],
-							min = -100,
-							max = 100,
-							step = 1
+							min = -100, max = 100, step = 1
 						},
 						slowMode = {
 							order = 5,
@@ -291,7 +276,7 @@ options.microBar = {
 						font = {
 							order = 6,
 							type = "group",
-							name = L["Font"],
+							name = L["Font Setting"],
 							inline = true,
 							get = function(info)
 								return E.db.mui.microBar.additionalText[info[#info - 1]][info[#info]]
@@ -306,15 +291,7 @@ options.microBar = {
 									type = "select",
 									dialogControl = "LSM30_Font",
 									name = L["Font"],
-									values = E.LSM:HashTable("font"),
-								},
-								size = {
-									order = 3,
-									name = L["Size"],
-									type = "range",
-									min = 5,
-									max = 60,
-									step = 1
+									values = E.LSM:HashTable("font")
 								},
 								style = {
 									order = 2,
@@ -326,13 +303,19 @@ options.microBar = {
 										MONOCHROME = L["MONOCHROME"],
 										MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
 										THICKOUTLINE = L["THICKOUTLINE"]
-									},
+									}
 								},
-							},
-						},
-					},
-				},
-			},
+								size = {
+									order = 3,
+									name = L["Size"],
+									type = "range",
+									min = 5, max = 60, step = 1
+								}
+							}
+						}
+					}
+				}
+			}
 		},
 		time = {
 			order = 12,
@@ -365,8 +348,14 @@ options.microBar = {
 					type = "toggle",
 					name = L["Flash"]
 				},
-				interval = {
+				alwaysSystemInfo = {
 					order = 5,
+					type = "toggle",
+					name = L["Always Show Info"],
+					desc = L["The system information will be always shown rather than showing only being hovered."]
+				},
+				interval = {
+					order = 6,
 					type = "range",
 					name = L["Interval"],
 					desc = L["The interval of updating."],
@@ -381,7 +370,7 @@ options.microBar = {
 				font = {
 					order = 6,
 					type = "group",
-					name = L["Font"],
+					name = L["Font Setting"],
 					inline = true,
 					get = function(info)
 						return E.db.mui.microBar.time[info[#info - 1]][info[#info]]
@@ -415,13 +404,11 @@ options.microBar = {
 							order = 3,
 							name = L["Size"],
 							type = "range",
-							min = 5,
-							max = 60,
-							step = 1
-						},
-					},
-				},
-			},
+							min = 5, max = 60, step = 1
+						}
+					}
+				}
+			}
 		},
 		friends = {
 			order = 13,
@@ -496,40 +483,49 @@ options.microBar = {
 				MB:UpdateButtons()
 			end,
 			args = {}
-		},
-	},
+		}
+	}
 }
 
-local availableButtons = MB:GetAvailableButtons()
-for i = 1, 7 do
-	options.microBar.args.leftButtons.args[tostring(i)] = {
-		order = i,
+do
+	if not E.Retail then
+		return
+	end
+
+	local availableButtons = MB:GetAvailableButtons()
+	for i = 1, 7 do
+		options.microBar.args.leftButtons.args[tostring(i)] = {
+			order = i,
+			type = "select",
+			name = format(L["Button #%d"], i),
+			values = availableButtons
+		}
+
+		options.microBar.args.rightButtons.args[tostring(i)] = {
+			order = i,
+			type = "select",
+			name = format(L["Button #%d"], i),
+			values = availableButtons
+		}
+	end
+
+	options.microBar.args.home.args.left = {
+		order = 1,
 		type = "select",
-		name = format(L["Button #%d"], i),
-		values = availableButtons
+		name = L["Left Button"],
+		values = function()
+			return MB:GetHearthStoneTable()
+		end
 	}
-	options.microBar.args.rightButtons.args[tostring(i)] = {
-		order = i,
+
+	options.microBar.args.home.args.right = {
+		order = 2,
 		type = "select",
-		name = format(L["Button #%d"], i),
-		values = availableButtons
+		name = L["Right Button"],
+		values = function()
+			return MB:GetHearthStoneTable()
+		end
 	}
 end
 
-options.microBar.args.home.args.left = {
-	order = 1,
-	type = "select",
-	name = L["Left Button"],
-	values = function()
-		return MB:GetHearthStoneTable()
-	end
-}
-options.microBar.args.home.args.right = {
-	order = 2,
-	type = "select",
-	name = L["Right Button"],
-	values = function()
-		return MB:GetHearthStoneTable()
-	end
-}
 

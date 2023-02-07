@@ -1851,7 +1851,11 @@ if E.Retail then
 		name = L["Editor Mode"],
 		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.editor end,
 	}
-
+	options.blizzard.args.perksProgram = {
+		type = "toggle",
+		name = L["Perks Program"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.perks end,
+	}
 
 elseif E.Classic then
 	options.blizzard.args.craft = {

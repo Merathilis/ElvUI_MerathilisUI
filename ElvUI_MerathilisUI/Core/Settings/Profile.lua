@@ -968,7 +968,6 @@ P.microBar = {
 	mouseOver = false,
 	backdrop = true,
 	backdropSpacing = 2,
-	shadow = true,
 	timeAreaWidth = 80,
 	timeAreaHeight = 35,
 	buttonSize = 20,
@@ -976,19 +975,20 @@ P.microBar = {
 	fadeTime = 0.618,
 	normalColor = "NONE",
 	hoverColor = "CLASS",
-	customNormalColor = {r = 1, g = 1, b = 1},
-	customHoverColor = {r = 0, g = 0.659, b = 1},
+	customNormalColor = { r = 1, g = 1, b = 1 },
+	customHoverColor = { r = 0, g = 0.659, b = 1 },
 	notification = true,
-	visibility = "[petbattle][combat] hide; show",
-	tooltipPosition = "ANCHOR_BOTTOM",
+	visibility = "[petbattle] hide; show",
+	tooltipsAnchor = "ANCHOR_BOTTOM",
 	friends = {
-		showAllFriends = false,
+		showAllFriends = false
 	},
 	time = {
 		localTime = true,
 		twentyFour = true,
 		flash = true,
 		interval = 10,
+		alwaysSystemInfo = false,
 		font = {
 			name = E.db.general.font,
 			size = 25,
@@ -1017,17 +1017,17 @@ P.microBar = {
 		[3] = "TALENTS",
 		[4] = "FRIENDS",
 		[5] = "GUILD",
-		[6] = E.Retail and "GROUP_FINDER" or "NONE",
-		[7] = E.Retail and "SCREENSHOT" or "NONE",
+		[6] = "GROUP_FINDER",
+		[7] = "SCREENSHOT"
 	},
 	right = {
 		[1] = "HOME",
-		[2] = E.Retail and "ACHIEVEMENTS" or "SCREENSHOT",
-		[3] = E.Retail and "MISSION_REPORTS" or "VOLUME",
-		[4] = E.Retail and "ENCOUNTER_JOURNAL" or "GAMEMENU",
-		[5] = E.Retail and "TOY_BOX" or "BAGS",
-		[6] = E.Retail and "PET_JOURNAL" or "NONE",
-		[7] = E.Retail and "BAGS" or "NONE",
+		[2] = "ACHIEVEMENTS",
+		[3] = "MISSION_REPORTS",
+		[4] = "ENCOUNTER_JOURNAL",
+		[5] = "TOY_BOX",
+		[6] = "PET_JOURNAL",
+		[7] = "BAGS"
 	}
 }
 
