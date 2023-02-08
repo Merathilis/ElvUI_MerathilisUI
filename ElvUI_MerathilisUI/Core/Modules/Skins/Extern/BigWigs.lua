@@ -306,8 +306,8 @@ function module:BigWigs_QueueTimer()
 
 				frame:SetSize(parent:GetWidth(), 10)
 				frame:ClearAllPoints()
-				frame:SetPoint("TOPLEFT", parent, "BOTTOMLEFT", 0, -5)
-				frame:SetPoint("TOPRIGHT", parent, "BOTTOMRIGHT", 0, -5)
+				frame:SetPoint("TOPLEFT", parent, "BOTTOMLEFT", 1, -5)
+				frame:SetPoint("TOPRIGHT", parent, "BOTTOMRIGHT", -1, -5)
 				frame.text.SetFormattedText = function(self, _, time)
 					self:SetText(format("%d", time))
 				end
