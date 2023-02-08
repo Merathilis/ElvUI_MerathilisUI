@@ -978,7 +978,7 @@ P.microBar = {
 	customNormalColor = { r = 1, g = 1, b = 1 },
 	customHoverColor = { r = 0, g = 0.659, b = 1 },
 	notification = true,
-	visibility = "[petbattle] hide; show",
+	visibility = "[petbattle][combat] hide; show",
 	tooltipsAnchor = "ANCHOR_BOTTOM",
 	friends = {
 		showAllFriends = false
