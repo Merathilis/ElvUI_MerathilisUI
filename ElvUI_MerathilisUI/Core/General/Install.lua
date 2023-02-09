@@ -22,7 +22,7 @@ local VoiceTranscriptionFrame_UpdateEditBox = VoiceTranscriptionFrame_UpdateEdit
 local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateVisibility
 local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
 local LOOT = LOOT
-local ReloadUI = ReloadUI
+local C_UI_Reload = C_UI.Reload
 local SetCVar = SetCVar
 
 local function SetupCVars()
@@ -2472,7 +2472,7 @@ local function InstallComplete()
 
 	MERDataPerChar = MER.Version
 
-	ReloadUI()
+	C_UI_Reload()
 end
 
 -- ElvUI PlugIn installer
