@@ -1,7 +1,3 @@
-[b][color=orange]v5.61[/color], 07.02.2023[/b][list]
-[*]Wrath: I dont support he MicroBar on non Retail anymore, since too much code differences
-[*]Updated Port Spells on the Location Bar. Thx @Goldur <3
-[*]Some Code Changes to the Bags
-[*]Updated Feast Timer on the World Map
-[*]Updated Objective Tracker
-[*]Lots of changes to the Skins[/list]
+[b][color=orange]v5.62[/color], 10.02.2023[/b][list]
+[*]Fix Feast Timer on EU again
+[*]Let the MicroBar hide in Combat again by default[/list]
