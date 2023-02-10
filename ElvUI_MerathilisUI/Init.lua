@@ -1,8 +1,6 @@
 local E, _, V, P, G = unpack(ElvUI)
 local addon, Engine = ...
-
 local EP = E.Libs.EP
-local PI = E:GetModule('PluginInstaller')
 local AceAddon = E.Libs.AceAddon
 local L = E.Libs.ACL:GetLocale("ElvUI", E.global.general.locale)
 
@@ -151,13 +149,10 @@ function MER:Initialize()
 		Engine[2].Developer.InjectLogger(name)
 	end)
 
-	local profileKey = ElvDB.profileKeys[E.myname .. " - " .. E.myrealm]
-	if E.private.install_complete == nil then
-		E.private.install_complete = E.version
-	end
-
-	if E.db.mui.installed == nil or (ElvDB.profileKeys and profileKey == nil) then
-		PI:Queue(MER.installTable)
+	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
+	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
+	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
+		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
 
 	self.initialized = true
