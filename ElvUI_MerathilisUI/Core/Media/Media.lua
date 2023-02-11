@@ -228,6 +228,9 @@ AddMedia("PepoBedge", "bedge.tga", "Textures")
 
 AddMedia("flag", "flag.tga", "Textures")
 
+AddMedia("dc", "materialDC.tga", "Textures")
+AddMedia("dead", "materialDead.tga", "Textures")
+
 -- Role Icons
 AddMedia("sunTank", "RoleIcons/SunUI/Tank.tga", "Textures")
 AddMedia("sunHealer", "RoleIcons/SunUI/Healer.tga", "Textures")
@@ -260,6 +263,10 @@ AddMedia("mainDPS", "RoleIcons/Main/DPS.tga", "Textures")
 AddMedia("whiteTank", "RoleIcons/White/Tank.tga", "Textures")
 AddMedia("whiteHeal", "RoleIcons/White/Healer.tga", "Textures")
 AddMedia("whiteDPS", "RoleIcons/White/DPS.tga", "Textures")
+
+AddMedia("materialTank", "RoleIcons/Material/Tank.tga", "Textures")
+AddMedia("materialHeal", "RoleIcons/Material/Healer.tga", "Textures")
+AddMedia("materialDPS", "RoleIcons/Material/DPS.tga", "Textures")
 
 AddMedia("emptyTex", "bgTex.blp", "Textures")
 AddMedia("glowTex", "glowTex.blp", "Textures")
