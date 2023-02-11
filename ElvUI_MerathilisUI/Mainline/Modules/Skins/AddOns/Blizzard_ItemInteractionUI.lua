@@ -12,6 +12,7 @@ local function LoadSkin()
 	local ItemInteractionFrame = _G.ItemInteractionFrame
 	ItemInteractionFrame:Styling()
 	module:CreateShadow(ItemInteractionFrame)
+	ItemInteractionFrame.Background:SetAlpha(0.75)
 end
 
 S:AddCallbackForAddon("Blizzard_ItemInteractionUI", LoadSkin)
