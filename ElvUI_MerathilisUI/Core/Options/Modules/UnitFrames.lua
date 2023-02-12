@@ -6,9 +6,19 @@ local LSM = E.Libs.LSM
 
 local format = string.format
 
+local OfflineIndicatorImages = {
+	MATERIAL = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\materialDC:14|t]],
+	ALERT = [[|TInterface\DialogFrame\UI-Dialog-Icon-AlertNew:14|t]],
+	ARTHAS = [[|TInterface\LFGFRAME\UI-LFR-PORTRAIT:14|t]],
+	SKULL = [[|TInterface\LootFrame\LootPanel-Icon:14|t]],
+	PASS = [[|TInterface\PaperDollInfoFrame\UI-GearManager-LeaveItem-Transparent:14|t]],
+	NOTREADY = [[|TInterface\RAIDFRAME\ReadyCheck-NotReady:14|t]],
+	CUSTOM = L["CUSTOM"],
+}
+
 options.unitframes = {
 	type = "group",
-	name = L["UnitFrames"],
+	name = E.NewSign..L["UnitFrames"],
 	childGroups = "tab",
 	get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 	set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; end,
@@ -504,6 +514,105 @@ options.unitframes = {
 									end,
 									width = 2
 								},
+							},
+						},
+					},
+				},
+			},
+		},
+		--[[individualUnits = {
+			order = 3,
+			type = "group",
+			name = L["Individual Units"],
+			args = {
+			},
+		},]]
+		groupUnits = {
+			order = 4,
+			type = "group",
+			name = E.NewSign..L["Group Units"],
+			args = {
+				party = {
+					order = 1,
+					type = "group",
+					name = L["Party"],
+					args = {
+						offlineIndicator = {
+							order = 1,
+							type = "group",
+							name = F.cOption(L["Offline Indicator"], 'orange'),
+							guiInline = true,
+							get = function(info)
+								return E.db.mui.unitframes.offlineIndicator[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.unitframes.offlineIndicator[info[#info]] = value
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
+							args = {
+								enable = {
+									order = 1,
+									type = "toggle",
+									name = L["Enable"]
+								},
+								anchorPoint = {
+									order = 2,
+									type = "select",
+									name = L["Anchor Point"],
+									disabled = function() return not E.db.mui.unitframes.offlineIndicator.enable end,
+									values = {
+										TOPLEFT = 'TOPLEFT',
+										LEFT = 'LEFT',
+										BOTTOMLEFT = 'BOTTOMLEFT',
+										RIGHT = 'RIGHT',
+										TOPRIGHT = 'TOPRIGHT',
+										BOTTOMRIGHT = 'BOTTOMRIGHT',
+										TOP = 'TOP',
+										BOTTOM = 'BOTTOM',
+										CENTER = 'CENTER',
+									},
+								},
+								xOffset = {
+									order = 3,
+									type = "range",
+									name = L["X-Offset"],
+									disabled = function() return not E.db.mui.unitframes.offlineIndicator.enable end,
+									min = -300, max = 300, step = 1
+								},
+								yOffset = {
+									order = 4,
+									type = "range",
+									name = L["Y-Offset"],
+									disabled = function() return not E.db.mui.unitframes.offlineIndicator.enable end,
+									min = -300, max = 300, step = 1
+								},
+								size = {
+									order = 5,
+									type = "range",
+									name = L["Size"],
+									softMin = 14, softMax = 64, min = 12, max = 128, step = 1,
+									disabled = function() return not E.db.mui.unitframes.offlineIndicator.enable end,
+								},
+								texture = {
+									order = 6,
+									type = "select",
+									name = L["Texture"],
+									disabled = function() return not E.db.mui.unitframes.offlineIndicator.enable end,
+									values = OfflineIndicatorImages,
+								},
+								spacer = {
+									order = 7,
+									type = "description",
+									name = ""
+								},
+								custom = {
+									order = 8,
+									type = "input",
+									name = L["Custom Texture"],
+									width = "full",
+									hidden = function() return E.db.mui.unitframes.offlineIndicator.texture ~= 'CUSTOM' end,
+									disabled = function() return not E.db.mui.unitframes.offlineIndicator.enable end,
+								}
 							},
 						},
 					},

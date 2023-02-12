@@ -1032,27 +1032,6 @@ P.microBar = {
 }
 
 P.unitframes = {
-	units = {
-		--* Individual Units
-		player = {},
-		target = {},
-		targettarget = {},
-		targettargettarget = {},
-		focus = {},
-		focustarget = {},
-		pet = {},
-		pettarget = {},
-		--* Group Units
-		party = {},
-		raid1 = {},
-		raid2 = {},
-		raid3 = {},
-		raidpet = {},
-		tank = {},
-		assist = {},
-		arena = {},
-		boss = {},
-	},
 	healPrediction = {
 		enable = false,
 		texture = {
@@ -1100,6 +1079,24 @@ P.unitframes = {
 	},
 	highlight = true,
 	auras = true,
+	offlineIndicator = {
+		enable = true,
+		size = 36,
+		anchorPoint = 'RIGHT',
+		xOffset = 20,
+		yOffset = 0,
+		texture = 'MATERIAL',
+		custom = '',
+	},
+	deadIndicator = {
+		enable = true,
+		size = 36,
+		anchorPoint = 'CENTER',
+		xOffset = 0,
+		yOffset = 0,
+		texture = 'MATERIAL',
+		custom = '',
+	},
 }
 
 P.maps = {

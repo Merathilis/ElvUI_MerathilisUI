@@ -738,6 +738,20 @@ function F.GetTextureStrByAtlas(info, sizeX, sizeY)
 	return format("|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d|t", file, (sizeX or 0), (sizeY or 0), atlasWidth, atlasHeight, atlasWidth*txLeft, atlasWidth*txRight, atlasHeight*txTop, atlasHeight*txBottom)
 end
 
+-- Check Textures
+local txframe = CreateFrame('Frame')
+local tx = txframe:CreateTexture()
+
+function F:TextureExists(path)
+	if not path or path == '' then
+		return F.DebugPrint('Path not valid or defined.', 'error')
+	end
+	tx:SetTexture('?')
+	tx:SetTexture(path)
+
+	return (tx:GetTexture())
+end
+
 -- GUID to npcID
 function F.GetNPCID(guid)
 	local id = tonumber(strmatch((guid or ""), "%-(%d-)%-%x-$"))

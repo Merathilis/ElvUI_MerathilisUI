@@ -6,6 +6,7 @@
 	<Script file="HealPrediction.lua"/>
 	<Script file="Health.lua"/>
 	<Script file="InfoPanel.lua"/>
+	<Script file="OfflineIndicator.lua"/>
 	<Script file="Power.lua"/>
 	<Script file="RaidIcon.lua"/>
 	<Script file="RoleIcons.lua"/>

@@ -141,7 +141,7 @@ options.general = {
 options.font = {
 	order = 2,
 	type = "group",
-	name = E.NewSign..L["Fonts"],
+	name = L["Fonts"],
 	args = {
 		errorMessage = {
 			order = 1,
@@ -2051,7 +2051,7 @@ options.Embed = {
 options.bigWigsSkin = {
 	order = 10,
 	type = "group",
-	name = E.NewSign..L["BigWigs Skin"],
+	name = L["BigWigs Skin"],
 	disabled = function()
 		return not E.private.mui.skins.enable or not IsAddOnLoaded("BigWigs")
 	end,
