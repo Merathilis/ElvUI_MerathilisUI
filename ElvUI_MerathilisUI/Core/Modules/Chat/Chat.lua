@@ -330,6 +330,12 @@ function module:UpdateRoleIcons()
 			HEALER = E:TextureString(MER.Media.Textures.whiteHeal, sizeString),
 			DAMAGER = E:TextureString(MER.Media.Textures.whiteDPS, sizeString)
 		}
+	elseif pack == "MATERIAL" then
+		CH.RoleIcons = {
+			TANK = E:TextureString(MER.Media.Textures.materialTank, sizeString),
+			HEALER = E:TextureString(MER.Media.Textures.materialHeal, sizeString),
+			DAMAGER = E:TextureString(MER.Media.Textures.materialDPS, sizeString)
+		}
 	end
 end
 

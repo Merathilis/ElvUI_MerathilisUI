@@ -763,6 +763,12 @@ do
 	icons = icons .. E:TextureString(MER.Media.Textures.whiteHeal, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.whiteDPS, ":16:16")
 	SampleStrings.white = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.materialTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.materialHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.materialDPS, ":16:16")
+	SampleStrings.material = icons
 end
 
 options.chat.args.roleIcons = {
@@ -799,6 +805,7 @@ options.chat.args.roleIcons = {
 				GRAVED = SampleStrings.graved,
 				MAIN = SampleStrings.main,
 				WHITE = SampleStrings.white,
+				MATERIAL = SampleStrings.material
 			}
 		},
 		roleIconSize = {
