@@ -1032,6 +1032,27 @@ P.microBar = {
 }
 
 P.unitframes = {
+	units = {
+		--* Individual Units
+		player = {},
+		target = {},
+		targettarget = {},
+		targettargettarget = {},
+		focus = {},
+		focustarget = {},
+		pet = {},
+		pettarget = {},
+		--* Group Units
+		party = {},
+		raid1 = {},
+		raid2 = {},
+		raid3 = {},
+		raidpet = {},
+		tank = {},
+		assist = {},
+		arena = {},
+		boss = {},
+	},
 	healPrediction = {
 		enable = false,
 		texture = {
