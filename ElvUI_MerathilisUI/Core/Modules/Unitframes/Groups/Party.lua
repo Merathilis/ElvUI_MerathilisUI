@@ -6,7 +6,7 @@ local hooksecurefunc = hooksecurefunc
 
 function module:Construct_PartyFrames()
 	if not self.isChild then
-		-- self.DeathIndicator = module:Construct_DeathIndicator(self)
+		self.DeathIndicator = module:Construct_DeathIndicator(self)
 		self.OfflineIndicator = module:Construct_OfflineIndicator(self)
 	end
 end
@@ -25,7 +25,7 @@ function module:Update_PartyFrames(frame)
 	end
 
 	if not frame.isChild then
-		-- module:Configure_DeathIndicator(frame)
+		module:Configure_DeathIndicator(frame)
 		module:Configure_OfflineIndicator(frame)
 	end
 

@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="oUF_CounterBar.lua"/>
 	<Script file="oUF_GCD.lua"/>
+	<Script file="oUF_DeathIndicator.lua"/>
 	<Script file="oUF_OfflineIndicator.lua"/>
 	<Script file="oUF_Swing.lua"/>
 </Ui>

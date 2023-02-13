@@ -1088,7 +1088,7 @@ P.unitframes = {
 		texture = 'MATERIAL',
 		custom = '',
 	},
-	deadIndicator = {
+	deathIndicator = {
 		enable = true,
 		size = 36,
 		anchorPoint = 'CENTER',

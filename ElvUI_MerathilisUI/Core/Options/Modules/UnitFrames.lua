@@ -6,6 +6,16 @@ local LSM = E.Libs.LSM
 
 local format = string.format
 
+local DeathIndicatorImages = {
+	MATERIAL = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\materialDead:14|t]],
+	SKULL = [[|TInterface\LootFrame\LootPanel-Icon:14|t]],
+	SKULL1 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL:16|t]],
+	SKULL2 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL1:16|t]],
+	SKULL3 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL2:16|t]],
+	SKULL4 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL3:16|t]],
+	CUSTOM = L["CUSTOM"],
+}
+
 local OfflineIndicatorImages = {
 	MATERIAL = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\materialDC:14|t]],
 	ALERT = [[|TInterface\DialogFrame\UI-Dialog-Icon-AlertNew:14|t]],
@@ -612,6 +622,84 @@ options.unitframes = {
 									width = "full",
 									hidden = function() return E.db.mui.unitframes.offlineIndicator.texture ~= 'CUSTOM' end,
 									disabled = function() return not E.db.mui.unitframes.offlineIndicator.enable end,
+								}
+							},
+						},
+						deathIndicator = {
+							order = 2,
+							type = "group",
+							name = F.cOption(L["Death Indicator"], 'orange'),
+							guiInline = true,
+							get = function(info)
+								return E.db.mui.unitframes.deathIndicator[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.unitframes.deathIndicator[info[#info]] = value
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
+							args = {
+								enable = {
+									order = 1,
+									type = "toggle",
+									name = L["Enable"]
+								},
+								anchorPoint = {
+									order = 2,
+									type = "select",
+									name = L["Anchor Point"],
+									disabled = function() return not E.db.mui.unitframes.deathIndicator.enable end,
+									values = {
+										TOPLEFT = 'TOPLEFT',
+										LEFT = 'LEFT',
+										BOTTOMLEFT = 'BOTTOMLEFT',
+										RIGHT = 'RIGHT',
+										TOPRIGHT = 'TOPRIGHT',
+										BOTTOMRIGHT = 'BOTTOMRIGHT',
+										TOP = 'TOP',
+										BOTTOM = 'BOTTOM',
+										CENTER = 'CENTER',
+									},
+								},
+								xOffset = {
+									order = 3,
+									type = "range",
+									name = L["X-Offset"],
+									disabled = function() return not E.db.mui.unitframes.deathIndicator.enable end,
+									min = -300, max = 300, step = 1
+								},
+								yOffset = {
+									order = 4,
+									type = "range",
+									name = L["Y-Offset"],
+									disabled = function() return not E.db.mui.unitframes.deathIndicator.enable end,
+									min = -300, max = 300, step = 1
+								},
+								size = {
+									order = 5,
+									type = "range",
+									name = L["Size"],
+									softMin = 14, softMax = 64, min = 12, max = 128, step = 1,
+									disabled = function() return not E.db.mui.unitframes.deathIndicator.enable end,
+								},
+								texture = {
+									order = 6,
+									type = "select",
+									name = L["Texture"],
+									disabled = function() return not E.db.mui.unitframes.deathIndicator.enable end,
+									values = DeathIndicatorImages,
+								},
+								spacer = {
+									order = 7,
+									type = "description",
+									name = ""
+								},
+								custom = {
+									order = 8,
+									type = "input",
+									name = L["Custom Texture"],
+									width = "full",
+									hidden = function() return E.db.mui.unitframes.deathIndicator.texture ~= 'CUSTOM' end,
+									disabled = function() return not E.db.mui.unitframes.deathIndicator.enable end,
 								}
 							},
 						},

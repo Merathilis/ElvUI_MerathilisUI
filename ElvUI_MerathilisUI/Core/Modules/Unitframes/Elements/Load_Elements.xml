@@ -3,6 +3,7 @@
 	<Script file="CastBar.lua"/>
 	<Script file="ClassBar.lua"/>
 	<Script file="CounterBar.lua"/>
+	<Script file="DeathIndicator.lua"/>
 	<Script file="HealPrediction.lua"/>
 	<Script file="Health.lua"/>
 	<Script file="InfoPanel.lua"/>
