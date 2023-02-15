@@ -289,6 +289,14 @@ LSM:Register("font","BadaBoom", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media
 LSM:Register("font","Gothic-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\CenturyGothicBold.ttf]])
 LSM:Register("font","Gotham Narrow Black", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\GothamNarrow-Black.ttf]])
 LSM:Register("font","Gotham Narrow Ultra", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\GothamNarrow-Ultra.otf]])
+LSM:Register("font","Montserrat-Black", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Black.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Bold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-ExtraBold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-ExtraBold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-ExtraLight", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-ExtraLight.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Light", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Light.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Medium.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Regular.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-SemiBold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-SemiBold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 
 -- Backgrounds
 -- Border
