@@ -71,14 +71,19 @@ local function LoadSkin()
 	local FriendsFrame = _G.FriendsFrame
 	FriendsFrame:Styling()
 
+	_G.FriendsFrameBattlenetFrame.UnavailableInfoFrame:ClearAllPoints()
+	_G.FriendsFrameBattlenetFrame.UnavailableInfoFrame:Point("TOPLEFT", FriendsFrame, "TOPRIGHT", 3, -1)
+
 	local frames = {
-		_G.FriendsFrame,
+		FriendsFrame,
 		_G.FriendsFriendsFrame,
 		_G.AddFriendFrame,
 		_G.RecruitAFriendFrame.SplashFrame,
 		_G.RecruitAFriendRewardsFrame,
 		_G.RecruitAFriendRecruitmentFrame,
-		_G.FriendsFrameBattlenetFrame.BroadcastFrame
+		_G.FriendsFrameBattlenetFrame.UnavailableInfoFrame,
+		_G.FriendsFrameBattlenetFrame.BroadcastFrame,
+		_G.QuickJoinRoleSelectionFrame
 	}
 
 	for _, frame in pairs(frames) do
