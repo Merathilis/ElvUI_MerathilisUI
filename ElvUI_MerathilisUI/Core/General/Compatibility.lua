@@ -413,6 +413,13 @@ function MER:CheckCompatibility()
 		"db.WT.maps.eventTracker.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["AddOnSkins"], L["Auctionator"]),
+		format("%s-%s", L["Skins"], L["Auctionator"]),
+		"private.mui.skins.addonSkins.au",
+		"private.WT.skins.addons.auctionator"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],
