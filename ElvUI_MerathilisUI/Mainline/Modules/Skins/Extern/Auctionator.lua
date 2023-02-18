@@ -382,6 +382,8 @@ function module:Auctionator()
 		return
 	end
 
+	module:DisableAddOnSkin("Auctionator")
+
 	-- widgets
 	hooksecurefunc(_G.AuctionatorConfigHorizontalRadioButtonGroupMixin, "SetupRadioButtons", reskin(configRadioButtonGroup))
 	hooksecurefunc(_G.AuctionatorConfigNumericInputMixin, "OnLoad", reskin(configNumericInput))
