@@ -56,7 +56,7 @@ local function HandleHeaders(frame)
 end
 
 local function HandleTab(tab)
-	S:HandleTab(tab)
+	S:HandleTab(tab, nil, "Transparent")
 	tab.Text:ClearAllPoints()
 	tab.Text:SetPoint("CENTER", tab, "CENTER", 0, 0)
 	tab.Text.__SetPoint = tab.Text.SetPoint
