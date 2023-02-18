@@ -655,6 +655,7 @@ local utilities = {
 	198163,
 	198164,
 	198165,
+	199414,
 
 	34721, -- First Aid bandage WRATH
 	34722, -- First Aid bandage WRATH
