@@ -362,6 +362,10 @@ function module:ConstructPageController()
 	-- Mouse wheel control
 	self.frame:EnableMouseWheel(true)
 	self.frame:SetScript("OnMouseWheel", function(_, delta)
+		if not currentPageIndex then
+			return
+		end
+
 		if delta > 0 then
 			if pagePrevButton:IsShown() then
 				currentPageIndex = currentPageIndex - 1
@@ -613,7 +617,6 @@ function module:SendMailFrame_OnShow()
 		self.frame:Hide()
 	else
 		self.frame:Show()
-		self:ChangeCategory()
 	end
 end
 
@@ -885,6 +888,8 @@ function module:Initialize()
 	self:LastMailSaver()
 
 	self:SecureHookScript(_G.SendMailFrame, "OnShow", "SendMailFrame_OnShow")
+
+	self:ChangeCategory()
 	self.Initialized = true
 end
 
