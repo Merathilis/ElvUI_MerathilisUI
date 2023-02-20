@@ -138,14 +138,13 @@ function MER:FixGame()
 	if not E.Retail then return end
 
 	-- fix playstyle string
+	-- from Premade Groups Filter & LFMPlus
 	if E.global.mui.core.fixLFG then
-		local activityIdOfArbitraryMythicPlusDungeon = 1160 -- Algeth'ar Academy
-
-		if (not IsAddOnLoaded("PremadeGroupsFilter"))
-			or (not C_LFGList.IsPlayerAuthenticatedForLFG(activityIdOfArbitraryMythicPlusDungeon)) then
-			C_LFGList.GetPlaystyleString = function(playstyle, activityInfo)
-				if not (activityInfo and playstyle and playstyle ~= 0
-					and C_LFGList.GetLfgCategoryInfo(activityInfo.categoryID).showPlaystyleDropdown) then
+		if C_LFGList.IsPlayerAuthenticatedForLFG(703) then
+			function C_LFGList.GetPlaystyleString(playstyle, activityInfo)
+				if not (activityInfo and playstyle and playstyle ~= 0 and
+					C_LFGList.GetLfgCategoryInfo(activityInfo.categoryID).showPlaystyleDropdown)
+				then
 					return nil
 				end
 				local globalStringPrefix
@@ -161,8 +160,7 @@ function MER:FixGame()
 				return globalStringPrefix and _G[globalStringPrefix .. tostring(playstyle)] or nil
 			end
 
-			-- Disable automatic group titles to prevent tainting errors
-			LFGListEntryCreation_SetTitleFromActivityInfo = function(_)
+			_G.LFGListEntryCreation_SetTitleFromActivityInfo = function(_)
 			end
 		end
 	end
