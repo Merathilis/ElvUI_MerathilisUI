@@ -110,14 +110,9 @@ function module:Skin_ElvUI_ActionBars()
 
 	-- ElvUI action bar
 	if not E.private.actionbar.masque.actionbars then
-		for id = 1, 10 do
+		for id = 1, 15 do
 			local bar = _G["ElvUI_Bar"..id]
-			self:ElvUI_ActionBar_SkinBar(bar, "PLAYER")
-		end
-
-		if E.Retail then
-			for id = 13, 15 do
-				local bar = _G["ElvUI_Bar"..id]
+			if bar then
 				self:ElvUI_ActionBar_SkinBar(bar, "PLAYER")
 			end
 		end
