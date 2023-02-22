@@ -323,13 +323,15 @@ local function shoppingItem(frame)
 	frame.QualityContainer.ResetQualityButton:ClearAllPoints()
 	frame.QualityContainer.ResetQualityButton:SetPoint("LEFT", frame.QualityContainer.DropDown.DropDown, "RIGHT", 0, 3)
 
-	frame.TierContainer:ClearAllPoints()
-	frame.TierContainer:SetPoint("TOPLEFT", frame.QualityContainer, "BOTTOMLEFT", 0, -20)
-	S:HandleDropDownBox(frame.TierContainer.DropDown.DropDown)
-	S:HandleButton(frame.TierContainer.ResetTierButton)
-	frame.TierContainer.ResetTierButton:SetSize(20, 20)
-	frame.TierContainer.ResetTierButton:ClearAllPoints()
-	frame.TierContainer.ResetTierButton:SetPoint("LEFT", frame.TierContainer.DropDown.DropDown, "RIGHT", 0, 3)
+	if frame.TierContainer then
+		frame.TierContainer:ClearAllPoints()
+		frame.TierContainer:SetPoint("TOPLEFT", frame.QualityContainer, "BOTTOMLEFT", 0, -20)
+		S:HandleDropDownBox(frame.TierContainer.DropDown.DropDown)
+		S:HandleButton(frame.TierContainer.ResetTierButton)
+		frame.TierContainer.ResetTierButton:SetSize(20, 20)
+		frame.TierContainer.ResetTierButton:ClearAllPoints()
+		frame.TierContainer.ResetTierButton:SetPoint("LEFT", frame.TierContainer.DropDown.DropDown, "RIGHT", 0, 3)
+	end
 
 	S:HandleButton(frame.Finished)
 	S:HandleButton(frame.Cancel)
@@ -377,6 +379,19 @@ local function splashFrame(frame)
 	S:HandleScrollBar(frame.ScrollFrame.ScrollBar)
 end
 
+local function itemHistoryFrame(frame)
+	frame:StripTextures()
+	frame:SetTemplate("Transparent")
+	S:CreateShadow(frame)
+
+	S:HandleButton(frame.Close)
+	S:HandleButton(frame.Dock)
+end
+
+local function configSellingFrame(frame)
+	S:HandleButton(frame.UnhideAll)
+end
+
 function module:Auctionator()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.au then
 		return
@@ -409,9 +424,11 @@ function module:Auctionator()
 	hooksecurefunc(_G.AuctionatorConfigTabMixin, "OnLoad", reskin(configTab))
 
 	-- frames
+	hooksecurefunc(_G.AuctionatorConfigSellingFrameMixin, "OnLoad", reskin(configSellingFrame))
 	hooksecurefunc(_G.AuctionatorExportTextFrameMixin, "OnLoad", reskin(exportTextFrame))
 	hooksecurefunc(_G.AuctionatorListExportFrameMixin, "OnLoad", reskin(listExportFrame))
 	hooksecurefunc(_G.AuctionatorListImportFrameMixin, "OnLoad", reskin(listImportFrame))
+	hooksecurefunc(_G.AuctionatorItemHistoryFrameMixin, "Init", reskin(itemHistoryFrame))
 	hooksecurefunc(_G.AuctionatorShoppingItemMixin, "OnLoad", reskin(shoppingItem))
 	hooksecurefunc(_G.AuctionatorSplashScreenMixin, "OnLoad", reskin(splashFrame))
 end
