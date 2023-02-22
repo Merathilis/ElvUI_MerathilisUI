@@ -382,7 +382,7 @@ end
 local function itemHistoryFrame(frame)
 	frame:StripTextures()
 	frame:SetTemplate("Transparent")
-	S:CreateShadow(frame)
+	module:CreateShadow(frame)
 
 	S:HandleButton(frame.Close)
 	S:HandleButton(frame.Dock)
