@@ -121,7 +121,9 @@ function module:Initialize()
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
 	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")
-	self:RegisterEvent("CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS", "CheckStatus")
+	if E.Retail then
+		self:RegisterEvent("CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS", "CheckStatus")
+	end
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckStatus")
 	self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
 	self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")
