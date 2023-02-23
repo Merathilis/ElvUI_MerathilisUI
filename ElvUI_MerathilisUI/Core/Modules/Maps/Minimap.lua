@@ -22,15 +22,18 @@ function module:CheckStatus()
 	local inv = C_Calendar_GetNumPendingInvites()
 	local indicator = _G.MinimapCluster.IndicatorFrame
 	local mailFrame = (indicator and indicator.MailFrame) or _G.MiniMapMailFrame
+	local craftingFrame = E.Retail and (indicator and indicator.CraftingOrderFrame)
 	local mail = mailFrame:IsShown() and true or false
+	local crafting = craftingFrame:IsShown() and true or false
 
-
-	if inv > 0 and mail then -- New invites and mail
-		LCG.PixelGlow_Start(MM.MapHolder, {1, 0, 0, 1}, 8, -0.25, nil, 1)
-	elseif inv > 0 and not mail then -- New invites and no mail
+	if inv > 0 and mail and crafting then -- New invites and mail and crafting orders
+		LCG.PixelGlow_Start(MM.MapHolder, { 1, 0, 0, 1 }, 8, -0.25, nil, 1)
+	elseif inv > 0 and not mail and not crafting then -- New invites and no mail and no crafting orders
 		LCG.PixelGlow_Start(MM.MapHolder, { 1, 1, 0, 1 }, 8, -0.25, nil, 1)
-	elseif inv == 0 and mail then -- No invites and new mail
+	elseif inv == 0 and mail and not crafting then -- No invites and new mail and no crafting orders
 		LCG.PixelGlow_Start(MM.MapHolder, { r, g, b, 1 }, 8, -0.25, nil, 1)
+	elseif inv == 0 and not mail and crafting then -- No invites and no mail and new crafting orders
+		LCG.PixelGlow_Start(MM.MapHolder, { 0, 0.75, 0.98, 1 }, 8, -0.25, nil, 1)
 	else -- None of the above
 		LCG.PixelGlow_Stop(MM.MapHolder)
 	end
@@ -118,6 +121,7 @@ function module:Initialize()
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
 	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")
+	self:RegisterEvent("CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS", "CheckStatus")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckStatus")
 	self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
 	self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")

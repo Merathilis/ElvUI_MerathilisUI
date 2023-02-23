@@ -392,6 +392,14 @@ local function configSellingFrame(frame)
 	S:HandleButton(frame.UnhideAll)
 end
 
+local function craftingInfoObjectiveTrackerFrame(frame)
+	S:HandleButton(frame.SearchButton)
+end
+
+local function craftingInfoProfessionsFrame(frame)
+	S:HandleButton(frame.SearchButton)
+end
+
 function module:Auctionator()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.au then
 		return
@@ -429,6 +437,8 @@ function module:Auctionator()
 	hooksecurefunc(_G.AuctionatorListExportFrameMixin, "OnLoad", reskin(listExportFrame))
 	hooksecurefunc(_G.AuctionatorListImportFrameMixin, "OnLoad", reskin(listImportFrame))
 	hooksecurefunc(_G.AuctionatorItemHistoryFrameMixin, "Init", reskin(itemHistoryFrame))
+	hooksecurefunc(_G.AuctionatorCraftingInfoObjectiveTrackerFrameMixin, "OnLoad", reskin(craftingInfoObjectiveTrackerFrame))
+	hooksecurefunc(_G.AuctionatorCraftingInfoProfessionsFrameMixin, "OnLoad", reskin(craftingInfoProfessionsFrame))
 	hooksecurefunc(_G.AuctionatorShoppingItemMixin, "OnLoad", reskin(shoppingItem))
 	hooksecurefunc(_G.AuctionatorSplashScreenMixin, "OnLoad", reskin(splashFrame))
 end
