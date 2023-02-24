@@ -5,14 +5,13 @@ local MM = E:GetModule('Minimap')
 local LCG = E.Libs.CustomGlow
 
 local _G = _G
-local select, unpack = select, unpack
-local format = string.format
+local unpack = unpack
 
 local C_Calendar_GetNumPendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
 local C_Garrison_HasGarrison = C_Garrison and C_Garrison.HasGarrison
-local GetInstanceInfo = GetInstanceInfo
 local Minimap = _G.Minimap
-local hooksecurefunc = hooksecurefunc
+local MinimapCluster = _G.MinimapCluster
+local MiniMapMailFrame = _G.MiniMapMailFrame
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
@@ -20,8 +19,8 @@ function module:CheckStatus()
 	if not E.db.mui.maps.minimap.flash then return end
 
 	local inv = C_Calendar_GetNumPendingInvites()
-	local indicator = _G.MinimapCluster.IndicatorFrame
-	local mailFrame = (indicator and indicator.MailFrame) or _G.MiniMapMailFrame
+	local indicator = MinimapCluster.IndicatorFrame
+	local mailFrame = (indicator and indicator.MailFrame) or MiniMapMailFrame
 	local craftingFrame = E.Retail and (indicator and indicator.CraftingOrderFrame)
 	local mail = mailFrame:IsShown() and true or false
 	local crafting = craftingFrame:IsShown() and true or false
