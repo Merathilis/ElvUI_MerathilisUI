@@ -12,6 +12,7 @@ function module:GlobalIgnoreList()
 	FriendsFrame:HookScript("OnShow", function()
 		if GIL and not GIL.MERStyle then
 			S:HandlePortraitFrame(GIL)
+			GIL:Styling()
 			module:CreateShadow(GIL)
 			for i = 1, 3 do
 				S:HandleTab(_G['GILTab'..i])
@@ -54,7 +55,7 @@ function module:GlobalIgnoreList()
 		end
 	end)
 
-	module:DisableAddOnSkin("GlobalIgnoreList")
+	module:DisableAddOnSkins("GlobalIgnoreList", false)
 end
 
 module:AddCallbackForAddon("GlobalIgnoreList")
