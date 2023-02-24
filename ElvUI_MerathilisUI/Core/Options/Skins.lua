@@ -16,6 +16,7 @@ local DecorAddons = {
 	{"Clique", L["Clique"], "cl"},
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
 	{"BugSack", L["BugSack"], "bs"},
+	{"GlobalIgnoreList", L["GlobalIgnoreList"], "gil"},
 	{"Immersion", L["Immersion"], "imm"},
 	{"OmniCD", L["OmniCD"], "omniCD"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},

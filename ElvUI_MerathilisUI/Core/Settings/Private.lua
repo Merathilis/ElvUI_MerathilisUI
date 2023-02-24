@@ -241,6 +241,7 @@ V.skins = {
 		imm = true,
 		rio = true,
 		omniCD = true,
+		gil = true,
 		bw = {
 			enable = true,
 			queueTimer = {
