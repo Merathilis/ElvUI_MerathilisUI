@@ -782,11 +782,12 @@ function module:ReskinAS(AS)
 end
 
 -- Disable AddOnSkins Skin
-function module:DisableAddOnSkins(key)
+function module:DisableAddOnSkins(optionName, value)
 	if _G.AddOnSkins then
 		local AS = _G.AddOnSkins[1]
-		if AS and AS.db[key] then
-			AS:SetOption(key, false)
+		if AS and AS.db then
+			AS.db[optionName] = value
+			AS:SetOption(optionName, false)
 		end
 	end
 end
@@ -796,15 +797,6 @@ function S:UpdateRecapButton()
 	if self and self.button4 and self.button4:IsEnabled() then
 		self.button4:SetScript("OnEnter", module.ColorButton)
 		self.button4:SetScript("OnLeave", module.ClearButton)
-	end
-end
-
-function module:DisableAddOnSkin(key)
-	if _G.AddOnSkins then
-		local AS = _G.AddOnSkins[1]
-		if AS and AS.db[key] then
-			AS:SetOption(key, false)
-		end
 	end
 end
 

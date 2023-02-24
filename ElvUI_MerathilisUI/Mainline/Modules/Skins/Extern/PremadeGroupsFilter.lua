@@ -20,7 +20,7 @@ function module:PremadeGroupsFilter()
 		return
 	end
 
-	self:DisableAddOnSkin("PremadeGroupsFilter")
+	self:DisableAddOnSkins("PremadeGroupsFilter", false)
 
 	local frame = _G.PremadeGroupsFilterDialog
 	S:HandleFrame(frame, true)
