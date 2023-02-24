@@ -266,11 +266,7 @@ end
 function module:Initialize()
 	self.db = E.db.mui.unitframes.healPrediction
 
-	if not self.db or not self.db.enable then
-		return
-	end
-
-	if self.initialized then
+	if not self.db or not self.db.enable or self.initialized then
 		return
 	end
 
