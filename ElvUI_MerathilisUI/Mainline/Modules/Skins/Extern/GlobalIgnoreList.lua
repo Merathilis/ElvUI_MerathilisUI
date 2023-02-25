@@ -26,17 +26,13 @@ function module:GlobalIgnoreList()
 			end
 
 			S:HandleButton(GILFrame1IgnoreButton)
-
 			S:HandleButton(GILFrame2RemoveButton)
 			S:HandleButton(GILFrame2CreateButton)
 			S:HandleButton(GILFrame2ResetButton)
-
 			S:HandleFrame(GILFrame2Edit)
 			S:HandleButton(GILFrame2EditSaveButton)
 			S:HandleButton(GILFrame2EditCancelButton)
-
 			S:HandleCheckBox(GILFrame2Active)
-
 			S:HandleEditBox(GILFrame2EditDescField)
 
 			GILFrame2EditFilterField:StripTextures()
@@ -50,6 +46,26 @@ function module:GlobalIgnoreList()
 
 			S:HandleEditBox(GILFrame2EditLinkField)
 			S:HandleButton(GILFrame2EditLinkHelp)
+
+			local checkBoxes = {
+				GILFrame3AskNote,
+				GILFrame3OpenUI,
+				GILFrame3SameServer,
+				GILFrame3TrackChanges,
+				GILFrame3EnableFilter,
+				GILFrame3InvertFilter,
+				GILFrame3UpdateFilter,
+				GILFrame3SkipGuild,
+				GILFrame3SkipParty,
+				GILFrame3SkipPrivate
+			}
+			for _, checkbox in next, checkBoxes do
+				if checkbox then
+					S:HandleCheckBox(checkbox)
+				end
+			end
+
+			S:HandleEditBox(GILFrame3Exp)
 
 			GIL.MERStyle = true
 		end
