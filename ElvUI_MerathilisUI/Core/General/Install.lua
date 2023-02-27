@@ -316,7 +316,7 @@ function MER:SetupLayout()
 	E.db["general"]["topPanel"] = false
 	E.db["general"]["bonusObjectivePosition"] = "AUTO"
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
-	E.db["general"]["talkingHeadFrameScale"] = 0.85
+	E.db["general"]["talkingHeadFrameScale"] = 0.75
 	E.db["general"]["talkingHeadFrameBackdrop"] = true
 	E.db["general"]["altPowerBar"]["enable"] = true
 	E.db["general"]["altPowerBar"]["font"] = "Expressway"
