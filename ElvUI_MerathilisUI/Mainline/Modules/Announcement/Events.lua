@@ -12,6 +12,7 @@ module.EventList = {
 	"CHAT_MSG_SYSTEM",
 	"COMBAT_LOG_EVENT_UNFILTERED",
 	"GROUP_ROSTER_UPDATE",
+	"ITEM_CHANGED",
 	"PLAYER_ENTERING_WORLD",
 	"QUEST_LOG_UPDATE",
 }
@@ -33,6 +34,10 @@ end
 
 function module:CHAT_MSG_GUILD(event, ...)
 	self:KeystoneLink(event, ...)
+end
+
+function module:ITEM_CHANGED(event, ...)
+	E:Delay(0.5, self.Keystone, self, event)
 end
 
 function module:COMBAT_LOG_EVENT_UNFILTERED()
