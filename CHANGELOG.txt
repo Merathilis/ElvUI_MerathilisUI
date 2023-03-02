@@ -1,3 +1,9 @@
-[b][color=orange]v5.62[/color], 10.02.2023[/b][list]
-[*]Fix Feast Timer on EU again
-[*]Let the MicroBar hide in Combat again by default[/list]
+[b][color=orange]v5.63[/color], 02.03.2023[/b][list]
+[*]Added new Role Icons: Material
+[*]Added an Offline/ Death Indicator on the Party UnitFrames
+[*]Prevent a possible error on the Friends List
+[*]Updated Auctionator Skin
+[*]Updated the Skin for the ElvUI ActionBars to take account for all ActionBars
+[*]Added a Skin for GlobalIgnoreList
+[*]Fixed an error on the PerksProgramm Skin if the shadows are disabled
+[*]Updated some skins[/list]
