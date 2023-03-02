@@ -24,7 +24,9 @@ local function LoadSkin()
 	local footer = frame.FooterFrame
 	if footer then
 		module:CreateShadow(footer.TogglePlayerPreview)
-		footer.TogglePlayerPreview.MERshadow:SetAllPoints()
+		if footer.TogglePlayerPreview.MERshadow:SetAllPoints() then
+			footer.TogglePlayerPreview.MERshadow:SetAllPoints()
+		end
 
 		module:CreateBackdropShadow(footer.RotateButtonContainer.RotateLeftButton)
 		module:CreateBackdropShadow(footer.RotateButtonContainer.RotateRightButton)

@@ -53,6 +53,11 @@ local RoleIconTextures = {
 		HEALER = MER.Media.Textures.whiteHeal,
 		DAMAGER = MER.Media.Textures.whiteDPS
 	},
+	MATERIAL = {
+		TANK = MER.Media.Textures.materialTank,
+		HEALER = MER.Media.Textures.materialHeal,
+		DAMAGER = MER.Media.Textures.materialDPS
+	}
 }
 
 function module:Configure_RoleIcons()

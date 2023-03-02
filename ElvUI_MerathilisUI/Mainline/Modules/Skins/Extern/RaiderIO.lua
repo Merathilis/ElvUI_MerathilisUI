@@ -104,7 +104,7 @@ function module:RaiderIO()
 		return
 	end
 
-	module:DisableAddOnSkin("RaiderIO")
+	module:DisableAddOnSkins("RaiderIO", false)
 	module:AddCallbackForEnterWorld("RaiderIO_DelayedSkinning")
 	module:SecureHook(_G.PVEFrame, "Show", "RaiderIO_GuildWeeklyFrame")
 end

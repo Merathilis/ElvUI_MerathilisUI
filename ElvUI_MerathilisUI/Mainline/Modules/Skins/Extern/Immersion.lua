@@ -100,7 +100,7 @@ function module:Immersion()
 		return
 	end
 
-	module:DisableAddOnSkin("Immersion")
+	module:DisableAddOnSkins("Immersion", false)
 
 	local frame = _G.ImmersionFrame
 

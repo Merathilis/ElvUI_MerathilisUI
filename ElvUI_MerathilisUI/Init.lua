@@ -151,9 +151,19 @@ function MER:Initialize()
 		Engine[2].Developer.InjectLogger(name)
 	end)
 
-	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
-	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
-	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
+	-- No need to do the ElvUI install, so hide it
+	local ElvUIInstallFrame = _G.ElvUIInstallFrame
+	if ElvUIInstallFrame and ElvUIInstallFrame:IsShown() then
+		ElvUIInstallFrame:Hide()
+	end
+
+	-- Set the db key to the actual ElvUI Version
+	if E.private.install_complete == nil then
+		E.private.install_complete = E.version
+	end
+
+	-- My stuff not yet installed? Here we go...
+	if E.db.mui.core.installed == nil then
 		PI:Queue(MER.installTable)
 	end
 
@@ -176,7 +186,7 @@ do
 
 		if isInitialLogin then
 			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
-			if E.db.mui.installed and E.global.mui.core.loginMsg then
+			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
 				print(icon..''..self.Title..format("|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 			end
 

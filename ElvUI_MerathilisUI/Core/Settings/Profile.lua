@@ -3,7 +3,7 @@ local MER, F, E, L, V, P, G = unpack(select(2, ...))
 local _G = _G
 
 P.core = {
-	installed = false,
+	installed = nil,
 }
 
 P.general = {
@@ -1079,6 +1079,24 @@ P.unitframes = {
 	},
 	highlight = true,
 	auras = true,
+	offlineIndicator = {
+		enable = true,
+		size = 36,
+		anchorPoint = 'RIGHT',
+		xOffset = 20,
+		yOffset = 0,
+		texture = 'MATERIAL',
+		custom = '',
+	},
+	deathIndicator = {
+		enable = true,
+		size = 36,
+		anchorPoint = 'CENTER',
+		xOffset = 0,
+		yOffset = 0,
+		texture = 'MATERIAL',
+		custom = '',
+	},
 }
 
 P.maps = {

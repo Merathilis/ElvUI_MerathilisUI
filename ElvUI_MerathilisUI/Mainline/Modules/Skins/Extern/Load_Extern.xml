@@ -4,6 +4,7 @@
 	<Script file="BenikUI.lua"/>
 	<Script file="cargBags_Nivaya.lua"/>
 	<Script file="Clique.lua"/>
+	<Script file="GlobalIgnoreList.lua"/>
 	<Script file="Immersion.lua"/>
 	<Script file="ls_Toasts.lua"/>
 	<Script file="OmniCD.lua"/>

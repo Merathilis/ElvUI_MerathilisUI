@@ -655,6 +655,7 @@ local utilities = {
 	198163,
 	198164,
 	198165,
+	199414,
 
 	34721, -- First Aid bandage WRATH
 	34722, -- First Aid bandage WRATH
@@ -813,6 +814,7 @@ local openableItems = {
 	200070,
 	200072,
 	200073,
+	200094,
 	200095,
 	200468,
 	200513,
