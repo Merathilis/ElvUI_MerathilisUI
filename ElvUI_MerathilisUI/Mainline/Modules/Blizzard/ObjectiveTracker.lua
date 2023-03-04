@@ -245,6 +245,14 @@ function module:ChangeQuestFontStyle(_, block)
 			self:HandleInfoText(block.currentLine.Text)
 		end
 	end
+
+	local check = block.currentLine and block.currentLine.check
+	if check and not check.IsSkinned then
+		check:SetAtlas('checkmark-minimal')
+		check:SetDesaturated(true)
+		check:SetVertexColor(0, 1, 0)
+		check.IsSkinned = true
+	end
 end
 
 function module:ScenarioObjectiveBlock_UpdateCriteria()
