@@ -21,9 +21,9 @@ function module:CheckStatus()
 	local inv = C_Calendar_GetNumPendingInvites()
 	local indicator = MinimapCluster.IndicatorFrame
 	local mailFrame = (indicator and indicator.MailFrame) or MiniMapMailFrame
-	local craftingFrame = E.Retail and (indicator and indicator.CraftingOrderFrame)
+	local craftingFrame = (indicator and indicator.CraftingOrderFrame)
 	local mail = mailFrame:IsShown() and true or false
-	local crafting = craftingFrame:IsShown() and true or false
+	local crafting = E.Retail and craftingFrame:IsShown() and true or false
 
 	if inv > 0 and mail and crafting then -- New invites and mail and crafting orders
 		LCG.PixelGlow_Start(MM.MapHolder, { 1, 0, 0, 1 }, 8, -0.25, nil, 1)
