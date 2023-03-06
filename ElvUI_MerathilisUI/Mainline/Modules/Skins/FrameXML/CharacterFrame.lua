@@ -15,24 +15,28 @@ local function LoadSkin()
 
 	CharacterFrame:Styling()
 	module:CreateShadow(CharacterFrame)
-	-- module:CreateShadow(_G.GearManagerDialogPopup)
 	module:CreateShadow(_G.EquipmentFlyoutFrameButtons)
 
 	for i = 1, 4 do
 		module:ReskinTab(_G["CharacterFrameTab" .. i])
 	end
 
-	if CharacterModelFrame and CharacterModelFrame.BackgroundTopLeft and CharacterModelFrame.BackgroundTopLeft:IsShown() then
-		CharacterModelFrame.BackgroundTopLeft:Hide()
-		CharacterModelFrame.BackgroundTopRight:Hide()
-		CharacterModelFrame.BackgroundBotLeft:Hide()
-		CharacterModelFrame.BackgroundBotRight:Hide()
-		_G.CharacterModelFrameBackgroundOverlay:Hide()
+	-- Token
+	module:CreateShadow(_G.TokenFramePopup)
 
-		if _G.CharacterModelFrame.backdrop then
-			_G.CharacterModelFrame.backdrop:Hide()
-		end
+	-- Remove the background
+	local modelScene = _G.CharacterModelScene
+	modelScene.BackgroundTopLeft:Hide()
+	modelScene.BackgroundTopRight:Hide()
+	modelScene.BackgroundBotLeft:Hide()
+	modelScene.BackgroundBotRight:Hide()
+	modelScene.BackgroundOverlay:Hide()
+	if modelScene.backdrop then
+		modelScene.backdrop:Kill()
 	end
+
+	-- Reputation
+	module:CreateShadow(_G.ReputationDetailFrame)
 
 	hooksecurefunc(PaperDollFrame.EquipmentManagerPane.ScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do

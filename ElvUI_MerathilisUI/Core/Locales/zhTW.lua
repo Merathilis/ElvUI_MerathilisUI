@@ -523,54 +523,6 @@ L["Inherit Global Fade"] = true
 L["Anchor Point"] = true
 L["The first button anchors itself to this point on the bar."] = true
 
--- Armory
-L["Armory"] = "英雄榜"
-L["ARMORY_DESC"] = [=[The |cffff7d0aArmory Mode|r only works with the ElvUI 'Display Character Info'. You may need to reload your UI:
-
-ElvUI - General - BlizzUI Improvements - Display Character Infos.]=]
-L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
-L["Durability"] = true
-L["Enable/Disable the display of durability information on the character window."] = true
-L["Damaged Only"] = true
-L["Only show durability information for items that are damaged."] = true
-L["Itemlevel"] = true
-L["Enable/Disable the display of item levels on the character window."] = true
-L["Level"] = "等級"
-L["Full Item Level"] = true
-L["Show both equipped and average item levels."] = true
-L["Item Level Coloring"] = true
-L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
-L["Color of Average"] = true
-L["Sets the color of average item level."] = true
-L["Only Relevant Stats"] = true
-L["Show only those primary stats relevant to your spec."] = true
-L["Item Level"] = "物品等級"
-L["Categories"] = true
-L["Slot Gradient"] = true
-L["Shows a gradiation texture on the Character Slots."] = true
-L["Indicators"] = true
-L["Transmog"] = "塑形"
-L["Shows an arrow indictor for currently transmogrified items."] = true
-L["Illusion"] = true
-L["Shows an indictor for weapon illusions."] = true
-L["Empty Socket"] = true
-L["Not Enchanted"] = true
-L["Warnings"] = true
-L["Shows an indicator for missing sockets and enchants."] = true
-L["Expanded Size"] = true
-L["This will increase the Character Frame size a bit."] = true
-L["Armor Set"] = true
-L["Colors Set Items in a different color."] = true
-L["Armor Set Gradient Texture Color"] = true
-L["Full Item Level"] = true
-L["Show both equipped and average item levels."] = true
-L["Item Level Coloring"] = true
-L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
-L["Color of Average"] = true
-L["Sets the color of average item level."] = true
-L["Warning Gradient Texture Color"] = true
-L["Class Color Gradient"] = true
-
 -- Media
 L["Zone Text"] = true
 L["Font Size"] = true
