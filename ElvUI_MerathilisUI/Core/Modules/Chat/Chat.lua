@@ -398,10 +398,10 @@ local function ReplaceSystemMessage(_, event, message, ...)
 	end
 end
 
-ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", ReplaceSystemMessage)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_INLINE_TOAST_ALERT", ReplaceSystemMessage)
-ChatFrame_AddMessageEventFilter("ROLE_CHANGED_INFORM", ReplaceSystemMessage)
-ChatFrame_AddMessageEventFilter("PLAYER_ROLES_ASSIGNED", ReplaceSystemMessage)
+-- ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", ReplaceSystemMessage)
+-- ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_INLINE_TOAST_ALERT", ReplaceSystemMessage)
+-- ChatFrame_AddMessageEventFilter("ROLE_CHANGED_INFORM", ReplaceSystemMessage)
+-- ChatFrame_AddMessageEventFilter("PLAYER_ROLES_ASSIGNED", ReplaceSystemMessage)
 
 function module:Initialize()
 	module.db = E.db.mui.chat

@@ -301,6 +301,29 @@ options.reset = {
 			type = "description",
 			name = ' ',
 		},
+		misc = {
+			order = 15,
+			type = "group",
+			inline = true,
+			name = L["Misc"],
+			args = {
+				general = {
+					order = 1,
+					type = "execute",
+					name = L["General"],
+					func = function()
+						E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["General"], nil, function()
+							E.db.mui.misc.betterGuildMemberStatus = P.misc.betterGuildMemberStatus
+						end)
+					end
+				},
+			},
+		},
+		spacer2 = {
+			order = 20,
+			type = "description",
+			name = ' ',
+		},
 		resetAllModules = {
 			order = 21,
 			type = "execute",

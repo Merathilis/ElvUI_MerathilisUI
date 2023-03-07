@@ -109,6 +109,13 @@ options.general = {
 			get = function() return "/randomtoy" end,
 			set = function() return end,
 		},
+		betterGuildMemberStatus = {
+			order = 12,
+			type = "toggle",
+			name = E.NewSign..L["Better Guild Member Status"],
+			desc = L["Adds an icon and the corresponding class color name to the guild member status change message for improved visual clarity."],
+			width = 1.5
+		}
 	},
 }
 

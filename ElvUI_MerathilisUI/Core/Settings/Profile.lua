@@ -594,8 +594,9 @@ P.misc = {
 			["Elegy of the Eternals"] = false,
 			["Dragonriding"] = true,
 			["Jewelcrafting"] = false
-		}
-	}
+		},
+	},
+	betterGuildMemberStatus = true,
 }
 
 P.nameHover = {
@@ -603,6 +604,18 @@ P.nameHover = {
 	fontSize = 7,
 	fontOutline = "OUTLINE",
 	targettarget = false,
+}
+
+P.armory = {
+	character = {
+		enable = true,
+	},
+	inspect = {
+		enable = true,
+	},
+	StatOrder = "12345",
+	StatExpand = true,
+	PetHappiness = true,
 }
 
 P.notification = {
