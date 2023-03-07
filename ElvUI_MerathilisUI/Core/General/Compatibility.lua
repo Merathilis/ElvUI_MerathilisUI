@@ -235,18 +235,11 @@ function MER:CheckCompatibility()
 	CheckWindtools(
 		format("%s-%s", L["Tooltip"], L["Tooltip Icons"]),
 		format("%s-%s", L["Tooltip"], L["Add Icon"]),
-		"db.mui.tooltip.tooltipIcon",
+		"db.mui.tooltip.icon",
 		"private.WT.tooltips.icon"
 	)
 
 	CheckWindtools(L["LFG Info"], L["Group Info"], "db.mui.misc.lfgInfo.enable", "db.WT.tooltips.groupInfo.enable")
-
-	CheckWindtools(
-		L["Paragon Reputation"],
-		L["Paragon Reputation"],
-		"db.mui.misc.paragon.enable",
-		"db.WT.quest.paragonReputation.enable"
-	)
 
 	CheckWindtools(
 		L["Role Icon"],
