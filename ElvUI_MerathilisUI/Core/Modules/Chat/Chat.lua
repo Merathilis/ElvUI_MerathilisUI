@@ -349,60 +349,6 @@ function module:AddCustomEmojis()
 	CH:AddSmiley(':sadge:', format(t, 'sadge'))
 end
 
-local onlinestring
-local offlinestring
-
-local function ReplaceSystemMessage(_, event, message, ...)
-	if not E.db.mui.chat.customOnlineMessage then
-		return
-	end
-
-	if E.locale == "deDE" then
-		onlinestring = "online"
-		offlinestring = "offline"
-	elseif E.locale == "enUS" or E.locale == "enGB" or E.locale == "enCN" or E.locale == "enTW" then
-		onlinestring = "online"
-		offlinestring = "offline"
-	elseif E.locale == "zhCN" then
-		onlinestring = "在线"
-		offlinestring = "下线了"
-	elseif E.locale == "zhTW" then
-		onlinestring = "目前在線"
-		offlinestring = "下線了"
-	elseif E.locale == "esMX" or E.locale == "esES" then
-		onlinestring = "conectado"
-		offlinestring = " desconectado"
-	elseif E.locale == "frFR" then
-		onlinestring = "en ligne "
-		offlinestring = "déconnecter"
-	elseif E.locale == "itIT" then
-		onlinestring = "online"
-		offlinestring = "offline"
-	elseif E.locale == "koKR" then
-		onlinestring = "접속 중"
-		offlinestring = "님이 게임을 종료했습니다."
-	elseif E.locale == "ptBR" or E.locale == "ptPT" then
-		onlinestring = "conectado"
-		offlinestring = "desconectou"
-	elseif E.locale == "ruRU" then
-		onlinestring = "В сети"
-		offlinestring = "выходит из игрового"
-	end
-
-	if message:find(onlinestring) then --german, english, italian all use the same online/offline
-		return false, gsub(message, onlinestring, "|cff298F00"..onlinestring.."|r"), ...
-	end
-
-	if message:find(offlinestring) then
-		return false, gsub(message, offlinestring, "|cffff0000"..offlinestring.."|r"), ...
-	end
-end
-
--- ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", ReplaceSystemMessage)
--- ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_INLINE_TOAST_ALERT", ReplaceSystemMessage)
--- ChatFrame_AddMessageEventFilter("ROLE_CHANGED_INFORM", ReplaceSystemMessage)
--- ChatFrame_AddMessageEventFilter("PLAYER_ROLES_ASSIGNED", ReplaceSystemMessage)
-
 function module:Initialize()
 	module.db = E.db.mui.chat
 	if not module.db or not E.private.chat.enable then
