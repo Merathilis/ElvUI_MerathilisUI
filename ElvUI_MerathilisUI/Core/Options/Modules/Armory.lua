@@ -16,6 +16,7 @@ options.armory = {
 	type = "group",
 	name = L["Armory"],
 	childGroups = "tab",
+	hidden = not E.Wrath,
 	args = {
 		header = {
 			order = 1,
