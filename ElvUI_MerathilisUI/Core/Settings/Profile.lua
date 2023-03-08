@@ -597,6 +597,7 @@ P.misc = {
 		},
 	},
 	betterGuildMemberStatus = true,
+	missingStats = true
 }
 
 P.nameHover = {

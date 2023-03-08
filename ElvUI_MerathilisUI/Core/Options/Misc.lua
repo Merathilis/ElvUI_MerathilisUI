@@ -115,6 +115,12 @@ options.general = {
 			name = E.NewSign..L["Better Guild Member Status"],
 			desc = L["Adds an icon and the corresponding class color name to the guild member status change message for improved visual clarity."],
 			width = 1.5
+		},
+		missingStats = {
+			order = 13,
+			type = "toggle",
+			name = E.NewSign..L["Missing Stats"],
+			desc = L["Show all stats on the Character Frame"],
 		}
 	},
 }
