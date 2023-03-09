@@ -101,27 +101,27 @@ options.general = {
 			type = "description",
 			name = " ",
 		},
-		randomtoy = {
-			order = 11,
-			type = "input",
-			name = L["Random Toy Macro"],
-			desc = L["Creates a random toy macro."],
-			get = function() return "/randomtoy" end,
-			set = function() return end,
-		},
 		betterGuildMemberStatus = {
-			order = 12,
+			order = 11,
 			type = "toggle",
 			name = E.NewSign..L["Better Guild Member Status"],
 			desc = L["Adds an icon and the corresponding class color name to the guild member status change message for improved visual clarity."],
 			width = 1.5
 		},
 		missingStats = {
-			order = 13,
+			order = 12,
 			type = "toggle",
 			name = E.NewSign..L["Missing Stats"],
 			desc = L["Show all stats on the Character Frame"],
-		}
+		},
+		randomtoy = {
+			order = 20,
+			type = "input",
+			name = L["Random Toy Macro"],
+			desc = L["Creates a random toy macro."],
+			get = function() return "/randomtoy" end,
+			set = function() return end,
+		},
 	},
 }
 
