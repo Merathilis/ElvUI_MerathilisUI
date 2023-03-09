@@ -12,13 +12,14 @@ local STAT_HASTE = STAT_HASTE
 local HIGHLIGHT_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE = HIGHLIGHT_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE
 
 function module:MissingStats()
-	if not E.db.mui.misc.missingStats or IsAddOnLoaded("DejaCharacterStats") then
+	if not E.db.mui.misc.missingStats or not (E.private.skins.blizzard.enable and E.private.skins.blizzard.character) or not (E.private.mui.skins.blizzard.enable and E.private.mui.skins.blizzard.character) or IsAddOnLoaded("DejaCharacterStats") then
 		return
 	end
 
 	local statPanel = CreateFrame("Frame", nil, _G.CharacterFrameInsetRight)
 	statPanel:SetSize(200, 350)
 	statPanel:SetPoint("TOP", 0, -5)
+
 	local scrollFrame = CreateFrame("ScrollFrame", nil, statPanel, "UIPanelScrollFrameTemplate")
 	scrollFrame:SetAllPoints()
 	scrollFrame.ScrollBar:Hide()
