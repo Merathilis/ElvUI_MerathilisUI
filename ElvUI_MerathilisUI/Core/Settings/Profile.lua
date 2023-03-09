@@ -594,8 +594,10 @@ P.misc = {
 			["Elegy of the Eternals"] = false,
 			["Dragonriding"] = true,
 			["Jewelcrafting"] = false
-		}
-	}
+		},
+	},
+	betterGuildMemberStatus = true,
+	missingStats = true
 }
 
 P.nameHover = {
@@ -603,6 +605,18 @@ P.nameHover = {
 	fontSize = 7,
 	fontOutline = "OUTLINE",
 	targettarget = false,
+}
+
+P.armory = {
+	character = {
+		enable = true,
+	},
+	inspect = {
+		enable = true,
+	},
+	StatOrder = "12345",
+	StatExpand = true,
+	PetHappiness = true,
 }
 
 P.notification = {
@@ -1450,89 +1464,4 @@ P.cooldownFlash = {
 	enablePet = false,
 	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
-}
-
-P.armory = {
-	character = {
-		enable = true,
-		undressButton = true,
-		expandSize = true,
-		classIcon = true,
-		showWarning = true,
-		durability = {
-			enable = true,
-			onlydamaged = true,
-			font = "Expressway",
-			textSize = 11,
-			fontOutline = "OUTLINE",
-		},
-		gradient = {
-			enable = true,
-			colorStyle = "VALUE",
-			color = {r = 1, g = 1, b = 0},
-			setArmor = true,
-			setArmorColor = {r = 0, g = 1, b = 0, a = 1},
-			warningColor = {r = 1, g = 0, b = 0, a = 1}
-		},
-		transmog = {
-			enable = true,
-		},
-		illusion = {
-			enable = true,
-		},
-		warning = {
-			enable = true,
-		},
-	},
-	inspect = {
-		enable = true,
-		classIcon = true,
-		gradient = {
-			enable = true,
-			colorStyle = "RARITY",
-			color = {r = 1, g = 1, b = 0},
-			setArmor = true,
-			setArmorColor = {r = 0, g = 1, b = 0, a = 1},
-			warningColor = {r = 1, g = 0, b = 0, a = 1}
-		},
-		warning = {
-			enable = true,
-		},
-	},
-	stats = {
-		enable = true,
-		OnlyPrimary = true,
-		classColorGradient = true,
-		color = {r = 1, g = 1, b = 0, a = 1},
-		IlvlFull = false,
-		IlvlColor = false,
-		AverageColor = {r = 0, g = 1, b = .59},
-		statFonts = {
-			font = "Expressway",
-			size = 11,
-			outline = "OUTLINE",
-		},
-		catFonts = {
-			font = "Expressway",
-			size = 13,
-			outline = "OUTLINE",
-		},
-		List = {
-			HEALTH = false,
-			POWER = false,
-			ALTERNATEMANA = false,
-			ATTACK_DAMAGE = false,
-			ATTACK_AP = false,
-			ATTACK_ATTACKSPEED = false,
-			SPELLPOWER = false,
-			ENERGY_REGEN = false,
-			RUNE_REGEN = false,
-			FOCUS_REGEN = false,
-			MOVESPEED = false,
-		},
-	},
-	--Wrath Related
-	StatOrder = "12345",
-	StatExpand = true,
-	PetHappiness = true,
 }

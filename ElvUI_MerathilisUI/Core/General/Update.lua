@@ -41,12 +41,12 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion and profileVersion <= 5.58 then
+	if profileVersion and profileVersion <= 5.65 then
 		if E.db.mui.notification and E.db.mui.notification.vignette and type(E.db.mui.notification.vignette) ~= 'table' then
 			E.db.mui.notification.vignette = {}
 			E.db.mui.notification.rarePrint = nil
 		end
-		UpdateMessage(L["Notification"] .. " - " .. L["Vignette DB changes"], profileVersion)
+		UpdateMessage(L["Armory"] .. " - " .. L["Updated Character Skin"], profileVersion)
 
 		updated = true
 	end

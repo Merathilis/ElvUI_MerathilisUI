@@ -1344,7 +1344,7 @@ function MER:SetupUnitframes()
 			["xOffset"] = 0,
 			["yOffset"] = 16,
 			["size"] = 11,
-			["text_format"] = "[classicon-flatborder][mUI-name:health:abbrev{class}]",
+			["text_format"] = "[classicon-flatborder][name:gradient]",
 			["attachTextTo"] = "Frame",
 		}
 	else
@@ -1553,7 +1553,7 @@ function MER:SetupUnitframes()
 			["xOffset"] = 2,
 			["yOffset"] = 16,
 			["size"] = 11,
-			["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}][classicon-flatborder]",
+			["text_format"] = "[classification:icon][name:gradient][classicon-flatborder]",
 			["attachTextTo"] = "Frame",
 		}
 	else
@@ -1661,7 +1661,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["targettarget"]["power"]["text_format"] = ""
 	E.db["unitframe"]["units"]["targettarget"]["width"] = 75
 	E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[namecolor][name:abbrev:short]"
+	E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[name:gradient]"
 	E.db["unitframe"]["units"]["targettarget"]["height"] = 20
 	E.db["unitframe"]["units"]["targettarget"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["targettarget"]["health"]["bgUseBarTexture"] = true
@@ -1803,7 +1803,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[namecolor][name:medium]",
+		["text_format"] = "[name:gradient]",
 	}
 	if F.IsDeveloper() then
 		E.db["unitframe"]["units"]["raid1"]["customTexts"]["Elv"] = {
@@ -1928,7 +1928,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[namecolor][name:medium]",
+		["text_format"] = "[name:gradient]",
 	}
 	if F.IsDeveloper() then
 		E.db["unitframe"]["units"]["raid2"]["customTexts"]["Elv"] = {
@@ -2053,7 +2053,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[namecolor][name:medium]",
+		["text_format"] = "[name:gradient]",
 	}
 	if F.IsDeveloper() then
 		E.db["unitframe"]["units"]["raid3"]["customTexts"]["Elv"] = {
@@ -2196,7 +2196,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Frame",
-		["text_format"] = "[namecolor][name:medium]",
+		["text_format"] = "[name:gradient]",
 	}
 	E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
 		["font"] = "Gotham Narrow Black",
@@ -2311,7 +2311,7 @@ function MER:SetupUnitframes()
 		["fontOutline"] = "OUTLINE",
 		["xOffset"] = 0,
 		["size"] = 11,
-		["text_format"] = "[namecolor][name:medium]",
+		["text_format"] = "[name:gradient]",
 		["yOffset"] = 18,
 	}
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Life"] = {
