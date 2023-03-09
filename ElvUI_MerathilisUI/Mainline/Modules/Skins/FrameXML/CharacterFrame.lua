@@ -8,6 +8,26 @@ local CreateColor = CreateColor
 local ClassSymbolFrame
 local CharacterText
 
+local function StatsPane(type)
+	_G.CharacterStatsPane[type]:StripTextures()
+
+	if _G.CharacterStatsPane[type] and _G.CharacterStatsPane[type].backdrop then
+		_G.CharacterStatsPane[type].backdrop:Hide()
+	end
+end
+
+local function CharacterStatFrameCategoryTemplate(frame)
+	frame:StripTextures()
+
+	local bg = frame.Background
+	bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+	bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+	bg:ClearAllPoints()
+	bg:SetPoint("CENTER", 0, -5)
+	bg:SetSize(210, 30)
+	bg:SetVertexColor(F.r, F.g, F.b)
+end
+
 local function ColorizeStatPane(frame)
 	if frame.leftGrad then
 		frame.leftGrad:StripTextures()
@@ -29,6 +49,25 @@ local function ColorizeStatPane(frame)
 	frame.rightGrad:SetPoint("RIGHT", frame, "CENTER")
 	frame.rightGrad:SetTexture(E.media.blankTex)
 	frame.rightGrad:SetGradient("Horizontal", CreateColor(F.r, F.g, F.b, 0), CreateColor(F.r, F.g, F.b, 0.75))
+end
+
+-- needed for Shadow&Light
+local function SkinAdditionalStats()
+	if CharacterStatsPane.OffenseCategory then
+		if CharacterStatsPane.OffenseCategory.Title then
+			CharacterStatsPane.OffenseCategory.Title:SetText(E:TextGradient(CharacterStatsPane.OffenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		end
+		StatsPane("OffenseCategory")
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
+	end
+
+	if CharacterStatsPane.DefenseCategory then
+		if CharacterStatsPane.DefenseCategory.Title then
+			CharacterStatsPane.DefenseCategory.Title:SetText(E:TextGradient(CharacterStatsPane.DefenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		end
+		StatsPane("DefenseCategory")
+		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenseCategory)
+	end
 end
 
 function module:AddCharacterIcon()
@@ -159,30 +198,6 @@ function module:CharacterFrame()
 		UpdateHighlight(button)
 	end)
 
-	local pane = CharacterStatsPane
-	pane.ClassBackground:Hide()
-	pane.ItemLevelFrame.Corruption:SetPoint("RIGHT", 22, -8)
-
-	local categories = { pane.ItemLevelCategory, pane.AttributesCategory, pane.EnhancementsCategory }
-	if categories then
-		for _, category in pairs(categories) do
-			if category.backdrop then
-				category.backdrop:SetAlpha(0)
-			end
-
-			category.Title:FontTemplate(nil, 13, 'OUTLINE')
-			category.Title:SetText(E:TextGradient(category.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
-
-			local bg = category.Background
-			bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-			bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-			bg:ClearAllPoints()
-			bg:SetPoint("CENTER", 0, -5)
-			bg:SetSize(210, 30)
-			bg:SetVertexColor(r, g, b)
-		end
-	end
-
 	if _G.PaperDollSidebarTabs.DecorRight then
 		_G.PaperDollSidebarTabs.DecorRight:Hide()
 	end
@@ -202,10 +217,28 @@ function module:CharacterFrame()
 	end)
 
 	if not IsAddOnLoaded("DejaCharacterStats") then
-		ColorizeStatPane(_G.CharacterStatsPane.ItemLevelFrame)
+		local pane = CharacterStatsPane
+		pane.ClassBackground:Hide()
+		pane.ItemLevelFrame.Corruption:SetPoint("RIGHT", 22, -8)
+
+		pane.ItemLevelCategory.Title:SetText(E:TextGradient(pane.ItemLevelCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		pane.AttributesCategory.Title:SetText(E:TextGradient(pane.AttributesCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		pane.EnhancementsCategory.Title:SetText(E:TextGradient(pane.EnhancementsCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+
+		StatsPane("EnhancementsCategory")
+		StatsPane("ItemLevelCategory")
+		StatsPane("AttributesCategory")
+
+		CharacterStatFrameCategoryTemplate(pane.ItemLevelCategory)
+		CharacterStatFrameCategoryTemplate(pane.AttributesCategory)
+		CharacterStatFrameCategoryTemplate(pane.EnhancementsCategory)
+
+		ColorizeStatPane(pane.ItemLevelFrame)
+
+		E:Delay(0.2, SkinAdditionalStats)
 
 		hooksecurefunc("PaperDollFrame_UpdateStats", function()
-			for _, Table in ipairs({_G.CharacterStatsPane.statsFramePool:EnumerateActive()}) do
+			for _, Table in ipairs({ pane.statsFramePool:EnumerateActive() }) do
 				if type(Table) == "table" then
 					for statFrame in pairs(Table) do
 						ColorizeStatPane(statFrame)
