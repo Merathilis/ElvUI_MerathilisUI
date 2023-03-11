@@ -5,7 +5,6 @@ local CH = E:GetModule('Chat')
 local LO = E:GetModule('Layout')
 
 local _G = _G
-local unpack = unpack
 local format = format
 local BetterDate = BetterDate
 local gsub = string.gsub
@@ -16,13 +15,31 @@ local UIParent = UIParent
 
 local ChatFrame_SystemEventHandler = ChatFrame_SystemEventHandler
 
-local r, g, b = unpack(E.media.rgbvaluecolor)
+local PLAYER_REALM = E:ShortenRealm(E.myrealm)
+local PLAYER_NAME = format("%s-%s", E.myname, PLAYER_REALM)
+
+module.cache = {}
+local lfgRoles = {}
+
+local roleIcons
+
+module.cache.elvuiRoleIconsPath = {
+	Tank = E.Media.Textures.Tank,
+	Healer = E.Media.Textures.Healer,
+	DPS = E.Media.Textures.DPS
+}
+
+module.cache.blizzardRoleIcons = {
+	Tank = _G.INLINE_TANK_ICON,
+	Healer = _G.INLINE_HEALER_ICON,
+	DPS = _G.INLINE_DAMAGER_ICON
+}
 
 function module:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
 	local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
 	if isHistory == "ElvUI_ChatHistory" then historyTimestamp = historyTime end
 
-	if (CH.db.timeStampFormat and CH.db.timeStampFormat ~= 'NONE' ) then
+	if (CH.db.timeStampFormat and CH.db.timeStampFormat ~= 'NONE') then
 		local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or CH:GetChatTime())
 		timeStamp = gsub(timeStamp, ' $', '')
 		timeStamp = timeStamp:gsub('AM', ' AM')
@@ -96,7 +113,7 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 		f.text:FontTemplate(nil, 20, "OUTLINE")
 		f.text:SetShadowOffset(-2, 2)
 		f.text:SetText(L["Chat Hidden. Click to show"])
-		f.text:SetTextColor(r, g, b)
+		f.text:SetTextColor(F.r, F.g, F.b)
 		f.text:SetJustifyH("CENTER")
 		f.text:SetJustifyV("MIDDLE")
 		f.text:Height(20)
@@ -207,6 +224,7 @@ function module:CreateChatButtons()
 	ChatButton:ClearAllPoints()
 	ChatButton:Point("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 4, -8)
 	ChatButton:Size(13, 13)
+
 	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "ONLYRIGHT" then
 		ChatButton:SetAlpha(0)
 	else
@@ -266,76 +284,155 @@ function module:UpdateRoleIcons()
 	local pack = self.db.roleIcons.enable and self.db.roleIcons.roleIconStyle or "DEFAULT"
 	local sizeString = self.db.roleIcons.enable and format(":%d:%d", self.db.roleIcons.roleIconSize, self.db.roleIcons.roleIconSize) or ":16:16"
 
-	if pack ~= "DEFAULT" then
+	if pack ~= "DEFAULT" and pack ~= "BLIZZARD" then
 		sizeString = sizeString and (sizeString .. ":0:0:64:64:2:62:0:58")
 	end
 
 	if pack == "SUNUI" then
-		CH.RoleIcons = {
+		roleIcons = {
 			TANK = E:TextureString(MER.Media.Textures.sunTank, sizeString),
 			HEALER = E:TextureString(MER.Media.Textures.sunHealer, sizeString),
 			DAMAGER = E:TextureString(MER.Media.Textures.sunDPS, sizeString)
 		}
+
+		_G.INLINE_TANK_ICON = roleIcons.TANK
+		_G.INLINE_HEALER_ICON = roleIcons.HEALER
+		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "LYNUI" then
-		CH.RoleIcons = {
+		roleIcons = {
 			TANK = E:TextureString(MER.Media.Textures.lynTank, sizeString),
 			HEALER = E:TextureString(MER.Media.Textures.lynHealer, sizeString),
 			DAMAGER = E:TextureString(MER.Media.Textures.lynDPS, sizeString)
 		}
+
+		_G.INLINE_TANK_ICON = roleIcons.TANK
+		_G.INLINE_HEALER_ICON = roleIcons.HEALER
+		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "SVUI" then
-		CH.RoleIcons = {
+		roleIcons = {
 			TANK = E:TextureString(MER.Media.Textures.svuiTank, sizeString),
 			HEALER = E:TextureString(MER.Media.Textures.svuiHealer, sizeString),
 			DAMAGER = E:TextureString(MER.Media.Textures.svuiDPS, sizeString)
 		}
+
+		_G.INLINE_TANK_ICON = roleIcons.TANK
+		_G.INLINE_HEALER_ICON = roleIcons.HEALER
+		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "DEFAULT" then
-		CH.RoleIcons = {
-			TANK = E:TextureString(E.Media.Textures.Tank, sizeString),
-			HEALER = E:TextureString(E.Media.Textures.Healer, sizeString),
-			DAMAGER = E:TextureString(E.Media.Textures.DPS, sizeString)
+		roleIcons = {
+			TANK = E:TextureString(module.cache.elvuiRoleIconsPath.Tank, sizeString .. ":0:0:64:64:2:56:2:56"),
+			HEALER = E:TextureString(module.cache.elvuiRoleIconsPath.Healer, sizeString .. ":0:0:64:64:2:56:2:56"),
+			DAMAGER = E:TextureString(module.cache.elvuiRoleIconsPath.DPS, sizeString)
 		}
+
+		_G.INLINE_TANK_ICON = module.cache.blizzardRoleIcons.Tank
+		_G.INLINE_HEALER_ICON = module.cache.blizzardRoleIcons.Healer
+		_G.INLINE_DAMAGER_ICON = module.cache.blizzardRoleIcons.DPS
+	elseif pack == "BLIZZARD" then
+		roleIcons = {
+			TANK = gsub(module.cache.blizzardRoleIcons.Tank, ":16:16", sizeString),
+			HEALER = gsub(module.cache.blizzardRoleIcons.Healer, ":16:16", sizeString),
+			DAMAGER = gsub(module.cache.blizzardRoleIcons.DPS, ":16:16", sizeString)
+		}
+
+		_G.INLINE_TANK_ICON = module.cache.blizzardRoleIcons.Tank
+		_G.INLINE_HEALER_ICON = module.cache.blizzardRoleIcons.Healer
+		_G.INLINE_DAMAGER_ICON = module.cache.blizzardRoleIcons.DPS
 	elseif pack == "CUSTOM" then
-		CH.RoleIcons = {
+		roleIcons = {
 			TANK = E:TextureString(MER.Media.Textures.customTank, sizeString),
 			HEALER = E:TextureString(MER.Media.Textures.customHeal, sizeString),
 			DAMAGER = E:TextureString(MER.Media.Textures.customDPS, sizeString)
 		}
+
+		_G.INLINE_TANK_ICON = roleIcons.TANK
+		_G.INLINE_HEALER_ICON = roleIcons.HEALER
+		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "GLOW" then
-		CH.RoleIcons = {
+		roleIcons = {
 			TANK = E:TextureString(MER.Media.Textures.glowTank, sizeString),
 			HEALER = E:TextureString(MER.Media.Textures.glowHeal, sizeString),
 			DAMAGER = E:TextureString(MER.Media.Textures.glowDPS, sizeString)
 		}
+
+		_G.INLINE_TANK_ICON = roleIcons.TANK
+		_G.INLINE_HEALER_ICON = roleIcons.HEALER
+		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "GLOW1" then
-		CH.RoleIcons = {
+		roleIcons = {
 			TANK = E:TextureString(MER.Media.Textures.glow1Tank, sizeString),
 			HEALER = E:TextureString(MER.Media.Textures.glow1Heal, sizeString),
 			DAMAGER = E:TextureString(MER.Media.Textures.gravedDPS, sizeString)
 		}
+
+		_G.INLINE_TANK_ICON = roleIcons.TANK
+		_G.INLINE_HEALER_ICON = roleIcons.HEALER
+		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "GRAVED" then
-		CH.RoleIcons = {
+		roleIcons = {
 			TANK = E:TextureString(MER.Media.Textures.gravedTank, sizeString),
 			HEALER = E:TextureString(MER.Media.Textures.gravedHeal, sizeString),
 			DAMAGER = E:TextureString(MER.Media.Textures.glow1DPS, sizeString)
 		}
+
+		_G.INLINE_TANK_ICON = roleIcons.TANK
+		_G.INLINE_HEALER_ICON = roleIcons.HEALER
+		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "MAIN" then
-		CH.RoleIcons = {
+		roleIcons = {
 			TANK = E:TextureString(MER.Media.Textures.mainTank, sizeString),
 			HEALER = E:TextureString(MER.Media.Textures.mainHeal, sizeString),
 			DAMAGER = E:TextureString(MER.Media.Textures.mainDPS, sizeString)
 		}
+
+		_G.INLINE_TANK_ICON = roleIcons.TANK
+		_G.INLINE_HEALER_ICON = roleIcons.HEALER
+		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "WHITE" then
-		CH.RoleIcons = {
+		roleIcons = {
 			TANK = E:TextureString(MER.Media.Textures.whiteTank, sizeString),
 			HEALER = E:TextureString(MER.Media.Textures.whiteHeal, sizeString),
 			DAMAGER = E:TextureString(MER.Media.Textures.whiteDPS, sizeString)
 		}
+
+		_G.INLINE_TANK_ICON = roleIcons.TANK
+		_G.INLINE_HEALER_ICON = roleIcons.HEALER
+		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "MATERIAL" then
-		CH.RoleIcons = {
+		roleIcons = {
 			TANK = E:TextureString(MER.Media.Textures.materialTank, sizeString),
 			HEALER = E:TextureString(MER.Media.Textures.materialHeal, sizeString),
 			DAMAGER = E:TextureString(MER.Media.Textures.materialDPS, sizeString)
 		}
+
+		_G.INLINE_TANK_ICON = roleIcons.TANK
+		_G.INLINE_HEALER_ICON = roleIcons.HEALER
+		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+	end
+end
+
+function module:CheckLFGRoles()
+	if not CH.db.lfgIcons or not IsInGroup() then
+		return
+	end
+	wipe(lfgRoles)
+
+	local playerRole = UnitGroupRolesAssigned("player")
+	if playerRole then
+		lfgRoles[PLAYER_NAME] = roleIcons[playerRole]
+	end
+
+	local unit = (IsInRaid() and "raid" or "party")
+	for i = 1, GetNumGroupMembers() do
+		if UnitExists(unit .. i) and not UnitIsUnit(unit .. i, "player") then
+			local role = UnitGroupRolesAssigned(unit .. i)
+			local name, realm = UnitName(unit .. i)
+
+			if role and name then
+				name = (realm and realm ~= "" and name .. "-" .. realm) or name .. "-" .. PLAYER_REALM
+				lfgRoles[name] = roleIcons[role]
+			end
+		end
 	end
 end
 
@@ -364,6 +461,7 @@ function module:Initialize()
 	module:UpdateRoleIcons()
 	module:AddCustomEmojis()
 	module:BetterGuildMemberStatus()
+	module:CheckLFGRoles()
 
 	if E.Retail then
 		module:ChatFilter()

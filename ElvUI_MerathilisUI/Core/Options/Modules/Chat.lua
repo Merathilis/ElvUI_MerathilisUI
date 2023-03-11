@@ -1,7 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local options = MER.options.modules.args
 local module = MER:GetModule('MER_Chat')
 local CH = E:GetModule('Chat')
-local options = MER.options.modules.args
 local CB = MER:GetModule('MER_ChatBar')
 local CL = MER:GetModule('MER_ChatLink')
 local LSM = E.LSM
@@ -734,6 +734,12 @@ do
 	icons = icons .. E:TextureString(E.Media.Textures.Healer, ":16:16") .. " "
 	icons = icons .. E:TextureString(E.Media.Textures.DPS, ":16:16")
 	SampleStrings.elvui = icons
+
+	icons = ""
+	icons = icons .. module.cache.blizzardRoleIcons.Tank .. " "
+	icons = icons .. module.cache.blizzardRoleIcons.Healer .. " "
+	icons = icons .. module.cache.blizzardRoleIcons.DPS
+	SampleStrings.blizzard = icons
 
 	icons = ""
 	icons = icons .. E:TextureString(MER.Media.Textures.customTank, ":16:16") .. " "
