@@ -246,6 +246,7 @@ P.chat = {
 	hideChat = false,
 	customOnlineMessage = true,
 	emotes = true,
+	betterGuildMemberStatus = true,
 	roleIcons = {
 		enable = true,
 		roleIconSize = 16,
@@ -596,7 +597,6 @@ P.misc = {
 			["Jewelcrafting"] = false
 		},
 	},
-	betterGuildMemberStatus = true,
 	missingStats = true
 }
 

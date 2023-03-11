@@ -42,10 +42,11 @@ options.chat = {
 			type = "toggle",
 			name = L["Emotes"],
 		},
-		customOnlineMessage = {
+		betterGuildMemberStatus = {
 			order = 6,
 			type = "toggle",
-			name = L["Custom Online Message"],
+			name = L["Better Guild Member Status"],
+			desc = L["Adds an icon and the corresponding class color name to the guild member status change message for improved visual clarity."],
 		},
 		seperators = {
 			order = 10,

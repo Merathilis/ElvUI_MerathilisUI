@@ -357,19 +357,17 @@ function module:Initialize()
 
 	module:StyleChat()
 	module:StyleVoicePanel()
-	if E.Retail then
-		module:ChatFilter()
-	end
 	module:DamageMeterFilter()
 	module:LoadChatFade()
 	module:UpdateSeperators()
 	module:CreateChatButtons()
 	module:UpdateRoleIcons()
 	module:AddCustomEmojis()
-end
+	module:BetterGuildMemberStatus()
 
-function module:Configure_All()
-	module:Configure_ChatFade()
+	if E.Retail then
+		module:ChatFilter()
+	end
 end
 
 MER:RegisterModule(module:GetName())

@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule('MER_Misc')
+local module = MER:GetModule('MER_Chat')
 
 local _G = _G
 local format = format
@@ -91,7 +91,8 @@ local function messageHandler(_, _, msg)
 end
 
 function module:BetterGuildMemberStatus()
-	if not E.db.mui.misc.betterGuildMemberStatus then
+	module.db = E.db.mui.chat
+	if not module.db and module.db.betterGuildMemberStatus then
 		return
 	end
 
@@ -101,5 +102,3 @@ function module:BetterGuildMemberStatus()
 
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", messageHandler)
 end
-
-module:AddCallback("BetterGuildMemberStatus")
