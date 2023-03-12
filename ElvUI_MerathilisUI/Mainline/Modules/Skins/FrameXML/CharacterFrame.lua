@@ -14,6 +14,10 @@ local function StatsPane(type)
 	if _G.CharacterStatsPane[type] and _G.CharacterStatsPane[type].backdrop then
 		_G.CharacterStatsPane[type].backdrop:Hide()
 	end
+
+	if _G.CharacterStatsPane[type].Title then
+		_G.CharacterStatsPane[type].Title:FontTemplate(nil, 13, "OUTLINE")
+	end
 end
 
 local function CharacterStatFrameCategoryTemplate(frame)
