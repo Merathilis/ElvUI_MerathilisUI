@@ -188,10 +188,6 @@ function module:CharacterFrame()
 		slot.ignoreTexture:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-LeaveItem-Transparent")
 		slot.IconOverlay:SetAtlas("CosmeticIconFrame")
 		slot.IconOverlay:SetInside()
-
-		local popout = slot.popoutButton
-		popout:SetNormalTexture(0)
-		popout:SetHighlightTexture(0)
 	end
 
 	hooksecurefunc("PaperDollItemSlotButton_Update", function(button)
