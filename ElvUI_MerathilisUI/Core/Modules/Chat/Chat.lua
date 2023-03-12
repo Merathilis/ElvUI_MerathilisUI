@@ -515,18 +515,18 @@ function module.GuildMemberStatusMessageHandler(_, _, msg)
 			blockedMessageCache[msg] = nil
 		end)
 
-		local coloredName = F.CreateClassColorString(name, link and guildPlayerCache[link] or guildPlayerCache[name])
+		local displayName = module.db.removeRealm and Ambiguate(name, "short") or name
+		local coloredName = F.CreateClassColorString(displayName, link and guildPlayerCache[link] or guildPlayerCache[name])
 
 		coloredName = addSpaceForAsian(coloredName)
-		local classIcon = F.GetClassIconStringWithStyle(class, module.db.classIconStyle, 16, 16)
+		local classIcon = F.GetClassIconStringWithStyle(class, "flat", 16, 16)
 
 		if coloredName and classIcon then
 			if link then
 				resultText = format(onlineMessageTemplate, link, classIcon, coloredName)
 				if module.db.guildMemberStatusInviteLink then
-					local windInviteLink =
-						format("|Hwtinvite:%s|h%s|h", link, F.StringByTemplate(format("[%s]", L["Invite"]), "info"))
-					resultText = resultText .. " " .. windInviteLink
+					local MERInviteLink = format("|Hwtinvite:%s|h%s|h", link, F.StringByTemplate(format("[%s]", L["Invite"]), "info"))
+					resultText = resultText .. " " .. MERInviteLink
 				end
 				_G.ChatFrame1:AddMessage(resultText, F.RGBFromTemplate("success"))
 			else
@@ -689,7 +689,6 @@ function module:Initialize()
 		return
 	end
 
-	module:StyleChat()
 	module:StyleVoicePanel()
 	module:DamageMeterFilter()
 	module:LoadChatFade()

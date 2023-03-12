@@ -64,7 +64,7 @@ options.chat = {
 			desc = L["Merge the achievement message into one line."],
 		},
 		seperators = {
-			order = 10,
+			order = 11,
 			type = "group",
 			name = F.cOption(L["Seperators"], 'orange'),
 			guiInline = true,
@@ -794,7 +794,7 @@ do
 end
 
 options.chat.args.roleIcons = {
-	order = 7,
+	order = 10,
 	type = "group",
 	name = F.cOption(L["Role Icons"], "orange"),
 	guiInline = true,

@@ -241,12 +241,14 @@ P.cvars = {
 }
 
 P.chat = {
+	enable = true,
 	chatButton = true,
 	hidePlayerBrackets = true,
 	hideChat = false,
 	emotes = true,
+	removeRealm = true,
 	guildMemberStatus = true,
-	guildMemberStatusInviteLink = true,
+	guildMemberStatusInviteLink = false,
 	mergeAchievement = true,
 	roleIcons = {
 		enable = true,
