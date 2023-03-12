@@ -15,53 +15,79 @@ options.chat = {
 	set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
 		header = {
-			order = 1,
+			order = 0,
 			type = "header",
 			name = F.cOption(L["Chat"], 'orange'),
 		},
-		chatButton = {
-			order = 2,
-			type = "toggle",
-			name = L["Chat Menu"],
-			desc = L["Create a chat button to increase the chat size."],
-		},
-		hidePlayerBrackets = {
-			order = 3,
-			type = "toggle",
-			name = L["Hide Player Brackets"],
-			desc = L["Removes brackets around the person who posts a chat message."],
-		},
-		hideChat = {
-			order = 4,
-			type = "toggle",
-			name = L["Hide Community Chat"],
-			desc = L["Adds an overlay to the Community Chat. Useful for streamers."],
-		},
-		emotes = {
-			order = 5,
-			type = "toggle",
-			name = L["Emotes"],
-		},
-		guildMemberStatus = {
-			order = 6,
-			type = "toggle",
-			name = L["Guild Member Status"],
-			desc = L["Adds an icon and the corresponding class color name to the guild member status change message for improved visual clarity."],
-		},
-		guildMemberStatusInviteLink = {
-			order = 7,
-			type = "toggle",
-			name = L["Online Invite Link"],
-			desc = L["Add an invite link to the guild member online message."],
-			disabled = function()
-				return not E.db.mui.chat.guildMemberStatus
-			end
-		},
-		mergeAchievement = {
-			order = 8,
-			type = "toggle",
-			name = L["Merge Achievement"],
-			desc = L["Merge the achievement message into one line."],
+		general = {
+			order = 1,
+			type = "group",
+			name = F.cOption(L["General"], 'orange'),
+			inline = true,
+			args = {
+				chatButton = {
+					order = 2,
+					type = "toggle",
+					name = L["Chat Menu"],
+					desc = L["Create a chat button to increase the chat size."],
+				},
+				hidePlayerBrackets = {
+					order = 3,
+					type = "toggle",
+					name = L["Hide Player Brackets"],
+					desc = L["Removes brackets around the person who posts a chat message."],
+				},
+				hideChat = {
+					order = 4,
+					type = "toggle",
+					name = L["Hide Community Chat"],
+					desc = L["Adds an overlay to the Community Chat. Useful for streamers."],
+				},
+				emotes = {
+					order = 5,
+					type = "toggle",
+					name = L["Emotes"],
+				},
+				guildMemberStatus = {
+					order = 6,
+					type = "toggle",
+					name = E.NewSign..L["Guild Member Status"],
+					desc = L["Adds an icon and the corresponding class color name to the guild member status change message for improved visual clarity."],
+				},
+				guildMemberStatusInviteLink = {
+					order = 7,
+					type = "toggle",
+					name = E.NewSign..L["Online Invite Link"],
+					desc = L["Add an invite link to the guild member online message."],
+					disabled = function()
+						return not E.db.mui.chat.guildMemberStatus
+					end
+				},
+				mergeAchievement = {
+					order = 8,
+					type = "toggle",
+					name = E.NewSign..L["Merge Achievement"],
+					desc = L["Merge the achievement message into one line."],
+				},
+				classIconStyle = {
+					order = 9,
+					type = "select",
+					name = E.NewSign..L["Class Icon Style"],
+					desc = L["Select the style of class icon."],
+					values = function()
+						local v = {}
+						for _, style in pairs(F.GetClassIconStyleList()) do
+							local monkSample = F.GetClassIconStringWithStyle("MONK", style, 16, 16)
+							local druidSample = F.GetClassIconStringWithStyle("DRUID", style, 16, 16)
+							local paladinSample = F.GetClassIconStringWithStyle("PALADIN", style, 16, 16)
+
+							local sample = monkSample .. " " .. druidSample .. " " .. paladinSample
+							v[style] = sample
+						end
+						return v
+					end
+				},
+			},
 		},
 		seperators = {
 			order = 11,

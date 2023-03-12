@@ -519,7 +519,7 @@ function module.GuildMemberStatusMessageHandler(_, _, msg)
 		local coloredName = F.CreateClassColorString(displayName, link and guildPlayerCache[link] or guildPlayerCache[name])
 
 		coloredName = addSpaceForAsian(coloredName)
-		local classIcon = F.GetClassIconStringWithStyle(class, "flat", 16, 16)
+		local classIcon = F.GetClassIconStringWithStyle(class, module.db.classIconStyle, 16, 16)
 
 		if coloredName and classIcon then
 			if link then
@@ -611,31 +611,31 @@ function module.AchievementMessageHandler(_, event, ...)
 	if not cache[achievementID] then
 		cache[achievementID] = {}
 		C_Timer_After(0.1, function()
-				local players = {}
-				for k in pairs(cache[achievementID]) do
-					tinsert(players, k)
+			local players = {}
+			for k in pairs(cache[achievementID]) do
+				tinsert(players, k)
+			end
+
+			if #players >= 1 then
+				local playerString = strjoin("=", unpack(players))
+
+				if not cacheByPlayer[playerString] then
+					cacheByPlayer[playerString] = {}
 				end
 
-				if #players >= 1 then
-					local playerString = strjoin("=", unpack(players))
+				cacheByPlayer[playerString][achievementID] = true
 
-					if not cacheByPlayer[playerString] then
-						cacheByPlayer[playerString] = {}
-					end
-
-					cacheByPlayer[playerString][achievementID] = true
-
-					if not module.waitForAchievementMessage then
-						module.waitForAchievementMessage = true
-						C_Timer_After(0.2, function()
-							module.SendAchivementMessage()
-							module.waitForAchievementMessage = false
-						end)
-					end
+				if not module.waitForAchievementMessage then
+					module.waitForAchievementMessage = true
+					C_Timer_After(0.2, function()
+						module.SendAchivementMessage()
+						module.waitForAchievementMessage = false
+					end)
 				end
+			end
 
-				cache[achievementID] = nil
-			end)
+			cache[achievementID] = nil
+		end)
 	end
 
 	local playerInfo = CH:GetPlayerInfoByGUID(guid)
@@ -644,7 +644,7 @@ function module.AchievementMessageHandler(_, event, ...)
 	end
 
 	local coloredName = F.CreateClassColorString(playerInfo.nameWithRealm, playerInfo.englishClass)
-	local classIcon = F.GetClassIconStringWithStyle(playerInfo.englishClass, "flat", 16, 16)
+	local classIcon = F.GetClassIconStringWithStyle(playerInfo.englishClass, module.db.classIconStyle, 16, 16)
 
 	if coloredName and classIcon and cache[achievementID] then
 		local playerName = format("|Hplayer:%s|h%s %s|h", playerInfo.nameWithRealm, classIcon, coloredName)
