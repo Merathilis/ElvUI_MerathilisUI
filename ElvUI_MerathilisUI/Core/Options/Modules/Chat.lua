@@ -42,11 +42,26 @@ options.chat = {
 			type = "toggle",
 			name = L["Emotes"],
 		},
-		betterGuildMemberStatus = {
+		guildMemberStatus = {
 			order = 6,
 			type = "toggle",
-			name = L["Better Guild Member Status"],
+			name = L["Guild Member Status"],
 			desc = L["Adds an icon and the corresponding class color name to the guild member status change message for improved visual clarity."],
+		},
+		guildMemberStatusInviteLink = {
+			order = 7,
+			type = "toggle",
+			name = L["Online Invite Link"],
+			desc = L["Add an invite link to the guild member online message."],
+			disabled = function()
+				return not E.db.mui.chat.guildMemberStatus
+			end
+		},
+		mergeAchievement = {
+			order = 8,
+			type = "toggle",
+			name = L["Merge Achievement"],
+			desc = L["Merge the achievement message into one line."],
 		},
 		seperators = {
 			order = 10,

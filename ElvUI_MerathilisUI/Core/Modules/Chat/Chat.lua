@@ -12,6 +12,8 @@ local CreateFrame = CreateFrame
 local ChatTypeInfo = ChatTypeInfo
 local hooksecurefunc = hooksecurefunc
 local UIParent = UIParent
+local C_Timer_After = C_Timer.After
+local C_PartyInfo_InviteUnit = C_PartyInfo.InviteUnit
 
 local ChatFrame_SystemEventHandler = ChatFrame_SystemEventHandler
 
@@ -20,6 +22,24 @@ local PLAYER_NAME = format("%s-%s", E.myname, PLAYER_REALM)
 
 module.cache = {}
 local lfgRoles = {}
+
+local offlineMessageTemplate = "%s " .. _G.ERR_FRIEND_OFFLINE_S
+local offlineMessagePattern = gsub(_G.ERR_FRIEND_OFFLINE_S, "%%s", "(.+)")
+offlineMessagePattern = format("^%s$", offlineMessagePattern)
+
+local onlineMessageTemplate = gsub(_G.ERR_FRIEND_ONLINE_SS, "%[%%s%]", "%%s %%s")
+local onlineMessagePattern = gsub(_G.ERR_FRIEND_ONLINE_SS, "|Hplayer:%%s|h%[%%s%]|h", "|Hplayer:(.+)|h%%[(.+)%%]|h")
+onlineMessagePattern = format("^%s$", onlineMessagePattern)
+
+local achievementMessageTemplate = L["%player% has earned the achievement %achievement%!"]
+local achievementMessageTemplateMultiplePlayers = L["%players% have earned the achievement %achievement%!"]
+
+local guildPlayerCache = {}
+local blockedMessageCache = {}
+local achievementMessageCache = {
+	byAchievement = {},
+	byPlayer = {}
+}
 
 local roleIcons
 
@@ -34,6 +54,29 @@ module.cache.blizzardRoleIcons = {
 	Healer = _G.INLINE_HEALER_ICON,
 	DPS = _G.INLINE_DAMAGER_ICON
 }
+
+local function updateGuildPlayerCache(self, event)
+	if not (event == "PLAYER_ENTERING_WORLD" or event == "FORCE_UPDATE") then
+		return
+	end
+
+	if not IsInGuild() then
+		return
+	end
+
+	for i = 1, GetNumGuildMembers() do
+		local name, _, _, _, _, _, _, _, _, _, className = GetGuildRosterInfo(i)
+		name = Ambiguate(name, "none")
+		guildPlayerCache[name] = className
+	end
+end
+
+local function addSpaceForAsian(text, revert)
+	if MER.Locale == "zhCN" or MER.Locale == "zhTW" or MER.Locale == "koKR" then
+		return revert and " " .. text or text .. " "
+	end
+	return text
+end
 
 function module:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
 	local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
@@ -82,71 +125,12 @@ function CH:ChatFrame_SystemEventHandler(chat, event, message, ...)
 	end
 end
 
-function module:StyleChat()
-	-- Style the chat
-
-end
-
 function module:StyleVoicePanel()
 	if _G.ElvUIChatVoicePanel then
 		_G.ElvUIChatVoicePanel:Styling()
 		S:CreateShadow(_G.ElvUIChatVoicePanel)
 	end
 end
-
--- Hide communities chat. Useful for streamers
--- Credits Nnogga
-local commOpen = CreateFrame("Frame", nil, UIParent)
-commOpen:RegisterEvent("ADDON_LOADED")
-commOpen:RegisterEvent("CHANNEL_UI_UPDATE")
-commOpen:SetScript("OnEvent", function(self, event, addonName)
-	if event == "ADDON_LOADED" and addonName == "Blizzard_Communities" then
-		--create overlay
-		local f = CreateFrame("Button", nil, UIParent)
-		f:SetFrameStrata("HIGH")
-
-		f.tex = f:CreateTexture(nil, "BACKGROUND")
-		f.tex:SetAllPoints()
-		f.tex:SetColorTexture(0.1, 0.1, 0.1, 1)
-
-		f.text = f:CreateFontString()
-		f.text:FontTemplate(nil, 20, "OUTLINE")
-		f.text:SetShadowOffset(-2, 2)
-		f.text:SetText(L["Chat Hidden. Click to show"])
-		f.text:SetTextColor(F.r, F.g, F.b)
-		f.text:SetJustifyH("CENTER")
-		f.text:SetJustifyV("MIDDLE")
-		f.text:Height(20)
-		f.text:Point("CENTER", f, "CENTER", 0, 0)
-
-		f:EnableMouse(true)
-		f:RegisterForClicks("AnyUp")
-		f:SetScript("OnClick",function(...)
-			f:Hide()
-		end)
-
-		--toggle
-		local function toggleOverlay()
-			if _G.CommunitiesFrame:GetDisplayMode() == COMMUNITIES_FRAME_DISPLAY_MODES.CHAT and E.db.mui.chat.hideChat then
-				f:SetAllPoints(_G.CommunitiesFrame.Chat.InsetFrame)
-				f:Show()
-			else
-				f:Hide()
-			end
-		end
-
-		local function hideOverlay()
-			f:Hide()
-		end
-		toggleOverlay() --run once
-
-		--hook
-		hooksecurefunc(_G.CommunitiesFrame, "SetDisplayMode", toggleOverlay)
-		hooksecurefunc(_G.CommunitiesFrame, "Show", toggleOverlay)
-		hooksecurefunc(_G.CommunitiesFrame, "Hide", hideOverlay)
-		hooksecurefunc(_G.CommunitiesFrame, "OnClubSelected", toggleOverlay)
-	end
-end)
 
 function module:CreateSeparators()
 	if not E.db.mui.chat.seperators.enable then return end
@@ -446,6 +430,259 @@ function module:AddCustomEmojis()
 	CH:AddSmiley(':sadge:', format(t, 'sadge'))
 end
 
+-- Hide communities chat. Useful for streamers
+-- Credits Nnogga
+local commOpen = CreateFrame("Frame", nil, UIParent)
+commOpen:RegisterEvent("ADDON_LOADED")
+commOpen:RegisterEvent("CHANNEL_UI_UPDATE")
+commOpen:SetScript("OnEvent", function(self, event, addonName)
+	if event == "ADDON_LOADED" and addonName == "Blizzard_Communities" then
+		--create overlay
+		local f = CreateFrame("Button", nil, UIParent)
+		f:SetFrameStrata("HIGH")
+
+		f.tex = f:CreateTexture(nil, "BACKGROUND")
+		f.tex:SetAllPoints()
+		f.tex:SetColorTexture(0.1, 0.1, 0.1, 1)
+
+		f.text = f:CreateFontString()
+		f.text:FontTemplate(nil, 20, "OUTLINE")
+		f.text:SetShadowOffset(-2, 2)
+		f.text:SetText(L["Chat Hidden. Click to show"])
+		f.text:SetTextColor(F.r, F.g, F.b)
+		f.text:SetJustifyH("CENTER")
+		f.text:SetJustifyV("MIDDLE")
+		f.text:Height(20)
+		f.text:Point("CENTER", f, "CENTER", 0, 0)
+
+		f:EnableMouse(true)
+		f:RegisterForClicks("AnyUp")
+		f:SetScript("OnClick", function(...)
+			f:Hide()
+		end)
+
+		--toggle
+		local function toggleOverlay()
+			if _G.CommunitiesFrame:GetDisplayMode() == COMMUNITIES_FRAME_DISPLAY_MODES.CHAT and E.db.mui.chat.hideChat then
+				f:SetAllPoints(_G.CommunitiesFrame.Chat.InsetFrame)
+				f:Show()
+			else
+				f:Hide()
+			end
+		end
+
+		local function hideOverlay()
+			f:Hide()
+		end
+		toggleOverlay() --run once
+
+		--hook
+		hooksecurefunc(_G.CommunitiesFrame, "SetDisplayMode", toggleOverlay)
+		hooksecurefunc(_G.CommunitiesFrame, "Show", toggleOverlay)
+		hooksecurefunc(_G.CommunitiesFrame, "Hide", hideOverlay)
+		hooksecurefunc(_G.CommunitiesFrame, "OnClubSelected", toggleOverlay)
+	end
+end)
+
+function module.GuildMemberStatusMessageHandler(_, _, msg)
+	if not module.db or not module.db.enable or not module.db.guildMemberStatus then
+		return
+	end
+
+	local name, class, link, resultText
+
+	if blockedMessageCache[msg] then
+		return true
+	end
+
+	name = strmatch(msg, offlineMessagePattern)
+	if not name then
+		link, name = strmatch(msg, onlineMessagePattern)
+	end
+
+	if name then
+		class = guildPlayerCache[name]
+		if not class then
+			updateGuildPlayerCache(nil, "FORCE_UPDATE")
+			class = guildPlayerCache[name]
+		end
+	end
+
+	if class then
+		blockedMessageCache[msg] = true
+
+		C_Timer_After(0.1, function()
+			blockedMessageCache[msg] = nil
+		end)
+
+		local coloredName = F.CreateClassColorString(name, link and guildPlayerCache[link] or guildPlayerCache[name])
+
+		coloredName = addSpaceForAsian(coloredName)
+		local classIcon = F.GetClassIconStringWithStyle(class, module.db.classIconStyle, 16, 16)
+
+		if coloredName and classIcon then
+			if link then
+				resultText = format(onlineMessageTemplate, link, classIcon, coloredName)
+				if module.db.guildMemberStatusInviteLink then
+					local windInviteLink =
+						format("|Hwtinvite:%s|h%s|h", link, F.StringByTemplate(format("[%s]", L["Invite"]), "info"))
+					resultText = resultText .. " " .. windInviteLink
+				end
+				_G.ChatFrame1:AddMessage(resultText, F.RGBFromTemplate("success"))
+			else
+				resultText = format(offlineMessageTemplate, classIcon, coloredName)
+				_G.ChatFrame1:AddMessage(resultText, F.RGBFromTemplate("danger"))
+			end
+
+			return true
+		end
+	end
+
+	return false
+end
+
+function module.SendAchivementMessage()
+	if not module.db or not module.db.enable or not module.db.mergeAchievement then
+		return
+	end
+
+	local channelData = {
+		{ event = "CHAT_MSG_GUILD_ACHIEVEMENT", color = ChatTypeInfo.GUILD },
+		{ event = "CHAT_MSG_ACHIEVEMENT",       color = ChatTypeInfo.SYSTEM }
+	}
+
+	for _, data in ipairs(channelData) do
+		local event, color = data.event, data.color
+		if achievementMessageCache.byPlayer[event] then
+			for playerString, achievementTable in pairs(achievementMessageCache.byPlayer[event]) do
+				local players = { strsplit("=", playerString) }
+
+				local achievementLinks = {}
+				for achievementID in pairs(achievementTable) do
+					tinsert(achievementLinks, GetAchievementLink(achievementID))
+				end
+
+				local message = nil
+
+				if #players == 1 then
+					message = gsub(achievementMessageTemplate, "%%player%%", addSpaceForAsian(players[1]))
+				elseif #players > 1 then
+					message = gsub(achievementMessageTemplateMultiplePlayers, "%%players%%", addSpaceForAsian(strjoin(", ", unpack(players))))
+				end
+
+				if message then
+					message = gsub(message, "%%achievement%%", addSpaceForAsian(strjoin(", ", unpack(achievementLinks)), true))
+					_G.ChatFrame1:AddMessage(message, color.r, color.g, color.b)
+				end
+			end
+			wipe(achievementMessageCache.byPlayer[event])
+		end
+	end
+end
+
+function module.AchievementMessageHandler(_, event, ...)
+	if not module.db or not module.db.enable or not module.db.mergeAchievement then
+		return
+	end
+
+	local achievementMessage = select(1, ...)
+	local guid = select(12, ...)
+
+	if not guid then
+		return
+	end
+
+	if not achievementMessageCache.byAchievement[event] then
+		achievementMessageCache.byAchievement[event] = {}
+	end
+
+	if not achievementMessageCache.byPlayer[event] then
+		achievementMessageCache.byPlayer[event] = {}
+	end
+
+	local cache = achievementMessageCache.byAchievement[event]
+	local cacheByPlayer = achievementMessageCache.byPlayer[event]
+
+	local achievementID = strmatch(achievementMessage, "|Hachievement:(%d+):")
+	if not achievementID then
+		return
+	end
+
+	if not cache[achievementID] then
+		cache[achievementID] = {}
+		C_Timer_After(0.1, function()
+				local players = {}
+				for k in pairs(cache[achievementID]) do
+					tinsert(players, k)
+				end
+
+				if #players >= 1 then
+					local playerString = strjoin("=", unpack(players))
+
+					if not cacheByPlayer[playerString] then
+						cacheByPlayer[playerString] = {}
+					end
+
+					cacheByPlayer[playerString][achievementID] = true
+
+					if not module.waitForAchievementMessage then
+						module.waitForAchievementMessage = true
+						C_Timer_After(0.2, function()
+							module.SendAchivementMessage()
+							module.waitForAchievementMessage = false
+						end)
+					end
+				end
+
+				cache[achievementID] = nil
+			end)
+	end
+
+	local playerInfo = CH:GetPlayerInfoByGUID(guid)
+	if not playerInfo or not playerInfo.englishClass or not playerInfo.name or not playerInfo.nameWithRealm then
+		return
+	end
+
+	local coloredName = F.CreateClassColorString(playerInfo.nameWithRealm, playerInfo.englishClass)
+	local classIcon = F.GetClassIconStringWithStyle(playerInfo.englishClass, "flat", 16, 16)
+
+	if coloredName and classIcon and cache[achievementID] then
+		local playerName = format("|Hplayer:%s|h%s %s|h", playerInfo.nameWithRealm, classIcon, coloredName)
+		cache[achievementID][playerName] = true
+		return true
+	end
+end
+
+function module:BetterSystemMessage()
+	if not module.db then
+		return
+	end
+
+	if module.db.guildMemberStatus and not module.isSystemMessageHandled then
+		ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", module.GuildMemberStatusMessageHandler)
+
+		local setHyperlink = _G.ItemRefTooltip.SetHyperlink
+		function _G.ItemRefTooltip:SetHyperlink(data, ...)
+			if strsub(data, 1, 8) == "wtinvite" then
+				local player = strmatch(data, "wtinvite:(.+)")
+				if player then
+					C_PartyInfo_InviteUnit(player)
+					return
+				end
+			end
+			setHyperlink(self, data, ...)
+		end
+
+		module.isSystemMessageHandled = true
+	end
+
+	if module.db.mergeAchievement and not module.isAchievementHandled then
+		ChatFrame_AddMessageEventFilter("CHAT_MSG_ACHIEVEMENT", module.AchievementMessageHandler)
+		ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD_ACHIEVEMENT", module.AchievementMessageHandler)
+		module.isAchievementHandled = true
+	end
+end
+
 function module:Initialize()
 	module.db = E.db.mui.chat
 	if not module.db or not E.private.chat.enable then
@@ -460,12 +697,24 @@ function module:Initialize()
 	module:CreateChatButtons()
 	module:UpdateRoleIcons()
 	module:AddCustomEmojis()
-	module:BetterGuildMemberStatus()
 	module:CheckLFGRoles()
+	module:BetterSystemMessage()
 
 	if E.Retail then
 		module:ChatFilter()
 	end
+end
+
+function module:ProfileUpdate()
+	module.db = E.db.mui.chat
+	if not module.db then
+		return
+	end
+
+	module:UpdateRoleIcons()
+	module:AddCustomEmojis()
+	module:CheckLFGRoles()
+	module:BetterSystemMessage()
 end
 
 MER:RegisterModule(module:GetName())
