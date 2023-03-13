@@ -26,16 +26,21 @@ options.chat = {
 			inline = true,
 			args = {
 				chatButton = {
-					order = 2,
+					order = 1,
 					type = "toggle",
 					name = L["Chat Menu"],
 					desc = L["Create a chat button to increase the chat size."],
 				},
-				hidePlayerBrackets = {
-					order = 3,
+				removeBrackets = {
+					order = 2,
 					type = "toggle",
 					name = L["Hide Player Brackets"],
 					desc = L["Removes brackets around the person who posts a chat message."],
+				},
+				removeRealm = {
+					order = 2,
+					type = "toggle",
+					name = E.NewSign..L["Hide Player Realm"],
 				},
 				hideChat = {
 					order = 4,
@@ -795,12 +800,6 @@ do
 	SampleStrings.glow = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedHeal, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedDPS, ":16:16")
-	SampleStrings.graved = icons
-
-	icons = ""
 	icons = icons .. E:TextureString(MER.Media.Textures.mainTank, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.mainHeal, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.mainDPS, ":16:16")
@@ -844,16 +843,16 @@ options.chat.args.roleIcons = {
 			type = "select",
 			name = L["Style"],
 			values = {
-				DEFAULT = SampleStrings.elvui,
 				SUNUI = SampleStrings.sunui,
 				LYNUI = SampleStrings.lynui,
 				SVUI = SampleStrings.svui,
 				CUSTOM = SampleStrings.custom,
 				GLOW = SampleStrings.glow,
-				GRAVED = SampleStrings.graved,
 				MAIN = SampleStrings.main,
 				WHITE = SampleStrings.white,
-				MATERIAL = SampleStrings.material
+				MATERIAL = SampleStrings.material,
+				BLIZZARD = SampleStrings.blizzard,
+				DEFAULT = SampleStrings.elvui
 			}
 		},
 		roleIconSize = {

@@ -749,12 +749,6 @@ do
 	SampleStrings.glow = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedHeal, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedDPS, ":16:16")
-	SampleStrings.graved = icons
-
-	icons = ""
 	icons = icons .. E:TextureString(MER.Media.Textures.mainTank, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.mainHeal, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.mainDPS, ":16:16")
@@ -797,16 +791,16 @@ options.unitframes.args.general.args.roleIcons = {
 			type = "select",
 			name = L["Style"],
 			values = {
-				DEFAULT = SampleStrings.elvui,
 				SUNUI = SampleStrings.sunui,
 				LYNUI = SampleStrings.lynui,
 				SVUI = SampleStrings.svui,
 				CUSTOM = SampleStrings.custom,
 				GLOW = SampleStrings.glow,
-				GRAVED = SampleStrings.graved,
 				MAIN = SampleStrings.main,
 				WHITE = SampleStrings.white,
 				MATERIAL = SampleStrings.material,
+				BLIZZARD = SampleStrings.blizzard,
+				DEFAULT = SampleStrings.elvui,
 			},
 		},
 	},
