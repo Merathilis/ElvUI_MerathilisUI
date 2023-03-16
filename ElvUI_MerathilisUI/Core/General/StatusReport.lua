@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc

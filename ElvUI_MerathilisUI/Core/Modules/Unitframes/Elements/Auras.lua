@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_UnitFrames')
 local UF = E.UnitFrames
 local S = MER.Modules.Skins

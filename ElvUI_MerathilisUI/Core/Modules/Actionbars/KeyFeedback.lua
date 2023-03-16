@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local S = MER:GetModule('MER_Skins')
 
 -- Credits: FreeUI (andromeda)

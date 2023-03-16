@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Skins')
 local S = E.Skins
 
@@ -122,10 +122,11 @@ function module:PremadeGroupsFilter()
 		frame.Sorting.SortingExpression.backdrop:SetOutside(frame.Sorting.SortingExpression, 1, -2)
 	end
 
-	if _G.UsePFGButton then
-		S:HandleCheckBox(_G.UsePFGButton)
-		_G.UsePFGButton:ClearAllPoints()
-		_G.UsePFGButton:Point("RIGHT", _G.LFGListFrame.SearchPanel.RefreshButton, "LEFT", -50, 0)
+	local button = _G.UsePFGButton or _G.UsePGFButton
+	if button then
+		S:HandleCheckBox(button)
+		button:ClearAllPoints()
+		button:Point("RIGHT", _G.LFGListFrame.SearchPanel.RefreshButton, "LEFT", -50, 0)
 	end
 end
 

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_UnitFrames')
 local HP = MER:GetModule('MER_HealPrediction')
 local options = MER.options.modules.args

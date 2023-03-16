@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_MicroBar')
 local S = MER:GetModule('MER_Skins')
 local DT = E:GetModule('DataTexts')

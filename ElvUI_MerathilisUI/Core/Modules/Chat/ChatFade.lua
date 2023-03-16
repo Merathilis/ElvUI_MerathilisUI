@@ -1,4 +1,4 @@
-local MER, F, E, _, V, P, G = unpack(select(2, ...))
+local MER, F, E, _, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Chat')
 
 local _G = _G

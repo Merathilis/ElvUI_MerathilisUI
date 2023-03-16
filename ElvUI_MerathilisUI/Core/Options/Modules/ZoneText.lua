@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local options = MER.options.media.args
 local module = MER:GetModule('MER_ZoneText')
 local LSM = E.LSM
