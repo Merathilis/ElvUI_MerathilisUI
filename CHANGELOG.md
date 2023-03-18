@@ -1,7 +1,6 @@
 ### Changes ###
 
-  * IMPORTANT: Removed Armory Mode on Retail, it had some critical performance issues
-  * Added a Missing Stats Option under Misc to add all Stats to the Character Panel
-  * Updated Character Skin to match a bit the old armory look
-  * Updated Friendslist code
+  * Added some Chat improvements
+  * Don't hide the Item Arrows on the Character Frame if you are in the Equipment Manager
+  * Updated some Skins
 
