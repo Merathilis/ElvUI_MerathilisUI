@@ -1,5 +1,5 @@
 
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
@@ -123,6 +123,7 @@ function module:ScenarioStageWidgetContainer()
 					frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
 				end
 			end)
+
 			bar:CreateBackdrop("Transparent")
 			bar.__MERSkin = true
 		end

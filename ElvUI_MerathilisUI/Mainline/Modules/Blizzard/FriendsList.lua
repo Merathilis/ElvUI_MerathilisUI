@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_FriendsList')
 
 local _G = _G
@@ -237,25 +237,12 @@ function module:UpdateFriendButton(button)
 		return
 	end
 
-	local gameCode,
-	gameName,
-	realID,
-	name,
-	server,
-	class,
-	area,
-	level,
-	note,
-	faction,
-	status,
-	isInCurrentRegion,
-	regionID,
-	wowID
+	local gameName, realID, name, server, class, area, level, note, faction, status, isInCurrentRegion, regionID, wowID
 
 	if button.buttonType == FRIENDS_BUTTON_TYPE_WOW then
 		-- WoW friends
-		gameCode = "WoW"
-		gameName = projectCodes["WOW"].name
+		wowID = WOW_PROJECT_MAINLINE
+		gameName = projectCodes["WOW"]
 		local friendInfo = C_FriendList_GetFriendInfoByIndex(button.id)
 		name, server = strsplit("-", friendInfo.name) -- server is nil if it's not a cross-realm friend
 		level = friendInfo.level

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -104,7 +104,7 @@ function module:RaiderIO()
 		return
 	end
 
-	module:DisableAddOnSkin("RaiderIO")
+	module:DisableAddOnSkins("RaiderIO", false)
 	module:AddCallbackForEnterWorld("RaiderIO_DelayedSkinning")
 	module:SecureHook(_G.PVEFrame, "Show", "RaiderIO_GuildWeeklyFrame")
 end

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local ES = E.Skins
 local S = MER:GetModule('MER_Skins')
 
@@ -235,18 +235,11 @@ function MER:CheckCompatibility()
 	CheckWindtools(
 		format("%s-%s", L["Tooltip"], L["Tooltip Icons"]),
 		format("%s-%s", L["Tooltip"], L["Add Icon"]),
-		"db.mui.tooltip.tooltipIcon",
+		"db.mui.tooltip.icon",
 		"private.WT.tooltips.icon"
 	)
 
 	CheckWindtools(L["LFG Info"], L["Group Info"], "db.mui.misc.lfgInfo.enable", "db.WT.tooltips.groupInfo.enable")
-
-	CheckWindtools(
-		L["Paragon Reputation"],
-		L["Paragon Reputation"],
-		"db.mui.misc.paragon.enable",
-		"db.WT.quest.paragonReputation.enable"
-	)
 
 	CheckWindtools(
 		L["Role Icon"],
@@ -413,6 +406,13 @@ function MER:CheckCompatibility()
 		"db.WT.maps.eventTracker.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["AddOnSkins"], L["Auctionator"]),
+		format("%s-%s", L["Skins"], L["Auctionator"]),
+		"private.mui.skins.addonSkins.au",
+		"private.WT.skins.addons.auctionator"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],
@@ -449,31 +449,10 @@ function MER:CheckCompatibility()
 	)
 
 	CheckShadowAndLight(
-		L["Character Armory"],
-		L["Character Armory"],
-		"db.mui.armory.character.enable",
-		"db.sle.armory.character.enable"
-	)
-
-	CheckShadowAndLight(
-		L["Inspect Armory"],
-		L["Inspect Armory"],
-		"db.mui.armory.inspect.enable",
-		"db.sle.armory.inspect.enable"
-	)
-
-	CheckShadowAndLight(
 		format("%s-%s", L["UnitFrames"], L["Role Icons"]),
 		format("%s-%s", L["UnitFrames"], L["Role Icon"]),
 		"db.mui.unitframes.roleIcons.enable",
 		"db.sle.unitframes.roleIcons.enable"
-	)
-
-	CheckEltruism(
-		L["Class Icon"],
-		format("%s-%s", L["Skins"], L["Add Class Icons to Character Panel"]),
-		"db.mui.armory.character.classIcon",
-		"db.ElvUI_EltreumUI.skins.classiconsoncharacterpanel"
 	)
 
 	CheckEltruism(

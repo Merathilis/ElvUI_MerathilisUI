@@ -169,6 +169,8 @@ L["Armor Category"] = "Категория брони"
 L["Weapon Category"] = "Категория оружия"
 L["Display the level of the item on the item link."] = true
 L["Numberical Quality Tier"] = true
+L["%player% has earned the achievement %achievement%!"] = "%player% заработал достижение %achievement%!"
+L["%players% have earned the achievement %achievement%!"] = "%players% заработали достижение %achievement%!"
 
 -- Combat Alert
 L["Combat Alert"] = "Сигнал боя"
@@ -447,6 +449,8 @@ L["Prints a clickable Link with Coords in the Chat."] = "Отображает к
 L["Quick Join"] = "Быстрое присоединение"
 L["Title Font"] = "Шрифт заголовка"
 L["Text Font"] = "Шрифт текста"
+L["Debug Print"] = true
+L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
 
 -- DataTexts
 -- DataBars
@@ -523,60 +527,6 @@ L["Alpha Max"] = "Максимальная прозрачность"
 L["Inherit Global Fade"] = "Наследовать глобальное исчезновение"
 L["Anchor Point"] = "Точка привязки"
 L["The first button anchors itself to this point on the bar."] = "Первая кнопка привязывается к этой точке на панели."
-
--- Armory
-L["Armory"] = "Оружейная"
-L["ARMORY_DESC"] = [=[The |cffff7d0aArmory Mode|r only works with the ElvUI 'Display Character Info'. You may need to reload your UI:
-
-ElvUI - General - BlizzUI Improvements - Display Character Infos.]=]
-L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "Включить/отключить |cffff7d0aMerathilisUI|r Режим оружейной."
-L["Durability"] = "Прочность"
-L["Enable/Disable the display of durability information on the character window."] = "Включить/выключить отображение информации о прочности в окне персонажа."
-L["Damaged Only"] = "Только поврежденные"
-L["Only show durability information for items that are damaged."] = "Показывать информацию о прочности только для поврежденных предметов."
-L["Itemlevel"] = "Уровень предмета"
-L["Enable/Disable the display of item levels on the character window."] = "Включить/выключить отображение уровней предметов в окне персонажа."
-L["Level"] = "Уровень"
-L["Full Item Level"] = "Полный уровень предмета"
-L["Show both equipped and average item levels."] = "Показывать как экипированные, так и средние уровни предметов."
-L["Item Level Coloring"] = "Цетной уровень предмета"
-L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Значения уровней элемента цветового кода. Блочная будет градиентной, средняя - выбранного цвета."
-L["Color of Average"] = "Цвет среднего"
-L["Sets the color of average item level."] = "Устанавливает цвет среднего уровня предмета."
-L["Only Relevant Stats"] = "Только релевантная статистика"
-L["Show only those primary stats relevant to your spec."] = "Показывайте только те основные характеристики, которые относятся к вашей специализации."
-L["Item Level"] = "Уровень предметов"
-L["Categories"] = "Категории"
-L["Slot Gradient"] = "Градиент слота"
-L["Shows a gradiation texture on the Character Slots."] = "Показывает текстуру градиента на слотах персонажей."
-L["Indicators"] = "Индикаторы"
-L["Transmog"] = "Трансмогрификация"
-L["Shows an arrow indictor for currently transmogrified items."] = "Показывает стрелку для трансмогрифицированных предметов."
-L["Illusion"] = "Иллюзия"
-L["Shows an indictor for weapon illusions."] = "Показывает индикатор иллюзий оружия."
-L["Empty Socket"] = "Пустое гнездо"
-L["Not Enchanted"] = "Не зачарованный"
-L["Warnings"] = "Предупреждения"
-L["Shows an indicator for missing sockets and enchants."] = "Показывает индикатор отсутствующих сокетов и чар."
-L["Expanded Size"] = "Расширенный размер"
-L["This will increase the Character Frame size a bit."] = "Это немного увеличит размер рамки персонажа."
-L["Armor Set"] = "Комплект брони"
-L["Colors Set Items in a different color."] = "Цвета наборов предметов другим цветом."
-L["Armor Set Gradient Texture Color"] = "Градиент цвета текстуры комплекта брони"
-L["Full Item Level"] = "Полный уровень предмета"
-L["Show both equipped and average item levels."] = "Показывать как экипированные, так и средние уровни предметов."
-L["Item Level Coloring"] = "Раскраска уровня предмета"
-L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Значения уровней элемента цветового кода. Блочная будет градиентной, средняя - выбранного цвета."
-L["Color of Average"] = "Цвет среднего"
-L["Sets the color of average item level."] = "Устанавливает цвет среднего уровня предмета."
-L["Full Item Level"] = "Полный уровень предмета"
-L["Show both equipped and average item levels."] = "Показывать как экипированные, так и средние уровни предметов."
-L["Item Level Coloring"] = "Раскраска уровня предмета"
-L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Значения уровней элемента цветового кода. Блочные будут градиентными, средние - выбранного цвета."
-L["Color of Average"] = "Цвет среднего"
-L["Sets the color of average item level."] = "Устанавливает цвет среднего уровня предмета."
-L["Warning Gradient Texture Color"] = "Предупреждающий градиент цвета текстуры"
-L["Class Color Gradient"] = "Цветовой градиент класса"
 
 -- Media
 L["Zone Text"] = "Текст зоны"

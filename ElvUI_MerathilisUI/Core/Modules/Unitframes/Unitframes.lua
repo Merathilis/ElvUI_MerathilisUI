@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_UnitFrames')
 local UF = E:GetModule('UnitFrames')
 local AB = E:GetModule('ActionBars')
@@ -98,12 +98,18 @@ function module:CreateUFShadows()
 	self:SecureHook(UF, "Configure_InfoPanel", "UnitFrames_Configure_InfoPanel")
 end
 
+local function HookConstructUnitFrames()
+	hooksecurefunc(UF, 'Construct_PartyFrames', module.Construct_PartyFrames)
+end
+
 function module:Initialize()
 	if not E.private.unitframe.enable then
 		return
 	end
 
 	local db = E.db.mui.unitframes
+
+	HookConstructUnitFrames()
 
 	-- Player
 	hooksecurefunc(UF, "Update_PlayerFrame", module.Update_PlayerFrame)

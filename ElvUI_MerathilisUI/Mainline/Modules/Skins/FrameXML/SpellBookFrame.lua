@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -153,7 +153,6 @@ local function LoadSkin()
 		if self.subSpellString then
 			self.subSpellString:SetTextColor(1, 1, 1)
 		end
-		-- isNewPatch
 		if self.SpellName then
 			self.SpellName:SetTextColor(1, 1, 1)
 		end

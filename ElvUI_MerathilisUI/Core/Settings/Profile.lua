@@ -1,9 +1,9 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 
 local _G = _G
 
 P.core = {
-	installed = false,
+	installed = nil,
 }
 
 P.general = {
@@ -241,11 +241,16 @@ P.cvars = {
 }
 
 P.chat = {
+	enable = true,
 	chatButton = true,
-	hidePlayerBrackets = true,
+	removeBrackets = true,
 	hideChat = false,
-	customOnlineMessage = true,
 	emotes = true,
+	classIconStyle = "flatborder2",
+	removeRealm = true,
+	guildMemberStatus = true,
+	guildMemberStatusInviteLink = false,
+	mergeAchievement = true,
 	roleIcons = {
 		enable = true,
 		roleIconSize = 16,
@@ -594,8 +599,9 @@ P.misc = {
 			["Elegy of the Eternals"] = false,
 			["Dragonriding"] = true,
 			["Jewelcrafting"] = false
-		}
-	}
+		},
+	},
+	missingStats = true
 }
 
 P.nameHover = {
@@ -603,6 +609,18 @@ P.nameHover = {
 	fontSize = 7,
 	fontOutline = "OUTLINE",
 	targettarget = false,
+}
+
+P.armory = {
+	character = {
+		enable = true,
+	},
+	inspect = {
+		enable = true,
+	},
+	StatOrder = "12345",
+	StatExpand = true,
+	PetHappiness = true,
 }
 
 P.notification = {
@@ -617,7 +635,10 @@ P.notification = {
 	vignette = {
 		enable = true,
 		print = true,
-		blacklist = true,
+		debugPrint = false,
+		blacklist = {
+			[5485] = true,
+		},
 	},
 	titleFont = {
 		name = "Expressway",
@@ -965,7 +986,6 @@ P.microBar = {
 	mouseOver = false,
 	backdrop = true,
 	backdropSpacing = 2,
-	shadow = true,
 	timeAreaWidth = 80,
 	timeAreaHeight = 35,
 	buttonSize = 20,
@@ -973,19 +993,20 @@ P.microBar = {
 	fadeTime = 0.618,
 	normalColor = "NONE",
 	hoverColor = "CLASS",
-	customNormalColor = {r = 1, g = 1, b = 1},
-	customHoverColor = {r = 0, g = 0.659, b = 1},
+	customNormalColor = { r = 1, g = 1, b = 1 },
+	customHoverColor = { r = 0, g = 0.659, b = 1 },
 	notification = true,
 	visibility = "[petbattle][combat] hide; show",
-	tooltipPosition = "ANCHOR_BOTTOM",
+	tooltipsAnchor = "ANCHOR_BOTTOM",
 	friends = {
-		showAllFriends = false,
+		showAllFriends = false
 	},
 	time = {
 		localTime = true,
 		twentyFour = true,
 		flash = true,
 		interval = 10,
+		alwaysSystemInfo = false,
 		font = {
 			name = E.db.general.font,
 			size = 25,
@@ -1014,17 +1035,17 @@ P.microBar = {
 		[3] = "TALENTS",
 		[4] = "FRIENDS",
 		[5] = "GUILD",
-		[6] = E.Retail and "GROUP_FINDER" or "NONE",
-		[7] = E.Retail and "SCREENSHOT" or "NONE",
+		[6] = "GROUP_FINDER",
+		[7] = "SCREENSHOT"
 	},
 	right = {
 		[1] = "HOME",
-		[2] = E.Retail and "ACHIEVEMENTS" or "SCREENSHOT",
-		[3] = E.Retail and "MISSION_REPORTS" or "VOLUME",
-		[4] = E.Retail and "ENCOUNTER_JOURNAL" or "GAMEMENU",
-		[5] = E.Retail and "TOY_BOX" or "BAGS",
-		[6] = E.Retail and "PET_JOURNAL" or "NONE",
-		[7] = E.Retail and "BAGS" or "NONE",
+		[2] = "ACHIEVEMENTS",
+		[3] = "MISSION_REPORTS",
+		[4] = "ENCOUNTER_JOURNAL",
+		[5] = "TOY_BOX",
+		[6] = "PET_JOURNAL",
+		[7] = "BAGS"
 	}
 }
 
@@ -1076,6 +1097,24 @@ P.unitframes = {
 	},
 	highlight = true,
 	auras = true,
+	offlineIndicator = {
+		enable = true,
+		size = 36,
+		anchorPoint = 'RIGHT',
+		xOffset = 20,
+		yOffset = 0,
+		texture = 'MATERIAL',
+		custom = '',
+	},
+	deathIndicator = {
+		enable = true,
+		size = 36,
+		anchorPoint = 'CENTER',
+		xOffset = 0,
+		yOffset = 0,
+		texture = 'MATERIAL',
+		custom = '',
+	},
 }
 
 P.maps = {
@@ -1429,89 +1468,4 @@ P.cooldownFlash = {
 	enablePet = false,
 	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
-}
-
-P.armory = {
-	character = {
-		enable = true,
-		undressButton = true,
-		expandSize = true,
-		classIcon = true,
-		showWarning = true,
-		durability = {
-			enable = true,
-			onlydamaged = true,
-			font = "Expressway",
-			textSize = 11,
-			fontOutline = "OUTLINE",
-		},
-		gradient = {
-			enable = true,
-			colorStyle = "VALUE",
-			color = {r = 1, g = 1, b = 0},
-			setArmor = true,
-			setArmorColor = {r = 0, g = 1, b = 0, a = 1},
-			warningColor = {r = 1, g = 0, b = 0, a = 1}
-		},
-		transmog = {
-			enable = true,
-		},
-		illusion = {
-			enable = true,
-		},
-		warning = {
-			enable = true,
-		},
-	},
-	inspect = {
-		enable = true,
-		classIcon = true,
-		gradient = {
-			enable = true,
-			colorStyle = "RARITY",
-			color = {r = 1, g = 1, b = 0},
-			setArmor = true,
-			setArmorColor = {r = 0, g = 1, b = 0, a = 1},
-			warningColor = {r = 1, g = 0, b = 0, a = 1}
-		},
-		warning = {
-			enable = true,
-		},
-	},
-	stats = {
-		enable = true,
-		OnlyPrimary = true,
-		classColorGradient = true,
-		color = {r = 1, g = 1, b = 0, a = 1},
-		IlvlFull = false,
-		IlvlColor = false,
-		AverageColor = {r = 0, g = 1, b = .59},
-		statFonts = {
-			font = "Expressway",
-			size = 11,
-			outline = "OUTLINE",
-		},
-		catFonts = {
-			font = "Expressway",
-			size = 13,
-			outline = "OUTLINE",
-		},
-		List = {
-			HEALTH = false,
-			POWER = false,
-			ALTERNATEMANA = false,
-			ATTACK_DAMAGE = false,
-			ATTACK_AP = false,
-			ATTACK_ATTACKSPEED = false,
-			SPELLPOWER = false,
-			ENERGY_REGEN = false,
-			RUNE_REGEN = false,
-			FOCUS_REGEN = false,
-			MOVESPEED = false,
-		},
-	},
-	--Wrath Related
-	StatOrder = "12345",
-	StatExpand = true,
-	PetHappiness = true,
 }

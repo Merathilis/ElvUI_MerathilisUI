@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local CF = MER:GetModule('MER_Cooldown')
 local options = MER.options.modules.args
 

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 
 G.core = {
 	compatibilityCheck = true,
@@ -13,6 +13,10 @@ G.mail = {
 		alts = {},
 		favorites = {},
 	}
+}
+
+G.microBar = {
+	covenantCache = {}
 }
 
 G.bags = {

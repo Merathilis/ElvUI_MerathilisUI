@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local async = MER.Utilities.Async
 
 local format = format
@@ -30,13 +30,13 @@ MER.options = {
 	},
 	misc = {
 		order = 103,
-		name = E.NewSign..F.cOption(L["Misc"], 'gradient'),
+		name = F.cOption(L["Misc"], 'gradient'),
 		icon = MER.Media.Icons.more,
 		args = {},
 	},
 	skins = {
 		order = 104,
-		name = E.NewSign..F.cOption(L["Skins/AddOns"], 'gradient'),
+		name = F.cOption(L["Skins/AddOns"], 'gradient'),
 		icon = MER.Media.Icons.bill,
 		args = {},
 	},

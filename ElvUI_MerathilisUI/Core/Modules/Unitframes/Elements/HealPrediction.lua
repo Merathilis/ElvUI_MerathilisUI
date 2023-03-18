@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_HealPrediction')
 local UF = E.UnitFrames
 local LSM = E.Libs.LSM
@@ -266,11 +266,7 @@ end
 function module:Initialize()
 	self.db = E.db.mui.unitframes.healPrediction
 
-	if not self.db or not self.db.enable then
-		return
-	end
-
-	if self.initialized then
+	if not self.db or not self.db.enable or self.initialized then
 		return
 	end
 

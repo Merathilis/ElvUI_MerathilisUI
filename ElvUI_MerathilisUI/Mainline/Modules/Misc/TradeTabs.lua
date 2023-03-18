@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Misc')
 local S = MER:GetModule('MER_Skins')
 
@@ -21,10 +21,11 @@ local tabList = {}
 
 local onlyPrimary = {
 	[171] = true, -- Alchemy
-	[202] = true, -- Engineering
 	[182] = true, -- Herbalism
-	[393] = true, -- Skinning
+	[186] = true, -- Mining
+	[202] = true, -- Engineering
 	[356] = true, -- Fishing
+	[393] = true, -- Skinning
 }
 
 function module:UpdateProfessions()

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local options = MER.options.misc.args
 local AK = MER:GetModule('MER_AlreadyKnown')
 local MI = MER:GetModule('MER_Misc')
@@ -101,8 +101,14 @@ options.general = {
 			type = "description",
 			name = " ",
 		},
-		randomtoy = {
+		missingStats = {
 			order = 11,
+			type = "toggle",
+			name = E.NewSign..L["Missing Stats"],
+			desc = L["Show all stats on the Character Frame"],
+		},
+		randomtoy = {
+			order = 20,
 			type = "input",
 			name = L["Random Toy Macro"],
 			desc = L["Creates a random toy macro."],
@@ -224,6 +230,10 @@ options.cursor = {
 			order = 2,
 			type = "toggle",
 			name = L["Enable"],
+			set = function(info, value)
+				E.db.mui.misc.cursor[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL");
+			end,
 		},
 		colorType = {
 			order = 3,
@@ -614,7 +624,7 @@ options.alreadyKnown = {
 options.mute = {
 	order = 8,
 	type = "group",
-	name = E.NewSign..L["Mute"],
+	name = L["Mute"],
 	hidden = not E.Retail,
 	args = {
 		desc = {
@@ -706,22 +716,19 @@ options.mute = {
 do
 	if not E.Retail then return end
 	for id in pairs(P.misc.mute.mount) do
-		async.WithSpellID(
-			id,
-			function(spell)
-				local icon = spell:GetSpellTexture()
-				local name = spell:GetSpellName()
+		async.WithSpellID(id, function(spell)
+			local icon = spell:GetSpellTexture()
+			local name = spell:GetSpellName()
 
-				local iconString = F.GetIconString(icon, 12, 12)
+			local iconString = F.GetIconString(icon, 12, 12)
 
-				options.mute.args.mount.args[tostring(id)] = {
-					order = id,
-					type = "toggle",
-					name = iconString .. " " .. name,
-					width = 1.5
-				}
-			end
-		)
+			options.mute.args.mount.args[tostring(id)] = {
+				order = id,
+				type = "toggle",
+				name = iconString .. " " .. name,
+				width = 1.5
+			}
+		end)
 	end
 
 	local itemList = {

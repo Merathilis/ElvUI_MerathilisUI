@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Announcement')
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
@@ -12,6 +12,7 @@ module.EventList = {
 	"CHAT_MSG_SYSTEM",
 	"COMBAT_LOG_EVENT_UNFILTERED",
 	"GROUP_ROSTER_UPDATE",
+	"ITEM_CHANGED",
 	"PLAYER_ENTERING_WORLD",
 	"QUEST_LOG_UPDATE",
 }
@@ -35,6 +36,10 @@ function module:CHAT_MSG_GUILD(event, ...)
 	self:KeystoneLink(event, ...)
 end
 
+function module:ITEM_CHANGED(event, ...)
+	E:Delay(0.5, self.Keystone, self, event)
+end
+
 function module:COMBAT_LOG_EVENT_UNFILTERED()
 	-- https://wow.gamepedia.com/COMBAT_LOG_EVENT#Base_Parameters
 	local _, event, _, _, sourceName, _, _, _, _, _, _, spellId, _, _, _ = CombatLogGetCurrentEventInfo()
@@ -47,15 +52,16 @@ function module:COMBAT_LOG_EVENT_UNFILTERED()
 	end
 end
 
-function module:PLAYER_ENTERING_WORLD()
+function module:PLAYER_ENTERING_WORLD(event, ...)
 	self.playerEnteredWorld = true
 	self:Quest()
-	E:Delay(2, self.Keystone, self, "PLAYER_ENTERING_WORLD")
+	E:Delay(2, self.Keystone, self, event)
 	E:Delay(4, self.ResetAuthority, self)
+	E:Delay(10, self.ResetAuthority, self)
 end
 
-function module:CHALLENGE_MODE_COMPLETED()
-	E:Delay(2, self.Keystone, self, "CHALLENGE_MODE_COMPLETED")
+function module:CHALLENGE_MODE_COMPLETED(event, ...)
+	E:Delay(2, self.Keystone, self, event)
 end
 
 function module:QUEST_LOG_UPDATE()

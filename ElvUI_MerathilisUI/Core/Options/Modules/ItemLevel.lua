@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local IL = MER:GetModule('MER_ItemLevel')
 local options = MER.options.modules.args
 local LSM = E.LSM

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_ItemLevel')
 local S = MER:GetModule('MER_Skins')
 local B = E:GetModule("Bags")
@@ -392,7 +392,7 @@ end
 
 function module:ShowItemLevel()
 	if not E.Wrath then return end
-	if not E.db.mui.armory.character.enable or not (E.private.skins.blizzard.enable or E.private.skins.blizzard.character) then return end
+	if not (E.private.skins.blizzard.enable or E.private.skins.blizzard.character) then return end
 
 	-- iLvl on CharacterFrame
 	CharacterFrame:HookScript("OnShow", module.ItemLevel_UpdatePlayer)

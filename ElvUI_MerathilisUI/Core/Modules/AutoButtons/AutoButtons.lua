@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_AutoButtons')
 local async = MER.Utilities.Async
 local S = MER:GetModule('MER_Skins')
@@ -472,7 +472,6 @@ local food = {
 	197768,
 	197769,
 	197770,
-	197771,
 	197772,
 	197774,
 	197775,
@@ -640,7 +639,6 @@ local utilities = {
 	109076,
 	132514,
 	132516,
-	191294,
 	191933,
 	191939,
 	191940,
@@ -650,15 +648,14 @@ local utilities = {
 	191948,
 	191949,
 	191950,
-	194817,
-	194819,
-	194820,
+	193470,
 	198160,
 	198161,
 	198162,
 	198163,
 	198164,
 	198165,
+	199414,
 
 	34721, -- First Aid bandage WRATH
 	34722, -- First Aid bandage WRATH
@@ -817,6 +814,7 @@ local openableItems = {
 	200070,
 	200072,
 	200073,
+	200094,
 	200095,
 	200468,
 	200513,
@@ -830,7 +828,9 @@ local openableItems = {
 	202079,
 	202142,
 	202171,
+	202371,
 	202080,
+	203476,
 }
 
 local tbcOre = {
@@ -1089,6 +1089,7 @@ local professionItems = {
 	198711,
 	198712,
 	198789,
+	198791,
 	198798,
 	198799,
 	198800,

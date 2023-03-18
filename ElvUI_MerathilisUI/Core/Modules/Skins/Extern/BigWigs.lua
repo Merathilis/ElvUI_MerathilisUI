@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Skins')
 
 local _G = _G
@@ -306,14 +306,14 @@ function module:BigWigs_QueueTimer()
 
 				frame:SetSize(parent:GetWidth(), 10)
 				frame:ClearAllPoints()
-				frame:SetPoint("TOPLEFT", parent, "BOTTOMLEFT", 0, -5)
-				frame:SetPoint("TOPRIGHT", parent, "BOTTOMRIGHT", 0, -5)
+				frame:SetPoint("TOPLEFT", parent, "BOTTOMLEFT", 1, -5)
+				frame:SetPoint("TOPRIGHT", parent, "BOTTOMRIGHT", -1, -5)
 				frame.text.SetFormattedText = function(self, _, time)
 					self:SetText(format("%d", time))
 				end
 				F.SetFontDB(frame.text, db.countDown)
 				frame.text:ClearAllPoints()
-				frame.text:SetPoint("TOP", frame, "TOP", 0, -3)
+				frame.text:SetPoint("TOP", frame, "TOP", db.countDown.offsetX, db.countDown.offsetY)
 			end
 		end)
 

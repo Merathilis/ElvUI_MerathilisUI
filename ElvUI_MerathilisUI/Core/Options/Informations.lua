@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local options = MER.options.information.args
 
 local tconcat, tsort = table.concat, table.sort
@@ -33,6 +33,7 @@ local DONATORS = {
 	'Grougwarth',
 	'Sylfarion',
 	'Andrey',
+	'Jake',
 }
 tsort(DONATORS, SortList)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -215,18 +216,8 @@ options.reset = {
 			type = "description",
 			name = ' ',
 		},
-		armory = {
-			order = 3,
-			type = "execute",
-			name = L["Armory"],
-			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["AutoButtons"], nil, function()
-					E:CopyTable(E.db.mui.armory, P.armory)
-				end)
-			end
-		},
 		autoButtons = {
-			order = 4,
+			order = 3,
 			type = "execute",
 			name = L["AutoButtons"],
 			func = function()
@@ -236,7 +227,7 @@ options.reset = {
 			end
 		},
 		locPanel = {
-			order = 5,
+			order = 4,
 			type = "execute",
 			name = L["Location Panel"],
 			func = function()
@@ -246,7 +237,7 @@ options.reset = {
 			end
 		},
 		microBar = {
-			order = 6,
+			order = 5,
 			type = "execute",
 			name = L["Micro Bar"],
 			func = function()
@@ -256,7 +247,7 @@ options.reset = {
 			end
 		},
 		cooldownFlash = {
-			order = 7,
+			order = 6,
 			type = "execute",
 			name = L["Cooldown Flash"],
 			func = function()
@@ -306,6 +297,29 @@ options.reset = {
 			end
 		},
 		spacer1 = {
+			order = 20,
+			type = "description",
+			name = ' ',
+		},
+		misc = {
+			order = 15,
+			type = "group",
+			inline = true,
+			name = L["Misc"],
+			args = {
+				general = {
+					order = 1,
+					type = "execute",
+					name = L["General"],
+					func = function()
+						E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["General"], nil, function()
+							E.db.mui.misc.betterGuildMemberStatus = P.misc.betterGuildMemberStatus
+						end)
+					end
+				},
+			},
+		},
+		spacer2 = {
 			order = 20,
 			type = "description",
 			name = ' ',

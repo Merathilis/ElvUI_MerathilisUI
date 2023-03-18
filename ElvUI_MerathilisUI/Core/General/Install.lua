@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local CH = E:GetModule('Chat')
 
 local _G = _G
@@ -22,74 +22,86 @@ local VoiceTranscriptionFrame_UpdateEditBox = VoiceTranscriptionFrame_UpdateEdit
 local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateVisibility
 local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
 local LOOT = LOOT
-local ReloadUI = ReloadUI
-local SetCVar = SetCVar
+local C_UI_Reload = C_UI.Reload
+local C_CVar_SetCVar = C_CVar.SetCVar
 
 local function SetupCVars()
 	-- Setup CVars
-	SetCVar('autoQuestProgress', 1)
-	SetCVar('guildMemberNotify', 1)
-	SetCVar('TargetNearestUseNew', 1)
-	SetCVar('cameraSmoothStyle', 0)
-	SetCVar('cameraDistanceMaxZoomFactor', 2.6)
-	SetCVar('UberTooltips', 1)
-	SetCVar('lockActionBars', 1)
-	SetCVar('chatMouseScroll', 1)
-	SetCVar('countdownForCooldowns', 1)
-	SetCVar('showQuestTrackingTooltips', 1)
-	SetCVar('ffxGlow', 0)
-	SetCVar('floatingCombatTextCombatState', '1')
-	SetCVar('minimapTrackingShowAll', 1)
+	C_CVar_SetCVar('autoQuestProgress', 1)
+	C_CVar_SetCVar('alwaysShowActionBars', 1)
+	C_CVar_SetCVar('guildMemberNotify', 1)
+	C_CVar_SetCVar('TargetNearestUseNew', 1)
+	C_CVar_SetCVar('cameraSmoothStyle', 0)
+	C_CVar_SetCVar('cameraDistanceMaxZoomFactor', 2.6)
+	C_CVar_SetCVar('UberTooltips', 1)
+	C_CVar_SetCVar('lockActionBars', 1)
+	C_CVar_SetCVar('chatMouseScroll', 1)
+	C_CVar_SetCVar('countdownForCooldowns', 1)
+	C_CVar_SetCVar('showQuestTrackingTooltips', 1)
+	C_CVar_SetCVar('ffxGlow', 0)
+	C_CVar_SetCVar('floatingCombatTextCombatState', '1')
+	C_CVar_SetCVar('minimapTrackingShowAll', 1)
+	C_CVar_SetCVar('fstack_preferParentKeys', 0)
 
 	-- Nameplates
-	SetCVar('ShowClassColorInNameplate', 1)
-	SetCVar('nameplateLargerScale', 1)
-	SetCVar('nameplateLargeTopInset', -1)
-	SetCVar('nameplateMinAlpha', 1)
-	SetCVar('nameplateMinScale', 1)
-	SetCVar('nameplateMotion', 1)
-	SetCVar('nameplateOccludedAlphaMult', 1)
-	SetCVar('nameplateOtherBottomInset', -1)
-	SetCVar('nameplateOtherTopInset', -1)
-	SetCVar('nameplateOverlapH', 1.1)
-	SetCVar('nameplateOverlapV', 1.8)
-	SetCVar('nameplateSelectedScale', 1)
-	SetCVar('nameplateSelfAlpha', 1)
-	SetCVar('nameplateSelfTopInset', -1)
+	C_CVar_SetCVar('ShowClassColorInNameplate', 1)
+	C_CVar_SetCVar('nameplateLargerScale', 1)
+	C_CVar_SetCVar('nameplateLargeTopInset', -1)
+	C_CVar_SetCVar('nameplateMinAlpha', 1)
+	C_CVar_SetCVar('nameplateMinScale', 1)
+	C_CVar_SetCVar('nameplateMotion', 1)
+	C_CVar_SetCVar('nameplateOccludedAlphaMult', 1)
+	C_CVar_SetCVar('nameplateOtherBottomInset', -1)
+	C_CVar_SetCVar('nameplateOtherTopInset', -1)
+	C_CVar_SetCVar('nameplateOverlapH', 1.1)
+	C_CVar_SetCVar('nameplateOverlapV', 1.8)
+	C_CVar_SetCVar('nameplateSelectedScale', 1)
+	C_CVar_SetCVar('nameplateSelfAlpha', 1)
+	C_CVar_SetCVar('nameplateSelfTopInset', -1)
 
-	SetCVar('UnitNameEnemyGuardianName', 1)
-	SetCVar('UnitNameEnemyMinionName', 1)
-	SetCVar('UnitNameEnemyPetName', 1)
-	SetCVar('UnitNameEnemyPlayerName', 1)
+	C_CVar_SetCVar('UnitNameEnemyGuardianName', 1)
+	C_CVar_SetCVar('UnitNameEnemyMinionName', 1)
+	C_CVar_SetCVar('UnitNameEnemyPetName', 1)
+	C_CVar_SetCVar('UnitNameEnemyPlayerName', 1)
+	C_CVar_SetCVar('profanityFilter', 0)
 
 	if not E.Classic then
-		SetCVar('UnitNameEnemyTotem', 1)
+		C_CVar_SetCVar('UnitNameEnemyTotem', 1)
+	end
+
+	if E.Wrath then
+		SetCVar('equipmentManager', 1)
+		SetCVar('previewTalents', 1)
 	end
 
 	if not E.Retail then
-		SetCVar('nameplateNotSelectedAlpha', 1)
-		SetCVar('autoLootDefault', 1)
-		SetCVar('instantQuestText', 1)
-		SetCVar('profanityFilter', 0)
+		C_CVar_SetCVar('nameplateNotSelectedAlpha', 1)
+		C_CVar_SetCVar('autoLootDefault', 1)
+		C_CVar_SetCVar('instantQuestText', 1)
 	end
 
 	if F.IsDeveloper() then
-		C_CVar.SetCVar('taintLog', 1)
-		C_CVar.SetCVar('maxFPS', 165)
-		C_CVar.SetCVar('maxFPSBk', 60)
-		C_CVar.SetCVar('maxFPSLoading', 30)
-		C_CVar.SetCVar('violenceLevel', 5)
-		C_CVar.SetCVar('blockTrades', 0)
-		C_CVar.SetCVar('RAIDweatherDensity', 0)
-		C_CVar.SetCVar('weatherDensity', 0)
-		C_CVar.SetCVar('SpellQueueWindow', 180)
-		C_CVar.SetCVar('floatingCombatTextCombatDamageDirectionalScale', 1)
-		C_CVar.SetCVar('autoOpenLootHistory', 1)
-
-		C_CVar.SetCVar('showTutorials', 0)
-		C_CVar.SetCVar('showNPETutorials', 0)
-		C_CVar.SetCVar('hideAdventureJournalAlerts', 1)
-		C_CVar.RegisterCVar('hideHelptips', 1)
+		C_CVar_SetCVar('taintLog', 1)
+		C_CVar_SetCVar('LowLatencyMode', 3)
+		C_CVar_SetCVar('maxFPS', 165)
+		C_CVar_SetCVar('maxFPSBk', 60)
+		C_CVar_SetCVar('maxFPSLoading', 30)
+		C_CVar_SetCVar('violenceLevel', 5)
+		C_CVar_SetCVar('blockTrades', 0)
+		C_CVar_SetCVar('blockChannelInvites', 1)
+		C_CVar_SetCVar('RAIDweatherDensity', 0)
+		C_CVar_SetCVar('CameraReduceUnexpectedMovement', 1)
+		C_CVar_SetCVar('DisableAdvancedFlyingVelocityVFX', 1)
+		C_CVar_SetCVar('disableServerNagle', 0)
+		C_CVar_SetCVar('displaySpellActivationOverlays', 0)
+		C_CVar_SetCVar('empowerTapControls', 1)
+		C_CVar_SetCVar('weatherDensity', 0)
+		C_CVar_SetCVar('SpellQueueWindow', 180)
+		C_CVar_SetCVar('floatingCombatTextCombatDamageDirectionalScale', 1)
+		C_CVar_SetCVar('autoOpenLootHistory', 1)
+		C_CVar_SetCVar('showTutorials', 0)
+		C_CVar_SetCVar('showNPETutorials', 0)
+		C_CVar_SetCVar('hideAdventureJournalAlerts', 1)
 	else
 		SetCVar('taintLog', 0)
 	end
@@ -304,7 +316,7 @@ function MER:SetupLayout()
 	E.db["general"]["topPanel"] = false
 	E.db["general"]["bonusObjectivePosition"] = "AUTO"
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
-	E.db["general"]["talkingHeadFrameScale"] = 0.85
+	E.db["general"]["talkingHeadFrameScale"] = 0.75
 	E.db["general"]["talkingHeadFrameBackdrop"] = true
 	E.db["general"]["altPowerBar"]["enable"] = true
 	E.db["general"]["altPowerBar"]["font"] = "Expressway"
@@ -1332,7 +1344,7 @@ function MER:SetupUnitframes()
 			["xOffset"] = 0,
 			["yOffset"] = 16,
 			["size"] = 11,
-			["text_format"] = "[classicon-flatborder][mUI-name:health:abbrev{class}]",
+			["text_format"] = "[classicon-flatborder][name:gradient]",
 			["attachTextTo"] = "Frame",
 		}
 	else
@@ -1541,7 +1553,7 @@ function MER:SetupUnitframes()
 			["xOffset"] = 2,
 			["yOffset"] = 16,
 			["size"] = 11,
-			["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}][classicon-flatborder]",
+			["text_format"] = "[classification:icon][name:gradient][classicon-flatborder]",
 			["attachTextTo"] = "Frame",
 		}
 	else
@@ -1649,7 +1661,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["targettarget"]["power"]["text_format"] = ""
 	E.db["unitframe"]["units"]["targettarget"]["width"] = 75
 	E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[namecolor][name:abbrev:short]"
+	E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[name:gradient]"
 	E.db["unitframe"]["units"]["targettarget"]["height"] = 20
 	E.db["unitframe"]["units"]["targettarget"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["targettarget"]["health"]["bgUseBarTexture"] = true
@@ -1791,7 +1803,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[namecolor][name:medium]",
+		["text_format"] = "[name:gradient]",
 	}
 	if F.IsDeveloper() then
 		E.db["unitframe"]["units"]["raid1"]["customTexts"]["Elv"] = {
@@ -1916,7 +1928,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[namecolor][name:medium]",
+		["text_format"] = "[name:gradient]",
 	}
 	if F.IsDeveloper() then
 		E.db["unitframe"]["units"]["raid2"]["customTexts"]["Elv"] = {
@@ -2041,7 +2053,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[namecolor][name:medium]",
+		["text_format"] = "[name:gradient]",
 	}
 	if F.IsDeveloper() then
 		E.db["unitframe"]["units"]["raid3"]["customTexts"]["Elv"] = {
@@ -2184,7 +2196,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Frame",
-		["text_format"] = "[namecolor][name:medium]",
+		["text_format"] = "[name:gradient]",
 	}
 	E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
 		["font"] = "Gotham Narrow Black",
@@ -2299,7 +2311,7 @@ function MER:SetupUnitframes()
 		["fontOutline"] = "OUTLINE",
 		["xOffset"] = 0,
 		["size"] = 11,
-		["text_format"] = "[namecolor][name:medium]",
+		["text_format"] = "[name:gradient]",
 		["yOffset"] = 18,
 	}
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Life"] = {
@@ -2467,12 +2479,12 @@ end
 
 local function InstallComplete()
 	E.private.install_complete = E.version
-	E.db.mui.installed = true
+	E.db.mui.core.installed = true
 	E.private.mui.general.install_complete = MER.Version
 
 	MERDataPerChar = MER.Version
 
-	ReloadUI()
+	C_UI_Reload()
 end
 
 -- ElvUI PlugIn installer

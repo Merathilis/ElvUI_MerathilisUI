@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Notification')
 
 local _G = _G
@@ -48,10 +48,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 		local tex = F.GetTextureStrByAtlas(atlasInfo, 15, 15)
 		if not tex then return end
 
-		-- For Debugging: uncomment this:
-		-- F.DebugPrint("Vignette-ID: "..vignetteInfo.vignetteID.." Vignette-Name: "..vignetteInfo.name, "warning")
-
-		if db.vignette.blacklist and VignetteBlackListIDs[vignetteInfo.vignetteID] or not isUsefulAtlas(vignetteInfo) then
+		if db.vignette and db.vignette.blacklist[vignetteInfo.vignetteID] or not isUsefulAtlas(vignetteInfo) then
 			return
 		end
 
@@ -59,6 +56,10 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:utf8sub(1, 28))
 			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
 			self.lastMinimapRare.id = vignetteGUID
+
+			if db.vignette.debugPrint then
+				F.DebugPrint("Vignette-ID: " .. vignetteInfo.vignetteID .. " Vignette-Name: " .. vignetteInfo.name, "warning")
+			end
 
 			if db.vignette and db.vignette.enable and db.vignette.print then
 				local currentTime = E.db.chat.timeStampFormat == 1 and "|cff00ff00["..date("%H:%M:%S").."]|r" or ""

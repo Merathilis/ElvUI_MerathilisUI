@@ -1,8 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='ActionBars.lua'/>
 	<Script file='Announcement.lua'/>
-	<Script file='Armory.lua'/>
 	<Script file='AutoButtons.lua'/>
+	<Script file='Armory.lua'/>
 	<Script file='Bags.lua'/>
 	<Script file='Blizzard.lua'/>
 	<Script file='Chat.lua'/>

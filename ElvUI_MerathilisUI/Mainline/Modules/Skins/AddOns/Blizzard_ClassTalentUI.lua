@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -9,11 +9,15 @@ local function LoadSkin()
 		return
 	end
 
-	local ClassTalentFrame = _G.ClassTalentFrame
-	ClassTalentFrame:Styling()
-	module:CreateShadow(ClassTalentFrame)
+	local frame = _G.ClassTalentFrame
+	frame:Styling()
+	module:CreateShadow(frame)
 
-	for _, tab in next, { ClassTalentFrame.TabSystem:GetChildren() } do
+	frame.TalentsTab.BlackBG:SetAlpha(.5)
+	frame.TalentsTab.Background:SetAlpha(.5)
+	frame.TalentsTab.BottomBar:SetAlpha(.5)
+
+	for _, tab in next, { frame.TabSystem:GetChildren() } do
 		module:ReskinTab(tab)
 	end
 end

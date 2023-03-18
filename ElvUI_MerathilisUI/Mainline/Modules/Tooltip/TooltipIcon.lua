@@ -1,9 +1,11 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local T = MER:GetModule('MER_Tooltip')
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
+local select = select
 local strfind = strfind
+local tinsert = tinsert
 local unpack = unpack
 
 local GetItemIcon = GetItemIcon
@@ -213,6 +215,12 @@ function T:Icons()
 
 	if E.db.mui.tooltip.petId then
 		self:AddInspectInfoCallback(3, "AddPetID", false)
+	end
+end
+
+function T:AddIconTooltip(name)
+	if not F.In(name, tooltips) then
+		tinsert(tooltips, name)
 	end
 end
 

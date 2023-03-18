@@ -1,10 +1,11 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_MicroBar')
 local S = MER:GetModule('MER_Skins')
 local DT = E:GetModule('DataTexts')
 
 -- Credits: fang2hou - ElvUI_Windtools (and me for the initial idea ^^)
 local _G = _G
+local collectgarbage = collectgarbage
 local date = date
 local floor = floor
 local format = format
@@ -16,6 +17,7 @@ local mod = mod
 local pairs = pairs
 local select = select
 local strfind = strfind
+local strjoin = strjoin
 local tinsert = tinsert
 local tonumber = tonumber
 local tostring = tostring
@@ -35,39 +37,44 @@ local GetNumGuildMembers = GetNumGuildMembers
 local GetTime = GetTime
 local HideUIPanel = HideUIPanel
 local InCombatLockdown = InCombatLockdown
+local IsControlKeyDown = IsControlKeyDown
 local IsInGuild = IsInGuild
 local IsModifierKeyDown = IsModifierKeyDown
+local IsShiftKeyDown = IsShiftKeyDown
 local ItemMixin = ItemMixin
+local PlayerHasToy = PlayerHasToy
 local PlaySound = PlaySound
 local RegisterStateDriver = RegisterStateDriver
+local ReloadUI = ReloadUI
+local ResetCPUUsage = ResetCPUUsage
 local Screenshot = Screenshot
 local ShowUIPanel = ShowUIPanel
 local ToggleCalendar = ToggleCalendar
 local ToggleCharacter = ToggleCharacter
-local ToggleFrame = ToggleFrame
 local ToggleFriendsFrame = ToggleFriendsFrame
-local ToggleGuildFrame = ToggleGuildFrame
 local ToggleSpellBook = ToggleSpellBook
 local ToggleTimeManager = ToggleTimeManager
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_BattleNet_GetFriendAccountInfo = C_BattleNet and C_BattleNet.GetFriendAccountInfo
-local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet and C_BattleNet.GetFriendGameAccountInfo
-local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet and C_BattleNet.GetFriendNumGameAccounts
-local C_Container_GetItemCooldown = C_Container.GetItemCooldown
-local C_CVar_GetCVar = C_CVar and C_CVar.GetCVar
-local C_CVar_SetCVar = C_CVar and C_CVar.SetCVar
-local C_FriendList_GetNumFriends = C_FriendList and C_FriendList.GetNumFriends
-local C_FriendList_GetNumOnlineFriends = C_FriendList and C_FriendList.GetNumOnlineFriends
+local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
+local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
+local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
+local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
+local C_CovenantSanctumUI_GetRenownLevel = C_CovenantSanctumUI and C_CovenantSanctumUI.GetRenownLevel
+local C_CVar_GetCVar = C_CVar.GetCVar
+local C_CVar_GetCVarBool = C_CVar.GetCVarBool
+local C_CVar_SetCVar = C_CVar.SetCVar
+local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
+local C_FriendList_GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
 local C_Garrison_GetCompleteMissions = C_Garrison and C_Garrison.GetCompleteMissions
-local C_Timer_After = C_Timer.After
 local C_Timer_NewTicker = C_Timer.NewTicker
+local C_ToyBox_IsToyUsable = C_ToyBox and C_ToyBox.IsToyUsable
 
 local FollowerType_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0
 local FollowerType_9_0 = Enum.GarrisonFollowerType.FollowerType_9_0
 
 local NUM_PANEL_BUTTONS = 7
-local IconString = '|T%s:16:18:0:0:64:64:4:60:7:57'
+local IconString = "|T%s:16:18:0:0:64:64:4:60:7:57"
 local LeftButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t"
 local RightButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:410|t"
 local ScrollButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t"
@@ -75,66 +82,90 @@ local ScrollButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:
 local friendOnline = gsub(_G.ERR_FRIEND_ONLINE_SS, "\124Hplayer:%%s\124h%[%%s%]\124h", "")
 local friendOffline = gsub(_G.ERR_FRIEND_OFFLINE_S, "%%s", "")
 
-local Hearthstones = {
+local hearthstones = {
 	6948,
+	54452,
+	64488,
+	93672,
+	142542,
+	162973,
+	163045,
+	165669,
+	165670,
+	165802,
+	166746,
+	166747,
+	168907,
+	172179,
+	188952,
+	190237,
+	193588,
+	200630
 }
 
-if E.Retail then
-	tinsert(Hearthstones, 64488)
-	tinsert(Hearthstones, 93672)
-	tinsert(Hearthstones, 110560)
-	tinsert(Hearthstones, 140192)
-	tinsert(Hearthstones, 141605)
-	tinsert(Hearthstones, 142542)
-	tinsert(Hearthstones, 162973)
-	tinsert(Hearthstones, 163045)
-	tinsert(Hearthstones, 165669)
-	tinsert(Hearthstones, 165670)
-	tinsert(Hearthstones, 165802)
-	tinsert(Hearthstones, 166746)
-	tinsert(Hearthstones, 166747)
-	tinsert(Hearthstones, 168907)
-	tinsert(Hearthstones, 172179)
-	tinsert(Hearthstones, 48933)
-	tinsert(Hearthstones, 87215)
-	tinsert(Hearthstones, 132517)
-	tinsert(Hearthstones, 132524)
-	tinsert(Hearthstones, 151652)
-	tinsert(Hearthstones, 168807)
-	tinsert(Hearthstones, 168808)
-	tinsert(Hearthstones, 172924)
-	tinsert(Hearthstones, 180290)
-	tinsert(Hearthstones, 182773)
-	tinsert(Hearthstones, 183716)
-	tinsert(Hearthstones, 184353)
-	tinsert(Hearthstones, 188952) -- Dominated Hearthstone
-	tinsert(Hearthstones, 193588) -- Timewalker's Hearthstone
-	tinsert(Hearthstones, 198156)
-	tinsert(Hearthstones, 200630)
-elseif E.Wrath then
-	tinsert(Hearthstones, 184871)
-end
+local hearthstoneAndToyIDList = {
+	6948,
+	54452,
+	64488,
+	93672,
+	110560,
+	140192,
+	141605,
+	142542,
+	162973,
+	163045,
+	165669,
+	165670,
+	165802,
+	166746,
+	166747,
+	168907,
+	172179,
+	180290,
+	182773,
+	183716,
+	184353,
+	188952,
+	190237,
+	193588,
+	200630,
+	---------------------
+	48933,
+	87215,
+	132517,
+	132524,
+	151652,
+	168807,
+	168808,
+	172924,
+	180817,
+	198156
+}
 
-local HearthstonesTable
+local hearthstonesAndToysData
+local availableHearthstones
 
 local function AddDoubleLineForItem(itemID, prefix)
+	local isRandomHearthstone
 	if type(itemID) == "string" then
-		itemID = tonumber(itemID)
+		if itemID == "RANDOM" then
+			isRandomHearthstone = true
+			itemID = 6948
+		else
+			itemID = tonumber(itemID)
+		end
 	end
 
 	prefix = prefix and prefix .. " " or ""
 
-	local name = HearthstonesTable[tostring(itemID)]
-	if not name then return end
+	local name = hearthstonesAndToysData[tostring(itemID)]
+	if not name then
+		return
+	end
 
 	local texture = GetItemIcon(itemID)
 	local icon = format(IconString .. ":255:255:255|t", texture)
-	local startTime, duration
-	if E.Retail then
-		startTime, duration = GetItemCooldown(itemID)
-	elseif E.Wrath then
-		startTime, duration = C_Container_GetItemCooldown(itemID)
-	end
+	local startTime, duration = GetItemCooldown(itemID)
 	local cooldownTime = startTime + duration - GetTime()
 	local canUse = cooldownTime <= 0
 	local cooldownTimeString
@@ -149,9 +180,14 @@ local function AddDoubleLineForItem(itemID, prefix)
 		name = name .. format(" (%d)", charge)
 	end
 
+	if isRandomHearthstone then
+		name = L["Random Hearthstone"]
+	end
+
 	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name, canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
 end
 
+-- Fake DataText for no errors throwed from ElvUI
 local VirtualDTEvent = {
 	Friends = nil,
 	Guild = "GUILD_ROSTER_UPDATE"
@@ -159,30 +195,44 @@ local VirtualDTEvent = {
 
 local VirtualDT = {
 	Friends = {
+		name = "Friends",
+		text = {
+			SetFormattedText = E.noop
+		}
+	},
+	System = {
+		name = "System"
+	},
+	Time = {
+		name = "Time",
 		text = {
 			SetFormattedText = E.noop
 		}
 	},
 	Guild = {
+		name = "Guild",
 		text = {
 			SetFormattedText = E.noop,
 			SetText = E.noop
 		},
 		GetScript = function()
 			return E.noop
+		end,
+		IsMouseOver = function()
+			return false
 		end
 	}
 }
 
 local ButtonTypes = {
 	ACHIEVEMENTS = {
-		name = _G.ACHIEVEMENT_BUTTON,
+		name = L["Achievements"],
 		icon = MER.Media.Icons.barAchievements,
 		macro = {
 			LeftButton = _G.SLASH_ACHIEVEMENTUI1
 		},
 		tooltips = {
-			_G.ACHIEVEMENT_BUTTON
+			L["Achievements"]
 		}
 	},
 	BAGS = {
@@ -191,22 +241,12 @@ local ButtonTypes = {
 		click = {
 			LeftButton = function()
 				_G.ToggleAllBags()
-			end,
-		},
-		tooltips = function()
-			if IsModifierKeyDown() then
-				DT.tooltip:ClearLines()
-				DT.RegisteredDataTexts["Gold"].onEnter()
-				DT.tooltip:Show()
-			else
-				DT.tooltip:ClearLines()
-				DT.RegisteredDataTexts["Bags"].onEnter()
-				DT.tooltip:Show()
 			end
-		end,
+		},
+		tooltips = "Bags"
 	},
 	BLIZZARD_SHOP = {
-		name = _G.BLIZZARD_STORE,
+		name = L["Blizzard Shop"],
 		icon = MER.Media.Icons.barBlizzardShop,
 		click = {
 			LeftButton = function()
@@ -214,11 +254,11 @@ local ButtonTypes = {
 			end
 		},
 		tooltips = {
-			_G.BLIZZARD_STORE
-		},
+			L["Blizzard Shop"]
+		}
 	},
 	CHARACTER = {
-		name = _G.CHARACTER_BUTTON,
+		name = L["Character"],
 		icon = MER.Media.Icons.barCharacter,
 		click = {
 			LeftButton = function()
@@ -230,8 +270,8 @@ local ButtonTypes = {
 			end
 		},
 		tooltips = {
-			_G.CHARACTER_BUTTON
-		},
+			L["Character"]
+		}
 	},
 	COLLECTIONS = {
 		name = L["Collections"],
@@ -241,23 +281,26 @@ local ButtonTypes = {
 			RightButton = "/run CollectionsJournal_LoadUI()\n/click MountJournalSummonRandomFavoriteButton"
 		},
 		tooltips = {
-			L["Collections"], "\n", LeftButtonIcon .. " " .. L["Show Collections"], RightButtonIcon .. " " .. L["Random Favorite Mount"]
-		},
+			L["Collections"],
+			"\n",
+			LeftButtonIcon .. " " .. L["Show Collections"],
+			RightButtonIcon .. " " .. L["Random Favorite Mount"]
+		}
 	},
 	ENCOUNTER_JOURNAL = {
-		name = _G.ENCOUNTER_JOURNAL,
+		name = L["Encounter Journal"],
 		icon = MER.Media.Icons.barEncounterJournal,
 		macro = {
 			LeftButton = "/click EJMicroButton",
-			RightButton = "/run WeeklyRewards_LoadUI(); WeeklyRewardsFrame:Show()"
+			RightButton = "/run WeeklyRewards_ShowUI()"
 		},
 		tooltips = {
 			LeftButtonIcon .. " " .. L["Encounter Journal"],
-			RightButtonIcon .. " " .. L["Weekly Rewards"],
-		},
+			RightButtonIcon .. " " .. L["Weekly Rewards"]
+		}
 	},
 	FRIENDS = {
-		name = _G.SOCIAL_BUTTON,
+		name = L["Friend List"],
 		icon = MER.Media.Icons.barFriends,
 		click = {
 			LeftButton = function()
@@ -269,36 +312,34 @@ local ButtonTypes = {
 			end
 		},
 		additionalText = function()
-			if E.Retail then
-				local numBNOnlineFriend = select(2, BNGetNumFriends())
+			local numBNOnlineFriend = select(2, BNGetNumFriends())
 
-				if module and module.db and module.db.friends and module.db.friends.showAllFriends then
-					local friendsOnline = C_FriendList_GetNumFriends() or 0
-					local totalOnline = friendsOnline + numBNOnlineFriend
-					return totalOnline
-				end
+			if module and module.db and module.db.friends and module.db.friends.showAllFriends then
+				local friendsOnline = C_FriendList_GetNumFriends() or 0
+				local totalOnline = friendsOnline + numBNOnlineFriend
+				return totalOnline
+			end
 
-				local number = C_FriendList_GetNumOnlineFriends() or 0
+			local number = C_FriendList_GetNumOnlineFriends() or 0
 
-				for i = 1, numBNOnlineFriend do
-					local accountInfo = C_BattleNet_GetFriendAccountInfo(i)
-					if accountInfo and accountInfo.gameAccountInfo and accountInfo.gameAccountInfo.isOnline then
-						local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(i)
-						if numGameAccounts and numGameAccounts > 0 then
-							for j = 1, numGameAccounts do
-								local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
-								if gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" then
-									number = number + 1
-								end
+			for i = 1, numBNOnlineFriend do
+				local accountInfo = C_BattleNet_GetFriendAccountInfo(i)
+				if accountInfo and accountInfo.gameAccountInfo and accountInfo.gameAccountInfo.isOnline then
+					local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(i)
+					if numGameAccounts and numGameAccounts > 0 then
+						for j = 1, numGameAccounts do
+							local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
+							if gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" then
+								number = number + 1
 							end
-						elseif accountInfo.gameAccountInfo.clientProgram == "WoW" then
-							number = number + 1
 						end
+					elseif accountInfo.gameAccountInfo.clientProgram == "WoW" then
+						number = number + 1
 					end
 				end
-
-				return number > 0 and number or ""
 			end
+
+			return number > 0 and number or ""
 		end,
 		tooltips = "Friends",
 		events = {
@@ -314,11 +355,8 @@ local ButtonTypes = {
 					return
 				end
 			end
-			if E.Retail then
-				button.additionalText:SetFormattedText(button.additionalTextFormat, button.additionalTextFunc())
-			end
-		end,
-		notification = true,
+			button.additionalText:SetFormattedText(button.additionalTextFormat, button.additionalTextFunc())
+		end
 	},
 	GAMEMENU = {
 		name = L["Game Menu"],
@@ -343,43 +381,25 @@ local ButtonTypes = {
 		},
 		tooltips = {
 			L["Game Menu"]
-		},
+		}
 	},
 	GROUP_FINDER = {
-		name = _G.LFG_TITLE,
+		name = L["Group Finder"],
 		icon = MER.Media.Icons.barGroupFinder,
-		click = {
-			LeftButton = function()
-				if E.Retail then
-					ToggleLFDParentFrame()
-				elseif E.TBC or E.Wrath then
-					if not IsAddOnLoaded('Blizzard_LookingForGroupUI') then
-						UIParentLoadAddOn('Blizzard_LookingForGroupUI')
-					end
-					_G.ToggleLFGParentFrame()
-				end
-			end,
+		macro = {
+			LeftButton = "/click LFDMicroButton"
 		},
 		tooltips = {
-			_G.LFG_TITLE
-		},
+			L["Group Finder"]
+		}
 	},
 	GUILD = {
-		name = _G.ACHIEVEMENTS_GUILD_TAB,
+		name = L["Guild"],
 		icon = MER.Media.Icons.barGuild,
-		click = {
-			LeftButton = function()
-				if not InCombatLockdown() then
-					ToggleGuildFrame()
-				else
-					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
-				end
-			end
+		macro = {
+			LeftButton = "/click GuildMicroButton",
+			RightButton = "/script if not InCombatLockdown() then if not GuildFrame then GuildFrame_LoadUI() end ToggleFrame(GuildFrame) end"
 		},
-		--macro = {
-			--LeftButton = "/click GuildMicroButton",
-			--RightButton = "/script if not InCombatLockdown() then if not GuildFrame then GuildFrame_LoadUI() end ToggleFrame(GuildFrame) end"
-		--},
 		additionalText = function()
 			return IsInGuild() and select(2, GetNumGuildMembers()) or ""
 		end,
@@ -388,9 +408,10 @@ local ButtonTypes = {
 			"GUILD_ROSTER_UPDATE",
 			"PLAYER_GUILD_UPDATE"
 		},
-		eventHandler = function(button)
+		eventHandler = function(button, event, message)
 			button.additionalText:SetFormattedText(button.additionalTextFormat, button.additionalTextFunc())
-		end
+		end,
+		notification = true
 	},
 	HOME = {
 		name = L["Home"],
@@ -404,14 +425,18 @@ local ButtonTypes = {
 			AddDoubleLineForItem(module.db.home.right, RightButtonIcon)
 			DT.tooltip:Show()
 
-			button.tooltipsUpdateTimer = C_Timer_NewTicker(1, function()
-				DT.tooltip:ClearLines()
-				DT.tooltip:SetText(L["Home"])
-				DT.tooltip:AddLine("\n")
-				AddDoubleLineForItem(module.db.home.left, LeftButtonIcon)
-				AddDoubleLineForItem(module.db.home.right, RightButtonIcon)
-				DT.tooltip:Show()
-			end)
+			button.tooltipsUpdateTimer =
+			C_Timer_NewTicker(
+				1,
+				function()
+					DT.tooltip:ClearLines()
+					DT.tooltip:SetText(L["Home"])
+					DT.tooltip:AddLine("\n")
+					AddDoubleLineForItem(module.db.home.left, LeftButtonIcon)
+					AddDoubleLineForItem(module.db.home.right, RightButtonIcon)
+					DT.tooltip:Show()
+				end
+			)
 		end,
 		tooltipsLeave = function(button)
 			if button.tooltipsUpdateTimer and button.tooltipsUpdateTimer.Cancel then
@@ -420,7 +445,7 @@ local ButtonTypes = {
 		end
 	},
 	MISSION_REPORTS = {
-		name = _G.GARRISON_TYPE_8_0_LANDING_PAGE_TITLE,
+		name = L["Mission Reports"],
 		icon = MER.Media.Icons.barMissionReports,
 		click = {
 			LeftButton = function(button)
@@ -428,7 +453,8 @@ local ButtonTypes = {
 			end
 		},
 		additionalText = function()
-			local numMissions = C_Garrison and (#C_Garrison_GetCompleteMissions(FollowerType_9_0) + #C_Garrison_GetCompleteMissions(FollowerType_8_0))
+			local numMissions =
+			#C_Garrison_GetCompleteMissions(FollowerType_9_0) + #C_Garrison_GetCompleteMissions(FollowerType_8_0)
 			if numMissions == 0 then
 				numMissions = ""
 			end
@@ -447,8 +473,11 @@ local ButtonTypes = {
 			RightButton = "/run CollectionsJournal_LoadUI()\n/click PetJournalSummonRandomFavoritePetButton"
 		},
 		tooltips = {
-			L["Pet Journal"], "\n", LeftButtonIcon .. " " .. L["Show Pet Journal"], RightButtonIcon .. " " .. L["Random Favorite Pet"]
-		},
+			L["Pet Journal"],
+			"\n",
+			LeftButtonIcon .. " " .. L["Show Pet Journal"],
+			RightButtonIcon .. " " .. L["Random Favorite Pet"]
+		}
 	},
 	PROFESSION = {
 		name = L["Profession"],
@@ -464,40 +493,46 @@ local ButtonTypes = {
 		},
 		tooltips = {
 			L["Profession"]
-		},
+		}
 	},
 	SCREENSHOT = {
 		name = L["Screenshot"],
 		icon = MER.Media.Icons.barScreenShot,
 		click = {
-			LeftButton = Screenshot,
+			LeftButton = function()
+				DT.tooltip:Hide()
+				Screenshot()
+			end,
 			RightButton = function()
-				C_Timer_After(2, Screenshot)
+				E:Delay(2, Screenshot)
 			end
 		},
 		tooltips = {
-			L["Screenshot"], "\n", LeftButtonIcon .. " " .. L["Screenshot immediately"], RightButtonIcon .. " " .. L["Screenshot after 2 secs"]
-		},
+			L["Screenshot"],
+			"\n",
+			LeftButtonIcon .. " " .. L["Screenshot immediately"],
+			RightButtonIcon .. " " .. L["Screenshot after 2 secs"]
+		}
 	},
 	SPELLBOOK = {
-		name = _G.SPELLBOOK_ABILITIES_BUTTON,
+		name = L["Spell Book"],
 		icon = MER.Media.Icons.barSpellBook,
 		macro = {
 			LeftButton = "/click SpellbookMicroButton"
 		},
 		tooltips = {
-			_G.SPELLBOOK_ABILITIES_BUTTON
-		},
+			L["Spell Book"]
+		}
 	},
 	TALENTS = {
-		name = _G.TALENTS_BUTTON,
+		name = L["Talents"],
 		icon = MER.Media.Icons.barTalents,
 		macro = {
 			LeftButton = "/click TalentMicroButton"
 		},
 		tooltips = {
-			_G.TALENTS_BUTTON
-		},
+			L["Talents"]
+		}
 	},
 	TOY_BOX = {
 		name = L["Toy Box"],
@@ -507,7 +542,7 @@ local ButtonTypes = {
 		},
 		tooltips = {
 			L["Toy Box"]
-		},
+		}
 	},
 	VOLUME = {
 		name = L["Volume"],
@@ -539,7 +574,7 @@ local ButtonTypes = {
 			DT.tooltip:AddLine(ScrollButtonIcon .. " " .. L["Sound ON/OFF"], 1, 1, 1)
 			DT.tooltip:Show()
 
-			button.tooltipsUpdateTimer = C_Timer_NewTicker( 0.3, function()
+			button.tooltipsUpdateTimer = C_Timer_NewTicker(0.3, function()
 				local vol = C_CVar_GetCVar("Sound_MasterVolume")
 				vol = vol and tonumber(vol) or 0
 				DT.tooltip:ClearLines()
@@ -556,26 +591,31 @@ local ButtonTypes = {
 				button.tooltipsUpdateTimer:Cancel()
 			end
 		end
-	},
+	}
 }
-
-function module:ShowAdvancedBagsTooltip()
-	DT.RegisteredDataTexts["Gold"].onEnter()
-	DT.RegisteredDataTexts["Gold"].onLeave()
-end
 
 function module:ShowAdvancedTimeTooltip(panel)
 	DT.RegisteredDataTexts["Time"].onEnter()
 	DT.RegisteredDataTexts["Time"].onLeave()
+	-- DT.tooltip:ClearLines()
+	-- DT.tooltip:SetText(L["Time"])
+	-- DT.tooltip:AddLine("\n", 1, 1, 1)
+	-- DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Calendar"], 1, 1, 1)
+	-- DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Time Manager"], 1, 1, 1)
+	-- DT.tooltip:AddLine("\n")
+	-- DT.tooltip:AddLine(L["(Modifer Click) Collect Garbage"], unpack(E.media.rgbvaluecolor))
+	-- DT.tooltip:Show()
 end
 
 function module:ConstructBar()
-	if self.bar then return end
+	if self.bar then
+		return
+	end
 
-	local bar = CreateFrame("Frame", MER.Title .. "MicroBar", E.UIParent, 'BackdropTemplate')
+	local bar = CreateFrame("Frame", "MER_MicroBar", E.UIParent)
 	bar:SetSize(800, 60)
-	bar:SetPoint("TOP", 0, -19)
-	bar:SetFrameStrata("LOW")
+	bar:SetPoint("TOP", 0, -20)
+	bar:SetFrameStrata("MEDIUM")
 
 	bar:SetScript("OnEnter", function(bar)
 		if self.db and self.db.mouseOver then
@@ -617,7 +657,7 @@ function module:ConstructBar()
 
 	self.bar = bar
 
-	E:CreateMover(self.bar, 'MicroBarAnchor', L['MicroBar'], nil, nil, nil, 'ALL,MERATHILISUI', function() return module.db and module.db.enable end, 'mui,modules,microBar,general')
+	E:CreateMover(self.bar, "MicroBarAnchor", L["MicroBar"], nil, nil, nil, "ALL,MERATHILISUI", function() return module.db and module.db.enable end, "mui,modules,microBar,general")
 end
 
 function module:UpdateBar()
@@ -660,17 +700,23 @@ function module:ConstructTimeArea()
 
 	local text = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	F.SetFontDB(text, self.db.additionalText.font)
-	text:Point("TOP", self.bar, "BOTTOM", 0, -5)
-	text:SetAlpha(0)
+	text:SetPoint("TOP", self.bar, "BOTTOM", 0, -5)
+	text:SetAlpha(self.db.time.alwaysSystemInfo and 1 or 0)
 	self.bar.middlePanel.text = text
 
-	self.bar.middlePanel:Size(self.db.timeAreaWidth, self.db.timeAreaHeight)
+	self.bar.middlePanel:SetSize(self.db.timeAreaWidth, self.db.timeAreaHeight)
 
 	self:UpdateTimeFormat()
 	self:UpdateTime()
 	self.timeAreaUpdateTimer = C_Timer_NewTicker(self.db.time.interval, function() module:UpdateTime() end)
 
 	DT.RegisteredDataTexts["System"].onUpdate(self.bar.middlePanel, 10)
+
+	if self.db.time.alwaysSystemInfo then
+		self.alwaysSystemInfoTimer = C_Timer_NewTicker(1, function()
+			DT.RegisteredDataTexts["System"].onUpdate(self.bar.middlePanel, 10)
+		end)
+	end
 
 	self:HookScript(self.bar.middlePanel, "OnEnter", function(panel)
 		if self.db and self.db.mouseOver then
@@ -681,12 +727,15 @@ function module:ConstructTimeArea()
 
 		E:UIFrameFadeIn(panel.hourHover, self.db.fadeTime, panel.hourHover:GetAlpha(), 1)
 		E:UIFrameFadeIn(panel.minutesHover, self.db.fadeTime, panel.minutesHover:GetAlpha(), 1)
-		E:UIFrameFadeIn(panel.text, self.db.fadeTime, panel.text:GetAlpha(), 1)
 
-		if self.db.tooltipPosition == 'ANCHOR_BOTTOM' then
-			DT.tooltip:SetOwner(panel.text, 'ANCHOR_BOTTOM', 0, -5)
-		elseif self.db.tooltipPosition == 'ANCHOR_TOP' then
-			DT.tooltip:SetOwner(panel.text, 'ANCHOR_TOP', 0, 50)
+		if not self.db.time.alwaysSystemInfo then
+			E:UIFrameFadeIn(panel.text, self.db.fadeTime, panel.text:GetAlpha(), 1)
+		end
+
+		if self.db.tooltipsAnchor == "ANCHOR_TOP" then
+			DT.tooltip:SetOwner(panel, "ANCHOR_TOP", 0, 10)
+		else
+			DT.tooltip:SetOwner(panel.text, "ANCHOR_BOTTOM", 0, -10)
 		end
 
 		if IsModifierKeyDown() then
@@ -711,7 +760,9 @@ function module:ConstructTimeArea()
 		end
 		E:UIFrameFadeOut(panel.hourHover, self.db.fadeTime, panel.hourHover:GetAlpha(), 0)
 		E:UIFrameFadeOut(panel.minutesHover, self.db.fadeTime, panel.minutesHover:GetAlpha(), 0)
-		E:UIFrameFadeOut(panel.text, self.db.fadeTime, panel.text:GetAlpha(), 0)
+		if not self.db.time.alwaysSystemInfo then
+			E:UIFrameFadeOut(panel.text, self.db.fadeTime, panel.text:GetAlpha(), 0)
+		end
 
 		DT.RegisteredDataTexts["System"].onLeave()
 		DT.tooltip:Hide()
@@ -719,37 +770,38 @@ function module:ConstructTimeArea()
 	end)
 
 	self.bar.middlePanel:SetScript("OnClick", function(_, mouseButton)
-		if IsModifierKeyDown() then
-			DT.RegisteredDataTexts["System"].eventFunc()
-			DT.RegisteredDataTexts["System"].onEnter()
+		if IsShiftKeyDown() then
+			if IsControlKeyDown() then
+				C_CVar_SetCVar("scriptProfile", C_CVar_GetCVarBool("scriptProfile") and 0 or 1)
+				ReloadUI()
+			else
+				collectgarbage("collect")
+				ResetCPUUsage()
+				DT.RegisteredDataTexts["System"].eventFunc()
+				DT.RegisteredDataTexts["System"].onEnter()
+			end
 		elseif mouseButton == "LeftButton" then
-			if E.Retail or E.Wrath then
-				if not InCombatLockdown() then
-					ToggleCalendar()
-				end
-			elseif E.Classic or E.TBC then
-				return
+			if not InCombatLockdown() then
+				ToggleCalendar()
 			else
 				_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
 			end
 		elseif mouseButton == "RightButton" then
-			if E.Retail then
-				ToggleTimeManager()
-			elseif E.Classic then
-				ToggleFrame(_G.TimeManagerFrame)
-			end
+			ToggleTimeManager()
 		end
 	end)
 end
 
 function module:UpdateTimeTicker()
 	self.timeAreaUpdateTimer:Cancel()
-	self.timeAreaUpdateTimer = C_Timer_NewTicker(self.db.time.interval, function() module:UpdateTime() end)
+	self.timeAreaUpdateTimer = C_Timer_NewTicker(self.db.time.interval, function()
+		module:UpdateTime()
+	end)
 end
 
 function module:UpdateTimeFormat()
-	local normalColor = {r = 1, g = 1, b = 1}
-	local hoverColor = {r = 1, g = 1, b = 1}
+	local normalColor = { r = 1, g = 1, b = 1 }
+	local hoverColor = { r = 1, g = 1, b = 1 }
 
 	if self.db.normalColor == "CUSTOM" then
 		normalColor = self.db.customNormalColor
@@ -830,6 +882,21 @@ function module:UpdateTimeArea()
 		E:StopFlash(panel.colon)
 	end
 
+	if self.db.time.alwaysSystemInfo then
+		DT.RegisteredDataTexts["System"].onUpdate(panel, 10)
+		panel.text:SetAlpha(1)
+		if not self.alwaysSystemInfoTimer or self.alwaysSystemInfoTimer:IsCancelled() then
+			self.alwaysSystemInfoTimer = C_Timer_NewTicker(1, function()
+				DT.RegisteredDataTexts["System"].onUpdate(panel, 10)
+			end)
+		end
+	else
+		panel.text:SetAlpha(0)
+		if self.alwaysSystemInfoTimer and not self.alwaysSystemInfoTimer:IsCancelled() then
+			self.alwaysSystemInfoTimer:Cancel()
+		end
+	end
+
 	self:UpdateTime()
 end
 
@@ -839,10 +906,10 @@ function module:ButtonOnEnter(button)
 	end
 	E:UIFrameFadeIn(button.hoverTex, self.db.fadeTime, button.hoverTex:GetAlpha(), 1)
 	if button.tooltips then
-		if self.db.tooltipPosition == 'ANCHOR_BOTTOM' then
-			DT.tooltip:SetOwner(button, 'ANCHOR_BOTTOM', 0, -10)
-		elseif self.db.tooltipPosition == 'ANCHOR_TOP' then
-			DT.tooltip:SetOwner(button, 'ANCHOR_TOP', 0, 5)
+		if self.db.tooltipsAnchor == "ANCHOR_TOP" then
+			DT.tooltip:SetOwner(button, "ANCHOR_TOP", 0, 20)
+		else
+			DT.tooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -10)
 		end
 
 		if type(button.tooltips) == "table" then
@@ -866,9 +933,10 @@ function module:ButtonOnEnter(button)
 				DTModule.onEnter()
 			end
 
+			-- If ElvUI Datatext tooltip not shown, display a simple information (e.g. button name) to player
 			if not DT.tooltip:IsShown() then
 				DT.tooltip:ClearLines()
-				DT.tooltip:SetText(button.name or '')
+				DT.tooltip:SetText(button.name)
 				DT.tooltip:Show()
 			end
 		elseif type(button.tooltips) == "function" then
@@ -889,7 +957,9 @@ function module:ButtonOnLeave(button)
 end
 
 function module:ConstructButton()
-	if not self.bar then return end
+	if not self.bar then
+		return
+	end
 
 	local button = CreateFrame("Button", nil, self.bar, "SecureActionButtonTemplate")
 	button:SetSize(self.db.buttonSize, self.db.buttonSize)
@@ -907,14 +977,14 @@ function module:ConstructButton()
 	button.hoverTex = hoverTex
 
 	local notificationTex = button:CreateTexture(nil, "OVERLAY")
-	notificationTex:SetAtlas("hud-microbutton-communities-icon-notification")
-	notificationTex:SetPoint("TOPRIGHT", 4, 4)
-	notificationTex:SetSize(0.6 * self.db.buttonSize, 0.6 * self.db.buttonSize)
+	notificationTex:SetTexture(MER.Media.Icons.barNotification)
+	notificationTex:SetPoint("TOPRIGHT")
+	notificationTex:SetSize(0.38 * self.db.buttonSize, 0.38 * self.db.buttonSize)
 	button.notificationTex = notificationTex
 
 	local additionalText = button:CreateFontString(nil, "OVERLAY")
-	F.SetFontDB(additionalText, self.db.additionalText.font)
 	additionalText:SetPoint(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
+	F.SetFontDB(additionalText, self.db.additionalText.font)
 	additionalText:SetJustifyH("CENTER")
 	additionalText:SetJustifyV("CENTER")
 	button.additionalText = additionalText
@@ -926,7 +996,9 @@ function module:ConstructButton()
 end
 
 function module:UpdateButton(button, buttonType)
-	if InCombatLockdown() then return end
+	if InCombatLockdown() then
+		return
+	end
 
 	local config = ButtonTypes[buttonType]
 	button:SetSize(self.db.buttonSize, self.db.buttonSize)
@@ -935,7 +1007,14 @@ function module:UpdateButton(button, buttonType)
 	button.tooltips = config.tooltips
 	button.tooltipsLeave = config.tooltipsLeave
 
-	if config.macro then
+	-- Click
+	if buttonType == "HOME" and
+		(config.item.item1 == L["Random Hearthstone"] or config.item.item2 == L["Random Hearthstone"])
+	then
+		button:SetAttribute("type*", "macro")
+		self:HandleRandomHomeButton(button, "left", config.item.item1)
+		self:HandleRandomHomeButton(button, "right", config.item.item2)
+	elseif config.macro then
 		button:SetAttribute("type*", "macro")
 		button:SetAttribute("macrotext1", config.macro.LeftButton or "")
 		button:SetAttribute("macrotext2", config.macro.RightButton or config.macro.LeftButton or "")
@@ -944,6 +1023,7 @@ function module:UpdateButton(button, buttonType)
 			local func = mouseButton and config.click[mouseButton] or config.click.LeftButton
 			func(module.bar.middlePanel)
 		end
+
 		button:SetAttribute("type*", "click")
 		button:SetAttribute("clickbutton", button)
 	elseif config.item then
@@ -952,6 +1032,7 @@ function module:UpdateButton(button, buttonType)
 		button:SetAttribute("item2", config.item.item2 or "")
 	end
 
+	-- Normal
 	local r, g, b = 1, 1, 1
 	if self.db.normalColor == "CUSTOM" then
 		r = self.db.customNormalColor.r
@@ -970,6 +1051,7 @@ function module:UpdateButton(button, buttonType)
 	button.normalTex:SetSize(self.db.buttonSize, self.db.buttonSize)
 	button.normalTex:SetVertexColor(r, g, b)
 
+	-- Mouseover
 	r, g, b = 1, 1, 1
 	if self.db.hoverColor == "CUSTOM" then
 		r = self.db.customHoverColor.r
@@ -988,6 +1070,7 @@ function module:UpdateButton(button, buttonType)
 	button.hoverTex:SetSize(self.db.buttonSize, self.db.buttonSize)
 	button.hoverTex:SetVertexColor(r, g, b)
 
+	-- Additional text
 	if button.registeredEvents then
 		for _, event in pairs(button.registeredEvents) do
 			button:UnregisterEvent(event)
@@ -1002,10 +1085,10 @@ function module:UpdateButton(button, buttonType)
 		button.additionalTextTimer:Cancel()
 	end
 
-	button.additionalTextFormat = F.CreateColorString("%s", {r = r, g = g, b = b})
+	button.additionalTextFormat = F.CreateColorString("%s", { r = r, g = g, b = b })
 
 	if config.additionalText and self.db.additionalText.enable then
-		button.additionalText:SetFormattedText(button.additionalTextFormat, config.additionalText and config.additionalText() or "")
+		button.additionalText:SetFormattedText( button.additionalTextFormat, config.additionalText and config.additionalText() or "")
 
 		if config.events and config.eventHandler then
 			button:SetScript("OnEvent", config.eventHandler)
@@ -1030,10 +1113,20 @@ function module:UpdateButton(button, buttonType)
 	end
 
 	button.notificationTex:Hide()
+	if config.notification then
+		if config.notificationColor then
+			local c = config.notificationColor
+			button.notificationTex:SetVertexColor(c.r, c.g, c.b, c.a)
+		else
+			button.notificationTex:SetVertexColor(r, g, b, 1)
+		end
+	end
 end
 
 function module:ConstructButtons()
-	if self.buttons then return end
+	if self.buttons then
+		return
+	end
 
 	self.buttons = {}
 	for i = 1, NUM_PANEL_BUTTONS * 2 do
@@ -1051,23 +1144,13 @@ end
 
 function module:UpdateLayout()
 	if self.db.backdrop then
-		if self.bar.leftPanel.backdrop then self.bar.leftPanel.backdrop:Show() end
-		if self.bar.middlePanel.backdrop then self.bar.middlePanel.backdrop:Show() end
-		if self.bar.rightPanel.backdrop then self.bar.rightPanel.backdrop:Show() end
+		self.bar.leftPanel.backdrop:Show()
+		self.bar.middlePanel.backdrop:Show()
+		self.bar.rightPanel.backdrop:Show()
 	else
-		if self.bar.leftPanel.backdrop then self.bar.leftPanel.backdrop:Hide() end
-		if self.bar.middlePanel.backdrop then self.bar.middlePanel.backdrop:Hide() end
-		if self.bar.rightPanel.backdrop then self.bar.rightPanel.backdrop:Hide() end
-	end
-
-	if self.db.shadow then
-		if self.bar.leftPanel.backdrop.MERshadow then self.bar.leftPanel.backdrop.MERshadow:Show() end
-		if self.bar.middlePanel.backdrop.MERshadow then self.bar.middlePanel.backdrop.MERshadow:Show() end
-		if self.bar.rightPanel.backdrop.MERshadow then self.bar.rightPanel.backdrop.MERshadow:Show() end
-	else
-		if self.bar.leftPanel.backdrop.MERshadow then self.bar.leftPanel.backdrop.MERshadow:Hide() end
-		if self.bar.middlePanel.backdrop.MERshadow then self.bar.middlePanel.backdrop.MERshadow:Hide() end
-		if self.bar.rightPanel.backdrop.MERshadow then self.bar.rightPanel.backdrop.MERshadow:Hide() end
+		self.bar.leftPanel.backdrop:Hide()
+		self.bar.middlePanel.backdrop:Hide()
+		self.bar.rightPanel.backdrop:Hide()
 	end
 
 	local numLeftButtons, numRightButtons = 0, 0
@@ -1095,11 +1178,12 @@ function module:UpdateLayout()
 	else
 		self.bar.leftPanel:Show()
 		local panelWidth =
-			self.db.backdropSpacing * 2 + (numLeftButtons - 1) * self.db.spacing + numLeftButtons * self.db.buttonSize
+		self.db.backdropSpacing * 2 + (numLeftButtons - 1) * self.db.spacing + numLeftButtons * self.db.buttonSize
 		local panelHeight = self.db.backdropSpacing * 2 + self.db.buttonSize
 		self.bar.leftPanel:SetSize(panelWidth, panelHeight)
 	end
 
+	-- Right Panel
 	lastButton = nil
 	for i = 1, NUM_PANEL_BUTTONS do
 		local button = self.buttons[i + NUM_PANEL_BUTTONS]
@@ -1123,13 +1207,15 @@ function module:UpdateLayout()
 	else
 		self.bar.rightPanel:Show()
 		local panelWidth =
-			self.db.backdropSpacing * 2 + (numRightButtons - 1) * self.db.spacing + numRightButtons * self.db.buttonSize
+		self.db.backdropSpacing * 2 + (numRightButtons - 1) * self.db.spacing + numRightButtons * self.db.buttonSize
 		local panelHeight = self.db.backdropSpacing * 2 + self.db.buttonSize
 		self.bar.rightPanel:SetSize(panelWidth, panelHeight)
 	end
 
+	-- Time Panel
 	self.bar.middlePanel:SetSize(self.db.timeAreaWidth, self.db.timeAreaHeight)
 
+	-- Update the size of moveable zones
 	local areaWidth = 20 + self.bar.middlePanel:GetWidth()
 	local leftWidth = self.bar.leftPanel:IsShown() and self.bar.leftPanel:GetWidth() or 0
 	local rightWidth = self.bar.rightPanel:IsShown() and self.bar.rightPanel:GetWidth() or 0
@@ -1149,13 +1235,110 @@ function module:PLAYER_REGEN_ENABLED()
 end
 
 function module:PLAYER_ENTERING_WORLD()
-	C_Timer_After(1, function()
+	E:Delay(1, function()
 		if InCombatLockdown() then
 			self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		else
 			self:ProfileUpdate()
 		end
 	end)
+end
+
+function module:UpdateReknown()
+	local covenantID = C_Covenants_GetActiveCovenantID()
+	if not covenantID or covenantID == 0 then
+		return
+	end
+
+	if not self.covenantCache[E.myrealm] then
+		self.covenantCache[E.myrealm] = {}
+	end
+
+	if not self.covenantCache[E.myrealm][E.myname] then
+		self.covenantCache[E.myrealm][E.myname] = {}
+	end
+
+	local renownLevel = C_CovenantSanctumUI_GetRenownLevel()
+	if renownLevel then
+		self.covenantCache[E.myrealm][E.myname][tostring(covenantID)] = renownLevel
+	end
+end
+
+function module:Initialize()
+	if not E.Retail then
+		return
+	end
+
+	self.db = E.db.mui.microBar
+	self.covenantCache = E.global.mui.microBar.covenantCache
+
+	if not self.db or not self.db.enable then
+		return
+	end
+
+	if InCombatLockdown() then
+		self:RegisterEvent("PLAYER_REGEN_ENABLED")
+		return
+	end
+
+	for name, vDT in pairs(VirtualDT) do
+		if DT.RegisteredDataTexts[name] and DT.RegisteredDataTexts[name].applySettings then
+			DT.RegisteredDataTexts[name].applySettings(vDT, E.media.hexvaluecolor)
+		end
+	end
+
+	self:UpdateReknown()
+	self:UpdateHearthStoneTable()
+	self:ConstructBar()
+	self:ConstructTimeArea()
+	self:ConstructButtons()
+	self:UpdateTimeArea()
+	self:UpdateButtons()
+	self:UpdateLayout()
+	self:UpdateBar()
+	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self:RegisterEvent("COVENANT_CHOSEN", function()
+		E:Delay(3, function()
+			self:UpdateReknown()
+			self:UpdateHearthStoneTable()
+			self:UpdateBar()
+		end)
+	end)
+
+	self:SecureHook(_G.GuildMicroButton, "UpdateNotificationIcon", "UpdateGuildButton")
+	self.initialized = true
+end
+
+function module:ProfileUpdate()
+	self.db = E.db.mui.microBar
+	if not self.db then
+		return
+	end
+
+	if self.db.enable then
+		if self.initialized then
+			self.bar:Show()
+			self:UpdateHomeButton()
+			self:UpdateTimeFormat()
+			self:UpdateTimeArea()
+			self:UpdateTime()
+			self:UpdateButtons()
+			self:UpdateLayout()
+			self:UpdateBar()
+		else
+			if InCombatLockdown() then
+				self:RegisterEvent("PLAYER_REGEN_ENABLED")
+				return
+			else
+				self:Initialize()
+			end
+		end
+	else
+		if self.initialized then
+			UnregisterStateDriver(self.bar, "visibility")
+			self.bar:Hide()
+		end
+	end
 end
 
 function module:UpdateGuildButton()
@@ -1176,30 +1359,81 @@ function module:UpdateGuildButton()
 	end
 end
 
+function module:HandleRandomHomeButton(button, mouseButton, item)
+	if not button or not mouseButton or not item or not availableHearthstones then
+		return
+	end
+
+	local attribute = mouseButton == "right" and "macrotext2" or "macrotext1"
+	local macro = "/use " .. item
+
+	if item == L["Random Hearthstone"] then
+		if #availableHearthstones > 0 then
+			macro = "/castrandom " .. strjoin(",", unpack(availableHearthstones))
+		else
+			macro = '/run UIErrorsFrame:AddMessage("' .. L["No Hearthstone Found!"] .. '", 1, 0, 0)'
+		end
+	end
+
+	button:SetAttribute(attribute, macro)
+end
+
 function module:UpdateHomeButton()
 	ButtonTypes.HOME.item = {
-		item1 = HearthstonesTable[self.db.home.left],
-		item2 = HearthstonesTable[self.db.home.right]
+		item1 = hearthstonesAndToysData[self.db.home.left],
+		item2 = hearthstonesAndToysData[self.db.home.right]
 	}
 end
 
 function module:UpdateHearthStoneTable()
-	HearthstonesTable = {}
+	hearthstonesAndToysData = { ["RANDOM"] = L["Random Hearthstone"] }
+
+	local hearthstonesTable = {}
+	for i = 1, #hearthstones do
+		local itemID = hearthstones[i]
+		hearthstonesTable[itemID] = true
+	end
+
+	local specialHearthstones = {
+		[1] = 184353,
+		[2] = 183716,
+		[3] = 180290,
+		[4] = 182773
+	}
+
+	for i = 1, 4 do
+		local level = self.covenantCache[E.myrealm] and self.covenantCache[E.myrealm][E.myname] and self.covenantCache[E.myrealm][E.myname][tostring(i)]
+		local toyID = specialHearthstones[i]
+		local hasToy = PlayerHasToy(toyID) and C_ToyBox_IsToyUsable(toyID)
+
+		-- here we don't check the current active covenant.
+		-- because `/castrandom` cannot the current active covenant hearthstone.
+		hearthstonesTable[toyID] = (hasToy and level and level == 60) and true or false
+	end
+
+	availableHearthstones = {}
 
 	local index = 0
 	local itemEngine = CreateFromMixins(ItemMixin)
 
 	local function GetNextHearthStoneInfo()
 		index = index + 1
-		if Hearthstones[index] then
-			itemEngine:SetItemID(Hearthstones[index])
+		if hearthstoneAndToyIDList[index] then
+			itemEngine:SetItemID(hearthstoneAndToyIDList[index])
 			itemEngine:ContinueOnItemLoad(function()
-				HearthstonesTable[tostring(Hearthstones[index])] = itemEngine:GetItemName()
+				local id = itemEngine:GetItemID()
+				if hearthstonesTable[id] then
+					if GetItemCount(id) >= 1 or PlayerHasToy(id) and C_ToyBox_IsToyUsable(id) then
+						tinsert(availableHearthstones, id)
+					end
+				end
+
+				hearthstonesAndToysData[tostring(hearthstoneAndToyIDList[index])] = itemEngine:GetItemName()
 				GetNextHearthStoneInfo()
 			end)
 		else
 			self:UpdateHomeButton()
-			if self.Initialized then
+			if self.initialized then
 				self:UpdateButtons()
 			end
 		end
@@ -1209,7 +1443,7 @@ function module:UpdateHearthStoneTable()
 end
 
 function module:GetHearthStoneTable()
-	return HearthstonesTable
+	return hearthstonesAndToysData
 end
 
 function module:GetAvailableButtons()
@@ -1220,66 +1454,6 @@ function module:GetAvailableButtons()
 	end
 
 	return buttons
-end
-
-function module:Initialize()
-	self.db = E.db.mui.microBar
-	if not self.db or not self.db.enable then
-		return
-	end
-
-	if InCombatLockdown() then
-		self:RegisterEvent("PLAYER_REGEN_ENABLED")
-		return
-	end
-
-	self:UpdateHearthStoneTable()
-	self:ConstructBar()
-	self:ConstructTimeArea()
-	self:ConstructButtons()
-	self:UpdateTimeArea()
-	self:UpdateButtons()
-	self:UpdateLayout()
-	self:UpdateBar()
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-
-	if E.Retail then
-		self:SecureHook(_G.GuildMicroButton, "UpdateNotificationIcon", "UpdateGuildButton")
-	end
-
-	self.Initialized = true
-end
-
-function module:ProfileUpdate()
-	self.db = E.db.mui.microBar
-	if not self.db then
-		return
-	end
-
-	if self.db.enable then
-		if self.Initialized then
-			self.bar:Show()
-			self:UpdateHomeButton()
-			self:UpdateTimeFormat()
-			self:UpdateTimeArea()
-			self:UpdateTime()
-			self:UpdateButtons()
-			self:UpdateLayout()
-			self:UpdateBar()
-		else
-			if InCombatLockdown() then
-				self:RegisterEvent("PLAYER_REGEN_ENABLED")
-				return
-			else
-				self:Initialize()
-			end
-		end
-	else
-		if self.Initialized then
-			UnregisterStateDriver(self.bar, "visibility")
-			self.bar:Hide()
-		end
-	end
 end
 
 MER:RegisterModule(module:GetName())

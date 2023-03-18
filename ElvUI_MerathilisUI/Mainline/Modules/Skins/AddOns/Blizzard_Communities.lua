@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -157,6 +157,29 @@ local function LoadSkin()
 	end
 
 	hooksecurefunc("GuildNewsButton_SetText", ModifyGuildNews)
+
+	hooksecurefunc(CommunitiesFrame.GuildBenefitsFrame.Rewards.ScrollBox, "Update", function(button)
+		for _, child in next, { button.ScrollTarget:GetChildren() } do
+			if not child.IsSkinned then
+				S:HandleIcon(child.Icon, true)
+				child:StripTextures()
+				child:CreateBackdrop("Transparent")
+				child.backdrop:ClearAllPoints()
+				child.backdrop:Point("TOPLEFT", child.Icon.backdrop)
+				child.backdrop:Point("BOTTOMLEFT", child.Icon.backdrop)
+				child.backdrop:SetWidth(child:GetWidth() - 5)
+				child.IsSkinned = true
+			end
+
+			if not child.__MERSkin then
+				child.backdrop:ClearAllPoints()
+				child.backdrop:Point("TOPLEFT", child.Icon.backdrop, -7, 5)
+				child.backdrop:Point("BOTTOMLEFT", child.Icon.backdrop, -7, -5)
+				child.backdrop:SetWidth(child:GetWidth() + 9)
+				child.__MERSkin = true
+			end
+		end
+	end)
 
 	local BossModel = _G.CommunitiesFrameGuildDetailsFrameNews.BossModel
 	module:CreateShadow(BossModel)

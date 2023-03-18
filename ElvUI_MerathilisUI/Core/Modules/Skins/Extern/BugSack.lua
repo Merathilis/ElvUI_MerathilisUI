@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 if not IsAddOnLoaded("BugSack") then return; end
@@ -136,7 +136,7 @@ function module:BugSack()
 
 	module:SecureHookScript(_G.BugSack.frame, "OnShow", "BugSack_InterfaceOptionOnShow")
 	module:SecureHook(_G.BugSack, "OpenSack", "BugSack_OpenSack")
-	module:DisableAddOnSkin("BugSack")
+	module:DisableAddOnSkins("BugSack", false)
 end
 
 module:AddCallbackForAddon("BugSack")

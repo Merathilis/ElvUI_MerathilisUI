@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_LFGInfo')
 local TT = MER:GetModule('MER_Tooltip')
 local UF = E:GetModule("UnitFrames")

@@ -2,6 +2,7 @@
 	<Script file="AlreadyKnown.lua"/>
 	<Script file="BossBanner.lua"/>
 	<Script file="LfgInfo.lua"/>
+	<Script file="MissingStats.lua"/>
 	<Script file="QuickMenu.lua"/>
 	<Script file="RandomToy.lua"/>
 	<Script file="TradeTabs.lua"/>

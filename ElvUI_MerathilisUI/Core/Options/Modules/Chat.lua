@@ -1,7 +1,7 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local options = MER.options.modules.args
 local module = MER:GetModule('MER_Chat')
 local CH = E:GetModule('Chat')
-local options = MER.options.modules.args
 local CB = MER:GetModule('MER_ChatBar')
 local CL = MER:GetModule('MER_ChatLink')
 local LSM = E.LSM
@@ -15,40 +15,87 @@ options.chat = {
 	set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 	args = {
 		header = {
-			order = 1,
+			order = 0,
 			type = "header",
 			name = F.cOption(L["Chat"], 'orange'),
 		},
-		chatButton = {
-			order = 2,
-			type = "toggle",
-			name = L["Chat Menu"],
-			desc = L["Create a chat button to increase the chat size."],
-		},
-		hidePlayerBrackets = {
-			order = 3,
-			type = "toggle",
-			name = L["Hide Player Brackets"],
-			desc = L["Removes brackets around the person who posts a chat message."],
-		},
-		hideChat = {
-			order = 4,
-			type = "toggle",
-			name = L["Hide Community Chat"],
-			desc = L["Adds an overlay to the Community Chat. Useful for streamers."],
-		},
-		emotes = {
-			order = 5,
-			type = "toggle",
-			name = L["Emotes"],
-		},
-		customOnlineMessage = {
-			order = 6,
-			type = "toggle",
-			name = L["Custom Online Message"],
+		general = {
+			order = 1,
+			type = "group",
+			name = F.cOption(L["General"], 'orange'),
+			inline = true,
+			args = {
+				chatButton = {
+					order = 1,
+					type = "toggle",
+					name = L["Chat Menu"],
+					desc = L["Create a chat button to increase the chat size."],
+				},
+				removeBrackets = {
+					order = 2,
+					type = "toggle",
+					name = L["Hide Player Brackets"],
+					desc = L["Removes brackets around the person who posts a chat message."],
+				},
+				removeRealm = {
+					order = 2,
+					type = "toggle",
+					name = E.NewSign..L["Hide Player Realm"],
+				},
+				hideChat = {
+					order = 4,
+					type = "toggle",
+					name = L["Hide Community Chat"],
+					desc = L["Adds an overlay to the Community Chat. Useful for streamers."],
+				},
+				emotes = {
+					order = 5,
+					type = "toggle",
+					name = L["Emotes"],
+				},
+				guildMemberStatus = {
+					order = 6,
+					type = "toggle",
+					name = E.NewSign..L["Guild Member Status"],
+					desc = L["Adds an icon and the corresponding class color name to the guild member status change message for improved visual clarity."],
+				},
+				guildMemberStatusInviteLink = {
+					order = 7,
+					type = "toggle",
+					name = E.NewSign..L["Online Invite Link"],
+					desc = L["Add an invite link to the guild member online message."],
+					disabled = function()
+						return not E.db.mui.chat.guildMemberStatus
+					end
+				},
+				mergeAchievement = {
+					order = 8,
+					type = "toggle",
+					name = E.NewSign..L["Merge Achievement"],
+					desc = L["Merge the achievement message into one line."],
+				},
+				classIconStyle = {
+					order = 9,
+					type = "select",
+					name = E.NewSign..L["Class Icon Style"],
+					desc = L["Select the style of class icon."],
+					values = function()
+						local v = {}
+						for _, style in pairs(F.GetClassIconStyleList()) do
+							local monkSample = F.GetClassIconStringWithStyle("MONK", style, 16, 16)
+							local druidSample = F.GetClassIconStringWithStyle("DRUID", style, 16, 16)
+							local paladinSample = F.GetClassIconStringWithStyle("PALADIN", style, 16, 16)
+
+							local sample = monkSample .. " " .. druidSample .. " " .. paladinSample
+							v[style] = sample
+						end
+						return v
+					end
+				},
+			},
 		},
 		seperators = {
-			order = 10,
+			order = 11,
 			type = "group",
 			name = F.cOption(L["Seperators"], 'orange'),
 			guiInline = true,
@@ -735,6 +782,12 @@ do
 	SampleStrings.elvui = icons
 
 	icons = ""
+	icons = icons .. module.cache.blizzardRoleIcons.Tank .. " "
+	icons = icons .. module.cache.blizzardRoleIcons.Healer .. " "
+	icons = icons .. module.cache.blizzardRoleIcons.DPS
+	SampleStrings.blizzard = icons
+
+	icons = ""
 	icons = icons .. E:TextureString(MER.Media.Textures.customTank, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.customHeal, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.customDPS, ":16:16")
@@ -747,12 +800,6 @@ do
 	SampleStrings.glow = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedHeal, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedDPS, ":16:16")
-	SampleStrings.graved = icons
-
-	icons = ""
 	icons = icons .. E:TextureString(MER.Media.Textures.mainTank, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.mainHeal, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.mainDPS, ":16:16")
@@ -763,10 +810,16 @@ do
 	icons = icons .. E:TextureString(MER.Media.Textures.whiteHeal, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.whiteDPS, ":16:16")
 	SampleStrings.white = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(MER.Media.Textures.materialTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.materialHeal, ":16:16") .. " "
+	icons = icons .. E:TextureString(MER.Media.Textures.materialDPS, ":16:16")
+	SampleStrings.material = icons
 end
 
 options.chat.args.roleIcons = {
-	order = 7,
+	order = 10,
 	type = "group",
 	name = F.cOption(L["Role Icons"], "orange"),
 	guiInline = true,
@@ -790,15 +843,16 @@ options.chat.args.roleIcons = {
 			type = "select",
 			name = L["Style"],
 			values = {
-				DEFAULT = SampleStrings.elvui,
 				SUNUI = SampleStrings.sunui,
 				LYNUI = SampleStrings.lynui,
 				SVUI = SampleStrings.svui,
 				CUSTOM = SampleStrings.custom,
 				GLOW = SampleStrings.glow,
-				GRAVED = SampleStrings.graved,
 				MAIN = SampleStrings.main,
 				WHITE = SampleStrings.white,
+				MATERIAL = SampleStrings.material,
+				BLIZZARD = SampleStrings.blizzard,
+				DEFAULT = SampleStrings.elvui
 			}
 		},
 		roleIconSize = {

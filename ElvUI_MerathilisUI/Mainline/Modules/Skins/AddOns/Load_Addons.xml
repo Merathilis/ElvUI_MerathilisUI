@@ -49,6 +49,7 @@
 	<Script file="Blizzard_ObjectiveTracker.lua"/>
 	<Script file="Misc.lua"/>
 	<Script file="Blizzard_OrderHallUI.lua"/>
+	<Script file="Blizzard_PerksProgram.lua"/>
 	<Script file="Blizzard_PlayerChoice.lua"/>
 	<Script file="Blizzard_Professions.lua"/>
 	<Script file="Blizzard_ProfessionsCustomerOrders.lua"/>

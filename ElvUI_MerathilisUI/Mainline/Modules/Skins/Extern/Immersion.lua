@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -100,7 +100,7 @@ function module:Immersion()
 		return
 	end
 
-	module:DisableAddOnSkin("Immersion")
+	module:DisableAddOnSkins("Immersion", false)
 
 	local frame = _G.ImmersionFrame
 

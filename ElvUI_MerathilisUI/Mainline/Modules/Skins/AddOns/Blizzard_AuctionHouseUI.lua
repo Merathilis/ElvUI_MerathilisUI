@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
@@ -34,6 +34,7 @@ local function LoadSkin()
 	local tabs = {_G.AuctionHouseFrameBuyTab, _G.AuctionHouseFrameSellTab, _G.AuctionHouseFrameAuctionsTab}
 	for _, tab in pairs(tabs) do
 		if tab then
+			module:ReskinTab(tab)
 			module:CreateBackdropShadow(tab)
 		end
 	end

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_AutoButtons')
 local options = MER.options.modules.args
 local async = MER.Utilities.Async
@@ -81,14 +81,11 @@ options.autoButtons = {
 						local list = E.db.mui.autoButtons.customList
 						local result = {}
 						for key, value in pairs(list) do
-							async.WithItemID(
-								value,
-								function(item)
-									local name = item:GetItemName() or L["Unknown"]
-									local tex = item:GetItemIcon()
-									result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
-								end
-							)
+							async.WithItemID(value, function(item)
+								local name = item:GetItemName() or L["Unknown"]
+								local tex = item:GetItemIcon()
+								result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
+							end)
 						end
 						return result
 					end
@@ -146,14 +143,11 @@ options.autoButtons = {
 					values = function()
 						local result = {}
 						for key in pairs(E.db.mui.autoButtons.blackList) do
-							async.WithItemID(
-								key,
-								function(item)
-									local name = item:GetItemName() or L["Unknown"]
-									local tex = item:GetItemIcon()
-									result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
-								end
-							)
+							async.WithItemID(key, function(item)
+								local name = item:GetItemName() or L["Unknown"]
+								local tex = item:GetItemIcon()
+								result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
+							end)
 						end
 						return result
 					end

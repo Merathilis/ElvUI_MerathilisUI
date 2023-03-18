@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_ObjectiveTracker')
 local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM or E.Libs.LSM
@@ -39,19 +39,13 @@ local function SetTextColorHook(text)
 		local SetTextColorOld = text.SetTextColor
 		text.SetTextColor = function(self, r, g, b, a)
 			if
-				r == _G.OBJECTIVE_TRACKER_COLOR["Header"].r and g == _G.OBJECTIVE_TRACKER_COLOR["Header"].g and
-					b == _G.OBJECTIVE_TRACKER_COLOR["Header"].b
-			 then
+				r == _G.OBJECTIVE_TRACKER_COLOR["Header"].r and g == _G.OBJECTIVE_TRACKER_COLOR["Header"].g and b == _G.OBJECTIVE_TRACKER_COLOR["Header"].b then
 				if module.db and module.db.enable and module.db.titleColor and module.db.titleColor.enable then
 					r = module.db.titleColor.classColor and classColor.r or module.db.titleColor.customColorNormal.r
 					g = module.db.titleColor.classColor and classColor.g or module.db.titleColor.customColorNormal.g
 					b = module.db.titleColor.classColor and classColor.b or module.db.titleColor.customColorNormal.b
 				end
-			elseif
-				r == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].r and
-					g == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].g and
-					b == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].b
-			 then
+			elseif r == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].r and g == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].g and b == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].b then
 				if module.db and module.db.enable and module.db.titleColor and module.db.titleColor.enable then
 					r = module.db.titleColor.classColor and classColor.r or module.db.titleColor.customColorHighlight.r
 					g = module.db.titleColor.classColor and classColor.g or module.db.titleColor.customColorHighlight.g
@@ -112,40 +106,10 @@ function module:CosmeticBar(header)
 	if self.db.cosmeticBar.color.mode == "CLASS" then
 		bar:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	elseif self.db.cosmeticBar.color.mode == "NORMAL" then
-		bar:SetVertexColor(
-			self.db.cosmeticBar.color.normalColor.r,
-			self.db.cosmeticBar.color.normalColor.g,
-			self.db.cosmeticBar.color.normalColor.b,
-			self.db.cosmeticBar.color.normalColor.a
-		)
+		bar:SetVertexColor(self.db.cosmeticBar.color.normalColor.r, self.db.cosmeticBar.color.normalColor.g, self.db.cosmeticBar.color.normalColor.b, self.db.cosmeticBar.color.normalColor.a)
 	elseif self.db.cosmeticBar.color.mode == "GRADIENT" then
 		bar:SetVertexColor(1, 1, 1, 1)
-		if MER.IsNewPatch then
-			bar:SetGradient(
-				"HORIZONTAL", CreateColor(
-				self.db.cosmeticBar.color.gradientColor1.r,
-				self.db.cosmeticBar.color.gradientColor1.g,
-				self.db.cosmeticBar.color.gradientColor1.b,
-				self.db.cosmeticBar.color.gradientColor1.a),
-				CreateColor(
-				self.db.cosmeticBar.color.gradientColor2.r,
-				self.db.cosmeticBar.color.gradientColor2.g,
-				self.db.cosmeticBar.color.gradientColor2.b,
-				self.db.cosmeticBar.color.gradientColor2.a)
-			)
-		else
-			bar:SetGradientAlpha(
-				"HORIZONTAL",
-					self.db.cosmeticBar.color.gradientColor1.r,
-					self.db.cosmeticBar.color.gradientColor1.g,
-					self.db.cosmeticBar.color.gradientColor1.b,
-					self.db.cosmeticBar.color.gradientColor1.a,
-					self.db.cosmeticBar.color.gradientColor2.r,
-					self.db.cosmeticBar.color.gradientColor2.g,
-					self.db.cosmeticBar.color.gradientColor2.b,
-					self.db.cosmeticBar.color.gradientColor2.a
-			)
-		end
+		bar:SetGradient("HORIZONTAL", CreateColor(self.db.cosmeticBar.color.gradientColor1.r, self.db.cosmeticBar.color.gradientColor1.g, self.db.cosmeticBar.color.gradientColor1.b, self.db.cosmeticBar.color.gradientColor1.a), CreateColor(self.db.cosmeticBar.color.gradientColor2.r, self.db.cosmeticBar.color.gradientColor2.g, self.db.cosmeticBar.color.gradientColor2.b, self.db.cosmeticBar.color.gradientColor2.a))
 	end
 
 	bar.backdrop:SetAlpha(self.db.cosmeticBar.borderAlpha)
@@ -231,6 +195,15 @@ function module:HandleMenuText(text)
 end
 
 function module:HandleInfoText(text)
+	-- Sometimes Blizzard not use dash icon, just put a dash in front of text
+	if self.db.noDash and text and text.GetText then
+		rawText = text:GetText()
+
+		if rawText and rawText ~= "" and strfind(rawText, "^%- ") then
+			text:SetText(gsub(rawText, "^%- ", ""))
+		end
+	end
+
 	self:ColorfulProgression(text)
 	F.SetFontDB(text, self.db.info)
 	text:SetHeight(text:GetStringHeight())
@@ -271,6 +244,14 @@ function module:ChangeQuestFontStyle(_, block)
 		else
 			self:HandleInfoText(block.currentLine.Text)
 		end
+	end
+
+	local check = block.currentLine and block.currentLine.check
+	if check and not check.IsSkinned then
+		check:SetAtlas('checkmark-minimal')
+		check:SetDesaturated(true)
+		check:SetVertexColor(0, 1, 0)
+		check.IsSkinned = true
 	end
 end
 
@@ -390,7 +371,7 @@ function module:Initialize()
 			_G.QUEST_TRACKER_MODULE,
 			_G.ACHIEVEMENT_TRACKER_MODULE,
 			_G.PROFESSION_RECIPE_TRACKER_MODULE,
-			-- _G.MONTHLY_ACTIVITIES_TRACKER_MODULE, -- 10.0.5
+			_G.MONTHLY_ACTIVITIES_TRACKER_MODULE,
 		}
 
 		for _, module in pairs(trackerModules) do

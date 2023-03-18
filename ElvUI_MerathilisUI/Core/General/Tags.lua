@@ -1,11 +1,11 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local ElvUF = E.oUF
 assert(ElvUF, "ElvUI was unable to locate oUF.")
 local Translit = E.Libs.Translit
 local translitMark = "!"
 
 local abs, ceil, type, tonumber = math.abs, ceil, type, tonumber
-local format, gsub, gmatch = string.format, string.gsub, string.gmatch
+local format, gsub, gmatch, len = string.format, string.gsub, string.gmatch, string.len
 local strfind, strmatch, strsplit, utf8lower, utf8sub, utf8len = strfind, strmatch, strsplit, string.utf8lower, string.utf8sub, string.utf8len
 
 local UnitIsDead = UnitIsDead
@@ -130,6 +130,31 @@ E:AddTag('name:abbrev-translit', 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNI
 	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
 end)
 
+E:AddTag('name:gradient', 'UNIT_NAME_UPDATE', function(unit)
+	local name = UnitName(unit)
+	local _, unitClass = UnitClass(unit)
+	if name and len(name) > 10 then
+		name = name:gsub('(%S+) ', function(t) return t:utf8sub(1, 1) .. '. ' end)
+	end
+
+	if UnitIsPlayer(unit) then
+		return F.GradientName(name, unitClass)
+	elseif not UnitIsPlayer(unit) then
+		local reaction = UnitReaction(unit, 'player')
+		if reaction then
+			if reaction >= 5 then
+				return F.GradientName(name, 'NPCFRIENDLY')
+			elseif reaction == 4 then
+				return F.GradientName(name, 'NPCNEUTRAL')
+			elseif reaction == 3 then
+				return F.GradientName(name, 'NPCUNFRIENDLY')
+			elseif reaction == 2 or reaction == 1 then
+				return F.GradientName(name, 'NPCHOSTILE')
+			end
+		end
+	end
+end)
+
 -- Class Icons
 for index, style in pairs(F.GetClassIconStyleList()) do
 	E:AddTag("classicon-" .. style, "UNIT_NAME_UPDATE", function(unit)
@@ -150,3 +175,4 @@ E:AddTagInfo("health:current-mUI", MER.Title, "Displays current HP (2.04B, 2.04M
 E:AddTagInfo("power:current-mUI", MER.Title, "Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag")
 E:AddTagInfo("mUI-resting", MER.Title, "Displays a text if the player is in a resting area = zZz")
 E:AddTagInfo("name:abbrev-translit", MER.Title, "Displays a shorten name and will convert cyrillics. Игорь = !Igor")
+E:AddTagInfo("name:gradient", MER.Title, "Displays a shorten name in classcolor or reaction color")

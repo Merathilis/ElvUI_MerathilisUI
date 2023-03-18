@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local S = E:GetModule("Skins")
 
 local format, gmatch, gsub, find, sub = string.format, string.gmatch, string.gsub, string.find, string.sub
@@ -12,9 +12,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Wrath: Drop cargBags support. Please reenable the ElvUI Bags",
-		"• Wrath: Fixed an error on CooldownFlash",
-		"• Retail: Fixed an error on the Auctionator Skin",
+		"• IMPORTANT: Removed Armory Mode on Retail, it had some critical performance issues",
+		"• Added a Missing Stats Option under Misc to add all Stats to the Character Panel",
+		"• Updated Character Skin to match a bit the old armory look",
+		"• Updated Friendslist code",
+
 		" ",
 
 	"Notes:",

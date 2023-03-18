@@ -170,6 +170,8 @@ L["Weapon Category"] = "Waffenkategorie"
 L["Filters some messages out of your chat, that some Spam AddOns use."] = "Filtert einige Nachrichten von Spam AddOns aus deinem Chat."
 L["Display the level of the item on the item link."] = "Zeige die Stufe des Gegenstands auf dem Gegenstandslink an."
 L["Numberical Quality Tier"] = "Numerische Qualitätsstufe"
+L["%player% has earned the achievement %achievement%!"] = "%player% hat den Erfolg %achievement% errungen!"
+L["%players% have earned the achievement %achievement%!"] = "%players% haben den Erfolg %achievement% erreicht!"
 
 -- Combat Alert
 L["Combat Alert"] = "Kampfalarmierung"
@@ -446,6 +448,8 @@ L["Prints a clickable Link with Coords in the Chat."] = "Fügt einen anklickbare
 L["Quick Join"] = "Schnellbeitritt"
 L["Title Font"] = "Titel Schriftart"
 L["Text Font"] = "Text Schriftart"
+L["Debug Print"] = "Debuggausgabe"
+L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = "Aktiviere diese Option um eine Chatausgabe vom Namen und ID von den Vignetten auf der Minikarte zu erhalten."
 
 -- DataTexts
 -- DataBars
@@ -521,55 +525,6 @@ L["Alpha Max"] = "Transparenz Max"
 L["Inherit Global Fade"] = "Erben globales Verblassen"
 L["Anchor Point"] = "Ankerpunkt"
 L["The first button anchors itself to this point on the bar."] = "Die erste Taste verankert sich an diesem Punkt auf der Leiste."
-
--- Armory
-L["Armory"] = "Arsenal"
-L["ARMORY_DESC"] = [=[Der |cffff7d0aArmory Mode|r funktioniert nur mit den 'ElvUI Charakter Informationen'. Es könnte sein, dass du dein UI neuladen musst:
-
-ElvUI - Allgemeine - Blizzard Verbesserungen - Zeige Charakterinformationen.]=]
-
-L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "|cffff7d0aMerathilisUI|r Arsenal aktivieren/deaktivieren"
-L["Durability"] = "Haltbarkeit"
-L["Enable/Disable the display of durability information on the character window."] = "Haltbarkeit im Charakterfenster anzeigen/verbergen"
-L["Damaged Only"] = "Nur beschädigt"
-L["Only show durability information for items that are damaged."] = "Haltbarkeit nur bei beschädigten Gegenständen anzeigen"
-L["Itemlevel"] = "Gegenstandsstufe"
-L["Enable/Disable the display of item levels on the character window."] = "Gegenstandsstufen im Charakterfenster anzeigen/verbergen"
-L["Level"] = "Stufe"
-L["Full Item Level"] = "Vollständige Gegenstandsstufe"
-L["Show both equipped and average item levels."] = "Ausgerüstete und durchschnittliche Gegenstandsstufe anzeigen"
-L["Item Level Coloring"] = "Gegenstandsstufe färben"
-L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Färbt die Gegenstandsstufe ein. Ausgerüstete Stufe wird kombiniert, Maximalstufe entspricht der ausgewählten Farbe"
-L["Color of Average"] = "Durchschnittsfarbe"
-L["Sets the color of average item level."] = "Setzt die Farbe der durchschnittlichen Gegenstandsstufe"
-L["Only Relevant Stats"] = "Nur relevante Attribute"
-L["Show only those primary stats relevant to your spec."] = "Nur die relevanten, primären Attribute deiner Spezialisierung anzeigen"
-L["Item Level"] = "Gegenstandsstufe"
-L["Categories"] = "Kategorien"
-L["Slot Gradient"] = "Ausrüstungsplatz Farbverlauf"
-L["Indicators"] = "Indikatoren"
-L["Shows a gradiation texture on the Character Slots."] = "Zeigt einen Farbverlauf auf den Ausrüstungsplätzen"
-L["Transmog"] = true -- no need to translate
-L["Shows an arrow indictor for currently transmogrified items."] = "Zeigt einen Indikator für den derzeitig transmogrifizierten Gegenstand an."
-L["Illusion"] = "Illusionen"
-L["Shows an indictor for weapon illusions."] = "Zeigt einen Indikator für die Waffenillusionen an."
-L["Empty Socket"] = "Leerer Sockel"
-L["Not Enchanted"] = "Nicht verzaubert"
-L["Warnings"] = "Warnungen"
-L["Shows an indicator for missing sockets and enchants."] = "Zeigt einen Indikator für fehlende Sockel und Verzauberungen an."
-L["Expanded Size"] = "Erweiterte Größe"
-L["This will increase the Character Frame size a bit."] = "Dieses wird das Charakterfenster etwas vergrößern."
-L["Armor Set"] = "Rüstungsset"
-L["Colors Set Items in a different color."] = "Färbt Elemente in einer anderen Farbe ein."
-L["Armor Set Gradient Texture Color"] = "Rüstungssettextur Verlaufsfarbe"
-L["Full Item Level"] = "Volle Gegenstandsstufe"
-L["Show both equipped and average item levels."] = "Zeige sowohl ausgerüstete als auch durchschnittliche Gegenstandsstufen."
-L["Item Level Coloring"] = "Gegenstandsstufen Färbung"
-L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Werte der Farbcode Gegenstandsebenen. Ausgestattet mit Farbverlauf, Durchschnitt - ausgewählte Farbe."
-L["Color of Average"] = "Durchschnittsfarbe"
-L["Sets the color of average item level."] = "Legt die Farbe der durchschnittlichen Gegenstandsstufe fest."
-L["Warning Gradient Texture Color"] = "Warnung Verlaufsfarbe"
-L["Class Color Gradient"] = "Klassenfarbenverlauf"
 
 -- Media
 L["Zone Text"] = "Gebietstext"

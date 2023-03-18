@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 
 V.general = {
 	install_complete = nil,
@@ -215,6 +215,7 @@ V.skins = {
 		majorFactions = true,
 		blizzardOptions = true,
 		editor = true,
+		perksProgram = true,
 	},
 
 	addonSkins = {
@@ -240,6 +241,7 @@ V.skins = {
 		imm = true,
 		rio = true,
 		omniCD = true,
+		gil = true,
 		bw = {
 			enable = true,
 			queueTimer = {
@@ -251,7 +253,9 @@ V.skins = {
 				countDown = {
 					name = "Expressway",
 					size = 16,
-					style = "OUTLINE"
+					style = "OUTLINE",
+					offsetX = 0,
+					offsetY = -3
 				},
 			},
 			normalBar = {

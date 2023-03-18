@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Skins')
 local options = MER.options.skins.args
 local LSM = E.Libs.LSM
@@ -16,6 +16,7 @@ local DecorAddons = {
 	{"Clique", L["Clique"], "cl"},
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
 	{"BugSack", L["BugSack"], "bs"},
+	{"GlobalIgnoreList", L["GlobalIgnoreList"], "gil"},
 	{"Immersion", L["Immersion"], "imm"},
 	{"OmniCD", L["OmniCD"], "omniCD"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
@@ -141,7 +142,7 @@ options.general = {
 options.font = {
 	order = 2,
 	type = "group",
-	name = E.NewSign..L["Fonts"],
+	name = L["Fonts"],
 	args = {
 		errorMessage = {
 			order = 1,
@@ -1851,7 +1852,11 @@ if E.Retail then
 		name = L["Editor Mode"],
 		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.editor end,
 	}
-
+	options.blizzard.args.perksProgram = {
+		type = "toggle",
+		name = L["Perks Program"],
+		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.perks end,
+	}
 
 elseif E.Classic then
 	options.blizzard.args.craft = {
@@ -2047,7 +2052,7 @@ options.Embed = {
 options.bigWigsSkin = {
 	order = 10,
 	type = "group",
-	name = E.NewSign..L["BigWigs Skin"],
+	name = L["BigWigs Skin"],
 	disabled = function()
 		return not E.private.mui.skins.enable or not IsAddOnLoaded("BigWigs")
 	end,
@@ -2345,6 +2350,18 @@ options.bigWigsSkin = {
 							name = L["Size"],
 							type = "range",
 							min = 5, max = 60, step = 1
+						},
+						offsetX = {
+							order = 4,
+							name = L["X-Offset"],
+							type = "range",
+							min = -100, max = 100, step = 1
+						},
+						offsetY = {
+							order = 5,
+							name = L["Y-Offset"],
+							type = "range",
+							min = -100, max = 100, step = 1
 						},
 					},
 				},

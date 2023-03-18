@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM
 
@@ -105,6 +105,8 @@ function F.cOption(name, color)
 		hex = '|cffff7d0a%s |r'
 	elseif color == 'blue' then
 		hex = '|cFF00c0fa%s |r'
+	elseif color == 'red' then
+		hex = '|cFFFF0000%s |r'
 	elseif color == 'gradient' then
 		hex = E:TextGradient(name, 1, 0.65, 0, 1, 0.65, 0, 1, 1, 1)
 	else
@@ -496,6 +498,14 @@ do
 			self.Show = self.Hide
 		end
 		self:Hide()
+    end
+
+	function F:ReplaceIconString(text)
+		if not text then text = self:GetText() end
+		if not text or text == "" then return end
+
+		local newText, count = gsub(text, "|T([^:]-):[%d+:]+|t", "|T%1:14:14:0:0:64:64:5:59:5:59|t")
+		if count > 0 then self:SetFormattedText("%s", newText) end
 	end
 end
 
@@ -726,6 +736,20 @@ function F.GetTextureStrByAtlas(info, sizeX, sizeY)
 	local atlasHeight = height / (txBottom-txTop)
 
 	return format("|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d|t", file, (sizeX or 0), (sizeY or 0), atlasWidth, atlasHeight, atlasWidth*txLeft, atlasWidth*txRight, atlasHeight*txTop, atlasHeight*txBottom)
+end
+
+-- Check Textures
+local txframe = CreateFrame('Frame')
+local tx = txframe:CreateTexture()
+
+function F:TextureExists(path)
+	if not path or path == '' then
+		return F.DebugPrint('Path not valid or defined.', 'error')
+	end
+	tx:SetTexture('?')
+	tx:SetTexture(path)
+
+	return (tx:GetTexture())
 end
 
 -- GUID to npcID

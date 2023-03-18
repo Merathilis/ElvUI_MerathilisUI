@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local LSM = E.LSM or E.Libs.LSM
 
 MER.Media = {
@@ -159,6 +159,8 @@ MER.ClassIcons = {
 	["EVOKER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Evoker",
 }
 
+AddMedia("smallLogo", "m2.tga", "Textures")
+
 AddMedia("barAchievements", "MicroBar/Achievements.tga", "Icons")
 AddMedia("barBags", "MicroBar/Bags.tga", "Icons")
 AddMedia("barBlizzardShop", "MicroBar/BlizzardShop.tga", "Icons")
@@ -228,6 +230,9 @@ AddMedia("PepoBedge", "bedge.tga", "Textures")
 
 AddMedia("flag", "flag.tga", "Textures")
 
+AddMedia("dc", "materialDC.tga", "Textures")
+AddMedia("dead", "materialDead.tga", "Textures")
+
 -- Role Icons
 AddMedia("sunTank", "RoleIcons/SunUI/Tank.tga", "Textures")
 AddMedia("sunHealer", "RoleIcons/SunUI/Healer.tga", "Textures")
@@ -249,10 +254,6 @@ AddMedia("glowTank", "RoleIcons/Glow/Tank.tga", "Textures")
 AddMedia("glowHeal", "RoleIcons/Glow/Healer.tga", "Textures")
 AddMedia("glowDPS", "RoleIcons/Glow/DPS.tga", "Textures")
 
-AddMedia("gravedTank", "RoleIcons/Graved/Tank.tga", "Textures")
-AddMedia("gravedHeal", "RoleIcons/Graved/Healer.tga", "Textures")
-AddMedia("gravedDPS", "RoleIcons/Graved/DPS.tga", "Textures")
-
 AddMedia("mainTank", "RoleIcons/Main/Tank.tga", "Textures")
 AddMedia("mainHeal", "RoleIcons/Main/Healer.tga", "Textures")
 AddMedia("mainDPS", "RoleIcons/Main/DPS.tga", "Textures")
@@ -260,6 +261,10 @@ AddMedia("mainDPS", "RoleIcons/Main/DPS.tga", "Textures")
 AddMedia("whiteTank", "RoleIcons/White/Tank.tga", "Textures")
 AddMedia("whiteHeal", "RoleIcons/White/Healer.tga", "Textures")
 AddMedia("whiteDPS", "RoleIcons/White/DPS.tga", "Textures")
+
+AddMedia("materialTank", "RoleIcons/Material/Tank.tga", "Textures")
+AddMedia("materialHeal", "RoleIcons/Material/Healer.tga", "Textures")
+AddMedia("materialDPS", "RoleIcons/Material/DPS.tga", "Textures")
 
 AddMedia("emptyTex", "bgTex.blp", "Textures")
 AddMedia("glowTex", "glowTex.blp", "Textures")
@@ -282,6 +287,14 @@ LSM:Register("font","BadaBoom", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media
 LSM:Register("font","Gothic-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\CenturyGothicBold.ttf]])
 LSM:Register("font","Gotham Narrow Black", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\GothamNarrow-Black.ttf]])
 LSM:Register("font","Gotham Narrow Ultra", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\GothamNarrow-Ultra.otf]])
+LSM:Register("font","Montserrat-Black", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Black.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Bold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-ExtraBold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-ExtraBold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-ExtraLight", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-ExtraLight.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Light", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Light.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Medium.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Regular.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-SemiBold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-SemiBold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 
 -- Backgrounds
 -- Border
