@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Skins')
 local M = E:GetModule('Misc')
 
@@ -13,6 +13,10 @@ local function StatsPane(type)
 
 	if _G.CharacterStatsPane[type] and _G.CharacterStatsPane[type].backdrop then
 		_G.CharacterStatsPane[type].backdrop:Hide()
+	end
+
+	if _G.CharacterStatsPane[type].Title then
+		_G.CharacterStatsPane[type].Title:FontTemplate(nil, 13, "OUTLINE")
 	end
 end
 
@@ -184,10 +188,6 @@ function module:CharacterFrame()
 		slot.ignoreTexture:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-LeaveItem-Transparent")
 		slot.IconOverlay:SetAtlas("CosmeticIconFrame")
 		slot.IconOverlay:SetInside()
-
-		local popout = slot.popoutButton
-		popout:SetNormalTexture(0)
-		popout:SetHighlightTexture(0)
 	end
 
 	hooksecurefunc("PaperDollItemSlotButton_Update", function(button)

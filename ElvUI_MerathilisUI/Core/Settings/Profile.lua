@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 
 local _G = _G
 
@@ -241,11 +241,16 @@ P.cvars = {
 }
 
 P.chat = {
+	enable = true,
 	chatButton = true,
-	hidePlayerBrackets = true,
+	removeBrackets = true,
 	hideChat = false,
-	customOnlineMessage = true,
 	emotes = true,
+	classIconStyle = "flatborder2",
+	removeRealm = true,
+	guildMemberStatus = true,
+	guildMemberStatusInviteLink = false,
+	mergeAchievement = true,
 	roleIcons = {
 		enable = true,
 		roleIconSize = 16,
@@ -596,7 +601,6 @@ P.misc = {
 			["Jewelcrafting"] = false
 		},
 	},
-	betterGuildMemberStatus = true,
 	missingStats = true
 }
 

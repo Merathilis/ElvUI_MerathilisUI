@@ -1,6 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="AlreadyKnown.lua"/>
-	<Script file="BetterGuildMemberStatus.lua"/>
 	<Script file="BossBanner.lua"/>
 	<Script file="LfgInfo.lua"/>
 	<Script file="MissingStats.lua"/>

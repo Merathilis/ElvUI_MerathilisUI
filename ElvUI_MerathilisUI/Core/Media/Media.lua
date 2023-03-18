@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local LSM = E.LSM or E.Libs.LSM
 
 MER.Media = {
@@ -159,6 +159,8 @@ MER.ClassIcons = {
 	["EVOKER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Evoker",
 }
 
+AddMedia("smallLogo", "m2.tga", "Textures")
+
 AddMedia("barAchievements", "MicroBar/Achievements.tga", "Icons")
 AddMedia("barBags", "MicroBar/Bags.tga", "Icons")
 AddMedia("barBlizzardShop", "MicroBar/BlizzardShop.tga", "Icons")
@@ -251,10 +253,6 @@ AddMedia("customDPS", "RoleIcons/Custom/DPS.tga", "Textures")
 AddMedia("glowTank", "RoleIcons/Glow/Tank.tga", "Textures")
 AddMedia("glowHeal", "RoleIcons/Glow/Healer.tga", "Textures")
 AddMedia("glowDPS", "RoleIcons/Glow/DPS.tga", "Textures")
-
-AddMedia("gravedTank", "RoleIcons/Graved/Tank.tga", "Textures")
-AddMedia("gravedHeal", "RoleIcons/Graved/Healer.tga", "Textures")
-AddMedia("gravedDPS", "RoleIcons/Graved/DPS.tga", "Textures")
 
 AddMedia("mainTank", "RoleIcons/Main/Tank.tga", "Textures")
 AddMedia("mainHeal", "RoleIcons/Main/Healer.tga", "Textures")

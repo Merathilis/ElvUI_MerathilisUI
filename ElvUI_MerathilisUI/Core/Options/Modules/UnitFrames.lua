@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_UnitFrames')
 local HP = MER:GetModule('MER_HealPrediction')
 local options = MER.options.modules.args
@@ -28,7 +28,7 @@ local OfflineIndicatorImages = {
 
 options.unitframes = {
 	type = "group",
-	name = E.NewSign..L["UnitFrames"],
+	name = L["UnitFrames"],
 	childGroups = "tab",
 	get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 	set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; end,
@@ -540,7 +540,7 @@ options.unitframes = {
 		groupUnits = {
 			order = 4,
 			type = "group",
-			name = E.NewSign..L["Group Units"],
+			name = L["Group Units"],
 			args = {
 				party = {
 					order = 1,
@@ -749,12 +749,6 @@ do
 	SampleStrings.glow = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedHeal, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.gravedDPS, ":16:16")
-	SampleStrings.graved = icons
-
-	icons = ""
 	icons = icons .. E:TextureString(MER.Media.Textures.mainTank, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.mainHeal, ":16:16") .. " "
 	icons = icons .. E:TextureString(MER.Media.Textures.mainDPS, ":16:16")
@@ -797,16 +791,16 @@ options.unitframes.args.general.args.roleIcons = {
 			type = "select",
 			name = L["Style"],
 			values = {
-				DEFAULT = SampleStrings.elvui,
 				SUNUI = SampleStrings.sunui,
 				LYNUI = SampleStrings.lynui,
 				SVUI = SampleStrings.svui,
 				CUSTOM = SampleStrings.custom,
 				GLOW = SampleStrings.glow,
-				GRAVED = SampleStrings.graved,
 				MAIN = SampleStrings.main,
 				WHITE = SampleStrings.white,
 				MATERIAL = SampleStrings.material,
+				BLIZZARD = SampleStrings.blizzard,
+				DEFAULT = SampleStrings.elvui,
 			},
 		},
 	},

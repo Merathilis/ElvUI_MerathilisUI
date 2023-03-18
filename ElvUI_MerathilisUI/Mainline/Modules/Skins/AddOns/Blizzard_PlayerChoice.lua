@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
@@ -11,7 +11,22 @@ local function ReskinOptionText(text, r, g, b)
 	end
 end
 
-local function LoadSkin()
+local function SetupOptions(frame)
+	if frame.__MERSkin then
+		return
+	end
+
+	module:CreateShadow(frame)
+	frame.MERshadow:SetShown(frame.template and frame.template == "Transparent")
+
+	hooksecurefunc(frame, "SetTemplate", function(_, template)
+		frame.MERshadow:SetShown(template and template == "Transparent")
+	end)
+
+	frame.__MERSkin = true
+end
+
+function module:Blizzard_PlayerChoice()
 	if not module:CheckDB('playerChoice', 'playerChoice') then
 		return
 	end
@@ -45,6 +60,8 @@ local function LoadSkin()
 			end
 		end
 	end)
+
+	hooksecurefunc(_G.PlayerChoiceFrame, "SetupOptions", SetupOptions)
 end
 
-module:AddCallbackForAddon("Blizzard_PlayerChoice", LoadSkin)
+module:AddCallbackForAddon("Blizzard_PlayerChoice")

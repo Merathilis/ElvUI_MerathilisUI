@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local M = MER:GetModule('MER_Misc')
 local IL = MER:GetModule('MER_ItemLevel')
 local S = MER:GetModule('MER_Skins')

@@ -169,6 +169,8 @@ L["Weapon Category"] = "武器分類"
 L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 L["Display the level of the item on the item link."] = true
 L["Numberical Quality Tier"] = true
+L["%player% has earned the achievement %achievement%!"] = "%player%獲得了成就%achievement%!"
+L["%players% have earned the achievement %achievement%!"] = "%players%獲得了成就%achievement%!"
 
 -- Combat Alert
 L["Combat Alert"] = "戰鬥提醒"

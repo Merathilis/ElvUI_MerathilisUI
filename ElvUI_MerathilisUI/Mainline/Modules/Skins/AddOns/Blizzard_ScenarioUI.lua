@@ -1,5 +1,5 @@
 
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(select(2, ...))
+local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local OT = MER:GetModule('MER_ObjectiveTracker')
 local FL = MER:GetModule('MER_FriendsList')
 local FT = MER:GetModule('MER_Filter')
