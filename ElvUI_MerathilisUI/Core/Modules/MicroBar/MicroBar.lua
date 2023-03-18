@@ -70,8 +70,8 @@ local C_Garrison_GetCompleteMissions = C_Garrison and C_Garrison.GetCompleteMiss
 local C_Timer_NewTicker = C_Timer.NewTicker
 local C_ToyBox_IsToyUsable = C_ToyBox and C_ToyBox.IsToyUsable
 
-local FollowerType_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0
-local FollowerType_9_0 = Enum.GarrisonFollowerType.FollowerType_9_0
+local FollowerType_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0_GarrisonFollower -- check these
+local FollowerType_9_0 = Enum.GarrisonFollowerType.FollowerType_9_0_GarrisonFollower -- Check these
 
 local NUM_PANEL_BUTTONS = 7
 local IconString = "|T%s:16:18:0:0:64:64:4:60:7:57"
@@ -453,8 +453,7 @@ local ButtonTypes = {
 			end
 		},
 		additionalText = function()
-			local numMissions =
-			#C_Garrison_GetCompleteMissions(FollowerType_9_0) + #C_Garrison_GetCompleteMissions(FollowerType_8_0)
+			local numMissions = #C_Garrison_GetCompleteMissions(FollowerType_9_0) + #C_Garrison_GetCompleteMissions(FollowerType_8_0)
 			if numMissions == 0 then
 				numMissions = ""
 			end
