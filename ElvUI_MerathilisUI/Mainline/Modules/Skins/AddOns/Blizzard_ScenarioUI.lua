@@ -88,6 +88,7 @@ function module:Scenario_ChallengeMode_ShowBlock()
 	block:CreateBackdrop("Transparent")
 	block.backdrop:ClearAllPoints()
 	block.backdrop:SetInside(block, 6, 2)
+	block.backdrop:Styling()
 	module:CreateBackdropShadow(block)
 
 	-- Time bar

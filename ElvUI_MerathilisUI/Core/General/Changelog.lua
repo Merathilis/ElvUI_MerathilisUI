@@ -12,10 +12,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-	"• Added some Chat improvements",
-		"• Added a Missing Stats Option under Misc to add all Stats to the Character Panel",
-		"• Don't hide the Item Arrows on the Character Frame if you are in the Equipment Manager",
-		"• Updated some Skins",
+		"• Wrath: Fixed a chat error",
+		"• Fixed an error in the Auctionator skin",
+		"• Added missing stripes to the Objective Tracker skin",
 
 		" ",
 

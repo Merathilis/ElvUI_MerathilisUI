@@ -376,7 +376,7 @@ local function splashFrame(frame)
 
 	S:HandleCloseButton(frame.Close)
 	S:HandleCheckBox(frame.HideCheckbox.CheckBox)
-	S:HandleScrollBar(frame.ScrollFrame.ScrollBar)
+	S:HandleTrimScrollBar(frame.ScrollBar)
 end
 
 local function itemHistoryFrame(frame)
