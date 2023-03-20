@@ -28,7 +28,7 @@ local OfflineIndicatorImages = {
 
 options.unitframes = {
 	type = "group",
-	name = E.NewSign..L["UnitFrames"],
+	name = L["UnitFrames"],
 	childGroups = "tab",
 	get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 	set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; end,
@@ -540,7 +540,7 @@ options.unitframes = {
 		groupUnits = {
 			order = 4,
 			type = "group",
-			name = E.NewSign..L["Group Units"],
+			name = L["Group Units"],
 			args = {
 				party = {
 					order = 1,

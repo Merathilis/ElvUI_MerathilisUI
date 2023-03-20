@@ -134,7 +134,6 @@ do
 end
 
 function MER:Initialize()
-	-- ElvUI -> MerathilisUI -> MerathilisUI Modules
 	if not self:CheckElvUIVersion() then
 		return
 	end
@@ -147,7 +146,7 @@ function MER:Initialize()
 		Engine[2].Developer.InjectLogger(module)
 	end
 
-	hooksecurefunc(MER, "NewModule", function(_, name)
+	hooksecurefunc(MER, 'NewModule', function(_, name)
 		Engine[2].Developer.InjectLogger(name)
 	end)
 
@@ -187,7 +186,7 @@ do
 		if isInitialLogin then
 			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
-				print(icon..''..self.Title..format("|cff00c0fa%s|r", self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+				print(icon..''..self.Title..format('|cff00c0fa%s|r', self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 			end
 
 			self:SplashScreen()
@@ -212,7 +211,7 @@ do
 
 		self:FixGame()
 
-		E:Delay(1, collectgarbage, "collect")
+		E:Delay(1, collectgarbage, 'collect')
 	end
 end
 

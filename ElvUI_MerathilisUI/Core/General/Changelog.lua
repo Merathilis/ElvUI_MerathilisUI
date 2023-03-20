@@ -12,10 +12,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• IMPORTANT: Removed Armory Mode on Retail, it had some critical performance issues",
-		"• Added a Missing Stats Option under Misc to add all Stats to the Character Panel",
-		"• Updated Character Skin to match a bit the old armory look",
-		"• Updated Friendslist code",
+		"• Wrath: Fixed a chat error",
+		"• Fixed an error in the Auctionator skin",
+		"• Added missing stripes to the Objective Tracker skin",
 
 		" ",
 
