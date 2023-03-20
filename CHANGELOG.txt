@@ -1,4 +1,4 @@
-[b][color=orange]v5.66[/color], 18.03.2023[/b][list]
-[*]Added some Chat improvements
-[*]Don't hide the Item Arrows on the Character Frame if you are in the Equipment Manager
-[*}Updated some Skins[/list]
+[b][color=orange]v5.67[/color], 20.03.2023[/b][list]
+[*]Wrath: Fixed a chat error
+[*]Fixed an error in the Auctionator skin
+[*}Added missing stripes to the Objective Tracker skin[/list]
