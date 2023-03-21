@@ -9,6 +9,8 @@ local strfind = strfind
 
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
+local UIFrameFadeIn = UIFrameFadeIn
+local UIFrameFadeOut = UIFrameFadeOut
 
 local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA
@@ -331,37 +333,6 @@ function module:SetBD(f, x, y, x2, y2, gradient)
 	return bg
 end
 
-local function Menu_OnEnter(self)
-	self.backdrop:SetBackdropBorderColor(F.r, F.g, F.b)
-end
-
-local function Menu_OnLeave(self)
-	self.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
-end
-
-local function Menu_OnMouseUp(self)
-	self.backdrop:SetBackdropColor(0, 0, 0, .45)
-end
-
-local function Menu_OnMouseDown(self)
-	self.backdrop:SetBackdropColor(F.r, F.g, F.b, .25)
-end
-
-function module:ReskinMenuButton(button)
-	assert(button, "doesn't exist!")
-
-	button:StripTextures()
-
-	if not button.backdrop then
-		button:CreateBackdrop('Transparent')
-		button.backdrop:Styling()
-	end
-	button:SetScript("OnEnter", Menu_OnEnter)
-	button:SetScript("OnLeave", Menu_OnLeave)
-	button:HookScript("OnMouseUp", Menu_OnMouseUp)
-	button:HookScript("OnMouseDown", Menu_OnMouseDown)
-end
-
 -- ClassColored ScrollBars
 do
 	local function GrabScrollBarElement(frame, element)
@@ -586,27 +557,6 @@ function module:ApplyConfigArrows()
 
 end
 hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
-
-do
-	local DeleteRegions = {
-		"Center",
-		"BottomEdge",
-		"LeftEdge",
-		"RightEdge",
-		"TopEdge",
-		"BottomLeftCorner",
-		"BottomRightCorner",
-		"TopLeftCorner",
-		"TopRightCorner"
-	}
-	function module:StripEdgeTextures(frame)
-		for _, regionKey in pairs(DeleteRegions) do
-			if frame[regionKey] then
-				frame[regionKey]:Kill()
-			end
-		end
-	end
-end
 
 function module:Reposition(frame, target, border, top, bottom, left, right)
 	frame:ClearAllPoints()
@@ -864,6 +814,41 @@ hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)
 -- hook the skin functions from ElvUI
 module:SecureHook(S, "HandleScrollBar")
 
+local function Menu_OnEnter(self)
+	self.backdrop:SetBackdropBorderColor(F.r, F.g, F.b)
+	UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+end
+
+local function Menu_OnLeave(self)
+	self.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
+	if E.private.mui.skins.embed.mouseOver then
+		UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+	end
+end
+
+local function Menu_OnMouseUp(self)
+	self.backdrop:SetBackdropColor(0, 0, 0, .45)
+end
+
+local function Menu_OnMouseDown(self)
+	self.backdrop:SetBackdropColor(F.r, F.g, F.b, .25)
+end
+
+function module:ReskinMenuButton(button)
+	assert(button, "doesn't exist!")
+
+	button:StripTextures()
+
+	if not button.backdrop then
+		button:CreateBackdrop('Transparent')
+		button.backdrop:Styling()
+	end
+	button:SetScript("OnEnter", Menu_OnEnter)
+	button:SetScript("OnLeave", Menu_OnLeave)
+	button:HookScript("OnMouseUp", Menu_OnMouseUp)
+	button:HookScript("OnMouseDown", Menu_OnMouseDown)
+end
+
 StaticPopupDialogs["RESET_DETAILS"] = {
 	text = L["Reset Details check"],
 	button1 = YES,
@@ -890,12 +875,19 @@ end
 local toggleFrames = {}
 
 local function CreateToggleButton(parent)
+	local mouseOver = E.private.mui.skins.embed.mouseOver and true or false
 	local bu = CreateFrame("Button", nil, parent)
 	bu:SetSize(20, 80)
+	bu:Hide()
 	bu.text = bu:CreateFontString(nil, "OVERLAY")
 	bu.text:FontTemplate(nil, 18)
 	bu.text:SetAllPoints()
 	module:ReskinMenuButton(bu)
+	if mouseOver then
+		UIFrameFadeOut(bu, 0.2, bu:GetAlpha(), 0)
+	else
+		UIFrameFadeIn(bu, 0.2, bu:GetAlpha(), 1)
+	end
 
 	return bu
 end

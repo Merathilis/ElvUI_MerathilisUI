@@ -2046,6 +2046,11 @@ options.Embed = {
 				[5] = _G.DISABLE,
 			},
 		},
+		mouseOver = {
+			order = 6,
+			type = "toggle",
+			name = L["Mouse Over"],
+		},
 	},
 }
 
