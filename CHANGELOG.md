@@ -1,6 +1,5 @@
 ### Changes ###
 
-  * Wrath: Fixed a chat error
-  * Fixed an error in the Auctionator skin
-  * Added missing stripes to the Objective Tracker skin
+  * Updated chat code to reflect 10.0.7 changes
+  * Updated MicroBar to the latest API Changes
 
