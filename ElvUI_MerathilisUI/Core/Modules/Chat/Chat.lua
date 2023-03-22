@@ -20,13 +20,10 @@ local strmatch = strmatch
 local strsplit = strsplit
 local strsub = strsub
 local strupper = strupper
-local time = time
 local tinsert = tinsert
 local tonumber = tonumber
-local tostring = tostring
 local type = type
 local unpack = unpack
-local utf8sub = string.utf8sub
 local wipe = wipe
 
 local Ambiguate = Ambiguate
@@ -35,15 +32,12 @@ local BNGetNumFriendInvites = BNGetNumFriendInvites
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 local ChatTypeInfo = ChatTypeInfo
 local FlashClientIcon = FlashClientIcon
-local GetAchievementInfo = GetAchievementInfo
-local GetAchievementInfoFromHyperlink = GetAchievementInfoFromHyperlink
 local GetAchievementLink = GetAchievementLink
 local GetBNPlayerCommunityLink = GetBNPlayerCommunityLink
 local GetBNPlayerLink = GetBNPlayerLink
 local GetCVar = GetCVar
 local GetCVarBool = GetCVarBool
 local GetGuildRosterInfo = GetGuildRosterInfo
-local GetItemInfoFromHyperlink = GetItemInfoFromHyperlink
 local GetNumGroupMembers = GetNumGroupMembers
 local GetNumGuildMembers = GetNumGuildMembers
 local GetPlayerCommunityLink = GetPlayerCommunityLink
@@ -51,14 +45,12 @@ local GetPlayerLink = GetPlayerLink
 local GMChatFrame_IsGM = GMChatFrame_IsGM
 local GMError = GMError
 local InCombatLockdown = InCombatLockdown
-local InviteUnit = InviteUnit
 local IsInGroup = IsInGroup
 local IsInGuild = IsInGuild
 local IsInRaid = IsInRaid
 local PlaySoundFile = PlaySoundFile
 local RemoveExtraSpaces = RemoveExtraSpaces
 local RemoveNewlines = RemoveNewlines
-local SendMessage = SendMessage
 local StaticPopup_Visible = StaticPopup_Visiblelocal
 local UnitExists = UnitExists
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
@@ -74,6 +66,7 @@ local C_Club_GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityC
 local C_PartyInfo_InviteUnit = C_PartyInfo.InviteUnit
 local C_Timer_After = C_Timer.After
 
+local TitleIconVersion_Small = Enum.TitleIconVersion.Small
 local CHATCHANNELRULESET_MENTOR = Enum.ChatChannelRuleset.Mentor
 local NPEV2_CHAT_USER_TAG_GUIDE = E.Retail and gsub(NPEV2_CHAT_USER_TAG_GUIDE, "(|A.-|a).+", "%1")
 local PLAYERMENTORSHIPSTATUS_NEWCOMER = Enum.PlayerMentorshipStatus.Newcomer
@@ -863,6 +856,15 @@ function module:HandleName(nameString)
 end
 
 -- From ElvUI Chat
+local function FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
+	if not frame:IsShown() and ((frame == _G.DEFAULT_CHAT_FRAME and info.flashTabOnGeneral) or (frame ~= _G.DEFAULT_CHAT_FRAME and info.flashTab)) then
+		if (not _G.CHAT_OPTIONS.HIDE_FRAME_ALERTS or chatType == "WHISPER" or chatType == "BN_WHISPER") and not _G.FCFManager_ShouldSuppressMessageFlash(frame, chatGroup, chatTarget) then
+			_G.FCF_StartAlertFlash(frame)
+		end
+	end
+end
+
+-- From ElvUI Chat
 local function ChatFrame_CheckAddChannel(chatFrame, eventType, channelID)
 	if chatFrame ~= _G.DEFAULT_CHAT_FRAME then
 		return false
@@ -936,9 +938,9 @@ function module:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, ar
 		local channelLength = strlen(arg4)
 		local infoType = chatType
 
-		if type == "VOICE_TEXT" then -- the code here looks weird but its how blizzard has it ~Simpy
+		if chatType == "VOICE_TEXT" then -- the code here looks weird but its how blizzard has it ~Simpy
 			local leader = UnitIsGroupLeader(arg2)
-			infoType, type = _G.VoiceTranscription_DetermineChatTypeVoiceTranscription_DetermineChatType(leader)
+			infoType, chatType = _G.VoiceTranscription_DetermineChatTypeVoiceTranscription_DetermineChatType(leader)
 			info = _G.ChatTypeInfo[infoType]
 		elseif
 			chatType == "COMMUNITIES_CHANNEL" or
@@ -946,7 +948,7 @@ function module:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, ar
 			((arg1 ~= "INVITE") or (chatType ~= "CHANNEL_NOTICE_USER")))
 		then
 			if arg1 == "WRONG_PASSWORD" then
-				local _, popup = _G.StaticPopup_Visible("CHAT_CHANNEL_PASSWORD")
+				local _, popup = StaticPopup_Visible("CHAT_CHANNEL_PASSWORD")
 				if popup and strupper(popup.data) == strupper(arg9) then
 					return -- Don't display invalid password messages if we're going to prompt for a password (bug 102312)
 				end
@@ -1048,7 +1050,7 @@ function module:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, ar
 			-- Append [Share] hyperlink
 			frame:AddMessage(format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", module:HandleName(coloredName)))), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
 		elseif strsub(chatType, 1, 18) == "GUILD_ACHIEVEMENT" then
-			local message = format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", module:HandleName(coloredName))))
+			local message = format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", coloredName)))
 			frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
 		elseif chatType == "IGNORED" then
 			frame:AddMessage(format(_G.CHAT_IGNORED, arg2), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
@@ -1128,11 +1130,20 @@ function module:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, ar
 				local _, _, battleTag, _, characterName, _, clientProgram = CH.BNGetFriendInfoByID(arg13)
 
 				if clientProgram and clientProgram ~= "" then
-					local name = _G.BNet_GetValidatedCharacterName(characterName, battleTag, clientProgram) or ""
-					local characterNameText = _G.BNet_GetClientEmbeddedAtlas(clientProgram, 14) .. name
-					local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, characterNameText)
-					local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-					message = format(globalstring, playerLink)
+					C_Texture_GetTitleIconTexture(clientProgram, TitleIconVersion_Small, function(success, texture)
+							if success then
+								local charName = _G.BNet_GetValidatedCharacterNameWithClientEmbeddedTexture(characterName, battleTag, texture, 32, 32, 10)
+								local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, charName)
+								local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
+								frame:AddMessage(format(globalstring, playerLink), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+
+								if notChatHistory then
+									FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
+								end
+							end
+						end)
+
+					return
 				else
 					local linkDisplayText = format(noBrackets and "%s" or "[%s]", arg2)
 					local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
@@ -1143,6 +1154,7 @@ function module:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, ar
 				local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
 				message = format(globalstring, playerLink)
 			end
+
 			frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
 		elseif chatType == "BN_INLINE_TOAST_BROADCAST" then
 			if arg1 ~= "" then
@@ -1213,15 +1225,10 @@ function module:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, ar
 				else
 					playerLink = playerLinkDisplayText
 				end
+			elseif chatType == "BN_WHISPER" or chatType == "BN_WHISPER_INFORM" then
+				playerLink = GetBNPlayerLink(playerName, playerLinkDisplayText, bnetIDAccount, lineID, chatGroup, chatTarget)
 			else
-				if chatType == "BN_WHISPER" or chatType == "BN_WHISPER_INFORM" then
-					playerLink = GetBNPlayerLink(playerName, playerLinkDisplayText, bnetIDAccount, lineID, chatGroup, chatTarget)
-				elseif ((chatType == "GUILD" or chatType == "TEXT_EMOTE") or arg14) and (nameWithRealm and nameWithRealm ~= playerName) then
-					playerName = nameWithRealm
-					playerLink = GetPlayerLink(playerName, playerLinkDisplayText, lineID, chatGroup, chatTarget)
-				else
-					playerLink = GetPlayerLink(playerName, playerLinkDisplayText, lineID, chatGroup, chatTarget)
-				end
+				playerLink = GetPlayerLink(playerName, playerLinkDisplayText, lineID, chatGroup, chatTarget)
 			end
 
 			local message = arg1
@@ -1355,17 +1362,8 @@ function module:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, ar
 			end
 		end
 
-		if notChatHistory and not frame:IsShown() then
-			if
-				(frame == _G.DEFAULT_CHAT_FRAME and info.flashTabOnGeneral) or
-				(frame ~= _G.DEFAULT_CHAT_FRAME and info.flashTab)
-			then
-				if not _G.CHAT_OPTIONS.HIDE_FRAME_ALERTS or chatType == "WHISPER" or chatType == "BN_WHISPER" then
-					if not _G.FCFManager_ShouldSuppressMessageFlash(frame, chatGroup, chatTarget) then
-						_G.FCF_StartAlertFlash(frame)
-					end
-				end
-			end
+		if notChatHistory then
+			FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
 		end
 
 		return true
