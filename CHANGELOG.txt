@@ -1,3 +1,2 @@
-[b][color=orange]v5.68 for 10.0.7[/color], 22.03.2023[/b][list]
-[*]Updated chat code to reflect 10.0.7 changes
-[*]Updated MicroBar to the latest API Changes[/list]
+[b][color=orange]v5.69[/color], 22.03.2023[/b][list]
+[*]Chat: Fix a non Retail Chat error.. narf[/list]
