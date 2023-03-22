@@ -66,8 +66,8 @@ local C_Club_GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityC
 local C_PartyInfo_InviteUnit = C_PartyInfo.InviteUnit
 local C_Timer_After = C_Timer.After
 
-local TitleIconVersion_Small = Enum.TitleIconVersion.Small
-local CHATCHANNELRULESET_MENTOR = Enum.ChatChannelRuleset.Mentor
+local TitleIconVersion_Small = Enum.TitleIconVersion and Enum.TitleIconVersion.Small
+local CHATCHANNELRULESET_MENTOR = Enum.ChatChannelRuleset and Enum.ChatChannelRuleset.Mentor
 local NPEV2_CHAT_USER_TAG_GUIDE = E.Retail and gsub(NPEV2_CHAT_USER_TAG_GUIDE, "(|A.-|a).+", "%1")
 local PLAYERMENTORSHIPSTATUS_NEWCOMER = Enum.PlayerMentorshipStatus.Newcomer
 local PLAYER_REALM = E:ShortenRealm(E.myrealm)
