@@ -64,6 +64,7 @@ local C_ChatInfo_GetChannelShortcutForChannelID = C_ChatInfo.GetChannelShortcutF
 local C_ChatInfo_IsChannelRegionalForChannelID = C_ChatInfo.IsChannelRegionalForChannelID
 local C_Club_GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityChatLine
 local C_PartyInfo_InviteUnit = C_PartyInfo.InviteUnit
+local C_Texture_GetTitleIconTexture = C_Texture.GetTitleIconTexture
 local C_Timer_After = C_Timer.After
 
 local TitleIconVersion_Small = Enum.TitleIconVersion and Enum.TitleIconVersion.Small
