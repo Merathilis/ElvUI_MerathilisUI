@@ -725,7 +725,6 @@ function module:CheckLFGRoles()
 	local playerRole = UnitGroupRolesAssigned("player")
 	if playerRole then
 		lfgRoles[PLAYER_NAME] = roleIcons[playerRole]
-		print(playerRole, roleIcons[playerRole])
 	end
 
 	local unit = (IsInRaid() and "raid" or "party")
