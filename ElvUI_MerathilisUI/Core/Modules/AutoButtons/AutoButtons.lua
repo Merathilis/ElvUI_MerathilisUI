@@ -1190,7 +1190,8 @@ local professionItems = {
 	201717,
 	202011,
 	202014,
-	202016
+	202016,
+	204359
 }
 
 local questItemList = {}
