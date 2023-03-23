@@ -831,6 +831,11 @@ local openableItems = {
 	202371,
 	202080,
 	203476,
+	204359,
+	204378,
+	204379,
+	204380,
+	204381,
 }
 
 local tbcOre = {
@@ -1191,7 +1196,6 @@ local professionItems = {
 	202011,
 	202014,
 	202016,
-	204359
 }
 
 local questItemList = {}
