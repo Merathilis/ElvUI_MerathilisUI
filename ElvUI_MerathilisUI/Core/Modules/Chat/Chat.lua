@@ -1753,7 +1753,7 @@ function module:BN_FRIEND_INFO_CHANGED(_, friendIndex)
 
 		-- to avoid duplicate message
 		if not guildPlayerCache[Ambiguate(fullName, "none")] then
-			local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(characterData.data.class, CT.db.classIconStyle, 16, 16) .. " " or ""
+			local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(characterData.data.class, module.db.classIconStyle, 16, 16) .. " " or ""
 			local coloredName = F.CreateClassColorString(character, characterData.data.class)
 
 			local playerName = format("|Hplayer:%s|h%s%s|h", fullName, classIcon, coloredName)
