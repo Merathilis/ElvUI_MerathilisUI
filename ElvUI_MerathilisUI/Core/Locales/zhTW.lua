@@ -171,6 +171,16 @@ L["Display the level of the item on the item link."] = true
 L["Numberical Quality Tier"] = true
 L["%player% has earned the achievement %achievement%!"] = "%player%獲得了成就%achievement%!"
 L["%players% have earned the achievement %achievement%!"] = "%players%獲得了成就%achievement%!"
+L["%players% (%bnet%) has come online."] = "%players% (%bnet%) 上線了。"
+L["%players% (%bnet%) has gone offline."] = "%players% (%bnet%) 下線了。"
+L["BNet Friend Offline"] = true
+L["BNet Friend Online"] = true
+L["Show a message when a Battle.net friend's wow character comes online."] = true
+L["Show a message when a Battle.net friend's wow character goes offline."] = true
+L["Show the class icon before the player name."] = true
+L["Show the faction icon before the player name."] = true
+L["The message will only be shown in the chat frame (or chat tab) with Blizzard service alert channel on."] = true
+L["This feature only works for message that sent by this module."] = true
 
 -- Combat Alert
 L["Combat Alert"] = "戰鬥提醒"

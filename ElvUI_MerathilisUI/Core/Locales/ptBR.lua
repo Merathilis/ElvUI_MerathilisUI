@@ -175,6 +175,18 @@ L["Weapon Category"] = true
 L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 L["Display the level of the item on the item link."] = true
 L["Numberical Quality Tier"] = true
+L["%player% has earned the achievement %achievement%!"] = true
+L["%players% have earned the achievement %achievement%!"] = true
+L["%players% (%bnet%) has come online."] = "%players% (%bnet%) se conectou."
+L["%players% (%bnet%) has gone offline."] = "%players% (%bnet%) se desconectou."
+L["BNet Friend Offline"] = true
+L["BNet Friend Online"] = true
+L["Show a message when a Battle.net friend's wow character comes online."] = true
+L["Show a message when a Battle.net friend's wow character goes offline."] = true
+L["Show the class icon before the player name."] = true
+L["Show the faction icon before the player name."] = true
+L["The message will only be shown in the chat frame (or chat tab) with Blizzard service alert channel on."] = true
+L["This feature only works for message that sent by this module."] = true
 
 -- Combat Alert
 L["Combat Alert"] = true

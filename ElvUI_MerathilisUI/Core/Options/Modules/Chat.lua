@@ -98,6 +98,24 @@ options.chat = {
 						return v
 					end
 				},
+				factionIcon = {
+					order = 11,
+					type = "toggle",
+					name = L["Faction Icon"],
+					desc = L["Show the faction icon before the player name."] .. "\n" .. L["This feature only works for message that sent by this module."]
+				},
+				bnetFriendOnline = {
+					order = 12,
+					type = "toggle",
+					name = L["BNet Friend Online"],
+					desc = L["Show a message when a Battle.net friend's wow character comes online."] .. "\n" .. L["The message will only be shown in the chat frame (or chat tab) with Blizzard service alert channel on."],
+				},
+				bnetFriendOffline = {
+					order = 13,
+					type = "toggle",
+					name = L["BNet Friend Offline"],
+					desc = L["Show a message when a Battle.net friend's wow character goes offline."] .. "\n" .. L["The message will only be shown in the chat frame (or chat tab) with Blizzard service alert channel on."],
+				}
 			},
 		},
 		seperators = {

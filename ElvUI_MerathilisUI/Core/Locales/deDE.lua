@@ -172,6 +172,16 @@ L["Display the level of the item on the item link."] = "Zeige die Stufe des Gege
 L["Numberical Quality Tier"] = "Numerische Qualitätsstufe"
 L["%player% has earned the achievement %achievement%!"] = "%player% hat den Erfolg %achievement% errungen!"
 L["%players% have earned the achievement %achievement%!"] = "%players% haben den Erfolg %achievement% erreicht!"
+L["%players% (%bnet%) has come online."] = "%players% (%bnet%) ist jetzt online."
+L["%players% (%bnet%) has gone offline."] = "%players% (%bnet%) ist jetzt offline."
+L["BNet Friend Offline"] = true
+L["BNet Friend Online"] = true
+L["Show a message when a Battle.net friend's wow character comes online."] = true
+L["Show a message when a Battle.net friend's wow character goes offline."] = true
+L["Show the class icon before the player name."] = true
+L["Show the faction icon before the player name."] = true
+L["The message will only be shown in the chat frame (or chat tab) with Blizzard service alert channel on."] = true
+L["This feature only works for message that sent by this module."] = true
 
 -- Combat Alert
 L["Combat Alert"] = "Kampfalarmierung"
