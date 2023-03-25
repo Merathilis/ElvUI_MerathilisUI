@@ -1595,13 +1595,13 @@ function module:ElvUIChat_GuildMemberStatusMessageHandler(frame, msg)
 		local coloredName = F.CreateClassColorString(displayName, link and guildPlayerCache[link] or guildPlayerCache[name])
 
 		coloredName = addSpaceForAsian(coloredName)
-		local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(class, module.db.classIconStyle, 16, 16) .. " " or ""
+		local classIcon = module.db.classIcon and F.GetClassIconStringWithStyle(class, module.db.classIconStyle, 16, 16) .. " " or ""
 
 		if coloredName and classIcon then
 			if link then
 				resultText = format(onlineMessageTemplate, link, classIcon, coloredName)
 				if module.db.guildMemberStatusInviteLink then
-					local MERInviteLink = format("|HMERinvite:%s|h%s|h", link, F.StringByTemplate(format("[%s]", L["Invite"]), "info"))
+					local MERInviteLink = format("|Hwtinvite:%s|h%s|h", link, F.StringByTemplate(format("[%s]", L["Invite"]), "info"))
 					resultText = resultText .. " " .. MERInviteLink
 				end
 				frame:AddMessage(resultText, F.RGBFromTemplate("success"))
@@ -1616,7 +1616,7 @@ function module:ElvUIChat_GuildMemberStatusMessageHandler(frame, msg)
 end
 
 function module:BetterSystemMessage()
-	if self.db and self.db.guildMemberStatus and not self.isSystemMessageHandled then
+	if module.db and module.db.guildMemberStatus and not module.isSystemMessageHandled then
 		local setHyperlink = _G.ItemRefTooltip.SetHyperlink
 		function _G.ItemRefTooltip:SetHyperlink(data, ...)
 			if strsub(data, 1, 8) == "wtinvite" then
@@ -1629,7 +1629,7 @@ function module:BetterSystemMessage()
 			setHyperlink(self, data, ...)
 		end
 
-		self.isSystemMessageHandled = true
+		module.isSystemMessageHandled = true
 	end
 end
 
