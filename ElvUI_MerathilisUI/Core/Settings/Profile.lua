@@ -246,6 +246,7 @@ P.chat = {
 	removeBrackets = true,
 	hideChat = false,
 	emotes = true,
+	classIcon = true,
 	classIconStyle = "flatborder2",
 	removeRealm = true,
 	guildMemberStatus = true,

@@ -74,8 +74,14 @@ options.chat = {
 					name = E.NewSign..L["Merge Achievement"],
 					desc = L["Merge the achievement message into one line."],
 				},
-				classIconStyle = {
+				classIcon = {
 					order = 9,
+					type = "toggle",
+					name = E.NewSign..L["Class Icon"],
+					desc = L["Show the class icon before the player name."] .. "\n" .. L["This feature only works for message that sent by this module."]
+				},
+				classIconStyle = {
+					order = 10,
 					type = "select",
 					name = E.NewSign..L["Class Icon Style"],
 					desc = L["Select the style of class icon."],
