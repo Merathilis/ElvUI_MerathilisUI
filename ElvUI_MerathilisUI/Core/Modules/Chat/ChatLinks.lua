@@ -12,8 +12,10 @@ local GetItemInfoInstant = GetItemInfoInstant
 local GetPvpTalentInfoByID = GetPvpTalentInfoByID
 local GetSpellTexture = GetSpellTexture
 local GetTalentInfoByID = GetTalentInfoByID
-local C_ChallengeMode_GetMapUIInfo = E.Retail and C_ChallengeMode.GetMapUIInfo
-local C_Soulbinds_GetConduitCollectionData = E.Retail and C_Soulbinds.GetConduitCollectionData
+
+local C_ChallengeMode_GetMapUIInfo = C_ChallengeMode and C_ChallengeMode.GetMapUIInfo
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo
+local C_Soulbinds_GetConduitCollectionData = C_Soulbinds and C_Soulbinds.GetConduitCollectionData
 local C_Item_GetItemNameByID = C_Item.GetItemNameByID
 
 local ICON_STRING = "|T%s:16:18:0:0:64:64:4:60:7:57:255:255:255|t"
@@ -253,11 +255,30 @@ local function AddAchievementInfo(link)
 	return link
 end
 
+local function AddCurrencyInfo(link)
+	-- currency
+	local id = strmatch(link, "Hcurrency:(%d+)")
+	if not id then
+		return
+	end
+
+	if module.db.icon then
+		local info = C_CurrencyInfo_GetCurrencyInfo(id)
+		local icon = info and info.iconFileID and format(ICON_STRING, info.iconFileID)
+		if icon then
+			link = icon .. " " .. link
+		end
+	end
+
+	return link
+end
+
 function module:Filter(event, msg, ...)
 	if module.db.enable then
 		msg = gsub(msg, "(|cff71d5ff|Hconduit:%d+:.-|h.-|h|r)", AddConduitIcon)
 		msg = gsub(msg, "(|cffa335ee|Hkeystone:%d+:.-|h.-|h|r)", AddKeystoneIcon)
 		msg = gsub(msg, "(|Hitem:%d+:.-|h.-|h)", AddItemInfo)
+		msg = gsub(msg, "(|Hcurrency:%d+:.-|h.-|h)", AddCurrencyInfo)
 		msg = gsub(msg, "(|Hspell:%d+:%d+|h.-|h)", AddSpellInfo)
 		msg = gsub(msg, "(|Henchant:%d+|h.-|h)", AddEnchantInfo)
 		msg = gsub(msg, "(|Htalent:%d+|h.-|h)", AddTalentInfo)
