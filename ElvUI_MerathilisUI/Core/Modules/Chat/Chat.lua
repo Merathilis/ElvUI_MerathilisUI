@@ -30,7 +30,6 @@ local Ambiguate = Ambiguate
 local BetterDate = BetterDate
 local BNGetNumFriendInvites = BNGetNumFriendInvites
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
-local ChatTypeInfo = ChatTypeInfo
 local FlashClientIcon = FlashClientIcon
 local GetAchievementLink = GetAchievementLink
 local GetBNPlayerCommunityLink = GetBNPlayerCommunityLink
@@ -90,7 +89,6 @@ local achievementMessageTemplate = L["%player% has earned the achievement %achie
 local achievementMessageTemplateMultiplePlayers = L["%players% have earned the achievement %achievement%!"]
 
 local guildPlayerCache = {}
-local blockedMessageCache = {}
 local achievementMessageCache = {
 	byAchievement = {},
 	byPlayer = {}
@@ -1042,7 +1040,9 @@ function module:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, ar
 			chatType == "TARGETICONS" or
 			chatType == "BN_WHISPER_PLAYER_OFFLINE")
 		then
-			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+			if chatType ~= "SYSTEM" or not module:ElvUIChat_GuildMemberStatusMessageHandler(frame, arg1) then
+				frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+			end
 		elseif chatType == "LOOT" then
 			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
 		elseif strsub(chatType, 1, 7) == "COMBAT_" then
@@ -1052,11 +1052,14 @@ function module:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, ar
 		elseif strsub(chatType, 1, 10) == "BG_SYSTEM_" then
 			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
 		elseif strsub(chatType, 1, 11) == "ACHIEVEMENT" then
-			-- Append [Share] hyperlink
-			frame:AddMessage(format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", module:HandleName(coloredName)))), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+			if not module:ElvUIChat_AchievementMessageHandler(event, frame, arg1, data) then
+				frame:AddMessage(format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", module:HandleName(coloredName)))), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+			end
 		elseif strsub(chatType, 1, 18) == "GUILD_ACHIEVEMENT" then
-			local message = format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", coloredName)))
-			frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+			if not module:ElvUIChat_AchievementMessageHandler(event, frame, arg1, data) then
+				local message = format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", coloredName)))
+				frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+			end
 		elseif chatType == "IGNORED" then
 			frame:AddMessage(format(_G.CHAT_IGNORED, arg2), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
 		elseif chatType == "FILTERED" then
@@ -1429,124 +1432,76 @@ function module:ToggleReplacement()
 	end
 end
 
-function module.GuildMemberStatusMessageHandler(_, _, msg)
-	if not module.db or not module.db.enable or not module.db.guildMemberStatus then
-		return
-	end
-
-	local name, class, link, resultText
-
-	if blockedMessageCache[msg] then
-		return true
-	end
-
-	name = strmatch(msg, offlineMessagePattern)
-	if not name then
-		link, name = strmatch(msg, onlineMessagePattern)
-	end
-
-	if name then
-		class = guildPlayerCache[name]
-		if not class then
-			updateGuildPlayerCache(nil, "FORCE_UPDATE")
-			class = guildPlayerCache[name]
-		end
-	end
-
-	if class then
-		blockedMessageCache[msg] = true
-
-		C_Timer_After(0.1, function()
-			blockedMessageCache[msg] = nil
-		end)
-
-		local displayName = module.db.removeRealm and Ambiguate(name, "short") or name
-		local coloredName = F.CreateClassColorString(displayName, link and guildPlayerCache[link] or guildPlayerCache[name])
-
-		coloredName = addSpaceForAsian(coloredName)
-		local classIcon = F.GetClassIconStringWithStyle(class, module.db.classIconStyle, 16, 16)
-
-		if coloredName and classIcon then
-			if link then
-				resultText = format(onlineMessageTemplate, link, classIcon, coloredName)
-				if module.db.guildMemberStatusInviteLink then
-					local MERInviteLink = format("|Hwtinvite:%s|h%s|h", link, F.StringByTemplate(format("[%s]", L["Invite"]), "info"))
-					resultText = resultText .. " " .. MERInviteLink
-				end
-				_G.ChatFrame1:AddMessage(resultText, F.RGBFromTemplate("success"))
-			else
-				resultText = format(offlineMessageTemplate, classIcon, coloredName)
-				_G.ChatFrame1:AddMessage(resultText, F.RGBFromTemplate("danger"))
-			end
-
-			return true
-		end
-	end
-
-	return false
-end
-
-function module.SendAchivementMessage()
-	if not module.db or not module.db.enable or not module.db.mergeAchievement then
+function module:SendAchivementMessage()
+	if not self.db or not self.db.enable or not self.db.mergeAchievement then
 		return
 	end
 
 	local channelData = {
-		{ event = "CHAT_MSG_GUILD_ACHIEVEMENT", color = ChatTypeInfo.GUILD },
-		{ event = "CHAT_MSG_ACHIEVEMENT",       color = ChatTypeInfo.SYSTEM }
+		{ event = "CHAT_MSG_GUILD_ACHIEVEMENT", color = _G.ChatTypeInfo.GUILD },
+		{ event = "CHAT_MSG_ACHIEVEMENT",       color = _G.ChatTypeInfo.SYSTEM }
 	}
 
 	for _, data in ipairs(channelData) do
 		local event, color = data.event, data.color
-		if achievementMessageCache.byPlayer[event] then
-			for playerString, achievementTable in pairs(achievementMessageCache.byPlayer[event]) do
-				local players = { strsplit("=", playerString) }
+		for frame, cache in pairs(achievementMessageCache.byPlayer) do
+			if cache and cache[event] then
+				for playerString, achievementTable in pairs(cache[event]) do
+					local players = { strsplit("=", playerString) }
 
-				local achievementLinks = {}
-				for achievementID in pairs(achievementTable) do
-					tinsert(achievementLinks, GetAchievementLink(achievementID))
-				end
+					local achievementLinks = {}
+					for achievementID in pairs(achievementTable) do
+						tinsert(achievementLinks, GetAchievementLink(achievementID))
+					end
 
-				local message = nil
+					local message = nil
 
-				if #players == 1 then
-					message = gsub(achievementMessageTemplate, "%%player%%", addSpaceForAsian(players[1]))
-				elseif #players > 1 then
-					message = gsub(achievementMessageTemplateMultiplePlayers, "%%players%%", addSpaceForAsian(strjoin(", ", unpack(players))))
-				end
+					if #players == 1 then
+						message = gsub(achievementMessageTemplate, "%%player%%", addSpaceForAsian(players[1]))
+					elseif #players > 1 then
+						message = gsub(achievementMessageTemplateMultiplePlayers, "%%players%%", addSpaceForAsian(strjoin(", ", unpack(players))))
+					end
 
-				if message then
-					message = gsub(message, "%%achievement%%", addSpaceForAsian(strjoin(", ", unpack(achievementLinks)), true))
-					_G.ChatFrame1:AddMessage(message, color.r, color.g, color.b)
+					if message then
+						message = gsub(message, "%%achievement%%", addSpaceForAsian(strjoin(", ", unpack(achievementLinks)), true))
+
+						message = select(2, MER:GetModule("ChatLink"):Filter("", message))
+						frame:AddMessage(message, color.r, color.g, color.b)
+					end
 				end
 			end
-			wipe(achievementMessageCache.byPlayer[event])
+			wipe(cache)
 		end
 	end
 end
 
-function module.AchievementMessageHandler(_, event, ...)
-	if not module.db or not module.db.enable or not module.db.mergeAchievement then
+function module:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage, playerInfo)
+	if not frame or not event or not achievementMessage or not playerInfo then
 		return
 	end
 
-	local achievementMessage = select(1, ...)
-	local guid = select(12, ...)
-
-	if not guid then
+	if not self.db or not self.db.enable or not self.db.mergeAchievement then
 		return
 	end
 
-	if not achievementMessageCache.byAchievement[event] then
-		achievementMessageCache.byAchievement[event] = {}
+	if not achievementMessageCache.byAchievement[frame] then
+		achievementMessageCache.byAchievement[frame] = {}
 	end
 
-	if not achievementMessageCache.byPlayer[event] then
-		achievementMessageCache.byPlayer[event] = {}
+	if not achievementMessageCache.byAchievement[frame][event] then
+		achievementMessageCache.byAchievement[frame][event] = {}
 	end
 
-	local cache = achievementMessageCache.byAchievement[event]
-	local cacheByPlayer = achievementMessageCache.byPlayer[event]
+	if not achievementMessageCache.byPlayer[frame] then
+		achievementMessageCache.byPlayer[frame] = {}
+	end
+
+	if not achievementMessageCache.byPlayer[frame][event] then
+		achievementMessageCache.byPlayer[frame][event] = {}
+	end
+
+	local cache = achievementMessageCache.byAchievement[frame][event]
+	local cacheByPlayer = achievementMessageCache.byPlayer[frame][event]
 
 	local achievementID = strmatch(achievementMessage, "|Hachievement:(%d+):")
 	if not achievementID then
@@ -1570,11 +1525,11 @@ function module.AchievementMessageHandler(_, event, ...)
 
 				cacheByPlayer[playerString][achievementID] = true
 
-				if not module.waitForAchievementMessage then
-					module.waitForAchievementMessage = true
+				if not self.waitForAchievementMessage then
+					self.waitForAchievementMessage = true
 					C_Timer_After(0.2, function()
-						module.SendAchivementMessage()
-						module.waitForAchievementMessage = false
+						self:SendAchivementMessage()
+						self.waitForAchievementMessage = false
 					end)
 				end
 			end
@@ -1583,14 +1538,13 @@ function module.AchievementMessageHandler(_, event, ...)
 		end)
 	end
 
-	local playerInfo = CH:GetPlayerInfoByGUID(guid)
 	if not playerInfo or not playerInfo.englishClass or not playerInfo.name or not playerInfo.nameWithRealm then
 		return
 	end
 
-	local displayName = module.db.removeRealm and playerInfo.name or playerInfo.nameWithRealm
+	local displayName = self.db.removeRealm and playerInfo.name or playerInfo.nameWithRealm
 	local coloredName = F.CreateClassColorString(displayName, playerInfo.englishClass)
-	local classIcon = F.GetClassIconStringWithStyle(playerInfo.englishClass, module.db.classIconStyle, 16, 16)
+	local classIcon = F.GetClassIconStringWithStyle(playerInfo.englishClass, self.db.classIconStyle, 16, 16)
 
 	if coloredName and classIcon and cache[achievementID] then
 		local playerName = format("|Hplayer:%s|h%s %s|h", playerInfo.nameWithRealm, classIcon, coloredName)
@@ -1599,14 +1553,58 @@ function module.AchievementMessageHandler(_, event, ...)
 	end
 end
 
-function module:BetterSystemMessage()
-	if not module.db then
+function module:ElvUIChat_GuildMemberStatusMessageHandler(frame, msg)
+	if not frame or not msg then
 		return
 	end
 
-	if module.db.guildMemberStatus and not module.isSystemMessageHandled then
-		ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", module.GuildMemberStatusMessageHandler)
+	if not module.db or not module.db.enable or not module.db.guildMemberStatus then
+		return
+	end
 
+	local name, class, link, resultText
+
+	name = strmatch(msg, offlineMessagePattern)
+	if not name then
+		link, name = strmatch(msg, onlineMessagePattern)
+	end
+
+	if name then
+		class = guildPlayerCache[name]
+		if not class then
+			updateGuildPlayerCache(nil, "FORCE_UPDATE")
+			class = guildPlayerCache[name]
+		end
+	end
+
+	if class then
+		local displayName = module.db.removeRealm and Ambiguate(name, "short") or name
+		local coloredName =
+			F.CreateClassColorString(displayName, link and guildPlayerCache[link] or guildPlayerCache[name])
+
+		coloredName = addSpaceForAsian(coloredName)
+		local classIcon = F.GetClassIconStringWithStyle(class, module.db.classIconStyle, 16, 16)
+
+		if coloredName and classIcon then
+			if link then
+				resultText = format(onlineMessageTemplate, link, classIcon, coloredName)
+				if module.db.guildMemberStatusInviteLink then
+					local MERInviteLink = format("|HMERinvite:%s|h%s|h", link, F.StringByTemplate(format("[%s]", L["Invite"]), "info"))
+					resultText = resultText .. " " .. MERInviteLink
+				end
+				frame:AddMessage(resultText, F.RGBFromTemplate("success"))
+			else
+				resultText = format(offlineMessageTemplate, classIcon, coloredName)
+				frame:AddMessage(resultText, F.RGBFromTemplate("danger"))
+			end
+
+			return true
+		end
+	end
+end
+
+function module:BetterSystemMessage()
+	if self.db and self.db.guildMemberStatus and not self.isSystemMessageHandled then
 		local setHyperlink = _G.ItemRefTooltip.SetHyperlink
 		function _G.ItemRefTooltip:SetHyperlink(data, ...)
 			if strsub(data, 1, 8) == "wtinvite" then
@@ -1619,13 +1617,7 @@ function module:BetterSystemMessage()
 			setHyperlink(self, data, ...)
 		end
 
-		module.isSystemMessageHandled = true
-	end
-
-	if module.db.mergeAchievement and not module.isAchievementHandled then
-		ChatFrame_AddMessageEventFilter("CHAT_MSG_ACHIEVEMENT", module.AchievementMessageHandler)
-		ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD_ACHIEVEMENT", module.AchievementMessageHandler)
-		module.isAchievementHandled = true
+		self.isSystemMessageHandled = true
 	end
 end
 
