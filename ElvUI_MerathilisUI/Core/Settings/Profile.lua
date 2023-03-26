@@ -51,6 +51,7 @@ P.bags = {
 	FilterEquipSet = false,
 	FilterAnima = false,
 	FilterRelic = false,
+	FilterStone = true,
 
 	equipOverlay = true,
 }
