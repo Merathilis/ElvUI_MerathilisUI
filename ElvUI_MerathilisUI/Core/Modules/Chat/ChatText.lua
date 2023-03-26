@@ -724,7 +724,7 @@ function CT:HandleShortChannels(msg)
 	msg = gsub(msg, "<" .. _G.DND .. ">", "[|cffE7E716" .. L["DND"] .. "|r] ")
 
 	local raidWarningString = ""
-	if CT.db and CT.db.abbreviation == "SHORT" and MER.ChineseLocale then
+	if CT.db and CT.db.abbreviation == "SHORT" and W.ChineseLocale then
 		msg = gsub(msg, utf8sub(_G.CHAT_WHISPER_GET, 3), L["[ABBR] Whisper"] .. "：")
 		msg = gsub(msg, utf8sub(_G.CHAT_WHISPER_INFORM_GET, 1, 3), L["[ABBR] Whisper"])
 		msg = gsub(msg, utf8sub(_G.CHAT_SAY_GET, 3), L["[ABBR] Say"] .. "：")
@@ -1619,8 +1619,8 @@ local function UpdateBattleNetFriendStatus(friendIndex)
 	local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(friendIndex)
 	if numGameAccounts and numGameAccounts > 0 then
 		for accountIndex = 1, numGameAccounts do
-			local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(friendIndex, accountIndex)
-			if gameAccountInfo.wowProjectID == WOW_PROJECT_MAINLINE and gameAccountInfo.characterName then
+			local gameAccountInfo = C_BattleNet.GetFriendGameAccountInfo(friendIndex, accountIndex)
+			if gameAccountInfo and gameAccountInfo.wowProjectID == WOW_PROJECT_MAINLINE and gameAccountInfo.characterName then
 				numberOfCharacters = numberOfCharacters + 1
 				characters[gameAccountInfo.characterName] = {
 					faction = gameAccountInfo.factionName,
