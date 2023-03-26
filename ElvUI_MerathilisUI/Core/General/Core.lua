@@ -23,6 +23,7 @@ MER.IsNewPatch = select(4, GetBuildInfo()) >= 100000 -- 10.0
 MER.IsPTR = select(4, GetBuildInfo()) == 100002 -- 10.0.2
 
 MER.Locale = GetLocale()
+MER.ChineseLocale = strsub(MER.Locale, 0, 2) == "zh"
 MER.MaxLevelForPlayerExpansion = E.Retail and GetMaxLevelForPlayerExpansion()
 
 -- Masque support

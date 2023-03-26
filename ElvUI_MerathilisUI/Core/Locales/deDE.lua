@@ -174,14 +174,14 @@ L["%player% has earned the achievement %achievement%!"] = "%player% hat den Erfo
 L["%players% have earned the achievement %achievement%!"] = "%players% haben den Erfolg %achievement% erreicht!"
 L["%players% (%bnet%) has come online."] = "%players% (%bnet%) ist jetzt online."
 L["%players% (%bnet%) has gone offline."] = "%players% (%bnet%) ist jetzt offline."
-L["BNet Friend Offline"] = true
-L["BNet Friend Online"] = true
-L["Show a message when a Battle.net friend's wow character comes online."] = true
-L["Show a message when a Battle.net friend's wow character goes offline."] = true
-L["Show the class icon before the player name."] = true
-L["Show the faction icon before the player name."] = true
-L["The message will only be shown in the chat frame (or chat tab) with Blizzard service alert channel on."] = true
-L["This feature only works for message that sent by this module."] = true
+L["BNet Friend Offline"] = "BNet Freund Offline"
+L["BNet Friend Online"] = "BNet Freund Online"
+L["Show a message when a Battle.net friend's wow character comes online."] = "Eine Nachricht anzeigen, wenn der Wow-Charakter eines Battle.net Freundes online geht."
+L["Show a message when a Battle.net friend's wow character goes offline."] = "Eine Nachricht anzeigen, wenn der Wow-Charakter eines Battle.net Freundes offline geht."
+L["Show the class icon before the player name."] = "Klassensymbol vor dem Spielernamen anzeigen."
+L["Show the faction icon before the player name."] = "Fraktionssymbol vor dem Spielernamen anzeigen."
+L["The message will only be shown in the chat frame (or chat tab) with Blizzard service alert channel on."] = "Die Nachricht wird nur im Chatfenster (oder Chat Tab) angezeigt, wenn der Blizzard Service-Benachrichtigungskanal aktiviert ist."
+L["This feature only works for message that sent by this module."] = "Diese Funktion funktioniert nur für Nachrichten, die von diesem Modul gesendet wurden."
 
 -- Combat Alert
 L["Combat Alert"] = "Kampfalarmierung"
