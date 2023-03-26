@@ -10,8 +10,16 @@ local function LoadSkin()
 	end
 
 	local frame = _G.ProfessionsCustomerOrdersFrame
-	frame:Styling()
-	frame:CreateShadow()
+	if frame then
+		frame:Styling()
+		frame:CreateShadow()
+	end
+
+	local currentPrice = _G.ProfessionsCustomerOrdersFrame.Form.CurrentListings
+	if currentPrice then
+		currentPrice:Styling()
+		currentPrice:CreateShadow()
+	end
 
 	module:ReskinTab(_G.ProfessionsCustomerOrdersFrameBrowseTab)
 	module:ReskinTab(_G.ProfessionsCustomerOrdersFrameOrdersTab)
