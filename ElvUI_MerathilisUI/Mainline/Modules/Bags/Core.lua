@@ -9,7 +9,6 @@ local B = E:GetModule('Bags')
 local _G = _G
 local strmatch, unpack, ceil = string.match, unpack, math.ceil
 
-local LE_ITEM_CLASS_CONTAINER = LE_ITEM_CLASS_CONTAINER
 local C_NewItems_IsNewItem, C_NewItems_RemoveNewItem, C_Timer_After = C_NewItems.IsNewItem, C_NewItems.RemoveNewItem, C_Timer.After
 local C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID
 local C_Soulbinds_IsItemConduitByItemInfo = C_Soulbinds.IsItemConduitByItemInfo
@@ -1120,7 +1119,7 @@ function module:Initialize()
 	end
 
 	local function isItemNeedsLevel(item)
-		return item.link and item.quality > 1 and module:IsItemHasLevel(item)
+		return item.link and item.quality > 1 and (module:IsItemHasLevel(item) or item.classID == Enum.ItemClass.Gem)
 	end
 
 	local function isItemExist(item)
