@@ -832,6 +832,7 @@ do
 				set = function(info, value)
 					E.db.mui.chat.chatText[info[#info]] = value
 					CT:ProfileUpdate()
+					CH:CheckLFGRoles() -- We need to call GROUP_ROSTER_UPDATE to run the Update, so do it with this function
 				end,
 				args = {
 					removeRealm = {
@@ -863,9 +864,7 @@ do
 						order = 3,
 						type = "range",
 						name = L["Size"],
-						min = 5,
-						max = 25,
-						step = 1
+						min = 5, max = 25, step = 1
 					},
 				},
 			},
