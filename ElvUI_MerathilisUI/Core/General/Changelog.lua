@@ -12,7 +12,13 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Chat: Fix a non Retail Chat error.. narf",
+		"• Chat: Chat: Added an updated version for the Online/Offline. Credits fang2hou",
+		"• Chat: Rearrange Chat settings",
+		"• Tooltip: Added icons for Achievements",
+		"• FriendList: Fixed an error with name color",
+		"• Skins: Updated Auctionator skin",
+		"• Skins:Updated ItemSocket/ProfessionCustomOrder skins",
+		"• Bags: Added an own category for Primodial Stones",
 
 		" ",
 
