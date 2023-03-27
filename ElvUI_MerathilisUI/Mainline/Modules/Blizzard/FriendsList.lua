@@ -309,20 +309,20 @@ function module:UpdateFriendButton(button)
 
 	-- Status icon
 	if status then
-		local pack = self.db.textures.status
+		local pack = module.db.textures.status
 		if statusIcons[pack] then
 			button.status:SetTexture(statusIcons[pack][status])
 		end
 	end
 
 	-- reset game icon with elvui style
-	button.gameIcon:SetTexCoord(.17, .83, .17, .83)
+	button.gameIcon:SetTexCoord(0, 1, 0, 1)
 
 	if gameName then
 		local buttonTitle, buttonText
 
 		-- override Real ID or name with note
-		if self.db.useNoteAsName and note and note ~= "" then
+		if module.db.useNoteAsName and note and note ~= "" then
 			if realID then
 				realID = note
 			else
@@ -331,15 +331,15 @@ function module:UpdateFriendButton(button)
 		end
 
 		-- real ID
-		local clientColor = self.db.useClientColor and clientData[game] and clientData[game].color
+		local clientColor = module.db.useClientColor and clientData[gameName] and clientData[gameName].color
 		local realIDString = realID and clientColor and F.CreateColorString(realID, clientColor) or realID
 
 		-- name
-		local classColor = self.db.useClassColor and GetClassColor(class)
+		local classColor = module.db.useClassColor and GetClassColor(class)
 		local nameString = name and classColor and F.CreateColorString(name, classColor) or name
 
-		if self.db.level and wowID and expansionData[wowID] and level and level ~= 0 then
-			if level ~= expansionData[wowID].maxLevel or not self.db.hideMaxLevel then
+		if module.db.level and wowID and expansionData[wowID] and level and level ~= 0 then
+			if level ~= expansionData[wowID].maxLevel or not module.db.hideMaxLevel then
 				nameString = nameString .. F.CreateColorString(": " .. level, GetQuestDifficultyColor(level))
 			end
 		end
@@ -358,9 +358,9 @@ function module:UpdateFriendButton(button)
 		-- area
 		if area then
 			if server and server ~= "" and server ~= E.myrealm then
-				buttonText = F.CreateColorString(area .. " - " .. server, self.db.areaColor)
+				buttonText = F.CreateColorString(area .. " - " .. server, module.db.areaColor)
 			else
-				buttonText = F.CreateColorString(area, self.db.areaColor)
+				buttonText = F.CreateColorString(area, module.db.areaColor)
 			end
 
 			if not isInCurrentRegion and regionLocales[regionID] and not E.db.mui.blizzard.filter.unblockProfanityFilter then
@@ -373,33 +373,34 @@ function module:UpdateFriendButton(button)
 		end
 
 		-- temporary fix for upgrading db from old version
-		if self.db.textures.client ~= "blizzard" then
-			self.db.textures.client = "modern"
+		if module.db.textures.client ~= "blizzard" then
+			module.db.textures.client = "modern"
 		end
 
 		-- game icon
-		local texOrAtlas = clientData[gameName] and clientData[gameName]["icon"][self.db.textures.client]
+		local texOrAtlas = clientData[gameName] and clientData[gameName]["icon"][module.db.textures.client]
 
 		if wowID then
-			texOrAtlas = expansionData[wowID]["icon"][self.db.textures.client]
+			texOrAtlas = expansionData[wowID]["icon"][module.db.textures.client]
 		end
 
-		if self.db.textures.factionIcon then
+		if module.db.textures.factionIcon then
 			if faction and factionIcons[faction] then
 				texOrAtlas = factionIcons[faction]
 			end
 		end
 
 		if texOrAtlas then
-			if self.db.textures.client == "blizzard" then
+			if module.db.textures.client == "blizzard" then
 				button.gameIcon:SetAtlas(texOrAtlas)
+				button.gameIcon:SetTexCoord(0, 1, 0, 1)
 			else
 				button.gameIcon:SetTexture(texOrAtlas)
 				button.gameIcon:SetTexCoord(.1, .9, .1, .9)
 			end
 		end
 	else
-		if self.db.useNoteAsName and note and note ~= "" then
+		if module.db.useNoteAsName and note and note ~= "" then
 			button.name:SetText(note)
 		end
 	end
@@ -424,10 +425,10 @@ function module:UpdateFriendButton(button)
 	end
 
 	F.SetFontOutline(button.name)
-	F.SetFontDB(button.name, self.db.nameFont)
+	F.SetFontDB(button.name, module.db.nameFont)
 
 	F.SetFontOutline(button.info)
-	F.SetFontDB(button.info, self.db.infoFont)
+	F.SetFontDB(button.info, module.db.infoFont)
 
 	-- favorite icon
 	if button.Favorite:IsShown() then

@@ -344,7 +344,7 @@ local function exportTextFrame(frame)
 	module:CreateShadow(frame)
 
 	S:HandleButton(frame.Close)
-	S:HandleScrollBar(frame.ScrollFrame.ScrollBar)
+	S:HandleTrimScrollBar(frame.ScrollBar)
 end
 
 local function listExportFrame(frame)
@@ -356,7 +356,7 @@ local function listExportFrame(frame)
 	S:HandleButton(frame.UnselectAll)
 	S:HandleButton(frame.Export)
 	S:HandleCloseButton(frame.CloseDialog)
-	S:HandleScrollBar(frame.ScrollFrame.ScrollBar)
+	S:HandleTrimScrollBar(frame.ScrollBar)
 end
 
 local function listImportFrame(frame)
@@ -366,7 +366,7 @@ local function listImportFrame(frame)
 
 	S:HandleButton(frame.Import)
 	S:HandleCloseButton(frame.CloseDialog)
-	S:HandleScrollBar(frame.ScrollFrame.ScrollBar)
+	S:HandleTrimScrollBar(frame.ScrollBar)
 end
 
 local function splashFrame(frame)

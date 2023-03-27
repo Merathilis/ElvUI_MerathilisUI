@@ -51,6 +51,7 @@ P.bags = {
 	FilterEquipSet = false,
 	FilterAnima = false,
 	FilterRelic = false,
+	FilterStone = true,
 
 	equipOverlay = true,
 }
@@ -243,18 +244,34 @@ P.cvars = {
 P.chat = {
 	enable = true,
 	chatButton = true,
-	removeBrackets = true,
 	hideChat = false,
 	emotes = true,
-	classIconStyle = "flatborder2",
-	removeRealm = true,
-	guildMemberStatus = true,
-	guildMemberStatusInviteLink = false,
-	mergeAchievement = true,
-	roleIcons = {
+	chatText = {
 		enable = true,
+		abbreviation = "DEFAULT",
+		removeBrackets = true,
 		roleIconSize = 16,
 		roleIconStyle = "SUNUI",
+		removeRealm = true,
+		customAbbreviation = {},
+		classIcon = true,
+		classIconStyle = "flatborder2",
+		guildMemberStatus = true,
+		guildMemberStatusInviteLink = true,
+		mergeAchievement = true,
+		bnetFriendOnline = true,
+		bnetFriendOffline = false,
+		factionIcon = true
+	},
+	chatLink = {
+		enable = true,
+		numbericalQualityTier = false,
+		translateItem = true,
+		level = true,
+		icon = true,
+		armorCategory = true,
+		weaponCategory = true,
+		compatibile = true
 	},
 	filter = {
 		enable = true,
@@ -366,16 +383,6 @@ P.chat = {
 				abbr = _G.ROLL
 			},
 		},
-	},
-	chatLink = {
-		enable = true,
-		numbericalQualityTier = false,
-		translateItem = true,
-		level = true,
-		icon = true,
-		armorCategory = true,
-		weaponCategory = true,
-		compatibile = true
 	},
 }
 

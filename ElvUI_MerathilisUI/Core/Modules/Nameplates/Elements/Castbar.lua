@@ -44,7 +44,8 @@ function MNP:Construct_Castbar(nameplate)
 		Castbar.Shield:Point("RIGHT", Castbar, "LEFT", 10, 0)
 		Castbar.Shield:SetSize(12, 12)
 		Castbar.Shield:Hide()
+
+		Castbar.CheckInterrupt = MNP.Castbar_CheckInterrupt
 	end
-	Castbar.CheckInterrupt = MNP.Castbar_CheckInterrupt
 end
 hooksecurefunc(NP, "Construct_Castbar", MNP.Construct_Castbar)

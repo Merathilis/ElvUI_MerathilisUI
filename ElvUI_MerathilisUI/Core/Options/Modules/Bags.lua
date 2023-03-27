@@ -57,6 +57,7 @@ options.bags = {
 				FilterAzerite = L["Azerite"],
 				FilterAnima = L["Anima"],
 				FilterRelic = L["Relic"],
+				FilterStone = L["Primodal Stone"],
 				FilterLegendary = L["Legendarys"],
 			},
 		},

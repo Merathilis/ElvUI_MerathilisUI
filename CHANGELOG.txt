@@ -1,2 +1,8 @@
 [b][color=orange]v5.69[/color], 22.03.2023[/b][list]
-[*]Chat: Fix a non Retail Chat error.. narf[/list]
+[*]Chat: Added an updated version for the Online/Offline. Credits fang2hou
+[*]Chat: Rearrange Chat settings
+[*]Tooltip: Added icons for Achievements
+[*]FriendList: Fixed an error with name color
+[*]Skins: Updated Auctionator skin
+[*]Skins: Updated ItemSocket/ProfessionCustomOrder skins
+[*]Bags: Added an own category for Primodial Stones[/list]

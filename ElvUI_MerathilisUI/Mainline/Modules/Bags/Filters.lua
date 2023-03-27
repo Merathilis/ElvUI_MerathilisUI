@@ -175,6 +175,16 @@ local function isKorthiaRelic(item)
 	return item.id and isKorthiaRelicByID(item.id)
 end
 
+local primordialStones = {}
+for id = 204000, 204030 do
+	primordialStones[id] = true
+end
+local function isPrimordialStone(item)
+	if not E.db.mui.bags.ItemFilter then return end
+	if not E.db.mui.bags.FilterStone then return end
+	return item.id and primordialStones[item.id]
+end
+
 function module:GetFilters()
 	local filters = {}
 
@@ -201,6 +211,7 @@ function module:GetFilters()
 	filters.bankAnima = function(item) return isItemInBank(item) and isAnimaItem(item) end
 	filters.bagRelic = function(item) return isItemInBag(item) and isKorthiaRelic(item) end
 	filters.onlyBagReagent = function(item) return isItemInBagReagent(item) and not isEmptySlot(item) end
+	filters.bagStone = function(item) return isItemInBag(item) and isPrimordialStone(item) end
 
 	for i = 1, 5 do
 		filters["bagCustom" .. i] = function(item) return isItemInBag(item) and isItemCustom(item, i) end
