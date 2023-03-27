@@ -89,7 +89,7 @@ function MI:LoadnameHover()
 	end)
 
 	tooltip:SetScript("OnEvent", function(tt)
-		if GetMouseFocus():GetName() ~= "WorldFrame" then return end
+		if GetMouseFocus() and GetMouseFocus():GetName() ~= "WorldFrame" then return end
 
 		local name = UnitName("mouseover") or UNKNOWN
 		local AFK = UnitIsAFK("mouseover")
