@@ -70,16 +70,16 @@ local C_ChatInfo_IsChannelRegionalForChannelID = C_ChatInfo.IsChannelRegionalFor
 local C_Club_GetClubInfo = C_Club.GetClubInfo
 local C_Club_GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityChatLine
 local C_PartyInfo_InviteUnit = C_PartyInfo.InviteUnit
-local C_Texture_GetTitleIconTexture = C_Texture.GetTitleIconTexture
+local C_Texture_GetTitleIconTexture = C_Texture and C_Texture.GetTitleIconTexture
 local C_Timer_After = C_Timer.After
 
 local CHATCHANNELRULESET_MENTOR = Enum.ChatChannelRuleset.Mentor
-local NPEV2_CHAT_USER_TAG_GUIDE = gsub(NPEV2_CHAT_USER_TAG_GUIDE, "(|A.-|a).+", "%1")
+local NPEV2_CHAT_USER_TAG_GUIDE = E.Retail and gsub(NPEV2_CHAT_USER_TAG_GUIDE, "(|A.-|a).+", "%1")
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 local PLAYER_REALM = E:ShortenRealm(E.myrealm)
 local PLAYER_NAME = format("%s-%s", E.myname, PLAYER_REALM)
-local PLAYERMENTORSHIPSTATUS_NEWCOMER = Enum.PlayerMentorshipStatus.Newcomer
-local TitleIconVersion_Small = Enum.TitleIconVersion.Small
+local PLAYERMENTORSHIPSTATUS_NEWCOMER = Enum.PlayerMentorshipStatus and Enum.PlayerMentorshipStatus.Newcomer
+local TitleIconVersion_Small = Enum.TitleIconVersion and Enum.TitleIconVersion.Small
 local WOW_PROJECT_MAINLINE = WOW_PROJECT_MAINLINE
 
 CT.cache = {}
@@ -1068,20 +1068,22 @@ function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, 
 				local _, _, battleTag, _, characterName, _, clientProgram = CH.BNGetFriendInfoByID(arg13)
 
 				if clientProgram and clientProgram ~= "" then
-					C_Texture_GetTitleIconTexture(clientProgram, TitleIconVersion_Small, function(success, texture)
-						if success then
-							local charName = _G.BNet_GetValidatedCharacterNameWithClientEmbeddedTexture(characterName, battleTag, texture, 32, 32, 10)
-							local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, charName)
-							local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-							frame:AddMessage(format(globalstring, playerLink), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+					if C_Texture_GetTitleIconTexture then
+						C_Texture_GetTitleIconTexture(clientProgram, TitleIconVersion_Small, function(success, texture)
+							if success then
+								local charName = _G.BNet_GetValidatedCharacterNameWithClientEmbeddedTexture(characterName, battleTag, texture, 32, 32, 10)
+								local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, charName)
+								local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
+								frame:AddMessage(format(globalstring, playerLink), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
 
-							if notChatHistory then
-								FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
+								if notChatHistory then
+									FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
+								end
 							end
-						end
-					end)
+						end)
+					end
 
-				return
+					return
 				else
 					local linkDisplayText = format(noBrackets and "%s" or "[%s]", arg2)
 					local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
@@ -1685,11 +1687,13 @@ end
 
 function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture)
 	if not appTexture then
-		C_Texture_GetTitleIconTexture("App", TitleIconVersion_Small, function(success, texture)
-			if success then
-				self:BN_FRIEND_INFO_CHANGED(_, friendIndex, texture)
-			end
-		end)
+		if C_Texture_GetTitleIconTexture then
+			C_Texture_GetTitleIconTexture("App", TitleIconVersion_Small, function(success, texture)
+				if success then
+					self:BN_FRIEND_INFO_CHANGED(_, friendIndex, texture)
+				end
+			end)
+		end
 
 		return
 	end
@@ -1714,10 +1718,7 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture)
 
 		-- to avoid duplicate message
 		if not guildPlayerCache[Ambiguate(fullName, "none")] then
-			local classIcon =
-				self.db.classIcon and
-				F.GetClassIconStringWithStyle(characterData.data.class, CT.db.classIconStyle, 16, 16) .. " " or
-				""
+			local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(characterData.data.class, CT.db.classIconStyle, 16, 16) .. " " or ""
 			local coloredName = F.CreateClassColorString(character, characterData.data.class)
 
 			local playerName = format("|Hplayer:%s|h%s%s|h", fullName, classIcon, coloredName)
@@ -1727,10 +1728,7 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture)
 				playerName = factionIcon and format("%s %s", factionIcon, playerName) or playerName
 			end
 
-			tinsert(
-				characterData.type == "online" and onlineCharacters or offlineCharacters,
-				addSpaceForAsian(playerName)
-			)
+			tinsert(characterData.type == "online" and onlineCharacters or offlineCharacters, addSpaceForAsian(playerName))
 		end
 	end
 
@@ -1747,21 +1745,11 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture)
 	end
 
 	if #onlineCharacters > 0 and self.db.bnetFriendOnline then
-		sendMessage(
-			bnetFriendOnlineMessageTemplate,
-			strjoin(", ", unpack(onlineCharacters)),
-			bnetLink,
-			F.RGBFromTemplate("success")
-		)
+		sendMessage(bnetFriendOnlineMessageTemplate, strjoin(", ", unpack(onlineCharacters)), bnetLink, F.RGBFromTemplate("success"))
 	end
 
 	if #offlineCharacters > 0 and self.db.bnetFriendOffline then
-		sendMessage(
-			bnetFriendOfflineMessageTemplate,
-			strjoin(", ", unpack(offlineCharacters)),
-			bnetLink,
-			F.RGBFromTemplate("danger")
-		)
+		sendMessage(bnetFriendOfflineMessageTemplate, strjoin(", ", unpack(offlineCharacters)), bnetLink, F.RGBFromTemplate("danger"))
 	end
 end
 
