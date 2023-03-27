@@ -29,6 +29,7 @@ local wipe = wipe
 
 local Ambiguate = Ambiguate
 local BetterDate = BetterDate
+local BNet_GetClientEmbeddedTexture = BNet_GetClientEmbeddedTexture
 local BNGetNumFriends = BNGetNumFriends
 local BNGetNumFriendInvites = BNGetNumFriendInvites
 local FlashClientIcon = FlashClientIcon
@@ -85,8 +86,9 @@ CT.cache = {}
 local lfgRoles = {}
 local initRecord = {}
 
-local factionIconIDs = {
-	["Alliance"] = [[Interface\Addons\ElvUI_MerathilisUI\Core\Media\FriendList\GameIcons\Alliance"]],
+local factionTextures = {
+	["Neutral"] = [[Interface\Addons\ElvUI_MerathilisUI\Core\Media\FriendList\GameIcons\WoW]],
+	["Alliance"] = [[Interface\Addons\ElvUI_MerathilisUI\Core\Media\FriendList\GameIcons\Alliance]],
 	["Horde"] = [[Interface\Addons\ElvUI_MerathilisUI\Core\Media\FriendList\GameIcons\Horde]]
 }
 
@@ -1485,13 +1487,10 @@ function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage
 
 				if not self.waitForAchievementMessage then
 					self.waitForAchievementMessage = true
-					C_Timer_After(
-						0.2,
-						function()
-							self:SendAchivementMessage()
-							self.waitForAchievementMessage = false
-						end
-					)
+					C_Timer_After(0.2, function()
+						self:SendAchivementMessage()
+						self.waitForAchievementMessage = false
+					end)
 				end
 			end
 
@@ -1505,8 +1504,7 @@ function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage
 
 	local displayName = self.db.removeRealm and playerInfo.name or playerInfo.nameWithRealm
 	local coloredName = F.CreateClassColorString(displayName, playerInfo.englishClass)
-	local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(playerInfo.englishClass, self.db.classIconStyle, 16, 16) .. " " or
-		""
+	local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(playerInfo.englishClass, self.db.classIconStyle, 14, 14) .. " " or ""
 
 	if coloredName and classIcon and cache[achievementID] then
 		local playerName = format("|Hplayer:%s|h%s %s|h", playerInfo.nameWithRealm, classIcon, coloredName)
@@ -1685,7 +1683,17 @@ function CT:PLAYER_ENTERING_WORLD(event)
 	self:UnregisterEvent(event)
 end
 
-function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex)
+function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture)
+	if not appTexture then
+		C_Texture_GetTitleIconTexture("App", TitleIconVersion_Small, function(success, texture)
+			if success then
+				self:BN_FRIEND_INFO_CHANGED(_, friendIndex, texture)
+			end
+		end)
+
+		return
+	end
+
 	if not self.bnetFriendDataCached or not (self.db.bnetFriendOnline or self.db.bnetFriendOffline) then
 		return
 	end
@@ -1695,7 +1703,7 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex)
 		return
 	end
 
-	local displayAccountName = format("|T-2387:10:10:0:0:32:32:0:32:0:32|t |cff82c5ff%s|r", accountName)
+	local displayAccountName = format("%s |cff82c5ff%s|r", BNet_GetClientEmbeddedTexture(appTexture, 32, 32, 12), accountName)
 	local bnetLink = GetBNPlayerLink(accountName, displayAccountName, accountID, 0, 0, 0)
 
 	local onlineCharacters = {}
@@ -1715,9 +1723,7 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex)
 			local playerName = format("|Hplayer:%s|h%s%s|h", fullName, classIcon, coloredName)
 
 			if self.db.factionIcon then
-				local factionIcon =
-					factionIconIDs[characterData.data.faction] and
-					F.GetIconString(factionIconIDs[characterData.data.faction], 18)
+				local factionIcon = F.GetIconString(factionTextures[characterData.data.faction] or factionTextures["Neutral"], 18)
 				playerName = factionIcon and format("%s %s", factionIcon, playerName) or playerName
 			end
 
