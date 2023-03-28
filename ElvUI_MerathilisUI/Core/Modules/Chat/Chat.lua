@@ -2,10 +2,18 @@ local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local module = MER:GetModule('MER_Chat')
 local CH = E:GetModule('Chat')
 local LO = E:GetModule('Layout')
+local S = E:GetModule('Skins')
 
 local _G = _G
 
 local format = format
+
+function module:StyleVoicePanel()
+	if _G.ElvUIChatVoicePanel then
+		_G.ElvUIChatVoicePanel:Styling()
+		S:CreateShadow(_G.ElvUIChatVoicePanel)
+	end
+end
 
 function module:CreateSeparators()
 	if not E.db.mui.chat.seperators.enable then return end
