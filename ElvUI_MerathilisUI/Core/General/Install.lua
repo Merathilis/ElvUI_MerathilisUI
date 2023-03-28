@@ -253,8 +253,8 @@ function MER:SetupLayout()
 	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["normTex"] = "Asphyxia"
-	E.private["general"]["glossTex"] = "Asphyxia"
+	E.private["general"]["normTex"] = "MER_Stripes"
+	E.private["general"]["glossTex"] = "MER_Stripes"
 	E.private["general"]["nameplateFont"] = "Expressway"
 	E.private["general"]["nameplateLargeFont"] = "Expressway"
 
@@ -322,7 +322,7 @@ function MER:SetupLayout()
 	E.db["general"]["altPowerBar"]["font"] = "Expressway"
 	E.db["general"]["altPowerBar"]["fontSize"] = 11
 	E.db["general"]["altPowerBar"]["fontOutline"] = "OUTLINE"
-	E.db["general"]["altPowerBar"]["statusBar"] = "Asphyxia"
+	E.db["general"]["altPowerBar"]["statusBar"] = "MER_Stripes"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
 	E.db["general"]["altPowerBar"]["smoothbars"] = true
@@ -542,7 +542,7 @@ function MER:SetupLayout()
 	E.private["general"]["dmgfont"] = "Expressway"
 
 	E.db["databars"]["customTexture"] = true
-	E.db["databars"]["statusbar"] = "Asphyxia"
+	E.db["databars"]["statusbar"] = "MER_Stripes"
 
 	E.db["databars"]["experience"]["enable"] = true
 	E.db["databars"]["experience"]["mouseover"] = false
@@ -1206,7 +1206,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
-	E.db["unitframe"]["statusbar"] = "Asphyxia"
+	E.db["unitframe"]["statusbar"] = "MER_Stripes"
 	E.db["unitframe"]["colors"]["castColor"] = {
 		["r"] = 0.1,
 		["g"] = 0.1,
@@ -1248,7 +1248,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
-	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "Asphyxia"
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MER_Stripes"
 
 	--Cooldowns
 	E.db["unitframe"]["cooldown"]["override"] = true
