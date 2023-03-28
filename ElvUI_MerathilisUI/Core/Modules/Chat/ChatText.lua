@@ -1551,13 +1551,13 @@ function CT:ElvUIChat_GuildMemberStatusMessageHandler(frame, msg)
 				resultText = format(onlineMessageTemplate, link, classIcon, coloredName)
 				if CT.db.guildMemberStatusInviteLink then
 					local windInviteLink =
-						format("|Hwtinvite:%s|h%s|h", link, C.StringByTemplate(format("[%s]", L["Invite"]), "info"))
+						format("|Hwtinvite:%s|h%s|h", link, F.StringByTemplate(format("[%s]", L["Invite"]), "info"))
 					resultText = resultText .. " " .. windInviteLink
 				end
-				frame:AddMessage(resultText, C.RGBFromTemplate("success"))
+				frame:AddMessage(resultText, F.RGBFromTemplate("success"))
 			else
 				resultText = format(offlineMessageTemplate, classIcon, coloredName)
-				frame:AddMessage(resultText, C.RGBFromTemplate("danger"))
+				frame:AddMessage(resultText, F.RGBFromTemplate("danger"))
 			end
 
 			return true
