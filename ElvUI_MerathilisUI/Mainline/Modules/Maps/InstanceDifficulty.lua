@@ -57,7 +57,7 @@ function module:UpdateFrame()
 		elseif difficulty == 16 then -- Mythic Raid
 			self.frame.text:SetText(numplayers .. " " .. myth)
 		elseif difficulty == 17 then -- LFR
-			self.frame.text:SetText(numplayers .. lfr)
+			self.frame.text:SetText(numplayers .. " " .. lfr)
 		elseif difficulty == 18 or difficulty == 19 or difficulty == 20 or difficulty == 30 then -- Event / Event Scenario
 			self.frame.text:SetText(L["Event Scenario"])
 		elseif difficulty == 23 then -- Mythic Party
