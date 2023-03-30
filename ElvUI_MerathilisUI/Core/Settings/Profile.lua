@@ -1258,18 +1258,6 @@ P.media = {
 			size = 12,
 			outline = "OUTLINE",
 		},
-		gossip = {
-			enable = true,
-			font = "Expressway",
-			size = 12,
-			outline = "OUTLINE",
-		},
-		questFontSuperHuge = {
-			enable = true,
-			font = "Expressway",
-			size = 24,
-			outline = "OUTLINE",
-		},
 	},
 }
 
