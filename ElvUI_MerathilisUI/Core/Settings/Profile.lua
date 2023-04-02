@@ -1456,4 +1456,7 @@ P.cooldownFlash = {
 	enablePet = false,
 	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
+	tts = false,
+	ttsvoice = nil,
+	ttsvolume = 100,
 }
