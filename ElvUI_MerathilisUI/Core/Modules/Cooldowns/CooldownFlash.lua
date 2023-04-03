@@ -14,18 +14,18 @@ local GetSpellInfo = GetSpellInfo
 local GetSpellTexture = GetSpellTexture
 local GetSpellCooldown = GetSpellCooldown
 local GetItemInfo = GetItemInfo
-local GetItemCooldown = GetItemCooldown
 local GetPetActionCooldown = GetPetActionCooldown
 local IsInInstance = IsInInstance
 local GetActionInfo = GetActionInfo
 local GetActionTexture = GetActionTexture
 local GetInventoryItemID = GetInventoryItemID
 local GetInventoryItemTexture = GetInventoryItemTexture
-local GetContainerItemID = GetContainerItemID
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local hooksecurefunc = hooksecurefunc
 
-local C_Container_GetItemCooldown = C_Container.GetItemCooldown
+local GetItemCooldown = C_Container and C_Container.GetItemCooldown or GetItemCooldown
+local GetContainerItemID = C_Container and C_Container.GetContainerItemID or GetContainerItemID
+local C_VoiceChat_SpeakText = C_VoiceChat.SpeakText
 
 local ignoredSpells, invertIgnored
 module.cooldowns, module.animating, module.watching = { }, { }, { }
@@ -131,12 +131,8 @@ local function OnUpdate(_,update)
 					end)
 				elseif (v[2] == "item") then
 					getCooldownDetails = memoize(function()
-						local start, duration, enabled
-						if E.Wrath then
-							start, duration, enabled = C_Container_GetItemCooldown(i)
-						else
-							start, duration, enabled = GetItemCooldown(i)
-						end
+						local start, duration, enabled = GetItemCooldown(i)
+
 						return {
 							name = GetItemInfo(i),
 							texture = v[3],
@@ -178,7 +174,8 @@ local function OnUpdate(_,update)
 
 		for i, getCooldownDetails in pairs(module.cooldowns) do
 			local cooldown = getCooldownDetails()
-			local remaining = cooldown.duration-(GetTime()-cooldown.start)
+			if not cooldown.duration or not cooldown.start then return end
+			local remaining = cooldown.duration - (GetTime() - cooldown.start)
 			if (remaining <= 0) then
 				tinsert(module.animating, {cooldown.texture, cooldown.isPet, cooldown.name})
 				module.cooldowns[i] = nil
@@ -207,6 +204,12 @@ local function OnUpdate(_,update)
 				S:HandleIcon(DCPT)
 				if module.animating[1][2] then
 					DCPT:SetVertexColor(unpack(module.db.petOverlay))
+				end
+				if module.db.tts then
+					local tts = GetSpellInfo(module.animating[1][3])
+					if module.db.ttsvoice and tts then
+						C_VoiceChat_SpeakText(module.db.ttsvoice, tts, Enum.VoiceTtsDestination.LocalPlayback, 0, module.db.ttsvolume)
+					end
 				end
 			end
 			local alpha = module.db.maxAlpha
@@ -320,13 +323,24 @@ hooksecurefunc("UseInventoryItem", function(slot)
 end)
 
 --ToDO: WoW10
---[[hooksecurefunc("UseContainerItem", function(bag,slot)
-	local itemID = GetContainerItemID(bag, slot)
-	if (itemID) then
-		local texture = select(10, GetItemInfo(itemID))
-		module.watching[itemID] = { GetTime(),"item", texture }
-	end
-end)]]
+if E.Retail or E.Wrath then
+	hooksecurefunc(C_Container, "UseContainerItem", function(bag, slot)
+		local itemID = GetContainerItemID(bag, slot)
+
+		if (itemID) then
+			local texture = select(10, GetItemInfo(itemID))
+			module.watching[itemID] = { GetTime(), "item", texture }
+		end
+	end)
+else
+	hooksecurefunc("UseContainerItem", function(bag, slot)
+		local itemID = GetContainerItemID(bag, slot)
+		if (itemID) then
+			local texture = select(10, GetItemInfo(itemID))
+			module.watching[itemID] = { GetTime(), "item", texture }
+		end
+	end)
+end
 
 function module:EnableCooldownFlash()
 	DCP:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
@@ -347,8 +361,15 @@ function module:DisableCooldownFlash()
 end
 
 function module:TestMode()
+	module.db = E.db.mui.cooldownFlash
+
 	tinsert(module.animating, {"Interface\\Icons\\Ability_CriticalStrike", nil, "Spell Name"})
 	DCP:SetScript("OnUpdate", OnUpdate)
+
+	if module.db.tts then
+		local tts = GetSpellInfo(33786)
+		C_VoiceChat_SpeakText(module.db.ttsvoice, tts, Enum.VoiceTtsDestination.LocalPlayback, 0, module.db.ttsvolume)
+	end
 end
 
 function module:Initialize()

@@ -2,7 +2,6 @@ local MER, F, E, L, V, P, G = unpack((select(2, ...)))
 local M = MER:GetModule('MER_Misc')
 local IL = MER:GetModule('MER_ItemLevel')
 local S = MER:GetModule('MER_Skins')
-local ES = E:GetModule('Skins')
 
 local wipe, gmatch, tinsert, ipairs, pairs = wipe, gmatch, tinsert, ipairs, pairs
 local tonumber, tostring, max = tonumber, tostring, max
@@ -388,7 +387,9 @@ function M:ExGearManager()
 end
 
 function M:Armory()
-	if not E.db.mui.armory.character.enable or not (E.private.skins.blizzard.enable or E.private.skins.blizzard.character) then return end
+	if not E.db.mui.armory.character.enable or not (E.private.skins.blizzard.enable or E.private.skins.blizzard.character) then
+		return
+	end
 
 	M.hasOtherAddon = IsAddOnLoaded("CharacterStatsTBC")
 

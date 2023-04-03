@@ -1258,18 +1258,6 @@ P.media = {
 			size = 12,
 			outline = "OUTLINE",
 		},
-		gossip = {
-			enable = true,
-			font = "Expressway",
-			size = 12,
-			outline = "OUTLINE",
-		},
-		questFontSuperHuge = {
-			enable = true,
-			font = "Expressway",
-			size = 24,
-			outline = "OUTLINE",
-		},
 	},
 }
 
@@ -1468,4 +1456,7 @@ P.cooldownFlash = {
 	enablePet = false,
 	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
+	tts = false,
+	ttsvoice = nil,
+	ttsvolume = 100,
 }
