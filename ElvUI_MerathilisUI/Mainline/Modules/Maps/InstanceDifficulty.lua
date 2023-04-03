@@ -27,21 +27,21 @@ function module:UpdateFrame()
 
 	if instanceType == "party" or instanceType == "raid" or instanceType == "scenario" then
 		if (difficulty == 1) then -- Normal
-			self.frame.text:SetText("5" .. norm)
+			self.frame.text:SetText("5" .. " " .. norm)
 		elseif difficulty == 2 then -- Heroic
-			self.frame.text:SetText("5" .. hero)
+			self.frame.text:SetText("5" .. " " .. hero)
 		elseif difficulty == 3 then -- 10 Player
-			self.frame.text:SetText("10" .. norm)
+			self.frame.text:SetText("10" .. " " .. norm)
 		elseif difficulty == 4 then -- 25 Player
-			self.frame.text:SetText("25" .. norm)
+			self.frame.text:SetText("25" .. " " .. norm)
 		elseif difficulty == 5 then -- 10 Player (Heroic)
-			self.frame.text:SetText("10" .. hero)
+			self.frame.text:SetText("10" .. " " .. hero)
 		elseif difficulty == 6 then -- 25 Player (Heroic)
-			self.frame.text:SetText("25" .. hero)
+			self.frame.text:SetText("25" .. " " .. hero)
 		elseif difficulty == 7 then -- LFR (Legacy)
 			self.frame.text:SetText(lfr)
 		elseif difficulty == 8 then -- Mythic Keystone
-			self.frame.text:SetText(format("|cffff3860%s|r", L["Mythic Keystone"]) .. mplusdiff)
+			self.frame.text:SetText(format("|cffff3860%s|r", L["Mythic Keystone"]) .. " " .. mplusdiff)
 		elseif difficulty == 9 then -- 40 Player
 			self.frame.text:SetText("40")
 		elseif difficulty == 11 or difficulty == 39 then -- Heroic Scenario / Heroic
@@ -51,17 +51,17 @@ function module:UpdateFrame()
 		elseif difficulty == 40 then -- Mythic Scenario
 			self.frame.text:SetText(format("%s %s", myth, L["Scenario"]))
 		elseif difficulty == 14 then -- Normal Raid
-			self.frame.text:SetText(numplayers .. norm)
+			self.frame.text:SetText(numplayers .. " " .. norm)
 		elseif difficulty == 15 then -- Heroic Raid
-			self.frame.text:SetText(numplayers .. hero)
+			self.frame.text:SetText(numplayers .. " " .. hero)
 		elseif difficulty == 16 then -- Mythic Raid
-			self.frame.text:SetText(numplayers .. myth)
+			self.frame.text:SetText(numplayers .. " " .. myth)
 		elseif difficulty == 17 then -- LFR
-			self.frame.text:SetText(numplayers .. lfr)
+			self.frame.text:SetText(numplayers .. " " .. lfr)
 		elseif difficulty == 18 or difficulty == 19 or difficulty == 20 or difficulty == 30 then -- Event / Event Scenario
 			self.frame.text:SetText(L["Event Scenario"])
 		elseif difficulty == 23 then -- Mythic Party
-			self.frame.text:SetText("5" .. myth)
+			self.frame.text:SetText("5" .. " " .. myth)
 		elseif difficulty == 24 or difficulty == 33 then -- Timewalking /Timewalking Raid
 			self.frame.text:SetText(L["Timewalking"])
 		elseif difficulty == 25 or difficulty == 32 or difficulty == 34 or difficulty == 45 then -- World PvP Scenario / PvP / PvP Heroic

@@ -9,7 +9,7 @@ function module:Initialize()
 	local db = E.db.mui.actionbars
 
 	if E.Retail then
-		self:EquipSpecBar()
+		self:CreateSpecBar()
 	end
 end
 

@@ -278,6 +278,7 @@ V.skins = {
 	embed = {
 		enable = false,
 		toggleDirection = 1,
+		mouseOver = false,
 	},
 
 	errorMessage = {

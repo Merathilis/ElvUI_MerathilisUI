@@ -51,6 +51,7 @@ P.bags = {
 	FilterEquipSet = false,
 	FilterAnima = false,
 	FilterRelic = false,
+	FilterStone = true,
 
 	equipOverlay = true,
 }
@@ -243,18 +244,34 @@ P.cvars = {
 P.chat = {
 	enable = true,
 	chatButton = true,
-	removeBrackets = true,
 	hideChat = false,
 	emotes = true,
-	classIconStyle = "flatborder2",
-	removeRealm = true,
-	guildMemberStatus = true,
-	guildMemberStatusInviteLink = false,
-	mergeAchievement = true,
-	roleIcons = {
+	chatText = {
 		enable = true,
+		abbreviation = "DEFAULT",
+		removeBrackets = true,
 		roleIconSize = 16,
 		roleIconStyle = "SUNUI",
+		removeRealm = true,
+		customAbbreviation = {},
+		classIcon = true,
+		classIconStyle = "flatborder2",
+		guildMemberStatus = true,
+		guildMemberStatusInviteLink = true,
+		mergeAchievement = true,
+		bnetFriendOnline = true,
+		bnetFriendOffline = false,
+		factionIcon = true
+	},
+	chatLink = {
+		enable = true,
+		numbericalQualityTier = false,
+		translateItem = true,
+		level = true,
+		icon = true,
+		armorCategory = true,
+		weaponCategory = true,
+		compatibile = true
 	},
 	filter = {
 		enable = true,
@@ -366,16 +383,6 @@ P.chat = {
 				abbr = _G.ROLL
 			},
 		},
-	},
-	chatLink = {
-		enable = true,
-		numbericalQualityTier = false,
-		translateItem = true,
-		level = true,
-		icon = true,
-		armorCategory = true,
-		weaponCategory = true,
-		compatibile = true
 	},
 }
 
@@ -665,13 +672,6 @@ P.actionbars = {
 		frameStrata = "BACKGROUND",
 		frameLevel = 1,
 		size = 20,
-	},
-	equipBar = {
-		enable = true,
-		mouseover = false,
-		frameStrata = "BACKGROUND",
-		frameLevel = 1,
-		size = 28,
 	},
 	randomToy = {
 		enable = true,
@@ -1258,18 +1258,6 @@ P.media = {
 			size = 12,
 			outline = "OUTLINE",
 		},
-		gossip = {
-			enable = true,
-			font = "Expressway",
-			size = 12,
-			outline = "OUTLINE",
-		},
-		questFontSuperHuge = {
-			enable = true,
-			font = "Expressway",
-			size = 24,
-			outline = "OUTLINE",
-		},
 	},
 }
 
@@ -1468,4 +1456,7 @@ P.cooldownFlash = {
 	enablePet = false,
 	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
 	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
+	tts = false,
+	ttsvoice = nil,
+	ttsvolume = 100,
 }

@@ -44,17 +44,7 @@ function module:SetBlizzFonts()
 		if E.Retail then
 			if db.miscText.mail.enable then
 				_G["SendMailBodyEditBox"]:SetFont(E.LSM:Fetch('font', db.miscText.mail.font), db.miscText.mail.size, 'OUTLINE') --Writing letter text
-				-- _G["OpenMailBodyText"]:SetFont(E.LSM:Fetch('font', db.miscText.mail.font), db.miscText.mail.size, 'OUTLINE') --Received letter text
 			end
-		end
-
-		if db.miscText.gossip.enable then
-			_G["QuestFont"]:SetFont(E.LSM:Fetch('font', db.miscText.gossip.font), db.miscText.gossip.size, '') -- Font in Quest Log/Petitions and shit. It's fucking hedious with any outline so fuck it.
-		end
-
-		if db.miscText.questFontSuperHuge.enable then
-			_G["QuestFont_Super_Huge"]:SetFont(E.LSM:Fetch('font', db.miscText.questFontSuperHuge.font), db.miscText.questFontSuperHuge.size, db.miscText.questFontSuperHuge.outline) -- No idea what that is for
-			_G["QuestFont_Enormous"]:SetFont(E.LSM:Fetch('font', db.miscText.questFontSuperHuge.font), db.miscText.questFontSuperHuge.size, db.miscText.questFontSuperHuge.outline) -- No idea what that is for
 		end
 	end
 end

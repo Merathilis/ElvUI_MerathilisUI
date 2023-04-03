@@ -104,7 +104,7 @@ options.general = {
 		missingStats = {
 			order = 11,
 			type = "toggle",
-			name = E.NewSign..L["Missing Stats"],
+			name = L["Missing Stats"],
 			desc = L["Show all stats on the Character Frame"],
 		},
 		randomtoy = {

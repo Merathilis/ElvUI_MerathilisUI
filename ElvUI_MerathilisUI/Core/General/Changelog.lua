@@ -12,9 +12,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Wrath: Fixed a chat error",
-		"• Fixed an error in the Auctionator skin",
-		"• Added missing stripes to the Objective Tracker skin",
+		"• Wrath: Fix Chat options",
+		"• Chat: Reeadd an non existing function <.<",
+		"• Tooltip: Fix an potential error with NameHover",
 
 		" ",
 

@@ -105,9 +105,7 @@ function module.commandHandler(msg, isPreview)
 		end
 	end
 
-	msg =
-		F.Strings.Replace(
-		msg,
+	msg = F.Strings.Replace(msg,
 		{
 			["　"] = " ",
 			["．"] = ".",
@@ -169,7 +167,7 @@ function module.commandHandler(msg, isPreview)
 	end
 
 
-   if isPreview then
+	if isPreview then
 		local waypointString = numbers[1] .. ", " .. numbers[2]
 		if numbers[3] then
 			waypointString = waypointString .. ", " .. numbers[3]

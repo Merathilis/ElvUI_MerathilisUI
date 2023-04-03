@@ -1,4 +1,4 @@
-[b][color=orange]v5.67[/color], 20.03.2023[/b][list]
-[*]Wrath: Fixed a chat error
-[*]Fixed an error in the Auctionator skin
-[*}Added missing stripes to the Objective Tracker skin[/list]
+[b][color=orange]v5.71[/color], 28.03.2023[/b][list]
+[*]Wrath: Fix Chat options
+[*]Chat: Reeadd an non existing function <.<
+[*]Tooltip: Fix an potential error with NameHover[/list]

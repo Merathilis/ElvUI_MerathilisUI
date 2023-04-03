@@ -463,8 +463,8 @@ function MER:LoadOmniCDProfile()
 					},
 					["textures"] = {
 						["statusBar"] = {
-							["BG"] = "Asphyxia",
-							["bar"] = "Asphyxia",
+							["BG"] = "MER_Stripes",
+							["bar"] = "MER_Stripes",
 						},
 					},
 				},
