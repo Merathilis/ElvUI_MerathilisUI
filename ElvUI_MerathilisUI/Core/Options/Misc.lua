@@ -107,6 +107,12 @@ options.general = {
 			name = L["Missing Stats"],
 			desc = L["Show all stats on the Character Frame"],
 		},
+		blockRequest = {
+			order = 12,
+			type = "toggle",
+			name = E.NewSign..L["Block Join Requests"],
+			desc = L["|nIf checked, only popout join requests from friends and guild members."]
+		},
 		randomtoy = {
 			order = 20,
 			type = "input",

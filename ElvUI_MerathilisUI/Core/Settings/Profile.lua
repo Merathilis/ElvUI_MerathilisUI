@@ -608,7 +608,8 @@ P.misc = {
 			["Jewelcrafting"] = false
 		},
 	},
-	missingStats = true
+	missingStats = true,
+	blockRequest = false,
 }
 
 P.nameHover = {

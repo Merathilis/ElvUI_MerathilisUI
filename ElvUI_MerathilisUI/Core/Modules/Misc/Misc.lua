@@ -6,9 +6,13 @@ local _G = _G
 local hooksecurefunc = hooksecurefunc
 local GetNumGroupMembers = GetNumGroupMembers
 local GetSpecialization = GetSpecialization
+local IsGuildMember = IsGuildMember
 local UnitLevel = UnitLevel
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitSetRole = UnitSetRole
+
+local C_BattleNet_GetGameAccountInfoByGUID = C_BattleNet.GetGameAccountInfoByGUID
+local C_FriendList_IsFriend = C_FriendList.IsFriend
 
 function module:SetRole()
 	if not E.Retail then return end
@@ -24,6 +28,18 @@ function module:SetRole()
 				end
 			end
 		end
+	end
+end
+
+function module:BlockRequest()
+	if not E.db.mui.misc.blockRequest then return end
+
+	local guid = GetNextPendingInviteConfirmation()
+	if not guid then return end
+
+	if not (C_BattleNet.GetGameAccountInfoByGUID(guid) or C_FriendList.IsFriend(guid) or IsGuildMember(guid)) then
+		RespondToInviteConfirmation(guid, false)
+		StaticPopup_Hide("GROUP_INVITE_CONFIRMATION")
 	end
 end
 
@@ -43,6 +59,7 @@ function module:Misc()
 	if E.Retail then
 		E.RegisterCallback(module, "RoleChanged", "SetRole")
 		module:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
+		module:RegisterEvent("GROUP_INVITE_CONFIRMATION", "BlockRequest")
 
 		module:WowHeadLinks()
 		module:QuickMenu()
