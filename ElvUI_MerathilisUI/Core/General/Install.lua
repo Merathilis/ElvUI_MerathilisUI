@@ -247,6 +247,8 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	PrivateDB - General
 	--]]----------------------------------
+	SetCVar('uiScale', 0.71111111111111)
+	E.global["general"]["UIScale"] = 0.71111111111111
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
 	E.private["general"]["chatBubbleFontSize"] = 9
