@@ -72,8 +72,14 @@ options.tooltip = {
 			desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
 			hidden = not E.Retail,
 		},
+		gradientName = {
+			order = 8,
+			type = "toggle",
+			name = E.NewSign..L["Gradient Name"],
+			hidden = not E.Retail,
+		},
 		nameHover = {
-			order = 11,
+			order = 15,
 			type = "group",
 			guiInline = true,
 			name = "",
