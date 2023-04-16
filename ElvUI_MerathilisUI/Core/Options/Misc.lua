@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local options = MER.options.misc.args
 local AK = MER:GetModule('MER_AlreadyKnown')
 local MI = MER:GetModule('MER_Misc')

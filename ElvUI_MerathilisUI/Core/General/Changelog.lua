@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local S = E:GetModule("Skins")
 
 local format, gmatch, gsub, find, sub = string.format, string.gmatch, string.gsub, string.find, string.sub

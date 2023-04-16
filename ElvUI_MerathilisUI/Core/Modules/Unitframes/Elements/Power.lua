@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_UnitFrames')
 local S = MER:GetModule('MER_Skins')
 local UF = E:GetModule('UnitFrames')

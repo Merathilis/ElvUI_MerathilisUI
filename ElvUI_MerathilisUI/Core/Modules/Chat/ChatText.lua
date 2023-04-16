@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local CT = MER:GetModule('MER_ChatText')
 local CH = E:GetModule("Chat")
 local LSM = E.Libs.LSM

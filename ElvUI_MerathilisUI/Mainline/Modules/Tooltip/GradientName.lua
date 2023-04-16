@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local T = MER:GetModule('MER_Tooltip')
 local TT = E:GetModule('Tooltip')
 
