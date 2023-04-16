@@ -40,24 +40,20 @@ local function TooltipGradientName(unit)
 	end
 end
 
-local function ApplyTooltipStyle(tt)
+function T:ApplyTooltipStyle(tt)
 	if not tt then return end
+	local db = E.db.mui.tooltip
+	if not db and not db.gradientName then
+		return
+	end
 	if _G.GameTooltip and _G.GameTooltip:IsForbidden() then return end
 
-	local _, unitId= _G.GameTooltip:GetUnit()
+	local _, unitId = _G.GameTooltip:GetUnit()
 	if unitId then
 		TooltipGradientName(unitId)
 	end
 end
 
-function T:Style()
-	local db = E.db.mui.tooltip
-	if not db and not db.gradientName then
-		return
-	end
-
-	hooksecurefunc(TT, 'AddTargetInfo', ApplyTooltipStyle)
-	hooksecurefunc(TT, 'GameTooltip_OnTooltipSetUnit', ApplyTooltipStyle)
-end
-
-T:AddCallback("Style")
+hooksecurefunc(TT, 'AddTargetInfo', T.ApplyTooltipStyle)
+hooksecurefunc(TT, 'GameTooltip_OnTooltipSetUnit', T.ApplyTooltipStyle)
+hooksecurefunc(TT, 'MODIFIER_STATE_CHANGED', T.ApplyTooltipStyle)
