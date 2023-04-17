@@ -6,7 +6,7 @@ local pairs = pairs
 local pcall = pcall
 local tinsert = table.insert
 
-local GetAddOnMetadata =GetAddOnMetadata
+local GetAddOnMetadata = GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
 local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown
