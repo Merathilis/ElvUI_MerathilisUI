@@ -1069,10 +1069,10 @@ P.unitframes = {
 	},
 	castbar = {
 		enable = true,
-		texture = "Gradient",
+		texture = "ElvUI Blank",
 		spark = {
 			enable = true,
-			texture = "Gradient",
+			texture = "ElvUI Blank",
 			width = 3,
 			color = { r = 0, g = .75, b = .98 , a = 1},
 		},
