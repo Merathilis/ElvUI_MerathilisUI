@@ -35,7 +35,7 @@ local IsUsableItem = IsUsableItem
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_Container_GetItemCooldown = C_Container.GetItemCooldown
+local C_Container_GetItemCooldown = C_Container and C_Container.GetItemCooldown
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog and C_QuestLog.GetNumQuestLogEntries
 local C_Timer_NewTicker = C_Timer.NewTicker
 local C_TradeSkillUI_GetItemCraftedQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemCraftedQualityByItemInfo

@@ -60,9 +60,9 @@ local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitIsUnit = UnitIsUnit
 local UnitName = UnitName
 
-local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
-local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
-local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
+local C_BattleNet_GetFriendAccountInfo = C_BattleNet and C_BattleNet.GetFriendAccountInfo
+local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet and C_BattleNet.GetFriendGameAccountInfo
+local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet and C_BattleNet.GetFriendNumGameAccounts
 local C_ChatInfo_GetChannelRuleset = C_ChatInfo.GetChannelRuleset
 local C_ChatInfo_GetChannelRulesetForChannelID = C_ChatInfo.GetChannelRulesetForChannelID
 local C_ChatInfo_GetChannelShortcutForChannelID = C_ChatInfo.GetChannelShortcutForChannelID
@@ -1752,6 +1752,10 @@ end
 function CT:Initialize()
 	self.db = E.db.mui.chat.chatText
 	if not self.db or not self.db.enable or not E.private.chat.enable then
+		return
+	end
+
+	if not E.Retail or E.Wrath then
 		return
 	end
 

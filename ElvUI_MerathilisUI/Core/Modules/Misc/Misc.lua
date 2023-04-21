@@ -11,7 +11,7 @@ local UnitLevel = UnitLevel
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitSetRole = UnitSetRole
 
-local C_BattleNet_GetGameAccountInfoByGUID = C_BattleNet.GetGameAccountInfoByGUID
+local C_BattleNet_GetGameAccountInfoByGUID = C_BattleNet and C_BattleNet.GetGameAccountInfoByGUID
 local C_FriendList_IsFriend = C_FriendList.IsFriend
 
 function module:SetRole()
