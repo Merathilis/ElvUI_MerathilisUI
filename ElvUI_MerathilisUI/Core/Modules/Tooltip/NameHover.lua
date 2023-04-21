@@ -83,7 +83,7 @@ function MI:LoadnameHover()
 		local x, y = GetCursorPosition()
 		tt.text:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y + 15)
 
-		if E.db.mui.nameHover.targettarget then
+		if db and db.targettarget then
 			tt.target:SetPoint("LEFT", tt.text, "RIGHT", 0, 0)
 		end
 	end)
@@ -94,15 +94,34 @@ function MI:LoadnameHover()
 		local name = UnitName("mouseover") or UNKNOWN
 		local AFK = UnitIsAFK("mouseover")
 		local DND = UnitIsDND("mouseover")
+		local _, UnitClass = UnitClass("mouseover")
+		local reaction = UnitReaction("mouseover", "player")
+
 		local prefix = ""
 
 		if AFK then prefix = "|cffFF9900<AFK>|r " end
 		if DND then prefix = "|cffFF3333<DND>|r " end
 
-		tt.text:SetTextColor(Getcolor())
-		tt.text:SetText(prefix .. name)
+		if db and db.gradient then
+			if UnitIsPlayer("mouseover") and UnitClass then
+				tt.text:SetText(prefix..F.GradientName(name, UnitClass))
+			else
+				if reaction and reaction >= 5 then
+					tt.text:SetText(prefix .. F.GradientName(name, "NPCFRIENDLY"))
+				elseif reaction and reaction == 4 then
+					tt.text:SetText(prefix .. F.GradientName(name, "NPCNEUTRAL"))
+				elseif reaction and reaction == 3 then
+					tt.text:SetText(prefix .. F.GradientName(name, "NPCUNFRIENDLY"))
+				elseif reaction and reaction == 2 or reaction == 1 then
+					tt.text:SetText(prefix .. F.GradientName(name, "NPCHOSTILE"))
+				end
+			end
+		else
+			tt.text:SetText(prefix..name)
+			tt.text:SetTextColor(Getcolor())
+		end
 
-		if E.db.mui.nameHover.targettarget then
+		if db and db.targettarget then
 			AddTargetInfos(tt, "mouseover")
 		end
 

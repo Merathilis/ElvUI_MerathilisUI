@@ -119,6 +119,12 @@ options.tooltip = {
 					type = "toggle",
 					name = L["Display TargetTarget"],
 				},
+				gradient = {
+					order = 5,
+					type = "toggle",
+					name = E.NewSign..L["Gradient Color"],
+					desc = L["Colors the player names in a gradient instead of class color"]
+				},
 			},
 		},
 	},
