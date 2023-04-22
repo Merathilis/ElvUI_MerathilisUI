@@ -1755,7 +1755,7 @@ function CT:Initialize()
 		return
 	end
 
-	if not E.Retail or E.Wrath then
+	if not E.Retail or not E.Wrath then
 		return
 	end
 
