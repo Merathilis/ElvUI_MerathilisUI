@@ -441,8 +441,8 @@ local authorIcons = {
 	['Melisendra-Shattrath']  = logoSmall, -- [Alliance] Mage
 	['Merathilis-Shattrath']  = logoSmall, -- [Alliance] Druid
 	['Merathilîs-Shattrath'] = logoSmall, -- [Alliance] Shaman
-	['Róhal-Shattrath']      = logoSmall, -- [Alliance] Hunter
-	['Meravoker-Shattrath']   = logoSmall -- [Alliance] Hunter
+	['Meravoker-Shattrath']   = logoSmall, -- [Alliance] Hunter
+	['Jahzzy-Garrosh']      = logoSmall, -- [Alliance] Hunter
 }
 
 CH:AddPluginIcons(function(sender)
