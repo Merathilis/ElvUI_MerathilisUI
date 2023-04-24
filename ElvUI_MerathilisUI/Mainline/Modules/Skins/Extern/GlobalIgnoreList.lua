@@ -52,6 +52,7 @@ function module:GlobalIgnoreList()
 				GILFrame3OpenUI,
 				GILFrame3SameServer,
 				GILFrame3TrackChanges,
+				GILFrame3SyncWarning,
 				GILFrame3EnableFilter,
 				GILFrame3InvertFilter,
 				GILFrame3UpdateFilter,
