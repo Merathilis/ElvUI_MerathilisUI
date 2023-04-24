@@ -774,6 +774,14 @@ L["Iskaaran Fishing Net"] = "Iskaaran Fischnetz"
 L["Net #%d"] = "Netz #%d"
 L["Net %s can be collected"] = "Netz %s kann eingesammelt werden"
 L["No Nets Set"] = "Keine Netze ausgelegt"
+L["Custom String"] = "Benutzerdefinierter String"
+L["Custom Strings"] = "Benutzerdefinierte Strings"
+L["Custom color can be used by adding the following code"] = "Benutzerdefinierte Farbe kann benutzt werden wenn du folgenden Code benutzt"
+L["Difficulty"] = "Schwierigkeit"
+L["M+ Level"] = true
+L["Number of Players"] = "Anzahl der Spieler"
+L["Placeholders"] = "Platzhalter"
+L["Use Default"] = "Benutze Standard"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

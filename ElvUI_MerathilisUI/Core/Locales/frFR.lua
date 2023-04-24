@@ -787,6 +787,14 @@ L["Iskaaran Fishing Net"] = true
 L["Net #%d"] = true
 L["Net %s can be collected"] = true
 L["No Nets Set"] = true
+L["Custom String"] = true
+L["Custom Strings"] = true
+L["Custom color can be used by adding the following code"] = true
+L["Difficulty"] = true
+L["M+ Level"] = true
+L["Number of Players"] = true
+L["Placeholders"] = true
+L["Use Default"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Bouton de la minicarte"

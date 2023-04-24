@@ -793,6 +793,14 @@ L["Iskaaran Fishing Net"] = true
 L["Net #%d"] = true
 L["Net %s can be collected"] = true
 L["No Nets Set"] = true
+L["Custom String"] = "自定义字符串"
+L["Custom Strings"] = "自定义字符串"
+L["Custom color can be used by adding the following code"] = true
+L["Difficulty"] = "难度"
+L["M+ Level"] = "M+ 等级"
+L["Number of Players"] = "玩家数量"
+L["Placeholders"] = "占位符"
+L["Use Default"] = "使用默认"
 
 -- SMB
 L["Minimap Buttons"] = "小地图按钮"

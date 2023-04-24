@@ -2,6 +2,11 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 
+local norm = format("|cff1eff00%s|r", L["Normal"])
+local hero = format("|cff0070dd%s|r", L["Heroic"])
+local myth = format("|cffa335ee%s|r", L["Mythic"])
+local lfr = format("|cffff8000%s|r", L["Looking for raid"])
+
 P.core = {
 	installed = nil,
 }
@@ -1148,6 +1153,35 @@ P.maps = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize,
 			style = "OUTLINE"
+		},
+		custom = false,
+		customStrings = {
+			["PvP"] = format("|cffFFFF00%s|r", "PvP"),
+			["5-player Normal"] = "5" .. norm,
+			["5-player Heroic"] = "5" .. hero,
+			["10-player Normal"] = "10" .. norm,
+			["25-player Normal"] = "25" .. norm,
+			["10-player Heroic"] = "10" .. hero,
+			["25-player Heroic"] = "25" .. hero,
+			["Looking for Raid"] = lfr,
+			["Mythic Keystone"] = format("|cffff3860%s|r", L["[ABBR] Mythic Keystone"]) .. "%mplus%",
+			["40-player"] = "40",
+			["Heroic Scenario"] = format("%s %s", hero, L["[ABBR] Scenario"]),
+			["Normal Scenario"] = format("%s %s", norm, L["[ABBR] Scenario"]),
+			["Normal Raid"] = "%numPlayers%" .. norm,
+			["Heroic Raid"] = "%numPlayers%" .. hero,
+			["Mythic Raid"] = "%numPlayers%" .. myth,
+			["Looking for raid"] = "%numPlayers%" .. lfr,
+			["Event Scenario"] = L["[ABBR] Event Scenario"],
+			["Mythic Party"] = "5" .. myth,
+			["Timewalking"] = L["[ABBR] Timewalking"],
+			["World PvP Scenario"] = format("|cffFFFF00%s |r", "PvP"),
+			["PvEvP Scenario"] = "PvEvP",
+			["Timewalking Raid"] = L["[ABBR] Timewalking"],
+			["PvP Heroic"] = format("|cffFFFF00%s |r", "PvP"),
+			["Mythic Scenario"] = format("%s %s", myth, L["[ABBR] Scenario"]),
+			["Warfronts Normal"] = L["[ABBR] Warfronts"],
+			["Warfronts Heroic"] = format("|cffff7d0aH|r%s", L["[ABBR] Warfronts"])
 		},
 	},
 	rectangleMinimap = {
