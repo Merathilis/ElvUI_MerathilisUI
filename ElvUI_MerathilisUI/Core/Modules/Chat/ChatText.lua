@@ -22,6 +22,7 @@ local strupper = strupper
 local time = time
 local tinsert = tinsert
 local tonumber = tonumber
+local tostring = tostring
 local type = type
 local unpack = unpack
 local utf8sub = string.utf8sub
@@ -32,6 +33,7 @@ local BetterDate = BetterDate
 local BNet_GetClientEmbeddedTexture = BNet_GetClientEmbeddedTexture
 local BNGetNumFriends = BNGetNumFriends
 local BNGetNumFriendInvites = BNGetNumFriendInvites
+local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 local FlashClientIcon = FlashClientIcon
 local GetAchievementLink = GetAchievementLink
 local GetBNPlayerCommunityLink = GetBNPlayerCommunityLink
@@ -69,7 +71,7 @@ local C_ChatInfo_GetChannelShortcutForChannelID = C_ChatInfo.GetChannelShortcutF
 local C_ChatInfo_IsChannelRegionalForChannelID = C_ChatInfo.IsChannelRegionalForChannelID
 local C_Club_GetClubInfo = C_Club.GetClubInfo
 local C_Club_GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityChatLine
-local C_PartyInfo_InviteUnit = C_PartyInfo.InviteUnit
+local C_PartyInfo_InviteUnit = C_PartyInfo and C_PartyInfo.InviteUnit
 local C_Texture_GetTitleIconTexture = C_Texture and C_Texture.GetTitleIconTexture
 local C_Timer_After = C_Timer.After
 
@@ -173,7 +175,6 @@ CT.cache.blizzardRoleIcons = {
 	DPS = _G.INLINE_DAMAGER_ICON
 }
 
--- We need to copy it from ElvUI
 local specialChatIcons
 do --this can save some main file locals
 	local x, y          = ':16:16', ':13:25'
@@ -325,12 +326,13 @@ do --this can save some main file locals
 		z['Unluckyone-LaughingSkull']  = ElvGreen -- [Horde] Shaman
 		z['Luckydruid-LaughingSkull']  = ElvGreen -- [Alliance] Druid
 		-- Repooc
-		z['Sifpooc-Stormrage']         = itsPooc -- DH
-		z['Fragmented-Stormrage']      = itsPooc -- Warlock
-		z['Dapooc-Stormrage']          = itsPooc -- Druid
-		z['Poocvoker-Stormrage']       = itsPooc -- Evoker
-		z['Sifupooc-Spirestone']       = itsPooc -- Monk
-		z['Repooc-Spirestone']         = itsPooc -- Paladin
+		z['Sifpooc-Stormrage']         = itsPooc -- [Alliance] DH
+		z['Fragmented-Stormrage']      = itsPooc -- [Alliance] Warlock
+		z['Dapooc-Stormrage']          = itsPooc -- [Alliance] Druid
+		z['Poocvoker-Stormrage']       = itsPooc -- [Alliance] Evoker
+		z['Sifupooc-Stormrage']        = itsPooc -- [Alliance] Monk
+		z['Pooc-Stormrage']            = itsPooc -- [Alliance] Paladin
+		z['Repøøc-Stormrage']        = itsPooc -- [Alliance] Shaman
 		-- Simpy
 		z['Arieva-Cenarius']           = itsSimpy -- Hunter
 		z['Buddercup-Cenarius']        = itsSimpy -- Rogue
@@ -442,14 +444,16 @@ local authorIcons = {
 	['Merathilis-Shattrath']  = logoSmall, -- [Alliance] Druid
 	['Merathilîs-Shattrath'] = logoSmall, -- [Alliance] Shaman
 	['Meravoker-Shattrath']   = logoSmall, -- [Alliance] Hunter
-	['Jahzzy-Garrosh']      = logoSmall, -- [Alliance] Hunter
+	['Jahzzy-Garrosh']        = logoSmall, -- [Alliance] Hunter
 }
 
-CH:AddPluginIcons(function(sender)
-	if authorIcons[sender] then
-		return authorIcons[sender]
+CH:AddPluginIcons(
+	function(sender)
+		if authorIcons[sender] then
+			return authorIcons[sender]
+		end
 	end
-end)
+)
 
 -- From ElvUI Chat
 local function GetPFlag(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
@@ -727,7 +731,7 @@ function CT:HandleShortChannels(msg)
 	msg = gsub(msg, "<" .. _G.DND .. ">", "[|cffE7E716" .. L["DND"] .. "|r] ")
 
 	local raidWarningString = ""
-	if CT.db and CT.db.abbreviation == "SHORT" and MER.ChineseLocale then
+	if CT.db and CT.db.abbreviation == "SHORT" and W.ChineseLocale then
 		msg = gsub(msg, utf8sub(_G.CHAT_WHISPER_GET, 3), L["[ABBR] Whisper"] .. "：")
 		msg = gsub(msg, utf8sub(_G.CHAT_WHISPER_INFORM_GET, 1, 3), L["[ABBR] Whisper"])
 		msg = gsub(msg, utf8sub(_G.CHAT_SAY_GET, 3), L["[ABBR] Say"] .. "：")
@@ -748,7 +752,7 @@ function CT:HandleShortChannels(msg)
 end
 
 function CT:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
-	local historyTimestamp  --we need to extend the arguments on AddMessage so we can properly handle times without overriding
+	local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
 	if isHistory == "ElvUI_ChatHistory" then
 		historyTimestamp = historyTime
 	end
@@ -818,7 +822,30 @@ function CT:HandleName(nameString)
 	return nameString
 end
 
-function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, isHistory, historyTime, historyName, historyBTag)
+function CT:ChatFrame_MessageEventHandler(
+	frame,
+	event,
+	arg1,
+	arg2,
+	arg3,
+	arg4,
+	arg5,
+	arg6,
+	arg7,
+	arg8,
+	arg9,
+	arg10,
+	arg11,
+	arg12,
+	arg13,
+	arg14,
+	arg15,
+	arg16,
+	arg17,
+	isHistory,
+	historyTime,
+	historyName,
+	historyBTag)
 	-- ElvUI Chat History Note: isHistory, historyTime, historyName, and historyBTag are passed from CH:DisplayChatHistory() and need to be on the end to prevent issues in other addons that listen on ChatFrame_MessageEventHandler.
 	-- we also send isHistory and historyTime into CH:AddMessage so that we don't have to override the timestamp.
 	local noBrackets = CT.db.removeBrackets
@@ -833,7 +860,27 @@ function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, 
 	end
 
 	if _G.TextToSpeechFrame_MessageEventHandler and notChatHistory then
-		_G.TextToSpeechFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
+		_G.TextToSpeechFrame_MessageEventHandler(
+			frame,
+			event,
+			arg1,
+			arg2,
+			arg3,
+			arg4,
+			arg5,
+			arg6,
+			arg7,
+			arg8,
+			arg9,
+			arg10,
+			arg11,
+			arg12,
+			arg13,
+			arg14,
+			arg15,
+			arg16,
+			arg17
+		)
 	end
 
 	if strsub(event, 1, 8) == "CHAT_MSG" then
@@ -852,11 +899,82 @@ function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, 
 		local chatFilters = _G.ChatFrame_GetMessageEventFilters(event)
 		if chatFilters then
 			for _, filterFunc in next, chatFilters do
-				local filter, new1, new2, new3, new4, new5, new6, new7, new8, new9, new10, new11, new12, new13, new14, new15, new16, new17 = filterFunc(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
+				local filter,
+				new1,
+				new2,
+				new3,
+				new4,
+				new5,
+				new6,
+				new7,
+				new8,
+				new9,
+				new10,
+				new11,
+				new12,
+				new13,
+				new14,
+				new15,
+				new16,
+				new17 =
+					filterFunc(
+						frame,
+						event,
+						arg1,
+						arg2,
+						arg3,
+						arg4,
+						arg5,
+						arg6,
+						arg7,
+						arg8,
+						arg9,
+						arg10,
+						arg11,
+						arg12,
+						arg13,
+						arg14,
+						arg15,
+						arg16,
+						arg17
+					)
 				if filter then
 					return true
 				elseif new1 then
-					arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17 = new1, new2, new3, new4, new5, new6, new7, new8, new9, new10, new11, new12, new13, new14, new15, new16, new17
+					arg1,
+					arg2,
+					arg3,
+					arg4,
+					arg5,
+					arg6,
+					arg7,
+					arg8,
+					arg9,
+					arg10,
+					arg11,
+					arg12,
+					arg13,
+					arg14,
+					arg15,
+					arg16,
+					arg17 =
+						new1,
+						new2,
+						new3,
+						new4,
+						new5,
+						new6,
+						new7,
+						new8,
+						new9,
+						new10,
+						new11,
+						new12,
+						new13,
+						new14,
+						new15,
+						new16,
+						new17
 				end
 			end
 		end
@@ -879,9 +997,13 @@ function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, 
 			local leader = UnitIsGroupLeader(arg2)
 			infoType, chatType = _G.VoiceTranscription_DetermineChatTypeVoiceTranscription_DetermineChatType(leader)
 			info = _G.ChatTypeInfo[infoType]
-		elseif chatType == "COMMUNITIES_CHANNEL" or ((strsub(chatType, 1, 7) == "CHANNEL") and (chatType ~= "CHANNEL_LIST") and ((arg1 ~= "INVITE") or (chatType ~= "CHANNEL_NOTICE_USER"))) then
+		elseif
+			chatType == "COMMUNITIES_CHANNEL" or
+			((strsub(chatType, 1, 7) == "CHANNEL") and (chatType ~= "CHANNEL_LIST") and
+			((arg1 ~= "INVITE") or (chatType ~= "CHANNEL_NOTICE_USER")))
+		then
 			if arg1 == "WRONG_PASSWORD" then
-				local _, popup = StaticPopup_Visible("CHAT_CHANNEL_PASSWORD")
+				local _, popup = _G.StaticPopup_Visible("CHAT_CHANNEL_PASSWORD")
 				if popup and strupper(popup.data) == strupper(arg9) then
 					return -- Don't display invalid password messages if we're going to prompt for a password (bug 102312)
 				end
@@ -1071,18 +1193,17 @@ function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, 
 				if clientProgram and clientProgram ~= "" then
 					if C_Texture_GetTitleIconTexture then
 						C_Texture_GetTitleIconTexture(clientProgram, TitleIconVersion_Small, function(success, texture)
-							if success then
-								local charName = _G.BNet_GetValidatedCharacterNameWithClientEmbeddedTexture(characterName, battleTag, texture, 32, 32, 10)
-								local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, charName)
-								local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-								frame:AddMessage(format(globalstring, playerLink), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-
-								if notChatHistory then
-									FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
+								if success then
+									local charName = _G.BNet_GetValidatedCharacterNameWithClientEmbeddedTexture(characterName, battleTag, texture, 32, 32, 10)
+									local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, charName)
+									local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
+									frame:AddMessage(format(globalstring, playerLink), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+									if notChatHistory then
+										FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
+									end
 								end
-							end
-						end)
-					end
+							end)
+						end
 
 					return
 				else
@@ -1132,7 +1253,7 @@ function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, 
 			arg1 = RemoveExtraSpaces(arg1)
 
 			-- Search for icon links and replace them with texture links.
-			arg1 = CH:ChatFrame_ReplaceIconAndGroupExpressions( arg1, arg17, not _G.ChatFrame_CanChatGroupPerformExpressionExpansion(chatGroup)) -- If arg17 is true, don't convert to raid icons
+			arg1 = CH:ChatFrame_ReplaceIconAndGroupExpressions(arg1, arg17, not _G.ChatFrame_CanChatGroupPerformExpressionExpansion(chatGroup)) -- If arg17 is true, don't convert to raid icons
 
 			--ElvUI: Get class colored name for BattleNet friend
 			if chatType == "BN_WHISPER" or chatType == "BN_WHISPER_INFORM" then
@@ -1205,7 +1326,7 @@ function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, 
 					if prettify and not CH:MessageIsProtected(message) then
 						if chatType == 'TEXT_EMOTE' and not usingDifferentLanguage and (showLink and arg2 ~= '') then
 							var1, var2, var3 = strmatch(message, '^(.-)(' ..
-							arg2 .. (realm and '%-' .. realm or '') .. ')(.-)$')
+								arg2 .. (realm and '%-' .. realm or '') .. ')(.-)$')
 						end
 
 						if var2 then
@@ -1223,7 +1344,7 @@ function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, 
 
 				-- LFG Role Flags
 				local lfgRole = (chatType == 'PARTY_LEADER' or chatType == 'PARTY' or chatType == 'RAID' or chatType == 'RAID_LEADER' or chatType == 'INSTANCE_CHAT' or chatType == 'INSTANCE_CHAT_LEADER') and
-				lfgRoles[playerName]
+					lfgRoles[playerName]
 				if lfgRole then
 					pflag = pflag .. lfgRole
 				end
@@ -1503,7 +1624,7 @@ function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage
 
 	local displayName = self.db.removeRealm and playerInfo.name or playerInfo.nameWithRealm
 	local coloredName = F.CreateClassColorString(displayName, playerInfo.englishClass)
-	local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(playerInfo.englishClass, self.db.classIconStyle, 14, 14) .. " " or ""
+	local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(playerInfo.englishClass, self.db.classIconStyle, 16, 16) .. " " or ""
 
 	if coloredName and classIcon and cache[achievementID] then
 		local playerName = format("|Hplayer:%s|h%s %s|h", playerInfo.nameWithRealm, classIcon, coloredName)
@@ -1617,7 +1738,7 @@ local function UpdateBattleNetFriendStatus(friendIndex)
 	if numGameAccounts and numGameAccounts > 0 then
 		for accountIndex = 1, numGameAccounts do
 			local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(friendIndex, accountIndex)
-			if gameAccountInfo and gameAccountInfo.wowProjectID == WOW_PROJECT_MAINLINE and gameAccountInfo.characterName then
+			if gameAccountInfo.wowProjectID == WOW_PROJECT_MAINLINE and gameAccountInfo.characterName then
 				numberOfCharacters = numberOfCharacters + 1
 				characters[gameAccountInfo.characterName] = {
 					faction = gameAccountInfo.factionName,
@@ -1715,21 +1836,26 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture)
 
 		-- to avoid duplicate message
 		if not guildPlayerCache[Ambiguate(fullName, "none")] then
-			local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(characterData.data.class, CT.db.classIconStyle, 16, 16) .. " " or ""
+			local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(characterData.data.class, CT.db.classIconStyle, 16, 16) .. " " or
+				""
 			local coloredName = F.CreateClassColorString(character, characterData.data.class)
 
 			local playerName = format("|Hplayer:%s|h%s%s|h", fullName, classIcon, coloredName)
 
 			if self.db.factionIcon then
-				local factionIcon = F.GetIconString(factionTextures[characterData.data.faction] or factionTextures["Neutral"], 18)
+				local factionIcon =
+					F.GetIconString(factionTextures[characterData.data.faction] or factionTextures["Neutral"], 18)
 				playerName = factionIcon and format("%s %s", factionIcon, playerName) or playerName
 			end
 
-			tinsert(characterData.type == "online" and onlineCharacters or offlineCharacters, addSpaceForAsian(playerName))
+			tinsert(
+				characterData.type == "online" and onlineCharacters or offlineCharacters,
+				addSpaceForAsian(playerName)
+			)
 		end
 	end
 
-	local function sendMessage(template, players, bnetLink, ...)
+	local function sendMessage(template, players, ...)
 		local message = gsub(template, "%%players%%", players)
 		message = gsub(message, "%%bnet%%", bnetLink)
 
@@ -1742,21 +1868,17 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture)
 	end
 
 	if #onlineCharacters > 0 and self.db.bnetFriendOnline then
-		sendMessage(bnetFriendOnlineMessageTemplate, strjoin(", ", unpack(onlineCharacters)), bnetLink, F.RGBFromTemplate("success"))
+		sendMessage(bnetFriendOnlineMessageTemplate, strjoin(", ", unpack(onlineCharacters)), F.RGBFromTemplate("success"))
 	end
 
 	if #offlineCharacters > 0 and self.db.bnetFriendOffline then
-		sendMessage(bnetFriendOfflineMessageTemplate, strjoin(", ", unpack(offlineCharacters)), bnetLink, F.RGBFromTemplate("danger"))
+		sendMessage(bnetFriendOfflineMessageTemplate, strjoin(", ", unpack(offlineCharacters)), F.RGBFromTemplate("danger"))
 	end
 end
 
 function CT:Initialize()
 	self.db = E.db.mui.chat.chatText
 	if not self.db or not self.db.enable or not E.private.chat.enable then
-		return
-	end
-
-	if not E.Retail or not E.Wrath then
 		return
 	end
 

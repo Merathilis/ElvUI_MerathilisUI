@@ -148,10 +148,6 @@ function F.CreateClassColorString(text, englishClass)
 	return hex .. text .. "|r"
 end
 
-function F.CreateColorFromTable(colorTable)
-	return CreateColor(colorTable.r, colorTable.g, colorTable.b, colorTable.a)
-end
-
 function F.GradientColors(unitclass, invert, alpha)
 	if invert then
 		if alpha then
@@ -183,63 +179,81 @@ function F.GradientName(name, unitclass)
 	return text
 end
 
-do
-	function F.RGBToHex(r, g, b)
-		if r then
-			if type(r) == 'table' then
-				if r.r then
-					r, g, b = r.r, r.g, r.b
-				else
-					r, g, b = unpack(r)
-				end
-			end
-			return format('|cff%02x%02x%02x', r * 255, g * 255, b * 255)
-		end
+local colors = {
+	greyLight = "b5b5b5",
+	primary = "00d1b2",
+	success = "48c774",
+	link = "3273dc",
+	info = "209cee",
+	danger = "ff3860",
+	warning = "ffdd57"
+}
+
+function F.CreateColorFromTable(colorTable)
+	return CreateColor(colorTable.r, colorTable.g, colorTable.b, colorTable.a)
+end
+
+function F.RGBFromTemplate(template)
+	return F.HexToRGB(colors[template])
+end
+
+function F.ExtractColorFromTable(colorTable, override)
+	local r = override and override.r or colorTable.r or 1
+	local g = override and override.g or colorTable.g or 1
+	local b = override and override.b or colorTable.b or 1
+	local a = override and override.a or colorTable.a or 1
+
+	return r, g, b, a
+end
+
+function F.IsRGBEqual(color1, color2)
+	return color1.r == color2.r and color1.g == color2.g and color1.b == color2.b
+end
+
+function F.HexToRGB(hex)
+	local rhex, ghex, bhex = strsub(hex, 1, 2), strsub(hex, 3, 4), strsub(hex, 5, 6)
+	return tonumber(rhex, 16) / 255, tonumber(ghex, 16) / 255, tonumber(bhex, 16) / 255
+end
+
+function F.RGBToHex(r, g, b)
+	return format("%02x%02x%02x", r * 255, g * 255, b * 255)
+end
+
+function F.StringWithHex(text, color)
+	return format("|cff%s%s|r", color, text)
+end
+
+function F.StringByTemplate(text, template)
+	return F.StringWithHex(text, colors[template])
+end
+
+function F.StringWithRGB(text, r, g, b)
+	if type(text) ~= "string" then
+		text = tostring(text)
 	end
 
-	function F.HexToRGB(hex)
-		return tonumber('0x' .. strsub(hex, 1, 2)) / 255, tonumber('0x' .. strsub(hex, 3, 4)) / 255,
-			tonumber('0x' .. strsub(hex, 5, 6)) / 255
+	if type(r) == "table" then
+		r, g, b = r.r, r.g, r.b
 	end
 
-	function F.StringWithHex(text, color)
-		return format("|cff%s%s|r", color, text)
-	end
+	return F.StringWithHex(text, F.RGBToHex(r, g, b))
+end
 
-	local infoColors = {
-		greyLight = "b5b5b5",
-		primary = "00d1b2",
-		success = "48c774",
-		link = "3273dc",
-		info = "209cee",
-		danger = "ff3860",
-		warning = "ffdd57"
-	}
+local progressColor = {
+	start = { r = 1.000, g = 0.647, b = 0.008 },
+	complete = { r = 0.180, g = 0.835, b = 0.451 }
+}
 
-	function F.StringByTemplate(text, template)
-		return F.StringWithHex(text, infoColors[template])
-	end
+function F.GetProgressColor(progress)
+	local r = (progressColor.complete.r - progressColor.start.r) * progress + progressColor.start.r
+	local g = (progressColor.complete.g - progressColor.start.g) * progress + progressColor.start.g
+	local b = (progressColor.complete.r - progressColor.start.b) * progress + progressColor.start.b
 
-	function F.RGBFromTemplate(template)
-		return F.HexToRGB(infoColors[template])
-	end
+	-- algorithm to let the color brighter
+	local addition = 0.35
+	r = min(r + abs(0.5 - progress) * addition, r)
+	g = min(g + abs(0.5 - progress) * addition, g)
+	b = min(b + abs(0.5 - progress) * addition, b)
 
-	local color = {
-		start = { r = 1.000, g = 0.647, b = 0.008 },
-		complete = { r = 0.180, g = 0.835, b = 0.451 }
-	}
-
-	function F.GetProgressColor(progress)
-		local r = (color.complete.r - color.start.r) * progress + color.start.r
-		local g = (color.complete.g - color.start.g) * progress + color.start.g
-		local b = (color.complete.r - color.start.b) * progress + color.start.b
-
-		-- algorithm to let the color brighter
-		local addition = 0.35
-		r = min(r + abs(0.5 - progress) * addition, r)
-		g = min(g + abs(0.5 - progress) * addition, g)
-		b = min(b + abs(0.5 - progress) * addition, b)
-
-		return { r = r, g = g, b = b }
-	end
+	return { r = r, g = g, b = b }
 end
