@@ -5,7 +5,7 @@ local _G = _G
 local norm = format("|cff1eff00%s|r", L["Normal"])
 local hero = format("|cff0070dd%s|r", L["Heroic"])
 local myth = format("|cffa335ee%s|r", L["Mythic"])
-local lfr = format("|cffff8000%s|r", L["Looking for raid"])
+local lfr = format("|cffff8000%s|r", L["Looking for Raid"])
 
 P.core = {
 	installed = nil,
@@ -1171,7 +1171,7 @@ P.maps = {
 			["Normal Raid"] = "%numPlayers%" .. norm,
 			["Heroic Raid"] = "%numPlayers%" .. hero,
 			["Mythic Raid"] = "%numPlayers%" .. myth,
-			["Looking for raid"] = "%numPlayers%" .. lfr,
+			["Looking for Raid"] = "%numPlayers%" .. lfr,
 			["Event Scenario"] = L["[ABBR] Event Scenario"],
 			["Mythic Party"] = "5" .. myth,
 			["Timewalking"] = L["[ABBR] Timewalking"],
