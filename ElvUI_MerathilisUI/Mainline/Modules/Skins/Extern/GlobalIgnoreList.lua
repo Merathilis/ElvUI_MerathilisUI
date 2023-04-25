@@ -50,6 +50,8 @@ function module:GlobalIgnoreList()
 			local checkBoxes = {
 				GILFrame3AskNote,
 				GILFrame3OpenUI,
+				GILFrame3HackUnit,
+				GILFrame3HackLFG,
 				GILFrame3SameServer,
 				GILFrame3TrackChanges,
 				GILFrame3SyncWarning,
