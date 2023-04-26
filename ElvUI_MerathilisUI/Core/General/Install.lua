@@ -317,7 +317,7 @@ function MER:SetupLayout()
 	E.db["general"]["topPanel"] = false
 	E.db["general"]["bonusObjectivePosition"] = "AUTO"
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
-	E.db["general"]["talkingHeadFrameScale"] = 0.75
+	E.db["general"]["talkingHeadFrameScale"] = 0.85
 	E.db["general"]["talkingHeadFrameBackdrop"] = true
 	E.db["general"]["altPowerBar"]["enable"] = true
 	E.db["general"]["altPowerBar"]["font"] = "Expressway"
@@ -498,7 +498,7 @@ function MER:SetupLayout()
 	E.db["mui"]["locPanel"]["combathide"] = true
 	E.db["mui"]["locPanel"]["colorType"] = "CLASS"
 	E.db["mui"]["locPanel"]["font"] = "Expressway"
-	E.db["mui"]["locPanel"]["width"] = 330
+	E.db["mui"]["locPanel"]["width"] = 440
 	E.db["mui"]["locPanel"]["height"] = 20
 	E.db["mui"]["locPanel"]["template"] = "NoBackdrop"
 	E.db["mui"]["locPanel"]["colorType"] = "DEFAULT"
@@ -528,7 +528,6 @@ function MER:SetupLayout()
 	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,465"
 	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-474,120"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
-	E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-65"
 	E.db["movers"]["TotemTrackerMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,457,13"
 	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
 
