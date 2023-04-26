@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 if not IsAddOnLoaded('AddOnSkins') then return end
 local AS = unpack(AddOnSkins)
 

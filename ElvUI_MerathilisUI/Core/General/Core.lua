@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 local format = string.format
@@ -6,7 +6,7 @@ local pairs = pairs
 local pcall = pcall
 local tinsert = table.insert
 
-local GetAddOnMetadata =GetAddOnMetadata
+local GetAddOnMetadata = GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
 local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown

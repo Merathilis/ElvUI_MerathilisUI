@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
@@ -50,8 +50,11 @@ function module:GlobalIgnoreList()
 			local checkBoxes = {
 				GILFrame3AskNote,
 				GILFrame3OpenUI,
+				GILFrame3HackUnit,
+				GILFrame3HackLFG,
 				GILFrame3SameServer,
 				GILFrame3TrackChanges,
+				GILFrame3SyncWarning,
 				GILFrame3EnableFilter,
 				GILFrame3InvertFilter,
 				GILFrame3UpdateFilter,

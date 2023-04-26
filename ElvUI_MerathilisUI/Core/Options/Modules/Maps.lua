@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local MM = MER:GetModule('MER_Minimap')
 local MP = MER:GetModule('MER_MiniMapPing')
 local SMB = MER:GetModule('MER_MiniMapButtons')
@@ -867,6 +867,36 @@ options.maps = {
 						},
 					},
 				},
+				difficulty = {
+					order = 6,
+					type = "group",
+					name = L["Difficulty"],
+					inline = true,
+					get = function(info)
+						return E.db.mui.maps.instanceDifficulty[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.instanceDifficulty[info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+					args = {
+						custom = {
+							order = 1,
+							type = "toggle",
+							name = L["Custom"]
+						},
+						customStrings = {
+							order = 2,
+							type = "group",
+							inline = true,
+							name = L["Custom Strings"],
+							hidden = function()
+								return not E.db.mui.maps.instanceDifficulty.custom
+							end,
+							args = {}
+						},
+					},
+				},
 			},
 		},
 		eventTracker = {
@@ -1207,3 +1237,49 @@ options.maps = {
 		},
 	},
 }
+
+do
+	local order = 1
+	for k, v in pairs(P.maps.instanceDifficulty.customStrings) do
+		options.maps.args.instanceDifficulty.args.difficulty.args.customStrings.args[k] = {
+			order = order,
+			type = "group",
+			inline = true,
+			name = "* " .. v,
+			args = {
+				text = {
+					order = 1,
+					type = "input",
+					name = L["Custom String"],
+					desc = format(
+						"%s\n%s\n%s\n\n%s\n%s",
+						L["Placeholders"] .. ":",
+						format("%s - %s", F.StringByTemplate("%mplus%", "info"), L["M+ Level"]),
+						format("%s - %s", F.StringByTemplate("%numPlayers%", "info"), L["Number of Players"]),
+						L["Custom color can be used by adding the following code"]..":",
+						format("\124\124cff|cffff0000rr|r|cff00ff00gg|r|cff0000ffbb|r%s\124\124r", L["Custom String"])
+					),
+					get = function()
+						return E.db.mui.maps.instanceDifficulty.customStrings[k]
+					end,
+					set = function(_, value)
+						E.db.mui.maps.instanceDifficulty.customStrings[k] =
+							gsub(value, "\124\124", "\124")
+						E:StaticPopup_Show("PRIVATE_RL")
+					end
+				},
+				useDefault = {
+					order = 2,
+					type = "execute",
+					name = L["Use Default"],
+					func = function()
+						E.db.mui.maps.instanceDifficulty.customStrings[k] = v
+						E:StaticPopup_Show("PRIVATE_RL")
+					end
+				}
+			}
+		}
+
+		order = order + 1
+	end
+end

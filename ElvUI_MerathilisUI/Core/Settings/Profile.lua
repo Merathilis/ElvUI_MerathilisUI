@@ -1,6 +1,11 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
+
+local norm = format("|cff1eff00%s|r", L["Normal"])
+local hero = format("|cff0070dd%s|r", L["Heroic"])
+local myth = format("|cffa335ee%s|r", L["Mythic"])
+local lfr = format("|cffff8000%s|r", L["Looking for Raid"])
 
 P.core = {
 	installed = nil,
@@ -608,7 +613,8 @@ P.misc = {
 			["Jewelcrafting"] = false
 		},
 	},
-	missingStats = true
+	missingStats = true,
+	blockRequest = false,
 }
 
 P.nameHover = {
@@ -616,6 +622,7 @@ P.nameHover = {
 	fontSize = 7,
 	fontOutline = "OUTLINE",
 	targettarget = false,
+	gradient = true,
 }
 
 P.armory = {
@@ -985,11 +992,11 @@ P.microBar = {
 	enable = true,
 	mouseOver = false,
 	backdrop = true,
-	backdropSpacing = 2,
+	backdropSpacing = 5,
 	timeAreaWidth = 80,
-	timeAreaHeight = 35,
-	buttonSize = 20,
-	spacing = 3,
+	timeAreaHeight = 45,
+	buttonSize = 22,
+	spacing = 5,
 	fadeTime = 0.618,
 	normalColor = "NONE",
 	hoverColor = "CLASS",
@@ -1068,10 +1075,10 @@ P.unitframes = {
 	},
 	castbar = {
 		enable = true,
-		texture = "Gradient",
+		texture = "ElvUI Blank",
 		spark = {
 			enable = true,
-			texture = "Gradient",
+			texture = "ElvUI Blank",
 			width = 3,
 			color = { r = 0, g = .75, b = .98 , a = 1},
 		},
@@ -1146,6 +1153,35 @@ P.maps = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize,
 			style = "OUTLINE"
+		},
+		custom = false,
+		customStrings = {
+			["PvP"] = format("|cffFFFF00%s|r", "PvP"),
+			["5-player Normal"] = "5" .. norm,
+			["5-player Heroic"] = "5" .. hero,
+			["10-player Normal"] = "10" .. norm,
+			["25-player Normal"] = "25" .. norm,
+			["10-player Heroic"] = "10" .. hero,
+			["25-player Heroic"] = "25" .. hero,
+			["Looking for Raid"] = lfr,
+			["Mythic Keystone"] = format("|cffff3860%s|r", L["[ABBR] Mythic Keystone"]) .. "%mplus%",
+			["40-player"] = "40",
+			["Heroic Scenario"] = format("%s %s", hero, L["[ABBR] Scenario"]),
+			["Normal Scenario"] = format("%s %s", norm, L["[ABBR] Scenario"]),
+			["Normal Raid"] = "%numPlayers%" .. norm,
+			["Heroic Raid"] = "%numPlayers%" .. hero,
+			["Mythic Raid"] = "%numPlayers%" .. myth,
+			["Looking for Raid"] = "%numPlayers%" .. lfr,
+			["Event Scenario"] = L["[ABBR] Event Scenario"],
+			["Mythic Party"] = "5" .. myth,
+			["Timewalking"] = L["[ABBR] Timewalking"],
+			["World PvP Scenario"] = format("|cffFFFF00%s |r", "PvP"),
+			["PvEvP Scenario"] = "PvEvP",
+			["Timewalking Raid"] = L["[ABBR] Timewalking"],
+			["PvP Heroic"] = format("|cffFFFF00%s |r", "PvP"),
+			["Mythic Scenario"] = format("%s %s", myth, L["[ABBR] Scenario"]),
+			["Warfronts Normal"] = L["[ABBR] Warfronts"],
+			["Warfronts Heroic"] = format("|cffff7d0aH|r%s", L["[ABBR] Warfronts"])
 		},
 	},
 	rectangleMinimap = {
@@ -1378,7 +1414,7 @@ P.tooltip = {
 	factionIcon = true,
 	petIcon = true,
 	petId = true,
-	titleColor = true,
+	gradientName = true,
 }
 
 P.itemLevel = {

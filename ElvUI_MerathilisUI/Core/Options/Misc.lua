@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local options = MER.options.misc.args
 local AK = MER:GetModule('MER_AlreadyKnown')
 local MI = MER:GetModule('MER_Misc')
@@ -106,6 +106,12 @@ options.general = {
 			type = "toggle",
 			name = L["Missing Stats"],
 			desc = L["Show all stats on the Character Frame"],
+		},
+		blockRequest = {
+			order = 12,
+			type = "toggle",
+			name = E.NewSign..L["Block Join Requests"],
+			desc = L["|nIf checked, only popout join requests from friends and guild members."]
 		},
 		randomtoy = {
 			order = 20,
