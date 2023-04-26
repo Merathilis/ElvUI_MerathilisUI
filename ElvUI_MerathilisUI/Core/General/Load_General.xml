@@ -13,5 +13,4 @@
 	<Script file="Update.lua"/>
 	<Include file="FunStuff.xml"/>
 	<Script file="FunStuff.lua"/>
-	<Include file="AddonProfiles\Load_AddonProfiles.xml"/>
 </Ui>

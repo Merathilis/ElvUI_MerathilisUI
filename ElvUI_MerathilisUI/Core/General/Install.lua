@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local CH = E:GetModule('Chat')
 
 local _G = _G
@@ -7,7 +7,6 @@ local format, checkTable = string.format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 
 local ADDONS = ADDONS
-local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
 local FCF_SetWindowName = FCF_SetWindowName
 local FCF_ResetChatWindows = FCF_ResetChatWindows
@@ -247,6 +246,8 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	PrivateDB - General
 	--]]----------------------------------
+	SetCVar('uiScale', 0.71111111111111)
+	E.global["general"]["UIScale"] = 0.71111111111111
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
 	E.private["general"]["chatBubbleFontSize"] = 9
@@ -316,7 +317,7 @@ function MER:SetupLayout()
 	E.db["general"]["topPanel"] = false
 	E.db["general"]["bonusObjectivePosition"] = "AUTO"
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
-	E.db["general"]["talkingHeadFrameScale"] = 0.75
+	E.db["general"]["talkingHeadFrameScale"] = 0.85
 	E.db["general"]["talkingHeadFrameBackdrop"] = true
 	E.db["general"]["altPowerBar"]["enable"] = true
 	E.db["general"]["altPowerBar"]["font"] = "Expressway"
@@ -497,7 +498,7 @@ function MER:SetupLayout()
 	E.db["mui"]["locPanel"]["combathide"] = true
 	E.db["mui"]["locPanel"]["colorType"] = "CLASS"
 	E.db["mui"]["locPanel"]["font"] = "Expressway"
-	E.db["mui"]["locPanel"]["width"] = 330
+	E.db["mui"]["locPanel"]["width"] = 440
 	E.db["mui"]["locPanel"]["height"] = 20
 	E.db["mui"]["locPanel"]["template"] = "NoBackdrop"
 	E.db["mui"]["locPanel"]["colorType"] = "DEFAULT"
@@ -527,8 +528,7 @@ function MER:SetupLayout()
 	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,465"
 	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-474,120"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
-	E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-65"
-	E.db["movers"]["TotemTrackerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
+	E.db["movers"]["TotemTrackerMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,457,13"
 	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
 
 	-- UIWidgets

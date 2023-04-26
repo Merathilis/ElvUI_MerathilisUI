@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_AutoButtons')
 local async = MER.Utilities.Async
 local S = MER:GetModule('MER_Skins')
@@ -35,7 +35,7 @@ local IsUsableItem = IsUsableItem
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_Container_GetItemCooldown = C_Container.GetItemCooldown
+local C_Container_GetItemCooldown = C_Container and C_Container.GetItemCooldown
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog and C_QuestLog.GetNumQuestLogEntries
 local C_Timer_NewTicker = C_Timer.NewTicker
 local C_TradeSkillUI_GetItemCraftedQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemCraftedQualityByItemInfo
@@ -1203,7 +1203,7 @@ local professionItems = {
 	202011,
 	202014,
 	202016,
-	202016,
+	203471,
 	204222,
 	204224,
 	204225,

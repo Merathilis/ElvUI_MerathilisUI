@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
 
 local _G = _G
@@ -72,8 +72,14 @@ options.tooltip = {
 			desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
 			hidden = not E.Retail,
 		},
+		gradientName = {
+			order = 8,
+			type = "toggle",
+			name = E.NewSign..L["Gradient Name"],
+			hidden = not E.Retail,
+		},
 		nameHover = {
-			order = 11,
+			order = 15,
 			type = "group",
 			guiInline = true,
 			name = "",
@@ -112,6 +118,12 @@ options.tooltip = {
 					order = 4,
 					type = "toggle",
 					name = L["Display TargetTarget"],
+				},
+				gradient = {
+					order = 5,
+					type = "toggle",
+					name = E.NewSign..L["Gradient Color"],
+					desc = L["Colors the player names in a gradient instead of class color"]
 				},
 			},
 		},

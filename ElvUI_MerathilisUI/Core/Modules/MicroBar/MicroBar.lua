@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_MicroBar')
 local S = MER:GetModule('MER_Skins')
 local DT = E:GetModule('DataTexts')
@@ -56,9 +56,9 @@ local ToggleSpellBook = ToggleSpellBook
 local ToggleTimeManager = ToggleTimeManager
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
-local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
-local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
+local C_BattleNet_GetFriendAccountInfo = C_BattleNet and C_BattleNet.GetFriendAccountInfo
+local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet and C_BattleNet.GetFriendGameAccountInfo
+local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet and C_BattleNet.GetFriendNumGameAccounts
 local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
 local C_CovenantSanctumUI_GetRenownLevel = C_CovenantSanctumUI and C_CovenantSanctumUI.GetRenownLevel
 local C_CVar_GetCVar = C_CVar.GetCVar

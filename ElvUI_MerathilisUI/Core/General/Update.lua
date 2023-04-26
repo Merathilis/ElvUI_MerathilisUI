@@ -1,5 +1,5 @@
 
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
+local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 
 local print, tonumber, type = print, tonumber, type
 local format = string.format
