@@ -731,7 +731,7 @@ function CT:HandleShortChannels(msg)
 	msg = gsub(msg, "<" .. _G.DND .. ">", "[|cffE7E716" .. L["DND"] .. "|r] ")
 
 	local raidWarningString = ""
-	if CT.db and CT.db.abbreviation == "SHORT" and W.ChineseLocale then
+	if CT.db and CT.db.abbreviation == "SHORT" and MER.ChineseLocale then
 		msg = gsub(msg, utf8sub(_G.CHAT_WHISPER_GET, 3), L["[ABBR] Whisper"] .. "：")
 		msg = gsub(msg, utf8sub(_G.CHAT_WHISPER_INFORM_GET, 1, 3), L["[ABBR] Whisper"])
 		msg = gsub(msg, utf8sub(_G.CHAT_SAY_GET, 3), L["[ABBR] Say"] .. "：")
