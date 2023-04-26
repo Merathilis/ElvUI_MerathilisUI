@@ -12,11 +12,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Wrath: Fix Armory Options now finally",
-		"• Added a new Texture: MER_Stripes",
-		"• Fix some obsolete Font options",
-		"• Updated ChatText code with latest ElvUI changes",
-		"• Added TTS support for CooldownFlash. Credits Eltreum",
+		"• Retail: Added an option to block join requests from strangers",
+		"• Added a gradient color option on the Tooltip Name and Name Hover",
+		"• Classic: Fixed some API errors :thinking:",
+		"• Updated Global Ignore List skin",
+		"• Updated my Layout a tiny bit",
 
 		" ",
 
