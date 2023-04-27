@@ -43,7 +43,7 @@ end
 function T:ApplyTooltipStyle(tt)
 	if not tt then return end
 	local db = E.db.mui.tooltip
-	if not db and not db.gradientName then
+	if db and not db.gradientName then
 		return
 	end
 	if _G.GameTooltip and _G.GameTooltip:IsForbidden() then return end
