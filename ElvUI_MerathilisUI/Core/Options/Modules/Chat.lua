@@ -670,7 +670,7 @@ do
 	options.chat.args.chatText = {
 		order = 10,
 		type = "group",
-		name = E.NewSign..F.cOption(L["Chat Text"], 'orange'),
+		name = F.cOption(L["Chat Text"], 'orange'),
 		get = function(info)
 			return E.db.mui.chat.chatText[info[#info]]
 		end,
