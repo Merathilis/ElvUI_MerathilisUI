@@ -1380,7 +1380,6 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			button.tex:SetTexture(item:GetItemIcon())
 
 			local color = item:GetItemQualityColor()
-
 			if color then
 				button:SetBackdropBorderColor(color.r, color.g, color.b)
 			end
