@@ -2054,321 +2054,368 @@ options.Embed = {
 	},
 }
 
-options.bigWigsSkin = {
+options.advancedSettings = {
 	order = 10,
 	type = "group",
-	name = L["BigWigs Skin"],
+	name = L["Advanced Skin Settings"],
 	disabled = function()
 		return not E.private.mui.skins.enable or not IsAddOnLoaded("BigWigs")
 	end,
 	args = {
-		enable = {
-			order = 0,
-			type = "toggle",
-			name = L["Enable"],
-		},
-		alert = {
+		bigWigsSkin = {
 			order = 1,
-			type = "description",
-			name = function()
-				if not IsAddOnLoaded("BigWigs") then
-					return F.StringByTemplate(format(L["%s is not loaded."], L["BigWigs"]), "danger")
-				end
+			type = "group",
+			name = L["BigWigs Skin"],
+			get = function(info) return E.private.mui.skins.addonSkins.bw[info[#info]] end,
+			set = function(info, value) E.private.mui.skins.addonSkins.bw[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			disabled = function()
+				return not E.private.mui.skins.enable or not IsAddOnLoaded("BigWigs")
+			end,
+			args = {
+				enable = {
+					order = 0,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				alert = {
+					order = 1,
+					type = "description",
+					name = function()
+						if not IsAddOnLoaded("BigWigs") then
+							return F.StringByTemplate(format(L["%s is not loaded."], L["BigWigs"]), "danger")
+						end
 
-				return F.StringByTemplate(format( "%s\n%s\n\n", format(L["The options below are only for BigWigs %s bar style."], MER.Title), format(L["You need to manually set the bar style to %s in BigWigs first."], MER.Title)), "warning") .. L["How to change BigWigs bar style:"] ..
-					"\n" .. L["Open BigWigs Options UI with /bw > Bars > Style."] .. "\n\n"
-			end,
-			fontSize = "medium"
-		},
-		bigWigsQueueTimer = {
-			order = 2,
-			get = function(info)
-				return E.private.mui.skins.addonSkins.bw.queueTimer
-			end,
-			set = function(info, value)
-				E.private.mui.skins.addonSkins.bw.queueTimer = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			type = "toggle",
-			name = L["BigWigs Queue Timer"],
-			disabled = false,
-			width = 1
-		},
-		bigWigs = {
-			order = 3,
-			get = function(info)
-				return E.private.mui.skins.addonSkins.bw
-			end,
-			set = function(info, value)
-				E.private.mui.skins.addonSkins.bw = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			type = "toggle",
-			name = L["BigWigs Bars"],
-			disabled = false,
-			width = 1
-		},
-		normalBar = {
-			order = 4,
-			type = "group",
-			inline = true,
-			name = L["Normal Bar"],
-			get = function(info)
-				return E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-			end,
-			set = function(info, value)
-				E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]] = value
-			end,
-			disabled = function()
-				return not E.private.mui.skins.addonSkins.bw
-			end,
-			args = {
-				smooth = {
-					order = 1,
-					type = "toggle",
-					name = L["Smooth"],
-					desc = L["Smooth the bar animation with ElvUI."]
+						return F.StringByTemplate(format( "%s\n%s\n\n", format(L["The options below are only for BigWigs %s bar style."], MER.Title), format(L["You need to manually set the bar style to %s in BigWigs first."], MER.Title)), "warning") .. L["How to change BigWigs bar style:"] ..
+							"\n" .. L["Open BigWigs Options UI with /bw > Bars > Style."] .. "\n\n"
+					end,
+					fontSize = "medium"
 				},
-				spark = {
+				bigWigsQueueTimer = {
 					order = 2,
+					get = function(info)
+						return E.private.mui.skins.addonSkins.bw.queueTimer
+					end,
+					set = function(info, value)
+						E.private.mui.skins.addonSkins.bw.queueTimer = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
 					type = "toggle",
-					name = L["Spark"],
-					desc = L["Show spark on the bar."]
+					name = L["BigWigs Queue Timer"],
+					disabled = false,
+					width = 1
 				},
-				colorOverride = {
+				bigWigs = {
 					order = 3,
+					get = function(info)
+						return E.private.mui.skins.addonSkins.bw
+					end,
+					set = function(info, value)
+						E.private.mui.skins.addonSkins.bw = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
 					type = "toggle",
-					name = L["Color Override"],
-					desc = L["Override the bar color."]
+					name = L["BigWigs Bars"],
+					disabled = false,
+					width = 1
 				},
-				colorLeft = {
+				normalBar = {
 					order = 4,
-					type = "color",
-					name = L["Left Color"],
-					desc = L["Gradient color of the left part of the bar."],
-					hasAlpha = false,
-					disabled = function(info)
-						return not E.private.mui.skins.addonSkins.bw or
-							not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
-					end,
+					type = "group",
+					inline = true,
+					name = L["Normal Bar"],
 					get = function(info)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+						return E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
 					end,
-					set = function(info, r, g, b)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						db.r, db.g, db.b, db.a = r, g, b, 1
-					end
-				},
-				colorRight = {
-					order = 5,
-					type = "color",
-					name = L["Right Color"],
-					desc = L["Gradient color of the right part of the bar."],
-					hasAlpha = false,
-					disabled = function(info)
-						return not E.private.mui.skins.addonSkins.bw or
-							not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
+					set = function(info, value)
+						E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]] = value
 					end,
-					get = function(info)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+					disabled = function()
+						return not E.private.mui.skins.addonSkins.bw
 					end,
-					set = function(info, r, g, b)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						db.r, db.g, db.b, db.a = r, g, b, 1
-					end
-				}
-			}
-		},
-		emphasizedBar = {
-			order = 5,
-			type = "group",
-			inline = true,
-			name = L["Emphasized Bar"],
-			get = function(info)
-				return E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-			end,
-			set = function(info, value)
-				E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]] = value
-			end,
-			disabled = function()
-				return not E.private.mui.skins.addonSkins.bw
-			end,
-			args = {
-				smooth = {
-					order = 1,
-					type = "toggle",
-					name = L["Smooth"],
-					desc = L["Smooth the bar animation with ElvUI."]
+					args = {
+						smooth = {
+							order = 1,
+							type = "toggle",
+							name = L["Smooth"],
+							desc = L["Smooth the bar animation with ElvUI."]
+						},
+						spark = {
+							order = 2,
+							type = "toggle",
+							name = L["Spark"],
+							desc = L["Show spark on the bar."]
+						},
+						colorOverride = {
+							order = 3,
+							type = "toggle",
+							name = L["Color Override"],
+							desc = L["Override the bar color."]
+						},
+						colorLeft = {
+							order = 4,
+							type = "color",
+							name = L["Left Color"],
+							desc = L["Gradient color of the left part of the bar."],
+							hasAlpha = false,
+							disabled = function(info)
+								return not E.private.mui.skins.addonSkins.bw or
+									not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
+							end,
+							get = function(info)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(info, r, g, b)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								db.r, db.g, db.b, db.a = r, g, b, 1
+							end
+						},
+						colorRight = {
+							order = 5,
+							type = "color",
+							name = L["Right Color"],
+							desc = L["Gradient color of the right part of the bar."],
+							hasAlpha = false,
+							disabled = function(info)
+								return not E.private.mui.skins.addonSkins.bw or
+									not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
+							end,
+							get = function(info)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(info, r, g, b)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								db.r, db.g, db.b, db.a = r, g, b, 1
+							end
+						}
+					}
 				},
-				spark = {
-					order = 2,
-					type = "toggle",
-					name = L["Spark"],
-					desc = L["Show spark on the bar."]
-				},
-				colorOverride = {
-					order = 3,
-					type = "toggle",
-					name = L["Color Override"],
-					desc = L["Override the bar color."]
-				},
-				colorLeft = {
-					order = 4,
-					type = "color",
-					name = L["Left Color"],
-					desc = L["Gradient color of the left part of the bar."],
-					hasAlpha = false,
-					disabled = function(info)
-						return not E.private.mui.skins.addonSkins.bw or
-							not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
-					end,
-					get = function(info)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
-					end,
-					set = function(info, r, g, b)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						db.r, db.g, db.b, db.a = r, g, b, 1
-					end
-				},
-				colorRight = {
-					order = 5,
-					type = "color",
-					name = L["Right Color"],
-					desc = L["Gradient color of the right part of the bar."],
-					hasAlpha = false,
-					disabled = function(info)
-						return not E.private.mui.skins.addonSkins.bw or
-							not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
-					end,
-					get = function(info)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
-					end,
-					set = function(info, r, g, b)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						db.r, db.g, db.b, db.a = r, g, b, 1
-					end
-				}
-			}
-		},
-		queueTimer = {
-			order = 6,
-			type = "group",
-			inline = true,
-			name = L["Queue Timer"],
-			get = function(info)
-				return E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-			end,
-			set = function(info, value)
-				E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			disabled = function()
-				return not E.private.mui.skins.addonSkins.bw
-			end,
-			args = {
-				smooth = {
-					order = 1,
-					type = "toggle",
-					name = L["Smooth"],
-					desc = L["Smooth the bar animation with ElvUI."]
-				},
-				spark = {
-					order = 2,
-					type = "toggle",
-					name = L["Spark"],
-					desc = L["Show spark on the bar."]
-				},
-				colorLeft = {
-					order = 3,
-					type = "color",
-					name = L["Left Color"],
-					desc = L["Gradient color of the left part of the bar."],
-					hasAlpha = false,
-					get = function(info)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
-					end,
-					set = function(info, r, g, b)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						db.r, db.g, db.b, db.a = r, g, b, 1
-					end
-				},
-				colorRight = {
-					order = 4,
-					type = "color",
-					name = L["Right Color"],
-					desc = L["Gradient color of the right part of the bar."],
-					hasAlpha = false,
-					get = function(info)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
-					end,
-					set = function(info, r, g, b)
-						local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
-						db.r, db.g, db.b, db.a = r, g, b, 1
-					end
-				},
-				countDown = {
+				emphasizedBar = {
 					order = 5,
 					type = "group",
 					inline = true,
-					name = L["Count Down"],
+					name = L["Emphasized Bar"],
 					get = function(info)
-						return E.private.mui.skins.addonSkins.bw[info[#info - 2]][info[#info - 1]][info[#info]]
+						return E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
 					end,
 					set = function(info, value)
-						E.private.mui.skins.addonSkins.bw[info[#info - 2]][info[#info - 1]][info[#info]] = value
-						E:StaticPopup_Show("PRIVATE_RL")
+						E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]] = value
+					end,
+					disabled = function()
+						return not E.private.mui.skins.addonSkins.bw
 					end,
 					args = {
-						name = {
+						smooth = {
 							order = 1,
-							type = "select",
-							dialogControl = "LSM30_Font",
-							name = L["Font"],
-							values = LSM:HashTable("font")
+							type = "toggle",
+							name = L["Smooth"],
+							desc = L["Smooth the bar animation with ElvUI."]
 						},
-						style = {
+						spark = {
 							order = 2,
-							type = "select",
-							name = L["Outline"],
-							values = {
-								NONE = L["None"],
-								OUTLINE = L["OUTLINE"],
-								MONOCHROME = L["MONOCHROME"],
-								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							}
+							type = "toggle",
+							name = L["Spark"],
+							desc = L["Show spark on the bar."]
 						},
-						size = {
+						colorOverride = {
 							order = 3,
-							name = L["Size"],
-							type = "range",
-							min = 5, max = 60, step = 1
+							type = "toggle",
+							name = L["Color Override"],
+							desc = L["Override the bar color."]
 						},
-						offsetX = {
+						colorLeft = {
 							order = 4,
-							name = L["X-Offset"],
-							type = "range",
-							min = -100, max = 100, step = 1
+							type = "color",
+							name = L["Left Color"],
+							desc = L["Gradient color of the left part of the bar."],
+							hasAlpha = false,
+							disabled = function(info)
+								return not E.private.mui.skins.addonSkins.bw or
+									not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
+							end,
+							get = function(info)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(info, r, g, b)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								db.r, db.g, db.b, db.a = r, g, b, 1
+							end
 						},
-						offsetY = {
+						colorRight = {
 							order = 5,
-							name = L["Y-Offset"],
-							type = "range",
-							min = -100, max = 100, step = 1
+							type = "color",
+							name = L["Right Color"],
+							desc = L["Gradient color of the right part of the bar."],
+							hasAlpha = false,
+							disabled = function(info)
+								return not E.private.mui.skins.addonSkins.bw or
+									not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
+							end,
+							get = function(info)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(info, r, g, b)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								db.r, db.g, db.b, db.a = r, g, b, 1
+							end
+						}
+					}
+				},
+				queueTimer = {
+					order = 6,
+					type = "group",
+					inline = true,
+					name = L["Queue Timer"],
+					get = function(info)
+						return E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+					disabled = function()
+						return not E.private.mui.skins.addonSkins.bw
+					end,
+					args = {
+						smooth = {
+							order = 1,
+							type = "toggle",
+							name = L["Smooth"],
+							desc = L["Smooth the bar animation with ElvUI."]
+						},
+						spark = {
+							order = 2,
+							type = "toggle",
+							name = L["Spark"],
+							desc = L["Show spark on the bar."]
+						},
+						colorLeft = {
+							order = 3,
+							type = "color",
+							name = L["Left Color"],
+							desc = L["Gradient color of the left part of the bar."],
+							hasAlpha = false,
+							get = function(info)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(info, r, g, b)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								db.r, db.g, db.b, db.a = r, g, b, 1
+							end
+						},
+						colorRight = {
+							order = 4,
+							type = "color",
+							name = L["Right Color"],
+							desc = L["Gradient color of the right part of the bar."],
+							hasAlpha = false,
+							get = function(info)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								local default = V.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(info, r, g, b)
+								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
+								db.r, db.g, db.b, db.a = r, g, b, 1
+							end
+						},
+						countDown = {
+							order = 5,
+							type = "group",
+							inline = true,
+							name = L["Count Down"],
+							get = function(info)
+								return E.private.mui.skins.addonSkins.bw[info[#info - 2]][info[#info - 1]][info[#info]]
+							end,
+							set = function(info, value)
+								E.private.mui.skins.addonSkins.bw[info[#info - 2]][info[#info - 1]][info[#info]] = value
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
+							args = {
+								name = {
+									order = 1,
+									type = "select",
+									dialogControl = "LSM30_Font",
+									name = L["Font"],
+									values = LSM:HashTable("font")
+								},
+								style = {
+									order = 2,
+									type = "select",
+									name = L["Outline"],
+									values = {
+										NONE = L["None"],
+										OUTLINE = L["OUTLINE"],
+										MONOCHROME = L["MONOCHROME"],
+										MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+										THICKOUTLINE = L["THICKOUTLINE"]
+									}
+								},
+								size = {
+									order = 3,
+									name = L["Size"],
+									type = "range",
+									min = 5, max = 60, step = 1
+								},
+								offsetX = {
+									order = 4,
+									name = L["X-Offset"],
+									type = "range",
+									min = -100, max = 100, step = 1
+								},
+								offsetY = {
+									order = 5,
+									name = L["Y-Offset"],
+									type = "range",
+									min = -100, max = 100, step = 1
+								},
+							},
 						},
 					},
+				},
+			},
+		},
+		dtSkin = {
+			order = 2,
+			type = "group",
+			name = E.NewSign..L["Details Skin"],
+			get = function(info) return E.private.mui.skins.addonSkins.dt[info[#info]] end,
+			set = function(info, value) E.private.mui.skins.addonSkins.dt[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			disabled = function()
+				return not E.private.mui.skins.enable or not IsAddOnLoaded("Details")
+			end,
+			args = {
+				enable = {
+					order = 0,
+					type = "toggle",
+					name = L["Enable"],
+					width = "full",
+				},
+				gradientName = {
+					order = 1,
+					type = "toggle",
+					name = L["Gradient Name"],
+					disabled = function()
+						return not E.private.mui.skins.addonSkins.dt.enable
+					end,
+				},
+				gradientBars = {
+					order = 1,
+					type = "toggle",
+					name = L["Gradient Bars"],
+					disabled = function()
+						return not E.private.mui.skins.addonSkins.dt.enable
+					end,
 				},
 			},
 		},

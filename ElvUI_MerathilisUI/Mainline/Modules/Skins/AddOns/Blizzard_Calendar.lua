@@ -26,6 +26,8 @@ local function LoadSkin()
 	module:CreateShadow(_G.CalendarMassInviteFrame)
 	_G.CalendarViewRaidFrame:Styling()
 	module:CreateShadow(_G.CalendarViewRaidFrame)
+	_G.CalendarEventPickerFrame:Styling()
+	module:CreateShadow(_G.CalendarEventPickerFrame)
 
 	for index in next, _G.CLASS_SORT_ORDER do
 		local button = _G["CalendarClassButton" .. index]
