@@ -533,6 +533,7 @@ local foodDragonflight = {
 	197793,
 	197794,
 	197795,
+	204072,
 }
 
 local foodDragonflightVendor = {
@@ -1363,11 +1364,12 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			button.tex:SetTexture(item:GetItemIcon())
 			if E.Retail then
 				button:SetTier(itemData.itemID)
-				E:Delay(0.1, function()
-					-- delay for quality tier fetching and text changing
-					waitGroup.count = waitGroup.count - 1
-				end)
 			end
+
+			E:Delay(0.1, function()
+				-- delay for quality tier fetching and text changing
+				waitGroup.count = waitGroup.count - 1
+			end)
 		end)
 	elseif slotID then
 		button.slotID = slotID
@@ -1385,11 +1387,12 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 
 			if E.Retail then
 				button:SetTier(item:GetItemID())
-				E:Delay(0.1, function()
-					-- delay for quality tier fetching and text changing
-					waitGroup.count = waitGroup.count - 1
-				end)
 			end
+
+			E:Delay(0.1, function()
+				-- delay for quality tier fetching and text changing
+				waitGroup.count = waitGroup.count - 1
+			end)
 		end)
 	end
 
@@ -1474,12 +1477,7 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(
-				bar,
-				barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin),
-				alphaCurrent,
-				barDB.alphaMin
-			)
+			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
 		end
 
 		GameTooltip:Hide()
