@@ -1362,12 +1362,12 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			button.itemName = item:GetItemName()
 			button.tex:SetTexture(item:GetItemIcon())
 			if E.Retail then
-				button:SetTier(itemData.itemID)
-				E:Delay(0.1, function()
-					-- delay for quality tier fetching and text changing
-					waitGroup.count = waitGroup.count - 1
-				end)
+				button:SetTier(itemData.itemID)				
 			end
+			E:Delay(0.1, function()
+				-- delay for quality tier fetching and text changing
+				waitGroup.count = waitGroup.count - 1
+			end)
 		end)
 	elseif slotID then
 		button.slotID = slotID
@@ -1384,12 +1384,13 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			end
 
 			if E.Retail then
-				button:SetTier(item:GetItemID())
-				E:Delay(0.1, function()
-					-- delay for quality tier fetching and text changing
-					waitGroup.count = waitGroup.count - 1
-				end)
+				button:SetTier(item:GetItemID())				
 			end
+			
+			E:Delay(0.1, function()
+				-- delay for quality tier fetching and text changing
+				waitGroup.count = waitGroup.count - 1
+			end)
 		end)
 	end
 
