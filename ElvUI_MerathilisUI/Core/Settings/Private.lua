@@ -232,7 +232,6 @@ V.skins = {
 		cl = true,
 		cbn = true,
 		et = true,
-		dt = true,
 		wa = true,
 		waOptions = true,
 		tldr = true,
@@ -272,6 +271,11 @@ V.skins = {
 				colorLeft = { r = 1, g = 0.23, b = 0.0, a = 1 },
 				colorRight = { r = 1, g = 0.48, b = 0.03, a = 1 }
 			},
+		},
+		dt = {
+			enable = true,
+			gradientName = false,
+			gradientBars = true,
 		},
 	},
 

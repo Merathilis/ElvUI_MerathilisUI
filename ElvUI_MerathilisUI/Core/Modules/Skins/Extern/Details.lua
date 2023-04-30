@@ -40,15 +40,14 @@ local classes = {
 }
 
 local function GradientBars()
-	local class
 	hooksecurefunc(_detalhes, "InstanceRefreshRows", function(instancia)
 		if instancia.barras and instancia.barras[1] then
 			for _, row in next, instancia.barras do
-				if row and row.textura then
+				if row and row.textura and not row.textura.__MERSkin then
 					hooksecurefunc(row.textura, "SetVertexColor", function(_, r, g, b)
 						if row.minha_tabela and row.minha_tabela.name then
-							class = row.minha_tabela:class()
-							if class ~= 'UNKNOW' and classes[class] then
+							local class = row.minha_tabela:class()
+							if classes[class] then
 								row.textura:SetGradient("Horizontal", CreateColor(DetailsGradient[class].r1 - 0.2, DetailsGradient[class].g1 - 0.2,	DetailsGradient[class].b1 - 0.2, 0.9), CreateColor(DetailsGradient[class].r2 + 0.2, DetailsGradient[class].g2 + 0.2, DetailsGradient[class].b2 + 0.2, 0.9))
 							else
 								row.textura:SetGradient("Horizontal", CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9), CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9))
@@ -57,8 +56,24 @@ local function GradientBars()
 							row.textura:SetGradient("Horizontal", CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9), CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9))
 						end
 					end)
+					row.textura.__MERSkin = true
 				end
 			end
+		end
+	end)
+end
+
+local function GradientNames()
+	local Details = _G.Details
+
+	hooksecurefunc(Details.atributo_damage, "RefreshLine", function(_, _, lineContainer, whichRowLine)
+		local thisLine = lineContainer[whichRowLine]
+		if not thisLine then
+			return
+		end
+
+		if thisLine.lineText1 then
+			thisLine.lineText1:SetText(thisLine.colocacao .. ". " .. F.GradientName(thisLine.minha_tabela:GetDisplayName(), thisLine.minha_tabela:class()))
 		end
 	end)
 end
@@ -183,9 +198,15 @@ local function LoadSkin()
 		return
 	end
 
-	if E.private.mui.skins.addonSkins.dt then
+	local db = E.private.mui.skins.addonSkins.dt
+	if db and db.enable then
 		if E.Retail then
-			GradientBars()
+			if db.gradientBars then
+				GradientBars()
+			end
+			if db.gradientName then
+				GradientNames()
+			end
 		end
 	end
 

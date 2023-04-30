@@ -110,7 +110,7 @@ options.cooldowns = {
 				},
 				tts = {
 					order = 11,
-					name = E.NewSign..L["Enable Text To Speech"],
+					name = L["Enable Text To Speech"],
 					type  = "toggle",
 					hidden = function() return not E.db.mui.cooldownFlash.enable end,
 				},

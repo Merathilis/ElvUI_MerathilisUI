@@ -92,6 +92,7 @@ function MI:LoadnameHover()
 		if GetMouseFocus() and GetMouseFocus():GetName() ~= "WorldFrame" then return end
 
 		local name = UnitName("mouseover") or UNKNOWN
+		local text = E:StripString(name)
 		local AFK = UnitIsAFK("mouseover")
 		local DND = UnitIsDND("mouseover")
 		local _, UnitClass = UnitClass("mouseover")
@@ -104,20 +105,20 @@ function MI:LoadnameHover()
 
 		if db and db.gradient then
 			if UnitIsPlayer("mouseover") and UnitClass then
-				tt.text:SetText(prefix..F.GradientName(name, UnitClass))
+				tt.text:SetText(prefix..F.GradientName(text, UnitClass))
 			else
 				if reaction and reaction >= 5 then
-					tt.text:SetText(prefix .. F.GradientName(name, "NPCFRIENDLY"))
+					tt.text:SetText(prefix .. F.GradientName(text, "NPCFRIENDLY"))
 				elseif reaction and reaction == 4 then
-					tt.text:SetText(prefix .. F.GradientName(name, "NPCNEUTRAL"))
+					tt.text:SetText(prefix .. F.GradientName(text, "NPCNEUTRAL"))
 				elseif reaction and reaction == 3 then
-					tt.text:SetText(prefix .. F.GradientName(name, "NPCUNFRIENDLY"))
+					tt.text:SetText(prefix .. F.GradientName(text, "NPCUNFRIENDLY"))
 				elseif reaction and reaction == 2 or reaction == 1 then
-					tt.text:SetText(prefix .. F.GradientName(name, "NPCHOSTILE"))
+					tt.text:SetText(prefix .. F.GradientName(text, "NPCHOSTILE"))
 				end
 			end
 		else
-			tt.text:SetText(prefix..name)
+			tt.text:SetText(prefix..text)
 			tt.text:SetTextColor(Getcolor())
 		end
 

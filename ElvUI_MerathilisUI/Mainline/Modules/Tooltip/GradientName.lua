@@ -16,14 +16,8 @@ local function TooltipGradientName(unit)
 	local _, classunit = UnitClass(unit)
 	local reaction = UnitReaction(unit, 'player')
 
-	local tooltipName = _G['GameTooltipTextLeft1']:GetText()
+	local tooltipName = E:StripString(_G['GameTooltipTextLeft1']:GetText())
 	if tooltipName and classunit and reaction then
-		-- To strip the name from color sequences. Credits: ArkInventory
-		if tooltipName:match('|c') or tooltipName:match('|r') then
-			tooltipName = gsub(tooltipName, '|c%x%x%x%x%x%x%x%x', '')
-			tooltipName = gsub(tooltipName, '|r', '')
-		end
-
 		if UnitIsPlayer(unit) and classunit then
 			_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, classunit))
 		else
@@ -43,7 +37,7 @@ end
 function T:ApplyTooltipStyle(tt)
 	if not tt then return end
 	local db = E.db.mui.tooltip
-	if not db and not db.gradientName then
+	if db and not db.gradientName then
 		return
 	end
 	if _G.GameTooltip and _G.GameTooltip:IsForbidden() then return end

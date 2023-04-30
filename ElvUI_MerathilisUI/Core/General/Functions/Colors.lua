@@ -169,14 +169,8 @@ function F.GradientColors(unitclass, invert, alpha)
 end
 
 function F.GradientName(name, unitclass)
-	local text
-	if not F.ClassGradient[unitclass] then
-		text = E:TextGradient(name, F.ClassGradient["MANA"].r2, F.ClassGradient["MANA"].g2, F.ClassGradient["MANA"].b2, F.ClassGradient["MANA"].r1, F.ClassGradient["MANA"].g1, F.ClassGradient["MANA"].b1)
-	else
-		text = E:TextGradient(name, F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1)
-	end
-
-	return text
+	local color = F.ClassGradient[unitclass] or F.ClassGradient.MANA
+	return E:TextGradient(name, color.r2, color.g2, color.b2, color.r1, color.g1, color.b1)
 end
 
 local colors = {

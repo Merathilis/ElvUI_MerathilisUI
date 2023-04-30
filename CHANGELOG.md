@@ -1,8 +1,9 @@
 ### Changes ###
 
-  * Retail: Added an option to block join requests from strangers
-  * Added a gradient color option on the Tooltip Name and Name Hover
-  * Classic: Fixed some API errors :thinking:
-  * Updated Global Ignore List skin
-  * Updated my Layout a tiny bit
+  * Fix the NameHover Option. Thanks @Murava
+  * Wrath: Fix double ID's on AutoButtons
+  * Wrath: AutoButton fix 'Inherit Global Fade Option' thanks @Naifu <3
+  * Added a gradient Name Option for Details. Disabled by default
+  * Use E:StripString on the Gradient Tooltips to fix some weird stuff
+  * Small Layout adjustments
 
