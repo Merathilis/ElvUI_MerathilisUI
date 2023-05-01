@@ -2059,7 +2059,7 @@ options.advancedSettings = {
 	type = "group",
 	name = L["Advanced Skin Settings"],
 	disabled = function()
-		return not E.private.mui.skins.enable or not IsAddOnLoaded("BigWigs")
+		return not E.private.mui.skins.enable
 	end,
 	args = {
 		bigWigsSkin = {
