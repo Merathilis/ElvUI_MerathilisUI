@@ -12,36 +12,6 @@ local unpack = unpack
 
 local C_ChallengeMode_GetAffixInfo = C_ChallengeMode.GetAffixInfo
 
-function module:SkinMawBuffsContainer(container)
-	container:StripTextures()
-	container:GetHighlightTexture():Kill()
-	container:GetPushedTexture():Kill()
-
-	local pushed = container:CreateTexture()
-	self:Reposition(pushed, container, 0, -11, -11, -17, -4)
-	pushed:SetBlendMode("ADD")
-
-	local vr, vg, vb = unpack(E.media.rgbvaluecolor)
-	pushed:SetColorTexture(vr, vg, vb, 0.2)
-	container:SetPushedTexture(pushed)
-	container.SetHighlightAtlas = E.noop
-	container.SetPushedAtlas = E.noop
-	container.SetWidth = E.noop
-	container.SetPushedTextOffset = E.noop
-
-	container:CreateBackdrop("Transparent")
-	self:Reposition(container.backdrop, container, 1, -10, -10, -16, -3)
-	module:CreateBackdropShadow(container)
-	module:CreateGradient(container.backdrop)
-
-	local blockList = container.List
-	blockList:StripTextures()
-	blockList:CreateBackdrop("Transparent")
-	self:Reposition(blockList.backdrop, blockList, 1, -11, -11, -6, -6)
-	module:CreateBackdropShadow(blockList)
-	module:CreateGradient(blockList.backdrop)
-end
-
 function module:ScenarioStage_CustomizeBlock(stageBlock, scenarioType, widgetSetID, textureKitID)
 	stageBlock.NormalBG:SetTexture("")
 	stageBlock.FinalBG:SetTexture("")
@@ -148,8 +118,6 @@ local function LoadSkin()
 	module:SecureHook("ScenarioStage_CustomizeBlock")
 	module:SecureHook("Scenario_ChallengeMode_ShowBlock")
 	module:SecureHook(_G.SCENARIO_CONTENT_TRACKER_MODULE, "Update", "ScenarioStageWidgetContainer")
-	module:SkinMawBuffsContainer(_G.ScenarioBlocksFrame.MawBuffsBlock.Container)
-	module:SkinMawBuffsContainer(_G.MawBuffsBelowMinimapFrame.Container)
 end
 
 S:AddCallback("ScenarioUI", LoadSkin)

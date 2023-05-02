@@ -202,33 +202,6 @@ local function LoadSkin()
 		frame.backdrop:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 220, -1)
 	end
 
-	-- Follower Rewards
-	hooksecurefunc("QuestInfo_Display", function(template, parentFrame, acceptButton, material, mapView)
-		ColorObjectivesText()
-
-		local rewardsFrame = _G.QuestInfoFrame.rewardsFrame
-		local isQuestLog = _G.QuestInfoFrame.questLog ~= nil
-		local numSpellRewards = isQuestLog and GetNumQuestLogRewardSpells() or GetNumRewardSpells()
-
-		if (template.canHaveSealMaterial) then
-			local questFrame = parentFrame:GetParent():GetParent()
-			questFrame.SealMaterialBG:Hide()
-		end
-
-		if numSpellRewards > 0 then
-			for spellHeader in rewardsFrame.spellHeaderPool:EnumerateActive() do
-				spellHeader:SetVertexColor(1, 1, 1, 1)
-			end
-		end
-
-		-- WoW10 new MajorFaction Rewards thing
-		for spellIcon in rewardsFrame.reputationRewardPool:EnumerateActive() do
-			RestyleRewardButton(spellIcon)
-		end
-    end)
-
-	-- Major Faction Rewards
-
 	hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", function(self, r)
 		if r == 0 then
 			self:SetTextColor(.8, .8, .8, 1)
