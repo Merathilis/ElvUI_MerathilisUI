@@ -2,10 +2,10 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 
-local norm = format("|cff1eff00%s|r", L["Normal"])
-local hero = format("|cff0070dd%s|r", L["Heroic"])
-local myth = format("|cffa335ee%s|r", L["Mythic"])
-local lfr = format("|cffff8000%s|r", L["Looking for Raid"])
+local norm = format("|cff1eff00%s|r", L["[ABBR] Normal"])
+local hero = format("|cff0070dd%s|r", L["[ABBR] Heroic"])
+local myth = format("|cffa335ee%s|r", L["[ABBR] Mythic"])
+local lfr = format("|cffff8000%s|r", L["[ABBR] Looking for Raid"])
 
 P.core = {
 	installed = nil,
