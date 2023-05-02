@@ -61,22 +61,6 @@ function module:LootHistoryFrame_FullUpdate()
 			frame.__MERSkin = true
 		end
 	end
-
-	-- for _, frame in pairs(_G.LootHistoryFrame.unusedPlayerFrames) do
-		-- if frame and not frame.__MERSkin then
-			-- frame:SetWidth(256)
-			-- F.SetFontDB(frame.RollText, E.private.mui.skins.rollResult)
-			-- frame.__MERSkin = true
-		-- end
-	-- end
-
-	-- for _, frame in pairs(_G.LootHistoryFrame.usedPlayerFrames) do
-		-- if frame and not frame.__MERSkin then
-			-- frame:SetWidth(256)
-			-- F.SetFontDB(frame.RollText, E.private.mui.skins.rollResult)
-			-- frame.__MERSkin = true
-		-- end
-	-- end
 end
 
 local function HideIconBG(anim)
