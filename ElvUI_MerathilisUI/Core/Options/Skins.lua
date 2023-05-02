@@ -2059,7 +2059,7 @@ options.advancedSettings = {
 	type = "group",
 	name = L["Advanced Skin Settings"],
 	disabled = function()
-		return not E.private.mui.skins.enable or not IsAddOnLoaded("BigWigs")
+		return not E.private.mui.skins.enable
 	end,
 	args = {
 		bigWigsSkin = {
@@ -2069,7 +2069,7 @@ options.advancedSettings = {
 			get = function(info) return E.private.mui.skins.addonSkins.bw[info[#info]] end,
 			set = function(info, value) E.private.mui.skins.addonSkins.bw[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 			disabled = function()
-				return not E.private.mui.skins.enable or not IsAddOnLoaded("BigWigs")
+				return not IsAddOnLoaded("BigWigs")
 			end,
 			args = {
 				enable = {
@@ -2392,7 +2392,7 @@ options.advancedSettings = {
 			set = function(info, value) E.private.mui.skins.addonSkins.dt[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			disabled = function()
-				return not E.private.mui.skins.enable or not IsAddOnLoaded("Details")
+				return not IsAddOnLoaded("Details")
 			end,
 			args = {
 				enable = {
