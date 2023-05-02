@@ -1,7 +1,2 @@
-[b][color=orange]v5.74[/color], 30.04.2023[/b][list]
-[*]Fix the NameHover Option. Thanks @Murava
-[*]Wrath: Fix double ID's on AutoButtons"
-[*]Wrath: AutoButton fix 'Inherit Global Fade Option' thanks @Naifu <3
-[*]Added a gradient Name Option for Details. Disabled by default
-[*]Use E:StripString on the Gradient Tooltips to fix some weird stuff
-[*]Small Layout adjustments[/list]
+[b][color=orange]v5.75 for 10.1[/color], 02.05.2023[/b][list]
+[*]Patch 10.1 fixes[/list]
