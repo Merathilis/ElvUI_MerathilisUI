@@ -439,10 +439,14 @@ function module:WeakAuras_ShowOptions()
 	end
 
 	-- Remove background
-	frame:SetBackdrop(nil)
+	frame:StripTextures()
+	frame.TitleContainer:SetTemplate("Transparent")
 	frame:CreateBackdrop("Transparent")
 	frame.backdrop:Styling()
 	module:CreateBackdropShadow(frame)
+
+	S:HandleMaxMinFrame(frame.MaxMinButtonFrame)
+	S:HandleCloseButton(_G.WeakAurasOptionsCloseButton)
 
 	for _, region in pairs {frame:GetRegions()} do
 		if region:GetObjectType() == "Texture" then
@@ -467,10 +471,10 @@ function module:WeakAuras_ShowOptions()
 	end
 
 	-- Change position of resize buttons
-	frame.bottomLeftResizer:ClearAllPoints()
-	frame.bottomLeftResizer:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -5, -5)
-	frame.bottomRightResizer:ClearAllPoints()
-	frame.bottomRightResizer:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 5, -5)
+	-- frame.bottomLeftResizer:ClearAllPoints()
+	-- frame.bottomLeftResizer:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -5, -5)
+	-- frame.bottomRightResizer:ClearAllPoints()
+	-- frame.bottomRightResizer:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 5, -5)
 
 	-- Filter editbox
 	if frame.filterInput then
