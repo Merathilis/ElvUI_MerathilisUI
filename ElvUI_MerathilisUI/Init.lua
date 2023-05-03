@@ -134,6 +134,11 @@ do
 	MER:AddLib('LDD', 'LibDropDown')
 end
 
+_G.MerathilisUI_OnAddonCompartmentClick = function()
+	E:ToggleOptions()
+	E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'mui')
+end
+
 function MER:Initialize()
 	if not self:CheckElvUIVersion() then
 		return
