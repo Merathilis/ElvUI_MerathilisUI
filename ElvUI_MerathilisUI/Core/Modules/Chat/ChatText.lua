@@ -22,7 +22,6 @@ local strupper = strupper
 local time = time
 local tinsert = tinsert
 local tonumber = tonumber
-local tostring = tostring
 local type = type
 local unpack = unpack
 local utf8sub = string.utf8sub
@@ -33,7 +32,6 @@ local BetterDate = BetterDate
 local BNet_GetClientEmbeddedTexture = BNet_GetClientEmbeddedTexture
 local BNGetNumFriends = BNGetNumFriends
 local BNGetNumFriendInvites = BNGetNumFriendInvites
-local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 local FlashClientIcon = FlashClientIcon
 local GetAchievementLink = GetAchievementLink
 local GetBNPlayerCommunityLink = GetBNPlayerCommunityLink
@@ -55,7 +53,6 @@ local IsInRaid = IsInRaid
 local PlaySoundFile = PlaySoundFile
 local RemoveExtraSpaces = RemoveExtraSpaces
 local RemoveNewlines = RemoveNewlines
-local StaticPopup_Visible = StaticPopup_Visiblelocal
 local UnitExists = UnitExists
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitIsGroupLeader = UnitIsGroupLeader
@@ -832,6 +829,14 @@ function CT:HandleName(nameString)
 	return nameString
 end
 
+function CT:MayHaveBrackets(...)
+	local names = { ... }
+	for i = 1, select("#", ...) do
+		names[i] = not CT.db.removeBrackets and "[" .. names[i] .. "]" or names[i]
+	end
+	return unpack(names)
+end
+
 function CT:ChatFrame_MessageEventHandler(
 	frame,
 	event,
@@ -1544,9 +1549,9 @@ function CT:SendAchivementMessage()
 					local message = nil
 
 					if #players == 1 then
-						message = gsub(achievementMessageTemplate, "%%player%%", addSpaceForAsian(players[1]))
+						message = gsub(achievementMessageTemplate, "%%player%%", addSpaceForAsian(self:MayHaveBrackets(players[1])))
 					elseif #players > 1 then
-						message = gsub(achievementMessageTemplateMultiplePlayers, "%%players%%", addSpaceForAsian(strjoin(", ", unpack(players))))
+						message = gsub(achievementMessageTemplateMultiplePlayers, "%%players%%", addSpaceForAsian(strjoin(", ", self:MayHaveBrackets(unpack(players)))))
 					end
 
 					if message then
@@ -1668,7 +1673,7 @@ function CT:ElvUIChat_GuildMemberStatusMessageHandler(frame, msg)
 		local displayName = CT.db.removeRealm and Ambiguate(name, "short") or name
 		local coloredName = F.CreateClassColorString(displayName, link and guildPlayerCache[link] or guildPlayerCache[name])
 
-		coloredName = addSpaceForAsian(coloredName)
+		coloredName = addSpaceForAsian(self:MayHaveBrackets(coloredName))
 		local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(class, CT.db.classIconStyle, 16, 16) .. " " or ""
 
 		if coloredName and classIcon then
@@ -1847,7 +1852,7 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture)
 				""
 			local coloredName = F.CreateClassColorString(character, characterData.data.class)
 
-			local playerName = format("|Hplayer:%s|h%s%s|h", fullName, classIcon, coloredName)
+			local playerName = format("|Hplayer:%s|h%s%s|h", fullName, classIcon, self:MayHaveBrackets(coloredName))
 
 			if self.db.factionIcon then
 				local factionIcon =
