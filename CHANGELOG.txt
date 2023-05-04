@@ -1,4 +1,4 @@
-[b][color=orange]v5.76[/color], 04.05.2023[/b][list]
+[b][color=orange]v5.77[/color], 04.05.2023[/b][list]
 [*]Fix the display from the ItemLevel in bags
 [*]Fix WeakAura skin. Credits: fang2hou
 [*]Add some new profession items & reward bags on AutoButtons
