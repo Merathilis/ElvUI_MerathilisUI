@@ -126,7 +126,7 @@ function module:LootFrame()
 		end
 	end)
 
-	self:SecureHook(_G.LootHistoryFrame, "DoFullRefresh", "GroupLootHistoryFrame_DoFullRefresh")
+	self:SecureHook(_G.LootHistoryFrameMixin, "DoFullRefresh", "GroupLootHistoryFrame_DoFullRefresh")
 end
 
 module:AddCallback("LootFrame")
