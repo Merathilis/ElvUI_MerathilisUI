@@ -1,2 +1,6 @@
-[b][color=orange]v5.75 for 10.1[/color], 02.05.2023[/b][list]
-[*]Patch 10.1 fixes[/list]
+[b][color=orange]v5.76[/color], 04.05.2023[/b][list]
+[*]Fix the display from the ItemLevel in bags
+[*]Fix WeakAura skin. Credits: fang2hou
+[*]Add some new profession items & reward bags on AutoButtons
+[*]Sort favorties by alphabetic order on the Mail List
+[*]Fixed an issue with brackets on the chat text[/list]
