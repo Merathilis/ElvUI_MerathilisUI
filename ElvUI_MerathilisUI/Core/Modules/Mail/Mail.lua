@@ -9,6 +9,7 @@ local floor = floor
 local format = format
 local pairs = pairs
 local select = select
+local sort = sort
 local tinsert = tinsert
 local unpack = unpack
 
@@ -572,13 +573,7 @@ function module:BuildGuildData()
 
 	local totalMembers = GetNumGuildMembers()
 	for i = 1, totalMembers do
-		tinsert(
-			data,
-			{
-				memberIndex = i,
-				dType = "guild"
-			}
-		)
+		tinsert(data, {memberIndex = i, dType = "guild"})
 	end
 end
 
@@ -589,6 +584,9 @@ function module:BuildFavoriteData()
 		local name, realm = F.SplitString("-", fullName)
 		realm = realm or E.myrealm
 		tinsert(data, { name = name, realm = realm, dType = "favorite" })
+		sort(data, function(a, b)
+			return a.name < b.name
+		end)
 	end
 end
 
