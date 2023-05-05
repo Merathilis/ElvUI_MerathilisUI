@@ -57,11 +57,6 @@ local function LoadSkin()
 	select(6, CompleteQuestFrame.CompleteButton:GetRegions()):SetAlpha(0)
 	select(7, CompleteQuestFrame.CompleteButton:GetRegions()):SetAlpha(0)
 
-	-- Quest log popup detail frame
-	_G.QuestLogPopupDetailFrameScrollFrameTop:SetAlpha(0)
-	_G.QuestLogPopupDetailFrameScrollFrameBottom:SetAlpha(0)
-	_G.QuestLogPopupDetailFrameScrollFrameMiddle:SetAlpha(0)
-
 	_G.QuestLogPopupDetailFrameScrollFrame:HookScript("OnUpdate", function(self)
 		_G.QuestLogPopupDetailFrameScrollFrame.backdrop:Hide()
 		_G.QuestLogPopupDetailFrameInset:Hide()
@@ -72,6 +67,8 @@ local function LoadSkin()
 			self.spellTex:SetTexture("")
 		end
 	end)
+
+	_G.QuestLogPopupDetailFrame.SealMaterialBG:SetAlpha(0)
 	_G.QuestLogPopupDetailFrame:Styling()
 	module:CreateBackdropShadow(_G.QuestLogPopupDetailFrame)
 
