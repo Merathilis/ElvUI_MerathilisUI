@@ -1,6 +1,3 @@
-[b][color=orange]v5.77[/color], 04.05.2023[/b][list]
-[*]Fix the display from the ItemLevel in bags
-[*]Fix WeakAura skin. Credits: fang2hou
-[*]Add some new profession items & reward bags on AutoButtons
-[*]Sort favorties by alphabetic order on the Mail List
-[*]Fixed an issue with brackets on the chat text[/list]
+[b][color=orange]v5.78[/color], 05.05.2023[/b][list]
+[*]Rectangle Minimap is Retail only
+[*]Fix ItemLevel errors on non Retail[/list]
