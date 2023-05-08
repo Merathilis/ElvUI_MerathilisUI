@@ -290,9 +290,6 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.6
 	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 0.7
-	E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["mail"]["texture"] = "Mail2"
 	E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"
 	E.db["general"]["minimap"]["icons"]["mail"]["scale"] = 1
@@ -638,8 +635,6 @@ function MER:SetupLayout()
 		E.db["mui"]["smb"]["buttonsPerRow"] = 9
 		E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
 		E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
-		E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
-		E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 60
 		E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
 		E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
 		E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 42
