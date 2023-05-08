@@ -1,10 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:AddonList()
 	if not module:CheckDB("addonManager", "addonManager") then
 		return
 	end
@@ -15,4 +14,4 @@ local function LoadSkin()
 	_G.AddonCharacterDropDown:SetWidth(170)
 end
 
-S:AddCallback("AddonList", LoadSkin)
+module:AddCallback("AddonList")
