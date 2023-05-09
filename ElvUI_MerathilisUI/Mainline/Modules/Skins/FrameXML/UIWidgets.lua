@@ -142,10 +142,11 @@ local function LoadSkin()
 		end
 	end
 
+	--[[
 	hooksecurefunc(_G.TopScenarioWidgetContainerBlock.WidgetContainer, "UpdateWidgetLayout", function(self)
 		for _, widgetFrame in pairs(self.widgetFrames) do
 			if widgetFrame.widgetType == Type_StatusBar then
-				ReskinWidgetStatusBar(widgetFrame.Bar)
+				 ReskinWidgetStatusBar(widgetFrame.Bar)
 			end
 		end
 	end)
@@ -157,6 +158,7 @@ local function LoadSkin()
 			end
 		end
 	end)
+	--]]
 
 	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, "Setup", function(self)
 		ReskinWidgetStatusBar(self.Bar)
