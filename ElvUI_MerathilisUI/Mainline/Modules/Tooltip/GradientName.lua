@@ -16,7 +16,9 @@ local function TooltipGradientName(unit)
 	local _, classunit = UnitClass(unit)
 	local reaction = UnitReaction(unit, 'player')
 
-	local tooltipName = E:StripString(_G['GameTooltipTextLeft1']:GetText())
+	local text = _G['GameTooltipTextLeft1']:GetText()
+	local tooltipName = text and E:StripString(text)
+
 	if tooltipName and classunit and reaction then
 		if UnitIsPlayer(unit) and classunit then
 			_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, classunit))
