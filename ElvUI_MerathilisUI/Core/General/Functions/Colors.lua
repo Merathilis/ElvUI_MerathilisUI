@@ -219,7 +219,16 @@ function F.HexToRGB(hex)
 end
 
 function F.RGBToHex(r, g, b)
-	return format("%02x%02x%02x", r * 255, g * 255, b * 255)
+	if r then
+		if type(r) == "table" then
+			if r.r then
+				r, g, b = r.r, r.g, r.b
+			else
+				r, g, b = unpack(r)
+			end
+		end
+		return format("%02x%02x%02x", r * 255, g * 255, b * 255)
+	end
 end
 
 function F.StringWithHex(text, color)
