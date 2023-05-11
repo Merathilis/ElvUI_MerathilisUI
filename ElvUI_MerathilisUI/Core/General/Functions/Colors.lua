@@ -35,7 +35,7 @@ F.ClassGradient = {
 	["NPCFRIENDLY"] = { r1 = 0.30, g1 = 0.85, b1 = 0.2, r2 = 0.34, g2 = 0.62, b2 = 0.40 },
 	["NPCNEUTRAL"] = { r1 = 0.71, g1 = 0.63, b1 = 0.15, r2 = 1, g2 = 0.85, b2 = 0.20 },
 	["NPCUNFRIENDLY"] = { r1 = 0.84, g1 = 0.30, b1 = 0, r2 = 0.83, g2 = 0.45, b2 = 0 },
-	["NPCHOSTILE"] = { r1 = 0.31, g1 = 0.06, b1 = 0.07, r2 = 1, g2 = 0.15, b2 = 0.15 },
+	["NPCHOSTILE"] = { r1 = 1, g1 = 1, b1 = 1, r2 = 1, g2 = 0.090196078431373, b2 = 0 },
 
 	["TAPPED"] = { r1 = 0.6, g1 = 0.6, b1 = 0.60, r2 = 0, g2 = 0, b2 = 0 },
 
@@ -168,9 +168,18 @@ function F.GradientColors(unitclass, invert, alpha)
 	end
 end
 
-function F.GradientName(name, unitclass)
+function F.GradientName(name, unitclass, isTarget)
+	if not name then
+		return
+	end
+
 	local color = F.ClassGradient[unitclass] or F.ClassGradient.MANA
-	return E:TextGradient(name, color.r2, color.g2, color.b2, color.r1, color.g1, color.b1)
+
+	if not isTarget then
+		return E:TextGradient(name, color.r2, color.g2, color.b2, color.r1, color.g1, color.b1)
+	else
+		return E:TextGradient(name, color.r1, color.g1, color.b1, color.r2, color.g2, color.b2)
+	end
 end
 
 local colors = {
@@ -210,7 +219,16 @@ function F.HexToRGB(hex)
 end
 
 function F.RGBToHex(r, g, b)
-	return format("%02x%02x%02x", r * 255, g * 255, b * 255)
+	if r then
+		if type(r) == "table" then
+			if r.r then
+				r, g, b = r.r, r.g, r.b
+			else
+				r, g, b = unpack(r)
+			end
+		end
+		return format("%02x%02x%02x", r * 255, g * 255, b * 255)
+	end
 end
 
 function F.StringWithHex(text, color)

@@ -5,6 +5,7 @@ local CH = E:GetModule('Chat')
 local CB = MER:GetModule('MER_ChatBar')
 local CL = MER:GetModule('MER_ChatLink')
 local CT = MER:GetModule('MER_ChatText')
+local CF = MER:GetModule('MER_ChatFade')
 local LSM = E.LSM
 
 local _G = _G
@@ -154,7 +155,7 @@ options.chat = {
 			type = "group",
 			name = F.cOption(L["Fade Chat"], 'orange'),
 			get = function(info) return E.db.mui.chat.chatFade[ info[#info] ] end,
-			set = function(info, value) E.db.mui.chat.chatFade[ info[#info] ] = value; module:Configure_ChatFade() end,
+			set = function(info, value) E.db.mui.chat.chatFade[ info[#info] ] = value; CF:Configure_ChatFade() end,
 			args = {
 				enable = {
 					order = 1,

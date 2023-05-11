@@ -215,7 +215,6 @@ function module:Initialize()
 
 	module:StyleVoicePanel()
 	module:DamageMeterFilter()
-	module:LoadChatFade()
 	module:UpdateSeperators()
 	module:CreateChatButtons()
 

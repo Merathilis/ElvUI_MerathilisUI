@@ -57,23 +57,21 @@ local function LoadSkin()
 	select(6, CompleteQuestFrame.CompleteButton:GetRegions()):SetAlpha(0)
 	select(7, CompleteQuestFrame.CompleteButton:GetRegions()):SetAlpha(0)
 
-	-- Quest log popup detail frame
-	_G.QuestLogPopupDetailFrameScrollFrameTop:SetAlpha(0)
-	_G.QuestLogPopupDetailFrameScrollFrameBottom:SetAlpha(0)
-	_G.QuestLogPopupDetailFrameScrollFrameMiddle:SetAlpha(0)
-
 	_G.QuestLogPopupDetailFrameScrollFrame:HookScript("OnUpdate", function(self)
 		_G.QuestLogPopupDetailFrameScrollFrame.backdrop:Hide()
 		_G.QuestLogPopupDetailFrameInset:Hide()
 		_G.QuestLogPopupDetailFrameBg:Hide()
 		-- self:CreateBackdrop("Transparent")
 
+		_G.QuestLogPopupDetailFrame:Styling()
+		module:CreateShadow(_G.QuestLogPopupDetailFrame)
+
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
 		end
 	end)
-	_G.QuestLogPopupDetailFrame:Styling()
-	module:CreateBackdropShadow(_G.QuestLogPopupDetailFrame)
+
+	QuestLogPopupDetailFrame.SealMaterialBG:SetAlpha(0)
 
 	-- Show map button
 	local ShowMapButton = _G.QuestLogPopupDetailFrame.ShowMapButton

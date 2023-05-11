@@ -53,6 +53,14 @@ local function ColorObjectivesText()
 	end
 end
 
+local function ReplaceTextColor(object, r)
+	if r == 0 then
+		object:SetTextColor(1, 1, 1)
+	elseif r == .2 then
+		object:SetTextColor(.8, .8, .8)
+	end
+end
+
 local function RestyleSpellButton(bu)
 	local name = bu:GetName()
 	local icon = bu.Icon
@@ -238,6 +246,20 @@ local function LoadSkin()
 	for _, font in pairs(whitish) do
 		SetTextColor_White(font)
 	end
+
+	-- Others
+	hooksecurefunc("QuestInfo_Display", function()
+		local objectivesTable = QuestInfoObjectivesFrame.Objectives
+		for i = #objectivesTable, 1, -1 do
+			local object = objectivesTable[i]
+			if object.hooked then break end
+			hooksecurefunc(object, "SetTextColor", ReplaceTextColor)
+			local r, g, b = object:GetTextColor()
+			object:SetTextColor(r, g, b)
+
+			object.hooked = true
+		end
+	end)
 end
 
 S:AddCallback("QuestInfo", LoadSkin)

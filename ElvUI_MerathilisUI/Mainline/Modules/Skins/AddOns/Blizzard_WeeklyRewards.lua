@@ -4,7 +4,7 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_WeeklyRewards()
 	if not module:CheckDB("weeklyRewards", "weeklyRewards") then
 		return
 	end
@@ -14,12 +14,16 @@ local function LoadSkin()
 	local header = frame.HeaderFrame
 
 	frame:StripTextures()
-	header:StripTextures()
-
-	header:SetTemplate('Transparent')
-
+	frame.NineSlice:Kill()
+	frame.BackgroundTile:SetAlpha(0)
 	frame:Styling()
 	module:CreateShadow(frame)
+
+	header:StripTextures()
+	header.Left:SetAlpha(0)
+	header.Right:SetAlpha(0)
+	header.Middle:SetAlpha(0)
+	header:SetTemplate('Transparent')
 end
 
-S:AddCallbackForAddon('Blizzard_WeeklyRewards', LoadSkin)
+module:AddCallbackForAddon('Blizzard_WeeklyRewards')
