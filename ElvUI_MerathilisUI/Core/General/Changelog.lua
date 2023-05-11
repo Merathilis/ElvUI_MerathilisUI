@@ -12,8 +12,12 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Rectangle Minimap is Retail only",
-		"• Fix ItemLevel errors on non Retail",
+		"• Try to avoid some Quest Frame errors",
+		"• Add some new openable Items to the AutoButtons",
+		"• Fix a nil error on the NameHover Gradient Name",
+		"• Change the gradient color for Hostile Units to be more visible",
+		"• Updated Map Reveal Data. Thx fang2hou",
+		"• Fix Minimap Buttons. Thx fang2hou again",
 
 		" ",
 
