@@ -3,6 +3,7 @@
 	<Script file='Core.lua'/>
 	<!-- Submodule -->
 	<Script file='General.lua'/>
+	<Script file='Gradient.lua'/>
 	<Script file='Informations.lua'/>
 	<Script file='Advanced.lua'/>
 	<Script file='Misc.lua'/>

@@ -752,8 +752,8 @@ do
 						name = L["Faction Icon"],
 						desc = L["Show the faction icon before the player name."] ..
 							"\n" .. L["This feature only works for message that sent by this module."]
-					}
-				}
+					},
+				},
 			},
 			enhancements = {
 				order = 3,

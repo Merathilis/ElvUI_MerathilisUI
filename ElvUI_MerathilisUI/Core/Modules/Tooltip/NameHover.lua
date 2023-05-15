@@ -98,23 +98,45 @@ function MI:LoadnameHover()
 		local _, UnitClass = UnitClass("mouseover")
 		local reaction = UnitReaction("mouseover", "player")
 
+		local colorDB = E.db.mui.gradient
+
 		local prefix = ""
 
 		if AFK then prefix = "|cffFF9900<AFK>|r " end
 		if DND then prefix = "|cffFF3333<DND>|r " end
 
-		if db and db.gradient then
+		if colorDB and colorDB.enable then
 			if UnitIsPlayer("mouseover") and UnitClass then
-				tt.text:SetText(prefix..F.GradientName(text, UnitClass))
+				if colorDB.customColor.enable then
+					tt.text:SetText(prefix .. F.GradientNameCustom(text, UnitClass))
+				else
+					tt.text:SetText(prefix .. F.GradientName(text, UnitClass))
+				end
 			else
 				if reaction and reaction >= 5 then
-					tt.text:SetText(prefix .. F.GradientName(text, "NPCFRIENDLY"))
+					if colorDB.customColor.enable then
+						tt.text:SetText(prefix .. F.GradientNameCustom(text, "NPCFRIENDLY"))
+					else
+						tt.text:SetText(prefix .. F.GradientName(text, "NPCFRIENDLY"))
+					end
 				elseif reaction and reaction == 4 then
-					tt.text:SetText(prefix .. F.GradientName(text, "NPCNEUTRAL"))
+					if colorDB.customColor.enable then
+						tt.text:SetText(prefix .. F.GradientNameCustom(text, "NPCNEUTRAL"))
+					else
+						tt.text:SetText(prefix .. F.GradientName(text, "NPCNEUTRAL"))
+					end
 				elseif reaction and reaction == 3 then
-					tt.text:SetText(prefix .. F.GradientName(text, "NPCUNFRIENDLY"))
+					if colorDB.customColor.enable then
+						tt.text:SetText(prefix .. F.GradientNameCustom(text, "NPCUNFRIENDLY"))
+					else
+						tt.text:SetText(prefix .. F.GradientName(text, "NPCUNFRIENDLY"))
+					end
 				elseif reaction and reaction == 2 or reaction == 1 then
-					tt.text:SetText(prefix .. F.GradientName(text, "NPCHOSTILE"))
+					if colorDB.customColor.enable then
+						tt.text:SetText(prefix .. F.GradientNameCustom(text, "NPCHOSTILE"))
+					else
+						tt.text:SetText(prefix .. F.GradientName(text, "NPCHOSTILE"))
+					end
 				end
 			end
 		else

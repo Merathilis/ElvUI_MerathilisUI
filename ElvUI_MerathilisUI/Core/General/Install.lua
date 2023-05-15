@@ -216,6 +216,7 @@ local function SetupChat()
 
 	if F.IsDeveloper() then
 		E.db["chat"]["timeStampFormat"] = "%H:%M "
+		E.db["mui"]["chat"]["chatText"]["gradientName"] = true
 	end
 
 	E.db["chat"]["font"] = "Expressway"

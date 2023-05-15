@@ -218,6 +218,8 @@ do
 
 		self:FixGame()
 
+		Engine[2]:GradientColorUpdate()
+
 		E:Delay(1, collectgarbage, 'collect')
 	end
 end
