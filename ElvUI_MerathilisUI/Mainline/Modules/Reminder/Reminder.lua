@@ -97,12 +97,13 @@ module.ReminderList = {
 			["instance"] = true,
 			["pvp"] = true,
 			["strictFilter"] = true,
-			["tree"] = 1, 2
+			["tree"] = 1, 2, 3
 		},
 		[2] = { -- Water Shield
 			["spellGroup"] = {
 				[52127] = true, -- Water Shield
 				[974] = true, -- Earth Shield
+				[192106] = true, -- Lightning Shield
 				["defaultIcon"] = 52127,
 			},
 			["enable"] = true,
