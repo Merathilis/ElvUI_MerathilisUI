@@ -891,7 +891,7 @@ options.gradient = {
 			order = 2,
 			type = "group",
 			name = L["Custom Nameplates Colors"],
-			disabled = function() return not E.db.mui.gradient.enable end,
+			disabled = function() return not E.db.mui.gradient.enable or not E.db.nameplates.threat.enable end,
 			get = function(info)
 				return E.db.mui.gradient.customColor[info[#info]]
 			end,

@@ -4,7 +4,6 @@ local S = MER:GetModule('MER_Skins')
 local UF = E:GetModule('UnitFrames')
 local LSM = E.LSM
 
-
 function module:Configure_Power(frame)
 	local db = frame.db
 	local power = frame.Power
