@@ -373,7 +373,8 @@ local runes = {
 	198491,
 	198492,
 	198493,
-	201325
+	201325,
+	204973,
 }
 
 -- Runes added in Dragonflight
@@ -390,7 +391,8 @@ local runesDragonflight = {
 	198491,
 	198492,
 	198493,
-	201325
+	201325,
+	204973,
 }
 
 -- Foods (Crafted by cooking)
