@@ -934,7 +934,7 @@ do
 	function F:Texture_OnEnter()
 		if self:IsEnabled() then
 			if self.bg then
-				self.bg:SetBackdropColor(cr, cg, cb, .25)
+				self.bg:SetBackdropColor(F.r, F.g, F.b, .25)
 			else
 				self.__texture:SetVertexColor(0, .6, 1, 1)
 			end
