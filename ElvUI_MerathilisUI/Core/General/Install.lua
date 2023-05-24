@@ -2278,11 +2278,11 @@ function MER:SetupUnitframes()
 	-- Boss
 	E.db["unitframe"]["units"]["boss"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["enable"] = true
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 22
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = 5
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 6
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 32
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["anchorPoint"] = "RIGHT"
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 2
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 4
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["attachTo"] = "FRAME"
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["countFontSize"] = 9
@@ -2356,6 +2356,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["boss"]["buffs"]["anchorPoint"] = "LEFT"
 	E.db["unitframe"]["units"]["boss"]["buffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["boss"]["buffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["boss"]["buffs"]["perrow"] = 4
 	E.db["unitframe"]["units"]["boss"]["name"]["attachTextTo"] = "Frame"
 	E.db["unitframe"]["units"]["boss"]["name"]["position"] = "RIGHT"
 	E.db["unitframe"]["units"]["boss"]["name"]["xOffset"] = 6
