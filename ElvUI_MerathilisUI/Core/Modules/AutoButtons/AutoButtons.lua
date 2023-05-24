@@ -497,6 +497,7 @@ local food = {
 	197793,
 	197794,
 	197795,
+	204072,
 }
 
 local foodDragonflight = {
