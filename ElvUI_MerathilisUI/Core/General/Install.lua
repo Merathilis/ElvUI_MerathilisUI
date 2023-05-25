@@ -216,6 +216,7 @@ local function SetupChat()
 
 	if F.IsDeveloper() then
 		E.db["chat"]["timeStampFormat"] = "%H:%M "
+		E.db["mui"]["chat"]["chatText"]["gradientName"] = true
 	end
 
 	E.db["chat"]["font"] = "Expressway"
@@ -299,9 +300,6 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["difficulty"]["xOffset"] = 13
 	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -5
 	E.db["general"]["minimap"]["icons"]["difficulty"]["scale"] = 0.9
-	E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
-	E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 0
 	E.private["general"]["minimap"]["hideTracking"] = true
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
@@ -332,6 +330,8 @@ function MER:SetupLayout()
 	E.db["general"]["customGlow"]["useColor"] = true
 	E.db["general"]["customGlow"]["color"] = { r = F.r, g = F.g, b = F.b }
 	E.db["general"]["lootRoll"]["qualityItemLevel"] = true
+	E.db["general"]["queueStatus"]["enable"] = true
+	E.db["general"]["queueStatus"]["font"] = "Expressway"
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -527,6 +527,7 @@ function MER:SetupLayout()
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
 	E.db["movers"]["TotemTrackerMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,457,13"
 	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
+	E.db["movers"]["AddonCompartmentMover"] = E.Retail and "TOPRIGHT,ElvUIParent,TOPRIGHT,-213,-17"
 
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
@@ -611,7 +612,6 @@ function MER:SetupLayout()
 	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,62"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-17"
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
-	E.db["movers"]["AddonCompartmentMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-213,-17"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
 
 	if F.IsDeveloper() then
@@ -2277,11 +2277,11 @@ function MER:SetupUnitframes()
 	-- Boss
 	E.db["unitframe"]["units"]["boss"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["enable"] = true
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 22
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = 5
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 6
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 32
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["anchorPoint"] = "RIGHT"
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 2
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 4
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["attachTo"] = "FRAME"
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["countFontSize"] = 9
@@ -2355,6 +2355,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["boss"]["buffs"]["anchorPoint"] = "LEFT"
 	E.db["unitframe"]["units"]["boss"]["buffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["boss"]["buffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["boss"]["buffs"]["perrow"] = 4
 	E.db["unitframe"]["units"]["boss"]["name"]["attachTextTo"] = "Frame"
 	E.db["unitframe"]["units"]["boss"]["name"]["position"] = "RIGHT"
 	E.db["unitframe"]["units"]["boss"]["name"]["xOffset"] = 6

@@ -207,6 +207,7 @@ AddMedia("bill", "Options/bill.tga", "Icons")
 AddMedia("save", "Options/save.tga", "Icons")
 AddMedia("more", "Options/more.tga", "Icons")
 AddMedia("tool", "Options/tool.tga", "Icons")
+AddMedia("gradient", "Options/gradient.tga", "Icons")
 
 AddMedia("buttonLock", "Button/Lock.tga", "Icons")
 AddMedia("buttonUnlock", "Button/Unlock.tga", "Icons")

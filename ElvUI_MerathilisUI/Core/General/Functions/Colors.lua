@@ -60,6 +60,63 @@ F.ClassGradient = {
 	["PAIN"] = { r1 = 1, g1 = 0.61, b1 = 0, r2 = 1, g2 = 0.30, b2 = 0 },
 }
 
+local customgradientsColor = F.ClassGradient
+function F:GradientColorUpdate()
+	local db = E.db.mui.gradient and E.db.mui.gradient.customColor
+
+	customgradientsColor = {
+		["WARRIOR"] = {r1 = db.warriorcolorR1, g1 = db.warriorcolorG1, b1 = db.warriorcolorB1, r2 = db.warriorcolorR2, g2 = db.warriorcolorG2, b2 = db.warriorcolorB2},
+		["PALADIN"] = {r1 = db.paladincolorR1, g1 = db.paladincolorG1, b1 = db.paladincolorB1, r2 = db.paladincolorR2, g2 = db.paladincolorG2, b2 = db.paladincolorB2},
+		["HUNTER"] = {r1 = db.huntercolorR1, g1 = db.huntercolorG1, b1 = db.huntercolorB1, r2 = db.huntercolorR2, g2 = db.huntercolorG2, b2 = db.huntercolorB2},
+		["ROGUE"] = {r1 = db.roguecolorR1, g1 = db.roguecolorG1, b1 = db.roguecolorB1, r2 = db.roguecolorR2, g2 = db.roguecolorG2, b2 = db.roguecolorB2},
+		["PRIEST"] = {r1 = db.priestcolorR1, g1 = db.priestcolorG1, b1 = db.priestcolorB1, r2 = db.priestcolorR2, g2 = db.priestcolorG2, b2 = db.priestcolorB2},
+		["DEATHKNIGHT"] = {r1 = db.deathknightcolorR1, g1 = db.deathknightcolorG1, b1 = db.deathknightcolorB1, r2 = db.deathknightcolorR2, g2 = db.deathknightcolorG2, b2 = db.deathknightcolorB2},
+		["SHAMAN"] = {r1 = db.shamancolorR1, g1 = db.shamancolorG1, b1 = db.shamancolorB1, r2 = db.shamancolorR2, g2 = db.shamancolorG2, b2 = db.shamancolorB2},
+		["MAGE"] = {r1 = db.magecolorR1, g1 = db.magecolorG1, b1 = db.magecolorB1, r2 = db.magecolorR2, g2 = db.magecolorG2, b2 = db.magecolorB2},
+		["WARLOCK"] = {r1 = db.warlockcolorR1, g1 = db.warlockcolorG1, b1 = db.warlockcolorB1, r2 = db.warlockcolorR2, g2 = db.warlockcolorG2, b2 = db.warlockcolorB2},
+		["MONK"] = {r1 = db.monkcolorR1, g1 = db.monkcolorG1, b1 = db.monkcolorB1, r2 = db.monkcolorR2, g2 = db.monkcolorG2, b2 = db.monkcolorB2},
+		["DRUID"] = {r1 = db.druidcolorR1, g1 = db.druidcolorG1, b1 = db.druidcolorB1, r2 = db.druidcolorR2, g2 = db.druidcolorG2, b2 = db.druidcolorB2},
+		["DEMONHUNTER"] = {r1 = db.demonhuntercolorR1, g1 = db.demonhuntercolorG1, b1 = db.demonhuntercolorB1, r2 = db.demonhuntercolorR2, g2 = db.demonhuntercolorG2, b2 = db.demonhuntercolorB2},
+		["EVOKER"] = {r1 = db.evokercolorR1, g1 = db.evokercolorG1, b1 = db.evokercolorB1, r2 = db.evokercolorR2, g2 = db.evokercolorG2, b2 = db.evokercolorB2},
+
+		["NPCFRIENDLY"] = {r1 = db.npcfriendlyR1, g1 = db.npcfriendlyG1, b1 = db.npcfriendlyB1, r2 = db.npcfriendlyR2, g2 = db.npcfriendlyG2, b2 = db.npcfriendlyB2},
+		["NPCNEUTRAL"] = {r1 = db.npcneutralR1, g1 = db.npcneutralG1, b1 = db.npcneutralB1, r2 = db.npcneutralR2, g2 = db.npcneutralG2, b2 = db.npcneutralB2},
+		["NPCUNFRIENDLY"] = {r1 = db.npcunfriendlyR1, g1 = db.npcunfriendlyG1, b1 = db.npcunfriendlyB1, r2 = db.npcunfriendlyR2, g2 = db.npcunfriendlyG2, b2 = db.npcunfriendlyB2},
+		["NPCHOSTILE"] = {r1 = db.npchostileR1, g1 = db.npchostileG1, b1 = db.npchostileB1, r2 = db.npchostileR2, g2 = db.npchostileG2, b2 = db.npchostileB2},
+
+		["TAPPED"] = {r1 = db.tappedR1, g1 = db.tappedG1, b1 = db.tappedB1, r2 = db.tappedR2, g2= db.tappedG2, b2 = db.tappedB2},
+
+		["GOODTHREAT"] = {r1 = db.goodthreatR1, g1 = db.goodthreatG1, b1 = db.goodthreatB1, r2 = db.goodthreatR2, g2 = db.goodthreatG2, b2 = db.goodthreatB2},
+		["BADTHREAT"] = {r1 = db.badthreatR1, g1 = db.badthreatG1, b1 = db.badthreatB1, r2 = db.badthreatR2, g2 = db.badthreatG2, b2 = db.badthreatB2},
+		["GOODTHREATTRANSITION"] = {r1 = db.goodthreattransitionR1, g1 = db.goodthreattransitionG1, b1 = db.goodthreattransitionB1, r2 = db.goodthreattransitionR2, g2 = db.goodthreattransitionG2, b2 = db.goodthreattransitionB2},
+		["BADTHREATTRANSITION"] = {r1 = db.badthreattransitionR1, g1 = db.badthreattransitionG1, b1 = db.badthreattransitionB1, r2 = db.badthreattransitionR2, g2 = db.badthreattransitionG2, b2 = db.badthreattransitionB2},
+		["OFFTANK"] = {r1 = db.offtankR1, g1 = db.offtankG1, b1 = db.offtankB1, r2 = db.offtankR2, g2 = db.offtankG2, b2 = db.offtankB2},
+		["OFFTANKBADTHREATTRANSITION"] = {r1 = db.badthreattransitionofftankR1, g1 = db.badthreattransitionofftankG1, b1 = db.badthreattransitionofftankB1, r2 = db.badthreattransitionofftankR2, g2 = db.badthreattransitionofftankG2, b2 = db.badthreattransitionofftankB2},
+		["OFFTANKGOODTHREATTRANSITION"] = {r1 = db.goodthreattransitionofftankR1, g1 = db.goodthreattransitionofftankG1, b1 = db.goodthreattransitionofftankB1, r2 = db.goodthreattransitionofftankR2, g2 = db.goodthreattransitionofftankG2, b2 = db.goodthreattransitionofftankB2},
+
+		["MANA"] = {r1 = db.manaR1, g1 = db.manaG1, b1 = db.manaB1, r2 = db.manaR2, g2 = db.manaG2, b2 = db.manaB2},
+		["RAGE"] = {r1 = db.rageR1, g1 = db.rageG1, b1 = db.rageB1, r2 = db.rageR2, g2 = db.rageG2, b2 = db.rageB2},
+		["FOCUS"] = {r1 = db.focusR1, g1 = db.focusG1, b1 = db.focusB1, r2 = db.focusR2, g2 = db.focusG2, b2 = db.focusB2},
+		["ENERGY"] = {r1 = db.energyR1, g1 = db.energyG1, b1 = db.energyB1, r2 = db.energyR2, g2 = db.energyG2, b2 = db.energyB2},
+		["RUNIC_POWER"] = {r1 = db.runicpowerR1, g1 = db.runicpowerG1, b1 = db.runicpowerB1, r2 = db.runicpowerR2, g2 = db.runicpowerG2, b2 = db.runicpowerB2},
+		["LUNAR_POWER"] = {r1 = db.lunarpowerR1, g1 = db.lunarpowerG1, b1 = db.lunarpowerB1, r2 = db.lunarpowerR2, g2 = db.lunarpowerG2, b2 = db.lunarpowerB2},
+		["ALT_POWER"] = {r1 = db.altpowerR1, g1 = db.altpowerG1, b1 = db.altpowerB1, r2 = db.altpowerR2, g2 = db.altpowerG2, b2 = db.altpowerB2},
+		["MAELSTROM"] = {r1 = db.maelstromR1, g1 = db.maelstromG1, b1 = db.maelstromB1, r2 = db.maelstromR2, g2 = db.maelstromG2, b2 = db.maelstromB2},
+		["INSANITY"] = {r1 = db.insanityR1, g1 = db.insanityG1, b1 = db.insanityB1, r2 = db.insanityR2, g2 = db.insanityG2, b2 = db.insanityB2},
+		["FURY"] = {r1 = db.furyR1, g1 = db.furyG1, b1 = db.furyB1, r2 = db.furyR2, g2 = db.furyG2, b2 = db.furyB2},
+		["PAIN"] = {r1 = db.painR1, g1 = db.painG1, b1 = db.painB1, r2 = db.painR2, g2 = db.painG2, b2 = db.painB2},
+
+	}
+end
+
+local colorUpdate = CreateFrame("FRAME")
+colorUpdate:RegisterEvent("PLAYER_ENTERING_WORLD")
+colorUpdate:RegisterEvent("PLAYER_STARTED_MOVING")
+colorUpdate:SetScript("OnEvent", function()
+	colorUpdate:UnregisterAllEvents()
+	F:GradientColorUpdate()
+end)
+
 do
 	F.ClassList = {}
 	for k, v in pairs(_G.LOCALIZED_CLASS_NAMES_MALE) do
@@ -145,25 +202,57 @@ function F.CreateClassColorString(text, englishClass)
 	local r, g, b = GetClassColor(englishClass)
 	local hex = r and g and b and E:RGBToHex(r, g, b) or "|cffffffff"
 
-	return hex .. text .. "|r"
+	return hex..text.."|r"
 end
 
 function F.GradientColors(unitclass, invert, alpha)
-	if invert then
-		if alpha then
-			return F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, 1,
-				F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, 1
+	local color = F.ClassGradient[unitclass] or F.ClassGradient.MANA
+
+	if not E.Classic then
+		if invert then
+			return {r = color.r2, g = color.g2, b = color.b2, a = alpha or 1}, {r = color.r1, g = color.g1, b = color.b1, a = alpha or 1}
 		else
-			return F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2,
-				F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1
+			return {r = color.r1, g = color.g1, b = color.b1, a = alpha or 1}, {r = color.r2, g = color.g2, b = color.b2, a = alpha or 1}
 		end
 	else
 		if alpha then
-			return F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1, 1,
-				F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2, 1
+			if invert then
+				return color.r2, color.g2, color.b2, alpha, color.r1, color.g1, color.b1, alpha
+			else
+				return color.r1, color.g1, color.b1, alpha, color.r2, color.g2, color.b2, alpha
+			end
 		else
-			return F.ClassGradient[unitclass].r1, F.ClassGradient[unitclass].g1, F.ClassGradient[unitclass].b1,
-				F.ClassGradient[unitclass].r2, F.ClassGradient[unitclass].g2, F.ClassGradient[unitclass].b2
+			if invert then
+				return color.r2, color.g2, color.b2, color.r1, color.g1, color.b1
+			else
+				return color.r1, color.g1, color.b1, color.r2, color.g2, color.b2
+			end
+		end
+	end
+end
+
+function F.GradientColorsCustom(unitclass, invert, alpha)
+	local color = customgradientsColor[unitclass] or customgradientsColor.MANA
+
+	if not E.Classic then
+		if invert then
+			return {r = color.r2, g = color.g2, b = color.b2, a = alpha or 1}, { r = color.r1, g = color.g1, b = color.b1, a = alpha  or 1}
+		else
+			return {r = color.r1, g = color.g1, b = color.b1, a = alpha or 1}, { r = color.r2, g = color.g2, b = color.b2, a = alpha or 1}
+		end
+	else
+		if alpha then
+			if invert then
+				return color.r2, color.g2, color.b2, alpha, color.r1, color.g1, color.b1, alpha
+			else
+				return color.r1, color.g1, color.b1, alpha, color.r2, color.g2, color.b2, alpha
+			end
+		else
+			if invert then
+				return color.r2, color.g2, color.b2, color.r1, color.g1, color.b1
+			else
+				return color.r1, color.g1, color.b1, color.r2, color.g2, color.b2
+			end
 		end
 	end
 end
@@ -174,7 +263,19 @@ function F.GradientName(name, unitclass, isTarget)
 	end
 
 	local color = F.ClassGradient[unitclass] or F.ClassGradient.MANA
+	if not isTarget then
+		return E:TextGradient(name, color.r2, color.g2, color.b2, color.r1, color.g1, color.b1)
+	else
+		return E:TextGradient(name, color.r1, color.g1, color.b1, color.r2, color.g2, color.b2)
+	end
+end
 
+function F.GradientNameCustom(name, unitclass, isTarget)
+	if not name then
+		return
+	end
+
+	local color = customgradientsColor[unitclass] or customgradientsColor.MANA
 	if not isTarget then
 		return E:TextGradient(name, color.r2, color.g2, color.b2, color.r1, color.g1, color.b1)
 	else

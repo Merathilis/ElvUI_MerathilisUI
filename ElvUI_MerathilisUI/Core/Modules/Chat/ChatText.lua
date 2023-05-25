@@ -837,6 +837,40 @@ function CT:MayHaveBrackets(...)
 	return unpack(names)
 end
 
+function CT:GetColoredName(event, _, arg2, _, _, _, _, _, arg8, _, _, _, arg12)
+	local db = E.db.mui.gradient
+	local chatType = strsub(event, 10)
+
+	local subType = strsub(chatType, 1, 7)
+	if subType == 'WHISPER' then
+		chatType = 'WHISPER'
+	elseif subType == 'CHANNEL' then
+		chatType = 'CHANNEL' .. arg8
+	end
+
+	--ambiguate guild chat names
+	arg2 = Ambiguate(arg2, (chatType == 'GUILD' and 'guild') or 'none')
+
+	local info = arg12 and _G.ChatTypeInfo[chatType]
+	if info and _G.Chat_ShouldColorChatByClass(info) then
+		local data = CH:GetPlayerInfoByGUID(arg12)
+		local classColor = data and data.classColor
+		if classColor then
+			if db and db.enable then
+				if db.customColor.enable then
+					return F.GradientNameCustom(arg2, data.englishClass)
+				else
+					return F.GradientName(arg2, data.englishClass)
+				end
+			else
+				return format('|cff%.2x%.2x%.2x%s|r', classColor.r * 255, classColor.g * 255, classColor.b * 255, arg2)
+			end
+		end
+	end
+
+	return arg2
+end
+
 function CT:ChatFrame_MessageEventHandler(
 	frame,
 	event,
@@ -1003,7 +1037,7 @@ function CT:ChatFrame_MessageEventHandler(
 		end
 
 		-- fetch the name color to use
-		local coloredName = historySavedName or CH:GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
+		local coloredName = historySavedName or CT:GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
 
 		local channelLength = strlen(arg4)
 		local infoType = chatType

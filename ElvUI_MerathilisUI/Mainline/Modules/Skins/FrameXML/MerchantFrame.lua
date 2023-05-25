@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER.Modules.Skins
-local S = E:GetModule("Skins")
+local module = MER:GetModule('MER_Skins')
 
 local _G = _G
 
@@ -15,7 +14,7 @@ local function HandleMerchantItem(index)
 	end
 end
 
-local function LoadSkin()
+function module:MerchantFrame()
 	if not module:CheckDB("merchant", "merchant") then
 		return
 	end
@@ -32,4 +31,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallback("MerchantFrame", LoadSkin)
+module:AddCallback("MerchantFrame")

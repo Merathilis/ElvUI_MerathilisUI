@@ -29,7 +29,24 @@ local function SkinGarrisonTooltips()
 	end
 end
 
-local function LoadSkin()
+local function SkinMissionFrame(frame)
+	if not frame then
+		return
+	end
+
+	frame:StripTextures()
+	frame:Styling()
+	module:CreateShadow(frame)
+	S:HandleCloseButton(frame.CloseButton)
+	frame.GarrCorners:Hide()
+
+	if frame.OverlayElements then frame.OverlayElements:SetAlpha(0) end
+	if frame.ClassHallIcon then frame.ClassHallIcon:Hide() end
+
+	if frame.MapTab then frame.MapTab.ScrollContainer.Child.TiledBackground:Hide() end
+end
+
+function module:Blizzard_GarrisonUI()
 	if not module:CheckDB("garrison", "garrison") then
 		return
 	end
@@ -43,7 +60,7 @@ local function LoadSkin()
 		_G.OrderHallMissionFrame,
 		_G.OrderHallCommandBar,
 		_G.BFAMissionFrame,
-		_G.CovenantMissionFrame,
+		_G.CovenantMissionFrame
 	}
 
 	local tabs = {
@@ -66,6 +83,7 @@ local function LoadSkin()
 
 	for _, frame in pairs(frames) do
 		if frame then
+			frame:StripTextures(true)
 			frame:Styling()
 			module:CreateShadow(frame)
 		end
@@ -75,6 +93,9 @@ local function LoadSkin()
 		module:ReskinTab(tab)
 	end
 
+	local CovenantMissionFrame = _G.CovenantMissionFrame
+	CovenantMissionFrame.RaisedBorder:SetAlpha(0)
+	SkinMissionFrame(CovenantMissionFrame)
 
 	-- AddOn Support
 	local function reskinWidgetFont(font, r, g, b)
@@ -324,5 +345,5 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallback("SkinGarrisonTooltips")
-S:AddCallbackForAddon("Blizzard_GarrisonUI", LoadSkin)
+module:AddCallback("SkinGarrisonTooltips")
+module:AddCallbackForAddon("Blizzard_GarrisonUI")

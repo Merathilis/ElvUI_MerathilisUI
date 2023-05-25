@@ -24,12 +24,6 @@ options.nameplates = {
 					name = L["Castbar Shield"],
 					desc = L["Show a shield icon on the castbar for non interruptible spells."],
 				},
-				gradient  = {
-					order = 2,
-					type = "toggle",
-					name = L["Gradient"],
-					desc = L["|cffFF0000WARING:|r Adds a gradient color to the NamePlates. This will overwrite some default ElvUI NP settings, if you dont want this, please disable this feature."],
-				},
 			},
 		},
 		enhancedAuras = {

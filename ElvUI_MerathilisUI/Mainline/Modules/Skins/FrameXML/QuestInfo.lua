@@ -80,7 +80,7 @@ local function RestyleSpellButton(bu)
 	bg:CreateBackdrop('Transparent')
 end
 
-local function RestyleRewardButton(bu, isMapQuestInfo)
+local function RestyleRewardButton(bu)
 	if bu.Icon then
 		bu.Icon:SetTexCoord(unpack(E.TexCoords))
 		bu.Icon:SetDrawLayer("OVERLAY")
@@ -94,7 +94,7 @@ local function RestyleRewardButton(bu, isMapQuestInfo)
 		bu.Count:ClearAllPoints()
 		bu.Count:SetPoint("BOTTOMRIGHT", bu.Icon, "BOTTOMRIGHT", 2, 0)
 		bu.Count:SetDrawLayer("OVERLAY")
-    end
+	end
 
 	if bu.RewardAmount then
 		bu.RewardAmount:ClearAllPoints()
@@ -105,21 +105,20 @@ local function RestyleRewardButton(bu, isMapQuestInfo)
 	bu:CreateBackdrop('Transparent')
 	bu.backdrop:SetFrameStrata("BACKGROUND")
 	module:CreateGradient(bu.backdrop)
+end
+
+local function ReskinRewardButtonWithSize(bu, isMapQuestInfo)
+	RestyleRewardButton(bu)
 
 	if isMapQuestInfo then
 		bu.backdrop:SetPoint("TOPLEFT", bu.NameFrame, 1, 1)
 		bu.backdrop:SetPoint("BOTTOMRIGHT", bu.NameFrame, -3, 0)
+		bu.Icon:Size(29)
 	else
 		bu.backdrop:SetPoint("TOPLEFT", bu, 1, 1)
 		bu.backdrop:SetPoint("BOTTOMRIGHT", bu, -3, 1)
+		bu.Icon:Size(34)
 	end
-
-	if bu.CircleBackground then
-		bu.CircleBackground:SetAlpha(0)
-		bu.CircleBackgroundGlow:SetAlpha(0)
-	end
-
-	bu.bg = bu.backdrop
 end
 
 local function HookTextColor_Yellow(self, r, g, b)
@@ -163,18 +162,18 @@ local function LoadSkin()
 		local bu = rewardsFrame.RewardButtons[index]
 
 		if (bu and not bu.restyled) then
-			RestyleRewardButton(bu, rewardsFrame == _G.MapQuestInfoRewardsFrame)
+			ReskinRewardButtonWithSize(bu, rewardsFrame == _G.MapQuestInfoRewardsFrame)
 			bu.restyled = true
 		end
 	end)
 
 	_G.MapQuestInfoRewardsFrame.XPFrame.Name:SetShadowOffset(0, 0)
 	for _, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame", "WarModeBonusFrame"} do
-		RestyleRewardButton(_G.MapQuestInfoRewardsFrame[name], true)
+		ReskinRewardButtonWithSize(_G.MapQuestInfoRewardsFrame[name], true)
 	end
 
 	for _, name in next, {"HonorFrame", "SkillPointFrame", "ArtifactXPFrame", "WarModeBonusFrame"} do
-		RestyleRewardButton(_G.QuestInfoRewardsFrame[name])
+		ReskinRewardButtonWithSize(_G.QuestInfoRewardsFrame[name])
 	end
 
 	--Spell Rewards
@@ -258,6 +257,45 @@ local function LoadSkin()
 			object:SetTextColor(r, g, b)
 
 			object.hooked = true
+		end
+
+		local rewardsFrame = QuestInfoFrame.rewardsFrame
+		local isQuestLog = QuestInfoFrame.questLog ~= nil
+		local questID = isQuestLog and C_QuestLog.GetSelectedQuest() or GetQuestID()
+		local spellRewards = C_QuestInfoSystem.GetQuestRewardSpells(questID) or {}
+
+		if #spellRewards > 0 then
+			-- Spell Headers
+			for spellHeader in rewardsFrame.spellHeaderPool:EnumerateActive() do
+				spellHeader:SetVertexColor(1, 1, 1)
+			end
+
+			-- Follower Rewards
+			for reward in rewardsFrame.followerRewardPool:EnumerateActive() do
+				local portrait = reward.PortraitFrame
+				if portrait then
+					local color = E.QualityColors[portrait.quality or 1]
+					portrait.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
+				end
+			end
+
+			-- Spell Rewards
+			-- for spellReward in rewardsFrame.spellRewardPool:EnumerateActive() do
+				-- if not spellReward.styled then
+					-- RestyleRewardButton(spellReward)
+--
+					-- spellReward.styled = true
+				-- end
+			-- end
+		end
+
+		-- Reputation Rewards
+		for repReward in rewardsFrame.reputationRewardPool:EnumerateActive() do
+			if not repReward.styled then
+				RestyleRewardButton(repReward)
+
+				repReward.styled = true
+			end
 		end
 	end)
 end
