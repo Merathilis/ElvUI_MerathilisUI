@@ -111,9 +111,13 @@ local function ReskinRewardButtonWithSize(bu, isMapQuestInfo)
 	RestyleRewardButton(bu)
 
 	if isMapQuestInfo then
-		bu.Icon:SetSize(29, 29)
+		bu.backdrop:SetPoint("TOPLEFT", bu.NameFrame, 1, 1)
+		bu.backdrop:SetPoint("BOTTOMRIGHT", bu.NameFrame, -3, 0)
+		bu.Icon:Size(29)
 	else
-		bu.Icon:SetSize(34, 34)
+		bu.backdrop:SetPoint("TOPLEFT", bu, 1, 1)
+		bu.backdrop:SetPoint("BOTTOMRIGHT", bu, -3, 1)
+		bu.Icon:Size(34)
 	end
 end
 
