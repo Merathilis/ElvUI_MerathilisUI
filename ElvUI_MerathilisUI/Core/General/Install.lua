@@ -300,9 +300,6 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["difficulty"]["xOffset"] = 13
 	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -5
 	E.db["general"]["minimap"]["icons"]["difficulty"]["scale"] = 0.9
-	E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
-	E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 0
 	E.private["general"]["minimap"]["hideTracking"] = true
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
@@ -333,6 +330,8 @@ function MER:SetupLayout()
 	E.db["general"]["customGlow"]["useColor"] = true
 	E.db["general"]["customGlow"]["color"] = { r = F.r, g = F.g, b = F.b }
 	E.db["general"]["lootRoll"]["qualityItemLevel"] = true
+	E.db["general"]["queueStatus"]["enable"] = true
+	E.db["general"]["queueStatus"]["font"] = "Expressway"
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
