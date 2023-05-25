@@ -1,8 +1,7 @@
 ### Changes ###
 
-  * Try to avoid some Quest Frame errors
-  * Add some new openable Items to the AutoButtons
-  * Fix a nil error on the NameHover Gradient Name
-  * Change the gradient color for Hostile Units to be more visible
-  * Updated Map Reveal Data. Thx fang2hou
-  * Fix Minimap Buttons. Thx fang2hou again
+  * Added a lot of openable items to the AutoButtons
+  * Fix Reminder for Resto Shaman
+  * Updated new Dungeon Ports in the Location Panel (needs testing)
+  * Added Gradient Options (WIP)
+  * Updated some skins
