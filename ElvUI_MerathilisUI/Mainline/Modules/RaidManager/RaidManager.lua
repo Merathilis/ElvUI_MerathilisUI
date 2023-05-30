@@ -404,7 +404,7 @@ function module:CreateRaidManager()
 			frame:Point("BOTTOM", _G["RaidManagerRoleIcons_"..roles[i-1]], "TOP", 0, 10)
 		end
 
-		frame:Size(36, 36)
+		frame:Size(36)
 
 		local texture = frame:CreateTexture(nil, "OVERLAY")
 		texture:SetTexture(E.Media.Textures.RoleIcons) --(337499)
@@ -426,6 +426,34 @@ function module:CreateRaidManager()
 		frame:SetScript("OnLeave", GameTooltip_Hide)
 
 		RoleIcons.icons[role] = frame
+	end
+end
+
+function module:CreateCombatRes(elapsed)
+	self.elapsed = (self.elapsed or 0) + elapsed
+	if self.elapsed > .1 then
+		local charges, _, started, duration = GetSpellCharges(20484)
+		if charges then
+			local timer = duration - (GetTime() - started)
+			if timer < 0 then
+				self.Timer:SetText("--:--")
+			else
+				self.Timer:SetFormattedText("%d:%.2d", timer / 60, timer % 60)
+			end
+			self.Count:SetText(charges)
+			if charges == 0 then
+				self.Count:SetTextColor(1, 0, 0)
+			else
+				self.Count:SetTextColor(0, 1, 0)
+			end
+			resFrame:SetAlpha(1)
+			roleFrame:SetAlpha(0)
+		else
+			resFrame:SetAlpha(0)
+			roleFrame:SetAlpha(1)
+		end
+
+		self.elapsed = 0
 	end
 end
 
@@ -543,33 +571,7 @@ function module:CreateRaidInfo()
 	res.Timer:ClearAllPoints()
 	res.Timer:SetPoint("RIGHT", res, "LEFT", -5, 0)
 
-	res:SetScript("OnUpdate", function(self, elapsed)
-		self.elapsed = (self.elapsed or 0) + elapsed
-		if self.elapsed > .1 then
-			local charges, _, started, duration = GetSpellCharges(20484)
-			if charges then
-				local timer = duration - (GetTime() - started)
-				if timer < 0 then
-					self.Timer:SetText("--:--")
-				else
-					self.Timer:SetFormattedText("%d:%.2d", timer/60, timer%60)
-				end
-				self.Count:SetText(charges)
-				if charges == 0 then
-					self.Count:SetTextColor(1, 0, 0)
-				else
-					self.Count:SetTextColor(0, 1, 0)
-				end
-				resFrame:SetAlpha(1)
-				roleFrame:SetAlpha(0)
-			else
-				resFrame:SetAlpha(0)
-				roleFrame:SetAlpha(1)
-			end
-
-			self.elapsed = 0
-		end
-	end)
+	res:SetScript("OnUpdate", module.CreateCombatRes)
 
 	-- Ready check indicator
 	local rcFrame = CreateFrame("Frame", nil, header)
@@ -600,10 +602,7 @@ function module:CreateRaidInfo()
 		count, total = 0, 0
 	end
 
-	rcFrame:RegisterEvent("READY_CHECK")
-	rcFrame:RegisterEvent("READY_CHECK_CONFIRM")
-	rcFrame:RegisterEvent("READY_CHECK_FINISHED")
-	rcFrame:SetScript("OnEvent", function(self, event)
+	local function updateReadyCheck(event)
 		if event == "READY_CHECK_FINISHED" then
 			if count == total then
 				rc:SetTextColor(0, 1, 0)
@@ -625,15 +624,21 @@ function module:CreateRaidInfo()
 					end
 				end
 			end
-			rc:SetText(count.." / "..total)
+			rc:SetText(count .. " / " .. total)
 			if count == total then
 				rc:SetTextColor(0, 1, 0)
 			else
 				rc:SetTextColor(1, 1, 0)
 			end
 		end
+	end
+
+	MER:RegisterEvent("READY_CHECK", updateReadyCheck)
+	MER:RegisterEvent("READY_CHECK_CONFIRM", updateReadyCheck)
+	MER:RegisterEvent("READY_CHECK_FINISHED", updateReadyCheck)
+	rcFrame:SetScript("OnMouseUp", function()
+		self:Hide()
 	end)
-	rcFrame:SetScript("OnMouseUp", function(self) self:Hide() end)
 end
 
 function module:Initialize()
