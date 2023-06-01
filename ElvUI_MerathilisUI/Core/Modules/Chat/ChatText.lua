@@ -857,7 +857,7 @@ function CT:GetColoredName(event, _, arg2, _, _, _, _, _, arg8, _, _, _, arg12)
 		local classColor = data and data.classColor
 		if classColor then
 			if db and db.enable then
-				if db.customColor.enable then
+				if db.customColor.enableClass then
 					return F.GradientNameCustom(arg2, data.englishClass)
 				else
 					return F.GradientName(arg2, data.englishClass)
