@@ -23,7 +23,7 @@ local function TooltipGradientName(unit)
 
 	if tooltipName and classunit and reaction then
 		if UnitIsPlayer(unit) and classunit then
-			if colorDB.customColor.enable then
+			if colorDB.enable and colorDB.customColor.enableClass then
 				_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, classunit))
 			else
 				_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, classunit))
