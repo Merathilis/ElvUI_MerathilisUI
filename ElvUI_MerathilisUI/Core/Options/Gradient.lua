@@ -67,9 +67,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.deathknightcolorR1
 						local dg = E.db.mui.gradient.customColor.deathknightcolorG1
 						local db = E.db.mui.gradient.customColor.deathknightcolorB1
-						return E.db.mui.gradient.customColor.deathknightcolorR1,
-							E.db.mui.gradient.customColor.deathknightcolorG1,
-							E.db.mui.gradient.customColor.deathknightcolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.deathknightcolorR1
+						local tg = P.gradient.customColor.deathknightcolorG1
+						local tb = P.gradient.customColor.deathknightcolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.deathknightcolorR1, E.db.mui.gradient.customColor.deathknightcolorG1, E.db.mui.gradient.customColor.deathknightcolorB1 =
@@ -86,9 +87,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.deathknightcolorR2
 						local dg = E.db.mui.gradient.customColor.deathknightcolorG2
 						local db = E.db.mui.gradient.customColor.deathknightcolorB2
-						return E.db.mui.gradient.customColor.deathknightcolorR2,
-							E.db.mui.gradient.customColor.deathknightcolorG2,
-							E.db.mui.gradient.customColor.deathknightcolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.deathknightcolorR2
+						local tg = P.gradient.customColor.deathknightcolorG2
+						local tb = P.gradient.customColor.deathknightcolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.deathknightcolorR2, E.db.mui.gradient.customColor.deathknightcolorG2, E.db.mui.gradient.customColor.deathknightcolorB2 =
@@ -111,9 +113,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.demonhuntercolorR1
 						local dg = E.db.mui.gradient.customColor.demonhuntercolorG1
 						local db = E.db.mui.gradient.customColor.demonhuntercolorB1
-						return E.db.mui.gradient.customColor.demonhuntercolorR1,
-							E.db.mui.gradient.customColor.demonhuntercolorG1,
-							E.db.mui.gradient.customColor.demonhuntercolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.demonhuntercolorR1
+						local tg = P.gradient.customColor.demonhuntercolorG1
+						local tb = P.gradient.customColor.demonhuntercolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.demonhuntercolorR1, E.db.mui.gradient.customColor.demonhuntercolorG1, E.db.mui.gradient.customColor.demonhuntercolorB1 =
@@ -130,9 +133,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.demonhuntercolorR2
 						local dg = E.db.mui.gradient.customColor.demonhuntercolorG2
 						local db = E.db.mui.gradient.customColor.demonhuntercolorB2
-						return E.db.mui.gradient.customColor.demonhuntercolorR2,
-							E.db.mui.gradient.customColor.demonhuntercolorG2,
-							E.db.mui.gradient.customColor.demonhuntercolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.demonhuntercolorR2
+						local tg = P.gradient.customColor.demonhuntercolorG2
+						local tb = P.gradient.customColor.demonhuntercolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.demonhuntercolorR2, E.db.mui.gradient.customColor.demonhuntercolorG2, E.db.mui.gradient.customColor.demonhuntercolorB2 =
@@ -156,9 +160,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.druidcolorR1
 						local dg = E.db.mui.gradient.customColor.druidcolorG1
 						local db = E.db.mui.gradient.customColor.druidcolorB1
-						return E.db.mui.gradient.customColor.druidcolorR1,
-							E.db.mui.gradient.customColor.druidcolorG1,
-							E.db.mui.gradient.customColor.druidcolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.druidcolorR1
+						local tg = P.gradient.customColor.druidcolorG1
+						local tb = P.gradient.customColor.druidcolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.druidcolorR1, E.db.mui.gradient.customColor.druidcolorG1, E.db.mui.gradient.customColor.druidcolorB1 =
@@ -176,9 +181,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.druidcolorR2
 						local dg = E.db.mui.gradient.customColor.druidcolorG2
 						local db = E.db.mui.gradient.customColor.druidcolorB2
-						return E.db.mui.gradient.customColor.druidcolorR2,
-							E.db.mui.gradient.customColor.druidcolorG2,
-							E.db.mui.gradient.customColor.druidcolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.druidcolorR2
+						local tg = P.gradient.customColor.druidcolorG2
+						local tb = P.gradient.customColor.druidcolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.druidcolorR2, E.db.mui.gradient.customColor.druidcolorG2, E.db.mui.gradient.customColor.druidcolorB2 =
@@ -202,9 +208,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.evokercolorR1
 						local dg = E.db.mui.gradient.customColor.evokercolorG1
 						local db = E.db.mui.gradient.customColor.evokercolorB1
-						return E.db.mui.gradient.customColor.evokercolorR1,
-							E.db.mui.gradient.customColor.evokercolorG1,
-							E.db.mui.gradient.customColor.evokercolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.evokercolorR1
+						local tg = P.gradient.customColor.evokercolorG1
+						local tb = P.gradient.customColor.evokercolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.evokercolorR1, E.db.mui.gradient.customColor.evokercolorG1, E.db.mui.gradient.customColor.evokercolorB1 =
@@ -222,9 +229,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.evokercolorR2
 						local dg = E.db.mui.gradient.customColor.evokercolorG2
 						local db = E.db.mui.gradient.customColor.evokercolorB2
-						return E.db.mui.gradient.customColor.evokercolorR2,
-							E.db.mui.gradient.customColor.evokercolorG2,
-							E.db.mui.gradient.customColor.evokercolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.evokercolorR2
+						local tg = P.gradient.customColor.evokercolorG2
+						local tb = P.gradient.customColor.evokercolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.evokercolorR2, E.db.mui.gradient.customColor.evokercolorG2, E.db.mui.gradient.customColor.evokercolorB2 =
@@ -248,9 +256,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.huntercolorR1
 						local dg = E.db.mui.gradient.customColor.huntercolorG1
 						local db = E.db.mui.gradient.customColor.huntercolorB1
-						return E.db.mui.gradient.customColor.huntercolorR1,
-							E.db.mui.gradient.customColor.huntercolorG1,
-							E.db.mui.gradient.customColor.huntercolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.huntercolorR1
+						local tg = P.gradient.customColor.huntercolorG1
+						local tb = P.gradient.customColor.huntercolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.huntercolorR1, E.db.mui.gradient.customColor.huntercolorG1, E.db.mui.gradient.customColor.huntercolorB1 =
@@ -268,9 +277,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.huntercolorR2
 						local dg = E.db.mui.gradient.customColor.huntercolorG2
 						local db = E.db.mui.gradient.customColor.huntercolorB2
-						return E.db.mui.gradient.customColor.huntercolorR2,
-							E.db.mui.gradient.customColor.huntercolorG2,
-							E.db.mui.gradient.customColor.huntercolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.huntercolorR2
+						local tg = P.gradient.customColor.huntercolorG2
+						local tb = P.gradient.customColor.huntercolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.huntercolorR2, E.db.mui.gradient.customColor.huntercolorG2, E.db.mui.gradient.customColor.huntercolorB2 =
@@ -294,9 +304,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.magecolorR1
 						local dg = E.db.mui.gradient.customColor.magecolorG1
 						local db = E.db.mui.gradient.customColor.magecolorB1
-						return E.db.mui.gradient.customColor.magecolorR1,
-							E.db.mui.gradient.customColor.magecolorG1,
-							E.db.mui.gradient.customColor.magecolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.magecolorR1
+						local tg = P.gradient.customColor.magecolorG1
+						local tb = P.gradient.customColor.magecolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.magecolorR1, E.db.mui.gradient.customColor.magecolorG1, E.db.mui.gradient.customColor.magecolorB1 =
@@ -314,9 +325,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.magecolorR2
 						local dg = E.db.mui.gradient.customColor.magecolorG2
 						local db = E.db.mui.gradient.customColor.magecolorB2
-						return E.db.mui.gradient.customColor.magecolorR2,
-							E.db.mui.gradient.customColor.magecolorG2,
-							E.db.mui.gradient.customColor.magecolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.magecolorR2
+						local tg = P.gradient.customColor.magecolorG2
+						local tb = P.gradient.customColor.magecolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.magecolorR2, E.db.mui.gradient.customColor.magecolorG2, E.db.mui.gradient.customColor.magecolorB2 =
@@ -340,9 +352,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.monkcolorR1
 						local dg = E.db.mui.gradient.customColor.monkcolorG1
 						local db = E.db.mui.gradient.customColor.monkcolorB1
-						return E.db.mui.gradient.customColor.monkcolorR1,
-							E.db.mui.gradient.customColor.monkcolorG1,
-							E.db.mui.gradient.customColor.monkcolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.monkcolorR1
+						local tg = P.gradient.customColor.monkcolorG1
+						local tb = P.gradient.customColor.monkcolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.monkcolorR1, E.db.mui.gradient.customColor.monkcolorG1, E.db.mui.gradient.customColor.monkcolorB1 =
@@ -360,9 +373,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.monkcolorR2
 						local dg = E.db.mui.gradient.customColor.monkcolorG2
 						local db = E.db.mui.gradient.customColor.monkcolorB2
-						return E.db.mui.gradient.customColor.monkcolorR2,
-							E.db.mui.gradient.customColor.monkcolorG2,
-							E.db.mui.gradient.customColor.monkcolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.monkcolorR2
+						local tg = P.gradient.customColor.monkcolorG2
+						local tb = P.gradient.customColor.monkcolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.monkcolorR2, E.db.mui.gradient.customColor.monkcolorG2, E.db.mui.gradient.customColor.monkcolorB2 =
@@ -386,9 +400,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.paladincolorR1
 						local dg = E.db.mui.gradient.customColor.paladincolorG1
 						local db = E.db.mui.gradient.customColor.paladincolorB1
-						return E.db.mui.gradient.customColor.paladincolorR1,
-							E.db.mui.gradient.customColor.paladincolorG1,
-							E.db.mui.gradient.customColor.paladincolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.paladincolorR1
+						local tg = P.gradient.customColor.paladincolorG1
+						local tb = P.gradient.customColor.paladincolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.paladincolorR1, E.db.mui.gradient.customColor.paladincolorG1, E.db.mui.gradient.customColor.paladincolorB1 =
@@ -406,9 +421,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.paladincolorR2
 						local dg = E.db.mui.gradient.customColor.paladincolorG2
 						local db = E.db.mui.gradient.customColor.paladincolorB2
-						return E.db.mui.gradient.customColor.paladincolorR2,
-							E.db.mui.gradient.customColor.paladincolorG2,
-							E.db.mui.gradient.customColor.paladincolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.paladincolorR2
+						local tg = P.gradient.customColor.paladincolorG2
+						local tb = P.gradient.customColor.paladincolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.paladincolorR2, E.db.mui.gradient.customColor.paladincolorG2, E.db.mui.gradient.customColor.paladincolorB2 =
@@ -432,9 +448,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.priestcolorR1
 						local dg = E.db.mui.gradient.customColor.priestcolorG1
 						local db = E.db.mui.gradient.customColor.priestcolorB1
-						return E.db.mui.gradient.customColor.priestcolorR1,
-							E.db.mui.gradient.customColor.priestcolorG1,
-							E.db.mui.gradient.customColor.priestcolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.priestcolorR1
+						local tg = P.gradient.customColor.priestcolorG1
+						local tb = P.gradient.customColor.priestcolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.priestcolorR1, E.db.mui.gradient.customColor.priestcolorG1, E.db.mui.gradient.customColor.priestcolorB1 =
@@ -452,9 +469,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.priestcolorR2
 						local dg = E.db.mui.gradient.customColor.priestcolorG2
 						local db = E.db.mui.gradient.customColor.priestcolorB2
-						return E.db.mui.gradient.customColor.priestcolorR2,
-							E.db.mui.gradient.customColor.priestcolorG2,
-							E.db.mui.gradient.customColor.priestcolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.priestcolorR2
+						local tg = P.gradient.customColor.priestcolorG2
+						local tb = P.gradient.customColor.priestcolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.priestcolorR2, E.db.mui.gradient.customColor.priestcolorG2, E.db.mui.gradient.customColor.priestcolorB2 =
@@ -478,9 +496,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.roguecolorR1
 						local dg = E.db.mui.gradient.customColor.roguecolorG1
 						local db = E.db.mui.gradient.customColor.roguecolorB1
-						return E.db.mui.gradient.customColor.roguecolorR1,
-							E.db.mui.gradient.customColor.roguecolorG1,
-							E.db.mui.gradient.customColor.roguecolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.roguecolorR1
+						local tg = P.gradient.customColor.roguecolorG1
+						local tb = P.gradient.customColor.roguecolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.roguecolorR1, E.db.mui.gradient.customColor.roguecolorG1, E.db.mui.gradient.customColor.roguecolorB1 =
@@ -498,9 +517,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.roguecolorR2
 						local dg = E.db.mui.gradient.customColor.roguecolorG2
 						local db = E.db.mui.gradient.customColor.roguecolorB2
-						return E.db.mui.gradient.customColor.roguecolorR2,
-							E.db.mui.gradient.customColor.roguecolorG2,
-							E.db.mui.gradient.customColor.roguecolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.roguecolorR2
+						local tg = P.gradient.customColor.roguecolorG2
+						local tb = P.gradient.customColor.roguecolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.roguecolorR2, E.db.mui.gradient.customColor.roguecolorG2, E.db.mui.gradient.customColor.roguecolorB2 =
@@ -524,9 +544,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.shamancolorR1
 						local dg = E.db.mui.gradient.customColor.shamancolorG1
 						local db = E.db.mui.gradient.customColor.shamancolorB1
-						return E.db.mui.gradient.customColor.shamancolorR1,
-							E.db.mui.gradient.customColor.shamancolorG1,
-							E.db.mui.gradient.customColor.shamancolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.shamancolorR1
+						local tg = P.gradient.customColor.shamancolorG1
+						local tb = P.gradient.customColor.shamancolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.shamancolorR1, E.db.mui.gradient.customColor.shamancolorG1, E.db.mui.gradient.customColor.shamancolorB1 =
@@ -544,9 +565,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.shamancolorR2
 						local dg = E.db.mui.gradient.customColor.shamancolorG2
 						local db = E.db.mui.gradient.customColor.shamancolorB2
-						return E.db.mui.gradient.customColor.shamancolorR2,
-							E.db.mui.gradient.customColor.shamancolorG2,
-							E.db.mui.gradient.customColor.shamancolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.shamancolorR2
+						local tg = P.gradient.customColor.shamancolorG2
+						local tb = P.gradient.customColor.shamancolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.shamancolorR2, E.db.mui.gradient.customColor.shamancolorG2, E.db.mui.gradient.customColor.shamancolorB2 =
@@ -570,9 +592,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.warlockcolorR1
 						local dg = E.db.mui.gradient.customColor.warlockcolorG1
 						local db = E.db.mui.gradient.customColor.warlockcolorB1
-						return E.db.mui.gradient.customColor.warlockcolorR1,
-							E.db.mui.gradient.customColor.warlockcolorG1,
-							E.db.mui.gradient.customColor.warlockcolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.warlockcolorR1
+						local tg = P.gradient.customColor.warlockcolorG1
+						local tb = P.gradient.customColor.warlockcolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.warlockcolorR1, E.db.mui.gradient.customColor.warlockcolorG1, E.db.mui.gradient.customColor.warlockcolorB1 =
@@ -590,9 +613,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.warlockcolorR2
 						local dg = E.db.mui.gradient.customColor.warlockcolorG2
 						local db = E.db.mui.gradient.customColor.warlockcolorB2
-						return E.db.mui.gradient.customColor.warlockcolorR2,
-							E.db.mui.gradient.customColor.warlockcolorG2,
-							E.db.mui.gradient.customColor.warlockcolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.warlockcolorR2
+						local tg = P.gradient.customColor.warlockcolorG2
+						local tb = P.gradient.customColor.warlockcolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.warlockcolorR2, E.db.mui.gradient.customColor.warlockcolorG2, E.db.mui.gradient.customColor.warlockcolorB2 =
@@ -616,9 +640,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.warriorcolorR1
 						local dg = E.db.mui.gradient.customColor.warriorcolorG1
 						local db = E.db.mui.gradient.customColor.warriorcolorB1
-						return E.db.mui.gradient.customColor.warriorcolorR1,
-							E.db.mui.gradient.customColor.warriorcolorG1,
-							E.db.mui.gradient.customColor.warriorcolorB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.warriorcolorR1
+						local tg = P.gradient.customColor.warriorcolorG1
+						local tb = P.gradient.customColor.warriorcolorB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.warriorcolorR1, E.db.mui.gradient.customColor.warriorcolorG1, E.db.mui.gradient.customColor.warriorcolorB1 =
@@ -636,9 +661,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.warriorcolorR2
 						local dg = E.db.mui.gradient.customColor.warriorcolorG2
 						local db = E.db.mui.gradient.customColor.warriorcolorB2
-						return E.db.mui.gradient.customColor.warriorcolorR2,
-							E.db.mui.gradient.customColor.warriorcolorG2,
-							E.db.mui.gradient.customColor.warriorcolorB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.warriorcolorR2
+						local tg = P.gradient.customColor.warriorcolorG2
+						local tb = P.gradient.customColor.warriorcolorB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.warriorcolorR2, E.db.mui.gradient.customColor.warriorcolorG2, E.db.mui.gradient.customColor.warriorcolorB2 =
@@ -672,9 +698,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.npcfriendlyR1
 						local dg = E.db.mui.gradient.customColor.npcfriendlyG1
 						local db = E.db.mui.gradient.customColor.npcfriendlyB1
-						return E.db.mui.gradient.customColor.npcfriendlyR1,
-							E.db.mui.gradient.customColor.npcfriendlyG1,
-							E.db.mui.gradient.customColor.npcfriendlyB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.npcfriendlyR1
+						local tg = P.gradient.customColor.npcfriendlyG1
+						local tb = P.gradient.customColor.npcfriendlyB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.npcfriendlyR1, E.db.mui.gradient.customColor.npcfriendlyG1, E.db.mui.gradient.customColor.npcfriendlyB1 =
@@ -692,9 +719,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.npcfriendlyR2
 						local dg = E.db.mui.gradient.customColor.npcfriendlyG2
 						local db = E.db.mui.gradient.customColor.npcfriendlyB2
-						return E.db.mui.gradient.customColor.npcfriendlyR2,
-							E.db.mui.gradient.customColor.npcfriendlyG2,
-							E.db.mui.gradient.customColor.npcfriendlyB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.npcfriendlyR2
+						local tg = P.gradient.customColor.npcfriendlyG2
+						local tb = P.gradient.customColor.npcfriendlyB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.npcfriendlyR2, E.db.mui.gradient.customColor.npcfriendlyG2, E.db.mui.gradient.customColor.npcfriendlyB2 =
@@ -718,9 +746,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.npcneutralR1
 						local dg = E.db.mui.gradient.customColor.npcneutralG1
 						local db = E.db.mui.gradient.customColor.npcneutralB1
-						return E.db.mui.gradient.customColor.npcneutralR1,
-							E.db.mui.gradient.customColor.npcneutralG1,
-							E.db.mui.gradient.customColor.npcneutralB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.npcneutralR1
+						local tg = P.gradient.customColor.npcneutralG1
+						local tb = P.gradient.customColor.npcneutralB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.npcneutralR1, E.db.mui.gradient.customColor.npcneutralG1, E.db.mui.gradient.customColor.npcneutralB1 =
@@ -738,9 +767,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.npcneutralR2
 						local dg = E.db.mui.gradient.customColor.npcneutralG2
 						local db = E.db.mui.gradient.customColor.npcneutralB2
-						return E.db.mui.gradient.customColor.npcneutralR2,
-							E.db.mui.gradient.customColor.npcneutralG2,
-							E.db.mui.gradient.customColor.npcneutralB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.npcneutralR2
+						local tg = P.gradient.customColor.npcneutralG2
+						local tb = P.gradient.customColor.npcneutralB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.npcneutralR2, E.db.mui.gradient.customColor.npcneutralG2, E.db.mui.gradient.customColor.npcneutralB2 =
@@ -764,9 +794,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.npcunfriendlyR1
 						local dg = E.db.mui.gradient.customColor.npcunfriendlyG1
 						local db = E.db.mui.gradient.customColor.npcunfriendlyB1
-						return E.db.mui.gradient.customColor.npcunfriendlyR1,
-							E.db.mui.gradient.customColor.npcunfriendlyG1,
-							E.db.mui.gradient.customColor.npcunfriendlyB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.npcunfriendlyR1
+						local tg = P.gradient.customColor.npcunfriendlyG1
+						local tb = P.gradient.customColor.npcunfriendlyB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.npcunfriendlyR1, E.db.mui.gradient.customColor.npcunfriendlyG1, E.db.mui.gradient.customColor.npcunfriendlyB1 =
@@ -784,9 +815,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.npcunfriendlyR2
 						local dg = E.db.mui.gradient.customColor.npcunfriendlyG2
 						local db = E.db.mui.gradient.customColor.npcunfriendlyB2
-						return E.db.mui.gradient.customColor.npcunfriendlyR2,
-							E.db.mui.gradient.customColor.npcunfriendlyG2,
-							E.db.mui.gradient.customColor.npcunfriendlyB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.npcunfriendlyR2
+						local tg = P.gradient.customColor.npcunfriendlyG2
+						local tb = P.gradient.customColor.npcunfriendlyB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.npcunfriendlyR2, E.db.mui.gradient.customColor.npcunfriendlyG2, E.db.mui.gradient.customColor.npcunfriendlyB2 =
@@ -810,9 +842,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.npchostileR1
 						local dg = E.db.mui.gradient.customColor.npchostileG1
 						local db = E.db.mui.gradient.customColor.npchostileB1
-						return E.db.mui.gradient.customColor.npchostileR1,
-							E.db.mui.gradient.customColor.npchostileG1,
-							E.db.mui.gradient.customColor.npchostileB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.npchostileR1
+						local tg = P.gradient.customColor.npchostileG1
+						local tb = P.gradient.customColor.npchostileB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.npchostileR1, E.db.mui.gradient.customColor.npchostileG1, E.db.mui.gradient.customColor.npchostileB1 =
@@ -830,9 +863,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.npchostileR2
 						local dg = E.db.mui.gradient.customColor.npchostileG2
 						local db = E.db.mui.gradient.customColor.npchostileB2
-						return E.db.mui.gradient.customColor.npchostileR2,
-							E.db.mui.gradient.customColor.npchostileG2,
-							E.db.mui.gradient.customColor.npchostileB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.npchostileR2
+						local tg = P.gradient.customColor.npchostileG2
+						local tb = P.gradient.customColor.npchostileB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.npchostileR2, E.db.mui.gradient.customColor.npchostileG2, E.db.mui.gradient.customColor.npchostileB2 =
@@ -856,9 +890,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.tappedR1
 						local dg = E.db.mui.gradient.customColor.tappedG1
 						local db = E.db.mui.gradient.customColor.tappedB1
-						return E.db.mui.gradient.customColor.tappedR1,
-							E.db.mui.gradient.customColor.tappedG1,
-							E.db.mui.gradient.customColor.tappedB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.tappedR1
+						local tg = P.gradient.customColor.tappedG1
+						local tb = P.gradient.customColor.tappedB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.tappedR1, E.db.mui.gradient.customColor.tappedG1, E.db.mui.gradient.customColor.tappedB1 =
@@ -876,9 +911,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.tappedR2
 						local dg = E.db.mui.gradient.customColor.tappedG2
 						local db = E.db.mui.gradient.customColor.tappedB2
-						return E.db.mui.gradient.customColor.tappedR2,
-							E.db.mui.gradient.customColor.tappedG2,
-							E.db.mui.gradient.customColor.tappedB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.tappedR2
+						local tg = P.gradient.customColor.tappedG2
+						local tb = P.gradient.customColor.tappedB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.tappedR2, E.db.mui.gradient.customColor.tappedG2, E.db.mui.gradient.customColor.tappedB2 =
@@ -922,9 +958,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.goodthreatR1
 						local dg = E.db.mui.gradient.customColor.goodthreatG1
 						local db = E.db.mui.gradient.customColor.goodthreatB1
-						return E.db.mui.gradient.customColor.goodthreatR1,
-							E.db.mui.gradient.customColor.goodthreatG1,
-							E.db.mui.gradient.customColor.goodthreatB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.goodthreatR1
+						local tg = P.gradient.customColor.goodthreatG1
+						local tb = P.gradient.customColor.goodthreatB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.goodthreatR1, E.db.mui.gradient.customColor.goodthreatG1, E.db.mui.gradient.customColor.goodthreatB1 =
@@ -942,9 +979,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.goodthreatR2
 						local dg = E.db.mui.gradient.customColor.goodthreatG2
 						local db = E.db.mui.gradient.customColor.goodthreatB2
-						return E.db.mui.gradient.customColor.goodthreatR2,
-							E.db.mui.gradient.customColor.goodthreatG2,
-							E.db.mui.gradient.customColor.goodthreatB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.goodthreatR2
+						local tg = P.gradient.customColor.goodthreatG2
+						local tb = P.gradient.customColor.goodthreatB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.goodthreatR2, E.db.mui.gradient.customColor.goodthreatG2, E.db.mui.gradient.customColor.goodthreatB2 =
@@ -968,9 +1006,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.badthreatR1
 						local dg = E.db.mui.gradient.customColor.badthreatG1
 						local db = E.db.mui.gradient.customColor.badthreatB1
-						return E.db.mui.gradient.customColor.badthreatR1,
-							E.db.mui.gradient.customColor.badthreatG1,
-							E.db.mui.gradient.customColor.badthreatB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.badthreatR1
+						local tg = P.gradient.customColor.badthreatG1
+						local tb = P.gradient.customColor.badthreatB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.badthreatR1, E.db.mui.gradient.customColor.badthreatG1, E.db.mui.gradient.customColor.badthreatB1 =
@@ -988,9 +1027,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.badthreatR2
 						local dg = E.db.mui.gradient.customColor.badthreatG2
 						local db = E.db.mui.gradient.customColor.badthreatB2
-						return E.db.mui.gradient.customColor.badthreatR2,
-							E.db.mui.gradient.customColor.badthreatG2,
-							E.db.mui.gradient.customColor.badthreatB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.badthreatR2
+						local tg = P.gradient.customColor.badthreatG2
+						local tb = P.gradient.customColor.badthreatB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.badthreatR2, E.db.mui.gradient.customColor.badthreatG2, E.db.mui.gradient.customColor.badthreatB2 =
@@ -1014,9 +1054,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.goodthreattransitionR1
 						local dg = E.db.mui.gradient.customColor.goodthreattransitionG1
 						local db = E.db.mui.gradient.customColor.goodthreattransitionB1
-						return E.db.mui.gradient.customColor.goodthreattransitionR1,
-							E.db.mui.gradient.customColor.goodthreattransitionG1,
-							E.db.mui.gradient.customColor.goodthreattransitionB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.goodthreattransitionR1
+						local tg = P.gradient.customColor.goodthreattransitionG1
+						local tb = P.gradient.customColor.goodthreattransitionB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.goodthreattransitionR1, E.db.mui.gradient.customColor.goodthreattransitionG1, E.db.mui.gradient.customColor.goodthreattransitionB1 =
@@ -1034,9 +1075,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.goodthreattransitionR2
 						local dg = E.db.mui.gradient.customColor.goodthreattransitionG2
 						local db = E.db.mui.gradient.customColor.goodthreattransitionB2
-						return E.db.mui.gradient.customColor.goodthreattransitionR2,
-							E.db.mui.gradient.customColor.goodthreattransitionG2,
-							E.db.mui.gradient.customColor.goodthreattransitionB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.goodthreattransitionR2
+						local tg = P.gradient.customColor.goodthreattransitionG2
+						local tb = P.gradient.customColor.goodthreattransitionB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.goodthreattransitionR2, E.db.mui.gradient.customColor.goodthreattransitionG2, E.db.mui.gradient.customColor.goodthreattransitionB2 =
@@ -1060,9 +1102,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.badthreattransitionR1
 						local dg = E.db.mui.gradient.customColor.badthreattransitionG1
 						local db = E.db.mui.gradient.customColor.badthreattransitionB1
-						return E.db.mui.gradient.customColor.badthreattransitionR1,
-							E.db.mui.gradient.customColor.badthreattransitionG1,
-							E.db.mui.gradient.customColor.badthreattransitionB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.badthreattransitionR1
+						local tg = P.gradient.customColor.badthreattransitionG1
+						local tb = P.gradient.customColor.badthreattransitionB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.badthreattransitionR1, E.db.mui.gradient.customColor.badthreattransitionG1, E.db.mui.gradient.customColor.badthreattransitionB1 =
@@ -1080,9 +1123,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.badthreattransitionR2
 						local dg = E.db.mui.gradient.customColor.badthreattransitionG2
 						local db = E.db.mui.gradient.customColor.badthreattransitionB2
-						return E.db.mui.gradient.customColor.badthreattransitionR2,
-							E.db.mui.gradient.customColor.badthreattransitionG2,
-							E.db.mui.gradient.customColor.badthreattransitionB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.badthreattransitionR2
+						local tg = P.gradient.customColor.badthreattransitionG2
+						local tb = P.gradient.customColor.badthreattransitionB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.badthreattransitionR2, E.db.mui.gradient.customColor.badthreattransitionG2, E.db.mui.gradient.customColor.badthreattransitionB2 =
@@ -1106,9 +1150,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.offtankR1
 						local dg = E.db.mui.gradient.customColor.offtankG1
 						local db = E.db.mui.gradient.customColor.offtankB1
-						return E.db.mui.gradient.customColor.offtankR1,
-							E.db.mui.gradient.customColor.offtankG1,
-							E.db.mui.gradient.customColor.offtankB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.offtankR1
+						local tg = P.gradient.customColor.offtankG1
+						local tb = P.gradient.customColor.offtankB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.offtankR1, E.db.mui.gradient.customColor.offtankG1, E.db.mui.gradient.customColor.offtankB1 =
@@ -1126,9 +1171,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.offtankR2
 						local dg = E.db.mui.gradient.customColor.offtankG2
 						local db = E.db.mui.gradient.customColor.offtankB2
-						return E.db.mui.gradient.customColor.offtankR2,
-							E.db.mui.gradient.customColor.offtankG2,
-							E.db.mui.gradient.customColor.offtankB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.offtankR2
+						local tg = P.gradient.customColor.offtankG2
+						local tb = P.gradient.customColor.offtankB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.offtankR2, E.db.mui.gradient.customColor.offtankG2, E.db.mui.gradient.customColor.offtankB2 =
@@ -1152,9 +1198,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.badthreattransitionofftankR1
 						local dg = E.db.mui.gradient.customColor.badthreattransitionofftankG1
 						local db = E.db.mui.gradient.customColor.badthreattransitionofftankB1
-						return E.db.mui.gradient.customColor.badthreattransitionofftankR1,
-							E.db.mui.gradient.customColor.badthreattransitionofftankG1,
-							E.db.mui.gradient.customColor.badthreattransitionofftankB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.badthreattransitionofftankR1
+						local tg = P.gradient.customColor.badthreattransitionofftankG1
+						local tb = P.gradient.customColor.badthreattransitionofftankB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.badthreattransitionofftankR1, E.db.mui.gradient.customColor.badthreattransitionofftankG1, E.db.mui.gradient.customColor.badthreattransitionofftankB1 =
@@ -1172,9 +1219,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.badthreattransitionofftankR2
 						local dg = E.db.mui.gradient.customColor.badthreattransitionofftankG2
 						local db = E.db.mui.gradient.customColor.badthreattransitionofftankB2
-						return E.db.mui.gradient.customColor.badthreattransitionofftankR2,
-							E.db.mui.gradient.customColor.badthreattransitionofftankG2,
-							E.db.mui.gradient.customColor.badthreattransitionofftankB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.badthreattransitionofftankR2
+						local tg = P.gradient.customColor.badthreattransitionofftankG2
+						local tb = P.gradient.customColor.badthreattransitionofftankB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.badthreattransitionofftankR2, E.db.mui.gradient.customColor.badthreattransitionofftankG2, E.db.mui.gradient.customColor.badthreattransitionofftankB2 =
@@ -1198,9 +1246,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.goodthreattransitionofftankR1
 						local dg = E.db.mui.gradient.customColor.goodthreattransitionofftankG1
 						local db = E.db.mui.gradient.customColor.goodthreattransitionofftankB1
-						return E.db.mui.gradient.customColor.goodthreattransitionofftankR1,
-							E.db.mui.gradient.customColor.goodthreattransitionofftankG1,
-							E.db.mui.gradient.customColor.goodthreattransitionofftankB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.goodthreattransitionofftankR1
+						local tg = P.gradient.customColor.goodthreattransitionofftankG1
+						local tb = P.gradient.customColor.goodthreattransitionofftankB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.goodthreattransitionofftankR1, E.db.mui.gradient.customColor.goodthreattransitionofftankG1, E.db.mui.gradient.customColor.goodthreattransitionofftankB1 =
@@ -1218,9 +1267,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.goodthreattransitionofftankR2
 						local dg = E.db.mui.gradient.customColor.goodthreattransitionofftankG2
 						local db = E.db.mui.gradient.customColor.goodthreattransitionofftankB2
-						return E.db.mui.gradient.customColor.goodthreattransitionofftankR2,
-							E.db.mui.gradient.customColor.goodthreattransitionofftankG2,
-							E.db.mui.gradient.customColor.goodthreattransitionofftankB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.goodthreattransitionofftankR2
+						local tg = P.gradient.customColor.goodthreattransitionofftankG2
+						local tb = P.gradient.customColor.goodthreattransitionofftankB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.goodthreattransitionofftankR2, E.db.mui.gradient.customColor.goodthreattransitionofftankG2, E.db.mui.gradient.customColor.goodthreattransitionofftankB2 =
@@ -1269,9 +1319,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.manaR1
 						local dg = E.db.mui.gradient.customColor.manaG1
 						local db = E.db.mui.gradient.customColor.manaB1
-						return E.db.mui.gradient.customColor.manaR1,
-							E.db.mui.gradient.customColor.manaG1,
-							E.db.mui.gradient.customColor.manaB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.manaR1
+						local tg = P.gradient.customColor.manaG1
+						local tb = P.gradient.customColor.manaB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.manaR1, E.db.mui.gradient.customColor.manaG1, E.db.mui.gradient.customColor.manaB1 =
@@ -1289,9 +1340,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.manaR2
 						local dg = E.db.mui.gradient.customColor.manaG2
 						local db = E.db.mui.gradient.customColor.manaB2
-						return E.db.mui.gradient.customColor.manaR2,
-							E.db.mui.gradient.customColor.manaG2,
-							E.db.mui.gradient.customColor.manaB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.manaR2
+						local tg = P.gradient.customColor.manaG2
+						local tb = P.gradient.customColor.manaB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.manaR2, E.db.mui.gradient.customColor.manaG2, E.db.mui.gradient.customColor.manaB2 =
@@ -1315,9 +1367,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.rageR1
 						local dg = E.db.mui.gradient.customColor.rageG1
 						local db = E.db.mui.gradient.customColor.rageB1
-						return E.db.mui.gradient.customColor.rageR1,
-							E.db.mui.gradient.customColor.rageG1,
-							E.db.mui.gradient.customColor.rageB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.rageR1
+						local tg = P.gradient.customColor.rageG1
+						local tb = P.gradient.customColor.rageB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.rageR1, E.db.mui.gradient.customColor.rageG1, E.db.mui.gradient.customColor.rageB1 =
@@ -1335,9 +1388,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.rageR2
 						local dg = E.db.mui.gradient.customColor.rageG2
 						local db = E.db.mui.gradient.customColor.rageB2
-						return E.db.mui.gradient.customColor.rageR2,
-							E.db.mui.gradient.customColor.rageG2,
-							E.db.mui.gradient.customColor.rageB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.rageR2
+						local tg = P.gradient.customColor.rageG2
+						local tb = P.gradient.customColor.rageB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.rageR2, E.db.mui.gradient.customColor.rageG2, E.db.mui.gradient.customColor.rageB2 =
@@ -1361,9 +1415,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.focusR1
 						local dg = E.db.mui.gradient.customColor.focusG1
 						local db = E.db.mui.gradient.customColor.focusB1
-						return E.db.mui.gradient.customColor.focusR1,
-							E.db.mui.gradient.customColor.focusG1,
-							E.db.mui.gradient.customColor.focusB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.focusR1
+						local tg = P.gradient.customColor.focusG1
+						local tb = P.gradient.customColor.focusB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.focusR1, E.db.mui.gradient.customColor.focusG1, E.db.mui.gradient.customColor.focusB1 =
@@ -1381,9 +1436,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.focusR2
 						local dg = E.db.mui.gradient.customColor.focusG2
 						local db = E.db.mui.gradient.customColor.focusB2
-						return E.db.mui.gradient.customColor.focusR2,
-							E.db.mui.gradient.customColor.focusG2,
-							E.db.mui.gradient.customColor.focusB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.focusR2
+						local tg = P.gradient.customColor.focusG2
+						local tb = P.gradient.customColor.focusB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.focusR2, E.db.mui.gradient.customColor.focusG2, E.db.mui.gradient.customColor.focusB2 =
@@ -1407,9 +1463,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.energyR1
 						local dg = E.db.mui.gradient.customColor.energyG1
 						local db = E.db.mui.gradient.customColor.energyB1
-						return E.db.mui.gradient.customColor.energyR1,
-							E.db.mui.gradient.customColor.energyG1,
-							E.db.mui.gradient.customColor.energyB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.energyR1
+						local tg = P.gradient.customColor.energyG1
+						local tb = P.gradient.customColor.energyB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.energyR1, E.db.mui.gradient.customColor.energyG1, E.db.mui.gradient.customColor.energyB1 =
@@ -1427,9 +1484,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.energyR2
 						local dg = E.db.mui.gradient.customColor.energyG2
 						local db = E.db.mui.gradient.customColor.energyB2
-						return E.db.mui.gradient.customColor.energyR2,
-							E.db.mui.gradient.customColor.energyG2,
-							E.db.mui.gradient.customColor.energyB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.energyR2
+						local tg = P.gradient.customColor.energyG2
+						local tb = P.gradient.customColor.energyB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.energyR2, E.db.mui.gradient.customColor.energyG2, E.db.mui.gradient.customColor.energyB2 =
@@ -1459,9 +1517,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.runicpowerR1
 						local dg = E.db.mui.gradient.customColor.runicpowerG1
 						local db = E.db.mui.gradient.customColor.runicpowerB1
-						return E.db.mui.gradient.customColor.runicpowerR1,
-							E.db.mui.gradient.customColor.runicpowerG1,
-							E.db.mui.gradient.customColor.runicpowerB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.runicpowerR1
+						local tg = P.gradient.customColor.runicpowerG1
+						local tb = P.gradient.customColor.runicpowerB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.runicpowerR1, E.db.mui.gradient.customColor.runicpowerG1, E.db.mui.gradient.customColor.runicpowerB1 =
@@ -1479,9 +1538,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.runicpowerR2
 						local dg = E.db.mui.gradient.customColor.runicpowerG2
 						local db = E.db.mui.gradient.customColor.runicpowerB2
-						return E.db.mui.gradient.customColor.runicpowerR2,
-							E.db.mui.gradient.customColor.runicpowerG2,
-							E.db.mui.gradient.customColor.runicpowerB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.runicpowerR2
+						local tg = P.gradient.customColor.runicpowerG2
+						local tb = P.gradient.customColor.runicpowerB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.runicpowerR2, E.db.mui.gradient.customColor.runicpowerG2, E.db.mui.gradient.customColor.runicpowerB2 =
@@ -1505,9 +1565,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.lunarpowerR1
 						local dg = E.db.mui.gradient.customColor.lunarpowerG1
 						local db = E.db.mui.gradient.customColor.lunarpowerB1
-						return E.db.mui.gradient.customColor.lunarpowerR1,
-							E.db.mui.gradient.customColor.lunarpowerG1,
-							E.db.mui.gradient.customColor.lunarpowerB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.lunarpowerR1
+						local tg = P.gradient.customColor.lunarpowerG1
+						local tb = P.gradient.customColor.lunarpowerB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.lunarpowerR1, E.db.mui.gradient.customColor.lunarpowerG1, E.db.mui.gradient.customColor.lunarpowerB1 =
@@ -1525,9 +1586,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.lunarpowerR2
 						local dg = E.db.mui.gradient.customColor.lunarpowerG2
 						local db = E.db.mui.gradient.customColor.lunarpowerB2
-						return E.db.mui.gradient.customColor.lunarpowerR2,
-							E.db.mui.gradient.customColor.lunarpowerG2,
-							E.db.mui.gradient.customColor.lunarpowerB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.lunarpowerR2
+						local tg = P.gradient.customColor.lunarpowerG2
+						local tb = P.gradient.customColor.lunarpowerB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.lunarpowerR2, E.db.mui.gradient.customColor.lunarpowerG2, E.db.mui.gradient.customColor.lunarpowerB2 =
@@ -1551,9 +1613,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.altpowerR1
 						local dg = E.db.mui.gradient.customColor.altpowerG1
 						local db = E.db.mui.gradient.customColor.altpowerB1
-						return E.db.mui.gradient.customColor.altpowerR1,
-							E.db.mui.gradient.customColor.altpowerG1,
-							E.db.mui.gradient.customColor.altpowerB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.altpowerR1
+						local tg = P.gradient.customColor.altpowerG1
+						local tb = P.gradient.customColor.altpowerB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.altpowerR1, E.db.mui.gradient.customColor.altpowerG1, E.db.mui.gradient.customColor.altpowerB1 =
@@ -1571,9 +1634,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.altpowerR2
 						local dg = E.db.mui.gradient.customColor.altpowerG2
 						local db = E.db.mui.gradient.customColor.altpowerB2
-						return E.db.mui.gradient.customColor.altpowerR2,
-							E.db.mui.gradient.customColor.altpowerG2,
-							E.db.mui.gradient.customColor.altpowerB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.altpowerR2
+						local tg = P.gradient.customColor.altpowerG2
+						local tb = P.gradient.customColor.altpowerB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.altpowerR2, E.db.mui.gradient.customColor.altpowerG2, E.db.mui.gradient.customColor.altpowerB2 =
@@ -1597,9 +1661,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.maelstromR1
 						local dg = E.db.mui.gradient.customColor.maelstromG1
 						local db = E.db.mui.gradient.customColor.maelstromB1
-						return E.db.mui.gradient.customColor.maelstromR1,
-							E.db.mui.gradient.customColor.maelstromG1,
-							E.db.mui.gradient.customColor.maelstromB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.maelstromR1
+						local tg = P.gradient.customColor.maelstromG1
+						local tb = P.gradient.customColor.maelstromB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.maelstromR1, E.db.mui.gradient.customColor.maelstromG1, E.db.mui.gradient.customColor.maelstromB1 =
@@ -1617,9 +1682,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.maelstromR2
 						local dg = E.db.mui.gradient.customColor.maelstromG2
 						local db = E.db.mui.gradient.customColor.maelstromB2
-						return E.db.mui.gradient.customColor.maelstromR2,
-							E.db.mui.gradient.customColor.maelstromG2,
-							E.db.mui.gradient.customColor.maelstromB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.maelstromR2
+						local tg = P.gradient.customColor.maelstromG2
+						local tb = P.gradient.customColor.maelstromB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.maelstromR2, E.db.mui.gradient.customColor.maelstromG2, E.db.mui.gradient.customColor.maelstromB2 =
@@ -1643,9 +1709,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.insanityR1
 						local dg = E.db.mui.gradient.customColor.insanityG1
 						local db = E.db.mui.gradient.customColor.insanityB1
-						return E.db.mui.gradient.customColor.insanityR1,
-							E.db.mui.gradient.customColor.insanityG1,
-							E.db.mui.gradient.customColor.insanityB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.insanityR1
+						local tg = P.gradient.customColor.insanityG1
+						local tb = P.gradient.customColor.insanityB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.insanityR1, E.db.mui.gradient.customColor.insanityG1, E.db.mui.gradient.customColor.insanityB1 =
@@ -1663,9 +1730,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.insanityR2
 						local dg = E.db.mui.gradient.customColor.insanityG2
 						local db = E.db.mui.gradient.customColor.insanityB2
-						return E.db.mui.gradient.customColor.insanityR2,
-							E.db.mui.gradient.customColor.insanityG2,
-							E.db.mui.gradient.customColor.insanityB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.insanityR2
+						local tg = P.gradient.customColor.insanityG2
+						local tb = P.gradient.customColor.insanityB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.insanityR2, E.db.mui.gradient.customColor.insanityG2, E.db.mui.gradient.customColor.insanityB2 =
@@ -1689,9 +1757,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.furyR1
 						local dg = E.db.mui.gradient.customColor.furyG1
 						local db = E.db.mui.gradient.customColor.furyB1
-						return E.db.mui.gradient.customColor.furyR1,
-							E.db.mui.gradient.customColor.furyG1,
-							E.db.mui.gradient.customColor.furyB1, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.furyR1
+						local tg = P.gradient.customColor.furyG1
+						local tb = P.gradient.customColor.furyB1
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.furyR1, E.db.mui.gradient.customColor.furyG1, E.db.mui.gradient.customColor.furyB1 =
@@ -1709,9 +1778,10 @@ options.gradient = {
 						local dr = E.db.mui.gradient.customColor.furyR2
 						local dg = E.db.mui.gradient.customColor.furyG2
 						local db = E.db.mui.gradient.customColor.furyB2
-						return E.db.mui.gradient.customColor.furyR2,
-							E.db.mui.gradient.customColor.furyG2,
-							E.db.mui.gradient.customColor.furyB2, 1, dr, dg, db, 1
+						local tr = P.gradient.customColor.furyR2
+						local tg = P.gradient.customColor.furyG2
+						local tb = P.gradient.customColor.furyB2
+						return dr, dg, db, 1, tr, tg, tb, 1
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.furyR2, E.db.mui.gradient.customColor.furyG2, E.db.mui.gradient.customColor.furyB2 =
