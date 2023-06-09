@@ -1,4 +1,0 @@
-[b][color=orange]v5.81[/color], 09.06.2023[/b][list]
-[*]Fix Auctionator Skin. Thx @fang2hou
-[*]Some fixes to my new gradient color options
-[*]Added ChatBar to the Reset Module Option[/list]
