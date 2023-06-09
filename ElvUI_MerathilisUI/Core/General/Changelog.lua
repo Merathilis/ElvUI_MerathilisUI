@@ -12,11 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added a lot of openable items to the AutoButtons",
-		"• Fix Reminder for Resto Shaman",
-		"• Updated new Dungeon Ports in the Location Panel (needs testing)",
-		"• Added Gradient Options (WIP)",
-		"• Updated some skins",
+		"• Fix Auctionator Skin. Thx @fang2hou",
+		"• Some fixes to my new gradient color options",
+		"• Added ChatBar to the Reset Module Option",
+		-- "• ''",
 
 		" ",
 
