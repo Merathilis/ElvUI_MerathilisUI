@@ -72,48 +72,57 @@ function module:PremadeGroupsFilter()
 		frame.MaxMinButtonFrame.MaximizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
 	end
 
-	for _, line in pairs(
-		{
-			"Difficulty",
-			"Ilvl",
-			"Noilvl",
-			"Defeated",
-			"Members",
-			"Tanks",
-			"Heals",
-			"Dps",
-			"MPRating",
-			"PVPRating",
-		}
-	) do
-		if frame[line] then
-			if frame[line].Act then
-				S:HandleCheckBox(frame[line].Act)
-				frame[line].Act:Size(24)
-				frame[line].Act:ClearAllPoints()
-				frame[line].Act:Point("LEFT", frame[line], "LEFT", 3, -3)
-			end
-
-			if line == "Defeated" and frame[line].Title then
-				frame[line].Title:SetHeight(18)
-			end
-
-			if frame[line].DropDown then
-				S:HandleDropDownBox(frame[line].DropDown)
-			end
-
-			if frame[line].Min then
-				S:HandleEditBox(frame[line].Min)
-				frame[line].Min.backdrop:ClearAllPoints()
-				frame[line].Min.backdrop:SetOutside(frame[line].Min, 0, 0)
-			end
-
-			if frame[line].Max then
-				S:HandleEditBox(frame[line].Max)
-				frame[line].Max.backdrop:ClearAllPoints()
-				frame[line].Max.backdrop:SetOutside(frame[line].Max, 0, 0)
+	local dungeonPanel = _G.PremadeGroupsFilterDungeonPanel
+	if dungeonPanel then
+		-- CheckBoxes
+		for _, checkButton in pairs({
+			dungeonPanel.Group.Difficulty.Act,
+			dungeonPanel.Group.MPRating.Act,
+			dungeonPanel.Group.Members.Act,
+			dungeonPanel.Group.Tanks.Act,
+			dungeonPanel.Group.Heals.Act,
+			dungeonPanel.Group.DPS.Act,
+			dungeonPanel.Group.Partyfit.Act,
+			dungeonPanel.Group.BLFit.Act,
+			dungeonPanel.Group.BRFit.Act,
+			dungeonPanel.Dungeons.Dungeon1.Act,
+			dungeonPanel.Dungeons.Dungeon2.Act,
+			dungeonPanel.Dungeons.Dungeon3.Act,
+			dungeonPanel.Dungeons.Dungeon4.Act,
+			dungeonPanel.Dungeons.Dungeon5.Act,
+			dungeonPanel.Dungeons.Dungeon6.Act,
+			dungeonPanel.Dungeons.Dungeon7.Act,
+			dungeonPanel.Dungeons.Dungeon8.Act,
+		}) do
+			if checkButton then
+				S:HandleCheckBox(checkButton)
 			end
 		end
+
+		-- EditBox
+		for _, editBox in pairs({
+			dungeonPanel.Group.MPRating.Min,
+			dungeonPanel.Group.MPRating.Max,
+			dungeonPanel.Group.Members.Min,
+			dungeonPanel.Group.Members.Max,
+			dungeonPanel.Group.Tanks.Min,
+			dungeonPanel.Group.Tanks.Max,
+			dungeonPanel.Group.Heals.Min,
+			dungeonPanel.Group.Heals.Max,
+			dungeonPanel.Group.DPS.Min,
+			dungeonPanel.Group.DPS.Max,
+		}) do
+			if editBox then
+				S:HandleEditBox(editBox)
+			end
+		end
+
+		-- DropBox
+		S:HandleDropDownBox(dungeonPanel.Group.Difficulty.DropDown)
+
+		-- BigEditBox
+		S:HandleEditBox(dungeonPanel.Advanced.Expression)
+
 	end
 
 	if frame.Sorting and frame.Sorting.SortingExpression then
