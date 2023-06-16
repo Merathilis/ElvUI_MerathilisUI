@@ -25,12 +25,6 @@ function module:PremadeGroupsFilter()
 	local DungeonPanel = _G.PremadeGroupsFilterDungeonPanel
 	if not DungeonPanel then return end
 
-	module:SecureHook(DungeonPanel, "SetPoint", "PremadeGroupsFilter_SetPoint")
-
-	for i = 1, DungeonPanel:GetNumPoints() do
-		module:PremadeGroupsFilter_SetPoint(DungeonPanel, DungeonPanel:GetPoint())
-	end
-
 	local ArenaPanel = _G.PremadeGroupsFilterArenaPanel
 	local RBGPanel = _G.PremadeGroupsFilterRBGPanel
 	local RaidPanel = _G.PremadeGroupsFilterRaidPanel
@@ -110,10 +104,10 @@ function module:PremadeGroupsFilter()
 		end
 	end)
 
-	hooksecurefunc(PGFDialog, "ResetPosition", function(self)
-		self:ClearAllPoints()
-		self:SetPoint("TOPLEFT", PVEFrame, "TOPRIGHT", 2, 0)
-	end)
+	module:SecureHook(PGFDialog, "SetPoint", "PremadeGroupsFilter_SetPoint")
+	for i = 1, PGFDialog:GetNumPoints() do
+		module:PremadeGroupsFilter_SetPoint(PGFDialog, PGFDialog:GetPoint())
+	end
 
 	local button = UsePGFButton
 	if button then
