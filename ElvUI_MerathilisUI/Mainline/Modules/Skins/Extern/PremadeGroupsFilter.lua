@@ -22,120 +22,103 @@ function module:PremadeGroupsFilter()
 
 	self:DisableAddOnSkins("PremadeGroupsFilter", false)
 
-	local frame = _G.PremadeGroupsFilterDialog
-	S:HandleFrame(frame, true)
+	local DungeonPanel = _G.PremadeGroupsFilterDungeonPanel
+	if not DungeonPanel then return end
 
-	frame.backdrop:SetTemplate("Transparent")
-	frame.backdrop:ClearAllPoints()
-	frame.backdrop:Point("TOPLEFT", frame, "TOPLEFT", -1, 0)
-	frame.backdrop:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 1, -1)
+	module:SecureHook(DungeonPanel, "SetPoint", "PremadeGroupsFilter_SetPoint")
 
-	frame.backdrop:Styling()
-	self:CreateBackdropShadow(frame, true)
-
-	self:SecureHook(frame, "SetPoint", "PremadeGroupsFilter_SetPoint")
-
-	for i = 1, frame:GetNumPoints() do
-		module:PremadeGroupsFilter_SetPoint(frame, frame:GetPoint())
+	for i = 1, DungeonPanel:GetNumPoints() do
+		module:PremadeGroupsFilter_SetPoint(DungeonPanel, DungeonPanel:GetPoint())
 	end
 
-	if frame.Advanced then
-		for _, region in pairs {frame.Advanced:GetRegions()} do
-			local name = region.GetName and region:GetName()
-			if name and (strmatch(name, "Corner") or strmatch(name, "Border")) then
-				region:StripTextures()
-			end
-		end
-	end
+	local ArenaPanel = _G.PremadeGroupsFilterArenaPanel
+	local RBGPanel = _G.PremadeGroupsFilterRBGPanel
+	local RaidPanel = _G.PremadeGroupsFilterRaidPanel
+	local ExpressionPanel = _G.PremadeGroupsFilterExpressionPanel
+	local PGFDialog = _G.PremadeGroupsFilterDialog
 
-	if frame.Expression then
-		S:HandleEditBox(frame.Expression)
-	end
+	local names = { "Difficulty", "MPRating", "Members", "Tanks", "Heals", "DPS", "Partyfit", "BLFit", "BRFit", "Defeated", "MatchingId", "PvPRating" }
 
-	if frame.ResetButton then
-		S:HandleButton(frame.ResetButton)
-	end
-
-	if frame.RefreshButton then
-		S:HandleButton(frame.RefreshButton)
-	end
-
-	if frame.MaxMinButtonFrame.MinimizeButton then
-		S:HandleNextPrevButton(frame.MaxMinButtonFrame.MinimizeButton, "up", nil, true)
-		frame.MaxMinButtonFrame.MinimizeButton:ClearAllPoints()
-		frame.MaxMinButtonFrame.MinimizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
-	end
-
-	if frame.MaxMinButtonFrame.MaximizeButton then
-		S:HandleNextPrevButton(frame.MaxMinButtonFrame.MaximizeButton, "down", nil, true)
-		frame.MaxMinButtonFrame.MaximizeButton:ClearAllPoints()
-		frame.MaxMinButtonFrame.MaximizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
-	end
-
-	local dungeonPanel = _G.PremadeGroupsFilterDungeonPanel
-	if dungeonPanel then
-		-- CheckBoxes
-		for _, checkButton in pairs({
-			dungeonPanel.Group.Difficulty.Act,
-			dungeonPanel.Group.MPRating.Act,
-			dungeonPanel.Group.Members.Act,
-			dungeonPanel.Group.Tanks.Act,
-			dungeonPanel.Group.Heals.Act,
-			dungeonPanel.Group.DPS.Act,
-			dungeonPanel.Group.Partyfit.Act,
-			dungeonPanel.Group.BLFit.Act,
-			dungeonPanel.Group.BRFit.Act,
-			dungeonPanel.Dungeons.Dungeon1.Act,
-			dungeonPanel.Dungeons.Dungeon2.Act,
-			dungeonPanel.Dungeons.Dungeon3.Act,
-			dungeonPanel.Dungeons.Dungeon4.Act,
-			dungeonPanel.Dungeons.Dungeon5.Act,
-			dungeonPanel.Dungeons.Dungeon6.Act,
-			dungeonPanel.Dungeons.Dungeon7.Act,
-			dungeonPanel.Dungeons.Dungeon8.Act,
-		}) do
-			if checkButton then
-				S:HandleCheckBox(checkButton)
+	local function handleGroup(panel)
+		for _, name in pairs(names) do
+			local frame = panel.Group[name]
+			if frame then
+				local check = frame.Act
+				if check then
+					check:SetSize(26, 26)
+					check:SetPoint("TOPLEFT", 5, -1)
+					S:HandleCheckBox(check)
+				end
+				local input = frame.Min
+				if input then
+					S:HandleEditBox(input)
+					S:HandleEditBox(frame.Max)
+				end
+				if frame.DropDown then
+					S:HandleDropDownBox(frame.DropDown)
+				end
 			end
 		end
 
-		-- EditBox
-		for _, editBox in pairs({
-			dungeonPanel.Group.MPRating.Min,
-			dungeonPanel.Group.MPRating.Max,
-			dungeonPanel.Group.Members.Min,
-			dungeonPanel.Group.Members.Max,
-			dungeonPanel.Group.Tanks.Min,
-			dungeonPanel.Group.Tanks.Max,
-			dungeonPanel.Group.Heals.Min,
-			dungeonPanel.Group.Heals.Max,
-			dungeonPanel.Group.DPS.Min,
-			dungeonPanel.Group.DPS.Max,
-		}) do
-			if editBox then
-				S:HandleEditBox(editBox)
-			end
+		S:HandleEditBox(panel.Advanced.Expression)
+	end
+
+	local styled
+	hooksecurefunc(PGFDialog, "Show", function(self)
+		if styled then return end
+		styled = true
+
+		self:StripTextures()
+		self:CreateBackdrop('Transparent')
+		self.backdrop:ClearAllPoints()
+		self.backdrop:Point("TOPLEFT", self, "TOPLEFT", -1, 0)
+		self.backdrop:Point("BOTTOMRIGHT", self, "BOTTOMRIGHT", 1, -1)
+
+		self.backdrop:Styling()
+		module:CreateBackdropShadow(self, true)
+
+		S:HandleCloseButton(self.CloseButton)
+		S:HandleButton(self.ResetButton)
+		S:HandleButton(self.RefreshButton)
+
+		S:HandleEditBox(ExpressionPanel.Advanced.Expression)
+		S:HandleEditBox(ExpressionPanel.Sorting.Expression)
+
+		local button = self.MaxMinButtonFrame
+		if button.MinimizeButton then
+			S:HandleNextPrevButton(button.MinimizeButton, "down")
+			button.MinimizeButton:ClearAllPoints()
+			button.MinimizeButton:SetPoint("RIGHT", self.CloseButton, "LEFT", -3, 0)
+			S:HandleNextPrevButton(button.MaximizeButton, "up")
+			button.MaximizeButton:ClearAllPoints()
+			button.MaximizeButton:SetPoint("RIGHT", self.CloseButton, "LEFT", -3, 0)
 		end
 
-		-- DropBox
-		S:HandleDropDownBox(dungeonPanel.Group.Difficulty.DropDown)
+		handleGroup(RaidPanel)
+		handleGroup(DungeonPanel)
+		handleGroup(ArenaPanel)
+		handleGroup(RBGPanel)
 
-		-- BigEditBox
-		S:HandleEditBox(dungeonPanel.Advanced.Expression)
+		for i = 1, 8 do
+			local dungeon = DungeonPanel.Dungeons["Dungeon" .. i]
+			local check = dungeon and dungeon.Act
+			if check then
+				check:SetSize(26, 26)
+				check:SetPoint("TOPLEFT", 5, -1)
+				S:HandleCheckBox(check)
+			end
+		end
+	end)
 
-	end
+	hooksecurefunc(PGFDialog, "ResetPosition", function(self)
+		self:ClearAllPoints()
+		self:SetPoint("TOPLEFT", PVEFrame, "TOPRIGHT", 2, 0)
+	end)
 
-	if frame.Sorting and frame.Sorting.SortingExpression then
-		S:HandleEditBox(frame.Sorting.SortingExpression)
-		frame.Sorting.SortingExpression.backdrop:ClearAllPoints()
-		frame.Sorting.SortingExpression.backdrop:SetOutside(frame.Sorting.SortingExpression, 1, -2)
-	end
-
-	local button = _G.UsePFGButton or _G.UsePGFButton
+	local button = UsePGFButton
 	if button then
 		S:HandleCheckBox(button)
-		button:ClearAllPoints()
-		button:Point("RIGHT", _G.LFGListFrame.SearchPanel.RefreshButton, "LEFT", -50, 0)
+		button.text:SetWidth(35)
 	end
 end
 
