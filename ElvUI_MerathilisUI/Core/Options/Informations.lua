@@ -231,7 +231,7 @@ options.reset = {
 			type = "execute",
 			name = L["Location Panel"],
 			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["AutoButtons"], nil, function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Location Panel"], nil, function()
 					E:CopyTable(E.db.mui.locPanel, P.locPanel)
 				end)
 			end
@@ -251,7 +251,7 @@ options.reset = {
 			type = "execute",
 			name = L["Cooldown Flash"],
 			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Micro Bar"], nil, function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Cooldown Flash"], nil, function()
 					E:CopyTable(E.db.mui.cooldownFlash, P.cooldownFlash)
 				end)
 			end
@@ -293,6 +293,16 @@ options.reset = {
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["BigWigs Skin"], nil, function()
 					E.private.mui.skins.addonSkins.bw = V.skins.addonSkins.bw
+				end)
+			end
+		},
+		chatBar = {
+			order = 11,
+			type = "execute",
+			name = L["Chat Bar"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Chat Bar"], nil, function()
+					E.db.mui.maps.chat.chatBar = P.chat.chatBar
 				end)
 			end
 		},

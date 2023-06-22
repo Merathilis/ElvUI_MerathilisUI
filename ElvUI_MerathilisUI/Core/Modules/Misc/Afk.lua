@@ -168,6 +168,9 @@ end
 local function Initialize()
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
 
+	local _, classunit = UnitClass("player")
+	local colorDB = E.db.mui.gradient
+
 	-- Hide ElvUI Elements
 	AFK.AFKMode.bottom:Hide() -- Bottom panel
 	AFK.AFKMode.bottom.LogoTop:Hide()
@@ -219,8 +222,17 @@ local function Initialize()
 	AFK.AFKMode.PlayerName = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.PlayerName:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
 	AFK.AFKMode.PlayerName:FontTemplate(nil, 26, 'OUTLINE')
-	AFK.AFKMode.PlayerName:SetTextColor(F.r, F.g, F.b or 1, 1, 1)
-	AFK.AFKMode.PlayerName:SetText(E.myname)
+
+	if colorDB.enable then
+		if colorDB.customColor.enableClass then
+			AFK.AFKMode.PlayerName:SetText(F.GradientNameCustom(E.myname, classunit))
+		else
+			AFK.AFKMode.PlayerName:SetText(F.GradientName(E.myname, classunit))
+		end
+	else
+		AFK.AFKMode.PlayerName:SetText(E.myname)
+		AFK.AFKMode.PlayerName:SetTextColor(F.r, F.g, F.b or 1, 1, 1)
+	end
 
 	AFK.AFKMode.Guild = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.Guild:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 0)

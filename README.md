@@ -1,7 +1,7 @@
 <div align="center">
-<img src="m4.png"/><br>
-<img src="https://img.shields.io/badge/ElvUI-13.29-blue.svg?longCache=true&style=for-the-badge"/>
-<img src="https://img.shields.io/badge/Version-5.74-orange.svg?longCache=true&style=for-the-badge"/>
+<img src="https://raw.githubusercontent.com/Merathilis/ElvUI_MerathilisUI/development/m4.png"/><br>
+<img src="https://img.shields.io/badge/ElvUI-13.33-blue.svg?longCache=true&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Version-5.80-orange.svg?longCache=true&style=for-the-badge"/>
 </div>
 
 ---

@@ -68,12 +68,17 @@ local function GradientNames()
 
 	hooksecurefunc(Details.atributo_damage, "RefreshLine", function(_, _, lineContainer, whichRowLine)
 		local thisLine = lineContainer[whichRowLine]
-		if not thisLine then
-			return
-		end
-
+		if not thisLine then return end
 		if thisLine.lineText1 then
-			thisLine.lineText1:SetText(thisLine.colocacao .. ". " .. F.GradientName(thisLine.minha_tabela:GetDisplayName(), thisLine.minha_tabela:class()))
+			thisLine.lineText1:SetText(F.GradientName(thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(), thisLine.minha_tabela:class()))
+		end
+	end)
+
+	hooksecurefunc(Details.atributo_heal, "RefreshLine", function(_, instancia, _, whichRowLine)
+		local thisLine = instancia.barras[whichRowLine]
+		if not thisLine then return end
+		if thisLine.lineText1 then
+			thisLine.lineText1:SetText(F.GradientName(thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(), thisLine.minha_tabela:class()))
 		end
 	end)
 end

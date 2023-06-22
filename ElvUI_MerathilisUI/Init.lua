@@ -57,6 +57,7 @@ MER.Modules.Bags = MER:NewModule('MER_Bags')
 MER.Modules.BagInfo = MER:NewModule("MER_BagInfo", 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.Chat = MER:NewModule('MER_Chat', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 MER.Modules.ChatBar = MER:NewModule('MER_ChatBar', 'AceEvent-3.0', 'AceHook-3.0')
+MER.Modules.ChatFade = MER:NewModule('MER_ChatFade', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 MER.Modules.ChatLink = MER:NewModule('MER_ChatLink', 'AceEvent-3.0')
 MER.Modules.ChatText = MER:NewModule('MER_ChatText', 'AceEvent-3.0')
 MER.Modules.Cooldown =  MER:NewModule('MER_Cooldown', 'AceHook-3.0')
@@ -132,6 +133,11 @@ do
 	end
 
 	MER:AddLib('LDD', 'LibDropDown')
+end
+
+_G.MerathilisUI_OnAddonCompartmentClick = function()
+	E:ToggleOptions()
+	E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'mui')
 end
 
 function MER:Initialize()
@@ -211,6 +217,8 @@ do
 		end
 
 		self:FixGame()
+
+		Engine[2]:GradientColorUpdate()
 
 		E:Delay(1, collectgarbage, 'collect')
 	end

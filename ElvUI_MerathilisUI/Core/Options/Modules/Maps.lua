@@ -327,6 +327,7 @@ options.maps = {
 				E.db.mui.maps.rectangleMinimap[info[#info]] = value
 				RM:ChangeShape()
 			end,
+			hidden = not E.Retail,
 			args = {
 				desc = {
 					order = 1,

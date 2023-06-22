@@ -133,23 +133,50 @@ end)
 E:AddTag('name:gradient', 'UNIT_NAME_UPDATE', function(unit)
 	local name = UnitName(unit)
 	local _, unitClass = UnitClass(unit)
+	local isTarget = UnitIsUnit(unit, "target") and not unit:match("nameplate") and not unit:match("party")
 	if name and len(name) > 10 then
 		name = name:gsub('(%S+) ', function(t) return t:utf8sub(1, 1) .. '. ' end)
 	end
 
 	if UnitIsPlayer(unit) then
-		return F.GradientName(name, unitClass)
+		return F.GradientName(name, unitClass, isTarget)
 	elseif not UnitIsPlayer(unit) then
 		local reaction = UnitReaction(unit, 'player')
 		if reaction then
 			if reaction >= 5 then
-				return F.GradientName(name, 'NPCFRIENDLY')
+				return F.GradientName(name, 'NPCFRIENDLY', isTarget)
 			elseif reaction == 4 then
-				return F.GradientName(name, 'NPCNEUTRAL')
+				return F.GradientName(name, 'NPCNEUTRAL', isTarget)
 			elseif reaction == 3 then
-				return F.GradientName(name, 'NPCUNFRIENDLY')
+				return F.GradientName(name, 'NPCUNFRIENDLY', isTarget)
 			elseif reaction == 2 or reaction == 1 then
-				return F.GradientName(name, 'NPCHOSTILE')
+				return F.GradientName(name, 'NPCHOSTILE', isTarget)
+			end
+		end
+	end
+end)
+
+E:AddTag('name:gradientcustom', 'UNIT_NAME_UPDATE', function(unit)
+	local name = UnitName(unit)
+	local _, unitClass = UnitClass(unit)
+	local isTarget = UnitIsUnit(unit, "target") and not unit:match("nameplate") and not unit:match("party")
+	if name and len(name) > 10 then
+		name = name:gsub('(%S+) ', function(t) return t:utf8sub(1, 1) .. '. ' end)
+	end
+
+	if UnitIsPlayer(unit) then
+		return F.GradientNameCustom(name, unitClass, isTarget)
+	elseif not UnitIsPlayer(unit) then
+		local reaction = UnitReaction(unit, 'player')
+		if reaction then
+			if reaction >= 5 then
+				return F.GradientNameCustom(name, 'NPCFRIENDLY', isTarget)
+			elseif reaction == 4 then
+				return F.GradientNameCustom(name, 'NPCNEUTRAL', isTarget)
+			elseif reaction == 3 then
+				return F.GradientNameCustom(name, 'NPCUNFRIENDLY', isTarget)
+			elseif reaction == 2 or reaction == 1 then
+				return F.GradientNameCustom(name, 'NPCHOSTILE', isTarget)
 			end
 		end
 	end
@@ -175,4 +202,5 @@ E:AddTagInfo("health:current-mUI", MER.Title, "Displays current HP (2.04B, 2.04M
 E:AddTagInfo("power:current-mUI", MER.Title, "Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag")
 E:AddTagInfo("mUI-resting", MER.Title, "Displays a text if the player is in a resting area = zZz")
 E:AddTagInfo("name:abbrev-translit", MER.Title, "Displays a shorten name and will convert cyrillics. Игорь = !Igor")
-E:AddTagInfo("name:gradient", MER.Title, "Displays a shorten name in classcolor or reaction color")
+E:AddTagInfo("name:gradient", MER.Title, "Displays a shorten name in gradient classcolor")
+E:AddTagInfo("name:gradientcustom", MER.Title, "Displays a shorten name in custom gradient classcolor")

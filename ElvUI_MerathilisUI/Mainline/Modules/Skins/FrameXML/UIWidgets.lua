@@ -102,13 +102,23 @@ local function ReskinSpellDisplayWidget(spell)
 	spell.IconMask:Hide()
 end
 
-local function LoadSkin()
-	if not module:CheckDB("misc", "misc") then
-		return
-	end
+local function ReskinPowerBarWidget(self)
+	if not self.widgetFrames then return end
 
-	hooksecurefunc(_G.UIWidgetTopCenterContainerFrame, "UpdateWidgetLayout", function(self)
-		for _, widgetFrame in pairs(self.widgetFrames) do
+	for _, widgetFrame in pairs(self.widgetFrames) do
+		if widgetFrame.widgetType == Type_StatusBar then
+			if not widgetFrame:IsForbidden() then
+				ReskinWidgetStatusBar(widgetFrame.Bar)
+			end
+		end
+	end
+end
+
+local function ReskinWidgetGroups(self)
+	if not self.widgetFrames then return end
+
+	for _, widgetFrame in pairs(self.widgetFrames) do
+		if not widgetFrame:IsForbidden() then
 			local widgetType = widgetFrame.widgetType
 			if widgetType == Type_DoubleStatusBar then
 				ReskinDoubleStatusBarWidget(widgetFrame)
@@ -118,42 +128,42 @@ local function LoadSkin()
 				ReskinWidgetStatusBar(widgetFrame.Bar)
 			end
 		end
-	end)
+	end
+end
 
-	hooksecurefunc(_G.UIWidgetBelowMinimapContainerFrame, "UpdateWidgetLayout", function(self)
-		for _, widgetFrame in pairs(self.widgetFrames) do
-			if widgetFrame.widgetType == Type_CaptureBar then
-				ReskinPVPCaptureBar(widgetFrame)
-			end
-		end
-	end)
-
-	hooksecurefunc(_G.UIWidgetPowerBarContainerFrame, "UpdateWidgetLayout", function(self)
-		for _, widgetFrame in pairs(self.widgetFrames) do
-			if widgetFrame.widgetType == Type_StatusBar then
-				ReskinWidgetStatusBar(widgetFrame.Bar)
-			end
-		end
-	end)
-
-	for _, widgetFrame in pairs(_G.UIWidgetPowerBarContainerFrame.widgetFrames) do
-		if not widgetFrame:IsForbidden() then
-			ReskinWidgetStatusBar(widgetFrame.Bar)
-		end
+function module:UIWidgets()
+	if not module:CheckDB("misc", "misc") then
+		return
 	end
 
-	hooksecurefunc(_G.TopScenarioWidgetContainerBlock.WidgetContainer, "UpdateWidgetLayout", function(self)
+	hooksecurefunc(_G.UIWidgetTopCenterContainerFrame, "UpdateWidgetLayout", ReskinWidgetGroups)
+	ReskinWidgetGroups(_G.UIWidgetTopCenterContainerFrame)
+
+	hooksecurefunc(_G.UIWidgetBelowMinimapContainerFrame, "UpdateWidgetLayout", function(self)
+		if not self.widgetFrames then return end
+
 		for _, widgetFrame in pairs(self.widgetFrames) do
-			if widgetFrame.widgetType == Type_StatusBar then
-				ReskinWidgetStatusBar(widgetFrame.Bar)
+			if widgetFrame.widgetType == Type_CaptureBar then
+				if not widgetFrame:IsForbidden() then
+					ReskinPVPCaptureBar(widgetFrame)
+				end
 			end
 		end
 	end)
 
+	hooksecurefunc(_G.UIWidgetPowerBarContainerFrame, "UpdateWidgetLayout", ReskinPowerBarWidget)
+	ReskinPowerBarWidget(_G.UIWidgetPowerBarContainerFrame)
+
+	hooksecurefunc(_G.TopScenarioWidgetContainerBlock.WidgetContainer, "UpdateWidgetLayout", ReskinPowerBarWidget)
+
 	hooksecurefunc(_G.BottomScenarioWidgetContainerBlock.WidgetContainer, "UpdateWidgetLayout", function(self)
+		if not self.widgetFrames then return end
+
 		for _, widgetFrame in pairs(self.widgetFrames) do
 			if widgetFrame.widgetType == Type_SpellDisplay then
-				ReskinSpellDisplayWidget(widgetFrame.Spell)
+				if not widgetFrame:IsForbidden() then
+					ReskinSpellDisplayWidget(widgetFrame.Spell)
+				end
 			end
 		end
 	end)
@@ -207,4 +217,4 @@ local function LoadSkin()
 	end, true)
 end
 
-S:AddCallback("UIWidgets", LoadSkin)
+module:AddCallback("UIWidgets")

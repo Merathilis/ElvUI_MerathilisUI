@@ -12,12 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix the NameHover Option. Thanks @Murava",
-		"• Wrath: Fix double ID's on AutoButtons",
-		"• Wrath: AutoButton fix 'Inherit Global Fade Option' thanks @Naifu <3",
-		"• Added a gradient Name Option for Details. Disabled by default",
-		"• Use E:StripString on the Gradient Tooltips to fix some weird stuff",
-		"• Small Layout adjustments",
+		"• Fix Auctionator Skin. Thx @fang2hou",
+		"• Some fixes to my new gradient color options",
+		"• Added ChatBar to the Reset Module Option",
+		-- "• ''",
 
 		" ",
 

@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="AddonCompartment.lua"/>
 	<Script file="AddonList.lua"/>
 	<Script file="BagFrame.lua"/>
 	<Script file="BNet.lua"/>

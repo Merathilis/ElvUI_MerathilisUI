@@ -130,6 +130,7 @@ V.skins = {
 	},
 	blizzard = {
 		enable = true,
+		addonCompartment = true,
 		arena = true,
 		arenaRegistrar = true,
 		character = true,

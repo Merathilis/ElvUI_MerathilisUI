@@ -22,7 +22,6 @@ local strupper = strupper
 local time = time
 local tinsert = tinsert
 local tonumber = tonumber
-local tostring = tostring
 local type = type
 local unpack = unpack
 local utf8sub = string.utf8sub
@@ -33,7 +32,6 @@ local BetterDate = BetterDate
 local BNet_GetClientEmbeddedTexture = BNet_GetClientEmbeddedTexture
 local BNGetNumFriends = BNGetNumFriends
 local BNGetNumFriendInvites = BNGetNumFriendInvites
-local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 local FlashClientIcon = FlashClientIcon
 local GetAchievementLink = GetAchievementLink
 local GetBNPlayerCommunityLink = GetBNPlayerCommunityLink
@@ -55,7 +53,6 @@ local IsInRaid = IsInRaid
 local PlaySoundFile = PlaySoundFile
 local RemoveExtraSpaces = RemoveExtraSpaces
 local RemoveNewlines = RemoveNewlines
-local StaticPopup_Visible = StaticPopup_Visiblelocal
 local UnitExists = UnitExists
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitIsGroupLeader = UnitIsGroupLeader
@@ -495,14 +492,21 @@ end
 
 -- From ElvUI Chat
 local function ChatFrame_CheckAddChannel(chatFrame, eventType, channelID)
+	-- This is called in the event that a user receives chat events for a channel that isn't enabled for any chat frames.
+	-- Minor hack, because chat channel filtering is backed by the client, but driven entirely from Lua.
+	-- This solves the issue of Guides abdicating their status, and then re-applying in the same game session, unless ChatFrame_AddChannel
+	-- is called, the channel filter will be off even though it's still enabled in the client, since abdication removes the chat channel and its config.
+	-- Only add to default (since multiple chat frames receive the event and we don't want to add to others)
 	if chatFrame ~= _G.DEFAULT_CHAT_FRAME then
 		return false
 	end
 
+	-- Only add if the user is joining a channel
 	if eventType ~= "YOU_CHANGED" then
 		return false
 	end
 
+	-- Only add regional channels
 	if not C_ChatInfo_IsChannelRegionalForChannelID(channelID) then
 		return false
 	end
@@ -752,27 +756,30 @@ function CT:HandleShortChannels(msg)
 end
 
 function CT:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
-	local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
-	if isHistory == "ElvUI_ChatHistory" then
-		historyTimestamp = historyTime
-	end
-
-	if CH.db.timeStampFormat and CH.db.timeStampFormat ~= "NONE" then
-		local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or CH:GetChatTime())
-		timeStamp = gsub(timeStamp, " ", "")
-		timeStamp = gsub(timeStamp, "AM", " AM")
-		timeStamp = gsub(timeStamp, "PM", " PM")
-		if CH.db.useCustomTimeColor then
-			local color = CH.db.customTimeColor
-			local hexColor = E:RGBToHex(color.r, color.g, color.b)
-			msg = format("%s%s|r %s", hexColor, timeStamp, msg)
-		else
-			msg = format("%s %s", timeStamp, msg)
+	if not strmatch(msg, "^|Helvtime|h") and not strmatch(msg, "^|Hcpl:") then
+		local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
+		if isHistory == "ElvUI_ChatHistory" then
+			historyTimestamp = historyTime
 		end
-	end
 
-	if CH.db.copyChatLines then
-		msg = format("|Hcpl:%s|h%s|h %s", self:GetID(), E:TextureString(E.Media.Textures.ArrowRight, ":14"), msg)
+		if CH.db.timeStampFormat and CH.db.timeStampFormat ~= "NONE" then
+			local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or CH:GetChatTime())
+			timeStamp = gsub(timeStamp, " ", "")
+			timeStamp = gsub(timeStamp, "AM", " AM")
+			timeStamp = gsub(timeStamp, "PM", " PM")
+
+			if CH.db.useCustomTimeColor then
+				local color = CH.db.customTimeColor
+				local hexColor = E:RGBToHex(color.r, color.g, color.b)
+				msg = format("|Helvtime|h%s[%s]|r|h %s", hexColor, timeStamp, msg)
+			else
+				msg = format("|Helvtime|h[%s]|h %s", timeStamp, msg)
+			end
+		end
+
+		if CH.db.copyChatLines then
+			msg = format("|Hcpl:%s|h%s|h %s", self:GetID(), E:TextureString(E.Media.Textures.ArrowRight, ":14"), msg)
+		end
 	end
 
 	self.OldAddMessage(self, msg, infoR, infoG, infoB, infoID, accessID, typeID)
@@ -820,6 +827,48 @@ function CT:HandleName(nameString)
 	end
 
 	return nameString
+end
+
+function CT:MayHaveBrackets(...)
+	local names = { ... }
+	for i = 1, select("#", ...) do
+		names[i] = not CT.db.removeBrackets and "[" .. names[i] .. "]" or names[i]
+	end
+	return unpack(names)
+end
+
+function CT:GetColoredName(event, _, arg2, _, _, _, _, _, arg8, _, _, _, arg12)
+	local db = E.db.mui.gradient
+	local chatType = strsub(event, 10)
+
+	local subType = strsub(chatType, 1, 7)
+	if subType == 'WHISPER' then
+		chatType = 'WHISPER'
+	elseif subType == 'CHANNEL' then
+		chatType = 'CHANNEL' .. arg8
+	end
+
+	--ambiguate guild chat names
+	arg2 = Ambiguate(arg2, (chatType == 'GUILD' and 'guild') or 'none')
+
+	local info = arg12 and _G.ChatTypeInfo[chatType]
+	if info and _G.Chat_ShouldColorChatByClass(info) then
+		local data = CH:GetPlayerInfoByGUID(arg12)
+		local classColor = data and data.classColor
+		if classColor then
+			if db and db.enable then
+				if db.customColor.enableClass then
+					return F.GradientNameCustom(arg2, data.englishClass)
+				else
+					return F.GradientName(arg2, data.englishClass)
+				end
+			else
+				return format('|cff%.2x%.2x%.2x%s|r', classColor.r * 255, classColor.g * 255, classColor.b * 255, arg2)
+			end
+		end
+	end
+
+	return arg2
 end
 
 function CT:ChatFrame_MessageEventHandler(
@@ -988,7 +1037,7 @@ function CT:ChatFrame_MessageEventHandler(
 		end
 
 		-- fetch the name color to use
-		local coloredName = historySavedName or CH:GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
+		local coloredName = historySavedName or CT:GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
 
 		local channelLength = strlen(arg4)
 		local infoType = chatType
@@ -1105,9 +1154,7 @@ function CT:ChatFrame_MessageEventHandler(
 			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
 		elseif strsub(chatType, 1, 11) == "ACHIEVEMENT" then
 			-- Append [Share] hyperlink
-			if not CT:ElvUIChat_AchievementMessageHandler(event, frame, arg1, data) then
-				frame:AddMessage(format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", CT:HandleName(coloredName)))), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-			end
+			frame:AddMessage(format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", CT:HandleName(coloredName)))), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
 		elseif strsub(chatType, 1, 18) == "GUILD_ACHIEVEMENT" then
 			if not CT:ElvUIChat_AchievementMessageHandler(event, frame, arg1, data) then
 				local message = format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", coloredName)))
@@ -1343,8 +1390,7 @@ function CT:ChatFrame_MessageEventHandler(
 				end
 
 				-- LFG Role Flags
-				local lfgRole = (chatType == 'PARTY_LEADER' or chatType == 'PARTY' or chatType == 'RAID' or chatType == 'RAID_LEADER' or chatType == 'INSTANCE_CHAT' or chatType == 'INSTANCE_CHAT_LEADER') and
-					lfgRoles[playerName]
+				local lfgRole = (chatType == 'PARTY_LEADER' or chatType == 'PARTY' or chatType == 'RAID' or chatType == 'RAID_LEADER' or chatType == 'INSTANCE_CHAT' or chatType == 'INSTANCE_CHAT_LEADER') and lfgRoles[playerName]
 				if lfgRole then
 					pflag = pflag .. lfgRole
 				end
@@ -1537,9 +1583,9 @@ function CT:SendAchivementMessage()
 					local message = nil
 
 					if #players == 1 then
-						message = gsub(achievementMessageTemplate, "%%player%%", addSpaceForAsian(players[1]))
+						message = gsub(achievementMessageTemplate, "%%player%%", addSpaceForAsian(self:MayHaveBrackets(players[1])))
 					elseif #players > 1 then
-						message = gsub(achievementMessageTemplateMultiplePlayers, "%%players%%", addSpaceForAsian(strjoin(", ", unpack(players))))
+						message = gsub(achievementMessageTemplateMultiplePlayers, "%%players%%", addSpaceForAsian(strjoin(", ", self:MayHaveBrackets(unpack(players)))))
 					end
 
 					if message then
@@ -1661,7 +1707,7 @@ function CT:ElvUIChat_GuildMemberStatusMessageHandler(frame, msg)
 		local displayName = CT.db.removeRealm and Ambiguate(name, "short") or name
 		local coloredName = F.CreateClassColorString(displayName, link and guildPlayerCache[link] or guildPlayerCache[name])
 
-		coloredName = addSpaceForAsian(coloredName)
+		coloredName = addSpaceForAsian(self:MayHaveBrackets(coloredName))
 		local classIcon = self.db.classIcon and F.GetClassIconStringWithStyle(class, CT.db.classIconStyle, 16, 16) .. " " or ""
 
 		if coloredName and classIcon then
@@ -1840,7 +1886,7 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture)
 				""
 			local coloredName = F.CreateClassColorString(character, characterData.data.class)
 
-			local playerName = format("|Hplayer:%s|h%s%s|h", fullName, classIcon, coloredName)
+			local playerName = format("|Hplayer:%s|h%s%s|h", fullName, classIcon, self:MayHaveBrackets(coloredName))
 
 			if self.db.factionIcon then
 				local factionIcon =

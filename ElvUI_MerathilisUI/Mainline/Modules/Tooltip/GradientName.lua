@@ -16,19 +16,43 @@ local function TooltipGradientName(unit)
 	local _, classunit = UnitClass(unit)
 	local reaction = UnitReaction(unit, 'player')
 
-	local tooltipName = E:StripString(_G['GameTooltipTextLeft1']:GetText())
+	local text = _G['GameTooltipTextLeft1']:GetText()
+	local tooltipName = text and E:StripString(text)
+
+	local colorDB = E.db.mui.gradient
+
 	if tooltipName and classunit and reaction then
 		if UnitIsPlayer(unit) and classunit then
-			_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, classunit))
+			if colorDB.enable and colorDB.customColor.enableClass then
+				_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, classunit))
+			else
+				_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, classunit))
+			end
 		else
 			if reaction and reaction >= 5 then
-				_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCFRIENDLY'))
+				if colorDB.customColor.enable then
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, 'NPCFRIENDLY'))
+				else
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCFRIENDLY'))
+				end
 			elseif reaction and reaction == 4 then
-				_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCNEUTRAL'))
+				if colorDB.customColor.enable then
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, 'NPCNEUTRAL'))
+				else
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCNEUTRAL'))
+				end
 			elseif reaction and reaction == 3 then
-				_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCUNFRIENDLY'))
+				if colorDB.customColor.enable then
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, 'NPCUNFRIENDLY'))
+				else
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCUNFRIENDLY'))
+				end
 			elseif reaction and reaction == 2 or reaction == 1 then
-				_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCHOSTILE'))
+				if colorDB.customColor.enable then
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, 'NPCHOSTILE'))
+				else
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCHOSTILE'))
+				end
 			end
 		end
 	end
@@ -36,8 +60,8 @@ end
 
 function T:ApplyTooltipStyle(tt)
 	if not tt then return end
-	local db = E.db.mui.tooltip
-	if db and not db.gradientName then
+	local db = E.db.mui.gradient
+	if not db.enable then
 		return
 	end
 	if _G.GameTooltip and _G.GameTooltip:IsForbidden() then return end

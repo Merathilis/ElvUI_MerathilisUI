@@ -46,6 +46,12 @@ MER.options = {
 		icon = MER.Media.Icons.system,
 		args = {},
 	},
+	gradient = {
+		order = 106,
+		name = F.cOption(L["Gradient Colors"], 'gradient'),
+		icon = MER.Media.Icons.gradient,
+		args = {},
+	},
 	advanced = {
 		order = 111,
 		name = F.cOption(L["Advanced Settings"], 'gradient'),

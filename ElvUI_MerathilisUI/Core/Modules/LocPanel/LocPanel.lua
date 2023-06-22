@@ -285,6 +285,14 @@ module.Spells = {
 		[39] = {text = GetSpellInfo(393283),icon = F.GetIconFromID('spell', 393283),secure = {buttonType = 'spell',ID = 393283}, UseTooltip = true}, -- Halls of Infusion (Path of the Titanic Reservoir)
 		[40] = {text = GetSpellInfo(393764),icon = F.GetIconFromID('spell', 393764),secure = {buttonType = 'spell',ID = 393764}, UseTooltip = true}, -- Halls of Valor (Path of Proven Worth)
 		[41] = {text = GetSpellInfo(393766),icon = F.GetIconFromID('spell', 393766),secure = {buttonType = 'spell',ID = 393766}, UseTooltip = true}, -- Court of Stars (Path of the Grand Magistrix)
+		[42] = {text = GetSpellInfo(396129),icon = F.GetIconFromID('spell', 396129),secure = {buttonType = 'spell',ID = 396129}, UseTooltip = true}, -- Teleport: Brackenhide Hollow
+		[43] = {text = GetSpellInfo(396130),icon = F.GetIconFromID('spell', 396130),secure = {buttonType = 'spell',ID = 396130}, UseTooltip = true}, -- Teleport: Halls of Infusion
+		[44] = {text = GetSpellInfo(396127),icon = F.GetIconFromID('spell', 396127),secure = {buttonType = 'spell',ID = 396127}, UseTooltip = true}, -- Teleport: Uldaman: Legacy of Tyr
+		[45] = {text = GetSpellInfo(396128),icon = F.GetIconFromID('spell', 396128),secure = {buttonType = 'spell',ID = 396128}, UseTooltip = true}, -- Teleport: Neltharus
+		[46] = {text = GetSpellInfo(272262),icon = F.GetIconFromID('spell', 272262),secure = {buttonType = 'spell',ID = 272262}, UseTooltip = true}, -- Teleport: Freehold
+		[47] = {text = GetSpellInfo(272269),icon = F.GetIconFromID('spell', 272269),secure = {buttonType = 'spell',ID = 272269}, UseTooltip = true}, -- Teleport: The Underrot
+		[48] = {text = GetSpellInfo(205379),icon = F.GetIconFromID('spell', 205379),secure = {buttonType = 'spell',ID = 205379}, UseTooltip = true}, -- Teleport: Neltharion's Lair
+		[49] = {text = GetSpellInfo(88775),icon = F.GetIconFromID('spell', 88775),secure = {buttonType = 'spell',ID = 88775}, UseTooltip = true}, -- Teleport to The Vortex Pinnacle
 	},
 }
 
