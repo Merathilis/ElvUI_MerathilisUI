@@ -1,4 +1,4 @@
-## Interface: 100100
+## Interface: 100105
 ## Author: Merathilis
 ## Version: @project-version@
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
@@ -18,6 +18,7 @@
 ## X-WoWI-ID: 24117
 ## X-Wago-ID: VBNBZVNx
 
+## X-Interface: 100105
 ## X-Tukui-ProjectID: 1
 ## X-Tukui-ProjectFolders: ElvUI_MerathilisUI
 
