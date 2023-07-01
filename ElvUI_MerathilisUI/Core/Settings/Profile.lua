@@ -19,46 +19,7 @@ P.general = {
 }
 
 P.bags = {
-	Enable = true,
-	IconSize = 34,
-	IconSpacing = 3,
-	FontSize = 11,
-	BagsWidth = 12,
-	BankWidth = 12,
-	BagsiLvl = true,
-	BindType = true,
-	CenterText = true,
-	BagSortMode = 2,
-	ItemFilter = true,
-	CustomItems = {},
-	CustomNames = {},
-	GatherEmpty = false,
-	ShowNewItem = true,
-	SplitCount = 1,
-	SpecialBagsColor = false,
-	iLvlToShow = 1,
-	AutoDeposit = false,
-	PetTrash = true,
-	BagsPerRow = 6,
-	BankPerRow = 10,
-	HideWidgets = true,
-
-	FilterJunk = true,
-	FilterAmmo = true,
-	FilterConsumable = true,
-	FilterAzerite = false,
-	FilterEquipment = true,
-	FilterLegendary = true,
-	FilterCollection = true,
-	FilterFavourite = true,
-	FilterGoods = false,
-	FilterQuest = false,
-	FilterEquipSet = false,
-	FilterAnima = false,
-	FilterRelic = false,
-	FilterStone = true,
-
-	equipOverlay = true,
+	Enable = false,
 }
 
 P.merchant = {
