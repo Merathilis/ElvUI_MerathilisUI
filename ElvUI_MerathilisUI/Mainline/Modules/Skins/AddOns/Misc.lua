@@ -141,6 +141,13 @@ local function LoadSkin()
 	module:SecureHook(S, "HandleIconSelectionFrame", function(_, frame)
 		module:CreateShadow(frame)
 	end)
+
+	-- Basic Message Dialog
+	local MessageDialog = _G.BasicMessageDialog
+	if MessageDialog then
+		module:CreateShadow(MessageDialog)
+		MessageDialog:Styling()
+	end
 end
 
 S:AddCallback("BlizzMisc", LoadSkin)
