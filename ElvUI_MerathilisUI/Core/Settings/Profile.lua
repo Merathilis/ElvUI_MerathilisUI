@@ -19,7 +19,7 @@ P.general = {
 }
 
 P.bags = {
-	Enable = false,
+	equipOverlay = true,
 }
 
 P.merchant = {
