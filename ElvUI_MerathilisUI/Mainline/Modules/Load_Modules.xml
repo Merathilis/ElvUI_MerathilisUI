@@ -2,7 +2,7 @@
 	<Include file='Skins\Load_Skins.xml'/>
 	<Include file='Actionbars\Load_Actionbars.xml'/>
 	<Include file='Announcement\Load_Announcement.xml'/>
-	<Include file='Bags\Load_Bags.xml'/>
+	<!-- <Include file='Bags\Load_Bags.xml'/> -->
 	<Include file='Blizzard\Load_Blizzard.xml'/>
 	<Include file='Chat\Load_Chat.xml'/>
 	<Include file='Maps\Load_Maps.xml'/>

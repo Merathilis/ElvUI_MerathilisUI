@@ -42,6 +42,7 @@ local PATRONS = {
 	'Graldur',
 	'Deezyl',
 	'Zhadar',
+	'Dadedadeur ',
 }
 tsort(PATRONS, SortList)
 local PATRONS_STRING = tconcat(PATRONS, ", ")

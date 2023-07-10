@@ -689,13 +689,12 @@ local eventData = {
 						end
 
 						local db = module:GetPlayerDB("iskaaranFishingNet")
-
 						if spellID == 377887 then -- Get Fish
 							if db[netIndex] then
 								db[netIndex] = nil
 							end
 						elseif spellID == 377883 then -- Set Net
-						E:Delay(0.5, function()
+							E:Delay(0.5, function()
 								local namePlates = C_NamePlate_GetNamePlates(true)
 								if #namePlates > 0 then
 									for _, namePlate in ipairs(namePlates) do
