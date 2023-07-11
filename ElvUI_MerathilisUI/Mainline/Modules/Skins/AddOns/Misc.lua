@@ -111,11 +111,10 @@ local function LoadSkin()
 
 	-- Mirror Timers
 	if E.private.skins.blizzard.mirrorTimers then
-		hooksecurefunc(_G.MirrorTimerContainer, 'SetupTimer', function(self, timer)
-			local bar = self:GetAvailableTimer(timer)
-			if bar then
-				bar:CreateShadow()
-				bar:Styling()
+		hooksecurefunc(_G.MirrorTimerMixin, 'SetupTimer', function(timer)
+			if timer and timer.StatusBar then
+				module:CreateShadow(timer.StatusBar)
+				timer.StatusBar:Styling()
 			end
 		end)
 	end
