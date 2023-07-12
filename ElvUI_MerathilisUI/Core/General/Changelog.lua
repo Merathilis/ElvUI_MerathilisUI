@@ -12,9 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix Auctionator Skin. Thx @fang2hou",
-		"• Some fixes to my new gradient color options",
-		"• Added ChatBar to the Reset Module Option",
+		"• Removed own Bags due to some major issues i don't couldn't resolve",
+		"• A standalone version from the bags are on my Discord",
+		"• Updated a lot of skins for Patch 10.1.5",
+		"• Ignore FarmHud as Minimap Button",
 		-- "• ''",
 
 		" ",
