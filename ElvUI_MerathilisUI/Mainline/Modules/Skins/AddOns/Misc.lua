@@ -111,14 +111,12 @@ local function LoadSkin()
 
 	-- Mirror Timers
 	if E.private.skins.blizzard.mirrorTimers then
-		_G.MirrorTimer1.StatusBar:Styling()
-		module:CreateShadow(_G.MirrorTimer1)
-
-		_G.MirrorTimer2.StatusBar:Styling()
-		module:CreateShadow(_G.MirrorTimer2)
-
-		_G.MirrorTimer3.StatusBar:Styling()
-		module:CreateShadow(_G.MirrorTimer3)
+		hooksecurefunc(_G.MirrorTimerMixin, 'SetupTimer', function(timer)
+			if timer and timer.StatusBar then
+				module:CreateShadow(timer.StatusBar)
+				timer.StatusBar:Styling()
+			end
+		end)
 	end
 
 	-- Error Text
