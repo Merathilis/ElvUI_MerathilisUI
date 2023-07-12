@@ -585,7 +585,8 @@ local eventData = {
 					[2] = 1675767600, -- KR
 					[3] = 1676017800, -- EU
 					[4] = 1675767600, -- TW
-					[5] = 1675767600 -- CN
+					[5] = 1675767600, -- CN
+					[72] = 1675767600 -- TR -- Adjust me
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -622,7 +623,8 @@ local eventData = {
 					[2] = 1670770800, -- KR
 					[3] = 1670774400, -- EU
 					[4] = 1670770800, -- TW
-					[5] = 1670770800 -- CN
+					[5] = 1670770800, -- CN
+					[72] = 1670770800 -- TR -- Adjust me
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -687,13 +689,12 @@ local eventData = {
 						end
 
 						local db = module:GetPlayerDB("iskaaranFishingNet")
-
 						if spellID == 377887 then -- Get Fish
 							if db[netIndex] then
 								db[netIndex] = nil
 							end
 						elseif spellID == 377883 then -- Set Net
-						E:Delay(0.5, function()
+							E:Delay(0.5, function()
 								local namePlates = C_NamePlate_GetNamePlates(true)
 								if #namePlates > 0 then
 									for _, namePlate in ipairs(namePlates) do

@@ -22,111 +22,97 @@ function module:PremadeGroupsFilter()
 
 	self:DisableAddOnSkins("PremadeGroupsFilter", false)
 
-	local frame = _G.PremadeGroupsFilterDialog
-	S:HandleFrame(frame, true)
+	local DungeonPanel = _G.PremadeGroupsFilterDungeonPanel
+	if not DungeonPanel then return end
 
-	frame.backdrop:SetTemplate("Transparent")
-	frame.backdrop:ClearAllPoints()
-	frame.backdrop:Point("TOPLEFT", frame, "TOPLEFT", -1, 0)
-	frame.backdrop:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 1, -1)
+	local ArenaPanel = _G.PremadeGroupsFilterArenaPanel
+	local RBGPanel = _G.PremadeGroupsFilterRBGPanel
+	local RaidPanel = _G.PremadeGroupsFilterRaidPanel
+	local ExpressionPanel = _G.PremadeGroupsFilterExpressionPanel
+	local PGFDialog = _G.PremadeGroupsFilterDialog
 
-	frame.backdrop:Styling()
-	self:CreateBackdropShadow(frame, true)
+	local names = { "Difficulty", "MPRating", "Members", "Tanks", "Heals", "DPS", "Partyfit", "BLFit", "BRFit", "Defeated", "MatchingId", "PvPRating" }
 
-	self:SecureHook(frame, "SetPoint", "PremadeGroupsFilter_SetPoint")
-
-	for i = 1, frame:GetNumPoints() do
-		module:PremadeGroupsFilter_SetPoint(frame, frame:GetPoint())
-	end
-
-	if frame.Advanced then
-		for _, region in pairs {frame.Advanced:GetRegions()} do
-			local name = region.GetName and region:GetName()
-			if name and (strmatch(name, "Corner") or strmatch(name, "Border")) then
-				region:StripTextures()
+	local function handleGroup(panel)
+		for _, name in pairs(names) do
+			local frame = panel.Group[name]
+			if frame then
+				local check = frame.Act
+				if check then
+					check:SetSize(26, 26)
+					check:SetPoint("TOPLEFT", 5, -1)
+					S:HandleCheckBox(check)
+				end
+				local input = frame.Min
+				if input then
+					S:HandleEditBox(input)
+					S:HandleEditBox(frame.Max)
+				end
+				if frame.DropDown then
+					S:HandleDropDownBox(frame.DropDown)
+				end
 			end
 		end
+
+		S:HandleEditBox(panel.Advanced.Expression)
 	end
 
-	if frame.Expression then
-		S:HandleEditBox(frame.Expression)
-	end
+	local styled
+	hooksecurefunc(PGFDialog, "Show", function(self)
+		if styled then return end
+		styled = true
 
-	if frame.ResetButton then
-		S:HandleButton(frame.ResetButton)
-	end
+		self:StripTextures()
+		self:CreateBackdrop('Transparent')
+		self.backdrop:ClearAllPoints()
+		self.backdrop:Point("TOPLEFT", self, "TOPLEFT", -1, 0)
+		self.backdrop:Point("BOTTOMRIGHT", self, "BOTTOMRIGHT", 1, -1)
 
-	if frame.RefreshButton then
-		S:HandleButton(frame.RefreshButton)
-	end
+		self.backdrop:Styling()
+		module:CreateBackdropShadow(self, true)
 
-	if frame.MaxMinButtonFrame.MinimizeButton then
-		S:HandleNextPrevButton(frame.MaxMinButtonFrame.MinimizeButton, "up", nil, true)
-		frame.MaxMinButtonFrame.MinimizeButton:ClearAllPoints()
-		frame.MaxMinButtonFrame.MinimizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
-	end
+		S:HandleCloseButton(self.CloseButton)
+		S:HandleButton(self.ResetButton)
+		S:HandleButton(self.RefreshButton)
 
-	if frame.MaxMinButtonFrame.MaximizeButton then
-		S:HandleNextPrevButton(frame.MaxMinButtonFrame.MaximizeButton, "down", nil, true)
-		frame.MaxMinButtonFrame.MaximizeButton:ClearAllPoints()
-		frame.MaxMinButtonFrame.MaximizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
-	end
+		S:HandleEditBox(ExpressionPanel.Advanced.Expression)
+		S:HandleEditBox(ExpressionPanel.Sorting.Expression)
 
-	for _, line in pairs(
-		{
-			"Difficulty",
-			"Ilvl",
-			"Noilvl",
-			"Defeated",
-			"Members",
-			"Tanks",
-			"Heals",
-			"Dps",
-			"MPRating",
-			"PVPRating",
-		}
-	) do
-		if frame[line] then
-			if frame[line].Act then
-				S:HandleCheckBox(frame[line].Act)
-				frame[line].Act:Size(24)
-				frame[line].Act:ClearAllPoints()
-				frame[line].Act:Point("LEFT", frame[line], "LEFT", 3, -3)
-			end
+		local button = self.MaxMinButtonFrame
+		if button.MinimizeButton then
+			S:HandleNextPrevButton(button.MinimizeButton, "down")
+			button.MinimizeButton:ClearAllPoints()
+			button.MinimizeButton:SetPoint("RIGHT", self.CloseButton, "LEFT", -3, 0)
+			S:HandleNextPrevButton(button.MaximizeButton, "up")
+			button.MaximizeButton:ClearAllPoints()
+			button.MaximizeButton:SetPoint("RIGHT", self.CloseButton, "LEFT", -3, 0)
+		end
 
-			if line == "Defeated" and frame[line].Title then
-				frame[line].Title:SetHeight(18)
-			end
+		handleGroup(RaidPanel)
+		handleGroup(DungeonPanel)
+		handleGroup(ArenaPanel)
+		handleGroup(RBGPanel)
 
-			if frame[line].DropDown then
-				S:HandleDropDownBox(frame[line].DropDown)
-			end
-
-			if frame[line].Min then
-				S:HandleEditBox(frame[line].Min)
-				frame[line].Min.backdrop:ClearAllPoints()
-				frame[line].Min.backdrop:SetOutside(frame[line].Min, 0, 0)
-			end
-
-			if frame[line].Max then
-				S:HandleEditBox(frame[line].Max)
-				frame[line].Max.backdrop:ClearAllPoints()
-				frame[line].Max.backdrop:SetOutside(frame[line].Max, 0, 0)
+		for i = 1, 8 do
+			local dungeon = DungeonPanel.Dungeons["Dungeon" .. i]
+			local check = dungeon and dungeon.Act
+			if check then
+				check:SetSize(26, 26)
+				check:SetPoint("TOPLEFT", 5, -1)
+				S:HandleCheckBox(check)
 			end
 		end
+	end)
+
+	module:SecureHook(PGFDialog, "SetPoint", "PremadeGroupsFilter_SetPoint")
+	for i = 1, PGFDialog:GetNumPoints() do
+		module:PremadeGroupsFilter_SetPoint(PGFDialog, PGFDialog:GetPoint())
 	end
 
-	if frame.Sorting and frame.Sorting.SortingExpression then
-		S:HandleEditBox(frame.Sorting.SortingExpression)
-		frame.Sorting.SortingExpression.backdrop:ClearAllPoints()
-		frame.Sorting.SortingExpression.backdrop:SetOutside(frame.Sorting.SortingExpression, 1, -2)
-	end
-
-	local button = _G.UsePFGButton or _G.UsePGFButton
+	local button = UsePGFButton
 	if button then
 		S:HandleCheckBox(button)
-		button:ClearAllPoints()
-		button:Point("RIGHT", _G.LFGListFrame.SearchPanel.RefreshButton, "LEFT", -50, 0)
+		button.text:SetWidth(35)
 	end
 end
 

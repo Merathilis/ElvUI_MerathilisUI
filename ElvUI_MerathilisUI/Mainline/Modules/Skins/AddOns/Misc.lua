@@ -111,14 +111,13 @@ local function LoadSkin()
 
 	-- Mirror Timers
 	if E.private.skins.blizzard.mirrorTimers then
-		_G.MirrorTimer1.StatusBar:Styling()
-		module:CreateShadow(_G.MirrorTimer1)
-
-		_G.MirrorTimer2.StatusBar:Styling()
-		module:CreateShadow(_G.MirrorTimer2)
-
-		_G.MirrorTimer3.StatusBar:Styling()
-		module:CreateShadow(_G.MirrorTimer3)
+		hooksecurefunc(_G.MirrorTimerContainer, 'SetupTimer', function(container, timer)
+			local bar = container:GetAvailableTimer(timer)
+			if bar then
+				module:CreateShadow(bar)
+				bar:Styling()
+			end
+		end)
 	end
 
 	-- Error Text
@@ -141,6 +140,13 @@ local function LoadSkin()
 	module:SecureHook(S, "HandleIconSelectionFrame", function(_, frame)
 		module:CreateShadow(frame)
 	end)
+
+	-- Basic Message Dialog
+	local MessageDialog = _G.BasicMessageDialog
+	if MessageDialog then
+		module:CreateShadow(MessageDialog)
+		MessageDialog:Styling()
+	end
 end
 
 S:AddCallback("BlizzMisc", LoadSkin)

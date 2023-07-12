@@ -404,9 +404,6 @@ function MER:SetupLayout()
 		--[[----------------------------------
 	--	ProfileDB - Bags
 	--]] ----------------------------------
-	if not E.Retail then
-		E.private["bags"]["enable"] = false
-	end
 	E.db["bags"]["itemLevelFont"] = "Expressway"
 	E.db["bags"]["itemLevelFontSize"] = 9
 	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
