@@ -804,33 +804,10 @@ function F.PixelIcon(self, texture, highlight)
 end
 
 -- Role Icons
-function F.GetRoleTexCoord(role)
-	if role == "TANK" then
-		return .32/9.03, 2.04/9.03, 2.65/9.03, 4.3/9.03
-	elseif role == "DPS" or role == "DAMAGER" then
-		return 2.68/9.03, 4.4/9.03, 2.65/9.03, 4.34/9.03
-	elseif role == "HEALER" then
-		return 2.68/9.03, 4.4/9.03, .28/9.03, 1.98/9.03
-	elseif role == "LEADER" then
-		return .32/9.03, 2.04/9.03, .28/9.03, 1.98/9.03
-	elseif role == "READY" then
-		return 5.1/9.03, 6.76/9.03, .28/9.03, 1.98/9.03
-	elseif role == "PENDING" then
-		return 5.1/9.03, 6.76/9.03, 2.65/9.03, 4.34/9.03
-	elseif role == "REFUSE" then
-		return 2.68/9.03, 4.4/9.03, 5.02/9.03, 6.7/9.03
-	end
-end
-
 function F.ReskinRole(self, role)
 	if self.background then self.background:SetTexture("") end
 	local cover = self.cover or self.Cover
 	if cover then cover:SetTexture("") end
-	local texture = self.GetNormalTexture and self:GetNormalTexture() or self.texture or self.Texture or (self.SetTexture and self)
-	if texture then
-		texture:SetTexture(E.media.roleIcons)
-		texture:SetTexCoord(F.GetRoleTexCoord(role))
-	end
 
 	local checkButton = self.checkButton or self.CheckButton or self.CheckBox
 	if checkButton then

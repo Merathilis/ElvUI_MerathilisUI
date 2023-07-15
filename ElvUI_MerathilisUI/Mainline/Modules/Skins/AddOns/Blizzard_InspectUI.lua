@@ -109,16 +109,13 @@ local function LoadSkin()
 		end
 	end)
 
-	local roleIcon = inspectSpec.roleIcon
-	roleIcon:SetTexture(E["media"].roleIcons)
-	local bg = module:CreateBDFrame(roleIcon, 1)
-	bg:SetPoint("TOPLEFT", roleIcon, 2, -1)
-	bg:SetPoint("BOTTOMRIGHT", roleIcon, -1, 2)
-
-	for i = 1, 3 do
+	for i = 1, 4 do
 		local tab = _G["InspectFrameTab"..i]
-		if i ~= 1 then
-			tab:SetPoint("LEFT", _G["InspectFrameTab"..i-1], "RIGHT", -15, 0)
+		if tab then
+			module:ReskinTab(tab)
+			if i ~= 1 then
+				tab:SetPoint("LEFT", _G["InspectFrameTab"..i-1], "RIGHT", -15, 0)
+			end
 		end
 	end
 end
