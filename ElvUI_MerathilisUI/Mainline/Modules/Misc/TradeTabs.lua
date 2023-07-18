@@ -248,9 +248,13 @@ function module:TradeTabs_QuickEnchanting()
 end
 
 function module:TradeTabs()
-	self.db = E.db.mui.misc.TradeTabs
+	module.db = E.db.mui.misc.tradeTabs
 
 	if not _G.ProfessionsFrame then
+		return
+	end
+
+	if not module.db or not (E.private.skins.blizzard.enable and E.private.skins.blizzard.tradeskill) then
 		return
 	end
 
