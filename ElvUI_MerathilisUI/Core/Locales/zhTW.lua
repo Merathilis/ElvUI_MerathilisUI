@@ -722,6 +722,8 @@ L["M+ Level"] = "M+ 等級"
 L["Number of Players"] = "玩家數量"
 L["Placeholders"] = "占位符"
 L["Use Default"] = "使用預設"
+L["Researchers Under Fire"] = true
+L["Time Rift Thaldraszus"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地圖按鍵"
