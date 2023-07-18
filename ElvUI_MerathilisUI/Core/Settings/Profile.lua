@@ -1486,8 +1486,28 @@ P.maps = {
 			stopAlertIfCompleted = true,
 			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
-		iskaaranFishingNet = {
+		researchersUnderFire = {
 			enable = true,
+			desaturate = false,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Light",
+			second = 600,
+			stopAlertIfCompleted = true,
+			stopAlertIfPlayerNotEnteredDragonlands = true
+		},
+		timeRiftThaldraszus = {
+			enable = true,
+			desaturate = false,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Light",
+			second = 600,
+			stopAlertIfCompleted = false,
+			stopAlertIfPlayerNotEnteredDragonlands = true
+		},
+		iskaaranFishingNet = {
+			enable = false,
 			alert = true,
 			sound = true,
 			soundFile = "OnePlus Surprise",
@@ -1591,7 +1611,8 @@ P.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,200630,193588,190237,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952",
+		hsPrio =
+		"54452,200630,193588,190237,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952,140192,110560",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,

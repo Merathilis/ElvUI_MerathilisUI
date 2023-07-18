@@ -725,6 +725,8 @@ L["M+ Level"] = true
 L["Number of Players"] = "Anzahl der Spieler"
 L["Placeholders"] = "Platzhalter"
 L["Use Default"] = "Benutze Standard"
+L["Researchers Under Fire"] = "Forscher unter Feuer"
+L["Time Rift Thaldraszus"] = "Zeitriss Thaldraszus"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

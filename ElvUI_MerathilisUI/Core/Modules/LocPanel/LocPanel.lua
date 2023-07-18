@@ -101,8 +101,8 @@ module.Hearthstones = {
 }
 
 module.PortItems = {
-	{140192, DUNGEON_FLOOR_DALARAN1}, --Dalaran Hearthstone
-	{110560, GARRISON_LOCATION_TOOLTIP}, --Garrison Hearthstone
+	{140192, nil, true}, --Dalaran Hearthstone
+	{110560, nil, true}, --Garrison Hearthstone
 	{128353}, --Admiral's Compass
 	{37863}, --Grim Guzzler
 	{52251}, --Jaina's Locket

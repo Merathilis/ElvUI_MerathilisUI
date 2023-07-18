@@ -729,6 +729,8 @@ L["M+ Level"] = true
 L["Number of Players"] = true
 L["Placeholders"] = true
 L["Use Default"] = true
+L["Researchers Under Fire"] = true
+L["Time Rift Thaldraszus"] = true
 
 -- SMB
 L["Minimap Buttons"] = true

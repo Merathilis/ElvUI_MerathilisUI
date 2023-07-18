@@ -247,23 +247,31 @@ function module:TradeTabs_QuickEnchanting()
 	end)
 end
 
-function module:TradeTabs()
-	self.db = E.db.mui.misc.TradeTabs
+local function LoadTradeTabs()
+	if init then return end
 
-	if not _G.ProfessionsFrame then
+	if InCombatLockdown() then
+		MER:RegisterEvent("PLAYER_REGEN_ENABLED", module.TradeTabs_OnLoad)
+	else
+		module:TradeTabs_OnLoad()
+	end
+end
+
+function module:TradeTabs()
+	module.db = E.db.mui.misc.tradeTabs
+	if not module.db or not (E.private.skins.blizzard.enable and E.private.skins.blizzard.tradeskill) then
 		return
 	end
 
-	_G.ProfessionsFrame:HookScript("OnShow", function()
-		if init then
-			return
-		end
-		if InCombatLockdown() then
-			MER:RegisterEvent("PLAYER_REGEN_ENABLED", module.TradeTabs_OnLoad)
-		else
-			module:TradeTabs_OnLoad()
-		end
-	end)
+	if _G.ProfessionsFrame then
+		_G.ProfessionsFrame:HookScript("OnShow", LoadTradeTabs)
+	else
+		MER:RegisterEvent("ADDON_LOADED", function(_, addon)
+			if addon == "Blizzard_Professions" then
+				LoadTradeTabs()
+			end
+		end)
+	end
 end
 
 module:AddCallback("TradeTabs")

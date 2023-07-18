@@ -526,6 +526,10 @@ function MER:SetupLayout()
 	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
 	E.db["movers"]["AddonCompartmentMover"] = E.Retail and "TOPRIGHT,ElvUIParent,TOPRIGHT,-213,-17"
 
+	E.db["movers"]["MirrorTimer1Mover"] = not E.Retail and 'TOP,ElvUIParent,TOP,0,-60'
+	E.db["movers"]["MirrorTimer2Mover"] = not E.Retail and 'TOP,ElvUIParent,TOP,0,-79'
+	E.db["movers"]["MirrorTimer3Mover"] = not E.Retail and 'TOP,ElvUIParent,TOP,0,-98'
+
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
 	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-148"
