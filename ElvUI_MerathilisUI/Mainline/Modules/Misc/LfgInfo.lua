@@ -88,60 +88,6 @@ function module:ReskinIcon(parent, icon, role, class)
 	end
 end
 
-function module:UpdateEnumerate(Enumerate)
-	local button = Enumerate:GetParent():GetParent()
-	if not button.resultID then
-		return
-	end
-
-	local result = C_LFGList_GetSearchResultInfo(button.resultID)
-
-	if not result then
-		return
-	end
-
-	local cache = {
-		TANK = {},
-		HEALER = {},
-		DAMAGER = {}
-	}
-
-	for i = 1, result.numMembers do
-		local role, class = C_LFGList_GetSearchResultMemberInfo(button.resultID, i)
-		tinsert(cache[role], class)
-	end
-
-	for i = 5, 1, -1 do -- The index of icon starts from right
-		local icon = Enumerate["Icon" .. i]
-		if icon and icon.SetTexture then
-			if #cache.TANK > 0 then
-				module:ReskinIcon(Enumerate, icon, "TANK", cache.TANK[1])
-				tremove(cache.TANK, 1)
-			elseif #cache.HEALER > 0 then
-				module:ReskinIcon(Enumerate, icon, "HEALER", cache.HEALER[1])
-				tremove(cache.HEALER, 1)
-			elseif #cache.DAMAGER > 0 then
-				module:ReskinIcon(Enumerate, icon, "DAMAGER", cache.DAMAGER[1])
-				tremove(cache.DAMAGER, 1)
-			else
-				module:ReskinIcon(Enumerate, icon)
-			end
-		end
-	end
-end
-
-function module:UpdateRoleCount(RoleCount)
-	if RoleCount.TankIcon then
-		self:ReskinIcon(nil, RoleCount.TankIcon, "TANK")
-	end
-	if RoleCount.HealerIcon then
-		self:ReskinIcon(nil, RoleCount.HealerIcon, "HEALER")
-	end
-	if RoleCount.DamagerIcon then
-		self:ReskinIcon(nil, RoleCount.DamagerIcon, "DAMAGER")
-	end
-end
-
 function module:AddGroupInfo(tooltip, resultID)
 	local config = E.db.mui.misc.lfgInfo
 	if not config or not config.enable then
@@ -269,8 +215,6 @@ function module:Initialize()
 	end
 
 	module:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
-	module:SecureHook("LFGListGroupDataDisplayEnumerate_Update", "UpdateEnumerate")
-	module:SecureHook("LFGListGroupDataDisplayRoleCount_Update", "UpdateRoleCount")
 	module:SecureHook("LFGListSearchEntry_Update", "ShowLeaderOverallScore")
 end
 
