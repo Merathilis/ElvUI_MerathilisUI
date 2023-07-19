@@ -43,51 +43,6 @@ local function GetIconString(role, mode)
 	return format(template, UF.RoleIconTextures[role])
 end
 
-function module:ReskinIcon(parent, icon, role, class)
-    self.db = E.db.mui.misc.lfgInfo
-
-	-- Beautiful square icons
-	if role then
-		if self.db.icon.reskin then
-			icon:SetTexture(MER.Media.Textures.ROLES)
-			icon:SetTexCoord(F.GetRoleTexCoord(role))
-		end
-
-		icon:Size(self.db.icon.size)
-
-		if self.db.icon.border and not icon.backdrop then
-			icon:CreateBackdrop("Transparent")
-		end
-
-		icon:SetAlpha(self.db.icon.alpha)
-		if icon.backdrop then
-			icon.backdrop:SetAlpha(self.db.icon.alpha)
-		end
-	else
-		icon:SetAlpha(0)
-		if icon.backdrop then
-			icon.backdrop:SetAlpha(0)
-		end
-	end
-
-	-- Create bar in class color behind
-	if class and self.db.line.enable then
-		if not icon.line then
-			local line = parent:CreateTexture(nil, "ARTWORK")
-			line:SetTexture(E.LSM:Fetch("statusbar", self.db.line.tex) or E.media.normTex)
-			line:Size(self.db.line.width, self.db.line.height)
-			line:Point("TOP", icon, "BOTTOM", self.db.line.offsetX, self.db.line.offsetY)
-			icon.line = line
-		end
-
-		local color = E:ClassColor(class, false)
-		icon.line:SetVertexColor(color.r, color.g, color.b)
-		icon.line:SetAlpha(self.db.line.alpha)
-	elseif icon.line then
-		icon.line:SetAlpha(0)
-	end
-end
-
 function module:AddGroupInfo(tooltip, resultID)
 	local config = E.db.mui.misc.lfgInfo
 	if not config or not config.enable then
