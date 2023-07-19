@@ -735,8 +735,8 @@ L["M+ Level"] = true
 L["Number of Players"] = true
 L["Placeholders"] = true
 L["Use Default"] = true
-L["Researchers Under Fire"] = true
-L["Time Rift Thaldraszus"] = true
+L["Researchers Under Fire"] = "Des chercheurs sous le feu"
+L["Time Rift Thaldraszus"] = "Faille dans le temps Thaldraszus"
 
 -- SMB
 L["Minimap Buttons"] = "Bouton de la minicarte"
