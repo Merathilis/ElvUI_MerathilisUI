@@ -869,9 +869,13 @@ local openableItems = {
 	205968,
 	205983,
 	206135,
+	207002,
 	207582,
 	207583,
 	207584,
+	208090,
+	208951,
+	208952
 }
 
 local tbcOre = {
@@ -887,7 +891,7 @@ local tbcOre = {
 	3858,
 	7911,
 	10620,
-	14891,
+	14891
 }
 
 local tbcPotions = {
@@ -913,7 +917,7 @@ local tbcPotions = {
 	28100,
 	31677,
 	22832,
-	28101,
+	28101
 }
 
 local tbcElixirs = {
@@ -935,7 +939,7 @@ local tbcElixirs = {
 	22824,
 	28103,
 	28102,
-	22823,
+	22823
 }
 
 local tbcFlasks = {
@@ -944,7 +948,7 @@ local tbcFlasks = {
 	22853,
 	22851,
 	22861,
-	33208,
+	33208
 }
 
 local tbcCauldrons = {
@@ -952,7 +956,7 @@ local tbcCauldrons = {
 	32851,
 	32850,
 	32849,
-	32839,
+	32839
 }
 
 local wrathPotions = {
@@ -985,7 +989,7 @@ local wrathPotions = {
 	22850,
 	34440,
 	39671,
-	40067,
+	40067
 }
 
 local wrathFlasks = {
@@ -1003,7 +1007,7 @@ local wrathFlasks = {
 	44939,
 	32764,
 	32765,
-	32766,
+	32766
 }
 
 local wrathElixirs = {
@@ -1024,7 +1028,7 @@ local wrathElixirs = {
 	44331,
 	44332,
 	8827, -- waterwalking elixir
-	8529, -- noggenfogger elixir
+	8529 -- noggenfogger elixir
 }
 
 -- Profession Items
@@ -1271,7 +1275,7 @@ local professionItems = {
 	206030,
 	206031,
 	206034,
-	206035,
+	206035
 }
 
 local questItemList = {}

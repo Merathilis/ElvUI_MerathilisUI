@@ -275,6 +275,8 @@ local functionFactory = {
 						_G.GameTooltip:AddDoubleLine(L["Weekly Reward"], F.StringByTemplate(L["Not Completed"], "danger"), 1, 1, 1)
 					end
 				end
+
+				_G.GameTooltip:Show() -- is needed
 			end,
 			onLeave = function(self)
 				_G.GameTooltip:Hide()
@@ -681,7 +683,7 @@ local eventData = {
 					[1] = 1670333460, -- NA
 					[2] = 1670703360, -- KR
 					[3] = 1683804640, -- EU
-					[4] = 1670702460, -- TW
+					[4] = 1670704240, -- TW
 					[5] = 1670702460, -- CN
 					[72] = 1670702460 -- TR
 				}
@@ -698,7 +700,7 @@ local eventData = {
 	TimeRiftThaldraszus = {
 		dbKey = "timeRiftThaldraszus",
 		args = {
-			icon = 237538,
+			icon = 609811,
 			type = "loopTimer",
 			--questIDs = { 0 },
 			hasWeeklyReward = false,
@@ -720,7 +722,7 @@ local eventData = {
 					[1] = 1701829815, -- NA
 					[2] = 1701852315, -- KR
 					[3] = 1701828015, -- EU
-					[4] = 1701852315, -- TW
+					[4] = 1701824400, -- TW
 					[5] = 1701852315, -- CN
 					[72] = 1701852315 -- TR
 				}
