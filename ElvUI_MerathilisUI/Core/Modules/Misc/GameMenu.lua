@@ -17,45 +17,7 @@ local UIFrameFadeIn = UIFrameFadeIn
 local logo = "Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\mUI1.tga"
 
 MER.NPCS = {
-	285, -- Murloc
 	86470, -- Pepe
-	16445, -- Terky
-	15552, -- Doctor Weavil
-	32398, -- King Ping
-	82464, -- Elekk Plushie
-	71163, -- Unborn Val"kir
-	91226, -- Graves
-	54128, -- Creepy Crate
-	28883, -- Frosty
-	61324, -- Baby Ape
-	23754, -- Murloc Costume
-	34694, -- Gurgli
-	54438, -- Murkablo
-	85009, -- Murkidan
-	68267, -- Cinder Kitten
-	51601, -- Moonkin Hatchling
-	85283, -- Brightpaw
-	103159, -- Baby Winston
-	123650, -- Shadow
-	126579, -- Ghost Shark
-	85463, -- Gorefu
-	119408, -- "Captain" Klutz
-	127956, -- Amalgam of Destruction
-	85682, -- Blingtron 4999b
-	72285, -- Chi-Chi, Hatchling of Chi-Ji
-	67332, -- Darkmoon Eye
-	71693, -- Rascal-Bot
-	66499, -- Bishibosh
-	-- BfA
-	139073, -- Poda
-	139770, -- Taptaf
-	140125, -- Miimii
-	141941, -- Baa'l
-	143160, -- Brutus
-	143507, -- Voidwiggler
-	143563, -- Cholerian
-	143794, -- Scuttle
-	143796, -- Barnaby
 	-- Shadowlands
 	172854, -- Dredger Butler
 	175783, -- Digallo
@@ -68,7 +30,6 @@ MER.NPCS = {
 	188861, -- Secretive Frogduck
 	189152, -- Lubbins
 	191627, -- Lord Basilton
-
 }
 
 --[[
