@@ -53,7 +53,7 @@ local function Styling(f, useStripes, useShadow)
 		return
 	end
 
-	if not E.private.mui.skins.enable then
+	if not E.private.mui.skins.enable or not E.private.mui.skins.style then
 		return
 	end
 
@@ -76,8 +76,6 @@ local function Styling(f, useStripes, useShadow)
 		stripes:SetBlendMode("ADD")
 
 		style.stripes = stripes
-
-		if not E.private.mui.skins.style then stripes:Hide() end
 	end
 
 	if not(useShadow) then
@@ -89,8 +87,6 @@ local function Styling(f, useStripes, useShadow)
 		mshadow:SetVertexColor(1, 1, 1, 0.6)
 
 		style.mshadow = mshadow
-
-		if not E.private.mui.skins.style then mshadow:Hide() end
 	end
 
 	style:SetFrameStrata(f:GetFrameStrata())
