@@ -73,34 +73,8 @@ local function CalculateTimeValues(tooltip)
 	end
 end
 
-local function CalculateTimeLeft(time)
-	local hour = floor(time / 3600)
-	local min = floor(time / 60 - (hour*60))
-	local sec = time - (hour * 3600) - (min * 60)
-
-	return hour, min, sec
-end
-
-local function formatResetTime(sec)
-	local d, h, m, s = ChatFrame_TimeBreakDown(floor(sec))
-	if not type(d) == "number" or not type(h)== "number" or not type(m) == "number" or not type(s) == "number" then
-		return "N/A"
-	end
-
-	if d > 0 and lockoutFormatString[h>10 and 1 or 2] then
-		return format(lockoutFormatString[h>10 and 1 or 2], d, h, m)
-	end
-	if h > 0 and lockoutFormatString[h>10 and 3 or 4] then
-		return format(lockoutFormatString[h>10 and 3 or 4], h, m)
-	end
-	if m > 0 and lockoutFormatString[m>10 and 5 or 6] then
-		return format(lockoutFormatString[m>10 and 5 or 6], m)
-	end
-end
 
 local function OnEvent(self, event)
-	if not E.Retail then return end
-
 	if event == "QUEST_COMPLETE" then
 		updateQuestTable = true
 	elseif (event == "QUEST_LOG_UPDATE" and updateQuestTable) or event == "ELVUI_FORCE_RUN" then
@@ -134,19 +108,17 @@ local function OnEnter(self)
 	end
 
 	DT.tooltip:AddLine(VOICE_CHAT_BATTLEGROUND)
-	if E.Retail then
-		for i = 1, GetNumWorldPVPAreas() do
-			_, localizedName, isActive, canQueue, startTime, canEnter = GetWorldPVPAreaInfo(i)
-			if canEnter then
-				if isActive then
-					startTime = WINTERGRASP_IN_PROGRESS
-				elseif startTime == nil then
-					startTime = QUEUE_TIME_UNAVAILABLE
-				else
-					startTime = SecondsToTime(startTime, false, nil, 3)
-				end
-				DT.tooltip:AddDoubleLine(format(formatBattleGroundInfo, localizedName), startTime, 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)
+	for i = 1, GetNumWorldPVPAreas() do
+		_, localizedName, isActive, canQueue, startTime, canEnter = GetWorldPVPAreaInfo(i)
+		if canEnter then
+			if isActive then
+				startTime = WINTERGRASP_IN_PROGRESS
+			elseif startTime == nil then
+				startTime = QUEUE_TIME_UNAVAILABLE
+			else
+				startTime = SecondsToTime(startTime, false, nil, 3)
 			end
+			DT.tooltip:AddDoubleLine(format(formatBattleGroundInfo, localizedName), startTime, 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)
 		end
 	end
 
@@ -174,18 +146,16 @@ local function OnEnter(self)
 		end
 	end
 
-	if E.Retail then
-		local addedLine = false
-		for i = 1, GetNumSavedWorldBosses() do
-			name, instanceID, reset = GetSavedWorldBossInfo(i)
-			if(reset) then
-				if(not addedLine) then
-					DT.tooltip:AddLine(' ')
-					DT.tooltip:AddLine(RAID_INFO_WORLD_BOSS.."(s)")
-					addedLine = true
-				end
-				DT.tooltip:AddDoubleLine(name, SecondsToTime(reset, true, nil, 3), 1, 1, 1, 0.8, 0.8, 0.8)
+	local addedLine = false
+	for i = 1, GetNumSavedWorldBosses() do
+		name, instanceID, reset = GetSavedWorldBossInfo(i)
+		if(reset) then
+			if(not addedLine) then
+				DT.tooltip:AddLine(' ')
+				DT.tooltip:AddLine(RAID_INFO_WORLD_BOSS.."(s)")
+				addedLine = true
 			end
+			DT.tooltip:AddDoubleLine(name, SecondsToTime(reset, true, nil, 3), 1, 1, 1, 0.8, 0.8, 0.8)
 		end
 	end
 

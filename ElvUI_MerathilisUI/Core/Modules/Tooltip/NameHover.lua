@@ -47,7 +47,7 @@ local function AddTargetInfos(self, unit)
 	local unitTarget = unit..'target'
 	if unit ~= 'player' and UnitExists(unitTarget) then
 		local targetColor
-		if UnitIsPlayer(unitTarget) and (not E.Retail or not UnitHasVehicleUI(unitTarget)) then
+		if UnitIsPlayer(unitTarget) and not UnitHasVehicleUI(unitTarget) then
 			local _, class = UnitClass(unitTarget)
 			targetColor = E:ClassColor(class) or _G.PRIEST_COLOR
 		else

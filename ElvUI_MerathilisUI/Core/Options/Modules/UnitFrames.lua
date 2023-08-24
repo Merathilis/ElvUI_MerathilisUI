@@ -237,7 +237,6 @@ options.unitframes = {
 					type = "group",
 					name = F.cOption(L["GCD Bar"], 'orange'),
 					guiInline = true,
-					hidden = not E.Retail,
 					get = function(info) return E.db.mui.unitframes.gcd[info[#info]] end,
 					set = function(info, value)
 						E.db.mui.unitframes.gcd[info[#info]] = value;

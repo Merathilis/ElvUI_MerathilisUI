@@ -33,8 +33,6 @@ local function GetGuildInvites()
 end
 
 local function toggleCalendar()
-	if not E.Retail then return end
-
 	if not _G.CalendarFrame then LoadAddOn("Blizzard_Calendar") end
 	ShowUIPanel(_G.CalendarFrame)
 end
@@ -75,8 +73,6 @@ function module:CALENDAR_UPDATE_GUILD_EVENTS()
 end
 
 local function LoginCheck()
-	if not E.Retail then return end
-
 	alertEvents()
 	alertGuildEvents()
 end

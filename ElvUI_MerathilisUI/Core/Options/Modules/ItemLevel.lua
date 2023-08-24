@@ -13,7 +13,6 @@ options.itemLevel = {
 		E.db.mui.itemLevel[info[#info]] = value
 		IL:ProfileUpdate()
 	end,
-	hidden = not E.Retail,
 	args = {
 		header = {
 			order = 0,

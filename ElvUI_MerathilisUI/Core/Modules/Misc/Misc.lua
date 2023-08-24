@@ -15,8 +15,6 @@ local C_BattleNet_GetGameAccountInfoByGUID = C_BattleNet and C_BattleNet.GetGame
 local C_FriendList_IsFriend = C_FriendList.IsFriend
 
 function module:SetRole()
-	if not E.Retail then return end
-
 	local spec = GetSpecialization()
 	if UnitLevel("player") >= 10 and not InCombatLockdown() then
 		if spec == nil and UnitGroupRolesAssigned("player") ~= "NONE" then
@@ -56,14 +54,12 @@ function module:Misc()
 		end)
 	end
 
-	if E.Retail then
-		E.RegisterCallback(module, "RoleChanged", "SetRole")
-		module:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
-		module:RegisterEvent("GROUP_INVITE_CONFIRMATION", "BlockRequest")
+	E.RegisterCallback(module, "RoleChanged", "SetRole")
+	module:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
+	module:RegisterEvent("GROUP_INVITE_CONFIRMATION", "BlockRequest")
 
-		module:WowHeadLinks()
-		module:QuickMenu()
-	end
+	module:WowHeadLinks()
+	module:QuickMenu()
 
 	module:LoadGMOTD()
 	module:LoadQuest()

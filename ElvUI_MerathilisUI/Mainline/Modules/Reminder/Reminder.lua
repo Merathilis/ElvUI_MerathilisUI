@@ -467,7 +467,7 @@ function module:ReminderIcon_OnEvent(event, unit)
 		return
 	end
 
-	local activeTree = E.Retail and GetSpecialization()
+	local activeTree = GetSpecialization()
 	if db.spellGroup and not db.weaponCheck then
 		if filterCheck and ((not hasBuff) and (not hasDebuff)) and not db.reverseCheck then
 			self:SetAlpha(1)

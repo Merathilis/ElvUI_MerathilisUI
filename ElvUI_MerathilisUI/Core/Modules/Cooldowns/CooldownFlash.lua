@@ -322,25 +322,15 @@ hooksecurefunc("UseInventoryItem", function(slot)
 	end
 end)
 
---ToDO: WoW10
-if E.Retail or E.Wrath then
-	hooksecurefunc(C_Container, "UseContainerItem", function(bag, slot)
-		local itemID = GetContainerItemID(bag, slot)
+hooksecurefunc(C_Container, "UseContainerItem", function(bag, slot)
+	local itemID = GetContainerItemID(bag, slot)
 
-		if (itemID) then
-			local texture = select(10, GetItemInfo(itemID))
-			module.watching[itemID] = { GetTime(), "item", texture }
-		end
-	end)
-else
-	hooksecurefunc("UseContainerItem", function(bag, slot)
-		local itemID = GetContainerItemID(bag, slot)
-		if (itemID) then
-			local texture = select(10, GetItemInfo(itemID))
-			module.watching[itemID] = { GetTime(), "item", texture }
-		end
-	end)
-end
+	if (itemID) then
+		local texture = select(10, GetItemInfo(itemID))
+		module.watching[itemID] = { GetTime(), "item", texture }
+	end
+end)
+
 
 function module:EnableCooldownFlash()
 	DCP:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")

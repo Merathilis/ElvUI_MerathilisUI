@@ -692,15 +692,7 @@ P.actionbars = {
 }
 
 local function Filter()
-	if E.Classic then
-		return "POTION,FLASK,UTILITY"
-	elseif E.TBC then
-		return "POTIONTBC,FLASKTBC,CAULDRONTBC,ELIXIRTBC,ORETBC,UTILITY"
-	elseif E.Wrath then
-		return "POTIONSWRATH,FLASKWRATH,UTILITY"
-	elseif E.Retail then
-		return "POTIONDF,FLASKDF,RUNE,UTILITY"
-	end
+	return "POTIONDF,FLASKDF,RUNE,UTILITY"
 end
 
 P.autoButtons = {

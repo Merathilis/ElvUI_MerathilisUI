@@ -27,7 +27,6 @@ options.actionbars = {
 			name = F.cOption(L["Specialization Bar"], 'orange'),
 			guiInline = true,
 			disabled = function() return not E.private.actionbar.enable end,
-			hidden = not E.Retail,
 			get = function(info) return E.db.mui.actionbars.specBar[ info[#info] ] end,
 			set = function(info, value) E.db.mui.actionbars.specBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			args = {

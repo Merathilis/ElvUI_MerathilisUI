@@ -205,13 +205,11 @@ local function LoadSkin()
 
 	local db = E.private.mui.skins.addonSkins.dt
 	if db and db.enable then
-		if E.Retail then
-			if db.gradientBars then
-				GradientBars()
-			end
-			if db.gradientName then
-				GradientNames()
-			end
+		if db.gradientBars then
+			GradientBars()
+		end
+		if db.gradientName then
+			GradientNames()
 		end
 	end
 

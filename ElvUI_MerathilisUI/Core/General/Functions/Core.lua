@@ -289,201 +289,74 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 	local tip = CreateFrame("GameTooltip", "mUI_ScanTooltip", nil, "GameTooltipTemplate")
 	F.ScanTip = tip
 
-	if not E.Retail then
-		function F:InspectItemTextures()
-			if not tip.gems then
-				tip.gems = {}
-			else
-				wipe(tip.gems)
-			end
+	local slotData = { gems = {}, gemsColor = {} }
+	function F.GetItemLevel(link, arg1, arg2, fullScan)
+		if fullScan then
+			local data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
+			if not data then return end
 
-			for i = 1, 5 do
-				local tex = _G["mUI_ScanTooltipTexture" .. i]
-				local texture = tex and tex:IsShown() and tex:GetTexture()
-				if texture then
-					tip.gems[i] = texture
-				end
-			end
+			wipe(slotData.gems)
+			wipe(slotData.gemsColor)
+			slotData.iLvl = nil
+			slotData.enchantText = nil
 
-			return tip.gems
-		end
-
-		function F:GetEnchantText(link, slotInfo)
-			local enchantID = tonumber(strmatch(link, "item:%d+:(%d+):"))
-			if enchantID then
-				--[[for i = 1, tip:NumLines() do
-				local line = _G["mUI_ScanTooltipTextLeft"..i]
-				if not line then break end
-
-				local text = line:GetText()
-				if text then
-					if i == 1 and text == RETRIEVING_ITEM_INFO then
-						return "tooSoon"
-					elseif i ~= 1 then
-						local r, g, b = line:GetTextColor()
-						r = B:Round(r, 3)
-						g = B:Round(g, 3)
-						b = B:Round(b, 3)
-						if not (r == 1 and g == 1 and b == 1) then
-							return text
-						end
-					end
-				end
-			end]]
-				return "+"
-			end
-		end
-
-		function F.GetItemLevel(link, arg1, arg2, fullScan)
-			if fullScan then
-				tip:SetOwner(UIParent, "ANCHOR_NONE")
-				tip:SetInventoryItem(arg1, arg2)
-
-				if not tip.slotInfo then tip.slotInfo = {} else wipe(tip.slotInfo) end
-
-				local slotInfo = tip.slotInfo
-				slotInfo.gems = F:InspectItemTextures()
-				slotInfo.enchantText = F:GetEnchantText(link, slotInfo)
-
-				return slotInfo
-			else
-				if iLvlDB[link] then return iLvlDB[link] end
-
-				tip:SetOwner(UIParent, "ANCHOR_NONE")
-				if arg1 and type(arg1) == "string" then
-					tip:SetInventoryItem(arg1, arg2)
-				elseif arg1 and type(arg1) == "number" then
-					tip:SetBagItem(arg1, arg2)
-				else
-					tip:SetHyperlink(link)
-				end
-
-				local firstLine = _G.mUI_ScanTooltipTextLeft1:GetText()
-				if firstLine == RETRIEVING_ITEM_INFO then
-					return "tooSoon"
-				end
-
-				for i = 2, 5 do
-					local line = _G["mUI_ScanTooltipTextLeft" .. i]
-					if not line then break end
-
-					local text = line:GetText()
-					local found = text and strfind(text, itemLevelString)
-					if found then
-						local level = strmatch(text, "(%d+)%)?$")
-						iLvlDB[link] = tonumber(level)
-						break
-					end
-				end
-
-				return iLvlDB[link]
-			end
-		end
-	end
-
-	if E.Retail then
-		local slotData = { gems = {}, gemsColor = {} }
-		function F.GetItemLevel(link, arg1, arg2, fullScan)
-			if fullScan then
-				local data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
-				if not data then return end
-
-				wipe(slotData.gems)
-				wipe(slotData.gemsColor)
-				slotData.iLvl = nil
-				slotData.enchantText = nil
-
-				local isHoA = data.id == 158075
-				local num = 0
-				for i = 2, #data.lines do
-					local lineData = data.lines[i]
-					if E.Retail then
-						if not slotData.iLvl then
-							local text = lineData.leftText
-							local found = text and strfind(text, itemLevelString)
-							if found then
-								local level = strmatch(text, "(%d+)%)?$")
-								slotData.iLvl = tonumber(level) or 0
-							end
-						elseif isHoA then
-							if lineData.essenceIcon then
-								num = num + 1
-								slotData.gems[num] = lineData.essenceIcon
-								slotData.gemsColor[num] = lineData.leftColor
-							end
-						else
-							if lineData.enchantID then
-								slotData.enchantText = strmatch(lineData.leftText, enchantString)
-							elseif lineData.gemIcon then
-								num = num + 1
-								slotData.gems[num] = lineData.gemIcon
-							elseif lineData.socketType then
-								num = num + 1
-								slotData.gems[num] = format("Interface\\ItemSocketingFrame\\UI-EmptySocket-%s",
-									lineData.socketType)
-							end
-						end
-					else
-						local argVal = lineData and lineData.args
-						if argVal then
-							if not slotData.iLvl then
-								local text = argVal[2] and argVal[2].stringVal
-								local found = text and strfind(text, itemLevelString)
-								if found then
-									local level = strmatch(text, "(%d+)%)?$")
-									slotData.iLvl = tonumber(level) or 0
-								end
-							elseif isHoA then
-								if argVal[6] and argVal[6].field == "essenceIcon" then
-									num = num + 1
-									slotData.gems[num] = argVal[6].intVal
-									slotData.gemsColor[num] = argVal[3] and argVal[3].colorVal
-								end
-							else
-								local lineInfo = argVal[4] and argVal[4].field
-								if lineInfo == "enchantID" then
-									local enchant = argVal[2] and argVal[2].stringVal
-									slotData.enchantText = strmatch(enchant, enchantString)
-								elseif lineInfo == "gemIcon" then
-									num = num + 1
-									slotData.gems[num] = argVal[4].intVal
-								elseif lineInfo == "socketType" then
-									num = num + 1
-									slotData.gems[num] = format("Interface\\ItemSocketingFrame\\UI-EmptySocket-%s",
-										argVal[4].stringVal)
-								end
-							end
-						end
-					end
-				end
-
-				return slotData
-			else
-				if iLvlDB[link] then return iLvlDB[link] end
-
-				local data
-				if arg1 and type(arg1) == "string" then
-					data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
-				elseif arg1 and type(arg1) == "number" then
-					data = C_TooltipInfo_GetBagItem(arg1, arg2)
-				else
-					data = C_TooltipInfo_GetHyperlink(link, nil, nil, true)
-				end
-				if not data then return end
-
-				for i = 2, 5 do
-					local lineData = data.lines[i]
-					if not lineData then break end
+			local isHoA = data.id == 158075
+			local num = 0
+			for i = 2, #data.lines do
+				local lineData = data.lines[i]
+				if not slotData.iLvl then
 					local text = lineData.leftText
 					local found = text and strfind(text, itemLevelString)
 					if found then
 						local level = strmatch(text, "(%d+)%)?$")
-						iLvlDB[link] = tonumber(level)
-						break
+						slotData.iLvl = tonumber(level) or 0
+					end
+				elseif isHoA then
+					if lineData.essenceIcon then
+						num = num + 1
+						slotData.gems[num] = lineData.essenceIcon
+						slotData.gemsColor[num] = lineData.leftColor
+					end
+				else
+					if lineData.enchantID then
+						slotData.enchantText = strmatch(lineData.leftText, enchantString)
+					elseif lineData.gemIcon then
+						num = num + 1
+						slotData.gems[num] = lineData.gemIcon
+					elseif lineData.socketType then
+						num = num + 1
+						slotData.gems[num] = format("Interface\\ItemSocketingFrame\\UI-EmptySocket-%s",
+							lineData.socketType)
 					end
 				end
-				return iLvlDB[link]
 			end
+
+			return slotData
+		else
+			if iLvlDB[link] then return iLvlDB[link] end
+
+			local data
+			if arg1 and type(arg1) == "string" then
+				data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
+			elseif arg1 and type(arg1) == "number" then
+				data = C_TooltipInfo_GetBagItem(arg1, arg2)
+			else
+				data = C_TooltipInfo_GetHyperlink(link, nil, nil, true)
+			end
+			if not data then return end
+
+			for i = 2, 5 do
+				local lineData = data.lines[i]
+				if not lineData then break end
+				local text = lineData.leftText
+				local found = text and strfind(text, itemLevelString)
+				if found then
+					local level = strmatch(text, "(%d+)%)?$")
+					iLvlDB[link] = tonumber(level)
+					break
+				end
+			end
+			return iLvlDB[link]
 		end
 	end
 
@@ -558,22 +431,9 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 		if not lineData then return end
 
 		for i = #lineData, 1, -1 do
-			if E.Retail then
-				local line = lineData[i]
-				if line.price then return false end
-				return line.leftText and isUnknownString[line.leftText]
-			else
-				local argVal = lineData[i] and lineData[i].args
-				if argVal then
-					if argVal[4] and argVal[4].field == "price" then
-						return false
-					end
-					local stringVal = argVal[2] and argVal[2].stringVal
-					if isUnknownString[stringVal] then
-						return true
-					end
-				end
-			end
+			local line = lineData[i]
+			if line.price then return false end
+			return line.leftText and isUnknownString[line.leftText]
 		end
 	end
 

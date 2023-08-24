@@ -217,10 +217,7 @@ function module:Initialize()
 	module:DamageMeterFilter()
 	module:UpdateSeperators()
 	module:CreateChatButtons()
-
-	if E.Retail then
-		module:ChatFilter()
-	end
+	module:ChatFilter()
 end
 
 MER:RegisterModule(module:GetName())

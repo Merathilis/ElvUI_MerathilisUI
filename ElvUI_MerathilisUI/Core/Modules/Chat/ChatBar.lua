@@ -32,7 +32,7 @@ local RandomRoll = RandomRoll
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 
-local normalChannelsIndex = {"SAY", "YELL", "PARTY", E.Retail and "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER", "EMOTE"}
+local normalChannelsIndex = {"SAY", "YELL", "PARTY", "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER", "EMOTE"}
 
 local checkFunctions = {
 	PARTY = function()

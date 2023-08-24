@@ -8,7 +8,7 @@ local xpcall = xpcall
 local tinsert = table.insert
 local strsplit = strsplit
 
-local C_ChallengeMode_GetDungeonScoreRarityColor = E.Retail and C_ChallengeMode.GetDungeonScoreRarityColor
+local C_ChallengeMode_GetDungeonScoreRarityColor = C_ChallengeMode.GetDungeonScoreRarityColor
 
 T.load = {}
 T.updateProfile = {}

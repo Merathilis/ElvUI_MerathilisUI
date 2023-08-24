@@ -64,21 +64,6 @@ local function SetupCVars()
 	C_CVar_SetCVar('UnitNameEnemyPlayerName', 1)
 	C_CVar_SetCVar('profanityFilter', 0)
 
-	if not E.Classic then
-		C_CVar_SetCVar('UnitNameEnemyTotem', 1)
-	end
-
-	if E.Wrath then
-		SetCVar('equipmentManager', 1)
-		SetCVar('previewTalents', 1)
-	end
-
-	if not E.Retail then
-		C_CVar_SetCVar('nameplateNotSelectedAlpha', 1)
-		C_CVar_SetCVar('autoLootDefault', 1)
-		C_CVar_SetCVar('instantQuestText', 1)
-	end
-
 	if F.IsDeveloper() then
 		C_CVar_SetCVar('taintLog', 1)
 		C_CVar_SetCVar('LowLatencyMode', 3)
@@ -120,20 +105,12 @@ local function SetupChat()
 	SetCVar('colorChatNamesByClass', 1)
 	SetCVar('chatClassColorOverride', 0)
 
-	-- CVars Retail
-	if E.Retail then
-		SetCVar('speechToText', 0)
-		SetCVar('textToSpeech', 0)
-	end
+	SetCVar('speechToText', 0)
+	SetCVar('textToSpeech', 0)
+
 
 	-- Reset chat to Blizzard defaults
 	FCF_ResetChatWindows()
-
-	-- Join LFG channel in Classic and TBC (English client only)
-	if not E.Retail and MER.Locale == 'enUS' then
-		JoinPermanentChannel('LookingForGroup')
-		ChatFrame_AddChannel(_G.ChatFrame1, 'LookingForGroup')
-	end
 
 	-- Open one new channel for own Trade
 	FCF_OpenNewWindow()
@@ -524,11 +501,7 @@ function MER:SetupLayout()
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
 	E.db["movers"]["TotemTrackerMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,457,13"
 	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
-	E.db["movers"]["AddonCompartmentMover"] = E.Retail and "TOPRIGHT,ElvUIParent,TOPRIGHT,-213,-17"
-
-	E.db["movers"]["MirrorTimer1Mover"] = not E.Retail and 'TOP,ElvUIParent,TOP,0,-60'
-	E.db["movers"]["MirrorTimer2Mover"] = not E.Retail and 'TOP,ElvUIParent,TOP,0,-79'
-	E.db["movers"]["MirrorTimer3Mover"] = not E.Retail and 'TOP,ElvUIParent,TOP,0,-98'
+	E.db["movers"]["AddonCompartmentMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-213,-17"
 
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
@@ -554,9 +527,7 @@ function MER:SetupLayout()
 	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
 	E.db["databars"]["experience"]["hideInCombat"] = true
 	E.db["databars"]["experience"]["showBubbles"] = true
-	if E.Retail then
-		E.db["databars"]["experience"]["hideInVehicle"] = true
-	end
+	E.db["databars"]["experience"]["hideInVehicle"] = true
 
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["mouseover"] = false
@@ -568,9 +539,7 @@ function MER:SetupLayout()
 	E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["reputation"]["hideInCombat"] = true
 	E.db["databars"]["reputation"]["showBubbles"] = true
-	if E.Retail then
-		E.db["databars"]["reputation"]["hideInVehicle"] = true
-	end
+	E.db["databars"]["reputation"]["hideInVehicle"] = true
 
 	E.db["databars"]["threat"]["enable"] = true
 	E.db["databars"]["threat"]["width"] = 283
@@ -578,35 +547,33 @@ function MER:SetupLayout()
 	E.db["databars"]["threat"]["fontSize"] = 9
 	E.db["databars"]["threat"]["font"] = "Expressway"
 
-	if E.Retail then
-		E.db["databars"]["honor"]["enable"] = true
-		E.db["databars"]["honor"]["width"] = 283
-		E.db["databars"]["honor"]["height"] = 9
-		E.db["databars"]["honor"]["fontSize"] = 9
-		E.db["databars"]["honor"]["font"] = "Expressway"
-		E.db["databars"]["honor"]["hideBelowMaxLevel"] = true
-		E.db["databars"]["honor"]["hideOutsidePvP"] = true
-		E.db["databars"]["honor"]["hideInCombat"] = true
-		E.db["databars"]["honor"]["hideInVehicle"] = true
-		E.db["databars"]["honor"]["textFormat"] = "CURPERCREM"
-		E.db["databars"]["honor"]["orientation"] = "HORIZONTAL"
-		E.db["databars"]["honor"]["showBubbles"] = true
+	E.db["databars"]["honor"]["enable"] = true
+	E.db["databars"]["honor"]["width"] = 283
+	E.db["databars"]["honor"]["height"] = 9
+	E.db["databars"]["honor"]["fontSize"] = 9
+	E.db["databars"]["honor"]["font"] = "Expressway"
+	E.db["databars"]["honor"]["hideBelowMaxLevel"] = true
+	E.db["databars"]["honor"]["hideOutsidePvP"] = true
+	E.db["databars"]["honor"]["hideInCombat"] = true
+	E.db["databars"]["honor"]["hideInVehicle"] = true
+	E.db["databars"]["honor"]["textFormat"] = "CURPERCREM"
+	E.db["databars"]["honor"]["orientation"] = "HORIZONTAL"
+	E.db["databars"]["honor"]["showBubbles"] = true
 
-		E.db["databars"]["azerite"]["enable"] = true
-		E.db["databars"]["azerite"]["height"] = 9
-		E.db["databars"]["azerite"]["font"] = "Expressway"
-		E.db["databars"]["azerite"]["fontSize"] = 9
-		E.db["databars"]["azerite"]["width"] = 283
-		E.db["databars"]["azerite"]["hideInVehicle"] = true
-		E.db["databars"]["azerite"]["hideInCombat"] = true
-		E.db["databars"]["azerite"]["mouseover"] = false
-		E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
-		E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
-		E.db["databars"]["azerite"]["showBubbles"] = true
+	E.db["databars"]["azerite"]["enable"] = true
+	E.db["databars"]["azerite"]["height"] = 9
+	E.db["databars"]["azerite"]["font"] = "Expressway"
+	E.db["databars"]["azerite"]["fontSize"] = 9
+	E.db["databars"]["azerite"]["width"] = 283
+	E.db["databars"]["azerite"]["hideInVehicle"] = true
+	E.db["databars"]["azerite"]["hideInCombat"] = true
+	E.db["databars"]["azerite"]["mouseover"] = false
+	E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
+	E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
+	E.db["databars"]["azerite"]["showBubbles"] = true
 
-		E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,52"
-		E.db["movers"]["AzeriteBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-470,1"
-	end
+	E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,52"
+	E.db["movers"]["AzeriteBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-470,1"
 
 	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,1"
 	E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,470,1"
@@ -1169,21 +1136,19 @@ function MER:SetupNamePlates()
 	--[[----------------------------------
 	--	ProfileDB - Style Filter
 	--]]----------------------------------
-	if E.Retail then
-		for _, filterName in pairs({'MerathilisUI_Neutral'}) do
-			E.global["nameplates"]["filters"][filterName] = {}
-			E.NamePlates:StyleFilterCopyDefaults(E.global["nameplates"]["filters"][filterName])
-			E.db["nameplates"]["filters"][filterName] = { triggers = { enable = true } }
-		end
-
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["actions"]["nameOnly"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["notTarget"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["outOfCombat"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["outOfVehicle"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["enable"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["neutral"] = true
-		E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["reputation"] = true
+	for _, filterName in pairs({'MerathilisUI_Neutral'}) do
+		E.global["nameplates"]["filters"][filterName] = {}
+		E.NamePlates:StyleFilterCopyDefaults(E.global["nameplates"]["filters"][filterName])
+		E.db["nameplates"]["filters"][filterName] = { triggers = { enable = true } }
 	end
+
+	E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["actions"]["nameOnly"] = true
+	E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["notTarget"] = true
+	E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["outOfCombat"] = true
+	E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["outOfVehicle"] = true
+	E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["enable"] = true
+	E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["neutral"] = true
+	E.global["nameplates"]["filters"]["MerathilisUI_Neutral"]["triggers"]["reactionType"]["reputation"] = true
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -1333,29 +1298,18 @@ function MER:SetupUnitframes()
 	if not E.db["unitframe"]["units"]["player"]["customTexts"] then
 		E.db["unitframe"]["units"]["player"]["customTexts"] = {}
 	end
-	if E.Retail then
-		E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
-			["font"] = "Gotham Narrow Black",
-			["justifyH"] = "LEFT",
-			["fontOutline"] = "OUTLINE",
-			["xOffset"] = 0,
-			["yOffset"] = 16,
-			["size"] = 11,
-			["text_format"] = "[classicon-flatborder][name:gradient]",
-			["attachTextTo"] = "Frame",
-		}
-	else
-		E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
-			["font"] = "Gotham Narrow Black",
-			["justifyH"] = "LEFT",
-			["fontOutline"] = "OUTLINE",
-			["xOffset"] = 0,
-			["yOffset"] = 16,
-			["size"] = 11,
-			["text_format"] = "[mUI-name:health:abbrev{class}]",
-			["attachTextTo"] = "Frame",
-		}
-	end
+
+	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
+		["font"] = "Gotham Narrow Black",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = 16,
+		["size"] = 11,
+		["text_format"] = "[classicon-flatborder][name:gradient]",
+		["attachTextTo"] = "Frame",
+	}
+
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
 		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
@@ -1396,20 +1350,17 @@ function MER:SetupUnitframes()
 		["xOffset"] = 0,
 		["yOffset"] = 0,
 	}
-	if E.Retail then
-		E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = {
-			["font"] = "Gotham Narrow Black",
-			["fontOutline"] = "OUTLINE",
-			["size"] = 12,
-			["justifyH"] = "CENTER",
-			["text_format"] = "[additionalmana:current:shortvalue]",
-			["attachTextTo"] = "AdditionalPower",
-			["xOffset"] = 0,
-			["yOffset"] = 0,
-		}
-	else
-		E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = nil
-	end
+	E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = {
+		["font"] = "Gotham Narrow Black",
+		["fontOutline"] = "OUTLINE",
+		["size"] = 12,
+		["justifyH"] = "CENTER",
+		["text_format"] = "[additionalmana:current:shortvalue]",
+		["attachTextTo"] = "AdditionalPower",
+		["xOffset"] = 0,
+		["yOffset"] = 0,
+	}
+
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Group"] = {
 		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "OUTLINE",
@@ -1488,10 +1439,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["player"]["fader"]["minAlpha"] = 0.35
 	E.db["unitframe"]["units"]["player"]["fader"]["maxAlpha"] = 1
 	E.db["unitframe"]["units"]["player"]["fader"]["smooth"] = 0.33
-	if E.Retail then
-		E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
-		E.db["unitframe"]["units"]["player"]["cutaway"]["power"]["enabled"] = true
-	end
+	E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
+	E.db["unitframe"]["units"]["player"]["cutaway"]["power"]["enabled"] = true
 
 	-- Target
 	E.db["unitframe"]["units"]["target"]["width"] = 200
@@ -1540,31 +1489,16 @@ function MER:SetupUnitframes()
 	if not E.db["unitframe"]["units"]["target"]["customTexts"] then E.db["unitframe"]["units"]["target"]["customTexts"] = {} end
 	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["target"]["customTexts"] = {}
-
-	-- Create own customText
-	if E.Retail then
-		E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
-			["font"] = "Gotham Narrow Black",
-			["justifyH"] = "RIGHT",
-			["fontOutline"] = "OUTLINE",
-			["xOffset"] = 2,
-			["yOffset"] = 16,
-			["size"] = 11,
-			["text_format"] = "[classification:icon][name:gradient][classicon-flatborder]",
-			["attachTextTo"] = "Frame",
-		}
-	else
-		E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
-			["font"] = "Gotham Narrow Black",
-			["justifyH"] = "RIGHT",
-			["fontOutline"] = "OUTLINE",
-			["xOffset"] = 2,
-			["yOffset"] = 16,
-			["size"] = 11,
-			["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}]",
-			["attachTextTo"] = "Frame",
-		}
-	end
+	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
+		["font"] = "Gotham Narrow Black",
+		["justifyH"] = "RIGHT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 2,
+		["yOffset"] = 16,
+		["size"] = 11,
+		["text_format"] = "[classification:icon][name:gradient][classicon-flatborder]",
+		["attachTextTo"] = "Frame",
+	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
 		["font"] = "Gotham Narrow Black",
 		["size"] = 11,
@@ -1645,9 +1579,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["CombatIcon"]["anchorPoint"] = "CENTER"
 	E.db["unitframe"]["units"]["target"]["CombatIcon"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["CombatIcon"]["yOffset"] = 0
-	if E.Retail then
-		E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
-	end
+	E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
 
 	-- TargetTarget
 	E.db["unitframe"]["units"]["targettarget"]["disableMouseoverGlow"] = false
@@ -1672,9 +1604,7 @@ function MER:SetupUnitframes()
 	if not E.db["unitframe"]["units"]["targettarget"]["customTexts"] then E.db["unitframe"]["units"]["targettarget"]["customTexts"] = {} end
 	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["targettarget"]["customTexts"] = {}
-	if E.Retail then
-		E.db["unitframe"]["units"]["targettarget"]["cutaway"]["health"]["enabled"] = true
-	end
+	E.db["unitframe"]["units"]["targettarget"]["cutaway"]["health"]["enabled"] = true
 
 	-- Focus
 	E.db["unitframe"]["units"]["focus"]["width"] = 100
@@ -1704,9 +1634,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["focus"]["debuffs"]["anchorPoint"] = "BOTTOMRIGHT"
 	E.db["unitframe"]["units"]["focus"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = false
-	if E.Retail then
-		E.db["unitframe"]["units"]["focus"]["cutaway"]["health"]["enabled"] = true
-	end
+	E.db["unitframe"]["units"]["focus"]["cutaway"]["health"]["enabled"] = true
 
 	-- FocusTarget
 	E.db["unitframe"]["units"]["focustarget"]["enable"] = false
@@ -1832,9 +1760,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid1"]["healPrediction"]["absorbStyle"] = "NORMAL"
 	E.db["unitframe"]["units"]["raid1"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 	E.db["unitframe"]["units"]["raid1"]["healPrediction"]["height"] = -1
-	if E.Retail then
-		E.db["unitframe"]["units"]["raid1"]["cutaway"]["health"]["enabled"] = true
-	end
+	E.db["unitframe"]["units"]["raid1"]["cutaway"]["health"]["enabled"] = true
 
 	-- Raid2
 	E.db["unitframe"]["units"]["raid2"]["enable"] = true
@@ -1957,9 +1883,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid2"]["healPrediction"]["absorbStyle"] = "NORMAL"
 	E.db["unitframe"]["units"]["raid2"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 	E.db["unitframe"]["units"]["raid2"]["healPrediction"]["height"] = -1
-	if E.Retail then
-		E.db["unitframe"]["units"]["raid2"]["cutaway"]["health"]["enabled"] = true
-	end
+	E.db["unitframe"]["units"]["raid2"]["cutaway"]["health"]["enabled"] = true
 
 	-- Raid3
 	E.db["unitframe"]["units"]["raid3"]["enable"] = true
@@ -2082,9 +2006,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["absorbStyle"] = "NORMAL"
 	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["height"] = -1
-	if E.Retail then
-		E.db["unitframe"]["units"]["raid3"]["cutaway"]["health"]["enabled"] = true
-	end
+	E.db["unitframe"]["units"]["raid3"]["cutaway"]["health"]["enabled"] = true
 
 	-- Party
 	E.db["unitframe"]["units"]["party"]["enable"] = true
@@ -2217,9 +2139,7 @@ function MER:SetupUnitframes()
 			["text_format"] = "[users:elvui]",
 		}
 	end
-	if E.Retail then
-		E.db["unitframe"]["units"]["party"]["power"]["displayAltPower"] = true
-	end
+	E.db["unitframe"]["units"]["party"]["power"]["displayAltPower"] = true
 
 	-- Assist
 	E.db["unitframe"]["units"]["assist"]["enable"] = false

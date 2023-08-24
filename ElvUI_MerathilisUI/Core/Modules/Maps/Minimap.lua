@@ -23,7 +23,7 @@ function module:CheckStatus()
 	local mailFrame = (indicator and indicator.MailFrame) or MiniMapMailFrame
 	local craftingFrame = (indicator and indicator.CraftingOrderFrame)
 	local mail = mailFrame:IsShown() and true or false
-	local crafting = E.Retail and craftingFrame:IsShown() and true or false
+	local crafting = craftingFrame:IsShown() and true or false
 
 	if inv > 0 and mail and crafting then -- New invites and mail and crafting orders
 		LCG.PixelGlow_Start(MM.MapHolder, { 1, 0, 0, 1 }, 8, -0.25, nil, 1)
@@ -113,16 +113,11 @@ function module:Initialize()
 
 	self:StyleMinimap()
 	self:StyleMinimapRightClickMenu()
-
-	if E.Retail then
-		self:CreateExpansionLandingButton()
-	end
+	self:CreateExpansionLandingButton()
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
 	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")
-	if E.Retail then
-		self:RegisterEvent("CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS", "CheckStatus")
-	end
+	self:RegisterEvent("CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS", "CheckStatus")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckStatus")
 	self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
 	self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")

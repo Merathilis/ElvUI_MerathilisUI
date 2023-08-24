@@ -53,7 +53,7 @@ function module:Preview()
 end
 
 function module:Initialize()
-	if not E.db.mui.misc.spellAlert.enable or not E.Retail then
+	if not E.db.mui.misc.spellAlert.enable then
 		return
 	end
 

@@ -9,8 +9,8 @@ local pairs, select, tonumber = pairs, select, tonumber
 local collectgarbage = collectgarbage
 
 local GetBindLocation = GetBindLocation
-local GetProfessions = E.Retail and GetProfessions
-local GetProfessionInfo = E.Retail and GetProfessionInfo
+local GetProfessions = GetProfessions
+local GetProfessionInfo = GetProfessionInfo
 local GetItemInfo = GetItemInfo
 local GetMinimapZoneText = GetMinimapZoneText
 local GetScreenHeight = GetScreenHeight
@@ -30,8 +30,8 @@ local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, 
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local PlayerHasToy = PlayerHasToy
 local C_Garrison_IsPlayerInGarrison = C_Garrison and C_Garrison.IsPlayerInGarrison
-local C_ToyBox_IsToyUsable = E.Retail and C_ToyBox.IsToyUsable
-local C_ToyBox = E.Retail and C_ToyBox
+local C_ToyBox = C_ToyBox
+local C_ToyBox_IsToyUsable = C_ToyBox.IsToyUsable
 local Minimap = Minimap
 local UnitFactionGroup = UnitFactionGroup
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
@@ -358,14 +358,12 @@ function module:OnClick(btn)
 		else
 			ToggleFrame(_G["WorldMapFrame"])
 		end
-	elseif E.Retail and btn == "RightButton" and module.db.portals.enable and not InCombatLockdown() then
+	elseif btn == "RightButton" and module.db.portals.enable and not InCombatLockdown() then
 		if module.ListBuilding then
 			F.Print(L["Info for some items is not available yet. Please try again later"])
 			return
 		end
 		module:PopulateDropdown(true)
-	elseif E.Classic or E.TBC and btn == "RightButton" then
-		return
 	end
 end
 
@@ -720,8 +718,6 @@ function module:GetProf()
 end
 
 function module:CHAT_MSG_SKILL()
-	if not E.Retail then return end
-
 	local prof1, prof2, _, _, _ = GetProfessions()
 	if prof1 then
 		local name, _, _ = GetProfessionInfo(prof1)

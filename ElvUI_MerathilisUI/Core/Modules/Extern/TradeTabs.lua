@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local S = E:GetModule('Skins')
-if not E.Retail then return end
 
 ---------------------------------
 -- Credits: ProfessionTabs by Beoko

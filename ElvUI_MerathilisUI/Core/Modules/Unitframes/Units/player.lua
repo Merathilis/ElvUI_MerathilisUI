@@ -15,16 +15,12 @@ function module:Update_PlayerFrame(frame)
 		module:Construct_CounterBar(frame)
 	end
 
-	if E.Retail then
-		if not frame.GCD then
-			module:Construct_GCD(frame)
-		end
+	if not frame.GCD then
+		module:Construct_GCD(frame)
 	end
 
-	if E.Retail then
-		if not frame.__MERAnim then
-			module:CreateAnimatedBars(frame.Power)
-		end
+	if not frame.__MERAnim then
+		module:CreateAnimatedBars(frame.Power)
 	end
 
 	-- Only looks good on Transparent

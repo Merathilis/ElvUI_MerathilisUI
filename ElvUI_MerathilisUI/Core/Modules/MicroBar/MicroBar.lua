@@ -1264,10 +1264,6 @@ function module:UpdateReknown()
 end
 
 function module:Initialize()
-	if not E.Retail then
-		return
-	end
-
 	self.db = E.db.mui.microBar
 	self.covenantCache = E.global.mui.microBar.covenantCache
 

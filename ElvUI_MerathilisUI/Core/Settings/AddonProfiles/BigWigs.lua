@@ -118,22 +118,20 @@ function MER:LoadBigWigsProfile()
 		["posy"] = 81.82,
 	}
 
-	if E.Retail then
-		-- Disable LibDualSpec to set the profile
-		DB["namespaces"]["LibDualSpec-1.0"] = DB["namespaces"]["LibDualSpec-1.0"] or {}
-		DB["namespaces"]["LibDualSpec-1.0"]["char"][E.mynameRealm]["enabled"] = false
+	-- Disable LibDualSpec to set the profile
+	DB["namespaces"]["LibDualSpec-1.0"] = DB["namespaces"]["LibDualSpec-1.0"] or {}
+	DB["namespaces"]["LibDualSpec-1.0"]["char"][E.mynameRealm]["enabled"] = false
 
-		-- AltPower db
-		DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"] or {}
-		DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"][profileName] = {
-			["posx"] = 600,
-			["fontSize"] = 11,
-			["fontOutline"] = "",
-			["fontName"] = "Expressway",
-			["lock"] = true,
-			["posy"] = 132,
-		}
-	end
+	-- AltPower db
+	DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"] or {}
+	DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"][profileName] = {
+		["posx"] = 600,
+		["fontSize"] = 11,
+		["fontOutline"] = "",
+		["fontName"] = "Expressway",
+		["lock"] = true,
+		["posy"] = 132,
+	}
 
 	-- Set the profile
 	_G.BigWigs.db:SetProfile(profileName)

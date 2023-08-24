@@ -67,7 +67,7 @@ function module:ElvUI_ActionBar_SkinBar(bar, type)
 			local button = _G["ElvUI_StanceBarButton" .. i]
 			module:ElvUI_ActionBar_SkinButton(button, bar.db.backdrop)
 		end
-	elseif E.Retail and type == "MICRO" then
+	elseif type == "MICRO" then
 		for _, name in next, AB.MICRO_BUTTONS do
 			local button = _G[name]
 			self:ElvUI_ActionBar_SkinButton(button, bar.db.backdrop)
@@ -94,8 +94,6 @@ function module:ElvUI_UpdateMicroButtons()
 end
 
 function module:SkinZoneAbilities(button)
-	if not E.Retail then return end
-
 	for spellButton in button.SpellButtonContainer:EnumerateActive() do
 		if spellButton and spellButton.IsSkinned then
 			module:CreateShadow(spellButton)
@@ -139,14 +137,12 @@ function module:Skin_ElvUI_ActionBars()
 	end
 
 	-- Extra ActionBar/ ZoneAbility
-	if E.Retail then
-		self:SecureHook(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", "SkinZoneAbilities")
+	self:SecureHook(_G.ZoneAbilityFrame, "UpdateDisplayedZoneAbilities", "SkinZoneAbilities")
 
-		for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
-			local button = _G["ExtraActionButton" .. i]
-			if button and button.backdrop then
-				self:CreateBackdropShadow(button.backdrop, true)
-			end
+	for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
+		local button = _G["ExtraActionButton" .. i]
+		if button and button.backdrop then
+			self:CreateBackdropShadow(button.backdrop, true)
 		end
 	end
 

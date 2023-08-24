@@ -30,7 +30,6 @@ options.blizzard.args.objectiveTracker = {
 	name = L["Objective Tracker"],
 	get = function(info) return E.db.mui.blizzard.objectiveTracker[info[#info]] end,
 	set = function(info, value) E.db.mui.blizzard.objectiveTracker[info[#info]] = value; ObjectiveTracker_Update(); end,
-	hidden = not E.Retail,
 	args = {
 		name = {
 			order = -1,

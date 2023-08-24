@@ -197,20 +197,14 @@ function FlightPoints_OnEvent(self, event, ...)
 		FlightPointsTaxiChoice:SetWidth(250)
 		FlightPointsTaxiChoice:ClearAllPoints()
 
-		if E.Retail then
-			if _G["TaxiFrame"]:IsShown() then
-				FlightPointsTaxiChoice:SetHeight(_G["TaxiFrame"]:GetHeight() - 24)
-				FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["TaxiFrame"], "BOTTOMRIGHT", 0, _G["TaxiFrame"]:GetHeight() - 22)
-			elseif _G["FlightMapFrame"]:IsShown() then
-				FlightPointsTaxiChoice:SetHeight(_G["FlightMapFrame"]:GetHeight())
-				FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["FlightMapFrame"], "BOTTOMRIGHT", 0, _G["FlightMapFrame"]:GetHeight())
-			end
-		elseif E.Classic then
-			if _G["TaxiFrame"]:IsShown() then
-				FlightPointsTaxiChoice:SetHeight(_G["TaxiFrame"]:GetHeight() - 50)
-				FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["TaxiFrame"], "BOTTOMRIGHT", -22, _G["TaxiFrame"]:GetHeight())
-			end
+		if _G["TaxiFrame"]:IsShown() then
+			FlightPointsTaxiChoice:SetHeight(_G["TaxiFrame"]:GetHeight() - 24)
+			FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["TaxiFrame"], "BOTTOMRIGHT", 0, _G["TaxiFrame"]:GetHeight() - 22)
+		elseif _G["FlightMapFrame"]:IsShown() then
+			FlightPointsTaxiChoice:SetHeight(_G["FlightMapFrame"]:GetHeight())
+			FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["FlightMapFrame"], "BOTTOMRIGHT", 0, _G["FlightMapFrame"]:GetHeight())
 		end
+
 		FlightPointsTaxiChoice:Show()
 		FlightPointsTaxiChoice:StripTextures()
 		FlightPointsTaxiChoice:CreateBackdrop("Transparent")

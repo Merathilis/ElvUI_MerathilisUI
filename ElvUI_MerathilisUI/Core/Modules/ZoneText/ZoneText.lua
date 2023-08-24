@@ -41,10 +41,8 @@ function module:SetBlizzFonts()
 			_G["SubZoneTextString"]:SetFont(E.LSM:Fetch('font', db.zoneText.subzone.font), db.zoneText.subzone.size, db.zoneText.subzone.outline) -- Subzone name
 		end
 
-		if E.Retail then
-			if db.miscText.mail.enable then
-				_G["SendMailBodyEditBox"]:SetFont(E.LSM:Fetch('font', db.miscText.mail.font), db.miscText.mail.size, 'OUTLINE') --Writing letter text
-			end
+		if db.miscText.mail.enable then
+			_G["SendMailBodyEditBox"]:SetFont(E.LSM:Fetch('font', db.miscText.mail.font), db.miscText.mail.size, 'OUTLINE') --Writing letter text
 		end
 	end
 end

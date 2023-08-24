@@ -27,10 +27,8 @@ local DecorAddons = {
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"WeakAurasOptions", L["WeakAuras Options"], "waOptions"},
 }
+tinsert(DecorAddons, {"Details", L["Details"], "dt" })
 
-if E.Retail then
-	tinsert(DecorAddons, {"Details", L["Details"], "dt" })
-end
 
 local SupportedProfiles = {
 	{"AddOnSkins", "AddOnSkins"},
@@ -1586,287 +1584,276 @@ options.blizzard = {
 	},
 }
 
-if E.Retail then
-	options.blizzard.args.achievement = {
-		type = "toggle",
-		name = _G.ACHIEVEMENTS,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.achievement end,
-	}
-	options.blizzard.args.encounterjournal = {
-		type = "toggle",
-		name = ENCOUNTER_JOURNAL,
-		disabled = function () return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.encounterjournal end
-	}
-	options.blizzard.args.questChoice = {
-		type = "toggle",
-		name = L["Quest Choice"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questChoice end,
-	}
-	options.blizzard.args.garrison = {
-		type = "toggle",
-		name = _G.GARRISON_LOCATION_TOOLTIP,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.garrison end,
-	}
-	options.blizzard.args.orderhall = {
-		type = "toggle",
-		name = L["Orderhall"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.orderhall end,
-	}
-	options.blizzard.args.contribution = {
-		type = "toggle",
-		name = L["Contribution"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.contribution end,
-	}
-	options.blizzard.args.artifact = {
-		type = "toggle",
-		name = _G.ITEM_QUALITY6_DESC,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.artifact end,
-	}
-	options.blizzard.args.collections = {
-		type = "toggle",
-		name = _G.COLLECTIONS,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.collections end,
-	}
-	options.blizzard.args.calendar = {
-		type = "toggle",
-		name = L["Calendar Frame"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.calendar end,
-	}
-	options.blizzard.args.merchant = {
-		type = "toggle",
-		name = L["Merchant Frame"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.merchant end,
-	}
-	options.blizzard.args.pvp = {
-		type = "toggle",
-		name = L["PvP Frames"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.pvp end,
-	}
-	options.blizzard.args.lfguild = {
-		type = "toggle",
-		name = L["LF Guild Frame"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfguild end,
-	}
-	options.blizzard.args.talkinghead = {
-		type = "toggle",
-		name = L["TalkingHead"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talkinghead end,
-	}
-	options.blizzard.args.objectiveTracker = {
-		type = "toggle",
-		name = _G.OBJECTIVES_TRACKER_LABEL,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
-	}
-	options.blizzard.args.dressingroom = {
-		type = "toggle",
-		name = _G.DRESSUP_FRAME,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.dressingroom end,
-	}
-	options.blizzard.args.blackmarket = {
-		type = "toggle",
-		name = _G.BLACK_MARKET_AUCTION_HOUSE,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.bmah end,
-	}
-	options.blizzard.args.deathRecap = {
-		type = "toggle",
-		name = _G.DEATH_RECAP_TITLE,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.deathRecap end,
-	}
-	options.blizzard.args.challenges = {
-		type = "toggle",
-		name = _G.CHALLENGES,
-		disabled = function() return not E.private.skins.blizzard.enable end, -- No ElvUI skin yet
-	}
-	options.blizzard.args.azerite = {
-		type = "toggle",
-		name = L["AzeriteUI"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azerite end,
-	}
-	options.blizzard.args.AzeriteRespec = {
-		type = "toggle",
-		name = _G.AZERITE_RESPEC_TITLE,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azeriteRespec end,
-	}
-	options.blizzard.args.IslandQueue = {
-		type = "toggle",
-		name = _G.ISLANDS_HEADER,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.islandQueue end,
-	}
-	options.blizzard.args.IslandsPartyPose = {
-		type = "toggle",
-		name = L["Island Party Pose"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.islandsPartyPose end,
-	}
-	options.blizzard.args.minimap = {
-		type = "toggle",
-		name = L["Minimap"],
-		disabled = function() return not E.private.skins.blizzard.enable end,
-	}
-	options.blizzard.args.Scrapping = {
-		type = "toggle",
-		name = _G.SCRAP_BUTTON,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.scrapping end,
-	}
-	options.blizzard.args.trainer = {
-		type = "toggle",
-		name = L["Trainer Frame"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trainer end,
-	}
-	options.blizzard.args.debug = {
-		type = "toggle",
-		name = L["Debug Tools"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.debug end,
-	}
-	options.blizzard.args.inspect = {
-		type = "toggle",
-		name = _G.INSPECT,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
-	}
-	options.blizzard.args.socket = {
-		type = "toggle",
-		name = L["Socket Frame"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.socket end,
-	}
-	options.blizzard.args.itemUpgrade = {
-		type = "toggle",
-		name = L["Item Upgrade"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.itemUpgrade end,
-	}
-	options.blizzard.args.trade = {
-		type = "toggle",
-		name = L["Trade"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trade end,
-	}
-	options.blizzard.args.voidstorage = {
-		type = "toggle",
-		name = _G.VOID_STORAGE,
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.voidstorage end,
-	}
-	options.blizzard.args.AlliedRaces = {
-		type = "toggle",
-		name = L["Allied Races"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.alliedRaces end,
-	}
-	options.blizzard.args.GMChat = {
-		type = "toggle",
-		name = L["GM Chat"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gmChat end,
-	}
-	options.blizzard.args.Archaeology = {
-		type = "toggle",
-		name = L["Archaeology Frame"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.archaeology end,
-	}
-	options.blizzard.args.AzeriteEssence = {
-		type = "toggle",
-		name = L["Azerite Essence"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azeriteEssence end,
-	}
-	options.blizzard.args.ItemInteraction = {
-		type = "toggle",
-		name = L["Item Interaction"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.itemInteraction end,
-	}
-	options.blizzard.args.animaDiversion = {
-		type = "toggle",
-		name = L["Anima Diversion"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.animaDiversion end,
-	}
-	options.blizzard.args.soulbinds = {
-		type = "toggle",
-		name = L["Soulbinds"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.soulbinds end,
-	}
-	options.blizzard.args.covenantSanctum = {
-		type = "toggle",
-		name = L["Covenant Sanctum"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantSanctum end,
-	}
-	options.blizzard.args.covenantPreview = {
-		type = "toggle",
-		name = L["Covenant Preview"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantPreview end,
-	}
-	options.blizzard.args.covenantRenown = {
-		type = "toggle",
-		name = L["Covenant Renown"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantRenown end,
-	}
-	options.blizzard.args.playerChoice = {
-		type = "toggle",
-		name = L["Player Choice"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.playerChoice end,
-	}
-	options.blizzard.args.chromieTime = {
-		type = "toggle",
-		name = L["Chromie Time"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.chromieTime end,
-	}
-	options.blizzard.args.levelUp = {
-		type = "toggle",
-		name = L["LevelUp Display"],
-		disabled = function() return not E.private.skins.blizzard.enable end,
-	}
-	options.blizzard.args.guide = {
-		type = "toggle",
-		name = L["Guide Frame"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guide end,
-	}
-	options.blizzard.args.weeklyRewards = {
-		type = "toggle",
-		name = L["Weekly Rewards"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.weeklyRewards end,
-	}
-	options.blizzard.args.misc = {
-		type = "toggle",
-		name = L["Misc"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.misc end,
-	}
-	options.blizzard.args.tooltip = {
-		type = "toggle",
-		name = L["Tooltip"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tooltip end,
-	}
-	options.blizzard.args.chatBubbles = {
-		type = "toggle",
-		name = L["Chat Bubbles"],
-		disabled = function() return not E.private.skins.blizzard.enable or E.private.general.chatBubbles ~= "nobackdrop" end,
-	}
-	options.blizzard.args.expansionLanding = {
-		type = "toggle",
-		name = L["Expansion LandingPage"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.expansionLanding end,
-	}
-	options.blizzard.args.majorFactions = {
-		type = "toggle",
-		name = L["Major Factions"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.majorFactions end,
-	}
-	options.blizzard.args.blizzardOptions = {
-		type = "toggle",
-		name = L["Settings Panel"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.blizzardOptions end,
-	}
-	options.blizzard.args.editor = {
-		type = "toggle",
-		name = L["Editor Mode"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.editor end,
-	}
-	options.blizzard.args.perksProgram = {
-		type = "toggle",
-		name = L["Perks Program"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.perks end,
-	}
-
-elseif E.Classic then
-	options.blizzard.args.craft = {
-		type = "toggle",
-		name = L["Craft"],
-		disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.craft end,
-	}
-elseif E.TBC then
-elseif E.Wrath then
-end
+options.blizzard.args.achievement = {
+	type = "toggle",
+	name = _G.ACHIEVEMENTS,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.achievement end,
+}
+options.blizzard.args.encounterjournal = {
+	type = "toggle",
+	name = ENCOUNTER_JOURNAL,
+	disabled = function () return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.encounterjournal end
+}
+options.blizzard.args.questChoice = {
+	type = "toggle",
+	name = L["Quest Choice"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questChoice end,
+}
+options.blizzard.args.garrison = {
+	type = "toggle",
+	name = _G.GARRISON_LOCATION_TOOLTIP,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.garrison end,
+}
+options.blizzard.args.orderhall = {
+	type = "toggle",
+	name = L["Orderhall"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.orderhall end,
+}
+options.blizzard.args.contribution = {
+	type = "toggle",
+	name = L["Contribution"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.contribution end,
+}
+options.blizzard.args.artifact = {
+	type = "toggle",
+	name = _G.ITEM_QUALITY6_DESC,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.artifact end,
+}
+options.blizzard.args.collections = {
+	type = "toggle",
+	name = _G.COLLECTIONS,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.collections end,
+}
+options.blizzard.args.calendar = {
+	type = "toggle",
+	name = L["Calendar Frame"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.calendar end,
+}
+options.blizzard.args.merchant = {
+	type = "toggle",
+	name = L["Merchant Frame"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.merchant end,
+}
+options.blizzard.args.pvp = {
+	type = "toggle",
+	name = L["PvP Frames"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.pvp end,
+}
+options.blizzard.args.lfguild = {
+	type = "toggle",
+	name = L["LF Guild Frame"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfguild end,
+}
+options.blizzard.args.talkinghead = {
+	type = "toggle",
+	name = L["TalkingHead"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talkinghead end,
+}
+options.blizzard.args.objectiveTracker = {
+	type = "toggle",
+	name = _G.OBJECTIVES_TRACKER_LABEL,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
+}
+options.blizzard.args.dressingroom = {
+	type = "toggle",
+	name = _G.DRESSUP_FRAME,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.dressingroom end,
+}
+options.blizzard.args.blackmarket = {
+	type = "toggle",
+	name = _G.BLACK_MARKET_AUCTION_HOUSE,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.bmah end,
+}
+options.blizzard.args.deathRecap = {
+	type = "toggle",
+	name = _G.DEATH_RECAP_TITLE,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.deathRecap end,
+}
+options.blizzard.args.challenges = {
+	type = "toggle",
+	name = _G.CHALLENGES,
+	disabled = function() return not E.private.skins.blizzard.enable end, -- No ElvUI skin yet
+}
+options.blizzard.args.azerite = {
+	type = "toggle",
+	name = L["AzeriteUI"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azerite end,
+}
+options.blizzard.args.AzeriteRespec = {
+	type = "toggle",
+	name = _G.AZERITE_RESPEC_TITLE,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azeriteRespec end,
+}
+options.blizzard.args.IslandQueue = {
+	type = "toggle",
+	name = _G.ISLANDS_HEADER,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.islandQueue end,
+}
+options.blizzard.args.IslandsPartyPose = {
+	type = "toggle",
+	name = L["Island Party Pose"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.islandsPartyPose end,
+}
+options.blizzard.args.minimap = {
+	type = "toggle",
+	name = L["Minimap"],
+	disabled = function() return not E.private.skins.blizzard.enable end,
+}
+options.blizzard.args.Scrapping = {
+	type = "toggle",
+	name = _G.SCRAP_BUTTON,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.scrapping end,
+}
+options.blizzard.args.trainer = {
+	type = "toggle",
+	name = L["Trainer Frame"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trainer end,
+}
+options.blizzard.args.debug = {
+	type = "toggle",
+	name = L["Debug Tools"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.debug end,
+}
+options.blizzard.args.inspect = {
+	type = "toggle",
+	name = _G.INSPECT,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
+}
+options.blizzard.args.socket = {
+	type = "toggle",
+	name = L["Socket Frame"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.socket end,
+}
+options.blizzard.args.itemUpgrade = {
+	type = "toggle",
+	name = L["Item Upgrade"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.itemUpgrade end,
+}
+options.blizzard.args.trade = {
+	type = "toggle",
+	name = L["Trade"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trade end,
+}
+options.blizzard.args.voidstorage = {
+	type = "toggle",
+	name = _G.VOID_STORAGE,
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.voidstorage end,
+}
+options.blizzard.args.AlliedRaces = {
+	type = "toggle",
+	name = L["Allied Races"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.alliedRaces end,
+}
+options.blizzard.args.GMChat = {
+	type = "toggle",
+	name = L["GM Chat"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gmChat end,
+}
+options.blizzard.args.Archaeology = {
+	type = "toggle",
+	name = L["Archaeology Frame"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.archaeology end,
+}
+options.blizzard.args.AzeriteEssence = {
+	type = "toggle",
+	name = L["Azerite Essence"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azeriteEssence end,
+}
+options.blizzard.args.ItemInteraction = {
+	type = "toggle",
+	name = L["Item Interaction"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.itemInteraction end,
+}
+options.blizzard.args.animaDiversion = {
+	type = "toggle",
+	name = L["Anima Diversion"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.animaDiversion end,
+}
+options.blizzard.args.soulbinds = {
+	type = "toggle",
+	name = L["Soulbinds"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.soulbinds end,
+}
+options.blizzard.args.covenantSanctum = {
+	type = "toggle",
+	name = L["Covenant Sanctum"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantSanctum end,
+}
+options.blizzard.args.covenantPreview = {
+	type = "toggle",
+	name = L["Covenant Preview"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantPreview end,
+}
+options.blizzard.args.covenantRenown = {
+	type = "toggle",
+	name = L["Covenant Renown"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantRenown end,
+}
+options.blizzard.args.playerChoice = {
+	type = "toggle",
+	name = L["Player Choice"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.playerChoice end,
+}
+options.blizzard.args.chromieTime = {
+	type = "toggle",
+	name = L["Chromie Time"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.chromieTime end,
+}
+options.blizzard.args.levelUp = {
+	type = "toggle",
+	name = L["LevelUp Display"],
+	disabled = function() return not E.private.skins.blizzard.enable end,
+}
+options.blizzard.args.guide = {
+	type = "toggle",
+	name = L["Guide Frame"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guide end,
+}
+options.blizzard.args.weeklyRewards = {
+	type = "toggle",
+	name = L["Weekly Rewards"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.weeklyRewards end,
+}
+options.blizzard.args.misc = {
+	type = "toggle",
+	name = L["Misc"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.misc end,
+}
+options.blizzard.args.tooltip = {
+	type = "toggle",
+	name = L["Tooltip"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tooltip end,
+}
+options.blizzard.args.chatBubbles = {
+	type = "toggle",
+	name = L["Chat Bubbles"],
+	disabled = function() return not E.private.skins.blizzard.enable or E.private.general.chatBubbles ~= "nobackdrop" end,
+}
+options.blizzard.args.expansionLanding = {
+	type = "toggle",
+	name = L["Expansion LandingPage"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.expansionLanding end,
+}
+options.blizzard.args.majorFactions = {
+	type = "toggle",
+	name = L["Major Factions"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.majorFactions end,
+}
+options.blizzard.args.blizzardOptions = {
+	type = "toggle",
+	name = L["Settings Panel"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.blizzardOptions end,
+}
+options.blizzard.args.editor = {
+	type = "toggle",
+	name = L["Editor Mode"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.editor end,
+}
+options.blizzard.args.perksProgram = {
+	type = "toggle",
+	name = L["Perks Program"],
+	disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.perks end,
+}
 
 options.addonskins = {
 	order = 5,

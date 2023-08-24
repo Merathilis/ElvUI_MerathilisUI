@@ -22,7 +22,6 @@ options.tooltip = {
 			set = function(info, value)
 				E.db.mui.tooltip[info[#info]] = value
 			end,
-			hidden = not E.Retail,
 			values = {
 				NONE = L["None"],
 				SHIFT = L["Shift"],
@@ -56,27 +55,23 @@ options.tooltip = {
 			type = "toggle",
 			name = L["Pet Icon"],
 			desc = L["Add an icon for indicating the type of the pet."],
-			hidden = not E.Retail,
 		},
 		petId = {
 			order = 6,
 			type = "toggle",
 			name = L["Pet ID"],
 			desc = L["Show battle pet species ID in tooltips."],
-			hidden = not E.Retail,
 		},
 		keystone = {
 			order = 7,
 			type = "toggle",
 			name = L["Keystone"],
 			desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
-			hidden = not E.Retail,
 		},
 		gradientName = {
 			order = 8,
 			type = "toggle",
 			name = E.NewSign..L["Gradient Name"],
-			hidden = not E.Retail,
 		},
 		nameHover = {
 			order = 15,

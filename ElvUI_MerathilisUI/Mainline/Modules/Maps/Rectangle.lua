@@ -151,10 +151,6 @@ function RM:Initialize()
 		return
 	end
 
-	if not E.Retail then
-		return
-	end
-
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED")
 

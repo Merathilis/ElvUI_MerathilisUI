@@ -128,7 +128,6 @@ options.spellAlert = {
 	order = 2,
 	type = "group",
 	name = L["Spell Alert Scale"],
-	hidden = not E.Retail,
 	get = function(info) return
 		E.db.mui.misc.spellAlert[info[#info]]
 	end,
@@ -283,7 +282,6 @@ options.lfgInfo = {
 		E.db.mui.misc.lfgInfo[info[#info]] = value
 		E:StaticPopup_Show("PRIVATE_RL")
 	end,
-	hidden = not E.Retail,
 	args = {
 		header = {
 			order = 1,
@@ -489,29 +487,27 @@ do
 			}
 		}
 
-		if E.Retail then
-			for i = 1, GetNumClasses() do
-				local upperText = select(2, GetClassInfo(i))
-				local coloredClassName = GetClassColorString(upperText) .. className[upperText] .. "|r"
-				examples["classIcon_" .. style][upperText .. "_ALIGN"] = {
-					order = 3 * i,
-					type = "description"
-				}
-				examples["classIcon_" .. style][upperText .. "_ICON"] = {
-					order = 3 * i + 1,
-					type = "description",
-					image = function()
-						return F.GetClassIconWithStyle(upperText, style), 64, 64
-					end,
-					width = 1
-				}
-				examples["classIcon_" .. style][upperText .. "_TAG"] = {
-					order = 3 * i + 2,
-					text = coloredClassName,
-					tag = "[classicon-" .. style .. ":" .. strlower(upperText) .. "]",
-					width = 1.5
-				}
-			end
+		for i = 1, GetNumClasses() do
+			local upperText = select(2, GetClassInfo(i))
+			local coloredClassName = GetClassColorString(upperText) .. className[upperText] .. "|r"
+			examples["classIcon_" .. style][upperText .. "_ALIGN"] = {
+				order = 3 * i,
+				type = "description"
+			}
+			examples["classIcon_" .. style][upperText .. "_ICON"] = {
+				order = 3 * i + 1,
+				type = "description",
+				image = function()
+					return F.GetClassIconWithStyle(upperText, style), 64, 64
+				end,
+				width = 1
+			}
+			examples["classIcon_" .. style][upperText .. "_TAG"] = {
+				order = 3 * i + 2,
+				text = coloredClassName,
+				tag = "[classicon-" .. style .. ":" .. strlower(upperText) .. "]",
+				width = 1.5
+			}
 		end
 
 		for cat, catTable in pairs(examples) do
@@ -631,7 +627,6 @@ options.mute = {
 	order = 8,
 	type = "group",
 	name = L["Mute"],
-	hidden = not E.Retail,
 	args = {
 		desc = {
 			order = 1,
@@ -720,7 +715,6 @@ options.mute = {
 }
 
 do
-	if not E.Retail then return end
 	for id in pairs(P.misc.mute.mount) do
 		async.WithSpellID(id, function(spell)
 			local icon = spell:GetSpellTexture()

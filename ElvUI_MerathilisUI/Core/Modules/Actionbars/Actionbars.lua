@@ -8,9 +8,7 @@ function module:Initialize()
 
 	local db = E.db.mui.actionbars
 
-	if E.Retail then
-		self:CreateSpecBar()
-	end
+	self:CreateSpecBar()
 end
 
 MER:RegisterModule(module:GetName())

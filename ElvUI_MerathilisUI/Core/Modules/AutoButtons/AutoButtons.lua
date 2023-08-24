@@ -1281,7 +1281,6 @@ local professionItems = {
 
 local questItemList = {}
 local function UpdateQuestItemList()
-	if not E.Retail then return end
 	wipe(questItemList)
 	for questLogIndex = 1, C_QuestLog_GetNumQuestLogEntries() do
 		local link = GetQuestLogSpecialItemInfo(questLogIndex)
@@ -1385,17 +1384,15 @@ function module:CreateButton(name, barDB)
 	button.bind = bind
 	button.cooldown = cooldown
 
-	if E.Retail then
-		button.SetTier = function(self, itemIDOrLink)
-			local level = C_TradeSkillUI_GetItemReagentQualityByItemInfo(itemIDOrLink) or C_TradeSkillUI_GetItemCraftedQualityByItemInfo(itemIDOrLink)
+	button.SetTier = function(self, itemIDOrLink)
+		local level = C_TradeSkillUI_GetItemReagentQualityByItemInfo(itemIDOrLink) or C_TradeSkillUI_GetItemCraftedQualityByItemInfo(itemIDOrLink)
 
-			if not level or level == 0 then
-				self.qualityTier:SetText("")
-				self.qualityTier:Hide()
-			else
-				self.qualityTier:SetText(CreateAtlasMarkup(format("Professions-Icon-Quality-Tier%d-Small", level)))
-				self.qualityTier:Show()
-			end
+		if not level or level == 0 then
+			self.qualityTier:SetText("")
+			self.qualityTier:Hide()
+		else
+			self.qualityTier:SetText(CreateAtlasMarkup(format("Professions-Icon-Quality-Tier%d-Small", level)))
+			self.qualityTier:Show()
 		end
 	end
 
@@ -1424,9 +1421,7 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 		async.WithItemID(itemData.itemID, function(item)
 			button.itemName = item:GetItemName()
 			button.tex:SetTexture(item:GetItemIcon())
-			if E.Retail then
-				button:SetTier(itemData.itemID)
-			end
+			button:SetTier(itemData.itemID)
 
 			E:Delay(0.1, function()
 				-- delay for quality tier fetching and text changing
@@ -1446,9 +1441,7 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 				button:SetBackdropBorderColor(color.r, color.g, color.b)
 			end
 
-			if E.Retail then
-				button:SetTier(item:GetItemID())
-			end
+			button:SetTier(item:GetItemID())
 
 			E:Delay(0.1, function()
 				-- delay for quality tier fetching and text changing
@@ -1470,12 +1463,8 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			local start, duration, enable
 			if self.questLogIndex and self.questLogIndex > 0 then
 				start, duration, enable = GetQuestLogSpecialItemCooldown(self.questLogIndex)
-				else
-				if E.Retail then
-					start, duration, enable = GetItemCooldown(self.itemID)
-				elseif E.Wrath then
-					start, duration, enable = C_Container_GetItemCooldown(self.itemID)
-				end
+			else
+				start, duration, enable = GetItemCooldown(self.itemID)
 			end
 			CooldownFrame_Set(self.cooldown, start, duration, enable)
 			if (duration and duration > 0 and enable and enable == 0) then
@@ -1935,14 +1924,11 @@ function module:Initialize()
 	self:RegisterEvent("BAG_UPDATE_DELAYED", "UpdateBars")
 	self:RegisterEvent("ZONE_CHANGED", "UpdateBars")
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "UpdateBars")
-
-	if E.Retail then
-		self:RegisterEvent("QUEST_WATCH_LIST_CHANGED", "UpdateQuestItem")
-		self:RegisterEvent("QUEST_LOG_UPDATE", "UpdateQuestItem")
-		self:RegisterEvent("QUEST_ACCEPTED", "UpdateQuestItem")
-		self:RegisterEvent("QUEST_TURNED_IN", "UpdateQuestItem")
-		self:RegisterEvent("UPDATE_BINDINGS", "UpdateBinding")
-	end
+	self:RegisterEvent("QUEST_WATCH_LIST_CHANGED", "UpdateQuestItem")
+	self:RegisterEvent("QUEST_LOG_UPDATE", "UpdateQuestItem")
+	self:RegisterEvent("QUEST_ACCEPTED", "UpdateQuestItem")
+	self:RegisterEvent("QUEST_TURNED_IN", "UpdateQuestItem")
+	self:RegisterEvent("UPDATE_BINDINGS", "UpdateBinding")
 
 	self.Initialized = true
 end
@@ -1959,13 +1945,10 @@ function module:ProfileUpdate()
 		self:UnregisterEvent("ZONE_CHANGED")
 		self:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
 		self:UnregisterEvent("UPDATE_BINDINGS")
-
-		if E.Retail then
-			self:UnregisterEvent("QUEST_WATCH_LIST_CHANGED")
-			self:UnregisterEvent("QUEST_LOG_UPDATE")
-			self:UnregisterEvent("QUEST_ACCEPTED")
-			self:UnregisterEvent("QUEST_TURNED_IN")
-		end
+		self:UnregisterEvent("QUEST_WATCH_LIST_CHANGED")
+		self:UnregisterEvent("QUEST_LOG_UPDATE")
+		self:UnregisterEvent("QUEST_ACCEPTED")
+		self:UnregisterEvent("QUEST_TURNED_IN")
 	end
 
 	self:UpdateBars()

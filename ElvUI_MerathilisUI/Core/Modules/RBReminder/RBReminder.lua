@@ -336,8 +336,6 @@ function module:Visibility()
 end
 
 function module:Initialize()
-	if not E.Retail then return end
-
 	module.db = E.db.mui.raidBuffs
 	if not module.db.enable then return end
 
@@ -369,9 +367,7 @@ function module:Initialize()
 		self:CreateIconBuff("CustomFrame", FoodFrame, false)
 	end
 
-	if E.Retail then
-		self.frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-	end
+	self.frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 	self.frame:RegisterEvent("UNIT_INVENTORY_CHANGED")
 	self.frame:RegisterEvent("UNIT_AURA")
 	self.frame:RegisterEvent("PLAYER_REGEN_ENABLED")

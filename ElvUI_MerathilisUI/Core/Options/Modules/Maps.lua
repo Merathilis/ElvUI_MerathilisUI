@@ -134,7 +134,6 @@ options.maps = {
 					name = L["Scale"],
 					get = function(info) return E.db.mui.maps.worldMap.scale[info[#info]] end,
 					set = function(info, value) E.db.mui.maps.worldMap.scale[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					hidden = not E.Retail,
 					guiInline = true,
 					args = {
 						enable = {
@@ -327,7 +326,6 @@ options.maps = {
 				E.db.mui.maps.rectangleMinimap[info[#info]] = value
 				RM:ChangeShape()
 			end,
-			hidden = not E.Retail,
 			args = {
 				desc = {
 					order = 1,
@@ -536,7 +534,6 @@ options.maps = {
 			order = 7,
 			type = "group",
 			name = L["Super Tracker"],
-			hidden = not E.Retail,
 			get = function(info)
 				return E.db.mui.maps.superTracker[info[#info]]
 			end,
@@ -790,7 +787,6 @@ options.maps = {
 				E.db.mui.maps.instanceDifficulty[info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
-			hidden = not E.Retail,
 			args = {
 				desc = {
 					order = 1,
@@ -911,7 +907,6 @@ options.maps = {
 				E.db.mui.maps.eventTracker[info[#info]] = value
 				ET:ProfileUpdate()
 			end,
-			hidden = not E.Retail,
 			args = {
 				desc = {
 					order = 1,

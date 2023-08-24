@@ -145,10 +145,8 @@ local MirrorActionButtonDown = function(action)
 		return
 	end
 
-	if E.Retail then
-		if C_PetBattles.IsInBattle() then
-			return
-		end
+	if C_PetBattles.IsInBattle() then
+		return
 	end
 
 	local mirror = keyFeedback.mirror
