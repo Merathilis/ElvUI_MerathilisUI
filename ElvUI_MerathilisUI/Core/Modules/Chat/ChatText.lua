@@ -136,30 +136,29 @@ local abbrStrings = {
 	PET_BATTLE_COMBAT_LOG = _G.PET_BATTLE_COMBAT_LOG
 }
 
-local historyTypes = {
-	-- the events set on the chats are still in FindURL_Events, this is used to ignore some types only
-	CHAT_MSG_WHISPER = "WHISPER",
-	CHAT_MSG_WHISPER_INFORM = "WHISPER",
-	CHAT_MSG_BN_WHISPER = "WHISPER",
-	CHAT_MSG_BN_WHISPER_INFORM = "WHISPER",
-	CHAT_MSG_GUILD = "GUILD",
-	CHAT_MSG_GUILD_ACHIEVEMENT = "GUILD",
-	CHAT_MSG_OFFICER = "OFFICER",
-	CHAT_MSG_PARTY = "PARTY",
-	CHAT_MSG_PARTY_LEADER = "PARTY",
-	CHAT_MSG_RAID = "RAID",
-	CHAT_MSG_RAID_LEADER = "RAID",
-	CHAT_MSG_RAID_WARNING = "RAID",
-	CHAT_MSG_INSTANCE_CHAT = "INSTANCE",
-	CHAT_MSG_INSTANCE_CHAT_LEADER = "INSTANCE",
-	CHAT_MSG_CHANNEL = "CHANNEL",
-	CHAT_MSG_SAY = "SAY",
-	CHAT_MSG_YELL = "YELL",
-	CHAT_MSG_EMOTE = "EMOTE" -- this never worked, check it sometime.
+local historyTypes = { -- most of these events are set in FindURL_Events, this is mainly used to ignore types
+	CHAT_MSG_WHISPER              = 'WHISPER',
+	CHAT_MSG_WHISPER_INFORM       = 'WHISPER',
+	CHAT_MSG_BN_WHISPER           = 'WHISPER',
+	CHAT_MSG_BN_WHISPER_INFORM    = 'WHISPER',
+	CHAT_MSG_GUILD                = 'GUILD',
+	CHAT_MSG_GUILD_ACHIEVEMENT    = 'GUILD',
+	CHAT_MSG_GUILD_DEATHS         = E.ClassicHC and 'GUILD' or nil,
+	CHAT_MSG_PARTY                = 'PARTY',
+	CHAT_MSG_PARTY_LEADER         = 'PARTY',
+	CHAT_MSG_RAID                 = 'RAID',
+	CHAT_MSG_RAID_LEADER          = 'RAID',
+	CHAT_MSG_RAID_WARNING         = 'RAID',
+	CHAT_MSG_INSTANCE_CHAT        = 'INSTANCE',
+	CHAT_MSG_INSTANCE_CHAT_LEADER = 'INSTANCE',
+	CHAT_MSG_CHANNEL              = 'CHANNEL',
+	CHAT_MSG_SAY                  = 'SAY',
+	CHAT_MSG_YELL                 = 'YELL',
+	CHAT_MSG_OFFICER              = 'OFFICER', -- only used for alerts, not in FindURL_Events as this is a protected channel
+	CHAT_MSG_EMOTE                = 'EMOTE' -- this never worked, check it sometime
 }
 
 local roleIcons
-
 CT.cache.elvuiRoleIconsPath = {
 	Tank = E.Media.Textures.Tank,
 	Healer = E.Media.Textures.Healer,
@@ -837,10 +836,12 @@ function CT:MayHaveBrackets(...)
 	return unpack(names)
 end
 
+--Modified copy from FrameXML ChatFrame.lua to add CUSTOM_CLASS_COLORS (args were changed)
 function CT:GetColoredName(event, _, arg2, _, _, _, _, _, arg8, _, _, _, arg12)
 	local db = E.db.mui.gradient
-	local chatType = strsub(event, 10)
+	if not arg2 then return end -- guild deaths is called here with no arg2
 
+	local chatType = strsub(event, 10)
 	local subType = strsub(chatType, 1, 7)
 	if subType == 'WHISPER' then
 		chatType = 'WHISPER'
@@ -848,27 +849,28 @@ function CT:GetColoredName(event, _, arg2, _, _, _, _, _, arg8, _, _, _, arg12)
 		chatType = 'CHANNEL' .. arg8
 	end
 
-	--ambiguate guild chat names
-	arg2 = Ambiguate(arg2, (chatType == 'GUILD' and 'guild') or 'none')
+	-- ambiguate guild chat names
+	local name = Ambiguate(arg2, (chatType == 'GUILD' and 'guild') or 'none')
 
-	local info = arg12 and _G.ChatTypeInfo[chatType]
+	-- handle the class color
+	local info = name and arg12 and _G.ChatTypeInfo[chatType]
 	if info and _G.Chat_ShouldColorChatByClass(info) then
 		local data = CH:GetPlayerInfoByGUID(arg12)
-		local classColor = data and data.classColor
-		if classColor then
+		local color = data and data.classColor
+		if color then
 			if db and db.enable then
 				if db.customColor.enableClass then
-					return F.GradientNameCustom(arg2, data.englishClass)
+					return F.GradientNameCustom(name, data.englishClass)
 				else
-					return F.GradientName(arg2, data.englishClass)
+					return F.GradientName(name, data.englishClass)
 				end
 			else
-				return format('|cff%.2x%.2x%.2x%s|r', classColor.r * 255, classColor.g * 255, classColor.b * 255, arg2)
+				return format('|cff%.2x%.2x%.2x%s|r', color.r * 255, color.g * 255, color.b * 255, arg2)
 			end
 		end
 	end
 
-	return arg2
+	return name
 end
 
 function CT:ChatFrame_MessageEventHandler(
@@ -1370,7 +1372,7 @@ function CT:ChatFrame_MessageEventHandler(
 				local chatIcon, pluginChatIcon = specialChatIcons[playerName], CH:GetPluginIcon(playerName)
 				if type(chatIcon) == 'function' then
 					local icon, prettify, var1, var2, var3 = chatIcon()
-					if prettify and not CH:MessageIsProtected(message) then
+					if prettify and chatType ~= 'GUILD_ITEM_LOOTED' and not CH:MessageIsProtected(message) then
 						if chatType == 'TEXT_EMOTE' and not usingDifferentLanguage and (showLink and arg2 ~= '') then
 							var1, var2, var3 = strmatch(message, '^(.-)(' ..
 								arg2 .. (realm and '%-' .. realm or '') .. ')(.-)$')
@@ -1430,7 +1432,7 @@ function CT:ChatFrame_MessageEventHandler(
 					elseif chatType == "TEXT_EMOTE" then
 						body = gsub(message, arg2, pflag .. playerLink, 1)
 					elseif chatType == "GUILD_ITEM_LOOTED" then
-						body = gsub(message, "$s", GetPlayerLink(arg2, playerLinkDisplayText))
+						body = gsub(message, "$s", pflag .. playerLink, 1)
 					else
 						body = format(_G["CHAT_" .. chatType .. "_GET"] .. message, pflag .. playerLink)
 					end
