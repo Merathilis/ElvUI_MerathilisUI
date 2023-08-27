@@ -24,7 +24,6 @@
 	<Script file='RaidManager.lua'/>
 	<Script file='Raidmarkers.lua'/>
 	<Script file='RBReminders.lua'/>
-	<Script file='Reminder.lua'/>
 	<Script file='Tooltips.lua'/>
 	<Script file='UnitFrames.lua'/>
 	<Script file='ZoneText.lua'/>
