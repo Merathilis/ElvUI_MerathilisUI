@@ -1,0 +1,20 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='Ace3.lua'/>
+	<Script file="ActionBarProfiles.lua"/>
+	<Script file="Auctionator.lua"/>
+	<Script file="BenikUI.lua"/>
+	<Script file='BigWigs.lua'/>
+	<Script file='BugSack.lua'/>
+	<Script file="Clique.lua"/>
+	<Script file='Details.lua'/>
+	<Script file="GlobalIgnoreList.lua"/>
+	<Script file="Immersion.lua"/>
+	<Script file="ls_Toasts.lua"/>
+	<Script file="OmniCD.lua"/>
+	<Script file="Pawn.lua"/>
+	<Script file="PremadeGroupsFilter.lua"/>
+	<Script file="RaiderIO.lua"/>
+	<Script file="stAddOnManager.lua"/>
+	<Script file='WeakAuras.lua'/>
+	<Script file='WeakAurasOptions.lua'/>
+</Ui>
