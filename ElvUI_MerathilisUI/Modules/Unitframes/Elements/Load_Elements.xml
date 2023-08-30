@@ -5,8 +5,8 @@
 	<Script file="CounterBar.lua"/>
 	<Script file="DeathIndicator.lua"/>
 	<Script file="Gcd.lua"/>
-	<Script file="HealPrediction.lua"/>
 	<Script file="Health.lua"/>
+	<Script file="HealPrediction.lua"/>
 	<Script file="InfoPanel.lua"/>
 	<Script file="OfflineIndicator.lua"/>
 	<Script file="Power.lua"/>

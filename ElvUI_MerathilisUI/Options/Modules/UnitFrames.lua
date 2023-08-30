@@ -476,7 +476,7 @@ options.unitframes = {
 										F.CreateColorString(L["Overflow"], E.db.general.valuecolor)
 									),
 									func = function(info)
-										module:ChangeDB(
+										HP:ChangeDB(
 											function(db)
 												db.absorbStyle = "OVERFLOW"
 											end
@@ -492,7 +492,7 @@ options.unitframes = {
 										F.CreateColorString(L["Auto Height"], E.db.general.valuecolor)
 									),
 									func = function(info)
-										module:ChangeDB(function(db)
+										HP:ChangeDB(function(db)
 											db.height = -1
 										end)
 									end,

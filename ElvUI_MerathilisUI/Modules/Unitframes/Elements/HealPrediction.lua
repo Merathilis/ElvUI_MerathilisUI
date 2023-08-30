@@ -263,19 +263,6 @@ function module:SetTexture_HealComm(module, obj, texture)
 	return self.hooks[module].SetTexture_HealComm(module, obj, texture)
 end
 
-function module:Initialize()
-	self.db = E.db.mui.unitframes.healPrediction
-
-	if not self.db or not self.db.enable or self.initialized then
-		return
-	end
-
-	self:RawHook(UF, "SetTexture_HealComm")
-	self:WaitForUnitframesLoad()
-
-	self.initialized = true
-end
-
 function module:ProfileUpdate()
 	self:Initialize()
 
@@ -297,6 +284,19 @@ function module:ChangeDB(callback)
 	end
 
 	UF:Update_AllFrames()
+end
+
+function module:Initialize()
+	self.db = E.db.mui.unitframes.healPrediction
+
+	if not self.db or not self.db.enable or self.initialized then
+		return
+	end
+
+	self:RawHook(UF, "SetTexture_HealComm")
+	self:WaitForUnitframesLoad()
+
+	self.initialized = true
 end
 
 MER:RegisterModule(module:GetName())
