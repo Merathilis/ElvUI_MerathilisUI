@@ -349,6 +349,9 @@ L["Dragonriding"] = "Drachenreiten"
 L["Mute the sound of dragonriding."] = "Den Sound vom Drachenreiten stummschalten."
 L["Jewelcrafting"] = "Juwelenschleifen"
 L["Mute the sound of jewelcrafting."] = "Den Sound vom Juwelenschleifen stummschalten."
+L["Same Message Interval"] = "Selbe Benachrichtigung Interval"
+L["Time interval between sending same messages measured in seconds."] = "Zeitintervall zwischen dem Senden einer gleichen Nachricht in Sekunden."
+L["Set to 0 to disable."] = "Setze auf 0 zum deaktivieren."
 
 -- Nameplates
 L["NamePlates"] = "Namensplaketten"

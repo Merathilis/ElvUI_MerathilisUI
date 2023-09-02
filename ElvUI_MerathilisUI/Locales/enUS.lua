@@ -350,6 +350,9 @@ L["Dragonriding"] = true
 L["Mute the sound of dragonriding."] = true
 L["Jewelcrafting"] = true
 L["Mute the sound of jewelcrafting."] = true
+L["Same Message Interval"] = true
+L["Time interval between sending same messages measured in seconds."] = true
+L["Set to 0 to disable."] = true
 
 -- Nameplates
 L["NamePlates"] = true

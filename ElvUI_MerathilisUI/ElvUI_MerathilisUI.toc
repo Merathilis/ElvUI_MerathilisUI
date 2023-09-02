@@ -27,6 +27,6 @@ Init.lua
 Locales\Load_Locales.xml
 Media\Load_Media.xml
 Settings\Load_Settings.xml
-General\Load_General.xml
+Core\Load_Core.xml
 Modules\Load_Modules.xml
 Options\Load_Options.xml

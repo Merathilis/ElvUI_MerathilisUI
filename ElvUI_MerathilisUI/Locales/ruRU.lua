@@ -345,6 +345,9 @@ L["Dragonriding"] = "Верховая езда на драконах"
 L["Mute the sound of dragonriding."] = "Приглушите звук езды на драконе."
 L["Jewelcrafting"] = "Ювелирное дело"
 L["Mute the sound of jewelcrafting."] = "Приглушите звук ювелирного дела."
+L["Same Message Interval"] = true
+L["Time interval between sending same messages measured in seconds."] = true
+L["Set to 0 to disable."] = true
 
 -- Nameplates
 L["NamePlates"] = "Индикаторы здоровья"
