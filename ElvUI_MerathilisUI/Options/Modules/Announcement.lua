@@ -738,6 +738,21 @@ options.announcement.args.general = {
 			name = L["Emote Format"],
 			desc = L["The text template used in emote channel."] .. "\n" .. format(L["Default is %s."], F.StringByTemplate(": %s", "info")),
 			width = 2
+		},
+		betterAlign = {
+			order = 2,
+			type = "description",
+			fontSize = "small",
+			name = " ",
+			width = "full"
+		},
+		sameMessageInterval = {
+			order = 3,
+			type = "range",
+			name = L["Same Message Interval"],
+			desc = L["Time interval between sending same messages measured in seconds."] .. " " .. L["Set to 0 to disable."],
+			min = 0, max = 3600, step = 1,
+			width = 1.5
 		}
 	}
 }
