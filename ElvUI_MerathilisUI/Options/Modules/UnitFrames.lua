@@ -7,17 +7,17 @@ local LSM = E.Libs.LSM
 local format = string.format
 
 local DeathIndicatorImages = {
-	MATERIAL = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\materialDead:14|t]],
+	MATERIAL = [[|TInterface\AddOns\ElvUI_MerathilisUI\Media\Textures\materialDead:14|t]],
 	SKULL = [[|TInterface\LootFrame\LootPanel-Icon:14|t]],
-	SKULL1 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL:16|t]],
-	SKULL2 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL1:16|t]],
-	SKULL3 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL2:16|t]],
-	SKULL4 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL3:16|t]],
+	SKULL1 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Media\Textures\SKULL:16|t]],
+	SKULL2 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Media\Textures\SKULL1:16|t]],
+	SKULL3 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Media\Textures\SKULL2:16|t]],
+	SKULL4 = [[|TInterface\AddOns\ElvUI_MerathilisUI\Media\Textures\SKULL3:16|t]],
 	CUSTOM = L["CUSTOM"],
 }
 
 local OfflineIndicatorImages = {
-	MATERIAL = [[|TInterface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\materialDC:14|t]],
+	MATERIAL = [[|TInterface\AddOns\ElvUI_MerathilisUI\Media\Textures\materialDC:14|t]],
 	ALERT = [[|TInterface\DialogFrame\UI-Dialog-Icon-AlertNew:14|t]],
 	ARTHAS = [[|TInterface\LFGFRAME\UI-LFR-PORTRAIT:14|t]],
 	SKULL = [[|TInterface\LootFrame\LootPanel-Icon:14|t]],

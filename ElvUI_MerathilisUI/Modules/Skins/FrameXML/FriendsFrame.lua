@@ -96,13 +96,13 @@ local function LoadSkin()
 
 	-- Animated Icon
 	_G.FriendsFrameIcon:SetPoint("TOPLEFT", FriendsFrame, "TOPLEFT", 0, 0)
-	_G.FriendsFrameIcon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Bnet]])
+	_G.FriendsFrameIcon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Bnet]])
 	_G.FriendsFrameIcon:SetSize(36, 36)
 	_G.FriendsFrameIcon:Show()
 
 	hooksecurefunc(_G.FriendsFrameIcon, "SetTexture", function(self, texture)
-		if texture ~= [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Bnet]] then
-			self:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Bnet]])
+		if texture ~= [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Bnet]] then
+			self:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Bnet]])
 		end
 	end)
 	_G.FriendsListFrame:HookScript("OnShow", function()

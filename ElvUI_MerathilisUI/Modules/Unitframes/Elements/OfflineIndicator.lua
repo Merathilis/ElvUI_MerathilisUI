@@ -4,7 +4,7 @@ local module = MER:GetModule('MER_UnitFrames')
 -- Credits: Shadow & Light Darth Predator
 
 module.OfflineTextures = {
-	["MATERIAL"] = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\materialDC]],
+	["MATERIAL"] = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\materialDC]],
 	["ALERT"] = [[Interface\DialogFrame\UI-Dialog-Icon-AlertNew]],
 	["ARTHAS"] = [[Interface\LFGFRAME\UI-LFR-PORTRAIT]],
 	["SKULL"] = [[Interface\LootFrame\LootPanel-Icon]],

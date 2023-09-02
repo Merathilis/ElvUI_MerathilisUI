@@ -22,7 +22,7 @@ function module:ShadowOverlay()
 	self.f:SetFrameStrata("BACKGROUND")
 
 	self.f.tex = self.f:CreateTexture()
-	self.f.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\Overlay]])
+	self.f.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Overlay]])
 	self.f.tex:SetAllPoints(self.f)
 
 	self.f:SetAlpha(0.7)

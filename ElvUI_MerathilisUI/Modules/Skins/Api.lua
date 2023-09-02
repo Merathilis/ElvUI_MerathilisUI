@@ -274,7 +274,7 @@ function module:CreateGradient(f)
 
 	local tex = f:CreateTexture(nil, "BORDER")
 	tex:SetInside(f)
-	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\gradient.tga]])
+	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\gradient.tga]])
 	tex:SetVertexColor(.3, .3, .3, .15)
 
 	return tex

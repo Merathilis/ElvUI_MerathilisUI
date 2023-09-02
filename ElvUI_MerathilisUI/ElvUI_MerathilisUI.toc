@@ -3,7 +3,7 @@
 ## Version: @project-version@
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
 ## AddonCompartmentFunc: MerathilisUI_OnAddonCompartmentClick
-## IconTexture: Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\m2
+## IconTexture: Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\m2
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
 ## RequiredDeps: ElvUI

@@ -86,9 +86,9 @@ local lfgRoles = {}
 local initRecord = {}
 
 local factionTextures = {
-	["Neutral"] = [[Interface\Addons\ElvUI_MerathilisUI\Core\Media\FriendList\GameIcons\WoW]],
-	["Alliance"] = [[Interface\Addons\ElvUI_MerathilisUI\Core\Media\FriendList\GameIcons\Alliance]],
-	["Horde"] = [[Interface\Addons\ElvUI_MerathilisUI\Core\Media\FriendList\GameIcons\Horde]]
+	["Neutral"] = [[Interface\Addons\ElvUI_MerathilisUI\Media\FriendList\GameIcons\WoW]],
+	["Alliance"] = [[Interface\Addons\ElvUI_MerathilisUI\Media\FriendList\GameIcons\Alliance]],
+	["Horde"] = [[Interface\Addons\ElvUI_MerathilisUI\Media\FriendList\GameIcons\Horde]]
 }
 
 local offlineMessageTemplate = "%s" .. _G.ERR_FRIEND_OFFLINE_S

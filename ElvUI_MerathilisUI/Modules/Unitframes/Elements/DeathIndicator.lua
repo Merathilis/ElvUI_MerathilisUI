@@ -4,12 +4,12 @@ local module = MER:GetModule('MER_UnitFrames')
 -- Credits: Darth Predator - ElvUI_Shadow & Light
 
 module.DeadTextures = {
-	["MATERIAL"] = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\materialDead]],
+	["MATERIAL"] = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\materialDead]],
 	["SKULL"] = [[Interface\LootFrame\LootPanel-Icon]],
-	["SKULL1"] = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL]],
-	["SKULL2"] = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL1]],
-	["SKULL3"] = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL2]],
-	["SKULL4"] = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\SKULL3]],
+	["SKULL1"] = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\SKULL]],
+	["SKULL2"] = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\SKULL1]],
+	["SKULL3"] = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\SKULL2]],
+	["SKULL4"] = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\SKULL3]],
 }
 
 function module:Construct_DeathIndicator(frame)

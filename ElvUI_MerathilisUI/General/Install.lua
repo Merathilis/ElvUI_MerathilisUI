@@ -2409,7 +2409,7 @@ end
 MER.installTable = {
 	["Name"] = "|cffff7d0aMerathilisUI|r",
 	["Title"] = L["|cffff7d0aMerathilisUI|r Installation"],
-	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\merathilis_logo.tga]],
+	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\merathilis_logo.tga]],
 	["tutorialImageSize"] = {256, 128},
 	["tutorialImagePoint"] = {0, 30},
 	["Pages"] = {

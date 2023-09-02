@@ -68,9 +68,9 @@ local emotes = {
 	{":stuck_out_tongue_closed_eyes:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\StuckOutTongueClosedEyes]=]},
 
 	-- My emots
-	{":monkaomega:", [=[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\ChatEmojis\monkaomega]=]},
-	{":salt:", [=[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\ChatEmojis\salt]=]},
-	{":sadge:", [=[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\ChatEmojis\sadge]=]},
+	{":monkaomega:", [=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\monkaomega]=]},
+	{":salt:", [=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\salt]=]},
+	{":sadge:", [=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\sadge]=]},
 }
 module.emotes = emotes
 

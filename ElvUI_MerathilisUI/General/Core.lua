@@ -29,8 +29,8 @@ MER.MaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion()
 -- Masque support
 MER.MSQ = _G.LibStub('Masque', true)
 
-MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI.tga]]
-MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\mUI1.tga]]
+MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI.tga]]
+MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI1.tga]]
 
 MER.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
 MER.InfoColor = "|cFF00c0fa" --Info Color RGB: 0, .75, .98

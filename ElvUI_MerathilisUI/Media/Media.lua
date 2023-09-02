@@ -6,7 +6,7 @@ MER.Media = {
 	Textures = {},
 }
 
-local MediaPath = "Interface/Addons/ElvUI_MerathilisUI/Core/Media/"
+local MediaPath = "Interface/Addons/ElvUI_MerathilisUI/Media/"
 
 do
 	local cuttedIconTemplate = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
@@ -144,19 +144,19 @@ function F.GetClassIconStringWithStyle(class, style, width, height)
 end
 
 MER.ClassIcons = {
-	["WARRIOR"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Warrior",
-	["PALADIN"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Paladin",
-	["HUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Hunter",
-	["ROGUE"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Rogue",
-	["PRIEST"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Priest",
-	["DEATHKNIGHT"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/DeathKnight",
-	["SHAMAN"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Shaman",
-	["MAGE"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Mage",
-	["WARLOCK"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Warlock",
-	["MONK"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Monk",
-	["DRUID"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Druid",
-	["DEMONHUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/DemonHunter",
-	["EVOKER"] = "Interface/AddOns/ElvUI_MerathilisUI/Core/Media/Icons/ClassIcon/Evoker",
+	["WARRIOR"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Warrior",
+	["PALADIN"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Paladin",
+	["HUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Hunter",
+	["ROGUE"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Rogue",
+	["PRIEST"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Priest",
+	["DEATHKNIGHT"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/DeathKnight",
+	["SHAMAN"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Shaman",
+	["MAGE"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Mage",
+	["WARLOCK"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Warlock",
+	["MONK"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Monk",
+	["DRUID"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Druid",
+	["DEMONHUNTER"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/DemonHunter",
+	["EVOKER"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Evoker",
 }
 
 AddMedia("smallLogo", "m2.tga", "Textures")
@@ -272,65 +272,65 @@ AddMedia("glowTex", "glowTex.blp", "Textures")
 AddMedia("MinimapDifficulty", "minimap-difficulty.tga", "Textures")
 
 -- Fonts
-LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE.TTF]])
-LSM:Register("font","PrototypeRU", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\PROTOTYPE_RU.TTF]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font","Visitor1", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\visitor1.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font","Visitor2", [[Interface\AddOns\ElvUI_MerathilisUI\\Core\Media\Fonts\visitor2.ttf]])
-LSM:Register("font","Tukui", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\uf_font.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font","ArialN", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\ARIALN.ttf]])
-LSM:Register("font","Default", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\default.ttf]])
-LSM:Register("font","Roboto-Black", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Roboto-Black.ttf]])
-LSM:Register("font","Roboto-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Roboto-Bold.ttf]])
-LSM:Register("font","Roboto-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Roboto-Medium.ttf]])
-LSM:Register("font","Roboto-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Roboto-Regular.ttf]])
-LSM:Register("font","GoodDogCool", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\gdcool.ttf]])
-LSM:Register("font","BadaBoom", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\BADABB__.ttf]])
-LSM:Register("font","Gothic-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\CenturyGothicBold.ttf]])
-LSM:Register("font","Gotham Narrow Black", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\GothamNarrow-Black.ttf]])
-LSM:Register("font","Gotham Narrow Ultra", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\GothamNarrow-Ultra.otf]])
-LSM:Register("font","Montserrat-Black", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Black.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font","Montserrat-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Bold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font","Montserrat-ExtraBold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-ExtraBold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font","Montserrat-ExtraLight", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-ExtraLight.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font","Montserrat-Light", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Light.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font","Montserrat-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Medium.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font","Montserrat-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-Regular.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font","Montserrat-SemiBold", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Fonts\Montserrat-SemiBold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\PROTOTYPE.TTF]])
+LSM:Register("font","PrototypeRU", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\PROTOTYPE_RU.TTF]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Visitor1", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\visitor1.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Visitor2", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\visitor2.ttf]])
+LSM:Register("font","Tukui", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\uf_font.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","ArialN", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\ARIALN.ttf]])
+LSM:Register("font","Default", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\default.ttf]])
+LSM:Register("font","Roboto-Black", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Black.ttf]])
+LSM:Register("font","Roboto-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Bold.ttf]])
+LSM:Register("font","Roboto-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Medium.ttf]])
+LSM:Register("font","Roboto-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Regular.ttf]])
+LSM:Register("font","GoodDogCool", [[Interface\AddOns\ElvUI_MerathilisUI\edia\Fonts\gdcool.ttf]])
+LSM:Register("font","BadaBoom", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\BADABB__.ttf]])
+LSM:Register("font","Gothic-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\CenturyGothicBold.ttf]])
+LSM:Register("font","Gotham Narrow Black", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\GothamNarrow-Black.ttf]])
+LSM:Register("font","Gotham Narrow Ultra", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\GothamNarrow-Ultra.otf]])
+LSM:Register("font","Montserrat-Black", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-Black.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-Bold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-ExtraBold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-ExtraBold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-ExtraLight", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-ExtraLight.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Light", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-Light.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-Medium.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-Regular.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font","Montserrat-SemiBold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-SemiBold.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 
 -- Backgrounds
 -- Border
 
 -- Statusbars
 LSM:Register("statusbar","MerathilisBlank", [[Interface\BUTTONS\WHITE8X8.blp]])
-LSM:Register("statusbar","MerathilisUI1", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\mUI2.tga]])
-LSM:Register("statusbar","MerathilisUI2", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\mUI3.tga]])
-LSM:Register("statusbar","MerathilisUI4", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\mUI4.tga]])
-LSM:Register("statusbar","MerathilisOnePixel", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\OnePixel.tga]])
-LSM:Register("statusbar","MerathilisMelli", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\Melli.tga]])
-LSM:Register("statusbar","MerathilisMelliDark", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\MelliDark.tga]])
-LSM:Register("statusbar","MerathilisEmpty", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\Empty.tga]])
-LSM:Register("statusbar","MerathilisnormTex", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\normTex.tga]])
-LSM:Register("statusbar","MerathilisDefault", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\default.tga]])
-LSM:Register("statusbar","MerathilisLight", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\Light.tga]])
-LSM:Register("statusbar","MerathilisFeint", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\MerathilisFeint.tga]])
-LSM:Register("statusbar","MerathilisBorder", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\Border.tga]])
-LSM:Register("statusbar","Gradient", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\gradient1.tga]])
-LSM:Register("statusbar","MER_NormTex", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\MERNormTex.tga]])
-LSM:Register("statusbar","Lyn1", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\lyn1.tga]])
-LSM:Register("statusbar","Skullflower", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\Skullflower.tga]])
-LSM:Register("statusbar","SkullflowerLight", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\SkullflowerLight.tga]])
-LSM:Register("statusbar","Duffed", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\Duffed.tga]])
-LSM:Register("statusbar","RenAscension", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\RenAscension.tga]])
-LSM:Register("statusbar","RenAscensionL", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\RenAscensionL.tga]])
-LSM:Register("statusbar","4Pixel", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\Line4pixel.tga]])
-LSM:Register("statusbar","Asphyxia", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\AsphyxiaNorm.tga]])
-LSM:Register("statusbar","MER_Stripes", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\MER_Stripes.tga]])
-LSM:Register("statusbar","Simpy19", [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\StatusBars\simpy_tex19.tga]])
+LSM:Register("statusbar","MerathilisUI1", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\mUI2.tga]])
+LSM:Register("statusbar","MerathilisUI2", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\mUI3.tga]])
+LSM:Register("statusbar","MerathilisUI4", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\mUI4.tga]])
+LSM:Register("statusbar","MerathilisOnePixel", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\OnePixel.tga]])
+LSM:Register("statusbar","MerathilisMelli", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Melli.tga]])
+LSM:Register("statusbar","MerathilisMelliDark", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\MelliDark.tga]])
+LSM:Register("statusbar","MerathilisEmpty", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Empty.tga]])
+LSM:Register("statusbar","MerathilisnormTex", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\normTex.tga]])
+LSM:Register("statusbar","MerathilisDefault", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\default.tga]])
+LSM:Register("statusbar","MerathilisLight", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Light.tga]])
+LSM:Register("statusbar","MerathilisFeint", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\MerathilisFeint.tga]])
+LSM:Register("statusbar","MerathilisBorder", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Border.tga]])
+LSM:Register("statusbar","Gradient", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\gradient1.tga]])
+LSM:Register("statusbar","MER_NormTex", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\MERNormTex.tga]])
+LSM:Register("statusbar","Lyn1", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\lyn1.tga]])
+LSM:Register("statusbar","Skullflower", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Skullflower.tga]])
+LSM:Register("statusbar","SkullflowerLight", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\SkullflowerLight.tga]])
+LSM:Register("statusbar","Duffed", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Duffed.tga]])
+LSM:Register("statusbar","RenAscension", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\RenAscension.tga]])
+LSM:Register("statusbar","RenAscensionL", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\RenAscensionL.tga]])
+LSM:Register("statusbar","4Pixel", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Line4pixel.tga]])
+LSM:Register("statusbar","Asphyxia", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\AsphyxiaNorm.tga]])
+LSM:Register("statusbar","MER_Stripes", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\MER_Stripes.tga]])
+LSM:Register("statusbar","Simpy19", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\simpy_tex19.tga]])
 
 -- Sounds
-LSM:Register("sound","warning",[[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Sounds\warning.ogg]])
-LSM:Register("sound","OnePlus Light",[[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Sounds\OnePlusLight.ogg]])
+LSM:Register("sound","warning",[[Interface\AddOns\ElvUI_MerathilisUI\Media\Sounds\warning.ogg]])
+LSM:Register("sound","OnePlus Light",[[Interface\AddOns\ElvUI_MerathilisUI\Media\Sounds\OnePlusLight.ogg]])
 
 -- Custom Textures
-E.media.roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\UI-LFG-ICON-ROLES]]
-E.media.checked = [[Interface\AddOns\ElvUI_MerathilisUI\Core\Media\Textures\checked]]
+E.media.roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\UI-LFG-ICON-ROLES]]
+E.media.checked = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\checked]]
