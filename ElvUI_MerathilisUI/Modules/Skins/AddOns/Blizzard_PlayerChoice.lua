@@ -19,13 +19,11 @@ local function SetupOptions(frame)
 	module:CreateShadow(frame)
 	if frame.MERshadow then
 		frame.MERshadow:SetShown(frame.template and frame.template == "Transparent")
-	end
 
-	hooksecurefunc(frame, "SetTemplate", function(_, template)
-		if frame.MERshadow then
+		hooksecurefunc(frame, "SetTemplate", function(_, template)
 			frame.MERshadow:SetShown(template and template == "Transparent")
-		end
-	end)
+		end)
+	end
 
 	frame.__MERSkin = true
 end
