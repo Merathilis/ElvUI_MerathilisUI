@@ -261,7 +261,7 @@ local function Initialize()
 		-- Speech Bubble
 		playerModel.tex = playerModel:CreateTexture(nil, "BACKGROUND")
 		playerModel.tex:SetPoint("TOP", modelHolder, "TOP", 30, 80)
-		playerModel.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\bubble")
+		playerModel.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\bubble")
 
 		playerModel.tex.text = playerModel:CreateFontString(nil, "OVERLAY")
 		playerModel.tex.text:FontTemplate(nil, 20, "OUTLINE")

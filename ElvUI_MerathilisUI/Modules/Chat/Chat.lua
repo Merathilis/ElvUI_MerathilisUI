@@ -101,7 +101,7 @@ function module:CreateChatButtons()
 
 	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
 	ChatButton.tex:SetInside()
-	ChatButton.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\chatButton")
+	ChatButton.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\chatButton")
 
 	ChatButton:SetScript("OnMouseUp", function(self, btn)
 		if InCombatLockdown() then return end

@@ -89,7 +89,7 @@ function MER:OptionsCallback()
 				type = "description",
 				name = L["MER_DESC"]..newSignIgnored,
 				fontSize = "medium",
-				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\Core\\Media\\Textures\\mUI1.tga", 200, 200 end,
+				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\mUI1.tga", 200, 200 end,
 			},
 			install = {
 				order = 3,
