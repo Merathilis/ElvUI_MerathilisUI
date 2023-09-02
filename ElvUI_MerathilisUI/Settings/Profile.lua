@@ -366,6 +366,7 @@ P.mail = {
 P.announcement = {
 	enable = true,
 	emoteFormat = ": %s",
+	sameMessageInterval = 10,
 	quest = {
 		enable = false,
 		paused = true,

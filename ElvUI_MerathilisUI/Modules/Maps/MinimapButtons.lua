@@ -5,15 +5,16 @@ local S = MER:GetModule('MER_Skins')
 
 local _G = _G
 local ceil, floor, min = ceil, floor, min
-local pairs, print, select, type, unpack = pairs, print, select, type, unpack
+local pairs, print, select, sort, type, unpack = pairs, print, select, sort, type, unpack
 local strfind = strfind
 local strlen = strlen
 local strsub = strsub
-local tinsert = tinsert
+local tinsert, tremove = tinsert, tremove
 
 local CreateFrame = CreateFrame
 local GetSpellInfo = GetSpellInfo
 local InCombatLockdown = InCombatLockdown
+local IsAddOnLoaded = IsAddOnLoaded
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
@@ -58,7 +59,6 @@ local IgnoreList = {
 		"QuestieFrame",
 		"TTMinimapButton",
 		"QueueStatusButton",
-		"FarmHud"
 	},
 	partial = {
 		"Node",
@@ -261,6 +261,22 @@ function module:SkinButton(frame)
 		for _, ignoreName in pairs(IgnoreList.partial) do
 			if strfind(name, ignoreName) ~= nil then
 				return
+			end
+		end
+	end
+
+	-- If the relative frame is Minimap, then replace it to fake Minimap
+	-- It must run before FarmHud moving the Minimap
+	if IsAddOnLoaded("FarmHud") then
+		if frame.SetPoint and not frame.__SetPoint then
+			frame.__SetPoint = frame.SetPoint
+			frame.SetPoint = function(btn, ...)
+				local point, relativeTo, relativePoint, xOfs, yOfs = ...
+				if relativeTo == _G.Minimap then
+					return
+				end
+				relativeTo = relativeTo == _G.Minimap and self.fakeMinimap or relativeTo
+				frame.__SetPoint(btn, point, relativeTo, relativePoint, xOfs, yOfs)
 			end
 		end
 	end
