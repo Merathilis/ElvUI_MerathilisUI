@@ -1,0 +1,5 @@
+<Ui xmlns='http://www.blizzard.com/wow/ui/'>
+	<Include file='Core\LibDropDown\embed.xml'/>
+	<Include file='Core\oUF_Plugins\oUF_Plugins.xml'/>
+	<Script file='Core\LibButtonGlow-1.0\LibButtonGlow-1.0.lua'/>
+</Ui>
