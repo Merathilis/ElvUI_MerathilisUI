@@ -257,173 +257,180 @@ do --this can save some main file locals
 	specialChatIcons = z
 
 	if E.Classic then
-		-- Simpy
-		z['Simpy-Myzrael'] = itsSimpy -- Warlock
+		-- Simpy (5099: Myzrael)
+		z['Player-5099-01947A77'] = itsSimpy -- Warlock: Simpy
+		-- Luckyone (5261: Nek'Rosh, 5220: Stitches)
+		z["Lucky-Nek'Rosh"]       = ElvBlue -- [Horde] Rogue
+		z["Luckyone-Nek'Rosh"]    = ElvBlue -- [Horde] Hunter
+		z['Luckyone-Stitches']    = ElvBlue -- [Horde] Hunter
+		z["Luckyone-Shazzrah"]    = ElvBlue -- [Horde] Hunter
 	elseif E.Wrath then
-		-- Simpy
-		z['Cutepally-Myzrael']     = itsSimpy -- Paladin
-		z['Kalline-Myzrael']       = itsSimpy -- Shaman
-		z['Imsojelly-Myzrael']     = itsSimpy -- [Horde] DK
-		-- Luckyone
-		z['Luckyone-Gehennas']     = ElvGreen -- [Horde] Hunter
-		z['Luckygrip-Gehennas']    = ElvGreen -- [Horde] DK
-		z['Luckyone-Everlook']     = ElvGreen -- [Alliance] Druid
-		z['Luckypriest-Everlook']  = ElvGreen -- [Alliance] Priest
-		z['Luckyrogue-Everlook']   = ElvGreen -- [Alliance] Rogue
-		z['Luckyhunter-Everlook']  = ElvGreen -- [Alliance] Hunter
-		z['Luckydk-Everlook']      = ElvGreen -- [Alliance] DK
-		z['Luckykek-Everlook']     = ElvGreen -- [Alliance] Shaman
-		z['Luckyone-Giantstalker'] = ElvGreen -- [Alliance] Paladin
+		-- Simpy (4373: Myzrael)
+		z['Player-4373-011657A7'] = itsSimpy -- Paladin:		Cutepally
+		z['Player-4373-032FFEE2'] = itsSimpy -- Shaman:		Kalline
+		z['Player-4373-03351BC7'] = itsSimpy -- [Horde] DK:	Imsojelly
+		-- Luckyone (4440: Everlook, 4476: Gehennas, 4811: Giantstalker)
+		z['Player-4476-03BF41C9'] = ElvBlue -- [Horde] Hunter: Luckyone
+		z['Player-4476-049F4831'] = ElvBlue -- [Horde] DK: Luckygrip
+		z['Player-4440-037C92D4'] = ElvBlue -- [Alliance] Druid: Luckyone
+		z['Player-4440-037C7CC8'] = ElvBlue -- [Alliance] Priest: Luckypriest
+		z['Player-4440-03AD654A'] = ElvBlue -- [Alliance] Rogue: Luckyrogue
+		z['Player-4440-037C7E29'] = ElvBlue -- [Alliance] DK: Luckydk
+		z['Player-4440-03ADE2DF'] = ElvBlue -- [Alliance] Shaman: Luckykek
+		z['Player-4811-038DA128'] = ElvBlue -- [Alliance] Paladin: Luckyone
+		z['Luckyhunter-Everlook'] = ElvBlue -- [Alliance] Hunter
 		-- Repooc
-		z['Poocsdk-Mankrik']       = ElvBlue -- [Horde] DK
-		z['Repooc-Mankrik']        = ElvBlue
+		z['Poocsdk-Mankrik']      = ElvBlue -- [Horde] DK
+		z['Repooc-Mankrik']       = ElvBlue
 	elseif E.Retail then
 		-- Elv
-		z['Elv-Spirestone']            = itsElv
-		z['Elvz-Spirestone']           = itsElv
-		z['Fleshlite-Spirestone']      = itsElv
-		z['Elvidan-Spirestone']        = itsElv
-		z['Elvilas-Spirestone']        = itsElv
-		z['Fraku-Spirestone']          = itsElv
-		z['Jarvix-Spirestone']         = itsElv
-		z['Watermelon-Spirestone']     = itsElv
-		z['Zinxbe-Spirestone']         = itsElv
-		z['Whorlock-Spirestone']       = itsElv
+		z['Elv-Spirestone'] = itsElv
+		z['Elvz-Spirestone'] = itsElv
+		z['Fleshlite-Spirestone'] = itsElv
+		z['Elvidan-Spirestone'] = itsElv
+		z['Elvilas-Spirestone'] = itsElv
+		z['Fraku-Spirestone'] = itsElv
+		z['Jarvix-Spirestone'] = itsElv
+		z['Watermelon-Spirestone'] = itsElv
+		z['Zinxbe-Spirestone'] = itsElv
+		z['Whorlock-Spirestone'] = itsElv
 		-- Blazeflack
-		z['Blazii-Silvermoon']         = ElvBlue -- Priest
-		z['Chazii-Silvermoon']         = ElvBlue -- Shaman
-		-- Merathilis
-		z['Asragoth-Shattrath']        = ElvPurple -- [Alliance] Warlock
-		z['Brítt-Shattrath']          = ElvBlue -- [Alliance] Warrior
-		z['Damará-Shattrath']         = ElvRed -- [Alliance] Paladin
-		z['Jazira-Shattrath']          = ElvBlue -- [Alliance] Priest
-		z['Jústice-Shattrath']        = ElvYellow -- [Alliance] Rogue
-		z['Maithilis-Shattrath']       = ElvGreen -- [Alliance] Monk
-		z['Mattdemôn-Shattrath']      = ElvPurple -- [Alliance] DH
-		z['Melisendra-Shattrath']      = ElvBlue -- [Alliance] Mage
-		z['Merathilis-Shattrath']      = ElvOrange -- [Alliance] Druid
-		z['Merathilîs-Shattrath']     = ElvBlue -- [Alliance] Shaman
-		z['Meravoker-Shattrath']       = ElvGreen -- [Alliance] Hunter
-		z['Róhal-Shattrath']          = ElvGreen -- [Alliance] Hunter
-		z['Jahzzy-Garrosh']            = ElvRed -- [Alliance] DK
-		-- Luckyone
-		z['Luckyone-LaughingSkull']    = ElvGreen -- [Horde] Druid
-		z['Luckypriest-LaughingSkull'] = ElvGreen -- [Horde] Priest
-		z['Luckymonkas-LaughingSkull'] = ElvGreen -- [Horde] Monk
-		z['Luckyhunter-LaughingSkull'] = ElvGreen -- [Horde] Hunter
-		z['Luckydh-LaughingSkull']     = ElvGreen -- [Horde] DH
-		z['Luckymage-LaughingSkull']   = ElvGreen -- [Horde] Mage
-		z['Luckypala-LaughingSkull']   = ElvGreen -- [Horde] Paladin
-		z['Luckyrogue-LaughingSkull']  = ElvGreen -- [Horde] Rogue
-		z['Luckywl-LaughingSkull']     = ElvGreen -- [Horde] Warlock
-		z['Luckydk-LaughingSkull']     = ElvGreen -- [Horde] DK
-		z['Luckyevoker-LaughingSkull'] = ElvGreen -- [Horde] Evoker
-		z['Notlucky-LaughingSkull']    = ElvGreen -- [Horde] Warrior
-		z['Unluckyone-LaughingSkull']  = ElvGreen -- [Horde] Shaman
-		z['Luckydruid-LaughingSkull']  = ElvGreen -- [Alliance] Druid
+		z['Blazii-Silvermoon'] = ElvBlue -- Priest
+		z['Chazii-Silvermoon'] = ElvBlue -- Shaman
+		-- Merathilis (1401: Shattrath/Garrosh)
+		z['Player-1401-04217BB2'] = ElvPurple -- [Alliance] Warlock:	Asragoth
+		z['Player-1401-0421EB9F'] = ElvBlue -- [Alliance] Warrior:	Brìtt
+		z['Player-1401-0421F909'] = ElvRed -- [Alliance] Paladin:	Damará
+		z['Player-1401-0421EC36'] = ElvBlue -- [Alliance] Priest:	Jazira
+		z['Player-1401-041CD0A6'] = ElvYellow -- [Alliance] Rogue:	Jústice
+		z['Player-1401-041E4D64'] = ElvGreen -- [Alliance] Monk:		Maithilis
+		z['Player-1401-0648F4AD'] = ElvPurple -- [Alliance] DH:		Mattdemôn
+		z['Player-1401-0421F27B'] = ElvBlue -- [Alliance] Mage:		Melisendra
+		z['Player-1401-04221546'] = ElvOrange -- [Alliance] Druid:	Merathilis
+		z['Player-1401-04221344'] = ElvBlue -- [Alliance] Shaman:	Merathilîs
+		z['Player-1401-0A80006F'] = ElvBlue -- [Alliance] Shaman:	Ronan
+		z['Player-1401-0A4C8DF4'] = ElvGreen -- [Alliance] Evoker:	Meravoker
+		z['Player-1401-041C0AE2'] = ElvGreen -- [Alliance] Hunter:	Róhal
+		z['Player-1401-05CEABFA'] = ElvRed -- [Alliance] DK:		Jahzzy
+		-- Luckyone (1598: LaughingSkull)
+		z['Player-1598-0F5E4639'] = ElvBlue -- [Horde] Druid: 	Luckyone
+		z['Player-1598-0F46FF5A'] = ElvBlue -- [Horde] Evoker: 	Luckyevoker
+		z['Player-1598-0BFF3341'] = ElvBlue -- [Horde] DH: 		Luckydh
+		z['Player-1598-0BD22704'] = ElvBlue -- [Horde] Priest: 	Luckypriest
+		z['Player-1598-0BEFA545'] = ElvBlue -- [Horde] Monk: 		Luckymonkas
+		z['Player-1598-0E1A06DE'] = ElvBlue -- [Horde] Rogue: 	Luckyrogue
+		z['Player-1598-0BF2E377'] = ElvBlue -- [Horde] Hunter: 	Luckyhunter
+		z['Player-1598-0BF18248'] = ElvBlue -- [Horde] DK: 		Luckydk
+		z['Player-1598-0BFABB95'] = ElvBlue -- [Horde] Mage: 		Luckymage
+		z['Player-1598-0E67511D'] = ElvBlue -- [Horde] Paladin: 	Luckypala
+		z['Player-1598-0C0DD01B'] = ElvBlue -- [Horde] Warlock: 	Luckywl
+		z['Player-1598-0BF8013A'] = ElvBlue -- [Horde] Warrior: 	Notlucky
+		z['Player-1598-0BF56103'] = ElvBlue -- [Horde] Shaman: 	Unluckyone
+		z['Player-1598-0F3E51B0'] = ElvBlue -- [Alliance] Druid:	Luckydruid
 		-- Repooc
-		z['Sifpooc-Stormrage']         = itsPooc -- [Alliance] DH
-		z['Fragmented-Stormrage']      = itsPooc -- [Alliance] Warlock
-		z['Dapooc-Stormrage']          = itsPooc -- [Alliance] Druid
-		z['Poocvoker-Stormrage']       = itsPooc -- [Alliance] Evoker
-		z['Sifupooc-Stormrage']        = itsPooc -- [Alliance] Monk
-		z['Pooc-Stormrage']            = itsPooc -- [Alliance] Paladin
-		z['Repøøc-Stormrage']        = itsPooc -- [Alliance] Shaman
-		-- Simpy
-		z['Arieva-Cenarius']           = itsSimpy -- Hunter
-		z['Buddercup-Cenarius']        = itsSimpy -- Rogue
-		z['Cutepally-Cenarius']        = itsSimpy -- Paladin
-		z['Cuddle-Cenarius']           = itsSimpy -- Mage
-		z['Ezek-Cenarius']             = itsSimpy -- DK
-		z['Glice-Cenarius']            = itsSimpy -- Warrior
-		z['Kalline-Cenarius']          = itsSimpy -- Shaman
-		z['Puttietat-Cenarius']        = itsSimpy -- Druid
-		z['Simpy-Cenarius']            = itsSimpy -- Warlock
-		z['Twigly-Cenarius']           = itsSimpy -- Monk
-		z['Imsofire-Cenarius']         = itsSimpy -- [Horde] Evoker
-		z['Imsobeefy-Cenarius']        = itsSimpy -- [Horde] Shaman
-		z['Imsocheesy-Cenarius']       = itsSimpy -- [Horde] Priest
-		z['Imsojelly-Cenarius']        = itsSimpy -- [Horde] DK
-		z['Imsojuicy-Cenarius']        = itsSimpy -- [Horde] Druid
-		z['Imsopeachy-Cenarius']       = itsSimpy -- [Horde] DH
-		z['Imsosalty-Cenarius']        = itsSimpy -- [Horde] Paladin
-		z['Imsospicy-Cenarius']        = itsSimpy -- [Horde] Mage
-		z['Imsonutty-Cenarius']        = itsSimpy -- [Horde] Hunter
-		z['Imsotasty-Cenarius']        = itsSimpy -- [Horde] Monk
-		z['Imsosaucy-Cenarius']        = itsSimpy -- [Horde] Warlock
-		z['Imsodrippy-Cenarius']       = itsSimpy -- [Horde] Rogue
-		z['Lumee-CenarionCircle']      = itsSimpy -- [RP] Evoker
-		z['Bunne-CenarionCircle']      = itsSimpy -- [RP] Warrior
-		z['Loppie-CenarionCircle']     = itsSimpy -- [RP] Monk
-		z['Loppybunny-CenarionCircle'] = itsSimpy -- [RP] Mage
-		z['Rubee-CenarionCircle']      = itsSimpy -- [RP] DH
-		z['Wennie-CenarionCircle']     = itsSimpy -- [RP] Priest
+		z['Sifpooc-Stormrage'] = itsPooc -- [Alliance] DH
+		z['Fragmented-Stormrage'] = itsPooc -- [Alliance] Warlock
+		z['Dapooc-Stormrage'] = itsPooc -- [Alliance] Druid
+		z['Poocvoker-Stormrage'] = itsPooc -- [Alliance] Evoker
+		z['Sifupooc-Stormrage'] = itsPooc -- [Alliance] Monk
+		z['Pooc-Stormrage'] = itsPooc -- [Alliance] Paladin
+		z['Repøøc-Stormrage'] = itsPooc -- [Alliance] Shaman
+		-- Simpy (1168: Cenarius, 125: Cenarion Circle)
+		z['Player-1168-069A1283'] = itsSimpy -- Hunter:	Arieva
+		z['Player-1168-0698394A'] = itsSimpy -- Rogue:	Buddercup
+		z['Player-1168-069A3A12'] = itsSimpy -- Paladin:	Cutepally
+		z['Player-1168-0A99F54B'] = itsSimpy -- Mage:		Cuddle
+		z['Player-1168-0680170F'] = itsSimpy -- DK:		Ezek
+		z['Player-1168-06981C6F'] = itsSimpy -- Warrior:	Glice
+		z['Player-1168-0698066B'] = itsSimpy -- Shaman:	Kalline
+		z['Player-1168-06989ADF'] = itsSimpy -- Druid:	Puttietat
+		z['Player-1168-069837CD'] = itsSimpy -- Warlock:	Simpy
+		z['Player-1168-06984CD4'] = itsSimpy -- Monk:		Twigly
+		z['Player-1168-0A98C560'] = itsSimpy -- [Horde] Evoker:	Imsofire
+		z['Player-1168-090A34ED'] = itsSimpy -- [Horde] Shaman:	Imsobeefy
+		z['Player-1168-090A34E6'] = itsSimpy -- [Horde] Priest:	Imsocheesy
+		z['Player-1168-069838E1'] = itsSimpy -- [Horde] DK:		Imsojelly
+		z['Player-1168-0870FBCE'] = itsSimpy -- [Horde] Druid:	Imsojuicy
+		z['Player-1168-07C00783'] = itsSimpy -- [Horde] DH:		Imsopeachy
+		z['Player-1168-07B41C4C'] = itsSimpy -- [Horde] Paladin:	Imsosalty
+		z['Player-1168-0870F320'] = itsSimpy -- [Horde] Mage:		Imsospicy
+		z['Player-1168-0A395531'] = itsSimpy -- [Horde] Hunter:	Imsonutty
+		z['Player-1168-0A395540'] = itsSimpy -- [Horde] Monk:		Imsotasty
+		z['Player-1168-0A39554F'] = itsSimpy -- [Horde] Warlock:	Imsosaucy
+		z['Player-1168-0A395551'] = itsSimpy -- [Horde] Rogue:	Imsodrippy
+		z['Player-125-0A62DE05'] = itsSimpy -- [RP] Evoker:	Lumee
+		z['Player-125-09A7F9ED'] = itsSimpy -- [RP] Warrior:	Bunne
+		z['Player-125-09A8CC43'] = itsSimpy -- [RP] Monk:	Loppie
+		z['Player-125-09A7EB72'] = itsSimpy -- [RP] Mage:	Loppybunny
+		z['Player-125-09A7DAD9'] = itsSimpy -- [RP] DH:		Rubee
+		z['Player-125-09A8E282'] = itsSimpy -- [RP] Priest:	Wennie
 		-- Melbelle (Simpys Bestie)
-		z['Melbelle-Bladefist']        = itsMel -- Hunter
-		z['Deathchaser-Bladefist']     = itsMel -- DH
-		z['Alyosha-Cenarius']          = itsMel -- Warrior
-		z['Dãwn-Cenarius']            = itsMel -- Paladin
-		z['Faelen-Cenarius']           = itsMel -- Rogue
-		z['Freckles-Cenarius']         = itsMel -- DK
-		z['Lõvi-Cenarius']            = itsMel -- Priest
-		z['Melbelle-Cenarius']         = itsMel -- Druid
-		z['Perìwìnkle-Cenarius']     = itsMel -- Shaman
-		z['Pìper-Cenarius']           = itsMel -- Warlock
-		z['Spãrkles-Cenarius']        = itsMel -- Mage
-		z['Mellybear-Cenarius']        = itsMel -- Hunter
-		z['Zuria-Cenarius']            = itsMel -- DH
-		z['Tinybubbles-Cenarius']      = itsMel -- Monk
-		z['Alykat-Cenarius']           = itsMel -- [Horde] Druid
-		z['Alybones-Cenarius']         = itsMel -- [Horde] DK
-		z['Alyfreeze-Cenarius']        = itsMel -- [Horde] Mage
-		z['Alykins-Cenarius']          = itsMel -- [Horde] DH
-		z['Alyrage-Cenarius']          = itsMel -- [Horde] Warrior
-		z['Alysneaks-Cenarius']        = itsMel -- [Horde] Rogue
-		z['Alytotes-Cenarius']         = itsMel -- [Horde] Shaman
+		z['Melbelle-Bladefist'] = itsMel -- Hunter
+		z['Deathchaser-Bladefist'] = itsMel -- DH
+		z['Alyosha-Cenarius'] = itsMel -- Warrior
+		z['Dãwn-Cenarius'] = itsMel -- Paladin
+		z['Faelen-Cenarius'] = itsMel -- Rogue
+		z['Freckles-Cenarius'] = itsMel -- DK
+		z['Lõvi-Cenarius'] = itsMel -- Priest
+		z['Melbelle-Cenarius'] = itsMel -- Druid
+		z['Perìwìnkle-Cenarius'] = itsMel -- Shaman
+		z['Pìper-Cenarius'] = itsMel -- Warlock
+		z['Spãrkles-Cenarius'] = itsMel -- Mage
+		z['Mellybear-Cenarius'] = itsMel -- Hunter
+		z['Zuria-Cenarius'] = itsMel -- DH
+		z['Tinybubbles-Cenarius'] = itsMel -- Monk
+		z['Alykat-Cenarius'] = itsMel -- [Horde] Druid
+		z['Alybones-Cenarius'] = itsMel -- [Horde] DK
+		z['Alyfreeze-Cenarius'] = itsMel -- [Horde] Mage
+		z['Alykins-Cenarius'] = itsMel -- [Horde] DH
+		z['Alyrage-Cenarius'] = itsMel -- [Horde] Warrior
+		z['Alysneaks-Cenarius'] = itsMel -- [Horde] Rogue
+		z['Alytotes-Cenarius'] = itsMel -- [Horde] Shaman
 		-- Thradex (Simpys Buddy)
-		z['Foam-Area52']               = itsThradex -- Horde
-		z['Gur-Area52']                = itsThradex -- Horde
-		z['Archmage-Area52']           = itsThradex -- Horde
-		z['Counselor-Area52']          = itsThradex -- Horde
-		z['Monk-CenarionCircle']       = itsThradex
-		z['Thradex-Stormrage']         = itsThradex
-		z['Wrecked-Stormrage']         = itsThradex
-		z['Tb-Stormrage']              = itsThradex
+		z['Foam-Area52'] = itsThradex -- Horde
+		z['Gur-Area52'] = itsThradex -- Horde
+		z['Archmage-Area52'] = itsThradex -- Horde
+		z['Counselor-Area52'] = itsThradex -- Horde
+		z['Psychiatrist-Area 52'] = itsThradex -- Horde
+		z['Monk-CenarionCircle'] = itsThradex
+		z['Thradex-Stormrage'] = itsThradex
+		z['Wrecked-Stormrage'] = itsThradex
+		z['Tb-Stormrage'] = itsThradex
 		-- AcidWeb
-		z['Livarax-BurningLegion']     = Gem
+		z['Livarax-BurningLegion'] = Gem
 		z['Filevandrel-BurningLegion'] = Gem
-		z['Akavaya-BurningLegion']     = Gem
-		z['Athyneos-BurningLegion']    = Gem
+		z['Akavaya-BurningLegion'] = Gem
+		z['Athyneos-BurningLegion'] = Gem
 		-- Affinity
-		z['Affinichi-Illidan']         = Bathrobe
-		z['Affinitii-Illidan']         = Bathrobe
-		z['Affinity-Illidan']          = Bathrobe
-		z['Uplift-Illidan']            = Bathrobe
+		z['Affinichi-Illidan'] = Bathrobe
+		z['Affinitii-Illidan'] = Bathrobe
+		z['Affinity-Illidan'] = Bathrobe
+		z['Uplift-Illidan'] = Bathrobe
 		-- Tirain (NOTE: lol)
-		z['Tierone-Spirestone']        = TyroneBiggums
-		z['Tirain-Spirestone']         = TyroneBiggums
-		z['Sinth-Spirestone']          = TyroneBiggums
-		z['Tee-Spirestone']            = TyroneBiggums
-		z['Teepac-Area52']             = TyroneBiggums
-		z['Teekettle-Area52']          = TyroneBiggums
+		z['Tierone-Spirestone'] = TyroneBiggums
+		z['Tirain-Spirestone'] = TyroneBiggums
+		z['Sinth-Spirestone'] = TyroneBiggums
+		z['Tee-Spirestone'] = TyroneBiggums
+		z['Teepac-Area52'] = TyroneBiggums
+		z['Teekettle-Area52'] = TyroneBiggums
 		-- Mis (NOTE: I will forever have the picture you accidently shared of the manikin wearing a strapon burned in my brain)
-		z['Twunk-Area52']              = itsMis
-		z['Twunkie-Area52']            = itsMis
-		z['Misoracle-Area52']          = itsMis
-		z['Mismayhem-Area52']          = itsMis
-		z['Misdîrect-Area52']         = itsMis
-		z['Misdecay-Area52']           = itsMis
-		z['Mislust-Area52']            = itsMis
-		z['Misdivine-Area52']          = itsMis
-		z['Mislight-Area52']           = itsMis
-		z['Misillidan-Spirestone']     = itsMis
-		z['Mispel-Spirestone']         = itsMis
+		z['Twunk-Area52'] = itsMis
+		z['Twunkie-Area52'] = itsMis
+		z['Misoracle-Area52'] = itsMis
+		z['Mismayhem-Area52'] = itsMis
+		z['Misdîrect-Area52'] = itsMis
+		z['Misdecay-Area52'] = itsMis
+		z['Mislust-Area52'] = itsMis
+		z['Misdivine-Area52'] = itsMis
+		z['Mislight-Area52'] = itsMis
+		z['Misillidan-Spirestone'] = itsMis
+		z['Mispel-Spirestone'] = itsMis
 		--Bladesdruid
-		z['Bladedemonz-Spirestone']    = SuperBear
-		z['Bladesdruid-Spirestone']    = SuperBear
-		z['Rollerblade-Spirestone']    = SuperBear
+		z['Bladedemonz-Spirestone'] = SuperBear
+		z['Bladesdruid-Spirestone'] = SuperBear
+		z['Rollerblade-Spirestone'] = SuperBear
 		--Bozaum
-		z['Bozaum-Spirestone']         = Beer
+		z['Bozaum-Spirestone'] = Beer
 	end
 end
 
@@ -441,6 +448,7 @@ local authorIcons = {
 	['Merathilîs-Shattrath'] = logoSmall, -- [Alliance] Shaman
 	['Meravoker-Shattrath']   = logoSmall, -- [Alliance] Hunter
 	['Jahzzy-Garrosh']        = logoSmall, -- [Alliance] Hunter
+	['Ronan-Shattrath']       = logoSmall, -- [Alliance] Shaman
 }
 
 CH:AddPluginIcons(
@@ -1369,13 +1377,12 @@ function CT:ChatFrame_MessageEventHandler(
 			-- Player Flags
 			local pflag = GetPFlag(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
 			if not isMonster then
-				local chatIcon, pluginChatIcon = specialChatIcons[playerName], CH:GetPluginIcon(playerName)
+				local chatIcon, pluginChatIcon = specialChatIcons[arg12] or specialChatIcons[playerName], CH:GetPluginIcon(arg12, playerName)
 				if type(chatIcon) == 'function' then
 					local icon, prettify, var1, var2, var3 = chatIcon()
 					if prettify and chatType ~= 'GUILD_ITEM_LOOTED' and not CH:MessageIsProtected(message) then
 						if chatType == 'TEXT_EMOTE' and not usingDifferentLanguage and (showLink and arg2 ~= '') then
-							var1, var2, var3 = strmatch(message, '^(.-)(' ..
-								arg2 .. (realm and '%-' .. realm or '') .. ')(.-)$')
+							var1, var2, var3 = strmatch(message, '^(.-)(' .. arg2 .. (realm and '%-' .. realm or '') .. ')(.-)$')
 						end
 
 						if var2 then
