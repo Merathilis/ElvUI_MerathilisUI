@@ -7,7 +7,7 @@ local hooksecurefunc = hooksecurefunc
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true then return end
 
-	hooksecurefunc('CinematicFrame_OnDisplaySizeChanged', function(s)
+	hooksecurefunc('CinematicFrame_UpdateLettboxForAspectRatio', function(s)
 		if s and s.closeDialog and not s.closeDialog.__MERSkin then
 			if s.closeDialog then
 				s.closeDialog:Styling()
