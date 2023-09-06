@@ -12,11 +12,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• !!IMPORTANT!!: With this version i will only support Retail",
-		"• Changed the file structure from my Plugin",
-		"• Added a time delay option to prevent posting double Announcements",
-		"• Removed the Reminder Module",
-		"• Added more Runes/more openable items to the AutoButtons",
+		"• FOR 10.1.7 >> ElvUI 13.40",
+		"• Only take account to specific Patch changes",
 		-- "• ''",
 
 		" ",
