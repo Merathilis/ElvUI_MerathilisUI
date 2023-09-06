@@ -70,6 +70,7 @@ local C_Club_GetClubInfo = C_Club.GetClubInfo
 local C_Club_GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityChatLine
 local C_PartyInfo_InviteUnit = C_PartyInfo and C_PartyInfo.InviteUnit
 local C_Texture_GetTitleIconTexture = C_Texture and C_Texture.GetTitleIconTexture
+local GetClientTexture = _G.BNet_GetClientEmbeddedAtlas or _G.BNet_GetClientEmbeddedTexture
 local C_Timer_After = C_Timer.After
 
 local CHATCHANNELRULESET_MENTOR = Enum.ChatChannelRuleset.Mentor
@@ -257,173 +258,180 @@ do --this can save some main file locals
 	specialChatIcons = z
 
 	if E.Classic then
-		-- Simpy
-		z['Simpy-Myzrael'] = itsSimpy -- Warlock
+		-- Simpy (5099: Myzrael)
+		z['Player-5099-01947A77'] = itsSimpy -- Warlock: Simpy
+		-- Luckyone (5261: Nek'Rosh, 5220: Stitches)
+		z["Lucky-Nek'Rosh"]       = ElvBlue -- [Horde] Rogue
+		z["Luckyone-Nek'Rosh"]    = ElvBlue -- [Horde] Hunter
+		z['Luckyone-Stitches']    = ElvBlue -- [Horde] Hunter
+		z["Luckyone-Shazzrah"]    = ElvBlue -- [Horde] Hunter
 	elseif E.Wrath then
-		-- Simpy
-		z['Cutepally-Myzrael']     = itsSimpy -- Paladin
-		z['Kalline-Myzrael']       = itsSimpy -- Shaman
-		z['Imsojelly-Myzrael']     = itsSimpy -- [Horde] DK
-		-- Luckyone
-		z['Luckyone-Gehennas']     = ElvGreen -- [Horde] Hunter
-		z['Luckygrip-Gehennas']    = ElvGreen -- [Horde] DK
-		z['Luckyone-Everlook']     = ElvGreen -- [Alliance] Druid
-		z['Luckypriest-Everlook']  = ElvGreen -- [Alliance] Priest
-		z['Luckyrogue-Everlook']   = ElvGreen -- [Alliance] Rogue
-		z['Luckyhunter-Everlook']  = ElvGreen -- [Alliance] Hunter
-		z['Luckydk-Everlook']      = ElvGreen -- [Alliance] DK
-		z['Luckykek-Everlook']     = ElvGreen -- [Alliance] Shaman
-		z['Luckyone-Giantstalker'] = ElvGreen -- [Alliance] Paladin
+		-- Simpy (4373: Myzrael)
+		z['Player-4373-011657A7'] = itsSimpy -- Paladin:		Cutepally
+		z['Player-4373-032FFEE2'] = itsSimpy -- Shaman:		Kalline
+		z['Player-4373-03351BC7'] = itsSimpy -- [Horde] DK:	Imsojelly
+		-- Luckyone (4440: Everlook, 4476: Gehennas, 4811: Giantstalker)
+		z['Player-4476-03BF41C9'] = ElvBlue -- [Horde] Hunter: Luckyone
+		z['Player-4476-049F4831'] = ElvBlue -- [Horde] DK: Luckygrip
+		z['Player-4440-037C92D4'] = ElvBlue -- [Alliance] Druid: Luckyone
+		z['Player-4440-037C7CC8'] = ElvBlue -- [Alliance] Priest: Luckypriest
+		z['Player-4440-03AD654A'] = ElvBlue -- [Alliance] Rogue: Luckyrogue
+		z['Player-4440-037C7E29'] = ElvBlue -- [Alliance] DK: Luckydk
+		z['Player-4440-03ADE2DF'] = ElvBlue -- [Alliance] Shaman: Luckykek
+		z['Player-4811-038DA128'] = ElvBlue -- [Alliance] Paladin: Luckyone
+		z['Luckyhunter-Everlook'] = ElvBlue -- [Alliance] Hunter
 		-- Repooc
-		z['Poocsdk-Mankrik']       = ElvBlue -- [Horde] DK
-		z['Repooc-Mankrik']        = ElvBlue
+		z['Poocsdk-Mankrik']      = ElvBlue -- [Horde] DK
+		z['Repooc-Mankrik']       = ElvBlue
 	elseif E.Retail then
 		-- Elv
-		z['Elv-Spirestone']            = itsElv
-		z['Elvz-Spirestone']           = itsElv
-		z['Fleshlite-Spirestone']      = itsElv
-		z['Elvidan-Spirestone']        = itsElv
-		z['Elvilas-Spirestone']        = itsElv
-		z['Fraku-Spirestone']          = itsElv
-		z['Jarvix-Spirestone']         = itsElv
-		z['Watermelon-Spirestone']     = itsElv
-		z['Zinxbe-Spirestone']         = itsElv
-		z['Whorlock-Spirestone']       = itsElv
+		z['Elv-Spirestone'] = itsElv
+		z['Elvz-Spirestone'] = itsElv
+		z['Fleshlite-Spirestone'] = itsElv
+		z['Elvidan-Spirestone'] = itsElv
+		z['Elvilas-Spirestone'] = itsElv
+		z['Fraku-Spirestone'] = itsElv
+		z['Jarvix-Spirestone'] = itsElv
+		z['Watermelon-Spirestone'] = itsElv
+		z['Zinxbe-Spirestone'] = itsElv
+		z['Whorlock-Spirestone'] = itsElv
 		-- Blazeflack
-		z['Blazii-Silvermoon']         = ElvBlue -- Priest
-		z['Chazii-Silvermoon']         = ElvBlue -- Shaman
-		-- Merathilis
-		z['Asragoth-Shattrath']        = ElvPurple -- [Alliance] Warlock
-		z['Brítt-Shattrath']          = ElvBlue -- [Alliance] Warrior
-		z['Damará-Shattrath']         = ElvRed -- [Alliance] Paladin
-		z['Jazira-Shattrath']          = ElvBlue -- [Alliance] Priest
-		z['Jústice-Shattrath']        = ElvYellow -- [Alliance] Rogue
-		z['Maithilis-Shattrath']       = ElvGreen -- [Alliance] Monk
-		z['Mattdemôn-Shattrath']      = ElvPurple -- [Alliance] DH
-		z['Melisendra-Shattrath']      = ElvBlue -- [Alliance] Mage
-		z['Merathilis-Shattrath']      = ElvOrange -- [Alliance] Druid
-		z['Merathilîs-Shattrath']     = ElvBlue -- [Alliance] Shaman
-		z['Meravoker-Shattrath']       = ElvGreen -- [Alliance] Hunter
-		z['Róhal-Shattrath']          = ElvGreen -- [Alliance] Hunter
-		z['Jahzzy-Garrosh']            = ElvRed -- [Alliance] DK
-		-- Luckyone
-		z['Luckyone-LaughingSkull']    = ElvGreen -- [Horde] Druid
-		z['Luckypriest-LaughingSkull'] = ElvGreen -- [Horde] Priest
-		z['Luckymonkas-LaughingSkull'] = ElvGreen -- [Horde] Monk
-		z['Luckyhunter-LaughingSkull'] = ElvGreen -- [Horde] Hunter
-		z['Luckydh-LaughingSkull']     = ElvGreen -- [Horde] DH
-		z['Luckymage-LaughingSkull']   = ElvGreen -- [Horde] Mage
-		z['Luckypala-LaughingSkull']   = ElvGreen -- [Horde] Paladin
-		z['Luckyrogue-LaughingSkull']  = ElvGreen -- [Horde] Rogue
-		z['Luckywl-LaughingSkull']     = ElvGreen -- [Horde] Warlock
-		z['Luckydk-LaughingSkull']     = ElvGreen -- [Horde] DK
-		z['Luckyevoker-LaughingSkull'] = ElvGreen -- [Horde] Evoker
-		z['Notlucky-LaughingSkull']    = ElvGreen -- [Horde] Warrior
-		z['Unluckyone-LaughingSkull']  = ElvGreen -- [Horde] Shaman
-		z['Luckydruid-LaughingSkull']  = ElvGreen -- [Alliance] Druid
+		z['Blazii-Silvermoon'] = ElvBlue -- Priest
+		z['Chazii-Silvermoon'] = ElvBlue -- Shaman
+		-- Merathilis (1401: Shattrath/Garrosh)
+		z['Player-1401-04217BB2'] = ElvPurple -- [Alliance] Warlock:	Asragoth
+		z['Player-1401-0421EB9F'] = ElvBlue -- [Alliance] Warrior:	Brìtt
+		z['Player-1401-0421F909'] = ElvRed -- [Alliance] Paladin:	Damará
+		z['Player-1401-0421EC36'] = ElvBlue -- [Alliance] Priest:	Jazira
+		z['Player-1401-041CD0A6'] = ElvYellow -- [Alliance] Rogue:	Jústice
+		z['Player-1401-041E4D64'] = ElvGreen -- [Alliance] Monk:		Maithilis
+		z['Player-1401-0648F4AD'] = ElvPurple -- [Alliance] DH:		Mattdemôn
+		z['Player-1401-0421F27B'] = ElvBlue -- [Alliance] Mage:		Melisendra
+		z['Player-1401-04221546'] = ElvOrange -- [Alliance] Druid:	Merathilis
+		z['Player-1401-04221344'] = ElvBlue -- [Alliance] Shaman:	Merathilîs
+		z['Player-1401-0A80006F'] = ElvBlue -- [Alliance] Shaman:	Ronan
+		z['Player-1401-0A4C8DF4'] = ElvGreen -- [Alliance] Evoker:	Meravoker
+		z['Player-1401-041C0AE2'] = ElvGreen -- [Alliance] Hunter:	Róhal
+		z['Player-1401-05CEABFA'] = ElvRed -- [Alliance] DK:		Jahzzy
+		-- Luckyone (1598: LaughingSkull)
+		z['Player-1598-0F5E4639'] = ElvBlue -- [Horde] Druid: 	Luckyone
+		z['Player-1598-0F46FF5A'] = ElvBlue -- [Horde] Evoker: 	Luckyevoker
+		z['Player-1598-0BFF3341'] = ElvBlue -- [Horde] DH: 		Luckydh
+		z['Player-1598-0BD22704'] = ElvBlue -- [Horde] Priest: 	Luckypriest
+		z['Player-1598-0BEFA545'] = ElvBlue -- [Horde] Monk: 		Luckymonkas
+		z['Player-1598-0E1A06DE'] = ElvBlue -- [Horde] Rogue: 	Luckyrogue
+		z['Player-1598-0BF2E377'] = ElvBlue -- [Horde] Hunter: 	Luckyhunter
+		z['Player-1598-0BF18248'] = ElvBlue -- [Horde] DK: 		Luckydk
+		z['Player-1598-0BFABB95'] = ElvBlue -- [Horde] Mage: 		Luckymage
+		z['Player-1598-0E67511D'] = ElvBlue -- [Horde] Paladin: 	Luckypala
+		z['Player-1598-0C0DD01B'] = ElvBlue -- [Horde] Warlock: 	Luckywl
+		z['Player-1598-0BF8013A'] = ElvBlue -- [Horde] Warrior: 	Notlucky
+		z['Player-1598-0BF56103'] = ElvBlue -- [Horde] Shaman: 	Unluckyone
+		z['Player-1598-0F3E51B0'] = ElvBlue -- [Alliance] Druid:	Luckydruid
 		-- Repooc
-		z['Sifpooc-Stormrage']         = itsPooc -- [Alliance] DH
-		z['Fragmented-Stormrage']      = itsPooc -- [Alliance] Warlock
-		z['Dapooc-Stormrage']          = itsPooc -- [Alliance] Druid
-		z['Poocvoker-Stormrage']       = itsPooc -- [Alliance] Evoker
-		z['Sifupooc-Stormrage']        = itsPooc -- [Alliance] Monk
-		z['Pooc-Stormrage']            = itsPooc -- [Alliance] Paladin
-		z['Repøøc-Stormrage']        = itsPooc -- [Alliance] Shaman
-		-- Simpy
-		z['Arieva-Cenarius']           = itsSimpy -- Hunter
-		z['Buddercup-Cenarius']        = itsSimpy -- Rogue
-		z['Cutepally-Cenarius']        = itsSimpy -- Paladin
-		z['Cuddle-Cenarius']           = itsSimpy -- Mage
-		z['Ezek-Cenarius']             = itsSimpy -- DK
-		z['Glice-Cenarius']            = itsSimpy -- Warrior
-		z['Kalline-Cenarius']          = itsSimpy -- Shaman
-		z['Puttietat-Cenarius']        = itsSimpy -- Druid
-		z['Simpy-Cenarius']            = itsSimpy -- Warlock
-		z['Twigly-Cenarius']           = itsSimpy -- Monk
-		z['Imsofire-Cenarius']         = itsSimpy -- [Horde] Evoker
-		z['Imsobeefy-Cenarius']        = itsSimpy -- [Horde] Shaman
-		z['Imsocheesy-Cenarius']       = itsSimpy -- [Horde] Priest
-		z['Imsojelly-Cenarius']        = itsSimpy -- [Horde] DK
-		z['Imsojuicy-Cenarius']        = itsSimpy -- [Horde] Druid
-		z['Imsopeachy-Cenarius']       = itsSimpy -- [Horde] DH
-		z['Imsosalty-Cenarius']        = itsSimpy -- [Horde] Paladin
-		z['Imsospicy-Cenarius']        = itsSimpy -- [Horde] Mage
-		z['Imsonutty-Cenarius']        = itsSimpy -- [Horde] Hunter
-		z['Imsotasty-Cenarius']        = itsSimpy -- [Horde] Monk
-		z['Imsosaucy-Cenarius']        = itsSimpy -- [Horde] Warlock
-		z['Imsodrippy-Cenarius']       = itsSimpy -- [Horde] Rogue
-		z['Lumee-CenarionCircle']      = itsSimpy -- [RP] Evoker
-		z['Bunne-CenarionCircle']      = itsSimpy -- [RP] Warrior
-		z['Loppie-CenarionCircle']     = itsSimpy -- [RP] Monk
-		z['Loppybunny-CenarionCircle'] = itsSimpy -- [RP] Mage
-		z['Rubee-CenarionCircle']      = itsSimpy -- [RP] DH
-		z['Wennie-CenarionCircle']     = itsSimpy -- [RP] Priest
+		z['Sifpooc-Stormrage'] = itsPooc -- [Alliance] DH
+		z['Fragmented-Stormrage'] = itsPooc -- [Alliance] Warlock
+		z['Dapooc-Stormrage'] = itsPooc -- [Alliance] Druid
+		z['Poocvoker-Stormrage'] = itsPooc -- [Alliance] Evoker
+		z['Sifupooc-Stormrage'] = itsPooc -- [Alliance] Monk
+		z['Pooc-Stormrage'] = itsPooc -- [Alliance] Paladin
+		z['Repøøc-Stormrage'] = itsPooc -- [Alliance] Shaman
+		-- Simpy (1168: Cenarius, 125: Cenarion Circle)
+		z['Player-1168-069A1283'] = itsSimpy -- Hunter:	Arieva
+		z['Player-1168-0698394A'] = itsSimpy -- Rogue:	Buddercup
+		z['Player-1168-069A3A12'] = itsSimpy -- Paladin:	Cutepally
+		z['Player-1168-0A99F54B'] = itsSimpy -- Mage:		Cuddle
+		z['Player-1168-0680170F'] = itsSimpy -- DK:		Ezek
+		z['Player-1168-06981C6F'] = itsSimpy -- Warrior:	Glice
+		z['Player-1168-0698066B'] = itsSimpy -- Shaman:	Kalline
+		z['Player-1168-06989ADF'] = itsSimpy -- Druid:	Puttietat
+		z['Player-1168-069837CD'] = itsSimpy -- Warlock:	Simpy
+		z['Player-1168-06984CD4'] = itsSimpy -- Monk:		Twigly
+		z['Player-1168-0A98C560'] = itsSimpy -- [Horde] Evoker:	Imsofire
+		z['Player-1168-090A34ED'] = itsSimpy -- [Horde] Shaman:	Imsobeefy
+		z['Player-1168-090A34E6'] = itsSimpy -- [Horde] Priest:	Imsocheesy
+		z['Player-1168-069838E1'] = itsSimpy -- [Horde] DK:		Imsojelly
+		z['Player-1168-0870FBCE'] = itsSimpy -- [Horde] Druid:	Imsojuicy
+		z['Player-1168-07C00783'] = itsSimpy -- [Horde] DH:		Imsopeachy
+		z['Player-1168-07B41C4C'] = itsSimpy -- [Horde] Paladin:	Imsosalty
+		z['Player-1168-0870F320'] = itsSimpy -- [Horde] Mage:		Imsospicy
+		z['Player-1168-0A395531'] = itsSimpy -- [Horde] Hunter:	Imsonutty
+		z['Player-1168-0A395540'] = itsSimpy -- [Horde] Monk:		Imsotasty
+		z['Player-1168-0A39554F'] = itsSimpy -- [Horde] Warlock:	Imsosaucy
+		z['Player-1168-0A395551'] = itsSimpy -- [Horde] Rogue:	Imsodrippy
+		z['Player-125-0A62DE05'] = itsSimpy -- [RP] Evoker:	Lumee
+		z['Player-125-09A7F9ED'] = itsSimpy -- [RP] Warrior:	Bunne
+		z['Player-125-09A8CC43'] = itsSimpy -- [RP] Monk:	Loppie
+		z['Player-125-09A7EB72'] = itsSimpy -- [RP] Mage:	Loppybunny
+		z['Player-125-09A7DAD9'] = itsSimpy -- [RP] DH:		Rubee
+		z['Player-125-09A8E282'] = itsSimpy -- [RP] Priest:	Wennie
 		-- Melbelle (Simpys Bestie)
-		z['Melbelle-Bladefist']        = itsMel -- Hunter
-		z['Deathchaser-Bladefist']     = itsMel -- DH
-		z['Alyosha-Cenarius']          = itsMel -- Warrior
-		z['Dãwn-Cenarius']            = itsMel -- Paladin
-		z['Faelen-Cenarius']           = itsMel -- Rogue
-		z['Freckles-Cenarius']         = itsMel -- DK
-		z['Lõvi-Cenarius']            = itsMel -- Priest
-		z['Melbelle-Cenarius']         = itsMel -- Druid
-		z['Perìwìnkle-Cenarius']     = itsMel -- Shaman
-		z['Pìper-Cenarius']           = itsMel -- Warlock
-		z['Spãrkles-Cenarius']        = itsMel -- Mage
-		z['Mellybear-Cenarius']        = itsMel -- Hunter
-		z['Zuria-Cenarius']            = itsMel -- DH
-		z['Tinybubbles-Cenarius']      = itsMel -- Monk
-		z['Alykat-Cenarius']           = itsMel -- [Horde] Druid
-		z['Alybones-Cenarius']         = itsMel -- [Horde] DK
-		z['Alyfreeze-Cenarius']        = itsMel -- [Horde] Mage
-		z['Alykins-Cenarius']          = itsMel -- [Horde] DH
-		z['Alyrage-Cenarius']          = itsMel -- [Horde] Warrior
-		z['Alysneaks-Cenarius']        = itsMel -- [Horde] Rogue
-		z['Alytotes-Cenarius']         = itsMel -- [Horde] Shaman
+		z['Melbelle-Bladefist'] = itsMel -- Hunter
+		z['Deathchaser-Bladefist'] = itsMel -- DH
+		z['Alyosha-Cenarius'] = itsMel -- Warrior
+		z['Dãwn-Cenarius'] = itsMel -- Paladin
+		z['Faelen-Cenarius'] = itsMel -- Rogue
+		z['Freckles-Cenarius'] = itsMel -- DK
+		z['Lõvi-Cenarius'] = itsMel -- Priest
+		z['Melbelle-Cenarius'] = itsMel -- Druid
+		z['Perìwìnkle-Cenarius'] = itsMel -- Shaman
+		z['Pìper-Cenarius'] = itsMel -- Warlock
+		z['Spãrkles-Cenarius'] = itsMel -- Mage
+		z['Mellybear-Cenarius'] = itsMel -- Hunter
+		z['Zuria-Cenarius'] = itsMel -- DH
+		z['Tinybubbles-Cenarius'] = itsMel -- Monk
+		z['Alykat-Cenarius'] = itsMel -- [Horde] Druid
+		z['Alybones-Cenarius'] = itsMel -- [Horde] DK
+		z['Alyfreeze-Cenarius'] = itsMel -- [Horde] Mage
+		z['Alykins-Cenarius'] = itsMel -- [Horde] DH
+		z['Alyrage-Cenarius'] = itsMel -- [Horde] Warrior
+		z['Alysneaks-Cenarius'] = itsMel -- [Horde] Rogue
+		z['Alytotes-Cenarius'] = itsMel -- [Horde] Shaman
 		-- Thradex (Simpys Buddy)
-		z['Foam-Area52']               = itsThradex -- Horde
-		z['Gur-Area52']                = itsThradex -- Horde
-		z['Archmage-Area52']           = itsThradex -- Horde
-		z['Counselor-Area52']          = itsThradex -- Horde
-		z['Monk-CenarionCircle']       = itsThradex
-		z['Thradex-Stormrage']         = itsThradex
-		z['Wrecked-Stormrage']         = itsThradex
-		z['Tb-Stormrage']              = itsThradex
+		z['Foam-Area52'] = itsThradex -- Horde
+		z['Gur-Area52'] = itsThradex -- Horde
+		z['Archmage-Area52'] = itsThradex -- Horde
+		z['Counselor-Area52'] = itsThradex -- Horde
+		z['Psychiatrist-Area 52'] = itsThradex -- Horde
+		z['Monk-CenarionCircle'] = itsThradex
+		z['Thradex-Stormrage'] = itsThradex
+		z['Wrecked-Stormrage'] = itsThradex
+		z['Tb-Stormrage'] = itsThradex
 		-- AcidWeb
-		z['Livarax-BurningLegion']     = Gem
+		z['Livarax-BurningLegion'] = Gem
 		z['Filevandrel-BurningLegion'] = Gem
-		z['Akavaya-BurningLegion']     = Gem
-		z['Athyneos-BurningLegion']    = Gem
+		z['Akavaya-BurningLegion'] = Gem
+		z['Athyneos-BurningLegion'] = Gem
 		-- Affinity
-		z['Affinichi-Illidan']         = Bathrobe
-		z['Affinitii-Illidan']         = Bathrobe
-		z['Affinity-Illidan']          = Bathrobe
-		z['Uplift-Illidan']            = Bathrobe
+		z['Affinichi-Illidan'] = Bathrobe
+		z['Affinitii-Illidan'] = Bathrobe
+		z['Affinity-Illidan'] = Bathrobe
+		z['Uplift-Illidan'] = Bathrobe
 		-- Tirain (NOTE: lol)
-		z['Tierone-Spirestone']        = TyroneBiggums
-		z['Tirain-Spirestone']         = TyroneBiggums
-		z['Sinth-Spirestone']          = TyroneBiggums
-		z['Tee-Spirestone']            = TyroneBiggums
-		z['Teepac-Area52']             = TyroneBiggums
-		z['Teekettle-Area52']          = TyroneBiggums
+		z['Tierone-Spirestone'] = TyroneBiggums
+		z['Tirain-Spirestone'] = TyroneBiggums
+		z['Sinth-Spirestone'] = TyroneBiggums
+		z['Tee-Spirestone'] = TyroneBiggums
+		z['Teepac-Area52'] = TyroneBiggums
+		z['Teekettle-Area52'] = TyroneBiggums
 		-- Mis (NOTE: I will forever have the picture you accidently shared of the manikin wearing a strapon burned in my brain)
-		z['Twunk-Area52']              = itsMis
-		z['Twunkie-Area52']            = itsMis
-		z['Misoracle-Area52']          = itsMis
-		z['Mismayhem-Area52']          = itsMis
-		z['Misdîrect-Area52']         = itsMis
-		z['Misdecay-Area52']           = itsMis
-		z['Mislust-Area52']            = itsMis
-		z['Misdivine-Area52']          = itsMis
-		z['Mislight-Area52']           = itsMis
-		z['Misillidan-Spirestone']     = itsMis
-		z['Mispel-Spirestone']         = itsMis
+		z['Twunk-Area52'] = itsMis
+		z['Twunkie-Area52'] = itsMis
+		z['Misoracle-Area52'] = itsMis
+		z['Mismayhem-Area52'] = itsMis
+		z['Misdîrect-Area52'] = itsMis
+		z['Misdecay-Area52'] = itsMis
+		z['Mislust-Area52'] = itsMis
+		z['Misdivine-Area52'] = itsMis
+		z['Mislight-Area52'] = itsMis
+		z['Misillidan-Spirestone'] = itsMis
+		z['Mispel-Spirestone'] = itsMis
 		--Bladesdruid
-		z['Bladedemonz-Spirestone']    = SuperBear
-		z['Bladesdruid-Spirestone']    = SuperBear
-		z['Rollerblade-Spirestone']    = SuperBear
+		z['Bladedemonz-Spirestone'] = SuperBear
+		z['Bladesdruid-Spirestone'] = SuperBear
+		z['Rollerblade-Spirestone'] = SuperBear
 		--Bozaum
-		z['Bozaum-Spirestone']         = Beer
+		z['Bozaum-Spirestone'] = Beer
 	end
 end
 
@@ -441,6 +449,7 @@ local authorIcons = {
 	['Merathilîs-Shattrath'] = logoSmall, -- [Alliance] Shaman
 	['Meravoker-Shattrath']   = logoSmall, -- [Alliance] Hunter
 	['Jahzzy-Garrosh']        = logoSmall, -- [Alliance] Hunter
+	['Ronan-Shattrath']       = logoSmall, -- [Alliance] Shaman
 }
 
 CH:AddPluginIcons(
@@ -754,34 +763,9 @@ function CT:HandleShortChannels(msg)
 	return msg
 end
 
-function CT:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
-	if not strmatch(msg, "^|Helvtime|h") and not strmatch(msg, "^|Hcpl:") then
-		local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
-		if isHistory == "ElvUI_ChatHistory" then
-			historyTimestamp = historyTime
-		end
-
-		if CH.db.timeStampFormat and CH.db.timeStampFormat ~= "NONE" then
-			local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or CH:GetChatTime())
-			timeStamp = gsub(timeStamp, " ", "")
-			timeStamp = gsub(timeStamp, "AM", " AM")
-			timeStamp = gsub(timeStamp, "PM", " PM")
-
-			if CH.db.useCustomTimeColor then
-				local color = CH.db.customTimeColor
-				local hexColor = E:RGBToHex(color.r, color.g, color.b)
-				msg = format("|Helvtime|h%s[%s]|r|h %s", hexColor, timeStamp, msg)
-			else
-				msg = format("|Helvtime|h[%s]|h %s", timeStamp, msg)
-			end
-		end
-
-		if CH.db.copyChatLines then
-			msg = format("|Hcpl:%s|h%s|h %s", self:GetID(), E:TextureString(E.Media.Textures.ArrowRight, ":14"), msg)
-		end
-	end
-
-	self.OldAddMessage(self, msg, infoR, infoG, infoB, infoID, accessID, typeID)
+function CT:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, event, eventArgs, msgFormatter, isHistory, historyTime)
+	local body = CH:AddMessageEdits(self, msg, isHistory, historyTime)
+	self.OldAddMessage(self, body, infoR, infoG, infoB, infoID, accessID, typeID, event, eventArgs, msgFormatter)
 end
 
 function CT:CheckLFGRoles()
@@ -873,188 +857,234 @@ function CT:GetColoredName(event, _, arg2, _, _, _, _, _, arg8, _, _, _, arg12)
 	return name
 end
 
-function CT:ChatFrame_MessageEventHandler(
-	frame,
-	event,
-	arg1,
-	arg2,
-	arg3,
-	arg4,
-	arg5,
-	arg6,
-	arg7,
-	arg8,
-	arg9,
-	arg10,
-	arg11,
-	arg12,
-	arg13,
-	arg14,
-	arg15,
-	arg16,
-	arg17,
-	isHistory,
-	historyTime,
-	historyName,
-	historyBTag)
+function CT:MessageFormatter(frame, info, chatType, chatGroup, chatTarget, channelLength, coloredName, historySavedName, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, isHistory, historyTime, historyName, historyBTag)
+	local body
+	local noBrackets = CT.db.removeBrackets
+
+	if chatType == 'WHISPER_INFORM' and GMChatFrame_IsGM and GMChatFrame_IsGM(arg2) then
+		return
+	end
+
+	local showLink = 1
+	local isMonster = strsub(chatType, 1, 7) == 'MONSTER'
+	if isMonster or strsub(chatType, 1, 9) == 'RAID_BOSS' then
+		showLink = nil
+
+		-- fix blizzard formatting errors from localization strings
+		-- arg1 = gsub(arg1, '%%%d', '%%s') -- replace %1 to %s (russian client specific?) [broken since BFA?]
+		arg1 = gsub(arg1, '(%d%%)([^%%%a])', '%1%%%2') -- escape percentages that need it [broken since SL?]
+		arg1 = gsub(arg1, '(%d%%)$', '%1%%')     -- escape percentages on the end
+	else
+		arg1 = gsub(arg1, '%%', '%%%%')          -- escape any % characters, as it may otherwise cause an 'invalid option in format' error
+	end
+
+	--Remove groups of many spaces
+	arg1 = RemoveExtraSpaces(arg1)
+
+	-- Search for icon links and replace them with texture links.
+	arg1 = CH:ChatFrame_ReplaceIconAndGroupExpressions(arg1, arg17,
+		not _G.ChatFrame_CanChatGroupPerformExpressionExpansion(chatGroup))                                                          -- If arg17 is true, don't convert to raid icons
+
+	-- ElvUI: Get class colored name for BattleNet friend
+	if chatType == 'BN_WHISPER' or chatType == 'BN_WHISPER_INFORM' then
+		coloredName = historySavedName or CH:GetBNFriendColor(arg2, arg13)
+	end
+
+	-- ElvUI: data from populated guid info
+	local nameWithRealm, realm
+	local data = CH:GetPlayerInfoByGUID(arg12)
+	if data then
+		realm = data.realm
+		nameWithRealm = data.nameWithRealm
+	end
+
+	local playerLink
+	local playerLinkDisplayText = coloredName
+	local relevantDefaultLanguage = frame.defaultLanguage
+	if chatType == 'SAY' or chatType == 'YELL' then
+		relevantDefaultLanguage = frame.alternativeDefaultLanguage
+	end
+	local usingDifferentLanguage = (arg3 ~= '') and (arg3 ~= relevantDefaultLanguage)
+	local usingEmote = (chatType == 'EMOTE') or (chatType == 'TEXT_EMOTE')
+
+	if usingDifferentLanguage or not usingEmote then
+		playerLinkDisplayText = format(noBrackets and "%s" or "[%s]", CT:HandleName(coloredName))
+	end
+
+	local isCommunityType = chatType == 'COMMUNITIES_CHANNEL'
+	local playerName, lineID, bnetIDAccount = (nameWithRealm ~= arg2 and nameWithRealm) or arg2, arg11, arg13
+	if isCommunityType then
+		local isBattleNetCommunity = bnetIDAccount ~= nil and bnetIDAccount ~= 0
+		local messageInfo, clubId, streamId = C_Club_GetInfoFromLastCommunityChatLine()
+
+		if messageInfo ~= nil then
+			if isBattleNetCommunity then
+				playerLink = GetBNPlayerCommunityLink(playerName, playerLinkDisplayText, bnetIDAccount, clubId, streamId,
+					messageInfo.messageId.epoch, messageInfo.messageId.position)
+			else
+				playerLink = GetPlayerCommunityLink(playerName, playerLinkDisplayText, clubId, streamId,
+					messageInfo.messageId.epoch, messageInfo.messageId.position)
+			end
+		else
+			playerLink = playerLinkDisplayText
+		end
+	elseif chatType == 'BN_WHISPER' or chatType == 'BN_WHISPER_INFORM' then
+		playerLink = GetBNPlayerLink(playerName, playerLinkDisplayText, bnetIDAccount, lineID, chatGroup, chatTarget)
+	else
+		playerLink = GetPlayerLink(playerName, playerLinkDisplayText, lineID, chatGroup, chatTarget)
+	end
+
+	local message = arg1
+	if arg14 then --isMobile
+		message = _G.ChatFrame_GetMobileEmbeddedTexture(info.r, info.g, info.b) .. message
+	end
+
+	-- Player Flags
+	local pflag = GetPFlag(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15,
+		arg16, arg17)
+	if not isMonster then
+		local chatIcon, pluginChatIcon = specialChatIcons[arg12] or specialChatIcons[playerName],
+			CH:GetPluginIcon(arg12, playerName)
+		if type(chatIcon) == 'function' then
+			local icon, prettify, var1, var2, var3 = chatIcon()
+			if prettify and chatType ~= 'GUILD_ITEM_LOOTED' and not CH:MessageIsProtected(message) then
+				if chatType == 'TEXT_EMOTE' and not usingDifferentLanguage and (showLink and arg2 ~= '') then
+					var1, var2, var3 = strmatch(message, '^(.-)(' .. arg2 .. (realm and '%-' .. realm or '') .. ')(.-)$')
+				end
+
+				if var2 then
+					if var1 ~= '' then var1 = prettify(var1) end
+					if var3 ~= '' then var3 = prettify(var3) end
+
+					message = var1 .. var2 .. var3
+				else
+					message = prettify(message)
+				end
+			end
+
+			chatIcon = icon or ''
+		end
+
+		-- LFG Role Flags
+		local lfgRole = (chatType == 'PARTY_LEADER' or chatType == 'PARTY' or chatType == 'RAID' or chatType == 'RAID_LEADER' or chatType == 'INSTANCE_CHAT' or chatType == 'INSTANCE_CHAT_LEADER') and
+		lfgRoles[playerName]
+		if lfgRole then
+			pflag = pflag .. lfgRole
+		end
+		-- Special Chat Icon
+		if chatIcon then
+			pflag = pflag .. chatIcon
+		end
+		-- Plugin Chat Icon
+		if pluginChatIcon then
+			pflag = pflag .. pluginChatIcon
+		end
+	end
+
+	if usingDifferentLanguage then
+		local languageHeader = '[' .. arg3 .. '] '
+		if showLink and arg2 ~= '' then
+			body = format(_G['CHAT_' .. chatType .. '_GET'] .. languageHeader .. message, pflag .. playerLink)
+		else
+			body = format(_G['CHAT_' .. chatType .. '_GET'] .. languageHeader .. message, pflag .. arg2)
+		end
+	else
+		if not showLink or arg2 == '' then
+			if chatType == 'TEXT_EMOTE' or chatType == 'GUILD_DEATHS' then
+				body = message
+			else
+				body = format(_G['CHAT_' .. chatType .. '_GET'] .. message, pflag .. arg2, arg2)
+			end
+		else
+			if chatType == 'EMOTE' then
+				body = format(_G['CHAT_' .. chatType .. '_GET'] .. message, pflag .. playerLink)
+			elseif chatType == 'TEXT_EMOTE' and realm then
+				if info.colorNameByClass then
+					body = gsub(message, arg2 .. '%-' .. realm,
+						pflag .. gsub(playerLink, '(|h|c.-)|r|h$', '%1-' .. realm .. '|r|h'), 1)
+				else
+					body = gsub(message, arg2 .. '%-' .. realm, pflag .. gsub(playerLink, '(|h.-)|h$', '%1-' ..
+					realm .. '|h'), 1)
+				end
+			elseif chatType == 'TEXT_EMOTE' then
+				body = gsub(message, arg2, pflag .. playerLink, 1)
+			elseif chatType == 'GUILD_ITEM_LOOTED' then
+				body = gsub(message, '$s', pflag .. playerLink, 1)
+			else
+				body = format(_G['CHAT_' .. chatType .. '_GET'] .. message, pflag .. playerLink)
+			end
+		end
+	end
+
+	-- Add Channel
+	if channelLength > 0 then
+		body = '|Hchannel:channel:' .. arg8 .. '|h[' .. _G.ChatFrame_ResolvePrefixedChannelName(arg4) .. ']|h ' .. body
+	end
+
+	if (chatType ~= 'EMOTE' and chatType ~= 'TEXT_EMOTE') and (CH.db.shortChannels or CH.db.hideChannels) then
+		body = CH:HandleShortChannels(body, CH.db.hideChannels)
+	end
+
+	for _, filter in ipairs(CH.PluginMessageFilters) do
+		body = filter(body)
+	end
+
+	return body
+end
+
+function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, isHistory, historyTime, historyName, historyBTag)
 	-- ElvUI Chat History Note: isHistory, historyTime, historyName, and historyBTag are passed from CH:DisplayChatHistory() and need to be on the end to prevent issues in other addons that listen on ChatFrame_MessageEventHandler.
 	-- we also send isHistory and historyTime into CH:AddMessage so that we don't have to override the timestamp.
+
 	local noBrackets = CT.db.removeBrackets
 	local notChatHistory, historySavedName --we need to extend the arguments on CH.ChatFrame_MessageEventHandler so we can properly handle saved names without overriding
-	if isHistory == "ElvUI_ChatHistory" then
-		if historyBTag then
-			arg2 = historyBTag
-		end -- swap arg2 (which is a |k string) to btag name
+	if isHistory == 'ElvUI_ChatHistory' then
+		if historyBTag then arg2 = historyBTag end -- swap arg2 (which is a |k string) to btag name
 		historySavedName = historyName
 	else
 		notChatHistory = true
 	end
 
 	if _G.TextToSpeechFrame_MessageEventHandler and notChatHistory then
-		_G.TextToSpeechFrame_MessageEventHandler(
-			frame,
-			event,
-			arg1,
-			arg2,
-			arg3,
-			arg4,
-			arg5,
-			arg6,
-			arg7,
-			arg8,
-			arg9,
-			arg10,
-			arg11,
-			arg12,
-			arg13,
-			arg14,
-			arg15,
-			arg16,
-			arg17
-		)
+		_G.TextToSpeechFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
 	end
 
-	if strsub(event, 1, 8) == "CHAT_MSG" then
-		if arg16 then
-			return true
-		end -- hiding sender in letterbox: do NOT even show in chat window (only shows in cinematic frame)
+	if strsub(event, 1, 8) == 'CHAT_MSG' then
+		if arg16 then return true end -- hiding sender in letterbox: do NOT even show in chat window (only shows in cinematic frame)
 
 		local chatType = strsub(event, 10)
 		local info = _G.ChatTypeInfo[chatType]
 
 		--If it was a GM whisper, dispatch it to the GMChat addon.
-		if arg6 == "GM" and chatType == "WHISPER" then
+		if arg6 == 'GM' and chatType == 'WHISPER' then
 			return
 		end
 
 		local chatFilters = _G.ChatFrame_GetMessageEventFilters(event)
 		if chatFilters then
 			for _, filterFunc in next, chatFilters do
-				local filter,
-				new1,
-				new2,
-				new3,
-				new4,
-				new5,
-				new6,
-				new7,
-				new8,
-				new9,
-				new10,
-				new11,
-				new12,
-				new13,
-				new14,
-				new15,
-				new16,
-				new17 =
-					filterFunc(
-						frame,
-						event,
-						arg1,
-						arg2,
-						arg3,
-						arg4,
-						arg5,
-						arg6,
-						arg7,
-						arg8,
-						arg9,
-						arg10,
-						arg11,
-						arg12,
-						arg13,
-						arg14,
-						arg15,
-						arg16,
-						arg17
-					)
+				local filter, new1, new2, new3, new4, new5, new6, new7, new8, new9, new10, new11, new12, new13, new14, new15, new16, new17 = filterFunc(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
 				if filter then
 					return true
 				elseif new1 then
-					arg1,
-					arg2,
-					arg3,
-					arg4,
-					arg5,
-					arg6,
-					arg7,
-					arg8,
-					arg9,
-					arg10,
-					arg11,
-					arg12,
-					arg13,
-					arg14,
-					arg15,
-					arg16,
-					arg17 =
-						new1,
-						new2,
-						new3,
-						new4,
-						new5,
-						new6,
-						new7,
-						new8,
-						new9,
-						new10,
-						new11,
-						new12,
-						new13,
-						new14,
-						new15,
-						new16,
-						new17
+					arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17 = new1, new2, new3, new4, new5, new6, new7, new8, new9, new10, new11, new12, new13, new14, new15, new16, new17
 				end
 			end
 		end
 
-		-- data from populated guid info
-		local nameWithRealm, realm
-		local data = CH:GetPlayerInfoByGUID(arg12)
-		if data then
-			realm = data.realm
-			nameWithRealm = data.nameWithRealm
-		end
-
 		-- fetch the name color to use
-		local coloredName = historySavedName or CT:GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
+		local coloredName = historySavedName or CH:GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
 
 		local channelLength = strlen(arg4)
 		local infoType = chatType
 
-		if chatType == "VOICE_TEXT" then -- the code here looks weird but its how blizzard has it ~Simpy
+		if chatType == 'VOICE_TEXT' then -- the code here looks weird but its how blizzard has it ~Simpy
 			local leader = UnitIsGroupLeader(arg2)
 			infoType, chatType = _G.VoiceTranscription_DetermineChatTypeVoiceTranscription_DetermineChatType(leader)
 			info = _G.ChatTypeInfo[infoType]
-		elseif
-			chatType == "COMMUNITIES_CHANNEL" or
-			((strsub(chatType, 1, 7) == "CHANNEL") and (chatType ~= "CHANNEL_LIST") and
-			((arg1 ~= "INVITE") or (chatType ~= "CHANNEL_NOTICE_USER")))
-		then
-			if arg1 == "WRONG_PASSWORD" then
-				local _, popup = _G.StaticPopup_Visible("CHAT_CHANNEL_PASSWORD")
+		elseif chatType == 'COMMUNITIES_CHANNEL' or ((strsub(chatType, 1, 7) == 'CHANNEL') and (chatType ~= 'CHANNEL_LIST') and ((arg1 ~= 'INVITE') or (chatType ~= 'CHANNEL_NOTICE_USER'))) then
+			if arg1 == 'WRONG_PASSWORD' then
+				local _, popup = _G.StaticPopup_Visible('CHAT_CHANNEL_PASSWORD')
 				if popup and strupper(popup.data) == strupper(arg9) then
 					return -- Don't display invalid password messages if we're going to prompt for a password (bug 102312)
 				end
@@ -1067,10 +1097,10 @@ function CT:ChatFrame_MessageEventHandler(
 					if (arg7 > 0 and frame.zoneChannelList[index] == arg7) or (strupper(value) == strupper(arg9)) then
 						found = true
 
-						infoType = "CHANNEL" .. arg8
+						infoType = 'CHANNEL'..arg8
 						info = _G.ChatTypeInfo[infoType]
 
-						if chatType == "CHANNEL_NOTICE" and arg1 == "YOU_LEFT" then
+						if chatType == 'CHANNEL_NOTICE' and arg1 == 'YOU_LEFT' then
 							frame.channelList[index] = nil
 							frame.zoneChannelList[index] = nil
 						end
@@ -1094,29 +1124,22 @@ function CT:ChatFrame_MessageEventHandler(
 			return true
 		end
 
-		if chatGroup == "WHISPER" or chatGroup == "BN_WHISPER" then
+		if chatGroup == 'WHISPER' or chatGroup == 'BN_WHISPER' then
 			if frame.privateMessageList and not frame.privateMessageList[strlower(arg2)] then
 				return true
-			elseif
-				frame.excludePrivateMessageList and frame.excludePrivateMessageList[strlower(arg2)] and
-				((chatGroup == "WHISPER" and GetCVar("whisperMode") ~= "popout_and_inline") or
-				(chatGroup == "BN_WHISPER" and GetCVar("whisperMode") ~= "popout_and_inline"))
-			then
+			elseif frame.excludePrivateMessageList and frame.excludePrivateMessageList[strlower(arg2)] and ((chatGroup == 'WHISPER' and GetCVar('whisperMode') ~= 'popout_and_inline') or (chatGroup == 'BN_WHISPER' and GetCVar('whisperMode') ~= 'popout_and_inline')) then
 				return true
 			end
 		end
 
 		if frame.privateMessageList then
 			-- Dedicated BN whisper windows need online/offline messages for only that player
-			if
-				(chatGroup == "BN_INLINE_TOAST_ALERT" or chatGroup == "BN_WHISPER_PLAYER_OFFLINE") and
-				not frame.privateMessageList[strlower(arg2)]
-			then
+			if (chatGroup == 'BN_INLINE_TOAST_ALERT' or chatGroup == 'BN_WHISPER_PLAYER_OFFLINE') and not frame.privateMessageList[strlower(arg2)] then
 				return true
 			end
 
 			-- HACK to put certain system messages into dedicated whisper windows
-			if chatGroup == "SYSTEM" then
+			if chatGroup == 'SYSTEM' then
 				local matchFound = false
 				local message = strlower(arg1)
 				for playerName in pairs(frame.privateMessageList) do
@@ -1135,126 +1158,127 @@ function CT:ChatFrame_MessageEventHandler(
 			end
 		end
 
-		if
-			(chatType == "SYSTEM" or chatType == "SKILL" or chatType == "CURRENCY" or chatType == "MONEY" or
-			chatType == "OPENING" or
-			chatType == "TRADESKILLS" or
-			chatType == "PET_INFO" or
-			chatType == "TARGETICONS" or
-			chatType == "BN_WHISPER_PLAYER_OFFLINE")
-		then
-			if chatType ~= "SYSTEM" or not CT:ElvUIChat_GuildMemberStatusMessageHandler(frame, arg1) then
-				frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-			end
-		elseif chatType == "LOOT" then
-			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-		elseif strsub(chatType, 1, 7) == "COMBAT_" then
-			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-		elseif strsub(chatType, 1, 6) == "SPELL_" then
-			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-		elseif strsub(chatType, 1, 10) == "BG_SYSTEM_" then
-			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-		elseif strsub(chatType, 1, 11) == "ACHIEVEMENT" then
+		if (chatType == 'SYSTEM' or chatType == 'SKILL' or chatType == 'CURRENCY' or chatType == 'MONEY' or
+			chatType == 'OPENING' or chatType == 'TRADESKILLS' or chatType == 'PET_INFO' or chatType == 'TARGETICONS' or chatType == 'BN_WHISPER_PLAYER_OFFLINE') then
+			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif chatType == 'LOOT' then
+			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif strsub(chatType,1,7) == 'COMBAT_' then
+			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif strsub(chatType,1,6) == 'SPELL_' then
+			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif strsub(chatType,1,10) == 'BG_SYSTEM_' then
+			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif strsub(chatType,1,11) == 'ACHIEVEMENT' then
 			-- Append [Share] hyperlink
-			frame:AddMessage(format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", CT:HandleName(coloredName)))), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-		elseif strsub(chatType, 1, 18) == "GUILD_ACHIEVEMENT" then
+			frame:AddMessage(format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", CT:HandleName(coloredName)))), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif strsub(chatType,1,18) == 'GUILD_ACHIEVEMENT' then
 			if not CT:ElvUIChat_AchievementMessageHandler(event, frame, arg1, data) then
 				local message = format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", coloredName)))
-				frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+				frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
 			end
-		elseif chatType == "IGNORED" then
-			frame:AddMessage(format(_G.CHAT_IGNORED, arg2), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-		elseif chatType == "FILTERED" then
-			frame:AddMessage(format(_G.CHAT_FILTERED, arg2), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-		elseif chatType == "RESTRICTED" then
-			frame:AddMessage(_G.CHAT_RESTRICTED_TRIAL, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-		elseif chatType == "CHANNEL_LIST" then
+		elseif chatType == 'PING' then
+			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif chatType == 'IGNORED' then
+			frame:AddMessage(format(_G.CHAT_IGNORED, arg2), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif chatType == 'FILTERED' then
+			frame:AddMessage(format(_G.CHAT_FILTERED, arg2), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif chatType == 'RESTRICTED' then
+			frame:AddMessage(_G.CHAT_RESTRICTED_TRIAL, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif chatType == 'CHANNEL_LIST' then
 			if channelLength > 0 then
-				frame:AddMessage(format(_G["CHAT_" .. chatType .. "_GET"] .. arg1, tonumber(arg8), arg4), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+				frame:AddMessage(format(_G['CHAT_'..chatType..'_GET']..arg1, tonumber(arg8), arg4), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
 			else
-				frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+				frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
 			end
-		elseif chatType == "CHANNEL_NOTICE_USER" then
-			local globalstring = _G["CHAT_" .. arg1 .. "_NOTICE_BN"]
+		elseif chatType == 'CHANNEL_NOTICE_USER' then
+			local globalstring = _G['CHAT_'..arg1..'_NOTICE_BN']
 			if not globalstring then
-				globalstring = _G["CHAT_" .. arg1 .. "_NOTICE"]
+				globalstring = _G['CHAT_'..arg1..'_NOTICE']
 			end
 			if not globalstring then
-				GMError(format("Missing global string for %q", "CHAT_" .. arg1 .. "_NOTICE_BN"))
+				GMError(format('Missing global string for %q', 'CHAT_'..arg1..'_NOTICE_BN'))
 				return
 			end
-			if arg5 ~= "" then
+			if arg5 ~= '' then
 				-- TWO users in this notice (E.G. x kicked y)
-				frame:AddMessage(format(globalstring, arg8, arg4, arg2, arg5), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-			elseif arg1 == "INVITE" then
-				frame:AddMessage(format(globalstring, arg4, arg2), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+				frame:AddMessage(format(globalstring, arg8, arg4, arg2, arg5), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+			elseif arg1 == 'INVITE' then
+				frame:AddMessage(format(globalstring, arg4, arg2), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
 			else
-				frame:AddMessage(format(globalstring, arg8, arg4, arg2), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+				frame:AddMessage(format(globalstring, arg8, arg4, arg2), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
 			end
-			if arg1 == "INVITE" and GetCVarBool("blockChannelInvites") then
-				frame:AddMessage(_G.CHAT_MSG_BLOCK_CHAT_CHANNEL_INVITE, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+			if arg1 == 'INVITE' and GetCVarBool('blockChannelInvites') then
+				frame:AddMessage(_G.CHAT_MSG_BLOCK_CHAT_CHANNEL_INVITE, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
 			end
-		elseif chatType == "CHANNEL_NOTICE" then
+		elseif chatType == 'CHANNEL_NOTICE' then
 			local accessID = _G.ChatHistory_GetAccessID(chatGroup, arg8)
 			local typeID = _G.ChatHistory_GetAccessID(infoType, arg8, arg12)
 
-			if E.Retail and arg1 == "YOU_CHANGED" and C_ChatInfo_GetChannelRuleset(arg8) == CHATCHANNELRULESET_MENTOR then
+			if E.Retail and arg1 == 'YOU_CHANGED' and GetChannelRuleset(arg8) == CHATCHANNELRULESET_MENTOR then
 				_G.ChatFrame_UpdateDefaultChatTarget(frame)
 				_G.ChatEdit_UpdateNewcomerEditBoxHint(frame.editBox)
 			else
-				if E.Retail and arg1 == "YOU_LEFT" then
+				if E.Retail and arg1 == 'YOU_LEFT' then
 					_G.ChatEdit_UpdateNewcomerEditBoxHint(frame.editBox, arg8)
 				end
 
 				local globalstring
-				if arg1 == "TRIAL_RESTRICTED" then
+				if arg1 == 'TRIAL_RESTRICTED' then
 					globalstring = _G.CHAT_TRIAL_RESTRICTED_NOTICE_TRIAL
 				else
-					globalstring = _G["CHAT_" .. arg1 .. "_NOTICE_BN"]
+					globalstring = _G['CHAT_'..arg1..'_NOTICE_BN']
 					if not globalstring then
-						globalstring = _G["CHAT_" .. arg1 .. "_NOTICE"]
+						globalstring = _G['CHAT_'..arg1..'_NOTICE']
 						if not globalstring then
-							GMError(format("Missing global string for %q", "CHAT_" .. arg1 .. "_NOTICE"))
+							GMError(format('Missing global string for %q', 'CHAT_'..arg1..'_NOTICE'))
 							return
 						end
 					end
 				end
 
-				frame:AddMessage(format(globalstring, arg8, _G.ChatFrame_ResolvePrefixedChannelName(arg4)), info.r, info.g, info.b, info.id, accessID, typeID, isHistory, historyTime)
+				frame:AddMessage(format(globalstring, arg8, _G.ChatFrame_ResolvePrefixedChannelName(arg4)), info.r, info.g, info.b, info.id, accessID, typeID, nil, nil, nil, isHistory, historyTime)
 			end
-		elseif chatType == "BN_INLINE_TOAST_ALERT" then
-			local globalstring = _G["BN_INLINE_TOAST_" .. arg1]
+		elseif chatType == 'BN_INLINE_TOAST_ALERT' then
+			local globalstring = _G['BN_INLINE_TOAST_'..arg1]
 			if not globalstring then
-				GMError(format("Missing global string for %q", "BN_INLINE_TOAST_" .. arg1))
+				GMError(format('Missing global string for %q', 'BN_INLINE_TOAST_'..arg1))
 				return
 			end
 
 			local message
-			if arg1 == "FRIEND_REQUEST" then
+			if arg1 == 'FRIEND_REQUEST' then
 				message = globalstring
-			elseif arg1 == "FRIEND_PENDING" then
+			elseif arg1 == 'FRIEND_PENDING' then
 				message = format(_G.BN_INLINE_TOAST_FRIEND_PENDING, BNGetNumFriendInvites())
-			elseif arg1 == "FRIEND_REMOVED" or arg1 == "BATTLETAG_FRIEND_REMOVED" then
+			elseif arg1 == 'FRIEND_REMOVED' or arg1 == 'BATTLETAG_FRIEND_REMOVED' then
 				message = format(globalstring, arg2)
-			elseif arg1 == "FRIEND_ONLINE" or arg1 == "FRIEND_OFFLINE" then
+			elseif arg1 == 'FRIEND_ONLINE' or arg1 == 'FRIEND_OFFLINE' then
 				local _, _, battleTag, _, characterName, _, clientProgram = CH.BNGetFriendInfoByID(arg13)
 
-				if clientProgram and clientProgram ~= "" then
+				if clientProgram and clientProgram ~= '' then
 					if C_Texture_GetTitleIconTexture then
 						C_Texture_GetTitleIconTexture(clientProgram, TitleIconVersion_Small, function(success, texture)
-								if success then
-									local charName = _G.BNet_GetValidatedCharacterNameWithClientEmbeddedTexture(characterName, battleTag, texture, 32, 32, 10)
-									local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, charName)
-									local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-									frame:AddMessage(format(globalstring, playerLink), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-									if notChatHistory then
-										FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
-									end
-								end
-							end)
-						end
+							if success then
+								local charName = _G.BNet_GetValidatedCharacterNameWithClientEmbeddedTexture(characterName, battleTag, texture, 32, 32, 10)
+								local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, charName)
+								local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
+								frame:AddMessage(format(globalstring, playerLink), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
 
-					return
+								if notChatHistory then
+									FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
+								end
+							end
+						end)
+
+						return
+					else
+						local clientTexture = GetClientTexture(clientProgram, 14)
+						local charName = _G.BNet_GetValidatedCharacterName(characterName, battleTag, clientProgram) or ''
+						local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, clientTexture, charName)
+						local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
+						message = format(globalstring, playerLink)
+					end
 				else
 					local linkDisplayText = format(noBrackets and "%s" or "[%s]", arg2)
 					local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
@@ -1266,216 +1290,48 @@ function CT:ChatFrame_MessageEventHandler(
 				message = format(globalstring, playerLink)
 			end
 
-			frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
-		elseif chatType == "BN_INLINE_TOAST_BROADCAST" then
-			if arg1 ~= "" then
+			frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif chatType == 'BN_INLINE_TOAST_BROADCAST' then
+			if arg1 ~= '' then
 				arg1 = RemoveNewlines(RemoveExtraSpaces(arg1))
-				local linkDisplayText = format(noBrackets and "%s" or "[%s]", arg2)
+				local linkDisplayText = format('[%s]', arg2)
 				local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-				frame:AddMessage(format(_G.BN_INLINE_TOAST_BROADCAST, playerLink, arg1), info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+				frame:AddMessage(format(_G.BN_INLINE_TOAST_BROADCAST, playerLink, arg1), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
 			end
-		elseif chatType == "BN_INLINE_TOAST_BROADCAST_INFORM" then
-			if arg1 ~= "" then
-				frame:AddMessage(_G.BN_INLINE_TOAST_BROADCAST_INFORM, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+		elseif chatType == 'BN_INLINE_TOAST_BROADCAST_INFORM' then
+			if arg1 ~= '' then
+				frame:AddMessage(_G.BN_INLINE_TOAST_BROADCAST_INFORM, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
 			end
 		else
-			local body
-
-			if chatType == "WHISPER_INFORM" and GMChatFrame_IsGM and GMChatFrame_IsGM(arg2) then
-				return
-			end
-
-			local showLink = 1
-			local isMonster = strsub(chatType, 1, 7) == "MONSTER"
-			if isMonster or strsub(chatType, 1, 9) == "RAID_BOSS" then
-				showLink = nil
-
-				-- fix blizzard formatting errors from localization strings
-				-- arg1 = gsub(arg1, '%%%d', '%%s') -- replace %1 to %s (russian client specific?) [broken since BFA?]
-				arg1 = gsub(arg1, "(%d%%)([^%%%a])", "%1%%%2") -- escape percentages that need it [broken since SL?]
-				arg1 = gsub(arg1, "(%d%%)$", "%1%%")           -- escape percentages on the end
-			else
-				arg1 = gsub(arg1, "%%", "%%%%")                -- escape any % characters, as it may otherwise cause an 'invalid option in format' error
-			end
-
-			--Remove groups of many spaces
-			arg1 = RemoveExtraSpaces(arg1)
-
-			-- Search for icon links and replace them with texture links.
-			arg1 = CH:ChatFrame_ReplaceIconAndGroupExpressions(arg1, arg17, not _G.ChatFrame_CanChatGroupPerformExpressionExpansion(chatGroup)) -- If arg17 is true, don't convert to raid icons
-
-			--ElvUI: Get class colored name for BattleNet friend
-			if chatType == "BN_WHISPER" or chatType == "BN_WHISPER_INFORM" then
-				coloredName = historySavedName or CH:GetBNFriendColor(arg2, arg13)
-			end
-
-			local playerLink
-			local playerLinkDisplayText = coloredName
-			local relevantDefaultLanguage = frame.defaultLanguage
-			if chatType == "SAY" or chatType == "YELL" then
-				relevantDefaultLanguage = frame.alternativeDefaultLanguage
-			end
-			local usingDifferentLanguage = (arg3 ~= "") and (arg3 ~= relevantDefaultLanguage)
-			local usingEmote = (chatType == "EMOTE") or (chatType == "TEXT_EMOTE")
-
-			if usingDifferentLanguage or not usingEmote then
-				playerLinkDisplayText = format(noBrackets and "%s" or "[%s]", CT:HandleName(coloredName))
-			end
-
-			local isCommunityType = chatType == "COMMUNITIES_CHANNEL"
-			local playerName, lineID, bnetIDAccount = (nameWithRealm ~= arg2 and nameWithRealm) or arg2, arg11, arg13
-			if isCommunityType then
-				local isBattleNetCommunity = bnetIDAccount ~= nil and bnetIDAccount ~= 0
-				local messageInfo, clubId, streamId = C_Club_GetInfoFromLastCommunityChatLine()
-
-				if messageInfo ~= nil then
-					if isBattleNetCommunity then
-						playerLink =
-							GetBNPlayerCommunityLink(
-								playerName,
-								playerLinkDisplayText,
-								bnetIDAccount,
-								clubId,
-								streamId,
-								messageInfo.messageId.epoch,
-								messageInfo.messageId.position
-							)
-					else
-						playerLink =
-							GetPlayerCommunityLink(
-								playerName,
-								playerLinkDisplayText,
-								clubId,
-								streamId,
-								messageInfo.messageId.epoch,
-								messageInfo.messageId.position
-							)
-					end
-				else
-					playerLink = playerLinkDisplayText
-				end
-			elseif chatType == "BN_WHISPER" or chatType == "BN_WHISPER_INFORM" then
-				playerLink =
-					GetBNPlayerLink(playerName, playerLinkDisplayText, bnetIDAccount, lineID, chatGroup, chatTarget)
-			else
-				playerLink = GetPlayerLink(playerName, playerLinkDisplayText, lineID, chatGroup, chatTarget)
-			end
-
-			local message = arg1
-			if arg14 then --isMobile
-				message = _G.ChatFrame_GetMobileEmbeddedTexture(info.r, info.g, info.b) .. message
-			end
-
-			-- Player Flags
-			local pflag = GetPFlag(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
-			if not isMonster then
-				local chatIcon, pluginChatIcon = specialChatIcons[playerName], CH:GetPluginIcon(playerName)
-				if type(chatIcon) == 'function' then
-					local icon, prettify, var1, var2, var3 = chatIcon()
-					if prettify and chatType ~= 'GUILD_ITEM_LOOTED' and not CH:MessageIsProtected(message) then
-						if chatType == 'TEXT_EMOTE' and not usingDifferentLanguage and (showLink and arg2 ~= '') then
-							var1, var2, var3 = strmatch(message, '^(.-)(' ..
-								arg2 .. (realm and '%-' .. realm or '') .. ')(.-)$')
-						end
-
-						if var2 then
-							if var1 ~= '' then var1 = prettify(var1) end
-							if var3 ~= '' then var3 = prettify(var3) end
-
-							message = var1 .. var2 .. var3
-						else
-							message = prettify(message)
-						end
-					end
-
-					chatIcon = icon or ''
-				end
-
-				-- LFG Role Flags
-				local lfgRole = (chatType == 'PARTY_LEADER' or chatType == 'PARTY' or chatType == 'RAID' or chatType == 'RAID_LEADER' or chatType == 'INSTANCE_CHAT' or chatType == 'INSTANCE_CHAT_LEADER') and lfgRoles[playerName]
-				if lfgRole then
-					pflag = pflag .. lfgRole
-				end
-				-- Special Chat Icon
-				if chatIcon then
-					pflag = pflag .. chatIcon
-				end
-				-- Plugin Chat Icon
-				if pluginChatIcon then
-					pflag = pflag .. pluginChatIcon
+			-- The message formatter is captured so that the original message can be reformatted when a censored message
+			-- is approved to be shown. We only need to pack the event args if the line was censored, as the message transformation
+			-- step is the only code that needs these arguments. See ItemRef.lua "censoredmessage".
+			local isChatLineCensored, eventArgs, msgFormatter = IsChatLineCensored and IsChatLineCensored(arg11) -- arg11: lineID
+			if isChatLineCensored then
+				eventArgs = _G.SafePack(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
+				msgFormatter = function(msg) -- to translate the message on click [Show Message]
+					local body = CT:MessageFormatter(frame, info, chatType, chatGroup, chatTarget, channelLength, coloredName, historySavedName, msg, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, isHistory, historyTime, historyName, historyBTag)
+					return CH:AddMessageEdits(frame, body, isHistory, historyTime)
 				end
 			end
 
-			if usingDifferentLanguage then
-				local languageHeader = "[" .. arg3 .. "] "
-				if showLink and arg2 ~= "" then
-					body = format(_G["CHAT_" .. chatType .. "_GET"] .. languageHeader .. message, pflag .. playerLink)
-				else
-					body = format(_G["CHAT_" .. chatType .. "_GET"] .. languageHeader .. message, pflag .. arg2)
-				end
-			else
-				if not showLink or arg2 == "" then
-					if chatType == "TEXT_EMOTE" then
-						body = message
-					else
-						body = format(_G["CHAT_" .. chatType .. "_GET"] .. message, pflag .. arg2, arg2)
-					end
-				else
-					if chatType == "EMOTE" then
-						body = format(_G["CHAT_" .. chatType .. "_GET"] .. message, pflag .. playerLink)
-					elseif chatType == "TEXT_EMOTE" and realm then
-						if info.colorNameByClass then
-							body = gsub(message, arg2 .. "%-" .. realm, pflag .. gsub(playerLink, "(|h|c.-)|r|h$", "%1-" .. realm .. "|r|h"), 1)
-						else
-							body = gsub(message, arg2 .. "%-" .. realm, pflag .. gsub(playerLink, "(|h.-)|h$", "%1-" .. realm .. "|h"), 1)
-						end
-					elseif chatType == "TEXT_EMOTE" then
-						body = gsub(message, arg2, pflag .. playerLink, 1)
-					elseif chatType == "GUILD_ITEM_LOOTED" then
-						body = gsub(message, "$s", pflag .. playerLink, 1)
-					else
-						body = format(_G["CHAT_" .. chatType .. "_GET"] .. message, pflag .. playerLink)
-					end
-				end
-			end
-
-			-- Add Channel
-			if channelLength > 0 then
-				body =
-					"|Hchannel:channel:" ..
-					arg8 .. "|h[" .. _G.ChatFrame_ResolvePrefixedChannelName(arg4) .. "]|h " .. body
-			end
-
-			if (chatType ~= "EMOTE" and chatType ~= "TEXT_EMOTE") and (CH.db.shortChannels or CH.db.hideChannels) then
-				body = CH:HandleShortChannels(body, CH.db.hideChannels)
-			end
-
-			for _, filter in ipairs(CH.PluginMessageFilters) do
-				body = filter(body)
+			-- beep boops
+			local alertType = notChatHistory and not CH.SoundTimer and not strfind(event, '_INFORM') and CH.db.channelAlerts[historyTypes[event]]
+			if alertType and alertType ~= 'None' and arg2 ~= PLAYER_NAME and (not CH.db.noAlertInCombat or not InCombatLockdown()) then
+				CH.SoundTimer = E:Delay(5, CH.ThrottleSound)
+				PlaySoundFile(LSM:Fetch('sound', alertType), 'Master')
 			end
 
 			local accessID = _G.ChatHistory_GetAccessID(chatGroup, chatTarget)
 			local typeID = _G.ChatHistory_GetAccessID(infoType, chatTarget, arg12 or arg13)
+			local body = isChatLineCensored and arg1 or CT:MessageFormatter(frame, info, chatType, chatGroup, chatTarget, channelLength, coloredName, historySavedName, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, isHistory, historyTime, historyName, historyBTag)
 
-			local alertType =
-				notChatHistory and not CH.SoundTimer and not strfind(event, "_INFORM") and
-				CH.db.channelAlerts[historyTypes[event]]
-			if
-				alertType and alertType ~= "None" and arg2 ~= PLAYER_NAME and
-				(not CH.db.noAlertInCombat or not InCombatLockdown())
-			then
-				CH.SoundTimer = E:Delay(5, CH.ThrottleSound)
-				PlaySoundFile(LSM:Fetch("sound", alertType), "Master")
-			end
-
-			frame:AddMessage(body, info.r, info.g, info.b, info.id, accessID, typeID, isHistory, historyTime)
+			frame:AddMessage(body, info.r, info.g, info.b, info.id, accessID, typeID, event, eventArgs, msgFormatter, isHistory, historyTime)
 		end
 
-		if notChatHistory and (chatType == "WHISPER" or chatType == "BN_WHISPER") then
+		if notChatHistory and (chatType == 'WHISPER' or chatType == 'BN_WHISPER') then
 			_G.ChatEdit_SetLastTellTarget(arg2, chatType)
-			if CH.db.flashClientIcon then
-				FlashClientIcon()
-			end
+			if CH.db.flashClientIcon then FlashClientIcon() end
 		end
 
 		if notChatHistory then
