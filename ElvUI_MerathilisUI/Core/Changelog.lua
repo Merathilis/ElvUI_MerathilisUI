@@ -12,8 +12,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• FOR 10.1.7 >> ElvUI 13.40",
-		"• Only take account to specific Patch changes",
+		"• Fix a ChatText error",
+		"• Take account for two new check boxes on the RaidManager",
 		-- "• ''",
 
 		" ",
