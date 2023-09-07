@@ -68,34 +68,6 @@ local RaidCounts = {
 	totalDAMAGER = 0,
 }
 
-local function lockraidmarkframe()
-	_G.RaidMarkFrame:EnableMouse(false)
-	_G.RaidMarkFrame:ClearAllPoints()
-	_G.RaidMarkFrame:Point("TOP", _G.RaidManagerFrame, "BOTTOM", 0, -5)
-	E.db.mui.raidmanager.unlockraidmarks = true
-end
-
-local function unlockraidmarkframe()
-	_G.RaidMarkFrame:EnableMouse(true)
-	E.db.mui.raidmanager.unlockraidmarks = false
-end
-
-local function Lock()
-	if E.db.mui.raidmanager.unlockraidmarks then
-		unlockraidmarkframe()
-	else
-		lockraidmarkframe()
-	end
-end
-
-local function ToggleRaidMarkFrame()
-	if _G.RaidMarkFrame:IsShown() then
-		_G.RaidMarkFrame:Hide()
-	else
-		_G.RaidMarkFrame:Show()
-	end
-end
-
 local function ToogleRaidMangerFrame()
 	if _G.RaidManagerFrame:IsShown() then
 		_G.RaidManagerFrame:Hide()
@@ -367,6 +339,26 @@ function module:CreateRaidManager()
 			_G.UIErrorsFrame:AddMessage(MER.InfoColor.._G.ERR_NOT_LEADER)
 		end
 	end)
+
+	if IsInRaid() and UnitIsGroupLeader("player") then
+		_G.CompactRaidFrameManager.displayFrame.everyoneIsAssistButton:ClearAllPoints()
+		_G.CompactRaidFrameManager.displayFrame.everyoneIsAssistButton:SetParent(RaidManagerFrame)
+		_G.CompactRaidFrameManager.displayFrame.everyoneIsAssistButton:Point("TOP", RolePollButton, "BOTTOM", -50, -4)
+		_G.CompactRaidFrameManager.displayFrame.everyoneIsAssistButton:Show()
+		ES:HandleCheckBox(_G.CompactRaidFrameManagerDisplayFrameEveryoneIsAssistButton)
+	else
+		CompactRaidFrameManager.displayFrame.everyoneIsAssistButton:Hide()
+	end
+
+	if _G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:ShouldShow() then
+		_G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:ClearAllPoints()
+		_G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:SetParent(RaidManagerFrame)
+		_G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:Point("TOP", _G.CompactRaidFrameManager.displayFrame.everyoneIsAssistButton, "BOTTOM", 0, 0)
+		-- ES:HandleCheckBox(__G.CompactRaidFrameManager.displayFrame.RestrictPingsButton) -- find out how to skin
+		_G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:Show()
+	else
+		_G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:Hide()
+	end
 
 	local RaidMarkFrame = CreateFrame("Frame", "RaidMarkFrame", E.UIParent)
 	RaidMarkFrame:Size(270, 80)
