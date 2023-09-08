@@ -32,8 +32,17 @@ local HasLFGRestrictions = HasLFGRestrictions
 local C_PartyInfo_ConvertToParty = C_PartyInfo.ConvertToParty
 local C_PartyInfo_ConvertToRaid = C_PartyInfo.ConvertToRaid
 local C_Timer_After = C_Timer.After
+local SetRestrictPings = C_PartyInfo.SetRestrictPings
+local GetRestrictPings = C_PartyInfo.GetRestrictPings
+
 local GameTooltip = GameTooltip
 local ToggleFriendsFrame = ToggleFriendsFrame
+
+local IG_MAINMENU_OPTION_CHECKBOX_ON = SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON
+
+local PANEL_WIDTH = 270
+local PANEL_HEIGHT = 150
+local BUTTON_HEIGHT = 25
 
 local function GetRaidMaxGroup()
 	local _, instType, difficulty = GetInstanceInfo()
@@ -127,8 +136,9 @@ local function RaidFrameManager_PositionRoleIcons()
 	local point = E:GetScreenQuadrant(_G.RaidManagerFrame)
 	local left = point and strfind(point, "LEFT")
 	_G.RaidManagerRoleIcons:ClearAllPoints()
+
 	if left then
-		_G.RaidManagerRoleIcons:Point("LEFT", _G.RaidFrameManager, "RIGHT", -1, 0)
+		_G.RaidManagerRoleIcons:Point("LEFT", _G.RaidFrameManager, "RIGHT", 3, 0)
 	else
 		_G.RaidManagerRoleIcons:Point("RIGHT", _G.RaidFrameManager, "LEFT", 1, 0)
 	end
@@ -158,13 +168,123 @@ local function UpdateIcons(self)
 	end
 end
 
-function module:CreateRaidManager()
+-- Change border when mouse is inside the button
+function module:OnEnter_Button()
+	if self.backdrop then self = self.backdrop end
+	self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+end
+
+-- Change border back to normal when mouse leaves button
+function module:OnLeave_Button()
+	if self.backdrop then self = self.backdrop end
+	self:SetBackdropBorderColor(unpack(E.media.bordercolor))
+end
+
+function module:OnClick_EveryoneAssist()
+	PlaySound(IG_MAINMENU_OPTION_CHECKBOX_ON)
+	SetEveryoneIsAssistant(self:GetChecked())
+end
+
+function module:OnEvent_EveryoneAssist()
+	self:SetChecked(IsEveryoneAssistant())
+end
+
+function module:OnClick_RestrictPings()
+	PlaySound(IG_MAINMENU_OPTION_CHECKBOX_ON)
+	SetRestrictPings(self:GetChecked())
+end
+
+function module:OnEvent_RestrictPings()
+	self:SetChecked(GetRestrictPings())
+end
+
+function module:CreateCheckBox(name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, label, events, eventFunc, clickFunc)
+	local checkbox = type(name) == 'table' and name
+	local box = checkbox or CreateFrame('CheckButton', name, parent, template or 'UICheckButtonTemplate')
+	box:Size(height)
+
+	if events then
+		box:UnregisterAllEvents()
+
+		for _, event in next, events do
+			box:RegisterEvent(event)
+		end
+	end
+
+	box:SetScript('OnEvent', eventFunc)
+	box:SetScript('OnClick', clickFunc)
+
+	if not box.isSkinned then
+		ES:HandleCheckBox(box)
+	end
+
+	if box.Text then
+		box.Text:Point('LEFT', box, 'RIGHT', 2, 0)
+		box.Text:SetText(label or '')
+		box.Text:SetTextColor(1, 1, 1, 1)
+	end
+
+	if not box:GetPoint() then
+		box:Point(point, relativeto, point2, xOfs, yOfs)
+	end
+
+	module.CheckBoxes[name] = box
+
+	return box
+end
+
+function module:CreateUtilButton(name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, label, texture)
+	local button = type(name) == 'table' and name
+	local btn = button or CreateFrame('Button', name, parent, template)
+	btn:HookScript('OnEnter', module.OnEnter_Button)
+	btn:HookScript('OnLeave', module.OnLeave_Button)
+	btn:Size(width, height)
+	ES:HandleButton(btn)
+
+	if not btn:GetPoint() then
+		btn:Point(point, relativeto, point2, xOfs, yOfs)
+	end
+
+	if label then
+		local text = btn:CreateFontString(nil, 'OVERLAY')
+		text:FontTemplate()
+		text:Point('CENTER', btn, 'CENTER', 0, -1)
+		text:SetJustifyH('CENTER')
+		text:SetText(label)
+		btn:SetFontString(text)
+		btn.text = text
+	elseif texture then
+		local tex = btn:CreateTexture(nil, 'OVERLAY')
+		tex:SetTexture(texture)
+		tex:Point('TOPLEFT', btn, 'TOPLEFT', 1, -1)
+		tex:Point('BOTTOMRIGHT', btn, 'BOTTOMRIGHT', -1, 1)
+		tex.tex = texture
+		btn.texture = tex
+	end
+
+	module.Buttons[name] = btn
+
+	return btn
+end
+
+function module:Initialize()
+	local db = E.db.mui.raidmanager
+	if not db.enable then return end
+
+	-- Disable ElvUI's RaidUtility
+	E.private.general.raidUtility = false
+
+	module.Buttons = {}
+	module.CheckBoxes = {}
+
 	-- Main Frame
-	local RaidManagerFrame = CreateFrame("Frame", "RaidManagerFrame", E.UIParent)
-	RaidManagerFrame:Size(270, 150)
+	local RaidManagerFrame = CreateFrame("Frame", "RaidManagerFrame", E.UIParent, "SecureHandlerBaseTemplate")
+	RaidManagerFrame:SetScript('OnMouseUp', module.OnClick_RaidUtilityPanel)
+	RaidManagerFrame:Size(PANEL_WIDTH, PANEL_HEIGHT)
 	RaidManagerFrame:Point("TOPLEFT", E.UIParent, "TOPLEFT", 240, -50)
 	RaidManagerFrame:SetFrameStrata("HIGH")
 	RaidManagerFrame:Hide()
+	E.FrameLocks.RaidManagerFrame = true
 
 	RaidManagerFrame:RegisterForDrag("LeftButton")
 	RaidManagerFrame:SetScript("OnDragStart", function(self) self:StartMoving() end)
@@ -227,15 +347,8 @@ function module:CreateRaidManager()
 		E:StaticPopup_Show('WARNING_BLIZZARD_ADDONS')
 	end
 
-	local PullButton = CreateFrame("Button", "RaidManagerFramePullButton", RaidManagerFrame, "UIPanelButtonTemplate")
-	PullButton:ClearAllPoints()
-	PullButton:Point("TOPRIGHT", RaidManagerFrame, "TOP", -5, -40)
-	PullButton:Size(RaidManagerFrame:GetWidth()/2-20, 25)
-	ES:HandleButton(PullButton)
-
-	PullButton.text = PullButton:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	PullButton.text:Point("CENTER")
-	PullButton.text:SetText(L["Pull"])
+	local BUTTON_WIDTH = PANEL_WIDTH / 2 - 20
+	local PullButton = module:CreateUtilButton("RaidManagerFramePullButton", RaidManagerFrame, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "TOPRIGHT", RaidManagerFrame, "TOP", -5, -25, L["Pull"])
 
 	local reset = true
 	PullButton:SetScript("OnClick", function(self)
@@ -267,16 +380,7 @@ function module:CreateRaidManager()
 	PullButton:RegisterEvent("PLAYER_REGEN_ENABLED")
 	PullButton:SetScript("OnEvent", function() reset = true end)
 
-	local ReadyCheckButton = CreateFrame("Button", "RaidManagerFrameReadyCheckButton", RaidManagerFrame, "UIPanelButtonTemplate")
-	ReadyCheckButton:ClearAllPoints()
-	ReadyCheckButton:Point("LEFT", PullButton, "RIGHT", 10, 0)
-	ReadyCheckButton:Size(RaidManagerFrame:GetWidth()/2-20, 25)
-	ES:HandleButton(ReadyCheckButton)
-
-	ReadyCheckButton.text = ReadyCheckButton:CreateFontString(nil, "OVERLAY")
-	ReadyCheckButton.text:SetAllPoints(ReadyCheckButton)
-	ReadyCheckButton.text:FontTemplate()
-	ReadyCheckButton.text:SetText(_G.READY_CHECK)
+	local ReadyCheckButton = module:CreateUtilButton("RaidManagerFrameReadyCheckButton", RaidManagerFrame, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "LEFT", PullButton, "RIGHT", 10, 0, _G.READY_CHECK)
 
 	ReadyCheckButton:SetScript("OnClick", function()
 		if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(MER.RedColor.._G.ERR_NOT_IN_COMBAT) return end
@@ -287,16 +391,7 @@ function module:CreateRaidManager()
 		end
 	end)
 
-	local RolePollButton = CreateFrame("Button", "RaidManagerFrameRoleCheckButton", RaidManagerFrame, "UIPanelButtonTemplate")
-	RolePollButton:ClearAllPoints()
-	RolePollButton:Point("TOP", PullButton, "BOTTOM", 0, -8)
-	RolePollButton:Size(RaidManagerFrame:GetWidth()/2-20, 25)
-	ES:HandleButton(RolePollButton)
-
-	RolePollButton.text = RolePollButton:CreateFontString(nil, "OVERLAY")
-	RolePollButton.text:SetAllPoints(RolePollButton)
-	RolePollButton.text:FontTemplate()
-	RolePollButton.text:SetText(_G.ROLE_POLL)
+	local RolePollButton = module:CreateUtilButton("RaidManagerFrameRoleCheckButton", RaidManagerFrame, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "TOP", PullButton, "BOTTOM", 0, -5, _G.ROLE_POLL)
 
 	RolePollButton:SetScript("OnClick", function()
 		if IsInGroup() and not HasLFGRestrictions() and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid())) then
@@ -306,13 +401,7 @@ function module:CreateRaidManager()
 		end
 	end)
 
-	local ConvertGroupButton = CreateFrame("Button", "ConvertGroupButton", RaidManagerFrame, "UIPanelButtonTemplate")
-	ConvertGroupButton:Point("LEFT", RolePollButton, "RIGHT", 10, 0)
-	ConvertGroupButton:Size(RaidManagerFrame:GetWidth()/2-20, 25)
-
-	ConvertGroupButton.text = ConvertGroupButton:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	ConvertGroupButton.text:Point("CENTER")
-	ES:HandleButton(ConvertGroupButton)
+	local ConvertGroupButton = module:CreateUtilButton("RaidManagerFrameConvertGroupButton", RaidManagerFrame, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "LEFT", RolePollButton, "RIGHT", 10, 0, "")
 
 	ConvertGroupButton:SetScript("OnEvent", function(self, event, arg1)
 		if not IsInGroup() then
@@ -327,9 +416,6 @@ function module:CreateRaidManager()
 		end
 	end)
 
-	ConvertGroupButton:RegisterEvent("GROUP_ROSTER_UPDATE")
-	ConvertGroupButton:RegisterEvent("PLAYER_ENTERING_WORLD")
-
 	ConvertGroupButton:SetScript("OnClick", function(self)
 		if IsInRaid() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
 			C_PartyInfo_ConvertToParty()
@@ -340,24 +426,13 @@ function module:CreateRaidManager()
 		end
 	end)
 
-	if IsInRaid() and UnitIsGroupLeader("player") then
-		_G.CompactRaidFrameManager.displayFrame.everyoneIsAssistButton:ClearAllPoints()
-		_G.CompactRaidFrameManager.displayFrame.everyoneIsAssistButton:SetParent(RaidManagerFrame)
-		_G.CompactRaidFrameManager.displayFrame.everyoneIsAssistButton:Point("TOP", RolePollButton, "BOTTOM", -50, -4)
-		_G.CompactRaidFrameManager.displayFrame.everyoneIsAssistButton:Show()
-		ES:HandleCheckBox(_G.CompactRaidFrameManagerDisplayFrameEveryoneIsAssistButton)
-	else
-		CompactRaidFrameManager.displayFrame.everyoneIsAssistButton:Hide()
-	end
+	ConvertGroupButton:RegisterEvent("GROUP_ROSTER_UPDATE")
+	ConvertGroupButton:RegisterEvent("PLAYER_ENTERING_WORLD")
 
-	if _G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:ShouldShow() then
-		_G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:ClearAllPoints()
-		_G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:SetParent(RaidManagerFrame)
-		_G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:Point("TOP", _G.CompactRaidFrameManager.displayFrame.everyoneIsAssistButton, "BOTTOM", 0, 0)
-		-- ES:HandleCheckBox(__G.CompactRaidFrameManager.displayFrame.RestrictPingsButton) -- find out how to skin
-		_G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:Show()
-	else
-		_G.CompactRaidFrameManager.displayFrame.RestrictPingsButton:Hide()
+	local EveryoneAssist = module:CreateCheckBox("RaidManagerFrame_EveryoneAssist", RaidManagerFrame, nil, BUTTON_WIDTH, BUTTON_HEIGHT + 4, 'TOPLEFT', RolePollButton, 'BOTTOMLEFT', -4, -3, _G.ALL_ASSIST_LABEL_LONG, {'GROUP_ROSTER_UPDATE', 'PARTY_LEADER_CHANGED'}, module.OnEvent_EveryoneAssist, module.OnClick_EveryoneAssist)
+
+	if SetRestrictPings then
+		module:CreateCheckBox("RaidManagerFrame_RestrictPings", RaidManagerFrame, nil, BUTTON_WIDTH, BUTTON_HEIGHT + 4, 'TOPLEFT', EveryoneAssist, 'BOTTOMLEFT', 0, 0, _G.RAID_MANAGER_RESTRICT_PINGS, {'GROUP_ROSTER_UPDATE', 'PARTY_LEADER_CHANGED'}, module.OnEvent_RestrictPings, module.OnClick_RestrictPings)
 	end
 
 	local RaidMarkFrame = CreateFrame("Frame", "RaidMarkFrame", E.UIParent)
@@ -377,10 +452,12 @@ function module:CreateRaidManager()
 
 	--Role Icons
 	local RoleIcons = CreateFrame("Frame", "RaidManagerRoleIcons", RaidManagerFrame)
-	RoleIcons:Point("LEFT", RaidManagerFrame, "RIGHT", -1, 0)
+	RoleIcons:Point("LEFT", RaidManagerFrame, "RIGHT", 3, 0)
 	RoleIcons:Size(36, RaidManagerFrame:GetHeight())
 	RoleIcons:CreateBackdrop("Transparent")
 	RoleIcons.backdrop:Styling()
+	S:CreateShadowModule(RoleIcons.backdrop)
+
 	RoleIcons:RegisterEvent("PLAYER_ENTERING_WORLD")
 	RoleIcons:RegisterEvent("GROUP_ROSTER_UPDATE")
 	RoleIcons:SetScript("OnEvent", UpdateIcons)
@@ -419,9 +496,7 @@ function module:CreateRaidManager()
 
 		RoleIcons.icons[role] = frame
 	end
-end
 
-function module:CreateRaidInfo()
 	local header = CreateFrame("Button", nil, E.UIParent)
 	header:Size(120, 28)
 	header:SetFrameLevel(2)
@@ -436,7 +511,8 @@ function module:CreateRaidInfo()
 	S:CreateShadowModule(header.backdrop)
 	E.FrameLocks[header] = true
 
-	E:CreateMover(header, "MER_RaidManager", L["Raid Manager"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,misc')
+	E:CreateMover(header, "MER_RaidManager", L["Raid Manager"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil,
+		'mui,misc')
 
 	header:SetScript("OnEvent", function(self)
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
@@ -453,9 +529,9 @@ function module:CreateRaidInfo()
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(L["Raid Manager"], F.r, F.g, F.b)
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine(MER.LeftButton..MER.InfoColor..L["Open Raid Manager"])
+		GameTooltip:AddDoubleLine(MER.LeftButton .. MER.InfoColor .. L["Open Raid Manager"])
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine(MER.RightButton..MER.InfoColor..L["Open Raid Panel"])
+		GameTooltip:AddDoubleLine(MER.RightButton .. MER.InfoColor .. L["Open Raid Panel"])
 		GameTooltip:Show()
 	end)
 	header:SetScript("OnLeave", function(self)
@@ -479,7 +555,7 @@ function module:CreateRaidInfo()
 	local role = {}
 	for i = 1, 3 do
 		role[i] = roleFrame:CreateTexture(nil, "OVERLAY")
-		role[i]:Point("LEFT", 36*i-30, 0)
+		role[i]:Point("LEFT", 36 * i - 30, 0)
 		role[i]:Size(15, 15)
 		role[i]:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\LFGROLE")
 		role[i]:SetTexCoord(unpack(RoleTexCoord[i]))
@@ -504,7 +580,7 @@ function module:CreateRaidInfo()
 		for i = 1, GetNumGroupMembers() do
 			local name, _, subgroup, _, _, _, _, online, isDead, _, _, assignedRole = GetRaidRosterInfo(i)
 			if name and online and subgroup <= maxgroup and not isDead and assignedRole ~= "NONE" then
-				RaidCounts["total"..assignedRole] = RaidCounts["total"..assignedRole] + 1
+				RaidCounts["total" .. assignedRole] = RaidCounts["total" .. assignedRole] + 1
 			end
 		end
 
@@ -544,7 +620,7 @@ function module:CreateRaidInfo()
 				if timer < 0 then
 					self.Timer:SetText("--:--")
 				else
-					self.Timer:SetFormattedText("%d:%.2d", timer/60, timer%60)
+					self.Timer:SetFormattedText("%d:%.2d", timer / 60, timer % 60)
 				end
 				self.Count:SetText(charges)
 				if charges == 0 then
@@ -582,7 +658,7 @@ function module:CreateRaidInfo()
 
 	local rc = rcFrame:CreateFontString(nil, "OVERLAY")
 	rc:FontTemplate(nil, 14, "OUTLINE")
-    rc:SetText("")
+	rc:SetText("")
 	rc:SetPoint("TOP", rcFrame.Text, "BOTTOM", 0, -10)
 
 	local count, total
@@ -617,7 +693,7 @@ function module:CreateRaidInfo()
 					end
 				end
 			end
-			rc:SetText(count.." / "..total)
+			rc:SetText(count .. " / " .. total)
 			if count == total then
 				rc:SetTextColor(0, 1, 0)
 			else
@@ -625,17 +701,7 @@ function module:CreateRaidInfo()
 			end
 		end
 	end)
-	rcFrame:SetScript("OnMouseUp", function(self) self:Hide() end)
-end
-
-function module:Initialize()
-	local db = E.db.mui.raidmanager
-	if not db.enable then return end
-
-	-- Disable ElvUI's RaidUtility
-	E.private.general.raidUtility = false
-	self:CreateRaidInfo()
-	self:CreateRaidManager()
+	rcFrame:SetScript("OnMouseUp", function() self:Hide() end)
 end
 
 MER:RegisterModule(module:GetName())
