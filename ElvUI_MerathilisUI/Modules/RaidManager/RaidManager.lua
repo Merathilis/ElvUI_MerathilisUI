@@ -34,6 +34,7 @@ local C_PartyInfo_ConvertToRaid = C_PartyInfo.ConvertToRaid
 local C_Timer_After = C_Timer.After
 local SetRestrictPings = C_PartyInfo.SetRestrictPings
 local GetRestrictPings = C_PartyInfo.GetRestrictPings
+local issecurevariable = issecurevariable
 
 local GameTooltip = GameTooltip
 local ToggleFriendsFrame = ToggleFriendsFrame
@@ -412,7 +413,10 @@ function module:Initialize()
 			else
 				self.text:SetText(_G.CONVERT_TO_RAID)
 			end
-			self:Show()
+
+			if not self:IsProtected() and not issecurevariable(self, "Show") then
+				self:Show()
+			end
 		end
 	end)
 
