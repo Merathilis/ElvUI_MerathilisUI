@@ -880,7 +880,8 @@ local openableItems = {
 	207584,
 	208090,
 	208951,
-	208952
+	208952,
+	209833
 }
 
 local tbcOre = {
