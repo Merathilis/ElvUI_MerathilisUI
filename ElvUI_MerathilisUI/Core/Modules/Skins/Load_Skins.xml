@@ -1,7 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file='Core.lua'/>
-	<Script file='API.lua'/>
-	<Include file='Widgets\Load_Widgets.xml'/>
-	<Include file='ElvUI\Load_ElvUI.xml'/>
-	<Include file='Extern\Load_Extern.xml'/>
-</Ui>

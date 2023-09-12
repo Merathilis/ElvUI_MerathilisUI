@@ -1,5 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="GradientName.lua"/>
-	<Script file="Achievement.lua"/>
-	<Script file="TooltipIcon.lua"/>
-</Ui>
