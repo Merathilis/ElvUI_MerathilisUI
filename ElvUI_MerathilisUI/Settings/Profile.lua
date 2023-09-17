@@ -1016,6 +1016,7 @@ P.gradient = {
 	customColor = {
 		enableClass = false,
 		enableNP = false,
+		enableUF = false,
 		enablePower = false,
 
 		druidcolorR1 = 1,
