@@ -16,6 +16,7 @@ P.general = {
 	splashScreen = true,
 	AFK = true,
 	FlightPoint = true,
+	fontScale = 0,
 }
 
 P.bags = {
@@ -1271,6 +1272,8 @@ P.gradient = {
 		painG2 = 0.30,
 		painB2 = 0,
 	},
+	bgfade = 0.6,
+	backdropalpha = 1
 }
 
 P.unitframes = {

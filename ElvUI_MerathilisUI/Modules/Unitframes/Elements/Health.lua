@@ -25,9 +25,9 @@ function module:ApplyUnitGradient(unit, name)
 			if unitframe and unitframe.Health and unitframe.Health.backdropTex then
 				if UnitIsPlayer(unit) and not UnitIsCharmed(unit) then
 					if unit == "target" then
-						unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColorsCustom(classunit))
+						unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColorsCustom(classunit, true, true))
 					else
-						unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColorsCustom(classunit))
+						unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColorsCustom(classunit, false, true))
 					end
 				else
 					if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
@@ -49,22 +49,22 @@ function module:ApplyUnitGradient(unit, name)
 			if unitframe and unitframe.Health and unitframe.Health.backdropTex then
 				if UnitIsPlayer(unit) and not UnitIsCharmed(unit) then
 					if unit == "target" then
-						unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors(classunit))
+						unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors(classunit, true, true))
 					else
-						unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors(classunit))
+						unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors(classunit, false, true))
 					end
 				else
 					if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
-						unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors("TAPPED"))
+						unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors("TAPPED", true, true))
 					else
 						if reaction and reaction >= 5 then
-							unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors("NPCFRIENDLY"))
+							unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors("NPCFRIENDLY", true, true))
 						elseif reaction and reaction == 4 then
-							unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors("NPCNEUTRAL"))
+							unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors("NPCNEUTRAL", true, true))
 						elseif reaction and reaction == 3 then
-							unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors("NPCUNFRIENDLY"))
+							unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors("NPCUNFRIENDLY", true, true))
 						elseif reaction and reaction == 2 or reaction == 1 then
-							unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors("NPCHOSTILE"))
+							unitframe.Health.backdropTex:SetGradient("HORIZONTAL", F.GradientColors("NPCHOSTILE", true, true))
 						end
 					end
 				end
