@@ -4,22 +4,17 @@ local LSM = E.LSM
 
 local _G = _G
 local ipairs, pairs, pcall, print, select, tonumber, type, unpack = ipairs, pairs, pcall, print, select, tonumber, type, unpack
-local min = min
-local abs = abs
-local find, format, gsub, match, split, strfind = string.find, string.format, string.gsub, string.match, string.split, strfind
+local format, gsub, match, split, strfind = string.format, string.gsub, string.match, string.split, strfind
 local strmatch, strlen, strsub = strmatch, strlen, strsub
 local tconcat, tinsert, tremove, twipe = table.concat, table.insert, table.remove, table.wipe
+local modf = math.modf
 
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
-local GetClassColor = GetClassColor
 local GetItemInfo = GetItemInfo
 local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID or (C_Container and C_Container.GetContainerItemID)
-local GetContainerItemLink = GetContainerItemLink or (C_Container and C_Container.GetContainerItemLink)
 local GetContainerNumSlots = GetContainerNumSlots or (C_Container and C_Container.GetContainerNumSlots)
-local PickupContainerItem = PickupContainerItem or (C_Container and C_Container.PickupContainerItem)
-local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
@@ -27,13 +22,25 @@ local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
 
-local UIParent = UIParent
-
-local C_Covenants_GetCovenantData = C_Covenants and C_Covenants.GetCovenantData
-local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
 local C_TooltipInfo_GetInventoryItem = C_TooltipInfo and C_TooltipInfo.GetInventoryItem
 local C_TooltipInfo_GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
 local C_TooltipInfo_GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
+
+function F.PerfectScale(n)
+	local m = E.mult
+	return (m == 1 or n == 0) and n or (n * m)
+end
+
+function F.PixelPerfect()
+	local perfectScale = 768 / E.physicalHeight
+	if E.physicalHeight == 2160 or E.physicalHeight == 2880 then perfectScale = perfectScale * 2 end
+	return perfectScale
+end
+
+local baseScale = 768 / 1080       -- 0,7111111111
+local baseMulti = 0.64 / baseScale -- 1,2
+local perfectScale = baseScale / F.PixelPerfect()
+local perfectMulti = baseMulti * perfectScale
 
 function F.SetFontDB(text, db)
 	if not text or not text.GetFont then
@@ -85,6 +92,13 @@ function F.SetFontOutline(text, font, size)
 	text.SetShadowColor = E.noop
 end
 
+function F.SetFontSizeScaled(value, clamp)
+	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale) or value
+	clamp = (clamp and (E.db.mui and E.db.mui.general and E.db.mui.general.fontScale) and (clamp + E.db.mui.general.fontScale) or clamp) or 0
+
+	return F.Clamp(F.Clamp(F.Round(value * perfectScale), clamp or 0, 64), 8, 64)
+end
+
 function F.SetVertexColorDB(tex, db)
 	if not tex or not tex.GetVertexColor then
 		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture to handling")
@@ -97,6 +111,23 @@ function F.SetVertexColorDB(tex, db)
 	end
 
 	tex:SetVertexColor(db.r, db.g, db.b, db.a)
+end
+
+function F.Clamp(value, s, b)
+	return min(max(value, s), b)
+end
+
+function F.Round(n, q)
+	q = q or 1
+
+	local int, frac = modf(n / q)
+	if n == abs(n) and frac >= 0.5 then
+		return (int + 1) * q
+	elseif frac <= -0.5 then
+		return (int - 1) * q
+	end
+
+	return int * q
 end
 
 function F.cOption(name, color)
