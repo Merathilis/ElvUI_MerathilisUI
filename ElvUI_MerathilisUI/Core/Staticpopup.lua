@@ -42,7 +42,7 @@ E.PopupDialogs["MERATHILISUI_CREDITS"] = {
 
 -- ElvUI Versions check
 E.PopupDialogs["VERSION_MISMATCH"] = {
-	text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX),
+	text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIVersion, MER.RequiredVersion),
 	button1 = CLOSE,
 	timeout = 0,
 	whileDead = 1,

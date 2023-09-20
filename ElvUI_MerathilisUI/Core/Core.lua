@@ -14,8 +14,8 @@ local InCombatLockdown = InCombatLockdown
 local C_CVar_GetCVarBool = C_CVar.GetCVarBool
 
 MER.dummy = function() return end
-MER.ElvUIV = tonumber(E.version)
-MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+MER.ElvUIVersion = tonumber(E.version)
+MER.RequiredVersion = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvUIVersion"))
 
 MER.IsRetail = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
 MER.IsWrath = select(4, GetBuildInfo()) >= 30400
@@ -114,7 +114,7 @@ end
 
 function MER:CheckElvUIVersion()
 	-- ElvUI versions check
-	if MER.ElvUIV < MER.ElvUIX then
+	if MER.ElvUIVersion < 1 or (MER.ElvUIVersion < MER.RequiredVersion) then
 		E:StaticPopup_Show("VERSION_MISMATCH")
 		return false-- If ElvUI Version is outdated stop right here. So things don't get broken.
 	end
