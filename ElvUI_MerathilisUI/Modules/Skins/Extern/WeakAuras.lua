@@ -2,64 +2,88 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
+local _G = _G
+local pairs, unpack = pairs, unpack
+local hooksecurefunc = hooksecurefunc
+
 local WeakAuras = _G.WeakAuras
 
-local function Skin_RealTimeProfiling(frame)
-	if not frame then
-		return
-	end
+function module:WeakAuras_PrintProfile()
+	local frame = _G.WADebugEditBox.Background
 
-	frame:StripTextures()
-	frame:SetTemplate('Transparent')
-	frame:Styling()
-	module:CreateShadow(frame)
+	if frame and not frame.__MERSkin then
+		local textArea = _G.WADebugEditBoxScrollFrame:GetRegions()
+		S:HandleScrollBar(_G.WADebugEditBoxScrollFrameScrollBar)
 
-	--[[
-		-- I dont get this -.-
-	if frame.MaxMinButtonFrame.MinimizeButton then
-		S:HandleNextPrevButton(frame.MaxMinButtonFrame.MinimizeButton, "up", nil, true)
-		frame.MaxMinButtonFrame.MinimizeButton:ClearAllPoints()
-		frame.MaxMinButtonFrame.MinimizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
-	end
+		frame:StripTextures()
+		frame:SetTemplate("Transparent")
+		module:CreateShadow(frame)
 
-	if frame.MaxMinButtonFrame.MaximizeButton then
-		S:HandleNextPrevButton(frame.MaxMinButtonFrame.MaximizeButton, "down", nil, true)
-		frame.MaxMinButtonFrame.MaximizeButton:ClearAllPoints()
-		frame.MaxMinButtonFrame.MaximizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
-	end
-	--]]
-	S:HandleCloseButton(frame.CloseButton)
-
-	--[[
-		-- Also needs update
-	local buttons = {
-		frame.reportButton,
-		frame.encounterButton,
-		frame.combatButton,
-		frame.toggleButton
-	}
-
-	for _, button in pairs(buttons) do
-		if button then
-			S:HandleButton(button)
+		for _, child in pairs { frame:GetChildren() } do
+			if child:GetNumRegions() == 3 then
+				child:StripTextures()
+				local subChild = child:GetChildren()
+				subChild:ClearAllPoints()
+				subChild:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 3, 7)
+				S:HandleCloseButton(subChild)
+			end
 		end
+
+		frame.__MERSkin = true
 	end
-	--]]
 end
 
-local function Skin_ProfilingReport(frame)
-	if not frame.__MERSkin then
-		return
+function module:ProfilingWindow_UpdateButtons(frame)
+	for _, button in pairs { frame.statsFrame:GetChildren() } do
+		S:HandleButton(button)
 	end
 
-	frame:StripTextures()
-	frame:SetTemplate('Transparent')
-	frame:Styling()
-	module:CreateShadow(frame)
+	for _, button in pairs { frame.titleFrame:GetChildren() } do
+		if not button.__MERSkin and button.GetNormalTexture then
+			local normalTextureID = button:GetNormalTexture():GetTexture()
+			if normalTextureID == 252125 then
+				button:StripTextures()
+				button.SetNormalTexture = E.noop
+				button.SetPushedTexture = E.noop
+				button.SetHighlightTexture = E.noop
 
-	S:HandleCloseButton(frame.CloseButton)
+				button.Texture = button:CreateTexture(nil, "OVERLAY")
+				button.Texture:SetPoint("CENTER")
+				button.Texture:SetTexture(E.Media.Textures.ArrowUp)
+				button.Texture:SetSize(14, 14)
 
-	frame.__MERSkin = true
+				button:HookScript("OnEnter", function(self)
+					if self.Texture then
+						self.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+					end
+				end)
+
+				button:HookScript("OnLeave", function(self)
+					if self.Texture then
+						self.Texture:SetVertexColor(1, 1, 1)
+					end
+				end)
+
+				button:HookScript("OnClick", function(self)
+					self.Texture:Show("")
+					if self:GetParent():GetParent().minimized then
+						button.Texture:SetRotation(S.ArrowRotation["down"])
+					else
+						button.Texture:SetRotation(S.ArrowRotation["up"])
+					end
+				end)
+
+				button:SetHitRectInsets(6, 6, 7, 7)
+				button:SetPoint("TOPRIGHT", frame.titleFrame, "TOPRIGHT", -19, 3)
+			else
+				S:HandleCloseButton(button)
+				button:ClearAllPoints()
+				button:SetPoint("TOPRIGHT", frame.titleFrame, "TOPRIGHT", 3, 1)
+			end
+
+			button.__MERSkin = true
+		end
+	end
 end
 
 local function Skin_WeakAuras(f, fType, data)
@@ -133,6 +157,8 @@ function module:WeakAuras()
 		return
 	end
 
+	if not WeakAuras or not WeakAuras.regionPrototype then return end
+
 	-- Handle the options region type registration
 	if WeakAuras and WeakAuras.RegisterRegionOptions then
 		module:RawHook(WeakAuras, "RegisterRegionOptions", "WeakAuras_RegisterRegionOptions")
@@ -150,16 +176,11 @@ function module:WeakAuras()
 	module:SecureHook(WeakAuras.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
 
 	-- Real Time Profiling Window
-	local profilingWindow = _G.WeakAurasRealTimeProfiling
+	local profilingWindow = WeakAuras.RealTimeProfilingWindow
 	if profilingWindow then
-		Skin_RealTimeProfiling(profilingWindow)
-	end
-
-	-- Real Time Profiling Report Window
-	local profilingReport = WeakAurasProfilingReport
-	if profilingReport then
-		print("yes")
-		Skin_ProfilingReport(profilingReport)
+		module:CreateShadow(profilingWindow)
+		module:SecureHook(profilingWindow, "UpdateButtons", "ProfilingWindow_UpdateButtons")
+		module:SecureHook(WeakAuras, "PrintProfile", "WeakAuras_PrintProfile")
 	end
 end
 
