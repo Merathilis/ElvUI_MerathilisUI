@@ -12,8 +12,13 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix a ChatText error",
-		"• Take account for two new check boxes on the RaidManager",
+		"• Updated RaidManager",
+		"• Updated Chat Text code",
+		"• Added some more openable Boxes/Items",
+		"• Styling update on the AFK/Game Menu frame",
+		"• Added a gradient style on the UnitFrame backdrop",
+		"• Let the BigWigs font scale with the resolution",
+
 		-- "• ''",
 
 		" ",
