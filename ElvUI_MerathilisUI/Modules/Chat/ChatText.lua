@@ -66,6 +66,7 @@ local C_ChatInfo_GetChannelRuleset = C_ChatInfo.GetChannelRuleset
 local C_ChatInfo_GetChannelRulesetForChannelID = C_ChatInfo.GetChannelRulesetForChannelID
 local C_ChatInfo_GetChannelShortcutForChannelID = C_ChatInfo.GetChannelShortcutForChannelID
 local C_ChatInfo_IsChannelRegionalForChannelID = C_ChatInfo.IsChannelRegionalForChannelID
+local C_ChatInfo_IsChatLineCensored = C_ChatInfo.IsChatLineCensored
 local C_Club_GetClubInfo = C_Club.GetClubInfo
 local C_Club_GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityChatLine
 local C_PartyInfo_InviteUnit = C_PartyInfo and C_PartyInfo.InviteUnit
@@ -857,6 +858,627 @@ function CT:GetColoredName(event, _, arg2, _, _, _, _, _, arg8, _, _, _, arg12)
 	return name
 end
 
+function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, isHistory, historyTime, historyName, historyBTag)
+	-- ElvUI Chat History Note: isHistory, historyTime, historyName, and historyBTag are passed from CH:DisplayChatHistory() and need to be on the end to prevent issues in other addons that listen on ChatFrame_MessageEventHandler.
+	-- we also send isHistory and historyTime into CH:AddMessage so that we don't have to override the timestamp.
+	local noBrackets = CT.db.removeBrackets
+	local notChatHistory, historySavedName --we need to extend the arguments on CH.ChatFrame_MessageEventHandler so we can properly handle saved names without overriding
+	if isHistory == "ElvUI_ChatHistory" then
+		if historyBTag then
+			arg2 = historyBTag
+		end -- swap arg2 (which is a |k string) to btag name
+		historySavedName = historyName
+	else
+		notChatHistory = true
+	end
+
+	if _G.TextToSpeechFrame_MessageEventHandler and notChatHistory then
+		_G.TextToSpeechFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
+	end
+
+	if strsub(event, 1, 8) == "CHAT_MSG" then
+		if arg16 then
+			return true
+		end -- hiding sender in letterbox: do NOT even show in chat window (only shows in cinematic frame)
+
+		local chatType = strsub(event, 10)
+		local info = _G.ChatTypeInfo[chatType]
+
+		--If it was a GM whisper, dispatch it to the GMChat addon.
+		if arg6 == "GM" and chatType == "WHISPER" then
+			return
+		end
+
+		local chatFilters = _G.ChatFrame_GetMessageEventFilters(event)
+		if chatFilters then
+			for _, filterFunc in next, chatFilters do
+				local filter, new1, new2, new3, new4, new5, new6, new7, new8, new9, new10, new11, new12, new13, new14, new15, new16, new17 = filterFunc(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
+				if filter then
+					return true
+				elseif new1 then
+					arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17 = new1, new2, new3, new4, new5, new6, new7, new8, new9, new10, new11, new12, new13, new14, new15, new16, new17
+				end
+			end
+		end
+
+		-- fetch the name color to use
+		local coloredName = historySavedName or CH:GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
+
+		local channelLength = strlen(arg4)
+		local infoType = chatType
+
+		if chatType == "VOICE_TEXT" then -- the code here looks weird but its how blizzard has it ~Simpy
+			local leader = UnitIsGroupLeader(arg2)
+			infoType, chatType = _G.VoiceTranscription_DetermineChatTypeVoiceTranscription_DetermineChatType(leader)
+			info = _G.ChatTypeInfo[infoType]
+		elseif
+			chatType == "COMMUNITIES_CHANNEL" or
+			((strsub(chatType, 1, 7) == "CHANNEL") and (chatType ~= "CHANNEL_LIST") and
+				((arg1 ~= "INVITE") or (chatType ~= "CHANNEL_NOTICE_USER")))
+		then
+			if arg1 == "WRONG_PASSWORD" then
+				local _, popup = _G.StaticPopup_Visible("CHAT_CHANNEL_PASSWORD")
+				if popup and strupper(popup.data) == strupper(arg9) then
+					return -- Don't display invalid password messages if we're going to prompt for a password (bug 102312)
+				end
+			end
+
+			local found = false
+			for index, value in pairs(frame.channelList) do
+				if channelLength > strlen(value) then
+					-- arg9 is the channel name without the number in front...
+					if (arg7 > 0 and frame.zoneChannelList[index] == arg7) or (strupper(value) == strupper(arg9)) then
+						found = true
+
+						infoType = "CHANNEL" .. arg8
+						info = _G.ChatTypeInfo[infoType]
+
+						if chatType == "CHANNEL_NOTICE" and arg1 == "YOU_LEFT" then
+							frame.channelList[index] = nil
+							frame.zoneChannelList[index] = nil
+						end
+						break
+					end
+				end
+			end
+
+			if not found or not info then
+				local eventType, channelID = arg1, arg7
+				if not ChatFrame_CheckAddChannel(self, eventType, channelID) then
+					return true
+				end
+			end
+		end
+
+		local chatGroup = _G.Chat_GetChatCategory(chatType)
+		local chatTarget = CH:FCFManager_GetChatTarget(chatGroup, arg2, arg8)
+
+		if _G.FCFManager_ShouldSuppressMessage(frame, chatGroup, chatTarget) then
+			return true
+		end
+
+		if chatGroup == "WHISPER" or chatGroup == "BN_WHISPER" then
+			if frame.privateMessageList and not frame.privateMessageList[strlower(arg2)] then
+				return true
+			elseif
+				frame.excludePrivateMessageList and frame.excludePrivateMessageList[strlower(arg2)] and
+				((chatGroup == "WHISPER" and GetCVar("whisperMode") ~= "popout_and_inline") or
+					(chatGroup == "BN_WHISPER" and GetCVar("whisperMode") ~= "popout_and_inline"))
+			then
+				return true
+			end
+		end
+
+		if frame.privateMessageList then
+			-- Dedicated BN whisper windows need online/offline messages for only that player
+			if
+				(chatGroup == "BN_INLINE_TOAST_ALERT" or chatGroup == "BN_WHISPER_PLAYER_OFFLINE") and
+				not frame.privateMessageList[strlower(arg2)]
+			then
+				return true
+			end
+
+			-- HACK to put certain system messages into dedicated whisper windows
+			if chatGroup == "SYSTEM" then
+				local matchFound = false
+				local message = strlower(arg1)
+				for playerName in pairs(frame.privateMessageList) do
+					local playerNotFoundMsg = strlower(format(_G.ERR_CHAT_PLAYER_NOT_FOUND_S, playerName))
+					local charOnlineMsg = strlower(format(_G.ERR_FRIEND_ONLINE_SS, playerName, playerName))
+					local charOfflineMsg = strlower(format(_G.ERR_FRIEND_OFFLINE_S, playerName))
+					if message == playerNotFoundMsg or message == charOnlineMsg or message == charOfflineMsg then
+						matchFound = true
+						break
+					end
+				end
+
+				if not matchFound then
+					return true
+				end
+			end
+		end
+
+		if
+			(chatType == "SYSTEM" or chatType == "SKILL" or chatType == "CURRENCY" or chatType == "MONEY" or
+				chatType == "OPENING" or
+				chatType == "TRADESKILLS" or
+				chatType == "PET_INFO" or
+				chatType == "TARGETICONS" or
+				chatType == "BN_WHISPER_PLAYER_OFFLINE")
+		then
+			if chatType ~= "SYSTEM" or not CT:ElvUIChat_GuildMemberStatusMessageHandler(frame, arg1) then
+				frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+			end
+		elseif chatType == "LOOT" then
+			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif strsub(chatType, 1, 7) == "COMBAT_" then
+			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif strsub(chatType, 1, 6) == "SPELL_" then
+			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif strsub(chatType, 1, 10) == "BG_SYSTEM_" then
+			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif strsub(chatType, 1, 11) == "ACHIEVEMENT" then
+			-- Append [Share] hyperlink
+			frame:AddMessage(
+				format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", CT:HandleName(coloredName)))),
+				info.r,
+				info.g,
+				info.b,
+				info.id,
+				nil,
+				nil,
+				nil,
+				nil,
+				nil,
+				isHistory,
+				historyTime
+			)
+		elseif strsub(chatType, 1, 18) == "GUILD_ACHIEVEMENT" then
+			if not CT:ElvUIChat_AchievementMessageHandler(event, frame, arg1, arg12) then
+				local message = format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", coloredName)))
+				frame:AddMessage(
+					message,
+					info.r,
+					info.g,
+					info.b,
+					info.id,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					isHistory,
+					historyTime
+				)
+			end
+		elseif chatType == "PING" then
+			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+		elseif chatType == "IGNORED" then
+			frame:AddMessage(
+				format(_G.CHAT_IGNORED, arg2),
+				info.r,
+				info.g,
+				info.b,
+				info.id,
+				nil,
+				nil,
+				nil,
+				nil,
+				nil,
+				isHistory,
+				historyTime
+			)
+		elseif chatType == "FILTERED" then
+			frame:AddMessage(
+				format(_G.CHAT_FILTERED, arg2),
+				info.r,
+				info.g,
+				info.b,
+				info.id,
+				nil,
+				nil,
+				nil,
+				nil,
+				nil,
+				isHistory,
+				historyTime
+			)
+		elseif chatType == "RESTRICTED" then
+			frame:AddMessage(
+				_G.CHAT_RESTRICTED_TRIAL,
+				info.r,
+				info.g,
+				info.b,
+				info.id,
+				nil,
+				nil,
+				nil,
+				nil,
+				nil,
+				isHistory,
+				historyTime
+			)
+		elseif chatType == "CHANNEL_LIST" then
+			if channelLength > 0 then
+				frame:AddMessage(
+					format(_G["CHAT_" .. chatType .. "_GET"] .. arg1, tonumber(arg8), arg4),
+					info.r,
+					info.g,
+					info.b,
+					info.id,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					isHistory,
+					historyTime
+				)
+			else
+				frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
+			end
+		elseif chatType == "CHANNEL_NOTICE_USER" then
+			local globalstring = _G["CHAT_" .. arg1 .. "_NOTICE_BN"]
+			if not globalstring then
+				globalstring = _G["CHAT_" .. arg1 .. "_NOTICE"]
+			end
+			if not globalstring then
+				GMError(format("Missing global string for %q", "CHAT_" .. arg1 .. "_NOTICE_BN"))
+				return
+			end
+			if arg5 ~= "" then
+				-- TWO users in this notice (E.G. x kicked y)
+				frame:AddMessage(
+					format(globalstring, arg8, arg4, arg2, arg5),
+					info.r,
+					info.g,
+					info.b,
+					info.id,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					isHistory,
+					historyTime
+				)
+			elseif arg1 == "INVITE" then
+				frame:AddMessage(
+					format(globalstring, arg4, arg2),
+					info.r,
+					info.g,
+					info.b,
+					info.id,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					isHistory,
+					historyTime
+				)
+			else
+				frame:AddMessage(
+					format(globalstring, arg8, arg4, arg2),
+					info.r,
+					info.g,
+					info.b,
+					info.id,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					isHistory,
+					historyTime
+				)
+			end
+			if arg1 == "INVITE" and GetCVarBool("blockChannelInvites") then
+				frame:AddMessage(
+					_G.CHAT_MSG_BLOCK_CHAT_CHANNEL_INVITE,
+					info.r,
+					info.g,
+					info.b,
+					info.id,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					isHistory,
+					historyTime
+				)
+			end
+		elseif chatType == "CHANNEL_NOTICE" then
+			local accessID = _G.ChatHistory_GetAccessID(chatGroup, arg8)
+			local typeID = _G.ChatHistory_GetAccessID(infoType, arg8, arg12)
+
+			if E.Retail and arg1 == "YOU_CHANGED" and C_ChatInfo_GetChannelRuleset(arg8) == CHATCHANNELRULESET_MENTOR then
+				_G.ChatFrame_UpdateDefaultChatTarget(frame)
+				_G.ChatEdit_UpdateNewcomerEditBoxHint(frame.editBox)
+			else
+				if E.Retail and arg1 == "YOU_LEFT" then
+					_G.ChatEdit_UpdateNewcomerEditBoxHint(frame.editBox, arg8)
+				end
+
+				local globalstring
+				if arg1 == "TRIAL_RESTRICTED" then
+					globalstring = _G.CHAT_TRIAL_RESTRICTED_NOTICE_TRIAL
+				else
+					globalstring = _G["CHAT_" .. arg1 .. "_NOTICE_BN"]
+					if not globalstring then
+						globalstring = _G["CHAT_" .. arg1 .. "_NOTICE"]
+						if not globalstring then
+							GMError(format("Missing global string for %q", "CHAT_" .. arg1 .. "_NOTICE"))
+							return
+						end
+					end
+				end
+
+				frame:AddMessage(
+					format(globalstring, arg8, _G.ChatFrame_ResolvePrefixedChannelName(arg4)),
+					info.r,
+					info.g,
+					info.b,
+					info.id,
+					accessID,
+					typeID,
+					nil,
+					nil,
+					nil,
+					isHistory,
+					historyTime
+				)
+			end
+		elseif chatType == "BN_INLINE_TOAST_ALERT" then
+			local globalstring = _G["BN_INLINE_TOAST_" .. arg1]
+			if not globalstring then
+				GMError(format("Missing global string for %q", "BN_INLINE_TOAST_" .. arg1))
+				return
+			end
+
+			local message
+			if arg1 == "FRIEND_REQUEST" then
+				message = globalstring
+			elseif arg1 == "FRIEND_PENDING" then
+				message = format(_G.BN_INLINE_TOAST_FRIEND_PENDING, BNGetNumFriendInvites())
+			elseif arg1 == "FRIEND_REMOVED" or arg1 == "BATTLETAG_FRIEND_REMOVED" then
+				message = format(globalstring, arg2)
+			elseif arg1 == "FRIEND_ONLINE" or arg1 == "FRIEND_OFFLINE" then
+				local _, _, battleTag, _, characterName, _, clientProgram = CH.BNGetFriendInfoByID(arg13)
+
+				if clientProgram and clientProgram ~= "" then
+					C_Texture_GetTitleIconTexture(
+						clientProgram,
+						TitleIconVersion_Small,
+						function(success, texture)
+							if success then
+								local charName =
+									_G.BNet_GetValidatedCharacterNameWithClientEmbeddedTexture(
+										characterName,
+										battleTag,
+										texture,
+										32,
+										32,
+										10
+									)
+								local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, charName)
+								local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
+								frame:AddMessage(
+									format(globalstring, playerLink),
+									info.r,
+									info.g,
+									info.b,
+									info.id,
+									nil,
+									nil,
+									nil,
+									nil,
+									nil,
+									isHistory,
+									historyTime
+								)
+
+								if notChatHistory then
+									FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
+								end
+							end
+						end
+					)
+
+					return
+				else
+					local linkDisplayText = format(noBrackets and "%s" or "[%s]", arg2)
+					local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
+					message = format(globalstring, playerLink)
+				end
+			else
+				local linkDisplayText = format(noBrackets and "%s" or "[%s]", arg2)
+				local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
+				message = format(globalstring, playerLink)
+			end
+
+			frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, isHistory, historyTime)
+		elseif chatType == "BN_INLINE_TOAST_BROADCAST" then
+			if arg1 ~= "" then
+				arg1 = RemoveNewlines(RemoveExtraSpaces(arg1))
+				local linkDisplayText = format(noBrackets and "%s" or "[%s]", arg2)
+				local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
+				frame:AddMessage(
+					format(_G.BN_INLINE_TOAST_BROADCAST, playerLink, arg1),
+					info.r,
+					info.g,
+					info.b,
+					info.id,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					isHistory,
+					historyTime
+				)
+			end
+		elseif chatType == "BN_INLINE_TOAST_BROADCAST_INFORM" then
+			if arg1 ~= "" then
+				frame:AddMessage(
+					_G.BN_INLINE_TOAST_BROADCAST_INFORM,
+					info.r,
+					info.g,
+					info.b,
+					info.id,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					isHistory,
+					historyTime
+				)
+			end
+		else
+			-- The message formatter is captured so that the original message can be reformatted when a censored message
+			-- is approved to be shown. We only need to pack the event args if the line was censored, as the message transformation
+			-- step is the only code that needs these arguments. See ItemRef.lua "censoredmessage".
+			local isChatLineCensored, eventArgs, msgFormatter =
+				C_ChatInfo_IsChatLineCensored and C_ChatInfo_IsChatLineCensored(arg11) -- arg11: lineID
+			if isChatLineCensored then
+				eventArgs =
+					_G.SafePack(
+						arg1,
+						arg2,
+						arg3,
+						arg4,
+						arg5,
+						arg6,
+						arg7,
+						arg8,
+						arg9,
+						arg10,
+						arg11,
+						arg12,
+						arg13,
+						arg14,
+						arg15,
+						arg16,
+						arg17
+					)
+				msgFormatter = function(msg) -- to translate the message on click [Show Message]
+					local body =
+						CT:MessageFormatter(
+							frame,
+							info,
+							chatType,
+							chatGroup,
+							chatTarget,
+							channelLength,
+							coloredName,
+							historySavedName,
+							msg,
+							arg2,
+							arg3,
+							arg4,
+							arg5,
+							arg6,
+							arg7,
+							arg8,
+							arg9,
+							arg10,
+							arg11,
+							arg12,
+							arg13,
+							arg14,
+							arg15,
+							arg16,
+							arg17,
+							isHistory,
+							historyTime,
+							historyName,
+							historyBTag
+						)
+					return CH:AddMessageEdits(frame, body, isHistory, historyTime)
+				end
+			end
+
+			-- beep boops
+			local alertType =
+				notChatHistory and not CH.SoundTimer and not strfind(event, "_INFORM") and
+				CH.db.channelAlerts[historyTypes[event]]
+			if
+				alertType and alertType ~= "None" and arg2 ~= PLAYER_NAME and
+				(not CH.db.noAlertInCombat or not InCombatLockdown())
+			then
+				CH.SoundTimer = E:Delay(5, CH.ThrottleSound)
+				PlaySoundFile(LSM:Fetch("sound", alertType), "Master")
+			end
+
+			local accessID = _G.ChatHistory_GetAccessID(chatGroup, chatTarget)
+			local typeID = _G.ChatHistory_GetAccessID(infoType, chatTarget, arg12 or arg13)
+			local body =
+				isChatLineCensored and arg1 or
+				CT:MessageFormatter(
+					frame,
+					info,
+					chatType,
+					chatGroup,
+					chatTarget,
+					channelLength,
+					coloredName,
+					historySavedName,
+					arg1,
+					arg2,
+					arg3,
+					arg4,
+					arg5,
+					arg6,
+					arg7,
+					arg8,
+					arg9,
+					arg10,
+					arg11,
+					arg12,
+					arg13,
+					arg14,
+					arg15,
+					arg16,
+					arg17,
+					isHistory,
+					historyTime,
+					historyName,
+					historyBTag
+				)
+
+			frame:AddMessage(
+				body,
+				info.r,
+				info.g,
+				info.b,
+				info.id,
+				accessID,
+				typeID,
+				event,
+				eventArgs,
+				msgFormatter,
+				isHistory,
+				historyTime
+			)
+		end
+
+		if notChatHistory and (chatType == "WHISPER" or chatType == "BN_WHISPER") then
+			_G.ChatEdit_SetLastTellTarget(arg2, chatType)
+			if CH.db.flashClientIcon then
+				FlashClientIcon()
+			end
+		end
+
+		if notChatHistory then
+			FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
+		end
+
+		return true
+	end
+end
+
 function CT:MessageFormatter(frame, info, chatType, chatGroup, chatTarget, channelLength, coloredName, historySavedName, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, isHistory, historyTime, historyName, historyBTag)
 	local body
 	local noBrackets = CT.db.removeBrackets
@@ -1032,316 +1654,6 @@ function CT:MessageFormatter(frame, info, chatType, chatGroup, chatTarget, chann
 	return body
 end
 
-function CT:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, isHistory, historyTime, historyName, historyBTag)
-	-- ElvUI Chat History Note: isHistory, historyTime, historyName, and historyBTag are passed from CH:DisplayChatHistory() and need to be on the end to prevent issues in other addons that listen on ChatFrame_MessageEventHandler.
-	-- we also send isHistory and historyTime into CH:AddMessage so that we don't have to override the timestamp.
-
-	local noBrackets = CT.db.removeBrackets
-	local notChatHistory, historySavedName --we need to extend the arguments on CH.ChatFrame_MessageEventHandler so we can properly handle saved names without overriding
-	if isHistory == 'ElvUI_ChatHistory' then
-		if historyBTag then arg2 = historyBTag end -- swap arg2 (which is a |k string) to btag name
-		historySavedName = historyName
-	else
-		notChatHistory = true
-	end
-
-	if _G.TextToSpeechFrame_MessageEventHandler and notChatHistory then
-		_G.TextToSpeechFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
-	end
-
-	if strsub(event, 1, 8) == 'CHAT_MSG' then
-		if arg16 then return true end -- hiding sender in letterbox: do NOT even show in chat window (only shows in cinematic frame)
-
-		local chatType = strsub(event, 10)
-		local info = _G.ChatTypeInfo[chatType]
-
-		--If it was a GM whisper, dispatch it to the GMChat addon.
-		if arg6 == 'GM' and chatType == 'WHISPER' then
-			return
-		end
-
-		local chatFilters = _G.ChatFrame_GetMessageEventFilters(event)
-		if chatFilters then
-			for _, filterFunc in next, chatFilters do
-				local filter, new1, new2, new3, new4, new5, new6, new7, new8, new9, new10, new11, new12, new13, new14, new15, new16, new17 = filterFunc(frame, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
-				if filter then
-					return true
-				elseif new1 then
-					arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17 = new1, new2, new3, new4, new5, new6, new7, new8, new9, new10, new11, new12, new13, new14, new15, new16, new17
-				end
-			end
-		end
-
-		-- fetch the name color to use
-		local coloredName = historySavedName or CH:GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
-
-		local channelLength = strlen(arg4)
-		local infoType = chatType
-
-		if chatType == 'VOICE_TEXT' then -- the code here looks weird but its how blizzard has it ~Simpy
-			local leader = UnitIsGroupLeader(arg2)
-			infoType, chatType = _G.VoiceTranscription_DetermineChatTypeVoiceTranscription_DetermineChatType(leader)
-			info = _G.ChatTypeInfo[infoType]
-		elseif chatType == 'COMMUNITIES_CHANNEL' or ((strsub(chatType, 1, 7) == 'CHANNEL') and (chatType ~= 'CHANNEL_LIST') and ((arg1 ~= 'INVITE') or (chatType ~= 'CHANNEL_NOTICE_USER'))) then
-			if arg1 == 'WRONG_PASSWORD' then
-				local _, popup = _G.StaticPopup_Visible('CHAT_CHANNEL_PASSWORD')
-				if popup and strupper(popup.data) == strupper(arg9) then
-					return -- Don't display invalid password messages if we're going to prompt for a password (bug 102312)
-				end
-			end
-
-			local found = false
-			for index, value in pairs(frame.channelList) do
-				if channelLength > strlen(value) then
-					-- arg9 is the channel name without the number in front...
-					if (arg7 > 0 and frame.zoneChannelList[index] == arg7) or (strupper(value) == strupper(arg9)) then
-						found = true
-
-						infoType = 'CHANNEL'..arg8
-						info = _G.ChatTypeInfo[infoType]
-
-						if chatType == 'CHANNEL_NOTICE' and arg1 == 'YOU_LEFT' then
-							frame.channelList[index] = nil
-							frame.zoneChannelList[index] = nil
-						end
-						break
-					end
-				end
-			end
-
-			if not found or not info then
-				local eventType, channelID = arg1, arg7
-				if not ChatFrame_CheckAddChannel(self, eventType, channelID) then
-					return true
-				end
-			end
-		end
-
-		local chatGroup = _G.Chat_GetChatCategory(chatType)
-		local chatTarget = CH:FCFManager_GetChatTarget(chatGroup, arg2, arg8)
-
-		if _G.FCFManager_ShouldSuppressMessage(frame, chatGroup, chatTarget) then
-			return true
-		end
-
-		if chatGroup == 'WHISPER' or chatGroup == 'BN_WHISPER' then
-			if frame.privateMessageList and not frame.privateMessageList[strlower(arg2)] then
-				return true
-			elseif frame.excludePrivateMessageList and frame.excludePrivateMessageList[strlower(arg2)] and ((chatGroup == 'WHISPER' and GetCVar('whisperMode') ~= 'popout_and_inline') or (chatGroup == 'BN_WHISPER' and GetCVar('whisperMode') ~= 'popout_and_inline')) then
-				return true
-			end
-		end
-
-		if frame.privateMessageList then
-			-- Dedicated BN whisper windows need online/offline messages for only that player
-			if (chatGroup == 'BN_INLINE_TOAST_ALERT' or chatGroup == 'BN_WHISPER_PLAYER_OFFLINE') and not frame.privateMessageList[strlower(arg2)] then
-				return true
-			end
-
-			-- HACK to put certain system messages into dedicated whisper windows
-			if chatGroup == 'SYSTEM' then
-				local matchFound = false
-				local message = strlower(arg1)
-				for playerName in pairs(frame.privateMessageList) do
-					local playerNotFoundMsg = strlower(format(_G.ERR_CHAT_PLAYER_NOT_FOUND_S, playerName))
-					local charOnlineMsg = strlower(format(_G.ERR_FRIEND_ONLINE_SS, playerName, playerName))
-					local charOfflineMsg = strlower(format(_G.ERR_FRIEND_OFFLINE_S, playerName))
-					if message == playerNotFoundMsg or message == charOnlineMsg or message == charOfflineMsg then
-						matchFound = true
-						break
-					end
-				end
-
-				if not matchFound then
-					return true
-				end
-			end
-		end
-
-		if (chatType == 'SYSTEM' or chatType == 'SKILL' or chatType == 'CURRENCY' or chatType == 'MONEY' or
-			chatType == 'OPENING' or chatType == 'TRADESKILLS' or chatType == 'PET_INFO' or chatType == 'TARGETICONS' or chatType == 'BN_WHISPER_PLAYER_OFFLINE') then
-			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-		elseif chatType == 'LOOT' then
-			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-		elseif strsub(chatType,1,7) == 'COMBAT_' then
-			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-		elseif strsub(chatType,1,6) == 'SPELL_' then
-			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-		elseif strsub(chatType,1,10) == 'BG_SYSTEM_' then
-			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-		elseif strsub(chatType,1,11) == 'ACHIEVEMENT' then
-			-- Append [Share] hyperlink
-			frame:AddMessage(format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", CT:HandleName(coloredName)))), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-		elseif strsub(chatType,1,18) == 'GUILD_ACHIEVEMENT' then
-			if not CT:ElvUIChat_AchievementMessageHandler(event, frame, arg1, data) then
-				local message = format(arg1, GetPlayerLink(arg2, format(noBrackets and "%s" or "[%s]", coloredName)))
-				frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-			end
-		elseif chatType == 'PING' then
-			frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-		elseif chatType == 'IGNORED' then
-			frame:AddMessage(format(_G.CHAT_IGNORED, arg2), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-		elseif chatType == 'FILTERED' then
-			frame:AddMessage(format(_G.CHAT_FILTERED, arg2), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-		elseif chatType == 'RESTRICTED' then
-			frame:AddMessage(_G.CHAT_RESTRICTED_TRIAL, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-		elseif chatType == 'CHANNEL_LIST' then
-			if channelLength > 0 then
-				frame:AddMessage(format(_G['CHAT_'..chatType..'_GET']..arg1, tonumber(arg8), arg4), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-			else
-				frame:AddMessage(arg1, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-			end
-		elseif chatType == 'CHANNEL_NOTICE_USER' then
-			local globalstring = _G['CHAT_'..arg1..'_NOTICE_BN']
-			if not globalstring then
-				globalstring = _G['CHAT_'..arg1..'_NOTICE']
-			end
-			if not globalstring then
-				GMError(format('Missing global string for %q', 'CHAT_'..arg1..'_NOTICE_BN'))
-				return
-			end
-			if arg5 ~= '' then
-				-- TWO users in this notice (E.G. x kicked y)
-				frame:AddMessage(format(globalstring, arg8, arg4, arg2, arg5), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-			elseif arg1 == 'INVITE' then
-				frame:AddMessage(format(globalstring, arg4, arg2), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-			else
-				frame:AddMessage(format(globalstring, arg8, arg4, arg2), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-			end
-			if arg1 == 'INVITE' and GetCVarBool('blockChannelInvites') then
-				frame:AddMessage(_G.CHAT_MSG_BLOCK_CHAT_CHANNEL_INVITE, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-			end
-		elseif chatType == 'CHANNEL_NOTICE' then
-			local accessID = _G.ChatHistory_GetAccessID(chatGroup, arg8)
-			local typeID = _G.ChatHistory_GetAccessID(infoType, arg8, arg12)
-
-			if E.Retail and arg1 == 'YOU_CHANGED' and C_ChatInfo_GetChannelRuleset(arg8) == CHATCHANNELRULESET_MENTOR then
-				_G.ChatFrame_UpdateDefaultChatTarget(frame)
-				_G.ChatEdit_UpdateNewcomerEditBoxHint(frame.editBox)
-			else
-				if E.Retail and arg1 == 'YOU_LEFT' then
-					_G.ChatEdit_UpdateNewcomerEditBoxHint(frame.editBox, arg8)
-				end
-
-				local globalstring
-				if arg1 == 'TRIAL_RESTRICTED' then
-					globalstring = _G.CHAT_TRIAL_RESTRICTED_NOTICE_TRIAL
-				else
-					globalstring = _G['CHAT_'..arg1..'_NOTICE_BN']
-					if not globalstring then
-						globalstring = _G['CHAT_'..arg1..'_NOTICE']
-						if not globalstring then
-							GMError(format('Missing global string for %q', 'CHAT_'..arg1..'_NOTICE'))
-							return
-						end
-					end
-				end
-
-				frame:AddMessage(format(globalstring, arg8, _G.ChatFrame_ResolvePrefixedChannelName(arg4)), info.r, info.g, info.b, info.id, accessID, typeID, nil, nil, nil, isHistory, historyTime)
-			end
-		elseif chatType == 'BN_INLINE_TOAST_ALERT' then
-			local globalstring = _G['BN_INLINE_TOAST_'..arg1]
-			if not globalstring then
-				GMError(format('Missing global string for %q', 'BN_INLINE_TOAST_'..arg1))
-				return
-			end
-
-			local message
-			if arg1 == 'FRIEND_REQUEST' then
-				message = globalstring
-			elseif arg1 == 'FRIEND_PENDING' then
-				message = format(_G.BN_INLINE_TOAST_FRIEND_PENDING, BNGetNumFriendInvites())
-			elseif arg1 == 'FRIEND_REMOVED' or arg1 == 'BATTLETAG_FRIEND_REMOVED' then
-				message = format(globalstring, arg2)
-			elseif arg1 == 'FRIEND_ONLINE' or arg1 == 'FRIEND_OFFLINE' then
-				local _, _, battleTag, _, characterName, _, clientProgram = CH.BNGetFriendInfoByID(arg13)
-
-				if clientProgram and clientProgram ~= '' then
-					if C_Texture_GetTitleIconTexture then
-						C_Texture_GetTitleIconTexture(clientProgram, TitleIconVersion_Small, function(success, texture)
-							if success then
-								local charName = _G.BNet_GetValidatedCharacterNameWithClientEmbeddedTexture(characterName, battleTag, texture, 32, 32, 10)
-								local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, charName)
-								local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-								frame:AddMessage(format(globalstring, playerLink), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-
-								if notChatHistory then
-									FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
-								end
-							end
-						end)
-
-						return
-					else
-						local clientTexture = GetClientTexture(clientProgram, 14)
-						local charName = _G.BNet_GetValidatedCharacterName(characterName, battleTag, clientProgram) or ''
-						local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, clientTexture, charName)
-						local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-						message = format(globalstring, playerLink)
-					end
-				else
-					local linkDisplayText = format(noBrackets and "%s" or "[%s]", arg2)
-					local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-					message = format(globalstring, playerLink)
-				end
-			else
-				local linkDisplayText = format(noBrackets and "%s" or "[%s]", arg2)
-				local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-				message = format(globalstring, playerLink)
-			end
-
-			frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-		elseif chatType == 'BN_INLINE_TOAST_BROADCAST' then
-			if arg1 ~= '' then
-				arg1 = RemoveNewlines(RemoveExtraSpaces(arg1))
-				local linkDisplayText = format('[%s]', arg2)
-				local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-				frame:AddMessage(format(_G.BN_INLINE_TOAST_BROADCAST, playerLink, arg1), info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-			end
-		elseif chatType == 'BN_INLINE_TOAST_BROADCAST_INFORM' then
-			if arg1 ~= '' then
-				frame:AddMessage(_G.BN_INLINE_TOAST_BROADCAST_INFORM, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
-			end
-		else
-			-- The message formatter is captured so that the original message can be reformatted when a censored message
-			-- is approved to be shown. We only need to pack the event args if the line was censored, as the message transformation
-			-- step is the only code that needs these arguments. See ItemRef.lua "censoredmessage".
-			local isChatLineCensored, eventArgs, msgFormatter = IsChatLineCensored and IsChatLineCensored(arg11) -- arg11: lineID
-			if isChatLineCensored then
-				eventArgs = _G.SafePack(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17)
-				msgFormatter = function(msg) -- to translate the message on click [Show Message]
-					local body = CT:MessageFormatter(frame, info, chatType, chatGroup, chatTarget, channelLength, coloredName, historySavedName, msg, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, isHistory, historyTime, historyName, historyBTag)
-					return CH:AddMessageEdits(frame, body, isHistory, historyTime)
-				end
-			end
-
-			-- beep boops
-			local alertType = notChatHistory and not CH.SoundTimer and not strfind(event, '_INFORM') and CH.db.channelAlerts[historyTypes[event]]
-			if alertType and alertType ~= 'None' and arg2 ~= PLAYER_NAME and (not CH.db.noAlertInCombat or not InCombatLockdown()) then
-				CH.SoundTimer = E:Delay(5, CH.ThrottleSound)
-				PlaySoundFile(LSM:Fetch('sound', alertType), 'Master')
-			end
-
-			local accessID = _G.ChatHistory_GetAccessID(chatGroup, chatTarget)
-			local typeID = _G.ChatHistory_GetAccessID(infoType, chatTarget, arg12 or arg13)
-			local body = isChatLineCensored and arg1 or CT:MessageFormatter(frame, info, chatType, chatGroup, chatTarget, channelLength, coloredName, historySavedName, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, isHistory, historyTime, historyName, historyBTag)
-
-			frame:AddMessage(body, info.r, info.g, info.b, info.id, accessID, typeID, event, eventArgs, msgFormatter, isHistory, historyTime)
-		end
-
-		if notChatHistory and (chatType == 'WHISPER' or chatType == 'BN_WHISPER') then
-			_G.ChatEdit_SetLastTellTarget(arg2, chatType)
-			if CH.db.flashClientIcon then FlashClientIcon() end
-		end
-
-		if notChatHistory then
-			FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
-		end
-
-		return true
-	end
-end
-
 function CT:ToggleReplacement()
 	if not self.db then
 		return
@@ -1459,8 +1771,8 @@ function CT:SendAchivementMessage()
 	end
 end
 
-function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage, playerInfo)
-	if not frame or not event or not achievementMessage or not playerInfo then
+function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage, playerGUID)
+	if not frame or not event or not achievementMessage or not playerGUID then
 		return
 	end
 
@@ -1522,6 +1834,7 @@ function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage
 		end)
 	end
 
+	local playerInfo = CH:GetPlayerInfoByGUID(playerGUID)
 	if not playerInfo or not playerInfo.englishClass or not playerInfo.name or not playerInfo.nameWithRealm then
 		return
 	end

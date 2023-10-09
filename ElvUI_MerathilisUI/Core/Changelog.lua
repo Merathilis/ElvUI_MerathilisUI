@@ -12,8 +12,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix a ChatText error",
-		"• Take account for two new check boxes on the RaidManager",
+		"• Fix WeakAuras skinning. Credits: Windtools <3",
+
 		-- "• ''",
 
 		" ",

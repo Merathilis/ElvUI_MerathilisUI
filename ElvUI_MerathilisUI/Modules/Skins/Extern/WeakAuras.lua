@@ -2,70 +2,94 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
+local _G = _G
+local pairs, unpack = pairs, unpack
+local hooksecurefunc = hooksecurefunc
+
 local WeakAuras = _G.WeakAuras
+local WeakAurasPrivate = _G.WeakAurasPrivate
 
-local function Skin_RealTimeProfiling(frame)
-	if not frame then
-		return
+function module:WeakAuras_PrintProfile()
+	local frame = _G.WADebugEditBox.Background
+
+	if frame and not frame.__MERSkin then
+		local textArea = _G.WADebugEditBoxScrollFrame:GetRegions()
+		S:HandleScrollBar(_G.WADebugEditBoxScrollFrameScrollBar)
+
+		frame:StripTextures()
+		frame:SetTemplate("Transparent")
+		module:CreateShadow(frame)
+
+		for _, child in pairs { frame:GetChildren() } do
+			if child:GetNumRegions() == 3 then
+				child:StripTextures()
+				local subChild = child:GetChildren()
+				subChild:ClearAllPoints()
+				subChild:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 3, 7)
+				S:HandleCloseButton(subChild)
+			end
+		end
+
+		frame.__MERSkin = true
+	end
+end
+
+function module:ProfilingWindow_UpdateButtons(frame)
+	for _, button in pairs { frame.statsFrame:GetChildren() } do
+		S:HandleButton(button)
 	end
 
-	frame:StripTextures()
-	frame:SetTemplate('Transparent')
-	frame:Styling()
-	module:CreateShadow(frame)
+	for _, button in pairs { frame.titleFrame:GetChildren() } do
+		if not button.__MERSkin and button.GetNormalTexture then
+			local normalTextureID = button:GetNormalTexture():GetTexture()
+			if normalTextureID == 252125 then
+				button:StripTextures()
+				button.SetNormalTexture = E.noop
+				button.SetPushedTexture = E.noop
+				button.SetHighlightTexture = E.noop
 
-	--[[
-		-- I dont get this -.-
-	if frame.MaxMinButtonFrame.MinimizeButton then
-		S:HandleNextPrevButton(frame.MaxMinButtonFrame.MinimizeButton, "up", nil, true)
-		frame.MaxMinButtonFrame.MinimizeButton:ClearAllPoints()
-		frame.MaxMinButtonFrame.MinimizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
-	end
+				button.Texture = button:CreateTexture(nil, "OVERLAY")
+				button.Texture:SetPoint("CENTER")
+				button.Texture:SetTexture(E.Media.Textures.ArrowUp)
+				button.Texture:SetSize(14, 14)
 
-	if frame.MaxMinButtonFrame.MaximizeButton then
-		S:HandleNextPrevButton(frame.MaxMinButtonFrame.MaximizeButton, "down", nil, true)
-		frame.MaxMinButtonFrame.MaximizeButton:ClearAllPoints()
-		frame.MaxMinButtonFrame.MaximizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
-	end
-	--]]
-	S:HandleCloseButton(frame.CloseButton)
+				button:HookScript("OnEnter", function(self)
+					if self.Texture then
+						self.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+					end
+				end)
 
-	--[[
-		-- Also needs update
-	local buttons = {
-		frame.reportButton,
-		frame.encounterButton,
-		frame.combatButton,
-		frame.toggleButton
-	}
+				button:HookScript("OnLeave", function(self)
+					if self.Texture then
+						self.Texture:SetVertexColor(1, 1, 1)
+					end
+				end)
 
-	for _, button in pairs(buttons) do
-		if button then
-			S:HandleButton(button)
+				button:HookScript("OnClick", function(self)
+					self.Texture:Show("")
+					if self:GetParent():GetParent().minimized then
+						button.Texture:SetRotation(S.ArrowRotation["down"])
+					else
+						button.Texture:SetRotation(S.ArrowRotation["up"])
+					end
+				end)
+
+				button:SetHitRectInsets(6, 6, 7, 7)
+				button:SetPoint("TOPRIGHT", frame.titleFrame, "TOPRIGHT", -19, 3)
+			else
+				S:HandleCloseButton(button)
+				button:ClearAllPoints()
+				button:SetPoint("TOPRIGHT", frame.titleFrame, "TOPRIGHT", 3, 1)
+			end
+
+			button.__MERSkin = true
 		end
 	end
-	--]]
 end
 
-local function Skin_ProfilingReport(frame)
-	if not frame.__MERSkin then
-		return
-	end
-
-	frame:StripTextures()
-	frame:SetTemplate('Transparent')
-	frame:Styling()
-	module:CreateShadow(frame)
-
-	S:HandleCloseButton(frame.CloseButton)
-
-	frame.__MERSkin = true
-end
-
-local function Skin_WeakAuras(f, fType, data)
-	-- Modified from NDui WeakAuras Skins
+local function Skin_WeakAuras(f, fType)
 	if fType == "icon" then
-		if not f.MERStyle then
+		if not f.__MERStyle then
 			f.icon.SetTexCoordOld_Changed = f.icon.SetTexCoord
 			f.icon.SetTexCoord = function(self, ULx, ULy, LLx, LLy, URx, URy, LRx, LRy)
 				local cLeft, cRight, cTop, cDown
@@ -94,6 +118,9 @@ local function Skin_WeakAuras(f, fType, data)
 			module:CreateBackdropShadow(f, true)
 			f.backdrop.Center:StripTextures()
 			f.backdrop:SetFrameLevel(0)
+			hooksecurefunc(f, "SetFrameStrata", function()
+				f.backdrop:SetFrameLevel(0)
+			end)
 			f.backdrop.icon = f.icon
 			f.backdrop:HookScript("OnUpdate", function(self)
 				self:SetAlpha(self.icon:GetAlpha())
@@ -102,14 +129,17 @@ local function Skin_WeakAuras(f, fType, data)
 				end
 			end)
 
-			f.MERStyle = true
+			f.__MERStyle = true
 		end
 	elseif fType == "aurabar" then
-		if not f.MERStyle and data ~= nil and data.height>2 then
+		if not f.__MERStyle then
 			f:CreateBackdrop()
-			f:Styling()
+			f.backdrop:Styling()
 			f.backdrop.Center:StripTextures()
 			f.backdrop:SetFrameLevel(0)
+			hooksecurefunc(f, "SetFrameStrata", function()
+				f.backdrop:SetFrameLevel(0)
+			end)
 			module:CreateBackdropShadow(f, true)
 			f.icon:SetTexCoord(unpack(E.TexCoords))
 			f.icon.SetTexCoord = E.noop
@@ -118,12 +148,11 @@ local function Skin_WeakAuras(f, fType, data)
 			hooksecurefunc(f.icon, "Hide", function()
 				f.iconFrame.backdrop:SetShown(false)
 			end)
-
 			hooksecurefunc(f.icon, "Show", function()
 				f.iconFrame.backdrop:SetShown(true)
 			end)
 
-			f.MERStyle = true
+			f.__MERStyle = true
 		end
 	end
 end
@@ -146,20 +175,28 @@ function module:WeakAuras()
 		Skin_WeakAuras(region, region.regionType, data)
 	end
 
-	module:SecureHook(WeakAuras.regionPrototype, "create", OnPrototypeCreate)
-	module:SecureHook(WeakAuras.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
+	hooksecurefunc(WeakAuras, "SetTextureOrAtlas", function(icon)
+		local parent = icon:GetParent()
+		local region = parent.regionType and parent or parent:GetParent()
+		if region and region.regionType then
+			Skin_WeakAuras(region, region.regionType)
+		end
+	end)
 
-	-- Real Time Profiling Window
-	local profilingWindow = _G.WeakAurasRealTimeProfiling
-	if profilingWindow then
-		Skin_RealTimeProfiling(profilingWindow)
+	-- TODO: if WeakAuras2 add more blocks, use fork version entry point.
+	-- https://github.com/fang2hou/ElvUI_WindTools/wiki/WeakAuras2-Skins-FAQ
+	-- Credits to: 雨夜独行客@NGA
+	if WeakAurasPrivate and WeakAurasPrivate.regionPrototype then
+		self:SecureHook(WeakAurasPrivate.regionPrototype, "create", OnPrototypeCreate)
+		self:SecureHook(WeakAurasPrivate.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
 	end
 
-	-- Real Time Profiling Report Window
-	local profilingReport = WeakAurasProfilingReport
-	if profilingReport then
-		print("yes")
-		Skin_ProfilingReport(profilingReport)
+	-- Real Time Profiling Window
+	local profilingWindow = WeakAuras.RealTimeProfilingWindow
+	if profilingWindow then
+		module:CreateShadow(profilingWindow)
+		module:SecureHook(profilingWindow, "UpdateButtons", "ProfilingWindow_UpdateButtons")
+		module:SecureHook(WeakAuras, "PrintProfile", "WeakAuras_PrintProfile")
 	end
 end
 

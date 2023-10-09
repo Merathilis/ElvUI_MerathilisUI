@@ -98,7 +98,7 @@ function MER:LoadBigWigsProfile()
 	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] or {}
 	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"][profileName] = {
 		["outline"] = "OUTLINE",
-		["fontSize"] = 20,
+		["fontSize"] = F.SetFontSizeScaled(20),
 		["BWEmphasizeCountdownMessageAnchor_x"] = 664,
 		["BWMessageAnchor_x"] = 608,
 		["growUpwards"] = false,
@@ -107,6 +107,7 @@ function MER:LoadBigWigsProfile()
 		["BWMessageAnchor_y"] = 676,
 		["BWEmphasizeMessageAnchor_x"] = 610,
 		["emphFontName"] = "Expressway",
+		["emphFontSize"] = F.SetFontSizeScaled(24),
 		["fontName"] = "Expressway",
 	}
 	DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"] or {}
