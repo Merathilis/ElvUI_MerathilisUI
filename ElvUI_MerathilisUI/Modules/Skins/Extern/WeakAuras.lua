@@ -148,7 +148,6 @@ local function Skin_WeakAuras(f, fType)
 			hooksecurefunc(f.icon, "Hide", function()
 				f.iconFrame.backdrop:SetShown(false)
 			end)
-
 			hooksecurefunc(f.icon, "Show", function()
 				f.iconFrame.backdrop:SetShown(true)
 			end)
