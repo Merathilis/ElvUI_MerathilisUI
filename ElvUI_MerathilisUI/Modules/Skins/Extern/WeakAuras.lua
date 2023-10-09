@@ -7,6 +7,7 @@ local pairs, unpack = pairs, unpack
 local hooksecurefunc = hooksecurefunc
 
 local WeakAuras = _G.WeakAuras
+local WeakAurasPrivate = _G.WeakAurasPrivate
 
 function module:WeakAuras_PrintProfile()
 	local frame = _G.WADebugEditBox.Background
@@ -86,10 +87,9 @@ function module:ProfilingWindow_UpdateButtons(frame)
 	end
 end
 
-local function Skin_WeakAuras(f, fType, data)
-	-- Modified from NDui WeakAuras Skins
+local function Skin_WeakAuras(f, fType)
 	if fType == "icon" then
-		if not f.MERStyle then
+		if not f.__MERStyle then
 			f.icon.SetTexCoordOld_Changed = f.icon.SetTexCoord
 			f.icon.SetTexCoord = function(self, ULx, ULy, LLx, LLy, URx, URy, LRx, LRy)
 				local cLeft, cRight, cTop, cDown
@@ -118,6 +118,9 @@ local function Skin_WeakAuras(f, fType, data)
 			module:CreateBackdropShadow(f, true)
 			f.backdrop.Center:StripTextures()
 			f.backdrop:SetFrameLevel(0)
+			hooksecurefunc(f, "SetFrameStrata", function()
+				f.backdrop:SetFrameLevel(0)
+			end)
 			f.backdrop.icon = f.icon
 			f.backdrop:HookScript("OnUpdate", function(self)
 				self:SetAlpha(self.icon:GetAlpha())
@@ -126,14 +129,17 @@ local function Skin_WeakAuras(f, fType, data)
 				end
 			end)
 
-			f.MERStyle = true
+			f.__MERStyle = true
 		end
 	elseif fType == "aurabar" then
-		if not f.MERStyle and data ~= nil and data.height>2 then
+		if not f.__MERStyle then
 			f:CreateBackdrop()
-			f:Styling()
+			f.backdrop:Styling()
 			f.backdrop.Center:StripTextures()
 			f.backdrop:SetFrameLevel(0)
+			hooksecurefunc(f, "SetFrameStrata", function()
+				f.backdrop:SetFrameLevel(0)
+			end)
 			module:CreateBackdropShadow(f, true)
 			f.icon:SetTexCoord(unpack(E.TexCoords))
 			f.icon.SetTexCoord = E.noop
@@ -147,7 +153,7 @@ local function Skin_WeakAuras(f, fType, data)
 				f.iconFrame.backdrop:SetShown(true)
 			end)
 
-			f.MERStyle = true
+			f.__MERStyle = true
 		end
 	end
 end
@@ -156,8 +162,6 @@ function module:WeakAuras()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.wa then
 		return
 	end
-
-	if not WeakAuras or not WeakAuras.regionPrototype then return end
 
 	-- Handle the options region type registration
 	if WeakAuras and WeakAuras.RegisterRegionOptions then
@@ -172,8 +176,21 @@ function module:WeakAuras()
 		Skin_WeakAuras(region, region.regionType, data)
 	end
 
-	module:SecureHook(WeakAuras.regionPrototype, "create", OnPrototypeCreate)
-	module:SecureHook(WeakAuras.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
+	hooksecurefunc(WeakAuras, "SetTextureOrAtlas", function(icon)
+		local parent = icon:GetParent()
+		local region = parent.regionType and parent or parent:GetParent()
+		if region and region.regionType then
+			Skin_WeakAuras(region, region.regionType)
+		end
+	end)
+
+	-- TODO: if WeakAuras2 add more blocks, use fork version entry point.
+	-- https://github.com/fang2hou/ElvUI_WindTools/wiki/WeakAuras2-Skins-FAQ
+	-- Credits to: 雨夜独行客@NGA
+	if WeakAurasPrivate and WeakAurasPrivate.regionPrototype then
+		self:SecureHook(WeakAurasPrivate.regionPrototype, "create", OnPrototypeCreate)
+		self:SecureHook(WeakAurasPrivate.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
+	end
 
 	-- Real Time Profiling Window
 	local profilingWindow = WeakAuras.RealTimeProfilingWindow
