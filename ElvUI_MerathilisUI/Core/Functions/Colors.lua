@@ -58,6 +58,8 @@ F.ClassGradient = {
 	["INSANITY"] = { r1 = 0.50, g1 = 0.25, b1 = 1, r2 = 0.70, g2 = 0, b2 = 1 },
 	["FURY"] = { r1 = 0.79, g1 = 0.26, b1 = 1, r2 = 1, g2 = 0, b2 = 0.95 },
 	["PAIN"] = { r1 = 1, g1 = 0.61, b1 = 0, r2 = 1, g2 = 0.30, b2 = 0 },
+
+	["MERATHILIS"] = { r1 = 0.50, g1 = 0.70, b1 = 1, r2 = 0.67, g2 = 0.95, b2 = 1 }
 }
 
 local customgradientsColor = F.ClassGradient
@@ -205,54 +207,57 @@ function F.CreateClassColorString(text, englishClass)
 	return hex..text.."|r"
 end
 
-function F.GradientColors(unitclass, invert, alpha)
-	local color = F.ClassGradient[unitclass] or F.ClassGradient.MANA
-
-	if not E.Classic then
-		if invert then
-			return {r = color.r2, g = color.g2, b = color.b2, a = alpha or 1}, {r = color.r1, g = color.g1, b = color.b1, a = alpha or 1}
-		else
-			return {r = color.r1, g = color.g1, b = color.b1, a = alpha or 1}, {r = color.r2, g = color.g2, b = color.b2, a = alpha or 1}
-		end
+--return the background offset
+local function bgfade(isBG)
+	if isBG then
+		return E.db.mui.gradient.bgfade or 0.6
 	else
-		if alpha then
-			if invert then
-				return color.r2, color.g2, color.b2, alpha, color.r1, color.g1, color.b1, alpha
-			else
-				return color.r1, color.g1, color.b1, alpha, color.r2, color.g2, color.b2, alpha
-			end
-		else
-			if invert then
-				return color.r2, color.g2, color.b2, color.r1, color.g1, color.b1
-			else
-				return color.r1, color.g1, color.b1, color.r2, color.g2, color.b2
-			end
-		end
+		return 0
 	end
 end
 
-function F.GradientColorsCustom(unitclass, invert, alpha)
-	local color = customgradientsColor[unitclass] or customgradientsColor.MANA
+--return the backdrop alpha
+local function bgalpha(alpha)
+	if alpha then
+		return E.db.mui.gradient.backdropalpha or 1
+	else
+		return 1
+	end
+end
 
-	if not E.Classic then
+function F.GradientColors(unitclass, invert, alpha, isBG, customalpha)
+	local color = F.ClassGradient[unitclass] or F.ClassGradient.MERATHILIS
+
+	if customalpha then
 		if invert then
-			return {r = color.r2, g = color.g2, b = color.b2, a = alpha or 1}, { r = color.r1, g = color.g1, b = color.b1, a = alpha  or 1}
+			return { r = color.r2 - bgfade(isBG), g = color.g2 - bgfade(isBG), b = color.b2 - bgfade(isBG), a = customalpha }, { r = color.r1 - bgfade(isBG), g = color.g1 - bgfade(isBG), b = color.b1 - bgfade(isBG), a = customalpha }
 		else
-			return {r = color.r1, g = color.g1, b = color.b1, a = alpha or 1}, { r = color.r2, g = color.g2, b = color.b2, a = alpha or 1}
+			return { r = color.r1 - bgfade(isBG), g = color.g1 - bgfade(isBG), b = color.b1 - bgfade(isBG), a = customalpha }, { r = color.r2 - bgfade(isBG), g = color.g2 - bgfade(isBG), b = color.b2 - bgfade(isBG), a = customalpha }
 		end
 	else
-		if alpha then
-			if invert then
-				return color.r2, color.g2, color.b2, alpha, color.r1, color.g1, color.b1, alpha
-			else
-				return color.r1, color.g1, color.b1, alpha, color.r2, color.g2, color.b2, alpha
-			end
+		if invert then
+			return { r = color.r2 - bgfade(isBG), g = color.g2 - bgfade(isBG), b = color.b2 - bgfade(isBG), a = bgalpha(alpha) }, { r = color.r1 - bgfade(isBG), g = color.g1 - bgfade(isBG), b = color.b1 - bgfade(isBG), a = bgalpha(alpha) }
 		else
-			if invert then
-				return color.r2, color.g2, color.b2, color.r1, color.g1, color.b1
-			else
-				return color.r1, color.g1, color.b1, color.r2, color.g2, color.b2
-			end
+			return { r = color.r1 - bgfade(isBG), g = color.g1 - bgfade(isBG), b = color.b1 - bgfade(isBG), a = bgalpha(alpha) }, { r = color.r2 - bgfade(isBG), g = color.g2 - bgfade(isBG), b = color.b2 - bgfade(isBG), a = bgalpha(alpha) }
+		end
+	end
+
+end
+
+function F.GradientColorsCustom(unitclass, invert, alpha, isBG, customalpha)
+	local color = customgradientsColor[unitclass] or customgradientsColor.MERATHILIS
+
+	if customalpha then
+		if invert then
+			return { r = color.r2 - bgfade(isBG), g = color.g2 - bgfade(isBG), b = color.b2 - bgfade(isBG), a = customalpha }, { r = color.r1 - bgfade(isBG), g = color.g1 - bgfade(isBG), b = color.b1 - bgfade(isBG), a = customalpha }
+		else
+			return { r = color.r1 - bgfade(isBG), g = color.g1 - bgfade(isBG), b = color.b1 - bgfade(isBG), a = customalpha }, { r = color.r2 - bgfade(isBG), g = color.g2 - bgfade(isBG), b = color.b2 - bgfade(isBG), a = customalpha }
+		end
+	else
+		if invert then
+			return { r = color.r2 - bgfade(isBG), g = color.g2 - bgfade(isBG), b = color.b2 - bgfade(isBG), a = bgalpha(alpha) }, { r = color.r1 - bgfade(isBG), g = color.g1 - bgfade(isBG), b = color.b1 - bgfade(isBG), a = bgalpha(alpha) }
+		else
+			return { r = color.r1 - bgfade(isBG), g = color.g1 - bgfade(isBG), b = color.b1 - bgfade(isBG), a = bgalpha(alpha) }, { r = color.r2 - bgfade(isBG), g = color.g2 - bgfade(isBG), b = color.b2 - bgfade(isBG), a = bgalpha(alpha) }
 		end
 	end
 end

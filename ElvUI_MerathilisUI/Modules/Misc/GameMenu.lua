@@ -164,6 +164,7 @@ function module:GameMenu()
 		bottomPanel:Width(GetScreenWidth() + (E.Border*2))
 		bottomPanel:CreateBackdrop('Transparent')
 		bottomPanel.backdrop:Styling()
+		MER:CreateInnerNoise(bottomPanel)
 
 		bottomPanel.ignoreFrameTemplates = true
 		bottomPanel.ignoreBackdropColors = true
@@ -193,6 +194,7 @@ function module:GameMenu()
 		topPanel:Width(GetScreenWidth() + (E.Border*2))
 		topPanel:CreateBackdrop('Transparent')
 		topPanel.backdrop:Styling()
+		MER:CreateInnerNoise(topPanel)
 
 		topPanel.ignoreFrameTemplates = true
 		topPanel.ignoreBackdropColors = true

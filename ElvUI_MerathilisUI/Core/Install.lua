@@ -11,18 +11,22 @@ local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
 local FCF_SetWindowName = FCF_SetWindowName
 local FCF_ResetChatWindows = FCF_ResetChatWindows
 local FCF_OpenNewWindow = FCF_OpenNewWindow
-local IsAddOnLoaded = IsAddOnLoaded
+local FCF_SavePositionAndDimensions = FCF_SavePositionAndDimensions
+local FCF_StopDragging = FCF_StopDragging
 local ChatFrame_AddChannel = ChatFrame_AddChannel
 local ChatFrame_AddMessageGroup = ChatFrame_AddMessageGroup
 local ChatFrame_RemoveMessageGroup = ChatFrame_RemoveMessageGroup
 local ChatFrame_RemoveChannel = ChatFrame_RemoveChannel
-local JoinPermanentChannel = JoinPermanentChannel
+local ToggleChatColorNamesByClassGroup = ToggleChatColorNamesByClassGroup
 local VoiceTranscriptionFrame_UpdateEditBox = VoiceTranscriptionFrame_UpdateEditBox
 local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateVisibility
 local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
 local LOOT = LOOT
 local C_UI_Reload = C_UI.Reload
 local C_CVar_SetCVar = C_CVar.SetCVar
+local IsAddOnLoaded = IsAddOnLoaded
+
+local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
 
 local function SetupCVars()
 	-- Setup CVars
@@ -64,6 +68,15 @@ local function SetupCVars()
 	C_CVar_SetCVar('UnitNameEnemyPlayerName', 1)
 	C_CVar_SetCVar('profanityFilter', 0)
 
+	-- CVars General
+	C_CVar_SetCVar('chatStyle', 'classic')
+	C_CVar_SetCVar('whisperMode', 'inline')
+	C_CVar_SetCVar('colorChatNamesByClass', 1)
+	C_CVar_SetCVar('chatClassColorOverride', 0)
+
+	C_CVar_SetCVar('speechToText', 0)
+	C_CVar_SetCVar('textToSpeech', 0)
+
 	if F.IsDeveloper() then
 		C_CVar_SetCVar('taintLog', 1)
 		C_CVar_SetCVar('LowLatencyMode', 3)
@@ -99,16 +112,6 @@ local function SetupChat()
 		E.db.movers = {}
 	end
 
-	-- CVars General
-	SetCVar('chatStyle', 'classic')
-	SetCVar('whisperMode', 'inline')
-	SetCVar('colorChatNamesByClass', 1)
-	SetCVar('chatClassColorOverride', 0)
-
-	SetCVar('speechToText', 0)
-	SetCVar('textToSpeech', 0)
-
-
 	-- Reset chat to Blizzard defaults
 	FCF_ResetChatWindows()
 
@@ -137,6 +140,9 @@ local function SetupChat()
 		elseif id == 4 then
 			FCF_SetWindowName(frame, LOOT)
 		end
+
+		FCF_SavePositionAndDimensions(frame)
+		FCF_StopDragging(frame)
 	end
 
 	ChatFrame_RemoveChannel(_G.ChatFrame4, L["Trade"])
@@ -169,6 +175,33 @@ local function SetupChat()
 	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "PARTY")
 	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "PARTY_LEADER")
 	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "CHANNEL")
+
+	local chatGroup = {
+		"SAY",
+		"EMOTE",
+		"YELL",
+		"WHISPER",
+		"PARTY",
+		"PARTY_LEADER",
+		"RAID",
+		"RAID_LEADER",
+		"RAID_WARNING",
+		"INSTANCE_CHAT",
+		"INSTANCE_CHAT_LEADER",
+		"GUILD",
+		"OFFICER",
+		"ACHIEVEMENT",
+		"GUILD_ACHIEVEMENT",
+		"COMMUNITIES_CHANNEL",
+	}
+
+	for i = 1, MAX_WOW_CHAT_CHANNELS do
+		tinsert(chatGroup, "CHANNEL" .. i)
+	end
+
+	for _, v in ipairs(chatGroup) do
+		ToggleChatColorNamesByClassGroup(true, v)
+	end
 
 	E.db["chat"]["keywordSound"] = "Whisper Alert"
 	E.db["chat"]["panelTabTransparency"] = true
@@ -205,6 +238,10 @@ local function SetupChat()
 
 	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-149,47"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,47"
+
+	ChangeChatColor("CHANNEL1", 0.76, 0.90, 0.91) -- General
+	ChangeChatColor("CHANNEL2", 0.91, 0.62, 0.47) -- Trade
+	ChangeChatColor("CHANNEL3", 0.91, 0.89, 0.47) -- Local Defense
 
 	if E.Chat then
 		E.Chat:PositionChats()

@@ -1279,8 +1279,33 @@ options.gradient = {
 				},
 			},
 		},
+		unitframeColors = {
+			order = 3,
+			type = "group",
+			name = L["Custom Unitframes Colors"],
+			disabled = function() return not E.db.mui.gradient.enable end,
+			get = function(info)
+				return E.db.mui.gradient.customColor[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.gradient.customColor[info[#info]] = value; F:GradientColorUpdate()
+			end,
+			args = {
+				header = {
+					order = 0,
+					type = "header",
+					name = F.cOption(L["Custom Nameplates Colors"], 'orange'),
+				},
+				enableUF = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					width = "full",
+				},
+			},
+		},
 		powerColors = {
-			order = 2,
+			order = 4,
 			type = "group",
 			name = L["Custom Power Colors"],
 			disabled = function() return not E.db.mui.gradient.enable end,

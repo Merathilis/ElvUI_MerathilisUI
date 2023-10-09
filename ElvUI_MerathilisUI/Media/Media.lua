@@ -271,6 +271,10 @@ AddMedia("emptyTex", "bgTex.blp", "Textures")
 AddMedia("glowTex", "glowTex.blp", "Textures")
 AddMedia("MinimapDifficulty", "minimap-difficulty.tga", "Textures")
 
+AddMedia("noiseInner", "NoiseInner.blp", "Textures")
+AddMedia("shadowInner", "ShadowInner.blp", "Textures")
+AddMedia("shadowInnerSmall", "ShadowInnerSmall.blp", "Textures")
+
 -- Fonts
 LSM:Register("font","Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\PROTOTYPE.TTF]])
 LSM:Register("font","PrototypeRU", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\PROTOTYPE_RU.TTF]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)

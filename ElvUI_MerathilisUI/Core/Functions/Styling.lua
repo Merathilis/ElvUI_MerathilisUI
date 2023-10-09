@@ -197,6 +197,34 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
+function MER:CreateInnerNoise(frame)
+	local edgeSize = E.twoPixelsPlease and 2 or 1
+
+	local innerNoise = frame.MERInnerNoise or frame:CreateTexture(nil, "BACKGROUND", nil, 2)
+	innerNoise:SetInside(frame, edgeSize, edgeSize)
+	innerNoise:SetTexture(MER.Media.Textures.noiseInner, "REPEAT", "REPEAT")
+	innerNoise:SetHorizTile(true)
+	innerNoise:SetVertTile(true)
+	innerNoise:SetBlendMode("ADD")
+	innerNoise:SetVertexColor(1, 1, 1, 1)
+	innerNoise:Show()
+
+	frame.MERInnerNoise = innerNoise
+end
+
+function MER:CreateInnerShadow(frame, smallVersion)
+	local edgeSize = E.twoPixelsPlease and 2 or 1
+
+	local innerShadow = frame.MERInnerShadow or frame:CreateTexture(nil, "BACKGROUND", nil, 1)
+	innerShadow:SetInside(frame, edgeSize, edgeSize)
+	innerShadow:SetTexture(smallVersion and MER.Media.Textures.shadowInnerSmall or MER.Media.Textures.shadowInner)
+	innerShadow:SetVertexColor(1, 1, 1, 0.5)
+	innerShadow:SetBlendMode("BLEND")
+	innerShadow:Show()
+
+	frame.MERInnerShadow = innerShadow
+end
+
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.Styling then mt.Styling = Styling end

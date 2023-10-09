@@ -7,7 +7,7 @@ local hooksecurefunc = hooksecurefunc
 local pairs = pairs
 
 local function hookPanelSetTemplate(panel, template)
-	if not panel.MERshadow then
+	if not panel.MERshadow or not panel.MERstyle then
 		return
 	end
 
