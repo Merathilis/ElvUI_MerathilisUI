@@ -401,6 +401,7 @@ options.chat = {
 									values = {
 										NONE = L["None"],
 										OUTLINE = L["OUTLINE"],
+										SHADOW = L["Shadow"],
 										MONOCHROME = L["MONOCHROME"],
 										MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
 										THICKOUTLINE = L["THICKOUTLINE"]
@@ -410,9 +411,7 @@ options.chat = {
 									order = 3,
 									name = L["Size"],
 									type = "range",
-									min = 5,
-									max = 60,
-									step = 1
+									min = 5, max = 60, step = 1
 								}
 							}
 						}

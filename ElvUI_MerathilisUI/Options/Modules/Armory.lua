@@ -8,6 +8,7 @@ local _G = _G
 local fontStyleList = {
 	["NONE"] = NONE,
 	["OUTLINE"] = 'OUTLINE',
+	["SHADOW"] = 'Shadow',
 	["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
 	["THICKOUTLINE"] = 'THICKOUTLINE'
 }

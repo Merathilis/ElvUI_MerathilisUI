@@ -81,6 +81,7 @@ options.general = {
 							values = {
 								["NONE"] = L["None"],
 								["OUTLINE"] = "OUTLINE",
+								["SHADOW"] = L["Shadow"],
 								["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 								["THICKOUTLINE"] = "THICKOUTLINE",
 							},
@@ -116,6 +117,7 @@ options.general = {
 							values = {
 								["NONE"] = L["None"],
 								["OUTLINE"] = "OUTLINE",
+								["SHADOW"] = L["Shadow"],
 								["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 								["THICKOUTLINE"] = "THICKOUTLINE",
 							},
@@ -151,6 +153,7 @@ options.general = {
 							values = {
 								["NONE"] = L["None"],
 								["OUTLINE"] = "OUTLINE",
+								["SHADOW"] = L["Shadow"],
 								["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 								["THICKOUTLINE"] = "THICKOUTLINE",
 							},
@@ -202,6 +205,7 @@ options.general = {
 							values = {
 								["NONE"] = L["None"],
 								["OUTLINE"] = "OUTLINE",
+								["SHADOW"] = L["Shadow"],
 								["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 								["THICKOUTLINE"] = "THICKOUTLINE",
 							},

@@ -46,6 +46,7 @@ options.CombatAlert = {
 					values = {
 						['NONE'] = L["None"],
 						['OUTLINE'] = L["OUTLINE"],
+						['SHADOW'] = L["Shadow"],
 						['MONOCHROME'] = L["MONOCHROME"],
 						['MONOCHROMEOUTLINE'] = L["MONOCROMEOUTLINE"],
 						['THICKOUTLINE'] = L["THICKOUTLINE"],
