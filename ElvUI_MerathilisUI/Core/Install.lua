@@ -233,7 +233,7 @@ local function SetupChat()
 	E.db["chat"]["fontOutline"] = "NONE"
 	E.db["chat"]["tabFont"] = "Expressway"
 	E.db["chat"]["tabFont"] = "Expressway"
-	E.db["chat"]["tabFontOutline"] = "OUTLINE"
+	E.db["chat"]["tabFontOutline"] = "SHADOWOUTLINE"
 	E.db["chat"]["tabFontSize"] = 10
 
 	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-149,47"
@@ -266,7 +266,7 @@ function MER:SetupLayout()
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
 	E.private["general"]["chatBubbleFontSize"] = 9
-	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
+	E.private["general"]["chatBubbleFontOutline"] = "SHADOWOUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
 	E.private["general"]["normTex"] = "MER_Stripes"
@@ -319,7 +319,7 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
 	E.db["general"]["minimap"]["size"] = 180
 	E.db["general"]["minimap"]["locationFontSize"] = 10
-	E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
+	E.db["general"]["minimap"]["locationFontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["minimap"]["locationFont"] = "Expressway"
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["bottomPanel"] = false
@@ -331,7 +331,7 @@ function MER:SetupLayout()
 	E.db["general"]["altPowerBar"]["enable"] = true
 	E.db["general"]["altPowerBar"]["font"] = "Expressway"
 	E.db["general"]["altPowerBar"]["fontSize"] = 11
-	E.db["general"]["altPowerBar"]["fontOutline"] = "OUTLINE"
+	E.db["general"]["altPowerBar"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["altPowerBar"]["statusBar"] = "MER_Stripes"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
@@ -353,7 +353,7 @@ function MER:SetupLayout()
 	E.db["auras"]["fadeThreshold"] = 10
 	E.db["auras"]["buffs"]["timeFont"] = "Gotham Narrow Black"
 	E.db["auras"]["buffs"]["timeFontSize"] = 11
-	E.db["auras"]["buffs"]["timeFontOutline"] = "OUTLINE"
+	E.db["auras"]["buffs"]["timeFontOutline"] = "SHADOWOUTLINE"
 	E.db["auras"]["buffs"]["timeYOffset"] = 34
 	E.db["auras"]["buffs"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 4
@@ -369,7 +369,7 @@ function MER:SetupLayout()
 	end
 	E.db["auras"]["buffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["auras"]["buffs"]["countFontSize"] = 11
-	E.db["auras"]["buffs"]["countFontOutline"] = "OUTLINE"
+	E.db["auras"]["buffs"]["countFontOutline"] = "SHADOWOUTLINE"
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 4
 	E.db["auras"]["debuffs"]["verticalSpacing"] = 10
@@ -384,10 +384,10 @@ function MER:SetupLayout()
 	end
 	E.db["auras"]["debuffs"]["countFont"] = "Gotham Narrow Black"
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
-	E.db["auras"]["debuffs"]["countFontOutline"] = "OUTLINE"
+	E.db["auras"]["debuffs"]["countFontOutline"] = "SHADOWOUTLINE"
 	E.db["auras"]["debuffs"]["timeFont"] = "Gotham Narrow Black"
 	E.db["auras"]["debuffs"]["timeFontSize"] = 12
-	E.db["auras"]["debuffs"]["timeFontOutline"] = "OUTLINE"
+	E.db["auras"]["debuffs"]["timeFontOutline"] = "SHADOWOUTLINE"
 	E.db["auras"]["cooldown"]["override"] = true
 	E.db["auras"]["cooldown"]["useIndicatorColor"] = true
 	E.db["auras"]["cooldown"]["hoursIndicator"]["r"] = 0.4
@@ -420,13 +420,13 @@ function MER:SetupLayout()
 	--]] ----------------------------------
 	E.db["bags"]["itemLevelFont"] = "Expressway"
 	E.db["bags"]["itemLevelFontSize"] = 9
-	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
+	E.db["bags"]["itemLevelFontOutline"] = "SHADOWOUTLINE"
 	E.db["bags"]["itemInfoFont"] = "Expressway"
 	E.db["bags"]["itemInfoFontSize"] = 9
-	E.db["bags"]["itemInfoFontOutline"] = "OUTLINE"
+	E.db["bags"]["itemInfoFontOutline"] = "SHADOWOUTLINE"
 	E.db["bags"]["countFont"] = "Expressway"
 	E.db["bags"]["countFontSize"] = 10
-	E.db["bags"]["countFontOutline"] = "OUTLINE"
+	E.db["bags"]["countFontOutline"] = "SHADOWOUTLINE"
 	E.db["bags"]["bagSize"] = 34
 	E.db["bags"]["bagWidth"] = 433
 	E.db["bags"]["bankSize"] = 34
@@ -469,13 +469,13 @@ function MER:SetupLayout()
 	--]]----------------------------------
 	E.db["tooltip"]["itemCount"] = "NONE"
 	E.db["tooltip"]["healthBar"]["height"] = 5
-	E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
+	E.db["tooltip"]["healthBar"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["tooltip"]["visibility"]["combat"] = false
 	E.db["tooltip"]["healthBar"]["font"] = "Expressway"
 	E.db["tooltip"]["font"] = "Expressway"
-	E.db["tooltip"]["fontOutline"] = "OUTLINE"
+	E.db["tooltip"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["tooltip"]["headerFont"] = "Expressway"
-	E.db["tooltip"]["headerFontOutline"] = "OUTLINE"
+	E.db["tooltip"]["headerFontOutline"] = "SHADOWOUTLINE"
 	E.db["tooltip"]["headerFontSize"] = 12
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
@@ -497,7 +497,7 @@ function MER:SetupLayout()
 	--]]----------------------------------
 	E.db["general"]["itemLevel"]["itemLevelFont"] = "Expressway"
 	E.db["general"]["itemLevel"]["itemLevelFontSize"] = 12
-	E.db["general"]["itemLevel"]["itemLevelFontOutline"] = "OUTLINE"
+	E.db["general"]["itemLevel"]["itemLevelFontOutline"] = "SHADOWOUTLINE"
 
 	--[[----------------------------------
 	--	ProfileDB - MER
@@ -665,7 +665,7 @@ function MER:SetupActionbars()
 	--[[----------------------------------
 	--	ActionBars - General
 	--]]----------------------------------
-	E.db["actionbar"]["fontOutline"] = "OUTLINE"
+	E.db["actionbar"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["fontSize"] = 10
 	E.db["actionbar"]["macrotext"] = true
 	E.db["actionbar"]["showGrid"] = false
@@ -678,7 +678,7 @@ function MER:SetupActionbars()
 	-- Cooldown options
 	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
 	E.db["actionbar"]["cooldown"]["fonts"]["font"] = "Expressway"
-	E.db["actionbar"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
+	E.db["actionbar"]["cooldown"]["fonts"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 20
 
 	E.db["actionbar"]["microbar"]["enabled"] = false
@@ -713,13 +713,13 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar1"]["counttext"] = true
 	E.db["actionbar"]["bar1"]["countFont"] = "Expressway"
-	E.db["actionbar"]["bar1"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar1"]["countFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar1"]["hotkeytext"] = true
 	E.db["actionbar"]["bar1"]["hotkeyFont"] = "Expressway"
-	E.db["actionbar"]["bar1"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar1"]["hotkeyFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar1"]["macrotext"] = true
 	E.db["actionbar"]["bar1"]["macroFont"] = "Expressway"
-	E.db["actionbar"]["bar1"]["macroFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar1"]["macroFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar1"]["macroTextPosition"] = "BOTTOM"
 	E.db["actionbar"]["bar1"]["macroTextYOffset"] = 0
 	E.db["actionbar"]["bar1"]["keepSizeRatio"] = false
@@ -739,13 +739,13 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar2"]["counttext"] = true
 	E.db["actionbar"]["bar2"]["countFont"] = "Expressway"
-	E.db["actionbar"]["bar2"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar2"]["countFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar2"]["hotkeytext"] = true
 	E.db["actionbar"]["bar2"]["hotkeyFont"] = "Expressway"
-	E.db["actionbar"]["bar2"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar2"]["hotkeyFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar2"]["macrotext"] = true
 	E.db["actionbar"]["bar2"]["macroFont"] = "Expressway"
-	E.db["actionbar"]["bar2"]["macroFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar2"]["macroFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar2"]["macroTextPosition"] = "BOTTOM"
 	E.db["actionbar"]["bar2"]["macroTextYOffset"] = 0
 	E.db["actionbar"]["bar2"]["keepSizeRatio"] = false
@@ -768,13 +768,13 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar3"]["counttext"] = true
 	E.db["actionbar"]["bar3"]["countFont"] = "Expressway"
-	E.db["actionbar"]["bar3"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar3"]["countFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar3"]["hotkeytext"] = true
 	E.db["actionbar"]["bar3"]["hotkeyFont"] = "Expressway"
-	E.db["actionbar"]["bar3"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar3"]["hotkeyFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar3"]["macrotext"] = true
 	E.db["actionbar"]["bar3"]["macroFont"] = "Expressway"
-	E.db["actionbar"]["bar3"]["macroFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar3"]["macroFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar3"]["macroTextPosition"] = "BOTTOM"
 	E.db["actionbar"]["bar3"]["macroTextYOffset"] = 0
 
@@ -789,13 +789,13 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar4"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar4"]["counttext"] = true
 	E.db["actionbar"]["bar4"]["countFont"] = "Expressway"
-	E.db["actionbar"]["bar4"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar4"]["countFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar4"]["hotkeytext"] = true
 	E.db["actionbar"]["bar4"]["hotkeyFont"] = "Expressway"
-	E.db["actionbar"]["bar4"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar4"]["hotkeyFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar4"]["macrotext"] = true
 	E.db["actionbar"]["bar4"]["macroFont"] = "Expressway"
-	E.db["actionbar"]["bar4"]["macroFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar4"]["macroFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar4"]["macroTextPosition"] = "BOTTOM"
 	E.db["actionbar"]["bar4"]["macroTextYOffset"] = 0
 
@@ -813,13 +813,13 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar6"]["counttext"] = true
 	E.db["actionbar"]["bar6"]["countFont"] = "Expressway"
-	E.db["actionbar"]["bar6"]["countFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar6"]["countFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar6"]["hotkeytext"] = true
 	E.db["actionbar"]["bar6"]["hotkeyFont"] = "Expressway"
-	E.db["actionbar"]["bar6"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar6"]["hotkeyFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar6"]["macrotext"] = true
 	E.db["actionbar"]["bar6"]["macroFont"] = "Expressway"
-	E.db["actionbar"]["bar6"]["macroFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["bar6"]["macroFontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["bar6"]["macroTextPosition"] = "BOTTOM"
 	E.db["actionbar"]["bar6"]["macroTextYOffset"] = 0
 	E.db["actionbar"]["bar6"]["keepSizeRatio"] = false
@@ -838,7 +838,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["barPet"]["mouseover"] = false
 	E.db["actionbar"]["barPet"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["barPet"]["hotkeyFont"] = "Expressway"
-	E.db["actionbar"]["barPet"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["barPet"]["hotkeyFontOutline"] = "SHADOWOUTLINE"
 
 	E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["stanceBar"]["backdrop"] = true
@@ -847,7 +847,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["stanceBar"]["buttonSize"] = 22
 	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["stanceBar"]["hotkeyFont"] = "Expressway"
-	E.db["actionbar"]["stanceBar"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["stanceBar"]["hotkeyFontOutline"] = "SHADOWOUTLINE"
 
 	E.db["actionbar"]["zoneActionButton"]["clean"] = true
 	E.db["actionbar"]["zoneActionButton"]["scale"] = 0.75
@@ -858,7 +858,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["extraActionButton"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["extraActionButton"]["hotkeytext"] = true
 	E.db["actionbar"]["extraActionButton"]["hotkeyFont"] = "Expressway"
-	E.db["actionbar"]["extraActionButton"]["hotkeyFontOutline"] = "OUTLINE"
+	E.db["actionbar"]["extraActionButton"]["hotkeyFontOutline"] = "SHADOWOUTLINE"
 
 	E.db["movers"]["ElvAB_1"] = "BOTTOM,UIParent,BOTTOM,0,115"
 	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,146"
@@ -993,7 +993,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["enable"] = false
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontOutline"] = "SHADOWOUTLINE"
 
 	-- Enemy Player
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["enable"] = true
@@ -1038,7 +1038,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontOutline"] = "SHADOWOUTLINE"
 
 	-- Friendly NPC
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["enable"] = true
@@ -1091,7 +1091,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["enable"] = false
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["xOffset"] = 1
@@ -1160,7 +1160,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontOutline"] = "SHADOWOUTLINE"
 
 	-- TARGETED
 	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.06 -- 106% scale
@@ -1203,7 +1203,7 @@ function MER:SetupUnitframes()
 	--]]----------------------------------
 	E.db["unitframe"]["font"] = "Gotham Narrow Black"
 	E.db["unitframe"]["fontSize"] = 10
-	E.db["unitframe"]["fontOutline"] = "OUTLINE"
+	E.db["unitframe"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
 	E.db["unitframe"]["statusbar"] = "MER_Stripes"
 	E.db["unitframe"]["colors"]["castColor"] = {
@@ -1339,7 +1339,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
 		["font"] = "Gotham Narrow Black",
 		["justifyH"] = "LEFT",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
 		["yOffset"] = 16,
 		["size"] = 11,
@@ -1349,7 +1349,7 @@ function MER:SetupUnitframes()
 
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
 		["font"] = "Gotham Narrow Black",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 11,
 		["justifyH"] = "LEFT",
 		["text_format"] = "[perhp<%]",
@@ -1359,7 +1359,7 @@ function MER:SetupUnitframes()
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
 		["font"] = "Gotham Narrow Black",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 11,
 		["justifyH"] = "RIGHT",
 		["text_format"] = "[health:current:shortvalue]",
@@ -1369,7 +1369,7 @@ function MER:SetupUnitframes()
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Resting"] = {
 		["font"] = "Gotham Narrow Black",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 10,
 		["justifyH"] = "CENTER",
 		["text_format"] = "||cff70C0F5[mUI-resting]||r",
@@ -1379,7 +1379,7 @@ function MER:SetupUnitframes()
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["MERPower"] = {
 		["font"] = "Gotham Narrow Black",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 12,
 		["justifyH"] = "CENTER",
 		["text_format"] = "[power:current-mUI]",
@@ -1389,7 +1389,7 @@ function MER:SetupUnitframes()
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = {
 		["font"] = "Gotham Narrow Black",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 12,
 		["justifyH"] = "CENTER",
 		["text_format"] = "[additionalmana:current:shortvalue]",
@@ -1400,7 +1400,7 @@ function MER:SetupUnitframes()
 
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Group"] = {
 		["font"] = "Gotham Narrow Black",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 11,
 		["justifyH"] = "LEFT",
 		["text_format"] = "[group]",
@@ -1529,7 +1529,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
 		["font"] = "Gotham Narrow Black",
 		["justifyH"] = "RIGHT",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 2,
 		["yOffset"] = 16,
 		["size"] = 11,
@@ -1539,7 +1539,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
 		["font"] = "Gotham Narrow Black",
 		["size"] = 11,
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "RIGHT",
 		["text_format"] = "[perhp<%]",
 		["attachTextTo"] = "Health",
@@ -1549,7 +1549,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Life"] = {
 		["font"] = "Gotham Narrow Black",
 		["size"] = 11,
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "LEFT",
 		["text_format"] = "[health:current:shortvalue]",
 		["attachTextTo"] = "Health",
@@ -1559,7 +1559,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["customTexts"]["MERPower"] = {
 		["font"] = "Gotham Narrow Black",
 		["size"] = 11,
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "RIGHT",
 		["text_format"] = "[power:current:shortvalue]",
 		["attachTextTo"] = "Health",
@@ -1750,7 +1750,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid1"]["customTexts"]["Status"] = {
 		["font"] = "Gotham Narrow Black",
 		["justifyH"] = "CENTER",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
 		["yOffset"] = -12,
 		["size"] = 9,
@@ -1760,7 +1760,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid1"]["customTexts"]["name1"] = {
 		["font"] = "Gotham Narrow Black",
 		["size"] = 9,
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "CENTER",
 		["yOffset"] = 0,
 		["xOffset"] = 0,
@@ -1771,7 +1771,7 @@ function MER:SetupUnitframes()
 		E.db["unitframe"]["units"]["raid1"]["customTexts"]["Elv"] = {
 			["font"] = "Expressway",
 			["justifyH"] = "RIGHT",
-			["fontOutline"] = "OUTLINE",
+			["fontOutline"] = "SHADOWOUTLINE",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 			["size"] = 9,
@@ -1873,7 +1873,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid2"]["customTexts"]["Status"] = {
 		["font"] = "Gotham Narrow Black",
 		["justifyH"] = "CENTER",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
 		["yOffset"] = -12,
 		["size"] = 9,
@@ -1883,7 +1883,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid2"]["customTexts"]["name1"] = {
 		["font"] = "Gotham Narrow Black",
 		["size"] = 9,
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "CENTER",
 		["yOffset"] = 0,
 		["xOffset"] = 0,
@@ -1894,7 +1894,7 @@ function MER:SetupUnitframes()
 		E.db["unitframe"]["units"]["raid2"]["customTexts"]["Elv"] = {
 			["font"] = "Expressway",
 			["justifyH"] = "RIGHT",
-			["fontOutline"] = "OUTLINE",
+			["fontOutline"] = "SHADOWOUTLINE",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 			["size"] = 9,
@@ -1996,7 +1996,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid3"]["customTexts"]["Status"] = {
 		["font"] = "Gotham Narrow Black",
 		["justifyH"] = "CENTER",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
 		["yOffset"] = -12,
 		["size"] = 9,
@@ -2006,7 +2006,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid3"]["customTexts"]["name1"] = {
 		["font"] = "Gotham Narrow Black",
 		["size"] = 9,
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "CENTER",
 		["yOffset"] = 0,
 		["xOffset"] = 0,
@@ -2017,7 +2017,7 @@ function MER:SetupUnitframes()
 		E.db["unitframe"]["units"]["raid3"]["customTexts"]["Elv"] = {
 			["font"] = "Expressway",
 			["justifyH"] = "RIGHT",
-			["fontOutline"] = "OUTLINE",
+			["fontOutline"] = "SHADOWOUTLINE",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 			["size"] = 9,
@@ -2065,7 +2065,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["party"]["debuffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 9
 	E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "Expressway"
-	E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "OUTLINE"
+	E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["unitframe"]["units"]["party"]["rdebuffs"]["size"] = 20
 	E.db["unitframe"]["units"]["party"]["rdebuffs"]["yOffset"] = 12
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["size"] = 10
@@ -2147,7 +2147,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["party"]["customTexts"]["name1"] = {
 		["font"] = "Gotham Narrow Black",
 		["size"] = 11,
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "CENTER",
 		["yOffset"] = 0,
 		["xOffset"] = 0,
@@ -2157,7 +2157,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
 		["font"] = "Gotham Narrow Black",
 		["justifyH"] = "CENTER",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
 		["yOffset"] = -12,
 		["size"] = 9,
@@ -2168,7 +2168,7 @@ function MER:SetupUnitframes()
 		E.db["unitframe"]["units"]["party"]["customTexts"]["Elv"] = {
 			["font"] = "Expressway",
 			["justifyH"] = "RIGHT",
-			["fontOutline"] = "OUTLINE",
+			["fontOutline"] = "SHADOWOUTLINE",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 			["size"] = 9,
@@ -2262,7 +2262,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Frame",
 		["font"] = "Expressway",
 		["justifyH"] = "LEFT",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
 		["size"] = 11,
 		["text_format"] = "[name:gradient]",
@@ -2272,7 +2272,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["font"] = "Expressway",
 		["justifyH"] = "LEFT",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
 		["size"] = 14,
 		["text_format"] = "[health:current:shortvalue]",
@@ -2282,7 +2282,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["font"] = "Expressway",
 		["justifyH"] = "RIGHT",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
 		["size"] = 14,
 		["text_format"] = "[perhp<%]",
@@ -2369,7 +2369,7 @@ function MER:SetupDts()
 	--]]----------------------------------
 	E.db["datatexts"]["font"] = "Expressway"
 	E.db["datatexts"]["fontSize"] = 10
-	E.db["datatexts"]["fontOutline"] = "OUTLINE"
+	E.db["datatexts"]["fontOutline"] = "SHADOWOUTLINE"
 	E.global["datatexts"]["settings"]["Gold"]["goldCoins"] = false
 
 	E.db["chat"]["RightChatDataPanelAnchor"] = "ABOVE_CHAT"

@@ -81,7 +81,9 @@ options.general = {
 							values = {
 								["NONE"] = L["None"],
 								["OUTLINE"] = "OUTLINE",
-								["SHADOW"] = L["Shadow"],
+								SHADOW = '|cff888888Shadow|r',
+								SHADOWOUTLINE = '|cff888888Shadow|r Outline',
+								SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
 								["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 								["THICKOUTLINE"] = "THICKOUTLINE",
 							},
@@ -117,7 +119,9 @@ options.general = {
 							values = {
 								["NONE"] = L["None"],
 								["OUTLINE"] = "OUTLINE",
-								["SHADOW"] = L["Shadow"],
+								SHADOW = '|cff888888Shadow|r',
+								SHADOWOUTLINE = '|cff888888Shadow|r Outline',
+								SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
 								["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 								["THICKOUTLINE"] = "THICKOUTLINE",
 							},
@@ -153,7 +157,9 @@ options.general = {
 							values = {
 								["NONE"] = L["None"],
 								["OUTLINE"] = "OUTLINE",
-								["SHADOW"] = L["Shadow"],
+								SHADOW = '|cff888888Shadow|r',
+								SHADOWOUTLINE = '|cff888888Shadow|r Outline',
+								SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
 								["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 								["THICKOUTLINE"] = "THICKOUTLINE",
 							},
@@ -205,7 +211,9 @@ options.general = {
 							values = {
 								["NONE"] = L["None"],
 								["OUTLINE"] = "OUTLINE",
-								["SHADOW"] = L["Shadow"],
+								SHADOW = '|cff888888Shadow|r',
+								SHADOWOUTLINE = '|cff888888Shadow|r Outline',
+								SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
 								["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 								["THICKOUTLINE"] = "THICKOUTLINE",
 							},

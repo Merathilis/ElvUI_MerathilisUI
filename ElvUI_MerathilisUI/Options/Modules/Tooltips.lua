@@ -105,7 +105,9 @@ options.tooltip = {
 					values = {
 						["NONE"] = _G.NONE,
 						["OUTLINE"] = "OUTLINE",
-						["SHADOW"] = L["Shadow"],
+						SHADOW = '|cff888888Shadow|r',
+						SHADOWOUTLINE = '|cff888888Shadow|r Outline',
+						SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
 						["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 						["THICKOUTLINE"] = "THICKOUTLINE",
 					},
