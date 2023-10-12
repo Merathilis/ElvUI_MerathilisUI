@@ -63,49 +63,53 @@ local function HandleTab(tab)
 	tab.Text.SetPoint = E.noop
 end
 
-local function reskin(func)
-	return function(frame, ...)
-		if frame.__MERSkin then
-			return
+local function viewGroup(frame)
+	if frame.GroupTitle then
+		frame.GroupTitle:StripTextures()
+		S:HandleButton(frame.GroupTitle)
+	end
+end
+
+local function viewItem(frame)
+	if frame.Icon.GetNumPoints and frame.Icon:GetNumPoints() > 0 then
+		local pointsCache = {}
+
+		for i = 1, frame.Icon:GetNumPoints() do
+			local point, relativeTo, relativePoint, xOfs, yOfs = frame.Icon:GetPoint(i)
+
+			if relativePoint == "TOPLEFT" then
+				xOfs = xOfs + 2
+				yOfs = yOfs - 2
+			elseif relativePoint == "BOTTOMRIGHT" then
+				xOfs = xOfs - 2
+				yOfs = yOfs + 2
+			end
+
+			pointsCache[i] = { point, relativeTo, relativePoint, xOfs, yOfs }
 		end
 
-		func(frame, ...)
+		frame.Icon:ClearAllPoints()
 
-		frame.__MERSkin = true
+		for i = 1, #pointsCache do
+			local pointData = pointsCache[i]
+			frame.Icon:SetPoint(pointData[1], pointData[2], pointData[3], pointData[4], pointData[5])
+		end
 	end
-end
 
-local function bagClassListing(frame)
-	frame.SectionTitle:StripTextures()
-	S:HandleButton(frame.SectionTitle)
-end
+	frame.EmptySlot:SetTexture(nil)
+	frame.EmptySlot:Hide()
 
-local function bagItemContainer(frame)
-	if frame.buttonPool then
-	hooksecurefunc(frame.buttonPool, "Acquire", function(pool, button)
-			for button in pool:EnumerateActive() do
-			if not button.__MERSkin then
-				button.Icon:ClearAllPoints()
-				button.Icon:SetSize(frame.iconSize - 4, frame.iconSize - 4)
-				button.Icon:SetPoint("CENTER", button, "CENTER", 0, 0)
+	frame:GetHighlightTexture():SetTexture(E.Media.Textures.White8x8)
+	frame:GetHighlightTexture():SetVertexColor(1, 1, 1, 0.3)
 
-				button.EmptySlot:SetTexture(nil)
-				button.EmptySlot:Hide()
+	frame.IconSelectedHighlight:SetTexture(E.Media.Textures.White8x8)
+	frame.IconSelectedHighlight:SetVertexColor(1, 1, 1, 0.4)
 
-				button:GetHighlightTexture():SetTexture(E.Media.Textures.White8x8)
-				button:GetHighlightTexture():SetVertexColor(1, 1, 1, 0.3)
+	frame:GetPushedTexture():SetTexture(E.Media.Textures.White8x8)
+	frame:GetPushedTexture():SetVertexColor(1, 1, 0, 0.3)
 
-				button:GetPushedTexture():SetTexture(E.Media.Textures.White8x8)
-				button:GetPushedTexture():SetVertexColor(1, 1, 0, 0.3)
-
-				S:HandleIcon(button.Icon, true)
-				S:HandleIconBorder(button.IconBorder, button.Icon.backdrop)
-
-				button.__MERSkin = true
-				end
-			end
-		end)
-	end
+	S:HandleIcon(frame.Icon, true)
+	S:HandleIconBorder(frame.IconBorder, frame.Icon.backdrop)
 end
 
 local function configRadioButtonGroup(frame)
@@ -126,8 +130,15 @@ local function keyBindingConfig(frame)
 	S:HandleButton(frame.Button)
 end
 
-local function sellingBagFrame(frame)
-	S:HandleScrollBar(frame.ScrollBar)
+local function bagUse(frame)
+	frame.View:CreateBackdrop("Transparent")
+	S:HandleTrimScrollBar(frame.View.ScrollBar)
+
+	for _, child in pairs({ frame:GetChildren() }) do
+		if child ~= frame.View then
+			S:HandleButton(child)
+		end
+	end
 end
 
 local function configNumericInput(frame)
@@ -404,6 +415,20 @@ local function craftingInfoProfessionsFrame(frame)
 	S:HandleButton(frame.SearchButton)
 end
 
+local function tryPostHook(...)
+	local frame, method, hookFunc = ...
+	if frame and method and _G[frame] and _G[frame][method] then
+		hooksecurefunc(_G[frame], method, function(frame, ...)
+			if not frame.__windSkin then
+				hookFunc(frame, ...)
+				frame.__windSkin = true
+			end
+		end)
+	else
+		S:Log("debug", "Failed to hook: " .. tostring(frame) .. " " .. tostring(method))
+	end
+end
+
 function module:Auctionator()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.au then
 		return
@@ -412,45 +437,44 @@ function module:Auctionator()
 	module:DisableAddOnSkins("Auctionator", false)
 
 	-- widgets
-	hooksecurefunc(_G.AuctionatorBagClassListingMixin, "Init", reskin(bagClassListing))
-	hooksecurefunc(_G.AuctionatorBagItemContainerMixin, "OnLoad", reskin(bagItemContainer))
-	hooksecurefunc(_G.AuctionatorConfigCheckboxMixin, "OnLoad", reskin(configCheckbox))
-	hooksecurefunc(_G.AuctionatorConfigHorizontalRadioButtonGroupMixin, "SetupRadioButtons", reskin(configRadioButtonGroup)
-	)
-	hooksecurefunc(_G.AuctionatorConfigMinMaxMixin, "OnLoad", reskin(configMinMax))
-	hooksecurefunc(_G.AuctionatorConfigMoneyInputMixin, "OnLoad", reskin(configMoneyInput))
-	hooksecurefunc(_G.AuctionatorConfigNumericInputMixin, "OnLoad", reskin(configNumericInput))
-	hooksecurefunc(_G.AuctionatorConfigRadioButtonGroupMixin, "SetupRadioButtons", reskin(configRadioButtonGroup))
-	hooksecurefunc(_G.AuctionatorDropDownInternalMixin, "Initialize", reskin(dropDownInternal))
-	hooksecurefunc(_G.AuctionatorFilterKeySelectorMixin, "OnLoad", reskin(filterKeySelector))
-	hooksecurefunc(_G.AuctionatorKeyBindingConfigMixin, "OnLoad", reskin(keyBindingConfig))
-	hooksecurefunc(_G.AuctionatorResultsListingMixin, "OnShow", reskin(resultsListing))
-	hooksecurefunc(_G.AuctionatorSaleItemMixin, "OnLoad", reskin(saleItem))
-	hooksecurefunc(_G.AuctionatorShoppingTabFrameMixin, "OnLoad", reskin(shoppingTabFrame))
-	hooksecurefunc(_G.AuctionatorShoppingTabSearchOptionsMixin, "OnLoad", reskin(shoppingTabSearchOptions))
-	hooksecurefunc(_G.AuctionatorShoppingTabListsContainerMixin, "OnLoad", reskin(shoppingTabContainer))
-	hooksecurefunc(_G.AuctionatorShoppingTabRecentsContainerMixin, "OnLoad", reskin(shoppingTabContainer))
-	hooksecurefunc(_G.AuctionatorShoppingTabContainerTabsMixin, "OnLoad", reskin(shoppingTabContainerTabs))
-	hooksecurefunc(_G.AuctionatorSellingBagFrameMixin, "OnLoad", reskin(sellingBagFrame))
-	hooksecurefunc(_G.AuctionatorSellingTabPricesContainerMixin, "OnLoad", reskin(sellingTabPricesContainer))
-	hooksecurefunc(_G.AuctionatorTabContainerMixin, "OnLoad", reskin(bottomTabButtons))
-	hooksecurefunc(_G.AuctionatorUndercutScanMixin, "OnLoad", reskin(undercutScan))
+	tryPostHook("AuctionatorGroupsViewGroupMixin", "SetName", viewGroup)
+	tryPostHook("AuctionatorGroupsViewItemMixin", "SetItemInfo", viewItem)
+	tryPostHook("AuctionatorConfigCheckboxMixin", "OnLoad", configCheckbox)
+	tryPostHook("AuctionatorConfigHorizontalRadioButtonGroupMixin", "SetupRadioButtons", configRadioButtonGroup)
+	tryPostHook("AuctionatorConfigMinMaxMixin", "OnLoad", configMinMax)
+	tryPostHook("AuctionatorConfigMoneyInputMixin", "OnLoad", configMoneyInput)
+	tryPostHook("AuctionatorConfigNumericInputMixin", "OnLoad", configNumericInput)
+	tryPostHook("AuctionatorConfigRadioButtonGroupMixin", "SetupRadioButtons", configRadioButtonGroup)
+	tryPostHook("AuctionatorDropDownInternalMixin", "Initialize", dropDownInternal)
+	tryPostHook("AuctionatorFilterKeySelectorMixin", "OnLoad", filterKeySelector)
+	tryPostHook("AuctionatorKeyBindingConfigMixin", "OnLoad", keyBindingConfig)
+	tryPostHook("AuctionatorResultsListingMixin", "OnShow", resultsListing)
+	tryPostHook("AuctionatorSaleItemMixin", "OnLoad", saleItem)
+	tryPostHook("AuctionatorShoppingTabFrameMixin", "OnLoad", shoppingTabFrame)
+	tryPostHook("AuctionatorShoppingTabSearchOptionsMixin", "OnLoad", shoppingTabSearchOptions)
+	tryPostHook("AuctionatorShoppingTabListsContainerMixin", "OnLoad", shoppingTabContainer)
+	tryPostHook("AuctionatorShoppingTabRecentsContainerMixin", "OnLoad", shoppingTabContainer)
+	tryPostHook("AuctionatorShoppingTabContainerTabsMixin", "OnLoad", shoppingTabContainerTabs)
+	tryPostHook("AuctionatorBagUseMixin", "OnLoad", bagUse)
+	tryPostHook("AuctionatorSellingTabPricesContainerMixin", "OnLoad", sellingTabPricesContainer)
+	tryPostHook("AuctionatorTabContainerMixin", "OnLoad", bottomTabButtons)
+	tryPostHook("AuctionatorUndercutScanMixin", "OnLoad", undercutScan)
 
 	-- tab frames
-	hooksecurefunc(_G.AuctionatorCancellingFrameMixin, "OnLoad", reskin(cancellingFrame))
-	hooksecurefunc(_G.AuctionatorConfigTabMixin, "OnLoad", reskin(configTab))
-	hooksecurefunc(_G.AuctionatorSellingTabMixin, "OnLoad", reskin(sellingTab))
+	tryPostHook("AuctionatorCancellingFrameMixin", "OnLoad", cancellingFrame)
+	tryPostHook("AuctionatorConfigTabMixin", "OnLoad", configTab)
+	tryPostHook("AuctionatorSellingTabMixin", "OnLoad", sellingTab)
 
 	-- frames
-	hooksecurefunc(_G.AuctionatorConfigSellingFrameMixin, "OnLoad", reskin(configSellingFrame))
-	hooksecurefunc(_G.AuctionatorExportTextFrameMixin, "OnLoad", reskin(exportTextFrame))
-	hooksecurefunc(_G.AuctionatorListExportFrameMixin, "OnLoad", reskin(listExportFrame))
-	hooksecurefunc(_G.AuctionatorListImportFrameMixin, "OnLoad", reskin(listImportFrame))
-	hooksecurefunc(_G.AuctionatorItemHistoryFrameMixin, "Init", reskin(itemHistoryFrame))
-	hooksecurefunc(_G.AuctionatorCraftingInfoObjectiveTrackerFrameMixin, "OnLoad", reskin(craftingInfoObjectiveTrackerFrame))
-	hooksecurefunc(_G.AuctionatorCraftingInfoProfessionsFrameMixin, "OnLoad", reskin(craftingInfoProfessionsFrame))
-	hooksecurefunc(_G.AuctionatorShoppingItemMixin, "OnLoad", reskin(shoppingItem))
-	hooksecurefunc(_G.AuctionatorSplashScreenMixin, "OnLoad", reskin(splashFrame))
+	tryPostHook("AuctionatorConfigSellingFrameMixin", "OnLoad", configSellingFrame)
+	tryPostHook("AuctionatorExportTextFrameMixin", "OnLoad", exportTextFrame)
+	tryPostHook("AuctionatorListExportFrameMixin", "OnLoad", listExportFrame)
+	tryPostHook("AuctionatorListImportFrameMixin", "OnLoad", listImportFrame)
+	tryPostHook("AuctionatorItemHistoryFrameMixin", "Init", itemHistoryFrame)
+	tryPostHook("AuctionatorCraftingInfoObjectiveTrackerFrameMixin", "OnLoad", craftingInfoObjectiveTrackerFrame)
+	tryPostHook("AuctionatorCraftingInfoProfessionsFrameMixin", "OnLoad", craftingInfoProfessionsFrame)
+	tryPostHook("AuctionatorShoppingItemMixin", "OnLoad", shoppingItem)
+	tryPostHook("AuctionatorSplashScreenMixin", "OnLoad", splashFrame)
 end
 
 module:AddCallbackForAddon("Auctionator")
