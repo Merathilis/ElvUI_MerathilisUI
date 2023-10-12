@@ -419,9 +419,9 @@ local function tryPostHook(...)
 	local frame, method, hookFunc = ...
 	if frame and method and _G[frame] and _G[frame][method] then
 		hooksecurefunc(_G[frame], method, function(frame, ...)
-			if not frame.__windSkin then
+			if not frame.__MERSkin then
 				hookFunc(frame, ...)
-				frame.__windSkin = true
+				frame.__MERSkin = true
 			end
 		end)
 	else
