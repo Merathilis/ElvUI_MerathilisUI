@@ -336,10 +336,10 @@ options.blizzard.args.objectiveTracker = {
 							name = L["Default"],
 							func = function()
 								local db = E.db.mui.blizzard.objectiveTracker
-								db.header.style = "OUTLINE"
+								db.header.style = "SHADOWOUTLINE"
 								db.header.color = {r = 1, g = 1, b = 1}
 								db.header.size = E.db.general.fontSize + 2
-								db.cosmeticBar.texture = "WindTools Glow"
+								db.cosmeticBar.texture = "Asphyxia"
 								db.cosmeticBar.widthMode = "ABSOLUTE"
 								db.cosmeticBar.heightMode = "ABSOLUTE"
 								db.cosmeticBar.width = 212
@@ -436,7 +436,7 @@ options.blizzard.args.objectiveTracker = {
 							name = format(L["Preset %d"], 4),
 							func = function()
 								local db = E.db.mui.blizzard.objectiveTracker
-								db.header.style = "OUTLINE"
+								db.header.style = "SHADOWOUTLINE"
 								db.header.color = {r = 1, g = 1, b = 1}
 								db.header.size = E.db.general.fontSize + 3
 								db.cosmeticBar.texture = "Solid"
@@ -486,16 +486,8 @@ options.blizzard.args.objectiveTracker = {
 					order = 2,
 					type = "select",
 					name = L["Outline"],
-					values = {
-						NONE = L["None"],
-						OUTLINE = L["OUTLINE"],
-						SHADOW = '|cff888888Shadow|r',
-						SHADOWOUTLINE = '|cff888888Shadow|r Outline',
-						SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
-						MONOCHROME = L["MONOCHROME"],
-						MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-						THICKOUTLINE = L["THICKOUTLINE"]
-					}
+					values = MER.Values.FontFlags,
+					sortByValue = true,
 				},
 				size = {
 					order = 3,
@@ -623,16 +615,8 @@ options.blizzard.args.objectiveTracker = {
 					order = 2,
 					type = "select",
 					name = L["Outline"],
-					values = {
-						NONE = L["None"],
-						OUTLINE = L["OUTLINE"],
-						SHADOW = '|cff888888Shadow|r',
-						SHADOWOUTLINE = '|cff888888Shadow|r Outline',
-						SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
-						MONOCHROME = L["MONOCHROME"],
-						MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-						THICKOUTLINE = L["THICKOUTLINE"]
-					}
+					values = MER.Values.FontFlags,
+					sortByValue = true,
 				},
 				size = {
 					order = 3,
@@ -671,16 +655,8 @@ options.blizzard.args.objectiveTracker = {
 					order = 2,
 					type = "select",
 					name = L["Outline"],
-					values = {
-						NONE = L["None"],
-						OUTLINE = L["OUTLINE"],
-						SHADOW = '|cff888888Shadow|r',
-						SHADOWOUTLINE = '|cff888888Shadow|r Outline',
-						SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
-						MONOCHROME = L["MONOCHROME"],
-						MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-						THICKOUTLINE = L["THICKOUTLINE"]
-					}
+					values = MER.Values.FontFlags,
+					sortByValue = true,
 				},
 				size = {
 					order = 3,
@@ -867,16 +843,8 @@ options.blizzard.args.objectiveTracker = {
 							order = 2,
 							type = "select",
 							name = L["Outline"],
-							values = {
-								NONE = L["None"],
-								OUTLINE = L["OUTLINE"],
-								SHADOW = '|cff888888Shadow|r',
-								SHADOWOUTLINE = '|cff888888Shadow|r Outline',
-								SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
-								MONOCHROME = L["MONOCHROME"],
-								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							}
+							values = MER.Values.FontFlags,
+							sortByValue = true,
 						},
 						size = {
 							order = 3,
@@ -1086,16 +1054,8 @@ options.blizzard.args.friendsList = {
 							order = 2,
 							type = "select",
 							name = L["Outline"],
-							values = {
-								NONE = L["None"],
-								OUTLINE = L["OUTLINE"],
-								SHADOW = '|cff888888Shadow|r',
-								SHADOWOUTLINE = '|cff888888Shadow|r Outline',
-								SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
-								MONOCHROME = L["MONOCHROME"],
-								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							}
+							values = MER.Values.FontFlags,
+							sortByValue = true,
 						},
 						size = {
 							order = 3,
@@ -1141,16 +1101,8 @@ options.blizzard.args.friendsList = {
 							order = 2,
 							type = "select",
 							name = L["Outline"],
-							values = {
-								NONE = L["None"],
-								OUTLINE = L["OUTLINE"],
-								SHADOW = '|cff888888Shadow|r',
-								SHADOWOUTLINE = '|cff888888Shadow|r Outline',
-								SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
-								MONOCHROME = L["MONOCHROME"],
-								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							}
+							values = MER.Values.FontFlags,
+							sortByValue = true,
 						},
 						size = {
 							order = 3,

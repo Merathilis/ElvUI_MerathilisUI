@@ -89,7 +89,7 @@ end
 local function UpdateContainerFrame(frame, bag, slot)
 	if (not frame.equipmentinfo) then
 		frame.equipmentinfo = frame:CreateFontString(nil, "OVERLAY")
-		frame.equipmentinfo:FontTemplate(E.media.normFont, 11, "OUTLINE")
+		frame.equipmentinfo:FontTemplate(E.media.normFont, 11, "SHADOWOUTLINE")
 		frame.equipmentinfo:SetWordWrap(true)
 		frame.equipmentinfo:SetJustifyH('CENTER')
 		frame.equipmentinfo:SetJustifyV('MIDDLE')

@@ -26,6 +26,22 @@ local C_TooltipInfo_GetInventoryItem = C_TooltipInfo and C_TooltipInfo.GetInvent
 local C_TooltipInfo_GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
 local C_TooltipInfo_GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
 
+-- Config Helper
+MER.Values = {
+	FontFlags = { -- Copy from ElvUI_Options
+		NONE = 'None',
+		OUTLINE = 'Outline',
+		THICKOUTLINE = 'Thick',
+		SHADOW = '|cff888888Shadow|r',
+		SHADOWOUTLINE = '|cff888888Shadow|r Outline',
+		SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
+		MONOCHROME = '|cFFAAAAAAMono|r',
+		MONOCHROMEOUTLINE = '|cFFAAAAAAMono|r Outline',
+		MONOCHROMETHICKOUTLINE = '|cFFAAAAAAMono|r Thick'
+	},
+}
+
+-- Scaling
 function F.PerfectScale(n)
 	local m = E.mult
 	return (m == 1 or n == 0) and n or (n * m)
@@ -87,7 +103,7 @@ function F.SetFontOutline(text, font, size)
 		font = LSM:Fetch("font", font)
 	end
 
-	text:FontTemplate(font or fontName, size or fontHeight, fontStyle or "OUTLINE")
+	text:FontTemplate(font or fontName, size or fontHeight, fontStyle or "SHADOWOUTLINE")
 	text:SetShadowColor(0, 0, 0, 0)
 	text.SetShadowColor = E.noop
 end

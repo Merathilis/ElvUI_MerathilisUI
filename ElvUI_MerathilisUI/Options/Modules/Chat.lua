@@ -398,16 +398,8 @@ options.chat = {
 									order = 2,
 									type = "select",
 									name = L["Outline"],
-									values = {
-										NONE = L["None"],
-										OUTLINE = L["OUTLINE"],
-										SHADOW = '|cff888888Shadow|r',
-										SHADOWOUTLINE = '|cff888888Shadow|r Outline',
-										SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
-										MONOCHROME = L["MONOCHROME"],
-										MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-										THICKOUTLINE = L["THICKOUTLINE"]
-									}
+									values = MER.Values.FontFlags,
+									sortByValue = true,
 								},
 								size = {
 									order = 3,

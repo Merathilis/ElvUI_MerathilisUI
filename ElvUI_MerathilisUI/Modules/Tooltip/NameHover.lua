@@ -69,10 +69,10 @@ function MI:LoadnameHover()
 	local tooltip = CreateFrame("frame", nil)
 	tooltip:SetFrameStrata("TOOLTIP")
 	tooltip.text = tooltip:CreateFontString(nil, "OVERLAY")
-	tooltip.text:FontTemplate(nil, db.fontSize or 7, db.fontOutline or "OUTLINE")
+	tooltip.text:FontTemplate(nil, db.fontSize or 7, db.fontOutline or "SHADOWOUTLINE")
 
 	tooltip.target = tooltip:CreateFontString(nil, "OVERLAY")
-	tooltip.target:FontTemplate(nil, db.fontSize or 7, db.fontOutline or "OUTLINE")
+	tooltip.target:FontTemplate(nil, db.fontSize or 7, db.fontOutline or "SHADOWOUTLINE")
 
 	-- Show unit name at mouse
 	tooltip:SetScript("OnUpdate", function(tt)

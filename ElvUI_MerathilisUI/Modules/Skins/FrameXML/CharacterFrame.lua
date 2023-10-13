@@ -16,7 +16,7 @@ local function StatsPane(type)
 	end
 
 	if _G.CharacterStatsPane[type].Title then
-		_G.CharacterStatsPane[type].Title:FontTemplate(nil, 13, "OUTLINE")
+		_G.CharacterStatsPane[type].Title:FontTemplate(nil, 13, "SHADOWOUTLINE")
 	end
 end
 

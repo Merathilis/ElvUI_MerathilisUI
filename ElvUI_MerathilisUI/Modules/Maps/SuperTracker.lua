@@ -241,7 +241,7 @@ function module:WaypointParse()
 
 	-- Placeholder
 	local placeholder = editBox:CreateFontString(nil, "ARTWORK")
-	placeholder:FontTemplate(nil, nil, "OUTLINE")
+	placeholder:FontTemplate(nil, nil, "SHADOWOUTLINE")
 	placeholder:SetText("|cff666666" .. L["Go to ..."] .. "|r")
 	placeholder:SetPoint("CENTER", editBox, "CENTER", 0, 0)
 
@@ -260,7 +260,7 @@ function module:WaypointParse()
 
 	-- Status Text
 	local statusText = editBox:CreateFontString(nil, "ARTWORK")
-	statusText:FontTemplate(nil, nil, "OUTLINE")
+	statusText:FontTemplate(nil, nil, "SHADOWOUTLINE")
 	statusText:SetPoint("LEFT", editBox, "RIGHT", 5, 0)
 
 	-- worldquest-questmarker-questionmark

@@ -102,15 +102,8 @@ options.tooltip = {
 					order = 3,
 					type = "select",
 					name = L["Font Outline"],
-					values = {
-						["NONE"] = _G.NONE,
-						["OUTLINE"] = "OUTLINE",
-						SHADOW = '|cff888888Shadow|r',
-						SHADOWOUTLINE = '|cff888888Shadow|r Outline',
-						SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
-						["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
-						["THICKOUTLINE"] = "THICKOUTLINE",
-					},
+					values = MER.Values.FontFlags,
+					sortByValue = true,
 				},
 				targettarget = {
 					order = 4,

@@ -118,15 +118,15 @@ function MER:LoadOmniCDProfile()
 				["fonts"] = {
 					["statusBar"] = {
 						["font"] = "Expressway",
-						["flag"] = "OUTLINE",
+						["flag"] = "SHADOWOUTLINE",
 					},
 					["icon"] = {
 						["font"] = "Expressway",
-						["flag"] = "OUTLINE",
+						["flag"] = "SHADOWOUTLINE",
 					},
 					["anchor"] = {
 						["font"] = "Expressway",
-						["flag"] = "OUTLINE",
+						["flag"] = "SHADOWOUTLINE",
 					},
 				},
 				["textures"] = {

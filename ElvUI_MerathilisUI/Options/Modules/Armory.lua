@@ -5,16 +5,6 @@ local M = E.Misc
 
 local _G = _G
 
-local fontStyleList = {
-	["NONE"] = NONE,
-	["OUTLINE"] = 'OUTLINE',
-	SHADOW = '|cff888888Shadow|r',
-	SHADOWOUTLINE = '|cff888888Shadow|r Outline',
-	SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
-	["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-	["THICKOUTLINE"] = 'THICKOUTLINE'
-}
-
 options.armory = {
 	type = "group",
 	name = L["Armory"],
