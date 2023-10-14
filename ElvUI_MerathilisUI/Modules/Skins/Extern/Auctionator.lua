@@ -63,11 +63,21 @@ local function HandleTab(tab)
 	tab.Text.SetPoint = E.noop
 end
 
-local function SkinItem(item)
-	if item.Icon and not item.backdrop then
-		S:HandleIcon(item.Icon, true)
+local function SkinItem(item, info)
+	if not item.backdrop then
+		item:CreateBackdrop(nil, nil, nil, nil, nil, nil, nil, nil, true)
+		item:StyleButton()
+		item.backdrop:SetAllPoints()
 
-		-- item:StyleButton()
+		S:HandleIconBorder(item.IconBorder, item.backdrop)
+	end
+
+	local p1, anchor, p2, x, y = item:GetPoint()
+	item:SetPoint(p1, anchor, p2, x+2, y+1)
+
+	if info and info.selected then
+		local r, g, b, a = item.IconBorder:GetVertexColor()
+		item.Icon.backdrop:SetBackdropBorderColor(r, g, b, a)
 	end
 end
 
