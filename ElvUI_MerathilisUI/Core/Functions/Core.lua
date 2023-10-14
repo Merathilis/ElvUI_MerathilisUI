@@ -26,21 +26,6 @@ local C_TooltipInfo_GetInventoryItem = C_TooltipInfo and C_TooltipInfo.GetInvent
 local C_TooltipInfo_GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
 local C_TooltipInfo_GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
 
--- Config Helper
-MER.Values = {
-	FontFlags = { -- Copy from ElvUI_Options
-		NONE = 'None',
-		OUTLINE = 'Outline',
-		THICKOUTLINE = 'Thick',
-		SHADOW = '|cff888888Shadow|r',
-		SHADOWOUTLINE = '|cff888888Shadow|r Outline',
-		SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
-		MONOCHROME = '|cFFAAAAAAMono|r',
-		MONOCHROMEOUTLINE = '|cFFAAAAAAMono|r Outline',
-		MONOCHROMETHICKOUTLINE = '|cFFAAAAAAMono|r Thick'
-	},
-}
-
 -- Scaling
 function F.PerfectScale(n)
 	local m = E.mult

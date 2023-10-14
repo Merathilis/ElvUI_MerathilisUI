@@ -51,6 +51,11 @@ MER.RegisteredModules = {}
 
 MER.UseKeyDown = C_CVar_GetCVarBool("ActionButtonUseKeyDown")
 
+-- Config Helper
+MER.Values = {
+	FontFlags = E.Libs.ACH.FontValues
+}
+
 local LBG = LibStub("LibButtonGlow-1.0")
 F.ShowOverlayGlow = LBG.ShowOverlayGlow
 F.HideOverlayGlow = LBG.HideOverlayGlow
@@ -81,6 +86,7 @@ function MER:RegisterModule(name)
 		F.Developer.ThrowError("The name of module is required!")
 		return
 	end
+
 	if self.initialized then
 		self:GetModule(name):Initialize()
 	else
