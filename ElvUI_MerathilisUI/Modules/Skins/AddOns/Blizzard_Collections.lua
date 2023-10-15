@@ -253,7 +253,7 @@ local function LoadSkin()
 			local header = HeirloomsJournal.heirloomHeaderFrames[i]
 			if not header.__MERSkin then
 				header.text:SetTextColor(1, 1, 1)
-				header.text:FontTemplate(E["media"].normFont, 16, "OUTLINE")
+				header.text:FontTemplate(E["media"].normFont, 16, "SHADOWOUTLINE")
 
 				header.__MERSkin = true
 			end

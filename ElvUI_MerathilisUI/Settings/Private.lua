@@ -47,7 +47,7 @@ V.skins = {
 				enable = true,
 				font = {
 					name = E.db.general.font,
-					style = "OUTLINE"
+					style = "SHADOWOUTLINE"
 				},
 			},
 		},
@@ -80,7 +80,7 @@ V.skins = {
 				selectedColor = {r = 1, g = 1, b = 1},
 				font = {
 					name = E.db.general.font,
-					style = "OUTLINE"
+					style = "SHADOWOUTLINE"
 				}
 			}
 		},
@@ -123,7 +123,7 @@ V.skins = {
 				selectedColor = {r = 1, g = 1, b = 1},
 				font = {
 					name = E.db.general.font,
-					style = "OUTLINE"
+					style = "SHADOWOUTLINE"
 				}
 			}
 		},
@@ -253,7 +253,7 @@ V.skins = {
 				countDown = {
 					name = "Expressway",
 					size = 16,
-					style = "OUTLINE",
+					style = "SHADOWOUTLINE",
 					offsetX = 0,
 					offsetY = -3
 				},
@@ -289,11 +289,11 @@ V.skins = {
 	errorMessage = {
 		name = E.db.general.font,
 		size = 15,
-		style = "OUTLINE"
+		style = "SHADOWOUTLINE"
 	},
 	rollResult = {
 		name = "Expressway",
 		size = 13,
-		style = "OUTLINE"
+		style = "SHADOWOUTLINE"
 	},
 }

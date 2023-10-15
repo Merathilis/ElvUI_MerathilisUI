@@ -38,7 +38,7 @@ function MER:LoadBigWigsProfile()
 	}
 	DB["namespaces"]["BigWigs_Plugins_Countdown"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Countdown"]["profiles"] or {}
 	DB["namespaces"]["BigWigs_Plugins_Countdown"]["profiles"][profileName] = {
-		["outline"] = "OUTLINE",
+		["outline"] = "SHADOWOUTLINE",
 		["fontName"] = "Expressway",
 		["position"] = {
 			"CENTER", -- [1]
@@ -87,7 +87,7 @@ function MER:LoadBigWigsProfile()
 		["fontName"] = "Expressway",
 		["fontSizeEmph"] = 12,
 		["fontSize"] = 11,
-		["outline"] = "OUTLINE",
+		["outline"] = "SHADOWOUTLINE",
 		["emphasizeScale"] = 1.1,
 		["barStyle"] = "MerathilisUI",
 		["growup"] = true,
@@ -97,7 +97,7 @@ function MER:LoadBigWigsProfile()
 	}
 	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] or {}
 	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"][profileName] = {
-		["outline"] = "OUTLINE",
+		["outline"] = "SHADOWOUTLINE",
 		["fontSize"] = F.SetFontSizeScaled(20),
 		["BWEmphasizeCountdownMessageAnchor_x"] = 664,
 		["BWMessageAnchor_x"] = 608,

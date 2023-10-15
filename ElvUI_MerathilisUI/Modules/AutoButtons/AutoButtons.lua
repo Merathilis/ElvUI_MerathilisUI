@@ -1374,7 +1374,7 @@ function module:CreateButton(name, barDB)
 	F.SetFontDB(qualityTier, {
 		size = barDB.qualityTier.size,
 		name = E.db.general.font,
-		style = "OUTLINE"
+		style = "SHADOWOUTLINE"
 	})
 
 	local count = button:CreateFontString(nil, "OVERLAY")

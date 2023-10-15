@@ -22,13 +22,20 @@ local TITLE_OFFSET = 10
 module.RegisteredMenus = {}
 
 local function OnMouseUp(btn)
-	if btn.func then btn.func() end
+	if btn.func then
+		btn.func()
+	end
 
-	E:Delay(.1, function() btn:GetParent():Hide() end)
+	E:Delay(.1, function()
+		btn:GetParent():Hide()
+	end)
 end
 
 local function OnEnter(btn)
-	if not btn.nohighlight then btn.hoverTex:Show() end
+	if not btn.hoverTex then
+		btn.hoverTex:Show()
+	end
+
 	if btn.UseTooltip then
 		_G["GameTooltip"]:SetOwner(btn, "ANCHOR_BOTTOMLEFT", -9)
 		if btn.TooltipText then
@@ -45,8 +52,11 @@ local function OnEnter(btn)
 end
 
 local function OnLeave(btn)
+	if btn.hoverTex then
+		btn.hoverTex:Hide()
+	end
+
 	_G["GameTooltip"]:Hide()
-	btn.hoverTex:Hide()
 end
 
 local function CreateListButton(frame)
@@ -78,10 +88,12 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 		frame.buttons = {}
 		frame:SetFrameStrata("TOOLTIP")
 		frame:SetClampedToScreen(true)
-		tinsert(UISpecialFrames, frame:GetName())
 		frame:Styling()
 		frame:Hide()
+
+		tinsert(UISpecialFrames, frame:GetName())
 	end
+
 	for i = 1, #frame.buttons do
 		local btn = frame.buttons[i]
 		btn.UseTooltip = false
@@ -91,6 +103,7 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 		btn.text:SetText("")
 		btn:Hide()
 	end
+
 	if not frame:IsShown() then
 		xOffset = xOffset or 0
 		yOffset = yOffset or 0
@@ -159,8 +172,8 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 
 		frame:ClearAllPoints()
 		if FramePoint == "CURSOR" then
-			local UIScale = UIParent:GetScale();
-			local x, y = GetCursorPosition();
+			local UIScale = UIParent:GetScale()
+			local x, y = GetCursorPosition()
 			x = x/UIScale
 			y = y/UIScale
 			frame:Point(MenuAnchor, UIParent, "BOTTOMLEFT", x + xOffset, y + yOffset)
@@ -168,6 +181,7 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 			frame:Point(MenuAnchor, parent, FramePoint, xOffset, yOffset)
 		end
 	end
+
 	ToggleFrame(frame)
 end
 
@@ -182,7 +196,6 @@ function module:GetCooldown(CDtype, id)
 	end
 	return nil
 end
-
 
 function module:HideMenus()
 	for _, menu in pairs(module.RegisteredMenus) do

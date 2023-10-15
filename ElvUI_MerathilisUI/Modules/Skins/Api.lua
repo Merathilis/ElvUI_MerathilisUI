@@ -766,7 +766,7 @@ do
 		else
 			S:HandleButton(bu)
 			bu.text = bu:CreateFontString(nil, "OVERLAY")
-			bu.text:FontTemplate(nil, fontSize or 14, outline or "OUTLINE")
+			bu.text:FontTemplate(nil, fontSize or 14, outline or "SHADOWOUTLINE")
 			bu.text:SetText(text)
 		end
 

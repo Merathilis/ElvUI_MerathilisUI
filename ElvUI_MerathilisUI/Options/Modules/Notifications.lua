@@ -142,13 +142,8 @@ options.Notification = {
 							order = 2,
 							type = "select",
 							name = L["Outline"],
-							values = {
-								NONE = L["None"],
-								OUTLINE = L["OUTLINE"],
-								MONOCHROME = L["MONOCHROME"],
-								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							},
+							values = MER.Values.FontFlags,
+							sortByValue = true,
 						},
 					},
 				},
@@ -182,13 +177,8 @@ options.Notification = {
 							order = 2,
 							type = "select",
 							name = L["Outline"],
-							values = {
-								NONE = L["None"],
-								OUTLINE = L["OUTLINE"],
-								MONOCHROME = L["MONOCHROME"],
-								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							},
+							values = MER.Values.FontFlags,
+							sortByValue = true,
 						},
 					},
 				},
