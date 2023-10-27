@@ -295,13 +295,8 @@ options.maps = {
 							order = 2,
 							type = "select",
 							name = L["Outline"],
-							values = {
-								NONE = L["None"],
-								OUTLINE = L["OUTLINE"],
-								MONOCHROME = L["MONOCHROME"],
-								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							}
+							values = MER.Values.FontFlags,
+							sortByValue = true,
 						},
 						size = {
 							order = 3,
@@ -615,13 +610,8 @@ options.maps = {
 							order = 2,
 							type = "select",
 							name = L["Outline"],
-							values = {
-								NONE = L["None"],
-								OUTLINE = L["OUTLINE"],
-								MONOCHROME = L["MONOCHROME"],
-								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							}
+							values = MER.Values.FontFlags,
+							sortByValue = true,
 						},
 						size = {
 							order = 3,
@@ -846,13 +836,8 @@ options.maps = {
 							order = 2,
 							type = "select",
 							name = L["Outline"],
-							values = {
-								NONE = L["None"],
-								OUTLINE = L["OUTLINE"],
-								MONOCHROME = L["MONOCHROME"],
-								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							}
+							values = MER.Values.FontFlags,
+							sortByValue = true,
 						},
 						size = {
 							order = 3,
@@ -997,13 +982,8 @@ options.maps = {
 							order = 3,
 							type = "select",
 							name = L["Outline"],
-							values = {
-								NONE = L["None"],
-								OUTLINE = L["OUTLINE"],
-								MONOCHROME = L["MONOCHROME"],
-								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							}
+							values = MER.Values.FontFlags,
+							sortByValue = true,
 						}
 					}
 				},

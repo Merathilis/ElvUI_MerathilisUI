@@ -98,8 +98,16 @@ function module:CreateLowerShadow(frame, force)
 	end
 
 	module:CreateShadow(frame)
-	local parentFrameLevel = frame:GetFrameLevel()
-	frame.MERshadow:SetFrameLevel(parentFrameLevel > 0 and parentFrameLevel - 1 or 0)
+	if frame.shadow and frame.SetFrameStrata and frame.SetFrameLevel then
+		local function refreshFrameLevel()
+			local parentFrameLevel = frame:GetFrameLevel()
+			frame.shadow:SetFrameLevel(parentFrameLevel > 0 and parentFrameLevel - 1 or 0)
+		end
+
+		-- avoid the shadow level is reset when the frame strata/level is changed
+		hooksecurefunc(frame, "SetFrameStrata", refreshFrameLevel)
+		hooksecurefunc(frame, "SetFrameLevel", refreshFrameLevel)
+	end
 end
 
 function module:UpdateShadowColor(shadow, r, g, b)
@@ -766,7 +774,7 @@ do
 		else
 			S:HandleButton(bu)
 			bu.text = bu:CreateFontString(nil, "OVERLAY")
-			bu.text:FontTemplate(nil, fontSize or 14, outline or "OUTLINE")
+			bu.text:FontTemplate(nil, fontSize or 14, outline or "SHADOWOUTLINE")
 			bu.text:SetText(text)
 		end
 

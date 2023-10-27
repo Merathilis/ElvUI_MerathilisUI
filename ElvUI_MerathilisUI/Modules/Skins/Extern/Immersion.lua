@@ -5,6 +5,8 @@ local S = E:GetModule('Skins')
 local _G = _G
 local pairs = pairs
 
+local ImmersionFrame = _G.ImmersionFrame
+
 function module:Immersion_ReskinTitleButton(frame)
 	for _, button in pairs { frame.TitleButtons:GetChildren() } do
 		if button and not button.__MERSkin then
@@ -20,6 +22,7 @@ function module:Immersion_ReskinTitleButton(frame)
 			button.Overlay:StripTextures()
 			button:SetBackdrop(nil)
 			F.SetFontOutline(button.Label)
+
 			button.__MERSkin = true
 		end
 	end
@@ -27,7 +30,7 @@ end
 
 function module:AttemptReskinButton()
 	self.reskinButtonAttemptCount = self.reskinButtonAttemptCount + 1
-	self:Immersion_ReskinTitleButton(_G.ImmersionFrame)
+	self:Immersion_ReskinTitleButton(ImmersionFrame)
 	if self.reskinButtonAttemptCount == 10 then
 		self:CancelTimer(self.reskinButtonTimer)
 	end
@@ -35,7 +38,7 @@ end
 
 function module:Immersion_Show()
 	self:Immersion_SpeechProgressText()
-	self:Immersion_ReskinTitleButton(_G.ImmersionFrame)
+	self:Immersion_ReskinTitleButton(ImmersionFrame)
 	self.reskinButtonAttemptCount = 0
 	self.reskinButtonTimer = self:ScheduleRepeatingTimer("AttemptReskinButton", 0.1)
 	E:Delay(0.1, S.Immersion_ReskinItems, S)
@@ -57,6 +60,7 @@ function module:Immersion_ReskinItems()
 				module:CreateBackdropShadow(rButton.NameFrame)
 				module:CreateGradient(rButton.NameFrame)
 			end
+
 			rButton.__MERSkin = true
 		end
 	end
@@ -76,6 +80,7 @@ function module:Immersion_ReskinItems()
 				module:CreateBackdropShadow(rButton.NameFrame)
 				module:CreateGradient(rButton.NameFrame)
 			end
+
 			rButton.__MERSkin = true
 		end
 	end
@@ -87,9 +92,11 @@ do
 		if reskin then
 			return
 		end
-		local talkBox = _G.ImmersionFrame and _G.ImmersionFrame.TalkBox
+
+		local talkBox = ImmersionFrame and ImmersionFrame.TalkBox
 		if talkBox and talkBox.TextFrame and talkBox.TextFrame.SpeechProgress then
 			F.SetFontOutline(talkBox.TextFrame.SpeechProgress)
+
 			reskin = true
 		end
 	end
@@ -103,7 +110,6 @@ function module:Immersion()
 	module:DisableAddOnSkins("Immersion", false)
 
 	local frame = _G.ImmersionFrame
-
 	-- TalkBox
 	local talkBox = frame.TalkBox
 

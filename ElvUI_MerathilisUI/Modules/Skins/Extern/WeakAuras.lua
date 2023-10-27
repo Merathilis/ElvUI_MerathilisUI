@@ -167,36 +167,26 @@ function module:WeakAuras()
 		module:RawHook(WeakAuras, "RegisterRegionOptions", "WeakAuras_RegisterRegionOptions")
 	end
 
-	local function OnPrototypeCreate(region)
-		Skin_WeakAuras(region, region.regionType)
-	end
-
-	local function OnPrototypeModifyFinish(_, region, data)
-		Skin_WeakAuras(region, region.regionType, data)
-	end
-
-	hooksecurefunc(WeakAuras, "SetTextureOrAtlas", function(icon)
-		local parent = icon:GetParent()
-		local region = parent.regionType and parent or parent:GetParent()
-		if region and region.regionType then
-			Skin_WeakAuras(region, region.regionType)
-		end
-	end)
-
-	-- TODO: if WeakAuras2 add more blocks, use fork version entry point.
-	-- https://github.com/fang2hou/ElvUI_WindTools/wiki/WeakAuras2-Skins-FAQ
-	-- Credits to: 雨夜独行客@NGA
-	if WeakAurasPrivate and WeakAurasPrivate.regionPrototype then
-		self:SecureHook(WeakAurasPrivate.regionPrototype, "create", OnPrototypeCreate)
-		self:SecureHook(WeakAurasPrivate.regionPrototype, "modifyFinish", OnPrototypeModifyFinish)
+	if WeakAuras and WeakAuras.SetTextureOrAtlas then
+		hooksecurefunc(WeakAuras, "SetTextureOrAtlas", function(icon)
+			local parent = icon:GetParent()
+			local region = parent.regionType and parent or parent:GetParent()
+			if region and region.regionType then
+				Skin_WeakAuras(region, region.regionType)
+			end
+		end)
 	end
 
 	-- Real Time Profiling Window
 	local profilingWindow = WeakAuras.RealTimeProfilingWindow
 	if profilingWindow then
-		module:CreateShadow(profilingWindow)
-		module:SecureHook(profilingWindow, "UpdateButtons", "ProfilingWindow_UpdateButtons")
-		module:SecureHook(WeakAuras, "PrintProfile", "WeakAuras_PrintProfile")
+		self:CreateShadow(profilingWindow)
+		if profilingWindow.UpdateButtons then
+			self:SecureHook(profilingWindow, "UpdateButtons", "ProfilingWindow_UpdateButtons")
+		end
+		if WeakAuras.PrintProfile then
+			self:SecureHook(WeakAuras, "PrintProfile", "WeakAuras_PrintProfile")
+		end
 	end
 end
 

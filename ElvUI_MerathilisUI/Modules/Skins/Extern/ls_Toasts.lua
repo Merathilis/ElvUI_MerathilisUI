@@ -25,10 +25,10 @@ LST:RegisterSkin("MerathilisUI", {
 		hidden = true,
 	},
 	icon_text_1 = {
-		flags = "OUTLINE",
+		flags = "SHADOWOUTLINE",
 	},
 	icon_text_2 = {
-		flags = "OUTLINE",
+		flags = "SHADOWOUTLINE",
 	},
 	dragon = {
 		hidden = true,

@@ -398,21 +398,14 @@ options.chat = {
 									order = 2,
 									type = "select",
 									name = L["Outline"],
-									values = {
-										NONE = L["None"],
-										OUTLINE = L["OUTLINE"],
-										MONOCHROME = L["MONOCHROME"],
-										MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-										THICKOUTLINE = L["THICKOUTLINE"]
-									}
+									values = MER.Values.FontFlags,
+									sortByValue = true,
 								},
 								size = {
 									order = 3,
 									name = L["Size"],
 									type = "range",
-									min = 5,
-									max = 60,
-									step = 1
+									min = 5, max = 60, step = 1
 								}
 							}
 						}

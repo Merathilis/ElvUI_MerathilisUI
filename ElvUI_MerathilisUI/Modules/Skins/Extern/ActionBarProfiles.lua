@@ -6,7 +6,7 @@ if not IsAddOnLoaded("ActionBarProfiles") then return end
 local _G = _G
 local pairs = pairs
 
-local function LoadSkin()
+function module:ActionBarProfiles()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.abp then return; end
 
 	S:HandleScrollBar(_G.PaperDollActionBarProfilesPaneScrollBar, 5)
@@ -39,4 +39,4 @@ local function LoadSkin()
 	S:HandleCheckBox(_G.PaperDollActionBarProfilesSaveDialogOptionBindings)
 end
 
-module:AddCallbackForAddon("ActionBarProfiles", LoadSkin)
+module:AddCallbackForAddon("ActionBarProfiles")

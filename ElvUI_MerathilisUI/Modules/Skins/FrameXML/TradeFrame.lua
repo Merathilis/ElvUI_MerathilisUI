@@ -47,7 +47,7 @@ local function LoadSkin()
 
 	-- Display text on the TradeFrame if unit is a known person
 	TradeFrame.text = TradeFrame:CreateFontString(nil, 'OVERLAY')
-	TradeFrame.text:FontTemplate(nil, 16, "OUTLINE")
+	TradeFrame.text:FontTemplate(nil, 16, "SHADOWOUTLINE")
 	TradeFrame.text:ClearAllPoints()
 	TradeFrame.text:SetPoint("TOP", _G["TradeFrameRecipientNameText"], "BOTTOM", 0, -5)
 

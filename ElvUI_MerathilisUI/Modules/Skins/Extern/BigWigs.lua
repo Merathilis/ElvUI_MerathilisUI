@@ -265,7 +265,7 @@ function module:BigWigs_Plugins()
 			barSpacing = function(bar) return bar:GetHeight()+7 end,
 			fontSizeNormal = 13,
 			fontSizeEmphasized = 15,
-			fontOutline = "OUTLINE",
+			fontOutline = "SHADOWOUTLINE",
 			ApplyStyle = applyStyle,
 			BarStopped = barStopped,
 			GetStyleName = function()

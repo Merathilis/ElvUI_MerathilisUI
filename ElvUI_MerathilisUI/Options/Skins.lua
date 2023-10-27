@@ -12,8 +12,10 @@ local IsAddOnLoaded = IsAddOnLoaded
 local DecorAddons = {
 	{"ActionBarProfiles", L["ActonBarProfiles"], "abp"},
 	{"Auctionator", L["Auctionator"], "au"},
+	{"BagSync", L["BagSync"], "bSync"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
 	{"Clique", L["Clique"], "cl"},
+	{"Details", L["Details"], "dt" },
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
 	{"BugSack", L["BugSack"], "bs"},
 	{"GlobalIgnoreList", L["GlobalIgnoreList"], "gil"},
@@ -27,8 +29,6 @@ local DecorAddons = {
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"WeakAurasOptions", L["WeakAuras Options"], "waOptions"},
 }
-tinsert(DecorAddons, {"Details", L["Details"], "dt" })
-
 
 local SupportedProfiles = {
 	{"AddOnSkins", "AddOnSkins"},
@@ -171,13 +171,8 @@ options.font = {
 					order = 2,
 					type = "select",
 					name = L["Outline"],
-					values = {
-						NONE = L["None"],
-						OUTLINE = L["OUTLINE"],
-						MONOCHROME = L["MONOCHROME"],
-						MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-						THICKOUTLINE = L["THICKOUTLINE"]
-					}
+					values = MER.Values.FontFlags,
+					sortByValue = true,
 				},
 				size = {
 					order = 3,
@@ -221,13 +216,8 @@ options.font = {
 					order = 3,
 					type = "select",
 					name = L["Outline"],
-					values = {
-						NONE = L["None"],
-						OUTLINE = L["OUTLINE"],
-						MONOCHROME = L["MONOCHROME"],
-						MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-						THICKOUTLINE = L["THICKOUTLINE"]
-					}
+					values = MER.Values.FontFlags,
+					sortByValue = true,
 				},
 				size = {
 					order = 4,
@@ -549,13 +539,8 @@ options.widgets = {
 									order = 2,
 									type = "select",
 									name = L["Outline"],
-									values = {
-										NONE = L["None"],
-										OUTLINE = L["OUTLINE"],
-										MONOCHROME = L["MONOCHROME"],
-										MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-										THICKOUTLINE = L["THICKOUTLINE"]
-									},
+									values = MER.Values.FontFlags,
+									sortByValue = true,
 								},
 							},
 						},
@@ -881,13 +866,8 @@ options.widgets = {
 									order = 2,
 									type = "select",
 									name = L["Outline"],
-									values = {
-										NONE = L["None"],
-										OUTLINE = L["OUTLINE"],
-										MONOCHROME = L["MONOCHROME"],
-										MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-										THICKOUTLINE = L["THICKOUTLINE"]
-									},
+									values = MER.Values.FontFlags,
+									sortByValue = true,
 								},
 							},
 						},
@@ -1213,13 +1193,8 @@ options.widgets = {
 									order = 2,
 									type = "select",
 									name = L["Outline"],
-									values = {
-										NONE = L["None"],
-										OUTLINE = L["OUTLINE"],
-										MONOCHROME = L["MONOCHROME"],
-										MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-										THICKOUTLINE = L["THICKOUTLINE"]
-									},
+									values = MER.Values.FontFlags,
+									sortByValue = true,
 								},
 							},
 						},
@@ -2339,13 +2314,8 @@ options.advancedSettings = {
 									order = 2,
 									type = "select",
 									name = L["Outline"],
-									values = {
-										NONE = L["None"],
-										OUTLINE = L["OUTLINE"],
-										MONOCHROME = L["MONOCHROME"],
-										MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-										THICKOUTLINE = L["THICKOUTLINE"]
-									}
+									values = MER.Values.FontFlags,
+									sortByValue = true,
 								},
 								size = {
 									order = 3,

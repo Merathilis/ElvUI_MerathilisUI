@@ -63,49 +63,71 @@ local function HandleTab(tab)
 	tab.Text.SetPoint = E.noop
 end
 
-local function reskin(func)
-	return function(frame, ...)
-		if frame.__MERSkin then
-			return
+local function SkinItem(item, info)
+	if not item.backdrop then
+		item:CreateBackdrop(nil, nil, nil, nil, nil, nil, nil, nil, true)
+		item:StyleButton()
+		item.backdrop:SetAllPoints()
+
+		S:HandleIconBorder(item.IconBorder, item.backdrop)
+	end
+
+	local p1, anchor, p2, x, y = item:GetPoint()
+	item:SetPoint(p1, anchor, p2, x+2, y+1)
+
+	if info and info.selected then
+		local r, g, b, a = item.IconBorder:GetVertexColor()
+		item.Icon.backdrop:SetBackdropBorderColor(r, g, b, a)
+	end
+end
+
+local function viewGroup(frame)
+	if frame.GroupTitle then
+		frame.GroupTitle:StripTextures()
+		S:HandleButton(frame.GroupTitle)
+	end
+end
+
+local function viewItem(frame)
+	if frame.Icon.GetNumPoints and frame.Icon:GetNumPoints() > 0 then
+		local pointsCache = {}
+
+		for i = 1, frame.Icon:GetNumPoints() do
+			local point, relativeTo, relativePoint, xOfs, yOfs = frame.Icon:GetPoint(i)
+
+			if relativePoint == "TOPLEFT" then
+				xOfs = xOfs + 2
+				yOfs = yOfs - 2
+			elseif relativePoint == "BOTTOMRIGHT" then
+				xOfs = xOfs - 2
+				yOfs = yOfs + 2
+			end
+
+			pointsCache[i] = { point, relativeTo, relativePoint, xOfs, yOfs }
 		end
 
-		func(frame, ...)
+		frame.Icon:ClearAllPoints()
 
-		frame.__MERSkin = true
+		for i = 1, #pointsCache do
+			local pointData = pointsCache[i]
+			frame.Icon:SetPoint(pointData[1], pointData[2], pointData[3], pointData[4], pointData[5])
+		end
 	end
-end
 
-local function bagClassListing(frame)
-	frame.SectionTitle:StripTextures()
-	S:HandleButton(frame.SectionTitle)
-end
+	frame.EmptySlot:SetTexture(nil)
+	frame.EmptySlot:Hide()
 
-local function bagItemContainer(frame)
-	if frame.buttonPool then
-	hooksecurefunc(frame.buttonPool, "Acquire", function(pool, button)
-			for button in pool:EnumerateActive() do
-			if not button.__MERSkin then
-				button.Icon:ClearAllPoints()
-				button.Icon:SetSize(frame.iconSize - 4, frame.iconSize - 4)
-				button.Icon:SetPoint("CENTER", button, "CENTER", 0, 0)
+	frame:GetHighlightTexture():SetTexture(E.Media.Textures.White8x8)
+	frame:GetHighlightTexture():SetVertexColor(1, 1, 1, 0.3)
 
-				button.EmptySlot:SetTexture(nil)
-				button.EmptySlot:Hide()
+	frame.IconSelectedHighlight:SetTexture(E.Media.Textures.White8x8)
+	frame.IconSelectedHighlight:SetVertexColor(1, 1, 1, 0.4)
 
-				button:GetHighlightTexture():SetTexture(E.Media.Textures.White8x8)
-				button:GetHighlightTexture():SetVertexColor(1, 1, 1, 0.3)
+	frame:GetPushedTexture():SetTexture(E.Media.Textures.White8x8)
+	frame:GetPushedTexture():SetVertexColor(1, 1, 0, 0.3)
 
-				button:GetPushedTexture():SetTexture(E.Media.Textures.White8x8)
-				button:GetPushedTexture():SetVertexColor(1, 1, 0, 0.3)
-
-				S:HandleIcon(button.Icon, true)
-				S:HandleIconBorder(button.IconBorder, button.Icon.backdrop)
-
-				button.__MERSkin = true
-				end
-			end
-		end)
-	end
+	S:HandleIcon(frame.Icon, true)
+	S:HandleIconBorder(frame.IconBorder, frame.Icon.backdrop)
 end
 
 local function configRadioButtonGroup(frame)
@@ -126,8 +148,15 @@ local function keyBindingConfig(frame)
 	S:HandleButton(frame.Button)
 end
 
-local function sellingBagFrame(frame)
-	S:HandleScrollBar(frame.ScrollBar)
+local function bagUse(frame)
+	frame.View:CreateBackdrop("Transparent")
+	S:HandleTrimScrollBar(frame.View.ScrollBar)
+
+	for _, child in pairs({ frame:GetChildren() }) do
+		if child ~= frame.View then
+			S:HandleButton(child)
+		end
+	end
 end
 
 local function configNumericInput(frame)
@@ -404,6 +433,108 @@ local function craftingInfoProfessionsFrame(frame)
 	S:HandleButton(frame.SearchButton)
 end
 
+local function tryPostHook(...)
+	local frame, method, hookFunc = ...
+	if frame and method and _G[frame] and _G[frame][method] then
+		hooksecurefunc(_G[frame], method, function(frame, ...)
+			if not frame.__MERSkin then
+				hookFunc(frame, ...)
+				frame.__MERSkin = true
+			end
+		end)
+	else
+		module:Log("debug", "Failed to hook: " .. tostring(frame) .. " " .. tostring(method))
+	end
+end
+
+local CustomizeElements = { 'FocusButton', 'DeleteButton', 'HideButton', 'RenameButton', 'ShiftDownButton', 'ShiftUpButton', 'NewGroupButton' }
+local function HandleCustomiseElements(frame)
+	for i, name in next, CustomizeElements do
+		local button = frame[name]
+		if button then
+			S:HandleButton(button)
+
+			if i == 1 then
+				-- adjust the points
+				local p1, anchor, p2, x, y = button:GetPoint()
+				button:SetPoint(p1, anchor, p2, x, y+1)
+			end
+		end
+	end
+
+	local durations = frame.Durations
+	if durations then
+		S:HandleRadioButton(durations.Default)
+		S:HandleRadioButton(durations.Long)
+		S:HandleRadioButton(durations.Medium)
+		S:HandleRadioButton(durations.Short)
+	end
+
+	local quanity = frame.Quantity
+	if quanity then
+		S:HandleEditBox(quanity.Quantity)
+	end
+
+	local dividerContainer = frame.DividerContainer
+	if dividerContainer then
+		dividerContainer.Divider:StripTextures()
+	end
+
+	local focused = frame.FocussedBackground
+	if focused then
+		focused:SetDrawLayer('BACKGROUND', -2)
+	end
+
+	local hover = frame.FocussedHoverBackground
+	if hover then
+		hover:SetDrawLayer('BACKGROUND', -1)
+	end
+end
+
+local function GroupsCustomise_UpdateFromExisting(view)
+	for _, frame in next, view.groups do
+		if not frame.template then
+			frame:SetTemplate('Transparent')
+
+			HandleCustomiseElements(frame)
+		end
+
+		for _, button in next, frame.buttons do
+			if button.itemInfo then
+				SkinItem(button, button.itemInfo)
+			end
+		end
+	end
+
+	local groups = _G.Auctionator.Groups
+	if groups.viewFirstShow then
+		groups.viewFirstShow = nil
+
+		view:UpdateGroupHeights()
+	end
+end
+
+local function OpenCustomiseView()
+	local customize = _G.AuctionatorGroupsCustomiseFrame
+	customize.NineSlice:StripTextures()
+	customize:SetTemplate('Transparent')
+	module:CreateShadow(customize)
+	customize:Styling()
+
+	customize.Bg:StripTextures()
+	customize.TopTileStreaks:StripTextures()
+
+	customize.BackButton:Point('TOPRIGHT', -25, -28)
+	customize.NewGroupButton:Point('TOPLEFT', 7, -28)
+
+	S:HandleButton(customize.BackButton)
+	S:HandleButton(customize.NewGroupButton)
+	S:HandleCloseButton(customize.CloseButton)
+	S:HandleTrimScrollBar(customize.View.ScrollBar)
+
+	hooksecurefunc(customize.View, 'UpdateFromExisting', GroupsCustomise_UpdateFromExisting)
+end
+
 function module:Auctionator()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.au then
 		return
@@ -412,45 +543,48 @@ function module:Auctionator()
 	module:DisableAddOnSkins("Auctionator", false)
 
 	-- widgets
-	hooksecurefunc(_G.AuctionatorBagClassListingMixin, "Init", reskin(bagClassListing))
-	hooksecurefunc(_G.AuctionatorBagItemContainerMixin, "OnLoad", reskin(bagItemContainer))
-	hooksecurefunc(_G.AuctionatorConfigCheckboxMixin, "OnLoad", reskin(configCheckbox))
-	hooksecurefunc(_G.AuctionatorConfigHorizontalRadioButtonGroupMixin, "SetupRadioButtons", reskin(configRadioButtonGroup)
-	)
-	hooksecurefunc(_G.AuctionatorConfigMinMaxMixin, "OnLoad", reskin(configMinMax))
-	hooksecurefunc(_G.AuctionatorConfigMoneyInputMixin, "OnLoad", reskin(configMoneyInput))
-	hooksecurefunc(_G.AuctionatorConfigNumericInputMixin, "OnLoad", reskin(configNumericInput))
-	hooksecurefunc(_G.AuctionatorConfigRadioButtonGroupMixin, "SetupRadioButtons", reskin(configRadioButtonGroup))
-	hooksecurefunc(_G.AuctionatorDropDownInternalMixin, "Initialize", reskin(dropDownInternal))
-	hooksecurefunc(_G.AuctionatorFilterKeySelectorMixin, "OnLoad", reskin(filterKeySelector))
-	hooksecurefunc(_G.AuctionatorKeyBindingConfigMixin, "OnLoad", reskin(keyBindingConfig))
-	hooksecurefunc(_G.AuctionatorResultsListingMixin, "OnShow", reskin(resultsListing))
-	hooksecurefunc(_G.AuctionatorSaleItemMixin, "OnLoad", reskin(saleItem))
-	hooksecurefunc(_G.AuctionatorShoppingTabFrameMixin, "OnLoad", reskin(shoppingTabFrame))
-	hooksecurefunc(_G.AuctionatorShoppingTabSearchOptionsMixin, "OnLoad", reskin(shoppingTabSearchOptions))
-	hooksecurefunc(_G.AuctionatorShoppingTabListsContainerMixin, "OnLoad", reskin(shoppingTabContainer))
-	hooksecurefunc(_G.AuctionatorShoppingTabRecentsContainerMixin, "OnLoad", reskin(shoppingTabContainer))
-	hooksecurefunc(_G.AuctionatorShoppingTabContainerTabsMixin, "OnLoad", reskin(shoppingTabContainerTabs))
-	hooksecurefunc(_G.AuctionatorSellingBagFrameMixin, "OnLoad", reskin(sellingBagFrame))
-	hooksecurefunc(_G.AuctionatorSellingTabPricesContainerMixin, "OnLoad", reskin(sellingTabPricesContainer))
-	hooksecurefunc(_G.AuctionatorTabContainerMixin, "OnLoad", reskin(bottomTabButtons))
-	hooksecurefunc(_G.AuctionatorUndercutScanMixin, "OnLoad", reskin(undercutScan))
+	tryPostHook("AuctionatorGroupsViewGroupMixin", "SetName", viewGroup)
+	tryPostHook("AuctionatorGroupsViewItemMixin", "SetItemInfo", viewItem)
+	tryPostHook("AuctionatorConfigCheckboxMixin", "OnLoad", configCheckbox)
+	tryPostHook("AuctionatorConfigHorizontalRadioButtonGroupMixin", "SetupRadioButtons", configRadioButtonGroup)
+	tryPostHook("AuctionatorConfigMinMaxMixin", "OnLoad", configMinMax)
+	tryPostHook("AuctionatorConfigMoneyInputMixin", "OnLoad", configMoneyInput)
+	tryPostHook("AuctionatorConfigNumericInputMixin", "OnLoad", configNumericInput)
+	tryPostHook("AuctionatorConfigRadioButtonGroupMixin", "SetupRadioButtons", configRadioButtonGroup)
+	tryPostHook("AuctionatorDropDownInternalMixin", "Initialize", dropDownInternal)
+	tryPostHook("AuctionatorFilterKeySelectorMixin", "OnLoad", filterKeySelector)
+	tryPostHook("AuctionatorKeyBindingConfigMixin", "OnLoad", keyBindingConfig)
+	tryPostHook("AuctionatorResultsListingMixin", "OnShow", resultsListing)
+	tryPostHook("AuctionatorSaleItemMixin", "OnLoad", saleItem)
+	tryPostHook("AuctionatorShoppingTabFrameMixin", "OnLoad", shoppingTabFrame)
+	tryPostHook("AuctionatorShoppingTabSearchOptionsMixin", "OnLoad", shoppingTabSearchOptions)
+	tryPostHook("AuctionatorShoppingTabListsContainerMixin", "OnLoad", shoppingTabContainer)
+	tryPostHook("AuctionatorShoppingTabRecentsContainerMixin", "OnLoad", shoppingTabContainer)
+	tryPostHook("AuctionatorShoppingTabContainerTabsMixin", "OnLoad", shoppingTabContainerTabs)
+	tryPostHook("AuctionatorBagUseMixin", "OnLoad", bagUse)
+	tryPostHook("AuctionatorSellingTabPricesContainerMixin", "OnLoad", sellingTabPricesContainer)
+	tryPostHook("AuctionatorTabContainerMixin", "OnLoad", bottomTabButtons)
+	tryPostHook("AuctionatorUndercutScanMixin", "OnLoad", undercutScan)
 
 	-- tab frames
-	hooksecurefunc(_G.AuctionatorCancellingFrameMixin, "OnLoad", reskin(cancellingFrame))
-	hooksecurefunc(_G.AuctionatorConfigTabMixin, "OnLoad", reskin(configTab))
-	hooksecurefunc(_G.AuctionatorSellingTabMixin, "OnLoad", reskin(sellingTab))
+	tryPostHook("AuctionatorCancellingFrameMixin", "OnLoad", cancellingFrame)
+	tryPostHook("AuctionatorConfigTabMixin", "OnLoad", configTab)
+	tryPostHook("AuctionatorSellingTabMixin", "OnLoad", sellingTab)
 
 	-- frames
-	hooksecurefunc(_G.AuctionatorConfigSellingFrameMixin, "OnLoad", reskin(configSellingFrame))
-	hooksecurefunc(_G.AuctionatorExportTextFrameMixin, "OnLoad", reskin(exportTextFrame))
-	hooksecurefunc(_G.AuctionatorListExportFrameMixin, "OnLoad", reskin(listExportFrame))
-	hooksecurefunc(_G.AuctionatorListImportFrameMixin, "OnLoad", reskin(listImportFrame))
-	hooksecurefunc(_G.AuctionatorItemHistoryFrameMixin, "Init", reskin(itemHistoryFrame))
-	hooksecurefunc(_G.AuctionatorCraftingInfoObjectiveTrackerFrameMixin, "OnLoad", reskin(craftingInfoObjectiveTrackerFrame))
-	hooksecurefunc(_G.AuctionatorCraftingInfoProfessionsFrameMixin, "OnLoad", reskin(craftingInfoProfessionsFrame))
-	hooksecurefunc(_G.AuctionatorShoppingItemMixin, "OnLoad", reskin(shoppingItem))
-	hooksecurefunc(_G.AuctionatorSplashScreenMixin, "OnLoad", reskin(splashFrame))
+	tryPostHook("AuctionatorConfigSellingFrameMixin", "OnLoad", configSellingFrame)
+	tryPostHook("AuctionatorExportTextFrameMixin", "OnLoad", exportTextFrame)
+	tryPostHook("AuctionatorListExportFrameMixin", "OnLoad", listExportFrame)
+	tryPostHook("AuctionatorListImportFrameMixin", "OnLoad", listImportFrame)
+	tryPostHook("AuctionatorItemHistoryFrameMixin", "Init", itemHistoryFrame)
+	tryPostHook("AuctionatorCraftingInfoObjectiveTrackerFrameMixin", "OnLoad", craftingInfoObjectiveTrackerFrame)
+	tryPostHook("AuctionatorCraftingInfoProfessionsFrameMixin", "OnLoad", craftingInfoProfessionsFrame)
+	tryPostHook("AuctionatorShoppingItemMixin", "OnLoad", shoppingItem)
+	tryPostHook("AuctionatorSplashScreenMixin", "OnLoad", splashFrame)
+
+	local groups = _G.Auctionator.Groups
+	groups.viewFirstShow = true -- fixes the page bugging out on first show
+	hooksecurefunc(groups, 'OpenCustomiseView', OpenCustomiseView)
 end
 
 module:AddCallbackForAddon("Auctionator")

@@ -5,13 +5,6 @@ local M = E.Misc
 
 local _G = _G
 
-local fontStyleList = {
-	["NONE"] = NONE,
-	["OUTLINE"] = 'OUTLINE',
-	["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-	["THICKOUTLINE"] = 'THICKOUTLINE'
-}
-
 options.armory = {
 	type = "group",
 	name = L["Armory"],

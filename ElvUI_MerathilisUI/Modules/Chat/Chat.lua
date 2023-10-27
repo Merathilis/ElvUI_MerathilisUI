@@ -169,7 +169,7 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 		f.tex:SetColorTexture(0.1, 0.1, 0.1, 1)
 
 		f.text = f:CreateFontString()
-		f.text:FontTemplate(nil, 20, "OUTLINE")
+		f.text:FontTemplate(nil, 20, "SHADOWOUTLINE")
 		f.text:SetShadowOffset(-2, 2)
 		f.text:SetText(L["Chat Hidden. Click to show"])
 		f.text:SetTextColor(F.r, F.g, F.b)

@@ -46,7 +46,7 @@ P.blizzard = {
 		header = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize + 2,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			classColor = false,
 			color = {r = 1, g = 1, b = 1},
 			shortHeader = true
@@ -72,12 +72,12 @@ P.blizzard = {
 		title = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize + 1,
-			style = "OUTLINE"
+			style = "SHADOWOUTLINE"
 		},
 		info = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize,
-			style = "OUTLINE"
+			style = "SHADOWOUTLINE"
 		},
 		titleColor = {
 			enable = true,
@@ -92,7 +92,7 @@ P.blizzard = {
 			font = {
 				name = E.db.general.font,
 				size = E.db.general.fontSize,
-				style = "OUTLINE",
+				style = "SHADOWOUTLINE",
 			},
 		},
 	},
@@ -120,12 +120,12 @@ P.blizzard = {
 		nameFont = {
 			name = E.db.general.font,
 			size = 13,
-			style = "OUTLINE"
+			style = "SHADOWOUTLINE"
 		},
 		infoFont = {
 			name = E.db.general.font,
 			size = 12,
-			style = "OUTLINE"
+			style = "SHADOWOUTLINE"
 		},
 	},
 }
@@ -135,7 +135,7 @@ P.CombatAlert = {
 	font = {
 		name = "Expressway",
 		size = 28,
-		style = "THICKOUTLINE",
+		style = "SHADOWOUTLINE",
 	},
 	style = {
 		backdrop = false,
@@ -273,7 +273,7 @@ P.chat = {
 		font = {
 			name = E.db.general.font,
 			size = 12,
-			style = "OUTLINE"
+			style = "SHADOWOUTLINE"
 		},
 		color = true,
 		channels = {
@@ -584,7 +584,7 @@ P.misc = {
 P.nameHover = {
 	enable = true,
 	fontSize = 7,
-	fontOutline = "OUTLINE",
+	fontOutline = "SHADOWOUTLINE",
 	targettarget = false,
 }
 
@@ -620,12 +620,12 @@ P.notification = {
 	titleFont = {
 		name = "Expressway",
 		size = 12,
-		style = "OUTLINE",
+		style = "SHADOWOUTLINE",
 	},
 	textFont = {
 		name = "Expressway",
 		size = 11,
-		style = "OUTLINE",
+		style = "SHADOWOUTLINE",
 	},
 }
 
@@ -729,7 +729,7 @@ P.autoButtons = {
 		countFont = {
 			name = "Expressway",
 			size = 12,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
@@ -741,7 +741,7 @@ P.autoButtons = {
 		bindFont = {
 			name = "Expressway",
 			size = 12,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
@@ -776,7 +776,7 @@ P.autoButtons = {
 		countFont = {
 			name = "Expressway",
 			size = 12,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
@@ -788,7 +788,7 @@ P.autoButtons = {
 		bindFont = {
 			name = "Expressway",
 			size = 12,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
@@ -824,7 +824,7 @@ P.autoButtons = {
 		countFont = {
 			name = "Expressway",
 			size = 12,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
@@ -836,7 +836,7 @@ P.autoButtons = {
 		bindFont = {
 			name = "Expressway",
 			size = 12,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
@@ -871,7 +871,7 @@ P.autoButtons = {
 		countFont = {
 			name = "Expressway",
 			size = 12,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
@@ -883,7 +883,7 @@ P.autoButtons = {
 		bindFont = {
 			name = "Expressway",
 			size = 12,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
@@ -918,7 +918,7 @@ P.autoButtons = {
 		countFont = {
 			name = "Expressway",
 			size = 12,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
@@ -930,7 +930,7 @@ P.autoButtons = {
 		bindFont = {
 			name = "Expressway",
 			size = 12,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
@@ -972,7 +972,7 @@ P.microBar = {
 		font = {
 			name = E.db.general.font,
 			size = 25,
-			style = "OUTLINE"
+			style = "SHADOWOUTLINE"
 		}
 	},
 	home = {
@@ -988,7 +988,7 @@ P.microBar = {
 		font = {
 			name = E.db.general.font,
 			size = 12,
-			style = "OUTLINE"
+			style = "SHADOWOUTLINE"
 		}
 	},
 	left = {
@@ -1369,7 +1369,7 @@ P.maps = {
 			font = {
 				name = E.db.general.font,
 				size = 12,
-				style = "OUTLINE"
+				style = "SHADOWOUTLINE"
 			},
 		},
 	},
@@ -1380,7 +1380,7 @@ P.maps = {
 		font = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize,
-			style = "OUTLINE"
+			style = "SHADOWOUTLINE"
 		},
 		custom = false,
 		customStrings = {
@@ -1425,7 +1425,7 @@ P.maps = {
 			enable = true,
 			name = E.db.general.font,
 			size = E.db.general.fontSize + 2,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			color = {r = 1, g = 1, b = 1},
 		},
 		waypointParse = {
@@ -1461,7 +1461,7 @@ P.maps = {
 		font = {
 			name = E.db.general.font,
 			scale = 1,
-			outline = "OUTLINE"
+			outline = "SHADOWOUTLINE"
 		},
 		communityFeast = {
 			enable = true,
@@ -1519,19 +1519,19 @@ P.media = {
 		zone = {
 			font = "Expressway",
 			size = 32,
-			outline = "OUTLINE",
+			outline = "SHADOWOUTLINE",
 			width = 512,
 		},
 		subzone = {
 			font = "Expressway",
 			size = 25,
-			outline = "OUTLINE",
+			outline = "SHADOWOUTLINE",
 			width = 512,
 		},
 		pvp = {
 			font = "Expressway",
 			size = 22,
-			outline = "OUTLINE",
+			outline = "SHADOWOUTLINE",
 			width = 512,
 		},
 	},
@@ -1540,7 +1540,7 @@ P.media = {
 			enable = true,
 			font = "Expressway",
 			size = 12,
-			outline = "OUTLINE",
+			outline = "SHADOWOUTLINE",
 		},
 	},
 }
@@ -1588,7 +1588,7 @@ P.locPanel = {
 	template = "Transparent",
 	font = "Expressway",
 	fontSize = 11,
-	fontOutline = "OUTLINE",
+	fontOutline = "SHADOWOUTLINE",
 	throttle = 0.2,
 	format = "%.0f",
 	zoneText = true,
@@ -1674,7 +1674,7 @@ P.itemLevel = {
 		font = {
 			name = "Expressway",
 			size = 11,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
@@ -1691,7 +1691,7 @@ P.itemLevel = {
 		font = {
 			name = "Expressway",
 			size = 13,
-			style = "OUTLINE",
+			style = "SHADOWOUTLINE",
 			xOffset = 0,
 			yOffset = 0,
 			color = {
