@@ -1736,3 +1736,39 @@ P.cooldownFlash = {
 	ttsvoice = nil,
 	ttsvolume = 100,
 }
+
+P.scale = {
+	enable = false,
+
+	characterFrame = {
+		scale = 1,
+	},
+
+	dressingRoom = {
+		scale = 1,
+	},
+
+	syncInspect = {
+		enable = false,
+	},
+
+	inspectFrame = {
+		scale = 1,
+	},
+
+	wardrobe = {
+		scale = 1,
+	},
+
+	collections = {
+		scale = 1,
+	},
+
+	talents = {
+		scale = 1,
+	},
+
+	spellbook = {
+		scale = 1,
+	}
+}

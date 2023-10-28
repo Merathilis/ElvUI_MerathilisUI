@@ -5,8 +5,6 @@ local S = E:GetModule('Skins')
 local _G = _G
 local pairs = pairs
 
-local ImmersionFrame = _G.ImmersionFrame
-
 function module:Immersion_ReskinTitleButton(frame)
 	for _, button in pairs { frame.TitleButtons:GetChildren() } do
 		if button and not button.__MERSkin then
@@ -30,7 +28,7 @@ end
 
 function module:AttemptReskinButton()
 	self.reskinButtonAttemptCount = self.reskinButtonAttemptCount + 1
-	self:Immersion_ReskinTitleButton(ImmersionFrame)
+	self:Immersion_ReskinTitleButton(_G.ImmersionFrame)
 	if self.reskinButtonAttemptCount == 10 then
 		self:CancelTimer(self.reskinButtonTimer)
 	end
@@ -38,7 +36,7 @@ end
 
 function module:Immersion_Show()
 	self:Immersion_SpeechProgressText()
-	self:Immersion_ReskinTitleButton(ImmersionFrame)
+	self:Immersion_ReskinTitleButton(_G.ImmersionFrame)
 	self.reskinButtonAttemptCount = 0
 	self.reskinButtonTimer = self:ScheduleRepeatingTimer("AttemptReskinButton", 0.1)
 	E:Delay(0.1, S.Immersion_ReskinItems, S)
@@ -93,7 +91,7 @@ do
 			return
 		end
 
-		local talkBox = ImmersionFrame and ImmersionFrame.TalkBox
+		local talkBox = _G.ImmersionFrame and _G.ImmersionFrame.TalkBox
 		if talkBox and talkBox.TextFrame and talkBox.TextFrame.SpeechProgress then
 			F.SetFontOutline(talkBox.TextFrame.SpeechProgress)
 

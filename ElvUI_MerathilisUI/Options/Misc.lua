@@ -214,8 +214,173 @@ options.spellAlert = {
 	},
 }
 
-options.cursor = {
+options.scale = {
 	order = 3,
+	type = "group",
+	name = E.NewSign..L["Scale"],
+	args = {
+		header = {
+			order = 0,
+			type = "header",
+			name = F.cOption(L["Scale"], 'orange'),
+		},
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+			get = function(_)
+				return E.db.mui.scale.enable
+			end,
+			set = function(_, value)
+				E.db.mui.scale.enable = value
+				if value then
+					MI:Scale()
+				else
+					E:StaticPopup_Show("CONFIG_RL")
+				end
+			end,
+		},
+		spacer = {
+			order = 2,
+			type = "description",
+			name = " ",
+		},
+		characterGroup = {
+			order = 3,
+			type = "group",
+			name = F.cOption(L["Character"], 'orange'),
+			guiInline = true,
+			hidden = function() return not E.db.mui.scale.enable end,
+			args = {
+				character = {
+					order = 1,
+					type = "range",
+					name = L["Character Frame"],
+					get = function(_)
+						return E.db.mui.scale.characterFrame.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.characterFrame.scale = value
+						MI:Scale()
+					end,
+					min = 0.5, max = 2, step = 0.05,
+				},
+				dressingRoom = {
+					order = 2,
+					type = "range",
+					name = L["Dressing Room"],
+					get = function(_)
+						return E.db.mui.scale.dressingRoom.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.dressingRoom.scale = value
+						MI:Scale()
+					end,
+					min = 0.5, max = 2, step = 0.05,
+				},
+				inspectFrame = {
+					order = 3,
+					type = "range",
+					name = L["Inspect Frame"],
+					disabled = function()
+						return E.db.mui.scale.syncInspect.enabled
+					end,
+					get = function(_)
+						return E.db.mui.scale.inspectFrame.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.inspectFrame.scale = value
+						MI:Scale()
+					end,
+					min = 0.5, max = 2, step = 0.05,
+				},
+				syncInspect = {
+					order = 4,
+					type = "toggle",
+					name = L["Sync Inspect"],
+					desc = L["Toggling this on makes your inspect frame scale have the same value as the character frame scale."],
+					get = function(_)
+						return E.db.mui.scale.syncInspect.enabled
+					end,
+					set = function(_, value)
+						E.db.mui.scale.syncInspect.enabled = value
+						MI:Scale()
+					end,
+				},
+			},
+		},
+		spacer1 = {
+			order = 4,
+			type = "description",
+			name = " ",
+		},
+		otherGroup = {
+			order = 5,
+			type = "group",
+			name = F.cOption(L["Other"], 'orange'),
+			desc = L["Scale other frames.\n\n"],
+			guiInline = true,
+			hidden = function() return not E.db.mui.scale.enable end,
+			args = {
+				spellbook = {
+					order = 1,
+					type = "range",
+					name = L["Spellbook"],
+					get = function(_)
+						return E.db.mui.scale.spellbook.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.spellbook.scale = value
+						MI:Scale()
+					end,
+					min = 0.5, max = 2, step = 0.05,
+				},
+				talents = {
+					order = 2,
+					type = "range",
+					name = L["Talents"],
+					get = function(_)
+						return E.db.mui.scale.talents.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.talents.scale = value
+						MI:Scale()
+					end,
+					min = 0.5, max = 2, step = 0.05,
+				},
+				collections = {
+					order = 3,
+					type = "range",
+					name = L["Collections"],
+					get = function(_)
+						return E.db.mui.scale.collections.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.collections.scale = value
+						MI:Scale()
+					end,
+					min = 0.5, max = 2, step = 0.05,
+				},
+				wardrobe = {
+					order = 3,
+					type = "range",
+					name = L["Wardrobe"],
+					get = function(_)
+						return E.db.mui.scale.wardrobe.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.wardrobe.scale = value
+						MI:Scale()
+					end,
+					min = 0.5, max = 2, step = 0.05,
+				},
+			},
+		},
+	},
+}
+
+options.cursor = {
+	order = 4,
 	type = "group",
 	name = L["Flashing Cursor"],
 	get = function(info) return
@@ -272,7 +437,7 @@ options.cursor = {
 }
 
 options.lfgInfo = {
-	order = 4,
+	order = 5,
 	name = L["LFG Info"],
 	type = "group",
 	get = function(info)
@@ -427,7 +592,7 @@ options.lfgInfo = {
 	},
 }
 options.tags = {
-	order = 6,
+	order = 7,
 	type = "group",
 	name = L["Tags"],
 	args = {
@@ -541,7 +706,7 @@ do
 end
 
 options.alreadyKnown = {
-	order = 7,
+	order = 8,
 	type = "group",
 	name = L["Already Known"],
 	get = function(info)
@@ -624,7 +789,7 @@ options.alreadyKnown = {
 }
 
 options.mute = {
-	order = 8,
+	order = 9,
 	type = "group",
 	name = L["Mute"],
 	args = {
