@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Core.lua"/>
+
 	<Script file="Misc.lua"/>
 	<Script file="Afk.lua"/>
 	<Script file="AlreadyKnown.lua"/>
@@ -19,4 +20,6 @@
 	<Script file="RandomToy.lua"/>
 	<Script file="TradeTabs.lua"/>
 	<Script file="WoWHeadLinks.lua"/>
+
+	<Include file="Scale\Load_Scale.xml"/>
 </Ui>
