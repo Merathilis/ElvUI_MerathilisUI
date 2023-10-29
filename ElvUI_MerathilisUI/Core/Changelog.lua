@@ -12,11 +12,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix WeakAuras skinning. Credits: Windtools <3",
-		"• Fix Auctionator Skin",
-		"• Fix MicroBar right click on Guild Icon",
-		"• Added a new Font Outline Option: Shadow (like ElvUI)",
-		"• Added Skin for BagSync",
+		"• Fixed an error with Immersion Skin",
+		"• Added an scaling option for some frames, disabled by default: Misc -> Scale",
 
 		-- "• ''",
 
