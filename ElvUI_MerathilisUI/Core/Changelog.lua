@@ -12,8 +12,7 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an error with Immersion Skin",
-		"• Added an scaling option for some frames, disabled by default: Misc -> Scale",
+		"• Fixed an oopsie in the BagSync Skin",
 
 		-- "• ''",
 
