@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
+if not IsAddOnLoaded('BagSync') then return end
 
 -- Call the AddOn
 local AddOn = E.Libs.AceAddon:GetAddon('BagSync')
