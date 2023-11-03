@@ -81,6 +81,11 @@ local function SkinItem(item, info)
 	end
 end
 
+local function buyIconName(frame)
+	S:HandleIcon(frame.Icon, true)
+	S:HandleIconBorde(frame.QualityBorder, frame.Icon.backdrop)
+end
+
 local function viewGroup(frame)
 	if frame.GroupTitle then
 		frame.GroupTitle:StripTextures()
@@ -433,6 +438,27 @@ local function craftingInfoProfessionsFrame(frame)
 	S:HandleButton(frame.SearchButton)
 end
 
+local function buyCommodity(frame)
+	S:HandleButton(frame.BackButton)
+	frame:StripTextures()
+
+	local container = frame.DetailsContainer
+	if not container then
+		return
+	end
+
+	S:HandleButton(container.BuyButton)
+	S:HandleEditBox(container.Quantity)
+	container.Quantity:SetTextInsets(0, 0, 0, 0)
+
+	for _, child in pairs({ frame:GetChildren() }) do
+		if child:IsObjectType("Button") and child.iconAtlas and child.iconAtlas == "UI-RefreshButton" then
+			S:HandleButton(child)
+			break
+		end
+	end
+end
+
 local function tryPostHook(...)
 	local frame, method, hookFunc = ...
 	if frame and method and _G[frame] and _G[frame][method] then
@@ -543,6 +569,7 @@ function module:Auctionator()
 	module:DisableAddOnSkins("Auctionator", false)
 
 	-- widgets
+	tryPostHook("AuctionatorBuyIconNameTemplateMixin", "SetItem", buyIconName)
 	tryPostHook("AuctionatorGroupsViewGroupMixin", "SetName", viewGroup)
 	tryPostHook("AuctionatorGroupsViewItemMixin", "SetItemInfo", viewItem)
 	tryPostHook("AuctionatorConfigCheckboxMixin", "OnLoad", configCheckbox)
@@ -581,6 +608,7 @@ function module:Auctionator()
 	tryPostHook("AuctionatorCraftingInfoProfessionsFrameMixin", "OnLoad", craftingInfoProfessionsFrame)
 	tryPostHook("AuctionatorShoppingItemMixin", "OnLoad", shoppingItem)
 	tryPostHook("AuctionatorSplashScreenMixin", "OnLoad", splashFrame)
+	tryPostHook("AuctionatorBuyCommodityFrameTemplateMixin", "OnLoad", buyCommodity)
 
 	local groups = _G.Auctionator.Groups
 	groups.viewFirstShow = true -- fixes the page bugging out on first show
