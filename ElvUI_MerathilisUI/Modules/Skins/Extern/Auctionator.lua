@@ -63,27 +63,9 @@ local function HandleTab(tab)
 	tab.Text.SetPoint = E.noop
 end
 
-local function SkinItem(item, info)
-	if not item.backdrop then
-		item:CreateBackdrop(nil, nil, nil, nil, nil, nil, nil, nil, true)
-		item:StyleButton()
-		item.backdrop:SetAllPoints()
-
-		S:HandleIconBorder(item.IconBorder, item.backdrop)
-	end
-
-	local p1, anchor, p2, x, y = item:GetPoint()
-	item:SetPoint(p1, anchor, p2, x+2, y+1)
-
-	if info and info.selected then
-		local r, g, b, a = item.IconBorder:GetVertexColor()
-		item.Icon.backdrop:SetBackdropBorderColor(r, g, b, a)
-	end
-end
-
 local function buyIconName(frame)
 	S:HandleIcon(frame.Icon, true)
-	S:HandleIconBorde(frame.QualityBorder, frame.Icon.backdrop)
+	S:HandleIconBorder(frame.QualityBorder, frame.Icon.backdrop)
 end
 
 local function viewGroup(frame)
@@ -459,6 +441,53 @@ local function buyCommodity(frame)
 	end
 end
 
+local function groupsCustomiseDuration(frame)
+	for _, child in pairs({ frame.Short, frame.Medium, frame.Long, frame.Default }) do
+		if child then
+			S:HandleRadioButton(child)
+		end
+	end
+end
+
+local function groupsCustomise(frame)
+	frame:StripTextures()
+	frame:SetTemplate("Transparent")
+	module:CreateShadow(frame)
+	frame:Styling()
+
+	S:HandleCloseButton(frame.CloseButton)
+	S:HandleButton(frame.BackButton)
+	S:HandleButton(frame.NewGroupButton)
+	S:HandleTrimScrollBar(frame.View.ScrollBar)
+	frame.View.ScrollBox:CreateBackdrop("Transparent")
+end
+
+local function groupsCustomiseGroup(frame)
+	for _, child in pairs(
+		{
+			frame.FocusButton,
+			frame.RenameButton,
+			frame.DeleteButton,
+			frame.HideButton,
+			frame.ShiftUpButton,
+			frame.ShiftDownButton
+		}
+	) do
+		if child then
+			S:HandleButton(child)
+		end
+	end
+
+	if frame.DividerContainer then
+		frame.DividerContainer:StripTextures()
+	end
+
+	if frame.Quantity and frame.Quantity.Quantity then
+		S:HandleEditBox(frame.Quantity.Quantity)
+		frame.Quantity.Quantity:SetTextInsets(0, 0, 0, 0)
+	end
+end
+
 local function tryPostHook(...)
 	local frame, method, hookFunc = ...
 	if frame and method and _G[frame] and _G[frame][method] then
@@ -473,94 +502,6 @@ local function tryPostHook(...)
 	end
 end
 
-local CustomizeElements = { 'FocusButton', 'DeleteButton', 'HideButton', 'RenameButton', 'ShiftDownButton', 'ShiftUpButton', 'NewGroupButton' }
-local function HandleCustomiseElements(frame)
-	for i, name in next, CustomizeElements do
-		local button = frame[name]
-		if button then
-			S:HandleButton(button)
-
-			if i == 1 then
-				-- adjust the points
-				local p1, anchor, p2, x, y = button:GetPoint()
-				button:SetPoint(p1, anchor, p2, x, y+1)
-			end
-		end
-	end
-
-	local durations = frame.Durations
-	if durations then
-		S:HandleRadioButton(durations.Default)
-		S:HandleRadioButton(durations.Long)
-		S:HandleRadioButton(durations.Medium)
-		S:HandleRadioButton(durations.Short)
-	end
-
-	local quanity = frame.Quantity
-	if quanity then
-		S:HandleEditBox(quanity.Quantity)
-	end
-
-	local dividerContainer = frame.DividerContainer
-	if dividerContainer then
-		dividerContainer.Divider:StripTextures()
-	end
-
-	local focused = frame.FocussedBackground
-	if focused then
-		focused:SetDrawLayer('BACKGROUND', -2)
-	end
-
-	local hover = frame.FocussedHoverBackground
-	if hover then
-		hover:SetDrawLayer('BACKGROUND', -1)
-	end
-end
-
-local function GroupsCustomise_UpdateFromExisting(view)
-	for _, frame in next, view.groups do
-		if not frame.template then
-			frame:SetTemplate('Transparent')
-
-			HandleCustomiseElements(frame)
-		end
-
-		for _, button in next, frame.buttons do
-			if button.itemInfo then
-				SkinItem(button, button.itemInfo)
-			end
-		end
-	end
-
-	local groups = _G.Auctionator.Groups
-	if groups.viewFirstShow then
-		groups.viewFirstShow = nil
-
-		view:UpdateGroupHeights()
-	end
-end
-
-local function OpenCustomiseView()
-	local customize = _G.AuctionatorGroupsCustomiseFrame
-	customize.NineSlice:StripTextures()
-	customize:SetTemplate('Transparent')
-	module:CreateShadow(customize)
-	customize:Styling()
-
-	customize.Bg:StripTextures()
-	customize.TopTileStreaks:StripTextures()
-
-	customize.BackButton:Point('TOPRIGHT', -25, -28)
-	customize.NewGroupButton:Point('TOPLEFT', 7, -28)
-
-	S:HandleButton(customize.BackButton)
-	S:HandleButton(customize.NewGroupButton)
-	S:HandleCloseButton(customize.CloseButton)
-	S:HandleTrimScrollBar(customize.View.ScrollBar)
-
-	hooksecurefunc(customize.View, 'UpdateFromExisting', GroupsCustomise_UpdateFromExisting)
-end
-
 function module:Auctionator()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.au then
 		return
@@ -569,6 +510,7 @@ function module:Auctionator()
 	module:DisableAddOnSkins("Auctionator", false)
 
 	-- widgets
+	tryPostHook("GroupsCustomiseDurationMixin", "OnLoad", groupsCustomiseDuration)
 	tryPostHook("AuctionatorBuyIconNameTemplateMixin", "SetItem", buyIconName)
 	tryPostHook("AuctionatorGroupsViewGroupMixin", "SetName", viewGroup)
 	tryPostHook("AuctionatorGroupsViewItemMixin", "SetItemInfo", viewItem)
@@ -609,10 +551,8 @@ function module:Auctionator()
 	tryPostHook("AuctionatorShoppingItemMixin", "OnLoad", shoppingItem)
 	tryPostHook("AuctionatorSplashScreenMixin", "OnLoad", splashFrame)
 	tryPostHook("AuctionatorBuyCommodityFrameTemplateMixin", "OnLoad", buyCommodity)
-
-	local groups = _G.Auctionator.Groups
-	groups.viewFirstShow = true -- fixes the page bugging out on first show
-	hooksecurefunc(groups, 'OpenCustomiseView', OpenCustomiseView)
+	tryPostHook("AuctionatorGroupsCustomiseMixin", "OnLoad", groupsCustomise)
+	tryPostHook("AuctionatorGroupsCustomiseGroupMixin", "OnLoad", groupsCustomiseGroup)
 end
 
 module:AddCallbackForAddon("Auctionator")
