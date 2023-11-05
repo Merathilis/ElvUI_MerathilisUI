@@ -71,7 +71,7 @@ end
 local function viewGroup(frame)
 	if frame.GroupTitle then
 		frame.GroupTitle:StripTextures()
-		S:HandleButton(frame.GroupTitle)
+		S:HandleButton(frame.GroupTitle, true)
 	end
 end
 
@@ -463,7 +463,7 @@ local function groupsCustomise(frame)
 end
 
 local function groupsCustomiseGroup(frame)
-	for _, child in pairs(
+	for i, child in pairs(
 		{
 			frame.FocusButton,
 			frame.RenameButton,
@@ -475,6 +475,12 @@ local function groupsCustomiseGroup(frame)
 	) do
 		if child then
 			S:HandleButton(child)
+
+			if i == 1 then
+				-- adjust the points
+				local p1, anchor, p2, x, y = child:GetPoint()
+				child:SetPoint(p1, anchor, p2, x, y + 1)
+			end
 		end
 	end
 
@@ -485,6 +491,16 @@ local function groupsCustomiseGroup(frame)
 	if frame.Quantity and frame.Quantity.Quantity then
 		S:HandleEditBox(frame.Quantity.Quantity)
 		frame.Quantity.Quantity:SetTextInsets(0, 0, 0, 0)
+	end
+
+	local focused = frame.FocussedBackground
+	if focused then
+		focused:SetDrawLayer('BACKGROUND', -2)
+	end
+
+	local hover = frame.FocussedHoverBackground
+	if hover then
+		hover:SetDrawLayer('BACKGROUND', -1)
 	end
 end
 
