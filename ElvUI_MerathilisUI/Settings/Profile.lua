@@ -1663,6 +1663,7 @@ P.tooltip = {
 	factionIcon = true,
 	petIcon = true,
 	petId = true,
+	gradientName = false,
 }
 
 P.itemLevel = {

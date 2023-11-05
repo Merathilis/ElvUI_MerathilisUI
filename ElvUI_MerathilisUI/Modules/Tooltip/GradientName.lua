@@ -3,7 +3,6 @@ local T = MER:GetModule('MER_Tooltip')
 local TT = E:GetModule('Tooltip')
 
 local _G = _G
-local gsub = string.gsub
 
 local UnitClass = UnitClass
 local UnitIsPlayer = UnitIsPlayer
@@ -61,9 +60,10 @@ end
 function T:ApplyTooltipStyle(tt)
 	if not tt then return end
 	local db = E.db.mui.gradient
-	if not db.enable then
+	if not db.enable or not E.db.mui.tooltip.gradientName then
 		return
 	end
+
 	if _G.GameTooltip and _G.GameTooltip:IsForbidden() then return end
 
 	local _, unitId = _G.GameTooltip:GetUnit()
