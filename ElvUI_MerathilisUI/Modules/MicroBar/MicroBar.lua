@@ -100,7 +100,8 @@ local hearthstones = {
 	188952,
 	190237,
 	193588,
-	200630
+	200630,
+	208704
 }
 
 local hearthstoneAndToyIDList = {
@@ -129,6 +130,7 @@ local hearthstoneAndToyIDList = {
 	190237,
 	193588,
 	200630,
+	208704,
 	---------------------
 	48933,
 	87215,
