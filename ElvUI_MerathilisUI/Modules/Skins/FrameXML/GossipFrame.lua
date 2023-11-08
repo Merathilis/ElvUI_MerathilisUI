@@ -35,7 +35,7 @@ local function ReplaceGossipText(button, text)
 	end
 end
 
-local function LoadSkin()
+function module:GossipFrame()
 	if not module:CheckDB("gossip", "gossip") then
 		return
 	end
@@ -79,4 +79,4 @@ local function LoadSkin()
 	MER.NPC:Register(GossipFrame)
 end
 
-S:AddCallback("GossipFrame", LoadSkin)
+module:AddCallback("GossipFrame")
