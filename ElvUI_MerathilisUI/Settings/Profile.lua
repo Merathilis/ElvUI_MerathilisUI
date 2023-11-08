@@ -1608,8 +1608,7 @@ P.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio =
-		"54452,200630,193588,190237,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952,140192,110560",
+		hsPrio = "54452,200630,193588,190237,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952,140192,110560,208704",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
@@ -1663,6 +1662,7 @@ P.tooltip = {
 	factionIcon = true,
 	petIcon = true,
 	petId = true,
+	gradientName = false,
 }
 
 P.itemLevel = {
