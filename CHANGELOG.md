@@ -1,3 +1,3 @@
 ### Changes ###
 
-  * Fix WeakAuras skinning. Credits: Windtools <3
+  * Fixed an oopsie in the BagSync Skin

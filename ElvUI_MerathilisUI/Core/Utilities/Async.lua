@@ -41,11 +41,9 @@ function U.WithItemID(itemID, callback)
 		return
 	end
 
-	itemInstance:ContinueOnItemLoad(
-		function()
-			callback(itemInstance)
-		end
-	)
+	itemInstance:ContinueOnItemLoad(function()
+		callback(itemInstance)
+	end)
 
 	cache.item[itemID] = itemInstance
 
@@ -78,11 +76,9 @@ function U.WithSpellID(spellID, callback)
 		return
 	end
 
-	spellInstance:ContinueOnSpellLoad(
-		function()
-			callback(spellInstance)
-		end
-	)
+	spellInstance:ContinueOnSpellLoad(function()
+		callback(spellInstance)
+	end)
 
 	cache.spell[spellID] = spellInstance
 

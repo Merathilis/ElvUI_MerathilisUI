@@ -2,8 +2,6 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Misc')
 
 local _G = _G
-local assert = assert
-local format = format
 local next = next
 local pairs = pairs
 local tinsert = tinsert
@@ -81,6 +79,14 @@ function module:ADDON_LOADED(_, addonName)
 	local object = self.addonsToLoad[addonName]
 	if object then
 		self:CallLoadedAddon(addonName, object)
+	end
+end
+
+function module:AddCallbackOrScale(AddOnName, func)
+	if not IsAddOnLoaded(AddOnName) then
+		module:AddCallbackForAddon(AddOnName, func)
+	else
+		func()
 	end
 end
 

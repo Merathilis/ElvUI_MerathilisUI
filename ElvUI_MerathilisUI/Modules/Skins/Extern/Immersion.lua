@@ -20,6 +20,7 @@ function module:Immersion_ReskinTitleButton(frame)
 			button.Overlay:StripTextures()
 			button:SetBackdrop(nil)
 			F.SetFontOutline(button.Label)
+
 			button.__MERSkin = true
 		end
 	end
@@ -57,6 +58,7 @@ function module:Immersion_ReskinItems()
 				module:CreateBackdropShadow(rButton.NameFrame)
 				module:CreateGradient(rButton.NameFrame)
 			end
+
 			rButton.__MERSkin = true
 		end
 	end
@@ -76,6 +78,7 @@ function module:Immersion_ReskinItems()
 				module:CreateBackdropShadow(rButton.NameFrame)
 				module:CreateGradient(rButton.NameFrame)
 			end
+
 			rButton.__MERSkin = true
 		end
 	end
@@ -87,9 +90,11 @@ do
 		if reskin then
 			return
 		end
+
 		local talkBox = _G.ImmersionFrame and _G.ImmersionFrame.TalkBox
 		if talkBox and talkBox.TextFrame and talkBox.TextFrame.SpeechProgress then
 			F.SetFontOutline(talkBox.TextFrame.SpeechProgress)
+
 			reskin = true
 		end
 	end
@@ -103,7 +108,6 @@ function module:Immersion()
 	module:DisableAddOnSkins("Immersion", false)
 
 	local frame = _G.ImmersionFrame
-
 	-- TalkBox
 	local talkBox = frame.TalkBox
 

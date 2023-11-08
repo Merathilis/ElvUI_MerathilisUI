@@ -100,7 +100,8 @@ local hearthstones = {
 	188952,
 	190237,
 	193588,
-	200630
+	200630,
+	208704
 }
 
 local hearthstoneAndToyIDList = {
@@ -129,6 +130,7 @@ local hearthstoneAndToyIDList = {
 	190237,
 	193588,
 	200630,
+	208704,
 	---------------------
 	48933,
 	87215,
@@ -398,7 +400,7 @@ local ButtonTypes = {
 		icon = MER.Media.Icons.barGuild,
 		macro = {
 			LeftButton = "/click GuildMicroButton",
-			RightButton = "/script if not InCombatLockdown() then if not GuildFrame then GuildFrame_LoadUI() end ToggleFrame(GuildFrame) end"
+			RightButton = "/script if not InCombatLockdown() then if not GuildFrame or not GuildFrame:IsShown() then ToggleGuildFrame() end end"
 		},
 		additionalText = function()
 			return IsInGuild() and select(2, GetNumGuildMembers()) or ""
