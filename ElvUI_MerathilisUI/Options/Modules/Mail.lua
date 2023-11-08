@@ -32,8 +32,20 @@ options.mail = {
 					name = L["Enable"],
 					width = "full",
 				},
-				defaultPage = {
+				updateAlts = {
 					order = 2,
+					type = "toggle",
+					name = L["Update Alts"],
+					desc = L["Update the alt list when you log in."],
+					get = function()
+						return E.global.mui.mail.contacts.updateAlts
+					end,
+					set = function(_, value)
+						E.global.mui.mail.contacts.updateAlts = value
+					end
+				},
+				defaultPage = {
+					order = 3,
 					type = "select",
 					name = L["Default Page"],
 					values = {
@@ -52,7 +64,7 @@ do
 	local selectedKey
 
 	options.mail.args.alts = {
-		order = 2,
+		order = 4,
 		type = "group",
 		inline = true,
 		name = L["Alternate Character"],
@@ -100,8 +112,19 @@ do
 						end
 					end
 				end
-			}
-		}
+			},
+            clearAlts = {
+                order = 3,
+                type = "execute",
+                name = L["Clear All"],
+                desc = L["Clear the alt list."],
+                confirm = true,
+                confirmText = L["Are you sure to clear the alt list?"],
+                func = function()
+					E.global.mui.mail.contacts.alts = {}
+                end
+            },
+        },
 	}
 end
 
@@ -110,7 +133,7 @@ do
 	local tempName, tempRealm
 
 	options.mail.args.favorite = {
-		order = 3,
+		order = 5,
 		type = "group",
 		inline = true,
 		name = L["Favorites"],

@@ -12,6 +12,7 @@ G.mail = {
 	contacts = {
 		alts = {},
 		favorites = {},
+		updateAlts = true
 	}
 }
 
