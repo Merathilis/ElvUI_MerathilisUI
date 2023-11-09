@@ -188,7 +188,7 @@ local function Initialize()
 		AFK.AFKMode.Panel:SetFrameStrata('FULLSCREEN')
 		AFK.AFKMode.Panel:Styling()
 		MER:CreateInnerNoise(AFK.AFKMode.Panel)
-		S:CreateShadow(AFK.AFKMode.Panel)
+		S:CreateBackdropShadow(AFK.AFKMode.Panel)
 
 		E["frames"][AFK.AFKMode.Panel] = true
 		AFK.AFKMode.Panel.ignoreFrameTemplates = true
