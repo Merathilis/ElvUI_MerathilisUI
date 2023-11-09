@@ -1514,35 +1514,7 @@ P.maps = {
 }
 
 P.media = {
-	zoneText = {
-		enable = true,
-		zone = {
-			font = "Expressway",
-			size = 32,
-			outline = "SHADOWOUTLINE",
-			width = 512,
-		},
-		subzone = {
-			font = "Expressway",
-			size = 25,
-			outline = "SHADOWOUTLINE",
-			width = 512,
-		},
-		pvp = {
-			font = "Expressway",
-			size = 22,
-			outline = "SHADOWOUTLINE",
-			width = 512,
-		},
-	},
-	miscText = {
-		mail = {
-			enable = true,
-			font = "Expressway",
-			size = 12,
-			outline = "SHADOWOUTLINE",
-		},
-	},
+
 }
 
 P.panels = {
