@@ -306,6 +306,15 @@ function MER:SetupLayout()
 	E.db["general"]["fonts"]["worldsubzone"]["enable"] = true
 	E.db["general"]["fonts"]["worldsubzone"]["size"] = 26
 	E.db["general"]["fonts"]["worldsubzone"]["outline"] = "SHADOWOUTLINE"
+	E.db["general"]["fonts"]["talkingtitle"]["enable"] = true
+	E.db["general"]["fonts"]["talkingtitle"]["size"] = 24
+	E.db["general"]["fonts"]["talkingtitle"]["outline"] = "SHADOWOUTLINE"
+	E.db["general"]["fonts"]["talkingtext"]["enable"] = true
+	E.db["general"]["fonts"]["talkingtext"]["size"] = 18
+	E.db["general"]["fonts"]["talkingtext"]["outline"] = "SHADOWOUTLINE"
+	E.db["general"]["fonts"]["errortext"]["enable"] = true
+	E.db["general"]["fonts"]["errortext"]["size"] = 16
+	E.db["general"]["fonts"]["errortext"]["outline"] = "SHADOWOUTLINE"
 	E.db["general"]["valuecolor"] = {r = F.r, g = F.g, b = F.b}
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
