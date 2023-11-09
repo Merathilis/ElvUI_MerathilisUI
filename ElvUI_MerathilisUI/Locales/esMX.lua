@@ -725,6 +725,7 @@ L["Placeholders"] = true
 L["Use Default"] = true
 L["Researchers Under Fire"] = "Investigadores bajo el fuego"
 L["Time Rift Thaldraszus"] = "Falla temporal Thaldraszus"
+L["Superbloom"] = true
 
 -- SMB
 L["Minimap Buttons"] = true

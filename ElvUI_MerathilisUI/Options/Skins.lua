@@ -28,9 +28,9 @@ local DecorAddons = {
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"TLDRMissions", L["TLDRMissions"], "tldr"},
 }
-if F.IsDevoloper() then
+if F.IsDeveloper() then
 	tinsert(DecorAddons, {"WeakAuras", L["WeakAuras"], "wa"})
-	-- tinsert({"WeakAurasOptions", L["WeakAuras Options"], "waOptions"})
+	tinsert(DecorAddons, {"WeakAurasOptions", L["WeakAuras Options"], "waOptions"})
 end
 
 local SupportedProfiles = {

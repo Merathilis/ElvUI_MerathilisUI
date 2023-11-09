@@ -732,6 +732,7 @@ L["Placeholders"] = "Заполнители"
 L["Use Default"] = "Использовать по умолчанию"
 L["Researchers Under Fire"] = "Исследователи под огнем"
 L["Time Rift Thaldraszus"] = "Разлом во времени Талдрасус"
+L["Superbloom"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Кнопки миникарты"

@@ -1464,7 +1464,7 @@ P.maps = {
 			outline = "SHADOWOUTLINE"
 		},
 		communityFeast = {
-			enable = true,
+			enable = false,
 			desaturate = false,
 			alert = true,
 			sound = true,
@@ -1474,7 +1474,7 @@ P.maps = {
 			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
 		siegeOnDragonbaneKeep = {
-			enable = true,
+			enable = false,
 			desaturate = false,
 			alert = true,
 			sound = true,
@@ -1509,7 +1509,17 @@ P.maps = {
 			sound = true,
 			soundFile = "OnePlus Surprise",
 			disableAlertAfterHours = 48,
-		}
+		},
+		superBloom = {
+			enable = true,
+			desaturate = false,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Light",
+			second = 600,
+			stopAlertIfCompleted = false,
+			stopAlertIfPlayerNotEnteredDragonlands = true
+		},
 	},
 }
 

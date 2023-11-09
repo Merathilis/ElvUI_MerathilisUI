@@ -746,6 +746,7 @@ L["Placeholders"] = "占位符"
 L["Use Default"] = "使用默认"
 L["Researchers Under Fire"] = true
 L["Time Rift Thaldraszus"] = true
+L["Superbloom"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地图按钮"

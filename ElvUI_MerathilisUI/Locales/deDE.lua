@@ -730,6 +730,7 @@ L["Placeholders"] = "Platzhalter"
 L["Use Default"] = "Benutze Standard"
 L["Researchers Under Fire"] = "Forscher unter Feuer"
 L["Time Rift Thaldraszus"] = "Zeitriss Thaldraszus"
+L["Superbloom"] = "Superblüte"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

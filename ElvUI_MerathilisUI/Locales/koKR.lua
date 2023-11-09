@@ -727,6 +727,7 @@ L["Placeholders"] = true
 L["Use Default"] = true
 L["Researchers Under Fire"] = true
 L["Time Rift Thaldraszus"] = true
+L["Superbloom"] = true
 
 -- SMB
 L["Minimap Buttons"] = "미니맵 버튼 통합 바"
