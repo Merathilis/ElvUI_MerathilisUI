@@ -6,6 +6,7 @@ local LSM = E.Libs.LSM
 local _G = _G
 local ipairs, pairs, unpack = ipairs, pairs, unpack
 local format = string.format
+local tinsert = table.insert
 
 local IsAddOnLoaded = IsAddOnLoaded
 
@@ -26,9 +27,11 @@ local DecorAddons = {
 	{"RaiderIO", L["RaiderIO"], "rio"},
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"TLDRMissions", L["TLDRMissions"], "tldr"},
-	{"WeakAuras", L["WeakAuras"], "wa"},
-	{"WeakAurasOptions", L["WeakAuras Options"], "waOptions"},
 }
+if F.IsDevoloper() then
+	tinsert({"WeakAuras", L["WeakAuras"], "wa"})
+	tinsert({"WeakAurasOptions", L["WeakAuras Options"], "waOptions"})
+end
 
 local SupportedProfiles = {
 	{"AddOnSkins", "AddOnSkins"},
