@@ -120,11 +120,6 @@ local function LoadSkin()
 		end)
 	end
 
-	-- Error Text
-	if _G.UIErrorsFrame then
-		F.SetFontDB(_G.UIErrorsFrame, E.private.mui.skins.errorMessage)
-	end
-
 	if _G.ActionStatus.Text then
 		F.SetFontDB(_G.ActionStatus.Text, E.private.mui.skins.errorMessage)
 	end
