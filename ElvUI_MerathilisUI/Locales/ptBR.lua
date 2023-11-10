@@ -484,6 +484,7 @@ L["Alpha Max"] = true
 L["Inherit Global Fade"] = true
 L["Anchor Point"] = true
 L["The first button anchors itself to this point on the bar."] = true
+L["Dream Seeds"] = true
 
 -- Media
 L["Zone Text"] = true
@@ -734,6 +735,7 @@ L["Placeholders"] = true
 L["Use Default"] = true
 L["Researchers Under Fire"] = "Pesquisadores sob fogo"
 L["Time Rift Thaldraszus"] = "Fenda Temporal Thaldraszus"
+L["Superbloom"] = true
 
 -- SMB
 L["Minimap Buttons"] = true

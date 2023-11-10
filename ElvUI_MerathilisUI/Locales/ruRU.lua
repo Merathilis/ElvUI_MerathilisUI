@@ -480,6 +480,7 @@ L["Alpha Max"] = "Максимальная прозрачность"
 L["Inherit Global Fade"] = "Наследовать глобальное исчезновение"
 L["Anchor Point"] = "Точка привязки"
 L["The first button anchors itself to this point on the bar."] = "Первая кнопка привязывается к этой точке на панели."
+L["Dream Seeds"] = true
 
 -- Media
 L["Zone Text"] = "Текст зоны"
@@ -732,6 +733,7 @@ L["Placeholders"] = "Заполнители"
 L["Use Default"] = "Использовать по умолчанию"
 L["Researchers Under Fire"] = "Исследователи под огнем"
 L["Time Rift Thaldraszus"] = "Разлом во времени Талдрасус"
+L["Superbloom"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Кнопки миникарты"

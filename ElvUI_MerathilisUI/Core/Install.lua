@@ -265,10 +265,13 @@ function MER:SetupLayout()
 	E.global["general"]["UIScale"] = 0.71111111111111
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
+	E.private["general"]["chatBubbleFont"] = "Expressway"
 	E.private["general"]["chatBubbleFontSize"] = 9
 	E.private["general"]["chatBubbleFontOutline"] = "SHADOWOUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
+	E.private["general"]["namefont"] = "Expressway"
+	E.private["general"]["dmgfont"] = "Expressway"
 	E.private["general"]["normTex"] = "MER_Stripes"
 	E.private["general"]["glossTex"] = "MER_Stripes"
 	E.private["general"]["nameplateFont"] = "Expressway"
@@ -295,6 +298,23 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	ProfileDB - General
 	--]]----------------------------------
+	E.db["general"]["font"] = "Expressway"
+	E.db["general"]["fontSize"] = 11
+	E.db["general"]["fonts"]["worldzone"]["enable"] = true
+	E.db["general"]["fonts"]["worldzone"]["size"] = 32
+	E.db["general"]["fonts"]["worldzone"]["outline"] = "SHADOWOUTLINE"
+	E.db["general"]["fonts"]["worldsubzone"]["enable"] = true
+	E.db["general"]["fonts"]["worldsubzone"]["size"] = 28
+	E.db["general"]["fonts"]["worldsubzone"]["outline"] = "SHADOWOUTLINE"
+	E.db["general"]["fonts"]["talkingtitle"]["enable"] = true
+	E.db["general"]["fonts"]["talkingtitle"]["size"] = 24
+	E.db["general"]["fonts"]["talkingtitle"]["outline"] = "SHADOWOUTLINE"
+	E.db["general"]["fonts"]["talkingtext"]["enable"] = true
+	E.db["general"]["fonts"]["talkingtext"]["size"] = 18
+	E.db["general"]["fonts"]["talkingtext"]["outline"] = "SHADOWOUTLINE"
+	E.db["general"]["fonts"]["errortext"]["enable"] = true
+	E.db["general"]["fonts"]["errortext"]["size"] = 16
+	E.db["general"]["fonts"]["errortext"]["outline"] = "SHADOWOUTLINE"
 	E.db["general"]["valuecolor"] = {r = F.r, g = F.g, b = F.b}
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
@@ -479,6 +499,8 @@ function MER:SetupLayout()
 	E.db["tooltip"]["headerFontSize"] = 12
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
+	E.db["tooltip"]["healthBar"]["font"] = "Expressway"
+	E.db["tooltip"]["healthBar"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
 
 		--[[----------------------------------
@@ -543,12 +565,6 @@ function MER:SetupLayout()
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
 	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-148"
-
-	E.db["general"]["font"] = "Expressway"
-	E.db["general"]["fontSize"] = 11
-	E.private["general"]["chatBubbleFont"] = "Expressway"
-	E.private["general"]["namefont"] = "Expressway"
-	E.private["general"]["dmgfont"] = "Expressway"
 
 	E.db["databars"]["customTexture"] = true
 	E.db["databars"]["statusbar"] = "MER_Stripes"

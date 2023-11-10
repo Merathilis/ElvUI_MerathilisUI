@@ -6,6 +6,7 @@ local LSM = E.Libs.LSM
 local _G = _G
 local ipairs, pairs, unpack = ipairs, pairs, unpack
 local format = string.format
+local tinsert = table.insert
 
 local IsAddOnLoaded = IsAddOnLoaded
 
@@ -26,9 +27,11 @@ local DecorAddons = {
 	{"RaiderIO", L["RaiderIO"], "rio"},
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"TLDRMissions", L["TLDRMissions"], "tldr"},
-	{"WeakAuras", L["WeakAuras"], "wa"},
-	{"WeakAurasOptions", L["WeakAuras Options"], "waOptions"},
 }
+if F.IsDeveloper() then
+	tinsert(DecorAddons, {"WeakAuras", L["WeakAuras"], "wa"})
+	tinsert(DecorAddons, {"WeakAurasOptions", L["WeakAuras Options"], "waOptions"})
+end
 
 local SupportedProfiles = {
 	{"AddOnSkins", "AddOnSkins"},
@@ -142,48 +145,8 @@ options.font = {
 	type = "group",
 	name = L["Fonts"],
 	args = {
-		errorMessage = {
-			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Error Text"],
-			get = function(info)
-				return E.private.mui.skins.errorMessage[info[#info]]
-			end,
-			set = function(info, value)
-				E.private.mui.skins.errorMessage[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			args = {
-				header = {
-					order = 0,
-					type = 'header',
-					name = F.cOption(L["Error Text"], 'orange'),
-				},
-				name = {
-					order = 1,
-					type = "select",
-					dialogControl = "LSM30_Font",
-					name = L["Font"],
-					values = LSM:HashTable("font")
-				},
-				style = {
-					order = 2,
-					type = "select",
-					name = L["Outline"],
-					values = MER.Values.FontFlags,
-					sortByValue = true,
-				},
-				size = {
-					order = 3,
-					name = L["Size"],
-					type = "range",
-					min = 5, max = 60, step = 1
-				},
-			},
-		},
 		rollResult = {
-			order = 2,
+			order = 1,
 			type = "group",
 			inline = true,
 			name = L["Roll Result"],

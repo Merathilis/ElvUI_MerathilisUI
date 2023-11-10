@@ -50,7 +50,7 @@ function module:WeakAuras_RegisterRegionOptions(name, createFunction, icon, disp
 		end
 	end
 
-	self.hooks[_G.WeakAuras]["RegisterRegionOptions"](name, createFunction, icon, displayName, createThumbnail, ...)
+	self.hooks[_G.WeakAuras.Private]["RegisterRegionOptions"](name, createFunction, icon, displayName, createThumbnail, ...)
 end
 
 local function ReskinNormalButton(button, next)
@@ -669,8 +669,11 @@ function module:WeakAurasOptions()
 		return
 	end
 
+	if not WeakAuras or not WeakAuras.Private then
+		return
+	end
+
 	module:SecureHook(_G.WeakAuras, "ShowOptions", "WeakAuras_ShowOptions")
-	-- self:SecureHook(_G.WeakAuras, "TextEditor", "WeakAuras_TextEditor")
 end
 
 function module:WeakAuras_CreateTemplateView(Private, frame)

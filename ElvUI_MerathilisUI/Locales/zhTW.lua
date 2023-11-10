@@ -477,6 +477,7 @@ L["Alpha Max"] = "最大透明度"
 L["Inherit Global Fade"] = true
 L["Anchor Point"] = true
 L["The first button anchors itself to this point on the bar."] = true
+L["Dream Seeds"] = true
 
 -- Media
 L["Zone Text"] = true
@@ -727,6 +728,7 @@ L["Placeholders"] = "占位符"
 L["Use Default"] = "使用預設"
 L["Researchers Under Fire"] = true
 L["Time Rift Thaldraszus"] = true
+L["Superbloom"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地圖按鍵"

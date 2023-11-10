@@ -845,7 +845,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODDF,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODDF,SEEDS,CUSTOM"
 	},
 	bar4 = {
 		enable = false,
@@ -1464,7 +1464,7 @@ P.maps = {
 			outline = "SHADOWOUTLINE"
 		},
 		communityFeast = {
-			enable = true,
+			enable = false,
 			desaturate = false,
 			alert = true,
 			sound = true,
@@ -1474,7 +1474,7 @@ P.maps = {
 			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
 		siegeOnDragonbaneKeep = {
-			enable = true,
+			enable = false,
 			desaturate = false,
 			alert = true,
 			sound = true,
@@ -1509,40 +1509,22 @@ P.maps = {
 			sound = true,
 			soundFile = "OnePlus Surprise",
 			disableAlertAfterHours = 48,
-		}
+		},
+		superBloom = {
+			enable = true,
+			desaturate = false,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Light",
+			second = 600,
+			stopAlertIfCompleted = false,
+			stopAlertIfPlayerNotEnteredDragonlands = true
+		},
 	},
 }
 
 P.media = {
-	zoneText = {
-		enable = true,
-		zone = {
-			font = "Expressway",
-			size = 32,
-			outline = "SHADOWOUTLINE",
-			width = 512,
-		},
-		subzone = {
-			font = "Expressway",
-			size = 25,
-			outline = "SHADOWOUTLINE",
-			width = 512,
-		},
-		pvp = {
-			font = "Expressway",
-			size = 22,
-			outline = "SHADOWOUTLINE",
-			width = 512,
-		},
-	},
-	miscText = {
-		mail = {
-			enable = true,
-			font = "Expressway",
-			size = 12,
-			outline = "SHADOWOUTLINE",
-		},
-	},
+
 }
 
 P.panels = {

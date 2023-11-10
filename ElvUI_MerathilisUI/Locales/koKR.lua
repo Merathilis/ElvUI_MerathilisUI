@@ -477,6 +477,7 @@ L["Alpha Max"] = "최대 알파값"
 L["Inherit Global Fade"] = true
 L["Anchor Point"] = true
 L["The first button anchors itself to this point on the bar."] = true
+L["Dream Seeds"] = true
 
 -- Media
 L["Zone Text"] = true
@@ -727,6 +728,7 @@ L["Placeholders"] = true
 L["Use Default"] = true
 L["Researchers Under Fire"] = true
 L["Time Rift Thaldraszus"] = true
+L["Superbloom"] = true
 
 -- SMB
 L["Minimap Buttons"] = "미니맵 버튼 통합 바"

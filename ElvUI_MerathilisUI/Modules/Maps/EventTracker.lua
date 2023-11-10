@@ -30,6 +30,7 @@ local eventList = {
 	"SiegeOnDragonbaneKeep",
 	"ResearchersUnderFire",
 	"TimeRiftThaldraszus",
+	"SuperBloom",
 	"IskaaranFishingNet"
 }
 
@@ -710,6 +711,45 @@ local eventData = {
 			label = L["Time Rift Thaldraszus"],
 			location = C_Map_GetMapInfo(2025).name,
 			barColor = colorPlatte.bronze,
+			runningText = L["In Progress"],
+			filter = function(args)
+				if args.stopAlertIfPlayerNotEnteredDragonlands and not C_QuestLog_IsQuestFlaggedCompleted(67700) then
+					return false
+				end
+				return true
+			end,
+			startTimestamp = (function()
+				local timestampTable = {
+					[1] = 1701831615, -- NA
+					[2] = 1701853215, -- KR
+					[3] = 1701828015, -- EU
+					[4] = 1701824400, -- TW
+					[5] = 1701824400, -- CN
+					[72] = 1701852315 -- TR
+				}
+				local region = GetCurrentRegion()
+				-- TW is not a real region, so we need to check the client language if player in KR
+				if region == 2 and MER.Locale ~= "koKR" then
+					region = 4
+				end
+
+				return timestampTable[region]
+			end)()
+		}
+	},
+	SuperBloom = {
+		dbKey = "superBloom",
+		args = {
+			icon = 3939983,
+			type = "loopTimer",
+			--questIDs = { 0 },
+			hasWeeklyReward = true,
+			duration = 15 * 60,
+			interval = 1 * 60 * 60,
+			eventName = L["Superbloom"],
+			label = L["Superbloom Emerald Dream"],
+			location = C_Map_GetMapInfo(2200).name,
+			barColor = colorPlatte.green,
 			runningText = L["In Progress"],
 			filter = function(args)
 				if args.stopAlertIfPlayerNotEnteredDragonlands and not C_QuestLog_IsQuestFlaggedCompleted(67700) then

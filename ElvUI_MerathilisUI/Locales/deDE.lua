@@ -481,6 +481,7 @@ L["Alpha Max"] = "Transparenz Max"
 L["Inherit Global Fade"] = "Erben globales Verblassen"
 L["Anchor Point"] = "Ankerpunkt"
 L["The first button anchors itself to this point on the bar."] = "Die erste Taste verankert sich an diesem Punkt auf der Leiste."
+L["Dream Seeds"] = "Traum Saat"
 
 -- Media
 L["Zone Text"] = "Gebietstext"
@@ -730,6 +731,7 @@ L["Placeholders"] = "Platzhalter"
 L["Use Default"] = "Benutze Standard"
 L["Researchers Under Fire"] = "Forscher unter Feuer"
 L["Time Rift Thaldraszus"] = "Zeitriss Thaldraszus"
+L["Superbloom"] = "Superblüte"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

@@ -189,11 +189,6 @@ local potions = {
 	191914,
 }
 
-if E.Classic then
-	tinsert(potions, 13446)
-	tinsert(potions, 13444)
-end
-
 local potionsDragonflight = {
 	-- Normal
 	5512,
@@ -890,160 +885,18 @@ local openableItems = {
 	208095,
 	208951,
 	208952,
-	209833
-}
-
-local tbcOre = {
-	23424,
-	23425,
-	23426,
-	23427,
-	2770,
-	2771,
-	2775,
-	2772,
-	2776,
-	3858,
-	7911,
-	10620,
-	14891
-}
-
-local tbcPotions = {
-	33093,
-	33092,
-	22849,
-	22839,
-	22838,
-	22837,
-	22836,
-	28962,
-	34440,
-	22871,
-	22828,
-	22826,
-	22846,
-	22844,
-	22847,
-	22842,
-	22841,
-	22850,
-	22829,
-	28100,
-	31677,
-	22832,
-	28101
-}
-
-local tbcElixirs = {
-	22848,
-	22840,
-	22835,
-	22834,
-	22833,
-	32067,
-	31679,
-	32068,
-	28104,
-	22831,
-	32062,
-	22830,
-	22825,
-	32063,
-	22827,
-	22824,
-	28103,
-	28102,
-	22823
-}
-
-local tbcFlasks = {
-	22866,
-	22854,
-	22853,
-	22851,
-	22861,
-	33208
-}
-
-local tbcCauldrons = {
-	32852,
-	32851,
-	32850,
-	32849,
-	32839
-}
-
-local wrathPotions = {
-	25539,
-	33447,
-	33448,
-	39327,
-	40068,
-	40070,
-	40073,
-	40076,
-	40078,
-	40081,
-	40087,
-	40093,
-	40097,
-	40109,
-	40211,
-	40212,
-	40213,
-	40214,
-	40215,
-	40216,
-	40217,
-	43569,
-	43570,
-	40077,
-	41166,
-	42545,
-	22850,
-	34440,
-	39671,
-	40067
-}
-
-local wrathFlasks = {
-	40079,
-	44939,
-	46376,
-	46377,
-	46379,
-	45006,
-	45007,
-	45008,
-	45009,
-	46378,
-	47499,
-	44939,
-	32764,
-	32765,
-	32766
-}
-
-local wrathElixirs = {
-	39666,
-	40068,
-	40070,
-	40072,
-	40073,
-	40076,
-	40078,
-	40097,
-	40109,
-	44325,
-	44327,
-	44328,
-	44329,
-	44330,
-	44331,
-	44332,
-	8827, -- waterwalking elixir
-	8529 -- noggenfogger elixir
+	209833,
+	209837,
+	210872,
+	210217,
+	210218,
+	210219,
+	211303,
+	211389,
+	211410,
+	211411,
+	211413,
+	211414
 }
 
 -- Profession Items
@@ -1290,7 +1143,37 @@ local professionItems = {
 	206030,
 	206031,
 	206034,
-	206035
+	206035,
+    210184,
+    210185,
+    210190,
+    210193,
+    210194,
+    210197,
+    210200,
+    210201,
+    210202,
+    210208,
+    210211,
+    210215,
+    210228,
+    210231,
+    210234,
+    210458,
+    210459,
+    210460,
+    210461,
+    210462,
+    210463,
+    210464,
+    210465,
+    210466
+}
+
+local seeds = {
+	208047,
+	208066,
+	208067
 }
 
 local questItemList = {}
@@ -1340,17 +1223,10 @@ local moduleList = {
 	["UTILITY" ] = utilities,
 	["OPENABLE"] = openableItems,
 	["PROF"] = professionItems,
-	["ORETBC"] = tbcOre,
-	["POTIONTBC"] = tbcPotions,
-	["FLASKSTBC"] = tbcFlasks,
-	["CAULDRONTBC"] = tbcCauldrons,
-	["ELIXIRTBC"] = tbcElixirs,
-	["POTIONSWRATH"] = wrathPotions,
-	["FLASKWRATH"] = wrathFlasks,
-	["ELIXIRWRATH"] = wrathElixirs,
 	["POTIONDF"] = potionsDragonflight,
 	["FLASKDF"] = flasksDragonflight,
-	["FOODDF"] = foodDragonflight
+	["FOODDF"] = foodDragonflight,
+	["SEEDS"] = seeds
 }
 
 function module:CreateButton(name, barDB)
