@@ -121,7 +121,7 @@ local function LoadSkin()
 	end
 
 	if _G.ActionStatus.Text then
-		F.SetFontDB(_G.ActionStatus.Text, E.private.mui.skins.errorMessage)
+		F.SetFontDB(_G.ActionStatus.Text, E.private.mui.skins.actionStatus)
 	end
 
 	-- DataStore

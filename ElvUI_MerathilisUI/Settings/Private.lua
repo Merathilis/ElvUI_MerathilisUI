@@ -287,7 +287,7 @@ V.skins = {
 		mouseOver = false,
 	},
 
-	errorMessage = {
+	actionStatus = {
 		name = E.db.general.font,
 		size = 15,
 		style = "SHADOWOUTLINE"

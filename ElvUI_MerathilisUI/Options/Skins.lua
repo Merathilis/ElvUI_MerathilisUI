@@ -145,8 +145,42 @@ options.font = {
 	type = "group",
 	name = L["Fonts"],
 	args = {
-		rollResult = {
+		actionStatus = {
 			order = 1,
+			type = "group",
+			inline = true,
+			name = L["Action Status"],
+			get = function(info)
+				return E.private.mui.skins.actionStatus[info[#info]]
+			end,
+			set = function(info, value)
+				E.private.mui.skins.actionStatus[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				name = {
+					order = 1,
+					type = "select",
+					dialogControl = "LSM30_Font",
+					name = L["Font"],
+					values = LSM:HashTable("font")
+				},
+				style = {
+					order = 2,
+					type = "select",
+					name = L["Outline"],
+					values = MER.Values.FontFlags,
+				},
+				size = {
+					order = 3,
+					name = L["Size"],
+					type = "range",
+					min = 5, max = 60, step = 1
+				},
+			},
+		},
+		rollResult = {
+			order = 2,
 			type = "group",
 			inline = true,
 			name = L["Roll Result"],
