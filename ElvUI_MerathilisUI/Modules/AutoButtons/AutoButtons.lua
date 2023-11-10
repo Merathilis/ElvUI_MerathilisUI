@@ -1305,13 +1305,19 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 		button.itemID = itemData.itemID
 		button.countText = GetItemCount(itemData.itemID, nil, true)
 		button.questLogIndex = itemData.questLogIndex
-		button:SetBackdropBorderColor(0, 0, 0)
 
 		waitGroup.count = waitGroup.count + 1
 		async.WithItemID(itemData.itemID, function(item)
 			button.itemName = item:GetItemName()
 			button.tex:SetTexture(item:GetItemIcon())
 			button:SetTier(itemData.itemID)
+
+			local color = item:GetItemQualityColor()
+			if color then
+				button:SetBackdropBorderColor(color.r, color.g, color.b)
+			else
+				button:SetBackdropBorderColor(0, 0, 0)
+			end
 
 			E:Delay(0.1, function()
 				-- delay for quality tier fetching and text changing
@@ -1329,6 +1335,8 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			local color = item:GetItemQualityColor()
 			if color then
 				button:SetBackdropBorderColor(color.r, color.g, color.b)
+			else
+				button:SetBackdropBorderColor(0, 0, 0)
 			end
 
 			button:SetTier(item:GetItemID())
