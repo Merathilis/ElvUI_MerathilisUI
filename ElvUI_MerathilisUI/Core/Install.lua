@@ -301,10 +301,10 @@ function MER:SetupLayout()
 	E.db["general"]["font"] = "Expressway"
 	E.db["general"]["fontSize"] = 11
 	E.db["general"]["fonts"]["worldzone"]["enable"] = true
-	E.db["general"]["fonts"]["worldzone"]["size"] = 35
+	E.db["general"]["fonts"]["worldzone"]["size"] = 32
 	E.db["general"]["fonts"]["worldzone"]["outline"] = "SHADOWOUTLINE"
 	E.db["general"]["fonts"]["worldsubzone"]["enable"] = true
-	E.db["general"]["fonts"]["worldsubzone"]["size"] = 26
+	E.db["general"]["fonts"]["worldsubzone"]["size"] = 28
 	E.db["general"]["fonts"]["worldsubzone"]["outline"] = "SHADOWOUTLINE"
 	E.db["general"]["fonts"]["talkingtitle"]["enable"] = true
 	E.db["general"]["fonts"]["talkingtitle"]["size"] = 24
