@@ -480,6 +480,7 @@ L["Alpha Max"] = "Максимальная прозрачность"
 L["Inherit Global Fade"] = "Наследовать глобальное исчезновение"
 L["Anchor Point"] = "Точка привязки"
 L["The first button anchors itself to this point on the bar."] = "Первая кнопка привязывается к этой точке на панели."
+L["Dream Seeds"] = true
 
 -- Media
 L["Zone Text"] = "Текст зоны"

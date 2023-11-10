@@ -484,6 +484,7 @@ L["Alpha Max"] = true
 L["Inherit Global Fade"] = true
 L["Anchor Point"] = true
 L["The first button anchors itself to this point on the bar."] = true
+L["Dream Seeds"] = true
 
 -- Media
 L["Zone Text"] = true

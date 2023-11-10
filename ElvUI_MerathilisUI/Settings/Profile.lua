@@ -845,7 +845,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODDF,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODDF,SEEDS,CUSTOM"
 	},
 	bar4 = {
 		enable = false,
