@@ -727,7 +727,7 @@ L["Number of Players"] = "玩家數量"
 L["Placeholders"] = "占位符"
 L["Use Default"] = "使用預設"
 L["Researchers Under Fire"] = true
-L["Time Rift Thaldraszus"] = true
+L["Time Rift"] = true
 L["Superbloom"] = true
 
 -- SMB

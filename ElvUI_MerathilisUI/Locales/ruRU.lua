@@ -732,7 +732,7 @@ L["Number of Players"] = "Количество игроков"
 L["Placeholders"] = "Заполнители"
 L["Use Default"] = "Использовать по умолчанию"
 L["Researchers Under Fire"] = "Исследователи под огнем"
-L["Time Rift Thaldraszus"] = "Разлом во времени Талдрасус"
+L["Time Rift"] = "Разлом во времени"
 L["Superbloom"] = true
 
 -- SMB

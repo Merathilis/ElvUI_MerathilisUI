@@ -310,7 +310,7 @@ function MER:SetupLayout()
 	E.db["general"]["fonts"]["talkingtitle"]["size"] = 24
 	E.db["general"]["fonts"]["talkingtitle"]["outline"] = "SHADOWOUTLINE"
 	E.db["general"]["fonts"]["talkingtext"]["enable"] = true
-	E.db["general"]["fonts"]["talkingtext"]["size"] = 18
+	E.db["general"]["fonts"]["talkingtext"]["size"] = 16
 	E.db["general"]["fonts"]["talkingtext"]["outline"] = "SHADOWOUTLINE"
 	E.db["general"]["fonts"]["errortext"]["enable"] = true
 	E.db["general"]["fonts"]["errortext"]["size"] = 16

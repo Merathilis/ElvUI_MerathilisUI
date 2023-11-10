@@ -734,7 +734,7 @@ L["Number of Players"] = true
 L["Placeholders"] = true
 L["Use Default"] = true
 L["Researchers Under Fire"] = "Pesquisadores sob fogo"
-L["Time Rift Thaldraszus"] = "Fenda Temporal Thaldraszus"
+L["Time Rift"] = "Fenda Temporal"
 L["Superbloom"] = true
 
 -- SMB
