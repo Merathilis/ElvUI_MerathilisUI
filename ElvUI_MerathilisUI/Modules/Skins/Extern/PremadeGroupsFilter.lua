@@ -28,7 +28,8 @@ function module:PremadeGroupsFilter()
 	local ArenaPanel = _G.PremadeGroupsFilterArenaPanel
 	local RBGPanel = _G.PremadeGroupsFilterRBGPanel
 	local RaidPanel = _G.PremadeGroupsFilterRaidPanel
-	local ExpressionPanel = _G.PremadeGroupsFilterExpressionPanel
+	local RolePanel = _G.PremadeGroupsFilterRolePanel
+	local MiniPanel = _G.PremadeGroupsFilterMiniPanel
 	local PGFDialog = _G.PremadeGroupsFilterDialog
 
 	local names = { "Difficulty", "MPRating", "Members", "Tanks", "Heals", "DPS", "Partyfit", "BLFit", "BRFit", "Defeated", "MatchingId", "PvPRating" }
@@ -75,8 +76,8 @@ function module:PremadeGroupsFilter()
 		S:HandleButton(self.ResetButton)
 		S:HandleButton(self.RefreshButton)
 
-		S:HandleEditBox(ExpressionPanel.Advanced.Expression)
-		S:HandleEditBox(ExpressionPanel.Sorting.Expression)
+		S:HandleEditBox(MiniPanel.Advanced.Expression)
+		S:HandleEditBox(MiniPanel.Sorting.Expression)
 
 		local button = self.MaxMinButtonFrame
 		if button.MinimizeButton then
@@ -92,6 +93,7 @@ function module:PremadeGroupsFilter()
 		handleGroup(DungeonPanel)
 		handleGroup(ArenaPanel)
 		handleGroup(RBGPanel)
+		handleGroup(RolePanel)
 
 		for i = 1, 8 do
 			local dungeon = DungeonPanel.Dungeons["Dungeon" .. i]
