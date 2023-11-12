@@ -48,6 +48,7 @@ L["Log Level"] = "Уровень журнала"
 L["Only display log message that the level is higher than you choose."] = "Отображать только сообщение журнала о том, что уровень выше, чем вы выбрали."
 L["Set to 2 if you do not understand the meaning of log level."] = "Установите на 2, если вы не понимаете значение уровня журнала."
 L["Open the changelog window."] = "Откройте окно журнала изменений."
+L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
 -- Bags
 

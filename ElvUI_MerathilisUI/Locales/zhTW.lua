@@ -48,6 +48,7 @@ L["Log Level"] = "日誌等級"
 L["Only display log message that the level is higher than you choose."] = "只顯示高於所選等級的日志訊息."
 L["Set to 2 if you do not understand the meaning of log level."] = "如果你不理解日志等級的意思, 設置為 2 就好."
 L["Open the changelog window."] = true
+L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
 -- Bags
 
