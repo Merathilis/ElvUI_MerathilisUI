@@ -116,6 +116,15 @@ function module:PremadeGroupsFilter()
 		S:HandleCheckBox(button)
 		button.text:SetWidth(35)
 	end
+
+	local popup = PremadeGroupsFilterStaticPopup
+	if popup then
+		popup:StripTextures()
+		popup:CreateBackdrop("Transparent")
+		S:HandleEditBox(popup.EditBox)
+		S:HandleButton(popup.Button1)
+		S:HandleButton(popup.Button2)
+	end
 end
 
 module:AddCallbackForAddon("PremadeGroupsFilter")
