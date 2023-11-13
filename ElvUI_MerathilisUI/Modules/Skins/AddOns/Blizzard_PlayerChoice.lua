@@ -4,6 +4,7 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
+local Type_ItemDisplay = Enum.UIWidgetVisualizationType.ItemDisplay
 
 local function ReskinOptionText(text, r, g, b)
 	if text then
@@ -57,6 +58,23 @@ function module:Blizzard_PlayerChoice()
 					local text = rewardFrame.Name or rewardFrame.Text
 					if text then
 						ReskinOptionText(text, .9, .8, .5)
+					end
+				end
+			end
+
+			local widgetContainer = optionFrame.WidgetContainer
+			if widgetContainer and widgetContainer.widgetFrames then
+				for _, widgetFrame in pairs(widgetContainer.widgetFrames) do
+					if widgetFrame.widgetType == Type_ItemDisplay then
+						local item = widgetFrame.Item
+						if item then
+							item.IconMask:Hide()
+							item.NameFrame:SetAlpha(0)
+							if not item.backdrop then
+								S:HandleIcon(item.Icon, true)
+								S:HandleIconBorder(item.icon, item.Icon.backdrop)
+							end
+						end
 					end
 				end
 			end
