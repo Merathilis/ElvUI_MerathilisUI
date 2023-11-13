@@ -381,7 +381,7 @@ function MER:SetupLayout()
 	if IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
 		E.db["auras"]["buffs"]["keepSizeRatio"] = false
 		E.db["auras"]["buffs"]["height"] = 28
-		E.db["auras"]["buffs"]["size"] = 32
+		E.db["auras"]["buffs"]["size"] = 36
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-18"
 	else
 		E.db["auras"]["buffs"]["size"] = 32
