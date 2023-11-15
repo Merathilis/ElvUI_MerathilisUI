@@ -15,12 +15,10 @@ local function hookPanelSetTemplate(panel, template)
 		panel.MERshadow:Hide()
 		panel.MERstyle.stripes:Hide()
 		panel.MERstyle.mshadow:Hide()
-		print("nope")
 	else
 		panel.MERshadow:Show()
 		panel.MERstyle.stripes:Show()
 		panel.MERstyle.mshadow:Show()
-		print("yes")
 	end
 end
 
