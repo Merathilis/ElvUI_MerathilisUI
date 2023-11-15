@@ -22,6 +22,7 @@ local DecorAddons = {
 	{"GlobalIgnoreList", L["GlobalIgnoreList"], "gil"},
 	{"Immersion", L["Immersion"], "imm"},
 	{"OmniCD", L["OmniCD"], "omniCD"},
+	{"Pawn", L["Pawn"], "pawn"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 	{"PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf"},
 	{"RaiderIO", L["RaiderIO"], "rio"},

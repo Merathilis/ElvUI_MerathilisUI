@@ -243,6 +243,7 @@ V.skins = {
 		omniCD = true,
 		gil = true,
 		bSync = true,
+		pawn = true,
 		bw = {
 			enable = true,
 			queueTimer = {
