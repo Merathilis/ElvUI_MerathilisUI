@@ -6,7 +6,8 @@ local _G = _G
 local getn = getn
 
 local hooksecurefunc = hooksecurefunc
-local IsAddOnLoaded = IsAddOnLoaded
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 
 local MAX_STATIC_POPUPS = 4
@@ -125,7 +126,7 @@ local function LoadSkin()
 	end
 
 	-- DataStore
-	if IsAddOnLoaded("DataStore") then
+	if C_AddOns_IsAddOnLoaded("DataStore") then
 		local frame = _G.DataStoreFrame
 		if frame then
 			frame:Styling()

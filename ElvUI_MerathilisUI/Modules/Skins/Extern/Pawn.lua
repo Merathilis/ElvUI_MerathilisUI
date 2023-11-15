@@ -1,14 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-if not IsAddOnLoaded('AddOnSkins') then return end
 local AS = unpack(AddOnSkins)
 
-if not AS:CheckAddOn('Pawn') then return end
-
 local hooksecurefunc = hooksecurefunc
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+
+if not AS:CheckAddOn('Pawn') then return end
+if not C_AddOns_IsAddOnLoaded('AddOnSkins') then return end
 
 function MER:SkinPawn(event, addon)
-	if addon == 'Blizzard_ItemSocketingUI' or event == 'PLAYER_ENTERING_WORLD' and IsAddOnLoaded('Blizzard_ItemSocketingUI') then
+	if addon == 'Blizzard_ItemSocketingUI' or event == 'PLAYER_ENTERING_WORLD' and C_AddOns_IsAddOnLoaded('Blizzard_ItemSocketingUI') then
 		AS:Delay(0.1, function()
 			hooksecurefunc(ItemSocketingDescription, "SetSocketedItem", function()
 				if (PawnSocketingTooltip and not PawnSocketingTooltip.stripped) then

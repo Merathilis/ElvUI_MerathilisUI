@@ -23,18 +23,19 @@ local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 local InCombatLockdown = InCombatLockdown
-local IsAddOnLoaded = IsAddOnLoaded
 local LoadAddOn = LoadAddOn
 local DoReadyCheck = DoReadyCheck
 local InitiateRolePoll = InitiateRolePoll
 local SlashCmdList = SlashCmdList
 local HasLFGRestrictions = HasLFGRestrictions
+local issecurevariable = issecurevariable
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_PartyInfo_ConvertToParty = C_PartyInfo.ConvertToParty
 local C_PartyInfo_ConvertToRaid = C_PartyInfo.ConvertToRaid
+local C_PartyInfo_SetRestrictPings = C_PartyInfo.SetRestrictPings
+local C_PartyInfo_GetRestrictPings = C_PartyInfo.GetRestrictPings
 local C_Timer_After = C_Timer.After
-local SetRestrictPings = C_PartyInfo.SetRestrictPings
-local GetRestrictPings = C_PartyInfo.GetRestrictPings
-local issecurevariable = issecurevariable
 
 local GameTooltip = GameTooltip
 local ToggleFriendsFrame = ToggleFriendsFrame
@@ -192,11 +193,11 @@ end
 
 function module:OnClick_RestrictPings()
 	PlaySound(IG_MAINMENU_OPTION_CHECKBOX_ON)
-	SetRestrictPings(self:GetChecked())
+	C_PartyInfo_SetRestrictPings(self:GetChecked())
 end
 
 function module:OnEvent_RestrictPings()
-	self:SetChecked(GetRestrictPings())
+	self:SetChecked(C_PartyInfo_GetRestrictPings())
 end
 
 function module:CreateCheckBox(name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, label, events, eventFunc, clickFunc)
@@ -354,14 +355,14 @@ function module:Initialize()
 	local reset = true
 	PullButton:SetScript("OnClick", function(self)
 		if IsInGroup() and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid())) then
-			if IsAddOnLoaded("DBM-Core") then
+			if C_AddOns_IsAddOnLoaded("DBM-Core") then
 				if reset then
 					SlashCmdList["DEADLYBOSSMODS"]("pull "..E.db.mui.raidmanager.count)
 				else
 					SlashCmdList["DEADLYBOSSMODS"]("pull 0")
 				end
 				reset = not reset
-			elseif IsAddOnLoaded("BigWigs") then
+			elseif C_AddOns_IsAddOnLoaded("BigWigs") then
 				if not SlashCmdList["BIGWIGSPULL"] then LoadAddOn("BigWigs_Plugins") end
 
 				if reset then
@@ -435,7 +436,7 @@ function module:Initialize()
 
 	local EveryoneAssist = module:CreateCheckBox("RaidManagerFrame_EveryoneAssist", RaidManagerFrame, nil, BUTTON_WIDTH, BUTTON_HEIGHT + 4, 'TOPLEFT', RolePollButton, 'BOTTOMLEFT', -4, -3, _G.ALL_ASSIST_LABEL_LONG, {'GROUP_ROSTER_UPDATE', 'PARTY_LEADER_CHANGED'}, module.OnEvent_EveryoneAssist, module.OnClick_EveryoneAssist)
 
-	if SetRestrictPings then
+	if C_PartyInfo_SetRestrictPings then
 		module:CreateCheckBox("RaidManagerFrame_RestrictPings", RaidManagerFrame, nil, BUTTON_WIDTH, BUTTON_HEIGHT + 4, 'TOPLEFT', EveryoneAssist, 'BOTTOMLEFT', 0, 0, _G.RAID_MANAGER_RESTRICT_PINGS, {'GROUP_ROSTER_UPDATE', 'PARTY_LEADER_CHANGED'}, module.OnEvent_RestrictPings, module.OnClick_RestrictPings)
 	end
 

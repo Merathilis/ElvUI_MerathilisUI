@@ -3,9 +3,9 @@ local module = MER:GetModule('MER_Skins')
 
 local unpack = unpack
 
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
-if not IsAddOnLoaded("ls_Toasts") then return end
+if not C_AddOns_IsAddOnLoaded("ls_Toasts") then return end
 local LST = unpack(ls_Toasts)
 
 LST:RegisterSkin("MerathilisUI", {
