@@ -659,9 +659,6 @@ function MER:SetupLayout()
 		E.db["mui"]["smb"]["buttonsPerRow"] = 9
 		E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
 		E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
-		E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
-		E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
-		E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 42
 		E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
