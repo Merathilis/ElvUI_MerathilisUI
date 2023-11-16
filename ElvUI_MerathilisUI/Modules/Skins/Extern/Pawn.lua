@@ -19,6 +19,9 @@ function module:Pawn()
 
 	S:HandleCloseButton(_G.PawnUIFrame_TinyCloseButton)
 	S:HandleScrollBar(_G.PawnUIScaleSelectorScrollFrameScrollBar)
+
+	S:HandleFrame(_G.PawnUIStringDialogSingleLine)
+	S:HandleEditBox(_G.PawnUIStringDialogSingleLine.TextBox)
 	S:HandleFrame(_G.PawnUIStringDialogMultiLine)
 	S:HandleEditBox(_G.PawnUIStringDialogMultiLine_TextBox)
 
@@ -42,6 +45,8 @@ function module:Pawn()
 		_G.PawnUIFrame_CompareSwapButton,
 		_G.PawnUIFrame_ResetUpgradesButton,
 		_G.PawnUI_InventoryPawnButton,
+		_G.PawnUIStringDialogSingleLine.OKButton,
+		_G.PawnUIStringDialogSingleLine.CancelButton,
 		_G.PawnUIStringDialogMultiLine.OKButton,
 		_G.PawnUIStringDialogMultiLine.CancelButton,
 	}
@@ -89,6 +94,17 @@ function module:Pawn()
 
 	S:HandleEditBox(_G.PawnUIFrame_GemQualityLevelBox, 40, 20)
 	S:HandleScrollBar(_G.PawnUIGemScrollFrameScrollBar)
+
+	-- Tooltips
+	_G.PawnCommon.ColorTooltipBorder = false
+	hooksecurefunc("PawnUI_OnSocketUpdate", function()
+		if _G.PawnSocketingTooltip then
+			_G.PawnSocketingTooltip:StripTextures()
+			_G.PawnSocketingTooltip:CreateBackdrop("Transparent")
+			_G.PawnSocketingTooltip.backdrop:Styling()
+			module:CreateBackdropShadow(_G.PawnSocketingTooltip)
+		end
+	end)
 end
 
 module:AddCallbackForAddon("Pawn")
