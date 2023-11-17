@@ -5,9 +5,10 @@ local S = E:GetModule('Skins')
 local _G = _G
 local ipairs, select = ipairs, select
 
-local C_ChallengeMode_GetAffixInfo = C_ChallengeMode.GetAffixInfo
 local hooksecurefunc = hooksecurefunc
-local IsAddOnLoaded = IsAddOnLoaded
+
+local C_ChallengeMode_GetAffixInfo = C_ChallengeMode.GetAffixInfo
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 -- Copied from ElvUI
 local function HandleAffixIcons(self)
@@ -30,7 +31,7 @@ end
 -- Angy Keystone Skinning
 local angryStyle
 local function UpdateIcons(self)
-	if IsAddOnLoaded("AngryKeystones") and not angryStyle then
+	if C_AddOns_IsAddOnLoaded("AngryKeystones") and not angryStyle then
 		local scheduel, party = select(4, self:GetChildren())
 		scheduel:GetRegions():SetAlpha(0)
 		select(3, scheduel:GetRegions()):SetAlpha(0)

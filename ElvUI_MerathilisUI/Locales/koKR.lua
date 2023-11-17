@@ -48,6 +48,7 @@ L["Log Level"] = "로그 레벨"
 L["Only display log message that the level is higher than you choose."] = "선택한 수준 이상의 로그 메시지만 표시합니다."
 L["Set to 2 if you do not understand the meaning of log level."] = "로그 레벨의 의미를 잘 모를 경우 2로 설정하세요."
 L["Open the changelog window."] = true
+L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
 -- Bags
 
@@ -727,7 +728,7 @@ L["Number of Players"] = true
 L["Placeholders"] = true
 L["Use Default"] = true
 L["Researchers Under Fire"] = true
-L["Time Rift Thaldraszus"] = true
+L["Time Rift"] = true
 L["Superbloom"] = true
 
 -- SMB

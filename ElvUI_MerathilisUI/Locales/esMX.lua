@@ -48,6 +48,7 @@ L["Log Level"] = true
 L["Only display log message that the level is higher than you choose."] = true
 L["Set to 2 if you do not understand the meaning of log level."] = true
 L["Open the changelog window."] = true
+L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
 -- Bags
 
@@ -725,7 +726,7 @@ L["Number of Players"] = true
 L["Placeholders"] = true
 L["Use Default"] = true
 L["Researchers Under Fire"] = "Investigadores bajo el fuego"
-L["Time Rift Thaldraszus"] = "Falla temporal Thaldraszus"
+L["Time Rift"] = "Falla temporal"
 L["Superbloom"] = true
 
 -- SMB

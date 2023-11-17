@@ -3,7 +3,6 @@ local module = MER:GetModule('MER_WorldMap')
 
 local _G = _G
 local ceil = ceil
-local collectgarbage = collectgarbage
 local gsub = gsub
 local ipairs = ipairs
 local mod = mod
@@ -12,13 +11,12 @@ local strsplit = strsplit
 local tinsert = tinsert
 local tonumber = tonumber
 
-local IsAddOnLoaded = IsAddOnLoaded
 local TexturePool_HideAndClearAnchors = TexturePool_HideAndClearAnchors
 
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_MapExplorationInfo_GetExploredMapTextures = C_MapExplorationInfo.GetExploredMapTextures
 local C_Map_GetMapArtID = C_Map.GetMapArtID
 local C_Map_GetMapArtLayers = C_Map.GetMapArtLayers
-local MapCanvasScrollControllerMixin_GetCursorPosition = MapCanvasScrollControllerMixin.GetCursorPosition
 
 local overlayTextures = {}
 
@@ -153,7 +151,7 @@ function module:Initialize()
 		return
 	end
 
-	if IsAddOnLoaded("Mapster") then
+	if C_AddOns_IsAddOnLoaded("Mapster") then
 		self.StopRunning = "Mapster"
 		return
 	end

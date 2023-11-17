@@ -8,7 +8,7 @@ local ipairs, pairs, unpack = ipairs, pairs, unpack
 local format = string.format
 local tinsert = table.insert
 
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local DecorAddons = {
 	{"ActionBarProfiles", L["ActonBarProfiles"], "abp"},
@@ -22,6 +22,7 @@ local DecorAddons = {
 	{"GlobalIgnoreList", L["GlobalIgnoreList"], "gil"},
 	{"Immersion", L["Immersion"], "imm"},
 	{"OmniCD", L["OmniCD"], "omniCD"},
+	{"Pawn", L["Pawn"], "pawn"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 	{"PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf"},
 	{"RaiderIO", L["RaiderIO"], "rio"},
@@ -145,8 +146,42 @@ options.font = {
 	type = "group",
 	name = L["Fonts"],
 	args = {
-		rollResult = {
+		actionStatus = {
 			order = 1,
+			type = "group",
+			inline = true,
+			name = L["Action Status"],
+			get = function(info)
+				return E.private.mui.skins.actionStatus[info[#info]]
+			end,
+			set = function(info, value)
+				E.private.mui.skins.actionStatus[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				name = {
+					order = 1,
+					type = "select",
+					dialogControl = "LSM30_Font",
+					name = L["Font"],
+					values = LSM:HashTable("font")
+				},
+				style = {
+					order = 2,
+					type = "select",
+					name = L["Outline"],
+					values = MER.Values.FontFlags,
+				},
+				size = {
+					order = 3,
+					name = L["Size"],
+					type = "range",
+					min = 5, max = 60, step = 1
+				},
+			},
+		},
+		rollResult = {
+			order = 2,
 			type = "group",
 			inline = true,
 			name = L["Roll Result"],
@@ -1833,7 +1868,7 @@ for _, v in ipairs(DecorAddons) do
 		type = "toggle",
 		name = addonString,
 		desc = format('%s '..addonString..' %s', L["Enable/Disable"], L["decor."]),
-		disabled = function() return not IsAddOnLoaded(addonName) end,
+		disabled = function() return not C_AddOns_IsAddOnLoaded(addonName) end,
 	}
 end
 
@@ -1915,7 +1950,7 @@ for _, v in ipairs(SupportedProfiles) do
 			end
 			F.Print(profileString..addonName)
 		end,
-		disabled = function() return not IsAddOnLoaded(addon) end,
+		disabled = function() return not C_AddOns_IsAddOnLoaded(addon) end,
 	}
 end
 
@@ -1994,7 +2029,7 @@ options.advancedSettings = {
 			get = function(info) return E.private.mui.skins.addonSkins.bw[info[#info]] end,
 			set = function(info, value) E.private.mui.skins.addonSkins.bw[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 			disabled = function()
-				return not IsAddOnLoaded("BigWigs")
+				return not C_AddOns_IsAddOnLoaded("BigWigs")
 			end,
 			args = {
 				enable = {
@@ -2006,7 +2041,7 @@ options.advancedSettings = {
 					order = 1,
 					type = "description",
 					name = function()
-						if not IsAddOnLoaded("BigWigs") then
+						if not C_AddOns_IsAddOnLoaded("BigWigs") then
 							return F.StringByTemplate(format(L["%s is not loaded."], L["BigWigs"]), "danger")
 						end
 
@@ -2312,7 +2347,7 @@ options.advancedSettings = {
 			set = function(info, value) E.private.mui.skins.addonSkins.dt[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			disabled = function()
-				return not IsAddOnLoaded("Details")
+				return not C_AddOns_IsAddOnLoaded("Details")
 			end,
 			args = {
 				enable = {

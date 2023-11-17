@@ -482,12 +482,12 @@ function module:UpdatePage(pageIndex)
 end
 
 function module:UpdateAltsTable()
-	if not E.global.mui.mail.contacts.updateAlts then
-		return
-	end
-
 	if not self.altsTable then
 		self.altsTable = E.global.mui.mail.contacts.alts
+	end
+
+	if not E.global.mui.mail.contacts.updateAlts then
+		return
 	end
 
 	if not self.altsTable[E.myrealm] then

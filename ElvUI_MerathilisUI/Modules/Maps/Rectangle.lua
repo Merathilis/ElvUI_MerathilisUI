@@ -3,17 +3,13 @@ local RM = MER:GetModule('MER_RectangleMinimap')
 local MM = E:GetModule("Minimap")
 
 local _G = _G
-local abs = abs
-local ceil = ceil
-local floor = floor
+local abs, ceil, floor = abs, ceil, floor
 local format = format
-local hooksecurefunc = hooksecurefunc
-local pairs = pairs
-local select = select
-local sqrt = sqrt
 
+local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown
-local IsAddOnLoaded = IsAddOnLoaded
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 function RM:HereBeDragons_Pins_AddMinimapIconMap(_, _, icon)
 	if icon.SetPoint then
@@ -154,7 +150,7 @@ function RM:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED")
 
-	if IsAddOnLoaded("HandyNotes") then
+	if C_AddOns_IsAddOnLoaded("HandyNotes") then
 		self:HandyNotesFix()
 	end
 end

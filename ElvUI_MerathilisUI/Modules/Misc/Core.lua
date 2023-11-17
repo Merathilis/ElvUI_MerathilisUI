@@ -8,7 +8,7 @@ local tinsert = tinsert
 local type = type
 local xpcall = xpcall
 
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
@@ -83,7 +83,7 @@ function module:ADDON_LOADED(_, addonName)
 end
 
 function module:AddCallbackOrScale(AddOnName, func)
-	if not IsAddOnLoaded(AddOnName) then
+	if not C_AddOns_IsAddOnLoaded(AddOnName) then
 		module:AddCallbackForAddon(AddOnName, func)
 	else
 		func()
@@ -97,7 +97,7 @@ function module:Initialize()
 	end
 
 	for addonName, object in pairs(self.addonsToLoad) do
-		local isLoaded, isFinished = IsAddOnLoaded(addonName)
+		local isLoaded, isFinished = C_AddOns_IsAddOnLoaded(addonName)
 		if isLoaded and isFinished then
 			self:CallLoadedAddon(addonName, object)
 		end

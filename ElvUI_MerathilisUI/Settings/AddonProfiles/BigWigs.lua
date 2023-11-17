@@ -3,7 +3,7 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local _G = _G
 local twipe = table.wipe
 
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local LoadAddOn = LoadAddOn
 
 function MER:LoadBigWigsProfile()
@@ -13,10 +13,10 @@ function MER:LoadBigWigsProfile()
 	local profileName = F.Profiles.Default
 
 	-- Required to add profiles to BigWigs
-	if not IsAddOnLoaded("BigWigs_Core") then LoadAddOn("BigWigs_Core") end
+	if not C_AddOns_IsAddOnLoaded("BigWigs_Core") then LoadAddOn("BigWigs_Core") end
 
 	-- Required to add profiles to Plugins BigWigs
-	if not IsAddOnLoaded("BigWigs_Plugins") then LoadAddOn("BigWigs_Plugins") end
+	if not C_AddOns_IsAddOnLoaded("BigWigs_Plugins") then LoadAddOn("BigWigs_Plugins") end
 
 	local DB = _G.BigWigs3DB
 	local iconDB = _G.BigWigsIconDB

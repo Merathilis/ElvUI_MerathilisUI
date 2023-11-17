@@ -48,6 +48,7 @@ L["Log Level"] = "Loglevel"
 L["Only display log message that the level is higher than you choose."] = "Zeigt nur die Log Nachrichten an über dem Level dass du ausgewählt hast"
 L["Set to 2 if you do not understand the meaning of log level."] = "Setze auf 2 wenn du keine Ahnung vom Log Level hast. :)"
 L["Open the changelog window."] = "Öffne das Changelog Fenster."
+L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = "Diese Option wird die meisten ElvUI Farboptionen überschreiben, bitte bedenkt das."
 
 -- Bags
 
@@ -730,7 +731,7 @@ L["Number of Players"] = "Anzahl der Spieler"
 L["Placeholders"] = "Platzhalter"
 L["Use Default"] = "Benutze Standard"
 L["Researchers Under Fire"] = "Forscher unter Feuer"
-L["Time Rift Thaldraszus"] = "Zeitriss Thaldraszus"
+L["Time Rift"] = "Zeitriss"
 L["Superbloom"] = "Superblüte"
 
 -- SMB

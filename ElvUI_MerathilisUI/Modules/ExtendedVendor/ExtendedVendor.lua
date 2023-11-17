@@ -8,7 +8,7 @@ local _G = _G
 local unpack = unpack
 
 local CreateFrame = CreateFrame
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local BLIZZARD_MERCHANT_ITEMS_PER_PAGE = 10
 
@@ -114,12 +114,12 @@ function module:Initialize()
 
 	self.db = E.db.mui.merchant
 
-	if IsAddOnLoaded("ExtVendor") then
+	if C_AddOns_IsAddOnLoaded("ExtVendor") then
 		self.StopRunning = "ExtVendor"
 		return
 	end
 
-	if IsAddOnLoaded("ExtVendor") then
+	if C_AddOns_IsAddOnLoaded("ExtVendor") then
 		self.StopRunning = "ExtVendor"
 		return
 	end

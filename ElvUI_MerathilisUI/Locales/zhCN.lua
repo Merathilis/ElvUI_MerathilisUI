@@ -48,6 +48,7 @@ L["Log Level"] = "日志等级"
 L["Only display log message that the level is higher than you choose."] = "只显示高于选择等级的日志信息."
 L["Set to 2 if you do not understand the meaning of log level."] = "如果你不理解什么是日志级别, 设置为 2 就行."
 L["Open the changelog window."] = true
+L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
 -- Bags
 
@@ -746,7 +747,7 @@ L["Number of Players"] = "玩家数量"
 L["Placeholders"] = "占位符"
 L["Use Default"] = "使用默认"
 L["Researchers Under Fire"] = true
-L["Time Rift Thaldraszus"] = true
+L["Time Rift"] = true
 L["Superbloom"] = true
 
 -- SMB

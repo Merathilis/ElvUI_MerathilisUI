@@ -5,7 +5,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 local pairs, unpack = pairs, unpack
 
-local function LoadSkin()
+function module:Clique()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.cl then return end
 
 	_G.CliqueConfig:StripTextures()
@@ -79,4 +79,4 @@ local function LoadSkin()
 	end)
 end
 
-module:AddCallbackForAddon("Clique", LoadSkin)
+module:AddCallbackForAddon("Clique")

@@ -22,9 +22,10 @@ local VoiceTranscriptionFrame_UpdateEditBox = VoiceTranscriptionFrame_UpdateEdit
 local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateVisibility
 local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
 local LOOT = LOOT
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_UI_Reload = C_UI.Reload
 local C_CVar_SetCVar = C_CVar.SetCVar
-local IsAddOnLoaded = IsAddOnLoaded
 
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
 
@@ -100,7 +101,7 @@ local function SetupCVars()
 		C_CVar_SetCVar('showNPETutorials', 0)
 		C_CVar_SetCVar('hideAdventureJournalAlerts', 1)
 	else
-		SetCVar('taintLog', 0)
+		C_CVar.SetCVar('taintLog', 0)
 	end
 
 	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
@@ -261,8 +262,10 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	PrivateDB - General
 	--]]----------------------------------
-	SetCVar('uiScale', 0.71111111111111)
-	E.global["general"]["UIScale"] = 0.71111111111111
+	if F.IsDeveloper() then
+		C_CVar.SetCVar('uiScale', 0.71111111111111)
+		E.global["general"]["UIScale"] = 0.71111111111111
+	end
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
 	E.private["general"]["chatBubbleFont"] = "Expressway"
@@ -277,7 +280,7 @@ function MER:SetupLayout()
 	E.private["general"]["nameplateFont"] = "Expressway"
 	E.private["general"]["nameplateLargeFont"] = "Expressway"
 
-	if IsAddOnLoaded("XLoot") then
+	if C_AddOns_IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
 		E.private["general"]["lootRoll"] = false
 	else
@@ -307,10 +310,10 @@ function MER:SetupLayout()
 	E.db["general"]["fonts"]["worldsubzone"]["size"] = 28
 	E.db["general"]["fonts"]["worldsubzone"]["outline"] = "SHADOWOUTLINE"
 	E.db["general"]["fonts"]["talkingtitle"]["enable"] = true
-	E.db["general"]["fonts"]["talkingtitle"]["size"] = 24
+	E.db["general"]["fonts"]["talkingtitle"]["size"] = 20
 	E.db["general"]["fonts"]["talkingtitle"]["outline"] = "SHADOWOUTLINE"
 	E.db["general"]["fonts"]["talkingtext"]["enable"] = true
-	E.db["general"]["fonts"]["talkingtext"]["size"] = 18
+	E.db["general"]["fonts"]["talkingtext"]["size"] = 14
 	E.db["general"]["fonts"]["talkingtext"]["outline"] = "SHADOWOUTLINE"
 	E.db["general"]["fonts"]["errortext"]["enable"] = true
 	E.db["general"]["fonts"]["errortext"]["size"] = 16
@@ -378,10 +381,10 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 4
 	E.db["auras"]["buffs"]["verticalSpacing"] = 10
-	if IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
+	if C_AddOns_IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
 		E.db["auras"]["buffs"]["keepSizeRatio"] = false
 		E.db["auras"]["buffs"]["height"] = 28
-		E.db["auras"]["buffs"]["size"] = 32
+		E.db["auras"]["buffs"]["size"] = 36
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-18"
 	else
 		E.db["auras"]["buffs"]["size"] = 32
@@ -393,7 +396,7 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 4
 	E.db["auras"]["debuffs"]["verticalSpacing"] = 10
-	if IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
+	if C_AddOns_IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
 		E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 		E.db["auras"]["debuffs"]["height"] = 30
 		E.db["auras"]["debuffs"]["size"] = 34
@@ -508,7 +511,7 @@ function MER:SetupLayout()
 	--]] ----------------------------------
 	E.private["skins"]["parchmentRemoverEnable"] = true
 
-	if IsAddOnLoaded("ls_Toasts") then
+	if C_AddOns_IsAddOnLoaded("ls_Toasts") then
 		E.private["skins"]["blizzard"]["alertframes"] = false
 	else
 		E.private["skins"]["blizzard"]["alertframes"] = true
@@ -656,9 +659,6 @@ function MER:SetupLayout()
 		E.db["mui"]["smb"]["buttonsPerRow"] = 9
 		E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
 		E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
-		E.db["general"]["minimap"]["icons"]["queueStatus"]["position"] = "BOTTOMRIGHT"
-		E.db["general"]["minimap"]["icons"]["queueStatus"]["xOffset"] = 0
-		E.db["general"]["minimap"]["icons"]["queueStatus"]["yOffset"] = 42
 		E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"

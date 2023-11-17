@@ -4,7 +4,6 @@ local MI = MER:GetModule('MER_Misc')
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
 local GetMouseFocus = GetMouseFocus
-local IsAddOnLoaded = IsAddOnLoaded
 local UnitCanAttack = UnitCanAttack
 local UnitClass = UnitClass
 local UnitExists = UnitExists
@@ -16,6 +15,8 @@ local UnitIsPlayer = UnitIsPlayer
 local UnitName = UnitName
 local UIParent = UIParent
 local UNKNOWN = UNKNOWN
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local function Getcolor()
 	local reaction = UnitReaction("mouseover", "player") or 5
@@ -63,7 +64,7 @@ local function AddTargetInfos(self, unit)
 end
 
 function MI:LoadnameHover()
-	if not E.db.mui.nameHover.enable or IsAddOnLoaded("bdNameHover") then return end
+	if not E.db.mui.nameHover.enable or C_AddOns_IsAddOnLoaded("bdNameHover") then return end
 
 	local db = E.db.mui.nameHover
 	local tooltip = CreateFrame("frame", nil)
