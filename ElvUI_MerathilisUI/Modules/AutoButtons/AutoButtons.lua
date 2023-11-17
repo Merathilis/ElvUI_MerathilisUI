@@ -30,12 +30,11 @@ local GetQuestLogSpecialItemCooldown = GetQuestLogSpecialItemCooldown
 local GetQuestLogSpecialItemInfo = GetQuestLogSpecialItemInfo
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
-local IsItemInRange = IsItemInRange
+local IsItemInRange = IsItemInRange -- Blizzard seems to protected this in Combat
 local IsUsableItem = IsUsableItem
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_Container_GetItemCooldown = C_Container and C_Container.GetItemCooldown
 local C_QuestLog_GetNumQuestLogEntries = C_QuestLog and C_QuestLog.GetNumQuestLogEntries
 local C_Timer_NewTicker = C_Timer.NewTicker
 local C_TradeSkillUI_GetItemCraftedQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemCraftedQualityByItemInfo
@@ -1381,7 +1380,7 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			CooldownFrame_Set(self.cooldown, start, duration, enable)
 			if (duration and duration > 0 and enable and enable == 0) then
 				self.tex:SetVertexColor(0.4, 0.4, 0.4)
-			elseif IsItemInRange(self.itemID, "target") == false then
+			elseif not InCombatLockdown() and IsItemInRange(self.itemID, "target") == false then
 				self.tex:SetVertexColor(1, 0, 0)
 			else
 				self.tex:SetVertexColor(1, 1, 1)
