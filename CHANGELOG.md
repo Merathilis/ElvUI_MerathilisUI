@@ -1,9 +1,10 @@
 ### Changes ###
 
-  * Added Superbloom Timer on the Event Tracker
-  * Added a check on the Mail Module to update Alts on login
+  * Shorten the Event Names on the WorldMap
+  * Added the Weekly lockout check on the SuperBloom Event
   * Added new Openables to the AutoButtons. thx @mcc1
-  * Take account of some new Font Settings from ElvUI
-  * Removed the Media Section, cause now in stock ElvUI
-  * Fixed some issues on the Chat Text
-  * Fixed shadow on my AFK-Screen
+  * Updated PremadeGroupsFilter Skin
+  * Updated PetBattle IDs on the Tooltip
+  * Initialize the Alt table before trying to use it on the Mail Frame
+  * Added own Pawn Skin
+  * AutoButtons: Fixed a Taint in Combat
