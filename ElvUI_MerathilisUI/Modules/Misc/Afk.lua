@@ -224,11 +224,14 @@ local function Initialize()
 	AFK.AFKMode.PlayerName:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
 	AFK.AFKMode.PlayerName:FontTemplate(nil, 24, 'SHADOWOUTLINE')
 
+	local coloredClass
 	if colorDB.enable then
 		if colorDB.customColor.enableClass then
 			AFK.AFKMode.PlayerName:SetText(F.GradientNameCustom(E.myname, classunit))
+			coloredClass = F.GradientNameCustom(E.myLocalizedClass:gsub("%-.+", "*"), classunit)
 		else
 			AFK.AFKMode.PlayerName:SetText(F.GradientName(E.myname, classunit))
+			coloredClass = F.GradientName(E.myLocalizedClass:gsub("%-.+", "*"), classunit)
 		end
 	else
 		AFK.AFKMode.PlayerName:SetText(E.myname)
@@ -239,8 +242,6 @@ local function Initialize()
 	AFK.AFKMode.Guild:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 0)
 	AFK.AFKMode.Guild:FontTemplate(nil, 16, 'SHADOWOUTLINE')
 
-	local color = E:ClassColor(E.myclass)
-	local coloredClass = ("|cff%02x%02x%02x%s"):format(color.r * 255, color.g * 255, color.b * 255, E.myLocalizedClass:gsub("%-.+", "*"))
 	AFK.AFKMode.PlayerInfo = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.PlayerInfo:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, -25)
 	AFK.AFKMode.PlayerInfo:FontTemplate(nil, 15, 'SHADOWOUTLINE')
