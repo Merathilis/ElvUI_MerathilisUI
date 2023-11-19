@@ -205,12 +205,12 @@ local function Initialize()
 
 	AFK.AFKMode.MERVersion = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.MERVersion:Point('CENTER', AFK.AFKMode.Panel, 'CENTER', 0, -10)
-	AFK.AFKMode.MERVersion:FontTemplate(nil, 24, 'OUTLINE')
+	AFK.AFKMode.MERVersion:FontTemplate(nil, 24, 'SHADOWOUTLINE')
 	AFK.AFKMode.MERVersion:SetText(MER.Title.."|cFF00c0fa"..MER.Version.."|r")
 
 	AFK.AFKMode.DateText = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.DateText:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 24)
-	AFK.AFKMode.DateText:FontTemplate(nil, 15, 'OUTLINE')
+	AFK.AFKMode.DateText:FontTemplate(nil, 15, 'SHADOWOUTLINE')
 
 	AFK.AFKMode.ClockText = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.ClockText:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 0)
