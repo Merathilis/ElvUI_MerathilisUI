@@ -236,6 +236,9 @@ local function Initialize()
 	else
 		AFK.AFKMode.PlayerName:SetText(E.myname)
 		AFK.AFKMode.PlayerName:SetTextColor(F.r, F.g, F.b or 1, 1, 1)
+
+		local color = E:ClassColor(E.myclass)
+		coloredClass = ("|cff%02x%02x%02x%s"):format(color.r * 255, color.g * 255, color.b * 255, E.myLocalizedClass:gsub("%-.+", "*"))
 	end
 
 	AFK.AFKMode.Guild = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
