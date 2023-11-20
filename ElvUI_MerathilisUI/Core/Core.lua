@@ -62,7 +62,7 @@ F.HideOverlayGlow = LBG.HideOverlayGlow
 
 if not E.Retail then
 	E.PopupDialogs.WRONGWOWVERSION = {
-		text = MER.Title..L["does not support this game version, please uninstall it and don't ask for support. Thanks!"],
+		text = MER.Title..L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"],
 		--button1 = OKAY,
 		timeout = 0,
 		whileDead = 1,
