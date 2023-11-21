@@ -12,14 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Shorten the Event Names on the WorldMap",
-		"• Added the Weekly lockout check on the SuperBloom Event",
-		"• Updated PremadeGroupsFilter Skin",
-		"• Added new Openables to the AutoButtons. thx @mcc1",
-		"• Updated PetBattle IDs on the Tooltip",
-		"• Initialize the Alt table before trying to use it on the Mail Frame",
-		"• Added own Pawn Skin",
-		"• AutoButtons: Fixed a Taint in Combat",
+		"• Added an AddOn Profile for mMedia Tags",
+		"• Small color adjustments on the AFK Screen",
+		"• Fixed shadow on the ls_Toast skin",
+		"• Added Hearthstone of the Flames to LocPanel & MicroBar",
 
 		-- "• ''",
 
