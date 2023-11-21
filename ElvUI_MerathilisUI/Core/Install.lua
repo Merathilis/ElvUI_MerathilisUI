@@ -2420,13 +2420,18 @@ function MER:SetupAddOns()
 	--AddOnSkins
 	if E:IsAddOnEnabled("AddOnSkins") then
 		MER:LoadAddOnSkinsProfile()
-		tinsert(addonNames, "AddOnSkins")
+		tinsert(addonNames, "|cff16C3F2AddOn|r|cFFFFFFFFSkins|r")
 	end
 
 	-- ProjectAzilroka
 	if E:IsAddOnEnabled("ProjectAzilroka") then
 		MER:LoadPAProfile()
-		tinsert(addonNames, "ProjectAzilroka")
+		tinsert(addonNames, "|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r")
+	end
+
+	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
+		MER:mMediaTag()
+		tinsert(addonNames, "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r")
 	end
 
 	if checkTable(addonNames) ~= nil then

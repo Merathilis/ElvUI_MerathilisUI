@@ -99,6 +99,7 @@ module.Hearthstones = {
 	{193588, nil, true}, -- Timewalker's Hearthstone
 	{200630, nil, true}, -- Ohn'ir Windsage's Hearthstone
 	{208704, nil, true}, -- Deepdweller's Earthen Hearthstone
+	{209035, nil, true}, -- Hearthstone of the Flame
 }
 
 module.PortItems = {

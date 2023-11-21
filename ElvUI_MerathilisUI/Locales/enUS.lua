@@ -21,6 +21,7 @@ L["Font Outline"] = true
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
 L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
+L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"] = true
 L["AFK"] = "Away"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Are you still there? ... Hello?"] = true

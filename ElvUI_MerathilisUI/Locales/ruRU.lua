@@ -18,6 +18,7 @@ L["Font Outline"] = "Контур шрифта"
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Плагин для |cffff7d0aElvUI|r от\nMerahilis."
 L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
+L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"] = true
 L["AFK"] = "АФК"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = "Включить/отключить экран MUI AFK. Отключено, если загружен BenikUI"
 L["Are you still there? ... Hello?"] = "Ты еще там? ... Привет?"

@@ -60,13 +60,19 @@ local LBG = LibStub("LibButtonGlow-1.0")
 F.ShowOverlayGlow = LBG.ShowOverlayGlow
 F.HideOverlayGlow = LBG.HideOverlayGlow
 
+if not E.Retail then
+	E.PopupDialogs.WRONGWOWVERSION = {
+		text = MER.Title..L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"],
+		--button1 = OKAY,
+		timeout = 0,
+		whileDead = 1,
+		hideOnEscape = false,
+	}
+	E:StaticPopup_Show('WRONGWOWVERSION')
+end
+
 E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
-	text = format(
-		"%s\n%s\n\n|cffaaaaaa%s|r",
-		format(L["%s detects CVar %s has been changed."], MER.Title, "|cff209ceeActionButtonUseKeyDown|r"),
-		L["It will cause some buttons not work properly before UI reloading."],
-		format(L["You can disable this alert in [%s]-[%s]-[%s]"], MER.Title, L["Advanced Settings"], L["Blizzard Fixes"])
-	),
+	text = format( "%s\n%s\n\n|cffaaaaaa%s|r", format(L["%s detects CVar %s has been changed."], MER.Title, "|cff209ceeActionButtonUseKeyDown|r"), L["It will cause some buttons not work properly before UI reloading."], format(L["You can disable this alert in [%s]-[%s]-[%s]"], MER.Title, L["Advanced Settings"], L["Blizzard Fixes"])),
 	button1 = L["Reload UI"],
 	button2 = _G.CANCEL,
 	OnAccept = _G.ReloadUI
