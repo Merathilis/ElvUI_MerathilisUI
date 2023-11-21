@@ -225,6 +225,8 @@ local function GetClassColor(className)
 end
 
 function module:UpdateFriendButton(button)
+	if not button then return end
+
 	if not self.db.enable then
 		if cache.name and cache.info then
 			F.SetFontWithDB(button.name, cache.name)
