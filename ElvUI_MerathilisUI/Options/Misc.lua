@@ -44,14 +44,6 @@ options.general = {
 			name = L.GUILD_MOTD_LABEL2,
 			desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 		},
-		guildNewsItemLevel = {
-			order = 3,
-			type = "toggle",
-			name = L["Guild News Item Level"],
-			desc = L["Add Item level Infos in Guild News"],
-			get = function(info) return E.private.mui.misc[info[#info]] end,
-			set = function(info, value) E.private.mui.misc[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-		},
 		funstuff = {
 			order = 4,
 			type = "toggle",

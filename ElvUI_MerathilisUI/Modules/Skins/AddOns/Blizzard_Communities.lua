@@ -11,28 +11,6 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local cache = {}
-
-local function ModifyGuildNews(button, _, text, name, link, ...)
-	if not E.private.mui.misc.guildNewsItemLevel then
-		return
-	end
-
-	if not link or not strmatch(link, "|H(item:%d+:.-)|h.-|h") then
-		return
-	end
-
-	if not cache[link] then
-		cache[link] = F.GetRealItemLevelByLink(link)
-	end
-
-	if cache[link] then
-		local coloredItemLevel = format("|cfff1c40f%s|r", cache[link])
-		link = gsub(link, "|h%[(.-)%]|h", "|h[" .. coloredItemLevel .. ":%1]|h")
-		button.text:SetFormattedText(text, name, link, ...)
-	end
-end
-
 local CLASS_ICON_TCOORDS = CLASS_ICON_TCOORDS
 local function ClassIconTexCoord(self, class)
 	local tcoords = CLASS_ICON_TCOORDS[class]
@@ -155,8 +133,6 @@ local function LoadSkin()
 	if GuildNewsFilter.backdrop then
 		GuildNewsFilter.backdrop:Styling()
 	end
-
-	hooksecurefunc("GuildNewsButton_SetText", ModifyGuildNews)
 
 	hooksecurefunc(CommunitiesFrame.GuildBenefitsFrame.Rewards.ScrollBox, "Update", function(button)
 		for _, child in next, { button.ScrollTarget:GetChildren() } do

@@ -10,6 +10,7 @@
 	<Include file="FlightPoint.xml" />
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
+	<Script file="ItemLevel.lua"/>
 	<Script file="LfgInfo.lua"/>
 	<Script file="Loot.lua"/>
 	<Script file="MissingStats.lua"/>

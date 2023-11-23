@@ -1684,6 +1684,12 @@ P.itemLevel = {
 			},
 		},
 	},
+	merchantFrame = {
+		enable = true,
+	},
+	guildNews = {
+		enable = true,
+	}
 }
 
 P.raidBuffs = {

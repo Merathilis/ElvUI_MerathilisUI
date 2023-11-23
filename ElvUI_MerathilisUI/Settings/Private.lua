@@ -4,10 +4,6 @@ V.general = {
 	install_complete = nil,
 }
 
-V.misc = {
-	guildNewsItemLevel = true,
-}
-
 V.skins = {
 	enable = true,
 	style = true,
