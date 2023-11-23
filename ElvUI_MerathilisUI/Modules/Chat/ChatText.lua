@@ -28,7 +28,6 @@ local utf8sub = string.utf8sub
 local wipe = wipe
 
 local Ambiguate = Ambiguate
-local BetterDate = BetterDate
 local BNet_GetClientEmbeddedTexture = BNet_GetClientEmbeddedTexture
 local BNGetNumFriends = BNGetNumFriends
 local BNGetNumFriendInvites = BNGetNumFriendInvites
@@ -71,7 +70,6 @@ local C_Club_GetClubInfo = C_Club.GetClubInfo
 local C_Club_GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityChatLine
 local C_PartyInfo_InviteUnit = C_PartyInfo and C_PartyInfo.InviteUnit
 local C_Texture_GetTitleIconTexture = C_Texture and C_Texture.GetTitleIconTexture
-local GetClientTexture = _G.BNet_GetClientEmbeddedAtlas or _G.BNet_GetClientEmbeddedTexture
 local C_Timer_After = C_Timer.After
 
 local CHATCHANNELRULESET_MENTOR = Enum.ChatChannelRuleset.Mentor
@@ -764,9 +762,34 @@ function CT:HandleShortChannels(msg)
 	return msg
 end
 
-function CT:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, event, eventArgs, msgFormatter, isHistory, historyTime)
-	local body = CH:AddMessageEdits(self, msg, isHistory, historyTime)
-	self.OldAddMessage(self, body, infoR, infoG, infoB, infoID, accessID, typeID, event, eventArgs, msgFormatter)
+function CT:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
+	if not strmatch(msg, "^|Helvtime|h") and not strmatch(msg, "^|Hcpl:") then
+		local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
+		if isHistory == "ElvUI_ChatHistory" then
+			historyTimestamp = historyTime
+		end
+
+		if CH.db.timeStampFormat and CH.db.timeStampFormat ~= "NONE" then
+			local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or E:GetDateTime(CH.db.timeStampLocalTime, true))
+			timeStamp = gsub(timeStamp, " ", "")
+			timeStamp = gsub(timeStamp, "AM", " AM")
+			timeStamp = gsub(timeStamp, "PM", " PM")
+
+			if CH.db.useCustomTimeColor then
+				local color = CH.db.customTimeColor
+				local hexColor = E:RGBToHex(color.r, color.g, color.b)
+				msg = format("|Helvtime|h%s[%s]|r|h %s", hexColor, timeStamp, msg)
+			else
+				msg = format("|Helvtime|h[%s]|h %s", timeStamp, msg)
+			end
+		end
+
+		if CH.db.copyChatLines then
+			msg = format("|Hcpl:%s|h%s|h %s", self:GetID(), E:TextureString(E.Media.Textures.ArrowRight, ":14"), msg)
+		end
+	end
+
+	self.OldAddMessage(self, msg, infoR, infoG, infoB, infoID, accessID, typeID)
 end
 
 function CT:CheckLFGRoles()
