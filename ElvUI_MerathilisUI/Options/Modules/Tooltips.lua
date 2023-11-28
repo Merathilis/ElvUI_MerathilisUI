@@ -71,7 +71,7 @@ options.tooltip = {
 		gradientName = {
 			order = 8,
 			type = "toggle",
-			name = E.NewSign..L["Gradient Name"],
+			name = L["Gradient Name"],
 		},
 		nameHover = {
 			order = 15,
@@ -113,7 +113,7 @@ options.tooltip = {
 				gradient = {
 					order = 5,
 					type = "toggle",
-					name = E.NewSign..L["Gradient Color"],
+					name = L["Gradient Color"],
 					desc = L["Colors the player names in a gradient instead of class color"]
 				},
 			},
