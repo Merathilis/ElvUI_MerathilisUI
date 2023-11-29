@@ -2354,18 +2354,35 @@ options.advancedSettings = {
 					name = L["Enable"],
 					width = "full",
 				},
-				gradientName = {
+				description = {
 					order = 1,
+					type = "description",
+					name = function()
+						if not C_AddOns_IsAddOnLoaded("Details") then
+							return F.StringByTemplate(format(L["%s is not loaded."], L["Details"]), "danger")
+						end
+
+						return format("|cfffff400%s", L["The options below is only for the Details look, NOT the Embeded."])
+					end,
+					fontSize = "medium"
+				},
+				spacer = {
+					order = 2,
+					type = "description",
+					name = " ",
+				},
+				gradientBars = {
+					order = 3,
 					type = "toggle",
-					name = L["Gradient Name"],
+					name = L["Gradient Bars"],
 					disabled = function()
 						return not E.private.mui.skins.addonSkins.dt.enable
 					end,
 				},
-				gradientBars = {
-					order = 1,
+				gradientName = {
+					order = 4,
 					type = "toggle",
-					name = L["Gradient Bars"],
+					name = L["Gradient Name"],
 					disabled = function()
 						return not E.private.mui.skins.addonSkins.dt.enable
 					end,
