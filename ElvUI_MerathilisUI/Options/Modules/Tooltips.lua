@@ -62,14 +62,8 @@ options.tooltip = {
 			name = L["Pet ID"],
 			desc = L["Show battle pet species ID in tooltips."],
 		},
-		keystone = {
-			order = 7,
-			type = "toggle",
-			name = L["Keystone"],
-			desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
-		},
 		gradientName = {
-			order = 8,
+			order = 7,
 			type = "toggle",
 			name = L["Gradient Name"],
 		},
