@@ -383,6 +383,7 @@ local runes = {
 	204971,
 	204972,
 	204973,
+	211495
 }
 
 -- Runes added in Dragonflight
@@ -403,6 +404,7 @@ local runesDragonflight = {
 	204971,
 	204972,
 	204973,
+	211495
 }
 
 -- Foods (Crafted by cooking)
