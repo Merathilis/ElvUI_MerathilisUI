@@ -190,7 +190,8 @@ function module:WeakAuras()
 	end
 
 	-- Real Time Profiling Window
-	local profilingWindow = WeakAuras.RealTimeProfilingWindow
+	-- Fix me
+	--[[local profilingWindow = WeakAuras.RealTimeProfilingWindow
 	if profilingWindow then
 		self:CreateShadow(profilingWindow)
 		if profilingWindow.UpdateButtons then
@@ -199,7 +200,7 @@ function module:WeakAuras()
 		if WeakAuras.PrintProfile then
 			self:SecureHook(WeakAuras, "PrintProfile", "WeakAuras_PrintProfile")
 		end
-	end
+	end]]
 end
 
 module:AddCallbackForAddon("WeakAuras")
