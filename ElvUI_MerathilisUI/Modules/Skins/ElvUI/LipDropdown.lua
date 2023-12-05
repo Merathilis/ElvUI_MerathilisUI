@@ -42,4 +42,31 @@ function module:S_SkinLibDropDownMenu(_, prefix)
 	end
 end
 
+do
+	local hooked = {}
+	function module:S_SkinDropDownMenu(_, prefix)
+		if hooked[prefix] then
+			return
+		end
+
+		hooked[prefix] = true
+
+		hooksecurefunc('UIDropDownMenu_CreateFrames', function(level, index)
+			local listFrameName = _G[prefix .. level]:GetName()
+			local backdrop = _G[listFrameName .. 'Backdrop']
+			if backdrop and backdrop.template then
+				backdrop:Styling()
+				self:CreateShadow(backdrop)
+			end
+
+			local menuBackdrop = _G[listFrameName .. 'MenuBackdrop']
+			if menuBackdrop and menuBackdrop.template then
+				menuBackdrop:Styling()
+				self:CreateShadow(menuBackdrop)
+			end
+		end)
+	end
+end
+
 module:SecureHook(S, 'SkinLibDropDownMenu', 'S_SkinLibDropDownMenu')
+module:SecureHook(S, 'SkinDropDownMenu', 'S_SkinDropDownMenu')
