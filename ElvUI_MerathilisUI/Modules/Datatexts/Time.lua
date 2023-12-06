@@ -248,4 +248,4 @@ function Update(self, t)
 	int = 5
 end
 
-DT:RegisterDatatext("Time", "ElvUI_MerathilisUI", { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, OnClick, OnEnter, OnLeave, dName, nil, ValueColorUpdate)
+DT:RegisterDatatext("mTime", "ElvUI_MerathilisUI", { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, OnClick, OnEnter, OnLeave, dName, nil, ValueColorUpdate)
