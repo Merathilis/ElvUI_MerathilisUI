@@ -20,6 +20,7 @@
 	<Script file="SpellAlerts.lua"/>
 	<Script file="RandomToy.lua"/>
 	<Script file="TradeTabs.lua"/>
+	<Script file="WAAnchor.lua"/>
 	<Script file="WoWHeadLinks.lua"/>
 
 	<Include file="Scale\Load_Scale.xml"/>

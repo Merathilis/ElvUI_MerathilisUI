@@ -2397,7 +2397,7 @@ function MER:SetupDts()
 		border = true,
 		panelTransparency = true,
 		numPoints = 2,
-		"Durability",
+		"DurabilityItemLevel",
 		"Gold",
 	}
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false

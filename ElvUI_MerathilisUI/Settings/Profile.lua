@@ -632,7 +632,10 @@ P.notification = {
 P.databars = {}
 
 P.datatexts = {
-	RightChatDataText = true,
+	durabilityIlevel = {
+		icon = true,
+		text = true,
+	},
 }
 
 P.actionbars = {

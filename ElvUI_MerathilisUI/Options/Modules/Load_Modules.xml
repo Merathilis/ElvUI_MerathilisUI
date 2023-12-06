@@ -10,7 +10,7 @@
 	<Script file='Cooldowns.lua'/>
 	<Script file='CVars.lua'/>
 	<Script file='DataBars.lua'/>
-	<!-- <Script file='DataTexts.lua'/> -->
+	<Script file='DataTexts.lua'/>
 	<Script file='ExtendedVendor.lua'/>
 	<Script file='ItemLevel.lua'/>
 	<Script file='LocPanel.lua'/>
