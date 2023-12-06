@@ -43,6 +43,18 @@ local baseMulti = 0.64 / baseScale
 local perfectScale = baseScale / F.PixelPerfect()
 local perfectMulti = baseMulti * perfectScale
 
+function F.HiDpi()
+	return E.physicalHeight / 1440 >= 1
+end
+
+function F.Dpi(value, frac)
+	return F.Round(value * perfectMulti, frac)
+end
+
+function F.DpiRaw(value)
+	return value * perfectMulti
+end
+
 function F.SetFontDB(text, db)
 	if not text or not text.GetFont then
 		F.Developer.LogDebug("Functions.SetFontDB: text not found")
