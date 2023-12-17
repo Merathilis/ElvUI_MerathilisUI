@@ -38,6 +38,7 @@ local SupportedProfiles = {
 	{"BigWigs", "BigWigs"},
 	{"Details", "Details"},
 	{"ElvUI_FCT", "FCT"},
+	{"ElvUI_mMediaTag", "mMediaTag & Tools"},
 	{"ProjectAzilroka", "ProjectAzilroka"},
 	{"ls_Toasts", "ls_Toasts"},
 	{"DBM-Core", "Deadly Boss Mods"},
@@ -1942,6 +1943,9 @@ for _, v in ipairs(SupportedProfiles) do
 				MER:LoadFCTProfile()
 				FCT:UpdateUnitFrames()
 				FCT:UpdateNamePlates()
+			elseif addon == 'ElvUI_mMediaTag' then
+				MER:mMediaTag()
+				E:StaticPopup_Show('PRIVATE_RL')
 			elseif addon == 'OmniCD' then
 				MER:LoadOmniCDProfile()
 				E:StaticPopup_Show('PRIVATE_RL')
