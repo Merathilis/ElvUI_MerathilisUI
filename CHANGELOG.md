@@ -1,7 +1,8 @@
 ### Changes ###
 
-  * Added an AddOn Profile for mMedia Tags
-  * Small color adjustments on the AFK Screen
-  * Fixed shadow on the ls_Toast skin
-  * Added Hearthstone of the Flames to LocPanel & MicroBar
+  * Fix some Itemlevel related things i broke by accident
+  * Take account to time/date changes in ElvUI
+  * Fix a potential error on Quest Skin
+  * Added more openables to the AutoButtons
+  * 🎄
 
