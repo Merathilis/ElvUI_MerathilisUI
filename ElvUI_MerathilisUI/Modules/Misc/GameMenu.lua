@@ -30,6 +30,7 @@ MER.NPCS = {
 	188861, -- Secretive Frogduck
 	189152, -- Lubbins
 	191627, -- Lord Basilton
+	184285, -- Gnomelia Gearheart
 }
 
 --[[

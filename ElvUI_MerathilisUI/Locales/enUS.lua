@@ -1091,6 +1091,7 @@ L["Smooth the bar animation with ElvUI."] = true
 L["Spark"] = true
 L["The options below are only for BigWigs %s bar style."] = true
 L["You need to manually set the bar style to %s in BigWigs first."] = true
+L["The options below is only for the Details look, NOT the Embeded."] = true
 
 -- Panels
 L["Panels"] = true

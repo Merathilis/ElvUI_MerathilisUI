@@ -1,4 +1,4 @@
-local E, _, V, P, G = unpack(ElvUI)
+local E, _, V, P, G = unpack(ElvUI) 
 local addon, Engine = ...
 
 local EP = E.Libs.EP

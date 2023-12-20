@@ -58,7 +58,7 @@ local function LoadSkin()
 	select(7, CompleteQuestFrame.CompleteButton:GetRegions()):SetAlpha(0)
 
 	_G.QuestLogPopupDetailFrameScrollFrame:HookScript("OnUpdate", function(self)
-		_G.QuestLogPopupDetailFrameScrollFrame.backdrop:Hide()
+		if _G.QuestLogPopupDetailFrameScrollFrame.backdrop then _G.QuestLogPopupDetailFrameScrollFrame.backdrop:Hide() end
 		_G.QuestLogPopupDetailFrameInset:Hide()
 		_G.QuestLogPopupDetailFrameBg:Hide()
 		-- self:CreateBackdrop("Transparent")

@@ -632,7 +632,10 @@ P.notification = {
 P.databars = {}
 
 P.datatexts = {
-	RightChatDataText = true,
+	durabilityIlevel = {
+		icon = true,
+		text = true,
+	},
 }
 
 P.actionbars = {
@@ -1684,6 +1687,12 @@ P.itemLevel = {
 			},
 		},
 	},
+	merchantFrame = {
+		enable = true,
+	},
+	guildNews = {
+		enable = true,
+	}
 }
 
 P.raidBuffs = {

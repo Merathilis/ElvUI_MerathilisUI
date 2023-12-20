@@ -1091,6 +1091,7 @@ L["Smooth the bar animation with ElvUI."] = "Плавная анимация п�
 L["Spark"] = "Искра"
 L["The options below are only for BigWigs %s bar style."] = "Приведенные ниже параметры относятся только к стилю полос BigWigs %s."
 L["You need to manually set the bar style to %s in BigWigs first."] = "Сначала вам нужно вручную установить стиль полосы на %s в BigWigs."
+L["The options below is only for the Details look, NOT the Embeded."] = true
 
 -- Panels
 L["Panels"] = "Панели"

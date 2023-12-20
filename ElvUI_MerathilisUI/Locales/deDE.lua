@@ -1088,6 +1088,7 @@ L["Smooth the bar animation with ElvUI."] = "Flüssige Animation der Leiste mit 
 L["Spark"] = "Funke"
 L["The options below are only for BigWigs %s bar style."] = "Die Einstellungen unten sind nur für BigWigs %s Leisten Stil."
 L["You need to manually set the bar style to %s in BigWigs first."] = "Du musst zuerst den BigWigs Stile zu %s setzen."
+L["The options below is only for the Details look, NOT the Embeded."] = "Die nachfolgende Option ist nur für das Aussehen von Details, NICHT die Einbettung."
 
 -- Panels
 L["Panels"] = "Leisten"
