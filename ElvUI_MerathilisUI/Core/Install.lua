@@ -104,7 +104,7 @@ local function SetupCVars()
 		C_CVar.SetCVar('taintLog', 0)
 	end
 
-	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
+	PluginInstallStepComplete.message = MER.Title .. L["CVars Set"]
 	PluginInstallStepComplete:Show()
 end
 
@@ -216,14 +216,14 @@ local function SetupChat()
 	E.db["chat"]["panelBackdrop"] = "LEFT"
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
 	E.db["chat"]["copyChatLines"] = true
-	E.db["chat"]["panelColor"] = {r = .06, g = .06, b = .06, a = .45}
+	E.db["chat"]["panelColor"] = { r = .06, g = .06, b = .06, a = .45 }
 	E.db["chat"]["useCustomTimeColor"] = true
-	E.db["chat"]["customTimeColor"] = {r = 0, g = 0.75, b = 0.98}
+	E.db["chat"]["customTimeColor"] = { r = 0, g = 0.75, b = 0.98 }
 	E.db["chat"]["panelBackdropNameRight"] = ""
 	E.db["chat"]["socialQueueMessages"] = false
 	E.db["chat"]["hideChatToggles"] = true
 	E.db["chat"]["tabSelector"] = "BOX"
-	E.db["chat"]["tabSelectorColor"] = {r = F.r, g = F.g, b = F.b}
+	E.db["chat"]["tabSelectorColor"] = { r = F.r, g = F.g, b = F.b }
 
 	if F.IsDeveloper() then
 		E.db["chat"]["timeStampFormat"] = "%H:%M "
@@ -250,7 +250,7 @@ local function SetupChat()
 
 	E:StaggeredUpdateAll(nil, true)
 
-	PluginInstallStepComplete.message = MER.Title..L["Chat Set"]
+	PluginInstallStepComplete.message = MER.Title .. L["Chat Set"]
 	PluginInstallStepComplete:Show()
 end
 
@@ -261,7 +261,8 @@ function MER:SetupLayout()
 
 	--[[----------------------------------
 	--	PrivateDB - General
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	if F.IsDeveloper() then
 		C_CVar.SetCVar('uiScale', 0.71111111111111)
 		E.global["general"]["UIScale"] = 0.71111111111111
@@ -284,7 +285,8 @@ function MER:SetupLayout()
 
 	--[[----------------------------------
 	--	GlobalDB - General
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	E.global["general"]["autoScale"] = true
 	E.global["general"]["animateConfig"] = false
 	E.global["general"]["smallerWorldMap"] = false
@@ -294,7 +296,8 @@ function MER:SetupLayout()
 
 	--[[----------------------------------
 	--	ProfileDB - General
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	E.db["general"]["font"] = "Expressway"
 	E.db["general"]["fontSize"] = 11
 	E.db["general"]["fonts"]["worldzone"]["enable"] = true
@@ -312,7 +315,7 @@ function MER:SetupLayout()
 	E.db["general"]["fonts"]["errortext"]["enable"] = true
 	E.db["general"]["fonts"]["errortext"]["size"] = 16
 	E.db["general"]["fonts"]["errortext"]["outline"] = "SHADOWOUTLINE"
-	E.db["general"]["valuecolor"] = {r = F.r, g = F.g, b = F.b}
+	E.db["general"]["valuecolor"] = { r = F.r, g = F.g, b = F.b }
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 	E.db["general"]["interruptAnnounce"] = "RAID"
@@ -366,7 +369,8 @@ function MER:SetupLayout()
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	E.db["auras"]["fadeThreshold"] = 10
 	E.db["auras"]["buffs"]["timeFont"] = "Gotham Narrow Black"
 	E.db["auras"]["buffs"]["timeFontSize"] = 11
@@ -432,9 +436,10 @@ function MER:SetupLayout()
 	E.db["auras"]["cooldown"]["hoursColor"]["g"] = 1
 	E.db["auras"]["cooldown"]["hoursColor"]["b"] = 1
 
-		--[[----------------------------------
+	--[[----------------------------------
 	--	ProfileDB - Bags
-	--]] ----------------------------------
+	--]]
+	  ----------------------------------
 	E.db["bags"]["itemLevelFont"] = "Expressway"
 	E.db["bags"]["itemLevelFontSize"] = 9
 	E.db["bags"]["itemLevelFontOutline"] = "SHADOWOUTLINE"
@@ -483,7 +488,8 @@ function MER:SetupLayout()
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	E.db["tooltip"]["itemCount"] = "NONE"
 	E.db["tooltip"]["healthBar"]["height"] = 5
 	E.db["tooltip"]["healthBar"]["fontOutline"] = "SHADOWOUTLINE"
@@ -500,9 +506,10 @@ function MER:SetupLayout()
 	E.db["tooltip"]["healthBar"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
 
-		--[[----------------------------------
+	--[[----------------------------------
 	--	Skins - Layout
-	--]] ----------------------------------
+	--]]
+	  ----------------------------------
 	E.private["skins"]["parchmentRemoverEnable"] = true
 
 	if C_AddOns_IsAddOnLoaded("ls_Toasts") then
@@ -513,14 +520,16 @@ function MER:SetupLayout()
 
 	--[[----------------------------------
 	--	ItemLevel - Layout
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	E.db["general"]["itemLevel"]["itemLevelFont"] = "Expressway"
 	E.db["general"]["itemLevel"]["itemLevelFontSize"] = 12
 	E.db["general"]["itemLevel"]["itemLevelFontOutline"] = "SHADOWOUTLINE"
 
 	--[[----------------------------------
 	--	ProfileDB - MER
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	E.db["mui"]["locPanel"]["enable"] = true
 	E.db["mui"]["locPanel"]["combathide"] = true
 	E.db["mui"]["locPanel"]["colorType"] = "CLASS"
@@ -545,7 +554,8 @@ function MER:SetupLayout()
 
 	--[[----------------------------------
 	--	Movers - Layout
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-201"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,229,-20"
 	E.db["movers"]["BNETMover"] = "TOP,ElvUIParent,TOP,0,-60"
@@ -663,7 +673,7 @@ function MER:SetupLayout()
 
 	E:StaggeredUpdateAll(nil, true)
 
-	PluginInstallStepComplete.message = MER.Title..L["Layout Set"]
+	PluginInstallStepComplete.message = MER.Title .. L["Layout Set"]
 	PluginInstallStepComplete:Show()
 end
 
@@ -674,7 +684,8 @@ function MER:SetupActionbars()
 
 	--[[----------------------------------
 	--	ActionBars - General
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	E.db["actionbar"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["actionbar"]["fontSize"] = 10
 	E.db["actionbar"]["macrotext"] = true
@@ -695,7 +706,8 @@ function MER:SetupActionbars()
 
 	--[[----------------------------------
 	--	ActionBars layout
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	E.db["actionbar"]["font"] = "Expressway"
 	E.db["actionbar"]["desaturateOnCooldown"] = true
 
@@ -889,20 +901,21 @@ function MER:SetupActionbars()
 
 	E:StaggeredUpdateAll(nil, true)
 
-	PluginInstallStepComplete.message = MER.Title..L["ActionBars Set"]
+	PluginInstallStepComplete.message = MER.Title .. L["ActionBars Set"]
 	PluginInstallStepComplete:Show()
 end
 
 function MER:SetupNamePlates()
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 
 	-- General
 	E.db["nameplates"]["threat"]["enable"] = false
 	E.db["nameplates"]["threat"]["useThreatColor"] = false
 	E.db["nameplates"]["clampToScreen"] = true
-	E.db["nameplates"]["colors"]["glowColor"] = {r = 0, g = 191/255, b = 250/255, a = 1}
+	E.db["nameplates"]["colors"]["glowColor"] = { r = 0, g = 191 / 255, b = 250 / 255, a = 1 }
 	E.db["nameplates"]["font"] = "Expressway"
 	E.db["nameplates"]["fontSize"] = 12
 	E.db["nameplates"]["stackFont"] = "Expressway"
@@ -1130,7 +1143,8 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["priority"] = 'Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["priority"] =
+	'Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 26
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["height"] = 18
@@ -1182,8 +1196,9 @@ function MER:SetupNamePlates()
 
 	--[[----------------------------------
 	--	ProfileDB - Style Filter
-	--]]----------------------------------
-	for _, filterName in pairs({'MerathilisUI_Neutral'}) do
+	--]]
+	  ----------------------------------
+	for _, filterName in pairs({ 'MerathilisUI_Neutral' }) do
 		E.global["nameplates"]["filters"][filterName] = {}
 		E.NamePlates:StyleFilterCopyDefaults(E.global["nameplates"]["filters"][filterName])
 		E.db["nameplates"]["filters"][filterName] = { triggers = { enable = true } }
@@ -1199,7 +1214,7 @@ function MER:SetupNamePlates()
 
 	E:StaggeredUpdateAll(nil, true)
 
-	PluginInstallStepComplete.message = MER.Title..L["NamePlates Set"]
+	PluginInstallStepComplete.message = MER.Title .. L["NamePlates Set"]
 	PluginInstallStepComplete:Show()
 end
 
@@ -1210,7 +1225,8 @@ function MER:SetupUnitframes()
 
 	--[[----------------------------------
 	--	UnitFrames - General
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	E.db["unitframe"]["font"] = "Gotham Narrow Black"
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "SHADOWOUTLINE"
@@ -1234,7 +1250,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["power"]["FOCUS"] = { r = 1, g = 0.50, b = 0.25 }
 	E.db["unitframe"]["colors"]["power"]["ENERGY"] = { r = 1, g = 0.96, b = 0.41 }
 	E.db["unitframe"]["colors"]["power"]["PAIN"] = { r = 1, g = 0.51, b = 0, atlas = '_DemonHunter-DemonicPainBar' }
-	E.db["unitframe"]["colors"]["power"]["FURY"] = { r = 0.298, g = 1, b = 0, atlas = '_DemonHunter-DemonicFuryBar'}
+	E.db["unitframe"]["colors"]["power"]["FURY"] = { r = 0.298, g = 1, b = 0, atlas = '_DemonHunter-DemonicFuryBar' }
 	E.db["unitframe"]["colors"]["power"]["ALT_POWER"] = { r = 0.2, g = 0.54, b = 0.8 }
 	E.db["unitframe"]["colors"]["power"]["RUNIC_POWER"] = { r = 0, g = 0.89, b = 1 }
 	E.db["unitframe"]["colors"]["power"]["MAELSTROM"] = { r = 0, g = 0.5, b = 1, atlas = '_Shaman-MaelstromBar' }
@@ -1513,7 +1529,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 	E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 7
 	E.db["unitframe"]["units"]["target"]["debuffs"]["attachTo"] = "BUFFS"
-	E.db["unitframe"]["units"]["target"]["debuffs"]["priority"] = "Blacklist,Personal,RaidDebuffs,CCDebuffs,Friendly:Dispellable"
+	E.db["unitframe"]["units"]["target"]["debuffs"]["priority"] =
+	"Blacklist,Personal,RaidDebuffs,CCDebuffs,Friendly:Dispellable"
 	E.db["unitframe"]["units"]["target"]["debuffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["target"]["debuffs"]["countFontSize"] = 9
 	E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 3
@@ -1594,7 +1611,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPRIGHT"
 	E.db["unitframe"]["units"]["target"]["buffs"]["minDuration"] = 0
 	E.db["unitframe"]["units"]["target"]["buffs"]["maxDuration"] = 0
-	E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Blacklist,Personal,Boss,Whitelist,PlayerBuffs,nonPersonal"
+	E.db["unitframe"]["units"]["target"]["buffs"]["priority"] =
+	"Blacklist,Personal,Boss,Whitelist,PlayerBuffs,nonPersonal"
 	E.db["unitframe"]["units"]["target"]["buffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["target"]["buffs"]["countFontSize"] = 9
 	E.db["unitframe"]["units"]["target"]["buffs"]["durationPosition"] = "TOP"
@@ -1703,7 +1721,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid1"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 	E.db["unitframe"]["units"]["raid1"]["debuffs"]["sizeOverride"] = 15
 	E.db["unitframe"]["units"]["raid1"]["debuffs"]["maxDuration"] = 0
-	E.db["unitframe"]["units"]["raid1"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["priority"] =
+	"Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 	E.db["unitframe"]["units"]["raid1"]["debuffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["raid1"]["debuffs"]["countFontSize"] = 9
 	E.db["unitframe"]["units"]["raid1"]["debuffs"]["growthX"] = "LEFT"
@@ -1826,7 +1845,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid2"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 	E.db["unitframe"]["units"]["raid2"]["debuffs"]["sizeOverride"] = 15
 	E.db["unitframe"]["units"]["raid2"]["debuffs"]["maxDuration"] = 0
-	E.db["unitframe"]["units"]["raid2"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["priority"] =
+	"Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 	E.db["unitframe"]["units"]["raid2"]["debuffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["raid2"]["debuffs"]["countFontSize"] = 9
 	E.db["unitframe"]["units"]["raid2"]["debuffs"]["growthX"] = "LEFT"
@@ -1949,7 +1969,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid3"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 	E.db["unitframe"]["units"]["raid3"]["debuffs"]["sizeOverride"] = 15
 	E.db["unitframe"]["units"]["raid3"]["debuffs"]["maxDuration"] = 0
-	E.db["unitframe"]["units"]["raid3"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["priority"] =
+	"Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 	E.db["unitframe"]["units"]["raid3"]["debuffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["raid3"]["debuffs"]["countFontSize"] = 9
 	E.db["unitframe"]["units"]["raid3"]["debuffs"]["growthX"] = "LEFT"
@@ -2069,7 +2090,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["party"]["debuffs"]["clickThrough"] = true
 	E.db["unitframe"]["units"]["party"]["debuffs"]["spacing"] = 1
 	E.db["unitframe"]["units"]["party"]["debuffs"]["attachTo"] = "FRAME"
-	E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
+	E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] =
+	"Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 	E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "LEFT"
 	E.db["unitframe"]["units"]["party"]["debuffs"]["perrow"] = 2
 	E.db["unitframe"]["units"]["party"]["debuffs"]["countFont"] = "Expressway"
@@ -2375,14 +2397,15 @@ function MER:SetupUnitframes()
 
 	E:StaggeredUpdateAll(nil, true)
 
-	PluginInstallStepComplete.message = MER.Title..L["UnitFrames Set"]
+	PluginInstallStepComplete.message = MER.Title .. L["UnitFrames Set"]
 	PluginInstallStepComplete:Show()
 end
 
 function MER:SetupDts()
 	--[[----------------------------------
 	--	ProfileDB - Datatexts
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	E.db["datatexts"]["font"] = "Expressway"
 	E.db["datatexts"]["fontSize"] = 10
 	E.db["datatexts"]["fontOutline"] = "SHADOWOUTLINE"
@@ -2405,7 +2428,7 @@ function MER:SetupDts()
 
 	E:StaggeredUpdateAll(nil, true)
 
-	PluginInstallStepComplete.message = MER.Title..L["DataTexts Set"]
+	PluginInstallStepComplete.message = MER.Title .. L["DataTexts Set"]
 	PluginInstallStepComplete:Show()
 end
 
@@ -2431,22 +2454,24 @@ function MER:SetupAddOns()
 
 	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
 		MER:mMediaTag()
-		tinsert(addonNames, "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r")
+		tinsert(addonNames,
+			"|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r")
 	end
 
 	if checkTable(addonNames) ~= nil then
-		local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"].."\n")
+		local profileString = format("|cfffff400%s |r",
+			L["MerathilisUI successfully created and applied profile(s) for:"] .. "\n")
 
 		tsort(addonNames, function(a, b) return a < b end)
 		local names = tconcat(addonNames, ", ")
-		profileString = profileString..names
+		profileString = profileString .. names
 
-		PluginInstallFrame.Desc4:SetText(profileString..'.')
+		PluginInstallFrame.Desc4:SetText(profileString .. '.')
 	else
 		PluginInstallFrame.Desc4:SetText(profilesFailed)
 	end
 
-	PluginInstallStepComplete.message = MER.Title..L['Addons Set']
+	PluginInstallStepComplete.message = MER.Title .. L['Addons Set']
 	PluginInstallStepComplete:Show()
 	twipe(addonNames)
 
@@ -2468,12 +2493,14 @@ MER.installTable = {
 	["Name"] = "|cffff7d0aMerathilisUI|r",
 	["Title"] = L["|cffff7d0aMerathilisUI|r Installation"],
 	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\merathilis_logo.tga]],
-	["tutorialImageSize"] = {256, 128},
-	["tutorialImagePoint"] = {0, 30},
+	["tutorialImageSize"] = { 256, 128 },
+	["tutorialImagePoint"] = { 0, 30 },
 	["Pages"] = {
 		[1] = function()
-			PluginInstallFrame.SubTitle:SetFormattedText(L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."], MER.Version, E.version)
-			PluginInstallFrame.Desc1:SetText(L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
+			PluginInstallFrame.SubTitle:SetFormattedText(
+			L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."], MER.Version, E.version)
+			PluginInstallFrame.Desc1:SetText(L
+			["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
 			PluginInstallFrame.Desc2:SetText(L["Please press the continue button to go onto the next step."])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() InstallComplete() end)
@@ -2490,7 +2517,10 @@ MER.installTable = {
 		end,
 		[3] = function()
 			PluginInstallFrame.SubTitle:SetText(L["CVars"])
-			PluginInstallFrame.Desc1:SetFormattedText(L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."], MER.Title)
+			PluginInstallFrame.Desc1:SetFormattedText(
+			L
+			["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."],
+				MER.Title)
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your CVars."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 			PluginInstallFrame.Option1:Show()
@@ -2499,7 +2529,8 @@ MER.installTable = {
 		end,
 		[4] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Chat"])
-			PluginInstallFrame.Desc1:SetText(L["This part of the installation process sets up your chat fonts and colors."])
+			PluginInstallFrame.Desc1:SetText(L
+			["This part of the installation process sets up your chat fonts and colors."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your chat windows."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
@@ -2508,7 +2539,8 @@ MER.installTable = {
 		end,
 		[5] = function()
 			PluginInstallFrame.SubTitle:SetText(L["DataTexts"])
-			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
+			PluginInstallFrame.Desc1:SetText(L
+			["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your datatexts."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
@@ -2517,7 +2549,8 @@ MER.installTable = {
 		end,
 		[6] = function()
 			PluginInstallFrame.SubTitle:SetText(L["ActionBars"])
-			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will reposition your Actionbars and will enable backdrops"])
+			PluginInstallFrame.Desc1:SetText(L
+			["This part of the installation process will reposition your Actionbars and will enable backdrops"])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your actionbars."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
@@ -2544,8 +2577,10 @@ MER.installTable = {
 		end,
 		[9] = function()
 			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
-			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will apply changes to ElvUI Plugins"])
-			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"])
+			PluginInstallFrame.Desc1:SetText(L
+			["This part of the installation process will apply changes to ElvUI Plugins"])
+			PluginInstallFrame.Desc2:SetText(L
+			["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupAddOns() end)
@@ -2553,10 +2588,12 @@ MER.installTable = {
 		end,
 		[10] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
-			PluginInstallFrame.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
+			PluginInstallFrame.Desc1:SetText(L
+			["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/28We6esE9v") end)
+			PluginInstallFrame.Option1:SetScript("OnClick",
+				function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/28We6esE9v") end)
 
 			PluginInstallFrame.Option1:SetText(L["|cffff7d0aMerathilisUI|r Discord"])
 			PluginInstallFrame.Option2:Show()
@@ -2564,7 +2601,7 @@ MER.installTable = {
 			PluginInstallFrame.Option2:SetText(L["Finished"])
 
 			if InstallStepComplete then
-				InstallStepComplete.message = MER.Title..L["Installed"]
+				InstallStepComplete.message = MER.Title .. L["Installed"]
 				InstallStepComplete:Show()
 			end
 		end,

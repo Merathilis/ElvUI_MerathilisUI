@@ -1,4 +1,3 @@
-
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 
 local print, tonumber, type = print, tonumber, type
@@ -24,9 +23,9 @@ end
 function MER:UpdateScripts() -- DB Convert
 	MER:ForPreReleaseUser()
 
-	local currentVersion = tonumber(MER.Version) -- Installed MerathilisUI Version
-	local globalVersion = tonumber(E.global.mui.version or "0") -- Version in ElvUI Global
-	local profileVersion = tonumber(E.db.mui.version or globalVersion) -- Version in ElvUI Profile
+	local currentVersion = tonumber(MER.Version)                         -- Installed MerathilisUI Version
+	local globalVersion = tonumber(E.global.mui.version or "0")          -- Version in ElvUI Global
+	local profileVersion = tonumber(E.db.mui.version or globalVersion)   -- Version in ElvUI Profile
 	local privateVersion = tonumber(E.private.mui.version or globalVersion) -- Version in ElvUI Private
 
 	-- changelog display
