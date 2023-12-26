@@ -30,7 +30,7 @@ function keyFeedback:PLAYER_LOGIN()
 	end
 
 	local GetActionSpellID = function(action)
-		local actionType, id = GetActionInfo(action)
+		local actionType, id, subType = GetActionInfo(action)
 		if actionType == 'spell' then
 			return id
 		elseif actionType == 'macro' then

@@ -198,7 +198,8 @@ L["Time Height"] = true
 L["The spacing between buttons."] = "Espacement entre deux boutons."
 L["The size of the buttons."] = "La taille des boutons."
 L["Slow Mode"] = "Mode lent"
-L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = "Mettez à jour le texte supplémentaire toutes les 10 secondes plutôt que toutes les secondes afin que la mémoire utilisée soit plus faible."
+L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] =
+"Mettez à jour le texte supplémentaire toutes les 10 secondes plutôt que toutes les secondes afin que la mémoire utilisée soit plus faible."
 L["Display"] = "Affichage"
 L["Fade Time"] = "Durée du fondu"
 L["Tooltip Position"] = true
@@ -284,18 +285,24 @@ L["COLOR"] = true
 L["Hide Boss Banner"] = true
 L["This will hide the popup, that shows loot, after you kill a boss"] = true
 L["{rt1} %player% cast %spell% -> %target% {rt1}"] = "{rt1} %player% lance %spell% -> %target% {rt1}"
-L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"] = "{rt1} %player% a lancé %spell%, la spécialité du jour c'est la tarte aux anchois ! {rt1}"
-L["{rt1} %player% is casting %spell%, please assist! {rt1}"] = "{rt1} %player% lance le sort %spell%, venez l'assister ! {rt1}"
-L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"] = "{rt1} %player% propose des %spell%, venez en prendre un ! {rt1}"
+L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"] =
+"{rt1} %player% a lancé %spell%, la spécialité du jour c'est la tarte aux anchois ! {rt1}"
+L["{rt1} %player% is casting %spell%, please assist! {rt1}"] =
+"{rt1} %player% lance le sort %spell%, venez l'assister ! {rt1}"
+L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"] =
+"{rt1} %player% propose des %spell%, venez en prendre un ! {rt1}"
 L["{rt1} %player% opened %spell%! {rt1}"] = "{rt1} %player% a ouvert %spell% ! {rt1}"
 L["{rt1} %player% puts %spell% {rt1}"] = "{rt1} %player% place %spell% ! {rt1}"
 L["{rt1} %player% used %spell% {rt1}"] = "{rt1} %player% a utilisé le sort %spell% {rt1}"
 L["{rt1} %player% puts down %spell%! {rt1}"] = true
 L["Completed"] = "Complété"
 L["%s has been reseted"] = "%s a été réinitialisé"
-L["Cannot reset %s (There are players in your party attempting to zone into an instance.)"] = "Impossible de réinitialiser %s (il y a des joueurs dans votre groupe qui tentent de rejoindre une instance.)"
-L["Cannot reset %s (There are players offline in your party.)"] = "Impossible de réinitialiser %s (il y a des joueurs hors ligne dans votre groupe.)"
-L["Cannot reset %s (There are players still inside the instance.)"] = "Impossible de réinitialiser %s (il y a encore des joueurs à l'intérieur de l'instance.)"
+L["Cannot reset %s (There are players in your party attempting to zone into an instance.)"] =
+"Impossible de réinitialiser %s (il y a des joueurs dans votre groupe qui tentent de rejoindre une instance.)"
+L["Cannot reset %s (There are players offline in your party.)"] =
+"Impossible de réinitialiser %s (il y a des joueurs hors ligne dans votre groupe.)"
+L["Cannot reset %s (There are players still inside the instance.)"] =
+"Impossible de réinitialiser %s (il y a encore des joueurs à l'intérieur de l'instance.)"
 L["Let your teammates know the progress of quests."] = true
 L["Disable Blizzard"] = true
 L["Disable Blizzard quest progress message."] = true
@@ -418,6 +425,8 @@ L["Debug Print"] = true
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
 
 -- DataTexts
+L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"] = true
+
 -- DataBars
 L["DataBars"] = "Barres d'expériences"
 L["Add some stylish buttons at the bottom of the DataBars"] = true
@@ -624,7 +633,8 @@ L["Show relocation spells in the list."] = true
 L["Show engineer gadgets"] = true
 L["Show items used only by engineers when the profession is learned."] = true
 L["Ignore missing info"] = true
-L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
+L["MER_LOCPANEL_IGNOREMISSINGINFO"] =
+[[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
 When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
 By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
 L["Info for some items is not available yet. Please try again later"] = true
@@ -650,7 +660,8 @@ L["Minimap Ping"] = "Ping de la minicarte"
 L["Add Server Name"] = "Ajouter un nom de serveur"
 L["Only In Combat"] = true
 L["Fade-In"] = true
-L["The time of animation. Set 0 to disable animation."] = "La durée des animations. Mettre 0 pour désactiver l'animation."
+L["The time of animation. Set 0 to disable animation."] =
+"La durée des animations. Mettre 0 pour désactiver l'animation."
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 L["Super Tracker"] = true
@@ -661,7 +672,8 @@ L["Auto track the waypoint after setting."] = "Suivre automatiquement le Waypoin
 L["Middle Click To Clear"] = true
 L["Middle click the waypoint to clear it."] = true
 L["No Distance Limitation"] = "Aucune limitation de distance"
-L["Force to track the target even if it over 1000 yds."] = "Toujours suivre la cible même si elle est au delà de 1000 mètres."
+L["Force to track the target even if it over 1000 yds."] =
+"Toujours suivre la cible même si elle est au delà de 1000 mètres."
 L["Distance Text"] = true
 L["Only Number"] = "Seulement le nombre"
 L["Add Command"] = true
@@ -747,10 +759,12 @@ L["Superbloom"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Bouton de la minicarte"
-L["Add an extra bar to collect minimap buttons."] = "Ajoute une barre supplémentaire pour regrouper les boutons de la mini-carte."
+L["Add an extra bar to collect minimap buttons."] =
+"Ajoute une barre supplémentaire pour regrouper les boutons de la mini-carte."
 L["Toggle minimap buttons bar."] = "Afficher la barre de boutons de la minicarte."
 L["Mouse Over"] = "Au survol"
-L["Only show minimap buttons bar when you mouse over it."] = "Afficher uniquement la barre de boutons de la mini-carte au su²rvol de la souris."
+L["Only show minimap buttons bar when you mouse over it."] =
+"Afficher uniquement la barre de boutons de la mini-carte au su²rvol de la souris."
 L["Minimap Buttons Bar"] = "Barre de boutons de la minicarte"
 L["Bar Backdrop"] = "Fond de la barre"
 L["Show a backdrop of the bar."] = "Montrer le fond de la barre."
@@ -794,7 +808,8 @@ L["%s + Click to clear all marks."] = "%s + Cliquer pour effacer toutes les marq
 L["Left Click to ready check."] = "Clic gauche pour vérifier si les joueurs sont prêts."
 L["Right click to toggle advanced combat logging."] = "Clic droit pour afficher le journal de combat avancé."
 L["Left Click to start count down."] = "Clic gauche pour démarrer le compte à rebours."
-L["Add an extra bar to let you set raid markers efficiently."] = "Ajoute une barre supplémentaire pour vous permettre de définir les marqueurs pour les raids."
+L["Add an extra bar to let you set raid markers efficiently."] =
+"Ajoute une barre supplémentaire pour vous permettre de définir les marqueurs pour les raids."
 L["Toggle raid markers bar."] = "Affiche la barre des marqueurs pour les raids"
 L["Inverse Mode"] = "Mode inversé"
 L["Swap the functionality of normal click and click with modifier keys."] = true
@@ -802,9 +817,11 @@ L["Visibility"] = "Visibilité"
 L["In Party"] = "En groupe"
 L["Always Display"] = "Toujours afficher"
 L["Mouse Over"] = "Au survol"
-L["Only show raid markers bar when you mouse over it."] = "Afficher uniquement la barre des marqueurs pour les raids au survol de la souris."
+L["Only show raid markers bar when you mouse over it."] =
+"Afficher uniquement la barre des marqueurs pour les raids au survol de la souris."
 L["Tooltip"] = "Infobulle"
-L["Show the tooltip when you mouse over the button."] = "Afficher l'infobulle lorsque vous passez la souris sur le bouton."
+L["Show the tooltip when you mouse over the button."] =
+"Afficher l'infobulle lorsque vous passez la souris sur le bouton."
 L["Modifier Key"] = "Touche de modification"
 L["Set the modifier key for placing world markers."] = "Définir la touche pour placer des marqueurs de terrain."
 L["Shift Key"] = "Touche Maj"
@@ -892,7 +909,8 @@ L["showTutorials"] = true
 L["WorldTextScale"] = true
 L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
 L["floatingCombatTextCombatDamageDirectionalScale"] = true
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
+L["floatingCombatTextCombatDamageDirectionalScale_DESC"] =
+"Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
@@ -979,7 +997,8 @@ L["Finish"] = true
 L["Installed"] = true
 
 -- Staticpopup
-L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
+L["MSG_MER_ELV_OUTDATED"] =
+"Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
@@ -1147,7 +1166,8 @@ L["Here are some example presets, just try them!"] = true
 L["Default"] = "Défaut"
 L["Header"] = "Entête"
 L["Short Header"] = "Courte entête"
-L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = "Utiliser plutôt un nom court. Par exemple : Tourment, La tour des Damnés."
+L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] =
+"Utiliser plutôt un nom court. Par exemple : Tourment, La tour des Damnés."
 L["Title Color"] = "Couleur du titre"
 L["Change the color of quest titles."] = "Change la coleur des titres des quêtes."
 L["Use Class Color"] = "Utiliser la couleur de la classe"
@@ -1167,11 +1187,13 @@ L["it shows when objective tracker is collapsed."] = true
 L["Filter"] = "Filtre"
 L["Unblock the profanity filter."] = "Débloque le filtre à jurons."
 L["Profanity Filter"] = "Filtre à obscénités"
-L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = "Activer cette option débloquera le filtrage des obscénités. [Serveur CN]"
+L["Enable this option will unblock the setting of profanity filter. [CN Server]"] =
+"Activer cette option débloquera le filtrage des obscénités. [Serveur CN]"
 
 -- Friends List
 L["Friends List"] = "Liste d'amis"
-L["Add additional information to the friend frame."] = "Ajoute des informations supplémentaires à la fenêtre des contacts."
+L["Add additional information to the friend frame."] =
+"Ajoute des informations supplémentaires à la fenêtre des contacts."
 L["Modify the texture of status and make name colorful."] = "Modifier la texture du statut et mettre le nom en coleur."
 L["Enhanced Texture"] = "Texture améliorée"
 L["Game Icons"] = "Icônes de jeu"
@@ -1210,11 +1232,14 @@ L["Changelog"] = "Changelog"
 
 -- Compatibility
 L["Compatibility Check"] = "Vérification de compatibilité"
-L["Help you to enable/disable the modules for a better experience with other plugins."] = "Vous aide à activer/désactiver les modules pour une meilleure expérience avec d'autres plugins."
-L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "Il existe de nombreux addons ou plugins pour ElvUI, mais WindTools peut remplacer certains d'entre eux qui ont les mêmes fonctionnalités."
+L["Help you to enable/disable the modules for a better experience with other plugins."] =
+"Vous aide à activer/désactiver les modules pour une meilleure expérience avec d'autres plugins."
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] =
+"Il existe de nombreux addons ou plugins pour ElvUI, mais WindTools peut remplacer certains d'entre eux qui ont les mêmes fonctionnalités."
 L["Have a good time with %s!"] = "Amusez-vous bien avec %s !"
 L["Choose the module you would like to |cff00ff00use|r"] = true
-L["If you find the %s module conflicts with another addon, alert me via Discord."] = "Si vous constatez que l'addon %s est en conflit avec un autre addon, prévenez-moi via Discord."
+L["If you find the %s module conflicts with another addon, alert me via Discord."] =
+"Si vous constatez que l'addon %s est en conflit avec un autre addon, prévenez-moi via Discord."
 L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = true
 L["Complete"] = "Complet"
 
