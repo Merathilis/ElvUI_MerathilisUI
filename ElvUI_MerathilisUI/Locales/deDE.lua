@@ -453,6 +453,7 @@ L["Enable this option to get a chat print of the Name and ID from the Vignettes 
 "Aktiviere diese Option um eine Chatausgabe vom Namen und ID von den Vignetten auf der Minikarte zu erhalten."
 
 -- DataTexts
+L["|cffFFFFFFLeft Click:|r Open Character Frame"] = "|cffFFFFFFLeft Click:|r Öffnet Characterfenster"
 L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"] = "|cffFFFFFFRechts Klick:|r Beschwört Große Expeditionsyak"
 
 -- DataBars

@@ -403,6 +403,7 @@ L["Debug Print"] = true
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
 
 -- DataTexts
+L["|cffFFFFFFLeft Click:|r Open Character Frame"] = true
 L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"] = true
 
 -- DataBars

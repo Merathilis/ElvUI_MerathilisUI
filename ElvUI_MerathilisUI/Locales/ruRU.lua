@@ -446,6 +446,7 @@ L["Enable this option to get a chat print of the Name and ID from the Vignettes 
 "Включите эту опцию, чтобы получить отображение чата с именем и идентификатором из виньеток на мини-карте."
 
 -- DataTexts
+L["|cffFFFFFFLeft Click:|r Open Character Frame"] = true
 L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"] = true
 
 -- DataBars

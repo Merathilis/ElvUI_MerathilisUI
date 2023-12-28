@@ -75,6 +75,7 @@ local function OnEnter(self)
 		colorize(avgPvp - avg))
 
 	DT.tooltip:AddLine(" ")
+	DT.tooltip:AddLine(L["|cffFFFFFFLeft Click:|r Open Character Frame"])
 	DT.tooltip:AddLine(L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"])
 	DT.tooltip:Show()
 end
