@@ -4,7 +4,6 @@ local S = E.Skins
 
 local _G = _G
 local pairs = pairs
-local strmatch = strmatch
 
 function module:PremadeGroupsFilter_SetPoint(frame, point, relativeFrame, relativePoint, x, y)
 	if point == "TOPLEFT" and relativePoint == "TOPRIGHT" then

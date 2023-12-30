@@ -23,7 +23,6 @@ local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateV
 local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
 local LOOT = LOOT
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_UI_Reload = C_UI.Reload
 local C_CVar_SetCVar = C_CVar.SetCVar
 
@@ -379,7 +378,7 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 4
 	E.db["auras"]["buffs"]["verticalSpacing"] = 10
-	if C_AddOns_IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
+	if E:IsAddOnEnabled("ElvUI_RatioMinimapAuras") then
 		E.db["auras"]["buffs"]["keepSizeRatio"] = false
 		E.db["auras"]["buffs"]["height"] = 28
 		E.db["auras"]["buffs"]["size"] = 36
@@ -394,7 +393,7 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 4
 	E.db["auras"]["debuffs"]["verticalSpacing"] = 10
-	if C_AddOns_IsAddOnLoaded("ElvUI_RatioMinimapAuras") then
+	if E:IsAddOnEnabled("ElvUI_RatioMinimapAuras") then
 		E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 		E.db["auras"]["debuffs"]["height"] = 30
 		E.db["auras"]["debuffs"]["size"] = 34
@@ -512,7 +511,7 @@ function MER:SetupLayout()
 	----------------------------------
 	E.private["skins"]["parchmentRemoverEnable"] = true
 
-	if C_AddOns_IsAddOnLoaded("ls_Toasts") then
+	if E:IsAddOnEnabled("ls_Toasts") then
 		E.private["skins"]["blizzard"]["alertframes"] = false
 	else
 		E.private["skins"]["blizzard"]["alertframes"] = true
@@ -2378,7 +2377,7 @@ function MER:SetupUnitframes()
 	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
 
-	if C_AddOns_IsAddOnLoaded("ElvUI_mMediaTag") then
+	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-510,188"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,510,188"
 		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,510,177"

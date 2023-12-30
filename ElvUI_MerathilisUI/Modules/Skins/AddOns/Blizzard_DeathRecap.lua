@@ -11,7 +11,7 @@ local function LoadSkin()
 
 	local DeathRecapFrame = _G.DeathRecapFrame
 	DeathRecapFrame:Styling()
-	module:CreateBackdropShadow(DeathRecapFrame)
+	module:CreateShadow(DeathRecapFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_DeathRecap", LoadSkin)
