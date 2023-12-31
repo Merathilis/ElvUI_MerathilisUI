@@ -2398,6 +2398,7 @@ function MER:DeveloperSettings()
 	E.private["mui"]["skins"]["shadowOverlay"] = true
 	E.db["mui"]["unitframes"]["gcd"]["enable"] = true
 	E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
+	E.db["mui"]["tooltip"]["gradientName"] = true
 
 	-- Rectangle Settings
 	E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true

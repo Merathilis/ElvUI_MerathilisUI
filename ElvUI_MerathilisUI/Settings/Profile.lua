@@ -586,6 +586,7 @@ P.nameHover = {
 	fontSize = 7,
 	fontOutline = "SHADOWOUTLINE",
 	targettarget = false,
+	gradient = false,
 }
 
 P.armory = {

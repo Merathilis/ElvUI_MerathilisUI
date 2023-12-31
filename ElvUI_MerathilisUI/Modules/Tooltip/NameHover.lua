@@ -27,17 +27,17 @@ local function Getcolor()
 		return color.r, color.g, color.b
 	elseif UnitCanAttack("player", "mouseover") then
 		if UnitIsDead("mouseover") then
-			return 136/255, 136/255, 136/255
+			return 136 / 255, 136 / 255, 136 / 255
 		else
 			if reaction < 4 then
-				return 1, 68/255, 68/255
+				return 1, 68 / 255, 68 / 255
 			elseif reaction == 4 then
-				return 1, 1, 68/255
+				return 1, 1, 68 / 255
 			end
 		end
 	else
 		if reaction < 4 then
-			return 48/255, 113/255, 191/255
+			return 48 / 255, 113 / 255, 191 / 255
 		else
 			return 1, 1, 1
 		end
@@ -45,7 +45,7 @@ local function Getcolor()
 end
 
 local function AddTargetInfos(self, unit)
-	local unitTarget = unit..'target'
+	local unitTarget = unit .. 'target'
 	if unit ~= 'player' and UnitExists(unitTarget) then
 		local targetColor
 		if UnitIsPlayer(unitTarget) and not UnitHasVehicleUI(unitTarget) then
@@ -56,7 +56,7 @@ local function AddTargetInfos(self, unit)
 			targetColor = _G.FACTION_BAR_COLORS[reaction] or _G.PRIEST_COLOR
 		end
 
-		self.target:SetText(' |cffffffff>|r '..' '..UnitName(unitTarget))
+		self.target:SetText(' |cffffffff>|r ' .. ' ' .. UnitName(unitTarget))
 		self.target:SetTextColor(targetColor.r, targetColor.g, targetColor.b)
 	else
 		self.target:SetText('')
@@ -77,9 +77,18 @@ function MI:LoadnameHover()
 
 	-- Show unit name at mouse
 	tooltip:SetScript("OnUpdate", function(tt)
-		if GetMouseFocus() and GetMouseFocus():IsForbidden() then tt:Hide() return end
-		if GetMouseFocus() and GetMouseFocus():GetName() ~= "WorldFrame" then tt:Hide() return end
-		if not UnitExists("mouseover") then tt:Hide() return end
+		if GetMouseFocus() and GetMouseFocus():IsForbidden() then
+			tt:Hide()
+			return
+		end
+		if GetMouseFocus() and GetMouseFocus():GetName() ~= "WorldFrame" then
+			tt:Hide()
+			return
+		end
+		if not UnitExists("mouseover") then
+			tt:Hide()
+			return
+		end
 
 		local x, y = GetCursorPosition()
 		tt.text:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y + 15)
@@ -99,6 +108,7 @@ function MI:LoadnameHover()
 		local _, UnitClass = UnitClass("mouseover")
 		local reaction = UnitReaction("mouseover", "player")
 
+		local nameHover = E.db.mui.nameHover
 		local colorDB = E.db.mui.gradient
 
 		local prefix = ""
@@ -106,7 +116,7 @@ function MI:LoadnameHover()
 		if AFK then prefix = "|cffFF9900<AFK>|r " end
 		if DND then prefix = "|cffFF3333<DND>|r " end
 
-		if colorDB and colorDB.enable then
+		if (colorDB and colorDB.enable) and nameHover.gradient then
 			if UnitIsPlayer("mouseover") and UnitClass then
 				if colorDB.customColor.enable then
 					tt.text:SetText(prefix .. F.GradientNameCustom(text, UnitClass))
@@ -141,7 +151,7 @@ function MI:LoadnameHover()
 				end
 			end
 		else
-			tt.text:SetText(prefix..text)
+			tt.text:SetText(prefix .. text)
 			tt.text:SetTextColor(Getcolor())
 		end
 
