@@ -77,31 +77,7 @@ local function SetupCVars()
 	C_CVar_SetCVar('speechToText', 0)
 	C_CVar_SetCVar('textToSpeech', 0)
 
-	if F.IsDeveloper() then
-		C_CVar_SetCVar('taintLog', 1)
-		C_CVar_SetCVar('LowLatencyMode', 3)
-		C_CVar_SetCVar('maxFPS', 165)
-		C_CVar_SetCVar('maxFPSBk', 60)
-		C_CVar_SetCVar('maxFPSLoading', 30)
-		C_CVar_SetCVar('violenceLevel', 5)
-		C_CVar_SetCVar('blockTrades', 0)
-		C_CVar_SetCVar('blockChannelInvites', 1)
-		C_CVar_SetCVar('RAIDweatherDensity', 0)
-		C_CVar_SetCVar('CameraReduceUnexpectedMovement', 1)
-		C_CVar_SetCVar('DisableAdvancedFlyingVelocityVFX', 1)
-		C_CVar_SetCVar('disableServerNagle', 0)
-		C_CVar_SetCVar('displaySpellActivationOverlays', 0)
-		C_CVar_SetCVar('empowerTapControls', 1)
-		C_CVar_SetCVar('weatherDensity', 0)
-		C_CVar_SetCVar('SpellQueueWindow', 180)
-		C_CVar_SetCVar('floatingCombatTextCombatDamageDirectionalScale', 1)
-		C_CVar_SetCVar('autoOpenLootHistory', 1)
-		C_CVar_SetCVar('showTutorials', 0)
-		C_CVar_SetCVar('showNPETutorials', 0)
-		C_CVar_SetCVar('hideAdventureJournalAlerts', 1)
-	else
-		C_CVar.SetCVar('taintLog', 0)
-	end
+	C_CVar.SetCVar('taintLog', 0)
 
 	PluginInstallStepComplete.message = MER.Title .. L["CVars Set"]
 	PluginInstallStepComplete:Show()
@@ -224,11 +200,6 @@ local function SetupChat()
 	E.db["chat"]["tabSelector"] = "BOX"
 	E.db["chat"]["tabSelectorColor"] = { r = F.r, g = F.g, b = F.b }
 
-	if F.IsDeveloper() then
-		E.db["chat"]["timeStampFormat"] = "%H:%M "
-		E.db["mui"]["chat"]["chatText"]["gradientName"] = true
-	end
-
 	E.db["chat"]["font"] = "Expressway"
 	E.db["chat"]["fontOutline"] = "NONE"
 	E.db["chat"]["tabFont"] = "Expressway"
@@ -262,10 +233,6 @@ function MER:SetupLayout()
 	--	PrivateDB - General
 	--]]
 	----------------------------------
-	if F.IsDeveloper() then
-		C_CVar.SetCVar('uiScale', 0.71111111111111)
-		E.global["general"]["UIScale"] = 0.71111111111111
-	end
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
 	E.private["general"]["chatBubbleFont"] = "Expressway"
@@ -641,34 +608,7 @@ function MER:SetupLayout()
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
 
-	if F.IsDeveloper() then
-		E.db["mui"]["pvp"]["duels"]["regular"] = true
-		E.db["mui"]["pvp"]["duels"]["pet"] = true
-		E.db["mui"]["pvp"]["duels"]["announce"] = true
-		E.db["general"]["cropIcon"] = 0
-		E.db["tooltip"]["showElvUIUsers"] = true
-		E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
-		E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
-		E.db["mui"]["misc"]["cursor"]["enable"] = true
-		E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
-		E.private["mui"]["skins"]["shadowOverlay"] = true
-
-		-- Rectangle Settings
-		E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
-		E.db["mui"]["maps"]["rectangleMinimap"]["heightPercentage"] = 0.65
-		E.db["general"]["minimap"]["clusterDisable"] = false
-		E.db["general"]["minimap"]["size"] = 222
-		E.db["mui"]["smb"]["buttonSize"] = 23
-		E.db["mui"]["smb"]["buttonsPerRow"] = 9
-		E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
-		E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
-		E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
-		E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-210"
-	else
-		E.db["general"]["cropIcon"] = 2
-	end
+	E.db["general"]["cropIcon"] = 2
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -1300,12 +1240,6 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["cooldown"]["daysIndicator"]["r"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysIndicator"]["g"] = 0.4
 
-	-- GCD Bar
-	if F.IsDeveloper() then
-		E.db["mui"]["unitframes"]["gcd"]["enable"] = true
-		E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
-	end
-
 	-- Player
 	E.db["unitframe"]["units"]["player"]["width"] = 200
 	E.db["unitframe"]["units"]["player"]["height"] = 20
@@ -1795,18 +1729,6 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["text_format"] = "[name:gradient]",
 	}
-	if F.IsDeveloper() then
-		E.db["unitframe"]["units"]["raid1"]["customTexts"]["Elv"] = {
-			["font"] = "Expressway",
-			["justifyH"] = "RIGHT",
-			["fontOutline"] = "SHADOWOUTLINE",
-			["xOffset"] = 0,
-			["yOffset"] = 0,
-			["size"] = 9,
-			["attachTextTo"] = "Frame",
-			["text_format"] = "[users:elvui]",
-		}
-	end
 	E.db["unitframe"]["units"]["raid1"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["raid1"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["raid1"]["infoPanel"]["transparent"] = true
@@ -1919,18 +1841,6 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["text_format"] = "[name:gradient]",
 	}
-	if F.IsDeveloper() then
-		E.db["unitframe"]["units"]["raid2"]["customTexts"]["Elv"] = {
-			["font"] = "Expressway",
-			["justifyH"] = "RIGHT",
-			["fontOutline"] = "SHADOWOUTLINE",
-			["xOffset"] = 0,
-			["yOffset"] = 0,
-			["size"] = 9,
-			["attachTextTo"] = "Frame",
-			["text_format"] = "[users:elvui]",
-		}
-	end
 	E.db["unitframe"]["units"]["raid2"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["raid2"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["raid2"]["infoPanel"]["transparent"] = true
@@ -2043,18 +1953,6 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["text_format"] = "[name:gradient]",
 	}
-	if F.IsDeveloper() then
-		E.db["unitframe"]["units"]["raid3"]["customTexts"]["Elv"] = {
-			["font"] = "Expressway",
-			["justifyH"] = "RIGHT",
-			["fontOutline"] = "SHADOWOUTLINE",
-			["xOffset"] = 0,
-			["yOffset"] = 0,
-			["size"] = 9,
-			["attachTextTo"] = "Frame",
-			["text_format"] = "[users:elvui]",
-		}
-	end
 	E.db["unitframe"]["units"]["raid3"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["raid3"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["raid3"]["infoPanel"]["transparent"] = true
@@ -2195,18 +2093,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Frame",
 		["text_format"] = "[statustimer]",
 	}
-	if F.IsDeveloper() then
-		E.db["unitframe"]["units"]["party"]["customTexts"]["Elv"] = {
-			["font"] = "Expressway",
-			["justifyH"] = "RIGHT",
-			["fontOutline"] = "SHADOWOUTLINE",
-			["xOffset"] = 0,
-			["yOffset"] = 0,
-			["size"] = 9,
-			["attachTextTo"] = "Frame",
-			["text_format"] = "[users:elvui]",
-		}
-	end
+
 	E.db["unitframe"]["units"]["party"]["power"]["displayAltPower"] = true
 
 	-- Assist
@@ -2387,13 +2274,6 @@ function MER:SetupUnitframes()
 		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,540,200"
 	end
 
-	if F.IsDeveloper() then
-		if E.myclass == "WARRIOR" then
-			E.db["mui"]["unitframes"]["power"]["type"] = "CUSTOM"
-			E.db["mui"]["unitframes"]["power"]["model"] = 840943
-		end
-	end
-
 	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title .. L["UnitFrames Set"]
@@ -2435,10 +2315,7 @@ local addonNames = {}
 local profilesFailed = format("|cff00c0fa%s |r", L["MerathilisUI didn't find any supported addons for profile creation"])
 
 MER.isInstallerRunning = false
-
 function MER:SetupAddOns()
-	MER.isInstallerRunning = true -- don't print when applying profile that doesn't exist
-
 	--AddOnSkins
 	if E:IsAddOnEnabled("AddOnSkins") then
 		MER:LoadAddOnSkinsProfile()
@@ -2470,9 +2347,122 @@ function MER:SetupAddOns()
 		PluginInstallFrame.Desc4:SetText(profilesFailed)
 	end
 
+	MER.isInstallerRunning = true -- don't print when applying profile that doesn't exist
+
 	PluginInstallStepComplete.message = MER.Title .. L['Addons Set']
 	PluginInstallStepComplete:Show()
 	twipe(addonNames)
+
+	E:StaggeredUpdateAll(nil, true)
+end
+
+function MER:DeveloperSettings()
+	if not F.IsDeveloper() then return end
+
+	-- CVars
+	C_CVar_SetCVar('taintLog', 1)
+	C_CVar_SetCVar('LowLatencyMode', 3)
+	C_CVar_SetCVar('maxFPS', 165)
+	C_CVar_SetCVar('maxFPSBk', 60)
+	C_CVar_SetCVar('maxFPSLoading', 30)
+	C_CVar_SetCVar('violenceLevel', 5)
+	C_CVar_SetCVar('blockTrades', 0)
+	C_CVar_SetCVar('blockChannelInvites', 1)
+	C_CVar_SetCVar('RAIDweatherDensity', 0)
+	C_CVar_SetCVar('CameraReduceUnexpectedMovement', 1)
+	C_CVar_SetCVar('DisableAdvancedFlyingVelocityVFX', 1)
+	C_CVar_SetCVar('disableServerNagle', 0)
+	C_CVar_SetCVar('displaySpellActivationOverlays', 0)
+	C_CVar_SetCVar('empowerTapControls', 1)
+	C_CVar_SetCVar('weatherDensity', 0)
+	C_CVar_SetCVar('SpellQueueWindow', 180)
+	C_CVar_SetCVar('floatingCombatTextCombatDamageDirectionalScale', 1)
+	C_CVar_SetCVar('autoOpenLootHistory', 1)
+	C_CVar_SetCVar('showTutorials', 0)
+	C_CVar_SetCVar('showNPETutorials', 0)
+	C_CVar_SetCVar('hideAdventureJournalAlerts', 1)
+	C_CVar_SetCVar('uiScale', 0.71111111111111)
+
+	-- General
+	E.global["general"]["UIScale"] = 0.71111111111111
+	E.private["general"]["chatBubbles"] = "nobackdrop"
+	E.db["general"]["cropIcon"] = 0
+	E.db["tooltip"]["showElvUIUsers"] = true
+	E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
+	E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
+	E.db["mui"]["misc"]["cursor"]["enable"] = true
+	E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
+	E.db["mui"]["pvp"]["duels"]["regular"] = true
+	E.db["mui"]["pvp"]["duels"]["pet"] = true
+	E.db["mui"]["pvp"]["duels"]["announce"] = true
+	E.private["mui"]["skins"]["shadowOverlay"] = true
+	E.db["mui"]["unitframes"]["gcd"]["enable"] = true
+	E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
+
+	-- Rectangle Settings
+	E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
+	E.db["mui"]["maps"]["rectangleMinimap"]["heightPercentage"] = 0.65
+	E.db["general"]["minimap"]["clusterDisable"] = false
+	E.db["general"]["minimap"]["size"] = 222
+	E.db["mui"]["smb"]["buttonSize"] = 23
+	E.db["mui"]["smb"]["buttonsPerRow"] = 9
+	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
+	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
+	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
+	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
+	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
+	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-210"
+
+	-- Chat
+	E.db["chat"]["timeStampFormat"] = "%H:%M "
+	E.db["mui"]["chat"]["chatText"]["gradientName"] = true
+
+	-- Unitframe Tags
+	E.db["unitframe"]["units"]["raid1"]["customTexts"]["Elv"] = {
+		["font"] = "Expressway",
+		["justifyH"] = "RIGHT",
+		["fontOutline"] = "SHADOWOUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = 0,
+		["size"] = 9,
+		["attachTextTo"] = "Frame",
+		["text_format"] = "[users:elvui]",
+	}
+	E.db["unitframe"]["units"]["raid2"]["customTexts"]["Elv"] = {
+		["font"] = "Expressway",
+		["justifyH"] = "RIGHT",
+		["fontOutline"] = "SHADOWOUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = 0,
+		["size"] = 9,
+		["attachTextTo"] = "Frame",
+		["text_format"] = "[users:elvui]",
+	}
+	E.db["unitframe"]["units"]["raid3"]["customTexts"]["Elv"] = {
+		["font"] = "Expressway",
+		["justifyH"] = "RIGHT",
+		["fontOutline"] = "SHADOWOUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = 0,
+		["size"] = 9,
+		["attachTextTo"] = "Frame",
+		["text_format"] = "[users:elvui]",
+	}
+	E.db["unitframe"]["units"]["party"]["customTexts"]["Elv"] = {
+		["font"] = "Expressway",
+		["justifyH"] = "RIGHT",
+		["fontOutline"] = "SHADOWOUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = 0,
+		["size"] = 9,
+		["attachTextTo"] = "Frame",
+		["text_format"] = "[users:elvui]",
+	}
+
+	if E.myclass == "WARRIOR" then
+		E.db["mui"]["unitframes"]["power"]["type"] = "CUSTOM"
+		E.db["mui"]["unitframes"]["power"]["model"] = 840943
+	end
 
 	E:StaggeredUpdateAll(nil, true)
 end
@@ -2585,7 +2575,14 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupAddOns() end)
 			PluginInstallFrame.Option1:SetText(L["Setup Addons"])
 		end,
-		[10] = function()
+		[F.IsDeveloper() and 10] = function()
+			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
+			PluginInstallFrame.Desc1:SetText(L["Importance: |cffD3CF00Medium|r"])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:DeveloperSettings() end)
+			PluginInstallFrame.Option1:SetText(L["Setup Developer Settings"])
+		end,
+		[11] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
 			PluginInstallFrame.Desc1:SetText(L
 				["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
@@ -2616,7 +2613,8 @@ MER.installTable = {
 		[7] = L["NamePlates"],
 		[8] = L["UnitFrames"],
 		[9] = ADDONS,
-		[10] = L["Installation Complete"],
+		[F.IsDeveloper() and 10] = L["Developer Settings"],
+		[11] = L["Installation Complete"],
 	},
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],
 	StepTitleWidth = 200,
