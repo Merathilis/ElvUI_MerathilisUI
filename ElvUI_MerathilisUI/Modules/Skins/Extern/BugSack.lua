@@ -1,9 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
-if not IsAddOnLoaded("BugSack") then return; end
 
 local _G = _G
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+
+if not C_AddOns_IsAddOnLoaded("BugSack") then return end
 
 function module:BugSack_InterfaceOptionOnShow(frame)
 	if frame.__MERSkin then
@@ -32,7 +34,7 @@ function module:BugSack_InterfaceOptionOnShow(frame)
 		dropdown.__MERSkinMarked = true
 	end
 
-	for _, child in pairs {frame:GetChildren()} do
+	for _, child in pairs { frame:GetChildren() } do
 		if child.__MERSkinMarked then
 			child.__MERSkinMarked = nil
 		else
@@ -67,7 +69,7 @@ function module:BugSack_OpenSack()
 	bugSackFrame:Styling()
 	module:CreateShadow(bugSackFrame)
 
-	for _, child in pairs {bugSackFrame:GetChildren()} do
+	for _, child in pairs { bugSackFrame:GetChildren() } do
 		local numRegions = child:GetNumRegions()
 
 		if numRegions == 1 then
@@ -82,7 +84,7 @@ function module:BugSack_OpenSack()
 
 	S:HandleScrollBar(_G.BugSackScrollScrollBar)
 
-	for _, region in pairs {_G.BugSackScrollText:GetRegions()} do
+	for _, region in pairs { _G.BugSackScrollText:GetRegions() } do
 		if region and region:GetObjectType() == "FontString" then
 			F.SetFontOutline(region)
 		end
