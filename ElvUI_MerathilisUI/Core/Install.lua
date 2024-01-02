@@ -2349,7 +2349,7 @@ function MER:SetupAddOns()
 
 	MER.isInstallerRunning = true -- don't print when applying profile that doesn't exist
 
-	PluginInstallStepComplete.message = MER.Title .. L['Addons Set']
+	PluginInstallStepComplete.message = MER.Title .. L["Addons Set"]
 	PluginInstallStepComplete:Show()
 	twipe(addonNames)
 
@@ -2399,6 +2399,7 @@ function MER:DeveloperSettings()
 	E.db["mui"]["unitframes"]["gcd"]["enable"] = true
 	E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
 	E.db["mui"]["tooltip"]["gradientName"] = true
+	E.db["mui"]["nameHover"]["gradient"] = true
 
 	-- Rectangle Settings
 	E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
@@ -2464,6 +2465,9 @@ function MER:DeveloperSettings()
 		E.db["mui"]["unitframes"]["power"]["type"] = "CUSTOM"
 		E.db["mui"]["unitframes"]["power"]["model"] = 840943
 	end
+
+	PluginInstallStepComplete.message = MER.Title .. L["Developer Settings Done"]
+	PluginInstallStepComplete:Show()
 
 	E:StaggeredUpdateAll(nil, true)
 end
