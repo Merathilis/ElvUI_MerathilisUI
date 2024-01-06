@@ -2580,14 +2580,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupAddOns() end)
 			PluginInstallFrame.Option1:SetText(L["Setup Addons"])
 		end,
-		[F.IsDeveloper() and 10] = function()
-			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
-			PluginInstallFrame.Desc1:SetText(L["Importance: |cffD3CF00Medium|r"])
-			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:DeveloperSettings() end)
-			PluginInstallFrame.Option1:SetText(L["Setup Developer Settings"])
-		end,
-		[11] = function()
+		[10] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
 			PluginInstallFrame.Desc1:SetText(L
 				["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
@@ -2606,6 +2599,13 @@ MER.installTable = {
 				InstallStepComplete:Show()
 			end
 		end,
+		[F.IsDeveloper() and 11] = function()
+			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
+			PluginInstallFrame.Desc1:SetText(L["Importance: |cffD3CF00Medium|r"])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:DeveloperSettings() end)
+			PluginInstallFrame.Option1:SetText(L["Setup Developer Settings"])
+		end,
 	},
 
 	["StepTitles"] = {
@@ -2618,8 +2618,8 @@ MER.installTable = {
 		[7] = L["NamePlates"],
 		[8] = L["UnitFrames"],
 		[9] = ADDONS,
-		[F.IsDeveloper() and 10] = L["Developer Settings"],
-		[11] = L["Installation Complete"],
+		[10] = L["Installation Complete"],
+		[F.IsDeveloper() and 11] = L["Developer Settings"]
 	},
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],
 	StepTitleWidth = 200,

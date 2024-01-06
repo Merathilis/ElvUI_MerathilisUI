@@ -15,6 +15,7 @@ F.Developer = {}
 
 MER.IsDev = {
 	["Asragoth"] = true,
+	["Anonia"] = true,
 	["Damará"] = true,
 	["Jazira"] = true,
 	["Jústice"] = true,
