@@ -287,10 +287,17 @@ LSM:Register("font", "Tukui", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\
 	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register("font", "ArialN", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\ARIALN.ttf]])
 LSM:Register("font", "Default", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\default.ttf]])
-LSM:Register("font", "Roboto-Black", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Black.ttf]])
-LSM:Register("font", "Roboto-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Bold.ttf]])
-LSM:Register("font", "Roboto-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Medium.ttf]])
-LSM:Register("font", "Roboto-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Regular.ttf]])
+LSM:Register("font", "Roboto-Black", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Black.ttf]],
+	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font", "Roboto-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Bold.ttf]],
+	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font", "Roboto-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Medium.ttf]],
+	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font", "Roboto-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Regular.ttf]],
+	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font", "RobotoCondensed-Regular",
+	[[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\RobotoCondensed-Regular.ttf]],
+	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register("font", "GoodDogCool", [[Interface\AddOns\ElvUI_MerathilisUI\edia\Fonts\gdcool.ttf]])
 LSM:Register("font", "BadaBoom", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\BADABB__.ttf]])
 LSM:Register("font", "Gothic-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\CenturyGothicBold.ttf]])
@@ -312,6 +319,8 @@ LSM:Register("font", "Montserrat-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\
 LSM:Register("font", "Montserrat-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-Regular.ttf]],
 	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register("font", "Montserrat-SemiBold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-SemiBold.ttf]],
+	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font", "NotoSans-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\NotoSans-Medium.ttf]],
 	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 
 -- Backgrounds
