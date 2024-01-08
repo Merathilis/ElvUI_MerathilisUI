@@ -373,6 +373,9 @@ end
 
 function module:UpdateCoords(elapsed)
 	module.db = E.db.mui.locPanel
+	if not module.db.enable then
+		return
+	end
 
 	module.elapsed = module.elapsed + elapsed
 	if module.elapsed < (module.db.throttle or 0.2) then return end
