@@ -2588,11 +2588,15 @@ MER.installTable = {
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick",
 				function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/28We6esE9v") end)
-
 			PluginInstallFrame.Option1:SetText(L["|cffff7d0aMerathilisUI|r Discord"])
-			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript("OnClick", function() InstallComplete() end)
-			PluginInstallFrame.Option2:SetText(L["Finished"])
+
+			if F.IsDeveloper() then
+				PluginInstallFrame.Option2:Hide()
+			else
+				PluginInstallFrame.Option2:Show()
+				PluginInstallFrame.Option2:SetScript("OnClick", function() InstallComplete() end)
+				PluginInstallFrame.Option2:SetText(L["Finished"])
+			end
 
 			if InstallStepComplete then
 				InstallStepComplete.message = MER.Title .. L["Installed"]
@@ -2605,6 +2609,10 @@ MER.installTable = {
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:DeveloperSettings() end)
 			PluginInstallFrame.Option1:SetText(L["Setup Developer Settings"])
+
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript("OnClick", function() InstallComplete() end)
+			PluginInstallFrame.Option2:SetText(L["Finished"])
 		end,
 	},
 

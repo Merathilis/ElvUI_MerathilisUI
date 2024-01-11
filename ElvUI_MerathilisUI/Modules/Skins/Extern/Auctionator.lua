@@ -201,7 +201,7 @@ local function saleItem(frame)
 	S:HandleButton(frame.PostButton)
 	S:HandleButton(frame.SkipButton)
 
-	for _, child in pairs({frame:GetChildren()}) do
+	for _, child in pairs({ frame:GetChildren() }) do
 		if child:IsObjectType("Button") and child.Icon then
 			S:HandleButton(child)
 		end
