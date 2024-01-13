@@ -3,13 +3,14 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 function MER:LoadTouhinProfile()
 	--[[----------------------------------
 	--	Touhin - Settings
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 
 	TouhinDB.profiles[F.Profiles.Default] = {
 		["edgeSize"] = 1,
 		["scale"] = 0.9,
 		["anchor_y"] = 249.000579833984,
-		["bgFile"] = "MER_Stripes",
+		["bgFile"] = "ElvUI Norm1",
 		["showMoney"] = false,
 		["font"] = "Expressway",
 		["anchor_x"] = 57.0003356933594,

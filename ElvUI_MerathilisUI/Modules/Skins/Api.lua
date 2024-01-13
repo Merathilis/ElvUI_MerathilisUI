@@ -81,7 +81,7 @@ function module:CreateShadow(frame, size, r, g, b, force)
 	shadow:SetFrameStrata(frame:GetFrameStrata())
 	shadow:SetFrameLevel(frame:GetFrameLevel() or 1)
 	shadow:SetOutside(frame, size, size)
-	shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = size + 1})
+	shadow:SetBackdrop({ edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(size + 1) })
 	shadow:SetBackdropColor(r, g, b, 0)
 	shadow:SetBackdropBorderColor(r, g, b, 0.618)
 	shadow.__MER = true
@@ -240,7 +240,7 @@ function module:CreateTex(f)
 end
 
 -- Backdrop shadow
-local shadowBackdrop = {edgeFile = MER.Media.Textures.glowTex}
+local shadowBackdrop = { edgeFile = MER.Media.Textures.glowTex }
 function module:CreateSD(f, size, override)
 	assert(f, "doesn't exist!")
 
@@ -345,11 +345,12 @@ end
 do
 	local function GrabScrollBarElement(frame, element)
 		local FrameName = frame:GetDebugName()
-		return frame[element] or FrameName and (_G[FrameName..element] or strfind(FrameName, element)) or nil
+		return frame[element] or FrameName and (_G[FrameName .. element] or strfind(FrameName, element)) or nil
 	end
 
 	function module:HandleScrollBar(_, frame)
-		local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
+		local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or
+			frame.GetThumbTexture and frame:GetThumbTexture()
 
 		if Thumb and Thumb.backdrop then
 			local r, g, b = unpack(E.media.rgbvaluecolor)
@@ -457,14 +458,14 @@ function module:ReskinArrow(self, direction)
 	self:HookScript("OnLeave", F.Texture_OnLeave)
 end
 
-	-- Handle collapse
-	local function updateCollapseTexture(texture, collapsed)
-		if collapsed then
-			texture:SetTexCoord(0, .4375, 0, .4375)
-		else
-			texture:SetTexCoord(.5625, 1, 0, .4375)
-		end
+-- Handle collapse
+local function updateCollapseTexture(texture, collapsed)
+	if collapsed then
+		texture:SetTexCoord(0, .4375, 0, .4375)
+	else
+		texture:SetTexCoord(.5625, 1, 0, .4375)
 	end
+end
 
 local function resetCollapseTexture(self, texture)
 	if self.settingTexture then return end
@@ -527,7 +528,7 @@ local buttons = {
 
 local function replaceConfigArrows(button)
 	-- remove the default icons
-	local tex = _G[button:GetName().."Icon"]
+	local tex = _G[button:GetName() .. "Icon"]
 	if tex then
 		tex:SetTexture(nil)
 	end
@@ -562,8 +563,8 @@ function module:ApplyConfigArrows()
 	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(module.ArrowRotation['DOWN'])
 	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(module.ArrowRotation['LEFT'])
 	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(module.ArrowRotation['RIGHT'])
-
 end
+
 hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
 
 function module:Reposition(frame, target, border, top, bottom, left, right)
@@ -589,8 +590,8 @@ function module:ReskinAS(AS)
 	-- Reskin AddOnSkins
 	function AS:SkinFrame(frame, template, override, kill)
 		local name = frame and frame.GetName and frame:GetName()
-		local insetFrame = name and _G[name..'Inset'] or frame.Inset
-		local closeButton = name and _G[name..'CloseButton'] or frame.CloseButton
+		local insetFrame = name and _G[name .. 'Inset'] or frame.Inset
+		local closeButton = name and _G[name .. 'CloseButton'] or frame.CloseButton
 
 		if not override then
 			AS:StripTextures(frame, kill)
@@ -610,8 +611,8 @@ function module:ReskinAS(AS)
 
 	function AS:SkinBackdropFrame(frame, template, override, kill)
 		local name = frame and frame.GetName and frame:GetName()
-		local insetFrame = name and _G[name..'Inset'] or frame.Inset
-		local closeButton = name and _G[name..'CloseButton'] or frame.CloseButton
+		local insetFrame = name and _G[name .. 'Inset'] or frame.Inset
+		local closeButton = name and _G[name .. 'CloseButton'] or frame.CloseButton
 
 		if not override then
 			AS:StripTextures(frame, kill)
@@ -639,8 +640,8 @@ function module:ReskinAS(AS)
 
 		if TabName then
 			for _, Region in pairs(AS.Blizzard.Regions) do
-				if _G[TabName..Region] then
-					_G[TabName..Region]:SetTexture(nil)
+				if _G[TabName .. Region] then
+					_G[TabName .. Region]:SetTexture(nil)
 				end
 			end
 		end
@@ -697,7 +698,7 @@ function module:ReskinAS(AS)
 		end
 
 		for _, Region in pairs(AS.Blizzard.Regions) do
-			Region = ButtonName and _G[ButtonName..Region] or Button[Region]
+			Region = ButtonName and _G[ButtonName .. Region] or Button[Region]
 			if Region then
 				Region:SetAlpha(0)
 			end
@@ -764,7 +765,8 @@ end
 
 --[[----------------------------------
 --	GUI Functions
---]] ----------------------------------
+--]]
+----------------------------------
 do
 	function module:CreateButton(width, height, text, fontSize, outline)
 		local bu = CreateFrame("Button", nil, self, "BackdropTemplate")
@@ -817,6 +819,7 @@ function module:UpdateMedia()
 	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E.media.unitframeBorderColor)
 	bordercolorr, bordercolorg, bordercolorb = unpack(E.media.bordercolor)
 end
+
 hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)
 
 -- hook the skin functions from ElvUI

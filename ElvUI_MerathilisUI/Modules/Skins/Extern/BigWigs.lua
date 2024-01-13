@@ -293,9 +293,8 @@ function module:BigWigs_QueueTimer()
 				E:SetSmoothing(frame, db.smooth)
 
 				local statusBarTexture = frame:GetStatusBarTexture()
-				statusBarTexture:SetGradient("HORIZONTAL", F.CreateColorFromTable(db.colorLeft), F.CreateColorFromTable(db.colorRight))
-
 				statusBarTexture:SetTexture(E.media.normTex)
+				statusBarTexture:SetGradient("HORIZONTAL", F.CreateColorFromTable(db.colorLeft), F.CreateColorFromTable(db.colorRight))
 
 				if db.spark then
 					frame.spark = frame:CreateTexture(nil, "ARTWORK", nil, 1)
