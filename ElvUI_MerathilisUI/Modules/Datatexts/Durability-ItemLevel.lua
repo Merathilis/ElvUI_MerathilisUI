@@ -115,10 +115,8 @@ local function OnEvent(self)
 	end
 
 	local avgEquipped = 0
-	local shieldIcon =
-	"|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\Icons\\shield.tga:14:14:0:0:64:64:5:59:5:59|t"
-	local armorIcon =
-	"|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\Icons\\armor.tga:14:14:0:0:64:64:5:59:5:59|t"
+	local shieldIcon = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\Icons\\shield.tga:14:14:0:0:64:64:5:59:5:59|t"
+	local armorIcon = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\Icons\\armor.tga:14:14:0:0:64:64:5:59:5:59|t"
 	local text = E.db.mui.datatexts.durabilityIlevel.icon and "%s %s  %s %s" or "%s%s | %s%s"
 	local avgEquippedString = ""
 	local lowDurability = (totalDurability or 0) <= 15

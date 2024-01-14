@@ -104,7 +104,7 @@ function module:ApplyGroupGradient(button)
 end
 
 local forced = false
-function module:Configure_GradientBackdropColor(unit)
+function module:Configure_GradientHealthColor(unit)
 	local colorDB = E.db.mui.gradient
 	if not colorDB.enable then
 		return
@@ -244,10 +244,6 @@ function module:Configure_GradientBackdropColor(unit)
 	end
 end
 
-hooksecurefunc(UF, "PostUpdateHealthColor", module.Configure_GradientBackdropColor)
-hooksecurefunc(UF, "ToggleForceShowGroupFrames", function()
-	module:Configure_GradientBackdropColor("testunit")
-end)
-hooksecurefunc(UF, "HeaderConfig", function()
-	module:Configure_GradientBackdropColor("testunit")
-end)
+hooksecurefunc(UF, "PostUpdateHealthColor", module.Configure_GradientHealthColor)
+hooksecurefunc(UF, "ToggleForceShowGroupFrames", function() module:Configure_GradientHealthColor("testunit") end)
+hooksecurefunc(UF, "HeaderConfig", function() module:Configure_GradientHealthColor("testunit") end)
