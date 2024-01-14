@@ -2586,9 +2586,8 @@ MER.installTable = {
 				["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick",
-				function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/28We6esE9v") end)
-			PluginInstallFrame.Option1:SetText(L["|cffff7d0aMerathilisUI|r Discord"])
+			PluginInstallFrame.Option1:SetScript("OnClick", function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/28We6esE9v") end)
+			PluginInstallFrame.Option1:SetText(L["|TInterface\\Addons\\ElvUI_MerathilisUI\\Media\\Icons\\Discord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"])
 
 			if F.IsDeveloper() then
 				PluginInstallFrame.Option2:Hide()
