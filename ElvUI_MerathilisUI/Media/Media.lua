@@ -227,8 +227,11 @@ AddMedia("exchange", "Exchange.tga", "Textures")
 AddMedia("Pushed", "pushed.tga", "Textures")
 
 AddMedia("PepeArt", "PepeArt.tga", "Textures")
-AddMedia("PepoLove", "pepoLove.tga", "Textures")
-AddMedia("PepoBedge", "bedge.tga", "Textures")
+
+AddMedia("PepoLove", "Peepo/love.tga", "Textures")
+AddMedia("PepoBedge", "Peepo/bedge.tga", "Textures")
+AddMedia("PepoOkaygeL", "Peepo/okaygeL.tga", "Textures")
+AddMedia("PepoStrongge", "Peepo/strongge.tga", "Textures")
 
 AddMedia("flag", "flag.tga", "Textures")
 

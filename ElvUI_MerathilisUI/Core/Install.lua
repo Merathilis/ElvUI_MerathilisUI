@@ -608,8 +608,6 @@ function MER:SetupLayout()
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
 
-	E.db["general"]["cropIcon"] = 2
-
 	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title .. L["Layout Set"]
@@ -1186,7 +1184,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["colors"]["healthclass"] = true
 		E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
 		E.db["unitframe"]["colors"]["classbackdrop"] = false
-	elseif layout == "dps" then
+	elseif layout == "dark" then
 		E.db["unitframe"]["colors"]["transparentHealth"] = true
 		E.db["unitframe"]["colors"]["healthclass"] = false
 		E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
@@ -2564,30 +2562,43 @@ function MER:ImproveInstaller(installType, mode, null)
 	end
 end
 
-function MER:Resize()
-	_G.PluginInstallFrame:SetSize(1024, 512)
-	_G.PluginInstallFrame.Desc1:ClearAllPoints()
-	_G.PluginInstallFrame.Desc1:SetPoint("TOP", _G.PluginInstallFrame.SubTitle, "BOTTOM", 0, -30)
+function MER:Resize(firstPage, lastPage)
+	PluginInstallFrame:SetSize(860, 512)
+	PluginInstallFrame.Desc1:ClearAllPoints()
+	PluginInstallFrame.Desc1:SetPoint("TOP", PluginInstallFrame.SubTitle, "BOTTOM", 0, -30)
+
+	if not PluginInstallFrame.peepo then
+		PluginInstallFrame.peepo = PluginInstallFrame:CreateTexture(nil, "OVERLAY")
+	end
+	PluginInstallFrame.peepo:SetPoint("BOTTOM", PluginInstallTutorialImage, "TOP", 0, -20)
+
+	if firstPage then
+		PluginInstallFrame.peepo:SetTexture(MER.Media.Textures.PepoOkaygeL)
+	elseif lastPage then
+		PluginInstallFrame.peepo:SetTexture(MER.Media.Textures.PepoStrongge)
+	else
+		PluginInstallFrame.peepo:SetTexture()
+	end
 end
 
 -- ElvUI PlugIn installer
 MER.installTable = {
-	["Name"] = "|cffff7d0aMerathilisUI|r",
+	["Name"] = MER.Title,
 	["Title"] = L["|cffff7d0aMerathilisUI|r Installation"],
 	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\merathilis_logo.tga]],
 	["tutorialImageSize"] = { 256, 128 },
 	["tutorialImagePoint"] = { 0, 30 },
 	["Pages"] = {
 		[1] = function()
-			MER:Resize()
+			MER:Resize(true)
 			MER:ImproveInstaller()
 
-			--hide on other plugins
-			if _G.PluginInstallFrame then
-				_G.PluginInstallFrame:HookScript("OnShow", function()
-					if _G.PluginInstallFrame.Title then
-						if _G.PluginInstallFrame.Title:GetText() ~= MER.Title then
-							MER:ImproveInstaller()(nil, nil, true)
+			-- Don't use the addition on other Plugins
+			if PluginInstallFrame then
+				PluginInstallFrame:HookScript("OnShow", function()
+					if PluginInstallFrame.Title then
+						if PluginInstallFrame.Title:GetText() ~= MER.Title then
+							MER:ImproveInstaller()(nil, nil, true, true)
 						end
 					end
 				end)
@@ -2605,7 +2616,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["Skip Process"])
 		end,
 		[2] = function()
-			MER:Resize()
+			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["Layout"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation changes the default ElvUI look."])
@@ -2618,7 +2629,8 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["General Layout"])
 		end,
 		[3] = function()
-			MER:Resize()
+			MER:Resize(nil)
+
 
 			PluginInstallFrame.SubTitle:SetText(L["CVars"])
 			PluginInstallFrame.Desc1:SetFormattedText(
@@ -2634,7 +2646,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["CVars"])
 		end,
 		[4] = function()
-			MER:Resize()
+			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["Chat"])
 			PluginInstallFrame.Desc1:SetText(L
@@ -2648,7 +2660,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["Setup Chat"])
 		end,
 		[5] = function()
-			MER:Resize()
+			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["DataTexts"])
 			PluginInstallFrame.Desc1:SetText(L
@@ -2662,7 +2674,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["Setup Datatexts"])
 		end,
 		[6] = function()
-			MER:Resize()
+			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["ActionBars"])
 			PluginInstallFrame.Desc1:SetText(L
@@ -2676,7 +2688,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["Setup ActionBars"])
 		end,
 		[7] = function()
-			MER:Resize()
+			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["NamePlates"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will change your NamePlates."])
@@ -2689,7 +2701,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["Setup NamePlates"])
 		end,
 		[8] = function()
-			MER:Resize()
+			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["UnitFrames"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will reposition your Unitframes."])
@@ -2708,7 +2720,7 @@ MER.installTable = {
 			PluginInstallFrame.Option2:SetText(L["Dark Layout"])
 		end,
 		[9] = function()
-			MER:Resize()
+			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
 			PluginInstallFrame.Desc1:SetText(L
@@ -2723,7 +2735,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["Setup Addons"])
 		end,
 		[10] = function()
-			MER:Resize()
+			MER:Resize(nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
 			PluginInstallFrame.Desc1:SetText(L
@@ -2753,7 +2765,7 @@ MER.installTable = {
 			end
 		end,
 		[F.IsDeveloper() and 11] = function()
-			MER:Resize()
+			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
 			PluginInstallFrame.Desc1:SetText(L["Importance: |cffD3CF00Medium|r"])
@@ -2784,8 +2796,9 @@ MER.installTable = {
 		[10] = L["Installation Complete"],
 		[F.IsDeveloper() and 11] = L["Developer Settings"]
 	},
+	StepTitlesColor = { 1, 1, 1 },
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],
 	StepTitleWidth = 200,
-	StepTitleButtonWidth = 200,
+	StepTitleButtonWidth = 180,
 	StepTitleTextJustification = "CENTER",
 }
