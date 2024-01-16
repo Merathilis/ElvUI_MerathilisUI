@@ -2518,11 +2518,11 @@ local function InstallComplete()
 	C_UI_Reload()
 end
 
-function MER:ImproveInstaller(installType, mode, null)
+function MER:InstallAdditions(installType, mode, null)
 	if not PluginInstallFrame.installpreview then
 		PluginInstallFrame.installpreview = PluginInstallFrame:CreateTexture(nil, "OVERLAY")
 	end
-	PluginInstallFrame.installpreview:SetAllPoints(PluginInstallFrame)
+	PluginInstallFrame.installpreview:SetInside(PluginInstallFrame, 5, 28)
 
 	if null then
 		PluginInstallFrame.Option1:SetScript('OnEnter', nil)
@@ -2591,14 +2591,13 @@ MER.installTable = {
 	["Pages"] = {
 		[1] = function()
 			MER:Resize(true)
-			MER:ImproveInstaller()
+			MER:InstallAdditions()
 
-			-- Don't use the addition on other Plugins
 			if PluginInstallFrame then
 				PluginInstallFrame:HookScript("OnShow", function()
 					if PluginInstallFrame.Title then
 						if PluginInstallFrame.Title:GetText() ~= MER.Title then
-							MER:ImproveInstaller()(nil, nil, true, true)
+							MER:InstallAdditions()(nil, nil, true) -- Don't use the addition on other Plugins
 						end
 					end
 				end)
@@ -2709,14 +2708,14 @@ MER.installTable = {
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupUnitframes("gradient") end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", function() MER:ImproveInstaller("gradient", "ENTERING") end)
-			PluginInstallFrame.Option1:SetScript("OnLeave", function() MER:ImproveInstaller(nil, "LEAVING") end)
+			PluginInstallFrame.Option1:SetScript("OnEnter", function() MER:InstallAdditions("gradient", "ENTERING") end)
+			PluginInstallFrame.Option1:SetScript("OnLeave", function() MER:InstallAdditions(nil, "LEAVING") end)
 			PluginInstallFrame.Option1:SetText(L["Gradient Layout"])
 
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:SetupUnitframes("dark") end)
-			PluginInstallFrame.Option2:SetScript("OnEnter", function() MER:ImproveInstaller("dark", "ENTERING") end)
-			PluginInstallFrame.Option2:SetScript("OnLeave", function() MER:ImproveInstaller(nil, "LEAVING") end)
+			PluginInstallFrame.Option2:SetScript("OnEnter", function() MER:InstallAdditions("dark", "ENTERING") end)
+			PluginInstallFrame.Option2:SetScript("OnLeave", function() MER:InstallAdditions(nil, "LEAVING") end)
 			PluginInstallFrame.Option2:SetText(L["Dark Layout"])
 		end,
 		[9] = function()
