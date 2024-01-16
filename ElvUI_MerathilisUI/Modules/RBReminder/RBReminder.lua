@@ -13,7 +13,7 @@ local GetWeaponEnchantInfo = GetWeaponEnchantInfo
 local GetInventoryItemTexture = GetInventoryItemTexture
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
-local color = {r, g, b, 1}
+local color = { r, g, b, 1 }
 
 module.VisibilityStates = {
 	["DEFAULT"] = "[noexists, nogroup] hide; show",
@@ -37,32 +37,30 @@ module.ReminderBuffs = {
 
 	},
 	DefiledAugmentRune = {
-		224001,			-- Defiled Augumentation (15 primary stat)
-		270058,			-- Battle Scarred Augmentation (60 primary stat)
-		347901,			-- Veiled Augmentation (18 primary stat)
-		367405,			-- Eternal Augmentation (18 Agi, Strength or Int)
+		224001, -- Defiled Augumentation (15 primary stat)
+		270058, -- Battle Scarred Augmentation (60 primary stat)
+		347901, -- Veiled Augmentation (18 primary stat)
+		367405, -- Eternal Augmentation (18 Agi, Strength or Int)
 	},
 	Food = {
-		104280,	-- Well Fed
+		104280, -- Well Fed
 
 		-- Shadowlands
-		259455,	-- Well Fed
-		308434,	-- Well Fed
-		308488,	-- Well Fed
-		308506,	-- Well Fed
-		308514,	-- Well Fed
-		308637,	-- Well Fed
-		327715,	-- Well Fed
-		327851,	-- Well Fed
+		259455, -- Well Fed
+		308434, -- Well Fed
+		308488, -- Well Fed
+		308506, -- Well Fed
+		308514, -- Well Fed
+		308637, -- Well Fed
+		327715, -- Well Fed
+		327851, -- Well Fed
 	},
 	Intellect = {
 		1459, -- Arcane Intellect
 		264760, -- War-Scroll of Intellect
 	},
 	Stamina = {
-		6307, -- Blood Pact
 		21562, -- Power Word: Fortitude
-		264764, -- War-Scroll of Fortitude
 	},
 	AttackPower = {
 		6673, -- Battle Shout
@@ -312,13 +310,15 @@ function module:CreateIconBuff(name, relativeTo, firstbutton)
 	local button = CreateFrame("Button", name, module.frame)
 
 	if firstbutton == true then
-		button:CreatePanel("Transparent", E.db.mui.raidBuffs.size, E.db.mui.raidBuffs.size, "BOTTOMLEFT", relativeTo, "BOTTOMLEFT", 0, 0)
+		button:CreatePanel("Transparent", E.db.mui.raidBuffs.size, E.db.mui.raidBuffs.size, "BOTTOMLEFT", relativeTo,
+			"BOTTOMLEFT", 0, 0)
 	else
-		button:CreatePanel("Transparent", E.db.mui.raidBuffs.size, E.db.mui.raidBuffs.size, "LEFT", relativeTo, "RIGHT", 3, 0)
+		button:CreatePanel("Transparent", E.db.mui.raidBuffs.size, E.db.mui.raidBuffs.size, "LEFT", relativeTo, "RIGHT",
+			3, 0)
 	end
 	button:SetFrameLevel(RaidBuffReminder:GetFrameLevel() + 2)
 
-	button.t = button:CreateTexture(name..".t", "OVERLAY")
+	button.t = button:CreateTexture(name .. ".t", "OVERLAY")
 	button.t:SetTexCoord(unpack(E.TexCoords))
 	button.t:SetPoint("TOPLEFT", 2, -2)
 	button.t:SetPoint("BOTTOMRIGHT", -2, 2)
@@ -326,7 +326,9 @@ end
 
 function module:Visibility()
 	if module.db.enable then
-		RegisterStateDriver(self.frame, "visibility", module.db.visibility == "CUSTOM" and module.db.customVisibility or module.VisibilityStates[module.db.visibility])
+		RegisterStateDriver(self.frame, "visibility",
+			module.db.visibility == "CUSTOM" and module.db.customVisibility or
+			module.VisibilityStates[module.db.visibility])
 		E:EnableMover(self.frame.mover:GetName())
 	else
 		UnregisterStateDriver(self.frame, "visibility")
@@ -346,7 +348,8 @@ function module:Initialize()
 	self.Anchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 11, -15)
 
 	self.frame = CreateFrame("Frame", "RaidBuffReminder", E.UIParent)
-	self.frame:CreatePanel("Invisible", (E.db.mui.raidBuffs.size * 6) + 15, E.db.mui.raidBuffs.size + 4, "TOPLEFT", RaidBuffAnchor, "TOPLEFT", 0, 4)
+	self.frame:CreatePanel("Invisible", (E.db.mui.raidBuffs.size * 6) + 15, E.db.mui.raidBuffs.size + 4, "TOPLEFT",
+		RaidBuffAnchor, "TOPLEFT", 0, 4)
 
 	if module.db.class then
 		self:CreateIconBuff("IntellectFrame", RaidBuffReminder, true)
@@ -379,7 +382,8 @@ function module:Initialize()
 	self.frame:RegisterEvent("GROUP_ROSTER_UPDATE")
 	self.frame:SetScript("OnEvent", OnAuraChange)
 
-	E:CreateMover(self.frame, "MER_RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,modules,raidBuffs')
+	E:CreateMover(self.frame, "MER_RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil,
+		"ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,modules,raidBuffs')
 
 	self:Visibility()
 end
