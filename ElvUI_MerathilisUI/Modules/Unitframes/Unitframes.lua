@@ -48,7 +48,7 @@ function module:CreateAnimatedBars(frame)
 				animation:SetModel(1715069)
 				animation:MakeCurrentCameraCustom()
 				animation:SetPortraitZoom(1)
-				animation:SetTransform(CreateVector3D(-0.035, 0, 0), CreateVector3D(rad(270), 0, 0), 1)
+				animation:SetTransform(CreateVector3D(-0.035, 0, 0), CreateVector3D(4.7123889803847, 0, 0), 1)
 				animation:SetAlpha(0.65)
 			elseif db.type == "CUSTOM" then
 				animation:SetModel(db.model)
@@ -70,7 +70,7 @@ function module:CreateAnimatedBars(frame)
 			local h = frame:GetHeight()
 			sparkle:SetPoint("RIGHT", frame.__MERAnim)
 			sparkle:SetInside(frame:GetStatusBarTexture(), 0, 0)
-			sparkle:SetSize(h*2, h)
+			sparkle:SetSize(h * 2, h)
 			sparkle:SetAlpha(0.2)
 
 			frame.sparkle = sparkle
