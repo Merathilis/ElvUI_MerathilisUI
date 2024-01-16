@@ -532,7 +532,7 @@ P.misc = {
 		},
 		line = {
 			enable = true,
-			tex = "ElvUI Norm",
+			tex = "ElvUI Norm1",
 			width = 16,
 			height = 3,
 			offsetX = 0,
