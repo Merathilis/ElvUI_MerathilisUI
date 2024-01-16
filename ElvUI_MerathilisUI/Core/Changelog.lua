@@ -12,20 +12,24 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an oopsie in the BagSync Skin",
+	"• Fix some Itemlevel related things i broke by accident",
+	"• Take account to time/date changes in ElvUI",
+	"• Fix a potential error on Quest Skin",
+	"• Added more openables to the AutoButtons",
+	"• 🎄",
 
-		-- "• ''",
+	-- "• ''",
 
-		" ",
+	" ",
 
 	"Notes:",
-		"• As always, if you want my latest layout, do the install again",
-		"• New Addition you will find with the ! in the Options",
-		"• If you are getting any errors or something is not working, make sure you are now using:",
-		"  '/muidebug on' and test again",
-		"• You can disable almost everything in the Option. I would sugguest you to back up your profiles regularly"
+	"• As always, if you want my latest layout, do the install again",
+	"• New Addition you will find with the ! in the Options",
+	"• If you are getting any errors or something is not working, make sure you are now using:",
+	"  '/muidebug on' and test again",
+	"• You can disable almost everything in the Option. I would sugguest you to back up your profiles regularly"
 
-		-- "• ''",
+	-- "• ''",
 }
 
 local function ModifiedString(string)
@@ -38,9 +42,9 @@ local function ModifiedString(string)
 		local subHeader = find(string, "•")
 
 		if subHeader then
-			newString = tostring("|cFFFFFF00".. prefix .. "|r" .. suffix)
+			newString = tostring("|cFFFFFF00" .. prefix .. "|r" .. suffix)
 		else
-			newString = tostring("|cffff7d0a".. prefix .. "|r" .. suffix)
+			newString = tostring("|cffff7d0a" .. prefix .. "|r" .. suffix)
 		end
 	end
 
@@ -98,7 +102,7 @@ function MER:CreateChangelog()
 	title.text = title:CreateFontString(nil, "OVERLAY")
 	title.text:FontTemplate(nil, 15)
 	title.text:Point("CENTER", title, 0, -1)
-	title.text:SetText(MER.Title.. "- ChangeLog "..format("|cff00c0fa%s|r", MER.Version))
+	title.text:SetText(MER.Title .. "- ChangeLog " .. format("|cff00c0fa%s|r", MER.Version))
 
 	local close = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate, BackdropTemplate")
 	close:Point("BOTTOM", frame, "BOTTOM", 0, 10)
@@ -119,7 +123,7 @@ function MER:CreateChangelog()
 
 	local offset = 4
 	for i = 1, #ChangeLogData do
-		local button = CreateFrame("Frame", "Button"..i, frame)
+		local button = CreateFrame("Frame", "Button" .. i, frame)
 		button:SetSize(375, 16)
 		button:Point("TOPLEFT", frame, "TOPLEFT", 5, -offset)
 

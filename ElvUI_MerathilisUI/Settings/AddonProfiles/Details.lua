@@ -1,10 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local ReloadUI = ReloadUI
 
 function MER:LoadDetailsProfile()
-	if not IsAddOnLoaded('Details') then return end
+	if not C_AddOns_IsAddOnLoaded('Details') then return end
 
 	--[[----------------------------------
 	--	Details - Settings

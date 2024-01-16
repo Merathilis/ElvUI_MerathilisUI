@@ -27,10 +27,6 @@ local VignetteExclusionMapIDs = {
 	[646] = true, -- Scenario: The Broken Shore
 }
 
-local VignetteBlackListIDs = {
-	[5485] = true, -- Tuskarr Tacklebox
-}
-
 local SOUND_TIMEOUT = 20
 function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	local db = E.db.mui.notification
@@ -58,19 +54,21 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 			self.lastMinimapRare.id = vignetteGUID
 
 			if db.vignette.debugPrint then
-				F.DebugPrint("Vignette-ID: " .. vignetteInfo.vignetteID .. " Vignette-Name: " .. vignetteInfo.name, "warning")
+				F.DebugPrint("Vignette-ID: " .. vignetteInfo.vignetteID .. " Vignette-Name: " .. vignetteInfo.name,
+					"warning")
 			end
 
 			if db.vignette and db.vignette.enable and db.vignette.print then
-				local currentTime = E.db.chat.timeStampFormat == 1 and "|cff00ff00["..date("%H:%M:%S").."]|r" or ""
+				local currentTime = E.db.chat.timeStampFormat == 1 and "|cff00ff00[" .. date("%H:%M:%S") .. "]|r" or ""
 				local nameString
 				local mapID = C_Map_GetBestMapForUnit("player")
 				local position = mapID and C_VignetteInfo_GetVignettePosition(vignetteInfo.vignetteGUID, mapID)
 				if position then
 					local x, y = position:GetXY()
-					nameString = format("|Hworldmap:%d+:%d+:%d+|h[%s (%.1f, %.1f)%s]|h|r", mapID, x*10000, y*10000, vignetteInfo.name, x*100, y*100, "")
+					nameString = format("|Hworldmap:%d+:%d+:%d+|h[%s (%.1f, %.1f)%s]|h|r", mapID, x * 10000, y * 10000,
+						vignetteInfo.name, x * 100, y * 100, "")
 				end
-				F.Print(currentTime.." -> "..tex..MER.InfoColor..(nameString or vignetteInfo.name or ""))
+				F.Print(currentTime .. " -> " .. tex .. MER.InfoColor .. (nameString or vignetteInfo.name or ""))
 			end
 
 			local time = GetTime()

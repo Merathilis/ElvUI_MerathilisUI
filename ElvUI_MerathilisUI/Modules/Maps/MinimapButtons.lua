@@ -14,9 +14,10 @@ local tinsert, tremove = tinsert, tremove
 local CreateFrame = CreateFrame
 local GetSpellInfo = GetSpellInfo
 local InCombatLockdown = InCombatLockdown
-local IsAddOnLoaded = IsAddOnLoaded
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local IgnoreList = {
 	full = {
@@ -267,7 +268,7 @@ function module:SkinButton(frame)
 
 	-- If the relative frame is Minimap, then replace it to fake Minimap
 	-- It must run before FarmHud moving the Minimap
-	if IsAddOnLoaded("FarmHud") then
+	if C_AddOns_IsAddOnLoaded("FarmHud") then
 		if frame.SetPoint and not frame.__SetPoint then
 			frame.__SetPoint = frame.SetPoint
 			frame.SetPoint = function(btn, ...)

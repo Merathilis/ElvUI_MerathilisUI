@@ -6,9 +6,11 @@ local _G = _G
 local getn = getn
 
 local hooksecurefunc = hooksecurefunc
-local IsAddOnLoaded = IsAddOnLoaded
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
 local MAX_STATIC_POPUPS = 4
 
 local function LoadSkin()
@@ -38,37 +40,23 @@ local function LoadSkin()
 
 	--DropDownMenu
 	hooksecurefunc("UIDropDownMenu_CreateFrames", function(level, index)
-		local listFrame = _G["DropDownList"..level]
+		local listFrame = _G["DropDownList" .. level]
 		local listFrameName = listFrame:GetName()
 
-		local Backdrop = _G[listFrameName.."Backdrop"]
+		local Backdrop = _G[listFrameName .. "Backdrop"]
 		if Backdrop and not Backdrop.__MERSkin then
 			Backdrop:Styling()
 			module:CreateBackdropShadow(Backdrop)
 			Backdrop.__MERSkin = true
 		end
 
-		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
+		local menuBackdrop = _G[listFrameName .. "MenuBackdrop"]
 		if menuBackdrop and not menuBackdrop.__MERSkin then
 			menuBackdrop:Styling()
 			module:CreateShadow(menuBackdrop)
 			menuBackdrop.__MERSkin = true
 		end
 	end)
-
-	--DropDownMenu library support
-	if _G.LibStub("LibUIDropDownMenu", true) then
-		_G.L_DropDownList1Backdrop:Styling()
-		_G.L_DropDownList1MenuBackdrop:Styling()
-		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
-			if not _G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
-				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
-				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"])
-				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
-				module:CreateShadow(_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"])
-			end
-		end)
-	end
 
 	--LibDropDown
 	local DropDown = _G.ElvUI_MerathilisUIMenuBackdrop
@@ -83,7 +71,7 @@ local function LoadSkin()
 
 	local function StylePopups()
 		for i = 1, MAX_STATIC_POPUPS do
-			local frame = _G["ElvUI_StaticPopup"..i]
+			local frame = _G["ElvUI_StaticPopup" .. i]
 			if frame and not frame.skinned then
 				frame:Styling()
 				frame.skinned = true
@@ -120,17 +108,12 @@ local function LoadSkin()
 		end)
 	end
 
-	-- Error Text
-	if _G.UIErrorsFrame then
-		F.SetFontDB(_G.UIErrorsFrame, E.private.mui.skins.errorMessage)
-	end
-
 	if _G.ActionStatus.Text then
-		F.SetFontDB(_G.ActionStatus.Text, E.private.mui.skins.errorMessage)
+		F.SetFontDB(_G.ActionStatus.Text, E.private.mui.skins.actionStatus)
 	end
 
 	-- DataStore
-	if IsAddOnLoaded("DataStore") then
+	if C_AddOns_IsAddOnLoaded("DataStore") then
 		local frame = _G.DataStoreFrame
 		if frame then
 			frame:Styling()

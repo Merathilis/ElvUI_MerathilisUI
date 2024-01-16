@@ -12,8 +12,9 @@ local C_Map_HasUserWaypoint = C_Map.HasUserWaypoint
 local C_Map_CanSetUserWaypointOnMap = C_Map.CanSetUserWaypointOnMap
 local C_Navigation_GetDistance = C_Navigation.GetDistance
 local C_SuperTrack_SetSuperTrackedUserWaypoint = C_SuperTrack.SetSuperTrackedUserWaypoint
-local IsAddOnLoaded = IsAddOnLoaded
 local UiMapPoint_CreateFromCoordinates = UiMapPoint.CreateFromCoordinates
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_Map_SetUserWaypoint = C_Map.SetUserWaypoint
 
 function module:ReskinDistanceText()
@@ -219,7 +220,7 @@ function module:WaypointParse()
 			tinsert(keys, k)
 		end
 		if self.db.waypointParse.virtualTomTom then
-			if not IsAddOnLoaded("TomTom") and not _G.SLASH_TOMTOM_WAY1 then
+			if not C_AddOns_IsAddOnLoaded("TomTom") and not _G.SLASH_TOMTOM_WAY1 then
 				tinsert(keys, "way")
 			end
 		end
@@ -311,7 +312,7 @@ function module:Initialize()
 		self:USER_WAYPOINT_UPDATED()
 	end
 
-	if not IsAddOnLoaded("Blizzard_QuestNavigation") then
+	if not C_AddOns_IsAddOnLoaded("Blizzard_QuestNavigation") then
 		self:RegisterEvent("ADDON_LOADED")
 		return
 	end

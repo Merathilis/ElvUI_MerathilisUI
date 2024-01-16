@@ -48,7 +48,7 @@ P.blizzard = {
 			size = E.db.general.fontSize + 2,
 			style = "SHADOWOUTLINE",
 			classColor = false,
-			color = {r = 1, g = 1, b = 1},
+			color = { r = 1, g = 1, b = 1 },
 			shortHeader = true
 		},
 		cosmeticBar = {
@@ -64,9 +64,9 @@ P.blizzard = {
 			borderAlpha = 1,
 			color = {
 				mode = "GRADIENT",
-				normalColor = {r = 0, g = 0.659, b = 1.000, a = 1},
-				gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1},
-				gradientColor2 = {r = 0, g = 0.752, b = 0.980, a = 1}
+				normalColor = { r = 0, g = 0.659, b = 1.000, a = 1 },
+				gradientColor1 = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 },
+				gradientColor2 = { r = 0, g = 0.752, b = 0.980, a = 1 }
 			}
 		},
 		title = {
@@ -82,8 +82,8 @@ P.blizzard = {
 		titleColor = {
 			enable = true,
 			classColor = false,
-			customColorNormal = {r = 0, g = 0.752, b = 0.980},
-			customColorHighlight = {r = 0.282, g = 0.859, b = 0.984}
+			customColorNormal = { r = 0, g = 0.752, b = 0.980 },
+			customColorHighlight = { r = 0.282, g = 0.859, b = 0.984 }
 		},
 		menuTitle = {
 			enable = true,
@@ -280,74 +280,74 @@ P.chat = {
 			["SAY"] = {
 				enable = true,
 				cmd = "s",
-				color = {r = 1, g = 1, b = 1, a = 1},
+				color = { r = 1, g = 1, b = 1, a = 1 },
 				abbr = _G.SAY
 			},
 			["YELL"] = {
 				enable = true,
 				cmd = "y",
-				color = {r = 1, g = 0.25, b = 0.25, a = 1},
+				color = { r = 1, g = 0.25, b = 0.25, a = 1 },
 				abbr = _G.YELL
 			},
 			["EMOTE"] = {
 				enable = false,
 				cmd = "e",
-				color = {r = 1, g = 0.5, b = 0.25, a = 1},
+				color = { r = 1, g = 0.5, b = 0.25, a = 1 },
 				abbr = _G.EMOTE
 			},
 			["PARTY"] = {
 				enable = true,
 				cmd = "p",
-				color = {r = 0.67, g = 0.67, b = 1, a = 1},
+				color = { r = 0.67, g = 0.67, b = 1, a = 1 },
 				abbr = _G.PARTY
 			},
 			["INSTANCE"] = {
 				enable = true,
 				cmd = "i",
-				color = {r = 1, g = 0.73, b = 0.2, a = 1},
+				color = { r = 1, g = 0.73, b = 0.2, a = 1 },
 				abbr = _G.INSTANCE
 			},
 			["RAID"] = {
 				enable = true,
 				cmd = "raid",
-				color = {r = 1, g = 0.5, b = 0, a = 1},
+				color = { r = 1, g = 0.5, b = 0, a = 1 },
 				abbr = _G.RAID
 			},
 			["RAID_WARNING"] = {
 				enable = false,
 				cmd = "rw",
-				color = {r = 1, g = 0.28, b = 0, a = 1},
+				color = { r = 1, g = 0.28, b = 0, a = 1 },
 				abbr = _G.RAID_WARNING
 			},
 			["GUILD"] = {
 				enable = true,
 				cmd = "g",
-				color = {r = 0.25, g = 1, b = 0.25, a = 1},
+				color = { r = 0.25, g = 1, b = 0.25, a = 1 },
 				abbr = _G.GUILD
 			},
 			["OFFICER"] = {
 				enable = false,
 				cmd = "o",
-				color = {r = 0.25, g = 0.75, b = 0.25, a = 1},
+				color = { r = 0.25, g = 0.75, b = 0.25, a = 1 },
 				abbr = _G.OFFICER
 			},
 			world = {
 				enable = false,
 				autoJoin = true,
 				name = "",
-				color = {r = 0.2, g = 0.6, b = 0.86, a = 1},
+				color = { r = 0.2, g = 0.6, b = 0.86, a = 1 },
 				abbr = L["World"]
 			},
 			community = {
 				enable = false,
 				name = "",
-				color = {r = 0.72, g = 0.27, b = 0.86, a = 1},
+				color = { r = 0.72, g = 0.27, b = 0.86, a = 1 },
 				abbr = L["Community"]
 			},
 			roll = {
 				enable = true,
 				icon = true,
-				color = {r = 0.56, g = 0.56, b = 0.56, a = 1},
+				color = { r = 0.56, g = 0.56, b = 0.56, a = 1 },
 				abbr = _G.ROLL
 			},
 		},
@@ -512,12 +512,12 @@ P.announcement = {
 P.misc = {
 	gmotd = true,
 	quest = {
-		selectQuestReward =	true,
+		selectQuestReward = true,
 	},
 	cursor = {
 		enable = false,
 		colorType = "CLASS",
-		customColor = {r = 0, g = .75, b = .98}
+		customColor = { r = 0, g = .75, b = .98 }
 	},
 	lfgInfo = {
 		enable = true,
@@ -586,6 +586,7 @@ P.nameHover = {
 	fontSize = 7,
 	fontOutline = "SHADOWOUTLINE",
 	targettarget = false,
+	gradient = false,
 }
 
 P.armory = {
@@ -632,7 +633,10 @@ P.notification = {
 P.databars = {}
 
 P.datatexts = {
-	RightChatDataText = true,
+	durabilityIlevel = {
+		icon = true,
+		text = true,
+	},
 }
 
 P.actionbars = {
@@ -845,7 +849,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODDF,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODDF,SEEDS,CUSTOM"
 	},
 	bar4 = {
 		enable = false,
@@ -1300,7 +1304,7 @@ P.unitframes = {
 			enable = true,
 			texture = "ElvUI Blank",
 			width = 3,
-			color = { r = 0, g = .75, b = .98 , a = 1},
+			color = { r = 0, g = .75, b = .98, a = 1 },
 		},
 	},
 	swing = {
@@ -1365,7 +1369,7 @@ P.maps = {
 			addRealm = false,
 			onlyInCombat = false,
 			classColor = true,
-			customColor = {r = 1, g = 1, b = 1},
+			customColor = { r = 1, g = 1, b = 1 },
 			font = {
 				name = E.db.general.font,
 				size = 12,
@@ -1426,7 +1430,7 @@ P.maps = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize + 2,
 			style = "SHADOWOUTLINE",
-			color = {r = 1, g = 1, b = 1},
+			color = { r = 1, g = 1, b = 1 },
 		},
 		waypointParse = {
 			enable = true,
@@ -1444,7 +1448,7 @@ P.maps = {
 		reveal = {
 			enable = true,
 			useColor = true,
-			color = {r = 0, g = 0, b = 0, a = 0.50}
+			color = { r = 0, g = 0, b = 0, a = 0.50 }
 		},
 		scale = {
 			enable = true,
@@ -1464,7 +1468,7 @@ P.maps = {
 			outline = "SHADOWOUTLINE"
 		},
 		communityFeast = {
-			enable = true,
+			enable = false,
 			desaturate = false,
 			alert = true,
 			sound = true,
@@ -1474,7 +1478,7 @@ P.maps = {
 			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
 		siegeOnDragonbaneKeep = {
-			enable = true,
+			enable = false,
 			desaturate = false,
 			alert = true,
 			sound = true,
@@ -1509,45 +1513,27 @@ P.maps = {
 			sound = true,
 			soundFile = "OnePlus Surprise",
 			disableAlertAfterHours = 48,
-		}
+		},
+		superBloom = {
+			enable = true,
+			desaturate = false,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Light",
+			second = 600,
+			stopAlertIfCompleted = false,
+			stopAlertIfPlayerNotEnteredDragonlands = true
+		},
 	},
 }
 
 P.media = {
-	zoneText = {
-		enable = true,
-		zone = {
-			font = "Expressway",
-			size = 32,
-			outline = "SHADOWOUTLINE",
-			width = 512,
-		},
-		subzone = {
-			font = "Expressway",
-			size = 25,
-			outline = "SHADOWOUTLINE",
-			width = 512,
-		},
-		pvp = {
-			font = "Expressway",
-			size = 22,
-			outline = "SHADOWOUTLINE",
-			width = 512,
-		},
-	},
-	miscText = {
-		mail = {
-			enable = true,
-			font = "Expressway",
-			size = 12,
-			outline = "SHADOWOUTLINE",
-		},
-	},
+
 }
 
 P.panels = {
 	colorType = "CLASS",
-	customColor = {r = 1, g = 1, b = 1 },
+	customColor = { r = 1, g = 1, b = 1 },
 	topPanel = true,
 	bottomPanel = true,
 	stylePanels = {
@@ -1594,8 +1580,8 @@ P.locPanel = {
 	zoneText = true,
 	colorType = "REACTION",
 	colorType_Coords = "DEFAULT",
-	customColor = {r = 1, g = 1, b = 1 },
-	customColor_Coords = {r = 1, g = 1, b = 1 },
+	customColor = { r = 1, g = 1, b = 1 },
+	customColor_Coords = { r = 1, g = 1, b = 1 },
 	combathide = true,
 	orderhallhide = false,
 	coordshide = false,
@@ -1608,7 +1594,8 @@ P.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,200630,193588,190237,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952,140192,110560,208704",
+		hsPrio =
+		"209035,54452,200630,193588,190237,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952,140192,110560,208704",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
@@ -1701,6 +1688,12 @@ P.itemLevel = {
 			},
 		},
 	},
+	merchantFrame = {
+		enable = true,
+	},
+	guildNews = {
+		enable = true,
+	}
 }
 
 P.raidBuffs = {
@@ -1726,12 +1719,12 @@ P.cooldownFlash = {
 	animScale = 1.5,
 	iconSize = 40,
 	holdTime = 0.3,
-	petOverlay = {1, 1, 1, 1},
+	petOverlay = { 1, 1, 1, 1 },
 	ignoredSpells = {},
 	invertIgnored = false,
 	enablePet = false,
-	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
-	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
+	x = UIParent:GetWidth() * UIParent:GetEffectiveScale() / 2,
+	y = UIParent:GetHeight() * UIParent:GetEffectiveScale() / 2,
 	tts = false,
 	ttsvoice = nil,
 	ttsvolume = 100,

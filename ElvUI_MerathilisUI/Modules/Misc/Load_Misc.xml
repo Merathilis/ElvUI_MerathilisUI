@@ -10,6 +10,7 @@
 	<Include file="FlightPoint.xml" />
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
+	<Script file="ItemLevel.lua"/>
 	<Script file="LfgInfo.lua"/>
 	<Script file="Loot.lua"/>
 	<Script file="MissingStats.lua"/>
@@ -19,6 +20,7 @@
 	<Script file="SpellAlerts.lua"/>
 	<Script file="RandomToy.lua"/>
 	<Script file="TradeTabs.lua"/>
+	<Script file="WAAnchor.lua"/>
 	<Script file="WoWHeadLinks.lua"/>
 
 	<Include file="Scale\Load_Scale.xml"/>

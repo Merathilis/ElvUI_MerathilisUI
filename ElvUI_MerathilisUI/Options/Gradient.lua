@@ -23,8 +23,15 @@ options.gradient = {
 			name = L["Enable"],
 			width = "full",
 		},
-		colors = {
+		desc = {
 			order = 2,
+			type = "description",
+			name = " |cffe74c3c" .. format(L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."]) .. "|r",
+			fontSize = "medium",
+			width = "full",
+		},
+		colors = {
+			order = 3,
 			type = "group",
 			name = L["Custom Gradient Colors"],
 			disabled = function() return not E.db.mui.gradient.enable end,
@@ -924,7 +931,7 @@ options.gradient = {
 			},
 		},
 		nameplateColors = {
-			order = 2,
+			order = 4,
 			type = "group",
 			name = L["Custom Nameplates Colors"],
 			disabled = function() return not E.db.mui.gradient.enable or not E.db.nameplates.threat.enable end,
@@ -1280,7 +1287,7 @@ options.gradient = {
 			},
 		},
 		unitframeColors = {
-			order = 3,
+			order = 5,
 			type = "group",
 			name = L["Custom Unitframes Colors"],
 			disabled = function() return not E.db.mui.gradient.enable end,
@@ -1305,7 +1312,7 @@ options.gradient = {
 			},
 		},
 		powerColors = {
-			order = 4,
+			order = 6,
 			type = "group",
 			name = L["Custom Power Colors"],
 			disabled = function() return not E.db.mui.gradient.enable end,

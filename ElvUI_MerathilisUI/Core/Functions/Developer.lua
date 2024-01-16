@@ -15,6 +15,7 @@ F.Developer = {}
 
 MER.IsDev = {
 	["Asragoth"] = true,
+	["Anonia"] = true,
 	["Damará"] = true,
 	["Jazira"] = true,
 	["Jústice"] = true,
@@ -49,8 +50,6 @@ MER.IsDevRealm = {
 }
 
 function F.IsDeveloper()
-	if not MER.IsDevelop then return end
-
 	return MER.IsDev[E.myname] and MER.IsDevRealm[E.myrealm] or false
 end
 

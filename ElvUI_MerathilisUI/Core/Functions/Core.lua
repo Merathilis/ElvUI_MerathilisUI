@@ -43,6 +43,18 @@ local baseMulti = 0.64 / baseScale
 local perfectScale = baseScale / F.PixelPerfect()
 local perfectMulti = baseMulti * perfectScale
 
+function F.HiDpi()
+	return E.physicalHeight / 1440 >= 1
+end
+
+function F.Dpi(value, frac)
+	return F.Round(value * perfectMulti, frac)
+end
+
+function F.DpiRaw(value)
+	return value * perfectMulti
+end
+
 function F.SetFontDB(text, db)
 	if not text or not text.GetFont then
 		F.Developer.LogDebug("Functions.SetFontDB: text not found")
@@ -100,6 +112,73 @@ function F.SetFontSizeScaled(value, clamp)
 	return F.Clamp(F.Clamp(F.Round(value * perfectScale), clamp or 0, 64), 8, 64)
 end
 
+function F.Position(anchor1, parent, anchor2, x, y)
+	return format("%s,%s,%s,%d,%d", anchor1, parent, anchor2, F.Dpi(x), F.Dpi(y))
+end
+
+function F.Clamp(value, s, b)
+	return min(max(value, s), b)
+end
+
+function F.ClampTo01(value)
+	return F.Clamp(value, 0, 1)
+end
+
+function F.ClampToHSL(h, s, l)
+	return h % 360, F.ClampTo01(s), F.ClampTo01(l)
+end
+
+function F.ConvertFromHue(m1, m2, h)
+	if h < 0 then h = h + 1 end
+	if h > 1 then h = h - 1 end
+
+	if h * 6 < 1 then
+		return m1 + (m2 - m1) * h * 6
+	elseif h * 2 < 1 then
+		return m2
+	elseif h * 3 < 2 then
+		return m1 + (m2 - m1) * (2 / 3 - h) * 6
+	else
+		return m1
+	end
+end
+
+function F.ConvertToRGB(h, s, l)
+	h = h / 360
+
+	local m2 = l <= 0.5 and l * (s + 1) or l + s - l * s
+	local m1 = l * 2 - m2
+
+	return F.ConvertFromHue(m1, m2, h + 1 / 3), F.ConvertFromHue(m1, m2, h), F.ConvertFromHue(m1, m2, h - 1 / 3)
+end
+
+function F.ConvertToHSL(r, g, b)
+	r = r or 0
+	g = g or 0
+	b = b or 0
+
+	local minColor = min(r, g, b)
+	local maxColor = max(r, g, b)
+	local colorDelta = maxColor - minColor
+
+	local h, s, l = 0, 0, (minColor + maxColor) / 2
+
+	if l > 0 and l < 0.5 then s = colorDelta / (maxColor + minColor) end
+	if l >= 0.5 and l < 1 then s = colorDelta / (2 - maxColor - minColor) end
+
+	if colorDelta > 0 then
+		if maxColor == r and maxColor ~= g then h = h + (g - b) / colorDelta end
+		if maxColor == g and maxColor ~= b then h = h + 2 + (b - r) / colorDelta end
+		if maxColor == b and maxColor ~= r then h = h + 4 + (r - g) / colorDelta end
+		h = h / 6
+	end
+
+	if h < 0 then h = h + 1 end
+	if h > 1 then h = h - 1 end
+
+	return h * 360, s, l
+end
+
 function F.SetVertexColorDB(tex, db)
 	if not tex or not tex.GetVertexColor then
 		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture to handling")
@@ -114,8 +193,28 @@ function F.SetVertexColorDB(tex, db)
 	tex:SetVertexColor(db.r, db.g, db.b, db.a)
 end
 
-function F.Clamp(value, s, b)
-	return min(max(value, s), b)
+function F.SlowColorGradient(perc, ...)
+	if perc >= 1 then
+		return select(select("#", ...) - 2, ...)
+	elseif perc <= 0 then
+		return ...
+	end
+
+	local num = select("#", ...) / 3
+	local segment, relperc = modf(perc * (num - 1))
+	local r1, g1, b1, r2, g2, b2 = select((segment * 3) + 1, ...)
+
+	return F.FastColorGradient(relperc, r1, g1, b1, r2, g2, b2)
+end
+
+function F.FastColorGradient(perc, r1, g1, b1, r2, g2, b2)
+	if perc >= 1 then
+		return r2, g2, b2
+	elseif perc <= 0 then
+		return r1, g1, b1
+	end
+
+	return (r2 * perc) + (r1 * (1 - perc)), (g2 * perc) + (g1 * (1 - perc)), (b2 * perc) + (b1 * (1 - perc))
 end
 
 function F.Round(n, q)

@@ -18,6 +18,7 @@ L["Font Outline"] = true
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
 L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
+L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"] = true
 L["AFK"] = "暫離"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Are you still there? ... Hello?"] = true
@@ -48,6 +49,7 @@ L["Log Level"] = "日誌等級"
 L["Only display log message that the level is higher than you choose."] = "只顯示高於所選等級的日志訊息."
 L["Set to 2 if you do not understand the meaning of log level."] = "如果你不理解日志等級的意思, 設置為 2 就好."
 L["Open the changelog window."] = true
+L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
 -- Bags
 
@@ -98,7 +100,8 @@ L["Filter"] = "過濾器"
 L["Block"] = "方塊"
 L["Custom Online Message"] = true
 L["Chat Link"] = "聊天鏈接"
-L["Add extra information on the link, so that you can get basic information but do not need to click"] = "為聊天鏈接添加額外的訊息, 如此一來, 你就可以不透過點擊直接獲取到物品的基礎訊息"
+L["Add extra information on the link, so that you can get basic information but do not need to click"] =
+"為聊天鏈接添加額外的訊息, 如此一來, 你就可以不透過點擊直接獲取到物品的基礎訊息"
 L["Additional Information"] = "附加訊息"
 L["Level"] = "等級"
 L["Translate Item"] = "翻譯物品"
@@ -203,7 +206,8 @@ L["Time Height"] = true
 L["The spacing between buttons."] = "兩個按鈕間的距離."
 L["The size of the buttons."] = "按鍵的尺寸."
 L["Slow Mode"] = "慢速模式"
-L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = "附加文字的更新間隔將從 1 秒改為 10 秒以降低記憶體使用."
+L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] =
+"附加文字的更新間隔將從 1 秒改為 10 秒以降低記憶體使用."
 L["Display"] = "顯示"
 L["Fade Time"] = "漸變時間"
 L["Tooltip Position"] = true
@@ -403,6 +407,9 @@ L["Debug Print"] = true
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
 
 -- DataTexts
+L["|cffFFFFFFLeft Click:|r Open Character Frame"] = true
+L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"] = true
+
 -- DataBars
 L["DataBars"] = "數據條"
 L["Add some stylish buttons at the bottom of the DataBars"] = true
@@ -477,6 +484,7 @@ L["Alpha Max"] = "最大透明度"
 L["Inherit Global Fade"] = true
 L["Anchor Point"] = true
 L["The first button anchors itself to this point on the bar."] = true
+L["Dream Seeds"] = true
 
 -- Media
 L["Zone Text"] = true
@@ -548,7 +556,8 @@ L["Blizzard Style"] = "暴雪風格"
 L["Change the color of the absorb bar."] = "修改吸收條的顏色."
 L["Custom Texture"] = "自訂材質"
 L["Enable the replacing of ElvUI absorb bar textures."] = "啟用 ElvUI 生命條材質替換."
-L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = "這裡有一些按鍵來幫助你一鍵修改所有吸收條的設定."
+L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] =
+"這裡有一些按鍵來幫助你一鍵修改所有吸收條的設定."
 L["Max Overflow"] = "Maximaler Overflow"
 L["Modify the texture of the absorb bar."] = "修改吸收盾材質."
 L["Overflow"] = "超出顯示"
@@ -608,7 +617,8 @@ L["Show relocation spells in the list."] = true
 L["Show engineer gadgets"] = true
 L["Show items used only by engineers when the profession is learned."] = true
 L["Ignore missing info"] = true
-L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
+L["MER_LOCPANEL_IGNOREMISSINGINFO"] =
+[[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
 When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
 By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
 L["Info for some items is not available yet. Please try again later"] = true
@@ -669,7 +679,8 @@ L["The command to set a waypoint."] = "設置地圖標記的指令."
 L["The coordinates contain illegal number."] = "坐標包含非法數字."
 L["Waypoint %s has been set."] = "已設定 %s 地圖標記."
 L["Waypoint Parse"] = "地圖標記解析"
-L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = "你可以在這裡貼上任何包含座標的文字, 並按下 輸入鍵(Enter) 設定地圖標記."
+L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] =
+"你可以在這裡貼上任何包含座標的文字, 並按下 輸入鍵(Enter) 設定地圖標記."
 L["illegal"] = "非法"
 L["invalid"] = "無效"
 L["Because of %s, this module will not be loaded."] = true
@@ -726,7 +737,8 @@ L["Number of Players"] = "玩家數量"
 L["Placeholders"] = "占位符"
 L["Use Default"] = "使用預設"
 L["Researchers Under Fire"] = true
-L["Time Rift Thaldraszus"] = true
+L["Time Rift"] = true
+L["Superbloom"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地圖按鍵"
@@ -875,7 +887,8 @@ L["showTutorials"] = true
 L["WorldTextScale"] = true
 L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
 L["floatingCombatTextCombatDamageDirectionalScale"] = true
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
+L["floatingCombatTextCombatDamageDirectionalScale_DESC"] =
+"Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
@@ -963,7 +976,8 @@ L["Finish"] = true
 L["Installed"] = true
 
 -- Staticpopup
-L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
+L["MSG_MER_ELV_OUTDATED"] =
+"Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
@@ -1082,6 +1096,7 @@ L["Smooth the bar animation with ElvUI."] = true
 L["Spark"] = true
 L["The options below are only for BigWigs %s bar style."] = true
 L["You need to manually set the bar style to %s in BigWigs first."] = true
+L["The options below is only for the Details look, NOT the Embeded."] = true
 
 -- Panels
 L["Panels"] = true
@@ -1194,11 +1209,14 @@ L["Changelog"] = "更新記錄"
 -- Compatibility
 L["Compatibility Check"] = "相容性確認"
 L["Help you to enable/disable the modules for a better experience with other plugins."] = "為了保證與其他插件的使用體驗, 幫助你啟用/停用一些模組."
-L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "不同的插件和 ElvUI 增強中有非常多的模組, 但其中部分模組功能是高度相似的."
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] =
+"不同的插件和 ElvUI 增強中有非常多的模組, 但其中部分模組功能是高度相似的."
 L["Have a good time with %s!"] = "希望 %s 能讓你玩得開心!"
 L["Choose the module you would like to |cff00ff00use|r"] = "選擇你更傾向於|cff00ff00使用|r的模組"
-L["If you find the %s module conflicts with another addon, alert me via Discord."] = "如果你發現 %s 的模組與其他插件衝突了, 可以透過 Discord 來進行回報."
-L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = "你可以通過設定位於 [MerathilisUI]-[信息] 底部的選項來啟用/停用相容性檢查."
+L["If you find the %s module conflicts with another addon, alert me via Discord."] =
+"如果你發現 %s 的模組與其他插件衝突了, 可以透過 Discord 來進行回報."
+L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] =
+"你可以通過設定位於 [MerathilisUI]-[信息] 底部的選項來啟用/停用相容性檢查."
 L["Complete"] = "完成"
 
 -- Debug
@@ -1210,7 +1228,8 @@ L["Reenable the addons that disabled by debug mode."] = "重新啟用偵錯模�
 L["Debug Enviroment"] = "偵錯環境"
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "你可以使用 |cff00ff00/muidebug off|r 指令來退出偵錯模式."
 L["After you stop debuging, %s will reenable the addons automatically."] = "在停止偵錯模式後, %s 將自動重新啟用插件."
-L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "在提交錯誤報告前, 請先使用 %s 命令啟用除錯模式並再次測試."
+L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =
+"在提交錯誤報告前, 請先使用 %s 命令啟用除錯模式並再次測試."
 L["Error"] = true
 L["Warning"] = true
 

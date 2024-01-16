@@ -5,7 +5,8 @@ local twipe = table.wipe
 function MER:LoadOmniCDProfile()
 	--[[----------------------------------
 	--	OmnicCD - Settings
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 
 	local profileName = F.Profiles.Default
 
@@ -131,8 +132,8 @@ function MER:LoadOmniCDProfile()
 				},
 				["textures"] = {
 					["statusBar"] = {
-						["BG"] = "MER_Stripes",
-						["bar"] = "MER_Stripes",
+						["BG"] = "ElvUI Norm1",
+						["bar"] = "ElvUI Norm1",
 					},
 				},
 				["notifyNew"] = true,
@@ -159,9 +160,10 @@ function MER:LoadOmniCDProfile()
 		}
 	end
 
-	for _, profile in pairs({profileName}) do
-		for _, frame in pairs({"party", "arena"}) do
-			OmniCDDB["profiles"][profileName]["Party"][frame]["spells"] = OmniCDDB["profiles"][profileName]["Party"][frame]["spells"] or {}
+	for _, profile in pairs({ profileName }) do
+		for _, frame in pairs({ "party", "arena" }) do
+			OmniCDDB["profiles"][profileName]["Party"][frame]["spells"] = OmniCDDB["profiles"][profileName]["Party"]
+			[frame]["spells"] or {}
 			OmniCDDB["profiles"][profileName]["Party"][frame]["spells"] = {
 				["326059"] = true,
 				["118038"] = false,

@@ -4,7 +4,6 @@ local async = MER.Utilities.Async
 local format = format
 
 local CreateTextureMarkup = CreateTextureMarkup
-local IsAddOnLoaded = IsAddOnLoaded
 
 local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 local logo = CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/Media/textures/m2", 64, 64, 20, 20, 0, 1, 0, 1, 0, -1)
@@ -40,12 +39,12 @@ MER.options = {
 		icon = MER.Media.Icons.bill,
 		args = {},
 	},
-	media = {
+	--[[media = {
 		order = 105,
 		name = F.cOption(L["Media"], 'gradient'),
 		icon = MER.Media.Icons.system,
 		args = {},
-	},
+	},]]
 	gradient = {
 		order = 106,
 		name = F.cOption(L["Gradient Colors"], 'gradient'),

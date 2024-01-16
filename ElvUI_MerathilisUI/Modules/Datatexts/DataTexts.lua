@@ -8,7 +8,7 @@ local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 
 function module:LoadDataTexts()
-	if not E.db.mui.datatexts.RightChatDataText then return end
+	if not E.db.mui.datatexts then return end
 
 end
 

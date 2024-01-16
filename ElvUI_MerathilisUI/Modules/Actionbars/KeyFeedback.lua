@@ -30,7 +30,7 @@ function keyFeedback:PLAYER_LOGIN()
 	end
 
 	local GetActionSpellID = function(action)
-		local actionType, id = GetActionInfo(action)
+		local actionType, id, subType = GetActionInfo(action)
 		if actionType == 'spell' then
 			return id
 		elseif actionType == 'macro' then
@@ -83,7 +83,8 @@ function keyFeedback:PLAYER_LOGIN()
 	self:SetSize(30, 30)
 	self:SetPoint('CENTER', _G.UIParent, 0, -270)
 
-	E:CreateMover(self, "SpellFeedback",  L["SpellFeedback"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return E.db.mui.actionbars.keyfeedback end, "mui,modules,actionbars")
+	E:CreateMover(self, "SpellFeedback", L["SpellFeedback"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI",
+		function() return E.db.mui.actionbars.keyfeedback end, "mui,modules,actionbars")
 	self:RefreshSettings()
 end
 

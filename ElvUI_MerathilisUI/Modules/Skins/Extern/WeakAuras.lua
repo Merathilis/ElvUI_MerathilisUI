@@ -162,13 +162,25 @@ function module:WeakAuras()
 		return
 	end
 
-	-- Handle the options region type registration
-	if WeakAuras and WeakAuras.RegisterRegionOptions then
-		module:RawHook(WeakAuras, "RegisterRegionOptions", "WeakAuras_RegisterRegionOptions")
+	-- Only for me, sorry boys
+	if not F.IsDeveloper() then
+		return
 	end
 
-	if WeakAuras and WeakAuras.SetTextureOrAtlas then
-		hooksecurefunc(WeakAuras, "SetTextureOrAtlas", function(icon)
+	-- Only works for WeakAurasPatched
+	if not WeakAuras or not WeakAuras.Private then
+		local alertMessage = format("%s: %s %s %s", MER.Title, L["You are using Official WeakAuras, the skin of WeakAuras will not be loaded due to the limitation."], L["If you want to use WeakAuras skin, please install |cffff0000WeakAurasPatched|r (https://wow-ui.net/wap)."], L["You can disable this alert via disabling WeakAuras Skin in Skins - Addons."])
+		E:Delay(10, print, alertMessage)
+		return
+	end
+
+	-- Handle the options region type registration
+	if WeakAuras.Private.RegisterRegionOptions then
+		self:RawHook(WeakAuras.Private, "RegisterRegionOptions", "WeakAuras_RegisterRegionOptions")
+	end
+
+	if WeakAuras.Private.SetTextureOrAtlas then
+		hooksecurefunc(WeakAuras.Private, "SetTextureOrAtlas", function(icon)
 			local parent = icon:GetParent()
 			local region = parent.regionType and parent or parent:GetParent()
 			if region and region.regionType then
@@ -178,7 +190,8 @@ function module:WeakAuras()
 	end
 
 	-- Real Time Profiling Window
-	local profilingWindow = WeakAuras.RealTimeProfilingWindow
+	-- Fix me
+	--[[local profilingWindow = WeakAuras.RealTimeProfilingWindow
 	if profilingWindow then
 		self:CreateShadow(profilingWindow)
 		if profilingWindow.UpdateButtons then
@@ -187,7 +200,7 @@ function module:WeakAuras()
 		if WeakAuras.PrintProfile then
 			self:SecureHook(WeakAuras, "PrintProfile", "WeakAuras_PrintProfile")
 		end
-	end
+	end]]
 end
 
 module:AddCallbackForAddon("WeakAuras")

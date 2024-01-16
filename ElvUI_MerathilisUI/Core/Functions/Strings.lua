@@ -3,9 +3,16 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local error = error
 local type, unpack = type, unpack
 local strbyte, strfind, strlen, strsub = strbyte, strfind, strlen, strsub
+local utf8len, utf8sub = string.utf8len, string.utf8sub
 local tinsert = tinsert
 
 F.Strings = {}
+
+function F.Strings.Color(msg, color)
+	if type(color) == "string" then
+		return "|cff" .. color .. msg .. "|r"
+	end
+end
 
 function F.Strings.CharBytes(s, i)
 	-- argument defaults
@@ -152,4 +159,89 @@ function F.Strings.Split(subject, delimiter)
 	end
 
 	return unpack(results)
+end
+
+function F.Strings.FastRGB(r, g, b)
+	return format("%02x%02x%02x", r * 255, g * 255, b * 255)
+end
+
+function F.Strings.FastRGBA(r, g, b, a)
+	return format("%02x%02x%02x%02x", (a or 1) * 255, r * 255, g * 255, b * 255)
+end
+
+function F.Strings.StripTexture(text)
+	if type(text) ~= "string" then return text end
+	return gsub(text, "(%s?)(|?)|[TA].-|[ta](%s?)", function(w, x, y)
+		if x == "" then return (w ~= "" and w) or (y ~= "" and y) or "" end
+	end)
+end
+
+function F.Strings.StripColor(text)
+	if type(text) ~= "string" then return text end
+	return gsub(text, "|c%x%x%x%x%x%x%x%x(.-)|r", "%1")
+end
+
+function F.Strings.Strip(text)
+	if type(text) ~= "string" then return text end
+	return F.Strings.StripColor(F.String.StripTexture(text))
+end
+
+function F.Strings.Trim(text)
+	return strmatch(text, "^%s*(.*%S)") or ""
+end
+
+function F.Strings.FastGradient(text, r1, g1, b1, r2, g2, b2)
+	local msg, len, idx = "", utf8len(text), 0
+
+	for i = 1, len do
+		local x = utf8sub(text, i, i)
+		if strmatch(x, "%s") then
+			msg = msg .. x
+			idx = idx + 1
+		else
+			local relperc = (idx / len)
+
+			if not r2 then
+				msg = msg .. "|cff" .. F.Strings.FastRGB(r1, g1, b1) .. x .. "|r"
+			else
+				local r, g, b = F.FastColorGradient(relperc, r1, g1, b1, r2, g2, b2)
+				msg = msg .. "|cff" .. F.Strings.FastRGB(r, g, b) .. x .. "|r"
+				idx = idx + 1
+			end
+		end
+	end
+
+	return msg
+end
+
+function F.Strings.FastGradientHex(text, h1, h2)
+	local r2, g2, b2
+	local r1, g1, b1 = F.HexToRGB(h1)
+
+	if h2 then
+		r2, g2, b2 = F.HexToRGB(h2)
+	else
+		local h, s, l = F.ConvertToHSL(r1, g1, b1)
+		r1, g1, b1 = F.ConvertToRGB(F.ClampToHSL(h, s * 0.95, l * 1.2))
+		r2, g2, b2 = F.ConvertToRGB(F.ClampToHSL(h, s * 1.35, l * 0.85))
+	end
+
+	return F.Strings.FastGradient(text, r1, g1, b1, r2, g2, b2)
+end
+
+function F.Strings.FastColorGradientHex(percentage, h1, h2)
+	local r1, g1, b1 = F.HexToRGB(h1)
+	local r2, g2, b2 = F.HexToRGB(h2)
+
+	return F.FastColorGradient(percentage, r1, g1, b1, r2, g2, b2)
+end
+
+function F.Strings.Class(msg, class)
+	local finalClass = class or E.myclass
+	if finalClass == "PRIEST" then
+		return F.Strings.Color(msg, F.Strings.FastRGB(0.7, 0.7, 0.7))
+	end
+
+	local color = E:ClassColor(finalClass, true)
+	return F.Strings.Color(msg, F.Strings.FastRGB(color.r, color.g, color.b))
 end

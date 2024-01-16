@@ -14,8 +14,9 @@ local GetSpellTexture = GetSpellTexture
 local UnitBattlePetSpeciesID = UnitBattlePetSpeciesID
 local UnitBattlePetType = UnitBattlePetType
 local UnitFactionGroup = UnitFactionGroup
-local UnitIsBattlePet = UnitIsBattlePet
+local UnitIsBattlePetCompanion = UnitIsBattlePetCompanion
 local UnitIsPlayer = UnitIsPlayer
+local UnitIsWildBattlePet = UnitIsWildBattlePet
 
 local TooltipDataProcessor_AddTooltipPostCall = TooltipDataProcessor.AddTooltipPostCall
 
@@ -166,7 +167,7 @@ function T:ClearFactionIcon(tt)
 end
 
 function T:AddPetIcon(tt, unit, guid)
-	if UnitIsBattlePet(unit) then
+	if UnitIsWildBattlePet(unit) or UnitIsBattlePetCompanion(unit) then
 		if not tt.petIcon then
 			local f = tt:CreateTexture(nil, "OVERLAY")
 			f:SetPoint("TOPRIGHT", -5, -5)

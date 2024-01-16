@@ -313,5 +313,53 @@ options.itemLevel = {
 				},
 			},
 		},
+		merchantFrame = {
+			order = 5,
+			type = "group",
+			inline = true,
+			name = L["Merchant Frame"],
+			disabled = function()
+				return not E.db.mui.itemLevel.enable
+			end,
+			get = function(info)
+				return E.db.mui.itemLevel.merchantFrame[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.itemLevel.merchantFrame[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				enable = {
+					order = 0,
+					type = "toggle",
+					name = L["Enable"],
+					width = "full"
+				},
+			},
+		},
+		guildNews = {
+			order = 6,
+			type = "group",
+			inline = true,
+			name = L["Guild News"],
+			disabled = function()
+				return not E.db.mui.itemLevel.enable
+			end,
+			get = function(info)
+				return E.db.mui.itemLevel.guildNews[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.itemLevel.guildNews[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				enable = {
+					order = 0,
+					type = "toggle",
+					name = L["Enable"],
+					width = "full"
+				},
+			},
+		},
 	},
 }

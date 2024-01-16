@@ -3,9 +3,9 @@ local module = MER:GetModule('MER_Skins')
 
 local unpack = unpack
 
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
-if not IsAddOnLoaded("ls_Toasts") then return end
+if not C_AddOns_IsAddOnLoaded("ls_Toasts") then return end
 local LST = unpack(ls_Toasts)
 
 LST:RegisterSkin("MerathilisUI", {
@@ -62,7 +62,7 @@ LST:RegisterSkin("MerathilisUI", {
 LST.RegisterCallback({}, "SetSkin", function(_, toast)
 	if toast and not toast.skinned then
 		toast:Styling()
-		module:CreateBackdropShadow(toast)
+		module:CreateShadow(toast)
 		toast.skinned = true
 	end
 end)

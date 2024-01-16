@@ -13,7 +13,6 @@ function module:CreateAlert()
 	alert:SetClampedToScreen(true)
 	alert:SetSize(300, 65)
 	alert:Point('TOP', 0, -280)
-	alert:Hide()
 
 	alert.Bg = alert:CreateTexture(nil, "BACKGROUND")
 	alert.Bg:SetTexture('Interface\\LevelUp\\MinorTalents')
@@ -148,7 +147,7 @@ function module:Initialize()
 	self:RegisterEvent('PLAYER_REGEN_ENABLED')
 	self:RegisterEvent('PLAYER_REGEN_DISABLED')
 
-	E:CreateMover(self.alert, 'alertFrameMover', L["Enter Combat Alert"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', function() return EnterCombatAlert.db.enable; end, 'mui,modules,CombatAlert')
+	E:CreateMover(self.alert, 'alertFrameMover', L["Enter Combat Alert"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', function() return self.db.enable; end, 'mui,modules,CombatAlert')
 end
 
 MER:RegisterModule(module:GetName())

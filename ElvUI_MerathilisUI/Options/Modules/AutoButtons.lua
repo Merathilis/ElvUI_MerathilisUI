@@ -20,7 +20,7 @@ local function ImportantColorString(string)
 	return F.CreateColorString(string, {r = 0.204, g = 0.596, b = 0.859})
 end
 
-local function FormatDesc(code, helpText)
+local function desc(code, helpText)
 	return ImportantColorString(code) .. " = " .. helpText
 end
 
@@ -468,30 +468,31 @@ for i = 1, 5 do
 				order = 15,
 				type = "input",
 				name = L["Button Groups"],
-				desc = format(
-					"%s %s\n" .. strrep("\n%s", 20),
+				desc = format("%s %s\n" .. strrep("\n%s", 21),
 					L["Set the type and order of button groups."],
 					L["You can separate the groups with a comma."],
-					FormatDesc("QUEST", L["Quest Items"]),
-					FormatDesc("EQUIP", L["Equipments"]),
-					FormatDesc("POTION", L["Potions"]),
-					FormatDesc("POTIONDF", format("%s (%s)", L["Potions"], L["Dragonflight"])),
-					FormatDesc("POTIONTBC", format("%s (%s)", L["Potions"], L["TBC"])),
-					FormatDesc("FLASK", L["Flasks"]),
-					FormatDesc("FLASKDF", format("%s (%s)", L["Flasks"], L["Dragonflight"])),
-					FormatDesc("FLASKTBC", format("%s (%s)", L["Flasks"], L["TBC"])),
-					FormatDesc("CAULDRONTBC", format("%s (%s)", L["Cauldrons"], L["TBC"])),
-					FormatDesc("ELIXIRTBC", format("%s (%s)", L["Elixirs"], L["TBC"])),
-					FormatDesc("FOODVENDOR", format("%s (%s)", L["Food"], L["Sold by vendor"])),
-					FormatDesc("MAGEFOOD", format("%s (%s)", L["Food"], L["Crafted by mage"])),
-					FormatDesc("FOOD", L["Food"]),
-					FormatDesc("FOODDF", format("%s (%s)", L["Food"], L["Dragonflight"])),
-					FormatDesc("BANNER", L["Banners"]),
-					FormatDesc("UTILITY", L["Utilities"]),
-					FormatDesc("OPENABLE", L["Openable Items"]),
-					FormatDesc("ORETBC", format("%s (%s)", L["Ores"], L["TBC"])),
-					FormatDesc("PROF", L["Profession Items"]),
-					FormatDesc("CUSTOM", L["Custom Items"])
+					desc("QUEST", L["Quest Items"]),
+					desc("EQUIP", L["Equipments"]),
+					desc("POTION", L["Potions"]),
+					desc("POTIONSL", format("%s |cffffdd57[%s]|r", L["Potions"], L["Shadowlands"])),
+					desc("POTIONDF", format("%s |cffffdd57[%s]|r", L["Potions"], L["Dragonflight"])),
+					desc("FLASK", L["Flasks"]),
+					desc("FLASKSL", format("%s |cffffdd57[%s]|r", L["Flasks"], L["Shadowlands"])),
+					desc("FLASKDF", format("%s |cffffdd57[%s]|r", L["Flasks"], L["Dragonflight"])),
+					desc("RUNE", L["Runes"]),
+					desc("RUNEDF", format("%s |cffffdd57[%s]|r", L["Runes"], L["Dragonflight"])),
+					desc("FOOD", L["Crafted Food"]),
+					desc("FOODSL", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Shadowlands"])),
+					desc("FOODDF", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Dragonflight"])),
+					desc("FOODVENDOR", format("%s (%s) |cffffdd57[%s]|r", L["Food"], L["Sold by vendor"], L["Dragonflight"])),
+					desc("MAGEFOOD", format("%s (%s)|r", L["Food"], L["Crafted by mage"])),
+					desc("BANNER", L["Banners"]),
+					desc("UTILITY", L["Utilities"]),
+					desc("OPENABLE", L["Openable Items"]),
+					desc("PROF", L["Profession Items"]),
+					desc("SEEDS", L["Dream Seeds"]),
+					desc("CUSTOM", L["Custom Items"])
+
 				),
 				width = "full"
 			}

@@ -35,6 +35,12 @@ local function ReplaceGossipText(button, text)
 	end
 end
 
+local function ReplaceTextColor(text, r)
+	if r ~= 1 then
+		text:SetTextColor(1, 1, 1)
+	end
+end
+
 function module:GossipFrame()
 	if not module:CheckDB("gossip", "gossip") then
 		return
@@ -61,20 +67,36 @@ function module:GossipFrame()
 		end
 	end)
 
-	hooksecurefunc(GossipFrame.GreetingPanel.ScrollBox, 'Update', function(frame)
-		for _, button in next, { frame.ScrollTarget:GetChildren() } do
+	hooksecurefunc(GossipFrame.GreetingPanel.ScrollBox, 'Update', function(self)
+		for i = 1, self.ScrollTarget:GetNumChildren() do
+			local button = select(i, self.ScrollTarget:GetChildren())
 			if not button.IsSkinned then
-				local buttonText = select(3, button:GetRegions())
-				if buttonText and buttonText:IsObjectType('FontString') then
-					ReplaceGossipText(button, button:GetText())
-					hooksecurefunc(button, 'SetText', ReplaceGossipText)
-					hooksecurefunc(button, 'SetFormattedText', ReplaceGossipFormat)
+				local buttonText = button.GreetingText or button.GetFontString and button:GetFontString()
+				if buttonText then
+					buttonText:SetTextColor(1, 1, 1)
+					hooksecurefunc(buttonText, "SetTextColor", ReplaceTextColor)
+				end
+				if button.SetText then
+					local buttonText = select(3, button:GetRegions())
+					if buttonText and buttonText:IsObjectType("FontString") then
+						ReplaceGossipText(button, button:GetText())
+						hooksecurefunc(button, 'SetText', ReplaceGossipText)
+						hooksecurefunc(button, 'SetFormattedText', ReplaceGossipFormat)
+					end
 				end
 
 				button.IsSkinned = true
 			end
 		end
 	end)
+
+	for i = 1, 4 do
+		local notch = GossipFrame.FriendshipStatusBar["Notch" .. i]
+		if notch then
+			notch:SetColorTexture(0, 0, 0)
+			notch:SetSize(E.mult, 16)
+		end
+	end
 
 	MER.NPC:Register(GossipFrame)
 end

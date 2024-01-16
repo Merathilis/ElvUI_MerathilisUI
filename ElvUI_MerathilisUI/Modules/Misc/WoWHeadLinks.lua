@@ -9,9 +9,10 @@ local GameTooltip = GameTooltip
 local GetAchievementLink = GetAchievementLink
 local GetQuestLink = GetQuestLink
 
-local IsAddOnLoaded = IsAddOnLoaded
 local QuestMapFrame_GetDetailQuestID = QuestMapFrame_GetDetailQuestID
 local hooksecurefunc = hooksecurefunc
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 -- Get localised Wowhead URL
 local wowheadLoc
@@ -186,7 +187,7 @@ function MI:AchievementLinks()
 	end
 
 	-- Run function when achievement UI is loaded
-	if IsAddOnLoaded("Blizzard_AchievementUI") then
+	if C_AddOns_IsAddOnLoaded("Blizzard_AchievementUI") then
 		DoWowheadAchievementFunc()
 	else
 		local waitAchievementsFrame = CreateFrame("FRAME")

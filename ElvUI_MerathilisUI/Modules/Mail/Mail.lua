@@ -486,6 +486,10 @@ function module:UpdateAltsTable()
 		self.altsTable = E.global.mui.mail.contacts.alts
 	end
 
+	if not E.global.mui.mail.contacts.updateAlts then
+		return
+	end
+
 	if not self.altsTable[E.myrealm] then
 		self.altsTable[E.myrealm] = {}
 	end

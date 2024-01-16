@@ -6,7 +6,8 @@ local translitMark = "!"
 
 local abs, ceil, type, tonumber = math.abs, ceil, type, tonumber
 local format, gsub, gmatch, len = string.format, string.gsub, string.gmatch, string.len
-local strfind, strmatch, strsplit, utf8lower, utf8sub, utf8len = strfind, strmatch, strsplit, string.utf8lower, string.utf8sub, string.utf8len
+local strfind, strmatch, strsplit, utf8lower, utf8sub, utf8len = strfind, strmatch, strsplit, string.utf8lower,
+	string.utf8sub, string.utf8len
 
 local UnitIsDead = UnitIsDead
 local UnitIsGhost = UnitIsGhost
@@ -25,7 +26,7 @@ local function shortenNumber(number)
 		return
 	end
 
-	local affixes = {"", "k", "m", "B",}
+	local affixes = { "", "k", "m", "B", }
 
 	local affix = 1
 	local dec = 0
@@ -46,12 +47,13 @@ local function shortenNumber(number)
 		num1 = -num1
 	end
 
-	return format("%."..dec.."f"..affixes[affix], num1)
+	return format("%." .. dec .. "f" .. affixes[affix], num1)
 end
 
 -- Displays current HP --(2.04B, 2.04M, 204k, 204)--
 E:AddTag("health:current-mUI", "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED", function(unit)
-	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
+	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or
+	not UnitIsConnected(unit) and L["Offline"]
 	if (status) then
 		return status
 	else
@@ -81,7 +83,7 @@ E:AddTag('mUI-name:health:abbrev', 'UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH UN
 	local fill = E.TagFunctions.NameHealthColor(_TAGS, fco, unit, '|cFFff3333')
 	local base = E.TagFunctions.NameHealthColor(_TAGS, bco, unit, '|cFFffffff')
 
-	return to > 0 and (base..utf8sub(name, 0, to)..fill..utf8sub(name, to+1, -1)) or fill..name
+	return to > 0 and (base .. utf8sub(name, 0, to) .. fill .. utf8sub(name, to + 1, -1)) or fill .. name
 end)
 
 -- Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag
@@ -89,7 +91,7 @@ E:AddTag("power:current-mUI", "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOW
 	local CurrentPower = UnitPower(unit)
 	local String
 
-	if CurrentPower	>= 0 then
+	if CurrentPower >= 0 then
 		String = shortenNumber(CurrentPower)
 	else
 		return nil
@@ -99,7 +101,7 @@ E:AddTag("power:current-mUI", "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOW
 end)
 
 E:AddTag("mUI-resting", "PLAYER_UPDATE_RESTING", function(unit)
-	if(unit == "player" and IsResting()) then
+	if (unit == "player" and IsResting()) then
 		return "zZz"
 	else
 		return nil
@@ -127,7 +129,8 @@ E:AddTag('name:abbrev-translit', 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNI
 		name = abbrev(name)
 	end
 
-	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
+	return name ~= nil and E:ShortenString(name, 20) or
+	''                                                  --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
 end)
 
 E:AddTag('name:gradient', 'UNIT_NAME_UPDATE', function(unit)
@@ -199,7 +202,8 @@ for index, style in pairs(F.GetClassIconStyleList()) do
 end
 
 E:AddTagInfo("health:current-mUI", MER.Title, "Displays current HP (2.04B, 2.04M, 204k, 204)")
-E:AddTagInfo("power:current-mUI", MER.Title, "Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag")
+E:AddTagInfo("power:current-mUI", MER.Title,
+	"Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag")
 E:AddTagInfo("mUI-resting", MER.Title, "Displays a text if the player is in a resting area = zZz")
 E:AddTagInfo("name:abbrev-translit", MER.Title, "Displays a shorten name and will convert cyrillics. Игорь = !Igor")
 E:AddTagInfo("name:gradient", MER.Title, "Displays a shorten name in gradient classcolor")

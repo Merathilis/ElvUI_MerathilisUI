@@ -41,6 +41,8 @@ local name, reset, difficultyId, locked, extended, isRaid, maxPlayers, numEncoun
 local quests = {}
 local updateQuestTable = false
 
+local dName = MER.Title..L["Time"]
+
 local function ValueColorUpdate(self, hex)
 	europeDisplayFormat = join("", "%02d", hex, ":|r%02d")
 	ukDisplayFormat = join("", "", "%d", hex, ":|r%02d", hex, " %s|r")
@@ -95,8 +97,8 @@ local function OnClick(_, btn)
 end
 
 local function OnLeave(self)
-	DT.tooltip:Hide();
-	enteredFrame = false;
+	DT.tooltip:Hide()
+	enteredFrame = false
 end
 
 local function OnEnter(self)
@@ -246,4 +248,4 @@ function Update(self, t)
 	int = 5
 end
 
-DT:RegisterDatatext("MUI Time", MER.Title, { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, OnClick, OnEnter, OnLeave, nil, nil, ValueColorUpdate)
+DT:RegisterDatatext("mTime", "ElvUI_MerathilisUI", { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, OnClick, OnEnter, OnLeave, dName, nil, ValueColorUpdate)
