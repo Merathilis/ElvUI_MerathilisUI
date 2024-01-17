@@ -119,7 +119,7 @@ function MER:OptionsCallback()
 				type = "execute",
 				name = L
 					["|TInterface\\Addons\\ElvUI_MerathilisUI\\Media\\Icons\\Discord.tga:18:18:0:0:64:64|t |cffffffffMerathilis|r|cffff7d0aUI|r Discord"],
-				customWidth = 140,
+				customWidth = 160,
 				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/28We6esE9v") end,
 			},
 		},
