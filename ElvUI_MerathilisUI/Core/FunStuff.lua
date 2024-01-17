@@ -9,11 +9,12 @@ local UnitExists = UnitExists
 ##########################################################
 NPC Animations -- Credits SupervillianUI
 ##########################################################
-]]--
+]]
+--
 
 MER.NPC = _G["MER_NPCFrame"]
 
-local talkAnims = {60, 64, 65, 67}
+local talkAnims = { 60, 64, 65, 67 }
 
 local function NPCTalking()
 	local timer = 0
@@ -23,10 +24,10 @@ local function NPCTalking()
 	MER.NPC.Model:SetCamDistanceScale(1.2)
 	MER.NPC.Model:SetPortraitZoom(0.95)
 	MER.NPC.Model:SetPosition(0, 0, 0)
-	MER.NPC.Model:SetAnimation(talkAnims[sequence],0)
+	MER.NPC.Model:SetAnimation(talkAnims[sequence], 0)
 	MER.NPC.Model:SetScript("OnUpdate", function(self, e)
-		if(timer < 2000) then
-			timer = (timer + (e*1000))
+		if (timer < 2000) then
+			timer = (timer + (e * 1000))
 		else
 			timer = 0
 			self:ClearModel()
@@ -52,11 +53,11 @@ local function PlayerTalking()
 	MER.NPC.Model:SetRotation(-1)
 	MER.NPC.Model:SetAnimation(talkAnims[sequence], 0)
 	MER.NPC.Model:SetScript("OnUpdate", function(self, e)
-		if(timer < 2000) then
-			timer = (timer + (e*1000))
+		if (timer < 2000) then
+			timer = (timer + (e * 1000))
 		else
 			timer = 0
-			if(UnitExists('target')) then
+			if (UnitExists('target')) then
 				self:ClearModel()
 				self:SetUnit('target')
 				self:SetCamDistanceScale(1)
@@ -80,9 +81,9 @@ function MER.NPC:NPCTalksFirst()
 	self.Model:SetPosition(0, 0, 0)
 	self.Model:SetRotation(0)
 	self.Model:SetAnimation(67)
-	self.Model:SetScript("OnUpdate",function(self, e)
-		if(timer < 2000) then
-			timer = (timer + (e*1000))
+	self.Model:SetScript("OnUpdate", function(self, e)
+		if (timer < 2000) then
+			timer = (timer + (e * 1000))
 		else
 			timer = 0
 			self:SetAnimation(0)
@@ -102,9 +103,9 @@ function MER.NPC:PlayerTalksFirst()
 	self.Model:SetPosition(0.15, 0, 0)
 	self.Model:SetRotation(-1)
 	self.Model:SetAnimation(67)
-	self.Model:SetScript("OnUpdate",function(self, e)
-		if(timer < 2000) then
-			timer = (timer + (e*1000))
+	self.Model:SetScript("OnUpdate", function(self, e)
+		if (timer < 2000) then
+			timer = (timer + (e * 1000))
 		else
 			timer = 0
 			self:SetAnimation(0)
@@ -117,7 +118,7 @@ end
 function MER.NPC:Toggle(parentFrame)
 	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then return end
 	local timer = 0
-	if(parentFrame) then
+	if (parentFrame) then
 		self:SetParent(parentFrame)
 		self:ClearAllPoints()
 		self:SetAllPoints(parentFrame)
@@ -128,7 +129,7 @@ function MER.NPC:Toggle(parentFrame)
 		self.Model:SetUnit('target')
 		self.Model:SetCamDistanceScale(1)
 		self.Model:SetPortraitZoom(0.95)
-		self.Model:SetPosition(0,0,0)
+		self.Model:SetPosition(0, 0, 0)
 
 		MER.NPC:NPCTalksFirst()
 	else

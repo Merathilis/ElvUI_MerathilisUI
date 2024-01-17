@@ -59,9 +59,9 @@ L["This will overwrite most of the ElvUI Options for the colors, so please keep 
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
 L["BACK"] = "Back"
-L["has come |cff298F00online|r."] = true -- Guild Message
-L["has gone |cffff0000offline|r."] = true -- Guild Message
-L[" has come |cff298F00online|r."] = true -- Battle.Net Message
+L["has come |cff298F00online|r."] = true   -- Guild Message
+L["has gone |cffff0000offline|r."] = true  -- Guild Message
+L[" has come |cff298F00online|r."] = true  -- Battle.Net Message
 L[" has gone |cffff0000offline|r."] = true -- Battle.Net Message
 L["|cFF00c0failvl|r: %d"] = true
 L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = true
@@ -411,6 +411,9 @@ L["Debug Print"] = true
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
 
 -- DataTexts
+L["|cffFFFFFFLeft Click:|r Open Character Frame"] = true
+L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"] = true
+
 -- DataBars
 L["DataBars"] = true
 L["Add some stylish buttons at the bottom of the DataBars"] = true
@@ -618,7 +621,8 @@ L["Show relocation spells in the list."] = true
 L["Show engineer gadgets"] = true
 L["Show items used only by engineers when the profession is learned."] = true
 L["Ignore missing info"] = true
-L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
+L["MER_LOCPANEL_IGNOREMISSINGINFO"] =
+[[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
 When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
 By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
 L["Info for some items is not available yet. Please try again later"] = true
@@ -886,7 +890,8 @@ L["showTutorials"] = true
 L["WorldTextScale"] = true
 L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
 L["floatingCombatTextCombatDamageDirectionalScale"] = true
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
+L["floatingCombatTextCombatDamageDirectionalScale_DESC"] =
+"Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
@@ -973,7 +978,8 @@ L["Finish"] = true
 L["Installed"] = true
 
 -- Staticpopup
-L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). Please update your ElvUI to avoid errors."
+L["MSG_MER_ELV_OUTDATED"] =
+"Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). Please update your ElvUI to avoid errors."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]

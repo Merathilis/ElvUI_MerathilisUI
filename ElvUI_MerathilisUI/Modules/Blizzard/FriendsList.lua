@@ -437,7 +437,6 @@ function module:UpdateFriendButton(button)
 		button.Favorite:ClearAllPoints()
 		button.Favorite:Point("LEFT", button.name, "LEFT", button.name:GetStringWidth(), 0)
 	end
-
 end
 
 function module:Initialize()

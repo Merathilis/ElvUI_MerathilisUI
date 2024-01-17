@@ -5,7 +5,8 @@ local _G = _G
 function MER:LoadPAProfile()
 	--[[----------------------------------
 	--	ProjectAzilroka - Settings
-	--]]----------------------------------
+	--]]
+	----------------------------------
 	local PA = _G.ProjectAzilroka
 	PA.data:SetProfile('MerathilisUI')
 
@@ -31,11 +32,5 @@ function MER:LoadPAProfile()
 
 	PA.db['SquareMinimapButtons']['Enable'] = false
 
-	PA.db["stAddonManager"]["Enable"] = true
-	PA.db["stAddonManager"]["NumAddOns"] = 15
-	PA.db["stAddonManager"]["ButtonHeight"] = 20
-	PA.db["stAddonManager"]["ButtonWidth"] = 20
-	PA.db["stAddonManager"]["Font"] = "Expressway"
-	PA.db["stAddonManager"]["ClassColor"] = true
-	PA.db["stAddonManager"]["CheckTexture"] = "MER_Stripes"
+	PA.db["stAddonManager"]["Enable"] = false
 end

@@ -5,6 +5,8 @@ local M = E:GetModule('Misc')
 local _G = _G
 local CreateColor = CreateColor
 
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+
 local ClassSymbolFrame
 local CharacterText
 
@@ -59,7 +61,10 @@ end
 local function SkinAdditionalStats()
 	if CharacterStatsPane.OffenseCategory then
 		if CharacterStatsPane.OffenseCategory.Title then
-			CharacterStatsPane.OffenseCategory.Title:SetText(E:TextGradient(CharacterStatsPane.OffenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+			CharacterStatsPane.OffenseCategory.Title:SetText(E:TextGradient(
+				CharacterStatsPane.OffenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"],
+				F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"],
+				F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
 		end
 		StatsPane("OffenseCategory")
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
@@ -67,7 +72,10 @@ local function SkinAdditionalStats()
 
 	if CharacterStatsPane.DefenseCategory then
 		if CharacterStatsPane.DefenseCategory.Title then
-			CharacterStatsPane.DefenseCategory.Title:SetText(E:TextGradient(CharacterStatsPane.DefenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+			CharacterStatsPane.DefenseCategory.Title:SetText(E:TextGradient(
+				CharacterStatsPane.DefenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"],
+				F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"],
+				F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
 		end
 		StatsPane("DefenseCategory")
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenseCategory)
@@ -91,7 +99,8 @@ function module:AddCharacterIcon()
 
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		CharacterFrameTitleText:SetDrawLayer("OVERLAY")
-		CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), E.db.general.fontSize + 2, E.db.general.fontStyle)
+		CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), E.db.general.fontSize + 2,
+			E.db.general.fontStyle)
 
 		CharacterLevelText:SetDrawLayer("OVERLAY")
 	end)
@@ -101,8 +110,8 @@ function module:AddCharacterIcon()
 	local function colorTitleText()
 		CharacterText = CharacterFrameTitleText:GetText()
 		coloredTitleText = E:TextGradient(CharacterText, F.ClassGradient[E.myclass]["r1"],
-		F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"],
-		F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"])
+			F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"],
+			F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"])
 		if not CharacterText:match("|T") then
 			titleText = ClassSymbolFrame .. " " .. coloredTitleText
 		end
@@ -183,7 +192,7 @@ function module:CharacterFrame()
 	}
 
 	for i = 1, #slots do
-		local slot = _G["Character"..slots[i].."Slot"]
+		local slot = _G["Character" .. slots[i] .. "Slot"]
 
 		slot.ignoreTexture:SetTexture("Interface\\PaperDollInfoFrame\\UI-GearManager-LeaveItem-Transparent")
 		slot.IconOverlay:SetAtlas("CosmeticIconFrame")
@@ -216,14 +225,20 @@ function module:CharacterFrame()
 		end
 	end)
 
-	if not IsAddOnLoaded("DejaCharacterStats") then
+	if not C_AddOns_IsAddOnLoaded("DejaCharacterStats") then
 		local pane = CharacterStatsPane
 		pane.ClassBackground:Hide()
 		pane.ItemLevelFrame.Corruption:SetPoint("RIGHT", 22, -8)
 
-		pane.ItemLevelCategory.Title:SetText(E:TextGradient(pane.ItemLevelCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
-		pane.AttributesCategory.Title:SetText(E:TextGradient(pane.AttributesCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
-		pane.EnhancementsCategory.Title:SetText(E:TextGradient(pane.EnhancementsCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		pane.ItemLevelCategory.Title:SetText(E:TextGradient(pane.ItemLevelCategory.Title:GetText(),
+			F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"],
+			F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		pane.AttributesCategory.Title:SetText(E:TextGradient(pane.AttributesCategory.Title:GetText(),
+			F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"],
+			F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		pane.EnhancementsCategory.Title:SetText(E:TextGradient(pane.EnhancementsCategory.Title:GetText(),
+			F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"],
+			F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
 
 		StatsPane("EnhancementsCategory")
 		StatsPane("ItemLevelCategory")

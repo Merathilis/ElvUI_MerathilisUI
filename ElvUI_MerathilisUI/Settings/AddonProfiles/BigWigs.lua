@@ -9,7 +9,8 @@ local LoadAddOn = LoadAddOn
 function MER:LoadBigWigsProfile()
 	--[[----------------------------------
 	--	BigWigs - Settings
-	--]]----------------------------------
+	--]]
+	  ----------------------------------
 	local profileName = F.Profiles.Default
 
 	-- Required to add profiles to BigWigs
@@ -31,12 +32,14 @@ function MER:LoadBigWigsProfile()
 	DB["profiles"][profileName]["fakeDBMVersion"] = true
 	DB["profiles"][profileName]["flash"] = true
 
-	DB["namespaces"]["BigWigs_Plugins_Victory"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Victory"]["profiles"] or {}
+	DB["namespaces"]["BigWigs_Plugins_Victory"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Victory"]["profiles"] or
+	{}
 	DB["namespaces"]["BigWigs_Plugins_Victory"]["profiles"][profileName] = {
 		["bigwigsMsg"] = true,
 		["blizzMsg"] = false,
 	}
-	DB["namespaces"]["BigWigs_Plugins_Countdown"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Countdown"]["profiles"] or {}
+	DB["namespaces"]["BigWigs_Plugins_Countdown"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Countdown"]
+	["profiles"] or {}
 	DB["namespaces"]["BigWigs_Plugins_Countdown"]["profiles"][profileName] = {
 		["outline"] = "SHADOWOUTLINE",
 		["fontName"] = "Expressway",
@@ -47,7 +50,8 @@ function MER:LoadBigWigsProfile()
 			122.0000915527344, -- [4]
 		},
 	}
-	DB["namespaces"]["BigWigs_Plugins_AutoReply"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_AutoReply"]["profiles"] or {}
+	DB["namespaces"]["BigWigs_Plugins_AutoReply"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_AutoReply"]
+	["profiles"] or {}
 	DB["namespaces"]["BigWigs_Plugins_AutoReply"]["profiles"][profileName] = {
 		["exitCombatOther"] = 3,
 		["disabled"] = false,
@@ -58,18 +62,20 @@ function MER:LoadBigWigsProfile()
 		["barBackground"] = {
 			["BigWigs_Plugins_Colors"] = {
 				["default"] = {
-					0, -- [1]
+					0,  -- [1]
 					0.474509803921569, -- [2]
 					0.980392156862745, -- [3]
 				},
 			},
 		},
 	}
-	DB["namespaces"]["BigWigs_Plugins_Raid Icons"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Raid Icons"]["profiles"] or {}
+	DB["namespaces"]["BigWigs_Plugins_Raid Icons"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Raid Icons"]
+	["profiles"] or {}
 	DB["namespaces"]["BigWigs_Plugins_Raid Icons"]["profiles"][profileName] = {
 		["disabled"] = true,
 	}
-	DB["namespaces"]["BigWigs_Plugins_InfoBox"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_InfoBox"]["profiles"] or {}
+	DB["namespaces"]["BigWigs_Plugins_InfoBox"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_InfoBox"]["profiles"] or
+	{}
 	DB["namespaces"]["BigWigs_Plugins_InfoBox"]["profiles"][profileName] = {
 		["posx"] = 962.8442941480171,
 		["posy"] = 71.71141124165615,
@@ -92,10 +98,11 @@ function MER:LoadBigWigsProfile()
 		["barStyle"] = "MerathilisUI",
 		["growup"] = true,
 		["emphasizeGrowup"] = true,
-		["texture"] = "MER_Stripes",
+		["texture"] = "ElvUI Norm1",
 		["spacing"] = 15,
 	}
-	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] or {}
+	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] or
+	{}
 	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"][profileName] = {
 		["outline"] = "SHADOWOUTLINE",
 		["fontSize"] = F.SetFontSizeScaled(20),
@@ -110,7 +117,8 @@ function MER:LoadBigWigsProfile()
 		["emphFontSize"] = F.SetFontSizeScaled(24),
 		["fontName"] = "Expressway",
 	}
-	DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"] or {}
+	DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Proximity"]
+	["profiles"] or {}
 	DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"][profileName] = {
 		["posx"] = 346.27,
 		["fontName"] = "Expressway",
@@ -124,7 +132,8 @@ function MER:LoadBigWigsProfile()
 	DB["namespaces"]["LibDualSpec-1.0"]["char"][E.mynameRealm]["enabled"] = false
 
 	-- AltPower db
-	DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"] or {}
+	DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"] or
+	{}
 	DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"][profileName] = {
 		["posx"] = 600,
 		["fontSize"] = 11,

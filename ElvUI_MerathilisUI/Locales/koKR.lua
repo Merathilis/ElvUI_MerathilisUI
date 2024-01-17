@@ -85,7 +85,8 @@ L["Auto hide timeout"] = true
 L["Seconds before fading chat panel"] = true
 L["Seperators"] = true
 L["Orientation"] = "방향"
-L["Please use Blizzard Communities UI add the channel to your main chat frame first."] = "블리자드 커뮤니티 UI를 사용하여 먼저 메인 채팅 프레임에 채널을 추가하세요."
+L["Please use Blizzard Communities UI add the channel to your main chat frame first."] =
+"블리자드 커뮤니티 UI를 사용하여 먼저 메인 채팅 프레임에 채널을 추가하세요."
 L["Channel Name"] = "채널명"
 L["Abbreviation"] = "줄임말"
 L["Auto Join"] = "자동 참여"
@@ -100,7 +101,8 @@ L["Filter"] = "필터"
 L["Block"] = "블럭"
 L["Custom Online Message"] = true
 L["Chat Link"] = "채팅 링크"
-L["Add extra information on the link, so that you can get basic information but do not need to click"] = "추가 정보를 선택하면 채팅 링크를 클릭하지 않고도 기본 정보를 확인할 수 있습니다."
+L["Add extra information on the link, so that you can get basic information but do not need to click"] =
+"추가 정보를 선택하면 채팅 링크를 클릭하지 않고도 기본 정보를 확인할 수 있습니다."
 L["Additional Information"] = "추가 정보"
 L["Level"] = "레벨"
 L["Translate Item"] = "아이템명 변역"
@@ -198,7 +200,8 @@ L["Time Height"] = true
 L["The spacing between buttons."] = "버튼 사이의 간격을 설정합니다."
 L["The size of the buttons."] = "버튼의 크기입니다."
 L["Slow Mode"] = true
-L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = "메모리 사용을 줄이기 위해 추가 문자를 1초가 아닌 10초마다 갱신합니다."
+L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] =
+"메모리 사용을 줄이기 위해 추가 문자를 1초가 아닌 10초마다 갱신합니다."
 L["Display"] = "표시"
 L["Fade Time"] = "사라지는 시간 설정"
 L["Tooltip Position"] = true
@@ -284,7 +287,8 @@ L["COLOR"] = true
 L["Hide Boss Banner"] = true
 L["This will hide the popup, that shows loot, after you kill a boss"] = true
 L["{rt1} %player% cast %spell% -> %target% {rt1}"] = "{rt1} %player% 시전 %spell% -> %target% {rt1}"
-L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"] = "{rt1} %player%님이 %spell% 시전 중! 물빵 가져 가세요!! {rt1}"
+L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"] =
+"{rt1} %player%님이 %spell% 시전 중! 물빵 가져 가세요!! {rt1}"
 L["{rt1} %player% is casting %spell%, please assist! {rt1}"] = "{rt1} %player%님이 %spell% 시전 중입니다. 도와 주세요! {rt1}"
 L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"] = true
 L["{rt1} %player% opened %spell%! {rt1}"] = "{rt1} %player%님이 %spell% 오픈! {rt1}"
@@ -293,7 +297,8 @@ L["{rt1} %player% used %spell% {rt1}"] = "{rt1} %player%님이 %spell% 사용합
 L["{rt1} %player% puts down %spell%! {rt1}"] = true
 L["Completed"] = "완료"
 L["%s has been reseted"] = "%s 설정이 리셋되었습니다."
-L["Cannot reset %s (There are players in your party attempting to zone into an instance.)"] = "%s 리셋 실패! (인던 진입 중인 파티원이 있습니다.)"
+L["Cannot reset %s (There are players in your party attempting to zone into an instance.)"] =
+"%s 리셋 실패! (인던 진입 중인 파티원이 있습니다.)"
 L["Cannot reset %s (There are players offline in your party.)"] = "%s 리셋 실패! (오프라인 파티원이 있습니다.)"
 L["Cannot reset %s (There are players still inside the instance.)"] = "%s 리셋 실패! (인던에 남아 있는 파티원이 있습니다.)"
 L["Let your teammates know the progress of quests."] = true
@@ -405,6 +410,9 @@ L["Debug Print"] = true
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
 
 -- DataTexts
+L["|cffFFFFFFLeft Click:|r Open Character Frame"] = true
+L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"] = true
+
 -- DataBars
 L["DataBars"] = "정보막대"
 L["Add some stylish buttons at the bottom of the DataBars"] = true
@@ -543,7 +551,8 @@ L["Adds my styling to the Unitframes if you use transparent health."] = true
 L["Change the default role icons."] = true
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
 L["Add a glow in the end of health bars to indicate the over absorb."] = "초과 피해흡수를 나타내기 위해 체력 표시줄 끝에 빛을 추가합니다"
-L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = "ElvUI 유닛 프레임에 블리자드 스타일의 초과 피해흡수 효과 및 오버레이를 추가합니다."
+L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] =
+"ElvUI 유닛 프레임에 블리자드 스타일의 초과 피해흡수 효과 및 오버레이를 추가합니다."
 L["Auto Height"] = "자동 높이"
 L["Blizzard Absorb Overlay"] = "블리자드 피해흡수 오버레이"
 L["Blizzard Over Absorb Glow"] = "블리자드 초과 피해흡수 효과"
@@ -551,13 +560,15 @@ L["Blizzard Style"] = "블리자드 기본"
 L["Change the color of the absorb bar."] = "보호막 바의 색상을 변경합니다."
 L["Custom Texture"] = "Benutzerdefinierte Textur"
 L["Enable the replacing of ElvUI absorb bar textures."] = "ElvUI 피해흡수 바 텍스처 교체를 활성화합니다."
-L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] = "다음은 한 번의 클릭으로 모든 피해흡수 바의 설정을 변경할 수 있는 버튼입니다."
+L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] =
+"다음은 한 번의 클릭으로 모든 피해흡수 바의 설정을 변경할 수 있는 버튼입니다."
 L["Max Overflow"] = "최대 치유 흡수 보호막"
 L["Modify the texture of the absorb bar."] = "피해흡수 바의 텍스처를 수정합니다."
 L["Overflow"] = "초과 표시"
 L["Set %s to %s"] = "%s을 %s(으)로 설정"
 L["Set All Absorb Style to %s"] = "모든 피해흡수 스타일을 %s(으)로 설정"
-L["The absorb style %s and %s is highly recommended with %s tweaks."] = "피해흡수 스타일을 %s 및 %s로 설정하여 %s의 수정과 함께 표시하는 것을 강력히 추천합니다."
+L["The absorb style %s and %s is highly recommended with %s tweaks."] =
+"피해흡수 스타일을 %s 및 %s로 설정하여 %s의 수정과 함께 표시하는 것을 강력히 추천합니다."
 L["The selected texture will override the ElvUI default absorb bar texture."] = "선택한 텍스쳐는 ElvUI 기본 피해흡수 바 텍스처를 무시합니다."
 L["Use the texture from Blizzard Raid Frames."] = "블리자드 공격대 프레임의 텍스처를 사용합니다."
 L["Raid Icon"] = true
@@ -611,7 +622,8 @@ L["Show relocation spells in the list."] = true
 L["Show engineer gadgets"] = true
 L["Show items used only by engineers when the profession is learned."] = true
 L["Ignore missing info"] = true
-L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
+L["MER_LOCPANEL_IGNOREMISSINGINFO"] =
+[[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
 When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
 By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
 L["Info for some items is not available yet. Please try again later"] = true
@@ -672,7 +684,8 @@ L["The command to set a waypoint."] = "웨이포인트를 설정하는 명령입
 L["The coordinates contain illegal number."] = "좌표에 잘못된 숫자가 있습니다."
 L["Waypoint %s has been set."] = "%s 웨이포인트가 설정되었습니다."
 L["Waypoint Parse"] = "웨이포인트 분석"
-L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = "여기에 좌표가 포함된 텍스트를 붙여넣은 다음 Enter 키를 눌러 웨이포인트를 설정할 수 있습니다."
+L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] =
+"여기에 좌표가 포함된 텍스트를 붙여넣은 다음 Enter 키를 눌러 웨이포인트를 설정할 수 있습니다."
 L["illegal"] = "허용되지 않음"
 L["invalid"] = "무효"
 L["Because of %s, this module will not be loaded."] = true
@@ -879,7 +892,8 @@ L["showTutorials"] = true
 L["WorldTextScale"] = true
 L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
 L["floatingCombatTextCombatDamageDirectionalScale"] = true
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
+L["floatingCombatTextCombatDamageDirectionalScale_DESC"] =
+"Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
@@ -967,7 +981,8 @@ L["Finish"] = true
 L["Installed"] = true
 
 -- Staticpopup
-L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
+L["MSG_MER_ELV_OUTDATED"] =
+"Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
@@ -1135,7 +1150,8 @@ L["Here are some example presets, just try them!"] = "다음은 몇 가지 사�
 L["Default"] = "기본값"
 L["Header"] = "헤더"
 L["Short Header"] = "제목 축약"
-L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = "제목을 축약하여 표시합니다. 예 : 저주받은 자의 탑 토르가스트 -> 토르가스트."
+L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] =
+"제목을 축약하여 표시합니다. 예 : 저주받은 자의 탑 토르가스트 -> 토르가스트."
 L["Title Color"] = "제목 색상"
 L["Change the color of quest titles."] = "퀘스트 제목의 색상을 변경합니다."
 L["Use Class Color"] = "직업 색상 사용"
@@ -1155,7 +1171,8 @@ L["it shows when objective tracker is collapsed."] = true
 L["Filter"] = "필터"
 L["Unblock the profanity filter."] = "비속어 필터 차단을 해제하십시오."
 L["Profanity Filter"] = "비속어 필터"
-L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = "이 옵션을 사용하면 비속어 필터 설정이 해제됩니다. [CN Server]"
+L["Enable this option will unblock the setting of profanity filter. [CN Server]"] =
+"이 옵션을 사용하면 비속어 필터 설정이 해제됩니다. [CN Server]"
 
 -- Friends List
 L["Friends List"] = "친구 목록"
@@ -1198,24 +1215,31 @@ L["Changelog"] = "변경 사항"
 
 -- Compatibility
 L["Compatibility Check"] = "호환성 확인"
-L["Help you to enable/disable the modules for a better experience with other plugins."] = "다른 플러그인에 대한 더 나은 경험을 위해 모듈을 활성화 / 비활성화하도록 도와줍니다."
-L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = "다른 애드온 또는 ElvUI 플러그인의 많은 모듈이 있지만 그중 일부는 거의 동일한 기능입니다."
+L["Help you to enable/disable the modules for a better experience with other plugins."] =
+"다른 플러그인에 대한 더 나은 경험을 위해 모듈을 활성화 / 비활성화하도록 도와줍니다."
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] =
+"다른 애드온 또는 ElvUI 플러그인의 많은 모듈이 있지만 그중 일부는 거의 동일한 기능입니다."
 L["Have a good time with %s!"] = "%s와 즐거운 시간 보내세요!"
 L["Choose the module you would like to |cff00ff00use|r"] = "|cff00ff00사용|r할 모듈을 선택하십시오"
-L["If you find the %s module conflicts with another addon, alert me via Discord."] = "%s 모듈이 다른 애드온과 충돌하는 것을 발견하면 Discord를 통해 알려주세요."
-L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = "[MerathilisUI]-[정보] 하단의 옵션을 통해 호환성 검사를 비활성화/활성화할 수 있습니다."
+L["If you find the %s module conflicts with another addon, alert me via Discord."] =
+"%s 모듈이 다른 애드온과 충돌하는 것을 발견하면 Discord를 통해 알려주세요."
+L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] =
+"[MerathilisUI]-[정보] 하단의 옵션을 통해 호환성 검사를 비활성화/활성화할 수 있습니다."
 L["Complete"] = "완료"
 
 -- Debug
 L["Usage"] = true
 L["Enable debug mode"] = "디버그 모드 활성화"
-L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] = "ElvUI Core, ElvUI %s 및 BugSack을 제외한 다른 모든 애드온을 비활성화합니다."
+L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] =
+"ElvUI Core, ElvUI %s 및 BugSack을 제외한 다른 모든 애드온을 비활성화합니다."
 L["Disable debug mode"] = "디버그 모드 비활성화"
 L["Reenable the addons that disabled by debug mode."] = "디버그 모드에서 비활성화된 애드온을 다시 활성화합니다."
 L["Debug Enviroment"] = "디버그 환경"
-L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "|cff00ff00/muidebug off|r 명령을 사용하여 디버그 모드를 종료할 수 있습니다."
+L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] =
+"|cff00ff00/muidebug off|r 명령을 사용하여 디버그 모드를 종료할 수 있습니다."
 L["After you stop debuging, %s will reenable the addons automatically."] = "디버깅을 중지하면 %s이(가) 애드온을 자동으로 다시 활성화합니다."
-L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = "버그를 제출하기 전에 %s을(를) 사용하여 디버그 모드를 활성화하고 한 번 더 테스트하십시오."
+L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =
+"버그를 제출하기 전에 %s을(를) 사용하여 디버그 모드를 활성화하고 한 번 더 테스트하십시오."
 L["Error"] = true
 L["Warning"] = true
 

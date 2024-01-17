@@ -28,7 +28,7 @@ local GetContainerItemID = C_Container and C_Container.GetContainerItemID or Get
 local C_VoiceChat_SpeakText = C_VoiceChat.SpeakText
 
 local ignoredSpells, invertIgnored
-module.cooldowns, module.animating, module.watching = { }, { }, { }
+module.cooldowns, module.animating, module.watching = {}, {}, {}
 
 local DCP = CreateFrame("Frame", nil, E.UIParent)
 DCP:SetAlpha(0)
@@ -49,17 +49,17 @@ local defaultSettings = {
 	animScale = 1.5,
 	iconSize = 50,
 	holdTime = 0.3,
-	petOverlay = {1, 1, 1, 1},
+	petOverlay = { 1, 1, 1, 1 },
 	ignoredSpells = {},
 	invertIgnored = false,
 	enablePet = false,
-	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
-	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
+	x = UIParent:GetWidth() * UIParent:GetEffectiveScale() / 2,
+	y = UIParent:GetHeight() * UIParent:GetEffectiveScale() / 2,
 }
 
 local defaultSettingsPerChar = {
-    ignoredSpells = {},
-    invertIgnored = false,
+	ignoredSpells = {},
+	invertIgnored = false,
 }
 
 -----------------------
@@ -91,7 +91,7 @@ local function memoize(f)
 		cache = nil
 	end
 
-	setmetatable(memoized, {__call = get})
+	setmetatable(memoized, { __call = get })
 
 	return memoized
 end
@@ -111,11 +111,11 @@ end
 --------------------------
 local elapsed = 0
 local runtimer = 0
-local function OnUpdate(_,update)
+local function OnUpdate(_, update)
 	module.db = E.db.mui.cooldownFlash
 	elapsed = elapsed + update
 	if (elapsed > 0.05) then
-		for i,v in pairs(module.watching) do
+		for i, v in pairs(module.watching) do
 			if (GetTime() >= v[1] + 0.5) then
 				local getCooldownDetails
 				if (v[2] == "spell") then
@@ -177,7 +177,7 @@ local function OnUpdate(_,update)
 			if not cooldown.duration or not cooldown.start then return end
 			local remaining = cooldown.duration - (GetTime() - cooldown.start)
 			if (remaining <= 0) then
-				tinsert(module.animating, {cooldown.texture, cooldown.isPet, cooldown.name})
+				tinsert(module.animating, { cooldown.texture, cooldown.isPet, cooldown.name })
 				module.cooldowns[i] = nil
 			end
 		end
@@ -208,7 +208,8 @@ local function OnUpdate(_,update)
 				if module.db.tts then
 					local tts = GetSpellInfo(module.animating[1][3])
 					if module.db.ttsvoice and tts then
-						C_VoiceChat_SpeakText(module.db.ttsvoice, tts, Enum.VoiceTtsDestination.LocalPlayback, 0, module.db.ttsvolume)
+						C_VoiceChat_SpeakText(module.db.ttsvoice, tts, Enum.VoiceTtsDestination.LocalPlayback, 0,
+							module.db.ttsvolume)
 					end
 				end
 			end
@@ -216,10 +217,12 @@ local function OnUpdate(_,update)
 			if (runtimer < module.db.fadeInTime) then
 				alpha = module.db.maxAlpha * (runtimer / module.db.fadeInTime)
 			elseif (runtimer >= module.db.fadeInTime + module.db.holdTime) then
-				alpha = module.db.maxAlpha - (module.db.maxAlpha * ((runtimer - module.db.holdTime - module.db.fadeInTime) / module.db.fadeOutTime))
+				alpha = module.db.maxAlpha -
+				(module.db.maxAlpha * ((runtimer - module.db.holdTime - module.db.fadeInTime) / module.db.fadeOutTime))
 			end
 			DCP:SetAlpha(alpha)
-			local scale = module.db.iconSize + (module.db.iconSize * ((module.db.animScale - 1) * (runtimer / (module.db.fadeInTime + module.db.holdTime + module.db.fadeOutTime))))
+			local scale = module.db.iconSize +
+			(module.db.iconSize * ((module.db.animScale - 1) * (runtimer / (module.db.fadeInTime + module.db.holdTime + module.db.fadeOutTime))))
 			DCP:SetWidth(scale)
 			DCP:SetHeight(scale)
 		end
@@ -231,7 +234,7 @@ end
 --------------------
 function DCP:ADDON_LOADED(addon)
 	if (not MERData_DCP) then
-		MERData_DCP = {unpack(defaultSettings)}
+		MERData_DCP = { unpack(defaultSettings) }
 	else
 		for i, v in pairs(defaultSettings) do
 			if (not MERData_DCP[i]) then
@@ -241,7 +244,7 @@ function DCP:ADDON_LOADED(addon)
 	end
 
 	if (not MERData_DCPCharacter) then
-		MERData_DCPCharacter = {unpack(defaultSettingsPerChar)}
+		MERData_DCPCharacter = { unpack(defaultSettingsPerChar) }
 
 		if (MERData_DCP.ignoredSpells) then
 			MERData_DCPCharacter.ignoredSpells = MERData_DCP.ignoredSpells
@@ -269,7 +272,7 @@ function DCP:UNIT_SPELLCAST_SUCCEEDED(unit, _, spellID)
 		local t1 = GetInventoryItemTexture("player", 13)
 		local t2 = GetInventoryItemTexture("player", 14)
 		if texture == t1 or texture == t2 then return end -- Fix wrong buff cd for trinket
-		module.watching[spellID] = {GetTime(), "spell", spellID}
+		module.watching[spellID] = { GetTime(), "spell", spellID }
 		if (not self:IsMouseEnabled()) then
 			self:SetScript("OnUpdate", OnUpdate)
 		end
@@ -279,7 +282,8 @@ end
 function DCP:COMBAT_LOG_EVENT_UNFILTERED()
 	local _, eventType, _, _, _, sourceFlags, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
 	local isPet = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_TYPE_PET) == _G.COMBATLOG_OBJECT_TYPE_PET
-	local isMine = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_AFFILIATION_MINE) == _G.COMBATLOG_OBJECT_AFFILIATION_MINE
+	local isMine = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_AFFILIATION_MINE) == _G
+	.COMBATLOG_OBJECT_AFFILIATION_MINE
 
 	if eventType == 'SPELL_CAST_SUCCESS' then
 		if isPet and isMine then
@@ -307,10 +311,10 @@ function DCP:PLAYER_ENTERING_WORLD()
 end
 
 hooksecurefunc("UseAction", function(slot)
-	local actionType, itemID = GetActionInfo(slot)
+	local actionType, itemID, subType = GetActionInfo(slot)
 	if (actionType == "item") then
 		local texture = GetActionTexture(slot)
-		module.watching[itemID] = { GetTime(),"item", texture }
+		module.watching[itemID] = { GetTime(), "item", texture }
 	end
 end)
 
@@ -318,7 +322,7 @@ hooksecurefunc("UseInventoryItem", function(slot)
 	local itemID = GetInventoryItemID("player", slot)
 	if (itemID) then
 		local texture = GetInventoryItemTexture("player", slot)
-		module.watching[itemID] = { GetTime(),"item", texture }
+		module.watching[itemID] = { GetTime(), "item", texture }
 	end
 end)
 
@@ -353,7 +357,7 @@ end
 function module:TestMode()
 	module.db = E.db.mui.cooldownFlash
 
-	tinsert(module.animating, {"Interface\\Icons\\Ability_CriticalStrike", nil, "Spell Name"})
+	tinsert(module.animating, { "Interface\\Icons\\Ability_CriticalStrike", nil, "Spell Name" })
 	DCP:SetScript("OnUpdate", OnUpdate)
 
 	if module.db.tts then
@@ -374,7 +378,8 @@ function module:Initialize()
 	DCP:Size(self.db.iconSize, self.db.iconSize)
 	DCP:Point("CENTER", E.UIParent, "CENTER")
 
-	E:CreateMover(DCP, "MER_CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,cooldownFlash')
+	E:CreateMover(DCP, "MER_CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil,
+		'mui,modules,cooldownFlash')
 end
 
 MER:RegisterModule(module:GetName())

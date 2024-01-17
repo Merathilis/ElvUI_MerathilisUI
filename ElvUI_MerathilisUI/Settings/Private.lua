@@ -22,9 +22,9 @@ V.skins = {
 			enable = true,
 			backdrop = {
 				enable = true,
-				texture = "Asphyxia",
+				texture = "ElvUI Norm1",
 				classColor = false,
-				color = {r = 0, g = 0.752, b = 0.980},
+				color = { r = 0, g = 0.752, b = 0.980 },
 				alpha = 1,
 				animationType = "FADE",
 				animationDuration = 0.2,
@@ -33,10 +33,10 @@ V.skins = {
 			selected = {
 				enable = true,
 				backdropClassColor = false,
-				backdropColor = {r = 0.322, g = 0.608, b = 0.961},
+				backdropColor = { r = 0.322, g = 0.608, b = 0.961 },
 				backdropAlpha = 0.4,
 				borderClassColor = false,
-				borderColor = {r = 0.145, g = 0.353, b = 0.698},
+				borderColor = { r = 0.145, g = 0.353, b = 0.698 },
 				borderAlpha = 1
 			},
 			text = {
@@ -51,29 +51,29 @@ V.skins = {
 			enable = true,
 			backdrop = {
 				enable = true,
-				texture = "Asphyxia",
+				texture = "ElvUI Norm1",
 				classColor = false,
-				color = {r = 0, g = 0.752, b = 0.980},
+				color = { r = 0, g = 0.752, b = 0.980 },
 				alpha = 1,
 				animationType = "FADE",
 				animationDuration = 0.2
 			},
 			selected = {
 				enable = true,
-				texture = "Asphyxia",
+				texture = "ElvUI Norm1",
 				backdropClassColor = false,
-				backdropColor = {r = 0.322, g = 0.608, b = 0.961},
+				backdropColor = { r = 0.322, g = 0.608, b = 0.961 },
 				backdropAlpha = 0.4,
 				borderClassColor = false,
-				borderColor = {r = 0.145, g = 0.353, b = 0.698},
+				borderColor = { r = 0.145, g = 0.353, b = 0.698 },
 				borderAlpha = 1
 			},
 			text = {
 				enable = true,
 				normalClassColor = false,
-				normalColor = {r = 1, g = 0.82, b = 0},
+				normalColor = { r = 1, g = 0.82, b = 0 },
 				selectedClassColor = false,
-				selectedColor = {r = 1, g = 1, b = 1},
+				selectedColor = { r = 1, g = 1, b = 1 },
 				font = {
 					name = E.db.general.font,
 					style = "SHADOWOUTLINE"
@@ -82,41 +82,41 @@ V.skins = {
 		},
 		checkBox = {
 			enable = true,
-			texture = "Asphyxia",
+			texture = "ElvUI Norm1",
 			classColor = false,
-			color = {r = 0, g = 0.752, b = 0.980, a = 1}
+			color = { r = 0, g = 0.752, b = 0.980, a = 1 }
 		},
 		slider = {
 			enable = true,
-			texture = "Asphyxia",
+			texture = "ElvUI Norm1",
 			classColor = false,
-			color = {r = 0, g = 0.752, b = 0.980, a = 1}
+			color = { r = 0, g = 0.752, b = 0.980, a = 1 }
 		},
 		treeGroupButton = {
 			enable = true,
 			backdrop = {
 				enable = true,
-				texture = "Asphyxia",
+				texture = "ElvUI Norm1",
 				classColor = false,
-				color = {r = 0, g = 0.752, b = 0.980},
+				color = { r = 0, g = 0.752, b = 0.980 },
 				alpha = 1,
 				animationType = "FADE",
 				animationDuration = 0.2,
 			},
 			selected = {
 				enable = true,
-				texture = "Asphyxia",
+				texture = "ElvUI Norm1",
 				backdropClassColor = false,
-				backdropColor = {r = 0.322, g = 0.608, b = 0.961, a = 0.75},
+				backdropColor = { r = 0.322, g = 0.608, b = 0.961, a = 0.75 },
 				borderClassColor = false,
-				borderColor = {r = 0.145, g = 0.353, b = 0.698, a = 0},
+				borderColor = { r = 0.145, g = 0.353, b = 0.698, a = 0 },
 			},
 			text = {
 				enable = true,
 				normalClassColor = false,
-				normalColor = {r = 1, g = 0.82, b = 0},
+				normalColor = { r = 1, g = 0.82, b = 0 },
 				selectedClassColor = false,
-				selectedColor = {r = 1, g = 1, b = 1},
+				selectedColor = { r = 1, g = 1, b = 1 },
 				font = {
 					name = E.db.general.font,
 					style = "SHADOWOUTLINE"
@@ -218,6 +218,7 @@ V.skins = {
 	addonSkins = {
 		enable = true,
 		ace3 = true,
+		acp = true,
 		ace3DropdownBackdrop = true,
 		abp = true,
 		xiv = true,

@@ -108,7 +108,8 @@ local function getGradientText(text, colorTable)
 	if not text or not colorTable then
 		return text
 	end
-	return E:TextGradient(text, colorTable[1].r, colorTable[1].g, colorTable[1].b, colorTable[2].r, colorTable[2].g, colorTable[2].b)
+	return E:TextGradient(text, colorTable[1].r, colorTable[1].g, colorTable[1].b, colorTable[2].r, colorTable[2].g,
+		colorTable[2].b)
 end
 
 local functionFactory = {
@@ -189,7 +190,8 @@ local functionFactory = {
 					self.statusBar:SetMinMaxValues(0, self.args.duration)
 					self.statusBar:SetValue(self.timeOver)
 					local tex = self.statusBar:GetStatusBarTexture()
-					tex:SetGradient("HORIZONTAL", F.CreateColorFromTable(colorPlatte.running[1]), F.CreateColorFromTable(colorPlatte.running[2]))
+					tex:SetGradient("HORIZONTAL", F.CreateColorFromTable(colorPlatte.running[1]),
+						F.CreateColorFromTable(colorPlatte.running[2]))
 					self.runningTip:Show()
 					E:Flash(self.runningTip, 1, true)
 				else
@@ -202,7 +204,8 @@ local functionFactory = {
 						self.statusBar:SetStatusBarColor(unpack(self.args.barColor))
 					else
 						local tex = self.statusBar:GetStatusBarTexture()
-						tex:SetGradient("HORIZONTAL", F.CreateColorFromTable(self.args.barColor[1]), F.CreateColorFromTable(self.args.barColor[2]))
+						tex:SetGradient("HORIZONTAL", F.CreateColorFromTable(self.args.barColor[1]),
+							F.CreateColorFromTable(self.args.barColor[2]))
 					end
 
 					E:StopFlash(self.runningTip)
@@ -238,7 +241,8 @@ local functionFactory = {
 					self.args["alertCache"][self.nextEventIndex] = true
 					local eventIconString = F.GetIconString(self.args.icon, 16, 16)
 					local gradientName = getGradientText(self.args.eventName, self.args.barColor)
-					F.Print(format(L["%s will be started in %s!"], eventIconString .. " " .. gradientName, secondToTime(self.timeLeft)))
+					F.Print(format(L["%s will be started in %s!"], eventIconString .. " " .. gradientName,
+						secondToTime(self.timeLeft)))
 
 					if self.args.soundFile then
 						PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
@@ -259,21 +263,25 @@ local functionFactory = {
 				_G.GameTooltip:AddDoubleLine(L["Interval"], secondToTime(self.args.interval), 1, 1, 1)
 				_G.GameTooltip:AddDoubleLine(L["Duration"], secondToTime(self.args.duration), 1, 1, 1)
 				if self.nextEventTimestamp then
-					_G.GameTooltip:AddDoubleLine(L["Next Event"], date("%m/%d %H:%M:%S", self.nextEventTimestamp), 1, 1, 1)
+					_G.GameTooltip:AddDoubleLine(L["Next Event"], date("%m/%d %H:%M:%S", self.nextEventTimestamp), 1, 1,
+						1)
 				end
 
 				_G.GameTooltip:AddLine(" ")
 				if self.isRunning then
-					_G.GameTooltip:AddDoubleLine(L["Status"], F.StringByTemplate(self.args.runningText, "success"), 1, 1, 1)
+					_G.GameTooltip:AddDoubleLine(L["Status"], F.StringByTemplate(self.args.runningText, "success"), 1, 1,
+						1)
 				else
 					_G.GameTooltip:AddDoubleLine(L["Status"], F.StringByTemplate(L["Waiting"], "greyLight"), 1, 1, 1)
 				end
 
 				if self.args.hasWeeklyReward then
 					if self.isCompleted then
-						_G.GameTooltip:AddDoubleLine(L["Weekly Reward"], F.StringByTemplate(L["Completed"], "success"), 1, 1, 1)
+						_G.GameTooltip:AddDoubleLine(L["Weekly Reward"], F.StringByTemplate(L["Completed"], "success"), 1,
+							1, 1)
 					else
-						_G.GameTooltip:AddDoubleLine(L["Weekly Reward"], F.StringByTemplate(L["Not Completed"], "danger"), 1, 1, 1)
+						_G.GameTooltip:AddDoubleLine(L["Weekly Reward"], F.StringByTemplate(L["Not Completed"], "danger"),
+							1, 1, 1)
 					end
 				end
 
@@ -383,7 +391,8 @@ local functionFactory = {
 					tip = F.StringByTemplate(L["All nets can be collected"], "success")
 					self.timerText:SetText("")
 
-					self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL", F.CreateColorFromTable(colorPlatte.running[1]), F.CreateColorFromTable(colorPlatte.running[2]))
+					self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL",
+						F.CreateColorFromTable(colorPlatte.running[1]), F.CreateColorFromTable(colorPlatte.running[2]))
 					self.statusBar:SetMinMaxValues(0, 1)
 					self.statusBar:SetValue(1)
 
@@ -412,7 +421,8 @@ local functionFactory = {
 					if type(self.args.barColor[1]) == "number" then
 						self.statusBar:SetStatusBarColor(unpack(self.args.barColor))
 					else
-						self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL", F.CreateColorFromTable(self.args.barColor[1]), F.CreateColorFromTable(self.args.barColor[2]))
+						self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL",
+							F.CreateColorFromTable(self.args.barColor[1]), F.CreateColorFromTable(self.args.barColor[2]))
 					end
 
 					self.timerText:SetText(secondToTime(self.netTable[maxTimeIndex].left))
@@ -422,7 +432,8 @@ local functionFactory = {
 					E:StopFlash(self.runningTip)
 				else
 					self.timerText:SetText("")
-					self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL", F.CreateColorFromTable(colorPlatte.running[1]), F.CreateColorFromTable(colorPlatte.running[2]))
+					self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL",
+						F.CreateColorFromTable(colorPlatte.running[1]), F.CreateColorFromTable(colorPlatte.running[2]))
 					self.statusBar:SetMinMaxValues(0, 1)
 
 					if #done > 0 then
@@ -703,8 +714,8 @@ local eventData = {
 		args = {
 			icon = 609811,
 			type = "loopTimer",
-			--questIDs = { 0 },
-			hasWeeklyReward = false,
+			questIDs = { 77236 },
+			hasWeeklyReward = true,
 			duration = 15 * 60,
 			interval = 1 * 60 * 60,
 			eventName = L["Time Rift"],
@@ -844,7 +855,11 @@ local eventData = {
 												for id, widget in pairs(container.timerWidgets) do
 													if env.fishingNetWidgetIDToIndex[id] and env.fishingNetWidgetIDToIndex[id] == netIndex then
 														if widget.Bar and widget.Bar.value and widget.Bar.range then
-															db[netIndex] = { time = GetServerTime() + widget.Bar.value, duration = widget.Bar.range }
+															db[netIndex] = {
+																time = GetServerTime() + widget.Bar.value,
+																duration =
+																	widget.Bar.range
+															}
 														end
 													end
 												end
@@ -936,7 +951,8 @@ end
 
 module.eventHandlers = {
 	["PLAYER_ENTERING_WORLD"] = {
-		function() E:Delay(10, function()
+		function()
+			E:Delay(10, function()
 				module.playerEnteredWorld = true
 			end)
 		end
@@ -969,10 +985,10 @@ function module:SetFont(target, size)
 	end
 
 	F.SetFontDB(target, {
-			name = self.db.font.name,
-			size = floor(size * self.db.font.scale),
-			style = self.db.font.outline
-		}
+		name = self.db.font.name,
+		size = floor(size * self.db.font.scale),
+		style = self.db.font.outline
+	}
 	)
 end
 
@@ -1067,7 +1083,7 @@ function module:UpdateTrackers()
 				tracker.args.alertSecond = self.db[data.dbKey].second
 				tracker.args.stopAlertIfCompleted = self.db[data.dbKey].stopAlertIfCompleted
 				tracker.args.stopAlertIfPlayerNotEnteredDragonlands =
-				self.db[data.dbKey].stopAlertIfPlayerNotEnteredDragonlands
+					self.db[data.dbKey].stopAlertIfPlayerNotEnteredDragonlands
 				tracker.args.disableAlertAfterHours = self.db[data.dbKey].disableAlertAfterHours
 			else
 				tracker.args.alertSecond = nil
@@ -1155,7 +1171,11 @@ MER:AddCommand("EVENT_TRACKER", { "/wtet" }, function(msg)
 						for id, widget in pairs(container.timerWidgets) do
 							if env.fishingNetWidgetIDToIndex[id] and env.fishingNetWidgetIDToIndex[id] == netIndex then
 								if widget.Bar and widget.Bar.value then
-									db[netIndex] = {time = GetServerTime() + widget.Bar.value, duration = widget.Bar.range}
+									db[netIndex] = {
+										time = GetServerTime() + widget.Bar.value,
+										duration = widget.Bar
+											.range
+									}
 								end
 							end
 						end

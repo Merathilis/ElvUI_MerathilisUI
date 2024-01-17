@@ -17,10 +17,10 @@ MER.dummy = function() return end
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvUIVersion"))
 
-MER.IsRetail = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
+MER.IsRetail = select(4, GetBuildInfo()) >= 90207    -- 9.2.7
 MER.IsWrath = select(4, GetBuildInfo()) >= 30400
 MER.IsNewPatch = select(4, GetBuildInfo()) >= 100000 -- 10.0
-MER.IsPTR = select(4, GetBuildInfo()) == 100002 -- 10.0.2
+MER.IsPTR = select(4, GetBuildInfo()) == 100002      -- 10.0.2
 
 MER.Locale = GetLocale()
 MER.ChineseLocale = strsub(MER.Locale, 0, 2) == "zh"
@@ -41,7 +41,7 @@ MER.YellowColor = "|cffffff00"
 MER.BlueColor = "|cff82c5ff"
 MER.WhiteColor = "|cffffffff"
 
-MER.LineString = MER.GreyColor.."---------------"
+MER.LineString = MER.GreyColor .. "---------------"
 
 MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
 MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
@@ -62,7 +62,8 @@ F.HideOverlayGlow = LBG.HideOverlayGlow
 
 if not E.Retail then
 	E.PopupDialogs.WRONGWOWVERSION = {
-		text = MER.Title..L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"],
+		text = MER.Title ..
+		L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"],
 		--button1 = OKAY,
 		timeout = 0,
 		whileDead = 1,
@@ -72,7 +73,10 @@ if not E.Retail then
 end
 
 E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
-	text = format( "%s\n%s\n\n|cffaaaaaa%s|r", format(L["%s detects CVar %s has been changed."], MER.Title, "|cff209ceeActionButtonUseKeyDown|r"), L["It will cause some buttons not work properly before UI reloading."], format(L["You can disable this alert in [%s]-[%s]-[%s]"], MER.Title, L["Advanced Settings"], L["Blizzard Fixes"])),
+	text = format("%s\n%s\n\n|cffaaaaaa%s|r",
+		format(L["%s detects CVar %s has been changed."], MER.Title, "|cff209ceeActionButtonUseKeyDown|r"),
+		L["It will cause some buttons not work properly before UI reloading."],
+		format(L["You can disable this alert in [%s]-[%s]-[%s]"], MER.Title, L["Advanced Settings"], L["Blizzard Fixes"])),
 	button1 = L["Reload UI"],
 	button2 = _G.CANCEL,
 	OnAccept = _G.ReloadUI
@@ -80,7 +84,7 @@ E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
 
 _G.BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
 for i = 1, 5 do
-	_G["BINDING_HEADER_AUTOBUTTONBAR"..i] = L["Auto Button Bar"..' '..i]
+	_G["BINDING_HEADER_AUTOBUTTONBAR" .. i] = L["Auto Button Bar" .. ' ' .. i]
 	for j = 1, 12 do
 		_G[format("BINDING_NAME_CLICK AutoButtonBar%dButton%d:LeftButton", i, j)] = L["Button"] .. " " .. j
 	end
@@ -128,7 +132,7 @@ function MER:CheckElvUIVersion()
 	-- ElvUI versions check
 	if MER.ElvUIVersion < 1 or (MER.ElvUIVersion < MER.RequiredVersion) then
 		E:StaticPopup_Show("VERSION_MISMATCH")
-		return false-- If ElvUI Version is outdated stop right here. So things don't get broken.
+		return false -- If ElvUI Version is outdated stop right here. So things don't get broken.
 	end
 
 	return true
@@ -152,7 +156,7 @@ function MER:FixGame()
 		if C_LFGList.IsPlayerAuthenticatedForLFG(703) then
 			function C_LFGList.GetPlaystyleString(playstyle, activityInfo)
 				if not (activityInfo and playstyle and playstyle ~= 0 and
-					C_LFGList.GetLfgCategoryInfo(activityInfo.categoryID).showPlaystyleDropdown)
+						C_LFGList.GetLfgCategoryInfo(activityInfo.categoryID).showPlaystyleDropdown)
 				then
 					return nil
 				end

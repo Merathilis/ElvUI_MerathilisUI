@@ -10,6 +10,9 @@ local GetAverageItemLevel = GetAverageItemLevel
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemTexture = GetInventoryItemTexture
 
+local C_MountJournal_GetMountInfoByID = C_MountJournal.GetMountInfoByID
+local C_MountJournal_SummonByID = C_MountJournal.SummonByID
+
 local REPAIR_COST = REPAIR_COST
 local tooltipString = "%d%%"
 local totalDurability = 0
@@ -17,7 +20,7 @@ local invDurability = {}
 local totalRepairCost
 
 local hexColor = E:RGBToHex(E.db.general.valuecolor.r, E.db.general.valuecolor.g, E.db.general.valuecolor.b)
-local dName = MER.Title..L["Durability / ItemLevel"]
+local dName = MER.Title .. L["Durability / ItemLevel"]
 
 local slots = {
 	[1] = _G.INVTYPE_HEAD,
@@ -54,7 +57,10 @@ local function OnEnter(self)
 	DT:SetupTooltip(self)
 
 	for slot, durability in pairs(invDurability) do
-		DT.tooltip:AddDoubleLine(format("|T%s:14:14:0:0:64:64:4:60:4:60|t %s", GetInventoryItemTexture("player", slot), GetInventoryItemLink("player", slot)), format(tooltipString, durability), 1, 1, 1, E:ColorGradient(durability * 0.01, 1, 0.1, 0.1, 1, 1, 0.1, 0.1, 1, 0.1))
+		DT.tooltip:AddDoubleLine(
+			format("|T%s:14:14:0:0:64:64:4:60:4:60|t %s", GetInventoryItemTexture("player", slot),
+				GetInventoryItemLink("player", slot)), format(tooltipString, durability), 1, 1, 1,
+			E:ColorGradient(durability * 0.01, 1, 0.1, 0.1, 1, 1, 0.1, 0.1, 1, 0.1))
 	end
 
 	if totalRepairCost > 0 then
@@ -65,12 +71,16 @@ local function OnEnter(self)
 	local avg, avgEquipped, avgPvp = GetAverageItemLevel()
 	DT.tooltip:AddDoubleLine(STAT_AVERAGE_ITEM_LEVEL, format("%0.2f", avg), 1, 1, 1, 0.1, 1, 0.1)
 	DT.tooltip:AddDoubleLine(GMSURVEYRATING3, format("%0.2f", avgEquipped), 1, 1, 1, colorize(avgEquipped - avg))
-	DT.tooltip:AddDoubleLine(LFG_LIST_ITEM_LEVEL_INSTR_PVP_SHORT, format("%0.2f", avgPvp), 1, 1, 1,  colorize(avgPvp - avg))
+	DT.tooltip:AddDoubleLine(LFG_LIST_ITEM_LEVEL_INSTR_PVP_SHORT, format("%0.2f", avgPvp), 1, 1, 1,
+		colorize(avgPvp - avg))
 
+	DT.tooltip:AddLine(" ")
+	DT.tooltip:AddLine(L["|cffFFFFFFLeft Click:|r Open Character Frame"])
+	DT.tooltip:AddLine(L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"])
 	DT.tooltip:Show()
 end
 
-local function OnLeave(self)
+local function OnLeave()
 	DT.tooltip:Hide()
 end
 
@@ -118,17 +128,24 @@ local function OnEvent(self)
 	shieldIcon = E.db.mui.datatexts.durabilityIlevel.icon and shieldIcon or ""
 
 	avgEquippedString = format("%." .. E.db.general.decimalLength .. "f", avgEquipped or 0)
-	text = format(text, shieldIcon, colorText(totalDurabilityString, lowDurability), armorIcon, colorText(avgEquippedString))
+	text = format(text, shieldIcon, colorText(totalDurabilityString, lowDurability), armorIcon,
+		colorText(avgEquippedString))
 
 	self.text:SetText(text)
 end
 
-local function OnClick()
-	if InCombatLockdown() then
-		_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
-	else
-		_G.ToggleCharacter("PaperDollFrame")
+local function OnClick(_, button)
+	if not E:AlertCombat() then
+		if button == 'LeftButton' then
+			_G.ToggleCharacter("PaperDollFrame")
+		elseif button == 'RightButton' then
+			local mount = C_MountJournal_GetMountInfoByID(460)
+			if mount then
+				C_MountJournal_SummonByID(460)
+			end
+		end
 	end
 end
 
-DT:RegisterDatatext("DurabilityItemLevel", MER.Title .. "Durability & ItemLevel", "UPDATE_INVENTORY_DURABILITY", OnEvent, nil, OnClick, OnEnter, OnLeave, dName, nil, nil)
+DT:RegisterDatatext("DurabilityItemLevel", MER.Title .. "Durability & ItemLevel", "UPDATE_INVENTORY_DURABILITY", OnEvent,
+	nil, OnClick, OnEnter, OnLeave, dName, nil, nil)

@@ -1,4 +1,4 @@
-local E, _, V, P, G = unpack(ElvUI) 
+local E, _, V, P, G = unpack(ElvUI)
 local addon, Engine = ...
 
 local EP = E.Libs.EP
@@ -11,7 +11,6 @@ local next, type = next, type
 local print = print
 
 local collectgarbage = collectgarbage
-local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
 
 local MER = AceAddon:NewAddon(addon, 'AceConsole-3.0', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 
@@ -60,7 +59,7 @@ MER.Modules.ChatBar = MER:NewModule('MER_ChatBar', 'AceEvent-3.0', 'AceHook-3.0'
 MER.Modules.ChatFade = MER:NewModule('MER_ChatFade', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 MER.Modules.ChatLink = MER:NewModule('MER_ChatLink', 'AceEvent-3.0')
 MER.Modules.ChatText = MER:NewModule('MER_ChatText', 'AceEvent-3.0')
-MER.Modules.Cooldown =  MER:NewModule('MER_Cooldown', 'AceHook-3.0')
+MER.Modules.Cooldown = MER:NewModule('MER_Cooldown', 'AceHook-3.0')
 MER.Modules.CombatText = MER:NewModule('MER_CombatText', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.Cursor = MER:NewModule('MER_Cursor')
 MER.Modules.CVars = MER:NewModule('MER_CVars')
@@ -90,9 +89,9 @@ MER.Modules.NamePlates = MER:NewModule('MER_NamePlates', 'AceHook-3.0', 'AceEven
 MER.Modules.NamePlateAuras = MER:NewModule('MER_NameplateAuras', 'AceEvent-3.0')
 MER.Modules.Notification = MER:NewModule('MER_Notification', 'AceEvent-3.0')
 MER.Modules.Objective = MER:NewModule('MER_ObjectiveTracker', 'AceHook-3.0', 'AceEvent-3.0')
-MER.Modules.Panels =  MER:NewModule('MER_Panels')
+MER.Modules.Panels = MER:NewModule('MER_Panels')
 MER.Modules.Progress = MER:NewModule('MER_Progress')
-MER.Modules.PVP =  MER:NewModule('MER_PVP', 'AceEvent-3.0')
+MER.Modules.PVP = MER:NewModule('MER_PVP', 'AceEvent-3.0')
 MER.Modules.RaidBuffs = MER:NewModule('MER_RaidBuffs')
 MER.Modules.RaidCD = MER:NewModule('MER_RaidCD', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.Modules.RaidManager = MER:NewModule('MER_RaidManager', 'AceEvent-3.0', 'AceTimer-3.0')
@@ -146,7 +145,9 @@ function MER:Initialize()
 	end
 
 	if MER.IsDevelop then
-		Engine[2].DebugPrint("You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help", "warning")
+		Engine[2].DebugPrint(
+		"You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help",
+			"warning")
 	end
 
 	for name, module in self:IterateModules() do
@@ -193,7 +194,12 @@ do
 		if isInitialLogin then
 			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
-				print(icon..''..self.Title..format('|cff00c0fa%s|r', self.Version)..L[" is loaded. For any issues or suggestions, please visit "]..Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+				print(icon ..
+				'' ..
+				self.Title ..
+				format('|cff00c0fa%s|r', self.Version) ..
+				L[" is loaded. For any issues or suggestions, please visit "] ..
+				Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 			end
 
 			self:SplashScreen()
