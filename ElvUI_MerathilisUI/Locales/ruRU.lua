@@ -806,6 +806,8 @@ L["Use Default"] = "Использовать по умолчанию"
 L["Researchers Under Fire"] = "Исследователи под огнем"
 L["Time Rift"] = "Разлом во времени"
 L["Superbloom"] = true
+L["Big Dig"] = true
+L["The Big Dig"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Кнопки миникарты"

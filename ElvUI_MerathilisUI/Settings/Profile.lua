@@ -1488,7 +1488,7 @@ P.maps = {
 			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
 		researchersUnderFire = {
-			enable = true,
+			enable = false,
 			desaturate = false,
 			alert = true,
 			sound = true,
@@ -1515,6 +1515,16 @@ P.maps = {
 			disableAlertAfterHours = 48,
 		},
 		superBloom = {
+			enable = true,
+			desaturate = false,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Light",
+			second = 600,
+			stopAlertIfCompleted = false,
+			stopAlertIfPlayerNotEnteredDragonlands = true
+		},
+		bigDig = {
 			enable = true,
 			desaturate = false,
 			alert = true,
