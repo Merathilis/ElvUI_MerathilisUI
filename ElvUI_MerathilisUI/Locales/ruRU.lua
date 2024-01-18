@@ -805,9 +805,9 @@ L["Placeholders"] = "Заполнители"
 L["Use Default"] = "Использовать по умолчанию"
 L["Researchers Under Fire"] = "Исследователи под огнем"
 L["Time Rift"] = "Разлом во времени"
-L["Superbloom"] = true
-L["Big Dig"] = true
-L["The Big Dig"] = true
+L["Superbloom"] = "Цветочный бум"
+L["Big Dig"] = "Большие раскопки"
+L["The Big Dig"] = "Большие раскопки: Удел Предателя"
 
 -- SMB
 L["Minimap Buttons"] = "Кнопки миникарты"
