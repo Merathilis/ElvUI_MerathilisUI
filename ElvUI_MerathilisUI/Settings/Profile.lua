@@ -697,10 +697,6 @@ P.actionbars = {
 	},
 }
 
-local function Filter()
-	return "POTIONDF,FLASKDF,RUNE,UTILITY"
-end
-
 P.autoButtons = {
 	enable = true,
 	customList = {},
@@ -801,8 +797,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		--include = "POTIONSL,FLASKSL,UTILITY"
-		include = Filter()
+		include = "POTIONDF,FLASKDF,RUNE,UTILITY"
 	},
 	bar3 = {
 		enable = true,
@@ -849,7 +844,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODDF,SEEDS,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODDF,SEEDS,BIGDIG,CUSTOM"
 	},
 	bar4 = {
 		enable = false,

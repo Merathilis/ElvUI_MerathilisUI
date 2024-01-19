@@ -926,6 +926,46 @@ local openableItems = {
 	211414
 }
 
+local bigDig = {
+	205223,
+	212650,
+	212687,
+	212762,
+	212769,
+	212773,
+	212976,
+	212977,
+	212978,
+	213020,
+	213021,
+	213022,
+	213023,
+	213024,
+	213025,
+	213175,
+	213176,
+	213177,
+	213183,
+	213185,
+	213186,
+	213187,
+	213188,
+	213189,
+	213190,
+	213192,
+	213200,
+	213204,
+	213208,
+	213215,
+	213357,
+	213359,
+	213365,
+	213375,
+	213382,
+	213389,
+	213429
+}
+
 -- Profession Items
 local professionItems = {
 	192131,
@@ -1171,30 +1211,30 @@ local professionItems = {
 	206031,
 	206034,
 	206035,
-    210184,
-    210185,
-    210190,
-    210193,
-    210194,
-    210197,
-    210200,
-    210201,
-    210202,
-    210208,
-    210211,
-    210215,
-    210228,
-    210231,
-    210234,
-    210458,
-    210459,
-    210460,
-    210461,
-    210462,
-    210463,
-    210464,
-    210465,
-    210466
+	210184,
+	210185,
+	210190,
+	210193,
+	210194,
+	210197,
+	210200,
+	210201,
+	210202,
+	210208,
+	210211,
+	210215,
+	210228,
+	210231,
+	210234,
+	210458,
+	210459,
+	210460,
+	210461,
+	210462,
+	210463,
+	210464,
+	210465,
+	210466
 }
 
 local seeds = {
@@ -1210,7 +1250,7 @@ local function UpdateQuestItemList()
 		local link = GetQuestLogSpecialItemInfo(questLogIndex)
 		if link then
 			local itemID = tonumber(strmatch(link, "|Hitem:(%d+):"))
-			local data = {questLogIndex = questLogIndex, itemID = itemID}
+			local data = { questLogIndex = questLogIndex, itemID = itemID }
 			tinsert(questItemList, data)
 		end
 	end
@@ -1247,13 +1287,14 @@ local moduleList = {
 	["RUNEDF"] = runesDragonflight,
 	["MAGEFOOD"] = conjuredManaFood,
 	["BANNER"] = banners,
-	["UTILITY" ] = utilities,
+	["UTILITY"] = utilities,
 	["OPENABLE"] = openableItems,
 	["PROF"] = professionItems,
 	["POTIONDF"] = potionsDragonflight,
 	["FLASKDF"] = flasksDragonflight,
 	["FOODDF"] = foodDragonflight,
-	["SEEDS"] = seeds
+	["SEEDS"] = seeds,
+	["BIGDIG"] = bigDig
 }
 
 function module:CreateButton(name, barDB)
@@ -1302,7 +1343,8 @@ function module:CreateButton(name, barDB)
 	button.cooldown = cooldown
 
 	button.SetTier = function(self, itemIDOrLink)
-		local level = C_TradeSkillUI_GetItemReagentQualityByItemInfo(itemIDOrLink) or C_TradeSkillUI_GetItemCraftedQualityByItemInfo(itemIDOrLink)
+		local level = C_TradeSkillUI_GetItemReagentQualityByItemInfo(itemIDOrLink) or
+			C_TradeSkillUI_GetItemCraftedQualityByItemInfo(itemIDOrLink)
 
 		if not level or level == 0 then
 			self.qualityTier:SetText("")
@@ -1414,7 +1456,8 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
+			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent, barDB.alphaMax)
 		end
 
 		if barDB.tooltip then
@@ -1444,7 +1487,8 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
+			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent, barDB.alphaMin)
 		end
 
 		GameTooltip:Hide()
@@ -1521,7 +1565,8 @@ function module:CreateBar(id)
 	anchor:SetClampedToScreen(true)
 	anchor:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, (id - 1) * 45)
 	anchor:Size(150, 40)
-	E:CreateMover(anchor, 'AutoButtonBar' .. id .. 'Mover', L['Auto Button Bar'] .. ' ' .. id, nil, nil, nil, 'ALL,MERATHILISUI', function() return module.db.enable and barDB.enable end, 'mui,modules,autoButtons,bar'..id)
+	E:CreateMover(anchor, 'AutoButtonBar' .. id .. 'Mover', L['Auto Button Bar'] .. ' ' .. id, nil, nil, nil,
+		'ALL,MERATHILISUI', function() return module.db.enable and barDB.enable end, 'mui,modules,autoButtons,bar' .. id)
 
 	local bar = CreateFrame("Frame", "AutoButtonBar" .. id, E.UIParent, "SecureHandlerStateTemplate")
 	bar.id = id
@@ -1551,7 +1596,8 @@ function module:CreateBar(id)
 
 		if not barDB.globalFade and barDB.mouseOver and barDB.alphaMax and barDB.alphaMin then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMax)
+			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent, barDB.alphaMax)
 		end
 	end)
 
@@ -1562,7 +1608,8 @@ function module:CreateBar(id)
 
 		if not barDB.globalFade and barDB.mouseOver and barDB.alphaMax and barDB.alphaMin then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin), alphaCurrent, barDB.alphaMin)
+			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent, barDB.alphaMin)
 		end
 	end)
 
@@ -1611,7 +1658,7 @@ function module:UpdateBar(id)
 		end
 	end
 
-	for _, module in ipairs{strsplit("[, ]", barDB.include)} do
+	for _, module in ipairs { strsplit("[, ]", barDB.include) } do
 		if buttonID <= barDB.numButtons then
 			if moduleList[module] then
 				addButtons(moduleList[module])
@@ -1661,8 +1708,10 @@ function module:UpdateBar(id)
 
 	local numMoverRows = ceil(barDB.numButtons / barDB.buttonsPerRow)
 	local numMoverCols = barDB.buttonsPerRow
-	local newMoverWidth = 2 * barDB.backdropSpacing + numMoverCols * barDB.buttonWidth + (numMoverCols - 1) -- * barDB.spacing
-	local newMoverHeight = 2 * barDB.backdropSpacing + numMoverRows * barDB.buttonHeight + (numMoverRows - 1) -- * barDB.spacing
+	local newMoverWidth = 2 * barDB.backdropSpacing + numMoverCols * barDB.buttonWidth +
+		(numMoverCols - 1) -- * barDB.spacing
+	local newMoverHeight = 2 * barDB.backdropSpacing + numMoverRows * barDB.buttonHeight +
+		(numMoverRows - 1) -- * barDB.spacing
 	bar:GetParent():Size(newMoverWidth, newMoverHeight)
 
 	bar:ClearAllPoints()
@@ -1763,7 +1812,7 @@ function module:UpdateBars()
 end
 
 do
-	local lastUpdateTime =  0
+	local lastUpdateTime = 0
 	function module:UNIT_INVENTORY_CHANGED()
 		local now = GetTime()
 		if now - lastUpdateTime < 0.25 then

@@ -17,7 +17,7 @@ local customListSelected1
 local customListSelected2
 
 local function ImportantColorString(string)
-	return F.CreateColorString(string, {r = 0.204, g = 0.596, b = 0.859})
+	return F.CreateColorString(string, { r = 0.204, g = 0.596, b = 0.859 })
 end
 
 local function desc(code, helpText)
@@ -27,8 +27,8 @@ end
 options.autoButtons = {
 	type = "group",
 	name = L["AutoButtons"],
-	get = function(info) return E.db.mui.autoButtons[ info[#info] ] end,
-	set = function(info, value) E.db.mui.autoButtons[ info[#info] ] = value; end,
+	get = function(info) return E.db.mui.autoButtons[info[#info]] end,
+	set = function(info, value) E.db.mui.autoButtons[info[#info]] = value; end,
 	args = {
 		header = {
 			order = 1,
@@ -39,8 +39,10 @@ options.autoButtons = {
 			order = 2,
 			type = "toggle",
 			name = L["Enable"],
-			get = function(info) return E.db.mui.autoButtons[ info[#info] ] end,
-			set = function(info, value) E.db.mui.autoButtons[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			get = function(info) return E.db.mui.autoButtons[info[#info]] end,
+			set = function(info, value)
+				E.db.mui.autoButtons[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+			end,
 		},
 		custom = {
 			order = 10,
@@ -214,19 +216,25 @@ for i = 1, 5 do
 						order = 3,
 						type = "range",
 						name = L["Fade Time"],
-						min = 0, max = 2, step = 0.01
+						min = 0,
+						max = 2,
+						step = 0.01
 					},
 					alphaMin = {
 						order = 4,
 						type = "range",
 						name = L["Alpha Min"],
-						min = 0, max = 0.9, step = 0.01
+						min = 0,
+						max = 0.9,
+						step = 0.01
 					},
 					alphaMax = {
 						order = 5,
 						type = "range",
 						name = L["Alpha Max"],
-						min = 0, max = 1, step = 0.01
+						min = 0,
+						max = 1,
+						step = 0.01
 					},
 					tooltip = {
 						order = 6,
@@ -258,14 +266,18 @@ for i = 1, 5 do
 				type = "range",
 				name = L["Backdrop Spacing"],
 				desc = L["The spacing between the backdrop and the buttons."],
-				min = 1, max = 30, step = 1
+				min = 1,
+				max = 30,
+				step = 1
 			},
 			spacing = {
 				order = 6,
 				type = "range",
 				name = L["Button Spacing"],
 				desc = L["The spacing between buttons."],
-				min = 1, max = 30, step = 1
+				min = 1,
+				max = 30,
+				step = 1
 			},
 			betterOption2 = {
 				order = 7,
@@ -277,27 +289,35 @@ for i = 1, 5 do
 				order = 8,
 				type = "range",
 				name = L["Buttons"],
-				min = 1, max = 12, step = 1
+				min = 1,
+				max = 12,
+				step = 1
 			},
 			buttonWidth = {
 				order = 9,
 				type = "range",
 				name = L["Button Width"],
 				desc = L["The width of the buttons."],
-				min = 2, max = 80, step = 1
+				min = 2,
+				max = 80,
+				step = 1
 			},
 			buttonHeight = {
 				order = 10,
 				type = "range",
 				name = L["Button Height"],
 				desc = L["The height of the buttons."],
-				min = 2, max = 60, step = 1
+				min = 2,
+				max = 60,
+				step = 1
 			},
 			buttonsPerRow = {
 				order = 11,
 				type = "range",
 				name = L["Buttons Per Row"],
-				min = 1, max = 12, step = 1
+				min = 1,
+				max = 12,
+				step = 1
 			},
 			qualityTier = {
 				order = 12,
@@ -316,19 +336,25 @@ for i = 1, 5 do
 						order = 3,
 						name = L["Size"],
 						type = "range",
-						min = 5, max = 60, step = 1
+						min = 5,
+						max = 60,
+						step = 1
 					},
 					xOffset = {
 						order = 4,
 						name = L["X-Offset"],
 						type = "range",
-						min = -100, max = 100, step = 1
+						min = -100,
+						max = 100,
+						step = 1
 					},
 					yOffset = {
 						order = 5,
 						name = L["Y-Offset"],
 						type = "range",
-						min = -100, max = 100, step = 1
+						min = -100,
+						max = 100,
+						step = 1
 					},
 				},
 			},
@@ -432,19 +458,25 @@ for i = 1, 5 do
 						order = 3,
 						name = L["Size"],
 						type = "range",
-						min = 5, max = 60, step = 1
+						min = 5,
+						max = 60,
+						step = 1
 					},
 					xOffset = {
 						order = 4,
 						name = L["X-Offset"],
 						type = "range",
-						min = -100, max = 100, step = 1
+						min = -100,
+						max = 100,
+						step = 1
 					},
 					yOffset = {
 						order = 5,
 						name = L["Y-Offset"],
 						type = "range",
-						min = -100, max = 100, step = 1
+						min = -100,
+						max = 100,
+						step = 1
 					},
 					color = {
 						order = 6,
@@ -468,7 +500,7 @@ for i = 1, 5 do
 				order = 15,
 				type = "input",
 				name = L["Button Groups"],
-				desc = format("%s %s\n" .. strrep("\n%s", 21),
+				desc = format("%s %s\n" .. strrep("\n%s", 22),
 					L["Set the type and order of button groups."],
 					L["You can separate the groups with a comma."],
 					desc("QUEST", L["Quest Items"]),
@@ -484,13 +516,15 @@ for i = 1, 5 do
 					desc("FOOD", L["Crafted Food"]),
 					desc("FOODSL", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Shadowlands"])),
 					desc("FOODDF", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Dragonflight"])),
-					desc("FOODVENDOR", format("%s (%s) |cffffdd57[%s]|r", L["Food"], L["Sold by vendor"], L["Dragonflight"])),
+					desc("FOODVENDOR",
+						format("%s (%s) |cffffdd57[%s]|r", L["Food"], L["Sold by vendor"], L["Dragonflight"])),
 					desc("MAGEFOOD", format("%s (%s)|r", L["Food"], L["Crafted by mage"])),
 					desc("BANNER", L["Banners"]),
 					desc("UTILITY", L["Utilities"]),
 					desc("OPENABLE", L["Openable Items"]),
 					desc("PROF", L["Profession Items"]),
 					desc("SEEDS", L["Dream Seeds"]),
+					desc("BIGDIG", L["Big Dig"]),
 					desc("CUSTOM", L["Custom Items"])
 
 				),
