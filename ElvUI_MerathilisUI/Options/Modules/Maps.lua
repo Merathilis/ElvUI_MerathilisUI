@@ -21,8 +21,10 @@ local envs = {
 options.maps = {
 	type = "group",
 	name = L["Maps"],
-	get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
-	set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+	get = function(info) return E.db.mui.maps.minimap[info[#info]] end,
+	set = function(info, value)
+		E.db.mui.maps.minimap[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+	end,
 	disabled = function() return not E.private.general.minimap.enable end,
 	args = {
 		header = {
@@ -48,7 +50,9 @@ options.maps = {
 			type = "group",
 			name = L["World Map"],
 			get = function(info) return E.db.mui.maps.worldMap[info[#info]] end,
-			set = function(info, value) E.db.mui.maps.worldMap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			set = function(info, value)
+				E.db.mui.maps.worldMap[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+			end,
 			args = {
 				desc = {
 					order = 1,
@@ -133,7 +137,9 @@ options.maps = {
 					type = "group",
 					name = L["Scale"],
 					get = function(info) return E.db.mui.maps.worldMap.scale[info[#info]] end,
-					set = function(info, value) E.db.mui.maps.worldMap.scale[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					set = function(info, value)
+						E.db.mui.maps.worldMap.scale[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
+					end,
 					guiInline = true,
 					args = {
 						enable = {
@@ -158,8 +164,10 @@ options.maps = {
 			order = 4,
 			type = "group",
 			name = L["Minimap Ping"],
-			get = function(info) return E.db.mui.maps.minimap.ping[ info[#info] ] end,
-			set = function(info, value) E.db.mui.maps.minimap.ping[ info[#info] ] = value; MP:ProfileUpdate(); end,
+			get = function(info) return E.db.mui.maps.minimap.ping[info[#info]] end,
+			set = function(info, value)
+				E.db.mui.maps.minimap.ping[info[#info]] = value; MP:ProfileUpdate();
+			end,
 			args = {
 				enable = {
 					order = 1,
@@ -347,7 +355,9 @@ options.maps = {
 					type = "range",
 					name = L["Height Percentage"],
 					desc = L["Percentage of ElvUI minimap size."],
-					min = 0.01, max = 1, step = 0.01
+					min = 0.01,
+					max = 1,
+					step = 0.01
 				},
 			},
 		},
@@ -355,8 +365,10 @@ options.maps = {
 			order = 6,
 			type = "group",
 			name = L["Minimap Buttons"],
-			get = function(info) return E.db.mui.smb[ info[#info] ] end,
-			set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update() end,
+			get = function(info) return E.db.mui.smb[info[#info]] end,
+			set = function(info, value)
+				E.db.mui.smb[info[#info]] = value; SMB:Update()
+			end,
 			args = {
 				desc = {
 					order = 1,
@@ -745,7 +757,8 @@ options.maps = {
 									confirm = function()
 										return format(
 											L["Are you sure to delete the %s command?"],
-											F.CreateColorString(envs.superTracker.selectedCommand, E.db.general.valuecolor)
+											F.CreateColorString(envs.superTracker.selectedCommand,
+												E.db.general.valuecolor)
 										)
 									end,
 									disabled = function()
@@ -930,13 +943,17 @@ options.maps = {
 							order = 1,
 							type = "range",
 							name = L["Height"],
-							min = 20, max = 100, step = 1
+							min = 20,
+							max = 100,
+							step = 1
 						},
 						spacing = {
 							order = 2,
 							type = "range",
 							name = L["Spacing"],
-							min = 0, max = 20, step = 1
+							min = 0,
+							max = 20,
+							step = 1
 						},
 						backdrop = {
 							order = 3,
@@ -948,7 +965,9 @@ options.maps = {
 							type = "range",
 							name = L["Y-Offset"],
 							desc = L["The offset of the frame from the bottom of world map. (Default is -3)"],
-							min = -300, max = 300, step = 1
+							min = -300,
+							max = 300,
+							step = 1
 						}
 					}
 				},
@@ -976,7 +995,9 @@ options.maps = {
 							order = 2,
 							type = "range",
 							name = L["Scale"],
-							min = 0.1, max = 5, step = 0.01,
+							min = 0.1,
+							max = 5,
+							step = 0.01,
 						},
 						outline = {
 							order = 3,
@@ -987,11 +1008,11 @@ options.maps = {
 						}
 					}
 				},
-				communityFeast = {
+				bigDig = {
 					order = 5,
 					type = "group",
 					inline = true,
-					name = L["Community Feast"],
+					name = L["The Big Dig"],
 					get = function(info)
 						return E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]]
 					end,
@@ -1023,7 +1044,7 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end,
-							desc = L["Play sound when the alert is triggered"]
+							desc = L["Play sound when the alert is triggered."]
 						},
 						soundFile = {
 							order = 5,
@@ -1041,23 +1062,15 @@ options.maps = {
 							type = "range",
 							name = L["Alert Second"],
 							desc = L["Alert will be triggered when the remaining time is less than the set value."],
-							min = 0, max = 3600, step = 1,
-							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
-						},
-						stopAlertIfCompleted = {
-							order = 7,
-							type = "toggle",
-							name = L["Stop Alert if Completed"],
-							desc = L["Stop alert when the event is completed in this week."],
-							width = 2,
+							min = 0,
+							max = 3600,
+							step = 1,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end
 						},
 						stopAlertIfPlayerNotEnteredDragonlands = {
-							order = 8,
+							order = 7,
 							type = "toggle",
 							name = L["Only DF Character"],
 							desc = L["Stop alert when the player have not entered Dragonlands yet."],
@@ -1065,14 +1078,14 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end
-						},
+						}
 					}
 				},
-				siegeOnDragonbaneKeep = {
+				superBloom = {
 					order = 6,
 					type = "group",
 					inline = true,
-					name = L["Siege On Dragonbane Keep"],
+					name = L["Superbloom"],
 					get = function(info)
 						return E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]]
 					end,
@@ -1104,10 +1117,7 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end,
-							desc = L["Play sound when the alert is triggered"],
-							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							desc = L["Play sound when the alert is triggered."]
 						},
 						soundFile = {
 							order = 5,
@@ -1125,7 +1135,9 @@ options.maps = {
 							type = "range",
 							name = L["Alert Second"],
 							desc = L["Alert will be triggered when the remaining time is less than the set value."],
-							min = 0, max = 3600, step = 1,
+							min = 0,
+							max = 3600,
+							step = 1,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end
@@ -1149,11 +1161,88 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end
+						}
+					}
+				},
+				timeRiftThaldraszus = {
+					order = 7,
+					type = "group",
+					inline = true,
+					name = L["Time Rift Thaldraszus"],
+					get = function(info)
+						return E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]] = value
+						ET:ProfileUpdate()
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"]
 						},
-					},
+						alert = {
+							order = 2,
+							type = "toggle",
+							name = L["Alert"]
+						},
+						sound = {
+							order = 3,
+							type = "toggle",
+							name = L["Alert Sound"],
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end,
+							desc = L["Play sound when the alert is triggered."]
+						},
+						soundFile = {
+							order = 4,
+							type = "select",
+							dialogControl = "LSM30_Sound",
+							name = L["Sound File"],
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
+									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+							end,
+							values = LSM:HashTable("sound")
+						},
+						second = {
+							order = 5,
+							type = "range",
+							name = L["Alert Second"],
+							desc = L["Alert will be triggered when the remaining time is less than the set value."],
+							min = 0,
+							max = 3600,
+							step = 1,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
+						},
+						stopAlertIfCompleted = {
+							order = 6,
+							type = "toggle",
+							name = L["Stop Alert if Completed"],
+							desc = L["Stop alert when the event is completed in this week."],
+							width = 2,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
+						},
+						stopAlertIfPlayerNotEnteredDragonlands = {
+							order = 7,
+							type = "toggle",
+							name = L["Only DF Character"],
+							desc = L["Stop alert when the player have not entered Dragonlands yet."],
+							width = 1.5,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
+						}
+					}
 				},
 				researchersUnderFire = {
-					order = 7,
+					order = 8,
 					type = "group",
 					inline = true,
 					name = L["Researchers Under Fire"],
@@ -1235,78 +1324,11 @@ options.maps = {
 						}
 					}
 				},
-				timeRiftThaldraszus = {
-					order = 8,
-					type = "group",
-					inline = true,
-					name = L["Time Rift Thaldraszus"],
-					get = function(info)
-						return E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]]
-					end,
-					set = function(info, value)
-						E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]] = value
-						ET:ProfileUpdate()
-					end,
-					args = {
-						enable = {
-							order = 1,
-							type = "toggle",
-							name = L["Enable"]
-						},
-						alert = {
-							order = 2,
-							type = "toggle",
-							name = L["Alert"]
-						},
-						sound = {
-							order = 3,
-							type = "toggle",
-							name = L["Alert Sound"],
-							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end,
-							desc = L["Play sound when the alert is triggered."]
-						},
-						soundFile = {
-							order = 4,
-							type = "select",
-							dialogControl = "LSM30_Sound",
-							name = L["Sound File"],
-							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
-									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
-							end,
-							values = LSM:HashTable("sound")
-						},
-						second = {
-							order = 5,
-							type = "range",
-							name = L["Alert Second"],
-							desc = L["Alert will be triggered when the remaining time is less than the set value."],
-							min = 0,
-							max = 3600,
-							step = 1,
-							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
-						},
-						stopAlertIfPlayerNotEnteredDragonlands = {
-							order = 6,
-							type = "toggle",
-							name = L["Only DF Character"],
-							desc = L["Stop alert when the player have not entered Dragonlands yet."],
-							width = 1.5,
-							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
-						}
-					}
-				},
-				superBloom = {
+				siegeOnDragonbaneKeep = {
 					order = 9,
 					type = "group",
 					inline = true,
-					name = L["Superbloom"],
+					name = L["Siege On Dragonbane Keep"],
 					get = function(info)
 						return E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]]
 					end,
@@ -1320,22 +1342,28 @@ options.maps = {
 							type = "toggle",
 							name = L["Enable"]
 						},
-						alert = {
+						desaturate = {
 							order = 2,
+							type = "toggle",
+							name = L["Desaturate"],
+							desc = L["Desaturate icon if the event is completed in this week."]
+						},
+						alert = {
+							order = 3,
 							type = "toggle",
 							name = L["Alert"]
 						},
 						sound = {
-							order = 3,
+							order = 4,
 							type = "toggle",
 							name = L["Alert Sound"],
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end,
-							desc = L["Play sound when the alert is triggered."]
+							desc = L["Play sound when the alert is triggered"],
 						},
 						soundFile = {
-							order = 4,
+							order = 5,
 							type = "select",
 							dialogControl = "LSM30_Sound",
 							name = L["Sound File"],
@@ -1346,7 +1374,7 @@ options.maps = {
 							values = LSM:HashTable("sound")
 						},
 						second = {
-							order = 5,
+							order = 6,
 							type = "range",
 							name = L["Alert Second"],
 							desc = L["Alert will be triggered when the remaining time is less than the set value."],
@@ -1357,8 +1385,18 @@ options.maps = {
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end
 						},
+						stopAlertIfCompleted = {
+							order = 7,
+							type = "toggle",
+							name = L["Stop Alert if Completed"],
+							desc = L["Stop alert when the event is completed in this week."],
+							width = 2,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
+						},
 						stopAlertIfPlayerNotEnteredDragonlands = {
-							order = 6,
+							order = 8,
 							type = "toggle",
 							name = L["Only DF Character"],
 							desc = L["Stop alert when the player have not entered Dragonlands yet."],
@@ -1366,11 +1404,94 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end
-						}
+						},
+					},
+				},
+				communityFeast = {
+					order = 10,
+					type = "group",
+					inline = true,
+					name = L["Community Feast"],
+					get = function(info)
+						return E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]] = value
+						ET:ProfileUpdate()
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"]
+						},
+						desaturate = {
+							order = 2,
+							type = "toggle",
+							name = L["Desaturate"],
+							desc = L["Desaturate icon if the event is completed in this week."]
+						},
+						alert = {
+							order = 3,
+							type = "toggle",
+							name = L["Alert"]
+						},
+						sound = {
+							order = 4,
+							type = "toggle",
+							name = L["Alert Sound"],
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end,
+							desc = L["Play sound when the alert is triggered"]
+						},
+						soundFile = {
+							order = 5,
+							type = "select",
+							dialogControl = "LSM30_Sound",
+							name = L["Sound File"],
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
+									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+							end,
+							values = LSM:HashTable("sound")
+						},
+						second = {
+							order = 6,
+							type = "range",
+							name = L["Alert Second"],
+							desc = L["Alert will be triggered when the remaining time is less than the set value."],
+							min = 0,
+							max = 3600,
+							step = 1,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
+						},
+						stopAlertIfCompleted = {
+							order = 7,
+							type = "toggle",
+							name = L["Stop Alert if Completed"],
+							desc = L["Stop alert when the event is completed in this week."],
+							width = 2,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
+						},
+						stopAlertIfPlayerNotEnteredDragonlands = {
+							order = 8,
+							type = "toggle",
+							name = L["Only DF Character"],
+							desc = L["Stop alert when the player have not entered Dragonlands yet."],
+							width = 1.5,
+							hidden = function(info)
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							end
+						},
 					}
 				},
 				iskaaranFishingNet = {
-					order = 10,
+					order = 11,
 					type = "group",
 					inline = true,
 					name = L["Iskaaran Fishing Net"],
@@ -1449,7 +1570,7 @@ do
 						L["Placeholders"] .. ":",
 						format("%s - %s", F.StringByTemplate("%mplus%", "info"), L["M+ Level"]),
 						format("%s - %s", F.StringByTemplate("%numPlayers%", "info"), L["Number of Players"]),
-						L["Custom color can be used by adding the following code"]..":",
+						L["Custom color can be used by adding the following code"] .. ":",
 						format("\124\124cff|cffff0000rr|r|cff00ff00gg|r|cff0000ffbb|r%s\124\124r", L["Custom String"])
 					),
 					get = function()

@@ -733,6 +733,8 @@ L["Use Default"] = true
 L["Researchers Under Fire"] = "Investigadores bajo el fuego"
 L["Time Rift"] = "Falla temporal"
 L["Superbloom"] = true
+L["Big Dig"] = true
+L["The Big Dig"] = true
 
 -- SMB
 L["Minimap Buttons"] = true

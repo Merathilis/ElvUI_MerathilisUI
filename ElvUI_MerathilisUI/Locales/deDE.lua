@@ -810,6 +810,8 @@ L["Use Default"] = "Benutze Standard"
 L["Researchers Under Fire"] = "Forscher unter Feuer"
 L["Time Rift"] = "Zeitriss"
 L["Superbloom"] = "Superblüte"
+L["Big Dig"] = "Große Buddeln"
+L["The Big Dig"] = "Das große Buddeln"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

@@ -697,10 +697,6 @@ P.actionbars = {
 	},
 }
 
-local function Filter()
-	return "POTIONDF,FLASKDF,RUNE,UTILITY"
-end
-
 P.autoButtons = {
 	enable = true,
 	customList = {},
@@ -801,8 +797,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		--include = "POTIONSL,FLASKSL,UTILITY"
-		include = Filter()
+		include = "POTIONDF,FLASKDF,RUNE,UTILITY"
 	},
 	bar3 = {
 		enable = true,
@@ -849,7 +844,7 @@ P.autoButtons = {
 				b = 1
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODDF,SEEDS,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODDF,BIGDIG,SEEDS,CUSTOM"
 	},
 	bar4 = {
 		enable = false,
@@ -1471,7 +1466,7 @@ P.maps = {
 			enable = false,
 			desaturate = false,
 			alert = true,
-			sound = true,
+			sound = false,
 			soundFile = "OnePlus Light",
 			second = 600,
 			stopAlertIfCompleted = true,
@@ -1481,7 +1476,7 @@ P.maps = {
 			enable = false,
 			desaturate = false,
 			alert = true,
-			sound = true,
+			sound = false,
 			soundFile = "OnePlus Light",
 			second = 600,
 			stopAlertIfCompleted = true,
@@ -1491,7 +1486,7 @@ P.maps = {
 			enable = true,
 			desaturate = false,
 			alert = true,
-			sound = true,
+			sound = false,
 			soundFile = "OnePlus Light",
 			second = 600,
 			stopAlertIfCompleted = true,
@@ -1499,30 +1494,40 @@ P.maps = {
 		},
 		timeRiftThaldraszus = {
 			enable = true,
-			desaturate = false,
+			desaturate = true,
 			alert = true,
-			sound = true,
+			sound = false,
 			soundFile = "OnePlus Light",
 			second = 600,
-			stopAlertIfCompleted = false,
+			stopAlertIfCompleted = true,
 			stopAlertIfPlayerNotEnteredDragonlands = true
 		},
-		iskaaranFishingNet = {
-			enable = false,
-			alert = true,
-			sound = true,
-			soundFile = "OnePlus Surprise",
-			disableAlertAfterHours = 48,
-		},
 		superBloom = {
+			enable = true,
+			desaturate = true,
+			alert = true,
+			sound = false,
+			soundFile = "OnePlus Light",
+			second = 600,
+			stopAlertIfCompleted = true,
+			stopAlertIfPlayerNotEnteredDragonlands = true
+		},
+		bigDig = {
 			enable = true,
 			desaturate = false,
 			alert = true,
 			sound = true,
 			soundFile = "OnePlus Light",
 			second = 600,
-			stopAlertIfCompleted = false,
+			stopAlertIfCompleted = true,
 			stopAlertIfPlayerNotEnteredDragonlands = true
+		},
+		iskaaranFishingNet = {
+			enable = false,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Light",
+			disableAlertAfterHours = 48,
 		},
 	},
 }

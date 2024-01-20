@@ -739,6 +739,8 @@ L["Use Default"] = "使用預設"
 L["Researchers Under Fire"] = true
 L["Time Rift"] = true
 L["Superbloom"] = true
+L["Big Dig"] = true
+L["The Big Dig"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地圖按鍵"

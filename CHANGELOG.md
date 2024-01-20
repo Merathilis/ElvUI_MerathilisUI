@@ -1,8 +1,5 @@
 ### Changes ###
 
-  * This version is for 10.2.5
-  * Fix bag skin
-  * Added a weekly reward check for the Time Rift
-  * Added a right click function on my durability datatext
-  * NEW: Added two install UnitFrame Layouts: Gradient/Dark
-
+  * Event Tracker: Added 'The Big Dig' on the Map
+  * AutoButtons: Added new filter for Big Dig
+  * LocPanel: Added some new dungeon Teleports
