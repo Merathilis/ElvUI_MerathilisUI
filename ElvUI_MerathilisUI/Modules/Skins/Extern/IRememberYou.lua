@@ -2,6 +2,10 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
+local _G = _G
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+if not C_AddOns_IsAddOnLoaded('IRememberYou') then return end
+
 function module:IRememberYou()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.iry then
 		return

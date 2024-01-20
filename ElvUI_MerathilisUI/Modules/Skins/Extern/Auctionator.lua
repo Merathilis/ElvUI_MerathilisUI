@@ -1,10 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
-if not IsAddOnLoaded("Auctionator") then return end
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+
+if not C_AddOns_IsAddOnLoaded("Auctionator") then return end
 
 -- modified from ElvUI Auction House Skin
 local function HandleListIcon(frame)
