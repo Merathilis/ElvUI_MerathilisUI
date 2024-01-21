@@ -1250,7 +1250,14 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["width"] = 200
 	E.db["unitframe"]["units"]["player"]["height"] = 20
 	E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
-	E.db["unitframe"]["units"]["player"]["RestIcon"]["enable"] = false
+	E.db["unitframe"]["units"]["player"]["RestIcon"]["enable"] = true
+	if E.db.mui.unitframes.restingIndicator then
+		E.db["unitframe"]["units"]["player"]["RestIcon"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["player"]["RestIcon"]["yOffset"] = 30
+	else
+		E.db["unitframe"]["units"]["player"]["RestIcon"]["xOffset"] = -3
+		E.db["unitframe"]["units"]["player"]["RestIcon"]["yOffset"] = 6
+	end
 	E.db["unitframe"]["units"]["player"]["threatStyle"] = "ICONTOPRIGHT"
 	E.db["unitframe"]["units"]["player"]["disableMouseoverGlow"] = false
 	E.db["unitframe"]["units"]["player"]["debuffs"]["enable"] = true
@@ -1332,16 +1339,7 @@ function MER:SetupUnitframes(layout)
 		["xOffset"] = 0,
 		["yOffset"] = 0,
 	}
-	E.db["unitframe"]["units"]["player"]["customTexts"]["Resting"] = {
-		["font"] = "Gotham Narrow Black",
-		["fontOutline"] = "SHADOWOUTLINE",
-		["size"] = 10,
-		["justifyH"] = "CENTER",
-		["text_format"] = "||cff70C0F5[mUI-resting]||r",
-		["attachTextTo"] = "Frame",
-		["xOffset"] = 0,
-		["yOffset"] = 0,
-	}
+	E.db["unitframe"]["units"]["player"]["customTexts"]["Resting"] = nil
 	E.db["unitframe"]["units"]["player"]["customTexts"]["MERPower"] = {
 		["font"] = "Gotham Narrow Black",
 		["fontOutline"] = "SHADOWOUTLINE",

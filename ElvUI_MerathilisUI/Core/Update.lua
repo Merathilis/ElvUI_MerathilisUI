@@ -40,12 +40,16 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion and profileVersion <= 5.65 then
-		if E.db.mui.notification and E.db.mui.notification.vignette and type(E.db.mui.notification.vignette) ~= 'table' then
-			E.db.mui.notification.vignette = {}
-			E.db.mui.notification.rarePrint = nil
+	if profileVersion and profileVersion <= 6.01 then
+		-- if E.db.mui.notification and E.db.mui.notification.vignette and type(E.db.mui.notification.vignette) ~= 'table' then
+		-- E.db.mui.notification.vignette = {}
+		-- E.db.mui.notification.rarePrint = nil
+		-- end
+		if E.db.unitframe.units.player.customTexts.Resting ~= nil then
+			E.db.unitframe.units.player.customTexts.Resting = nil
 		end
-		UpdateMessage(L["Armory"] .. " - " .. L["Updated Character Skin"], profileVersion)
+
+		UpdateMessage(L["UnitFrame"] .. " - " .. L["Updated Custom Text"], profileVersion)
 
 		updated = true
 	end
