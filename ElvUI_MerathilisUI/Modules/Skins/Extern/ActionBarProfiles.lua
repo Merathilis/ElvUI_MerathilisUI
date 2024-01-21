@@ -5,9 +5,6 @@ local S = E:GetModule('Skins')
 local _G = _G
 local pairs = pairs
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-if not C_AddOns_IsAddOnLoaded("ActionBarProfiles") then return end
-
 function module:ActionBarProfiles()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.abp then return; end
 

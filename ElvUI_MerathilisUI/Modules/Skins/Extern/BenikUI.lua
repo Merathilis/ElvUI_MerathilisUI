@@ -4,8 +4,6 @@ local module = MER:GetModule('MER_Skins')
 local _G = _G
 
 local CreateFrame = CreateFrame
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-if not C_AddOns_IsAddOnLoaded("ElvUI_BenikUI") then return; end
 
 function module:ElvUI_BenikUI()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bui then

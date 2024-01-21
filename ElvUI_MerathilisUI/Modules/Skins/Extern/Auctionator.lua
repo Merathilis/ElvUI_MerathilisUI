@@ -4,9 +4,6 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-
-if not C_AddOns_IsAddOnLoaded("Auctionator") then return end
 
 -- modified from ElvUI Auction House Skin
 local function HandleListIcon(frame)
