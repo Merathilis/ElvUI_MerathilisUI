@@ -2,7 +2,7 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local CH = E:GetModule('Chat')
 
 local _G = _G
-local ipairs = ipairs
+local ipairs, next = ipairs, next
 local format, checkTable = string.format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 
@@ -10,6 +10,8 @@ local ADDONS = ADDONS
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
 local FCF_SetWindowName = FCF_SetWindowName
 local FCF_ResetChatWindows = FCF_ResetChatWindows
+local FCF_ResetChatWindow = FCF_ResetChatWindow
+local FCF_DockFrame = FCF_DockFrame
 local FCF_OpenNewWindow = FCF_OpenNewWindow
 local FCF_SavePositionAndDimensions = FCF_SavePositionAndDimensions
 local FCF_StopDragging = FCF_StopDragging
@@ -22,6 +24,7 @@ local VoiceTranscriptionFrame_UpdateEditBox = VoiceTranscriptionFrame_UpdateEdit
 local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateVisibility
 local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
 local LOOT = LOOT
+local VOICE = VOICE
 
 local C_UI_Reload = C_UI.Reload
 local C_CVar_SetCVar = C_CVar.SetCVar
@@ -88,18 +91,24 @@ local function SetupChat()
 		E.db.movers = {}
 	end
 
+	local chats = _G.CHAT_FRAMES
+
 	-- Reset chat to Blizzard defaults
 	FCF_ResetChatWindows()
+
+	-- Force initialize text-to-speech (it doesn't get shown)
+	local voiceChat = _G[chats[3]]
+	FCF_ResetChatWindow(voiceChat, VOICE)
+	FCF_DockFrame(voiceChat, 3)
 
 	-- Open one new channel for own Trade
 	FCF_OpenNewWindow()
 
-	for _, name in ipairs(_G.CHAT_FRAMES) do
+	for id, name in next, chats do
 		local frame = _G[name]
-		local id = frame:GetID()
 
 		if E.private.chat.enable then
-			CH:FCFTab_UpdateColors(CH:GetTab(_G[name]))
+			CH:FCFTab_UpdateColors(CH:GetTab(frame))
 		end
 
 		-- Font size 11 for the Chat Frames
