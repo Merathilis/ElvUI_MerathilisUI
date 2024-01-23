@@ -2,6 +2,8 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
 
 local unpack = unpack
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+if not C_AddOns_IsAddOnLoaded("ls_Toasts") then return end
 
 local LST = unpack(ls_Toasts)
 

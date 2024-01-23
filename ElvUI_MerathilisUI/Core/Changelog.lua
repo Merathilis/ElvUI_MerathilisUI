@@ -12,9 +12,7 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-	"• Fix chat install",
-	"• Created an animated Resting Indicator",
-	"• Added Skin for 'I Remember You'",
+	"• Fix skin issues if the desired AddOn is not enabled",
 
 	-- "• ''",
 

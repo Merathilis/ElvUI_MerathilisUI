@@ -2,11 +2,8 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Call the AddOn
-local AddOn = E.Libs.AceAddon:GetAddon('BagSync')
-
 function module:BagSyncSearch()
-	local Search = AddOn:GetModule('Search')
+	local Search = module.AddOn:GetModule('Search')
 
 	S:HandleFrame(Search.frame, true)
 	module:CreateBackdropShadow(Search.frame)
@@ -48,7 +45,7 @@ function module:BagSyncSearch()
 end
 
 function module:BagSyncAdvancedSearch()
-	local adv = AddOn:GetModule('AdvancedSearch')
+	local adv = module.AddOn:GetModule('AdvancedSearch')
 
 	S:HandleFrame(adv.frame, true)
 	module:CreateBackdropShadow(adv.frame)
@@ -74,7 +71,7 @@ function module:BagSyncAdvancedSearch()
 end
 
 function module:BagSyncCurrency()
-	local Currency = AddOn:GetModule('Currency')
+	local Currency = module.AddOn:GetModule('Currency')
 
 	S:HandleFrame(Currency.frame, true)
 	module:CreateBackdropShadow(Currency.frame)
@@ -94,7 +91,7 @@ function module:BagSyncCurrency()
 end
 
 function module:BagSyncProfessions()
-	local Professions = AddOn:GetModule('Professions')
+	local Professions = module.AddOn:GetModule('Professions')
 
 	S:HandleFrame(Professions.frame, true)
 	module:CreateBackdropShadow(Professions.frame)
@@ -114,7 +111,7 @@ function module:BagSyncProfessions()
 end
 
 function module:BagSyncBlacklist()
-	local Blacklist = AddOn:GetModule('Blacklist')
+	local Blacklist = module.AddOn:GetModule('Blacklist')
 
 	S:HandleFrame(Blacklist.frame, true)
 	module:CreateBackdropShadow(Blacklist.frame)
@@ -138,7 +135,7 @@ function module:BagSyncBlacklist()
 end
 
 function module:BagSyncWhitelist()
-	local Whitelist = AddOn:GetModule("Whitelist")
+	local Whitelist = module.AddOn:GetModule("Whitelist")
 
 	S:HandleFrame(Whitelist.frame, true)
 	module:CreateBackdropShadow(Whitelist.frame)
@@ -166,7 +163,7 @@ function module:BagSyncWhitelist()
 end
 
 function module:BagSyncGold()
-	local Gold = AddOn:GetModule('Gold')
+	local Gold = module.AddOn:GetModule('Gold')
 
 	S:HandleFrame(Gold.frame, true)
 	module:CreateBackdropShadow(Gold.frame)
@@ -186,7 +183,7 @@ function module:BagSyncGold()
 end
 
 function module:BagSyncProfiles()
-	local Profiles = AddOn:GetModule('Profiles')
+	local Profiles = module.AddOn:GetModule('Profiles')
 
 	S:HandleFrame(Profiles.frame, true)
 	module:CreateBackdropShadow(Profiles.frame)
@@ -206,7 +203,7 @@ function module:BagSyncProfiles()
 end
 
 function module:BagSyncSortOrder()
-	local SortOrder = AddOn:GetModule('SortOrder')
+	local SortOrder = module.AddOn:GetModule('SortOrder')
 	S:HandleFrame(SortOrder.frame, true)
 	module:CreateBackdropShadow(SortOrder.frame)
 	SortOrder.frame:Styling()
@@ -242,7 +239,7 @@ function module:BagSyncSortOrder()
 end
 
 function module:BagSyncDetails()
-	local Details = AddOn:GetModule('Details')
+	local Details = module.AddOn:GetModule('Details')
 
 	S:HandleFrame(Details.frame, true)
 	module:CreateBackdropShadow(Details.frame)
@@ -267,22 +264,25 @@ function module:BagSync()
 		return
 	end
 
+	-- Call the AddOn
+	self.AddOn = E.Libs.AceAddon:GetAddon('BagSync')
+
 	module:DisableAddOnSkins('BagSync', false)
 
 	-- We need to set a delay, cause it loads very early
 	E:Delay(0.1, function()
-		module:BagSyncSearch()   -- Main Search
-		module:BagSyncAdvancedSearch() -- Advanced Search
+		self:BagSyncSearch()   -- Main Search
+		self:BagSyncAdvancedSearch() -- Advanced Search
 
 		--Modules
-		module:BagSyncCurrency()
-		module:BagSyncProfessions()
-		module:BagSyncBlacklist()
-		module:BagSyncWhitelist()
-		module:BagSyncGold()
-		module:BagSyncProfiles()
-		module:BagSyncSortOrder()
-		module:BagSyncDetails()
+		self:BagSyncCurrency()
+		self:BagSyncProfessions()
+		self:BagSyncBlacklist()
+		self:BagSyncWhitelist()
+		self:BagSyncGold()
+		self:BagSyncProfiles()
+		self:BagSyncSortOrder()
+		self:BagSyncDetails()
 	end)
 end
 
