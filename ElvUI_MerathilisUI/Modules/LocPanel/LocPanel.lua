@@ -294,9 +294,11 @@ module.Spells = {
 		[47] = { text = GetSpellInfo(410074), icon = F.GetIconFromID('spell', 410074), secure = { buttonType = 'spell', ID = 410074 }, UseTooltip = true }, -- Teleport: The Underrot (Path of Festering Rot)
 		[48] = { text = GetSpellInfo(410078), icon = F.GetIconFromID('spell', 410078), secure = { buttonType = 'spell', ID = 410078 }, UseTooltip = true }, -- Teleport: Neltharion's Lair (Path of the Earth-Warder)
 		[49] = { text = GetSpellInfo(410080), icon = F.GetIconFromID('spell', 410080), secure = { buttonType = 'spell', ID = 410080 }, UseTooltip = true }, -- Teleport to The Vortex Pinnacle (Path of Wind's Domain)
-		[50] = { text = GetSpellInfo(424153), icon = F.GetIconFromID('spell', 424153), secure = { buttonType = 'spell', ID = 424153 }, UseTooltip = true }, -- Teleport to Black Rock Hold (Path of Ancient Horrors)
-		[51] = { text = GetSpellInfo(424163), icon = F.GetIconFromID('spell', 424163), secure = { buttonType = 'spell', ID = 424163 }, UseTooltip = true }, -- Teleport to Darkheart Thicket (Path of the Nightmare Lord)
-		[52] = { text = GetSpellInfo(424187), icon = F.GetIconFromID('spell', 424187), secure = { buttonType = 'spell', ID = 424187 }, UseTooltip = true }, -- Teleport to Atal'Dazar (Path of the Golden Tomb)
+		[50] = { text = GetSpellInfo(424142), icon = F.GetIconFromID('spell', 424142), secure = { buttonType = 'spell', ID = 424142 }, UseTooltip = true }, -- Teleport to Throne of the Tides (Path of the Tidehunter)
+		[51] = { text = GetSpellInfo(424153), icon = F.GetIconFromID('spell', 424153), secure = { buttonType = 'spell', ID = 424153 }, UseTooltip = true }, -- Teleport to Black Rock Hold (Path of Ancient Horrors)
+		[52] = { text = GetSpellInfo(424163), icon = F.GetIconFromID('spell', 424163), secure = { buttonType = 'spell', ID = 424163 }, UseTooltip = true }, -- Teleport to Darkheart Thicket (Path of the Nightmare Lord)
+		[53] = { text = GetSpellInfo(424167), icon = F.GetIconFromID('spell', 424167), secure = { buttonType = 'spell', ID = 424167 }, UseTooltip = true }, -- Teleport to Waycrest Manor (Path of Heart's Bane)
+		[54] = { text = GetSpellInfo(424187), icon = F.GetIconFromID('spell', 424187), secure = { buttonType = 'spell', ID = 424187 }, UseTooltip = true }, -- Teleport to Atal'Dazar (Path of the Golden Tomb)
 		[55] = { text = GetSpellInfo(424197), icon = F.GetIconFromID('spell', 424197), secure = { buttonType = 'spell', ID = 424197 }, UseTooltip = true }, -- Teleport to Dawn of the Infinite (Path of Twisted Time)
 	},
 }
