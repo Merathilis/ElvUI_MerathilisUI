@@ -12,9 +12,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-	"• Event Tracker: Added 'The Big Dig' on the Map",
-	"• AutoButtons: Added new filter for Big Dig",
-	"• LocPanel: Added some new dungeon Teleports",
+	"• Fix chat install",
+	"• Created an animated Resting Indicator",
+	"• Added Skin for 'I Remember You'",
 
 	-- "• ''",
 
