@@ -1,13 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
-if not IsAddOnLoaded("ElvUI_BenikUI") then return; end
 
 local _G = _G
 
 local CreateFrame = CreateFrame
 
-local function LoadSkin()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bui then return; end
+function module:ElvUI_BenikUI()
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bui then
+		return
+	end
 
 	local BuiLeftChatDTPanel = _G.BuiLeftChatDTPanel
 	if BuiLeftChatDTPanel then
@@ -35,7 +36,7 @@ local function LoadSkin()
 	f:SetScript("OnEvent", function(self, event)
 		if event then
 			for i = 1, 4 do
-				local button = _G["BuiButton_"..i]
+				local button = _G["BuiButton_" .. i]
 				if button then
 					button:Styling()
 				end
@@ -45,4 +46,4 @@ local function LoadSkin()
 	end)
 end
 
-module:AddCallbackForAddon("ElvUI_BenikUI", LoadSkin)
+module:AddCallbackForAddon("ElvUI_BenikUI")

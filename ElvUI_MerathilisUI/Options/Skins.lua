@@ -28,6 +28,7 @@ local DecorAddons = {
 	{ "RaiderIO",            L["RaiderIO"],            "rio" },
 	{ "ls_Toasts",           L["ls_Toasts"],           "ls" },
 	{ "TLDRMissions",        L["TLDRMissions"],        "tldr" },
+	{ "IRememberYou",        L["I Remember you"],      "iry" },
 }
 if F.IsDeveloper() then
 	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "wa" })
@@ -2142,7 +2143,7 @@ options.advancedSettings = {
 								format("%s\n%s\n\n",
 									format(L["The options below are only for BigWigs %s bar style."], MER.Title),
 									format(L["You need to manually set the bar style to %s in BigWigs first."], MER
-									.Title)),
+										.Title)),
 								"warning") .. L["How to change BigWigs bar style:"] ..
 							"\n" .. L["Open BigWigs Options UI with /bw > Bars > Style."] .. "\n\n"
 					end,

@@ -1,7 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
-if not IsAddOnLoaded("ActionBarProfiles") then return end
 
 local _G = _G
 local pairs = pairs

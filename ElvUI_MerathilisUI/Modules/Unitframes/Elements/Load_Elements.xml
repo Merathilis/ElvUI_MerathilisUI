@@ -11,6 +11,7 @@
 	<Script file="OfflineIndicator.lua"/>
 	<Script file="Power.lua"/>
 	<Script file="RaidIcon.lua"/>
+	<Script file="RestingIndicator.lua"/>
 	<Script file="RoleIcons.lua"/>
 	<Script file="Swing.lua"/>
 	<Script file="Threat.lua"/>

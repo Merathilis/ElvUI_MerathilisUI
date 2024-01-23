@@ -1341,6 +1341,10 @@ P.unitframes = {
 		texture = 'MATERIAL',
 		custom = '',
 	},
+	restingIndicator = {
+		enable = true,
+		customClassColor = false,
+	}
 }
 
 P.nameplates = {

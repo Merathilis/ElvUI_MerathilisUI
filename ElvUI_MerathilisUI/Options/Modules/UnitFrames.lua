@@ -30,8 +30,8 @@ options.unitframes = {
 	type = "group",
 	name = L["UnitFrames"],
 	childGroups = "tab",
-	get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
-	set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; end,
+	get = function(info) return E.db.mui.unitframes[info[#info]] end,
+	set = function(info, value) E.db.mui.unitframes[info[#info]] = value; end,
 	disabled = function() return not E.private.unitframe.enable end,
 	args = {
 		name = {
@@ -110,8 +110,10 @@ options.unitframes = {
 							type = "input",
 							name = L["Type the Model ID"],
 							width = "full",
-							disabled = function() return E.db.mui.unitframes.power.type == "DEFAULT" or
-									not E.db.mui.unitframes.power.enable end,
+							disabled = function()
+								return E.db.mui.unitframes.power.type == "DEFAULT" or
+									not E.db.mui.unitframes.power.enable
+							end,
 							validate = function(_, value)
 								if tonumber(value) ~= nil then
 									return true
@@ -205,8 +207,10 @@ options.unitframes = {
 									type = "color",
 									name = _G.COLOR,
 									hasAlpha = false,
-									disabled = function() return not E.db.mui.unitframes.castbar.enable or
-											not E.db.mui.unitframes.castbar.spark.enable end,
+									disabled = function()
+										return not E.db.mui.unitframes.castbar.enable or
+											not E.db.mui.unitframes.castbar.spark.enable
+									end,
 									get = function(info)
 										local t = E.db.mui.unitframes.castbar.spark[info[#info]]
 										local d = P.unitframes.castbar.spark[info[#info]]
@@ -222,7 +226,9 @@ options.unitframes = {
 									order = 4,
 									type = "range",
 									name = L["Size"],
-									min = 2, max = 10, step = 1,
+									min = 2,
+									max = 10,
+									step = 1,
 									disabled = function()
 										return not E.db.mui.unitframes.castbar.enable or
 											not E.db.mui.unitframes.castbar.spark.enable
@@ -362,7 +368,7 @@ options.unitframes = {
 									order = 1,
 									type = "description",
 									name = L["Modify the texture of the absorb bar."] ..
-									"\n" .. L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."],
+										"\n" .. L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."],
 									fontSize = "medium"
 								}
 							}
@@ -505,8 +511,12 @@ options.unitframes = {
 									desc = L["Change the color of the absorb bar."],
 									func = function(info)
 										E.db.unitframe.colors.healPrediction.absorbs = { r = 0.06, g = 0.83, b = 1, a = 1 }
-										E.db.unitframe.colors.healPrediction.overabsorbs = { r = 0.06, g = 0.83, b = 1,
-											a = 1 }
+										E.db.unitframe.colors.healPrediction.overabsorbs = {
+											r = 0.06,
+											g = 0.83,
+											b = 1,
+											a = 1
+										}
 									end,
 									width = 2
 								},
@@ -529,13 +539,49 @@ options.unitframes = {
 				},
 			},
 		},
-		--[[individualUnits = {
+		individualUnits = {
 			order = 3,
 			type = "group",
 			name = L["Individual Units"],
 			args = {
+				player = {
+					order = 1,
+					type = "group",
+					name = L["Player"],
+					args = {
+						restingIndicator = {
+							order = 1,
+							type = "group",
+							name = E.NewSign .. F.cOption(L["Resting Indicator"], 'orange'),
+							guiInline = true,
+							get = function(info)
+								return E.db.mui.unitframes.restingIndicator[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.unitframes.restingIndicator[info[#info]] = value
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
+							disabled = function()
+								return not E.db.unitframe.units.player.enable or
+									not E.db.unitframe.units.player.RestIcon.enable
+							end,
+							args = {
+								enable = {
+									order = 1,
+									type = "toggle",
+									name = L["Enable"]
+								},
+								customClassColor = {
+									order = 2,
+									type = "toggle",
+									name = L["Custom Gradient Color"]
+								},
+							},
+						},
+					}
+				}
 			},
-		},]]
+		},
 		groupUnits = {
 			order = 4,
 			type = "group",
@@ -586,20 +632,28 @@ options.unitframes = {
 									type = "range",
 									name = L["X-Offset"],
 									disabled = function() return not E.db.mui.unitframes.offlineIndicator.enable end,
-									min = -300, max = 300, step = 1
+									min = -300,
+									max = 300,
+									step = 1
 								},
 								yOffset = {
 									order = 4,
 									type = "range",
 									name = L["Y-Offset"],
 									disabled = function() return not E.db.mui.unitframes.offlineIndicator.enable end,
-									min = -300, max = 300, step = 1
+									min = -300,
+									max = 300,
+									step = 1
 								},
 								size = {
 									order = 5,
 									type = "range",
 									name = L["Size"],
-									softMin = 14, softMax = 64, min = 12, max = 128, step = 1,
+									softMin = 14,
+									softMax = 64,
+									min = 12,
+									max = 128,
+									step = 1,
 									disabled = function() return not E.db.mui.unitframes.offlineIndicator.enable end,
 								},
 								texture = {
@@ -664,20 +718,28 @@ options.unitframes = {
 									type = "range",
 									name = L["X-Offset"],
 									disabled = function() return not E.db.mui.unitframes.deathIndicator.enable end,
-									min = -300, max = 300, step = 1
+									min = -300,
+									max = 300,
+									step = 1
 								},
 								yOffset = {
 									order = 4,
 									type = "range",
 									name = L["Y-Offset"],
 									disabled = function() return not E.db.mui.unitframes.deathIndicator.enable end,
-									min = -300, max = 300, step = 1
+									min = -300,
+									max = 300,
+									step = 1
 								},
 								size = {
 									order = 5,
 									type = "range",
 									name = L["Size"],
-									softMin = 14, softMax = 64, min = 12, max = 128, step = 1,
+									softMin = 14,
+									softMax = 64,
+									min = 12,
+									max = 128,
+									step = 1,
 									disabled = function() return not E.db.mui.unitframes.deathIndicator.enable end,
 								},
 								texture = {
@@ -767,7 +829,7 @@ do
 end
 
 options.unitframes.args.general.args.roleIcons = {
-	order = 6,
+	order = 7,
 	type = "group",
 	name = F.cOption(L["Role Icons"], "orange"),
 	guiInline = true,

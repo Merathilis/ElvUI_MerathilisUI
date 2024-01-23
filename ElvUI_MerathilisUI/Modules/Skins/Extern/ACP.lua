@@ -3,9 +3,6 @@ local module = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
 local _G = _G
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-
-if not C_AddOns_IsAddOnLoaded('ACP') then return end
 
 local function cbResize(self, event, ...)
 	for i = 1, 20 do
