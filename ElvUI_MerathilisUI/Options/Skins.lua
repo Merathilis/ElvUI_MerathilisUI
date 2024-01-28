@@ -29,6 +29,7 @@ local DecorAddons = {
 	{ "ls_Toasts",           L["ls_Toasts"],           "ls" },
 	{ "TLDRMissions",        L["TLDRMissions"],        "tldr" },
 	{ "IRememberYou",        L["I Remember you"],      "iry" },
+	{ "TalentLoadoutsEx",    L["TalentLoadoutsEx"],    "tlx" },
 }
 if F.IsDeveloper() then
 	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "wa" })

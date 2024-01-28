@@ -17,6 +17,7 @@
 	<Script file="PremadeGroupsFilter.lua"/>
 	<Script file="RaiderIO.lua"/>
 	<Script file="stAddOnManager.lua"/>
+	<Script file="TalentLoadoutsEx.lua"/>
 	<Script file='WeakAuras.lua'/>
 	<Script file='WeakAurasOptions.lua'/>
 </Ui>
