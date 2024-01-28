@@ -124,8 +124,6 @@ function module:Initialize()
 	-- Castbar
 	hooksecurefunc(UF, "LoadUnits", module.CastBarHooks)
 	hooksecurefunc(UF, "LoadUnits", module.UpdateAllCastbars)
-	-- Power
-	hooksecurefunc(UF, "Configure_Power", module.Configure_Power)
 	-- Power Textures
 	module:ChangePowerBarTexture()
 	hooksecurefunc(UF, 'Update_StatusBars', module.ChangePowerBarTexture)
@@ -142,6 +140,7 @@ function module:Initialize()
 	end
 
 	self:RegisterEvent("ADDON_LOADED")
+	print("Blub")
 end
 
 MER:RegisterModule(module:GetName())

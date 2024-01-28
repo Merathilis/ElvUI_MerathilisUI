@@ -1659,6 +1659,8 @@ P.tooltip = {
 	petIcon = true,
 	petId = true,
 	gradientName = false,
+	yOffsetOfHealthBar = -3,
+	yOffsetOfHealthText = 0,
 }
 
 P.itemLevel = {
