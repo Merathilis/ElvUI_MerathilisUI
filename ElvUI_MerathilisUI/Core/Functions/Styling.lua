@@ -44,56 +44,6 @@ function MER:UpdateStyling()
 	end
 end
 
-local function Styling(f, useStripes)
-	assert(f, "doesn't exist!")
-
-	if not f or f.__MERstyle or f.MERstyle or f.style__MER then
-		return
-	end
-
-	if not E.private.mui.skins.enable or not E.private.mui.skins.style then
-		return
-	end
-
-	if f:GetObjectType() == "Texture" then
-		f = f:GetParent()
-	end
-
-	local style = CreateFrame("Frame", nil, f, "BackdropTemplate")
-
-	if not (useStripes) then
-		local stripes = f:CreateTexture(f:GetName() and f:GetName() .. "Overlay" or nil, "BORDER")
-		stripes:ClearAllPoints()
-		stripes:Point("TOPLEFT", 1, -1)
-		stripes:Point("BOTTOMRIGHT", -1, 1)
-		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\stripes]], true, true)
-		stripes:SetHorizTile(true)
-		stripes:SetVertTile(true)
-		stripes:SetBlendMode("ADD")
-
-		style.stripes = stripes
-	end
-
-	if not (useShadow) then
-		local mshadow = f:CreateTexture(f:GetName() and f:GetName() .. "Overlay" or nil, "BORDER")
-		mshadow:SetInside(f, 0, 0)
-		mshadow:Width(33)
-		mshadow:Height(33)
-		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Overlay]])
-		mshadow:SetVertexColor(1, 1, 1, 0.6)
-
-		style.mshadow = mshadow
-	end
-
-	style:SetFrameStrata(f:GetFrameStrata())
-	style:SetFrameLevel(f:GetFrameLevel() + 1)
-	style:SetAllPoints(f)
-	style.__MER = true
-
-	f.MERstyle = style
-	f.__MERstyle = 1
-end
-
 local BlizzardFrameRegions = {
 	'Inset',
 	'inset',
