@@ -14,7 +14,6 @@ function module:Immersion_ReskinTitleButton(frame)
 			button.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -10, 3)
 			module:CreateBackdropShadow(button)
 			module:CreateGradient(button.backdrop)
-			button.backdrop:Styling()
 
 			button.Hilite:StripTextures()
 			button.Overlay:StripTextures()
@@ -119,7 +118,6 @@ function module:Immersion()
 	talkBox.backdrop:SetPoint("BOTTOMRIGHT", talkBox, "BOTTOMRIGHT", -10, 10)
 	module:CreateBackdropShadow(talkBox)
 	module:CreateGradient(talkBox.backdrop)
-	talkBox.backdrop:Styling()
 
 	-- Use colored backdrop edge as highlight
 	talkBox.Hilite:StripTextures()
@@ -181,7 +179,6 @@ function module:Immersion()
 	F.SetFontOutline(elements.Progress.ReqText)
 	module:CreateBackdropShadow(elements)
 	module:CreateGradient(elements.backdrop)
-	elements.backdrop:Styling()
 
 	-- Details
 	local content = elements.Content

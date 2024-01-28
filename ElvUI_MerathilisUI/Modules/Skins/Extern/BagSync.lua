@@ -7,7 +7,6 @@ function module:BagSyncSearch()
 
 	S:HandleFrame(Search.frame, true)
 	module:CreateBackdropShadow(Search.frame)
-	Search.frame:Styling()
 
 	S:HandleCloseButton(Search.frame.closeBtn)
 	S:HandleEditBox(Search.frame.SearchBox)
@@ -29,13 +28,11 @@ function module:BagSyncSearch()
 
 	S:HandleFrame(Search.helpFrame, true)
 	module:CreateBackdropShadow(Search.helpFrame)
-	Search.helpFrame:Styling()
 	S:HandleCloseButton(Search.helpFrame.CloseButton)
 	S:HandleScrollBar(Search.helpFrame.ScrollFrame.ScrollBar)
 
 	S:HandleFrame(Search.savedSearch, true)
 	module:CreateBackdropShadow(Search.savedSearch)
-	Search.savedSearch:Styling()
 	S:HandleCloseButton(Search.savedSearch.CloseButton)
 	S:HandleButton(Search.savedSearch.addSavedBtn)
 	S:HandleScrollBar(Search.savedSearch.scrollFrame.scrollBar)
@@ -49,7 +46,6 @@ function module:BagSyncAdvancedSearch()
 
 	S:HandleFrame(adv.frame, true)
 	module:CreateBackdropShadow(adv.frame)
-	adv.frame:Styling()
 
 	S:HandleCloseButton(adv.frame.closeBtn)
 	S:HandleEditBox(adv.frame.SearchBox)
@@ -75,8 +71,6 @@ function module:BagSyncCurrency()
 
 	S:HandleFrame(Currency.frame, true)
 	module:CreateBackdropShadow(Currency.frame)
-	Currency.frame:Styling()
-
 	S:HandleCloseButton(Currency.frame.closeBtn)
 
 	local header = Currency.frame
@@ -95,8 +89,6 @@ function module:BagSyncProfessions()
 
 	S:HandleFrame(Professions.frame, true)
 	module:CreateBackdropShadow(Professions.frame)
-	Professions.frame:Styling()
-
 	S:HandleCloseButton(Professions.frame.closeBtn)
 
 	local header = Professions.frame
@@ -115,8 +107,6 @@ function module:BagSyncBlacklist()
 
 	S:HandleFrame(Blacklist.frame, true)
 	module:CreateBackdropShadow(Blacklist.frame)
-	Blacklist.frame:Styling()
-
 	S:HandleCloseButton(Blacklist.frame.closeBtn)
 	S:HandleDropDownBox(Blacklist.frame.guildDD)
 	S:HandleButton(Blacklist.frame.addGuildBtn)
@@ -139,8 +129,6 @@ function module:BagSyncWhitelist()
 
 	S:HandleFrame(Whitelist.frame, true)
 	module:CreateBackdropShadow(Whitelist.frame)
-	Whitelist.frame:Styling()
-
 	S:HandleCloseButton(Whitelist.frame.closeBtn)
 	S:HandleButton(Whitelist.frame.addItemIDBtn)
 	S:HandleEditBox(Whitelist.frame.itemIDBox)
@@ -157,8 +145,6 @@ function module:BagSyncWhitelist()
 
 	S:HandleFrame(Whitelist.warningFrame, true)
 	module:CreateBackdropShadow(Whitelist.warningFrame)
-	Whitelist.warningFrame:Styling()
-
 	S:HandleCloseButton(Whitelist.warningFrame.CloseButton)
 end
 
@@ -167,8 +153,6 @@ function module:BagSyncGold()
 
 	S:HandleFrame(Gold.frame, true)
 	module:CreateBackdropShadow(Gold.frame)
-	Gold.frame:Styling()
-
 	S:HandleCloseButton(Gold.frame.closeBtn)
 
 	local header = Gold.frame
@@ -187,8 +171,6 @@ function module:BagSyncProfiles()
 
 	S:HandleFrame(Profiles.frame, true)
 	module:CreateBackdropShadow(Profiles.frame)
-	Profiles.frame:Styling()
-
 	S:HandleCloseButton(Profiles.frame.closeBtn)
 
 	local header = Profiles.frame
@@ -206,8 +188,6 @@ function module:BagSyncSortOrder()
 	local SortOrder = module.AddOn:GetModule('SortOrder')
 	S:HandleFrame(SortOrder.frame, true)
 	module:CreateBackdropShadow(SortOrder.frame)
-	SortOrder.frame:Styling()
-
 	S:HandleCloseButton(SortOrder.frame.closeBtn)
 
 	local header = SortOrder.frame
@@ -233,8 +213,6 @@ function module:BagSyncSortOrder()
 
 	S:HandleFrame(SortOrder.warningFrame, true)
 	module:CreateBackdropShadow(SortOrder.warningFrame)
-	SortOrder.warningFrame:Styling()
-
 	S:HandleCloseButton(SortOrder.warningFrame.CloseButton)
 end
 
@@ -243,8 +221,6 @@ function module:BagSyncDetails()
 
 	S:HandleFrame(Details.frame, true)
 	module:CreateBackdropShadow(Details.frame)
-	Details.frame:Styling()
-
 	S:HandleCloseButton(Details.frame.closeBtn)
 
 	local header = Details.frame

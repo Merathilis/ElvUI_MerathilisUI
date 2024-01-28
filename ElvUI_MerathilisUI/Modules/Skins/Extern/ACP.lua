@@ -28,7 +28,6 @@ function module:ACP()
 	S:HandleFrame(_G.ACP_AddonList, true, nil, 10, nil, -30)
 	S:HandleFrame(_G.ACP_AddonList_ScrollFrame)
 	module:CreateBackdropShadow(_G.ACP_AddonList)
-	_G.ACP_AddonList.backdrop:Styling()
 
 	S:HandleDropDownBox(_G.ACP_AddonListSortDropDown)
 	S:HandleScrollBar(_G.ACP_AddonList_ScrollFrameScrollBar)

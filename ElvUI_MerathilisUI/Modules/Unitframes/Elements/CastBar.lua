@@ -8,72 +8,6 @@ local hooksecurefunc = hooksecurefunc
 local MAX_BOSS_FRAMES = 8
 local units = { "Player", "Target", "Focus", "Pet" }
 
-function module:Configure_Castbar(frame)
-	if not frame.Castbar then
-		return
-	end
-
-	local db = frame.db.castbar
-
-	if frame.Castbar.backdrop and not  frame.Castbar.__MERSkin then
-		frame.Castbar.backdrop:Styling(false, false, true)
-		frame.Castbar.__MERSkin = true
-	end
-
-	if not frame.Castbar.MERShadowBackdrop then
-		frame.Castbar.MERShadowBackdrop = CreateFrame("Frame", nil, frame.Castbar)
-		frame.Castbar.MERShadowBackdrop:SetFrameStrata(frame.Castbar.backdrop:GetFrameStrata())
-		frame.Castbar.MERShadowBackdrop:SetFrameLevel(frame.Castbar.backdrop:GetFrameLevel() or 1)
-	end
-
-	local MERBg = frame.Castbar.MERShadowBackdrop
-	local iconBg = frame.Castbar.ButtonIcon.bg
-
-	if not db.iconAttached then
-		if not MERBg.mode or MERBg.mode ~= "NotAttach" then
-			-- Icon shadow
-			S:CreateShadow(frame.Castbar.ButtonIcon.bg)
-			if frame.Castbar.ButtonIcon.bg.MERshadow then
-				frame.Castbar.ButtonIcon.bg.MERshadow:Show()
-			end
-
-			-- Bar shadow
-			MERBg:ClearAllPoints()
-			MERBg:SetAllPoints(frame.Castbar.backdrop)
-			MERBg.mode = "NotAttach"
-		end
-	else
-		if not MERBg.mode or MERBg.mode ~= "Attach" then
-			-- Disable icon shadow
-			if frame.Castbar.ButtonIcon.bg.MERshadow then
-				frame.Castbar.ButtonIcon.bg.MERshadow:Hide()
-			end
-
-			if frame.ORIENTATION == "LEFT" then
-				-- |-- Icon --| ---------------- Time Bar ---------------|
-				-- |---------------- MERShadowBackdrop ------------------|
-				MERBg:ClearAllPoints()
-				MERBg:Point("TOPRIGHT", frame.Castbar.backdrop, "TOPRIGHT")
-				MERBg:Point("BOTTOMRIGHT", frame.Castbar.backdrop, "BOTTOMRIGHT")
-				MERBg:Point("TOPLEFT", iconBg, "TOPLEFT")
-				MERBg:Point("BOTTOMLEFT", iconBg, "BOTTOMLEFT")
-				MERBg.mode = "Attach"
-			elseif frame.ORIENTATION == "RIGHT" then
-				-- |----------------- Time Bar ---------------|-- Icon --|
-				-- |---------------- MERShadowBackdrop ------------------|
-				MERBg:ClearAllPoints()
-				MERBg:Point("TOPLEFT", frame.Castbar.backdrop, "TOPLEFT")
-				MERBg:Point("BOTTOMLEFT", frame.Castbar.backdrop, "BOTTOMLEFT")
-				MERBg:Point("TOPRIGHT", iconBg, "TOPRIGHT")
-				MERBg:Point("BOTTOMRIGHT", iconBg, "BOTTOMRIGHT")
-				MERBg.mode = "Attach"
-			end
-		end
-	end
-
-	S:CreateShadow(MERBg)
-end
-
 local function ConfigureCastbarSpark(unit, unitframe)
 	local castbar = unitframe.Castbar
 	if not castbar then
@@ -98,7 +32,7 @@ end
 
 function module:UpdateSettings(unit)
 	if unit then
-		local unitFrameName = 'ElvUF_'..E:StringTitle(unit)
+		local unitFrameName = 'ElvUF_' .. E:StringTitle(unit)
 		local unitframe = _G[unitFrameName]
 		ConfigureCastbar(unit, unitframe)
 	end
@@ -132,9 +66,15 @@ function module:PostCast(unit, unitframe)
 	end
 
 	if not self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1), CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
+		self:GetStatusBarTexture():SetGradient("HORIZONTAL",
+			CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1),
+			CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
 	elseif self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1), CreateColor(F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1))
+		self:GetStatusBarTexture():SetGradient("HORIZONTAL",
+			CreateColor(F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"]
+				.b2, 1),
+			CreateColor(F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"]
+				.b1, 1))
 	end
 end
 
@@ -150,9 +90,15 @@ function module:PostCastInterruptible(unit)
 	end
 
 	if not self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1), CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
+		self:GetStatusBarTexture():SetGradient("HORIZONTAL",
+			CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1),
+			CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
 	elseif self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient("HORIZONTAL", CreateColor(F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"].b2, 1), CreateColor(F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"].b1, 1))
+		self:GetStatusBarTexture():SetGradient("HORIZONTAL",
+			CreateColor(F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"]
+				.b2, 1),
+			CreateColor(F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"]
+				.b1, 1))
 	end
 end
 

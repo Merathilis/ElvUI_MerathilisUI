@@ -12,12 +12,10 @@ local function LoadSkin()
 	for bagID = 1, _G.NUM_CONTAINER_FRAMES do
 		local container = _G["ContainerFrame" .. bagID]
 		if container and container.template then
-			container:Styling()
 			module:CreateShadow(container)
 		end
 	end
 
-	_G.ContainerFrameCombinedBags:Styling()
 	module:CreateShadow(_G.ContainerFrameCombinedBags)
 end
 

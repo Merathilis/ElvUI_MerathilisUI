@@ -27,35 +27,37 @@ function FlightPoints_OnLoad(self)
 		getmetatable(self).__index.Show(self)
 	end
 
-	FlightPointsTaxiChoiceContainerScrollBar.Hide = function (self)
+	FlightPointsTaxiChoiceContainerScrollBar.Hide = function(self)
 		FlightPointsTaxiChoiceContainer:SetPoint("BOTTOMRIGHT", FlightPointsTaxiChoice, "BOTTOMRIGHT", -4, 4)
 		for _, button in next, FlightPointsTaxiChoiceContainer.buttons do
 			button:SetWidth(250)
 		end
 		FlightPointsTaxiChoiceContainer.scrollChild:SetWidth(250)
-		getmetatable(self).__index.Hide( self )
+		getmetatable(self).__index.Hide(self)
 	end
 	FlightPointsTaxiChoiceContainer.update = FlightPointsTaxiChoiceContainer_Update
 end
 
 function FlightPointsTaxiChoiceButton_OnLoad(self)
 	local name = self:GetName()
-	self.name = _G[name.."Name"]
-	self.expandIcon = _G[name.."ExpandIcon"]
-	self.highlight = _G[name.."Highlight"]
-	self.stripe = _G[name.."Stripe"]
+	self.name = _G[name .. "Name"]
+	self.expandIcon = _G[name .. "ExpandIcon"]
+	self.highlight = _G[name .. "Highlight"]
+	self.stripe = _G[name .. "Stripe"]
 end
 
 function FlightPoints_Show()
 	if not FlightPointsTaxiChoiceContainer.buttons then
-		HybridScrollFrame_CreateButtons(FlightPointsTaxiChoiceContainer, "FlightPointsButtonTemplate", 1, -2, "TOPLEFT", "TOPLEFT", 0, 0)
+		HybridScrollFrame_CreateButtons(FlightPointsTaxiChoiceContainer, "FlightPointsButtonTemplate", 1, -2, "TOPLEFT",
+			"TOPLEFT", 0, 0)
 	end
 	FlightPointsTaxiChoiceContainer_Update()
 end
 
 function FlightPoints_GetFlight(index)
 	if taxinodeinfos[index] then
-		return taxinodeinfos[index].name, taxinodeinfos[index].isheader, taxinodeinfos[index].flightid, taxinodeinfos[index].isexpanded
+		return taxinodeinfos[index].name, taxinodeinfos[index].isheader, taxinodeinfos[index].flightid,
+			taxinodeinfos[index].isexpanded
 	else
 		return nil
 	end
@@ -134,7 +136,7 @@ local function pairsByKeys(t, f)
 	for n in pairs(t) do table.insert(a, n) end
 	table.sort(a, f)
 	local i = 0
-	local iter = function ()
+	local iter = function()
 		i = i + 1
 		if a[i] == nil then return nil else return a[i], t[a[i]] end
 	end
@@ -142,7 +144,7 @@ local function pairsByKeys(t, f)
 end
 
 function FlightPoints_CreateFlyPathTable()
-	local tmptaxinode={}
+	local tmptaxinode = {}
 	taxinodeinfos = {}
 	for i = 1, NumTaxiNodes() do
 		if TaxiNodeGetType(i) == "REACHABLE" then
@@ -199,10 +201,12 @@ function FlightPoints_OnEvent(self, event, ...)
 
 		if _G["TaxiFrame"]:IsShown() then
 			FlightPointsTaxiChoice:SetHeight(_G["TaxiFrame"]:GetHeight() - 24)
-			FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["TaxiFrame"], "BOTTOMRIGHT", 0, _G["TaxiFrame"]:GetHeight() - 22)
+			FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["TaxiFrame"], "BOTTOMRIGHT", 0,
+				_G["TaxiFrame"]:GetHeight() - 22)
 		elseif _G["FlightMapFrame"]:IsShown() then
 			FlightPointsTaxiChoice:SetHeight(_G["FlightMapFrame"]:GetHeight())
-			FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["FlightMapFrame"], "BOTTOMRIGHT", 0, _G["FlightMapFrame"]:GetHeight())
+			FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["FlightMapFrame"], "BOTTOMRIGHT", 0,
+				_G["FlightMapFrame"]:GetHeight())
 		end
 
 		FlightPointsTaxiChoice:Show()
@@ -210,7 +214,6 @@ function FlightPoints_OnEvent(self, event, ...)
 		FlightPointsTaxiChoice:CreateBackdrop("Transparent")
 		S:HandleCloseButton(FlightPointsTaxiChoice.CloseButton)
 		S:HandleScrollBar(FlightPointsTaxiChoiceContainerScrollBar)
-		FlightPointsTaxiChoice.backdrop:Styling()
 	elseif event == "TAXIMAP_CLOSED" then
 		FlightPointsTaxiChoice:Hide()
 		taxinodeinfos = {}

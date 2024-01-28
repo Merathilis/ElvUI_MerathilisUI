@@ -9,16 +9,15 @@ function module:Construct_Swing(frame)
 	local Mcolor = E.db.mui.unitframes.swing.mcolor
 	local Tcolor = E.db.mui.unitframes.swing.tcolor
 	local Ocolor = E.db.mui.unitframes.swing.ocolor
-	local Mr, Mg, Mb = Mcolor.r, Mcolor.g, Mcolor.b or {.8, .8, .8}
-	local Tr, Tg, Tb = Tcolor.r, Tcolor.g, Tcolor.b or {.8, .8, .8}
-	local Or, Og, Ob = Ocolor.r, Ocolor.g, Ocolor.b or {.8, .8, .8}
+	local Mr, Mg, Mb = Mcolor.r, Mcolor.g, Mcolor.b or { .8, .8, .8 }
+	local Tr, Tg, Tb = Tcolor.r, Tcolor.g, Tcolor.b or { .8, .8, .8 }
+	local Or, Og, Ob = Ocolor.r, Ocolor.g, Ocolor.b or { .8, .8, .8 }
 
-	local bar = CreateFrame("StatusBar", frame:GetName().."_Swing", frame)
+	local bar = CreateFrame("StatusBar", frame:GetName() .. "_Swing", frame)
 	bar:SetSize(width, 3)
 	bar:SetPoint("TOP", frame.Castbar.Holder, "BOTTOM", 0, 1)
-	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel()+1)
+	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel() + 1)
 	bar:CreateBackdrop("Transparent")
-	bar.backdrop:Styling()
 	MER:SmoothBar(bar)
 
 	local main = CreateFrame("StatusBar", nil, bar)

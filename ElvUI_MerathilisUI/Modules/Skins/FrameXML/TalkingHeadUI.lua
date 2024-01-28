@@ -1,17 +1,15 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:TalkingHeadUI()
 	if not module:CheckDB("talkinghead", "talkinghead") then
 		return
 	end
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
 	if TalkingHeadFrame and not TalkingHeadFrame.__MERSkin then
-        TalkingHeadFrame:Styling()
 		module:CreateGradient(TalkingHeadFrame)
 		module:CreateShadow(TalkingHeadFrame)
 
@@ -22,7 +20,8 @@ local function LoadSkin()
 		TalkingHeadFrame.PortraitFrame.Portrait.SetAtlas = MER.dummy
 		TalkingHeadFrame.MainFrame.Model.PortraitBg.SetAtlas = MER.dummy
 
-		TalkingHeadFrame.MainFrame.Model.ModelShadow = TalkingHeadFrame.MainFrame.Model:CreateTexture(nil, "OVERLAY", nil, 2)
+		TalkingHeadFrame.MainFrame.Model.ModelShadow = TalkingHeadFrame.MainFrame.Model:CreateTexture(nil, "OVERLAY", nil,
+			2)
 		TalkingHeadFrame.MainFrame.Model.ModelShadow:SetAtlas("Artifacts-BG-Shadow")
 		TalkingHeadFrame.MainFrame.Model.ModelShadow:SetOutside()
 		TalkingHeadFrame.MainFrame.Model.PortraitBg:Hide()
@@ -44,4 +43,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallback("TalkingHeadUI", LoadSkin)
+module:AddCallback("TalkingHeadUI")

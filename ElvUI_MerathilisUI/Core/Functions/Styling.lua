@@ -13,8 +13,6 @@ local CreateColor = CreateColor
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
 local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
 
-MER.Styling = {}
-
 function MER:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 	assert(frame, "doesn't exist!")
 
@@ -23,7 +21,7 @@ function MER:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 
 	local gf = frame:CreateTexture(nil, "BACKGROUND")
 	gf:SetAllPoints()
-    gf:SetTexture(E.media.blankTex)
+	gf:SetTexture(E.media.blankTex)
 
 	if E.Classic then
 		gf:SetGradientAlpha(o, r1, g1, b1, a1, r2, g2, b2, a2)
@@ -46,10 +44,10 @@ function MER:UpdateStyling()
 	end
 end
 
-local function Styling(f, useStripes, useShadow)
+local function Styling(f, useStripes)
 	assert(f, "doesn't exist!")
 
-	if not f or f.__style or f.MERstyle or f.style__MER then
+	if not f or f.__MERstyle or f.MERstyle or f.style__MER then
 		return
 	end
 
@@ -61,12 +59,10 @@ local function Styling(f, useStripes, useShadow)
 		f = f:GetParent()
 	end
 
-	local frameName = f.GetName and f:GetName()
+	local style = CreateFrame("Frame", nil, f, "BackdropTemplate")
 
-	local style = CreateFrame("Frame", frameName or nil, f, "BackdropTemplate")
-
-	if not(useStripes) then
-		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER")
+	if not (useStripes) then
+		local stripes = f:CreateTexture(f:GetName() and f:GetName() .. "Overlay" or nil, "BORDER")
 		stripes:ClearAllPoints()
 		stripes:Point("TOPLEFT", 1, -1)
 		stripes:Point("BOTTOMRIGHT", -1, 1)
@@ -78,8 +74,8 @@ local function Styling(f, useStripes, useShadow)
 		style.stripes = stripes
 	end
 
-	if not(useShadow) then
-		local mshadow = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER")
+	if not (useShadow) then
+		local mshadow = f:CreateTexture(f:GetName() and f:GetName() .. "Overlay" or nil, "BORDER")
 		mshadow:SetInside(f, 0, 0)
 		mshadow:Width(33)
 		mshadow:Height(33)
@@ -95,9 +91,7 @@ local function Styling(f, useStripes, useShadow)
 	style.__MER = true
 
 	f.MERstyle = style
-	f.__style = 1
-
-	MER.Styling[style] = true
+	f.__MERstyle = 1
 end
 
 local BlizzardFrameRegions = {
@@ -116,7 +110,7 @@ local BlizzardFrameRegions = {
 local function StripFrame(Frame, Kill, Alpha)
 	local FrameName = Frame:GetName()
 	for _, Blizzard in pairs(BlizzardFrameRegions) do
-		local BlizzFrame = Frame[Blizzard] or FrameName and _G[FrameName..Blizzard]
+		local BlizzFrame = Frame[Blizzard] or FrameName and _G[FrameName .. Blizzard]
 		if BlizzFrame then
 			StripFrame(BlizzFrame, Kill, Alpha)
 		end
@@ -227,14 +221,13 @@ end
 
 local function addapi(object)
 	local mt = getmetatable(object).__index
-	if not object.Styling then mt.Styling = Styling end
 	if not object.StripFrame then mt.StripFrame = StripFrame end
 	if not object.CreateOverlay then mt.CreateOverlay = CreateOverlay end
 	if not object.CreateBorder then mt.CreateBorder = CreateBorder end
 	if not object.CreatePanel then mt.CreatePanel = CreatePanel end
 end
 
-local handled = {["Frame"] = true}
+local handled = { ["Frame"] = true }
 local object = CreateFrame("Frame")
 addapi(object)
 addapi(object:CreateTexture())

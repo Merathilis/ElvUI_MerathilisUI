@@ -179,7 +179,8 @@ function module:SetButtonMouseOver(button, frame, rawhook)
 
 	local function ButtonOnEnter()
 		if button.backdrop.SetBackdropBorderColor then
-			button.backdrop:SetBackdropBorderColor(E.db.general.valuecolor.r, E.db.general.valuecolor.g, E.db.general.valuecolor.b)
+			button.backdrop:SetBackdropBorderColor(E.db.general.valuecolor.r, E.db.general.valuecolor.g,
+				E.db.general.valuecolor.b)
 		end
 		if not self.db.mouseOver then
 			return
@@ -378,7 +379,7 @@ function module:SkinButton(frame)
 
 		if name == "Narci_MinimapButton" then
 			self:SetButtonMouseOver(frame, frame.Panel)
-			for _, child in pairs {frame.Panel:GetChildren()} do
+			for _, child in pairs { frame.Panel:GetChildren() } do
 				if child.SetScript and not child.Highlight then
 					self:SetButtonMouseOver(frame, child, true)
 				end
@@ -555,7 +556,7 @@ end
 function module:SkinMinimapButtons()
 	self:RegisterEvent("ADDON_LOADED", "StartSkinning")
 
-	for _, child in pairs({_G.Minimap:GetChildren()}) do
+	for _, child in pairs({ _G.Minimap:GetChildren() }) do
 		self:SkinButton(child)
 	end
 
@@ -607,10 +608,10 @@ function module:CreateFrames()
 	self.bar = frame
 
 	self:SkinMinimapButtons()
-	self.bar.backdrop:Styling()
 	S:CreateShadowModule(self.bar.backdrop)
 
-	E:CreateMover(self.barAnchor, "MER_MinimapButtonBarAnchor", L["Minimap Buttons Bar"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", function() return E.db.mui.smb.enable end, "mui,modules,maps")
+	E:CreateMover(self.barAnchor, "MER_MinimapButtonBarAnchor", L["Minimap Buttons Bar"], nil, nil, nil,
+		"ALL,SOLO,MERATHILISUI", function() return E.db.mui.smb.enable end, "mui,modules,maps")
 end
 
 function module:SetUpdateHook()

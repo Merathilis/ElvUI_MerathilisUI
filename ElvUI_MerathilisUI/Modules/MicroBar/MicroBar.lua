@@ -188,7 +188,8 @@ local function AddDoubleLineForItem(itemID, prefix)
 		name = L["Random Hearthstone"]
 	end
 
-	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name, canUse and L["Ready"] or cooldownTimeString, 1, 1, 1, canUse and 0 or 1, canUse and 1 or 0, 0)
+	DT.tooltip:AddDoubleLine(prefix .. icon .. " " .. name, canUse and L["Ready"] or cooldownTimeString, 1, 1, 1,
+		canUse and 0 or 1, canUse and 1 or 0, 0)
 end
 
 -- Fake DataText for no errors throwed from ElvUI
@@ -281,7 +282,8 @@ local ButtonTypes = {
 		name = L["Collections"],
 		icon = MER.Media.Icons.barCollections,
 		macro = {
-			LeftButton = "/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab1",
+			LeftButton =
+			"/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab1",
 			RightButton = "/run CollectionsJournal_LoadUI()\n/click MountJournalSummonRandomFavoriteButton"
 		},
 		tooltips = {
@@ -402,7 +404,8 @@ local ButtonTypes = {
 		icon = MER.Media.Icons.barGuild,
 		macro = {
 			LeftButton = "/click GuildMicroButton",
-			RightButton = "/script if not InCombatLockdown() then if not GuildFrame or not GuildFrame:IsShown() then ToggleGuildFrame() end end"
+			RightButton =
+			"/script if not InCombatLockdown() then if not GuildFrame or not GuildFrame:IsShown() then ToggleGuildFrame() end end"
 		},
 		additionalText = function()
 			return IsInGuild() and select(2, GetNumGuildMembers()) or ""
@@ -430,17 +433,17 @@ local ButtonTypes = {
 			DT.tooltip:Show()
 
 			button.tooltipsUpdateTimer =
-			C_Timer_NewTicker(
-				1,
-				function()
-					DT.tooltip:ClearLines()
-					DT.tooltip:SetText(L["Home"])
-					DT.tooltip:AddLine("\n")
-					AddDoubleLineForItem(module.db.home.left, LeftButtonIcon)
-					AddDoubleLineForItem(module.db.home.right, RightButtonIcon)
-					DT.tooltip:Show()
-				end
-			)
+				C_Timer_NewTicker(
+					1,
+					function()
+						DT.tooltip:ClearLines()
+						DT.tooltip:SetText(L["Home"])
+						DT.tooltip:AddLine("\n")
+						AddDoubleLineForItem(module.db.home.left, LeftButtonIcon)
+						AddDoubleLineForItem(module.db.home.right, RightButtonIcon)
+						DT.tooltip:Show()
+					end
+				)
 		end,
 		tooltipsLeave = function(button)
 			if button.tooltipsUpdateTimer and button.tooltipsUpdateTimer.Cancel then
@@ -457,7 +460,8 @@ local ButtonTypes = {
 			end
 		},
 		additionalText = function()
-			local numMissions = #C_Garrison_GetCompleteMissions(FollowerType_9_0) + #C_Garrison_GetCompleteMissions(FollowerType_8_0)
+			local numMissions = #C_Garrison_GetCompleteMissions(FollowerType_9_0) +
+			#C_Garrison_GetCompleteMissions(FollowerType_8_0)
 			if numMissions == 0 then
 				numMissions = ""
 			end
@@ -472,7 +476,8 @@ local ButtonTypes = {
 		name = L["Pet Journal"],
 		icon = MER.Media.Icons.barPetJournal,
 		macro = {
-			LeftButton = "/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab2",
+			LeftButton =
+			"/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab2",
 			RightButton = "/run CollectionsJournal_LoadUI()\n/click PetJournalSummonRandomFavoritePetButton"
 		},
 		tooltips = {
@@ -541,7 +546,8 @@ local ButtonTypes = {
 		name = L["Toy Box"],
 		icon = MER.Media.Icons.barToyBox,
 		macro = {
-			LeftButton = "/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab3"
+			LeftButton =
+			"/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab3"
 		},
 		tooltips = {
 			L["Toy Box"]
@@ -636,7 +642,6 @@ function module:ConstructBar()
 	middlePanel:SetSize(81, 50)
 	middlePanel:SetPoint("CENTER")
 	middlePanel:CreateBackdrop("Transparent")
-	middlePanel.backdrop:Styling()
 	middlePanel:RegisterForClicks(MER.UseKeyDown and "AnyDown" or "AnyUp")
 	bar.middlePanel = middlePanel
 
@@ -644,14 +649,12 @@ function module:ConstructBar()
 	leftPanel:SetSize(300, 40)
 	leftPanel:SetPoint("RIGHT", middlePanel, "LEFT", -10, 0)
 	leftPanel:CreateBackdrop("Transparent")
-	leftPanel.backdrop:Styling()
 	bar.leftPanel = leftPanel
 
 	local rightPanel = CreateFrame("Frame", "MicroBarRightPanel", bar)
 	rightPanel:SetSize(300, 40)
 	rightPanel:SetPoint("LEFT", middlePanel, "RIGHT", 10, 0)
 	rightPanel:CreateBackdrop("Transparent")
-	rightPanel.backdrop:Styling()
 	bar.rightPanel = rightPanel
 
 	S:CreateShadowModule(leftPanel.backdrop)
@@ -660,7 +663,8 @@ function module:ConstructBar()
 
 	self.bar = bar
 
-	E:CreateMover(self.bar, "MicroBarAnchor", L["MicroBar"], nil, nil, nil, "ALL,MERATHILISUI", function() return module.db and module.db.enable end, "mui,modules,microBar,general")
+	E:CreateMover(self.bar, "MicroBarAnchor", L["MicroBar"], nil, nil, nil, "ALL,MERATHILISUI",
+		function() return module.db and module.db.enable end, "mui,modules,microBar,general")
 end
 
 function module:UpdateBar()
@@ -1091,7 +1095,8 @@ function module:UpdateButton(button, buttonType)
 	button.additionalTextFormat = F.CreateColorString("%s", { r = r, g = g, b = b })
 
 	if config.additionalText and self.db.additionalText.enable then
-		button.additionalText:SetFormattedText( button.additionalTextFormat, config.additionalText and config.additionalText() or "")
+		button.additionalText:SetFormattedText(button.additionalTextFormat,
+			config.additionalText and config.additionalText() or "")
 
 		if config.events and config.eventHandler then
 			button:SetScript("OnEvent", config.eventHandler)
@@ -1103,7 +1108,8 @@ function module:UpdateButton(button, buttonType)
 			end
 		else
 			button.additionalTextTimer = C_Timer_NewTicker(self.db.additionalText.slowMode and 10 or 1, function()
-				button.additionalText:SetFormattedText(button.additionalTextFormat, config.additionalText and config.additionalText() or "")
+				button.additionalText:SetFormattedText(button.additionalTextFormat,
+					config.additionalText and config.additionalText() or "")
 			end)
 		end
 
@@ -1181,7 +1187,7 @@ function module:UpdateLayout()
 	else
 		self.bar.leftPanel:Show()
 		local panelWidth =
-		self.db.backdropSpacing * 2 + (numLeftButtons - 1) * self.db.spacing + numLeftButtons * self.db.buttonSize
+			self.db.backdropSpacing * 2 + (numLeftButtons - 1) * self.db.spacing + numLeftButtons * self.db.buttonSize
 		local panelHeight = self.db.backdropSpacing * 2 + self.db.buttonSize
 		self.bar.leftPanel:SetSize(panelWidth, panelHeight)
 	end
@@ -1210,7 +1216,7 @@ function module:UpdateLayout()
 	else
 		self.bar.rightPanel:Show()
 		local panelWidth =
-		self.db.backdropSpacing * 2 + (numRightButtons - 1) * self.db.spacing + numRightButtons * self.db.buttonSize
+			self.db.backdropSpacing * 2 + (numRightButtons - 1) * self.db.spacing + numRightButtons * self.db.buttonSize
 		local panelHeight = self.db.backdropSpacing * 2 + self.db.buttonSize
 		self.bar.rightPanel:SetSize(panelWidth, panelHeight)
 	end
@@ -1401,7 +1407,8 @@ function module:UpdateHearthStoneTable()
 	}
 
 	for i = 1, 4 do
-		local level = self.covenantCache[E.myrealm] and self.covenantCache[E.myrealm][E.myname] and self.covenantCache[E.myrealm][E.myname][tostring(i)]
+		local level = self.covenantCache[E.myrealm] and self.covenantCache[E.myrealm][E.myname] and
+		self.covenantCache[E.myrealm][E.myname][tostring(i)]
 		local toyID = specialHearthstones[i]
 		local hasToy = PlayerHasToy(toyID) and C_ToyBox_IsToyUsable(toyID)
 

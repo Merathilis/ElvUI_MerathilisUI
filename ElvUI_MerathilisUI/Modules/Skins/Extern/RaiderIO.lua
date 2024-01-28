@@ -18,23 +18,23 @@ function module:RaiderIO_DelayedSkinning()
 		_G.RaiderIO_ProfileTooltip:StripTextures()
 		_G.RaiderIO_ProfileTooltip.NineSlice:Kill()
 		_G.RaiderIO_ProfileTooltip:SetTemplate("Transparent")
-		_G.RaiderIO_ProfileTooltip:Styling()
 		local point, relativeTo, relativePoint, xOffset, yOffset = _G.RaiderIO_ProfileTooltip:GetPoint()
 		if xOffset and yOffset and xOffset == 0 and yOffset == 0 then
 			_G.RaiderIO_ProfileTooltip.__SetPoint = _G.RaiderIO_ProfileTooltip.SetPoint
-			hooksecurefunc(_G.RaiderIO_ProfileTooltip, "SetPoint", function(self, point, relativeTo, relativePoint, xOffset, yOffset)
-				if xOffset and yOffset and xOffset == 0 and yOffset == 0 then
-					self:__SetPoint(point, relativeTo, relativePoint, 4, 0)
-				end
-			end)
+			hooksecurefunc(_G.RaiderIO_ProfileTooltip, "SetPoint",
+				function(self, point, relativeTo, relativePoint, xOffset, yOffset)
+					if xOffset and yOffset and xOffset == 0 and yOffset == 0 then
+						self:__SetPoint(point, relativeTo, relativePoint, 4, 0)
+					end
+				end)
 		end
 	end
 
 	local configFrame
 
-	for _, frame in pairs {_G.UIParent:GetChildren()} do
+	for _, frame in pairs { _G.UIParent:GetChildren() } do
 		if frame.scrollbar and frame.scrollframe then
-			for _, child in pairs({frame:GetChildren()}) do
+			for _, child in pairs({ frame:GetChildren() }) do
 				if child ~= frame.scrollbar and child ~= frame.scrollframe then
 					local numChildren = child.GetNumChildren and child:GetNumChildren()
 					if numChildren then
@@ -56,7 +56,6 @@ function module:RaiderIO_DelayedSkinning()
 
 	if configFrame then
 		configFrame:SetTemplate("Transparent")
-		configFrame:Styling()
 		module:CreateShadow(configFrame)
 
 		S:HandleScrollBar(configFrame.scrollbar)

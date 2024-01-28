@@ -14,7 +14,6 @@ local function LoadSkin()
 	local frame = _G.CovenantRenownFrame
 	frame:StripTextures()
 	frame:SetTemplate('Transparent')
-	frame:Styling()
 	module:CreateShadow(frame)
 
 	hooksecurefunc(frame, 'SetUpCovenantData', function(self)

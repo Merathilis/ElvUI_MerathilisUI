@@ -105,7 +105,8 @@ local function Skin_WeakAuras(f, fType)
 					if width == height then
 						self:SetTexCoordOld_Changed(left, right, top, down)
 					elseif width > height then
-						self:SetTexCoordOld_Changed(left, right, top + cTop * (right - left), top + cDown * (right - left))
+						self:SetTexCoordOld_Changed(left, right, top + cTop * (right - left),
+							top + cDown * (right - left))
 					else
 						self:SetTexCoordOld_Changed(left + cLeft * (down - top), left + cRight * (down - top), top, down)
 					end
@@ -134,7 +135,6 @@ local function Skin_WeakAuras(f, fType)
 	elseif fType == "aurabar" then
 		if not f.__MERStyle then
 			f:CreateBackdrop()
-			f.backdrop:Styling()
 			f.backdrop.Center:StripTextures()
 			f.backdrop:SetFrameLevel(0)
 			hooksecurefunc(f, "SetFrameStrata", function()
@@ -169,7 +169,10 @@ function module:WeakAuras()
 
 	-- Only works for WeakAurasPatched
 	if not WeakAuras or not WeakAuras.Private then
-		local alertMessage = format("%s: %s %s %s", MER.Title, L["You are using Official WeakAuras, the skin of WeakAuras will not be loaded due to the limitation."], L["If you want to use WeakAuras skin, please install |cffff0000WeakAurasPatched|r (https://wow-ui.net/wap)."], L["You can disable this alert via disabling WeakAuras Skin in Skins - Addons."])
+		local alertMessage = format("%s: %s %s %s", MER.Title,
+			L["You are using Official WeakAuras, the skin of WeakAuras will not be loaded due to the limitation."],
+			L["If you want to use WeakAuras skin, please install |cffff0000WeakAurasPatched|r (https://wow-ui.net/wap)."],
+			L["You can disable this alert via disabling WeakAuras Skin in Skins - Addons."])
 		E:Delay(10, print, alertMessage)
 		return
 	end

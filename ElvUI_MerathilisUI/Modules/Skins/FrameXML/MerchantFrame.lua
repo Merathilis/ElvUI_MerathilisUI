@@ -20,10 +20,9 @@ function module:MerchantFrame()
 	end
 
 	local MerchantFrame = _G.MerchantFrame
-	MerchantFrame:Styling()
 
 	for i = 1, 2 do
-		module:ReskinTab(_G["MerchantFrameTab"..i])
+		module:ReskinTab(_G["MerchantFrameTab" .. i])
 	end
 
 	for i = 1, 10 do

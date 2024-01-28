@@ -32,7 +32,7 @@ local RandomRoll = RandomRoll
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 
-local normalChannelsIndex = {"SAY", "YELL", "PARTY", "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER", "EMOTE"}
+local normalChannelsIndex = { "SAY", "YELL", "PARTY", "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER", "EMOTE" }
 
 local checkFunctions = {
 	PARTY = function()
@@ -56,7 +56,7 @@ local checkFunctions = {
 }
 
 local function GetCommuniryChannelByName(text)
-	local channelList = {GetChannelList()}
+	local channelList = { GetChannelList() }
 	for k, v in pairs(channelList) do
 		local clubId = strmatch(tostring(v), "Community:(.-):")
 		if clubId then
@@ -288,7 +288,9 @@ function module:UpdateBar()
 				end
 			end
 
-			self:UpdateButton("WORLD", chatFunc, anchor, offsetX, offsetY, db.color, self.db.tex, db.name, { L["Left Click: Change to"] .. " " .. db.name, L["Right Click: Join/Leave"] .. " " .. db.name }, db.abbr)
+			self:UpdateButton("WORLD", chatFunc, anchor, offsetX, offsetY, db.color, self.db.tex, db.name,
+				{ L["Left Click: Change to"] .. " " .. db.name, L["Right Click: Join/Leave"] .. " " .. db.name }, db
+			.abbr)
 
 			numberOfButtons = numberOfButtons + 1
 
@@ -313,7 +315,8 @@ function module:UpdateBar()
 				end
 				local clubChannelId = GetCommuniryChannelByName(name)
 				if not clubChannelId then
-					F.Print(module, format(L["Club channel %s not found, please use the full name of the channel."], name))
+					F.Print(module,
+						format(L["Club channel %s not found, please use the full name of the channel."], name))
 				else
 					local currentText = DefaultChatFrame.editBox:GetText()
 					local command = format("/%s ", clubChannelId)
@@ -413,7 +416,6 @@ function module:CreateBar()
 	bar:SetFrameStrata("LOW")
 	bar:SetFrameLevel(5)
 	bar:CreateBackdrop("Transparent")
-	bar.backdrop:Styling()
 	bar:ClearAllPoints()
 	bar:Point("BOTTOMLEFT", _G.LeftChatPanel, "TOPLEFT", 6, 3)
 	S:CreateBackdropShadow(bar)
@@ -439,7 +441,8 @@ function module:Initialize()
 	module:CreateBar()
 	module:UpdateBar()
 
-	E:CreateMover(module.bar,"ChatBarMover", L["Chat Bar"], nil, nil, nil, "ALL,MERATHILISUI", function() return module.db.enable end, "mui,modules,chat,chatBar")
+	E:CreateMover(module.bar, "ChatBarMover", L["Chat Bar"], nil, nil, nil, "ALL,MERATHILISUI",
+		function() return module.db.enable end, "mui,modules,chat,chatBar")
 
 	if self.db.autoHide then
 		self:RegisterEvent("GROUP_ROSTER_UPDATE", "UpdateBar")

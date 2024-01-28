@@ -15,7 +15,6 @@ function module:ProjectAzilroka()
 			if stFrame and not stFrame.isSkinned then
 				stFrame:SetTemplate("Transparent")
 				stFrame.AddOns:SetTemplate("Transparent")
-				stFrame:Styling()
 				module:CreateShadow(stFrame)
 
 				stFrame.isSkinned = true

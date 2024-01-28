@@ -3,15 +3,14 @@ local module = MER.Modules.Skins
 local S = E:GetModule('Skins')
 
 local _G = _G
-local select, unpack = select, unpack
+local select = select
 
-local function LoadSkin()
+function module:Blizzard_ItemSocketingUI()
 	if not module:CheckDB("socket", "socket") then
 		return
 	end
 
 	local ItemSocketingFrame = _G["ItemSocketingFrame"]
-	ItemSocketingFrame:Styling()
 	module:CreateBackdropShadow(ItemSocketingFrame)
 
 	local title = select(18, ItemSocketingFrame:GetRegions())
@@ -19,4 +18,4 @@ local function LoadSkin()
 	title:SetPoint("TOP", 0, -5)
 end
 
-S:AddCallbackForAddon("Blizzard_ItemSocketingUI", LoadSkin)
+S:AddCallbackForAddon("Blizzard_ItemSocketingUI")

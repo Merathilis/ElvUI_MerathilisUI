@@ -47,7 +47,6 @@ function module:GossipFrame()
 	end
 
 	local GossipFrame = _G.GossipFrame
-	GossipFrame:Styling()
 	module:CreateBackdropShadow(GossipFrame)
 
 	if _G.GossipFrameInset then

@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 local select = select
@@ -14,12 +13,11 @@ local MAX_QUESTS = 35 -- manually increase it
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function LoadSkin()
+function module:WorldMapFrame()
 	if not module:CheckDB("worldmap", "worldmap") then
 		return
 	end
 
-	_G.WorldMapFrame.backdrop:Styling()
 	module:CreateBackdropShadow(_G.WorldMapFrame)
 
 	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
@@ -31,10 +29,12 @@ local function LoadSkin()
 	frame.text:SetTextColor(r, g, b)
 	frame.text:SetAllPoints()
 
-	frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()).."/"..--[[C_QuestLog_GetMaxNumQuestsCanAccept()]]MAX_QUESTS.." "..L["Quests"])
+	frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()) ..
+		"/" .. --[[C_QuestLog_GetMaxNumQuestsCanAccept()]] MAX_QUESTS .. " " .. L["Quests"])
 
 	frame:SetScript("OnEvent", function(self, event)
-		frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()).."/"..--[[C_QuestLog_GetMaxNumQuestsCanAccept()]]MAX_QUESTS.." "..L["Quests"])
+		frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()) ..
+			"/" .. --[[C_QuestLog_GetMaxNumQuestsCanAccept()]] MAX_QUESTS .. " " .. L["Quests"])
 	end)
 
 	if _G.QuestScrollFrame.Background then
@@ -61,13 +61,10 @@ local function LoadSkin()
 
 	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", function(_, dialog)
 		if not dialog.__MERSkin then
-			if dialog.backdrop then
-				dialog.backdrop:Styling()
-			end
 			module:CreateBackdropShadow(dialog)
 			dialog.__MERSkin = true
 		end
 	end)
 end
 
-S:AddCallback("WorldMapFrame", LoadSkin)
+module:AddCallback("WorldMapFrame")

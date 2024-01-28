@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
@@ -9,16 +8,10 @@ local hooksecurefunc = hooksecurefunc
 local function UpdateToken()
 	local TokenFramePopup = _G.TokenFramePopup
 
-	if TokenFramePopup.backdrop then
-		if not TokenFramePopup.backdrop.styling then
-			TokenFramePopup.backdrop:Styling()
-			TokenFramePopup.backdrop.styling = true
-		end
-	end
 	module:CreateShadow(TokenFramePopup)
 end
 
-local function LoadSkin()
+function module:Blizzard_TokenUI()
 	if not module:CheckDB("auctionhouse", "auctionhouse") then
 		return
 	end
@@ -27,4 +20,4 @@ local function LoadSkin()
 	-- hooksecurefunc(_G.TokenFrameContainer, "update", UpdateToken)
 end
 
-S:AddCallbackForAddon("Blizzard_TokenUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_TokenUI")

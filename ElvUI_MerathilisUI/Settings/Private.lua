@@ -6,7 +6,6 @@ V.general = {
 
 V.skins = {
 	enable = true,
-	style = true,
 	shadowOverlay = false,
 	shadow = {
 		enable = true,

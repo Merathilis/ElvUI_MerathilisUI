@@ -1,20 +1,18 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_VoidStorageUI()
 	if not module:CheckDB("voidstorage", "voidstorage") then
 		return
 	end
 
 	local VoidStorageFrame = _G.VoidStorageFrame
-	VoidStorageFrame:Styling()
 	module:CreateShadow(VoidStorageFrame)
 
 	VoidStorageFrame.Page1:ClearAllPoints()
 	VoidStorageFrame.Page1:SetPoint("LEFT", VoidStorageFrame, "TOPRIGHT", 2, -60)
 end
 
-S:AddCallbackForAddon("Blizzard_VoidStorageUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_VoidStorageUI")

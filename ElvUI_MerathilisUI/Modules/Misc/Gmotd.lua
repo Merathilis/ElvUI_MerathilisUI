@@ -25,7 +25,7 @@ function MI:GMOTD()
 		if not IsInGuild() then return; end
 
 		local gmotd = CreateFrame("Frame", "MER.GMOTD", E.UIParent)
-		gmotd:SetPoint("CENTER", 0, GetScreenHeight()/5)
+		gmotd:SetPoint("CENTER", 0, GetScreenHeight() / 5)
 		gmotd:SetSize(350, 150)
 		gmotd:SetFrameStrata("TOOLTIP")
 		gmotd:SetMovable(true)
@@ -35,7 +35,6 @@ function MI:GMOTD()
 		gmotd:CreateBackdrop("Transparent")
 		gmotd.backdrop:SetAllPoints()
 
-		gmotd:Styling()
 		gmotd:Hide()
 
 		gmotd.header = gmotd:CreateFontString(nil)
@@ -80,12 +79,12 @@ function MI:GMOTD()
 				if InCombatLockdown() then return end
 				gmotd.msg = msg
 				gmotd.text:SetText(msg)
-				gmotd.header:SetText(icon..(format("|cff00c0fa%s|r", guild))..": ".._G.GUILD_MOTD_LABEL2)
+				gmotd.header:SetText(icon .. (format("|cff00c0fa%s|r", guild)) .. ": " .. _G.GUILD_MOTD_LABEL2)
 				gmotd:Show()
 				PlaySound(12867) --Sound\Interface\alarmclockwarning2.ogg
 
 				local numLines = gmotd.text:GetNumLines()
-				gmotd:SetHeight(20 + (12.2*numLines))
+				gmotd:SetHeight(20 + (12.2 * numLines))
 			else
 				gmotd:Hide()
 			end

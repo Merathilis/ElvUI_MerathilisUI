@@ -15,7 +15,7 @@ end
 
 function FriendsCount_OnEvent(event, ...)
 	local bnetCount = BNGetNumFriends();
-	_G.MER_FriendsCounter:SetText(bnetCount.."|cff416380/200|r")
+	_G.MER_FriendsCounter:SetText(bnetCount .. "|cff416380/200|r")
 end
 
 local function UpdateFriendsButton(button)
@@ -63,13 +63,12 @@ local function DiffColor(level)
 	return F.RGBToHex(GetQuestDifficultyColor(level))
 end
 
-local function LoadSkin()
+function module:FriendsFrame()
 	if not module:CheckDB("friends", "friends") then
 		return
 	end
 
 	local FriendsFrame = _G.FriendsFrame
-	FriendsFrame:Styling()
 
 	_G.FriendsFrameBattlenetFrame.UnavailableInfoFrame:ClearAllPoints()
 	_G.FriendsFrameBattlenetFrame.UnavailableInfoFrame:Point("TOPLEFT", FriendsFrame, "TOPRIGHT", 3, -1)
@@ -115,12 +114,6 @@ local function LoadSkin()
 		AnimateTexCoords(_G.FriendsFrameIcon, 512, 256, 64, 64, 25, elapsed, 0.01)
 	end)
 
-	local FriendsFriendsFrame = _G.FriendsFriendsFrame
-	FriendsFriendsFrame:Styling()
-
-	if _G.FriendsFrameBattlenetFrame.BroadcastFrame.backdrop then
-		_G.FriendsFrameBattlenetFrame.BroadcastFrame.backdrop:Styling()
-	end
 	module:SecureHook("FriendsFrame_UpdateFriendButton", UpdateFriendsButton)
 
 	-- Who Frame
@@ -138,7 +131,8 @@ local function LoadSkin()
 			local variableText = button.Variable
 
 			local info = C_FriendList.GetWhoInfo(button.index)
-			local guild, level, race, zone, class = info.fullGuildName, info.level, info.raceStr, info.area, info.filename
+			local guild, level, race, zone, class = info.fullGuildName, info.level, info.raceStr, info.area,
+				info.filename
 			if zone == playerZone then
 				zone = '|cff00ff00' .. zone
 			end
@@ -161,4 +155,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallback("FriendsFrame", LoadSkin)
+module:AddCallback("FriendsFrame")

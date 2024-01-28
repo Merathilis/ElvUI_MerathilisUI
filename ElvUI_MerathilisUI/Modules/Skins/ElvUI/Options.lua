@@ -29,7 +29,6 @@ local function StyleElvUIInstall()
 
 	local frame = _G.ElvUIInstallFrame
 	if frame then
-		frame:Styling()
 		module:CreateShadow(frame)
 	end
 end
@@ -47,15 +46,12 @@ local function StyleSeparatorLine(self, frame, lastButton)
 end
 
 local function ElvUI_SkinMoverPopup()
-    if not _G.ElvUIMoverPopupWindow then
-        return
-    end
+	if not _G.ElvUIMoverPopupWindow then
+		return
+	end
 
-	_G.ElvUIMoverPopupWindow:Styling()
-    module:CreateShadow(_G.ElvUIMoverPopupWindow)
-
-	_G.ElvUIMoverPopupWindow.header:Styling()
-    module:CreateShadow(_G.ElvUIMoverPopupWindow.header)
+	module:CreateShadow(_G.ElvUIMoverPopupWindow)
+	module:CreateShadow(_G.ElvUIMoverPopupWindow.header)
 end
 
 local function Skin_ElvUI_Options()
@@ -65,13 +61,7 @@ local function Skin_ElvUI_Options()
 
 	module:SecureHook(E, "ToggleOptions", StyleElvUIConfig)
 
-	if _G.PluginInstallFrame then
-		_G.PluginInstallFrame:Styling()
-		_G.PluginInstallTitleFrame:Styling()
-	end
-
 	if _G.ElvUIInstallFrame then
-		_G.ElvUIInstallFrame:Styling()
 		module:CreateShadow(_G.ElvUIInstallFrame)
 	else
 		module:SecureHook(E, "Install", StyleElvUIInstall)

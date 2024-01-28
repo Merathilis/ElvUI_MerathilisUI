@@ -32,13 +32,12 @@ local function UpdateNameFrame(self)
 	end
 end
 
-local function LoadSkin()
+function module:Blizzard_Communities()
 	if not module:CheckDB("communities", "communities") then
 		return
 	end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
-	CommunitiesFrame:Styling()
 	module:CreateShadow(CommunitiesFrame)
 	module:CreateShadow(CommunitiesFrame.ChatTab)
 	module:CreateShadow(CommunitiesFrame.RosterTab)
@@ -58,7 +57,7 @@ local function LoadSkin()
 		end
 	end)
 
-	for _, name in next, {"ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab"} do
+	for _, name in next, { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab" } do
 		local tab = CommunitiesFrame[name]
 		tab:GetRegions():Hide()
 		tab:GetHighlightTexture():SetColorTexture(r, g, b, .25)
@@ -100,39 +99,14 @@ local function LoadSkin()
 	local Dialog = CommunitiesFrame.NotificationSettingsDialog
 	Dialog:StripTextures()
 	Dialog.BG:Hide()
-	if Dialog.backdrop then
-		Dialog.backdrop:Styling()
-	end
 	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
 
 	local Dialog = CommunitiesFrame.EditStreamDialog
 	module:CreateBDFrame(Dialog.Description, .25)
-	if Dialog.backdrop then
-		Dialog.backdrop:Styling()
-	end
 
 	local DetailFrame = CommunitiesFrame.GuildMemberDetailFrame
 	DetailFrame:ClearAllPoints()
 	DetailFrame:SetPoint("TOPLEFT", CommunitiesFrame, "TOPRIGHT", 34, 0)
-	DetailFrame:Styling()
-
-	if CommunitiesFrame.RecruitmentDialog.backdrop then
-		CommunitiesFrame.RecruitmentDialog.backdrop:Styling()
-	end
-
-	-- Guild Log
-	local GuildLog = _G.CommunitiesGuildLogFrame
-	GuildLog:Styling()
-
-	--Guild MOTD Edit
-	local GuildText = _G.CommunitiesGuildTextEditFrame
-	GuildText:Styling()
-
-	-- Guild News Filter
-	local GuildNewsFilter = _G.CommunitiesGuildNewsFiltersFrame
-	if GuildNewsFilter.backdrop then
-		GuildNewsFilter.backdrop:Styling()
-	end
 
 	hooksecurefunc(CommunitiesFrame.GuildBenefitsFrame.Rewards.ScrollBox, "Update", function(button)
 		for _, child in next, { button.ScrollTarget:GetChildren() } do
@@ -162,4 +136,4 @@ local function LoadSkin()
 	module:CreateShadow(BossModel.TextFrame)
 end
 
-S:AddCallbackForAddon("Blizzard_Communities", LoadSkin)
+module:AddCallbackForAddon("Blizzard_Communities")

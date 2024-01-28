@@ -4,7 +4,7 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_ItemUpgradeUI()
 	if not module:CheckDB("itemUpgrade", "itemUpgrade") then
 		return
 	end
@@ -12,7 +12,6 @@ local function LoadSkin()
 	local ItemUpgradeFrame = _G.ItemUpgradeFrame
 	ItemUpgradeFrame.TopBG:Hide()
 
-	ItemUpgradeFrame:Styling()
 	module:CreateBackdropShadow(ItemUpgradeFrame)
 
 	ItemUpgradeFrame.BottomBGShadow:Hide()
@@ -20,4 +19,4 @@ local function LoadSkin()
 	ItemUpgradeFrame.TopBG:Hide()
 end
 
-S:AddCallbackForAddon("Blizzard_ItemUpgradeUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_ItemUpgradeUI")

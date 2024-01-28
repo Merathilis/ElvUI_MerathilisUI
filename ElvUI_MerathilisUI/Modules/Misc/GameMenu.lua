@@ -121,12 +121,13 @@ MER.NPCS = {
 	135 - swimming loop
 	136 - mining, blacksmith crafting
 	137 = stunned
-]]--
+]]
+--
 
-local Sequences = {26, 52, 69, 111, 225}
+local Sequences = { 26, 52, 69, 111, 225 }
 
 local function Player_Model(self)
-	local key = random(1,5)
+	local key = random(1, 5)
 	local emote = Sequences[key]
 
 	self:ClearModel()
@@ -143,7 +144,7 @@ local function NPC_Model(self)
 	local npc = MER.NPCS
 	local mod = random(1, #npc)
 	local id = npc[mod]
-	local key = random(1,5)
+	local key = random(1, 5)
 	local emote = Sequences[key]
 
 	self:ClearModel()
@@ -162,9 +163,8 @@ function module:GameMenu()
 		local bottomPanel = GameMenuFrame.MUIbottomPanel
 		bottomPanel:SetFrameLevel(0)
 		bottomPanel:Point("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
-		bottomPanel:Width(GetScreenWidth() + (E.Border*2))
+		bottomPanel:Width(GetScreenWidth() + (E.Border * 2))
 		bottomPanel:CreateBackdrop('Transparent')
-		bottomPanel.backdrop:Styling()
 		MER:CreateInnerNoise(bottomPanel)
 
 		bottomPanel.ignoreFrameTemplates = true
@@ -192,9 +192,8 @@ function module:GameMenu()
 		local topPanel = GameMenuFrame.MUItopPanel
 		topPanel:SetFrameLevel(0)
 		topPanel:Point("TOP", E.UIParent, "TOP", 0, 0)
-		topPanel:Width(GetScreenWidth() + (E.Border*2))
+		topPanel:Width(GetScreenWidth() + (E.Border * 2))
 		topPanel:CreateBackdrop('Transparent')
-		topPanel.backdrop:Styling()
 		MER:CreateInnerNoise(topPanel)
 
 		topPanel.ignoreFrameTemplates = true
@@ -214,7 +213,8 @@ function module:GameMenu()
 		topPanel.factionLogo = topPanel:CreateTexture(nil, "ARTWORK")
 		topPanel.factionLogo:Point("CENTER", topPanel, "CENTER", 0, 0)
 		topPanel.factionLogo:Size(186, 186)
-		topPanel.factionLogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\ClassBanner\\CLASS-"..E.myclass)
+		topPanel.factionLogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\ClassBanner\\CLASS-" ..
+			E.myclass)
 	end
 
 	-- Use this frame to control the position of the model - taken from ElvUI
@@ -238,7 +238,7 @@ function module:GameMenu()
 		GameMenuFrame.npcHolder:SetPoint("LEFT", GameMenuFrame, "RIGHT", 300, 0)
 
 		local npcModel = CreateFrame("PlayerModel", nil, GameMenuFrame.npcHolder)
-		npcModel:Point("CENTER",  GameMenuFrame.npcHolder, "CENTER")
+		npcModel:Point("CENTER", GameMenuFrame.npcHolder, "CENTER")
 		npcModel:SetScript("OnShow", NPC_Model)
 		npcModel.isIdle = nil
 		npcModel:Size(256)

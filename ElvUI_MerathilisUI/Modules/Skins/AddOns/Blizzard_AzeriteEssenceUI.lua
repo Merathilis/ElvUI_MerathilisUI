@@ -1,13 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
 
 local C_AzeriteEssence_CanOpenUI = C_AzeriteEssence.CanOpenUI
 
-local function LoadSkin()
+function module:Blizzard_AzeriteEssenceUI()
 	if not module:CheckDB("azeriteEssence", "AzeriteEssence") then
 		return
 	end
@@ -15,7 +14,6 @@ local function LoadSkin()
 	if not C_AzeriteEssence_CanOpenUI() then return end
 
 	local AzeriteEssenceUI = _G.AzeriteEssenceUI
-	AzeriteEssenceUI:Styling()
 	module:CreateBackdropShadow(AzeriteEssenceUI)
 
 	for _, button in pairs(AzeriteEssenceUI.EssenceList.buttons) do
@@ -26,4 +24,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_AzeriteEssenceUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_AzeriteEssenceUI")

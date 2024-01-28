@@ -10,7 +10,6 @@ local function LoadSkin()
 	end
 
 	local frame = _G.ClassTalentFrame
-	frame:Styling()
 	module:CreateShadow(frame)
 
 	frame.TalentsTab.BlackBG:SetAlpha(.5)

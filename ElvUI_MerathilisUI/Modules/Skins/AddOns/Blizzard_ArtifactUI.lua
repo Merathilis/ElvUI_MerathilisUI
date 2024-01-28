@@ -6,13 +6,12 @@ local _G = _G
 local select = select
 local hooksecurefunc = hooksecurefunc
 
-local function LoadSkin()
+function module:Blizzard_ArtifactUI()
 	if not module:CheckDB("artifact", "artifact") then
 		return
 	end
 
 	local ArtifactFrame = _G.ArtifactFrame
-	ArtifactFrame:Styling()
 	module:CreateBackdropShadow(_G.ArtifactFrame)
 
 	for i = 1, 2 do
@@ -37,7 +36,6 @@ local function LoadSkin()
 			local child = select(i, self:GetChildren())
 			if child and child.appearanceID then
 				child:SetTemplate("Transparent")
-				child:Styling()
 				child.SwatchTexture:SetTexCoord(.20, .80, .20, .80)
 				child.SwatchTexture:SetInside(child)
 				child.Border:SetAlpha(0)
@@ -60,15 +58,15 @@ local function LoadSkin()
 				child:StripTextures()
 				child.Name:SetTextColor(1, 1, 1)
 				child:SetTemplate("Transparent")
-				child:SetBackdropColor(0, 0, 0, 1/2)
+				child:SetBackdropColor(0, 0, 0, 1 / 2)
 				local point, anchor, secondaryPoint, x, y = child:GetPoint()
-				child:SetPoint(point, anchor, secondaryPoint, x, y+2)
+				child:SetPoint(point, anchor, secondaryPoint, x, y + 2)
 				hooksecurefunc(child, "SetPoint", function(self, point, anchor, secondaryPoint, x, y)
 					if y == -80 or y == 0 then -- Blizz sets these two, maybe not best way for this but eh.
-						self:SetPoint(point, anchor, secondaryPoint, x, y+2)
+						self:SetPoint(point, anchor, secondaryPoint, x, y + 2)
 						if not E.PixelMode then
-							child:Point('TOPLEFT', child, 'TOPLEFT', -E.Border+2, E.Border-3)
-							child:Point('BOTTOMRIGHT', child, 'BOTTOMRIGHT', E.Border-2, E.Border+3)
+							child:Point('TOPLEFT', child, 'TOPLEFT', -E.Border + 2, E.Border - 3)
+							child:Point('BOTTOMRIGHT', child, 'BOTTOMRIGHT', E.Border - 2, E.Border + 3)
 						end
 					end
 				end)
@@ -77,4 +75,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_ArtifactUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_ArtifactUI")

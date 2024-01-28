@@ -10,11 +10,9 @@ local function LoadSkin()
 	end
 
 	local ChannelFrame = _G.ChannelFrame
-	ChannelFrame:Styling()
 	module:CreateBackdropShadow(ChannelFrame)
 
 	local CreateChannelPopup = _G.CreateChannelPopup
-	CreateChannelPopup:Styling()
 	module:CreateBackdropShadow(CreateChannelPopup)
 end
 

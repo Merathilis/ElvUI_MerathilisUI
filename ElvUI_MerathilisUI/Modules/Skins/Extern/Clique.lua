@@ -10,7 +10,6 @@ function module:Clique()
 
 	_G.CliqueConfig:StripTextures()
 	_G.CliqueConfig:CreateBackdrop("Transparent")
-	_G.CliqueConfig.backdrop:Styling()
 
 	_G.CliqueConfigPage1Column1:StripTextures()
 	_G.CliqueConfigPage1Column2:StripTextures()
@@ -64,13 +63,13 @@ function module:Clique()
 
 	_G.CliqueConfigPage1:SetScript("OnShow", function(self)
 		for i = 1, 12 do
-			if _G["CliqueRow"..i] then
-				_G["CliqueRow"..i.."Icon"]:SetTexCoord(unpack(E.TexCoords))
-				_G["CliqueRow"..i.."Bind"]:ClearAllPoints()
-				if _G["CliqueRow"..i] == _G.CliqueRow1 then
-					_G["CliqueRow"..i.."Bind"]:SetPoint("RIGHT", _G["CliqueRow"..i], 8, 0)
+			if _G["CliqueRow" .. i] then
+				_G["CliqueRow" .. i .. "Icon"]:SetTexCoord(unpack(E.TexCoords))
+				_G["CliqueRow" .. i .. "Bind"]:ClearAllPoints()
+				if _G["CliqueRow" .. i] == _G.CliqueRow1 then
+					_G["CliqueRow" .. i .. "Bind"]:SetPoint("RIGHT", _G["CliqueRow" .. i], 8, 0)
 				else
-					_G["CliqueRow"..i.."Bind"]:SetPoint("RIGHT", _G["CliqueRow"..i], -8, 0)
+					_G["CliqueRow" .. i .. "Bind"]:SetPoint("RIGHT", _G["CliqueRow" .. i], -8, 0)
 				end
 			end
 		end

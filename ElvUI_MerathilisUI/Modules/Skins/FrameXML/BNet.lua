@@ -11,7 +11,6 @@ local function LoadSkin()
 	end
 
 	local BNToastFrame = _G.BNToastFrame
-	BNToastFrame:Styling()
 	module:CreateShadow(BNToastFrame)
 
 	-- /run BNToastFrame:AddToast(BN_TOAST_TYPE_ONLINE, 1)

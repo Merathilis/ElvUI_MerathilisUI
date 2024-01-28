@@ -46,7 +46,6 @@
 	<Script file="Blizzard_MapCanvas.lua"/>
 	<Script file="Blizzard_MajorFactions.lua"/>
 	<Script file="Blizzard_NewPlayerExperienceGuide.lua"/>
-	<Script file="Blizzard_ObjectiveTracker.lua"/>
 	<Script file="Misc.lua"/>
 	<Script file="Blizzard_OrderHallUI.lua"/>
 	<Script file="Blizzard_PerksProgram.lua"/>
@@ -57,7 +56,6 @@
 	<Script file="Blizzard_PVPMatchUI.lua"/>
 	<Script file="Blizzard_QuestChoice.lua"/>
 	<Script file="Blizzard_RaidUI.lua"/>
-	<Script file="Blizzard_ScenarioUI.lua"/>
 	<Script file="Blizzard_ScrappingMachineUI.lua"/>
 	<Script file="Blizzard_Soulbinds.lua"/>
 	<Script file="Blizzard_TimeManager.lua"/>

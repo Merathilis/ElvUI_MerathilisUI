@@ -14,7 +14,6 @@ local function LoadSkin()
 
 	frame:HookScript('OnShow', function()
 		if not frame.__MERSkin then
-			frame:Styling()
 			module:CreateBackdropShadow(frame)
 
 			local UpgradesTab = frame.UpgradesTab

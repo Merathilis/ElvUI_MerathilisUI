@@ -10,7 +10,6 @@ local function LoadSkin()
 	end
 
 	local DeathRecapFrame = _G.DeathRecapFrame
-	DeathRecapFrame:Styling()
 	module:CreateShadow(DeathRecapFrame)
 end
 

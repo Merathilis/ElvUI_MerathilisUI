@@ -13,7 +13,7 @@ local buttons = {}
 local expandButtons = {}
 
 local function RemoveBorder(frame)
-	for _, region in pairs {frame:GetRegions()} do
+	for _, region in pairs { frame:GetRegions() } do
 		if region:GetObjectType() == "Texture" then
 			local tex = region:GetTexture()
 			if tex and tex == 130841 then
@@ -24,7 +24,7 @@ local function RemoveBorder(frame)
 end
 
 local function HandleAllChildButtons(frame)
-	for _, child in pairs {frame:GetChildren()} do
+	for _, child in pairs { frame:GetChildren() } do
 		if child:IsObjectType("Button") then
 			S:HandleButton(child)
 		end
@@ -50,7 +50,8 @@ function module:WeakAuras_RegisterRegionOptions(name, createFunction, icon, disp
 		end
 	end
 
-	self.hooks[_G.WeakAuras.Private]["RegisterRegionOptions"](name, createFunction, icon, displayName, createThumbnail, ...)
+	self.hooks[_G.WeakAuras.Private]["RegisterRegionOptions"](name, createFunction, icon, displayName, createThumbnail,
+		...)
 end
 
 local function ReskinNormalButton(button, next)
@@ -58,7 +59,7 @@ local function ReskinNormalButton(button, next)
 		S:HandleButton(button)
 	end
 	if next then
-		for _, child in pairs {button:GetChildren()} do
+		for _, child in pairs { button:GetChildren() } do
 			if child:GetObjectType() == "Button" then
 				ReskinNormalButton(child)
 			end
@@ -67,7 +68,7 @@ local function ReskinNormalButton(button, next)
 end
 
 local function ReskinChildButton(frame)
-	for _, child in pairs {frame:GetChildren()} do
+	for _, child in pairs { frame:GetChildren() } do
 		if child:GetObjectType() == "Button" then
 			ReskinNormalButton(child, true)
 		end
@@ -110,7 +111,7 @@ function module:WeakAurasMultiLineEditBox(Constructor)
 		local onShow = widget.frame:GetScript("OnShow")
 		widget.frame:SetScript("OnShow", function(frame)
 			onShow(frame)
-			if not frame.obj or not frame.obj. extraButtons then
+			if not frame.obj or not frame.obj.extraButtons then
 				return
 			end
 
@@ -139,7 +140,7 @@ function module:WeakAurasDisplayButton(Constructor)
 			module:CreateGradient(widget.frame)
 			widget.frame.background:SetAlpha(0)
 			widget.frame.backdrop:SetFrameLevel(widget.frame:GetFrameLevel())
-			widget.frame.backdrop.color = {widget.frame.backdrop.Center:GetVertexColor()}
+			widget.frame.backdrop.color = { widget.frame.backdrop.Center:GetVertexColor() }
 
 			hooksecurefunc(widget.frame.background, "Hide", function()
 				widget.frame.backdrop.Center:SetVertexColor(1, 0, 0, 0.3)
@@ -361,11 +362,11 @@ do
 		module:CreateShadow(frame.backdrop, 4, 1, 1, 1, true)
 
 		-- Mover Buttons
-		for _, child in pairs {frame:GetChildren()} do
+		for _, child in pairs { frame:GetChildren() } do
 			local numChildren = child:GetNumChildren()
 			local numRegions = child:GetNumRegions()
 			if numChildren == 2 and numRegions == 0 then
-				for _, button in pairs {child:GetChildren()} do
+				for _, button in pairs { child:GetChildren() } do
 					local anchor = button:GetPoint()
 					if anchor then
 						button:StripTextures()
@@ -388,7 +389,7 @@ do
 							if self.Texture then
 								self.Texture:SetVertexColor(1, 1, 1, 1)
 							end
-						end	)
+						end)
 					end
 				end
 			end
@@ -441,7 +442,6 @@ function module:WeakAuras_ShowOptions()
 	-- Remove background
 	frame:StripTextures()
 	S:HandleFrame(frame, true, nil, 0, 0, 0, 0)
-	frame.backdrop:Styling()
 	module:CreateShadow(frame)
 
 	S:HandleCloseButton(frame.CloseButton)
@@ -458,7 +458,7 @@ function module:WeakAuras_ShowOptions()
 		frame.MaxMinButtonFrame.MaximizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
 	end
 
-	for _, region in pairs {frame:GetRegions()} do
+	for _, region in pairs { frame:GetRegions() } do
 		if region:GetObjectType() == "Texture" then
 			region:SetTexture(nil)
 			region.SetTexture = E.noop
@@ -469,7 +469,7 @@ function module:WeakAuras_ShowOptions()
 	self:WeakAurasOptionMoverSizer()
 
 	-- Buttons
-	for _, child in pairs {frame:GetChildren()} do
+	for _, child in pairs { frame:GetChildren() } do
 		if child:GetObjectType() == "Button" then
 			ReskinNormalButton(child, true)
 		elseif child:GetObjectType() == "Frame" then
@@ -499,13 +499,13 @@ function module:WeakAuras_ShowOptions()
 		end
 	end
 
-	for _, child in pairs {frame:GetChildren()} do
+	for _, child in pairs { frame:GetChildren() } do
 		local numRegions = child:GetNumRegions()
 		local numChildren = child:GetNumChildren()
 		local frameStrata = child:GetFrameStrata()
 
 		if numRegions == 3 and numChildren == 1 and child.PixelSnapDisabled then -- Top right buttons(close & collapse)
-			for _, region in pairs {child:GetRegions()} do
+			for _, region in pairs { child:GetRegions() } do
 				region:StripTextures()
 			end
 			local button = child:GetChildren()
@@ -559,7 +559,7 @@ function module:WeakAuras_ShowOptions()
 			child:StripTextures()
 			child:CreateBackdrop("Transparent")
 			module:CreateShadow(child.backdrop)
-			for _, subChild in pairs {child:GetChildren()} do
+			for _, subChild in pairs { child:GetChildren() } do
 				if subChild.GetObjectType and subChild:GetObjectType() == "EditBox" then
 					S:HandleEditBox(subChild)
 					subChild.backdrop:SetInside(nil, 0, 7)
@@ -576,7 +576,6 @@ function module:WeakAuras_ShowOptions()
 		snippetsFrame:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", 5, 0)
 		snippetsFrame:StripTextures()
 		snippetsFrame:CreateBackdrop("Transparent")
-		snippetsFrame.backdrop:Styling()
 		module:CreateBackdropShadow(snippetsFrame)
 		ReskinChildButton(snippetsFrame)
 	end
@@ -620,7 +619,7 @@ function module:WeakAuras_ShowOptions()
 	end
 
 	if frame.iconPicker.frame then
-		for _, child in pairs {frame.iconPicker.frame:GetChildren()} do
+		for _, child in pairs { frame.iconPicker.frame:GetChildren() } do
 			if child.GetObjectType and child:GetObjectType() == "EditBox" then
 				child.Left:Kill()
 				child.Middle:Kill()
@@ -641,7 +640,7 @@ function module:WeakAuras_TextEditor()
 		return
 	end
 
-	for _, child in pairs {frame:GetChildren()} do
+	for _, child in pairs { frame:GetChildren() } do
 		if child.Text then
 			S:HandleButton(child)
 		end
@@ -654,10 +653,9 @@ function module:WeakAuras_TextEditor()
 
 	frame:SetBackdrop(nil)
 	frame:CreateBackdrop("Transparent")
-	frame.backdrop:Styling()
 	module:CreateShadow(frame)
 
-	for _, child in pairs {frame:GetChildren()} do
+	for _, child in pairs { frame:GetChildren() } do
 		if child.Text then
 			S:HandleButton(child)
 		end

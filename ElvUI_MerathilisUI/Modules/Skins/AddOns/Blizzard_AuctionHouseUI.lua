@@ -1,16 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_AuctionHouseUI()
 	if not module:CheckDB("auctionhouse", "auctionhouse") then
 		return
 	end
 
 	local Frame = _G.AuctionHouseFrame
-	Frame:Styling()
 	module:CreateShadow(Frame)
 	module:CreateShadow(Frame.WoWTokenResults.GameTimeTutorial)
 
@@ -31,7 +29,7 @@ local function LoadSkin()
 	module:CreateGradient(AuctionsFrame.ItemList.ScrollBox)
 	module:CreateGradient(AuctionsFrame.CommoditiesList.ScrollBox)
 
-	local tabs = {_G.AuctionHouseFrameBuyTab, _G.AuctionHouseFrameSellTab, _G.AuctionHouseFrameAuctionsTab}
+	local tabs = { _G.AuctionHouseFrameBuyTab, _G.AuctionHouseFrameSellTab, _G.AuctionHouseFrameAuctionsTab }
 	for _, tab in pairs(tabs) do
 		if tab then
 			module:ReskinTab(tab)
@@ -40,4 +38,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_AuctionHouseUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_AuctionHouseUI")

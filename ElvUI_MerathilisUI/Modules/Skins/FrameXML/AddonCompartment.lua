@@ -9,7 +9,6 @@ function module:AddonCompartment()
 	end
 
 	local AddonCompartmentFrame = _G.AddonCompartmentFrame
-	AddonCompartmentFrame:Styling()
 	module:CreateShadow(AddonCompartmentFrame)
 end
 

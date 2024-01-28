@@ -28,20 +28,34 @@ local function ReskinSectionHeader()
 		if not header.IsSkinned then
 			ReskinHeader(header)
 			S:HandleIcon(header.button.abilityIcon)
-			header.styled = true
+
+			header.IsSkinned = true
 		end
 
 		index = index + 1
 	end
 end
 
-local function LoadSkin()
+local function ReplaceTextColor(container)
+	container.NameText:SetTextColor(1, 1, 1)
+end
+
+local function HandleText(button)
+	local container = button.TextContainer
+	if container and not container.IsSkinned then
+		ReplaceTextColor(container)
+		hooksecurefunc(container, "UpdateTextColor", ReplaceTextColor)
+
+		container.IsSkinned = true
+	end
+end
+
+function module:Blizzard_EncounterJournal()
 	if not module:CheckDB("encounterjournal", "encounterjournal") then
 		return
 	end
 
 	local EncounterJournal = _G.EncounterJournal
-	EncounterJournal:Styling()
 	module:CreateShadow(EncounterJournal)
 
 	-- Bottom tabs
@@ -122,10 +136,37 @@ local function LoadSkin()
 	end)
 
 	for _, name in next, { "overviewTab", "modelTab", "bossTab", "lootTab" } do
-		local tab = EncounterJournal.encounter.info[name]
-		tab.backdrop:Styling()
-		module:CreateGradient(tab.backdrop)
+		local info = _G.EncounterJournal.encounter.info
+		local tab = info[name]
+		module:CreateGradient(tab)
 		module:CreateBackdropShadow(tab)
+
+		tab:ClearAllPoints()
+		if name == "overviewTab" then
+			tab:SetPoint("TOPLEFT", _G.EncounterJournalEncounterFrameInfo, "TOPRIGHT", 13, -55)
+			hooksecurefunc(tab, "Point", function(self)
+				self:ClearAllPoints()
+				self:SetPoint("TOPLEFT", _G.EncounterJournalEncounterFrameInfo, "TOPRIGHT", 13, -55)
+			end)
+		elseif name == "lootTab" then
+			tab:SetPoint("TOPLEFT", _G.EncounterJournal.encounter.info.overviewTab, "BOTTOMLEFT", 0, -4)
+			hooksecurefunc(tab, "Point", function(self)
+				self:ClearAllPoints()
+				tab:SetPoint("TOPLEFT", _G.EncounterJournal.encounter.info.overviewTab, "BOTTOMLEFT", 0, -4)
+			end)
+		elseif name == "bossTab" then
+			tab:SetPoint("TOPLEFT", _G.EncounterJournal.encounter.info.lootTab, "BOTTOMLEFT", 0, -4)
+			hooksecurefunc(tab, "Point", function(self)
+				self:ClearAllPoints()
+				tab:SetPoint("TOPLEFT", _G.EncounterJournal.encounter.info.lootTab, "BOTTOMLEFT", 0, -4)
+			end)
+		elseif name == "modelTab" then
+			tab:SetPoint("TOPLEFT", _G.EncounterJournal.encounter.info.bossTab, "BOTTOMLEFT", 0, -4)
+			hooksecurefunc(tab, "Point", function(self)
+				self:ClearAllPoints()
+				tab:SetPoint("TOPLEFT", _G.EncounterJournal.encounter.info.bossTab, "BOTTOMLEFT", 0, -4)
+			end)
+		end
 	end
 
 	-- Encounter Frame
@@ -137,7 +178,8 @@ local function LoadSkin()
 	_G.EncounterJournalEncounterFrameInfoEncounterTitle:SetTextColor(1, .8, 0)
 
 	_G.EncounterJournal.encounter.instance.LoreScrollingFont:SetTextColor(CreateColor(1, 1, 1))
-	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChild.overviewDescription.Text:SetTextColor("P", 1, 1, 1)
+	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChild.overviewDescription.Text:SetTextColor("P", 1, 1,
+		1)
 
 	_G.EncounterJournalEncounterFrameInfoDetailsScrollFrameScrollChildDescription:SetTextColor(1, 1, 1)
 	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChildHeader:Hide()
@@ -146,7 +188,8 @@ local function LoadSkin()
 	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChildTitle:SetTextColor(1, .8, 0)
 
 	_G.EncounterJournalEncounterFrameInfoModelFrame:CreateBackdrop('Transparent')
-	_G.EncounterJournalEncounterFrameInfoCreatureButton1:SetPoint("TOPLEFT", EncounterJournalEncounterFrameInfoModelFrame, 0, -35)
+	_G.EncounterJournalEncounterFrameInfoCreatureButton1:SetPoint("TOPLEFT", EncounterJournalEncounterFrameInfoModelFrame,
+		0, -35)
 
 	hooksecurefunc(EncounterJournal.encounter.info.BossesScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -204,6 +247,13 @@ local function LoadSkin()
 		end
 	end)
 
+	-- Monthly activities
+	local ActivitiesFrame = _G.EncounterJournalMonthlyActivitiesFrame
+	if ActivitiesFrame then
+		hooksecurefunc(ActivitiesFrame.ScrollBox, "Update", function(self)
+			self:ForEachFrame(HandleText)
+		end)
+	end
 end
 
-S:AddCallbackForAddon("Blizzard_EncounterJournal", LoadSkin)
+module:AddCallbackForAddon("Blizzard_EncounterJournal")

@@ -68,9 +68,9 @@ local function GetRaidMaxGroup()
 end
 
 local RoleTexCoord = {
-	{.5, .75, 0, 1},
-	{.75, 1, 0, 1},
-	{.25, .5, 0, 1},
+	{ .5,  .75, 0, 1 },
+	{ .75, 1,   0, 1 },
+	{ .25, .5,  0, 1 },
 }
 
 local RaidCounts = {
@@ -104,8 +104,10 @@ local function onEnter(self)
 	local bottom = point and strfind(point, "BOTTOM")
 	local left = point and strfind(point, "LEFT")
 
-	local anchor1 = (bottom and left and "BOTTOMLEFT") or (bottom and "BOTTOMRIGHT") or (left and "TOPLEFT") or "TOPRIGHT"
-	local anchor2 = (bottom and left and "BOTTOMRIGHT") or (bottom and "BOTTOMLEFT") or (left and "TOPRIGHT") or "TOPLEFT"
+	local anchor1 = (bottom and left and "BOTTOMLEFT") or (bottom and "BOTTOMRIGHT") or (left and "TOPLEFT") or
+		"TOPRIGHT"
+	local anchor2 = (bottom and left and "BOTTOMRIGHT") or (bottom and "BOTTOMLEFT") or (left and "TOPRIGHT") or
+		"TOPLEFT"
 	local anchorX = left and 2 or -2
 
 	local GameTooltip = _G.GameTooltip
@@ -118,7 +120,8 @@ local function onEnter(self)
 		name, _, group, _, _, class, _, _, _, _, _, groupRole = GetRaidRosterInfo(i)
 		if name and groupRole == role then
 			color = E:ClassColor(class)
-			coloredName = ("|cff%02x%02x%02x%s"):format(color.r * 255, color.g * 255, color.b * 255, name:gsub("%-.+", "*"))
+			coloredName = ("|cff%02x%02x%02x%s"):format(color.r * 255, color.g * 255, color.b * 255,
+				name:gsub("%-.+", "*"))
 			tinsert(roleIconRoster[group], coloredName)
 		end
 	end
@@ -159,7 +162,7 @@ local function UpdateIcons(self)
 	twipe(count)
 
 	for i = 1, GetNumGroupMembers() do
-		local role = UnitGroupRolesAssigned('raid'..i)
+		local role = UnitGroupRolesAssigned('raid' .. i)
 		if role and role ~= 'NONE' then
 			count[role] = (count[role] or 0) + 1
 		end
@@ -200,7 +203,8 @@ function module:OnEvent_RestrictPings()
 	self:SetChecked(C_PartyInfo_GetRestrictPings())
 end
 
-function module:CreateCheckBox(name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, label, events, eventFunc, clickFunc)
+function module:CreateCheckBox(name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, label,
+							   events, eventFunc, clickFunc)
 	local checkbox = type(name) == 'table' and name
 	local box = checkbox or CreateFrame('CheckButton', name, parent, template or 'UICheckButtonTemplate')
 	box:Size(height)
@@ -235,7 +239,8 @@ function module:CreateCheckBox(name, parent, template, width, height, point, rel
 	return box
 end
 
-function module:CreateUtilButton(name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, label, texture)
+function module:CreateUtilButton(name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, label,
+								 texture)
 	local button = type(name) == 'table' and name
 	local btn = button or CreateFrame('Button', name, parent, template)
 	btn:HookScript('OnEnter', module.OnEnter_Button)
@@ -296,7 +301,6 @@ function module:Initialize()
 	RaidManagerFrame:EnableMouse(true)
 
 	RaidManagerFrame:CreateBackdrop("Transparent")
-	RaidManagerFrame.backdrop:Styling()
 	S:CreateShadowModule(RaidManagerFrame.backdrop)
 
 	-- Top Title
@@ -350,14 +354,16 @@ function module:Initialize()
 	end
 
 	local BUTTON_WIDTH = PANEL_WIDTH / 2 - 20
-	local PullButton = module:CreateUtilButton("RaidManagerFramePullButton", RaidManagerFrame, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "TOPRIGHT", RaidManagerFrame, "TOP", -5, -25, L["Pull"])
+	local PullButton = module:CreateUtilButton("RaidManagerFramePullButton", RaidManagerFrame,
+		"UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "TOPRIGHT",
+		RaidManagerFrame, "TOP", -5, -25, L["Pull"])
 
 	local reset = true
 	PullButton:SetScript("OnClick", function(self)
 		if IsInGroup() and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid())) then
 			if C_AddOns_IsAddOnLoaded("DBM-Core") then
 				if reset then
-					SlashCmdList["DEADLYBOSSMODS"]("pull "..E.db.mui.raidmanager.count)
+					SlashCmdList["DEADLYBOSSMODS"]("pull " .. E.db.mui.raidmanager.count)
 				else
 					SlashCmdList["DEADLYBOSSMODS"]("pull 0")
 				end
@@ -372,38 +378,47 @@ function module:Initialize()
 				end
 				reset = not reset
 			else
-				_G.UIErrorsFrame:AddMessage(MER.InfoColor..L["Bossmod requiered"])
+				_G.UIErrorsFrame:AddMessage(MER.InfoColor .. L["Bossmod requiered"])
 			end
 		else
-			_G.UIErrorsFrame:AddMessage(MER.InfoColor.._G.ERR_NOT_LEADER)
+			_G.UIErrorsFrame:AddMessage(MER.InfoColor .. _G.ERR_NOT_LEADER)
 		end
 	end)
 
 	PullButton:RegisterEvent("PLAYER_REGEN_ENABLED")
 	PullButton:SetScript("OnEvent", function() reset = true end)
 
-	local ReadyCheckButton = module:CreateUtilButton("RaidManagerFrameReadyCheckButton", RaidManagerFrame, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "LEFT", PullButton, "RIGHT", 10, 0, _G.READY_CHECK)
+	local ReadyCheckButton = module:CreateUtilButton("RaidManagerFrameReadyCheckButton", RaidManagerFrame,
+		"UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "LEFT", PullButton,
+		"RIGHT", 10, 0, _G.READY_CHECK)
 
 	ReadyCheckButton:SetScript("OnClick", function()
-		if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(MER.RedColor.._G.ERR_NOT_IN_COMBAT) return end
+		if InCombatLockdown() then
+			_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.ERR_NOT_IN_COMBAT)
+			return
+		end
 		if IsInGroup() and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid())) then
 			DoReadyCheck()
 		else
-			_G.UIErrorsFrame:AddMessage(MER.RedColor.._G.ERR_NOT_LEADER)
+			_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.ERR_NOT_LEADER)
 		end
 	end)
 
-	local RolePollButton = module:CreateUtilButton("RaidManagerFrameRoleCheckButton", RaidManagerFrame, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "TOP", PullButton, "BOTTOM", 0, -5, _G.ROLE_POLL)
+	local RolePollButton = module:CreateUtilButton("RaidManagerFrameRoleCheckButton", RaidManagerFrame,
+		"UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "TOP", PullButton,
+		"BOTTOM", 0, -5, _G.ROLE_POLL)
 
 	RolePollButton:SetScript("OnClick", function()
 		if IsInGroup() and not HasLFGRestrictions() and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid())) then
 			InitiateRolePoll()
 		else
-			_G.UIErrorsFrame:AddMessage(MER.RedColor.._G.ERR_NOT_LEADER)
+			_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.ERR_NOT_LEADER)
 		end
 	end)
 
-	local ConvertGroupButton = module:CreateUtilButton("RaidManagerFrameConvertGroupButton", RaidManagerFrame, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "LEFT", RolePollButton, "RIGHT", 10, 0, "")
+	local ConvertGroupButton = module:CreateUtilButton("RaidManagerFrameConvertGroupButton", RaidManagerFrame,
+		"UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", BUTTON_WIDTH, BUTTON_HEIGHT, "LEFT", RolePollButton,
+		"RIGHT", 10, 0, "")
 
 	ConvertGroupButton:SetScript("OnEvent", function(self, event, arg1)
 		if not IsInGroup() then
@@ -427,17 +442,22 @@ function module:Initialize()
 		elseif IsInGroup() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
 			C_PartyInfo_ConvertToRaid()
 		else
-			_G.UIErrorsFrame:AddMessage(MER.InfoColor.._G.ERR_NOT_LEADER)
+			_G.UIErrorsFrame:AddMessage(MER.InfoColor .. _G.ERR_NOT_LEADER)
 		end
 	end)
 
 	ConvertGroupButton:RegisterEvent("GROUP_ROSTER_UPDATE")
 	ConvertGroupButton:RegisterEvent("PLAYER_ENTERING_WORLD")
 
-	local EveryoneAssist = module:CreateCheckBox("RaidManagerFrame_EveryoneAssist", RaidManagerFrame, nil, BUTTON_WIDTH, BUTTON_HEIGHT + 4, 'TOPLEFT', RolePollButton, 'BOTTOMLEFT', -4, -3, _G.ALL_ASSIST_LABEL_LONG, {'GROUP_ROSTER_UPDATE', 'PARTY_LEADER_CHANGED'}, module.OnEvent_EveryoneAssist, module.OnClick_EveryoneAssist)
+	local EveryoneAssist = module:CreateCheckBox("RaidManagerFrame_EveryoneAssist", RaidManagerFrame, nil, BUTTON_WIDTH,
+		BUTTON_HEIGHT + 4, 'TOPLEFT', RolePollButton, 'BOTTOMLEFT', -4, -3, _G.ALL_ASSIST_LABEL_LONG,
+		{ 'GROUP_ROSTER_UPDATE', 'PARTY_LEADER_CHANGED' }, module.OnEvent_EveryoneAssist, module.OnClick_EveryoneAssist)
 
 	if C_PartyInfo_SetRestrictPings then
-		module:CreateCheckBox("RaidManagerFrame_RestrictPings", RaidManagerFrame, nil, BUTTON_WIDTH, BUTTON_HEIGHT + 4, 'TOPLEFT', EveryoneAssist, 'BOTTOMLEFT', 0, 0, _G.RAID_MANAGER_RESTRICT_PINGS, {'GROUP_ROSTER_UPDATE', 'PARTY_LEADER_CHANGED'}, module.OnEvent_RestrictPings, module.OnClick_RestrictPings)
+		module:CreateCheckBox("RaidManagerFrame_RestrictPings", RaidManagerFrame, nil, BUTTON_WIDTH, BUTTON_HEIGHT + 4,
+			'TOPLEFT', EveryoneAssist, 'BOTTOMLEFT', 0, 0, _G.RAID_MANAGER_RESTRICT_PINGS,
+			{ 'GROUP_ROSTER_UPDATE', 'PARTY_LEADER_CHANGED' }, module.OnEvent_RestrictPings, module
+			.OnClick_RestrictPings)
 	end
 
 	local RaidMarkFrame = CreateFrame("Frame", "RaidMarkFrame", E.UIParent)
@@ -446,7 +466,6 @@ function module:Initialize()
 	RaidMarkFrame:SetFrameStrata("HIGH")
 	RaidMarkFrame:Hide()
 	RaidMarkFrame:CreateBackdrop("Transparent")
-	RaidMarkFrame.backdrop:Styling()
 	S:CreateShadowModule(RaidMarkFrame.backdrop)
 
 	RaidMarkFrame:RegisterForDrag("LeftButton")
@@ -460,7 +479,6 @@ function module:Initialize()
 	RoleIcons:Point("LEFT", RaidManagerFrame, "RIGHT", 3, 0)
 	RoleIcons:Size(36, RaidManagerFrame:GetHeight())
 	RoleIcons:CreateBackdrop("Transparent")
-	RoleIcons.backdrop:Styling()
 	S:CreateShadowModule(RoleIcons.backdrop)
 
 	RoleIcons:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -469,13 +487,13 @@ function module:Initialize()
 
 	RoleIcons.icons = {}
 
-	local roles = {"TANK", "HEALER", "DAMAGER"}
+	local roles = { "TANK", "HEALER", "DAMAGER" }
 	for i, role in ipairs(roles) do
-		local frame = CreateFrame("Frame", "$parent_"..role, RoleIcons)
+		local frame = CreateFrame("Frame", "$parent_" .. role, RoleIcons)
 		if i == 1 then
 			frame:Point("BOTTOM", 0, 10)
 		else
-			frame:Point("BOTTOM", _G["RaidManagerRoleIcons_"..roles[i-1]], "TOP", 0, 10)
+			frame:Point("BOTTOM", _G["RaidManagerRoleIcons_" .. roles[i - 1]], "TOP", 0, 10)
 		end
 
 		frame:Size(36, 36)
@@ -512,7 +530,6 @@ function module:Initialize()
 	header:CreateBackdrop("Transparent")
 	header.backdrop:SetAllPoints()
 	header.backdrop:SetBackdropColor(0, 0, 0, 0.3)
-	header.backdrop:Styling()
 	S:CreateShadowModule(header.backdrop)
 	E.FrameLocks[header] = true
 
@@ -652,7 +669,6 @@ function module:Initialize()
 
 	rcFrame:CreateBackdrop("Transparent")
 	rcFrame.backdrop:SetAllPoints()
-	rcFrame.backdrop:Styling()
 	S:CreateShadowModule(rcFrame.backdrop)
 
 	rcFrame.Text = rcFrame:CreateFontString(nil, "OVERLAY")

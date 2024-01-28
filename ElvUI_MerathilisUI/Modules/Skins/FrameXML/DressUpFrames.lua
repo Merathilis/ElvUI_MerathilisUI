@@ -43,27 +43,21 @@ local function UndressButton()
 	end)
 end
 
-local function LoadSkin()
+function module:DressUpFrame()
 	if not module:CheckDB("dressingroom", "dressingroom") then
 		return
 	end
 
-	_G.DressUpFrame:Styling()
 	module:CreateShadow(_G.DressUpFrame)
-
-	_G.DressUpFrame.OutfitDetailsPanel:Styling()
 	module:CreateShadow(_G.DressUpFrame.OutfitDetailsPanel)
-
 	-- Wardrobe edit frame
-	_G.WardrobeOutfitFrame:Styling()
 	module:CreateBackdropShadow(_G.WardrobeOutfitFrame)
 
 	-- AuctionHouse
-	_G.SideDressUpFrame:Styling()
 	module:CreateBackdropShadow(_G.SideDressUpFrame)
 
 	-- Undress Button
 	UndressButton()
 end
 
-S:AddCallback("DressUpFrame", LoadSkin)
+module:AddCallback("DressUpFrame")

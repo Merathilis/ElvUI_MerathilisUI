@@ -6,13 +6,12 @@ local _G = _G
 
 local hooksecurefunc = hooksecurefunc
 
-local function LoadSkin()
+function module:SettingsPanel()
 	if not module:CheckDB("blizzardOptions", "blizzardOptions") then
 		return
 	end
 
 	local SettingsPanel = _G.SettingsPanel
-	SettingsPanel.backdrop:Styling()
 	module:CreateBackdropShadow(SettingsPanel)
 
 	hooksecurefunc(SettingsPanel.Container.SettingsList.ScrollBox, 'Update', function(frame)
@@ -31,4 +30,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallback("SettingsPanel", LoadSkin)
+module:AddCallback("SettingsPanel")

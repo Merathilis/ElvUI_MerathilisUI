@@ -6,13 +6,13 @@ local CreateFrame = CreateFrame
 function module:Construct_GCD(frame)
 	local width = E.db.unitframe.units.player.castbar.width - 2
 	local color = E.db.mui.unitframes.gcd.color
-	local r, g, b = color.r, color.g, color.b or {.8, .8, .8}
+	local r, g, b = color.r, color.g, color.b or { .8, .8, .8 }
 
-	local bar = CreateFrame("StatusBar", frame:GetName().."_GCD", frame)
+	local bar = CreateFrame("StatusBar", frame:GetName() .. "_GCD", frame)
 	bar:Size(width, 3)
 	bar:ClearAllPoints()
 	bar:Point("BOTTOM", frame.Castbar.Holder, "TOP", 0, -1)
-	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel()+1)
+	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel() + 1)
 	bar:SetStatusBarTexture(E.media.normTex)
 	bar:SetStatusBarColor(r, g, b)
 	MER:SmoothBar(bar)
@@ -20,7 +20,6 @@ function module:Construct_GCD(frame)
 	bar.BG = bar:CreateTexture(nil, "BORDER")
 	bar.BG:SetAllPoints(bar)
 	bar.BG:CreateBackdrop("Transparent")
-	bar.BG.backdrop:Styling(false, false, true)
 
 	bar.Spark = bar:CreateTexture(nil, "OVERLAY")
 	bar.Spark:SetTexture(E.media.blankTex)

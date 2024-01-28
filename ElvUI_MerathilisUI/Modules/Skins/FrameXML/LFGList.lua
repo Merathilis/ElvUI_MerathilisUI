@@ -25,7 +25,7 @@ local function HeaderOnLeave(self)
 	self.hl:Hide()
 end
 
-local function LoadSkin()
+function module:LFGList()
 	if not module:CheckDB("lfg", "lfg") then
 		return
 	end
@@ -86,8 +86,8 @@ local function LoadSkin()
 				result:SetPoint("TOPLEFT", AutoCompleteFrame.LeftBorder, "TOPRIGHT", -8, 1)
 				result:SetPoint("TOPRIGHT", AutoCompleteFrame.RightBorder, "TOPLEFT", 5, 1)
 			else
-				result:SetPoint("TOPLEFT", AutoCompleteFrame.Results[i-1], "BOTTOMLEFT", 0, 1)
-				result:SetPoint("TOPRIGHT", AutoCompleteFrame.Results[i-1], "BOTTOMRIGHT", 0, 1)
+				result:SetPoint("TOPLEFT", AutoCompleteFrame.Results[i - 1], "BOTTOMLEFT", 0, 1)
+				result:SetPoint("TOPRIGHT", AutoCompleteFrame.Results[i - 1], "BOTTOMRIGHT", 0, 1)
 			end
 
 			result:SetNormalTexture("")
@@ -118,7 +118,7 @@ local function LoadSkin()
 	ApplicationViewer.Inset.Bg:Hide()
 	ApplicationViewer.Inset:DisableDrawLayer("BORDER")
 
-	for _, headerName in pairs({"NameColumnHeader", "RoleColumnHeader", "ItemLevelColumnHeader"}) do
+	for _, headerName in pairs({ "NameColumnHeader", "RoleColumnHeader", "ItemLevelColumnHeader" }) do
 		local header = ApplicationViewer[headerName]
 		header.Left:Hide()
 		header.Middle:Hide()
@@ -166,7 +166,6 @@ local function LoadSkin()
 
 	-- Application dialog ]]
 	local LFGListApplicationDialog = _G.LFGListApplicationDialog
-	LFGListApplicationDialog:Styling()
 
 	for i = 1, 9 do
 		select(i, LFGListApplicationDialog.Description:GetRegions()):Hide()
@@ -180,4 +179,4 @@ local function LoadSkin()
 	LFGListInviteDialog:CreateBackdrop('Transparent')
 end
 
-S:AddCallback("LFGList", LoadSkin)
+module:AddCallback("LFGList")

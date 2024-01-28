@@ -48,12 +48,18 @@ local function GradientBars()
 						if row.minha_tabela and row.minha_tabela.name then
 							local class = row.minha_tabela:class()
 							if classes[class] then
-								row.textura:SetGradient("Horizontal", CreateColor(DetailsGradient[class].r1 - 0.2, DetailsGradient[class].g1 - 0.2,	DetailsGradient[class].b1 - 0.2, 0.9), CreateColor(DetailsGradient[class].r2 + 0.2, DetailsGradient[class].g2 + 0.2, DetailsGradient[class].b2 + 0.2, 0.9))
+								row.textura:SetGradient("Horizontal",
+									CreateColor(DetailsGradient[class].r1 - 0.2, DetailsGradient[class].g1 - 0.2,
+										DetailsGradient[class].b1 - 0.2, 0.9),
+									CreateColor(DetailsGradient[class].r2 + 0.2, DetailsGradient[class].g2 + 0.2,
+										DetailsGradient[class].b2 + 0.2, 0.9))
 							else
-								row.textura:SetGradient("Horizontal", CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9), CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9))
+								row.textura:SetGradient("Horizontal", CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9),
+									CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9))
 							end
 						else
-							row.textura:SetGradient("Horizontal", CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9), CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9))
+							row.textura:SetGradient("Horizontal", CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9),
+								CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9))
 						end
 					end)
 					row.textura.__MERSkin = true
@@ -70,7 +76,8 @@ local function GradientNames()
 		local thisLine = lineContainer[whichRowLine]
 		if not thisLine then return end
 		if thisLine.lineText1 then
-			thisLine.lineText1:SetText(F.GradientName(thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(), thisLine.minha_tabela:class()))
+			thisLine.lineText1:SetText(F.GradientName(
+			thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(), thisLine.minha_tabela:class()))
 		end
 	end)
 
@@ -78,7 +85,8 @@ local function GradientNames()
 		local thisLine = instancia.barras[whichRowLine]
 		if not thisLine then return end
 		if thisLine.lineText1 then
-			thisLine.lineText1:SetText(F.GradientName(thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(), thisLine.minha_tabela:class()))
+			thisLine.lineText1:SetText(F.GradientName(
+			thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(), thisLine.minha_tabela:class()))
 		end
 	end)
 end
@@ -93,7 +101,6 @@ local function SetupInstance(instance)
 
 	instance.baseframe:CreateBackdrop('Transparent')
 	instance.baseframe.backdrop:SetPoint("TOPLEFT", -1, 18)
-	instance.baseframe.backdrop:Styling()
 	module:CreateGradient(instance.baseframe.backdrop)
 	module:CreateBackdropShadow(instance.baseframe)
 

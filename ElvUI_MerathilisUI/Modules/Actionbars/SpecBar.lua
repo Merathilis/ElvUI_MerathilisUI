@@ -29,12 +29,12 @@ function module:CreateSpecBar()
 	specBar:Size(40, 40)
 	specBar:CreateBackdrop("Transparent")
 	specBar:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 177)
-	specBar.backdrop:Styling()
 	specBar:Hide()
 	E.FrameLocks[specBar] = true
 
 	specBar.Button = {}
-	E:CreateMover(specBar, "MER_SpecializationBarMover", L["SpecializationBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI', nil, 'mui,modules,actionbars')
+	E:CreateMover(specBar, "MER_SpecializationBarMover", L["SpecializationBarMover"], nil, nil, nil,
+		'ALL,ACTIONBARS,MERATHILISUI', nil, 'mui,modules,actionbars')
 
 	specBar:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
 	specBar:SetScript('OnLeave', function(self)
@@ -52,7 +52,7 @@ function module:CreateSpecBar()
 		Button:SetID(i)
 		Button.SpecID = SpecID
 		Button:CreateBackdrop()
-		Button:SetFrameLevel(specBar:GetFrameLevel()+1)
+		Button:SetFrameLevel(specBar:GetFrameLevel() + 1)
 		Button:StyleButton()
 		Button:SetNormalTexture(Icon)
 		Button:GetNormalTexture():SetTexCoord(.1, .9, .1, .9)

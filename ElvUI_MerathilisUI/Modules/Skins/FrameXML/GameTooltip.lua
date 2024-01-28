@@ -34,7 +34,7 @@ function module:TTGameTooltip_SetDefaultAnchor(_, tt)
 	end
 end
 
-local function LoadSkin()
+function module:GameTooltip()
 	if not module:CheckDB("tooltip", "tooltip") then
 		return
 	end
@@ -74,9 +74,9 @@ local function LoadSkin()
 
 	for _, frame in pairs(tooltips) do
 		if frame and not frame ~= E.ScanTooltip and not frame.IsEmbedded and not frame:IsForbidden() then
-			frame:Styling()
 			module:CreateShadow(frame)
-			frame.__MERSkin = true
+
+			frame.IsEmbedded = true
 		end
 	end
 
@@ -120,4 +120,4 @@ function module:StyleTooltipsIcons(tt)
 	end
 end
 
-module:AddCallback("GameTooltip", LoadSkin)
+module:AddCallback("GameTooltip")

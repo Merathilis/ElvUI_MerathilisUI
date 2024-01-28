@@ -10,7 +10,6 @@ local function LoadSkin()
 	end
 
 	local ReportFrame = _G.ReportFrame
-	ReportFrame:Styling()
 
 	local ShadowContainer = CreateFrame("Frame", nil, ReportFrame)
 	ShadowContainer:SetAllPoints(ReportFrame)

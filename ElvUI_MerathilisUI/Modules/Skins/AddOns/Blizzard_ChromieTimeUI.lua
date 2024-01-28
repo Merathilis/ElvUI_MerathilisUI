@@ -13,7 +13,6 @@ local function LoadSkins()
 	frame:StripTextures()
 	frame.Background:Hide()
 	frame:SetTemplate('Transparent')
-	frame:Styling()
 	module:CreateShadow(frame)
 
 	local header = frame.Title

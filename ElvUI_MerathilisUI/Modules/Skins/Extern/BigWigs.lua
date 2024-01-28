@@ -21,7 +21,6 @@ function pool:Get(type)
 		local backdrop = CreateFrame("Frame", nil, E.UIParent)
 		backdrop:SetTemplate("Transparent")
 		module:CreateShadow(backdrop)
-		backdrop:Styling()
 		backdrop.MERPoolType = "backdrop"
 
 		return backdrop
@@ -80,7 +79,8 @@ end
 local function modifyStyle(frame)
 	local emphasized = frame:Get("bigwigs:emphasized")
 
-	local db = emphasized and E.private.mui.skins.addonSkins.bw.emphasizedBar or E.private.mui.skins.addonSkins.bw.normalBar
+	local db = emphasized and E.private.mui.skins.addonSkins.bw.emphasizedBar or
+	E.private.mui.skins.addonSkins.bw.normalBar
 
 	E:SetSmoothing(frame.candyBarBar, db.smooth)
 
@@ -93,7 +93,8 @@ local function modifyStyle(frame)
 			frame:Set("bigwigs:merathilisui:barcolor", { statusBarTexture:GetVertexColor() })
 		end
 
-		statusBarTexture:SetGradient("HORIZONTAL", F.CreateColorFromTable(db.colorLeft), F.CreateColorFromTable(db.colorRight))
+		statusBarTexture:SetGradient("HORIZONTAL", F.CreateColorFromTable(db.colorLeft),
+			F.CreateColorFromTable(db.colorRight))
 	else
 		if barColor then
 			frame.candyBarBar:GetStatusBarTexture():SetVertexColor(unpack(barColor))
@@ -119,7 +120,7 @@ local function applyStyle(frame)
 	end
 
 	local height = frame:GetHeight()
-	frame:SetHeight(height/2)
+	frame:SetHeight(height / 2)
 	frame:Set("bigwigs:merathilisui:originalheight", height)
 
 	local spark = pool:Get("spark")
@@ -262,7 +263,7 @@ function module:BigWigs_Plugins()
 		{
 			apiVersion = 1,
 			version = 1,
-			barSpacing = function(bar) return bar:GetHeight()+7 end,
+			barSpacing = function(bar) return bar:GetHeight() + 7 end,
 			fontSizeNormal = 13,
 			fontSizeEmphasized = 15,
 			fontOutline = "SHADOWOUTLINE",
@@ -287,14 +288,14 @@ function module:BigWigs_QueueTimer()
 				local parent = frame:GetParent()
 				frame:StripTextures()
 				frame:CreateBackdrop("Transparent")
-				frame.backdrop:Styling()
 				self:CreateBackdropShadow(frame)
 
 				E:SetSmoothing(frame, db.smooth)
 
 				local statusBarTexture = frame:GetStatusBarTexture()
 				statusBarTexture:SetTexture(E.media.normTex)
-				statusBarTexture:SetGradient("HORIZONTAL", F.CreateColorFromTable(db.colorLeft), F.CreateColorFromTable(db.colorRight))
+				statusBarTexture:SetGradient("HORIZONTAL", F.CreateColorFromTable(db.colorLeft),
+					F.CreateColorFromTable(db.colorRight))
 
 				if db.spark then
 					frame.spark = frame:CreateTexture(nil, "ARTWORK", nil, 1)

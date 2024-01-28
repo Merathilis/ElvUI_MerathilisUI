@@ -11,7 +11,6 @@ function module:Ace3_Frame(Constructor)
 
 		module:CreateShadow(widget.frame)
 		module:CreateGradient(widget.frame)
-		widget.frame:Styling()
 		return widget
 	end
 
@@ -30,7 +29,6 @@ function module:Ace3_DropdownPullout(Constructor)
 			widget.frame:SetTemplate("Transparent")
 		end
 		module:CreateShadow(widget.frame)
-		widget.frame:Styling()
 		return widget
 	end
 
@@ -45,7 +43,6 @@ function module:Ace3_Window(Constructor)
 	local function SkinedConstructor()
 		local widget = Constructor()
 		module:CreateShadow(widget.frame)
-		widget.frame:Styling()
 		return widget
 	end
 
@@ -59,7 +56,6 @@ function module:AceConfigDialog()
 
 	local lib = _G.LibStub("AceConfigDialog-3.0")
 	self:CreateShadow(lib.popup)
-	lib.popup:Styling()
 end
 
 module:AddCallbackForAceGUIWidget("Frame", module.Ace3_Frame)

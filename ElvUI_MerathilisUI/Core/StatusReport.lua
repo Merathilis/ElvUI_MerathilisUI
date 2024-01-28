@@ -6,9 +6,5 @@ local hooksecurefunc = hooksecurefunc
 local function CreateStatusFrame()
 	local StatusFrame = _G["ElvUIStatusReport"]
 	local PluginFrame = _G["ElvUIStatusPlugins"]
-
-	-- Style
-	StatusFrame.backdrop:Styling()
-	PluginFrame.backdrop:Styling()
 end
 hooksecurefunc(E, "CreateStatusFrame", CreateStatusFrame)

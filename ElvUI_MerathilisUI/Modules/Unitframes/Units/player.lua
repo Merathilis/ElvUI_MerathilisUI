@@ -23,16 +23,6 @@ function module:Update_PlayerFrame(frame)
 		module:CreateAnimatedBars(frame.Power)
 	end
 
-	-- Only looks good on Transparent
-	if E.db.unitframe.colors.transparentHealth then
-		if db.style then
-			if frame and frame.Health and not frame.__MERSkin then
-				frame.Health:Styling(false, true)
-				frame.__MERSkin = true
-			end
-		end
-	end
-
 	module:CreateHighlight(frame)
 
 	if db.swing.enable then
