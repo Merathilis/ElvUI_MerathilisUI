@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local S = E:GetModule('Skins')
+local ES = E:GetModule('Skins')
+local S = MER:GetModule('MER_Skins')
 
 local _G = _G
 local next, pairs, table, getmetatable = next, pairs, table, getmetatable
@@ -73,8 +74,7 @@ function FlightPointsTaxiChoiceContainer_Update()
 	local buttons = scrollFrame.buttons
 	local numButtons = #buttons
 	local name, isHeader, flightpathid, isExpanded
-	local button, index
-	local hidebuttons = false
+	local index
 	local displayedHeight = 0
 	for i = 1, numButtons do
 		index = offset + i
@@ -88,8 +88,7 @@ function FlightPointsTaxiChoiceContainer_Update()
 				button.categoryLeft:Hide()
 				button.categoryRight:Hide()
 				button.categoryMiddle:Hide()
-				hidebuttons = false
-				button.highlight:Hide()
+				button.highlight:SetTexture("")
 				button.name:FontTemplate(E.media.normFont, 13, "SHADOWOUTLINE")
 				button.name:SetText(name)
 				button.name:SetTextColor(unpack(E.media.rgbvaluecolor))
@@ -103,6 +102,7 @@ function FlightPointsTaxiChoiceContainer_Update()
 				button.highlight:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 0, 0)
 				button.name:FontTemplate(E.media.normFont, 11, "SHADOWOUTLINE")
 				button.name:SetText(name)
+				button.name:SetTextColor(1, 1, 1)
 				button.name:SetPoint("LEFT", 22, 0)
 				button.flightpath = flightpathid
 			end
@@ -204,16 +204,16 @@ function FlightPoints_OnEvent(self, event, ...)
 			FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["TaxiFrame"], "BOTTOMRIGHT", 0,
 				_G["TaxiFrame"]:GetHeight() - 22)
 		elseif _G["FlightMapFrame"]:IsShown() then
-			FlightPointsTaxiChoice:SetHeight(_G["FlightMapFrame"]:GetHeight())
-			FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["FlightMapFrame"], "BOTTOMRIGHT", 0,
-				_G["FlightMapFrame"]:GetHeight())
+			FlightPointsTaxiChoice:SetHeight(_G["FlightMapFrame"]:GetHeight() - 2)
+			FlightPointsTaxiChoice:SetPoint("LEFT", _G["FlightMapFrame"], "RIGHT", 4, 0)
 		end
 
 		FlightPointsTaxiChoice:Show()
 		FlightPointsTaxiChoice:StripTextures()
 		FlightPointsTaxiChoice:CreateBackdrop("Transparent")
-		S:HandleCloseButton(FlightPointsTaxiChoice.CloseButton)
-		S:HandleScrollBar(FlightPointsTaxiChoiceContainerScrollBar)
+		S:CreateBackdropShadow(FlightPointsTaxiChoice)
+		ES:HandleCloseButton(FlightPointsTaxiChoice.CloseButton)
+		ES:HandleScrollBar(FlightPointsTaxiChoiceContainerScrollBar)
 	elseif event == "TAXIMAP_CLOSED" then
 		FlightPointsTaxiChoice:Hide()
 		taxinodeinfos = {}

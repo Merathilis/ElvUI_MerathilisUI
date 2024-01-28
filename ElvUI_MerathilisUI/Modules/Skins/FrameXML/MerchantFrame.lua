@@ -20,6 +20,7 @@ function module:MerchantFrame()
 	end
 
 	local MerchantFrame = _G.MerchantFrame
+	module:CreateShadow(MerchantFrame)
 
 	for i = 1, 2 do
 		module:ReskinTab(_G["MerchantFrameTab" .. i])

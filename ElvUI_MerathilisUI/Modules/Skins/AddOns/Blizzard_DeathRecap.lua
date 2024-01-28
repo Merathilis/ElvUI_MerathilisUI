@@ -1,10 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_DeathRecap()
 	if not module:CheckDB("deathRecap", "deathRecap") then
 		return
 	end
@@ -13,4 +12,4 @@ local function LoadSkin()
 	module:CreateShadow(DeathRecapFrame)
 end
 
-S:AddCallbackForAddon("Blizzard_DeathRecap", LoadSkin)
+module:AddCallbackForAddon("Blizzard_DeathRecap")

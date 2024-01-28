@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER.Modules.Skins
+local module = MER:GetModule('MER_Skins')
 
 local _G = _G
 
@@ -9,6 +9,7 @@ function module:HelpFrame()
 	end
 
 	local frame = _G.HelpFrame
+	module:CreateBackdropShadow(frame)
 end
 
 module:AddCallback("HelpFrame")

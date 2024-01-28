@@ -3,7 +3,6 @@ local module = MER:GetModule('MER_Skins')
 local TT = E:GetModule("Tooltip")
 
 local _G = _G
-local pairs = pairs
 
 function module:SetTooltipStyle(_, tt)
 	if tt and tt ~= E.ScanTooltip and not tt.IsEmbedded and not tt:IsForbidden() then

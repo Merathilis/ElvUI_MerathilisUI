@@ -2,6 +2,7 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Misc')
 local LCG = E.Libs.CustomGlow
 local M = E:GetModule('Misc')
+local S = MER:GetModule('MER_Skins')
 
 local _G = _G
 
@@ -14,15 +15,15 @@ function module:LOOT_OPENED(_, autoloot)
 
 	local items = GetNumLootItems()
 	if items > 0 then
-		for i=1, items do
+		for i = 1, items do
 			local slot = lootFrame.slots[i] or createSlot(i) -- Monitor this
 			local _, _, _, _, _, _, isQuestItem, questId, isActive = GetLootSlotInfo(i)
 
 			local questTexture = slot.questTexture
-			if ( questId and not isActive ) then
+			if (questId and not isActive) then
 				questTexture:Show()
 				LCG.PixelGlow_Start(slot.iconFrame)
-			elseif ( questId or isQuestItem ) then
+			elseif (questId or isQuestItem) then
 				questTexture:Hide()
 				LCG.PixelGlow_Start(slot.iconFrame)
 			else

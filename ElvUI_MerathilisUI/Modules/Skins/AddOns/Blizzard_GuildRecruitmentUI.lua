@@ -1,10 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_GuildRecruitmentUI()
 	if not module:CheckDB("guild", "guild") then
 		return
 	end
@@ -15,4 +14,4 @@ local function LoadSkin()
 	F.ReskinRole(rolesFrame.DamagerButton, "DPS")
 end
 
-S:AddCallbackForAddon("Blizzard_GuildRecruitmentUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_GuildRecruitmentUI")

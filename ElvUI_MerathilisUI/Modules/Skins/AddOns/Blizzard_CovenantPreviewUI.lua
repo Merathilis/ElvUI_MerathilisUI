@@ -4,7 +4,7 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_CovenantPreviewUI()
 	if not module:CheckDB("covenantPreview", "covenantPreview") then
 		return
 	end
@@ -25,4 +25,4 @@ local function LoadSkin()
 	frame.InfoPanel.CovenantFeatureFrame.Label:SetTextColor(1, .8, 0)
 end
 
-S:AddCallbackForAddon('Blizzard_CovenantPreviewUI', LoadSkin)
+module:AddCallbackForAddon('Blizzard_CovenantPreviewUI')

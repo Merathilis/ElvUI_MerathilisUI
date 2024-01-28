@@ -297,6 +297,7 @@ function module:Blizzard_Collections()
 	local WardrobeTransmogFrame = _G.WardrobeTransmogFrame
 
 	module:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
+	module:CreateShadow(WardrobeFrame)
 
 	local slots = {
 		"Head",

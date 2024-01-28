@@ -5,7 +5,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 
-local function LoadSkin()
+function module:BNet()
 	if not module:CheckDB("misc", "misc") then
 		return
 	end
@@ -24,4 +24,4 @@ local function LoadSkin()
 	module:CreateShadow(_G.BattleTagInviteFrame)
 end
 
-S:AddCallback("BNet", LoadSkin)
+module:AddCallback("BNet")

@@ -1,10 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_Tutorial()
 	local TutorialKeyboardMouseFrame = _G.NPE_TutorialKeyboardMouseFrame_Frame
 	if TutorialKeyboardMouseFrame then
 		TutorialKeyboardMouseFrame:SetScale(0.00001)
@@ -41,4 +40,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_Tutorial", LoadSkin)
+module:AddCallbackForAddon("Blizzard_Tutorial")

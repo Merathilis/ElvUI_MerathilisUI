@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
@@ -19,7 +18,7 @@ local function MapCanvasDetailLayerMixin_RefreshDetailTiles(self)
 	end
 end
 
-local function LoadSkin()
+function module:Blizzard_MapCanvas()
 	if not module:CheckDB("worldmap", "worldmap") then
 		return
 	end
@@ -27,4 +26,4 @@ local function LoadSkin()
 	hooksecurefunc(_G.MapCanvasDetailLayerMixin, "RefreshDetailTiles", MapCanvasDetailLayerMixin_RefreshDetailTiles)
 end
 
-S:AddCallbackForAddon("Blizzard_MapCanvas", LoadSkin)
+module:AddCallbackForAddon("Blizzard_MapCanvas")

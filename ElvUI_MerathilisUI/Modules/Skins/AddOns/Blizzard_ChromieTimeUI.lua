@@ -1,10 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkins()
+function module:Blizzard_ChromieTimeUI()
 	if not module:CheckDB("chromieTime", "chromieTime") then
 		return
 	end
@@ -26,4 +25,4 @@ local function LoadSkins()
 	frame.CurrentlySelectedExpansionInfoFrame.Description:SetTextColor(1, 1, 1)
 end
 
-S:AddCallbackForAddon("Blizzard_ChromieTimeUI", LoadSkins)
+module:AddCallbackForAddon("Blizzard_ChromieTimeUI")
