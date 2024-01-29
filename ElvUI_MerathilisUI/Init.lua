@@ -61,7 +61,6 @@ MER.Modules.ChatLink = MER:NewModule('MER_ChatLink', 'AceEvent-3.0')
 MER.Modules.ChatText = MER:NewModule('MER_ChatText', 'AceEvent-3.0')
 MER.Modules.Cooldown = MER:NewModule('MER_Cooldown', 'AceHook-3.0')
 MER.Modules.CombatText = MER:NewModule('MER_CombatText', 'AceEvent-3.0', 'AceTimer-3.0')
-MER.Modules.Cursor = MER:NewModule('MER_Cursor')
 MER.Modules.CVars = MER:NewModule('MER_CVars')
 MER.Modules.DashBoard = MER:NewModule('MER_DashBoard', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.DataBars = MER:NewModule('MER_DataBars')
@@ -146,7 +145,7 @@ function MER:Initialize()
 
 	if MER.IsDevelop then
 		Engine[2].DebugPrint(
-		"You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help",
+			"You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help",
 			"warning")
 	end
 
@@ -195,11 +194,11 @@ do
 			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
 				print(icon ..
-				'' ..
-				self.Title ..
-				format('|cff00c0fa%s|r', self.Version) ..
-				L[" is loaded. For any issues or suggestions, please visit "] ..
-				Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+					'' ..
+					self.Title ..
+					format('|cff00c0fa%s|r', self.Version) ..
+					L[" is loaded. For any issues or suggestions, please visit "] ..
+					Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 			end
 
 			self:SplashScreen()
