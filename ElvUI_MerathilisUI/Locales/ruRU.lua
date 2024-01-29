@@ -382,6 +382,18 @@ L["Mute the sound of jewelcrafting."] = "Приглушите звук ювел�
 L["Same Message Interval"] = true
 L["Time interval between sending same messages measured in seconds."] = true
 L["Set to 0 to disable."] = true
+L["Automation"] = true
+L["Automate your game life."] = true
+L["Auto Hide Bag"] = true
+L["Automatically close bag if player enters combat."] = true
+L["Auto Hide Map"] = true
+L["Automatically close world map if player enters combat."] = true
+L["Accept Resurrect"] = true
+L["Accept resurrect from other player automatically when you not in combat."] = true
+L["Accept Combat Resurrect"] = true
+L["Accept resurrect from other player automatically when you in combat."] = true
+L["Confirm Summon"] = true
+L["Confirm summon from other player automatically."] = true
 
 -- Nameplates
 L["NamePlates"] = "Индикаторы здоровья"

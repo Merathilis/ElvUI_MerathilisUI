@@ -1,24 +1,23 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_LFGInfo')
+local module = MER:GetModule('MER_Misc')
 local TT = MER:GetModule('MER_Tooltip')
 local UF = E:GetModule("UnitFrames")
 
 local _G = _G
 local format = format
 local pairs = pairs
-local sort = sort
-local wipe = wipe
-local tinsert = table.insert
-local tremove = table.remove
+local sort, wipe = table.sort, table.wipe
 
 local HEADER_COLON = _G.HEADER_COLON
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_LFGList_GetActivityInfoTable = C_LFGList.GetActivityInfoTable
 local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local C_LFGList_GetSearchResultMemberInfo = C_LFGList.GetSearchResultMemberInfo
 
 local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
 
-local scoreFormat = MER.GreyColor.."(%s) |r%s"
+local scoreFormat = MER.GreyColor .. "(%s) |r%s"
 
 local displayOrder = {
 	[1] = "TANK",
@@ -131,10 +130,12 @@ function module:ShowLeaderOverallScore(self)
 		local activityInfo = C_LFGList_GetActivityInfoTable(searchResultInfo.activityID, nil, searchResultInfo.isWarMode)
 		if activityInfo then
 			local showScore = activityInfo.isMythicPlusActivity and searchResultInfo.leaderOverallDungeonScore
-				or activityInfo.isRatedPvpActivity and searchResultInfo.leaderPvpRatingInfo and searchResultInfo.leaderPvpRatingInfo.rating
+				or
+				activityInfo.isRatedPvpActivity and searchResultInfo.leaderPvpRatingInfo and
+				searchResultInfo.leaderPvpRatingInfo.rating
 			if showScore then
 				local oldName = self.ActivityName:GetText()
-				oldName = gsub(oldName, ".-"..HEADER_COLON, "") -- Tazavesh
+				oldName = gsub(oldName, ".-" .. HEADER_COLON, "") -- Tazavesh
 				self.ActivityName:SetFormattedText(scoreFormat, TT.GetDungeonScore(showScore), oldName)
 
 				if not self.crossFactionLogo then
@@ -150,22 +151,22 @@ function module:ShowLeaderOverallScore(self)
 			if searchResultInfo.crossFactionListing then
 				self.crossFactionLogo:Hide()
 			else
-				self.crossFactionLogo:SetTexture("Interface\\Timer\\"..factionStr[searchResultInfo.leaderFactionGroup].."-Logo")
+				self.crossFactionLogo:SetTexture("Interface\\Timer\\" ..
+					factionStr[searchResultInfo.leaderFactionGroup] .. "-Logo")
 				self.crossFactionLogo:Show()
 			end
 		end
 	end
 end
 
-function module:Initialize()
-	if IsAddOnLoaded("PremadeGroupsFilter") then
+function module:LFGInfo()
+	if C_AddOns_IsAddOnLoaded("PremadeGroupsFilter") then
 		self.StopRunning = "PremadeGroupsFilter"
 		return
 	end
 
-	local db = E.db.mui.misc.lfgInfo
-
-	if not db.enable then
+	self.db = E.db.mui.misc.lfgInfo
+	if not self.enable then
 		return
 	end
 
@@ -173,4 +174,4 @@ function module:Initialize()
 	module:SecureHook("LFGListSearchEntry_Update", "ShowLeaderOverallScore")
 end
 
-MER:RegisterModule(module:GetName())
+module:AddCallback("LFGInfo")

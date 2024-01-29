@@ -2,7 +2,6 @@ local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Misc')
 local LCG = E.Libs.CustomGlow
 local M = E:GetModule('Misc')
-local S = MER:GetModule('MER_Skins')
 
 local _G = _G
 

@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_GameMenu')
-local MERS = MER:GetModule('MER_Skins')
+local module = MER:GetModule('MER_Misc')
 
 local _G = _G
 local random = random
@@ -157,6 +156,10 @@ local function NPC_Model(self)
 end
 
 function module:GameMenu()
+	if not E.db.mui.general.GameMenu then
+		return
+	end
+
 	-- GameMenu Frame
 	if not GameMenuFrame.MUIbottomPanel then
 		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame, 'BackdropTemplate')
@@ -247,10 +250,4 @@ function module:GameMenu()
 	end
 end
 
-function module:Initialize()
-	if E.db.mui.general.GameMenu then
-		self:GameMenu()
-	end
-end
-
-MER:RegisterModule(module:GetName())
+module:AddCallback("GameMenu")

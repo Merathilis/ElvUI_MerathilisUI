@@ -1,6 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local MI = MER:GetModule('MER_Misc')
-local S = E:GetModule('Skins')
+local module = MER:GetModule('MER_Misc')
+local S = MER:GetModule('MER_Skins')
+local ES = E:GetModule('Skins')
 
 local _G = _G
 local select = select
@@ -19,12 +20,14 @@ local UISpecialFrames = UISpecialFrames
 
 local gmotd
 
-function MI:GMOTD()
+function module:CreateGMOTD()
 	-- MainFrame
 	if not gmotd then
-		if not IsInGuild() then return; end
+		if not IsInGuild() then
+			return
+		end
 
-		local gmotd = CreateFrame("Frame", "MER.GMOTD", E.UIParent)
+		local gmotd = CreateFrame("Frame", "MER.GMOTD", E.UIParent, "BackdropTemplate")
 		gmotd:SetPoint("CENTER", 0, GetScreenHeight() / 5)
 		gmotd:SetSize(350, 150)
 		gmotd:SetFrameStrata("TOOLTIP")
@@ -34,6 +37,7 @@ function MI:GMOTD()
 		gmotd:SetScript("OnMouseUp", gmotd.StopMovingOrSizing)
 		gmotd:CreateBackdrop("Transparent")
 		gmotd.backdrop:SetAllPoints()
+		S:CreateBackdropShadow(gmotd)
 
 		gmotd:Hide()
 
@@ -55,7 +59,7 @@ function MI:GMOTD()
 		gmotd.button = CreateFrame("Button", nil, gmotd, "UIPanelButtonTemplate")
 		gmotd.button:SetText(L["Ok"])
 		gmotd.button:SetPoint("TOP", gmotd, "BOTTOM", 0, -4)
-		S:HandleButton(gmotd.button)
+		ES:HandleButton(gmotd.button)
 
 		gmotd.button:SetScript("OnClick", function(self)
 			MER.gmotd[gmotd.msg] = true
@@ -94,9 +98,11 @@ function MI:GMOTD()
 	end
 end
 
-function MI:LoadGMOTD()
+function module:GMOTD()
 	if E.db.mui.misc.gmotd then
-		self:GMOTD()
-		tinsert(UISpecialFrames, "MER.GMOTD")
+		self:CreateGMOTD()
+		tinsert(UISpecialFrames, "module.CreateGMOTD")
 	end
 end
+
+module:AddCallback("GMOTD")

@@ -53,7 +53,9 @@ function module:Blizzard_Calendar()
 	_G.CalendarViewEventTentativeButton.flashTexture:SetTexture("")
 	_G.CalendarViewEventDeclineButton.flashTexture:SetTexture("")
 
-	_G.CalendarTodayFrame:SetBackdropBorderColor(r, g, b)
+	if _G.CalendarTodayFrame.backdrop then
+		_G.CalendarTodayFrame:SetBackdropBorderColor(r, g, b)
+	end
 end
 
 module:AddCallbackForAddon("Blizzard_Calendar")

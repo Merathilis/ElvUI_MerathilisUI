@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local MI = MER:GetModule('MER_Misc')
+local module = MER:GetModule('MER_Tooltip')
 
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
@@ -63,7 +63,7 @@ local function AddTargetInfos(self, unit)
 	end
 end
 
-function MI:LoadnameHover()
+function module:NameHover()
 	if not E.db.mui.nameHover.enable or C_AddOns_IsAddOnLoaded("bdNameHover") then return end
 
 	local db = E.db.mui.nameHover
@@ -164,3 +164,5 @@ function MI:LoadnameHover()
 
 	tooltip:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 end
+
+module:AddCallback("NameHover")

@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local T = MER:GetModule('MER_Tooltip')
+local module = MER:GetModule('MER_Tooltip')
 local ET = E:GetModule('Tooltip')
 
 local _G = _G
@@ -10,18 +10,18 @@ local strsplit = strsplit
 
 local C_ChallengeMode_GetDungeonScoreRarityColor = C_ChallengeMode.GetDungeonScoreRarityColor
 
-T.load = {}
-T.updateProfile = {}
-T.modifierInspect = {}
-T.normalInspect = {}
-T.clearInspect = {}
-T.eventCallback = {}
+module.load = {}
+module.updateProfile = {}
+module.modifierInspect = {}
+module.normalInspect = {}
+module.clearInspect = {}
+module.eventCallback = {}
 
 --[[
 	@param {string} name
 	@param {function} [func=module.name]
 ]]
-function T:AddCallback(name, func)
+function module:AddCallback(name, func)
 	tinsert(self.load, func or self[name])
 end
 
@@ -29,11 +29,11 @@ end
 	@param {string} name
 	@param {function} [func=module.name]
 ]]
-function T:AddCallbackForUpdate(name, func)
+function module:AddCallbackForUpdate(name, func)
 	tinsert(self.updateProfile, func or self[name])
 end
 
-function T:AddInspectInfoCallback(priority, inspectFunction, useModifier, clearFunction)
+function module:AddInspectInfoCallback(priority, inspectFunction, useModifier, clearFunction)
 	if type(inspectFunction) == "string" then
 		inspectFunction = self[inspectFunction]
 	end
@@ -52,7 +52,7 @@ function T:AddInspectInfoCallback(priority, inspectFunction, useModifier, clearF
 	end
 end
 
-function T:ClearInspectInfo(tt)
+function module:ClearInspectInfo(tt)
 	if tt:IsForbidden() then
 		return
 	end
@@ -63,7 +63,7 @@ function T:ClearInspectInfo(tt)
 	end
 end
 
-function T:CheckModifier()
+function module:CheckModifier()
 	self.db = E.db.mui.tooltip
 
 	if not self.db or self.db.modifier == "NONE" then
@@ -77,7 +77,7 @@ function T:CheckModifier()
 	}
 
 	local results = {}
-	for _, modifier in next, {strsplit("_", self.db.modifier)} do
+	for _, modifier in next, { strsplit("_", self.db.modifier) } do
 		tinsert(results, modifierStatus[modifier] or false)
 	end
 
@@ -90,7 +90,7 @@ function T:CheckModifier()
 	return true
 end
 
-function T:InspectInfo(tt, data, triedTimes)
+function module:InspectInfo(tt, data, triedTimes)
 	if tt ~= GameTooltip or (tt.IsForbidden and tt:IsForbidden()) or (ET.db and not ET.db.visibility) then
 		return
 	end
@@ -132,7 +132,7 @@ function T:InspectInfo(tt, data, triedTimes)
 		end
 
 		if not isElvUITooltipItemLevelInfoAlreadyAdded then
-			return E:Delay(0.2, T.InspectInfo, T, ET, tt, data, triedTimes + 1)
+			return E:Delay(0.2, module.InspectInfo, module, ET, tt, data, triedTimes + 1)
 		end
 	end
 
@@ -144,11 +144,11 @@ function T:InspectInfo(tt, data, triedTimes)
 	tt.MERInspectLoaded = true
 end
 
-function T:ElvUIRemoveTrashLines(_, tt)
+function module:ElvUIRemoveTrashLines(_, tt)
 	tt.MERInspectLoaded = false
 end
 
-function T:AddEventCallback(eventName, func)
+function module:AddEventCallback(eventName, func)
 	if type(func) == "string" then
 		func = self[func]
 	end
@@ -159,7 +159,7 @@ function T:AddEventCallback(eventName, func)
 	end
 end
 
-function T:Event(event, ...)
+function module:Event(event, ...)
 	if self.eventCallback[event] then
 		for _, func in next, self.eventCallback[event] do
 			xpcall(func, F.Developer.ThrowError, self, event, ...)
@@ -171,19 +171,19 @@ ET._MER_GameTooltip_OnTooltipSetUnit = ET.GameTooltip_OnTooltipSetUnit
 function ET.GameTooltip_OnTooltipSetUnit(...)
 	ET._MER_GameTooltip_OnTooltipSetUnit(...)
 
-	if not T then
+	if not module then
 		return
 	end
 
-	T:InspectInfo(...)
+	module:InspectInfo(...)
 end
 
-function T.GetDungeonScore(score)
+function module.GetDungeonScore(score)
 	local color = C_ChallengeMode_GetDungeonScoreRarityColor(score) or HIGHLIGHT_FONT_COLOR
 	return color:WrapTextInColorCode(score)
 end
 
-function T:Initialize()
+function module:Initialize()
 	self.db = E.db.mui.tooltip
 	for index, func in next, self.load do
 		xpcall(func, F.Developer.ThrowError, self)
@@ -191,22 +191,22 @@ function T:Initialize()
 	end
 
 	for name, _ in pairs(self.eventCallback) do
-		T:RegisterEvent(name, "Event")
+		module:RegisterEvent(name, "Event")
 	end
 
-	T:SecureHook(ET, "RemoveTrashLines", "ElvUIRemoveTrashLines")
-	T:SecureHookScript(GameTooltip, "OnTooltipCleared", "ClearInspectInfo")
+	module:SecureHook(ET, "RemoveTrashLines", "ElvUIRemoveTrashLines")
+	module:SecureHookScript(GameTooltip, "OnTooltipCleared", "ClearInspectInfo")
 
-	T:ReskinTooltipIcons()
+	module:ReskinTooltipIcons()
 
-	T.initialized = true
+	module.initialized = true
 end
 
-function T:ProfileUpdate()
+function module:ProfileUpdate()
 	for index, func in next, self.updateProfile do
 		xpcall(func, F.Developer.ThrowError, self)
 		self.updateProfile[index] = nil
 	end
 end
 
-MER:RegisterModule(T:GetName())
+MER:RegisterModule(module:GetName())

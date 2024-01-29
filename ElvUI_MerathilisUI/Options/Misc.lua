@@ -1,10 +1,9 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local options = MER.options.misc.args
 local AK = MER:GetModule('MER_AlreadyKnown')
+local AM = MER:GetModule('MER_Automation')
 local MI = MER:GetModule('MER_Misc')
 local SA = MER:GetModule('MER_SpellAlert')
-local CU = MER:GetModule('MER_Cursor')
-local LL = MER:GetModule('MER_LFGInfo')
 local async = MER.Utilities.Async
 local LSM = E.LSM
 
@@ -80,7 +79,9 @@ options.general = {
 			name = L["Highest Quest Reward"],
 			desc = L["Automatically select the item with the highest reward."],
 			get = function(info) return E.db.mui.misc.quest[info[#info]] end,
-			set = function(info, value) E.db.mui.misc.quest[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			set = function(info, value)
+				E.db.mui.misc.quest[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+			end,
 		},
 		tradeTabs = {
 			order = 9,
@@ -120,8 +121,9 @@ options.spellAlert = {
 	order = 2,
 	type = "group",
 	name = L["Spell Alert Scale"],
-	get = function(info) return
-		E.db.mui.misc.spellAlert[info[#info]]
+	get = function(info)
+		return
+			E.db.mui.misc.spellAlert[info[#info]]
 	end,
 	set = function(info, value)
 		E.db.mui.misc.spellAlert[info[#info]] = value
@@ -180,7 +182,9 @@ options.spellAlert = {
 				SA:Update()
 				SA:Preview()
 			end,
-			min = 0, max = 1, step = 0.01,
+			min = 0,
+			max = 1,
+			step = 0.01,
 			disabled = function()
 				return not E.db.mui.misc.spellAlert.enable
 			end,
@@ -190,7 +194,9 @@ options.spellAlert = {
 			type = "range",
 			name = L["Scale"],
 			desc = L["Set the scale of the spell activation alert frame."],
-			min = 0.1, max = 5, step = 0.01,
+			min = 0.1,
+			max = 5,
+			step = 0.01,
 			disabled = function()
 				return not E.db.mui.misc.spellAlert.enable
 			end,
@@ -255,7 +261,9 @@ options.scale = {
 						E.db.mui.scale.characterFrame.scale = value
 						MI:Scale()
 					end,
-					min = 0.5, max = 2, step = 0.05,
+					min = 0.5,
+					max = 2,
+					step = 0.05,
 				},
 				dressingRoom = {
 					order = 2,
@@ -268,7 +276,9 @@ options.scale = {
 						E.db.mui.scale.dressingRoom.scale = value
 						MI:Scale()
 					end,
-					min = 0.5, max = 2, step = 0.05,
+					min = 0.5,
+					max = 2,
+					step = 0.05,
 				},
 				inspectFrame = {
 					order = 3,
@@ -284,13 +294,16 @@ options.scale = {
 						E.db.mui.scale.inspectFrame.scale = value
 						MI:Scale()
 					end,
-					min = 0.5, max = 2, step = 0.05,
+					min = 0.5,
+					max = 2,
+					step = 0.05,
 				},
 				syncInspect = {
 					order = 4,
 					type = "toggle",
 					name = L["Sync Inspect"],
-					desc = L["Toggling this on makes your inspect frame scale have the same value as the character frame scale."],
+					desc = L
+						["Toggling this on makes your inspect frame scale have the same value as the character frame scale."],
 					get = function(_)
 						return E.db.mui.scale.syncInspect.enabled
 					end,
@@ -325,7 +338,9 @@ options.scale = {
 						E.db.mui.scale.spellbook.scale = value
 						MI:Scale()
 					end,
-					min = 0.5, max = 2, step = 0.05,
+					min = 0.5,
+					max = 2,
+					step = 0.05,
 				},
 				talents = {
 					order = 2,
@@ -338,7 +353,9 @@ options.scale = {
 						E.db.mui.scale.talents.scale = value
 						MI:Scale()
 					end,
-					min = 0.5, max = 2, step = 0.05,
+					min = 0.5,
+					max = 2,
+					step = 0.05,
 				},
 				collections = {
 					order = 3,
@@ -351,7 +368,9 @@ options.scale = {
 						E.db.mui.scale.collections.scale = value
 						MI:Scale()
 					end,
-					min = 0.5, max = 2, step = 0.05,
+					min = 0.5,
+					max = 2,
+					step = 0.05,
 				},
 				wardrobe = {
 					order = 3,
@@ -364,7 +383,9 @@ options.scale = {
 						E.db.mui.scale.wardrobe.scale = value
 						MI:Scale()
 					end,
-					min = 0.5, max = 2, step = 0.05,
+					min = 0.5,
+					max = 2,
+					step = 0.05,
 				},
 			},
 		},
@@ -375,12 +396,13 @@ options.cursor = {
 	order = 4,
 	type = "group",
 	name = L["Flashing Cursor"],
-	get = function(info) return
-		E.db.mui.misc.cursor[info[#info]]
+	get = function(info)
+		return
+			E.db.mui.misc.cursor[info[#info]]
 	end,
 	set = function(info, value)
 		E.db.mui.misc.cursor[info[#info]] = value
-		CU:UpdateColor()
+		MI:UpdateColor()
 	end,
 	args = {
 		header = {
@@ -449,10 +471,10 @@ options.lfgInfo = {
 			order = 2,
 			type = "description",
 			name = function()
-				if LL.StopRunning then
+				if MI.StopRunning then
 					return format(
 						"|cffff3860" .. L["Because of %s, this module will not be loaded."] .. "|r",
-						LL.StopRunning
+						MI.StopRunning
 					)
 				else
 					return L["Enhancments for the LFG list."]
@@ -553,31 +575,41 @@ options.lfgInfo = {
 					order = 4,
 					type = "range",
 					name = L["Width"],
-					min = 1, max = 20, step = 1
+					min = 1,
+					max = 20,
+					step = 1
 				},
 				height = {
 					order = 4,
 					type = "range",
 					name = L["Height"],
-					min = 1, max = 20, step = 1
+					min = 1,
+					max = 20,
+					step = 1
 				},
 				offsetX = {
 					order = 5,
 					type = "range",
 					name = L["X-Offset"],
-					min = -20, max = 20, step = 1
+					min = -20,
+					max = 20,
+					step = 1
 				},
 				offsetY = {
 					order = 6,
 					type = "range",
 					name = L["Y-Offset"],
-					min = -20, max = 20, step = 1
+					min = -20,
+					max = 20,
+					step = 1
 				},
 				alpha = {
 					order = 7,
 					type = "range",
 					name = L["Alpha"],
-					min = 0, max = 1, step = 0.01
+					min = 0,
+					max = 1,
+					step = 0.01
 				},
 			},
 		},
@@ -921,3 +953,91 @@ do
 		)
 	end
 end
+
+options.automation = {
+	order = 10,
+	type = "group",
+	name = E.NewSign .. L["Automation"],
+	get = function(info)
+		return E.db.mui.misc.automation[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.misc.automation[info[#info]] = value
+		AM:ProfileUpdate()
+	end,
+	args = {
+		desc = {
+			order = 1,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = L["Automate your game life."],
+					fontSize = "medium"
+				}
+			}
+		},
+		enable = {
+			order = 2,
+			type = "toggle",
+			name = L["Enable"],
+			set = function(info, value)
+				E.db.mui.misc.automation[info[#info]] = value
+			end,
+			width = "full"
+		},
+		hideWorldMapAfterEnteringCombat = {
+			order = 3,
+			type = "toggle",
+			name = L["Auto Hide Map"],
+			desc = L["Automatically close world map if player enters combat."],
+			disabled = function()
+				return not E.db.mui.misc.automation.enable
+			end,
+			width = 1.5
+		},
+		hideBagAfterEnteringCombat = {
+			order = 4,
+			type = "toggle",
+			name = L["Auto Hide Bag"],
+			desc = L["Automatically close bag if player enters combat."],
+			disabled = function()
+				return not E.db.mui.misc.automation.enable
+			end,
+			width = 1.5
+		},
+		acceptResurrect = {
+			order = 5,
+			type = "toggle",
+			name = L["Accept Resurrect"],
+			desc = L["Accept resurrect from other player automatically when you not in combat."],
+			disabled = function()
+				return not E.db.mui.misc.automation.enable
+			end,
+			width = 1.5
+		},
+		acceptCombatResurrect = {
+			order = 6,
+			type = "toggle",
+			name = L["Accept Combat Resurrect"],
+			desc = L["Accept resurrect from other player automatically when you in combat."],
+			disabled = function()
+				return not E.db.mui.misc.automation.enable
+			end,
+			width = 1.5
+		},
+		confirmSummon = {
+			order = 7,
+			type = "toggle",
+			name = L["Confirm Summon"],
+			desc = L["Confirm summon from other player automatically."],
+			disabled = function()
+				return not E.db.mui.misc.automation.enable
+			end,
+			width = 1.5
+		},
+	},
+}
