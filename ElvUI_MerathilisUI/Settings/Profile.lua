@@ -619,7 +619,8 @@ P.misc = {
 		acceptResurrect = false,
 		acceptCombatResurrect = false,
 		confirmSummon = false
-	}
+	},
+	hotKey = true,
 }
 
 P.nameHover = {

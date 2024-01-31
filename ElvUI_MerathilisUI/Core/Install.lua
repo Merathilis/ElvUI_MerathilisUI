@@ -2443,6 +2443,8 @@ function MER:DeveloperSettings()
 	E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
 	E.db["mui"]["tooltip"]["gradientName"] = true
 	E.db["mui"]["nameHover"]["gradient"] = true
+	E.db["mui"]["scale"]["enable"] = true
+	E.db["mui"]["scale"]["talents"]["scale"] = 0.9
 
 	-- Rectangle Settings
 	E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
