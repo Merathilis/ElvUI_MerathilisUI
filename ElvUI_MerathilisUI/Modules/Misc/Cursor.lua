@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Cursor')
+local module = MER:GetModule('MER_Misc')
 
 local min, sqrt = math.min, math.sqrt
 
@@ -49,10 +49,10 @@ end
 
 function module:UpdateColor()
 	local db = E.db.mui.misc.cursor
-	local colorDB = {r = 1, g = 1, b = 1, a = 1}
+	local colorDB = { r = 1, g = 1, b = 1, a = 1 }
 
 	if db.colorType == "DEFAULT" then
-		colorDB = {r = 0, g = .75, b = .98}
+		colorDB = { r = 0, g = .75, b = .98 }
 	elseif db.colorType == "CLASS" then
 		colorDB = _G.RAID_CLASS_COLORS[E.myclass]
 	elseif db.colorType == "CUSTOM" then
@@ -62,7 +62,7 @@ function module:UpdateColor()
 	module.Texture:SetVertexColor(colorDB.r, colorDB.g, colorDB.b, 1)
 end
 
-function module:Initialize()
+function module:Cursor()
 	if not E.db.mui.misc.cursor.enable then return end
 
 	module.Frame = CreateFrame("Frame", nil, E.UIParent)
@@ -77,4 +77,4 @@ function module:Initialize()
 	self:UpdateColor()
 end
 
-MER:RegisterModule(module:GetName())
+module:AddCallback("Cursor")

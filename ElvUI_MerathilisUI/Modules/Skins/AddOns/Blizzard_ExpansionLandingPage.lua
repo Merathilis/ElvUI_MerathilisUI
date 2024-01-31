@@ -4,7 +4,7 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_ExpansionLandingPage()
 	if not module:CheckDB("expansionLanding", "expansionLanding") then
 		return
 	end
@@ -19,7 +19,6 @@ local function LoadSkin()
 			local child = select(i, frame.Overlay:GetChildren())
 			child:StripTextures()
 			child:SetTemplate('Transparent')
-			child:Styling()
 			module:CreateShadow(child)
 
 			if child.DragonridingPanel then
@@ -49,4 +48,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_ExpansionLandingPage", LoadSkin)
+module:AddCallbackForAddon("Blizzard_ExpansionLandingPage")

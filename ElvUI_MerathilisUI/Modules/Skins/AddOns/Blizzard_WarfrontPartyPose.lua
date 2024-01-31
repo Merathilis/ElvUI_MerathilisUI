@@ -1,17 +1,15 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 local unpack = unpack
 
-local function LoadSkin()
+function module:Blizzard_WarfrontsPartyPoseUI()
 	if not module:CheckDB("IslandsPartyPose", "islandsPartyPose") then
 		return
 	end
 
 	local WarfrontsPartyPoseFrame = _G.WarfrontsPartyPoseFrame
-	WarfrontsPartyPoseFrame:Styling()
 	module:CreateShadow(WarfrontsPartyPoseFrame)
 
 	WarfrontsPartyPoseFrame.ModelScene:SetAlpha(.8)
@@ -34,4 +32,4 @@ local function LoadSkin()
 	module:CreateBDFrame(rewardFrame.Icon)
 end
 
-S:AddCallbackForAddon("Blizzard_WarfrontsPartyPoseUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_WarfrontsPartyPoseUI")

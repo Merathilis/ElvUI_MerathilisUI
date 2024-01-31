@@ -21,7 +21,7 @@ local function UpdateGreetingFrame()
 	end
 end
 
-local function LoadSkin()
+function module:QuestFrame()
 	if not module:CheckDB("quest", "quest") then
 		return
 	end
@@ -29,7 +29,6 @@ local function LoadSkin()
 	local QuestFrame = _G.QuestFrame
 	_G.QuestFrameDetailPanelBg:SetAlpha(0)
 
-	QuestFrame:Styling()
 	module:CreateShadow(QuestFrame)
 
 	-- Stop here if parchment reomover is enabled.
@@ -110,7 +109,7 @@ local function LoadSkin()
 
 	local QuestInfoRewardsFrame = _G.QuestInfoRewardsFrame
 	if QuestInfoRewardsFrame.spellHeaderPool then
-		for _, pool in ipairs({"followerRewardPool", "spellRewardPool"}) do
+		for _, pool in ipairs({ "followerRewardPool", "spellRewardPool" }) do
 			QuestInfoRewardsFrame[pool]._acquire = QuestInfoRewardsFrame[pool].Acquire
 			QuestInfoRewardsFrame[pool].Acquire = function()
 				local frame = QuestInfoRewardsFrame[pool]:_acquire()
@@ -141,10 +140,10 @@ local function LoadSkin()
 	end)
 
 	for i = 1, _G.MAX_REQUIRED_ITEMS do
-		local bu = _G["QuestProgressItem"..i]
-		local ic = _G["QuestProgressItem"..i.."IconTexture"]
-		local na = _G["QuestProgressItem"..i.."NameFrame"]
-		local co = _G["QuestProgressItem"..i.."Count"]
+		local bu = _G["QuestProgressItem" .. i]
+		local ic = _G["QuestProgressItem" .. i .. "IconTexture"]
+		local na = _G["QuestProgressItem" .. i .. "NameFrame"]
+		local co = _G["QuestProgressItem" .. i .. "Count"]
 
 		ic:SetSize(40, 40)
 		ic:SetTexCoord(unpack(E.TexCoords))
@@ -163,9 +162,7 @@ local function LoadSkin()
 
 	_G.QuestDetailScrollFrame:SetWidth(302) -- else these buttons get cut off
 
-	_G.QuestModelScene:Styling()
 	module:CreateShadow(_G.QuestModelScene)
-	_G.QuestNPCModelTextFrame:Styling()
 	module:CreateShadow(_G.QuestNPCModelTextFrame)
 
 	-- Friendship
@@ -181,4 +178,4 @@ local function LoadSkin()
 	MER.NPC:Register(QuestFrame)
 end
 
-S:AddCallback("QuestFrame", LoadSkin)
+module:AddCallback("QuestFrame")

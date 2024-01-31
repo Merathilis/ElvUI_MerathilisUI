@@ -15,7 +15,6 @@ function module:Pawn()
 
 	S:HandleFrame(_G.PawnUIFrame, true)
 	module:CreateBackdropShadow(_G.PawnUIFrame)
-	_G.PawnUIFrame.backdrop:Styling()
 
 	S:HandleCloseButton(_G.PawnUIFrame_TinyCloseButton)
 	S:HandleScrollBar(_G.PawnUIScaleSelectorScrollFrameScrollBar)
@@ -101,7 +100,6 @@ function module:Pawn()
 		if _G.PawnSocketingTooltip then
 			_G.PawnSocketingTooltip:StripTextures()
 			_G.PawnSocketingTooltip:CreateBackdrop("Transparent")
-			_G.PawnSocketingTooltip.backdrop:Styling()
 			module:CreateBackdropShadow(_G.PawnSocketingTooltip)
 		end
 	end)

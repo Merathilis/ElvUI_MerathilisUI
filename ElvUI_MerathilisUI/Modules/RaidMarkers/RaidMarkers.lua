@@ -158,7 +158,9 @@ function module:ToggleSettings()
 	self:UpdateBar()
 
 	if self.bar and self.db and self.db.visibility then
-		RegisterStateDriver(self.bar, "visibility", self.db.visibility == "DEFAULT" and "[noexists, nogroup] hide; show" or self.db.visibility == "ALWAYS" and "[petbattle] hide; show" or "[group] show; [petbattle] hide; hide")
+		RegisterStateDriver(self.bar, "visibility",
+			self.db.visibility == "DEFAULT" and "[noexists, nogroup] hide; show" or
+			self.db.visibility == "ALWAYS" and "[petbattle] hide; show" or "[group] show; [petbattle] hide; hide")
 	end
 
 	if self.db.mouseOver then
@@ -203,10 +205,10 @@ function module:CreateBar()
 
 	if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
 		S:CreateBackdropShadow(self.bar)
-		self.bar.backdrop:Styling()
 	end
 
-	E:CreateMover(self.barAnchor, "MER_RaidMarkersBarAnchor", L["Raid Markers Bar"], nil, nil, nil, "ALL,PARTY,RAID,MERATHILISUI", function() return E.db.mui.raidmarkers.enable end, "mui,modules,raidmarkers")
+	E:CreateMover(self.barAnchor, "MER_RaidMarkersBarAnchor", L["Raid Markers Bar"], nil, nil, nil,
+		"ALL,PARTY,RAID,MERATHILISUI", function() return E.db.mui.raidmarkers.enable end, "mui,modules,raidmarkers")
 end
 
 function module:UpdateCountDownButton()
@@ -240,7 +242,6 @@ function module:CreateButtons()
 
 		if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
 			S:CreateBackdropShadow(button)
-			button.backdrop:Styling()
 		end
 
 		local tex = button:CreateTexture(nil, "ARTWORK")
@@ -318,7 +319,8 @@ function module:CreateButtons()
 		if i < 9 then
 			if not self.db.inverse then
 				tooltipText = format(
-					"%s\n%s\n%s\n%s", L["Left Click to mark the target with this mark."], L["Right Click to clear the mark on the target."],
+					"%s\n%s\n%s\n%s", L["Left Click to mark the target with this mark."],
+					L["Right Click to clear the mark on the target."],
 					format(L["%s + Left Click to place this worldmarker."], module.modifierString),
 					format(L["%s + Right Click to clear this worldmarker."], module.modifierString)
 				)
@@ -346,7 +348,8 @@ function module:CreateButtons()
 				)
 			end
 		elseif i == 10 then
-			tooltipText = format("%s\n%s", L["Left Click to ready check."], L["Right click to toggle advanced combat logging."])
+			tooltipText = format("%s\n%s", L["Left Click to ready check."],
+				L["Right click to toggle advanced combat logging."])
 		elseif i == 11 then
 			tooltipText = format("%s\n%s", L["Left Click to start count down."], L["Right click to stop count down."])
 		end
@@ -380,7 +383,8 @@ function module:CreateButtons()
 				tex.__toScale = 1.3
 				scaleAnim:SetScaleFrom(currentScale, currentScale)
 				scaleAnim:SetScaleTo(1.3, 1.3)
-				scaleAnim:SetDuration((module.db.buttonAnimationScale - currentScale) / (module.db.buttonAnimationScale - 1) * module.db.buttonAnimationDuration)
+				scaleAnim:SetDuration((module.db.buttonAnimationScale - currentScale) /
+					(module.db.buttonAnimationScale - 1) * module.db.buttonAnimationDuration)
 				animGroup:Play()
 			end
 
@@ -406,7 +410,8 @@ function module:CreateButtons()
 				tex.__toScale = 1
 				scaleAnim:SetScaleFrom(currentScale, currentScale)
 				scaleAnim:SetScaleTo(1, 1)
-				scaleAnim:SetDuration(module.db.buttonAnimationDuration * (currentScale - 1) / (module.db.buttonAnimationScale - 1))
+				scaleAnim:SetDuration(module.db.buttonAnimationDuration * (currentScale - 1) /
+					(module.db.buttonAnimationScale - 1))
 				animGroup:Play()
 			end
 

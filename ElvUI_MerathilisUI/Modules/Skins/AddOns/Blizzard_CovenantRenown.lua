@@ -1,12 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
 local hooksecurefunc = hooksecurefunc
 
-local function LoadSkin()
+function module:Blizzard_CovenantRenown()
 	if not module:CheckDB("garrison", "garrison") then
 		return
 	end
@@ -14,7 +13,6 @@ local function LoadSkin()
 	local frame = _G.CovenantRenownFrame
 	frame:StripTextures()
 	frame:SetTemplate('Transparent')
-	frame:Styling()
 	module:CreateShadow(frame)
 
 	hooksecurefunc(frame, 'SetUpCovenantData', function(self)
@@ -26,4 +24,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon('Blizzard_CovenantRenown', LoadSkin)
+module:AddCallbackForAddon('Blizzard_CovenantRenown')

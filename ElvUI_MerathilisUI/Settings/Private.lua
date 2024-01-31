@@ -6,7 +6,6 @@ V.general = {
 
 V.skins = {
 	enable = true,
-	style = true,
 	shadowOverlay = false,
 	shadow = {
 		enable = true,
@@ -242,6 +241,7 @@ V.skins = {
 		bSync = true,
 		pawn = true,
 		iry = true,
+		tlx = true,
 		bw = {
 			enable = true,
 			queueTimer = {

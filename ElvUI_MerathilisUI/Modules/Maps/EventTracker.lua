@@ -1095,7 +1095,6 @@ function module:UpdateTrackers()
 		if self.db.backdrop then
 			if not self.frame.backdrop then
 				self.frame:CreateBackdrop("Transparent")
-				self.frame:Styling()
 				S:CreateShadowModule(self.frame.backdrop)
 			end
 			self.frame.backdrop:Show()

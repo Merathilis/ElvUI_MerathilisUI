@@ -4,13 +4,12 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:StackSplitFrame()
 	if not module:CheckDB("misc", "misc") then
 		return
 	end
 
 	local StackSplitFrame = _G.StackSplitFrame
-	StackSplitFrame:Styling()
 end
 
-S:AddCallback("StackSplitFrame", LoadSkin)
+module:AddCallback("StackSplitFrame", LoadSkin)

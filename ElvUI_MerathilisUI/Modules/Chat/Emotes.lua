@@ -23,54 +23,54 @@ module.ChatEmote = ChatEmote
 
 local emotes = {
 	-- RaidTarget
-	{"{rt1}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_1]=]},
-	{"{rt2}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_2]=]},
-	{"{rt3}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_3]=]},
-	{"{rt4}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_4]=]},
-	{"{rt5}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_5]=]},
-	{"{rt6}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_6]=]},
-	{"{rt7}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_7]=]},
-	{"{rt8}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_8]=]},
+	{ "{rt1}",                          [=[Interface\TargetingFrame\UI-RaidTargetingIcon_1]=] },
+	{ "{rt2}",                          [=[Interface\TargetingFrame\UI-RaidTargetingIcon_2]=] },
+	{ "{rt3}",                          [=[Interface\TargetingFrame\UI-RaidTargetingIcon_3]=] },
+	{ "{rt4}",                          [=[Interface\TargetingFrame\UI-RaidTargetingIcon_4]=] },
+	{ "{rt5}",                          [=[Interface\TargetingFrame\UI-RaidTargetingIcon_5]=] },
+	{ "{rt6}",                          [=[Interface\TargetingFrame\UI-RaidTargetingIcon_6]=] },
+	{ "{rt7}",                          [=[Interface\TargetingFrame\UI-RaidTargetingIcon_7]=] },
+	{ "{rt8}",                          [=[Interface\TargetingFrame\UI-RaidTargetingIcon_8]=] },
 
 	-- ElvUI's emotes
-	{":angry:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Angry]=]},
-	{":blush:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Blush]=]},
-	{":broken_heart:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\BrokenHeart]=]},
-	{":call_me:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\CallMe]=]},
-	{":cry:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Cry]=]},
-	{":facepalm:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Facepalm]=]},
-	{":grin:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Grin]=]},
-	{":heart:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Heart]=]},
-	{":heart_eyes:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\HeartEyes]=]},
-	{":joy:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Joy]=]},
-	{":kappa:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Kappa]=]},
-	{":meaw:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Meaw]=]},
-	{":middle_finger:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\MiddleFinger]=]},
-	{":murloc:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Murloc]=]},
-	{":ok_hand:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\OkHand]=]},
-	{":open_mouth:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\OpenMouth]=]},
-	{":poop:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Poop]=]},
-	{":rage:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Rage]=]},
-	{":sadkitty:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SadKitty]=]},
-	{":scream:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Scream]=]},
-	{":scream_cat:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ScreamCat]=]},
-	{":slight_frown:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SlightFrown]=]},
-	{":smile:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Smile]=]},
-	{":smirk:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Smirk]=]},
-	{":sob:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Sob]=]},
-	{":sunglasses:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Sunglasses]=]},
-	{":thinking:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Thinking]=]},
-	{":thumbs_up:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ThumbsUp]=]},
-	{":semi_colon:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SemiColon]=]},
-	{":wink:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Wink]=]},
-	{":zzz:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ZZZ]=]},
-	{":stuck_out_tongue:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\StuckOutTongue]=]},
-	{":stuck_out_tongue_closed_eyes:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\StuckOutTongueClosedEyes]=]},
+	{ ":angry:",                        [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Angry]=] },
+	{ ":blush:",                        [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Blush]=] },
+	{ ":broken_heart:",                 [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\BrokenHeart]=] },
+	{ ":call_me:",                      [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\CallMe]=] },
+	{ ":cry:",                          [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Cry]=] },
+	{ ":facepalm:",                     [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Facepalm]=] },
+	{ ":grin:",                         [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Grin]=] },
+	{ ":heart:",                        [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Heart]=] },
+	{ ":heart_eyes:",                   [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\HeartEyes]=] },
+	{ ":joy:",                          [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Joy]=] },
+	{ ":kappa:",                        [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Kappa]=] },
+	{ ":meaw:",                         [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Meaw]=] },
+	{ ":middle_finger:",                [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\MiddleFinger]=] },
+	{ ":murloc:",                       [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Murloc]=] },
+	{ ":ok_hand:",                      [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\OkHand]=] },
+	{ ":open_mouth:",                   [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\OpenMouth]=] },
+	{ ":poop:",                         [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Poop]=] },
+	{ ":rage:",                         [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Rage]=] },
+	{ ":sadkitty:",                     [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SadKitty]=] },
+	{ ":scream:",                       [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Scream]=] },
+	{ ":scream_cat:",                   [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ScreamCat]=] },
+	{ ":slight_frown:",                 [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SlightFrown]=] },
+	{ ":smile:",                        [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Smile]=] },
+	{ ":smirk:",                        [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Smirk]=] },
+	{ ":sob:",                          [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Sob]=] },
+	{ ":sunglasses:",                   [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Sunglasses]=] },
+	{ ":thinking:",                     [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Thinking]=] },
+	{ ":thumbs_up:",                    [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ThumbsUp]=] },
+	{ ":semi_colon:",                   [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SemiColon]=] },
+	{ ":wink:",                         [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Wink]=] },
+	{ ":zzz:",                          [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ZZZ]=] },
+	{ ":stuck_out_tongue:",             [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\StuckOutTongue]=] },
+	{ ":stuck_out_tongue_closed_eyes:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\StuckOutTongueClosedEyes]=] },
 
 	-- My emots
-	{":monkaomega:", [=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\monkaomega]=]},
-	{":salt:", [=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\salt]=]},
-	{":sadge:", [=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\sadge]=]},
+	{ ":monkaomega:",                   [=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\monkaomega]=] },
+	{ ":salt:",                         [=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\salt]=] },
+	{ ":sadge:",                        [=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\sadge]=] },
 }
 module.emotes = emotes
 
@@ -81,7 +81,7 @@ local function CreateEmoteTableFrame()
 	local width, height, column, space = 20, 20, 10, 6
 	local index = 0
 
-	local color = {r = 1, g = 1, b = 1}
+	local color = { r = 1, g = 1, b = 1 }
 	color = RAID_CLASS_COLORS[E.myclass]
 
 	local frame = CreateFrame("Frame", "MER_EmoteTableFrame", E.UIParent, "UIPanelDialogTemplate,BackdropTemplate")
@@ -89,7 +89,6 @@ local function CreateEmoteTableFrame()
 	_G.MER_EmoteTableFrameDialogBG:Hide()
 	frame:StripTextures()
 	frame:CreateBackdrop("Transparent")
-	frame.backdrop:Styling()
 	S:CreateShadowModule(frame.backdrop)
 	ES:HandleCloseButton(_G.MER_EmoteTableFrameClose)
 
@@ -99,7 +98,8 @@ local function CreateEmoteTableFrame()
 
 	frame.line = CreateFrame("Frame", nil, frame)
 	frame.line:Point("BOTTOM", frame, "TOP", 0, 0)
-	MER:CreateGradientFrame(frame.line, (column * (width + space) + 24), 2, "Horizontal", color.r, color.g, color.b, .7, color.r, color.g, color.b, 0)
+	MER:CreateGradientFrame(frame.line, (column * (width + space) + 24), 2, "Horizontal", color.r, color.g, color.b, .7,
+		color.r, color.g, color.b, 0)
 
 	tinsert(UISpecialFrames, frame:GetDebugName())
 
@@ -158,9 +158,10 @@ function module:LoadChatEmote()
 			word = strtrim(word)
 			local pattern = E:EscapeString(word)
 			local emoji = CH.Smileys[pattern]
-			if emoji and strmatch(msg, '[%s%p]-'..pattern..'[%s%p]*') then
+			if emoji and strmatch(msg, '[%s%p]-' .. pattern .. '[%s%p]*') then
 				local encode = E.Libs.Deflate:EncodeForPrint(word) -- btw keep `|h|cFFffffff|r|h` as it is
-				msg = gsub(msg, '([%s%p]-)'..pattern..'([%s%p]*)', (encode and ('%1|Helvmoji:%%'..encode..'|h|cFFffffff|r|h') or '%1')..emoji..'%2')
+				msg = gsub(msg, '([%s%p]-)' .. pattern .. '([%s%p]*)',
+					(encode and ('%1|Helvmoji:%%' .. encode .. '|h|cFFffffff|r|h') or '%1') .. emoji .. '%2')
 			end
 		end
 		return msg

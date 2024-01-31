@@ -392,6 +392,21 @@ L["Same Message Interval"] = "Selbe Benachrichtigung Interval"
 L["Time interval between sending same messages measured in seconds."] =
 "Zeitintervall zwischen dem Senden einer gleichen Nachricht in Sekunden."
 L["Set to 0 to disable."] = "Setze auf 0 zum deaktivieren."
+L["Automation"] = "Automatisierung"
+L["Automate your game life."] = "Automatisiere dein Spielerlebnis."
+L["Auto Hide Bag"] = "Autom. Taschen verstecken"
+L["Automatically close bag if player enters combat."] = "Tasche automatisch schließen, wenn Du in den Kampf eintrittst."
+L["Auto Hide Map"] = "Autom. Weltkarte verstecken"
+L["Automatically close world map if player enters combat."] =
+"Schließe die Weltkarte automatisch, wenn du in den Kampf eintrittst."
+L["Accept Resurrect"] = "Akzeptiere Wiederbelebung"
+L["Accept resurrect from other player automatically when you not in combat."] =
+"Akzeptiere die Wiederbelebung von anderen Spielern automatisch, wenn du nicht im Kampf bist."
+L["Accept Combat Resurrect"] = "Akzeptiere Kampfwiederbelebung"
+L["Accept resurrect from other player automatically when you in combat."] =
+"Akzeptiere die Wiederbelebung von anderen Spielern automatisch, wenn du im Kampf bist."
+L["Confirm Summon"] = "Akzeptiere Beschwörung"
+L["Confirm summon from other player automatically."] = "Bestätige die Beschwörung von einem anderen Spieler automatisch."
 
 -- Nameplates
 L["NamePlates"] = "Namensplaketten"

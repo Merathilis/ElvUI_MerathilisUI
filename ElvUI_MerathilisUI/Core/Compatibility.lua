@@ -19,7 +19,6 @@ function MER:ConstructCompatibilityFrame()
 	frame:SetPoint("CENTER")
 	frame:CreateBackdrop("Transparent")
 	S:CreateShadowModule(frame.backdrop)
-	frame.backdrop:Styling()
 	frame.numModules = 0
 	frame:Hide()
 	frame:SetScript("OnHide", function()

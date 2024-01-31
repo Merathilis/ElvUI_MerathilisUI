@@ -63,7 +63,6 @@ function module:BugSack_OpenSack()
 
 	bugSackFrame:StripTextures()
 	bugSackFrame:SetTemplate("Transparent")
-	bugSackFrame:Styling()
 	module:CreateShadow(bugSackFrame)
 
 	for _, child in pairs { bugSackFrame:GetChildren() } do
@@ -107,7 +106,6 @@ function module:BugSack_OpenSack()
 
 	for _, tab in pairs(tabs) do
 		S:HandleTab(tab)
-		tab.backdrop:Styling()
 		module:CreateBackdropShadow(tab)
 
 		local point, relativeTo, relativePoint, xOffset, yOffset = tab:GetPoint(1)

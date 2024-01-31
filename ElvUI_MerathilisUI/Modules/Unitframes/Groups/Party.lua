@@ -14,16 +14,6 @@ end
 function module:Update_PartyFrames(frame)
 	local db = E.db.mui.unitframes
 
-	-- Only looks good on Transparent
-	if E.db.unitframe.colors.transparentHealth then
-		if db.style then
-			if frame and frame.Health and not frame.__MERSkin then
-				frame.Health:Styling(false, true)
-				frame.__MERSkin = true
-			end
-		end
-	end
-
 	if not frame.isChild then
 		module:Configure_DeathIndicator(frame)
 		module:Configure_OfflineIndicator(frame)

@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_RandomToy')
+local module = MER:GetModule('MER_Misc')
 
 local _G = _G
 local pairs, select = pairs, select
@@ -21,7 +21,7 @@ local SlashCmdList = SlashCmdList
 
 local macroName = "RANDOMTOY"
 local macroTemplate =
-"#showtooltip %s\n" .. "/randomtoy check\n" .. "/cast %s"
+	"#showtooltip %s\n" .. "/randomtoy check\n" .. "/cast %s"
 
 local function IsMyToyUsable(itemID)
 	local startTime, duration, enable = GetItemCooldown(itemID)
@@ -34,7 +34,7 @@ local function IsMyToyUsable(itemID)
 end
 
 function module:UpdateMacro()
-	if not E.db.mui.actionbars.randomToy.enable then return end
+	if not E.db.mui.misc.randomToy.enable then return end
 
 	if InCombatLockdown() then
 		return self:RegisterEvent("PLAYER_REGEN_ENABLED")
@@ -44,7 +44,7 @@ function module:UpdateMacro()
 	local toyname = ""
 	local templist = {}
 
-	for k, v in pairs(E.db.mui.actionbars.randomToy.toyList) do
+	for k, v in pairs(E.db.mui.misc.randomToy.toyList) do
 		if v and PlayerHasToy(k) and C_ToyBox_IsToyUsable(k) and IsMyToyUsable(k) and C_ToyBox_GetToyInfo(k) then
 			tinsert(templist, k)
 		end
@@ -74,7 +74,7 @@ function module:PLAYER_REGEN_ENABLED()
 	self:UpdateMacro()
 end
 
-function module:Initialize()
+function module:RandomToy()
 	self:RegisterEvent("NEW_TOY_ADDED", "UpdateMacro")
 	SlashCmdList["RANDOMTOY"] = function(msg)
 		if msg == "check" then
@@ -91,4 +91,4 @@ function module:Initialize()
 	_G.SLASH_RANDOMTOY1 = "/randomtoy"
 end
 
-MER:RegisterModule(module:GetName())
+module:AddCallback("RandomToy")

@@ -10,8 +10,6 @@ local function LoadSkin()
 	end
 
 	local RaidInfoFrame = _G.RaidInfoFrame
-	RaidInfoFrame:Styling()
-
 	module:CreateShadow(RaidInfoFrame)
 end
 

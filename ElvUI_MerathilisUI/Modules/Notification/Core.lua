@@ -128,7 +128,6 @@ function module:CreateToast()
 	toast:SetPoint("TOP", E.UIParent, "TOP")
 	toast:Hide()
 	toast:CreateBackdrop('Transparent')
-	toast.backdrop:Styling()
 	S:CreateBackdropShadow(toast, true)
 	S:CreateGradient(toast.backdrop)
 	toast:CreateCloseButton(10)
@@ -267,7 +266,8 @@ local function testCallback()
 end
 
 SlashCmdList.TESTNOTIFICATION = function(b)
-	module:DisplayToast(F.cOption("MerathilisUI:", 'gradient'), L["This is an example of a notification."], testCallback, b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
+	module:DisplayToast(F.cOption("MerathilisUI:", 'gradient'), L["This is an example of a notification."], testCallback,
+		b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
 end
 SLASH_TESTNOTIFICATION1 = "/testnotification"
 
@@ -278,7 +278,8 @@ function module:Initialize()
 	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
 	anchorFrame:SetSize(bannerWidth, 50)
 	anchorFrame:SetPoint("TOP", 0, -80)
-	E:CreateMover(anchorFrame, "MER_NotificationMover", L["Notification Mover"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,Notification')
+	E:CreateMover(anchorFrame, "MER_NotificationMover", L["Notification Mover"], nil, nil, nil, "ALL,SOLO,MERATHILISUI",
+		nil, 'mui,modules,Notification')
 
 	self:RegisterEvent("UPDATE_PENDING_MAIL")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
@@ -291,7 +292,7 @@ function module:Initialize()
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("QUEST_ACCEPTED")
 
-	self.lastMinimapRare = {time = 0, id = nil}
+	self.lastMinimapRare = { time = 0, id = nil }
 end
 
 MER:RegisterModule(module:GetName())

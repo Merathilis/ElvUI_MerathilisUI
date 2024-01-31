@@ -1575,7 +1575,6 @@ function module:CreateBar(id)
 	bar:SetPoint("CENTER", anchor, "CENTER", 0, 0)
 	bar:Size(150, 40)
 	bar:CreateBackdrop("Transparent")
-	bar.backdrop:Styling()
 	bar:SetFrameStrata("LOW")
 
 	bar.buttons = {}

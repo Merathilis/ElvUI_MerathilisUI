@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
 
 local _G = _G
 local select, unpack = select, unpack
@@ -27,14 +26,13 @@ local function updateIcon(self)
 	end
 end
 
-local function LoadSkin()
+function module:Blizzard_InspectUI()
 	if not module:CheckDB("inspect", "inspect") then
 		return
 	end
 
 	_G.InspectModelFrame:DisableDrawLayer("OVERLAY")
 
-	_G.InspectFrame:Styling()
 	module:CreateShadow(_G.InspectFrame)
 
 	for i = 1, 4 do
@@ -62,10 +60,10 @@ local function LoadSkin()
 	}
 
 	for i = 1, #slots do
-		local slot = _G["Inspect"..slots[i].."Slot"]
+		local slot = _G["Inspect" .. slots[i] .. "Slot"]
 		local border = slot.IconBorder
 
-		_G["Inspect"..slots[i].."SlotFrame"]:Hide()
+		_G["Inspect" .. slots[i] .. "SlotFrame"]:Hide()
 
 		slot:SetNormalTexture("")
 		slot:SetPushedTexture("")
@@ -84,9 +82,9 @@ local function LoadSkin()
 	inspectSpec.ring:Hide()
 
 	for i = 1, 7 do
-		local row = _G.InspectTalentFrame.InspectTalents["tier"..i]
+		local row = _G.InspectTalentFrame.InspectTalents["tier" .. i]
 		for j = 1, 3 do
-			local bu = row["talent"..j]
+			local bu = row["talent" .. j]
 
 			bu.Slot:Hide()
 			bu.border:SetTexture("")
@@ -110,14 +108,14 @@ local function LoadSkin()
 	end)
 
 	for i = 1, 4 do
-		local tab = _G["InspectFrameTab"..i]
+		local tab = _G["InspectFrameTab" .. i]
 		if tab then
 			module:ReskinTab(tab)
 			if i ~= 1 then
-				tab:SetPoint("LEFT", _G["InspectFrameTab"..i-1], "RIGHT", -15, 0)
+				tab:SetPoint("LEFT", _G["InspectFrameTab" .. i - 1], "RIGHT", -15, 0)
 			end
 		end
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_InspectUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_InspectUI")

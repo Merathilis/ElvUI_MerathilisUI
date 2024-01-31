@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
+local module = MER:GetModule('MER_Skins')
 
 local _G = _G
 local select = select
@@ -47,7 +46,6 @@ function module:GossipFrame()
 	end
 
 	local GossipFrame = _G.GossipFrame
-	GossipFrame:Styling()
 	module:CreateBackdropShadow(GossipFrame)
 
 	if _G.GossipFrameInset then

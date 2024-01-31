@@ -63,7 +63,6 @@ local function LoadSkin()
 		_G.QuestLogPopupDetailFrameBg:Hide()
 		-- self:CreateBackdrop("Transparent")
 
-		_G.QuestLogPopupDetailFrame:Styling()
 		module:CreateShadow(_G.QuestLogPopupDetailFrame)
 
 		if not E.private.skins.parchmentRemoverEnable then

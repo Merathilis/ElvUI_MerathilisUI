@@ -41,11 +41,11 @@ function module:Preview()
 	}
 
 	for position, data in pairs(examples) do
-		SpellActivationOverlay_ShowOverlay(_G.SpellActivationOverlayFrame, 123986, data[3], position, 1, 255, 255, 255, data[1], data[2])
-
+		SpellActivationOverlay_ShowOverlay(_G.SpellActivationOverlayFrame, 123986, data[3], position, 1, 255, 255, 255,
+			data[1], data[2])
 	end
 
-	E:Delay(2,function()
+	E:Delay(2, function()
 		if _previewID == self.previewID then
 			_G.SpellActivationOverlay_HideAllOverlays(_G.SpellActivationOverlayFrame)
 		end

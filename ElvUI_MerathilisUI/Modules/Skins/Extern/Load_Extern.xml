@@ -4,7 +4,6 @@
 	<Script file="ActionBarProfiles.lua"/>
 	<Script file="Auctionator.lua"/>
 	<Script file="BagSync.lua"/>
-	<Script file="BenikUI.lua"/>
 	<Script file='BigWigs.lua'/>
 	<Script file='BugSack.lua'/>
 	<Script file="Clique.lua"/>
@@ -18,6 +17,7 @@
 	<Script file="PremadeGroupsFilter.lua"/>
 	<Script file="RaiderIO.lua"/>
 	<Script file="stAddOnManager.lua"/>
+	<Script file="TalentLoadoutsEx.lua"/>
 	<Script file='WeakAuras.lua'/>
 	<Script file='WeakAurasOptions.lua'/>
 </Ui>

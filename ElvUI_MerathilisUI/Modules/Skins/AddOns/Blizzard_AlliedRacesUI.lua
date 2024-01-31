@@ -1,20 +1,15 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 local select = select
 
-local function LoadSkin()
+function module:Blizzard_AlliedRacesUI()
 	if not module:CheckDB("alliedRaces", "AlliedRaces") then
 		return
 	end
 
 	local AlliedRacesFrame = _G.AlliedRacesFrame
-
-	if AlliedRacesFrame.backdrop then
-		AlliedRacesFrame.backdrop:Styling()
-	end
 
 	module:CreateBackdropShadow(AlliedRacesFrame)
 	select(2, AlliedRacesFrame.ModelFrame:GetRegions()):Hide()
@@ -41,4 +36,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_AlliedRacesUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_AlliedRacesUI")

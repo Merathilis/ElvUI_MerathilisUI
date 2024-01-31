@@ -60,7 +60,6 @@ LST:RegisterSkin("MerathilisUI", {
 
 LST.RegisterCallback({}, "SetSkin", function(_, toast)
 	if toast and not toast.skinned then
-		toast:Styling()
 		module:CreateShadow(toast)
 		toast.skinned = true
 	end

@@ -90,14 +90,6 @@ function module:CreateAnimatedBars(frame)
 	end
 end
 
-function module:CreateUFShadows()
-	self:SecureHook(UF, "UpdateNameSettings", "UnitFrames_UpdateNameSettings")
-	self:SecureHook(UF, "Configure_Threat", "UnitFrames_Configure_Threat")
-	self:SecureHook(UF, "Configure_Power", "UnitFrames_Configure_Power")
-	self:SecureHook(UF, "Configure_ClassBar", "UnitFrames_Configure_ClassBar")
-	self:SecureHook(UF, "Configure_InfoPanel", "UnitFrames_Configure_InfoPanel")
-end
-
 local function HookConstructUnitFrames()
 	hooksecurefunc(UF, 'Construct_PartyFrames', module.Construct_PartyFrames)
 end
@@ -130,11 +122,8 @@ function module:Initialize()
 	-- Boss
 	hooksecurefunc(UF, "Update_BossFrames", module.Update_BossFrames)
 	-- Castbar
-	hooksecurefunc(UF, "Configure_Castbar", module.Configure_Castbar)
 	hooksecurefunc(UF, "LoadUnits", module.CastBarHooks)
 	hooksecurefunc(UF, "LoadUnits", module.UpdateAllCastbars)
-	-- Power
-	hooksecurefunc(UF, "Configure_Power", module.Configure_Power)
 	-- Power Textures
 	module:ChangePowerBarTexture()
 	hooksecurefunc(UF, 'Update_StatusBars', module.ChangePowerBarTexture)
@@ -144,14 +133,14 @@ function module:Initialize()
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 	-- RoleIcons
 	module:Configure_RoleIcons()
-	-- Shadows
-	module:CreateUFShadows()
+
 	--Auras
 	if db.auras then
 		module:SecureHook(UF, "PostUpdateAura", "ElvUI_PostUpdateDebuffs")
 	end
 
 	self:RegisterEvent("ADDON_LOADED")
+	print("Blub")
 end
 
 MER:RegisterModule(module:GetName())

@@ -51,6 +51,7 @@ MER.Modules.AlreadyKnown = MER:NewModule('MER_AlreadyKnown', 'AceEvent-3.0', 'Ac
 MER.Modules.Announcement = MER:NewModule('MER_Announcement', 'AceEvent-3.0')
 MER.Modules.Armory = MER:NewModule('MER_Armory', 'AceEvent-3.0', 'AceConsole-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 MER.Modules.AutoButtons = MER:NewModule('MER_AutoButtons', 'AceEvent-3.0')
+MER.Modules.Automation = MER:NewModule('MER_Automation', 'AceEvent-3.0')
 MER.Modules.Auras = MER:NewModule('MER_Auras', 'AceHook-3.0')
 MER.Modules.Bags = MER:NewModule('MER_Bags')
 MER.Modules.BagInfo = MER:NewModule("MER_BagInfo", 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
@@ -61,7 +62,6 @@ MER.Modules.ChatLink = MER:NewModule('MER_ChatLink', 'AceEvent-3.0')
 MER.Modules.ChatText = MER:NewModule('MER_ChatText', 'AceEvent-3.0')
 MER.Modules.Cooldown = MER:NewModule('MER_Cooldown', 'AceHook-3.0')
 MER.Modules.CombatText = MER:NewModule('MER_CombatText', 'AceEvent-3.0', 'AceTimer-3.0')
-MER.Modules.Cursor = MER:NewModule('MER_Cursor')
 MER.Modules.CVars = MER:NewModule('MER_CVars')
 MER.Modules.DashBoard = MER:NewModule('MER_DashBoard', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.DataBars = MER:NewModule('MER_DataBars')
@@ -72,12 +72,10 @@ MER.Modules.EventTracker = MER:NewModule('MER_EventTracker', 'AceEvent-3.0', 'Ac
 MER.Modules.ExtendedVendor = MER:NewModule('MER_ExtendedVendor', 'AceHook-3.0')
 MER.Modules.Filter = MER:NewModule('MER_Filter', 'AceEvent-3.0')
 MER.Modules.FriendsList = MER:NewModule('MER_FriendsList', 'AceHook-3.0')
-MER.Modules.GameMenu = MER:NewModule('MER_GameMenu')
 MER.Modules.HealPrediction = MER:NewModule('MER_HealPrediction', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.InstanceDifficulty = MER:NewModule('MER_InstanceDifficulty', 'AceEvent-3.0', 'AceHook-3.0')
 MER.Modules.ItemLevel = MER:NewModule('MER_ItemLevel', 'AceHook-3.0', 'AceEvent-3.0')
 MER.Modules.Layout = MER:NewModule('MER_Layout', 'AceHook-3.0', 'AceEvent-3.0')
-MER.Modules.LFGInfo = MER:NewModule('MER_LFGInfo', 'AceHook-3.0')
 MER.Modules.LocPanel = MER:NewModule('MER_LocPanel', 'AceTimer-3.0', 'AceEvent-3.0')
 MER.Modules.Mail = MER:NewModule('MER_Mail', 'AceHook-3.0')
 MER.Modules.MicroBar = MER:NewModule('MER_MicroBar', 'AceEvent-3.0', 'AceHook-3.0')
@@ -146,7 +144,7 @@ function MER:Initialize()
 
 	if MER.IsDevelop then
 		Engine[2].DebugPrint(
-		"You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help",
+			"You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help",
 			"warning")
 	end
 
@@ -195,11 +193,11 @@ do
 			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
 				print(icon ..
-				'' ..
-				self.Title ..
-				format('|cff00c0fa%s|r', self.Version) ..
-				L[" is loaded. For any issues or suggestions, please visit "] ..
-				Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
+					'' ..
+					self.Title ..
+					format('|cff00c0fa%s|r', self.Version) ..
+					L[" is loaded. For any issues or suggestions, please visit "] ..
+					Engine[2].PrintURL("https://github.com/Merathilis/ElvUI_MerathilisUI/issues"))
 			end
 
 			self:SplashScreen()

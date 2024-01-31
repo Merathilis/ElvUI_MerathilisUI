@@ -1,28 +1,25 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
 
 local _G = _G
 
 local NUM_SLOTS_PER_GUILDBANK_GROUP = 14
 local NUM_GUILDBANK_COLUMNS = 7
 
-local function LoadSkin()
+function module:Blizzard_GuildBankUI()
 	if not module:CheckDB("gbank", "gbank") then
 		return
 	end
 
-	_G.GuildBankFrame:Styling()
 	module:CreateShadow(_G.GuildBankFrame)
-	_G.GuildBankPopupFrame:Styling()
 	module:CreateShadow(_G.GuildBankPopupFrame)
 
 	for i = 1, 4 do
-		local tab = _G["GuildBankFrameTab"..i]
+		local tab = _G["GuildBankFrameTab" .. i]
 		module:ReskinTab(tab)
 
 		if i ~= 1 then
-			tab:SetPoint("LEFT", _G["GuildBankFrameTab"..i-1], "RIGHT", -15, 0)
+			tab:SetPoint("LEFT", _G["GuildBankFrameTab" .. i - 1], "RIGHT", -15, 0)
 		end
 	end
 
@@ -39,7 +36,7 @@ local function LoadSkin()
 
 	for i = 1, NUM_GUILDBANK_COLUMNS do
 		for j = 1, NUM_SLOTS_PER_GUILDBANK_GROUP do
-			local button = _G["GuildBankColumn"..i.."Button"..j]
+			local button = _G["GuildBankColumn" .. i .. "Button" .. j]
 			if button then
 				button:SetTemplate("Transparent")
 				module:CreateGradient(button)
@@ -48,4 +45,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_GuildBankUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_GuildBankUI")

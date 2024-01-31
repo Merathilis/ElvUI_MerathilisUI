@@ -28,7 +28,6 @@ local function createPanelShadow(panel)
 	end
 
 	S:CreateShadow(panel)
-	panel:Styling()
 
 	hooksecurefunc(panel, "SetTemplate", hookPanelSetTemplate)
 	hookPanelSetTemplate(panel, panel.template)

@@ -12,7 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-	"• Fix skin issues if the desired AddOn is not enabled",
+	"• Merged my Styling function with the Shadow Function for more consistency",
+	"• Added skin for TalentLoadoutsEx",
+	"• Fix FlightPoint Highlight",
+	"• Updated some Skins",
 
 	-- "• ''",
 
@@ -70,7 +73,6 @@ function MER:CreateChangelog()
 	frame:SetScript("OnDragStart", frame.StartMoving)
 	frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
 	frame:SetClampedToScreen(true)
-	frame.backdrop:Styling()
 
 	frame.texture = frame:CreateTexture(nil, "BACKGROUND")
 	frame.texture:Point("CENTER", frame, "BOTTOM", 0, 110)
@@ -82,7 +84,6 @@ function MER:CreateChangelog()
 	icon:Point("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
 	icon:Size(20, 20)
 	icon:CreateBackdrop("Transparent")
-	icon:Styling()
 
 	icon.bg = icon:CreateTexture(nil, "ARTWORK")
 	icon.bg:Point("TOPLEFT", 2, -2)
@@ -93,7 +94,6 @@ function MER:CreateChangelog()
 	title:Point("LEFT", icon, "RIGHT", 1, 0)
 	title:Size(579, 20)
 	title:CreateBackdrop("Transparent")
-	title.backdrop:Styling()
 
 	title.text = title:CreateFontString(nil, "OVERLAY")
 	title.text:FontTemplate(nil, 15)

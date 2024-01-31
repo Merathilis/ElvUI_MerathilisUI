@@ -452,7 +452,6 @@ local function groupsCustomise(frame)
 	frame:StripTextures()
 	frame:SetTemplate("Transparent")
 	module:CreateShadow(frame)
-	frame:Styling()
 
 	S:HandleCloseButton(frame.CloseButton)
 	S:HandleButton(frame.BackButton)

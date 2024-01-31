@@ -6,8 +6,13 @@ local _G = _G
 options.tooltip = {
 	type = "group",
 	name = L["Tooltip"],
-	get = function(info) return E.db.mui.tooltip[info[#info]] end,
-	set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+	get = function(info)
+		return E.db.mui.tooltip[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.tooltip[info[#info]] = value;
+		E:StaticPopup_Show("PRIVATE_RL")
+	end,
 	args = {
 		header = {
 			order = 0,
@@ -74,9 +79,11 @@ options.tooltip = {
 			name = "",
 			desc = L["Shows the Unit Name on the mouse."],
 			get = function(info) return E.db.mui.nameHover[info[#info]] end,
-			set = function(info, value) E.db.mui.nameHover[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			set = function(info, value)
+				E.db.mui.nameHover[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+			end,
 			args = {
-				header1 = {
+				header = {
 					order = 0,
 					type = "header",
 					name = F.cOption(L["Name Hover"], 'orange'),
@@ -90,7 +97,9 @@ options.tooltip = {
 					order = 2,
 					type = "range",
 					name = L["Size"],
-					min = 4, max = 24, step = 1,
+					min = 4,
+					max = 24,
+					step = 1,
 				},
 				fontOutline = {
 					order = 3,
@@ -109,6 +118,44 @@ options.tooltip = {
 					type = "toggle",
 					name = L["Gradient Color"],
 					desc = L["Colors the player names in a gradient instead of class color"]
+				},
+			},
+		},
+		healthBar = {
+			order = 16,
+			type = "group",
+			inline = true,
+			name = "",
+			get = function(info)
+				return E.db.mui.tooltip[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.tooltip[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				header = {
+					order = 0,
+					type = "header",
+					name = F.cOption(E.NewSign .. L["Health Bar"], 'orange'),
+				},
+				yOffsetOfHealthBar = {
+					order = 1,
+					type = "range",
+					name = L["Health Bar Y-Offset"],
+					desc = L["Change the postion of the health bar."],
+					min = -50,
+					max = 50,
+					step = 1
+				},
+				yOffsetOfHealthText = {
+					order = 2,
+					type = "range",
+					name = L["Health Text Y-Offset"],
+					desc = L["Change the postion of the health text."],
+					min = -50,
+					max = 50,
+					step = 1
 				},
 			},
 		},

@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
 
 local pairs, GetCVarBool = pairs, GetCVarBool
 local C_ChatBubbles_GetAllChatBubbles = C_ChatBubbles.GetAllChatBubbles
@@ -12,8 +11,8 @@ local function SkinChatBubble(chatbubble)
 	if frame and not frame:IsForbidden() then
 		frame:CreateBackdrop('Transparent')
 		frame.backdrop:SetScale(UIParent:GetEffectiveScale())
-        frame.backdrop:SetInside(frame, 4, 4)
-        module:CreateGradient(frame.backdrop)
+		frame.backdrop:SetInside(frame, 4, 4)
+		module:CreateGradient(frame.backdrop)
 		module:CreateTex(frame.backdrop)
 		module:CreateBackdropShadow(frame)
 
@@ -24,7 +23,7 @@ local function SkinChatBubble(chatbubble)
 	chatbubble.skinned = true
 end
 
-local function LoadSkin()
+function module:ChatBubbles()
 	if not E.private.mui.skins.blizzard.chatBubbles or E.private.general.chatBubbles ~= "nobackdrop" then return end
 
 	local events = {
@@ -60,4 +59,4 @@ local function LoadSkin()
 	bubbleHook:Hide()
 end
 
-S:AddCallback("ChatBubbles", LoadSkin)
+module:AddCallback("ChatBubbles")

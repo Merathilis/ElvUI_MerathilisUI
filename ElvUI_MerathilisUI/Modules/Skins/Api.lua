@@ -55,7 +55,7 @@ do
 	end
 end
 
-function module:CreateShadow(frame, size, r, g, b, force)
+function module:CreateShadow(frame, size, r, g, b, force, useStripes, useShadow)
 	if not force then
 		if not E.private.mui.skins.enable or not E.private.mui.skins.shadow.enable then
 			return
@@ -84,6 +84,31 @@ function module:CreateShadow(frame, size, r, g, b, force)
 	shadow:SetBackdrop({ edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(size + 1) })
 	shadow:SetBackdropColor(r, g, b, 0)
 	shadow:SetBackdropBorderColor(r, g, b, 0.618)
+
+	if not (useStripes) then
+		local stripes = frame:CreateTexture(frame:GetName() and frame:GetName() .. "Overlay" or nil, "BORDER")
+		stripes:ClearAllPoints()
+		stripes:Point("TOPLEFT", 1, -1)
+		stripes:Point("BOTTOMRIGHT", -1, 1)
+		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\stripes]], true, true)
+		stripes:SetHorizTile(true)
+		stripes:SetVertTile(true)
+		stripes:SetBlendMode("ADD")
+
+		shadow.stripes = stripes
+	end
+
+	if not (useShadow) then
+		local mshadow = frame:CreateTexture(frame:GetName() and frame:GetName() .. "Overlay" or nil, "BORDER")
+		mshadow:SetInside(frame, 0, 0)
+		mshadow:Width(33)
+		mshadow:Height(33)
+		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Overlay]])
+		mshadow:SetVertexColor(1, 1, 1, 0.6)
+
+		shadow.mshadow = mshadow
+	end
+
 	shadow.__MER = true
 
 	frame.MERshadow = shadow
@@ -580,9 +605,6 @@ function module:ReskinTab(tab)
 		return
 	end
 
-	if tab.backdrop then
-		tab.backdrop:Styling()
-	end
 	self:CreateBackdropShadow(tab)
 end
 
@@ -670,7 +692,6 @@ function module:ReskinAS(AS)
 				Tab.Backdrop:Hide()
 			else
 				AS:SetTemplate(Tab.Backdrop, "Transparent") -- Set it to transparent
-				Tab.Backdrop:Styling()
 			end
 		end
 
@@ -852,7 +873,6 @@ function module:ReskinMenuButton(button)
 
 	if not button.backdrop then
 		button:CreateBackdrop('Transparent')
-		button.backdrop:Styling()
 	end
 	button:SetScript("OnEnter", Menu_OnEnter)
 	button:SetScript("OnLeave", Menu_OnLeave)

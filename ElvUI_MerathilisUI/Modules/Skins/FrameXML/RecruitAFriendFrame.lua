@@ -40,11 +40,9 @@ local function LoadSkin()
 	SplashFrame.PictureFrame_Bracket_BottomLeft:Hide()
 
 	local Reward = _G.RecruitAFriendRewardsFrame
-	Reward:Styling()
 	module:CreateBackdropShadow(Reward)
 
 	local Recruit = _G.RecruitAFriendRecruitmentFrame
-	Recruit:Styling()
 	module:CreateBackdropShadow(Recruit)
 end
 

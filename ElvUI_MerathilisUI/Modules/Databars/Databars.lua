@@ -7,9 +7,7 @@ local pairs = pairs
 function module:StyleBackdrops()
 	for _, bar in pairs(DB.StatusBars) do
 		if bar and bar.db.enable then
-			if bar.holder then
-				bar.holder:Styling()
-			end
+
 		end
 	end
 end

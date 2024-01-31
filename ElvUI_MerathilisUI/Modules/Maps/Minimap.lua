@@ -25,7 +25,7 @@ function module:CheckStatus()
 	local mail = mailFrame:IsShown() and true or false
 	local crafting = craftingFrame:IsShown() and true or false
 
-	if inv > 0 and mail and crafting then -- New invites and mail and crafting orders
+	if inv > 0 and mail and crafting then          -- New invites and mail and crafting orders
 		LCG.PixelGlow_Start(MM.MapHolder, { 1, 0, 0, 1 }, 8, -0.25, nil, 1)
 	elseif inv > 0 and not mail and not crafting then -- New invites and no mail and no crafting orders
 		LCG.PixelGlow_Start(MM.MapHolder, { 1, 1, 0, 1 }, 8, -0.25, nil, 1)
@@ -33,21 +33,13 @@ function module:CheckStatus()
 		LCG.PixelGlow_Start(MM.MapHolder, { r, g, b, 1 }, 8, -0.25, nil, 1)
 	elseif inv == 0 and not mail and crafting then -- No invites and no mail and new crafting orders
 		LCG.PixelGlow_Start(MM.MapHolder, { 0, 0.75, 0.98, 1 }, 8, -0.25, nil, 1)
-	else -- None of the above
+	else                                           -- None of the above
 		LCG.PixelGlow_Stop(MM.MapHolder)
 	end
 end
 
 function module:StyleMinimap()
 	S:CreateBackdropShadow(Minimap)
-end
-
-function module:StyleMinimapRightClickMenu()
-	-- Style the ElvUI's MiddleClick-Menu on the Minimap
-	local Menu = _G.MinimapRightClickMenu
-	if Menu then
-		Menu:Styling()
-	end
 end
 
 local function toggleExpansionLandingPageButton(_, ...)
@@ -66,9 +58,9 @@ end
 
 module.ExpansionMenuList = {
 	{ text = _G.GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_9_0, notCheckable = true },
-	{ text = _G.WAR_CAMPAIGN, func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_8_0, notCheckable = true },
-	{ text = _G.ORDER_HALL_LANDING_PAGE_TITLE, func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_7_0, notCheckable = true },
-	{ text = _G.GARRISON_LANDING_PAGE_TITLE, func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_6_0, notCheckable = true },
+	{ text = _G.WAR_CAMPAIGN,                         func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_8_0, notCheckable = true },
+	{ text = _G.ORDER_HALL_LANDING_PAGE_TITLE,        func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_7_0, notCheckable = true },
+	{ text = _G.GARRISON_LANDING_PAGE_TITLE,          func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_6_0, notCheckable = true },
 }
 
 function module:CreateExpansionLandingButton()
@@ -112,7 +104,6 @@ function module:Initialize()
 	end
 
 	self:StyleMinimap()
-	self:StyleMinimapRightClickMenu()
 	self:CreateExpansionLandingButton()
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")

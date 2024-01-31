@@ -5,15 +5,6 @@ local S = MER:GetModule('MER_Skins')
 
 local buttonclass
 
-function module:UnitFrames_UpdateNameSettings(_, f)
-	if f.shadow then return end
-
-	S:CreateBackdropShadow(f.Health, true)
-	if f.USE_PORTRAIT then
-		S:CreateBackdropShadow(f.Portrait, true)
-	end
-end
-
 function module:ApplyUnitGradient(unit, name)
 	if UnitExists(unit) then
 		local _, classunit = UnitClass(unit)
@@ -40,9 +31,12 @@ function module:ApplyUnitGradient(unit, name)
 
 			if (isPlayer and not isCharmed) or isActualPlayer then
 				if E.db.mui.gradient.customColor.enableUF then
-					unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom(classunit, false, E.db.unitframe.colors.transparentHealth, false, false, true))
+					unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+						F.GradientColorsCustom(classunit, false, E.db.unitframe.colors.transparentHealth, false, false,
+							true))
 				else
-					unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(classunit, false, E.db.unitframe.colors.transparentHealth, false, false, true))
+					unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+						F.GradientColors(classunit, false, E.db.unitframe.colors.transparentHealth, false, false, true))
 				end
 			else
 				if E.db.mui.gradient.customColor.enableUF then
@@ -50,34 +44,45 @@ function module:ApplyUnitGradient(unit, name)
 						unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom("TAPPED"))
 					else
 						if reaction and reaction >= 5 then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom("NPCFRIENDLY"))
+							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+								F.GradientColorsCustom("NPCFRIENDLY"))
 						elseif reaction and reaction == 4 then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom("NPCNEUTRAL"))
+							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+								F.GradientColorsCustom("NPCNEUTRAL"))
 						elseif reaction and reaction == 3 then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom("NPCUNFRIENDLY"))
+							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+								F.GradientColorsCustom("NPCUNFRIENDLY"))
 						elseif reaction and reaction == 2 or reaction == 1 then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom("NPCHOSTILE"))
+							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+								F.GradientColorsCustom("NPCHOSTILE"))
 						end
 					end
 				else
 					if UnitIsPlayer(unit) and not UnitIsCharmed(unit) then
 						if unit == "target" then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(classunit, true, true))
+							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+								F.GradientColors(classunit, true, true))
 						else
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(classunit, false, true))
+							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+								F.GradientColors(classunit, false, true))
 						end
 					else
 						if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors("TAPPED", true, true))
+							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+								F.GradientColors("TAPPED", true, true))
 						else
 							if reaction and reaction >= 5 then
-								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors("NPCFRIENDLY", true, true))
+								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+									F.GradientColors("NPCFRIENDLY", true, true))
 							elseif reaction and reaction == 4 then
-								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors("NPCNEUTRAL", true, true))
+								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+									F.GradientColors("NPCNEUTRAL", true, true))
 							elseif reaction and reaction == 3 then
-								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors("NPCUNFRIENDLY", true, true))
+								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+									F.GradientColors("NPCUNFRIENDLY", true, true))
 							elseif reaction and reaction == 2 or reaction == 1 then
-								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors("NPCHOSTILE", true, true))
+								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+									F.GradientColors("NPCHOSTILE", true, true))
 							end
 						end
 					end
@@ -96,9 +101,11 @@ function module:ApplyGroupGradient(button)
 
 	if buttonclass and button.Health then
 		if E.db.mui.gradient.customColor.enableUF then
-			button.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom(buttonclass, false, E.db.unitframe.colors.transparentHealth, false, false, true))
+			button.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+				F.GradientColorsCustom(buttonclass, false, E.db.unitframe.colors.transparentHealth, false, false, true))
 		else
-			button.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(buttonclass, false, E.db.unitframe.colors.transparentHealth, false, false, true))
+			button.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
+				F.GradientColors(buttonclass, false, E.db.unitframe.colors.transparentHealth, false, false, true))
 		end
 	end
 end

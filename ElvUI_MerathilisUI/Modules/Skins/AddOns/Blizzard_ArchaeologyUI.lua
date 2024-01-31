@@ -1,18 +1,16 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local select, unpack = select, unpack
 
-local function LoadSkin()
+function module:Blizzard_ArchaeologyUI()
 	if not module:CheckDB("archaeology", "Archaeology") then
 		return
 	end
 
 	local ArchaeologyFrame = _G.ArchaeologyFrame
-	ArchaeologyFrame:DisableDrawLayer("BACKGROUND")	-- Hide the Parchment
+	ArchaeologyFrame:DisableDrawLayer("BACKGROUND") -- Hide the Parchment
 
-	ArchaeologyFrame:Styling()
 	module:CreateShadow(ArchaeologyFrame)
 
 	_G.ArchaeologyFrameSummaryPageTitle:SetTextColor(1, 1, 1)
@@ -29,11 +27,11 @@ local function LoadSkin()
 	_G.ArchaeologyFrameSummaryPagePageText:SetTextColor(1, 1, 1)
 
 	for i = 1, _G.ARCHAEOLOGY_MAX_RACES do
-		_G["ArchaeologyFrameSummaryPageRace"..i]:GetRegions():SetTextColor(1, 1, 1)
+		_G["ArchaeologyFrameSummaryPageRace" .. i]:GetRegions():SetTextColor(1, 1, 1)
 	end
 
 	for i = 1, _G.ARCHAEOLOGY_MAX_COMPLETED_SHOWN do
-		local bu = _G["ArchaeologyFrameCompletedPageArtifact"..i]
+		local bu = _G["ArchaeologyFrameCompletedPageArtifact" .. i]
 		bu:GetRegions():Hide()
 		select(2, bu:GetRegions()):Hide()
 		select(3, bu:GetRegions()):SetTexCoord(unpack(E.TexCoords))
@@ -46,4 +44,4 @@ local function LoadSkin()
 	_G.ArchaeologyFrameArtifactPageIcon:SetTexCoord(unpack(E.TexCoords))
 end
 
-S:AddCallbackForAddon("Blizzard_ArchaeologyUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_ArchaeologyUI")

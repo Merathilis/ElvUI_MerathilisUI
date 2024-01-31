@@ -1,18 +1,16 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_ItemInteractionUI()
 	if not module:CheckDB("itemInteraction", "itemInteraction") then
 		return
 	end
 
 	local ItemInteractionFrame = _G.ItemInteractionFrame
-	ItemInteractionFrame:Styling()
 	module:CreateShadow(ItemInteractionFrame)
 	ItemInteractionFrame.Background:SetAlpha(0.75)
 end
 
-S:AddCallbackForAddon("Blizzard_ItemInteractionUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_ItemInteractionUI")

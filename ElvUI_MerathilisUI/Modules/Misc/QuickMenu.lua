@@ -32,16 +32,17 @@ function module:QuickMenu()
 	if not E.db.mui.misc.quickMenu then return end
 
 	local menuList = {
-		{ text = _G.ADD_FRIEND, func = module.MenuButton_AddFriend, color = { 0, .6, 1 } },
+		{ text = _G.ADD_FRIEND,                                     func = module.MenuButton_AddFriend,   color = { 0, .6, 1 } },
 		{ text = gsub(_G.CHAT_GUILD_INVITE_SEND, HEADER_COLON, ""), func = module.MenuButton_GuildInvite, color = { 0, .8, 0 } },
-		{ text = _G.COPY_NAME, func = module.MenuButton_CopyName, color = { 1, 0, 0 } },
-		{ text = _G.WHISPER, func = module.MenuButton_Whisper, color = { 1, .5, 1 } },
+		{ text = _G.COPY_NAME,                                      func = module.MenuButton_CopyName,    color = { 1, 0, 0 } },
+		{ text = _G.WHISPER,                                        func = module.MenuButton_Whisper,     color = { 1, .5, 1 } },
 	}
 
 	local frame = CreateFrame("Frame", "MER_MenuButtonFrame", _G.DropDownList1)
 	frame:SetSize(10, 10)
 	frame:SetPoint("TOPLEFT")
 	frame:Hide()
+
 	for i = 1, 4 do
 		local button = CreateFrame("Button", nil, frame)
 		button:SetSize(25, 10)
@@ -78,3 +79,5 @@ function module:QuickMenu()
 		end
 	end)
 end
+
+module:AddCallback("QuickMenu")

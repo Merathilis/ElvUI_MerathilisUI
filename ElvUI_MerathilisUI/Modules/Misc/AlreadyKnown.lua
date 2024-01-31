@@ -275,7 +275,7 @@ function module:Initialize()
 	self:RegisterEvent("ADDON_LOADED")
 end
 
-function module:ToggleSetting()
+function module:ProfileUpdate()
 	if C_AddOns_IsAddOnLoaded("AlreadyKnown") then
 		self.StopRunning = "AlreadyKnonwn"
 		return
@@ -287,7 +287,5 @@ function module:ToggleSetting()
 		self:Initialize()
 	end
 end
-
-module.ProfileUpdate = module.ToggleSetting
 
 MER:RegisterModule(module:GetName())

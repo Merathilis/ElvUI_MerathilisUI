@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 local ipairs, select = ipairs, select
@@ -42,24 +41,19 @@ local function UpdateIcons(self)
 			end
 		end
 
-		--ToDO: Check this part
-		-- party:GetRegions():SetAlpha(0)
-		-- select(3, party:GetRegions()):SetAlpha(0)
-		-- module:CreateBD(party, .3)
 		angryStyle = true
 	end
 end
 
-local function LoadSkin()
+function module:Blizzard_ChallengesUI()
 	if not module:CheckDB("lfg", "challenges") then
 		return
 	end
 
 	local KeyStoneFrame = _G.ChallengesKeystoneFrame
-	KeyStoneFrame:Styling()
 	module:CreateBackdropShadow(KeyStoneFrame)
 
 	hooksecurefunc(_G.ChallengesFrame, 'Update', UpdateIcons)
 end
 
-S:AddCallbackForAddon("Blizzard_ChallengesUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_ChallengesUI")

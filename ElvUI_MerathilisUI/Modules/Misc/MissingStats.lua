@@ -4,15 +4,19 @@ local module = MER:GetModule('MER_Misc')
 local _G = _G
 local format, max = string.format, math.max
 local BreakUpLargeNumbers, GetMeleeHaste, UnitAttackSpeed = BreakUpLargeNumbers, GetMeleeHaste, UnitAttackSpeed
+
 local GetAverageItemLevel = GetAverageItemLevel
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_PaperDollInfo_GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
 local C_PaperDollInfo_OffhandHasShield = C_PaperDollInfo.OffhandHasShield
+
 local PaperDollFrame_SetLabelAndText = PaperDollFrame_SetLabelAndText
 local STAT_HASTE = STAT_HASTE
 local HIGHLIGHT_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE = HIGHLIGHT_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE
 
 function module:MissingStats()
-	if not E.db.mui.misc.missingStats or not (E.private.skins.blizzard.enable and E.private.skins.blizzard.character) or not (E.private.mui.skins.blizzard.enable and E.private.mui.skins.blizzard.character) or IsAddOnLoaded("DejaCharacterStats") then
+	if not E.db.mui.misc.missingStats or not (E.private.skins.blizzard.enable and E.private.skins.blizzard.character) or not (E.private.mui.skins.blizzard.enable and E.private.mui.skins.blizzard.character) or C_AddOns_IsAddOnLoaded("DejaCharacterStats") then
 		return
 	end
 
@@ -71,8 +75,8 @@ function module:MissingStats()
 				{ stat = "AVOIDANCE",   hideAt = 0 },
 				{ stat = "SPEED",       hideAt = 0 },
 				{ stat = "DODGE",       roles = { "TANK" } },
-				{ stat = "PARRY",       hideAt = 0,         roles = { "TANK" } },
-				{ stat = "BLOCK",       hideAt = 0,         showFunc = C_PaperDollInfo_OffhandHasShield },
+				{ stat = "PARRY",       hideAt = 0,        roles = { "TANK" } },
+				{ stat = "BLOCK",       hideAt = 0,        showFunc = C_PaperDollInfo_OffhandHasShield },
 			},
 		},
 	}
@@ -107,7 +111,7 @@ function module:MissingStats()
 		PaperDollFrame_SetLabelAndText(statFrame, WEAPON_SPEED, displaySpeed, false, speed)
 
 		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE ..
-		format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED) .. " " .. displaySpeed .. FONT_COLOR_CODE_CLOSE
+			format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED) .. " " .. displaySpeed .. FONT_COLOR_CODE_CLOSE
 		statFrame.tooltip2 = format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste))
 		statFrame:Show()
 	end

@@ -37,7 +37,6 @@ function module:ElvUI_ActionBar_SkinBar(bar, type)
 	end
 
 	bar.backdrop:SetTemplate('Transparent')
-	bar.backdrop:Styling()
 
 	if bar.db.backdrop then
 		if not bar.backdrop.MERshadow then
@@ -58,7 +57,7 @@ function module:ElvUI_ActionBar_SkinBar(bar, type)
 			module:ElvUI_ActionBar_SkinButton(button, bar.db.backdrop)
 		end
 	elseif type == "PET" then
-		for i = 1,NUM_PET_ACTION_SLOTS do
+		for i = 1, NUM_PET_ACTION_SLOTS do
 			local button = _G["PetActionButton" .. i]
 			module:ElvUI_ActionBar_SkinButton(button, bar.db.backdrop)
 		end
@@ -71,7 +70,6 @@ function module:ElvUI_ActionBar_SkinBar(bar, type)
 		for _, name in next, AB.MICRO_BUTTONS do
 			local button = _G[name]
 			self:ElvUI_ActionBar_SkinButton(button, bar.db.backdrop)
-			button:Styling()
 		end
 	end
 end
@@ -109,7 +107,7 @@ function module:Skin_ElvUI_ActionBars()
 	-- ElvUI action bar
 	if not E.private.actionbar.masque.actionbars then
 		for id = 1, 15 do
-			local bar = _G["ElvUI_Bar"..id]
+			local bar = _G["ElvUI_Bar" .. id]
 			if bar then
 				self:ElvUI_ActionBar_SkinBar(bar, "PLAYER")
 			end

@@ -7,24 +7,22 @@ local _G = _G
 local unpack = unpack
 local select = select
 
-local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local GetInboxText = GetInboxText
 local GetInboxInvoiceInfo = GetInboxInvoiceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function LoadSkin()
+function module:MailFrame()
 	if not module:CheckDB("mail", "mail") then
 		return
 	end
 
 	local MailFrame = _G.MailFrame
-	MailFrame:Styling()
 	module:CreateShadow(MailFrame)
 
 	for i = 1, 2 do
-		module:ReskinTab(_G["MailFrameTab"..i])
+		module:ReskinTab(_G["MailFrameTab" .. i])
 	end
 
 	_G.MailFrameTab2:ClearAllPoints()
@@ -58,7 +56,6 @@ local function LoadSkin()
 
 	-- OpenMailFrame
 	local OpenMailFrame = _G.OpenMailFrame
-	OpenMailFrame:Styling()
 	_G.OpenMailScrollFrame:SetTemplate("Transparent")
 	module:CreateShadow(OpenMailFrame)
 
@@ -105,4 +102,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallback("MailFrame", LoadSkin)
+module:AddCallback("MailFrame")

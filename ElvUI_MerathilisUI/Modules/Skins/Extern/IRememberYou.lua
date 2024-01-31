@@ -11,7 +11,6 @@ function module:IRememberYou()
 
 	local MyListAddonFrame = _G.MyListAddonFrame -- /memory
 	S:HandleFrame(MyListAddonFrame, true)
-	MyListAddonFrame:Styling()
 	module:CreateBackdropShadow(MyListAddonFrame)
 
 	local MyListAddonScrollFrameScrollBar = _G.MyListAddonScrollFrameScrollBar

@@ -9,7 +9,6 @@ function module:AddonList()
 	end
 
 	local AddonList = _G.AddonList
-	AddonList:Styling()
 	module:CreateBackdropShadow(AddonList)
 	_G.AddonCharacterDropDown:SetWidth(170)
 end

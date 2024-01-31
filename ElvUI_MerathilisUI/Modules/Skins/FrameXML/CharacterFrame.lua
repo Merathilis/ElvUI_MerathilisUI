@@ -159,7 +159,6 @@ function module:CharacterFrame()
 	local CharacterFrame = _G.CharacterFrame
 	local r, g, b = F.r, F.g, F.b
 
-	CharacterFrame:Styling()
 	module:CreateShadow(CharacterFrame)
 	module:CreateShadow(_G.EquipmentFlyoutFrameButtons)
 

@@ -7,16 +7,6 @@ local hooksecurefunc = hooksecurefunc
 function module:Update_TargetFrame(frame)
 	local db = E.db.mui.unitframes
 
-	-- Only looks good on Transparent
-	if E.db.unitframe.colors.transparentHealth then
-		if db.style then
-			if frame and frame.Health and not frame.__MERSkin then
-				frame.Health:Styling(false, true)
-				frame.__MERSkin = true
-			end
-		end
-	end
-
 	module:CreateHighlight(frame)
 end
 

@@ -1,17 +1,15 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_EventTrace()
 	if not module:CheckDB("debug", "debug") then
 		return
 	end
 
 	local EventTraceFrame = _G.EventTrace
-	EventTraceFrame:Styling()
 	module:CreateBackdropShadow(EventTraceFrame)
 end
 
-S:AddCallbackForAddon("Blizzard_EventTrace", LoadSkin)
+module:AddCallbackForAddon("Blizzard_EventTrace")

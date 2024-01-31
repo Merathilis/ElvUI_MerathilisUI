@@ -4,13 +4,12 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:PVEFrame()
 	if not module:CheckDB("lfg", "lfg") then
 		return
 	end
 
 	local PVEFrame = _G.PVEFrame
-	PVEFrame:Styling()
 
 	local frames = {
 		_G.PVEFrame,
@@ -27,7 +26,6 @@ local function LoadSkin()
 	for _, frame in pairs(frames) do
 		if frame then
 			module:CreateShadow(frame)
-			frame:Styling()
 		end
 	end
 
@@ -35,9 +33,9 @@ local function LoadSkin()
 		module:ReskinTab(_G["PVEFrameTab" .. i])
 	end
 
-	local iconSize = 56-2*E.mult
+	local iconSize = 56 - 2 * E.mult
 	for i = 1, 3 do
-		local bu = _G["GroupFinderFrame"]["groupButton"..i]
+		local bu = _G["GroupFinderFrame"]["groupButton" .. i]
 		bu.name:SetTextColor(1, 1, 1)
 
 		bu.icon:SetSize(iconSize, iconSize)
@@ -47,4 +45,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallback("PVEFrame", LoadSkin)
+module:AddCallback("PVEFrame")

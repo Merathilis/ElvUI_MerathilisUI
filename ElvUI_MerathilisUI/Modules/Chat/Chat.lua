@@ -10,7 +10,6 @@ local format = format
 
 function module:StyleVoicePanel()
 	if _G.ElvUIChatVoicePanel then
-		_G.ElvUIChatVoicePanel:Styling()
 		S:CreateShadow(_G.ElvUIChatVoicePanel)
 	end
 end
@@ -42,6 +41,7 @@ function module:CreateSeparators()
 
 	module:UpdateSeperators()
 end
+
 hooksecurefunc(LO, "CreateChatPanels", module.CreateSeparators)
 
 function module:UpdateSeperators()

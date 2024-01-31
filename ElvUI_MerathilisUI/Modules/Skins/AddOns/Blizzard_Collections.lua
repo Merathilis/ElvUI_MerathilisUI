@@ -1,9 +1,8 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
 
 local _G = _G
-local pairs, select, unpack = pairs, select, unpack
+local select, unpack = select, unpack
 
 local hooksecurefunc = hooksecurefunc
 local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
@@ -23,14 +22,13 @@ local function reskinFrameButton(self)
 	end
 end
 
-local function LoadSkin()
+function module:Blizzard_Collections()
 	if not module:CheckDB("collections", "collections") then
 		return
 	end
 
 	local CollectionsJournal = _G.CollectionsJournal
 
-	CollectionsJournal:Styling()
 	module:CreateShadow(CollectionsJournal)
 
 	for i = 1, 5 do
@@ -141,7 +139,7 @@ local function LoadSkin()
 
 	-- Pet loadout
 	for i = 1, 3 do
-		local bu = _G["PetJournalLoadoutPet"..i]
+		local bu = _G["PetJournalLoadoutPet" .. i]
 
 		_G["PetJournalLoadoutPet" .. i .. "BG"]:Hide()
 
@@ -297,9 +295,9 @@ local function LoadSkin()
 	-- [[ Wardrobe ]]
 	local WardrobeFrame = _G.WardrobeFrame
 	local WardrobeTransmogFrame = _G.WardrobeTransmogFrame
-	WardrobeFrame:Styling()
 
 	module:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
+	module:CreateShadow(WardrobeFrame)
 
 	local slots = {
 		"Head",
@@ -349,7 +347,7 @@ local function LoadSkin()
 	WardrobeFrame:SetWidth(1200)
 
 	WardrobeTransmogFrame:SetWidth(530)
-	WardrobeTransmogFrame:SetHeight(WardrobeFrame:GetHeight() -130)
+	WardrobeTransmogFrame:SetHeight(WardrobeFrame:GetHeight() - 130)
 	WardrobeTransmogFrame:SetPoint("TOP", WardrobeFrame, 0, 0)
 	WardrobeTransmogFrame.ModelScene:ClearAllPoints()
 	WardrobeTransmogFrame.ModelScene:SetPoint("TOP", WardrobeTransmogFrame, "TOP", 20, 10)
@@ -365,7 +363,8 @@ local function LoadSkin()
 	WardrobeTransmogFrame.ShoulderButton:SetPoint("TOP", WardrobeTransmogFrame.HeadButton, "TOP", 0, -55)
 
 	WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:ClearAllPoints()
-	WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:SetPoint("BOTTOM", WardrobeCollectionFrame, "BOTTOM", -240, 40)
+	WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:SetPoint("BOTTOM", WardrobeCollectionFrame, "BOTTOM", -240,
+		40)
 
 	WardrobeTransmogFrame.HandsButton:ClearAllPoints()
 	WardrobeTransmogFrame.HandsButton:SetPoint("TOP", WardrobeTransmogFrame, "TOP", 240, -120)
@@ -379,10 +378,11 @@ local function LoadSkin()
 	WardrobeTransmogFrame.MainHandEnchantButton:ClearAllPoints()
 	WardrobeTransmogFrame.MainHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.MainHandButton, "BOTTOM", 0, -28)
 	WardrobeTransmogFrame.SecondaryHandEnchantButton:ClearAllPoints()
-	WardrobeTransmogFrame.SecondaryHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.SecondaryHandButton, "BOTTOM", 0, -28)
+	WardrobeTransmogFrame.SecondaryHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.SecondaryHandButton,
+		"BOTTOM", 0, -28)
 
 	WardrobeTransmogFrame.SpecButton:ClearAllPoints()
 	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
 end
 
-S:AddCallbackForAddon("Blizzard_Collections", LoadSkin)
+module:AddCallbackForAddon("Blizzard_Collections")

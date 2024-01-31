@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
 
 local _G = _G
 
@@ -44,13 +43,12 @@ local function HandleSpellButton(self)
 	end
 end
 
-local function LoadSkin()
+function module:SpellBookFrame()
 	if not module:CheckDB("spellbook", "spellbook") then
 		return
 	end
 
 	local SpellBookFrame = _G.SpellBookFrame
-	SpellBookFrame:Styling()
 	module:CreateShadow(SpellBookFrame)
 
 	--Parchment
@@ -130,11 +128,11 @@ local function LoadSkin()
 	module:CreateGradient(_G.SecondaryProfession1.backdrop)
 	_G.SecondaryProfession2:CreateBackdrop('Transparent')
 	_G.SecondaryProfession2.backdrop:SetPoint("TOPLEFT", 0, 10)
-    _G.SecondaryProfession2.backdrop:SetPoint("BOTTOMRIGHT", 0, -5)
+	_G.SecondaryProfession2.backdrop:SetPoint("BOTTOMRIGHT", 0, -5)
 	module:CreateGradient(_G.SecondaryProfession2.backdrop)
 	_G.SecondaryProfession3:CreateBackdrop('Transparent')
 	_G.SecondaryProfession3.backdrop:SetPoint("TOPLEFT", 0, 10)
-    _G.SecondaryProfession3.backdrop:SetPoint("BOTTOMRIGHT", 0, -5)
+	_G.SecondaryProfession3.backdrop:SetPoint("BOTTOMRIGHT", 0, -5)
 	module:CreateGradient(_G.SecondaryProfession3.backdrop)
 
 	_G.SpellBookPageText:SetTextColor(.8, .8, .8)
@@ -160,7 +158,6 @@ local function LoadSkin()
 			self.SpellSubName:SetTextColor(1, 1, 1)
 		end
 	end)
-
 end
 
-S:AddCallback("SpellBookFrame", LoadSkin)
+module:AddCallback("SpellBookFrame")

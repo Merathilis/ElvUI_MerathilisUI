@@ -5,7 +5,7 @@ local S = MER:GetModule('MER_Skins')
 local CreateFrame = CreateFrame
 
 function module:SkinPanel(panel)
-	local color = {r = 1, g = 1, b = 1}
+	local color = { r = 1, g = 1, b = 1 }
 	if E.db.mui.panels.colorType == "CUSTOM" then
 		color = E.db.mui.panels.customColor
 	elseif E.db.mui.panels.colorType == "CLASS" then
@@ -35,7 +35,6 @@ function module:CreatePanels()
 	topPanel:Point("RIGHT", E.UIParent, "RIGHT", 8, 0)
 	topPanel:Height(topPanelHeight)
 	topPanel:SetTemplate("Transparent")
-	topPanel:Styling()
 	topPanel:EnableMouse(false)
 	MER_TopPanel = topPanel
 	topPanel:Hide()
@@ -47,7 +46,6 @@ function module:CreatePanels()
 	bottomPanel:Point("RIGHT", E.UIParent, "RIGHT", 8, 0)
 	bottomPanel:Height(bottomPanelHeight)
 	bottomPanel:SetTemplate("Transparent")
-	bottomPanel:Styling()
 	bottomPanel:EnableMouse(false)
 	MER_BottomPanel = bottomPanel
 	bottomPanel:Hide()
@@ -192,7 +190,7 @@ function module:UpdateColors()
 	local topPanelHeight = E.db.mui.panels.topPanelHeight or 15
 	local bottomPanelHeight = E.db.mui.panels.bottomPanelHeight or 15
 
-	local color = {r = 1, g = 1, b = 1}
+	local color = { r = 1, g = 1, b = 1 }
 	if E.db.mui.panels.colorType == "CUSTOM" then
 		color = E.db.mui.panels.customColor
 	elseif E.db.mui.panels.colorType == "CLASS" then
@@ -205,13 +203,17 @@ function module:UpdateColors()
 	module:SkinPanel(MER_BottomRightStyle)
 
 	MER:CreateGradientFrame(MER_TopLeftExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, .5, 0, 0, 0, 0)
-	MER:CreateGradientFrame(MER_TopLeftExtraStyle1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, .7, color.r, color.g, color.b, 0)
+	MER:CreateGradientFrame(MER_TopLeftExtraStyle1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, .7,
+		color.r, color.g, color.b, 0)
 	MER:CreateGradientFrame(MER_BottomLeftExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, .5, 0, 0, 0, 0)
-	MER:CreateGradientFrame(MER_BottomLeftStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, .7, color.r, color.g, color.b, 0)
+	MER:CreateGradientFrame(MER_BottomLeftStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, .7,
+		color.r, color.g, color.b, 0)
 	MER:CreateGradientFrame(MER_TopRightExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, 0, 0, 0, 0, .5)
-	MER:CreateGradientFrame(MER_TopRightStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, 0, color.r, color.g, color.b, .7)
+	MER:CreateGradientFrame(MER_TopRightStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, 0,
+		color.r, color.g, color.b, .7)
 	MER:CreateGradientFrame(MER_BottomRightExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, 0, 0, 0, 0, .5)
-	MER:CreateGradientFrame(MER_BottomRightStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, 0, color.r, color.g, color.b, .7)
+	MER:CreateGradientFrame(MER_BottomRightStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, 0,
+		color.r, color.g, color.b, .7)
 end
 
 function module:Resize()

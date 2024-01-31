@@ -179,7 +179,6 @@ function module:ConstructFrame()
 	frame:Point("TOPLEFT", _G.MailFrame, "TOPRIGHT", 2, -1)
 	frame:Point("BOTTOMRIGHT", _G.MailFrame, "BOTTOMRIGHT", 152, 1)
 	frame:CreateBackdrop("Transparent")
-	frame.backdrop:Styling()
 	S:CreateBackdropShadow(frame)
 	frame:EnableMouse(true)
 
@@ -543,26 +542,35 @@ function module:BuildFriendsData()
 					local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
 					if
 						gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" and
-							gameAccountInfo.wowProjectID == 1 and
-							gameAccountInfo.factionName and
-							gameAccountInfo.factionName == E.myfaction and
-							not tempKey[gameAccountInfo.characterName .. "-" .. gameAccountInfo.realmName]
-					 then
+						gameAccountInfo.wowProjectID == 1 and
+						gameAccountInfo.factionName and
+						gameAccountInfo.factionName == E.myfaction and
+						not tempKey[gameAccountInfo.characterName .. "-" .. gameAccountInfo.realmName]
+					then
 						tinsert(data,
-							{ name = gameAccountInfo.characterName, realm = gameAccountInfo.realmName,
-								class = GetNonLocalizedClass(gameAccountInfo.className), BNName = accountInfo.accountName, dType = "bnfriend" })
+							{
+								name = gameAccountInfo.characterName,
+								realm = gameAccountInfo.realmName,
+								class = GetNonLocalizedClass(gameAccountInfo.className),
+								BNName = accountInfo.accountName,
+								dType = "bnfriend"
+							})
 					end
 				end
 			elseif
 				accountInfo.gameAccountInfo.clientProgram == "WoW" and accountInfo.gameAccountInfo.wowProjectID == 1 and
-					accountInfo.gameAccountInfo.factionName and
-					accountInfo.gameAccountInfo.factionName == E.myfaction and
-					not tempKey[accountInfo.gameAccountInfo.characterName .. "-" .. accountInfo.gameAccountInfo.realmName]
-			 then
+				accountInfo.gameAccountInfo.factionName and
+				accountInfo.gameAccountInfo.factionName == E.myfaction and
+				not tempKey[accountInfo.gameAccountInfo.characterName .. "-" .. accountInfo.gameAccountInfo.realmName]
+			then
 				tinsert(data,
-					{ name = accountInfo.gameAccountInfo.characterName, realm = accountInfo.gameAccountInfo.realmName,
-						class = GetNonLocalizedClass(accountInfo.gameAccountInfo.className), BNName = accountInfo.accountName,
-						dType = "bnfriend" })
+					{
+						name = accountInfo.gameAccountInfo.characterName,
+						realm = accountInfo.gameAccountInfo.realmName,
+						class = GetNonLocalizedClass(accountInfo.gameAccountInfo.className),
+						BNName = accountInfo.accountName,
+						dType = "bnfriend"
+					})
 			end
 		end
 	end
@@ -577,7 +585,7 @@ function module:BuildGuildData()
 
 	local totalMembers = GetNumGuildMembers()
 	for i = 1, totalMembers do
-		tinsert(data, {memberIndex = i, dType = "guild"})
+		tinsert(data, { memberIndex = i, dType = "guild" })
 	end
 end
 
@@ -756,7 +764,7 @@ function module:CollectGoldButton()
 	_G.OpenAllMail:SetPoint('BOTTOMRIGHT', _G.MailFrame, 'BOTTOM', -2, 16)
 	_G.OpenAllMail:SetSize(80, 20)
 
-	local button = module:MailBox_CreateButton(_G.InboxFrame, 80, 20, '', {'BOTTOMLEFT', _G.MailFrame, 'BOTTOM', 2, 16})
+	local button = module:MailBox_CreateButton(_G.InboxFrame, 80, 20, '', { 'BOTTOMLEFT', _G.MailFrame, 'BOTTOM', 2, 16 })
 	button:SetScript('OnClick', module.MailBox_CollectAllGold)
 	button:HookScript('OnEnter', module.TotalCash_OnEnter)
 	button:HookScript('OnLeave', module.TotalCash_OnLeave)
@@ -790,7 +798,8 @@ function module:MailBox_CollectCurrent()
 end
 
 function module:CollectCurrentButton()
-	local button = module:MailBox_CreateButton(_G.OpenMailFrame, 70, 20, L["Take All"], { 'RIGHT', 'OpenMailReplyButton', 'LEFT', -6, 0 })
+	local button = module:MailBox_CreateButton(_G.OpenMailFrame, 70, 20, L["Take All"],
+		{ 'RIGHT', 'OpenMailReplyButton', 'LEFT', -6, 0 })
 	button:SetScript('OnClick', module.MailBox_CollectCurrent)
 
 	_G.OpenMailCancelButton:SetSize(70, 20)
@@ -820,7 +829,7 @@ function module:ArrangeDefaultElements()
 		if sendPrice > GetMoney() then
 			colorStr = '|cffff0000'
 		end
-		_G.GameTooltip:AddLine(_G.SEND_MAIL_COST..colorStr..E:FormatMoney(sendPrice))
+		_G.GameTooltip:AddLine(_G.SEND_MAIL_COST .. colorStr .. E:FormatMoney(sendPrice))
 		_G.GameTooltip:Show()
 	end)
 	_G.SendMailMailButton:HookScript('OnLeave', F.HideTooltip)
@@ -915,26 +924,26 @@ MER:RegisterModule(module:GetName())
 -- Temp fix for GM mails
 function OpenAllMail:AdvanceToNextItem()
 	local foundAttachment = false
-	while ( not foundAttachment ) do
+	while (not foundAttachment) do
 		local _, _, _, _, _, CODAmount, _, _, _, _, _, _, isGM = GetInboxHeaderInfo(self.mailIndex)
 		local itemID = select(2, GetInboxItem(self.mailIndex, self.attachmentIndex))
 		local hasBlacklistedItem = self:IsItemBlacklisted(itemID)
 		local hasCOD = CODAmount and CODAmount > 0
 		local hasMoneyOrItem = C_Mail.HasInboxMoney(self.mailIndex) or HasInboxItem(self.mailIndex, self.attachmentIndex)
-		if ( not hasBlacklistedItem and not isGM and not hasCOD and hasMoneyOrItem ) then
+		if (not hasBlacklistedItem and not isGM and not hasCOD and hasMoneyOrItem) then
 			foundAttachment = true
 		else
 			self.attachmentIndex = self.attachmentIndex - 1
-			if ( self.attachmentIndex == 0 ) then
+			if (self.attachmentIndex == 0) then
 				break
 			end
 		end
 	end
 
-	if ( not foundAttachment ) then
+	if (not foundAttachment) then
 		self.mailIndex = self.mailIndex + 1
 		self.attachmentIndex = ATTACHMENTS_MAX
-		if ( self.mailIndex > GetInboxNumItems() ) then
+		if (self.mailIndex > GetInboxNumItems()) then
 			return false
 		end
 

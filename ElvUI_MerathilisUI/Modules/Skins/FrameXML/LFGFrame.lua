@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 local unpack = unpack
@@ -11,10 +10,10 @@ local hooksecurefunc = hooksecurefunc
 local function StyleRewardButton(button)
 	local buttonName = button:GetName()
 
-	local icon = _G[buttonName.."IconTexture"]
-	local cta = _G[buttonName.."ShortageBorder"]
-	local count = _G[buttonName.."Count"]
-	local na = _G[buttonName.."NameFrame"]
+	local icon = _G[buttonName .. "IconTexture"]
+	local cta = _G[buttonName .. "ShortageBorder"]
+	local count = _G[buttonName .. "Count"]
+	local na = _G[buttonName .. "NameFrame"]
 
 	icon:SetTexCoord(unpack(E.TexCoords))
 	icon:SetDrawLayer("OVERLAY")
@@ -42,14 +41,14 @@ local function StyleRewardButton(button)
 	module:CreateGradient(button.bg2)
 end
 
-local function LoadSkin()
+function module:LFGFrame()
 	if not module:CheckDB("lfg", "lfg") then
 		return
 	end
 
 	hooksecurefunc("LFGRewardsFrame_SetItemButton", function(parentFrame, _, index, _, _, _, _, _, _, _, _, _, _)
 		local parentName = parentFrame:GetName()
-		local button = _G[parentName.."Item"..index]
+		local button = _G[parentName .. "Item" .. index]
 		if button and not button.styled then
 			StyleRewardButton(button)
 			button.styled = true
@@ -62,4 +61,4 @@ local function LoadSkin()
 	_G.LFGDungeonReadyDialogBackground:SetAlpha(0.5)
 end
 
-S:AddCallback("LFGFrame", LoadSkin)
+module:AddCallback("LFGFrame")

@@ -88,7 +88,6 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 		frame.buttons = {}
 		frame:SetFrameStrata("TOOLTIP")
 		frame:SetClampedToScreen(true)
-		frame:Styling()
 		frame:Hide()
 
 		tinsert(UISpecialFrames, frame:GetName())
@@ -123,14 +122,14 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 			btn:Width(customWidth or BUTTON_WIDTH)
 			local icon = ""
 			if list[i].icon then
-				icon = "|T"..list[i].icon..":14:14:0:0:64:64:4:60:4:60|t "
+				icon = "|T" .. list[i].icon .. ":14:14:0:0:64:64:4:60:4:60|t "
 			end
 
-			btn.text:SetText(icon..list[i].text)
+			btn.text:SetText(icon .. list[i].text)
 			if list[i].title then
 				TitleCount = TitleCount + 1
 				btn.text:SetTextColor(0.98, 0.95, 0.05)
-				if list[i].ending or i == 1 or list[i-1].title then
+				if list[i].ending or i == 1 or list[i - 1].title then
 					AddOffset = AddOffset + 1
 				end
 			else
@@ -148,7 +147,7 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 				elseif btn.secure.buttonType == "macro" then
 					btn:SetAttribute("macrotext", btn.secure.ID)
 				else
-					F.Print("Wrong argument for button type: "..btn.secure.buttonType)
+					F.Print("Wrong argument for button type: " .. btn.secure.buttonType)
 				end
 			end
 			btn.UseTooltip = list[i].UseTooltip
@@ -163,7 +162,8 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 			if i == 1 then
 				btn:Point("TOPLEFT", frame, "TOPLEFT", MARGIN, -PADDING)
 			else
-				btn:Point("TOPLEFT", frame.buttons[i-1], "BOTTOMLEFT", 0, -((list[i-1].title or list[i].title) and TITLE_OFFSET or 0))
+				btn:Point("TOPLEFT", frame.buttons[i - 1], "BOTTOMLEFT", 0,
+					-((list[i - 1].title or list[i].title) and TITLE_OFFSET or 0))
 			end
 		end
 
@@ -174,8 +174,8 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 		if FramePoint == "CURSOR" then
 			local UIScale = UIParent:GetScale()
 			local x, y = GetCursorPosition()
-			x = x/UIScale
-			y = y/UIScale
+			x = x / UIScale
+			y = y / UIScale
 			frame:Point(MenuAnchor, UIParent, "BOTTOMLEFT", x + xOffset, y + yOffset)
 		else
 			frame:Point(MenuAnchor, parent, FramePoint, xOffset, yOffset)
@@ -187,7 +187,7 @@ end
 
 function module:GetCooldown(CDtype, id)
 	local cd, formatID
-	local start, duration = _G["Get"..CDtype.."Cooldown"](id)
+	local start, duration = _G["Get" .. CDtype .. "Cooldown"](id)
 	if start > 0 then
 		cd = duration - (GetTime() - start)
 		cd, formatID = E:GetTimeInfo(cd, 0)

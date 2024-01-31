@@ -11,23 +11,6 @@ local function ReskinOptionText(text, r, g, b)
 	end
 end
 
-local function SetupOptions(frame)
-	if frame.__MERSkin then
-		return
-	end
-
-	module:CreateShadow(frame)
-	if frame.MERshadow then
-		frame.MERshadow:SetShown(frame.template and frame.template == "Transparent")
-
-		hooksecurefunc(frame, "SetTemplate", function(_, template)
-			frame.MERshadow:SetShown(template and template == "Transparent")
-		end)
-	end
-
-	frame.__MERSkin = true
-end
-
 function module:Blizzard_PlayerChoice()
 	if not module:CheckDB('playerChoice', 'playerChoice') then
 		return
@@ -62,8 +45,6 @@ function module:Blizzard_PlayerChoice()
 			end
 		end
 	end)
-
-	hooksecurefunc(_G.PlayerChoiceFrame, "SetupOptions", SetupOptions)
 end
 
 module:AddCallbackForAddon("Blizzard_PlayerChoice")

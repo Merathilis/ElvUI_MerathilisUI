@@ -1,11 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 local unpack, select = unpack, select
 
-local function LoadSkin()
+function module:Blizzard_QuestChoice()
 	if not module:CheckDB("questChoice", "questChoice") then
 		return
 	end
@@ -18,7 +17,6 @@ local function LoadSkin()
 	end
 
 	QuestChoiceFrame:CreateBackdrop('Transparent')
-	QuestChoiceFrame:Styling()
 	module:CreateBackdropShadow(QuestChoiceFrame)
 
 	for i = 1, 15 do
@@ -30,7 +28,7 @@ local function LoadSkin()
 	end
 
 	for i = 1, #QuestChoiceFrame.Options do
-		local option = QuestChoiceFrame["Option"..i]
+		local option = QuestChoiceFrame["Option" .. i]
 		local rewards = option.Rewards
 		local item = rewards.Item
 		local currencies = rewards.Currencies
@@ -48,7 +46,7 @@ local function LoadSkin()
 		item.bg = module:CreateBG(item.Icon)
 
 		for j = 1, 3 do
-			local cu = currencies["Currency"..j]
+			local cu = currencies["Currency" .. j]
 
 			cu.Icon:SetTexCoord(unpack(E.TexCoords))
 			module:CreateBG(cu.Icon)
@@ -56,4 +54,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_QuestChoice", LoadSkin)
+module:AddCallbackForAddon("Blizzard_QuestChoice")

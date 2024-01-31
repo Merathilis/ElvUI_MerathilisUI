@@ -1,14 +1,10 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER.Modules.Skins
-local S = E:GetModule("Skins")
+local module = MER:GetModule('MER_Skins')
 
-
-local function LoadSkin()
+function module:PaperDollFrame()
 	if not module:CheckDB("character", "character") then
 		return
 	end
-
-	-- _G.GearManagerDialogPopup:Styling()
 end
 
-S:AddCallback("PaperDollFrame", LoadSkin)
+module:AddCallback("PaperDollFrame")

@@ -35,7 +35,6 @@ local function SkinMissionFrame(frame)
 	end
 
 	frame:StripTextures()
-	frame:Styling()
 	module:CreateShadow(frame)
 	S:HandleCloseButton(frame.CloseButton)
 	frame.GarrCorners:Hide()
@@ -84,7 +83,6 @@ function module:Blizzard_GarrisonUI()
 	for _, frame in pairs(frames) do
 		if frame then
 			frame:StripTextures(true)
-			frame:Styling()
 			module:CreateShadow(frame)
 		end
 	end
@@ -107,7 +105,7 @@ function module:Blizzard_GarrisonUI()
 	-- VenturePlan, 4.30 and higher
 	if IsAddOnLoaded("VenturePlan") then
 		local ANIMA_TEXTURE = 3528288
-		local ANIMA_SPELLID = {[347555] = 3, [345706] = 5, [336327] = 35, [336456] = 250}
+		local ANIMA_SPELLID = { [347555] = 3, [345706] = 5, [336327] = 35, [336456] = 250 }
 		local function GetAnimaMultiplier(itemID)
 			local _, spellID = GetItemSpell(itemID)
 			return ANIMA_SPELLID[spellID]
@@ -126,7 +124,7 @@ function module:Blizzard_GarrisonUI()
 			self.isSetting = true
 
 			local numFollowers = #C_Garrison.GetFollowers(123)
-			self:SetHeight(135 + 60*ceil(numFollowers/5)) -- 5 follower per row, support up to 35 followers in the future
+			self:SetHeight(135 + 60 * ceil(numFollowers / 5)) -- 5 follower per row, support up to 35 followers in the future
 
 			self.isSetting = nil
 		end
@@ -236,7 +234,7 @@ function module:Blizzard_GarrisonUI()
 					widget:StripTextures()
 					S:HandleButton(peek("UnButton"))
 					S:HandleButton(peek("StartButton"))
-					peek("StartButton"):SetText("|T"..MER.Media.Textures.arrowUp..":16|t")
+					peek("StartButton"):SetText("|T" .. MER.Media.Textures.arrowUp .. ":16|t")
 				elseif otype == "ILButton" then
 					widget:DisableDrawLayer("BACKGROUND")
 					local bg = module:CreateBDFrame(widget, .25)
@@ -257,15 +255,15 @@ function module:Blizzard_GarrisonUI()
 
 					for i, troop in pairs(VPTroops) do
 						troop:ClearAllPoints()
-						troop:SetPoint("TOPLEFT", (i-1)*60+5, -35)
+						troop:SetPoint("TOPLEFT", (i - 1) * 60 + 5, -35)
 					end
 					for i, follower in pairs(VPFollowers) do
 						follower:ClearAllPoints()
-						follower:SetPoint("TOPLEFT", ((i-1)%5)*60+5, -floor((i-1)/5)*60-130)
+						follower:SetPoint("TOPLEFT", ((i - 1) % 5) * 60 + 5, -floor((i - 1) / 5) * 60 - 130)
 					end
 					for i, book in pairs(VPBooks) do
 						book:ClearAllPoints()
-						book:SetPoint("BOTTOMLEFT", 24, -46 + i*50)
+						book:SetPoint("BOTTOMLEFT", 24, -46 + i * 50)
 					end
 				elseif otype == "AdventurerListButton" then
 					widget.bg = module:CreateBDFrame(peek("Portrait"), 1)

@@ -43,7 +43,8 @@ local function ConvertTime(h, m)
 end
 
 local function CreateTime()
-	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
+	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")),
+		date("%p"):lower()
 	local sHour, sMinute = ConvertTime(GetGameTime())
 
 	local localTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_LOCALTIME, hour, minute, ampm)
@@ -100,13 +101,14 @@ local function CreateDate()
 	local presentYear = date.year
 
 	if AFK.AFKMode.DateText then
-		AFK.AFKMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear)
+		AFK.AFKMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth],
+			presentDay, presentYear)
 	end
 end
 
 function AFK:UpdateLogOff()
 	local timePassed = GetTime() - self.startTime
-	local minutes = floor(timePassed/60)
+	local minutes = floor(timePassed / 60)
 	local neg_seconds = -timePassed % 60
 
 	if minutes - 29 == 0 and floor(neg_seconds) == 0 then
@@ -116,7 +118,7 @@ function AFK:UpdateLogOff()
 		end
 	else
 		if self.AFKMode.count then
-			self.AFKMode.count:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds)
+			self.AFKMode.count:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes - 29, neg_seconds)
 		end
 	end
 end
@@ -142,10 +144,11 @@ function AFK:SetAFK(status)
 
 	local guildName = GetGuildInfo("player")
 
-	if(status) then
-		if(IsInGuild()) then
+	if (status) then
+		if (IsInGuild()) then
 			if AFK.AFKMode.Guild then
-				AFK.AFKMode.Guild:SetText(guildName and F.Strings.FastGradientHex("<" .. guildName .. ">", "06c910", "33ff3d") or "")
+				AFK.AFKMode.Guild:SetText(guildName and
+				F.Strings.FastGradientHex("<" .. guildName .. ">", "06c910", "33ff3d") or "")
 			end
 		else
 			if AFK.AFKMode.Guild then
@@ -157,7 +160,7 @@ function AFK:SetAFK(status)
 		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
 
 		AFK.isAFK = true
-	elseif(AFK.isAFK) then
+	elseif (AFK.isAFK) then
 		self:CancelTimer(AFK.logoffTimer)
 
 		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
@@ -183,10 +186,9 @@ local function Initialize()
 	if not AFK.AFKMode.Panel then
 		AFK.AFKMode.Panel = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
 		AFK.AFKMode.Panel:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
-		AFK.AFKMode.Panel:Size((GetScreenWidth()/2), 80)
+		AFK.AFKMode.Panel:Size((GetScreenWidth() / 2), 80)
 		AFK.AFKMode.Panel:CreateBackdrop('Transparent')
 		AFK.AFKMode.Panel:SetFrameStrata('FULLSCREEN')
-		AFK.AFKMode.Panel:Styling()
 		MER:CreateInnerNoise(AFK.AFKMode.Panel)
 		S:CreateBackdropShadow(AFK.AFKMode.Panel)
 
@@ -206,7 +208,7 @@ local function Initialize()
 	AFK.AFKMode.MERVersion = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.MERVersion:Point('CENTER', AFK.AFKMode.Panel, 'CENTER', 0, -10)
 	AFK.AFKMode.MERVersion:FontTemplate(nil, 24, 'SHADOWOUTLINE')
-	AFK.AFKMode.MERVersion:SetText(MER.Title.."|cFF00c0fa"..MER.Version.."|r")
+	AFK.AFKMode.MERVersion:SetText(MER.Title .. "|cFF00c0fa" .. MER.Version .. "|r")
 
 	AFK.AFKMode.DateText = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.DateText:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 24)
@@ -238,7 +240,8 @@ local function Initialize()
 		AFK.AFKMode.PlayerName:SetTextColor(F.r, F.g, F.b or 1, 1, 1)
 
 		local color = E:ClassColor(E.myclass)
-		coloredClass = ("|cff%02x%02x%02x%s"):format(color.r * 255, color.g * 255, color.b * 255, E.myLocalizedClass:gsub("%-.+", "*"))
+		coloredClass = ("|cff%02x%02x%02x%s"):format(color.r * 255, color.g * 255, color.b * 255,
+			E.myLocalizedClass:gsub("%-.+", "*"))
 	end
 
 	AFK.AFKMode.Guild = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')

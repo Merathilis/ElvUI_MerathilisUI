@@ -29,6 +29,7 @@ local DecorAddons = {
 	{ "ls_Toasts",           L["ls_Toasts"],           "ls" },
 	{ "TLDRMissions",        L["TLDRMissions"],        "tldr" },
 	{ "IRememberYou",        L["I Remember you"],      "iry" },
+	{ "TalentLoadoutsEx",    L["TalentLoadoutsEx"],    "tlx" },
 }
 if F.IsDeveloper() then
 	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "wa" })
@@ -88,17 +89,8 @@ options.general = {
 			name = L["General"],
 			disabled = function() return not E.private.mui.skins.enable end,
 			args = {
-				style = {
-					order = 3,
-					type = "toggle",
-					name = L["MerathilisUI Style"],
-					desc = L["Creates decorative stripes and a gradient on some frames"],
-					set = function(info, value)
-						E.private.mui.skins[info[#info]] = value; MER:UpdateStyling()
-					end,
-				},
 				shadowOverlay = {
-					order = 4,
+					order = 1,
 					type = "toggle",
 					name = L["Screen Shadow Overlay"],
 					desc = L["Enables/Disables a shadow overlay to darken the screen."],

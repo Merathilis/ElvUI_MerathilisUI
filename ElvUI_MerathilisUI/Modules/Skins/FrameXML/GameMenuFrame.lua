@@ -1,17 +1,16 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:GameMenuFrame()
 	if not module:CheckDB("misc", "misc") then
 		return
 	end
 
 	local GameMenuFrame = _G.GameMenuFrame
+
 	if GameMenuFrame and not GameMenuFrame.__MERSkin then
-		GameMenuFrame:Styling()
 		module:CreateShadow(GameMenuFrame)
 		GameMenuFrame.__MERSkin = true
 	end
@@ -25,4 +24,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallback("GameMenuFrame", LoadSkin)
+module:AddCallback("GameMenuFrame")

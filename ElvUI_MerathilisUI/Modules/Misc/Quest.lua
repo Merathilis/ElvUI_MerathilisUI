@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local MI = MER:GetModule('MER_Misc')
+local module = MER:GetModule('MER_Misc')
 
 local _G = _G
 local select = select
@@ -28,7 +28,7 @@ local function SelectQuestReward(index)
 	end
 end
 
-function MI:QUEST_COMPLETE()
+function module:QUEST_COMPLETE()
 	-- default first button when no item has a sell value.
 	local choice, price = 1, 0
 	local num = GetNumQuestChoices()
@@ -50,7 +50,7 @@ function MI:QUEST_COMPLETE()
 	SelectQuestReward(choice)
 end
 
-function MI:LoadQuest()
+function module:Quest()
 	-- Make sure the table exist
 	if not E.db.mui.misc.quest then
 		E.db.mui.misc.quest = {}
@@ -60,3 +60,5 @@ function MI:LoadQuest()
 		self:RegisterEvent("QUEST_COMPLETE")
 	end
 end
+
+module:AddCallback("Quest")

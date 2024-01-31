@@ -12,15 +12,14 @@ function module:GlobalIgnoreList()
 	FriendsFrame:HookScript("OnShow", function()
 		if GIL and not GIL.MERStyle then
 			S:HandlePortraitFrame(GIL)
-			GIL:Styling()
 			module:CreateShadow(GIL)
 			for i = 1, 3 do
-				S:HandleTab(_G['GILTab'..i])
-				module:ReskinTab(_G['GILTab'..i])
-				S:HandleFrame(_G['GILFrame'..i])
+				S:HandleTab(_G['GILTab' .. i])
+				module:ReskinTab(_G['GILTab' .. i])
+				S:HandleFrame(_G['GILFrame' .. i])
 				for j = 1, 6 do
-					if _G['GILFrame'..i..'Header'..j] then
-						S:HandleFrame(_G['GILFrame'..i..'Header'..j])
+					if _G['GILFrame' .. i .. 'Header' .. j] then
+						S:HandleFrame(_G['GILFrame' .. i .. 'Header' .. j])
 					end
 				end
 			end

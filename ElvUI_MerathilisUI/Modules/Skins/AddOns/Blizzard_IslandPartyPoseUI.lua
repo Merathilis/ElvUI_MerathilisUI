@@ -1,17 +1,15 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 local unpack = unpack
 
-local function LoadSkin()
+function module:Blizzard_IslandsPartyPoseUI()
 	if not module:CheckDB("islandsPartyPose", "IslandsPartyPose") then
 		return
 	end
 
 	local IslandsPartyPoseFrame = _G.IslandsPartyPoseFrame
-	IslandsPartyPoseFrame:Styling()
 	module:CreateBackdropShadow(IslandsPartyPoseFrame)
 
 	IslandsPartyPoseFrame.ModelScene:StripTextures()
@@ -30,4 +28,4 @@ local function LoadSkin()
 	module:CreateBDFrame(rewardFrame.Icon)
 end
 
-S:AddCallbackForAddon("Blizzard_IslandsPartyPoseUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_IslandsPartyPoseUI")

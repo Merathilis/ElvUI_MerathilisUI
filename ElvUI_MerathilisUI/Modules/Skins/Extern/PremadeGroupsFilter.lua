@@ -31,7 +31,8 @@ function module:PremadeGroupsFilter()
 	local MiniPanel = _G.PremadeGroupsFilterMiniPanel
 	local PGFDialog = _G.PremadeGroupsFilterDialog
 
-	local names = { "Difficulty", "MPRating", "Members", "Tanks", "Heals", "DPS", "Partyfit", "BLFit", "BRFit", "Defeated", "MatchingId", "PvPRating" }
+	local names = { "Difficulty", "MPRating", "Members", "Tanks", "Heals", "DPS", "Partyfit", "BLFit", "BRFit",
+		"Defeated", "MatchingId", "PvPRating" }
 
 	local function handleGroup(panel)
 		for _, name in pairs(names) do
@@ -68,7 +69,6 @@ function module:PremadeGroupsFilter()
 		self.backdrop:Point("TOPLEFT", self, "TOPLEFT", -1, 0)
 		self.backdrop:Point("BOTTOMRIGHT", self, "BOTTOMRIGHT", 1, -1)
 
-		self.backdrop:Styling()
 		module:CreateBackdropShadow(self, true)
 
 		S:HandleCloseButton(self.CloseButton)

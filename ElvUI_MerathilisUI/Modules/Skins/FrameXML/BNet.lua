@@ -5,13 +5,12 @@ local S = E:GetModule('Skins')
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 
-local function LoadSkin()
+function module:BNet()
 	if not module:CheckDB("misc", "misc") then
 		return
 	end
 
 	local BNToastFrame = _G.BNToastFrame
-	BNToastFrame:Styling()
 	module:CreateShadow(BNToastFrame)
 
 	-- /run BNToastFrame:AddToast(BN_TOAST_TYPE_ONLINE, 1)
@@ -25,4 +24,4 @@ local function LoadSkin()
 	module:CreateShadow(_G.BattleTagInviteFrame)
 end
 
-S:AddCallback("BNet", LoadSkin)
+module:AddCallback("BNet")

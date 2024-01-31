@@ -1,18 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
-local pairs, select, unpack = pairs, select, unpack
+local pairs, select = pairs, select
 
 local CreateFrame = CreateFrame
-local GetItemInfo = GetItemInfo
-local GetItemQualityColor = GetItemQualityColor
-local hooksecurefunc = hooksecurefunc
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-
-local function LoadSkin()
+function module:Blizzard_BlackMarketUI()
 	if not module:CheckDB("bmah", "blackmarket") then
 		return
 	end
@@ -26,12 +20,11 @@ local function LoadSkin()
 	BlackMarketFrame.HotDeal.Right:Hide()
 	select(4, BlackMarketFrame.HotDeal:GetRegions()):Hide()
 
-	BlackMarketFrame:Styling()
 	module:CreateBackdropShadow(BlackMarketFrame)
 
 	module:CreateBG(BlackMarketFrame.HotDeal.Item)
 
-	local headers = {"ColumnName", "ColumnLevel", "ColumnType", "ColumnDuration", "ColumnHighBidder", "ColumnCurrentBid"}
+	local headers = { "ColumnName", "ColumnLevel", "ColumnType", "ColumnDuration", "ColumnHighBidder", "ColumnCurrentBid" }
 	for _, headerName in pairs(headers) do
 		local header = BlackMarketFrame[headerName]
 		header.Left:Hide()
@@ -41,11 +34,11 @@ local function LoadSkin()
 		local bg = CreateFrame("Frame", nil, header)
 		bg:SetPoint("TOPLEFT", 2, 0)
 		bg:SetPoint("BOTTOMRIGHT", -1, 0)
-		bg:SetFrameLevel(header:GetFrameLevel()-1)
+		bg:SetFrameLevel(header:GetFrameLevel() - 1)
 		bg:SetTemplate('Transparent')
 	end
 
 	BlackMarketFrame.HotDeal:SetTemplate('Transparent')
 end
 
-S:AddCallbackForAddon("Blizzard_BlackMarketUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_BlackMarketUI")

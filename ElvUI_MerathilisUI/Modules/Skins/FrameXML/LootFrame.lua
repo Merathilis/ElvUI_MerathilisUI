@@ -18,22 +18,16 @@ function module:LootFrame()
 		return
 	end
 
-	_G.BonusRollFrame:Styling()
 	module:CreateShadow(_G.BonusRollFrame)
 	module:CreateBackdropShadow(_G.BonusRollLootWonFrame)
 	module:CreateBackdropShadow(_G.BonusRollMoneyWonFrame)
 
-	_G.GroupLootHistoryFrame:Styling()
 	module:CreateShadow(_G.GroupLootHistoryFrame)
 	module:CreateShadow(_G.GroupLootHistoryFrame.ResizeButton)
 
 	_G.GroupLootHistoryFrame.ResizeButton:SetTemplate("Transparent")
 	_G.GroupLootHistoryFrame:SetWidth(300)
 	_G.GroupLootHistoryFrame.ResizeButton:SetWidth(300)
-
-	if E.private.general.loot then
-		_G.ElvLootFrame:Styling()
-	end
 
 	-- Boss Banner
 	hooksecurefunc('BossBanner_ConfigureLootFrame', function(lootFrame)

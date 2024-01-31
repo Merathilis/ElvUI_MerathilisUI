@@ -1,6 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
 
@@ -16,7 +15,6 @@ function module:Blizzard_WeeklyRewards()
 	frame:StripTextures()
 	frame.NineSlice:Kill()
 	frame.BackgroundTile:SetAlpha(0)
-	frame:Styling()
 	module:CreateShadow(frame)
 
 	header:StripTextures()

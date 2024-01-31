@@ -17,11 +17,9 @@ function module:S_SkinLibDropDownMenu(_, prefix)
 		local bd = _G[prefix .. "_DropDownList1Backdrop"]
 		local mbd = _G[prefix .. "_DropDownList1MenuBackdrop"]
 		if bd and bd.template then
-			self:Styling()
 			self:CreateShadow(bd)
 		end
 		if mbd and mbd.template then
-			self:Styling()
 			self:CreateShadow(bd)
 		end
 
@@ -31,11 +29,9 @@ function module:S_SkinLibDropDownMenu(_, prefix)
 			local ddbd = lvls and _G[prefix .. "_DropDownList" .. lvls .. "Backdrop"]
 			local ddmbd = lvls and _G[prefix .. "_DropDownList" .. lvls .. "MenuBackdrop"]
 			if ddbd and ddbd.template then
-				self:Styling()
 				self:CreateShadow(bd)
 			end
 			if ddmbd and ddmbd.template then
-				self:Styling()
 				self:CreateShadow(bd)
 			end
 		end)
@@ -55,13 +51,11 @@ do
 			local listFrameName = _G[prefix .. level]:GetName()
 			local backdrop = _G[listFrameName .. 'Backdrop']
 			if backdrop and backdrop.template then
-				backdrop:Styling()
 				self:CreateShadow(backdrop)
 			end
 
 			local menuBackdrop = _G[listFrameName .. 'MenuBackdrop']
 			if menuBackdrop and menuBackdrop.template then
-				menuBackdrop:Styling()
 				self:CreateShadow(menuBackdrop)
 			end
 		end)

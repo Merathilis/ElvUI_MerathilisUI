@@ -1,16 +1,14 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
 
 local _G = _G
 
-local function LoadSkin()
+function module:Blizzard_MajorFactions1()
 	if not module:CheckDB("majorFactions", "majorFactions") then
 		return
 	end
 
 	local frame = _G.MajorFactionRenownFrame
-	frame:Styling()
 	module:CreateShadow(frame)
 
 	hooksecurefunc(frame, 'SetUpMajorFactionData', function(self)
@@ -22,4 +20,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_MajorFactions", LoadSkin)
+module:AddCallbackForAddon("Blizzard_MajorFactions")

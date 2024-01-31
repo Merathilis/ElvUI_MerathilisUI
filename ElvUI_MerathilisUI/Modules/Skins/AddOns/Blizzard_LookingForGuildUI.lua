@@ -1,20 +1,18 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
 
 local _G = _G
-
 local hooksecurefunc = hooksecurefunc
 
-local function LoadSkin()
+local function SkinLFGuild(self)
+	module:CreateBackdropShadow(self)
+end
+
+function module:Blizzard_LookingForGuildUI()
 	if not module:CheckDB("lfguild", "lfguild") then
 		return
 	end
 
-	local function SkinLFGuild(self)
-		self:Styling()
-		module:CreateBackdropShadow(self)
-	end
 	hooksecurefunc("LookingForGuildFrame_OnShow", SkinLFGuild)
 
 	local styled
@@ -28,4 +26,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_LookingForGuildUI", LoadSkin)
+module:AddCallbackForAddon("Blizzard_LookingForGuildUI")

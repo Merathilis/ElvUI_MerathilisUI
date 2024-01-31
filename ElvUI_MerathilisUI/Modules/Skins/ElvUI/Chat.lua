@@ -8,17 +8,11 @@ function module:ElvUI_ChatPanels()
 	end
 
 	if _G.LeftChatPanel.backdrop then
-		_G.LeftChatPanel.backdrop:Styling()
 		module:CreateGradient(_G.LeftChatPanel.backdrop)
-    end
+	end
 
 	if _G.RightChatPanel.backdrop then
-		_G.RightChatPanel.backdrop:Styling()
 		module:CreateGradient(_G.RightChatPanel.backdrop)
-    end
-
-	if _G.ElvUIChatVoicePanel then
-		_G.ElvUIChatVoicePanel:Styling()
 	end
 
 	if E.private.mui.skins.shadow.enable then
@@ -32,4 +26,3 @@ function module:ElvUI_ChatPanels()
 end
 
 module:AddCallback('ElvUI_ChatPanels')
-
