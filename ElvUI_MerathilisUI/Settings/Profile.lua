@@ -683,6 +683,9 @@ P.actionbars = {
 		lineDirection = 'RIGHT',
 		forceUseActionHook = true, -- Probably ElvUI needs this
 	},
+	colorModifier = {
+		enable = true,
+	}
 }
 
 P.autoButtons = {
@@ -1656,8 +1659,7 @@ P.tooltip = {
 		classIconStyle = "flat",
 		template =
 		"{{classIcon:18}} {{specIcon:14,18}} {{classColorStart}}{{className}} ({{specName}}){{classColorEnd}}{{amountStart}} x {{amount}}{{amountEnd}}"
-	}
-
+	},
 }
 
 P.itemLevel = {
