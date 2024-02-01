@@ -12,7 +12,6 @@
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
 	<Script file="HotKey.lua"/>
-	<Script file="LfgInfo.lua"/>
 	<Script file="Loot.lua"/>
 	<Script file="MissingStats.lua"/>
 	<Script file="Mute.lua"/>

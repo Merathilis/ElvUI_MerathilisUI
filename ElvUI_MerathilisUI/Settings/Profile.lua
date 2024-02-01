@@ -519,27 +519,6 @@ P.misc = {
 		colorType = "CLASS",
 		customColor = { r = 0, g = .75, b = .98 }
 	},
-	lfgInfo = {
-		enable = true,
-		title = true,
-		mode = "NORMAL",
-		icon = {
-			reskin = true,
-			pack = "SQUARE",
-			size = 16,
-			border = true,
-			alpha = 1
-		},
-		line = {
-			enable = true,
-			tex = "ElvUI Norm1",
-			width = 16,
-			height = 3,
-			offsetX = 0,
-			offsetY = -1,
-			alpha = 1
-		},
-	},
 	spellAlert = {
 		enable = true,
 		scale = 0.65,
@@ -1670,6 +1649,15 @@ P.tooltip = {
 	gradientName = false,
 	yOffsetOfHealthBar = -3,
 	yOffsetOfHealthText = 0,
+	groupInfo = {
+		enable = true,
+		title = true,
+		mode = "NORMAL",
+		classIconStyle = "flat",
+		template =
+		"{{classIcon:18}} {{specIcon:14,18}} {{classColorStart}}{{className}} ({{specName}}){{classColorEnd}}{{amountStart}} x {{amount}}{{amountEnd}}"
+	}
+
 }
 
 P.itemLevel = {
