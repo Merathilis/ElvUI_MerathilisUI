@@ -21,12 +21,7 @@ function MER:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 	local gf = frame:CreateTexture(nil, "BACKGROUND")
 	gf:SetAllPoints()
 	gf:SetTexture(E.media.blankTex)
-
-	if E.Classic then
-		gf:SetGradientAlpha(o, r1, g1, b1, a1, r2, g2, b2, a2)
-	else
-		gf:SetGradient(o, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
-	end
+	gf:SetGradient(o, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
 end
 
 local BlizzardFrameRegions = {

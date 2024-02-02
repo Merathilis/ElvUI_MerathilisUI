@@ -20,7 +20,6 @@ end
 options.announcement = {
 	type = "group",
 	name = L["Announcement"],
-	hidden = E.Classic,
 	args = {
 		header = {
 			order = 0,
@@ -533,7 +532,7 @@ do
 					type = "execute",
 					func = function()
 						E.db.mui.announcement.utility.spells[categoryOrId].text =
-						P.announcement.utility.spells[categoryOrId].text
+							P.announcement.utility.spells[categoryOrId].text
 					end,
 					name = L["Default Text"]
 				},
@@ -541,11 +540,11 @@ do
 					order = 6,
 					type = "description",
 					name = function()
-							local message = E.db.mui.announcement.utility.spells[categoryOrId].text
-							message = gsub(message, "%%player%%", E.myname)
-							message = gsub(message, "%%target%%", L["Sylvanas"])
-							message = gsub(message, "%%spell%%", GetSpellLink(exampleSpellId))
-							return "\n" .. ImportantColorString(L["Example"]) .. ": " .. message .. "\n"
+						local message = E.db.mui.announcement.utility.spells[categoryOrId].text
+						message = gsub(message, "%%player%%", E.myname)
+						message = gsub(message, "%%target%%", L["Sylvanas"])
+						message = gsub(message, "%%spell%%", GetSpellLink(exampleSpellId))
+						return "\n" .. ImportantColorString(L["Example"]) .. ": " .. message .. "\n"
 					end
 				}
 			}
@@ -736,7 +735,8 @@ options.announcement.args.general = {
 			order = 1,
 			type = "input",
 			name = L["Emote Format"],
-			desc = L["The text template used in emote channel."] .. "\n" .. format(L["Default is %s."], F.StringByTemplate(": %s", "info")),
+			desc = L["The text template used in emote channel."] ..
+			"\n" .. format(L["Default is %s."], F.StringByTemplate(": %s", "info")),
 			width = 2
 		},
 		betterAlign = {
@@ -750,8 +750,11 @@ options.announcement.args.general = {
 			order = 3,
 			type = "range",
 			name = L["Same Message Interval"],
-			desc = L["Time interval between sending same messages measured in seconds."] .. " " .. L["Set to 0 to disable."],
-			min = 0, max = 3600, step = 1,
+			desc = L["Time interval between sending same messages measured in seconds."] ..
+			" " .. L["Set to 0 to disable."],
+			min = 0,
+			max = 3600,
+			step = 1,
 			width = 1.5
 		}
 	}

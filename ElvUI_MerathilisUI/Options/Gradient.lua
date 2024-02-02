@@ -26,7 +26,9 @@ options.gradient = {
 		desc = {
 			order = 2,
 			type = "description",
-			name = " |cffe74c3c" .. format(L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."]) .. "|r",
+			name = " |cffe74c3c" ..
+			format(L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."]) ..
+			"|r",
 			fontSize = "medium",
 			width = "full",
 		},
@@ -68,8 +70,10 @@ options.gradient = {
 					order = 4,
 					type = "color",
 					name = L["Color 1"],
-					disabled = function() return not E.db.mui.gradient.enable or
-						not E.db.mui.gradient.customColor.enableClass end,
+					disabled = function()
+						return not E.db.mui.gradient.enable or
+							not E.db.mui.gradient.customColor.enableClass
+					end,
 					get = function()
 						local dr = E.db.mui.gradient.customColor.deathknightcolorR1
 						local dg = E.db.mui.gradient.customColor.deathknightcolorG1
@@ -81,15 +85,17 @@ options.gradient = {
 					end,
 					set = function(_, r, g, b, a)
 						E.db.mui.gradient.customColor.deathknightcolorR1, E.db.mui.gradient.customColor.deathknightcolorG1, E.db.mui.gradient.customColor.deathknightcolorB1 =
-						r, g, b; F:GradientColorUpdate()
+							r, g, b; F:GradientColorUpdate()
 					end
 				},
 				deathknightcolor2 = {
 					order = 5,
 					type = "color",
 					name = L["Color 2"],
-					disabled = function() return not E.db.mui.gradient.enable or
-						not E.db.mui.gradient.customColor.enableClass end,
+					disabled = function()
+						return not E.db.mui.gradient.enable or
+							not E.db.mui.gradient.customColor.enableClass
+					end,
 					get = function()
 						local dr = E.db.mui.gradient.customColor.deathknightcolorR2
 						local dg = E.db.mui.gradient.customColor.deathknightcolorG2
@@ -114,8 +120,10 @@ options.gradient = {
 					order = 7,
 					type = "color",
 					name = L["Color 1"],
-					disabled = function() return not E.db.mui.gradient.enable or
-						not E.db.mui.gradient.customColor.enableClass end,
+					disabled = function()
+						return not E.db.mui.gradient.enable or
+							not E.db.mui.gradient.customColor.enableClass
+					end,
 					get = function()
 						local dr = E.db.mui.gradient.customColor.demonhuntercolorR1
 						local dg = E.db.mui.gradient.customColor.demonhuntercolorG1
@@ -134,8 +142,10 @@ options.gradient = {
 					order = 8,
 					type = "color",
 					name = L["Color 2"],
-					disabled = function() return not E.db.mui.gradient.enable or
-						not E.db.mui.gradient.customColor.enableClass end,
+					disabled = function()
+						return not E.db.mui.gradient.enable or
+							not E.db.mui.gradient.customColor.enableClass
+					end,
 					get = function()
 						local dr = E.db.mui.gradient.customColor.demonhuntercolorR2
 						local dg = E.db.mui.gradient.customColor.demonhuntercolorG2
@@ -160,8 +170,9 @@ options.gradient = {
 					order = 10,
 					type = "color",
 					name = L["Color 1"],
-					disabled = function() return not E.db.mui.gradient.enable or
-						not E.db.mui.gradient.customColor.enableClass
+					disabled = function()
+						return not E.db.mui.gradient.enable or
+							not E.db.mui.gradient.customColor.enableClass
 					end,
 					get = function()
 						local dr = E.db.mui.gradient.customColor.druidcolorR1
@@ -1529,13 +1540,7 @@ options.gradient = {
 				description4 = {
 					order = 14,
 					type = "description",
-					name = function()
-						if not E.Classic then
-							return _G.RUNIC_POWER
-						else
-							return "Runic Power"
-						end
-					end,
+					name = L["Runic Power"],
 					fontSize = "large"
 				},
 				runicpower1 = {
