@@ -524,7 +524,7 @@ function MER:SetupLayout()
 	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-12"
 	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,268,-15"
 	E.db["movers"]["MER_MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
-	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-75"
+	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-70"
 	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-222"
 
 	--[[----------------------------------
@@ -533,7 +533,7 @@ function MER:SetupLayout()
 	----------------------------------
 	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-201"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,229,-20"
-	E.db["movers"]["BNETMover"] = "TOP,ElvUIParent,TOP,0,-60"
+	E.db["movers"]["BNETMover"] = "TOP,ElvUIParent,TOP,0,-70"
 	E.db["movers"]["LootFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-495,-457"
 	E.db["movers"]["AlertFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,205,-210"
 	E.db["movers"]["VOICECHAT"] = "TOPLEFT,ElvUIParent,TOPLEFT,368,-210"
