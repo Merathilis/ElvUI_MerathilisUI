@@ -1,5 +1,4 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local LSM = E.LSM
 
 local _G = _G
 local assert = assert

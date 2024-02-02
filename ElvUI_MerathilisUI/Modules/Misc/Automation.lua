@@ -92,7 +92,8 @@ function module:Initialize()
 end
 
 function module:ProfileUpdate()
-	self.db = E.db.WT.misc.automation
+	self.db = E.db.mui.misc.automation
+
 	if self.db and not self.db.enable and self.initialized then
 		self:UnregisterEvent("PLAYER_REGEN_ENABLED")
 		self:UnregisterEvent("PLAYER_REGEN_DISABLED")
