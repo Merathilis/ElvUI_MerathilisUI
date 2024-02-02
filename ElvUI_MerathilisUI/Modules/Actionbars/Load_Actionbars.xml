@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Actionbars.lua"/>
 	<Script file="KeyFeedback.lua"/>
+	<Script file="ModifierKeys.lua"/>
 	<Script file="SpecBar.lua"/>
 </Ui>

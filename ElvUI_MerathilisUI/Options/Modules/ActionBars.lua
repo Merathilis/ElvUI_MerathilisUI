@@ -6,7 +6,8 @@ options.actionbars = {
 	name = L["ActionBars"],
 	get = function(info) return E.db.mui.actionbars[info[#info]] end,
 	set = function(info, value)
-		E.db.mui.actionbars[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+		E.db.mui.actionbars[info[#info]] = value;
+		E:StaticPopup_Show("PRIVATE_RL");
 	end,
 	args = {
 		header = {
@@ -31,7 +32,8 @@ options.actionbars = {
 			disabled = function() return not E.private.actionbar.enable end,
 			get = function(info) return E.db.mui.actionbars.specBar[info[#info]] end,
 			set = function(info, value)
-				E.db.mui.actionbars.specBar[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+				E.db.mui.actionbars.specBar[info[#info]] = value;
+				E:StaticPopup_Show("PRIVATE_RL");
 			end,
 			args = {
 				enable = {
@@ -99,7 +101,8 @@ options.actionbars = {
 			disabled = function() return not E.private.actionbar.enable end,
 			get = function(info) return E.db.mui.actionbars.keyfeedback[info[#info]] end,
 			set = function(info, value)
-				E.db.mui.actionbars.keyfeedback[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+				E.db.mui.actionbars.keyfeedback[info[#info]] = value;
+				E:StaticPopup_Show("PRIVATE_RL");
 			end,
 			args = {
 				enable = {
