@@ -106,19 +106,21 @@ function module:ShowLeaderOverallScore(self)
 end
 
 function module:GroupInfo()
-	if C_AddOns_IsAddOnLoaded("PremadeGroupsFilter") and E.db.mui.tooltip.groupInfo.enable then
-		F.Print(
-			format(
-				L["%s detected, %s will be disabled automatically."],
+	if C_AddOns_IsAddOnLoaded("PremadeGroupsFilter") then
+		if E.db.mui.tooltip.groupInfo.enable then
+			F.Print(format(L["%s detected, %s will be disabled automatically."],
 				"|cffff3860" .. L["Premade Groups Filter"] .. "|r",
-				"|cff00a8ff" .. L["Tooltips"] .. " - " .. L["Group Info"] .. "|r"
-			)
-		)
-		E.db.mui.tooltip.groupInfo.enable = false
+				"|cff00a8ff" .. L["Tooltips"] .. " - " .. L["Group Info"] .. "|r"))
+			E.db.mui.tooltip.groupInfo.enable = false
+		end
 	end
 
-	module:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
-	module:SecureHook("LFGListSearchEntry_Update", "ShowLeaderOverallScore")
+	if not E.db.mui.tooltip.groupInfo.enable then
+		return
+	end
+
+	self:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
+	self:SecureHook("LFGListSearchEntry_Update", "ShowLeaderOverallScore")
 end
 
 module:AddCallback("GroupInfo")
