@@ -7,18 +7,18 @@ local hooksecurefunc = hooksecurefunc
 local pairs = pairs
 
 local function hookPanelSetTemplate(panel, template)
-	if not panel.MERshadow or not panel.MERstyle then
+	if not panel.MERshadow then
 		return
 	end
 
 	if template == "NoBackdrop" then
 		panel.MERshadow:Hide()
-		panel.MERstyle.stripes:Hide()
-		panel.MERstyle.mshadow:Hide()
+		panel.MERshadow.stripes:Hide()
+		panel.MERshadow.mshadow:Hide()
 	else
 		panel.MERshadow:Show()
-		panel.MERstyle.stripes:Show()
-		panel.MERstyle.mshadow:Show()
+		panel.MERshadow.stripes:Show()
+		panel.MERshadow.mshadow:Show()
 	end
 end
 
