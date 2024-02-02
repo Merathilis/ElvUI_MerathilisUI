@@ -37,10 +37,7 @@ module.ReminderBuffs = {
 
 	},
 	DefiledAugmentRune = {
-		224001, -- Defiled Augumentation (15 primary stat)
-		270058, -- Battle Scarred Augmentation (60 primary stat)
-		347901, -- Veiled Augmentation (18 primary stat)
-		367405, -- Eternal Augmentation (18 Agi, Strength or Int)
+		393438, -- Dreambound Augment Rune
 	},
 	Food = {
 		104280, -- Well Fed
@@ -148,7 +145,6 @@ local function OnAuraChange(self, event, arg1, unit)
 		end
 	end
 
-	--[[
 	if (darunebuffs and darunebuffs[1]) then
 		DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs[1])))
 		for i, darunebuffs in pairs(darunebuffs) do
@@ -166,7 +162,7 @@ local function OnAuraChange(self, event, arg1, unit)
 				end
 			end
 		end
-	end]]
+	end
 
 	if module.db.class then
 		if (intellectbuffs and intellectbuffs[1]) then
@@ -359,15 +355,15 @@ function module:Initialize()
 		self:CreateIconBuff("FlaskFrame", VersatilityFrame, false)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 		self:CreateIconBuff("CooldownFrame", FoodFrame, false)
-		-- self:CreateIconBuff("DARuneFrame", FoodFrame, false)
+		self:CreateIconBuff("DARuneFrame", CooldownFrame, false)
 		-- self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
-		self:CreateIconBuff("CustomFrame", CooldownFrame, false)
+		self:CreateIconBuff("CustomFrame", DARuneFrame, false)
 	else
 		self:CreateIconBuff("FlaskFrame", RaidBuffReminder, true)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
-		-- self:CreateIconBuff("DARuneFrame", FoodFrame, false)
+		self:CreateIconBuff("DARuneFrame", FoodFrame, false)
 		-- self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
-		self:CreateIconBuff("CustomFrame", FoodFrame, false)
+		self:CreateIconBuff("CustomFrame", DARuneFrame, false)
 	end
 
 	self.frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
