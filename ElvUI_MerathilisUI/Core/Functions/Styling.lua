@@ -30,20 +30,6 @@ function MER:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 	end
 end
 
-function MER:UpdateStyling()
-	if E.private.mui.skins.style then
-		for MERstyle in pairs(MER.Styling) do
-			if MERstyle.stripes then MERstyle.stripes:Show() end
-			if MERstyle.mshadow then MERstyle.mshadow:Show() end
-		end
-	else
-		for MERstyle in pairs(MER.Styling) do
-			if MERstyle.stripes then MERstyle.stripes:Hide() end
-			if MERstyle.mshadow then MERstyle.mshadow:Hide() end
-		end
-	end
-end
-
 local BlizzardFrameRegions = {
 	'Inset',
 	'inset',

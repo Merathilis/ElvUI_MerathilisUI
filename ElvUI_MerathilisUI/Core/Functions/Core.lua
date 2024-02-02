@@ -3,7 +3,8 @@ local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM
 
 local _G = _G
-local ipairs, pairs, pcall, print, select, tonumber, type, unpack = ipairs, pairs, pcall, print, select, tonumber, type, unpack
+local ipairs, pairs, pcall, print, select, tonumber, type, unpack = ipairs, pairs, pcall, print, select, tonumber, type,
+	unpack
 local format, gsub, match, split, strfind = string.format, string.gsub, string.match, string.split, strfind
 local strmatch, strlen, strsub = strmatch, strlen, strsub
 local tconcat, tinsert, tremove, twipe = table.concat, table.insert, table.remove, table.wipe
@@ -106,10 +107,16 @@ function F.SetFontOutline(text, font, size)
 end
 
 function F.SetFontSizeScaled(value, clamp)
-	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale) or value
-	clamp = (clamp and (E.db.mui and E.db.mui.general and E.db.mui.general.fontScale) and (clamp + E.db.mui.general.fontScale) or clamp) or 0
+	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale) or
+		value
+	clamp = (clamp and (E.db.mui and E.db.mui.general and E.db.mui.general.fontScale) and (clamp + E.db.mui.general.fontScale) or clamp) or
+		0
 
 	return F.Clamp(F.Clamp(F.Round(value * perfectScale), clamp or 0, 64), 8, 64)
+end
+
+function F.GetStyledText(text)
+	return E:TextGradient(text, 0.32941, 0.52157, 0.93333, 0.29020, 0.70980, 0.89412, 0.25882, 0.84314, 0.86667)
 end
 
 function F.Position(anchor1, parent, anchor2, x, y)
@@ -250,20 +257,20 @@ end
 do
 	local gradientLine =
 		E:TextGradient(
-		"----------------------------------",
-		0.910,
-		0.314,
-		0.357,
-		0.976,
-		0.835,
-		0.431,
-		0.953,
-		0.925,
-		0.761,
-		0.078,
-		0.694,
-		0.671
-	)
+			"----------------------------------",
+			0.910,
+			0.314,
+			0.357,
+			0.976,
+			0.835,
+			0.431,
+			0.953,
+			0.925,
+			0.761,
+			0.078,
+			0.694,
+			0.671
+		)
 
 	function F.PrintGradientLine()
 		print(gradientLine)
@@ -286,11 +293,11 @@ function F.DebugPrint(text, msgtype)
 
 	local message
 	if msgtype == 'error' then
-		message = format("%s: %s", MER.Title..MER.RedColor..L["Error"].."|r", text)
+		message = format("%s: %s", MER.Title .. MER.RedColor .. L["Error"] .. "|r", text)
 	elseif msgtype == 'warning' then
-		message = format("%s: %s", MER.Title..MER.YellowColor..L["Warning"].."|r", text)
+		message = format("%s: %s", MER.Title .. MER.YellowColor .. L["Warning"] .. "|r", text)
 	elseif msgtype == 'info' then
-		message = format("%s: %s", MER.Title..MER.InfoColor..L["Information"].."|r", text)
+		message = format("%s: %s", MER.Title .. MER.InfoColor .. L["Information"] .. "|r", text)
 	end
 	print(message)
 end
@@ -307,7 +314,7 @@ function F.TablePrint(tbl, indent)
 		formatting = string.rep("  ", indent) .. k .. ": "
 		if type(v) == "table" then
 			print(formatting)
-			F.TablePrint(v, indent+1)
+			F.TablePrint(v, indent + 1)
 		elseif type(v) == "boolean" then
 			print(formatting .. tostring(v))
 		else
@@ -589,14 +596,16 @@ end
 
 --[[----------------------------------
 --	Skin Functions
---]]----------------------------------
+--]]
+----------------------------------
 do
 	function F:ResetTabAnchor(size, outline)
-		local text = self.Text or (self.GetName and _G[self:GetName().."Text"])
+		local text = self.Text or (self.GetName and _G[self:GetName() .. "Text"])
 		if text then
 			text:SetPoint("CENTER", self)
 		end
 	end
+
 	hooksecurefunc("PanelTemplates_SelectTab", F.ResetTabAnchor)
 	hooksecurefunc("PanelTemplates_DeselectTab", F.ResetTabAnchor)
 
@@ -612,7 +621,7 @@ do
 			self.Show = self.Hide
 		end
 		self:Hide()
-    end
+	end
 
 	function F:ReplaceIconString(text)
 		if not text then text = self:GetText() end
@@ -672,9 +681,9 @@ function F.Reset(group)
 end
 
 -- Movable Config Buttons
-local function MovableButton_Match(s,v)
-	local m1, m2, m3, m4 = "^"..v.."$", "^"..v..",", ","..v.."$", ","..v..","
-	return (match(s, m1) and m1) or (match(s, m2) and m2) or (match(s, m3) and m3) or (match(s, m4) and v..",")
+local function MovableButton_Match(s, v)
+	local m1, m2, m3, m4 = "^" .. v .. "$", "^" .. v .. ",", "," .. v .. "$", "," .. v .. ","
+	return (match(s, m1) and m1) or (match(s, m2) and m2) or (match(s, m3) and m3) or (match(s, m4) and v .. ",")
 end
 
 function F.MovableButtonSettings(db, key, value, remove, movehere)
@@ -683,7 +692,7 @@ function F.MovableButtonSettings(db, key, value, remove, movehere)
 
 	local found = MovableButton_Match(str, E:EscapeString(value))
 	if found and movehere then
-		local tbl, sv, sm = {split(",", str)}
+		local tbl, sv, sm = { split(",", str) }
 		for i in ipairs(tbl) do
 			if tbl[i] == value then sv = i elseif tbl[i] == movehere then sm = i end
 			if sv and sm then break end
@@ -691,12 +700,11 @@ function F.MovableButtonSettings(db, key, value, remove, movehere)
 		tremove(tbl, sm)
 		tinsert(tbl, sv, movehere)
 
-		db[key] = tconcat(tbl,',')
-
+		db[key] = tconcat(tbl, ',')
 	elseif found and remove then
 		db[key] = gsub(str, found, "")
 	elseif not found and not remove then
-		db[key] = (str == '' and value) or (str..","..value)
+		db[key] = (str == '' and value) or (str .. "," .. value)
 	end
 end
 
@@ -730,12 +738,12 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 		values = function()
 			local str = db[key]
 			if str == "" then return nil end
-			return {split(",",str)}
+			return { split(",", str) }
 		end,
 		get = function(info, value)
 			local str = db[key]
 			if str == "" then return nil end
-			local tbl = {split(",",str)}
+			local tbl = { split(",", str) }
 			return tbl[value]
 		end,
 		set = function(info, value) end,
@@ -752,18 +760,21 @@ end
 
 --[[----------------------------------
 --	Dropdown Menu
---]]----------------------------------
+--]]
+----------------------------------
 do
 	F.EasyMenu = CreateFrame('Frame', MER.Title .. 'EasyMenu', E.UIParent, 'UIDropDownMenuTemplate')
 end
 
 -- Inform us of the patch info we play on.
 MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
-MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
+MER.WoWBuild = select(2, GetBuildInfo())
+MER.WoWBuild = tonumber(MER.WoWBuild)
 
 _G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
 SlashCmdList["WOWVERSION"] = function()
-	print("Patch:", MER.WoWPatch..", ".. "Build:", MER.WoWBuild..", ".. "Released", MER.WoWPatchReleaseDate..", ".. "Interface:", MER.TocVersion)
+	print("Patch:", MER.WoWPatch .. ", " .. "Build:", MER.WoWBuild .. ", " .. "Released",
+		MER.WoWPatchReleaseDate .. ", " .. "Interface:", MER.TocVersion)
 end
 
 -- Icon Style
@@ -822,11 +833,13 @@ function F.GetTextureStrByAtlas(info, sizeX, sizeY)
 	local file = info and info.file
 	if not file then return end
 
-	local width, height, txLeft, txRight, txTop, txBottom = info.width, info.height, info.leftTexCoord, info.rightTexCoord, info.topTexCoord, info.bottomTexCoord
-	local atlasWidth = width / (txRight-txLeft)
-	local atlasHeight = height / (txBottom-txTop)
+	local width, height, txLeft, txRight, txTop, txBottom = info.width, info.height, info.leftTexCoord,
+		info.rightTexCoord, info.topTexCoord, info.bottomTexCoord
+	local atlasWidth = width / (txRight - txLeft)
+	local atlasHeight = height / (txBottom - txTop)
 
-	return format("|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d|t", file, (sizeX or 0), (sizeY or 0), atlasWidth, atlasHeight, atlasWidth*txLeft, atlasWidth*txRight, atlasHeight*txTop, atlasHeight*txBottom)
+	return format("|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d|t", file, (sizeX or 0), (sizeY or 0), atlasWidth, atlasHeight,
+		atlasWidth * txLeft, atlasWidth * txRight, atlasHeight * txTop, atlasHeight * txBottom)
 end
 
 -- Check Textures
@@ -885,7 +898,7 @@ function F.SetCallback(callback, target, times, ...)
 	end
 
 	if times < 10 then
-		local result = {pcall(target, ...)}
+		local result = { pcall(target, ...) }
 		if result and result[1] == true then
 			tremove(result, 1)
 			if callback(unpack(result)) then
@@ -894,7 +907,7 @@ function F.SetCallback(callback, target, times, ...)
 		end
 	end
 
-	E:Delay(0.1, F.SetCallback, callback, target, times+1, ...)
+	E:Delay(0.1, F.SetCallback, callback, target, times + 1, ...)
 end
 
 do

@@ -12,10 +12,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-	"• Merged my Styling function with the Shadow Function for more consistency",
-	"• Added skin for TalentLoadoutsEx",
-	"• Fix FlightPoint Highlight",
-	"• Updated some Skins",
+	"• Fix LFG Info and moved it to the Tooltip section",
+	"• Fix styling for transparent DataTexts Panels",
+	"• Added colored modifier Keys",
 
 	-- "• ''",
 

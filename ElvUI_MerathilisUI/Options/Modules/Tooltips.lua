@@ -1,7 +1,12 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
+local LFGPI = MER.Utilities.LFGPlayerInfo
 
 local _G = _G
+
+local cache = {
+	groupInfo = {}
+}
 
 options.tooltip = {
 	type = "group",
@@ -159,5 +164,161 @@ options.tooltip = {
 				},
 			},
 		},
+		groupInfo = {
+			order = 16,
+			type = "group",
+			guiInline = true,
+			get = function(info)
+				return E.db.mui.tooltip.groupInfo[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.tooltip.groupInfo[info[#info]] = value
+			end,
+			name = "",
+			args = {
+				header = {
+					order = 0,
+					type = "header",
+					name = F.cOption(E.NewSign .. L["Group Info"], 'orange'),
+				},
+				credits = {
+					order = 1,
+					type = "group",
+					name = F.cOption(L["Credits"], 'orange'),
+					guiInline = true,
+					args = {
+						tukui = {
+							order = 1,
+							type = "description",
+							name = "ElvUI_Windtools - fang2hou",
+						},
+					},
+				},
+				enable = {
+					order = 2,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Add LFG group info to tooltip."]
+				},
+				title = {
+					order = 3,
+					type = "toggle",
+					name = L["Add Title"],
+					desc = L["Display an additional title."]
+				},
+				mode = {
+					order = 4,
+					name = L["Mode"],
+					type = "select",
+					values = {
+						NORMAL = L["Normal"],
+						COMPACT = L["Compact"]
+					}
+				},
+				classIconStyle = {
+					order = 5,
+					name = L["Class Icon Style"],
+					type = "select",
+					values = function()
+						local result = {}
+						for _, style in pairs(F.GetClassIconStyleList()) do
+							local monkIcon = F.GetClassIconStringWithStyle("MONK", style)
+							local druidIcon = F.GetClassIconStringWithStyle("DRUID", style)
+							local evokerIcon = F.GetClassIconStringWithStyle("EVOKER", style)
+
+							if monkIcon and druidIcon and evokerIcon then
+								result[style] = format("%s %s %s", monkIcon, druidIcon, evokerIcon)
+							end
+						end
+						return result
+					end
+				},
+				betterAlign1 = {
+					order = 6,
+					type = "description",
+					name = "",
+					width = "full"
+				},
+				template = {
+					order = 7,
+					type = "input",
+					name = L["Template"],
+					desc = L["Please click the button below to read reference."],
+					width = "full",
+					get = function(info)
+						return cache.groupInfo.template or E.db.mui.tooltip[info[#info - 1]].template
+					end,
+					set = function(info, value)
+						cache.groupInfo.template = value
+					end
+				},
+				resourcePage = {
+					order = 8,
+					type = "execute",
+					name = F.GetStyledText(L["Reference"]),
+					desc = format(
+						"|cff00d1b2%s|r (%s)\n%s\n%s\n%s",
+						L["Tips"],
+						L["Editbox"],
+						L["CTRL+A: Select All"],
+						L["CTRL+C: Copy"],
+						L["CTRL+V: Paste"]
+					),
+					func = function()
+						if E.global.general.locale == "zhCN" or E.global.general.locale == "zhTW" then
+							E:StaticPopup_Show(
+								"WINDTOOLS_EDITBOX",
+								nil,
+								nil,
+								"https://github.com/fang2hou/ElvUI_WindTools/wiki/预组建队伍玩家信息"
+							)
+						else
+							E:StaticPopup_Show(
+								"WINDTOOLS_EDITBOX",
+								nil,
+								nil,
+								"https://github.com/fang2hou/ElvUI_WindTools/wiki/LFG-Player-Info"
+							)
+						end
+					end
+				},
+				useDefaultTemplate = {
+					order = 9,
+					type = "execute",
+					name = L["Default"],
+					func = function(info)
+						E.db.mui.tooltip[info[#info - 1]].template = P.tooltip[info[#info - 1]].template
+						cache.groupInfo.template = nil
+					end
+				},
+				applyButton = {
+					order = 10,
+					type = "execute",
+					name = L["Apply"],
+					disabled = function()
+						return not cache.groupInfo.template
+					end,
+					func = function(info)
+						E.db.mui.tooltip[info[#info - 1]].template = cache.groupInfo.template
+					end
+				},
+				betterAlign2 = {
+					order = 11,
+					type = "description",
+					name = "",
+					width = "full"
+				},
+				previewText = {
+					order = 12,
+					type = "description",
+					name = function(info)
+						LFGPI:SetClassIconStyle(E.db.mui.tooltip[info[#info - 1]].classIconStyle)
+						local text =
+							LFGPI:ConductPreview(cache.groupInfo.template or E.db.mui.tooltip[info[#info - 1]].template)
+						return L["Preview"] .. ": " .. text
+					end
+				}
+			}
+		}
 	},
 }
