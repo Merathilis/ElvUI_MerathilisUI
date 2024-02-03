@@ -23,7 +23,7 @@ local function hookPanelSetTemplate(panel, template)
 end
 
 local function createPanelShadow(panel)
-	if panel.MERshadow and panel.shadow.__MERSkin then
+	if panel.MERshadow and panel.shadow.__MER then
 		return
 	end
 
