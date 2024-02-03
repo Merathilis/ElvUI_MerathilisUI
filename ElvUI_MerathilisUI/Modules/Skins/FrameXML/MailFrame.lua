@@ -1,7 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local A = F.Animation
-local S = E:GetModule("Skins")
 
 local _G = _G
 local unpack = unpack
