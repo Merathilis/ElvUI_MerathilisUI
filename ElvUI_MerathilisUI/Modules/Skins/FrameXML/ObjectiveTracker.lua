@@ -1,6 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
+local module = MER:GetModule('MER_Skins')
+
+local _G = _G
+local pairs, select, unpack = pairs, select, unpack
+
+local InCombatLockdown = InCombatLockdown
+local C_ChallengeMode_GetAffixInfo = C_ChallengeMode.GetAffixInfo
 
 function module:SkinOjectiveTrackerHeaders()
 	local frame = _G.ObjectiveTrackerFrame.MODULES
@@ -172,7 +177,7 @@ function module:ScenarioStageWidgetContainer()
 	end
 end
 
-local function LoadSkin()
+function module:ObjectiveTracker()
 	if not module:CheckDB("objectiveTracker", "objectiveTracker") then
 		return
 	end
@@ -195,4 +200,4 @@ local function LoadSkin()
 	module:SecureHook(_G.SCENARIO_CONTENT_TRACKER_MODULE, "Update", "ScenarioStageWidgetContainer")
 end
 
-S:AddCallback("ObjectiveTracker", LoadSkin)
+module:AddCallback("ObjectiveTracker")

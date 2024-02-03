@@ -10,7 +10,16 @@ local ipairs = ipairs
 	Credits: ElvUI_Windtools - fang2hou
 --]]
 
+local C_LFGList_GetActivityInfoTable = C_LFGList.GetActivityInfoTable
+local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+
+local scoreFormat = MER.GreyColor .. "(%s) |r%s"
+
+local factionStr = {
+	[0] = "Horde",
+	[1] = "Alliance",
+}
 
 local function GetIconString(role, mode)
 	local template
@@ -60,19 +69,58 @@ function module:AddGroupInfo(tooltip, resultID)
 	tooltip:Show()
 end
 
+function module:ShowLeaderOverallScore(self)
+	local resultID = self.resultID
+	local searchResultInfo = resultID and C_LFGList_GetSearchResultInfo(resultID)
+	if searchResultInfo then
+		local activityInfo = C_LFGList_GetActivityInfoTable(searchResultInfo.activityID, nil, searchResultInfo.isWarMode)
+		if activityInfo then
+			local showScore = activityInfo.isMythicPlusActivity and searchResultInfo.leaderOverallDungeonScore
+				or
+				activityInfo.isRatedPvpActivity and searchResultInfo.leaderPvpRatingInfo and
+				searchResultInfo.leaderPvpRatingInfo.rating
+			if showScore then
+				local oldName = self.ActivityName:GetText()
+				oldName = gsub(oldName, ".-" .. HEADER_COLON, "") -- Tazavesh
+				self.ActivityName:SetFormattedText(scoreFormat, module.GetDungeonScore(showScore), oldName)
+
+				if not self.crossFactionLogo then
+					local logo = self:CreateTexture(nil, "OVERLAY")
+					logo:SetPoint("TOPLEFT", -6, 5)
+					logo:SetSize(24, 24)
+					self.crossFactionLogo = logo
+				end
+			end
+		end
+
+		if self.crossFactionLogo then
+			if searchResultInfo.crossFactionListing then
+				self.crossFactionLogo:Hide()
+			else
+				self.crossFactionLogo:SetTexture("Interface\\Timer\\" ..
+					factionStr[searchResultInfo.leaderFactionGroup] .. "-Logo")
+				self.crossFactionLogo:Show()
+			end
+		end
+	end
+end
+
 function module:GroupInfo()
-	if C_AddOns_IsAddOnLoaded("PremadeGroupsFilter") and E.db.mui.tooltip.groupInfo.enable then
-		F.Print(
-			format(
-				L["%s detected, %s will be disabled automatically."],
+	if C_AddOns_IsAddOnLoaded("PremadeGroupsFilter") then
+		if E.db.mui.tooltip.groupInfo.enable then
+			F.Print(format(L["%s detected, %s will be disabled automatically."],
 				"|cffff3860" .. L["Premade Groups Filter"] .. "|r",
-				"|cff00a8ff" .. L["Tooltips"] .. " - " .. L["Group Info"] .. "|r"
-			)
-		)
-		E.db.mui.tooltip.groupInfo.enable = false
+				"|cff00a8ff" .. L["Tooltips"] .. " - " .. L["Group Info"] .. "|r"))
+			E.db.mui.tooltip.groupInfo.enable = false
+		end
 	end
 
-	module:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
+	if not E.db.mui.tooltip.groupInfo.enable then
+		return
+	end
+
+	self:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
+	self:SecureHook("LFGListSearchEntry_Update", "ShowLeaderOverallScore")
 end
 
 module:AddCallback("GroupInfo")

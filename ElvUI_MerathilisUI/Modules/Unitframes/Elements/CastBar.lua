@@ -49,11 +49,8 @@ function module:UpdateAllCastbars()
 	module:UpdateSettings('target')
 	module:UpdateSettings('focus')
 	module:UpdateSettings('pet')
-
-	if not E.Classic then
-		module:UpdateSettings('arena')
-		module:UpdateSettings('boss')
-	end
+	module:UpdateSettings('arena')
+	module:UpdateSettings('boss')
 end
 
 function module:PostCast(unit, unitframe)
@@ -118,21 +115,19 @@ function module:CastBarHooks()
 		end
 	end
 
-	if not E.Classic then
-		for i = 1, 5 do
-			local castbar = _G["ElvUF_Arena" .. i].Castbar
-			if castbar then
-				hooksecurefunc(castbar, "PostCastStart", module.PostCast)
-				hooksecurefunc(castbar, "PostCastInterruptible", module.PostCastInterruptible)
-			end
+	for i = 1, 5 do
+		local castbar = _G["ElvUF_Arena" .. i].Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", module.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", module.PostCastInterruptible)
 		end
+	end
 
-		for i = 1, MAX_BOSS_FRAMES do
-			local castbar = _G["ElvUF_Boss" .. i].Castbar
-			if castbar then
-				hooksecurefunc(castbar, "PostCastStart", module.PostCast)
-				hooksecurefunc(castbar, "PostCastInterruptible", module.PostCastInterruptible)
-			end
+	for i = 1, MAX_BOSS_FRAMES do
+		local castbar = _G["ElvUF_Boss" .. i].Castbar
+		if castbar then
+			hooksecurefunc(castbar, "PostCastStart", module.PostCast)
+			hooksecurefunc(castbar, "PostCastInterruptible", module.PostCastInterruptible)
 		end
 	end
 end

@@ -1,5 +1,5 @@
 ### Changes ###
 
-  * Fix LFG Info and moved it to the Tooltip section
-  * Fix styling for transparent DataTexts Panels
-  * Added colored modifier Keys
+  * Fix an error in the Objective Tracker skin
+  * Reenable Rune Tacker on the RBReminder
+  * Readded Overall Score on the LFG Group Info

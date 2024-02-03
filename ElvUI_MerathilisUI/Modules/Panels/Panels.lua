@@ -15,11 +15,7 @@ function module:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
-	if E.Classic then
-		panel.tex:SetGradient("VERTICAL", color.r, color.g, color.b)
-	else
-		panel.tex:SetGradient("VERTICAL", CreateColor(color.r, color.g, color.b, 1), CreateColor(0, 0, 0, 1))
-	end
+	panel.tex:SetGradient("VERTICAL", CreateColor(color.r, color.g, color.b, 1), CreateColor(0, 0, 0, 1))
 end
 
 -- Style Panels
