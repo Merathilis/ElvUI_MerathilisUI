@@ -29,15 +29,17 @@ options.blizzard.args.objectiveTracker = {
 	type = "group",
 	name = L["Objective Tracker"],
 	get = function(info) return E.db.mui.blizzard.objectiveTracker[info[#info]] end,
-	set = function(info, value) E.db.mui.blizzard.objectiveTracker[info[#info]] = value; ObjectiveTracker_Update(); end,
+	set = function(info, value)
+		E.db.mui.blizzard.objectiveTracker[info[#info]] = value; ObjectiveTracker_Update();
+	end,
 	args = {
 		name = {
-			order = -1,
+			order = 0,
 			type = "header",
 			name = F.cOption(L["Objective Tracker"], 'orange'),
 		},
 		description = {
-			order = 0,
+			order = 1,
 			type = "group",
 			inline = true,
 			name = L["Description"],
@@ -57,7 +59,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		enable = {
-			order = 1,
+			order = 2,
 			type = "toggle",
 			name = L["Enable"],
 			width = "full",
@@ -67,7 +69,7 @@ options.blizzard.args.objectiveTracker = {
 			end
 		},
 		progress = {
-			order = 2,
+			order = 3,
 			type = "group",
 			inline = true,
 			name = L["Progress"],
@@ -103,7 +105,7 @@ options.blizzard.args.objectiveTracker = {
 			}
 		},
 		cosmeticBar = {
-			order = 3,
+			order = 4,
 			type = "group",
 			inline = true,
 			name = L["Cosmetic Bar"],
@@ -129,7 +131,8 @@ options.blizzard.args.objectiveTracker = {
 					inline = true,
 					name = L["Style"],
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable or not E.db.mui.blizzard.objectiveTracker.cosmeticBar.enable
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.cosmeticBar.enable
 					end,
 					args = {
 						texture = {
@@ -165,7 +168,8 @@ options.blizzard.args.objectiveTracker = {
 					inline = true,
 					name = L["Position"],
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable or not E.db.mui.blizzard.objectiveTracker.cosmeticBar.enable
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.cosmeticBar.enable
 					end,
 					args = {
 						widthMode = {
@@ -322,7 +326,8 @@ options.blizzard.args.objectiveTracker = {
 					inline = true,
 					name = L["Presets"],
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable or not E.db.mui.blizzard.objectiveTracker.cosmeticBar.enable
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							not E.db.mui.blizzard.objectiveTracker.cosmeticBar.enable
 					end,
 					args = {
 						tip = {
@@ -337,7 +342,7 @@ options.blizzard.args.objectiveTracker = {
 							func = function()
 								local db = E.db.mui.blizzard.objectiveTracker
 								db.header.style = "SHADOWOUTLINE"
-								db.header.color = {r = 1, g = 1, b = 1}
+								db.header.color = { r = 1, g = 1, b = 1 }
 								db.header.size = E.db.general.fontSize + 2
 								db.cosmeticBar.texture = "Asphyxia"
 								db.cosmeticBar.widthMode = "ABSOLUTE"
@@ -349,9 +354,9 @@ options.blizzard.args.objectiveTracker = {
 								db.cosmeticBar.border = "SHADOW"
 								db.cosmeticBar.borderAlpha = 1
 								db.cosmeticBar.color.mode = "GRADIENT"
-								db.cosmeticBar.color.normalColor = {r = 0.000, g = 0.659, b = 1.000, a = 1}
-								db.cosmeticBar.color.gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1}
-								db.cosmeticBar.color.gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 1}
+								db.cosmeticBar.color.normalColor = { r = 0.000, g = 0.659, b = 1.000, a = 1 }
+								db.cosmeticBar.color.gradientColor1 = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 }
+								db.cosmeticBar.color.gradientColor2 = { r = 0.25882, g = 0.84314, b = 0.86667, a = 1 }
 								OT:ChangeQuestHeaderStyle()
 							end
 						},
@@ -362,7 +367,7 @@ options.blizzard.args.objectiveTracker = {
 							func = function()
 								local db = E.db.mui.blizzard.objectiveTracker
 								db.header.style = "NONE"
-								db.header.color = {r = 1, g = 1, b = 1}
+								db.header.color = { r = 1, g = 1, b = 1 }
 								db.header.size = E.db.general.fontSize
 								db.cosmeticBar.texture = "ElvUI Blank"
 								db.cosmeticBar.widthMode = "DYNAMIC"
@@ -374,9 +379,9 @@ options.blizzard.args.objectiveTracker = {
 								db.cosmeticBar.border = "NONE"
 								db.cosmeticBar.borderAlpha = 1
 								db.cosmeticBar.color.mode = "GRADIENT"
-								db.cosmeticBar.color.normalColor = {r = 0.000, g = 0.659, b = 1.000, a = 1}
-								db.cosmeticBar.color.gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1}
-								db.cosmeticBar.color.gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 0}
+								db.cosmeticBar.color.normalColor = { r = 0.000, g = 0.659, b = 1.000, a = 1 }
+								db.cosmeticBar.color.gradientColor1 = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 }
+								db.cosmeticBar.color.gradientColor2 = { r = 0.25882, g = 0.84314, b = 0.86667, a = 0 }
 								OT:ChangeQuestHeaderStyle()
 							end
 						},
@@ -388,7 +393,7 @@ options.blizzard.args.objectiveTracker = {
 								local db = E.db.mui.blizzard.objectiveTracker
 								db.header.style = "NONE"
 								db.header.size = E.db.general.fontSize - 2
-								db.header.color = {r = 1, g = 1, b = 1}
+								db.header.color = { r = 1, g = 1, b = 1 }
 								db.cosmeticBar.texture = "ElvUI Blank"
 								db.cosmeticBar.widthMode = "DYNAMIC"
 								db.cosmeticBar.heightMode = "DYNAMIC"
@@ -399,9 +404,9 @@ options.blizzard.args.objectiveTracker = {
 								db.cosmeticBar.border = "ONEPIXEL"
 								db.cosmeticBar.borderAlpha = 1
 								db.cosmeticBar.color.mode = "GRADIENT"
-								db.cosmeticBar.color.normalColor = {r = 0.000, g = 0.659, b = 1.000, a = 1}
-								db.cosmeticBar.color.gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1}
-								db.cosmeticBar.color.gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 1}
+								db.cosmeticBar.color.normalColor = { r = 0.000, g = 0.659, b = 1.000, a = 1 }
+								db.cosmeticBar.color.gradientColor1 = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 }
+								db.cosmeticBar.color.gradientColor2 = { r = 0.25882, g = 0.84314, b = 0.86667, a = 1 }
 								OT:ChangeQuestHeaderStyle()
 							end
 						},
@@ -412,7 +417,7 @@ options.blizzard.args.objectiveTracker = {
 							func = function()
 								local db = E.db.mui.blizzard.objectiveTracker
 								db.header.style = "OUTLINE"
-								db.header.color = {r = 1, g = 1, b = 1}
+								db.header.color = { r = 1, g = 1, b = 1 }
 								db.header.size = E.db.general.fontSize + 2
 								db.cosmeticBar.texture = "Solid"
 								db.cosmeticBar.widthMode = "DYNAMIC"
@@ -424,9 +429,9 @@ options.blizzard.args.objectiveTracker = {
 								db.cosmeticBar.border = "NONE"
 								db.cosmeticBar.borderAlpha = 1
 								db.cosmeticBar.color.mode = "NORMAL"
-								db.cosmeticBar.color.normalColor = {r = 0.681, g = 0.681, b = 0.681, a = 0.681}
-								db.cosmeticBar.color.gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1}
-								db.cosmeticBar.color.gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 1}
+								db.cosmeticBar.color.normalColor = { r = 0.681, g = 0.681, b = 0.681, a = 0.681 }
+								db.cosmeticBar.color.gradientColor1 = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 }
+								db.cosmeticBar.color.gradientColor2 = { r = 0.25882, g = 0.84314, b = 0.86667, a = 1 }
 								OT:ChangeQuestHeaderStyle()
 							end
 						},
@@ -437,7 +442,7 @@ options.blizzard.args.objectiveTracker = {
 							func = function()
 								local db = E.db.mui.blizzard.objectiveTracker
 								db.header.style = "SHADOWOUTLINE"
-								db.header.color = {r = 1, g = 1, b = 1}
+								db.header.color = { r = 1, g = 1, b = 1 }
 								db.header.size = E.db.general.fontSize + 3
 								db.cosmeticBar.texture = "Solid"
 								db.cosmeticBar.widthMode = "ABSOLUTE"
@@ -449,9 +454,9 @@ options.blizzard.args.objectiveTracker = {
 								db.cosmeticBar.border = "ONEPIXEL"
 								db.cosmeticBar.borderAlpha = 1
 								db.cosmeticBar.color.mode = "GRADIENT"
-								db.cosmeticBar.color.normalColor = {r = 0.681, g = 0.681, b = 0.681, a = 0.681}
-								db.cosmeticBar.color.gradientColor1 = {r = 0.32941, g = 0.52157, b = 0.93333, a = 1}
-								db.cosmeticBar.color.gradientColor2 = {r = 0.25882, g = 0.84314, b = 0.86667, a = 1}
+								db.cosmeticBar.color.normalColor = { r = 0.681, g = 0.681, b = 0.681, a = 0.681 }
+								db.cosmeticBar.color.gradientColor1 = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 }
+								db.cosmeticBar.color.gradientColor2 = { r = 0.25882, g = 0.84314, b = 0.86667, a = 1 }
 								OT:ChangeQuestHeaderStyle()
 							end
 						},
@@ -460,7 +465,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		header = {
-			order = 4,
+			order = 5,
 			type = "group",
 			inline = true,
 			name = L["Header"],
@@ -514,7 +519,8 @@ options.blizzard.args.objectiveTracker = {
 					name = L["Color"],
 					hasAlpha = false,
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable or E.db.mui.blizzard.objectiveTracker.header.classColor
+						return not E.db.mui.blizzard.objectiveTracker.enable or
+							E.db.mui.blizzard.objectiveTracker.header.classColor
 					end,
 					get = function(info)
 						local db = E.db.mui.blizzard.objectiveTracker.header.color
@@ -530,7 +536,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		titleColor = {
-			order = 5,
+			order = 6,
 			type = "group",
 			inline = true,
 			name = L["Title Color"],
@@ -589,7 +595,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		title = {
-			order = 6,
+			order = 7,
 			type = "group",
 			inline = true,
 			name = L["Title"],
@@ -629,7 +635,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		info = {
-			order = 7,
+			order = 8,
 			type = "group",
 			inline = true,
 			name = L["Information"],
@@ -669,7 +675,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		backdrop = {
-			order = 8,
+			order = 9,
 			type = "group",
 			inline = true,
 			name = L["Backdrop"],
@@ -765,7 +771,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		menuTitle = {
-			order = 9,
+			order = 10,
 			type = "group",
 			inline = true,
 			name = L["Menu Title"] .. " (" .. L["it shows when objective tracker is collapsed."] .. ")",
@@ -850,7 +856,9 @@ options.blizzard.args.objectiveTracker = {
 							order = 3,
 							name = L["Size"],
 							type = "range",
-							min = 5, max = 60, step = 1,
+							min = 5,
+							max = 60,
+							step = 1,
 						},
 					},
 				},
@@ -1123,7 +1131,7 @@ options.blizzard.args.friendsList = {
 								return colordb.r, colordb.g, colordb.b, nil, default.r, default.g, default.b
 							end,
 							set = function(_, r, g, b)
-								E.db.mui.blizzard.friendsList.areaColor = {r = r, g = g, b = b}
+								E.db.mui.blizzard.friendsList.areaColor = { r = r, g = g, b = b }
 								FriendsFrame_Update()
 							end
 						}
