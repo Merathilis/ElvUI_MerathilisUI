@@ -173,6 +173,7 @@ options.tooltip = {
 			end,
 			set = function(info, value)
 				E.db.mui.tooltip.groupInfo[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			name = "",
 			args = {
