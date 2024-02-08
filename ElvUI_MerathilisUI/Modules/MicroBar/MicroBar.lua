@@ -143,6 +143,7 @@ local hearthstoneAndToyIDList = {
 	168808,
 	172924,
 	180817,
+	190196,
 	198156
 }
 
@@ -461,7 +462,7 @@ local ButtonTypes = {
 		},
 		additionalText = function()
 			local numMissions = #C_Garrison_GetCompleteMissions(FollowerType_9_0) +
-			#C_Garrison_GetCompleteMissions(FollowerType_8_0)
+				#C_Garrison_GetCompleteMissions(FollowerType_8_0)
 			if numMissions == 0 then
 				numMissions = ""
 			end
@@ -1408,7 +1409,7 @@ function module:UpdateHearthStoneTable()
 
 	for i = 1, 4 do
 		local level = self.covenantCache[E.myrealm] and self.covenantCache[E.myrealm][E.myname] and
-		self.covenantCache[E.myrealm][E.myname][tostring(i)]
+			self.covenantCache[E.myrealm][E.myname][tostring(i)]
 		local toyID = specialHearthstones[i]
 		local hasToy = PlayerHasToy(toyID) and C_ToyBox_IsToyUsable(toyID)
 

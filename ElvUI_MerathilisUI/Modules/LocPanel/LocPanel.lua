@@ -94,6 +94,7 @@ module.Hearthstones = {
 	{ 184353, nil, true }, -- Kyrian Hearthstone
 	{ 183716, nil, true }, -- Venthyr Sinstone
 	{ 188952, nil, true }, -- Dominated Hearthstone
+	{ 190196, nil, true }, -- Enlightened Hearthstone
 	{ 190237, nil, true }, -- Broker Translocation Matrix
 	{ 193588, nil, true }, -- Timewalker's Hearthstone
 	{ 200630, nil, true }, -- Ohn'ir Windsage's Hearthstone
