@@ -156,6 +156,7 @@ function module:GameMenu()
 		npcModel:Size(256)
 		npcModel:SetScale(0.8)
 		npcModel:Show()
+
 	end
 end
 
