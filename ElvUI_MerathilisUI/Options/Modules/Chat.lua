@@ -56,14 +56,14 @@ options.chat = {
 					desc = L
 					["Position of the Chat EditBox, if the Actionbar backdrop is disabled, this will be forced to be above chat."],
 					values = {
-						['BELOW_CHAT'] = L['Below Chat'],
-						['ABOVE_CHAT'] = L['Above Chat'],
-						['EAB_1'] = L['Actionbar 1 (below)'],
-						['EAB_2'] = L['Actionbar 2 (below)'],
-						['EAB_3'] = L['Actionbar 3 (below)'],
-						['EAB_4'] = L['Actionbar 4 (below)'],
-						['EAB_5'] = L['Actionbar 5 (below)'],
-						['EAB_6'] = L['Actionbar 6 (above)'],
+						['BELOW_CHAT'] = L["Below Chat"],
+						['ABOVE_CHAT'] = L["Above Chat"],
+						['EAB_1'] = L["Actionbar 1 (below)"],
+						['EAB_2'] = L["Actionbar 2 (below)"],
+						['EAB_3'] = L["Actionbar 3 (below)"],
+						['EAB_4'] = L["Actionbar 4 (below)"],
+						['EAB_5'] = L["Actionbar 5 (below)"],
+						['EAB_6'] = L["Actionbar 6 (above)"],
 					},
 					disabled = function()
 						return not E.db.mui.chat.enable
