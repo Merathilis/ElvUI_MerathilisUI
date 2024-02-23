@@ -213,6 +213,7 @@ P.chat = {
 	chatButton = true,
 	hideChat = false,
 	emotes = true,
+	editBoxPosition = "ABOVE_CHAT",
 	chatText = {
 		enable = true,
 		abbreviation = "DEFAULT",
