@@ -1,5 +1,8 @@
 {
 	"tabWidth": 4,
 	"useTabs": true,
-	"bracketSpacing": false
+	"bracketSpacing": false,
+	"plugins": [
+		"@prettier/plugin-lua"
+    ]
 }

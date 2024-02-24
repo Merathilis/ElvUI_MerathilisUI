@@ -141,6 +141,14 @@ L["The message will only be shown in the chat frame (or chat tab) with Blizzard 
 "Die Nachricht wird nur im Chatfenster (oder Chat Tab) angezeigt, wenn der Blizzard Service-Benachrichtigungskanal aktiviert ist."
 L["This feature only works for message that sent by this module."] =
 "Diese Funktion funktioniert nur für Nachrichten, die von diesem Modul gesendet wurden."
+L["Position of the Chat EditBox, if the Actionbar backdrop is disabled, this will be forced to be above chat."] =
+"Die Position vom Texteingabefeld, wenn der Aktionsleistenhintergrund deaktiviert ist, ist die Standardposition über dem Chat."
+L["Actionbar 1 (below)"] = "Aktionsleiste 1 (unter)"
+L["Actionbar 2 (below)"] = "Aktionsleiste 2 (unter)"
+L["Actionbar 3 (below)"] = "Aktionsleiste 3 (unter)"
+L["Actionbar 4 (below)"] = "Aktionsleiste 4 (unter)"
+L["Actionbar 5 (below)"] = "Aktionsleiste 5 (unter)"
+L["Actionbar 6 (above)"] = "Aktionsleiste 6 (oberhalb)"
 
 -- Combat Alert
 L["Combat Alert"] = "Kampfalarmierung"
