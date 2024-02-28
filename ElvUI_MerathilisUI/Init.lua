@@ -37,7 +37,7 @@ do
 	if strfind(Engine.version, 'project%-version') then
 		Engine.version = 'development'
 	end
-
+	-- Test
 	MER.Version = Engine.version
 	MER.IsDevelop = MER.Version == 'development'
 
