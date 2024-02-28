@@ -1,15 +1,11 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
-local format = format
-local pairs = pairs
-local print = print
-local strjoin = strjoin
-local strlen = strlen
-local strlower = strlower
-local strrep = strrep
+local format, pairs, print, type = format, pairs, print, type
+local strjoin, strlen, strlower, strrep = strjoin, strlen, strlower, strrep
 local tostring = tostring
-local type = type
+
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 F.Developer = {}
 
@@ -199,5 +195,12 @@ function F.Developer.DelayInitialize(module, delay)
 		module.Initialize = function(self, ...)
 			E:Delay(delay, self.Initialize_, self, ...)
 		end
+	end
+end
+
+function F.Developer.Log(var, varName)
+	if MER.IsDevelop and C_AddOns_IsAddOnLoaded('DevTool') then
+		local DevTool = _G["DevTool"]
+		DevTool:AddData(var, varName)
 	end
 end

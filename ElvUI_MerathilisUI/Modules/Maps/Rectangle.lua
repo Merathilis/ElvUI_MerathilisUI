@@ -4,7 +4,7 @@ local MM = E:GetModule("Minimap")
 
 local _G = _G
 local abs, ceil, floor = abs, ceil, floor
-local format = format
+local format, next, unpack = format, next, unpack
 
 local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown

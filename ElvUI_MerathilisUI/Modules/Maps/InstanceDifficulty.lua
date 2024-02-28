@@ -107,7 +107,8 @@ function module:ConstructFrame()
 	text:Point(self.db.align or "LEFT")
 	frame.text = text
 
-	E:CreateMover(frame, "MER_InstanceDifficultyFrameMover", L["Instance Difficulty"], nil, nil, nil, "ALL,MERATHILISUI", function() return E.db.mui.maps.minimap.difficulty.enable end, "mui,modules,maps")
+	E:CreateMover(frame, "MER_InstanceDifficultyFrameMover", L["Instance Difficulty"], nil, nil, nil, "ALL,MERATHILISUI",
+		function() return E.db.mui.maps.minimap.difficulty.enable end, "mui,modules,maps")
 
 	self.frame = frame
 end
@@ -134,7 +135,7 @@ function module:Initialize()
 	local guildFrame = difficulty.Guild
 	local challengeModeFrame = difficulty.ChallengeMode
 
-	for _, frame in pairs({instanceFrame, guildFrame, challengeModeFrame}) do
+	for _, frame in pairs({ instanceFrame, guildFrame, challengeModeFrame }) do
 		if frame then
 			frame:Hide()
 			self:SecureHook(frame, "SetShown", "HideBlizzardDifficulty")
