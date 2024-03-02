@@ -49,7 +49,6 @@ local function SetupCVars()
 	C_CVar_SetCVar('minimapTrackingShowAll', 1)
 	C_CVar_SetCVar('fstack_preferParentKeys', 0)
 
-
 	-- Nameplates
 	C_CVar_SetCVar('ShowClassColorInNameplate', 1)
 	C_CVar_SetCVar('nameplateLargerScale', 1)
