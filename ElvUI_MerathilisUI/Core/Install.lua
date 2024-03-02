@@ -29,6 +29,7 @@ local VOICE = VOICE
 local C_UI_Reload = C_UI.Reload
 local C_CVar_SetCVar = C_CVar.SetCVar
 
+
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
 
 local function SetupCVars()
