@@ -3,12 +3,11 @@ local S = MER:GetModule('MER_Skins')
 local LSM = E.LSM
 
 local _G = _G
-local ipairs, pairs, pcall, print, select, tonumber, type, unpack = ipairs, pairs, pcall, print, select, tonumber, type,
-	unpack
+local ipairs, pairs, pcall, print, select, tonumber, type = ipairs, pairs, pcall, print, select, tonumber, type
 local format, gsub, match, split, strfind = string.format, string.gsub, string.match, string.split, strfind
 local strmatch, strlen, strsub = strmatch, strlen, strsub
 local tconcat, tinsert, tremove, twipe = table.concat, table.insert, table.remove, table.wipe
-local modf = math.modf
+local max, min, modf = math.max, math.min, math.modf
 
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
@@ -54,6 +53,10 @@ end
 
 function F.DpiRaw(value)
 	return value * perfectMulti
+end
+
+function F:Interval(value, minValue, maxValue)
+	return max(minValue, min(maxValue, value))
 end
 
 function F.SetFontDB(text, db)
