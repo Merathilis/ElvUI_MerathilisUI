@@ -53,7 +53,7 @@ function module:Blizzard_AchievementUI()
 		for i = 1, _G.ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS do
 			local button = _G["AchievementFrameSummaryAchievement" .. i]
 			if button and not button.IsSkinned then
-				module:CreateGradient(button.backdrop)
+				module:CreateGradient(button)
 
 				button.IsSkinned = true
 			end
@@ -64,7 +64,7 @@ function module:Blizzard_AchievementUI()
 		for _, child in next, { frame.ScrollTarget:GetChildren() } do
 			local button = child.Button
 			if button and not button.IsSkinned then
-				module:CreateGradient(button.backdrop)
+				module:CreateGradient(button)
 
 				button.IsSkinned = true
 			end
@@ -74,7 +74,7 @@ function module:Blizzard_AchievementUI()
 	hooksecurefunc(_G.AchievementFrameAchievements.ScrollBox, 'Update', function(frame)
 		for _, child in next, { frame.ScrollTarget:GetChildren() } do
 			if child and not child.IsSkinned then
-				module:CreateGradient(child.backdrop)
+				module:CreateGradient(child)
 
 				child.IsSkinned = true
 			end
