@@ -1,7 +1,7 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_ExtendedVendor')
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local module = MER:GetModule("MER_ExtendedVendor")
+local MERS = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 -- Modified from Extended Vendor UI & NDui_Plus
 local _G = _G
@@ -46,7 +46,7 @@ end
 
 function module:UpdateBuybacks()
 	for i = 1, _G.BUYBACK_ITEMS_PER_PAGE do
-		local item = _G['MerchantItem' .. i]
+		local item = _G["MerchantItem" .. i]
 		--[[
 		local button = _G['MerchantItem'..i..'ItemButton']
 		local icon = _G['MerchantItem'..i..'ItemButtonIconTexture']
@@ -57,7 +57,7 @@ function module:UpdateBuybacks()
 		]]
 
 		if item.backdrop then
-			item.backdrop:SetTemplate('Transparent')
+			item.backdrop:SetTemplate("Transparent")
 			MERS:CreateGradient(item.backdrop)
 		end
 	end
@@ -65,15 +65,21 @@ end
 
 function module:UpdateMerchantPositions()
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
-		local button = _G["MerchantItem"..i]
+		local button = _G["MerchantItem" .. i]
 		button:Show()
 		button:ClearAllPoints()
 
 		if (i % BLIZZARD_MERCHANT_ITEMS_PER_PAGE) == 1 then
-			if (i == 1) then
+			if i == 1 then
 				button:SetPoint("TOPLEFT", _G.MerchantFrame, "TOPLEFT", 24, -70)
 			else
-				button:SetPoint("TOPLEFT", _G["MerchantItem" .. (i - (BLIZZARD_MERCHANT_ITEMS_PER_PAGE - 1))], "TOPRIGHT", 12, 0)
+				button:SetPoint(
+					"TOPLEFT",
+					_G["MerchantItem" .. (i - (BLIZZARD_MERCHANT_ITEMS_PER_PAGE - 1))],
+					"TOPRIGHT",
+					12,
+					0
+				)
 			end
 		else
 			if (i % 2) == 1 then
@@ -99,7 +105,7 @@ function module:UpdateBuybackPositions()
 			if i == 1 then
 				button:SetPoint("TOPLEFT", _G.MerchantFrame, "TOPLEFT", firstButtonOffsetX, -105)
 			else
-				if ((i % 3) == 1) then
+				if (i % 3) == 1 then
 					button:SetPoint("TOPLEFT", _G["MerchantItem" .. (i - 3)], "BOTTOMLEFT", 0, -30)
 				else
 					button:SetPoint("TOPLEFT", _G["MerchantItem" .. (i - 1)], "TOPRIGHT", 50, 0)
@@ -110,7 +116,9 @@ function module:UpdateBuybackPositions()
 end
 
 function module:Initialize()
-	if not E.db.mui.merchant.enable then return end
+	if not E.db.mui.merchant.enable then
+		return
+	end
 
 	self.db = E.db.mui.merchant
 
@@ -128,7 +136,7 @@ function module:Initialize()
 	_G.MerchantFrame:SetWidth(30 + self.db.numberOfPages * 330)
 
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
-		if not _G["MerchantItem"..i] then
+		if not _G["MerchantItem" .. i] then
 			CreateFrame("Frame", "MerchantItem" .. i, _G.MerchantFrame, "MerchantItemTemplate")
 			self:SkinButton(i)
 		end
