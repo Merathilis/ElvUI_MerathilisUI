@@ -1,6 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local T = MER:GetModule('MER_Tooltip')
-local TT = E:GetModule('Tooltip')
+local T = MER:GetModule("MER_Tooltip")
+local TT = E:GetModule("Tooltip")
 
 local _G = _G
 
@@ -14,12 +14,14 @@ local UnitIsPlayer = UnitIsPlayer
 local UnitReaction = UnitReaction
 
 local function TooltipGradientName(unit)
-	if not unit then return end
+	if not unit then
+		return
+	end
 
 	local _, classunit = UnitClass(unit)
-	local reaction = UnitReaction(unit, 'player')
+	local reaction = UnitReaction(unit, "player")
 
-	local text = _G['GameTooltipTextLeft1']:GetText()
+	local text = _G["GameTooltipTextLeft1"]:GetText()
 	local tooltipName = text and E:StripString(text)
 
 	local colorDB = E.db.mui.gradient
@@ -34,27 +36,27 @@ local function TooltipGradientName(unit)
 		else
 			if reaction and reaction >= 5 then
 				if colorDB.customColor.enable then
-					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, 'NPCFRIENDLY'))
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, "NPCFRIENDLY"))
 				else
-					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCFRIENDLY'))
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, "NPCFRIENDLY"))
 				end
 			elseif reaction and reaction == 4 then
 				if colorDB.customColor.enable then
-					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, 'NPCNEUTRAL'))
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, "NPCNEUTRAL"))
 				else
-					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCNEUTRAL'))
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, "NPCNEUTRAL"))
 				end
 			elseif reaction and reaction == 3 then
 				if colorDB.customColor.enable then
-					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, 'NPCUNFRIENDLY'))
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, "NPCUNFRIENDLY"))
 				else
-					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCUNFRIENDLY'))
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, "NPCUNFRIENDLY"))
 				end
 			elseif reaction and reaction == 2 or reaction == 1 then
 				if colorDB.customColor.enable then
-					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, 'NPCHOSTILE'))
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, "NPCHOSTILE"))
 				else
-					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, 'NPCHOSTILE'))
+					_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, "NPCHOSTILE"))
 				end
 			end
 		end
@@ -67,7 +69,9 @@ function T:ApplyTooltipStyle()
 		return
 	end
 
-	if _G.GameTooltip and _G.GameTooltip:IsForbidden() then return end
+	if _G.GameTooltip and _G.GameTooltip:IsForbidden() then
+		return
+	end
 
 	local _, unitId = _G.GameTooltip:GetUnit()
 	if unitId then
@@ -78,20 +82,24 @@ function T:ApplyTooltipStyle()
 		AddTooltipPostCall(TooltipDataType.Item, function(tt)
 			if tt then
 				local name, itemLink = GameTooltip:GetItem()
-				if not name or not itemLink then return end
+				if not name or not itemLink then
+					return
+				end
 
 				local _, _, itemQuality = GetItemInfo(itemLink)
-				if not itemQuality then return end
+				if not itemQuality then
+					return
+				end
 
 				local r2, g2, b2 = GetItemQualityColor(itemQuality)
 
-				local r1 = r2 + (-0.2)
+				local r1 = r2 + -0.2
 				r1 = F:Interval(r1, 0, 1)
 
-				local g1 = g2 + (-0.2)
+				local g1 = g2 + -0.2
 				g1 = F:Interval(g1, 0, 1)
 
-				local b1 = b2 + (-0.2)
+				local b1 = b2 + -0.2
 				b1 = F:Interval(b1, 0, 1)
 				r2 = r2 + 0.2
 				r2 = F:Interval(r2, 0, 1)
@@ -117,6 +125,6 @@ function T:ApplyTooltipStyle()
 	end
 end
 
-hooksecurefunc(TT, 'AddTargetInfo', T.ApplyTooltipStyle)
-hooksecurefunc(TT, 'GameTooltip_OnTooltipSetUnit', T.ApplyTooltipStyle)
-hooksecurefunc(TT, 'MODIFIER_STATE_CHANGED', T.ApplyTooltipStyle)
+hooksecurefunc(TT, "AddTargetInfo", T.ApplyTooltipStyle)
+hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", T.ApplyTooltipStyle)
+hooksecurefunc(TT, "MODIFIER_STATE_CHANGED", T.ApplyTooltipStyle)

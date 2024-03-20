@@ -12,9 +12,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-	"• Fix an error in the Objective Tracker skin",
-	"• Reenable Rune Tacker on the RBReminder",
-	"• Readded Overall Score on the LFG Group Info",
+	"• Bumb TOC Version",
+	"• Added a compatibility check for Windtools",
+	"• Added two new hearthstones to LocBar & MicroBar",
+	"• Added gradient text to the Tooltip Name",
+	"• Updated Details Profile",
 
 	-- "• ''",
 	" ",
@@ -24,7 +26,7 @@ local ChangeLogData = {
 	"• New Addition you will find with the ! in the Options",
 	"• If you are getting any errors or something is not working, make sure you are now using:",
 	"  '/muidebug on' and test again",
-	"• You can disable almost everything in the Option. I would sugguest you to back up your profiles regularly"
+	"• You can disable almost everything in the Option. I would sugguest you to back up your profiles regularly",
 
 	-- "• ''",
 }
@@ -61,7 +63,7 @@ local function GetChangeLogInfo(i)
 end
 
 function MER:CreateChangelog()
-	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent, 'BackdropTemplate')
+	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent, "BackdropTemplate")
 	frame:Point("CENTER")
 	frame:Size(600, 430)
 	frame:CreateBackdrop("Transparent")
@@ -78,7 +80,7 @@ function MER:CreateChangelog()
 	frame.texture:SetTexture(MER.Media.Textures.PepoLove)
 	frame.texture:SetAlpha(0.5)
 
-	local icon = CreateFrame("Frame", nil, frame, 'BackdropTemplate')
+	local icon = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 	icon:Point("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
 	icon:Size(20, 20)
 	icon:CreateBackdrop("Transparent")
@@ -88,7 +90,7 @@ function MER:CreateChangelog()
 	icon.bg:Point("BOTTOMRIGHT", -2, 2)
 	icon.bg:SetTexture(MER.LogoSmall)
 
-	local title = CreateFrame("Frame", nil, frame, 'BackdropTemplate')
+	local title = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 	title:Point("LEFT", icon, "RIGHT", 1, 0)
 	title:Size(579, 20)
 	title:CreateBackdrop("Transparent")
