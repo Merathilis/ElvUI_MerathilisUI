@@ -137,6 +137,13 @@ L["The message will only be shown in the chat frame (or chat tab) with Blizzard 
 "Сообщение будет отображаться только во фрейме чата (или на вкладке чата) при включенном канале оповещения службы Blizzard."
 L["This feature only works for message that sent by this module."] =
 "Эта функция работает только для сообщений, отправленных этим модулем."
+L["Position of the Chat EditBox, if the Actionbar backdrop is disabled, this will be forced to be above chat."] = true
+L["Actionbar 1 (below)"] = true
+L["Actionbar 2 (below)"] = true
+L["Actionbar 3 (below)"] = true
+L["Actionbar 4 (below)"] = true
+L["Actionbar 5 (below)"] = true
+L["Actionbar 6 (above)"] = true
 
 -- Combat Alert
 L["Combat Alert"] = "Сигнал боя"

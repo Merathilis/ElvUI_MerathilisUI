@@ -75,7 +75,7 @@ end
 
 --{ItemID, ButtonText, isToy} DONT FORGET TO ADD THE ID TO THE PROFILE
 module.Hearthstones = {
-	{ 6948 },           -- Hearthstone
+	{ 6948 },              -- Hearthstone
 	{ 54452,  nil, true }, -- Ethereal Portal
 	{ 64488,  nil, true }, -- The Innkeeper's Daughter
 	{ 93672,  nil, true }, -- Dark Portal
@@ -94,11 +94,13 @@ module.Hearthstones = {
 	{ 184353, nil, true }, -- Kyrian Hearthstone
 	{ 183716, nil, true }, -- Venthyr Sinstone
 	{ 188952, nil, true }, -- Dominated Hearthstone
+	{ 190196, nil, true }, -- Enlightened Hearthstone
 	{ 190237, nil, true }, -- Broker Translocation Matrix
 	{ 193588, nil, true }, -- Timewalker's Hearthstone
 	{ 200630, nil, true }, -- Ohn'ir Windsage's Hearthstone
 	{ 208704, nil, true }, -- Deepdweller's Earthen Hearthstone
 	{ 209035, nil, true }, -- Hearthstone of the Flame
+	{ 212337, nil, true }, -- Stone of the Hearth (Hearthstone 10th Anniversary)
 }
 
 module.PortItems = {

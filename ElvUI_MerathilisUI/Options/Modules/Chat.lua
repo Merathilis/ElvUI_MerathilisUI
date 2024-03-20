@@ -13,16 +13,23 @@ local _G = _G
 options.chat = {
 	type = "group",
 	name = L["Chat"],
-	get = function(info) return E.db.mui.chat[ info[#info] ] end,
-	set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+	get = function(info) return E.db.mui.chat[info[#info]] end,
+	set = function(info, value)
+		E.db.mui.chat[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+	end,
 	args = {
 		header = {
 			order = 0,
 			type = "header",
 			name = F.cOption(L["Chat"], 'orange'),
 		},
-		general = {
+		enable = {
 			order = 1,
+			type = "toggle",
+			name = L["Enable"]
+		},
+		general = {
+			order = 2,
 			type = "group",
 			name = F.cOption(L["General"], 'orange'),
 			inline = true,
@@ -34,22 +41,51 @@ options.chat = {
 					desc = L["Create a chat button to increase the chat size."],
 				},
 				hideChat = {
-					order = 4,
+					order = 2,
 					type = "toggle",
 					name = L["Hide Community Chat"],
 					desc = L["Adds an overlay to the Community Chat. Useful for streamers."],
 				},
 				emotes = {
-					order = 5,
+					order = 3,
 					type = "toggle",
 					name = L["Emotes"],
+				},
+				editBoxPosition = {
+					order = 4,
+					type = "select",
+					name = E.NewSign .. L["Chat EditBox Position"],
+					desc = L
+						["Position of the Chat EditBox, if the Actionbar backdrop is disabled, this will be forced to be above chat."],
+					values = {
+						['BELOW_CHAT'] = L["Below Chat"],
+						['ABOVE_CHAT'] = L["Above Chat"],
+						['EAB_1'] = L["Actionbar 1 (below)"],
+						['EAB_2'] = L["Actionbar 2 (below)"],
+						['EAB_3'] = L["Actionbar 3 (below)"],
+						['EAB_4'] = L["Actionbar 4 (below)"],
+						['EAB_5'] = L["Actionbar 5 (below)"],
+						['EAB_6'] = L["Actionbar 6 (above)"],
+					},
+					disabled = function()
+						return not E.db.mui.chat.enable
+					end,
+					get = function(info)
+						return E.db.mui.chat[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.chat[info[#info]] = value; CH:UpdateEditboxAnchors()
+					end,
 				},
 			},
 		},
 		chatLink = {
-			order = 11,
+			order = 10,
 			type = "group",
 			name = F.cOption(L["Chat Link"], 'orange'),
+			disabled = function()
+				return not E.db.mui.chat.enable
+			end,
 			get = function(info)
 				return E.db.mui.chat.chatLink[info[#info]]
 			end,
@@ -68,7 +104,7 @@ options.chat = {
 							order = 1,
 							type = "description",
 							name = L
-							["Add extra information on the link, so that you can get basic information but do not need to click"],
+								["Add extra information on the link, so that you can get basic information but do not need to click"],
 							fontSize = "medium"
 						}
 					}
@@ -127,8 +163,11 @@ options.chat = {
 			order = 15,
 			type = "group",
 			name = F.cOption(L["Seperators"], 'orange'),
-			get = function(info) return E.db.mui.chat.seperators[ info[#info] ] end,
-			set = function(info, value) E.db.mui.chat.seperators[ info[#info] ] = value; end,
+			disabled = function()
+				return not E.db.mui.chat.enable
+			end,
+			get = function(info) return E.db.mui.chat.seperators[info[#info]] end,
+			set = function(info, value) E.db.mui.chat.seperators[info[#info]] = value; end,
 			args = {
 				enable = {
 					order = 1,
@@ -139,8 +178,10 @@ options.chat = {
 					order = 2,
 					type = 'select',
 					name = L["Visibility"],
-					get = function(info) return E.db.mui.chat.seperators[ info[#info] ] end,
-					set = function(info, value) E.db.mui.chat.seperators[ info[#info] ] = value; module:UpdateSeperators() end,
+					get = function(info) return E.db.mui.chat.seperators[info[#info]] end,
+					set = function(info, value)
+						E.db.mui.chat.seperators[info[#info]] = value; module:UpdateSeperators()
+					end,
 					values = {
 						HIDEBOTH = L["Hide Both"],
 						SHOWBOTH = L["Show Both"],
@@ -151,11 +192,16 @@ options.chat = {
 			},
 		},
 		chatFade = {
-			order = 15,
+			order = 16,
 			type = "group",
 			name = F.cOption(L["Fade Chat"], 'orange'),
-			get = function(info) return E.db.mui.chat.chatFade[ info[#info] ] end,
-			set = function(info, value) E.db.mui.chat.chatFade[ info[#info] ] = value; CF:Configure_ChatFade() end,
+			disabled = function()
+				return not E.db.mui.chat.enable
+			end,
+			get = function(info) return E.db.mui.chat.chatFade[info[#info]] end,
+			set = function(info, value)
+				E.db.mui.chat.chatFade[info[#info]] = value; CF:Configure_ChatFade()
+			end,
 			args = {
 				enable = {
 					order = 1,
@@ -165,7 +211,9 @@ options.chat = {
 				timeout = {
 					order = 2,
 					type = "range",
-					min = 5, max = 60, step = 1,
+					min = 5,
+					max = 60,
+					step = 1,
 					name = L["Auto hide timeout"],
 					desc = L["Seconds before fading chat panel"],
 					disabled = function() return not E.db.mui.chat.chatFade.enable end
@@ -173,14 +221,18 @@ options.chat = {
 				minAlpha = {
 					order = 3,
 					type = "range",
-					min = 0, max = 1, step = 0.01,
+					min = 0,
+					max = 1,
+					step = 0.01,
 					name = L["Min Alpha"],
 					disabled = function() return not E.db.mui.chat.chatFade.enable end
 				},
 				fadeOutTime = {
 					order = 4,
 					type = "range",
-					min = 0.1, max = 2, step = 0.01,
+					min = 0.1,
+					max = 2,
+					step = 0.01,
 					name = L["Fadeout duration"],
 					disabled = function() return not E.db.mui.chat.chatFade.enable end,
 				},
@@ -190,8 +242,13 @@ options.chat = {
 			order = 20,
 			type = "group",
 			name = F.cOption(L["Filter"], 'orange'),
-			get = function(info) return E.db.mui.chat.filter[ info[#info] ] end,
-			set = function(info, value) E.db.mui.chat.filter[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+			disabled = function()
+				return not E.db.mui.chat.enable
+			end,
+			get = function(info) return E.db.mui.chat.filter[info[#info]] end,
+			set = function(info, value)
+				E.db.mui.chat.filter[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+			end,
 			args = {
 				enable = {
 					order = 1,
@@ -211,6 +268,9 @@ options.chat = {
 			order = 30,
 			type = "group",
 			name = F.cOption(L["Chat Bar"], 'orange'),
+			disabled = function()
+				return not E.db.mui.chat.enable
+			end,
 			get = function(info)
 				return E.db.mui.chat.chatBar[info[#info]]
 			end,
@@ -405,7 +465,9 @@ options.chat = {
 									order = 3,
 									name = L["Size"],
 									type = "range",
-									min = 5, max = 60, step = 1
+									min = 5,
+									max = 60,
+									step = 1
 								}
 							}
 						}
@@ -445,7 +507,8 @@ options.chat = {
 									get = function(info)
 										local colordb = E.db.mui.chat.chatBar.channels.world.color
 										local default = P.chat.chatBar.channels.world.color
-										return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g, default.b, default.a
+										return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g,
+											default.b, default.a
 									end,
 									set = function(info, r, g, b, a)
 										E.db.mui.chat.chatBar.channels.world.color = {
@@ -502,7 +565,8 @@ options.chat = {
 									get = function(info)
 										local colordb = E.db.mui.chat.chatBar.channels.community.color
 										local default = P.chat.chatBar.channels.community.color
-										return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g, default.b, default.a
+										return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g,
+											default.b, default.a
 									end,
 									set = function(info, r, g, b, a)
 										E.db.mui.chat.chatBar.channels.community.color = {
@@ -531,7 +595,8 @@ options.chat = {
 									order = 5,
 									type = "description",
 									width = "full",
-									name = L["Please use Blizzard Communities UI add the channel to your main chat frame first."]
+									name = L
+										["Please use Blizzard Communities UI add the channel to your main chat frame first."]
 								}
 							}
 						},
@@ -560,7 +625,8 @@ options.chat = {
 									get = function(info)
 										local colordb = E.db.mui.chat.chatBar.channels.roll.color
 										local default = P.chat.chatBar.channels.roll.color
-										return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g, default.b, default.a
+										return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g,
+											default.b, default.a
 									end,
 									set = function(info, r, g, b, a)
 										E.db.mui.chat.chatBar.channels.roll.color = {
@@ -585,9 +651,9 @@ options.chat = {
 										return not (E.db.mui.chat.chatBar.style == "TEXT")
 									end,
 									name = L["Abbreviation"]
-								}
-							}
-						}
+								},
+							},
+						},
 					},
 				},
 			},
@@ -858,7 +924,9 @@ do
 						order = 3,
 						type = "range",
 						name = L["Size"],
-						min = 5, max = 25, step = 1
+						min = 5,
+						max = 25,
+						step = 1
 					},
 				},
 			},
@@ -976,7 +1044,7 @@ do
 	}
 end
 
-local channels = {"SAY", "YELL", "EMOTE", "PARTY", "RAID", "RAID_WARNING", "GUILD", "OFFICER"}
+local channels = { "SAY", "YELL", "EMOTE", "PARTY", "RAID", "RAID_WARNING", "GUILD", "OFFICER" }
 for index, name in ipairs(channels) do
 	options.chat.args.chatBar.args.channels.args[name] = {
 		order = index,

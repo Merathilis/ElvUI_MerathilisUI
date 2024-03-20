@@ -111,8 +111,6 @@ function module:Blizzard_Collections()
 	card.PetInfo.icon:SetTexCoord(unpack(E.TexCoords))
 	card.PetInfo.icon.bg = module:CreateBG(card.PetInfo.icon)
 
-	card:SetTemplate('Transparent')
-
 	for i = 2, 12 do
 		select(i, card.xpBar:GetRegions()):Hide()
 	end

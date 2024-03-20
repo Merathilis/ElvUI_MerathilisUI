@@ -36,15 +36,17 @@ local function ReskinSectionHeader()
 	end
 end
 
-local function ReplaceTextColor(container)
-	container.NameText:SetTextColor(1, 1, 1)
+local function ReplaceBlackColor(text, r, g, b)
+	if r == 0 and g == 0 and b == 0 then
+		text:SetTextColor(.7, .7, .7)
+	end
 end
 
 local function HandleText(button)
 	local container = button.TextContainer
 	if container and not container.IsSkinned then
-		ReplaceTextColor(container)
-		hooksecurefunc(container, "UpdateTextColor", ReplaceTextColor)
+		hooksecurefunc(container.NameText, "SetTextColor", ReplaceBlackColor)
+		hooksecurefunc(container.ConditionsText, "SetTextColor", ReplaceBlackColor)
 
 		container.IsSkinned = true
 	end

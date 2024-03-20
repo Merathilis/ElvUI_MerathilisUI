@@ -125,6 +125,13 @@ L["Show the class icon before the player name."] = true
 L["Show the faction icon before the player name."] = true
 L["The message will only be shown in the chat frame (or chat tab) with Blizzard service alert channel on."] = true
 L["This feature only works for message that sent by this module."] = true
+L["Position of the Chat EditBox, if the Actionbar backdrop is disabled, this will be forced to be above chat."] = true
+L["Actionbar 1 (below)"] = true
+L["Actionbar 2 (below)"] = true
+L["Actionbar 3 (below)"] = true
+L["Actionbar 4 (below)"] = true
+L["Actionbar 5 (below)"] = true
+L["Actionbar 6 (above)"] = true
 
 -- Combat Alert
 L["Combat Alert"] = "전투 알림"

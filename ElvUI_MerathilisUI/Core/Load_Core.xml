@@ -6,6 +6,7 @@
 	<Script file="Changelog.lua"/>
 	<Script file="Dropdown.lua"/>
 	<Script file="Install.lua"/>
+	<Script file="Layout.lua"/>
 	<Script file="SplashScreen.lua"/>
 	<Script file="Staticpopup.lua"/>
 	<Script file="StatusReport.lua"/>

@@ -5,7 +5,7 @@ local LFGPI = MER.Utilities.LFGPlayerInfo
 local _G = _G
 
 local cache = {
-	groupInfo = {}
+	groupInfo = {},
 }
 
 options.tooltip = {
@@ -15,14 +15,14 @@ options.tooltip = {
 		return E.db.mui.tooltip[info[#info]]
 	end,
 	set = function(info, value)
-		E.db.mui.tooltip[info[#info]] = value;
+		E.db.mui.tooltip[info[#info]] = value
 		E:StaticPopup_Show("PRIVATE_RL")
 	end,
 	args = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Tooltip"], 'orange'),
+			name = F.cOption(L["Tooltip"], "orange"),
 		},
 		modifier = {
 			order = 1,
@@ -40,7 +40,7 @@ options.tooltip = {
 				ALT_SHIFT = format("%s + %s", L["Alt"], L["Shift"]),
 				CTRL_SHIFT = format("%s + %s", L["Ctrl"], L["Shift"]),
 				CTRL_ALT = format("%s + %s", L["Ctrl"], L["Alt"]),
-				CTRL_ALT_SHIFT = format("%s + %s + %s", L["Ctrl"], L["Alt"], L["Shift"])
+				CTRL_ALT_SHIFT = format("%s + %s + %s", L["Ctrl"], L["Alt"], L["Shift"]),
 			},
 		},
 		spacer = {
@@ -83,15 +83,18 @@ options.tooltip = {
 			guiInline = true,
 			name = "",
 			desc = L["Shows the Unit Name on the mouse."],
-			get = function(info) return E.db.mui.nameHover[info[#info]] end,
+			get = function(info)
+				return E.db.mui.nameHover[info[#info]]
+			end,
 			set = function(info, value)
-				E.db.mui.nameHover[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+				E.db.mui.nameHover[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
 				header = {
 					order = 0,
 					type = "header",
-					name = F.cOption(L["Name Hover"], 'orange'),
+					name = F.cOption(L["Name Hover"], "orange"),
 				},
 				enable = {
 					order = 1,
@@ -122,7 +125,7 @@ options.tooltip = {
 					order = 5,
 					type = "toggle",
 					name = L["Gradient Color"],
-					desc = L["Colors the player names in a gradient instead of class color"]
+					desc = L["Colors the player names in a gradient instead of class color"],
 				},
 			},
 		},
@@ -142,7 +145,7 @@ options.tooltip = {
 				header = {
 					order = 0,
 					type = "header",
-					name = F.cOption(E.NewSign .. L["Health Bar"], 'orange'),
+					name = F.cOption(E.NewSign .. L["Health Bar"], "orange"),
 				},
 				yOffsetOfHealthBar = {
 					order = 1,
@@ -151,7 +154,7 @@ options.tooltip = {
 					desc = L["Change the postion of the health bar."],
 					min = -50,
 					max = 50,
-					step = 1
+					step = 1,
 				},
 				yOffsetOfHealthText = {
 					order = 2,
@@ -160,7 +163,7 @@ options.tooltip = {
 					desc = L["Change the postion of the health text."],
 					min = -50,
 					max = 50,
-					step = 1
+					step = 1,
 				},
 			},
 		},
@@ -173,18 +176,19 @@ options.tooltip = {
 			end,
 			set = function(info, value)
 				E.db.mui.tooltip.groupInfo[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			name = "",
 			args = {
 				header = {
 					order = 0,
 					type = "header",
-					name = F.cOption(E.NewSign .. L["Group Info"], 'orange'),
+					name = F.cOption(E.NewSign .. L["Group Info"], "orange"),
 				},
 				credits = {
 					order = 1,
 					type = "group",
-					name = F.cOption(L["Credits"], 'orange'),
+					name = F.cOption(L["Credits"], "orange"),
 					guiInline = true,
 					args = {
 						tukui = {
@@ -198,13 +202,13 @@ options.tooltip = {
 					order = 2,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["Add LFG group info to tooltip."]
+					desc = L["Add LFG group info to tooltip."],
 				},
 				title = {
 					order = 3,
 					type = "toggle",
 					name = L["Add Title"],
-					desc = L["Display an additional title."]
+					desc = L["Display an additional title."],
 				},
 				mode = {
 					order = 4,
@@ -212,8 +216,8 @@ options.tooltip = {
 					type = "select",
 					values = {
 						NORMAL = L["Normal"],
-						COMPACT = L["Compact"]
-					}
+						COMPACT = L["Compact"],
+					},
 				},
 				classIconStyle = {
 					order = 5,
@@ -231,13 +235,13 @@ options.tooltip = {
 							end
 						end
 						return result
-					end
+					end,
 				},
 				betterAlign1 = {
 					order = 6,
 					type = "description",
 					name = "",
-					width = "full"
+					width = "full",
 				},
 				template = {
 					order = 7,
@@ -250,7 +254,7 @@ options.tooltip = {
 					end,
 					set = function(info, value)
 						cache.groupInfo.template = value
-					end
+					end,
 				},
 				resourcePage = {
 					order = 8,
@@ -280,7 +284,7 @@ options.tooltip = {
 								"https://github.com/fang2hou/ElvUI_WindTools/wiki/LFG-Player-Info"
 							)
 						end
-					end
+					end,
 				},
 				useDefaultTemplate = {
 					order = 9,
@@ -289,7 +293,7 @@ options.tooltip = {
 					func = function(info)
 						E.db.mui.tooltip[info[#info - 1]].template = P.tooltip[info[#info - 1]].template
 						cache.groupInfo.template = nil
-					end
+					end,
 				},
 				applyButton = {
 					order = 10,
@@ -300,13 +304,13 @@ options.tooltip = {
 					end,
 					func = function(info)
 						E.db.mui.tooltip[info[#info - 1]].template = cache.groupInfo.template
-					end
+					end,
 				},
 				betterAlign2 = {
 					order = 11,
 					type = "description",
 					name = "",
-					width = "full"
+					width = "full",
 				},
 				previewText = {
 					order = 12,
@@ -316,9 +320,9 @@ options.tooltip = {
 						local text =
 							LFGPI:ConductPreview(cache.groupInfo.template or E.db.mui.tooltip[info[#info - 1]].template)
 						return L["Preview"] .. ": " .. text
-					end
-				}
-			}
-		}
+					end,
+				},
+			},
+		},
 	},
 }

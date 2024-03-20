@@ -423,6 +423,13 @@ function MER:CheckCompatibility()
 		"private.WT.skins.addons.auctionator"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["Tooltip"], L["Group Info"]),
+		format("%s-%s", L["Tooltip"], L["Group Info"]),
+		"db.mui.tooltip.groupInfo.enable",
+		"db.WT.tooltips.groupInfo.enable"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],

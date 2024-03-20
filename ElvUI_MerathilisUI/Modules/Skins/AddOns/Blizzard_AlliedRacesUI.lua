@@ -12,14 +12,12 @@ function module:Blizzard_AlliedRacesUI()
 	local AlliedRacesFrame = _G.AlliedRacesFrame
 
 	module:CreateBackdropShadow(AlliedRacesFrame)
-	select(2, AlliedRacesFrame.ModelFrame:GetRegions()):Hide()
+	select(2, AlliedRacesFrame.ModelScene:GetRegions()):Hide()
 	AlliedRacesFrame.FrameBackground:Hide()
 
 	local scrollFrame = AlliedRacesFrame.RaceInfoFrame.ScrollFrame
 	scrollFrame.Child.ObjectivesFrame:StripTextures()
 	scrollFrame.Child.ObjectivesFrame:SetTemplate("Transparent")
-	scrollFrame.ScrollBar.ScrollUpBorder:Hide()
-	scrollFrame.ScrollBar.ScrollDownBorder:Hide()
 
 	AlliedRacesFrame.RaceInfoFrame.AlliedRacesRaceName:SetTextColor(1, .8, 0)
 	scrollFrame.Child.RaceDescriptionText:SetTextColor(1, 1, 1)

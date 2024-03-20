@@ -1,5 +1,6 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule('MER_Chat')
+local LA = MER:GetModule('MER_Layout')
 local CH = E:GetModule('Chat')
 local LO = E:GetModule('Layout')
 local S = E:GetModule('Skins')
@@ -207,9 +208,47 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 	end
 end)
 
+function module:UpdateEditboxAnchors()
+	for _, name in pairs(CHAT_FRAMES) do
+		local frame = _G[name]
+		local editbox = frame and frame.editBox
+		if not editbox then
+			break
+		end
+
+		editbox:ClearAllPoints()
+
+		if E.db.datatexts.leftChatPanel and E.db.chat.editBoxPosition == 'BELOW_CHAT' then
+			editbox:SetAllPoints(LeftChatDataPanel)
+		elseif E.db.mui.chat.enable and _G.MERDummyChat and E.db.mui.chat.editBoxPosition == 'BELOW_CHAT' then
+			editbox:SetAllPoints(MERDummyChat)
+		elseif E.ActionBars.Initialized and E.db.actionbar.bar1.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_1' then
+			LA:PositionEditBoxHolder(ElvUI_Bar1)
+			editbox:SetAllPoints(MERDummyEditBoxHolder)
+		elseif E.ActionBars.Initialized and E.db.actionbar.bar2.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_2' then
+			LA:PositionEditBoxHolder(ElvUI_Bar2)
+			editbox:SetAllPoints(MERDummyEditBoxHolder)
+		elseif E.ActionBars.Initialized and E.db.actionbar.bar3.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_3' then
+			LA:PositionEditBoxHolder(ElvUI_Bar3)
+			editbox:SetAllPoints(MERDummyEditBoxHolder)
+		elseif E.ActionBars.Initialized and E.db.actionbar.bar4.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_4' then
+			LA:PositionEditBoxHolder(ElvUI_Bar4)
+			editbox:SetAllPoints(MERDummyEditBoxHolder)
+		elseif E.ActionBars.Initialized and E.db.actionbar.bar5.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_5' then
+			LA:PositionEditBoxHolder(ElvUI_Bar5)
+			editbox:SetAllPoints(MERDummyEditBoxHolder)
+		elseif E.ActionBars.Initialized and E.db.actionbar.bar6.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_6' then
+			LA:PositionEditBoxHolder(ElvUI_Bar6, true)
+			editbox:SetAllPoints(MERDummyEditBoxHolder)
+		else
+			editbox:SetAllPoints(LeftChatTab)
+		end
+	end
+end
+
 function module:Initialize()
 	module.db = E.db.mui.chat
-	if not module.db or not E.private.chat.enable then
+	if (not module.db and module.db.enable) or not E.private.chat.enable then
 		return
 	end
 
@@ -218,6 +257,8 @@ function module:Initialize()
 	module:UpdateSeperators()
 	module:CreateChatButtons()
 	module:ChatFilter()
+	module:UpdateEditboxAnchors()
+	hooksecurefunc(CH, "UpdateEditboxAnchors", module.UpdateEditboxAnchors)
 end
 
 MER:RegisterModule(module:GetName())
