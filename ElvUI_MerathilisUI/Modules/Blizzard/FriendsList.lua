@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_FriendsList')
+local module = MER:GetModule("MER_FriendsList")
 
 local _G = _G
 local format = format
@@ -61,67 +61,67 @@ local projectCodes = {
 	["S1"] = "StarCraft",
 	["WOW"] = "World of Warcraft",
 	["PRO"] = "Overwatch",
-	["PRO-ZHCN"] = "Overwatch"
+	["PRO-ZHCN"] = "Overwatch",
 }
 
 local clientData = {
 	["Diablo Immortal"] = {
-		color = { r = 0.768, g = 0.121, b = 0.231 }
+		color = { r = 0.768, g = 0.121, b = 0.231 },
 	},
 	["Heroes of the Storm"] = {
-		color = { r = 0, g = 0.8, b = 1 }
+		color = { r = 0, g = 0.8, b = 1 },
 	},
 	["Diablo II"] = {
-		color = { r = 0.768, g = 0.121, b = 0.231 }
+		color = { r = 0.768, g = 0.121, b = 0.231 },
 	},
 	["StarCraft II"] = {
-		color = { r = 0.749, g = 0.501, b = 0.878 }
+		color = { r = 0.749, g = 0.501, b = 0.878 },
 	},
 	["Call of Duty: Black Ops 4"] = {
-		color = { r = 0, g = 0.8, b = 0 }
+		color = { r = 0, g = 0.8, b = 0 },
 	},
 	["WarCraft III"] = {
-		color = { r = 0.796, g = 0.247, b = 0.145 }
+		color = { r = 0.796, g = 0.247, b = 0.145 },
 	},
 	["Battle.net App"] = {
-		color = { r = 0.509, g = 0.772, b = 1 }
+		color = { r = 0.509, g = 0.772, b = 1 },
 	},
 	["Call of Duty: Vanguard"] = {
-		color = { r = 0, g = 0.8, b = 0 }
+		color = { r = 0, g = 0.8, b = 0 },
 	},
 	["Call of Duty: MW2 Campaign Remastered"] = {
-		color = { r = 0, g = 0.8, b = 0 }
+		color = { r = 0, g = 0.8, b = 0 },
 	},
 	["Blizzard Arcade Collection"] = {
-		color = { r = 0.509, g = 0.772, b = 1 }
+		color = { r = 0.509, g = 0.772, b = 1 },
 	},
 	["Crash Bandicoot 4: It's About Time"] = {
-		color = { r = 0.509, g = 0.772, b = 1 }
+		color = { r = 0.509, g = 0.772, b = 1 },
 	},
 	["Hearthstone"] = {
-		color = { r = 1, g = 0.694, b = 0 }
+		color = { r = 1, g = 0.694, b = 0 },
 	},
 	["Call of Duty: Blac Ops Cold War"] = {
-		color = { r = 0, g = 0.8, b = 0 }
+		color = { r = 0, g = 0.8, b = 0 },
 	},
 	["Diablo III"] = {
-		color = { r = 0.768, g = 0.121, b = 0.231 }
+		color = { r = 0.768, g = 0.121, b = 0.231 },
 	},
 	["Warcraft Arclight Rumble"] = {
-		color = { r = 0.945, g = 0.757, b = 0.149 }
+		color = { r = 0.945, g = 0.757, b = 0.149 },
 	},
 	["Call of Duty: Mordern Warfare II"] = {
-		color = { r = 0, g = 0.8, b = 0 }
+		color = { r = 0, g = 0.8, b = 0 },
 	},
 	["StarCraft"] = {
-		color = { r = 0.749, g = 0.501, b = 0.878 }
+		color = { r = 0.749, g = 0.501, b = 0.878 },
 	},
 	["World of Warcraft"] = {
-		color = { r = 0.866, g = 0.690, b = 0.180 }
+		color = { r = 0.866, g = 0.690, b = 0.180 },
 	},
 	["Overwatch"] = {
-		color = { r = 1, g = 1, b = 1 }
-	}
+		color = { r = 1, g = 1, b = 1 },
+	},
 }
 
 for code, name in pairs(projectCodes) do
@@ -129,7 +129,7 @@ for code, name in pairs(projectCodes) do
 		if code ~= "PRO-ZHCN" then -- There is a special Overwatch Chinese version
 			clientData[name]["icon"] = {
 				modern = MediaPath .. "GameIcons\\" .. code,
-				blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", code)
+				blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", code),
 			}
 		end
 	end
@@ -142,8 +142,8 @@ local expansionData = {
 		maxLevel = GetMaxLevelForPlayerExpansion(),
 		icon = {
 			modern = MediaPath .. "GameIcons\\WOW_Retail",
-			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW")
-		}
+			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
+		},
 	},
 	[WOW_PROJECT_CLASSIC] = {
 		name = "Classic",
@@ -151,8 +151,8 @@ local expansionData = {
 		maxLevel = 60,
 		icon = {
 			modern = MediaPath .. "GameIcons\\WOW_Classic",
-			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW")
-		}
+			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
+		},
 	},
 	[WOW_PROJECT_BURNING_CRUSADE_CLASSIC] = {
 		name = "TBC",
@@ -160,8 +160,8 @@ local expansionData = {
 		maxLevel = 70,
 		icon = {
 			modern = MediaPath .. "GameIcons\\WOW_TBC",
-			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW")
-		}
+			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
+		},
 	},
 	[WOW_PROJECT_WRATH_CLASSIC] = {
 		name = "WotLK",
@@ -169,14 +169,14 @@ local expansionData = {
 		maxLevel = 80,
 		icon = {
 			modern = MediaPath .. "GameIcons\\WOW_WotLK",
-			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW")
-		}
-	}
+			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
+		},
+	},
 }
 
 local factionIcons = {
 	["Alliance"] = MediaPath .. "Alliance",
-	["Horde"] = MediaPath .. "Horde"
+	["Horde"] = MediaPath .. "Horde",
 }
 
 local statusIcons = {
@@ -184,20 +184,20 @@ local statusIcons = {
 		Online = FRIENDS_TEXTURE_ONLINE,
 		Offline = FRIENDS_TEXTURE_OFFLINE,
 		DND = FRIENDS_TEXTURE_DND,
-		AFK = FRIENDS_TEXTURE_AFK
+		AFK = FRIENDS_TEXTURE_AFK,
 	},
 	square = {
 		Online = MediaPath .. "StatusIcons\\Square\\Online",
 		Offline = MediaPath .. "StatusIcons\\Square\\Offline",
 		DND = MediaPath .. "StatusIcons\\Square\\DND",
-		AFK = MediaPath .. "StatusIcons\\Square\\AFK"
+		AFK = MediaPath .. "StatusIcons\\Square\\AFK",
 	},
 	d3 = {
 		Online = MediaPath .. "StatusIcons\\D3\\Online",
 		Offline = MediaPath .. "StatusIcons\\D3\\Offline",
 		DND = MediaPath .. "StatusIcons\\D3\\DND",
-		AFK = MediaPath .. "StatusIcons\\D3\\AFK"
-	}
+		AFK = MediaPath .. "StatusIcons\\D3\\AFK",
+	},
 }
 
 local regionLocales = {
@@ -205,7 +205,7 @@ local regionLocales = {
 	[2] = L["Korea"],
 	[3] = L["Europe"],
 	[4] = L["Taiwan"],
-	[5] = L["China"]
+	[5] = L["China"],
 }
 
 local function GetClassColor(className)
@@ -225,7 +225,9 @@ local function GetClassColor(className)
 end
 
 function module:UpdateFriendButton(button)
-	if not button then return end
+	if not button then
+		return
+	end
 
 	if not self.db.enable then
 		if cache.name and cache.info then
@@ -302,6 +304,8 @@ function module:UpdateFriendButton(button)
 					local suffix = expansionData[wowID].suffix and " (" .. expansionData[wowID].suffix .. ")" or ""
 					local serverStrings = { strsplit(" - ", gameAccountInfo.richPresence) }
 					server = (serverStrings[#serverStrings] or BNET_FRIEND_TOOLTIP_WOW_CLASSIC .. suffix) .. "*"
+				elseif wowID and wowID == 1 and name == "" then
+					server = gameAccountInfo.richPresence -- Plunderstorm
 				else
 					server = gameAccountInfo.realmDisplayName or ""
 				end
@@ -347,9 +351,9 @@ function module:UpdateFriendButton(button)
 		end
 
 		-- combine Real ID and Name
-		if nameString and realIDString then
+		if nameString and nameString ~= "" and realIDString and realIDString ~= "" then
 			buttonTitle = realIDString .. " \124\124 " .. nameString
-		elseif nameString then
+		elseif nameString and nameString ~= "" then
 			buttonTitle = nameString
 		else
 			buttonTitle = realIDString or ""
@@ -359,13 +363,19 @@ function module:UpdateFriendButton(button)
 
 		-- area
 		if area then
-			if server and server ~= "" and server ~= E.myrealm then
+			if area and area ~= "" and server and server ~= "" and server ~= E.myrealm then
 				buttonText = F.CreateColorString(area .. " - " .. server, module.db.areaColor)
-			else
+			elseif area and area ~= "" then
 				buttonText = F.CreateColorString(area, module.db.areaColor)
+			else
+				buttonText = server or ""
 			end
 
-			if not isInCurrentRegion and regionLocales[regionID] and not E.db.mui.blizzard.filter.unblockProfanityFilter then
+			if
+				not isInCurrentRegion
+				and regionLocales[regionID]
+				and not E.db.mui.blizzard.filter.unblockProfanityFilter
+			then
 				-- Unblocking profanity filter will change the region
 				local regionText = format("[%s]", regionLocales[regionID])
 				buttonText = buttonText .. " " .. F.CreateColorString(regionText, { r = 0.62, g = 0.62, b = 0.62 })
@@ -398,7 +408,7 @@ function module:UpdateFriendButton(button)
 				button.gameIcon:SetTexCoord(0, 1, 0, 1)
 			else
 				button.gameIcon:SetTexture(texOrAtlas)
-				button.gameIcon:SetTexCoord(.1, .9, .1, .9)
+				button.gameIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 			end
 		end
 	else
@@ -413,7 +423,7 @@ function module:UpdateFriendButton(button)
 		cache.name = {
 			name = name,
 			size = size,
-			style = style
+			style = style,
 		}
 	end
 
@@ -422,7 +432,7 @@ function module:UpdateFriendButton(button)
 		cache.info = {
 			name = name,
 			size = size,
-			style = style
+			style = style,
 		}
 	end
 
