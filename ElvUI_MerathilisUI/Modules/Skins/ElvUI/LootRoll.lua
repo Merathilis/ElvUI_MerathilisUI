@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local module = MER:GetModule("MER_Skins")
 local M = E:GetModule("Misc")
 
 local _G = _G
@@ -12,12 +12,12 @@ function module:ElvUI_SkinLootRollFrame(frame)
 		return
 	end
 
-	frame.button.__Point = frame.button.Point
+	frame.button.__MERPoint = frame.button.Point
 	frame.button.Point = function(f, anchor, parent, point, x, y)
 		if anchor == "RIGHT" and parent == frame and point == "LEFT" then
-			f:__Point(anchor, parent, point, x and x - 4, y)
+			f:__MERPoint(anchor, parent, point, x and x - 4, y)
 		else
-			f:__Point(anchor, parent, point, x, y)
+			f:__MERPoint(anchor, parent, point, x, y)
 		end
 	end
 
