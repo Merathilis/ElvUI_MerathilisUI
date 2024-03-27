@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local module = MER:GetModule("MER_Skins")
 local options = MER.options.skins.args
 local LSM = E.Libs.LSM
 
@@ -11,25 +11,25 @@ local tinsert = table.insert
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local DecorAddons = {
-	{ "ACP",                 L["AddOn Control Panel"], "acp" },
-	{ "ActionBarProfiles",   L["ActonBarProfiles"],    "abp" },
-	{ "Auctionator",         L["Auctionator"],         "au" },
-	{ "BagSync",             L["BagSync"],             "bSync" },
-	{ "cargBags_Nivaya",     L["cargBags_Nivaya"],     "cbn" },
-	{ "Clique",              L["Clique"],              "cl" },
-	{ "ElvUI_BenikUI",       L["BenikUI"],             "bui" },
-	{ "BugSack",             L["BugSack"],             "bs" },
-	{ "GlobalIgnoreList",    L["GlobalIgnoreList"],    "gil" },
-	{ "Immersion",           L["Immersion"],           "imm" },
-	{ "OmniCD",              L["OmniCD"],              "omniCD" },
-	{ "Pawn",                L["Pawn"],                "pawn" },
-	{ "ProjectAzilroka",     L["ProjectAzilroka"],     "pa" },
+	{ "ACP", L["AddOn Control Panel"], "acp" },
+	{ "ActionBarProfiles", L["ActonBarProfiles"], "abp" },
+	{ "Auctionator", L["Auctionator"], "au" },
+	{ "BagSync", L["BagSync"], "bSync" },
+	{ "cargBags_Nivaya", L["cargBags_Nivaya"], "cbn" },
+	{ "Clique", L["Clique"], "cl" },
+	{ "ElvUI_BenikUI", L["BenikUI"], "bui" },
+	{ "BugSack", L["BugSack"], "bs" },
+	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
+	{ "Immersion", L["Immersion"], "imm" },
+	{ "OmniCD", L["OmniCD"], "omniCD" },
+	{ "Pawn", L["Pawn"], "pawn" },
+	{ "ProjectAzilroka", L["ProjectAzilroka"], "pa" },
 	{ "PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf" },
-	{ "RaiderIO",            L["RaiderIO"],            "rio" },
-	{ "ls_Toasts",           L["ls_Toasts"],           "ls" },
-	{ "TLDRMissions",        L["TLDRMissions"],        "tldr" },
-	{ "IRememberYou",        L["I Remember you"],      "iry" },
-	{ "TalentLoadoutsEx",    L["TalentLoadoutsEx"],    "tlx" },
+	{ "RaiderIO", L["RaiderIO"], "rio" },
+	{ "ls_Toasts", L["ls_Toasts"], "ls" },
+	{ "TLDRMissions", L["TLDRMissions"], "tldr" },
+	{ "IRememberYou", L["I Remember you"], "iry" },
+	{ "TalentLoadoutsEx", L["TalentLoadoutsEx"], "tlx" },
 }
 if F.IsDeveloper() then
 	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "wa" })
@@ -37,16 +37,15 @@ if F.IsDeveloper() then
 end
 
 local SupportedProfiles = {
-	{ "AddOnSkins",      "AddOnSkins" },
-	{ "BigWigs",         "BigWigs" },
-	{ "Details",         "Details" },
-	{ "ElvUI_FCT",       "FCT" },
+	{ "AddOnSkins", "AddOnSkins" },
+	{ "BigWigs", "BigWigs" },
+	{ "Details", "Details" },
+	{ "ElvUI_FCT", "FCT" },
 	{ "ElvUI_mMediaTag", "mMediaTag & Tools" },
 	{ "ProjectAzilroka", "ProjectAzilroka" },
-	{ "ls_Toasts",       "ls_Toasts" },
-	{ "DBM-Core",        "Deadly Boss Mods" },
-	{ "Touhin",          "Touhin" },
-	{ "OmniCD",          "OmniCD" },
+	{ "ls_Toasts", "ls_Toasts" },
+	{ "Touhin", "Touhin" },
+	{ "OmniCD", "OmniCD" },
 }
 
 local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -61,33 +60,41 @@ end
 
 options.general = {
 	order = 1,
-	type = 'group',
+	type = "group",
 	name = L["General"],
-	get = function(info) return E.private.mui.skins[info[#info]] end,
+	get = function(info)
+		return E.private.mui.skins[info[#info]]
+	end,
 	set = function(info, value)
-		E.private.mui.skins[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
+		E.private.mui.skins[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
 	end,
 	args = {
 		header = {
 			order = 0,
-			type = 'header',
-			name = F.cOption(L["General"], 'orange'),
+			type = "header",
+			name = F.cOption(L["General"], "orange"),
 		},
 		enable = {
 			order = 1,
 			type = "toggle",
 			name = L["Enable"],
 			width = "full",
-			get = function(info) return E.private.mui.skins[info[#info]] end,
+			get = function(info)
+				return E.private.mui.skins[info[#info]]
+			end,
 			set = function(info, value)
-				E.private.mui.skins[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
+				E.private.mui.skins[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
 		general = {
 			order = 2,
 			type = "group",
 			name = L["General"],
-			disabled = function() return not E.private.mui.skins.enable end,
+			disabled = function()
+				return not E.private.mui.skins.enable
+			end,
 			args = {
 				shadowOverlay = {
 					order = 1,
@@ -98,11 +105,14 @@ options.general = {
 				shadow = {
 					order = 8,
 					type = "group",
-					name = F.cOption(L["Shadows"], 'orange'),
+					name = F.cOption(L["Shadows"], "orange"),
 					guiInline = true,
-					get = function(info) return E.private.mui.skins.shadow[info[#info]] end,
+					get = function(info)
+						return E.private.mui.skins.shadow[info[#info]]
+					end,
 					set = function(info, value)
-						E.private.mui.skins.shadow[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+						E.private.mui.skins.shadow[info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					args = {
 						enable = {
@@ -117,7 +127,7 @@ options.general = {
 							desc = L["Make shadow thicker."],
 							min = 0,
 							max = 10,
-							step = 1
+							step = 1,
 						},
 						color = {
 							order = 3,
@@ -136,7 +146,7 @@ options.general = {
 							end,
 							disabled = function()
 								return not E.private.mui.skins.enable
-							end
+							end,
 						},
 					},
 				},
@@ -168,7 +178,7 @@ options.font = {
 					type = "select",
 					dialogControl = "LSM30_Font",
 					name = L["Font"],
-					values = LSM:HashTable("font")
+					values = LSM:HashTable("font"),
 				},
 				style = {
 					order = 2,
@@ -182,7 +192,7 @@ options.font = {
 					type = "range",
 					min = 5,
 					max = 60,
-					step = 1
+					step = 1,
 				},
 			},
 		},
@@ -201,21 +211,23 @@ options.font = {
 			args = {
 				header = {
 					order = 0,
-					type = 'header',
-					name = F.cOption(L["Roll Result"], 'orange'),
+					type = "header",
+					name = F.cOption(L["Roll Result"], "orange"),
 				},
 				tip = {
 					order = 1,
 					type = "description",
-					name = format(L["It only works when you enable the skin (%s)."],
-						format("%s - %s", L["Blizzard"], L["Loot"]))
+					name = format(
+						L["It only works when you enable the skin (%s)."],
+						format("%s - %s", L["Blizzard"], L["Loot"])
+					),
 				},
 				name = {
 					order = 2,
 					type = "select",
 					dialogControl = "LSM30_Font",
 					name = L["Font"],
-					values = LSM:HashTable("font")
+					values = LSM:HashTable("font"),
 				},
 				style = {
 					order = 3,
@@ -230,7 +242,7 @@ options.font = {
 					type = "range",
 					min = 5,
 					max = 60,
-					step = 1
+					step = 1,
 				},
 			},
 		},
@@ -241,19 +253,21 @@ options.widgets = {
 	order = 3,
 	type = "group",
 	name = L["Widgets"],
-	disabled = function() return not E.private.mui.skins.enable end,
+	disabled = function()
+		return not E.private.mui.skins.enable
+	end,
 	args = {
 		desc = {
 			order = 1,
 			type = "description",
 			name = MER.InfoColor .. L["These skins will affect all widgets handled by ElvUI Skins."],
 			width = "full",
-			fontSize = "medium"
+			fontSize = "medium",
 		},
 		header = {
 			order = 2,
-			type = 'header',
-			name = F.cOption(L["Widgets"], 'orange'),
+			type = "header",
+			name = F.cOption(L["Widgets"], "orange"),
 		},
 		enableAll = {
 			order = 3,
@@ -264,7 +278,7 @@ options.widgets = {
 					E.private.mui.skins.widgets[key].enable = true
 				end
 				E:StaticPopup_Show("PRIVATE_RL")
-			end
+			end,
 		},
 		disableAll = {
 			order = 4,
@@ -275,7 +289,7 @@ options.widgets = {
 					E.private.mui.skins.widgets[key].enable = false
 				end
 				E:StaticPopup_Show("PRIVATE_RL")
-			end
+			end,
 		},
 		button = {
 			order = 10,
@@ -296,7 +310,7 @@ options.widgets = {
 					set = function(info, value)
 						E.private.mui.skins.widgets[info[#info - 1]][info[#info]] = value
 						E:StaticPopup_Show("PRIVATE_RL")
-					end
+					end,
 				},
 				tip = {
 					order = 2,
@@ -307,7 +321,7 @@ options.widgets = {
 					end,
 					imageCoords = function(info)
 						return F.GetWidgetTips(info[#info - 1])
-					end
+					end,
 				},
 				backdrop = {
 					order = 3,
@@ -322,8 +336,8 @@ options.widgets = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					disabled = function(info)
-						return not E.private.mui.skins.widgets[info[#info - 2]].enable or
-							not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
+						return not E.private.mui.skins.widgets[info[#info - 2]].enable
+							or not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
 					end,
 					args = {
 						enable = {
@@ -333,25 +347,25 @@ options.widgets = {
 							width = "full",
 							disabled = function(info)
 								return not E.private.mui.skins.widgets[info[#info - 2]].enable
-							end
+							end,
 						},
 						texture = {
 							order = 2,
 							type = "select",
 							name = L["Texture"],
 							dialogControl = "LSM30_Statusbar",
-							values = LSM:HashTable("statusbar")
+							values = LSM:HashTable("statusbar"),
 						},
 						removeBorderEffect = {
 							order = 3,
 							type = "toggle",
 							name = L["Remove Border Effect"],
-							width = 1.5
+							width = 1.5,
 						},
 						classColor = {
 							order = 4,
 							type = "toggle",
-							name = L["Class Color"]
+							name = L["Class Color"],
 						},
 						color = {
 							order = 5,
@@ -369,7 +383,7 @@ options.widgets = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						alpha = {
 							order = 6,
@@ -377,7 +391,7 @@ options.widgets = {
 							name = L["Alpha"],
 							min = 0,
 							max = 1,
-							step = 0.01
+							step = 0.01,
 						},
 						animationType = {
 							order = 7,
@@ -386,8 +400,8 @@ options.widgets = {
 							desc = L["The type of animation activated when a button is hovered."],
 							hidden = true,
 							values = {
-								FADE = L["Fade"]
-							}
+								FADE = L["Fade"],
+							},
 						},
 						animationDuration = {
 							order = 8,
@@ -396,7 +410,7 @@ options.widgets = {
 							desc = L["The duration of the animation in seconds."],
 							min = 0,
 							max = 3,
-							step = 0.01
+							step = 0.01,
 						},
 					},
 				},
@@ -413,8 +427,8 @@ options.widgets = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					disabled = function(info)
-						return not E.private.mui.skins.widgets[info[#info - 2]].enable or
-							not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
+						return not E.private.mui.skins.widgets[info[#info - 2]].enable
+							or not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
 					end,
 					args = {
 						enable = {
@@ -424,13 +438,13 @@ options.widgets = {
 							width = "full",
 							disabled = function(info)
 								return not E.private.mui.skins.widgets[info[#info - 2]].enable
-							end
+							end,
 						},
 						backdropClassColor = {
 							order = 2,
 							type = "toggle",
 							name = L["Backdrop Class Color"],
-							width = 1.5
+							width = 1.5,
 						},
 						backdropColor = {
 							order = 3,
@@ -448,7 +462,7 @@ options.widgets = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						backdropAlpha = {
 							order = 4,
@@ -456,13 +470,13 @@ options.widgets = {
 							name = L["Backdrop Alpha"],
 							min = 0,
 							max = 1,
-							step = 0.01
+							step = 0.01,
 						},
 						borderClassColor = {
 							order = 5,
 							type = "toggle",
 							name = L["Border Class Color"],
-							width = 1.5
+							width = 1.5,
 						},
 						borderColor = {
 							order = 6,
@@ -480,7 +494,7 @@ options.widgets = {
 							set = function(info, r, g, b, a)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						borderAlpha = {
 							order = 7,
@@ -488,7 +502,7 @@ options.widgets = {
 							name = L["Border Alpha"],
 							min = 0,
 							max = 1,
-							step = 0.01
+							step = 0.01,
 						},
 					},
 				},
@@ -505,8 +519,8 @@ options.widgets = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					disabled = function(info)
-						return not E.private.mui.skins.widgets[info[#info - 2]].enable or
-							not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
+						return not E.private.mui.skins.widgets[info[#info - 2]].enable
+							or not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
 					end,
 					args = {
 						enable = {
@@ -516,7 +530,7 @@ options.widgets = {
 							width = "full",
 							disabled = function(info)
 								return not E.private.mui.skins.widgets[info[#info - 2]].enable
-							end
+							end,
 						},
 						font = {
 							order = 6,
@@ -524,8 +538,8 @@ options.widgets = {
 							inline = true,
 							name = L["Font Setting"],
 							disabled = function(info)
-								return not E.private.mui.skins.widgets[info[#info - 3]].enable or
-									not E.private.mui.skins.widgets[info[#info - 3]][info[#info - 2]].enable
+								return not E.private.mui.skins.widgets[info[#info - 3]].enable
+									or not E.private.mui.skins.widgets[info[#info - 3]][info[#info - 2]].enable
 							end,
 							get = function(info)
 								return E.private.mui.skins.widgets[info[#info - 3]][info[#info - 2]].font[info[#info]]
@@ -540,7 +554,7 @@ options.widgets = {
 									type = "select",
 									dialogControl = "LSM30_Font",
 									name = L["Font"],
-									values = LSM:HashTable("font")
+									values = LSM:HashTable("font"),
 								},
 								style = {
 									order = 2,
@@ -574,7 +588,7 @@ options.widgets = {
 					set = function(info, value)
 						E.private.mui.skins.widgets[info[#info - 1]][info[#info]] = value
 						E:StaticPopup_Show("PRIVATE_RL")
-					end
+					end,
 				},
 				tip = {
 					order = 2,
@@ -585,7 +599,7 @@ options.widgets = {
 					end,
 					imageCoords = function(info)
 						return F.GetWidgetTips(info[#info - 1])
-					end
+					end,
 				},
 				backdrop = {
 					order = 3,
@@ -600,8 +614,8 @@ options.widgets = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					disabled = function(info)
-						return not E.private.mui.skins.widgets[info[#info - 2]].enable or
-							not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
+						return not E.private.mui.skins.widgets[info[#info - 2]].enable
+							or not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
 					end,
 					args = {
 						enable = {
@@ -611,19 +625,19 @@ options.widgets = {
 							width = "full",
 							disabled = function(info)
 								return not E.private.mui.skins.widgets[info[#info - 2]].enable
-							end
+							end,
 						},
 						texture = {
 							order = 2,
 							type = "select",
 							name = L["Texture"],
 							dialogControl = "LSM30_Statusbar",
-							values = LSM:HashTable("statusbar")
+							values = LSM:HashTable("statusbar"),
 						},
 						classColor = {
 							order = 3,
 							type = "toggle",
-							name = L["Class Color"]
+							name = L["Class Color"],
 						},
 						color = {
 							order = 4,
@@ -641,7 +655,7 @@ options.widgets = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						alpha = {
 							order = 5,
@@ -649,7 +663,7 @@ options.widgets = {
 							name = L["Alpha"],
 							min = 0,
 							max = 1,
-							step = 0.01
+							step = 0.01,
 						},
 						animationType = {
 							order = 6,
@@ -658,8 +672,8 @@ options.widgets = {
 							desc = L["The type of animation activated when a button is hovered."],
 							hidden = true,
 							values = {
-								FADE = L["Fade"]
-							}
+								FADE = L["Fade"],
+							},
 						},
 						animationDuration = {
 							order = 7,
@@ -668,7 +682,7 @@ options.widgets = {
 							desc = L["The duration of the animation in seconds."],
 							min = 0,
 							max = 3,
-							step = 0.01
+							step = 0.01,
 						},
 					},
 				},
@@ -685,8 +699,8 @@ options.widgets = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					disabled = function(info)
-						return not E.private.mui.skins.widgets[info[#info - 2]].enable or
-							not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
+						return not E.private.mui.skins.widgets[info[#info - 2]].enable
+							or not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
 					end,
 					args = {
 						enable = {
@@ -696,20 +710,20 @@ options.widgets = {
 							width = "full",
 							disabled = function(info)
 								return not E.private.mui.skins.widgets[info[#info - 2]].enable
-							end
+							end,
 						},
 						texture = {
 							order = 2,
 							type = "select",
 							name = L["Texture"],
 							dialogControl = "LSM30_Statusbar",
-							values = LSM:HashTable("statusbar")
+							values = LSM:HashTable("statusbar"),
 						},
 						backdropClassColor = {
 							order = 3,
 							type = "toggle",
 							name = L["Backdrop Class Color"],
-							width = 1.5
+							width = 1.5,
 						},
 						backdropColor = {
 							order = 4,
@@ -727,7 +741,7 @@ options.widgets = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						backdropAlpha = {
 							order = 5,
@@ -735,13 +749,13 @@ options.widgets = {
 							name = L["Backdrop Alpha"],
 							min = 0,
 							max = 1,
-							step = 0.01
+							step = 0.01,
 						},
 						borderClassColor = {
 							order = 6,
 							type = "toggle",
 							name = L["Border Class Color"],
-							width = 1.5
+							width = 1.5,
 						},
 						borderColor = {
 							order = 7,
@@ -759,7 +773,7 @@ options.widgets = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						borderAlpha = {
 							order = 8,
@@ -767,9 +781,9 @@ options.widgets = {
 							name = L["Border Alpha"],
 							min = 0,
 							max = 1,
-							step = 0.01
-						}
-					}
+							step = 0.01,
+						},
+					},
 				},
 				text = {
 					order = 5,
@@ -784,8 +798,8 @@ options.widgets = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					disabled = function(info)
-						return not E.private.mui.skins.widgets[info[#info - 2]].enable or
-							not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
+						return not E.private.mui.skins.widgets[info[#info - 2]].enable
+							or not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
 					end,
 					args = {
 						enable = {
@@ -795,13 +809,13 @@ options.widgets = {
 							width = "full",
 							disabled = function(info)
 								return not E.private.mui.skins.widgets[info[#info - 2]].enable
-							end
+							end,
 						},
 						normalClassColor = {
 							order = 2,
 							type = "toggle",
 							name = L["Normal Class Color"],
-							width = 1.5
+							width = 1.5,
 						},
 						normalColor = {
 							order = 3,
@@ -819,13 +833,13 @@ options.widgets = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						selectedClassColor = {
 							order = 4,
 							type = "toggle",
 							name = L["Selected Class Color"],
-							width = 1.5
+							width = 1.5,
 						},
 						selectedColor = {
 							order = 5,
@@ -843,7 +857,7 @@ options.widgets = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						font = {
 							order = 6,
@@ -851,8 +865,8 @@ options.widgets = {
 							inline = true,
 							name = L["Font Setting"],
 							disabled = function(info)
-								return not E.private.mui.skins.widgets[info[#info - 3]].enable or
-									not E.private.mui.skins.widgets[info[#info - 3]][info[#info - 2]].enable
+								return not E.private.mui.skins.widgets[info[#info - 3]].enable
+									or not E.private.mui.skins.widgets[info[#info - 3]][info[#info - 2]].enable
 							end,
 							get = function(info)
 								return E.private.mui.skins.widgets[info[#info - 3]][info[#info - 2]].font[info[#info]]
@@ -867,7 +881,7 @@ options.widgets = {
 									type = "select",
 									dialogControl = "LSM30_Font",
 									name = L["Font"],
-									values = LSM:HashTable("font")
+									values = LSM:HashTable("font"),
 								},
 								style = {
 									order = 2,
@@ -901,7 +915,7 @@ options.widgets = {
 					set = function(info, value)
 						E.private.mui.skins.widgets[info[#info - 1]][info[#info]] = value
 						E:StaticPopup_Show("PRIVATE_RL")
-					end
+					end,
 				},
 				tip = {
 					order = 2,
@@ -912,7 +926,7 @@ options.widgets = {
 					end,
 					imageCoords = function(info)
 						return F.GetWidgetTips(info[#info - 1])
-					end
+					end,
 				},
 				backdrop = {
 					order = 3,
@@ -927,8 +941,8 @@ options.widgets = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					disabled = function(info)
-						return not E.private.mui.skins.widgets[info[#info - 2]].enable or
-							not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
+						return not E.private.mui.skins.widgets[info[#info - 2]].enable
+							or not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
 					end,
 					args = {
 						enable = {
@@ -938,19 +952,19 @@ options.widgets = {
 							width = "full",
 							disabled = function(info)
 								return not E.private.mui.skins.widgets[info[#info - 2]].enable
-							end
+							end,
 						},
 						texture = {
 							order = 2,
 							type = "select",
 							name = L["Texture"],
 							dialogControl = "LSM30_Statusbar",
-							values = LSM:HashTable("statusbar")
+							values = LSM:HashTable("statusbar"),
 						},
 						classColor = {
 							order = 3,
 							type = "toggle",
-							name = L["Class Color"]
+							name = L["Class Color"],
 						},
 						color = {
 							order = 4,
@@ -968,7 +982,7 @@ options.widgets = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						alpha = {
 							order = 5,
@@ -976,7 +990,7 @@ options.widgets = {
 							name = L["Alpha"],
 							min = 0,
 							max = 1,
-							step = 0.01
+							step = 0.01,
 						},
 						animationType = {
 							order = 6,
@@ -985,8 +999,8 @@ options.widgets = {
 							desc = L["The type of animation activated when a button is hovered."],
 							hidden = true,
 							values = {
-								FADE = L["Fade"]
-							}
+								FADE = L["Fade"],
+							},
 						},
 						animationDuration = {
 							order = 7,
@@ -995,9 +1009,9 @@ options.widgets = {
 							desc = L["The duration of the animation in seconds."],
 							min = 0,
 							max = 3,
-							step = 0.01
-						}
-					}
+							step = 0.01,
+						},
+					},
 				},
 				selected = {
 					order = 4,
@@ -1012,8 +1026,8 @@ options.widgets = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					disabled = function(info)
-						return not E.private.mui.skins.widgets[info[#info - 2]].enable or
-							not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
+						return not E.private.mui.skins.widgets[info[#info - 2]].enable
+							or not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
 					end,
 					args = {
 						enable = {
@@ -1023,20 +1037,20 @@ options.widgets = {
 							width = "full",
 							disabled = function(info)
 								return not E.private.mui.skins.widgets[info[#info - 2]].enable
-							end
+							end,
 						},
 						texture = {
 							order = 2,
 							type = "select",
 							name = L["Texture"],
 							dialogControl = "LSM30_Statusbar",
-							values = LSM:HashTable("statusbar")
+							values = LSM:HashTable("statusbar"),
 						},
 						backdropClassColor = {
 							order = 3,
 							type = "toggle",
 							name = L["Backdrop Class Color"],
-							width = 1.5
+							width = 1.5,
 						},
 						backdropColor = {
 							order = 4,
@@ -1054,7 +1068,7 @@ options.widgets = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						backdropAlpha = {
 							order = 5,
@@ -1062,13 +1076,13 @@ options.widgets = {
 							name = L["Backdrop Alpha"],
 							min = 0,
 							max = 1,
-							step = 0.01
+							step = 0.01,
 						},
 						borderClassColor = {
 							order = 6,
 							type = "toggle",
 							name = L["Border Class Color"],
-							width = 1.5
+							width = 1.5,
 						},
 						borderColor = {
 							order = 7,
@@ -1086,7 +1100,7 @@ options.widgets = {
 							set = function(info, r, g, b, a)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						borderAlpha = {
 							order = 8,
@@ -1094,9 +1108,9 @@ options.widgets = {
 							name = L["Border Alpha"],
 							min = 0,
 							max = 1,
-							step = 0.01
-						}
-					}
+							step = 0.01,
+						},
+					},
 				},
 				text = {
 					order = 5,
@@ -1111,8 +1125,8 @@ options.widgets = {
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					disabled = function(info)
-						return not E.private.mui.skins.widgets[info[#info - 2]].enable or
-							not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
+						return not E.private.mui.skins.widgets[info[#info - 2]].enable
+							or not E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]].enable
 					end,
 					args = {
 						enable = {
@@ -1122,13 +1136,13 @@ options.widgets = {
 							width = "full",
 							disabled = function(info)
 								return not E.private.mui.skins.widgets[info[#info - 2]].enable
-							end
+							end,
 						},
 						normalClassColor = {
 							order = 2,
 							type = "toggle",
 							name = L["Normal Class Color"],
-							width = 1.5
+							width = 1.5,
 						},
 						normalColor = {
 							order = 3,
@@ -1146,13 +1160,13 @@ options.widgets = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						selectedClassColor = {
 							order = 4,
 							type = "toggle",
 							name = L["Selected Class Color"],
-							width = 1.5
+							width = 1.5,
 						},
 						selectedColor = {
 							order = 5,
@@ -1170,7 +1184,7 @@ options.widgets = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.widgets[info[#info - 2]][info[#info - 1]][info[#info]]
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 						font = {
 							order = 6,
@@ -1178,8 +1192,8 @@ options.widgets = {
 							inline = true,
 							name = L["Font Setting"],
 							disabled = function(info)
-								return not E.private.mui.skins.widgets[info[#info - 3]].enable or
-									not E.private.mui.skins.widgets[info[#info - 3]][info[#info - 2]].enable
+								return not E.private.mui.skins.widgets[info[#info - 3]].enable
+									or not E.private.mui.skins.widgets[info[#info - 3]][info[#info - 2]].enable
 							end,
 							get = function(info)
 								return E.private.mui.skins.widgets[info[#info - 3]][info[#info - 2]].font[info[#info]]
@@ -1194,7 +1208,7 @@ options.widgets = {
 									type = "select",
 									dialogControl = "LSM30_Font",
 									name = L["Font"],
-									values = LSM:HashTable("font")
+									values = LSM:HashTable("font"),
 								},
 								style = {
 									order = 2,
@@ -1233,12 +1247,12 @@ options.widgets = {
 				desc = {
 					order = 2,
 					type = "description",
-					name = "|cffff0000" ..
-						L["To enable this feature, you need to enable the check box skin in ElvUI Skins first."] ..
-						"|r",
+					name = "|cffff0000"
+						.. L["To enable this feature, you need to enable the check box skin in ElvUI Skins first."]
+						.. "|r",
 					hidden = function(info)
 						return E.private.skins.checkBoxSkin
-					end
+					end,
 				},
 				tip = {
 					order = 3,
@@ -1249,7 +1263,7 @@ options.widgets = {
 					end,
 					imageCoords = function(info)
 						return F.GetWidgetTips(info[#info - 1])
-					end
+					end,
 				},
 				texture = {
 					order = 4,
@@ -1259,7 +1273,7 @@ options.widgets = {
 					values = LSM:HashTable("statusbar"),
 					disabled = function(info)
 						return not E.private.mui.skins.widgets[info[#info - 1]].enable
-					end
+					end,
 				},
 				classColor = {
 					order = 5,
@@ -1267,7 +1281,7 @@ options.widgets = {
 					name = L["Class Color"],
 					disabled = function(info)
 						return not E.private.mui.skins.widgets[info[#info - 1]].enable
-					end
+					end,
 				},
 				color = {
 					order = 6,
@@ -1288,7 +1302,7 @@ options.widgets = {
 					set = function(info, r, g, b, a)
 						local db = E.private.mui.skins.widgets[info[#info - 1]][info[#info]]
 						db.r, db.g, db.b, db.a = r, g, b, a
-					end
+					end,
 				},
 			},
 		},
@@ -1311,7 +1325,7 @@ options.widgets = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					width = "full"
+					width = "full",
 				},
 				tip = {
 					order = 2,
@@ -1322,7 +1336,7 @@ options.widgets = {
 					end,
 					imageCoords = function(info)
 						return F.GetWidgetTips(info[#info - 1])
-					end
+					end,
 				},
 				texture = {
 					order = 3,
@@ -1332,7 +1346,7 @@ options.widgets = {
 					values = LSM:HashTable("statusbar"),
 					disabled = function(info)
 						return not E.private.mui.skins.widgets[info[#info - 1]].enable
-					end
+					end,
 				},
 				classColor = {
 					order = 4,
@@ -1340,7 +1354,7 @@ options.widgets = {
 					name = L["Class Color"],
 					disabled = function(info)
 						return not E.private.mui.skins.widgets[info[#info - 1]].enable
-					end
+					end,
 				},
 				color = {
 					order = 5,
@@ -1361,7 +1375,7 @@ options.widgets = {
 					set = function(info, r, g, b, a)
 						local db = E.private.mui.skins.widgets[info[#info - 1]][info[#info]]
 						db.r, db.g, db.b, db.a = r, g, b, a
-					end
+					end,
 				},
 			},
 		},
@@ -1372,11 +1386,16 @@ options.blizzard = {
 	order = 4,
 	type = "group",
 	name = L["Blizzard"],
-	get = function(info) return E.private.mui.skins.blizzard[info[#info]] end,
-	set = function(info, value)
-		E.private.mui.skins.blizzard[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
+	get = function(info)
+		return E.private.mui.skins.blizzard[info[#info]]
 	end,
-	disabled = function() return not E.private.mui.skins.enable end,
+	set = function(info, value)
+		E.private.mui.skins.blizzard[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
+	end,
+	disabled = function()
+		return not E.private.mui.skins.enable
+	end,
 	args = {
 		info = {
 			order = 1,
@@ -1388,7 +1407,7 @@ options.blizzard = {
 		space = {
 			order = 2,
 			type = "description",
-			name = '',
+			name = "",
 		},
 		enable = {
 			order = 3,
@@ -1398,13 +1417,15 @@ options.blizzard = {
 		header = {
 			order = 4,
 			type = "header",
-			name = F.cOption(L["Blizzard"], 'orange'),
+			name = F.cOption(L["Blizzard"], "orange"),
 		},
 		gotoskins = {
 			order = 5,
 			type = "execute",
 			name = L["ElvUI Skins"],
-			func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "skins") end,
+			func = function()
+				LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "skins")
+			end,
 		},
 		enableAll = {
 			order = 6,
@@ -1415,7 +1436,7 @@ options.blizzard = {
 					E.private.mui.skins.blizzard[key] = true
 				end
 				E:StaticPopup_Show("PRIVATE_RL")
-			end
+			end,
 		},
 		disableAll = {
 			order = 7,
@@ -1428,475 +1449,572 @@ options.blizzard = {
 					end
 				end
 				E:StaticPopup_Show("PRIVATE_RL")
-			end
+			end,
 		},
 		space2 = {
 			order = 8,
 			type = "description",
-			name = '',
+			name = "",
 		},
 		spellbook = {
 			type = "toggle",
 			name = L["Spellbook"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.spellbook end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.spellbook
+			end,
 		},
 		character = {
 			type = "toggle",
 			name = L["Character Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character
+			end,
 		},
 		gossip = {
 			type = "toggle",
 			name = L["Gossip Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gossip end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gossip
+			end,
 		},
 		quest = {
 			type = "toggle",
 			name = L["Quest Frames"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest
+			end,
 		},
 		talent = {
 			type = "toggle",
 			name = L["TALENTS"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talent end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talent
+			end,
 		},
 		auctionhouse = {
 			type = "toggle",
 			name = L["AUCTIONS"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard
-					.auctionhouse
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.auctionhouse
 			end,
 		},
 		friends = {
 			type = "toggle",
 			name = L["FRIENDS"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.friends end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.friends
+			end,
 		},
 		tradeskill = {
 			type = "toggle",
 			name = L["TRADESKILLS"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tradeskill end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tradeskill
+			end,
 		},
 		lfg = {
 			type = "toggle",
 			name = L["LFG_TITLE"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfg end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfg
+			end,
 		},
 		guild = {
 			type = "toggle",
 			name = L["GUILD"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guild end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guild
+			end,
 		},
 		addonManager = {
 			type = "toggle",
 			name = L["AddOn Manager"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard
-					.addonManager
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.addonManager
 			end,
 		},
 		mail = {
 			type = "toggle",
 			name = L["Mail Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.mail end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.mail
+			end,
 		},
 		timemanager = {
 			type = "toggle",
 			name = L["TIMEMANAGER_TITLE"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.timemanager end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.timemanager
+			end,
 		},
 		worldmap = {
 			type = "toggle",
 			name = L["WORLD_MAP"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.worldmap end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.worldmap
+			end,
 		},
 		guildcontrol = {
 			type = "toggle",
 			name = L["Guild Control Frame"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard
-					.guildcontrol
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guildcontrol
 			end,
 		},
 		macro = {
 			type = "toggle",
 			name = L["MACROS"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.macro end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.macro
+			end,
 		},
 		binding = {
 			type = "toggle",
 			name = L["KEY_BINDINGS"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.binding end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.binding
+			end,
 		},
 		gbank = {
 			type = "toggle",
 			name = L["GUILD_BANK"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gbank end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gbank
+			end,
 		},
 		taxi = {
 			type = "toggle",
 			name = L["FLIGHT_MAP"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.taxi end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.taxi
+			end,
 		},
 		help = {
 			type = "toggle",
 			name = L["Help Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.help end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.help
+			end,
 		},
 		loot = {
 			type = "toggle",
 			name = L["Loot Frames"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.loot end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.loot
+			end,
 		},
 		channels = {
 			type = "toggle",
 			name = L["CHANNELS"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.channels end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.channels
+			end,
 		},
 		communities = {
 			type = "toggle",
 			name = L["COMMUNITIES"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.communities end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.communities
+			end,
 		},
 		raid = {
 			type = "toggle",
 			name = L["Raid Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.raid end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.raid
+			end,
 		},
 		craft = {
 			type = "toggle",
 			name = L["Craft"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.craft end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.craft
+			end,
 		},
 		eventToast = {
 			type = "toggle",
 			name = L["Event Toast Manager"],
-			disabled = function() return not E.private.skins.blizzard.enable end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable
+			end,
 		},
 		achievement = {
 			type = "toggle",
 			name = _G.ACHIEVEMENTS,
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.achievement end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.achievement
+			end,
 		},
 		encounterjournal = {
 			type = "toggle",
 			name = ENCOUNTER_JOURNAL,
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.encounterjournal
-			end
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.encounterjournal
+			end,
 		},
 		questChoice = {
 			type = "toggle",
 			name = L["Quest Choice"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questChoice end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questChoice
+			end,
 		},
 		garrison = {
 			type = "toggle",
 			name = _G.GARRISON_LOCATION_TOOLTIP,
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.garrison end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.garrison
+			end,
 		},
 		orderhall = {
 			type = "toggle",
 			name = L["Orderhall"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.orderhall end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.orderhall
+			end,
 		},
 		contribution = {
 			type = "toggle",
 			name = L["Contribution"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard
-					.contribution
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.contribution
 			end,
 		},
 		artifact = {
 			type = "toggle",
 			name = _G.ITEM_QUALITY6_DESC,
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.artifact end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.artifact
+			end,
 		},
 		collections = {
 			type = "toggle",
 			name = _G.COLLECTIONS,
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.collections end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.collections
+			end,
 		},
 		calendar = {
 			type = "toggle",
 			name = L["Calendar Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.calendar end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.calendar
+			end,
 		},
 		merchant = {
 			type = "toggle",
 			name = L["Merchant Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.merchant end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.merchant
+			end,
 		},
 		pvp = {
 			type = "toggle",
 			name = L["PvP Frames"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.pvp end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.pvp
+			end,
 		},
 		lfguild = {
 			type = "toggle",
 			name = L["LF Guild Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfguild end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfguild
+			end,
 		},
 		talkinghead = {
 			type = "toggle",
 			name = L["TalkingHead"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talkinghead end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talkinghead
+			end,
 		},
 		objectiveTracker = {
 			type = "toggle",
 			name = _G.OBJECTIVES_TRACKER_LABEL,
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.objectiveTracker
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker
 			end,
 		},
 		dressingroom = {
 			type = "toggle",
 			name = _G.DRESSUP_FRAME,
 			disabled = function()
-				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard
-					.dressingroom
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.dressingroom
 			end,
 		},
 		blackmarket = {
 			type = "toggle",
 			name = _G.BLACK_MARKET_AUCTION_HOUSE,
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.bmah end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.bmah
+			end,
 		},
 		deathRecap = {
 			type = "toggle",
 			name = _G.DEATH_RECAP_TITLE,
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.deathRecap end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.deathRecap
+			end,
 		},
 		challenges = {
 			type = "toggle",
 			name = _G.CHALLENGES,
-			disabled = function() return not E.private.skins.blizzard.enable end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable
+			end,
 		},
 		azerite = {
 			type = "toggle",
 			name = L["AzeriteUI"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azerite end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azerite
+			end,
 		},
 		AzeriteRespec = {
 			type = "toggle",
 			name = _G.AZERITE_RESPEC_TITLE,
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.azeriteRespec
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azeriteRespec
 			end,
 		},
 		IslandQueue = {
 			type = "toggle",
 			name = _G.ISLANDS_HEADER,
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.islandQueue end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.islandQueue
+			end,
 		},
 		IslandsPartyPose = {
 			type = "toggle",
 			name = L["Island Party Pose"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.islandsPartyPose
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.islandsPartyPose
 			end,
 		},
 		minimap = {
 			type = "toggle",
 			name = L["Minimap"],
-			disabled = function() return not E.private.skins.blizzard.enable end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable
+			end,
 		},
 		Scrapping = {
 			type = "toggle",
 			name = _G.SCRAP_BUTTON,
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.scrapping end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.scrapping
+			end,
 		},
 		trainer = {
 			type = "toggle",
 			name = L["Trainer Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trainer end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trainer
+			end,
 		},
 		debug = {
 			type = "toggle",
 			name = L["Debug Tools"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.debug end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.debug
+			end,
 		},
 		inspect = {
 			type = "toggle",
 			name = _G.INSPECT,
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect
+			end,
 		},
 		socket = {
 			type = "toggle",
 			name = L["Socket Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.socket end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.socket
+			end,
 		},
 		itemUpgrade = {
 			type = "toggle",
 			name = L["Item Upgrade"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.itemUpgrade end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.itemUpgrade
+			end,
 		},
 		trade = {
 			type = "toggle",
 			name = L["Trade"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trade end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trade
+			end,
 		},
 		voidstorage = {
 			type = "toggle",
 			name = _G.VOID_STORAGE,
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.voidstorage end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.voidstorage
+			end,
 		},
 		AlliedRaces = {
 			type = "toggle",
 			name = L["Allied Races"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.alliedRaces end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.alliedRaces
+			end,
 		},
 		GMChat = {
 			type = "toggle",
 			name = L["GM Chat"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gmChat end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gmChat
+			end,
 		},
 		Archaeology = {
 			type = "toggle",
 			name = L["Archaeology Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.archaeology end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.archaeology
+			end,
 		},
 		AzeriteEssence = {
 			type = "toggle",
 			name = L["Azerite Essence"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.azeriteEssence
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azeriteEssence
 			end,
 		},
 		ItemInteraction = {
 			type = "toggle",
 			name = L["Item Interaction"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.itemInteraction
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.itemInteraction
 			end,
 		},
 		animaDiversion = {
 			type = "toggle",
 			name = L["Anima Diversion"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.animaDiversion
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.animaDiversion
 			end,
 		},
 		soulbinds = {
 			type = "toggle",
 			name = L["Soulbinds"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.soulbinds end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.soulbinds
+			end,
 		},
 		covenantSanctum = {
 			type = "toggle",
 			name = L["Covenant Sanctum"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.covenantSanctum
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantSanctum
 			end,
 		},
 		covenantPreview = {
 			type = "toggle",
 			name = L["Covenant Preview"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.covenantPreview
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantPreview
 			end,
 		},
 		covenantRenown = {
 			type = "toggle",
 			name = L["Covenant Renown"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.covenantRenown
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantRenown
 			end,
 		},
 		playerChoice = {
 			type = "toggle",
 			name = L["Player Choice"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard
-					.playerChoice
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.playerChoice
 			end,
 		},
 		chromieTime = {
 			type = "toggle",
 			name = L["Chromie Time"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.chromieTime end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.chromieTime
+			end,
 		},
 		levelUp = {
 			type = "toggle",
 			name = L["LevelUp Display"],
-			disabled = function() return not E.private.skins.blizzard.enable end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable
+			end,
 		},
 		guide = {
 			type = "toggle",
 			name = L["Guide Frame"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guide end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guide
+			end,
 		},
 		weeklyRewards = {
 			type = "toggle",
 			name = L["Weekly Rewards"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.weeklyRewards
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.weeklyRewards
 			end,
 		},
 		misc = {
 			type = "toggle",
 			name = L["Misc"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.misc end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.misc
+			end,
 		},
 		tooltip = {
 			type = "toggle",
 			name = L["Tooltip"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tooltip end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tooltip
+			end,
 		},
 		chatBubbles = {
 			type = "toggle",
 			name = L["Chat Bubbles"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					E.private.general.chatBubbles ~= "nobackdrop"
+				return not E.private.skins.blizzard.enable or E.private.general.chatBubbles ~= "nobackdrop"
 			end,
 		},
 		expansionLanding = {
 			type = "toggle",
 			name = L["Expansion LandingPage"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.expansionLanding
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.expansionLanding
 			end,
 		},
 		majorFactions = {
 			type = "toggle",
 			name = L["Major Factions"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.majorFactions
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.majorFactions
 			end,
 		},
 		blizzardOptions = {
 			type = "toggle",
 			name = L["Settings Panel"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or
-					not E.private.skins.blizzard.blizzardOptions
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.blizzardOptions
 			end,
 		},
 		editor = {
 			type = "toggle",
 			name = L["Editor Mode"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.editor end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.editor
+			end,
 		},
 		perksProgram = {
 			type = "toggle",
 			name = L["Perks Program"],
-			disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.perks end,
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.perks
+			end,
 		},
 	},
 }
@@ -1905,11 +2023,16 @@ options.addonskins = {
 	order = 5,
 	type = "group",
 	name = L["AddOnSkins"],
-	get = function(info) return E.private.mui.skins.addonSkins[info[#info]] end,
-	set = function(info, value)
-		E.private.mui.skins.addonSkins[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
+	get = function(info)
+		return E.private.mui.skins.addonSkins[info[#info]]
 	end,
-	disabled = function() return not E.private.mui.skins.enable end,
+	set = function(info, value)
+		E.private.mui.skins.addonSkins[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
+	end,
+	disabled = function()
+		return not E.private.mui.skins.enable
+	end,
 	args = {
 		info = {
 			order = 1,
@@ -1920,7 +2043,7 @@ options.addonskins = {
 		space = {
 			order = 2,
 			type = "description",
-			name = '',
+			name = "",
 		},
 		enable = {
 			order = 3,
@@ -1930,7 +2053,7 @@ options.addonskins = {
 		header = {
 			order = 4,
 			type = "header",
-			name = F.cOption(L["AddOnSkins"], 'orange'),
+			name = F.cOption(L["AddOnSkins"], "orange"),
 		},
 	},
 }
@@ -1942,8 +2065,10 @@ for _, v in ipairs(DecorAddons) do
 		order = addorder + 1,
 		type = "toggle",
 		name = addonString,
-		desc = format('%s ' .. addonString .. ' %s', L["Enable/Disable"], L["decor."]),
-		disabled = function() return not C_AddOns_IsAddOnLoaded(addonName) end,
+		desc = format("%s " .. addonString .. " %s", L["Enable/Disable"], L["decor."]),
+		disabled = function()
+			return not C_AddOns_IsAddOnLoaded(addonName)
+		end,
 	}
 end
 
@@ -1951,9 +2076,12 @@ options.addonskins.args.ace3 = {
 	order = 7,
 	type = "toggle",
 	name = L["Ace3"],
-	get = function(info) return E.private.mui.skins.addonSkins[info[#info]] end,
+	get = function(info)
+		return E.private.mui.skins.addonSkins[info[#info]]
+	end,
 	set = function(info, value)
-		E.private.mui.skins.addonSkins[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
+		E.private.mui.skins.addonSkins[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
 	end,
 }
 
@@ -1971,12 +2099,12 @@ options.profiles = {
 		space = {
 			order = 2,
 			type = "description",
-			name = '',
+			name = "",
 		},
 		header = {
 			order = 3,
 			type = "header",
-			name = F.cOption(L["Profiles"], 'orange'),
+			name = F.cOption(L["Profiles"], "orange"),
 		},
 	},
 }
@@ -1990,47 +2118,49 @@ for _, v in ipairs(SupportedProfiles) do
 		name = addonName,
 		desc = L["This will create and apply profile for "] .. addonName,
 		func = function()
-			if addon == 'BigWigs' then
+			if addon == "BigWigs" then
 				MER:LoadBigWigsProfile()
-				F.Print('BigWigs profile has been set.')
+				F.Print("BigWigs profile has been set.")
 				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == 'DBM-Core' then
+			elseif addon == "DBM-Core" then
 				E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
-			elseif addon == 'Skada' then
+			elseif addon == "Skada" then
 				MER:LoadSkadaProfile()
-				E:StaticPopup_Show('PRIVATE_RL')
-			elseif addon == 'Details' then
+				E:StaticPopup_Show("PRIVATE_RL")
+			elseif addon == "Details" then
 				E:StaticPopup_Show("MUI_INSTALL_DETAILS_LAYOUT")
-			elseif addon == 'AddOnSkins' then
+			elseif addon == "AddOnSkins" then
 				MER:LoadAddOnSkinsProfile()
-				E:StaticPopup_Show('PRIVATE_RL')
-			elseif addon == 'ProjectAzilroka' then
+				E:StaticPopup_Show("PRIVATE_RL")
+			elseif addon == "ProjectAzilroka" then
 				MER:LoadPAProfile()
-				E:StaticPopup_Show('PRIVATE_RL')
-			elseif addon == 'ls_Toasts' then
+				E:StaticPopup_Show("PRIVATE_RL")
+			elseif addon == "ls_Toasts" then
 				MER:LoadLSProfile()
-				E:StaticPopup_Show('PRIVATE_RL')
-			elseif addon == 'Touhin' then
+				E:StaticPopup_Show("PRIVATE_RL")
+			elseif addon == "Touhin" then
 				MER:LoadTouhinProfile()
-				E:StaticPopup_Show('PRIVATE_RL')
-			elseif addon == 'iFilger' then
+				E:StaticPopup_Show("PRIVATE_RL")
+			elseif addon == "iFilger" then
 				MER:LoadiFilgerProfile()
-				E:StaticPopup_Show('PRIVATE_RL')
-			elseif addon == 'ElvUI_FCT' then
-				local FCT = E.Libs.AceAddon:GetAddon('ElvUI_FCT')
+				E:StaticPopup_Show("PRIVATE_RL")
+			elseif addon == "ElvUI_FCT" then
+				local FCT = E.Libs.AceAddon:GetAddon("ElvUI_FCT")
 				MER:LoadFCTProfile()
 				FCT:UpdateUnitFrames()
 				FCT:UpdateNamePlates()
-			elseif addon == 'ElvUI_mMediaTag' then
+			elseif addon == "ElvUI_mMediaTag" then
 				MER:mMediaTag()
-				E:StaticPopup_Show('PRIVATE_RL')
-			elseif addon == 'OmniCD' then
+				E:StaticPopup_Show("PRIVATE_RL")
+			elseif addon == "OmniCD" then
 				MER:LoadOmniCDProfile()
-				E:StaticPopup_Show('PRIVATE_RL')
+				E:StaticPopup_Show("PRIVATE_RL")
 			end
 			F.Print(profileString .. addonName)
 		end,
-		disabled = function() return not C_AddOns_IsAddOnLoaded(addon) end,
+		disabled = function()
+			return not C_AddOns_IsAddOnLoaded(addon)
+		end,
 	}
 end
 
@@ -2038,9 +2168,12 @@ options.Embed = {
 	order = 9,
 	type = "group",
 	name = L["Embed Settings"],
-	get = function(info) return E.private.mui.skins.embed[info[#info]] end,
+	get = function(info)
+		return E.private.mui.skins.embed[info[#info]]
+	end,
 	set = function(info, value)
-		E.private.mui.skins.embed[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
+		E.private.mui.skins.embed[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
 	end,
 	args = {
 		info = {
@@ -2052,12 +2185,12 @@ options.Embed = {
 		header = {
 			order = 2,
 			type = "header",
-			name = F.cOption(L["Embed Settings"], 'orange'),
+			name = F.cOption(L["Embed Settings"], "orange"),
 		},
 		spacer1 = {
 			order = 3,
 			type = "description",
-			name = ' ',
+			name = " ",
 		},
 		enable = {
 			order = 4,
@@ -2080,7 +2213,8 @@ options.Embed = {
 			type = "select",
 			name = L["Toggle Direction"],
 			set = function(_, value)
-				E.private.mui.skins.embed.toggleDirection = value; UpdateToggleDirection();
+				E.private.mui.skins.embed.toggleDirection = value
+				UpdateToggleDirection()
 			end,
 			values = {
 				[1] = L["LEFT"],
@@ -2110,9 +2244,12 @@ options.advancedSettings = {
 			order = 1,
 			type = "group",
 			name = L["BigWigs Skin"],
-			get = function(info) return E.private.mui.skins.addonSkins.bw[info[#info]] end,
+			get = function(info)
+				return E.private.mui.skins.addonSkins.bw[info[#info]]
+			end,
 			set = function(info, value)
-				E.private.mui.skins.addonSkins.bw[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
+				E.private.mui.skins.addonSkins.bw[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			disabled = function()
 				return not C_AddOns_IsAddOnLoaded("BigWigs")
@@ -2132,14 +2269,15 @@ options.advancedSettings = {
 						end
 
 						return F.StringByTemplate(
-								format("%s\n%s\n\n",
-									format(L["The options below are only for BigWigs %s bar style."], MER.Title),
-									format(L["You need to manually set the bar style to %s in BigWigs first."], MER
-										.Title)),
-								"warning") .. L["How to change BigWigs bar style:"] ..
-							"\n" .. L["Open BigWigs Options UI with /bw > Bars > Style."] .. "\n\n"
+							format(
+								"%s\n%s\n\n",
+								format(L["The options below are only for BigWigs %s bar style."], MER.Title),
+								format(L["You need to manually set the bar style to %s in BigWigs first."], MER.Title)
+							),
+							"warning"
+						) .. L["How to change BigWigs bar style:"] .. "\n" .. L["Open BigWigs Options UI with /bw > Bars > Style."] .. "\n\n"
 					end,
-					fontSize = "medium"
+					fontSize = "medium",
 				},
 				bigWigsQueueTimer = {
 					order = 2,
@@ -2153,7 +2291,7 @@ options.advancedSettings = {
 					type = "toggle",
 					name = L["BigWigs Queue Timer"],
 					disabled = false,
-					width = 1
+					width = 1,
 				},
 				bigWigs = {
 					order = 3,
@@ -2167,7 +2305,7 @@ options.advancedSettings = {
 					type = "toggle",
 					name = L["BigWigs Bars"],
 					disabled = false,
-					width = 1
+					width = 1,
 				},
 				normalBar = {
 					order = 4,
@@ -2188,19 +2326,19 @@ options.advancedSettings = {
 							order = 1,
 							type = "toggle",
 							name = L["Smooth"],
-							desc = L["Smooth the bar animation with ElvUI."]
+							desc = L["Smooth the bar animation with ElvUI."],
 						},
 						spark = {
 							order = 2,
 							type = "toggle",
 							name = L["Spark"],
-							desc = L["Show spark on the bar."]
+							desc = L["Show spark on the bar."],
 						},
 						colorOverride = {
 							order = 3,
 							type = "toggle",
 							name = L["Color Override"],
-							desc = L["Override the bar color."]
+							desc = L["Override the bar color."],
 						},
 						colorLeft = {
 							order = 4,
@@ -2209,8 +2347,8 @@ options.advancedSettings = {
 							desc = L["Gradient color of the left part of the bar."],
 							hasAlpha = false,
 							disabled = function(info)
-								return not E.private.mui.skins.addonSkins.bw or
-									not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
+								return not E.private.mui.skins.addonSkins.bw
+									or not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
 							end,
 							get = function(info)
 								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
@@ -2220,7 +2358,7 @@ options.advancedSettings = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, 1
-							end
+							end,
 						},
 						colorRight = {
 							order = 5,
@@ -2229,8 +2367,8 @@ options.advancedSettings = {
 							desc = L["Gradient color of the right part of the bar."],
 							hasAlpha = false,
 							disabled = function(info)
-								return not E.private.mui.skins.addonSkins.bw or
-									not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
+								return not E.private.mui.skins.addonSkins.bw
+									or not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
 							end,
 							get = function(info)
 								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
@@ -2240,9 +2378,9 @@ options.advancedSettings = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, 1
-							end
-						}
-					}
+							end,
+						},
+					},
 				},
 				emphasizedBar = {
 					order = 5,
@@ -2263,19 +2401,19 @@ options.advancedSettings = {
 							order = 1,
 							type = "toggle",
 							name = L["Smooth"],
-							desc = L["Smooth the bar animation with ElvUI."]
+							desc = L["Smooth the bar animation with ElvUI."],
 						},
 						spark = {
 							order = 2,
 							type = "toggle",
 							name = L["Spark"],
-							desc = L["Show spark on the bar."]
+							desc = L["Show spark on the bar."],
 						},
 						colorOverride = {
 							order = 3,
 							type = "toggle",
 							name = L["Color Override"],
-							desc = L["Override the bar color."]
+							desc = L["Override the bar color."],
 						},
 						colorLeft = {
 							order = 4,
@@ -2284,8 +2422,8 @@ options.advancedSettings = {
 							desc = L["Gradient color of the left part of the bar."],
 							hasAlpha = false,
 							disabled = function(info)
-								return not E.private.mui.skins.addonSkins.bw or
-									not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
+								return not E.private.mui.skins.addonSkins.bw
+									or not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
 							end,
 							get = function(info)
 								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
@@ -2295,7 +2433,7 @@ options.advancedSettings = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, 1
-							end
+							end,
 						},
 						colorRight = {
 							order = 5,
@@ -2304,8 +2442,8 @@ options.advancedSettings = {
 							desc = L["Gradient color of the right part of the bar."],
 							hasAlpha = false,
 							disabled = function(info)
-								return not E.private.mui.skins.addonSkins.bw or
-									not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
+								return not E.private.mui.skins.addonSkins.bw
+									or not E.private.mui.skins.addonSkins.bw[info[#info - 1]].colorOverride
 							end,
 							get = function(info)
 								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
@@ -2315,9 +2453,9 @@ options.advancedSettings = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, 1
-							end
-						}
-					}
+							end,
+						},
+					},
 				},
 				queueTimer = {
 					order = 6,
@@ -2339,13 +2477,13 @@ options.advancedSettings = {
 							order = 1,
 							type = "toggle",
 							name = L["Smooth"],
-							desc = L["Smooth the bar animation with ElvUI."]
+							desc = L["Smooth the bar animation with ElvUI."],
 						},
 						spark = {
 							order = 2,
 							type = "toggle",
 							name = L["Spark"],
-							desc = L["Show spark on the bar."]
+							desc = L["Show spark on the bar."],
 						},
 						colorLeft = {
 							order = 3,
@@ -2361,7 +2499,7 @@ options.advancedSettings = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, 1
-							end
+							end,
 						},
 						colorRight = {
 							order = 4,
@@ -2377,7 +2515,7 @@ options.advancedSettings = {
 							set = function(info, r, g, b)
 								local db = E.private.mui.skins.addonSkins.bw[info[#info - 1]][info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, 1
-							end
+							end,
 						},
 						countDown = {
 							order = 5,
@@ -2397,7 +2535,7 @@ options.advancedSettings = {
 									type = "select",
 									dialogControl = "LSM30_Font",
 									name = L["Font"],
-									values = LSM:HashTable("font")
+									values = LSM:HashTable("font"),
 								},
 								style = {
 									order = 2,
@@ -2412,7 +2550,7 @@ options.advancedSettings = {
 									type = "range",
 									min = 5,
 									max = 60,
-									step = 1
+									step = 1,
 								},
 								offsetX = {
 									order = 4,
@@ -2420,7 +2558,7 @@ options.advancedSettings = {
 									type = "range",
 									min = -100,
 									max = 100,
-									step = 1
+									step = 1,
 								},
 								offsetY = {
 									order = 5,
@@ -2428,7 +2566,7 @@ options.advancedSettings = {
 									type = "range",
 									min = -100,
 									max = 100,
-									step = 1
+									step = 1,
 								},
 							},
 						},
@@ -2440,9 +2578,12 @@ options.advancedSettings = {
 			order = 2,
 			type = "group",
 			name = L["Details Skin"],
-			get = function(info) return E.private.mui.skins.addonSkins.dt[info[#info]] end,
+			get = function(info)
+				return E.private.mui.skins.addonSkins.dt[info[#info]]
+			end,
 			set = function(info, value)
-				E.private.mui.skins.addonSkins.dt[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
+				E.private.mui.skins.addonSkins.dt[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			disabled = function()
 				return not C_AddOns_IsAddOnLoaded("Details")
@@ -2462,10 +2603,12 @@ options.advancedSettings = {
 							return F.StringByTemplate(format(L["%s is not loaded."], L["Details"]), "danger")
 						end
 
-						return format("|cfffff400%s",
-							L["The options below is only for the Details look, NOT the Embeded."])
+						return format(
+							"|cfffff400%s",
+							L["The options below is only for the Details look, NOT the Embeded."]
+						)
 					end,
-					fontSize = "medium"
+					fontSize = "medium",
 				},
 				spacer = {
 					order = 2,
