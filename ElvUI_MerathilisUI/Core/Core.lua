@@ -19,8 +19,7 @@ end
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvUIVersion"))
 
-MER.IsRetail = select(4, GetBuildInfo()) >= 90207 -- 9.2.7
-MER.IsWrath = select(4, GetBuildInfo()) >= 30400
+MER.IsRetail = select(4, GetBuildInfo()) >= 100206
 MER.IsNewPatch = select(4, GetBuildInfo()) >= 100000 -- 10.0
 MER.IsPTR = select(4, GetBuildInfo()) == 100002 -- 10.0.2
 
@@ -141,8 +140,11 @@ function MER:CheckElvUIVersion()
 	-- ElvUI versions check
 	if E.version < 99999 then
 		if MER.ElvUIVersion < 1 or (MER.ElvUIVersion < MER.RequiredVersion) then
-			E:StaticPopup_Show("VERSION_MISMATCH")
+			E:StaticPopup_Show("VERSION_OUTDATED")
 			return false -- If ElvUI Version is outdated stop right here. So things don't get broken.
+		elseif MER.ElvUIVersion > MER.RequiredVersion + 0.03 then
+			E:StaticPopup_Show("VERSION_MISMATCH")
+			return false
 		end
 	end
 

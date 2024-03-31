@@ -20,7 +20,8 @@ L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
 L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
 L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"] = true
 L["AFK"] = "离开"
-L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = "启用/禁用MUI AFK屏幕。如果加载了BenikUI，则禁用"
+L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] =
+	"启用/禁用MUI AFK屏幕。如果加载了BenikUI，则禁用"
 L["Are you still there? ... Hello?"] = "你还在吗？ ... 在吗？"
 L["Logout Timer"] = "登出计时器"
 L["SplashScreen"] = "闪屏"
@@ -47,7 +48,8 @@ L["Login Message"] = "登陆信息"
 L["Enable/Disable the Login Message in Chat"] = "在聊天框中启用/禁用登录消息"
 L["Log Level"] = "日志等级"
 L["Only display log message that the level is higher than you choose."] = "只显示高于选择等级的日志信息."
-L["Set to 2 if you do not understand the meaning of log level."] = "如果你不理解什么是日志级别, 设置为 2 就行."
+L["Set to 2 if you do not understand the meaning of log level."] =
+	"如果你不理解什么是日志级别, 设置为 2 就行."
 L["Open the changelog window."] = true
 L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
@@ -71,7 +73,8 @@ L["Create a chat button to increase the chat size."] = "创建一个按钮用来
 L["Hide Player Brackets"] = "隐藏玩家括号"
 L["Removes brackets around the person who posts a chat message."] = "删除聊天框中玩家名字两边的括号."
 L["Hide Community Chat"] = "隐藏社区聊天"
-L["Adds an overlay to the Community Chat. Useful for streamers."] = "在社区聊天内容上添加一个遮罩，对主播很有用"
+L["Adds an overlay to the Community Chat. Useful for streamers."] =
+	"在社区聊天内容上添加一个遮罩，对主播很有用"
 L["Chat Hidden. Click to show"] = "聊天框已隐藏，点击显示"
 L["Chat Bar"] = "聊天条"
 L["Shows a ChatBar with different quick buttons."] = "用不同的快捷按钮显示一个聊天条"
@@ -104,7 +107,7 @@ L["Font Setting"] = "字体设定"
 L["Custom Online Message"] = true
 L["Chat Link"] = "聊天链接"
 L["Add extra information on the link, so that you can get basic information but do not need to click"] =
-"为链接添加额外信息, 这样你就可以不通过点击也能获取到基础信息"
+	"为链接添加额外信息, 这样你就可以不通过点击也能获取到基础信息"
 L["Additional Information"] = "额外信息"
 L["Level"] = "等级"
 L["Translate Item"] = "翻译物品"
@@ -160,7 +163,7 @@ L["Donations"] = true
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] =
-"你能在这里找到所有不同的选项 |cffffffffMerathilis|r|cffff8000UI|r 模块."
+	"你能在这里找到所有不同的选项 |cffffffffMerathilis|r|cffff8000UI|r 模块."
 L["Are you sure you want to reset %s module?"] = "你确定要重置 %s 模块么?"
 L["Reset All Modules"] = "重置全部模块"
 L["Reset all %s modules."] = "重置全部 %s 模块."
@@ -168,7 +171,7 @@ L["Reset all %s modules."] = "重置全部 %s 模块."
 -- GameMenu
 L["GameMenu"] = "游戏菜单"
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] =
-"从暴雪游戏菜单启用/禁用MerathilisUI样式."
+	"从暴雪游戏菜单启用/禁用MerathilisUI样式."
 
 -- Extended Vendor
 L["Extended Vendor"] = true
@@ -179,7 +182,8 @@ L["The number of pages shown in the merchant frame."] = true
 
 -- FlightPoint
 L["Flight Point"] = "飞行点"
-L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "在飞行地图上启用/禁用MerathilisUI飞行点."
+L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] =
+	"在飞行地图上启用/禁用MerathilisUI飞行点."
 
 -- Shadows
 L["Shadows"] = true
@@ -213,7 +217,7 @@ L["The spacing between buttons."] = "按键间的间距"
 L["The size of the buttons."] = "按键大小"
 L["Slow Mode"] = "慢速模式"
 L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] =
-"以更慢的时间(10秒)更新额外文字"
+	"以更慢的时间(10秒)更新额外文字"
 L["Display"] = "显示"
 L["Fade Time"] = "淡入时间"
 L["Tooltip Position"] = "鼠标提示位置"
@@ -299,8 +303,10 @@ L["COLOR"] = true
 L["Hide Boss Banner"] = true
 L["This will hide the popup, that shows loot, after you kill a boss"] = true
 L["{rt1} %player% cast %spell% -> %target% {rt1}"] = "%player%使用了%spell% -> %target%"
-L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"] = "{rt1} %player%使用了%spell%, 各位快来领面包哦! {rt1}"
-L["{rt1} %player% is casting %spell%, please assist! {rt1}"] = "{rt1} %player%正在进行 %spell%, 请配合点门哦! {rt1}"
+L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"] =
+	"{rt1} %player%使用了%spell%, 各位快来领面包哦! {rt1}"
+L["{rt1} %player% is casting %spell%, please assist! {rt1}"] =
+	"{rt1} %player%正在进行 %spell%, 请配合点门哦! {rt1}"
 L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"] = true
 L["{rt1} %player% opened %spell%! {rt1}"] = "{rt1} %player%开启了%spell% {rt1}"
 L["{rt1} %player% puts %spell% {rt1}"] = "{rt1} %player%放置了%spell% {rt1}"
@@ -308,7 +314,8 @@ L["{rt1} %player% used %spell% {rt1}"] = "{rt1} %player% 使用了 %spell% {rt1}
 L["{rt1} %player% puts down %spell%! {rt1}"] = true
 L["Completed"] = "已完成"
 L["%s has been reseted"] = "已重置 %s"
-L["Cannot reset %s (There are players in your party attempting to zone into an instance.)"] = "重置 %s 失败（有玩家在尝试进入副本）"
+L["Cannot reset %s (There are players in your party attempting to zone into an instance.)"] =
+	"重置 %s 失败（有玩家在尝试进入副本）"
 L["Cannot reset %s (There are players offline in your party.)"] = "重置 %s 失败（有离线玩家）"
 L["Cannot reset %s (There are players still inside the instance.)"] = "重置 %s 失败（副本内还有玩家）"
 L["Let your teammates know the progress of quests."] = true
@@ -384,9 +391,11 @@ L["Your Status: Completed on "] = "您的状态：完成于"
 L["Adds an icon for spells and items on your tooltip."] = "在鼠标提示中为法术和物品添加一个图标."
 L["Adds an Icon for battle pets on the tooltip."] = "在鼠标提示中为战斗宠物添加一个图标."
 L["Adds an Icon for the faction on the tooltip."] = "在鼠标提示中为阵营添加一个图标."
-L["Adds information to the tooltip, on which char you earned an achievement."] = "在鼠标提示中增加一个信息,显示你在哪个角色上取得了成就."
+L["Adds information to the tooltip, on which char you earned an achievement."] =
+	"在鼠标提示中增加一个信息,显示你在哪个角色上取得了成就."
 L["Keystone"] = "大秘境钥匙"
-L["Adds descriptions for mythic keystone properties to their tooltips."] = "鼠标提示中添加大米钥匙的词缀描述"
+L["Adds descriptions for mythic keystone properties to their tooltips."] =
+	"鼠标提示中添加大米钥匙的词缀描述"
 L["Title Color"] = "标题颜色"
 L["Change the color of the title in the Tooltip."] = "改变鼠标提示中标题的颜色"
 L["FACTION"] = "阵营"
@@ -424,11 +433,12 @@ L["Notification Mover"] = "通知"
 L["%s slot needs to repair, current durability is %d."] = "%s 插槽需要修理, 当前耐久度是 %d."
 L["You have %s pending calendar invite(s)."] = "你有 %s 待处理的日历邀请."
 L["You have %s pending guild event(s)."] = "你有 %s 待处理的公会事件."
-L["Event \"%s\" will end today."] = "\"%s\" 活动今天结束."
-L["Event \"%s\" started today."] = "\"%s\" 活动今天开始."
-L["Event \"%s\" is ongoing."] = "\"%s\" 活动正在进行中."
-L["Event \"%s\" will end tomorrow."] = "\"%s\" 活动明天结束."
-L["Here you can enable/disable the different notification types."] = "在这里，你可以启用/禁用不同的通知类型."
+L['Event "%s" will end today.'] = '"%s" 活动今天结束.'
+L['Event "%s" started today.'] = '"%s" 活动今天开始.'
+L['Event "%s" is ongoing.'] = '"%s" 活动正在进行中.'
+L['Event "%s" will end tomorrow.'] = '"%s" 活动明天结束.'
+L["Here you can enable/disable the different notification types."] =
+	"在这里，你可以启用/禁用不同的通知类型."
 L["Enable Mail"] = "启用邮件"
 L["Enable Vignette"] = "启用简介"
 L["If a Rare Mob or a treasure gets spotted on the minimap."] = "如果在小地图上发现稀有精英或宝箱"
@@ -572,7 +582,8 @@ L["MER_MEDIA_PVPARENA"] = {
 
 -- Unitframes
 L["UnitFrames"] = "单位框体"
-L["Adds a shadow to the debuffs that the debuff color is more visible."] = "在Debuff图标外添加阴影以便更清楚的分辨Debuff类型"
+L["Adds a shadow to the debuffs that the debuff color is more visible."] =
+	"在Debuff图标外添加阴影以便更清楚的分辨Debuff类型"
 L["Swing Bar"] = "普攻计时条"
 L["Creates a weapon Swing Bar"] = "创建一个普攻计时条"
 L["Main-Hand Color"] = "主手颜色"
@@ -581,11 +592,15 @@ L["Two-Hand Color"] = "双手颜色"
 L["GCD Bar"] = "公共CD条"
 L["Creates a Global Cooldown Bar"] = "创建一个公共CD计时条"
 L["UnitFrame Style"] = "头像样式"
-L["Adds my styling to the Unitframes if you use transparent health."] = "当你使用透明头像时，添加Merathilis风格"
+L["Adds my styling to the Unitframes if you use transparent health."] =
+	"当你使用透明头像时，添加Merathilis风格"
 L["Change the default role icons."] = "替换默认职责图标"
-L["Changes the Heal Prediction texture to the default Blizzard ones."] = "将治疗预估材质替换为暴雪默认样式"
-L["Add a glow in the end of health bars to indicate the over absorb."] = "在生命条的末端添加发光来表示过量吸收."
-L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] = "为 ElvUI 单位框体添加暴雪风格的过量吸收发光和叠加层."
+L["Changes the Heal Prediction texture to the default Blizzard ones."] =
+	"将治疗预估材质替换为暴雪默认样式"
+L["Add a glow in the end of health bars to indicate the over absorb."] =
+	"在生命条的末端添加发光来表示过量吸收."
+L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] =
+	"为 ElvUI 单位框体添加暴雪风格的过量吸收发光和叠加层."
 L["Auto Height"] = "自动高度"
 L["Blizzard Absorb Overlay"] = "暴雪吸收覆盖层"
 L["Blizzard Over Absorb Glow"] = "暴雪过量吸收发光"
@@ -594,14 +609,16 @@ L["Change the color of the absorb bar."] = "修改吸收条的颜色."
 L["Custom Texture"] = "Benutzerdefinierte Textur"
 L["Enable the replacing of ElvUI absorb bar textures."] = "启用 ElvUI 吸收条材质替换."
 L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] =
-"这里有一些按钮帮助你一键更改所有吸收条的设置."
+	"这里有一些按钮帮助你一键更改所有吸收条的设置."
 L["Max Overflow"] = "最大治疗吸收盾"
 L["Modify the texture of the absorb bar."] = "修改吸收条材质."
 L["Overflow"] = "溢出"
 L["Set %s to %s"] = "设置 %s 为 %s"
 L["Set All Absorb Style to %s"] = "设置全部吸收样式为 %s"
-L["The absorb style %s and %s is highly recommended with %s tweaks."] = "非常推荐使用 %s 和 %s 的吸收风格来和 %s的修改进行搭配显示."
-L["The selected texture will override the ElvUI default absorb bar texture."] = "选定的材质会覆盖 ElvUI 默认吸收材质."
+L["The absorb style %s and %s is highly recommended with %s tweaks."] =
+	"非常推荐使用 %s 和 %s 的吸收风格来和 %s的修改进行搭配显示."
+L["The selected texture will override the ElvUI default absorb bar texture."] =
+	"选定的材质会覆盖 ElvUI 默认吸收材质."
 L["Use the texture from Blizzard Raid Frames."] = "使用暴雪团队框架中的材质."
 L["Raid Icon"] = true
 L["Change the default raid icons."] = true
@@ -623,7 +640,7 @@ L["NoBackdrop"] = "无背景"
 L["Location Panel"] = "位置面板"
 L["Update Throttle"] = "更新阈值"
 L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] =
-"坐标和区域文本更新的频率，数值越小更新越频繁."
+	"坐标和区域文本更新的频率，数值越小更新越频繁."
 L["Full Location"] = "完整位置"
 L["Color Type"] = "颜色类型"
 L["Custom Color"] = "自定义颜色"
@@ -634,13 +651,13 @@ L["Teleports"] = "传送"
 L["Portals"] = "传送门"
 L["Link Position"] = "链接位置"
 L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."] =
-"按住shift键点击位置，能在聊天框中粘贴你的坐标."
+	"按住shift键点击位置，能在聊天框中粘贴你的坐标."
 L["Relocation Menu"] = "传送菜单"
 L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."] =
-"在位置面板上点击右键将弹出一些可用选项用来传送你的角色(例如炉石，传送门等)."
+	"在位置面板上点击右键将弹出一些可用选项用来传送你的角色(例如炉石，传送门等)."
 L["Custom Width"] = "自定义宽度"
 L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] =
-"默认情况下，菜单的宽度将等于位置面板宽度。 选中此选项将允许您设置自己的宽度"
+	"默认情况下，菜单的宽度将等于位置面板宽度。 选中此选项将允许您设置自己的宽度"
 L["Justify Text"] = "对齐文字"
 L["Auto Width"] = "自动宽度"
 L["Change width based on the zone name length."] = "根据区域名称长度更改宽度"
@@ -654,19 +671,23 @@ L["Hearthstone Location"] = "炉石位置"
 L["Show hearthstones"] = "显示炉石"
 L["Show hearthstone type items in the list."] = "在列表中显示类炉石功能的物品."
 L["Show Toys"] = "显示玩具"
-L["Show toys in the list. This option will affect all other display options as well."] = "在列表中显示玩具. 此选项也会影响所有其他显示选项"
+L["Show toys in the list. This option will affect all other display options as well."] =
+	"在列表中显示玩具. 此选项也会影响所有其他显示选项"
 L["Show spells"] = "显示法术"
 L["Show relocation spells in the list."] = "列表中显示传送法术."
 L["Show engineer gadgets"] = "显示工程玩具"
-L["Show items used only by engineers when the profession is learned."] = "仅显示已学的工程专业能使用的物品."
+L["Show items used only by engineers when the profession is learned."] =
+	"仅显示已学的工程专业能使用的物品."
 L["Ignore missing info"] = "忽略丢失的信息"
-L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[一些项目由于客户端功能可能导致一段时间不可用.这些主要是玩具信息.
+L["MER_LOCPANEL_IGNOREMISSINGINFO"] =
+	[[一些项目由于客户端功能可能导致一段时间不可用.这些主要是玩具信息.
 当调用时,菜单将等待到所有可用的信息后才会出现.可能导致菜单打开延迟，这取决于服务器响应请求的速度.
 通过启用此选项，您将使菜单项忽略缺少的信息，使它们不会出现在列表中.]]
-L["Info for some items is not available yet. Please try again later"] = "尚未提供某些项目的信息。请稍后再试"
+L["Info for some items is not available yet. Please try again later"] =
+	"尚未提供某些项目的信息。请稍后再试"
 L["Update canceled."] = "更新取消"
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] =
-"物品信息不可用.请等待一小会.当所有信息变得可用时，菜单将自动打开时.在更新期间再次调用菜单将取消它."
+	"物品信息不可用.请等待一小会.当所有信息变得可用时，菜单将自动打开时.在更新期间再次调用菜单将取消它."
 L["Update complete. Opening menu."] = "更新完成，正在打开菜单."
 L["Hide Coordinates"] = "隐藏坐标"
 L["Dungeon Teleports"] = true
@@ -690,7 +711,8 @@ L["Only In Combat"] = "仅在战斗中"
 L["Fade-In"] = "淡入"
 L["The time of animation. Set 0 to disable animation."] = "时间动画. 设置为0来关闭动画"
 L["Blinking Minimap"] = "小地图边框闪亮"
-L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
+L["Enable the blinking animation for new mail or pending invites."] =
+	"为新邮件或等待的邀请启用闪光动画."
 L["Super Tracker"] = "超级追踪"
 L["Description"] = "描述"
 L["Additional features for waypoint."] = "为标记点添加额外功能."
@@ -724,7 +746,7 @@ L["The coordinates contain illegal number."] = "坐标包含非法数字."
 L["Waypoint %s has been set."] = "已设置 %s 路径点."
 L["Waypoint Parse"] = "路径点解析"
 L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] =
-"你可以在这里粘贴任何包含坐标的文字, 然后按 回车键 设置路径点."
+	"你可以在这里粘贴任何包含坐标的文字, 然后按 回车键 设置路径点."
 L["illegal"] = "非法"
 L["invalid"] = "无效"
 L["Because of %s, this module will not be loaded."] = true
@@ -835,10 +857,12 @@ L["%s + Click to clear all marks."] = "%s + 点击 清除所有标记"
 L["Left Click to ready check."] = "左键点击: 团队确认"
 L["Right click to toggle advanced combat logging."] = "右键点击: 开关高级战斗记录."
 L["Left Click to start count down."] = "左键点击: 开始倒数."
-L["Add an extra bar to let you set raid markers efficiently."] = "添加一个额外的条让你更加效率得设定团队标记."
+L["Add an extra bar to let you set raid markers efficiently."] =
+	"添加一个额外的条让你更加效率得设定团队标记."
 L["Toggle raid markers bar."] = "开关团队标记条."
 L["Inverse Mode"] = "反向模式"
-L["Swap the functionality of normal click and click with modifier keys."] = "对调正常点击和按下修饰键时点击的功能."
+L["Swap the functionality of normal click and click with modifier keys."] =
+	"对调正常点击和按下修饰键时点击的功能."
 L["Visibility"] = "可见性"
 L["In Party"] = "在小队中"
 L["Always Display"] = "总是显示"
@@ -882,7 +906,8 @@ L["Shows the pixel glow on missing raidbuffs."] = "为丢失的团队BUFF显示�
 
 -- Raid Manager
 L["Raid Manager"] = "团队管理"
-L["This will disable the ElvUI Raid Control and replace it with my own."] = "这将禁用ElvUI的团队管理，替换为Merathilis的"
+L["This will disable the ElvUI Raid Control and replace it with my own."] =
+	"这将禁用ElvUI的团队管理，替换为Merathilis的"
 L["Open Raid Manager"] = "打开团队管理"
 L["Pull Timer Count"] = "倒数计时"
 L["Change the Pulltimer for DBM or BigWigs"] = "修改DBM和BigWigs的倒数计时"
@@ -934,10 +959,12 @@ L["showTutorials"] = "显示教程"
 L["World Text Scale"] = "世界文字尺寸"
 L["WorldTextScale_DESC"] = "游戏世界中伤害数字、经验获取、神器获得等字体的尺寸\r\r默认: 1.0"
 L["floatingCombatTextCombatDamageDirectionalScale"] = "直接伤害文字速度"
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "直接伤害文字移动速度 (禁用 = 无数字)\r\r默认: |cff00ff001|r"
+L["floatingCombatTextCombatDamageDirectionalScale_DESC"] =
+	"直接伤害文字移动速度 (禁用 = 无数字)\r\r默认: |cff00ff001|r"
 
 -- GMOTD
-L["Display the Guild Message of the Day in an extra window, if updated."] = "如果有更新，则在额外的窗口中显示当天的公会信息."
+L["Display the Guild Message of the Day in an extra window, if updated."] =
+	"如果有更新，则在额外的窗口中显示当天的公会信息."
 
 -- AFK
 L["Jan"] = "一月"
@@ -963,17 +990,20 @@ L["Sat"] = "星期六"
 
 -- Nameplates
 L["Castbar Shield"] = "施法条盾牌"
-L["Show a shield icon on the castbar for non interruptible spells."] = "在不可打断的法术图标上添加盾牌图标"
+L["Show a shield icon on the castbar for non interruptible spells."] =
+	"在不可打断的法术图标上添加盾牌图标"
 L["Enhanced NameplateAuras"] = "增强姓名板光环"
 L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] =
-"|cffFF0000注意:|r 这会覆盖 ElvUI 姓名板 Buff/Debuffs 的长宽设置. 控制技能的图标大小固定为: 32 x 32"
+	"|cffFF0000注意:|r 这会覆盖 ElvUI 姓名板 Buff/Debuffs 的长宽设置. 控制技能的图标大小固定为: 32 x 32"
 
 -- Install
 L["Welcome"] = "欢迎"
 L["|cffff7d0aMerathilisUI|r Installation"] = "|cffff7d0aMerathilisUI|r安装"
 L["MerathilisUI Set"] = "MerathilisUI设置"
-L["MerathilisUI didn't find any supported addons for profile creation"] = "MerathilisUI没有找到任何支持的插件用于配置文件创建."
-L["MerathilisUI successfully created and applied profile(s) for:"] = "MerathilisUI成功创建并应用了个人配置为:"
+L["MerathilisUI didn't find any supported addons for profile creation"] =
+	"MerathilisUI没有找到任何支持的插件用于配置文件创建."
+L["MerathilisUI successfully created and applied profile(s) for:"] =
+	"MerathilisUI成功创建并应用了个人配置为:"
 L["Chat Set"] = "聊天框设置"
 L["ActionBars"] = "动作条"
 L["ActionBars Set"] = "动作条设置"
@@ -988,27 +1018,34 @@ L["Skada Profile Created"] = "Skada配置文件已创建"
 L["Skada is not enabled, aborting."] = "Skada未启用，正在中止."
 L["UnitFrames Set"] = "单位框体设置"
 L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."] =
-"欢迎来到MerathilisUI |cff00c0faVersion|r %s, 适用于ElvUI %s."
+	"欢迎来到MerathilisUI |cff00c0faVersion|r %s, 适用于ElvUI %s."
 L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] =
-"按下继续按钮，MerathilisUI将应用于您当前的ElvUI安装.\r\r|cffff8000 小窍门: 防止你不喜欢这个结果，你应该在新的配置文件中应用这个更改.|r"
+	"按下继续按钮，MerathilisUI将应用于您当前的ElvUI安装.\r\r|cffff8000 小窍门: 防止你不喜欢这个结果，你应该在新的配置文件中应用这个更改.|r"
 L["Buttons must be clicked twice"] = "按钮需要点击两次"
 L["Importance: |cffff0000Very High|r"] = "重要性: |cffff0000非常高|r"
-L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."] = "插件'AddOnSkins'未启用.没有设置被更改."
+L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."] =
+	"插件'AddOnSkins'未启用.没有设置被更改."
 L["The Addon 'Big Wigs' is not enabled. Profile not created."] = "插件'Big Wigs'未启用.未创建配置文件."
-L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."] = "插件'ElvUI_BenikUI'未启用.没有设置被更改."
-L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] = "插件'ElvUI_SLE'未启用.没有设置被更改."
+L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."] =
+	"插件'ElvUI_BenikUI'未启用.没有设置被更改."
+L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] =
+	"插件'ElvUI_SLE'未启用.没有设置被更改."
 L["The Addon 'Skada' is not enabled. Profile not created."] = "插件'Skada'未启用.未创建配置文件."
-L["This part of the installation process sets up your chat fonts and colors."] = "安装过程的此部分设置您的聊天字体和颜色."
-L["This part of the installation changes the default ElvUI look."] = "安装过程的此部分更改了默认的ElvUI外观."
+L["This part of the installation process sets up your chat fonts and colors."] =
+	"安装过程的此部分设置您的聊天字体和颜色."
+L["This part of the installation changes the default ElvUI look."] =
+	"安装过程的此部分更改了默认的ElvUI外观."
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] =
-"这部分安装过程将填充MerathilisUI数据文本.\r|cffff8000这不会触及ElvUI数据文本|r"
+	"这部分安装过程将填充MerathilisUI数据文本.\r|cffff8000这不会触及ElvUI数据文本|r"
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] =
-"这部分安装过程将重新布局您的动作条并启用背景"
+	"这部分安装过程将重新布局您的动作条并启用背景"
 L["This part of the installation process will change your NamePlates."] = true
-L["This part of the installation process will reposition your Unitframes."] = "这部分安装过程将重新布局您的单位框体."
-L["This part of the installation process will apply changes to ElvUI Plugins"] = "这部分安装过程将对ElvUI插件应用更改"
+L["This part of the installation process will reposition your Unitframes."] =
+	"这部分安装过程将重新布局您的单位框体."
+L["This part of the installation process will apply changes to ElvUI Plugins"] =
+	"这部分安装过程将对ElvUI插件应用更改"
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] =
-"此步骤更改了一些魔兽世界的默认选项.这些选项是根据%s作者的需求量身定制的,并不是此配置功能所必需的(一些cvar的修改)"
+	"此步骤更改了一些魔兽世界的默认选项.这些选项是根据%s作者的需求量身定制的,并不是此配置功能所必需的(一些cvar的修改)"
 L["Please click the button below to apply the new layout."] = "请单击下面的按钮以应用新布局."
 L["Please click the button below to setup your chat windows."] = "请单击下面的按钮设置聊天窗口."
 L["Please click the button below to setup your actionbars."] = "请单击下面的按钮设置动作条."
@@ -1016,7 +1053,7 @@ L["Please click the button below to setup your datatexts."] = "请单击下面�
 L["Please click the button below to setup your NamePlates."] = true
 L["Please click the button below to setup your Unitframes."] = "请单击下面的按钮设置单位框架."
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] =
-"请单击下面的按钮以设置ElvUI AddOns.对于其他Addon配置文件,请进入我的选项 - 皮肤/插件"
+	"请单击下面的按钮以设置ElvUI AddOns.对于其他Addon配置文件,请进入我的选项 - 皮肤/插件"
 L["DataTexts"] = "数据文本"
 L["General Layout"] = true
 L["Setup ActionBars"] = true
@@ -1030,9 +1067,11 @@ L["Installed"] = "安装"
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =
-"您的ElvUI版本比推荐使用|cffff7d0aMerathilisUI|r的版本旧. 你的版本是 |cff00c0fa%.2f|r (推荐版本 |cff00c0fa%.2f|r). MerathilisUI未加载. 请更新你的ElvUI."
+	"您的ElvUI版本比推荐使用|cffff7d0aMerathilisUI|r的版本旧. 你的版本是 |cff00c0fa%.2f|r (推荐版本 |cff00c0fa%.2f|r). MerathilisUI未加载. 请更新你的ElvUI."
+L["MSG_MER_ELV_MISMATCH"] =
+	"Your ElvUI version is higher than expected. Please update MerathilisUI or you might run into issues or |cffFF0000having it already|r."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] =
-"你已经同时启用了Location Plus和Shadow＆Light.选择要禁用的插件"
+	"你已经同时启用了Location Plus和Shadow＆Light.选择要禁用的插件"
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[在这里,您可以选择S＆L的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[在这里,您可以选择BigWigs的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[在这里,您可以选择Deadly Boss Mods的布局.]]
@@ -1054,7 +1093,7 @@ L["Screen Shadow Overlay"] = true
 L["Undress Button"] = "解除装备按钮"
 L["Subpages"] = "子页面"
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] =
-"子页面有10个物品, 这个选项设置了一页里有多少子页面"
+	"子页面有10个物品, 这个选项设置了一页里有多少子页面"
 L["Enable/Disable"] = "启用/禁用"
 L["decor."] = "装饰"
 L["Enables/Disables a shadow overlay to darken the screen."] = true
@@ -1201,7 +1240,8 @@ L["Here are some example presets, just try them!"] = "这里有一些示例预�
 L["Default"] = "默认"
 L["Header"] = "顶部"
 L["Short Header"] = "简短顶部"
-L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = "使用简短名字替代, 比如 托加斯特,罪魂之塔 为 托加斯特."
+L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] =
+	"使用简短名字替代, 比如 托加斯特,罪魂之塔 为 托加斯特."
 L["Title Color"] = "标题颜色"
 L["Change the color of quest titles."] = "修改任务标题文字颜色."
 L["Use Class Color"] = "使用职业颜色"
@@ -1221,7 +1261,8 @@ L["it shows when objective tracker is collapsed."] = true
 L["Filter"] = "过滤器"
 L["Unblock the profanity filter."] = "解锁语言过滤器."
 L["Profanity Filter"] = "语言过滤器"
-L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = "开启这个选项将解锁语言过滤器的设定.[国服]"
+L["Enable this option will unblock the setting of profanity filter. [CN Server]"] =
+	"开启这个选项将解锁语言过滤器的设定.[国服]"
 
 -- Friends List
 L["Friends List"] = "好友列表"
@@ -1240,9 +1281,11 @@ L["Name"] = "姓名"
 L["Level"] = "等级"
 L["Hide Max Level"] = "隐藏满级"
 L["Use Note As Name"] = "使用备注作为名字"
-L["Replace the Real ID or the character name of friends with your notes."] = "使用你的备注替换好友的战网名或角色名."
+L["Replace the Real ID or the character name of friends with your notes."] =
+	"使用你的备注替换好友的战网名或角色名."
 L["Use Game Color"] = "使用游戏颜色"
-L["Change the color of the name to the in-playing game style."] = "根据正在游玩的游戏的风格来改变姓名颜色."
+L["Change the color of the name to the in-playing game style."] =
+	"根据正在游玩的游戏的风格来改变姓名颜色."
 L["Use Class Color"] = "使用职业颜色"
 L["Font Setting"] = "字体设定"
 
@@ -1265,28 +1308,32 @@ L["Changelog"] = "更新日志"
 
 -- Compatibility
 L["Compatibility Check"] = "兼容性检测"
-L["Help you to enable/disable the modules for a better experience with other plugins."] = "为了更好的与其他插件兼容, 帮助你开启/禁用一些模块."
+L["Help you to enable/disable the modules for a better experience with other plugins."] =
+	"为了更好的与其他插件兼容, 帮助你开启/禁用一些模块."
 L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] =
-"不同的插件和 ElvUI 增强中有非常多的模块, 但其中部分模块功能是高度相似的."
+	"不同的插件和 ElvUI 增强中有非常多的模块, 但其中部分模块功能是高度相似的."
 L["Have a good time with %s!"] = "希望 %s 能让你玩得开心!"
 L["Choose the module you would like to |cff00ff00use|r"] = "请选择你要|cff00ff00使用|r的模块"
 L["If you find the %s module conflicts with another addon, alert me via Discord."] =
-"如果你发现 %s 的模块与其他插件冲突, 可以通过 Discord 来告知我."
+	"如果你发现 %s 的模块与其他插件冲突, 可以通过 Discord 来告知我."
 L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] =
-"你可以通过设定位于 [MerathilisUI]-[信息] 底部的选项来启用/停用兼容性检查."
+	"你可以通过设定位于 [MerathilisUI]-[信息] 底部的选项来启用/停用兼容性检查."
 L["Complete"] = "完成"
 
 -- Debug
 L["Usage"] = "用法"
 L["Enable debug mode"] = "启用除错模式"
-L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] = "禁用除了 ElvUI 核心, ElvUI %s 和 BugSack 以外的插件."
+L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."] =
+	"禁用除了 ElvUI 核心, ElvUI %s 和 BugSack 以外的插件."
 L["Disable debug mode"] = "禁用除错模式"
 L["Reenable the addons that disabled by debug mode."] = "重新启用调试模式时禁用的插件."
 L["Debug Enviroment"] = "调试环境"
-L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = "你可以使用 |cff00ff00/muidebug off|r 命令来退出调试模式."
-L["After you stop debuging, %s will reenable the addons automatically."] = "在你停止调试后, %s 将自动重新启用插件."
+L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] =
+	"你可以使用 |cff00ff00/muidebug off|r 命令来退出调试模式."
+L["After you stop debuging, %s will reenable the addons automatically."] =
+	"在你停止调试后, %s 将自动重新启用插件."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =
-"在提交一个错误报告之前, 请先用 %s 命令启用调试模式并再测试一次."
+	"在提交一个错误报告之前, 请先用 %s 命令启用调试模式并再测试一次."
 L["Error"] = true
 L["Warning"] = true
 

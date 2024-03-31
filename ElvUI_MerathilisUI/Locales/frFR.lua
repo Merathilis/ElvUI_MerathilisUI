@@ -206,7 +206,7 @@ L["The spacing between buttons."] = "Espacement entre deux boutons."
 L["The size of the buttons."] = "La taille des boutons."
 L["Slow Mode"] = "Mode lent"
 L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] =
-"Mettez à jour le texte supplémentaire toutes les 10 secondes plutôt que toutes les secondes afin que la mémoire utilisée soit plus faible."
+	"Mettez à jour le texte supplémentaire toutes les 10 secondes plutôt que toutes les secondes afin que la mémoire utilisée soit plus faible."
 L["Display"] = "Affichage"
 L["Fade Time"] = "Durée du fondu"
 L["Tooltip Position"] = true
@@ -293,11 +293,11 @@ L["Hide Boss Banner"] = true
 L["This will hide the popup, that shows loot, after you kill a boss"] = true
 L["{rt1} %player% cast %spell% -> %target% {rt1}"] = "{rt1} %player% lance %spell% -> %target% {rt1}"
 L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"] =
-"{rt1} %player% a lancé %spell%, la spécialité du jour c'est la tarte aux anchois ! {rt1}"
+	"{rt1} %player% a lancé %spell%, la spécialité du jour c'est la tarte aux anchois ! {rt1}"
 L["{rt1} %player% is casting %spell%, please assist! {rt1}"] =
-"{rt1} %player% lance le sort %spell%, venez l'assister ! {rt1}"
+	"{rt1} %player% lance le sort %spell%, venez l'assister ! {rt1}"
 L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"] =
-"{rt1} %player% propose des %spell%, venez en prendre un ! {rt1}"
+	"{rt1} %player% propose des %spell%, venez en prendre un ! {rt1}"
 L["{rt1} %player% opened %spell%! {rt1}"] = "{rt1} %player% a ouvert %spell% ! {rt1}"
 L["{rt1} %player% puts %spell% {rt1}"] = "{rt1} %player% place %spell% ! {rt1}"
 L["{rt1} %player% used %spell% {rt1}"] = "{rt1} %player% a utilisé le sort %spell% {rt1}"
@@ -305,11 +305,11 @@ L["{rt1} %player% puts down %spell%! {rt1}"] = true
 L["Completed"] = "Complété"
 L["%s has been reseted"] = "%s a été réinitialisé"
 L["Cannot reset %s (There are players in your party attempting to zone into an instance.)"] =
-"Impossible de réinitialiser %s (il y a des joueurs dans votre groupe qui tentent de rejoindre une instance.)"
+	"Impossible de réinitialiser %s (il y a des joueurs dans votre groupe qui tentent de rejoindre une instance.)"
 L["Cannot reset %s (There are players offline in your party.)"] =
-"Impossible de réinitialiser %s (il y a des joueurs hors ligne dans votre groupe.)"
+	"Impossible de réinitialiser %s (il y a des joueurs hors ligne dans votre groupe.)"
 L["Cannot reset %s (There are players still inside the instance.)"] =
-"Impossible de réinitialiser %s (il y a encore des joueurs à l'intérieur de l'instance.)"
+	"Impossible de réinitialiser %s (il y a encore des joueurs à l'intérieur de l'instance.)"
 L["Let your teammates know the progress of quests."] = true
 L["Disable Blizzard"] = true
 L["Disable Blizzard quest progress message."] = true
@@ -424,10 +424,10 @@ L["Notification Mover"] = true
 L["%s slot needs to repair, current durability is %d."] = true
 L["You have %s pending calendar invite(s)."] = true
 L["You have %s pending guild event(s)."] = true
-L["Event \"%s\" will end today."] = true
-L["Event \"%s\" started today."] = true
-L["Event \"%s\" is ongoing."] = true
-L["Event \"%s\" will end tomorrow."] = true
+L['Event "%s" will end today.'] = true
+L['Event "%s" started today.'] = true
+L['Event "%s" is ongoing.'] = true
+L['Event "%s" will end tomorrow.'] = true
 L["Here you can enable/disable the different notification types."] = true
 L["Enable Mail"] = true
 L["Enable Vignette"] = true
@@ -631,9 +631,11 @@ L["Portals"] = "Portails"
 L["Link Position"] = true
 L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."] = true
 L["Relocation Menu"] = true
-L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."] = true
+L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."] =
+	true
 L["Custom Width"] = true
-L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] = true
+L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] =
+	true
 L["Justify Text"] = true
 L["Auto Width"] = true
 L["Change width based on the zone name length."] = true
@@ -654,12 +656,13 @@ L["Show engineer gadgets"] = true
 L["Show items used only by engineers when the profession is learned."] = true
 L["Ignore missing info"] = true
 L["MER_LOCPANEL_IGNOREMISSINGINFO"] =
-[[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
+	[[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
 When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
 By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
 L["Info for some items is not available yet. Please try again later"] = true
 L["Update canceled."] = true
-L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = true
+L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] =
+	true
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
 L["Dungeon Teleports"] = true
@@ -681,7 +684,7 @@ L["Add Server Name"] = "Ajouter un nom de serveur"
 L["Only In Combat"] = true
 L["Fade-In"] = true
 L["The time of animation. Set 0 to disable animation."] =
-"La durée des animations. Mettre 0 pour désactiver l'animation."
+	"La durée des animations. Mettre 0 pour désactiver l'animation."
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 L["Super Tracker"] = true
@@ -693,7 +696,7 @@ L["Middle Click To Clear"] = true
 L["Middle click the waypoint to clear it."] = true
 L["No Distance Limitation"] = "Aucune limitation de distance"
 L["Force to track the target even if it over 1000 yds."] =
-"Toujours suivre la cible même si elle est au delà de 1000 mètres."
+	"Toujours suivre la cible même si elle est au delà de 1000 mètres."
 L["Distance Text"] = true
 L["Only Number"] = "Seulement le nombre"
 L["Add Command"] = true
@@ -782,11 +785,11 @@ L["The Big Dig"] = true
 -- SMB
 L["Minimap Buttons"] = "Bouton de la minicarte"
 L["Add an extra bar to collect minimap buttons."] =
-"Ajoute une barre supplémentaire pour regrouper les boutons de la mini-carte."
+	"Ajoute une barre supplémentaire pour regrouper les boutons de la mini-carte."
 L["Toggle minimap buttons bar."] = "Afficher la barre de boutons de la minicarte."
 L["Mouse Over"] = "Au survol"
 L["Only show minimap buttons bar when you mouse over it."] =
-"Afficher uniquement la barre de boutons de la mini-carte au su²rvol de la souris."
+	"Afficher uniquement la barre de boutons de la mini-carte au su²rvol de la souris."
 L["Minimap Buttons Bar"] = "Barre de boutons de la minicarte"
 L["Bar Backdrop"] = "Fond de la barre"
 L["Show a backdrop of the bar."] = "Montrer le fond de la barre."
@@ -831,7 +834,7 @@ L["Left Click to ready check."] = "Clic gauche pour vérifier si les joueurs son
 L["Right click to toggle advanced combat logging."] = "Clic droit pour afficher le journal de combat avancé."
 L["Left Click to start count down."] = "Clic gauche pour démarrer le compte à rebours."
 L["Add an extra bar to let you set raid markers efficiently."] =
-"Ajoute une barre supplémentaire pour vous permettre de définir les marqueurs pour les raids."
+	"Ajoute une barre supplémentaire pour vous permettre de définir les marqueurs pour les raids."
 L["Toggle raid markers bar."] = "Affiche la barre des marqueurs pour les raids"
 L["Inverse Mode"] = "Mode inversé"
 L["Swap the functionality of normal click and click with modifier keys."] = true
@@ -840,10 +843,10 @@ L["In Party"] = "En groupe"
 L["Always Display"] = "Toujours afficher"
 L["Mouse Over"] = "Au survol"
 L["Only show raid markers bar when you mouse over it."] =
-"Afficher uniquement la barre des marqueurs pour les raids au survol de la souris."
+	"Afficher uniquement la barre des marqueurs pour les raids au survol de la souris."
 L["Tooltip"] = "Infobulle"
 L["Show the tooltip when you mouse over the button."] =
-"Afficher l'infobulle lorsque vous passez la souris sur le bouton."
+	"Afficher l'infobulle lorsque vous passez la souris sur le bouton."
 L["Modifier Key"] = "Touche de modification"
 L["Set the modifier key for placing world markers."] = "Définir la touche pour placer des marqueurs de terrain."
 L["Shift Key"] = "Touche Maj"
@@ -932,7 +935,7 @@ L["WorldTextScale"] = true
 L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
 L["floatingCombatTextCombatDamageDirectionalScale"] = true
 L["floatingCombatTextCombatDamageDirectionalScale_DESC"] =
-"Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
+	"Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
@@ -962,7 +965,8 @@ L["Sat"] = true
 -- Nameplates
 L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
-L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] = true
+L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] =
+	true
 
 -- Install
 L["Welcome"] = true
@@ -984,7 +988,8 @@ L["Skada Profile Created"] = true
 L["Skada is not enabled, aborting."] = true
 L["UnitFrames Set"] = true
 L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."] = true
-L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = true
+L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] =
+	true
 L["Buttons must be clicked twice"] = true
 L["Importance: |cffff0000Very High|r"] = true
 L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."] = true
@@ -994,19 +999,22 @@ L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] = true
 L["The Addon 'Skada' is not enabled. Profile not created."] = true
 L["This part of the installation process sets up your chat fonts and colors."] = true
 L["This part of the installation changes the default ElvUI look."] = true
-L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = true
+L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] =
+	true
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = true
 L["This part of the installation process will change your NamePlates."] = true
 L["This part of the installation process will reposition your Unitframes."] = true
 L["This part of the installation process will apply changes to ElvUI Plugins"] = true
-L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = true
+L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] =
+	true
 L["Please click the button below to apply the new layout."] = true
 L["Please click the button below to setup your chat windows."] = true
 L["Please click the button below to setup your actionbars."] = true
 L["Please click the button below to setup your datatexts."] = true
 L["Please click the button below to setup your NamePlates."] = true
 L["Please click the button below to setup your Unitframes."] = true
-L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
+L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] =
+	true
 L["DataTexts"] = "Textes d'informations"
 L["General Layout"] = true
 L["Setup ActionBars"] = true
@@ -1020,7 +1028,9 @@ L["Installed"] = true
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =
-"Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
+	"Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
+L["MSG_MER_ELV_MISMATCH"] =
+	"Your ElvUI version is higher than expected. Please update MerathilisUI or you might run into issues or |cffFF0000having it already|r."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
@@ -1189,7 +1199,7 @@ L["Default"] = "Défaut"
 L["Header"] = "Entête"
 L["Short Header"] = "Courte entête"
 L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] =
-"Utiliser plutôt un nom court. Par exemple : Tourment, La tour des Damnés."
+	"Utiliser plutôt un nom court. Par exemple : Tourment, La tour des Damnés."
 L["Title Color"] = "Couleur du titre"
 L["Change the color of quest titles."] = "Change la coleur des titres des quêtes."
 L["Use Class Color"] = "Utiliser la couleur de la classe"
@@ -1210,12 +1220,12 @@ L["Filter"] = "Filtre"
 L["Unblock the profanity filter."] = "Débloque le filtre à jurons."
 L["Profanity Filter"] = "Filtre à obscénités"
 L["Enable this option will unblock the setting of profanity filter. [CN Server]"] =
-"Activer cette option débloquera le filtrage des obscénités. [Serveur CN]"
+	"Activer cette option débloquera le filtrage des obscénités. [Serveur CN]"
 
 -- Friends List
 L["Friends List"] = "Liste d'amis"
 L["Add additional information to the friend frame."] =
-"Ajoute des informations supplémentaires à la fenêtre des contacts."
+	"Ajoute des informations supplémentaires à la fenêtre des contacts."
 L["Modify the texture of status and make name colorful."] = "Modifier la texture du statut et mettre le nom en coleur."
 L["Enhanced Texture"] = "Texture améliorée"
 L["Game Icons"] = "Icônes de jeu"
@@ -1255,13 +1265,13 @@ L["Changelog"] = "Changelog"
 -- Compatibility
 L["Compatibility Check"] = "Vérification de compatibilité"
 L["Help you to enable/disable the modules for a better experience with other plugins."] =
-"Vous aide à activer/désactiver les modules pour une meilleure expérience avec d'autres plugins."
+	"Vous aide à activer/désactiver les modules pour une meilleure expérience avec d'autres plugins."
 L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] =
-"Il existe de nombreux addons ou plugins pour ElvUI, mais WindTools peut remplacer certains d'entre eux qui ont les mêmes fonctionnalités."
+	"Il existe de nombreux addons ou plugins pour ElvUI, mais WindTools peut remplacer certains d'entre eux qui ont les mêmes fonctionnalités."
 L["Have a good time with %s!"] = "Amusez-vous bien avec %s !"
 L["Choose the module you would like to |cff00ff00use|r"] = true
 L["If you find the %s module conflicts with another addon, alert me via Discord."] =
-"Si vous constatez que l'addon %s est en conflit avec un autre addon, prévenez-moi via Discord."
+	"Si vous constatez que l'addon %s est en conflit avec un autre addon, prévenez-moi via Discord."
 L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = true
 L["Complete"] = "Complet"
 
