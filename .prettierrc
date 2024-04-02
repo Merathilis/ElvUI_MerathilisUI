@@ -4,5 +4,6 @@
 	"bracketSpacing": false,
 	"plugins": [
 		"@prettier/plugin-lua"
-    ]
+	],
+	"printWidth": 69420
 }

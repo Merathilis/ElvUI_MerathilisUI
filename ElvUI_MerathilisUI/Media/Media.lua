@@ -325,6 +325,8 @@ LSM:Register("font", "Montserrat-SemiBold", [[Interface\AddOns\ElvUI_MerathilisU
 	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register("font", "NotoSans-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\NotoSans-Medium.ttf]],
 	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font", "OldSchool Runescape", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Runescape.ttf]],
+	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 
 -- Backgrounds
 -- Border
