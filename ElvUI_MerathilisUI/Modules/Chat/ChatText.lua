@@ -595,7 +595,7 @@ local function GetPFlag(specialFlag, zoneChannelID, localChannelID)
 			if
 				_G.ChatFrame_GetMentorChannelStatus(
 					CHATCHANNELRULESET_MENTOR,
-					GetChannelRulesetForChannelID(zoneChannelID)
+					C_ChatInfo_GetChannelRulesetForChannelID(zoneChannelID)
 				) == CHATCHANNELRULESET_MENTOR
 			then
 				return NPEV2_CHAT_USER_TAG_GUIDE
@@ -604,7 +604,7 @@ local function GetPFlag(specialFlag, zoneChannelID, localChannelID)
 			if
 				_G.ChatFrame_GetMentorChannelStatus(
 					PLAYERMENTORSHIPSTATUS_NEWCOMER,
-					GetChannelRulesetForChannelID(zoneChannelID)
+					C_ChatInfo_GetChannelRulesetForChannelID(zoneChannelID)
 				) == PLAYERMENTORSHIPSTATUS_NEWCOMER
 			then
 				return _G.NPEV2_CHAT_USER_TAG_NEWCOMER
