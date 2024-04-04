@@ -1,6 +1,8 @@
 -- English localization file for enUS
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "enUS", true, true)
-if not L then return; end
+if not L then
+	return
+end
 
 -- Core
 L["Enable"] = true
@@ -16,7 +18,6 @@ L["X-Offset"] = true
 L["Y-Offset"] = true
 L["Icon Size"] = true
 L["Font Outline"] = true
-
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -208,7 +209,8 @@ L["Time Height"] = true
 L["The spacing between buttons."] = true
 L["The size of the buttons."] = true
 L["Slow Mode"] = true
-L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] = true
+L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] =
+	true
 L["Display"] = true
 L["Fade Time"] = true
 L["Tooltip Position"] = true
@@ -409,10 +411,10 @@ L["Notification Mover"] = true
 L["%s slot needs to repair, current durability is %d."] = true
 L["You have %s pending calendar invite(s)."] = true
 L["You have %s pending guild event(s)."] = true
-L["Event \"%s\" will end today."] = true
-L["Event \"%s\" started today."] = true
-L["Event \"%s\" is ongoing."] = true
-L["Event \"%s\" will end tomorrow."] = true
+L['Event "%s" will end today.'] = true
+L['Event "%s" started today.'] = true
+L['Event "%s" is ongoing.'] = true
+L['Event "%s" will end tomorrow.'] = true
 L["Here you can enable/disable the different notification types."] = true
 L["Enable Mail"] = true
 L["Enable Vignette"] = true
@@ -437,7 +439,6 @@ L["DataBars"] = true
 L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
-
 -- PVP
 L["Automatically cancel PvP duel requests."] = true
 L["Automatically cancel pet battles duel requests."] = true
@@ -451,7 +452,6 @@ L["PvP Auto Release"] = true
 L["Automatically release body when killed inside a battleground."] = true
 L["Check for rebirth mechanics"] = true
 L["Do not release if reincarnation or soulstone is up."] = true
-
 
 -- Actionbars
 L["Specialization Bar"] = true
@@ -618,9 +618,11 @@ L["Portals"] = true
 L["Link Position"] = true
 L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."] = true
 L["Relocation Menu"] = true
-L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."] = true
+L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."] =
+	true
 L["Custom Width"] = true
-L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] = true
+L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] =
+	true
 L["Justify Text"] = true
 L["Auto Width"] = true
 L["Change width based on the zone name length."] = true
@@ -641,12 +643,13 @@ L["Show engineer gadgets"] = true
 L["Show items used only by engineers when the profession is learned."] = true
 L["Ignore missing info"] = true
 L["MER_LOCPANEL_IGNOREMISSINGINFO"] =
-[[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
+	[[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
 When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
 By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
 L["Info for some items is not available yet. Please try again later"] = true
 L["Update canceled."] = true
-L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = true
+L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] =
+	true
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
 L["Dungeon Teleports"] = true
@@ -912,7 +915,7 @@ L["WorldTextScale"] = true
 L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
 L["floatingCombatTextCombatDamageDirectionalScale"] = true
 L["floatingCombatTextCombatDamageDirectionalScale_DESC"] =
-"Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
+	"Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
@@ -942,7 +945,8 @@ L["Sat"] = true
 -- Nameplates
 L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
-L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] = true
+L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] =
+	true
 
 -- Install
 L["Welcome"] = true
@@ -964,7 +968,8 @@ L["Skada Profile Created"] = true
 L["Skada is not enabled, aborting."] = true
 L["UnitFrames Set"] = true
 L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."] = true
-L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = true
+L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] =
+	true
 L["Buttons must be clicked twice"] = true
 L["Importance: |cffff0000Very High|r"] = true
 L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."] = true
@@ -974,19 +979,22 @@ L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] = true
 L["The Addon 'Skada' is not enabled. Profile not created."] = true
 L["This part of the installation process sets up your chat fonts and colors."] = true
 L["This part of the installation changes the default ElvUI look."] = true
-L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = true
+L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] =
+	true
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = true
 L["This part of the installation process will change your NamePlates."] = true
 L["This part of the installation process will reposition your Unitframes."] = true
 L["This part of the installation process will apply changes to ElvUI Plugins"] = true
-L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = true
+L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] =
+	true
 L["Please click the button below to apply the new layout."] = true
 L["Please click the button below to setup your chat windows."] = true
 L["Please click the button below to setup your actionbars."] = true
 L["Please click the button below to setup your datatexts."] = true
 L["Please click the button below to setup your NamePlates."] = true
 L["Please click the button below to setup your Unitframes."] = true
-L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
+L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] =
+	true
 L["DataTexts"] = true
 L["General Layout"] = true
 L["Setup ActionBars"] = true
@@ -1000,7 +1008,9 @@ L["Installed"] = true
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =
-"Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). Please update your ElvUI to avoid errors."
+	"Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). Please update your ElvUI to avoid errors."
+L["MSG_MER_ELV_MISMATCH"] =
+	"Your ElvUI version is higher than expected. Please update MerathilisUI or you might run into issues or |cffFF0000having it already|r."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
@@ -1232,7 +1242,8 @@ L["Changelog"] = true
 -- Compatibility
 L["Compatibility Check"] = true
 L["Help you to enable/disable the modules for a better experience with other plugins."] = true
-L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] = true
+L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] =
+	true
 L["Have a good time with %s!"] = true
 L["Choose the module you would like to |cff00ff00use|r"] = true
 L["If you find the %s module conflicts with another addon, alert me via Discord."] = true

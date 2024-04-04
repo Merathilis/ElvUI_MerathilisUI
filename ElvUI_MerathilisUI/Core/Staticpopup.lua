@@ -23,13 +23,13 @@ E.PopupDialogs["MERATHILISUI_CREDITS"] = {
 		self.temptxt = nil
 	end,
 	EditBoxOnEnterPressed = function(self)
-		self:GetParent():Hide();
+		self:GetParent():Hide()
 	end,
 	EditBoxOnEscapePressed = function(self)
-		self:GetParent():Hide();
+		self:GetParent():Hide()
 	end,
 	EditBoxOnTextChanged = function(self)
-		if (self:GetText() ~= self.temptxt) then
+		if self:GetText() ~= self.temptxt then
 			self:SetText(self.temptxt)
 		end
 		self:HighlightText()
@@ -43,23 +43,34 @@ E.PopupDialogs["MERATHILISUI_CREDITS"] = {
 }
 
 -- ElvUI Versions check
-E.PopupDialogs["VERSION_MISMATCH"] = {
+E.PopupDialogs["VERSION_OUTDATED"] = {
 	text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIVersion, MER.RequiredVersion),
+	-- button1 = CLOSE,
+	timeout = 0,
+	whileDead = 1,
+	preferredIndex = 3,
+	hideOnEscape = false,
+}
+
+E.PopupDialogs["VERSION_MISMATCH"] = {
+	text = L["MSG_MER_ELV_MISMATCH"],
 	button1 = CLOSE,
 	timeout = 0,
 	whileDead = 1,
 	preferredIndex = 3,
+	hideOnEscape = false,
 }
 
 -- Compatibility
 E.PopupDialogs["WINDTOOLS_MER_INCOMPATIBLE"] = {
-	text = L
-		["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."],
+	text = L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."],
 	OnAccept = function()
-		C_AddOns_DisableAddOn("ElvUI_WindTools"); ReloadUI()
+		C_AddOns_DisableAddOn("ElvUI_WindTools")
+		ReloadUI()
 	end,
 	OnCancel = function()
-		C_AddOns_DisableAddOn("ElvUI_MerathilisUI"); ReloadUI()
+		C_AddOns_DisableAddOn("ElvUI_MerathilisUI")
+		ReloadUI()
 	end,
 	button1 = "|cff00c0faElvUI_Windtools|r",
 	button2 = MER.Title,
@@ -69,13 +80,14 @@ E.PopupDialogs["WINDTOOLS_MER_INCOMPATIBLE"] = {
 }
 
 E.PopupDialogs["LIVVEN_MER_INCOMPATIBLE"] = {
-	text = L
-		["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."],
+	text = L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."],
 	OnAccept = function()
-		C_AddOns_DisableAddOn("ElvUI_LivvenUI"); ReloadUI()
+		C_AddOns_DisableAddOn("ElvUI_LivvenUI")
+		ReloadUI()
 	end,
 	OnCancel = function()
-		C_AddOns_DisableAddOn("ElvUI_MerathilisUI"); ReloadUI()
+		C_AddOns_DisableAddOn("ElvUI_MerathilisUI")
+		ReloadUI()
 	end,
 	button1 = "|cff9482c9ElvUI_LivvenUI|r",
 	button2 = MER.Title,
@@ -93,7 +105,7 @@ E.PopupDialogs.MERATHILISUI_RESET_MODULE = {
 		ReloadUI()
 	end,
 	whileDead = 1,
-	hideOnEscape = true
+	hideOnEscape = true,
 }
 
 E.PopupDialogs.MERATHILISUI_RESET_ALL_MODULES = {
@@ -106,7 +118,7 @@ E.PopupDialogs.MERATHILISUI_RESET_ALL_MODULES = {
 		ReloadUI()
 	end,
 	whileDead = 1,
-	hideOnEscape = true
+	hideOnEscape = true,
 }
 
 E.PopupDialogs.MERATHILISUI_INVALIDPOWER = {

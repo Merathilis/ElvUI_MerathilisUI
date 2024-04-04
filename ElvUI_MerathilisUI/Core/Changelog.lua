@@ -12,8 +12,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-	"• Fix an error in the Chat Text Module (thanks fang2hou)",
-	"• Updated FriendsList due to 10.2.6 changes",
+	"• Fix an potential C-Stack error if you also got Windtools enabled",
+	"• Remove DBM Skin, i never used it",
+	"• Bring ChatText Code inline with ElvUI Changes",
+	"• Added Runescape Font",
 
 	-- "• ''",
 	" ",

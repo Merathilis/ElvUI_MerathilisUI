@@ -374,26 +374,39 @@ do --this can save some main file locals
 	if E.Classic then
 		-- Simpy (5099: Myzrael)
 		z["Player-5099-01947A77"] = itsSimpy -- Warlock: Simpy
-		-- Luckyone (5261: Nek'Rosh, 5220: Stitches)
+		-- Luckyone Seasonal (5826: Lone Wolf EU)
+		z["Player-5826-0202765F"] = ElvBlue -- [Alliance] Hunter
+		z["Player-5826-020F7F10"] = ElvBlue -- [Alliance] Paladin
+		z["Player-5826-02172E79"] = ElvBlue -- [Alliance] Warlock
+		z["Player-5826-0234253E"] = ElvBlue -- [Alliance] Mage
+		z["Player-5826-02342508"] = ElvBlue -- [Alliance] Priest
+		z["Player-5826-023424EF"] = ElvBlue -- [Alliance] Druid
+		z["Player-5826-02342520"] = ElvBlue -- [Alliance] Rogue
+		z["Player-5826-02342556"] = ElvBlue -- [Alliance] Warrior
+		-- Luckyone Hardcore
 		z["Lucky-Nek'Rosh"] = ElvBlue -- [Horde] Rogue
 		z["Luckyone-Nek'Rosh"] = ElvBlue -- [Horde] Hunter
-		z["Luckyone-Stitches"] = ElvBlue -- [Horde] Hunter
-		z["Luckyone-Shazzrah"] = ElvBlue -- [Horde] Hunter
+		z["Unluckyone-Nek'Rosh"] = ElvBlue -- [Horde] Mage
+		z["Gigachad-Nek'Rosh"] = ElvBlue -- [Horde] Druid
+		-- Luckyone Classic Era (5233: Firemaw)
+		z["Player-5233-01D22A72"] = ElvBlue -- [Horde] Hunter: Unluckyone
+		z["Player-5233-01D27011"] = ElvBlue -- [Horde] Druid: Luckydruid
 	elseif E.Wrath then
 		-- Simpy (4373: Myzrael)
 		z["Player-4373-011657A7"] = itsSimpy -- Paladin:		Cutepally
 		z["Player-4373-032FFEE2"] = itsSimpy -- Shaman:		Kalline
 		z["Player-4373-03351BC7"] = itsSimpy -- [Horde] DK:	Imsojelly
-		-- Luckyone (4440: Everlook, 4476: Gehennas, 4811: Giantstalker)
-		z["Player-4476-03BF41C9"] = ElvBlue -- [Horde] Hunter: Luckyone
-		z["Player-4476-049F4831"] = ElvBlue -- [Horde] DK: Luckygrip
-		z["Player-4440-037C92D4"] = ElvBlue -- [Alliance] Druid: Luckyone
-		z["Player-4440-037C7CC8"] = ElvBlue -- [Alliance] Priest: Luckypriest
-		z["Player-4440-03AD654A"] = ElvBlue -- [Alliance] Rogue: Luckyrogue
-		z["Player-4440-037C7E29"] = ElvBlue -- [Alliance] DK: Luckydk
-		z["Player-4440-03ADE2DF"] = ElvBlue -- [Alliance] Shaman: Luckykek
-		z["Player-4811-038DA128"] = ElvBlue -- [Alliance] Paladin: Luckyone
-		z["Luckyhunter-Everlook"] = ElvBlue -- [Alliance] Hunter
+		-- Luckyone (4467: Firemaw, 4440: Everlook, 4476: Gehennas)
+		z["Player-4467-04540395"] = ElvBlue -- [Alliance] Druid
+		z["Player-4467-04542B4A"] = ElvBlue -- [Alliance] Priest
+		z["Player-4467-04571AA2"] = ElvBlue -- [Alliance] Warlock
+		z["Player-4467-04571A8D"] = ElvBlue -- [Alliance] DK
+		z["Player-4467-04571A9F"] = ElvBlue -- [Alliance] Mage
+		z["Player-4467-04571A98"] = ElvBlue -- [Alliance] Warrior
+		z["Player-4467-04571911"] = ElvBlue -- [Alliance] Paladin
+		z["Player-4440-03AD654A"] = ElvBlue -- [Alliance] Rogue
+		z["Player-4440-03ADE2DF"] = ElvBlue -- [Alliance] Shaman
+		z["Player-4476-03BF41C9"] = ElvBlue -- [Horde] Hunter
 		-- Repooc
 		z["Poocsdk-Mankrik"] = ElvBlue -- [Horde] DK
 		z["Repooc-Mankrik"] = ElvBlue
@@ -417,7 +430,7 @@ do --this can save some main file locals
 		z["Player-1401-0421EB9F"] = ElvBlue -- [Alliance] Warrior:	Brìtt
 		z["Player-1401-0421F909"] = ElvRed -- [Alliance] Paladin:	Damará
 		z["Player-1401-0421EC36"] = ElvBlue -- [Alliance] Priest:	Jazira
-		z["Player-1401-041CD0A6"] = ElvYellow -- [Alliance] Rogue:	Jústice
+		z["Player-1401-0A9B0131"] = ElvYellow -- [Alliance] Rogue:	Anonia
 		z["Player-1401-041E4D64"] = ElvGreen -- [Alliance] Monk:		Maithilis
 		z["Player-1401-0648F4AD"] = ElvPurple -- [Alliance] DH:		Mattdemôn
 		z["Player-1401-0421F27B"] = ElvBlue -- [Alliance] Mage:		Melisendra
@@ -428,20 +441,20 @@ do --this can save some main file locals
 		z["Player-1401-041C0AE2"] = ElvGreen -- [Alliance] Hunter:	Róhal
 		z["Player-1401-05CEABFA"] = ElvRed -- [Alliance] DK:		Jahzzy
 		-- Luckyone (1598: LaughingSkull)
-		z["Player-1598-0F5E4639"] = ElvBlue -- [Horde] Druid: 	Luckyone
-		z["Player-1598-0F46FF5A"] = ElvBlue -- [Horde] Evoker: 	Luckyevoker
-		z["Player-1598-0BFF3341"] = ElvBlue -- [Horde] DH: 		Luckydh
-		z["Player-1598-0BD22704"] = ElvBlue -- [Horde] Priest: 	Luckypriest
-		z["Player-1598-0BEFA545"] = ElvBlue -- [Horde] Monk: 		Luckymonkas
-		z["Player-1598-0E1A06DE"] = ElvBlue -- [Horde] Rogue: 	Luckyrogue
-		z["Player-1598-0BF2E377"] = ElvBlue -- [Horde] Hunter: 	Luckyhunter
-		z["Player-1598-0BF18248"] = ElvBlue -- [Horde] DK: 		Luckydk
-		z["Player-1598-0BFABB95"] = ElvBlue -- [Horde] Mage: 		Luckymage
-		z["Player-1598-0E67511D"] = ElvBlue -- [Horde] Paladin: 	Luckypala
-		z["Player-1598-0C0DD01B"] = ElvBlue -- [Horde] Warlock: 	Luckywl
-		z["Player-1598-0BF8013A"] = ElvBlue -- [Horde] Warrior: 	Notlucky
-		z["Player-1598-0BF56103"] = ElvBlue -- [Horde] Shaman: 	Unluckyone
-		z["Player-1598-0F3E51B0"] = ElvBlue -- [Alliance] Druid:	Luckydruid
+		z["Player-1598-0F5E4639"] = ElvBlue -- [Alliance] Druid: Luckyone
+		z["Player-1598-0F3E51B0"] = ElvBlue -- [Alliance] Druid: Luckydruid
+		z["Player-1598-0F46FF5A"] = ElvBlue -- [Horde] Evoker
+		z["Player-1598-0BFF3341"] = ElvBlue -- [Horde] DH
+		z["Player-1598-0BD22704"] = ElvBlue -- [Horde] Priest
+		z["Player-1598-0BEFA545"] = ElvBlue -- [Horde] Monk
+		z["Player-1598-0E1A06DE"] = ElvBlue -- [Horde] Rogue
+		z["Player-1598-0BF2E377"] = ElvBlue -- [Horde] Hunter
+		z["Player-1598-0BF18248"] = ElvBlue -- [Horde] DK
+		z["Player-1598-0BFABB95"] = ElvBlue -- [Horde] Mage
+		z["Player-1598-0E67511D"] = ElvBlue -- [Horde] Paladin
+		z["Player-1598-0C0DD01B"] = ElvBlue -- [Horde] Warlock
+		z["Player-1598-0BF8013A"] = ElvBlue -- [Horde] Warrior
+		z["Player-1598-0BF56103"] = ElvBlue -- [Horde] Shaman
 		-- Repooc
 		z["Sifpooc-Stormrage"] = itsPooc -- [Alliance] DH
 		z["Fragmented-Stormrage"] = itsPooc -- [Alliance] Warlock
@@ -506,7 +519,7 @@ do --this can save some main file locals
 		z["Gur-Area52"] = itsThradex -- Horde
 		z["Archmage-Area52"] = itsThradex -- Horde
 		z["Counselor-Area52"] = itsThradex -- Horde
-		z["Psychiatrist-Area 52"] = itsThradex -- Horde
+		z["Psychiatrist-Area52"] = itsThradex -- Horde
 		z["Monk-CenarionCircle"] = itsThradex
 		z["Thradex-Stormrage"] = itsThradex
 		z["Wrecked-Stormrage"] = itsThradex
@@ -555,7 +568,6 @@ local authorIcons = {
 	["Brítt-Shattrath"] = logoSmall, -- [Alliance] Warrior
 	["Damará-Shattrath"] = logoSmall, -- [Alliance] Paladin
 	["Jazira-Shattrath"] = logoSmall, -- [Alliance] Priest
-	["Jústice-Shattrath"] = logoSmall, -- [Alliance] Rogue
 	["Maithilis-Shattrath"] = logoSmall, -- [Alliance] Monk
 	["Mattdemôn-Shattrath"] = logoSmall, -- [Alliance] DH
 	["Melisendra-Shattrath"] = logoSmall, -- [Alliance] Mage
@@ -564,6 +576,7 @@ local authorIcons = {
 	["Meravoker-Shattrath"] = logoSmall, -- [Alliance] Hunter
 	["Jahzzy-Garrosh"] = logoSmall, -- [Alliance] Hunter
 	["Ronan-Shattrath"] = logoSmall, -- [Alliance] Shaman
+	["Anonia-Shattrath"] = logoSmall, -- [Alliance] Rogue
 }
 
 CH:AddPluginIcons(function(sender)
@@ -573,32 +586,12 @@ CH:AddPluginIcons(function(sender)
 end)
 
 -- From ElvUI Chat
-local function GetPFlag(
-	arg1,
-	arg2,
-	arg3,
-	arg4,
-	arg5,
-	arg6,
-	arg7,
-	arg8,
-	arg9,
-	arg10,
-	arg11,
-	arg12,
-	arg13,
-	arg14,
-	arg15,
-	arg16,
-	arg17
-)
-	local specialFlag = arg6
-	local zoneChannelID = arg7
-
+local function GetPFlag(specialFlag, zoneChannelID, localChannelID)
 	if specialFlag ~= "" then
 		if specialFlag == "GM" or specialFlag == "DEV" then
+			-- Add Blizzard Icon if this was sent by a GM/DEV
 			return [[|TInterface\ChatFrame\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t ]]
-		elseif specialFlag == "GUIDE" then
+		elseif specialFlag == "GUIDE" and E.Retail then
 			if
 				_G.ChatFrame_GetMentorChannelStatus(
 					CHATCHANNELRULESET_MENTOR,
@@ -607,7 +600,7 @@ local function GetPFlag(
 			then
 				return NPEV2_CHAT_USER_TAG_GUIDE
 			end
-		elseif specialFlag == "NEWCOMER" then
+		elseif specialFlag == "NEWCOMER" and E.Retail then
 			if
 				_G.ChatFrame_GetMentorChannelStatus(
 					PLAYERMENTORSHIPSTATUS_NEWCOMER,
@@ -616,6 +609,8 @@ local function GetPFlag(
 			then
 				return _G.NPEV2_CHAT_USER_TAG_NEWCOMER
 			end
+		else
+			return _G["CHAT_FLAG_" .. specialFlag]
 		end
 	end
 
@@ -1761,8 +1756,8 @@ function CT:MessageFormatter(
 	end
 
 	local showLink = 1
-	local isMonster = strsub(chatType, 1, 7) == "MONSTER"
-	if isMonster or strsub(chatType, 1, 9) == "RAID_BOSS" then
+	local bossMonster = strsub(chatType, 1, 9) == "RAID_BOSS" or strsub(chatType, 1, 7) == "MONSTER"
+	if bossMonster then
 		showLink = nil
 
 		-- fix blizzard formatting errors from localization strings
@@ -1851,26 +1846,8 @@ function CT:MessageFormatter(
 	end
 
 	-- Player Flags
-	local pflag = GetPFlag(
-		arg1,
-		arg2,
-		arg3,
-		arg4,
-		arg5,
-		arg6,
-		arg7,
-		arg8,
-		arg9,
-		arg10,
-		arg11,
-		arg12,
-		arg13,
-		arg14,
-		arg15,
-		arg16,
-		arg17
-	)
-	if not isMonster then
+	local pflag = GetPFlag(arg6, arg7, arg8)
+	if not bossMonster then
 		local chatIcon, pluginChatIcon =
 			specialChatIcons[arg12] or specialChatIcons[playerName], CH:GetPluginIcon(arg12, playerName)
 		if type(chatIcon) == "function" then
