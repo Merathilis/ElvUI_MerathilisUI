@@ -2631,6 +2631,23 @@ options.advancedSettings = {
 						return not E.private.mui.skins.addonSkins.dt.enable
 					end,
 				},
+				spacer1 = {
+					order = 5,
+					type = "description",
+					name = " ",
+				},
+				detailsIcons = {
+					order = 6,
+					type = "execute",
+					name = E.NewSign .. F.cOption(L["Open Details"], "gradient"),
+					disabled = function()
+						return not E:IsAddOnEnabled("Details")
+					end,
+					func = function()
+						local instance = Details:GetInstance(1)
+						Details:OpenOptionsWindow(instance)
+					end,
+				},
 			},
 		},
 	},

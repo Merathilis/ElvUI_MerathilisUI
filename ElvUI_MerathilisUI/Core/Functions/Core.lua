@@ -1,5 +1,5 @@
 local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local S = MER:GetModule('MER_Skins')
+local S = MER:GetModule("MER_Skins")
 local LSM = E.LSM
 
 local _G = _G
@@ -34,7 +34,9 @@ end
 
 function F.PixelPerfect()
 	local perfectScale = 768 / E.physicalHeight
-	if E.physicalHeight == 2160 or E.physicalHeight == 2880 then perfectScale = perfectScale * 2 end
+	if E.physicalHeight == 2160 or E.physicalHeight == 2880 then
+		perfectScale = perfectScale * 2
+	end
 	return perfectScale
 end
 
@@ -110,10 +112,14 @@ function F.SetFontOutline(text, font, size)
 end
 
 function F.SetFontSizeScaled(value, clamp)
-	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale) or
-		value
-	clamp = (clamp and (E.db.mui and E.db.mui.general and E.db.mui.general.fontScale) and (clamp + E.db.mui.general.fontScale) or clamp) or
-		0
+	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale)
+		or value
+	clamp = (
+		clamp
+			and (E.db.mui and E.db.mui.general and E.db.mui.general.fontScale)
+			and (clamp + E.db.mui.general.fontScale)
+		or clamp
+	) or 0
 
 	return F.Clamp(F.Clamp(F.Round(value * perfectScale), clamp or 0, 64), 8, 64)
 end
@@ -139,8 +145,12 @@ function F.ClampToHSL(h, s, l)
 end
 
 function F.ConvertFromHue(m1, m2, h)
-	if h < 0 then h = h + 1 end
-	if h > 1 then h = h - 1 end
+	if h < 0 then
+		h = h + 1
+	end
+	if h > 1 then
+		h = h - 1
+	end
 
 	if h * 6 < 1 then
 		return m1 + (m2 - m1) * h * 6
@@ -173,18 +183,32 @@ function F.ConvertToHSL(r, g, b)
 
 	local h, s, l = 0, 0, (minColor + maxColor) / 2
 
-	if l > 0 and l < 0.5 then s = colorDelta / (maxColor + minColor) end
-	if l >= 0.5 and l < 1 then s = colorDelta / (2 - maxColor - minColor) end
+	if l > 0 and l < 0.5 then
+		s = colorDelta / (maxColor + minColor)
+	end
+	if l >= 0.5 and l < 1 then
+		s = colorDelta / (2 - maxColor - minColor)
+	end
 
 	if colorDelta > 0 then
-		if maxColor == r and maxColor ~= g then h = h + (g - b) / colorDelta end
-		if maxColor == g and maxColor ~= b then h = h + 2 + (b - r) / colorDelta end
-		if maxColor == b and maxColor ~= r then h = h + 4 + (r - g) / colorDelta end
+		if maxColor == r and maxColor ~= g then
+			h = h + (g - b) / colorDelta
+		end
+		if maxColor == g and maxColor ~= b then
+			h = h + 2 + (b - r) / colorDelta
+		end
+		if maxColor == b and maxColor ~= r then
+			h = h + 4 + (r - g) / colorDelta
+		end
 		h = h / 6
 	end
 
-	if h < 0 then h = h + 1 end
-	if h > 1 then h = h - 1 end
+	if h < 0 then
+		h = h + 1
+	end
+	if h > 1 then
+		h = h - 1
+	end
 
 	return h * 360, s, l
 end
@@ -242,38 +266,37 @@ end
 
 function F.cOption(name, color)
 	local hex
-	if color == 'orange' then
-		hex = '|cffff7d0a%s |r'
-	elseif color == 'blue' then
-		hex = '|cFF00c0fa%s |r'
-	elseif color == 'red' then
-		hex = '|cFFFF0000%s |r'
-	elseif color == 'gradient' then
+	if color == "orange" then
+		hex = "|cffff7d0a%s |r"
+	elseif color == "blue" then
+		hex = "|cFF00c0fa%s |r"
+	elseif color == "red" then
+		hex = "|cFFFF0000%s |r"
+	elseif color == "gradient" then
 		hex = E:TextGradient(name, 1, 0.65, 0, 1, 0.65, 0, 1, 1, 1)
 	else
-		hex = '|cFFFFFFFF%s |r'
+		hex = "|cFFFFFFFF%s |r"
 	end
 
 	return (hex):format(name)
 end
 
 do
-	local gradientLine =
-		E:TextGradient(
-			"----------------------------------",
-			0.910,
-			0.314,
-			0.357,
-			0.976,
-			0.835,
-			0.431,
-			0.953,
-			0.925,
-			0.761,
-			0.078,
-			0.694,
-			0.671
-		)
+	local gradientLine = E:TextGradient(
+		"----------------------------------",
+		0.910,
+		0.314,
+		0.357,
+		0.976,
+		0.835,
+		0.431,
+		0.953,
+		0.925,
+		0.761,
+		0.078,
+		0.694,
+		0.671
+	)
 
 	function F.PrintGradientLine()
 		print(gradientLine)
@@ -295,11 +318,11 @@ function F.DebugPrint(text, msgtype)
 	end
 
 	local message
-	if msgtype == 'error' then
+	if msgtype == "error" then
 		message = format("%s: %s", MER.Title .. MER.RedColor .. L["Error"] .. "|r", text)
-	elseif msgtype == 'warning' then
+	elseif msgtype == "warning" then
 		message = format("%s: %s", MER.Title .. MER.YellowColor .. L["Warning"] .. "|r", text)
-	elseif msgtype == 'info' then
+	elseif msgtype == "info" then
 		message = format("%s: %s", MER.Title .. MER.InfoColor .. L["Information"] .. "|r", text)
 	end
 	print(message)
@@ -310,7 +333,9 @@ function F.PrintURL(url)
 end
 
 function F.TablePrint(tbl, indent)
-	if not indent then indent = 0 end
+	if not indent then
+		indent = 0
+	end
 
 	local formatting
 	for k, v in pairs(tbl) do
@@ -345,19 +370,19 @@ do
 		if tonumber(self.text) then
 			_G.GameTooltip:SetSpellByID(self.text)
 		elseif self.text then
-			if self.color == 'CLASS' then
+			if self.color == "CLASS" then
 				r, g, b = F.r, F.g, F.b
-			elseif self.color == 'SYSTEM' then
+			elseif self.color == "SYSTEM" then
 				r, g, b = 1, 0.8, 0
-			elseif self.color == 'BLUE' then
+			elseif self.color == "BLUE" then
 				r, g, b = 0.6, 0.8, 1
-			elseif self.color == 'RED' then
+			elseif self.color == "RED" then
 				r, g, b = 0.9, 0.3, 0.3
-			elseif self.color == 'WHITE' then
+			elseif self.color == "WHITE" then
 				r, g, b = 1, 1, 1
 			end
 			if self.blankLine then
-				_G.GameTooltip:AddLine(' ')
+				_G.GameTooltip:AddLine(" ")
 			end
 
 			_G.GameTooltip:AddLine(self.text, r, g, b, 1)
@@ -370,9 +395,11 @@ do
 		self.anchor = anchor
 		self.text = text
 		self.color = color
-		if showTips then self.title = L["Tips"] end
-		self:HookScript('OnEnter', Tooltip_OnEnter)
-		self:HookScript('OnLeave', F.HideTooltip)
+		if showTips then
+			self.title = L["Tips"]
+		end
+		self:HookScript("OnEnter", Tooltip_OnEnter)
+		self:HookScript("OnLeave", F.HideTooltip)
 	end
 end
 
@@ -404,9 +431,11 @@ function F.GetSpell(id)
 end
 
 function F.SplitList(list, variable, cleanup)
-	if cleanup then twipe(list) end
+	if cleanup then
+		twipe(list)
+	end
 
-	for word in variable:gmatch('%S+') do
+	for word in variable:gmatch("%S+") do
 		list[word] = true
 	end
 end
@@ -434,7 +463,9 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 	function F.GetItemLevel(link, arg1, arg2, fullScan)
 		if fullScan then
 			local data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
-			if not data then return end
+			if not data then
+				return
+			end
 
 			wipe(slotData.gems)
 			wipe(slotData.gemsColor)
@@ -466,15 +497,17 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 						slotData.gems[num] = lineData.gemIcon
 					elseif lineData.socketType then
 						num = num + 1
-						slotData.gems[num] = format("Interface\\ItemSocketingFrame\\UI-EmptySocket-%s",
-							lineData.socketType)
+						slotData.gems[num] =
+							format("Interface\\ItemSocketingFrame\\UI-EmptySocket-%s", lineData.socketType)
 					end
 				end
 			end
 
 			return slotData
 		else
-			if iLvlDB[link] then return iLvlDB[link] end
+			if iLvlDB[link] then
+				return iLvlDB[link]
+			end
 
 			local data
 			if arg1 and type(arg1) == "string" then
@@ -484,11 +517,15 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 			else
 				data = C_TooltipInfo_GetHyperlink(link, nil, nil, true)
 			end
-			if not data then return end
+			if not data then
+				return
+			end
 
 			for i = 2, 5 do
 				local lineData = data.lines[i]
-				if not lineData then break end
+				if not lineData then
+					break
+				end
 				local text = lineData.leftText
 				local found = text and strfind(text, itemLevelString)
 				if found then
@@ -569,11 +606,15 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 	function F.IsUnknownTransmog(bagID, slotID)
 		local data = C_TooltipInfo_GetBagItem(bagID, slotID)
 		local lineData = data and data.lines
-		if not lineData then return end
+		if not lineData then
+			return
+		end
 
 		for i = #lineData, 1, -1 do
 			local line = lineData[i]
-			if line.price then return false end
+			if line.price then
+				return false
+			end
 			return line.leftText and isUnknownString[line.leftText]
 		end
 	end
@@ -613,7 +654,7 @@ do
 	hooksecurefunc("PanelTemplates_DeselectTab", F.ResetTabAnchor)
 
 	-- Kill regions
-	F.HiddenFrame = CreateFrame('Frame')
+	F.HiddenFrame = CreateFrame("Frame")
 	F.HiddenFrame:Hide()
 
 	function F:HideObject()
@@ -627,11 +668,17 @@ do
 	end
 
 	function F:ReplaceIconString(text)
-		if not text then text = self:GetText() end
-		if not text or text == "" then return end
+		if not text then
+			text = self:GetText()
+		end
+		if not text or text == "" then
+			return
+		end
 
 		local newText, count = gsub(text, "|T([^:]-):[%d+:]+|t", "|T%1:14:14:0:0:64:64:5:59:5:59|t")
-		if count > 0 then self:SetFormattedText("%s", newText) end
+		if count > 0 then
+			self:SetFormattedText("%s", newText)
+		end
 	end
 end
 
@@ -655,7 +702,9 @@ end
 function F.CheckPlayerBuff(spell)
 	for i = 1, 40 do
 		local name, _, _, _, _, _, unitCaster = UnitBuff("player", i)
-		if not name then break end
+		if not name then
+			break
+		end
 		if name == spell then
 			return i, unitCaster
 		end
@@ -674,7 +723,9 @@ function F.BagSearch(itemId)
 end
 
 function F.Reset(group)
-	if not group then print("U wot m8?") end
+	if not group then
+		print("U wot m8?")
+	end
 
 	if group == "marks" or group == "all" then
 		E:CopyTable(E.db.mui.raidmarkers, P.raidmarkers)
@@ -691,23 +742,31 @@ end
 
 function F.MovableButtonSettings(db, key, value, remove, movehere)
 	local str = db[key]
-	if not db or not str or not value then return end
+	if not db or not str or not value then
+		return
+	end
 
 	local found = MovableButton_Match(str, E:EscapeString(value))
 	if found and movehere then
 		local tbl, sv, sm = { split(",", str) }
 		for i in ipairs(tbl) do
-			if tbl[i] == value then sv = i elseif tbl[i] == movehere then sm = i end
-			if sv and sm then break end
+			if tbl[i] == value then
+				sv = i
+			elseif tbl[i] == movehere then
+				sm = i
+			end
+			if sv and sm then
+				break
+			end
 		end
 		tremove(tbl, sm)
 		tinsert(tbl, sv, movehere)
 
-		db[key] = tconcat(tbl, ',')
+		db[key] = tconcat(tbl, ",")
 	elseif found and remove then
 		db[key] = gsub(str, found, "")
 	elseif not found and not remove then
-		db[key] = (str == '' and value) or (str .. "," .. value)
+		db[key] = (str == "" and value) or (str .. "," .. value)
 	end
 end
 
@@ -740,12 +799,16 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 		end,
 		values = function()
 			local str = db[key]
-			if str == "" then return nil end
+			if str == "" then
+				return nil
+			end
 			return { split(",", str) }
 		end,
 		get = function(info, value)
 			local str = db[key]
-			if str == "" then return nil end
+			if str == "" then
+				return nil
+			end
 			local tbl = { split(",", str) }
 			return tbl[value]
 		end,
@@ -766,7 +829,7 @@ end
 --]]
 ----------------------------------
 do
-	F.EasyMenu = CreateFrame('Frame', MER.Title .. 'EasyMenu', E.UIParent, 'UIDropDownMenuTemplate')
+	F.EasyMenu = CreateFrame("Frame", MER.Title .. "EasyMenu", E.UIParent, "UIDropDownMenuTemplate")
 end
 
 -- Inform us of the patch info we play on.
@@ -776,13 +839,20 @@ MER.WoWBuild = tonumber(MER.WoWBuild)
 
 _G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
 SlashCmdList["WOWVERSION"] = function()
-	print("Patch:", MER.WoWPatch .. ", " .. "Build:", MER.WoWBuild .. ", " .. "Released",
-		MER.WoWPatchReleaseDate .. ", " .. "Interface:", MER.TocVersion)
+	print(
+		"Patch:",
+		MER.WoWPatch .. ", " .. "Build:",
+		MER.WoWBuild .. ", " .. "Released",
+		MER.WoWPatchReleaseDate .. ", " .. "Interface:",
+		MER.TocVersion
+	)
 end
 
 -- Icon Style
 function F.PixelIcon(self, texture, highlight)
-	if not self then return end
+	if not self then
+		return
+	end
 
 	self.bg = S:CreateBDFrame(self)
 	self.bg:SetAllPoints()
@@ -803,16 +873,20 @@ function F.PixelIcon(self, texture, highlight)
 	if highlight and type(highlight) == "boolean" then
 		self:EnableMouse(true)
 		self.HL = self:CreateTexture(nil, "HIGHLIGHT")
-		self.HL:SetColorTexture(1, 1, 1, .25)
+		self.HL:SetColorTexture(1, 1, 1, 0.25)
 		self.HL:SetAllPoints(self.Icon)
 	end
 end
 
 -- Role Icons
 function F.ReskinRole(self, role)
-	if self.background then self.background:SetTexture("") end
+	if self.background then
+		self.background:SetTexture("")
+	end
 	local cover = self.cover or self.Cover
-	if cover then cover:SetTexture("") end
+	if cover then
+		cover:SetTexture("")
+	end
 
 	local checkButton = self.checkButton or self.CheckButton or self.CheckBox
 	if checkButton then
@@ -834,26 +908,38 @@ end
 -- Atlas info
 function F.GetTextureStrByAtlas(info, sizeX, sizeY)
 	local file = info and info.file
-	if not file then return end
+	if not file then
+		return
+	end
 
-	local width, height, txLeft, txRight, txTop, txBottom = info.width, info.height, info.leftTexCoord,
-		info.rightTexCoord, info.topTexCoord, info.bottomTexCoord
+	local width, height, txLeft, txRight, txTop, txBottom =
+		info.width, info.height, info.leftTexCoord, info.rightTexCoord, info.topTexCoord, info.bottomTexCoord
 	local atlasWidth = width / (txRight - txLeft)
 	local atlasHeight = height / (txBottom - txTop)
 
-	return format("|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d|t", file, (sizeX or 0), (sizeY or 0), atlasWidth, atlasHeight,
-		atlasWidth * txLeft, atlasWidth * txRight, atlasHeight * txTop, atlasHeight * txBottom)
+	return format(
+		"|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d|t",
+		file,
+		(sizeX or 0),
+		(sizeY or 0),
+		atlasWidth,
+		atlasHeight,
+		atlasWidth * txLeft,
+		atlasWidth * txRight,
+		atlasHeight * txTop,
+		atlasHeight * txBottom
+	)
 end
 
 -- Check Textures
-local txframe = CreateFrame('Frame')
+local txframe = CreateFrame("Frame")
 local tx = txframe:CreateTexture()
 
 function F:TextureExists(path)
-	if not path or path == '' then
-		return F.DebugPrint('Path not valid or defined.', 'error')
+	if not path or path == "" then
+		return F.DebugPrint("Path not valid or defined.", "error")
 	end
-	tx:SetTexture('?')
+	tx:SetTexture("?")
 	tx:SetTexture(path)
 
 	return (tx:GetTexture())
@@ -918,16 +1004,16 @@ do
 	function F:Texture_OnEnter()
 		if self:IsEnabled() then
 			if self.bg then
-				self.bg:SetBackdropColor(F.r, F.g, F.b, .25)
+				self.bg:SetBackdropColor(F.r, F.g, F.b, 0.25)
 			else
-				self.__texture:SetVertexColor(0, .6, 1, 1)
+				self.__texture:SetVertexColor(0, 0.6, 1, 1)
 			end
 		end
 	end
 
 	function F:Texture_OnLeave()
 		if self.bg then
-			self.bg:SetBackdropColor(0, 0, 0, .25)
+			self.bg:SetBackdropColor(0, 0, 0, 0.25)
 		else
 			self.__texture:SetVertexColor(1, 1, 1, 1)
 		end
@@ -940,6 +1026,16 @@ function F:TogglePanel(frame)
 	else
 		frame:Show()
 	end
+end
+
+function F.Enum(tbl)
+	local length = #tbl
+	for i = 1, length do
+		local v = tbl[i]
+		tbl[v] = i
+	end
+
+	return tbl
 end
 
 function F.In(val, tbl)

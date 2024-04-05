@@ -170,19 +170,27 @@ function F.Strings.FastRGBA(r, g, b, a)
 end
 
 function F.Strings.StripTexture(text)
-	if type(text) ~= "string" then return text end
+	if type(text) ~= "string" then
+		return text
+	end
 	return gsub(text, "(%s?)(|?)|[TA].-|[ta](%s?)", function(w, x, y)
-		if x == "" then return (w ~= "" and w) or (y ~= "" and y) or "" end
+		if x == "" then
+			return (w ~= "" and w) or (y ~= "" and y) or ""
+		end
 	end)
 end
 
 function F.Strings.StripColor(text)
-	if type(text) ~= "string" then return text end
+	if type(text) ~= "string" then
+		return text
+	end
 	return gsub(text, "|c%x%x%x%x%x%x%x%x(.-)|r", "%1")
 end
 
 function F.Strings.Strip(text)
-	if type(text) ~= "string" then return text end
+	if type(text) ~= "string" then
+		return text
+	end
 	return F.Strings.StripColor(F.String.StripTexture(text))
 end
 

@@ -43,7 +43,7 @@ do
 		["ElvUI_CPU"] = true,
 		["ElvUI_MerathilisUI"] = true,
 		["!BugGrabber"] = true,
-		["BugSack"] = true
+		["BugSack"] = true,
 	}
 
 	MER:AddCommand("ERROR", "/muidebug", function(msg)
@@ -64,7 +64,7 @@ do
 			C_CVar_SetCVar("scriptErrors", 0)
 			E:Print("Lua errors off.")
 
-			if E:IsAddOnEnabled("ElvUI_CPU") then
+			if F.IsAddOnEnabled("ElvUI_CPU") then
 				C_AddOns_DisableAddOn("ElvUI_CPU")
 			end
 
@@ -81,7 +81,7 @@ do
 			print("on  ", L["Enable debug mode"])
 			print("      ", format(L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."], MER.Title))
 			print("off ", L["Disable debug mode"])
-			print("      ", (L["Reenable the addons that disabled by debug mode."]))
+			print("      ", L["Reenable the addons that disabled by debug mode."])
 			F.PrintGradientLine()
 		end
 	end)
