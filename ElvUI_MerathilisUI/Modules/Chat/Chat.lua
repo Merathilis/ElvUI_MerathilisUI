@@ -108,7 +108,7 @@ function module:CreateChatButtons()
 
 	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
 	ChatButton.tex:SetInside()
-	ChatButton.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\chatButton")
+	ChatButton.tex:SetTexture(I.General.MediaPath .. "Textures\\chatButton.tga")
 
 	ChatButton:SetScript("OnMouseUp", function(self, btn)
 		if InCombatLockdown() then
@@ -154,11 +154,12 @@ function module:CreateChatButtons()
 		end
 		GameTooltip:Hide()
 	end)
+	print("enabled")
 end
 
 function module:AddCustomEmojis()
 	--Custom Emojis
-	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"
+	local t = "|T" .. I.General.MediaPath .. "textures\\chatEmojis\\%s:16:16|t"
 
 	-- Twitch Emojis
 	CH:AddSmiley(":monkaomega:", format(t, "monkaomega"))
@@ -291,7 +292,6 @@ function module:Initialize()
 	end
 
 	module:StyleVoicePanel()
-	module:DamageMeterFilter()
 	module:UpdateSeperators()
 	module:CreateChatButtons()
 	module:ChatFilter()

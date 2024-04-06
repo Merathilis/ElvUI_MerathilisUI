@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="Internal.lua"/>
 	<Script file="InternalEnum.lua"/>
+	<Script file="InternalStrings.lua"/>
+	<Script file="Internal.lua"/>
 </Ui>

@@ -6,8 +6,8 @@ function module:DetailsIcons()
 		return
 	end
 
-	local iconsPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\Details\\"
-	local logoPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\mUI1.tga"
+	local iconsPath = I.General.MediaPath .. "Textures\\Details\\"
+	local logoPath = I.General.MediaPath .. "Textures\\mUI1.tga"
 	local coords = { 0, 1, 0, 1 }
 
 	Details:AddCustomIconSet(iconsPath .. "details_roles.tga", MER.Title, false, logoPath, coords)

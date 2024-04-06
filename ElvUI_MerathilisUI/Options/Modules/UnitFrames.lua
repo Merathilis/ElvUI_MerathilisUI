@@ -580,7 +580,7 @@ options.unitframes = {
 						restingIndicator = {
 							order = 1,
 							type = "group",
-							name = E.NewSign .. F.cOption(L["Resting Indicator"], "orange"),
+							name = F.cOption(L["Resting Indicator"], "orange"),
 							guiInline = true,
 							get = function(info)
 								return E.db.mui.unitframes.restingIndicator[info[#info]]

@@ -935,10 +935,10 @@ function CT:HandleName(nameString)
 	end
 
 	if strsub(nameString, strlen(nameString) - 1) == "|r" then
-		nameString = F.Strings.Split(nameString, "-")
+		nameString = F.String.Split(nameString, "-")
 		nameString = nameString .. "|r"
 	else
-		nameString = F.Strings.Split(nameString, "-")
+		nameString = F.String.Split(nameString, "-")
 	end
 
 	return nameString

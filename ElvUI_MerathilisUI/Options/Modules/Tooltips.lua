@@ -145,7 +145,7 @@ options.tooltip = {
 				header = {
 					order = 0,
 					type = "header",
-					name = F.cOption(E.NewSign .. L["Health Bar"], "orange"),
+					name = F.cOption(L["Health Bar"], "orange"),
 				},
 				yOffsetOfHealthBar = {
 					order = 1,
@@ -183,7 +183,7 @@ options.tooltip = {
 				header = {
 					order = 0,
 					type = "header",
-					name = F.cOption(E.NewSign .. L["Group Info"], "orange"),
+					name = F.cOption(L["Group Info"], "orange"),
 				},
 				credits = {
 					order = 1,

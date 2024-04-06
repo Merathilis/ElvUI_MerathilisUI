@@ -44,7 +44,7 @@ function MNP:Construct_Castbar(nameplate)
 
 	if E.db.mui.nameplates.castbarShield then
 		Castbar.Shield = Castbar:CreateTexture(nil, "OVERLAY")
-		Castbar.Shield:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\Shield.tga")
+		Castbar.Shield:SetTexture(I.General.MediaPath .. "Textures\\Shield.tga")
 		Castbar.Shield:Point("RIGHT", Castbar, "LEFT", 10, 0)
 		Castbar.Shield:SetSize(12, 12)
 		Castbar.Shield:Hide()

@@ -42,12 +42,12 @@ local function ModifiedString(string)
 		if subHeader then
 			newString = tostring("|cFFFFFF00" .. prefix .. "|r" .. suffix)
 		else
-			newString = tostring("|cffff7d0a" .. prefix .. "|r" .. suffix)
+			newString = tostring("|cffC41F3B" .. prefix .. "|r" .. suffix)
 		end
 	end
 
 	for pattern in gmatch(string, "('.*')") do
-		newString = newString:gsub(pattern, "|cFFFF8800" .. pattern:gsub("'", "") .. "|r")
+		newString = newString:gsub(pattern, "|cffffcc00" .. pattern:gsub("'", "") .. "|r")
 	end
 
 	return newString
@@ -72,6 +72,7 @@ function MER:CreateChangelog()
 	frame:SetScript("OnDragStart", frame.StartMoving)
 	frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
 	frame:SetClampedToScreen(true)
+	MerathilisUIChangeLog = frame
 
 	frame.texture = frame:CreateTexture(nil, "BACKGROUND")
 	frame.texture:Point("CENTER", frame, "BOTTOM", 0, 110)
@@ -123,7 +124,7 @@ function MER:CreateChangelog()
 		button:Point("TOPLEFT", frame, "TOPLEFT", 5, -offset)
 
 		if i <= #ChangeLogData then
-			local string, isURL = ModifiedString(GetChangeLogInfo(i))
+			local string = ModifiedString(GetChangeLogInfo(i))
 
 			button.Text = button:CreateFontString(nil, "OVERLAY")
 			button.Text:FontTemplate(nil, 12)

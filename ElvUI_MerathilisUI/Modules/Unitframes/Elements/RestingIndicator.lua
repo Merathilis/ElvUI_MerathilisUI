@@ -18,7 +18,7 @@ function module:Configure_RestingIndicator(frame)
 					frame.RestingIndicator.Holder:CreateTexture("MER_PlayerRestLoopRestTexture", "ARTWORK")
 				frame.RestingIndicator.Holder.RestTexture:SetAllPoints(frame.RestingIndicator.Holder)
 				frame.RestingIndicator.Holder.RestTexture:SetTexture(
-					"Interface\\Addons\\ElvUI_MerathilisUI\\Media\\Textures\\UIUnitFrameRestingFlipBook.tga"
+					I.General.MediaPath .. "Textures\\UIUnitFrameRestingFlipBook.tga"
 				)
 				frame.RestingIndicator.Holder.RestTexture:Size(512)
 				frame.RestingIndicator.Holder.RestTexture:SetParentKey("MER_PlayerRestLoopFlipBook")

@@ -2586,13 +2586,9 @@ function MER:InstallAdditions(installType, mode, null)
 	end
 
 	if installType == "dark" then
-		PluginInstallFrame.installpreview:SetTexture(
-			"Interface\\Addons\\ElvUI_MerathilisUI\\Media\\Textures\\Install\\Dark.tga"
-		)
+		PluginInstallFrame.installpreview:SetTexture(I.General.MediaPath .. "Textures\\Install\\Dark.tga")
 	elseif installType == "gradient" then
-		PluginInstallFrame.installpreview:SetTexture(
-			"Interface\\Addons\\ElvUI_MerathilisUI\\Media\\Textures\\Install\\Gradient.tga"
-		)
+		PluginInstallFrame.installpreview:SetTexture(I.General.MediaPath .. "Textures\\Install\\Gradient.tga")
 	end
 end
 

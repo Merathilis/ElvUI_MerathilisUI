@@ -584,7 +584,7 @@ local function replaceConfigArrows(button)
 	-- add the new icon
 	if not button.img then
 		button.img = button:CreateTexture(nil, "ARTWORK")
-		button.img:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\arrow")
+		button.img:SetTexture(I.General.MediaPath .. "Textures\\arrow")
 		button.img:SetSize(12, 12)
 		button.img:Point("CENTER")
 		button.img:SetVertexColor(1, 1, 1, 1)

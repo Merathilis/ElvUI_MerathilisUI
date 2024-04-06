@@ -51,15 +51,15 @@ function module:Clique()
 	end
 
 	local Tab = _G.CliqueSpellTab
-	Tab:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\clique") --override the Texture to take account for Simpy's Icon pack
+	Tab:SetNormalTexture(I.General.MediaPath .. "Textures\\clique") --override the Texture to take account for Simpy's Icon pack
 	Tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 	Tab:GetNormalTexture():SetInside()
 
-	Tab:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\clique") -- override the Texture to take account for Simpy's Icon pack
+	Tab:SetPushedTexture(I.General.MediaPath .. "Textures\\clique") -- override the Texture to take account for Simpy's Icon pack
 	Tab:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
 	Tab:GetPushedTexture():SetInside()
 
-	Tab:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\clique") -- override the Texture to take account for Simpy's Icon pack
+	Tab:SetHighlightTexture(I.General.MediaPath .. "Textures\\clique") -- override the Texture to take account for Simpy's Icon pack
 	Tab:GetHighlightTexture():SetTexCoord(unpack(E.TexCoords))
 	Tab:GetHighlightTexture():SetInside()
 

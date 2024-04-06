@@ -52,7 +52,7 @@ function RM:ChangeShape()
 	local MinimapBackdrop = _G.MinimapBackdrop
 
 	local fileID = self.db.enable and self.db.heightPercentage and floor(self.db.heightPercentage * 128) or 128
-	local texturePath = format("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\MinimapMasks\\%d.tga", fileID)
+	local texturePath = format(I.General.MediaPath .. "Textures\\MinimapMasks\\%d.tga", fileID)
 	local heightPct = fileID / 128
 	local newHeight = E.MinimapSize * heightPct
 	local diff = E.MinimapSize - newHeight

@@ -1,6 +1,8 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.general.args
 
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+
 options.name = {
 	order = 1,
 	type = "group",
@@ -42,7 +44,7 @@ options.name = {
 			name = L["Flight Point"],
 			desc = L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."],
 			hidden = function()
-				return IsAddOnLoaded("WorldFlightMap")
+				return C_AddOns_IsAddOnLoaded("WorldFlightMap")
 			end,
 		},
 	},

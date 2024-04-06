@@ -13,8 +13,6 @@ local UIFrameFadeIn = UIFrameFadeIn
 -- Credit for the Class logos: ADDOriN @DevianArt
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
 
-local logo = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\mUI1.tga"
-
 MER.NPCS = {
 	86470, -- Pepe
 	-- Shadowlands
@@ -96,7 +94,7 @@ function module:GameMenu()
 		bottomPanel.Logo = bottomPanel:CreateTexture(nil, "ARTWORK")
 		bottomPanel.Logo:Size(150)
 		bottomPanel.Logo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 0)
-		bottomPanel.Logo:SetTexture(logo)
+		bottomPanel.Logo:SetTexture(I.General.MediaPath .. "Textures\\mUI1.tga")
 	end
 
 	if not GameMenuFrame.MUItopPanel then
@@ -125,9 +123,7 @@ function module:GameMenu()
 		topPanel.factionLogo = topPanel:CreateTexture(nil, "ARTWORK")
 		topPanel.factionLogo:Point("CENTER", topPanel, "CENTER", 0, 0)
 		topPanel.factionLogo:Size(186, 186)
-		topPanel.factionLogo:SetTexture(
-			"Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\ClassBanner\\CLASS-" .. E.myclass
-		)
+		topPanel.factionLogo:SetTexture(I.General.MediaPath .. "Textures\\ClassBanner\\CLASS-" .. E.myclass)
 	end
 
 	-- Use this frame to control the position of the model - taken from ElvUI

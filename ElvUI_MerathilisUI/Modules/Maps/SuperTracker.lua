@@ -110,7 +110,7 @@ function module.commandHandler(msg, isPreview)
 		end
 	end
 
-	msg = F.Strings.Replace(msg, {
+	msg = F.String.Replace(msg, {
 		["　"] = " ",
 		["．"] = ".",
 		[","] = " ",
@@ -132,7 +132,7 @@ function module.commandHandler(msg, isPreview)
 	})
 
 	local numbers = {}
-	local words = { F.Strings.Split(msg .. " ", " ") }
+	local words = { F.String.Split(msg .. " ", " ") }
 
 	if #words < 3 then
 		if isPreview then

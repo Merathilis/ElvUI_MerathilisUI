@@ -31,7 +31,7 @@ local WOW_PROJECT_CLASSIC = 2
 local WOW_PROJECT_MAINLINE = WOW_PROJECT_MAINLINE
 local WOW_PROJECT_WRATH_CLASSIC = 11
 
-local MediaPath = "Interface\\Addons\\ElvUI_MerathilisUI\\Media\\FriendList\\"
+local MediaPath = I.General.MediaPath .. "FriendList\\"
 
 --[[
 	/run for i,v in pairs(_G) do if type(v)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end

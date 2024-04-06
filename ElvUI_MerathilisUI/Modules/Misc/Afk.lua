@@ -165,7 +165,7 @@ function AFK:SetAFK(status)
 		if IsInGuild() then
 			if AFK.AFKMode.Guild then
 				AFK.AFKMode.Guild:SetText(
-					guildName and F.Strings.FastGradientHex("<" .. guildName .. ">", "06c910", "33ff3d") or ""
+					guildName and F.String.FastGradientHex("<" .. guildName .. ">", "06c910", "33ff3d") or ""
 				)
 			end
 		else
@@ -293,7 +293,7 @@ local function Initialize()
 		-- Speech Bubble
 		playerModel.tex = playerModel:CreateTexture(nil, "BACKGROUND")
 		playerModel.tex:SetPoint("TOP", modelHolder, "TOP", 30, 80)
-		playerModel.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\bubble")
+		playerModel.tex:SetTexture(I.General.MediaPath .. "Textures\\bubble")
 
 		playerModel.tex.text = playerModel:CreateFontString(nil, "OVERLAY")
 		playerModel.tex.text:FontTemplate(nil, 20, "SHADOWOUTLINE")

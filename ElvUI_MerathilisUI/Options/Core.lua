@@ -95,7 +95,7 @@ function MER:OptionsCallback()
 				name = L["MER_DESC"] .. newSignIgnored,
 				fontSize = "medium",
 				image = function()
-					return "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\mUI1.tga", 200, 200
+					return I.General.MediaPath .. "Textures\\mUI1.tga", 200, 200
 				end,
 			},
 			install = {
@@ -123,7 +123,7 @@ function MER:OptionsCallback()
 			discordButton = {
 				order = 5,
 				type = "execute",
-				name = L["|TInterface\\Addons\\ElvUI_MerathilisUI\\Media\\Icons\\Discord.tga:18:18:0:0:64:64|t |cffffffffMerathilis|r|cffff7d0aUI|r Discord"],
+				name = L["|T" .. I.General.MediaPath .. "Icons\\Discord.tga:18:18:0:0:64:64|t |cffffffffMerathilis|r|cffff7d0aUI|r Discord"],
 				customWidth = 160,
 				func = function()
 					E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/28We6esE9v")
