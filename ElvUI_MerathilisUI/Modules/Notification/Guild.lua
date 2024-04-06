@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Notification
 
 local _G = _G
@@ -33,19 +33,29 @@ local function GetGuildInvites()
 end
 
 local function toggleCalendar()
-	if not _G.CalendarFrame then LoadAddOn("Blizzard_Calendar") end
+	if not _G.CalendarFrame then
+		LoadAddOn("Blizzard_Calendar")
+	end
 	ShowUIPanel(_G.CalendarFrame)
 end
 
 local function alertEvents()
 	module.db = E.db.mui.notification
-	if not module.db.enable or not module.db.invites then return end
-	if _G.CalendarFrame and _G.CalendarFrame:IsShown() then return end
+	if not module.db.enable or not module.db.invites then
+		return
+	end
+	if _G.CalendarFrame and _G.CalendarFrame:IsShown() then
+		return
+	end
 
 	local num = C_Calendar_GetNumPendingInvites()
 	if num ~= numInvites then
 		if num > 0 then
-			module:DisplayToast(_G.CALENDAR, L["You have %s pending calendar |4invite:invites;."]:format(num), toggleCalendar)
+			module:DisplayToast(
+				_G.CALENDAR,
+				L["You have %s pending calendar |4invite:invites;."]:format(num),
+				toggleCalendar
+			)
 		end
 		numInvites = num
 	end
@@ -53,9 +63,13 @@ end
 
 local function alertGuildEvents()
 	module.db = E.db.mui.notification
-	if not module.db.enable or not module.db.guildEvents then return end
+	if not module.db.enable or not module.db.guildEvents then
+		return
+	end
 
-	if _G.CalendarFrame and _G.CalendarFrame:IsShown() then return end
+	if _G.CalendarFrame and _G.CalendarFrame:IsShown() then
+		return
+	end
 
 	local num = GetGuildInvites()
 	if num > 0 then

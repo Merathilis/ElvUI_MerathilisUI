@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 MER.Utilities.Async = {}
 local U = MER.Utilities.Async
@@ -13,7 +13,7 @@ local Spell = Spell
 
 local cache = {
 	item = {},
-	spell = {}
+	spell = {},
 }
 
 function U.WithItemID(itemID, callback)
@@ -22,8 +22,7 @@ function U.WithItemID(itemID, callback)
 	end
 
 	if not callback then
-		callback = function()
-		end
+		callback = function() end
 	end
 
 	if type(callback) ~= "function" then
@@ -56,8 +55,7 @@ function U.WithSpellID(spellID, callback)
 	end
 
 	if not callback then
-		callback = function()
-		end
+		callback = function() end
 	end
 
 	if type(callback) ~= "function" then
@@ -91,8 +89,7 @@ function U.WithItemIDTable(itemIDTable, tType, callback)
 	end
 
 	if not callback then
-		callback = function()
-		end
+		callback = function() end
 	end
 
 	if type(callback) ~= "function" then
@@ -128,8 +125,7 @@ function U.WithSpellIDTable(spellIDTable, tType, callback)
 	end
 
 	if not callback then
-		callback = function()
-		end
+		callback = function() end
 	end
 
 	if type(callback) ~= "function" then
@@ -165,8 +161,7 @@ function U.WithItemSlotID(itemSlotID, callback)
 	end
 
 	if not callback then
-		callback = function()
-		end
+		callback = function() end
 	end
 
 	if type(callback) ~= "function" then
@@ -179,11 +174,9 @@ function U.WithItemSlotID(itemSlotID, callback)
 		return
 	end
 
-	itemInstance:ContinueOnItemLoad(
-		function()
-			callback(itemInstance)
-		end
-	)
+	itemInstance:ContinueOnItemLoad(function()
+		callback(itemInstance)
+	end)
 
 	return itemInstance
 end

@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 local TT = E:GetModule("Tooltip")
 
 local _G = _G
@@ -23,7 +23,7 @@ function module:SetTooltipStyle(_, tt)
 end
 
 function module:TTGameTooltip_SetDefaultAnchor(_, tt)
-	if (tt.StatusBar) then
+	if tt.StatusBar then
 		module:CreateBackdropShadow(tt.StatusBar)
 	end
 
@@ -68,7 +68,6 @@ function module:GameTooltip()
 	if not module:CheckDB("tooltip", "tooltip") then
 		return
 	end
-
 
 	module:CreateShadow(_G.FloatingBattlePetTooltip)
 

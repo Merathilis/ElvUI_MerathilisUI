@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
+local S = E:GetModule("Skins")
 
 local _G = _G
 local next, pairs, select, unpack = next, pairs, select, unpack
@@ -24,7 +24,9 @@ local function QuestInfo_GetQuestID()
 end
 
 local function ColorObjectivesText()
-	if not _G.QuestInfoFrame.questLog then return end
+	if not _G.QuestInfoFrame.questLog then
+		return
+	end
 
 	local questID = QuestInfo_GetQuestID()
 	local numVisibleObjectives = 0
@@ -32,8 +34,8 @@ local function ColorObjectivesText()
 	local waypointText = C_QuestLog_GetNextWaypointText(questID)
 	if waypointText then
 		numVisibleObjectives = numVisibleObjectives + 1
-		local objective = _G['QuestInfoObjective'..numVisibleObjectives]
-		objective:SetTextColor(.4, 1, 1)
+		local objective = _G["QuestInfoObjective" .. numVisibleObjectives]
+		objective:SetTextColor(0.4, 1, 1)
 	end
 
 	for i = 1, GetNumQuestLeaderBoards() do
@@ -41,10 +43,10 @@ local function ColorObjectivesText()
 
 		if objectiveType ~= "spell" and objectiveType ~= "log" and numVisibleObjectives < _G.MAX_OBJECTIVES then
 			numVisibleObjectives = numVisibleObjectives + 1
-			local objective = _G['QuestInfoObjective'..numVisibleObjectives]
+			local objective = _G["QuestInfoObjective" .. numVisibleObjectives]
 			if objective then
 				if isCompleted then
-					objective:SetTextColor(.2, 1, .2)
+					objective:SetTextColor(0.2, 1, 0.2)
 				else
 					objective:SetTextColor(1, 1, 1)
 				end
@@ -56,8 +58,8 @@ end
 local function ReplaceTextColor(object, r)
 	if r == 0 then
 		object:SetTextColor(1, 1, 1)
-	elseif r == .2 then
-		object:SetTextColor(.8, .8, .8)
+	elseif r == 0.2 then
+		object:SetTextColor(0.8, 0.8, 0.8)
 	end
 end
 
@@ -65,8 +67,8 @@ local function RestyleSpellButton(bu)
 	local name = bu:GetName()
 	local icon = bu.Icon
 
-	_G[name.."NameFrame"]:Hide()
-	_G[name.."SpellBorder"]:Hide()
+	_G[name .. "NameFrame"]:Hide()
+	_G[name .. "SpellBorder"]:Hide()
 
 	icon:SetPoint("TOPLEFT", 3, -2)
 	icon:SetDrawLayer("ARTWORK")
@@ -77,7 +79,7 @@ local function RestyleSpellButton(bu)
 	bg:SetPoint("TOPLEFT", 2, -1)
 	bg:SetPoint("BOTTOMRIGHT", 0, 14)
 	bg:SetFrameLevel(0)
-	bg:CreateBackdrop('Transparent')
+	bg:CreateBackdrop("Transparent")
 end
 
 local function RestyleRewardButton(bu)
@@ -102,7 +104,7 @@ local function RestyleRewardButton(bu)
 		bu.RewardAmount:SetDrawLayer("OVERLAY")
 	end
 
-	bu:CreateBackdrop('Transparent')
+	bu:CreateBackdrop("Transparent")
 	bu.backdrop:SetFrameStrata("BACKGROUND")
 	module:CreateGradient(bu.backdrop)
 end
@@ -122,13 +124,13 @@ local function ReskinRewardButtonWithSize(bu, isMapQuestInfo)
 end
 
 local function HookTextColor_Yellow(self, r, g, b)
-	if r ~= 1 or g ~= .8 or b ~= 0 then
-		self:SetTextColor(1, .8, 0)
+	if r ~= 1 or g ~= 0.8 or b ~= 0 then
+		self:SetTextColor(1, 0.8, 0)
 	end
 end
 
 local function SetTextColor_Yellow(font)
-	font:SetTextColor(1, .8, 0)
+	font:SetTextColor(1, 0.8, 0)
 	font:SetShadowColor(0, 0, 0, 0)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_Yellow)
 end
@@ -161,18 +163,29 @@ local function LoadSkin()
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
 		local bu = rewardsFrame.RewardButtons[index]
 
-		if (bu and not bu.restyled) then
+		if bu and not bu.restyled then
 			ReskinRewardButtonWithSize(bu, rewardsFrame == _G.MapQuestInfoRewardsFrame)
 			bu.restyled = true
 		end
 	end)
 
 	_G.MapQuestInfoRewardsFrame.XPFrame.Name:SetShadowOffset(0, 0)
-	for _, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame", "WarModeBonusFrame"} do
+	for _, name in
+		next,
+		{
+			"HonorFrame",
+			"MoneyFrame",
+			"SkillPointFrame",
+			"XPFrame",
+			"ArtifactXPFrame",
+			"TitleFrame",
+			"WarModeBonusFrame",
+		}
+	do
 		ReskinRewardButtonWithSize(_G.MapQuestInfoRewardsFrame[name], true)
 	end
 
-	for _, name in next, {"HonorFrame", "SkillPointFrame", "ArtifactXPFrame", "WarModeBonusFrame"} do
+	for _, name in next, { "HonorFrame", "SkillPointFrame", "ArtifactXPFrame", "WarModeBonusFrame" } do
 		ReskinRewardButtonWithSize(_G.QuestInfoRewardsFrame[name])
 	end
 
@@ -188,7 +201,7 @@ local function LoadSkin()
 		module:CreateBDFrame(icon)
 		nameFrame:Hide()
 
-		nameFrame:CreateBackdrop('Transparent')
+		nameFrame:CreateBackdrop("Transparent")
 		nameFrame.backdrop:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 2)
 		nameFrame.backdrop:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 101, -1)
 	end
@@ -199,20 +212,20 @@ local function LoadSkin()
 		local icon = frame.Icon
 
 		icon:SetTexCoord(unpack(E.TexCoords))
-		icon:CreateBackdrop('Transparent')
+		icon:CreateBackdrop("Transparent")
 		for i = 2, 4 do
 			select(i, frame:GetRegions()):Hide()
 		end
 
-		frame:CreateBackdrop('Transparent')
+		frame:CreateBackdrop("Transparent")
 		frame.backdrop:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 2)
 		frame.backdrop:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 220, -1)
 	end
 
 	hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", function(self, r)
 		if r == 0 then
-			self:SetTextColor(.8, .8, .8, 1)
-		elseif r == .2 then
+			self:SetTextColor(0.8, 0.8, 0.8, 1)
+		elseif r == 0.2 then
 			self:SetTextColor(1, 1, 1, 1)
 		end
 	end)
@@ -251,7 +264,9 @@ local function LoadSkin()
 		local objectivesTable = QuestInfoObjectivesFrame.Objectives
 		for i = #objectivesTable, 1, -1 do
 			local object = objectivesTable[i]
-			if object.hooked then break end
+			if object.hooked then
+				break
+			end
 			hooksecurefunc(object, "SetTextColor", ReplaceTextColor)
 			local r, g, b = object:GetTextColor()
 			object:SetTextColor(r, g, b)
@@ -281,11 +296,11 @@ local function LoadSkin()
 
 			-- Spell Rewards
 			-- for spellReward in rewardsFrame.spellRewardPool:EnumerateActive() do
-				-- if not spellReward.styled then
-					-- RestyleRewardButton(spellReward)
---
-					-- spellReward.styled = true
-				-- end
+			-- if not spellReward.styled then
+			-- RestyleRewardButton(spellReward)
+			--
+			-- spellReward.styled = true
+			-- end
 			-- end
 		end
 

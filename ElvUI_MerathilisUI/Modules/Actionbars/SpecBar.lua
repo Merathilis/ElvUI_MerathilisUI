@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Actionbars')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Actionbars")
 
 local _G = _G
 
@@ -33,11 +33,22 @@ function module:CreateSpecBar()
 	E.FrameLocks[specBar] = true
 
 	specBar.Button = {}
-	E:CreateMover(specBar, "MER_SpecializationBarMover", L["SpecializationBarMover"], nil, nil, nil,
-		'ALL,ACTIONBARS,MERATHILISUI', nil, 'mui,modules,actionbars')
+	E:CreateMover(
+		specBar,
+		"MER_SpecializationBarMover",
+		L["SpecializationBarMover"],
+		nil,
+		nil,
+		nil,
+		"ALL,ACTIONBARS,MERATHILISUI",
+		nil,
+		"mui,modules,actionbars"
+	)
 
-	specBar:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
-	specBar:SetScript('OnLeave', function(self)
+	specBar:SetScript("OnEnter", function(self)
+		UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+	end)
+	specBar:SetScript("OnLeave", function(self)
 		if E.db.mui.actionbars.specBar.mouseover then
 			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 		end
@@ -55,11 +66,11 @@ function module:CreateSpecBar()
 		Button:SetFrameLevel(specBar:GetFrameLevel() + 1)
 		Button:StyleButton()
 		Button:SetNormalTexture(Icon)
-		Button:GetNormalTexture():SetTexCoord(.1, .9, .1, .9)
+		Button:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		Button:GetNormalTexture():SetInside()
 		Button:SetPushedTexture(Icon)
 		Button:GetPushedTexture():SetInside()
-		Button:RegisterForClicks('AnyDown')
+		Button:RegisterForClicks("AnyDown")
 		Button:SetScript("OnEnter", function(self)
 			_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			_G.GameTooltip:AddLine(SpecName)
@@ -85,19 +96,19 @@ function module:CreateSpecBar()
 			self.LootID = GetLootSpecialization()
 
 			if self.Spec == self:GetID() then
-				self.backdrop:SetBackdropBorderColor(0, 0.44, .87)
-			elseif (self.LootID == self.SpecID) then
-				self.backdrop:SetBackdropBorderColor(1, 0.44, .4)
+				self.backdrop:SetBackdropBorderColor(0, 0.44, 0.87)
+			elseif self.LootID == self.SpecID then
+				self.backdrop:SetBackdropBorderColor(1, 0.44, 0.4)
 			else
 				self:CreateBackdrop()
 			end
 		end)
-		Button:HookScript('OnEnter', function()
+		Button:HookScript("OnEnter", function()
 			if specBar:IsShown() then
 				UIFrameFadeIn(specBar, 0.2, specBar:GetAlpha(), 1)
 			end
 		end)
-		Button:HookScript('OnLeave', function()
+		Button:HookScript("OnLeave", function()
 			if specBar:IsShown() and E.db.mui.actionbars.specBar.mouseover then
 				UIFrameFadeOut(specBar, 0.2, specBar:GetAlpha(), 0)
 			end

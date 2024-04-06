@@ -1,9 +1,9 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Chat')
-local LA = MER:GetModule('MER_Layout')
-local CH = E:GetModule('Chat')
-local LO = E:GetModule('Layout')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Chat")
+local LA = MER:GetModule("MER_Layout")
+local CH = E:GetModule("Chat")
+local LO = E:GetModule("Layout")
+local S = E:GetModule("Skins")
 
 local _G = _G
 
@@ -16,27 +16,29 @@ function module:StyleVoicePanel()
 end
 
 function module:CreateSeparators()
-	if not E.db.mui.chat.seperators.enable then return end
+	if not E.db.mui.chat.seperators.enable then
+		return
+	end
 
 	--Left Chat Tab Separator
-	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel, "BackdropTemplate")
-	ltabseparator:SetFrameStrata('BACKGROUND')
+	local ltabseparator = CreateFrame("Frame", "LeftChatTabSeparator", _G.LeftChatPanel, "BackdropTemplate")
+	ltabseparator:SetFrameStrata("BACKGROUND")
 	ltabseparator:SetFrameLevel(_G.LeftChatPanel:GetFrameLevel() + 2)
 	ltabseparator:Height(1)
-	ltabseparator:Point('TOPLEFT', _G.LeftChatPanel, 5, -24)
-	ltabseparator:Point('TOPRIGHT', _G.LeftChatPanel, -5, -24)
-	ltabseparator:SetTemplate('Transparent')
+	ltabseparator:Point("TOPLEFT", _G.LeftChatPanel, 5, -24)
+	ltabseparator:Point("TOPRIGHT", _G.LeftChatPanel, -5, -24)
+	ltabseparator:SetTemplate("Transparent")
 	ltabseparator:Hide()
 	_G.LeftChatTabSeparator = ltabseparator
 
 	--Right Chat Tab Separator
-	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel, "BackdropTemplate")
-	rtabseparator:SetFrameStrata('BACKGROUND')
+	local rtabseparator = CreateFrame("Frame", "RightChatTabSeparator", _G.RightChatPanel, "BackdropTemplate")
+	rtabseparator:SetFrameStrata("BACKGROUND")
 	rtabseparator:SetFrameLevel(_G.RightChatPanel:GetFrameLevel() + 2)
 	rtabseparator:Height(1)
-	rtabseparator:Point('TOPLEFT', _G.RightChatPanel, 5, -24)
-	rtabseparator:Point('TOPRIGHT', _G.RightChatPanel, -5, -24)
-	rtabseparator:SetTemplate('Transparent')
+	rtabseparator:Point("TOPLEFT", _G.RightChatPanel, 5, -24)
+	rtabseparator:Point("TOPRIGHT", _G.RightChatPanel, -5, -24)
+	rtabseparator:SetTemplate("Transparent")
 	rtabseparator:Hide()
 	_G.RightChatTabSeparator = rtabseparator
 
@@ -46,25 +48,27 @@ end
 hooksecurefunc(LO, "CreateChatPanels", module.CreateSeparators)
 
 function module:UpdateSeperators()
-	if not E.db.mui.chat.seperators.enable then return end
+	if not E.db.mui.chat.seperators.enable then
+		return
+	end
 
 	local myVisibility = E.db.mui.chat.seperators.visibility
 	local elvVisibility = E.db.chat.panelBackdrop
-	if myVisibility == 'SHOWBOTH' or elvVisibility == 'SHOWBOTH' then
+	if myVisibility == "SHOWBOTH" or elvVisibility == "SHOWBOTH" then
 		if _G.LeftChatTabSeparator then
 			_G.LeftChatTabSeparator:Show()
 		end
 		if _G.RightChatTabSeparator then
 			_G.RightChatTabSeparator:Show()
 		end
-	elseif myVisibility == 'HIDEBOTH' or elvVisibility == 'HIDEBOTH' then
+	elseif myVisibility == "HIDEBOTH" or elvVisibility == "HIDEBOTH" then
 		if _G.LeftChatTabSeparator then
 			_G.LeftChatTabSeparator:Hide()
 		end
 		if _G.RightChatTabSeparator then
 			_G.RightChatTabSeparator:Hide()
 		end
-	elseif myVisibility == 'LEFT' or elvVisibility == 'LEFT' then
+	elseif myVisibility == "LEFT" or elvVisibility == "LEFT" then
 		if _G.LeftChatTabSeparator then
 			_G.LeftChatTabSeparator:Show()
 		end
@@ -82,7 +86,9 @@ function module:UpdateSeperators()
 end
 
 function module:CreateChatButtons()
-	if not E.db.mui.chat.chatButton or not E.private.chat.enable then return end
+	if not E.db.mui.chat.chatButton or not E.private.chat.enable then
+		return
+	end
 
 	E.db.mui.chat.expandPanel = 150
 	E.db.mui.chat.panelHeight = E.db.mui.chat.panelHeight or E.db.chat.panelHeight
@@ -105,7 +111,9 @@ function module:CreateChatButtons()
 	ChatButton.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\chatButton")
 
 	ChatButton:SetScript("OnMouseUp", function(self, btn)
-		if InCombatLockdown() then return end
+		if InCombatLockdown() then
+			return
+		end
 		if btn == "LeftButton" then
 			if E.db.mui.chat.isExpanded then
 				E.db.chat.panelHeight = E.db.chat.panelHeight - E.db.mui.chat.expandPanel
@@ -120,18 +128,22 @@ function module:CreateChatButtons()
 	end)
 
 	ChatButton:SetScript("OnEnter", function(self)
-		if GameTooltip:IsForbidden() then return end
+		if GameTooltip:IsForbidden() then
+			return
+		end
 
 		self:SetAlpha(0.8)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
 		GameTooltip:ClearLines()
 		if E.db.mui.chat.isExpanded then
-			GameTooltip:AddLine(F.cOption(L["BACK"]), 'orange')
+			GameTooltip:AddLine(F.cOption(L["BACK"]), "orange")
 		else
-			GameTooltip:AddLine(F.cOption(L["Expand the chat"]), 'orange')
+			GameTooltip:AddLine(F.cOption(L["Expand the chat"]), "orange")
 		end
 		GameTooltip:Show()
-		if InCombatLockdown() then GameTooltip:Hide() end
+		if InCombatLockdown() then
+			GameTooltip:Hide()
+		end
 	end)
 
 	ChatButton:SetScript("OnLeave", function(self)
@@ -149,9 +161,9 @@ function module:AddCustomEmojis()
 	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"
 
 	-- Twitch Emojis
-	CH:AddSmiley(':monkaomega:', format(t, 'monkaomega'))
-	CH:AddSmiley(':salt:', format(t, 'salt'))
-	CH:AddSmiley(':sadge:', format(t, 'sadge'))
+	CH:AddSmiley(":monkaomega:", format(t, "monkaomega"))
+	CH:AddSmiley(":salt:", format(t, "salt"))
+	CH:AddSmiley(":sadge:", format(t, "sadge"))
 end
 
 -- Hide communities chat. Useful for streamers
@@ -187,7 +199,9 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 
 		--toggle
 		local function toggleOverlay()
-			if _G.CommunitiesFrame:GetDisplayMode() == COMMUNITIES_FRAME_DISPLAY_MODES.CHAT and E.db.mui.chat.hideChat then
+			if
+				_G.CommunitiesFrame:GetDisplayMode() == COMMUNITIES_FRAME_DISPLAY_MODES.CHAT and E.db.mui.chat.hideChat
+			then
 				f:SetAllPoints(_G.CommunitiesFrame.Chat.InsetFrame)
 				f:Show()
 			else
@@ -218,26 +232,50 @@ function module:UpdateEditboxAnchors()
 
 		editbox:ClearAllPoints()
 
-		if E.db.datatexts.leftChatPanel and E.db.chat.editBoxPosition == 'BELOW_CHAT' then
+		if E.db.datatexts.leftChatPanel and E.db.chat.editBoxPosition == "BELOW_CHAT" then
 			editbox:SetAllPoints(LeftChatDataPanel)
-		elseif E.db.mui.chat.enable and _G.MERDummyChat and E.db.mui.chat.editBoxPosition == 'BELOW_CHAT' then
+		elseif E.db.mui.chat.enable and _G.MERDummyChat and E.db.mui.chat.editBoxPosition == "BELOW_CHAT" then
 			editbox:SetAllPoints(MERDummyChat)
-		elseif E.ActionBars.Initialized and E.db.actionbar.bar1.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_1' then
+		elseif
+			E.ActionBars.Initialized
+			and E.db.actionbar.bar1.backdrop
+			and E.db.mui.chat.editBoxPosition == "EAB_1"
+		then
 			LA:PositionEditBoxHolder(ElvUI_Bar1)
 			editbox:SetAllPoints(MERDummyEditBoxHolder)
-		elseif E.ActionBars.Initialized and E.db.actionbar.bar2.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_2' then
+		elseif
+			E.ActionBars.Initialized
+			and E.db.actionbar.bar2.backdrop
+			and E.db.mui.chat.editBoxPosition == "EAB_2"
+		then
 			LA:PositionEditBoxHolder(ElvUI_Bar2)
 			editbox:SetAllPoints(MERDummyEditBoxHolder)
-		elseif E.ActionBars.Initialized and E.db.actionbar.bar3.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_3' then
+		elseif
+			E.ActionBars.Initialized
+			and E.db.actionbar.bar3.backdrop
+			and E.db.mui.chat.editBoxPosition == "EAB_3"
+		then
 			LA:PositionEditBoxHolder(ElvUI_Bar3)
 			editbox:SetAllPoints(MERDummyEditBoxHolder)
-		elseif E.ActionBars.Initialized and E.db.actionbar.bar4.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_4' then
+		elseif
+			E.ActionBars.Initialized
+			and E.db.actionbar.bar4.backdrop
+			and E.db.mui.chat.editBoxPosition == "EAB_4"
+		then
 			LA:PositionEditBoxHolder(ElvUI_Bar4)
 			editbox:SetAllPoints(MERDummyEditBoxHolder)
-		elseif E.ActionBars.Initialized and E.db.actionbar.bar5.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_5' then
+		elseif
+			E.ActionBars.Initialized
+			and E.db.actionbar.bar5.backdrop
+			and E.db.mui.chat.editBoxPosition == "EAB_5"
+		then
 			LA:PositionEditBoxHolder(ElvUI_Bar5)
 			editbox:SetAllPoints(MERDummyEditBoxHolder)
-		elseif E.ActionBars.Initialized and E.db.actionbar.bar6.backdrop and E.db.mui.chat.editBoxPosition == 'EAB_6' then
+		elseif
+			E.ActionBars.Initialized
+			and E.db.actionbar.bar6.backdrop
+			and E.db.mui.chat.editBoxPosition == "EAB_6"
+		then
 			LA:PositionEditBoxHolder(ElvUI_Bar6, true)
 			editbox:SetAllPoints(MERDummyEditBoxHolder)
 		else

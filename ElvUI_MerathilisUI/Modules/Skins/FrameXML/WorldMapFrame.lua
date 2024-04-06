@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -29,12 +29,22 @@ function module:WorldMapFrame()
 	frame.text:SetTextColor(r, g, b)
 	frame.text:SetAllPoints()
 
-	frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()) ..
-		"/" .. --[[C_QuestLog_GetMaxNumQuestsCanAccept()]] MAX_QUESTS .. " " .. L["Quests"])
+	frame.text:SetText(
+		select(2, C_QuestLog_GetNumQuestLogEntries())
+			.. "/" --[[C_QuestLog_GetMaxNumQuestsCanAccept()]]
+			.. MAX_QUESTS
+			.. " "
+			.. L["Quests"]
+	)
 
 	frame:SetScript("OnEvent", function(self, event)
-		frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()) ..
-			"/" .. --[[C_QuestLog_GetMaxNumQuestsCanAccept()]] MAX_QUESTS .. " " .. L["Quests"])
+		frame.text:SetText(
+			select(2, C_QuestLog_GetNumQuestLogEntries())
+				.. "/" --[[C_QuestLog_GetMaxNumQuestsCanAccept()]]
+				.. MAX_QUESTS
+				.. " "
+				.. L["Quests"]
+		)
 	end)
 
 	if _G.QuestScrollFrame.Background then

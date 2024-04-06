@@ -1,12 +1,14 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs, unpack = pairs, unpack
 
 function module:Clique()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.cl then return end
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.cl then
+		return
+	end
 
 	_G.CliqueConfig:StripTextures()
 	_G.CliqueConfig:CreateBackdrop("Transparent")
@@ -26,8 +28,12 @@ function module:Clique()
 
 	_G.CliqueConfigCloseButton:StripTextures()
 	S:HandleCloseButton(_G.CliqueConfigCloseButton)
-	if _G.CliqueDialog.CloseButton then S:HandleCloseButton(_G.CliqueDialog.CloseButton) end
-	if _G.CliqueDialogCloseButton then S:HandleCloseButton(_G.CliqueDialogCloseButton) end
+	if _G.CliqueDialog.CloseButton then
+		S:HandleCloseButton(_G.CliqueDialog.CloseButton)
+	end
+	if _G.CliqueDialogCloseButton then
+		S:HandleCloseButton(_G.CliqueDialogCloseButton)
+	end
 
 	local CliqueButtons = {
 		_G.CliqueConfigPage1ButtonSpell,

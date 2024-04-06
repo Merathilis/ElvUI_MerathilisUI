@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local UF = E:GetModule('UnitFrames')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local UF = E:GetModule("UnitFrames")
 
 local _G = _G
 local ipairs = ipairs
@@ -34,7 +34,12 @@ function module:ElvUI_UnitFrames_Configure_Threat(_, f)
 			if parent.Health and parent.Health.backdrop and parent.Health.backdrop.MERshadow then
 				parent.Health.backdrop.MERshadow:SetShown(not threat.MainGlow:IsShown())
 			end
-			if parent.Power and parent.Power.backdrop and parent.Power.backdrop.MERshadow and parent.USE_POWERBAR_OFFSET then
+			if
+				parent.Power
+				and parent.Power.backdrop
+				and parent.Power.backdrop.MERshadow
+				and parent.USE_POWERBAR_OFFSET
+			then
 				parent.Power.backdrop.MERshadow:SetShown(not threat.MainGlow:IsShown())
 			end
 		end

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 V.general = {
 	install_complete = nil,
@@ -13,7 +13,7 @@ V.skins = {
 		color = {
 			r = 0,
 			g = 0,
-			b = 0
+			b = 0,
 		},
 	},
 	widgets = {
@@ -27,7 +27,7 @@ V.skins = {
 				alpha = 1,
 				animationType = "FADE",
 				animationDuration = 0.2,
-				removeBorderEffect = true
+				removeBorderEffect = true,
 			},
 			selected = {
 				enable = true,
@@ -36,13 +36,13 @@ V.skins = {
 				backdropAlpha = 0.4,
 				borderClassColor = false,
 				borderColor = { r = 0.145, g = 0.353, b = 0.698 },
-				borderAlpha = 1
+				borderAlpha = 1,
 			},
 			text = {
 				enable = true,
 				font = {
 					name = E.db.general.font,
-					style = "SHADOWOUTLINE"
+					style = "SHADOWOUTLINE",
 				},
 			},
 		},
@@ -55,7 +55,7 @@ V.skins = {
 				color = { r = 0, g = 0.752, b = 0.980 },
 				alpha = 1,
 				animationType = "FADE",
-				animationDuration = 0.2
+				animationDuration = 0.2,
 			},
 			selected = {
 				enable = true,
@@ -65,7 +65,7 @@ V.skins = {
 				backdropAlpha = 0.4,
 				borderClassColor = false,
 				borderColor = { r = 0.145, g = 0.353, b = 0.698 },
-				borderAlpha = 1
+				borderAlpha = 1,
 			},
 			text = {
 				enable = true,
@@ -75,21 +75,21 @@ V.skins = {
 				selectedColor = { r = 1, g = 1, b = 1 },
 				font = {
 					name = E.db.general.font,
-					style = "SHADOWOUTLINE"
-				}
-			}
+					style = "SHADOWOUTLINE",
+				},
+			},
 		},
 		checkBox = {
 			enable = true,
 			texture = "ElvUI Norm1",
 			classColor = false,
-			color = { r = 0, g = 0.752, b = 0.980, a = 1 }
+			color = { r = 0, g = 0.752, b = 0.980, a = 1 },
 		},
 		slider = {
 			enable = true,
 			texture = "ElvUI Norm1",
 			classColor = false,
-			color = { r = 0, g = 0.752, b = 0.980, a = 1 }
+			color = { r = 0, g = 0.752, b = 0.980, a = 1 },
 		},
 		treeGroupButton = {
 			enable = true,
@@ -118,9 +118,9 @@ V.skins = {
 				selectedColor = { r = 1, g = 1, b = 1 },
 				font = {
 					name = E.db.general.font,
-					style = "SHADOWOUTLINE"
-				}
-			}
+					style = "SHADOWOUTLINE",
+				},
+			},
 		},
 	},
 	blizzard = {
@@ -255,7 +255,7 @@ V.skins = {
 					size = 16,
 					style = "SHADOWOUTLINE",
 					offsetX = 0,
-					offsetY = -3
+					offsetY = -3,
 				},
 			},
 			normalBar = {
@@ -263,14 +263,14 @@ V.skins = {
 				spark = true,
 				colorOverride = true,
 				colorLeft = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 },
-				colorRight = { r = 0.25882, g = 0.84314, b = 0.86667, a = 1 }
+				colorRight = { r = 0.25882, g = 0.84314, b = 0.86667, a = 1 },
 			},
 			emphasizedBar = {
 				smooth = true,
 				spark = true,
 				colorOverride = true,
 				colorLeft = { r = 1, g = 0.23, b = 0.0, a = 1 },
-				colorRight = { r = 1, g = 0.48, b = 0.03, a = 1 }
+				colorRight = { r = 1, g = 0.48, b = 0.03, a = 1 },
 			},
 		},
 		dt = {
@@ -289,11 +289,11 @@ V.skins = {
 	actionStatus = {
 		name = E.db.general.font,
 		size = 15,
-		style = "SHADOWOUTLINE"
+		style = "SHADOWOUTLINE",
 	},
 	rollResult = {
 		name = "Expressway",
 		size = 13,
-		style = "SHADOWOUTLINE"
+		style = "SHADOWOUTLINE",
 	},
 }

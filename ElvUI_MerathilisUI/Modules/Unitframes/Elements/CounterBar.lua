@@ -1,12 +1,12 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_UnitFrames')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_UnitFrames")
 
 local floor = math.floor
 
 local CreateFrame = CreateFrame
 
 function module:Construct_CounterBar(frame)
-	local CounterBar = CreateFrame("StatusBar", frame:GetName().."_CounterBar", frame)
+	local CounterBar = CreateFrame("StatusBar", frame:GetName() .. "_CounterBar", frame)
 	CounterBar:CreateBackdrop()
 	CounterBar:SetWidth(217)
 	CounterBar:SetHeight(20)

@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_UnitFrames')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_UnitFrames")
+local S = MER:GetModule("MER_Skins")
 
 local CreateColor = CreateColor
 local hooksecurefunc = hooksecurefunc
@@ -16,8 +16,8 @@ local function ConfigureCastbarSpark(unit, unitframe)
 
 	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar and E.db.mui.unitframes.castbar.spark
 
-	castbar.Spark_:SetTexture(E.LSM:Fetch('statusbar', db.texture))
-	castbar.Spark_:SetBlendMode('BLEND')
+	castbar.Spark_:SetTexture(E.LSM:Fetch("statusbar", db.texture))
+	castbar.Spark_:SetBlendMode("BLEND")
 	castbar.Spark_:SetWidth(db.width or 3)
 	castbar.Spark_:SetVertexColor(db.color.r, db.color.g, db.color.b, db.color.a or 1, 1, 1, 1)
 end
@@ -25,14 +25,14 @@ end
 local function ConfigureCastbar(unit, unitframe)
 	local db = E.db.unitframe.units[unit].castbar
 
-	if unit == 'player' or unit == 'target' then
+	if unit == "player" or unit == "target" then
 		ConfigureCastbarSpark(unit, unitframe)
 	end
 end
 
 function module:UpdateSettings(unit)
 	if unit then
-		local unitFrameName = 'ElvUF_' .. E:StringTitle(unit)
+		local unitFrameName = "ElvUF_" .. E:StringTitle(unit)
 		local unitframe = _G[unitFrameName]
 		ConfigureCastbar(unit, unitframe)
 	end
@@ -45,12 +45,12 @@ function module:UpdateAllCastbars()
 		return
 	end
 
-	module:UpdateSettings('player')
-	module:UpdateSettings('target')
-	module:UpdateSettings('focus')
-	module:UpdateSettings('pet')
-	module:UpdateSettings('arena')
-	module:UpdateSettings('boss')
+	module:UpdateSettings("player")
+	module:UpdateSettings("target")
+	module:UpdateSettings("focus")
+	module:UpdateSettings("pet")
+	module:UpdateSettings("arena")
+	module:UpdateSettings("boss")
 end
 
 function module:PostCast(unit, unitframe)
@@ -63,21 +63,35 @@ function module:PostCast(unit, unitframe)
 	end
 
 	if not self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient("HORIZONTAL",
+		self:GetStatusBarTexture():SetGradient(
+			"HORIZONTAL",
 			CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1),
-			CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
+			CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
+		)
 	elseif self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient("HORIZONTAL",
-			CreateColor(F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"]
-				.b2, 1),
-			CreateColor(F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"]
-				.b1, 1))
+		self:GetStatusBarTexture():SetGradient(
+			"HORIZONTAL",
+			CreateColor(
+				F.ClassGradient["BADTHREAT"].r2,
+				F.ClassGradient["BADTHREAT"].g2,
+				F.ClassGradient["BADTHREAT"].b2,
+				1
+			),
+			CreateColor(
+				F.ClassGradient["BADTHREAT"].r1,
+				F.ClassGradient["BADTHREAT"].g1,
+				F.ClassGradient["BADTHREAT"].b1,
+				1
+			)
+		)
 	end
 end
 
 function module:PostCastInterruptible(unit)
 	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
-	if unit == "vehicle" or unit == "player" then return end
+	if unit == "vehicle" or unit == "player" then
+		return
+	end
 
 	local _, class = UnitClass(unit)
 	local castTexture = E.LSM:Fetch("statusbar", db.texture)
@@ -87,15 +101,27 @@ function module:PostCastInterruptible(unit)
 	end
 
 	if not self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient("HORIZONTAL",
+		self:GetStatusBarTexture():SetGradient(
+			"HORIZONTAL",
 			CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1),
-			CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1))
+			CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
+		)
 	elseif self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient("HORIZONTAL",
-			CreateColor(F.ClassGradient["BADTHREAT"].r2, F.ClassGradient["BADTHREAT"].g2, F.ClassGradient["BADTHREAT"]
-				.b2, 1),
-			CreateColor(F.ClassGradient["BADTHREAT"].r1, F.ClassGradient["BADTHREAT"].g1, F.ClassGradient["BADTHREAT"]
-				.b1, 1))
+		self:GetStatusBarTexture():SetGradient(
+			"HORIZONTAL",
+			CreateColor(
+				F.ClassGradient["BADTHREAT"].r2,
+				F.ClassGradient["BADTHREAT"].g2,
+				F.ClassGradient["BADTHREAT"].b2,
+				1
+			),
+			CreateColor(
+				F.ClassGradient["BADTHREAT"].r1,
+				F.ClassGradient["BADTHREAT"].g1,
+				F.ClassGradient["BADTHREAT"].b1,
+				1
+			)
+		)
 	end
 end
 

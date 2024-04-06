@@ -1,9 +1,11 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 function MER:mMediaTag()
-	if not C_AddOns_IsAddOnLoaded("ElvUI_mMediaTag") then return end
+	if not C_AddOns_IsAddOnLoaded("ElvUI_mMediaTag") then
+		return
+	end
 
 	E.db["mMT"]["general"]["greeting"] = false
 	E.db["mMT"]["nameplate"]["executemarker"]["enable"] = true

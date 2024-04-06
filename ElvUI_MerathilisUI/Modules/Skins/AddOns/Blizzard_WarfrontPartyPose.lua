@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -12,14 +12,16 @@ function module:Blizzard_WarfrontsPartyPoseUI()
 	local WarfrontsPartyPoseFrame = _G.WarfrontsPartyPoseFrame
 	module:CreateShadow(WarfrontsPartyPoseFrame)
 
-	WarfrontsPartyPoseFrame.ModelScene:SetAlpha(.8)
+	WarfrontsPartyPoseFrame.ModelScene:SetAlpha(0.8)
 	WarfrontsPartyPoseFrame.OverlayElements.Topper:Hide()
 	WarfrontsPartyPoseFrame.Background:Hide()
 	WarfrontsPartyPoseFrame.Border:Hide()
 
 	local rewardFrame = WarfrontsPartyPoseFrame.RewardAnimations.RewardFrame
 	-- Hide ElvUI's backdrop
-	if rewardFrame.backdrop then rewardFrame.backdrop:Hide() end
+	if rewardFrame.backdrop then
+		rewardFrame.backdrop:Hide()
+	end
 
 	local bg = module:CreateBDFrame(rewardFrame)
 	bg:SetPoint("TOPLEFT", -5, 5)

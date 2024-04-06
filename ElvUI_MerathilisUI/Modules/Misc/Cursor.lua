@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
 
 local min, sqrt = math.min, math.sqrt
 
@@ -52,7 +52,7 @@ function module:UpdateColor()
 	local colorDB = { r = 1, g = 1, b = 1, a = 1 }
 
 	if db.colorType == "DEFAULT" then
-		colorDB = { r = 0, g = .75, b = .98 }
+		colorDB = { r = 0, g = 0.75, b = 0.98 }
 	elseif db.colorType == "CLASS" then
 		colorDB = _G.RAID_CLASS_COLORS[E.myclass]
 	elseif db.colorType == "CUSTOM" then
@@ -63,7 +63,9 @@ function module:UpdateColor()
 end
 
 function module:Cursor()
-	if not E.db.mui.misc.cursor.enable then return end
+	if not E.db.mui.misc.cursor.enable then
+		return
+	end
 
 	module.Frame = CreateFrame("Frame", nil, E.UIParent)
 	module.Frame:SetFrameStrata("TOOLTIP")

@@ -1,11 +1,12 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_HealPrediction')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_HealPrediction")
 local UF = E.UnitFrames
 local LSM = E.Libs.LSM
 
 --[[
 	All Credits goes to fang2hou from Windtools, he is the man!!!
-]]--
+]]
+--
 
 local pairs = pairs
 local rad = rad
@@ -193,9 +194,9 @@ function module:WaitForUnitframesLoad(triedTimes)
 
 		for group, header in pairs(UF.headers) do
 			if header.GetChildren and header:GetNumChildren() > 0 then
-				for _, child in pairs {header:GetChildren()} do
+				for _, child in pairs({ header:GetChildren() }) do
 					if child.groupName and child.GetChildren and child:GetNumChildren() > 0 then
-						for _, subChild in pairs {child:GetChildren()} do
+						for _, subChild in pairs({ child:GetChildren() }) do
 							self:SetupFrame(subChild)
 						end
 					end

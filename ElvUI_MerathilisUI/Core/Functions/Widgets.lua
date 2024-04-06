@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local S = E:GetModule("Skins")
 
 F.Widgets = {}
 
@@ -53,7 +53,7 @@ end
 
 local function createTextureButton(parent, texture, normalColor, hoverColor, width, height, onClick)
 	if not normalColor then
-		normalColor = {1, 1, 1, 1}
+		normalColor = { 1, 1, 1, 1 }
 	end
 
 	if not hoverColor then
@@ -142,7 +142,7 @@ function F.Widgets.AddTooltip(frame, text, anchor, x, y)
 			_G.GameTooltip:SetText(text)
 		end)
 
-		frame:HookScript( "OnLeave", function(self)
+		frame:HookScript("OnLeave", function(self)
 			_G.GameTooltip:Hide()
 		end)
 	end

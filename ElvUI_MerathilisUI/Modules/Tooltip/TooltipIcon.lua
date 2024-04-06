@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local T = MER:GetModule('MER_Tooltip')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local T = MER:GetModule("MER_Tooltip")
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -38,7 +38,7 @@ local tooltips = {
 	"ShoppingTooltip1",
 	"ShoppingTooltip2",
 	"ItemRefShoppingTooltip1",
-	"ItemRefShoppingTooltip2"
+	"ItemRefShoppingTooltip2",
 }
 
 local PET_TYPE_SUFFIX = PET_TYPE_SUFFIX
@@ -67,7 +67,7 @@ local iconFunctions = {
 	end,
 	[Enum_TooltipDataType_EquipmentSet] = function(data)
 		return select(2, C_EquipmentSet_GetEquipmentSetInfo(data.id))
-	end
+	end,
 }
 
 local function setTooltipIcon(tt, data, type)
@@ -124,16 +124,13 @@ local function alignShoppingTooltip(tt)
 end
 
 local function handle(type)
-	TooltipDataProcessor_AddTooltipPostCall(
-		type,
-		function(tt, data)
-			if not data or not data.id or not data.lines or not tt.GetName or not F.In(tt:GetName(), tooltips) then
-				return
-			end
-
-			setTooltipIcon(tt, data, type)
+	TooltipDataProcessor_AddTooltipPostCall(type, function(tt, data)
+		if not data or not data.id or not data.lines or not tt.GetName or not F.In(tt:GetName(), tooltips) then
+			return
 		end
-	)
+
+		setTooltipIcon(tt, data, type)
+	end)
 end
 
 function T:ReskinRewardIcon(tt)
@@ -176,7 +173,7 @@ function T:AddPetIcon(tt, unit, guid)
 			tt.petIcon = f
 		end
 		tt.petIcon:SetTexture("Interface\\PetBattles\\PetIcon-" .. PET_TYPE_SUFFIX[UnitBattlePetType(unit)])
-		tt.petIcon:SetTexCoord(.188, .883, 0, .348)
+		tt.petIcon:SetTexCoord(0.188, 0.883, 0, 0.348)
 		tt.petIcon:SetAlpha(1)
 	end
 end

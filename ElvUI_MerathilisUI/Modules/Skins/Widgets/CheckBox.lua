@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local LSM = E.Libs.LSM
 local module = MER.Modules.Skins
 local WS = module.Widgets
@@ -14,7 +14,10 @@ function WS:HandleAce3CheckBox(check)
 		return
 	end
 
-	local db = E.private.mui and E.private.mui.skins and E.private.mui.skins.widgets and E.private.mui.skins.widgets.checkBox
+	local db = E.private.mui
+		and E.private.mui.skins
+		and E.private.mui.skins.widgets
+		and E.private.mui.skins.widgets.checkBox
 
 	if not check or not db or not db.enable then
 		return
@@ -90,4 +93,4 @@ function WS:HandleCheckBox(_, check)
 	end
 end
 
-WS:SecureHook(S, 'HandleCheckBox')
+WS:SecureHook(S, "HandleCheckBox")

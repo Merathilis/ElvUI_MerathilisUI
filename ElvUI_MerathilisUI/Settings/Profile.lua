@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 
@@ -49,7 +49,7 @@ P.blizzard = {
 			style = "SHADOWOUTLINE",
 			classColor = false,
 			color = { r = 1, g = 1, b = 1 },
-			shortHeader = true
+			shortHeader = true,
 		},
 		cosmeticBar = {
 			enable = true,
@@ -66,24 +66,24 @@ P.blizzard = {
 				mode = "GRADIENT",
 				normalColor = { r = 0, g = 0.659, b = 1.000, a = 1 },
 				gradientColor1 = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 },
-				gradientColor2 = { r = 0, g = 0.752, b = 0.980, a = 1 }
-			}
+				gradientColor2 = { r = 0, g = 0.752, b = 0.980, a = 1 },
+			},
 		},
 		title = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize + 1,
-			style = "SHADOWOUTLINE"
+			style = "SHADOWOUTLINE",
 		},
 		info = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize,
-			style = "SHADOWOUTLINE"
+			style = "SHADOWOUTLINE",
 		},
 		titleColor = {
 			enable = true,
 			classColor = false,
 			customColorNormal = { r = 0, g = 0.752, b = 0.980 },
-			customColorHighlight = { r = 0.282, g = 0.859, b = 0.984 }
+			customColorHighlight = { r = 0.282, g = 0.859, b = 0.984 },
 		},
 		menuTitle = {
 			enable = true,
@@ -110,22 +110,22 @@ P.blizzard = {
 		textures = {
 			client = "modern",
 			status = "square",
-			factionIcon = false
+			factionIcon = false,
 		},
 		areaColor = {
 			r = 1,
 			g = 1,
-			b = 1
+			b = 1,
 		},
 		nameFont = {
 			name = E.db.general.font,
 			size = 13,
-			style = "SHADOWOUTLINE"
+			style = "SHADOWOUTLINE",
 		},
 		infoFont = {
 			name = E.db.general.font,
 			size = 12,
-			style = "SHADOWOUTLINE"
+			style = "SHADOWOUTLINE",
 		},
 	},
 }
@@ -186,7 +186,7 @@ P.cvars = {
 			floatingCombatTextCombatHealing = false,
 			floatingCombatTextCombatHealingAbsorbTarget = false,
 			floatingCombatTextSpellMechanics = false,
-			floatingCombatTextSpellMechanicsOther = false
+			floatingCombatTextSpellMechanicsOther = false,
 		},
 		playerCombatText = {
 			enableFloatingCombatText = false,
@@ -203,7 +203,7 @@ P.cvars = {
 			floatingCombatTextFriendlyHealers = false,
 			floatingCombatTextHonorGains = false,
 			floatingCombatTextCombatState = false,
-			floatingCombatTextAuras = false
+			floatingCombatTextAuras = false,
 		},
 	},
 }
@@ -230,7 +230,7 @@ P.chat = {
 		mergeAchievement = true,
 		bnetFriendOnline = true,
 		bnetFriendOffline = false,
-		factionIcon = true
+		factionIcon = true,
 	},
 	chatLink = {
 		enable = true,
@@ -240,7 +240,7 @@ P.chat = {
 		icon = true,
 		armorCategory = true,
 		weaponCategory = true,
-		compatibile = true
+		compatibile = true,
 	},
 	filter = {
 		enable = true,
@@ -252,7 +252,7 @@ P.chat = {
 		enable = false,
 		minAlpha = 0.33,
 		timeout = 8,
-		fadeOutTime = 0.65
+		fadeOutTime = 0.65,
 	},
 	seperators = {
 		enable = true,
@@ -274,7 +274,7 @@ P.chat = {
 		font = {
 			name = E.db.general.font,
 			size = 12,
-			style = "SHADOWOUTLINE"
+			style = "SHADOWOUTLINE",
 		},
 		color = true,
 		channels = {
@@ -282,74 +282,74 @@ P.chat = {
 				enable = true,
 				cmd = "s",
 				color = { r = 1, g = 1, b = 1, a = 1 },
-				abbr = _G.SAY
+				abbr = _G.SAY,
 			},
 			["YELL"] = {
 				enable = true,
 				cmd = "y",
 				color = { r = 1, g = 0.25, b = 0.25, a = 1 },
-				abbr = _G.YELL
+				abbr = _G.YELL,
 			},
 			["EMOTE"] = {
 				enable = false,
 				cmd = "e",
 				color = { r = 1, g = 0.5, b = 0.25, a = 1 },
-				abbr = _G.EMOTE
+				abbr = _G.EMOTE,
 			},
 			["PARTY"] = {
 				enable = true,
 				cmd = "p",
 				color = { r = 0.67, g = 0.67, b = 1, a = 1 },
-				abbr = _G.PARTY
+				abbr = _G.PARTY,
 			},
 			["INSTANCE"] = {
 				enable = true,
 				cmd = "i",
 				color = { r = 1, g = 0.73, b = 0.2, a = 1 },
-				abbr = _G.INSTANCE
+				abbr = _G.INSTANCE,
 			},
 			["RAID"] = {
 				enable = true,
 				cmd = "raid",
 				color = { r = 1, g = 0.5, b = 0, a = 1 },
-				abbr = _G.RAID
+				abbr = _G.RAID,
 			},
 			["RAID_WARNING"] = {
 				enable = false,
 				cmd = "rw",
 				color = { r = 1, g = 0.28, b = 0, a = 1 },
-				abbr = _G.RAID_WARNING
+				abbr = _G.RAID_WARNING,
 			},
 			["GUILD"] = {
 				enable = true,
 				cmd = "g",
 				color = { r = 0.25, g = 1, b = 0.25, a = 1 },
-				abbr = _G.GUILD
+				abbr = _G.GUILD,
 			},
 			["OFFICER"] = {
 				enable = false,
 				cmd = "o",
 				color = { r = 0.25, g = 0.75, b = 0.25, a = 1 },
-				abbr = _G.OFFICER
+				abbr = _G.OFFICER,
 			},
 			world = {
 				enable = false,
 				autoJoin = true,
 				name = "",
 				color = { r = 0.2, g = 0.6, b = 0.86, a = 1 },
-				abbr = L["World"]
+				abbr = L["World"],
 			},
 			community = {
 				enable = false,
 				name = "",
 				color = { r = 0.72, g = 0.27, b = 0.86, a = 1 },
-				abbr = L["Community"]
+				abbr = L["Community"],
 			},
 			roll = {
 				enable = true,
 				icon = true,
 				color = { r = 0.56, g = 0.56, b = 0.56, a = 1 },
-				abbr = _G.ROLL
+				abbr = _G.ROLL,
 			},
 		},
 	},
@@ -377,28 +377,28 @@ P.announcement = {
 		channel = {
 			party = "PARTY",
 			instance = "INSTANCE_CHAT",
-			raid = "RAID"
+			raid = "RAID",
 		},
 		tag = {
 			enable = true,
-			color = { r = 0.490, g = 0.373, b = 1.000 }
+			color = { r = 0.490, g = 0.373, b = 1.000 },
 		},
 		suggestedGroup = {
 			enable = true,
-			color = { r = 1.000, g = 0.220, b = 0.220 }
+			color = { r = 1.000, g = 0.220, b = 0.220 },
 		},
 		level = {
 			enable = true,
 			color = { r = 0.773, g = 0.424, b = 0.941 },
-			hideOnMax = true
+			hideOnMax = true,
 		},
 		daily = {
 			enable = true,
-			color = { r = 1.000, g = 0.980, b = 0.396 }
+			color = { r = 1.000, g = 0.980, b = 0.396 },
 		},
 		weekly = {
 			enable = true,
-			color = { r = 0.196, g = 1.000, b = 0.494 }
+			color = { r = 0.196, g = 1.000, b = 0.494 },
 		},
 	},
 	resetInstance = {
@@ -407,8 +407,8 @@ P.announcement = {
 		channel = {
 			party = "PARTY",
 			instance = "INSTANCE_CHAT",
-			raid = "RAID"
-		}
+			raid = "RAID",
+		},
 	},
 	utility = {
 		enable = true,
@@ -416,7 +416,7 @@ P.announcement = {
 			solo = "NONE",
 			party = "PARTY",
 			instance = "INSTANCE_CHAT",
-			raid = "RAID"
+			raid = "RAID",
 		},
 		spells = {
 			["698"] = {
@@ -424,90 +424,90 @@ P.announcement = {
 				enable = true,
 				includePlayer = true,
 				raidWarning = true,
-				text = L["{rt1} %player% is casting %spell%, please assist! {rt1}"]
+				text = L["{rt1} %player% is casting %spell%, please assist! {rt1}"],
 			},
 			["29893"] = {
 				-- Create Soulwell
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"]
+				text = L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"],
 			},
 			["54710"] = {
 				-- MOLL-E
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% puts %spell% {rt1}"]
+				text = L["{rt1} %player% puts %spell% {rt1}"],
 			},
 			["261602"] = {
 				-- Stampwhistle
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% used %spell% {rt1}"]
+				text = L["{rt1} %player% used %spell% {rt1}"],
 			},
 			["376664"] = {
 				-- Ohuna Perch
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["%player% used %spell%"]
+				text = L["%player% used %spell%"],
 			},
 			["195782"] = {
 				-- Summon Moonfeather Statue
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% used %spell% {rt1}"]
+				text = L["{rt1} %player% used %spell% {rt1}"],
 			},
 			["190336"] = {
 				-- Conjure Refreshment
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"]
+				text = L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"],
 			},
 			feasts = {
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% puts down %spell%! {rt1}"]
+				text = L["{rt1} %player% puts down %spell%! {rt1}"],
 			},
 			bots = {
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% puts %spell% {rt1}"]
+				text = L["{rt1} %player% puts %spell% {rt1}"],
 			},
 			toys = {
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% puts %spell% {rt1}"]
+				text = L["{rt1} %player% puts %spell% {rt1}"],
 			},
 			portals = {
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% opened %spell%! {rt1}"]
+				text = L["{rt1} %player% opened %spell%! {rt1}"],
 			},
 			hero = {
 				enable = true,
 				includePlayer = true,
 				raidWarning = false,
-				text = L["{rt1} %player% used %spell% {rt1}"]
-			}
-		}
+				text = L["{rt1} %player% used %spell% {rt1}"],
+			},
+		},
 	},
 	keystone = {
 		enable = true,
 		text = L["{rt1} My new keystone is %keystone%. {rt1}"],
 		channel = {
-			party = "PARTY"
+			party = "PARTY",
 		},
 		command = true,
-	}
+	},
 }
 
 P.misc = {
@@ -518,7 +518,7 @@ P.misc = {
 	cursor = {
 		enable = false,
 		colorType = "CLASS",
-		customColor = { r = 0, g = .75, b = .98 }
+		customColor = { r = 0, g = 0.75, b = 0.98 },
 	},
 	spellAlert = {
 		enable = true,
@@ -537,7 +537,7 @@ P.misc = {
 		color = {
 			r = 0,
 			g = 1,
-			b = 0
+			b = 0,
 		},
 	},
 	mute = {
@@ -546,7 +546,7 @@ P.misc = {
 			[63796] = false,
 			[229385] = false,
 			[339588] = false,
-			[312762] = false
+			[312762] = false,
 		},
 		other = {
 			["Crying"] = false,
@@ -554,7 +554,7 @@ P.misc = {
 			["Smolderheart"] = false,
 			["Elegy of the Eternals"] = false,
 			["Dragonriding"] = true,
-			["Jewelcrafting"] = false
+			["Jewelcrafting"] = false,
 		},
 	},
 	missingStats = true,
@@ -598,7 +598,7 @@ P.misc = {
 		hideWorldMapAfterEnteringCombat = false,
 		acceptResurrect = false,
 		acceptCombatResurrect = false,
-		confirmSummon = false
+		confirmSummon = false,
 	},
 	hotKey = true,
 }
@@ -671,7 +671,7 @@ P.actionbars = {
 	},
 	keyfeedback = {
 		enable = false,
-		point = 'CENTER',
+		point = "CENTER",
 		x = 0,
 		y = 0,
 		enableCastLine = true,
@@ -681,12 +681,12 @@ P.actionbars = {
 		enableCastFlash = true,
 		lineIconSize = 28,
 		mirrorSize = 32,
-		lineDirection = 'RIGHT',
+		lineDirection = "RIGHT",
 		forceUseActionHook = true, -- Probably ElvUI needs this
 	},
 	colorModifier = {
 		enable = true,
-	}
+	},
 }
 
 P.autoButtons = {
@@ -727,7 +727,7 @@ P.autoButtons = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
+				b = 1,
 			},
 		},
 		bindFont = {
@@ -739,10 +739,10 @@ P.autoButtons = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
+				b = 1,
 			},
 		},
-		include = "QUEST,BANNER,EQUIP,PROF,OPENABLE"
+		include = "QUEST,BANNER,EQUIP,PROF,OPENABLE",
 	},
 	bar2 = {
 		enable = true,
@@ -774,7 +774,7 @@ P.autoButtons = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
+				b = 1,
 			},
 		},
 		bindFont = {
@@ -786,10 +786,10 @@ P.autoButtons = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
+				b = 1,
 			},
 		},
-		include = "POTIONDF,FLASKDF,RUNE,UTILITY"
+		include = "POTIONDF,FLASKDF,RUNE,UTILITY",
 	},
 	bar3 = {
 		enable = true,
@@ -821,7 +821,7 @@ P.autoButtons = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
+				b = 1,
 			},
 		},
 		bindFont = {
@@ -833,10 +833,10 @@ P.autoButtons = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
+				b = 1,
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODDF,BIGDIG,SEEDS,CUSTOM"
+		include = "MAGEFOOD,FOODVENDOR,FOODDF,BIGDIG,SEEDS,CUSTOM",
 	},
 	bar4 = {
 		enable = false,
@@ -868,8 +868,8 @@ P.autoButtons = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
-			}
+				b = 1,
+			},
 		},
 		bindFont = {
 			name = "Expressway",
@@ -880,10 +880,10 @@ P.autoButtons = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
-			}
+				b = 1,
+			},
 		},
-		include = "CUSTOM"
+		include = "CUSTOM",
 	},
 	bar5 = {
 		enable = false,
@@ -915,8 +915,8 @@ P.autoButtons = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
-			}
+				b = 1,
+			},
 		},
 		bindFont = {
 			name = "Expressway",
@@ -927,11 +927,11 @@ P.autoButtons = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
-			}
+				b = 1,
+			},
 		},
-		include = "CUSTOM"
-	}
+		include = "CUSTOM",
+	},
 }
 
 P.microBar = {
@@ -952,7 +952,7 @@ P.microBar = {
 	visibility = "[petbattle][combat] hide; show",
 	tooltipsAnchor = "ANCHOR_BOTTOM",
 	friends = {
-		showAllFriends = false
+		showAllFriends = false,
 	},
 	time = {
 		localTime = true,
@@ -963,12 +963,12 @@ P.microBar = {
 		font = {
 			name = E.db.general.font,
 			size = 25,
-			style = "SHADOWOUTLINE"
-		}
+			style = "SHADOWOUTLINE",
+		},
 	},
 	home = {
 		left = "6948",
-		right = "141605"
+		right = "141605",
 	},
 	additionalText = {
 		enable = true,
@@ -979,8 +979,8 @@ P.microBar = {
 		font = {
 			name = E.db.general.font,
 			size = 12,
-			style = "SHADOWOUTLINE"
-		}
+			style = "SHADOWOUTLINE",
+		},
 	},
 	left = {
 		[1] = "CHARACTER",
@@ -989,7 +989,7 @@ P.microBar = {
 		[4] = "FRIENDS",
 		[5] = "GUILD",
 		[6] = "GROUP_FINDER",
-		[7] = "SCREENSHOT"
+		[7] = "SCREENSHOT",
 	},
 	right = {
 		[1] = "HOME",
@@ -998,8 +998,8 @@ P.microBar = {
 		[4] = "ENCOUNTER_JOURNAL",
 		[5] = "TOY_BOX",
 		[6] = "PET_JOURNAL",
-		[7] = "BAGS"
-	}
+		[7] = "BAGS",
+	},
 }
 
 P.gradient = {
@@ -1264,7 +1264,7 @@ P.gradient = {
 		painB2 = 0,
 	},
 	bgfade = 0.6,
-	backdropalpha = 1
+	backdropalpha = 1,
 }
 
 P.unitframes = {
@@ -1291,18 +1291,18 @@ P.unitframes = {
 			enable = true,
 			texture = "ElvUI Blank",
 			width = 3,
-			color = { r = 0, g = .75, b = .98, a = 1 },
+			color = { r = 0, g = 0.75, b = 0.98, a = 1 },
 		},
 	},
 	swing = {
 		enable = false,
-		mcolor = { r = .8, g = .8, b = .8 },
-		tcolor = { r = .65, g = .63, b = .35 },
-		ocolor = { r = 0, g = .5, b = 1 },
+		mcolor = { r = 0.8, g = 0.8, b = 0.8 },
+		tcolor = { r = 0.65, g = 0.63, b = 0.35 },
+		ocolor = { r = 0, g = 0.5, b = 1 },
 	},
 	gcd = {
 		enable = false,
-		color = { r = .8, g = .8, b = .8 },
+		color = { r = 0.8, g = 0.8, b = 0.8 },
 	},
 	counterBar = {
 		enable = true,
@@ -1318,25 +1318,25 @@ P.unitframes = {
 	offlineIndicator = {
 		enable = true,
 		size = 36,
-		anchorPoint = 'RIGHT',
+		anchorPoint = "RIGHT",
 		xOffset = 20,
 		yOffset = 0,
-		texture = 'MATERIAL',
-		custom = '',
+		texture = "MATERIAL",
+		custom = "",
 	},
 	deathIndicator = {
 		enable = true,
 		size = 36,
-		anchorPoint = 'CENTER',
+		anchorPoint = "CENTER",
 		xOffset = 0,
 		yOffset = 0,
-		texture = 'MATERIAL',
-		custom = '',
+		texture = "MATERIAL",
+		custom = "",
 	},
 	restingIndicator = {
 		enable = true,
 		customClassColor = false,
-	}
+	},
 }
 
 P.nameplates = {
@@ -1364,7 +1364,7 @@ P.maps = {
 			font = {
 				name = E.db.general.font,
 				size = 12,
-				style = "SHADOWOUTLINE"
+				style = "SHADOWOUTLINE",
 			},
 		},
 	},
@@ -1375,7 +1375,7 @@ P.maps = {
 		font = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize,
-			style = "SHADOWOUTLINE"
+			style = "SHADOWOUTLINE",
 		},
 		custom = false,
 		customStrings = {
@@ -1404,12 +1404,12 @@ P.maps = {
 			["PvP Heroic"] = format("|cffFFFF00%s |r", "PvP"),
 			["Mythic Scenario"] = format("%s %s", myth, L["[ABBR] Scenario"]),
 			["Warfronts Normal"] = L["[ABBR] Warfronts"],
-			["Warfronts Heroic"] = format("|cffff7d0aH|r%s", L["[ABBR] Warfronts"])
+			["Warfronts Heroic"] = format("|cffff7d0aH|r%s", L["[ABBR] Warfronts"]),
 		},
 	},
 	rectangleMinimap = {
 		enable = false,
-		heightPercentage = 0.8
+		heightPercentage = 0.8,
 	},
 	superTracker = {
 		enable = true,
@@ -1439,11 +1439,11 @@ P.maps = {
 		reveal = {
 			enable = true,
 			useColor = true,
-			color = { r = 0, g = 0, b = 0, a = 0.50 }
+			color = { r = 0, g = 0, b = 0, a = 0.50 },
 		},
 		scale = {
 			enable = true,
-			size = 1.24
+			size = 1.24,
 		},
 	},
 	eventTracker = {
@@ -1456,7 +1456,7 @@ P.maps = {
 		font = {
 			name = E.db.general.font,
 			scale = 1,
-			outline = "SHADOWOUTLINE"
+			outline = "SHADOWOUTLINE",
 		},
 		communityFeast = {
 			enable = false,
@@ -1466,7 +1466,7 @@ P.maps = {
 			soundFile = "OnePlus Light",
 			second = 600,
 			stopAlertIfCompleted = true,
-			stopAlertIfPlayerNotEnteredDragonlands = true
+			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		siegeOnDragonbaneKeep = {
 			enable = false,
@@ -1476,7 +1476,7 @@ P.maps = {
 			soundFile = "OnePlus Light",
 			second = 600,
 			stopAlertIfCompleted = true,
-			stopAlertIfPlayerNotEnteredDragonlands = true
+			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		researchersUnderFire = {
 			enable = true,
@@ -1486,7 +1486,7 @@ P.maps = {
 			soundFile = "OnePlus Light",
 			second = 600,
 			stopAlertIfCompleted = true,
-			stopAlertIfPlayerNotEnteredDragonlands = true
+			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		timeRiftThaldraszus = {
 			enable = true,
@@ -1496,7 +1496,7 @@ P.maps = {
 			soundFile = "OnePlus Light",
 			second = 600,
 			stopAlertIfCompleted = true,
-			stopAlertIfPlayerNotEnteredDragonlands = true
+			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		superBloom = {
 			enable = true,
@@ -1506,7 +1506,7 @@ P.maps = {
 			soundFile = "OnePlus Light",
 			second = 600,
 			stopAlertIfCompleted = true,
-			stopAlertIfPlayerNotEnteredDragonlands = true
+			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		bigDig = {
 			enable = true,
@@ -1516,7 +1516,7 @@ P.maps = {
 			soundFile = "OnePlus Light",
 			second = 600,
 			stopAlertIfCompleted = true,
-			stopAlertIfPlayerNotEnteredDragonlands = true
+			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		iskaaranFishingNet = {
 			enable = false,
@@ -1528,9 +1528,7 @@ P.maps = {
 	},
 }
 
-P.media = {
-
-}
+P.media = {}
 
 P.panels = {
 	colorType = "CLASS",
@@ -1563,7 +1561,7 @@ P.smb = {
 	inverseDirection = false,
 	orientation = "HORIZONTAL",
 	-- calendar = false,
-	expansionLandingPage = false
+	expansionLandingPage = false,
 }
 
 P.locPanel = {
@@ -1595,8 +1593,7 @@ P.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio =
-		"212337,209035,54452,200630,193588,190237,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952,190196,140192,110560,208704",
+		hsPrio = "212337,209035,54452,200630,193588,190237,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952,190196,140192,110560,208704",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
@@ -1621,7 +1618,7 @@ P.raidmarkers = {
 	readyCheck = true,
 	countDown = true,
 	countDownTime = 5,
-	inverse = false
+	inverse = false,
 }
 
 P.raidmanager = {
@@ -1658,8 +1655,7 @@ P.tooltip = {
 		title = true,
 		mode = "NORMAL",
 		classIconStyle = "flat",
-		template =
-		"{{classIcon:18}} {{specIcon:14,18}} {{classColorStart}}{{className}} ({{specName}}){{classColorEnd}}{{amountStart}} x {{amount}}{{amountEnd}}"
+		template = "{{classIcon:18}} {{specIcon:14,18}} {{classColorStart}}{{className}} ({{specName}}){{classColorEnd}}{{amountStart}} x {{amount}}{{amountEnd}}",
 	},
 }
 
@@ -1678,7 +1674,7 @@ P.itemLevel = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
+				b = 1,
 			},
 		},
 	},
@@ -1695,7 +1691,7 @@ P.itemLevel = {
 			color = {
 				r = 1,
 				g = 1,
-				b = 1
+				b = 1,
 			},
 		},
 	},
@@ -1704,7 +1700,7 @@ P.itemLevel = {
 	},
 	guildNews = {
 		enable = true,
-	}
+	},
 }
 
 P.raidBuffs = {
@@ -1774,5 +1770,5 @@ P.scale = {
 
 	spellbook = {
 		scale = 1,
-	}
+	},
 }

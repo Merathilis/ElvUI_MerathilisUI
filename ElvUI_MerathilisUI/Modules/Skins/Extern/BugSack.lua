@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 
@@ -31,7 +31,7 @@ function module:BugSack_InterfaceOptionOnShow(frame)
 		dropdown.__MERSkinMarked = true
 	end
 
-	for _, child in pairs { frame:GetChildren() } do
+	for _, child in pairs({ frame:GetChildren() }) do
 		if child.__MERSkinMarked then
 			child.__MERSkinMarked = nil
 		else
@@ -65,7 +65,7 @@ function module:BugSack_OpenSack()
 	bugSackFrame:SetTemplate("Transparent")
 	module:CreateShadow(bugSackFrame)
 
-	for _, child in pairs { bugSackFrame:GetChildren() } do
+	for _, child in pairs({ bugSackFrame:GetChildren() }) do
 		local numRegions = child:GetNumRegions()
 
 		if numRegions == 1 then
@@ -80,7 +80,7 @@ function module:BugSack_OpenSack()
 
 	S:HandleScrollBar(_G.BugSackScrollScrollBar)
 
-	for _, region in pairs { _G.BugSackScrollText:GetRegions() } do
+	for _, region in pairs({ _G.BugSackScrollText:GetRegions() }) do
 		if region and region:GetObjectType() == "FontString" then
 			F.SetFontOutline(region)
 		end
@@ -101,7 +101,7 @@ function module:BugSack_OpenSack()
 	local tabs = {
 		_G.BugSackTabAll,
 		_G.BugSackTabLast,
-		_G.BugSackTabSession
+		_G.BugSackTabSession,
 	}
 
 	for _, tab in pairs(tabs) do

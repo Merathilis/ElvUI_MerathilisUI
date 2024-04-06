@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
 
 local _G = _G
 local format, max = string.format, math.max
@@ -16,7 +16,12 @@ local STAT_HASTE = STAT_HASTE
 local HIGHLIGHT_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE = HIGHLIGHT_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE
 
 function module:MissingStats()
-	if not E.db.mui.misc.missingStats or not (E.private.skins.blizzard.enable and E.private.skins.blizzard.character) or not (E.private.mui.skins.blizzard.enable and E.private.mui.skins.blizzard.character) or C_AddOns_IsAddOnLoaded("DejaCharacterStats") then
+	if
+		not E.db.mui.misc.missingStats
+		or not (E.private.skins.blizzard.enable and E.private.skins.blizzard.character)
+		or not (E.private.mui.skins.blizzard.enable and E.private.mui.skins.blizzard.character)
+		or C_AddOns_IsAddOnLoaded("DejaCharacterStats")
+	then
 		return
 	end
 
@@ -67,16 +72,16 @@ function module:MissingStats()
 		[2] = {
 			categoryFrame = "EnhancementsCategory",
 			stats = {
-				{ stat = "CRITCHANCE",  hideAt = 0 },
-				{ stat = "HASTE",       hideAt = 0 },
-				{ stat = "MASTERY",     hideAt = 0 },
+				{ stat = "CRITCHANCE", hideAt = 0 },
+				{ stat = "HASTE", hideAt = 0 },
+				{ stat = "MASTERY", hideAt = 0 },
 				{ stat = "VERSATILITY", hideAt = 0 },
-				{ stat = "LIFESTEAL",   hideAt = 0 },
-				{ stat = "AVOIDANCE",   hideAt = 0 },
-				{ stat = "SPEED",       hideAt = 0 },
-				{ stat = "DODGE",       roles = { "TANK" } },
-				{ stat = "PARRY",       hideAt = 0,        roles = { "TANK" } },
-				{ stat = "BLOCK",       hideAt = 0,        showFunc = C_PaperDollInfo_OffhandHasShield },
+				{ stat = "LIFESTEAL", hideAt = 0 },
+				{ stat = "AVOIDANCE", hideAt = 0 },
+				{ stat = "SPEED", hideAt = 0 },
+				{ stat = "DODGE", roles = { "TANK" } },
+				{ stat = "PARRY", hideAt = 0, roles = { "TANK" } },
+				{ stat = "BLOCK", hideAt = 0, showFunc = C_PaperDollInfo_OffhandHasShield },
 			},
 		},
 	}
@@ -110,14 +115,19 @@ function module:MissingStats()
 		end
 		PaperDollFrame_SetLabelAndText(statFrame, WEAPON_SPEED, displaySpeed, false, speed)
 
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE ..
-			format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED) .. " " .. displaySpeed .. FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE
+			.. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED)
+			.. " "
+			.. displaySpeed
+			.. FONT_COLOR_CODE_CLOSE
 		statFrame.tooltip2 = format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste))
 		statFrame:Show()
 	end
 
 	hooksecurefunc("PaperDollFrame_SetItemLevel", function(statFrame, unit)
-		if unit ~= "player" then return end
+		if unit ~= "player" then
+			return
+		end
 
 		local avgItemLevel, avgItemLevelEquipped = GetAverageItemLevel()
 		local minItemLevel = C_PaperDollInfo_GetMinItemLevel()

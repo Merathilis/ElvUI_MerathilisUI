@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -20,7 +20,7 @@ function module:WeakAuras_PrintProfile()
 		frame:SetTemplate("Transparent")
 		module:CreateShadow(frame)
 
-		for _, child in pairs { frame:GetChildren() } do
+		for _, child in pairs({ frame:GetChildren() }) do
 			if child:GetNumRegions() == 3 then
 				child:StripTextures()
 				local subChild = child:GetChildren()
@@ -35,11 +35,11 @@ function module:WeakAuras_PrintProfile()
 end
 
 function module:ProfilingWindow_UpdateButtons(frame)
-	for _, button in pairs { frame.statsFrame:GetChildren() } do
+	for _, button in pairs({ frame.statsFrame:GetChildren() }) do
 		S:HandleButton(button)
 	end
 
-	for _, button in pairs { frame.titleFrame:GetChildren() } do
+	for _, button in pairs({ frame.titleFrame:GetChildren() }) do
 		if not button.__MERSkin and button.GetNormalTexture then
 			local normalTextureID = button:GetNormalTexture():GetTexture()
 			if normalTextureID == 252125 then
@@ -105,10 +105,19 @@ local function Skin_WeakAuras(f, fType)
 					if width == height then
 						self:SetTexCoordOld_Changed(left, right, top, down)
 					elseif width > height then
-						self:SetTexCoordOld_Changed(left, right, top + cTop * (right - left),
-							top + cDown * (right - left))
+						self:SetTexCoordOld_Changed(
+							left,
+							right,
+							top + cTop * (right - left),
+							top + cDown * (right - left)
+						)
 					else
-						self:SetTexCoordOld_Changed(left + cLeft * (down - top), left + cRight * (down - top), top, down)
+						self:SetTexCoordOld_Changed(
+							left + cLeft * (down - top),
+							left + cRight * (down - top),
+							top,
+							down
+						)
 					end
 				else
 					self:SetTexCoordOld_Changed(cLeft, cRight, cTop, cDown)
@@ -169,10 +178,13 @@ function module:WeakAuras()
 
 	-- Only works for WeakAurasPatched
 	if not WeakAuras or not WeakAuras.Private then
-		local alertMessage = format("%s: %s %s %s", MER.Title,
+		local alertMessage = format(
+			"%s: %s %s %s",
+			MER.Title,
 			L["You are using Official WeakAuras, the skin of WeakAuras will not be loaded due to the limitation."],
 			L["If you want to use WeakAuras skin, please install |cffff0000WeakAurasPatched|r (https://wow-ui.net/wap)."],
-			L["You can disable this alert via disabling WeakAuras Skin in Skins - Addons."])
+			L["You can disable this alert via disabling WeakAuras Skin in Skins - Addons."]
+		)
 		E:Delay(10, print, alertMessage)
 		return
 	end

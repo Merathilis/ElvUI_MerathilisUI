@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 F.Profiles = {
 	["Default"] = MER.Title,
-	["Development"] = MER.Title.."Dev",
+	["Development"] = MER.Title .. "Dev",
 }

@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local getn = getn
@@ -73,7 +73,7 @@ function module:BlizzMisc()
 	C_TimerAfter(1, StylePopups)
 
 	-- What's New
-	_G.SplashFrame:CreateBackdrop('Transparent')
+	_G.SplashFrame:CreateBackdrop("Transparent")
 	module:CreateShadow(_G.SplashFrame)
 
 	-- Chat Config
@@ -83,7 +83,7 @@ function module:BlizzMisc()
 
 	-- Mirror Timers
 	if E.private.skins.blizzard.mirrorTimers then
-		hooksecurefunc(_G.MirrorTimerContainer, 'SetupTimer', function(container, timer)
+		hooksecurefunc(_G.MirrorTimerContainer, "SetupTimer", function(container, timer)
 			local bar = container:GetAvailableTimer(timer)
 			if bar then
 				module:CreateShadow(bar)

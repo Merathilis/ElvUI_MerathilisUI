@@ -1,17 +1,22 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.general.args
 
 options.name = {
 	order = 1,
 	type = "group",
 	name = L["General"],
-	get = function(info) return E.db.mui.general[ info[#info] ] end,
-	set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+	get = function(info)
+		return E.db.mui.general[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.general[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
+	end,
 	args = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["General"], 'orange'),
+			name = F.cOption(L["General"], "orange"),
 		},
 		splashScreen = {
 			order = 2,
@@ -36,7 +41,9 @@ options.name = {
 			type = "toggle",
 			name = L["Flight Point"],
 			desc = L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."],
-			hidden = function() return IsAddOnLoaded("WorldFlightMap") end,
+			hidden = function()
+				return IsAddOnLoaded("WorldFlightMap")
+			end,
 		},
 	},
 }

@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 local _G = _G
 
 function module:ElvUI_ChatPanels()
@@ -25,4 +25,4 @@ function module:ElvUI_ChatPanels()
 	end
 end
 
-module:AddCallback('ElvUI_ChatPanels')
+module:AddCallback("ElvUI_ChatPanels")

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 
@@ -8,7 +8,7 @@ function MER:LoadPAProfile()
 	--]]
 	----------------------------------
 	local PA = _G.ProjectAzilroka
-	PA.data:SetProfile('MerathilisUI')
+	PA.data:SetProfile("MerathilisUI")
 
 	PA.db["AuraReminder"]["Enable"] = false
 
@@ -18,19 +18,19 @@ function MER:LoadPAProfile()
 
 	PA.db["EnhancedShadows"]["Enable"] = false
 
-	PA.db['DragonOverlay']["Enable"] = false
+	PA.db["DragonOverlay"]["Enable"] = false
 
 	PA.db["iFilger"]["Enable"] = false
 
 	PA.db["MouseoverAuras"]["Enable"] = false
 
-	PA.db['MovableFrames']['Enable'] = false
+	PA.db["MovableFrames"]["Enable"] = false
 
 	PA.db["OzCooldowns"]["Enable"] = false
 
-	PA.db['QuestSounds']['Enable'] = false
+	PA.db["QuestSounds"]["Enable"] = false
 
-	PA.db['SquareMinimapButtons']['Enable'] = false
+	PA.db["SquareMinimapButtons"]["Enable"] = false
 
 	PA.db["stAddonManager"]["Enable"] = false
 end

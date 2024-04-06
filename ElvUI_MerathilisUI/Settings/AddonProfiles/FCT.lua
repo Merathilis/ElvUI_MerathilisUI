@@ -1,5 +1,7 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-if not IsAddOnLoaded("ElvUI_FCT") then return end
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+if not IsAddOnLoaded("ElvUI_FCT") then
+	return
+end
 
 local addon = "ElvUI_FCT"
 local FCT = E.Libs.AceAddon:GetAddon(addon)

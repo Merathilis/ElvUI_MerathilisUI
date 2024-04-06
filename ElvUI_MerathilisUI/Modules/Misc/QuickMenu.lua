@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
+local S = MER:GetModule("MER_Skins")
 
 local ChatEdit_ActivateChat = ChatEdit_ActivateChat
 local ChatEdit_ChooseBoxForSend = ChatEdit_ChooseBoxForSend
@@ -17,7 +17,9 @@ function module:MenuButton_CopyName()
 	local hasText = (editBox:GetText() ~= "")
 	ChatEdit_ActivateChat(editBox)
 	editBox:Insert(module.MenuButtonName)
-	if not hasText then editBox:HighlightText() end
+	if not hasText then
+		editBox:HighlightText()
+	end
 end
 
 function module:MenuButton_GuildInvite()
@@ -29,13 +31,31 @@ function module:MenuButton_Whisper()
 end
 
 function module:QuickMenu()
-	if not E.db.mui.misc.quickMenu then return end
+	if not E.db.mui.misc.quickMenu then
+		return
+	end
 
 	local menuList = {
-		{ text = _G.ADD_FRIEND,                                     func = module.MenuButton_AddFriend,   color = { 0, .6, 1 } },
-		{ text = gsub(_G.CHAT_GUILD_INVITE_SEND, HEADER_COLON, ""), func = module.MenuButton_GuildInvite, color = { 0, .8, 0 } },
-		{ text = _G.COPY_NAME,                                      func = module.MenuButton_CopyName,    color = { 1, 0, 0 } },
-		{ text = _G.WHISPER,                                        func = module.MenuButton_Whisper,     color = { 1, .5, 1 } },
+		{
+			text = _G.ADD_FRIEND,
+			func = module.MenuButton_AddFriend,
+			color = { 0, 0.6, 1 },
+		},
+		{
+			text = gsub(_G.CHAT_GUILD_INVITE_SEND, HEADER_COLON, ""),
+			func = module.MenuButton_GuildInvite,
+			color = { 0, 0.8, 0 },
+		},
+		{
+			text = _G.COPY_NAME,
+			func = module.MenuButton_CopyName,
+			color = { 1, 0, 0 },
+		},
+		{
+			text = _G.WHISPER,
+			func = module.MenuButton_Whisper,
+			color = { 1, 0.5, 1 },
+		},
 	}
 
 	local frame = CreateFrame("Frame", "MER_MenuButtonFrame", _G.DropDownList1)
@@ -54,7 +74,9 @@ function module:QuickMenu()
 	end
 
 	hooksecurefunc("ToggleDropDownMenu", function(level, _, dropdownMenu)
-		if level and level > 1 then return end
+		if level and level > 1 then
+			return
+		end
 
 		local name = dropdownMenu.name
 		local unit = dropdownMenu.unit

@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_AutoButtons')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_AutoButtons")
 local options = MER.options.modules.args
 local async = MER.Utilities.Async
 local LSM = E.LSM
@@ -27,21 +27,28 @@ end
 options.autoButtons = {
 	type = "group",
 	name = L["AutoButtons"],
-	get = function(info) return E.db.mui.autoButtons[info[#info]] end,
-	set = function(info, value) E.db.mui.autoButtons[info[#info]] = value; end,
+	get = function(info)
+		return E.db.mui.autoButtons[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.autoButtons[info[#info]] = value
+	end,
 	args = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["AutoButtons"], 'orange'),
+			name = F.cOption(L["AutoButtons"], "orange"),
 		},
 		enable = {
 			order = 2,
 			type = "toggle",
 			name = L["Enable"],
-			get = function(info) return E.db.mui.autoButtons[info[#info]] end,
+			get = function(info)
+				return E.db.mui.autoButtons[info[#info]]
+			end,
 			set = function(info, value)
-				E.db.mui.autoButtons[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+				E.db.mui.autoButtons[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
 		custom = {
@@ -67,7 +74,7 @@ options.autoButtons = {
 						else
 							F.Print(L["The item ID is invalid."])
 						end
-					end
+					end,
 				},
 				list = {
 					order = 2,
@@ -90,7 +97,7 @@ options.autoButtons = {
 							end)
 						end
 						return result
-					end
+					end,
 				},
 				deleteButton = {
 					order = 3,
@@ -103,9 +110,9 @@ options.autoButtons = {
 							tremove(list, customListSelected1)
 							module:UpdateBars()
 						end
-					end
-				}
-			}
+					end,
+				},
+			},
 		},
 		blackList = {
 			order = 11,
@@ -130,7 +137,7 @@ options.autoButtons = {
 						else
 							F.Print(L["The item ID is invalid."])
 						end
-					end
+					end,
 				},
 				list = {
 					order = 2,
@@ -152,7 +159,7 @@ options.autoButtons = {
 							end)
 						end
 						return result
-					end
+					end,
 				},
 				deleteButton = {
 					order = 3,
@@ -164,10 +171,10 @@ options.autoButtons = {
 							E.db.mui.autoButtons.blackList[customListSelected2] = nil
 							module:UpdateBars()
 						end
-					end
-				}
-			}
-		}
+					end,
+				},
+			},
+		},
 	},
 }
 for i = 1, 5 do
@@ -189,7 +196,7 @@ for i = 1, 5 do
 			enable = {
 				order = 1,
 				type = "toggle",
-				name = L["Enable"]
+				name = L["Enable"],
 			},
 			visibility = {
 				order = 2,
@@ -200,7 +207,7 @@ for i = 1, 5 do
 					globalFade = {
 						order = 1,
 						type = "toggle",
-						name = L["Inherit Global Fade"]
+						name = L["Inherit Global Fade"],
 					},
 					mouseOver = {
 						order = 2,
@@ -208,9 +215,8 @@ for i = 1, 5 do
 						name = L["Mouse Over"],
 						desc = L["Only show the bar when you mouse over it."],
 						disabled = function()
-							return not E.db.mui.autoButtons.enable or
-								E.db.mui.autoButtons["bar" .. i].globalFade
-						end
+							return not E.db.mui.autoButtons.enable or E.db.mui.autoButtons["bar" .. i].globalFade
+						end,
 					},
 					fadeTime = {
 						order = 3,
@@ -218,7 +224,7 @@ for i = 1, 5 do
 						name = L["Fade Time"],
 						min = 0,
 						max = 2,
-						step = 0.01
+						step = 0.01,
 					},
 					alphaMin = {
 						order = 4,
@@ -226,7 +232,7 @@ for i = 1, 5 do
 						name = L["Alpha Min"],
 						min = 0,
 						max = 0.9,
-						step = 0.01
+						step = 0.01,
 					},
 					alphaMax = {
 						order = 5,
@@ -234,7 +240,7 @@ for i = 1, 5 do
 						name = L["Alpha Max"],
 						min = 0,
 						max = 1,
-						step = 0.01
+						step = 0.01,
 					},
 					tooltip = {
 						order = 6,
@@ -247,7 +253,7 @@ for i = 1, 5 do
 				order = 3,
 				type = "toggle",
 				name = L["Bar Backdrop"],
-				desc = L["Show a backdrop of the bar."]
+				desc = L["Show a backdrop of the bar."],
 			},
 			anchor = {
 				order = 4,
@@ -258,8 +264,8 @@ for i = 1, 5 do
 					TOPLEFT = L["TOPLEFT"],
 					TOPRIGHT = L["TOPRIGHT"],
 					BOTTOMLEFT = L["BOTTOMLEFT"],
-					BOTTOMRIGHT = L["BOTTOMRIGHT"]
-				}
+					BOTTOMRIGHT = L["BOTTOMRIGHT"],
+				},
 			},
 			backdropSpacing = {
 				order = 5,
@@ -268,7 +274,7 @@ for i = 1, 5 do
 				desc = L["The spacing between the backdrop and the buttons."],
 				min = 1,
 				max = 30,
-				step = 1
+				step = 1,
 			},
 			spacing = {
 				order = 6,
@@ -277,13 +283,13 @@ for i = 1, 5 do
 				desc = L["The spacing between buttons."],
 				min = 1,
 				max = 30,
-				step = 1
+				step = 1,
 			},
 			betterOption2 = {
 				order = 7,
 				type = "description",
 				name = " ",
-				width = "full"
+				width = "full",
 			},
 			numButtons = {
 				order = 8,
@@ -291,7 +297,7 @@ for i = 1, 5 do
 				name = L["Buttons"],
 				min = 1,
 				max = 12,
-				step = 1
+				step = 1,
 			},
 			buttonWidth = {
 				order = 9,
@@ -300,7 +306,7 @@ for i = 1, 5 do
 				desc = L["The width of the buttons."],
 				min = 2,
 				max = 80,
-				step = 1
+				step = 1,
 			},
 			buttonHeight = {
 				order = 10,
@@ -309,7 +315,7 @@ for i = 1, 5 do
 				desc = L["The height of the buttons."],
 				min = 2,
 				max = 60,
-				step = 1
+				step = 1,
 			},
 			buttonsPerRow = {
 				order = 11,
@@ -317,7 +323,7 @@ for i = 1, 5 do
 				name = L["Buttons Per Row"],
 				min = 1,
 				max = 12,
-				step = 1
+				step = 1,
 			},
 			qualityTier = {
 				order = 12,
@@ -338,7 +344,7 @@ for i = 1, 5 do
 						type = "range",
 						min = 5,
 						max = 60,
-						step = 1
+						step = 1,
 					},
 					xOffset = {
 						order = 4,
@@ -346,7 +352,7 @@ for i = 1, 5 do
 						type = "range",
 						min = -100,
 						max = 100,
-						step = 1
+						step = 1,
 					},
 					yOffset = {
 						order = 5,
@@ -354,7 +360,7 @@ for i = 1, 5 do
 						type = "range",
 						min = -100,
 						max = 100,
-						step = 1
+						step = 1,
 					},
 				},
 			},
@@ -376,7 +382,7 @@ for i = 1, 5 do
 						type = "select",
 						dialogControl = "LSM30_Font",
 						name = L["Font"],
-						values = LSM:HashTable("font")
+						values = LSM:HashTable("font"),
 					},
 					style = {
 						order = 2,
@@ -391,7 +397,7 @@ for i = 1, 5 do
 						type = "range",
 						min = 5,
 						max = 60,
-						step = 1
+						step = 1,
 					},
 					xOffset = {
 						order = 4,
@@ -399,7 +405,7 @@ for i = 1, 5 do
 						type = "range",
 						min = -100,
 						max = 100,
-						step = 1
+						step = 1,
 					},
 					yOffset = {
 						order = 5,
@@ -407,7 +413,7 @@ for i = 1, 5 do
 						type = "range",
 						min = -100,
 						max = 100,
-						step = 1
+						step = 1,
 					},
 					color = {
 						order = 6,
@@ -423,9 +429,9 @@ for i = 1, 5 do
 							local db = E.db.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
 							db.r, db.g, db.b = r, g, b
 							module:UpdateBar(i)
-						end
-					}
-				}
+						end,
+					},
+				},
 			},
 			bindFont = {
 				order = 14,
@@ -445,7 +451,7 @@ for i = 1, 5 do
 						type = "select",
 						dialogControl = "LSM30_Font",
 						name = L["Font"],
-						values = LSM:HashTable("font")
+						values = LSM:HashTable("font"),
 					},
 					style = {
 						order = 2,
@@ -460,7 +466,7 @@ for i = 1, 5 do
 						type = "range",
 						min = 5,
 						max = 60,
-						step = 1
+						step = 1,
 					},
 					xOffset = {
 						order = 4,
@@ -468,7 +474,7 @@ for i = 1, 5 do
 						type = "range",
 						min = -100,
 						max = 100,
-						step = 1
+						step = 1,
 					},
 					yOffset = {
 						order = 5,
@@ -476,7 +482,7 @@ for i = 1, 5 do
 						type = "range",
 						min = -100,
 						max = 100,
-						step = 1
+						step = 1,
 					},
 					color = {
 						order = 6,
@@ -492,15 +498,16 @@ for i = 1, 5 do
 							local db = E.db.mui.autoButtons["bar" .. i][info[#info - 1]][info[#info]]
 							db.r, db.g, db.b = r, g, b
 							module:UpdateBar(i)
-						end
-					}
-				}
+						end,
+					},
+				},
 			},
 			include = {
 				order = 15,
 				type = "input",
 				name = L["Button Groups"],
-				desc = format("%s %s\n" .. strrep("\n%s", 22),
+				desc = format(
+					"%s %s\n" .. strrep("\n%s", 22),
 					L["Set the type and order of button groups."],
 					L["You can separate the groups with a comma."],
 					desc("QUEST", L["Quest Items"]),
@@ -516,8 +523,10 @@ for i = 1, 5 do
 					desc("FOOD", L["Crafted Food"]),
 					desc("FOODSL", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Shadowlands"])),
 					desc("FOODDF", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Dragonflight"])),
-					desc("FOODVENDOR",
-						format("%s (%s) |cffffdd57[%s]|r", L["Food"], L["Sold by vendor"], L["Dragonflight"])),
+					desc(
+						"FOODVENDOR",
+						format("%s (%s) |cffffdd57[%s]|r", L["Food"], L["Sold by vendor"], L["Dragonflight"])
+					),
 					desc("MAGEFOOD", format("%s (%s)|r", L["Food"], L["Crafted by mage"])),
 					desc("BANNER", L["Banners"]),
 					desc("UTILITY", L["Utilities"]),
@@ -526,10 +535,9 @@ for i = 1, 5 do
 					desc("SEEDS", L["Dream Seeds"]),
 					desc("BIGDIG", L["Big Dig"]),
 					desc("CUSTOM", L["Custom Items"])
-
 				),
-				width = "full"
-			}
-		}
+				width = "full",
+			},
+		},
 	}
 end

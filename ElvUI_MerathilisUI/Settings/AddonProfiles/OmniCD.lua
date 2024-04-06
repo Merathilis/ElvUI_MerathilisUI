@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local twipe = table.wipe
 
@@ -6,7 +6,7 @@ function MER:LoadOmniCDProfile()
 	--[[----------------------------------
 	--	OmnicCD - Settings
 	--]]
-	  ----------------------------------
+	----------------------------------
 
 	local profileName = F.Profiles.Default
 
@@ -162,8 +162,8 @@ function MER:LoadOmniCDProfile()
 
 	for _, profile in pairs({ profileName }) do
 		for _, frame in pairs({ "party", "arena" }) do
-			OmniCDDB["profiles"][profileName]["Party"][frame]["spells"] = OmniCDDB["profiles"][profileName]["Party"]
-			[frame]["spells"] or {}
+			OmniCDDB["profiles"][profileName]["Party"][frame]["spells"] = OmniCDDB["profiles"][profileName]["Party"][frame]["spells"]
+				or {}
 			OmniCDDB["profiles"][profileName]["Party"][frame]["spells"] = {
 				["326059"] = true,
 				["118038"] = false,

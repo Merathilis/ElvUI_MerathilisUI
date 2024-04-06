@@ -1,10 +1,10 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 function MER:LoadTouhinProfile()
 	--[[----------------------------------
 	--	Touhin - Settings
 	--]]
-	  ----------------------------------
+	----------------------------------
 
 	TouhinDB.profiles[F.Profiles.Default] = {
 		["edgeSize"] = 1,

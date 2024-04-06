@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 G.core = {
 	compatibilityCheck = true,
@@ -12,18 +12,18 @@ G.mail = {
 	contacts = {
 		alts = {},
 		favorites = {},
-		updateAlts = true
-	}
+		updateAlts = true,
+	},
 }
 
 G.microBar = {
-	covenantCache = {}
+	covenantCache = {},
 }
 
 G.bags = {
-	CustomJunkList = {}
+	CustomJunkList = {},
 }
 
 G.maps = {
-	eventTracker = {}
+	eventTracker = {},
 }

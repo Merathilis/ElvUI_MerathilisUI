@@ -1,5 +1,5 @@
-local MER, F, E, _, V, P, G = unpack((select(2, ...)))
-local module = MER:GetModule('MER_Misc')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
 
 local _G = _G
 
@@ -27,10 +27,14 @@ function module:SetRole()
 end
 
 function module:BlockRequest()
-	if not E.db.mui.misc.blockRequest then return end
+	if not E.db.mui.misc.blockRequest then
+		return
+	end
 
 	local guid = GetNextPendingInviteConfirmation()
-	if not guid then return end
+	if not guid then
+		return
+	end
 
 	if not (C_BattleNet.GetGameAccountInfoByGUID(guid) or C_FriendList.IsFriend(guid) or IsGuildMember(guid)) then
 		RespondToInviteConfirmation(guid, false)

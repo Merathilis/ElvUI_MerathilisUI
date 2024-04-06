@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -13,16 +13,18 @@ local Type_SpellDisplay = _G.Enum.UIWidgetVisualizationType.SpellDisplay
 local Type_DoubleStatusBar = _G.Enum.UIWidgetVisualizationType.DoubleStatusBar
 
 local atlasColors = {
-	["UI-Frame-Bar-Fill-Blue"] = {.2, .6, 1},
-	["UI-Frame-Bar-Fill-Red"] = {.9, .2, .2},
-	["UI-Frame-Bar-Fill-Yellow"] = {1, .6, 0},
-	["objectivewidget-bar-fill-left"] = {.2, .6, 1},
-	["objectivewidget-bar-fill-right"] = {.9, .2, .2},
-	["EmberCourtScenario-Tracker-barfill"] = {.9, .2, .2},
+	["UI-Frame-Bar-Fill-Blue"] = { 0.2, 0.6, 1 },
+	["UI-Frame-Bar-Fill-Red"] = { 0.9, 0.2, 0.2 },
+	["UI-Frame-Bar-Fill-Yellow"] = { 1, 0.6, 0 },
+	["objectivewidget-bar-fill-left"] = { 0.2, 0.6, 1 },
+	["objectivewidget-bar-fill-right"] = { 0.9, 0.2, 0.2 },
+	["EmberCourtScenario-Tracker-barfill"] = { 0.9, 0.2, 0.2 },
 }
 
 local function ReplaceWidgetBarTexture(self, atlas)
-	if self:IsForbidden() then return end
+	if self:IsForbidden() then
+		return
+	end
 
 	if atlasColors[atlas] then
 		self:SetStatusBarTexture(E.media.normTex)
@@ -31,21 +33,43 @@ local function ReplaceWidgetBarTexture(self, atlas)
 end
 
 local function ReskinWidgetStatusBar(bar)
-	if not bar or bar:IsForbidden() then return end
+	if not bar or bar:IsForbidden() then
+		return
+	end
 
 	if bar and not bar.styled then
-		if bar.BG then bar.BG:SetAlpha(0) end
-		if bar.BGLeft then bar.BGLeft:SetAlpha(0) end
-		if bar.BGRight then bar.BGRight:SetAlpha(0) end
-		if bar.BGCenter then bar.BGCenter:SetAlpha(0) end
-		if bar.BorderLeft then bar.BorderLeft:SetAlpha(0) end
-		if bar.BorderRight then bar.BorderRight:SetAlpha(0) end
-		if bar.BorderCenter then bar.BorderCenter:SetAlpha(0) end
-		if bar.Spark then bar.Spark:SetAlpha(0) end
-		if bar.SparkGlow then bar.SparkGlow:SetAlpha(0) end
-		if bar.BorderGlow then bar.BorderGlow:SetAlpha(0) end
+		if bar.BG then
+			bar.BG:SetAlpha(0)
+		end
+		if bar.BGLeft then
+			bar.BGLeft:SetAlpha(0)
+		end
+		if bar.BGRight then
+			bar.BGRight:SetAlpha(0)
+		end
+		if bar.BGCenter then
+			bar.BGCenter:SetAlpha(0)
+		end
+		if bar.BorderLeft then
+			bar.BorderLeft:SetAlpha(0)
+		end
+		if bar.BorderRight then
+			bar.BorderRight:SetAlpha(0)
+		end
+		if bar.BorderCenter then
+			bar.BorderCenter:SetAlpha(0)
+		end
+		if bar.Spark then
+			bar.Spark:SetAlpha(0)
+		end
+		if bar.SparkGlow then
+			bar.SparkGlow:SetAlpha(0)
+		end
+		if bar.BorderGlow then
+			bar.BorderGlow:SetAlpha(0)
+		end
 
-		bar:CreateBackdrop('Transparent')
+		bar:CreateBackdrop("Transparent")
 		if bar.GetStatusBarTexture then
 			ReplaceWidgetBarTexture(bar, bar:GetStatusBarTexture())
 			hooksecurefunc(bar, "SetStatusBarTexture", ReplaceWidgetBarTexture)
@@ -56,7 +80,9 @@ local function ReskinWidgetStatusBar(bar)
 end
 
 local function ReskinDoubleStatusBarWidget(self)
-	if self:IsForbidden() then return end
+	if self:IsForbidden() then
+		return
+	end
 
 	if not self.styled then
 		ReskinWidgetStatusBar(self.LeftBar)
@@ -67,15 +93,17 @@ local function ReskinDoubleStatusBarWidget(self)
 end
 
 local function ReskinPVPCaptureBar(self)
-	if self:IsForbidden() then return end
+	if self:IsForbidden() then
+		return
+	end
 
 	self.LeftBar:SetTexture(E.media.normTex)
 	self.NeutralBar:SetTexture(E.media.normTex)
 	self.RightBar:SetTexture(E.media.normTex)
 
-	self.LeftBar:SetVertexColor(.2, .6, 1, 1)
-	self.NeutralBar:SetVertexColor(.8, .8, .8, 1)
-	self.RightBar:SetVertexColor(.9, .2, .2, 1)
+	self.LeftBar:SetVertexColor(0.2, 0.6, 1, 1)
+	self.NeutralBar:SetVertexColor(0.8, 0.8, 0.8, 1)
+	self.RightBar:SetVertexColor(0.9, 0.2, 0.2, 1)
 
 	self.LeftLine:SetAlpha(0)
 	self.RightLine:SetAlpha(0)
@@ -85,14 +113,16 @@ local function ReskinPVPCaptureBar(self)
 	self.Glow3:SetAlpha(0)
 
 	if not self.backdrop then
-		self:CreateBackdrop('Transparent')
+		self:CreateBackdrop("Transparent")
 		self.backdrop:SetPoint("TOPLEFT", self.LeftBar, -2, 2)
 		self.backdrop:SetPoint("BOTTOMRIGHT", self.RightBar, 2, -2)
 	end
 end
 
 local function ReskinSpellDisplayWidget(spell)
-	if not spell or spell:IsForbidden() then return end
+	if not spell or spell:IsForbidden() then
+		return
+	end
 
 	if not spell.backdrop then
 		spell.Border:SetAlpha(0)
@@ -103,7 +133,9 @@ local function ReskinSpellDisplayWidget(spell)
 end
 
 local function ReskinPowerBarWidget(self)
-	if not self.widgetFrames then return end
+	if not self.widgetFrames then
+		return
+	end
 
 	for _, widgetFrame in pairs(self.widgetFrames) do
 		if widgetFrame.widgetType == Type_StatusBar then
@@ -115,7 +147,9 @@ local function ReskinPowerBarWidget(self)
 end
 
 local function ReskinWidgetGroups(self)
-	if not self.widgetFrames then return end
+	if not self.widgetFrames then
+		return
+	end
 
 	for _, widgetFrame in pairs(self.widgetFrames) do
 		if not widgetFrame:IsForbidden() then
@@ -140,7 +174,9 @@ function module:UIWidgets()
 	ReskinWidgetGroups(_G.UIWidgetTopCenterContainerFrame)
 
 	hooksecurefunc(_G.UIWidgetBelowMinimapContainerFrame, "UpdateWidgetLayout", function(self)
-		if not self.widgetFrames then return end
+		if not self.widgetFrames then
+			return
+		end
 
 		for _, widgetFrame in pairs(self.widgetFrames) do
 			if widgetFrame.widgetType == Type_CaptureBar then
@@ -157,7 +193,9 @@ function module:UIWidgets()
 	hooksecurefunc(_G.TopScenarioWidgetContainerBlock.WidgetContainer, "UpdateWidgetLayout", ReskinPowerBarWidget)
 
 	hooksecurefunc(_G.BottomScenarioWidgetContainerBlock.WidgetContainer, "UpdateWidgetLayout", function(self)
-		if not self.widgetFrames then return end
+		if not self.widgetFrames then
+			return
+		end
 
 		for _, widgetFrame in pairs(self.widgetFrames) do
 			if widgetFrame.widgetType == Type_SpellDisplay then

@@ -1,9 +1,11 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local unpack = unpack
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-if not C_AddOns_IsAddOnLoaded("ls_Toasts") then return end
+if not C_AddOns_IsAddOnLoaded("ls_Toasts") then
+	return
+end
 
 local LST = unpack(ls_Toasts)
 
@@ -14,7 +16,7 @@ LST:RegisterSkin("MerathilisUI", {
 		texture = { 0, 0, 0, 0.75 },
 	},
 	icon = {
-		tex_coords = { .08, .92, .08, .92 },
+		tex_coords = { 0.08, 0.92, 0.08, 0.92 },
 	},
 	icon_border = {
 		offset = 1,
@@ -33,7 +35,7 @@ LST:RegisterSkin("MerathilisUI", {
 		hidden = true,
 	},
 	slot = {
-		tex_coords = { .08, .92, .08, .92 },
+		tex_coords = { 0.08, 0.92, 0.08, 0.92 },
 	},
 	slot_border = {
 		color = { 0, 0, 0 },

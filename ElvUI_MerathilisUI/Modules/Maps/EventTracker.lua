@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_EventTracker')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_EventTracker")
+local S = MER:GetModule("MER_Skins")
 local LSM = E.Libs.LSM
 
 local _G = _G
@@ -32,7 +32,7 @@ local eventList = {
 	"TimeRiftThaldraszus",
 	"SuperBloom",
 	"BigDig",
-	"IskaaranFishingNet"
+	"IskaaranFishingNet",
 }
 
 local env = {
@@ -48,41 +48,41 @@ local env = {
 		[6] = { map = 2025, x = 0.57756, y = 0.65491 },
 		-- Ohn'ahran Plains
 		[7] = { map = 2023, x = 0.80522, y = 0.78433 },
-		[8] = { map = 2023, x = 0.80467, y = 0.77742 }
+		[8] = { map = 2023, x = 0.80467, y = 0.77742 },
 	},
 	fishingNetWidgetIDToIndex = {
 		-- data mining: https://wow.tools/dbc/?dbc=uiwidget&build=10.0.5.47621#page=1&colFilter[3]=exact%3A2087
 		-- Waking Shores
 		[4203] = 1,
-		[4317] = 2
-	}
+		[4317] = 2,
+	},
 }
 
 local colorPlatte = {
 	blue = {
 		{ r = 0.32941, g = 0.52157, b = 0.93333, a = 1 },
-		{ r = 0.25882, g = 0.84314, b = 0.86667, a = 1 }
+		{ r = 0.25882, g = 0.84314, b = 0.86667, a = 1 },
 	},
 	red = {
 		{ r = 0.92549, g = 0.00000, b = 0.54902, a = 1 },
-		{ r = 0.98824, g = 0.40392, b = 0.40392, a = 1 }
+		{ r = 0.98824, g = 0.40392, b = 0.40392, a = 1 },
 	},
 	green = {
 		{ r = 0.40392, g = 0.92549, b = 0.54902, a = 1 },
-		{ r = 0.00000, g = 0.98824, b = 0.40392, a = 1 }
+		{ r = 0.00000, g = 0.98824, b = 0.40392, a = 1 },
 	},
 	purple = {
 		{ r = 0.27843, g = 0.46275, b = 0.90196, a = 1 },
-		{ r = 0.55686, g = 0.32941, b = 0.91373, a = 1 }
+		{ r = 0.55686, g = 0.32941, b = 0.91373, a = 1 },
 	},
 	bronze = {
 		{ r = 0.83000, g = 0.42000, b = 0.10000, a = 1 },
-		{ r = 0.56500, g = 0.40800, b = 0.16900, a = 1 }
+		{ r = 0.56500, g = 0.40800, b = 0.16900, a = 1 },
 	},
 	running = {
 		{ r = 0.06667, g = 0.60000, b = 0.55686, a = 1 },
-		{ r = 0.21961, g = 0.93725, b = 0.49020, a = 1 }
-	}
+		{ r = 0.21961, g = 0.93725, b = 0.49020, a = 1 },
+	},
 }
 
 local function secondToTime(second)
@@ -109,8 +109,15 @@ local function getGradientText(text, colorTable)
 	if not text or not colorTable then
 		return text
 	end
-	return E:TextGradient(text, colorTable[1].r, colorTable[1].g, colorTable[1].b, colorTable[2].r, colorTable[2].g,
-		colorTable[2].b)
+	return E:TextGradient(
+		text,
+		colorTable[1].r,
+		colorTable[1].g,
+		colorTable[1].b,
+		colorTable[2].r,
+		colorTable[2].g,
+		colorTable[2].b
+	)
 end
 
 local functionFactory = {
@@ -160,7 +167,7 @@ local functionFactory = {
 			interval = 0.3,
 			dateUpdater = function(self)
 				local completed = 0
-				if (self.args.questIDs) and (type(self.args.questIDs) == "table") then
+				if self.args.questIDs and (type(self.args.questIDs) == "table") then
 					for _, questID in pairs(self.args.questIDs) do
 						if C_QuestLog_IsQuestFlaggedCompleted(questID) then
 							completed = completed + 1
@@ -191,8 +198,11 @@ local functionFactory = {
 					self.statusBar:SetMinMaxValues(0, self.args.duration)
 					self.statusBar:SetValue(self.timeOver)
 					local tex = self.statusBar:GetStatusBarTexture()
-					tex:SetGradient("HORIZONTAL", F.CreateColorFromTable(colorPlatte.running[1]),
-						F.CreateColorFromTable(colorPlatte.running[2]))
+					tex:SetGradient(
+						"HORIZONTAL",
+						F.CreateColorFromTable(colorPlatte.running[1]),
+						F.CreateColorFromTable(colorPlatte.running[2])
+					)
 					self.runningTip:Show()
 					E:Flash(self.runningTip, 1, true)
 				else
@@ -205,8 +215,11 @@ local functionFactory = {
 						self.statusBar:SetStatusBarColor(unpack(self.args.barColor))
 					else
 						local tex = self.statusBar:GetStatusBarTexture()
-						tex:SetGradient("HORIZONTAL", F.CreateColorFromTable(self.args.barColor[1]),
-							F.CreateColorFromTable(self.args.barColor[2]))
+						tex:SetGradient(
+							"HORIZONTAL",
+							F.CreateColorFromTable(self.args.barColor[1]),
+							F.CreateColorFromTable(self.args.barColor[2])
+						)
 					end
 
 					E:StopFlash(self.runningTip)
@@ -242,14 +255,19 @@ local functionFactory = {
 					self.args["alertCache"][self.nextEventIndex] = true
 					local eventIconString = F.GetIconString(self.args.icon, 16, 16)
 					local gradientName = getGradientText(self.args.eventName, self.args.barColor)
-					F.Print(format(L["%s will be started in %s!"], eventIconString .. " " .. gradientName,
-						secondToTime(self.timeLeft)))
+					F.Print(
+						format(
+							L["%s will be started in %s!"],
+							eventIconString .. " " .. gradientName,
+							secondToTime(self.timeLeft)
+						)
+					)
 
 					if self.args.soundFile then
 						PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
 					end
 				end
-			end
+			end,
 		},
 		tooltip = {
 			onEnter = function(self)
@@ -264,25 +282,45 @@ local functionFactory = {
 				_G.GameTooltip:AddDoubleLine(L["Interval"], secondToTime(self.args.interval), 1, 1, 1)
 				_G.GameTooltip:AddDoubleLine(L["Duration"], secondToTime(self.args.duration), 1, 1, 1)
 				if self.nextEventTimestamp then
-					_G.GameTooltip:AddDoubleLine(L["Next Event"], date("%m/%d %H:%M:%S", self.nextEventTimestamp), 1, 1,
-						1)
+					_G.GameTooltip:AddDoubleLine(
+						L["Next Event"],
+						date("%m/%d %H:%M:%S", self.nextEventTimestamp),
+						1,
+						1,
+						1
+					)
 				end
 
 				_G.GameTooltip:AddLine(" ")
 				if self.isRunning then
-					_G.GameTooltip:AddDoubleLine(L["Status"], F.StringByTemplate(self.args.runningText, "success"), 1, 1,
-						1)
+					_G.GameTooltip:AddDoubleLine(
+						L["Status"],
+						F.StringByTemplate(self.args.runningText, "success"),
+						1,
+						1,
+						1
+					)
 				else
 					_G.GameTooltip:AddDoubleLine(L["Status"], F.StringByTemplate(L["Waiting"], "greyLight"), 1, 1, 1)
 				end
 
 				if self.args.hasWeeklyReward then
 					if self.isCompleted then
-						_G.GameTooltip:AddDoubleLine(L["Weekly Reward"], F.StringByTemplate(L["Completed"], "success"), 1,
-							1, 1)
+						_G.GameTooltip:AddDoubleLine(
+							L["Weekly Reward"],
+							F.StringByTemplate(L["Completed"], "success"),
+							1,
+							1,
+							1
+						)
 					else
-						_G.GameTooltip:AddDoubleLine(L["Weekly Reward"], F.StringByTemplate(L["Not Completed"], "danger"),
-							1, 1, 1)
+						_G.GameTooltip:AddDoubleLine(
+							L["Weekly Reward"],
+							F.StringByTemplate(L["Not Completed"], "danger"),
+							1,
+							1,
+							1
+						)
 					end
 				end
 
@@ -290,8 +328,8 @@ local functionFactory = {
 			end,
 			onLeave = function(self)
 				_G.GameTooltip:Hide()
-			end
-		}
+			end,
+		},
 	},
 	triggerTimer = {
 		init = function(self)
@@ -360,7 +398,7 @@ local functionFactory = {
 					else
 						self.netTable[netIndex] = {
 							left = db[netIndex].time - now,
-							duration = db[netIndex].duration
+							duration = db[netIndex].duration,
 						}
 					end
 				end
@@ -392,8 +430,11 @@ local functionFactory = {
 					tip = F.StringByTemplate(L["All nets can be collected"], "success")
 					self.timerText:SetText("")
 
-					self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL",
-						F.CreateColorFromTable(colorPlatte.running[1]), F.CreateColorFromTable(colorPlatte.running[2]))
+					self.statusBar:GetStatusBarTexture():SetGradient(
+						"HORIZONTAL",
+						F.CreateColorFromTable(colorPlatte.running[1]),
+						F.CreateColorFromTable(colorPlatte.running[2])
+					)
 					self.statusBar:SetMinMaxValues(0, 1)
 					self.statusBar:SetValue(1)
 
@@ -422,8 +463,11 @@ local functionFactory = {
 					if type(self.args.barColor[1]) == "number" then
 						self.statusBar:SetStatusBarColor(unpack(self.args.barColor))
 					else
-						self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL",
-							F.CreateColorFromTable(self.args.barColor[1]), F.CreateColorFromTable(self.args.barColor[2]))
+						self.statusBar:GetStatusBarTexture():SetGradient(
+							"HORIZONTAL",
+							F.CreateColorFromTable(self.args.barColor[1]),
+							F.CreateColorFromTable(self.args.barColor[2])
+						)
 					end
 
 					self.timerText:SetText(secondToTime(self.netTable[maxTimeIndex].left))
@@ -433,8 +477,11 @@ local functionFactory = {
 					E:StopFlash(self.runningTip)
 				else
 					self.timerText:SetText("")
-					self.statusBar:GetStatusBarTexture():SetGradient("HORIZONTAL",
-						F.CreateColorFromTable(colorPlatte.running[1]), F.CreateColorFromTable(colorPlatte.running[2]))
+					self.statusBar:GetStatusBarTexture():SetGradient(
+						"HORIZONTAL",
+						F.CreateColorFromTable(colorPlatte.running[1]),
+						F.CreateColorFromTable(colorPlatte.running[2])
+					)
 					self.statusBar:SetMinMaxValues(0, 1)
 
 					if #done > 0 then
@@ -526,7 +573,7 @@ local functionFactory = {
 						PlaySoundFile(LSM:Fetch("sound", self.args.soundFile), "Master")
 					end
 				end
-			end
+			end,
 		},
 		tooltip = {
 			onEnter = function(self)
@@ -586,9 +633,9 @@ local functionFactory = {
 			end,
 			onLeave = function(self)
 				_G.GameTooltip:Hide()
-			end
-		}
-	}
+			end,
+		},
+	},
 }
 
 local eventData = {
@@ -619,7 +666,7 @@ local eventData = {
 					[3] = 1676017800, -- EU
 					[4] = 1675767600, -- TW
 					[5] = 1675767600, -- CN
-					[72] = 1675767600 -- TR -- Adjust me
+					[72] = 1675767600, -- TR -- Adjust me
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -628,8 +675,8 @@ local eventData = {
 				end
 
 				return timestampTable[region]
-			end)()
-		}
+			end)(),
+		},
 	},
 	SiegeOnDragonbaneKeep = {
 		dbKey = "siegeOnDragonbaneKeep",
@@ -658,7 +705,7 @@ local eventData = {
 					[3] = 1670774400, -- EU
 					[4] = 1670770800, -- TW
 					[5] = 1670770800, -- CN
-					[72] = 1670770800 -- TR -- Adjust me
+					[72] = 1670770800, -- TR -- Adjust me
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -667,8 +714,8 @@ local eventData = {
 				end
 
 				return timestampTable[region]
-			end)()
-		}
+			end)(),
+		},
 	},
 	ResearchersUnderFire = {
 		dbKey = "researchersUnderFire",
@@ -698,7 +745,7 @@ local eventData = {
 					[3] = 1683804640, -- EU
 					[4] = 1670704240, -- TW
 					[5] = 1670702460, -- CN
-					[72] = 1670702460 -- TR
+					[72] = 1670702460, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -707,8 +754,8 @@ local eventData = {
 				end
 
 				return timestampTable[region]
-			end)()
-		}
+			end)(),
+		},
 	},
 	TimeRiftThaldraszus = {
 		dbKey = "timeRiftThaldraszus",
@@ -737,7 +784,7 @@ local eventData = {
 					[3] = 1701828015, -- EU
 					[4] = 1701824400, -- TW
 					[5] = 1701824400, -- CN
-					[72] = 1701852315 -- TR
+					[72] = 1701852315, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -746,8 +793,8 @@ local eventData = {
 				end
 
 				return timestampTable[region]
-			end)()
-		}
+			end)(),
+		},
 	},
 	SuperBloom = {
 		dbKey = "superBloom",
@@ -776,7 +823,7 @@ local eventData = {
 					[3] = 1701828015, -- EU
 					[4] = 1701824400, -- TW
 					[5] = 1701824400, -- CN
-					[72] = 1701852315 -- TR
+					[72] = 1701852315, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -785,8 +832,8 @@ local eventData = {
 				end
 
 				return timestampTable[region]
-			end)()
-		}
+			end)(),
+		},
 	},
 	BigDig = {
 		dbKey = "bigDig",
@@ -815,7 +862,7 @@ local eventData = {
 					[3] = 1701826200, -- EU
 					[4] = 1701826200, -- TW
 					[5] = 1701826200, -- CN
-					[72] = 1701826200 -- TR
+					[72] = 1701826200, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -824,8 +871,8 @@ local eventData = {
 				end
 
 				return timestampTable[region]
-			end)()
-		}
+			end)(),
+		},
 	},
 	IskaaranFishingNet = {
 		dbKey = "iskaaranFishingNet",
@@ -889,16 +936,22 @@ local eventData = {
 								local namePlates = C_NamePlate_GetNamePlates(true)
 								if #namePlates > 0 then
 									for _, namePlate in ipairs(namePlates) do
-										if namePlate and namePlate.UnitFrame and namePlate.UnitFrame.WidgetContainer then
+										if
+											namePlate
+											and namePlate.UnitFrame
+											and namePlate.UnitFrame.WidgetContainer
+										then
 											local container = namePlate.UnitFrame.WidgetContainer
 											if container.timerWidgets then
 												for id, widget in pairs(container.timerWidgets) do
-													if env.fishingNetWidgetIDToIndex[id] and env.fishingNetWidgetIDToIndex[id] == netIndex then
+													if
+														env.fishingNetWidgetIDToIndex[id]
+														and env.fishingNetWidgetIDToIndex[id] == netIndex
+													then
 														if widget.Bar and widget.Bar.value and widget.Bar.range then
 															db[netIndex] = {
 																time = GetServerTime() + widget.Bar.value,
-																duration =
-																	widget.Bar.range
+																duration = widget.Bar.range,
 															}
 														end
 													end
@@ -909,15 +962,15 @@ local eventData = {
 								end
 							end)
 						end
-					end
-				}
-			}
-		}
+					end,
+				},
+			},
+		},
 	},
 }
 
 local trackers = {
-	pool = {}
+	pool = {},
 }
 
 function trackers:get(event)
@@ -995,8 +1048,8 @@ module.eventHandlers = {
 			E:Delay(10, function()
 				module.playerEnteredWorld = true
 			end)
-		end
-	}
+		end,
+	},
 }
 
 function module:HandlerEvent(event, ...)
@@ -1027,9 +1080,8 @@ function module:SetFont(target, size)
 	F.SetFontDB(target, {
 		name = self.db.font.name,
 		size = floor(size * self.db.font.scale),
-		style = self.db.font.outline
-	}
-	)
+		style = self.db.font.outline,
+	})
 end
 
 function module:ConstructFrame()
@@ -1212,8 +1264,7 @@ MER:AddCommand("EVENT_TRACKER", { "/wtet" }, function(msg)
 								if widget.Bar and widget.Bar.value then
 									db[netIndex] = {
 										time = GetServerTime() + widget.Bar.value,
-										duration = widget.Bar
-											.range
+										duration = widget.Bar.range,
 									}
 								end
 							end

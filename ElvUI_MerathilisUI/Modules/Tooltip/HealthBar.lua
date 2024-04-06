@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Tooltip')
-local ET = E:GetModule('Tooltip')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Tooltip")
+local ET = E:GetModule("Tooltip")
 
 function module:ChangeHealthBarPosition(_, tt)
 	local barOffset = E.db.mui.tooltip.yOffsetOfHealthBar

@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local RM = MER:GetModule('MER_RectangleMinimap')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local RM = MER:GetModule("MER_RectangleMinimap")
 local MM = E:GetModule("Minimap")
 
 local _G = _G
@@ -109,8 +109,8 @@ do
 		local newHeight = E.MinimapSize * fileID / 128
 
 		local borderWidth, borderHeight = E.PixelMode and 2 or 6, E.PixelMode and 2 or 8
-		local panelSize, joinPanel = (MinimapPanel:IsShown() and MinimapPanel:GetHeight()) or (E.PixelMode and 1 or -1),
-			1
+		local panelSize, joinPanel =
+			(MinimapPanel:IsShown() and MinimapPanel:GetHeight()) or (E.PixelMode and 1 or -1), 1
 		local holderHeight = newHeight + (panelSize - joinPanel)
 
 		MM.MapHolder:Size(E.MinimapSize + borderWidth, holderHeight + borderHeight)

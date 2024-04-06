@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Announcement')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Announcement")
 
 local gsub = gsub
 local tostring = tostring
@@ -71,7 +71,7 @@ local FeastList = {
 	[359336] = true,
 	[382423] = true,
 	[382427] = true,
-    [383063] = true,
+	[383063] = true,
 }
 
 local PortalList = {

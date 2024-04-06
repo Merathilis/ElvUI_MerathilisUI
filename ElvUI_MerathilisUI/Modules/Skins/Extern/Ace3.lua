@@ -1,8 +1,10 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 function module:Ace3_Frame(Constructor)
-	if not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable) then
+	if
+		not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable)
+	then
 		return Constructor
 	end
 
@@ -18,7 +20,9 @@ function module:Ace3_Frame(Constructor)
 end
 
 function module:Ace3_DropdownPullout(Constructor)
-	if not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable) then
+	if
+		not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable)
+	then
 		return Constructor
 	end
 
@@ -36,7 +40,9 @@ function module:Ace3_DropdownPullout(Constructor)
 end
 
 function module:Ace3_Window(Constructor)
-	if not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable) then
+	if
+		not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable)
+	then
 		return Constructor
 	end
 
@@ -50,7 +56,9 @@ function module:Ace3_Window(Constructor)
 end
 
 function module:AceConfigDialog()
-	if not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable) then
+	if
+		not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable)
+	then
 		return
 	end
 

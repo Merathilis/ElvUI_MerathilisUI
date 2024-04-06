@@ -1,7 +1,7 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
-local S = MER:GetModule('MER_Skins')
-local ES = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
+local S = MER:GetModule("MER_Skins")
+local ES = E:GetModule("Skins")
 
 local _G = _G
 local select = select
@@ -70,7 +70,7 @@ function module:CreateGMOTD()
 		gmotd:SetScript("OnEvent", function(self, event, message)
 			local guild = false
 			local msg = false
-			if (event == "GUILD_MOTD") then
+			if event == "GUILD_MOTD" then
 				msg = message
 				guild = select(1, GetGuildInfo("player"))
 			else
@@ -79,8 +79,10 @@ function module:CreateGMOTD()
 			end
 
 			MER.gmotd = MER.gmotd or {}
-			if (strlen(msg) > 0 and guild and not MER.gmotd[msg]) then
-				if InCombatLockdown() then return end
+			if strlen(msg) > 0 and guild and not MER.gmotd[msg] then
+				if InCombatLockdown() then
+					return
+				end
 				gmotd.msg = msg
 				gmotd.text:SetText(msg)
 				gmotd.header:SetText(icon .. (format("|cff00c0fa%s|r", guild)) .. ": " .. _G.GUILD_MOTD_LABEL2)

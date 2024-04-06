@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_UnitFrames')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_UnitFrames")
 
 local CreateFrame = CreateFrame
 
@@ -9,9 +9,9 @@ function module:Construct_Swing(frame)
 	local Mcolor = E.db.mui.unitframes.swing.mcolor
 	local Tcolor = E.db.mui.unitframes.swing.tcolor
 	local Ocolor = E.db.mui.unitframes.swing.ocolor
-	local Mr, Mg, Mb = Mcolor.r, Mcolor.g, Mcolor.b or { .8, .8, .8 }
-	local Tr, Tg, Tb = Tcolor.r, Tcolor.g, Tcolor.b or { .8, .8, .8 }
-	local Or, Og, Ob = Ocolor.r, Ocolor.g, Ocolor.b or { .8, .8, .8 }
+	local Mr, Mg, Mb = Mcolor.r, Mcolor.g, Mcolor.b or { 0.8, 0.8, 0.8 }
+	local Tr, Tg, Tb = Tcolor.r, Tcolor.g, Tcolor.b or { 0.8, 0.8, 0.8 }
+	local Or, Og, Ob = Ocolor.r, Ocolor.g, Ocolor.b or { 0.8, 0.8, 0.8 }
 
 	local bar = CreateFrame("StatusBar", frame:GetName() .. "_Swing", frame)
 	bar:SetSize(width, 3)
@@ -31,7 +31,7 @@ function module:Construct_Swing(frame)
 	main.Spark = main:CreateTexture(nil, "OVERLAY")
 	main.Spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
 	main.Spark:SetBlendMode("ADD")
-	main.Spark:SetAlpha(.8)
+	main.Spark:SetAlpha(0.8)
 	main.Spark:SetPoint("TOPLEFT", main:GetStatusBarTexture(), "TOPRIGHT", -10, 10)
 	main.Spark:SetPoint("BOTTOMRIGHT", main:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -10)
 
@@ -46,7 +46,7 @@ function module:Construct_Swing(frame)
 	two.Spark = two:CreateTexture(nil, "OVERLAY")
 	two.Spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
 	two.Spark:SetBlendMode("ADD")
-	two.Spark:SetAlpha(.8)
+	two.Spark:SetAlpha(0.8)
 	two.Spark:SetPoint("TOPLEFT", two:GetStatusBarTexture(), "TOPRIGHT", -10, 10)
 	two.Spark:SetPoint("BOTTOMRIGHT", two:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -10)
 
@@ -62,7 +62,7 @@ function module:Construct_Swing(frame)
 	off.Spark = off:CreateTexture(nil, "OVERLAY")
 	off.Spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
 	off.Spark:SetBlendMode("ADD")
-	off.Spark:SetAlpha(.8)
+	off.Spark:SetAlpha(0.8)
 	off.Spark:SetPoint("TOPLEFT", off:GetStatusBarTexture(), "TOPRIGHT", -10, 10)
 	off.Spark:SetPoint("BOTTOMRIGHT", off:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -10)
 

@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_ChatLink')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_ChatLink")
 
 local _G = _G
 local format = format
@@ -28,7 +28,7 @@ local SearchArmorType = {
 	INVTYPE_HAND = true,
 	INVTYPE_WAIST = true,
 	INVTYPE_LEGS = true,
-	INVTYPE_FEET = true
+	INVTYPE_FEET = true,
 }
 
 local abbrList = {
@@ -44,7 +44,7 @@ local abbrList = {
 	INVTYPE_FEET = L["Feet"],
 	INVTYPE_HOLDABLE = L["Off-Hand"],
 	INVTYPE_FINGER = L["Finger"],
-	INVTYPE_TRINKET = L["Trinket"]
+	INVTYPE_TRINKET = L["Trinket"],
 }
 
 local tierColor = {
@@ -52,7 +52,7 @@ local tierColor = {
 	["2"] = "|cffaaaeb2",
 	["3"] = "|cffe4c55b",
 	["4"] = "|cff09d3ff",
-	["5"] = "|cffe8ac1b"
+	["5"] = "|cffe8ac1b",
 }
 
 local function AddItemInfo(link)
@@ -312,7 +312,7 @@ function module:Initialize()
 		"CHAT_MSG_TRADESKILLS",
 		"CHAT_MSG_WHISPER",
 		"CHAT_MSG_WHISPER_INFORM",
-		"CHAT_MSG_YELL"
+		"CHAT_MSG_YELL",
 	}
 
 	for _, event in pairs(events) do

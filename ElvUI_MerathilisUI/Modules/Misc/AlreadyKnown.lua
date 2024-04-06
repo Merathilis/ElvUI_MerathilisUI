@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_AlreadyKnown')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_AlreadyKnown")
 
 local _G = _G
 local ceil = ceil
@@ -43,7 +43,7 @@ local knowables = {
 	[Enum.ItemClass.Consumable] = true,
 	[Enum.ItemClass.Recipe] = true,
 	[Enum.ItemClass.Miscellaneous] = true,
-	[Enum.ItemClass.ItemEnhancement] = true
+	[Enum.ItemClass.ItemEnhancement] = true,
 }
 local knowns = {}
 
@@ -124,7 +124,7 @@ function module:Merchant()
 				else
 					local r, g, b = self.db.color.r, self.db.color.g, self.db.color.b
 					if numAvailable == 0 then
-						r, g, b = r * .5, g * .5, b * .5
+						r, g, b = r * 0.5, g * 0.5, b * 0.5
 					end
 					SetItemButtonTextureVertexColor(itemButton, 0.9 * r, 0.9 * g, 0.9 * b)
 				end

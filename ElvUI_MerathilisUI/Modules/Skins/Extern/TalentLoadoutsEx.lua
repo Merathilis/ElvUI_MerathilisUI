@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local hooksecurefunc = hooksecurefunc
 local next = next
@@ -27,9 +27,9 @@ local function ReskinTlxScrollChild(self)
 end
 
 local function ReskinTlxScrollBox(frame)
-	frame:DisableDrawLayer('BACKGROUND')
+	frame:DisableDrawLayer("BACKGROUND")
 	frame:StripTextures()
-	hooksecurefunc(frame, 'Update', ReskinTlxScrollChild)
+	hooksecurefunc(frame, "Update", ReskinTlxScrollChild)
 end
 
 function module:TalentLoadoutsEx()
@@ -37,11 +37,13 @@ function module:TalentLoadoutsEx()
 		return
 	end
 
-	hooksecurefunc(TLX.Frame, 'OnLoad', function()
-		if TlxFrame.IsSkinned then return end
+	hooksecurefunc(TLX.Frame, "OnLoad", function()
+		if TlxFrame.IsSkinned then
+			return
+		end
 
 		-- Main Frame
-		TlxFrame.NineSlice:SetTemplate('Transparent')
+		TlxFrame.NineSlice:SetTemplate("Transparent")
 		TlxFrame:Height(885)
 		module:CreateShadow(TlxFrame)
 
@@ -69,17 +71,19 @@ function module:TalentLoadoutsEx()
 
 		-- Reposition for pixel perfect style
 		TlxFrame:ClearAllPoints()
-		TlxFrame:Point('TOPLEFT', _G.ClassTalentFrame, 'TOPRIGHT', 2, 0)
+		TlxFrame:Point("TOPLEFT", _G.ClassTalentFrame, "TOPRIGHT", 2, 0)
 
 		TlxFrame.IsSkinned = true
 	end)
 
-	hooksecurefunc(TlxPopupMixin, 'OnShow', function()
-		if TlxFrame.PopupFrame.Skinned then return end
+	hooksecurefunc(TlxPopupMixin, "OnShow", function()
+		if TlxFrame.PopupFrame.Skinned then
+			return
+		end
 
 		-- Main Frame
 		TlxFrame.PopupFrame:StripTextures()
-		TlxFrame.PopupFrame:SetTemplate('Transparent')
+		TlxFrame.PopupFrame:SetTemplate("Transparent")
 		TlxFrame.PopupFrame.BorderBox:StripTextures()
 		module:CreateShadow(TlxFrame.PopupFrame)
 
@@ -97,13 +101,13 @@ function module:TalentLoadoutsEx()
 		-- Notes
 		local notice = TlxFrame.PopupFrame.SearchNotice.NineSlice
 		if notice then
-			notice:SetTemplate('Transparent')
-			notice:Point('TOPLEFT', TlxFrame.PopupFrame, 'BOTTOMLEFT', 6, 1)
-			notice:Point('TOPRIGHT', TlxFrame.PopupFrame, 'BOTTOMRIGHT', -5, 1)
+			notice:SetTemplate("Transparent")
+			notice:Point("TOPLEFT", TlxFrame.PopupFrame, "BOTTOMLEFT", 6, 1)
+			notice:Point("TOPRIGHT", TlxFrame.PopupFrame, "BOTTOMRIGHT", -5, 1)
 		end
 
 		TlxFrame.PopupFrame.Skinned = true
 	end)
 end
 
-module:AddCallbackForAddon('TalentLoadoutsEx')
+module:AddCallbackForAddon("TalentLoadoutsEx")

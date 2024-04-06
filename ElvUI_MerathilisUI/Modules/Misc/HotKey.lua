@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
-local AB = E:GetModule('ActionBars')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
+local AB = E:GetModule("ActionBars")
 
 local hooksecurefunc = hooksecurefunc
 local pairs = pairs

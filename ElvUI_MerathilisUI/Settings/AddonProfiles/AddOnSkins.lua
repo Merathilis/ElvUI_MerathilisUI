@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local unpack = unpack
 
@@ -10,37 +10,37 @@ function MER:LoadAddOnSkinsProfile()
 
 	AS.data:SetProfile(profileName)
 
-	AS.db['EmbedOoC'] = false
-	AS.db['EmbedOoCDelay'] = 10
-	AS.db['EmbedCoolLine'] = false
-	AS.db['EmbedSexyCooldown'] = false
-	AS.db['TransparentEmbed'] = false
-	AS.db['EmbedIsHidden'] = false
-	AS.db['EmbedFrameStrata'] = '3-MEDIUM'
-	AS.db['EmbedFrameLevel'] = 50
-	AS.db['RecountBackdrop'] = false
-	AS.db['SkadaBackdrop'] = false
-	AS.db['OmenBackdrop'] = false
-	AS.db['DetailsBackdrop'] = false
-	AS.db['MiscFixes'] = true
-	AS.db['DBMSkinHalf'] = false
-	AS.db['DBMFont'] = 'Expressway'
-	AS.db['DBMFontSize'] = 12
-	AS.db['DBMFontFlag'] = 'OUTLINE'
-	AS.db['DBMRadarTrans'] = false
-	AS.db['WeakAuraAuraBar'] = false
-	AS.db['WeakAuraIconCooldown'] = false
-	AS.db['SkinTemplate'] = 'MerathilisUI'
-	AS.db['HideChatFrame'] = 'NONE'
-	AS.db['Parchment'] = false
-	AS.db['ParchmentRemover'] = false
-	AS.db['SkinDebug'] = true
-	AS.db['LoginMsg'] = false
-	AS.db['EmbedSystemMessage'] = false
-	AS.db['ElvUISkinModule'] = true
-	AS.db['ThinBorder'] = false
-	AS.db['BackgroundTexture'] = 'ElvUI Norm1'
-	AS.db['StatusBarTexture'] = 'ElvUI Norm1'
+	AS.db["EmbedOoC"] = false
+	AS.db["EmbedOoCDelay"] = 10
+	AS.db["EmbedCoolLine"] = false
+	AS.db["EmbedSexyCooldown"] = false
+	AS.db["TransparentEmbed"] = false
+	AS.db["EmbedIsHidden"] = false
+	AS.db["EmbedFrameStrata"] = "3-MEDIUM"
+	AS.db["EmbedFrameLevel"] = 50
+	AS.db["RecountBackdrop"] = false
+	AS.db["SkadaBackdrop"] = false
+	AS.db["OmenBackdrop"] = false
+	AS.db["DetailsBackdrop"] = false
+	AS.db["MiscFixes"] = true
+	AS.db["DBMSkinHalf"] = false
+	AS.db["DBMFont"] = "Expressway"
+	AS.db["DBMFontSize"] = 12
+	AS.db["DBMFontFlag"] = "OUTLINE"
+	AS.db["DBMRadarTrans"] = false
+	AS.db["WeakAuraAuraBar"] = false
+	AS.db["WeakAuraIconCooldown"] = false
+	AS.db["SkinTemplate"] = "MerathilisUI"
+	AS.db["HideChatFrame"] = "NONE"
+	AS.db["Parchment"] = false
+	AS.db["ParchmentRemover"] = false
+	AS.db["SkinDebug"] = true
+	AS.db["LoginMsg"] = false
+	AS.db["EmbedSystemMessage"] = false
+	AS.db["ElvUISkinModule"] = true
+	AS.db["ThinBorder"] = false
+	AS.db["BackgroundTexture"] = "ElvUI Norm1"
+	AS.db["StatusBarTexture"] = "ElvUI Norm1"
 
 	-- embeded settings
 	if C_AddOns_IsAddOnLoaded("Details") then

@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local ES = E:GetModule('Skins')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local ES = E:GetModule("Skins")
+local S = MER:GetModule("MER_Skins")
 
 local _G = _G
 local next, pairs, table, getmetatable = next, pairs, table, getmetatable
@@ -49,15 +49,25 @@ end
 
 function FlightPoints_Show()
 	if not FlightPointsTaxiChoiceContainer.buttons then
-		HybridScrollFrame_CreateButtons(FlightPointsTaxiChoiceContainer, "FlightPointsButtonTemplate", 1, -2, "TOPLEFT",
-			"TOPLEFT", 0, 0)
+		HybridScrollFrame_CreateButtons(
+			FlightPointsTaxiChoiceContainer,
+			"FlightPointsButtonTemplate",
+			1,
+			-2,
+			"TOPLEFT",
+			"TOPLEFT",
+			0,
+			0
+		)
 	end
 	FlightPointsTaxiChoiceContainer_Update()
 end
 
 function FlightPoints_GetFlight(index)
 	if taxinodeinfos[index] then
-		return taxinodeinfos[index].name, taxinodeinfos[index].isheader, taxinodeinfos[index].flightid,
+		return taxinodeinfos[index].name,
+			taxinodeinfos[index].isheader,
+			taxinodeinfos[index].flightid,
 			taxinodeinfos[index].isexpanded
 	else
 		return nil
@@ -65,7 +75,9 @@ function FlightPoints_GetFlight(index)
 end
 
 function FlightPointsTaxiChoiceContainer_Update()
-	if not FlightPointsTaxiChoiceContainer.buttons then return end
+	if not FlightPointsTaxiChoiceContainer.buttons then
+		return
+	end
 
 	local buttons = FlightPointsTaxiChoiceContainer.buttons
 	local button = buttons[1]
@@ -134,12 +146,18 @@ end
 
 local function pairsByKeys(t, f)
 	local a = {}
-	for n in pairs(t) do table.insert(a, n) end
+	for n in pairs(t) do
+		table.insert(a, n)
+	end
 	table.sort(a, f)
 	local i = 0
 	local iter = function()
 		i = i + 1
-		if a[i] == nil then return nil else return a[i], t[a[i]] end
+		if a[i] == nil then
+			return nil
+		else
+			return a[i], t[a[i]]
+		end
 	end
 	return iter
 end
@@ -156,7 +174,9 @@ function FlightPoints_CreateFlyPathTable()
 			end
 			match1 = strtrim(match1)
 			match2 = strtrim(match2)
-			if not taxinodeinfos[match2] then taxinodeinfos[match2] = {} end
+			if not taxinodeinfos[match2] then
+				taxinodeinfos[match2] = {}
+			end
 			taxinodeinfos[match2][match1] = i
 		end
 	end
@@ -185,7 +205,7 @@ end
 function FlightPoints_OnEvent(self, event, ...)
 	local db = E.db.mui or {}
 
-	if not (db and db.general) or type(db.general) ~= 'table' then
+	if not (db and db.general) or type(db.general) ~= "table" then
 		db.general = {}
 	end
 
@@ -202,8 +222,13 @@ function FlightPoints_OnEvent(self, event, ...)
 
 		if _G["TaxiFrame"]:IsShown() then
 			FlightPointsTaxiChoice:SetHeight(_G["TaxiFrame"]:GetHeight() - 24)
-			FlightPointsTaxiChoice:SetPoint("TOPLEFT", _G["TaxiFrame"], "BOTTOMRIGHT", 0,
-				_G["TaxiFrame"]:GetHeight() - 22)
+			FlightPointsTaxiChoice:SetPoint(
+				"TOPLEFT",
+				_G["TaxiFrame"],
+				"BOTTOMRIGHT",
+				0,
+				_G["TaxiFrame"]:GetHeight() - 22
+			)
 		elseif _G["FlightMapFrame"]:IsShown() then
 			FlightPointsTaxiChoice:SetHeight(_G["FlightMapFrame"]:GetHeight() - 2)
 			FlightPointsTaxiChoice:SetPoint("LEFT", _G["FlightMapFrame"], "RIGHT", 4, 0)

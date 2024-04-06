@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local DetailsGradient = {
 	["WARRIOR"] = { r1 = 0.60, g1 = 0.40, b1 = 0.20, r2 = 0.66, g2 = 0.53, b2 = 0.34 },
@@ -36,7 +36,7 @@ local classes = {
 	["WARLOCK"] = true,
 	["DRUID"] = true,
 	["DEMONHUNTER"] = true,
-	["EVOKER"] = true
+	["EVOKER"] = true,
 }
 
 local function GradientBars()
@@ -48,18 +48,34 @@ local function GradientBars()
 						if row.minha_tabela and row.minha_tabela.name then
 							local class = row.minha_tabela:class()
 							if classes[class] then
-								row.textura:SetGradient("Horizontal",
-									CreateColor(DetailsGradient[class].r1 - 0.2, DetailsGradient[class].g1 - 0.2,
-										DetailsGradient[class].b1 - 0.2, 0.9),
-									CreateColor(DetailsGradient[class].r2 + 0.2, DetailsGradient[class].g2 + 0.2,
-										DetailsGradient[class].b2 + 0.2, 0.9))
+								row.textura:SetGradient(
+									"Horizontal",
+									CreateColor(
+										DetailsGradient[class].r1 - 0.2,
+										DetailsGradient[class].g1 - 0.2,
+										DetailsGradient[class].b1 - 0.2,
+										0.9
+									),
+									CreateColor(
+										DetailsGradient[class].r2 + 0.2,
+										DetailsGradient[class].g2 + 0.2,
+										DetailsGradient[class].b2 + 0.2,
+										0.9
+									)
+								)
 							else
-								row.textura:SetGradient("Horizontal", CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9),
-									CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9))
+								row.textura:SetGradient(
+									"Horizontal",
+									CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9),
+									CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9)
+								)
 							end
 						else
-							row.textura:SetGradient("Horizontal", CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9),
-								CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9))
+							row.textura:SetGradient(
+								"Horizontal",
+								CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9),
+								CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9)
+							)
 						end
 					end)
 					row.textura.__MERSkin = true
@@ -74,32 +90,46 @@ local function GradientNames()
 
 	hooksecurefunc(Details.atributo_damage, "RefreshLine", function(_, _, lineContainer, whichRowLine)
 		local thisLine = lineContainer[whichRowLine]
-		if not thisLine then return end
+		if not thisLine then
+			return
+		end
 		if thisLine.lineText1 then
-			thisLine.lineText1:SetText(F.GradientName(
-			thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(), thisLine.minha_tabela:class()))
+			thisLine.lineText1:SetText(
+				F.GradientName(
+					thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(),
+					thisLine.minha_tabela:class()
+				)
+			)
 		end
 	end)
 
 	hooksecurefunc(Details.atributo_heal, "RefreshLine", function(_, instancia, _, whichRowLine)
 		local thisLine = instancia.barras[whichRowLine]
-		if not thisLine then return end
+		if not thisLine then
+			return
+		end
 		if thisLine.lineText1 then
-			thisLine.lineText1:SetText(F.GradientName(
-			thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(), thisLine.minha_tabela:class()))
+			thisLine.lineText1:SetText(
+				F.GradientName(
+					thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(),
+					thisLine.minha_tabela:class()
+				)
+			)
 		end
 	end)
 end
 
 local function SetupInstance(instance)
-	if instance.skinned then return end
+	if instance.skinned then
+		return
+	end
 
 	if not instance.baseframe then
 		instance:ShowWindow()
 		instance.wasHidden = true
 	end
 
-	instance.baseframe:CreateBackdrop('Transparent')
+	instance.baseframe:CreateBackdrop("Transparent")
 	instance.baseframe.backdrop:SetPoint("TOPLEFT", -1, 18)
 	module:CreateGradient(instance.baseframe.backdrop)
 	module:CreateBackdropShadow(instance.baseframe)
@@ -121,7 +151,9 @@ local function SetupInstance(instance)
 end
 
 local function EmbedWindow(instance, x, y, width, height)
-	if not instance.baseframe then return end
+	if not instance.baseframe then
+		return
+	end
 
 	instance.baseframe:ClearAllPoints()
 	instance.baseframe:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", x, y)
@@ -137,7 +169,9 @@ end
 
 local function IsDefaultAnchor(instance)
 	local frame = instance and instance.baseframe
-	if not frame then return end
+	if not frame then
+		return
+	end
 	local relF, _, relT, x, y = frame:GetPoint()
 
 	return (relF == "CENTER" and relT == "CENTER" and isDefaultOffset(x) and isDefaultOffset(y))
@@ -145,7 +179,9 @@ end
 
 function module:ResetDetailsAnchor(force)
 	local Details = _G.Details
-	if not Details then return end
+	if not Details then
+		return
+	end
 
 	local height = 144
 	local instance1 = Details:GetInstance(1)
@@ -225,4 +261,4 @@ local function LoadSkin()
 	end
 end
 
-module:AddCallbackForAddon('Details', LoadSkin)
+module:AddCallbackForAddon("Details", LoadSkin)

@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 
@@ -14,12 +14,12 @@ function module:GlobalIgnoreList()
 			S:HandlePortraitFrame(GIL)
 			module:CreateShadow(GIL)
 			for i = 1, 3 do
-				S:HandleTab(_G['GILTab' .. i])
-				module:ReskinTab(_G['GILTab' .. i])
-				S:HandleFrame(_G['GILFrame' .. i])
+				S:HandleTab(_G["GILTab" .. i])
+				module:ReskinTab(_G["GILTab" .. i])
+				S:HandleFrame(_G["GILFrame" .. i])
 				for j = 1, 6 do
-					if _G['GILFrame' .. i .. 'Header' .. j] then
-						S:HandleFrame(_G['GILFrame' .. i .. 'Header' .. j])
+					if _G["GILFrame" .. i .. "Header" .. j] then
+						S:HandleFrame(_G["GILFrame" .. i .. "Header" .. j])
 					end
 				end
 			end
@@ -59,7 +59,7 @@ function module:GlobalIgnoreList()
 				GILFrame3UpdateFilter,
 				GILFrame3SkipGuild,
 				GILFrame3SkipParty,
-				GILFrame3SkipPrivate
+				GILFrame3SkipPrivate,
 			}
 			for _, checkbox in next, checkBoxes do
 				if checkbox then

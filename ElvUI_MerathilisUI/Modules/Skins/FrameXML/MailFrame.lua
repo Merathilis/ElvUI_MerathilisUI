@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -34,8 +34,7 @@ function module:MailFrame()
 		if bg.backdrop then
 			bg.backdrop:Hide()
 		end
-		bg:CreateBackdrop('Transparent')
-
+		bg:CreateBackdrop("Transparent")
 
 		local b = _G["MailItem" .. i .. "Button"]
 		b:StripTextures()

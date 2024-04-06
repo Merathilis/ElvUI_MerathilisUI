@@ -1,63 +1,63 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_UnitFrames')
-local UF = E:GetModule('UnitFrames')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_UnitFrames")
+local UF = E:GetModule("UnitFrames")
 
 local RoleIconTextures = {
 	SUNUI = {
 		TANK = MER.Media.Textures.sunTank,
 		HEALER = MER.Media.Textures.sunHealer,
-		DAMAGER = MER.Media.Textures.sunDPS
+		DAMAGER = MER.Media.Textures.sunDPS,
 	},
 	SVUI = {
 		TANK = MER.Media.Textures.svuiTank,
 		HEALER = MER.Media.Textures.svuiHealer,
-		DAMAGER = MER.Media.Textures.svuiDPS
+		DAMAGER = MER.Media.Textures.svuiDPS,
 	},
 	LYNUI = {
 		TANK = MER.Media.Textures.lynTank,
 		HEALER = MER.Media.Textures.lynHealer,
-		DAMAGER = MER.Media.Textures.lynDPS
+		DAMAGER = MER.Media.Textures.lynDPS,
 	},
 	DEFAULT = {
 		TANK = E.Media.Textures.Tank,
 		HEALER = E.Media.Textures.Healer,
-		DAMAGER = E.Media.Textures.DPS
+		DAMAGER = E.Media.Textures.DPS,
 	},
 	CUSTOM = {
 		TANK = MER.Media.Textures.customTank,
 		HEALER = MER.Media.Textures.customHeal,
-		DAMAGER = MER.Media.Textures.customDPS
+		DAMAGER = MER.Media.Textures.customDPS,
 	},
 	GLOW = {
 		TANK = MER.Media.Textures.glowTank,
 		HEALER = MER.Media.Textures.glowHeal,
-		DAMAGER = MER.Media.Textures.glowDPS
+		DAMAGER = MER.Media.Textures.glowDPS,
 	},
 	GLOW1 = {
 		TANK = MER.Media.Textures.glow1Tank,
 		HEALER = MER.Media.Textures.glow1Heal,
-		DAMAGER = MER.Media.Textures.glow1DPS
+		DAMAGER = MER.Media.Textures.glow1DPS,
 	},
 	GRAVED = {
 		TANK = MER.Media.Textures.gravedTank,
 		HEALER = MER.Media.Textures.gravedHeal,
-		DAMAGER = MER.Media.Textures.gravedDPS
+		DAMAGER = MER.Media.Textures.gravedDPS,
 	},
 	MAIN = {
 		TANK = MER.Media.Textures.mainTank,
 		HEALER = MER.Media.Textures.mainHeal,
-		DAMAGER = MER.Media.Textures.mainDPS
+		DAMAGER = MER.Media.Textures.mainDPS,
 	},
 	WHITE = {
 		TANK = MER.Media.Textures.whiteTank,
 		HEALER = MER.Media.Textures.whiteHeal,
-		DAMAGER = MER.Media.Textures.whiteDPS
+		DAMAGER = MER.Media.Textures.whiteDPS,
 	},
 	MATERIAL = {
 		TANK = MER.Media.Textures.materialTank,
 		HEALER = MER.Media.Textures.materialHeal,
-		DAMAGER = MER.Media.Textures.materialDPS
-	}
+		DAMAGER = MER.Media.Textures.materialDPS,
+	},
 }
 
 function module:Configure_RoleIcons()

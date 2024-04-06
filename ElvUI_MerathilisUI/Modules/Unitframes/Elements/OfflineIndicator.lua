@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_UnitFrames')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_UnitFrames")
 
 -- Credits: Shadow & Light Darth Predator
 
@@ -13,9 +13,9 @@ module.OfflineTextures = {
 }
 
 function module:Construct_OfflineIndicator(frame)
-	local OfflineIndicator = frame.RaisedElementParent.TextureParent:CreateTexture(nil, 'OVERLAY', nil, 7)
+	local OfflineIndicator = frame.RaisedElementParent.TextureParent:CreateTexture(nil, "OVERLAY", nil, 7)
 
-	OfflineIndicator:Point('CENTER', frame, 'CENTER', 0, 0)
+	OfflineIndicator:Point("CENTER", frame, "CENTER", 0, 0)
 	OfflineIndicator:Size(36)
 
 	return OfflineIndicator
@@ -32,9 +32,9 @@ function module:Configure_OfflineIndicator(frame)
 	local height = db.keepSizeRatio and db.size or db.height
 
 	OfflineIndicator:ClearAllPoints()
-	OfflineIndicator:Point('CENTER', frame, db.anchorPoint, db.xOffset, db.yOffset)
+	OfflineIndicator:Point("CENTER", frame, db.anchorPoint, db.xOffset, db.yOffset)
 
-	if db.texture ~= 'CUSTOM' and F:TextureExists(module.OfflineTextures[db.texture]) then
+	if db.texture ~= "CUSTOM" and F:TextureExists(module.OfflineTextures[db.texture]) then
 		OfflineIndicator:SetTexture(module.OfflineTextures[db.texture])
 	elseif F:TextureExists(db.custom) then
 		OfflineIndicator:SetTexture(db.custom)
@@ -44,9 +44,9 @@ function module:Configure_OfflineIndicator(frame)
 
 	OfflineIndicator:Size(width, height)
 
-	if db.enable and not frame:IsElementEnabled('OfflineIndicator') then
-		frame:EnableElement('OfflineIndicator')
-	elseif not db.enable and frame:IsElementEnabled('OfflineIndicator') then
-		frame:DisableElement('OfflineIndicator')
+	if db.enable and not frame:IsElementEnabled("OfflineIndicator") then
+		frame:EnableElement("OfflineIndicator")
+	elseif not db.enable and frame:IsElementEnabled("OfflineIndicator") then
+		frame:DisableElement("OfflineIndicator")
 	end
 end

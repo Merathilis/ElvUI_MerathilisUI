@@ -1,11 +1,13 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 local CreateFrame = CreateFrame
 
 function module:ProjectAzilroka()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.pa then return end
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.pa then
+		return
+	end
 
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")

@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local IL = MER:GetModule('MER_ItemLevel')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local IL = MER:GetModule("MER_ItemLevel")
 local options = MER.options.modules.args
 local LSM = E.LSM
 
@@ -17,7 +17,7 @@ options.itemLevel = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Item Level"], 'orange'),
+			name = F.cOption(L["Item Level"], "orange"),
 		},
 		desc = {
 			order = 1,
@@ -29,15 +29,15 @@ options.itemLevel = {
 					order = 1,
 					type = "description",
 					name = L["Add an extra item level text to some equipment buttons."],
-					fontSize = "medium"
-				}
-			}
+					fontSize = "medium",
+				},
+			},
 		},
 		enable = {
 			order = 2,
 			type = "toggle",
 			name = L["Enable"],
-			width = "full"
+			width = "full",
 		},
 		flyout = {
 			order = 3,
@@ -58,7 +58,7 @@ options.itemLevel = {
 					order = 0,
 					type = "toggle",
 					name = L["Enable"],
-					width = "full"
+					width = "full",
 				},
 				font = {
 					order = 1,
@@ -88,14 +88,14 @@ options.itemLevel = {
 							end,
 							type = "toggle",
 							name = L["Use Bags Setting"],
-							desc = L["Render the item level text with the setting in ElvUI bags."]
+							desc = L["Render the item level text with the setting in ElvUI bags."],
 						},
 						name = {
 							order = 1,
 							type = "select",
 							dialogControl = "LSM30_Font",
 							name = L["Font"],
-							values = LSM:HashTable("font")
+							values = LSM:HashTable("font"),
 						},
 						style = {
 							order = 2,
@@ -103,13 +103,13 @@ options.itemLevel = {
 							name = L["Outline"],
 							values = {
 								NONE = L["None"],
-								SHADOW = '|cff888888Shadow|r',
-								SHADOWOUTLINE = '|cff888888Shadow|r Outline',
-								SHADOWTHICKOUTLINE = '|cff888888Shadow|r Thick',
+								SHADOW = "|cff888888Shadow|r",
+								SHADOWOUTLINE = "|cff888888Shadow|r Outline",
+								SHADOWTHICKOUTLINE = "|cff888888Shadow|r Thick",
 								MONOCHROME = L["MONOCHROME"],
 								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
-								THICKOUTLINE = L["THICKOUTLINE"]
-							}
+								THICKOUTLINE = L["THICKOUTLINE"],
+							},
 						},
 						size = {
 							order = 3,
@@ -117,7 +117,7 @@ options.itemLevel = {
 							type = "range",
 							min = 5,
 							max = 60,
-							step = 1
+							step = 1,
 						},
 						xOffset = {
 							order = 4,
@@ -125,7 +125,7 @@ options.itemLevel = {
 							type = "range",
 							min = -50,
 							max = 50,
-							step = 1
+							step = 1,
 						},
 						yOffset = {
 							order = 5,
@@ -133,9 +133,9 @@ options.itemLevel = {
 							type = "range",
 							min = -50,
 							max = 50,
-							step = 1
-						}
-					}
+							step = 1,
+						},
+					},
 				},
 				color = {
 					order = 2,
@@ -158,7 +158,7 @@ options.itemLevel = {
 								return not E.db.mui.itemLevel.enable
 							end,
 							type = "toggle",
-							name = L["Quality Color"]
+							name = L["Quality Color"],
 						},
 						color = {
 							order = 6,
@@ -173,7 +173,7 @@ options.itemLevel = {
 							set = function(info, r, g, b)
 								local db = E.db.mui.itemLevel.flyout.font.color
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 					},
 				},
@@ -198,7 +198,7 @@ options.itemLevel = {
 					order = 0,
 					type = "toggle",
 					name = L["Enable"],
-					width = "full"
+					width = "full",
 				},
 				font = {
 					order = 1,
@@ -212,8 +212,7 @@ options.itemLevel = {
 						E.db.mui.itemLevel.scrappingMachine.font[info[#info]] = value
 					end,
 					disabled = function()
-						return E.db.mui.itemLevel.scrappingMachine.useBagsFontSetting or
-							not E.db.mui.itemLevel.enable
+						return E.db.mui.itemLevel.scrappingMachine.useBagsFontSetting or not E.db.mui.itemLevel.enable
 					end,
 					args = {
 						useBagsFontSetting = {
@@ -229,14 +228,14 @@ options.itemLevel = {
 							end,
 							type = "toggle",
 							name = L["Use Bags Setting"],
-							desc = L["Render the item level text with the setting in ElvUI bags."]
+							desc = L["Render the item level text with the setting in ElvUI bags."],
 						},
 						name = {
 							order = 1,
 							type = "select",
 							dialogControl = "LSM30_Font",
 							name = L["Font"],
-							values = LSM:HashTable("font")
+							values = LSM:HashTable("font"),
 						},
 						style = {
 							order = 2,
@@ -251,7 +250,7 @@ options.itemLevel = {
 							type = "range",
 							min = 5,
 							max = 60,
-							step = 1
+							step = 1,
 						},
 						xOffset = {
 							order = 4,
@@ -259,7 +258,7 @@ options.itemLevel = {
 							type = "range",
 							min = -50,
 							max = 50,
-							step = 1
+							step = 1,
 						},
 						yOffset = {
 							order = 5,
@@ -267,7 +266,7 @@ options.itemLevel = {
 							type = "range",
 							min = -50,
 							max = 50,
-							step = 1
+							step = 1,
 						},
 					},
 				},
@@ -292,7 +291,7 @@ options.itemLevel = {
 								return not E.db.mui.itemLevel.enable
 							end,
 							type = "toggle",
-							name = L["Quality Color"]
+							name = L["Quality Color"],
 						},
 						color = {
 							order = 6,
@@ -307,7 +306,7 @@ options.itemLevel = {
 							set = function(info, r, g, b)
 								local db = E.db.mui.itemLevel.scrappingMachine.font.color
 								db.r, db.g, db.b = r, g, b
-							end
+							end,
 						},
 					},
 				},
@@ -333,7 +332,7 @@ options.itemLevel = {
 					order = 0,
 					type = "toggle",
 					name = L["Enable"],
-					width = "full"
+					width = "full",
 				},
 			},
 		},
@@ -357,7 +356,7 @@ options.itemLevel = {
 					order = 0,
 					type = "toggle",
 					name = L["Enable"],
-					width = "full"
+					width = "full",
 				},
 			},
 		},

@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local M = E:GetModule('Misc')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local M = E:GetModule("Misc")
 
 local _G = _G
 local CreateColor = CreateColor
@@ -61,10 +61,17 @@ end
 local function SkinAdditionalStats()
 	if CharacterStatsPane.OffenseCategory then
 		if CharacterStatsPane.OffenseCategory.Title then
-			CharacterStatsPane.OffenseCategory.Title:SetText(E:TextGradient(
-				CharacterStatsPane.OffenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"],
-				F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"],
-				F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+			CharacterStatsPane.OffenseCategory.Title:SetText(
+				E:TextGradient(
+					CharacterStatsPane.OffenseCategory.Title:GetText(),
+					F.ClassGradient[E.myclass]["r1"],
+					F.ClassGradient[E.myclass]["g1"],
+					F.ClassGradient[E.myclass]["b1"],
+					F.ClassGradient[E.myclass]["r2"],
+					F.ClassGradient[E.myclass]["g2"],
+					F.ClassGradient[E.myclass]["b2"]
+				)
+			)
 		end
 		StatsPane("OffenseCategory")
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
@@ -72,10 +79,17 @@ local function SkinAdditionalStats()
 
 	if CharacterStatsPane.DefenseCategory then
 		if CharacterStatsPane.DefenseCategory.Title then
-			CharacterStatsPane.DefenseCategory.Title:SetText(E:TextGradient(
-				CharacterStatsPane.DefenseCategory.Title:GetText(), F.ClassGradient[E.myclass]["r1"],
-				F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"],
-				F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+			CharacterStatsPane.DefenseCategory.Title:SetText(
+				E:TextGradient(
+					CharacterStatsPane.DefenseCategory.Title:GetText(),
+					F.ClassGradient[E.myclass]["r1"],
+					F.ClassGradient[E.myclass]["g1"],
+					F.ClassGradient[E.myclass]["b1"],
+					F.ClassGradient[E.myclass]["r2"],
+					F.ClassGradient[E.myclass]["g2"],
+					F.ClassGradient[E.myclass]["b2"]
+				)
+			)
 		end
 		StatsPane("DefenseCategory")
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenseCategory)
@@ -97,10 +111,13 @@ function module:AddCharacterIcon()
 
 	ClassSymbolFrame = ("|T" .. (MER.ClassIcons[E.myclass] .. ".tga:0:0:0:0|t"))
 
-	hooksecurefunc('PaperDollFrame_SetLevel', function()
+	hooksecurefunc("PaperDollFrame_SetLevel", function()
 		CharacterFrameTitleText:SetDrawLayer("OVERLAY")
-		CharacterFrameTitleText:SetFont(E.LSM:Fetch('font', E.db.general.font), E.db.general.fontSize + 2,
-			E.db.general.fontStyle)
+		CharacterFrameTitleText:SetFont(
+			E.LSM:Fetch("font", E.db.general.font),
+			E.db.general.fontSize + 2,
+			E.db.general.fontStyle
+		)
 
 		CharacterLevelText:SetDrawLayer("OVERLAY")
 	end)
@@ -109,9 +126,15 @@ function module:AddCharacterIcon()
 
 	local function colorTitleText()
 		CharacterText = CharacterFrameTitleText:GetText()
-		coloredTitleText = E:TextGradient(CharacterText, F.ClassGradient[E.myclass]["r1"],
-			F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"], F.ClassGradient[E.myclass]["r2"],
-			F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"])
+		coloredTitleText = E:TextGradient(
+			CharacterText,
+			F.ClassGradient[E.myclass]["r1"],
+			F.ClassGradient[E.myclass]["g1"],
+			F.ClassGradient[E.myclass]["b1"],
+			F.ClassGradient[E.myclass]["r2"],
+			F.ClassGradient[E.myclass]["g2"],
+			F.ClassGradient[E.myclass]["b2"]
+		)
 		if not CharacterText:match("|T") then
 			titleText = ClassSymbolFrame .. " " .. coloredTitleText
 		end
@@ -175,7 +198,7 @@ function module:CharacterFrame()
 
 	local function UpdateHighlight(self)
 		local highlight = self:GetHighlightTexture()
-		highlight:SetColorTexture(1, 1, 1, .25)
+		highlight:SetColorTexture(1, 1, 1, 0.25)
 		highlight:SetInside(self.bg)
 	end
 
@@ -185,9 +208,24 @@ function module:CharacterFrame()
 	end
 
 	local slots = {
-		"Head", "Neck", "Shoulder", "Shirt", "Chest", "Waist", "Legs", "Feet", "Wrist",
-		"Hands", "Finger0", "Finger1", "Trinket0", "Trinket1", "Back", "MainHand",
-		"SecondaryHand", "Tabard",
+		"Head",
+		"Neck",
+		"Shoulder",
+		"Shirt",
+		"Chest",
+		"Waist",
+		"Legs",
+		"Feet",
+		"Wrist",
+		"Hands",
+		"Finger0",
+		"Finger1",
+		"Trinket0",
+		"Trinket1",
+		"Back",
+		"MainHand",
+		"SecondaryHand",
+		"Tabard",
 	}
 
 	for i = 1, #slots do
@@ -214,9 +252,9 @@ function module:CharacterFrame()
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
 			if child.icon and not child.styled then
-				child.HighlightBar:SetColorTexture(1, 1, 1, .25)
+				child.HighlightBar:SetColorTexture(1, 1, 1, 0.25)
 				child.HighlightBar:SetDrawLayer("BACKGROUND")
-				child.SelectedBar:SetColorTexture(r, g, b, .25)
+				child.SelectedBar:SetColorTexture(r, g, b, 0.25)
 				child.SelectedBar:SetDrawLayer("BACKGROUND")
 
 				child.styled = true
@@ -229,15 +267,39 @@ function module:CharacterFrame()
 		pane.ClassBackground:Hide()
 		pane.ItemLevelFrame.Corruption:SetPoint("RIGHT", 22, -8)
 
-		pane.ItemLevelCategory.Title:SetText(E:TextGradient(pane.ItemLevelCategory.Title:GetText(),
-			F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"],
-			F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
-		pane.AttributesCategory.Title:SetText(E:TextGradient(pane.AttributesCategory.Title:GetText(),
-			F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"],
-			F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
-		pane.EnhancementsCategory.Title:SetText(E:TextGradient(pane.EnhancementsCategory.Title:GetText(),
-			F.ClassGradient[E.myclass]["r1"], F.ClassGradient[E.myclass]["g1"], F.ClassGradient[E.myclass]["b1"],
-			F.ClassGradient[E.myclass]["r2"], F.ClassGradient[E.myclass]["g2"], F.ClassGradient[E.myclass]["b2"]))
+		pane.ItemLevelCategory.Title:SetText(
+			E:TextGradient(
+				pane.ItemLevelCategory.Title:GetText(),
+				F.ClassGradient[E.myclass]["r1"],
+				F.ClassGradient[E.myclass]["g1"],
+				F.ClassGradient[E.myclass]["b1"],
+				F.ClassGradient[E.myclass]["r2"],
+				F.ClassGradient[E.myclass]["g2"],
+				F.ClassGradient[E.myclass]["b2"]
+			)
+		)
+		pane.AttributesCategory.Title:SetText(
+			E:TextGradient(
+				pane.AttributesCategory.Title:GetText(),
+				F.ClassGradient[E.myclass]["r1"],
+				F.ClassGradient[E.myclass]["g1"],
+				F.ClassGradient[E.myclass]["b1"],
+				F.ClassGradient[E.myclass]["r2"],
+				F.ClassGradient[E.myclass]["g2"],
+				F.ClassGradient[E.myclass]["b2"]
+			)
+		)
+		pane.EnhancementsCategory.Title:SetText(
+			E:TextGradient(
+				pane.EnhancementsCategory.Title:GetText(),
+				F.ClassGradient[E.myclass]["r1"],
+				F.ClassGradient[E.myclass]["g1"],
+				F.ClassGradient[E.myclass]["b1"],
+				F.ClassGradient[E.myclass]["r2"],
+				F.ClassGradient[E.myclass]["g2"],
+				F.ClassGradient[E.myclass]["b2"]
+			)
+		)
 
 		StatsPane("EnhancementsCategory")
 		StatsPane("ItemLevelCategory")

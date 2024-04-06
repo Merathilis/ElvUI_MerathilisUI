@@ -1,12 +1,14 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs = pairs
 
 function module:ActionBarProfiles()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.abp then return; end
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.abp then
+		return
+	end
 
 	S:HandleScrollBar(_G.PaperDollActionBarProfilesPaneScrollBar, 5)
 	S:HandleButton(_G.PaperDollActionBarProfilesPaneUseProfile)
@@ -14,7 +16,13 @@ function module:ActionBarProfiles()
 	_G.PaperDollActionBarProfilesPaneUseProfile:Width(_G.PaperDollActionBarProfilesPaneUseProfile:GetWidth() - 8)
 	_G.PaperDollActionBarProfilesPaneSaveProfile:Width(_G.PaperDollActionBarProfilesPaneSaveProfile:GetWidth() - 8)
 	_G.PaperDollActionBarProfilesPaneUseProfile:Point("TOPLEFT", _G.PaperDollActionBarProfilesPane, "TOPLEFT", 8, 0)
-	_G.PaperDollActionBarProfilesPaneSaveProfile:Point("LEFT", _G.PaperDollActionBarProfilesPaneUseProfile, "RIGHT", 4, 0)
+	_G.PaperDollActionBarProfilesPaneSaveProfile:Point(
+		"LEFT",
+		_G.PaperDollActionBarProfilesPaneUseProfile,
+		"RIGHT",
+		4,
+		0
+	)
 	_G.PaperDollActionBarProfilesPaneUseProfile.ButtonBackground:SetTexture(nil)
 
 	for _, object in pairs(_G.PaperDollActionBarProfilesPane.buttons) do

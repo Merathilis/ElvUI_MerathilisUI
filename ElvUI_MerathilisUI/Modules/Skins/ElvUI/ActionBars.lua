@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local AB = E:GetModule('ActionBars')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local AB = E:GetModule("ActionBars")
 
 local _G = _G
 
@@ -36,7 +36,7 @@ function module:ElvUI_ActionBar_SkinBar(bar, type)
 		return
 	end
 
-	bar.backdrop:SetTemplate('Transparent')
+	bar.backdrop:SetTemplate("Transparent")
 
 	if bar.db.backdrop then
 		if not bar.backdrop.MERshadow then

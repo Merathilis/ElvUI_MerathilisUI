@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Armory')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Armory")
 local options = MER.options.modules.args
 local M = E.Misc
 
@@ -14,28 +14,30 @@ options.armory = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["Armory"], 'orange'),
+			name = F.cOption(L["Armory"], "orange"),
 		},
 		character = {
 			order = 2,
 			type = "group",
 			name = L["Character Armory"],
 			desc = "",
-			get = function(info) return E.db.mui.armory.character[info[#info]] end,
+			get = function(info)
+				return E.db.mui.armory.character[info[#info]]
+			end,
 			set = function(info, value)
-				E.db.mui.armory.character[info[#info]] = value;
+				E.db.mui.armory.character[info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
-				M:UpdatePageInfo(_G.CharacterFrame, 'Character')
+				M:UpdatePageInfo(_G.CharacterFrame, "Character")
 
 				if not E.db.general.itemLevel.displayCharacterInfo then
-					M:ClearPageInfo(_G.CharacterFrame, 'Character')
+					M:ClearPageInfo(_G.CharacterFrame, "Character")
 				end
 			end,
 			args = {
 				header = {
 					order = 0,
 					type = "header",
-					name = F.cOption(L["Character Armory"], 'orange'),
+					name = F.cOption(L["Character Armory"], "orange"),
 				},
 				enable = {
 					order = 1,

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 local format, pairs, print, type = format, pairs, print, type
@@ -58,17 +58,17 @@ function F.Developer.Print(object)
 	if type(object) == "table" then
 		local cache = {}
 		local function printLoop(subject, indent)
-			if (cache[tostring(subject)]) then
+			if cache[tostring(subject)] then
 				print(indent .. "*" .. tostring(subject))
 			else
 				cache[tostring(subject)] = true
-				if (type(subject) == "table") then
+				if type(subject) == "table" then
 					for pos, val in pairs(subject) do
-						if (type(val) == "table") then
+						if type(val) == "table" then
 							print(indent .. "[" .. pos .. "] => " .. tostring(subject) .. " {")
 							printLoop(val, indent .. strrep(" ", strlen(pos) + 8))
 							print(indent .. strrep(" ", strlen(pos) + 6) .. "}")
-						elseif (type(val) == "string") then
+						elseif type(val) == "string" then
 							print(indent .. "[" .. pos .. '] => "' .. val .. '"')
 						else
 							print(indent .. "[" .. pos .. "] => " .. tostring(val))
@@ -79,7 +79,7 @@ function F.Developer.Print(object)
 				end
 			end
 		end
-		if (type(object) == "table") then
+		if type(object) == "table" then
 			print(tostring(object) .. " {")
 			printLoop(object, "  ")
 			print("}")
@@ -199,7 +199,7 @@ function F.Developer.DelayInitialize(module, delay)
 end
 
 function F.Developer.Log(var, varName)
-	if MER.IsDevelop and C_AddOns_IsAddOnLoaded('DevTool') then
+	if MER.IsDevelop and C_AddOns_IsAddOnLoaded("DevTool") then
 		local DevTool = _G["DevTool"]
 		DevTool:AddData(var, varName)
 	end

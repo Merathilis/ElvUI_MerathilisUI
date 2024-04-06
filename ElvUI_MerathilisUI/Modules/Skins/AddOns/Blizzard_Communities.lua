@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local gsub, next, unpack = gsub, next, unpack
@@ -14,11 +14,13 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local CLASS_ICON_TCOORDS = CLASS_ICON_TCOORDS
 local function ClassIconTexCoord(self, class)
 	local tcoords = CLASS_ICON_TCOORDS[class]
-	self:SetTexCoord(tcoords[1] + .022, tcoords[2] - .025, tcoords[3] + .022, tcoords[4] - .025)
+	self:SetTexCoord(tcoords[1] + 0.022, tcoords[2] - 0.025, tcoords[3] + 0.022, tcoords[4] - 0.025)
 end
 
 local function UpdateNameFrame(self)
-	if not self.expanded then return end
+	if not self.expanded then
+		return
+	end
 	if not self.bg then
 		self.bg = module:CreateBDFrame(self.Class)
 	end
@@ -60,7 +62,7 @@ function module:Blizzard_Communities()
 	for _, name in next, { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab" } do
 		local tab = CommunitiesFrame[name]
 		tab:GetRegions():Hide()
-		tab:GetHighlightTexture():SetColorTexture(r, g, b, .25)
+		tab:GetHighlightTexture():SetColorTexture(r, g, b, 0.25)
 	end
 
 	local MemberList = CommunitiesFrame.MemberList
@@ -79,10 +81,10 @@ function module:Blizzard_Communities()
 				for j = 1, 3 do
 					select(j, header:GetRegions()):Hide()
 				end
-				header:CreateBackdrop('Transparent')
+				header:CreateBackdrop("Transparent")
 				header.backdrop:SetInside()
 				header:SetHighlightTexture(E.media.normTex)
-				header:GetHighlightTexture():SetVertexColor(r, g, b, .25)
+				header:GetHighlightTexture():SetVertexColor(r, g, b, 0.25)
 				header:GetHighlightTexture():SetInside(header.backdrop)
 				header.Icon:CreateBackdrop()
 
@@ -102,7 +104,7 @@ function module:Blizzard_Communities()
 	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
 
 	local Dialog = CommunitiesFrame.EditStreamDialog
-	module:CreateBDFrame(Dialog.Description, .25)
+	module:CreateBDFrame(Dialog.Description, 0.25)
 
 	local DetailFrame = CommunitiesFrame.GuildMemberDetailFrame
 	DetailFrame:ClearAllPoints()

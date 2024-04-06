@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 local select, unpack = select, unpack
@@ -60,9 +60,9 @@ function module:Blizzard_Collections()
 	MountJournal.MountDisplay.ShadowOverlay:Hide()
 	_G.PetJournalTutorialButton.Ring:Hide()
 
-	MountJournal.MountCount:SetTemplate('Transparent')
-	PetJournal.PetCount:SetTemplate('Transparent')
-	MountJournal.MountDisplay.ModelScene:SetTemplate('Transparent')
+	MountJournal.MountCount:SetTemplate("Transparent")
+	PetJournal.PetCount:SetTemplate("Transparent")
+	MountJournal.MountDisplay.ModelScene:SetTemplate("Transparent")
 
 	-- Mount list
 	hooksecurefunc(MountJournal.ScrollBox, "Update", reskinFrameButton)
@@ -73,7 +73,7 @@ function module:Blizzard_Collections()
 	_G.PetJournalHealPetButtonBorder:Hide()
 	_G.PetJournalHealPetButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
 	PetJournal.HealPetButton:SetPushedTexture("")
-	PetJournal.HealPetButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+	PetJournal.HealPetButton:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.25)
 
 	do
 		local ic = MountJournal.MountDisplay.InfoButton.Icon
@@ -87,13 +87,13 @@ function module:Blizzard_Collections()
 	_G.PetJournalSummonRandomFavoritePetButtonBorder:Hide()
 	_G.PetJournalSummonRandomFavoritePetButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
 	_G.PetJournalSummonRandomFavoritePetButton:SetPushedTexture("")
-	_G.PetJournalSummonRandomFavoritePetButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+	_G.PetJournalSummonRandomFavoritePetButton:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.25)
 
 	-- Favourite mount button
 	_G.MountJournalSummonRandomFavoriteButtonBorder:Hide()
 	_G.MountJournalSummonRandomFavoriteButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
 	_G.MountJournalSummonRandomFavoriteButton:SetPushedTexture("")
-	_G.MountJournalSummonRandomFavoriteButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+	_G.MountJournalSummonRandomFavoriteButton:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.25)
 
 	-- Pet card
 	local card = _G.PetJournalPetCard
@@ -115,7 +115,7 @@ function module:Blizzard_Collections()
 		select(i, card.xpBar:GetRegions()):Hide()
 	end
 
-	module:CreateBDFrame(card.xpBar, .25)
+	module:CreateBDFrame(card.xpBar, 0.25)
 
 	for i = 1, 6 do
 		local bu = card["spell" .. i]
@@ -145,18 +145,18 @@ function module:Blizzard_Collections()
 		bu.qualityBorder:SetTexture("")
 		bu.levelBG:SetAlpha(0)
 		bu.helpFrame:GetRegions():Hide()
-		bu.dragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+		bu.dragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.25)
 
 		bu.level:SetFontObject(_G.GameFontNormal)
 		bu.level:SetTextColor(1, 1, 1)
 
 		bu.icon:SetTexCoord(unpack(E.TexCoords))
-		bu.icon.bg = module:CreateBDFrame(bu.icon, .25)
+		bu.icon.bg = module:CreateBDFrame(bu.icon, 0.25)
 
 		bu.setButton:GetRegions():SetPoint("TOPLEFT", bu.icon, -5, 5)
 		bu.setButton:GetRegions():SetPoint("BOTTOMRIGHT", bu.icon, 5, -5)
 
-		bu:SetTemplate('Transparent')
+		bu:SetTemplate("Transparent")
 
 		hooksecurefunc(bu.qualityBorder, "SetVertexColor", function(_, r, g, b)
 			bu.name:SetTextColor(r, g, b)
@@ -167,7 +167,7 @@ function module:Blizzard_Collections()
 		end
 
 		bu.xpBar:SetStatusBarTexture(E["media"].normTex)
-		module:CreateBDFrame(bu.xpBar, .25)
+		module:CreateBDFrame(bu.xpBar, 0.25)
 
 		_G["PetJournalLoadoutPet" .. i .. "HealthFramehealthStatusBarLeft"]:Hide()
 		_G["PetJournalLoadoutPet" .. i .. "HealthFramehealthStatusBarRight"]:Hide()
@@ -175,13 +175,13 @@ function module:Blizzard_Collections()
 		_G["PetJournalLoadoutPet" .. i .. "HealthFramehealthStatusBarBGMiddle"]:Hide()
 
 		bu.healthFrame.healthBar:SetStatusBarTexture(E["media"].normTex)
-		module:CreateBDFrame(bu.healthFrame.healthBar, .25)
+		module:CreateBDFrame(bu.healthFrame.healthBar, 0.25)
 
 		for j = 1, 3 do
 			local spell = bu["spell" .. j]
 
 			spell:SetPushedTexture("")
-			spell:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+			spell:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.25)
 			spell:GetRegions():Hide()
 
 			spell.icon:SetTexCoord(unpack(E.TexCoords))
@@ -218,7 +218,7 @@ function module:Blizzard_Collections()
 
 		button.name:SetPoint("LEFT", button, "RIGHT", 9, 0)
 
-		local bg = module:CreateBDFrame(button, .25)
+		local bg = module:CreateBDFrame(button, 0.25)
 		bg:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, -2)
 		bg:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 0, 2)
 		bg:SetPoint("RIGHT", button.name, "RIGHT", 0, 0)
@@ -266,7 +266,7 @@ function module:Blizzard_Collections()
 
 	-- ItemSetsCollection
 	local SetsCollectionFrame = WardrobeCollectionFrame.SetsCollectionFrame
-	module:CreateBDFrame(SetsCollectionFrame.Model, .25)
+	module:CreateBDFrame(SetsCollectionFrame.Model, 0.25)
 
 	local DetailsFrame = SetsCollectionFrame.DetailsFrame
 	DetailsFrame.ModelFadeTexture:Hide()
@@ -294,7 +294,7 @@ function module:Blizzard_Collections()
 	local WardrobeFrame = _G.WardrobeFrame
 	local WardrobeTransmogFrame = _G.WardrobeTransmogFrame
 
-	module:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
+	module:CreateBDFrame(_G.WardrobeOutfitFrame, 0.25)
 	module:CreateShadow(WardrobeFrame)
 
 	local slots = {
@@ -310,7 +310,7 @@ function module:Blizzard_Collections()
 		"Shirt",
 		"Tabard",
 		"MainHand",
-		"SecondaryHand"
+		"SecondaryHand",
 	}
 
 	for i = 1, #slots do
@@ -322,7 +322,7 @@ function module:Blizzard_Collections()
 			slot:SetHighlightTexture(E["media"].normTex)
 
 			local hl = slot:GetHighlightTexture()
-			hl:SetVertexColor(1, 1, 1, .25)
+			hl:SetVertexColor(1, 1, 1, 0.25)
 			hl:SetPoint("TOPLEFT", 2, -2)
 			hl:SetPoint("BOTTOMRIGHT", -2, 2)
 		end
@@ -361,8 +361,13 @@ function module:Blizzard_Collections()
 	WardrobeTransmogFrame.ShoulderButton:SetPoint("TOP", WardrobeTransmogFrame.HeadButton, "TOP", 0, -55)
 
 	WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:ClearAllPoints()
-	WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:SetPoint("BOTTOM", WardrobeCollectionFrame, "BOTTOM", -240,
-		40)
+	WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:SetPoint(
+		"BOTTOM",
+		WardrobeCollectionFrame,
+		"BOTTOM",
+		-240,
+		40
+	)
 
 	WardrobeTransmogFrame.HandsButton:ClearAllPoints()
 	WardrobeTransmogFrame.HandsButton:SetPoint("TOP", WardrobeTransmogFrame, "TOP", 240, -120)
@@ -374,10 +379,21 @@ function module:Blizzard_Collections()
 	WardrobeTransmogFrame.SecondaryHandButton:SetPoint("TOP", WardrobeTransmogFrame, "BOTTOM", 50, 50)
 
 	WardrobeTransmogFrame.MainHandEnchantButton:ClearAllPoints()
-	WardrobeTransmogFrame.MainHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.MainHandButton, "BOTTOM", 0, -28)
+	WardrobeTransmogFrame.MainHandEnchantButton:SetPoint(
+		"BOTTOM",
+		WardrobeTransmogFrame.MainHandButton,
+		"BOTTOM",
+		0,
+		-28
+	)
 	WardrobeTransmogFrame.SecondaryHandEnchantButton:ClearAllPoints()
-	WardrobeTransmogFrame.SecondaryHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.SecondaryHandButton,
-		"BOTTOM", 0, -28)
+	WardrobeTransmogFrame.SecondaryHandEnchantButton:SetPoint(
+		"BOTTOM",
+		WardrobeTransmogFrame.SecondaryHandButton,
+		"BOTTOM",
+		0,
+		-28
+	)
 
 	WardrobeTransmogFrame.SpecButton:ClearAllPoints()
 	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)

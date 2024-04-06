@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local S = MER:GetModule('MER_Skins')
-local AFK = E:GetModule('AFK')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local S = MER:GetModule("MER_Skins")
+local AFK = E:GetModule("AFK")
 
 local _G = _G
 local tonumber, unpack = tonumber, unpack
@@ -32,10 +32,14 @@ local function ConvertTime(h, m)
 		return h, m, -1
 	else
 		if h >= 12 then
-			if h > 12 then h = h - 12 end
+			if h > 12 then
+				h = h - 12
+			end
 			AmPm = 1
 		else
-			if h == 0 then h = 12 end
+			if h == 0 then
+				h = 12
+			end
 			AmPm = 2
 		end
 	end
@@ -43,13 +47,14 @@ local function ConvertTime(h, m)
 end
 
 local function CreateTime()
-	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")),
-		date("%p"):lower()
+	local hour, hour24, minute, ampm =
+		tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
 	local sHour, sMinute = ConvertTime(GetGameTime())
 
 	local localTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_LOCALTIME, hour, minute, ampm)
 	local localTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_LOCALTIME, hour24, minute)
-	local realmTime = format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute, ampm)
+	local realmTime =
+		format("|cffb3b3b3%s|r %d:%02d|cffb3b3b3%s|r", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute, ampm)
 	local realmTime24 = format("|cffb3b3b3%s|r %02d:%02d", TIMEMANAGER_TOOLTIP_REALMTIME, sHour, sMinute)
 
 	if E.global.datatexts.settings.Time.localTime then
@@ -101,8 +106,13 @@ local function CreateDate()
 	local presentYear = date.year
 
 	if AFK.AFKMode.DateText then
-		AFK.AFKMode.DateText:SetFormattedText("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth],
-			presentDay, presentYear)
+		AFK.AFKMode.DateText:SetFormattedText(
+			"%s, %s %d, %d",
+			daysAbr[presentWeekday],
+			monthAbr[presentMonth],
+			presentDay,
+			presentYear
+		)
 	end
 end
 
@@ -118,7 +128,12 @@ function AFK:UpdateLogOff()
 		end
 	else
 		if self.AFKMode.count then
-			self.AFKMode.count:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes - 29, neg_seconds)
+			self.AFKMode.count:SetFormattedText(
+				"%s: |cfff0ff00%02d:%02d|r",
+				L["Logout Timer"],
+				minutes - 29,
+				neg_seconds
+			)
 		end
 	end
 end
@@ -140,15 +155,18 @@ hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 AFK.SetAFKMER = AFK.SetAFK
 function AFK:SetAFK(status)
 	self:SetAFKMER(status)
-	if E.db.mui.general.AFK ~= true then return end
+	if E.db.mui.general.AFK ~= true then
+		return
+	end
 
 	local guildName = GetGuildInfo("player")
 
-	if (status) then
-		if (IsInGuild()) then
+	if status then
+		if IsInGuild() then
 			if AFK.AFKMode.Guild then
-				AFK.AFKMode.Guild:SetText(guildName and
-				F.Strings.FastGradientHex("<" .. guildName .. ">", "06c910", "33ff3d") or "")
+				AFK.AFKMode.Guild:SetText(
+					guildName and F.Strings.FastGradientHex("<" .. guildName .. ">", "06c910", "33ff3d") or ""
+				)
 			end
 		else
 			if AFK.AFKMode.Guild then
@@ -160,7 +178,7 @@ function AFK:SetAFK(status)
 		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
 
 		AFK.isAFK = true
-	elseif (AFK.isAFK) then
+	elseif AFK.isAFK then
 		self:CancelTimer(AFK.logoffTimer)
 
 		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
@@ -169,7 +187,9 @@ function AFK:SetAFK(status)
 end
 
 local function Initialize()
-	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
+	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then
+		return
+	end
 
 	local _, classunit = UnitClass("player")
 	local colorDB = E.db.mui.gradient
@@ -184,11 +204,11 @@ local function Initialize()
 	AFK.AFKMode.chat:SetPoint("TOPLEFT", AFK.AFKMode.top, "BOTTOMLEFT", 4, -10)
 
 	if not AFK.AFKMode.Panel then
-		AFK.AFKMode.Panel = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
-		AFK.AFKMode.Panel:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
+		AFK.AFKMode.Panel = CreateFrame("Frame", nil, AFK.AFKMode, "BackdropTemplate")
+		AFK.AFKMode.Panel:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 100)
 		AFK.AFKMode.Panel:Size((GetScreenWidth() / 2), 80)
-		AFK.AFKMode.Panel:CreateBackdrop('Transparent')
-		AFK.AFKMode.Panel:SetFrameStrata('FULLSCREEN')
+		AFK.AFKMode.Panel:CreateBackdrop("Transparent")
+		AFK.AFKMode.Panel:SetFrameStrata("FULLSCREEN")
 		MER:CreateInnerNoise(AFK.AFKMode.Panel)
 		S:CreateBackdropShadow(AFK.AFKMode.Panel)
 
@@ -198,33 +218,33 @@ local function Initialize()
 	end
 
 	if not AFK.AFKMode.Panel.crest then
-		AFK.AFKMode.Panel.crest = AFK.AFKMode.Panel:CreateTexture(nil, 'ARTWORK')
-		AFK.AFKMode.Panel.crest:SetDrawLayer('ARTWORK')
+		AFK.AFKMode.Panel.crest = AFK.AFKMode.Panel:CreateTexture(nil, "ARTWORK")
+		AFK.AFKMode.Panel.crest:SetDrawLayer("ARTWORK")
 		AFK.AFKMode.Panel.crest:Point("BOTTOM", AFK.AFKMode.Panel, "TOP", 0, -30)
 		AFK.AFKMode.Panel.crest:SetTexture(MER.Media.Textures.PepoBedge)
 		AFK.AFKMode.Panel.crest:Size(64)
 	end
 
-	AFK.AFKMode.MERVersion = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.MERVersion:Point('CENTER', AFK.AFKMode.Panel, 'CENTER', 0, -10)
-	AFK.AFKMode.MERVersion:FontTemplate(nil, 24, 'SHADOWOUTLINE')
+	AFK.AFKMode.MERVersion = AFK.AFKMode.Panel:CreateFontString(nil, "OVERLAY")
+	AFK.AFKMode.MERVersion:Point("CENTER", AFK.AFKMode.Panel, "CENTER", 0, -10)
+	AFK.AFKMode.MERVersion:FontTemplate(nil, 24, "SHADOWOUTLINE")
 	AFK.AFKMode.MERVersion:SetText(MER.Title .. "|cFF00c0fa" .. MER.Version .. "|r")
 
-	AFK.AFKMode.DateText = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.DateText:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 24)
-	AFK.AFKMode.DateText:FontTemplate(nil, 15, 'SHADOWOUTLINE')
+	AFK.AFKMode.DateText = AFK.AFKMode.Panel:CreateFontString(nil, "OVERLAY")
+	AFK.AFKMode.DateText:Point("RIGHT", AFK.AFKMode.Panel, "RIGHT", -5, 24)
+	AFK.AFKMode.DateText:FontTemplate(nil, 15, "SHADOWOUTLINE")
 
-	AFK.AFKMode.ClockText = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.ClockText:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 0)
-	AFK.AFKMode.ClockText:FontTemplate(nil, 20, 'SHADOWOUTLINE')
+	AFK.AFKMode.ClockText = AFK.AFKMode.Panel:CreateFontString(nil, "OVERLAY")
+	AFK.AFKMode.ClockText:Point("RIGHT", AFK.AFKMode.Panel, "RIGHT", -5, 0)
+	AFK.AFKMode.ClockText:FontTemplate(nil, 20, "SHADOWOUTLINE")
 
-	AFK.AFKMode.count = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.count:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, -26)
-	AFK.AFKMode.count:FontTemplate(nil, 14, 'SHADOWOUTLINE')
+	AFK.AFKMode.count = AFK.AFKMode.Panel:CreateFontString(nil, "OVERLAY")
+	AFK.AFKMode.count:Point("RIGHT", AFK.AFKMode.Panel, "RIGHT", -5, -26)
+	AFK.AFKMode.count:FontTemplate(nil, 14, "SHADOWOUTLINE")
 
-	AFK.AFKMode.PlayerName = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.PlayerName:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
-	AFK.AFKMode.PlayerName:FontTemplate(nil, 24, 'SHADOWOUTLINE')
+	AFK.AFKMode.PlayerName = AFK.AFKMode.Panel:CreateFontString(nil, "OVERLAY")
+	AFK.AFKMode.PlayerName:Point("LEFT", AFK.AFKMode.Panel, "LEFT", 5, 20)
+	AFK.AFKMode.PlayerName:FontTemplate(nil, 24, "SHADOWOUTLINE")
 
 	local coloredClass
 	if colorDB.enable then
@@ -240,18 +260,22 @@ local function Initialize()
 		AFK.AFKMode.PlayerName:SetTextColor(F.r, F.g, F.b or 1, 1, 1)
 
 		local color = E:ClassColor(E.myclass)
-		coloredClass = ("|cff%02x%02x%02x%s"):format(color.r * 255, color.g * 255, color.b * 255,
-			E.myLocalizedClass:gsub("%-.+", "*"))
+		coloredClass = ("|cff%02x%02x%02x%s"):format(
+			color.r * 255,
+			color.g * 255,
+			color.b * 255,
+			E.myLocalizedClass:gsub("%-.+", "*")
+		)
 	end
 
-	AFK.AFKMode.Guild = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.Guild:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 0)
-	AFK.AFKMode.Guild:FontTemplate(nil, 16, 'SHADOWOUTLINE')
+	AFK.AFKMode.Guild = AFK.AFKMode.Panel:CreateFontString(nil, "OVERLAY")
+	AFK.AFKMode.Guild:Point("LEFT", AFK.AFKMode.Panel, "LEFT", 5, 0)
+	AFK.AFKMode.Guild:FontTemplate(nil, 16, "SHADOWOUTLINE")
 
-	AFK.AFKMode.PlayerInfo = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.PlayerInfo:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, -25)
-	AFK.AFKMode.PlayerInfo:FontTemplate(nil, 15, 'SHADOWOUTLINE')
-	AFK.AFKMode.PlayerInfo:SetText(_G.LEVEL .. ' ' .. E.mylevel .. ' ' .. E.myLocalizedFaction .. ' ' .. coloredClass)
+	AFK.AFKMode.PlayerInfo = AFK.AFKMode.Panel:CreateFontString(nil, "OVERLAY")
+	AFK.AFKMode.PlayerInfo:Point("LEFT", AFK.AFKMode.Panel, "LEFT", 5, -25)
+	AFK.AFKMode.PlayerInfo:FontTemplate(nil, 15, "SHADOWOUTLINE")
+	AFK.AFKMode.PlayerInfo:SetText(_G.LEVEL .. " " .. E.mylevel .. " " .. E.myLocalizedFaction .. " " .. coloredClass)
 
 	-- Player Model
 	if not AFK.AFKMode.ModelHolder then

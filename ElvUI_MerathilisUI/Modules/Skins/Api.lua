@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
@@ -23,10 +23,10 @@ module.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
 -- Depends on the arrow texture to be down by default.
 module.ArrowRotation = {
-	['UP'] = 3.14,
-	['DOWN'] = 0,
-	['LEFT'] = -1.57,
-	['RIGHT'] = 1.57,
+	["UP"] = 3.14,
+	["DOWN"] = 0,
+	["LEFT"] = -1.57,
+	["RIGHT"] = 1.57,
 }
 
 do
@@ -39,7 +39,7 @@ do
 		"BottomLeftCorner",
 		"BottomRightCorner",
 		"TopLeftCorner",
-		"TopRightCorner"
+		"TopRightCorner",
 	}
 
 	--[[
@@ -85,7 +85,7 @@ function module:CreateShadow(frame, size, r, g, b, force, useStripes, useShadow)
 	shadow:SetBackdropColor(r, g, b, 0)
 	shadow:SetBackdropBorderColor(r, g, b, 0.618)
 
-	if not (useStripes) then
+	if not useStripes then
 		local stripes = frame:CreateTexture(frame:GetName() and frame:GetName() .. "Overlay" or nil, "BORDER")
 		stripes:ClearAllPoints()
 		stripes:Point("TOPLEFT", 1, -1)
@@ -98,7 +98,7 @@ function module:CreateShadow(frame, size, r, g, b, force, useStripes, useShadow)
 		shadow.stripes = stripes
 	end
 
-	if not (useShadow) then
+	if not useShadow then
 		local mshadow = frame:CreateTexture(frame:GetName() and frame:GetName() .. "Overlay" or nil, "BORDER")
 		mshadow:SetInside(frame, 0, 0)
 		mshadow:Width(33)
@@ -239,7 +239,9 @@ do
 end
 
 function module:CreateShadowModule(frame)
-	if not frame then return end
+	if not frame then
+		return
+	end
 
 	if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
 		module:CreateShadow(frame)
@@ -249,10 +251,14 @@ end
 function module:CreateTex(f)
 	assert(f, "doesn't exist!")
 
-	if f.__bgTex then return end
+	if f.__bgTex then
+		return
+	end
 
 	local frame = f
-	if f:IsObjectType("Texture") then frame = f:GetParent() end
+	if f:IsObjectType("Texture") then
+		frame = f:GetParent()
+	end
 
 	local tex = frame:CreateTexture(nil, "BACKGROUND", nil, 1)
 	tex:SetAllPoints(f)
@@ -269,7 +275,9 @@ local shadowBackdrop = { edgeFile = MER.Media.Textures.glowTex }
 function module:CreateSD(f, size, override)
 	assert(f, "doesn't exist!")
 
-	if f.__SDshadow then return end
+	if f.__SDshadow then
+		return
+	end
 
 	local frame = f
 	if f:IsObjectType("Texture") then
@@ -280,7 +288,7 @@ function module:CreateSD(f, size, override)
 	f.__SDshadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 	f.__SDshadow:SetOutside(f, size or 4, size or 4)
 	f.__SDshadow:SetBackdrop(shadowBackdrop)
-	f.__SDshadow:SetBackdropBorderColor(0, 0, 0, size and 1 or .4)
+	f.__SDshadow:SetBackdropBorderColor(0, 0, 0, size and 1 or 0.4)
 	f.__SDshadow:SetFrameLevel(1)
 
 	return f.__SDshadow
@@ -290,7 +298,9 @@ function module:CreateBG(frame)
 	assert(frame, "doesn't exist!")
 
 	local f = frame
-	if frame:IsObjectType('Texture') then f = frame:GetParent() end
+	if frame:IsObjectType("Texture") then
+		f = frame:GetParent()
+	end
 
 	local bg = f:CreateTexture(nil, "BACKGROUND")
 	bg:Point("TOPLEFT", frame, -E.mult, E.mult)
@@ -308,13 +318,15 @@ function module:CreateGradient(f)
 	local tex = f:CreateTexture(nil, "BORDER")
 	tex:SetInside(f)
 	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\gradient.tga]])
-	tex:SetVertexColor(.3, .3, .3, .15)
+	tex:SetVertexColor(0.3, 0.3, 0.3, 0.15)
 
 	return tex
 end
 
 function module:CreateBackdrop(frame)
-	if frame.backdrop then return end
+	if frame.backdrop then
+		return
+	end
 
 	local parent = frame.IsObjectType and frame:IsObjectType("Texture") and frame:GetParent() or frame
 
@@ -334,16 +346,16 @@ end
 function module:CreateBDFrame(f)
 	assert(f, "doesn't exist!")
 
-	local parent = f.IsObjectType and f:IsObjectType('Texture') and f:GetParent() or f
+	local parent = f.IsObjectType and f:IsObjectType("Texture") and f:GetParent() or f
 
-	local bg = CreateFrame('Frame', nil, parent, 'BackdropTemplate')
+	local bg = CreateFrame("Frame", nil, parent, "BackdropTemplate")
 	bg:SetOutside(f)
 	if (parent:GetFrameLevel() - 1) >= 0 then
 		bg:SetFrameLevel(parent:GetFrameLevel() - 1)
 	else
 		bg:SetFrameLevel(0)
 	end
-	bg:SetTemplate('Transparent')
+	bg:SetTemplate("Transparent")
 
 	return bg
 end
@@ -374,8 +386,9 @@ do
 	end
 
 	function module:HandleScrollBar(_, frame)
-		local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or
-			frame.GetThumbTexture and frame:GetThumbTexture()
+		local Thumb = GrabScrollBarElement(frame, "ThumbTexture")
+			or GrabScrollBarElement(frame, "thumbTexture")
+			or frame.GetThumbTexture and frame:GetThumbTexture()
 
 		if Thumb and Thumb.backdrop then
 			local r, g, b = unpack(E.media.rgbvaluecolor)
@@ -394,14 +407,18 @@ function module:HandleSliderFrame(_, frame)
 end
 
 function module:ColorButton()
-	if self.backdrop then self = self.backdrop end
+	if self.backdrop then
+		self = self.backdrop
+	end
 
-	self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, .3)
+	self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.3)
 	self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 end
 
 function module:ClearButton()
-	if self.backdrop then self = self.backdrop end
+	if self.backdrop then
+		self = self.backdrop
+	end
 
 	self:SetBackdropColor(0, 0, 0, 0)
 
@@ -417,7 +434,7 @@ function module:ReskinIcon(icon, backdrop)
 
 	icon:SetTexCoord(unpack(E.TexCoords))
 
-	if icon:GetDrawLayer() ~= 'ARTWORK' then
+	if icon:GetDrawLayer() ~= "ARTWORK" then
 		icon:SetDrawLayer("ARTWORK")
 	end
 
@@ -427,7 +444,9 @@ function module:ReskinIcon(icon, backdrop)
 end
 
 function module:PixelIcon(self, texture, highlight)
-	if not self then return end
+	if not self then
+		return
+	end
 
 	self:CreateBackdrop()
 	self.backdrop:SetAllPoints()
@@ -445,7 +464,7 @@ function module:PixelIcon(self, texture, highlight)
 	if highlight and type(highlight) == "boolean" then
 		self:EnableMouse(true)
 		self.HL = self:CreateTexture(nil, "HIGHLIGHT")
-		self.HL:SetColorTexture(1, 1, 1, .25)
+		self.HL:SetColorTexture(1, 1, 1, 0.25)
 		self.HL:SetInside(self.backdrop)
 	end
 end
@@ -458,7 +477,9 @@ local arrowDegree = {
 	["right"] = -90,
 }
 function module:SetupArrow(self, direction)
-	if not self then return end
+	if not self then
+		return
+	end
 
 	self:SetTexture(MER.Media.Textures.arrowUp)
 	self:SetRotation(rad(arrowDegree[direction]))
@@ -470,7 +491,7 @@ function module:ReskinArrow(self, direction)
 	self:SetDisabledTexture(E.media.normTex)
 
 	local dis = self:GetDisabledTexture()
-	dis:SetVertexColor(0, 0, 0, .3)
+	dis:SetVertexColor(0, 0, 0, 0.3)
 	dis:SetDrawLayer("OVERLAY")
 	dis:SetAllPoints()
 
@@ -486,14 +507,16 @@ end
 -- Handle collapse
 local function updateCollapseTexture(texture, collapsed)
 	if collapsed then
-		texture:SetTexCoord(0, .4375, 0, .4375)
+		texture:SetTexCoord(0, 0.4375, 0, 0.4375)
 	else
-		texture:SetTexCoord(.5625, 1, 0, .4375)
+		texture:SetTexCoord(0.5625, 1, 0, 0.4375)
 	end
 end
 
 local function resetCollapseTexture(self, texture)
-	if self.settingTexture then return end
+	if self.settingTexture then
+		return
+	end
 	self.settingTexture = true
 	self:SetNormalTexture("")
 
@@ -515,7 +538,7 @@ function module:ReskinCollapse(self, isAtlas)
 	self:SetPushedTexture("")
 	self:SetDisabledTexture("")
 
-	local bg = module:CreateBDFrame(self, .25, true)
+	local bg = module:CreateBDFrame(self, 0.25, true)
 	bg:ClearAllPoints()
 	bg:SetSize(13, 13)
 	bg:SetPoint("TOPLEFT", self:GetNormalTexture())
@@ -560,20 +583,20 @@ local function replaceConfigArrows(button)
 
 	-- add the new icon
 	if not button.img then
-		button.img = button:CreateTexture(nil, 'ARTWORK')
-		button.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\arrow')
+		button.img = button:CreateTexture(nil, "ARTWORK")
+		button.img:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\arrow")
 		button.img:SetSize(12, 12)
-		button.img:Point('CENTER')
+		button.img:Point("CENTER")
 		button.img:SetVertexColor(1, 1, 1, 1)
 
-		button:HookScript('OnMouseDown', function(btn)
+		button:HookScript("OnMouseDown", function(btn)
 			if btn:IsEnabled() then
-				btn.img:Point("CENTER", -1, -1);
+				btn.img:Point("CENTER", -1, -1)
 			end
 		end)
 
-		button:HookScript('OnMouseUp', function(btn)
-			btn.img:Point("CENTER", 0, 0);
+		button:HookScript("OnMouseUp", function(btn)
+			btn.img:Point("CENTER", 0, 0)
 		end)
 	end
 end
@@ -584,10 +607,10 @@ function module:ApplyConfigArrows()
 	end
 
 	-- Apply the rotation
-	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(module.ArrowRotation['UP'])
-	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(module.ArrowRotation['DOWN'])
-	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(module.ArrowRotation['LEFT'])
-	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(module.ArrowRotation['RIGHT'])
+	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(module.ArrowRotation["UP"])
+	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(module.ArrowRotation["DOWN"])
+	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(module.ArrowRotation["LEFT"])
+	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(module.ArrowRotation["RIGHT"])
 end
 
 hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
@@ -612,8 +635,8 @@ function module:ReskinAS(AS)
 	-- Reskin AddOnSkins
 	function AS:SkinFrame(frame, template, override, kill)
 		local name = frame and frame.GetName and frame:GetName()
-		local insetFrame = name and _G[name .. 'Inset'] or frame.Inset
-		local closeButton = name and _G[name .. 'CloseButton'] or frame.CloseButton
+		local insetFrame = name and _G[name .. "Inset"] or frame.Inset
+		local closeButton = name and _G[name .. "CloseButton"] or frame.CloseButton
 
 		if not override then
 			AS:StripTextures(frame, kill)
@@ -633,8 +656,8 @@ function module:ReskinAS(AS)
 
 	function AS:SkinBackdropFrame(frame, template, override, kill)
 		local name = frame and frame.GetName and frame:GetName()
-		local insetFrame = name and _G[name .. 'Inset'] or frame.Inset
-		local closeButton = name and _G[name .. 'CloseButton'] or frame.CloseButton
+		local insetFrame = name and _G[name .. "Inset"] or frame.Inset
+		local closeButton = name and _G[name .. "CloseButton"] or frame.CloseButton
 
 		if not override then
 			AS:StripTextures(frame, kill)
@@ -657,7 +680,9 @@ function module:ReskinAS(AS)
 	end
 
 	function AS:SkinTab(Tab, Strip)
-		if Tab.__MERSkin then return end
+		if Tab.__MERSkin then
+			return
+		end
 		local TabName = Tab:GetName()
 
 		if TabName then
@@ -684,7 +709,7 @@ function module:ReskinAS(AS)
 			AS:StripTextures(Tab)
 		end
 
-		AS:CreateBackdrop(Tab, 'Transparent')
+		AS:CreateBackdrop(Tab, "Transparent")
 
 		if AS:CheckAddOn("ElvUI") and AS:CheckOption("ElvUISkinModule") then
 			-- Check if ElvUI already provides the backdrop. Otherwise we have two backdrops (e.g. Auctionhouse)
@@ -702,14 +727,19 @@ function module:ReskinAS(AS)
 	end
 
 	function AS:SkinButton(Button, Strip)
-		if Button.__MERSkin then return end
+		if Button.__MERSkin then
+			return
+		end
 
 		local ButtonName = Button.GetName and Button:GetName()
 		local foundArrow
 
 		if Button.Icon then
 			local Texture = Button.Icon:GetTexture()
-			if Texture and (type(Texture) == 'string' and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]])) then
+			if
+				Texture
+				and (type(Texture) == "string" and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]]))
+			then
 				foundArrow = true
 			end
 		end
@@ -730,21 +760,29 @@ function module:ReskinAS(AS)
 			Button.Icon:SetSnapToPixelGrid(false)
 			Button.Icon:SetTexelSnappingBias(0)
 			Button.Icon:SetVertexColor(1, 1, 1, 1)
-			Button.Icon:SetRotation(AS.ArrowRotation['right'])
+			Button.Icon:SetRotation(AS.ArrowRotation["right"])
 		end
 
-		if Button.SetNormalTexture then Button:SetNormalTexture('') end
-		if Button.SetHighlightTexture then Button:SetHighlightTexture('') end
-		if Button.SetPushedTexture then Button:SetPushedTexture('') end
-		if Button.SetDisabledTexture then Button:SetDisabledTexture('') end
+		if Button.SetNormalTexture then
+			Button:SetNormalTexture("")
+		end
+		if Button.SetHighlightTexture then
+			Button:SetHighlightTexture("")
+		end
+		if Button.SetPushedTexture then
+			Button:SetPushedTexture("")
+		end
+		if Button.SetDisabledTexture then
+			Button:SetDisabledTexture("")
+		end
 
-		AS:SetTemplate(Button, 'Transparent')
+		AS:SetTemplate(Button, "Transparent")
 
 		if Button.GetFontString and Button:GetFontString() ~= nil then
 			if Button:IsEnabled() then
 				Button:GetFontString():SetTextColor(1, 1, 1)
 			else
-				Button:GetFontString():SetTextColor(.5, .5, .5)
+				Button:GetFontString():SetTextColor(0.5, 0.5, 0.5)
 			end
 		end
 
@@ -755,7 +793,7 @@ function module:ReskinAS(AS)
 		end)
 		Button:HookScript("OnDisable", function(self)
 			if self.GetFontString and self:GetFontString() ~= nil then
-				self:GetFontString():SetTextColor(.5, .5, .5)
+				self:GetFontString():SetTextColor(0.5, 0.5, 0.5)
 			end
 		end)
 	end
@@ -823,7 +861,7 @@ do
 		eb:SetAutoFocus(false)
 		eb:SetTextInsets(5, 5, 0, 0)
 		eb:FontTemplate(nil, E.db.general.fontSize + 2)
-		eb:CreateBackdrop('Transparent')
+		eb:CreateBackdrop("Transparent")
 		eb.backdrop:SetAllPoints()
 		module:CreateGradient(eb.backdrop)
 		eb:SetScript("OnEscapePressed", editBoxClearFocus)
@@ -859,11 +897,11 @@ local function Menu_OnLeave(self)
 end
 
 local function Menu_OnMouseUp(self)
-	self.backdrop:SetBackdropColor(0, 0, 0, .45)
+	self.backdrop:SetBackdropColor(0, 0, 0, 0.45)
 end
 
 local function Menu_OnMouseDown(self)
-	self.backdrop:SetBackdropColor(F.r, F.g, F.b, .25)
+	self.backdrop:SetBackdropColor(F.r, F.g, F.b, 0.25)
 end
 
 function module:ReskinMenuButton(button)
@@ -872,7 +910,7 @@ function module:ReskinMenuButton(button)
 	button:StripTextures()
 
 	if not button.backdrop then
-		button:CreateBackdrop('Transparent')
+		button:CreateBackdrop("Transparent")
 	end
 	button:SetScript("OnEnter", Menu_OnEnter)
 	button:SetScript("OnLeave", Menu_OnLeave)
@@ -957,9 +995,9 @@ function module:SetToggleDirection(frame)
 	open:SetSize(width, height)
 
 	if E.private.mui.skins.embed.toggleDirection == 5 then
-		close:SetScale(.001)
+		close:SetScale(0.001)
 		close:SetAlpha(0)
-		open:SetScale(.001)
+		open:SetScale(0.001)
 		open:SetAlpha(0)
 		close.text:SetText("")
 		open.text:SetText("")

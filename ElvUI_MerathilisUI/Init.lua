@@ -19,13 +19,17 @@ V.mui = {}
 P.mui = {}
 G.mui = {}
 
+local F = {}
+local I = {}
+
 Engine[1] = MER
-Engine[2] = {} -- Functions F
+Engine[2] = F
 Engine[3] = E
-Engine[4] = L
+Engine[4] = I
 Engine[5] = V.mui
 Engine[6] = P.mui
 Engine[7] = G.mui
+Engine[8] = L
 _G[addon] = Engine
 
 do

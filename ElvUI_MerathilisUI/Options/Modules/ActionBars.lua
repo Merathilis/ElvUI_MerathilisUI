@@ -1,19 +1,21 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
 
 options.actionbars = {
 	type = "group",
 	name = L["ActionBars"],
-	get = function(info) return E.db.mui.actionbars[info[#info]] end,
+	get = function(info)
+		return E.db.mui.actionbars[info[#info]]
+	end,
 	set = function(info, value)
-		E.db.mui.actionbars[info[#info]] = value;
-		E:StaticPopup_Show("PRIVATE_RL");
+		E.db.mui.actionbars[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
 	end,
 	args = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["ActionBars"], 'orange'),
+			name = F.cOption(L["ActionBars"], "orange"),
 		},
 		--[[
 		general = {
@@ -27,20 +29,26 @@ options.actionbars = {
 		specBar = {
 			order = 3,
 			type = "group",
-			name = F.cOption(L["Specialization Bar"], 'orange'),
+			name = F.cOption(L["Specialization Bar"], "orange"),
 			guiInline = true,
-			disabled = function() return not E.private.actionbar.enable end,
-			get = function(info) return E.db.mui.actionbars.specBar[info[#info]] end,
+			disabled = function()
+				return not E.private.actionbar.enable
+			end,
+			get = function(info)
+				return E.db.mui.actionbars.specBar[info[#info]]
+			end,
 			set = function(info, value)
-				E.db.mui.actionbars.specBar[info[#info]] = value;
-				E:StaticPopup_Show("PRIVATE_RL");
+				E.db.mui.actionbars.specBar[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
 				enable = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					disabled = function() return not E.private.actionbar.enable end,
+					disabled = function()
+						return not E.private.actionbar.enable
+					end,
 					width = "full",
 				},
 				mouseover = {
@@ -48,8 +56,7 @@ options.actionbars = {
 					type = "toggle",
 					name = L["Mouseover"],
 					disabled = function()
-						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar
-							.enable
+						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar.enable
 					end,
 				},
 				size = {
@@ -60,8 +67,7 @@ options.actionbars = {
 					max = 60,
 					step = 1,
 					disabled = function()
-						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar
-							.enable
+						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar.enable
 					end,
 				},
 				frameStrata = {
@@ -69,8 +75,7 @@ options.actionbars = {
 					type = "select",
 					name = L["Frame Strata"],
 					disabled = function()
-						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar
-							.enable
+						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar.enable
 					end,
 					values = {
 						BACKGROUND = L["BACKGROUND"],
@@ -87,8 +92,7 @@ options.actionbars = {
 					max = 256,
 					step = 1,
 					disabled = function()
-						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar
-							.enable
+						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar.enable
 					end,
 				},
 			},
@@ -96,20 +100,26 @@ options.actionbars = {
 		keyfeedback = {
 			order = 4,
 			type = "group",
-			name = F.cOption(L["KeyFeedback"], 'orange'),
+			name = F.cOption(L["KeyFeedback"], "orange"),
 			guiInline = true,
-			disabled = function() return not E.private.actionbar.enable end,
-			get = function(info) return E.db.mui.actionbars.keyfeedback[info[#info]] end,
+			disabled = function()
+				return not E.private.actionbar.enable
+			end,
+			get = function(info)
+				return E.db.mui.actionbars.keyfeedback[info[#info]]
+			end,
 			set = function(info, value)
-				E.db.mui.actionbars.keyfeedback[info[#info]] = value;
-				E:StaticPopup_Show("PRIVATE_RL");
+				E.db.mui.actionbars.keyfeedback[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
 				enable = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					disabled = function() return not E.private.actionbar.enable end,
+					disabled = function()
+						return not E.private.actionbar.enable
+					end,
 					width = "full",
 				},
 				mirrorSize = {
@@ -132,13 +142,17 @@ options.actionbars = {
 					min = 18,
 					max = 62,
 					step = 1,
-					disabled = function() return not E.db.mui.actionbars.keyfeedback.enableCastLine end,
+					disabled = function()
+						return not E.db.mui.actionbars.keyfeedback.enableCastLine
+					end,
 				},
 				lineDirection = {
 					order = 5,
 					type = "select",
 					name = L["Mirror Direction"],
-					disabled = function() return not E.db.mui.actionbars.keyfeedback.enableCastLine end,
+					disabled = function()
+						return not E.db.mui.actionbars.keyfeedback.enableCastLine
+					end,
 					values = {
 						LEFT = L["LEFT"],
 						RIGHT = L["RIGHT"],
@@ -165,7 +179,9 @@ options.actionbars = {
 					type = "toggle",
 					name = L["Enable"],
 					desc = L["Credits: ElvUI_ToxiUI"],
-					disabled = function() return not E.private.actionbar.enable end,
+					disabled = function()
+						return not E.private.actionbar.enable
+					end,
 					width = "full",
 				},
 			},

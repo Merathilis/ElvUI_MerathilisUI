@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local S = MER:GetModule("MER_Skins")
 local DT = E:GetModule("DataTexts")
 
 local _G = _G
@@ -39,7 +39,7 @@ function S:ElvUI_SkinDataPanel(_, name)
 end
 
 function S:ElvUI_DataPanels()
-	if not (E.private.mui.skins.shadow.enable) then
+	if not E.private.mui.skins.shadow.enable then
 		return
 	end
 

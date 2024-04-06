@@ -1,7 +1,7 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Minimap')
-local S = MER:GetModule('MER_Skins')
-local MM = E:GetModule('Minimap')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Minimap")
+local S = MER:GetModule("MER_Skins")
+local MM = E:GetModule("Minimap")
 local LCG = E.Libs.CustomGlow
 
 local _G = _G
@@ -16,7 +16,9 @@ local MiniMapMailFrame = _G.MiniMapMailFrame
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
 function module:CheckStatus()
-	if not E.db.mui.maps.minimap.flash then return end
+	if not E.db.mui.maps.minimap.flash then
+		return
+	end
 
 	local inv = C_Calendar_GetNumPendingInvites()
 	local indicator = MinimapCluster.IndicatorFrame
@@ -25,7 +27,7 @@ function module:CheckStatus()
 	local mail = mailFrame:IsShown() and true or false
 	local crafting = craftingFrame:IsShown() and true or false
 
-	if inv > 0 and mail and crafting then          -- New invites and mail and crafting orders
+	if inv > 0 and mail and crafting then -- New invites and mail and crafting orders
 		LCG.PixelGlow_Start(MM.MapHolder, { 1, 0, 0, 1 }, 8, -0.25, nil, 1)
 	elseif inv > 0 and not mail and not crafting then -- New invites and no mail and no crafting orders
 		LCG.PixelGlow_Start(MM.MapHolder, { 1, 1, 0, 1 }, 8, -0.25, nil, 1)
@@ -33,7 +35,7 @@ function module:CheckStatus()
 		LCG.PixelGlow_Start(MM.MapHolder, { r, g, b, 1 }, 8, -0.25, nil, 1)
 	elseif inv == 0 and not mail and crafting then -- No invites and no mail and new crafting orders
 		LCG.PixelGlow_Start(MM.MapHolder, { 0, 0.75, 0.98, 1 }, 8, -0.25, nil, 1)
-	else                                           -- None of the above
+	else -- None of the above
 		LCG.PixelGlow_Stop(MM.MapHolder)
 	end
 end
@@ -57,10 +59,30 @@ local function toggleExpansionLandingPageButton(_, ...)
 end
 
 module.ExpansionMenuList = {
-	{ text = _G.GARRISON_TYPE_9_0_LANDING_PAGE_TITLE, func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_9_0, notCheckable = true },
-	{ text = _G.WAR_CAMPAIGN,                         func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_8_0, notCheckable = true },
-	{ text = _G.ORDER_HALL_LANDING_PAGE_TITLE,        func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_7_0, notCheckable = true },
-	{ text = _G.GARRISON_LANDING_PAGE_TITLE,          func = toggleExpansionLandingPageButton, arg1 = Enum.GarrisonType.Type_6_0, notCheckable = true },
+	{
+		text = _G.GARRISON_TYPE_9_0_LANDING_PAGE_TITLE,
+		func = toggleExpansionLandingPageButton,
+		arg1 = Enum.GarrisonType.Type_9_0,
+		notCheckable = true,
+	},
+	{
+		text = _G.WAR_CAMPAIGN,
+		func = toggleExpansionLandingPageButton,
+		arg1 = Enum.GarrisonType.Type_8_0,
+		notCheckable = true,
+	},
+	{
+		text = _G.ORDER_HALL_LANDING_PAGE_TITLE,
+		func = toggleExpansionLandingPageButton,
+		arg1 = Enum.GarrisonType.Type_7_0,
+		notCheckable = true,
+	},
+	{
+		text = _G.GARRISON_LANDING_PAGE_TITLE,
+		func = toggleExpansionLandingPageButton,
+		arg1 = Enum.GarrisonType.Type_6_0,
+		notCheckable = true,
+	},
 }
 
 function module:CreateExpansionLandingButton()
@@ -70,8 +92,8 @@ function module:CreateExpansionLandingButton()
 		return
 	end
 
-	button:HookScript('OnMouseDown', function(self, btn)
-		if btn == 'RightButton' then
+	button:HookScript("OnMouseDown", function(self, btn)
+		if btn == "RightButton" then
 			if _G.GarrisonLandingPage and _G.GarrisonLandingPage:IsShown() then
 				HideUIPanel(_G.GarrisonLandingPage)
 			end
@@ -80,12 +102,12 @@ function module:CreateExpansionLandingButton()
 				HideUIPanel(_G.ExpansionLandingPage)
 			end
 
-			EasyMenu(module.ExpansionMenuList, F.EasyMenu, self, -80, 0, 'MENU', 1)
+			EasyMenu(module.ExpansionMenuList, F.EasyMenu, self, -80, 0, "MENU", 1)
 		end
 	end)
 
-	button:SetScript('OnEnter', function(self)
-		_G.GameTooltip:SetOwner(self, 'ANCHOR_LEFT')
+	button:SetScript("OnEnter", function(self)
+		_G.GameTooltip:SetOwner(self, "ANCHOR_LEFT")
 		_G.GameTooltip:SetText(self.title, 1, 1, 1)
 		_G.GameTooltip:AddLine(self.description, nil, nil, nil, true)
 		_G.GameTooltip:AddLine(L["Right click to switch expansion"], nil, nil, nil, true)
@@ -94,7 +116,9 @@ function module:CreateExpansionLandingButton()
 end
 
 function module:Initialize()
-	if not E.private.general.minimap.enable then return end
+	if not E.private.general.minimap.enable then
+		return
+	end
 
 	local db = E.db.mui.maps
 

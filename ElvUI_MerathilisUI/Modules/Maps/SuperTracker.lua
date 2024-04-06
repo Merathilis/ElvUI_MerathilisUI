@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_SuperTracker')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_SuperTracker")
 
 local _G = _G
 
@@ -27,7 +27,11 @@ function module:ReskinDistanceText()
 	end
 
 	F.SetFontDB(_G.SuperTrackedFrame.DistanceText, self.db.distanceText)
-	_G.SuperTrackedFrame.DistanceText:SetTextColor(self.db.distanceText.color.r, self.db.distanceText.color.g, self.db.distanceText.color.b)
+	_G.SuperTrackedFrame.DistanceText:SetTextColor(
+		self.db.distanceText.color.r,
+		self.db.distanceText.color.g,
+		self.db.distanceText.color.b
+	)
 end
 
 function module:HookPin()
@@ -106,31 +110,29 @@ function module.commandHandler(msg, isPreview)
 		end
 	end
 
-	msg = F.Strings.Replace(msg,
-		{
-			["　"] = " ",
-			["．"] = ".",
-			[","] = " ",
-			["，"] = " ",
-			["/"] = " ",
-			["|"] = " ",
-			["＂"] = " ",
-			["'"] = " ",
-			['"'] = " ",
-			["["] = " ",
-			["]"] = " ",
-			["("] = " ",
-			[")"] = " ",
-			["（"] = " ",
-			["）"] = " ",
-			["的"] = " ",
-			["在"] = " ",
-			["于"] = " "
-		}
-	)
+	msg = F.Strings.Replace(msg, {
+		["　"] = " ",
+		["．"] = ".",
+		[","] = " ",
+		["，"] = " ",
+		["/"] = " ",
+		["|"] = " ",
+		["＂"] = " ",
+		["'"] = " ",
+		['"'] = " ",
+		["["] = " ",
+		["]"] = " ",
+		["("] = " ",
+		[")"] = " ",
+		["（"] = " ",
+		["）"] = " ",
+		["的"] = " ",
+		["在"] = " ",
+		["于"] = " ",
+	})
 
 	local numbers = {}
-	local words = {F.Strings.Split(msg .. " ", " ")}
+	local words = { F.Strings.Split(msg .. " ", " ") }
 
 	if #words < 3 then
 		if isPreview then
@@ -166,7 +168,6 @@ function module.commandHandler(msg, isPreview)
 			return
 		end
 	end
-
 
 	if isPreview then
 		local waypointString = numbers[1] .. ", " .. numbers[2]
@@ -276,7 +277,17 @@ function module:WaypointParse()
 		statusText:SetText("|cff" .. (success and "00d1b2" or "999999") .. preview .. "|r")
 	end)
 
-	F.Widgets.AddTooltip(editBox, format("%s\n%s", F.cOption((L["Smart Waypoint"]), 'gradient'), L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."]), "ANCHOR_TOPLEFT", -13, 12)
+	F.Widgets.AddTooltip(
+		editBox,
+		format(
+			"%s\n%s",
+			F.cOption(L["Smart Waypoint"], "gradient"),
+			L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."]
+		),
+		"ANCHOR_TOPLEFT",
+		-13,
+		12
+	)
 end
 
 function module:USER_WAYPOINT_UPDATED()

@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
+local S = E:GetModule("Skins")
 
 local _G = _G
 
@@ -12,7 +12,7 @@ function module:Blizzard_CovenantPreviewUI()
 	local frame = _G.CovenantPreviewFrame
 	module:CreateBackdropShadow(frame)
 
-	frame.Title:DisableDrawLayer('BACKGROUND')
+	frame.Title:DisableDrawLayer("BACKGROUND")
 	frame.Background:SetAlpha(0)
 	frame.BorderFrame:SetAlpha(0)
 	frame.InfoPanel.Parchment:SetAlpha(0)
@@ -20,9 +20,9 @@ function module:Blizzard_CovenantPreviewUI()
 	frame.InfoPanel.Name:SetTextColor(1, 1, 1)
 	frame.InfoPanel.Location:SetTextColor(1, 1, 1)
 	frame.InfoPanel.Description:SetTextColor(1, 1, 1)
-	frame.InfoPanel.AbilitiesFrame.AbilitiesLabel:SetTextColor(1, .8, 0)
-	frame.InfoPanel.SoulbindsFrame.SoulbindsLabel:SetTextColor(1, .8, 0)
-	frame.InfoPanel.CovenantFeatureFrame.Label:SetTextColor(1, .8, 0)
+	frame.InfoPanel.AbilitiesFrame.AbilitiesLabel:SetTextColor(1, 0.8, 0)
+	frame.InfoPanel.SoulbindsFrame.SoulbindsLabel:SetTextColor(1, 0.8, 0)
+	frame.InfoPanel.CovenantFeatureFrame.Label:SetTextColor(1, 0.8, 0)
 end
 
-module:AddCallbackForAddon('Blizzard_CovenantPreviewUI')
+module:AddCallbackForAddon("Blizzard_CovenantPreviewUI")

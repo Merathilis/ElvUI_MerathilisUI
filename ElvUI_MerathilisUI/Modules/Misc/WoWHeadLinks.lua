@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
 
 -- Credits Leatrix Plus
 local _G = _G
@@ -53,7 +53,11 @@ local function SetQuestInBox()
 
 	if questID then
 		-- Hide editbox if quest ID is invalid
-		if questID == 0 then _G.MER_EditBox:Hide() else _G.MER_EditBox:Show() end
+		if questID == 0 then
+			_G.MER_EditBox:Hide()
+		else
+			_G.MER_EditBox:Show()
+		end
 		-- Set editbox text
 		_G.MER_EditBox:SetText("https://" .. wowheadLoc .. "/quest=" .. questID)
 		-- Set hidden fontstring then resize editbox to match
@@ -66,7 +70,9 @@ local function SetQuestInBox()
 			_G.MER_EditBox.tiptext = questLink:match("%[(.-)%]") .. "|n" .. L["Press CTRL + C to copy."]
 		else
 			_G.MER_EditBox.tiptext = ""
-			if _G.MER_EditBox:IsMouseOver() and GameTooltip:IsShown() then GameTooltip:Hide() end
+			if _G.MER_EditBox:IsMouseOver() and GameTooltip:IsShown() then
+				GameTooltip:Hide()
+			end
 		end
 	end
 end
@@ -94,7 +100,7 @@ function module:WorldMapLinks()
 	end)
 
 	-- Create hidden font string (used for setting width of editbox)
-	EditBox.t = EditBox:CreateFontString(nil, 'ARTWORK')
+	EditBox.t = EditBox:CreateFontString(nil, "ARTWORK")
 	EditBox.t:FontTemplate()
 	EditBox.t:Hide()
 
@@ -125,7 +131,9 @@ function module:WorldMapLinks()
 end
 
 function module:WowHeadLinks()
-	if E.db.mui.misc.wowheadlinks ~= true then return end
+	if E.db.mui.misc.wowheadlinks ~= true then
+		return
+	end
 
 	self:WorldMapLinks()
 end

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -15,7 +15,7 @@ local function ReskinButton(bu)
 	bu:SetPushedTexture("")
 	bu.icon:SetTexCoord(unpack(E.TexCoords))
 	bu.IconBorder:SetAlpha(0)
-	bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+	bu:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.25)
 end
 
 function module:TradeFrame()
@@ -35,20 +35,16 @@ function module:TradeFrame()
 		_G["TradeRecipientItem" .. i .. "NameFrame"]:Hide()
 
 		if _G["TradePlayerItem" .. i .. "ItemButton"].bg then
-			_G["TradePlayerItem" .. i .. "ItemButton"].bg:SetTemplate(
-				"Transparent")
+			_G["TradePlayerItem" .. i .. "ItemButton"].bg:SetTemplate("Transparent")
 		end
 		if _G["TradePlayerItem" .. i .. "ItemButton"].bg then
-			module:CreateGradient(_G
-				["TradePlayerItem" .. i .. "ItemButton"].bg)
+			module:CreateGradient(_G["TradePlayerItem" .. i .. "ItemButton"].bg)
 		end
 		if _G["TradeRecipientItem" .. i .. "ItemButton"].bg then
-			_G["TradeRecipientItem" .. i .. "ItemButton"].bg
-				:SetTemplate("Transparent")
+			_G["TradeRecipientItem" .. i .. "ItemButton"].bg:SetTemplate("Transparent")
 		end
 		if _G["TradeRecipientItem" .. i .. "ItemButton"].bg then
-			module:CreateGradient(_G
-				["TradeRecipientItem" .. i .. "ItemButton"].bg)
+			module:CreateGradient(_G["TradeRecipientItem" .. i .. "ItemButton"].bg)
 		end
 
 		ReskinButton(_G["TradePlayerItem" .. i .. "ItemButton"])
@@ -56,7 +52,7 @@ function module:TradeFrame()
 	end
 
 	-- Display text on the TradeFrame if unit is a known person
-	TradeFrame.text = TradeFrame:CreateFontString(nil, 'OVERLAY')
+	TradeFrame.text = TradeFrame:CreateFontString(nil, "OVERLAY")
 	TradeFrame.text:FontTemplate(nil, 16, "SHADOWOUTLINE")
 	TradeFrame.text:ClearAllPoints()
 	TradeFrame.text:SetPoint("TOP", _G["TradeFrameRecipientNameText"], "BOTTOM", 0, -5)
@@ -66,7 +62,9 @@ function module:TradeFrame()
 		TradeFrameRecipientNameText:SetTextColor(r, g, b)
 
 		local guid = UnitGUID("NPC")
-		if not guid then return end
+		if not guid then
+			return
+		end
 
 		local text = "|cffff0000" .. L["Stranger"]
 		if C_BattleNet_GetGameAccountInfoByGUID(guid) or C_FriendList_IsFriend(guid) then

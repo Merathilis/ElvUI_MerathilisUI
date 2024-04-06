@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local LSM = E.Libs.LSM
 local module = MER.Modules.Skins
 local WS = module.Widgets
@@ -57,7 +57,8 @@ function WS:HandleTab(_, tab, noBackdrop, template)
 
 		F.SetVertexColorDB(bg, db.backdrop.classColor and MER.ClassColor or db.backdrop.color)
 
-		tab.MERAnimation = self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
+		tab.MERAnimation =
+			self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
 
 		self:SecureHookScript(tab, "OnEnter", tab.MERAnimation.onEnter)
 		self:SecureHookScript(tab, "OnLeave", tab.MERAnimation.onLeave)

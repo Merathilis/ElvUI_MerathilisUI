@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
@@ -13,9 +13,11 @@ local AceGUI
 
 function module:ShadowOverlay()
 	-- Based on ncShadow
-	if not E.private.mui.skins.shadowOverlay then return end
+	if not E.private.mui.skins.shadowOverlay then
+		return
+	end
 
-	self.f = CreateFrame("Frame", MER.Title.."ShadowBackground")
+	self.f = CreateFrame("Frame", MER.Title .. "ShadowBackground")
 	self.f:Point("TOPLEFT")
 	self.f:Point("BOTTOMRIGHT")
 	self.f:SetFrameLevel(0)

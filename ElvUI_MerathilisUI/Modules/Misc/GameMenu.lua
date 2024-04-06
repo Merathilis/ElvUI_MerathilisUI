@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
 
 local _G = _G
 local random = random
@@ -71,12 +71,12 @@ function module:GameMenu()
 
 	-- GameMenu Frame
 	if not GameMenuFrame.MUIbottomPanel then
-		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame, 'BackdropTemplate')
+		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame, "BackdropTemplate")
 		local bottomPanel = GameMenuFrame.MUIbottomPanel
 		bottomPanel:SetFrameLevel(0)
 		bottomPanel:Point("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:Width(GetScreenWidth() + (E.Border * 2))
-		bottomPanel:CreateBackdrop('Transparent')
+		bottomPanel:CreateBackdrop("Transparent")
 		MER:CreateInnerNoise(bottomPanel)
 
 		bottomPanel.ignoreFrameTemplates = true
@@ -100,12 +100,12 @@ function module:GameMenu()
 	end
 
 	if not GameMenuFrame.MUItopPanel then
-		GameMenuFrame.MUItopPanel = CreateFrame("Frame", nil, GameMenuFrame, 'BackdropTemplate')
+		GameMenuFrame.MUItopPanel = CreateFrame("Frame", nil, GameMenuFrame, "BackdropTemplate")
 		local topPanel = GameMenuFrame.MUItopPanel
 		topPanel:SetFrameLevel(0)
 		topPanel:Point("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:Width(GetScreenWidth() + (E.Border * 2))
-		topPanel:CreateBackdrop('Transparent')
+		topPanel:CreateBackdrop("Transparent")
 		MER:CreateInnerNoise(topPanel)
 
 		topPanel.ignoreFrameTemplates = true
@@ -125,8 +125,9 @@ function module:GameMenu()
 		topPanel.factionLogo = topPanel:CreateTexture(nil, "ARTWORK")
 		topPanel.factionLogo:Point("CENTER", topPanel, "CENTER", 0, 0)
 		topPanel.factionLogo:Size(186, 186)
-		topPanel.factionLogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\ClassBanner\\CLASS-" ..
-			E.myclass)
+		topPanel.factionLogo:SetTexture(
+			"Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\ClassBanner\\CLASS-" .. E.myclass
+		)
 	end
 
 	-- Use this frame to control the position of the model - taken from ElvUI

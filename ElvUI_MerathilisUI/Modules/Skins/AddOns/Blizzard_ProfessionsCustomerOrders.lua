@@ -1,10 +1,10 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
 function module:Blizzard_ProfessionsCustomerOrders()
-	if not module:CheckDB('tradeskill', 'tradeskill') then
+	if not module:CheckDB("tradeskill", "tradeskill") then
 		return
 	end
 
@@ -22,4 +22,4 @@ function module:Blizzard_ProfessionsCustomerOrders()
 	module:ReskinTab(_G.ProfessionsCustomerOrdersFrameOrdersTab)
 end
 
-module:AddCallbackForAddon('Blizzard_ProfessionsCustomerOrders')
+module:AddCallbackForAddon("Blizzard_ProfessionsCustomerOrders")

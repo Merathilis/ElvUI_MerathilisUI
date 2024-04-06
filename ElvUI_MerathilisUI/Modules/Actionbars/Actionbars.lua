@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
-local module = MER:GetModule('MER_Actionbars')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Actionbars")
 local AB = E:GetModule("ActionBars")
 
 function module:Initialize()

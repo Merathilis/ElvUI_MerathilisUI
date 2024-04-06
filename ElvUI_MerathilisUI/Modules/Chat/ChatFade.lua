@@ -1,5 +1,5 @@
-local MER, F, E, _, V, P, G = unpack((select(2, ...)))
-local module = MER:GetModule('MER_ChatFade')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_ChatFade")
 
 local _G = _G
 local pairs = pairs
@@ -23,11 +23,16 @@ end
 local function CheckCursorPosition()
 	local UIScale = _G.UIParent:GetScale()
 	local x, y = GetCursorPosition()
-	x = x/UIScale
-	y = y/UIScale
+	x = x / UIScale
+	y = y / UIScale
 
-	local IsOnLeftPanel = ( x > _G.LeftChatPanel:GetLeft() and x < _G.LeftChatPanel:GetLeft() + _G.LeftChatPanel:GetWidth() ) and ( y > _G.LeftChatPanel:GetBottom() and y < _G.LeftChatPanel:GetBottom() + _G.LeftChatPanel:GetHeight() )
-	local IsOnRightPanel = ( x > _G.RightChatPanel:GetLeft() and x < _G.RightChatPanel:GetLeft() + _G.RightChatPanel:GetWidth() ) and ( y > _G.RightChatPanel:GetBottom() and y < _G.RightChatPanel:GetBottom() + _G.RightChatPanel:GetHeight() )
+	local IsOnLeftPanel = (
+		x > _G.LeftChatPanel:GetLeft() and x < _G.LeftChatPanel:GetLeft() + _G.LeftChatPanel:GetWidth()
+	) and (y > _G.LeftChatPanel:GetBottom() and y < _G.LeftChatPanel:GetBottom() + _G.LeftChatPanel:GetHeight())
+	local IsOnRightPanel = (
+		x > _G.RightChatPanel:GetLeft() and x < _G.RightChatPanel:GetLeft() + _G.RightChatPanel:GetWidth()
+	)
+		and (y > _G.RightChatPanel:GetBottom() and y < _G.RightChatPanel:GetBottom() + _G.RightChatPanel:GetHeight())
 
 	return IsOnLeftPanel or IsOnRightPanel
 end
@@ -61,7 +66,7 @@ function module:Configure_ChatFade()
 	if db and db.enable then
 		for _, frameName in pairs(_G.CHAT_FRAMES) do
 			local frame = _G[frameName]
-			local editbox = _G[frameName.."EditBox"]
+			local editbox = _G[frameName .. "EditBox"]
 
 			if not module:IsHooked(frame, "AddMessage") then
 				module:SecureHook(frame, "AddMessage", "ShowChatFade")
@@ -91,7 +96,7 @@ function module:Configure_ChatFade()
 
 		for _, frameName in pairs(_G.CHAT_FRAMES) do
 			local frame = _G[frameName]
-			local editbox = _G[frameName.."EditBox"]
+			local editbox = _G[frameName .. "EditBox"]
 
 			if module:IsHooked(frame, "AddMessage") then
 				module:Unhook(frame, "AddMessage")

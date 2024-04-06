@@ -1,7 +1,7 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_MiniMapButtons')
-local MM = E:GetModule('Minimap')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_MiniMapButtons")
+local MM = E:GetModule("Minimap")
+local S = MER:GetModule("MER_Skins")
 
 local _G = _G
 local ceil, floor, min = ceil, floor, min
@@ -65,21 +65,21 @@ local IgnoreList = {
 		"Node",
 		"Note",
 		"Pin",
-		"POI"
-	}
+		"POI",
+	},
 }
 
 local TexCoordIgnoreList = {
 	["Narci_MinimapButton"] = true,
-	["ZygorGuidesViewerMapIcon"] = true
+	["ZygorGuidesViewerMapIcon"] = true,
 }
 
 local whiteList = {
-	"LibDBIcon"
+	"LibDBIcon",
 }
 
 local acceptedFrames = {
-	"BagSync_MinimapButton"
+	"BagSync_MinimapButton",
 }
 
 local moveButtons = {}
@@ -179,8 +179,11 @@ function module:SetButtonMouseOver(button, frame, rawhook)
 
 	local function ButtonOnEnter()
 		if button.backdrop.SetBackdropBorderColor then
-			button.backdrop:SetBackdropBorderColor(E.db.general.valuecolor.r, E.db.general.valuecolor.g,
-				E.db.general.valuecolor.b)
+			button.backdrop:SetBackdropBorderColor(
+				E.db.general.valuecolor.r,
+				E.db.general.valuecolor.g,
+				E.db.general.valuecolor.b
+			)
 		end
 		if not self.db.mouseOver then
 			return
@@ -347,7 +350,11 @@ function module:SkinButton(frame)
 					end
 				end
 
-				if t and type(t) ~= "number" and (strfind(t, "Border") or strfind(t, "Background") or strfind(t, "AlphaMask")) then
+				if
+					t
+					and type(t) ~= "number"
+					and (strfind(t, "Border") or strfind(t, "Background") or strfind(t, "AlphaMask"))
+				then
 					region:SetTexture(nil)
 				else
 					if name == "BagSync_MinimapButton" then
@@ -363,7 +370,7 @@ function module:SkinButton(frame)
 					region:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -2, 2)
 					region:SetDrawLayer("ARTWORK")
 
-					if (name == "PS_MinimapButton") then
+					if name == "PS_MinimapButton" then
 						region.SetPoint = E.noop
 					end
 				end
@@ -379,7 +386,7 @@ function module:SkinButton(frame)
 
 		if name == "Narci_MinimapButton" then
 			self:SetButtonMouseOver(frame, frame.Panel)
-			for _, child in pairs { frame.Panel:GetChildren() } do
+			for _, child in pairs({ frame.Panel:GetChildren() }) do
 				if child.SetScript and not child.Highlight then
 					self:SetButtonMouseOver(frame, child, true)
 				end
@@ -454,7 +461,13 @@ function module:UpdateLayout()
 			frame:SetSize(original.Width, original.Height)
 
 			if original.Point ~= nil then
-				frame:SetPoint(original.Point, original.relativeTo, original.relativePoint, original.xOfs, original.yOfs)
+				frame:SetPoint(
+					original.Point,
+					original.relativeTo,
+					original.relativePoint,
+					original.xOfs,
+					original.yOfs
+				)
 			else
 				frame:SetPoint("CENTER", _G.Minimap, "CENTER", -80, -34)
 			end
@@ -610,8 +623,19 @@ function module:CreateFrames()
 	self:SkinMinimapButtons()
 	S:CreateShadowModule(self.bar.backdrop)
 
-	E:CreateMover(self.barAnchor, "MER_MinimapButtonBarAnchor", L["Minimap Buttons Bar"], nil, nil, nil,
-		"ALL,SOLO,MERATHILISUI", function() return E.db.mui.smb.enable end, "mui,modules,maps")
+	E:CreateMover(
+		self.barAnchor,
+		"MER_MinimapButtonBarAnchor",
+		L["Minimap Buttons Bar"],
+		nil,
+		nil,
+		nil,
+		"ALL,SOLO,MERATHILISUI",
+		function()
+			return E.db.mui.smb.enable
+		end,
+		"mui,modules,maps"
+	)
 end
 
 function module:SetUpdateHook()

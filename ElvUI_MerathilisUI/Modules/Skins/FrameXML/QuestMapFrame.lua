@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
+local S = E:GetModule("Skins")
 
 local _G = _G
 local select = select
@@ -11,7 +11,9 @@ local function LoadSkin()
 	end
 
 	-- Stop here if parchment reomover is enabled.
-	if E.private.skins.parchmentRemoverEnable then return end
+	if E.private.skins.parchmentRemoverEnable then
+		return
+	end
 
 	local QuestMapFrame = _G.QuestMapFrame
 	QuestMapFrame.Background:SetAlpha(0)
@@ -58,7 +60,9 @@ local function LoadSkin()
 	select(7, CompleteQuestFrame.CompleteButton:GetRegions()):SetAlpha(0)
 
 	_G.QuestLogPopupDetailFrameScrollFrame:HookScript("OnUpdate", function(self)
-		if _G.QuestLogPopupDetailFrameScrollFrame.backdrop then _G.QuestLogPopupDetailFrameScrollFrame.backdrop:Hide() end
+		if _G.QuestLogPopupDetailFrameScrollFrame.backdrop then
+			_G.QuestLogPopupDetailFrameScrollFrame.backdrop:Hide()
+		end
 		_G.QuestLogPopupDetailFrameInset:Hide()
 		_G.QuestLogPopupDetailFrameBg:Hide()
 		-- self:CreateBackdrop("Transparent")

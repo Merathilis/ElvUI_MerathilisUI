@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Tooltip')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Tooltip")
 
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
@@ -45,26 +45,28 @@ local function Getcolor()
 end
 
 local function AddTargetInfos(self, unit)
-	local unitTarget = unit .. 'target'
-	if unit ~= 'player' and UnitExists(unitTarget) then
+	local unitTarget = unit .. "target"
+	if unit ~= "player" and UnitExists(unitTarget) then
 		local targetColor
 		if UnitIsPlayer(unitTarget) and not UnitHasVehicleUI(unitTarget) then
 			local _, class = UnitClass(unitTarget)
 			targetColor = E:ClassColor(class) or _G.PRIEST_COLOR
 		else
-			local reaction = UnitReaction(unitTarget, 'player')
+			local reaction = UnitReaction(unitTarget, "player")
 			targetColor = _G.FACTION_BAR_COLORS[reaction] or _G.PRIEST_COLOR
 		end
 
-		self.target:SetText(' |cffffffff>|r ' .. ' ' .. UnitName(unitTarget))
+		self.target:SetText(" |cffffffff>|r " .. " " .. UnitName(unitTarget))
 		self.target:SetTextColor(targetColor.r, targetColor.g, targetColor.b)
 	else
-		self.target:SetText('')
+		self.target:SetText("")
 	end
 end
 
 function module:NameHover()
-	if not E.db.mui.nameHover.enable or C_AddOns_IsAddOnLoaded("bdNameHover") then return end
+	if not E.db.mui.nameHover.enable or C_AddOns_IsAddOnLoaded("bdNameHover") then
+		return
+	end
 
 	local db = E.db.mui.nameHover
 	local tooltip = CreateFrame("frame", nil)
@@ -99,7 +101,9 @@ function module:NameHover()
 	end)
 
 	tooltip:SetScript("OnEvent", function(tt)
-		if GetMouseFocus() and GetMouseFocus():GetName() ~= "WorldFrame" then return end
+		if GetMouseFocus() and GetMouseFocus():GetName() ~= "WorldFrame" then
+			return
+		end
 
 		local name = UnitName("mouseover") or UNKNOWN
 		local text = E:StripString(name)
@@ -113,8 +117,12 @@ function module:NameHover()
 
 		local prefix = ""
 
-		if AFK then prefix = "|cffFF9900<AFK>|r " end
-		if DND then prefix = "|cffFF3333<DND>|r " end
+		if AFK then
+			prefix = "|cffFF9900<AFK>|r "
+		end
+		if DND then
+			prefix = "|cffFF3333<DND>|r "
+		end
 
 		if (colorDB and colorDB.enable) and nameHover.gradient then
 			if UnitIsPlayer("mouseover") and UnitClass then

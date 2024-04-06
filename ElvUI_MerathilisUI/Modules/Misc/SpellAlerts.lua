@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_SpellAlert')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_SpellAlert")
 
 local _G = _G
 local pairs = pairs
@@ -37,12 +37,22 @@ function module:Preview()
 		["TOP"] = { false, true, 449488 },
 		["BOTTOM"] = { true, false, 449487 },
 		["RIGHT"] = { true, true, 450929 },
-		["LEFT"] = { false, false, 449490 }
+		["LEFT"] = { false, false, 449490 },
 	}
 
 	for position, data in pairs(examples) do
-		SpellActivationOverlay_ShowOverlay(_G.SpellActivationOverlayFrame, 123986, data[3], position, 1, 255, 255, 255,
-			data[1], data[2])
+		SpellActivationOverlay_ShowOverlay(
+			_G.SpellActivationOverlayFrame,
+			123986,
+			data[3],
+			position,
+			1,
+			255,
+			255,
+			255,
+			data[1],
+			data[2]
+		)
 	end
 
 	E:Delay(2, function()

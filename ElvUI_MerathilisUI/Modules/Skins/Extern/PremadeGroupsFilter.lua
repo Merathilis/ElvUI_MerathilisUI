@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 local S = E.Skins
 
 local _G = _G
@@ -22,7 +22,9 @@ function module:PremadeGroupsFilter()
 	self:DisableAddOnSkins("PremadeGroupsFilter", false)
 
 	local DungeonPanel = _G.PremadeGroupsFilterDungeonPanel
-	if not DungeonPanel then return end
+	if not DungeonPanel then
+		return
+	end
 
 	local ArenaPanel = _G.PremadeGroupsFilterArenaPanel
 	local RBGPanel = _G.PremadeGroupsFilterRBGPanel
@@ -31,8 +33,20 @@ function module:PremadeGroupsFilter()
 	local MiniPanel = _G.PremadeGroupsFilterMiniPanel
 	local PGFDialog = _G.PremadeGroupsFilterDialog
 
-	local names = { "Difficulty", "MPRating", "Members", "Tanks", "Heals", "DPS", "Partyfit", "BLFit", "BRFit",
-		"Defeated", "MatchingId", "PvPRating" }
+	local names = {
+		"Difficulty",
+		"MPRating",
+		"Members",
+		"Tanks",
+		"Heals",
+		"DPS",
+		"Partyfit",
+		"BLFit",
+		"BRFit",
+		"Defeated",
+		"MatchingId",
+		"PvPRating",
+	}
 
 	local function handleGroup(panel)
 		for _, name in pairs(names) do
@@ -60,11 +74,13 @@ function module:PremadeGroupsFilter()
 
 	local styled
 	hooksecurefunc(PGFDialog, "Show", function(self)
-		if styled then return end
+		if styled then
+			return
+		end
 		styled = true
 
 		self:StripTextures()
-		self:CreateBackdrop('Transparent')
+		self:CreateBackdrop("Transparent")
 		self.backdrop:ClearAllPoints()
 		self.backdrop:Point("TOPLEFT", self, "TOPLEFT", -1, 0)
 		self.backdrop:Point("BOTTOMRIGHT", self, "BOTTOMRIGHT", 1, -1)

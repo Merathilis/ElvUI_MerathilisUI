@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 local assert = assert
@@ -25,16 +25,16 @@ function MER:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 end
 
 local BlizzardFrameRegions = {
-	'Inset',
-	'inset',
-	'LeftInset',
-	'RightInset',
-	'NineSlice',
-	'BorderFrame',
-	'bottomInset',
-	'BottomInset',
-	'bgLeft',
-	'bgRight',
+	"Inset",
+	"inset",
+	"LeftInset",
+	"RightInset",
+	"NineSlice",
+	"BorderFrame",
+	"bottomInset",
+	"BottomInset",
+	"bgLeft",
+	"bgRight",
 }
 
 local function StripFrame(Frame, Kill, Alpha)
@@ -48,7 +48,7 @@ local function StripFrame(Frame, Kill, Alpha)
 	if Frame.GetNumRegions then
 		for i = 1, Frame:GetNumRegions() do
 			local Region = select(i, Frame:GetRegions())
-			if Region and Region:IsObjectType('Texture') then
+			if Region and Region:IsObjectType("Texture") then
 				if Kill then
 					Region:Hide()
 					Region.Show = MER.dummy
@@ -63,7 +63,9 @@ local function StripFrame(Frame, Kill, Alpha)
 end
 
 local function CreateOverlay(f)
-	if f.overlay then return end
+	if f.overlay then
+		return
+	end
 
 	local overlay = f:CreateTexture("$parentOverlay", "BORDER", f)
 	overlay:Point("TOPLEFT", 2, -2)
@@ -75,7 +77,9 @@ end
 
 local function CreateBorder(f, i, o)
 	if i then
-		if f.iborder then return end
+		if f.iborder then
+			return
+		end
 		local border = CreateFrame("Frame", "$parentInnerBorder", f)
 		border:Point("TOPLEFT", E.mult, -E.mult)
 		border:Point("BOTTOMRIGHT", -E.mult, E.mult)
@@ -85,7 +89,9 @@ local function CreateBorder(f, i, o)
 	end
 
 	if o then
-		if f.oborder then return end
+		if f.oborder then
+			return
+		end
 		local border = CreateFrame("Frame", "$parentOuterBorder", f)
 		border:Point("TOPLEFT", -E.mult, E.mult)
 		border:Point("BOTTOMRIGHT", E.mult, -E.mult)
@@ -151,10 +157,18 @@ end
 
 local function addapi(object)
 	local mt = getmetatable(object).__index
-	if not object.StripFrame then mt.StripFrame = StripFrame end
-	if not object.CreateOverlay then mt.CreateOverlay = CreateOverlay end
-	if not object.CreateBorder then mt.CreateBorder = CreateBorder end
-	if not object.CreatePanel then mt.CreatePanel = CreatePanel end
+	if not object.StripFrame then
+		mt.StripFrame = StripFrame
+	end
+	if not object.CreateOverlay then
+		mt.CreateOverlay = CreateOverlay
+	end
+	if not object.CreateBorder then
+		mt.CreateBorder = CreateBorder
+	end
+	if not object.CreatePanel then
+		mt.CreatePanel = CreatePanel
+	end
 end
 
 local handled = { ["Frame"] = true }

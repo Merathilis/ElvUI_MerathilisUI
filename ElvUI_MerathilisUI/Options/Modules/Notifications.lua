@@ -1,27 +1,32 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
 
 options.Notification = {
 	type = "group",
 	name = L["Notification"],
-	get = function(info) return E.db.mui.notification[ info[#info] ] end,
-	set = function(info, value) E.db.mui.notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+	get = function(info)
+		return E.db.mui.notification[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.notification[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
+	end,
 	args = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Notification"], 'orange'),
+			name = F.cOption(L["Notification"], "orange"),
 		},
 		credits = {
 			order = 1,
 			type = "group",
-			name = F.cOption(L["Credits"], 'orange'),
+			name = F.cOption(L["Credits"], "orange"),
 			guiInline = true,
 			args = {
 				tukui = {
 					order = 1,
 					type = "description",
-					name = "RealUI - Nibelheim, Gethe"
+					name = "RealUI - Nibelheim, Gethe",
 				},
 			},
 		},
@@ -30,7 +35,9 @@ options.Notification = {
 			type = "description",
 			fontSize = "small",
 			name = L["Here you can enable/disable the different notification types."],
-			disabled = function() return not E.db.mui.notification.enable end,
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
 		},
 		enable = {
 			order = 3,
@@ -41,52 +48,73 @@ options.Notification = {
 			order = 4,
 			type = "toggle",
 			name = L["No Sounds"],
-			disabled = function() return not E.db.mui.notification.enable end,
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
 		},
 		mail = {
 			order = 5,
 			type = "toggle",
 			name = L["Enable Mail"],
-			disabled = function() return not E.db.mui.notification.enable end,
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
 		},
 		invites = {
 			order = 6,
 			type = "toggle",
 			name = L["Enable Invites"],
-			disabled = function() return not E.db.mui.notification.enable end,
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
 		},
 		guildEvents = {
 			order = 7,
 			type = "toggle",
 			name = L["Enable Guild Events"],
-			disabled = function() return not E.db.mui.notification.enable end,
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
 		},
 		paragon = {
 			order = 8,
 			type = "toggle",
 			name = L["MISC_PARAGON"],
-			disabled = function() return not E.db.mui.notification.enable end,
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
 		},
 		quickJoin = {
 			order = 9,
 			type = "toggle",
 			name = L["Quick Join"],
-			disabled = function() return not E.db.mui.notification.enable end,
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
 		},
 		callToArms = {
 			order = 10,
 			type = "toggle",
 			name = _G.BATTLEGROUND_HOLIDAY,
-			disabled = function() return not E.db.mui.notification.enable end,
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
 		},
 		vignette = {
 			order = 20,
 			type = "group",
 			name = L["Vignette"],
 			guiInline = true,
-			get = function(info) return E.db.mui.notification.vignette[info[#info]] end,
-			set = function(info, value) E.db.mui.notification.vignette[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-			disabled = function() return not E.db.mui.notification.enable end,
+			get = function(info)
+				return E.db.mui.notification.vignette[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.notification.vignette[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
 			args = {
 				enable = {
 					order = 1,
@@ -101,9 +129,9 @@ options.Notification = {
 				debugPrint = {
 					order = 3,
 					type = "toggle",
-					name = F.cOption(L["Debug Print"], 'red'),
-					desc = L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"]
-				}
+					name = F.cOption(L["Debug Print"], "red"),
+					desc = L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"],
+				},
 			},
 		},
 		fontSettings = {
@@ -136,7 +164,7 @@ options.Notification = {
 							type = "range",
 							min = 5,
 							max = 60,
-							step = 1
+							step = 1,
 						},
 						style = {
 							order = 2,
@@ -171,7 +199,7 @@ options.Notification = {
 							type = "range",
 							min = 5,
 							max = 60,
-							step = 1
+							step = 1,
 						},
 						style = {
 							order = 2,
@@ -196,7 +224,9 @@ do
 		type = "group",
 		inline = true,
 		name = L["Blacklist"],
-		disabled = function() return not E.db.mui.notification.enable end,
+		disabled = function()
+			return not E.db.mui.notification.enable
+		end,
 		args = {
 			name = {
 				order = 1,
@@ -207,7 +237,7 @@ do
 				end,
 				set = function(_, value)
 					tempID = value
-				end
+				end,
 			},
 			addButton = {
 				order = 3,
@@ -220,13 +250,13 @@ do
 					else
 						F.Print(L["Please set the ID first."])
 					end
-				end
+				end,
 			},
 			spacer = {
 				order = 4,
 				type = "description",
 				name = " ",
-				width = "full"
+				width = "full",
 			},
 			listTable = {
 				order = 5,
@@ -244,7 +274,7 @@ do
 						result[fullID] = fullID
 					end
 					return result
-				end
+				end,
 			},
 			deleteButton = {
 				order = 6,
@@ -254,7 +284,7 @@ do
 					if selectedKey then
 						E.db.mui.notification.vignette.blacklist[selectedKey] = nil
 					end
-				end
+				end,
 			},
 		},
 	}

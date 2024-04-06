@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack((select(2, ...)))
-local module = MER:GetModule('MER_Actionbars')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Actionbars")
 local AB = E:GetModule("ActionBars")
 
 local _G = _G
@@ -19,7 +19,9 @@ end
 function module:ColorKeybinds(button)
 	local text = button.HotKey:GetText()
 	local colorHex = "b3b3b3"
-	if E.myclass ~= "PRIEST" then colorHex = sub(E:ClassColor(E.myclass, true).colorStr, 3) end
+	if E.myclass ~= "PRIEST" then
+		colorHex = sub(E:ClassColor(E.myclass, true).colorStr, 3)
+	end
 
 	if text and text ~= _G.RANGE_INDICATOR and #text > 1 then
 		text = colorizeKey(text, colorHex)

@@ -1,10 +1,10 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
 function module:Blizzard_Professions()
-	if not module:CheckDB('tradeskill', 'tradeskill') then
+	if not module:CheckDB("tradeskill", "tradeskill") then
 		return
 	end
 
@@ -18,8 +18,8 @@ function module:Blizzard_Professions()
 	module:CreateShadow(ProfessionsFrame.OrdersPage.OrderView.CraftingOutputLog)
 	module:CreateShadow(ProfessionsFrame.CraftingPage.CraftingOutputLog)
 
-	ProfessionsFrame.CraftingPage.RecipeList.BackgroundNineSlice:SetAlpha(.45)
-	ProfessionsFrame.CraftingPage.SchematicForm.Background:SetAlpha(.45)
+	ProfessionsFrame.CraftingPage.RecipeList.BackgroundNineSlice:SetAlpha(0.45)
+	ProfessionsFrame.CraftingPage.SchematicForm.Background:SetAlpha(0.45)
 end
 
-module:AddCallbackForAddon('Blizzard_Professions')
+module:AddCallbackForAddon("Blizzard_Professions")

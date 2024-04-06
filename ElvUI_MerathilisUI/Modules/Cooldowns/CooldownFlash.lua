@@ -1,7 +1,7 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Cooldown')
-local MERS = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Cooldown")
+local MERS = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local GetTime = GetTime
 local select, pairs, bit, unpack = select, pairs, bit, unpack
@@ -32,7 +32,9 @@ module.cooldowns, module.animating, module.watching = {}, {}, {}
 
 local DCP = CreateFrame("Frame", nil, E.UIParent)
 DCP:SetAlpha(0)
-DCP:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
+DCP:SetScript("OnEvent", function(self, event, ...)
+	self[event](self, ...)
+end)
 module.DCP = DCP
 
 local DCPT = DCP:CreateTexture(nil, "BORDER")
@@ -80,7 +82,7 @@ local function memoize(f)
 	local memoized = {}
 
 	local function get()
-		if (cache == nil) then
+		if cache == nil then
 			cache = f()
 		end
 
@@ -98,7 +100,7 @@ end
 
 local function GetPetActionIndexByName(name)
 	for i = 1, _G.NUM_PET_ACTION_SLOTS, 1 do
-		if (GetPetActionInfo(i) == name) then
+		if GetPetActionInfo(i) == name then
 			return i
 		end
 	end
@@ -114,11 +116,11 @@ local runtimer = 0
 local function OnUpdate(_, update)
 	module.db = E.db.mui.cooldownFlash
 	elapsed = elapsed + update
-	if (elapsed > 0.05) then
+	if elapsed > 0.05 then
 		for i, v in pairs(module.watching) do
-			if (GetTime() >= v[1] + 0.5) then
+			if GetTime() >= v[1] + 0.5 then
 				local getCooldownDetails
-				if (v[2] == "spell") then
+				if v[2] == "spell" then
 					getCooldownDetails = memoize(function()
 						local start, duration, enabled = GetSpellCooldown(v[3])
 						return {
@@ -126,10 +128,10 @@ local function OnUpdate(_, update)
 							texture = GetSpellTexture(v[3]),
 							start = start,
 							duration = duration,
-							enabled = enabled
+							enabled = enabled,
 						}
 					end)
-				elseif (v[2] == "item") then
+				elseif v[2] == "item" then
 					getCooldownDetails = memoize(function()
 						local start, duration, enabled = GetItemCooldown(i)
 
@@ -138,10 +140,10 @@ local function OnUpdate(_, update)
 							texture = v[3],
 							start = start,
 							duration = duration,
-							enabled = enabled
+							enabled = enabled,
 						}
 					end)
-				elseif (v[2] == "pet") then
+				elseif v[2] == "pet" then
 					getCooldownDetails = memoize(function()
 						local name, texture = GetPetActionInfo(v[3])
 						local start, duration, enabled = GetPetActionCooldown(v[3])
@@ -151,21 +153,21 @@ local function OnUpdate(_, update)
 							isPet = true,
 							start = start,
 							duration = duration,
-							enabled = enabled
+							enabled = enabled,
 						}
 					end)
 				end
 
 				local cooldown = getCooldownDetails()
-				if ((module.db.ignoredSpells[cooldown.name] ~= nil) ~= module.db.invertIgnored) then
+				if (module.db.ignoredSpells[cooldown.name] ~= nil) ~= module.db.invertIgnored then
 					module.watching[i] = nil
 				else
-					if (cooldown.enabled ~= 0) then
-						if (cooldown.duration and cooldown.duration > 2.0 and cooldown.texture) then
+					if cooldown.enabled ~= 0 then
+						if cooldown.duration and cooldown.duration > 2.0 and cooldown.texture then
 							module.cooldowns[i] = getCooldownDetails
 						end
 					end
-					if (not (cooldown.enabled == 0 and v[2] == "spell")) then
+					if not (cooldown.enabled == 0 and v[2] == "spell") then
 						module.watching[i] = nil
 					end
 				end
@@ -174,24 +176,26 @@ local function OnUpdate(_, update)
 
 		for i, getCooldownDetails in pairs(module.cooldowns) do
 			local cooldown = getCooldownDetails()
-			if not cooldown.duration or not cooldown.start then return end
+			if not cooldown.duration or not cooldown.start then
+				return
+			end
 			local remaining = cooldown.duration - (GetTime() - cooldown.start)
-			if (remaining <= 0) then
+			if remaining <= 0 then
 				tinsert(module.animating, { cooldown.texture, cooldown.isPet, cooldown.name })
 				module.cooldowns[i] = nil
 			end
 		end
 
 		elapsed = 0
-		if (#module.animating == 0 and tcount(module.watching) == 0 and tcount(module.cooldowns) == 0) then
+		if #module.animating == 0 and tcount(module.watching) == 0 and tcount(module.cooldowns) == 0 then
 			DCP:SetScript("OnUpdate", nil)
 			return
 		end
 	end
 
-	if (#module.animating > 0) then
+	if #module.animating > 0 then
 		runtimer = runtimer + update
-		if (runtimer > (module.db.fadeInTime + module.db.holdTime + module.db.fadeOutTime)) then
+		if runtimer > (module.db.fadeInTime + module.db.holdTime + module.db.fadeOutTime) then
 			tremove(module.animating, 1)
 			runtimer = 0
 			DCPT:SetTexture(nil)
@@ -199,7 +203,7 @@ local function OnUpdate(_, update)
 			DCP:SetAlpha(0)
 			DCP:SetSize(module.db.iconSize, module.db.iconSize)
 		else
-			if (not DCPT:GetTexture()) then
+			if not DCPT:GetTexture() then
 				DCPT:SetTexture(module.animating[1][1])
 				S:HandleIcon(DCPT)
 				if module.animating[1][2] then
@@ -208,21 +212,35 @@ local function OnUpdate(_, update)
 				if module.db.tts then
 					local tts = GetSpellInfo(module.animating[1][3])
 					if module.db.ttsvoice and tts then
-						C_VoiceChat_SpeakText(module.db.ttsvoice, tts, Enum.VoiceTtsDestination.LocalPlayback, 0,
-							module.db.ttsvolume)
+						C_VoiceChat_SpeakText(
+							module.db.ttsvoice,
+							tts,
+							Enum.VoiceTtsDestination.LocalPlayback,
+							0,
+							module.db.ttsvolume
+						)
 					end
 				end
 			end
 			local alpha = module.db.maxAlpha
-			if (runtimer < module.db.fadeInTime) then
+			if runtimer < module.db.fadeInTime then
 				alpha = module.db.maxAlpha * (runtimer / module.db.fadeInTime)
-			elseif (runtimer >= module.db.fadeInTime + module.db.holdTime) then
-				alpha = module.db.maxAlpha -
-				(module.db.maxAlpha * ((runtimer - module.db.holdTime - module.db.fadeInTime) / module.db.fadeOutTime))
+			elseif runtimer >= module.db.fadeInTime + module.db.holdTime then
+				alpha = module.db.maxAlpha
+					- (
+						module.db.maxAlpha
+						* ((runtimer - module.db.holdTime - module.db.fadeInTime) / module.db.fadeOutTime)
+					)
 			end
 			DCP:SetAlpha(alpha)
-			local scale = module.db.iconSize +
-			(module.db.iconSize * ((module.db.animScale - 1) * (runtimer / (module.db.fadeInTime + module.db.holdTime + module.db.fadeOutTime))))
+			local scale = module.db.iconSize
+				+ (
+					module.db.iconSize
+					* (
+						(module.db.animScale - 1)
+						* (runtimer / (module.db.fadeInTime + module.db.holdTime + module.db.fadeOutTime))
+					)
+				)
 			DCP:SetWidth(scale)
 			DCP:SetHeight(scale)
 		end
@@ -233,25 +251,25 @@ end
 -- Event Handlers --
 --------------------
 function DCP:ADDON_LOADED(addon)
-	if (not MERData_DCP) then
+	if not MERData_DCP then
 		MERData_DCP = { unpack(defaultSettings) }
 	else
 		for i, v in pairs(defaultSettings) do
-			if (not MERData_DCP[i]) then
+			if not MERData_DCP[i] then
 				MERData_DCP[i] = v
 			end
 		end
 	end
 
-	if (not MERData_DCPCharacter) then
+	if not MERData_DCPCharacter then
 		MERData_DCPCharacter = { unpack(defaultSettingsPerChar) }
 
-		if (MERData_DCP.ignoredSpells) then
+		if MERData_DCP.ignoredSpells then
 			MERData_DCPCharacter.ignoredSpells = MERData_DCP.ignoredSpells
 		end
 	else
 		for i, v in pairs(defaultSettingsPerChar) do
-			if (not MERData_DCPCharacter[i]) then
+			if not MERData_DCPCharacter[i] then
 				MERData_DCPCharacter = v
 			end
 		end
@@ -267,13 +285,15 @@ function DCP:SPELL_UPDATE_COOLDOWN()
 end
 
 function DCP:UNIT_SPELLCAST_SUCCEEDED(unit, _, spellID)
-	if (unit == "player") then
+	if unit == "player" then
 		local texture = GetSpellTexture(spellID)
 		local t1 = GetInventoryItemTexture("player", 13)
 		local t2 = GetInventoryItemTexture("player", 14)
-		if texture == t1 or texture == t2 then return end -- Fix wrong buff cd for trinket
+		if texture == t1 or texture == t2 then
+			return
+		end -- Fix wrong buff cd for trinket
 		module.watching[spellID] = { GetTime(), "spell", spellID }
-		if (not self:IsMouseEnabled()) then
+		if not self:IsMouseEnabled() then
 			self:SetScript("OnUpdate", OnUpdate)
 		end
 	end
@@ -282,28 +302,28 @@ end
 function DCP:COMBAT_LOG_EVENT_UNFILTERED()
 	local _, eventType, _, _, _, sourceFlags, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
 	local isPet = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_TYPE_PET) == _G.COMBATLOG_OBJECT_TYPE_PET
-	local isMine = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_AFFILIATION_MINE) == _G
-	.COMBATLOG_OBJECT_AFFILIATION_MINE
+	local isMine = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_AFFILIATION_MINE)
+		== _G.COMBATLOG_OBJECT_AFFILIATION_MINE
 
-	if eventType == 'SPELL_CAST_SUCCESS' then
+	if eventType == "SPELL_CAST_SUCCESS" then
 		if isPet and isMine then
 			local name = GetSpellInfo(spellID)
 			local index = GetPetActionIndexByName(name)
 			if index and not select(7, GetPetActionInfo(index)) then
-				module.watching[spellID] = { GetTime(), 'pet', index }
+				module.watching[spellID] = { GetTime(), "pet", index }
 			elseif not index and spellID then
-				module.watching[spellID] = { GetTime(), 'spell', spellID }
+				module.watching[spellID] = { GetTime(), "spell", spellID }
 			else
 				return
 			end
-			self:SetScript('OnUpdate', OnUpdate)
+			self:SetScript("OnUpdate", OnUpdate)
 		end
 	end
 end
 
 function DCP:PLAYER_ENTERING_WORLD()
 	local inInstance, instanceType = IsInInstance()
-	if (inInstance and instanceType == "arena") then
+	if inInstance and instanceType == "arena" then
 		self:SetScript("OnUpdate", nil)
 		wipe(module.cooldowns)
 		wipe(module.watching)
@@ -312,7 +332,7 @@ end
 
 hooksecurefunc("UseAction", function(slot)
 	local actionType, itemID, subType = GetActionInfo(slot)
-	if (actionType == "item") then
+	if actionType == "item" then
 		local texture = GetActionTexture(slot)
 		module.watching[itemID] = { GetTime(), "item", texture }
 	end
@@ -320,7 +340,7 @@ end)
 
 hooksecurefunc("UseInventoryItem", function(slot)
 	local itemID = GetInventoryItemID("player", slot)
-	if (itemID) then
+	if itemID then
 		local texture = GetInventoryItemTexture("player", slot)
 		module.watching[itemID] = { GetTime(), "item", texture }
 	end
@@ -329,12 +349,11 @@ end)
 hooksecurefunc(C_Container, "UseContainerItem", function(bag, slot)
 	local itemID = GetContainerItemID(bag, slot)
 
-	if (itemID) then
+	if itemID then
 		local texture = select(10, GetItemInfo(itemID))
 		module.watching[itemID] = { GetTime(), "item", texture }
 	end
 end)
-
 
 function module:EnableCooldownFlash()
 	DCP:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
@@ -378,8 +397,17 @@ function module:Initialize()
 	DCP:Size(self.db.iconSize, self.db.iconSize)
 	DCP:Point("CENTER", E.UIParent, "CENTER")
 
-	E:CreateMover(DCP, "MER_CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil,
-		'mui,modules,cooldownFlash')
+	E:CreateMover(
+		DCP,
+		"MER_CooldownFlashMover",
+		L["CooldownFlashMover"],
+		true,
+		nil,
+		nil,
+		"ALL,SOLO,MERATHILISUI",
+		nil,
+		"mui,modules,cooldownFlash"
+	)
 end
 
 MER:RegisterModule(module:GetName())

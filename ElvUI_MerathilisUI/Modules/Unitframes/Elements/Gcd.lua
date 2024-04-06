@@ -1,12 +1,12 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_UnitFrames')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_UnitFrames")
 
 local CreateFrame = CreateFrame
 
 function module:Construct_GCD(frame)
 	local width = E.db.unitframe.units.player.castbar.width - 2
 	local color = E.db.mui.unitframes.gcd.color
-	local r, g, b = color.r, color.g, color.b or { .8, .8, .8 }
+	local r, g, b = color.r, color.g, color.b or { 0.8, 0.8, 0.8 }
 
 	local bar = CreateFrame("StatusBar", frame:GetName() .. "_GCD", frame)
 	bar:Size(width, 3)

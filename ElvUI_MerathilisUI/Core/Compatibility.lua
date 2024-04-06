@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local ES = E.Skins
-local S = MER:GetModule('MER_Skins')
+local S = MER:GetModule("MER_Skins")
 
 local _G = _G
 local format = format
@@ -44,9 +44,11 @@ function MER:ConstructCompatibilityFrame()
 	desc:SetJustifyH("LEFT")
 	desc:Width(420)
 	F.SetFontOutline(desc, nil, "-1")
-	desc:SetText(L
-		["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] ..
-		" " .. format(L["Have a good time with %s!"], MER.Title))
+	desc:SetText(
+		L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."]
+			.. " "
+			.. format(L["Have a good time with %s!"], MER.Title)
+	)
 	desc:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -40)
 
 	local largeTip = frame:CreateFontString(nil, "ARTWORK")
@@ -54,8 +56,13 @@ function MER:ConstructCompatibilityFrame()
 	largeTip:SetJustifyH("CENTER")
 	largeTip:Width(500)
 	F.SetFontOutline(largeTip, nil, "7")
-	largeTip:SetText(format("%s %s %s", F.CreateColorString("[", E.db.general.valuecolor),
-		L["Choose the module you would like to |cff00ff00use|r"], F.CreateColorString("]", E.db.general.valuecolor))
+	largeTip:SetText(
+		format(
+			"%s %s %s",
+			F.CreateColorString("[", E.db.general.valuecolor),
+			L["Choose the module you would like to |cff00ff00use|r"],
+			F.CreateColorString("]", E.db.general.valuecolor)
+		)
 	)
 	largeTip:SetPoint("TOPLEFT", desc, "BOTTOMLEFT", 0, -10)
 
@@ -69,15 +76,17 @@ function MER:ConstructCompatibilityFrame()
 	bottomDesc:SetJustifyH("LEFT")
 	bottomDesc:Width(530)
 	F.SetFontOutline(bottomDesc, nil, "-1")
-	bottomDesc:SetText(newSignIgnored ..
-		format(L["If you find the %s module conflicts with another addon, alert me via Discord."], MER.Title) ..
-		"\n" .. L
-		["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."])
+	bottomDesc:SetText(
+		newSignIgnored
+			.. format(L["If you find the %s module conflicts with another addon, alert me via Discord."], MER.Title)
+			.. "\n"
+			.. L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."]
+	)
 	--bottomDesc:SetText("|cffff0000*|r " .. L["The feature is just a part of that module."])
 	bottomDesc:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
 
-	local completeButton = CreateFrame("Button", "MERCompatibilityFrameCompleteButton", frame,
-		"UIPanelButtonTemplate, BackdropTemplate")
+	local completeButton =
+		CreateFrame("Button", "MERCompatibilityFrameCompleteButton", frame, "UIPanelButtonTemplate, BackdropTemplate")
 
 	completeButton.Text:SetText(L["Complete"])
 	completeButton.Text:SetJustifyH("CENTER")
@@ -90,8 +99,8 @@ function MER:ConstructCompatibilityFrame()
 		frame:Hide()
 	end)
 
-	local scrollFrameParent = CreateFrame("ScrollFrame", "MERCompatibilityFrameScrollFrameParent", frame,
-		"UIPanelScrollFrameTemplate")
+	local scrollFrameParent =
+		CreateFrame("ScrollFrame", "MERCompatibilityFrameScrollFrameParent", frame, "UIPanelScrollFrameTemplate")
 	scrollFrameParent:CreateBackdrop("Transparent")
 	scrollFrameParent:SetPoint("TOPLEFT", largeTip, "BOTTOMLEFT", 0, -10)
 	scrollFrameParent:SetPoint("RIGHT", frame, "RIGHT", -32, 0)
@@ -112,8 +121,12 @@ local function AddButtonToCompatibilityFrame(data)
 	local frame = MER.CompatibilityFrame
 	frame.numModules = frame.numModules + 1
 
-	local leftButton = CreateFrame("Button", "MERCompatibilityFrameLeftButton" .. frame.numModules, frame.scrollFrame,
-		"UIPanelButtonTemplate, BackdropTemplate")
+	local leftButton = CreateFrame(
+		"Button",
+		"MERCompatibilityFrameLeftButton" .. frame.numModules,
+		frame.scrollFrame,
+		"UIPanelButtonTemplate, BackdropTemplate"
+	)
 
 	leftButton.Text:SetText(format("%s\n%s", data.module1, data.plugin1))
 	leftButton.Text:SetJustifyH("CENTER")
@@ -133,16 +146,20 @@ local function AddButtonToCompatibilityFrame(data)
 		end
 	end)
 
-	local middleTexture = frame.scrollFrame:CreateTexture("MERCompatibilityFrameMiddleTexture" .. frame.numModules,
-		"ARTWORK")
+	local middleTexture =
+		frame.scrollFrame:CreateTexture("MERCompatibilityFrameMiddleTexture" .. frame.numModules, "ARTWORK")
 	middleTexture:SetPoint("CENTER")
 	middleTexture:Size(20)
 	middleTexture:SetTexture(MER.Media.Icons.convert)
 	middleTexture:SetVertexColor(1, 1, 1, 1)
 	middleTexture:SetPoint("CENTER", frame.scrollFrame, "TOP", 0, -frame.numModules * 50 + 25)
 
-	local rightButton = CreateFrame("Button", "MERCompatibilityFrameRightButton" .. frame.numModules, frame.scrollFrame,
-		"UIPanelButtonTemplate, BackdropTemplate")
+	local rightButton = CreateFrame(
+		"Button",
+		"MERCompatibilityFrameRightButton" .. frame.numModules,
+		frame.scrollFrame,
+		"UIPanelButtonTemplate, BackdropTemplate"
+	)
 
 	rightButton.Text:SetText(format("%s\n%s", data.module2, data.plugin2))
 	rightButton.Text:SetJustifyH("CENTER")
@@ -166,7 +183,7 @@ end
 local function GetDatabaseRealValue(path)
 	local accessTable, accessKey, accessValue = nil, nil, E
 
-	for _, key in ipairs { strsplit(".", path) } do
+	for _, key in ipairs({ strsplit(".", path) }) do
 		if key and strlen(key) > 0 then
 			if accessValue and accessValue[key] ~= nil then
 				if type(accessValue[key]) == "boolean" then
@@ -198,22 +215,20 @@ local function GetCheckCompatibilityFunction(targetAddonName, targetAddonLocales
 		local targetTable, targetKey, targetValue = GetDatabaseRealValue(targetAddonDB)
 
 		if myValue == true and targetValue == true then
-			AddButtonToCompatibilityFrame(
-				{
-					module1 = myModuleName,
-					plugin1 = MER.Title,
-					func1 = function()
-						myTable[myKey] = true
-						targetTable[targetKey] = false
-					end,
-					module2 = targetAddonModuleName,
-					plugin2 = targetAddonLocales,
-					func2 = function()
-						myTable[myKey] = false
-						targetTable[targetKey] = true
-					end
-				}
-			)
+			AddButtonToCompatibilityFrame({
+				module1 = myModuleName,
+				plugin1 = MER.Title,
+				func1 = function()
+					myTable[myKey] = true
+					targetTable[targetKey] = false
+				end,
+				module2 = targetAddonModuleName,
+				plugin2 = targetAddonLocales,
+				func2 = function()
+					myTable[myKey] = false
+					targetTable[targetKey] = true
+				end,
+			})
 		end
 	end
 end
@@ -258,12 +273,7 @@ function MER:CheckCompatibility()
 		"private.WT.unitFrames.roleIcon.enable"
 	)
 
-	CheckWindtools(
-		L["Combat Alert"],
-		L["Combat Alert"],
-		"db.mui.CombatAlert.enable",
-		"db.WT.combat.combatAlert.enable"
-	)
+	CheckWindtools(L["Combat Alert"], L["Combat Alert"], "db.mui.CombatAlert.enable", "db.WT.combat.combatAlert.enable")
 
 	CheckWindtools(
 		L["Minimap Ping"],
@@ -283,12 +293,7 @@ function MER:CheckCompatibility()
 
 	CheckWindtools(L["Chat Link"], L["Chat Link"], "db.mui.chat.chatLink.enable", "db.WT.social.chatLink.enable")
 
-	CheckWindtools(
-		L["Raid Markers"],
-		L["Raid Markers"],
-		"db.mui.raidmarkers.enable",
-		"db.WT.combat.raidMarkers.enable"
-	)
+	CheckWindtools(L["Raid Markers"], L["Raid Markers"], "db.mui.raidmarkers.enable", "db.WT.combat.raidMarkers.enable")
 
 	CheckWindtools(
 		L["Hide Player Brackets"],
@@ -374,12 +379,7 @@ function MER:CheckCompatibility()
 		"db.WT.social.friendList.enable"
 	)
 
-	CheckWindtools(
-		L["World Map"],
-		L["World Map"],
-		"db.mui.maps.worldMap.enable",
-		"private.WT.maps.worldMap.enable"
-	)
+	CheckWindtools(L["World Map"], L["World Map"], "db.mui.maps.worldMap.enable", "private.WT.maps.worldMap.enable")
 
 	CheckWindtools(
 		format("%s-%s", L["UnitFrames"], L["Role Icons"]),
@@ -402,12 +402,7 @@ function MER:CheckCompatibility()
 		"db.WT.misc.spellActivationAlert.enable"
 	)
 
-	CheckWindtools(
-		L["Announcement"],
-		L["Announcement"],
-		"db.mui.announcement.enable",
-		"db.WT.announcement.enable"
-	)
+	CheckWindtools(L["Announcement"], L["Announcement"], "db.mui.announcement.enable", "db.WT.announcement.enable")
 
 	CheckWindtools(
 		L["Event Tracker"],
@@ -437,12 +432,7 @@ function MER:CheckCompatibility()
 		"private.sle.module.shadows.enable"
 	)
 
-	CheckShadowAndLight(
-		L["Raid Markers"],
-		L["Raid Markers"],
-		"db.mui.raidmarkers.enable",
-		"db.sle.raidmarkers.enable"
-	)
+	CheckShadowAndLight(L["Raid Markers"], L["Raid Markers"], "db.mui.raidmarkers.enable", "db.sle.raidmarkers.enable")
 
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Key Timers"]),
