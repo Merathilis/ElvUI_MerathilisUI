@@ -1,10 +1,29 @@
 std = 'lua51'
 max_line_length = false
-exclude_files = { '**Libs/', '**libs/' }
-ignore = {
-    '212', -- Unused argument
+exclude_files = {
+    '**Libs/',
+    '**libs/'
+    '.luacheckrc',
 }
-globals = {}
+ignore = {
+    '211/_G', -- Unused local variable _G
+    '211/MER',  -- Unused local variable C
+    '211/F',  -- Unused local variable D
+    '211/E',  -- Unused local variable E
+    '211/L',  -- Unused local variable L
+    '211/V',  -- Unused local variable V
+    '211/P',  -- Unused local variable P
+    '211/G',  -- Unused local variable G
+    '432', -- Shadowing an upvalue argument
+}
+globals = {
+    -- Lua
+    'getfenv',
+    'print',
+
+    -- FrameXML
+    'SlashCmdList',
+}
 read_globals = {
     '8.0_WARFRONTS_-_ARATHI_-_CONSTRUCT_BUILDING_-_BARRACKS',
     '82_TAUREN_HERITAGE_TOY_ERROR',
