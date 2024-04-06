@@ -64,7 +64,7 @@ do
 			C_CVar_SetCVar("scriptErrors", 0)
 			E:Print("Lua errors off.")
 
-			if F.IsAddOnEnabled("ElvUI_CPU") then
+			if E:IsAddOnEnabled("ElvUI_CPU") then
 				C_AddOns_DisableAddOn("ElvUI_CPU")
 			end
 
