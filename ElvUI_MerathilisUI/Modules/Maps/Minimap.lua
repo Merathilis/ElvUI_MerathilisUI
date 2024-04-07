@@ -46,12 +46,12 @@ end
 
 local function toggleExpansionLandingPageButton(_, ...)
 	if InCombatLockdown() then
-		_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.ERR_NOT_IN_COMBAT)
+		_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_NOT_IN_COMBAT))
 		return
 	end
 
 	if not C_Garrison_HasGarrison(...) then
-		_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.CONTRIBUTION_TOOLTIP_UNLOCKED_WHEN_ACTIVE)
+		_G.UIErrorsFrame:AddMessage(F.String.Error(_G.CONTRIBUTION_TOOLTIP_UNLOCKED_WHEN_ACTIVE))
 		return
 	end
 

@@ -1,0 +1,4 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Previous\6.08.lua"/>
+	<Script file="6.09.lua"/>
+</Ui>

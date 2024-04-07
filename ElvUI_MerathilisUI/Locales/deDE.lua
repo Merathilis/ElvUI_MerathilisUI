@@ -53,7 +53,6 @@ L["Only display log message that the level is higher than you choose."] =
 	"Zeigt nur die Log Nachrichten an über dem Level dass du ausgewählt hast"
 L["Set to 2 if you do not understand the meaning of log level."] =
 	"Setze auf 2 wenn du keine Ahnung vom Log Level hast. :)"
-L["Open the changelog window."] = "Öffne das Changelog Fenster."
 L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] =
 	"Diese Option wird die meisten ElvUI Farboptionen überschreiben, bitte bedenkt das."
 

@@ -434,10 +434,10 @@ function module:Initialize()
 				end
 				reset = not reset
 			else
-				_G.UIErrorsFrame:AddMessage(MER.InfoColor .. L["Bossmod requiered"])
+				_G.UIErrorsFrame:AddMessage(F.String.MERATHILISUI(L["Bossmod requiered"]))
 			end
 		else
-			_G.UIErrorsFrame:AddMessage(MER.InfoColor .. _G.ERR_NOT_LEADER)
+			_G.UIErrorsFrame:AddMessage(F.String.MERATHILISUI(_G.ERR_NOT_LEADER))
 		end
 	end)
 
@@ -462,13 +462,13 @@ function module:Initialize()
 
 	ReadyCheckButton:SetScript("OnClick", function()
 		if InCombatLockdown() then
-			_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.ERR_NOT_IN_COMBAT)
+			_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_NOT_IN_COMBAT))
 			return
 		end
 		if IsInGroup() and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid())) then
 			DoReadyCheck()
 		else
-			_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.ERR_NOT_LEADER)
+			_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_NOT_LEADER))
 		end
 	end)
 
@@ -494,7 +494,7 @@ function module:Initialize()
 		then
 			InitiateRolePoll()
 		else
-			_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.ERR_NOT_LEADER)
+			_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_NOT_LEADER))
 		end
 	end)
 
@@ -534,7 +534,7 @@ function module:Initialize()
 		elseif IsInGroup() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
 			C_PartyInfo_ConvertToRaid()
 		else
-			_G.UIErrorsFrame:AddMessage(MER.InfoColor .. _G.ERR_NOT_LEADER)
+			_G.UIErrorsFrame:AddMessage(F.String.MERATHILISUI(_G.ERR_NOT_LEADER))
 		end
 	end)
 
@@ -681,9 +681,9 @@ function module:Initialize()
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(L["Raid Manager"], F.r, F.g, F.b)
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine(MER.LeftButton .. MER.InfoColor .. L["Open Raid Manager"])
+		GameTooltip:AddDoubleLine(MER.LeftButton .. F.String.MERATHILISUI(L["Open Raid Manager"]))
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine(MER.RightButton .. MER.InfoColor .. L["Open Raid Panel"])
+		GameTooltip:AddDoubleLine(MER.RightButton .. F.String.MERATHILISUI(L["Open Raid Panel"]))
 		GameTooltip:Show()
 	end)
 	header:SetScript("OnLeave", function(self)

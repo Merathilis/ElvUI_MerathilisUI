@@ -9,10 +9,11 @@ I.Strings.Colors = {
 	[I.Enum.Colors.OMNICD] = "8634eb", -- #8634eb
 	[I.Enum.Colors.WT] = "54e5ff", -- #54e5ff
 	[I.Enum.Colors.ELVUI] = "1784d1", -- #1784d1
-	[I.Enum.Colors.ERROR] = "ef5350", -- #ef5350
+	[I.Enum.Colors.ERROR] = "ff2735", -- #ff2735
 	[I.Enum.Colors.GOOD] = "66bb6a", -- #66bb6a
-	[I.Enum.Colors.WARNING] = "f5b041", -- #f5b041
+	[I.Enum.Colors.WARNING] = "ffff00", -- #ffff00
 	[I.Enum.Colors.WHITE] = "ffffff", -- #ffffff
+	[I.Enum.Colors.GREY] = "B5B5B5", -- #B5B5B5
 
 	[I.Enum.Colors.SILVER] = "a3a3a3", -- #a3a3a3
 	[I.Enum.Colors.GOLD] = "cfc517", -- ##cfc517

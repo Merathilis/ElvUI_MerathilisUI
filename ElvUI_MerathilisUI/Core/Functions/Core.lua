@@ -319,36 +319,17 @@ function F.DebugPrint(text, msgtype)
 
 	local message
 	if msgtype == "error" then
-		message = format("%s: %s", MER.Title .. MER.RedColor .. L["Error"] .. "|r", text)
+		message = format("%s: %s", MER.Title .. F.String.Error(L["Error"]), text)
 	elseif msgtype == "warning" then
-		message = format("%s: %s", MER.Title .. MER.YellowColor .. L["Warning"] .. "|r", text)
+		message = format("%s: %s", MER.Title .. F.String.Warning(L["Warning"]), text)
 	elseif msgtype == "info" then
-		message = format("%s: %s", MER.Title .. MER.InfoColor .. L["Information"] .. "|r", text)
+		message = format("%s: %s", MER.Title .. F.String.MER(L["Information"]), text)
 	end
 	print(message)
 end
 
 function F.PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
-end
-
-function F.TablePrint(tbl, indent)
-	if not indent then
-		indent = 0
-	end
-
-	local formatting
-	for k, v in pairs(tbl) do
-		formatting = string.rep("  ", indent) .. k .. ": "
-		if type(v) == "table" then
-			print(formatting)
-			F.TablePrint(v, indent + 1)
-		elseif type(v) == "boolean" then
-			print(formatting .. tostring(v))
-		else
-			print(formatting .. v)
-		end
-	end
 end
 
 do
@@ -929,6 +910,165 @@ function F.GetTextureStrByAtlas(info, sizeX, sizeY)
 		atlasHeight * txTop,
 		atlasHeight * txBottom
 	)
+end
+
+function F.AddMedia(mediaType, mediaFile, lsmName, lsmType, lsmMask)
+	local path = I.MediaPaths[mediaType]
+	if path then
+		local key = gsub(mediaFile, "%.%w-$", "")
+		local file = path .. mediaFile
+
+		local pathKey = I.MediaKeys[mediaType]
+		if pathKey then
+			I.Media[pathKey][key] = file
+		else
+			F.Developer.LogDebug("Could not find path key for", mediaType, mediaFile, lsmName, lsmType, lsmMask)
+		end
+
+		if lsmName then
+			local nameKey = (lsmName == true and key) or lsmName
+			local mediaKey = lsmType or mediaType
+			LSM:Register(mediaKey, nameKey, file, lsmMask)
+		end
+	else
+		F.Developer.LogDebug("Could not find media path for", mediaType, mediaFile, lsmName, lsmType, lsmMask)
+	end
+end
+
+do
+	local cuttedIconTemplate = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
+	local cuttedIconAspectRatioTemplate = "|T%s:%d:%d:0:0:64:64:%d:%d:%d:%d|t"
+	local textureTemplate = "|T%s:%d:%d|t"
+	local aspectRatioTemplate = "|T%s:0:aspectRatio|t"
+	local s = 14
+
+	function F.GetIconString(icon, height, width, aspectRatio)
+		if aspectRatio and height and height > 0 and width and width > 0 then
+			local proportionality = height / width
+			local offset = ceil((54 - 54 * proportionality) / 2)
+			if proportionality > 1 then
+				return format(cuttedIconAspectRatioTemplate, icon, height, width, 5 + offset, 59 - offset, 5, 59)
+			elseif proportionality < 1 then
+				return format(cuttedIconAspectRatioTemplate, icon, height, width, 5, 59, 5 + offset, 59 - offset)
+			end
+		end
+
+		width = width or height
+		return format(cuttedIconTemplate, icon, height or s, width or s)
+	end
+
+	function F.GetTextureString(texture, height, width, aspectRatio)
+		if aspectRatio then
+			return format(aspectRatioTemplate, texture)
+		else
+			width = width or height
+			return format(textureTemplate, texture, height or s, width or s)
+		end
+	end
+end
+
+local MediaPath = "Interface/Addons/ElvUI_MerathilisUI/Media/"
+
+do
+	local texTable = {
+		texWidth = 2048,
+		texHeight = 1024,
+		tipWidth = 512,
+		tipHeight = 170,
+		languages = {
+			enUS = 0,
+		},
+		type = {
+			button = { 0, 0 },
+			checkBox = { 512, 0 },
+			tab = { 1024, 0 },
+			treeGroupButton = { 1536, 0 },
+			slider = { 0, 180 },
+		},
+	}
+
+	function F.GetWidgetTips(widgetType)
+		if not texTable.type[widgetType] then
+			return
+		end
+		local offsetY = texTable.languages[E.global.general.locale] or texTable.languages["enUS"]
+		if not offsetY then
+			return
+		end
+
+		local xStart = texTable.type[widgetType][1]
+		local yStart = texTable.type[widgetType][2] + offsetY
+		local xEnd = xStart + texTable.tipWidth
+		local yEnd = yStart + texTable.tipHeight
+
+		return {
+			xStart / texTable.texWidth,
+			xEnd / texTable.texWidth,
+			yStart / texTable.texHeight,
+			yEnd / texTable.texHeight,
+		}
+	end
+
+	function F.GetWidgetTipsString(widgetType)
+		if not texTable.type[widgetType] then
+			return
+		end
+		local offsetY = texTable.languages[E.global.general.locale] or texTable.languages["enUS"]
+		if not offsetY then
+			return
+		end
+
+		local xStart = texTable.type[widgetType][1]
+		local yStart = texTable.type[widgetType][2] + offsetY
+		local xEnd = xStart + texTable.tipWidth
+		local yEnd = yStart + texTable.tipHeight
+
+		return format(
+			"|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d:255:255:255|t",
+			I.Media.Textures.WidgetsTips,
+			ceil(texTable.tipHeight * 0.4),
+			ceil(texTable.tipWidth * 0.4),
+			texTable.texWidth,
+			texTable.texHeight,
+			xStart,
+			xEnd,
+			yStart,
+			yEnd
+		)
+	end
+end
+
+function F.GetClassIconStyleList()
+	return { "flat", "flatborder", "flatborder2", "round", "square", "warcraftflat" }
+end
+
+function F.GetClassIconWithStyle(class, style)
+	if not class or not F.In(strupper(class), _G.CLASS_SORT_ORDER) then
+		return
+	end
+
+	if not style or not F.In(style, F.GetClassIconStyleList()) then
+		return
+	end
+
+	return MediaPath .. "Icons/ClassIcon/" .. strlower(class) .. "_" .. style .. ".tga"
+end
+
+function F.GetClassIconStringWithStyle(class, style, width, height)
+	local path = F.GetClassIconWithStyle(class, style)
+	if not path then
+		return
+	end
+
+	if not width and not height then
+		return format("|T%s:0|t", path)
+	end
+
+	if not height then
+		height = width
+	end
+
+	return format("|T%s:%d:%d:0:0:64:64:0:64:0:64|t", path, height, width)
 end
 
 -- Check Textures

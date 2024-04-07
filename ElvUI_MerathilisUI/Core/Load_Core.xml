@@ -5,7 +5,6 @@
 
 	<Script file="Core.lua"/>
 	<Script file="Compatibility.lua"/>
-	<Script file="Changelog.lua"/>
 	<Script file="Dropdown.lua"/>
 	<Script file="Install.lua"/>
 	<Script file="Layout.lua"/>
@@ -16,4 +15,6 @@
 	<Script file="Update.lua"/>
 	<Include file="FunStuff.xml"/>
 	<Script file="FunStuff.lua"/>
+
+	<Include file="Changelog\Load_Changelog.xml"/>
 </Ui>

@@ -64,6 +64,12 @@ MER.options = {
 		icon = MER.Media.Icons.save,
 		args = {},
 	},
+	changelog = {
+		order = 113,
+		name = F.cOption(L["Changelog"], "gradient"),
+		icon = MER.Media.Icons.changelog,
+		args = {},
+	},
 }
 
 function MER:OptionsCallback()
@@ -109,19 +115,8 @@ function MER:OptionsCallback()
 					E:ToggleOptions()
 				end,
 			},
-			changelog = {
-				order = 4,
-				type = "execute",
-				name = L["Changelog"],
-				desc = L["Open the changelog window."],
-				customWidth = 140,
-				func = function()
-					MER:ToggleChangeLog()
-					E:ToggleOptions()
-				end,
-			},
 			discordButton = {
-				order = 5,
+				order = 4,
 				type = "execute",
 				name = L["|T" .. I.General.MediaPath .. "Icons\\Discord.tga:18:18:0:0:64:64|t |cffffffffMerathilis|r|cffff7d0aUI|r Discord"],
 				customWidth = 160,

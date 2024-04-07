@@ -61,6 +61,16 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 	hideOnEscape = false,
 }
 
+E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
+	text = format(L["Welcome to %s %s!"], MER.Title, MER.Version),
+	button1 = L["Open Changelog"],
+	button2 = CANCEL,
+	OnAccept = function()
+		E:ToggleOptions("ElvUI_MerathilisUI,changelog")
+	end,
+	hideOnEscape = 1,
+}
+
 -- Compatibility
 E.PopupDialogs["WINDTOOLS_MER_INCOMPATIBLE"] = {
 	text = L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."],
@@ -73,23 +83,6 @@ E.PopupDialogs["WINDTOOLS_MER_INCOMPATIBLE"] = {
 		ReloadUI()
 	end,
 	button1 = "|cff00c0faElvUI_Windtools|r",
-	button2 = MER.Title,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = false,
-}
-
-E.PopupDialogs["LIVVEN_MER_INCOMPATIBLE"] = {
-	text = L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."],
-	OnAccept = function()
-		C_AddOns_DisableAddOn("ElvUI_LivvenUI")
-		ReloadUI()
-	end,
-	OnCancel = function()
-		C_AddOns_DisableAddOn("ElvUI_MerathilisUI")
-		ReloadUI()
-	end,
-	button1 = "|cff9482c9ElvUI_LivvenUI|r",
 	button2 = MER.Title,
 	timeout = 0,
 	whileDead = 1,

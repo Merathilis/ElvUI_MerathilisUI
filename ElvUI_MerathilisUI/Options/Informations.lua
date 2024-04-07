@@ -270,7 +270,7 @@ options.reset = {
 		desc = {
 			order = 1,
 			type = "description",
-			name = MER.InfoColor .. L["This section will help reset specfic settings back to default."],
+			name = F.String.MERATHILISUI(L["This section will help reset specfic settings back to default."]),
 		},
 		spacer = {
 			order = 2,

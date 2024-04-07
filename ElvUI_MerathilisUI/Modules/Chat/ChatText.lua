@@ -562,7 +562,7 @@ do --this can save some main file locals
 	end
 end
 
-local logoSmall = F.GetIconString(MER.Media.Textures.smallLogo, 14)
+local logoSmall = F.GetIconString(I.Media.Logos.LogoSmall, 14)
 local authorIcons = {
 	["Asragoth-Shattrath"] = logoSmall, -- [Alliance] Warlock
 	["Brítt-Shattrath"] = logoSmall, -- [Alliance] Warrior
@@ -2161,7 +2161,7 @@ function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage
 	local coloredName = F.CreateClassColorString(displayName, playerInfo.englishClass)
 	local classIcon = self.db.classIcon
 		and F.GetClassIconStringWithStyle(playerInfo.englishClass, self.db.classIconStyle, 16, 16)
-	classIcon = classIcon .. " " or ""
+	classIcon = classIcon and classIcon .. " " or ""
 
 	if coloredName and classIcon and cache[achievementID] then
 		local playerName = format("|Hplayer:%s|h%s %s|h", playerInfo.nameWithRealm, classIcon, coloredName)

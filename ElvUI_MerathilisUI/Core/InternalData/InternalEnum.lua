@@ -16,6 +16,7 @@ I.Enum.Colors = F.Enum({
 	"INSTALLER_WARNING",
 	"WARNING",
 	"WHITE",
+	"GREY",
 
 	"SILVER",
 	"GOLD",
@@ -25,3 +26,5 @@ I.Enum.Colors = F.Enum({
 	"RARE",
 	"BETA",
 })
+
+print(I.Enum.Colors)

@@ -14,9 +14,6 @@ local UnitIsPlayer = UnitIsPlayer
 local UnitIsTapDenied = UnitIsTapDenied
 local UnitReaction = UnitReaction
 
-local C_AddOns_GetAddOnEnableState = C_AddOns.GetAddOnEnableState
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-
 --[[----------------------------------
 --	Color Functions
 --]]

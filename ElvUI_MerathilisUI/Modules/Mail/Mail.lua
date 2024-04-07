@@ -629,7 +629,7 @@ function module:MailBox_DelectClick()
 	if InboxItemCanDelete(selectedID) then
 		DeleteInboxItem(selectedID)
 	else
-		_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.ERR_MAIL_DELETE_ITEM_ERROR)
+		_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_MAIL_DELETE_ITEM_ERROR))
 	end
 end
 
@@ -781,7 +781,7 @@ end
 
 function module:MailBox_CollectCurrent()
 	if _G.OpenMailFrame.cod then
-		_G.UIErrorsFrame:AddMessage(MER.RedColor .. L["You can't auto collect CoD mail"])
+		_G.UIErrorsFrame:AddMessage(F.String.Error(L["You can't auto collect CoD mail"]))
 		return
 	end
 

@@ -14,7 +14,7 @@ local C_LFGList_GetActivityInfoTable = C_LFGList.GetActivityInfoTable
 local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
-local scoreFormat = MER.GreyColor .. "(%s) |r%s"
+local scoreFormat = F.String.Grey("(%s) |r%s")
 
 local factionStr = {
 	[0] = "Horde",

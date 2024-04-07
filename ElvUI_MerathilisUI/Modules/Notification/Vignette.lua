@@ -93,7 +93,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 						""
 					)
 				end
-				F.Print(currentTime .. " -> " .. tex .. MER.InfoColor .. (nameString or vignetteInfo.name or ""))
+				F.Print(currentTime .. " -> " .. tex .. F.String.MERATHILISUI(nameString or vignetteInfo.name or ""))
 			end
 
 			local time = GetTime()

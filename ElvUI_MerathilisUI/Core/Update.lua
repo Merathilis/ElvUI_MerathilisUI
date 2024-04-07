@@ -5,7 +5,7 @@ local format = string.format
 
 local isFirstLine = true
 
-local DONE_ICON = format(" |T%s:0|t", MER.Media.Icons.accept)
+-- local DONE_ICON = format(" |T%s:0|t", MER.Media.Icons.accept)
 
 local function UpdateMessage(text, from)
 	if isFirstLine then
@@ -14,7 +14,7 @@ local function UpdateMessage(text, from)
 		F.Print(L["Update"])
 	end
 
-	print(text .. format("(|cff00a8ff%.2f|r -> |cff00a8ff%s|r)...", from, MER.Version) .. DONE_ICON)
+	print(text .. format("(|cff00a8ff%.2f|r -> |cff00a8ff%s|r)...", from, MER.Version)) --DONE_ICON)
 end
 
 function MER:ForPreReleaseUser() end

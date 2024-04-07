@@ -8,5 +8,6 @@
 	<Script file="Commands.lua"/>
 	<Script file="Smooth.lua"/>
 	<Script file="Strings.lua"/>
+	<Script file="Table.lua"/>
 	<Script file="Widgets.lua"/>
 </Ui>

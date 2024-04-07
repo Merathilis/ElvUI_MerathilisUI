@@ -4,148 +4,13 @@ local LSM = E.LSM or E.Libs.LSM
 MER.Media = {
 	Icons = {},
 	Textures = {},
+	Logos = {},
 }
 
 local MediaPath = "Interface/Addons/ElvUI_MerathilisUI/Media/"
 
-do
-	local cuttedIconTemplate = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
-	local cuttedIconAspectRatioTemplate = "|T%s:%d:%d:0:0:64:64:%d:%d:%d:%d|t"
-	local textureTemplate = "|T%s:%d:%d|t"
-	local aspectRatioTemplate = "|T%s:0:aspectRatio|t"
-	local s = 14
-
-	function F.GetIconString(icon, height, width, aspectRatio)
-		if aspectRatio and height and height > 0 and width and width > 0 then
-			local proportionality = height / width
-			local offset = ceil((54 - 54 * proportionality) / 2)
-			if proportionality > 1 then
-				return format(cuttedIconAspectRatioTemplate, icon, height, width, 5 + offset, 59 - offset, 5, 59)
-			elseif proportionality < 1 then
-				return format(cuttedIconAspectRatioTemplate, icon, height, width, 5, 59, 5 + offset, 59 - offset)
-			end
-		end
-
-		width = width or height
-		return format(cuttedIconTemplate, icon, height or s, width or s)
-	end
-
-	function F.GetTextureString(texture, height, width, aspectRatio)
-		if aspectRatio then
-			return format(aspectRatioTemplate, texture)
-		else
-			width = width or height
-			return format(textureTemplate, texture, height or s, width or s)
-		end
-	end
-end
-
 local function AddMedia(name, file, type)
 	MER.Media[type][name] = MediaPath .. type .. "/" .. file
-end
-
-do
-	AddMedia("widgetsTips", "WidgetsTips.tga", "Textures")
-
-	local texTable = {
-		texWidth = 2048,
-		texHeight = 1024,
-		tipWidth = 512,
-		tipHeight = 170,
-		languages = {
-			enUS = 0,
-		},
-		type = {
-			button = { 0, 0 },
-			checkBox = { 512, 0 },
-			tab = { 1024, 0 },
-			treeGroupButton = { 1536, 0 },
-			slider = { 0, 180 },
-		},
-	}
-
-	function F.GetWidgetTips(widgetType)
-		if not texTable.type[widgetType] then
-			return
-		end
-		local offsetY = texTable.languages[E.global.general.locale] or texTable.languages["enUS"]
-		if not offsetY then
-			return
-		end
-
-		local xStart = texTable.type[widgetType][1]
-		local yStart = texTable.type[widgetType][2] + offsetY
-		local xEnd = xStart + texTable.tipWidth
-		local yEnd = yStart + texTable.tipHeight
-
-		return {
-			xStart / texTable.texWidth,
-			xEnd / texTable.texWidth,
-			yStart / texTable.texHeight,
-			yEnd / texTable.texHeight,
-		}
-	end
-
-	function F.GetWidgetTipsString(widgetType)
-		if not texTable.type[widgetType] then
-			return
-		end
-		local offsetY = texTable.languages[E.global.general.locale] or texTable.languages["enUS"]
-		if not offsetY then
-			return
-		end
-
-		local xStart = texTable.type[widgetType][1]
-		local yStart = texTable.type[widgetType][2] + offsetY
-		local xEnd = xStart + texTable.tipWidth
-		local yEnd = yStart + texTable.tipHeight
-
-		return format(
-			"|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d:255:255:255|t",
-			MER.Media.Textures.widgetsTips,
-			ceil(texTable.tipHeight * 0.4),
-			ceil(texTable.tipWidth * 0.4),
-			texTable.texWidth,
-			texTable.texHeight,
-			xStart,
-			xEnd,
-			yStart,
-			yEnd
-		)
-	end
-end
-
-function F.GetClassIconStyleList()
-	return { "flat", "flatborder", "flatborder2", "round", "square", "warcraftflat" }
-end
-
-function F.GetClassIconWithStyle(class, style)
-	if not class or not F.In(strupper(class), _G.CLASS_SORT_ORDER) then
-		return
-	end
-
-	if not style or not F.In(style, F.GetClassIconStyleList()) then
-		return
-	end
-
-	return MediaPath .. "Icons/ClassIcon/" .. strlower(class) .. "_" .. style .. ".tga"
-end
-
-function F.GetClassIconStringWithStyle(class, style, width, height)
-	local path = F.GetClassIconWithStyle(class, style)
-	if not path then
-		return
-	end
-
-	if not width and not height then
-		return format("|T%s:0|t", path)
-	end
-
-	if not height then
-		height = width
-	end
-
-	return format("|T%s:%d:%d:0:0:64:64:0:64:0:64|t", path, height, width)
 end
 
 MER.ClassIcons = {
@@ -164,7 +29,9 @@ MER.ClassIcons = {
 	["EVOKER"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Evoker",
 }
 
-AddMedia("smallLogo", "m2.tga", "Textures")
+F.AddMedia("texture", "WidgetsTips")
+
+F.AddMedia("logo", "LogoSmall")
 
 AddMedia("barAchievements", "MicroBar/Achievements.tga", "Icons")
 AddMedia("barBags", "MicroBar/Bags.tga", "Icons")
@@ -213,6 +80,7 @@ AddMedia("save", "Options/save.tga", "Icons")
 AddMedia("more", "Options/more.tga", "Icons")
 AddMedia("tool", "Options/tool.tga", "Icons")
 AddMedia("gradient", "Options/gradient.tga", "Icons")
+AddMedia("changelog", "Options/changelog.tga", "Icons")
 
 AddMedia("buttonLock", "Button/Lock.tga", "Icons")
 AddMedia("buttonUnlock", "Button/Unlock.tga", "Icons")

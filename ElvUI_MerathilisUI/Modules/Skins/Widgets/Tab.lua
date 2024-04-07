@@ -81,14 +81,14 @@ function WS:HandleTab(_, tab, noBackdrop, template)
 end
 
 do
-	S.Ace3_TabSetSelected_Changed = S.Ace3_TabSetSelected
+	S.Ace3_TabSetSelected_ = S.Ace3_TabSetSelected
 	function S.Ace3_TabSetSelected(tab, selected)
 		if not tab or not tab.backdrop then
-			return
+			return S.Ace3_TabSetSelected_(tab, selected)
 		end
 
 		if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.tab.enable then
-			return
+			return S.Ace3_TabSetSelected_(tab, selected)
 		end
 
 		local db = E.private.mui.skins.widgets.tab
@@ -104,8 +104,7 @@ do
 		end
 
 		if not db.selected.enable then
-			S.Ace3_TabSetSelected_Changed(tab, selected)
-			return
+			return S.Ace3_TabSetSelected_(tab, selected)
 		end
 
 		local borderColor = db.selected.borderClassColor and module.ClassColor or db.selected.borderColor

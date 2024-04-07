@@ -154,7 +154,6 @@ function module:CreateChatButtons()
 		end
 		GameTooltip:Hide()
 	end)
-	print("enabled")
 end
 
 function module:AddCustomEmojis()

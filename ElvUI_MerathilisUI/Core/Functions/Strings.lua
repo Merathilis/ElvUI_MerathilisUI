@@ -11,7 +11,20 @@ F.String = {}
 function F.String.Color(msg, color)
 	if type(color) == "string" then
 		return "|cff" .. color .. msg .. "|r"
+	else
+		return "|cff" .. I.Strings.Colors[color] .. msg .. "|r"
 	end
+end
+
+function F.String.HexToRGB(hex)
+	local r, g, b, a = strmatch(hex, "^#?(%x%x)(%x%x)(%x%x)(%x?%x?)$")
+	if not r then
+		return 0, 0, 0, nil
+	end
+	return tonumber(r, 16) / 255,
+		tonumber(g, 16) / 255,
+		tonumber(b, 16) / 255,
+		(a ~= "") and (tonumber(a, 16) / 255) or nil
 end
 
 function F.String.CharBytes(s, i)
@@ -224,10 +237,10 @@ end
 
 function F.String.FastGradientHex(text, h1, h2)
 	local r2, g2, b2
-	local r1, g1, b1 = F.HexToRGB(h1)
+	local r1, g1, b1 = F.String.HexToRGB(h1)
 
 	if h2 then
-		r2, g2, b2 = F.HexToRGB(h2)
+		r2, g2, b2 = F.String.HexToRGB(h2)
 	else
 		local h, s, l = F.ConvertToHSL(r1, g1, b1)
 		r1, g1, b1 = F.ConvertToRGB(F.ClampToHSL(h, s * 0.95, l * 1.2))
@@ -238,8 +251,8 @@ function F.String.FastGradientHex(text, h1, h2)
 end
 
 function F.String.FastColorGradientHex(percentage, h1, h2)
-	local r1, g1, b1 = F.HexToRGB(h1)
-	local r2, g2, b2 = F.HexToRGB(h2)
+	local r1, g1, b1 = F.String.HexToRGB(h1)
+	local r2, g2, b2 = F.String.HexToRGB(h2)
 
 	return F.FastColorGradient(percentage, r1, g1, b1, r2, g2, b2)
 end
@@ -254,7 +267,7 @@ function F.String.Class(msg, class)
 	return F.String.Color(msg, F.String.FastRGB(color.r, color.g, color.b))
 end
 
-function F.String.MER(msg)
+function F.String.MERATHILISUI(msg)
 	return F.String.Color(msg, I.Enum.Colors.MER)
 end
 
@@ -332,4 +345,8 @@ end
 
 function F.String.Beta(msg)
 	return F.String.Color(msg, I.Enum.Colors.BETA)
+end
+
+function F.String.Grey(msg)
+	return F.String.Color(msg, I.Enum.Colors.GREY)
 end
