@@ -61,6 +61,4 @@ function MER:UpdateScripts() -- DB Convert
 	E.global.mui.version = MER.Version
 	E.db.mui.version = MER.Version
 	E.private.mui.version = MER.Version
-
-	print(profileVersion, privateVersion)
 end
