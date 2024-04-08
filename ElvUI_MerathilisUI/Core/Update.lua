@@ -40,7 +40,7 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion and profileVersion <= 6.0 then
+	if profileVersion and profileVersion <= 6.09 then
 		-- if E.db.mui.notification and E.db.mui.notification.vignette and type(E.db.mui.notification.vignette) ~= 'table' then
 		-- E.db.mui.notification.vignette = {}
 		-- E.db.mui.notification.rarePrint = nil
