@@ -989,7 +989,7 @@ function module:ConstructButton()
 	button.hoverTex = hoverTex
 
 	local notificationTex = button:CreateTexture(nil, "OVERLAY")
-	notificationTex:SetTexture(MER.Media.Icons.barNotification)
+	notificationTex:SetTexture(I.Media.Icons.Notification)
 	notificationTex:SetPoint("TOPRIGHT")
 	notificationTex:SetSize(0.38 * self.db.buttonSize, 0.38 * self.db.buttonSize)
 	button.notificationTex = notificationTex

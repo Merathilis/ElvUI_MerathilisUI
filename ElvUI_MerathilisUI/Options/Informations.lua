@@ -109,7 +109,7 @@ options.name = {
 					order = 5,
 					type = "execute",
 					name = L["Tukui Discord Server"],
-					image = MER.Media.Icons.discord,
+					image = I.Media.Icons.Discord,
 					func = function()
 						E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/xFWcfgE")
 					end,
@@ -118,7 +118,7 @@ options.name = {
 					order = 6,
 					type = "execute",
 					name = L["Github"],
-					image = MER.Media.Icons.github,
+					image = I.Media.Icons.Github,
 					func = function()
 						E:StaticPopup_Show(
 							"MERATHILISUI_CREDITS",

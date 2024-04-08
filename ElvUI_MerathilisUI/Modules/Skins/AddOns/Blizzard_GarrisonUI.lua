@@ -244,7 +244,7 @@ function module:Blizzard_GarrisonUI()
 					widget:StripTextures()
 					S:HandleButton(peek("UnButton"))
 					S:HandleButton(peek("StartButton"))
-					peek("StartButton"):SetText("|T" .. MER.Media.Textures.arrowUp .. ":16|t")
+					peek("StartButton"):SetText("|T" .. I.Media.Textures.arrowUp .. ":16|t")
 				elseif otype == "ILButton" then
 					widget:DisableDrawLayer("BACKGROUND")
 					local bg = module:CreateBDFrame(widget, 0.25)

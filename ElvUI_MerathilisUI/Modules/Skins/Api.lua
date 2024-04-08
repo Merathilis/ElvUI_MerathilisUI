@@ -481,7 +481,7 @@ function module:SetupArrow(self, direction)
 		return
 	end
 
-	self:SetTexture(MER.Media.Textures.arrowUp)
+	self:SetTexture(I.Media.Textures.arrowUp)
 	self:SetRotation(rad(arrowDegree[direction]))
 end
 
