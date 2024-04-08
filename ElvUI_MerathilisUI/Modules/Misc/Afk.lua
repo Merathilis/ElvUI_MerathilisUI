@@ -221,7 +221,7 @@ local function Initialize()
 		AFK.AFKMode.Panel.crest = AFK.AFKMode.Panel:CreateTexture(nil, "ARTWORK")
 		AFK.AFKMode.Panel.crest:SetDrawLayer("ARTWORK")
 		AFK.AFKMode.Panel.crest:Point("BOTTOM", AFK.AFKMode.Panel, "TOP", 0, -30)
-		AFK.AFKMode.Panel.crest:SetTexture(MER.Media.Textures.PepoBedge)
+		AFK.AFKMode.Panel.crest:SetTexture(I.Media.Textures.PepoBedge)
 		AFK.AFKMode.Panel.crest:Size(64)
 	end
 

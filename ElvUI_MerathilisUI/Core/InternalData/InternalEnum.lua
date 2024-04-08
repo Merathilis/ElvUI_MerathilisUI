@@ -26,5 +26,3 @@ I.Enum.Colors = F.Enum({
 	"RARE",
 	"BETA",
 })
-
-print(I.Enum.Colors)

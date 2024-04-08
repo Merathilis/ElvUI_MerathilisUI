@@ -20,7 +20,7 @@ function MER:LoadLSProfile()
 			},
 		},
 		["font"] = {
-			["name"] = "Expressway",
+			["name"] = I.Fonts.Primary,
 			["size"] = 11,
 		},
 		["colors"] = {

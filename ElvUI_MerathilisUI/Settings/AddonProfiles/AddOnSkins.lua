@@ -24,7 +24,7 @@ function MER:LoadAddOnSkinsProfile()
 	AS.db["DetailsBackdrop"] = false
 	AS.db["MiscFixes"] = true
 	AS.db["DBMSkinHalf"] = false
-	AS.db["DBMFont"] = "Expressway"
+	AS.db["DBMFont"] = I.Fonts.Primary
 	AS.db["DBMFontSize"] = 12
 	AS.db["DBMFontFlag"] = "OUTLINE"
 	AS.db["DBMRadarTrans"] = false

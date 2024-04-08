@@ -118,15 +118,15 @@ function MER:LoadOmniCDProfile()
 			["General"] = {
 				["fonts"] = {
 					["statusBar"] = {
-						["font"] = "Expressway",
+						["font"] = I.Fonts.Primary,
 						["flag"] = "SHADOWOUTLINE",
 					},
 					["icon"] = {
-						["font"] = "Expressway",
+						["font"] = I.Fonts.Primary,
 						["flag"] = "SHADOWOUTLINE",
 					},
 					["anchor"] = {
-						["font"] = "Expressway",
+						["font"] = I.Fonts.Primary,
 						["flag"] = "SHADOWOUTLINE",
 					},
 				},

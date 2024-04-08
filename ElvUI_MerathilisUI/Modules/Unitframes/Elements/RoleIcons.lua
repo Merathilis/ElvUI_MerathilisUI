@@ -4,19 +4,19 @@ local UF = E:GetModule("UnitFrames")
 
 local RoleIconTextures = {
 	SUNUI = {
-		TANK = MER.Media.Textures.sunTank,
-		HEALER = MER.Media.Textures.sunHealer,
-		DAMAGER = MER.Media.Textures.sunDPS,
+		TANK = I.Media.RoleIcons.SunUITank,
+		HEALER = I.Media.RoleIcons.SunUIHealer,
+		DAMAGER = I.Media.RoleIcons.SunUIDPS,
 	},
 	SVUI = {
-		TANK = MER.Media.Textures.svuiTank,
-		HEALER = MER.Media.Textures.svuiHealer,
-		DAMAGER = MER.Media.Textures.svuiDPS,
+		TANK = I.Media.RoleIcons.SVUITank,
+		HEALER = I.Media.RoleIcons.SVUIHealer,
+		DAMAGER = I.Media.RoleIcons.SVUIDPS,
 	},
 	LYNUI = {
-		TANK = MER.Media.Textures.lynTank,
-		HEALER = MER.Media.Textures.lynHealer,
-		DAMAGER = MER.Media.Textures.lynDPS,
+		TANK = I.Media.RoleIcons.LynUITank,
+		HEALER = I.Media.RoleIcons.LynUIHealer,
+		DAMAGER = I.Media.RoleIcons.LynUIDPS,
 	},
 	DEFAULT = {
 		TANK = E.Media.Textures.Tank,
@@ -24,39 +24,34 @@ local RoleIconTextures = {
 		DAMAGER = E.Media.Textures.DPS,
 	},
 	CUSTOM = {
-		TANK = MER.Media.Textures.customTank,
-		HEALER = MER.Media.Textures.customHeal,
-		DAMAGER = MER.Media.Textures.customDPS,
+		TANK = I.Media.RoleIcons.CustomTank,
+		HEALER = I.Media.RoleIcons.CustomHealer,
+		DAMAGER = I.Media.RoleIcons.CustomDPS,
 	},
 	GLOW = {
-		TANK = MER.Media.Textures.glowTank,
-		HEALER = MER.Media.Textures.glowHeal,
-		DAMAGER = MER.Media.Textures.glowDPS,
-	},
-	GLOW1 = {
-		TANK = MER.Media.Textures.glow1Tank,
-		HEALER = MER.Media.Textures.glow1Heal,
-		DAMAGER = MER.Media.Textures.glow1DPS,
+		TANK = I.Media.RoleIcons.GlowTank,
+		HEALER = I.Media.RoleIcons.GlowHealer,
+		DAMAGER = I.Media.RoleIcons.GlowDPS,
 	},
 	GRAVED = {
-		TANK = MER.Media.Textures.gravedTank,
-		HEALER = MER.Media.Textures.gravedHeal,
-		DAMAGER = MER.Media.Textures.gravedDPS,
+		TANK = I.Media.RoleIcons.GravedTank,
+		HEALER = I.Media.RoleIcons.GravedHealer,
+		DAMAGER = I.Media.RoleIcons.GravedDPS,
 	},
 	MAIN = {
-		TANK = MER.Media.Textures.mainTank,
-		HEALER = MER.Media.Textures.mainHeal,
-		DAMAGER = MER.Media.Textures.mainDPS,
+		TANK = I.Media.RoleIcons.MainTank,
+		HEALER = I.Media.RoleIcons.MainHealer,
+		DAMAGER = I.Media.RoleIcons.MainDPS,
 	},
 	WHITE = {
-		TANK = MER.Media.Textures.whiteTank,
-		HEALER = MER.Media.Textures.whiteHeal,
-		DAMAGER = MER.Media.Textures.whiteDPS,
+		TANK = I.Media.RoleIcons.WhiteTank,
+		HEALER = I.Media.RoleIcons.WhiteHealer,
+		DAMAGER = I.Media.RoleIcons.WhiteDPS,
 	},
 	MATERIAL = {
-		TANK = MER.Media.Textures.materialTank,
-		HEALER = MER.Media.Textures.materialHeal,
-		DAMAGER = MER.Media.Textures.materialDPS,
+		TANK = I.Media.RoleIcons.MaterialTank,
+		HEALER = I.Media.RoleIcons.MaterialHealer,
+		DAMAGER = I.Media.RoleIcons.MaterialDPS,
 	},
 }
 

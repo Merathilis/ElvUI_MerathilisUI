@@ -251,7 +251,7 @@ V.skins = {
 				colorLeft = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 },
 				colorRight = { r = 0.25882, g = 0.84314, b = 0.86667, a = 1 },
 				countDown = {
-					name = "Expressway",
+					name = I.Fonts.Primary,
 					size = 16,
 					style = "SHADOWOUTLINE",
 					offsetX = 0,
@@ -292,7 +292,7 @@ V.skins = {
 		style = "SHADOWOUTLINE",
 	},
 	rollResult = {
-		name = "Expressway",
+		name = I.Fonts.Primary,
 		size = 13,
 		style = "SHADOWOUTLINE",
 	},

@@ -157,7 +157,7 @@ function module:Skin_ElvUI_ActionBars()
 			tex:ClearAllPoints()
 			tex:SetPoint("TOPLEFT", button, "TOPLEFT", 4, -4)
 			tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
-			tex:SetTexture(MER.Media.Textures.arrow)
+			tex:SetTexture(I.Media.Textures.arrow)
 			tex:SetTexCoord(0, 1, 0, 1)
 			tex:SetVertexColor(1, 1, 1, 1)
 		end

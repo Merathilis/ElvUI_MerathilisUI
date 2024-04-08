@@ -98,7 +98,7 @@ function module:ConstructFrame()
 
 	local texture = frame:CreateTexture(nil, "BACKGROUND")
 	texture:SetAllPoints()
-	texture:SetTexture(MER.Media.Textures.MinimapDifficulty)
+	texture:SetTexture(I.Media.Textures.Difficulty)
 	texture:SetVertexColor(0, 0.75, 0.98, 0.45)
 	frame.texture = texture
 

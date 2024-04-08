@@ -13,13 +13,13 @@ MER.options = {
 	general = {
 		order = 101,
 		name = F.cOption(L["General"], "gradient"),
-		icon = MER.Media.Icons.home,
+		icon = I.Media.Icons.OptionsHome,
 		args = {},
 	},
 	modules = {
 		order = 102,
 		name = F.cOption(L["Modules"], "gradient"),
-		icon = MER.Media.Icons.config,
+		icon = I.Media.Icons.Config,
 		args = {
 			info = {
 				order = 1,
@@ -31,49 +31,49 @@ MER.options = {
 	misc = {
 		order = 103,
 		name = F.cOption(L["Misc"], "gradient"),
-		icon = MER.Media.Icons.more,
+		icon = I.Media.Icons.More,
 		args = {},
 	},
 	skins = {
 		order = 104,
 		name = F.cOption(L["Skins/AddOns"], "gradient"),
-		icon = MER.Media.Icons.bill,
+		icon = I.Media.Icons.Bill,
 		args = {},
 	},
 	--[[media = {
 		order = 105,
 		name = F.cOption(L["Media"], 'gradient'),
-		icon = MER.Media.Icons.system,
+		icon = I.Media.Icons.System,
 		args = {},
 	},]]
 	gradient = {
 		order = 106,
 		name = F.cOption(L["Gradient Colors"], "gradient"),
-		icon = MER.Media.Icons.gradient,
+		icon = I.Media.Icons.Gradient,
 		args = {},
 	},
 	advanced = {
 		order = 111,
 		name = F.cOption(L["Advanced Settings"], "gradient"),
-		icon = MER.Media.Icons.tips,
+		icon = I.Media.Icons.Tips,
 		args = {},
 	},
 	information = {
 		order = 112,
 		name = F.cOption(L["Information"], "gradient"),
-		icon = MER.Media.Icons.save,
+		icon = I.Media.Icons.Save,
 		args = {},
 	},
 	changelog = {
 		order = 113,
 		name = F.cOption(L["Changelog"], "gradient"),
-		icon = MER.Media.Icons.changelog,
+		icon = I.Media.Icons.Changelog,
 		args = {},
 	},
 }
 
 function MER:OptionsCallback()
-	local icon = F.GetIconString(MER.Media.Textures.pepeSmall, 14)
+	local icon = F.GetIconString(I.Media.Textures.pepeSmall, 14)
 	E.Options.name = E.Options.name .. " + " .. icon .. " " .. MER.Title .. format(": |cFF00c0fa%s|r", MER.Version)
 
 	-- Main options

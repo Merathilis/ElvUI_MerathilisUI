@@ -830,21 +830,21 @@ options.unitframes = {
 local SampleStrings = {}
 do
 	local icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.sunTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.sunHealer, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.sunDPS, ":16:16")
+	icons = icons .. E:TextureString(I.Media.RoleIcons.SunUITank, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.SunUIHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.SunUIDPS, ":16:16")
 	SampleStrings.sunui = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.lynTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.lynHealer, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.lynDPS, ":16:16")
+	icons = icons .. E:TextureString(I.Media.RoleIcons.LynUITank, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.LynUIHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.LynUIDPS, ":16:16")
 	SampleStrings.lynui = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.svuiTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.svuiHealer, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.svuiDPS, ":16:16")
+	icons = icons .. E:TextureString(I.Media.RoleIcons.SVUITank, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.SVUIHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.SVUIDPS, ":16:16")
 	SampleStrings.svui = icons
 
 	icons = ""
@@ -854,33 +854,33 @@ do
 	SampleStrings.elvui = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.customTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.customHeal, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.customDPS, ":16:16")
+	icons = icons .. E:TextureString(I.Media.RoleIcons.CustomTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.CustomHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.CustomDPS, ":16:16")
 	SampleStrings.custom = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.glowTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.glowHeal, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.glowDPS, ":16:16")
+	icons = icons .. E:TextureString(I.Media.RoleIcons.GlowTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.GlowHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.GlowDPS, ":16:16")
 	SampleStrings.glow = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.mainTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.mainHeal, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.mainDPS, ":16:16")
+	icons = icons .. E:TextureString(I.Media.RoleIcons.MainTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.MainHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.MainDPS, ":16:16")
 	SampleStrings.main = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.whiteTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.whiteHeal, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.whiteDPS, ":16:16")
+	icons = icons .. E:TextureString(I.Media.RoleIcons.WhiteTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.WhiteHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.WhiteDPS, ":16:16")
 	SampleStrings.white = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(MER.Media.Textures.materialTank, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.materialHeal, ":16:16") .. " "
-	icons = icons .. E:TextureString(MER.Media.Textures.materialDPS, ":16:16")
+	icons = icons .. E:TextureString(I.Media.RoleIcons.MaterialTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.MaterialHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.MaterialDPS, ":16:16")
 	SampleStrings.material = icons
 end
 

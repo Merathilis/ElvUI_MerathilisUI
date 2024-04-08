@@ -68,7 +68,7 @@ function MER:ConstructCompatibilityFrame()
 
 	local tex = frame:CreateTexture("MERCompatibilityFrameIllustration", "ARTWORK")
 	tex:Size(64)
-	tex:SetTexture(MER.Media.Textures.PepeArt)
+	tex:SetTexture(I.Media.Textures.PepeArt)
 	tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -20, -25)
 
 	local bottomDesc = frame:CreateFontString(nil, "ARTWORK")
@@ -150,7 +150,7 @@ local function AddButtonToCompatibilityFrame(data)
 		frame.scrollFrame:CreateTexture("MERCompatibilityFrameMiddleTexture" .. frame.numModules, "ARTWORK")
 	middleTexture:SetPoint("CENTER")
 	middleTexture:Size(20)
-	middleTexture:SetTexture(MER.Media.Icons.convert)
+	middleTexture:SetTexture(I.Media.Icons.Convert)
 	middleTexture:SetVertexColor(1, 1, 1, 1)
 	middleTexture:SetPoint("CENTER", frame.scrollFrame, "TOP", 0, -frame.numModules * 50 + 25)
 

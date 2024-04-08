@@ -133,7 +133,7 @@ P.blizzard = {
 P.CombatAlert = {
 	enable = true,
 	font = {
-		name = "Expressway",
+		name = I.Fonts.Primary,
 		size = 28,
 		style = "SHADOWOUTLINE",
 	},
@@ -641,12 +641,12 @@ P.notification = {
 		},
 	},
 	titleFont = {
-		name = "Expressway",
+		name = I.Fonts.Primary,
 		size = 12,
 		style = "SHADOWOUTLINE",
 	},
 	textFont = {
-		name = "Expressway",
+		name = I.Fonts.Primary,
 		size = 11,
 		style = "SHADOWOUTLINE",
 	},
@@ -719,7 +719,7 @@ P.autoButtons = {
 			yOffset = 0,
 		},
 		countFont = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 12,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,
@@ -731,7 +731,7 @@ P.autoButtons = {
 			},
 		},
 		bindFont = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 12,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,
@@ -766,7 +766,7 @@ P.autoButtons = {
 			yOffset = 0,
 		},
 		countFont = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 12,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,
@@ -778,7 +778,7 @@ P.autoButtons = {
 			},
 		},
 		bindFont = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 12,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,
@@ -813,7 +813,7 @@ P.autoButtons = {
 			yOffset = 0,
 		},
 		countFont = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 12,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,
@@ -825,7 +825,7 @@ P.autoButtons = {
 			},
 		},
 		bindFont = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 12,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,
@@ -860,7 +860,7 @@ P.autoButtons = {
 			yOffset = 0,
 		},
 		countFont = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 12,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,
@@ -872,7 +872,7 @@ P.autoButtons = {
 			},
 		},
 		bindFont = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 12,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,
@@ -907,7 +907,7 @@ P.autoButtons = {
 			yOffset = 0,
 		},
 		countFont = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 12,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,
@@ -919,7 +919,7 @@ P.autoButtons = {
 			},
 		},
 		bindFont = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 12,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,
@@ -1571,7 +1571,7 @@ P.locPanel = {
 	height = 21,
 	linkcoords = true,
 	template = "Transparent",
-	font = "Expressway",
+	font = I.Fonts.Primary,
 	fontSize = 11,
 	fontOutline = "SHADOWOUTLINE",
 	throttle = 0.2,
@@ -1666,7 +1666,7 @@ P.itemLevel = {
 		useBagsFontSetting = false,
 		qualityColor = true,
 		font = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 11,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,
@@ -1683,7 +1683,7 @@ P.itemLevel = {
 		useBagsFontSetting = false,
 		qualityColor = true,
 		font = {
-			name = "Expressway",
+			name = I.Fonts.Primary,
 			size = 13,
 			style = "SHADOWOUTLINE",
 			xOffset = 0,

@@ -181,7 +181,7 @@ function module:Quest()
 								local progressInfoColored = progressInfo
 								if subGoalIsCompleted then
 									progressInfoColored = progressInfoColored
-										.. format(" |T%s:0|t", MER.Media.Icons.complete)
+										.. format(" |T%s:0|t", I.Media.Icons.Complete)
 								else
 									isDetailInfo = true
 								end
@@ -204,7 +204,7 @@ function module:Quest()
 				mainInfoColored = questCache.link
 					.. " "
 					.. F.CreateColorString(L["Accepted"], { r = 1, g = 1, b = 1 })
-					.. format(" |T%s:0|t", MER.Media.Icons.accept)
+					.. format(" |T%s:0|t", I.Media.Icons.Accept)
 				needAnnounce = true
 			end
 		end

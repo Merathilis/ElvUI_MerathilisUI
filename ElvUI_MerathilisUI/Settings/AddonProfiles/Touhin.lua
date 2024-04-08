@@ -12,7 +12,7 @@ function MER:LoadTouhinProfile()
 		["anchor_y"] = 249.000579833984,
 		["bgFile"] = "ElvUI Norm1",
 		["showMoney"] = false,
-		["font"] = "Expressway",
+		["font"] = I.Fonts.Primary,
 		["anchor_x"] = 57.0003356933594,
 		["edgeFile"] = "None",
 		["anchor_point"] = "LEFT",

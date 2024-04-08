@@ -262,7 +262,7 @@ function module:CreateTex(f)
 
 	local tex = frame:CreateTexture(nil, "BACKGROUND", nil, 1)
 	tex:SetAllPoints(f)
-	tex:SetTexture(MER.Media.Textures.emptyTex, true, true)
+	tex:SetTexture(I.Media.Textures.EmptyTex, true, true)
 	tex:SetHorizTile(true)
 	tex:SetVertTile(true)
 	tex:SetBlendMode("ADD")
@@ -271,7 +271,7 @@ function module:CreateTex(f)
 end
 
 -- Backdrop shadow
-local shadowBackdrop = { edgeFile = MER.Media.Textures.glowTex }
+local shadowBackdrop = { edgeFile = I.Media.Textures.GlowTex }
 function module:CreateSD(f, size, override)
 	assert(f, "doesn't exist!")
 

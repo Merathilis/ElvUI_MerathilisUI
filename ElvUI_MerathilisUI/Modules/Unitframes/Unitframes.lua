@@ -150,7 +150,6 @@ function module:Initialize()
 	end
 
 	self:RegisterEvent("ADDON_LOADED")
-	print("Blub")
 end
 
 MER:RegisterModule(module:GetName())

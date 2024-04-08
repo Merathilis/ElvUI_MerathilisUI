@@ -46,7 +46,7 @@ function MER:LoadBigWigsProfile()
 		or {}
 	DB["namespaces"]["BigWigs_Plugins_Countdown"]["profiles"][profileName] = {
 		["outline"] = "SHADOWOUTLINE",
-		["fontName"] = "Expressway",
+		["fontName"] = I.Fonts.Primary,
 		["position"] = {
 			"CENTER", -- [1]
 			"CENTER", -- [2]
@@ -95,7 +95,7 @@ function MER:LoadBigWigsProfile()
 		["BigWigsAnchor_height"] = 18,
 		["BigWigsEmphasizeAnchor_height"] = 28,
 		["BigWigsEmphasizeAnchor_width"] = 170,
-		["fontName"] = "Expressway",
+		["fontName"] = I.Fonts.Primary,
 		["fontSizeEmph"] = 12,
 		["fontSize"] = 11,
 		["outline"] = "SHADOWOUTLINE",
@@ -118,15 +118,15 @@ function MER:LoadBigWigsProfile()
 		["BWEmphasizeMessageAnchor_y"] = 614,
 		["BWMessageAnchor_y"] = 676,
 		["BWEmphasizeMessageAnchor_x"] = 610,
-		["emphFontName"] = "Expressway",
+		["emphFontName"] = I.Fonts.Primary,
 		["emphFontSize"] = F.SetFontSizeScaled(24),
-		["fontName"] = "Expressway",
+		["fontName"] = I.Fonts.Primary,
 	}
 	DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"]
 		or {}
 	DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"][profileName] = {
 		["posx"] = 346.27,
-		["fontName"] = "Expressway",
+		["fontName"] = I.Fonts.Primary,
 		["lock"] = true,
 		["height"] = 99.0000381469727,
 		["posy"] = 81.82,
@@ -143,7 +143,7 @@ function MER:LoadBigWigsProfile()
 		["posx"] = 600,
 		["fontSize"] = 11,
 		["fontOutline"] = "",
-		["fontName"] = "Expressway",
+		["fontName"] = I.Fonts.Primary,
 		["lock"] = true,
 		["posy"] = 132,
 	}

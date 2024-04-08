@@ -242,7 +242,7 @@ local VirtualDT = {
 local ButtonTypes = {
 	ACHIEVEMENTS = {
 		name = L["Achievements"],
-		icon = MER.Media.Icons.barAchievements,
+		icon = I.Media.Icons.Achievements,
 		macro = {
 			LeftButton = _G.SLASH_ACHIEVEMENTUI1,
 		},
@@ -252,7 +252,7 @@ local ButtonTypes = {
 	},
 	BAGS = {
 		name = L["Bags"],
-		icon = MER.Media.Icons.barBags,
+		icon = I.Media.Icons.Bags,
 		click = {
 			LeftButton = function()
 				_G.ToggleAllBags()
@@ -262,7 +262,7 @@ local ButtonTypes = {
 	},
 	BLIZZARD_SHOP = {
 		name = L["Blizzard Shop"],
-		icon = MER.Media.Icons.barBlizzardShop,
+		icon = I.Media.Icons.BlizzardShop,
 		click = {
 			LeftButton = function()
 				_G.StoreMicroButton:Click()
@@ -274,7 +274,7 @@ local ButtonTypes = {
 	},
 	CHARACTER = {
 		name = L["Character"],
-		icon = MER.Media.Icons.barCharacter,
+		icon = I.Media.Icons.Character,
 		click = {
 			LeftButton = function()
 				if not InCombatLockdown() then
@@ -290,7 +290,7 @@ local ButtonTypes = {
 	},
 	COLLECTIONS = {
 		name = L["Collections"],
-		icon = MER.Media.Icons.barCollections,
+		icon = I.Media.Icons.Collections,
 		macro = {
 			LeftButton = "/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab1",
 			RightButton = "/run CollectionsJournal_LoadUI()\n/click MountJournalSummonRandomFavoriteButton",
@@ -304,7 +304,7 @@ local ButtonTypes = {
 	},
 	ENCOUNTER_JOURNAL = {
 		name = L["Encounter Journal"],
-		icon = MER.Media.Icons.barEncounterJournal,
+		icon = I.Media.Icons.EncounterJournal,
 		macro = {
 			LeftButton = "/click EJMicroButton",
 			RightButton = "/run WeeklyRewards_ShowUI()",
@@ -316,7 +316,7 @@ local ButtonTypes = {
 	},
 	FRIENDS = {
 		name = L["Friend List"],
-		icon = MER.Media.Icons.barFriends,
+		icon = I.Media.Icons.Friends,
 		click = {
 			LeftButton = function()
 				if not InCombatLockdown() then
@@ -375,7 +375,7 @@ local ButtonTypes = {
 	},
 	GAMEMENU = {
 		name = L["Game Menu"],
-		icon = MER.Media.Icons.barGameMenu,
+		icon = I.Media.Icons.GameMenu,
 		click = {
 			LeftButton = function()
 				if not InCombatLockdown() then
@@ -400,7 +400,7 @@ local ButtonTypes = {
 	},
 	GROUP_FINDER = {
 		name = L["Group Finder"],
-		icon = MER.Media.Icons.barGroupFinder,
+		icon = I.Media.Icons.GroupFinder,
 		macro = {
 			LeftButton = "/click LFDMicroButton",
 		},
@@ -410,7 +410,7 @@ local ButtonTypes = {
 	},
 	GUILD = {
 		name = L["Guild"],
-		icon = MER.Media.Icons.barGuild,
+		icon = I.Media.Icons.Guild,
 		macro = {
 			LeftButton = "/click GuildMicroButton",
 			RightButton = "/script if not InCombatLockdown() then if not GuildFrame or not GuildFrame:IsShown() then ToggleGuildFrame() end end",
@@ -430,7 +430,7 @@ local ButtonTypes = {
 	},
 	HOME = {
 		name = L["Home"],
-		icon = MER.Media.Icons.barHome,
+		icon = I.Media.Icons.Home,
 		item = {},
 		tooltips = function(button)
 			DT.tooltip:ClearLines()
@@ -457,7 +457,7 @@ local ButtonTypes = {
 	},
 	MISSION_REPORTS = {
 		name = L["Mission Reports"],
-		icon = MER.Media.Icons.barMissionReports,
+		icon = I.Media.Icons.MissionReports,
 		click = {
 			LeftButton = function(button)
 				DT.RegisteredDataTexts["Missions"].onClick(button)
@@ -478,7 +478,7 @@ local ButtonTypes = {
 	},
 	PET_JOURNAL = {
 		name = L["Pet Journal"],
-		icon = MER.Media.Icons.barPetJournal,
+		icon = I.Media.Icons.PetJournal,
 		macro = {
 			LeftButton = "/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab2",
 			RightButton = "/run CollectionsJournal_LoadUI()\n/click PetJournalSummonRandomFavoritePetButton",
@@ -492,7 +492,7 @@ local ButtonTypes = {
 	},
 	PROFESSION = {
 		name = L["Profession"],
-		icon = MER.Media.Icons.barProfession,
+		icon = I.Media.Icons.Profession,
 		click = {
 			LeftButton = function()
 				if not InCombatLockdown() then
@@ -508,7 +508,7 @@ local ButtonTypes = {
 	},
 	SCREENSHOT = {
 		name = L["Screenshot"],
-		icon = MER.Media.Icons.barScreenShot,
+		icon = I.Media.Icons.ScreenShot,
 		click = {
 			LeftButton = function()
 				DT.tooltip:Hide()
@@ -527,7 +527,7 @@ local ButtonTypes = {
 	},
 	SPELLBOOK = {
 		name = L["Spell Book"],
-		icon = MER.Media.Icons.barSpellBook,
+		icon = I.Media.Icons.SpellBook,
 		macro = {
 			LeftButton = "/click SpellbookMicroButton",
 		},
@@ -537,7 +537,7 @@ local ButtonTypes = {
 	},
 	TALENTS = {
 		name = L["Talents"],
-		icon = MER.Media.Icons.barTalents,
+		icon = I.Media.Icons.Talents,
 		macro = {
 			LeftButton = "/click TalentMicroButton",
 		},
@@ -547,7 +547,7 @@ local ButtonTypes = {
 	},
 	TOY_BOX = {
 		name = L["Toy Box"],
-		icon = MER.Media.Icons.barToyBox,
+		icon = I.Media.Icons.ToyBox,
 		macro = {
 			LeftButton = "/click CollectionsJournalCloseButton\n/click CollectionsMicroButton\n/click CollectionsJournalTab3",
 		},
@@ -557,7 +557,7 @@ local ButtonTypes = {
 	},
 	VOLUME = {
 		name = L["Volume"],
-		icon = MER.Media.Icons.barVolume,
+		icon = I.Media.Icons.Volume,
 		click = {
 			LeftButton = function()
 				local vol = C_CVar_GetCVar("Sound_MasterVolume")
