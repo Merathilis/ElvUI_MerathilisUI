@@ -197,7 +197,7 @@ do
 		E:Delay(7, self.CheckInstalledVersion, self)
 
 		if isInitialLogin then
-			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
+			local icon = Engine[2].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
 				print(
 					icon

@@ -2,16 +2,14 @@
 
 ## Special Thanks
 
+- Simpy
+- Benik
 - fang2hou
 - siweia
 - Azilroka
 - Blazeflack
-- Simpy
-- Benik
-- Haste
-- Repooc
-- Tukz
-- Elv
+- Eltreum
+- Toxi
 
 ## Sites
 
