@@ -1,6 +1,7 @@
 ### Changes ###
 
-  * Fix an potential C-Stack error if you also got Windtools enabled
-  * Remove DBM Skin, i never used it
-  * Bring ChatText Code inline with ElvUI Changes
-  * Added Runescape Font
+  * [Chat Text]: Fixed a potential nil error
+  * [Skins]: Fixed an issue where disabling widget skins could cause other addons to skin incorrectly
+  * [Core]: A lot of code improvements
+  * [Changelog]: Move the Changelog to an own option category
+  * [Note]: You have to reassign mostly the UnitFrames font

@@ -62,12 +62,16 @@ for version, data in pairs(MER.Changelog) do
 		fontSize = "large",
 	}
 
+	local warningIcon = F.GetIconString(I.Media.Icons.Warning, 12)
+	local thunderIcon = F.GetIconString(I.Media.Icons.Flash, 12)
+	local newIcon = F.GetIconString(I.Media.Icons.New, 12)
+
 	local fixPart = data and data.FIXES
 	if fixPart and #fixPart > 0 then
 		page.importantHeader = {
 			order = 3,
 			type = "header",
-			name = F.String.FastGradientHex(L["Fixes"], "#ffa270", "#c63f17"),
+			name = warningIcon .. " " .. F.String.FastGradientHex(L["Fixes"], "#ffa270", "#c63f17"),
 		}
 		page.important = {
 			order = 4,
@@ -88,7 +92,7 @@ for version, data in pairs(MER.Changelog) do
 		page.newHeader = {
 			order = 5,
 			type = "header",
-			name = F.String.FastGradientHex(L["New"], "#fffd61", "#c79a00"),
+			name = newIcon .. " " .. F.String.FastGradientHex(L["New"], "#fffd61", "#c79a00"),
 		}
 		page.new = {
 			order = 6,
@@ -109,7 +113,7 @@ for version, data in pairs(MER.Changelog) do
 		page.improvementHeader = {
 			order = 7,
 			type = "header",
-			name = F.String.FastGradientHex(L["Improvement"], "#98ee99", "#338a3e"),
+			name = thunderIcon .. " " .. F.String.FastGradientHex(L["Improvement"], "#98ee99", "#338a3e"),
 		}
 		page.improvement = {
 			order = 8,

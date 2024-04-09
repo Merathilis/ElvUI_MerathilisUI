@@ -77,6 +77,10 @@ F.AddMedia("icon", "Minus")
 F.AddMedia("icon", "Plus")
 F.AddMedia("icon", "Forward")
 
+F.AddMedia("icon", "Warning")
+F.AddMedia("icon", "Flash")
+F.AddMedia("icon", "New")
+
 F.AddMedia("texture", "arrow")
 F.AddMedia("texture", "arrowUp")
 F.AddMedia("texture", "pepeSmall")
