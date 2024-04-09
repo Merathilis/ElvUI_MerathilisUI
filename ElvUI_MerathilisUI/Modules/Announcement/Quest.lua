@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Announcement')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Announcement")
 
 local _G = _G
 local format = format
@@ -18,7 +18,7 @@ local lastList
 
 local ignoreTagIDs = {
 	[128] = true,
-	[265] = true
+	[265] = true,
 }
 
 local function GetQuests()
@@ -51,7 +51,7 @@ local function GetQuests()
 					frequency = questInfo.frequency,
 					tag = tagInfo and tagInfo.tagName,
 					worldQuestType = tagInfo and tagInfo.worldQuestType,
-					link = GetQuestLink(questInfo.questID)
+					link = GetQuestLink(questInfo.questID),
 				}
 
 				for queryIndex = 1, GetNumQuestLeaderBoards(questIndex) do
@@ -61,7 +61,7 @@ local function GetQuests()
 						quests[questInfo.questID][queryIndex] = {
 							item = itemName,
 							numItems = numItems,
-							numNeeded = numNeeded
+							numNeeded = numNeeded,
 						}
 					end
 				end
@@ -130,14 +130,15 @@ function module:Quest()
 
 		if questCache.suggestedGroup > 1 and config.suggestedGroup.enable then
 			extraInfo = extraInfo .. "[" .. questCache.suggestedGroup .. "]"
-			extraInfoColored =
-			extraInfoColored .. F.CreateColorString("[" .. questCache.suggestedGroup .. "]", config.suggestedGroup.color)
+			extraInfoColored = extraInfoColored
+				.. F.CreateColorString("[" .. questCache.suggestedGroup .. "]", config.suggestedGroup.color)
 		end
 
 		if questCache.level and config.level.enable then
 			if not config.level.hideOnMax or questCache.level ~= GetMaxLevelForPlayerExpansion() then
 				extraInfo = extraInfo .. "[" .. questCache.level .. "]"
-				extraInfoColored = extraInfoColored .. F.CreateColorString("[" .. questCache.level .. "]", config.level.color)
+				extraInfoColored = extraInfoColored
+					.. F.CreateColorString("[" .. questCache.level .. "]", config.level.color)
 			end
 		end
 
@@ -151,24 +152,36 @@ function module:Quest()
 		if questCacheOld then
 			if not questCacheOld.isComplete then
 				if questCache.isComplete then
-					mainInfo = questCache.title .. " " .. F.CreateColorString(L["Completed"], { r = 0.5, g = 1, b = 0.5 })
-					mainInfoColored = questCache.link .. " " .. F.CreateColorString(L["Completed"], { r = 0.5, g = 1, b = 0.5 })
+					mainInfo = questCache.title
+						.. " "
+						.. F.CreateColorString(L["Completed"], { r = 0.5, g = 1, b = 0.5 })
+					mainInfoColored = questCache.link
+						.. " "
+						.. F.CreateColorString(L["Completed"], { r = 0.5, g = 1, b = 0.5 })
 					needAnnounce = true
 				elseif #questCacheOld > 0 and #questCache > 0 then
 					for queryIndex = 1, #questCache do
-						if questCache[queryIndex] and questCacheOld[queryIndex] and questCache[queryIndex].numItems and
-							questCacheOld[queryIndex].numItems and
-							questCache[queryIndex].numItems > questCacheOld[queryIndex].numItems
+						if
+							questCache[queryIndex]
+							and questCacheOld[queryIndex]
+							and questCache[queryIndex].numItems
+							and questCacheOld[queryIndex].numItems
+							and questCache[queryIndex].numItems > questCacheOld[queryIndex].numItems
 						then
-							local progressColor = F.GetProgressColor(questCache[queryIndex].numItems / questCache[queryIndex].numNeeded)
+							local progressColor =
+								F.GetProgressColor(questCache[queryIndex].numItems / questCache[queryIndex].numNeeded)
 
-							local subGoalIsCompleted = questCache[queryIndex].numItems == questCache[queryIndex].numNeeded
+							local subGoalIsCompleted = questCache[queryIndex].numItems
+								== questCache[queryIndex].numNeeded
 
 							if config.includeDetails or subGoalIsCompleted then
-								local progressInfo = questCache[queryIndex].numItems .. "/" .. questCache[queryIndex].numNeeded
+								local progressInfo = questCache[queryIndex].numItems
+									.. "/"
+									.. questCache[queryIndex].numNeeded
 								local progressInfoColored = progressInfo
 								if subGoalIsCompleted then
-									progressInfoColored = progressInfoColored .. format(" |T%s:0|t", MER.Media.Icons.complete)
+									progressInfoColored = progressInfoColored
+										.. format(" |T%s:0|t", I.Media.Icons.Complete)
 								else
 									isDetailInfo = true
 								end
@@ -177,7 +190,8 @@ function module:Quest()
 								mainInfoColored = questCache.link .. " " .. questCache[queryIndex].item .. " "
 
 								mainInfo = mainInfo .. progressInfo
-								mainInfoColored = mainInfoColored .. F.CreateColorString(progressInfoColored, progressColor)
+								mainInfoColored = mainInfoColored
+									.. F.CreateColorString(progressInfoColored, progressColor)
 								needAnnounce = true
 							end
 						end
@@ -187,9 +201,10 @@ function module:Quest()
 		else
 			if not questCache.worldQuestType then
 				mainInfo = questCache.link .. " " .. L["Accepted"]
-				mainInfoColored =
-				questCache.link ..
-					" " .. F.CreateColorString(L["Accepted"], { r = 1, g = 1, b = 1 }) .. format(" |T%s:0|t", MER.Media.Icons.accept)
+				mainInfoColored = questCache.link
+					.. " "
+					.. F.CreateColorString(L["Accepted"], { r = 1, g = 1, b = 1 })
+					.. format(" |T%s:0|t", I.Media.Icons.Accept)
 				needAnnounce = true
 			end
 		end

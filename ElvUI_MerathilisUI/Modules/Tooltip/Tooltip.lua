@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Tooltip')
-local ET = E:GetModule('Tooltip')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Tooltip")
+local ET = E:GetModule("Tooltip")
 
 local _G = _G
 local next = next
@@ -73,7 +73,7 @@ function module:CheckModifier()
 	local modifierStatus = {
 		SHIFT = IsShiftKeyDown(),
 		ALT = IsAltKeyDown(),
-		CTRL = IsControlKeyDown()
+		CTRL = IsControlKeyDown(),
 	}
 
 	local results = {}
@@ -122,7 +122,7 @@ function module:InspectInfo(tt, data, triedTimes)
 
 	if not InCombatLockdown() and IsShiftKeyDown() and ET.db.inspectDataEnable then
 		local isElvUITooltipItemLevelInfoAlreadyAdded = false
-		for i = #(data.lines), tt:NumLines() do
+		for i = #data.lines, tt:NumLines() do
 			local leftTip = _G["GameTooltipTextLeft" .. i]
 			local leftTipText = leftTip:GetText()
 			if leftTipText and leftTipText == L["Item Level:"] and leftTip:IsShown() then

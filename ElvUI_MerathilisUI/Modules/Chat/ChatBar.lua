@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_ChatBar')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_ChatBar")
+local S = MER:GetModule("MER_Skins")
 local LSM = E.LSM
 
 local _G = _G
@@ -52,7 +52,7 @@ local checkFunctions = {
 	end,
 	OFFICER = function()
 		return IsInGuild() and C_GuildInfo_IsGuildOfficer()
-	end
+	end,
 }
 
 local function GetCommuniryChannelByName(text)
@@ -274,7 +274,9 @@ function module:UpdateBar()
 					local currentText = DefaultChatFrame.editBox:GetText()
 					local command = format("/%s ", channelId)
 					if autoJoined then
-						C_Timer_After(.5, function() ChatFrame_OpenChat(command .. currentText, DefaultChatFrame) end)
+						C_Timer_After(0.5, function()
+							ChatFrame_OpenChat(command .. currentText, DefaultChatFrame)
+						end)
 					else
 						ChatFrame_OpenChat(command .. currentText, DefaultChatFrame)
 					end
@@ -288,9 +290,18 @@ function module:UpdateBar()
 				end
 			end
 
-			self:UpdateButton("WORLD", chatFunc, anchor, offsetX, offsetY, db.color, self.db.tex, db.name,
-				{ L["Left Click: Change to"] .. " " .. db.name, L["Right Click: Join/Leave"] .. " " .. db.name }, db
-			.abbr)
+			self:UpdateButton(
+				"WORLD",
+				chatFunc,
+				anchor,
+				offsetX,
+				offsetY,
+				db.color,
+				self.db.tex,
+				db.name,
+				{ L["Left Click: Change to"] .. " " .. db.name, L["Right Click: Join/Leave"] .. " " .. db.name },
+				db.abbr
+			)
 
 			numberOfButtons = numberOfButtons + 1
 
@@ -315,8 +326,10 @@ function module:UpdateBar()
 				end
 				local clubChannelId = GetCommuniryChannelByName(name)
 				if not clubChannelId then
-					F.Print(module,
-						format(L["Club channel %s not found, please use the full name of the channel."], name))
+					F.Print(
+						module,
+						format(L["Club channel %s not found, please use the full name of the channel."], name)
+					)
 				else
 					local currentText = DefaultChatFrame.editBox:GetText()
 					local command = format("/%s ", clubChannelId)
@@ -366,15 +379,15 @@ function module:UpdateBar()
 
 	if self.db.backdrop then
 		if self.db.orientation == "HORIZONTAL" then
-			width =
-				self.db.backdropSpacing * 2 + self.db.buttonWidth * numberOfButtons +
-				self.db.spacing * (numberOfButtons - 1)
+			width = self.db.backdropSpacing * 2
+				+ self.db.buttonWidth * numberOfButtons
+				+ self.db.spacing * (numberOfButtons - 1)
 			height = self.db.backdropSpacing * 2 + self.db.buttonHeight
 		else
 			width = self.db.backdropSpacing * 2 + self.db.buttonWidth
-			height =
-				self.db.backdropSpacing * 2 + self.db.buttonHeight * numberOfButtons +
-				self.db.spacing * (numberOfButtons - 1)
+			height = self.db.backdropSpacing * 2
+				+ self.db.buttonHeight * numberOfButtons
+				+ self.db.spacing * (numberOfButtons - 1)
 		end
 	else
 		if self.db.orientation == "HORIZONTAL" then
@@ -441,8 +454,9 @@ function module:Initialize()
 	module:CreateBar()
 	module:UpdateBar()
 
-	E:CreateMover(module.bar, "ChatBarMover", L["Chat Bar"], nil, nil, nil, "ALL,MERATHILISUI",
-		function() return module.db.enable end, "mui,modules,chat,chatBar")
+	E:CreateMover(module.bar, "ChatBarMover", L["Chat Bar"], nil, nil, nil, "ALL,MERATHILISUI", function()
+		return module.db.enable
+	end, "mui,modules,chat,chatBar")
 
 	if self.db.autoHide then
 		self:RegisterEvent("GROUP_ROSTER_UPDATE", "UpdateBar")

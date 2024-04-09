@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -18,7 +18,7 @@ function module:GameMenuFrame()
 	-- GameMenu Header Color
 	for i = 1, GameMenuFrame:GetNumRegions() do
 		local Region = select(i, GameMenuFrame:GetRegions())
-		if Region.IsObjectType and Region:IsObjectType('FontString') then
+		if Region.IsObjectType and Region:IsObjectType("FontString") then
 			Region:SetTextColor(1, 1, 1)
 		end
 	end

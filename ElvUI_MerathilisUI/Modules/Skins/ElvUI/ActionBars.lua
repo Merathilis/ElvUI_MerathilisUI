@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local AB = E:GetModule('ActionBars')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local AB = E:GetModule("ActionBars")
 
 local _G = _G
 
@@ -36,7 +36,7 @@ function module:ElvUI_ActionBar_SkinBar(bar, type)
 		return
 	end
 
-	bar.backdrop:SetTemplate('Transparent')
+	bar.backdrop:SetTemplate("Transparent")
 
 	if bar.db.backdrop then
 		if not bar.backdrop.MERshadow then
@@ -157,7 +157,7 @@ function module:Skin_ElvUI_ActionBars()
 			tex:ClearAllPoints()
 			tex:SetPoint("TOPLEFT", button, "TOPLEFT", 4, -4)
 			tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
-			tex:SetTexture(MER.Media.Textures.arrow)
+			tex:SetTexture(I.Media.Textures.arrow)
 			tex:SetTexCoord(0, 1, 0, 1)
 			tex:SetVertexColor(1, 1, 1, 1)
 		end

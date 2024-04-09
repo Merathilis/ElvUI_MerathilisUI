@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -13,4 +13,4 @@ function module:Blizzard_Soulbinds()
 	module:CreateBackdropShadow(frame)
 end
 
-module:AddCallbackForAddon('Blizzard_Soulbinds')
+module:AddCallbackForAddon("Blizzard_Soulbinds")

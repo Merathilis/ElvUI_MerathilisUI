@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
 
 local _G = _G
 local pairs, select = pairs, select
@@ -20,8 +20,7 @@ local PlayerHasToy = PlayerHasToy
 local SlashCmdList = SlashCmdList
 
 local macroName = "RANDOMTOY"
-local macroTemplate =
-	"#showtooltip %s\n" .. "/randomtoy check\n" .. "/cast %s"
+local macroTemplate = "#showtooltip %s\n" .. "/randomtoy check\n" .. "/cast %s"
 
 local function IsMyToyUsable(itemID)
 	local startTime, duration, enable = GetItemCooldown(itemID)
@@ -34,7 +33,9 @@ local function IsMyToyUsable(itemID)
 end
 
 function module:UpdateMacro()
-	if not E.db.mui.misc.randomToy.enable then return end
+	if not E.db.mui.misc.randomToy.enable then
+		return
+	end
 
 	if InCombatLockdown() then
 		return self:RegisterEvent("PLAYER_REGEN_ENABLED")

@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -102,7 +102,7 @@ function module:Scenario_ChallengeMode_ShowBlock()
 	end
 
 	-- Affix icon
-	for _, child in pairs { block:GetChildren() } do
+	for _, child in pairs({ block:GetChildren() }) do
 		if not child.MERStyle and child.affixID then
 			child.Border:SetAlpha(0)
 			local texPath = select(3, C_ChallengeMode_GetAffixInfo(child.affixID))

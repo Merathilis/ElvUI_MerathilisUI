@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 -- Credits ls_UI
 local next, Lerp, tonumber = next, Lerp, tonumber
@@ -10,7 +10,7 @@ local activeObjects = {}
 local handledObjects = {}
 
 local TARGET_FPS = 60
-local AMOUNT = .33
+local AMOUNT = 0.33
 
 local function clamp(v, min, max)
 	min = min or 0
@@ -28,7 +28,7 @@ end
 
 local function isCloseEnough(new, target, range)
 	if range > 0 then
-		return abs((new - target) / range) <= .001
+		return abs((new - target) / range) <= 0.001
 	end
 
 	return true
@@ -119,5 +119,5 @@ function MER:DesmoothBar(bar)
 end
 
 function MER:SetSmoothingAmount(amount)
-	AMOUNT = clamp(amount, .15, .6)
+	AMOUNT = clamp(amount, 0.15, 0.6)
 end

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local LSM = E.Libs.LSM
 local module = MER.Modules.Skins
 local WS = module.Widgets
@@ -12,7 +12,10 @@ function WS:HandleSliderFrame(_, slider)
 		return
 	end
 
-	local db = E.private.mui and E.private.mui.skins and E.private.mui.skins.widgets and E.private.mui.skins.widgets.slider
+	local db = E.private.mui
+		and E.private.mui.skins
+		and E.private.mui.skins.widgets
+		and E.private.mui.skins.widgets.slider
 
 	if not slider or not db or not db.enable then
 		return

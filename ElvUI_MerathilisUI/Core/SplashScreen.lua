@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local GetScreenHeight = GetScreenHeight
 local InCombatLockdown = InCombatLockdown
@@ -33,14 +33,14 @@ function MER:CreateSplash()
 
 	local tex = frame:CreateTexture()
 	tex:Point("CENTER", frame, "CENTER")
-	tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\mUI1_Shadow.tga")
+	tex:SetTexture(I.General.MediaPath .. "Textures\\mUI1_Shadow.tga")
 	tex:Size(125, 125)
 
-	local version = frame:CreateFontString(nil, 'OVERLAY')
+	local version = frame:CreateFontString(nil, "OVERLAY")
 	version:FontTemplate(nil, 14)
 	version:Point("TOP", tex, "BOTTOM", 0, 10)
 	version:SetFormattedText("%s", MER.Version)
-	version:SetTextColor(0, .75, .98)
+	version:SetTextColor(0, 0.75, 0.98)
 
 	local delayTime = 0
 	local timer1 = 0.5

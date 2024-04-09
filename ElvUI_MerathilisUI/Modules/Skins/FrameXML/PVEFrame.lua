@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 
@@ -20,7 +20,7 @@ function module:PVEFrame()
 		_G.QueueStatusFrame,
 		_G.LFDReadyCheckPopup,
 		_G.LFGListInviteDialog,
-		_G.LFGListApplicationDialog
+		_G.LFGListApplicationDialog,
 	}
 
 	for _, frame in pairs(frames) do

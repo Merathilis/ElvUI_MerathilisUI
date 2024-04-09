@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.Animation = {}
 local A = F.Animation
 
@@ -181,7 +181,7 @@ function A.SpeedAnimationGroup(animationGroup, speed)
 
 	local durationTimer = 1 / speed
 
-	for _, animation in pairs({animationGroup:GetAnimations()}) do
+	for _, animation in pairs({ animationGroup:GetAnimations() }) do
 		if not animation.originalDuration then
 			animation.originalDuration = animation:GetDuration()
 		end

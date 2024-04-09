@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local error = error
 local type, unpack = type, unpack
@@ -6,15 +6,28 @@ local strbyte, strfind, strlen, strsub = strbyte, strfind, strlen, strsub
 local utf8len, utf8sub = string.utf8len, string.utf8sub
 local tinsert = tinsert
 
-F.Strings = {}
+F.String = {}
 
-function F.Strings.Color(msg, color)
+function F.String.Color(msg, color)
 	if type(color) == "string" then
 		return "|cff" .. color .. msg .. "|r"
+	else
+		return "|cff" .. I.Strings.Colors[color] .. msg .. "|r"
 	end
 end
 
-function F.Strings.CharBytes(s, i)
+function F.String.HexToRGB(hex)
+	local r, g, b, a = strmatch(hex, "^#?(%x%x)(%x%x)(%x%x)(%x?%x?)$")
+	if not r then
+		return 0, 0, 0, nil
+	end
+	return tonumber(r, 16) / 255,
+		tonumber(g, 16) / 255,
+		tonumber(b, 16) / 255,
+		(a ~= "") and (tonumber(a, 16) / 255) or nil
+end
+
+function F.String.CharBytes(s, i)
 	-- argument defaults
 	i = i or 1
 
@@ -106,7 +119,7 @@ function F.Strings.CharBytes(s, i)
 	end
 end
 
-function F.Strings.Replace(s, mapping)
+function F.String.Replace(s, mapping)
 	-- argument checking
 	if type(s) ~= "string" then
 		error("bad argument #1 to 'F.Replace' (string expected, got " .. type(s) .. ")")
@@ -121,7 +134,7 @@ function F.Strings.Replace(s, mapping)
 	local newstr = ""
 
 	while pos <= bytes do
-		charbytes = F.Strings.CharBytes(s, pos)
+		charbytes = F.String.CharBytes(s, pos)
 		local c = strsub(s, pos, pos + charbytes - 1)
 
 		newstr = newstr .. (mapping[c] or c)
@@ -132,7 +145,7 @@ function F.Strings.Replace(s, mapping)
 	return newstr
 end
 
-function F.Strings.Split(subject, delimiter)
+function F.String.Split(subject, delimiter)
 	if not subject or subject == "" then
 		return {}
 	end
@@ -161,36 +174,44 @@ function F.Strings.Split(subject, delimiter)
 	return unpack(results)
 end
 
-function F.Strings.FastRGB(r, g, b)
+function F.String.FastRGB(r, g, b)
 	return format("%02x%02x%02x", r * 255, g * 255, b * 255)
 end
 
-function F.Strings.FastRGBA(r, g, b, a)
+function F.String.FastRGBA(r, g, b, a)
 	return format("%02x%02x%02x%02x", (a or 1) * 255, r * 255, g * 255, b * 255)
 end
 
-function F.Strings.StripTexture(text)
-	if type(text) ~= "string" then return text end
+function F.String.StripTexture(text)
+	if type(text) ~= "string" then
+		return text
+	end
 	return gsub(text, "(%s?)(|?)|[TA].-|[ta](%s?)", function(w, x, y)
-		if x == "" then return (w ~= "" and w) or (y ~= "" and y) or "" end
+		if x == "" then
+			return (w ~= "" and w) or (y ~= "" and y) or ""
+		end
 	end)
 end
 
-function F.Strings.StripColor(text)
-	if type(text) ~= "string" then return text end
+function F.String.StripColor(text)
+	if type(text) ~= "string" then
+		return text
+	end
 	return gsub(text, "|c%x%x%x%x%x%x%x%x(.-)|r", "%1")
 end
 
-function F.Strings.Strip(text)
-	if type(text) ~= "string" then return text end
-	return F.Strings.StripColor(F.String.StripTexture(text))
+function F.String.Strip(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return F.String.StripColor(F.String.StripTexture(text))
 end
 
-function F.Strings.Trim(text)
+function F.String.Trim(text)
 	return strmatch(text, "^%s*(.*%S)") or ""
 end
 
-function F.Strings.FastGradient(text, r1, g1, b1, r2, g2, b2)
+function F.String.FastGradient(text, r1, g1, b1, r2, g2, b2)
 	local msg, len, idx = "", utf8len(text), 0
 
 	for i = 1, len do
@@ -202,10 +223,10 @@ function F.Strings.FastGradient(text, r1, g1, b1, r2, g2, b2)
 			local relperc = (idx / len)
 
 			if not r2 then
-				msg = msg .. "|cff" .. F.Strings.FastRGB(r1, g1, b1) .. x .. "|r"
+				msg = msg .. "|cff" .. F.String.FastRGB(r1, g1, b1) .. x .. "|r"
 			else
 				local r, g, b = F.FastColorGradient(relperc, r1, g1, b1, r2, g2, b2)
-				msg = msg .. "|cff" .. F.Strings.FastRGB(r, g, b) .. x .. "|r"
+				msg = msg .. "|cff" .. F.String.FastRGB(r, g, b) .. x .. "|r"
 				idx = idx + 1
 			end
 		end
@@ -214,34 +235,118 @@ function F.Strings.FastGradient(text, r1, g1, b1, r2, g2, b2)
 	return msg
 end
 
-function F.Strings.FastGradientHex(text, h1, h2)
+function F.String.FastGradientHex(text, h1, h2)
 	local r2, g2, b2
-	local r1, g1, b1 = F.HexToRGB(h1)
+	local r1, g1, b1 = F.String.HexToRGB(h1)
 
 	if h2 then
-		r2, g2, b2 = F.HexToRGB(h2)
+		r2, g2, b2 = F.String.HexToRGB(h2)
 	else
 		local h, s, l = F.ConvertToHSL(r1, g1, b1)
 		r1, g1, b1 = F.ConvertToRGB(F.ClampToHSL(h, s * 0.95, l * 1.2))
 		r2, g2, b2 = F.ConvertToRGB(F.ClampToHSL(h, s * 1.35, l * 0.85))
 	end
 
-	return F.Strings.FastGradient(text, r1, g1, b1, r2, g2, b2)
+	return F.String.FastGradient(text, r1, g1, b1, r2, g2, b2)
 end
 
-function F.Strings.FastColorGradientHex(percentage, h1, h2)
-	local r1, g1, b1 = F.HexToRGB(h1)
-	local r2, g2, b2 = F.HexToRGB(h2)
+function F.String.FastColorGradientHex(percentage, h1, h2)
+	local r1, g1, b1 = F.String.HexToRGB(h1)
+	local r2, g2, b2 = F.String.HexToRGB(h2)
 
 	return F.FastColorGradient(percentage, r1, g1, b1, r2, g2, b2)
 end
 
-function F.Strings.Class(msg, class)
+function F.String.Class(msg, class)
 	local finalClass = class or E.myclass
 	if finalClass == "PRIEST" then
-		return F.Strings.Color(msg, F.Strings.FastRGB(0.7, 0.7, 0.7))
+		return F.String.Color(msg, F.String.FastRGB(0.7, 0.7, 0.7))
 	end
 
 	local color = E:ClassColor(finalClass, true)
-	return F.Strings.Color(msg, F.Strings.FastRGB(color.r, color.g, color.b))
+	return F.String.Color(msg, F.String.FastRGB(color.r, color.g, color.b))
+end
+
+function F.String.MERATHILISUI(msg)
+	return F.String.Color(msg, I.Enum.Colors.MER)
+end
+
+function F.String.Details(msg)
+	if not msg or msg == "" then
+		return F.String.Color("Details", I.Enum.Colors.DETAILS)
+	end
+
+	return F.String.Color(msg, I.Enum.Colors.DETAILS)
+end
+
+function F.String.BigWigs(msg)
+	if not msg or msg == "" then
+		return F.String.Color("BigWigs", I.Enum.Colors.BIGWIGS)
+	end
+
+	return F.String.Color(msg, I.Enum.Colors.BIGWIGS)
+end
+
+function F.String.OmniCD(msg)
+	if not msg or msg == "" then
+		return F.String.Color("OmniCD", I.Enum.Colors.OMNICD)
+	end
+
+	return F.String.Color(msg, I.Enum.Colors.OMNICD)
+end
+
+function F.String.WindTools(msg)
+	if not msg or msg == "" then
+		return F.String.Color("WindTools", I.Enum.Colors.WT)
+	end
+
+	return F.String.Color(msg, I.Enum.Colors.WT)
+end
+
+function F.String.ElvUI(msg)
+	if not msg or msg == "" then
+		return F.String.Color("ElvUI", I.Enum.Colors.ELVUI)
+	end
+
+	return F.String.Color(msg, I.Enum.Colors.ELVUI)
+end
+
+function F.String.ElvUIValue(msg)
+	return F.String.RGB(msg, E.media.rgbvaluecolor)
+end
+
+function F.String.Error(msg)
+	return F.String.Color(msg, I.Enum.Colors.ERROR)
+end
+
+function F.String.Good(msg)
+	return F.String.Color(msg, I.Enum.Colors.GOOD)
+end
+
+function F.String.Warning(msg)
+	return F.String.Color(msg, I.Enum.Colors.WARNING)
+end
+
+function F.String.GradientString()
+	return F.String.FastGradient("Gradient", 0, 0.6, 1, 0, 0.9, 1)
+end
+
+function F.String.Legendary(msg)
+	return F.String.Color(msg, I.Enum.Colors.LEGENDARY)
+end
+
+function F.String.Epic(msg)
+	return F.String.Color(msg, I.Enum.Colors.EPIC)
+end
+
+function F.String.Rare(msg)
+	return F.String.Color(msg, I.Enum.Colors.RARE)
+end
+
+function F.String.Beta(msg)
+	return F.String.Color(msg, I.Enum.Colors.BETA)
+end
+
+function F.String.Grey(msg)
+	return F.String.Color(msg, I.Enum.Colors.GREY)
 end

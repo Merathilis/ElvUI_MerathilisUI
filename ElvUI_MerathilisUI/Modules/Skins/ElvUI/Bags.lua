@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local S = MER:GetModule('MER_Skins')
-local B = E:GetModule('Bags')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local S = MER:GetModule("MER_Skins")
+local B = E:GetModule("Bags")
 
 local _G = _G
 local pairs = pairs

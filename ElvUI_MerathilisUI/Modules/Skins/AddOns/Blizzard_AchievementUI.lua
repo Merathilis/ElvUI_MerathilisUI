@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -8,7 +8,7 @@ local function SetupButtonHighlight(button)
 	button:SetHighlightTexture(E.media.normTex)
 
 	local hl = button:GetHighlightTexture()
-	hl:SetVertexColor(F.r, F.g, F.b, .25)
+	hl:SetVertexColor(F.r, F.g, F.b, 0.25)
 	hl:SetInside(button)
 end
 
@@ -38,7 +38,7 @@ function module:Blizzard_AchievementUI()
 			local bu = child.Button
 			if bu and not bu.IsSkinned then
 				bu.Background:Hide()
-				bu:CreateBackdrop('Transparent')
+				bu:CreateBackdrop("Transparent")
 				bu.backdrop:SetPoint("TOPLEFT", 0, -1)
 				bu.backdrop:SetPoint("BOTTOMRIGHT")
 				module:CreateGradient(bu.backdrop)
@@ -53,7 +53,7 @@ function module:Blizzard_AchievementUI()
 		for i = 1, _G.ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS do
 			local button = _G["AchievementFrameSummaryAchievement" .. i]
 			if button and not button.IsSkinned then
-				button:CreateBackdrop('Transparent')
+				button:CreateBackdrop("Transparent")
 				button.backdrop:SetAllPoints()
 				module:CreateGradient(button.backdrop)
 
@@ -62,11 +62,11 @@ function module:Blizzard_AchievementUI()
 		end
 	end)
 
-	hooksecurefunc(_G.AchievementFrameCategories.ScrollBox, 'Update', function(frame)
+	hooksecurefunc(_G.AchievementFrameCategories.ScrollBox, "Update", function(frame)
 		for _, child in next, { frame.ScrollTarget:GetChildren() } do
 			local button = child.Button
 			if button and not button.IsSkinned then
-				button:CreateBackdrop('Transparent')
+				button:CreateBackdrop("Transparent")
 				button.backdrop:SetAllPoints()
 				module:CreateGradient(button.backdrop)
 
@@ -75,10 +75,10 @@ function module:Blizzard_AchievementUI()
 		end
 	end)
 
-	hooksecurefunc(_G.AchievementFrameAchievements.ScrollBox, 'Update', function(frame)
+	hooksecurefunc(_G.AchievementFrameAchievements.ScrollBox, "Update", function(frame)
 		for _, child in next, { frame.ScrollTarget:GetChildren() } do
 			if child and not child.IsSkinned then
-				child:CreateBackdrop('Transparent')
+				child:CreateBackdrop("Transparent")
 				child.backdrop:SetAllPoints()
 				module:CreateGradient(child.backdrop)
 

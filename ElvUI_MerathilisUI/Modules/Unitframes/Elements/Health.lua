@@ -1,7 +1,7 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_UnitFrames')
-local UF = E:GetModule('UnitFrames')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_UnitFrames")
+local UF = E:GetModule("UnitFrames")
+local S = MER:GetModule("MER_Skins")
 
 local buttonclass
 
@@ -10,7 +10,6 @@ function module:ApplyUnitGradient(unit, name)
 		local _, classunit = UnitClass(unit)
 		local reaction = UnitReaction(unit, "player")
 		local unitframe = _G["ElvUF_" .. name]
-
 
 		local isPlayer = UnitIsPlayer(unit)
 		local isCharmed = UnitIsCharmed(unit)
@@ -31,58 +30,81 @@ function module:ApplyUnitGradient(unit, name)
 
 			if (isPlayer and not isCharmed) or isActualPlayer then
 				if E.db.mui.gradient.customColor.enableUF then
-					unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-						F.GradientColorsCustom(classunit, false, E.db.unitframe.colors.transparentHealth, false, false,
-							true))
+					unitframe.Health:GetStatusBarTexture():SetGradient(
+						"HORIZONTAL",
+						F.GradientColorsCustom(
+							classunit,
+							false,
+							E.db.unitframe.colors.transparentHealth,
+							false,
+							false,
+							true
+						)
+					)
 				else
-					unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-						F.GradientColors(classunit, false, E.db.unitframe.colors.transparentHealth, false, false, true))
+					unitframe.Health:GetStatusBarTexture():SetGradient(
+						"HORIZONTAL",
+						F.GradientColors(classunit, false, E.db.unitframe.colors.transparentHealth, false, false, true)
+					)
 				end
 			else
 				if E.db.mui.gradient.customColor.enableUF then
 					if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
-						unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom("TAPPED"))
+						unitframe.Health
+							:GetStatusBarTexture()
+							:SetGradient("HORIZONTAL", F.GradientColorsCustom("TAPPED"))
 					else
 						if reaction and reaction >= 5 then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-								F.GradientColorsCustom("NPCFRIENDLY"))
+							unitframe.Health
+								:GetStatusBarTexture()
+								:SetGradient("HORIZONTAL", F.GradientColorsCustom("NPCFRIENDLY"))
 						elseif reaction and reaction == 4 then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-								F.GradientColorsCustom("NPCNEUTRAL"))
+							unitframe.Health
+								:GetStatusBarTexture()
+								:SetGradient("HORIZONTAL", F.GradientColorsCustom("NPCNEUTRAL"))
 						elseif reaction and reaction == 3 then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-								F.GradientColorsCustom("NPCUNFRIENDLY"))
+							unitframe.Health
+								:GetStatusBarTexture()
+								:SetGradient("HORIZONTAL", F.GradientColorsCustom("NPCUNFRIENDLY"))
 						elseif reaction and reaction == 2 or reaction == 1 then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-								F.GradientColorsCustom("NPCHOSTILE"))
+							unitframe.Health
+								:GetStatusBarTexture()
+								:SetGradient("HORIZONTAL", F.GradientColorsCustom("NPCHOSTILE"))
 						end
 					end
 				else
 					if UnitIsPlayer(unit) and not UnitIsCharmed(unit) then
 						if unit == "target" then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-								F.GradientColors(classunit, true, true))
+							unitframe.Health
+								:GetStatusBarTexture()
+								:SetGradient("HORIZONTAL", F.GradientColors(classunit, true, true))
 						else
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-								F.GradientColors(classunit, false, true))
+							unitframe.Health
+								:GetStatusBarTexture()
+								:SetGradient("HORIZONTAL", F.GradientColors(classunit, false, true))
 						end
 					else
 						if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
-							unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-								F.GradientColors("TAPPED", true, true))
+							unitframe.Health
+								:GetStatusBarTexture()
+								:SetGradient("HORIZONTAL", F.GradientColors("TAPPED", true, true))
 						else
 							if reaction and reaction >= 5 then
-								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-									F.GradientColors("NPCFRIENDLY", true, true))
+								unitframe.Health
+									:GetStatusBarTexture()
+									:SetGradient("HORIZONTAL", F.GradientColors("NPCFRIENDLY", true, true))
 							elseif reaction and reaction == 4 then
-								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-									F.GradientColors("NPCNEUTRAL", true, true))
+								unitframe.Health
+									:GetStatusBarTexture()
+									:SetGradient("HORIZONTAL", F.GradientColors("NPCNEUTRAL", true, true))
 							elseif reaction and reaction == 3 then
-								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-									F.GradientColors("NPCUNFRIENDLY", true, true))
+								unitframe.Health
+									:GetStatusBarTexture()
+									:SetGradient("HORIZONTAL", F.GradientColors("NPCUNFRIENDLY", true, true))
 							elseif reaction and reaction == 2 or reaction == 1 then
-								unitframe.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-									F.GradientColors("NPCHOSTILE", true, true))
+								unitframe.Health
+									:GetStatusBarTexture()
+									:SetGradient("HORIZONTAL", F.GradientColors("NPCHOSTILE", true, true))
 							end
 						end
 					end
@@ -101,11 +123,15 @@ function module:ApplyGroupGradient(button)
 
 	if buttonclass and button.Health then
 		if E.db.mui.gradient.customColor.enableUF then
-			button.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-				F.GradientColorsCustom(buttonclass, false, E.db.unitframe.colors.transparentHealth, false, false, true))
+			button.Health:GetStatusBarTexture():SetGradient(
+				"HORIZONTAL",
+				F.GradientColorsCustom(buttonclass, false, E.db.unitframe.colors.transparentHealth, false, false, true)
+			)
 		else
-			button.Health:GetStatusBarTexture():SetGradient("HORIZONTAL",
-				F.GradientColors(buttonclass, false, E.db.unitframe.colors.transparentHealth, false, false, true))
+			button.Health:GetStatusBarTexture():SetGradient(
+				"HORIZONTAL",
+				F.GradientColors(buttonclass, false, E.db.unitframe.colors.transparentHealth, false, false, true)
+			)
 		end
 	end
 end
@@ -252,5 +278,9 @@ function module:Configure_GradientHealthColor(unit)
 end
 
 hooksecurefunc(UF, "PostUpdateHealthColor", module.Configure_GradientHealthColor)
-hooksecurefunc(UF, "ToggleForceShowGroupFrames", function() module:Configure_GradientHealthColor("testunit") end)
-hooksecurefunc(UF, "HeaderConfig", function() module:Configure_GradientHealthColor("testunit") end)
+hooksecurefunc(UF, "ToggleForceShowGroupFrames", function()
+	module:Configure_GradientHealthColor("testunit")
+end)
+hooksecurefunc(UF, "HeaderConfig", function()
+	module:Configure_GradientHealthColor("testunit")
+end)

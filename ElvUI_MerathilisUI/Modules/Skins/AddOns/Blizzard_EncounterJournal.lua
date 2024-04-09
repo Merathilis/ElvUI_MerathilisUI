@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 
@@ -24,7 +24,9 @@ local function ReskinSectionHeader()
 	local index = 1
 	while true do
 		local header = _G["EncounterJournalInfoHeader" .. index]
-		if not header then return end
+		if not header then
+			return
+		end
 		if not header.IsSkinned then
 			ReskinHeader(header)
 			S:HandleIcon(header.button.abilityIcon)
@@ -38,7 +40,7 @@ end
 
 local function ReplaceBlackColor(text, r, g, b)
 	if r == 0 and g == 0 and b == 0 then
-		text:SetTextColor(.7, .7, .7)
+		text:SetTextColor(0.7, 0.7, 0.7)
 	end
 end
 
@@ -66,7 +68,7 @@ function module:Blizzard_EncounterJournal()
 		_G.EncounterJournalSuggestTab,
 		_G.EncounterJournalDungeonTab,
 		_G.EncounterJournalRaidTab,
-		_G.EncounterJournalLootJournalTab
+		_G.EncounterJournalLootJournalTab,
 	}
 
 	for _, tab in pairs(tabs) do
@@ -78,24 +80,23 @@ function module:Blizzard_EncounterJournal()
 	local suggestion1 = SuggestFrame.Suggestion1
 	if suggestion1 then
 		suggestion1.bg:Hide()
-		suggestion1:SetTemplate('Transparent')
+		suggestion1:SetTemplate("Transparent")
 		module:CreateGradient(suggestion1)
 		suggestion1.icon:SetPoint("TOPLEFT", 135, -15)
 
 		local centerDisplay = suggestion1.centerDisplay
 		centerDisplay.title.text:SetTextColor(1, 1, 1)
-		centerDisplay.description.text:SetTextColor(.9, .9, .9)
+		centerDisplay.description.text:SetTextColor(0.9, 0.9, 0.9)
 
 		local reward = suggestion1.reward
-		reward.text:SetTextColor(.9, .9, .9)
+		reward.text:SetTextColor(0.9, 0.9, 0.9)
 	end
-
 
 	for i = 2, 3 do
 		local suggestion = SuggestFrame["Suggestion" .. i]
 
 		suggestion.bg:Hide()
-		suggestion:SetTemplate('Transparent')
+		suggestion:SetTemplate("Transparent")
 		module:CreateGradient(suggestion)
 		suggestion.icon:SetPoint("TOPLEFT", 10, -10)
 
@@ -104,7 +105,7 @@ function module:Blizzard_EncounterJournal()
 		centerDisplay:ClearAllPoints()
 		centerDisplay:SetPoint("TOPLEFT", 85, -10)
 		centerDisplay.title.text:SetTextColor(1, 1, 1)
-		centerDisplay.description.text:SetTextColor(.9, .9, .9)
+		centerDisplay.description.text:SetTextColor(0.9, 0.9, 0.9)
 	end
 
 	hooksecurefunc("EJSuggestFrame_RefreshDisplay", function()
@@ -124,7 +125,9 @@ function module:Blizzard_EncounterJournal()
 		if #self.suggestions > 1 then
 			for i = 2, #self.suggestions do
 				local suggestion = self["Suggestion" .. i]
-				if not suggestion then break end
+				if not suggestion then
+					break
+				end
 
 				local data = self.suggestions[i]
 				suggestion.iconRing:Hide()
@@ -177,21 +180,29 @@ function module:Blizzard_EncounterJournal()
 	_G.EncounterJournalEncounterFrameInfoModelFrameShadow:Hide()
 	_G.EncounterJournalEncounterFrameInfoModelFrame.dungeonBG:Hide()
 
-	_G.EncounterJournalEncounterFrameInfoEncounterTitle:SetTextColor(1, .8, 0)
+	_G.EncounterJournalEncounterFrameInfoEncounterTitle:SetTextColor(1, 0.8, 0)
 
 	_G.EncounterJournal.encounter.instance.LoreScrollingFont:SetTextColor(CreateColor(1, 1, 1))
-	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChild.overviewDescription.Text:SetTextColor("P", 1, 1,
-		1)
+	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChild.overviewDescription.Text:SetTextColor(
+		"P",
+		1,
+		1,
+		1
+	)
 
 	_G.EncounterJournalEncounterFrameInfoDetailsScrollFrameScrollChildDescription:SetTextColor(1, 1, 1)
 	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChildHeader:Hide()
 	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChildTitle:SetFontObject("GameFontNormalLarge")
 	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChildLoreDescription:SetTextColor(1, 1, 1)
-	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChildTitle:SetTextColor(1, .8, 0)
+	_G.EncounterJournalEncounterFrameInfoOverviewScrollFrameScrollChildTitle:SetTextColor(1, 0.8, 0)
 
-	_G.EncounterJournalEncounterFrameInfoModelFrame:CreateBackdrop('Transparent')
-	_G.EncounterJournalEncounterFrameInfoCreatureButton1:SetPoint("TOPLEFT", EncounterJournalEncounterFrameInfoModelFrame,
-		0, -35)
+	_G.EncounterJournalEncounterFrameInfoModelFrame:CreateBackdrop("Transparent")
+	_G.EncounterJournalEncounterFrameInfoCreatureButton1:SetPoint(
+		"TOPLEFT",
+		EncounterJournalEncounterFrameInfoModelFrame,
+		0,
+		-35
+	)
 
 	hooksecurefunc(EncounterJournal.encounter.info.BossesScrollBox, "Update", function(self)
 		for i = 1, self.ScrollTarget:GetNumChildren() do
@@ -199,7 +210,7 @@ function module:Blizzard_EncounterJournal()
 			if not child.styled then
 				S:HandleButton(child)
 				local hl = child:GetHighlightTexture()
-				hl:SetColorTexture(F.r, F.g, F.b, .25)
+				hl:SetColorTexture(F.r, F.g, F.b, 0.25)
 				hl:SetInside(child.backdrop)
 
 				child.text:SetTextColor(1, 1, 1)
@@ -236,9 +247,15 @@ function module:Blizzard_EncounterJournal()
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local child = select(i, self.ScrollTarget:GetChildren())
 			if not child.IsSkinned then
-				if child.boss then child.boss:SetTextColor(1, 1, 1) end
-				if child.slot then child.slot:SetTextColor(1, 1, 1) end
-				if child.armorType then child.armorType:SetTextColor(1, 1, 1) end
+				if child.boss then
+					child.boss:SetTextColor(1, 1, 1)
+				end
+				if child.slot then
+					child.slot:SetTextColor(1, 1, 1)
+				end
+				if child.armorType then
+					child.armorType:SetTextColor(1, 1, 1)
+				end
 
 				if child.backdrop then
 					module:CreateGradient(child.backdrop)

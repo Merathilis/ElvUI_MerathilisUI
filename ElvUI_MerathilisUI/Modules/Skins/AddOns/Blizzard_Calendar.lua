@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -31,12 +31,12 @@ function module:Blizzard_Calendar()
 	module:CreateShadow(_G.CalendarClassTotalsButton)
 
 	for i = 1, 42 do
-		_G["CalendarDayButton" .. i .. "DarkFrame"]:SetAlpha(.5)
+		_G["CalendarDayButton" .. i .. "DarkFrame"]:SetAlpha(0.5)
 		local bu = _G["CalendarDayButton" .. i]
 		bu:DisableDrawLayer("BACKGROUND")
 		bu:SetHighlightTexture(E["media"].normTex)
 		local hl = bu:GetHighlightTexture()
-		hl:SetVertexColor(r, g, b, .2)
+		hl:SetVertexColor(r, g, b, 0.2)
 		hl.SetAlpha = MER.dummy
 		hl:SetPoint("TOPLEFT", -1, 1)
 		hl:SetPoint("BOTTOMRIGHT")

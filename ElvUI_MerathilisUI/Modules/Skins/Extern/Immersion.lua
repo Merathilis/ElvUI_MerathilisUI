@@ -1,12 +1,12 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs = pairs
 
 function module:Immersion_ReskinTitleButton(frame)
-	for _, button in pairs { frame.TitleButtons:GetChildren() } do
+	for _, button in pairs({ frame.TitleButtons:GetChildren() }) do
 		if button and not button.__MERSkin then
 			S:HandleButton(button, nil, nil, nil, true, "Transparent")
 			button.backdrop:ClearAllPoints()

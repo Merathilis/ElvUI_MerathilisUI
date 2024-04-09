@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
-local module = MER:GetModule('MER_Announcement')
+local module = MER:GetModule("MER_Announcement")
 
 local format = format
 local gsub = gsub
@@ -24,7 +24,7 @@ options.announcement = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Announcement"], 'orange'),
+			name = F.cOption(L["Announcement"], "orange"),
 		},
 	},
 }
@@ -39,7 +39,7 @@ options.announcement.args.enable = {
 		E.db.mui.announcement[info[#info]] = value
 		module:ProfileUpdate()
 	end,
-	name = L["Enable"]
+	name = L["Enable"],
 }
 
 options.announcement.args.quest = {
@@ -63,9 +63,9 @@ options.announcement.args.quest = {
 					order = 1,
 					type = "description",
 					name = L["Let your teammates know the progress of quests."],
-					fontSize = "medium"
-				}
-			}
+					fontSize = "medium",
+				},
+			},
 		},
 		enable = {
 			order = 2,
@@ -73,7 +73,7 @@ options.announcement.args.quest = {
 			name = L["Enable"],
 			set = function(info, value)
 				E.db.mui.announcement[info[#info - 1]][info[#info]] = value
-			end
+			end,
 		},
 		disableBlizzard = {
 			order = 3,
@@ -83,13 +83,13 @@ options.announcement.args.quest = {
 			set = function(info, value)
 				E.db.mui.announcement[info[#info - 1]][info[#info]] = value
 				module:UpdateBlizzardQuestAnnouncement()
-			end
+			end,
 		},
 		includeDetails = {
 			order = 4,
 			type = "toggle",
 			name = L["Include Details"],
-			desc = L["Announce every time the progress has been changed."]
+			desc = L["Announce every time the progress has been changed."],
 		},
 		channel = {
 			order = 5,
@@ -113,8 +113,8 @@ options.announcement.args.quest = {
 						EMOTE = L["Emote"],
 						PARTY = L["Party"],
 						YELL = L["Yell"],
-						SAY = L["Say"]
-					}
+						SAY = L["Say"],
+					},
 				},
 				instance = {
 					order = 2,
@@ -127,8 +127,8 @@ options.announcement.args.quest = {
 						EMOTE = L["Emote"],
 						INSTANCE_CHAT = L["Instance"],
 						YELL = L["Yell"],
-						SAY = L["Say"]
-					}
+						SAY = L["Say"],
+					},
 				},
 				raid = {
 					order = 3,
@@ -141,10 +141,10 @@ options.announcement.args.quest = {
 						PARTY = L["Party"],
 						RAID = L["Raid"],
 						YELL = L["Yell"],
-						SAY = L["Say"]
-					}
-				}
-			}
+						SAY = L["Say"],
+					},
+				},
+			},
 		},
 		tag = {
 			order = 6,
@@ -162,7 +162,7 @@ options.announcement.args.quest = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["The category of the quest."]
+					desc = L["The category of the quest."],
 				},
 				color = {
 					order = 2,
@@ -178,11 +178,11 @@ options.announcement.args.quest = {
 						E.db.mui.announcement.quest[info[#info - 1]].color = {
 							r = r,
 							g = g,
-							b = b
+							b = b,
 						}
-					end
-				}
-			}
+					end,
+				},
+			},
 		},
 		suggestedGroup = {
 			order = 7,
@@ -200,7 +200,7 @@ options.announcement.args.quest = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["If the quest is suggested with multi-players, add the number of players to the message."]
+					desc = L["If the quest is suggested with multi-players, add the number of players to the message."],
 				},
 				color = {
 					order = 2,
@@ -216,11 +216,11 @@ options.announcement.args.quest = {
 						E.db.mui.announcement.quest[info[#info - 1]].color = {
 							r = r,
 							g = g,
-							b = b
+							b = b,
 						}
-					end
-				}
-			}
+					end,
+				},
+			},
 		},
 		level = {
 			order = 8,
@@ -238,7 +238,7 @@ options.announcement.args.quest = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["The level of the quest."]
+					desc = L["The level of the quest."],
 				},
 				color = {
 					order = 2,
@@ -254,17 +254,17 @@ options.announcement.args.quest = {
 						E.db.mui.announcement.quest[info[#info - 1]].color = {
 							r = r,
 							g = g,
-							b = b
+							b = b,
 						}
-					end
+					end,
 				},
 				hideOnMax = {
 					order = 3,
 					type = "toggle",
 					name = L["Hide Max Level"],
-					desc = L["Hide the level part if the quest level is the max level of this expansion."]
-				}
-			}
+					desc = L["Hide the level part if the quest level is the max level of this expansion."],
+				},
+			},
 		},
 		daily = {
 			order = 9,
@@ -282,7 +282,7 @@ options.announcement.args.quest = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["Add the prefix if the quest is a daily quest."]
+					desc = L["Add the prefix if the quest is a daily quest."],
 				},
 				color = {
 					order = 2,
@@ -298,11 +298,11 @@ options.announcement.args.quest = {
 						E.db.mui.announcement.quest[info[#info - 1]].color = {
 							r = r,
 							g = g,
-							b = b
+							b = b,
 						}
-					end
-				}
-			}
+					end,
+				},
+			},
 		},
 		weekly = {
 			order = 10,
@@ -320,7 +320,7 @@ options.announcement.args.quest = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["Add the prefix if the quest is a weekly quest."]
+					desc = L["Add the prefix if the quest is a weekly quest."],
 				},
 				color = {
 					order = 2,
@@ -336,9 +336,9 @@ options.announcement.args.quest = {
 						E.db.mui.announcement.quest[info[#info - 1]].color = {
 							r = r,
 							g = g,
-							b = b
+							b = b,
 						}
-					end
+					end,
 				},
 			},
 		},
@@ -366,9 +366,9 @@ options.announcement.args.utility = {
 					order = 1,
 					type = "description",
 					name = L["Send the use of portals, ritual of summoning, feasts, etc."],
-					fontSize = "medium"
-				}
-			}
+					fontSize = "medium",
+				},
+			},
 		},
 		enable = {
 			order = 2,
@@ -377,7 +377,7 @@ options.announcement.args.utility = {
 			set = function(info, value)
 				E.db.mui.announcement[info[#info - 1]][info[#info]] = value
 				module:ResetAuthority()
-			end
+			end,
 		},
 		channel = {
 			order = 3,
@@ -401,8 +401,8 @@ options.announcement.args.utility = {
 						SELF = L["Self (Chat Frame)"],
 						EMOTE = L["Emote"],
 						YELL = L["Yell"],
-						SAY = L["Say"]
-					}
+						SAY = L["Say"],
+					},
 				},
 				party = {
 					order = 2,
@@ -414,8 +414,8 @@ options.announcement.args.utility = {
 						EMOTE = L["Emote"],
 						PARTY = L["Party"],
 						YELL = L["Yell"],
-						SAY = L["Say"]
-					}
+						SAY = L["Say"],
+					},
 				},
 				instance = {
 					order = 3,
@@ -428,8 +428,8 @@ options.announcement.args.utility = {
 						PARTY = L["Party"],
 						INSTANCE_CHAT = L["Instance"],
 						YELL = L["Yell"],
-						SAY = L["Say"]
-					}
+						SAY = L["Say"],
+					},
 				},
 				raid = {
 					order = 4,
@@ -442,7 +442,7 @@ options.announcement.args.utility = {
 						PARTY = L["Party"],
 						RAID = L["Raid"],
 						YELL = L["Yell"],
-						SAY = L["Say"]
+						SAY = L["Say"],
 					},
 				},
 			},
@@ -456,7 +456,7 @@ do
 		bots = L["Bots"],
 		toys = L["Toys"],
 		portals = L["Portals"],
-		hero = L["Heroism/Bloodlust"]
+		hero = L["Heroism/Bloodlust"],
 	}
 
 	local specialExampleSpell = {
@@ -501,19 +501,19 @@ do
 				enable = {
 					order = 1,
 					type = "toggle",
-					name = L["Enable"]
+					name = L["Enable"],
 				},
 				includePlayer = {
 					order = 2,
 					type = "toggle",
 					name = L["Include Player"],
-					desc = L["Uncheck this box, it will not send message if you cast the spell."]
+					desc = L["Uncheck this box, it will not send message if you cast the spell."],
 				},
 				raidWarning = {
 					order = 3,
 					type = "toggle",
 					name = L["Raid Warning"],
-					desc = L["If you have privilege, it would the message to raid warning(/rw) rather than raid(/r)."]
+					desc = L["If you have privilege, it would the message to raid warning(/rw) rather than raid(/r)."],
 				},
 				text = {
 					order = 4,
@@ -525,7 +525,7 @@ do
 						FormatDesc("%target%", L["Target name"]),
 						FormatDesc("%spell%", L["The spell link"])
 					),
-					width = 2.5
+					width = 2.5,
 				},
 				useDefaultText = {
 					order = 5,
@@ -534,7 +534,7 @@ do
 						E.db.mui.announcement.utility.spells[categoryOrId].text =
 							P.announcement.utility.spells[categoryOrId].text
 					end,
-					name = L["Default Text"]
+					name = L["Default Text"],
 				},
 				example = {
 					order = 6,
@@ -545,9 +545,9 @@ do
 						message = gsub(message, "%%target%%", L["Sylvanas"])
 						message = gsub(message, "%%spell%%", GetSpellLink(exampleSpellId))
 						return "\n" .. ImportantColorString(L["Example"]) .. ": " .. message .. "\n"
-					end
-				}
-			}
+					end,
+				},
+			},
 		}
 	end
 end
@@ -573,19 +573,19 @@ options.announcement.args.resetInstance = {
 					order = 1,
 					type = "description",
 					name = L["Send a message after instance resetting."],
-					fontSize = "medium"
-				}
-			}
+					fontSize = "medium",
+				},
+			},
 		},
 		enable = {
 			order = 2,
 			type = "toggle",
-			name = L["Enable"]
+			name = L["Enable"],
 		},
 		prefix = {
 			order = 3,
 			type = "toggle",
-			name = L["Prefix"]
+			name = L["Prefix"],
 		},
 		channel = {
 			order = 4,
@@ -609,8 +609,8 @@ options.announcement.args.resetInstance = {
 						EMOTE = L["Emote"],
 						PARTY = L["Party"],
 						YELL = L["Yell"],
-						SAY = L["Say"]
-					}
+						SAY = L["Say"],
+					},
 				},
 				instance = {
 					order = 2,
@@ -623,8 +623,8 @@ options.announcement.args.resetInstance = {
 						PARTY = L["Party"],
 						INSTANCE_CHAT = L["Instance"],
 						YELL = L["Yell"],
-						SAY = L["Say"]
-					}
+						SAY = L["Say"],
+					},
 				},
 				raid = {
 					order = 3,
@@ -637,12 +637,12 @@ options.announcement.args.resetInstance = {
 						PARTY = L["Party"],
 						RAID = L["Raid"],
 						YELL = L["Yell"],
-						SAY = L["Say"]
-					}
-				}
-			}
-		}
-	}
+						SAY = L["Say"],
+					},
+				},
+			},
+		},
+	},
 }
 
 options.announcement.args.keystone = {
@@ -666,21 +666,21 @@ options.announcement.args.keystone = {
 					order = 1,
 					type = "description",
 					name = L["Announce the new mythic keystone."],
-					fontSize = "medium"
-				}
-			}
+					fontSize = "medium",
+				},
+			},
 		},
 		enable = {
 			order = 2,
 			type = "toggle",
-			name = L["Enable"]
+			name = L["Enable"],
 		},
 		text = {
 			order = 3,
 			type = "input",
 			name = L["Text"],
 			desc = FormatDesc("%keystone%", L["Keystone"]),
-			width = 2
+			width = 2,
 		},
 		useDefaultText = {
 			order = 4,
@@ -688,7 +688,7 @@ options.announcement.args.keystone = {
 			func = function(info)
 				E.db.mui.announcement.keystone.text = P.announcement.keystone.text
 			end,
-			name = L["Default Text"]
+			name = L["Default Text"],
 		},
 		channel = {
 			order = 5,
@@ -712,12 +712,12 @@ options.announcement.args.keystone = {
 						EMOTE = L["Emote"],
 						PARTY = L["Party"],
 						YELL = L["Yell"],
-						SAY = L["Say"]
-					}
-				}
-			}
-		}
-	}
+						SAY = L["Say"],
+					},
+				},
+			},
+		},
+	},
 }
 
 options.announcement.args.general = {
@@ -735,27 +735,29 @@ options.announcement.args.general = {
 			order = 1,
 			type = "input",
 			name = L["Emote Format"],
-			desc = L["The text template used in emote channel."] ..
-			"\n" .. format(L["Default is %s."], F.StringByTemplate(": %s", "info")),
-			width = 2
+			desc = L["The text template used in emote channel."]
+				.. "\n"
+				.. format(L["Default is %s."], F.StringByTemplate(": %s", "info")),
+			width = 2,
 		},
 		betterAlign = {
 			order = 2,
 			type = "description",
 			fontSize = "small",
 			name = " ",
-			width = "full"
+			width = "full",
 		},
 		sameMessageInterval = {
 			order = 3,
 			type = "range",
 			name = L["Same Message Interval"],
-			desc = L["Time interval between sending same messages measured in seconds."] ..
-			" " .. L["Set to 0 to disable."],
+			desc = L["Time interval between sending same messages measured in seconds."]
+				.. " "
+				.. L["Set to 0 to disable."],
 			min = 0,
 			max = 3600,
 			step = 1,
-			width = 1.5
-		}
-	}
+			width = 1.5,
+		},
+	},
 }

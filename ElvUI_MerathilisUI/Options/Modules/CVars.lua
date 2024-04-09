@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
 
 local GetCVar = GetCVar
@@ -7,13 +7,17 @@ local SetCVar = SetCVar
 options.cvars = {
 	type = "group",
 	name = L["CVars"],
-	get = function(info) return E.db.mui.cvars[ info[#info] ] end,
-	set = function(info, value) E.db.mui.cvars[ info[#info] ] = value; end,
+	get = function(info)
+		return E.db.mui.cvars[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.cvars[info[#info]] = value
+	end,
 	args = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["CVars"], 'orange'),
+			name = F.cOption(L["CVars"], "orange"),
 		},
 		general = {
 			order = 2,
@@ -47,7 +51,7 @@ options.cvars = {
 					order = 3,
 					type = "toggle",
 					name = L["scriptErrors"],
-					desc = OPTION_TOOLTIP_SHOW_LUA_ERRORS..L["\n\nDefault: |cffff00000|r"],
+					desc = OPTION_TOOLTIP_SHOW_LUA_ERRORS .. L["\n\nDefault: |cffff00000|r"],
 					set = function(info, value)
 						E.db.mui.cvars.general[info[#info]] = value
 						SetCVar("scriptErrors", (value == true and 1 or 0))
@@ -71,7 +75,7 @@ options.cvars = {
 					order = 5,
 					type = "toggle",
 					name = L["autoLootDefault"],
-					desc = OPTION_TOOLTIP_AUTO_LOOT_DEFAULT..L["\n\nDefault: |cffff00000|r"],
+					desc = OPTION_TOOLTIP_AUTO_LOOT_DEFAULT .. L["\n\nDefault: |cffff00000|r"],
 					set = function(info, value)
 						E.db.mui.cvars.general[info[#info]] = value
 						SetCVar("autoLootDefault", (value == true and 1 or 0))
@@ -81,7 +85,7 @@ options.cvars = {
 					order = 6,
 					type = "toggle",
 					name = L["autoDismountFlying"],
-					desc = OPTION_TOOLTIP_AUTO_DISMOUNT_FLYING..L["\n\nDefault: |cffff00000|r"],
+					desc = OPTION_TOOLTIP_AUTO_DISMOUNT_FLYING .. L["\n\nDefault: |cffff00000|r"],
 					set = function(info, value)
 						E.db.mui.cvars.general[info[#info]] = value
 						SetCVar("autoDismountFlying", (value == true and 1 or 0))
@@ -91,7 +95,7 @@ options.cvars = {
 					order = 7,
 					type = "toggle",
 					name = L["removeChatDelay"],
-					desc = REMOVE_CHAT_DELAY_TEXT..L["\n\nDefault: |cffff00000|r"],
+					desc = REMOVE_CHAT_DELAY_TEXT .. L["\n\nDefault: |cffff00000|r"],
 					set = function(info, value)
 						E.db.mui.cvars.general[info[#info]] = value
 						SetCVar("removeChatDelay", (value == true and 1 or 0))
@@ -100,12 +104,14 @@ options.cvars = {
 				screenshotQuality = {
 					order = 8,
 					type = "range",
-					min = 1, max = 10, step = 1,
+					min = 1,
+					max = 10,
+					step = 1,
 					name = L["screenshotQuality"],
 					desc = L["screenshotQuality_DESC"],
 					get = function()
-							return tonumber(GetCVar("screenshotQuality"))
-						end,
+						return tonumber(GetCVar("screenshotQuality"))
+					end,
 					set = function(info, value)
 						E.db.mui.cvars.general[info[#info]] = value
 						SetCVar("screenshotQuality", value)
@@ -115,7 +121,7 @@ options.cvars = {
 					order = 9,
 					type = "toggle",
 					name = L["showTutorials"],
-					desc = OPTION_TOOLTIP_SHOW_TUTORIALS..L["\n\nDefault: |cff00ff001|r"],
+					desc = OPTION_TOOLTIP_SHOW_TUTORIALS .. L["\n\nDefault: |cff00ff001|r"],
 					set = function(info, value)
 						E.db.mui.cvars.general[info[#info]] = value
 						SetCVar("showTutorials", (value == true and 1 or 0))
@@ -125,11 +131,13 @@ options.cvars = {
 					order = 10,
 					type = "range",
 					name = L["cameraFov"],
-					min = 50, max = 90, step = 1,
+					min = 50,
+					max = 90,
+					step = 1,
 					desc = L["\n\nDefault: |cff00ff090|r"],
 					get = function()
-							return tonumber(GetCVar("camerafov"))
-						end,
+						return tonumber(GetCVar("camerafov"))
+					end,
 					set = function(info, value)
 						E.db.mui.cvars.general[info[#info]] = value
 						SetCVar("cameraFov", value)
@@ -148,7 +156,9 @@ options.cvars = {
 				worldTextScale = {
 					order = 1,
 					type = "range",
-					min = 0.5, max = 2.5, step = 0.1,
+					min = 0.5,
+					max = 2.5,
+					step = 0.1,
 					name = L["World Text Scale"],
 					desc = L["WorldTextScale_DESC"],
 					set = function(info, value)
@@ -169,7 +179,7 @@ options.cvars = {
 							order = 1,
 							type = "toggle",
 							name = SHOW_DAMAGE_TEXT,
-							desc = OPTION_TOOLTIP_SHOW_DAMAGE..L["\n\nDefault: |cff00ff001|r"],
+							desc = OPTION_TOOLTIP_SHOW_DAMAGE .. L["\n\nDefault: |cff00ff001|r"],
 							set = function(info, value)
 								E.db.mui.cvars.combatText.targetCombatText[info[#info]] = value
 								SetCVar("floatingCombatTextCombatDamage", (value == true and 1 or 0))
@@ -179,7 +189,7 @@ options.cvars = {
 							order = 2,
 							type = "toggle",
 							name = LOG_PERIODIC_EFFECTS,
-							desc = OPTION_TOOLTIP_LOG_PERIODIC_EFFECTS..L["\n\nDefault: |cff00ff001|r"],
+							desc = OPTION_TOOLTIP_LOG_PERIODIC_EFFECTS .. L["\n\nDefault: |cff00ff001|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.targetCombatText["floatingCombatTextCombatDamage"]
 							end,
@@ -192,7 +202,7 @@ options.cvars = {
 							order = 3,
 							type = "toggle",
 							name = SHOW_PET_MELEE_DAMAGE,
-							desc = OPTION_TOOLTIP_PET_SPELL_DAMAGE..L["\n\nDefault: |cff00ff001|r"],
+							desc = OPTION_TOOLTIP_PET_SPELL_DAMAGE .. L["\n\nDefault: |cff00ff001|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.targetCombatText["floatingCombatTextCombatDamage"]
 							end,
@@ -205,7 +215,9 @@ options.cvars = {
 						floatingCombatTextCombatDamageDirectionalScale = {
 							order = 4,
 							type = "range",
-							min = 1, max = 5, step = 1,
+							min = 1,
+							max = 5,
+							step = 1,
 							name = L["floatingCombatTextCombatDamageDirectionalScale"],
 							desc = L["floatingCombatTextCombatDamageDirectionalScale_DESC"],
 							disabled = function(info)
@@ -220,7 +232,7 @@ options.cvars = {
 							order = 5,
 							type = "toggle",
 							name = SHOW_COMBAT_HEALING,
-							desc = OPTION_TOOLTIP_SHOW_COMBAT_HEALING..L["\n\nDefault: |cff00ff001|r"],
+							desc = OPTION_TOOLTIP_SHOW_COMBAT_HEALING .. L["\n\nDefault: |cff00ff001|r"],
 							set = function(info, value)
 								E.db.mui.cvars.combatText.targetCombatText[info[#info]] = value
 								SetCVar("floatingCombatTextCombatHealing", (value == true and 1 or 0))
@@ -230,7 +242,7 @@ options.cvars = {
 							order = 6,
 							type = "toggle",
 							name = SHOW_COMBAT_HEALING_ABSORB_TARGET,
-							desc = OPTION_TOOLTIP_SHOW_COMBAT_HEALING_ABSORB_TARGET..L["\n\nDefault: |cff00ff001|r"],
+							desc = OPTION_TOOLTIP_SHOW_COMBAT_HEALING_ABSORB_TARGET .. L["\n\nDefault: |cff00ff001|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.targetCombatText["floatingCombatTextCombatHealing"]
 							end,
@@ -243,7 +255,7 @@ options.cvars = {
 							order = 7,
 							type = "toggle",
 							name = SHOW_TARGET_EFFECTS,
-							desc = OPTION_TOOLTIP_SHOW_TARGET_EFFECTS..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_SHOW_TARGET_EFFECTS .. L["\n\nDefault: |cffff00000|r"],
 							set = function(info, value)
 								E.db.mui.cvars.combatText.targetCombatText[info[#info]] = value
 								SetCVar("floatingCombatTextSpellMechanics", (value == true and 1 or 0))
@@ -253,7 +265,7 @@ options.cvars = {
 							order = 8,
 							type = "toggle",
 							name = SHOW_OTHER_TARGET_EFFECTS,
-							desc = OPTION_TOOLTIP_SHOW_OTHER_TARGET_EFFECTS..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_SHOW_OTHER_TARGET_EFFECTS .. L["\n\nDefault: |cffff00000|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.targetCombatText["floatingCombatTextSpellMechanics"]
 							end,
@@ -262,7 +274,7 @@ options.cvars = {
 								SetCVar("floatingCombatTextSpellMechanicsOther", (value == true and 1 or 0))
 							end,
 						},
-					}
+					},
 				},
 				playerCombatText = {
 					order = 3,
@@ -280,7 +292,7 @@ options.cvars = {
 							order = 1,
 							type = "toggle",
 							name = SHOW_COMBAT_TEXT_TEXT,
-							desc = OPTION_TOOLTIP_SHOW_COMBAT_TEXT..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_SHOW_COMBAT_TEXT .. L["\n\nDefault: |cffff00000|r"],
 							set = function(info, value)
 								E.db.mui.cvars.combatText.playerCombatText[info[#info]] = value
 								SetCVar("enableFloatingCombatText", (value == true and 1 or 0))
@@ -290,7 +302,7 @@ options.cvars = {
 							order = 2,
 							type = "select",
 							name = COMBAT_TEXT_FLOAT_MODE_LABEL,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_MODE..L["\n\nDefault: |cff00ff001|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_MODE .. L["\n\nDefault: |cff00ff001|r"],
 							values = {
 								[1] = COMBAT_TEXT_SCROLL_UP,
 								[2] = COMBAT_TEXT_SCROLL_DOWN,
@@ -308,7 +320,7 @@ options.cvars = {
 							order = 3,
 							type = "toggle",
 							name = COMBAT_TEXT_SHOW_DODGE_PARRY_MISS_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_DODGE_PARRY_MISS..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_DODGE_PARRY_MISS .. L["\n\nDefault: |cffff00000|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -321,7 +333,7 @@ options.cvars = {
 							order = 4,
 							type = "toggle",
 							name = SHOW_COMBAT_HEALING_ABSORB_SELF,
-							desc = OPTION_TOOLTIP_SHOW_COMBAT_HEALING_ABSORB_SELF..L["\n\nDefault: |cff00ff001|r"],
+							desc = OPTION_TOOLTIP_SHOW_COMBAT_HEALING_ABSORB_SELF .. L["\n\nDefault: |cff00ff001|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -334,7 +346,7 @@ options.cvars = {
 							order = 5,
 							type = "toggle",
 							name = COMBAT_TEXT_SHOW_RESISTANCES_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_RESISTANCES..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_RESISTANCES .. L["\n\nDefault: |cffff00000|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -347,7 +359,7 @@ options.cvars = {
 							order = 6,
 							type = "toggle",
 							name = COMBAT_TEXT_SHOW_LOW_HEALTH_MANA_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_LOW_HEALTH_MANA..L["\n\nDefault: |cff00ff001|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_LOW_HEALTH_MANA .. L["\n\nDefault: |cff00ff001|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -360,7 +372,7 @@ options.cvars = {
 							order = 7,
 							type = "toggle",
 							name = COMBAT_TEXT_SHOW_REPUTATION_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_REPUTATION..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_REPUTATION .. L["\n\nDefault: |cffff00000|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -372,8 +384,8 @@ options.cvars = {
 						floatingCombatTextEnergyGains = {
 							order = 8,
 							type = "toggle",
-							name = COMBAT_TEXT_SHOW_ENERGIZE_TEXT.." & "..COMBAT_TEXT_SHOW_COMBO_POINTS_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_ENERGIZE..L["\n\nDefault: |cffff00000|r"],
+							name = COMBAT_TEXT_SHOW_ENERGIZE_TEXT .. " & " .. COMBAT_TEXT_SHOW_COMBO_POINTS_TEXT,
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_ENERGIZE .. L["\n\nDefault: |cffff00000|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -386,7 +398,7 @@ options.cvars = {
 							order = 9,
 							type = "toggle",
 							name = COMBAT_TEXT_SHOW_COMBO_POINTS_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_COMBO_POINTS..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_COMBO_POINTS .. L["\n\nDefault: |cffff00000|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -399,7 +411,7 @@ options.cvars = {
 							order = 10,
 							type = "toggle",
 							name = COMBAT_TEXT_SHOW_REACTIVES_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_REACTIVES..L["\n\nDefault: |cff00ff001|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_REACTIVES .. L["\n\nDefault: |cff00ff001|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -412,7 +424,7 @@ options.cvars = {
 							order = 11,
 							type = "toggle",
 							name = COMBAT_TEXT_SHOW_PERIODIC_ENERGIZE_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_PERIODIC_ENERGIZE..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_PERIODIC_ENERGIZE .. L["\n\nDefault: |cffff00000|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -425,7 +437,7 @@ options.cvars = {
 							order = 12,
 							type = "toggle",
 							name = COMBAT_TEXT_SHOW_FRIENDLY_NAMES_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_FRIENDLY_NAMES..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_FRIENDLY_NAMES .. L["\n\nDefault: |cffff00000|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -438,7 +450,7 @@ options.cvars = {
 							order = 13,
 							type = "toggle",
 							name = COMBAT_TEXT_SHOW_HONOR_GAINED_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_HONOR_GAINED..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_HONOR_GAINED .. L["\n\nDefault: |cffff00000|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -451,7 +463,7 @@ options.cvars = {
 							order = 14,
 							type = "toggle",
 							name = COMBAT_TEXT_SHOW_COMBAT_STATE_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_COMBAT_STATE..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_COMBAT_STATE .. L["\n\nDefault: |cffff00000|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,
@@ -464,7 +476,7 @@ options.cvars = {
 							order = 15,
 							type = "toggle",
 							name = COMBAT_TEXT_SHOW_AURAS_TEXT,
-							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_AURAS..L["\n\nDefault: |cffff00000|r"],
+							desc = OPTION_TOOLTIP_COMBAT_TEXT_SHOW_AURAS .. L["\n\nDefault: |cffff00000|r"],
 							disabled = function(info)
 								return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 							end,

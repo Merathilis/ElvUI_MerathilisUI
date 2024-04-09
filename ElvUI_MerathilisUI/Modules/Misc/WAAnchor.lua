@@ -1,17 +1,17 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
 
 local _G = _G
 local CreateFrame = CreateFrame
 
 function module:WeakAuraAnchorLoad()
-	local frame = CreateFrame('Frame', 'MERWAAnchor', E.UIParent, 'BackdropTemplate')
-	frame:SetParent(_G['ElvUF_Player'])
-	frame:SetPoint('BOTTOM', E.UIParent, 'BOTTOM', F.Dpi(-3), F.Dpi(480)) -- for 1080p
-	frame:SetFrameStrata('BACKGROUND')
+	local frame = CreateFrame("Frame", "MERWAAnchor", E.UIParent, "BackdropTemplate")
+	frame:SetParent(_G["ElvUF_Player"])
+	frame:SetPoint("BOTTOM", E.UIParent, "BOTTOM", F.Dpi(-3), F.Dpi(480)) -- for 1080p
+	frame:SetFrameStrata("BACKGROUND")
 	frame:SetSize(300, 50)
 
-	E:CreateMover(frame, 'MERWAAnchorMover', MER.Title .. ' WA Anchor', nil, nil, nil, 'ALL,SOLO,MERATHILISUI')
+	E:CreateMover(frame, "MERWAAnchorMover", MER.Title .. " WA Anchor", nil, nil, nil, "ALL,SOLO,MERATHILISUI")
 end
 
 function module:WeakAuraAnchor()
@@ -26,4 +26,4 @@ function module:WeakAuraAnchor()
 	end
 end
 
-module:AddCallback('WeakAuraAnchor')
+module:AddCallback("WeakAuraAnchor")

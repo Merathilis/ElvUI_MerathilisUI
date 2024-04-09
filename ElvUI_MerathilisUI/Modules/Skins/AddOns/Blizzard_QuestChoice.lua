@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -16,7 +16,7 @@ function module:Blizzard_QuestChoice()
 		QuestChoiceFrame.backdrop:Hide()
 	end
 
-	QuestChoiceFrame:CreateBackdrop('Transparent')
+	QuestChoiceFrame:CreateBackdrop("Transparent")
 	module:CreateBackdropShadow(QuestChoiceFrame)
 
 	for i = 1, 15 do
@@ -34,12 +34,12 @@ function module:Blizzard_QuestChoice()
 		local currencies = rewards.Currencies
 
 		option.Header.Background:Hide()
-		option.Header.Text:SetTextColor(.9, .9, .9)
+		option.Header.Text:SetTextColor(0.9, 0.9, 0.9)
 
 		option.Artwork:SetTexCoord(0.140625, 0.84375, 0.2265625, 0.78125)
 		option.Artwork:SetSize(180, 71)
 		option.Artwork:SetPoint("TOP", 0, -20)
-		option.OptionText:SetTextColor(.9, .9, .9)
+		option.OptionText:SetTextColor(0.9, 0.9, 0.9)
 
 		item.Name:SetTextColor(1, 1, 1)
 		item.Icon:SetTexCoord(unpack(E.TexCoords))

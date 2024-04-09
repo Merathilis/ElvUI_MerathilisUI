@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -34,7 +34,7 @@ local function UpdateIcons(self)
 		local scheduel, party = select(4, self:GetChildren())
 		scheduel:GetRegions():SetAlpha(0)
 		select(3, scheduel:GetRegions()):SetAlpha(0)
-		scheduel:SetTemplate('Transparent')
+		scheduel:SetTemplate("Transparent")
 		if scheduel.Entries then
 			for i = 1, 3 do
 				HandleAffixIcons(scheduel.Entries[i])
@@ -53,7 +53,7 @@ function module:Blizzard_ChallengesUI()
 	local KeyStoneFrame = _G.ChallengesKeystoneFrame
 	module:CreateBackdropShadow(KeyStoneFrame)
 
-	hooksecurefunc(_G.ChallengesFrame, 'Update', UpdateIcons)
+	hooksecurefunc(_G.ChallengesFrame, "Update", UpdateIcons)
 end
 
 module:AddCallbackForAddon("Blizzard_ChallengesUI")

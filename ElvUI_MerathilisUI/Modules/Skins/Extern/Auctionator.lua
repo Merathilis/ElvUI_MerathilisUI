@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -461,16 +461,14 @@ local function groupsCustomise(frame)
 end
 
 local function groupsCustomiseGroup(frame)
-	for i, child in pairs(
-		{
-			frame.FocusButton,
-			frame.RenameButton,
-			frame.DeleteButton,
-			frame.HideButton,
-			frame.ShiftUpButton,
-			frame.ShiftDownButton
-		}
-	) do
+	for i, child in pairs({
+		frame.FocusButton,
+		frame.RenameButton,
+		frame.DeleteButton,
+		frame.HideButton,
+		frame.ShiftUpButton,
+		frame.ShiftDownButton,
+	}) do
 		if child then
 			S:HandleButton(child)
 
@@ -493,12 +491,12 @@ local function groupsCustomiseGroup(frame)
 
 	local focused = frame.FocussedBackground
 	if focused then
-		focused:SetDrawLayer('BACKGROUND', -2)
+		focused:SetDrawLayer("BACKGROUND", -2)
 	end
 
 	local hover = frame.FocussedHoverBackground
 	if hover then
-		hover:SetDrawLayer('BACKGROUND', -1)
+		hover:SetDrawLayer("BACKGROUND", -1)
 	end
 end
 

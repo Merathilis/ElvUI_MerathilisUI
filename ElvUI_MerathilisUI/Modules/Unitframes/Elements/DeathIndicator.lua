@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_UnitFrames')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_UnitFrames")
 
 -- Credits: Darth Predator - ElvUI_Shadow & Light
 
@@ -13,9 +13,9 @@ module.DeadTextures = {
 }
 
 function module:Construct_DeathIndicator(frame)
-	local DeathIndicator = frame.RaisedElementParent.TextureParent:CreateTexture(nil, 'OVERLAY', nil, 7)
+	local DeathIndicator = frame.RaisedElementParent.TextureParent:CreateTexture(nil, "OVERLAY", nil, 7)
 
-	DeathIndicator:Point('CENTER', frame, 'CENTER', 0, 0)
+	DeathIndicator:Point("CENTER", frame, "CENTER", 0, 0)
 	DeathIndicator:Size(36)
 
 	return DeathIndicator
@@ -31,9 +31,9 @@ function module:Configure_DeathIndicator(frame)
 	local height = db.keepSizeRatio and db.size or db.height
 
 	DeathIndicator:ClearAllPoints()
-	DeathIndicator:Point('CENTER', frame, db.anchorPoint, db.xOffset, db.yOffset)
+	DeathIndicator:Point("CENTER", frame, db.anchorPoint, db.xOffset, db.yOffset)
 
-	if db.texture ~= 'CUSTOM' and F:TextureExists(module.DeadTextures[db.texture]) then
+	if db.texture ~= "CUSTOM" and F:TextureExists(module.DeadTextures[db.texture]) then
 		DeathIndicator:SetTexture(module.DeadTextures[db.texture])
 	elseif F:TextureExists(db.custom) then
 		DeathIndicator:SetTexture(db.custom)
@@ -43,9 +43,9 @@ function module:Configure_DeathIndicator(frame)
 
 	DeathIndicator:Size(width, height)
 
-	if db.enable and not frame:IsElementEnabled('DeathIndicator') then
-		frame:EnableElement('DeathIndicator')
-	elseif not db.enable and frame:IsElementEnabled('DeathIndicator') then
-		frame:DisableElement('DeathIndicator')
+	if db.enable and not frame:IsElementEnabled("DeathIndicator") then
+		frame:EnableElement("DeathIndicator")
+	elseif not db.enable and frame:IsElementEnabled("DeathIndicator") then
+		frame:DisableElement("DeathIndicator")
 	end
 end

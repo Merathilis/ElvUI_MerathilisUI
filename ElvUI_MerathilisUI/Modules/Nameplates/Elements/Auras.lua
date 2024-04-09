@@ -1,8 +1,8 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_NameplateAuras')
-local NP = E:GetModule('NamePlates')
-local UF = E:GetModule('UnitFrames')
-local MUF = MER:GetModule('MER_UnitFrames')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_NameplateAuras")
+local NP = E:GetModule("NamePlates")
+local UF = E:GetModule("UnitFrames")
+local MUF = MER:GetModule("MER_UnitFrames")
 
 local select = select
 local find = string.find
@@ -53,13 +53,13 @@ function module:PostUpdateAura(unit, button)
 		button:SetWidth(width)
 		button:SetHeight(height)
 
-		button.size = {["width"] = width, ["height"] = height}
+		button.size = { ["width"] = width, ["height"] = height }
 
 		-- CC Caster Names
 		if spell and spell ~= "" and button.caster then
 			local name = UnitName(button.caster)
 			local class = select(2, UnitClass(button.caster))
-			local color = {r = 1, g = 1, b = 1}
+			local color = { r = 1, g = 1, b = 1 }
 			if class then
 				color = E:ClassColor(class, true)
 			end
@@ -77,11 +77,13 @@ function module:Construct_Auras(nameplate)
 	nameplate.Buffs.PostUpdateButton = module.PostUpdateAura
 	nameplate.Debuffs.PostUpdateButton = module.PostUpdateAura
 
-	hooksecurefunc(nameplate.Debuffs, 'PostUpdateButton', module.PostUpdateAura)
+	hooksecurefunc(nameplate.Debuffs, "PostUpdateButton", module.PostUpdateAura)
 end
 
 function module:Construct_AuraIcon(button)
-	if not button then return end
+	if not button then
+		return
+	end
 
 	-- Creates an own font element for caster name
 	if not button.cc_name then
@@ -92,11 +94,16 @@ function module:Construct_AuraIcon(button)
 	end
 
 	local auras = button:GetParent()
-	button.db = auras and NP.db.units and NP.db.units[auras.__owner.frameType] and NP.db.units[auras.__owner.frameType][auras.type]
+	button.db = auras
+		and NP.db.units
+		and NP.db.units[auras.__owner.frameType]
+		and NP.db.units[auras.__owner.frameType][auras.type]
 end
 
 function module:Initialize()
-	if E.db.mui.nameplates.enhancedAuras.enable ~= true then return end
+	if E.db.mui.nameplates.enhancedAuras.enable ~= true then
+		return
+	end
 
 	hooksecurefunc(NP, "Construct_Auras", module.Construct_Auras)
 	hooksecurefunc(NP, "Construct_AuraIcon", module.Construct_AuraIcon)

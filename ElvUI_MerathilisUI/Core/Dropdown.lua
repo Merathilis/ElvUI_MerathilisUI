@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_DropDown')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_DropDown")
 
 local _G = _G
 local format = string.format
@@ -26,7 +26,7 @@ local function OnMouseUp(btn)
 		btn.func()
 	end
 
-	E:Delay(.1, function()
+	E:Delay(0.1, function()
 		btn:GetParent():Hide()
 	end)
 end
@@ -63,27 +63,29 @@ local function CreateListButton(frame)
 	local button = CreateFrame("Button", nil, frame, "SecureActionButtonTemplate")
 
 	button:RegisterForClicks(MER.UseKeyDown and "AnyDown" or "AnyUp")
-	button.hoverTex = button:CreateTexture(nil, 'OVERLAY')
+	button.hoverTex = button:CreateTexture(nil, "OVERLAY")
 	button.hoverTex:SetAllPoints()
 	button.hoverTex:SetTexture(E.Media.Textures.Highlight)
 	button.hoverTex:SetVertexColor(unpack(E.media.rgbvaluecolor))
 	button.hoverTex:SetBlendMode("ADD")
 	button.hoverTex:Hide()
 
-	button.text = button:CreateFontString(nil, 'BORDER')
+	button.text = button:CreateFontString(nil, "BORDER")
 	button.text:SetAllPoints()
 	button.text:FontTemplate()
 
 	button:EnableMouse(true)
 	button:SetScript("OnEnter", OnEnter)
 	button:SetScript("OnLeave", OnLeave)
-	module:SecureHookScript(button, 'OnMouseUp', OnMouseUp)
+	module:SecureHookScript(button, "OnMouseUp", OnMouseUp)
 
 	return button
 end
 
 function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, parent, customWidth, justify)
-	if InCombatLockdown() then return end
+	if InCombatLockdown() then
+		return
+	end
 	if not frame.buttons then
 		frame.buttons = {}
 		frame:SetFrameStrata("TOOLTIP")
@@ -109,7 +111,9 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 		local TitleCount = 0
 		local AddOffset = 0
 
-		if not parent then FramePoint = "CURSOR" end
+		if not parent then
+			FramePoint = "CURSOR"
+		end
 		for i = 1, #list do
 			frame.buttons[i] = frame.buttons[i] or CreateListButton(frame)
 			local btn = frame.buttons[i]
@@ -151,19 +155,30 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 				end
 			end
 			btn.UseTooltip = list[i].UseTooltip
-			if list[i].TooltipText then btn.TooltipText = list[i].TooltipText end
+			if list[i].TooltipText then
+				btn.TooltipText = list[i].TooltipText
+			end
 
 			local MARGIN = 10
 			if justify then
-				if justify == "RIGHT" then MARGIN = -10 end
-				if justify == "CENTER" then MARGIN = 0 end
+				if justify == "RIGHT" then
+					MARGIN = -10
+				end
+				if justify == "CENTER" then
+					MARGIN = 0
+				end
 			end
 
 			if i == 1 then
 				btn:Point("TOPLEFT", frame, "TOPLEFT", MARGIN, -PADDING)
 			else
-				btn:Point("TOPLEFT", frame.buttons[i - 1], "BOTTOMLEFT", 0,
-					-((list[i - 1].title or list[i].title) and TITLE_OFFSET or 0))
+				btn:Point(
+					"TOPLEFT",
+					frame.buttons[i - 1],
+					"BOTTOMLEFT",
+					0,
+					-((list[i - 1].title or list[i].title) and TITLE_OFFSET or 0)
+				)
 			end
 		end
 

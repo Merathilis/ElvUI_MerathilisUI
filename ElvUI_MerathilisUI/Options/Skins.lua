@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
 local options = MER.options.skins.args
 local LSM = E.Libs.LSM
@@ -260,7 +260,7 @@ options.widgets = {
 		desc = {
 			order = 1,
 			type = "description",
-			name = MER.InfoColor .. L["These skins will affect all widgets handled by ElvUI Skins."],
+			name = F.String.MERATHILISUI(L["These skins will affect all widgets handled by ElvUI Skins."]),
 			width = "full",
 			fontSize = "medium",
 		},
@@ -317,7 +317,7 @@ options.widgets = {
 					type = "description",
 					name = "",
 					image = function()
-						return MER.Media.Textures.widgetsTips, 512, 170
+						return I.Media.Textures.WidgetsTips, 512, 170
 					end,
 					imageCoords = function(info)
 						return F.GetWidgetTips(info[#info - 1])
@@ -595,7 +595,7 @@ options.widgets = {
 					type = "description",
 					name = "",
 					image = function()
-						return MER.Media.Textures.widgetsTips, 512, 170
+						return I.Media.Textures.WidgetsTips, 512, 170
 					end,
 					imageCoords = function(info)
 						return F.GetWidgetTips(info[#info - 1])
@@ -922,7 +922,7 @@ options.widgets = {
 					type = "description",
 					name = "",
 					image = function()
-						return MER.Media.Textures.widgetsTips, 512, 170
+						return I.Media.Textures.WidgetsTips, 512, 170
 					end,
 					imageCoords = function(info)
 						return F.GetWidgetTips(info[#info - 1])
@@ -1259,7 +1259,7 @@ options.widgets = {
 					type = "description",
 					name = "",
 					image = function()
-						return MER.Media.Textures.widgetsTips, 512, 170
+						return I.Media.Textures.WidgetsTips, 512, 170
 					end,
 					imageCoords = function(info)
 						return F.GetWidgetTips(info[#info - 1])
@@ -1332,7 +1332,7 @@ options.widgets = {
 					type = "description",
 					name = "",
 					image = function()
-						return MER.Media.Textures.widgetsTips, 512, 170
+						return I.Media.Textures.WidgetsTips, 512, 170
 					end,
 					imageCoords = function(info)
 						return F.GetWidgetTips(info[#info - 1])
@@ -1400,7 +1400,7 @@ options.blizzard = {
 		info = {
 			order = 1,
 			type = "description",
-			name = MER.InfoColor .. L["MER_SKINS_DESC"],
+			name = F.String.MERATHILISUI(L["MER_SKINS_DESC"]),
 			fontSize = "medium",
 			width = "full",
 		},
@@ -2037,7 +2037,7 @@ options.addonskins = {
 		info = {
 			order = 1,
 			type = "description",
-			name = MER.InfoColor .. L["MER_ADDONSKINS_DESC"],
+			name = F.String.MERATHILISUI(L["MER_ADDONSKINS_DESC"]),
 			fontSize = "medium",
 		},
 		space = {
@@ -2093,7 +2093,7 @@ options.profiles = {
 		info = {
 			order = 1,
 			type = "description",
-			name = MER.InfoColor .. L["MER_PROFILE_DESC"],
+			name = F.String.MERATHILISUI(L["MER_PROFILE_DESC"]),
 			fontSize = "medium",
 		},
 		space = {
@@ -2179,7 +2179,7 @@ options.Embed = {
 		info = {
 			order = 1,
 			type = "description",
-			name = MER.InfoColor .. L["With this option you can embed your Details into an own Panel."],
+			name = F.String.MERATHILISUI(L["With this option you can embed your Details into an own Panel."]),
 			fontSize = "medium",
 		},
 		header = {
@@ -2629,6 +2629,23 @@ options.advancedSettings = {
 					name = L["Gradient Name"],
 					disabled = function()
 						return not E.private.mui.skins.addonSkins.dt.enable
+					end,
+				},
+				spacer1 = {
+					order = 5,
+					type = "description",
+					name = " ",
+				},
+				detailsIcons = {
+					order = 6,
+					type = "execute",
+					name = E.NewSign .. F.cOption(L["Open Details"], "gradient"),
+					disabled = function()
+						return not E:IsAddOnEnabled("Details")
+					end,
+					func = function()
+						local instance = Details:GetInstance(1)
+						Details:OpenOptionsWindow(instance)
 					end,
 				},
 			},

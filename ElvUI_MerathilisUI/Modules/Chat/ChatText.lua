@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local CT = MER:GetModule("MER_ChatText")
 local CH = E:GetModule("Chat")
 local LSM = E.Libs.LSM
@@ -562,7 +562,7 @@ do --this can save some main file locals
 	end
 end
 
-local logoSmall = F.GetIconString(MER.Media.Textures.smallLogo, 14)
+local logoSmall = F.GetIconString(I.Media.Logos.LogoSmall, 14)
 local authorIcons = {
 	["Asragoth-Shattrath"] = logoSmall, -- [Alliance] Warlock
 	["Brítt-Shattrath"] = logoSmall, -- [Alliance] Warrior
@@ -696,9 +696,9 @@ function CT:UpdateRoleIcons()
 
 	if pack == "SUNUI" then
 		roleIcons = {
-			TANK = E:TextureString(MER.Media.Textures.sunTank, sizeString),
-			HEALER = E:TextureString(MER.Media.Textures.sunHealer, sizeString),
-			DAMAGER = E:TextureString(MER.Media.Textures.sunDPS, sizeString),
+			TANK = E:TextureString(I.Media.RoleIcons.SunUITank, sizeString),
+			HEALER = E:TextureString(I.Media.RoleIcons.SunUIHealer, sizeString),
+			DAMAGER = E:TextureString(I.Media.RoleIcons.SunUIDPS, sizeString),
 		}
 
 		_G.INLINE_TANK_ICON = roleIcons.TANK
@@ -706,9 +706,9 @@ function CT:UpdateRoleIcons()
 		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "LYNUI" then
 		roleIcons = {
-			TANK = E:TextureString(MER.Media.Textures.lynTank, sizeString),
-			HEALER = E:TextureString(MER.Media.Textures.lynHealer, sizeString),
-			DAMAGER = E:TextureString(MER.Media.Textures.lynDPS, sizeString),
+			TANK = E:TextureString(I.Media.RoleIcons.LynUITank, sizeString),
+			HEALER = E:TextureString(I.Media.RoleIcons.LynUIHealer, sizeString),
+			DAMAGER = E:TextureString(I.Media.RoleIcons.LynUIDPS, sizeString),
 		}
 
 		_G.INLINE_TANK_ICON = roleIcons.TANK
@@ -716,9 +716,9 @@ function CT:UpdateRoleIcons()
 		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "SVUI" then
 		roleIcons = {
-			TANK = E:TextureString(MER.Media.Textures.svuiTank, sizeString),
-			HEALER = E:TextureString(MER.Media.Textures.svuiHealer, sizeString),
-			DAMAGER = E:TextureString(MER.Media.Textures.svuiDPS, sizeString),
+			TANK = E:TextureString(I.Media.RoleIcons.SVUITank, sizeString),
+			HEALER = E:TextureString(I.Media.RoleIcons.SVUIHealer, sizeString),
+			DAMAGER = E:TextureString(I.Media.RoleIcons.SVUIDPS, sizeString),
 		}
 
 		_G.INLINE_TANK_ICON = roleIcons.TANK
@@ -746,9 +746,9 @@ function CT:UpdateRoleIcons()
 		_G.INLINE_DAMAGER_ICON = CT.cache.blizzardRoleIcons.DPS
 	elseif pack == "CUSTOM" then
 		roleIcons = {
-			TANK = E:TextureString(MER.Media.Textures.customTank, sizeString),
-			HEALER = E:TextureString(MER.Media.Textures.customHeal, sizeString),
-			DAMAGER = E:TextureString(MER.Media.Textures.customDPS, sizeString),
+			TANK = E:TextureString(I.Media.RoleIcons.CustomTank, sizeString),
+			HEALER = E:TextureString(I.Media.RoleIcons.CustomHealer, sizeString),
+			DAMAGER = E:TextureString(I.Media.RoleIcons.CustomDPS, sizeString),
 		}
 
 		_G.INLINE_TANK_ICON = roleIcons.TANK
@@ -756,19 +756,9 @@ function CT:UpdateRoleIcons()
 		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "GLOW" then
 		roleIcons = {
-			TANK = E:TextureString(MER.Media.Textures.glowTank, sizeString),
-			HEALER = E:TextureString(MER.Media.Textures.glowHeal, sizeString),
-			DAMAGER = E:TextureString(MER.Media.Textures.glowDPS, sizeString),
-		}
-
-		_G.INLINE_TANK_ICON = roleIcons.TANK
-		_G.INLINE_HEALER_ICON = roleIcons.HEALER
-		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
-	elseif pack == "GLOW1" then
-		roleIcons = {
-			TANK = E:TextureString(MER.Media.Textures.glow1Tank, sizeString),
-			HEALER = E:TextureString(MER.Media.Textures.glow1Heal, sizeString),
-			DAMAGER = E:TextureString(MER.Media.Textures.gravedDPS, sizeString),
+			TANK = E:TextureString(I.Media.RoleIcons.GlowTank, sizeString),
+			HEALER = E:TextureString(I.Media.RoleIcons.GlowHealer, sizeString),
+			DAMAGER = E:TextureString(I.Media.RoleIcons.GlowDPS, sizeString),
 		}
 
 		_G.INLINE_TANK_ICON = roleIcons.TANK
@@ -776,9 +766,9 @@ function CT:UpdateRoleIcons()
 		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "GRAVED" then
 		roleIcons = {
-			TANK = E:TextureString(MER.Media.Textures.gravedTank, sizeString),
-			HEALER = E:TextureString(MER.Media.Textures.gravedHeal, sizeString),
-			DAMAGER = E:TextureString(MER.Media.Textures.glow1DPS, sizeString),
+			TANK = E:TextureString(I.Media.RoleIcons.GravedTank, sizeString),
+			HEALER = E:TextureString(I.Media.RoleIcons.GravedHealer, sizeString),
+			DAMAGER = E:TextureString(I.Media.RoleIcons.GravedDPS, sizeString),
 		}
 
 		_G.INLINE_TANK_ICON = roleIcons.TANK
@@ -786,9 +776,9 @@ function CT:UpdateRoleIcons()
 		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "MAIN" then
 		roleIcons = {
-			TANK = E:TextureString(MER.Media.Textures.mainTank, sizeString),
-			HEALER = E:TextureString(MER.Media.Textures.mainHeal, sizeString),
-			DAMAGER = E:TextureString(MER.Media.Textures.mainDPS, sizeString),
+			TANK = E:TextureString(I.Media.RoleIcons.MainTank, sizeString),
+			HEALER = E:TextureString(I.Media.RoleIcons.MainHealer, sizeString),
+			DAMAGER = E:TextureString(I.Media.RoleIcons.MainDPS, sizeString),
 		}
 
 		_G.INLINE_TANK_ICON = roleIcons.TANK
@@ -796,9 +786,9 @@ function CT:UpdateRoleIcons()
 		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "WHITE" then
 		roleIcons = {
-			TANK = E:TextureString(MER.Media.Textures.whiteTank, sizeString),
-			HEALER = E:TextureString(MER.Media.Textures.whiteHeal, sizeString),
-			DAMAGER = E:TextureString(MER.Media.Textures.whiteDPS, sizeString),
+			TANK = E:TextureString(I.Media.RoleIcons.WhiteTank, sizeString),
+			HEALER = E:TextureString(I.Media.RoleIcons.WhiteHealer, sizeString),
+			DAMAGER = E:TextureString(I.Media.RoleIcons.WhiteDPS, sizeString),
 		}
 
 		_G.INLINE_TANK_ICON = roleIcons.TANK
@@ -806,9 +796,9 @@ function CT:UpdateRoleIcons()
 		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "MATERIAL" then
 		roleIcons = {
-			TANK = E:TextureString(MER.Media.Textures.materialTank, sizeString),
-			HEALER = E:TextureString(MER.Media.Textures.materialHeal, sizeString),
-			DAMAGER = E:TextureString(MER.Media.Textures.materialDPS, sizeString),
+			TANK = E:TextureString(I.Media.RoleIcons.MaterialTank, sizeString),
+			HEALER = E:TextureString(I.Media.RoleIcons.MaterialHealer, sizeString),
+			DAMAGER = E:TextureString(I.Media.RoleIcons.MaterialDPS, sizeString),
 		}
 
 		_G.INLINE_TANK_ICON = roleIcons.TANK
@@ -935,10 +925,10 @@ function CT:HandleName(nameString)
 	end
 
 	if strsub(nameString, strlen(nameString) - 1) == "|r" then
-		nameString = F.Strings.Split(nameString, "-")
+		nameString = F.String.Split(nameString, "-")
 		nameString = nameString .. "|r"
 	else
-		nameString = F.Strings.Split(nameString, "-")
+		nameString = F.String.Split(nameString, "-")
 	end
 
 	return nameString
@@ -2161,7 +2151,7 @@ function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage
 	local coloredName = F.CreateClassColorString(displayName, playerInfo.englishClass)
 	local classIcon = self.db.classIcon
 		and F.GetClassIconStringWithStyle(playerInfo.englishClass, self.db.classIconStyle, 16, 16)
-	classIcon = classIcon .. " " or ""
+	classIcon = classIcon and classIcon .. " " or ""
 
 	if coloredName and classIcon and cache[achievementID] then
 		local playerName = format("|Hplayer:%s|h%s %s|h", playerInfo.nameWithRealm, classIcon, coloredName)

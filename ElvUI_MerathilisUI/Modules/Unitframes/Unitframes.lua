@@ -1,26 +1,32 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_UnitFrames')
-local UF = E:GetModule('UnitFrames')
-local AB = E:GetModule('ActionBars')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_UnitFrames")
+local UF = E:GetModule("UnitFrames")
+local AB = E:GetModule("ActionBars")
 
 local CreateVector3D = CreateVector3D
 local hooksecurefunc = hooksecurefunc
 
 function module:ADDON_LOADED(event, addon)
-	if addon ~= "ElvUI_Config" then return end
+	if addon ~= "ElvUI_Config" then
+		return
+	end
 
 	module:UnregisterEvent(event)
 end
 
 function module:CreateHighlight(frame)
-	if not frame then return end
-	if not E.db.mui.unitframes.highlight then return end
+	if not frame then
+		return
+	end
+	if not E.db.mui.unitframes.highlight then
+		return
+	end
 
 	local hl = frame:CreateTexture(nil, "BACKGROUND")
 	hl:SetAllPoints()
 	hl:SetTexture("Interface\\PETBATTLES\\PetBattle-SelectedPetGlow")
-	hl:SetTexCoord(0, 1, .5, 1)
-	hl:SetVertexColor(1, 1, .6, 1)
+	hl:SetTexCoord(0, 1, 0.5, 1)
+	hl:SetVertexColor(1, 1, 0.6, 1)
 	hl:SetBlendMode("ADD")
 	hl:Hide()
 	frame.Highlight = hl
@@ -34,8 +40,12 @@ function module:CreateHighlight(frame)
 end
 
 function module:CreateAnimatedBars(frame)
-	if not frame then return end
-	if not E.db.unitframe.units.player.power.enable then return end -- only Player for now
+	if not frame then
+		return
+	end
+	if not E.db.unitframe.units.player.power.enable then
+		return
+	end -- only Player for now
 
 	local db = E.db.mui.unitframes.power
 	frame.__MERAnim = CreateFrame("FRAME", nil, frame) -- Main Frame
@@ -91,7 +101,7 @@ function module:CreateAnimatedBars(frame)
 end
 
 local function HookConstructUnitFrames()
-	hooksecurefunc(UF, 'Construct_PartyFrames', module.Construct_PartyFrames)
+	hooksecurefunc(UF, "Construct_PartyFrames", module.Construct_PartyFrames)
 end
 
 function module:Initialize()
@@ -126,9 +136,9 @@ function module:Initialize()
 	hooksecurefunc(UF, "LoadUnits", module.UpdateAllCastbars)
 	-- Power Textures
 	module:ChangePowerBarTexture()
-	hooksecurefunc(UF, 'Update_StatusBars', module.ChangePowerBarTexture)
-	hooksecurefunc(UF, 'Update_AllFrames', module.ChangeUnitPowerBarTexture)
-	hooksecurefunc(AB, 'StyleShapeShift', module.ChangeUnitPowerBarTexture)
+	hooksecurefunc(UF, "Update_StatusBars", module.ChangePowerBarTexture)
+	hooksecurefunc(UF, "Update_AllFrames", module.ChangeUnitPowerBarTexture)
+	hooksecurefunc(AB, "StyleShapeShift", module.ChangeUnitPowerBarTexture)
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 	-- RoleIcons
@@ -140,7 +150,6 @@ function module:Initialize()
 	end
 
 	self:RegisterEvent("ADDON_LOADED")
-	print("Blub")
 end
 
 MER:RegisterModule(module:GetName())

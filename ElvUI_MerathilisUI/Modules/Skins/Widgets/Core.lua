@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 local S = E.Skins
 local WS = MER.Modules.WidgetSkin
@@ -30,7 +30,7 @@ local currentAnimation = {
 		end
 		self.frame = frame
 		self.group = group
-	end
+	end,
 }
 
 local animationFunctions = {
@@ -40,8 +40,8 @@ local animationFunctions = {
 			self:SetToAlpha(toAlpha)
 			self:SetSmoothing(direction)
 			self:SetDuration(duration)
-		end
-	}
+		end,
+	},
 }
 
 function WS.IsUglyYellow(...)
@@ -149,7 +149,7 @@ function WS.Animation(texture, aType, duration, data)
 
 		return resultTable
 	elseif aType == "scale" then
-	-- TODO: Scale animation
+		-- TODO: Scale animation
 	end
 end
 

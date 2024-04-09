@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Mail')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Mail")
 local options = MER.options.modules.args
 
 local pairs = pairs
@@ -18,12 +18,12 @@ options.mail = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["Mail"], 'orange'),
+			name = F.cOption(L["Mail"], "orange"),
 		},
 		panels = {
 			order = 1,
 			type = "group",
-			name = F.cOption(L["Mail"], 'orange'),
+			name = F.cOption(L["Mail"], "orange"),
 			guiInline = true,
 			args = {
 				enable = {
@@ -42,7 +42,7 @@ options.mail = {
 					end,
 					set = function(_, value)
 						E.global.mui.mail.contacts.updateAlts = value
-					end
+					end,
 				},
 				defaultPage = {
 					order = 3,
@@ -52,7 +52,7 @@ options.mail = {
 						ALTS = L["Alternate Character"],
 						FRIENDS = L["Online Friends"],
 						GUILD = L["Guild Members"],
-						FAVORITE = L["Favorites"]
+						FAVORITE = L["Favorites"],
 					},
 				},
 			},
@@ -68,7 +68,9 @@ do
 		type = "group",
 		inline = true,
 		name = L["Alternate Character"],
-		disabled = function() return not E.db.mui.mail.enable end,
+		disabled = function()
+			return not E.db.mui.mail.enable
+		end,
 		args = {
 			listTable = {
 				order = 1,
@@ -91,7 +93,7 @@ do
 						end
 					end
 					return result
-				end
+				end,
 			},
 			deleteButton = {
 				order = 2,
@@ -111,20 +113,20 @@ do
 							end
 						end
 					end
-				end
+				end,
 			},
-            clearAlts = {
-                order = 3,
-                type = "execute",
-                name = L["Clear All"],
-                desc = L["Clear the alt list."],
-                confirm = true,
-                confirmText = L["Are you sure to clear the alt list?"],
-                func = function()
+			clearAlts = {
+				order = 3,
+				type = "execute",
+				name = L["Clear All"],
+				desc = L["Clear the alt list."],
+				confirm = true,
+				confirmText = L["Are you sure to clear the alt list?"],
+				func = function()
 					E.global.mui.mail.contacts.alts = {}
-                end
-            },
-        },
+				end,
+			},
+		},
 	}
 end
 
@@ -137,7 +139,9 @@ do
 		type = "group",
 		inline = true,
 		name = L["Favorites"],
-		disabled = function() return not E.db.mui.mail.enable end,
+		disabled = function()
+			return not E.db.mui.mail.enable
+		end,
 		args = {
 			name = {
 				order = 1,
@@ -148,7 +152,7 @@ do
 				end,
 				set = function(_, value)
 					tempName = value
-				end
+				end,
 			},
 			realm = {
 				order = 2,
@@ -159,7 +163,7 @@ do
 				end,
 				set = function(_, value)
 					tempRealm = value
-				end
+				end,
 			},
 			addButton = {
 				order = 3,
@@ -173,13 +177,13 @@ do
 					else
 						F.Print(L["Please set the name and realm first."])
 					end
-				end
+				end,
 			},
 			spacer = {
 				order = 4,
 				type = "description",
 				name = " ",
-				width = "full"
+				width = "full",
 			},
 			listTable = {
 				order = 5,
@@ -197,7 +201,7 @@ do
 						result[fullName] = fullName
 					end
 					return result
-				end
+				end,
 			},
 			deleteButton = {
 				order = 6,
@@ -207,7 +211,7 @@ do
 					if selectedKey then
 						E.global.mui.mail.contacts.favorites[selectedKey] = nil
 					end
-				end
+				end,
 			},
 		},
 	}

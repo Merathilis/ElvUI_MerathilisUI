@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Notification')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Notification")
 
 local _G = _G
 local format = string.format
@@ -30,19 +30,34 @@ local VignetteExclusionMapIDs = {
 local SOUND_TIMEOUT = 20
 function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	local db = E.db.mui.notification
-	if db and not db.enable or (not db.vignette or not db.vignette.enable) or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
+	if
+		db and not db.enable
+		or (not db.vignette or not db.vignette.enable)
+		or InCombatLockdown()
+		or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")]
+	then
+		return
+	end
 
 	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
-	if inGroup or inRaid or inPartyLFG then return end
+	if inGroup or inRaid or inPartyLFG then
+		return
+	end
 
 	if onMinimap then
 		local vignetteInfo = C_VignetteInfo_GetVignetteInfo(vignetteGUID)
-		if not vignetteInfo then return end
+		if not vignetteInfo then
+			return
+		end
 
 		local atlasInfo = C_Texture_GetAtlasInfo(vignetteInfo.atlasName)
-		if not atlasInfo then return end
+		if not atlasInfo then
+			return
+		end
 		local tex = F.GetTextureStrByAtlas(atlasInfo, 15, 15)
-		if not tex then return end
+		if not tex then
+			return
+		end
 
 		if db.vignette and db.vignette.blacklist[vignetteInfo.vignetteID] or not isUsefulAtlas(vignetteInfo) then
 			return
@@ -54,8 +69,10 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 			self.lastMinimapRare.id = vignetteGUID
 
 			if db.vignette.debugPrint then
-				F.DebugPrint("Vignette-ID: " .. vignetteInfo.vignetteID .. " Vignette-Name: " .. vignetteInfo.name,
-					"warning")
+				F.DebugPrint(
+					"Vignette-ID: " .. vignetteInfo.vignetteID .. " Vignette-Name: " .. vignetteInfo.name,
+					"warning"
+				)
 			end
 
 			if db.vignette and db.vignette.enable and db.vignette.print then
@@ -65,10 +82,18 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 				local position = mapID and C_VignetteInfo_GetVignettePosition(vignetteInfo.vignetteGUID, mapID)
 				if position then
 					local x, y = position:GetXY()
-					nameString = format("|Hworldmap:%d+:%d+:%d+|h[%s (%.1f, %.1f)%s]|h|r", mapID, x * 10000, y * 10000,
-						vignetteInfo.name, x * 100, y * 100, "")
+					nameString = format(
+						"|Hworldmap:%d+:%d+:%d+|h[%s (%.1f, %.1f)%s]|h|r",
+						mapID,
+						x * 10000,
+						y * 10000,
+						vignetteInfo.name,
+						x * 100,
+						y * 100,
+						""
+					)
 				end
-				F.Print(currentTime .. " -> " .. tex .. MER.InfoColor .. (nameString or vignetteInfo.name or ""))
+				F.Print(currentTime .. " -> " .. tex .. F.String.MERATHILISUI(nameString or vignetteInfo.name or ""))
 			end
 
 			local time = GetTime()

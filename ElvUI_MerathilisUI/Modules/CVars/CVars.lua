@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_CVars')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_CVars")
 
 local tonumber = tonumber
 
@@ -80,7 +80,8 @@ function module:LoadCVar()
 		E.db.mui.cvars.combatText.targetCombatText.floatingCombatTextPetSpellDamage = true
 	end
 
-	E.db.mui.cvars.combatText.targetCombatText.floatingCombatTextCombatDamageDirectionalScale = tonumber(GetCVar("floatingCombatTextCombatDamageDirectionalScale"))
+	E.db.mui.cvars.combatText.targetCombatText.floatingCombatTextCombatDamageDirectionalScale =
+		tonumber(GetCVar("floatingCombatTextCombatDamageDirectionalScale"))
 
 	if GetCVar("floatingCombatTextCombatHealing") == "0" then
 		E.db.mui.cvars.combatText.targetCombatText.floatingCombatTextCombatHealing = false
@@ -113,7 +114,8 @@ function module:LoadCVar()
 		E.db.mui.cvars.combatText.playerCombatText.enableFloatingCombatText = true
 	end
 
-	E.db.mui.cvars.combatText.playerCombatText.floatingCombatTextFloatMode = tonumber(GetCVar("floatingCombatTextFloatMode"))
+	E.db.mui.cvars.combatText.playerCombatText.floatingCombatTextFloatMode =
+		tonumber(GetCVar("floatingCombatTextFloatMode"))
 
 	if GetCVar("floatingCombatTextDodgeParryMiss") == "0" then
 		E.db.mui.cvars.combatText.playerCombatText.floatingCombatTextDodgeParryMiss = false

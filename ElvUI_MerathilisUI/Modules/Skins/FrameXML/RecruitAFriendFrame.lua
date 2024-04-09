@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
+local S = E:GetModule("Skins")
 
 local _G = _G
 
@@ -23,7 +23,7 @@ local function LoadSkin()
 
 	SplashFrame.Description:SetTextColor(1, 1, 1)
 
-	SplashFrame.Picture.b = CreateFrame("Frame", nil, SplashFrame, 'BackdropTemplate')
+	SplashFrame.Picture.b = CreateFrame("Frame", nil, SplashFrame, "BackdropTemplate")
 	SplashFrame.Picture.b:SetTemplate()
 	SplashFrame.Picture.b:SetPoint("TOPLEFT", SplashFrame.Picture, "TOPLEFT", -2, 2)
 	SplashFrame.Picture.b:SetPoint("BOTTOMRIGHT", SplashFrame.Picture, "BOTTOMRIGHT", 2, -2)

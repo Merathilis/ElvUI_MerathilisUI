@@ -1,13 +1,15 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
 
 function module:ChatFrame()
-	if E.private.chat.enable ~= true then return; end
+	if E.private.chat.enable ~= true then
+		return
+	end
 
 	local VoiceChatPromptActivateChannel = _G["VoiceChatPromptActivateChannel"]
-	_G.VoiceChatChannelActivatedNotification:CreateBackdrop('Transparent')
+	_G.VoiceChatChannelActivatedNotification:CreateBackdrop("Transparent")
 
 	-- Revert my Styling function on these buttons
 	if E.db.chat.pinVoiceButtons and not E.db.chat.hideVoiceButtons then

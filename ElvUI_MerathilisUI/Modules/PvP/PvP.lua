@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_PVP')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_PVP")
 
 local _G = _G
 local format = string.format
@@ -23,7 +23,9 @@ local Opponents = {}
 
 function module:Release()
 	local resOptions = GetSortedSelfResurrectOptions()
-	if (module.db.rebirth and not resOptions[1]) or not module.db.rebirth then RepopMe() end
+	if (module.db.rebirth and not resOptions[1]) or not module.db.rebirth then
+		RepopMe()
+	end
 end
 
 function module:Dead()
@@ -31,16 +33,18 @@ function module:Dead()
 
 	if not module.db.autorelease then
 		return
-	 end
+	end
 
-	if (inInstance and instanceType == "pvp") then
+	if inInstance and instanceType == "pvp" then
 		module:Release()
 		return
 	end
 	-- auto resurrection for world PvP area...when active
 	for index = 1, GetNumWorldPVPAreas() do
 		local _, localizedName, isActive, canQueue = GetWorldPVPAreaInfo(index)
-		if (GetRealZoneText() == localizedName and isActive) or (GetRealZoneText() == localizedName and canQueue) then module:Release() end
+		if (GetRealZoneText() == localizedName and isActive) or (GetRealZoneText() == localizedName and canQueue) then
+			module:Release()
+		end
 	end
 end
 
@@ -58,7 +62,7 @@ function module:BlockDuel(event, name)
 	end
 
 	if cancelled then
-		F.Print(format(L["MER_DuelCancel_"..cancelled], name))
+		F.Print(format(L["MER_DuelCancel_" .. cancelled], name))
 	end
 end
 
@@ -82,10 +86,10 @@ function module:LogParse()
 		local mask = band(TargetFlags, COMBATLOG_OBJECT_TYPE_PLAYER) --Don't ask me, it's some dark magic. If bit mask for this is positive, it means a player was killed
 		if Caster == E.myname and (Opponents[TargetName] or mask > 0) then --If this is my kill and target is a player (world) or in the oponents table (BGs)
 			if mask > 0 and Opponents[TargetName] then
-				TargetName = "|c"..RAID_CLASS_COLORS[Opponents[TargetName]].colorStr..TargetName.."|r"
+				TargetName = "|c" .. RAID_CLASS_COLORS[Opponents[TargetName]].colorStr .. TargetName .. "|r"
 			end --Color dat name into class color. Only for BGs
 
-			TopBannerManager_Show(_G["BossBanner"], { name = TargetName, mode = "MER_PVPKILL" }); --Show boss banner with own mode and a dead person's name instead of boss name
+			TopBannerManager_Show(_G["BossBanner"], { name = TargetName, mode = "MER_PVPKILL" }) --Show boss banner with own mode and a dead person's name instead of boss name
 		end
 	end
 end
@@ -93,15 +97,15 @@ end
 function module:Initialize()
 	module.db = E.db.mui.pvp
 
-	self:RegisterEvent('PLAYER_DEAD', 'Dead')
-	self:RegisterEvent('DUEL_REQUESTED', 'BlockDuel')
-	self:RegisterEvent('PET_BATTLE_PVP_DUEL_REQUESTED', 'BlockDuel')
+	self:RegisterEvent("PLAYER_DEAD", "Dead")
+	self:RegisterEvent("DUEL_REQUESTED", "BlockDuel")
+	self:RegisterEvent("PET_BATTLE_PVP_DUEL_REQUESTED", "BlockDuel")
 
 	if E.db.mui.pvp.killingBlow.enable then
 		--Hook to blizz function for boss kill banner
 		hooksecurefunc(_G["BossBanner"], "PlayBanner", function(self, data)
-			if (data) then
-				if (data.mode == "MER_PVPKILL") then
+			if data then
+				if data.mode == "MER_PVPKILL" then
 					self.Title:SetText(data.name)
 					self.Title:Show()
 					self.SubTitle:Hide()

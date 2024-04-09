@@ -1,14 +1,18 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
+local S = MER:GetModule("MER_Skins")
 
 local pairs, tinsert, select = pairs, tinsert, select
-local GetSpellCooldown, GetSpellInfo, GetItemCooldown, GetItemCount, GetItemInfo = GetSpellCooldown, GetSpellInfo, GetItemCooldown, GetItemCount, GetItemInfo
-local IsPassiveSpell, IsCurrentSpell, IsPlayerSpell, UseItemByName = IsPassiveSpell, IsCurrentSpell, IsPlayerSpell, UseItemByName
+local GetSpellCooldown, GetSpellInfo, GetItemCooldown, GetItemCount, GetItemInfo =
+	GetSpellCooldown, GetSpellInfo, GetItemCooldown, GetItemCount, GetItemInfo
+local IsPassiveSpell, IsCurrentSpell, IsPlayerSpell, UseItemByName =
+	IsPassiveSpell, IsCurrentSpell, IsPlayerSpell, UseItemByName
 local GetProfessions, GetProfessionInfo, GetSpellBookItemInfo = GetProfessions, GetProfessionInfo, GetSpellBookItemInfo
 local PlayerHasToy, C_ToyBox_IsToyUsable, C_ToyBox_GetToyInfo = PlayerHasToy, C_ToyBox.IsToyUsable, C_ToyBox.GetToyInfo
-local C_TradeSkillUI_GetOnlyShowSkillUpRecipes, C_TradeSkillUI_SetOnlyShowSkillUpRecipes = C_TradeSkillUI.GetOnlyShowSkillUpRecipes, C_TradeSkillUI.SetOnlyShowSkillUpRecipes
-local C_TradeSkillUI_GetOnlyShowMakeableRecipes, C_TradeSkillUI_SetOnlyShowMakeableRecipes = C_TradeSkillUI.GetOnlyShowMakeableRecipes, C_TradeSkillUI.SetOnlyShowMakeableRecipes
+local C_TradeSkillUI_GetOnlyShowSkillUpRecipes, C_TradeSkillUI_SetOnlyShowSkillUpRecipes =
+	C_TradeSkillUI.GetOnlyShowSkillUpRecipes, C_TradeSkillUI.SetOnlyShowSkillUpRecipes
+local C_TradeSkillUI_GetOnlyShowMakeableRecipes, C_TradeSkillUI_SetOnlyShowMakeableRecipes =
+	C_TradeSkillUI.GetOnlyShowMakeableRecipes, C_TradeSkillUI.SetOnlyShowMakeableRecipes
 
 local BOOKTYPE_PROFESSION = BOOKTYPE_PROFESSION
 local RUNEFORGING_ID = 53428
@@ -97,11 +101,13 @@ end
 function module:TradeTabs_Reskin()
 	for _, tab in pairs(tabList) do
 		tab:SetCheckedTexture(E.media.normTex)
-		tab:GetCheckedTexture():SetVertexColor(F.r, F.g, F.b, .65)
+		tab:GetCheckedTexture():SetVertexColor(F.r, F.g, F.b, 0.65)
 		tab:GetRegions():Hide()
 		S:CreateBDFrame(tab)
 		local texture = tab:GetNormalTexture()
-		if texture then texture:SetTexCoord(unpack(E.TexCoords)) end
+		if texture then
+			texture:SetTexCoord(unpack(E.TexCoords))
+		end
 	end
 end
 
@@ -119,14 +125,19 @@ function module:TradeTabs_Create(spellID, toyID, itemID)
 		return
 	end
 
-	local tab = CreateFrame("CheckButton", nil, _G.ProfessionsFrame, "SpellBookSkillLineTabTemplate, SecureActionButtonTemplate")
+	local tab = CreateFrame(
+		"CheckButton",
+		nil,
+		_G.ProfessionsFrame,
+		"SpellBookSkillLineTabTemplate, SecureActionButtonTemplate"
+	)
 	tab.tooltip = name
 	tab.spellID = spellID
 	tab.itemID = toyID or itemID
 	tab.type = (toyID and "toy") or (itemID and "item") or "spell"
 	tab:RegisterForClicks("AnyDown")
 
-	if spellID == 818 then-- cooking fire
+	if spellID == 818 then -- cooking fire
 		tab:SetAttribute("type", "macro")
 		tab:SetAttribute("macrotext", "/cast [@player]" .. name)
 	else
@@ -153,8 +164,18 @@ end
 
 function module:TradeTabs_FilterIcons()
 	local buttonList = {
-		[1] = {"Atlas:bags-greenarrow", TRADESKILL_FILTER_HAS_SKILL_UP, C_TradeSkillUI_GetOnlyShowSkillUpRecipes, C_TradeSkillUI_SetOnlyShowSkillUpRecipes},
-		[2] = {"Interface\\RAIDFRAME\\ReadyCheck-Ready", CRAFT_IS_MAKEABLE, C_TradeSkillUI_GetOnlyShowMakeableRecipes, C_TradeSkillUI_SetOnlyShowMakeableRecipes},
+		[1] = {
+			"Atlas:bags-greenarrow",
+			TRADESKILL_FILTER_HAS_SKILL_UP,
+			C_TradeSkillUI_GetOnlyShowSkillUpRecipes,
+			C_TradeSkillUI_SetOnlyShowSkillUpRecipes,
+		},
+		[2] = {
+			"Interface\\RAIDFRAME\\ReadyCheck-Ready",
+			CRAFT_IS_MAKEABLE,
+			C_TradeSkillUI_GetOnlyShowMakeableRecipes,
+			C_TradeSkillUI_SetOnlyShowMakeableRecipes,
+		},
 	}
 
 	local function filterClick(self)
@@ -172,7 +193,13 @@ function module:TradeTabs_FilterIcons()
 	for index, value in pairs(buttonList) do
 		local bu = CreateFrame("Button", nil, _G.ProfessionsFrame.CraftingPage, "BackdropTemplate")
 		bu:SetSize(22, 22)
-		bu:SetPoint("BOTTOMRIGHT", _G.ProfessionsFrame.CraftingPage.RecipeList.FilterButton, "TOPRIGHT", -(index - 1) * 27, 10)
+		bu:SetPoint(
+			"BOTTOMRIGHT",
+			_G.ProfessionsFrame.CraftingPage.RecipeList.FilterButton,
+			"TOPRIGHT",
+			-(index - 1) * 27,
+			10
+		)
 		F.PixelIcon(bu, value[1], true)
 		bu.Icon = bu:CreateTexture(nil, "ARTWORK")
 		local atlas = string.match(value[1], "Atlas:(.+)$")
@@ -232,7 +259,8 @@ function module:TradeTabs_QuickEnchanting()
 				local professionInfo = _G.ProfessionsFrame:GetProfessionInfo()
 				if professionInfo and professionInfo.parentProfessionID == 333 then
 					isEnchanting = true
-					self.CreateButton.tooltipText = format(tooltipString, "Right click to use Vellum", GetItemCount(ENCHANTING_VELLUM))
+					self.CreateButton.tooltipText =
+						format(tooltipString, "Right click to use Vellum", GetItemCount(ENCHANTING_VELLUM))
 				end
 			end
 		end)
@@ -248,7 +276,9 @@ function module:TradeTabs_QuickEnchanting()
 end
 
 local function LoadTradeTabs()
-	if init then return end
+	if init then
+		return
+	end
 
 	if InCombatLockdown() then
 		MER:RegisterEvent("PLAYER_REGEN_ENABLED", module.TradeTabs_OnLoad)

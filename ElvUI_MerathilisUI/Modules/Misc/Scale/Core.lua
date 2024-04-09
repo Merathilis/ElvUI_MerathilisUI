@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
 
 local talentsHooked = false
 
@@ -15,21 +15,21 @@ function module:SetElementScale(dbName, blizzName)
 end
 
 function module:ScaleCollections()
-	module:SetElementScale('collections','CollectionsJournal')
-	module:SetElementScale('wardrobe', 'WardrobeFrame')
+	module:SetElementScale("collections", "CollectionsJournal")
+	module:SetElementScale("wardrobe", "WardrobeFrame")
 end
 
 function module:ScaleInspectUI()
-	local dbName = E.db.mui.scale.syncInspect.enable and 'characterFrame' or 'inspectFrame'
-	module:SetElementScale(dbName, 'InspectFrame')
+	local dbName = E.db.mui.scale.syncInspect.enable and "characterFrame" or "inspectFrame"
+	module:SetElementScale(dbName, "InspectFrame")
 end
 
 function module:HookRetailTalentsWindow()
-	_G.ClassTalentFrame:HookScript('OnShow', function()
+	_G.ClassTalentFrame:HookScript("OnShow", function()
 		module:ScaleTalents()
 	end)
 
-	_G.ClassTalentFrame:HookScript('OnEvent', function()
+	_G.ClassTalentFrame:HookScript("OnEvent", function()
 		module:ScaleTalents()
 	end)
 
@@ -37,11 +37,11 @@ function module:HookRetailTalentsWindow()
 end
 
 function module:ScaleTalents()
-	local frameName = 'ClassTalentFrame'
+	local frameName = "ClassTalentFrame"
 	if not talentsHooked then
 		module:HookRetailTalentsWindow()
 	else
-		module:SetElementScale('talents', frameName)
+		module:SetElementScale("talents", frameName)
 	end
 end
 
@@ -56,13 +56,13 @@ function module:Scale()
 		return
 	end
 
-	module:SetElementScale('characterFrame', 'CharacterFrame')
-	module:SetElementScale('dressingRoom', 'DressUpFrame')
-	module:SetElementScale('spellbook', 'SpellBookFrame')
+	module:SetElementScale("characterFrame", "CharacterFrame")
+	module:SetElementScale("dressingRoom", "DressUpFrame")
+	module:SetElementScale("spellbook", "SpellBookFrame")
 
-	module:AddCallbackOrScale('Blizzard_InspectUI', self.ScaleInspectUI)
-	module:AddCallbackOrScale('Blizzard_ClassTalentUI', self.ScaleTalents)
-	module:AddCallbackOrScale('Blizzard_Collections', self.ScaleCollections)
+	module:AddCallbackOrScale("Blizzard_InspectUI", self.ScaleInspectUI)
+	module:AddCallbackOrScale("Blizzard_ClassTalentUI", self.ScaleTalents)
+	module:AddCallbackOrScale("Blizzard_Collections", self.ScaleCollections)
 end
 
-module:AddCallback('Scale')
+module:AddCallback("Scale")

@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_ObjectiveTracker')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_ObjectiveTracker")
+local S = MER:GetModule("MER_Skins")
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
@@ -20,14 +20,13 @@ local replaceRule = {}
 
 local function AddQuestTitleToReplaceRule(questID, text)
 	F.SetCallback(function(title)
-			if title then
-				replaceRule[title] = text
-				ObjectiveTracker_Update()
-				return true
-			end
-			return false
-		end,
-		C_QuestLog_GetTitleForQuestID, nil, questID)
+		if title then
+			replaceRule[title] = text
+			ObjectiveTracker_Update()
+			return true
+		end
+		return false
+	end, C_QuestLog_GetTitleForQuestID, nil, questID)
 end
 
 AddQuestTitleToReplaceRule(57693, L["Torghast"])
@@ -39,13 +38,20 @@ local function SetTextColorHook(text)
 		local SetTextColorOld = text.SetTextColor
 		text.SetTextColor = function(self, r, g, b, a)
 			if
-				r == _G.OBJECTIVE_TRACKER_COLOR["Header"].r and g == _G.OBJECTIVE_TRACKER_COLOR["Header"].g and b == _G.OBJECTIVE_TRACKER_COLOR["Header"].b then
+				r == _G.OBJECTIVE_TRACKER_COLOR["Header"].r
+				and g == _G.OBJECTIVE_TRACKER_COLOR["Header"].g
+				and b == _G.OBJECTIVE_TRACKER_COLOR["Header"].b
+			then
 				if module.db and module.db.enable and module.db.titleColor and module.db.titleColor.enable then
 					r = module.db.titleColor.classColor and classColor.r or module.db.titleColor.customColorNormal.r
 					g = module.db.titleColor.classColor and classColor.g or module.db.titleColor.customColorNormal.g
 					b = module.db.titleColor.classColor and classColor.b or module.db.titleColor.customColorNormal.b
 				end
-			elseif r == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].r and g == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].g and b == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].b then
+			elseif
+				r == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].r
+				and g == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].g
+				and b == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].b
+			then
 				if module.db and module.db.enable and module.db.titleColor and module.db.titleColor.enable then
 					r = module.db.titleColor.classColor and classColor.r or module.db.titleColor.customColorHighlight.r
 					g = module.db.titleColor.classColor and classColor.g or module.db.titleColor.customColorHighlight.g
@@ -54,8 +60,12 @@ local function SetTextColorHook(text)
 			end
 			SetTextColorOld(self, r, g, b, a)
 		end
-		text:SetTextColor(_G.OBJECTIVE_TRACKER_COLOR["Header"].r, _G.OBJECTIVE_TRACKER_COLOR["Header"].g,
-			_G.OBJECTIVE_TRACKER_COLOR["Header"].b, 1)
+		text:SetTextColor(
+			_G.OBJECTIVE_TRACKER_COLOR["Header"].r,
+			_G.OBJECTIVE_TRACKER_COLOR["Header"].g,
+			_G.OBJECTIVE_TRACKER_COLOR["Header"].b,
+			1
+		)
 
 		text.IsHooked = true
 	end
@@ -107,15 +117,29 @@ function module:CosmeticBar(header)
 	if self.db.cosmeticBar.color.mode == "CLASS" then
 		bar:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	elseif self.db.cosmeticBar.color.mode == "NORMAL" then
-		bar:SetVertexColor(self.db.cosmeticBar.color.normalColor.r, self.db.cosmeticBar.color.normalColor.g,
-			self.db.cosmeticBar.color.normalColor.b, self.db.cosmeticBar.color.normalColor.a)
+		bar:SetVertexColor(
+			self.db.cosmeticBar.color.normalColor.r,
+			self.db.cosmeticBar.color.normalColor.g,
+			self.db.cosmeticBar.color.normalColor.b,
+			self.db.cosmeticBar.color.normalColor.a
+		)
 	elseif self.db.cosmeticBar.color.mode == "GRADIENT" then
 		bar:SetVertexColor(1, 1, 1, 1)
-		bar:SetGradient("HORIZONTAL",
-			CreateColor(self.db.cosmeticBar.color.gradientColor1.r, self.db.cosmeticBar.color.gradientColor1.g,
-				self.db.cosmeticBar.color.gradientColor1.b, self.db.cosmeticBar.color.gradientColor1.a),
-			CreateColor(self.db.cosmeticBar.color.gradientColor2.r, self.db.cosmeticBar.color.gradientColor2.g,
-				self.db.cosmeticBar.color.gradientColor2.b, self.db.cosmeticBar.color.gradientColor2.a))
+		bar:SetGradient(
+			"HORIZONTAL",
+			CreateColor(
+				self.db.cosmeticBar.color.gradientColor1.r,
+				self.db.cosmeticBar.color.gradientColor1.g,
+				self.db.cosmeticBar.color.gradientColor1.b,
+				self.db.cosmeticBar.color.gradientColor1.a
+			),
+			CreateColor(
+				self.db.cosmeticBar.color.gradientColor2.r,
+				self.db.cosmeticBar.color.gradientColor2.g,
+				self.db.cosmeticBar.color.gradientColor2.b,
+				self.db.cosmeticBar.color.gradientColor2.a
+			)
+		)
 	end
 
 	bar.backdrop:SetAlpha(self.db.cosmeticBar.borderAlpha)
@@ -146,8 +170,9 @@ function module:ChangeQuestHeaderStyle()
 		return
 	end
 
-	local Text = _G.ObjectiveTrackerBlocksFrame and _G.ObjectiveTrackerBlocksFrame.QuestHeader and
-	_G.ObjectiveTrackerBlocksFrame.QuestHeader.Text
+	local Text = _G.ObjectiveTrackerBlocksFrame
+		and _G.ObjectiveTrackerBlocksFrame.QuestHeader
+		and _G.ObjectiveTrackerBlocksFrame.QuestHeader.Text
 	if Text then
 		if NumQuests >= (MAX_QUESTS - 5) then
 			Text:SetText(format("|Cffff0000%d/%d|r - %s", NumQuests, MAX_QUESTS, _G.QUESTS_LABEL))
@@ -255,7 +280,7 @@ function module:ChangeQuestFontStyle(_, block)
 
 	local check = block.currentLine and block.currentLine.check
 	if check and not check.IsSkinned then
-		check:SetAtlas('checkmark-minimal')
+		check:SetAtlas("checkmark-minimal")
 		check:SetDesaturated(true)
 		check:SetVertexColor(0, 1, 0)
 		check.IsSkinned = true
@@ -355,10 +380,20 @@ function module:UpdateBackdrop()
 	backdrop:Show()
 	backdrop:SetTemplate(db.transparent and "Transparent")
 	backdrop:ClearAllPoints()
-	backdrop:SetPoint("TOPLEFT", _G.ObjectiveTrackerBlocksFrame, "TOPLEFT", db.topLeftOffsetX - 30,
-		db.topLeftOffsetY + 10)
-	backdrop:SetPoint("BOTTOMRIGHT", _G.ObjectiveTrackerBlocksFrame, "BOTTOMRIGHT", db.bottomRightOffsetX + 10,
-		db.bottomRightOffsetY - 10)
+	backdrop:SetPoint(
+		"TOPLEFT",
+		_G.ObjectiveTrackerBlocksFrame,
+		"TOPLEFT",
+		db.topLeftOffsetX - 30,
+		db.topLeftOffsetY + 10
+	)
+	backdrop:SetPoint(
+		"BOTTOMRIGHT",
+		_G.ObjectiveTrackerBlocksFrame,
+		"BOTTOMRIGHT",
+		db.bottomRightOffsetX + 10,
+		db.bottomRightOffsetY - 10
+	)
 end
 
 function module:Initialize()
@@ -394,7 +429,7 @@ function module:Initialize()
 	end
 
 	E:Delay(1, function()
-		for _, child in pairs { _G.ObjectiveTrackerBlocksFrame:GetChildren() } do
+		for _, child in pairs({ _G.ObjectiveTrackerBlocksFrame:GetChildren() }) do
 			if child and child.HeaderText then
 				SetTextColorHook(child.HeaderText)
 			end

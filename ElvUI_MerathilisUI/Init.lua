@@ -19,13 +19,17 @@ V.mui = {}
 P.mui = {}
 G.mui = {}
 
+local F = {}
+local I = {}
+
 Engine[1] = MER
-Engine[2] = {} -- Functions F
+Engine[2] = F
 Engine[3] = E
-Engine[4] = L
+Engine[4] = I
 Engine[5] = V.mui
 Engine[6] = P.mui
 Engine[7] = G.mui
+Engine[8] = L
 _G[addon] = Engine
 
 do
@@ -55,6 +59,7 @@ MER.Modules.Automation = MER:NewModule("MER_Automation", "AceEvent-3.0")
 MER.Modules.Auras = MER:NewModule("MER_Auras", "AceHook-3.0")
 MER.Modules.Bags = MER:NewModule("MER_Bags")
 MER.Modules.BagInfo = MER:NewModule("MER_BagInfo", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+MER.Modules.Changelog = MER:NewModule("MER_Changelog", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Chat = MER:NewModule("MER_Chat", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 MER.Modules.ChatBar = MER:NewModule("MER_ChatBar", "AceEvent-3.0", "AceHook-3.0")
 MER.Modules.ChatFade = MER:NewModule("MER_ChatFade", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
@@ -192,7 +197,7 @@ do
 		E:Delay(7, self.CheckInstalledVersion, self)
 
 		if isInitialLogin then
-			local icon = Engine[2].GetIconString(self.Media.Textures.pepeSmall, 14)
+			local icon = Engine[2].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
 				print(
 					icon

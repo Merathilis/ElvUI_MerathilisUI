@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -19,7 +19,7 @@ function module:Blizzard_Contribution()
 
 	--Main Frame
 	_G.ContributionCollectionFrame:StripTextures()
-	_G.ContributionCollectionFrame:SetTemplate('Transparent')
+	_G.ContributionCollectionFrame:SetTemplate("Transparent")
 	module:CreateBackdropShadow(_G.ContributionCollectionFrame)
 
 	hooksecurefunc(_G.ContributionMixin, "Setup", styleText)

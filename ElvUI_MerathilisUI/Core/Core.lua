@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 local format = string.format
@@ -12,6 +12,9 @@ local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown
 
 local C_CVar_GetCVarBool = C_CVar.GetCVarBool
+local C_LFGList_IsPlayerAuthenticatedForLFG = C_LFGList.IsPlayerAuthenticatedForLFG
+local C_LFGList_GetPlaystyleString = C_LFGList.GetPlaystyleString
+local C_LFGList_GetLfgCategoryInfo = C_LFGList.GetLfgCategoryInfo
 
 MER.dummy = function()
 	return
@@ -34,21 +37,13 @@ MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI1.tga]]
 
 MER.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
-MER.InfoColor = "|cFF00c0fa" --Info Color RGB: 0, .75, .98
-MER.GreyColor = "|cffB5B5B5"
-MER.RedColor = "|cffff2735"
-MER.GreenColor = "|cff3a9d36"
-MER.YellowColor = "|cffffff00"
-MER.BlueColor = "|cff82c5ff"
-MER.WhiteColor = "|cffffffff"
-
-MER.LineString = MER.GreyColor .. "---------------"
 
 MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
 MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
 MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
 
 MER.RegisteredModules = {}
+MER.Changelog = {}
 
 MER.UseKeyDown = C_CVar_GetCVarBool("ActionButtonUseKeyDown")
 
@@ -157,7 +152,7 @@ function MER:CheckInstalledVersion()
 	end
 
 	if self.showChangeLog then
-		MER:ToggleChangeLog()
+		E:StaticPopup_Show("MERATHILIS_OPEN_CHANGELOG")
 		self.showChangeLog = false
 	end
 end
@@ -166,14 +161,14 @@ function MER:FixGame()
 	-- fix playstyle string
 	-- from Premade Groups Filter & LFMPlus
 	if E.global.mui.core.fixLFG then
-		if C_LFGList.IsPlayerAuthenticatedForLFG(703) then
-			function C_LFGList.GetPlaystyleString(playstyle, activityInfo)
+		if C_LFGList_IsPlayerAuthenticatedForLFG(703) then
+			function C_LFGList_GetPlaystyleString(playstyle, activityInfo)
 				if
 					not (
 						activityInfo
 						and playstyle
 						and playstyle ~= 0
-						and C_LFGList.GetLfgCategoryInfo(activityInfo.categoryID).showPlaystyleDropdown
+						and C_LFGList_GetLfgCategoryInfo(activityInfo.categoryID).showPlaystyleDropdown
 					)
 				then
 					return nil

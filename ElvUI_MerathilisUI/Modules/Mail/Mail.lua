@@ -1,7 +1,7 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Mail')
-local S = MER:GetModule('MER_Skins')
-local ES = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Mail")
+local S = MER:GetModule("MER_Skins")
+local ES = E:GetModule("Skins")
 
 -- Credits: WindTools :)
 local _G = _G
@@ -119,52 +119,43 @@ function module:ShowContextText(button)
 		{
 			text = button.name,
 			isTitle = true,
-			notCheckable = true
-		}
+			notCheckable = true,
+		},
 	}
 
 	if not button.class then
-		tinsert(
-			menu,
-			{
-				text = L["Remove From Favorites"],
-				func = function()
-					if button.realm then
-						E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = nil
-						self:ChangeCategory("FAVORITE")
-					end
-				end,
-				notCheckable = true
-			}
-		)
+		tinsert(menu, {
+			text = L["Remove From Favorites"],
+			func = function()
+				if button.realm then
+					E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = nil
+					self:ChangeCategory("FAVORITE")
+				end
+			end,
+			notCheckable = true,
+		})
 	else
 		if button.dType and button.dType == "alt" then
-			tinsert(
-				menu,
-				{
-					text = L["Remove This Alt"],
-					func = function()
-						E.global.mui.mail.contacts.alts[button.realm][button.faction][button.name] = nil
-						self:BuildAltsData()
-						self:UpdatePage(currentPageIndex)
-					end,
-					notCheckable = true
-				}
-			)
+			tinsert(menu, {
+				text = L["Remove This Alt"],
+				func = function()
+					E.global.mui.mail.contacts.alts[button.realm][button.faction][button.name] = nil
+					self:BuildAltsData()
+					self:UpdatePage(currentPageIndex)
+				end,
+				notCheckable = true,
+			})
 		end
 
-		tinsert(
-			menu,
-			{
-				text = L["Add To Favorites"],
-				func = function()
-					if button.realm then
-						E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = true
-					end
-				end,
-				notCheckable = true
-			}
-		)
+		tinsert(menu, {
+			text = L["Add To Favorites"],
+			func = function()
+				if button.realm then
+					E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = true
+				end
+			end,
+			notCheckable = true,
+		})
 	end
 
 	EasyMenu(menu, self.contextMenuFrame, "cursor", 0, 0, "MENU")
@@ -175,7 +166,7 @@ function module:ConstructFrame()
 		return
 	end
 
-	local frame = CreateFrame("Frame", "MER_Mail", _G.SendMailFrame, 'BackdropTemplate')
+	local frame = CreateFrame("Frame", "MER_Mail", _G.SendMailFrame, "BackdropTemplate")
 	frame:Point("TOPLEFT", _G.MailFrame, "TOPRIGHT", 2, -1)
 	frame:Point("BOTTOMRIGHT", _G.MailFrame, "BOTTOMRIGHT", 152, 1)
 	frame:CreateBackdrop("Transparent")
@@ -191,7 +182,7 @@ function module:ConstructButtons()
 	-- Toggle frame
 	local toggleButton = CreateFrame("Button", "MER_MailToggleButton", _G.SendMailFrame, "SecureActionButtonTemplate")
 	toggleButton:Size(24)
-	SetButtonTexture(toggleButton, MER.Media.Icons.list)
+	SetButtonTexture(toggleButton, I.Media.Icons.List)
 	SetButtonTooltip(toggleButton, L["Toggle Contacts"])
 	toggleButton:Point("BOTTOMRIGHT", _G.MailFrame, "BOTTOMRIGHT", -24, 38)
 	toggleButton:RegisterForClicks("AnyUp")
@@ -209,7 +200,7 @@ function module:ConstructButtons()
 	-- Alternate Character
 	local altsButton = CreateFrame("Button", "MER_MailAltsButton", self.frame, "SecureActionButtonTemplate")
 	altsButton:Size(25)
-	SetButtonTexture(altsButton, MER.Media.Icons.barCharacter, 0.945, 0.769, 0.059)
+	SetButtonTexture(altsButton, I.Media.Icons.Character, 0.945, 0.769, 0.059)
 	SetButtonTooltip(altsButton, L["Alternate Character"])
 	altsButton:Point("TOPLEFT", self.frame, "TOPLEFT", 10, -10)
 	altsButton:RegisterForClicks("AnyUp")
@@ -221,7 +212,7 @@ function module:ConstructButtons()
 	-- Online Friends
 	local friendsButton = CreateFrame("Button", "MER_MailFriendsButton", self.frame, "SecureActionButtonTemplate")
 	friendsButton:Size(25)
-	SetButtonTexture(friendsButton, MER.Media.Icons.barFriends, 0.345, 0.667, 0.867)
+	SetButtonTexture(friendsButton, I.Media.Icons.Friends, 0.345, 0.667, 0.867)
 	SetButtonTooltip(friendsButton, L["Online Friends"])
 	friendsButton:Point("LEFT", altsButton, "RIGHT", 10, 0)
 	friendsButton:RegisterForClicks("AnyUp")
@@ -233,7 +224,7 @@ function module:ConstructButtons()
 	-- Guild Members
 	local guildButton = CreateFrame("Button", "MER_MailGuildButton", self.frame, "SecureActionButtonTemplate")
 	guildButton:Size(25)
-	SetButtonTexture(guildButton, MER.Media.Icons.barGuild, 0.180, 0.800, 0.443)
+	SetButtonTexture(guildButton, I.Media.Icons.Guild, 0.180, 0.800, 0.443)
 	SetButtonTooltip(guildButton, _G.GUILD)
 	guildButton:Point("LEFT", friendsButton, "RIGHT", 10, 0)
 	guildButton:RegisterForClicks("AnyUp")
@@ -245,7 +236,7 @@ function module:ConstructButtons()
 	-- Favorites
 	local favoriteButton = CreateFrame("Button", "MER_MailFavoriteButton", self.frame, "SecureActionButtonTemplate")
 	favoriteButton:Size(25)
-	SetButtonTexture(favoriteButton, MER.Media.Icons.favorite, 0.769, 0.118, 0.227)
+	SetButtonTexture(favoriteButton, I.Media.Icons.Favorite, 0.769, 0.118, 0.227)
 	SetButtonTooltip(favoriteButton, L["Favorites"])
 	favoriteButton:Point("LEFT", guildButton, "RIGHT", 10, 0)
 	favoriteButton:RegisterForClicks("AnyUp")
@@ -526,7 +517,10 @@ function module:BuildFriendsData()
 		if info.connected then
 			local name, realm = F.SplitString("-", info.name)
 			realm = realm or E.myrealm
-			tinsert(data, { name = name, realm = realm, class = GetNonLocalizedClass(info.className), dType = "friend" })
+			tinsert(
+				data,
+				{ name = name, realm = realm, class = GetNonLocalizedClass(info.className), dType = "friend" }
+			)
 			tempKey[name .. "-" .. realm] = true
 		end
 	end
@@ -541,36 +535,36 @@ function module:BuildFriendsData()
 				for j = 1, numGameAccounts do
 					local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
 					if
-						gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" and
-						gameAccountInfo.wowProjectID == 1 and
-						gameAccountInfo.factionName and
-						gameAccountInfo.factionName == E.myfaction and
-						not tempKey[gameAccountInfo.characterName .. "-" .. gameAccountInfo.realmName]
+						gameAccountInfo.clientProgram
+						and gameAccountInfo.clientProgram == "WoW"
+						and gameAccountInfo.wowProjectID == 1
+						and gameAccountInfo.factionName
+						and gameAccountInfo.factionName == E.myfaction
+						and not tempKey[gameAccountInfo.characterName .. "-" .. gameAccountInfo.realmName]
 					then
-						tinsert(data,
-							{
-								name = gameAccountInfo.characterName,
-								realm = gameAccountInfo.realmName,
-								class = GetNonLocalizedClass(gameAccountInfo.className),
-								BNName = accountInfo.accountName,
-								dType = "bnfriend"
-							})
+						tinsert(data, {
+							name = gameAccountInfo.characterName,
+							realm = gameAccountInfo.realmName,
+							class = GetNonLocalizedClass(gameAccountInfo.className),
+							BNName = accountInfo.accountName,
+							dType = "bnfriend",
+						})
 					end
 				end
 			elseif
-				accountInfo.gameAccountInfo.clientProgram == "WoW" and accountInfo.gameAccountInfo.wowProjectID == 1 and
-				accountInfo.gameAccountInfo.factionName and
-				accountInfo.gameAccountInfo.factionName == E.myfaction and
-				not tempKey[accountInfo.gameAccountInfo.characterName .. "-" .. accountInfo.gameAccountInfo.realmName]
+				accountInfo.gameAccountInfo.clientProgram == "WoW"
+				and accountInfo.gameAccountInfo.wowProjectID == 1
+				and accountInfo.gameAccountInfo.factionName
+				and accountInfo.gameAccountInfo.factionName == E.myfaction
+				and not tempKey[accountInfo.gameAccountInfo.characterName .. "-" .. accountInfo.gameAccountInfo.realmName]
 			then
-				tinsert(data,
-					{
-						name = accountInfo.gameAccountInfo.characterName,
-						realm = accountInfo.gameAccountInfo.realmName,
-						class = GetNonLocalizedClass(accountInfo.gameAccountInfo.className),
-						BNName = accountInfo.accountName,
-						dType = "bnfriend"
-					})
+				tinsert(data, {
+					name = accountInfo.gameAccountInfo.characterName,
+					realm = accountInfo.gameAccountInfo.realmName,
+					class = GetNonLocalizedClass(accountInfo.gameAccountInfo.className),
+					BNName = accountInfo.accountName,
+					dType = "bnfriend",
+				})
 			end
 		end
 	end
@@ -635,23 +629,23 @@ function module:MailBox_DelectClick()
 	if InboxItemCanDelete(selectedID) then
 		DeleteInboxItem(selectedID)
 	else
-		_G.UIErrorsFrame:AddMessage(MER.RedColor .. _G.ERR_MAIL_DELETE_ITEM_ERROR)
+		_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_MAIL_DELETE_ITEM_ERROR))
 	end
 end
 
 function module:MailItem_AddDelete(i)
-	local bu = CreateFrame('Button', nil, self)
-	bu:SetPoint('BOTTOMRIGHT', self:GetParent(), 'BOTTOMRIGHT', -10, 5)
+	local bu = CreateFrame("Button", nil, self)
+	bu:SetPoint("BOTTOMRIGHT", self:GetParent(), "BOTTOMRIGHT", -10, 5)
 	bu:SetSize(16, 16)
 	--F.PixelIcon(bu, 136813, true)
-	local icon = bu:CreateTexture(nil, 'ARTWORK')
+	local icon = bu:CreateTexture(nil, "ARTWORK")
 	icon:SetInside()
 
-	icon:SetTexture('Interface\\RAIDFRAME\\ReadyCheck-NotReady')
+	icon:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-NotReady")
 
 	bu.id = i
-	bu:SetScript('OnClick', module.MailBox_DelectClick)
-	F.AddTooltip(bu, 'ANCHOR_RIGHT', _G.DELETE, 'BLUE')
+	bu:SetScript("OnClick", module.MailBox_DelectClick)
+	F.AddTooltip(bu, "ANCHOR_RIGHT", _G.DELETE, "BLUE")
 end
 
 function module:InboxItem_OnEnter()
@@ -676,7 +670,7 @@ function module:InboxItem_OnEnter()
 				if itemName then
 					local r, g, b = GetItemQualityColor(itemQuality)
 					_G.GameTooltip:AddDoubleLine(
-						' |T' .. itemTexture .. ':12:12:0:0:50:50:4:46:4:46|t ' .. itemName,
+						" |T" .. itemTexture .. ":12:12:0:0:50:50:4:46:4:46|t " .. itemName,
 						count,
 						r,
 						g,
@@ -730,7 +724,7 @@ function module:TotalCash_OnEnter()
 	end
 
 	if totalCash > 0 then
-		_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
+		_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		_G.GameTooltip:AddLine(E:FormatMoney(totalCash))
 		_G.GameTooltip:Show()
 	end
@@ -750,7 +744,7 @@ function module:UpdateOpeningText(opening)
 end
 
 function module:MailBox_CreateButton(parent, width, height, text, anchor)
-	local button = CreateFrame('Button', nil, parent, 'UIPanelButtonTemplate')
+	local button = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
 	button:SetSize(width, height)
 	button:SetPoint(unpack(anchor))
 	button:SetText(text)
@@ -761,13 +755,14 @@ end
 
 function module:CollectGoldButton()
 	_G.OpenAllMail:ClearAllPoints()
-	_G.OpenAllMail:SetPoint('BOTTOMRIGHT', _G.MailFrame, 'BOTTOM', -2, 16)
+	_G.OpenAllMail:SetPoint("BOTTOMRIGHT", _G.MailFrame, "BOTTOM", -2, 16)
 	_G.OpenAllMail:SetSize(80, 20)
 
-	local button = module:MailBox_CreateButton(_G.InboxFrame, 80, 20, '', { 'BOTTOMLEFT', _G.MailFrame, 'BOTTOM', 2, 16 })
-	button:SetScript('OnClick', module.MailBox_CollectAllGold)
-	button:HookScript('OnEnter', module.TotalCash_OnEnter)
-	button:HookScript('OnLeave', module.TotalCash_OnLeave)
+	local button =
+		module:MailBox_CreateButton(_G.InboxFrame, 80, 20, "", { "BOTTOMLEFT", _G.MailFrame, "BOTTOM", 2, 16 })
+	button:SetScript("OnClick", module.MailBox_CollectAllGold)
+	button:HookScript("OnEnter", module.TotalCash_OnEnter)
+	button:HookScript("OnLeave", module.TotalCash_OnLeave)
 
 	module.GoldButton = button
 	module:UpdateOpeningText()
@@ -786,7 +781,7 @@ end
 
 function module:MailBox_CollectCurrent()
 	if _G.OpenMailFrame.cod then
-		_G.UIErrorsFrame:AddMessage(MER.RedColor .. L["You can't auto collect CoD mail"])
+		_G.UIErrorsFrame:AddMessage(F.String.Error(L["You can't auto collect CoD mail"]))
 		return
 	end
 
@@ -798,58 +793,63 @@ function module:MailBox_CollectCurrent()
 end
 
 function module:CollectCurrentButton()
-	local button = module:MailBox_CreateButton(_G.OpenMailFrame, 70, 20, L["Take All"],
-		{ 'RIGHT', 'OpenMailReplyButton', 'LEFT', -6, 0 })
-	button:SetScript('OnClick', module.MailBox_CollectCurrent)
+	local button = module:MailBox_CreateButton(
+		_G.OpenMailFrame,
+		70,
+		20,
+		L["Take All"],
+		{ "RIGHT", "OpenMailReplyButton", "LEFT", -6, 0 }
+	)
+	button:SetScript("OnClick", module.MailBox_CollectCurrent)
 
 	_G.OpenMailCancelButton:SetSize(70, 20)
 	_G.OpenMailCancelButton:ClearAllPoints()
-	_G.OpenMailCancelButton:SetPoint('BOTTOMRIGHT', _G.OpenMailFrame, 'BOTTOMRIGHT', -8, 8)
+	_G.OpenMailCancelButton:SetPoint("BOTTOMRIGHT", _G.OpenMailFrame, "BOTTOMRIGHT", -8, 8)
 	_G.OpenMailDeleteButton:SetSize(70, 20)
 	_G.OpenMailDeleteButton:ClearAllPoints()
-	_G.OpenMailDeleteButton:SetPoint('RIGHT', _G.OpenMailCancelButton, 'LEFT', -6, 0)
+	_G.OpenMailDeleteButton:SetPoint("RIGHT", _G.OpenMailCancelButton, "LEFT", -6, 0)
 	_G.OpenMailReplyButton:SetSize(70, 20)
 	_G.OpenMailReplyButton:ClearAllPoints()
-	_G.OpenMailReplyButton:SetPoint('RIGHT', _G.OpenMailDeleteButton, 'LEFT', -6, 0)
+	_G.OpenMailReplyButton:SetPoint("RIGHT", _G.OpenMailDeleteButton, "LEFT", -6, 0)
 end
 
 function module:ArrangeDefaultElements()
 	_G.InboxTooMuchMail:ClearAllPoints()
-	_G.InboxTooMuchMail:SetPoint('BOTTOM', _G.MailFrame, 'TOP', 0, 5)
+	_G.InboxTooMuchMail:SetPoint("BOTTOM", _G.MailFrame, "TOP", 0, 5)
 
 	_G.SendMailNameEditBox:SetWidth(155)
 	_G.SendMailNameEditBoxMiddle:SetWidth(146)
 	_G.SendMailCostMoneyFrame:SetAlpha(0)
 
-	_G.SendMailMailButton:HookScript('OnEnter', function(self)
-		_G.GameTooltip:SetOwner(self, 'ANCHOR_TOP')
+	_G.SendMailMailButton:HookScript("OnEnter", function(self)
+		_G.GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		_G.GameTooltip:ClearLines()
 		local sendPrice = GetSendMailPrice()
-		local colorStr = '|cffffffff'
+		local colorStr = "|cffffffff"
 		if sendPrice > GetMoney() then
-			colorStr = '|cffff0000'
+			colorStr = "|cffff0000"
 		end
 		_G.GameTooltip:AddLine(_G.SEND_MAIL_COST .. colorStr .. E:FormatMoney(sendPrice))
 		_G.GameTooltip:Show()
 	end)
-	_G.SendMailMailButton:HookScript('OnLeave', F.HideTooltip)
+	_G.SendMailMailButton:HookScript("OnLeave", F.HideTooltip)
 end
 
 function module:LastMailSaver()
-	local mailSaver = CreateFrame('CheckButton', nil, _G.SendMailFrame, 'OptionsBaseCheckButtonTemplate')
+	local mailSaver = CreateFrame("CheckButton", nil, _G.SendMailFrame, "OptionsBaseCheckButtonTemplate")
 	mailSaver:SetHitRectInsets(0, 0, 0, 0)
-	mailSaver:SetPoint('LEFT', _G.SendMailNameEditBox, 'RIGHT', 0, 0)
+	mailSaver:SetPoint("LEFT", _G.SendMailNameEditBox, "RIGHT", 0, 0)
 	mailSaver:SetSize(24, 24)
 	ES:HandleCheckBox(mailSaver)
 
 	mailSaver:SetChecked(E.db.mui.mail.saveRecipient)
-	mailSaver:SetScript('OnClick', function(self)
+	mailSaver:SetScript("OnClick", function(self)
 		E.db.mui.mail.saveRecipient = self:GetChecked()
 	end)
-	F.AddTooltip(mailSaver, 'ANCHOR_TOP', L["Save mail recipient"])
+	F.AddTooltip(mailSaver, "ANCHOR_TOP", L["Save mail recipient"])
 
 	local resetPending
-	hooksecurefunc('SendMailFrame_SendMail', function()
+	hooksecurefunc("SendMailFrame_SendMail", function()
 		if E.db.mui.mail.saveRecipient then
 			RecipientList = _G.SendMailNameEditBox:GetText()
 			resetPending = true
@@ -858,14 +858,14 @@ function module:LastMailSaver()
 		end
 	end)
 
-	hooksecurefunc(_G.SendMailNameEditBox, 'SetText', function(self, text)
-		if resetPending and text == '' then
+	hooksecurefunc(_G.SendMailNameEditBox, "SetText", function(self, text)
+		if resetPending and text == "" then
 			resetPending = nil
 			self:SetText(RecipientList)
 		end
 	end)
 
-	_G.SendMailFrame:HookScript('OnShow', function()
+	_G.SendMailFrame:HookScript("OnShow", function()
 		if E.db.mui.mail.saveRecipient then
 			_G.SendMailNameEditBox:SetText(RecipientList)
 		end
@@ -876,7 +876,7 @@ function module:Initialize()
 	self:UpdateAltsTable()
 	self.db = E.db.mui.mail
 
-	if not self.db.enable or self.Initialized or IsAddOnLoaded('Postal') then
+	if not self.db.enable or self.Initialized or IsAddOnLoaded("Postal") then
 		return
 	end
 
@@ -887,11 +887,11 @@ function module:Initialize()
 
 	-- Delete buttons
 	for i = 1, 7 do
-		local itemButton = _G['MailItem' .. i .. 'Button']
+		local itemButton = _G["MailItem" .. i .. "Button"]
 		module.MailItem_AddDelete(itemButton, i)
 	end
 
-	hooksecurefunc('InboxFrameItem_OnEnter', module.InboxItem_OnEnter)
+	hooksecurefunc("InboxFrameItem_OnEnter", module.InboxItem_OnEnter)
 
 	self:ArrangeDefaultElements()
 	self:CollectGoldButton()
@@ -924,26 +924,27 @@ MER:RegisterModule(module:GetName())
 -- Temp fix for GM mails
 function OpenAllMail:AdvanceToNextItem()
 	local foundAttachment = false
-	while (not foundAttachment) do
+	while not foundAttachment do
 		local _, _, _, _, _, CODAmount, _, _, _, _, _, _, isGM = GetInboxHeaderInfo(self.mailIndex)
 		local itemID = select(2, GetInboxItem(self.mailIndex, self.attachmentIndex))
 		local hasBlacklistedItem = self:IsItemBlacklisted(itemID)
 		local hasCOD = CODAmount and CODAmount > 0
-		local hasMoneyOrItem = C_Mail.HasInboxMoney(self.mailIndex) or HasInboxItem(self.mailIndex, self.attachmentIndex)
-		if (not hasBlacklistedItem and not isGM and not hasCOD and hasMoneyOrItem) then
+		local hasMoneyOrItem = C_Mail.HasInboxMoney(self.mailIndex)
+			or HasInboxItem(self.mailIndex, self.attachmentIndex)
+		if not hasBlacklistedItem and not isGM and not hasCOD and hasMoneyOrItem then
 			foundAttachment = true
 		else
 			self.attachmentIndex = self.attachmentIndex - 1
-			if (self.attachmentIndex == 0) then
+			if self.attachmentIndex == 0 then
 				break
 			end
 		end
 	end
 
-	if (not foundAttachment) then
+	if not foundAttachment then
 		self.mailIndex = self.mailIndex + 1
 		self.attachmentIndex = ATTACHMENTS_MAX
-		if (self.mailIndex > GetInboxNumItems()) then
+		if self.mailIndex > GetInboxNumItems() then
 			return false
 		end
 

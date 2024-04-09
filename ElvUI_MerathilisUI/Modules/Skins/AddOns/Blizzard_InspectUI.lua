@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 local select, unpack = select, unpack
@@ -54,9 +54,24 @@ function module:Blizzard_InspectUI()
 	select(11, _G.InspectMainHandSlot:GetRegions()):Hide()
 
 	local slots = {
-		"Head", "Neck", "Shoulder", "Shirt", "Chest", "Waist", "Legs", "Feet", "Wrist",
-		"Hands", "Finger0", "Finger1", "Trinket0", "Trinket1", "Back", "MainHand",
-		"SecondaryHand", "Tabard",
+		"Head",
+		"Neck",
+		"Shoulder",
+		"Shirt",
+		"Chest",
+		"Waist",
+		"Legs",
+		"Feet",
+		"Wrist",
+		"Hands",
+		"Finger0",
+		"Finger1",
+		"Trinket0",
+		"Trinket1",
+		"Back",
+		"MainHand",
+		"SecondaryHand",
+		"Tabard",
 	}
 
 	for i = 1, #slots do
@@ -101,7 +116,9 @@ function module:Blizzard_InspectUI()
 
 	inspectSpec:HookScript("OnShow", updateIcon)
 	_G.InspectTalentFrame:HookScript("OnEvent", function(self, event, unit)
-		if not _G.InspectFrame:IsShown() then return end
+		if not _G.InspectFrame:IsShown() then
+			return
+		end
 		if event == "INSPECT_READY" and _G.InspectFrame.unit and UnitGUID(_G.InspectFrame.unit) == unit then
 			updateIcon(self.InspectSpec)
 		end

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -11,7 +11,9 @@ function module:Blizzard_AzeriteEssenceUI()
 		return
 	end
 
-	if not C_AzeriteEssence_CanOpenUI() then return end
+	if not C_AzeriteEssence_CanOpenUI() then
+		return
+	end
 
 	local AzeriteEssenceUI = _G.AzeriteEssenceUI
 	module:CreateBackdropShadow(AzeriteEssenceUI)

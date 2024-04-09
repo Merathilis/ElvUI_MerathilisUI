@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local LSM = E.Libs.LSM
 local module = MER.Modules.Skins
 local WS = module.Widgets
@@ -22,7 +22,10 @@ function WS:HandleButton(_, button)
 		return
 	end
 
-	local db = E.private.mui and E.private.mui.skins and E.private.mui.skins.widgets and E.private.mui.skins.widgets.button
+	local db = E.private.mui
+		and E.private.mui.skins
+		and E.private.mui.skins.widgets
+		and E.private.mui.skins.widgets.button
 
 	if db.text.enable then
 		local text = button.Text or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
@@ -48,7 +51,8 @@ function WS:HandleButton(_, button)
 
 		F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
 
-		button.MERAnimation = self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
+		button.MERAnimation =
+			self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
 
 		self:SecureHookScript(button, "OnEnter", button.MERAnimation.onEnter)
 		self:SecureHookScript(button, "OnLeave", button.MERAnimation.onLeave)
@@ -109,5 +113,5 @@ function WS:ElvUI_Config_SetButtonColor(_, btn)
 	end
 end
 
-WS:SecureHook(S, 'HandleButton')
-WS:SecureHook(E, 'Config_SetButtonColor', 'ElvUI_Config_SetButtonColor')
+WS:SecureHook(S, "HandleButton")
+WS:SecureHook(E, "Config_SetButtonColor", "ElvUI_Config_SetButtonColor")

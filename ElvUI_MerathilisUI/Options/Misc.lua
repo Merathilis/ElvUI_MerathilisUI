@@ -1,9 +1,9 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.misc.args
-local AK = MER:GetModule('MER_AlreadyKnown')
-local AM = MER:GetModule('MER_Automation')
-local MI = MER:GetModule('MER_Misc')
-local SA = MER:GetModule('MER_SpellAlert')
+local AK = MER:GetModule("MER_AlreadyKnown")
+local AM = MER:GetModule("MER_Automation")
+local MI = MER:GetModule("MER_Misc")
+local SA = MER:GetModule("MER_SpellAlert")
 local async = MER.Utilities.Async
 local LSM = E.LSM
 
@@ -35,7 +35,7 @@ options.general = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["General"], 'orange'),
+			name = F.cOption(L["General"], "orange"),
 		},
 		gmotd = {
 			order = 2,
@@ -78,9 +78,12 @@ options.general = {
 			type = "toggle",
 			name = L["Highest Quest Reward"],
 			desc = L["Automatically select the item with the highest reward."],
-			get = function(info) return E.db.mui.misc.quest[info[#info]] end,
+			get = function(info)
+				return E.db.mui.misc.quest[info[#info]]
+			end,
 			set = function(info, value)
-				E.db.mui.misc.quest[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+				E.db.mui.misc.quest[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
 		tradeTabs = {
@@ -104,23 +107,29 @@ options.general = {
 			order = 12,
 			type = "toggle",
 			name = L["Block Join Requests"],
-			desc = L["|nIf checked, only popout join requests from friends and guild members."]
+			desc = L["|nIf checked, only popout join requests from friends and guild members."],
 		},
 		hotKey = {
 			order = 13,
 			type = "toggle",
-			name = E.NewSign .. L["HotKey Above CD"],
-			desc = format("%s\n%s %s", L["Show hotkeys above the ElvUI cooldown animation."], E.NewSign,
+			name = L["HotKey Above CD"],
+			desc = format(
+				"%s\n %s",
+				L["Show hotkeys above the ElvUI cooldown animation."],
 				F.CreateColorString(L["Only works with ElvUI action bar and ElvUI cooldowns."], E.db.general.valuecolor)
-			)
+			),
 		},
 		randomtoy = {
 			order = 20,
 			type = "input",
 			name = L["Random Toy Macro"],
 			desc = L["Creates a random toy macro."],
-			get = function() return "/randomtoy" end,
-			set = function() return end,
+			get = function()
+				return "/randomtoy"
+			end,
+			set = function()
+				return
+			end,
 		},
 	},
 }
@@ -130,8 +139,7 @@ options.spellAlert = {
 	type = "group",
 	name = L["Spell Alert Scale"],
 	get = function(info)
-		return
-			E.db.mui.misc.spellAlert[info[#info]]
+		return E.db.mui.misc.spellAlert[info[#info]]
 	end,
 	set = function(info, value)
 		E.db.mui.misc.spellAlert[info[#info]] = value
@@ -141,7 +149,7 @@ options.spellAlert = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["Spell Alert Scale"], 'orange'),
+			name = F.cOption(L["Spell Alert Scale"], "orange"),
 		},
 		desc = {
 			order = 2,
@@ -153,14 +161,14 @@ options.spellAlert = {
 					order = 1,
 					type = "description",
 					name = L["Spell activation alert frame customizations."],
-					fontSize = "medium"
-				}
-			}
+					fontSize = "medium",
+				},
+			},
 		},
 		enable = {
 			order = 3,
 			type = "toggle",
-			name = L["Enable"]
+			name = L["Enable"],
 		},
 		visibility = {
 			order = 4,
@@ -228,7 +236,7 @@ options.scale = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Scale"], 'orange'),
+			name = F.cOption(L["Scale"], "orange"),
 		},
 		enable = {
 			order = 1,
@@ -254,9 +262,11 @@ options.scale = {
 		characterGroup = {
 			order = 3,
 			type = "group",
-			name = F.cOption(L["Character"], 'orange'),
+			name = F.cOption(L["Character"], "orange"),
 			guiInline = true,
-			hidden = function() return not E.db.mui.scale.enable end,
+			hidden = function()
+				return not E.db.mui.scale.enable
+			end,
 			args = {
 				character = {
 					order = 1,
@@ -310,8 +320,7 @@ options.scale = {
 					order = 4,
 					type = "toggle",
 					name = L["Sync Inspect"],
-					desc = L
-						["Toggling this on makes your inspect frame scale have the same value as the character frame scale."],
+					desc = L["Toggling this on makes your inspect frame scale have the same value as the character frame scale."],
 					get = function(_)
 						return E.db.mui.scale.syncInspect.enabled
 					end,
@@ -330,10 +339,12 @@ options.scale = {
 		otherGroup = {
 			order = 5,
 			type = "group",
-			name = F.cOption(L["Other"], 'orange'),
+			name = F.cOption(L["Other"], "orange"),
 			desc = L["Scale other frames.\n\n"],
 			guiInline = true,
-			hidden = function() return not E.db.mui.scale.enable end,
+			hidden = function()
+				return not E.db.mui.scale.enable
+			end,
 			args = {
 				spellbook = {
 					order = 1,
@@ -405,8 +416,7 @@ options.cursor = {
 	type = "group",
 	name = L["Flashing Cursor"],
 	get = function(info)
-		return
-			E.db.mui.misc.cursor[info[#info]]
+		return E.db.mui.misc.cursor[info[#info]]
 	end,
 	set = function(info, value)
 		E.db.mui.misc.cursor[info[#info]] = value
@@ -416,7 +426,7 @@ options.cursor = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["Flashing Cursor"], 'orange'),
+			name = F.cOption(L["Flashing Cursor"], "orange"),
 		},
 		enable = {
 			order = 2,
@@ -424,15 +434,19 @@ options.cursor = {
 			name = L["Enable"],
 			set = function(info, value)
 				E.db.mui.misc.cursor[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL");
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
 		colorType = {
 			order = 3,
 			name = L["Color Type"],
 			type = "select",
-			disabled = function() return not E.db.mui.misc.cursor.enable end,
-			set = function(info, value) E.db.mui.misc.cursor[info[#info]] = value; end,
+			disabled = function()
+				return not E.db.mui.misc.cursor.enable
+			end,
+			set = function(info, value)
+				E.db.mui.misc.cursor[info[#info]] = value
+			end,
 			values = {
 				["DEFAULT"] = L["Default"],
 				["CLASS"] = L["Class"],
@@ -443,7 +457,9 @@ options.cursor = {
 			type = "color",
 			order = 4,
 			name = L["Custom Color"],
-			disabled = function() return not E.db.mui.misc.cursor.enable or E.db.mui.misc.cursor.colorType ~= "CUSTOM" end,
+			disabled = function()
+				return not E.db.mui.misc.cursor.enable or E.db.mui.misc.cursor.colorType ~= "CUSTOM"
+			end,
 			get = function(info)
 				local t = E.db.mui.misc.cursor[info[#info]]
 				local d = P.misc.cursor[info[#info]]
@@ -473,9 +489,9 @@ options.tags = {
 					order = 1,
 					type = "description",
 					name = L["Add more oUF tags. You can use them on UnitFrames configuration."],
-					fontSize = "medium"
-				}
-			}
+					fontSize = "medium",
+				},
+			},
 		},
 	},
 }
@@ -496,7 +512,7 @@ do
 		DRUID = L["Druid"],
 		MONK = L["Monk"],
 		DEMONHUNTER = L["Demonhunter"],
-		EVOKER = L["Evoker"]
+		EVOKER = L["Evoker"],
 	}
 
 	for index, style in pairs(F.GetClassIconStyleList()) do
@@ -509,14 +525,14 @@ do
 				image = function()
 					return F.GetClassIconWithStyle(E.myclass, style), 64, 64
 				end,
-				width = 1
+				width = 1,
 			},
 			["PLAYER_TAG"] = {
 				order = 2,
 				text = L["The class icon of the player's class"],
 				tag = "[classicon-" .. style .. "]",
-				width = 1.5
-			}
+				width = 1.5,
+			},
 		}
 
 		for i = 1, GetNumClasses() do
@@ -524,7 +540,7 @@ do
 			local coloredClassName = GetClassColorString(upperText) .. className[upperText] .. "|r"
 			examples["classIcon_" .. style][upperText .. "_ALIGN"] = {
 				order = 3 * i,
-				type = "description"
+				type = "description",
 			}
 			examples["classIcon_" .. style][upperText .. "_ICON"] = {
 				order = 3 * i + 1,
@@ -532,13 +548,13 @@ do
 				image = function()
 					return F.GetClassIconWithStyle(upperText, style), 64, 64
 				end,
-				width = 1
+				width = 1,
 			}
 			examples["classIcon_" .. style][upperText .. "_TAG"] = {
 				order = 3 * i + 2,
 				text = coloredClassName,
 				tag = "[classicon-" .. style .. ":" .. strlower(upperText) .. "]",
-				width = 1.5
+				width = 1.5,
 			}
 		end
 
@@ -547,7 +563,7 @@ do
 				order = catTable.order,
 				type = "group",
 				name = catTable.name,
-				args = {}
+				args = {},
 			}
 
 			local subIndex = 1
@@ -560,7 +576,7 @@ do
 						name = data.text or "",
 						get = function()
 							return data.tag
-						end
+						end,
 					}
 					if data.image then
 						options.tags.args[cat].args[key].image = data.image
@@ -602,9 +618,9 @@ options.alreadyKnown = {
 							return L["Puts a overlay on already known learnable items on vendors and AH."]
 						end
 					end,
-					fontSize = "medium"
-				}
-			}
+					fontSize = "medium",
+				},
+			},
 		},
 		enable = {
 			order = 2,
@@ -617,7 +633,7 @@ options.alreadyKnown = {
 				E.db.mui.misc.alreadyKnown[info[#info]] = value
 				AK:ToggleSetting()
 			end,
-			width = "full"
+			width = "full",
 		},
 		mode = {
 			order = 3,
@@ -628,8 +644,8 @@ options.alreadyKnown = {
 			end,
 			values = {
 				COLOR = L["Custom Color"],
-				MONOCHROME = L["Monochrome"]
-			}
+				MONOCHROME = L["Monochrome"],
+			},
 		},
 		color = {
 			order = 4,
@@ -650,9 +666,9 @@ options.alreadyKnown = {
 			set = function(info, r, g, b)
 				local db = E.db.mui.misc.alreadyKnown.color
 				db.r, db.g, db.b = r, g, b
-			end
-		}
-	}
+			end,
+		},
+	},
 }
 
 options.mute = {
@@ -670,9 +686,9 @@ options.mute = {
 					order = 1,
 					type = "description",
 					name = L["Disable some annoying sound effects."],
-					fontSize = "medium"
-				}
-			}
+					fontSize = "medium",
+				},
+			},
 		},
 		enable = {
 			order = 2,
@@ -684,7 +700,7 @@ options.mute = {
 			set = function(info, value)
 				E.db.mui.misc.mute.enable = value
 				E:StaticPopup_Show("PRIVATE_RL")
-			end
+			end,
 		},
 		mount = {
 			order = 3,
@@ -698,7 +714,7 @@ options.mute = {
 				E.db.mui.misc.mute[info[#info - 1]][tonumber(info[#info])] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
-			args = {}
+			args = {},
 		},
 		other = {
 			order = 4,
@@ -717,33 +733,35 @@ options.mute = {
 					order = 1,
 					type = "toggle",
 					name = L["Tortollan"],
-					width = 1.3
+					width = 1.3,
 				},
 				["Crying"] = {
 					order = 2,
 					type = "toggle",
 					name = L["Crying"],
-					desc = L["Mute crying sounds of all races."] ..
-						"\n|cffff3860" .. L["It will affect the cry emote sound."] .. "|r",
-					width = 1.3
+					desc = L["Mute crying sounds of all races."]
+						.. "\n|cffff3860"
+						.. L["It will affect the cry emote sound."]
+						.. "|r",
+					width = 1.3,
 				},
 				["Dragonriding"] = {
 					order = 3,
 					type = "toggle",
 					name = L["Dragonriding"],
 					desc = L["Mute the sound of dragonriding."],
-					width = 1.3
+					width = 1.3,
 				},
 				["Jewelcrafting"] = {
 					order = 4,
 					type = "toggle",
 					name = L["Jewelcrafting"],
 					desc = L["Mute the sound of jewelcrafting."],
-					width = 1.3
-				}
-			}
-		}
-	}
+					width = 1.3,
+				},
+			},
+		},
+	},
 }
 
 do
@@ -758,7 +776,7 @@ do
 				order = id,
 				type = "toggle",
 				name = iconString .. " " .. name,
-				width = 1.5
+				width = 1.5,
 			}
 		end)
 	end
@@ -766,34 +784,31 @@ do
 	local itemList = {
 		["Smolderheart"] = {
 			id = 180873,
-			desc = nil
+			desc = nil,
 		},
 		["Elegy of the Eternals"] = {
 			id = 188270,
-			desc = "|cffff3860" .. L["It will also affect the crying sound of all female Blood Elves."] .. "|r"
-		}
+			desc = "|cffff3860" .. L["It will also affect the crying sound of all female Blood Elves."] .. "|r",
+		},
 	}
 
 	for name, data in pairs(itemList) do
-		async.WithItemID(
-			data.id,
-			function(item)
-				local icon = item:GetItemIcon()
-				local name = item:GetItemName()
-				local color = item:GetItemQualityColor()
+		async.WithItemID(data.id, function(item)
+			local icon = item:GetItemIcon()
+			local name = item:GetItemName()
+			local color = item:GetItemQualityColor()
 
-				local iconString = F.GetIconString(icon)
-				local nameString = F.CreateColorString(name, color)
+			local iconString = F.GetIconString(icon)
+			local nameString = F.CreateColorString(name, color)
 
-				options.mute.args.other.args[name] = {
-					order = data.id,
-					type = "toggle",
-					name = iconString .. " " .. nameString,
-					desc = data.desc,
-					width = 1.3
-				}
-			end
-		)
+			options.mute.args.other.args[name] = {
+				order = data.id,
+				type = "toggle",
+				name = iconString .. " " .. nameString,
+				desc = data.desc,
+				width = 1.3,
+			}
+		end)
 	end
 end
 
@@ -819,9 +834,9 @@ options.automation = {
 					order = 1,
 					type = "description",
 					name = L["Automate your game life."],
-					fontSize = "medium"
-				}
-			}
+					fontSize = "medium",
+				},
+			},
 		},
 		enable = {
 			order = 2,
@@ -830,7 +845,7 @@ options.automation = {
 			set = function(info, value)
 				E.db.mui.misc.automation[info[#info]] = value
 			end,
-			width = "full"
+			width = "full",
 		},
 		hideWorldMapAfterEnteringCombat = {
 			order = 3,
@@ -840,7 +855,7 @@ options.automation = {
 			disabled = function()
 				return not E.db.mui.misc.automation.enable
 			end,
-			width = 1.5
+			width = 1.5,
 		},
 		hideBagAfterEnteringCombat = {
 			order = 4,
@@ -850,7 +865,7 @@ options.automation = {
 			disabled = function()
 				return not E.db.mui.misc.automation.enable
 			end,
-			width = 1.5
+			width = 1.5,
 		},
 		acceptResurrect = {
 			order = 5,
@@ -860,7 +875,7 @@ options.automation = {
 			disabled = function()
 				return not E.db.mui.misc.automation.enable
 			end,
-			width = 1.5
+			width = 1.5,
 		},
 		acceptCombatResurrect = {
 			order = 6,
@@ -870,7 +885,7 @@ options.automation = {
 			disabled = function()
 				return not E.db.mui.misc.automation.enable
 			end,
-			width = 1.5
+			width = 1.5,
 		},
 		confirmSummon = {
 			order = 7,
@@ -880,7 +895,7 @@ options.automation = {
 			disabled = function()
 				return not E.db.mui.misc.automation.enable
 			end,
-			width = 1.5
+			width = 1.5,
 		},
 	},
 }

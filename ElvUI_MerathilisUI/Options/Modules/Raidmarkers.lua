@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_RaidMarkers')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_RaidMarkers")
 local options = MER.options.modules.args
 
 local format = string.format
@@ -11,7 +11,7 @@ options.raidmarkers = {
 		name = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Raid Markers"], 'orange'),
+			name = F.cOption(L["Raid Markers"], "orange"),
 		},
 		desc = {
 			order = 1,
@@ -23,9 +23,9 @@ options.raidmarkers = {
 					order = 1,
 					type = "description",
 					name = L["Add an extra bar to let you set raid markers efficiently."],
-					fontSize = "medium"
-				}
-			}
+					fontSize = "medium",
+				},
+			},
 		},
 		enable = {
 			order = 2,
@@ -38,7 +38,7 @@ options.raidmarkers = {
 			set = function(info, value)
 				E.db.mui.raidmarkers[info[#info]] = value
 				module:ProfileUpdate()
-			end
+			end,
 		},
 		inverse = {
 			order = 3,
@@ -55,7 +55,7 @@ options.raidmarkers = {
 			disabled = function()
 				return not E.db.mui.raidmarkers.enable
 			end,
-			width = 2
+			width = 2,
 		},
 		visibilityConfig = {
 			order = 4,
@@ -80,20 +80,20 @@ options.raidmarkers = {
 					values = {
 						DEFAULT = L["Default"],
 						INPARTY = L["In Party"],
-						ALWAYS = L["Always Display"]
-					}
+						ALWAYS = L["Always Display"],
+					},
 				},
 				mouseOver = {
 					order = 2,
 					type = "toggle",
 					name = L["Mouse Over"],
-					desc = L["Only show raid markers bar when you mouse over it."]
+					desc = L["Only show raid markers bar when you mouse over it."],
 				},
 				tooltip = {
 					order = 3,
 					type = "toggle",
 					name = L["Tooltip"],
-					desc = L["Show the tooltip when you mouse over the button."]
+					desc = L["Show the tooltip when you mouse over the button."],
 				},
 				modifier = {
 					order = 4,
@@ -103,10 +103,10 @@ options.raidmarkers = {
 					values = {
 						shift = L["Shift Key"],
 						ctrl = L["Ctrl Key"],
-						alt = L["Alt Key"]
-					}
-				}
-			}
+						alt = L["Alt Key"],
+					},
+				},
+			},
 		},
 		barConfig = {
 			order = 5,
@@ -128,7 +128,7 @@ options.raidmarkers = {
 					order = 1,
 					type = "toggle",
 					name = L["Bar Backdrop"],
-					desc = L["Show a backdrop of the bar."]
+					desc = L["Show a backdrop of the bar."],
 				},
 				backdropSpacing = {
 					order = 2,
@@ -137,7 +137,7 @@ options.raidmarkers = {
 					desc = L["The spacing between the backdrop and the buttons."],
 					min = 1,
 					max = 30,
-					step = 1
+					step = 1,
 				},
 				orientation = {
 					order = 3,
@@ -146,10 +146,10 @@ options.raidmarkers = {
 					desc = L["Arrangement direction of the bar."],
 					values = {
 						HORIZONTAL = L["Horizontal"],
-						VERTICAL = L["Vertical"]
-					}
-				}
-			}
+						VERTICAL = L["Vertical"],
+					},
+				},
+			},
 		},
 		raidButtons = {
 			order = 6,
@@ -172,13 +172,17 @@ options.raidmarkers = {
 					order = 1,
 					type = "toggle",
 					name = L["Ready Check"] .. " / " .. L["Advanced Combat Logging"],
-					desc = format("%s\n%s", L["Left Click to ready check."], L["Right click to toggle advanced combat logging."]),
-					width = 2
+					desc = format(
+						"%s\n%s",
+						L["Left Click to ready check."],
+						L["Right click to toggle advanced combat logging."]
+					),
+					width = 2,
 				},
 				countDown = {
 					order = 2,
 					type = "toggle",
-					name = L["Count Down"]
+					name = L["Count Down"],
 				},
 				countDownTime = {
 					order = 3,
@@ -187,9 +191,9 @@ options.raidmarkers = {
 					desc = L["Count down time in seconds."],
 					min = 1,
 					max = 30,
-					step = 1
-				}
-			}
+					step = 1,
+				},
+			},
 		},
 		buttonsConfig = {
 			order = 7,
@@ -214,7 +218,7 @@ options.raidmarkers = {
 					desc = L["The size of the buttons."],
 					min = 15,
 					max = 60,
-					step = 1
+					step = 1,
 				},
 				spacing = {
 					order = 2,
@@ -223,17 +227,17 @@ options.raidmarkers = {
 					desc = L["The spacing between buttons."],
 					min = 1,
 					max = 30,
-					step = 1
+					step = 1,
 				},
 				buttonBackdrop = {
 					order = 3,
 					type = "toggle",
-					name = L["Button Backdrop"]
+					name = L["Button Backdrop"],
 				},
 				buttonAnimation = {
 					order = 4,
 					type = "toggle",
-					name = L["Button Animation"]
+					name = L["Button Animation"],
 				},
 			},
 		},

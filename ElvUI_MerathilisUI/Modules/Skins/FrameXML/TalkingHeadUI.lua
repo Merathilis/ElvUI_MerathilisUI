@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -20,8 +20,8 @@ function module:TalkingHeadUI()
 		TalkingHeadFrame.PortraitFrame.Portrait.SetAtlas = MER.dummy
 		TalkingHeadFrame.MainFrame.Model.PortraitBg.SetAtlas = MER.dummy
 
-		TalkingHeadFrame.MainFrame.Model.ModelShadow = TalkingHeadFrame.MainFrame.Model:CreateTexture(nil, "OVERLAY", nil,
-			2)
+		TalkingHeadFrame.MainFrame.Model.ModelShadow =
+			TalkingHeadFrame.MainFrame.Model:CreateTexture(nil, "OVERLAY", nil, 2)
 		TalkingHeadFrame.MainFrame.Model.ModelShadow:SetAtlas("Artifacts-BG-Shadow")
 		TalkingHeadFrame.MainFrame.Model.ModelShadow:SetOutside()
 		TalkingHeadFrame.MainFrame.Model.PortraitBg:Hide()

@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Announcement')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Announcement")
 
 local _G = _G
 
@@ -104,8 +104,9 @@ end
     @return {string}
 ]]
 function module:GetChannel(channelDB)
-	if (IsPartyLFG() or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) or IsInRaid(LE_PARTY_CATEGORY_INSTANCE)) and
-		channelDB.instance
+	if
+		(IsPartyLFG() or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) or IsInRaid(LE_PARTY_CATEGORY_INSTANCE))
+		and channelDB.instance
 	then
 		return channelDB.instance
 	elseif IsInRaid(LE_PARTY_CATEGORY_HOME) and channelDB.raid then
@@ -123,7 +124,7 @@ do
 		["zhCN"] = "的",
 		["zhTW"] = "的",
 		["enUS"] = "'s",
-		["koKR"] = "의"
+		["koKR"] = "의",
 	}
 
 	function module:GetPetInfo(petName)
@@ -137,7 +138,7 @@ do
 		end
 
 		local delimiter = delimiterList[W.Locale] or "'s"
-		local raw = { F.Strings.Split(details, delimiter) }
+		local raw = { F.String.Split(details, delimiter) }
 
 		local owner, role = raw[1], raw[#raw]
 		if owner and role then

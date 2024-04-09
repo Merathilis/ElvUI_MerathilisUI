@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 local unpack = unpack
@@ -9,7 +9,7 @@ local C_Timer_NewTicker = C_Timer.NewTicker
 
 local pool = {
 	spark = {},
-	backdrops = {}
+	backdrops = {},
 }
 
 function pool:Get(type)
@@ -79,8 +79,8 @@ end
 local function modifyStyle(frame)
 	local emphasized = frame:Get("bigwigs:emphasized")
 
-	local db = emphasized and E.private.mui.skins.addonSkins.bw.emphasizedBar or
-	E.private.mui.skins.addonSkins.bw.normalBar
+	local db = emphasized and E.private.mui.skins.addonSkins.bw.emphasizedBar
+		or E.private.mui.skins.addonSkins.bw.normalBar
 
 	E:SetSmoothing(frame.candyBarBar, db.smooth)
 
@@ -93,8 +93,11 @@ local function modifyStyle(frame)
 			frame:Set("bigwigs:merathilisui:barcolor", { statusBarTexture:GetVertexColor() })
 		end
 
-		statusBarTexture:SetGradient("HORIZONTAL", F.CreateColorFromTable(db.colorLeft),
-			F.CreateColorFromTable(db.colorRight))
+		statusBarTexture:SetGradient(
+			"HORIZONTAL",
+			F.CreateColorFromTable(db.colorLeft),
+			F.CreateColorFromTable(db.colorRight)
+		)
 	else
 		if barColor then
 			frame.candyBarBar:GetStatusBarTexture():SetVertexColor(unpack(barColor))
@@ -258,22 +261,21 @@ function module:BigWigs_Plugins()
 		return
 	end
 
-	_G.BigWigsAPI:RegisterBarStyle(
-		MER.Title,
-		{
-			apiVersion = 1,
-			version = 1,
-			barSpacing = function(bar) return bar:GetHeight() + 7 end,
-			fontSizeNormal = 13,
-			fontSizeEmphasized = 15,
-			fontOutline = "SHADOWOUTLINE",
-			ApplyStyle = applyStyle,
-			BarStopped = barStopped,
-			GetStyleName = function()
-				return MER.Title
-			end
-		}
-	)
+	_G.BigWigsAPI:RegisterBarStyle(MER.Title, {
+		apiVersion = 1,
+		version = 1,
+		barSpacing = function(bar)
+			return bar:GetHeight() + 7
+		end,
+		fontSizeNormal = 13,
+		fontSizeEmphasized = 15,
+		fontOutline = "SHADOWOUTLINE",
+		ApplyStyle = applyStyle,
+		BarStopped = barStopped,
+		GetStyleName = function()
+			return MER.Title
+		end,
+	})
 end
 
 function module:BigWigs_QueueTimer()
@@ -294,8 +296,11 @@ function module:BigWigs_QueueTimer()
 
 				local statusBarTexture = frame:GetStatusBarTexture()
 				statusBarTexture:SetTexture(E.media.normTex)
-				statusBarTexture:SetGradient("HORIZONTAL", F.CreateColorFromTable(db.colorLeft),
-					F.CreateColorFromTable(db.colorRight))
+				statusBarTexture:SetGradient(
+					"HORIZONTAL",
+					F.CreateColorFromTable(db.colorLeft),
+					F.CreateColorFromTable(db.colorRight)
+				)
 
 				if db.spark then
 					frame.spark = frame:CreateTexture(nil, "ARTWORK", nil, 1)

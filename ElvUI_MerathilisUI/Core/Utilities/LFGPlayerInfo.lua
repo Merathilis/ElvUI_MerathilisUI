@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local format = format
 local gsub = gsub
@@ -31,7 +31,7 @@ F.Developer.InjectLogger(U)
 local roleOrder = {
 	[1] = "TANK",
 	[2] = "HEALER",
-	[3] = "DAMAGER"
+	[3] = "DAMAGER",
 }
 
 function U.GetRoleOrder()
@@ -41,7 +41,7 @@ end
 local coloredRoleName = {
 	TANK = "|cff00a8ff" .. L["Tank"] .. "|r",
 	HEALER = "|cff2ecc71" .. L["Healer"] .. "|r",
-	DAMAGER = "|cffe74c3c" .. L["DPS"] .. "|r"
+	DAMAGER = "|cffe74c3c" .. L["DPS"] .. "|r",
 }
 
 function U.GetColoredRoleName(role)
@@ -49,8 +49,8 @@ function U.GetColoredRoleName(role)
 end
 
 local classIconStyle = "flat"
-local classFileToID = {}           -- { ["WARRIOR"] = 1 }
-local localizedSpecNameToID = {}   -- { ["Protection"] = 73 }
+local classFileToID = {} -- { ["WARRIOR"] = 1 }
+local localizedSpecNameToID = {} -- { ["Protection"] = 73 }
 local localizedSpecNameToIcon = {} -- { ["Protection"] = "Interface\\Icons\\ability_warrior_defensivestance" }
 
 for classID = 1, 13 do
@@ -90,7 +90,7 @@ function U.cache:Clear()
 	for _, role in ipairs(roleOrder) do
 		self[role] = {
 			totalAmount = 0,
-			playerList = {}
+			playerList = {},
 		}
 	end
 end
@@ -159,174 +159,124 @@ function U:Conduct(template, role, class, spec, amount)
 	local result = template
 
 	-- {{classIcon}}
-	result =
-		gsub(
-			result,
-			"{{classIcon:([0-9,]-)}}",
-			function(sub)
-				if not class then
-					self:Log("warning", "className not found, class is not given.")
-					return ""
-				end
+	result = gsub(result, "{{classIcon:([0-9,]-)}}", function(sub)
+		if not class then
+			self:Log("warning", "className not found, class is not given.")
+			return ""
+		end
 
-				local size = { strsplit(",", sub) }
-				local height = size[1] and size[1] ~= "" and tonumber(size[1]) or 14
-				local width = size[2] and size[2] ~= "" and tonumber(size[2]) or height
+		local size = { strsplit(",", sub) }
+		local height = size[1] and size[1] ~= "" and tonumber(size[1]) or 14
+		local width = size[2] and size[2] ~= "" and tonumber(size[2]) or height
 
-				return F.GetClassIconStringWithStyle(class, classIconStyle, width, height)
-			end
-		)
+		return F.GetClassIconStringWithStyle(class, classIconStyle, width, height)
+	end)
 
 	-- {{className}}
-	result =
-		gsub(
-			result,
-			"{{className}}",
-			function(sub)
-				if not class then
-					self:Log("warning", "className not found, class is not given.")
-					return ""
-				end
+	result = gsub(result, "{{className}}", function(sub)
+		if not class then
+			self:Log("warning", "className not found, class is not given.")
+			return ""
+		end
 
-				return LOCALIZED_CLASS_NAMES_MALE[class]
-			end
-		)
+		return LOCALIZED_CLASS_NAMES_MALE[class]
+	end)
 
 	-- {{classId}}
-	result =
-		gsub(
-			result,
-			"{{classId}}",
-			function(sub)
-				if not class then
-					self:Log("warning", "classId not found, class is not given.")
-					return ""
-				end
+	result = gsub(result, "{{classId}}", function(sub)
+		if not class then
+			self:Log("warning", "classId not found, class is not given.")
+			return ""
+		end
 
-				local classID = classFileToID[class]
+		local classID = classFileToID[class]
 
-				return classID or ""
-			end
-		)
+		return classID or ""
+	end)
 
 	-- {{specIcon}}
-	result =
-		gsub(
-			result,
-			"{{specIcon:([0-9,]-)}}",
-			function(sub)
-				if not spec then
-					self:Log("warning", "specIcon not found, spec is not given.")
-					return ""
-				end
+	result = gsub(result, "{{specIcon:([0-9,]-)}}", function(sub)
+		if not spec then
+			self:Log("warning", "specIcon not found, spec is not given.")
+			return ""
+		end
 
-				if spec == "Initial" then
-					return ""
-				end
+		if spec == "Initial" then
+			return ""
+		end
 
-				local icon = localizedSpecNameToIcon[class] and localizedSpecNameToIcon[class][spec]
+		local icon = localizedSpecNameToIcon[class] and localizedSpecNameToIcon[class][spec]
 
-				local size = { strsplit(",", sub) }
-				local height = size[1] and size[1] ~= "" and tonumber(size[1]) or 14
-				local width = size[2] and size[2] ~= "" and tonumber(size[2]) or height
+		local size = { strsplit(",", sub) }
+		local height = size[1] and size[1] ~= "" and tonumber(size[1]) or 14
+		local width = size[2] and size[2] ~= "" and tonumber(size[2]) or height
 
-				return icon and F.GetIconString(icon, height, width, true) or ""
-			end
-		)
+		return icon and F.GetIconString(icon, height, width, true) or ""
+	end)
 
 	-- {{specName}}
-	result =
-		gsub(
-			result,
-			"{{specName}}",
-			function(sub)
-				if not spec then
-					self:Log("warning", "specName not found, spec is not given.")
-					return ""
-				end
+	result = gsub(result, "{{specName}}", function(sub)
+		if not spec then
+			self:Log("warning", "specName not found, spec is not given.")
+			return ""
+		end
 
-				return spec
-			end
-		)
+		return spec
+	end)
 
 	-- {{specId}}
-	result =
-		gsub(
-			result,
-			"{{specId}}",
-			function(sub)
-				if not class then
-					self:Log("warning", "specId not found, spec is not given.")
-					return ""
-				end
+	result = gsub(result, "{{specId}}", function(sub)
+		if not class then
+			self:Log("warning", "specId not found, spec is not given.")
+			return ""
+		end
 
-				local specID = localizedSpecNameToID[class] and localizedSpecNameToID[class][spec]
+		local specID = localizedSpecNameToID[class] and localizedSpecNameToID[class][spec]
 
-				return specID or ""
-			end
-		)
+		return specID or ""
+	end)
 
 	-- {{classColorStart}} ... {{classColorEnd}}
-	result =
-		gsub(
-			result,
-			"{{classColorStart}}(.-){{classColorEnd}}",
-			function(sub)
-				if not class then
-					self:Log("warning", "className not found, class is not given.")
-					return ""
-				end
+	result = gsub(result, "{{classColorStart}}(.-){{classColorEnd}}", function(sub)
+		if not class then
+			self:Log("warning", "className not found, class is not given.")
+			return ""
+		end
 
-				return F.CreateClassColorString(sub, class)
-			end
-		)
+		return F.CreateClassColorString(sub, class)
+	end)
 
 	-- {{amountStart}} ... {{amountEnd}}
-	result =
-		gsub(
-			result,
-			"{{amountStart}}(.-){{amountEnd}}",
-			function(sub)
-				if amount <= 1 then -- should not show amount if the amount is only one
-					return ""
-				else
-					-- {{amount}}
-					if not amount then
-						self:Log("warning", "amount not found, amount is not given.")
-						return ""
-					end
-					return gsub(sub, "{{amount}}", tostring(amount))
-				end
+	result = gsub(result, "{{amountStart}}(.-){{amountEnd}}", function(sub)
+		if amount <= 1 then -- should not show amount if the amount is only one
+			return ""
+		else
+			-- {{amount}}
+			if not amount then
+				self:Log("warning", "amount not found, amount is not given.")
+				return ""
 			end
-		)
+			return gsub(sub, "{{amount}}", tostring(amount))
+		end
+	end)
 
 	-- {{amount}}
-	result =
-		gsub(
-			result,
-			"{{amount}}",
-			function()
-				if not amount then
-					self:Log("warning", "amount not found, amount is not given.")
-					return ""
-				end
-				return tostring(amount)
-			end
-		)
+	result = gsub(result, "{{amount}}", function()
+		if not amount then
+			self:Log("warning", "amount not found, amount is not given.")
+			return ""
+		end
+		return tostring(amount)
+	end)
 
 	-- {{classColorStart}} ... {{classColorEnd}}
-	result =
-		gsub(
-			result,
-			"{{classColorStart}}(.-){{classColorEnd}}",
-			function(sub)
-				if not class then
-					self:Log("warning", "className not found, class is not given.")
-					return ""
-				end
-				return F.CreateClassColorString(sub, class)
-			end
-		)
+	result = gsub(result, "{{classColorStart}}(.-){{classColorEnd}}", function(sub)
+		if not class then
+			self:Log("warning", "className not found, class is not given.")
+			return ""
+		end
+		return F.CreateClassColorString(sub, class)
+	end)
 
 	return result
 end

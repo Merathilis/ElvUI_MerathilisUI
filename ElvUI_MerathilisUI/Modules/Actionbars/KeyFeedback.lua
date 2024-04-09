@@ -1,14 +1,14 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local S = MER:GetModule("MER_Skins")
 
 -- Credits: FreeUI (andromeda)
 
-local keyFeedback = CreateFrame('Frame', MER.Title .. 'KeyFeedback', E.UIParent)
-keyFeedback:SetScript('OnEvent', function(self, event, ...)
+local keyFeedback = CreateFrame("Frame", MER.Title .. "KeyFeedback", E.UIParent)
+keyFeedback:SetScript("OnEvent", function(self, event, ...)
 	return self[event](self, event, ...)
 end)
 
-keyFeedback:RegisterEvent('PLAYER_LOGIN')
+keyFeedback:RegisterEvent("PLAYER_LOGIN")
 
 function keyFeedback:PLAYER_LOGIN()
 	if not E.db.mui.actionbars.keyfeedback then
@@ -31,9 +31,9 @@ function keyFeedback:PLAYER_LOGIN()
 
 	local GetActionSpellID = function(action)
 		local actionType, id, subType = GetActionInfo(action)
-		if actionType == 'spell' then
+		if actionType == "spell" then
 			return id
-		elseif actionType == 'macro' then
+		elseif actionType == "macro" then
 			return GetMacroSpell(id)
 		end
 	end
@@ -67,7 +67,12 @@ function keyFeedback:PLAYER_LOGIN()
 		local cooldownFrame = self.cooldown
 		local castDuration = self.castDuration or 0
 
-		if keyFeedback.db.enableCast and self.castSpellID and self.castSpellID == GetActionSpellID(action) and castDuration > cooldownDuration then
+		if
+			keyFeedback.db.enableCast
+			and self.castSpellID
+			and self.castSpellID == GetActionSpellID(action)
+			and castDuration > cooldownDuration
+		then
 			cooldownFrame:SetDrawEdge(true)
 			cooldownFrame:SetReverse(self.castInverted)
 			CooldownFrame_Set(cooldownFrame, self.castStartTime, castDuration, true, true, 1)
@@ -81,10 +86,11 @@ function keyFeedback:PLAYER_LOGIN()
 	end
 
 	self:SetSize(30, 30)
-	self:SetPoint('CENTER', _G.UIParent, 0, -270)
+	self:SetPoint("CENTER", _G.UIParent, 0, -270)
 
-	E:CreateMover(self, "SpellFeedback", L["SpellFeedback"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI",
-		function() return E.db.mui.actionbars.keyfeedback end, "mui,modules,actionbars")
+	E:CreateMover(self, "SpellFeedback", L["SpellFeedback"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function()
+		return E.db.mui.actionbars.keyfeedback
+	end, "mui,modules,actionbars")
 	self:RefreshSettings()
 end
 
@@ -164,7 +170,7 @@ local MirrorActionButtonDown = function(action)
 	mirror:SetAlpha(1)
 	mirror:BumpFadeOut()
 	mirror.pushed = true
-	if mirror:GetButtonState() == 'NORMAL' then
+	if mirror:GetButtonState() == "NORMAL" then
 		if mirror.pushedCircle then
 			if mirror.pushedCircle.grow:IsPlaying() then
 				mirror.pushedCircle.grow:Stop()
@@ -172,36 +178,36 @@ local MirrorActionButtonDown = function(action)
 			mirror.pushedCircle:Show()
 			mirror.pushedCircle.grow:Play()
 		end
-		mirror:SetButtonState('PUSHED')
+		mirror:SetButtonState("PUSHED")
 	end
 end
 
 local MirrorActionButtonUp = function()
 	local mirror = keyFeedback.mirror
 
-	if mirror:GetButtonState() == 'PUSHED' then
-		mirror:SetButtonState('NORMAL')
+	if mirror:GetButtonState() == "PUSHED" then
+		mirror:SetButtonState("NORMAL")
 	end
 end
 
 function keyFeedback:HookDefaultBindings()
 	local GetActionButtonForID = _G.GetActionButtonForID
-	hooksecurefunc('ActionButtonDown', function(id)
+	hooksecurefunc("ActionButtonDown", function(id)
 		local button = GetActionButtonForID(id)
 		if button then
 			return MirrorActionButtonDown(button.action)
 		end
 	end)
-	hooksecurefunc('ActionButtonUp', MirrorActionButtonUp)
-	hooksecurefunc('MultiActionButtonDown', function(bar, id)
-		local button = _G[bar .. 'Button' .. id]
+	hooksecurefunc("ActionButtonUp", MirrorActionButtonUp)
+	hooksecurefunc("MultiActionButtonDown", function(bar, id)
+		local button = _G[bar .. "Button" .. id]
 		return MirrorActionButtonDown(button.action)
 	end)
-	hooksecurefunc('MultiActionButtonUp', MirrorActionButtonUp)
+	hooksecurefunc("MultiActionButtonUp", MirrorActionButtonUp)
 end
 
 function keyFeedback:HookUseAction()
-	hooksecurefunc('UseAction', function(action)
+	hooksecurefunc("UseAction", function(action)
 		return MirrorActionButtonDown(action)
 	end)
 end
@@ -236,7 +242,7 @@ function keyFeedback:RefreshSettings()
 
 	self.mirror:SetSize(db.mirrorSize, db.mirrorSize)
 
-	self:RegisterUnitEvent('UNIT_SPELLCAST_SUCCEEDED', 'player')
+	self:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
 	if db.enableCastLine then
 		if not self.iconPool then
 			self.iconPool = self:CreateLastSpellIconLine(self.mirror)
@@ -252,36 +258,36 @@ function keyFeedback:RefreshSettings()
 	end
 
 	if db.enableCooldown then
-		self:RegisterEvent('SPELL_UPDATE_COOLDOWN')
+		self:RegisterEvent("SPELL_UPDATE_COOLDOWN")
 	else
-		self:UnregisterEvent('SPELL_UPDATE_COOLDOWN')
+		self:UnregisterEvent("SPELL_UPDATE_COOLDOWN")
 	end
 
 	if db.enableCast then
-		self:RegisterUnitEvent('UNIT_SPELLCAST_START', 'player')
-		self:RegisterUnitEvent('UNIT_SPELLCAST_DELAYED', 'player')
-		self:RegisterUnitEvent('UNIT_SPELLCAST_STOP', 'player')
-		self:RegisterUnitEvent('UNIT_SPELLCAST_FAILED', 'player')
-		self:RegisterUnitEvent('UNIT_SPELLCAST_INTERRUPTED', 'player')
-		self:RegisterUnitEvent('UNIT_SPELLCAST_CHANNEL_START', 'player')
-		self:RegisterUnitEvent('UNIT_SPELLCAST_CHANNEL_UPDATE', 'player')
-		self:RegisterUnitEvent('UNIT_SPELLCAST_CHANNEL_STOP', 'player')
+		self:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
+		self:RegisterUnitEvent("UNIT_SPELLCAST_DELAYED", "player")
+		self:RegisterUnitEvent("UNIT_SPELLCAST_STOP", "player")
+		self:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
+		self:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
+		self:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_START", "player")
+		self:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_UPDATE", "player")
+		self:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_STOP", "player")
 	else
-		self:UnregisterEvent('UNIT_SPELLCAST_START')
-		self:UnregisterEvent('UNIT_SPELLCAST_DELAYED')
-		self:UnregisterEvent('UNIT_SPELLCAST_STOP')
-		self:UnregisterEvent('UNIT_SPELLCAST_FAILED')
-		self:UnregisterEvent('UNIT_SPELLCAST_INTERRUPTED')
-		self:UnregisterEvent('UNIT_SPELLCAST_CHANNEL_START')
-		self:UnregisterEvent('UNIT_SPELLCAST_CHANNEL_UPDATE')
-		self:UnregisterEvent('UNIT_SPELLCAST_CHANNEL_STOP')
+		self:UnregisterEvent("UNIT_SPELLCAST_START")
+		self:UnregisterEvent("UNIT_SPELLCAST_DELAYED")
+		self:UnregisterEvent("UNIT_SPELLCAST_STOP")
+		self:UnregisterEvent("UNIT_SPELLCAST_FAILED")
+		self:UnregisterEvent("UNIT_SPELLCAST_INTERRUPTED")
+		self:UnregisterEvent("UNIT_SPELLCAST_CHANNEL_START")
+		self:UnregisterEvent("UNIT_SPELLCAST_CHANNEL_UPDATE")
+		self:UnregisterEvent("UNIT_SPELLCAST_CHANNEL_STOP")
 	end
 end
 
 function keyFeedback:CreateFeedbackButton(autoKeyup)
 	local db = self.db
 
-	local mirror = CreateFrame('Button', MER.Title .. 'KeyFeedbackMirror', self, 'ActionButtonTemplate')
+	local mirror = CreateFrame("Button", MER.Title .. "KeyFeedbackMirror", self, "ActionButtonTemplate")
 	mirror:SetHeight(db.mirrorSize or 32)
 	mirror:SetWidth(db.mirrorSize or 32)
 	mirror.NormalTexture:ClearAllPoints()
@@ -294,7 +300,7 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 		mirror:SetPushedTexture(0)
 	end
 
-	mirror.cooldown:SetEdgeTexture('Interface\\Cooldown\\edge')
+	mirror.cooldown:SetEdgeTexture("Interface\\Cooldown\\edge")
 	mirror.cooldown:SetSwipeColor(0, 0, 0)
 	mirror.cooldown:SetHideCountdownNumbers(false)
 	mirror.cooldown:SetAllPoints(mirror)
@@ -302,10 +308,10 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 	mirror:Show()
 	mirror._elapsed = 0
 
-	local glow = CreateFrame('Frame', nil, mirror)
-	glow:SetPoint('TOPLEFT', -16, 16)
-	glow:SetPoint('BOTTOMRIGHT', 16, -16)
-	local gtex = glow:CreateTexture(nil, 'OVERLAY')
+	local glow = CreateFrame("Frame", nil, mirror)
+	glow:SetPoint("TOPLEFT", -16, 16)
+	glow:SetPoint("BOTTOMRIGHT", 16, -16)
+	local gtex = glow:CreateTexture(nil, "OVERLAY")
 	gtex:SetTexture([[Interface\SpellActivationOverlay\IconAlert]])
 	gtex:SetTexCoord(0, 66 / 128, 136 / 256, 202 / 256)
 	gtex:SetVertexColor(0, 1, 0)
@@ -322,25 +328,25 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 	-- a1:SetDuration(0.14)
 	-- a1:SetOrder(1)
 
-	local a2 = ag:CreateAnimation('Alpha')
+	local a2 = ag:CreateAnimation("Alpha")
 	a2:SetFromAlpha(1)
 	a2:SetToAlpha(0)
-	a2:SetSmoothing('OUT')
+	a2:SetSmoothing("OUT")
 	a2:SetDuration(0.3)
 	a2:SetOrder(2)
 
-	ag:SetScript('OnFinished', function(self)
+	ag:SetScript("OnFinished", function(self)
 		self:GetParent():Hide()
 	end)
 
 	if db.enablePushEffect then
-		local pushedCircle = CreateFrame('Frame', nil, mirror)
+		local pushedCircle = CreateFrame("Frame", nil, mirror)
 		local size = db.mirrorSize
 		pushedCircle:SetSize(size, size)
-		pushedCircle:SetPoint('CENTER', 0, 0)
-		local pctex = pushedCircle:CreateTexture(nil, 'OVERLAY')
-		pctex:SetTexture(MER.Media.Textures.Pushed)
-		pctex:SetBlendMode('ADD')
+		pushedCircle:SetPoint("CENTER", 0, 0)
+		local pctex = pushedCircle:CreateTexture(nil, "OVERLAY")
+		pctex:SetTexture(I.Media.Textures.Pushed)
+		pctex:SetBlendMode("ADD")
 		pctex:SetAllPoints(pushedCircle)
 		mirror.pushedCircle = pushedCircle
 		pushedCircle:Hide()
@@ -348,13 +354,13 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 		local gag = pushedCircle:CreateAnimationGroup()
 		pushedCircle.grow = gag
 
-		local ga1 = gag:CreateAnimation('Scale')
+		local ga1 = gag:CreateAnimation("Scale")
 		ga1:SetScaleFrom(0.1, 0.1)
 		ga1:SetScaleTo(1.3, 1.3)
 		ga1:SetDuration(0.3)
 		ga1:SetOrder(2)
 
-		local ga2 = gag:CreateAnimation('Alpha')
+		local ga2 = gag:CreateAnimation("Alpha")
 		ga2:SetFromAlpha(0.5)
 		ga2:SetToAlpha(0)
 		-- ga2:SetSmoothing("OUT")
@@ -362,7 +368,7 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 		ga2:SetStartDelay(0.1)
 		ga2:SetOrder(2)
 
-		gag:SetScript('OnFinished', function(self)
+		gag:SetScript("OnFinished", function(self)
 			self:GetParent():Hide()
 		end)
 	end
@@ -375,13 +381,13 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 	end
 
 	if autoKeyup then
-		mirror:SetScript('OnUpdate', function(self, elapsed)
+		mirror:SetScript("OnUpdate", function(self, elapsed)
 			self._elapsed = self._elapsed + elapsed
 
 			local timePassed = self._elapsed
 
 			if timePassed >= 0.1 and self.pushed then
-				mirror:SetButtonState('NORMAL')
+				mirror:SetButtonState("NORMAL")
 				self.pushed = false
 			end
 
@@ -395,7 +401,7 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 			end
 		end)
 	else
-		mirror:SetScript('OnUpdate', function(self, elapsed)
+		mirror:SetScript("OnUpdate", function(self, elapsed)
 			self._elapsed = self._elapsed + elapsed
 
 			local timePassed = self._elapsed
@@ -412,7 +418,7 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 
 	mirror:EnableMouse(false)
 
-	mirror:SetPoint('CENTER', self, 'CENTER')
+	mirror:SetPoint("CENTER", self, "CENTER")
 
 	mirror:Hide()
 
@@ -425,7 +431,7 @@ local PoolIconCreationFunc = function(pool)
 	local hdr = pool.parent
 	local id = pool.idCounter
 	pool.idCounter = pool.idCounter + 1
-	local f = CreateFrame('Button', MER.Title .. 'KeyFeedbackPoolIcon' .. id, hdr, 'ActionButtonTemplate')
+	local f = CreateFrame("Button", MER.Title .. "KeyFeedbackPoolIcon" .. id, hdr, "ActionButtonTemplate")
 
 	if f.SetNormalTexture then
 		f:SetNormalTexture(0)
@@ -438,50 +444,50 @@ local PoolIconCreationFunc = function(pool)
 	f:EnableMouse(false)
 	f:SetHeight(db.lineIconSize or 28)
 	f:SetWidth(db.lineIconSize or 28)
-	f:SetPoint('BOTTOM', hdr, 'BOTTOM', 0, -0)
+	f:SetPoint("BOTTOM", hdr, "BOTTOM", 0, -0)
 
 	local t = f.icon
 	f:SetAlpha(0)
 
-	t:SetTexture('Interface\\Icons\\Spell_Shadow_SacrificialShield')
+	t:SetTexture("Interface\\Icons\\Spell_Shadow_SacrificialShield")
 	t:SetTexCoord(unpack(E.TexCoords))
 
 	local ag = f:CreateAnimationGroup()
 	f.ag = ag
 
-	local scaleOrigin = 'RIGHT'
+	local scaleOrigin = "RIGHT"
 	local translateX = -100
 	local translateY = 0
 
-	local s1 = ag:CreateAnimation('Scale')
+	local s1 = ag:CreateAnimation("Scale")
 	s1:SetScale(0.01, 1)
 	s1:SetDuration(0)
 	s1:SetOrigin(scaleOrigin, 0, 0)
 	s1:SetOrder(1)
 
-	local s2 = ag:CreateAnimation('Scale')
+	local s2 = ag:CreateAnimation("Scale")
 	s2:SetScale(100, 1)
 	s2:SetDuration(0.5)
 	s2:SetOrigin(scaleOrigin, 0, 0)
-	s2:SetSmoothing('OUT')
+	s2:SetSmoothing("OUT")
 	s2:SetOrder(2)
 
-	local a1 = ag:CreateAnimation('Alpha')
+	local a1 = ag:CreateAnimation("Alpha")
 	a1:SetFromAlpha(0)
 	a1:SetToAlpha(1)
 	a1:SetDuration(0.1)
 	a1:SetOrder(2)
 
-	local t1 = ag:CreateAnimation('Translation')
+	local t1 = ag:CreateAnimation("Translation")
 	t1:SetOffset(translateX, translateY)
 	t1:SetDuration(1.2)
-	t1:SetSmoothing('IN')
+	t1:SetSmoothing("IN")
 	t1:SetOrder(2)
 
-	local a2 = ag:CreateAnimation('Alpha')
+	local a2 = ag:CreateAnimation("Alpha")
 	a2:SetFromAlpha(1)
 	a2:SetToAlpha(0)
-	a2:SetSmoothing('OUT')
+	a2:SetSmoothing("OUT")
 	a2:SetDuration(0.5)
 	a2:SetStartDelay(0.6)
 	a2:SetOrder(2)
@@ -490,7 +496,7 @@ local PoolIconCreationFunc = function(pool)
 	ag.s2 = s2
 	ag.t1 = t1
 
-	ag:SetScript('OnFinished', function(self)
+	ag:SetScript("OnFinished", function(self)
 		local icon = self:GetParent()
 		icon:Hide()
 		pool:Release(icon)
@@ -508,24 +514,24 @@ local function PoolIconResetterFunc(pool, f)
 	f.ag:Stop()
 
 	local scaleOrigin, revOrigin, translateX, translateY
-	if db.lineDirection == 'RIGHT' then
-		scaleOrigin = 'LEFT'
-		revOrigin = 'RIGHT'
+	if db.lineDirection == "RIGHT" then
+		scaleOrigin = "LEFT"
+		revOrigin = "RIGHT"
 		translateX = 100
 		translateY = 0
-	elseif db.lineDirection == 'TOP' then
-		scaleOrigin = 'BOTTOM'
-		revOrigin = 'TOP'
+	elseif db.lineDirection == "TOP" then
+		scaleOrigin = "BOTTOM"
+		revOrigin = "TOP"
 		translateX = 0
 		translateY = 100
-	elseif db.lineDirection == 'BOTTOM' then
-		scaleOrigin = 'TOP'
-		revOrigin = 'BOTTOM'
+	elseif db.lineDirection == "BOTTOM" then
+		scaleOrigin = "TOP"
+		revOrigin = "BOTTOM"
 		translateX = 0
 		translateY = -100
 	else
-		scaleOrigin = 'RIGHT'
-		revOrigin = 'LEFT'
+		scaleOrigin = "RIGHT"
+		revOrigin = "LEFT"
 		translateX = -100
 		translateY = 0
 	end
@@ -543,7 +549,7 @@ end
 function keyFeedback:CreateLastSpellIconLine(parent)
 	local template = nil
 	local resetterFunc = PoolIconResetterFunc
-	local iconPool = CreateFramePool('Frame', parent, template, resetterFunc)
+	local iconPool = CreateFramePool("Frame", parent, template, resetterFunc)
 	iconPool.creationFunc = PoolIconCreationFunc
 	iconPool.resetterFunc = PoolIconResetterFunc
 	iconPool.idCounter = 1

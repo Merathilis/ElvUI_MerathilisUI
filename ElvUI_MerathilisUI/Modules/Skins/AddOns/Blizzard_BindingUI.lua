@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -16,7 +16,7 @@ local function StyleBindingButton(bu)
 	selected:SetTexture(E["media"].normTex)
 	selected:SetPoint("TOPLEFT", 1, -1)
 	selected:SetPoint("BOTTOMRIGHT", -1, 1)
-	selected:SetColorTexture(r, g, b, .2)
+	selected:SetColorTexture(r, g, b, 0.2)
 end
 
 function module:Blizzard_BindingUI()
@@ -39,7 +39,7 @@ function module:Blizzard_BindingUI()
 	local line = _G.KeyBindingFrame:CreateTexture(nil, "ARTWORK")
 	line:SetSize(1, 546)
 	line:SetPoint("LEFT", 205, 10)
-	line:SetColorTexture(1, 1, 1, .2)
+	line:SetColorTexture(1, 1, 1, 0.2)
 end
 
 module:AddCallbackForAddon("Blizzard_BindingUI")

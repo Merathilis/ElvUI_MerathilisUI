@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
+local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs, select = pairs, select
@@ -45,7 +45,7 @@ function module:LFGList()
 
 		if bu then
 			if not bu.__MERSkin then
-				bu.Icon:SetTexCoord(.01, .99, .01, .99)
+				bu.Icon:SetTexCoord(0.01, 0.99, 0.01, 0.99)
 				module:CreateGradient(bu)
 				bu.__MERSkin = true
 			end
@@ -97,11 +97,11 @@ function module:LFGList()
 			local hl = result:CreateTexture(nil, "BACKGROUND")
 			hl:SetAllPoints()
 			hl:SetTexture(E["media"].normTex)
-			hl:SetVertexColor(r, g, b, .2)
+			hl:SetVertexColor(r, g, b, 0.2)
 			hl:Hide()
 			result.hl = hl
 
-			result:CreateBackdrop('Transparent')
+			result:CreateBackdrop("Transparent")
 
 			result:HookScript("OnEnter", ResultOnEnter)
 			result:HookScript("OnLeave", ResultOnLeave)
@@ -129,11 +129,11 @@ function module:LFGList()
 		local hl = header:CreateTexture(nil, "BACKGROUND")
 		hl:SetAllPoints()
 		hl:SetTexture(E["media"].normTex)
-		hl:SetVertexColor(r, g, b, .2)
+		hl:SetVertexColor(r, g, b, 0.2)
 		hl:Hide()
 		header.hl = hl
 
-		header:CreateBackdrop('Transparent')
+		header:CreateBackdrop("Transparent")
 
 		header:HookScript("OnEnter", HeaderOnEnter)
 		header:HookScript("OnLeave", HeaderOnLeave)
@@ -161,8 +161,8 @@ function module:LFGList()
 		select(i, ActivityFinder.Dialog.BorderFrame:GetRegions()):Hide()
 	end
 
-	ActivityFinder.Dialog:CreateBackdrop('Transparent')
-	ActivityFinder.Dialog:SetBackdropColor(.2, .2, .2, .9)
+	ActivityFinder.Dialog:CreateBackdrop("Transparent")
+	ActivityFinder.Dialog:SetBackdropColor(0.2, 0.2, 0.2, 0.9)
 
 	-- Application dialog ]]
 	local LFGListApplicationDialog = _G.LFGListApplicationDialog
@@ -171,12 +171,12 @@ function module:LFGList()
 		select(i, LFGListApplicationDialog.Description:GetRegions()):Hide()
 	end
 
-	LFGListApplicationDialog:CreateBackdrop('Transparent')
-	LFGListApplicationDialog.Description:CreateBackdrop('Transparent')
+	LFGListApplicationDialog:CreateBackdrop("Transparent")
+	LFGListApplicationDialog.Description:CreateBackdrop("Transparent")
 
 	-- [[ Invite dialog ]]
 	local LFGListInviteDialog = _G.LFGListInviteDialog
-	LFGListInviteDialog:CreateBackdrop('Transparent')
+	LFGListInviteDialog:CreateBackdrop("Transparent")
 end
 
 module:AddCallback("LFGList")

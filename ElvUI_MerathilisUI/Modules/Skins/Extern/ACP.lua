@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 
@@ -23,7 +23,7 @@ function module:ACP()
 		return
 	end
 
-	module:DisableAddOnSkins('ACP', false)
+	module:DisableAddOnSkins("ACP", false)
 
 	S:HandleFrame(_G.ACP_AddonList, true, nil, 10, nil, -30)
 	S:HandleFrame(_G.ACP_AddonList_ScrollFrame)
@@ -48,7 +48,7 @@ function module:ACP()
 
 	_G.ACP_AddonListBottomClose:SetPoint("BOTTOMRIGHT", _G.ACP_AddonList, "BOTTOMRIGHT", -74, 20)
 
-	hooksecurefunc(_G.ACP, 'AddonList_OnShow_Fast', cbResize)
+	hooksecurefunc(_G.ACP, "AddonList_OnShow_Fast", cbResize)
 end
 
-module:AddCallbackForAddon('ACP')
+module:AddCallbackForAddon("ACP")

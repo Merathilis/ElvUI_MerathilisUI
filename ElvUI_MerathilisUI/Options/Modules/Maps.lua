@@ -1,10 +1,10 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local MM = MER:GetModule('MER_Minimap')
-local MP = MER:GetModule('MER_MiniMapPing')
-local SMB = MER:GetModule('MER_MiniMapButtons')
-local RM = MER:GetModule('MER_RectangleMinimap')
-local WM = MER:GetModule('MER_WorldMap')
-local ET = MER:GetModule('MER_EventTracker')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MM = MER:GetModule("MER_Minimap")
+local MP = MER:GetModule("MER_MiniMapPing")
+local SMB = MER:GetModule("MER_MiniMapButtons")
+local RM = MER:GetModule("MER_RectangleMinimap")
+local WM = MER:GetModule("MER_WorldMap")
+local ET = MER:GetModule("MER_EventTracker")
 local options = MER.options.modules.args
 local LSM = E.LSM
 
@@ -14,23 +14,28 @@ local format = string.format
 local envs = {
 	superTracker = {
 		inputCommand = nil,
-		selectedCommand = nil
-	}
+		selectedCommand = nil,
+	},
 }
 
 options.maps = {
 	type = "group",
 	name = L["Maps"],
-	get = function(info) return E.db.mui.maps.minimap[info[#info]] end,
-	set = function(info, value)
-		E.db.mui.maps.minimap[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+	get = function(info)
+		return E.db.mui.maps.minimap[info[#info]]
 	end,
-	disabled = function() return not E.private.general.minimap.enable end,
+	set = function(info, value)
+		E.db.mui.maps.minimap[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
+	end,
+	disabled = function()
+		return not E.private.general.minimap.enable
+	end,
 	args = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["Maps"], 'orange'),
+			name = F.cOption(L["Maps"], "orange"),
 		},
 		general = {
 			order = 2,
@@ -49,9 +54,12 @@ options.maps = {
 			order = 4,
 			type = "group",
 			name = L["World Map"],
-			get = function(info) return E.db.mui.maps.worldMap[info[#info]] end,
+			get = function(info)
+				return E.db.mui.maps.worldMap[info[#info]]
+			end,
 			set = function(info, value)
-				E.db.mui.maps.worldMap[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL");
+				E.db.mui.maps.worldMap[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
 				desc = {
@@ -73,14 +81,14 @@ options.maps = {
 									return L["This module will help you to reveal and resize maps."]
 								end
 							end,
-							fontSize = "medium"
-						}
-					}
+							fontSize = "medium",
+						},
+					},
 				},
 				enable = {
 					order = 2,
 					type = "toggle",
-					name = L["Enable"]
+					name = L["Enable"],
 				},
 				reveal = {
 					order = 3,
@@ -99,7 +107,7 @@ options.maps = {
 							order = 1,
 							type = "toggle",
 							name = L["Enable"],
-							desc = L["Remove Fog of War from your world map."]
+							desc = L["Remove Fog of War from your world map."],
 						},
 						useColor = {
 							order = 2,
@@ -108,7 +116,7 @@ options.maps = {
 							disabled = function()
 								return not E.db.mui.maps.worldMap.reveal.enable
 							end,
-							desc = L["Style Fog of War with special color."]
+							desc = L["Style Fog of War with special color."],
 						},
 						color = {
 							order = 3,
@@ -116,8 +124,8 @@ options.maps = {
 							hasAlpha = true,
 							name = L["Color"],
 							disabled = function()
-								return not E.db.mui.maps.worldMap.reveal.useColor or
-									not E.db.mui.maps.worldMap.reveal.enable
+								return not E.db.mui.maps.worldMap.reveal.useColor
+									or not E.db.mui.maps.worldMap.reveal.enable
 							end,
 							get = function(info)
 								local db = E.db.mui.maps.worldMap.reveal[info[#info]]
@@ -128,17 +136,20 @@ options.maps = {
 								local db = E.db.mui.maps.worldMap.reveal[info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, a
 								E:StaticPopup_Show("PRIVATE_RL")
-							end
-						}
-					}
+							end,
+						},
+					},
 				},
 				scale = {
 					order = 4,
 					type = "group",
 					name = L["Scale"],
-					get = function(info) return E.db.mui.maps.worldMap.scale[info[#info]] end,
+					get = function(info)
+						return E.db.mui.maps.worldMap.scale[info[#info]]
+					end,
 					set = function(info, value)
-						E.db.mui.maps.worldMap.scale[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL")
+						E.db.mui.maps.worldMap.scale[info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					guiInline = true,
 					args = {
@@ -146,7 +157,7 @@ options.maps = {
 							order = 1,
 							type = "toggle",
 							name = L["Enable"],
-							desc = L["Resize world map."]
+							desc = L["Resize world map."],
 						},
 						size = {
 							order = 2,
@@ -154,7 +165,7 @@ options.maps = {
 							name = L["Size"],
 							min = 0.1,
 							max = 3,
-							step = 0.01
+							step = 0.01,
 						},
 					},
 				},
@@ -164,9 +175,12 @@ options.maps = {
 			order = 4,
 			type = "group",
 			name = L["Minimap Ping"],
-			get = function(info) return E.db.mui.maps.minimap.ping[info[#info]] end,
+			get = function(info)
+				return E.db.mui.maps.minimap.ping[info[#info]]
+			end,
 			set = function(info, value)
-				E.db.mui.maps.minimap.ping[info[#info]] = value; MP:ProfileUpdate();
+				E.db.mui.maps.minimap.ping[info[#info]] = value
+				MP:ProfileUpdate()
 			end,
 			args = {
 				enable = {
@@ -184,14 +198,14 @@ options.maps = {
 						addRealm = {
 							order = 1,
 							type = "toggle",
-							name = L["Add Server Name"]
+							name = L["Add Server Name"],
 						},
 						onlyInCombat = {
 							order = 2,
 							type = "toggle",
-							name = L["Only In Combat"]
-						}
-					}
+							name = L["Only In Combat"],
+						},
+					},
 				},
 				position = {
 					order = 4,
@@ -205,7 +219,7 @@ options.maps = {
 							name = L["X-Offset"],
 							min = -200,
 							max = 200,
-							step = 1
+							step = 1,
 						},
 						yOffset = {
 							order = 2,
@@ -213,9 +227,9 @@ options.maps = {
 							name = L["Y-Offset"],
 							min = -200,
 							max = 200,
-							step = 1
-						}
-					}
+							step = 1,
+						},
+					},
 				},
 				animation = {
 					order = 5,
@@ -230,7 +244,7 @@ options.maps = {
 							desc = L["The time of animation. Set 0 to disable animation."],
 							min = 0,
 							max = 5,
-							step = 0.1
+							step = 0.1,
 						},
 						stayTime = {
 							order = 2,
@@ -239,7 +253,7 @@ options.maps = {
 							desc = L["The time of animation. Set 0 to disable animation."],
 							min = 0,
 							max = 10,
-							step = 0.1
+							step = 0.1,
 						},
 						fadeOutTime = {
 							order = 3,
@@ -248,9 +262,9 @@ options.maps = {
 							desc = L["The time of animation. Set 0 to disable animation."],
 							min = 0,
 							max = 5,
-							step = 0.1
-						}
-					}
+							step = 0.1,
+						},
+					},
 				},
 				color = {
 					order = 6,
@@ -261,7 +275,7 @@ options.maps = {
 						classColor = {
 							order = 1,
 							type = "toggle",
-							name = L["Use Class Color"]
+							name = L["Use Class Color"],
 						},
 						customColor = {
 							order = 2,
@@ -275,9 +289,9 @@ options.maps = {
 							set = function(info, r, g, b, a)
 								local db = E.db.mui.maps.minimap.ping[info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, nil
-							end
-						}
-					}
+							end,
+						},
+					},
 				},
 				font = {
 					order = 7,
@@ -297,7 +311,7 @@ options.maps = {
 							type = "select",
 							dialogControl = "LSM30_Font",
 							name = L["Font"],
-							values = LSM:HashTable("font")
+							values = LSM:HashTable("font"),
 						},
 						style = {
 							order = 2,
@@ -312,7 +326,7 @@ options.maps = {
 							type = "range",
 							min = 5,
 							max = 60,
-							step = 1
+							step = 1,
 						},
 					},
 				},
@@ -340,15 +354,15 @@ options.maps = {
 							order = 1,
 							type = "description",
 							name = L["Change the shape of ElvUI minimap."],
-							fontSize = "medium"
-						}
-					}
+							fontSize = "medium",
+						},
+					},
 				},
 				enable = {
 					order = 2,
 					type = "toggle",
 					name = L["Enable"],
-					width = "full"
+					width = "full",
 				},
 				heightPercentage = {
 					order = 3,
@@ -357,7 +371,7 @@ options.maps = {
 					desc = L["Percentage of ElvUI minimap size."],
 					min = 0.01,
 					max = 1,
-					step = 0.01
+					step = 0.01,
 				},
 			},
 		},
@@ -365,9 +379,12 @@ options.maps = {
 			order = 6,
 			type = "group",
 			name = L["Minimap Buttons"],
-			get = function(info) return E.db.mui.smb[info[#info]] end,
+			get = function(info)
+				return E.db.mui.smb[info[#info]]
+			end,
 			set = function(info, value)
-				E.db.mui.smb[info[#info]] = value; SMB:Update()
+				E.db.mui.smb[info[#info]] = value
+				SMB:Update()
 			end,
 			args = {
 				desc = {
@@ -380,9 +397,9 @@ options.maps = {
 							order = 1,
 							type = "description",
 							name = L["Add an extra bar to collect minimap buttons."],
-							fontSize = "medium"
-						}
-					}
+							fontSize = "medium",
+						},
+					},
 				},
 				enable = {
 					order = 2,
@@ -395,7 +412,7 @@ options.maps = {
 					set = function(info, value)
 						E.db.mui.smb[info[#info]] = value
 						E:StaticPopup_Show("PRIVATE_RL")
-					end
+					end,
 				},
 				mouseOver = {
 					order = 3,
@@ -408,7 +425,7 @@ options.maps = {
 					set = function(info, value)
 						E.db.mui.smb[info[#info]] = value
 						SMB:UpdateMouseOverConfig()
-					end
+					end,
 				},
 				barConfig = {
 					order = 4,
@@ -427,7 +444,7 @@ options.maps = {
 							order = 1,
 							type = "toggle",
 							name = L["Bar Backdrop"],
-							desc = L["Show a backdrop of the bar."]
+							desc = L["Show a backdrop of the bar."],
 						},
 						backdropSpacing = {
 							order = 2,
@@ -436,13 +453,13 @@ options.maps = {
 							desc = L["The spacing between the backdrop and the buttons."],
 							min = 0,
 							max = 30,
-							step = 1
+							step = 1,
 						},
 						inverseDirection = {
 							order = 3,
 							type = "toggle",
 							name = L["Inverse Direction"],
-							desc = L["Reverse the direction of adding buttons."]
+							desc = L["Reverse the direction of adding buttons."],
 						},
 						orientation = {
 							order = 4,
@@ -452,7 +469,7 @@ options.maps = {
 							values = {
 								NOANCHOR = L["Drag"],
 								HORIZONTAL = L["Horizontal"],
-								VERTICAL = L["Vertical"]
+								VERTICAL = L["Vertical"],
 							},
 							set = function(info, value)
 								E.db.mui.smb[info[#info]] = value
@@ -461,9 +478,9 @@ options.maps = {
 								else
 									SMB:UpdateLayout()
 								end
-							end
-						}
-					}
+							end,
+						},
+					},
 				},
 				buttonsConfig = {
 					order = 5,
@@ -485,7 +502,7 @@ options.maps = {
 							desc = L["The amount of buttons to display per row."],
 							min = 1,
 							max = 30,
-							step = 1
+							step = 1,
 						},
 						buttonSize = {
 							order = 2,
@@ -501,7 +518,7 @@ options.maps = {
 							end,
 							min = 15,
 							max = 60,
-							step = 1
+							step = 1,
 						},
 						spacing = {
 							order = 3,
@@ -510,7 +527,7 @@ options.maps = {
 							desc = L["The spacing between buttons."],
 							min = 0,
 							max = 30,
-							step = 1
+							step = 1,
 						},
 					},
 				},
@@ -531,7 +548,7 @@ options.maps = {
 							order = 1,
 							type = "toggle",
 							name = L["Expansion Landing Page"],
-							desc = L["Add garrison button to the bar."]
+							desc = L["Add garrison button to the bar."],
 						},
 					},
 				},
@@ -559,15 +576,15 @@ options.maps = {
 							order = 1,
 							type = "description",
 							name = L["Additional features for waypoint."],
-							fontSize = "medium"
-						}
-					}
+							fontSize = "medium",
+						},
+					},
 				},
 				enable = {
 					order = 2,
 					type = "toggle",
 					name = L["Enable"],
-					width = "full"
+					width = "full",
 				},
 				general = {
 					order = 3,
@@ -595,8 +612,8 @@ options.maps = {
 							name = L["No Distance Limitation"],
 							desc = L["Force to track the target even if it over 1000 yds."],
 							width = 1.5,
-						}
-					}
+						},
+					},
 				},
 				distanceText = {
 					order = 4,
@@ -616,7 +633,7 @@ options.maps = {
 							type = "select",
 							dialogControl = "LSM30_Font",
 							name = L["Font"],
-							values = LSM:HashTable("font")
+							values = LSM:HashTable("font"),
 						},
 						style = {
 							order = 2,
@@ -631,7 +648,7 @@ options.maps = {
 							type = "range",
 							min = 5,
 							max = 60,
-							step = 1
+							step = 1,
 						},
 						color = {
 							order = 4,
@@ -666,19 +683,19 @@ options.maps = {
 						enable = {
 							order = 1,
 							type = "toggle",
-							name = L["Enable"]
+							name = L["Enable"],
 						},
 						worldMapInput = {
 							order = 2,
 							type = "toggle",
 							name = L["Input Box"],
-							desc = L["Add a input box to the world map."]
+							desc = L["Add a input box to the world map."],
 						},
 						command = {
 							order = 3,
 							type = "toggle",
 							name = L["Command"],
-							desc = L["Enable to use the command to set the waypoint."]
+							desc = L["Enable to use the command to set the waypoint."],
 						},
 						virtualTomTom = {
 							order = 4,
@@ -687,7 +704,7 @@ options.maps = {
 							desc = L["Support TomTom-style /way command without TomTom."],
 							hidden = function()
 								return not E.db.mui.maps.superTracker.waypointParse.command
-							end
+							end,
 						},
 						commandConfiguration = {
 							order = 5,
@@ -707,7 +724,7 @@ options.maps = {
 									end,
 									set = function(info, value)
 										envs.superTracker.inputCommand = value
-									end
+									end,
 								},
 								addCommand = {
 									order = 2,
@@ -721,15 +738,16 @@ options.maps = {
 											return
 										end
 
-										E.db.mui.maps.superTracker.waypointParse.commandKeys[envs.superTracker.inputCommand] = true
+										E.db.mui.maps.superTracker.waypointParse.commandKeys[envs.superTracker.inputCommand] =
+											true
 										E:StaticPopup_Show("PRIVATE_RL")
-									end
+									end,
 								},
 								betterAlign = {
 									order = 3,
 									type = "description",
 									name = " ",
-									width = "full"
+									width = "full",
 								},
 								commandList = {
 									order = 4,
@@ -747,7 +765,7 @@ options.maps = {
 									end,
 									set = function(info, value)
 										envs.superTracker.selectedCommand = value
-									end
+									end,
 								},
 								deleteCommand = {
 									order = 5,
@@ -757,8 +775,10 @@ options.maps = {
 									confirm = function()
 										return format(
 											L["Are you sure to delete the %s command?"],
-											F.CreateColorString(envs.superTracker.selectedCommand,
-												E.db.general.valuecolor)
+											F.CreateColorString(
+												envs.superTracker.selectedCommand,
+												E.db.general.valuecolor
+											)
 										)
 									end,
 									disabled = function()
@@ -769,9 +789,10 @@ options.maps = {
 											return
 										end
 
-										E.db.mui.maps.superTracker.waypointParse.commandKeys[envs.superTracker.selectedCommand] = nil
+										E.db.mui.maps.superTracker.waypointParse.commandKeys[envs.superTracker.selectedCommand] =
+											nil
 										E:StaticPopup_Show("PRIVATE_RL")
-									end
+									end,
 								},
 							},
 						},
@@ -801,14 +822,14 @@ options.maps = {
 							order = 1,
 							type = "description",
 							name = L["Reskin the instance diffculty in text style."],
-							fontSize = "medium"
-						}
-					}
+							fontSize = "medium",
+						},
+					},
 				},
 				enable = {
 					order = 2,
 					type = "toggle",
-					name = L["Enable"]
+					name = L["Enable"],
 				},
 				align = {
 					order = 3,
@@ -817,13 +838,13 @@ options.maps = {
 					values = {
 						LEFT = L["Left"],
 						CENTER = L["Center"],
-						RIGHT = L["Right"]
-					}
+						RIGHT = L["Right"],
+					},
 				},
 				hideBlizzard = {
 					order = 4,
 					type = "toggle",
-					name = L["Hide Blizzard Indicator"]
+					name = L["Hide Blizzard Indicator"],
 				},
 				font = {
 					order = 5,
@@ -843,7 +864,7 @@ options.maps = {
 							type = "select",
 							dialogControl = "LSM30_Font",
 							name = L["Font"],
-							values = LSM:HashTable("font")
+							values = LSM:HashTable("font"),
 						},
 						style = {
 							order = 2,
@@ -858,7 +879,7 @@ options.maps = {
 							type = "range",
 							min = 5,
 							max = 60,
-							step = 1
+							step = 1,
 						},
 					},
 				},
@@ -878,7 +899,7 @@ options.maps = {
 						custom = {
 							order = 1,
 							type = "toggle",
-							name = L["Custom"]
+							name = L["Custom"],
 						},
 						customStrings = {
 							order = 2,
@@ -888,7 +909,7 @@ options.maps = {
 							hidden = function()
 								return not E.db.mui.maps.instanceDifficulty.custom
 							end,
-							args = {}
+							args = {},
 						},
 					},
 				},
@@ -916,15 +937,15 @@ options.maps = {
 							order = 1,
 							type = "description",
 							name = L["Add trackers for world events in the bottom of world map."],
-							fontSize = "medium"
-						}
-					}
+							fontSize = "medium",
+						},
+					},
 				},
 				enable = {
 					order = 2,
 					type = "toggle",
 					name = L["Enable"],
-					width = "full"
+					width = "full",
 				},
 				style = {
 					order = 3,
@@ -945,7 +966,7 @@ options.maps = {
 							name = L["Height"],
 							min = 20,
 							max = 100,
-							step = 1
+							step = 1,
 						},
 						spacing = {
 							order = 2,
@@ -953,12 +974,12 @@ options.maps = {
 							name = L["Spacing"],
 							min = 0,
 							max = 20,
-							step = 1
+							step = 1,
 						},
 						backdrop = {
 							order = 3,
 							type = "toggle",
-							name = L["Backdrop"]
+							name = L["Backdrop"],
 						},
 						yOffset = {
 							order = 4,
@@ -967,9 +988,9 @@ options.maps = {
 							desc = L["The offset of the frame from the bottom of world map. (Default is -3)"],
 							min = -300,
 							max = 300,
-							step = 1
-						}
-					}
+							step = 1,
+						},
+					},
 				},
 				font = {
 					order = 4,
@@ -989,7 +1010,7 @@ options.maps = {
 							type = "select",
 							dialogControl = "LSM30_Font",
 							name = L["Font"],
-							values = LSM:HashTable("font")
+							values = LSM:HashTable("font"),
 						},
 						scale = {
 							order = 2,
@@ -1005,8 +1026,8 @@ options.maps = {
 							name = L["Outline"],
 							values = MER.Values.FontFlags,
 							sortByValue = true,
-						}
-					}
+						},
+					},
 				},
 				bigDig = {
 					order = 5,
@@ -1024,18 +1045,18 @@ options.maps = {
 						enable = {
 							order = 1,
 							type = "toggle",
-							name = L["Enable"]
+							name = L["Enable"],
 						},
 						desaturate = {
 							order = 2,
 							type = "toggle",
 							name = L["Desaturate"],
-							desc = L["Desaturate icon if the event is completed in this week."]
+							desc = L["Desaturate icon if the event is completed in this week."],
 						},
 						alert = {
 							order = 3,
 							type = "toggle",
-							name = L["Alert"]
+							name = L["Alert"],
 						},
 						sound = {
 							order = 4,
@@ -1044,7 +1065,7 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end,
-							desc = L["Play sound when the alert is triggered."]
+							desc = L["Play sound when the alert is triggered."],
 						},
 						soundFile = {
 							order = 5,
@@ -1052,10 +1073,10 @@ options.maps = {
 							dialogControl = "LSM30_Sound",
 							name = L["Sound File"],
 							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
-									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+									or not E.db.mui.maps.eventTracker[info[#info - 1]].sound
 							end,
-							values = LSM:HashTable("sound")
+							values = LSM:HashTable("sound"),
 						},
 						second = {
 							order = 6,
@@ -1067,7 +1088,7 @@ options.maps = {
 							step = 1,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 						stopAlertIfPlayerNotEnteredDragonlands = {
 							order = 7,
@@ -1077,9 +1098,9 @@ options.maps = {
 							width = 1.5,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
-						}
-					}
+							end,
+						},
+					},
 				},
 				superBloom = {
 					order = 6,
@@ -1097,18 +1118,18 @@ options.maps = {
 						enable = {
 							order = 1,
 							type = "toggle",
-							name = L["Enable"]
+							name = L["Enable"],
 						},
 						desaturate = {
 							order = 2,
 							type = "toggle",
 							name = L["Desaturate"],
-							desc = L["Desaturate icon if the event is completed in this week."]
+							desc = L["Desaturate icon if the event is completed in this week."],
 						},
 						alert = {
 							order = 3,
 							type = "toggle",
-							name = L["Alert"]
+							name = L["Alert"],
 						},
 						sound = {
 							order = 4,
@@ -1117,7 +1138,7 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end,
-							desc = L["Play sound when the alert is triggered."]
+							desc = L["Play sound when the alert is triggered."],
 						},
 						soundFile = {
 							order = 5,
@@ -1125,10 +1146,10 @@ options.maps = {
 							dialogControl = "LSM30_Sound",
 							name = L["Sound File"],
 							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
-									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+									or not E.db.mui.maps.eventTracker[info[#info - 1]].sound
 							end,
-							values = LSM:HashTable("sound")
+							values = LSM:HashTable("sound"),
 						},
 						second = {
 							order = 6,
@@ -1140,7 +1161,7 @@ options.maps = {
 							step = 1,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 						stopAlertIfCompleted = {
 							order = 7,
@@ -1150,7 +1171,7 @@ options.maps = {
 							width = 2,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 						stopAlertIfPlayerNotEnteredDragonlands = {
 							order = 8,
@@ -1160,9 +1181,9 @@ options.maps = {
 							width = 1.5,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
-						}
-					}
+							end,
+						},
+					},
 				},
 				timeRiftThaldraszus = {
 					order = 7,
@@ -1180,12 +1201,12 @@ options.maps = {
 						enable = {
 							order = 1,
 							type = "toggle",
-							name = L["Enable"]
+							name = L["Enable"],
 						},
 						alert = {
 							order = 2,
 							type = "toggle",
-							name = L["Alert"]
+							name = L["Alert"],
 						},
 						sound = {
 							order = 3,
@@ -1194,7 +1215,7 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end,
-							desc = L["Play sound when the alert is triggered."]
+							desc = L["Play sound when the alert is triggered."],
 						},
 						soundFile = {
 							order = 4,
@@ -1202,10 +1223,10 @@ options.maps = {
 							dialogControl = "LSM30_Sound",
 							name = L["Sound File"],
 							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
-									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+									or not E.db.mui.maps.eventTracker[info[#info - 1]].sound
 							end,
-							values = LSM:HashTable("sound")
+							values = LSM:HashTable("sound"),
 						},
 						second = {
 							order = 5,
@@ -1217,7 +1238,7 @@ options.maps = {
 							step = 1,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 						stopAlertIfCompleted = {
 							order = 6,
@@ -1227,7 +1248,7 @@ options.maps = {
 							width = 2,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 						stopAlertIfPlayerNotEnteredDragonlands = {
 							order = 7,
@@ -1237,9 +1258,9 @@ options.maps = {
 							width = 1.5,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
-						}
-					}
+							end,
+						},
+					},
 				},
 				researchersUnderFire = {
 					order = 8,
@@ -1257,18 +1278,18 @@ options.maps = {
 						enable = {
 							order = 1,
 							type = "toggle",
-							name = L["Enable"]
+							name = L["Enable"],
 						},
 						desaturate = {
 							order = 2,
 							type = "toggle",
 							name = L["Desaturate"],
-							desc = L["Desaturate icon if the event is completed in this week."]
+							desc = L["Desaturate icon if the event is completed in this week."],
 						},
 						alert = {
 							order = 3,
 							type = "toggle",
-							name = L["Alert"]
+							name = L["Alert"],
 						},
 						sound = {
 							order = 4,
@@ -1277,7 +1298,7 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end,
-							desc = L["Play sound when the alert is triggered."]
+							desc = L["Play sound when the alert is triggered."],
 						},
 						soundFile = {
 							order = 5,
@@ -1285,10 +1306,10 @@ options.maps = {
 							dialogControl = "LSM30_Sound",
 							name = L["Sound File"],
 							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
-									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+									or not E.db.mui.maps.eventTracker[info[#info - 1]].sound
 							end,
-							values = LSM:HashTable("sound")
+							values = LSM:HashTable("sound"),
 						},
 						second = {
 							order = 6,
@@ -1300,7 +1321,7 @@ options.maps = {
 							step = 1,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 						stopAlertIfCompleted = {
 							order = 7,
@@ -1310,7 +1331,7 @@ options.maps = {
 							width = 1.5,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 						stopAlertIfPlayerNotEnteredDragonlands = {
 							order = 8,
@@ -1320,9 +1341,9 @@ options.maps = {
 							width = 1.5,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
-						}
-					}
+							end,
+						},
+					},
 				},
 				siegeOnDragonbaneKeep = {
 					order = 9,
@@ -1340,18 +1361,18 @@ options.maps = {
 						enable = {
 							order = 1,
 							type = "toggle",
-							name = L["Enable"]
+							name = L["Enable"],
 						},
 						desaturate = {
 							order = 2,
 							type = "toggle",
 							name = L["Desaturate"],
-							desc = L["Desaturate icon if the event is completed in this week."]
+							desc = L["Desaturate icon if the event is completed in this week."],
 						},
 						alert = {
 							order = 3,
 							type = "toggle",
-							name = L["Alert"]
+							name = L["Alert"],
 						},
 						sound = {
 							order = 4,
@@ -1368,10 +1389,10 @@ options.maps = {
 							dialogControl = "LSM30_Sound",
 							name = L["Sound File"],
 							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
-									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+									or not E.db.mui.maps.eventTracker[info[#info - 1]].sound
 							end,
-							values = LSM:HashTable("sound")
+							values = LSM:HashTable("sound"),
 						},
 						second = {
 							order = 6,
@@ -1383,7 +1404,7 @@ options.maps = {
 							step = 1,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 						stopAlertIfCompleted = {
 							order = 7,
@@ -1393,7 +1414,7 @@ options.maps = {
 							width = 2,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 						stopAlertIfPlayerNotEnteredDragonlands = {
 							order = 8,
@@ -1403,7 +1424,7 @@ options.maps = {
 							width = 1.5,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 					},
 				},
@@ -1423,18 +1444,18 @@ options.maps = {
 						enable = {
 							order = 1,
 							type = "toggle",
-							name = L["Enable"]
+							name = L["Enable"],
 						},
 						desaturate = {
 							order = 2,
 							type = "toggle",
 							name = L["Desaturate"],
-							desc = L["Desaturate icon if the event is completed in this week."]
+							desc = L["Desaturate icon if the event is completed in this week."],
 						},
 						alert = {
 							order = 3,
 							type = "toggle",
-							name = L["Alert"]
+							name = L["Alert"],
 						},
 						sound = {
 							order = 4,
@@ -1443,7 +1464,7 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end,
-							desc = L["Play sound when the alert is triggered"]
+							desc = L["Play sound when the alert is triggered"],
 						},
 						soundFile = {
 							order = 5,
@@ -1451,10 +1472,10 @@ options.maps = {
 							dialogControl = "LSM30_Sound",
 							name = L["Sound File"],
 							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
-									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+									or not E.db.mui.maps.eventTracker[info[#info - 1]].sound
 							end,
-							values = LSM:HashTable("sound")
+							values = LSM:HashTable("sound"),
 						},
 						second = {
 							order = 6,
@@ -1466,7 +1487,7 @@ options.maps = {
 							step = 1,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 						stopAlertIfCompleted = {
 							order = 7,
@@ -1476,7 +1497,7 @@ options.maps = {
 							width = 2,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 						stopAlertIfPlayerNotEnteredDragonlands = {
 							order = 8,
@@ -1486,9 +1507,9 @@ options.maps = {
 							width = 1.5,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
-					}
+					},
 				},
 				iskaaranFishingNet = {
 					order = 11,
@@ -1506,12 +1527,12 @@ options.maps = {
 						enable = {
 							order = 1,
 							type = "toggle",
-							name = L["Enable"]
+							name = L["Enable"],
 						},
 						alert = {
 							order = 2,
 							type = "toggle",
-							name = L["Alert"]
+							name = L["Alert"],
 						},
 						sound = {
 							order = 3,
@@ -1520,7 +1541,7 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end,
-							desc = L["Play sound when the alert is triggered."]
+							desc = L["Play sound when the alert is triggered."],
 						},
 						soundFile = {
 							order = 4,
@@ -1528,10 +1549,10 @@ options.maps = {
 							dialogControl = "LSM30_Sound",
 							name = L["Sound File"],
 							hidden = function(info)
-								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert or
-									not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+									or not E.db.mui.maps.eventTracker[info[#info - 1]].sound
 							end,
-							values = LSM:HashTable("sound")
+							values = LSM:HashTable("sound"),
 						},
 						disableAlertAfterHours = {
 							order = 5,
@@ -1543,7 +1564,7 @@ options.maps = {
 							step = 1,
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
-							end
+							end,
 						},
 					},
 				},
@@ -1577,10 +1598,9 @@ do
 						return E.db.mui.maps.instanceDifficulty.customStrings[k]
 					end,
 					set = function(_, value)
-						E.db.mui.maps.instanceDifficulty.customStrings[k] =
-							gsub(value, "\124\124", "\124")
+						E.db.mui.maps.instanceDifficulty.customStrings[k] = gsub(value, "\124\124", "\124")
 						E:StaticPopup_Show("PRIVATE_RL")
-					end
+					end,
 				},
 				useDefault = {
 					order = 2,
@@ -1589,9 +1609,9 @@ do
 					func = function()
 						E.db.mui.maps.instanceDifficulty.customStrings[k] = v
 						E:StaticPopup_Show("PRIVATE_RL")
-					end
-				}
-			}
+					end,
+				},
+			},
 		}
 
 		order = order + 1

@@ -1,9 +1,10 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 function MER:LoadLSProfile()
-		--[[----------------------------------
+	--[[----------------------------------
 	--	ls_Toasts - Settings
-	--]] ----------------------------------
+	--]]
+	----------------------------------
 	local profileName = F.Profiles.Default
 
 	LS_TOASTS_GLOBAL_CONFIG.profiles[profileName] = {
@@ -19,7 +20,7 @@ function MER:LoadLSProfile()
 			},
 		},
 		["font"] = {
-			["name"] = "Expressway",
+			["name"] = I.Fonts.Primary,
 			["size"] = 11,
 		},
 		["colors"] = {

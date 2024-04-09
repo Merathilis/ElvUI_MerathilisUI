@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
@@ -11,12 +11,22 @@ function module:Blizzard_MajorFactions1()
 	local frame = _G.MajorFactionRenownFrame
 	module:CreateShadow(frame)
 
-	hooksecurefunc(frame, 'SetUpMajorFactionData', function(self)
-		if self.NineSlice then self.NineSlice:Hide() end
-		if self.Background then self.Background:Hide() end
-		if self.BackgroundShadow then self.BackgroundShadow:Hide() end
-		if self.Divider then self.Divider:Hide() end
-		if self.CloseButton.Border then self.CloseButton.Border:Hide() end
+	hooksecurefunc(frame, "SetUpMajorFactionData", function(self)
+		if self.NineSlice then
+			self.NineSlice:Hide()
+		end
+		if self.Background then
+			self.Background:Hide()
+		end
+		if self.BackgroundShadow then
+			self.BackgroundShadow:Hide()
+		end
+		if self.Divider then
+			self.Divider:Hide()
+		end
+		if self.CloseButton.Border then
+			self.CloseButton.Border:Hide()
+		end
 	end)
 end
 

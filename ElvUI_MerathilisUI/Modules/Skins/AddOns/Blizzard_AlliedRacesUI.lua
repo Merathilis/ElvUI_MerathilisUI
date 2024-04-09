@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -19,9 +19,9 @@ function module:Blizzard_AlliedRacesUI()
 	scrollFrame.Child.ObjectivesFrame:StripTextures()
 	scrollFrame.Child.ObjectivesFrame:SetTemplate("Transparent")
 
-	AlliedRacesFrame.RaceInfoFrame.AlliedRacesRaceName:SetTextColor(1, .8, 0)
+	AlliedRacesFrame.RaceInfoFrame.AlliedRacesRaceName:SetTextColor(1, 0.8, 0)
 	scrollFrame.Child.RaceDescriptionText:SetTextColor(1, 1, 1)
-	scrollFrame.Child.RacialTraitsLabel:SetTextColor(1, .8, 0)
+	scrollFrame.Child.RacialTraitsLabel:SetTextColor(1, 0.8, 0)
 
 	AlliedRacesFrame:HookScript("OnShow", function(self)
 		local parent = scrollFrame.Child

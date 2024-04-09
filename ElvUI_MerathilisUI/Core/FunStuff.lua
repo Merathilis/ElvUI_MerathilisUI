@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 local random = math.random
@@ -20,18 +20,18 @@ local function NPCTalking()
 	local timer = 0
 	local sequence = random(1, #talkAnims)
 	MER.NPC.Model:ClearModel()
-	MER.NPC.Model:SetUnit('target')
+	MER.NPC.Model:SetUnit("target")
 	MER.NPC.Model:SetCamDistanceScale(1.2)
 	MER.NPC.Model:SetPortraitZoom(0.95)
 	MER.NPC.Model:SetPosition(0, 0, 0)
 	MER.NPC.Model:SetAnimation(talkAnims[sequence], 0)
 	MER.NPC.Model:SetScript("OnUpdate", function(self, e)
-		if (timer < 2000) then
+		if timer < 2000 then
 			timer = (timer + (e * 1000))
 		else
 			timer = 0
 			self:ClearModel()
-			self:SetUnit('player')
+			self:SetUnit("player")
 			self:SetCamDistanceScale(1)
 			self:SetPortraitZoom(0.95)
 			self:SetPosition(0.15, 0, 0)
@@ -46,20 +46,20 @@ local function PlayerTalking()
 	local timer = 0
 	local sequence = random(1, #talkAnims)
 	MER.NPC.Model:ClearModel()
-	MER.NPC.Model:SetUnit('player')
+	MER.NPC.Model:SetUnit("player")
 	MER.NPC.Model:SetCamDistanceScale(1)
 	MER.NPC.Model:SetPortraitZoom(0.95)
 	MER.NPC.Model:SetPosition(0.15, 0, 0)
 	MER.NPC.Model:SetRotation(-1)
 	MER.NPC.Model:SetAnimation(talkAnims[sequence], 0)
 	MER.NPC.Model:SetScript("OnUpdate", function(self, e)
-		if (timer < 2000) then
+		if timer < 2000 then
 			timer = (timer + (e * 1000))
 		else
 			timer = 0
-			if (UnitExists('target')) then
+			if UnitExists("target") then
 				self:ClearModel()
-				self:SetUnit('target')
+				self:SetUnit("target")
 				self:SetCamDistanceScale(1)
 				self:SetPortraitZoom(0.95)
 				self:SetPosition(0, 0, 0)
@@ -72,17 +72,19 @@ local function PlayerTalking()
 end
 
 function MER.NPC:NPCTalksFirst()
-	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then return end
+	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then
+		return
+	end
 	local timer = 0
 	self.Model:ClearModel()
-	self.Model:SetUnit('target')
+	self.Model:SetUnit("target")
 	self.Model:SetCamDistanceScale(1.2)
 	self.Model:SetPortraitZoom(0.95)
 	self.Model:SetPosition(0, 0, 0)
 	self.Model:SetRotation(0)
 	self.Model:SetAnimation(67)
 	self.Model:SetScript("OnUpdate", function(self, e)
-		if (timer < 2000) then
+		if timer < 2000 then
 			timer = (timer + (e * 1000))
 		else
 			timer = 0
@@ -94,17 +96,19 @@ function MER.NPC:NPCTalksFirst()
 end
 
 function MER.NPC:PlayerTalksFirst()
-	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then return end
+	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then
+		return
+	end
 	local timer = 0
 	self.Model:ClearModel()
-	self.Model:SetUnit('player')
+	self.Model:SetUnit("player")
 	self.Model:SetCamDistanceScale(1)
 	self.Model:SetPortraitZoom(0.95)
 	self.Model:SetPosition(0.15, 0, 0)
 	self.Model:SetRotation(-1)
 	self.Model:SetAnimation(67)
 	self.Model:SetScript("OnUpdate", function(self, e)
-		if (timer < 2000) then
+		if timer < 2000 then
 			timer = (timer + (e * 1000))
 		else
 			timer = 0
@@ -116,9 +120,11 @@ function MER.NPC:PlayerTalksFirst()
 end
 
 function MER.NPC:Toggle(parentFrame)
-	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then return end
+	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then
+		return
+	end
 	local timer = 0
-	if (parentFrame) then
+	if parentFrame then
 		self:SetParent(parentFrame)
 		self:ClearAllPoints()
 		self:SetAllPoints(parentFrame)
@@ -126,7 +132,7 @@ function MER.NPC:Toggle(parentFrame)
 		self:SetAlpha(1)
 
 		self.Model:ClearModel()
-		self.Model:SetUnit('target')
+		self.Model:SetUnit("target")
 		self.Model:SetCamDistanceScale(1)
 		self.Model:SetPortraitZoom(0.95)
 		self.Model:SetPosition(0, 0, 0)
@@ -140,6 +146,10 @@ function MER.NPC:Toggle(parentFrame)
 end
 
 function MER.NPC:Register(parentFrame)
-	parentFrame:HookScript('OnShow', function() MER.NPC:Toggle(parentFrame) end)
-	parentFrame:HookScript('OnHide', function() MER.NPC:Toggle() end)
+	parentFrame:HookScript("OnShow", function()
+		MER.NPC:Toggle(parentFrame)
+	end)
+	parentFrame:HookScript("OnHide", function()
+		MER.NPC:Toggle()
+	end)
 end

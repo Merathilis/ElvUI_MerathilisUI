@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
 
 local _G = _G
 local select = select
@@ -12,7 +12,7 @@ local function SelectQuestReward(index)
 	local rewardsFrame = _G["QuestInfoFrame"].rewardsFrame
 
 	local btn = QuestInfo_GetRewardButton(rewardsFrame, index)
-	if (btn.type == "choice") then
+	if btn.type == "choice" then
 		_G.QuestInfoItemHighlight:ClearAllPoints()
 		_G.QuestInfoItemHighlight:SetOutside(btn.Icon)
 
@@ -39,7 +39,7 @@ function module:QUEST_COMPLETE()
 
 	for index = 1, num do
 		local link = GetQuestItemLink("choice", index)
-		if (link) then
+		if link then
 			local vsp = select(11, GetItemInfo(link))
 			if vsp and vsp > price then
 				price = vsp

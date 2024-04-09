@@ -1,8 +1,8 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_AutoButtons')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_AutoButtons")
 local async = MER.Utilities.Async
-local S = MER:GetModule('MER_Skins')
-local AB = E:GetModule('ActionBars')
+local S = MER:GetModule("MER_Skins")
+local AB = E:GetModule("ActionBars")
 
 local _G = _G
 local ceil = ceil
@@ -191,7 +191,7 @@ local potions = {
 	207023,
 	207039,
 	207040,
-	207041
+	207041,
 }
 
 local potionsDragonflight = {
@@ -251,7 +251,7 @@ local potionsDragonflight = {
 	207023,
 	207039,
 	207040,
-	207041
+	207041,
 }
 
 -- Flasks (require level >= 40)
@@ -383,7 +383,7 @@ local runes = {
 	204971,
 	204972,
 	204973,
-	211495
+	211495,
 }
 
 -- Runes added in Dragonflight
@@ -404,7 +404,7 @@ local runesDragonflight = {
 	204971,
 	204972,
 	204973,
-	211495
+	211495,
 }
 
 -- Foods (Crafted by cooking)
@@ -636,7 +636,7 @@ local conjuredManaFood = {
 	65517,
 	80610,
 	80618,
-	113509
+	113509,
 }
 
 local banners = {
@@ -923,7 +923,7 @@ local openableItems = {
 	211410,
 	211411,
 	211413,
-	211414
+	211414,
 }
 
 local bigDig = {
@@ -963,7 +963,7 @@ local bigDig = {
 	213375,
 	213382,
 	213389,
-	213429
+	213429,
 }
 
 -- Profession Items
@@ -1234,13 +1234,13 @@ local professionItems = {
 	210463,
 	210464,
 	210465,
-	210466
+	210466,
 }
 
 local seeds = {
 	208047,
 	208066,
-	208067
+	208067,
 }
 
 local questItemList = {}
@@ -1258,7 +1258,7 @@ end
 
 -- Usable Items beeing ignored for some reasons
 local forceUsableItems = {
-	[193634] = true -- Burgeoning Seed
+	[193634] = true, -- Burgeoning Seed
 }
 
 local equipmentList = {}
@@ -1294,7 +1294,7 @@ local moduleList = {
 	["FLASKDF"] = flasksDragonflight,
 	["FOODDF"] = foodDragonflight,
 	["SEEDS"] = seeds,
-	["BIGDIG"] = bigDig
+	["BIGDIG"] = bigDig,
 }
 
 function module:CreateButton(name, barDB)
@@ -1318,7 +1318,7 @@ function module:CreateButton(name, barDB)
 	F.SetFontDB(qualityTier, {
 		size = barDB.qualityTier.size,
 		name = E.db.general.font,
-		style = "SHADOWOUTLINE"
+		style = "SHADOWOUTLINE",
 	})
 
 	local count = button:CreateFontString(nil, "OVERLAY")
@@ -1343,8 +1343,8 @@ function module:CreateButton(name, barDB)
 	button.cooldown = cooldown
 
 	button.SetTier = function(self, itemIDOrLink)
-		local level = C_TradeSkillUI_GetItemReagentQualityByItemInfo(itemIDOrLink) or
-			C_TradeSkillUI_GetItemCraftedQualityByItemInfo(itemIDOrLink)
+		local level = C_TradeSkillUI_GetItemReagentQualityByItemInfo(itemIDOrLink)
+			or C_TradeSkillUI_GetItemCraftedQualityByItemInfo(itemIDOrLink)
 
 		if not level or level == 0 then
 			self.qualityTier:SetText("")
@@ -1426,7 +1426,7 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 				start, duration, enable = GetItemCooldown(self.itemID)
 			end
 			CooldownFrame_Set(self.cooldown, start, duration, enable)
-			if (duration and duration > 0 and enable and enable == 0) then
+			if duration and duration > 0 and enable and enable == 0 then
 				self.tex:SetVertexColor(0.4, 0.4, 0.4)
 			elseif not InCombatLockdown() and IsItemInRange(self.itemID, "target") == false then
 				self.tex:SetVertexColor(1, 0, 0)
@@ -1456,8 +1456,12 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin),
-				alphaCurrent, barDB.alphaMax)
+			E:UIFrameFadeIn(
+				bar,
+				barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent,
+				barDB.alphaMax
+			)
 		end
 
 		if barDB.tooltip then
@@ -1487,8 +1491,12 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 			end
 		elseif barDB.mouseOver then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin),
-				alphaCurrent, barDB.alphaMin)
+			E:UIFrameFadeOut(
+				bar,
+				barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent,
+				barDB.alphaMin
+			)
 		end
 
 		GameTooltip:Hide()
@@ -1565,8 +1573,19 @@ function module:CreateBar(id)
 	anchor:SetClampedToScreen(true)
 	anchor:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, (id - 1) * 45)
 	anchor:Size(150, 40)
-	E:CreateMover(anchor, 'AutoButtonBar' .. id .. 'Mover', L['Auto Button Bar'] .. ' ' .. id, nil, nil, nil,
-		'ALL,MERATHILISUI', function() return module.db.enable and barDB.enable end, 'mui,modules,autoButtons,bar' .. id)
+	E:CreateMover(
+		anchor,
+		"AutoButtonBar" .. id .. "Mover",
+		L["Auto Button Bar"] .. " " .. id,
+		nil,
+		nil,
+		nil,
+		"ALL,MERATHILISUI",
+		function()
+			return module.db.enable and barDB.enable
+		end,
+		"mui,modules,autoButtons,bar" .. id
+	)
 
 	local bar = CreateFrame("Frame", "AutoButtonBar" .. id, E.UIParent, "SecureHandlerStateTemplate")
 	bar.id = id
@@ -1595,8 +1614,12 @@ function module:CreateBar(id)
 
 		if not barDB.globalFade and barDB.mouseOver and barDB.alphaMax and barDB.alphaMin then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeIn(bar, barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin),
-				alphaCurrent, barDB.alphaMax)
+			E:UIFrameFadeIn(
+				bar,
+				barDB.fadeTime * (barDB.alphaMax - alphaCurrent) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent,
+				barDB.alphaMax
+			)
 		end
 	end)
 
@@ -1607,8 +1630,12 @@ function module:CreateBar(id)
 
 		if not barDB.globalFade and barDB.mouseOver and barDB.alphaMax and barDB.alphaMin then
 			local alphaCurrent = bar:GetAlpha()
-			E:UIFrameFadeOut(bar, barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin),
-				alphaCurrent, barDB.alphaMin)
+			E:UIFrameFadeOut(
+				bar,
+				barDB.fadeTime * (alphaCurrent - barDB.alphaMin) / (barDB.alphaMax - barDB.alphaMin),
+				alphaCurrent,
+				barDB.alphaMin
+			)
 		end
 	end)
 
@@ -1657,7 +1684,7 @@ function module:UpdateBar(id)
 		end
 	end
 
-	for _, module in ipairs { strsplit("[, ]", barDB.include) } do
+	for _, module in ipairs({ strsplit("[, ]", barDB.include) }) do
 		if buttonID <= barDB.numButtons then
 			if moduleList[module] then
 				addButtons(moduleList[module])
@@ -1707,10 +1734,8 @@ function module:UpdateBar(id)
 
 	local numMoverRows = ceil(barDB.numButtons / barDB.buttonsPerRow)
 	local numMoverCols = barDB.buttonsPerRow
-	local newMoverWidth = 2 * barDB.backdropSpacing + numMoverCols * barDB.buttonWidth +
-		(numMoverCols - 1) -- * barDB.spacing
-	local newMoverHeight = 2 * barDB.backdropSpacing + numMoverRows * barDB.buttonHeight +
-		(numMoverRows - 1) -- * barDB.spacing
+	local newMoverWidth = 2 * barDB.backdropSpacing + numMoverCols * barDB.buttonWidth + (numMoverCols - 1) -- * barDB.spacing
+	local newMoverHeight = 2 * barDB.backdropSpacing + numMoverRows * barDB.buttonHeight + (numMoverRows - 1) -- * barDB.spacing
 	bar:GetParent():Size(newMoverWidth, newMoverHeight)
 
 	bar:ClearAllPoints()
@@ -1876,7 +1901,9 @@ end
 
 function module:Initialize()
 	module.db = E.db.mui.autoButtons
-	if module.db.enable ~= true or self.Initialized then return end
+	if module.db.enable ~= true or self.Initialized then
+		return
+	end
 
 	self:CreateAll()
 	UpdateQuestItemList()

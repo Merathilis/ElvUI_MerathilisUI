@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
@@ -13,7 +13,7 @@ function FriendsCount_OnLoad(self)
 end
 
 function FriendsCount_OnEvent(event, ...)
-	local bnetCount = BNGetNumFriends();
+	local bnetCount = BNGetNumFriends()
 	_G.MER_FriendsCounter:SetText(bnetCount .. "|cff416380/200|r")
 end
 
@@ -24,7 +24,7 @@ local function UpdateFriendsButton(button)
 		button.right:SetHeight(32)
 		button.right:SetPoint("LEFT", button, "CENTER", 0)
 		button.right:SetTexture(E.LSM:Fetch("statusbar", E.media.normTex))
-		button.right:SetGradient("HORIZONTAL", CreateColor(.243, .57, 1, 0), CreateColor(.243, .57, 1, .25))
+		button.right:SetGradient("HORIZONTAL", CreateColor(0.243, 0.57, 1, 0), CreateColor(0.243, 0.57, 1, 0.25))
 
 		if button.gameIcon then
 			button.gameIcon:HookScript("OnShow", function()
@@ -48,13 +48,13 @@ local function ClassColor(class, showRGB)
 	local color = F.ClassColors[F.ClassList[class] or class]
 
 	if not color then
-		color = F.ClassColors['PRIEST']
+		color = F.ClassColors["PRIEST"]
 	end
 
 	if showRGB then
 		return color.r, color.g, color.b
 	else
-		return '|c' .. color.colorStr
+		return "|c" .. color.colorStr
 	end
 end
 
@@ -81,7 +81,7 @@ function module:FriendsFrame()
 		_G.RecruitAFriendRecruitmentFrame,
 		_G.FriendsFrameBattlenetFrame.UnavailableInfoFrame,
 		_G.FriendsFrameBattlenetFrame.BroadcastFrame,
-		_G.QuickJoinRoleSelectionFrame
+		_G.QuickJoinRoleSelectionFrame,
 	}
 
 	for _, frame in pairs(frames) do
@@ -117,10 +117,10 @@ function module:FriendsFrame()
 
 	-- Who Frame
 	local columnTable = {}
-	hooksecurefunc(_G.WhoFrame.ScrollBox, 'Update', function(self)
+	hooksecurefunc(_G.WhoFrame.ScrollBox, "Update", function(self)
 		local playerZone = GetRealZoneText()
-		local playerGuild = GetGuildInfo('player')
-		local playerRace = UnitRace('player')
+		local playerGuild = GetGuildInfo("player")
+		local playerRace = UnitRace("player")
 
 		for i = 1, self.ScrollTarget:GetNumChildren() do
 			local button = select(i, self.ScrollTarget:GetChildren())
@@ -130,16 +130,16 @@ function module:FriendsFrame()
 			local variableText = button.Variable
 
 			local info = C_FriendList.GetWhoInfo(button.index)
-			local guild, level, race, zone, class = info.fullGuildName, info.level, info.raceStr, info.area,
-				info.filename
+			local guild, level, race, zone, class =
+				info.fullGuildName, info.level, info.raceStr, info.area, info.filename
 			if zone == playerZone then
-				zone = '|cff00ff00' .. zone
+				zone = "|cff00ff00" .. zone
 			end
 			if guild == playerGuild then
-				guild = '|cff00ff00' .. guild
+				guild = "|cff00ff00" .. guild
 			end
 			if race == playerRace then
-				race = '|cff00ff00' .. race
+				race = "|cff00ff00" .. race
 			end
 
 			wipe(columnTable)

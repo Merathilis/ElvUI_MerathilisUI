@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Tooltip')
-local UF = E:GetModule('UnitFrames')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Tooltip")
+local UF = E:GetModule("UnitFrames")
 local LFGPI = MER.Utilities.LFGPlayerInfo
 
 local format = format
@@ -14,7 +14,7 @@ local C_LFGList_GetActivityInfoTable = C_LFGList.GetActivityInfoTable
 local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
-local scoreFormat = MER.GreyColor .. "(%s) |r%s"
+local scoreFormat = F.String.Grey("(%s) |r%s")
 
 local factionStr = {
 	[0] = "Horde",
@@ -73,12 +73,13 @@ function module:ShowLeaderOverallScore(self)
 	local resultID = self.resultID
 	local searchResultInfo = resultID and C_LFGList_GetSearchResultInfo(resultID)
 	if searchResultInfo then
-		local activityInfo = C_LFGList_GetActivityInfoTable(searchResultInfo.activityID, nil, searchResultInfo.isWarMode)
+		local activityInfo =
+			C_LFGList_GetActivityInfoTable(searchResultInfo.activityID, nil, searchResultInfo.isWarMode)
 		if activityInfo then
 			local showScore = activityInfo.isMythicPlusActivity and searchResultInfo.leaderOverallDungeonScore
-				or
-				activityInfo.isRatedPvpActivity and searchResultInfo.leaderPvpRatingInfo and
-				searchResultInfo.leaderPvpRatingInfo.rating
+				or activityInfo.isRatedPvpActivity
+					and searchResultInfo.leaderPvpRatingInfo
+					and searchResultInfo.leaderPvpRatingInfo.rating
 			if showScore then
 				local oldName = self.ActivityName:GetText()
 				oldName = gsub(oldName, ".-" .. HEADER_COLON, "") -- Tazavesh
@@ -97,8 +98,9 @@ function module:ShowLeaderOverallScore(self)
 			if searchResultInfo.crossFactionListing then
 				self.crossFactionLogo:Hide()
 			else
-				self.crossFactionLogo:SetTexture("Interface\\Timer\\" ..
-					factionStr[searchResultInfo.leaderFactionGroup] .. "-Logo")
+				self.crossFactionLogo:SetTexture(
+					"Interface\\Timer\\" .. factionStr[searchResultInfo.leaderFactionGroup] .. "-Logo"
+				)
 				self.crossFactionLogo:Show()
 			end
 		end
@@ -108,9 +110,13 @@ end
 function module:GroupInfo()
 	if C_AddOns_IsAddOnLoaded("PremadeGroupsFilter") then
 		if E.db.mui.tooltip.groupInfo.enable then
-			F.Print(format(L["%s detected, %s will be disabled automatically."],
-				"|cffff3860" .. L["Premade Groups Filter"] .. "|r",
-				"|cff00a8ff" .. L["Tooltips"] .. " - " .. L["Group Info"] .. "|r"))
+			F.Print(
+				format(
+					L["%s detected, %s will be disabled automatically."],
+					"|cffff3860" .. L["Premade Groups Filter"] .. "|r",
+					"|cff00a8ff" .. L["Tooltips"] .. " - " .. L["Group Info"] .. "|r"
+				)
+			)
 			E.db.mui.tooltip.groupInfo.enable = false
 		end
 	end

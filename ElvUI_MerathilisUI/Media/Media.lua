@@ -1,148 +1,8 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local LSM = E.LSM or E.Libs.LSM
 
-MER.Media = {
-	Icons = {},
-	Textures = {},
-}
-
-local MediaPath = "Interface/Addons/ElvUI_MerathilisUI/Media/"
-
-do
-	local cuttedIconTemplate = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
-	local cuttedIconAspectRatioTemplate = "|T%s:%d:%d:0:0:64:64:%d:%d:%d:%d|t"
-	local textureTemplate = "|T%s:%d:%d|t"
-	local aspectRatioTemplate = "|T%s:0:aspectRatio|t"
-	local s = 14
-
-	function F.GetIconString(icon, height, width, aspectRatio)
-		if aspectRatio and height and height > 0 and width and width > 0 then
-			local proportionality = height / width
-			local offset = ceil((54 - 54 * proportionality) / 2)
-			if proportionality > 1 then
-				return format(cuttedIconAspectRatioTemplate, icon, height, width, 5 + offset, 59 - offset, 5, 59)
-			elseif proportionality < 1 then
-				return format(cuttedIconAspectRatioTemplate, icon, height, width, 5, 59, 5 + offset, 59 - offset)
-			end
-		end
-
-		width = width or height
-		return format(cuttedIconTemplate, icon, height or s, width or s)
-	end
-
-	function F.GetTextureString(texture, height, width, aspectRatio)
-		if aspectRatio then
-			return format(aspectRatioTemplate, texture)
-		else
-			width = width or height
-			return format(textureTemplate, texture, height or s, width or s)
-		end
-	end
-end
-
-local function AddMedia(name, file, type)
-	MER.Media[type][name] = MediaPath .. type .. "/" .. file
-end
-
-do
-	AddMedia("widgetsTips", "WidgetsTips.tga", "Textures")
-
-	local texTable = {
-		texWidth = 2048,
-		texHeight = 1024,
-		tipWidth = 512,
-		tipHeight = 170,
-		languages = {
-			enUS = 0
-		},
-		type = {
-			button = { 0, 0 },
-			checkBox = { 512, 0 },
-			tab = { 1024, 0 },
-			treeGroupButton = { 1536, 0 },
-			slider = { 0, 180 }
-		}
-	}
-
-	function F.GetWidgetTips(widgetType)
-		if not texTable.type[widgetType] then
-			return
-		end
-		local offsetY = texTable.languages[E.global.general.locale] or texTable.languages["enUS"]
-		if not offsetY then
-			return
-		end
-
-		local xStart = texTable.type[widgetType][1]
-		local yStart = texTable.type[widgetType][2] + offsetY
-		local xEnd = xStart + texTable.tipWidth
-		local yEnd = yStart + texTable.tipHeight
-
-		return { xStart / texTable.texWidth, xEnd / texTable.texWidth, yStart / texTable.texHeight, yEnd /
-		texTable.texHeight }
-	end
-
-	function F.GetWidgetTipsString(widgetType)
-		if not texTable.type[widgetType] then
-			return
-		end
-		local offsetY = texTable.languages[E.global.general.locale] or texTable.languages["enUS"]
-		if not offsetY then
-			return
-		end
-
-		local xStart = texTable.type[widgetType][1]
-		local yStart = texTable.type[widgetType][2] + offsetY
-		local xEnd = xStart + texTable.tipWidth
-		local yEnd = yStart + texTable.tipHeight
-
-		return format(
-			"|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d:255:255:255|t",
-			MER.Media.Textures.widgetsTips,
-			ceil(texTable.tipHeight * 0.4),
-			ceil(texTable.tipWidth * 0.4),
-			texTable.texWidth,
-			texTable.texHeight,
-			xStart,
-			xEnd,
-			yStart,
-			yEnd
-		)
-	end
-end
-
-function F.GetClassIconStyleList()
-	return { "flat", "flatborder", "flatborder2", "round", "square", "warcraftflat" }
-end
-
-function F.GetClassIconWithStyle(class, style)
-	if not class or not F.In(strupper(class), _G.CLASS_SORT_ORDER) then
-		return
-	end
-
-	if not style or not F.In(style, F.GetClassIconStyleList()) then
-		return
-	end
-
-	return MediaPath .. "Icons/ClassIcon/" .. strlower(class) .. "_" .. style .. ".tga"
-end
-
-function F.GetClassIconStringWithStyle(class, style, width, height)
-	local path = F.GetClassIconWithStyle(class, style)
-	if not path then
-		return
-	end
-
-	if not width and not height then
-		return format("|T%s:0|t", path)
-	end
-
-	if not height then
-		height = width
-	end
-
-	return format("|T%s:%d:%d:0:0:64:64:0:64:0:64|t", path, height, width)
-end
+local westAndRUBits = LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western
+local allLocaleBits = LSM.LOCALE_BIT_koKR + LSM.LOCALE_BIT_zhCN + LSM.LOCALE_BIT_zhTW + westAndRUBits
 
 MER.ClassIcons = {
 	["WARRIOR"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Warrior",
@@ -160,204 +20,144 @@ MER.ClassIcons = {
 	["EVOKER"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Evoker",
 }
 
-AddMedia("smallLogo", "m2.tga", "Textures")
+F.AddMedia("texture", "WidgetsTips")
+F.AddMedia("logo", "LogoSmall")
 
-AddMedia("barAchievements", "MicroBar/Achievements.tga", "Icons")
-AddMedia("barBags", "MicroBar/Bags.tga", "Icons")
-AddMedia("barBlizzardShop", "MicroBar/BlizzardShop.tga", "Icons")
-AddMedia("barCharacter", "MicroBar/Character.tga", "Icons")
-AddMedia("barCollections", "MicroBar/Collections.tga", "Icons")
-AddMedia("barEncounterJournal", "MicroBar/EncounterJournal.tga", "Icons")
-AddMedia("barGameMenu", "MicroBar/GameMenu.tga", "Icons")
-AddMedia("barFriends", "MicroBar/Friends.tga", "Icons")
-AddMedia("barGroupFinder", "MicroBar/GroupFinder.tga", "Icons")
-AddMedia("barGuild", "MicroBar/Guild.tga", "Icons")
-AddMedia("barHome", "MicroBar/Home.tga", "Icons")
-AddMedia("barMissionReports", "MicroBar/MissionReports.tga", "Icons")
-AddMedia("barNotification", "MicroBar/Notification.tga", "Icons")
-AddMedia("barOptions", "MicroBar/Options.tga", "Icons")
-AddMedia("barPetJournal", "MicroBar/PetJournal.tga", "Icons")
-AddMedia("barProfession", "MicroBar/Profession.tga", "Icons")
-AddMedia("barScreenShot", "MicroBar/ScreenShot.tga", "Icons")
-AddMedia("barSound", "MicroBar/Sound.tga", "Icons")
-AddMedia("barSpellBook", "MicroBar/SpellBook.tga", "Icons")
-AddMedia("barTalents", "MicroBar/Talents.tga", "Icons")
-AddMedia("barToyBox", "MicroBar/ToyBox.tga", "Icons")
-AddMedia("barVolume", "MicroBar/Volume.tga", "Icons")
+F.AddMedia("icon", "Achievements")
+F.AddMedia("icon", "Bags")
+F.AddMedia("icon", "BlizzardShop")
+F.AddMedia("icon", "Character")
+F.AddMedia("icon", "Collections")
+F.AddMedia("icon", "EncounterJournal")
+F.AddMedia("icon", "GameMenu")
+F.AddMedia("icon", "Friends")
+F.AddMedia("icon", "GroupFinder")
+F.AddMedia("icon", "Guild")
+F.AddMedia("icon", "Home")
+F.AddMedia("icon", "MissionReports")
+F.AddMedia("icon", "Notification")
+F.AddMedia("icon", "Options")
+F.AddMedia("icon", "PetJournal")
+F.AddMedia("icon", "Profession")
+F.AddMedia("icon", "ScreenShot")
+F.AddMedia("icon", "Sound")
+F.AddMedia("icon", "SpellBook")
+F.AddMedia("icon", "Talents")
+F.AddMedia("icon", "ToyBox")
+F.AddMedia("icon", "Volume")
 
-AddMedia("calendar", "Calendar.tga", "Icons")
-AddMedia("convert", "Convert.tga", "Icons")
-AddMedia("favorite", "Favorite.tga", "Icons")
-AddMedia("information", "Information.tga", "Icons")
-AddMedia("innovation", "Innovation.tga", "Icons")
-AddMedia("list", "List.tga", "Icons")
-AddMedia("media", "Media.tga", "Icons")
-AddMedia("modules", "Modules.tga", "Icons")
-AddMedia("skins", "Skins.tga", "Icons")
-AddMedia("accept", "Accept.tga", "Icons")
-AddMedia("complete", "Complete.tga", "Icons")
-AddMedia("discord", "Discord.tga", "Icons")
-AddMedia("github", "Github.tga", "Icons")
+F.AddMedia("icon", "Convert")
+F.AddMedia("icon", "Favorite")
+F.AddMedia("icon", "Information")
+F.AddMedia("icon", "Innovation")
+F.AddMedia("icon", "List")
+F.AddMedia("icon", "Media")
+F.AddMedia("icon", "Modules")
+F.AddMedia("icon", "Skins")
+F.AddMedia("icon", "Accept")
+F.AddMedia("icon", "Complete")
+F.AddMedia("icon", "Discord")
+F.AddMedia("icon", "Github")
 
 --Option Icons
-AddMedia("home", "Options/home.tga", "Icons")
-AddMedia("config", "Options/config.tga", "Icons")
-AddMedia("system", "Options/system.tga", "Icons")
-AddMedia("tips", "Options/tips.tga", "Icons")
-AddMedia("bill", "Options/bill.tga", "Icons")
-AddMedia("save", "Options/save.tga", "Icons")
-AddMedia("more", "Options/more.tga", "Icons")
-AddMedia("tool", "Options/tool.tga", "Icons")
-AddMedia("gradient", "Options/gradient.tga", "Icons")
+F.AddMedia("icon", "OptionsHome")
+F.AddMedia("icon", "Config")
+F.AddMedia("icon", "System")
+F.AddMedia("icon", "Tips")
+F.AddMedia("icon", "Bill")
+F.AddMedia("icon", "Save")
+F.AddMedia("icon", "More")
+F.AddMedia("icon", "Tool")
+F.AddMedia("icon", "Gradient")
+F.AddMedia("icon", "Changelog")
 
-AddMedia("buttonLock", "Button/Lock.tga", "Icons")
-AddMedia("buttonUnlock", "Button/Unlock.tga", "Icons")
-AddMedia("buttonMinus", "Button/Minus.tga", "Icons")
-AddMedia("buttonPlus", "Button/Plus.tga", "Icons")
-AddMedia("buttonForward", "Button/Forward.tga", "Icons")
+F.AddMedia("icon", "Lock")
+F.AddMedia("icon", "Unlock")
+F.AddMedia("icon", "Minus")
+F.AddMedia("icon", "Plus")
+F.AddMedia("icon", "Forward")
 
-AddMedia("sort", "Sort.tga", "Icons")
+F.AddMedia("icon", "Warning")
+F.AddMedia("icon", "Flash")
+F.AddMedia("icon", "New")
 
-AddMedia("anchor", "anchor.tga", "Textures")
-AddMedia("arrow", "arrow.tga", "Textures")
-AddMedia("arrowUp", "arrowUp.tga", "Textures")
-AddMedia("pepeSmall", "pepeSmall.tga", "Textures")
-AddMedia("ROLES", "UI-LFG-ICON-ROLES.tga", "Textures")
-AddMedia("exchange", "Exchange.tga", "Textures")
-AddMedia("Pushed", "pushed.tga", "Textures")
+F.AddMedia("texture", "arrow")
+F.AddMedia("texture", "arrowUp")
+F.AddMedia("texture", "pepeSmall")
+F.AddMedia("texture", "pushed")
 
-AddMedia("PepeArt", "PepeArt.tga", "Textures")
+F.AddMedia("texture", "PepeArt")
 
-AddMedia("PepoLove", "Peepo/love.tga", "Textures")
-AddMedia("PepoBedge", "Peepo/bedge.tga", "Textures")
-AddMedia("PepoOkaygeL", "Peepo/okaygeL.tga", "Textures")
-AddMedia("PepoStrongge", "Peepo/strongge.tga", "Textures")
-
-AddMedia("flag", "flag.tga", "Textures")
-
-AddMedia("dc", "materialDC.tga", "Textures")
-AddMedia("dead", "materialDead.tga", "Textures")
+F.AddMedia("texture", "PepoLove")
+F.AddMedia("texture", "PepoBedge")
+F.AddMedia("texture", "PepoOkaygeL")
+F.AddMedia("texture", "PepoStrongge")
 
 -- Role Icons
-AddMedia("sunTank", "RoleIcons/SunUI/Tank.tga", "Textures")
-AddMedia("sunHealer", "RoleIcons/SunUI/Healer.tga", "Textures")
-AddMedia("sunDPS", "RoleIcons/SunUI/DPS.tga", "Textures")
+F.AddMedia("role", "SunUITank")
+F.AddMedia("role", "SunUIHealer")
+F.AddMedia("role", "SunUIDPS")
 
-AddMedia("svuiTank", "RoleIcons/SVUI/Tank.tga", "Textures")
-AddMedia("svuiHealer", "RoleIcons/SVUI/Healer.tga", "Textures")
-AddMedia("svuiDPS", "RoleIcons/SVUI/DPS.tga", "Textures")
+F.AddMedia("role", "SVUITank")
+F.AddMedia("role", "SVUIHealer")
+F.AddMedia("role", "SVUIDPS")
 
-AddMedia("lynTank", "RoleIcons/LynUI/Tank.tga", "Textures")
-AddMedia("lynHealer", "RoleIcons/LynUI/Healer.tga", "Textures")
-AddMedia("lynDPS", "RoleIcons/LynUI/DPS.tga", "Textures")
+F.AddMedia("role", "LynUITank")
+F.AddMedia("role", "LynUIHealer")
+F.AddMedia("role", "LynUIDPS")
 
-AddMedia("customTank", "RoleIcons/Custom/Tank.tga", "Textures")
-AddMedia("customHeal", "RoleIcons/Custom/Healer.tga", "Textures")
-AddMedia("customDPS", "RoleIcons/Custom/DPS.tga", "Textures")
+F.AddMedia("role", "CustomTank")
+F.AddMedia("role", "CustomHealer")
+F.AddMedia("role", "CustomDPS")
 
-AddMedia("glowTank", "RoleIcons/Glow/Tank.tga", "Textures")
-AddMedia("glowHeal", "RoleIcons/Glow/Healer.tga", "Textures")
-AddMedia("glowDPS", "RoleIcons/Glow/DPS.tga", "Textures")
+F.AddMedia("role", "GlowTank")
+F.AddMedia("role", "GlowHealer")
+F.AddMedia("role", "GlowDPS")
 
-AddMedia("mainTank", "RoleIcons/Main/Tank.tga", "Textures")
-AddMedia("mainHeal", "RoleIcons/Main/Healer.tga", "Textures")
-AddMedia("mainDPS", "RoleIcons/Main/DPS.tga", "Textures")
+F.AddMedia("role", "GravedTank")
+F.AddMedia("role", "GravedHealer")
+F.AddMedia("role", "GravedDPS")
 
-AddMedia("whiteTank", "RoleIcons/White/Tank.tga", "Textures")
-AddMedia("whiteHeal", "RoleIcons/White/Healer.tga", "Textures")
-AddMedia("whiteDPS", "RoleIcons/White/DPS.tga", "Textures")
+F.AddMedia("role", "MainTank")
+F.AddMedia("role", "MainHealer")
+F.AddMedia("role", "MainDPS")
 
-AddMedia("materialTank", "RoleIcons/Material/Tank.tga", "Textures")
-AddMedia("materialHeal", "RoleIcons/Material/Healer.tga", "Textures")
-AddMedia("materialDPS", "RoleIcons/Material/DPS.tga", "Textures")
+F.AddMedia("role", "WhiteTank")
+F.AddMedia("role", "WhiteHealer")
+F.AddMedia("role", "WhiteDPS")
 
-AddMedia("emptyTex", "bgTex.blp", "Textures")
-AddMedia("glowTex", "glowTex.blp", "Textures")
-AddMedia("MinimapDifficulty", "minimap-difficulty.tga", "Textures")
+F.AddMedia("role", "MaterialTank")
+F.AddMedia("role", "MaterialHealer")
+F.AddMedia("role", "MaterialDPS")
 
-AddMedia("noiseInner", "NoiseInner.blp", "Textures")
-AddMedia("shadowInner", "ShadowInner.blp", "Textures")
-AddMedia("shadowInnerSmall", "ShadowInnerSmall.blp", "Textures")
+F.AddMedia("texture", "EmptyTex")
+F.AddMedia("texture", "GlowTex")
+
+F.AddMedia("texture", "Difficulty.tga")
+
+F.AddMedia("texture", "NoiseInner")
+F.AddMedia("texture", "ShadowInner")
+F.AddMedia("texture", "ShadowInnerSmall")
 
 -- Fonts
-LSM:Register("font", "Prototype", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\PROTOTYPE.TTF]])
-LSM:Register("font", "PrototypeRU", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\PROTOTYPE_RU.TTF]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Visitor1", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\visitor1.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Visitor2", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\visitor2.ttf]])
-LSM:Register("font", "Tukui", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\uf_font.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "ArialN", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\ARIALN.ttf]])
-LSM:Register("font", "Default", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\default.ttf]])
-LSM:Register("font", "Roboto-Black", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Black.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Roboto-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Bold.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Roboto-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Medium.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Roboto-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Roboto-Regular.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "RobotoCondensed-Regular",
-	[[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\RobotoCondensed-Regular.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "GoodDogCool", [[Interface\AddOns\ElvUI_MerathilisUI\edia\Fonts\gdcool.ttf]])
-LSM:Register("font", "BadaBoom", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\BADABB__.ttf]])
-LSM:Register("font", "Gothic-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\CenturyGothicBold.ttf]])
-LSM:Register("font", "Gotham Narrow Black", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\GothamNarrow-Black.ttf]])
-LSM:Register("font", "Gotham Narrow Ultra", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\GothamNarrow-Ultra.otf]])
-LSM:Register("font", "Montserrat-Black", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-Black.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Montserrat-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-Bold.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Montserrat-ExtraBold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-ExtraBold.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Montserrat-ExtraLight",
-	[[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-ExtraLight.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Montserrat-Light", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-Light.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Montserrat-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-Medium.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Montserrat-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-Regular.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "Montserrat-SemiBold", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Montserrat-SemiBold.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "NotoSans-Medium", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\NotoSans-Medium.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-LSM:Register("font", "OldSchool Runescape", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Fonts\Runescape.ttf]],
-	LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+
+F.AddMedia("font", "Expressway.ttf", I.Fonts.Primary, nil, westAndRUBits)
+F.AddMedia("font", "GothamNarrow-Black.ttf", I.Fonts.GothamRaid, nil, westAndRUBits)
+F.AddMedia("font", "Runescape.ttf", I.Fonts.Runescape, nil, westAndRUBits)
 
 -- Backgrounds
 -- Border
 
 -- Statusbars
-LSM:Register("statusbar", "MerathilisBlank", [[Interface\BUTTONS\WHITE8X8.blp]])
-LSM:Register("statusbar", "MerathilisUI1", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\mUI2.tga]])
-LSM:Register("statusbar", "MerathilisUI2", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\mUI3.tga]])
-LSM:Register("statusbar", "MerathilisUI4", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\mUI4.tga]])
-LSM:Register("statusbar", "MerathilisOnePixel", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\OnePixel.tga]])
-LSM:Register("statusbar", "MerathilisMelli", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Melli.tga]])
-LSM:Register("statusbar", "MerathilisMelliDark", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\MelliDark.tga]])
-LSM:Register("statusbar", "MerathilisEmpty", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Empty.tga]])
-LSM:Register("statusbar", "MerathilisnormTex", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\normTex.tga]])
-LSM:Register("statusbar", "MerathilisDefault", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\default.tga]])
-LSM:Register("statusbar", "MerathilisLight", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Light.tga]])
-LSM:Register("statusbar", "MerathilisFeint", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\MerathilisFeint.tga]])
-LSM:Register("statusbar", "MerathilisBorder", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Border.tga]])
-LSM:Register("statusbar", "Gradient", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\gradient1.tga]])
-LSM:Register("statusbar", "MER_NormTex", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\MERNormTex.tga]])
-LSM:Register("statusbar", "Lyn1", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\lyn1.tga]])
-LSM:Register("statusbar", "Skullflower", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Skullflower.tga]])
-LSM:Register("statusbar", "SkullflowerLight",
-	[[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\SkullflowerLight.tga]])
-LSM:Register("statusbar", "Duffed", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Duffed.tga]])
-LSM:Register("statusbar", "RenAscension", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\RenAscension.tga]])
-LSM:Register("statusbar", "RenAscensionL", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\RenAscensionL.tga]])
-LSM:Register("statusbar", "4Pixel", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\Line4pixel.tga]])
-LSM:Register("statusbar", "Asphyxia", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\AsphyxiaNorm.tga]])
-LSM:Register("statusbar", "MER_Stripes", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\MER_Stripes.tga]])
-LSM:Register("statusbar", "Simpy19", [[Interface\AddOns\ElvUI_MerathilisUI\Media\StatusBars\simpy_tex19.tga]])
+F.AddMedia("texture", "Empty", "- Empty", "statusbar")
+F.AddMedia("texture", "Lyn", "Lyn", "statusbar")
+F.AddMedia("texture", "SkullflowerLight", "SkullflowerLight", "statusbar")
+F.AddMedia("texture", "Duffed", "Duffed", "statusbar")
+F.AddMedia("texture", "RenAscension", "RenAscension", "statusbar")
+F.AddMedia("texture", "RenAscensionL", "RenAscensionL", "statusbar")
+F.AddMedia("texture", "Line4pixel", "4Pixel", "statusbar")
+F.AddMedia("texture", "Asphyxia", "Asphyxia", "statusbar")
+F.AddMedia("texture", "MER_Stripes", "MER_Stripes", "statusbar")
 
 -- Sounds
 LSM:Register("sound", "warning", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Sounds\warning.ogg]])

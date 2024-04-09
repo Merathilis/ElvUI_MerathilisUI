@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_WorldMap')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_WorldMap")
 
 local _G = _G
 local ceil = ceil
@@ -54,42 +54,51 @@ function module:HandleMap(map, fullUpdate)
 	for key, files in pairs(zone) do
 		if not TileExists[key] then
 			local width, height, offsetX, offsetY = strsplit(":", key)
-			local fileDataIDs = {strsplit(",", files)}
+			local fileDataIDs = { strsplit(",", files) }
 			local numTexturesWide = ceil(width / TILE_SIZE_WIDTH)
 			local numTexturesTall = ceil(height / TILE_SIZE_HEIGHT)
 			local texturePixelWidth, textureFileWidth, texturePixelHeight, textureFileHeight
 			for j = 1, numTexturesTall do
-				if (j < numTexturesTall) then
+				if j < numTexturesTall then
 					texturePixelHeight = TILE_SIZE_HEIGHT
 					textureFileHeight = TILE_SIZE_HEIGHT
 				else
 					texturePixelHeight = mod(height, TILE_SIZE_HEIGHT)
-					if (texturePixelHeight == 0) then
+					if texturePixelHeight == 0 then
 						texturePixelHeight = TILE_SIZE_HEIGHT
 					end
 					textureFileHeight = 16
-					while (textureFileHeight < texturePixelHeight) do
+					while textureFileHeight < texturePixelHeight do
 						textureFileHeight = textureFileHeight * 2
 					end
 				end
 				for k = 1, numTexturesWide do
 					local texture = map.overlayTexturePool:Acquire()
-					if (k < numTexturesWide) then
+					if k < numTexturesWide then
 						texturePixelWidth = TILE_SIZE_WIDTH
 						textureFileWidth = TILE_SIZE_WIDTH
 					else
 						texturePixelWidth = mod(width, TILE_SIZE_WIDTH)
-						if (texturePixelWidth == 0) then
+						if texturePixelWidth == 0 then
 							texturePixelWidth = TILE_SIZE_WIDTH
 						end
 						textureFileWidth = 16
-						while (textureFileWidth < texturePixelWidth) do
+						while textureFileWidth < texturePixelWidth do
 							textureFileWidth = textureFileWidth * 2
 						end
 					end
 					texture:Size(texturePixelWidth, texturePixelHeight)
-					texture:SetTexCoord(0, texturePixelWidth / textureFileWidth, 0, texturePixelHeight / textureFileHeight)
-					texture:Point("TOPLEFT", offsetX + (TILE_SIZE_WIDTH * (k - 1)), -(offsetY + (TILE_SIZE_HEIGHT * (j - 1))))
+					texture:SetTexCoord(
+						0,
+						texturePixelWidth / textureFileWidth,
+						0,
+						texturePixelHeight / textureFileHeight
+					)
+					texture:Point(
+						"TOPLEFT",
+						offsetX + (TILE_SIZE_WIDTH * (k - 1)),
+						-(offsetY + (TILE_SIZE_HEIGHT * (j - 1)))
+					)
 					texture:SetTexture(tonumber(fileDataIDs[((j - 1) * numTexturesWide) + k]), nil, nil, "TRILINEAR")
 					texture:SetDrawLayer("ARTWORK", -1)
 					texture:Show()
@@ -98,7 +107,12 @@ function module:HandleMap(map, fullUpdate)
 					end
 
 					if module.db and module.db.reveal.enable and module.db.reveal.useColor then
-						texture:SetVertexColor(module.db.reveal.color.r, module.db.reveal.color.g, module.db.reveal.color.b, module.db.reveal.color.a)
+						texture:SetVertexColor(
+							module.db.reveal.color.r,
+							module.db.reveal.color.g,
+							module.db.reveal.color.b,
+							module.db.reveal.color.a
+						)
 					end
 
 					tinsert(overlayTextures, texture)
@@ -124,7 +138,8 @@ function module:Reveal()
 	if E.myfraction == "Alliance" then
 		module.RevealDatabase[556]["223:279:194:0"] = gsub(module.RevealDatabase[556]["223:279:194:0"], "1037663", "")
 	elseif E.myfraction == "Horde" then
-		module.RevealDatabase[542]["267:257:336:327"] = gsub(module.RevealDatabase[542]["267:257:336:327"], "1003342", "")
+		module.RevealDatabase[542]["267:257:336:327"] =
+			gsub(module.RevealDatabase[542]["267:257:336:327"], "1003342", "")
 	end
 
 	module.RevealDatabase[521] = nil -- Throne of Thunder

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -20,7 +20,7 @@ local function StyleRewardButton(button)
 
 	count:SetDrawLayer("OVERLAY")
 
-	na:SetColorTexture(0, 0, 0, .25)
+	na:SetColorTexture(0, 0, 0, 0.25)
 	na:SetSize(110, 39)
 	na:ClearAllPoints()
 	na:SetPoint("LEFT", icon, "RIGHT", -7, 0)
@@ -37,7 +37,7 @@ local function StyleRewardButton(button)
 	button.bg2:SetPoint("TOPLEFT", na, "TOPLEFT", 10, 0)
 	button.bg2:SetPoint("BOTTOMRIGHT", na, "BOTTOMRIGHT", -1, 0)
 	button.bg2:SetFrameStrata("BACKGROUND")
-	button.bg2:CreateBackdrop('Transparent')
+	button.bg2:CreateBackdrop("Transparent")
 	module:CreateGradient(button.bg2)
 end
 

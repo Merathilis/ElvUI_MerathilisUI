@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
+local S = E:GetModule("Skins")
 
 local _G = _G
 local unpack = unpack
@@ -8,7 +8,9 @@ local unpack = unpack
 local InCombatLockdown = InCombatLockdown
 
 local function StyleElvUIConfig()
-	if InCombatLockdown() or not E.private.skins.ace3Enable then return end
+	if InCombatLockdown() or not E.private.skins.ace3Enable then
+		return
+	end
 
 	local frame = E:Config_GetWindow()
 	-- Shadow & Styling handled via Ace3 Skin
@@ -25,7 +27,9 @@ local function StyleElvUIConfig()
 end
 
 local function StyleElvUIInstall()
-	if InCombatLockdown() then return end
+	if InCombatLockdown() then
+		return
+	end
 
 	local frame = _G.ElvUIInstallFrame
 	if frame then

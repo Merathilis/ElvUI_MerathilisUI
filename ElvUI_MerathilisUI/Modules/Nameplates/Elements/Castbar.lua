@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local MNP = MER:GetModule('MER_NamePlates')
-local NP = E:GetModule('NamePlates')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MNP = MER:GetModule("MER_NamePlates")
+local NP = E:GetModule("NamePlates")
 
 local _G = _G
 
@@ -9,12 +9,16 @@ local hooksecurefunc = hooksecurefunc
 
 -- Castbar Shield
 function MNP:Castbar_CheckInterrupt(unit)
-	if (unit == 'vehicle') then
-		unit = 'player'
+	if unit == "vehicle" then
+		unit = "player"
 	end
 
-	if (self.notInterruptible and UnitCanAttack('player', unit)) then
-		self:SetStatusBarColor(NP.db.colors.castNoInterruptColor.r, NP.db.colors.castNoInterruptColor.g, NP.db.colors.castNoInterruptColor.b)
+	if self.notInterruptible and UnitCanAttack("player", unit) then
+		self:SetStatusBarColor(
+			NP.db.colors.castNoInterruptColor.r,
+			NP.db.colors.castNoInterruptColor.g,
+			NP.db.colors.castNoInterruptColor.b
+		)
 
 		if self.Icon and NP.db.colors.castbarDesaturate then
 			self.Icon:SetDesaturated(true)
@@ -36,11 +40,11 @@ function MNP:Castbar_CheckInterrupt(unit)
 end
 
 function MNP:Construct_Castbar(nameplate)
-	local Castbar = _G[nameplate:GetDebugName()..'Castbar']
+	local Castbar = _G[nameplate:GetDebugName() .. "Castbar"]
 
 	if E.db.mui.nameplates.castbarShield then
-		Castbar.Shield = Castbar:CreateTexture(nil, 'OVERLAY')
-		Castbar.Shield:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Textures\\Shield.tga")
+		Castbar.Shield = Castbar:CreateTexture(nil, "OVERLAY")
+		Castbar.Shield:SetTexture(I.General.MediaPath .. "Textures\\Shield.tga")
 		Castbar.Shield:Point("RIGHT", Castbar, "LEFT", 10, 0)
 		Castbar.Shield:SetSize(12, 12)
 		Castbar.Shield:Hide()

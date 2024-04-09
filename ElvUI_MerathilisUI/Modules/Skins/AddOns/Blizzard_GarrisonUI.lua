@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -19,7 +19,7 @@ local function SkinGarrisonTooltips()
 		_G.GarrisonFollowerAbilityTooltip,
 		_G.FloatingGarrisonFollowerAbilityTooltip,
 		_G.GarrisonFollowerMissionAbilityWithoutCountersTooltip,
-		_G.GarrisonFollowerAbilityWithoutCountersTooltip
+		_G.GarrisonFollowerAbilityWithoutCountersTooltip,
 	}
 
 	for _, tooltip in pairs(tooltips) do
@@ -39,10 +39,16 @@ local function SkinMissionFrame(frame)
 	S:HandleCloseButton(frame.CloseButton)
 	frame.GarrCorners:Hide()
 
-	if frame.OverlayElements then frame.OverlayElements:SetAlpha(0) end
-	if frame.ClassHallIcon then frame.ClassHallIcon:Hide() end
+	if frame.OverlayElements then
+		frame.OverlayElements:SetAlpha(0)
+	end
+	if frame.ClassHallIcon then
+		frame.ClassHallIcon:Hide()
+	end
 
-	if frame.MapTab then frame.MapTab.ScrollContainer.Child.TiledBackground:Hide() end
+	if frame.MapTab then
+		frame.MapTab.ScrollContainer.Child.TiledBackground:Hide()
+	end
 end
 
 function module:Blizzard_GarrisonUI()
@@ -59,7 +65,7 @@ function module:Blizzard_GarrisonUI()
 		_G.OrderHallMissionFrame,
 		_G.OrderHallCommandBar,
 		_G.BFAMissionFrame,
-		_G.CovenantMissionFrame
+		_G.CovenantMissionFrame,
 	}
 
 	local tabs = {
@@ -77,7 +83,7 @@ function module:Blizzard_GarrisonUI()
 		_G.BFAMissionFrameTab2,
 		_G.BFAMissionFrameTab3,
 		_G.CovenantMissionFrameTab1,
-		_G.CovenantMissionFrameTab2
+		_G.CovenantMissionFrameTab2,
 	}
 
 	for _, frame in pairs(frames) do
@@ -113,14 +119,18 @@ function module:Blizzard_GarrisonUI()
 		local function SetAnimaActualCount(self, text)
 			local mult = GetAnimaMultiplier(self.__owner.itemID)
 			if mult then
-				if text == "" then text = 1 end
+				if text == "" then
+					text = 1
+				end
 				text = text * mult
 				self:SetFormattedText("%s", text)
 				self.__owner.Icon:SetTexture(ANIMA_TEXTURE)
 			end
 		end
 		local function AdjustFollowerList(self)
-			if self.isSetting then return end
+			if self.isSetting then
+				return
+			end
 			self.isSetting = true
 
 			local numFollowers = #C_Garrison.GetFollowers(123)
@@ -144,7 +154,7 @@ function module:Blizzard_GarrisonUI()
 
 		local function updateSelectedBorder(portrait, show)
 			if show then
-				portrait.__owner.bg:SetBackdropBorderColor(.6, 0, 0)
+				portrait.__owner.bg:SetBackdropBorderColor(0.6, 0, 0)
 			else
 				portrait.__owner.bg:SetBackdropBorderColor(0, 0, 0)
 			end
@@ -176,7 +186,7 @@ function module:Blizzard_GarrisonUI()
 
 		local function reskinFollowerAbility(frame, index, first)
 			local ability = select(index, frame:GetRegions())
-			ability:SetMask('')
+			ability:SetMask("")
 			ability:SetSize(14, 14)
 			S:HandleIcon(ability, true)
 			ability.backdrop:SetFrameLevel(4)
@@ -213,43 +223,43 @@ function module:Blizzard_GarrisonUI()
 					reskinWidgetFont(peek("Description"), 1, 1, 1)
 					reskinWidgetFont(peek("enemyHP"), 1, 1, 1)
 					reskinWidgetFont(peek("enemyATK"), 1, 1, 1)
-					reskinWidgetFont(peek("animaCost"), .6, .8, 1)
-					reskinWidgetFont(peek("duration"), 1, .8, 0)
-					reskinWidgetFont(widget.CDTDisplay:GetFontString(), 1, .8, 0)
+					reskinWidgetFont(peek("animaCost"), 0.6, 0.8, 1)
+					reskinWidgetFont(peek("duration"), 1, 0.8, 0)
+					reskinWidgetFont(widget.CDTDisplay:GetFontString(), 1, 0.8, 0)
 				elseif otype == "CopyBoxUI" then
 					S:HandleButton(widget.ResetButton)
 					S:HandleCloseButton(widget.CloseButton2)
 					reskinWidgetFont(widget.Intro, 1, 1, 1)
 					S:HandleEditBox(widget.FirstInputBox)
-					reskinWidgetFont(widget.FirstInputBoxLabel, 1, .8, 0)
+					reskinWidgetFont(widget.FirstInputBoxLabel, 1, 0.8, 0)
 					S:HandleEditBox(widget.SecondInputBox)
-					reskinWidgetFont(widget.SecondInputBoxLabel, 1, .8, 0)
+					reskinWidgetFont(widget.SecondInputBoxLabel, 1, 0.8, 0)
 					reskinWidgetFont(widget.VersionText, 1, 1, 1)
 				elseif otype == "MissionList" then
 					widget:StripTextures()
 					local background = widget:GetChildren()
 					background:StripTextures()
-					module:CreateBDFrame(background, .25)
+					module:CreateBDFrame(background, 0.25)
 				elseif otype == "MissionPage" then
 					widget:StripTextures()
 					S:HandleButton(peek("UnButton"))
 					S:HandleButton(peek("StartButton"))
-					peek("StartButton"):SetText("|T" .. MER.Media.Textures.arrowUp .. ":16|t")
+					peek("StartButton"):SetText("|T" .. I.Media.Textures.arrowUp .. ":16|t")
 				elseif otype == "ILButton" then
 					widget:DisableDrawLayer("BACKGROUND")
-					local bg = module:CreateBDFrame(widget, .25)
+					local bg = module:CreateBDFrame(widget, 0.25)
 					bg:SetPoint("TOPLEFT", -3, 1)
 					bg:SetPoint("BOTTOMRIGHT", 2, -2)
-					module:CreateBDFrame(widget.Icon, .25)
+					module:CreateBDFrame(widget.Icon, 0.25)
 				elseif otype == "IconButton" then
 					S:HandleIcon(widget.Icon)
-					widget:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-					widget:SetPushedTexture('')
+					widget:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.25)
+					widget:SetPushedTexture("")
 					widget:SetSize(46, 46)
 					tinsert(VPBooks, widget)
 				elseif otype == "AdventurerRoster" then
 					widget:StripTextures()
-					module:CreateBDFrame(widget, .25)
+					module:CreateBDFrame(widget, 0.25)
 					hooksecurefunc(widget, "SetHeight", AdjustFollowerList)
 					S:HandleButton(peek("HealAllButton"))
 
@@ -267,7 +277,7 @@ function module:Blizzard_GarrisonUI()
 					end
 				elseif otype == "AdventurerListButton" then
 					widget.bg = module:CreateBDFrame(peek("Portrait"), 1)
-					peek("Hi"):SetColorTexture(1, 1, 1, .25)
+					peek("Hi"):SetColorTexture(1, 1, 1, 0.25)
 					peek("Hi"):SetInside(widget.bg)
 					peek("PortraitR"):Hide()
 					peek("PortraitT"):SetTexture(nil)
@@ -326,10 +336,14 @@ function module:Blizzard_GarrisonUI()
 					widget:StripTextures()
 					module:CreateBDFrame(widget, 1)
 				elseif otype == "MissionToast" then
-					widget:SetTemplate('Tramsparent')
+					widget:SetTemplate("Tramsparent")
 					module:CreateGradient(widget)
-					if widget.Background then widget.Background:Hide() end
-					if widget.Detail then widget.Detail:SetFontObject("Game13Font") end
+					if widget.Background then
+						widget.Background:Hide()
+					end
+					if widget.Detail then
+						widget.Detail:SetFontObject("Game13Font")
+					end
 				elseif otype == "RewardFrame" then
 					widget.Quantity.__owner = widget
 					hooksecurefunc(widget.Quantity, "SetText", SetAnimaActualCount)

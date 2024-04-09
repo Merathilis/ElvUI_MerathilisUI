@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -24,7 +24,8 @@ function module:Blizzard_BlackMarketUI()
 
 	module:CreateBG(BlackMarketFrame.HotDeal.Item)
 
-	local headers = { "ColumnName", "ColumnLevel", "ColumnType", "ColumnDuration", "ColumnHighBidder", "ColumnCurrentBid" }
+	local headers =
+		{ "ColumnName", "ColumnLevel", "ColumnType", "ColumnDuration", "ColumnHighBidder", "ColumnCurrentBid" }
 	for _, headerName in pairs(headers) do
 		local header = BlackMarketFrame[headerName]
 		header.Left:Hide()
@@ -35,10 +36,10 @@ function module:Blizzard_BlackMarketUI()
 		bg:SetPoint("TOPLEFT", 2, 0)
 		bg:SetPoint("BOTTOMRIGHT", -1, 0)
 		bg:SetFrameLevel(header:GetFrameLevel() - 1)
-		bg:SetTemplate('Transparent')
+		bg:SetTemplate("Transparent")
 	end
 
-	BlackMarketFrame.HotDeal:SetTemplate('Transparent')
+	BlackMarketFrame.HotDeal:SetTemplate("Transparent")
 end
 
 module:AddCallbackForAddon("Blizzard_BlackMarketUI")

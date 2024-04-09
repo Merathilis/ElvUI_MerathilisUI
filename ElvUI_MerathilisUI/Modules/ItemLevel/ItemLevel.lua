@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_ItemLevel')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_ItemLevel")
+local S = MER:GetModule("MER_Skins")
 local B = E:GetModule("Bags")
 local LSM = E.Libs.LSM
 
@@ -89,8 +89,9 @@ function module:FlyoutButton(button)
 		if flyoutSettings.useItemLocation then
 			itemLocation = button.itemLocation
 		elseif
-			button.location and type(button.location) == "number" and
-			not (button.location >= EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION)
+			button.location
+			and type(button.location) == "number"
+			and not (button.location >= EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION)
 		then
 			local bags, voidStorage, slot, bag = select(3, EquipmentManager_UnpackLocation(button.location))
 			if not voidStorage then
@@ -153,7 +154,9 @@ function module:CreateItemTexture(slot, relF, x, y)
 end
 
 function module:CreateItemString(frame, strType)
-	if frame.fontCreated then return end
+	if frame.fontCreated then
+		return
+	end
 
 	for index, slot in pairs(inspectSlots) do
 		if index ~= 4 then
@@ -169,7 +172,9 @@ function module:CreateItemString(frame, strType)
 end
 
 function module:ItemLevel_SetupLevel(frame, strType, unit)
-	if not UnitExists(unit) then return end
+	if not UnitExists(unit) then
+		return
+	end
 
 	module:CreateItemString(frame, strType)
 
@@ -201,7 +206,7 @@ function module:ItemLevel_UpdateMerchant(link)
 end
 
 function module.ItemLevel_UpdateTradePlayer(index)
-	local button = _G["TradePlayerItem"..index]
+	local button = _G["TradePlayerItem" .. index]
 	local link = GetTradePlayerItemLink(index)
 	module.ItemLevel_UpdateMerchant(button, link)
 end

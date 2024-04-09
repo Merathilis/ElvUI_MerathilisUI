@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 
@@ -43,7 +43,7 @@ do
 		["ElvUI_CPU"] = true,
 		["ElvUI_MerathilisUI"] = true,
 		["!BugGrabber"] = true,
-		["BugSack"] = true
+		["BugSack"] = true,
 	}
 
 	MER:AddCommand("ERROR", "/muidebug", function(msg)
@@ -81,7 +81,7 @@ do
 			print("on  ", L["Enable debug mode"])
 			print("      ", format(L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."], MER.Title))
 			print("off ", L["Disable debug mode"])
-			print("      ", (L["Reenable the addons that disabled by debug mode."]))
+			print("      ", L["Reenable the addons that disabled by debug mode."])
 			F.PrintGradientLine()
 		end
 	end)

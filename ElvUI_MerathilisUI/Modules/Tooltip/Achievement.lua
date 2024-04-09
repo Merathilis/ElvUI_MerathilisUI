@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local format = format
 local find = string.find
@@ -8,9 +8,15 @@ local GetAchievementInfo = GetAchievementInfo
 local UnitGUID = UnitGUID
 
 local function SetHyperlink(tooltip, refString)
-	if E.db.mui.tooltip.achievement ~= true then return end
-	if tooltip:IsForbidden() then return; end
-	if select(3, find(refString, "(%a-):")) ~= "achievement" then return end
+	if E.db.mui.tooltip.achievement ~= true then
+		return
+	end
+	if tooltip:IsForbidden() then
+		return
+	end
+	if select(3, find(refString, "(%a-):")) ~= "achievement" then
+		return
+	end
 
 	local _, _, achievementID = find(refString, ":(%d+):")
 	local _, _, GUID = find(refString, ":%d+:(.-):")

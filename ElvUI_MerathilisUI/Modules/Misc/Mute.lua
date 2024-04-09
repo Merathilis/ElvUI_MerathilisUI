@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Misc')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
 
 local MountSE = {
 	[63796] = {
@@ -7,7 +7,7 @@ local MountSE = {
 		595100, -- creature/mimironheadmount/mimironheadmount_walk.ogg
 		555364, -- creature/mimironheadmount/mimironheadmount_run.ogg
 		595103, -- creature/mimironheadmount/mimironheadmount_jumpstart.ogg
-		595097 -- creature/mimironheadmount/mimironheadmount_jumpend.ogg
+		595097, -- creature/mimironheadmount/mimironheadmount_jumpend.ogg
 	},
 	[229385] = {
 		1593212, -- creature/ban-lu/vo_72_ban-lu_01_m.ogg
@@ -34,10 +34,10 @@ local MountSE = {
 		1593233, -- creature/ban-lu/vo_72_ban-lu_22_m.ogg
 		1593234, -- creature/ban-lu/vo_72_ban-lu_23_m.ogg
 		1593235, -- creature/ban-lu/vo_72_ban-lu_24_m.ogg
-		1593236 -- creature/ban-lu/vo_72_ban-lu_25_m.ogg
+		1593236, -- creature/ban-lu/vo_72_ban-lu_25_m.ogg
 	},
 	[339588] = {
-		3587276 -- Part of SoundKit(s): 157142, 160875, 166787, 167500, 167947, 172866
+		3587276, -- Part of SoundKit(s): 157142, 160875, 166787, 167500, 167947, 172866
 	},
 	[312762] = {
 		3745490, -- sound/creature/talethi's_target/mon_talethi's_target_fidget01_01_168902.ogg
@@ -56,8 +56,8 @@ local MountSE = {
 		3745516, -- sound/creature/talethi's_target/mon_talethi's_target_fidget01_14_168902.ogg
 		3745518, -- sound/creature/talethi's_target/mon_talethi's_target_fidget01_15_168902.ogg
 		3745520, -- sound/creature/talethi's_target/mon_talethi's_target_fidget01_16_168902.ogg
-		3745566 -- sound/creature/talethi's_target/mon_talethi's_target_fidget02_01_168903.ogg
-	}
+		3745566, -- sound/creature/talethi's_target/mon_talethi's_target_fidget02_01_168903.ogg
+	},
 }
 
 local OtherSE = {
@@ -95,7 +95,7 @@ local OtherSE = {
 		1998119, -- sound/creature/tortollan_male/vo_801_tortollan_male_11_m.ogg
 		1998120, -- sound/creature/tortollan_male/vo_801_tortollan_male_12_m.ogg
 		1998121, -- sound/creature/tortollan_male/vo_801_tortollan_male_13_m.ogg
-		1998122 -- sound/creature/tortollan_male/vo_801_tortollan_male_14_m.ogg
+		1998122, -- sound/creature/tortollan_male/vo_801_tortollan_male_14_m.ogg
 	},
 	["Smolderheart"] = {
 		-- Smolderheart
@@ -108,12 +108,12 @@ local OtherSE = {
 		568631,
 		568803,
 		567970,
-		568904
+		568904,
 	},
 	["Elegy of the Eternals"] = {
 		-- Elegy of the Eternals
 		-- https://www.wowhead.com/item=188270/elegy-of-the-eternals
-		539295
+		539295,
 	},
 	["Crying"] = {
 		539295, -- sound/character/bloodelf/bloodelffemalecry01.ogg
@@ -149,7 +149,7 @@ local OtherSE = {
 		630076, -- sound/character/pcpandarenmale/vo_pcpandarenmale_cry02.ogg
 		630078, -- sound/character/pcpandarenmale/vo_pcpandarenmale_cry03.ogg
 		636425, -- sound/character/pcpandarenfemale/vo_pcpandarenfemale_cry02.ogg
-		636427 -- sound/character/pcpandarenfemale/vo_pcpandarenfemale_cry03.ogg
+		636427, -- sound/character/pcpandarenfemale/vo_pcpandarenfemale_cry03.ogg
 	},
 	["Dragonriding"] = {
 		-- from https://wago.io/SDhHuZh3f
@@ -277,10 +277,9 @@ local OtherSE = {
 		1467222,
 	},
 	["Jewelcrafting"] = {
-		569325
+		569325,
 	},
 }
-
 
 function module:Mute()
 	for mountID, soundIDs in pairs(MountSE) do

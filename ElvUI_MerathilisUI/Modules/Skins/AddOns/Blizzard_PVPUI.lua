@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -48,20 +48,31 @@ function module:Blizzard_PVPUI()
 	BonusFrame.WorldBattlesTexture:Hide()
 	BonusFrame.ShadowOverlay:Hide()
 
-	for _, bonusButton in pairs({ "RandomBGButton", "RandomEpicBGButton", "Arena1Button", "BrawlButton", "BrawlButton2", --[["SpecialEventButton"]] }) do
+	for _, bonusButton in pairs({
+		"RandomBGButton",
+		"RandomEpicBGButton",
+		"Arena1Button",
+		"BrawlButton",
+		"BrawlButton2", --[["SpecialEventButton"]]
+	}) do
 		local button = BonusFrame[bonusButton]
 
 		button.SelectedTexture:SetDrawLayer("BACKGROUND")
-		button.SelectedTexture:SetColorTexture(r, g, b, .2)
+		button.SelectedTexture:SetColorTexture(r, g, b, 0.2)
 		button.SelectedTexture:SetAllPoints()
 
 		button.Reward.Icon:SetInside(button.Reward)
 	end
 
 	-- Conquest
-	for _, bu in pairs({ ConquestFrame.RatedSoloShuffle, ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.RatedBG }) do
+	for _, bu in pairs({
+		ConquestFrame.RatedSoloShuffle,
+		ConquestFrame.Arena2v2,
+		ConquestFrame.Arena3v3,
+		ConquestFrame.RatedBG,
+	}) do
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(r, g, b, .25)
+		bu.SelectedTexture:SetColorTexture(r, g, b, 0.25)
 		bu.SelectedTexture:SetAllPoints()
 	end
 	ConquestFrame.Arena3v3:SetPoint("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -1)

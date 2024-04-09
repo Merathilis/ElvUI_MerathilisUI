@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Panels')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Panels")
+local S = MER:GetModule("MER_Skins")
 
 local CreateFrame = CreateFrame
 
@@ -24,7 +24,7 @@ function module:CreatePanels()
 	local topPanelHeight = E.db.mui.panels.topPanelHeight or 15
 	local bottomPanelHeight = E.db.mui.panels.bottomPanelHeight or 15
 
-	local topPanel = CreateFrame("Frame", "MER_TopPanel", E.UIParent, 'BackdropTemplate')
+	local topPanel = CreateFrame("Frame", "MER_TopPanel", E.UIParent, "BackdropTemplate")
 	topPanel:SetFrameStrata("BACKGROUND")
 	topPanel:Point("TOP", 0, 3)
 	topPanel:Point("LEFT", E.UIParent, "LEFT", -8, 0)
@@ -35,7 +35,7 @@ function module:CreatePanels()
 	MER_TopPanel = topPanel
 	topPanel:Hide()
 
-	local bottomPanel = CreateFrame("Frame", "MER_BottomPanel", E.UIParent, 'BackdropTemplate')
+	local bottomPanel = CreateFrame("Frame", "MER_BottomPanel", E.UIParent, "BackdropTemplate")
 	bottomPanel:SetFrameStrata("BACKGROUND")
 	bottomPanel:Point("BOTTOM", 0, -3)
 	bottomPanel:Point("LEFT", E.UIParent, "LEFT", -8, 0)
@@ -46,7 +46,7 @@ function module:CreatePanels()
 	MER_BottomPanel = bottomPanel
 	bottomPanel:Hide()
 
-	local topLeftStyle = CreateFrame("Frame", "MER_TopLeftStyle", E.UIParent, 'BackdropTemplate')
+	local topLeftStyle = CreateFrame("Frame", "MER_TopLeftStyle", E.UIParent, "BackdropTemplate")
 	topLeftStyle:SetFrameStrata("BACKGROUND")
 	topLeftStyle:SetFrameLevel(2)
 	topLeftStyle:Size(panelSize, 4)
@@ -55,16 +55,16 @@ function module:CreatePanels()
 	S:CreateShadow(topLeftStyle)
 	topLeftStyle:Hide(topLeftStyle)
 
-	local TopLeftStylePanel = CreateFrame("Frame", "MER_TopLeftExtraStyle", E.UIParent, 'BackdropTemplate')
+	local TopLeftStylePanel = CreateFrame("Frame", "MER_TopLeftExtraStyle", E.UIParent, "BackdropTemplate")
 	TopLeftStylePanel:Point("TOPLEFT", E.UIParent, "TOPLEFT", 2, -14)
 	MER_TopLeftExtraStyle = TopLeftStylePanel
 	TopLeftStylePanel:Hide()
 
-	local TopLeftStylePanel1 = CreateFrame("Frame", nil, TopLeftStylePanel, 'BackdropTemplate')
+	local TopLeftStylePanel1 = CreateFrame("Frame", nil, TopLeftStylePanel, "BackdropTemplate")
 	TopLeftStylePanel1:Point("TOP", TopLeftStylePanel, "BOTTOM")
 	MER_TopLeftExtraStyle1 = TopLeftStylePanel1
 
-	local bottomLeftSytle = CreateFrame("Frame", "MER_BottomLeftStyle", E.UIParent, 'BackdropTemplate')
+	local bottomLeftSytle = CreateFrame("Frame", "MER_BottomLeftStyle", E.UIParent, "BackdropTemplate")
 	bottomLeftSytle:SetFrameStrata("BACKGROUND")
 	bottomLeftSytle:SetFrameLevel(2)
 	bottomLeftSytle:Size(panelSize, 4)
@@ -73,16 +73,16 @@ function module:CreatePanels()
 	S:CreateShadow(bottomLeftSytle)
 	bottomLeftSytle:Hide()
 
-	local BottomLeftStylePanel = CreateFrame("Frame", "MER_BottomLeftExtraStyle", E.UIParent, 'BackdropTemplate')
+	local BottomLeftStylePanel = CreateFrame("Frame", "MER_BottomLeftExtraStyle", E.UIParent, "BackdropTemplate")
 	BottomLeftStylePanel:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 16)
 	MER_BottomLeftExtraStyle = BottomLeftStylePanel
 	BottomLeftStylePanel:Hide()
 
-	local BottomLeftStylePanel1 = CreateFrame("Frame", nil, BottomLeftStylePanel, 'BackdropTemplate')
+	local BottomLeftStylePanel1 = CreateFrame("Frame", nil, BottomLeftStylePanel, "BackdropTemplate")
 	BottomLeftStylePanel1:Point("BOTTOM", BottomLeftStylePanel, "TOP")
 	MER_BottomLeftStylePanel1 = BottomLeftStylePanel1
 
-	local topRightStyle = CreateFrame("Frame", "MER_TopRightStyle", E.UIParent, 'BackdropTemplate')
+	local topRightStyle = CreateFrame("Frame", "MER_TopRightStyle", E.UIParent, "BackdropTemplate")
 	topRightStyle:SetFrameStrata("BACKGROUND")
 	topRightStyle:SetFrameLevel(2)
 	topRightStyle:Size(panelSize, 4)
@@ -91,16 +91,16 @@ function module:CreatePanels()
 	S:CreateShadow(topRightStyle)
 	topRightStyle:Hide()
 
-	local TopRightStylePanel = CreateFrame("Frame", "MER_TopRightExtraStyle", E.UIParent, 'BackdropTemplate')
+	local TopRightStylePanel = CreateFrame("Frame", "MER_TopRightExtraStyle", E.UIParent, "BackdropTemplate")
 	TopRightStylePanel:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -14)
 	MER_TopRightExtraStyle = TopRightStylePanel
 	TopRightStylePanel:Hide()
 
-	local TopRightStylePanel1 = CreateFrame("Frame", nil, TopRightStylePanel, 'BackdropTemplate')
+	local TopRightStylePanel1 = CreateFrame("Frame", nil, TopRightStylePanel, "BackdropTemplate")
 	TopRightStylePanel1:Point("TOP", TopRightStylePanel, "BOTTOM")
 	MER_TopRightStylePanel1 = TopRightStylePanel1
 
-	local bottomRightStyle = CreateFrame("Frame", "MER_BottomRightStyle", E.UIParent, 'BackdropTemplate')
+	local bottomRightStyle = CreateFrame("Frame", "MER_BottomRightStyle", E.UIParent, "BackdropTemplate")
 	bottomRightStyle:SetFrameStrata("BACKGROUND")
 	bottomRightStyle:SetFrameLevel(2)
 	bottomRightStyle:Size(panelSize, 4)
@@ -109,12 +109,12 @@ function module:CreatePanels()
 	S:CreateShadow(bottomRightStyle)
 	bottomRightStyle:Hide()
 
-	local BottomRightStylePanel = CreateFrame("Frame", "MER_BottomRightExtraStyle", E.UIParent, 'BackdropTemplate')
+	local BottomRightStylePanel = CreateFrame("Frame", "MER_BottomRightExtraStyle", E.UIParent, "BackdropTemplate")
 	BottomRightStylePanel:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 16)
 	MER_BottomRightExtraStyle = BottomRightStylePanel
 	BottomRightStylePanel:Hide()
 
-	local BottomRightStylePanel1 = CreateFrame("Frame", nil, BottomRightStylePanel, 'BackdropTemplate')
+	local BottomRightStylePanel1 = CreateFrame("Frame", nil, BottomRightStylePanel, "BackdropTemplate")
 	BottomRightStylePanel1:Point("BOTTOM", BottomRightStylePanel, "TOP")
 	MER_BottomRightStylePanel1 = BottomRightStylePanel1
 
@@ -198,18 +198,66 @@ function module:UpdateColors()
 	module:SkinPanel(MER_TopRightStyle)
 	module:SkinPanel(MER_BottomRightStyle)
 
-	MER:CreateGradientFrame(MER_TopLeftExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, .5, 0, 0, 0, 0)
-	MER:CreateGradientFrame(MER_TopLeftExtraStyle1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, .7,
-		color.r, color.g, color.b, 0)
-	MER:CreateGradientFrame(MER_BottomLeftExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, .5, 0, 0, 0, 0)
-	MER:CreateGradientFrame(MER_BottomLeftStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, .7,
-		color.r, color.g, color.b, 0)
-	MER:CreateGradientFrame(MER_TopRightExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, 0, 0, 0, 0, .5)
-	MER:CreateGradientFrame(MER_TopRightStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, 0,
-		color.r, color.g, color.b, .7)
-	MER:CreateGradientFrame(MER_BottomRightExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, 0, 0, 0, 0, .5)
-	MER:CreateGradientFrame(MER_BottomRightStylePanel1, panelSize, E.mult, "Horizontal", color.r, color.g, color.b, 0,
-		color.r, color.g, color.b, .7)
+	MER:CreateGradientFrame(MER_TopLeftExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, 0.5, 0, 0, 0, 0)
+	MER:CreateGradientFrame(
+		MER_TopLeftExtraStyle1,
+		panelSize,
+		E.mult,
+		"Horizontal",
+		color.r,
+		color.g,
+		color.b,
+		0.7,
+		color.r,
+		color.g,
+		color.b,
+		0
+	)
+	MER:CreateGradientFrame(MER_BottomLeftExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, 0.5, 0, 0, 0, 0)
+	MER:CreateGradientFrame(
+		MER_BottomLeftStylePanel1,
+		panelSize,
+		E.mult,
+		"Horizontal",
+		color.r,
+		color.g,
+		color.b,
+		0.7,
+		color.r,
+		color.g,
+		color.b,
+		0
+	)
+	MER:CreateGradientFrame(MER_TopRightExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, 0, 0, 0, 0, 0.5)
+	MER:CreateGradientFrame(
+		MER_TopRightStylePanel1,
+		panelSize,
+		E.mult,
+		"Horizontal",
+		color.r,
+		color.g,
+		color.b,
+		0,
+		color.r,
+		color.g,
+		color.b,
+		0.7
+	)
+	MER:CreateGradientFrame(MER_BottomRightExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, 0, 0, 0, 0, 0.5)
+	MER:CreateGradientFrame(
+		MER_BottomRightStylePanel1,
+		panelSize,
+		E.mult,
+		"Horizontal",
+		color.r,
+		color.g,
+		color.b,
+		0,
+		color.r,
+		color.g,
+		color.b,
+		0.7
+	)
 end
 
 function module:Resize()

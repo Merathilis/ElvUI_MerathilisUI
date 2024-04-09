@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
+local S = E:GetModule("Skins")
 
 local _G = _G
 local unpack = unpack
@@ -15,8 +15,8 @@ local function UpdateGreetingFrame()
 	for Button in _G.QuestFrameGreetingPanel.titleButtonPool:EnumerateActive() do
 		Button.Icon:SetDrawLayer("ARTWORK")
 		local Text = Button:GetFontString():GetText()
-		if Text and strfind(Text, '|cff000000') then
-			Button:GetFontString():SetText(gsub(Text, '|cff000000', '|cffffe519'))
+		if Text and strfind(Text, "|cff000000") then
+			Button:GetFontString():SetText(gsub(Text, "|cff000000", "|cffffe519"))
 		end
 	end
 end
@@ -32,7 +32,9 @@ function module:QuestFrame()
 	module:CreateShadow(QuestFrame)
 
 	-- Stop here if parchment reomover is enabled.
-	if E.private.skins.parchmentRemoverEnable then return end
+	if E.private.skins.parchmentRemoverEnable then
+		return
+	end
 
 	------------------------
 	--- QuestDetailFrame ---
@@ -80,29 +82,29 @@ function module:QuestFrame()
 	--------------------------
 	--- QuestGreetingFrame ---
 	--------------------------
-	_G.QuestFrameGreetingPanel:HookScript('OnShow', UpdateGreetingFrame)
+	_G.QuestFrameGreetingPanel:HookScript("OnShow", UpdateGreetingFrame)
 	hooksecurefunc("QuestFrameGreetingPanel_OnShow", UpdateGreetingFrame)
 
-	hooksecurefunc('QuestFrameProgressItems_Update', function()
-		_G.QuestProgressRequiredItemsText:SetTextColor(1, .8, .1)
+	hooksecurefunc("QuestFrameProgressItems_Update", function()
+		_G.QuestProgressRequiredItemsText:SetTextColor(1, 0.8, 0.1)
 		_G.QuestProgressRequiredMoneyText:SetTextColor(1, 1, 1)
 	end)
 
 	hooksecurefunc("QuestFrame_SetTitleTextColor", function(fontString)
-		fontString:SetTextColor(1, .8, .1)
+		fontString:SetTextColor(1, 0.8, 0.1)
 	end)
 
 	hooksecurefunc("QuestFrame_SetTextColor", function(fontString)
 		fontString:SetTextColor(1, 1, 1)
 	end)
 
-	hooksecurefunc('QuestInfo_ShowRequiredMoney', function()
+	hooksecurefunc("QuestInfo_ShowRequiredMoney", function()
 		local requiredMoney = GetQuestLogRequiredMoney()
 		if requiredMoney > 0 then
 			if requiredMoney > GetMoney() then
-				_G.QuestInfoRequiredMoneyText:SetTextColor(.63, .09, .09)
+				_G.QuestInfoRequiredMoneyText:SetTextColor(0.63, 0.09, 0.09)
 			else
-				_G.QuestInfoRequiredMoneyText:SetTextColor(1, .8, .1)
+				_G.QuestInfoRequiredMoneyText:SetTextColor(1, 0.8, 0.1)
 			end
 		end
 	end)
@@ -149,7 +151,7 @@ function module:QuestFrame()
 		ic:SetTexCoord(unpack(E.TexCoords))
 		ic:SetDrawLayer("OVERLAY")
 
-		bu:CreateBackdrop('Transparent')
+		bu:CreateBackdrop("Transparent")
 
 		na:Hide()
 		co:SetDrawLayer("OVERLAY")
@@ -157,7 +159,7 @@ function module:QuestFrame()
 		local line = CreateFrame("Frame", nil, bu)
 		line:SetSize(1, 40)
 		line:SetPoint("RIGHT", ic, 1, 0)
-		line:CreateBackdrop('Transparent')
+		line:CreateBackdrop("Transparent")
 	end
 
 	_G.QuestDetailScrollFrame:SetWidth(302) -- else these buttons get cut off

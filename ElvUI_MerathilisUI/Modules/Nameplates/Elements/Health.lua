@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_NamePlates')
-local NP = E:GetModule('NamePlates')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_NamePlates")
+local NP = E:GetModule("NamePlates")
 
 local UnitClass = UnitClass
 local UnitIsPlayer = UnitIsPlayer
@@ -10,10 +10,16 @@ local CreateColor = CreateColor
 local reactionType
 
 function module:Health_UpdateColor(_, unit)
-	if not E.db.mui.nameplates.gradient then return end
-	if E.db.nameplates.threat.enable then return end
+	if not E.db.mui.nameplates.gradient then
+		return
+	end
+	if E.db.nameplates.threat.enable then
+		return
+	end
 
-	if not unit or self.unit ~= unit then return end
+	if not unit or self.unit ~= unit then
+		return
+	end
 	local element = self.Health
 
 	local colorDB = E.db.mui.gradient
@@ -23,7 +29,7 @@ function module:Health_UpdateColor(_, unit)
 
 	local _, class = UnitClass(unit)
 	local isPlayer = UnitIsPlayer(unit)
-	local reaction = UnitReaction(unit, 'player')
+	local reaction = UnitReaction(unit, "player")
 
 	local sf = NP:StyleFilterChanges(unit)
 
@@ -50,9 +56,13 @@ function module:Health_UpdateColor(_, unit)
 			elseif reaction then
 				if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
 					if colorDB and colorDB.customColor.enable or colorDB and colorDB.customColor.enableNP then
-						element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom("TAPPED", false, false))
+						element
+							:GetStatusBarTexture()
+							:SetGradient("HORIZONTAL", F.GradientColorsCustom("TAPPED", false, false))
 					else
-						element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors("TAPPED", false, false))
+						element
+							:GetStatusBarTexture()
+							:SetGradient("HORIZONTAL", F.GradientColors("TAPPED", false, false))
 					end
 				else
 					if colorDB and colorDB.customColor.enable or colorDB and colorDB.customColor.enableNP then
@@ -66,4 +76,4 @@ function module:Health_UpdateColor(_, unit)
 	end
 end
 
-hooksecurefunc(NP, 'Health_UpdateColor', module.Health_UpdateColor)
+hooksecurefunc(NP, "Health_UpdateColor", module.Health_UpdateColor)

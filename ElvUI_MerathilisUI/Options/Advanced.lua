@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.advanced.args
 
 local _G = _G
@@ -14,7 +14,7 @@ options.core = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["General"], 'orange'),
+			name = F.cOption(L["General"], "orange"),
 		},
 		loginMessage = {
 			order = 1,
@@ -26,7 +26,7 @@ options.core = {
 			end,
 			set = function(info, value)
 				E.global.mui.core.loginMsg = value
-			end
+			end,
 		},
 		compatibilityCheck = {
 			order = 2,
@@ -39,29 +39,31 @@ options.core = {
 			set = function(info, value)
 				E.global.mui.core.compatibilityCheck = value
 				E:StaticPopup_Show("PRIVATE_RL")
-			end
+			end,
 		},
 		logLevel = {
 			order = 3,
 			type = "select",
 			name = L["Log Level"],
-			desc = L["Only display log message that the level is higher than you choose."] .. "\n|cffff3860" .. L["Set to 2 if you do not understand the meaning of log level."] .. "|r",
+			desc = L["Only display log message that the level is higher than you choose."]
+				.. "\n|cffff3860"
+				.. L["Set to 2 if you do not understand the meaning of log level."]
+				.. "|r",
 			get = function(info)
 				return E.global.mui.core.logLevel
 			end,
 			set = function(info, value)
 				E.global.mui.core.logLevel = value
 			end,
-			hidden = function()
-			end,
+			hidden = function() end,
 			values = {
 				[1] = "1 - |cffff3860[ERROR]|r",
 				[2] = "2 - |cffffdd57[WARNING]|r",
 				[3] = "3 - |cff209cee[INFO]|r",
-				[4] = "4 - |cff00d1b2[DEBUG]|r"
-			}
-		}
-	}
+				[4] = "4 - |cff00d1b2[DEBUG]|r",
+			},
+		},
+	},
 }
 
 options.gameFix = {
@@ -72,13 +74,16 @@ options.gameFix = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Blizzard Fixes"], 'orange'),
+			name = F.cOption(L["Blizzard Fixes"], "orange"),
 		},
 		cvarAlert = {
 			order = 1,
 			type = "toggle",
 			name = L["CVar Alert"],
-			desc = format(L["It will alert you to reload UI when you change the CVar %s."], "|cff209ceeActionButtonUseKeyDown|r"),
+			desc = format(
+				L["It will alert you to reload UI when you change the CVar %s."],
+				"|cff209ceeActionButtonUseKeyDown|r"
+			),
 			get = function(info)
 				return E.global.mui.core.cvarAlert
 			end,
@@ -86,7 +91,7 @@ options.gameFix = {
 				E.global.mui.core.cvarAlert = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
-			width = "full"
+			width = "full",
 		},
 		fixLFG = {
 			order = 2,
@@ -100,7 +105,7 @@ options.gameFix = {
 				E.global.mui.core.fixLFG = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
-			width = "full"
-		}
-	}
+			width = "full",
+		},
+	},
 }

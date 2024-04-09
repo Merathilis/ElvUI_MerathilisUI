@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -12,10 +12,10 @@ function module:Blizzard_CovenantRenown()
 
 	local frame = _G.CovenantRenownFrame
 	frame:StripTextures()
-	frame:SetTemplate('Transparent')
+	frame:SetTemplate("Transparent")
 	module:CreateShadow(frame)
 
-	hooksecurefunc(frame, 'SetUpCovenantData', function(self)
+	hooksecurefunc(frame, "SetUpCovenantData", function(self)
 		self.NineSlice:Hide()
 		self.Background:Hide()
 		self.BackgroundShadow:Hide()
@@ -24,4 +24,4 @@ function module:Blizzard_CovenantRenown()
 	end)
 end
 
-module:AddCallbackForAddon('Blizzard_CovenantRenown')
+module:AddCallbackForAddon("Blizzard_CovenantRenown")

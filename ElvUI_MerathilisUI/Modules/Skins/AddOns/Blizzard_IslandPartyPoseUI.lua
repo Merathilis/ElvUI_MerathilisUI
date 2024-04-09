@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -13,7 +13,7 @@ function module:Blizzard_IslandsPartyPoseUI()
 	module:CreateBackdropShadow(IslandsPartyPoseFrame)
 
 	IslandsPartyPoseFrame.ModelScene:StripTextures()
-	module:CreateBDFrame(IslandsPartyPoseFrame.ModelScene, .25)
+	module:CreateBDFrame(IslandsPartyPoseFrame.ModelScene, 0.25)
 
 	IslandsPartyPoseFrame.Background:Hide()
 

@@ -9,4 +9,5 @@
 	<Script file='Misc.lua'/>
 	<Include file='Modules\Load_Modules.xml'/>
 	<Script file='Skins.lua'/>
+	<Script file='Changelog.lua'/>
 </Ui>

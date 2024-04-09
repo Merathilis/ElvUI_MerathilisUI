@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local select = select
@@ -15,7 +15,7 @@ function module:Blizzard_ArtifactUI()
 	module:CreateBackdropShadow(_G.ArtifactFrame)
 
 	for i = 1, 2 do
-		module:ReskinTab(_G['ArtifactFrameTab' .. i])
+		module:ReskinTab(_G["ArtifactFrameTab" .. i])
 	end
 
 	ArtifactFrame.Background:Hide()
@@ -23,8 +23,8 @@ function module:Blizzard_ArtifactUI()
 	ArtifactFrame.PerksTab.BackgroundBack:Hide()
 	ArtifactFrame.PerksTab.TitleContainer.Background:SetAlpha(0)
 	ArtifactFrame.PerksTab.Model.BackgroundFront:Hide()
-	ArtifactFrame.PerksTab.Model:SetAlpha(.2)
-	ArtifactFrame.PerksTab.AltModel:SetAlpha(.2)
+	ArtifactFrame.PerksTab.Model:SetAlpha(0.2)
+	ArtifactFrame.PerksTab.AltModel:SetAlpha(0.2)
 	ArtifactFrame.BorderFrame:Hide()
 	ArtifactFrame.ForgeBadgeFrame.ItemIcon:Hide()
 	ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:ClearAllPoints()
@@ -36,7 +36,7 @@ function module:Blizzard_ArtifactUI()
 			local child = select(i, self:GetChildren())
 			if child and child.appearanceID then
 				child:SetTemplate("Transparent")
-				child.SwatchTexture:SetTexCoord(.20, .80, .20, .80)
+				child.SwatchTexture:SetTexCoord(0.20, 0.80, 0.20, 0.80)
 				child.SwatchTexture:SetInside(child)
 				child.Border:SetAlpha(0)
 				child.Background:SetAlpha(0)
@@ -65,8 +65,8 @@ function module:Blizzard_ArtifactUI()
 					if y == -80 or y == 0 then -- Blizz sets these two, maybe not best way for this but eh.
 						self:SetPoint(point, anchor, secondaryPoint, x, y + 2)
 						if not E.PixelMode then
-							child:Point('TOPLEFT', child, 'TOPLEFT', -E.Border + 2, E.Border - 3)
-							child:Point('BOTTOMRIGHT', child, 'BOTTOMRIGHT', E.Border - 2, E.Border + 3)
+							child:Point("TOPLEFT", child, "TOPLEFT", -E.Border + 2, E.Border - 3)
+							child:Point("BOTTOMRIGHT", child, "BOTTOMRIGHT", E.Border - 2, E.Border + 3)
 						end
 					end
 				end)

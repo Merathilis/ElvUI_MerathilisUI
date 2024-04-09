@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -17,7 +17,9 @@ function module:Blizzard_LookingForGuildUI()
 
 	local styled
 	hooksecurefunc("LookingForGuildFrame_CreateUIElements", function()
-		if styled then return end
+		if styled then
+			return
+		end
 		F.ReskinRole(_G.LookingForGuildTankButton, "TANK")
 		F.ReskinRole(_G.LookingForGuildHealerButton, "HEALER")
 		F.ReskinRole(_G.LookingForGuildDamagerButton, "DPS")

@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
-local S = E:GetModule('Skins')
+local S = E:GetModule("Skins")
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -30,7 +30,7 @@ function module:LootFrame()
 	_G.GroupLootHistoryFrame.ResizeButton:SetWidth(300)
 
 	-- Boss Banner
-	hooksecurefunc('BossBanner_ConfigureLootFrame', function(lootFrame)
+	hooksecurefunc("BossBanner_ConfigureLootFrame", function(lootFrame)
 		if not lootFrame.__MERSkin then
 			local iconHitBox = lootFrame.IconHitBox
 

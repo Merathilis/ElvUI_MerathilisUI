@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_InstanceDifficulty')
-local MM = E:GetModule('Minimap')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_InstanceDifficulty")
+local MM = E:GetModule("Minimap")
 
 local _G = _G
 local format = format
@@ -79,7 +79,7 @@ function module:GetTextForDifficulty(difficulty, useDefault)
 		[40] = db["Mythic Scenario"],
 		[45] = db["PvP"],
 		[147] = db["Warfronts Normal"],
-		[149] = db["Warfronts Heroic"]
+		[149] = db["Warfronts Heroic"],
 	}
 
 	return text[difficulty]
@@ -96,10 +96,10 @@ function module:ConstructFrame()
 	frame:Size(64, 32)
 	frame:Point("TOPLEFT", MM.MapHolder, "TOPLEFT", 10, -10)
 
-	local texture = frame:CreateTexture(nil, 'BACKGROUND')
+	local texture = frame:CreateTexture(nil, "BACKGROUND")
 	texture:SetAllPoints()
-	texture:SetTexture(MER.Media.Textures.MinimapDifficulty)
-	texture:SetVertexColor(0, .75, .98, .45)
+	texture:SetTexture(I.Media.Textures.Difficulty)
+	texture:SetVertexColor(0, 0.75, 0.98, 0.45)
 	frame.texture = texture
 
 	local text = frame:CreateFontString(nil, "OVERLAY")
@@ -107,8 +107,19 @@ function module:ConstructFrame()
 	text:Point(self.db.align or "LEFT")
 	frame.text = text
 
-	E:CreateMover(frame, "MER_InstanceDifficultyFrameMover", L["Instance Difficulty"], nil, nil, nil, "ALL,MERATHILISUI",
-		function() return E.db.mui.maps.minimap.difficulty.enable end, "mui,modules,maps")
+	E:CreateMover(
+		frame,
+		"MER_InstanceDifficultyFrameMover",
+		L["Instance Difficulty"],
+		nil,
+		nil,
+		nil,
+		"ALL,MERATHILISUI",
+		function()
+			return E.db.mui.maps.minimap.difficulty.enable
+		end,
+		"mui,modules,maps"
+	)
 
 	self.frame = frame
 end

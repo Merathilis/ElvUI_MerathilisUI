@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Notification')
-local S = MER:GetModule('MER_Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Notification")
+local S = MER:GetModule("MER_Skins")
 
 -- Credits RealUI
 local unpack, type, pairs = unpack, type, pairs
@@ -26,7 +26,9 @@ local queuedToasts = {}
 local anchorFrame
 
 function module:SpawnToast(toast)
-	if not toast then return end
+	if not toast then
+		return
+	end
 
 	if #activeToasts >= max_active_toasts then
 		tinsert(queuedToasts, toast)
@@ -111,7 +113,9 @@ function module:HideToast(toast)
 	end
 	tinsert(toasts, toast)
 	toast:Hide()
-	C_Timer.After(0.1, function() self:RefreshToasts() end)
+	C_Timer.After(0.1, function()
+		self:RefreshToasts()
+	end)
 end
 
 local function ToastButtonAnimOut_OnFinished(self)
@@ -127,7 +131,7 @@ function module:CreateToast()
 	toast:SetSize(bannerWidth, bannerHeight)
 	toast:SetPoint("TOP", E.UIParent, "TOP")
 	toast:Hide()
-	toast:CreateBackdrop('Transparent')
+	toast:CreateBackdrop("Transparent")
 	S:CreateBackdropShadow(toast, true)
 	S:CreateGradient(toast.backdrop)
 	toast:CreateCloseButton(10)
@@ -143,7 +147,7 @@ function module:CreateToast()
 	sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
 	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
 
-	local title = toast:CreateFontString(nil, 'OVERLAY')
+	local title = toast:CreateFontString(nil, "OVERLAY")
 	F.SetFontDB(title, db.titleFont)
 	title:SetShadowOffset(1, -1)
 	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -5)
@@ -152,7 +156,7 @@ function module:CreateToast()
 	title:SetNonSpaceWrap(true)
 	toast.title = title
 
-	local text = toast:CreateFontString(nil, 'OVERLAY')
+	local text = toast:CreateFontString(nil, "OVERLAY")
 	F.SetFontDB(text, db.textFont)
 	text:SetShadowOffset(1, -1)
 	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 17)
@@ -266,27 +270,46 @@ local function testCallback()
 end
 
 SlashCmdList.TESTNOTIFICATION = function(b)
-	module:DisplayToast(F.cOption("MerathilisUI:", 'gradient'), L["This is an example of a notification."], testCallback,
-		b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
+	module:DisplayToast(
+		F.cOption("MerathilisUI:", "gradient"),
+		L["This is an example of a notification."],
+		testCallback,
+		b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil,
+		0.08,
+		0.92,
+		0.08,
+		0.92
+	)
 end
 SLASH_TESTNOTIFICATION1 = "/testnotification"
 
 function module:Initialize()
 	module.db = E.db.mui.notification
-	if not module.db.enable then return end
+	if not module.db.enable then
+		return
+	end
 
 	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
 	anchorFrame:SetSize(bannerWidth, 50)
 	anchorFrame:SetPoint("TOP", 0, -80)
-	E:CreateMover(anchorFrame, "MER_NotificationMover", L["Notification Mover"], nil, nil, nil, "ALL,SOLO,MERATHILISUI",
-		nil, 'mui,modules,Notification')
+	E:CreateMover(
+		anchorFrame,
+		"MER_NotificationMover",
+		L["Notification Mover"],
+		nil,
+		nil,
+		nil,
+		"ALL,SOLO,MERATHILISUI",
+		nil,
+		"mui,modules,Notification"
+	)
 
 	self:RegisterEvent("UPDATE_PENDING_MAIL")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
 	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
 	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
-	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", 'SocialQueueEvent')
+	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
 	self:RegisterEvent("LFG_UPDATE_RANDOM_INFO")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")

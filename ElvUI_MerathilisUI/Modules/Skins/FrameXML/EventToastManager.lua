@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -9,13 +9,13 @@ function module:EventToastManager()
 	end
 
 	-- e.g. The Torghast Alert thing in the middle.
-	hooksecurefunc(_G.EventToastManagerFrame, 'DisplayToast', function(self)
+	hooksecurefunc(_G.EventToastManagerFrame, "DisplayToast", function(self)
 		local toast = self.currentDisplayingToast
 		local title = toast and toast.Title
 		local gLine = toast and toast.GLine
 		local gLine2 = toast and toast.GLine2
 		if title then
-			title:FontTemplate(nil, 22, 'OUTLINE')
+			title:FontTemplate(nil, 22, "OUTLINE")
 		end
 		if gLine then
 			gLine:SetVertexColor(F.r, F.g, F.b, 1)

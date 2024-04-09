@@ -8,6 +8,7 @@
 	<Script file='BugSack.lua'/>
 	<Script file="Clique.lua"/>
 	<Script file='Details.lua'/>
+	<Script file='DetailsIcons.lua'/>
 	<Script file="GlobalIgnoreList.lua"/>
 	<Script file="Immersion.lua"/>
 	<Script file="IRememberYou.lua"/>

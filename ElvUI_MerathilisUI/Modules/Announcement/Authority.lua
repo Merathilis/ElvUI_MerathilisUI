@@ -1,5 +1,5 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Announcement')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Announcement")
 
 local assert = assert
 local format = format
@@ -27,7 +27,7 @@ local channelLevel = {
 	PARTY = 4,
 	INSTANCE_CHAT = 5,
 	RAID = 6,
-	RAID_WARNING = 7
+	RAID_WARNING = 7,
 }
 
 local cache = {}
@@ -85,7 +85,7 @@ function module:ReceiveLevel(message)
 		cache[key] = {
 			value = value,
 			serverID = serverID,
-			playerUID = playerUID
+			playerUID = playerUID,
 		}
 		return
 	end

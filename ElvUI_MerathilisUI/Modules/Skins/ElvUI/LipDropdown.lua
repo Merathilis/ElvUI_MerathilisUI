@@ -1,6 +1,6 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule('MER_Skins')
-local S = E:GetModule('Skins')
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -47,14 +47,14 @@ do
 
 		hooked[prefix] = true
 
-		hooksecurefunc('UIDropDownMenu_CreateFrames', function(level, index)
+		hooksecurefunc("UIDropDownMenu_CreateFrames", function(level, index)
 			local listFrameName = _G[prefix .. level]:GetName()
-			local backdrop = _G[listFrameName .. 'Backdrop']
+			local backdrop = _G[listFrameName .. "Backdrop"]
 			if backdrop and backdrop.template then
 				self:CreateShadow(backdrop)
 			end
 
-			local menuBackdrop = _G[listFrameName .. 'MenuBackdrop']
+			local menuBackdrop = _G[listFrameName .. "MenuBackdrop"]
 			if menuBackdrop and menuBackdrop.template then
 				self:CreateShadow(menuBackdrop)
 			end
@@ -62,5 +62,5 @@ do
 	end
 end
 
-module:SecureHook(S, 'SkinLibDropDownMenu', 'S_SkinLibDropDownMenu')
-module:SecureHook(S, 'SkinDropDownMenu', 'S_SkinDropDownMenu')
+module:SecureHook(S, "SkinLibDropDownMenu", "S_SkinLibDropDownMenu")
+module:SecureHook(S, "SkinDropDownMenu", "S_SkinDropDownMenu")

@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local ElvUF = E.oUF
 assert(ElvUF, "ElvUI was unable to locate oUF.")
 local Translit = E.Libs.Translit
@@ -6,8 +6,8 @@ local translitMark = "!"
 
 local abs, ceil, type, tonumber = math.abs, ceil, type, tonumber
 local format, gsub, gmatch, len = string.format, string.gsub, string.gmatch, string.len
-local strfind, strmatch, strsplit, utf8lower, utf8sub, utf8len = strfind, strmatch, strsplit, string.utf8lower,
-	string.utf8sub, string.utf8len
+local strfind, strmatch, strsplit, utf8lower, utf8sub, utf8len =
+	strfind, strmatch, strsplit, string.utf8lower, string.utf8sub, string.utf8len
 
 local UnitIsDead = UnitIsDead
 local UnitIsGhost = UnitIsGhost
@@ -26,7 +26,7 @@ local function shortenNumber(number)
 		return
 	end
 
-	local affixes = { "", "k", "m", "B", }
+	local affixes = { "", "k", "m", "B" }
 
 	local affix = 1
 	local dec = 0
@@ -52,9 +52,10 @@ end
 
 -- Displays current HP --(2.04B, 2.04M, 204k, 204)--
 E:AddTag("health:current-mUI", "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED", function(unit)
-	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or
-	not UnitIsConnected(unit) and L["Offline"]
-	if (status) then
+	local status = UnitIsDead(unit) and L["Dead"]
+		or UnitIsGhost(unit) and L["Ghost"]
+		or not UnitIsConnected(unit) and L["Offline"]
+	if status then
 		return status
 	else
 		local currentHealth = UnitHealth(unit)
@@ -63,25 +64,25 @@ E:AddTag("health:current-mUI", "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYE
 end)
 
 -- Max Health shorted
-E:AddTag("health:max-mUI", 'UNIT_MAXHEALTH', function(unit)
+E:AddTag("health:max-mUI", "UNIT_MAXHEALTH", function(unit)
 	local maxH = UnitHealthMax(unit)
 
 	return shortenNumber(maxH)
 end)
 
-E:AddTag('mUI-name:health:abbrev', 'UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH UNIT_MAXHEALTH', function(unit, _, args)
+E:AddTag("mUI-name:health:abbrev", "UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH UNIT_MAXHEALTH", function(unit, _, args)
 	local name = UnitName(unit)
 	if not name then
-		return ''
+		return ""
 	else
 		name = E.TagFunctions.Abbrev(name)
 	end
 
-	local min, max, bco, fco = UnitHealth(unit), UnitHealthMax(unit), strsplit(':', args or '')
+	local min, max, bco, fco = UnitHealth(unit), UnitHealthMax(unit), strsplit(":", args or "")
 	local to = ceil(utf8len(name) * (min / max))
 
-	local fill = E.TagFunctions.NameHealthColor(_TAGS, fco, unit, '|cFFff3333')
-	local base = E.TagFunctions.NameHealthColor(_TAGS, bco, unit, '|cFFffffff')
+	local fill = E.TagFunctions.NameHealthColor(_TAGS, fco, unit, "|cFFff3333")
+	local base = E.TagFunctions.NameHealthColor(_TAGS, bco, unit, "|cFFffffff")
 
 	return to > 0 and (base .. utf8sub(name, 0, to) .. fill .. utf8sub(name, to + 1, -1)) or fill .. name
 end)
@@ -101,7 +102,7 @@ E:AddTag("power:current-mUI", "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOW
 end)
 
 E:AddTag("mUI-resting", "PLAYER_UPDATE_RESTING", function(unit)
-	if (unit == "player" and IsResting()) then
+	if unit == "player" and IsResting() then
 		return "zZz"
 	else
 		return nil
@@ -109,77 +110,80 @@ E:AddTag("mUI-resting", "PLAYER_UPDATE_RESTING", function(unit)
 end)
 
 local function abbrev(name)
-	local letters, lastWord = '', strmatch(name, '.+%s(.+)$')
+	local letters, lastWord = "", strmatch(name, ".+%s(.+)$")
 	if lastWord then
-		for word in gmatch(name, '.-%s') do
-			local firstLetter = utf8sub(gsub(word, '^[%s%p]*', ''), 1, 1)
+		for word in gmatch(name, ".-%s") do
+			local firstLetter = utf8sub(gsub(word, "^[%s%p]*", ""), 1, 1)
 			if firstLetter ~= utf8lower(firstLetter) then
-				letters = format('%s%s. ', letters, firstLetter)
+				letters = format("%s%s. ", letters, firstLetter)
 			end
 		end
-		name = format('%s%s', letters, lastWord)
+		name = format("%s%s", letters, lastWord)
 	end
 	return name
 end
 
-E:AddTag('name:abbrev-translit', 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT', function(unit)
+E:AddTag("name:abbrev-translit", "UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT", function(unit)
 	local name = Translit:Transliterate(UnitName(unit), translitMark)
 
-	if name and strfind(name, '%s') then
+	if name and strfind(name, "%s") then
 		name = abbrev(name)
 	end
 
-	return name ~= nil and E:ShortenString(name, 20) or
-	''                                                  --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
+	return name ~= nil and E:ShortenString(name, 20) or "" --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
 end)
 
-E:AddTag('name:gradient', 'UNIT_NAME_UPDATE', function(unit)
+E:AddTag("name:gradient", "UNIT_NAME_UPDATE", function(unit)
 	local name = UnitName(unit)
 	local _, unitClass = UnitClass(unit)
 	local isTarget = UnitIsUnit(unit, "target") and not unit:match("nameplate") and not unit:match("party")
 	if name and len(name) > 10 then
-		name = name:gsub('(%S+) ', function(t) return t:utf8sub(1, 1) .. '. ' end)
+		name = name:gsub("(%S+) ", function(t)
+			return t:utf8sub(1, 1) .. ". "
+		end)
 	end
 
 	if UnitIsPlayer(unit) then
 		return F.GradientName(name, unitClass, isTarget)
 	elseif not UnitIsPlayer(unit) then
-		local reaction = UnitReaction(unit, 'player')
+		local reaction = UnitReaction(unit, "player")
 		if reaction then
 			if reaction >= 5 then
-				return F.GradientName(name, 'NPCFRIENDLY', isTarget)
+				return F.GradientName(name, "NPCFRIENDLY", isTarget)
 			elseif reaction == 4 then
-				return F.GradientName(name, 'NPCNEUTRAL', isTarget)
+				return F.GradientName(name, "NPCNEUTRAL", isTarget)
 			elseif reaction == 3 then
-				return F.GradientName(name, 'NPCUNFRIENDLY', isTarget)
+				return F.GradientName(name, "NPCUNFRIENDLY", isTarget)
 			elseif reaction == 2 or reaction == 1 then
-				return F.GradientName(name, 'NPCHOSTILE', isTarget)
+				return F.GradientName(name, "NPCHOSTILE", isTarget)
 			end
 		end
 	end
 end)
 
-E:AddTag('name:gradientcustom', 'UNIT_NAME_UPDATE', function(unit)
+E:AddTag("name:gradientcustom", "UNIT_NAME_UPDATE", function(unit)
 	local name = UnitName(unit)
 	local _, unitClass = UnitClass(unit)
 	local isTarget = UnitIsUnit(unit, "target") and not unit:match("nameplate") and not unit:match("party")
 	if name and len(name) > 10 then
-		name = name:gsub('(%S+) ', function(t) return t:utf8sub(1, 1) .. '. ' end)
+		name = name:gsub("(%S+) ", function(t)
+			return t:utf8sub(1, 1) .. ". "
+		end)
 	end
 
 	if UnitIsPlayer(unit) then
 		return F.GradientNameCustom(name, unitClass, isTarget)
 	elseif not UnitIsPlayer(unit) then
-		local reaction = UnitReaction(unit, 'player')
+		local reaction = UnitReaction(unit, "player")
 		if reaction then
 			if reaction >= 5 then
-				return F.GradientNameCustom(name, 'NPCFRIENDLY', isTarget)
+				return F.GradientNameCustom(name, "NPCFRIENDLY", isTarget)
 			elseif reaction == 4 then
-				return F.GradientNameCustom(name, 'NPCNEUTRAL', isTarget)
+				return F.GradientNameCustom(name, "NPCNEUTRAL", isTarget)
 			elseif reaction == 3 then
-				return F.GradientNameCustom(name, 'NPCUNFRIENDLY', isTarget)
+				return F.GradientNameCustom(name, "NPCUNFRIENDLY", isTarget)
 			elseif reaction == 2 or reaction == 1 then
-				return F.GradientNameCustom(name, 'NPCHOSTILE', isTarget)
+				return F.GradientNameCustom(name, "NPCHOSTILE", isTarget)
 			end
 		end
 	end
@@ -202,9 +206,16 @@ for index, style in pairs(F.GetClassIconStyleList()) do
 end
 
 E:AddTagInfo("health:current-mUI", MER.Title, "Displays current HP (2.04B, 2.04M, 204k, 204)")
-E:AddTagInfo("power:current-mUI", MER.Title,
-	"Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag")
+E:AddTagInfo(
+	"power:current-mUI",
+	MER.Title,
+	"Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag"
+)
 E:AddTagInfo("mUI-resting", MER.Title, "Displays a text if the player is in a resting area = zZz")
-E:AddTagInfo("name:abbrev-translit", MER.Title, "Displays a shorten name and will convert cyrillics. Игорь = !Igor")
+E:AddTagInfo(
+	"name:abbrev-translit",
+	MER.Title,
+	"Displays a shorten name and will convert cyrillics. Игорь = !Igor"
+)
 E:AddTagInfo("name:gradient", MER.Title, "Displays a shorten name in gradient classcolor")
 E:AddTagInfo("name:gradientcustom", MER.Title, "Displays a shorten name in custom gradient classcolor")

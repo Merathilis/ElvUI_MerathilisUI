@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 
 local _G = _G
@@ -11,7 +11,7 @@ function module:Blizzard_CovenantSanctum()
 
 	local frame = _G.CovenantSanctumFrame
 
-	frame:HookScript('OnShow', function()
+	frame:HookScript("OnShow", function()
 		if not frame.__MERSkin then
 			module:CreateBackdropShadow(frame)
 
@@ -34,4 +34,4 @@ function module:Blizzard_CovenantSanctum()
 	end)
 end
 
-module:AddCallbackForAddon('Blizzard_CovenantSanctum')
+module:AddCallbackForAddon("Blizzard_CovenantSanctum")

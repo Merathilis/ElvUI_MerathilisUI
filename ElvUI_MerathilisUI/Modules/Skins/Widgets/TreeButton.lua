@@ -1,4 +1,4 @@
-local MER, F, E, L, V, P, G = unpack(ElvUI_MerathilisUI)
+local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local LSM = E.Libs.LSM
 local module = MER.Modules.Skins
 local WS = module.Widgets
@@ -17,7 +17,10 @@ function WS:HandleTreeGroup(widget)
 		return
 	end
 
-	local db = E.private.mui and E.private.mui.skins and E.private.mui.skins.widgets and E.private.mui.skins.widgets.treeGroupButton
+	local db = E.private.mui
+		and E.private.mui.skins
+		and E.private.mui.skins.widgets
+		and E.private.mui.skins.widgets.treeGroupButton
 
 	if widget.CreateButton and not widget.CreateButton_Changed then
 		widget.CreateButton_Changed = widget.CreateButton
@@ -25,7 +28,9 @@ function WS:HandleTreeGroup(widget)
 			local button = widget.CreateButton_Changed(...)
 
 			if db.text.enable then
-				local text = button.text or button.Text or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
+				local text = button.text
+					or button.Text
+					or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
 				if text and text.GetTextColor then
 					F.SetFontDB(text, db.text.font)
 
@@ -65,7 +70,8 @@ function WS:HandleTreeGroup(widget)
 
 				F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
 
-				button.MERAnimation = self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
+				button.MERAnimation =
+					self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
 
 				self:SecureHookScript(button, "OnEnter", button.MERAnimation.onEnter)
 				self:SecureHookScript(button, "OnLeave", button.MERAnimation.onLeave)
@@ -90,8 +96,18 @@ function WS:HandleTreeGroup(widget)
 				local borderColor = db.selected.borderClassColor and module.ClassColor or db.selected.borderColor
 				local backdropColor = db.selected.backdropClassColor and module.ClassColor or db.selected.backdropColor
 				button.backdrop.Center:SetTexture(LSM:Fetch("statusbar", db.selected.texture) or E.media.glossTex)
-				button.backdrop:SetBackdropBorderColor(borderColor.r, borderColor.g, borderColor.b, db.selected.borderAlpha)
-				button.backdrop:SetBackdropColor(backdropColor.r, backdropColor.g, backdropColor.b, db.selected.backdropAlpha)
+				button.backdrop:SetBackdropBorderColor(
+					borderColor.r,
+					borderColor.g,
+					borderColor.b,
+					db.selected.borderAlpha
+				)
+				button.backdrop:SetBackdropColor(
+					backdropColor.r,
+					backdropColor.g,
+					backdropColor.b,
+					db.selected.backdropAlpha
+				)
 				button.backdrop:Hide()
 			end
 
