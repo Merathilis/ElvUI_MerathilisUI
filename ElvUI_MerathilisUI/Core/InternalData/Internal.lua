@@ -21,7 +21,7 @@ I.FontNames = {
 I.FontDescription = {
 	[I.Fonts.Primary] = "Used in the majority of the UI.",
 	[I.Fonts.GothamRaid] = "Used for names in Raid Frames.",
-	[I.Fonts.Runescape] = "Not used currently",
+	[I.Fonts.Runescape] = "Used for some WeakAuras",
 }
 
 I.FontOrder = {
