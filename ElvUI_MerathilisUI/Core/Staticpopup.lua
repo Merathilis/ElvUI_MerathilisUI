@@ -66,7 +66,7 @@ E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
 	button1 = L["Open Changelog"],
 	button2 = CANCEL,
 	OnAccept = function()
-		E:ToggleOptions("ElvUI_MerathilisUI,changelog")
+		E:ToggleOptions("mui,changelog")
 	end,
 	hideOnEscape = 1,
 }
