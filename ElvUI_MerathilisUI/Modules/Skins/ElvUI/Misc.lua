@@ -14,6 +14,14 @@ function module:ElvUI_Misc()
 		ElvUI_MinimapClusterBackdrop:SetTemplate("Transparent")
 		module:CreateBackdropShadow(ElvUI_MinimapClusterBackdrop)
 	end
+
+	if PluginInstallFrame then
+		module:CreateShadow(PluginInstallFrame)
+	end
+
+	if PluginInstallTitleFrame then
+		module:CreateShadow(PluginInstallTitleFrame)
+	end
 end
 
 module:AddCallback("ElvUI_Misc")
