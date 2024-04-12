@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Previous\6.08.lua"/>
 	<Script file="Previous\6.09.lua"/>
-	<Script file="6.10.lua"/>
+	<Script file="Previous\6.10.lua"/>
+	<Script file="6.11.lua"/>
 </Ui>
