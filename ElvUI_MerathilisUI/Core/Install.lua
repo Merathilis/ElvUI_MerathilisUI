@@ -2656,6 +2656,24 @@ MER.installTable = {
 		[2] = function()
 			MER:Resize(nil)
 
+			PluginInstallFrame.SubTitle:SetText(L["Profile Settings Setup"])
+			PluginInstallFrame.Desc1:SetText(L["Please click the button below to setup your Profile Settings."])
+			PluginInstallFrame.Desc2:SetText(L["New Profile will create a fresh profile for this character."])
+			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
+			PluginInstallFrame.Desc4:SetText(
+				L["Your current Profile is: "] .. F.String.Warning(ElvDB and ElvDB.profileKeys[E.mynameRealm])
+			)
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript("OnClick", function()
+				E.data:SetProfile(E.mynameRealm)
+			end)
+			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
+			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
+			PluginInstallFrame.Option1:SetText(L["New Profile"])
+		end,
+		[3] = function()
+			MER:Resize(nil)
+
 			PluginInstallFrame.SubTitle:SetText(L["Layout"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation changes the default ElvUI look."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to apply the new layout."])
@@ -2668,7 +2686,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["General Layout"])
 		end,
-		[3] = function()
+		[4] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["CVars"])
@@ -2686,7 +2704,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["CVars"])
 		end,
-		[4] = function()
+		[5] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["Chat"])
@@ -2703,7 +2721,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup Chat"])
 		end,
-		[5] = function()
+		[6] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["DataTexts"])
@@ -2720,7 +2738,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup Datatexts"])
 		end,
-		[6] = function()
+		[7] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["ActionBars"])
@@ -2737,7 +2755,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup ActionBars"])
 		end,
-		[7] = function()
+		[8] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["NamePlates"])
@@ -2752,7 +2770,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup NamePlates"])
 		end,
-		[8] = function()
+		[9] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["UnitFrames"])
@@ -2785,7 +2803,7 @@ MER.installTable = {
 			end)
 			PluginInstallFrame.Option2:SetText(L["Dark Layout"])
 		end,
-		[9] = function()
+		[10] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
@@ -2804,7 +2822,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup Addons"])
 		end,
-		[10] = function()
+		[11] = function()
 			MER:Resize(nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
@@ -2841,7 +2859,7 @@ MER.installTable = {
 				InstallStepComplete:Show()
 			end
 		end,
-		[F.IsDeveloper() and 11] = function()
+		[F.IsDeveloper() and 12] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
@@ -2866,16 +2884,17 @@ MER.installTable = {
 
 	["StepTitles"] = {
 		[1] = START,
-		[2] = L["Layout"],
-		[3] = L["CVars"],
-		[4] = L["Chat"],
-		[5] = L["DataTexts"],
-		[6] = L["ActionBars"],
-		[7] = L["NamePlates"],
-		[8] = L["UnitFrames"],
-		[9] = ADDONS,
-		[10] = L["Installation Complete"],
-		[F.IsDeveloper() and 11] = L["Developer Settings"],
+		[2] = L["Profile"],
+		[3] = L["Layout"],
+		[4] = L["CVars"],
+		[5] = L["Chat"],
+		[6] = L["DataTexts"],
+		[7] = L["ActionBars"],
+		[8] = L["NamePlates"],
+		[9] = L["UnitFrames"],
+		[10] = ADDONS,
+		[11] = L["Installation Complete"],
+		[F.IsDeveloper() and 12] = L["Developer Settings"],
 	},
 	StepTitlesColor = { 1, 1, 1 },
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],

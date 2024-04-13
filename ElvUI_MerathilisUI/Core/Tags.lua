@@ -50,43 +50,6 @@ local function shortenNumber(number)
 	return format("%." .. dec .. "f" .. affixes[affix], num1)
 end
 
--- Displays current HP --(2.04B, 2.04M, 204k, 204)--
-E:AddTag("health:current-mUI", "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED", function(unit)
-	local status = UnitIsDead(unit) and L["Dead"]
-		or UnitIsGhost(unit) and L["Ghost"]
-		or not UnitIsConnected(unit) and L["Offline"]
-	if status then
-		return status
-	else
-		local currentHealth = UnitHealth(unit)
-		return shortenNumber(currentHealth)
-	end
-end)
-
--- Max Health shorted
-E:AddTag("health:max-mUI", "UNIT_MAXHEALTH", function(unit)
-	local maxH = UnitHealthMax(unit)
-
-	return shortenNumber(maxH)
-end)
-
-E:AddTag("mUI-name:health:abbrev", "UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH UNIT_MAXHEALTH", function(unit, _, args)
-	local name = UnitName(unit)
-	if not name then
-		return ""
-	else
-		name = E.TagFunctions.Abbrev(name)
-	end
-
-	local min, max, bco, fco = UnitHealth(unit), UnitHealthMax(unit), strsplit(":", args or "")
-	local to = ceil(utf8len(name) * (min / max))
-
-	local fill = E.TagFunctions.NameHealthColor(_TAGS, fco, unit, "|cFFff3333")
-	local base = E.TagFunctions.NameHealthColor(_TAGS, bco, unit, "|cFFffffff")
-
-	return to > 0 and (base .. utf8sub(name, 0, to) .. fill .. utf8sub(name, to + 1, -1)) or fill .. name
-end)
-
 -- Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag
 E:AddTag("power:current-mUI", "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER", function(unit)
 	local CurrentPower = UnitPower(unit)
@@ -99,38 +62,6 @@ E:AddTag("power:current-mUI", "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOW
 	end
 
 	return String
-end)
-
-E:AddTag("mUI-resting", "PLAYER_UPDATE_RESTING", function(unit)
-	if unit == "player" and IsResting() then
-		return "zZz"
-	else
-		return nil
-	end
-end)
-
-local function abbrev(name)
-	local letters, lastWord = "", strmatch(name, ".+%s(.+)$")
-	if lastWord then
-		for word in gmatch(name, ".-%s") do
-			local firstLetter = utf8sub(gsub(word, "^[%s%p]*", ""), 1, 1)
-			if firstLetter ~= utf8lower(firstLetter) then
-				letters = format("%s%s. ", letters, firstLetter)
-			end
-		end
-		name = format("%s%s", letters, lastWord)
-	end
-	return name
-end
-
-E:AddTag("name:abbrev-translit", "UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT", function(unit)
-	local name = Translit:Transliterate(UnitName(unit), translitMark)
-
-	if name and strfind(name, "%s") then
-		name = abbrev(name)
-	end
-
-	return name ~= nil and E:ShortenString(name, 20) or "" --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
 end)
 
 E:AddTag("name:gradient", "UNIT_NAME_UPDATE", function(unit)
@@ -205,17 +136,10 @@ for index, style in pairs(F.GetClassIconStyleList()) do
 	end
 end
 
-E:AddTagInfo("health:current-mUI", MER.Title, "Displays current HP (2.04B, 2.04M, 204k, 204)")
 E:AddTagInfo(
 	"power:current-mUI",
 	MER.Title,
 	"Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag"
-)
-E:AddTagInfo("mUI-resting", MER.Title, "Displays a text if the player is in a resting area = zZz")
-E:AddTagInfo(
-	"name:abbrev-translit",
-	MER.Title,
-	"Displays a shorten name and will convert cyrillics. Игорь = !Igor"
 )
 E:AddTagInfo("name:gradient", MER.Title, "Displays a shorten name in gradient classcolor")
 E:AddTagInfo("name:gradientcustom", MER.Title, "Displays a shorten name in custom gradient classcolor")
