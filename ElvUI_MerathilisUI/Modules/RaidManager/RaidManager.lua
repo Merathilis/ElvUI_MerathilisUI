@@ -33,6 +33,7 @@ local issecurevariable = issecurevariable
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_PartyInfo_ConvertToParty = C_PartyInfo.ConvertToParty
 local C_PartyInfo_ConvertToRaid = C_PartyInfo.ConvertToRaid
+local C_PartyInfo_DoCountdown = C_PartyInfo.DoCountdown
 local C_PartyInfo_SetRestrictPings = C_PartyInfo.SetRestrictPings
 local C_PartyInfo_GetRestrictPings = C_PartyInfo.GetRestrictPings
 local C_Timer_After = C_Timer.After
@@ -45,6 +46,12 @@ local IG_MAINMENU_OPTION_CHECKBOX_ON = SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON
 local PANEL_WIDTH = 270
 local PANEL_HEIGHT = 150
 local BUTTON_HEIGHT = 25
+
+local buttonEvents = {
+	"GROUP_ROSTER_UPDATE",
+	"PARTY_LEADER_CHANGED",
+	"PLAYER_ENTERING_WORLD",
+}
 
 local function GetRaidMaxGroup()
 	local _, instType, difficulty = GetInstanceInfo()
@@ -181,6 +188,39 @@ local function UpdateIcons(self)
 	end
 end
 
+function module:SetEnabled(button, enabled, isLeader)
+	if button.SetChecked then
+		button:SetChecked(enabled)
+	else
+		button:SetEnabled(enabled)
+	end
+
+	if button.Text then -- show text grey when isLeader is false, nil and true should be white
+		button.Text:SetFormattedText(
+			"%s%s|r",
+			((isLeader ~= nil and isLeader) or (isLeader == nil and enabled)) and "|cFFffffff" or "|cFF888888",
+			button.label
+		)
+	end
+end
+
+function module:InInstance()
+	local _, instanceType = GetInstanceInfo()
+	return instanceType ~= "pvp" and instanceType ~= "arena"
+end
+
+function module:IsLeader()
+	return (UnitIsGroupLeader("player") and module:InInstance()) or false -- use false to handle coloring of ping restrict text
+end
+
+function module:HasPermission()
+	return (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")) and module:InInstance()
+end
+
+function module:InGroup()
+	return IsInGroup() and module:InInstance()
+end
+
 -- Change border when mouse is inside the button
 function module:OnEnter_Button()
 	if self.backdrop then
@@ -198,29 +238,94 @@ function module:OnLeave_Button()
 end
 
 function module:OnClick_EveryoneAssist()
-	PlaySound(IG_MAINMENU_OPTION_CHECKBOX_ON)
-	SetEveryoneIsAssistant(self:GetChecked())
+	if module:IsLeader() then
+		PlaySound(IG_MAINMENU_OPTION_CHECKBOX_ON)
+		SetEveryoneIsAssistant(self:GetChecked())
+	else
+		self:SetChecked(IsEveryoneAssistant())
+	end
 end
 
 function module:OnEvent_EveryoneAssist()
-	self:SetChecked(IsEveryoneAssistant())
+	module:SetEnabled(self, IsEveryoneAssistant(), module:IsLeader())
 end
 
 function module:OnClick_RestrictPings()
-	PlaySound(IG_MAINMENU_OPTION_CHECKBOX_ON)
-	C_PartyInfo_SetRestrictPings(self:GetChecked())
+	if module:HasPermission() then
+		PlaySound(IG_MAINMENU_OPTION_CHECKBOX_ON)
+		C_PartyInfo_SetRestrictPings(self:GetChecked())
+	else
+		self:SetChecked(C_PartyInfo_GetRestrictPings())
+	end
 end
 
 function module:OnEvent_RestrictPings()
-	self:SetChecked(C_PartyInfo_GetRestrictPings())
+	module:SetEnabled(self, C_PartyInfo_GetRestrictPings(), module:HasPermission())
+end
+
+function module:OnEvent_ReadyCheckButton()
+	module:SetEnabled(self, module:HasPermission())
+end
+
+function module:OnClick_ReadyCheckButton()
+	if InCombatLockdown() then
+		_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_NOT_IN_COMBAT))
+		return
+	end
+
+	if module:InGroup() then
+		DoReadyCheck()
+	else
+		_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_NOT_LEADER))
+	end
+end
+
+function module:OnEvent_RoleCheckButton()
+	module:SetEnabled(self, module:HasPermission())
+end
+
+function module:OnClick_RoleCheckButton()
+	if module:InGroup() then
+		InitiateRolePoll()
+	end
+end
+
+local reset = true
+function module:OnClick_RaidCountdownButton()
+	if module:InGroup() then
+		if C_AddOns_IsAddOnLoaded("DBM-Core") then
+			if reset then
+				SlashCmdList["DEADLYBOSSMODS"]("pull " .. E.db.mui.raidmanager.count)
+			else
+				SlashCmdList["DEADLYBOSSMODS"]("pull 0")
+			end
+			reset = not reset
+		elseif C_AddOns_IsAddOnLoaded("BigWigs") then
+			if not SlashCmdList["BIGWIGSPULL"] then
+				LoadAddOn("BigWigs_Plugins")
+			end
+
+			if reset then
+				SlashCmdList["BIGWIGSPULL"](E.db.mui.raidmanager.count)
+			else
+				SlashCmdList["BIGWIGSPULL"]("0")
+			end
+			reset = not reset
+		else
+			C_PartyInfo.DoCountdown(E.db.mui.raidmanager.count)
+		end
+	end
+end
+
+function module:OnEvent_RaidCountdownButton()
+	reset = true
 end
 
 function module:CreateCheckBox(
 	name,
 	parent,
 	template,
-	width,
-	height,
+	size,
 	point,
 	relativeto,
 	point2,
@@ -232,8 +337,9 @@ function module:CreateCheckBox(
 	clickFunc
 )
 	local checkbox = type(name) == "table" and name
-	local box = checkbox or CreateFrame("CheckButton", name, parent, template or "UICheckButtonTemplate")
-	box:Size(height)
+	local box = checkbox or CreateFrame("CheckButton", name, parent, template)
+	box:Size(size)
+	box.label = label or ""
 
 	if events then
 		box:UnregisterAllEvents()
@@ -252,12 +358,15 @@ function module:CreateCheckBox(
 
 	if box.Text then
 		box.Text:Point("LEFT", box, "RIGHT", 2, 0)
-		box.Text:SetText(label or "")
-		box.Text:SetTextColor(1, 1, 1, 1)
+		box.Text:SetText(box.label)
 	end
 
 	if not box:GetPoint() then
 		box:Point(point, relativeto, point2, xOfs, yOfs)
+	end
+
+	if eventFunc then
+		eventFunc(box)
 	end
 
 	module.CheckBoxes[name] = box
@@ -277,7 +386,10 @@ function module:CreateUtilButton(
 	xOfs,
 	yOfs,
 	label,
-	texture
+	texture,
+	events,
+	eventFunc,
+	mouseFunc
 )
 	local button = type(name) == "table" and name
 	local btn = button or CreateFrame("Button", name, parent, template)
@@ -285,6 +397,18 @@ function module:CreateUtilButton(
 	btn:HookScript("OnLeave", module.OnLeave_Button)
 	btn:Size(width, height)
 	ES:HandleButton(btn)
+	btn.label = label or ""
+
+	if events then
+		btn:UnregisterAllEvents()
+
+		for _, event in next, events do
+			btn:RegisterEvent(event)
+		end
+	end
+
+	btn:SetScript("OnEvent", eventFunc)
+	btn:SetScript("OnMouseUp", mouseFunc)
 
 	if not btn:GetPoint() then
 		btn:Point(point, relativeto, point2, xOfs, yOfs)
@@ -295,9 +419,9 @@ function module:CreateUtilButton(
 		text:FontTemplate()
 		text:Point("CENTER", btn, "CENTER", 0, -1)
 		text:SetJustifyH("CENTER")
-		text:SetText(label)
+		text:SetText(btn.label)
 		btn:SetFontString(text)
-		btn.text = text
+		btn.Text = text
 	elseif texture then
 		local tex = btn:CreateTexture(nil, "OVERLAY")
 		tex:SetTexture(texture)
@@ -305,6 +429,10 @@ function module:CreateUtilButton(
 		tex:Point("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -1, 1)
 		tex.tex = texture
 		btn.texture = tex
+	end
+
+	if eventFunc then
+		eventFunc(btn)
 	end
 
 	module.Buttons[name] = btn
@@ -323,6 +451,11 @@ function module:Initialize()
 
 	module.Buttons = {}
 	module.CheckBoxes = {}
+
+	local BUTTON_WIDTH = PANEL_WIDTH / 2 - 20
+
+	local hasCountdown = C_PartyInfo_DoCountdown
+	local countdownHeight = hasCountdown and 0 or 25
 
 	-- Main Frame
 	local RaidManagerFrame = CreateFrame("Frame", "RaidManagerFrame", E.UIParent, "SecureHandlerBaseTemplate")
@@ -383,8 +516,8 @@ function module:Initialize()
 		WorldMarkButton:Point("TOPRIGHT", RaidManagerFrame, "TOPRIGHT", -5, -3)
 		WorldMarkButton:Size(18, 18)
 
-		WorldMarkButton:HookScript("OnEvent", function(self, event)
-			if UnitIsGroupAssistant("player") or UnitIsGroupLeader("player") or (IsInGroup() and not IsInRaid()) then
+		WorldMarkButton:HookScript("OnEvent", function(self)
+			if module:HasPermission() then
 				self:Enable()
 			else
 				self:Disable()
@@ -397,11 +530,10 @@ function module:Initialize()
 		E:StaticPopup_Show("WARNING_BLIZZARD_ADDONS")
 	end
 
-	local BUTTON_WIDTH = PANEL_WIDTH / 2 - 20
-	local PullButton = module:CreateUtilButton(
-		"RaidManagerFramePullButton",
+	local ReadyCheckButton = module:CreateUtilButton(
+		"RaidManagerFrameReadyCheckButton",
 		RaidManagerFrame,
-		"UIMenuButtonStretchTemplate, SecureHandlerClickTemplate",
+		nil,
 		BUTTON_WIDTH,
 		BUTTON_HEIGHT,
 		"TOPRIGHT",
@@ -409,107 +541,66 @@ function module:Initialize()
 		"TOP",
 		-5,
 		-25,
-		L["Pull"]
+		_G.READY_CHECK,
+		nil,
+		buttonEvents,
+		module.OnEvent_ReadyCheckButton,
+		module.OnClick_ReadyCheckButton
 	)
-
-	local reset = true
-	PullButton:SetScript("OnClick", function(self)
-		if IsInGroup() and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid())) then
-			if C_AddOns_IsAddOnLoaded("DBM-Core") then
-				if reset then
-					SlashCmdList["DEADLYBOSSMODS"]("pull " .. E.db.mui.raidmanager.count)
-				else
-					SlashCmdList["DEADLYBOSSMODS"]("pull 0")
-				end
-				reset = not reset
-			elseif C_AddOns_IsAddOnLoaded("BigWigs") then
-				if not SlashCmdList["BIGWIGSPULL"] then
-					LoadAddOn("BigWigs_Plugins")
-				end
-
-				if reset then
-					SlashCmdList["BIGWIGSPULL"](E.db.mui.raidmanager.count)
-				else
-					SlashCmdList["BIGWIGSPULL"]("0")
-				end
-				reset = not reset
-			else
-				_G.UIErrorsFrame:AddMessage(F.String.MERATHILISUI(L["Bossmod requiered"]))
-			end
-		else
-			_G.UIErrorsFrame:AddMessage(F.String.MERATHILISUI(_G.ERR_NOT_LEADER))
-		end
-	end)
-
-	PullButton:RegisterEvent("PLAYER_REGEN_ENABLED")
-	PullButton:SetScript("OnEvent", function()
-		reset = true
-	end)
-
-	local ReadyCheckButton = module:CreateUtilButton(
-		"RaidManagerFrameReadyCheckButton",
-		RaidManagerFrame,
-		"UIMenuButtonStretchTemplate, SecureHandlerClickTemplate",
-		BUTTON_WIDTH,
-		BUTTON_HEIGHT,
-		"LEFT",
-		PullButton,
-		"RIGHT",
-		10,
-		0,
-		_G.READY_CHECK
-	)
-
-	ReadyCheckButton:SetScript("OnClick", function()
-		if InCombatLockdown() then
-			_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_NOT_IN_COMBAT))
-			return
-		end
-		if IsInGroup() and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid())) then
-			DoReadyCheck()
-		else
-			_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_NOT_LEADER))
-		end
-	end)
 
 	local RolePollButton = module:CreateUtilButton(
 		"RaidManagerFrameRoleCheckButton",
 		RaidManagerFrame,
-		"UIMenuButtonStretchTemplate, SecureHandlerClickTemplate",
+		nil,
 		BUTTON_WIDTH,
 		BUTTON_HEIGHT,
-		"TOP",
-		PullButton,
-		"BOTTOM",
+		"LEFT",
+		ReadyCheckButton,
+		"RIGHT",
+		10,
 		0,
-		-5,
-		_G.ROLE_POLL
+		_G.ROLE_POLL,
+		nil,
+		buttonEvents,
+		module.OnEvent_RoleCheckButton,
+		module.OnClick_RoleCheckButton
 	)
 
-	RolePollButton:SetScript("OnClick", function()
-		if
-			IsInGroup()
-			and not HasLFGRestrictions()
-			and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid()))
-		then
-			InitiateRolePoll()
-		else
-			_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_NOT_LEADER))
-		end
-	end)
+	local CountdownButton
+	if hasCountdown then
+		CountdownButton = module:CreateUtilButton(
+			"RaidManagerFrameCountdownButton",
+			RaidManagerFrame,
+			nil,
+			BUTTON_WIDTH,
+			BUTTON_HEIGHT,
+			"TOP",
+			ReadyCheckButton,
+			"BOTTOM",
+			0,
+			-5,
+			L["Countdown"],
+			nil,
+			buttonEvents,
+			module.OnEvent_RaidCountdownButton,
+			module.OnClick_RaidCountdownButton
+		)
+	end
 
 	local ConvertGroupButton = module:CreateUtilButton(
 		"RaidManagerFrameConvertGroupButton",
 		RaidManagerFrame,
-		"UIMenuButtonStretchTemplate, SecureHandlerClickTemplate",
+		nil,
 		BUTTON_WIDTH,
 		BUTTON_HEIGHT,
 		"LEFT",
-		RolePollButton,
+		CountdownButton,
 		"RIGHT",
 		10,
 		0,
-		""
+		"",
+		nil,
+		buttonEvents
 	)
 
 	ConvertGroupButton:SetScript("OnEvent", function(self, event, arg1)
@@ -517,9 +608,9 @@ function module:Initialize()
 			self:Hide()
 		else
 			if IsInRaid() then
-				self.text:SetText(_G.CONVERT_TO_PARTY)
+				self.Text:SetText(_G.CONVERT_TO_PARTY)
 			else
-				self.text:SetText(_G.CONVERT_TO_RAID)
+				self.Text:SetText(_G.CONVERT_TO_RAID)
 			end
 
 			if not self:IsProtected() and not issecurevariable(self, "Show") then
@@ -538,32 +629,27 @@ function module:Initialize()
 		end
 	end)
 
-	ConvertGroupButton:RegisterEvent("GROUP_ROSTER_UPDATE")
-	ConvertGroupButton:RegisterEvent("PLAYER_ENTERING_WORLD")
-
 	local EveryoneAssist = module:CreateCheckBox(
 		"RaidManagerFrame_EveryoneAssist",
 		RaidManagerFrame,
-		nil,
-		BUTTON_WIDTH,
+		"UICheckButtonTemplate",
 		BUTTON_HEIGHT + 4,
 		"TOPLEFT",
-		RolePollButton,
+		CountdownButton,
 		"BOTTOMLEFT",
 		-4,
 		-3,
 		_G.ALL_ASSIST_LABEL_LONG,
-		{ "GROUP_ROSTER_UPDATE", "PARTY_LEADER_CHANGED" },
+		buttonEvents,
 		module.OnEvent_EveryoneAssist,
 		module.OnClick_EveryoneAssist
 	)
 
 	if C_PartyInfo_SetRestrictPings then
-		module:CreateCheckBox(
+		local RestrictPings = module:CreateCheckBox(
 			"RaidManagerFrame_RestrictPings",
 			RaidManagerFrame,
 			nil,
-			BUTTON_WIDTH,
 			BUTTON_HEIGHT + 4,
 			"TOPLEFT",
 			EveryoneAssist,

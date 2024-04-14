@@ -4,5 +4,7 @@ MER.Changelog[612] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {},
 	NEW = {},
-	IMPROVEMENTS = {},
+	IMPROVEMENTS = {
+		"[Raid Manager]: Some code improvements to RaidManager",
+	},
 }
