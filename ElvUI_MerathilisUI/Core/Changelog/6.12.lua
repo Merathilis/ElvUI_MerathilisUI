@@ -6,5 +6,6 @@ MER.Changelog[612] = {
 	NEW = {},
 	IMPROVEMENTS = {
 		"[Raid Manager]: Some code improvements to RaidManager",
+		"[ChatText]: Here also some code improvements",
 	},
 }
