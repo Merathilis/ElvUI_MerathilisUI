@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[612] = {
 	RELEASE_DATE = "TBD",
@@ -7,5 +7,6 @@ MER.Changelog[612] = {
 	IMPROVEMENTS = {
 		"[Raid Manager]: Some code improvements to RaidManager",
 		"[ChatText]: Here also some code improvements",
+		"[RaiderIO Skin]: Updated a new SearchFrame",
 	},
 }
