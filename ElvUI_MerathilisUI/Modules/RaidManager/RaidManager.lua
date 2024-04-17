@@ -192,7 +192,7 @@ function module:SetEnabled(button, enabled, isLeader)
 	if button.SetChecked then
 		button:SetChecked(enabled)
 	else
-		button:SetEnabled(enabled)
+		button.enabled = enabled
 	end
 
 	if button.Text then -- show text grey when isLeader is false, nil and true should be white
@@ -273,7 +273,7 @@ function module:OnClick_ReadyCheckButton()
 		return
 	end
 
-	if module:InGroup() then
+	if self.enabled and module:InGroup() then
 		DoReadyCheck()
 	else
 		_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_NOT_LEADER))
@@ -285,7 +285,7 @@ function module:OnEvent_RoleCheckButton()
 end
 
 function module:OnClick_RoleCheckButton()
-	if module:InGroup() then
+	if self.enabled and module:InGroup() then
 		InitiateRolePoll()
 	end
 end
@@ -312,7 +312,7 @@ function module:OnClick_RaidCountdownButton()
 			end
 			reset = not reset
 		else
-			C_PartyInfo.DoCountdown(E.db.mui.raidmanager.count)
+			C_PartyInfo_DoCountdown(E.db.mui.raidmanager.count)
 		end
 	end
 end
