@@ -6,23 +6,23 @@ local _G = _G
 local LibStub = _G.LibStub
 
 local skinned = false
-
 function module:RaiderIO_DelayedSkinning()
 	if skinned then
 		return
 	end
 
-	skinned = true
+	local RaiderIO_ProfileTooltip = _G.RaiderIO_ProfileTooltip
 
-	if _G.RaiderIO_ProfileTooltip then
-		_G.RaiderIO_ProfileTooltip:StripTextures()
-		_G.RaiderIO_ProfileTooltip.NineSlice:Kill()
-		_G.RaiderIO_ProfileTooltip:SetTemplate("Transparent")
-		local point, relativeTo, relativePoint, xOffset, yOffset = _G.RaiderIO_ProfileTooltip:GetPoint()
+	skinned = true
+	if RaiderIO_ProfileTooltip then
+		RaiderIO_ProfileTooltip:StripTextures()
+		RaiderIO_ProfileTooltip.NineSlice:Kill()
+		RaiderIO_ProfileTooltip:SetTemplate("Transparent")
+		local point, relativeTo, relativePoint, xOffset, yOffset = RaiderIO_ProfileTooltip:GetPoint()
 		if xOffset and yOffset and xOffset == 0 and yOffset == 0 then
-			_G.RaiderIO_ProfileTooltip.__SetPoint = _G.RaiderIO_ProfileTooltip.SetPoint
+			RaiderIO_ProfileTooltip.__SetPoint = RaiderIO_ProfileTooltip.SetPoint
 			hooksecurefunc(
-				_G.RaiderIO_ProfileTooltip,
+				RaiderIO_ProfileTooltip,
 				"SetPoint",
 				function(self, point, relativeTo, relativePoint, xOffset, yOffset)
 					if xOffset and yOffset and xOffset == 0 and yOffset == 0 then
@@ -33,8 +33,30 @@ function module:RaiderIO_DelayedSkinning()
 		end
 	end
 
-	local configFrame
+	local RaiderIO_SearchFrame = _G.RaiderIO_SearchFrame
+	if RaiderIO_SearchFrame then
+		RaiderIO_SearchFrame:StripTextures()
+		RaiderIO_SearchFrame:SetTemplate("Transparent")
+		module:CreateShadow(RaiderIO_SearchFrame)
+		S:HandleCloseButton(RaiderIO_SearchFrame.close)
 
+		for _, child in pairs({ RaiderIO_SearchFrame:GetChildren() }) do
+			local numRegions = child:GetNumRegions()
+			if numRegions == 9 then
+				if child and child:GetObjectType() == "EditBox" then
+					if not child.IsSkinned then
+						child:DisableDrawLayer("BACKGROUND")
+						child:DisableDrawLayer("BORDER")
+						S:HandleEditBox(child)
+
+						child.IsSkinned = true
+					end
+				end
+			end
+		end
+	end
+
+	local configFrame
 	for _, frame in pairs({ _G.UIParent:GetChildren() }) do
 		if frame.scrollbar and frame.scrollframe then
 			for _, child in pairs({ frame:GetChildren() }) do
