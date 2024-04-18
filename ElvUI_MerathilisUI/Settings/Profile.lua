@@ -219,7 +219,7 @@ P.chat = {
 		abbreviation = "DEFAULT",
 		removeBrackets = true,
 		roleIconSize = 16,
-		roleIconStyle = "SUNUI",
+		roleIconStyle = "LYNUI",
 		removeRealm = true,
 		customAbbreviation = {},
 		classIcon = true,
@@ -1311,7 +1311,7 @@ P.unitframes = {
 	raidIcons = true,
 	roleIcons = {
 		enable = true,
-		roleIconStyle = "SUNUI",
+		roleIconStyle = "LYNUI",
 	},
 	highlight = true,
 	auras = true,
