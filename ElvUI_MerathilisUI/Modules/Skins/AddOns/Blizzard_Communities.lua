@@ -3,10 +3,9 @@ local module = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
-local gsub, next, unpack = gsub, next, unpack
-local format = string.format
-local strmatch = strmatch
+local next, unpack = next, unpack
 
+local C_CreatureInfo_GetClassInfo = C_CreatureInfo.GetClassInfo
 local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
@@ -27,7 +26,7 @@ local function UpdateNameFrame(self)
 
 	local memberInfo = self:GetMemberInfo()
 	if memberInfo and memberInfo.classID then
-		local classInfo = C_CreatureInfo.GetClassInfo(memberInfo.classID)
+		local classInfo = C_CreatureInfo_GetClassInfo(memberInfo.classID)
 		if classInfo then
 			ClassIconTexCoord(self.Class, classInfo.classFile)
 		end
