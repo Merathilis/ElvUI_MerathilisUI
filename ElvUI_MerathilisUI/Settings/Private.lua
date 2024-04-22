@@ -274,7 +274,7 @@ V.skins = {
 		},
 		dt = {
 			enable = true,
-			gradientName = false,
+			gradientName = true,
 			gradientBars = true,
 		},
 	},
