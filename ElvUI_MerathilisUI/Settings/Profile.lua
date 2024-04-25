@@ -219,7 +219,7 @@ P.chat = {
 		abbreviation = "DEFAULT",
 		removeBrackets = true,
 		roleIconSize = 16,
-		roleIconStyle = "SUNUI",
+		roleIconStyle = "LYNUI",
 		removeRealm = true,
 		customAbbreviation = {},
 		classIcon = true,
@@ -1311,7 +1311,7 @@ P.unitframes = {
 	raidIcons = true,
 	roleIcons = {
 		enable = true,
-		roleIconStyle = "SUNUI",
+		roleIconStyle = "LYNUI",
 	},
 	highlight = true,
 	auras = true,
@@ -1459,7 +1459,7 @@ P.maps = {
 			outline = "SHADOWOUTLINE",
 		},
 		communityFeast = {
-			enable = false,
+			enable = true,
 			desaturate = false,
 			alert = true,
 			sound = false,
@@ -1469,7 +1469,7 @@ P.maps = {
 			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		siegeOnDragonbaneKeep = {
-			enable = false,
+			enable = true,
 			desaturate = false,
 			alert = true,
 			sound = false,
@@ -1479,7 +1479,7 @@ P.maps = {
 			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		researchersUnderFire = {
-			enable = true,
+			enable = false,
 			desaturate = false,
 			alert = true,
 			sound = false,
@@ -1489,7 +1489,7 @@ P.maps = {
 			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		timeRiftThaldraszus = {
-			enable = true,
+			enable = false,
 			desaturate = true,
 			alert = true,
 			sound = false,

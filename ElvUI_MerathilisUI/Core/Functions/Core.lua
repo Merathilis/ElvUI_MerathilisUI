@@ -8,6 +8,7 @@ local format, gsub, match, split, strfind = string.format, string.gsub, string.m
 local strmatch, strlen, strsub = strmatch, strlen, strsub
 local tconcat, tinsert, tremove, twipe = table.concat, table.insert, table.remove, table.wipe
 local max, min, modf = math.max, math.min, math.modf
+local len, utf8sub = string.len, string.utf8sub
 
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
@@ -1118,6 +1119,32 @@ function F.SplitString(delimiter, subject)
 	end
 
 	return unpack(results)
+end
+
+do
+	local shortenReplace = function(t)
+		return t:utf8sub(1, 1) .. ". "
+	end
+
+	function F:ShortenString(text, length, cut, firstname)
+		if text and len(text) > length then
+			if cut then
+				text = E:ShortenString(text, length)
+			else
+				if firstname then
+					local first, last = text:match("^(%a*)(.*)$")
+					if first and last then
+						text = first .. " " .. last:gsub("(%S+)", shortenReplace)
+					else
+						text = text:gsub("(%S+) ", shortenReplace)
+					end
+				else
+					text = text:gsub("(%S+) ", shortenReplace)
+				end
+			end
+		end
+		return text
+	end
 end
 
 function F.SetCallback(callback, target, times, ...)

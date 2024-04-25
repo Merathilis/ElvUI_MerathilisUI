@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[608] = {
 	RELEASE_DATE = "04.04.2024",

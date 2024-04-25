@@ -88,18 +88,21 @@ end
 local function GradientNames()
 	local Details = _G.Details
 
-	hooksecurefunc(Details.atributo_damage, "RefreshLine", function(_, _, lineContainer, whichRowLine)
+	hooksecurefunc(Details.atributo_damage, "RefreshLine", function(_, detailsDB, lineContainer, whichRowLine)
 		local thisLine = lineContainer[whichRowLine]
 		if not thisLine then
 			return
 		end
 		if thisLine.lineText1 then
-			thisLine.lineText1:SetText(
-				F.GradientName(
-					thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(),
-					thisLine.minha_tabela:class()
+			local name = E:StripString(thisLine.lineText1:GetText())
+			if detailsDB.use_multi_fontstrings and detailsDB.use_auto_align_multi_fontstrings then
+				thisLine.lineText1:SetText(
+					F.GradientName(F:ShortenString(name, 10, true), thisLine.minha_tabela:class())
 				)
-			)
+			else
+				thisLine.lineText1:SetText(F.GradientName(name, thisLine.minha_tabela:class()))
+			end
+			thisLine.lineText1:SetShadowOffset(2, -2)
 		end
 	end)
 
@@ -109,12 +112,15 @@ local function GradientNames()
 			return
 		end
 		if thisLine.lineText1 then
-			thisLine.lineText1:SetText(
-				F.GradientName(
-					thisLine.colocacao .. ". " .. thisLine.minha_tabela:GetDisplayName(),
-					thisLine.minha_tabela:class()
+			local name = E:StripString(thisLine.lineText1:GetText())
+			if instancia.use_multi_fontstrings and instancia.use_auto_align_multi_fontstrings then
+				thisLine.lineText1:SetText(
+					F.GradientName(F:ShortenString(name, 10, true), thisLine.minha_tabela:class())
 				)
-			)
+			else
+				thisLine.lineText1:SetText(F.GradientName(name, thisLine.minha_tabela:class()))
+			end
+			thisLine.lineText1:SetShadowOffset(2, -2)
 		end
 	end)
 end
@@ -241,7 +247,7 @@ local function ReskinDetails()
 	end
 end
 
-local function LoadSkin()
+function module:Details()
 	if not E.private.mui.skins.addonSkins.enable then
 		return
 	end
@@ -261,4 +267,4 @@ local function LoadSkin()
 	end
 end
 
-module:AddCallbackForAddon("Details", LoadSkin)
+module:AddCallbackForAddon("Details")

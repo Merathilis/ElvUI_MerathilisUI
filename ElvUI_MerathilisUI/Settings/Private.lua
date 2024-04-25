@@ -241,7 +241,6 @@ V.skins = {
 		bSync = true,
 		pawn = true,
 		iry = true,
-		tlx = true,
 		bw = {
 			enable = true,
 			queueTimer = {
@@ -275,7 +274,7 @@ V.skins = {
 		},
 		dt = {
 			enable = true,
-			gradientName = false,
+			gradientName = true,
 			gradientBars = true,
 		},
 	},
