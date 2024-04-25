@@ -924,6 +924,9 @@ local openableItems = {
 	211411,
 	211413,
 	211414,
+	215362,
+	217109,
+	217728,
 }
 
 local bigDig = {
