@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[612] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "25.04.2024",
 	FIXES = {
 		"[TalentLoadoutEx]: Remove skin",
 		"[Details Skin]: Fix gradient names and enable it by default",
