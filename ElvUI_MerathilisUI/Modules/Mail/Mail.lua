@@ -35,6 +35,7 @@ local C_FriendList_GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
 local GetInboxHeaderInfo = GetInboxHeaderInfo
 local C_Mail_IsCommandPending = C_Mail.IsCommandPending
 local C_Mail_HasInboxMoney = C_Mail.HasInboxMoney
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
 local GetMoney = GetMoney
 local GetSendMailPrice = GetSendMailPrice
 local TakeInboxMoney = TakeInboxMoney
