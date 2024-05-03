@@ -10,6 +10,7 @@ local hooksecurefunc = hooksecurefunc
 local Type_StatusBar = _G.Enum.UIWidgetVisualizationType.StatusBar
 local Type_CaptureBar = _G.Enum.UIWidgetVisualizationType.CaptureBar
 local Type_SpellDisplay = _G.Enum.UIWidgetVisualizationType.SpellDisplay
+local Type_ItemDisplay = _G.Enum.UIWidgetVisualizationType.ItemDisplay
 local Type_DoubleStatusBar = _G.Enum.UIWidgetVisualizationType.DoubleStatusBar
 
 local atlasColors = {
@@ -146,6 +147,14 @@ local function ReskinPowerBarWidget(self)
 	end
 end
 
+local function ReskinWidgetItemDisplay(item)
+	if not item.Icon.backdrop then
+		S:HandleIcon(item.Icon, true)
+		S:HandleIconBorder(item.IconBorder, item.Icon.backdrop)
+	end
+	item.IconMask:Hide()
+end
+
 local function ReskinWidgetGroups(self)
 	if not self.widgetFrames then
 		return
@@ -160,6 +169,8 @@ local function ReskinWidgetGroups(self)
 				ReskinSpellDisplayWidget(widgetFrame.Spell)
 			elseif widgetType == Type_StatusBar then
 				ReskinWidgetStatusBar(widgetFrame.Bar)
+			elseif widgetType == Type_ItemDisplay then
+				ReskinWidgetItemDisplay(widgetFrame.Item)
 			end
 		end
 	end

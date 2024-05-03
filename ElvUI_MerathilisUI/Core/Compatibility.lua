@@ -382,7 +382,7 @@ function MER:CheckCompatibility()
 	CheckWindtools(
 		format("%s-%s", L["Chat"], L["Role Icons"]),
 		L["Chat Text"],
-		"db.mui.chat.roleIcons.enable",
+		"db.mui.chat.chatText.enable",
 		"db.WT.social.chatText.enable"
 	)
 
