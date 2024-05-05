@@ -30,6 +30,7 @@ local WOW_PROJECT_BURNING_CRUSADE_CLASSIC = 5
 local WOW_PROJECT_CLASSIC = 2
 local WOW_PROJECT_MAINLINE = WOW_PROJECT_MAINLINE
 local WOW_PROJECT_WRATH_CLASSIC = 11
+local WOW_PROJECT_CATACLYSM_CLASSIC = 14
 
 local MediaPath = I.General.MediaPath .. "FriendList\\"
 
@@ -172,15 +173,15 @@ local expansionData = {
 			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
 		},
 	},
-	-- [WOW_PROJECT_CATACLYSM_CLASSIC] = {
-	-- name = "Catalysm",
-	-- suffix = "Catalysm",
-	-- maxLevel = 90,
-	-- icon = {
-	-- modern = MediaPath .. "GameIcons\\WOW_WotLK",
-	-- blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
-	-- },
-	-- },
+	[WOW_PROJECT_CATACLYSM_CLASSIC] = {
+		name = "Catalysm",
+		suffix = "Catalysm",
+		maxLevel = 90,
+		icon = {
+			modern = MediaPath .. "GameIcons\\WOW_Cata",
+			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
+		},
+	},
 }
 
 local factionIcons = {
