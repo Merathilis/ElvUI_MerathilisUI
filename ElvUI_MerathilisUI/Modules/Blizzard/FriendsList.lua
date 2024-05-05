@@ -172,6 +172,15 @@ local expansionData = {
 			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
 		},
 	},
+	-- [WOW_PROJECT_CATACLYSM_CLASSIC] = {
+	-- name = "Catalysm",
+	-- suffix = "Catalysm",
+	-- maxLevel = 90,
+	-- icon = {
+	-- modern = MediaPath .. "GameIcons\\WOW_WotLK",
+	-- blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
+	-- },
+	-- },
 }
 
 local factionIcons = {

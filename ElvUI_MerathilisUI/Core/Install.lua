@@ -2661,7 +2661,7 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["New Profile will create a fresh profile for this character."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Desc4:SetText(
-				L["Your current Profile is: "] .. F.String.Warning(ElvDB and ElvDB.profileKeys[E.mynameRealm])
+				L["Your current Profile is: "] .. F.String.Warning(E.data:GetCurrentProfile())
 			)
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function()

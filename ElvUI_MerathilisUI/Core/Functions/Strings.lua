@@ -3,7 +3,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local error = error
 local type, unpack = type, unpack
 local strbyte, strfind, strlen, strsub = strbyte, strfind, strlen, strsub
-local utf8len, utf8sub = string.utf8len, string.utf8sub
+local utf8len, utf8lower, utf8sub = string.utf8len, string.utf8lower, string.utf8sub
 local tinsert = tinsert
 
 F.String = {}
@@ -182,6 +182,14 @@ function F.String.FastRGBA(r, g, b, a)
 	return format("%02x%02x%02x%02x", (a or 1) * 255, r * 255, g * 255, b * 255)
 end
 
+function F.String.RGB(msg, colors)
+	if colors.r then
+		return F.String.Color(msg, F.String.FastRGB(colors.r, colors.g, colors.b))
+	else
+		return F.String.Color(msg, F.String.FastRGB(colors[1], colors[2], colors[3]))
+	end
+end
+
 function F.String.StripTexture(text)
 	if type(text) ~= "string" then
 		return text
@@ -210,6 +218,97 @@ end
 function F.String.Trim(text)
 	return strmatch(text, "^%s*(.*%S)") or ""
 end
+
+function F.String.RemoveRuneOfThePrefix(text)
+	return text:gsub(".* the ", ""):gsub(".* of ", "")
+end
+
+function F.String.RemoveEveryOfTheAndEverythingAfter(text)
+	return text:gsub(" of (.*)", ""):gsub(" the (.*)", "")
+end
+
+-- Capture the following strings
+-- .+%s(.+)$
+-- . represents all characters
+-- + makes us capture 1 or more repetitions of the previous character/symbol will always match the longest possible part
+-- %s represents all space characters
+-- $ at the end makes the pattern match to the end of the string
+-- Example: "Lightweave Embroidery" captures "Embroidery"
+function F.String.GetTheLastWordOfAString(text)
+	return strmatch(text, ".+%s(.+)$")
+end
+
+-- Capture the following string
+-- ^[%s%p]*
+-- ^ forces us to start capturing at the start of the string
+-- %s represents all space characters
+-- %p represents all punctuation characters
+-- * matches 0 or more repetitions of the previous character/symbol/pattern
+-- [] is a capture group
+-- This would capture the start of the string and replace all spaces with nothing (but most likely isn't working)
+function F.String.RemoveAllWhitespaceCharacters(text)
+	return text:gsub("^[%s%p]*", "")
+end
+
+-- Capture the following string
+-- %d+
+-- %d represents all digits
+-- this would capture the longest number chain in a string
+function F.String.ContainsNumericalCharacters(text)
+	return strmatch(text, "%d+")
+end
+
+-- Capture the following string
+-- %d+
+-- %d represents all digits
+-- this would capture the longest number chain in a string
+function F.String.RemoveTheLongestNumericalChain(text)
+	return text:gsub("%D+", "")
+end
+
+function F.String.Abbreviate(text)
+	if type(text) ~= "string" or text == "" then
+		return text
+	end
+
+	-- if string has Rune at the start it is almost 100% a DK Rune and needs some different initial logic.
+	if strmatch(text, "^Rune") then
+		text = F.String.RemoveRuneOfThePrefix(text)
+	else
+		text = F.String.RemoveEveryOfTheAndEverythingAfter(text)
+	end
+
+	local letters = ""
+	local lastWord = F.String.GetTheLastWordOfAString(text)
+	if not lastWord then
+		return text
+	end
+
+	-- split the string on each space and loop through them
+	-- If we have a string that contains numbers we will add them differently to the stringbuilder
+	-- If we have an alphabetical word we check if the first letter is Uppercase, if this is the case add it to the resulting string with a . after it
+	-- Else we ignore the word
+	for word in gmatch(text, ".-%s") do
+		local firstLetter = F.String.RemoveAllWhitespaceCharacters(word)
+
+		if not F.String.ContainsNumericalCharacters(firstLetter) then
+			firstLetter = utf8sub(firstLetter, 1, 1)
+			if firstLetter ~= utf8lower(firstLetter) then
+				-- combine letters value with firstletter value, and then add a . and space
+				letters = format("%s%s. ", letters, firstLetter)
+			end
+		else
+			firstLetter = F.String.RemoveTheLongestNumericalChain(firstLetter)
+			-- combine letters value with firstLetter value and then add a space
+			letters = format("%s%s ", letters, firstLetter)
+		end
+	end
+
+	-- Combine the build string in the loop and the complete last word
+	return format("%s%s", letters, lastWord)
+end
+
+E.TagFunctions.Abbrev = F.String.Abbreviate
 
 function F.String.FastGradient(text, r1, g1, b1, r2, g2, b2)
 	local msg, len, idx = "", utf8len(text), 0

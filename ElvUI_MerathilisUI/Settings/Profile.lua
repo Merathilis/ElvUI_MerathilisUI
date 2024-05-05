@@ -612,15 +612,28 @@ P.nameHover = {
 }
 
 P.armory = {
-	character = {
-		enable = true,
+	enable = true,
+	pageInfo = {
+		itemLevelTextEnabled = true,
+		iconsEnabled = true,
+
+		enchantTextEnabled = true,
+		abbreviateEnchantText = true,
+		missingEnchantText = true,
+		missingSocketText = true,
+
+		iLvLFont = {
+			name = I.Fonts.Primary,
+			size = 12,
+			style = "SHADOWOUTLINE",
+		},
+
+		enchantFont = {
+			name = I.Fonts.Primary,
+			size = 11,
+			style = "SHADOWOUTLINE",
+		},
 	},
-	inspect = {
-		enable = true,
-	},
-	StatOrder = "12345",
-	StatExpand = true,
-	PetHappiness = true,
 }
 
 P.notification = {
