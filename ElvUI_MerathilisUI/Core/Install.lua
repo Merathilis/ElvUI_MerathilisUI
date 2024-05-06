@@ -2541,22 +2541,22 @@ function MER:DeveloperSettings()
 	E:StaggeredUpdateAll(nil, true)
 end
 
-function MER:ProfileDialog()
-	local function createNewProfile(name)
-		if strtrim(name) == "" then
-			return
-		end
-
-		if E.data:IsDualSpecEnabled() then
-			E.data:SetDualSpecProfile(name)
-		else
-			E.data:SetProfile(name)
-		end
-
-		PluginInstallStepComplete.message = MER.Title .. L["Profile Created"]
-		PluginInstallStepComplete:Show()
+local function CreateNewProfile(name)
+	if strtrim(name) == "" then
+		return
 	end
 
+	if E.data:IsDualSpecEnabled() then
+		E.data:SetDualSpecProfile(name)
+	else
+		E.data:SetProfile(name)
+	end
+
+	PluginInstallStepComplete.message = MER.Title .. L["Profile Created"]
+	PluginInstallStepComplete:Show()
+end
+
+function MER:ProfileDialog()
 	local textInfo = "Name for the new profile"
 	local errorInfo = "Note: A profile with that name already exists"
 	local dialogName = "MER_CreateNewProfile"
@@ -2577,10 +2577,10 @@ function MER:ProfileDialog()
 		button1 = OKAY,
 		button2 = CANCEL,
 		OnAccept = function(frame)
-			createNewProfile(frame.editBox:GetText())
+			CreateNewProfile(frame.editBox:GetText())
 		end,
 		EditBoxOnEnterPressed = function(editBox)
-			createNewProfile(editBox:GetText())
+			CreateNewProfile(editBox:GetText())
 			editBox:GetParent():Hide()
 		end,
 		EditBoxOnEscapePressed = function(editBox)
