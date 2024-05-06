@@ -528,24 +528,24 @@ L["LEFT"] = "LINKS"
 L["RIGHT"] = "RECHTS"
 
 -- Armory
-L["Armory"] = true
-L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
-L["Enchant & Socket Strings"] = true
-L["Settings for strings displaying enchant and socket info from the items"] = true
-L["Enable/Disable the Enchant text display"] = true
-L["Missing Enchants"] = true
-L["Missing Sockets"] = true
-L["Short Enchant Text"] = true
-L["Enchant Font"] = true
-L["Item Level"] = true
-L["Settings for the Item Level next tor your item slot"] = true
-L["Enable/Disable the Item Level text display"] = true
-L["Toggle sockets & azerite traits"] = true
-L["Item Quality Gradient"] = true
-L["Settings for the color coming out of your item slot."] = true
-L["Toggling this on enables the Item Quality bars."] = true
-L["Start Alpha"] = true
-L["End Alpha"] = true
+L["Armory"] = "Rüstung"
+L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "Aktiviere/deaktiviere den Waffenkammermodus |cffff7d0aMerathilisUI|r."
+L["Enchant & Socket Strings"] = "Verzauberungs- und Sockel Strings"
+L["Settings for strings displaying enchant and socket info from the items"] = "Einstellungen für Strings, die Verzauberungs- und Sockelinformationen der Gegenstände anzeigen"
+L["Enable/Disable the Enchant text display"] = "Aktiviere/deaktiviere die Verzauberungs Texte"
+L["Missing Enchants"] = "Fehlende Verzauberungen"
+L["Missing Sockets"] = "Fehlende Sockel"
+L["Short Enchant Text"] = "Kurzer Verzauberungstext"
+L["Enchant Font"] = "Verzauberungsschriftart"
+L["Item Level"] = "Gegenstandsstufe"
+L["Settings for the Item Level next tor your item slot"] = "Einstellungen für die Gegenstandsstufe neben Deinem Gegenstandsplatz"
+L["Enable/Disable the Item Level text display"] = "Aktiviere/deaktiviere die Texte auf Elementebene"
+L["Toggle sockets & azerite traits"] = "Sockel und Azerit-Eigenschaften umschalten"
+L["Item Quality Gradient"] = "Gegenstandsqualität Farbverlauf"
+L["Settings for the color coming out of your item slot."] = "Einstellungen für die Farbe, die aus Deinem Gegenstandsslot kommt."
+L["Toggling this on enables the Item Quality bars."] = "Wenn Du diese Option aktivierst, werden die Gegenstands Qualitätsleisten aktiviert."
+L["Start Alpha"] = "Starttransparenz"
+L["End Alpha"] = "Endtranpsparenz"
 
 -- AutoButtons
 L["AutoButtons"] = "Autom. Tasten"
