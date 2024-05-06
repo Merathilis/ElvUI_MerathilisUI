@@ -3,10 +3,14 @@ local module = MER:GetModule("MER_Armory")
 local M = E:GetModule("Misc")
 
 local _G = _G
-local pairs, select = pairs, select
+local gsub, next, pairs, select = gsub, next, pairs, select
+local utf8sub = string.utf8sub
 
+local GetInventoryItemID = GetInventoryItemID
 local GetSpecialization = GetSpecialization
 local GetSpecializationInfo = GetSpecializationInfo
+local UnitLevel = UnitLevel
+local UnitSex = UnitSex
 
 local GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
 local ENUM_ITEM_CLASS_WEAPON = _G.Enum.ItemClass.Weapon
@@ -210,12 +214,13 @@ function module:EnchantAbbreviate(str)
 		[_G["STAT_AVOIDANCE"]] = "Avoid.",
 	}
 
-	local short = F.String.Abbreviate(str)
+	local text = gsub(gsub(str, "%s?|A.-|a", ""), "|cn.-:(.-)|r", "%1")
+	local short = F.String.Abbreviate(text)
 	for stat, abbrev in pairs(abbrevs) do
 		short = short:gsub(stat, abbrev)
 	end
 
-	return short
+	return utf8sub(short, 1, 18)
 end
 
 function module:UpdatePageInfo(_, _, which)
