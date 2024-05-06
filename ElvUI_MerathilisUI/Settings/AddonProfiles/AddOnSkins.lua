@@ -6,7 +6,7 @@ local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 function MER:LoadAddOnSkinsProfile()
 	local AS = unpack(AddOnSkins)
-	local profileName = F.Profiles.Default
+	local profileName = I.ProfileNames.Default
 
 	AS.data:SetProfile(profileName)
 

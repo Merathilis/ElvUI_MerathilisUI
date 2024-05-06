@@ -57,3 +57,8 @@ I.Media = {
 	RoleIcons = {},
 	Logos = {},
 }
+
+I.ProfileNames = {
+	["Default"] = MER.Title,
+	["Development"] = MER.Title .. "Dev",
+}
