@@ -622,6 +622,12 @@ P.armory = {
 		missingEnchantText = true,
 		missingSocketText = true,
 
+		itemQualityGradientEnabled = true,
+		itemQualityGradientWidth = 65,
+		itemQualityGradientHeight = 3,
+		itemQualityGradientStartAlpha = 1,
+		itemQualityGradientEndAlpha = 0,
+
 		iLvLFont = {
 			name = I.Fonts.Primary,
 			size = 12,

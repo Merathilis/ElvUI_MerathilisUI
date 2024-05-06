@@ -8,7 +8,7 @@ local _G = _G
 
 options.armory = {
 	type = "group",
-	name = L["Armory"],
+	name = E.NewSign .. L["Armory"],
 	childGroups = "tab",
 	get = function(info)
 		return E.db.mui.armory[info[#info]]
@@ -45,7 +45,7 @@ options.armory = {
 			name = L["Enable"],
 			desc = L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."],
 		},
-		enchant = {
+		enchantGroup = {
 			order = 10,
 			type = "group",
 			name = L["Enchant & Socket Strings"],
@@ -62,6 +62,9 @@ options.armory = {
 			end,
 			disabled = function()
 				return not E.db.mui.armory.enable
+			end,
+			hidden = function()
+				return not E.db.general.itemLevel.displayCharacterInfo
 			end,
 			args = {
 				desc = {
@@ -133,7 +136,7 @@ options.armory = {
 				},
 			},
 		},
-		itemLevel = {
+		itemLevelGroup = {
 			order = 11,
 			type = "group",
 			name = L["Item Level"],
@@ -150,6 +153,9 @@ options.armory = {
 			end,
 			disabled = function()
 				return not E.db.mui.armory.enable
+			end,
+			hidden = function()
+				return not E.db.general.itemLevel.displayCharacterInfo
 			end,
 			args = {
 				desc = {
@@ -178,7 +184,7 @@ options.armory = {
 					order = 4,
 					type = "group",
 					inline = true,
-					name = L["Enchant Font"],
+					name = L["Item Level Font"],
 					get = function(info)
 						return E.db.mui.armory.pageInfo.iLvLFont[info[#info]]
 					end,
@@ -209,6 +215,87 @@ options.armory = {
 							step = 1,
 						},
 					},
+				},
+			},
+		},
+		gradientGroup = {
+			order = 12,
+			type = "group",
+			name = L["Item Quality Gradient"],
+			get = function(info)
+				return E.db.mui.armory.pageInfo[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.armory.pageInfo[info[#info]] = value
+				M:UpdatePageInfo(_G.CharacterFrame, "Character")
+
+				if not E.db.general.itemLevel.displayCharacterInfo then
+					M:ClearPageInfo(_G.CharacterFrame, "Character")
+				end
+			end,
+			disabled = function()
+				return not E.db.mui.armory.enable
+			end,
+			hidden = function()
+				return not E.db.general.itemLevel.displayCharacterInfo
+			end,
+			args = {
+				desc = {
+					order = 0,
+					type = "description",
+					name = L["Settings for the color coming out of your item slot."],
+				},
+				itemQualityGradientEnabled = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Toggling this on enables the Item Quality bars."],
+				},
+				itemQualityGradientWidth = {
+					order = 2,
+					type = "range",
+					name = L["Width"],
+					min = 10,
+					max = 120,
+					step = 1,
+					disabled = function()
+						return not E.db.mui.armory.itemQualityGradientEnabled
+					end,
+				},
+				itemQualityGradientHeight = {
+					order = 3,
+					type = "range",
+					name = L["Height"],
+					min = 1,
+					max = 40,
+					step = 1,
+					disabled = function()
+						return not E.db.mui.armory.itemQualityGradientEnabled
+					end,
+				},
+				itemQualityGradientStartAlpha = {
+					order = 4,
+					type = "range",
+					name = L["Start Alpha"],
+					min = 0,
+					max = 1,
+					step = 0.01,
+					isPercent = true,
+					disabled = function()
+						return not E.db.mui.armory.itemQualityGradientEnabled
+					end,
+				},
+				itemQualityGradientEndAlpha = {
+					order = 5,
+					type = "range",
+					name = L["End Alpha"],
+					min = 0,
+					max = 1,
+					step = 0.01,
+					isPercent = true,
+					disabled = function()
+						return not E.db.mui.armory.itemQualityGradientEnabled
+					end,
 				},
 			},
 		},
