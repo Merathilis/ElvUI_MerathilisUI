@@ -1157,6 +1157,7 @@ function module:UpdateTrackers()
 		end
 	end
 
+	local currentIndex = 0
 	for eventIndex, event in ipairs(eventList) do
 		local data = eventData[event]
 		local tracker = self.db[data.dbKey].enable and trackers:get(event) or trackers:disable(event)
@@ -1181,8 +1182,9 @@ function module:UpdateTrackers()
 			end
 
 			tracker:ClearAllPoints()
-			local row, col = floor((eventIndex - 1) / 4), (eventIndex - 1) % 4
+			local row, col = floor(currentIndex / 4), currentIndex % 4
 			tracker:SetPoint("TOPLEFT", self.frame, "TOPLEFT", (self.db.spacing + 236) * col + 13, -row * 30 - 5)
+			currentIndex = currentIndex + 1
 		end
 	end
 end
