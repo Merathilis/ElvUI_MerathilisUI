@@ -925,11 +925,12 @@ local openableItems = {
 	211413,
 	211414,
 	215362,
-	217109, -- Cache of Awakened Storms
-	217110,	-- Cache of Awakened Embers
-	217242, -- Awakening Stone Wing
-	217243, -- Awakening Ruby Wing
-	217728, -- Cache of Awakened Treasures
+	215363,
+	217109,
+	217110,
+	217242,
+	217243,
+	217728,
 }
 
 local bigDig = {
