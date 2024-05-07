@@ -1,4 +1,4 @@
-## Interface: 100206
+## Interface: 100207
 ## Author: Merathilis
 ## Version: @project-version@
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
