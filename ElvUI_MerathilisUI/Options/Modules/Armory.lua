@@ -370,9 +370,6 @@ options.armory = {
 					min = 10,
 					max = 120,
 					step = 1,
-					disabled = function()
-						return not E.db.mui.armory.itemQualityGradientEnabled
-					end,
 				},
 				itemQualityGradientHeight = {
 					order = 3,
@@ -381,9 +378,6 @@ options.armory = {
 					min = 1,
 					max = 40,
 					step = 1,
-					disabled = function()
-						return not E.db.mui.armory.itemQualityGradientEnabled
-					end,
 				},
 				itemQualityGradientStartAlpha = {
 					order = 4,
@@ -393,9 +387,6 @@ options.armory = {
 					max = 1,
 					step = 0.01,
 					isPercent = true,
-					disabled = function()
-						return not E.db.mui.armory.itemQualityGradientEnabled
-					end,
 				},
 				itemQualityGradientEndAlpha = {
 					order = 5,
@@ -405,9 +396,6 @@ options.armory = {
 					max = 1,
 					step = 0.01,
 					isPercent = true,
-					disabled = function()
-						return not E.db.mui.armory.itemQualityGradientEnabled
-					end,
 				},
 			},
 		},
