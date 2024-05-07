@@ -612,15 +612,49 @@ P.nameHover = {
 }
 
 P.armory = {
-	character = {
-		enable = true,
+	enable = true,
+	stats = {
+		showAvgItemLevel = false,
+		itemLevelFormat = "%.2f",
+		itemLevelFont = {
+			name = I.Fonts.Primary,
+			size = 20,
+			style = "SHADOWOUTLINE",
+			color = {
+				r = 1,
+				g = 1,
+				b = 1,
+			},
+		},
+		itemLevelFontColor = "GRADIENT", -- GRADIENT, VALUE, CUSTOM, DEFAULT
 	},
-	inspect = {
-		enable = true,
+	pageInfo = {
+		itemLevelTextEnabled = true,
+		iconsEnabled = true,
+
+		enchantTextEnabled = true,
+		abbreviateEnchantText = true,
+		missingEnchantText = true,
+		missingSocketText = true,
+
+		itemQualityGradientEnabled = true,
+		itemQualityGradientWidth = 65,
+		itemQualityGradientHeight = 3,
+		itemQualityGradientStartAlpha = 1,
+		itemQualityGradientEndAlpha = 0,
+
+		iLvLFont = {
+			name = I.Fonts.Primary,
+			size = 12,
+			style = "SHADOWOUTLINE",
+		},
+
+		enchantFont = {
+			name = I.Fonts.Primary,
+			size = 11,
+			style = "SHADOWOUTLINE",
+		},
 	},
-	StatOrder = "12345",
-	StatExpand = true,
-	PetHappiness = true,
 }
 
 P.notification = {
@@ -1450,8 +1484,8 @@ P.maps = {
 		enable = true,
 		desaturate = true,
 		spacing = 10,
-		height = 38,
-		yOffset = -3,
+		height = 70,
+		yOffset = -4,
 		backdrop = true,
 		font = {
 			name = E.db.general.font,
@@ -1479,7 +1513,7 @@ P.maps = {
 			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		researchersUnderFire = {
-			enable = false,
+			enable = true,
 			desaturate = false,
 			alert = true,
 			sound = false,
@@ -1489,7 +1523,7 @@ P.maps = {
 			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		timeRiftThaldraszus = {
-			enable = false,
+			enable = true,
 			desaturate = true,
 			alert = true,
 			sound = false,

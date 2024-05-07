@@ -982,7 +982,7 @@ function trackers:get(event)
 	local data = eventData[event]
 
 	local frame = CreateFrame("Frame", "MER_EventTracker" .. event, module.frame)
-	frame:SetSize(220, 30)
+	frame:SetSize(236, 30)
 
 	frame.dbKey = data.dbKey
 	frame.args = data.args
@@ -1157,8 +1157,7 @@ function module:UpdateTrackers()
 		end
 	end
 
-	local lastTracker = nil
-	for _, event in ipairs(eventList) do
+	for eventIndex, event in ipairs(eventList) do
 		local data = eventData[event]
 		local tracker = self.db[data.dbKey].enable and trackers:get(event) or trackers:disable(event)
 		if tracker then
@@ -1182,12 +1181,8 @@ function module:UpdateTrackers()
 			end
 
 			tracker:ClearAllPoints()
-			if lastTracker then
-				tracker:SetPoint("LEFT", lastTracker, "RIGHT", self.db.spacing, 0)
-			else
-				tracker:SetPoint("LEFT", self.frame, "LEFT", self.db.spacing * 0.68, 0)
-			end
-			lastTracker = tracker
+			local row, col = floor((eventIndex - 1) / 4), (eventIndex - 1) % 4
+			tracker:SetPoint("TOPLEFT", self.frame, "TOPLEFT", (self.db.spacing + 236) * col + 13, -row * 30 - 5)
 		end
 	end
 end

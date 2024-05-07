@@ -527,6 +527,36 @@ L["Mirror Direction"] = "Spiegelrichtung"
 L["LEFT"] = "LINKS"
 L["RIGHT"] = "RECHTS"
 
+-- Armory
+L["Armory"] = "Rüstung"
+L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] =
+	"Aktiviere/deaktiviere den Waffenkammermodus |cffff7d0aMerathilisUI|r."
+L["Enchant & Socket Strings"] = "Verzauberungs- und Sockel Strings"
+L["Settings for strings displaying enchant and socket info from the items"] =
+	"Einstellungen für Strings, die Verzauberungs- und Sockelinformationen der Gegenstände anzeigen"
+L["Enable/Disable the Enchant text display"] = "Aktiviere/deaktiviere die Verzauberungs Texte"
+L["Missing Enchants"] = "Fehlende Verzauberungen"
+L["Missing Sockets"] = "Fehlende Sockel"
+L["Short Enchant Text"] = "Kurzer Verzauberungstext"
+L["Enchant Font"] = "Verzauberungsschriftart"
+L["Item Level"] = "Gegenstandsstufe"
+L["Settings for the Item Level next tor your item slot"] =
+	"Einstellungen für die Gegenstandsstufe neben Deinem Gegenstandsplatz"
+L["Enable/Disable the Item Level text display"] = "Aktiviere/deaktiviere die Texte auf Elementebene"
+L["Toggle sockets & azerite traits"] = "Sockel und Azerit-Eigenschaften umschalten"
+L["Item Quality Gradient"] = "Gegenstandsqualität Farbverlauf"
+L["Settings for the color coming out of your item slot."] =
+	"Einstellungen für die Farbe, die aus Deinem Gegenstandsslot kommt."
+L["Toggling this on enables the Item Quality bars."] =
+	"Wenn Du diese Option aktivierst, werden die Gegenstands Qualitätsleisten aktiviert."
+L["Start Alpha"] = "Starttransparenz"
+L["End Alpha"] = "Endtranpsparenz"
+L["Slot Item Level"] = true
+L["Bags Item Level"] = true
+L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."] = true
+L["Format"] = true
+L["Decimal format"] = true
+
 -- AutoButtons
 L["AutoButtons"] = "Autom. Tasten"
 L["Bar"] = "Leiste"

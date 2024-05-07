@@ -11,8 +11,8 @@ function module:Configure_RestingIndicator(frame)
 	if db and db.enable then
 		if not frame.RestingIndicator.MERHook then
 			if not frame.RestingIndicator.Holder then
-				frame.RestingIndicator.Holder = CreateFrame("Frame", "MER_PlayerRestLoop")
-				frame.RestingIndicator.Holder:Size(20)
+				frame.RestingIndicator.Holder = CreateFrame("Frame", "MER_PlayerRestLoop", E.UIParent)
+				frame.RestingIndicator.Holder:Size(24)
 
 				frame.RestingIndicator.Holder.RestTexture =
 					frame.RestingIndicator.Holder:CreateTexture("MER_PlayerRestLoopRestTexture", "ARTWORK")

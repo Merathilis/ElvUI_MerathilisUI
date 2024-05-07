@@ -1,4 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local PI = E:GetModule("PluginInstaller")
 local CH = E:GetModule("Chat")
 
 local _G = _G
@@ -2540,6 +2541,85 @@ function MER:DeveloperSettings()
 	E:StaggeredUpdateAll(nil, true)
 end
 
+local function CreateNewProfile(name)
+	if strtrim(name) == "" then
+		return
+	end
+
+	if E.data:IsDualSpecEnabled() then
+		E.data:SetDualSpecProfile(name)
+	else
+		E.data:SetProfile(name)
+	end
+
+	PluginInstallStepComplete.message = MER.Title .. L["Profile Created"]
+	PluginInstallStepComplete:Show()
+end
+
+function MER:ProfileDialog()
+	local textInfo = "Name for the new profile"
+	local errorInfo = "Note: A profile with that name already exists"
+	local dialogName = "MER_CreateNewProfile"
+
+	E.PopupDialogs[dialogName] = {
+		text = textInfo,
+		timeout = 0,
+		hasEditBox = 1,
+		whileDead = 1,
+		hideOnEscape = 1,
+		editBoxWidth = 350,
+		maxLetters = 127,
+		OnShow = function(frame)
+			frame.editBox:SetAutoFocus(false)
+			frame.editBox:SetText(I.ProfileNames.Default)
+			frame.editBox:HighlightText()
+		end,
+		button1 = OKAY,
+		button2 = CANCEL,
+		OnAccept = function(frame)
+			CreateNewProfile(frame.editBox:GetText())
+		end,
+		EditBoxOnEnterPressed = function(editBox)
+			CreateNewProfile(editBox:GetText())
+			editBox:GetParent():Hide()
+		end,
+		EditBoxOnEscapePressed = function(editBox)
+			editBox:GetParent():Hide()
+		end,
+		EditBoxOnTextChanged = function(editBox)
+			if strtrim(editBox:GetText()) == "" then
+				editBox:GetParent().button1:Disable()
+			else
+				editBox:GetParent().button1:Enable()
+
+				local parent = editBox:GetParent()
+				local textObj = _G[parent:GetName() .. "Text"]
+
+				local profs = E.data:GetProfiles()
+				for _, name in ipairs(profs) do
+					if name == editBox:GetText() then
+						textObj:SetText(textInfo .. "\n\n" .. F.String.Warning(errorInfo))
+
+						parent.maxHeightSoFar = 0
+						E:StaticPopup_Resize(parent, dialogName)
+						return
+					end
+				end
+
+				textObj:SetText(textInfo)
+
+				parent.maxHeightSoFar = 0
+				E:StaticPopup_Resize(parent, dialogName)
+			end
+		end,
+		OnEditFocusGained = function(editBox)
+			editBox:HighlightText()
+		end,
+	}
+
+	E:StaticPopup_Show(dialogName)
+end
+
 local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.mui.core.installed = true
@@ -2661,15 +2741,22 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["New Profile will create a fresh profile for this character."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Desc4:SetText(
-				L["Your current Profile is: "] .. F.String.Warning(ElvDB and ElvDB.profileKeys[E.mynameRealm])
+				L["Your current Profile is: "] .. F.String.Warning(E.data:GetCurrentProfile())
 			)
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
-				E.data:SetProfile(E.mynameRealm)
+				MER:ProfileDialog()
 			end)
 			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["New Profile"])
+
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript("OnClick", PI.NextPage)
+
+			PluginInstallFrame.Option2:SetScript("OnEnter", nil)
+			PluginInstallFrame.Option2:SetScript("OnLeave", nil)
+			PluginInstallFrame.Option2:SetText(L["Keep Current"])
 		end,
 		[3] = function()
 			MER:Resize(nil)

@@ -264,8 +264,6 @@ function MER:CheckCompatibility()
 		"private.WT.tooltips.icon"
 	)
 
-	CheckWindtools(L["LFG Info"], L["Group Info"], "db.mui.misc.lfgInfo.enable", "db.WT.tooltips.groupInfo.enable")
-
 	CheckWindtools(
 		L["Role Icon"],
 		L["Role Icon"],
@@ -294,13 +292,6 @@ function MER:CheckCompatibility()
 	CheckWindtools(L["Chat Link"], L["Chat Link"], "db.mui.chat.chatLink.enable", "db.WT.social.chatLink.enable")
 
 	CheckWindtools(L["Raid Markers"], L["Raid Markers"], "db.mui.raidmarkers.enable", "db.WT.combat.raidMarkers.enable")
-
-	CheckWindtools(
-		L["Hide Player Brackets"],
-		format("%s-%s", L["Chat Text"], L["Remove Brackets"]),
-		"db.mui.chat.hidePlayerBrackets",
-		"db.WT.social.chatText.removeBrackets"
-	)
 
 	CheckWindtools(
 		L["Super Tracker"],
@@ -391,7 +382,7 @@ function MER:CheckCompatibility()
 	CheckWindtools(
 		format("%s-%s", L["Chat"], L["Role Icons"]),
 		L["Chat Text"],
-		"db.mui.chat.roleIcons.enable",
+		"db.mui.chat.chatText.enable",
 		"db.WT.social.chatText.enable"
 	)
 
@@ -423,6 +414,13 @@ function MER:CheckCompatibility()
 		format("%s-%s", L["Tooltip"], L["Group Info"]),
 		"db.mui.tooltip.groupInfo.enable",
 		"db.WT.tooltips.groupInfo.enable"
+	)
+
+	CheckWindtools(
+		format("%s-%s", L["Chat"], L["ChatText"]),
+		format("%s-%s", L["Social"], L["ChatText"]),
+		"db.mui.chat.chatText.enable",
+		"db.WT.social.chatText.enable"
 	)
 
 	CheckShadowAndLight(

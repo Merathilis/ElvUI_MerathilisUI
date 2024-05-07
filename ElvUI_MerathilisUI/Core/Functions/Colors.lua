@@ -694,6 +694,21 @@ function F.StringWithRGB(text, r, g, b)
 	return F.StringWithHex(text, F.RGBToHex(r, g, b))
 end
 
+function F.SetGradient(obj, orientation, minColor, maxColor)
+	if not obj then
+		return
+	end
+
+	local min = minColor or "#000000"
+	local max = maxColor or "#FFFFFF"
+
+	obj:SetGradient(orientation, min, max)
+end
+
+function F.SetGradientRGB(obj, orientation, r1, g1, b1, a1, r2, g2, b2, a2)
+	F.SetGradient(obj, orientation, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
+end
+
 local progressColor = {
 	start = { r = 1.000, g = 0.647, b = 0.008 },
 	complete = { r = 0.180, g = 0.835, b = 0.451 },

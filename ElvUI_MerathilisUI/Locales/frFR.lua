@@ -488,6 +488,31 @@ L["Mirror Direction"] = true
 L["LEFT"] = true
 L["RIGHT"] = true
 
+-- Armory
+L["Armory"] = true
+L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
+L["Enchant & Socket Strings"] = true
+L["Settings for strings displaying enchant and socket info from the items"] = true
+L["Enable/Disable the Enchant text display"] = true
+L["Missing Enchants"] = true
+L["Missing Sockets"] = true
+L["Short Enchant Text"] = true
+L["Enchant Font"] = true
+L["Item Level"] = true
+L["Settings for the Item Level next tor your item slot"] = true
+L["Enable/Disable the Item Level text display"] = true
+L["Toggle sockets & azerite traits"] = true
+L["Item Quality Gradient"] = true
+L["Settings for the color coming out of your item slot."] = true
+L["Toggling this on enables the Item Quality bars."] = true
+L["Start Alpha"] = true
+L["End Alpha"] = true
+L["Slot Item Level"] = true
+L["Bags Item Level"] = true
+L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."] = true
+L["Format"] = true
+L["Decimal format"] = true
+
 -- AutoButtons
 L["AutoButtons"] = "BoutonsAuto"
 L["Bar"] = "Barre"
