@@ -507,6 +507,11 @@ L["Settings for the color coming out of your item slot."] = true
 L["Toggling this on enables the Item Quality bars."] = true
 L["Start Alpha"] = true
 L["End Alpha"] = true
+L["Slot Item Level"] = true
+L["Bags Item Level"] = true
+L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."] = true
+L["Format"] = true
+L["Decimal format"] = true
 
 -- AutoButtons
 L["AutoButtons"] = "BoutonsAuto"

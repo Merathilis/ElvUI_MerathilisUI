@@ -8,6 +8,7 @@ local utf8sub = string.utf8sub
 
 local CreateColor = CreateColor
 local GetInventoryItemID = GetInventoryItemID
+local GetInventoryItemTexture = GetInventoryItemTexture
 local GetSpecialization = GetSpecialization
 local GetSpecializationInfo = GetSpecializationInfo
 local UnitLevel = UnitLevel
@@ -15,6 +16,8 @@ local UnitSex = UnitSex
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
+local IsCosmeticItem = C_Item and C_Item.IsCosmeticItem or IsCosmeticItem
+local GetMinItemLevel = C_PaperDollInfo and C_PaperDollInfo.GetMinItemLevel or GetMinItemLevel
 local ENUM_ITEM_CLASS_WEAPON = _G.Enum.ItemClass.Weapon
 
 local ClassSymbolFrame
@@ -394,7 +397,7 @@ end
 
 function module:SkinCharacterFrame()
 	-- Remove the background
-	local modelScene = _G.CharacterModelScene
+	local modelScene = module.frameModel
 	modelScene:DisableDrawLayer("BACKGROUND")
 	modelScene:DisableDrawLayer("BORDER")
 	modelScene:DisableDrawLayer("OVERLAY")
@@ -538,6 +541,57 @@ function module:SkinCharacterFrame()
 	module:AddCharacterIcon()
 end
 
+function module:UpdateItemLevel()
+	if not module.frame:IsShown() then
+		return
+	end
+
+	F.SetFontDB(module.frame.ItemLevelText, module.db.stats.itemLevelFont)
+
+	local itemLevelText
+
+	local avgItemLevel, avgItemLevelEquipped = GetAverageItemLevel()
+	local minItemLevel = GetMinItemLevel()
+	local displayItemLevel = max(minItemLevel or 0, avgItemLevelEquipped)
+
+	if module.db.stats.showAvgItemLevel then
+		itemLevelText = format(
+			format("%s / %s", module.db.stats.itemLevelFormat, module.db.stats.itemLevelFormat),
+			displayItemLevel,
+			avgItemLevel
+		)
+	else
+		itemLevelText = format(module.db.stats.itemLevelFormat, displayItemLevel)
+	end
+
+	if module.db.stats.itemLevelFont.itemLevelFontColor == "GRADIENT" then
+		local epicComplete = select(13, GetAchievementInfo(18977))
+
+		if epicComplete then
+			module.frame.ItemLevelText:SetText(F.String.FastGradient(itemLevelText, 0.78, 0.13, 0.57, 0.42, 0.08, 0.82))
+		else
+			local rareComplete = select(13, GetAchievementInfo(18976))
+
+			if rareComplete then
+				module.frame.ItemLevelText:SetText(
+					F.String.FastGradient(itemLevelText, 0.01, 0.78, 0.98, 0, 0.38, 0.90)
+				)
+			else
+				module.frame.ItemLevelText:SetText(
+					F.String.FastGradient(itemLevelText, 0.07, 0.90, 0.15, 0, 0.69, 0.11)
+				)
+			end
+		end
+	elseif module.db.stats.itemLevelFont.itemLevelFontColor == "VALUE" then
+		module.frame.ItemLevelText:SetText(F.String.ElvUIValue(itemLevelText))
+	elseif module.db.stats.itemLevelFont.itemLevelFontColor == "CUSTOM" then
+		module.frame.ItemLevelText:SetText(itemLevelText)
+		F.SetFontColorDB(module.frame.ItemLevelText, module.db.stats.itemLevelFont.color)
+	else
+		module.frame.ItemLevelText:SetText(itemLevelText)
+	end
+end
+
 function module:UpdatePageInfo(_, _, which)
 	if not module:CheckOptions("Character") then
 		return
@@ -558,6 +612,8 @@ function module:UpdatePageInfo(_, _, which)
 			end
 		end
 	end
+
+	module:UpdateItemLevel()
 end
 
 function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
@@ -638,7 +694,7 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 		-- Create Gradient if it doesen't exist
 		if not slotItem.MERGradient then
 			slotItem.MERGradient = CreateFrame("Frame", nil, slotItem)
-			slotItem.MERGradient:SetFrameLevel(_G.CharacterModelScene:GetFrameLevel() - 1)
+			slotItem.MERGradient:SetFrameLevel(module.frameModel:GetFrameLevel() - 1)
 
 			slotItem.MERGradient.Texture = slotItem.MERGradient:CreateTexture(nil, "OVERLAY")
 			slotItem.MERGradient.Texture:SetInside()
@@ -712,6 +768,16 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 	end
 end
 
+function module:HandleEvent(event, unit)
+	if not module.frame:IsShown() then
+		return
+	end
+
+	if event == "PLAYER_AVG_ITEM_LEVEL_UPDATE" then
+		module:UpdateItemLevel()
+	end
+end
+
 function module:CheckOptions(which)
 	if not E.private.skins.blizzard.enable then
 		return false
@@ -736,11 +802,20 @@ function module:Initialize()
 		return
 	end
 
+	-- Vars
+	module.frame = _G.CharacterFrame
+	module.frameModel = _G.CharacterModelScene
+	module.frameName = self.frame:GetName()
+
 	module:SkinCharacterFrame()
 
+	hooksecurefunc(M, "UpdateCharacterInfo", module.UpdateItemLevel)
+	hooksecurefunc(M, "UpdateAverageString", module.UpdateItemLevel)
 	hooksecurefunc(M, "UpdatePageInfo", module.UpdatePageInfo)
 	hooksecurefunc(M, "CreateSlotStrings", module.UpdatePageInfo)
 	hooksecurefunc(M, "UpdatePageStrings", module.UpdatePageStrings) --should be ok to call
+
+	module:RegisterEvent("PLAYER_AVG_ITEM_LEVEL_UPDATE", module.HandleEvent)
 
 	module.initialized = true
 end

@@ -613,6 +613,21 @@ P.nameHover = {
 
 P.armory = {
 	enable = true,
+	stats = {
+		showAvgItemLevel = false,
+		itemLevelFormat = "%.2f",
+		itemLevelFont = {
+			name = I.Fonts.Primary,
+			size = 20,
+			style = "SHADOWOUTLINE",
+			color = {
+				r = 1,
+				g = 1,
+				b = 1,
+			},
+		},
+		itemLevelFontColor = "GRADIENT", -- GRADIENT, VALUE, CUSTOM, DEFAULT
+	},
 	pageInfo = {
 		itemLevelTextEnabled = true,
 		iconsEnabled = true,
