@@ -620,13 +620,13 @@ P.armory = {
 			name = I.Fonts.Primary,
 			size = 20,
 			style = "SHADOWOUTLINE",
+			itemLevelFontColor = "DEFAULT", -- GRADIENT, VALUE, CUSTOM, DEFAULT
 			color = {
 				r = 1,
 				g = 1,
 				b = 1,
 			},
 		},
-		itemLevelFontColor = "GRADIENT", -- GRADIENT, VALUE, CUSTOM, DEFAULT
 	},
 	pageInfo = {
 		itemLevelTextEnabled = true,
@@ -1482,11 +1482,15 @@ P.maps = {
 	},
 	eventTracker = {
 		enable = true,
-		desaturate = true,
-		spacing = 10,
-		height = 70,
-		yOffset = -4,
-		backdrop = true,
+		style = {
+			backdrop = true,
+			backdropYOffset = 3,
+			backdropSpacing = 6,
+			trackerWidth = 240,
+			trackerHeight = 30,
+			trackerHorizontalSpacing = 10,
+			trackerVerticalSpacing = 2,
+		},
 		font = {
 			name = E.db.general.font,
 			scale = 1,

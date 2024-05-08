@@ -553,7 +553,8 @@ L["Start Alpha"] = "Starttransparenz"
 L["End Alpha"] = "Endtranpsparenz"
 L["Slot Item Level"] = "Slot Gegenstandsstufe"
 L["Bags Item Level"] = "Taschen Gegenstandsstufe"
-L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."] = "Wenn Du dies aktivierst, wird die maximal mögliche Gegenstandsstufe angezeigt, die Du mit den Gegenständen, die sich derzeit in Deinen Taschen befinden, erreichen könntest."
+L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."] =
+	"Wenn Du dies aktivierst, wird die maximal mögliche Gegenstandsstufe angezeigt, die Du mit den Gegenständen, die sich derzeit in Deinen Taschen befinden, erreichen könntest."
 L["Format"] = true -- no need to translate
 L["Decimal format"] = "Dezimalformat"
 
@@ -868,6 +869,15 @@ L["Time Rift"] = "Zeitriss"
 L["Superbloom"] = "Superblüte"
 L["Big Dig"] = "Große Buddeln"
 L["The Big Dig"] = "Das große Buddeln"
+L["Horizontal Spacing"] = true
+L["Show a backdrop of the trackers."] = true
+L["The Y-Offset of the backdrop."] = true
+L["The height of the tracker."] = true
+L["The spacing between the backdrop and the trackers."] = true
+L["The spacing between the tracker and the world map."] = true
+L["The spacing between trackers."] = true
+L["The width of the tracker."] = true
+L["Vertical Spacing"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

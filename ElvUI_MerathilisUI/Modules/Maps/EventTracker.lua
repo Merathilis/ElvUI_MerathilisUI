@@ -4,6 +4,7 @@ local S = MER:GetModule("MER_Skins")
 local LSM = E.Libs.LSM
 
 local _G = _G
+local ceil = ceil
 local date = date
 local floor = floor
 local format = format
@@ -16,6 +17,7 @@ local math_pow = math.pow
 local CreateFrame = CreateFrame
 local GetCurrentRegion = GetCurrentRegion
 local GetServerTime = GetServerTime
+local hooksecurefunc = hooksecurefunc
 local PlaySoundFile = PlaySoundFile
 
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
@@ -982,7 +984,7 @@ function trackers:get(event)
 	local data = eventData[event]
 
 	local frame = CreateFrame("Frame", "MER_EventTracker" .. event, module.frame)
-	frame:SetSize(236, 30)
+	frame:SetSize(220, 30)
 
 	frame.dbKey = data.dbKey
 	frame.args = data.args
@@ -1122,14 +1124,12 @@ end
 function module:UpdateTrackers()
 	self:ConstructFrame()
 
-	self.frame:SetHeight(self.db.height)
-
 	self.frame:ClearAllPoints()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.worldmap) then
-		self.frame:SetPoint("TOPLEFT", _G.WorldMapFrame, "BOTTOMLEFT", -2, self.db.yOffset)
-		self.frame:SetPoint("TOPRIGHT", _G.WorldMapFrame, "BOTTOMRIGHT", 2, self.db.yOffset)
+		self.frame:SetPoint("TOPLEFT", _G.WorldMapFrame, "BOTTOMLEFT", -2, -self.db.style.backdropYOffset)
+		self.frame:SetPoint("TOPRIGHT", _G.WorldMapFrame, "BOTTOMRIGHT", 2, -self.db.style.backdropYOffset)
 
-		if self.db.backdrop then
+		if self.db.style.backdrop then
 			if not self.frame.backdrop then
 				self.frame.backdrop = CreateFrame("Frame", nil, self.frame, "TooltipBackdropTemplate")
 				self.frame.backdrop:SetAllPoints(self.frame)
@@ -1141,10 +1141,10 @@ function module:UpdateTrackers()
 			end
 		end
 	else
-		self.frame:SetPoint("TOPLEFT", _G.WorldMapFrame.backdrop, "BOTTOMLEFT", 1, self.db.yOffset)
-		self.frame:SetPoint("TOPRIGHT", _G.WorldMapFrame.backdrop, "BOTTOMRIGHT", -1, self.db.yOffset)
+		self.frame:SetPoint("TOPLEFT", _G.WorldMapFrame.backdrop, "BOTTOMLEFT", 1, -self.db.style.backdropYOffset)
+		self.frame:SetPoint("TOPRIGHT", _G.WorldMapFrame.backdrop, "BOTTOMRIGHT", -1, -self.db.style.backdropYOffset)
 
-		if self.db.backdrop then
+		if self.db.style.backdrop then
 			if not self.frame.backdrop then
 				self.frame:CreateBackdrop("Transparent")
 				S:CreateShadowModule(self.frame.backdrop)
@@ -1157,14 +1157,17 @@ function module:UpdateTrackers()
 		end
 	end
 
-	local currentIndex = 0
-	for eventIndex, event in ipairs(eventList) do
+	local maxWidth = ceil(self.frame:GetWidth()) - self.db.style.backdropSpacing * 2
+	local row, col = 1, 1
+	for _, event in ipairs(eventList) do
 		local data = eventData[event]
 		local tracker = self.db[data.dbKey].enable and trackers:get(event) or trackers:disable(event)
 		if tracker then
 			if tracker.profileUpdate then
 				tracker.profileUpdate()
 			end
+
+			tracker:SetSize(self.db.style.trackerWidth, self.db.style.trackerHeight)
 
 			tracker.args.desaturate = self.db[data.dbKey].desaturate
 			tracker.args.soundFile = self.db[data.dbKey].sound and self.db[data.dbKey].soundFile
@@ -1182,11 +1185,33 @@ function module:UpdateTrackers()
 			end
 
 			tracker:ClearAllPoints()
-			local row, col = floor(currentIndex / 4), currentIndex % 4
-			tracker:SetPoint("TOPLEFT", self.frame, "TOPLEFT", (self.db.spacing + 236) * col + 13, -row * 30 - 5)
-			currentIndex = currentIndex + 1
+			local currentWidth = self.db.style.trackerWidth * col + self.db.style.trackerHorizontalSpacing * (col - 1)
+			if currentWidth > maxWidth then
+				row = row + 1
+				col = 1
+			end
+
+			tracker:SetPoint(
+				"TOPLEFT",
+				self.frame,
+				"TOPLEFT",
+				self.db.style.backdropSpacing
+					+ self.db.style.trackerWidth * (col - 1)
+					+ self.db.style.trackerHorizontalSpacing * (col - 1),
+				-self.db.style.backdropSpacing
+					- self.db.style.trackerHeight * (row - 1)
+					- self.db.style.trackerVerticalSpacing * (row - 1)
+			)
+
+			col = col + 1
 		end
 	end
+
+	self.frame:SetHeight(
+		self.db.style.backdropSpacing * 2
+			+ self.db.style.trackerHeight * row
+			+ self.db.style.trackerVerticalSpacing * (row - 1)
+	)
 end
 
 function module:Initialize()
@@ -1201,6 +1226,10 @@ function module:Initialize()
 	for event in pairs(self.eventHandlers) do
 		self:RegisterEvent(event, "HandlerEvent")
 	end
+
+	hooksecurefunc(_G.WorldMapFrame, "Show", function()
+		module:UpdateTrackers()
+	end)
 end
 
 function module:ProfileUpdate()

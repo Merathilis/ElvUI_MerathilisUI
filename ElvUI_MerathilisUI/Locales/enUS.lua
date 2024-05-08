@@ -766,7 +766,6 @@ L["Play sound when the alert is triggered."] = true
 L["Sound File"] = true
 L["Only DF Character"] = true
 L["Stop alert when the player have not entered Dragonlands yet."] = true
-L["The offset of the frame from the bottom of world map. (Default is -3)"] = true
 L["Alert Timeout"] = true
 L["All nets can be collected"] = true
 L["Can be collected"] = true
@@ -790,6 +789,15 @@ L["Time Rift"] = true
 L["Superbloom"] = true
 L["Big Dig"] = true
 L["The Big Dig"] = true
+L["Horizontal Spacing"] = true
+L["Show a backdrop of the trackers."] = true
+L["The Y-Offset of the backdrop."] = true
+L["The height of the tracker."] = true
+L["The spacing between the backdrop and the trackers."] = true
+L["The spacing between the tracker and the world map."] = true
+L["The spacing between trackers."] = true
+L["The width of the tracker."] = true
+L["Vertical Spacing"] = true
 
 -- SMB
 L["Minimap Buttons"] = true

@@ -797,6 +797,15 @@ L["Time Rift"] = true
 L["Superbloom"] = true
 L["Big Dig"] = true
 L["The Big Dig"] = true
+L["Horizontal Spacing"] = true
+L["Show a backdrop of the trackers."] = true
+L["The Y-Offset of the backdrop."] = true
+L["The height of the tracker."] = true
+L["The spacing between the backdrop and the trackers."] = true
+L["The spacing between the tracker and the world map."] = true
+L["The spacing between trackers."] = true
+L["The width of the tracker."] = true
+L["Vertical Spacing"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地圖按鍵"

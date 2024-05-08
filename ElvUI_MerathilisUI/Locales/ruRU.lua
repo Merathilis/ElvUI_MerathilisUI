@@ -920,6 +920,15 @@ L["Time Rift"] = "Разлом во времени"
 L["Superbloom"] = "Цветочный бум"
 L["Big Dig"] = "Большие раскопки"
 L["The Big Dig"] = "Большие раскопки: Удел Предателя"
+L["Horizontal Spacing"] = true
+L["Show a backdrop of the trackers."] = true
+L["The Y-Offset of the backdrop."] = true
+L["The height of the tracker."] = true
+L["The spacing between the backdrop and the trackers."] = true
+L["The spacing between the tracker and the world map."] = true
+L["The spacing between trackers."] = true
+L["The width of the tracker."] = true
+L["Vertical Spacing"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Кнопки миникарты"
