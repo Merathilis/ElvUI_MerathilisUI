@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[613] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "08.05.2024",
 	FIXES = {
 		"[Compatibility Check]: Fix some db entries",
 		"[Resting Indicator]: Set the Resting Indicator to E.UIParent",
