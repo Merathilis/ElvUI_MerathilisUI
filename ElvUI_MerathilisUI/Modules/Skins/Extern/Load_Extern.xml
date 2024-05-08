@@ -11,7 +11,6 @@
 	<Script file='DetailsIcons.lua'/>
 	<Script file="GlobalIgnoreList.lua"/>
 	<Script file="Immersion.lua"/>
-	<Script file="IRememberYou.lua"/>
 	<Script file="ls_Toasts.lua"/>
 	<Script file="OmniCD.lua"/>
 	<Script file="Pawn.lua"/>
