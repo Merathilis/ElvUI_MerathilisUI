@@ -869,15 +869,15 @@ L["Time Rift"] = "Zeitriss"
 L["Superbloom"] = "Superblüte"
 L["Big Dig"] = "Große Buddeln"
 L["The Big Dig"] = "Das große Buddeln"
-L["Horizontal Spacing"] = true
-L["Show a backdrop of the trackers."] = true
-L["The Y-Offset of the backdrop."] = true
-L["The height of the tracker."] = true
-L["The spacing between the backdrop and the trackers."] = true
-L["The spacing between the tracker and the world map."] = true
-L["The spacing between trackers."] = true
-L["The width of the tracker."] = true
-L["Vertical Spacing"] = true
+L["Horizontal Spacing"] = "Horzontaler Abstand"
+L["Show a backdrop of the trackers."] = "Zeige einen Hintergrund der Tracker."
+L["The Y-Offset of the backdrop."] = "Der Y-Versatz des Hintergrunds."
+L["The height of the tracker."] = "Die Höhe der Tracker"
+L["The spacing between the backdrop and the trackers."] = "Der Abstand zwischen dem Hintergrund und den Trackern."
+L["The spacing between the tracker and the world map."] = "Der Abstand zwischen dem Tracker und der Weltkarte."
+L["The spacing between trackers."] = "Der Abstand zwischen Trackern"
+L["The width of the tracker."] = "Die Breite der Tracker"
+L["Vertical Spacing"] = "Vertikaler Abstand"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"
