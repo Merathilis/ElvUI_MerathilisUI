@@ -998,7 +998,7 @@ function module:ConstructButton()
 	additionalText:SetPoint(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
 	F.SetFontDB(additionalText, self.db.additionalText.font)
 	additionalText:SetJustifyH("CENTER")
-	additionalText:SetJustifyV("CENTER")
+	additionalText:SetJustifyV("MIDDLE")
 	button.additionalText = additionalText
 
 	self:HookScript(button, "OnEnter", "ButtonOnEnter")

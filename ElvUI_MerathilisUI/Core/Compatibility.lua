@@ -90,7 +90,7 @@ function MER:ConstructCompatibilityFrame()
 
 	completeButton.Text:SetText(L["Complete"])
 	completeButton.Text:SetJustifyH("CENTER")
-	completeButton.Text:SetJustifyV("CENTER")
+	completeButton.Text:SetJustifyV("MIDDLE")
 	F.SetFontOutline(completeButton.Text, E.db.general.font, "4")
 	completeButton:Size(350, 35)
 	completeButton:SetPoint("BOTTOM", bottomDesc, "TOP", 0, 10)
@@ -130,7 +130,7 @@ local function AddButtonToCompatibilityFrame(data)
 
 	leftButton.Text:SetText(format("%s\n%s", data.module1, data.plugin1))
 	leftButton.Text:SetJustifyH("CENTER")
-	leftButton.Text:SetJustifyV("CENTER")
+	leftButton.Text:SetJustifyV("MIDDLE")
 	F.SetFontOutline(leftButton.Text, E.db.general.font)
 	leftButton:Size(220, 40)
 	leftButton:SetPoint("TOPLEFT", frame.scrollFrame, "TOPLEFT", 5, -frame.numModules * 50 + 45)
@@ -163,7 +163,7 @@ local function AddButtonToCompatibilityFrame(data)
 
 	rightButton.Text:SetText(format("%s\n%s", data.module2, data.plugin2))
 	rightButton.Text:SetJustifyH("CENTER")
-	rightButton.Text:SetJustifyV("CENTER")
+	rightButton.Text:SetJustifyV("MIDDLE")
 	F.SetFontOutline(rightButton.Text, E.db.general.font)
 	rightButton:Size(220, 40)
 	rightButton:SetPoint("TOPRIGHT", frame.scrollFrame, "TOPRIGHT", -5, -frame.numModules * 50 + 45)
@@ -264,8 +264,6 @@ function MER:CheckCompatibility()
 		"private.WT.tooltips.icon"
 	)
 
-	CheckWindtools(L["LFG Info"], L["Group Info"], "db.mui.misc.lfgInfo.enable", "db.WT.tooltips.groupInfo.enable")
-
 	CheckWindtools(
 		L["Role Icon"],
 		L["Role Icon"],
@@ -294,13 +292,6 @@ function MER:CheckCompatibility()
 	CheckWindtools(L["Chat Link"], L["Chat Link"], "db.mui.chat.chatLink.enable", "db.WT.social.chatLink.enable")
 
 	CheckWindtools(L["Raid Markers"], L["Raid Markers"], "db.mui.raidmarkers.enable", "db.WT.combat.raidMarkers.enable")
-
-	CheckWindtools(
-		L["Hide Player Brackets"],
-		format("%s-%s", L["Chat Text"], L["Remove Brackets"]),
-		"db.mui.chat.hidePlayerBrackets",
-		"db.WT.social.chatText.removeBrackets"
-	)
 
 	CheckWindtools(
 		L["Super Tracker"],
@@ -391,7 +382,7 @@ function MER:CheckCompatibility()
 	CheckWindtools(
 		format("%s-%s", L["Chat"], L["Role Icons"]),
 		L["Chat Text"],
-		"db.mui.chat.roleIcons.enable",
+		"db.mui.chat.chatText.enable",
 		"db.WT.social.chatText.enable"
 	)
 
@@ -423,6 +414,13 @@ function MER:CheckCompatibility()
 		format("%s-%s", L["Tooltip"], L["Group Info"]),
 		"db.mui.tooltip.groupInfo.enable",
 		"db.WT.tooltips.groupInfo.enable"
+	)
+
+	CheckWindtools(
+		format("%s-%s", L["Chat"], L["ChatText"]),
+		format("%s-%s", L["Social"], L["ChatText"]),
+		"db.mui.chat.chatText.enable",
+		"db.WT.social.chatText.enable"
 	)
 
 	CheckShadowAndLight(

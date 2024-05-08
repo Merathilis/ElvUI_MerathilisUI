@@ -612,15 +612,49 @@ P.nameHover = {
 }
 
 P.armory = {
-	character = {
-		enable = true,
+	enable = true,
+	stats = {
+		showAvgItemLevel = false,
+		itemLevelFormat = "%.2f",
+		itemLevelFont = {
+			name = I.Fonts.Primary,
+			size = 20,
+			style = "SHADOWOUTLINE",
+			itemLevelFontColor = "DEFAULT", -- GRADIENT, VALUE, CUSTOM, DEFAULT
+			color = {
+				r = 1,
+				g = 1,
+				b = 1,
+			},
+		},
 	},
-	inspect = {
-		enable = true,
+	pageInfo = {
+		itemLevelTextEnabled = true,
+		iconsEnabled = true,
+
+		enchantTextEnabled = true,
+		abbreviateEnchantText = true,
+		missingEnchantText = true,
+		missingSocketText = true,
+
+		itemQualityGradientEnabled = true,
+		itemQualityGradientWidth = 65,
+		itemQualityGradientHeight = 3,
+		itemQualityGradientStartAlpha = 1,
+		itemQualityGradientEndAlpha = 0,
+
+		iLvLFont = {
+			name = I.Fonts.Primary,
+			size = 12,
+			style = "SHADOWOUTLINE",
+		},
+
+		enchantFont = {
+			name = I.Fonts.Primary,
+			size = 11,
+			style = "SHADOWOUTLINE",
+		},
 	},
-	StatOrder = "12345",
-	StatExpand = true,
-	PetHappiness = true,
 }
 
 P.notification = {
@@ -1448,11 +1482,15 @@ P.maps = {
 	},
 	eventTracker = {
 		enable = true,
-		desaturate = true,
-		spacing = 10,
-		height = 38,
-		yOffset = -3,
-		backdrop = true,
+		style = {
+			backdrop = true,
+			backdropYOffset = 3,
+			backdropSpacing = 6,
+			trackerWidth = 240,
+			trackerHeight = 30,
+			trackerHorizontalSpacing = 10,
+			trackerVerticalSpacing = 2,
+		},
 		font = {
 			name = E.db.general.font,
 			scale = 1,
@@ -1479,7 +1517,7 @@ P.maps = {
 			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		researchersUnderFire = {
-			enable = false,
+			enable = true,
 			desaturate = false,
 			alert = true,
 			sound = false,
@@ -1489,7 +1527,7 @@ P.maps = {
 			stopAlertIfPlayerNotEnteredDragonlands = true,
 		},
 		timeRiftThaldraszus = {
-			enable = false,
+			enable = true,
 			desaturate = true,
 			alert = true,
 			sound = false,

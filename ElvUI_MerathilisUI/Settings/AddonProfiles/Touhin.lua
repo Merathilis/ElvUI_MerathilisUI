@@ -6,7 +6,7 @@ function MER:LoadTouhinProfile()
 	--]]
 	----------------------------------
 
-	TouhinDB.profiles[F.Profiles.Default] = {
+	TouhinDB.profiles[I.ProfileNames.Default] = {
 		["edgeSize"] = 1,
 		["scale"] = 0.9,
 		["anchor_y"] = 249.000579833984,

@@ -300,7 +300,7 @@ local function Initialize()
 		playerModel.tex.text:SetText("AFK ... maybe!?")
 		playerModel.tex.text:SetPoint("CENTER", playerModel.tex, "CENTER", 0, 10)
 		playerModel.tex.text:SetJustifyH("CENTER")
-		playerModel.tex.text:SetJustifyV("CENTER")
+		playerModel.tex.text:SetJustifyV("MIDDLE")
 		playerModel.tex.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 		playerModel.tex.text:SetShadowOffset(2, -2)
 	end

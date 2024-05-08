@@ -348,7 +348,7 @@ L["In Instance"] = "In Instanz"
 L["In Raid"] = "In Schlachtzug"
 L["None"] = "Nichts"
 L["Self (Chat Frame)"] = "Selbst (Chatfenster)"
-L["Emote"] = true
+L["Emote"] = true -- no need to translate
 L["Party"] = "Gruppe"
 L["Yell"] = "Schreien"
 L["Say"] = "Sagen"
@@ -368,7 +368,7 @@ L["Add the prefix if the quest is a weekly quest."] =
 L["Send the use of portals, ritual of summoning, feasts, etc."] =
 	"Sende die Verwendung von Portalen, Beschwörungsritualen, Festen usw."
 L["Feasts"] = "Feste"
-L["Bots"] = true
+L["Bots"] = true -- no need to translate
 L["Toys"] = "Spielzeuge"
 L["Portals"] = "Portale"
 L["Include Player"] = "Spieler einschließen"
@@ -377,14 +377,14 @@ L["Uncheck this box, it will not send message if you cast the spell."] =
 L["Raid Warning"] = "Schlachtzugswarnung"
 L["If you have privilege, it would the message to raid warning(/rw) rather than raid(/r)."] =
 	"Wenn Du Privilegien hast, würde es die Nachricht sein, Warnung (/rw) statt Schlachtzug (/r) zu raiden."
-L["Text"] = true
+L["Text"] = true -- no need to translate
 L["Name of the player"] = "Der Name des Spielers"
 L["Target name"] = "Zielname"
 L["The spell link"] = "Der Zauberlink"
 L["Default Text"] = "Standardtext"
 L["Reset Instance"] = "Instanz zurücksetzen"
 L["Send a message after instance resetting."] = "Sende eine Nachricht nach dem Zurücksetzen der Instanz."
-L["Prefix"] = true
+L["Prefix"] = true -- no need to translate
 L["Channel"] = "Kanal"
 L["Keystone"] = "Schlüsselstein"
 L["Announce the new mythic keystone."] = "Kündige Deinen neuen mythischen Schlüsselstein an."
@@ -526,6 +526,37 @@ L["Mirror Button Size"] = "Spiegeln Tastengröße"
 L["Mirror Direction"] = "Spiegelrichtung"
 L["LEFT"] = "LINKS"
 L["RIGHT"] = "RECHTS"
+
+-- Armory
+L["Armory"] = "Rüstung"
+L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] =
+	"Aktiviere/deaktiviere den Waffenkammermodus |cffff7d0aMerathilisUI|r."
+L["Enchant & Socket Strings"] = "Verzauberungs- und Sockel Strings"
+L["Settings for strings displaying enchant and socket info from the items"] =
+	"Einstellungen für Strings, die Verzauberungs- und Sockelinformationen der Gegenstände anzeigen"
+L["Enable/Disable the Enchant text display"] = "Aktiviere/deaktiviere die Verzauberungs Texte"
+L["Missing Enchants"] = "Fehlende Verzauberungen"
+L["Missing Sockets"] = "Fehlende Sockel"
+L["Short Enchant Text"] = "Kurzer Verzauberungstext"
+L["Enchant Font"] = "Verzauberungsschriftart"
+L["Item Level"] = "Gegenstandsstufe"
+L["Settings for the Item Level next tor your item slot"] =
+	"Einstellungen für die Gegenstandsstufe neben Deinem Gegenstandsplatz"
+L["Enable/Disable the Item Level text display"] = "Aktiviere/deaktiviere die Texte auf Elementebene"
+L["Toggle sockets & azerite traits"] = "Sockel und Azerit-Eigenschaften umschalten"
+L["Item Quality Gradient"] = "Gegenstandsqualität Farbverlauf"
+L["Settings for the color coming out of your item slot."] =
+	"Einstellungen für die Farbe, die aus Deinem Gegenstandsslot kommt."
+L["Toggling this on enables the Item Quality bars."] =
+	"Wenn Du diese Option aktivierst, werden die Gegenstands Qualitätsleisten aktiviert."
+L["Start Alpha"] = "Starttransparenz"
+L["End Alpha"] = "Endtranpsparenz"
+L["Slot Item Level"] = "Slot Gegenstandsstufe"
+L["Bags Item Level"] = "Taschen Gegenstandsstufe"
+L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."] =
+	"Wenn Du dies aktivierst, wird die maximal mögliche Gegenstandsstufe angezeigt, die Du mit den Gegenständen, die sich derzeit in Deinen Taschen befinden, erreichen könntest."
+L["Format"] = true -- no need to translate
+L["Decimal format"] = "Dezimalformat"
 
 -- AutoButtons
 L["AutoButtons"] = "Autom. Tasten"
@@ -799,7 +830,7 @@ L["Feast"] = "Festmahl"
 L["In Progress"] = "Im Gange"
 L["Location"] = "Standort"
 L["Siege On Dragonbane Keep"] = "Belagerung der Drachenfluchfestung"
-L["Status"] = true
+L["Status"] = true -- no need to translate
 L["Waiting"] = "Warten"
 L["Weekly Reward"] = "Wöchentliche Belohnung"
 L["%s will be started in %s!"] = "%s wird starten in %s"
@@ -829,7 +860,7 @@ L["Custom Strings"] = "Benutzerdefinierte Strings"
 L["Custom color can be used by adding the following code"] =
 	"Benutzerdefinierte Farbe kann benutzt werden wenn du folgenden Code benutzt"
 L["Difficulty"] = "Schwierigkeit"
-L["M+ Level"] = true
+L["M+ Level"] = "M+ Stufe"
 L["Number of Players"] = "Anzahl der Spieler"
 L["Placeholders"] = "Platzhalter"
 L["Use Default"] = "Benutze Standard"
@@ -838,6 +869,15 @@ L["Time Rift"] = "Zeitriss"
 L["Superbloom"] = "Superblüte"
 L["Big Dig"] = "Große Buddeln"
 L["The Big Dig"] = "Das große Buddeln"
+L["Horizontal Spacing"] = true
+L["Show a backdrop of the trackers."] = true
+L["The Y-Offset of the backdrop."] = true
+L["The height of the tracker."] = true
+L["The spacing between the backdrop and the trackers."] = true
+L["The spacing between the tracker and the world map."] = true
+L["The spacing between trackers."] = true
+L["The width of the tracker."] = true
+L["Vertical Spacing"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

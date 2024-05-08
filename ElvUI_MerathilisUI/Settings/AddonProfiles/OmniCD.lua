@@ -8,7 +8,7 @@ function MER:LoadOmniCDProfile()
 	--]]
 	----------------------------------
 
-	local profileName = F.Profiles.Default
+	local profileName = I.ProfileNames.Default
 
 	if OmniCDDB["profiles"][profileName] then
 		tinsert(OmniCDDB.profileKeys, E.mynameRealm)

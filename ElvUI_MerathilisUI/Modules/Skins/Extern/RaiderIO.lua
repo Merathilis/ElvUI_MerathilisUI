@@ -48,6 +48,15 @@ function module:RaiderIO_DelayedSkinning()
 						child:DisableDrawLayer("BACKGROUND")
 						child:DisableDrawLayer("BORDER")
 						S:HandleEditBox(child)
+						child:SetTextInsets(2, 2, 2, 2)
+						child:SetHeight(30)
+
+						if child:GetNumPoints() == 1 then
+							local point, relativeTo, relativePoint, xOffset, yOffset = child:GetPoint(1)
+							yOffset = -3
+							child:ClearAllPoints()
+							child:SetPoint(point, relativeTo, relativePoint, xOffset, yOffset)
+						end
 
 						child.IsSkinned = true
 					end

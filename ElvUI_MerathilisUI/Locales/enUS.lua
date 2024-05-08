@@ -475,6 +475,31 @@ L["Mirror Direction"] = true
 L["LEFT"] = true
 L["RIGHT"] = true
 
+-- Armory
+L["Armory"] = true
+L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
+L["Enchant & Socket Strings"] = true
+L["Settings for strings displaying enchant and socket info from the items"] = true
+L["Enable/Disable the Enchant text display"] = true
+L["Missing Enchants"] = true
+L["Missing Sockets"] = true
+L["Short Enchant Text"] = true
+L["Enchant Font"] = true
+L["Item Level"] = true
+L["Settings for the Item Level next tor your item slot"] = true
+L["Enable/Disable the Item Level text display"] = true
+L["Toggle sockets & azerite traits"] = true
+L["Item Quality Gradient"] = true
+L["Settings for the color coming out of your item slot."] = true
+L["Toggling this on enables the Item Quality bars."] = true
+L["Start Alpha"] = true
+L["End Alpha"] = true
+L["Slot Item Level"] = true
+L["Bags Item Level"] = true
+L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."] = true
+L["Format"] = true
+L["Decimal format"] = true
+
 -- AutoButtons
 L["AutoButtons"] = true
 L["Bar"] = true
@@ -741,7 +766,6 @@ L["Play sound when the alert is triggered."] = true
 L["Sound File"] = true
 L["Only DF Character"] = true
 L["Stop alert when the player have not entered Dragonlands yet."] = true
-L["The offset of the frame from the bottom of world map. (Default is -3)"] = true
 L["Alert Timeout"] = true
 L["All nets can be collected"] = true
 L["Can be collected"] = true
@@ -765,6 +789,15 @@ L["Time Rift"] = true
 L["Superbloom"] = true
 L["Big Dig"] = true
 L["The Big Dig"] = true
+L["Horizontal Spacing"] = true
+L["Show a backdrop of the trackers."] = true
+L["The Y-Offset of the backdrop."] = true
+L["The height of the tracker."] = true
+L["The spacing between the backdrop and the trackers."] = true
+L["The spacing between the tracker and the world map."] = true
+L["The spacing between trackers."] = true
+L["The width of the tracker."] = true
+L["Vertical Spacing"] = true
 
 -- SMB
 L["Minimap Buttons"] = true

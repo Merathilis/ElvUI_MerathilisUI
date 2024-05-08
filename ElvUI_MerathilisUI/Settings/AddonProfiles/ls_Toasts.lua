@@ -5,7 +5,7 @@ function MER:LoadLSProfile()
 	--	ls_Toasts - Settings
 	--]]
 	----------------------------------
-	local profileName = F.Profiles.Default
+	local profileName = I.ProfileNames.Default
 
 	LS_TOASTS_GLOBAL_CONFIG.profiles[profileName] = {
 		["anchors"] = {

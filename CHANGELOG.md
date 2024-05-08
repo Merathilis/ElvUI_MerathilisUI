@@ -1,9 +1,11 @@
 ### Changes ###
 
-  * [Raid Manager]: Some code improvements to RaidManager
-  * [ChatText]: Here also some code improvements
-  * [RaiderIO Skin]: Updated a new SearchFrame
-  * [Details Skin]: Fix gradient Names and enable it by default
-  * [TalentLoadoutEx]: Remove skin
-  * [Event Tracker]: Change the defaults on the Map Event Tracker
-  * [AutoButtons]: Added S4 openable boxes
+  * [Compatibility Check]: Fix some db entries
+  * [Resting Indicator]: Set the Resting Indicator to E.UIParent
+  * [Armory]: Added back an Armory Mode - Credits: ElvUI_ToxiUI
+  * [Install]: Let you create a new Profile from the Installer
+  * [RaiderIO Skin]: Fix positioning from the EditBoxes
+  * [UIWidget Skin]: Take account to Objective Tracker StatusBars
+  * [EventTracker]: Updated logic on EventTracker positioning
+  * [FriendsList]: New Icon for Cata on the FriendsList
+

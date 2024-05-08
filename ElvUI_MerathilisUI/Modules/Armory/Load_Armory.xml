@@ -1,0 +1,4 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<!-- Core -->
+	<Script file='Core.lua'/>
+</Ui>

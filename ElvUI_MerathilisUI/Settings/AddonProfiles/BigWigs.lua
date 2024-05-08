@@ -11,7 +11,7 @@ function MER:LoadBigWigsProfile()
 	--	BigWigs - Settings
 	--]]
 	----------------------------------
-	local profileName = F.Profiles.Default
+	local profileName = I.ProfileNames.Default
 
 	-- Required to add profiles to BigWigs
 	if not C_AddOns_IsAddOnLoaded("BigWigs_Core") then
