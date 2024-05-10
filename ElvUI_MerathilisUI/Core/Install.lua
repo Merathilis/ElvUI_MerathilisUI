@@ -419,6 +419,9 @@ function MER:SetupLayout()
 	E.db["bags"]["itemLevelFont"] = I.Fonts.Primary
 	E.db["bags"]["itemLevelFontSize"] = 9
 	E.db["bags"]["itemLevelFontOutline"] = "SHADOWOUTLINE"
+	E.db["bags"]["totalLevelFont"] = I.Fonts.Primary
+	E.db["bags"]["totalLevelFontSize"] = 20
+	E.db["bags"]["totalLevelFontOutline"] = "SHADOWOUTLINE"
 	E.db["bags"]["itemInfoFont"] = I.Fonts.Primary
 	E.db["bags"]["itemInfoFontSize"] = 9
 	E.db["bags"]["itemInfoFontOutline"] = "SHADOWOUTLINE"
