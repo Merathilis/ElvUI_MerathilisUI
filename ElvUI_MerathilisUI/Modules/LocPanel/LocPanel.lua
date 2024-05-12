@@ -101,6 +101,7 @@ module.Hearthstones = {
 	{ 208704, nil, true }, -- Deepdweller's Earthen Hearthstone
 	{ 209035, nil, true }, -- Hearthstone of the Flame
 	{ 212337, nil, true }, -- Stone of the Hearth (Hearthstone 10th Anniversary)
+	{ 210455, nil, true }, -- Draenic Hologem
 }
 
 module.PortItems = {
