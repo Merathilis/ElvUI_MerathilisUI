@@ -8,6 +8,7 @@ local twipe = table.wipe
 
 local CancelDuel = CancelDuel
 local CancelPetPVPDuel = C_PetBattles and C_PetBattles.CancelPVPDuel
+local IsActiveBattlefield = C_PvP and C_PvP.IsActiveBattlefield or IsActiveBattlefield
 local StaticPopup_Hide = StaticPopup_Hide
 local GetBattlefieldScore = GetBattlefieldScore
 local GetNumBattlefieldScores = GetNumBattlefieldScores
@@ -30,21 +31,12 @@ end
 
 function module:Dead()
 	local inInstance, instanceType = IsInInstance()
-
 	if not module.db.autorelease then
 		return
 	end
 
-	if inInstance and instanceType == "pvp" then
+	if (inInstance and instanceType == "pvp") or IsActiveBattlefield() then
 		module:Release()
-		return
-	end
-	-- auto resurrection for world PvP area...when active
-	for index = 1, GetNumWorldPVPAreas() do
-		local _, localizedName, isActive, canQueue = GetWorldPVPAreaInfo(index)
-		if (GetRealZoneText() == localizedName and isActive) or (GetRealZoneText() == localizedName and canQueue) then
-			module:Release()
-		end
 	end
 end
 
@@ -73,7 +65,7 @@ function module:OpponentsTable()
 	for index = 1, GetNumBattlefieldScores() do
 		local name, _, _, _, _, faction, _, _, classToken = GetBattlefieldScore(index)
 		if (E.myfaction == "Horde" and faction == 1) or (E.myfaction == "Alliance" and faction == 0) then
-			Opponents[name] = classToken --Saving oponents class to use for coloring
+			Opponents[name] = classToken
 		end
 	end
 end
