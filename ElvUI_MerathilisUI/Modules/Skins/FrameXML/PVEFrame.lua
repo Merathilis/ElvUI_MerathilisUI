@@ -34,7 +34,7 @@ function module:PVEFrame()
 	end
 
 	local iconSize = 56 - 2 * E.mult
-	for i = 1, 3 do
+	for i = 1, 4 do
 		local bu = _G["GroupFinderFrame"]["groupButton" .. i]
 		bu.name:SetTextColor(1, 1, 1)
 

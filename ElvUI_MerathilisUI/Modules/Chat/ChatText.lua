@@ -536,6 +536,7 @@ do --this can save some main file locals
 			z["Player-1401-04217BB2"] = ElvPurple -- [Alliance] Warlock:	Asragoth
 			z["Player-1401-0421EB9F"] = ElvBlue -- [Alliance] Warrior:	Brìtt
 			z["Player-1401-0421F909"] = ElvRed -- [Alliance] Paladin:	Damará
+			z["Player-1401-0AB0E6D1"] = ElvRed -- [Alliance] Paladin:	Damara/WoW Remix
 			z["Player-1401-0421EC36"] = ElvBlue -- [Alliance] Priest:	Jazira
 			z["Player-1401-0A9B0131"] = ElvYellow -- [Alliance] Rogue:	Anonia
 			z["Player-1401-041E4D64"] = ElvGreen -- [Alliance] Monk:		Maithilis
@@ -571,6 +572,7 @@ local authorIcons = {
 	["Asragoth-Shattrath"] = logoSmall, -- [Alliance] Warlock
 	["Brítt-Shattrath"] = logoSmall, -- [Alliance] Warrior
 	["Damará-Shattrath"] = logoSmall, -- [Alliance] Paladin
+	["Damara-Shattrath"] = logoSmall, -- [Alliance] Paladin/Wow Remix
 	["Jazira-Shattrath"] = logoSmall, -- [Alliance] Priest
 	["Maithilis-Shattrath"] = logoSmall, -- [Alliance] Monk
 	["Mattdemôn-Shattrath"] = logoSmall, -- [Alliance] DH
@@ -1755,9 +1757,9 @@ function CT:MessageFormatter(
 		showLink = nil
 
 		-- fix blizzard formatting errors from localization strings
-		-- arg1 = gsub(arg1, '%%%d', '%%s') -- replace %1 to %s (russian client specific?) [broken since BFA?]
 		arg1 = gsub(arg1, "(%d%%)([^%%%a])", "%1%%%2") -- escape percentages that need it [broken since SL?]
 		arg1 = gsub(arg1, "(%d%%)$", "%1%%") -- escape percentages on the end
+		arg1 = gsub(arg1, "^%%o", "%%s") -- replace %o to %s [broken in cata classic?]: "%o gular zila amanare rukadare." from "Cabal Zealot"
 	else
 		arg1 = gsub(arg1, "%%", "%%%%") -- escape any % characters, as it may otherwise cause an 'invalid option in format' error
 	end
@@ -1900,7 +1902,7 @@ function CT:MessageFormatter(
 		end
 	else
 		if not showLink or arg2 == "" then
-			if chatType == "TEXT_EMOTE" or chatType == "GUILD_DEATHS" then
+			if chatType == "TEXT_EMOTE" then
 				body = message
 			else
 				body = format(_G["CHAT_" .. chatType .. "_GET"] .. message, pflag .. arg2, arg2)

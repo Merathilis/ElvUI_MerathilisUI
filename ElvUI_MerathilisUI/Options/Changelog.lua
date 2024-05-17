@@ -108,12 +108,12 @@ for version, data in pairs(MER.Changelog) do
 		}
 	end
 
-	local improvementPart = data and data.IMPROVEMENT
+	local improvementPart = data and data.IMPROVEMENTS
 	if improvementPart and #improvementPart > 0 then
 		page.improvementHeader = {
 			order = 7,
 			type = "header",
-			name = thunderIcon .. " " .. F.String.FastGradientHex(L["Improvement"], "#98ee99", "#338a3e"),
+			name = thunderIcon .. " " .. F.String.FastGradientHex(L["Improvements"], "#98ee99", "#338a3e"),
 		}
 		page.improvement = {
 			order = 8,

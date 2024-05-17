@@ -240,7 +240,6 @@ V.skins = {
 		gil = true,
 		bSync = true,
 		pawn = true,
-		iry = true,
 		bw = {
 			enable = true,
 			queueTimer = {
