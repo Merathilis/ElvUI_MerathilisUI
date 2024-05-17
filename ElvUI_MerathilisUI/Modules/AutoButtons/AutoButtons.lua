@@ -933,6 +933,8 @@ local openableItems = {
 	217242,
 	217243,
 	217728,
+	-- MOP Remix
+	211279,
 }
 
 local bigDig = {
