@@ -17,6 +17,7 @@
 ## X-Curse-Project-ID: 97589
 ## X-WoWI-ID: 24117
 ## X-Wago-ID: VBNBZVNx
+## X-Flavor: Mainline
 
 ## X-Interface: 100206
 ## X-Tukui-ProjectID: 1

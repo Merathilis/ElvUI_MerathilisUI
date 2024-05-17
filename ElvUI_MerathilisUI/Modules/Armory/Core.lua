@@ -41,7 +41,7 @@ module.characterSlots = {
 		needsEnchant = false,
 		needsSocket = true,
 		warningCondition = {
-			level = 70,
+			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
 		direction = module.enumDirection.LEFT,
 	},
@@ -55,7 +55,7 @@ module.characterSlots = {
 		id = 15,
 		needsEnchant = true,
 		warningCondition = {
-			level = 70,
+			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
 		needsSocket = false,
 		direction = module.enumDirection.LEFT,
@@ -64,7 +64,7 @@ module.characterSlots = {
 		id = 5,
 		needsEnchant = true,
 		warningCondition = {
-			level = 70,
+			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
 		needsSocket = false,
 		direction = module.enumDirection.LEFT,
@@ -85,7 +85,7 @@ module.characterSlots = {
 		id = 9,
 		needsEnchant = true,
 		warningCondition = {
-			level = 70,
+			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
 		needsSocket = false,
 		direction = module.enumDirection.LEFT,
@@ -106,7 +106,7 @@ module.characterSlots = {
 		id = 7,
 		needsEnchant = true,
 		warningCondition = {
-			level = 70,
+			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
 		needsSocket = false,
 		direction = module.enumDirection.RIGHT,
@@ -115,7 +115,7 @@ module.characterSlots = {
 		id = 8,
 		needsEnchant = true,
 		warningCondition = {
-			level = 70,
+			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
 		needsSocket = false,
 		direction = module.enumDirection.RIGHT,
@@ -124,7 +124,7 @@ module.characterSlots = {
 		id = 11,
 		needsEnchant = true,
 		warningCondition = {
-			level = 70,
+			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
 		needsSocket = false,
 		direction = module.enumDirection.RIGHT,
@@ -133,7 +133,7 @@ module.characterSlots = {
 		id = 12,
 		needsEnchant = true,
 		warningCondition = {
-			level = 70,
+			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
 		needsSocket = false,
 		direction = module.enumDirection.RIGHT,
@@ -154,7 +154,7 @@ module.characterSlots = {
 		id = 16,
 		needsEnchant = true,
 		warningCondition = {
-			level = 70,
+			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
 		needsSocket = false,
 		direction = module.enumDirection.RIGHT,
@@ -164,11 +164,18 @@ module.characterSlots = {
 		needsEnchant = true,
 		warningCondition = {
 			itemType = ENUM_ITEM_CLASS_WEAPON,
-			level = 70,
+			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
 		needsSocket = false,
 		direction = module.enumDirection.LEFT,
 	},
+	--[[
+	["RangedSlot"] = {
+		id = 19,
+		needsEnchant = false,
+		needsSocket = false,
+		direction = module.enumDirection.LEFT,
+	},]]
 }
 
 function module:GetSlotNameByID(slotId)

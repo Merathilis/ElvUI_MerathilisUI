@@ -29,6 +29,7 @@ MER.IsPTR = select(4, GetBuildInfo()) == 100002 -- 10.0.2
 MER.Locale = GetLocale()
 MER.ChineseLocale = strsub(MER.Locale, 0, 2) == "zh"
 MER.MaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion()
+MER.MetaFlavor = GetAddOnMetadata("ElvUI_MerathilisUI", "X-Flavor")
 
 -- Masque support
 MER.MSQ = _G.LibStub("Masque", true)
