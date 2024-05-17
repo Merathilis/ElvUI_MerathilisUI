@@ -13,6 +13,7 @@ MER.IsDev = {
 	["Asragoth"] = true,
 	["Anonia"] = true,
 	["Damará"] = true,
+	["Damara"] = true, -- MOP Remix
 	["Jazira"] = true,
 	["Jústice"] = true,
 	["Maithilis"] = true,
