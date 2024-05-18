@@ -53,29 +53,30 @@ function module:UpdateSeperators()
 	end
 
 	local myVisibility = E.db.mui.chat.seperators.visibility
-	local elvVisibility = E.db.chat.panelBackdrop
-	if myVisibility == "SHOWBOTH" or elvVisibility == "SHOWBOTH" then
+	-- local elvVisibility = E.db.chat.panelBackdrop -- TO DO: Fix ElvUIs visibility
+
+	if myVisibility == "SHOWBOTH" then
 		if _G.LeftChatTabSeparator then
 			_G.LeftChatTabSeparator:Show()
 		end
 		if _G.RightChatTabSeparator then
 			_G.RightChatTabSeparator:Show()
 		end
-	elseif myVisibility == "HIDEBOTH" or elvVisibility == "HIDEBOTH" then
+	elseif myVisibility == "HIDEBOTH" then
 		if _G.LeftChatTabSeparator then
 			_G.LeftChatTabSeparator:Hide()
 		end
 		if _G.RightChatTabSeparator then
 			_G.RightChatTabSeparator:Hide()
 		end
-	elseif myVisibility == "LEFT" or elvVisibility == "LEFT" then
+	elseif myVisibility == "LEFT" then
 		if _G.LeftChatTabSeparator then
 			_G.LeftChatTabSeparator:Show()
 		end
 		if _G.RightChatTabSeparator then
 			_G.RightChatTabSeparator:Hide()
 		end
-	else
+	elseif myVisibility == "RIGHT" then
 		if _G.LeftChatTabSeparator then
 			_G.LeftChatTabSeparator:Hide()
 		end
@@ -84,6 +85,8 @@ function module:UpdateSeperators()
 		end
 	end
 end
+
+hooksecurefunc(LO, "CreateChatPanels", module.UpdateSeperators)
 
 function module:CreateChatButtons()
 	if not E.db.mui.chat.chatButton or not E.private.chat.enable then
