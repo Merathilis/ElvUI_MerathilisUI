@@ -933,16 +933,18 @@ local openableItems = {
 	217242,
 	217243,
 	217728,
-	-- MOP Remix
-    211279,
-    223904,
-    223905,
-    223906,
-    223907,
-    223908,
-    223909,
-    223910,
-    223911,
+}
+
+local mopRemix = {
+	211279,
+	223904,
+	223905,
+	223906,
+	223907,
+	223908,
+	223909,
+	223910,
+	223911,
 }
 
 local bigDig = {
@@ -1314,7 +1316,7 @@ local moduleList = {
 	["FOODDF"] = foodDragonflight,
 	["SEEDS"] = seeds,
 	["BIGDIG"] = bigDig,
-    ["MOPREMIX"] = mopRemix	
+	["MOPREMIX"] = mopRemix,
 }
 
 function module:CreateButton(name, barDB)
