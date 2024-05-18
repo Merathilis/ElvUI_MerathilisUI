@@ -1881,7 +1881,7 @@ options.blizzard = {
 				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azeriteEssence
 			end,
 		},
-		ItemInteraction = {
+		itemInteraction = {
 			type = "toggle",
 			name = L["Item Interaction"],
 			disabled = function()
