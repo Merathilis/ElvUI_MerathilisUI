@@ -47,6 +47,10 @@ local PANEL_WIDTH = 270
 local PANEL_HEIGHT = 150
 local BUTTON_HEIGHT = 25
 
+local roleRoster = {}
+local roleCount = {}
+local roles = { "TANK", "HEALER", "DAMAGER" }
+
 local buttonEvents = {
 	"GROUP_ROSTER_UPDATE",
 	"PARTY_LEADER_CHANGED",
@@ -98,15 +102,48 @@ local function sortColoredNames(a, b)
 	return a:sub(11) < b:sub(11)
 end
 
-local roleIconRoster = {}
-local function onEnter(self)
-	twipe(roleIconRoster)
+function module:RoleIcons_SortNames(b) -- self is a
+	return strsub(self, 11) < strsub(b, 11)
+end
+
+function module:RoleIcons_AddNames(tbl, name, unitClass)
+	local color = E:ClassColor(unitClass, true) or PRIEST_COLOR
+	tinsert(tbl, format("|cff%02x%02x%02x%s", color.r * 255, color.g * 255, color.b * 255, gsub(name, "%-.+", "*")))
+end
+
+function module:RoleIcons_AddPartyUnit(unit, iconRole)
+	local name = UnitExists(unit) and UnitName(unit)
+	local unitRole = name and UnitGroupRolesAssigned(unit)
+	if unitRole == iconRole then
+		local _, unitClass = UnitClass(unit)
+		module:RoleIcons_AddNames(roleRoster[0], name, unitClass)
+	end
+end
+
+function module:OnEnter_Role()
+	twipe(roleRoster)
 
 	for i = 1, _G.NUM_RAID_GROUPS do
-		roleIconRoster[i] = {}
+		roleRoster[i] = {}
 	end
 
-	local role = self.role
+	local iconRole = self.role
+	local isRaid = IsInRaid()
+	if IsInGroup() and not isRaid then
+		module:RoleIcons_AddPartyUnit("player", iconRole)
+	end
+
+	for i = 1, GetNumGroupMembers() do
+		if isRaid then
+			local name, _, group, _, _, unitClass, _, _, _, _, _, unitRole = GetRaidRosterInfo(i)
+			if name and unitRole == iconRole then
+				module:RoleIcons_AddNames(roleRoster[group], name, unitClass)
+			end
+		else
+			module:RoleIcons_AddPartyUnit("party" .. i, iconRole)
+		end
+	end
+
 	local point = E:GetScreenQuadrant(_G.RaidManagerFrame)
 	local bottom = point and strfind(point, "BOTTOM")
 	local left = point and strfind(point, "LEFT")
@@ -124,29 +161,16 @@ local function onEnter(self)
 	local GameTooltip = _G.GameTooltip
 	GameTooltip:SetOwner(E.UIParent, "ANCHOR_NONE")
 	GameTooltip:Point(anchor1, self, anchor2, anchorX, 0)
-	GameTooltip:SetText(_G["INLINE_" .. role .. "_ICON"] .. _G[role])
+	GameTooltip:SetText(_G["INLINE_" .. iconRole .. "_ICON"] .. _G[iconRole])
 
-	local name, group, class, groupRole, color, coloredName, _
-	for i = 1, GetNumGroupMembers() do
-		name, _, group, _, _, class, _, _, _, _, _, groupRole = GetRaidRosterInfo(i)
-		if name and groupRole == role then
-			color = E:ClassColor(class)
-			coloredName = ("|cff%02x%02x%02x%s"):format(
-				color.r * 255,
-				color.g * 255,
-				color.b * 255,
-				name:gsub("%-.+", "*")
-			)
-			tinsert(roleIconRoster[group], coloredName)
-		end
-	end
+	for group, list in next, roleRoster do
+		sort(list, module.RoleIcons_SortNames)
 
-	for Group, list in ipairs(roleIconRoster) do
-		tsort(list, sortColoredNames)
-		for _, Name in ipairs(list) do
-			GameTooltip:AddLine(("[%d] %s"):format(Group, Name), 1, 1, 1)
+		for _, name in next, list do
+			GameTooltip:AddLine((group == 0 and name) or format("[%d] %s", group, name), 1, 1, 1)
 		end
-		roleIconRoster[Group] = nil
+
+		roleRoster[group] = nil
 	end
 
 	GameTooltip:Show()
@@ -164,7 +188,6 @@ local function RaidFrameManager_PositionRoleIcons()
 	end
 end
 
-local count = {}
 local function UpdateIcons(self)
 	if not IsInRaid() then
 		self:Hide()
@@ -174,17 +197,17 @@ local function UpdateIcons(self)
 		RaidFrameManager_PositionRoleIcons()
 	end
 
-	twipe(count)
+	twipe(roleCount)
 
 	for i = 1, GetNumGroupMembers() do
 		local role = UnitGroupRolesAssigned("raid" .. i)
 		if role and role ~= "NONE" then
-			count[role] = (count[role] or 0) + 1
+			roleCount[role] = (roleCount[role] or 0) + 1
 		end
 	end
 
 	for Role, icon in next, _G.RaidManagerRoleIcons.icons do
-		icon.count:SetText(count[Role] or 0)
+		icon.count:SetText(roleCount[Role] or 0)
 	end
 end
 
@@ -440,6 +463,51 @@ function module:CreateUtilButton(
 	return btn
 end
 
+function module:CreateRoleIcons()
+	local RoleIcons = CreateFrame("Frame", "RaidManagerRoleIcons", RaidManagerFrame)
+	RoleIcons:Point("LEFT", RaidManagerFrame, "RIGHT", 3, 0)
+	RoleIcons:Size(36, RaidManagerFrame:GetHeight())
+	RoleIcons:CreateBackdrop("Transparent")
+	S:CreateShadowModule(RoleIcons.backdrop)
+
+	RoleIcons:RegisterEvent("PLAYER_ENTERING_WORLD")
+	RoleIcons:RegisterEvent("GROUP_ROSTER_UPDATE")
+	RoleIcons:SetScript("OnEvent", UpdateIcons)
+	RoleIcons.icons = {}
+
+	for i, role in ipairs(roles) do
+		local frame = CreateFrame("Frame", "$parent_" .. role, RoleIcons)
+		if i == 1 then
+			frame:Point("BOTTOM", 0, 10)
+		else
+			frame:Point("BOTTOM", _G["RaidManagerRoleIcons_" .. roles[i - 1]], "TOP", 0, 10)
+		end
+
+		frame:Size(36, 36)
+
+		local texture = frame:CreateTexture(nil, "OVERLAY")
+		texture:SetTexture(E.Media.Textures.RoleIcons) --(337499)
+		local texA, texB, texC, texD = GetTexCoordsForRole(role)
+		texture:SetTexCoord(texA, texB, texC, texD)
+
+		local texturePlace = 2
+		texture:Point("TOPLEFT", frame, "TOPLEFT", -texturePlace, texturePlace)
+		texture:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", texturePlace, -texturePlace)
+		frame.texture = texture
+
+		local Count = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		Count:Point("BOTTOMRIGHT", -2, 2)
+		Count:SetText(0)
+		frame.count = Count
+
+		frame.role = role
+		frame:SetScript("OnEnter", module.OnEnter_Role)
+		frame:SetScript("OnLeave", GameTooltip_Hide)
+
+		RoleIcons.icons[role] = frame
+	end
+end
+
 function module:Initialize()
 	local db = E.db.mui.raidmanager
 	if not db.enable then
@@ -508,6 +576,8 @@ function module:Initialize()
 	RaidManagerFrame.Close:SetScript("OnLeave", function()
 		RaidManagerFrame.Close.tex:SetVertexColor(1, 1, 1, 1)
 	end)
+
+	module:CreateRoleIcons()
 
 	if _G.CompactRaidFrameManager then
 		local WorldMarkButton = _G.CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton
@@ -680,52 +750,6 @@ function module:Initialize()
 	end)
 	RaidMarkFrame:SetClampedToScreen(true)
 	RaidMarkFrame:SetMovable(true)
-
-	--Role Icons
-	local RoleIcons = CreateFrame("Frame", "RaidManagerRoleIcons", RaidManagerFrame)
-	RoleIcons:Point("LEFT", RaidManagerFrame, "RIGHT", 3, 0)
-	RoleIcons:Size(36, RaidManagerFrame:GetHeight())
-	RoleIcons:CreateBackdrop("Transparent")
-	S:CreateShadowModule(RoleIcons.backdrop)
-
-	RoleIcons:RegisterEvent("PLAYER_ENTERING_WORLD")
-	RoleIcons:RegisterEvent("GROUP_ROSTER_UPDATE")
-	RoleIcons:SetScript("OnEvent", UpdateIcons)
-
-	RoleIcons.icons = {}
-
-	local roles = { "TANK", "HEALER", "DAMAGER" }
-	for i, role in ipairs(roles) do
-		local frame = CreateFrame("Frame", "$parent_" .. role, RoleIcons)
-		if i == 1 then
-			frame:Point("BOTTOM", 0, 10)
-		else
-			frame:Point("BOTTOM", _G["RaidManagerRoleIcons_" .. roles[i - 1]], "TOP", 0, 10)
-		end
-
-		frame:Size(36, 36)
-
-		local texture = frame:CreateTexture(nil, "OVERLAY")
-		texture:SetTexture(E.Media.Textures.RoleIcons) --(337499)
-		local texA, texB, texC, texD = GetTexCoordsForRole(role)
-		texture:SetTexCoord(texA, texB, texC, texD)
-
-		local texturePlace = 2
-		texture:Point("TOPLEFT", frame, "TOPLEFT", -texturePlace, texturePlace)
-		texture:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", texturePlace, -texturePlace)
-		frame.texture = texture
-
-		local Count = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-		Count:Point("BOTTOMRIGHT", -2, 2)
-		Count:SetText(0)
-		frame.count = Count
-
-		frame.role = role
-		frame:SetScript("OnEnter", onEnter)
-		frame:SetScript("OnLeave", GameTooltip_Hide)
-
-		RoleIcons.icons[role] = frame
-	end
 
 	local header = CreateFrame("Button", nil, E.UIParent)
 	header:Size(120, 28)
