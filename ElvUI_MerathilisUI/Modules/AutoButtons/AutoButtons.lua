@@ -937,6 +937,7 @@ local openableItems = {
 
 local mopRemix = {
 	211279,
+	219273,
 	223904,
 	223905,
 	223906,

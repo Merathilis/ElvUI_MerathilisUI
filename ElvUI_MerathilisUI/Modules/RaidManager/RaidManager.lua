@@ -107,7 +107,7 @@ function module:RoleIcons_SortNames(b) -- self is a
 end
 
 function module:RoleIcons_AddNames(tbl, name, unitClass)
-	local color = E:ClassColor(unitClass, true) or PRIEST_COLOR
+	local color = E:ClassColor(unitClass, true) or _G.PRIEST_COLOR
 	tinsert(tbl, format("|cff%02x%02x%02x%s", color.r * 255, color.g * 255, color.b * 255, gsub(name, "%-.+", "*")))
 end
 
