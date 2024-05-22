@@ -98,10 +98,6 @@ local function ToogleRaidMangerFrame()
 	end
 end
 
-local function sortColoredNames(a, b)
-	return a:sub(11) < b:sub(11)
-end
-
 function module:RoleIcons_SortNames(b) -- self is a
 	return strsub(self, 11) < strsub(b, 11)
 end
