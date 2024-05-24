@@ -1084,8 +1084,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = I.Fonts.GothamRaid
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 26
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["height"] = 18
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 20
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 13
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["font"] = I.Fonts.Primary
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["fontSize"] = 11
@@ -1097,7 +1096,6 @@ function MER:SetupNamePlates()
 		"Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 26
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["height"] = 18
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["spacing"] = 2
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 33
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = I.Fonts.GothamRaid

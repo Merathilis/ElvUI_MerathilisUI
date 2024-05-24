@@ -30,6 +30,12 @@ I.FontOrder = {
 	I.Fonts.RuneScape,
 }
 
+I.MaxLevelTable = {
+	["Vanilla"] = 60,
+	["Cata"] = 80,
+	["Mainline"] = 70,
+}
+
 I.MediaKeys = {
 	font = "Fonts",
 	texture = "Textures",

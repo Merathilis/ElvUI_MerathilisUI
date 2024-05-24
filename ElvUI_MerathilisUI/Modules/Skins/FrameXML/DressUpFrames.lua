@@ -52,6 +52,7 @@ function module:DressUpFrame()
 
 	module:CreateShadow(_G.DressUpFrame)
 	module:CreateShadow(_G.DressUpFrame.OutfitDetailsPanel)
+	module:CreateShadow(_G.DressUpFrame.SetSelectionPanel)
 	-- Wardrobe edit frame
 	module:CreateBackdropShadow(_G.WardrobeOutfitFrame)
 

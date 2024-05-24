@@ -9,7 +9,7 @@ function module:Blizzard_ScrappingMachineUI()
 	end
 
 	local MachineFrame = _G.ScrappingMachineFrame
-	module:CreateBackdropShadow(MachineFrame)
+	module:CreateShadow(MachineFrame)
 end
 
 module:AddCallbackForAddon("Blizzard_ScrappingMachineUI")
