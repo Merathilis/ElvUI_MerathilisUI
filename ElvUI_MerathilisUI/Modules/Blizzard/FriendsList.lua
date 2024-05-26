@@ -356,7 +356,7 @@ function module:UpdateFriendButton(button)
 		local classColor = module.db.useClassColor and GetClassColor(class)
 		local nameString = name and classColor and F.CreateColorString(name, classColor) or name
 		if timerunningSeasonID then
-			nameString = TimerunningUtil_AddSmallIcon(nameString) or nameString -- add timerunning tag
+			nameString = TimerunningUtil_AddSmallIcon(nameString) -- add timerunning tag
 		end
 
 		if module.db.level and wowID and expansionData[wowID] and level and level ~= 0 then
