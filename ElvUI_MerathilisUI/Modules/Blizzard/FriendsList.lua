@@ -310,7 +310,7 @@ function module:UpdateFriendButton(button)
 				area = gameAccountInfo.areaName or ""
 				isInCurrentRegion = gameAccountInfo.isInCurrentRegion or false
 				regionID = gameAccountInfo.regionID or false
-				timerunningSeasonID = gameAccountInfo.timerunningSeasonID or ""
+				timerunningSeasonID = gameAccountInfo.timerunningSeasonID
 
 				if wowID and wowID ~= 1 and expansionData[wowID] then
 					local suffix = expansionData[wowID].suffix and " (" .. expansionData[wowID].suffix .. ")" or ""
