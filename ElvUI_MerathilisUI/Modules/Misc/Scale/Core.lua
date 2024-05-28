@@ -21,7 +21,7 @@ function module:ScaleCollections()
 	module:SetElementScale("wardrobe", "WardrobeFrame")
 end
 
--- Credits to https://www.curseforge.com/wow/addons/kayrwidertransmogui
+-- Credits to Kayr
 function module:AdjustTransmogFrame()
 	if not E.db.mui.scale.transmog.enable then
 		return
@@ -30,40 +30,41 @@ function module:AdjustTransmogFrame()
 	local wardrobeFrame = _G["WardrobeFrame"]
 	local transmogFrame = _G["WardrobeTransmogFrame"]
 
-	local initialParentFrameWidth = wardrobeFrame:GetWidth() -- Expecting 965
-	local desiredParentFrameWidth = 1200
-	local parentFrameWidthIncrease = desiredParentFrameWidth - initialParentFrameWidth
-	wardrobeFrame:SetWidth(desiredParentFrameWidth)
+	local width = 1200
+	local initialWidth = wardrobeFrame:GetWidth()
+	local updatedWidth = width - initialWidth
+	wardrobeFrame:SetWidth(width)
 
-	local initialTransmogFrameWidth = transmogFrame:GetWidth()
-	local desiredTransmogFrameWidth = initialTransmogFrameWidth + parentFrameWidthIncrease
-	transmogFrame:SetWidth(desiredTransmogFrameWidth)
+	local initialTransmogWidth = transmogFrame:GetWidth()
+	local updatedTransmogWidth = initialTransmogWidth + updatedWidth
+	transmogFrame:SetWidth(updatedTransmogWidth)
 
 	-- Calculate inset width only once
 	local modelScene = transmogFrame.ModelScene
-	local insetWidth = Round(initialTransmogFrameWidth - modelScene:GetWidth(), 0)
+	local insetWidth = E:Round(initialTransmogWidth - modelScene:GetWidth(), 0)
 	transmogFrame.Inset.BG:SetWidth(transmogFrame.Inset.BG:GetWidth() - insetWidth)
 	modelScene:SetWidth(transmogFrame:GetWidth() - insetWidth)
+	modelScene:SetScript("OnShow", function()
+		E:Delay(0.01, function()
+			modelScene.activeCamera.maxZoomDistance = 6
+		end)
+	end)
 
 	-- Move Slots
 	transmogFrame.HeadButton:SetPoint("TOPLEFT", 20, -60)
 	transmogFrame.HandsButton:SetPoint("TOPRIGHT", -20, -60)
-	transmogFrame.MainHandButton:SetPoint("BOTTOM", -26, 23)
-	transmogFrame.MainHandEnchantButton:SetPoint("CENTER", -26, -230)
-	transmogFrame.SecondaryHandButton:SetPoint("BOTTOM", 27, 23)
-	transmogFrame.SecondaryHandEnchantButton:SetPoint("CENTER", 27, -230)
 
-	-- Move Separate Shoulder checkbox
-	transmogFrame.ToggleSecondaryAppearanceCheckbox:SetPoint("BOTTOMLEFT", transmogFrame, "BOTTOMLEFT", 580, 15)
+	local mainHand = transmogFrame.MainHandButton
+	local mainHandEnch = transmogFrame.MainHandEnchantButton
+	local offHand = transmogFrame.SecondaryHandButton
+	local offHandEnch = transmogFrame.SecondaryHandEnchantButton
 
-	-- Ease constraints on zooming out
-	local function ExtendZoomDistance()
-		modelScene.activeCamera.maxZoomDistance = 6
-	end
+	mainHand:SetPoint("BOTTOM", -30, 25)
+	mainHandEnch:SetPoint("CENTER", mainHand, "BOTTOM", 0, -5)
+	offHand:SetPoint("BOTTOM", 30, 25)
+	offHandEnch:SetPoint("CENTER", offHand, "BOTTOM", 0, -5)
 
-	modelScene:SetScript("OnShow", function()
-		C_Timer_After(0.01, ExtendZoomDistance)
-	end)
+	transmogFrame.ToggleSecondaryAppearanceCheckbox:SetPoint("BOTTOMLEFT", transmogFrame, "BOTTOMRIGHT", 20, 20)
 end
 
 function module:ScaleInspectUI()

@@ -98,7 +98,7 @@ module.characterSlots = {
 	},
 	["WaistSlot"] = {
 		id = 6,
-		needsEnchant = false,
+		needsEnchant = true,
 		needsSocket = false,
 		direction = module.enumDirection.RIGHT,
 	},
