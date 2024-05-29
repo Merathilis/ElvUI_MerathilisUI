@@ -69,7 +69,8 @@ local C_ChatInfo_IsChatLineCensored = C_ChatInfo.IsChatLineCensored
 local C_Club_GetClubInfo = C_Club.GetClubInfo
 local C_Club_GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityChatLine
 local C_PartyInfo_InviteUnit = C_PartyInfo and C_PartyInfo.InviteUnit
-local C_Texture_GetTitleIconTexture = C_Texture and C_Texture.GetTitleIconTexture
+local GetTitleIconTexture = C_Texture and C_Texture.GetTitleIconTexture
+local GetClientTexture = _G.BNet_GetClientEmbeddedAtlas or _G.BNet_GetClientEmbeddedTexture
 local C_Timer_After = C_Timer.After
 
 local CHATCHANNELRULESET_MENTOR = Enum.ChatChannelRuleset.Mentor
@@ -590,38 +591,6 @@ CH:AddPluginIcons(function(sender)
 		return authorIcons[sender]
 	end
 end)
-
--- From ElvUI Chat
-local function GetPFlag(specialFlag, zoneChannelID, localChannelID)
-	if specialFlag ~= "" then
-		if specialFlag == "GM" or specialFlag == "DEV" then
-			-- Add Blizzard Icon if this was sent by a GM/DEV
-			return [[|TInterface\ChatFrame\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t ]]
-		elseif specialFlag == "GUIDE" and E.Retail then
-			if
-				_G.ChatFrame_GetMentorChannelStatus(
-					CHATCHANNELRULESET_MENTOR,
-					C_ChatInfo_GetChannelRulesetForChannelID(zoneChannelID)
-				) == CHATCHANNELRULESET_MENTOR
-			then
-				return NPEV2_CHAT_USER_TAG_GUIDE
-			end
-		elseif specialFlag == "NEWCOMER" and E.Retail then
-			if
-				_G.ChatFrame_GetMentorChannelStatus(
-					PLAYERMENTORSHIPSTATUS_NEWCOMER,
-					C_ChatInfo_GetChannelRulesetForChannelID(zoneChannelID)
-				) == PLAYERMENTORSHIPSTATUS_NEWCOMER
-			then
-				return _G.NPEV2_CHAT_USER_TAG_NEWCOMER
-			end
-		else
-			return _G["CHAT_FLAG_" .. specialFlag]
-		end
-	end
-
-	return ""
-end
 
 -- From ElvUI Chat
 local function FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
@@ -1482,52 +1451,62 @@ function CT:ChatFrame_MessageEventHandler(
 			elseif arg1 == "FRIEND_REMOVED" or arg1 == "BATTLETAG_FRIEND_REMOVED" then
 				message = format(globalstring, arg2)
 			elseif arg1 == "FRIEND_ONLINE" or arg1 == "FRIEND_OFFLINE" then
-				local _, _, battleTag, _, characterName, _, clientProgram = CH.BNGetFriendInfoByID(arg13)
+				local accountInfo = C_BattleNet_GetAccountInfoByID(arg13)
+				local gameInfo = accountInfo.gameAccountInfo
 
-				if clientProgram and clientProgram ~= "" then
-					C_Texture_GetTitleIconTexture(clientProgram, TitleIconVersion_Small, function(success, texture)
-						if success then
-							local charName = _G.BNet_GetValidatedCharacterNameWithClientEmbeddedTexture(
-								characterName,
-								battleTag,
-								texture,
-								32,
-								32,
-								10
-							)
-							local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, charName)
-							local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-							frame:AddMessage(
-								format(globalstring, playerLink),
-								info.r,
-								info.g,
-								info.b,
-								info.id,
-								nil,
-								nil,
-								nil,
-								nil,
-								nil,
-								isHistory,
-								historyTime
-							)
+				if gameInfo.clientProgram and gameInfo.clientProgram ~= "" then
+					if GetTitleIconTexture then
+						GetTitleIconTexture(gameInfo.clientProgram, TitleIconVersion_Small, function(success, texture)
+							if success then
+								local charName = _G.BNet_GetValidatedCharacterNameWithClientEmbeddedTexture(
+									gameInfo.characterName,
+									gameInfo.battleTag,
+									texture,
+									32,
+									32,
+									10
+								)
+								local linkDisplayText = format(noBrackets and "%s (%s)" or "[%s] (%s)", arg2, charName)
+								local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
+								frame:AddMessage(
+									format(globalstring, playerLink),
+									info.r,
+									info.g,
+									info.b,
+									info.id,
+									nil,
+									nil,
+									nil,
+									nil,
+									nil,
+									isHistory,
+									historyTime
+								)
 
-							if notChatHistory then
-								FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
+								if notChatHistory then
+									FlashTabIfNotShown(frame, info, chatType, chatGroup, chatTarget)
+								end
 							end
-						end
-					end)
+						end)
 
-					return
+						return
+					else
+						local clientTexture = GetClientTexture(gameInfo.clientProgram, 14)
+						local charName = _G.BNet_GetValidatedCharacterName(
+							gameInfo.characterName,
+							accountInfo.battleTag,
+							gameInfo.clientProgram
+						) or ""
+						local linkDisplayText =
+							format(noBrackets and "%s (%s%s)" or "[%s] (%s%s)", arg2, clientTexture, charName)
+						local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
+						message = format(globalstring, playerLink)
+					end
 				else
 					local linkDisplayText = format(noBrackets and "%s" or "[%s]", arg2)
 					local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
 					message = format(globalstring, playerLink)
 				end
-			else
-				local linkDisplayText = format(noBrackets and "%s" or "[%s]", arg2)
-				local playerLink = GetBNPlayerLink(arg2, linkDisplayText, arg13, arg11, chatGroup, 0)
-				message = format(globalstring, playerLink)
 			end
 
 			frame:AddMessage(message, info.r, info.g, info.b, info.id, nil, nil, nil, nil, nil, isHistory, historyTime)
@@ -1842,7 +1821,7 @@ function CT:MessageFormatter(
 	end
 
 	-- Player Flags
-	local pflag = GetPFlag(arg6, arg7, arg8)
+	local pflag = CH:GetPFlag(arg6, arg7, arg12)
 	if not bossMonster then
 		local chatIcon, pluginChatIcon =
 			specialChatIcons[arg12] or specialChatIcons[playerName], CH:GetPluginIcon(arg12, playerName)
@@ -2340,7 +2319,7 @@ end
 
 function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture, noRetry)
 	if not appTexture and not noRetry then
-		C_Texture_GetTitleIconTexture("App", TitleIconVersion_Small, function(success, texture)
+		GetTitleIconTexture("App", TitleIconVersion_Small, function(success, texture)
 			if success then
 				self:BN_FRIEND_INFO_CHANGED(_, friendIndex, texture, true)
 			end
