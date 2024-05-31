@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[616] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "31.05.2024",
 	FIXES = {
 		"[FriendsList]: Added Timerunner Icon on the Characters",
 		"[Armory]: Don't show enchants on MoP Remix Characters",
