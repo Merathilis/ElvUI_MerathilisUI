@@ -11,6 +11,7 @@ local BNConnected = BNConnected
 local BNet_GetClientAtlas = BNet_GetClientAtlas
 local FriendsFrame_Update = FriendsFrame_Update
 local GetQuestDifficultyColor = GetQuestDifficultyColor
+local TimerunningUtil_AddSmallIcon = TimerunningUtil.AddSmallIcon
 
 local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
 local C_ClassColor_GetClassColor = C_ClassColor.GetClassColor
@@ -251,7 +252,7 @@ function module:UpdateFriendButton(button)
 		return
 	end
 
-	local gameName, realID, name, server, class, area, level, note, faction, status, isInCurrentRegion, regionID, wowID
+	local gameName, realID, name, server, class, area, level, note, faction, status, isInCurrentRegion, regionID, wowID, timerunningSeasonID
 
 	if button.buttonType == FRIENDS_BUTTON_TYPE_WOW then
 		-- WoW friends
@@ -309,6 +310,7 @@ function module:UpdateFriendButton(button)
 				area = gameAccountInfo.areaName or ""
 				isInCurrentRegion = gameAccountInfo.isInCurrentRegion or false
 				regionID = gameAccountInfo.regionID or false
+				timerunningSeasonID = gameAccountInfo.timerunningSeasonID or ""
 
 				if wowID and wowID ~= 1 and expansionData[wowID] then
 					local suffix = expansionData[wowID].suffix and " (" .. expansionData[wowID].suffix .. ")" or ""
@@ -353,6 +355,9 @@ function module:UpdateFriendButton(button)
 		-- name
 		local classColor = module.db.useClassColor and GetClassColor(class)
 		local nameString = name and classColor and F.CreateColorString(name, classColor) or name
+		if timerunningSeasonID ~= "" and nameString ~= nil then
+			nameString = TimerunningUtil_AddSmallIcon(nameString) or nameString
+		end
 
 		if module.db.level and wowID and expansionData[wowID] and level and level ~= 0 then
 			if level ~= expansionData[wowID].maxLevel or not module.db.hideMaxLevel then

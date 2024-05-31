@@ -1809,4 +1809,12 @@ P.scale = {
 	spellbook = {
 		scale = 1,
 	},
+
+	auctionHouse = {
+		scale = 1,
+	},
+
+	transmog = {
+		enable = false,
+	},
 }

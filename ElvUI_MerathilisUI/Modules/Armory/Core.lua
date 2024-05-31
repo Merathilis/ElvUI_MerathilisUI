@@ -98,7 +98,7 @@ module.characterSlots = {
 	},
 	["WaistSlot"] = {
 		id = 6,
-		needsEnchant = false,
+		needsEnchant = true,
 		needsSocket = false,
 		direction = module.enumDirection.RIGHT,
 	},
@@ -659,7 +659,7 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 					)
 				end
 			end
-		elseif module.db.pageInfo.missingEnchantText and slotOptions.needsEnchant then
+		elseif module.db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
 			if not slotOptions.warningCondition or (module:CheckMessageCondition(slotOptions)) then
 				slotItem.enchantText:SetText(F.String.Error("Missing"))
 			else

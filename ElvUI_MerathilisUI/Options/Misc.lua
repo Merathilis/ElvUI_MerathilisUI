@@ -406,6 +406,38 @@ options.scale = {
 					max = 2,
 					step = 0.05,
 				},
+				auctionHouse = {
+					order = 4,
+					type = "range",
+					name = L["Auction House"],
+					get = function(_)
+						return E.db.mui.scale.auctionHouse.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.auctionHouse.scale = value
+						MI:Scale()
+					end,
+					min = 0.5,
+					max = 2,
+					step = 0.05,
+				},
+				transmog = {
+					order = 5,
+					type = "toggle",
+					name = L["Transmog Frame"],
+					desc = L["Makes the transmogrification frame bigger. Credits to Kayr for code."],
+					get = function(_)
+						return E.db.mui.scale.transmog.enable
+					end,
+					set = function(_, value)
+						E.db.mui.scale.transmog.enable = value
+						if value then
+							MI:Scale()
+						else
+							E:StaticPopup_Show("CONFIG_RL")
+						end
+					end,
+				},
 			},
 		},
 	},
