@@ -6,11 +6,13 @@ local LSM = E.Libs.LSM
 local _G = _G
 
 local format = format
+local gmatch = gmatch
 local gsub = gsub
 local ipairs = ipairs
 local next = next
 local pairs = pairs
 local select = select
+local sort = sort
 local strfind = strfind
 local strjoin = strjoin
 local strlen = strlen
@@ -22,6 +24,7 @@ local strupper = strupper
 local time = time
 local tinsert = tinsert
 local tonumber = tonumber
+local tremove = tremove
 local type = type
 local unpack = unpack
 local utf8sub = string.utf8sub
@@ -62,7 +65,6 @@ local C_BattleNet_GetFriendAccountInfo = C_BattleNet and C_BattleNet.GetFriendAc
 local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet and C_BattleNet.GetFriendGameAccountInfo
 local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet and C_BattleNet.GetFriendNumGameAccounts
 local C_ChatInfo_GetChannelRuleset = C_ChatInfo.GetChannelRuleset
-local C_ChatInfo_GetChannelRulesetForChannelID = C_ChatInfo.GetChannelRulesetForChannelID
 local C_ChatInfo_GetChannelShortcutForChannelID = C_ChatInfo.GetChannelShortcutForChannelID
 local C_ChatInfo_IsChannelRegionalForChannelID = C_ChatInfo.IsChannelRegionalForChannelID
 local C_ChatInfo_IsChatLineCensored = C_ChatInfo.IsChatLineCensored
@@ -74,11 +76,9 @@ local GetClientTexture = _G.BNet_GetClientEmbeddedAtlas or _G.BNet_GetClientEmbe
 local C_Timer_After = C_Timer.After
 
 local CHATCHANNELRULESET_MENTOR = Enum.ChatChannelRuleset.Mentor
-local NPEV2_CHAT_USER_TAG_GUIDE = gsub(NPEV2_CHAT_USER_TAG_GUIDE, "(|A.-|a).+", "%1")
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 local PLAYER_REALM = E:ShortenRealm(E.myrealm)
 local PLAYER_NAME = format("%s-%s", E.myname, PLAYER_REALM)
-local PLAYERMENTORSHIPSTATUS_NEWCOMER = Enum.PlayerMentorshipStatus and Enum.PlayerMentorshipStatus.Newcomer
 local TitleIconVersion_Small = Enum.TitleIconVersion and Enum.TitleIconVersion.Small
 local WOW_PROJECT_MAINLINE = WOW_PROJECT_MAINLINE
 
@@ -634,7 +634,7 @@ local function ChatFrame_CheckAddChannel(chatFrame, eventType, channelID)
 	return _G.ChatFrame_AddChannel(chatFrame, C_ChatInfo_GetChannelShortcutForChannelID(channelID)) ~= nil
 end
 
-local function updateGuildPlayerCache(self, event)
+local function updateGuildPlayerCache(_, event)
 	if not (event == "PLAYER_ENTERING_WORLD" or event == "FORCE_UPDATE") then
 		return
 	end
