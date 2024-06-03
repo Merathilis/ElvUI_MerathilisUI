@@ -646,17 +646,16 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 		if slotInfo.enchantColors and next(slotInfo.enchantColors) then
 			if slotInfo.enchantText and (slotInfo.enchantText ~= "") then
 				local text = slotInfo.enchantTextShort
+				-- Strip color
+				text = F.String.StripColor(text)
 				if module.db.pageInfo.abbreviateEnchantText then
 					text = module:EnchantAbbreviate(slotInfo.enchantText)
 				end
-				if slotOptions.direction == module.enumDirection.LEFT then
-					slotItem.enchantText:SetText(
-						F.String.FastGradientHex(text, module.colors.DARK_GREEN, module.colors.LIGHT_GREEN)
-					)
-				elseif slotOptions.direction == module.enumDirection.RIGHT then
-					slotItem.enchantText:SetText(
-						F.String.FastGradientHex(text, module.colors.LIGHT_GREEN, module.colors.DARK_GREEN)
-					)
+
+				if module.db.pageInfo.useEnchantClassColor then
+					slotItem.enchantText:SetText(F.String.Class(text))
+				else
+					slotItem.enchantText:SetText(text)
 				end
 			end
 		elseif module.db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
