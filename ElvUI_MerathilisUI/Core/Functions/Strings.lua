@@ -205,6 +205,7 @@ function F.String.StripColor(text)
 	if type(text) ~= "string" then
 		return text
 	end
+
 	-- Remove |c...|r format
 	text = text:gsub("|c%x%x%x%x%x%x%x%x(.-)|r", "%1")
 	-- Remove |cn...: format
