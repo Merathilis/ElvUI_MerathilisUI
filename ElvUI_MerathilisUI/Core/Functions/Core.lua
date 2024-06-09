@@ -722,7 +722,7 @@ local function MovableButton_Match(s, v)
 	return (match(s, m1) and m1) or (match(s, m2) and m2) or (match(s, m3) and m3) or (match(s, m4) and v .. ",")
 end
 
-function F.MovableButtonSettings(db, key, value, remove, movehere)
+function F:MovableButtonSettings(db, key, value, remove, movehere)
 	local str = db[key]
 	if not db or not str or not value then
 		return
@@ -752,7 +752,7 @@ function F.MovableButtonSettings(db, key, value, remove, movehere)
 	end
 end
 
-function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
+function F:CreateMovableButtons(Order, Name, CanRemove, db, key)
 	local moveItemFrom, moveItemTo
 
 	local config = {
@@ -768,7 +768,7 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 			moveItemFrom, moveItemTo = info.obj.value, nil
 		end,
 		dragOnMouseUp = function(info)
-			F.MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
+			F:MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
 			moveItemFrom, moveItemTo = nil, nil
 		end,
 		stateSwitchGetText = function(info, TEXT)
@@ -777,7 +777,7 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 			return text
 		end,
 		stateSwitchOnClick = function(info)
-			F.MovableButtonSettings(db, key, moveItemFrom)
+			F:MovableButtonSettings(db, key, moveItemFrom)
 		end,
 		values = function()
 			local str = db[key]
@@ -799,7 +799,7 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 
 	if CanRemove then --This allows to remove
 		config.dragOnClick = function(info)
-			F.MovableButtonSettings(db, key, moveItemFrom, true)
+			F:MovableButtonSettings(db, key, moveItemFrom, true)
 		end
 	end
 
