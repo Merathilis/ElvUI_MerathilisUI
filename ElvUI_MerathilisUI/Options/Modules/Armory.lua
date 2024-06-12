@@ -8,7 +8,7 @@ local _G = _G
 
 options.armory = {
 	type = "group",
-	name = E.NewSign .. L["Armory"],
+	name = L["Armory"],
 	childGroups = "tab",
 	get = function(info)
 		return E.db.mui.armory[info[#info]]
@@ -401,6 +401,45 @@ options.armory = {
 					order = 5,
 					type = "range",
 					name = L["End Alpha"],
+					min = 0,
+					max = 1,
+					step = 0.01,
+					isPercent = true,
+				},
+			},
+		},
+		lineGroup = {
+			order = 14,
+			type = "group",
+			name = L["Decorative Lines"],
+			get = function(info)
+				return E.db.mui.armory.lines[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.armory.lines[info[#info]] = value
+				module:UpdateLines()
+			end,
+			disabled = function()
+				return not E.db.mui.armory.enable
+			end,
+			hidden = function()
+				return not E.db.general.itemLevel.displayCharacterInfo
+			end,
+			args = {
+				desc = {
+					order = 0,
+					type = "description",
+					name = L["Settings for the custom " .. MER.Title .. " Armory decorative lines.\n\n"],
+				},
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				alpha = {
+					order = 3,
+					type = "range",
+					name = L["Alpha"],
 					min = 0,
 					max = 1,
 					step = 0.01,

@@ -796,6 +796,104 @@ function module:CheckOptions(which)
 	return true
 end
 
+function module:UpdateLines()
+	if module.db.lines.enable then
+		local classColor = E:ClassColor(E.myclass, true)
+		local r, g, b = classColor.r, classColor.g, classColor.b
+		local alpha = module.db.lines.alpha
+
+		module.frame.topLine.Texture:SetColorTexture(r, g, b, alpha)
+		module.frame.bottomLine.Texture:SetColorTexture(r, g, b, alpha)
+	else
+		module.frame.topLine.Texture:SetColorTexture(0, 0, 0, 0)
+		module.frame.bottomLine.Texture:SetColorTexture(0, 0, 0, 0)
+	end
+end
+
+function module:KillBlizzard()
+	local killList = { "CharacterModelFrameBackgroundOverlay" }
+	for _, frame in ipairs(killList) do
+		if _G[frame] then
+			_G[frame]:Kill()
+		end
+	end
+
+	if module.frameModel.backdrop then
+		module.frameModel.backdrop:Kill()
+	end
+
+	for _, corner in pairs({ "TopLeft", "TopRight", "BotLeft", "BotRight" }) do
+		local bg = _G["CharacterModelFrameBackground" .. corner]
+		if bg then
+			bg:Kill()
+		end
+	end
+
+	module.frameModel:DisableDrawLayer("BACKGROUND")
+	module.frameModel:DisableDrawLayer("BORDER")
+	module.frameModel:DisableDrawLayer("OVERLAY")
+end
+
+function module:UpdateCharacterArmory()
+	if not module.db or not module.db.enable then
+		return
+	end
+
+	module:KillBlizzard()
+	-- module:UpdateBackground()
+	module:UpdateLines()
+	module:UpdatePageInfo()
+
+	M:UpdateCharacterInfo()
+end
+
+function module:CreateElements()
+	if module.frame then
+		return
+	end
+
+	-- Vars
+	module.frame = _G.CharacterFrame
+	module.frameModel = _G.CharacterModelScene
+	module.frameName = module.frame:GetName()
+
+	module.frameHolder = CreateFrame("FRAME", nil, module.frameModel)
+
+	local frameHeight, frameWidth = module.frame:GetSize()
+	local cutOffPercentage = (1 - (frameHeight / frameWidth))
+
+	local background = CreateFrame("Frame", nil, module.frameHolder)
+	background:SetInside(module.frame)
+	background:SetFrameLevel(module.frameModel:GetFrameLevel() - 1)
+	background.Texture = background:CreateTexture(nil, "BACKGROUND")
+	background.Texture:SetInside()
+	background.Texture:SetTexCoord(0, 1, cutOffPercentage, 1)
+
+	module.frame.MERBackground = background
+
+	local lineHeight = 1
+	local topLine = CreateFrame("Frame", nil, module.frameHolder)
+	local bottomLine = CreateFrame("Frame", nil, module.frameHolder)
+	local classColor = E:ClassColor(E.myclass, true)
+	local r, g, b = classColor.r, classColor.g, classColor.b
+
+	topLine:SetHeight(lineHeight)
+	bottomLine:SetHeight(lineHeight)
+	topLine:SetPoint("TOPLEFT", module.frame.MERBackground, "TOPLEFT", 0, 0)
+	topLine:SetPoint("TOPRIGHT", module.frame.MERBackground, "TOPRIGHT", 0, 0)
+	bottomLine:SetPoint("BOTTOMLEFT", module.frame.MERBackground, "BOTTOMLEFT", 0, 1)
+	bottomLine:SetPoint("BOTTOMRIGHT", module.frame.MERBackground, "BOTTOMRIGHT", 0, 1)
+	topLine.Texture = topLine:CreateTexture(nil, "BACKGROUND")
+	bottomLine.Texture = bottomLine:CreateTexture(nil, "BACKGROUND")
+	topLine.Texture:SetAllPoints()
+	topLine.Texture:SetColorTexture(r, g, b, 1)
+	bottomLine.Texture:SetAllPoints()
+	bottomLine.Texture:SetColorTexture(r, g, b, 1)
+
+	module.frame.topLine = topLine
+	module.frame.bottomLine = bottomLine
+end
+
 function module:Initialize()
 	module.db = E.db.mui.armory
 
@@ -808,20 +906,18 @@ function module:Initialize()
 		return
 	end
 
-	-- Vars
-	module.frame = _G.CharacterFrame
-	module.frameModel = _G.CharacterModelScene
-	module.frameName = self.frame:GetName()
-
+	module:CreateElements()
 	module:SkinCharacterFrame()
 
 	hooksecurefunc(M, "UpdateCharacterInfo", module.UpdateItemLevel)
 	hooksecurefunc(M, "UpdateAverageString", module.UpdateItemLevel)
 	hooksecurefunc(M, "UpdatePageInfo", module.UpdatePageInfo)
 	hooksecurefunc(M, "CreateSlotStrings", module.UpdatePageInfo)
-	hooksecurefunc(M, "UpdatePageStrings", module.UpdatePageStrings) --should be ok to call
+	hooksecurefunc(M, "UpdatePageStrings", module.UpdatePageStrings)
 
 	module:RegisterEvent("PLAYER_AVG_ITEM_LEVEL_UPDATE", module.HandleEvent)
+
+	module:UpdateCharacterArmory()
 
 	module.initialized = true
 end

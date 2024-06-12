@@ -613,6 +613,10 @@ P.nameHover = {
 
 P.armory = {
 	enable = true,
+	lines = {
+		enable = false,
+		alpha = 0.6,
+	},
 	stats = {
 		showAvgItemLevel = false,
 		itemLevelFormat = "%.2f",
