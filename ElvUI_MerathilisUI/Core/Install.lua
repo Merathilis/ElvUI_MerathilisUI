@@ -1500,7 +1500,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["target"]["power"]["powerPrediction"] = true
 	E.db["unitframe"]["units"]["target"]["power"]["detachFromFrame"] = false
-	E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = false
+	E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = true
 	E.db["unitframe"]["units"]["target"]["power"]["height"] = 6
 	E.db["unitframe"]["units"]["target"]["power"]["text_format"] = ""
 	if not E.db["unitframe"]["units"]["target"]["customTexts"] then
@@ -1705,6 +1705,9 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["yOffset"] = -1
 	E.db["unitframe"]["units"]["raid1"]["power"]["enable"] = true
 	E.db["unitframe"]["units"]["raid1"]["power"]["height"] = 4
+	E.db["unitframe"]["units"]["raid1"]["power"]["hideonnpc"] = true
+	E.db["unitframe"]["units"]["raid1"]["power"]["powerPrediction"] = true
+	E.db["unitframe"]["units"]["raid1"]["power"]["onlyHealer"] = true
 	E.db["unitframe"]["units"]["raid1"]["groupBy"] = "ROLE"
 	E.db["unitframe"]["units"]["raid1"]["health"]["frequentUpdates"] = true
 	E.db["unitframe"]["units"]["raid1"]["health"]["position"] = "BOTTOM"
@@ -1824,6 +1827,9 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["yOffset"] = -1
 	E.db["unitframe"]["units"]["raid2"]["power"]["enable"] = true
 	E.db["unitframe"]["units"]["raid2"]["power"]["height"] = 4
+	E.db["unitframe"]["units"]["raid2"]["power"]["hideonnpc"] = true
+	E.db["unitframe"]["units"]["raid2"]["power"]["powerPrediction"] = true
+	E.db["unitframe"]["units"]["raid2"]["power"]["onlyHealer"] = true
 	E.db["unitframe"]["units"]["raid2"]["groupBy"] = "ROLE"
 	E.db["unitframe"]["units"]["raid2"]["health"]["frequentUpdates"] = true
 	E.db["unitframe"]["units"]["raid2"]["health"]["position"] = "BOTTOM"
@@ -1943,6 +1949,9 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["yOffset"] = -1
 	E.db["unitframe"]["units"]["raid3"]["power"]["enable"] = true
 	E.db["unitframe"]["units"]["raid3"]["power"]["height"] = 4
+	E.db["unitframe"]["units"]["raid3"]["power"]["hideonnpc"] = true
+	E.db["unitframe"]["units"]["raid3"]["power"]["powerPrediction"] = true
+	E.db["unitframe"]["units"]["raid3"]["power"]["onlyHealer"] = true
 	E.db["unitframe"]["units"]["raid3"]["groupBy"] = "ROLE"
 	E.db["unitframe"]["units"]["raid3"]["health"]["frequentUpdates"] = true
 	E.db["unitframe"]["units"]["raid3"]["health"]["position"] = "BOTTOM"
@@ -2068,6 +2077,9 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
 	E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
 	E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
+	E.db["unitframe"]["units"]["party"]["power"]["hideonnpc"] = true
+	E.db["unitframe"]["units"]["party"]["power"]["powerPrediction"] = true
+	E.db["unitframe"]["units"]["party"]["power"]["onlyHealer"] = true
 
 	if layout == "gradient" then
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "USE_DEFAULT"
@@ -2272,6 +2284,9 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["power"]["height"] = 9
 	E.db["unitframe"]["units"]["boss"]["power"]["position"] = "CENTER"
 	E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = "[power:current:shortvalue]"
+	E.db["unitframe"]["units"]["boss"]["power"]["hideonnpc"] = true
+	E.db["unitframe"]["units"]["boss"]["power"]["powerPrediction"] = true
+	E.db["unitframe"]["units"]["boss"]["power"]["onlyHealer"] = true
 	E.db["unitframe"]["units"]["boss"]["growthDirection"] = "DOWN"
 	E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
