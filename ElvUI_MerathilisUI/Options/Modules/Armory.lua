@@ -445,6 +445,23 @@ options.armory = {
 					step = 0.01,
 					isPercent = true,
 				},
+				height = {
+					order = 4,
+					type = "range",
+					name = L["Height"],
+					min = 1,
+					max = 5,
+					step = 1,
+				},
+				color = {
+					order = 5,
+					type = "select",
+					name = L["Color"],
+					values = {
+						CLASS = F.String.Class("Class"),
+						GRADIENT = F.String.GradientClass("Gradient Class"),
+					},
+				},
 			},
 		},
 	},

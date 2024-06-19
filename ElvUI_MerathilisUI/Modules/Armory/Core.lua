@@ -796,18 +796,69 @@ function module:CheckOptions(which)
 	return true
 end
 
-function module:UpdateLines()
+function module:UpdateLineColors()
+	local orientation = "HORIZONTAL"
+	local white = CreateColor(1, 1, 1, 1)
+
+	local top = module.frame.topLine.Texture
+	local bottom = module.frame.bottomLine.Texture
+
+	-- Reset gradient
+	top:SetGradient(orientation, white, white)
+	bottom:SetGradient(orientation, white, white)
+
 	if module.db.lines.enable then
-		local classColor = E:ClassColor(E.myclass, true)
-		local r, g, b = classColor.r, classColor.g, classColor.b
 		local alpha = module.db.lines.alpha
 
-		module.frame.topLine.Texture:SetColorTexture(r, g, b, alpha)
-		module.frame.bottomLine.Texture:SetColorTexture(r, g, b, alpha)
+		top:SetColorTexture(1, 1, 1, alpha)
+		bottom:SetColorTexture(1, 1, 1, alpha)
+
+		if module.db.lines.color == "CLASS" then
+			local classColor = E:ClassColor(E.myclass, true)
+			local r, g, b = classColor.r, classColor.g, classColor.b
+
+			top:SetColorTexture(r, g, b, alpha)
+			bottom:SetColorTexture(r, g, b, alpha)
+		end
+
+		if module.db.lines.color == "GRADIENT" then
+			if E.db.mui.themes.classColorMap then
+				local colorMap = E.db.mui.themes.classColorMap
+
+				local left = colorMap[1][E.myclass] -- Left (player UF)
+				local right = colorMap[2][E.myclass] -- Right (player UF)
+
+				if left and left.r and right and right.r then
+					top:SetGradient(
+						orientation,
+						{ r = left.r, g = left.g, b = left.b, a = alpha },
+						{ r = right.r, g = right.g, b = right.b, a = alpha }
+					)
+					bottom:SetGradient(
+						orientation,
+						{ r = left.r, g = left.g, b = left.b, a = alpha },
+						{ r = right.r, g = right.g, b = right.b, a = alpha }
+					)
+				else
+					F.DebugPrint("Armory Lines >> Left or Right gradient not found", "error")
+				end
+			else
+				F.DebugPrint("Armory Lines >> Gradient color map not found", "error")
+			end
+		end
 	else
-		module.frame.topLine.Texture:SetColorTexture(0, 0, 0, 0)
-		module.frame.bottomLine.Texture:SetColorTexture(0, 0, 0, 0)
+		top:SetColorTexture(0, 0, 0, 0)
+		bottom:SetColorTexture(0, 0, 0, 0)
 	end
+end
+
+function module:UpdateLines()
+	local height = module.db.lines.height
+
+	module.frame.topLine:SetHeight(height)
+	module.frame.bottomLine:SetHeight(height)
+
+	self:UpdateLineColors()
 end
 
 function module:KillBlizzard()
@@ -886,12 +937,12 @@ function module:CreateElements()
 	topLine.Texture = topLine:CreateTexture(nil, "BACKGROUND")
 	bottomLine.Texture = bottomLine:CreateTexture(nil, "BACKGROUND")
 	topLine.Texture:SetAllPoints()
-	topLine.Texture:SetColorTexture(r, g, b, 1)
 	bottomLine.Texture:SetAllPoints()
-	bottomLine.Texture:SetColorTexture(r, g, b, 1)
 
 	module.frame.topLine = topLine
 	module.frame.bottomLine = bottomLine
+
+	module:UpdateLineColors()
 end
 
 function module:Initialize()
