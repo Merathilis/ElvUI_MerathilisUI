@@ -19,6 +19,41 @@ P.general = {
 	fontScale = 0,
 }
 
+P.themes = {
+	classColorMap = {
+		[I.Enum.GradientMode.Color.NORMAL] = { -- RIGHT
+			DEATHKNIGHT = F.Table.HexToRGB("#f52652"),
+			DEMONHUNTER = F.Table.HexToRGB("#ba00f5"),
+			DRUID = F.Table.HexToRGB("#ff7d0a"),
+			EVOKER = F.Table.HexToRGB("#44c5aa"),
+			HUNTER = F.Table.HexToRGB("#abed4f"),
+			MAGE = F.Table.HexToRGB("#33c7fc"),
+			MONK = F.Table.HexToRGB("#00ff96"),
+			PALADIN = F.Table.HexToRGB("#f58cba"),
+			PRIEST = F.Table.HexToRGB("#ffffff"),
+			ROGUE = F.Table.HexToRGB("#fff368"),
+			SHAMAN = F.Table.HexToRGB("#0a7ded"),
+			WARLOCK = F.Table.HexToRGB("#8561ed"),
+			WARRIOR = F.Table.HexToRGB("#e0a361"),
+		},
+		[I.Enum.GradientMode.Color.SHIFT] = { -- LEFT
+			DEATHKNIGHT = F.Table.HexToRGB("#ba1c2b"),
+			DEMONHUNTER = F.Table.HexToRGB("#b3008a"),
+			DRUID = F.Table.HexToRGB("#ff5e0a"),
+			EVOKER = F.Table.HexToRGB("#2c7e6c"),
+			HUNTER = F.Table.HexToRGB("#99cc54"),
+			MAGE = F.Table.HexToRGB("#0599cf"),
+			MONK = F.Table.HexToRGB("#05bf73"),
+			PALADIN = F.Table.HexToRGB("#d9548f"),
+			PRIEST = F.Table.HexToRGB("#d1d1d1"),
+			ROGUE = F.Table.HexToRGB("#ffb759"),
+			SHAMAN = F.Table.HexToRGB("#0061bf"),
+			WARLOCK = F.Table.HexToRGB("#634aad"),
+			WARRIOR = F.Table.HexToRGB("#c78c4a"),
+		},
+	},
+}
+
 P.bags = {
 	equipOverlay = true,
 }
@@ -616,6 +651,8 @@ P.armory = {
 	lines = {
 		enable = false,
 		alpha = 0.6,
+		height = 1,
+		color = "CLASS",
 	},
 	stats = {
 		showAvgItemLevel = false,

@@ -26,3 +26,10 @@ I.Enum.Colors = F.Enum({
 	"RARE",
 	"BETA",
 })
+
+-- Used for gradient theme
+I.Enum.GradientMode = {
+	Direction = F.Enum({ "LEFT", "RIGHT" }),
+	Mode = F.Enum({ "HORIZONTAL", "VERTICAL" }),
+	Color = F.Enum({ "SHIFT", "NORMAL" }),
+}

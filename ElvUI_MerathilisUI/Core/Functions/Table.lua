@@ -89,3 +89,33 @@ function F.Table.Join(...)
 
 	return ret
 end
+
+function F.Table.RGB(r, g, b, a)
+	local ret = {
+		r = r,
+		g = g,
+		b = b,
+	}
+
+	if a then
+		ret.a = a
+	end
+
+	return ret
+end
+
+function F.Table.HexToRGB(hex)
+	local r, g, b, a = F.String.HexToRGB(hex)
+	return F.Table.RGB(r, g, b, a)
+end
+
+function F.Table.CurrentClassColor()
+	local color = E:ClassColor(E.myclass, true)
+
+	-- Fuck priests
+	if E.myclass == "PRIEST" then
+		return F.Table.RGB(E.PriestColors.r, E.PriestColors.g, E.PriestColors.b)
+	end
+
+	return F.Table.RGB(color.r, color.g, color.b)
+end
