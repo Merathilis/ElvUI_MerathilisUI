@@ -47,6 +47,7 @@
 	<Script file="Blizzard_MajorFactions.lua"/>
 	<Script file="Blizzard_NewPlayerExperienceGuide.lua"/>
 	<Script file="Misc.lua"/>
+	<Script file="Blizzard_ObjectiveTracker.lua"/>
 	<Script file="Blizzard_OrderHallUI.lua"/>
 	<Script file="Blizzard_PerksProgram.lua"/>
 	<Script file="Blizzard_PlayerChoice.lua"/>

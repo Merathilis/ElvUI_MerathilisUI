@@ -4,10 +4,13 @@
 local oUF = ElvUF or oUF
 
 local select = select
+
 local GetTime = GetTime
 local GetInventoryItemID = GetInventoryItemID
 local UnitAttackSpeed = UnitAttackSpeed
 local UnitRangedDamage = UnitRangedDamage
+
+local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
 
 local meleeing, rangeing, lasthit
 local MainhandID = GetInventoryItemID("player", 16)
@@ -21,9 +24,15 @@ local function SwingStopped(element)
 	local swingMH = bar.Mainhand
 	local swingOH = bar.Offhand
 
-	if swing:IsShown() then return end
-	if swingMH:IsShown() then return end
-	if swingOH:IsShown() then return end
+	if swing:IsShown() then
+		return
+	end
+	if swingMH:IsShown() then
+		return
+	end
+	if swingOH:IsShown() then
+		return
+	end
 
 	bar:Hide()
 end
@@ -55,7 +64,7 @@ do
 		local now = GetTime()
 
 		if meleeing then
-			if checkelapsed > .02 then
+			if checkelapsed > 0.02 then
 				-- little hack for detecting melee stop
 				-- improve... dw sucks at this point -.-
 				if lasthit + self.speed + slamtime < now then
@@ -106,8 +115,12 @@ do
 end
 
 local function MeleeChange(self, _, unit)
-	if unit ~= "player" then return end
-	if not meleeing then return end
+	if unit ~= "player" then
+		return
+	end
+	if not meleeing then
+		return
+	end
 
 	local bar = self.Swing
 	local swing = bar.Twohand
@@ -162,14 +175,14 @@ local function MeleeChange(self, _, unit)
 	else
 		if ohspeed then
 			if swingMH.speed and swingMH.speed ~= mhspeed then
-				local percentage = ((swingMH.max or 10) - now) / (swingMH.speed)
+				local percentage = ((swingMH.max or 10) - now) / swingMH.speed
 				swingMH.min = now - mhspeed * (1 - percentage)
 				swingMH.max = now + mhspeed * percentage
 				UpdateBarMinMaxValues(swingMH)
 				swingMH.speed = mhspeed
 			end
 			if swingOH.speed and swingOH.speed ~= ohspeed then
-				local percentage = ((swingOH.max or 10)- now) / (swingOH.speed)
+				local percentage = ((swingOH.max or 10) - now) / swingOH.speed
 				swingOH.min = now - ohspeed * (1 - percentage)
 				swingOH.max = now + ohspeed * percentage
 				UpdateBarMinMaxValues(swingOH)
@@ -177,7 +190,7 @@ local function MeleeChange(self, _, unit)
 			end
 		else
 			if swing.max and swing.speed ~= mhspeed then
-				local percentage = (swing.max - now) / (swing.speed)
+				local percentage = (swing.max - now) / swing.speed
 				swing.min = now - mhspeed * (1 - percentage)
 				swing.max = now + mhspeed * percentage
 				UpdateBarMinMaxValues(swing)
@@ -188,8 +201,12 @@ local function MeleeChange(self, _, unit)
 end
 
 local function RangedChange(self, _, unit)
-	if unit ~= "player" then return end
-	if not rangeing then return end
+	if unit ~= "player" then
+		return
+	end
+	if not rangeing then
+		return
+	end
 
 	local bar = self.Swing
 	local swing = bar.Twohand
@@ -207,7 +224,7 @@ local function RangedChange(self, _, unit)
 		swing:SetScript("OnUpdate", OnDurationUpdate)
 	else
 		if swing.speed ~= speed then
-			local percentage = (swing.max - now) / (swing.speed)
+			local percentage = (swing.max - now) / swing.speed
 			swing.min = now - speed * (1 - percentage)
 			swing.max = now + speed * percentage
 			swing.speed = speed
@@ -216,8 +233,12 @@ local function RangedChange(self, _, unit)
 end
 
 local function Ranged(self, _, unit, _, spellID)
-	if unit ~= "player" then return end
-	if spellID ~= 75 and spellID ~= 5019 then return end
+	if unit ~= "player" then
+		return
+	end
+	if spellID ~= 75 and spellID ~= 5019 then
+		return
+	end
 
 	local bar = self.Swing
 	local swing = bar.Twohand
@@ -242,7 +263,9 @@ local function Ranged(self, _, unit, _, spellID)
 end
 
 local function Melee(self, event, _, sourceGUID)
-	if sourceGUID ~= playerGUID then return end
+	if sourceGUID ~= playerGUID then
+		return
+	end
 
 	local bar = self.Swing
 	local swing = bar.Twohand
@@ -307,9 +330,15 @@ end
 local function ParryHaste(self, ...)
 	local destGUID, _, _, _, missType = select(7, ...)
 
-	if destGUID ~= playerGUID then return end
-	if not meleeing then return end
-	if missType ~= "PARRY" then return end
+	if destGUID ~= playerGUID then
+		return
+	end
+	if not meleeing then
+		return
+	end
+	if missType ~= "PARRY" then
+		return
+	end
 
 	local bar = self.Swing
 	local swing = bar.Twohand
@@ -323,36 +352,36 @@ local function ParryHaste(self, ...)
 	if dualwield then
 		local percentage = (swingMH.max - now) / swingMH.speed
 
-		if percentage > .6 then
-			swingMH.max = now + swingMH.speed * .6
+		if percentage > 0.6 then
+			swingMH.max = now + swingMH.speed * 0.6
 			swingMH.min = now - GetHasteMult(swingMH.max, now, percentage)
 			UpdateBarMinMaxValues(swingMH)
-		elseif percentage > .2 then
-			swingMH.max = now + swingMH.speed * .2
+		elseif percentage > 0.2 then
+			swingMH.max = now + swingMH.speed * 0.2
 			swingMH.min = now - GetHasteMult(swingMH.max, now, percentage)
 			UpdateBarMinMaxValues(swingMH)
 		end
 
 		percentage = (swingOH.max - now) / swingOH.speed
 
-		if percentage > .6 then
-			swingOH.max = now + swingOH.speed * .6
+		if percentage > 0.6 then
+			swingOH.max = now + swingOH.speed * 0.6
 			swingOH.min = now - GetHasteMult(swingOH.max, now, percentage)
 			UpdateBarMinMaxValues(swingOH)
-		elseif percentage > .2 then
-			swingOH.max = now + swingOH.speed * .2
+		elseif percentage > 0.2 then
+			swingOH.max = now + swingOH.speed * 0.2
 			swingOH.min = now - GetHasteMult(swingOH.max, now, percentage)
 			UpdateBarMinMaxValues(swingOH)
 		end
 	else
 		local percentage = (swing.max - now) / swing.speed
 
-		if percentage > .6 then
-			swing.max = now + swing.speed * .6
+		if percentage > 0.6 then
+			swing.max = now + swing.speed * 0.6
 			swing.min = now - GetHasteMult(swing.max, now, percentage)
 			UpdateBarMinMaxValues(swing)
-		elseif percentage > .2 then
-			swing.max = now + swing.speed * .2
+		elseif percentage > 0.2 then
+			swing.max = now + swing.speed * 0.2
 			swing.min = now - GetHasteMult(swing.max, now, percentage)
 			UpdateBarMinMaxValues(swing)
 		end
@@ -365,7 +394,9 @@ local function Ooc(self)
 	meleeing = false
 	rangeing = false
 
-	if not bar.hideOoc then return end
+	if not bar.hideOoc then
+		return
+	end
 	bar:Hide()
 	bar.Twohand:Hide()
 	bar.Mainhand:Hide()

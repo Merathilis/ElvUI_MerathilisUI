@@ -60,13 +60,6 @@ function module:WorldMapFrame()
 			_G.QuestMapFrame.DetailsFrame.backdrop:SetTemplate("Transparent")
 			module:CreateGradient(_G.QuestMapFrame.DetailsFrame.backdrop)
 		end
-		if _G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop then
-			_G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop:SetTemplate("Transparent")
-			module:CreateGradient(_G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop)
-		elseif _G.QuestMapFrame.DetailsFrame.RewardsFrame then
-			_G.QuestMapFrame.DetailsFrame.RewardsFrame:CreateBackdrop("Transparent")
-			module:CreateGradient(_G.QuestMapFrame.DetailsFrame.RewardsFrame.backdrop)
-		end
 	end
 
 	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", function(_, dialog)

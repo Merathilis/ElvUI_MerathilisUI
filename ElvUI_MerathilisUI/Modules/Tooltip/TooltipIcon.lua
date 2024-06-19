@@ -9,8 +9,8 @@ local tinsert = tinsert
 local unpack = unpack
 
 local GetAchievementInfo = GetAchievementInfo
-local GetItemIcon = GetItemIcon
-local GetSpellTexture = GetSpellTexture
+local GetItemIcon = C_Item and C_Item.GetItemIcon or GetItemIcon
+local GetSpellTexture = C_Spell and C_Spell.GetSpellTexture or GetSpellTexture
 local UnitBattlePetSpeciesID = UnitBattlePetSpeciesID
 local UnitBattlePetType = UnitBattlePetType
 local UnitFactionGroup = UnitFactionGroup

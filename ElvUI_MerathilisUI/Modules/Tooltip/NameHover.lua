@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_Tooltip")
 
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
-local GetMouseFocus = GetMouseFocus
+local GetMouseFocus = GetMouseFoci or GetMouseFocus
 local UnitCanAttack = UnitCanAttack
 local UnitClass = UnitClass
 local UnitExists = UnitExists
@@ -173,4 +173,5 @@ function module:NameHover()
 	tooltip:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 end
 
-module:AddCallback("NameHover")
+-- FIX ME 11.0
+-- module:AddCallback("NameHover")

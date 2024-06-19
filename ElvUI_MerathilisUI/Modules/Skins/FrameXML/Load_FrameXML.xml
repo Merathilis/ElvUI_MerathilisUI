@@ -23,8 +23,8 @@
 	<Script file="LootFrame.lua"/>
 	<Script file="MailFrame.lua"/>
 	<Script file="MerchantFrame.lua"/>
-	<Script file="ObjectiveTracker.lua"/>
 	<Script file="PaperDollFrame.lua"/>
+	<Script file="ProfessionsBookFrame.lua"/>
 	<Script file="PVEFrame.lua"/>
 	<Script file="QuestFrame.lua"/>
 	<Script file="QuestInfo.lua"/>
@@ -34,7 +34,6 @@
 	<Script file="ReportFrame.lua"/>
 	<Script file="ReputationFrame.lua"/>
 	<Script file="SettingsPanel.lua"/>
-	<Script file="SpellBookFrame.lua"/>
 	<Script file="StackSplitFrame.lua"/>
 	<Script file="TalkingHeadUI.lua"/>
 	<Script file="TaxiFrame.lua"/>

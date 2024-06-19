@@ -10,27 +10,11 @@ local max = max
 local strmatch = strmatch
 
 local CreateColor = CreateColor
-local C_QuestLog_GetTitleForQuestID = C_QuestLog.GetTitleForQuestID
 local CreateFrame = CreateFrame
-local ObjectiveTracker_Update = ObjectiveTracker_Update
 
 local MAX_QUESTS = 35
 
 local replaceRule = {}
-
-local function AddQuestTitleToReplaceRule(questID, text)
-	F.SetCallback(function(title)
-		if title then
-			replaceRule[title] = text
-			ObjectiveTracker_Update()
-			return true
-		end
-		return false
-	end, C_QuestLog_GetTitleForQuestID, nil, questID)
-end
-
-AddQuestTitleToReplaceRule(57693, L["Torghast"])
-
 local classColor = _G.RAID_CLASS_COLORS[E.myclass]
 
 local function SetTextColorHook(text)
@@ -443,4 +427,4 @@ function module:Initialize()
 	ObjectiveTracker_Update()
 end
 
-MER:RegisterModule(module:GetName())
+-- MER:RegisterModule(module:GetName())

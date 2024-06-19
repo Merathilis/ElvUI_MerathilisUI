@@ -16,9 +16,9 @@ function module:ReputationFrame()
 		return
 	end
 
-	hooksecurefunc("ExpandFactionHeader", SkinDetailFrame)
-	hooksecurefunc("CollapseFactionHeader", SkinDetailFrame)
-	hooksecurefunc("ReputationFrame_Update", SkinDetailFrame)
+	-- hooksecurefunc("ExpandFactionHeader", SkinDetailFrame)
+	-- hooksecurefunc("CollapseFactionHeader", SkinDetailFrame)
+	-- hooksecurefunc("ReputationFrame_Update", SkinDetailFrame)
 end
 
 module:AddCallback("ReputationFrame")

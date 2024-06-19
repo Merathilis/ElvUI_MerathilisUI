@@ -12,10 +12,10 @@ local len, utf8sub = string.len, string.utf8sub
 
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
-local GetItemInfo = GetItemInfo
-local GetSpellInfo = GetSpellInfo
-local GetContainerItemID = GetContainerItemID or (C_Container and C_Container.GetContainerItemID)
-local GetContainerNumSlots = GetContainerNumSlots or (C_Container and C_Container.GetContainerNumSlots)
+local GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
+local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
+local GetContainerItemID = C_Container and C_Container.GetContainerItemID or GetContainerItemID
+local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
 local UnitBuff = UnitBuff
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
