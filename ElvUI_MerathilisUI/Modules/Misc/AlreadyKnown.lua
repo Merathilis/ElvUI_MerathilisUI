@@ -4,21 +4,18 @@ local module = MER:GetModule("MER_AlreadyKnown")
 local _G = _G
 local ceil = ceil
 local format = format
-local gsub = gsub
-local min = min
 local mod = mod
 local select = select
 local strfind = strfind
 local strmatch = strmatch
 local tonumber = tonumber
-local type = type
 
 local GetBuybackItemInfo = GetBuybackItemInfo
 local GetBuybackItemLink = GetBuybackItemLink
 local GetCurrentGuildBankTab = GetCurrentGuildBankTab
 local GetGuildBankItemInfo = GetGuildBankItemInfo
 local GetGuildBankItemLink = GetGuildBankItemLink
-local GetItemInfo = GetItemInfo
+local GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
 local GetMerchantItemInfo = GetMerchantItemInfo
 local GetMerchantItemLink = GetMerchantItemLink
 local GetMerchantNumItems = GetMerchantNumItems
@@ -26,10 +23,10 @@ local GetNumBuybackItems = GetNumBuybackItems
 local SetItemButtonDesaturated = SetItemButtonDesaturated
 local SetItemButtonTextureVertexColor = SetItemButtonTextureVertexColor
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local C_PetJournal_GetNumCollectedInfo = C_PetJournal.GetNumCollectedInfo
-local C_TooltipInfo_GetGuildBankItem = C_TooltipInfo.GetGuildBankItem
-local C_TooltipInfo_GetHyperlink = C_TooltipInfo.GetHyperlink
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
+local GetNumCollectedInfo = C_PetJournal and C_PetJournal.GetNumCollectedInfo or GetNumCollectedInfo
+local GetGuildBankItem = C_TooltipInfo and C_TooltipInfo.GetGuildBankItem or GetGuildBankItem
+local GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink or GetHyperlink
 
 local Enum_ItemClass_Battlepet = Enum.ItemClass.Battlepet
 
@@ -51,7 +48,7 @@ local function isPetCollected(speciesID)
 	if not speciesID or speciesID == 0 then
 		return
 	end
-	local numOwned = C_PetJournal_GetNumCollectedInfo(speciesID)
+	local numOwned = GetNumCollectedInfo(speciesID)
 	if numOwned > 0 then
 		return true
 	end
@@ -74,7 +71,7 @@ local function IsAlreadyKnown(link, index)
 		end
 
 		if itemClassID == Enum_ItemClass_Battlepet and index then
-			local data = C_TooltipInfo_GetGuildBankItem(GetCurrentGuildBankTab(), index)
+			local data = GetGuildBankItem(GetCurrentGuildBankTab(), index)
 			if data then
 				return data.battlePetSpeciesID and isPetCollected(data.battlePetSpeciesID)
 			end
@@ -86,7 +83,7 @@ local function IsAlreadyKnown(link, index)
 				return
 			end
 
-			local data = C_TooltipInfo_GetHyperlink(link, nil, nil, true)
+			local data = GetHyperlink(link, nil, nil, true)
 			if data then
 				for i = 1, #data.lines do
 					local lineData = data.lines[i]
@@ -243,7 +240,7 @@ end
 
 do
 	local numHooked = 0
-	function module:ADDON_LOADED(event, addOnName)
+	function module:ADDON_LOADED(_, addOnName)
 		if addOnName == "Blizzard_AuctionHouseUI" then
 			self:SecureHook(_G.AuctionHouseFrame.BrowseResultsFrame.ItemList.ScrollBox, "Update", "AuctionHouse")
 			numHooked = numHooked + 1
@@ -259,7 +256,7 @@ do
 end
 
 function module:Initialize()
-	if C_AddOns_IsAddOnLoaded("AlreadyKnown") then
+	if IsAddOnLoaded("AlreadyKnown") then
 		self.StopRunning = "AlreadyKnonwn"
 		return
 	end
@@ -276,7 +273,7 @@ function module:Initialize()
 end
 
 function module:ProfileUpdate()
-	if C_AddOns_IsAddOnLoaded("AlreadyKnown") then
+	if IsAddOnLoaded("AlreadyKnown") then
 		self.StopRunning = "AlreadyKnonwn"
 		return
 	end
