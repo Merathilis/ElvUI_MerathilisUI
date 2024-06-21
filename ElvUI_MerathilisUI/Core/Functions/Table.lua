@@ -168,3 +168,27 @@ function F.Table.CurrentClassColor()
 
 	return F.Table.RGB(color.r, color.g, color.b)
 end
+
+function F.Table.Sort(t, f)
+	local keys = {}
+
+	for k in pairs(t) do
+		keys[#keys + 1] = k
+	end
+
+	tsort(keys, f)
+
+	local i = 0
+	return function()
+		i = i + 1
+		return keys[i], t[keys[i]]
+	end
+end
+
+function F.Table.SafePack(...)
+	return { n = select("#", ...), ... }
+end
+
+function F.Table.SafeUnpack(tbl)
+	return unpack(tbl, 1, tbl.n)
+end
