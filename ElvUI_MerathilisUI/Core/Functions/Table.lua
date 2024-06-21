@@ -90,6 +90,55 @@ function F.Table.Join(...)
 	return ret
 end
 
+function F.Table.Crush(ret, ...)
+	for i = 1, select("#", ...) do
+		local t = select(i, ...)
+		if t then
+			for k, v in pairs(t) do
+				if type(v) == "table" and type(ret[k] or false) == "table" then
+					F.Table.Crush(ret[k], v)
+				else
+					rawset(ret, k, v)
+				end
+			end
+		end
+	end
+end
+
+function F.Table.CrushDebug(ret, ...)
+	for i = 1, select("#", ...) do
+		local t = select(i, ...)
+		if t then
+			for k, v in pairs(t) do
+				if type(v) == "table" and type(ret[k] or false) == "table" then
+					F.Table.CrushDebug(ret[k], v)
+				else
+					if
+						ret[k] == nil
+						and k ~= "customTexts"
+						and k ~= "infoPanel"
+						and k ~= "customTexture"
+						and k ~= "movers"
+						and k ~= "uiScaleInformed"
+						and k ~= "convertPages"
+					then
+						F.Developer.LogDebug("Setting new k,v", k, v)
+					end
+
+					rawset(ret, k, v)
+				end
+			end
+		end
+	end
+end
+
+function F.Table.If(cond, thenTable, orTable)
+	if not cond then
+		return orTable or {}
+	end
+	return thenTable or {}
+end
+
 function F.Table.RGB(r, g, b, a)
 	local ret = {
 		r = r,
