@@ -77,7 +77,7 @@ function module:UpdateVigorSegments()
 end
 
 function module:UpdateSpeedText()
-	if not self.vigorBar then
+	if E:IsDragonRiding() and not self.vigorBar then
 		return
 	end
 

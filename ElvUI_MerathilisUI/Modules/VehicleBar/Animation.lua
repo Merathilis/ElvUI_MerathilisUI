@@ -15,7 +15,7 @@ function module:StopAllAnimations()
 		end
 	end
 
-	if self.vigorBar and self.vigorBar.segments then
+	if E:IsDragonRiding() and self.vigorBar and self.vigorBar.segments then
 		for _, segment in ipairs(self.vigorBar.segments) do
 			if segment.FadeIn and (segment.FadeIn:IsPlaying()) then
 				segment.FadeIn:Stop()

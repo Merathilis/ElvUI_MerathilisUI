@@ -7,10 +7,6 @@ local GetPlayerAuraBySpellID = C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellI
 local GetFillUpFramesWidgetVisualizationInfo = C_UIWidgetManager
 	and C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo
 
-function module:IsVigorAvailable()
-	return IsMounted() and HasBonusActionBar()
-end
-
 function module:GetWidgetInfo()
 	local widgetInfo
 

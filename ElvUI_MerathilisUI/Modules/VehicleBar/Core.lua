@@ -14,12 +14,14 @@ local UnregisterStateDriver = UnregisterStateDriver
 function module:OnShowEvent()
 	self:StopAllAnimations()
 
-	-- Hide the Default Vigor Bar
-	local defaultVigorBar = _G["UIWidgetPowerBarContainerFrame"] -- Replace with the actual frame name if different
-	if defaultVigorBar then
-		defaultVigorBar:Hide()
+	if E:IsDragonRiding() then
+		-- Hide the Default Vigor Bar
+		local defaultVigorBar = _G["UIWidgetPowerBarContainerFrame"] -- Replace with the actual frame name if different
+		if defaultVigorBar then
+			defaultVigorBar:Hide()
+		end
+		self:UpdateVigorSegments()
 	end
-	self:UpdateVigorSegments()
 
 	local animationsAllowed = self.db.animations and (not InCombatLockdown()) and not self.combatLock
 
@@ -28,7 +30,7 @@ function module:OnShowEvent()
 			self:SetupButtonAnim(button, i)
 		end
 
-		if self.vigorBar and self.vigorBar.segments then
+		if E:IsDragonRiding() and self.vigorBar and self.vigorBar.segments then
 			for i, segment in ipairs(self.vigorBar.segments) do
 				self:SetupButtonAnim(segment, i)
 			end
@@ -46,7 +48,7 @@ function module:OnShowEvent()
 		end
 	end
 
-	if self.vigorBar and self.vigorBar.segments then
+	if E:IsDragonRiding() and self.vigorBar and self.vigorBar.segments then
 		for _, segment in ipairs(self.vigorBar.segments) do
 			if animationsAllowed then
 				segment:SetAlpha(0)
@@ -65,7 +67,7 @@ function module:OnShowEvent()
 	end
 
 	-- Show the custom vigor bar when the vehicle bar is shown
-	if module:IsVigorAvailable() then
+	if E:IsDragonRiding() then
 		self.vigorBar:Show()
 		self.vigorBar.speedText:Show()
 		self:UpdateVigorBar()
