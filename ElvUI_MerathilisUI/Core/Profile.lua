@@ -1010,6 +1010,17 @@ P.autoButtons = {
 	},
 }
 
+P.vehicleBar = {
+	enable = false,
+	buttonWidth = 34,
+	thrillColor = { r = 0, g = 0.792, b = 1 },
+	animations = true,
+	animationsMult = 1,
+	dragonRiding = true,
+
+	position = "BOTTOM,ElvUIParent,BOTTOM,0,149",
+}
+
 P.microBar = {
 	enable = true,
 	mouseOver = false,

@@ -27,6 +27,75 @@ local C_TooltipInfo_GetInventoryItem = C_TooltipInfo and C_TooltipInfo.GetInvent
 local C_TooltipInfo_GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
 local C_TooltipInfo_GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
 
+-- Profile
+function F.GetDBFromPath(path, dbRef)
+	local paths = { strsplit(".", path) }
+	local length = #paths
+	local count = 0
+	dbRef = dbRef or E.db
+
+	for _, key in pairs(paths) do
+		if (dbRef == nil) or (type(dbRef) ~= "table") then
+			break
+		end
+
+		if tonumber(key) then
+			key = tonumber(key)
+			dbRef = dbRef[key]
+			count = count + 1
+		else
+			local idx
+
+			if key:find("%b[]") then
+				idx = {}
+
+				for i in gmatch(key, "(%b[])") do
+					i = match(i, "%[(.+)%]")
+					tinsert(idx, i)
+				end
+
+				length = length + #idx
+			end
+
+			key = strsplit("[", key)
+
+			if #key > 0 then
+				dbRef = dbRef[key]
+				count = count + 1
+			end
+
+			if idx and (type(dbRef) == "table") then
+				for _, idxKey in ipairs(idx) do
+					idxKey = tonumber(idxKey) or idxKey
+					dbRef = dbRef[idxKey]
+					count = count + 1
+
+					if (dbRef == nil) or (type(dbRef) ~= "table") then
+						break
+					end
+				end
+			end
+		end
+	end
+
+	if count == length then
+		return dbRef
+	end
+
+	return nil
+end
+
+function F.UpdateDBFromPath(db, path, key)
+	F.GetDBFromPath(path)[key] = F.GetDBFromPath(path, db)[key]
+end
+
+function F.UpdateDBFromPathRGB(db, path)
+	F.UpdateDBFromPath(db, path, "r")
+	F.UpdateDBFromPath(db, path, "g")
+	F.UpdateDBFromPath(db, path, "b")
+	F.UpdateDBFromPath(db, path, "a")
+end
+
 -- Scaling
 function F.PerfectScale(n)
 	local m = E.mult

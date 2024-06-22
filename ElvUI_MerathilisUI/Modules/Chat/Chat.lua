@@ -16,7 +16,12 @@ function module:StyleVoicePanel()
 end
 
 function module:CreateSeparators()
-	if not E.db.mui.chat.seperators.enable then
+	module.db = E.db.mui.chat
+	if
+		(not module.db and module.db.enable)
+		or module.db.seperators and not module.db.seperators.enable
+		or not E.private.chat.enable
+	then
 		return
 	end
 
@@ -113,7 +118,7 @@ function module:CreateChatButtons()
 	ChatButton.tex:SetInside()
 	ChatButton.tex:SetTexture(I.General.MediaPath .. "Textures\\chatButton.tga")
 
-	ChatButton:SetScript("OnMouseUp", function(self, btn)
+	ChatButton:SetScript("OnMouseUp", function(_, btn)
 		if InCombatLockdown() then
 			return
 		end

@@ -2504,6 +2504,9 @@ function MER:DeveloperSettings()
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["mui"]["chat"]["chatText"]["gradientName"] = true
 
+	-- VehicleBar
+	E.db["mui"]["vehicleBar"]["enable"] = true
+
 	-- Unitframe Tags
 	E.db["unitframe"]["units"]["raid1"]["customTexts"]["Elv"] = {
 		["font"] = I.Fonts.Primary,
