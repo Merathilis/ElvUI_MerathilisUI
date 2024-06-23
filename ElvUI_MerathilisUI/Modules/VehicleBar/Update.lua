@@ -59,7 +59,7 @@ function module:UpdateVigorSegments()
 		border:SetPoint("BOTTOMRIGHT", 1, -1)
 		border:SetBackdrop({
 			edgeFile = E.media.blankTex,
-			edgeSize = 1,
+			edgeSize = E.twoPixelsPlease and 2 or 1,
 		})
 		border:SetBackdropBorderColor(0, 0, 0)
 

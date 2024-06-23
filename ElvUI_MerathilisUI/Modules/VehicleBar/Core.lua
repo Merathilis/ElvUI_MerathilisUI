@@ -84,14 +84,12 @@ function module:OnHideEvent()
 		self.vigorBar.speedText:Hide()
 	end
 end
-
 function module:OnCombatEvent(toggle)
 	self.combatLock = toggle
 	if self.combatLock then
 		self:StopAllAnimations()
 	end
 end
-
 function module:Disable()
 	if not self.Initialized then
 		return
@@ -107,12 +105,18 @@ function module:Disable()
 		RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", E.db.actionbar["bar1"].visibility)
 
 		self.bar:Hide()
+
+		if self.vigorBar then
+			self.vigorBar:Hide()
+			if self.vigorBar.speedText then
+				self.vigorBar.speedText:Hide()
+			end
+		end
 	end
 
 	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self)
 	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_DISABLED", self)
 end
-
 function module:Enable()
 	if not self.Initialized and E.private.actionbar.enable then
 		return
@@ -122,20 +126,23 @@ function module:Enable()
 	self:UpdateBar()
 
 	-- Register event to update the custom vigor bar when vigor changes
-	local eventFrame = CreateFrame("Frame")
-	eventFrame:RegisterEvent("UNIT_POWER_UPDATE")
-	eventFrame:RegisterEvent("UNIT_MAXPOWER")
-	eventFrame:RegisterEvent("UPDATE_UI_WIDGET")
-	eventFrame:SetScript("OnEvent", function(_, event, arg1, arg2)
-		if event == "UNIT_POWER_UPDATE" and arg1 == "player" and arg2 == "ALTERNATE" then
-			module:UpdateVigorBar()
-		elseif event == "UPDATE_UI_WIDGET" then
-			module:UpdateVigorBar()
-		end
-	end)
+	if not self.eventScriptSet then
+		local eventFrame = CreateFrame("Frame")
+		eventFrame:RegisterEvent("UNIT_POWER_UPDATE")
+		eventFrame:RegisterEvent("UNIT_MAXPOWER")
+		eventFrame:RegisterEvent("UPDATE_UI_WIDGET")
+		eventFrame:SetScript("OnEvent", function(_, event, arg1, arg2)
+			if event == "UNIT_POWER_UPDATE" and arg1 == "player" and arg2 == "ALTERNATE" then
+				module:UpdateVigorBar()
+			elseif event == "UPDATE_UI_WIDGET" then
+				module:UpdateVigorBar()
+			end
+		end)
 
-	-- Initial update
-	self:UpdateVigorBar()
+		self.eventScriptSet = true
+		-- Initial update
+		self:UpdateVigorBar()
+	end
 
 	-- Overwrite default bar visibility
 	local visibility = format(
@@ -211,6 +218,7 @@ function module:Initialize()
 	self.previousBarWidth = nil
 	self.vigorHeight = 10
 	self.spacing = 2
+	self.eventScriptSet = false
 
 	-- Register for updates
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
