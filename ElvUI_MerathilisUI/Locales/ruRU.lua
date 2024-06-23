@@ -1344,7 +1344,6 @@ L["Normal Bar"] = "Нормальная полоса"
 L["Open BigWigs Options UI with /bw > Bars > Style."] =
 	"Откройте пользовательский интерфейс параметров BigWigs с помощью /bw > Bars > Style."
 L["Override the bar color."] = "Переопределить цвет полосы."
-L["Queue Timer"] = "Таймер очереди"
 L["Right Color"] = "Правый цвет"
 L["Show spark on the bar."] = "Отображать искру на полосе."
 L["Smooth"] = "Плавный"
@@ -1355,6 +1354,20 @@ L["The options below are only for BigWigs %s bar style."] =
 L["You need to manually set the bar style to %s in BigWigs first."] =
 	"Сначала вам нужно вручную установить стиль полосы на %s в BigWigs."
 L["The options below is only for the Details look, NOT the Embeded."] = true
+L["Action Status"] = true
+L["Roll Result"] = true
+L["It only works when you enable the skin (%s)."] = true
+L["Loot"] = true
+L["Embed Settings"] = true
+L["With this option you can embed your Details into an own Panel."] = true
+L["Reset Settings"] = true
+L["Toggle Direction"] = true
+L["TOP"] = true
+L["BOTTOM"] = true
+L["Advanced Skin Settings"] = true
+L["Queue Timer"] = "Таймер очереди"
+L["Gradient Bars"] = true
+L["Open Details"] = true
 
 -- Panels
 L["Panels"] = "Панели"
@@ -1470,6 +1483,24 @@ L["Font Setting"] = "Настройка шрифта"
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 
 |cffff0000WARNING:|r It will overwrite/delete existing Profiles. If you don't want to apply my Profiles please don't press the Buttons below.]]
+
+-- Advanced Settings
+L["Advanced Settings"] = true
+L["Blizzard Fixes"] = true
+L["The message will be shown in chat when you login."] = true
+L["CVar Alert"] = true
+L["It will alert you to reload UI when you change the CVar %s."] = true
+L["Fix LFG Frame error"] = true
+L["Fix a PlayerStyle lua error that can happen on the LFG Frame."] = true
+L["This section will help reset specfic settings back to default."] = true
+
+-- Gradient colors
+L["Custom Gradient Colors"] = true
+L["Custom Nameplates Colors"] = true
+L["Only used if using threat plates from ElvUI"] = true
+L["Custom Unitframes Colors"] = true
+L["Custom Power Colors"] = true
+L["Runic Power"] = true
 
 -- Addons
 L["Skins/AddOns"] = "Скины/модификации"

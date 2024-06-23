@@ -1278,7 +1278,6 @@ L["Left Color"] = "Linke Farbe"
 L["Normal Bar"] = "Normale Leiste"
 L["Open BigWigs Options UI with /bw > Bars > Style."] = "Öffne BigWigs Option mit /bw -> Leiste -> Stil."
 L["Override the bar color."] = "Überschreibt die Leistenfarbe"
-L["Queue Timer"] = true
 L["Right Color"] = "Rechte Farbe"
 L["Show spark on the bar."] = "Zeigt einen Funken auf der Leiste"
 L["Smooth"] = "Flüssig"
@@ -1289,6 +1288,20 @@ L["The options below are only for BigWigs %s bar style."] =
 L["You need to manually set the bar style to %s in BigWigs first."] = "Du musst zuerst den BigWigs Stile zu %s setzen."
 L["The options below is only for the Details look, NOT the Embeded."] =
 	"Die nachfolgende Option ist nur für das Aussehen von Details, NICHT die Einbettung."
+L["Action Status"] = "Aktionsstatus"
+L["Roll Result"] = "Würfelergebnis"
+L["It only works when you enable the skin (%s)."] = "Es funktioniert nur, wenn Sie das Skin aktivieren (%s)."
+L["Loot"] = "Beute"
+L["Embed Settings"] = "Einbettungseinstellungen"
+L["With this option you can embed your Details into an own Panel."] = "Mit dieser Option kannst Du Dein Details in ein eigenes Panel einbetten."
+L["Reset Settings"] = "Zurücksetzen"
+L["Toggle Direction"] = "Richtung umschalten"
+L["TOP"] = "OBEN"
+L["BOTTOM"] = "UNTEN"
+L["Advanced Skin Settings"] = "Erweiterte Skin Einstellungen"
+L["Queue Timer"] = "Warteschlangen Timer"
+L["Gradient Bars"] = "Farbverlaufsleisten"
+L["Open Details"] = "Öffne Details"	
 
 -- Panels
 L["Panels"] = "Leisten"
@@ -1389,6 +1402,24 @@ L["Use Game Color"] = "Verwende Spielfarbe"
 L["Change the color of the name to the in-playing game style."] = "Ändere die Farbe des Namens in dem Spielstil."
 L["Use Class Color"] = "Verwende Klassenfarbe"
 L["Font Setting"] = "Schrifteinstellungen"
+
+-- Advanced Settings
+L["Advanced Settings"] = "Erweiterte Einstellungen"
+L["Blizzard Fixes"] = "Blizzard Fixe"
+L["The message will be shown in chat when you login."] = "Die Nachricht wird im Chat angezeigt, wenn Du Dich anmeldest."
+L["CVar Alert"] = "CVar Alarm"
+L["It will alert you to reload UI when you change the CVar %s."] = "Du wirst darauf hingewiesen, dass die Benutzeroberfläche neu geladen werden muss, wenn Du die CVar %s änderst."
+L["Fix LFG Frame error"] = "LFG-Fester Fehler beheben"
+L["Fix a PlayerStyle lua error that can happen on the LFG Frame."] = "Behebt einen PlayerStyle Lua-Fehler, der im LFG-Fenster auftreten kann."
+L["This section will help reset specfic settings back to default."] = "Dieser Abschnitt hilft dabei, bestimmte Einstellungen auf die Standardeinstellungen zurückzusetzen."
+
+-- Gradient colors
+L["Custom Gradient Colors"] = "Benutzerdefinierte Farbverläufe"
+L["Custom Nameplates Colors"] = "Benutzerdefinierte Namensschilder Farben"
+L["Only used if using threat plates from ElvUI"] = "Wird nur verwendet, wenn Bedrohungsplatten von ElvUI verwendet werden"
+L["Custom Unitframes Colors"] = "Benutzerdefinierte Einheitsfenster Farben"
+L["Custom Power Colors"] = "Benutzerdefinierte Kraft Farben"
+L["Runic Power"] = "Runenkraft"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

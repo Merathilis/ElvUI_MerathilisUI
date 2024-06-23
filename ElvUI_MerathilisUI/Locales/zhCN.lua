@@ -1216,7 +1216,6 @@ L["Left Color"] = true
 L["Normal Bar"] = true
 L["Open BigWigs Options UI with /bw > Bars > Style."] = true
 L["Override the bar color."] = true
-L["Queue Timer"] = true
 L["Right Color"] = true
 L["Show spark on the bar."] = true
 L["Smooth"] = true
@@ -1225,6 +1224,20 @@ L["Spark"] = true
 L["The options below are only for BigWigs %s bar style."] = true
 L["You need to manually set the bar style to %s in BigWigs first."] = true
 L["The options below is only for the Details look, NOT the Embeded."] = true
+L["Action Status"] = true
+L["Roll Result"] = true
+L["It only works when you enable the skin (%s)."] = true
+L["Loot"] = true
+L["Embed Settings"] = true
+L["With this option you can embed your Details into an own Panel."] = true
+L["Reset Settings"] = true
+L["Toggle Direction"] = true
+L["TOP"] = true
+L["BOTTOM"] = true
+L["Advanced Skin Settings"] = true
+L["Queue Timer"] = true
+L["Gradient Bars"] = true
+L["Open Details"] = true
 
 -- Panels
 L["Panels"] = true
@@ -1326,6 +1339,24 @@ L["Font Setting"] = "字体设定"
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.
 
 |cffff0000警告:|r 它将覆盖/删除已经存在的配置文件. 如果你不想应用我的配置，请不要按下面的按钮.]]
+
+-- Advanced Settings
+L["Advanced Settings"] = true
+L["Blizzard Fixes"] = true
+L["The message will be shown in chat when you login."] = true
+L["CVar Alert"] = true
+L["It will alert you to reload UI when you change the CVar %s."] = true
+L["Fix LFG Frame error"] = true
+L["Fix a PlayerStyle lua error that can happen on the LFG Frame."] = true
+L["This section will help reset specfic settings back to default."] = true
+
+-- Gradient colors
+L["Custom Gradient Colors"] = true
+L["Custom Nameplates Colors"] = true
+L["Only used if using threat plates from ElvUI"] = true
+L["Custom Unitframes Colors"] = true
+L["Custom Power Colors"] = true
+L["Runic Power"] = true
 
 -- Addons
 L["Skins & AddOns"] = "皮肤和插件"
