@@ -4,6 +4,8 @@ local module = MER:GetModule("MER_VehicleBar")
 local C_UIWidgetManager = C_UIWidgetManager
 
 local GetPlayerAuraBySpellID = C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID
+local GetPowerBarWidgetSetID = C_UIWidgetManager and C_UIWidgetManager.GetPowerBarWidgetSetID
+local GetAllWidgetsBySetID = C_UIWidgetManager and C_UIWidgetManager.GetAllWidgetsBySetID
 local GetFillUpFramesWidgetVisualizationInfo = C_UIWidgetManager
 	and C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo
 
@@ -16,22 +18,18 @@ function module:IsVigorAvailable()
 end
 
 function module:GetWidgetInfo()
-	local widgetInfo
+	local widgetSetID = GetPowerBarWidgetSetID()
+	local widgets = GetAllWidgetsBySetID(widgetSetID)
 
-	for _, widget in pairs(UIWidgetPowerBarContainerFrame.widgetFrames) do
-		if widget then
-			if widget.widgetType == 24 and widget.widgetSetID == 283 then
-				local tempInfo = GetFillUpFramesWidgetVisualizationInfo(widget.widgetID)
-				if tempInfo and tempInfo.shownState == 1 then
-					widgetInfo = tempInfo
-				end
-				widget:Hide()
-				widget = nil
-			end
+	local widgetInfo = nil
+	for _, w in pairs(widgets) do
+		local tempInfo = GetFillUpFramesWidgetVisualizationInfo(w.widgetID)
+		if tempInfo and tempInfo.shownState == 1 then
+			widgetInfo = tempInfo
 		end
 	end
 
-	return (IsMounted() and HasBonusActionBar()) and widgetInfo
+	return widgetInfo
 end
 
 function module:FormatKeybind(keybind)

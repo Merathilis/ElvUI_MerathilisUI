@@ -78,11 +78,10 @@ function module:UpdateVigorBar()
 		self:CreateVigorSegments()
 	end
 
-	-- Check if bar width has changed
 	local currentBarWidth = self.bar:GetWidth()
 	if currentBarWidth ~= self.previousBarWidth then
 		local widgetInfo = self:GetWidgetInfo()
-		-- Update the width of the vigorBar to match the width of self.bar
+
 		local width = currentBarWidth - self.spacing
 		self.vigorBar:SetWidth(width)
 
@@ -91,19 +90,16 @@ function module:UpdateVigorBar()
 		end
 		local maxVigor = widgetInfo.numTotalFrames
 
-		-- Calculate the new segment width based on the updated vigorBar width
 		local segmentWidth = (self.vigorBar:GetWidth() / maxVigor) - (self.spacing * 2)
 
 		for _, segment in ipairs(self.vigorBar.segments) do
-			segment:SetWidth(segmentWidth) -- Update the width of each segment
+			segment:SetWidth(segmentWidth)
 		end
 
-		-- Store the new width
 		self.previousBarWidth = currentBarWidth
 	end
 
 	self:UpdateVigorSegments()
-	-- Update the speed text
 	self:UpdateSpeedText()
 end
 
@@ -111,7 +107,6 @@ function module:UpdateBar()
 	-- Vars
 	local size = self.db.buttonWidth or 48
 
-	-- Create or get bar
 	local init = self.bar == nil
 	local bar = self.bar or CreateFrame("Frame", "MER_VehicleBar", E.UIParent, "SecureHandlerStateTemplate")
 
@@ -119,7 +114,6 @@ function module:UpdateBar()
 	local point, anchor, attachTo, x, y = strsplit(",", F.Position(strsplit(",", self.db.position)))
 	bar:SetPoint(point, anchor, attachTo, x, y)
 
-	-- Set bar vars
 	self.bar = bar
 	self.bar.id = 1
 
@@ -150,18 +144,15 @@ function module:UpdateBar()
       ]]
 	)
 
-	-- Create Buttons
 	if not bar.buttons then
 		bar.buttons = {}
 
 		for i = 1, 8 do
 			local buttonIndex = (i == 8) and 12 or i
 
-			-- Create button
 			local button = LAB:CreateButton(buttonIndex, "MER_VehicleBarButton" .. buttonIndex, bar, nil)
-
-			-- Set state aka actions
 			button:SetState(0, "action", buttonIndex)
+
 			for k = 1, 18 do
 				button:SetState(k, "action", (k - 1) * 12 + buttonIndex)
 			end
@@ -169,18 +160,15 @@ function module:UpdateBar()
 				button:SetState(12, "custom", self.ab.customExitButton)
 			end
 
-			-- Style
 			self.ab:StyleButton(button, nil, nil)
 			button:SetTemplate("Transparent")
 			button:SetCheckedTexture("")
 			S:CreateShadow(button)
-			button.MasqueSkinned = true -- Ugly fix for smaller cooldowns, not actually using Masque
+			button.MasqueSkinned = true
 
-			-- Adjust the count position
 			button.Count:ClearAllPoints()
 			button.Count:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", self.spacing, self.spacing)
 
-			-- Add to array
 			bar.buttons[i] = button
 		end
 	end
@@ -224,10 +212,8 @@ function module:UpdateBar()
 	self:SecureHookScript(bar, "OnShow", "OnShowEvent")
 	self:SecureHookScript(bar, "OnHide", "OnHideEvent")
 
-	-- Hide
 	bar:Hide()
 
-	-- Only run after first creation
 	if init then
 		-- Create Mover
 		E:CreateMover(bar, "MER_VehicleBar", MER.Title .. " Vehicle Bar", nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI")
@@ -241,7 +227,6 @@ function module:UpdateBar()
 			self:CreateVigorBar()
 		end
 
-		-- Initial call to update keybinds
 		self:UpdateKeybinds()
 	end
 end

@@ -15,7 +15,7 @@ function module:OnShowEvent()
 
 	if self:IsVigorAvailable() then
 		-- Hide the Default Vigor Bar
-		local defaultVigorBar = _G["UIWidgetPowerBarContainerFrame"] -- Replace with the actual frame name if different
+		local defaultVigorBar = _G["UIWidgetPowerBarContainerFrame"]
 		if defaultVigorBar then
 			defaultVigorBar:Hide()
 		end
@@ -64,17 +64,14 @@ function module:OnShowEvent()
 		end
 	end
 
-	-- Show the custom vigor bar when the vehicle bar is shown
 	if self:IsVigorAvailable() then
 		self.vigorBar:Show()
 		self.vigorBar.speedText:Show()
 	end
 
-	-- Update keybinds when the bar is shown
 	self:UpdateKeybinds()
 end
 function module:OnHideEvent()
-	-- Hide the custom vigor bar and its speed text when the vehicle bar is hidden
 	if self.vigorBar then
 		self.vigorBar:Hide()
 		self.vigorBar.speedText:Hide()
@@ -87,17 +84,12 @@ function module:OnCombatEvent(toggle)
 	end
 end
 function module:Enable()
-	-- Set db
-	self.db = E.db.mui.vehicleBar
-
 	if not self.Initialized and E.private.actionbar.enable then
 		return
 	end
 
-	-- Update or create bar
 	self:UpdateBar()
 
-	-- Register event to update the custom vigor bar when vigor changes
 	if not self.eventScriptSet then
 		local eventFrame = CreateFrame("Frame")
 		eventFrame:RegisterEvent("UPDATE_UI_WIDGET")
@@ -110,7 +102,6 @@ function module:Enable()
 		self.eventScriptSet = true
 	end
 
-	-- Overwrite default bar visibility
 	local visibility = format(
 		"[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s hide;",
 		(self.db.dragonRiding and "[bonusbar:5]") or ""
@@ -158,9 +149,6 @@ function module:Enable()
 end
 
 function module:Disable()
-	-- Set db
-	self.db = E.db.mui.vehicleBar
-
 	if not self.Initialized then
 		return
 	end
@@ -207,9 +195,6 @@ function module:Initialize()
 	if self.Initialized then
 		return
 	end
-
-	-- Set db
-	self.db = E.db.mui.vehicleBar
 
 	-- Vars
 	self.combatLock = false

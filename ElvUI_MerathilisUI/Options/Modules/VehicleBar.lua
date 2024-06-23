@@ -12,7 +12,11 @@ options.vehicleBar = {
 	end,
 	set = function(info, value)
 		E.db.mui.vehicleBar[info[#info]] = value
-		F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
+		if info[5] == "dragonRiding" then
+			F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
+		else
+			F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
+		end
 	end,
 	disabled = function()
 		return not E.private.actionbar.enable
@@ -127,13 +131,6 @@ options.vehicleBar = {
 					type = "toggle",
 					name = L["Enable"],
 					desc = L["Toggling this on enables the " .. MER.Title .. " Vehicle Bar for dragonriding."],
-					get = function()
-						return E.db.mui.vehicleBar.dragonRiding
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.dragonRiding = value
-						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
-					end,
 				},
 			},
 		},

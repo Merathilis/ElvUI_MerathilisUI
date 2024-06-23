@@ -10,18 +10,15 @@ function module:CreateVigorBar()
 	vigorBar:SetSize(width - self.spacing, self.vigorHeight)
 	vigorBar:SetPoint("BOTTOM", self.bar, "TOP", 0, self.spacing * 3)
 
-	-- Create the speed text
 	vigorBar.speedText = vigorBar:CreateFontString(nil, "OVERLAY")
 	vigorBar.speedText:FontTemplate(nil, 20)
 	vigorBar.speedText:SetPoint("BOTTOM", vigorBar, "TOP", 0, 0)
 	vigorBar.speedText:SetText("0%")
 
-	-- Set parent-child relationship
 	vigorBar.speedText:SetParent(vigorBar)
 
 	vigorBar:Hide()
 
-	-- Update speed text regularly
 	vigorBar:SetScript("OnUpdate", function()
 		self:UpdateSpeedText()
 	end)
@@ -51,7 +48,7 @@ function module:CreateVigorSegments()
 
 	for i = 1, maxVigor do
 		local segment = CreateFrame("StatusBar", nil, self.vigorBar)
-		segment:SetSize(segmentWidth, self.vigorHeight) -- Width, Height of each segment
+		segment:SetSize(segmentWidth, self.vigorHeight)
 
 		segment:SetStatusBarTexture(E.media.normTex)
 		segment:GetStatusBarTexture():SetHorizTile(false)
@@ -62,12 +59,10 @@ function module:CreateVigorSegments()
 			segment:SetStatusBarColor(r, g, b)
 		end
 
-		-- Background
 		local bg = segment:CreateTexture(nil, "BACKGROUND")
 		bg:SetAllPoints()
 		bg:SetColorTexture(0, 0, 0, 0.5)
 
-		-- Border
 		local border = CreateFrame("Frame", nil, segment, "BackdropTemplate")
 		border:SetPoint("TOPLEFT", -1, 1)
 		border:SetPoint("BOTTOMRIGHT", 1, -1)
