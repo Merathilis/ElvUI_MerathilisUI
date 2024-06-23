@@ -5,7 +5,6 @@ local LAB = LibStub("LibActionButton-1.0-ElvUI")
 
 local format = string.format
 local ipairs, pairs = ipairs, pairs
-local tinsert = table.insert
 local strsplit = strsplit
 local Round = Round
 
@@ -22,62 +21,31 @@ function module:UpdateVigorSegments()
 		return
 	end
 
-	local maxVigor = widgetInfo.numTotalFrames or 6
+	local widgetInfo = self:GetWidgetInfo()
 
-	for _, segment in ipairs(self.vigorBar.segments) do
-		segment:Hide()
+	if not widgetInfo then
+		return
 	end
 
-	self.vigorBar.segments = {}
+	local currentVigor = widgetInfo.numFullFrames
+	local partialFill = widgetInfo.fillValue / widgetInfo.fillMax
 
-	local segmentWidth = (self.vigorBar:GetWidth() / maxVigor) - (self.spacing * 2)
-
-	local classColor = E:ClassColor(E.myclass, true)
-	local r, g, b = classColor.r, classColor.g, classColor.b
-	local _, class = UnitClass("player")
-
-	for i = 1, maxVigor do
-		local segment = CreateFrame("StatusBar", nil, self.vigorBar)
-		segment:SetSize(segmentWidth, self.vigorHeight)
-
-		segment:SetStatusBarTexture(E.media.normTex)
-		segment:GetStatusBarTexture():SetHorizTile(false)
-
-		if E.db.mui.gradient.enable then
-			segment:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(class))
+	for i, segment in ipairs(self.vigorBar.segments) do
+		if i <= currentVigor then
+			segment:SetValue(1)
+			segment:Show()
+		elseif i == currentVigor + 1 then
+			segment:SetValue(partialFill)
+			segment:Show()
 		else
-			segment:SetStatusBarColor(r, g, b)
+			segment:SetValue(0)
+			segment:Show()
 		end
-
-		local bg = segment:CreateTexture(nil, "BACKGROUND")
-		bg:SetAllPoints()
-		bg:SetColorTexture(0, 0, 0, 0.5)
-
-		-- Border
-		local border = CreateFrame("Frame", nil, segment, "BackdropTemplate")
-		border:SetPoint("TOPLEFT", -1, 1)
-		border:SetPoint("BOTTOMRIGHT", 1, -1)
-		border:SetBackdrop({
-			edgeFile = E.media.blankTex,
-			edgeSize = E.twoPixelsPlease and 2 or 1,
-		})
-		border:SetBackdropBorderColor(0, 0, 0)
-
-		if i == 1 then
-			segment:SetPoint("LEFT", self.vigorBar, "LEFT", self.spacing, 0)
-		else
-			segment:SetPoint("LEFT", self.vigorBar.segments[i - 1], "RIGHT", self.spacing * 2, 0)
-		end
-
-		segment:SetMinMaxValues(0, 1)
-		S:CreateShadow(segment)
-
-		tinsert(self.vigorBar.segments, segment)
 	end
 end
 
 function module:UpdateSpeedText()
-	if E:IsDragonRiding() and not self.vigorBar then
+	if self:IsVigorAvailable() and not self.vigorBar then
 		return
 	end
 
@@ -96,7 +64,7 @@ function module:UpdateKeybinds()
 			local keybind = GetBindingKey("ACTIONBUTTON" .. buttonIndex)
 			if keybind then
 				button.HotKey:SetTextColor(1, 1, 1)
-				button.HotKey:SetText(self:FormatKeybind(GetBindingText(keybind, "KEY_", 1)))
+				button.HotKey:SetText(self:FormatKeybind(GetBindingText(keybind, "KEY_")))
 				button.HotKey:Show()
 			else
 				button.HotKey:Hide()
@@ -106,29 +74,25 @@ function module:UpdateKeybinds()
 end
 
 function module:UpdateVigorBar()
-	local widgetInfo = module:GetWidgetInfo()
-
-	if not widgetInfo then
-		return
+	if F.Table.IsEmpty(self.vigorBar.segments) then
+		self:CreateVigorSegments()
 	end
-
-	local currentVigor = widgetInfo.numFullFrames
-	local partialFill = widgetInfo.fillValue / widgetInfo.fillMax
-	local maxVigor = widgetInfo.numTotalFrames or 6
 
 	-- Check if bar width has changed
 	local currentBarWidth = self.bar:GetWidth()
 	if currentBarWidth ~= self.previousBarWidth then
+		local widgetInfo = self:GetWidgetInfo()
 		-- Update the width of the vigorBar to match the width of self.bar
 		local width = currentBarWidth - self.spacing
 		self.vigorBar:SetWidth(width)
 
+		if not widgetInfo then
+			return
+		end
+		local maxVigor = widgetInfo.numTotalFrames
+
 		-- Calculate the new segment width based on the updated vigorBar width
 		local segmentWidth = (self.vigorBar:GetWidth() / maxVigor) - (self.spacing * 2)
-
-		if #self.vigorBar.segments ~= maxVigor then
-			self:UpdateVigorSegments()
-		end
 
 		for _, segment in ipairs(self.vigorBar.segments) do
 			segment:SetWidth(segmentWidth) -- Update the width of each segment
@@ -138,21 +102,7 @@ function module:UpdateVigorBar()
 		self.previousBarWidth = currentBarWidth
 	end
 
-	for i, segment in ipairs(self.vigorBar.segments) do
-		if i <= currentVigor then
-			segment:SetValue(1)
-			segment:Show()
-		elseif i == currentVigor + 1 then
-			segment:SetValue(partialFill)
-			segment:Show()
-		elseif i <= maxVigor then
-			segment:SetValue(0)
-			segment:Show()
-		else
-			segment:Hide()
-		end
-	end
-
+	self:UpdateVigorSegments()
 	-- Update the speed text
 	self:UpdateSpeedText()
 end
@@ -167,7 +117,7 @@ function module:UpdateBar()
 
 	-- Default position
 	local point, anchor, attachTo, x, y = strsplit(",", F.Position(strsplit(",", self.db.position)))
-	bar:SetPoint(point, anchor, attachTo, x, y or "BOTTOM,ElvUIParent,BOTTOM,0,140")
+	bar:SetPoint(point, anchor, attachTo, x, y)
 
 	-- Set bar vars
 	self.bar = bar
@@ -223,6 +173,7 @@ function module:UpdateBar()
 			self.ab:StyleButton(button, nil, nil)
 			button:SetTemplate("Transparent")
 			button:SetCheckedTexture("")
+			S:CreateShadow(button)
 			button.MasqueSkinned = true -- Ugly fix for smaller cooldowns, not actually using Masque
 
 			-- Adjust the count position

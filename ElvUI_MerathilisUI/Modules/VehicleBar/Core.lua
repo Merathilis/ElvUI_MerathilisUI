@@ -1,6 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
-local S = MER:GetModule("MER_Skins")
 
 -- Globals
 local CreateFrame = CreateFrame
@@ -14,13 +13,12 @@ local UnregisterStateDriver = UnregisterStateDriver
 function module:OnShowEvent()
 	self:StopAllAnimations()
 
-	if E:IsDragonRiding() then
+	if self:IsVigorAvailable() then
 		-- Hide the Default Vigor Bar
 		local defaultVigorBar = _G["UIWidgetPowerBarContainerFrame"] -- Replace with the actual frame name if different
 		if defaultVigorBar then
 			defaultVigorBar:Hide()
 		end
-		self:UpdateVigorSegments()
 	end
 
 	local animationsAllowed = self.db.animations and (not InCombatLockdown()) and not self.combatLock
@@ -30,7 +28,7 @@ function module:OnShowEvent()
 			self:SetupButtonAnim(button, i)
 		end
 
-		if E:IsDragonRiding() and self.vigorBar and self.vigorBar.segments then
+		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.segments then
 			for i, segment in ipairs(self.vigorBar.segments) do
 				self:SetupButtonAnim(segment, i)
 			end
@@ -48,7 +46,7 @@ function module:OnShowEvent()
 		end
 	end
 
-	if E:IsDragonRiding() and self.vigorBar and self.vigorBar.segments then
+	if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.segments then
 		for _, segment in ipairs(self.vigorBar.segments) do
 			if animationsAllowed then
 				segment:SetAlpha(0)
@@ -67,16 +65,14 @@ function module:OnShowEvent()
 	end
 
 	-- Show the custom vigor bar when the vehicle bar is shown
-	if E:IsDragonRiding() then
+	if self:IsVigorAvailable() then
 		self.vigorBar:Show()
 		self.vigorBar.speedText:Show()
-		self:UpdateVigorBar()
 	end
 
 	-- Update keybinds when the bar is shown
 	self:UpdateKeybinds()
 end
-
 function module:OnHideEvent()
 	-- Hide the custom vigor bar and its speed text when the vehicle bar is hidden
 	if self.vigorBar then
@@ -90,34 +86,10 @@ function module:OnCombatEvent(toggle)
 		self:StopAllAnimations()
 	end
 end
-function module:Disable()
-	if not self.Initialized then
-		return
-	end
-
-	self:UnhookAll()
-
-	if self.bar then
-		self:StopAllAnimations()
-
-		UnregisterStateDriver(self.bar, "visibility")
-		UnregisterStateDriver(self.ab["handledBars"]["bar1"], "visibility")
-		RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", E.db.actionbar["bar1"].visibility)
-
-		self.bar:Hide()
-
-		if self.vigorBar then
-			self.vigorBar:Hide()
-			if self.vigorBar.speedText then
-				self.vigorBar.speedText:Hide()
-			end
-		end
-	end
-
-	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self)
-	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_DISABLED", self)
-end
 function module:Enable()
+	-- Set db
+	self.db = E.db.mui.vehicleBar
+
 	if not self.Initialized and E.private.actionbar.enable then
 		return
 	end
@@ -128,20 +100,14 @@ function module:Enable()
 	-- Register event to update the custom vigor bar when vigor changes
 	if not self.eventScriptSet then
 		local eventFrame = CreateFrame("Frame")
-		eventFrame:RegisterEvent("UNIT_POWER_UPDATE")
-		eventFrame:RegisterEvent("UNIT_MAXPOWER")
 		eventFrame:RegisterEvent("UPDATE_UI_WIDGET")
-		eventFrame:SetScript("OnEvent", function(_, event, arg1, arg2)
-			if event == "UNIT_POWER_UPDATE" and arg1 == "player" and arg2 == "ALTERNATE" then
-				module:UpdateVigorBar()
-			elseif event == "UPDATE_UI_WIDGET" then
-				module:UpdateVigorBar()
+		eventFrame:SetScript("OnEvent", function(_, event)
+			if event == "UPDATE_UI_WIDGET" and self:IsVigorAvailable() then
+				self:UpdateVigorBar()
 			end
 		end)
 
 		self.eventScriptSet = true
-		-- Initial update
-		self:UpdateVigorBar()
 	end
 
 	-- Overwrite default bar visibility
@@ -191,6 +157,37 @@ function module:Enable()
 	F.Event.RegisterFrameEventAndCallback("PLAYER_REGEN_DISABLED", self.OnCombatEvent, self, true)
 end
 
+function module:Disable()
+	-- Set db
+	self.db = E.db.mui.vehicleBar
+
+	if not self.Initialized then
+		return
+	end
+
+	self:UnhookAll()
+
+	if self.bar then
+		self:StopAllAnimations()
+
+		UnregisterStateDriver(self.bar, "visibility")
+		UnregisterStateDriver(self.ab["handledBars"]["bar1"], "visibility")
+		RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", E.db.actionbar["bar1"].visibility)
+
+		self.bar:Hide()
+
+		if self.vigorBar then
+			self.vigorBar:Hide()
+			if self.vigorBar.speedText then
+				self.vigorBar.speedText:Hide()
+			end
+		end
+	end
+
+	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self)
+	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_DISABLED", self)
+end
+
 function module:DatabaseUpdate()
 	-- Disable
 	self:Disable()
@@ -210,6 +207,9 @@ function module:Initialize()
 	if self.Initialized then
 		return
 	end
+
+	-- Set db
+	self.db = E.db.mui.vehicleBar
 
 	-- Vars
 	self.combatLock = false
