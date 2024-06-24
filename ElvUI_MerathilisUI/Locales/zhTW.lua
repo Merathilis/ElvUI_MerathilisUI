@@ -406,12 +406,13 @@ L["Transmog Frame"] = true
 L["Makes the transmogrification frame bigger. Credits to Kayr for code."] = true
 L["Add more oUF tags. You can use them on UnitFrames configuration."] = true
 L["Already Known"] = true
-L["Because of %s, this module will not be loaded."] = true
 L["Puts a overlay on already known learnable items on vendors and AH."] = true
 L["Crying"] = true
 L["Mute crying sounds of all races."] = true
 L["It will affect the cry emote sound."] = true
 L["It will also affect the crying sound of all female Blood Elves."] = true
+L["Class"] = true
+L["The class icon of the player's class"] = true
 
 -- Tooltip
 L["Your Status:"] = true
