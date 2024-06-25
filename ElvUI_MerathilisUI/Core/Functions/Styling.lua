@@ -155,6 +155,15 @@ function MER:CreateInnerShadow(frame, smallVersion)
 	frame.MERInnerShadow = innerShadow
 end
 
+local function HideBackdrop(frame)
+	if frame.NineSlice then
+		frame.NineSlice:SetAlpha(0)
+	end
+	if frame.SetBackdrop then
+		frame:SetBackdrop(nil)
+	end
+end
+
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.StripFrame then
@@ -168,6 +177,9 @@ local function addapi(object)
 	end
 	if not object.CreatePanel then
 		mt.CreatePanel = CreatePanel
+	end
+	if not object.HideBackdrop then
+		mt.HideBackdrop = HideBackdrop
 	end
 end
 
