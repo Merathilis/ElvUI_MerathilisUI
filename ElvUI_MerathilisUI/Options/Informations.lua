@@ -5,6 +5,12 @@ local tconcat, tsort = table.concat, table.sort
 
 local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 
+local function blue(string)
+	if type(string) ~= "string" then
+		string = tostring(string)
+	end
+	return F.CreateColorString(string, { r = 0.204, g = 0.596, b = 0.859 })
+end
 local function AddColor(string)
 	if type(string) ~= "string" then
 		string = tostring(string)
@@ -159,7 +165,7 @@ options.name = {
 					type = "description",
 					name = format(
 						"|cffffffff%s|r",
-						"Benik, Darth Predator, Rockxana, Dlarge, |TInterface/AddOns/ElvUI_MerathilisUI/Media/Textures/Tukui:15:15:0:0:64:64:5:59:5:59|t The Tukui Community"
+						"Benik, Darth Predator, Rockxana, |TInterface/AddOns/ElvUI_MerathilisUI/Media/Textures/Tukui:15:15:0:0:64:64:5:59:5:59|t The Tukui Community"
 					),
 				},
 			},
@@ -256,6 +262,47 @@ options.name.args.coding = {
 		},
 	},
 }
+
+options.name.args.localization = {
+	order = 7,
+	type = "group",
+	name = F.cOption(L["Localization"], "orange"),
+	guiInline = true,
+	args = {},
+}
+
+do
+	local german = F.GetIconString(I.Media.Icons.German, 10, 20)
+	local russian = F.GetIconString(I.Media.Icons.Russian, 10, 20)
+
+	local localizationList = {
+		["Deutsche (deDE)" .. " " .. german] = {
+			"|cff00c0faDlarge|r",
+		},
+		["русский язык (ruRU)" .. " " .. russian] = {
+			"Hollicsh @ GitHub",
+		},
+	}
+
+	local configOrder = 1
+	for langName, credits in pairs(localizationList) do
+		options.name.args.localization.args[tostring(configOrder)] = {
+			order = configOrder,
+			type = "description",
+			name = blue(langName),
+		}
+		configOrder = configOrder + 1
+
+		for _, credit in pairs(credits) do
+			options.name.args.localization.args[tostring(configOrder)] = {
+				order = configOrder,
+				type = "description",
+				name = "  - " .. credit,
+			}
+			configOrder = configOrder + 1
+		end
+	end
+end
 
 options.reset = {
 	order = 2,
