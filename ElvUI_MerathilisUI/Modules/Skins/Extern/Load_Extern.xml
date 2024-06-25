@@ -16,6 +16,7 @@
 	<Script file="Pawn.lua"/>
 	<Script file="PremadeGroupsFilter.lua"/>
 	<Script file="RaiderIO.lua"/>
+	<Script file="SimpleAddonManager.lua"/>
 	<Script file="stAddOnManager.lua"/>
 	<Script file='WeakAuras.lua'/>
 	<Script file='WeakAurasOptions.lua'/>

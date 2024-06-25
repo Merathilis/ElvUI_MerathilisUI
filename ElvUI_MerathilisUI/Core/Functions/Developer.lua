@@ -144,6 +144,21 @@ function F.Developer.LogDebug(...)
 	print(format("%s |cff00d1b2[DEBUG]|r %s", MER.Title, message))
 end
 
+do
+	local messages = {}
+	function F.Developer.PrintDelayedMessages()
+		for _, msg in ipairs(messages) do
+			F.Developer.Print(msg)
+		end
+
+		messages = {}
+	end
+
+	function F.Developer.AddDelayedMessage(str)
+		tinsert(messages, str)
+	end
+end
+
 --[[
 	Custom Logger Injection
 	@param table Module | string Module Name

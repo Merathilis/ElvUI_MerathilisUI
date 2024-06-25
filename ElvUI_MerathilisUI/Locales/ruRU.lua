@@ -330,7 +330,6 @@ L["Call to Arms"] = "Призыв к оружию"
 L["Feasts"] = "Пиры"
 L["Toys"] = "Игрушки"
 L["Random Toy"] = "Случайная игрушка"
-L["Creates a random toy macro."] = "Создает случайный макрос игрушки."
 L["Text Style"] = "Стиль текста"
 L["COLOR"] = "ЦВЕТ"
 L["Hide Boss Banner"] = "Скрыть баннер босса"
@@ -432,6 +431,44 @@ L["Accept Combat Resurrect"] = true
 L["Accept resurrect from other player automatically when you in combat."] = true
 L["Confirm Summon"] = true
 L["Confirm summon from other player automatically."] = true
+L["Quick Delete"] = true
+L["This will add the 'DELETE' text to the Item Delete Dialog."] = true
+L["Quick Menu"] = true
+L["Shows additional Buttons on your Dropdown for quick actions."] = true
+L["Trade Tabs"] = true
+L["Creates additional tabs on the Profession Frame"] = true
+L["Missing Stats"] = true
+L["Show all stats on the Character Frame"] = true
+L["Block Join Requests"] = true
+L["|nIf checked, only popout join requests from friends and guild members."] = true
+L["HotKey Above CD"] = true
+L["Show hotkeys above the ElvUI cooldown animation."] = true
+L["Only works with ElvUI action bar and ElvUI cooldowns."] = true
+L["Random Toy Macro"] = true
+L["Creates a random toy macro."] = "Создает случайный макрос игрушки."
+L["Spell activation alert frame customizations."] = true
+L["Enable/Disable the spell activation alert frame."] = true
+L["Opacity"] = true
+L["Set the opacity of the spell activation alert frame. (Blizzard CVar)"] = true
+L["Set the scale of the spell activation alert frame."] = true
+L["Dressing Room"] = true
+L["Inspect Frame"] = true
+L["Sync Inspect"] = true
+L["Toggling this on makes your inspect frame scale have the same value as the character frame scale."] = true
+L["Talents"] = true
+L["Wardrobe"] = true
+L["Auction House"] = true
+L["Transmog Frame"] = true
+L["Makes the transmogrification frame bigger. Credits to Kayr for code."] = true
+L["Add more oUF tags. You can use them on UnitFrames configuration."] = true
+L["Already Known"] = true
+L["Puts a overlay on already known learnable items on vendors and AH."] = true
+L["Crying"] = true
+L["Mute crying sounds of all races."] = true
+L["It will affect the cry emote sound."] = true
+L["It will also affect the crying sound of all female Blood Elves."] = true
+L["Class"] = true
+L["The class icon of the player's class"] = true
 
 -- Nameplates
 L["NamePlates"] = "Индикаторы здоровья"
@@ -1344,7 +1381,6 @@ L["Normal Bar"] = "Нормальная полоса"
 L["Open BigWigs Options UI with /bw > Bars > Style."] =
 	"Откройте пользовательский интерфейс параметров BigWigs с помощью /bw > Bars > Style."
 L["Override the bar color."] = "Переопределить цвет полосы."
-L["Queue Timer"] = "Таймер очереди"
 L["Right Color"] = "Правый цвет"
 L["Show spark on the bar."] = "Отображать искру на полосе."
 L["Smooth"] = "Плавный"
@@ -1355,6 +1391,20 @@ L["The options below are only for BigWigs %s bar style."] =
 L["You need to manually set the bar style to %s in BigWigs first."] =
 	"Сначала вам нужно вручную установить стиль полосы на %s в BigWigs."
 L["The options below is only for the Details look, NOT the Embeded."] = true
+L["Action Status"] = true
+L["Roll Result"] = true
+L["It only works when you enable the skin (%s)."] = true
+L["Loot"] = true
+L["Embed Settings"] = true
+L["With this option you can embed your Details into an own Panel."] = true
+L["Reset Settings"] = true
+L["Toggle Direction"] = true
+L["TOP"] = true
+L["BOTTOM"] = true
+L["Advanced Skin Settings"] = true
+L["Queue Timer"] = "Таймер очереди"
+L["Gradient Bars"] = true
+L["Open Details"] = true
 
 -- Panels
 L["Panels"] = "Панели"
@@ -1470,6 +1520,24 @@ L["Font Setting"] = "Настройка шрифта"
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 
 |cffff0000WARNING:|r It will overwrite/delete existing Profiles. If you don't want to apply my Profiles please don't press the Buttons below.]]
+
+-- Advanced Settings
+L["Advanced Settings"] = true
+L["Blizzard Fixes"] = true
+L["The message will be shown in chat when you login."] = true
+L["CVar Alert"] = true
+L["It will alert you to reload UI when you change the CVar %s."] = true
+L["Fix LFG Frame error"] = true
+L["Fix a PlayerStyle lua error that can happen on the LFG Frame."] = true
+L["This section will help reset specfic settings back to default."] = true
+
+-- Gradient colors
+L["Custom Gradient Colors"] = true
+L["Custom Nameplates Colors"] = true
+L["Only used if using threat plates from ElvUI"] = true
+L["Custom Unitframes Colors"] = true
+L["Custom Power Colors"] = true
+L["Runic Power"] = true
 
 -- Addons
 L["Skins/AddOns"] = "Скины/модификации"

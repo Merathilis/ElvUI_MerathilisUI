@@ -1367,7 +1367,7 @@ options.gradient = {
 				header = {
 					order = 0,
 					type = "header",
-					name = F.cOption(L["Custom Nameplates Colors"], "orange"),
+					name = F.cOption(L["Custom Unitframes Colors"], "orange"),
 				},
 				enableUF = {
 					order = 1,

@@ -26,4 +26,5 @@
 	<Script file='RBReminders.lua'/>
 	<Script file='Tooltips.lua'/>
 	<Script file='UnitFrames.lua'/>
+	<Script file='VehicleBar.lua'/>
 </Ui>

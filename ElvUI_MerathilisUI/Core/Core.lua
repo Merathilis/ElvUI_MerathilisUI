@@ -6,15 +6,15 @@ local pairs = pairs
 local pcall = pcall
 local tinsert = table.insert
 
-local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
+local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
 local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown
 
-local C_CVar_GetCVarBool = C_CVar.GetCVarBool
-local C_LFGList_IsPlayerAuthenticatedForLFG = C_LFGList.IsPlayerAuthenticatedForLFG
-local C_LFGList_GetPlaystyleString = C_LFGList.GetPlaystyleString
-local C_LFGList_GetLfgCategoryInfo = C_LFGList.GetLfgCategoryInfo
+local GetCVarBool = C_CVar and C_CVar.GetCVarBool
+local IsPlayerAuthenticatedForLFG = C_LFGList and C_LFGList.IsPlayerAuthenticatedForLFG
+local GetPlaystyleString = C_LFGList and C_LFGList.GetPlaystyleString
+local GetLfgCategoryInfo = C_LFGList and C_LFGList.GetLfgCategoryInfo
 
 MER.dummy = function()
 	return
@@ -46,7 +46,7 @@ MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:51
 MER.RegisteredModules = {}
 MER.Changelog = {}
 
-MER.UseKeyDown = C_CVar_GetCVarBool("ActionButtonUseKeyDown")
+MER.UseKeyDown = GetCVarBool("ActionButtonUseKeyDown")
 
 -- Config Helper
 MER.Values = {
@@ -109,16 +109,48 @@ function MER:RegisterModule(name)
 end
 
 function MER:InitializeModules()
+	E:UpdateCooldownSettings("all")
+
 	for _, moduleName in pairs(MER.RegisteredModules) do
 		local module = self:GetModule(moduleName)
 		if module.Initialize then
 			pcall(module.Initialize, module)
 		end
 	end
+
+	local function onAllEvents()
+		-- Weait until ElvUI is done Updating
+		F.Event.ContinueAfterElvUIUpdate(function()
+			-- Set initialized
+			self.initialized = true
+			F.Event.TriggerEvent("MER.Initialized")
+
+			-- Run those delayed after init
+			F.Event.RunNextFrame(function()
+				-- Mark MER has entered world
+				self.DelayedWorldEntered = true
+
+				-- Print all delayed messages
+				F.Developer.PrintDelayedMessages()
+			end, 5)
+
+			-- Set initialized safe after combat ends
+			F.Event.ContinueOutOfCombat(function()
+				self.initializedSafe = true
+				F.Event.TriggerEvent("MER.InitializedSafe")
+			end)
+		end)
+	end
+
+	local events = { "PLAYER_ENTERING_WORLD" }
+	tinsert(events, "FIRST_FRAME_RENDERED")
+
+	F.Event.ContinueAfterAllEvents(onAllEvents, F.Table.SafeUnpack(events))
 end
 
 function MER:UpdateModules()
 	self:UpdateScripts()
+
 	for _, moduleName in pairs(self.RegisteredModules) do
 		local module = MER:GetModule(moduleName)
 		if module.ProfileUpdate then
@@ -162,14 +194,14 @@ function MER:FixGame()
 	-- fix playstyle string
 	-- from Premade Groups Filter & LFMPlus
 	if E.global.mui.core.fixLFG then
-		if C_LFGList_IsPlayerAuthenticatedForLFG(703) then
-			function C_LFGList_GetPlaystyleString(playstyle, activityInfo)
+		if IsPlayerAuthenticatedForLFG(703) then
+			function GetPlaystyleString(playstyle, activityInfo)
 				if
 					not (
 						activityInfo
 						and playstyle
 						and playstyle ~= 0
-						and C_LFGList_GetLfgCategoryInfo(activityInfo.categoryID).showPlaystyleDropdown
+						and GetLfgCategoryInfo(activityInfo.categoryID).showPlaystyleDropdown
 					)
 				then
 					return nil
