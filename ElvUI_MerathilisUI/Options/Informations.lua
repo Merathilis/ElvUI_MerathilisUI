@@ -159,7 +159,7 @@ options.name = {
 					type = "description",
 					name = format(
 						"|cffffffff%s|r",
-						"Benik, Darth Predator, Rockxana, |TInterface/AddOns/ElvUI_MerathilisUI/Media/Textures/Tukui:15:15:0:0:64:64:5:59:5:59|t The Tukui Community"
+						"Benik, Darth Predator, Rockxana, Dlarge, |TInterface/AddOns/ElvUI_MerathilisUI/Media/Textures/Tukui:15:15:0:0:64:64:5:59:5:59|t The Tukui Community"
 					),
 				},
 			},

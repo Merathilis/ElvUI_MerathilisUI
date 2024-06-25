@@ -646,17 +646,16 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 		if slotInfo.enchantColors and next(slotInfo.enchantColors) then
 			if slotInfo.enchantText and (slotInfo.enchantText ~= "") then
 				local text = slotInfo.enchantTextShort
+				-- Strip color
+				text = F.String.StripColor(text)
 				if module.db.pageInfo.abbreviateEnchantText then
 					text = module:EnchantAbbreviate(slotInfo.enchantText)
 				end
-				if slotOptions.direction == module.enumDirection.LEFT then
-					slotItem.enchantText:SetText(
-						F.String.FastGradientHex(text, module.colors.DARK_GREEN, module.colors.LIGHT_GREEN)
-					)
-				elseif slotOptions.direction == module.enumDirection.RIGHT then
-					slotItem.enchantText:SetText(
-						F.String.FastGradientHex(text, module.colors.LIGHT_GREEN, module.colors.DARK_GREEN)
-					)
+
+				if module.db.pageInfo.useEnchantClassColor then
+					slotItem.enchantText:SetText(F.String.Class(text))
+				else
+					slotItem.enchantText:SetText(text)
 				end
 			end
 		elseif module.db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
@@ -797,6 +796,155 @@ function module:CheckOptions(which)
 	return true
 end
 
+function module:UpdateLineColors()
+	local orientation = "HORIZONTAL"
+	local white = CreateColor(1, 1, 1, 1)
+
+	local top = module.frame.topLine.Texture
+	local bottom = module.frame.bottomLine.Texture
+
+	-- Reset gradient
+	top:SetGradient(orientation, white, white)
+	bottom:SetGradient(orientation, white, white)
+
+	if module.db.lines.enable then
+		local alpha = module.db.lines.alpha
+
+		top:SetColorTexture(1, 1, 1, alpha)
+		bottom:SetColorTexture(1, 1, 1, alpha)
+
+		if module.db.lines.color == "CLASS" then
+			local classColor = E:ClassColor(E.myclass, true)
+			local r, g, b = classColor.r, classColor.g, classColor.b
+
+			top:SetColorTexture(r, g, b, alpha)
+			bottom:SetColorTexture(r, g, b, alpha)
+		end
+
+		if module.db.lines.color == "GRADIENT" then
+			if E.db.mui.themes.classColorMap then
+				local colorMap = E.db.mui.themes.classColorMap
+
+				local left = colorMap[1][E.myclass] -- Left (player UF)
+				local right = colorMap[2][E.myclass] -- Right (player UF)
+
+				if left and left.r and right and right.r then
+					top:SetGradient(
+						orientation,
+						{ r = left.r, g = left.g, b = left.b, a = alpha },
+						{ r = right.r, g = right.g, b = right.b, a = alpha }
+					)
+					bottom:SetGradient(
+						orientation,
+						{ r = left.r, g = left.g, b = left.b, a = alpha },
+						{ r = right.r, g = right.g, b = right.b, a = alpha }
+					)
+				else
+					F.DebugPrint("Armory Lines >> Left or Right gradient not found", "error")
+				end
+			else
+				F.DebugPrint("Armory Lines >> Gradient color map not found", "error")
+			end
+		end
+	else
+		top:SetColorTexture(0, 0, 0, 0)
+		bottom:SetColorTexture(0, 0, 0, 0)
+	end
+end
+
+function module:UpdateLines()
+	local height = module.db.lines.height
+
+	module.frame.topLine:SetHeight(height)
+	module.frame.bottomLine:SetHeight(height)
+
+	self:UpdateLineColors()
+end
+
+function module:KillBlizzard()
+	local killList = { "CharacterModelFrameBackgroundOverlay" }
+	for _, frame in ipairs(killList) do
+		if _G[frame] then
+			_G[frame]:Kill()
+		end
+	end
+
+	if module.frameModel.backdrop then
+		module.frameModel.backdrop:Kill()
+	end
+
+	for _, corner in pairs({ "TopLeft", "TopRight", "BotLeft", "BotRight" }) do
+		local bg = _G["CharacterModelFrameBackground" .. corner]
+		if bg then
+			bg:Kill()
+		end
+	end
+
+	module.frameModel:DisableDrawLayer("BACKGROUND")
+	module.frameModel:DisableDrawLayer("BORDER")
+	module.frameModel:DisableDrawLayer("OVERLAY")
+end
+
+function module:UpdateCharacterArmory()
+	if not module.db or not module.db.enable then
+		return
+	end
+
+	module:KillBlizzard()
+	-- module:UpdateBackground()
+	module:UpdateLines()
+	module:UpdatePageInfo()
+
+	M:UpdateCharacterInfo()
+end
+
+function module:CreateElements()
+	if module.frame then
+		return
+	end
+
+	-- Vars
+	module.frame = _G.CharacterFrame
+	module.frameModel = _G.CharacterModelScene
+	module.frameName = module.frame:GetName()
+
+	module.frameHolder = CreateFrame("FRAME", nil, module.frameModel)
+
+	local frameHeight, frameWidth = module.frame:GetSize()
+	local cutOffPercentage = (1 - (frameHeight / frameWidth))
+
+	local background = CreateFrame("Frame", nil, module.frameHolder)
+	background:SetInside(module.frame)
+	background:SetFrameLevel(module.frameModel:GetFrameLevel() - 1)
+	background.Texture = background:CreateTexture(nil, "BACKGROUND")
+	background.Texture:SetInside()
+	background.Texture:SetTexCoord(0, 1, cutOffPercentage, 1)
+
+	module.frame.MERBackground = background
+
+	local lineHeight = 1
+	local topLine = CreateFrame("Frame", nil, module.frameHolder)
+	local bottomLine = CreateFrame("Frame", nil, module.frameHolder)
+	local classColor = E:ClassColor(E.myclass, true)
+	local r, g, b = classColor.r, classColor.g, classColor.b
+
+	topLine:SetHeight(lineHeight)
+	bottomLine:SetHeight(lineHeight)
+	topLine:SetPoint("TOPLEFT", module.frame.MERBackground, "TOPLEFT", 0, 0)
+	topLine:SetPoint("TOPRIGHT", module.frame.MERBackground, "TOPRIGHT", 0, 0)
+	bottomLine:SetPoint("BOTTOMLEFT", module.frame.MERBackground, "BOTTOMLEFT", 0, 1)
+	bottomLine:SetPoint("BOTTOMRIGHT", module.frame.MERBackground, "BOTTOMRIGHT", 0, 1)
+	topLine.Texture = topLine:CreateTexture(nil, "BACKGROUND")
+	bottomLine.Texture = bottomLine:CreateTexture(nil, "BACKGROUND")
+	topLine.Texture:SetAllPoints()
+	bottomLine.Texture:SetAllPoints()
+
+	module.frame.topLine = topLine
+	module.frame.bottomLine = bottomLine
+
+	module:UpdateLineColors()
+end
+
 function module:Initialize()
 	module.db = E.db.mui.armory
 
@@ -809,20 +957,18 @@ function module:Initialize()
 		return
 	end
 
-	-- Vars
-	module.frame = _G.CharacterFrame
-	module.frameModel = _G.CharacterModelScene
-	module.frameName = self.frame:GetName()
-
+	module:CreateElements()
 	module:SkinCharacterFrame()
 
 	hooksecurefunc(M, "UpdateCharacterInfo", module.UpdateItemLevel)
 	hooksecurefunc(M, "UpdateAverageString", module.UpdateItemLevel)
 	hooksecurefunc(M, "UpdatePageInfo", module.UpdatePageInfo)
 	hooksecurefunc(M, "CreateSlotStrings", module.UpdatePageInfo)
-	hooksecurefunc(M, "UpdatePageStrings", module.UpdatePageStrings) --should be ok to call
+	hooksecurefunc(M, "UpdatePageStrings", module.UpdatePageStrings)
 
 	module:RegisterEvent("PLAYER_AVG_ITEM_LEVEL_UPDATE", module.HandleEvent)
+
+	module:UpdateCharacterArmory()
 
 	module.initialized = true
 end

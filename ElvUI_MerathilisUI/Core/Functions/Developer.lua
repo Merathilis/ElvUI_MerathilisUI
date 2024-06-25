@@ -25,6 +25,7 @@ MER.IsDev = {
 	["Róhal"] = true,
 	["Ronan"] = true,
 	["Brítt"] = true,
+	["Brìtt"] = true,
 	["Jahzzy"] = true,
 	["Dâmara"] = true,
 	["Meravoker"] = true,
@@ -141,6 +142,21 @@ function F.Developer.LogDebug(...)
 
 	local message = strjoin(" ", ...)
 	print(format("%s |cff00d1b2[DEBUG]|r %s", MER.Title, message))
+end
+
+do
+	local messages = {}
+	function F.Developer.PrintDelayedMessages()
+		for _, msg in ipairs(messages) do
+			F.Developer.Print(msg)
+		end
+
+		messages = {}
+	end
+
+	function F.Developer.AddDelayedMessage(str)
+		tinsert(messages, str)
+	end
 end
 
 --[[

@@ -388,7 +388,7 @@ options.locPanel = {
 							name = L["Show hearthstones"],
 							desc = L["Show hearthstone type items in the list."],
 						},
-						hsProprity = F.CreateMovableButtons(
+						hsProprity = F:CreateMovableButtons(
 							22,
 							L["Hearthstone Toys Order"],
 							false,

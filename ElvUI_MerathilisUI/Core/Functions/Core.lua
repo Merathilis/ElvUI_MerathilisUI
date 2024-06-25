@@ -27,6 +27,75 @@ local C_TooltipInfo_GetInventoryItem = C_TooltipInfo and C_TooltipInfo.GetInvent
 local C_TooltipInfo_GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
 local C_TooltipInfo_GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
 
+-- Profile
+function F.GetDBFromPath(path, dbRef)
+	local paths = { strsplit(".", path) }
+	local length = #paths
+	local count = 0
+	dbRef = dbRef or E.db
+
+	for _, key in pairs(paths) do
+		if (dbRef == nil) or (type(dbRef) ~= "table") then
+			break
+		end
+
+		if tonumber(key) then
+			key = tonumber(key)
+			dbRef = dbRef[key]
+			count = count + 1
+		else
+			local idx
+
+			if key:find("%b[]") then
+				idx = {}
+
+				for i in gmatch(key, "(%b[])") do
+					i = match(i, "%[(.+)%]")
+					tinsert(idx, i)
+				end
+
+				length = length + #idx
+			end
+
+			key = strsplit("[", key)
+
+			if #key > 0 then
+				dbRef = dbRef[key]
+				count = count + 1
+			end
+
+			if idx and (type(dbRef) == "table") then
+				for _, idxKey in ipairs(idx) do
+					idxKey = tonumber(idxKey) or idxKey
+					dbRef = dbRef[idxKey]
+					count = count + 1
+
+					if (dbRef == nil) or (type(dbRef) ~= "table") then
+						break
+					end
+				end
+			end
+		end
+	end
+
+	if count == length then
+		return dbRef
+	end
+
+	return nil
+end
+
+function F.UpdateDBFromPath(db, path, key)
+	F.GetDBFromPath(path)[key] = F.GetDBFromPath(path, db)[key]
+end
+
+function F.UpdateDBFromPathRGB(db, path)
+	F.UpdateDBFromPath(db, path, "r")
+	F.UpdateDBFromPath(db, path, "g")
+	F.UpdateDBFromPath(db, path, "b")
+	F.UpdateDBFromPath(db, path, "a")
+end
+
 -- Scaling
 function F.PerfectScale(n)
 	local m = E.mult
@@ -722,7 +791,7 @@ local function MovableButton_Match(s, v)
 	return (match(s, m1) and m1) or (match(s, m2) and m2) or (match(s, m3) and m3) or (match(s, m4) and v .. ",")
 end
 
-function F.MovableButtonSettings(db, key, value, remove, movehere)
+function F:MovableButtonSettings(db, key, value, remove, movehere)
 	local str = db[key]
 	if not db or not str or not value then
 		return
@@ -752,7 +821,7 @@ function F.MovableButtonSettings(db, key, value, remove, movehere)
 	end
 end
 
-function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
+function F:CreateMovableButtons(Order, Name, CanRemove, db, key)
 	local moveItemFrom, moveItemTo
 
 	local config = {
@@ -768,7 +837,7 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 			moveItemFrom, moveItemTo = info.obj.value, nil
 		end,
 		dragOnMouseUp = function(info)
-			F.MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
+			F:MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
 			moveItemFrom, moveItemTo = nil, nil
 		end,
 		stateSwitchGetText = function(info, TEXT)
@@ -777,7 +846,7 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 			return text
 		end,
 		stateSwitchOnClick = function(info)
-			F.MovableButtonSettings(db, key, moveItemFrom)
+			F:MovableButtonSettings(db, key, moveItemFrom)
 		end,
 		values = function()
 			local str = db[key]
@@ -799,7 +868,7 @@ function F.CreateMovableButtons(Order, Name, CanRemove, db, key)
 
 	if CanRemove then --This allows to remove
 		config.dragOnClick = function(info)
-			F.MovableButtonSettings(db, key, moveItemFrom, true)
+			F:MovableButtonSettings(db, key, moveItemFrom, true)
 		end
 	end
 

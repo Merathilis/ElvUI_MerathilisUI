@@ -16,6 +16,10 @@ function module:Blizzard_PlayerChoice()
 		return
 	end
 
+	if not E.private.skins.parchmentRemoverEnable then
+		return
+	end
+
 	hooksecurefunc(_G.PlayerChoiceFrame, "TryShow", function(self)
 		if not self.optionFrameTemplate then
 			return

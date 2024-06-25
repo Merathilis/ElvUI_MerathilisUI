@@ -30,4 +30,5 @@
 	<Include file="Panels\Load_Panels.xml"/>
 	<Include file="AutoButtons\Load_AutoButtons.xml"/>
 	<Include file="CVars\Load_CVars.xml"/>
+	<Include file="VehicleBar\Load_VehicleBar.xml"/>
 </Ui>

@@ -1,7 +1,9 @@
 ### Changes ###
 
-  * [FriendsList]: Added Timerunner Icon on the Characters
-  * [Armory]: Don't show enchants on MoP Remix Characters
-  * [Scale]: Added Auction House and Transmog Frame
-  * [AutoButtons]: Added more openable Items from MoP Remix
-  * [ChatText]: Bring ElvUI Chat changes inline with Chat Text
+  * [BigWigs Skin]: Updates with the new Profile Structure
+  * [[Vehicle Bar]: Added a new Vehicle Bar (disabled by default)
+  * [Armory]: Added an Class Color option for the Enchant Strings
+  * [Armory]: Added decorative Lines to the Character Frame (disabled by default)
+  * [SimpleAddOnManager]: Added a skin for it
+  * [Profile]: Take account to ElvUI's new Healer only Mana
+  * [Locales]: Thanks @Dlarge for cleaning up my mess <3

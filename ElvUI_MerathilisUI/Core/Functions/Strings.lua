@@ -205,7 +205,17 @@ function F.String.StripColor(text)
 	if type(text) ~= "string" then
 		return text
 	end
-	return gsub(text, "|c%x%x%x%x%x%x%x%x(.-)|r", "%1")
+
+	-- Remove |c...|r format
+	text = text:gsub("|c%x%x%x%x%x%x%x%x(.-)|r", "%1")
+	-- Remove |cn...: format
+	text = text:gsub("|cn.-:(.-)|r", "%1")
+	-- Remove any remaining |r
+	text = text:gsub("|r", "")
+	-- Remove any remaining |
+	text = text:gsub("|", "")
+
+	return text
 end
 
 function F.String.Strip(text)
@@ -354,6 +364,42 @@ function F.String.FastColorGradientHex(percentage, h1, h2)
 	local r2, g2, b2 = F.String.HexToRGB(h2)
 
 	return F.FastColorGradient(percentage, r1, g1, b1, r2, g2, b2)
+end
+
+function F.String.GradientClass(text, class, reverse)
+	if not text or text == "" then
+		text = E.myLocalizedClass
+	end
+
+	local unitClass = class or E.myclass
+
+	local db = E.db and E.db.mui and E.db.mui.themes
+	if not db then
+		db = {}
+	end
+	if db.classColorMap then
+		local colorMap = E.db.mui.themes.classColorMap
+
+		-- check if class is an actual valid class that we have gradients for, if not, fallback to player's class
+		if not colorMap[1][unitClass] then
+			unitClass = E.myclass
+		end
+
+		local left = colorMap[1][unitClass] -- Left (player UF)
+		local right = colorMap[2][unitClass] -- Right (player UF)
+
+		if left and left.r and right and right.r then
+			if not reverse then
+				return F.String.FastGradient(text, left.r, left.g, left.b, right.r, right.g, right.b)
+			else
+				return F.String.FastGradient(text, right.r, right.g, right.b, left.r, left.g, left.b)
+			end
+		else
+			return text
+		end
+	else
+		return text
+	end
 end
 
 function F.String.Class(msg, class)

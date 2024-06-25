@@ -28,13 +28,14 @@ function MER:LoadBigWigsProfile()
 
 	DB["profiles"] = DB["profiles"] or {}
 
-	-- Disable minimap icon
 	iconDB["hide"] = true
+	iconDB["showInCompartment"] = true
 
 	DB["profiles"][profileName] = DB["profiles"][profileName] or {}
 	DB["profiles"][profileName]["showZoneMessages"] = true
 	DB["profiles"][profileName]["fakeDBMVersion"] = true
 	DB["profiles"][profileName]["flash"] = true
+	DB["profiles"][profileName]["englishSayMessages"] = true
 
 	DB["namespaces"]["BigWigs_Plugins_Victory"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Victory"]["profiles"]
 		or {}
@@ -48,10 +49,10 @@ function MER:LoadBigWigsProfile()
 		["outline"] = "SHADOWOUTLINE",
 		["fontName"] = I.Fonts.Primary,
 		["position"] = {
-			"CENTER", -- [1]
-			"CENTER", -- [2]
-			7.999993801116943, -- [3]
-			122.0000915527344, -- [4]
+			"CENTER",
+			"CENTER",
+			nil,
+			200,
 		},
 	}
 	DB["namespaces"]["BigWigs_Plugins_AutoReply"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_AutoReply"]["profiles"]
@@ -87,40 +88,49 @@ function MER:LoadBigWigsProfile()
 	}
 	DB["namespaces"]["BigWigs_Plugins_Bars"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Bars"]["profiles"] or {}
 	DB["namespaces"]["BigWigs_Plugins_Bars"]["profiles"][profileName] = {
-		["BigWigsEmphasizeAnchor_y"] = 232,
-		["BigWigsEmphasizeAnchor_x"] = 455,
-		["BigWigsAnchor_y"] = 258,
-		["BigWigsAnchor_x"] = 1159,
-		["BigWigsAnchor_width"] = 212,
-		["BigWigsAnchor_height"] = 18,
-		["BigWigsEmphasizeAnchor_height"] = 28,
-		["BigWigsEmphasizeAnchor_width"] = 170,
-		["fontName"] = I.Fonts.Primary,
-		["fontSizeEmph"] = 12,
-		["fontSize"] = 11,
-		["outline"] = "SHADOWOUTLINE",
-		["emphasizeScale"] = 1.1,
-		["barStyle"] = "MerathilisUI",
+		["outline"] = "OUTLINE",
+		["expWidth"] = 209,
 		["growup"] = true,
+		["fontName"] = I.Fonts.Primary,
+		["fontSize"] = F.SetFontSizeScaled(13),
+		["expHeight"] = 23,
 		["emphasizeGrowup"] = true,
-		["texture"] = "ElvUI Norm1",
 		["spacing"] = 15,
+		["barStyle"] = "|cffffffffMerathilis|r|cffff7d0aUI|r ",
+		["expPosition"] = {
+			nil,
+			nil,
+			-250,
+			-247,
+		},
+		["fontSizeEmph"] = F.SetFontSizeScaled(15),
+		["normalWidth"] = 294,
+		["normalHeight"] = 22,
+		["normalPosition"] = {
+			"BOTTOMRIGHT",
+			"BOTTOMRIGHT",
+			-13,
+			263,
+		},
 	}
 	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"]
 		or {}
 	DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"][profileName] = {
-		["outline"] = "SHADOWOUTLINE",
-		["fontSize"] = F.SetFontSizeScaled(20),
-		["BWEmphasizeCountdownMessageAnchor_x"] = 664,
-		["BWMessageAnchor_x"] = 608,
-		["growUpwards"] = false,
-		["BWEmphasizeCountdownMessageAnchor_y"] = 523,
-		["BWEmphasizeMessageAnchor_y"] = 614,
-		["BWMessageAnchor_y"] = 676,
-		["BWEmphasizeMessageAnchor_x"] = 610,
 		["emphFontName"] = I.Fonts.Primary,
 		["emphFontSize"] = F.SetFontSizeScaled(24),
+		["emphPosition"] = {
+			nil,
+			nil,
+			nil,
+			110,
+		},
 		["fontName"] = I.Fonts.Primary,
+		["normalPosition"] = {
+			"TOP",
+			nil,
+			nil,
+			-180,
+		},
 	}
 	DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"]
 		or {}
@@ -140,12 +150,15 @@ function MER:LoadBigWigsProfile()
 	DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"] = DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"]
 		or {}
 	DB["namespaces"]["BigWigs_Plugins_AltPower"]["profiles"][profileName] = {
-		["posx"] = 600,
-		["fontSize"] = 11,
-		["fontOutline"] = "",
+		["fontSize"] = F.SetFontSizeScaled(11),
 		["fontName"] = I.Fonts.Primary,
 		["lock"] = true,
-		["posy"] = 132,
+		["position"] = {
+			"BOTTOM",
+			"BOTTOM",
+			-263.0009155273438,
+			75.00016784667969,
+		},
 	}
 
 	-- Set the profile
