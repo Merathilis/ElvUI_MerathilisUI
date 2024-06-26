@@ -128,7 +128,7 @@ L["Armor Category"] = "Категория брони"
 L["Weapon Category"] = "Категория оружия"
 L["Display the level of the item on the item link."] =
 	"Отображение уровня предмета по ссылке предмета."
-L["Numberical Quality Tier"] = "Числовой уровень качества"
+L["Numerical Quality Tier"] = "Числовой уровень качества"
 L["%player% has earned the achievement %achievement%!"] =
 	"%player% заработал достижение %achievement%!"
 L["%players% have earned the achievement %achievement%!"] =

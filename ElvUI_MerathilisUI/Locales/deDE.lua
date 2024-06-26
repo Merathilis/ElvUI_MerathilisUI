@@ -124,7 +124,7 @@ L["Weapon Category"] = "Waffenkategorie"
 L["Filters some messages out of your chat, that some Spam AddOns use."] =
 	"Filtert einige Nachrichten von Spam AddOns aus deinem Chat."
 L["Display the level of the item on the item link."] = "Zeige die Stufe des Gegenstands auf dem Gegenstandslink an."
-L["Numberical Quality Tier"] = "Numerische Qualitätsstufe"
+L["Numerical Quality Tier"] = "Numerische Qualitätsstufe"
 L["%player% has earned the achievement %achievement%!"] = "%player% hat den Erfolg %achievement% errungen!"
 L["%players% have earned the achievement %achievement%!"] = "%players% haben den Erfolg %achievement% erreicht!"
 L["%players% (%bnet%) has come online."] = "%players% (%bnet%) ist jetzt online."

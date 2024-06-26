@@ -269,7 +269,7 @@ P.chat = {
 	},
 	chatLink = {
 		enable = true,
-		numbericalQualityTier = false,
+		numericalQualityTier = false,
 		translateItem = true,
 		level = true,
 		icon = true,

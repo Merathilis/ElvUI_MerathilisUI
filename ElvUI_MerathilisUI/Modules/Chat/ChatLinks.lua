@@ -73,7 +73,7 @@ local function AddItemInfo(link)
 		end
 	end
 
-	if module.db.numbericalQualityTier then
+	if module.db.numericalQualityTier then
 		link = gsub(link, "|A:Professions%-ChatIcon%-Quality%-Tier(%d):(%d+):(%d+)::1|a", function(tier, width, height)
 			if tierColor[tier] then
 				return tierColor[tier] .. tier .. "|r"
