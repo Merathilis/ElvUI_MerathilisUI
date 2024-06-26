@@ -4,7 +4,7 @@ local module = MER:GetModule("MER_Misc")
 local _G = _G
 local select = select
 
-local GetItemInfo = GetItemInfo
+local GetItemInfo = C_Item and C_Item.GetItemInfo
 local GetQuestItemLink = GetQuestItemLink
 local GetNumQuestChoices = GetNumQuestChoices
 

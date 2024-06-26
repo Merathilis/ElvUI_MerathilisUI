@@ -3,16 +3,19 @@ local module = MER:GetModule("MER_Misc")
 local S = MER:GetModule("MER_Skins")
 
 local pairs, tinsert, select = pairs, tinsert, select
-local GetSpellCooldown, GetSpellInfo, GetItemCooldown, GetItemCount, GetItemInfo =
-	GetSpellCooldown, GetSpellInfo, GetItemCooldown, GetItemCount, GetItemInfo
-local IsPassiveSpell, IsCurrentSpell, IsPlayerSpell, UseItemByName =
-	IsPassiveSpell, IsCurrentSpell, IsPlayerSpell, UseItemByName
+local GetSpellCooldown, GetSpellInfo = GetSpellCooldown, GetSpellInfo
+local IsPassiveSpell, IsCurrentSpell, IsPlayerSpell = IsPassiveSpell, IsCurrentSpell, IsPlayerSpell
+local GetItemCooldown = C_Item and C_Item.GetItemCooldown
+local GetItemCount = C_Item and C_Item.GetItemCount
+local GetItemInfo = C_Item and C_Item.GetItemInfo
+local UseItemByName = C_Item and C_Item.UseItemByName
 local GetProfessions, GetProfessionInfo, GetSpellBookItemInfo = GetProfessions, GetProfessionInfo, GetSpellBookItemInfo
 local PlayerHasToy, C_ToyBox_IsToyUsable, C_ToyBox_GetToyInfo = PlayerHasToy, C_ToyBox.IsToyUsable, C_ToyBox.GetToyInfo
-local C_TradeSkillUI_GetOnlyShowSkillUpRecipes, C_TradeSkillUI_SetOnlyShowSkillUpRecipes =
-	C_TradeSkillUI.GetOnlyShowSkillUpRecipes, C_TradeSkillUI.SetOnlyShowSkillUpRecipes
-local C_TradeSkillUI_GetOnlyShowMakeableRecipes, C_TradeSkillUI_SetOnlyShowMakeableRecipes =
-	C_TradeSkillUI.GetOnlyShowMakeableRecipes, C_TradeSkillUI.SetOnlyShowMakeableRecipes
+
+local GetOnlyShowSkillUpRecipes = C_TradeSkillUI and C_TradeSkillUI.GetOnlyShowSkillUpRecipes
+local SetOnlyShowSkillUpRecipes = C_TradeSkillUI and C_TradeSkillUI.SetOnlyShowSkillUpRecipes
+local GetOnlyShowMakeableRecipes = C_TradeSkillUI and C_TradeSkillUI.GetOnlyShowMakeableRecipes
+local SetOnlyShowMakeableRecipes = C_TradeSkillUI and C_TradeSkillUI.SetOnlyShowMakeableRecipes
 
 local BOOKTYPE_PROFESSION = BOOKTYPE_PROFESSION
 local RUNEFORGING_ID = 53428
@@ -167,14 +170,14 @@ function module:TradeTabs_FilterIcons()
 		[1] = {
 			"Atlas:bags-greenarrow",
 			TRADESKILL_FILTER_HAS_SKILL_UP,
-			C_TradeSkillUI_GetOnlyShowSkillUpRecipes,
-			C_TradeSkillUI_SetOnlyShowSkillUpRecipes,
+			GetOnlyShowSkillUpRecipes,
+			SetOnlyShowSkillUpRecipes,
 		},
 		[2] = {
 			"Interface\\RAIDFRAME\\ReadyCheck-Ready",
 			CRAFT_IS_MAKEABLE,
-			C_TradeSkillUI_GetOnlyShowMakeableRecipes,
-			C_TradeSkillUI_SetOnlyShowMakeableRecipes,
+			GetOnlyShowMakeableRecipes,
+			SetOnlyShowMakeableRecipes,
 		},
 	}
 

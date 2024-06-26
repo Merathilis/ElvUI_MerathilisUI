@@ -10,9 +10,10 @@ local pairs, select, type = pairs, select, type
 local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
 local Item = Item
 local ItemLocation = ItemLocation
-local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
 
-local C_Item_DoesItemExist = C_Item.DoesItemExist
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
+local DoesItemExist = C_Item and C_Item.DoesItemExist
+local GetItemInfo = C_Item and C_Item.GetItemInfo
 
 local EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION = EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION
 
@@ -49,7 +50,7 @@ local function UpdateFlyoutItemLevelTextStyle(text, db)
 end
 
 local function RefreshItemLevel(text, db, location)
-	if not text or not C_Item_DoesItemExist(location) then
+	if not text or not DoesItemExist(location) then
 		return
 	end
 

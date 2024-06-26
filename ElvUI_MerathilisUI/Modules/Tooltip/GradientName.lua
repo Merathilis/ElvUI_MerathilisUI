@@ -4,8 +4,8 @@ local TT = E:GetModule("Tooltip")
 
 local _G = _G
 
-local GetItemInfo = GetItemInfo
-local GetItemQualityColor = GetItemQualityColor
+local GetItemInfo = C_Item and C_Item.GetItemInfo
+local GetItemQualityColor = C_Item and C_Item.GetItemQualityColor
 local hooksecurefunc = hooksecurefunc
 local TooltipDataType = Enum.TooltipDataType
 local AddTooltipPostCall = TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall

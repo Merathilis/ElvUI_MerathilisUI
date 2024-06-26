@@ -60,7 +60,7 @@ module.ReminderBuffs = {
 	},
 	AttackPower = {
 		6673, -- Battle Shout
-		264761, -- War-Scroll of Battle
+		-- 264761, -- War-Scroll of Battle
 	},
 	Versatility = {
 		1126, -- Mark of the Wild
@@ -406,7 +406,7 @@ function module:Initialize()
 	self.frame:RegisterEvent("CHARACTER_POINTS_CHANGED")
 	self.frame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	self.frame:RegisterEvent("GROUP_ROSTER_UPDATE")
-	self.frame:SetScript("OnEvent", OnAuraChange)
+	-- self.frame:SetScript("OnEvent", OnAuraChange) -- 11.0 FIX ME
 
 	E:CreateMover(
 		self.frame,
