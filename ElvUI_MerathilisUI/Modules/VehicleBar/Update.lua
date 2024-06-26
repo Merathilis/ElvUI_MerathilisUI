@@ -111,7 +111,8 @@ function module:UpdateBar()
 	local bar = self.bar or CreateFrame("Frame", "MER_VehicleBar", E.UIParent, "SecureHandlerStateTemplate")
 
 	-- Default position
-	local point, anchor, attachTo, x, y = strsplit(",", F.Position(strsplit(",", self.db.position)))
+	local point, anchor, attachTo, x, y =
+		strsplit(",", F.Position(strsplit(",", self.db.position or "BOTTOM,ElvUIParent,BOTTOM,0,140")))
 	bar:SetPoint(point, anchor, attachTo, x, y)
 
 	self.bar = bar
@@ -196,7 +197,7 @@ function module:UpdateBar()
 		GetOverrideBarIndex(),
 		GetVehicleBarIndex(),
 		GetVehicleBarIndex(),
-		(self.db.dragonRiding and "[bonusbar:5] 11;") or ""
+		"[bonusbar:5] 11;"
 	)
 	local pageAttribute = self.ab:GetPage("bar1", 1, pageState)
 	RegisterStateDriver(bar, "page", pageAttribute)
@@ -223,7 +224,7 @@ function module:UpdateBar()
 			button:UpdateAction()
 		end
 
-		if not self.vigorBar then
+		if not self.vigorBar and self.vdb.enable then
 			self:CreateVigorBar()
 		end
 

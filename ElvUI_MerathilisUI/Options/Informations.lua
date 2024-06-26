@@ -334,18 +334,8 @@ options.reset = {
 				end)
 			end,
 		},
-		locPanel = {
-			order = 4,
-			type = "execute",
-			name = L["Location Panel"],
-			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Location Panel"], nil, function()
-					E:CopyTable(E.db.mui.locPanel, P.locPanel)
-				end)
-			end,
-		},
 		microBar = {
-			order = 5,
+			order = 4,
 			type = "execute",
 			name = L["Micro Bar"],
 			func = function()
@@ -355,7 +345,7 @@ options.reset = {
 			end,
 		},
 		cooldownFlash = {
-			order = 6,
+			order = 5,
 			type = "execute",
 			name = L["Cooldown Flash"],
 			func = function()
@@ -365,7 +355,7 @@ options.reset = {
 			end,
 		},
 		raidmarkers = {
-			order = 7,
+			order = 6,
 			type = "execute",
 			name = L["Raid Markers"],
 			func = function()
@@ -375,7 +365,7 @@ options.reset = {
 			end,
 		},
 		smb = {
-			order = 8,
+			order = 7,
 			type = "execute",
 			name = L["Minimap Buttons"],
 			func = function()
@@ -385,7 +375,7 @@ options.reset = {
 			end,
 		},
 		eventTracker = {
-			order = 9,
+			order = 8,
 			type = "execute",
 			name = L["Event Tracker"],
 			func = function()
@@ -395,7 +385,7 @@ options.reset = {
 			end,
 		},
 		bigWigsSkin = {
-			order = 10,
+			order = 9,
 			type = "execute",
 			name = L["BigWigs Skin"],
 			func = function()
@@ -405,7 +395,7 @@ options.reset = {
 			end,
 		},
 		chatBar = {
-			order = 11,
+			order = 10,
 			type = "execute",
 			name = L["Chat Bar"],
 			func = function()

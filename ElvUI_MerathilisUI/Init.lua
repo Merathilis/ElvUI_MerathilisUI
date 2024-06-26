@@ -82,7 +82,6 @@ MER.Modules.InstanceDifficulty = MER:NewModule("MER_InstanceDifficulty", "AceEve
 MER.Modules.ItemLevel = MER:NewModule("MER_ItemLevel", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Layout = MER:NewModule("MER_Layout", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.LFGInfo = MER:NewModule("MER_LFGInfo", "AceHook-3.0", "AceEvent-3.0")
-MER.Modules.LocPanel = MER:NewModule("MER_LocPanel", "AceTimer-3.0", "AceEvent-3.0")
 MER.Modules.Mail = MER:NewModule("MER_Mail", "AceHook-3.0")
 MER.Modules.MicroBar = MER:NewModule("MER_MicroBar", "AceEvent-3.0", "AceHook-3.0")
 MER.Modules.MiniMap = MER:NewModule("MER_Minimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")

@@ -463,24 +463,6 @@ function F:CreateGlowFrame(size)
 	return frame
 end
 
--- LocPanel
-function F.GetIconFromID(type, id)
-	local path
-	if type == "item" then
-		path = select(10, GetItemInfo(id))
-	elseif type == "spell" then
-		path = select(3, GetSpellInfo(id))
-	elseif type == "achiev" then
-		path = select(10, GetAchievementInfo(id))
-	end
-	return path or nil
-end
-
-function F.GetSpell(id)
-	local name = GetSpellInfo(id)
-	return name
-end
-
 function F.SplitList(list, variable, cleanup)
 	if cleanup then
 		twipe(list)

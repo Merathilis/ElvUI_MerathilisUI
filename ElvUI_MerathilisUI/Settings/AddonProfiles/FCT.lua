@@ -9,6 +9,7 @@ local FCT = E.Libs.AceAddon:GetAddon(addon)
 function MER:LoadFCTProfile()
 	ElvFCT = {
 		["nameplates"] = {
+			["enable"] = false,
 			["frames"] = {
 				["Player"] = {
 					["fontSize"] = 16,
