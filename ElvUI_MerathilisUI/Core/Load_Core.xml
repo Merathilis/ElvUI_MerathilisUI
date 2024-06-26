@@ -4,9 +4,7 @@
 
 	<!-- Settings -->
 	<Include file="InternalData\Load_InternalData.xml"/>
-	<Script file="Global.lua"/>
-	<Script file="Private.lua"/>
-	<Script file="Profile.lua"/>
+	<Include file="Profile\Load_Profile.xml"/>
 
 	<Script file="Core.lua"/>
 	<Script file="Compatibility.lua"/>

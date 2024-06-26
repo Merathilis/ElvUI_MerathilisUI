@@ -113,7 +113,7 @@ L["Armor Category"] = true
 L["Weapon Category"] = true
 L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 L["Display the level of the item on the item link."] = true
-L["Numberical Quality Tier"] = true
+L["Numerical Quality Tier"] = true
 L["%player% has earned the achievement %achievement%!"] = true
 L["%players% have earned the achievement %achievement%!"] = true
 L["%players% (%bnet%) has come online."] = true
@@ -663,58 +663,6 @@ L["Type the Model ID"] = true
 L["Role Icons"] = true
 L["Heal Prediction"] = true
 L["Add an additional overlay to the absorb bar."] = true
-
--- LocationPanel
-L["Location Panel"] = true
-L["Update Throttle"] = true
-L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] = true
-L["Full Location"] = true
-L["Color Type"] = true
-L["Custom Color"] = true
-L["Reaction"] = true
-L["Location"] = true
-L["Coordinates"] = true
-L["Teleports"] = true
-L["Portals"] = true
-L["Link Position"] = true
-L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."] = true
-L["Relocation Menu"] = true
-L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."] =
-	true
-L["Custom Width"] = true
-L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] =
-	true
-L["Justify Text"] = true
-L["Auto Width"] = true
-L["Change width based on the zone name length."] = true
-L["Hearthstone Location"] = true
-L["Hearthstone Toys Order"] = true
-L["Show the name on location your Hearthstone is bound to."] = true
-L["Combat Hide"] = true
-L["Show/Hide all panels when in combat"] = true
-L["Hide In Class Hall"] = true
-L["Hearthstone Location"] = true
-L["Show hearthstones"] = true
-L["Show hearthstone type items in the list."] = true
-L["Show Toys"] = true
-L["Show toys in the list. This option will affect all other display options as well."] = true
-L["Show spells"] = true
-L["Show relocation spells in the list."] = true
-L["Show engineer gadgets"] = true
-L["Show items used only by engineers when the profession is learned."] = true
-L["Ignore missing info"] = true
-L["MER_LOCPANEL_IGNOREMISSINGINFO"] =
-	[[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
-When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
-By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
-L["Info for some items is not available yet. Please try again later"] = true
-L["Update canceled."] = true
-L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] =
-	true
-L["Update complete. Opening menu."] = true
-L["Hide Coordinates"] = true
-L["Dungeon Teleports"] = true
-L["Hide In Combat"] = true
 
 -- Maps
 L["Maps"] = true

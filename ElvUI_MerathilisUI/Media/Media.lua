@@ -83,6 +83,17 @@ F.AddMedia("icon", "New")
 
 F.AddMedia("icon", "m2")
 
+-- Flags
+F.AddMedia("icon", "American")
+F.AddMedia("icon", "Brazilian")
+F.AddMedia("icon", "French")
+F.AddMedia("icon", "German")
+F.AddMedia("icon", "Italian")
+F.AddMedia("icon", "Oceanic")
+F.AddMedia("icon", "Portuguese")
+F.AddMedia("icon", "Russian")
+F.AddMedia("icon", "Spanish")
+
 F.AddMedia("texture", "arrow")
 F.AddMedia("texture", "arrowUp")
 F.AddMedia("texture", "pepeSmall")
@@ -142,7 +153,6 @@ F.AddMedia("texture", "ShadowInner")
 F.AddMedia("texture", "ShadowInnerSmall")
 
 -- Fonts
-
 F.AddMedia("font", "Expressway.ttf", I.Fonts.Primary, nil, westAndRUBits)
 F.AddMedia("font", "GothamNarrow-Black.ttf", I.Fonts.GothamRaid, nil, westAndRUBits)
 F.AddMedia("font", "Runescape.ttf", I.Fonts.Runescape, nil, westAndRUBits)

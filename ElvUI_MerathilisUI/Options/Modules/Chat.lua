@@ -130,11 +130,11 @@ options.chat = {
 							type = "toggle",
 							name = L["Level"],
 						},
-						numbericalQualityTier = {
+						numericalQualityTier = {
 							order = 2,
 							type = "toggle",
-							name = L["Numberical Quality Tier"],
-							desc = L["Display the numberical quality tier on the item link."],
+							name = L["Numerical Quality Tier"],
+							desc = L["Display the numerical quality tier on the item link."],
 						},
 						translateItem = {
 							order = 3,

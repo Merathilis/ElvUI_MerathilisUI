@@ -124,7 +124,7 @@ L["Weapon Category"] = "Waffenkategorie"
 L["Filters some messages out of your chat, that some Spam AddOns use."] =
 	"Filtert einige Nachrichten von Spam AddOns aus deinem Chat."
 L["Display the level of the item on the item link."] = "Zeige die Stufe des Gegenstands auf dem Gegenstandslink an."
-L["Numberical Quality Tier"] = "Numerische Qualitätsstufe"
+L["Numerical Quality Tier"] = "Numerische Qualitätsstufe"
 L["%player% has earned the achievement %achievement%!"] = "%player% hat den Erfolg %achievement% errungen!"
 L["%players% have earned the achievement %achievement%!"] = "%players% haben den Erfolg %achievement% erreicht!"
 L["%players% (%bnet%) has come online."] = "%players% (%bnet%) ist jetzt online."
@@ -417,41 +417,53 @@ L["Confirm Summon"] = "Akzeptiere Beschwörung"
 L["Confirm summon from other player automatically."] =
 	"Bestätige die Beschwörung von einem anderen Spieler automatisch."
 L["Quick Delete"] = "Schnelles Löschen"
-L["This will add the 'DELETE' text to the Item Delete Dialog."] = "Dadurch wird dem Element löschen Dialogfeld der Text 'LÖSCHEN' hinzugefügt."
+L["This will add the 'DELETE' text to the Item Delete Dialog."] =
+	"Dadurch wird dem Element löschen Dialogfeld der Text 'LÖSCHEN' hinzugefügt."
 L["Quick Menu"] = "Schnelles Menu"
-L["Shows additional Buttons on your Dropdown for quick actions."] = "Zeigt zusätzliche Schaltflächen in Deinem Dropdown-Menü für schnelle Aktionen an."
+L["Shows additional Buttons on your Dropdown for quick actions."] =
+	"Zeigt zusätzliche Schaltflächen in Deinem Dropdown-Menü für schnelle Aktionen an."
 L["Trade Tabs"] = "Händler Tabs"
 L["Creates additional tabs on the Profession Frame"] = "Erstellt zusätzliche Registerkarten im Berufsfenster"
 L["Missing Stats"] = "Fehlende Statistiken"
 L["Show all stats on the Character Frame"] = "Alle Werte im Charakterfenster anzeigen."
 L["Block Join Requests"] = "Beitrittsanfragen blockieren"
-L["|nIf checked, only popout join requests from friends and guild members."] = "|nWenn aktiviert, werden nur Beitrittsanfragen von Freunden und Gildenmitgliedern angezeigt."
+L["|nIf checked, only popout join requests from friends and guild members."] =
+	"|nWenn aktiviert, werden nur Beitrittsanfragen von Freunden und Gildenmitgliedern angezeigt."
 L["HotKey Above CD"] = "HotKey über CD"
 L["Show hotkeys above the ElvUI cooldown animation."] = "Hotkeys über der ElvUI-Abklinganimation anzeigen."
-L["Only works with ElvUI action bar and ElvUI cooldowns."] = "Funktioniert nur mit der ElvUI-Aktionsleiste und ElvUI-Abklingzeiten."
+L["Only works with ElvUI action bar and ElvUI cooldowns."] =
+	"Funktioniert nur mit der ElvUI-Aktionsleiste und ElvUI-Abklingzeiten."
 L["Random Toy Macro"] = "Zufälliges Spielzeug Makro"
 L["Creates a random toy macro."] = "Erzeugt ein zufälliges Spielzeugmakro."
 L["Spell activation alert frame customizations."] = "Anpassungen des Warnfensters bei Zauberaktivierung."
-L["Enable/Disable the spell activation alert frame."] = "Aktivieren/Deaktivieren Sie den Warnfensters bei Zauberaktivierung."
+L["Enable/Disable the spell activation alert frame."] =
+	"Aktivieren/Deaktivieren Sie den Warnfensters bei Zauberaktivierung."
 L["Opacity"] = "Deckkraft"
-L["Set the opacity of the spell activation alert frame. (Blizzard CVar)"] = "Lege die Deckkraft des Warnfensters bei Zauberaktivierung fest. (Blizzard CVar)"
-L["Set the scale of the spell activation alert frame."] = "Lege den Maßstab des Warnfensters bei Zauberaktivierung fest."
+L["Set the opacity of the spell activation alert frame. (Blizzard CVar)"] =
+	"Lege die Deckkraft des Warnfensters bei Zauberaktivierung fest. (Blizzard CVar)"
+L["Set the scale of the spell activation alert frame."] =
+	"Lege den Maßstab des Warnfensters bei Zauberaktivierung fest."
 L["Dressing Room"] = "Anprobe"
 L["Inspect Frame"] = "Betrachtungsfenster"
 L["Sync Inspect"] = "Syncronisiere Betrachtung"
-L["Toggling this on makes your inspect frame scale have the same value as the character frame scale."] = "Wenn Du diese Option aktivierst, hat der Maßstab Deines Betrachtungsfensters den selben Wert wie der Maßstab des Charakterfensters."
+L["Toggling this on makes your inspect frame scale have the same value as the character frame scale."] =
+	"Wenn Du diese Option aktivierst, hat der Maßstab Deines Betrachtungsfensters den selben Wert wie der Maßstab des Charakterfensters."
 L["Talents"] = "Talente"
 L["Wardrobe"] = "Kleiderschrank"
 L["Auction House"] = "Auktionshaus"
 L["Transmog Frame"] = "Transmogrifikationsfenster"
-L["Makes the transmogrification frame bigger. Credits to Kayr for code."] = "Macht das Transmogrifikationsfenster größer. Dank an Kayr für den Code."
-L["Add more oUF tags. You can use them on UnitFrames configuration."] = "Füge weitere oUF-Tags hinzu. Du kannst sie in der Einheitsfenster-Konfiguration verwenden."
+L["Makes the transmogrification frame bigger. Credits to Kayr for code."] =
+	"Macht das Transmogrifikationsfenster größer. Dank an Kayr für den Code."
+L["Add more oUF tags. You can use them on UnitFrames configuration."] =
+	"Füge weitere oUF-Tags hinzu. Du kannst sie in der Einheitsfenster-Konfiguration verwenden."
 L["Already Known"] = "Bereits bekannt"
-L["Puts a overlay on already known learnable items on vendors and AH."] = "Legt bei Händlern und im Auktionshaus eine Überlagerung auf bereits bekannte erlernbare Gegenstände."
+L["Puts a overlay on already known learnable items on vendors and AH."] =
+	"Legt bei Händlern und im Auktionshaus eine Überlagerung auf bereits bekannte erlernbare Gegenstände."
 L["Crying"] = "Weinen"
 L["Mute crying sounds of all races."] = "Stumme Schreie aller Rassen."
 L["It will affect the cry emote sound."] = "Dies wirkt sich auf den Ton des Schrei-Emotes aus."
-L["It will also affect the crying sound of all female Blood Elves."] = "Es beeinflusst auch das Weinen aller weiblichen Blutelfen."
+L["It will also affect the crying sound of all female Blood Elves."] =
+	"Es beeinflusst auch das Weinen aller weiblichen Blutelfen."
 L["Class"] = "Klasse"
 L["The class icon of the player's class"] = "Das Klassensymbol der Spielerklasse"
 
@@ -729,62 +741,6 @@ L["Type the Model ID"] = "Gib die Modell ID an"
 L["Role Icons"] = "Rollensymbole"
 L["Heal Prediction"] = "Heilungshervorsage"
 L["Add an additional overlay to the absorb bar."] = "Füge der Absorptionsleiste eine zusätzliche Überlagerung hinzu."
-
--- LocationPanel
-L["Location Panel"] = "Standort Panel"
-L["Update Throttle"] = "Aktualisierung drosseln"
-L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] =
-	"Die Frequenz wie oft die Koordinaten und der Zonentext aktualisiert wird. Je geringer der Wert, desto öfter wird aktualisiert."
-L["Full Location"] = "Vollständige Position "
-L["Color Type"] = "Farbentyp"
-L["Custom Color"] = "Benutzerdefinerte Farbe"
-L["Reaction"] = "Reaktion"
-L["Location"] = "Position"
-L["Coordinates"] = "Koordinaten"
-L["Teleports"] = "Teleport"
-L["Portals"] = "Portale"
-L["Link Position"] = "Linke Position"
-L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."] =
-	"Erlaubt die Koordinaten im Chat zu verlinken, via Shift + Linksklick."
-L["Relocation Menu"] = "Menü versetzen"
-L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."] =
-	"Rechtsklicke auf das Location Panel um ein Menü zu öffnen und um mehrere Auswahlmöglichkeiten zu erhalten (z.B. Ruhestein, Portale, etc.)."
-L["Custom Width"] = "Benutzerdefinerte Breite"
-L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] =
-	"Standardmäßig hat das Menü die Breite des Location Panel. Wenn du diese Option aktivierst, kannst du die Breite ändern."
-L["Justify Text"] = "Text ausrichten"
-L["Auto Width"] = "Autom. Breite"
-L["Change width based on the zone name length."] = "Ändert die Breite nach dem Zonentext."
-L["Hearthstone Location"] = "Ruhestein Position"
-L["Show the name on location your Hearthstone is bound to."] = "Zeige die Position an wo Dein Ruhestein liegt."
-L["Combat Hide"] = "Im Kampf ausblenden"
-L["Show/Hide all panels when in combat"] = "Zeige/Verstecke alle Panels während des Kampfes"
-L["Hide In Class Hall"] = "In der Klassenhalle ausblenden"
-L["Hearthstone Toys Order"] = "Ruhestein, Spielzeuge Reihenfolge"
-L["Show hearthstones"] = "Zeige Ruhestein"
-L["Show hearthstone type items in the list."] = "Zeigt Ruhesteingegenstände in der Liste"
-L["Show Toys"] = "Zeige Spielzeuge"
-L["Show toys in the list. This option will affect all other display options as well."] =
-	"Zeigt Spielzeuge in der Liste an. Diese Option wirkt sich auf alle anderen Anzeigeoptionen aus."
-L["Show spells"] = "Zeige Zauber"
-L["Show relocation spells in the list."] = "Zeigt Teleportzauber in der Liste an."
-L["Show engineer gadgets"] = "Zeige Ingenieursspielereien."
-L["Show items used only by engineers when the profession is learned."] =
-	"Zeigt Gegenstände, die nur von Ingenieuren genutzt werden können, sowie wenn der Beruf erlernt wurde, an."
-L["Ignore missing info"] = "Ignoriere fehlende Informationen"
-L["MER_LOCPANEL_IGNOREMISSINGINFO"] =
-	[[Aufgrund der Funktionsweise des Clients können einige Artikelinformationen für einen bestimmten Zeitraum nicht verfügbar sein. Dies geschieht meistens bei Spielzeuginformationen.
-Wenn das Menü aufgerufen wird, wartet es, bis alle Informationen verfügbar sind, bevor es angezeigt wird. Dies kann dazu führen, dass sich das Menü nach einiger Zeit öffnet, abhängig davon, wie schnell der Server Info-Anfragen beantwortet.
-Wenn Du diese Option aktivierst, ignoriert das Menü Elemente mit fehlenden Informationen, was dazu führt, dass sie nicht in der Liste angezeigt werden.]]
-L["Info for some items is not available yet. Please try again later"] =
-	"Informationen für einige Gegenstände sind zur Zeit nicht verfügbar. Bitte später noch einmal versuchen"
-L["Update canceled."] = "Aktualisierung abgebrochen."
-L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] =
-	"Gegenstandsinformation ist nicht verfügbar. Dieses kann ein bisschen dauern um die Informationen zu sammeln. Das Menü wird automatisch geöffnet, wenn alle Informationen gesammelt wurden. Erneutes Aufrufen des Menüs während der Aktualisierung, wird den Vorgang abbrechen."
-L["Update complete. Opening menu."] = "Aktualisierung komplett. Menü wird geöffnet."
-L["Hide Coordinates"] = "Verstecke Koordinaten"
-L["Dungeon Teleports"] = "Instanzteleports"
-L["Hide In Combat"] = "Im Kampf ausblenden"
 
 -- Maps
 L["Maps"] = "Karten"
@@ -1330,7 +1286,8 @@ L["Roll Result"] = "Würfelergebnis"
 L["It only works when you enable the skin (%s)."] = "Es funktioniert nur, wenn Sie das Skin aktivieren (%s)."
 L["Loot"] = "Beute"
 L["Embed Settings"] = "Einbettungseinstellungen"
-L["With this option you can embed your Details into an own Panel."] = "Mit dieser Option kannst Du Dein Details in ein eigenes Panel einbetten."
+L["With this option you can embed your Details into an own Panel."] =
+	"Mit dieser Option kannst Du Dein Details in ein eigenes Panel einbetten."
 L["Reset Settings"] = "Zurücksetzen"
 L["Toggle Direction"] = "Richtung umschalten"
 L["TOP"] = "OBEN"
@@ -1338,7 +1295,7 @@ L["BOTTOM"] = "UNTEN"
 L["Advanced Skin Settings"] = "Erweiterte Skin Einstellungen"
 L["Queue Timer"] = "Warteschlangen Timer"
 L["Gradient Bars"] = "Farbverlaufsleisten"
-L["Open Details"] = "Öffne Details"	
+L["Open Details"] = "Öffne Details"
 
 -- Panels
 L["Panels"] = "Leisten"
@@ -1445,15 +1402,19 @@ L["Advanced Settings"] = "Erweiterte Einstellungen"
 L["Blizzard Fixes"] = "Blizzard Fixe"
 L["The message will be shown in chat when you login."] = "Die Nachricht wird im Chat angezeigt, wenn Du Dich anmeldest."
 L["CVar Alert"] = "CVar Alarm"
-L["It will alert you to reload UI when you change the CVar %s."] = "Du wirst darauf hingewiesen, dass die Benutzeroberfläche neu geladen werden muss, wenn Du die CVar %s änderst."
+L["It will alert you to reload UI when you change the CVar %s."] =
+	"Du wirst darauf hingewiesen, dass die Benutzeroberfläche neu geladen werden muss, wenn Du die CVar %s änderst."
 L["Fix LFG Frame error"] = "LFG-Fester Fehler beheben"
-L["Fix a PlayerStyle lua error that can happen on the LFG Frame."] = "Behebt einen PlayerStyle Lua-Fehler, der im LFG-Fenster auftreten kann."
-L["This section will help reset specfic settings back to default."] = "Dieser Abschnitt hilft dabei, bestimmte Einstellungen auf die Standardeinstellungen zurückzusetzen."
+L["Fix a PlayerStyle lua error that can happen on the LFG Frame."] =
+	"Behebt einen PlayerStyle Lua-Fehler, der im LFG-Fenster auftreten kann."
+L["This section will help reset specfic settings back to default."] =
+	"Dieser Abschnitt hilft dabei, bestimmte Einstellungen auf die Standardeinstellungen zurückzusetzen."
 
 -- Gradient colors
 L["Custom Gradient Colors"] = "Benutzerdefinierte Farbverläufe"
 L["Custom Nameplates Colors"] = "Benutzerdefinierte Namensschilder Farben"
-L["Only used if using threat plates from ElvUI"] = "Wird nur verwendet, wenn Bedrohungsplatten von ElvUI verwendet werden"
+L["Only used if using threat plates from ElvUI"] =
+	"Wird nur verwendet, wenn Bedrohungsplatten von ElvUI verwendet werden"
 L["Custom Unitframes Colors"] = "Benutzerdefinierte Einheitsfenster Farben"
 L["Custom Power Colors"] = "Benutzerdefinierte Kraft Farben"
 L["Runic Power"] = "Runenkraft"

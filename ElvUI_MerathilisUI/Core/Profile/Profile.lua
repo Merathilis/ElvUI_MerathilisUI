@@ -269,7 +269,7 @@ P.chat = {
 	},
 	chatLink = {
 		enable = true,
-		numbericalQualityTier = false,
+		numericalQualityTier = false,
 		translateItem = true,
 		level = true,
 		icon = true,
@@ -1013,12 +1013,16 @@ P.autoButtons = {
 P.vehicleBar = {
 	enable = false,
 	buttonWidth = 34,
-	thrillColor = { r = 0, g = 0.792, b = 1 },
 	animations = true,
 	animationsMult = 1,
-	dragonRiding = true,
 
-	position = "BOTTOM,ElvUIParent,BOTTOM,0,149",
+	position = "BOTTOM,ElvUIParent,BOTTOM,0,140",
+
+	vigorBar = {
+		enable = true,
+		thrillColor = { r = 0, g = 0.792, b = 1 },
+		texture = "ElvUI Norm1",
+	},
 }
 
 P.microBar = {
@@ -1653,42 +1657,6 @@ P.smb = {
 	orientation = "HORIZONTAL",
 	-- calendar = false,
 	expansionLandingPage = false,
-}
-
-P.locPanel = {
-	enable = true,
-	autowidth = false,
-	width = 336,
-	height = 21,
-	linkcoords = true,
-	template = "Transparent",
-	font = I.Fonts.Primary,
-	fontSize = 11,
-	fontOutline = "SHADOWOUTLINE",
-	throttle = 0.2,
-	format = "%.0f",
-	zoneText = true,
-	colorType = "REACTION",
-	colorType_Coords = "DEFAULT",
-	customColor = { r = 1, g = 1, b = 1 },
-	customColor_Coords = { r = 1, g = 1, b = 1 },
-	combathide = true,
-	orderhallhide = false,
-	coordshide = false,
-	portals = {
-		enable = true,
-		HSplace = true,
-		customWidth = false,
-		customWidthValue = 200,
-		justify = "LEFT",
-		cdFormat = "DEFAULT",
-		ignoreMissingInfo = false,
-		showHearthstones = true,
-		hsPrio = "212337,209035,54452,200630,193588,190237,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,180290,182773,184353,183716,188952,190196,140192,110560,208704,210455",
-		showToys = true,
-		showSpells = true,
-		showEngineer = true,
-	},
 }
 
 P.raidmarkers = {
