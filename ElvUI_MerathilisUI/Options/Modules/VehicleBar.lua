@@ -127,12 +127,12 @@ options.vehicleBar = {
 					name = L["Thrill Color"],
 					desc = L["The color for vigor bar's speed text when you are regaining vigor."],
 					hasAlpha = false,
-					get = function(info)
+					get = function(_)
 						local colordb = E.db.mui.vehicleBar.vigorBar.thrillColor
 						local default = P.vehicleBar.vigorBar.thrillColor
 						return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g, default.b, default.a
 					end,
-					set = function(info, r, g, b, a)
+					set = function(_, r, g, b, a)
 						E.db.mui.vehicleBar.vigorBar.thrillColor = {
 							r = r,
 							g = g,
