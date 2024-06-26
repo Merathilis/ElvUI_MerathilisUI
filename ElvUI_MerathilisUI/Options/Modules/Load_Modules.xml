@@ -13,7 +13,6 @@
 	<Script file='DataTexts.lua'/>
 	<Script file='ExtendedVendor.lua'/>
 	<Script file='ItemLevel.lua'/>
-	<Script file='LocPanel.lua'/>
 	<Script file='Mail.lua'/>
 	<Script file='Maps.lua'/>
 	<Script file='MicroBar.lua'/>

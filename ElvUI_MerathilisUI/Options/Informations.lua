@@ -26,7 +26,7 @@ local DONATORS = {
 	"enii",
 	"Hope",
 	"Kisol",
-	"Natsurusenô",
+	"Natsuruseno",
 	"Rylok",
 	"Amenitra",
 	"zarbol",
