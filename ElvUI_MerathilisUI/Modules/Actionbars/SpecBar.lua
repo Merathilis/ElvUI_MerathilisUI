@@ -36,7 +36,7 @@ function module:CreateSpecBar()
 	E:CreateMover(
 		specBar,
 		"MER_SpecializationBarMover",
-		L["SpecializationBarMover"],
+		MER.Title .. L["SpecializationBarMover"],
 		nil,
 		nil,
 		nil,

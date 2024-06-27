@@ -214,7 +214,7 @@ function module:CreateBar()
 	E:CreateMover(
 		self.barAnchor,
 		"MER_RaidMarkersBarAnchor",
-		L["Raid Markers Bar"],
+		MER.Title .. L["Raid Markers Bar"],
 		nil,
 		nil,
 		nil,

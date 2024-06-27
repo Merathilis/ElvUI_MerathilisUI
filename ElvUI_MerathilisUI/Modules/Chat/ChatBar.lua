@@ -454,7 +454,7 @@ function module:Initialize()
 	module:CreateBar()
 	module:UpdateBar()
 
-	E:CreateMover(module.bar, "ChatBarMover", L["Chat Bar"], nil, nil, nil, "ALL,MERATHILISUI", function()
+	E:CreateMover(module.bar, "ChatBarMover", MER.Title .. L["Chat Bar"], nil, nil, nil, "ALL,MERATHILISUI", function()
 		return module.db.enable
 	end, "mui,modules,chat,chatBar")
 

@@ -763,7 +763,7 @@ function module:Initialize()
 	E:CreateMover(
 		header,
 		"MER_RaidManager",
-		L["Raid Manager"],
+		MER.Title .. L["Raid Manager"],
 		nil,
 		nil,
 		nil,

@@ -110,7 +110,7 @@ function module:ConstructFrame()
 	E:CreateMover(
 		frame,
 		"MER_InstanceDifficultyFrameMover",
-		L["Instance Difficulty"],
+		MER.Title .. L["Instance Difficulty"],
 		nil,
 		nil,
 		nil,

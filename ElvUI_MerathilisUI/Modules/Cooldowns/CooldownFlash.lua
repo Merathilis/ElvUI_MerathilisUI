@@ -400,7 +400,7 @@ function module:Initialize()
 	E:CreateMover(
 		DCP,
 		"MER_CooldownFlashMover",
-		L["CooldownFlashMover"],
+		MER.Title .. L["CooldownFlashMover"],
 		true,
 		nil,
 		nil,
