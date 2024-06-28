@@ -2372,6 +2372,29 @@ function MER:SetupDts()
 		"DurabilityItemLevel",
 		"Gold",
 	}
+	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
+		E.db["datatexts"]["panels"]["MER_TopPanel"] = {
+			[1] = "mTeleports",
+			[2] = "",
+			[3] = "",
+			["battleground"] = false,
+			["enable"] = true,
+		}
+		E.db["movers"]["DTPanelMER_TopPanelMover"] = "TOP,ElvUIParent,TOP,0,0"
+
+		E.global["datatexts"]["customPanels"]["MER_TopPanel"] = {
+			["fonts"] = {
+				["enable"] = true,
+				["font"] = "- Expressway",
+				["fontSize"] = 10,
+				["fontOutline"] = "SHADOWOUTLINE",
+			},
+			["numPoints"] = 1,
+			["backdrop"] = false,
+			["name"] = "MER_TopPanel",
+		}
+	end
+
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
 
