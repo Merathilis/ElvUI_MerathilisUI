@@ -18,6 +18,7 @@ local DecorAddons = {
 	{ "cargBags_Nivaya", L["cargBags_Nivaya"], "cbn" },
 	{ "Clique", L["Clique"], "cl" },
 	{ "ElvUI_BenikUI", L["BenikUI"], "bui" },
+	{ "ElvUI_mMediaTag", L["mMediaTag & Tools"], "mmt" },
 	{ "BugSack", L["BugSack"], "bs" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "Immersion", L["Immersion"], "imm" },

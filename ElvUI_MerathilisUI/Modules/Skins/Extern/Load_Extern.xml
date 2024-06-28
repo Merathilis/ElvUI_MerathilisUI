@@ -12,6 +12,7 @@
 	<Script file="GlobalIgnoreList.lua"/>
 	<Script file="Immersion.lua"/>
 	<Script file="ls_Toasts.lua"/>
+	<Script file="mMediaTag.lua"/>
 	<Script file="OmniCD.lua"/>
 	<Script file="Pawn.lua"/>
 	<Script file="PremadeGroupsFilter.lua"/>
