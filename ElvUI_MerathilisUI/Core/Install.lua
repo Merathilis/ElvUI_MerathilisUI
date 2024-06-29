@@ -1048,7 +1048,9 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["timeToHold"] = 0.8
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["position"] = "BOTTOMRIGHT"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = 20
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["yOffset"] = 25
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["spacing"] = 5
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["font"] = I.Fonts.GothamRaid
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["textXOffset"] = -5
@@ -1118,7 +1120,9 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 0
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = "BOTTOMRIGHT"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 20
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["yOffset"] = 25
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["spacing"] = 5
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["font"] = I.Fonts.GothamRaid
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["textXOffset"] = -5
