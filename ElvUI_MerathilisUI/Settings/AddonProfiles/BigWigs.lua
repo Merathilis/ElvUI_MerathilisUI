@@ -15,7 +15,7 @@ function MER:LoadBigWigsProfile()
 
 	-- Profile import
 	-- Arg 1: AddOn name, Arg 2: Profile string, Arg 3: Profile name
-	BigWigsAPI:ImportProfileString(MER.Title, main, MER.Title)
+	BigWigsAPI:ImportProfileString(MER.Title, main, ProfileName)
 
 	-- No chat print here
 	-- BigWigs will print a message with all important information after the import
