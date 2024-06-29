@@ -8,7 +8,7 @@ local ipairs, pairs, unpack = ipairs, pairs, unpack
 local format = string.format
 local tinsert = table.insert
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
 
 local DecorAddons = {
 	{ "ACP", L["AddOn Control Panel"], "acp" },
@@ -2067,7 +2067,7 @@ for _, v in ipairs(DecorAddons) do
 		name = addonString,
 		desc = format("%s " .. addonString .. " %s", L["Enable/Disable"], L["decor."]),
 		disabled = function()
-			return not C_AddOns_IsAddOnLoaded(addonName)
+			return not IsAddOnLoaded(addonName)
 		end,
 	}
 end
@@ -2119,9 +2119,8 @@ for _, v in ipairs(SupportedProfiles) do
 		desc = L["This will create and apply profile for "] .. addonName,
 		func = function()
 			if addon == "BigWigs" then
+				-- New BigWigs API don't need any external Chat Prints or reloads
 				MER:LoadBigWigsProfile()
-				F.Print("BigWigs profile has been set.")
-				E:StaticPopup_Show("PRIVATE_RL")
 			elseif addon == "DBM-Core" then
 				E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
 			elseif addon == "Skada" then
@@ -2159,7 +2158,7 @@ for _, v in ipairs(SupportedProfiles) do
 			F.Print(profileString .. addonName)
 		end,
 		disabled = function()
-			return not C_AddOns_IsAddOnLoaded(addon)
+			return not IsAddOnLoaded(addon)
 		end,
 	}
 end
@@ -2252,7 +2251,7 @@ options.advancedSettings = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			disabled = function()
-				return not C_AddOns_IsAddOnLoaded("BigWigs")
+				return not IsAddOnLoaded("BigWigs")
 			end,
 			args = {
 				enable = {
@@ -2264,7 +2263,7 @@ options.advancedSettings = {
 					order = 1,
 					type = "description",
 					name = function()
-						if not C_AddOns_IsAddOnLoaded("BigWigs") then
+						if not IsAddOnLoaded("BigWigs") then
 							return F.StringByTemplate(format(L["%s is not loaded."], L["BigWigs"]), "danger")
 						end
 
@@ -2586,7 +2585,7 @@ options.advancedSettings = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			disabled = function()
-				return not C_AddOns_IsAddOnLoaded("Details")
+				return not IsAddOnLoaded("Details")
 			end,
 			args = {
 				enable = {
@@ -2599,7 +2598,7 @@ options.advancedSettings = {
 					order = 1,
 					type = "description",
 					name = function()
-						if not C_AddOns_IsAddOnLoaded("Details") then
+						if not IsAddOnLoaded("Details") then
 							return F.StringByTemplate(format(L["%s is not loaded."], L["Details"]), "danger")
 						end
 
