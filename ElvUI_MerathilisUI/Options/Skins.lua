@@ -48,8 +48,6 @@ local SupportedProfiles = {
 	{ "OmniCD", "OmniCD" },
 }
 
-local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"])
-
 local function UpdateToggleDirection()
 	module:RefreshToggleDirection()
 end
@@ -2155,7 +2153,6 @@ for _, v in ipairs(SupportedProfiles) do
 				MER:LoadOmniCDProfile()
 				E:StaticPopup_Show("PRIVATE_RL")
 			end
-			F.Print(profileString .. addonName)
 		end,
 		disabled = function()
 			return not IsAddOnLoaded(addon)
