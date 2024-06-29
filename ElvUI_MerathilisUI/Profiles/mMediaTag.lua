@@ -1,9 +1,9 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
 
 function MER:mMediaTag()
-	if not C_AddOns_IsAddOnLoaded("ElvUI_mMediaTag") then
+	if not IsAddOnLoaded("ElvUI_mMediaTag") then
 		return
 	end
 
@@ -35,4 +35,6 @@ function MER:mMediaTag()
 	E.db["mMT"]["portraits"]["targettarget"]["enable"] = false
 	E.db["mMT"]["portraits"]["targettarget"]["extraEnable"] = false
 	E.db["mMT"]["portraits"]["party"]["enable"] = false
+	E.db["mMT"]["teleports"]["icon"] = true
+	E.db["mMT"]["teleports"]["customicon"] = "TP5"
 end

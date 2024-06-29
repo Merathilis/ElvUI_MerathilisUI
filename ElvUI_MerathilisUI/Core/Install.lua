@@ -297,7 +297,7 @@ function MER:SetupLayout()
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["clusterDisable"] = true
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
-	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
+	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPLEFT"
 	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.6
 	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 0
@@ -2514,8 +2514,9 @@ function MER:DeveloperSettings()
 	E.db["general"]["minimap"]["size"] = 222
 	E.db["mui"]["smb"]["buttonSize"] = 23
 	E.db["mui"]["smb"]["buttonsPerRow"] = 9
+	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.5
 	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
+	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -80
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
 	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
 	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"

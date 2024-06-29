@@ -226,7 +226,7 @@ function module:UpdateBar()
 			nil,
 			"ALL,ACTIONBARS,MERATHILISUI",
 			nil,
-			"mui,modules,actionbars"
+			"mui,modules,vehicleBar"
 		)
 
 		-- Force update
