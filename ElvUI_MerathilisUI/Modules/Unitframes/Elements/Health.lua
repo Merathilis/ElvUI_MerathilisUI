@@ -41,11 +41,37 @@ function module:ApplyUnitGradient(unit, name)
 							true
 						)
 					)
+					if unit == "target" then
+						unitframe.Health:GetStatusBarTexture():SetGradient(
+							"HORIZONTAL",
+							F.GradientColorsCustom(
+								classunit,
+								true,
+								E.db.unitframe.colors.transparentHealth,
+								false,
+								false,
+								true
+							)
+						)
+					end
 				else
 					unitframe.Health:GetStatusBarTexture():SetGradient(
 						"HORIZONTAL",
 						F.GradientColors(classunit, false, E.db.unitframe.colors.transparentHealth, false, false, true)
 					)
+					if unit == "target" then
+						unitframe.Health:GetStatusBarTexture():SetGradient(
+							"HORIZONTAL",
+							F.GradientColors(
+								classunit,
+								true,
+								E.db.unitframe.colors.transparentHealth,
+								false,
+								false,
+								true
+							)
+						)
+					end
 				end
 			else
 				if E.db.mui.gradient.customColor.enableUF then
