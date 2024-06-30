@@ -4,7 +4,6 @@ local S = MER:GetModule("MER_Skins")
 local LSM = E.Libs.LSM
 
 local tinsert = table.insert
-
 function module:CreateVigorBar()
 	local vigorBar = CreateFrame("Frame", "CustomVigorBar", UIParent)
 	local width = self.bar:GetWidth()
