@@ -12,6 +12,7 @@
 	<Script file='DataBars.lua'/>
 	<Script file='DataTexts.lua'/>
 	<Script file='ExtendedVendor.lua'/>
+	<Script file='Fonts.lua'/>
 	<Script file='ItemLevel.lua'/>
 	<Script file='Mail.lua'/>
 	<Script file='Maps.lua'/>

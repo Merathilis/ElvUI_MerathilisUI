@@ -1,12 +1,10 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-if not C_AddOns.IsAddOnLoaded("ElvUI_FCT") then
-	return
-end
+local module = MER:GetModule("MER_Profiles")
 
 local addon = "ElvUI_FCT"
 local FCT = E.Libs.AceAddon:GetAddon(addon)
 
-function MER:LoadFCTProfile()
+function module:LoadFCTProfile()
 	ElvFCT = {
 		["nameplates"] = {
 			["enable"] = false,

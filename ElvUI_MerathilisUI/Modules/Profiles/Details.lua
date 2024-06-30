@@ -1,10 +1,10 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Profiles")
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local ReloadUI = ReloadUI
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
 
-function MER:LoadDetailsProfile()
-	if not C_AddOns_IsAddOnLoaded("Details") then
+function module:LoadDetailsProfile()
+	if not IsAddOnLoaded("Details") then
 		return
 	end
 
@@ -27,12 +27,3 @@ function MER:LoadDetailsProfile()
 	_detalhes.always_use_profile = true
 	_detalhes.always_use_profile_name = main
 end
-
-E.PopupDialogs["MUI_INSTALL_DETAILS_LAYOUT"] = {
-	text = L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"],
-	OnAccept = function()
-		MER:LoadDetailsProfile()
-		ReloadUI()
-	end,
-	button1 = L["Details Layout"],
-}

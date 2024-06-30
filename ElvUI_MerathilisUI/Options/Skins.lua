@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
+local PF = MER:GetModule("MER_Profiles")
 local options = MER.options.skins.args
 local LSM = E.Libs.LSM
 
@@ -35,18 +36,6 @@ if F.IsDeveloper() then
 	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "wa" })
 	tinsert(DecorAddons, { "WeakAurasOptions", L["WeakAuras Options"], "waOptions" })
 end
-
-local SupportedProfiles = {
-	{ "AddOnSkins", "AddOnSkins" },
-	{ "BigWigs", "BigWigs" },
-	{ "Details", "Details" },
-	{ "ElvUI_FCT", "FCT" },
-	{ "ElvUI_mMediaTag", "mMediaTag & Tools" },
-	{ "ProjectAzilroka", "ProjectAzilroka" },
-	{ "ls_Toasts", "ls_Toasts" },
-	{ "Touhin", "Touhin" },
-	{ "OmniCD", "OmniCD" },
-}
 
 local function UpdateToggleDirection()
 	module:RefreshToggleDirection()
@@ -2083,85 +2072,8 @@ options.addonskins.args.ace3 = {
 	end,
 }
 
-options.profiles = {
-	order = 8,
-	type = "group",
-	name = L["Profiles"],
-	args = {
-		info = {
-			order = 1,
-			type = "description",
-			name = F.String.MERATHILISUI(L["MER_PROFILE_DESC"]),
-			fontSize = "medium",
-		},
-		space = {
-			order = 2,
-			type = "description",
-			name = "",
-		},
-		header = {
-			order = 3,
-			type = "header",
-			name = F.cOption(L["Profiles"], "orange"),
-		},
-	},
-}
-
-for _, v in ipairs(SupportedProfiles) do
-	local addon, addonName = unpack(v)
-	local optionOrder = 4
-	options.profiles.args[addon] = {
-		order = optionOrder + 1,
-		type = "execute",
-		name = addonName,
-		desc = L["This will create and apply profile for "] .. addonName,
-		func = function()
-			if addon == "BigWigs" then
-				-- New BigWigs API don't need any external Chat Prints or reloads
-				MER:LoadBigWigsProfile()
-			elseif addon == "DBM-Core" then
-				E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
-			elseif addon == "Skada" then
-				MER:LoadSkadaProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "Details" then
-				E:StaticPopup_Show("MUI_INSTALL_DETAILS_LAYOUT")
-			elseif addon == "AddOnSkins" then
-				MER:LoadAddOnSkinsProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "ProjectAzilroka" then
-				MER:LoadPAProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "ls_Toasts" then
-				MER:LoadLSProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "Touhin" then
-				MER:LoadTouhinProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "iFilger" then
-				MER:LoadiFilgerProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "ElvUI_FCT" then
-				local FCT = E.Libs.AceAddon:GetAddon("ElvUI_FCT")
-				MER:LoadFCTProfile()
-				FCT:UpdateUnitFrames()
-				FCT:UpdateNamePlates()
-			elseif addon == "ElvUI_mMediaTag" then
-				MER:mMediaTag()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "OmniCD" then
-				MER:LoadOmniCDProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			end
-		end,
-		disabled = function()
-			return not IsAddOnLoaded(addon)
-		end,
-	}
-end
-
 options.Embed = {
-	order = 9,
+	order = 8,
 	type = "group",
 	name = L["Embed Settings"],
 	get = function(info)
@@ -2229,7 +2141,7 @@ options.Embed = {
 }
 
 options.advancedSettings = {
-	order = 10,
+	order = 9,
 	type = "group",
 	name = L["Advanced Skin Settings"],
 	disabled = function()

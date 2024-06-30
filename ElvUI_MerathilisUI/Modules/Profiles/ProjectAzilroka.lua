@@ -1,8 +1,9 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Profiles")
 
 local _G = _G
 
-function MER:LoadPAProfile()
+function module:LoadPAProfile()
 	--[[----------------------------------
 	--	ProjectAzilroka - Settings
 	--]]

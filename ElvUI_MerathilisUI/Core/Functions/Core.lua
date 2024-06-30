@@ -6,16 +6,13 @@ local _G = _G
 local ipairs, pairs, pcall, print, select, tonumber, type = ipairs, pairs, pcall, print, select, tonumber, type
 local format, gsub, match, split, strfind = string.format, string.gsub, string.match, string.split, strfind
 local strmatch, strlen, strsub = strmatch, strlen, strsub
-local tconcat, tinsert, tremove, twipe = table.concat, table.insert, table.remove, table.wipe
+local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
 local max, min, modf = math.max, math.min, math.modf
 local len, utf8sub = string.len, string.utf8sub
 
 local CreateFrame = CreateFrame
-local GetAchievementInfo = GetAchievementInfo
-local GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
-local GetSpellInfo = GetSpellInfo
-local GetContainerItemID = C_Container and C_Container.GetContainerItemID or GetContainerItemID
-local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
+local GetContainerItemID = C_Container and C_Container.GetContainerItemID
+local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots
 local UnitBuff = UnitBuff
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
@@ -181,7 +178,7 @@ function F.SetFontOutline(text, font, size)
 	text.SetShadowColor = E.noop
 end
 
-function F.SetFontSizeScaled(value, clamp)
+function F.FontSizeScaled(value, clamp)
 	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale)
 		or value
 	clamp = (
@@ -192,6 +189,16 @@ function F.SetFontSizeScaled(value, clamp)
 	) or 0
 
 	return F.Clamp(F.Clamp(F.Round(value * perfectScale), clamp or 0, 64), 8, 64)
+end
+
+function F.FontOverride(font)
+	local override = F.GetDBFromPath("mui.general.fontOverride")[font]
+	return (override and override ~= "DEFAULT") and override or font
+end
+
+function F.FontStyleOverride(font, style)
+	local override = F.GetDBFromPath("mui.general.fontStyleOverride")[font]
+	return (override and override ~= "DEFAULT") and override or style
 end
 
 function F.GetStyledText(text)

@@ -1,10 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Profiles")
 
-function MER:LoadLSProfile()
-	--[[----------------------------------
-	--	ls_Toasts - Settings
-	--]]
-	----------------------------------
+function module:LoadLSProfile()
 	local profileName = I.ProfileNames.Default
 
 	LS_TOASTS_GLOBAL_CONFIG.profiles[profileName] = {

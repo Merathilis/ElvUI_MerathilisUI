@@ -1,10 +1,11 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Profiles")
 
 local unpack = unpack
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
 
-function MER:LoadAddOnSkinsProfile()
+function module:LoadAddOnSkinsProfile()
 	local AS = unpack(AddOnSkins)
 	local profileName = I.ProfileNames.Default
 
@@ -43,7 +44,7 @@ function MER:LoadAddOnSkinsProfile()
 	AS.db["StatusBarTexture"] = "ElvUI Norm1"
 
 	-- embeded settings
-	if C_AddOns_IsAddOnLoaded("Details") then
+	if IsAddOnLoaded("Details") then
 		AS.db["EmbedSystem"] = false
 		AS.db["EmbedSystemDual"] = false
 		AS.db["EmbedBelowTop"] = false
@@ -52,7 +53,7 @@ function MER:LoadAddOnSkinsProfile()
 		AS.db["EmbedRight"] = ""
 	end
 
-	if C_AddOns_IsAddOnLoaded("Skada") then
+	if IsAddOnLoaded("Skada") then
 		AS.db["EmbedSystem"] = true
 		AS.db["EmbedSystemDual"] = false
 		AS.db["EmbedBelowTop"] = true
@@ -61,7 +62,7 @@ function MER:LoadAddOnSkinsProfile()
 		AS.db["EmbedRight"] = ""
 	end
 
-	if C_AddOns_IsAddOnLoaded("BugSack") then
+	if IsAddOnLoaded("BugSack") then
 		AS.db["BugSack"] = false
 	end
 end

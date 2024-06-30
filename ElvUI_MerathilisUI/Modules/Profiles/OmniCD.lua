@@ -1,13 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Profiles")
 
-local twipe = table.wipe
-
-function MER:LoadOmniCDProfile()
-	--[[----------------------------------
-	--	OmnicCD - Settings
-	--]]
-	----------------------------------
-
+function module:LoadOmniCDProfile()
 	local profileName = I.ProfileNames.Default
 
 	if OmniCDDB["profiles"][profileName] then
