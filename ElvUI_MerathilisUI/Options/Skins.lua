@@ -1,6 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
-local PF = MER:GetModule("MER_Profiles")
 local options = MER.options.skins.args
 local LSM = E.Libs.LSM
 
