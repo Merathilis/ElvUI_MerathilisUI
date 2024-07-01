@@ -105,6 +105,7 @@ MER.Modules.Rectangle = MER:NewModule("MER_RectangleMinimap", "AceEvent-3.0", "A
 MER.Modules.Reminder = MER:NewModule("MER_Reminder", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Skins = MER:NewModule("MER_Skins", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.SpellAlert = MER:NewModule("MER_SpellAlert", "AceEvent-3.0")
+MER.Modules.SplashScreen = MER:NewModule("MER_SplashScreen", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.SuperTracker = MER:NewModule("MER_SuperTracker", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Talent = MER:NewModule("MER_Talent", "AceTimer-3.0", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Tooltip = MER:NewModule("MER_Tooltip", "AceHook-3.0", "AceEvent-3.0")
@@ -209,7 +210,7 @@ do
 				)
 			end
 
-			self:SplashScreen()
+			Engine[1]:GetModule("MER_SplashScreen"):Initialize()
 		end
 
 		if not (checked or _G.ElvUIInstallFrame) then

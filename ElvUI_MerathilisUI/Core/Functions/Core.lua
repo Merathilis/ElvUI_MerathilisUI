@@ -9,6 +9,7 @@ local strmatch, strlen, strsub = strmatch, strlen, strsub
 local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
 local max, min, modf = math.max, math.min, math.modf
 local len, utf8sub = string.len, string.utf8sub
+local tcontains = tContains
 
 local CreateFrame = CreateFrame
 local GetContainerItemID = C_Container and C_Container.GetContainerItemID
@@ -20,9 +21,9 @@ local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
 
-local C_TooltipInfo_GetInventoryItem = C_TooltipInfo and C_TooltipInfo.GetInventoryItem
-local C_TooltipInfo_GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
-local C_TooltipInfo_GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
+local GetInventoryItem = C_TooltipInfo and C_TooltipInfo.GetInventoryItem
+local GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
+local GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
 
 -- Profile
 function F.GetDBFromPath(path, dbRef)
@@ -176,6 +177,12 @@ function F.SetFontOutline(text, font, size)
 	text:FontTemplate(font or fontName, size or fontHeight, fontStyle or "SHADOWOUTLINE")
 	text:SetShadowColor(0, 0, 0, 0)
 	text.SetShadowColor = E.noop
+end
+
+function F.FontSize(value)
+	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale)
+		or value
+	return F.Clamp(value, 8, 64)
 end
 
 function F.FontSizeScaled(value, clamp)
@@ -551,11 +558,11 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 
 			local data
 			if arg1 and type(arg1) == "string" then
-				data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
+				data = GetInventoryItem(arg1, arg2)
 			elseif arg1 and type(arg1) == "number" then
-				data = C_TooltipInfo_GetBagItem(arg1, arg2)
+				data = GetBagItem(arg1, arg2)
 			else
-				data = C_TooltipInfo_GetHyperlink(link, nil, nil, true)
+				data = GetHyperlink(link, nil, nil, true)
 			end
 			if not data then
 				return
@@ -614,17 +621,10 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 		local name = nameCache[npcID]
 		if not name then
 			name = loadingStr
-			local data = C_TooltipInfo.GetHyperlink(format("unit:Creature-0-0-0-0-%d", npcID))
+			local data = GetHyperlink(format("unit:Creature-0-0-0-0-%d", npcID))
 			local lineData = data and data.lines
 			if lineData then
-				if DB.isPatch10_1 then
-					name = lineData[1] and lineData[1].leftText
-				else
-					local argVal = lineData[1] and lineData[1].args
-					if argVal then
-						name = argVal[2] and argVal[2].stringVal
-					end
-				end
+				name = lineData[1] and lineData[1].leftText
 			end
 			if name == loadingStr then
 				if not pendingNPCs[npcID] then
@@ -644,7 +644,7 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 	end
 
 	function F.IsUnknownTransmog(bagID, slotID)
-		local data = C_TooltipInfo_GetBagItem(bagID, slotID)
+		local data = GetBagItem(bagID, slotID)
 		local lineData = data and data.lines
 		if not lineData then
 			return
@@ -1196,4 +1196,125 @@ function F.Or(val, default)
 		return default
 	end
 	return val
+end
+
+do
+	local protected_call = {}
+
+	function protected_call._error_handler(err)
+		F.Developer.LogInfo(err)
+	end
+
+	function protected_call._handle_result(success, ...)
+		if success then
+			return ...
+		end
+	end
+
+	local do_pcall
+	if not select(
+		2,
+		xpcall(function(a)
+			return a
+		end, error, true)
+	) then
+		do_pcall = function(func, ...)
+			local args = { ... }
+			return protected_call._handle_result(xpcall(function()
+				return func(unpack(args))
+			end, protected_call._error_handler))
+		end
+	else
+		do_pcall = function(func, ...)
+			return protected_call._handle_result(xpcall(func, protected_call._error_handler, ...))
+		end
+	end
+
+	function protected_call.call(func, ...)
+		return do_pcall(func, ...)
+	end
+
+	local pcall_mt = {}
+	function pcall_mt:__call(...)
+		return do_pcall(...)
+	end
+
+	F.ProtectedCall = setmetatable(protected_call, pcall_mt)
+end
+
+do
+	local eventManagerFrame, eventManagerTable, eventManagerDelayed = CreateFrame("Frame"), {}, {}
+
+	eventManagerFrame:SetScript("OnUpdate", function()
+		for _, func in ipairs(eventManagerDelayed) do
+			F.ProtectedCall(unpack(func))
+		end
+		eventManagerDelayed = {}
+	end)
+
+	function F.EventManagerDelayed(func, ...)
+		tinsert(eventManagerDelayed, { func, ... })
+	end
+
+	eventManagerFrame:SetScript("OnEvent", function(_, event, ...)
+		local namespaces = eventManagerTable[event]
+		if namespaces then
+			for _, funcs in pairs(namespaces) do
+				for _, func in ipairs(funcs) do
+					func(event, ...)
+				end
+			end
+		end
+	end)
+
+	function F.EventManagerRegister(namespace, event, func)
+		local namespaces = eventManagerTable[event]
+
+		if not namespaces then
+			eventManagerTable[event] = {}
+			namespaces = eventManagerTable[event]
+			pcall(eventManagerFrame.RegisterEvent, eventManagerFrame, event)
+		end
+
+		local funcs = namespaces[namespace]
+
+		if not funcs then
+			namespaces[namespace] = { func }
+		elseif not tcontains(funcs, func) then
+			tinsert(funcs, func)
+		end
+	end
+
+	function F.EventManagerUnregisterAll(namespace)
+		for event in pairs(eventManagerTable) do
+			local namespaces = eventManagerTable[event]
+			local funcs = namespaces and namespaces[namespace]
+			if funcs ~= nil then
+				F.EventManagerUnregister(namespace, event)
+			end
+		end
+	end
+
+	function F.EventManagerUnregister(namespace, event, func)
+		local namespaces = eventManagerTable[event]
+		local funcs = namespaces and namespaces[namespace]
+
+		if funcs then
+			for index, fnc in ipairs(funcs) do
+				if not func or (func == fnc) then
+					tremove(funcs, index)
+					break
+				end
+			end
+
+			if #funcs == 0 then
+				namespaces[namespace] = nil
+			end
+
+			if not next(funcs) then
+				eventManagerFrame:UnregisterEvent(event)
+				eventManagerTable[event] = nil
+			end
+		end
+	end
 end

@@ -45,7 +45,7 @@ options.generalGroup = {
 			desc = "Applies all " .. MER.Title .. " font settings.",
 			func = function()
 				module:ApplyFontChange()
-				E:StaticPopup_Show("PRIVATE_RL")
+				-- E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
 		resetButton = {
@@ -59,7 +59,7 @@ options.generalGroup = {
 				E:CopyTable(E.db.mui.general.fontShadowOverride, P.general.fontShadowOverride)
 
 				module:ApplyFontChange()
-				E:StaticPopup_Show("PRIVATE_RL")
+				-- E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
 		spacer = {

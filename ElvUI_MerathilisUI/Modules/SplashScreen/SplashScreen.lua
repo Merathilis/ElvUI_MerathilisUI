@@ -1,4 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_SplashScreen")
 
 local GetScreenHeight = GetScreenHeight
 local InCombatLockdown = InCombatLockdown
@@ -7,23 +8,28 @@ local CreateFrame = CreateFrame
 
 local needAnimation
 
-function MER:Logo_PlayAnimation()
+function module:Logo_PlayAnimation()
 	if needAnimation then
-		MER.logoFrame:Show()
-		MER:UnregisterEvent(self, MER.Logo_PlayAnimation)
+		module.logoFrame:Show()
+		module:UnregisterEvent(self, module.Logo_PlayAnimation)
+
 		needAnimation = false
 	end
 end
 
-function MER:Logo_CheckStatus()
-	if not (IsInInstance() and InCombatLockdown()) then
+function module:Logo_CheckStatus()
+	if not E.db.mui or not E.db.mui.general.splashScreen then
+		return
+	end
+
+	if not IsInInstance() and InCombatLockdown() then
 		needAnimation = true
 		self:CreateSplash()
-		MER:RegisterEvent("PLAYER_STARTED_MOVING", self.Logo_PlayAnimation)
+		module:RegisterEvent("PLAYER_STARTED_MOVING", self.Logo_PlayAnimation)
 	end
 end
 
-function MER:CreateSplash()
+function module:CreateSplash()
 	local frame = CreateFrame("Frame", nil, E.UIParent)
 	frame:SetSize(300, 150)
 	frame:SetPoint("CENTER", E.UIParent, "BOTTOM", -500, GetScreenHeight() * 0.618)
@@ -34,7 +40,7 @@ function MER:CreateSplash()
 	local tex = frame:CreateTexture()
 	tex:Point("CENTER", frame, "CENTER")
 	tex:SetTexture(I.General.MediaPath .. "Textures\\mUI1_Shadow.tga")
-	tex:Size(125, 125)
+	tex:Size(125)
 
 	local version = frame:CreateFontString(nil, "OVERLAY")
 	version:FontTemplate(nil, 14)
@@ -95,21 +101,5 @@ function MER:CreateSplash()
 		frame:Hide()
 	end)
 
-	MER.logoFrame = frame
-end
-
-function MER:SplashScreen()
-	if not E.db.mui or not E.db.mui.general.splashScreen then
-		return
-	end
-
-	self:Logo_CheckStatus()
-
-	SlashCmdList["MER_PLAYLOGO"] = function()
-		if not MER.logoFrame then
-			MER:CreateSplash()
-		end
-		MER.logoFrame:Show()
-	end
-	SLASH_MER_PLAYLOGO1 = "/mlogo"
+	module.logoFrame = frame
 end
