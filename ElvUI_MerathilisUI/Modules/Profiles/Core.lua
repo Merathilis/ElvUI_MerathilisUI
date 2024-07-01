@@ -7,11 +7,8 @@ function module:ElvUIProfileMovers(callback)
 	-- Process all movers
 	F.ProcessMovers(pf)
 
-	-- Use Debug output in development mode
-	local crushFnc = MER.DevRelease and F.Table.CrushDebug or F.Table.Crush
-
 	-- Merge Tables
-	crushFnc(E.db.movers, pf.movers)
+	F.Table.Crush(E.db.movers, pf.movers)
 
 	F.Event.RunNextFrame(function()
 		F.Event.ContinueAfterElvUIUpdate(function()

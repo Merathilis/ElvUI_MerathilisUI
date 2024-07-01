@@ -340,6 +340,18 @@ function MER:SetupLayout()
 	E.db["general"]["customGlow"]["useColor"] = true
 	E.db["general"]["customGlow"]["color"] = { r = F.r, g = F.g, b = F.b }
 	E.db["general"]["lootRoll"]["qualityItemLevel"] = true
+	E.db["general"]["lootRoll"]["nameFont"] = I.Fonts.Primary
+	E.db["general"]["lootRoll"]["nameFontSize"] = 12
+	E.db["general"]["lootRoll"]["nameFontOutline"] = "SHADOWOUTLINE"
+	E.db["general"]["addonCompartment"]["font"] = I.Fonts.Primary
+	E.db["general"]["addonCompartment"]["fontSize"] = 13
+	E.db["general"]["addonCompartment"]["fontOutline"] = "SHADOWOUTLINE"
+	E.db["general"]["guildBank"]["countFont"] = I.Fonts.Primary
+	E.db["general"]["guildBank"]["countFontSize"] = 9
+	E.db["general"]["guildBank"]["countFontOutline"] = "SHADOWOUTLINE"
+	E.db["general"]["guildBank"]["itemLevelFont"] = I.Fonts.Primary
+	E.db["general"]["guildBank"]["itemLevelFontSize"] = 10
+	E.db["general"]["guildBank"]["itemLevelFontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["queueStatus"]["enable"] = true
 	E.db["general"]["queueStatus"]["font"] = I.Fonts.Primary
 

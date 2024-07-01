@@ -1,3 +1,4 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
     <Script file="Fonts.lua"/>
+    <Script file="Profile.lua"/>
 </Ui>

@@ -1,6 +1,10 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
 
+if not C_AddOns.IsAddOnLoaded("ElvUI_FCT") then
+	return
+end
+
 local addon = "ElvUI_FCT"
 local FCT = E.Libs.AceAddon:GetAddon(addon)
 
