@@ -42,6 +42,10 @@ function module:LoadAddOnSkinsProfile()
 	AS.db["ThinBorder"] = false
 	AS.db["BackgroundTexture"] = "ElvUI Norm1"
 	AS.db["StatusBarTexture"] = "ElvUI Norm1"
+	AS.db["Clique"] = false
+	AS.db["GlobalIgnoreList"] = false
+	AS.db["Pawn"] = false
+	AS.db["BagSync"] = false
 
 	-- embeded settings
 	if IsAddOnLoaded("Details") then
