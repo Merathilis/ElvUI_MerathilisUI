@@ -18,3 +18,20 @@ function module:LoadBigWigsProfile()
 	-- No chat print here
 	-- BigWigs will print a message with all important information after the import
 end
+
+function module:ApplyBigWigsProfile()
+	module:Wrap("Applying BigWigs Profile ...", function()
+		-- Apply Fonts
+		self:LoadBigWigsProfile()
+
+		E:UpdateMedia()
+		E:UpdateFontTemplates()
+
+		-- execute elvui update, callback later
+		self:ExecuteElvUIUpdate(function()
+			module:Hide()
+
+			F.Event.TriggerEvent("MER.DatabaseUpdate")
+		end, true)
+	end, true, "BigWigs")
+end

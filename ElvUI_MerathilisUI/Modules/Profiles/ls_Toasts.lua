@@ -102,3 +102,20 @@ function module:LoadLSProfile()
 		},
 	}
 end
+
+function module:ApplyLSProfile()
+	module:Wrap("Applying ls Profile ...", function()
+		-- Apply Fonts
+		self:LoadLSProfile()
+
+		E:UpdateMedia()
+		E:UpdateFontTemplates()
+
+		-- execute elvui update, callback later
+		self:ExecuteElvUIUpdate(function()
+			module:Hide()
+
+			F.Event.TriggerEvent("MER.DatabaseUpdate")
+		end, true)
+	end, true, "ls_Toasts")
+end

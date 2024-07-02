@@ -66,3 +66,20 @@ function module:LoadAddOnSkinsProfile()
 		AS.db["BugSack"] = false
 	end
 end
+
+function module:ApplyAddOnSkinsProfile()
+	module:Wrap("Applying AddOnSkins Profile ...", function()
+		-- Apply Fonts
+		self:LoadAddOnSkinsProfile()
+
+		E:UpdateMedia()
+		E:UpdateFontTemplates()
+
+		-- execute elvui update, callback later
+		self:ExecuteElvUIUpdate(function()
+			module:Hide()
+
+			F.Event.TriggerEvent("MER.DatabaseUpdate")
+		end, true)
+	end, true, "AddOnSkins")
+end

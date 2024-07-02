@@ -1,6 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
-local SP = MER:GetModule("MER_SplashScreen")
 
 local ipairs, unpack = ipairs, unpack
 
@@ -176,7 +175,7 @@ function module:ElvUIFont()
 end
 
 function module:ApplyFontChange()
-	SP:Wrap("Applying fonts ...", function()
+	module:Wrap("Applying fonts ...", function()
 		-- Apply Fonts
 		self:ElvUIFont()
 
@@ -185,7 +184,7 @@ function module:ApplyFontChange()
 
 		-- execute elvui update, callback later
 		self:ExecuteElvUIUpdate(function()
-			MER:GetModule("MER_SplashScreen"):Hide()
+			module:Hide()
 
 			F.Event.TriggerEvent("MER.DatabaseUpdate")
 		end, true)

@@ -3,7 +3,14 @@ local module = MER:GetModule("MER_Profiles")
 local options = MER.options.profiles.args
 
 local ipairs, unpack = ipairs, unpack
+
+local CreateSimpleTextureMarkup = CreateSimpleTextureMarkup
+local CreateAtlasMarkup = CreateAtlasMarkup
+local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata
 local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
+
+local Ok = F.GetIconString(I.Media.Icons.Ok, 14, 14)
+local No = F.GetIconString(I.Media.Icons.No, 14, 14)
 
 local SupportedProfiles = {
 	{ "AddOnSkins", "AddOnSkins" },
@@ -11,7 +18,6 @@ local SupportedProfiles = {
 	{ "Details", "Details" },
 	{ "ElvUI_FCT", "FCT" },
 	{ "ElvUI_mMediaTag", "mMediaTag & Tools" },
-	{ "ProjectAzilroka", "ProjectAzilroka" },
 	{ "ls_Toasts", "ls_Toasts" },
 	{ "OmniCD", "OmniCD" },
 }
@@ -30,8 +36,9 @@ options.generalGroup = {
 				.. F.String.ElvUI()
 				.. " Profile.\n\n"
 				.. F.String.Error(
-					"Warning: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"
+					"WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"
 				),
+			fontSize = "medium",
 		},
 		header = {
 			order = 2,
@@ -41,7 +48,7 @@ options.generalGroup = {
 		applyButton = {
 			order = 3,
 			type = "execute",
-			name = F.String.Good("Apply"),
+			name = Ok .. F.String.Good(L[" Apply"]),
 			desc = "Applies all " .. MER.Title .. " font settings.",
 			func = function()
 				module:ApplyFontChange()
@@ -50,7 +57,7 @@ options.generalGroup = {
 		resetButton = {
 			order = 4,
 			type = "execute",
-			name = F.String.Error("Reset"),
+			name = No .. F.String.Error(L[" Reset"]),
 			desc = "Resets all " .. MER.Title .. " font settings.",
 			func = function()
 				E:CopyTable(E.db.mui.general.fontOverride, P.general.fontOverride)
@@ -101,6 +108,20 @@ options.addons = {
 for _, v in ipairs(SupportedProfiles) do
 	local addon, addonName = unpack(v)
 	local optionOrder = 4
+
+	local iconTexture = GetAddOnMetadata(addon, "IconTexture")
+	local iconAtlas = GetAddOnMetadata(addon, "IconAtlas")
+
+	if not iconTexture and not iconAtlas then
+		iconTexture = [[Interface\ICONS\INV_Misc_QuestionMark]]
+	end
+
+	if iconTexture then
+		addonName = CreateSimpleTextureMarkup(iconTexture, 14, 14) .. " " .. addonName
+	elseif iconAtlas then
+		addonName = CreateAtlasMarkup(iconAtlas, 14, 14) .. " " .. addonName
+	end
+
 	options.addons.args[addon] = {
 		order = optionOrder + 1,
 		type = "execute",
@@ -108,26 +129,17 @@ for _, v in ipairs(SupportedProfiles) do
 		desc = L["This will create and apply profile for "] .. addonName,
 		func = function()
 			if addon == "BigWigs" then
-				module:LoadBigWigsProfile()
+				module:ApplyBigWigsProfile()
 			elseif addon == "Details" then
-				E:StaticPopup_Show("MER_INSTALL_DETAILS_LAYOUT")
+				module:ApplyDetailsProfile()
 			elseif addon == "AddOnSkins" then
-				module:LoadAddOnSkinsProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "ProjectAzilroka" then
-				module:LoadPAProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
+				module:ApplyAddOnSkinsProfile()
 			elseif addon == "ls_Toasts" then
-				module:LoadLSProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
+				module:ApplyLSProfile()
 			elseif addon == "ElvUI_FCT" then
-				local FCT = E.Libs.AceAddon:GetAddon("ElvUI_FCT")
-				module:LoadFCTProfile()
-				FCT:UpdateUnitFrames()
-				FCT:UpdateNamePlates()
+				module:ApplyFCTProfile()
 			elseif addon == "ElvUI_mMediaTag" then
-				module:LoadmMediaTagProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
+				module:ApplymMediaTagProfile()
 			elseif addon == "OmniCD" then
 				module:LoadOmniCDProfile()
 				E:StaticPopup_Show("PRIVATE_RL")

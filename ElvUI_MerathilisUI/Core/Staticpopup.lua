@@ -122,12 +122,3 @@ E.PopupDialogs.MERATHILISUI_INVALIDPOWER = {
 	whileDead = 1,
 	hideOnEscape = true,
 }
-
-E.PopupDialogs.MER_INSTALL_DETAILS_LAYOUT = {
-	text = L["MER_INSTALL_SETTINGS_LAYOUT_DETAILS"],
-	OnAccept = function()
-		PF:LoadDetailsProfile()
-		ReloadUI()
-	end,
-	button1 = L["Details Layout"],
-}

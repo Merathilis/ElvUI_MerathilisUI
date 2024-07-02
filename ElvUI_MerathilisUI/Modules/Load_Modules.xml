@@ -29,7 +29,6 @@
 	<Include file="RaidManager\Load_RaidManager.xml"/>
 	<Include file="RaidMarkers\Load_RaidMarkers.xml"/>
 	<Include file="RBReminder\Load_RBReminder.xml"/>
-	<Include file="SplashScreen\Load_SplashScreen.xml"/>
 	<Include file="Tooltip\Load_Tooltip.xml"/>
 	<Include file="Unitframes\Load_Unitframes.xml"/>
 	<Include file="VehicleBar\Load_VehicleBar.xml"/>

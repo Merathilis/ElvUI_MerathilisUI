@@ -93,7 +93,7 @@ MER.Modules.NamePlateAuras = MER:NewModule("MER_NameplateAuras", "AceEvent-3.0")
 MER.Modules.Notification = MER:NewModule("MER_Notification", "AceEvent-3.0")
 MER.Modules.Objective = MER:NewModule("MER_ObjectiveTracker", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Panels = MER:NewModule("MER_Panels")
-MER.Modules.Profiles = MER:NewModule("MER_Profiles", "AceHook-3.0")
+MER.Modules.Profiles = MER:NewModule("MER_Profiles", "AceHook-3.0", "AceTimer-3.0")
 MER.Modules.Progress = MER:NewModule("MER_Progress")
 MER.Modules.PVP = MER:NewModule("MER_PVP", "AceEvent-3.0")
 MER.Modules.RaidBuffs = MER:NewModule("MER_RaidBuffs")
@@ -210,7 +210,7 @@ do
 				)
 			end
 
-			Engine[1]:GetModule("MER_SplashScreen"):Initialize()
+			self:SplashScreen()
 		end
 
 		if not (checked or _G.ElvUIInstallFrame) then

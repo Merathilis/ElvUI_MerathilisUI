@@ -1,5 +1,4 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_SplashScreen")
 
 local GetScreenHeight = GetScreenHeight
 local InCombatLockdown = InCombatLockdown
@@ -8,28 +7,25 @@ local CreateFrame = CreateFrame
 
 local needAnimation
 
-function module:Logo_PlayAnimation()
+function MER:Logo_PlayAnimation()
 	if needAnimation then
-		module.logoFrame:Show()
-		module:UnregisterEvent(self, module.Logo_PlayAnimation)
+		MER.logoFrame:Show()
+		MER:UnregisterEvent(self, MER.Logo_PlayAnimation)
 
 		needAnimation = false
 	end
 end
 
-function module:Logo_CheckStatus()
-	if not E.db.mui or not E.db.mui.general.splashScreen then
-		return
-	end
-
-	if not IsInInstance() and InCombatLockdown() then
-		needAnimation = true
+function MER:Logo_CheckStatus()
+	if not (IsInInstance() and InCombatLockdown()) then
 		self:CreateSplash()
-		module:RegisterEvent("PLAYER_STARTED_MOVING", self.Logo_PlayAnimation)
+		MER:RegisterEvent("PLAYER_STARTED_MOVING", self.Logo_PlayAnimation)
+
+		needAnimation = true
 	end
 end
 
-function module:CreateSplash()
+function MER:CreateSplash()
 	local frame = CreateFrame("Frame", nil, E.UIParent)
 	frame:SetSize(300, 150)
 	frame:SetPoint("CENTER", E.UIParent, "BOTTOM", -500, GetScreenHeight() * 0.618)
@@ -101,5 +97,13 @@ function module:CreateSplash()
 		frame:Hide()
 	end)
 
-	module.logoFrame = frame
+	MER.logoFrame = frame
+end
+
+function MER:SplashScreen()
+	if not E.db.mui or not E.db.mui.general.splashScreen then
+		return
+	end
+
+	self:Logo_CheckStatus()
 end

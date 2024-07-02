@@ -27,3 +27,20 @@ function module:LoadDetailsProfile()
 	_detalhes.always_use_profile = true
 	_detalhes.always_use_profile_name = main
 end
+
+function module:ApplyDetailsProfile()
+	module:Wrap("Applying Details Profile ...", function()
+		-- Apply Fonts
+		self:LoadDetailsProfile()
+
+		E:UpdateMedia()
+		E:UpdateFontTemplates()
+
+		-- execute elvui update, callback later
+		self:ExecuteElvUIUpdate(function()
+			module:Hide()
+
+			F.Event.TriggerEvent("MER.DatabaseUpdate")
+		end, true)
+	end, true, "Details")
+end

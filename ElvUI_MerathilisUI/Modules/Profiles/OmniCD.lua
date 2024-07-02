@@ -319,3 +319,20 @@ function module:LoadOmniCDProfile()
 		end
 	end
 end
+
+function module:ApplyOmniCDProfile()
+	module:Wrap("Applying OmniCD Profile ...", function()
+		-- Apply Fonts
+		self:LoadOmniCDProfile()
+
+		E:UpdateMedia()
+		E:UpdateFontTemplates()
+
+		-- execute elvui update, callback later
+		self:ExecuteElvUIUpdate(function()
+			module:Hide()
+
+			F.Event.TriggerEvent("MER.DatabaseUpdate")
+		end, true)
+	end, true, "OmniCD")
+end

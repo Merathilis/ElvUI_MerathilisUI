@@ -60,6 +60,9 @@ F.AddMedia("icon", "Complete")
 F.AddMedia("icon", "Discord")
 F.AddMedia("icon", "Github")
 
+F.AddMedia("icon", "Ok")
+F.AddMedia("icon", "No")
+
 --Option Icons
 F.AddMedia("icon", "OptionsHome")
 F.AddMedia("icon", "Config")

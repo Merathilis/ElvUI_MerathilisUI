@@ -2533,7 +2533,7 @@ function MER:DeveloperSettings()
 	E.db["mui"]["smb"]["buttonsPerRow"] = 9
 	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.5
 	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -80
+	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 85
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "BOTTOMLEFT"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
 	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"

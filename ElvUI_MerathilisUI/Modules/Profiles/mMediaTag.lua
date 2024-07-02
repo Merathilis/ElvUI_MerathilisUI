@@ -39,3 +39,20 @@ function module:LoadmMediaTagProfile()
 	E.db["mMT"]["teleports"]["icon"] = true
 	E.db["mMT"]["teleports"]["customicon"] = "TP5"
 end
+
+function module:ApplymMediaTagProfile()
+	module:Wrap("Applying mMediaTag Profile ...", function()
+		-- Apply Fonts
+		self:LoadmMediaTagProfile()
+
+		E:UpdateMedia()
+		E:UpdateFontTemplates()
+
+		-- execute elvui update, callback later
+		self:ExecuteElvUIUpdate(function()
+			module:Hide()
+
+			F.Event.TriggerEvent("MER.DatabaseUpdate")
+		end, true)
+	end, true, "ElvUI_mMediaTag")
+end

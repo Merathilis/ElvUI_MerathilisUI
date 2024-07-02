@@ -1,7 +1,9 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
 
-if not C_AddOns.IsAddOnLoaded("ElvUI_FCT") then
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
+
+if not IsAddOnLoaded("ElvUI_FCT") then
 	return
 end
 
@@ -56,5 +58,26 @@ function module:LoadFCTProfile()
 			},
 		},
 	}
+
 	FCT:Initialize()
+end
+
+function module:ApplyFCTProfile()
+	module:Wrap("Applying FCT Profile ...", function()
+		-- Apply Fonts
+		self:LoadFCTProfile()
+
+		FCT:UpdateUnitFrames()
+		FCT:UpdateNamePlates()
+
+		E:UpdateMedia()
+		E:UpdateFontTemplates()
+
+		-- execute elvui update, callback later
+		self:ExecuteElvUIUpdate(function()
+			module:Hide()
+
+			F.Event.TriggerEvent("MER.DatabaseUpdate")
+		end, true)
+	end, true, "ElvUI_FCT")
 end
