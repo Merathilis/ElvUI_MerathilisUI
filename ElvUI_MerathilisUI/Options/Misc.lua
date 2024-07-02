@@ -847,7 +847,7 @@ end
 options.automation = {
 	order = 10,
 	type = "group",
-	name = E.NewSign .. L["Automation"],
+	name = L["Automation"],
 	get = function(info)
 		return E.db.mui.misc.automation[info[#info]]
 	end,

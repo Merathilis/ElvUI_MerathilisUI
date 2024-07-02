@@ -2512,6 +2512,8 @@ function MER:DeveloperSettings()
 	E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
 	E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
 	E.db["mui"]["misc"]["cursor"]["enable"] = true
+	E.db["mui"]["misc"]["automation"]["enable"] = true
+	E.db["mui"]["misc"]["automation"]["hideBagAfterEnteringCombat"] = true
 	E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
 	E.db["mui"]["pvp"]["duels"]["regular"] = true
 	E.db["mui"]["pvp"]["duels"]["pet"] = true
