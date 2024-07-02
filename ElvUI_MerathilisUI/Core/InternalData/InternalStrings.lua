@@ -24,6 +24,12 @@ I.Strings.Colors = {
 	[I.Enum.Colors.BETA] = "1eff00", -- #1eff00
 }
 
+I.Strings.Branding = {
+	ColorHex = I.Strings.Colors[I.Enum.Colors.MER],
+	ColorRGB = F.Table.HexToRGB(I.Strings.Colors[I.Enum.Colors.MER]),
+	ColorRGBA = F.Table.HexToRGB(I.Strings.Colors[I.Enum.Colors.MER] .. "ff"),
+}
+
 I.Strings.Classes = {
 	"WARRIOR",
 	"PALADIN",
