@@ -1,10 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Profiles")
 
-function MER:LoadLSProfile()
-	--[[----------------------------------
-	--	ls_Toasts - Settings
-	--]]
-	----------------------------------
+function module:LoadLSProfile()
 	local profileName = I.ProfileNames.Default
 
 	LS_TOASTS_GLOBAL_CONFIG.profiles[profileName] = {
@@ -104,4 +101,21 @@ function MER:LoadLSProfile()
 			},
 		},
 	}
+end
+
+function module:ApplyLSProfile()
+	module:Wrap("Applying ls Profile ...", function()
+		-- Apply Fonts
+		self:LoadLSProfile()
+
+		E:UpdateMedia()
+		E:UpdateFontTemplates()
+
+		-- execute elvui update, callback later
+		self:ExecuteElvUIUpdate(function()
+			module:Hide()
+
+			F.Event.TriggerEvent("MER.DatabaseUpdate")
+		end, true)
+	end, true, "ls_Toasts")
 end

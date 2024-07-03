@@ -1,0 +1,12 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Core.lua"/>
+	<Include file="ElvUI\Load_ElvUI.xml"/>
+
+	<Script file="AddOnSkins.lua"/>
+	<Script file="BigWigs.lua"/>
+	<Script file="Details.lua"/>
+	<Script file="FCT.lua"/>
+	<Script file="ls_Toasts.lua"/>
+	<Script file="mMediaTag.lua"/>
+	<Script file="OmniCD.lua"/>
+</Ui>

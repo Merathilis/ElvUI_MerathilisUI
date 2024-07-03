@@ -128,7 +128,7 @@ L["Armor Category"] = "Категория брони"
 L["Weapon Category"] = "Категория оружия"
 L["Display the level of the item on the item link."] =
 	"Отображение уровня предмета по ссылке предмета."
-L["Numberical Quality Tier"] = "Числовой уровень качества"
+L["Numerical Quality Tier"] = "Числовой уровень качества"
 L["%player% has earned the achievement %achievement%!"] =
 	"%player% заработал достижение %achievement%!"
 L["%players% have earned the achievement %achievement%!"] =
@@ -761,67 +761,6 @@ L["Heal Prediction"] = "Предсказание исцеления"
 L["Add an additional overlay to the absorb bar."] =
 	"Добавьте дополнительное наложение на полосу поглощения."
 
--- LocationPanel
-L["Location Panel"] = "Панель местоположения"
-L["Update Throttle"] = true
-L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] =
-	"Частота обновления координат и текста зоны. Проверка будет производиться чаще с меньшими значениями."
-L["Full Location"] = "Полное местоположение"
-L["Color Type"] = "Тип цвета"
-L["Custom Color"] = "Свой цвет"
-L["Reaction"] = "Реакция"
-L["Location"] = "Расположение"
-L["Coordinates"] = "Координаты"
-L["Teleports"] = "Телепорты"
-L["Portals"] = "Порталы"
-L["Link Position"] = "Ссылка на позицию"
-L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."] =
-	"Разрешите вставку ваших координат в поле редактирования чата, удерживая клавишу Shift и нажимая на название местоположения."
-L["Relocation Menu"] = "Меню перемещения"
-L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."] =
-	"Щелкните правой кнопкой мыши на панели локации, чтобы открыть меню с доступными вариантами перемещения вашего персонажа (например, Камень возвращения, Порталы и т. д.)."
-L["Custom Width"] = "Пользовательская ширина"
-L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] =
-	"По умолчанию ширина меню будет равна ширине панели локации. Отметив эту опцию, вы сможете установить собственную ширину."
-L["Justify Text"] = "Выровнять текст"
-L["Auto Width"] = "Автоматическая ширина"
-L["Change width based on the zone name length."] =
-	"Измените ширину в зависимости от длины имени зоны."
-L["Hearthstone Location"] = "Расположение каменя возвращения"
-L["Show the name on location your Hearthstone is bound to."] =
-	"Покажите название локации, к которой привязан ваш камень возвращения."
-L["Combat Hide"] = "Скрывать в бою"
-L["Show/Hide all panels when in combat"] = "Показать/скрыть все панели во время боя"
-L["Hide In Class Hall"] = "Скрывать в оплоте класса"
-L["Hearthstone Location"] = "Расположение каменя возвращения"
-L["Hearthstone Toys Order"] = "Заказать игрушки каменя возвращения"
-L["Show hearthstones"] = "Показать камни возвращения"
-L["Show hearthstone type items in the list."] =
-	"Показать в списке предметы типа камня возвращения."
-L["Show Toys"] = "Показать игрушки"
-L["Show toys in the list. This option will affect all other display options as well."] =
-	"Показать игрушки в списке. Этот параметр также повлияет на все остальные параметры отображения."
-L["Show spells"] = "Показать заклинания"
-L["Show relocation spells in the list."] =
-	"Показать заклинания перемещения в списке."
-L["Show engineer gadgets"] = "Показать гаджеты инженера"
-L["Show items used only by engineers when the profession is learned."] =
-	"Показать предметы, используемые только инженерами, когда профессия изучена."
-L["Ignore missing info"] = "Игнорировать недостающую информацию"
-L["MER_LOCPANEL_IGNOREMISSINGINFO"] =
-	[[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
-When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
-By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
-L["Info for some items is not available yet. Please try again later"] =
-	"Информация о некоторых товарах пока недоступна. Пожалуйста, попробуйте позже"
-L["Update canceled."] = "Обновление отменено."
-L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] =
-	"Информация о товаре недоступна. Ожидайте. Это может занять некоторое время. Меню откроется автоматически, когда вся информация станет доступной. Повторный вызов меню во время обновления отменит его."
-L["Update complete. Opening menu."] = "Обновление завершено. Открытие меню."
-L["Hide Coordinates"] = "Скрыть координаты"
-L["Dungeon Teleports"] = "Телепорты подземелий"
-L["Hide In Combat"] = "Скрывать в бою"
-
 -- Maps
 L["Maps"] = "Карты"
 L["World Map"] = "Карта мира"
@@ -1265,7 +1204,7 @@ L["You have got Location Plus and Shadow & Light both enabled at the same time. 
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[Here you can choose the layout for Deadly Boss Mods.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
+L["MER_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
 L["Name for the new profile"] = "Имя для нового профиля"
 L["Are you sure you want to override the current profile?"] =
 	"Вы уверены, что хотите перезаписать текущий профиль?"

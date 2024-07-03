@@ -28,7 +28,7 @@ function module:OnShowEvent()
 			self:SetupButtonAnim(button, i)
 		end
 
-		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.segments then
+		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.segments and self.vigorBar.speedText then
 			for i, segment in ipairs(self.vigorBar.segments) do
 				self:SetupButtonAnim(segment, i)
 			end
@@ -46,7 +46,7 @@ function module:OnShowEvent()
 		end
 	end
 
-	if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.segments then
+	if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.segments and self.vigorBar.speedText then
 		for _, segment in ipairs(self.vigorBar.segments) do
 			if animationsAllowed then
 				segment:SetAlpha(0)
@@ -64,7 +64,7 @@ function module:OnShowEvent()
 		end
 	end
 
-	if self:IsVigorAvailable() then
+	if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.speedText then
 		self.vigorBar:Show()
 		self.vigorBar.speedText:Show()
 	end
@@ -90,11 +90,11 @@ function module:Enable()
 
 	self:UpdateBar()
 
-	if not self.eventScriptSet then
+	if not self.eventScriptSet and self.vigorBar then
 		local eventFrame = CreateFrame("Frame")
 		eventFrame:RegisterEvent("UPDATE_UI_WIDGET")
 		eventFrame:SetScript("OnEvent", function(_, event)
-			if event == "UPDATE_UI_WIDGET" and self:IsVigorAvailable() then
+			if event == "UPDATE_UI_WIDGET" and self:IsVigorAvailable() and self.vigorBar then
 				self:UpdateVigorBar()
 			end
 		end)
@@ -102,10 +102,8 @@ function module:Enable()
 		self.eventScriptSet = true
 	end
 
-	local visibility = format(
-		"[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s hide;",
-		(self.db.dragonRiding and "[bonusbar:5]") or ""
-	)
+	local visibility =
+		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s hide;", "[bonusbar:5]")
 
 	self:Hook(self.ab, "PositionAndSizeBar", function(_, barName)
 		local bar = self.ab["handledBars"][barName]
@@ -134,10 +132,7 @@ function module:Enable()
 	RegisterStateDriver(
 		self.bar,
 		"visibility",
-		format(
-			"[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide",
-			(self.db.dragonRiding and "[bonusbar:5]") or ""
-		)
+		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide", "[bonusbar:5]")
 	)
 	RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
 	RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
@@ -182,6 +177,7 @@ function module:DatabaseUpdate()
 
 	-- Set db
 	self.db = E.db.mui.vehicleBar
+	self.vdb = E.db.mui.vehicleBar.vigorBar
 
 	-- Enable only out of combat
 	F.Event.ContinueOutOfCombat(function()

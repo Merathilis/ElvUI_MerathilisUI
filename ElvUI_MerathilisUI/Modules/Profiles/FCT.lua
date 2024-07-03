@@ -1,14 +1,19 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-if not C_AddOns.IsAddOnLoaded("ElvUI_FCT") then
+local module = MER:GetModule("MER_Profiles")
+
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
+
+if not IsAddOnLoaded("ElvUI_FCT") then
 	return
 end
 
 local addon = "ElvUI_FCT"
 local FCT = E.Libs.AceAddon:GetAddon(addon)
 
-function MER:LoadFCTProfile()
+function module:LoadFCTProfile()
 	ElvFCT = {
 		["nameplates"] = {
+			["enable"] = false,
 			["frames"] = {
 				["Player"] = {
 					["fontSize"] = 16,
@@ -53,5 +58,26 @@ function MER:LoadFCTProfile()
 			},
 		},
 	}
+
 	FCT:Initialize()
+end
+
+function module:ApplyFCTProfile()
+	module:Wrap("Applying FCT Profile ...", function()
+		-- Apply Fonts
+		self:LoadFCTProfile()
+
+		FCT:UpdateUnitFrames()
+		FCT:UpdateNamePlates()
+
+		E:UpdateMedia()
+		E:UpdateFontTemplates()
+
+		-- execute elvui update, callback later
+		self:ExecuteElvUIUpdate(function()
+			module:Hide()
+
+			F.Event.TriggerEvent("MER.DatabaseUpdate")
+		end, true)
+	end, true, "ElvUI_FCT")
 end

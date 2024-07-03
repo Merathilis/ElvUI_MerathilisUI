@@ -12,11 +12,7 @@ options.vehicleBar = {
 	end,
 	set = function(info, value)
 		E.db.mui.vehicleBar[info[#info]] = value
-		if info[5] == "dragonRiding" then
-			F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
-		else
-			F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-		end
+		F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
 	end,
 	disabled = function()
 		return not E.private.actionbar.enable
@@ -64,32 +60,15 @@ options.vehicleBar = {
 						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
 					end,
 				},
-				thrillColor = {
-					order = 1,
-					type = "color",
-					name = L["Thrill Color"],
-					desc = L["The color for vigor bar's speed text when you are regaining vigor."],
-					hasAlpha = false,
-					get = function(info)
-						local colordb = E.db.mui.vehicleBar.thrillColor
-						local default = P.vehicleBar.thrillColor
-						return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g, default.b, default.a
-					end,
-					set = function(info, r, g, b, a)
-						E.db.mui.vehicleBar.thrillColor = {
-							r = r,
-							g = g,
-							b = b,
-							a = a,
-						}
-					end,
-				},
 			},
 		},
 		animationsGroup = {
 			order = 4,
 			type = "group",
 			name = L["Animations"],
+			disabled = function()
+				return not E.private.actionbar.enable or not E.db.mui.vehicleBar.enable
+			end,
 			args = {
 				animations = {
 					order = 1,
@@ -121,16 +100,61 @@ options.vehicleBar = {
 				},
 			},
 		},
-		dragonRidingGroup = {
+		vigorGroupGroup = {
 			order = 5,
 			type = "group",
-			name = L["Dragonriding"],
+			name = L["Skyriding Bar"],
+			disabled = function()
+				return not E.private.actionbar.enable or not E.db.mui.vehicleBar.enable
+			end,
 			args = {
-				dragonRiding = {
+				enable = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["Toggling this on enables the " .. MER.Title .. " Vehicle Bar for dragonriding."],
+					desc = L["Toggling this on enables the " .. MER.Title .. " Skyriding Bar."],
+					get = function(_)
+						return E.db.mui.vehicleBar.vigorBar.enable
+					end,
+					set = function(_, value)
+						E.db.mui.vehicleBar.vigorBar.enable = value
+						E:StaticPopup_Show("CONFIG_RL")
+					end,
+				},
+				thrillColor = {
+					order = 2,
+					type = "color",
+					name = L["Thrill Color"],
+					desc = L["The color for vigor bar's speed text when you are regaining vigor."],
+					hasAlpha = false,
+					get = function(_)
+						local colordb = E.db.mui.vehicleBar.vigorBar.thrillColor
+						local default = P.vehicleBar.vigorBar.thrillColor
+						return colordb.r, colordb.g, colordb.b, colordb.a, default.r, default.g, default.b, default.a
+					end,
+					set = function(_, r, g, b, a)
+						E.db.mui.vehicleBar.vigorBar.thrillColor = {
+							r = r,
+							g = g,
+							b = b,
+							a = a,
+						}
+						E:StaticPopup_Show("CONFIG_RL")
+					end,
+				},
+				texture = {
+					order = 3,
+					type = "select",
+					name = L["Texture"],
+					dialogControl = "LSM30_Statusbar",
+					values = LSM:HashTable("statusbar"),
+					get = function(_)
+						return E.db.mui.vehicleBar.vigorBar.texture
+					end,
+					set = function(_, value)
+						E.db.mui.vehicleBar.vigorBar.texture = value
+						E:StaticPopup_Show("CONFIG_RL")
+					end,
 				},
 			},
 		},

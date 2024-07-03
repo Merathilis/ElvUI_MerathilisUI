@@ -295,7 +295,7 @@ function module:Initialize()
 	E:CreateMover(
 		anchorFrame,
 		"MER_NotificationMover",
-		L["Notification Mover"],
+		MER.Title .. L["Notification Mover"],
 		nil,
 		nil,
 		nil,

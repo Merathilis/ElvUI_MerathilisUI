@@ -241,6 +241,7 @@ V.skins = {
 		bSync = true,
 		pawn = true,
 		sam = true,
+		mmt = true,
 		bw = {
 			enable = true,
 			queueTimer = {

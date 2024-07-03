@@ -10,11 +10,22 @@ function module:Clique()
 		return
 	end
 
-	_G.CliqueConfig:StripTextures()
-	_G.CliqueConfig:CreateBackdrop("Transparent")
+	module:DisableAddOnSkins("Clique", false)
 
-	_G.CliqueConfigPage1Column1:StripTextures()
-	_G.CliqueConfigPage1Column2:StripTextures()
+	_G.CliqueConfig:StripTextures()
+	_G.CliqueConfig:SetTemplate("Transparent")
+
+	module:CreateShadow(_G.CliqueConfig)
+
+	local CliqueTabs = {
+		_G.CliqueConfigPage1Column1,
+		_G.CliqueConfigPage1Column2,
+	}
+
+	for _, object in pairs(CliqueTabs) do
+		object:StripTextures(true)
+	end
+
 	_G.CliqueConfigInset:StripTextures()
 	_G.CliqueConfigPage1_VSlider:StripTextures()
 
@@ -51,6 +62,7 @@ function module:Clique()
 	end
 
 	local Tab = _G.CliqueSpellTab
+	S:HandleFrame(Tab)
 	Tab:SetNormalTexture(I.General.MediaPath .. "Textures\\clique") --override the Texture to take account for Simpy's Icon pack
 	Tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 	Tab:GetNormalTexture():SetInside()

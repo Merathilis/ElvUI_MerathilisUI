@@ -5,7 +5,7 @@ local format, pairs, print, type = format, pairs, print, type
 local strjoin, strlen, strlower, strrep = strjoin, strlen, strlower, strrep
 local tostring = tostring
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
 
 F.Developer = {}
 
@@ -216,7 +216,7 @@ function F.Developer.DelayInitialize(module, delay)
 end
 
 function F.Developer.Log(var, varName)
-	if MER.IsDevelop and C_AddOns_IsAddOnLoaded("DevTool") then
+	if MER.IsDevelop and IsAddOnLoaded("DevTool") then
 		local DevTool = _G["DevTool"]
 		DevTool:AddData(var, varName)
 	end

@@ -5,6 +5,12 @@ local tconcat, tsort = table.concat, table.sort
 
 local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 
+local function blue(string)
+	if type(string) ~= "string" then
+		string = tostring(string)
+	end
+	return F.CreateColorString(string, { r = 0.204, g = 0.596, b = 0.859 })
+end
 local function AddColor(string)
 	if type(string) ~= "string" then
 		string = tostring(string)
@@ -20,7 +26,7 @@ local DONATORS = {
 	"enii",
 	"Hope",
 	"Kisol",
-	"Natsurusenô",
+	"Natsuruseno",
 	"Rylok",
 	"Amenitra",
 	"zarbol",
@@ -159,7 +165,7 @@ options.name = {
 					type = "description",
 					name = format(
 						"|cffffffff%s|r",
-						"Benik, Darth Predator, Rockxana, Dlarge, |TInterface/AddOns/ElvUI_MerathilisUI/Media/Textures/Tukui:15:15:0:0:64:64:5:59:5:59|t The Tukui Community"
+						"Benik, Darth Predator, Rockxana, |TInterface/AddOns/ElvUI_MerathilisUI/Media/Textures/Tukui:15:15:0:0:64:64:5:59:5:59|t The Tukui Community"
 					),
 				},
 			},
@@ -236,6 +242,7 @@ local DEVELOPER = {
 	AddColor("fang2hou"),
 	"siweia",
 	"|cff1784d1Eltreum|r",
+	"|cff18a8ffToxi|r",
 }
 
 local nameString = strjoin(", ", unpack(DEVELOPER))
@@ -256,6 +263,47 @@ options.name.args.coding = {
 		},
 	},
 }
+
+options.name.args.localization = {
+	order = 7,
+	type = "group",
+	name = F.cOption(L["Localization"], "orange"),
+	guiInline = true,
+	args = {},
+}
+
+do
+	local german = F.GetIconString(I.Media.Icons.German, 10, 20)
+	local russian = F.GetIconString(I.Media.Icons.Russian, 10, 20)
+
+	local localizationList = {
+		["Deutsche (deDE)" .. " " .. german] = {
+			"|cff00c0faDlarge|r",
+		},
+		["русский язык (ruRU)" .. " " .. russian] = {
+			"Hollicsh @ GitHub",
+		},
+	}
+
+	local configOrder = 1
+	for langName, credits in pairs(localizationList) do
+		options.name.args.localization.args[tostring(configOrder)] = {
+			order = configOrder,
+			type = "description",
+			name = blue(langName),
+		}
+		configOrder = configOrder + 1
+
+		for _, credit in pairs(credits) do
+			options.name.args.localization.args[tostring(configOrder)] = {
+				order = configOrder,
+				type = "description",
+				name = "  - " .. credit,
+			}
+			configOrder = configOrder + 1
+		end
+	end
+end
 
 options.reset = {
 	order = 2,
@@ -287,18 +335,8 @@ options.reset = {
 				end)
 			end,
 		},
-		locPanel = {
-			order = 4,
-			type = "execute",
-			name = L["Location Panel"],
-			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Location Panel"], nil, function()
-					E:CopyTable(E.db.mui.locPanel, P.locPanel)
-				end)
-			end,
-		},
 		microBar = {
-			order = 5,
+			order = 4,
 			type = "execute",
 			name = L["Micro Bar"],
 			func = function()
@@ -308,7 +346,7 @@ options.reset = {
 			end,
 		},
 		cooldownFlash = {
-			order = 6,
+			order = 5,
 			type = "execute",
 			name = L["Cooldown Flash"],
 			func = function()
@@ -318,7 +356,7 @@ options.reset = {
 			end,
 		},
 		raidmarkers = {
-			order = 7,
+			order = 6,
 			type = "execute",
 			name = L["Raid Markers"],
 			func = function()
@@ -328,7 +366,7 @@ options.reset = {
 			end,
 		},
 		smb = {
-			order = 8,
+			order = 7,
 			type = "execute",
 			name = L["Minimap Buttons"],
 			func = function()
@@ -338,7 +376,7 @@ options.reset = {
 			end,
 		},
 		eventTracker = {
-			order = 9,
+			order = 8,
 			type = "execute",
 			name = L["Event Tracker"],
 			func = function()
@@ -348,7 +386,7 @@ options.reset = {
 			end,
 		},
 		bigWigsSkin = {
-			order = 10,
+			order = 9,
 			type = "execute",
 			name = L["BigWigs Skin"],
 			func = function()
@@ -358,7 +396,7 @@ options.reset = {
 			end,
 		},
 		chatBar = {
-			order = 11,
+			order = 10,
 			type = "execute",
 			name = L["Chat Bar"],
 			func = function()

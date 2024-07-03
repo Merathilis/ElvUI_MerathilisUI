@@ -116,7 +116,7 @@ L["Armor Category"] = "护甲分类"
 L["Weapon Category"] = "武器分类"
 L["Filters some messages out of your chat, that some Spam AddOns use."] = true
 L["Display the level of the item on the item link."] = true
-L["Numberical Quality Tier"] = true
+L["Numerical Quality Tier"] = true
 L["%player% has earned the achievement %achievement%!"] = "%player%获得了成就%achievement%!"
 L["%players% have earned the achievement %achievement%!"] = "%players%获得了成就%achievement%!"
 L["%players% (%bnet%) has come online."] = "%players% (%bnet%) 已经上线。"
@@ -695,65 +695,6 @@ L["Role Icons"] = true
 L["Heal Prediction"] = true
 L["Add an additional overlay to the absorb bar."] = true
 
--- LocationPanel
-L["Template"] = "模版"
-L["NoBackdrop"] = "无背景"
-L["Location Panel"] = "位置面板"
-L["Update Throttle"] = "更新阈值"
-L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] =
-	"坐标和区域文本更新的频率，数值越小更新越频繁."
-L["Full Location"] = "完整位置"
-L["Color Type"] = "颜色类型"
-L["Custom Color"] = "自定义颜色"
-L["Reaction"] = "声望"
-L["Location"] = "位置"
-L["Coordinates"] = "坐标"
-L["Teleports"] = "传送"
-L["Portals"] = "传送门"
-L["Link Position"] = "链接位置"
-L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."] =
-	"按住shift键点击位置，能在聊天框中粘贴你的坐标."
-L["Relocation Menu"] = "传送菜单"
-L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."] =
-	"在位置面板上点击右键将弹出一些可用选项用来传送你的角色(例如炉石，传送门等)."
-L["Custom Width"] = "自定义宽度"
-L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] =
-	"默认情况下，菜单的宽度将等于位置面板宽度。 选中此选项将允许您设置自己的宽度"
-L["Justify Text"] = "对齐文字"
-L["Auto Width"] = "自动宽度"
-L["Change width based on the zone name length."] = "根据区域名称长度更改宽度"
-L["Hearthstone Location"] = "炉石位置"
-L["Hearthstone Toys Order"] = "炉石玩具顺序"
-L["Show the name on location your Hearthstone is bound to."] = "在您的炉石所绑定的位置显示名称"
-L["Combat Hide"] = "战斗中隐藏"
-L["Show/Hide all panels when in combat"] = "显示/隐藏所有的面板(战斗中)"
-L["Hide In Class Hall"] = "职业大厅中隐藏"
-L["Hearthstone Location"] = "炉石位置"
-L["Show hearthstones"] = "显示炉石"
-L["Show hearthstone type items in the list."] = "在列表中显示类炉石功能的物品."
-L["Show Toys"] = "显示玩具"
-L["Show toys in the list. This option will affect all other display options as well."] =
-	"在列表中显示玩具. 此选项也会影响所有其他显示选项"
-L["Show spells"] = "显示法术"
-L["Show relocation spells in the list."] = "列表中显示传送法术."
-L["Show engineer gadgets"] = "显示工程玩具"
-L["Show items used only by engineers when the profession is learned."] =
-	"仅显示已学的工程专业能使用的物品."
-L["Ignore missing info"] = "忽略丢失的信息"
-L["MER_LOCPANEL_IGNOREMISSINGINFO"] =
-	[[一些项目由于客户端功能可能导致一段时间不可用.这些主要是玩具信息.
-当调用时,菜单将等待到所有可用的信息后才会出现.可能导致菜单打开延迟，这取决于服务器响应请求的速度.
-通过启用此选项，您将使菜单项忽略缺少的信息，使它们不会出现在列表中.]]
-L["Info for some items is not available yet. Please try again later"] =
-	"尚未提供某些项目的信息。请稍后再试"
-L["Update canceled."] = "更新取消"
-L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] =
-	"物品信息不可用.请等待一小会.当所有信息变得可用时，菜单将自动打开时.在更新期间再次调用菜单将取消它."
-L["Update complete. Opening menu."] = "更新完成，正在打开菜单."
-L["Hide Coordinates"] = "隐藏坐标"
-L["Dungeon Teleports"] = true
-L["Hide In Combat"] = true
-
 -- Maps
 L["Maps"] = true
 L["World Map"] = true
@@ -1145,7 +1086,7 @@ L["You have got Location Plus and Shadow & Light both enabled at the same time. 
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[在这里,您可以选择S＆L的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[在这里,您可以选择BigWigs的布局.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[在这里,您可以选择Deadly Boss Mods的布局.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[在这里,您可以选择Details!的布局.]]
+L["MER_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[在这里,您可以选择Details!的布局.]]
 L["Name for the new profile"] = "新配置文件的名称"
 L["Are you sure you want to override the current profile?"] = "您确定要覆盖当前的配置吗？"
 

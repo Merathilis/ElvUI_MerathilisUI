@@ -22,6 +22,7 @@ MER.ClassIcons = {
 
 F.AddMedia("texture", "WidgetsTips")
 F.AddMedia("logo", "LogoSmall")
+F.AddMedia("logo", "Logo")
 
 F.AddMedia("icon", "Achievements")
 F.AddMedia("icon", "Bags")
@@ -59,6 +60,9 @@ F.AddMedia("icon", "Complete")
 F.AddMedia("icon", "Discord")
 F.AddMedia("icon", "Github")
 
+F.AddMedia("icon", "Ok")
+F.AddMedia("icon", "No")
+
 --Option Icons
 F.AddMedia("icon", "OptionsHome")
 F.AddMedia("icon", "Config")
@@ -82,6 +86,17 @@ F.AddMedia("icon", "Flash")
 F.AddMedia("icon", "New")
 
 F.AddMedia("icon", "m2")
+
+-- Flags
+F.AddMedia("icon", "American")
+F.AddMedia("icon", "Brazilian")
+F.AddMedia("icon", "French")
+F.AddMedia("icon", "German")
+F.AddMedia("icon", "Italian")
+F.AddMedia("icon", "Oceanic")
+F.AddMedia("icon", "Portuguese")
+F.AddMedia("icon", "Russian")
+F.AddMedia("icon", "Spanish")
 
 F.AddMedia("texture", "arrow")
 F.AddMedia("texture", "arrowUp")
@@ -142,7 +157,6 @@ F.AddMedia("texture", "ShadowInner")
 F.AddMedia("texture", "ShadowInnerSmall")
 
 -- Fonts
-
 F.AddMedia("font", "Expressway.ttf", I.Fonts.Primary, nil, westAndRUBits)
 F.AddMedia("font", "GothamNarrow-Black.ttf", I.Fonts.GothamRaid, nil, westAndRUBits)
 F.AddMedia("font", "Runescape.ttf", I.Fonts.Runescape, nil, westAndRUBits)
@@ -160,6 +174,7 @@ F.AddMedia("texture", "RenAscensionL", "RenAscensionL", "statusbar")
 F.AddMedia("texture", "Line4pixel", "4Pixel", "statusbar")
 F.AddMedia("texture", "Asphyxia", "Asphyxia", "statusbar")
 F.AddMedia("texture", "MER_Stripes", "MER_Stripes", "statusbar")
+F.AddMedia("texture", "WorldState-Score", "WorldStateScore", "statusbar")
 
 -- Sounds
 LSM:Register("sound", "warning", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Sounds\warning.ogg]])

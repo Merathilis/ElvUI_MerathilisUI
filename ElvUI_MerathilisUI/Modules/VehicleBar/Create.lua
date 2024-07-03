@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
 local S = MER:GetModule("MER_Skins")
+local LSM = E.Libs.LSM
 
 local tinsert = table.insert
 
@@ -45,12 +46,13 @@ function module:CreateVigorSegments()
 	local classColor = E:ClassColor(E.myclass, true)
 	local r, g, b = classColor.r, classColor.g, classColor.b
 	local _, class = UnitClass("player")
+	local normalTexture = LSM:Fetch("statusbar", self.vdb.texture)
 
 	for i = 1, maxVigor do
 		local segment = CreateFrame("StatusBar", nil, self.vigorBar)
 		segment:SetSize(segmentWidth, self.vigorHeight)
 
-		segment:SetStatusBarTexture(E.media.normTex)
+		segment:SetStatusBarTexture(normalTexture)
 		segment:GetStatusBarTexture():SetHorizTile(false)
 
 		if E.db.mui.gradient.enable then
