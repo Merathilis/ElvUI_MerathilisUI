@@ -94,3 +94,26 @@ do
 		F.PrintGradientLine()
 	end
 end
+
+function MER:HandleChatCommand(msg)
+	local category = self:GetArgs(msg)
+
+	if not category then
+		E:ToggleOptions("mui")
+	elseif category == "changelog" or category == "cl" then
+		E:ToggleOptions("mui,changelog")
+	elseif category == "settings" then
+		E:ToggleOptions("mui")
+	elseif category == "install" or category == "i" then
+		E:GetModule("PluginInstaller"):Queue(MER.installTable)
+	else
+		F.Developer.LogWarning("Usage: /mer cl; changelog; install; i; settings")
+	end
+end
+
+function MER:LoadCommands()
+	self:RegisterChatCommand("mui", "HandleChatCommand")
+	self:RegisterChatCommand("mer", "HandleChatCommand")
+	self:RegisterChatCommand("merathilis", "HandleChatCommand")
+	self:RegisterChatCommand("merathilisui", "HandleChatCommand")
+end

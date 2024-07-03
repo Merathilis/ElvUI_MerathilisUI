@@ -118,6 +118,8 @@ function MER:InitializeModules()
 		end
 	end
 
+	self:LoadCommands()
+
 	local function onAllEvents()
 		-- Weait until ElvUI is done Updating
 		F.Event.ContinueAfterElvUIUpdate(function()
