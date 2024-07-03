@@ -1,4 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Include file="AddonProfiles\Load_AddonProfiles.xml"/>
-	<Include file="Filters\Load_Filters.xml"/>
-</Ui>

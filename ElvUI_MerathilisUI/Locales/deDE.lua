@@ -1158,7 +1158,7 @@ L["You have got Location Plus and Shadow & Light both enabled at the same time. 
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Hier kannst das Layout für S&L wählen.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Hier kannst das Layout für BigWigs wählen.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[Hier kannst das Layout für Deadly Boss Mods wählen.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Hier kannst das Layout für Details wählen.]]
+L["MER_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Hier kannst das Layout für Details wählen.]]
 L["Name for the new profile"] = "Name für das neue Profil"
 L["Are you sure you want to override the current profile?"] =
 	"Bist du sicher, dass du dein aktuelles Profil überschreiben  möchtest?"

@@ -162,7 +162,7 @@ function module:Initialize()
 	E:CreateMover(
 		self.alert,
 		"alertFrameMover",
-		L["Enter Combat Alert"],
+		MER.Title .. L["Enter Combat Alert"],
 		nil,
 		nil,
 		nil,

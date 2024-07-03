@@ -17,6 +17,24 @@ P.general = {
 	AFK = true,
 	FlightPoint = true,
 	fontScale = 0,
+
+	fontOverride = {
+		[I.Fonts.Primary] = "DEFAULT",
+		[I.Fonts.GothamRaid] = "DEFAULT",
+		[I.Fonts.Runescape] = "DEFAULT",
+	},
+
+	fontStyleOverride = {
+		[I.Fonts.Primary] = "DEFAULT",
+		[I.Fonts.GothamRaid] = "DEFAULT",
+		[I.Fonts.Runescape] = "DEFAULT",
+	},
+
+	fontShadowOverride = {
+		[I.Fonts.Primary] = "DEFAULT",
+		[I.Fonts.GothamRaid] = "DEFAULT",
+		[I.Fonts.Runescape] = "DEFAULT",
+	},
 }
 
 P.themes = {

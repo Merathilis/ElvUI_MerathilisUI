@@ -7,7 +7,7 @@ local CreateFrame = CreateFrame
 function module:WeakAuraAnchorLoad()
 	local frame = CreateFrame("Frame", "MERWAAnchor", E.UIParent, "BackdropTemplate")
 	frame:SetParent(_G["ElvUF_Player"])
-	frame:SetPoint("BOTTOM", E.UIParent, "BOTTOM", F.Dpi(-3), F.Dpi(480)) -- for 1080p
+	frame:SetPoint("BOTTOM", E.UIParent, "BOTTOM", F.Dpi(0), F.Dpi(470))
 	frame:SetFrameStrata("BACKGROUND")
 	frame:SetSize(300, 50)
 

@@ -22,6 +22,7 @@ MER.ClassIcons = {
 
 F.AddMedia("texture", "WidgetsTips")
 F.AddMedia("logo", "LogoSmall")
+F.AddMedia("logo", "Logo")
 
 F.AddMedia("icon", "Achievements")
 F.AddMedia("icon", "Bags")
@@ -58,6 +59,9 @@ F.AddMedia("icon", "Accept")
 F.AddMedia("icon", "Complete")
 F.AddMedia("icon", "Discord")
 F.AddMedia("icon", "Github")
+
+F.AddMedia("icon", "Ok")
+F.AddMedia("icon", "No")
 
 --Option Icons
 F.AddMedia("icon", "OptionsHome")
@@ -170,6 +174,7 @@ F.AddMedia("texture", "RenAscensionL", "RenAscensionL", "statusbar")
 F.AddMedia("texture", "Line4pixel", "4Pixel", "statusbar")
 F.AddMedia("texture", "Asphyxia", "Asphyxia", "statusbar")
 F.AddMedia("texture", "MER_Stripes", "MER_Stripes", "statusbar")
+F.AddMedia("texture", "WorldState-Score", "WorldStateScore", "statusbar")
 
 -- Sounds
 LSM:Register("sound", "warning", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Sounds\warning.ogg]])

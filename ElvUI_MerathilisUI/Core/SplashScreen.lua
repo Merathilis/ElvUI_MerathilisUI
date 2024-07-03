@@ -11,15 +11,17 @@ function MER:Logo_PlayAnimation()
 	if needAnimation then
 		MER.logoFrame:Show()
 		MER:UnregisterEvent(self, MER.Logo_PlayAnimation)
+
 		needAnimation = false
 	end
 end
 
 function MER:Logo_CheckStatus()
 	if not (IsInInstance() and InCombatLockdown()) then
-		needAnimation = true
 		self:CreateSplash()
 		MER:RegisterEvent("PLAYER_STARTED_MOVING", self.Logo_PlayAnimation)
+
+		needAnimation = true
 	end
 end
 
@@ -34,7 +36,7 @@ function MER:CreateSplash()
 	local tex = frame:CreateTexture()
 	tex:Point("CENTER", frame, "CENTER")
 	tex:SetTexture(I.General.MediaPath .. "Textures\\mUI1_Shadow.tga")
-	tex:Size(125, 125)
+	tex:Size(125)
 
 	local version = frame:CreateFontString(nil, "OVERLAY")
 	version:FontTemplate(nil, 14)
@@ -104,12 +106,4 @@ function MER:SplashScreen()
 	end
 
 	self:Logo_CheckStatus()
-
-	SlashCmdList["MER_PLAYLOGO"] = function()
-		if not MER.logoFrame then
-			MER:CreateSplash()
-		end
-		MER.logoFrame:Show()
-	end
-	SLASH_MER_PLAYLOGO1 = "/mlogo"
 end

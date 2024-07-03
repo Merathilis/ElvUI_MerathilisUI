@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local PF = MER:GetModule("MER_Profiles")
 
-local C_AddOns_DisableAddOn = C_AddOns.DisableAddOn
+local DisableAddOn = C_AddOns and C_AddOns.DisableAddOn
 
 -- MerathilisUI Credits
 E.PopupDialogs["MERATHILISUI_CREDITS"] = {
@@ -75,11 +76,11 @@ E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
 E.PopupDialogs["WINDTOOLS_MER_INCOMPATIBLE"] = {
 	text = L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."],
 	OnAccept = function()
-		C_AddOns_DisableAddOn("ElvUI_WindTools")
+		DisableAddOn("ElvUI_WindTools")
 		ReloadUI()
 	end,
 	OnCancel = function()
-		C_AddOns_DisableAddOn("ElvUI_MerathilisUI")
+		DisableAddOn("ElvUI_MerathilisUI")
 		ReloadUI()
 	end,
 	button1 = "|cff00c0faElvUI_Windtools|r",

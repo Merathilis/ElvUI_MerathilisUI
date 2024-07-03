@@ -411,7 +411,7 @@ function module:Initialize()
 	E:CreateMover(
 		self.frame,
 		"MER_RaidBuffReminderMover",
-		L["Raid Buffs Reminder"],
+		MER.Title .. L["Raid Buffs Reminder"],
 		nil,
 		nil,
 		nil,

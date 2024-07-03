@@ -1,13 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Profiles")
 
-local twipe = table.wipe
-
-function MER:LoadOmniCDProfile()
-	--[[----------------------------------
-	--	OmnicCD - Settings
-	--]]
-	----------------------------------
-
+function module:LoadOmniCDProfile()
 	local profileName = I.ProfileNames.Default
 
 	if OmniCDDB["profiles"][profileName] then
@@ -324,4 +318,21 @@ function MER:LoadOmniCDProfile()
 			}
 		end
 	end
+end
+
+function module:ApplyOmniCDProfile()
+	module:Wrap("Applying OmniCD Profile ...", function()
+		-- Apply Fonts
+		self:LoadOmniCDProfile()
+
+		E:UpdateMedia()
+		E:UpdateFontTemplates()
+
+		-- execute elvui update, callback later
+		self:ExecuteElvUIUpdate(function()
+			module:Hide()
+
+			F.Event.TriggerEvent("MER.DatabaseUpdate")
+		end, true)
+	end, true, "OmniCD")
 end

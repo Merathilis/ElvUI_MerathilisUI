@@ -94,7 +94,7 @@ function module:ConstructFrame()
 
 	local frame = CreateFrame("Frame", "MER_InstanceDifficultyFrame", _G.Minimap)
 	frame:Size(64, 32)
-	frame:Point("TOPLEFT", MM.MapHolder, "TOPLEFT", 10, -10)
+	frame:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -45)
 
 	local texture = frame:CreateTexture(nil, "BACKGROUND")
 	texture:SetAllPoints()
@@ -110,7 +110,7 @@ function module:ConstructFrame()
 	E:CreateMover(
 		frame,
 		"MER_InstanceDifficultyFrameMover",
-		L["Instance Difficulty"],
+		MER.Title .. L["Instance Difficulty"],
 		nil,
 		nil,
 		nil,

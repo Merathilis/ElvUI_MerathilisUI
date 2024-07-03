@@ -626,7 +626,7 @@ function module:CreateFrames()
 	E:CreateMover(
 		self.barAnchor,
 		"MER_MinimapButtonBarAnchor",
-		L["Minimap Buttons Bar"],
+		MER.Title .. L["Minimap Buttons Bar"],
 		nil,
 		nil,
 		nil,

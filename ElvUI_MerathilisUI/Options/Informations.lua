@@ -242,6 +242,7 @@ local DEVELOPER = {
 	AddColor("fang2hou"),
 	"siweia",
 	"|cff1784d1Eltreum|r",
+	"|cff18a8ffToxi|r",
 }
 
 local nameString = strjoin(", ", unpack(DEVELOPER))

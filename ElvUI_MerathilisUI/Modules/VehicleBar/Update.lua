@@ -217,7 +217,17 @@ function module:UpdateBar()
 
 	if init then
 		-- Create Mover
-		E:CreateMover(bar, "MER_VehicleBar", MER.Title .. " Vehicle Bar", nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI")
+		E:CreateMover(
+			bar,
+			"MER_VehicleBar",
+			MER.Title .. " Vehicle Bar",
+			nil,
+			nil,
+			nil,
+			"ALL,ACTIONBARS,MERATHILISUI",
+			nil,
+			"mui,modules,vehicleBar"
+		)
 
 		-- Force update
 		for _, button in pairs(bar.buttons) do

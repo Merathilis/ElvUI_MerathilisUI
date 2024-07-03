@@ -1605,7 +1605,7 @@ function module:CreateBar(id)
 	E:CreateMover(
 		anchor,
 		"AutoButtonBar" .. id .. "Mover",
-		L["Auto Button Bar"] .. " " .. id,
+		MER.Title .. L["Auto Button Bar"] .. " " .. id,
 		nil,
 		nil,
 		nil,

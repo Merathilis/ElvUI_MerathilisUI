@@ -7,8 +7,8 @@ local LCG = E.Libs.CustomGlow
 local _G = _G
 local unpack = unpack
 
-local C_Calendar_GetNumPendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
-local C_Garrison_HasGarrison = C_Garrison and C_Garrison.HasGarrison
+local GetNumPendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
+local HasGarrison = C_Garrison and C_Garrison.HasGarrison
 local Minimap = _G.Minimap
 local MinimapCluster = _G.MinimapCluster
 local MiniMapMailFrame = _G.MiniMapMailFrame
@@ -20,7 +20,7 @@ function module:CheckStatus()
 		return
 	end
 
-	local inv = C_Calendar_GetNumPendingInvites()
+	local inv = GetNumPendingInvites()
 	local indicator = MinimapCluster.IndicatorFrame
 	local mailFrame = (indicator and indicator.MailFrame) or MiniMapMailFrame
 	local craftingFrame = (indicator and indicator.CraftingOrderFrame)
@@ -50,7 +50,7 @@ local function toggleExpansionLandingPageButton(_, ...)
 		return
 	end
 
-	if not C_Garrison_HasGarrison(...) then
+	if not HasGarrison(...) then
 		_G.UIErrorsFrame:AddMessage(F.String.Error(_G.CONTRIBUTION_TOOLTIP_UNLOCKED_WHEN_ACTIVE))
 		return
 	end
@@ -119,8 +119,6 @@ function module:Initialize()
 	if not E.private.general.minimap.enable then
 		return
 	end
-
-	local db = E.db.mui.maps
 
 	-- Add a check if the backdrop is there
 	if not Minimap.backdrop then

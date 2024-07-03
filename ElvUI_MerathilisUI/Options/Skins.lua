@@ -8,7 +8,7 @@ local ipairs, pairs, unpack = ipairs, pairs, unpack
 local format = string.format
 local tinsert = table.insert
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
 
 local DecorAddons = {
 	{ "ACP", L["AddOn Control Panel"], "acp" },
@@ -18,6 +18,7 @@ local DecorAddons = {
 	{ "cargBags_Nivaya", L["cargBags_Nivaya"], "cbn" },
 	{ "Clique", L["Clique"], "cl" },
 	{ "ElvUI_BenikUI", L["BenikUI"], "bui" },
+	{ "ElvUI_mMediaTag", L["mMediaTag & Tools"], "mmt" },
 	{ "BugSack", L["BugSack"], "bs" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "Immersion", L["Immersion"], "imm" },
@@ -34,20 +35,6 @@ if F.IsDeveloper() then
 	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "wa" })
 	tinsert(DecorAddons, { "WeakAurasOptions", L["WeakAuras Options"], "waOptions" })
 end
-
-local SupportedProfiles = {
-	{ "AddOnSkins", "AddOnSkins" },
-	{ "BigWigs", "BigWigs" },
-	{ "Details", "Details" },
-	{ "ElvUI_FCT", "FCT" },
-	{ "ElvUI_mMediaTag", "mMediaTag & Tools" },
-	{ "ProjectAzilroka", "ProjectAzilroka" },
-	{ "ls_Toasts", "ls_Toasts" },
-	{ "Touhin", "Touhin" },
-	{ "OmniCD", "OmniCD" },
-}
-
-local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"])
 
 local function UpdateToggleDirection()
 	module:RefreshToggleDirection()
@@ -2066,7 +2053,7 @@ for _, v in ipairs(DecorAddons) do
 		name = addonString,
 		desc = format("%s " .. addonString .. " %s", L["Enable/Disable"], L["decor."]),
 		disabled = function()
-			return not C_AddOns_IsAddOnLoaded(addonName)
+			return not IsAddOnLoaded(addonName)
 		end,
 	}
 end
@@ -2084,87 +2071,8 @@ options.addonskins.args.ace3 = {
 	end,
 }
 
-options.profiles = {
-	order = 8,
-	type = "group",
-	name = L["Profiles"],
-	args = {
-		info = {
-			order = 1,
-			type = "description",
-			name = F.String.MERATHILISUI(L["MER_PROFILE_DESC"]),
-			fontSize = "medium",
-		},
-		space = {
-			order = 2,
-			type = "description",
-			name = "",
-		},
-		header = {
-			order = 3,
-			type = "header",
-			name = F.cOption(L["Profiles"], "orange"),
-		},
-	},
-}
-
-for _, v in ipairs(SupportedProfiles) do
-	local addon, addonName = unpack(v)
-	local optionOrder = 4
-	options.profiles.args[addon] = {
-		order = optionOrder + 1,
-		type = "execute",
-		name = addonName,
-		desc = L["This will create and apply profile for "] .. addonName,
-		func = function()
-			if addon == "BigWigs" then
-				MER:LoadBigWigsProfile()
-				F.Print("BigWigs profile has been set.")
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "DBM-Core" then
-				E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
-			elseif addon == "Skada" then
-				MER:LoadSkadaProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "Details" then
-				E:StaticPopup_Show("MUI_INSTALL_DETAILS_LAYOUT")
-			elseif addon == "AddOnSkins" then
-				MER:LoadAddOnSkinsProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "ProjectAzilroka" then
-				MER:LoadPAProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "ls_Toasts" then
-				MER:LoadLSProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "Touhin" then
-				MER:LoadTouhinProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "iFilger" then
-				MER:LoadiFilgerProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "ElvUI_FCT" then
-				local FCT = E.Libs.AceAddon:GetAddon("ElvUI_FCT")
-				MER:LoadFCTProfile()
-				FCT:UpdateUnitFrames()
-				FCT:UpdateNamePlates()
-			elseif addon == "ElvUI_mMediaTag" then
-				MER:mMediaTag()
-				E:StaticPopup_Show("PRIVATE_RL")
-			elseif addon == "OmniCD" then
-				MER:LoadOmniCDProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
-			end
-			F.Print(profileString .. addonName)
-		end,
-		disabled = function()
-			return not C_AddOns_IsAddOnLoaded(addon)
-		end,
-	}
-end
-
 options.Embed = {
-	order = 9,
+	order = 8,
 	type = "group",
 	name = L["Embed Settings"],
 	get = function(info)
@@ -2232,7 +2140,7 @@ options.Embed = {
 }
 
 options.advancedSettings = {
-	order = 10,
+	order = 9,
 	type = "group",
 	name = L["Advanced Skin Settings"],
 	disabled = function()
@@ -2251,7 +2159,7 @@ options.advancedSettings = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			disabled = function()
-				return not C_AddOns_IsAddOnLoaded("BigWigs")
+				return not IsAddOnLoaded("BigWigs")
 			end,
 			args = {
 				enable = {
@@ -2263,7 +2171,7 @@ options.advancedSettings = {
 					order = 1,
 					type = "description",
 					name = function()
-						if not C_AddOns_IsAddOnLoaded("BigWigs") then
+						if not IsAddOnLoaded("BigWigs") then
 							return F.StringByTemplate(format(L["%s is not loaded."], L["BigWigs"]), "danger")
 						end
 
@@ -2585,7 +2493,7 @@ options.advancedSettings = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			disabled = function()
-				return not C_AddOns_IsAddOnLoaded("Details")
+				return not IsAddOnLoaded("Details")
 			end,
 			args = {
 				enable = {
@@ -2598,7 +2506,7 @@ options.advancedSettings = {
 					order = 1,
 					type = "description",
 					name = function()
-						if not C_AddOns_IsAddOnLoaded("Details") then
+						if not IsAddOnLoaded("Details") then
 							return F.StringByTemplate(format(L["%s is not loaded."], L["Details"]), "danger")
 						end
 

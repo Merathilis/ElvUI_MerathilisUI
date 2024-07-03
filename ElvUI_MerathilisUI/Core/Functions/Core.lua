@@ -6,13 +6,14 @@ local _G = _G
 local ipairs, pairs, pcall, print, select, tonumber, type = ipairs, pairs, pcall, print, select, tonumber, type
 local format, gsub, match, split, strfind = string.format, string.gsub, string.match, string.split, strfind
 local strmatch, strlen, strsub = strmatch, strlen, strsub
-local tconcat, tinsert, tremove, twipe = table.concat, table.insert, table.remove, table.wipe
+local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
 local max, min, modf = math.max, math.min, math.modf
 local len, utf8sub = string.len, string.utf8sub
+local tcontains = tContains
 
 local CreateFrame = CreateFrame
-local GetContainerItemID = C_Container and C_Container.GetContainerItemID or GetContainerItemID
-local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
+local GetContainerItemID = C_Container and C_Container.GetContainerItemID
+local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots
 local UnitBuff = UnitBuff
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
@@ -20,9 +21,9 @@ local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
 
-local C_TooltipInfo_GetInventoryItem = C_TooltipInfo and C_TooltipInfo.GetInventoryItem
-local C_TooltipInfo_GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
-local C_TooltipInfo_GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
+local GetInventoryItem = C_TooltipInfo and C_TooltipInfo.GetInventoryItem
+local GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
+local GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
 
 -- Profile
 function F.GetDBFromPath(path, dbRef)
@@ -91,6 +92,13 @@ function F.UpdateDBFromPathRGB(db, path)
 	F.UpdateDBFromPath(db, path, "g")
 	F.UpdateDBFromPath(db, path, "b")
 	F.UpdateDBFromPath(db, path, "a")
+end
+
+function F.ChooseForGradient(normalValue, gradientValue)
+	if E.db.mui.gradient.enable then
+		return gradientValue
+	end
+	return normalValue
 end
 
 -- Scaling
@@ -178,7 +186,13 @@ function F.SetFontOutline(text, font, size)
 	text.SetShadowColor = E.noop
 end
 
-function F.SetFontSizeScaled(value, clamp)
+function F.FontSize(value)
+	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale)
+		or value
+	return F.Clamp(value, 8, 64)
+end
+
+function F.FontSizeScaled(value, clamp)
 	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale)
 		or value
 	clamp = (
@@ -189,6 +203,16 @@ function F.SetFontSizeScaled(value, clamp)
 	) or 0
 
 	return F.Clamp(F.Clamp(F.Round(value * perfectScale), clamp or 0, 64), 8, 64)
+end
+
+function F.FontOverride(font)
+	local override = F.GetDBFromPath("mui.general.fontOverride")[font]
+	return (override and override ~= "DEFAULT") and override or font
+end
+
+function F.FontStyleOverride(font, style)
+	local override = F.GetDBFromPath("mui.general.fontStyleOverride")[font]
+	return (override and override ~= "DEFAULT") and override or style
 end
 
 function F.GetStyledText(text)
@@ -541,11 +565,11 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 
 			local data
 			if arg1 and type(arg1) == "string" then
-				data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
+				data = GetInventoryItem(arg1, arg2)
 			elseif arg1 and type(arg1) == "number" then
-				data = C_TooltipInfo_GetBagItem(arg1, arg2)
+				data = GetBagItem(arg1, arg2)
 			else
-				data = C_TooltipInfo_GetHyperlink(link, nil, nil, true)
+				data = GetHyperlink(link, nil, nil, true)
 			end
 			if not data then
 				return
@@ -604,17 +628,10 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 		local name = nameCache[npcID]
 		if not name then
 			name = loadingStr
-			local data = C_TooltipInfo.GetHyperlink(format("unit:Creature-0-0-0-0-%d", npcID))
+			local data = GetHyperlink(format("unit:Creature-0-0-0-0-%d", npcID))
 			local lineData = data and data.lines
 			if lineData then
-				if DB.isPatch10_1 then
-					name = lineData[1] and lineData[1].leftText
-				else
-					local argVal = lineData[1] and lineData[1].args
-					if argVal then
-						name = argVal[2] and argVal[2].stringVal
-					end
-				end
+				name = lineData[1] and lineData[1].leftText
 			end
 			if name == loadingStr then
 				if not pendingNPCs[npcID] then
@@ -634,7 +651,7 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 	end
 
 	function F.IsUnknownTransmog(bagID, slotID)
-		local data = C_TooltipInfo_GetBagItem(bagID, slotID)
+		local data = GetBagItem(bagID, slotID)
 		local lineData = data and data.lines
 		if not lineData then
 			return
@@ -1186,4 +1203,230 @@ function F.Or(val, default)
 		return default
 	end
 	return val
+end
+
+do
+	local protected_call = {}
+
+	function protected_call._error_handler(err)
+		F.Developer.LogInfo(err)
+	end
+
+	function protected_call._handle_result(success, ...)
+		if success then
+			return ...
+		end
+	end
+
+	local do_pcall
+	if not select(
+		2,
+		xpcall(function(a)
+			return a
+		end, error, true)
+	) then
+		do_pcall = function(func, ...)
+			local args = { ... }
+			return protected_call._handle_result(xpcall(function()
+				return func(unpack(args))
+			end, protected_call._error_handler))
+		end
+	else
+		do_pcall = function(func, ...)
+			return protected_call._handle_result(xpcall(func, protected_call._error_handler, ...))
+		end
+	end
+
+	function protected_call.call(func, ...)
+		return do_pcall(func, ...)
+	end
+
+	local pcall_mt = {}
+	function pcall_mt:__call(...)
+		return do_pcall(...)
+	end
+
+	F.ProtectedCall = setmetatable(protected_call, pcall_mt)
+end
+
+do
+	local eventManagerFrame, eventManagerTable, eventManagerDelayed = CreateFrame("Frame"), {}, {}
+
+	eventManagerFrame:SetScript("OnUpdate", function()
+		for _, func in ipairs(eventManagerDelayed) do
+			F.ProtectedCall(unpack(func))
+		end
+		eventManagerDelayed = {}
+	end)
+
+	function F.EventManagerDelayed(func, ...)
+		tinsert(eventManagerDelayed, { func, ... })
+	end
+
+	eventManagerFrame:SetScript("OnEvent", function(_, event, ...)
+		local namespaces = eventManagerTable[event]
+		if namespaces then
+			for _, funcs in pairs(namespaces) do
+				for _, func in ipairs(funcs) do
+					func(event, ...)
+				end
+			end
+		end
+	end)
+
+	function F.EventManagerRegister(namespace, event, func)
+		local namespaces = eventManagerTable[event]
+
+		if not namespaces then
+			eventManagerTable[event] = {}
+			namespaces = eventManagerTable[event]
+			pcall(eventManagerFrame.RegisterEvent, eventManagerFrame, event)
+		end
+
+		local funcs = namespaces[namespace]
+
+		if not funcs then
+			namespaces[namespace] = { func }
+		elseif not tcontains(funcs, func) then
+			tinsert(funcs, func)
+		end
+	end
+
+	function F.EventManagerUnregisterAll(namespace)
+		for event in pairs(eventManagerTable) do
+			local namespaces = eventManagerTable[event]
+			local funcs = namespaces and namespaces[namespace]
+			if funcs ~= nil then
+				F.EventManagerUnregister(namespace, event)
+			end
+		end
+	end
+
+	function F.EventManagerUnregister(namespace, event, func)
+		local namespaces = eventManagerTable[event]
+		local funcs = namespaces and namespaces[namespace]
+
+		if funcs then
+			for index, fnc in ipairs(funcs) do
+				if not func or (func == fnc) then
+					tremove(funcs, index)
+					break
+				end
+			end
+
+			if #funcs == 0 then
+				namespaces[namespace] = nil
+			end
+
+			if not next(funcs) then
+				eventManagerFrame:UnregisterEvent(event)
+				eventManagerTable[event] = nil
+			end
+		end
+	end
+end
+
+function F.ProcessMovers(dbRef)
+	-- Disable screen restrictions
+	E:SetMoversClampedToScreen(false)
+
+	-- Enable all movers
+	for name in pairs(E.DisabledMovers) do
+		local disable = E.DisabledMovers[name].shouldDisable
+		local shouldDisable = (disable and disable()) or false
+
+		if not shouldDisable and not E.CreatedMovers[name] then
+			local holder = E.DisabledMovers[name]
+			if not holder then
+				F.Developer.LogDebug("holder doesnt exist", name or "nil")
+			end
+
+			E.CreatedMovers[name] = {}
+			for x, y in pairs(holder) do
+				E.CreatedMovers[name][x] = y
+			end
+
+			E.DisabledMovers[name] = nil
+		else
+			F.Developer.LogDebug("could not enable mover", name or "nil")
+		end
+	end
+
+	local relativeMovers = {}
+	local globalMovers = {}
+
+	for name, points in pairs(dbRef.movers) do
+		local _, relativeTo = strsplit(",", points)
+		if relativeTo then
+			relativeTo = relativeTo:gsub("Mover", "")
+
+			if relativeTo ~= "ElvUIParent" and relativeTo ~= "UIParent" then
+				if not relativeMovers[relativeTo] then
+					relativeMovers[relativeTo] = {}
+				end
+				tinsert(relativeMovers[relativeTo], { name, points })
+			else
+				tinsert(globalMovers, { name, points })
+			end
+		end
+	end
+
+	local function processMover(info)
+		local name, points = unpack(info)
+		local cleanName = name:gsub("Mover", "")
+
+		local holder = E.CreatedMovers[name]
+		local mover = holder and holder.mover
+
+		if mover and mover:GetCenter() then
+			local point1, relativeTo1, relativePoint1, xOffset1, yOffset1 = strsplit(",", points)
+
+			-- Set To DB Points
+			mover:ClearAllPoints()
+			mover:SetPoint(point1, relativeTo1, relativePoint1, xOffset1, yOffset1)
+
+			-- Set ElvUI Converted Point
+			local xOffsetConverted, yOffsetConverted, pointConverted = E:CalculateMoverPoints(mover)
+			mover:ClearAllPoints()
+			mover:SetPoint(pointConverted, _G.UIParent, pointConverted, xOffsetConverted, yOffsetConverted)
+
+			-- Read resulting point, save it to our db
+			local point3, _, relativePoint3, xOffset3, yOffset3 = mover:GetPoint()
+			dbRef.movers[name] = format(
+				"%s,ElvUIParent,%s,%d,%d",
+				point3,
+				relativePoint3,
+				xOffset3 and E:Round(xOffset3) or 0,
+				yOffset3 and E:Round(yOffset3) or 0
+			)
+
+			-- Process other movers that are relative to us
+			if relativeMovers[cleanName] and #relativeMovers[cleanName] > 0 then
+				for i, relativeInfo in ipairs(relativeMovers[cleanName]) do
+					if relativeInfo then
+						relativeMovers[cleanName][i] = nil
+						processMover(relativeInfo)
+					end
+				end
+			end
+		else
+			F.Developer.LogDebug(F.String.Error("Could not find holder"), name)
+		end
+	end
+
+	for _, info in ipairs(globalMovers) do
+		processMover(info)
+	end
+
+	for parent, infos in pairs(relativeMovers) do
+		for _, info in ipairs(infos) do
+			if info then
+				F.Developer.LogDebug(
+					F.String.Error("Parent was never processed resulted in dangling child"),
+					parent,
+					info[1]
+				)
+			end
+		end
+	end
 end

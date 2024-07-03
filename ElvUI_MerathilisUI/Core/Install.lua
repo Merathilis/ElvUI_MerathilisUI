@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local PI = E:GetModule("PluginInstaller")
 local CH = E:GetModule("Chat")
+local PF = MER:GetModule("MER_Profiles")
 
 local _G = _G
 local ipairs, next = ipairs, next
@@ -27,61 +28,61 @@ local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoi
 local LOOT = LOOT
 local VOICE = VOICE
 
-local C_UI_Reload = C_UI.Reload
-local C_CVar_SetCVar = C_CVar.SetCVar
+local Reload = C_UI and C_UI.Reload
+local SetCVar = C_CVar and C_CVar.SetCVar
 
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
 
 local function SetupCVars()
 	-- Setup CVars
-	C_CVar_SetCVar("autoQuestProgress", 1)
-	C_CVar_SetCVar("alwaysShowActionBars", 1)
-	C_CVar_SetCVar("guildMemberNotify", 1)
-	C_CVar_SetCVar("TargetNearestUseNew", 1)
-	C_CVar_SetCVar("cameraSmoothStyle", 0)
-	C_CVar_SetCVar("cameraDistanceMaxZoomFactor", 2.6)
-	C_CVar_SetCVar("UberTooltips", 1)
-	C_CVar_SetCVar("lockActionBars", 1)
-	C_CVar_SetCVar("chatMouseScroll", 1)
-	C_CVar_SetCVar("countdownForCooldowns", 1)
-	C_CVar_SetCVar("showQuestTrackingTooltips", 1)
-	C_CVar_SetCVar("ffxGlow", 0)
-	C_CVar_SetCVar("floatingCombatTextCombatState", "1")
-	C_CVar_SetCVar("minimapTrackingShowAll", 1)
-	C_CVar_SetCVar("fstack_preferParentKeys", 0)
+	SetCVar("autoQuestProgress", 1)
+	SetCVar("alwaysShowActionBars", 1)
+	SetCVar("guildMemberNotify", 1)
+	SetCVar("TargetNearestUseNew", 1)
+	SetCVar("cameraSmoothStyle", 0)
+	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
+	SetCVar("UberTooltips", 1)
+	SetCVar("lockActionBars", 1)
+	SetCVar("chatMouseScroll", 1)
+	SetCVar("countdownForCooldowns", 1)
+	SetCVar("showQuestTrackingTooltips", 1)
+	SetCVar("ffxGlow", 0)
+	SetCVar("floatingCombatTextCombatState", "1")
+	SetCVar("minimapTrackingShowAll", 1)
+	SetCVar("fstack_preferParentKeys", 0)
 
 	-- Nameplates
-	C_CVar_SetCVar("ShowClassColorInNameplate", 1)
-	C_CVar_SetCVar("nameplateLargerScale", 1)
-	C_CVar_SetCVar("nameplateLargeTopInset", -1)
-	C_CVar_SetCVar("nameplateMinAlpha", 1)
-	C_CVar_SetCVar("nameplateMinScale", 1)
-	C_CVar_SetCVar("nameplateMotion", 1)
-	C_CVar_SetCVar("nameplateOccludedAlphaMult", 1)
-	C_CVar_SetCVar("nameplateOtherBottomInset", -1)
-	C_CVar_SetCVar("nameplateOtherTopInset", -1)
-	C_CVar_SetCVar("nameplateOverlapH", 1.1)
-	C_CVar_SetCVar("nameplateOverlapV", 1.8)
-	C_CVar_SetCVar("nameplateSelectedScale", 1)
-	C_CVar_SetCVar("nameplateSelfAlpha", 1)
-	C_CVar_SetCVar("nameplateSelfTopInset", -1)
+	SetCVar("ShowClassColorInNameplate", 1)
+	SetCVar("nameplateLargerScale", 1)
+	SetCVar("nameplateLargeTopInset", -1)
+	SetCVar("nameplateMinAlpha", 1)
+	SetCVar("nameplateMinScale", 1)
+	SetCVar("nameplateMotion", 1)
+	SetCVar("nameplateOccludedAlphaMult", 1)
+	SetCVar("nameplateOtherBottomInset", -1)
+	SetCVar("nameplateOtherTopInset", -1)
+	SetCVar("nameplateOverlapH", 1.1)
+	SetCVar("nameplateOverlapV", 1.8)
+	SetCVar("nameplateSelectedScale", 1)
+	SetCVar("nameplateSelfAlpha", 1)
+	SetCVar("nameplateSelfTopInset", -1)
 
-	C_CVar_SetCVar("UnitNameEnemyGuardianName", 1)
-	C_CVar_SetCVar("UnitNameEnemyMinionName", 1)
-	C_CVar_SetCVar("UnitNameEnemyPetName", 1)
-	C_CVar_SetCVar("UnitNameEnemyPlayerName", 1)
-	C_CVar_SetCVar("profanityFilter", 0)
+	SetCVar("UnitNameEnemyGuardianName", 1)
+	SetCVar("UnitNameEnemyMinionName", 1)
+	SetCVar("UnitNameEnemyPetName", 1)
+	SetCVar("UnitNameEnemyPlayerName", 1)
+	SetCVar("profanityFilter", 0)
 
 	-- CVars General
-	C_CVar_SetCVar("chatStyle", "classic")
-	C_CVar_SetCVar("whisperMode", "inline")
-	C_CVar_SetCVar("colorChatNamesByClass", 1)
-	C_CVar_SetCVar("chatClassColorOverride", 0)
+	SetCVar("chatStyle", "classic")
+	SetCVar("whisperMode", "inline")
+	SetCVar("colorChatNamesByClass", 1)
+	SetCVar("chatClassColorOverride", 0)
 
-	C_CVar_SetCVar("speechToText", 0)
-	C_CVar_SetCVar("textToSpeech", 0)
+	SetCVar("speechToText", 0)
+	SetCVar("textToSpeech", 0)
 
-	C_CVar.SetCVar("taintLog", 0)
+	SetCVar("taintLog", 0)
 
 	PluginInstallStepComplete.message = MER.Title .. L["CVars Set"]
 	PluginInstallStepComplete:Show()
@@ -297,7 +298,7 @@ function MER:SetupLayout()
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["clusterDisable"] = true
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
-	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
+	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPLEFT"
 	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.6
 	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 0
@@ -340,6 +341,18 @@ function MER:SetupLayout()
 	E.db["general"]["customGlow"]["useColor"] = true
 	E.db["general"]["customGlow"]["color"] = { r = F.r, g = F.g, b = F.b }
 	E.db["general"]["lootRoll"]["qualityItemLevel"] = true
+	E.db["general"]["lootRoll"]["nameFont"] = I.Fonts.Primary
+	E.db["general"]["lootRoll"]["nameFontSize"] = 12
+	E.db["general"]["lootRoll"]["nameFontOutline"] = "SHADOWOUTLINE"
+	E.db["general"]["addonCompartment"]["font"] = I.Fonts.Primary
+	E.db["general"]["addonCompartment"]["fontSize"] = 13
+	E.db["general"]["addonCompartment"]["fontOutline"] = "SHADOWOUTLINE"
+	E.db["general"]["guildBank"]["countFont"] = I.Fonts.Primary
+	E.db["general"]["guildBank"]["countFontSize"] = 9
+	E.db["general"]["guildBank"]["countFontOutline"] = "SHADOWOUTLINE"
+	E.db["general"]["guildBank"]["itemLevelFont"] = I.Fonts.Primary
+	E.db["general"]["guildBank"]["itemLevelFontSize"] = 10
+	E.db["general"]["guildBank"]["itemLevelFontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["queueStatus"]["enable"] = true
 	E.db["general"]["queueStatus"]["font"] = I.Fonts.Primary
 
@@ -440,6 +453,7 @@ function MER:SetupLayout()
 	E.db["bags"]["transparent"] = true
 	E.db["bags"]["vendorGrays"]["enable"] = true
 	E.db["bags"]["vendorGrays"]["details"] = false
+	E.db["bags"]["spinner"]["color"] = I.Strings.Branding.ColorRGB
 
 	-- Cooldown Settings
 	E.db["bags"]["cooldown"]["override"] = true
@@ -502,7 +516,7 @@ function MER:SetupLayout()
 	E.db["general"]["itemLevel"]["itemLevelFontSize"] = 12
 	E.db["general"]["itemLevel"]["itemLevelFontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["itemLevel"]["totalLevelFont"] = I.Fonts.Primary
-	E.db["general"]["itemLevel"]["totalLevelFontSize"] = 20
+	E.db["general"]["itemLevel"]["totalLevelFontSize"] = 13
 	E.db["general"]["itemLevel"]["totalLevelFontOutline"] = "SHADOWOUTLINE"
 
 	--[[----------------------------------
@@ -1048,7 +1062,9 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["timeToHold"] = 0.8
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["position"] = "BOTTOMRIGHT"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = 20
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["yOffset"] = 25
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["spacing"] = 5
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["font"] = I.Fonts.GothamRaid
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["textXOffset"] = -5
@@ -1118,7 +1134,9 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 0
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = "BOTTOMRIGHT"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 20
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["yOffset"] = 25
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["spacing"] = 5
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["font"] = I.Fonts.GothamRaid
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["textXOffset"] = -5
@@ -2372,6 +2390,30 @@ function MER:SetupDts()
 		"DurabilityItemLevel",
 		"Gold",
 	}
+	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
+		E.db["datatexts"]["panels"]["MER_TopPanel"] = {
+			[1] = "mTeleports",
+			[2] = "",
+			[3] = "",
+			["battleground"] = false,
+			["enable"] = true,
+		}
+		E.db["movers"]["DTPanelMER_TopPanelMover"] = "TOP,ElvUIParent,TOP,0,0"
+
+		E.global["datatexts"]["customPanels"]["MER_TopPanel"] = {
+			["fonts"] = {
+				["enable"] = true,
+				["font"] = "- Expressway",
+				["fontSize"] = 10,
+				["fontOutline"] = "SHADOWOUTLINE",
+			},
+			["height"] = 20,
+			["numPoints"] = 1,
+			["backdrop"] = false,
+			["name"] = "MER_TopPanel",
+		}
+	end
+
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
 
@@ -2389,18 +2431,18 @@ MER.isInstallerRunning = false
 function MER:SetupAddOns()
 	--AddOnSkins
 	if E:IsAddOnEnabled("AddOnSkins") then
-		MER:LoadAddOnSkinsProfile()
+		PF:LoadAddOnSkinsProfile()
 		tinsert(addonNames, "|cff16C3F2AddOn|r|cFFFFFFFFSkins|r")
 	end
 
 	-- ProjectAzilroka
 	if E:IsAddOnEnabled("ProjectAzilroka") then
-		MER:LoadPAProfile()
+		PF:LoadPAProfile()
 		tinsert(addonNames, "|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r")
 	end
 
 	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
-		MER:mMediaTag()
+		PF:LoadmMediaTagProfile()
 		tinsert(
 			addonNames,
 			"|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r"
@@ -2412,8 +2454,9 @@ function MER:SetupAddOns()
 			format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"] .. "\n")
 
 		tsort(addonNames, function(a, b)
-			return a < b
+			return a > b
 		end)
+
 		local names = tconcat(addonNames, ", ")
 		profileString = profileString .. names
 
@@ -2437,37 +2480,40 @@ function MER:DeveloperSettings()
 	end
 
 	-- CVars
-	C_CVar_SetCVar("taintLog", 1)
-	C_CVar_SetCVar("LowLatencyMode", 3)
-	C_CVar_SetCVar("maxFPS", 165)
-	C_CVar_SetCVar("maxFPSBk", 60)
-	C_CVar_SetCVar("maxFPSLoading", 30)
-	C_CVar_SetCVar("violenceLevel", 5)
-	C_CVar_SetCVar("blockTrades", 0)
-	C_CVar_SetCVar("blockChannelInvites", 1)
-	C_CVar_SetCVar("RAIDweatherDensity", 0)
-	C_CVar_SetCVar("CameraReduceUnexpectedMovement", 1)
-	C_CVar_SetCVar("DisableAdvancedFlyingVelocityVFX", 1)
-	C_CVar_SetCVar("disableServerNagle", 0)
-	C_CVar_SetCVar("displaySpellActivationOverlays", 0)
-	C_CVar_SetCVar("empowerTapControls", 1)
-	C_CVar_SetCVar("weatherDensity", 0)
-	C_CVar_SetCVar("SpellQueueWindow", 180)
-	C_CVar_SetCVar("floatingCombatTextCombatDamageDirectionalScale", 1)
-	C_CVar_SetCVar("autoOpenLootHistory", 1)
-	C_CVar_SetCVar("showTutorials", 0)
-	C_CVar_SetCVar("showNPETutorials", 0)
-	C_CVar_SetCVar("hideAdventureJournalAlerts", 1)
-	C_CVar_SetCVar("uiScale", 0.71111111111111)
+	SetCVar("taintLog", 1)
+	SetCVar("LowLatencyMode", 3)
+	SetCVar("maxFPS", 165)
+	SetCVar("maxFPSBk", 60)
+	SetCVar("maxFPSLoading", 30)
+	SetCVar("violenceLevel", 5)
+	SetCVar("blockTrades", 0)
+	SetCVar("blockChannelInvites", 1)
+	SetCVar("RAIDweatherDensity", 0)
+	SetCVar("CameraReduceUnexpectedMovement", 1)
+	SetCVar("DisableAdvancedFlyingVelocityVFX", 1)
+	SetCVar("disableServerNagle", 0)
+	SetCVar("displaySpellActivationOverlays", 0)
+	SetCVar("empowerTapControls", 1)
+	SetCVar("weatherDensity", 0)
+	SetCVar("SpellQueueWindow", 180)
+	SetCVar("floatingCombatTextCombatDamageDirectionalScale", 1)
+	SetCVar("autoOpenLootHistory", 1)
+	SetCVar("showTutorials", 0)
+	SetCVar("showNPETutorials", 0)
+	SetCVar("hideAdventureJournalAlerts", 1)
+	SetCVar("uiScale", 0.71111111111111)
 
 	-- General
 	E.global["general"]["UIScale"] = 0.71111111111111
 	E.private["general"]["chatBubbles"] = "nobackdrop"
 	E.db["general"]["cropIcon"] = 0
+	E.db["general"]["autoRepair"] = "GUILD"
 	E.db["tooltip"]["showElvUIUsers"] = true
 	E.db["mui"]["blizzard"]["objectiveTracker"]["title"]["size"] = 12
 	E.db["mui"]["blizzard"]["objectiveTracker"]["info"]["size"] = 11
 	E.db["mui"]["misc"]["cursor"]["enable"] = true
+	E.db["mui"]["misc"]["automation"]["enable"] = true
+	E.db["mui"]["misc"]["automation"]["hideBagAfterEnteringCombat"] = true
 	E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
 	E.db["mui"]["pvp"]["duels"]["regular"] = true
 	E.db["mui"]["pvp"]["duels"]["pet"] = true
@@ -2487,8 +2533,10 @@ function MER:DeveloperSettings()
 	E.db["general"]["minimap"]["size"] = 222
 	E.db["mui"]["smb"]["buttonSize"] = 23
 	E.db["mui"]["smb"]["buttonsPerRow"] = 9
+	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.5
 	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
+	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 85
+	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "BOTTOMLEFT"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
 	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
 	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
@@ -2640,7 +2688,7 @@ local function InstallComplete()
 
 	MERDataPerChar = MER.Version
 
-	C_UI_Reload()
+	Reload()
 end
 
 function MER:InstallAdditions(installType, mode, null)
@@ -2717,12 +2765,12 @@ MER.installTable = {
 	["Pages"] = {
 		[1] = function()
 			MER:Resize(true)
-			MER:InstallAdditions()
+			-- MER:InstallAdditions()
 
 			if PluginInstallFrame then
 				PluginInstallFrame:HookScript("OnShow", function()
 					if PluginInstallFrame.Title then
-						if PluginInstallFrame.Title:GetText() ~= MER.Title then
+						if PluginInstallFrame.Title:GetText() ~= "|cffff7d0aMerathilisUI|r Installation" then
 							MER:InstallAdditions()(nil, nil, true) -- Don't use the addition on other Plugins
 						end
 					end
