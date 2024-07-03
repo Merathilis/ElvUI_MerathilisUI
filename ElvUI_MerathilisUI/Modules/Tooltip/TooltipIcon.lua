@@ -9,8 +9,8 @@ local tinsert = tinsert
 local unpack = unpack
 
 local GetAchievementInfo = GetAchievementInfo
-local GetItemIcon = C_Item and C_Item.GetItemIcon or GetItemIcon
-local GetSpellTexture = C_Spell and C_Spell.GetSpellTexture or GetSpellTexture
+local GetItemIcon = C_Item and C_Item.GetItemIcon
+local GetSpellTexture = C_Spell and C_Spell.GetSpellTexture
 local UnitBattlePetSpeciesID = UnitBattlePetSpeciesID
 local UnitBattlePetType = UnitBattlePetType
 local UnitFactionGroup = UnitFactionGroup
@@ -195,7 +195,7 @@ end
 function T:Icons()
 	if E.db.mui.tooltip.icon then
 		handle(Enum_TooltipDataType_Achievement)
-		handle(Enum_TooltipDataType_Item)
+		-- handle(Enum_TooltipDataType_Item)
 		handle(Enum_TooltipDataType_Spell)
 		handle(Enum_TooltipDataType_Toy)
 		handle(Enum_TooltipDataType_Mount)

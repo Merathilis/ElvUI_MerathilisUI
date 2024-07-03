@@ -294,7 +294,7 @@ function module:Blizzard_Collections()
 	local WardrobeFrame = _G.WardrobeFrame
 	local WardrobeTransmogFrame = _G.WardrobeTransmogFrame
 
-	module:CreateBDFrame(_G.WardrobeOutfitFrame, 0.25)
+	-- module:CreateBDFrame(_G.WardrobeOutfitFrame, 0.25)
 	module:CreateShadow(WardrobeFrame)
 
 	local slots = {

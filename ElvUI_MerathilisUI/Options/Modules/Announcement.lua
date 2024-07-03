@@ -346,212 +346,212 @@ options.announcement.args.quest = {
 	},
 }
 
-options.announcement.args.utility = {
-	order = 4,
-	type = "group",
-	name = L["Utility"],
-	get = function(info)
-		return E.db.mui.announcement[info[#info - 1]][info[#info]]
-	end,
-	set = function(info, value)
-		E.db.mui.announcement[info[#info - 1]][info[#info]] = value
-	end,
-	args = {
-		desc = {
-			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["Send the use of portals, ritual of summoning, feasts, etc."],
-					fontSize = "medium",
-				},
-			},
-		},
-		enable = {
-			order = 2,
-			type = "toggle",
-			name = L["Enable"],
-			set = function(info, value)
-				E.db.mui.announcement[info[#info - 1]][info[#info]] = value
-				module:ResetAuthority()
-			end,
-		},
-		channel = {
-			order = 3,
-			name = L["Channel"],
-			type = "group",
-			inline = true,
-			get = function(info)
-				return E.db.mui.announcement.utility[info[#info - 1]][info[#info]]
-			end,
-			set = function(info, value)
-				E.db.mui.announcement.utility[info[#info - 1]][info[#info]] = value
-				module:ResetAuthority()
-			end,
-			args = {
-				solo = {
-					order = 1,
-					name = L["Solo"],
-					type = "select",
-					values = {
-						NONE = L["None"],
-						SELF = L["Self (Chat Frame)"],
-						EMOTE = L["Emote"],
-						YELL = L["Yell"],
-						SAY = L["Say"],
-					},
-				},
-				party = {
-					order = 2,
-					name = L["In Party"],
-					type = "select",
-					values = {
-						NONE = L["None"],
-						SELF = L["Self (Chat Frame)"],
-						EMOTE = L["Emote"],
-						PARTY = L["Party"],
-						YELL = L["Yell"],
-						SAY = L["Say"],
-					},
-				},
-				instance = {
-					order = 3,
-					name = L["In Instance"],
-					type = "select",
-					values = {
-						NONE = L["None"],
-						SELF = L["Self (Chat Frame)"],
-						EMOTE = L["Emote"],
-						PARTY = L["Party"],
-						INSTANCE_CHAT = L["Instance"],
-						YELL = L["Yell"],
-						SAY = L["Say"],
-					},
-				},
-				raid = {
-					order = 4,
-					name = L["In Raid"],
-					type = "select",
-					values = {
-						NONE = L["None"],
-						SELF = L["Self (Chat Frame)"],
-						EMOTE = L["Emote"],
-						PARTY = L["Party"],
-						RAID = L["Raid"],
-						YELL = L["Yell"],
-						SAY = L["Say"],
-					},
-				},
-			},
-		},
-	},
-}
-
-do
-	local categoryLocales = {
-		feasts = L["Feasts"],
-		bots = L["Bots"],
-		toys = L["Toys"],
-		portals = L["Portals"],
-		hero = L["Heroism/Bloodlust"],
-	}
-
-	local specialExampleSpell = {
-		feasts = 286050,
-		bots = 67826,
-		toys = 61031,
-		portals = 10059,
-		hero = 32182,
-	}
-
-	local spellOptions = options.announcement.args.utility.args
-	local spellOrder = 10
-	local categoryOrder = 50
-	for categoryOrId, config in pairs(P.announcement.utility.spells) do
-		local groupName, groupOrder, exampleSpellId
-		local id = tonumber(categoryOrId)
-		if id then
-			groupName = GetSpellInfo(id)
-			exampleSpellId = id
-			groupOrder = spellOrder
-			spellOrder = spellOrder + 1
-		else
-			groupName = categoryLocales[categoryOrId]
-			exampleSpellId = specialExampleSpell[categoryOrId]
-			groupOrder = categoryOrder
-			categoryOrder = categoryOrder + 1
-		end
-
-		exampleSpellId = exampleSpellId or 20484
-
-		spellOptions[categoryOrId] = {
-			order = groupOrder,
-			name = groupName,
-			type = "group",
-			get = function(info)
-				return E.db.mui.announcement.utility.spells[categoryOrId][info[#info]]
-			end,
-			set = function(info, value)
-				E.db.mui.announcement.utility.spells[categoryOrId][info[#info]] = value
-			end,
-			args = {
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-				},
-				includePlayer = {
-					order = 2,
-					type = "toggle",
-					name = L["Include Player"],
-					desc = L["Uncheck this box, it will not send message if you cast the spell."],
-				},
-				raidWarning = {
-					order = 3,
-					type = "toggle",
-					name = L["Raid Warning"],
-					desc = L["If you have privilege, it would the message to raid warning(/rw) rather than raid(/r)."],
-				},
-				text = {
-					order = 4,
-					type = "input",
-					name = L["Text"],
-					desc = format(
-						"%s\n%s\n%s",
-						FormatDesc("%player%", L["Name of the player"]),
-						FormatDesc("%target%", L["Target name"]),
-						FormatDesc("%spell%", L["The spell link"])
-					),
-					width = 2.5,
-				},
-				useDefaultText = {
-					order = 5,
-					type = "execute",
-					func = function()
-						E.db.mui.announcement.utility.spells[categoryOrId].text =
-							P.announcement.utility.spells[categoryOrId].text
-					end,
-					name = L["Default Text"],
-				},
-				example = {
-					order = 6,
-					type = "description",
-					name = function()
-						local message = E.db.mui.announcement.utility.spells[categoryOrId].text
-						message = gsub(message, "%%player%%", E.myname)
-						message = gsub(message, "%%target%%", L["Sylvanas"])
-						message = gsub(message, "%%spell%%", GetSpellLink(exampleSpellId))
-						return "\n" .. ImportantColorString(L["Example"]) .. ": " .. message .. "\n"
-					end,
-				},
-			},
-		}
-	end
-end
+-- options.announcement.args.utility = {
+-- order = 4,
+-- type = "group",
+-- name = L["Utility"],
+-- get = function(info)
+-- return E.db.mui.announcement[info[#info - 1]][info[#info]]
+-- end,
+-- set = function(info, value)
+-- E.db.mui.announcement[info[#info - 1]][info[#info]] = value
+-- end,
+-- args = {
+-- desc = {
+-- order = 1,
+-- type = "group",
+-- inline = true,
+-- name = L["Description"],
+-- args = {
+-- feature = {
+-- order = 1,
+-- type = "description",
+-- name = L["Send the use of portals, ritual of summoning, feasts, etc."],
+-- fontSize = "medium",
+-- },
+-- },
+-- },
+-- enable = {
+-- order = 2,
+-- type = "toggle",
+-- name = L["Enable"],
+-- set = function(info, value)
+-- E.db.mui.announcement[info[#info - 1]][info[#info]] = value
+-- module:ResetAuthority()
+-- end,
+-- },
+-- channel = {
+-- order = 3,
+-- name = L["Channel"],
+-- type = "group",
+-- inline = true,
+-- get = function(info)
+-- return E.db.mui.announcement.utility[info[#info - 1]][info[#info]]
+-- end,
+-- set = function(info, value)
+-- E.db.mui.announcement.utility[info[#info - 1]][info[#info]] = value
+-- module:ResetAuthority()
+-- end,
+-- args = {
+-- solo = {
+-- order = 1,
+-- name = L["Solo"],
+-- type = "select",
+-- values = {
+-- NONE = L["None"],
+-- SELF = L["Self (Chat Frame)"],
+-- EMOTE = L["Emote"],
+-- YELL = L["Yell"],
+-- SAY = L["Say"],
+-- },
+-- },
+-- party = {
+-- order = 2,
+-- name = L["In Party"],
+-- type = "select",
+-- values = {
+-- NONE = L["None"],
+-- SELF = L["Self (Chat Frame)"],
+-- EMOTE = L["Emote"],
+-- PARTY = L["Party"],
+-- YELL = L["Yell"],
+-- SAY = L["Say"],
+-- },
+-- },
+-- instance = {
+-- order = 3,
+-- name = L["In Instance"],
+-- type = "select",
+-- values = {
+-- NONE = L["None"],
+-- SELF = L["Self (Chat Frame)"],
+-- EMOTE = L["Emote"],
+-- PARTY = L["Party"],
+-- INSTANCE_CHAT = L["Instance"],
+-- YELL = L["Yell"],
+-- SAY = L["Say"],
+-- },
+-- },
+-- raid = {
+-- order = 4,
+-- name = L["In Raid"],
+-- type = "select",
+-- values = {
+-- NONE = L["None"],
+-- SELF = L["Self (Chat Frame)"],
+-- EMOTE = L["Emote"],
+-- PARTY = L["Party"],
+-- RAID = L["Raid"],
+-- YELL = L["Yell"],
+-- SAY = L["Say"],
+-- },
+-- },
+-- },
+-- },
+-- },
+-- }
+--
+-- do
+-- local categoryLocales = {
+-- feasts = L["Feasts"],
+-- bots = L["Bots"],
+-- toys = L["Toys"],
+-- portals = L["Portals"],
+-- hero = L["Heroism/Bloodlust"],
+-- }
+--
+-- local specialExampleSpell = {
+-- feasts = 286050,
+-- bots = 67826,
+-- toys = 61031,
+-- portals = 10059,
+-- hero = 32182,
+-- }
+--
+-- local spellOptions = options.announcement.args.utility.args
+-- local spellOrder = 10
+-- local categoryOrder = 50
+-- for categoryOrId, config in pairs(P.announcement.utility.spells) do
+-- local groupName, groupOrder, exampleSpellId
+-- local id = tonumber(categoryOrId)
+-- if id then
+-- groupName = GetSpellInfo(id)
+-- exampleSpellId = id
+-- groupOrder = spellOrder
+-- spellOrder = spellOrder + 1
+-- else
+-- groupName = categoryLocales[categoryOrId]
+-- exampleSpellId = specialExampleSpell[categoryOrId]
+-- groupOrder = categoryOrder
+-- categoryOrder = categoryOrder + 1
+-- end
+--
+-- exampleSpellId = exampleSpellId or 20484
+--
+-- spellOptions[categoryOrId] = {
+-- order = groupOrder,
+-- name = groupName,
+-- type = "group",
+-- get = function(info)
+-- return E.db.mui.announcement.utility.spells[categoryOrId][info[#info]]
+-- end,
+-- set = function(info, value)
+-- E.db.mui.announcement.utility.spells[categoryOrId][info[#info]] = value
+-- end,
+-- args = {
+-- enable = {
+-- order = 1,
+-- type = "toggle",
+-- name = L["Enable"],
+-- },
+-- includePlayer = {
+-- order = 2,
+-- type = "toggle",
+-- name = L["Include Player"],
+-- desc = L["Uncheck this box, it will not send message if you cast the spell."],
+-- },
+-- raidWarning = {
+-- order = 3,
+-- type = "toggle",
+-- name = L["Raid Warning"],
+-- desc = L["If you have privilege, it would the message to raid warning(/rw) rather than raid(/r)."],
+-- },
+-- text = {
+-- order = 4,
+-- type = "input",
+-- name = L["Text"],
+-- desc = format(
+-- "%s\n%s\n%s",
+-- FormatDesc("%player%", L["Name of the player"]),
+-- FormatDesc("%target%", L["Target name"]),
+-- FormatDesc("%spell%", L["The spell link"])
+-- ),
+-- width = 2.5,
+-- },
+-- useDefaultText = {
+-- order = 5,
+-- type = "execute",
+-- func = function()
+-- E.db.mui.announcement.utility.spells[categoryOrId].text =
+-- P.announcement.utility.spells[categoryOrId].text
+-- end,
+-- name = L["Default Text"],
+-- },
+-- example = {
+-- order = 6,
+-- type = "description",
+-- name = function()
+-- local message = E.db.mui.announcement.utility.spells[categoryOrId].text
+-- message = gsub(message, "%%player%%", E.myname)
+-- message = gsub(message, "%%target%%", L["Sylvanas"])
+-- message = gsub(message, "%%spell%%", GetSpellLink(exampleSpellId))
+-- return "\n" .. ImportantColorString(L["Example"]) .. ": " .. message .. "\n"
+-- end,
+-- },
+-- },
+-- }
+-- end
+-- end
 
 options.announcement.args.resetInstance = {
 	order = 5,
