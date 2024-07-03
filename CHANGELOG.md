@@ -1,9 +1,9 @@
 ### Changes ###
 
-  * [BigWigs Skin]: Updates with the new Profile Structure
-  * [[Vehicle Bar]: Added a new Vehicle Bar (disabled by default)
-  * [Armory]: Added an Class Color option for the Enchant Strings
-  * [Armory]: Added decorative Lines to the Character Frame (disabled by default)
-  * [SimpleAddOnManager]: Added a skin for it
-  * [Profile]: Take account to ElvUI's new Healer only Mana
-  * [Locales]: Thanks @Dlarge for cleaning up my mess <3
+  * [Install]: Fix some install whoopsi's
+  * [LocPanel]: Removed LocPanel due to old and wobby code structure
+  * [DataTexts]: Added an new DataText Panel (MER_TopPanel) if ElvUI_mMedia Tag is loaded
+  * [Chat]: Added new Chat Commands: /mer cl; changelog; install; i; settings
+  * [Profiles]: Created an own Option section for AddOn Profiles
+  * [Profiles]: Created an own Option to apply most of the Fonts (WIP)
+  * [BigWigs Profile]: Use new BigWigs API to apply my Profile
