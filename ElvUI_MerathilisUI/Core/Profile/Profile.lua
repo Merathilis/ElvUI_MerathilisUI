@@ -9,6 +9,7 @@ local lfr = format("|cffff8000%s|r", L["[ABBR] Looking for Raid"])
 
 P.core = {
 	installed = nil,
+	lastLayoutVersion = nil,
 }
 
 P.general = {

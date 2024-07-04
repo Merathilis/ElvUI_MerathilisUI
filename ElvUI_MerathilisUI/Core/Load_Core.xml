@@ -13,7 +13,6 @@
 	<Script file="Layout.lua"/>
 	<Script file="SplashScreen.lua"/>
 	<Script file="Staticpopup.lua"/>
-	<Script file="StatusReport.lua"/>
 	<Script file="Tags.lua"/>
 	<Script file="Update.lua"/>
 	<Include file="FunStuff.xml"/>

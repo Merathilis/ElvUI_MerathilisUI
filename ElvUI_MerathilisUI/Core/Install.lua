@@ -2681,12 +2681,19 @@ function MER:ProfileDialog()
 	E:StaticPopup_Show(dialogName)
 end
 
-local function InstallComplete()
+local IsInstalled = false
+local function InstallComplete(fishished)
 	E.private.install_complete = E.version
 	E.db.mui.core.installed = true
 	E.private.mui.general.install_complete = MER.Version
 
 	MERDataPerChar = MER.Version
+
+	if fishished then
+		E.db.mui.core.lastLayoutVersion = MER.Version
+
+		IsInstalled = true
+	end
 
 	Reload()
 end
@@ -2995,7 +3002,7 @@ MER.installTable = {
 			else
 				PluginInstallFrame.Option2:Show()
 				PluginInstallFrame.Option2:SetScript("OnClick", function()
-					InstallComplete()
+					InstallComplete(true)
 				end)
 				PluginInstallFrame.Option2:SetScript("OnEnter", nil)
 				PluginInstallFrame.Option2:SetScript("OnLeave", nil)
@@ -3022,7 +3029,7 @@ MER.installTable = {
 
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript("OnClick", function()
-				InstallComplete()
+				InstallComplete(true)
 			end)
 			PluginInstallFrame.Option2:SetScript("OnEnter", nil)
 			PluginInstallFrame.Option2:SetScript("OnLeave", nil)
