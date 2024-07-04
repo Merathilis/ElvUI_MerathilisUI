@@ -225,10 +225,10 @@ function module:StatusReportCreate()
 
 	-- Sections
 	statusFrame.Section1 =
-		self:StatusReportCreateSection(300, (5 * 30) + 10, nil, 30, statusFrame, "TOP", statusFrame, "TOP", -90)
+		self:StatusReportCreateSection(300, (4 * 30) + 10, nil, 30, statusFrame, "TOP", statusFrame, "TOP", -90)
 	statusFrame.Section2 = self:StatusReportCreateSection(
 		300,
-		(7 * 30) + 10,
+		(3 * 30) + 10,
 		nil,
 		30,
 		statusFrame,
@@ -266,7 +266,7 @@ function module:StatusReportCreate()
 
 	-- Section content
 	statusFrame.Section1.Content =
-		self:StatusReportCreateContent(5, 260, statusFrame.Section1, statusFrame.Section1.Header)
+		self:StatusReportCreateContent(4, 260, statusFrame.Section1, statusFrame.Section1.Header)
 	statusFrame.Section2.Content =
 		self:StatusReportCreateContent(3, 260, statusFrame.Section2, statusFrame.Section2.Header)
 	statusFrame.Section3.Content =
@@ -315,15 +315,16 @@ function module:StatusReportUpdate()
 	statusFrame.Section1.Content.Line1.Text:SetFormattedText("Version of %s: %s", MER.Title, F.String.Good(MER.Version))
 
 	do
-		local version = (not E.db.mui.core.lastLayoutVersion or E.db.mui.core.lastLayoutVersion == 0) and "NONE"
+		local version = (not E.db.mui.core.lastLayoutVersion or E.db.mui.core.lastLayoutVersion == 0)
+				and L["Not Installed"]
 			or E.db.mui.core.lastLayoutVersion
-		local versionString = (version == "NONE" or E.db.mui.core.lastLayoutVersion ~= MER.ProfileVersion)
+		local versionString = (version == L["Not Installed"] or E.db.mui.core.lastLayoutVersion ~= MER.ProfileVersion)
 				and F.String.Error(version)
 			or F.String.Good(version)
 		statusFrame.Section1.Content.Line2.Text:SetFormattedText("Last Profile Version: %s", versionString)
 	end
 
-	statusFrame.Section1.Content.Line4.Text:SetFormattedText(
+	statusFrame.Section1.Content.Line3.Text:SetFormattedText(
 		"Pixel Perfect Scale: %s",
 		F.String.Good(E:PixelBestSize())
 	)
@@ -331,7 +332,7 @@ function module:StatusReportUpdate()
 	do
 		local uiScale = E.global.general.UIScale
 		local uiScaleString = uiScale == E:PixelBestSize() and F.String.Good(uiScale) or F.String.Error(uiScale)
-		statusFrame.Section1.Content.Line5.Text:SetFormattedText("UI Scale Is: %s", uiScaleString)
+		statusFrame.Section1.Content.Line4.Text:SetFormattedText("UI Scale Is: %s", uiScaleString)
 	end
 
 	-- Section #2

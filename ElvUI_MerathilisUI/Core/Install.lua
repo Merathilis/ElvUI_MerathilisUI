@@ -2474,7 +2474,7 @@ function MER:DeveloperSettings()
 	E.db["mui"]["nameHover"]["gradient"] = true
 	E.db["mui"]["scale"]["enable"] = true
 	E.db["mui"]["scale"]["talents"]["scale"] = 0.9
-	E.db["mui"]["armory"]["stats"]["itemLevelFontColor"] = "GRADIENT"
+	E.db["mui"]["armory"]["stats"]["itemLevelFont"]["itemLevelFontColor"] = "GRADIENT"
 
 	-- Rectangle Settings
 	E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
