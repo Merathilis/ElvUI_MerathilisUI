@@ -95,6 +95,15 @@ do
 	end
 end
 
+function MER:ShowStatusReport()
+	if not F.IsMERProfile() then
+		F.Developer.LogInfo("You are not using a " .. MER.Title .. " Profile")
+		return
+	end
+
+	self:GetModule("MER_Misc"):StatusReportShow()
+end
+
 function MER:HandleChatCommand(msg)
 	local category = self:GetArgs(msg)
 
@@ -104,8 +113,12 @@ function MER:HandleChatCommand(msg)
 		E:ToggleOptions("mui,changelog")
 	elseif category == "settings" then
 		E:ToggleOptions("mui")
+	elseif (category == "status" or category == "info") and F.IsMERProfile() then
+		self:ShowStatusReport()
 	elseif category == "install" or category == "i" then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
+	elseif F.IsMERProfile() then
+		self:LogInfo("Usage: /tx cl; changelog; install; i; info; settings; status; wb; debug")
 	else
 		F.Developer.LogWarning("Usage: /mer cl; changelog; install; i; settings")
 	end

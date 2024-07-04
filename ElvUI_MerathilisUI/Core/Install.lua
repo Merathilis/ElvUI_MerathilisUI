@@ -2423,57 +2423,6 @@ function MER:SetupDts()
 	PluginInstallStepComplete:Show()
 end
 
-local addonNames = {}
-local profilesFailed =
-	format("|cff00c0fa%s |r", L["MerathilisUI didn't find any supported addons for profile creation"])
-
-MER.isInstallerRunning = false
-function MER:SetupAddOns()
-	--AddOnSkins
-	if E:IsAddOnEnabled("AddOnSkins") then
-		PF:LoadAddOnSkinsProfile()
-		tinsert(addonNames, "|cff16C3F2AddOn|r|cFFFFFFFFSkins|r")
-	end
-
-	-- ProjectAzilroka
-	if E:IsAddOnEnabled("ProjectAzilroka") then
-		PF:LoadPAProfile()
-		tinsert(addonNames, "|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r")
-	end
-
-	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
-		PF:LoadmMediaTagProfile()
-		tinsert(
-			addonNames,
-			"|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r"
-		)
-	end
-
-	if checkTable(addonNames) ~= nil then
-		local profileString =
-			format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"] .. "\n")
-
-		tsort(addonNames, function(a, b)
-			return a > b
-		end)
-
-		local names = tconcat(addonNames, ", ")
-		profileString = profileString .. names
-
-		PluginInstallFrame.Desc4:SetText(profileString .. ".")
-	else
-		PluginInstallFrame.Desc4:SetText(profilesFailed)
-	end
-
-	MER.isInstallerRunning = true -- don't print when applying profile that doesn't exist
-
-	PluginInstallStepComplete.message = MER.Title .. L["Addons Set"]
-	PluginInstallStepComplete:Show()
-	twipe(addonNames)
-
-	E:StaggeredUpdateAll(nil, true)
-end
-
 function MER:DeveloperSettings()
 	if not F.IsDeveloper() then
 		return
@@ -2525,6 +2474,7 @@ function MER:DeveloperSettings()
 	E.db["mui"]["nameHover"]["gradient"] = true
 	E.db["mui"]["scale"]["enable"] = true
 	E.db["mui"]["scale"]["talents"]["scale"] = 0.9
+	E.db["mui"]["armory"]["stats"]["itemLevelFontColor"] = "GRADIENT"
 
 	-- Rectangle Settings
 	E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
@@ -2959,25 +2909,6 @@ MER.installTable = {
 			PluginInstallFrame.Option2:SetText(L["Dark Layout"])
 		end,
 		[10] = function()
-			MER:Resize(nil)
-
-			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
-			PluginInstallFrame.Desc1:SetText(
-				L["This part of the installation process will apply changes to ElvUI Plugins"]
-			)
-			PluginInstallFrame.Desc2:SetText(
-				L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"]
-			)
-			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
-			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function()
-				MER:SetupAddOns()
-			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-			PluginInstallFrame.Option1:SetText(L["Setup Addons"])
-		end,
-		[11] = function()
 			MER:Resize(nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
@@ -3014,7 +2945,7 @@ MER.installTable = {
 				InstallStepComplete:Show()
 			end
 		end,
-		[F.IsDeveloper() and 12] = function()
+		[F.IsDeveloper() and 11] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
@@ -3047,9 +2978,8 @@ MER.installTable = {
 		[7] = L["ActionBars"],
 		[8] = L["NamePlates"],
 		[9] = L["UnitFrames"],
-		[10] = ADDONS,
-		[11] = L["Installation Complete"],
-		[F.IsDeveloper() and 12] = L["Developer Settings"],
+		[10] = L["Installation Complete"],
+		[F.IsDeveloper() and 11] = L["Developer Settings"],
 	},
 	StepTitlesColor = { 1, 1, 1 },
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],

@@ -43,6 +43,7 @@ do
 
 	MER.Version = Engine.version
 	MER.IsDevelop = MER.Version == "development"
+	MER.AddOnName = addon
 	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 end
 

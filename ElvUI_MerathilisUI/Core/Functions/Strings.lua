@@ -3,7 +3,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local error = error
 local type, unpack = type, unpack
 local strbyte, strfind, strlen, strsub = strbyte, strfind, strlen, strsub
-local utf8len, utf8lower, utf8sub = string.utf8len, string.utf8lower, string.utf8sub
+local utf8len, utf8lower, utf8sub, utf8upper = string.utf8len, string.utf8lower, string.utf8sub, string.utf8upper
 local tinsert = tinsert
 
 F.String = {}
@@ -188,6 +188,13 @@ function F.String.RGB(msg, colors)
 	else
 		return F.String.Color(msg, F.String.FastRGB(colors[1], colors[2], colors[3]))
 	end
+end
+
+function F.String.ColorFirstLetter(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return F.String.MERATHILISUI(utf8upper(utf8sub(text, 1, 1))) .. "|cfff5feff" .. utf8sub(text, 2) .. "|r"
 end
 
 function F.String.StripTexture(text)

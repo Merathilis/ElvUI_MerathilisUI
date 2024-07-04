@@ -7,6 +7,7 @@
 	<Include file="Profile\Load_Profile.xml"/>
 
 	<Script file="Core.lua"/>
+	<Script file="Commands.lua"/>
 	<Script file="Compatibility.lua"/>
 	<Script file="Dropdown.lua"/>
 	<Script file="Install.lua"/>
