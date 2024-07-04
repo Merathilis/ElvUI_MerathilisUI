@@ -18,6 +18,7 @@
 	<Script file="Quest.lua"/>
 	<Script file="QuickMenu.lua"/>
 	<Script file="SpellAlerts.lua"/>
+	<Script file="StatusReport.lua"/>
 	<Script file="RandomToy.lua"/>
 	<Script file="TradeTabs.lua"/>
 	<Script file="WAAnchor.lua"/>

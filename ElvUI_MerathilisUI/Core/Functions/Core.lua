@@ -26,6 +26,11 @@ local GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
 local GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
 
 -- Profile
+function F.IsMERProfile()
+	local releaseVersion = F.GetDBFromPath("mui.core.lastLayoutVersion")
+	return not (not releaseVersion or releaseVersion == 0)
+end
+
 function F.GetDBFromPath(path, dbRef)
 	local paths = { strsplit(".", path) }
 	local length = #paths

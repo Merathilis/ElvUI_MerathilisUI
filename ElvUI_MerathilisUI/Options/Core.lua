@@ -115,8 +115,21 @@ function MER:OptionsCallback()
 					E:ToggleOptions()
 				end,
 			},
-			discordButton = {
+			statusReport = {
 				order = 4,
+				type = "execute",
+				name = L["|T" .. I.General.MediaPath .. "Icons\\gradientList.tga:18:18:0:0:64:64|t Status Report"],
+				desc = "Open the "
+					.. MER.Title
+					.. " Status Report window that shows necessary information for debugging. Post this when reporting bugs!",
+				customWidth = 140,
+				func = function()
+					MER:GetModule("MER_Misc"):StatusReportShow()
+					E:ToggleOptions()
+				end,
+			},
+			discordButton = {
+				order = 5,
 				type = "execute",
 				name = L["|T" .. I.General.MediaPath .. "Icons\\Discord.tga:18:18:0:0:64:64|t |cffffffffMerathilis|r|cffff7d0aUI|r Discord"],
 				customWidth = 160,

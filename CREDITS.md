@@ -43,6 +43,7 @@
 -   Icon made by Freepik from www.flaticon.com
     -   Media/Icons/Warning.tga
     -   Media/Icons/Flash.tga
+    -   Media/Icons/gradientList.tga
 -   Icon made by pixelperfect from www.flaticon.com
     -   Media/Icons/New.tga
 -   Icon made by kliwir art from www.flaticon.com

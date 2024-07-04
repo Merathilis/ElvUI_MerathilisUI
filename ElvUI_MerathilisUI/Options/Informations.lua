@@ -206,6 +206,17 @@ options.name = {
 					type = "description",
 					name = L["WoW Build"] .. ": " .. F.cOption(format("%s (%s)", E.wowpatch, E.wowbuild), "blue"),
 				},
+				profileVersion = {
+					order = 3,
+					type = "description",
+					name = function()
+						MER.ProfileVersion = E.db.mui.core.lastLayoutVersion -- set the Profile Version
+
+						return L["Profile Version"]
+							.. ": "
+							.. F.cOption(format("%s", MER.ProfileVersion or L["Not Installed"]), "blue")
+					end,
+				},
 			},
 		},
 	},
