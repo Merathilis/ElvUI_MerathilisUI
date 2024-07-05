@@ -489,6 +489,24 @@ function F:CreateGlowFrame(size)
 	return frame
 end
 
+-- LocPanel
+function F.GetIconFromID(type, id)
+	local path
+	if type == "item" then
+		path = select(10, GetItemInfo(id))
+	elseif type == "spell" then
+		path = select(3, GetSpellInfo(id))
+	elseif type == "achiev" then
+		path = select(10, GetAchievementInfo(id))
+	end
+	return path or nil
+end
+
+function F.GetSpell(id)
+	local name = GetSpellInfo(id)
+	return name
+end
+
 function F.SplitList(list, variable, cleanup)
 	if cleanup then
 		twipe(list)
@@ -784,6 +802,96 @@ function F.Reset(group)
 		E:ResetMovers(L["Raid Marker Bar"])
 	end
 	E:UpdateAll()
+end
+
+-- Movable Config Buttons
+local function MovableButton_Match(s, v)
+	local m1, m2, m3, m4 = "^" .. v .. "$", "^" .. v .. ",", "," .. v .. "$", "," .. v .. ","
+	return (match(s, m1) and m1) or (match(s, m2) and m2) or (match(s, m3) and m3) or (match(s, m4) and v .. ",")
+end
+
+function F:MovableButtonSettings(db, key, value, remove, movehere)
+	local str = db[key]
+	if not db or not str or not value then
+		return
+	end
+
+	local found = MovableButton_Match(str, E:EscapeString(value))
+	if found and movehere then
+		local tbl, sv, sm = { split(",", str) }
+		for i in ipairs(tbl) do
+			if tbl[i] == value then
+				sv = i
+			elseif tbl[i] == movehere then
+				sm = i
+			end
+			if sv and sm then
+				break
+			end
+		end
+		tremove(tbl, sm)
+		tinsert(tbl, sv, movehere)
+
+		db[key] = tconcat(tbl, ",")
+	elseif found and remove then
+		db[key] = gsub(str, found, "")
+	elseif not found and not remove then
+		db[key] = (str == "" and value) or (str .. "," .. value)
+	end
+end
+
+function F:CreateMovableButtons(Order, Name, CanRemove, db, key)
+	local moveItemFrom, moveItemTo
+
+	local config = {
+		order = Order,
+		dragdrop = true,
+		type = "multiselect",
+		name = Name,
+		dragOnLeave = function() end, --keep this here
+		dragOnEnter = function(info)
+			moveItemTo = info.obj.value
+		end,
+		dragOnMouseDown = function(info)
+			moveItemFrom, moveItemTo = info.obj.value, nil
+		end,
+		dragOnMouseUp = function(info)
+			F:MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
+			moveItemFrom, moveItemTo = nil, nil
+		end,
+		stateSwitchGetText = function(info, TEXT)
+			local text = GetItemInfo(tonumber(TEXT))
+			info.userdata.text = text
+			return text
+		end,
+		stateSwitchOnClick = function(info)
+			F:MovableButtonSettings(db, key, moveItemFrom)
+		end,
+		values = function()
+			local str = db[key]
+			if str == "" then
+				return nil
+			end
+			return { split(",", str) }
+		end,
+		get = function(info, value)
+			local str = db[key]
+			if str == "" then
+				return nil
+			end
+			local tbl = { split(",", str) }
+			return tbl[value]
+		end,
+		set = function(info, value) end,
+	}
+
+	if CanRemove then --This allows to remove
+		config.dragOnClick = function(info)
+			F:MovableButtonSettings(db, key, moveItemFrom, true)
+		end
+	end
+
+	return config
 end
 
 --[[----------------------------------
