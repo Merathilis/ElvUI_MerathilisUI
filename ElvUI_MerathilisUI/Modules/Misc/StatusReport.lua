@@ -201,6 +201,7 @@ function module:StatusReportCreate()
 	statusFrame:SetMovable(true)
 	statusFrame:Size(0, 100)
 	statusFrame:Hide()
+	tinsert(UISpecialFrames, statusFrame:GetName()) -- Hide with ESC
 
 	-- Plugin frame
 	local pluginFrame = CreateFrame("Frame", nil, statusFrame)
@@ -321,7 +322,7 @@ function module:StatusReportUpdate()
 		local versionString = (version == L["Not Installed"] or E.db.mui.core.lastLayoutVersion ~= MER.ProfileVersion)
 				and F.String.Error(version)
 			or F.String.Good(version)
-		statusFrame.Section1.Content.Line2.Text:SetFormattedText("Last Profile Version: %s", versionString)
+		statusFrame.Section1.Content.Line2.Text:SetFormattedText("Profile Version: %s", versionString)
 	end
 
 	statusFrame.Section1.Content.Line3.Text:SetFormattedText(
@@ -343,8 +344,13 @@ function module:StatusReportUpdate()
 		-- Debug Mode
 		do
 			text = (not F.Table.IsEmpty(ElvDB.MER.DisabledAddOns)) and F.String.Good("On") or F.String.Error("Off")
-
 			Section2.Content.Line1.Text:SetFormattedText("Debug Mode: %s", text)
+		end
+
+		-- Gradient Mode
+		do
+			local gradientMode = E.db.mui.gradient.enable and F.String.Good("On") or F.String.Error("Off")
+			Section2.Content.Line2.Text:SetFormattedText("Gradient Mode: %s", gradientMode)
 		end
 	end
 
