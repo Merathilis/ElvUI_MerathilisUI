@@ -141,6 +141,7 @@ function module:StatusReportCreateSection(
 
 	local text = section.Header:CreateFontString(nil, "ARTWORK")
 	text:FontTemplate(nil, 18, "NONE", true)
+	text:SetShadowOffset(1, -3)
 	text:Point("TOP")
 	text:Point("BOTTOM")
 	text:SetJustifyH("CENTER")
