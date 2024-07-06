@@ -5,7 +5,6 @@ local gsub = gsub
 local tostring = tostring
 
 local GetSpellLink = GetSpellLink
-local InCombatLockdown = InCombatLockdown
 
 local BotList = {
 	[22700] = true,

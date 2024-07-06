@@ -2,10 +2,8 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local DT = E:GetModule("DataTexts")
 
 local _G = _G
-local type = type
 local format = string.format
 local join = string.join
-local floor = math.floor
 local twipe = table.wipe
 local date = date
 
@@ -119,7 +117,8 @@ local function OnEnter(self)
 	end
 
 	DT.tooltip:AddLine(VOICE_CHAT_BATTLEGROUND)
-	for i = 1, GetNumWorldPVPAreas() do
+	local numAreas = GetNumWorldPVPAreas and GetNumWorldPVPAreas()
+	for i = 1, numAreas() do
 		_, localizedName, isActive, canQueue, startTime, canEnter = GetWorldPVPAreaInfo(i)
 		if canEnter then
 			if isActive then

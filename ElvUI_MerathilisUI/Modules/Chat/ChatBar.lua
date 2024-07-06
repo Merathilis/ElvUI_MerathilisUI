@@ -10,9 +10,9 @@ local pairs = pairs
 local strmatch = strmatch
 local tostring = tostring
 
-local C_Club_GetClubInfo = C_Club.GetClubInfo
-local C_GuildInfo_IsGuildOfficer = C_GuildInfo.IsGuildOfficer
-local C_Timer_After = C_Timer.After
+local GetClubInfo = C_Club.GetClubInfo
+local IsGuildOfficer = C_GuildInfo.IsGuildOfficer
+local After = C_Timer.After
 local ChatFrame_AddChannel = ChatFrame_AddChannel
 local ChatFrame_OpenChat = ChatFrame_OpenChat
 local CreateFrame = CreateFrame
@@ -51,7 +51,7 @@ local checkFunctions = {
 		return IsInGuild()
 	end,
 	OFFICER = function()
-		return IsInGuild() and C_GuildInfo_IsGuildOfficer()
+		return IsInGuild() and IsGuildOfficer()
 	end,
 }
 
@@ -60,7 +60,7 @@ local function GetCommuniryChannelByName(text)
 	for k, v in pairs(channelList) do
 		local clubId = strmatch(tostring(v), "Community:(.-):")
 		if clubId then
-			local info = C_Club_GetClubInfo(clubId)
+			local info = GetClubInfo(clubId)
 			if info.name == text then
 				return GetChannelName(tostring(v))
 			end
@@ -274,7 +274,7 @@ function module:UpdateBar()
 					local currentText = DefaultChatFrame.editBox:GetText()
 					local command = format("/%s ", channelId)
 					if autoJoined then
-						C_Timer_After(0.5, function()
+						After(0.5, function()
 							ChatFrame_OpenChat(command .. currentText, DefaultChatFrame)
 						end)
 					else

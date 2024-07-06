@@ -1,7 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_UnitFrames")
 local UF = E:GetModule("UnitFrames")
-local S = MER:GetModule("MER_Skins")
 
 local buttonclass
 

@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_CombatText")
 
 local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
 
-local C_Timer_NewTimer = C_Timer.NewTimer
+local NewTimer = C_Timer.NewTimer
 local CreateFrame = CreateFrame
 
 function module:CreateAlert()
@@ -104,7 +104,7 @@ function module:AnimateAlert(changeTextFunc)
 	end
 
 	tinsert(self.animationQueue, function()
-		module.animationTimer = C_Timer_NewTimer(stay_duration, executeNextAnimation)
+		module.animationTimer = NewTimer(stay_duration, executeNextAnimation)
 	end)
 
 	tinsert(self.animationQueue, function()

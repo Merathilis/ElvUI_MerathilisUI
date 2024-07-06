@@ -7,7 +7,7 @@ local next, pairs, table, getmetatable = next, pairs, table, getmetatable
 local match = string.match
 local strtrim = string.trim
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 -- Credits liquidbase (DuffedUI)
 local taxinodeinfos = {}
@@ -209,7 +209,7 @@ function FlightPoints_OnEvent(self, event, ...)
 		db.general = {}
 	end
 
-	if not db.general.FlightPoint or C_AddOns_IsAddOnLoaded("WorldFlightMap") then
+	if not db.general.FlightPoint or IsAddOnLoaded("WorldFlightMap") then
 		return
 	end
 

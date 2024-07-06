@@ -10,7 +10,7 @@ local max = max
 local strmatch = strmatch
 
 local CreateColor = CreateColor
-local C_QuestLog_GetTitleForQuestID = C_QuestLog.GetTitleForQuestID
+local GetTitleForQuestID = C_QuestLog.GetTitleForQuestID
 local CreateFrame = CreateFrame
 local ObjectiveTracker_Update = ObjectiveTracker_Update
 
@@ -26,7 +26,7 @@ local function AddQuestTitleToReplaceRule(questID, text)
 			return true
 		end
 		return false
-	end, C_QuestLog_GetTitleForQuestID, nil, questID)
+	end, GetTitleForQuestID, nil, questID)
 end
 
 AddQuestTitleToReplaceRule(57693, L["Torghast"])

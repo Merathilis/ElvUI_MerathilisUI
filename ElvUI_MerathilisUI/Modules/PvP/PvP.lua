@@ -7,8 +7,8 @@ local band = bit.band
 local twipe = table.wipe
 
 local CancelDuel = CancelDuel
-local CancelPetPVPDuel = C_PetBattles and C_PetBattles.CancelPVPDuel
-local IsActiveBattlefield = C_PvP and C_PvP.IsActiveBattlefield or IsActiveBattlefield
+local CancelPetPVPDuel = C_PetBattles.CancelPVPDuel
+local IsActiveBattlefield = C_PvP.IsActiveBattlefield
 local StaticPopup_Hide = StaticPopup_Hide
 local GetBattlefieldScore = GetBattlefieldScore
 local GetNumBattlefieldScores = GetNumBattlefieldScores

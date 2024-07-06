@@ -1,29 +1,23 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local MERC = MER:GetModule("MER_Chat")
+local module = MER:GetModule("MER_Chat")
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local split, strfind, strmatch, gmatch, gsub, sub =
-	string.split, string.find, string.match, string.gmatch, string.gsub, string.sub
+local strfind, gsub = string.find, string.gsub
 local pairs, ipairs, tonumber = pairs, ipairs, tonumber
 local min, max, tremove = math.min, math.max, table.remove
--- WoW API / Variable
+
 local GetCVarBool = GetCVarBool
 local SetCVar = SetCVar
-local GetInstanceInfo = GetInstanceInfo
 local IsGuildMember = IsGuildMember
 local IsInInstance = IsInInstance
-local C_FriendList_IsFriend = C_FriendList.IsFriend
-local C_BattleNet_GetGameAccountInfoByGUID = C_BattleNet.GetGameAccountInfoByGUID
+local IsFriend = C_FriendList.IsFriend
+local GetGameAccountInfoByGUID = C_BattleNet.GetGameAccountInfoByGUID
 local IsGUIDInGroup = IsGUIDInGroup
-local C_Timer_After = C_Timer.After
+local After = C_Timer.After
 local Ambiguate = Ambiguate
 local UnitIsUnit = UnitIsUnit
 local GetTime = GetTime
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
-local ChatFrame_RemoveMessageEventFilter = ChatFrame_RemoveMessageEventFilter
--- GLOBALS:
 
 -- Filter Chat symbols
 local msgSymbols = {
@@ -69,13 +63,13 @@ local msgSymbols = {
 }
 
 local FilterList = {}
-function MERC:UpdateFilterList()
+function module:UpdateFilterList()
 	F.SplitList(FilterList, E.db.mui.chat.filter.keywords, true)
 end
 
 -- ECF strings compare
 local last, this = {}, {}
-function MERC:CompareStrDiff(sA, sB) -- arrays of bytes
+function module:CompareStrDiff(sA, sB) -- arrays of bytes
 	local len_a, len_b = #sA, #sB
 	for j = 0, len_b do
 		last[j + 1] = j
@@ -94,15 +88,15 @@ end
 
 MER.BadBoys = {} -- debug
 local chatLines, prevLineID, filterResult = {}, 0, false
-function MERC:GetFilterResult(event, msg, name, flag, guid)
+function module:GetFilterResult(event, msg, name, flag, guid)
 	if name == E.myname or (event == "CHAT_MSG_WHISPER" and flag == "GM") or flag == "DEV" then
 		return
 	elseif
 		guid
 		and (
 			IsGuildMember(guid)
-			or C_BattleNet_GetGameAccountInfoByGUID(guid)
-			or C_FriendList_IsFriend(guid)
+			or GetGameAccountInfoByGUID(guid)
+			or IsFriend(guid)
 			or (IsInInstance() and IsGUIDInGroup(guid))
 		)
 	then
@@ -150,7 +144,7 @@ function MERC:GetFilterResult(event, msg, name, flag, guid)
 		local line = chatLines[i]
 		if
 			line[1] == msgTable[1]
-			and ((msgTable[3] - line[3] < 0.6) or MERC:CompareStrDiff(line[2], msgTable[2]) <= 0.1)
+			and ((msgTable[3] - line[3] < 0.6) or module:CompareStrDiff(line[2], msgTable[2]) <= 0.1)
 		then
 			tremove(chatLines, i)
 			return true
@@ -161,12 +155,12 @@ function MERC:GetFilterResult(event, msg, name, flag, guid)
 	end
 end
 
-function MERC:UpdateChatFilter(event, msg, author, _, _, _, flag, _, _, _, _, lineID, guid)
+function module:UpdateChatFilter(event, msg, author, _, _, _, flag, _, _, _, _, lineID, guid)
 	if lineID == 0 or lineID ~= prevLineID then
 		prevLineID = lineID
 
 		local name = Ambiguate(author, "none")
-		filterResult = MERC:GetFilterResult(event, msg, name, flag, guid)
+		filterResult = module:GetFilterResult(event, msg, name, flag, guid)
 		if filterResult then
 			MER.BadBoys[name] = (MER.BadBoys[name] or 0) + 1
 		end
@@ -191,16 +185,16 @@ local function toggleCVar(value)
 	SetCVar(cvar, value)
 end
 
-function MERC:ToggleChatBubble(party)
+function module:ToggleChatBubble(party)
 	cvar = "chatBubbles" .. (party and "Party" or "")
 	if not GetCVarBool(cvar) then
 		return
 	end
 	toggleCVar(0)
-	C_Timer_After(0.01, toggleCVar)
+	After(0.01, toggleCVar)
 end
 
-function MERC:UpdateAddOnBlocker(event, msg, author)
+function module:UpdateAddOnBlocker(event, msg, author)
 	local name = Ambiguate(author, "none")
 	if UnitIsUnit(name, "player") then
 		return
@@ -209,15 +203,15 @@ function MERC:UpdateAddOnBlocker(event, msg, author)
 	for _, word in ipairs(addonBlockList) do
 		if strfind(msg, word) then
 			if event == "CHAT_MSG_SAY" or event == "CHAT_MSG_YELL" then
-				MERC:ToggleChatBubble()
+				module:ToggleChatBubble()
 			elseif event == "CHAT_MSG_PARTY" or event == "CHAT_MSG_PARTY_LEADER" then
-				MERC:ToggleChatBubble(true)
+				module:ToggleChatBubble(true)
 			end
 			return true
 		end
 	end
 end
-function MERC:ChatFilter()
+function module:ChatFilter()
 	if E.db.mui.chat.filter.enable then
 		self:UpdateFilterList()
 

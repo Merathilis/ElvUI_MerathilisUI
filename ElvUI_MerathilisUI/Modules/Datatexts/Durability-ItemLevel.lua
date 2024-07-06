@@ -3,15 +3,14 @@ local DT = E:GetModule("DataTexts")
 
 local _G = _G
 local format = format
-local InCombatLockdown = InCombatLockdown
 local pi = math.pi
 
 local GetAverageItemLevel = GetAverageItemLevel
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemTexture = GetInventoryItemTexture
 
-local C_MountJournal_GetMountInfoByID = C_MountJournal.GetMountInfoByID
-local C_MountJournal_SummonByID = C_MountJournal.SummonByID
+local GetMountInfoByID = C_MountJournal.GetMountInfoByID
+local SummonByID = C_MountJournal.SummonByID
 
 local REPAIR_COST = REPAIR_COST
 local tooltipString = "%d%%"
@@ -158,9 +157,9 @@ local function OnClick(_, button)
 		if button == "LeftButton" then
 			_G.ToggleCharacter("PaperDollFrame")
 		elseif button == "RightButton" then
-			local mount = C_MountJournal_GetMountInfoByID(460)
+			local mount = GetMountInfoByID(460)
 			if mount then
-				C_MountJournal_SummonByID(460)
+				SummonByID(460)
 			end
 		end
 	end

@@ -15,7 +15,7 @@ local GetTime = GetTime
 local GetGuildInfo = GetGuildInfo
 local IsInGuild = IsInGuild
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
-local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
+local GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 
 local function Player_Model(self)
 	self:ClearModel()
@@ -99,7 +99,7 @@ local daysAbr = {
 
 -- Create Date
 local function CreateDate()
-	local date = C_DateAndTime_GetCurrentCalendarTime()
+	local date = GetCurrentCalendarTime()
 	local presentWeekday = date.weekday
 	local presentMonth = date.month
 	local presentDay = date.monthDay

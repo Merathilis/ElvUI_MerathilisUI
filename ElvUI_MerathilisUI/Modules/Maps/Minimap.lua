@@ -7,8 +7,8 @@ local LCG = E.Libs.CustomGlow
 local _G = _G
 local unpack = unpack
 
-local GetNumPendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
-local HasGarrison = C_Garrison and C_Garrison.HasGarrison
+local GetNumPendingInvites = C_Calendar.GetNumPendingInvites
+local HasGarrison = C_Garrison.HasGarrison
 local Minimap = _G.Minimap
 local MinimapCluster = _G.MinimapCluster
 local MiniMapMailFrame = _G.MiniMapMailFrame

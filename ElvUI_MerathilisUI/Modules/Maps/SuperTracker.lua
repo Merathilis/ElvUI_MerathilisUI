@@ -6,16 +6,16 @@ local _G = _G
 local tonumber = tonumber
 local tinsert = tinsert
 
-local C_Map_ClearUserWaypoint = C_Map.ClearUserWaypoint
-local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
-local C_Map_HasUserWaypoint = C_Map.HasUserWaypoint
-local C_Map_CanSetUserWaypointOnMap = C_Map.CanSetUserWaypointOnMap
-local C_Navigation_GetDistance = C_Navigation.GetDistance
-local C_SuperTrack_SetSuperTrackedUserWaypoint = C_SuperTrack.SetSuperTrackedUserWaypoint
+local ClearUserWaypoint = C_Map.ClearUserWaypoint
+local GetBestMapForUnit = C_Map.GetBestMapForUnit
+local HasUserWaypoint = C_Map.HasUserWaypoint
+local CanSetUserWaypointOnMap = C_Map.CanSetUserWaypointOnMap
+local GetDistance = C_Navigation.GetDistance
+local SetSuperTrackedUserWaypoint = C_SuperTrack.SetSuperTrackedUserWaypoint
 local UiMapPoint_CreateFromCoordinates = UiMapPoint.CreateFromCoordinates
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local C_Map_SetUserWaypoint = C_Map.SetUserWaypoint
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local SetUserWaypoint = C_Map.SetUserWaypoint
 
 function module:ReskinDistanceText()
 	if not _G.SuperTrackedFrame or not _G.SuperTrackedFrame.DistanceText then
@@ -44,7 +44,7 @@ function module:HookPin()
 			if not self:IsHooked(pin, "OnMouseClickAction") then
 				self:SecureHook(pin, "OnMouseClickAction", function(_, button)
 					if button == "MiddleButton" then
-						C_Map_ClearUserWaypoint()
+						ClearUserWaypoint()
 					end
 				end)
 			end
@@ -87,7 +87,7 @@ function module:NoLimit()
 	end
 
 	self:RawHook(_G.SuperTrackedFrame, "GetTargetAlphaBaseValue", function(frame)
-		if C_Navigation_GetDistance() > 999 then
+		if GetDistance() > 999 then
 			return 1
 		else
 			return self.hooks[_G.SuperTrackedFrame]["GetTargetAlphaBaseValue"](frame)
@@ -181,7 +181,7 @@ function module.commandHandler(msg, isPreview)
 end
 
 function module:SetWaypoint(x, y, z)
-	local mapID = C_Map_GetBestMapForUnit("player")
+	local mapID = GetBestMapForUnit("player")
 
 	-- colored waypoint string
 	local waypointString = "|cff209cee(" .. x .. ", " .. y
@@ -202,8 +202,8 @@ function module:SetWaypoint(x, y, z)
 		return
 	end
 
-	if C_Map_CanSetUserWaypointOnMap(mapID) then
-		C_Map_SetUserWaypoint(UiMapPoint_CreateFromCoordinates(mapID, x, y, z))
+	if CanSetUserWaypointOnMap(mapID) then
+		SetUserWaypoint(UiMapPoint_CreateFromCoordinates(mapID, x, y, z))
 		F.Print(format(L["Waypoint %s has been set."], waypointString))
 	else
 		self:Log("warning", L["Can not set waypoint on this map."])
@@ -221,7 +221,7 @@ function module:WaypointParse()
 			tinsert(keys, k)
 		end
 		if self.db.waypointParse.virtualTomTom then
-			if not C_AddOns_IsAddOnLoaded("TomTom") and not _G.SLASH_TOMTOM_WAY1 then
+			if not IsAddOnLoaded("TomTom") and not _G.SLASH_TOMTOM_WAY1 then
 				tinsert(keys, "way")
 			end
 		end
@@ -291,9 +291,9 @@ function module:WaypointParse()
 end
 
 function module:USER_WAYPOINT_UPDATED()
-	if C_Map_HasUserWaypoint() then
+	if HasUserWaypoint() then
 		if self.db and self.db.autoTrackWaypoint then
-			E:Delay(0.1, C_SuperTrack_SetSuperTrackedUserWaypoint, true)
+			E:Delay(0.1, SetSuperTrackedUserWaypoint, true)
 		end
 		E:Delay(0.15, self.HookPin, self)
 	end
@@ -323,7 +323,7 @@ function module:Initialize()
 		self:USER_WAYPOINT_UPDATED()
 	end
 
-	if not C_AddOns_IsAddOnLoaded("Blizzard_QuestNavigation") then
+	if not IsAddOnLoaded("Blizzard_QuestNavigation") then
 		self:RegisterEvent("ADDON_LOADED")
 		return
 	end

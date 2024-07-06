@@ -7,9 +7,9 @@ local BreakUpLargeNumbers, GetMeleeHaste, UnitAttackSpeed = BreakUpLargeNumbers,
 
 local GetAverageItemLevel = GetAverageItemLevel
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local C_PaperDollInfo_GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
-local C_PaperDollInfo_OffhandHasShield = C_PaperDollInfo.OffhandHasShield
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
+local OffhandHasShield = C_PaperDollInfo.OffhandHasShield
 
 local PaperDollFrame_SetLabelAndText = PaperDollFrame_SetLabelAndText
 local STAT_HASTE = STAT_HASTE
@@ -20,7 +20,7 @@ function module:MissingStats()
 		not E.db.mui.misc.missingStats
 		or not (E.private.skins.blizzard.enable and E.private.skins.blizzard.character)
 		or not (E.private.mui.skins.blizzard.enable and E.private.mui.skins.blizzard.character)
-		or C_AddOns_IsAddOnLoaded("DejaCharacterStats")
+		or IsAddOnLoaded("DejaCharacterStats")
 	then
 		return
 	end
@@ -81,7 +81,7 @@ function module:MissingStats()
 				{ stat = "SPEED", hideAt = 0 },
 				{ stat = "DODGE", roles = { "TANK" } },
 				{ stat = "PARRY", hideAt = 0, roles = { "TANK" } },
-				{ stat = "BLOCK", hideAt = 0, showFunc = C_PaperDollInfo_OffhandHasShield },
+				{ stat = "BLOCK", hideAt = 0, showFunc = OffhandHasShield },
 			},
 		},
 	}
@@ -130,7 +130,7 @@ function module:MissingStats()
 		end
 
 		local avgItemLevel, avgItemLevelEquipped = GetAverageItemLevel()
-		local minItemLevel = C_PaperDollInfo_GetMinItemLevel()
+		local minItemLevel = GetMinItemLevel()
 		local displayItemLevel = max(minItemLevel or 0, avgItemLevelEquipped)
 		displayItemLevel = format("%.1f", displayItemLevel)
 		avgItemLevel = format("%.1f", avgItemLevel)

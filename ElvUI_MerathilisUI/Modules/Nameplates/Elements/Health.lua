@@ -5,7 +5,6 @@ local NP = E:GetModule("NamePlates")
 local UnitClass = UnitClass
 local UnitIsPlayer = UnitIsPlayer
 local UnitReaction = UnitReaction
-local CreateColor = CreateColor
 
 local reactionType
 

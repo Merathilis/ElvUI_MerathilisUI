@@ -30,9 +30,9 @@ local CloseMenus = CloseMenus
 local CreateFrame = CreateFrame
 local CreateFromMixins = CreateFromMixins
 local GetGameTime = GetGameTime
-local GetItemCooldown = GetItemCooldown
-local GetItemCount = GetItemCount
-local GetItemIcon = GetItemIcon
+local GetItemCooldown = C_Item.GetItemCooldown
+local GetItemCount = C_Item.GetItemCount
+local GetItemIconByID = C_Item.GetItemIconByID
 local GetNumGuildMembers = GetNumGuildMembers
 local GetTime = GetTime
 local HideUIPanel = HideUIPanel
@@ -56,19 +56,19 @@ local ToggleSpellBook = ToggleSpellBook
 local ToggleTimeManager = ToggleTimeManager
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_BattleNet_GetFriendAccountInfo = C_BattleNet and C_BattleNet.GetFriendAccountInfo
-local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet and C_BattleNet.GetFriendGameAccountInfo
-local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet and C_BattleNet.GetFriendNumGameAccounts
-local C_Covenants_GetActiveCovenantID = C_Covenants and C_Covenants.GetActiveCovenantID
-local C_CovenantSanctumUI_GetRenownLevel = C_CovenantSanctumUI and C_CovenantSanctumUI.GetRenownLevel
-local C_CVar_GetCVar = C_CVar.GetCVar
-local C_CVar_GetCVarBool = C_CVar.GetCVarBool
-local C_CVar_SetCVar = C_CVar.SetCVar
-local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
-local C_FriendList_GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
-local C_Garrison_GetCompleteMissions = C_Garrison and C_Garrison.GetCompleteMissions
-local C_Timer_NewTicker = C_Timer.NewTicker
-local C_ToyBox_IsToyUsable = C_ToyBox and C_ToyBox.IsToyUsable
+local GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
+local GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
+local GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
+local GetActiveCovenantID = C_Covenants.GetActiveCovenantID
+local GetRenownLevel = C_CovenantSanctumUI.GetRenownLevel
+local GetCVar = C_CVar.GetCVar
+local GetCVarBool = C_CVar.GetCVarBool
+local SetCVar = C_CVar.SetCVar
+local GetNumFriends = C_FriendList.GetNumFriends
+local GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
+local GetCompleteMissions = C_Garrison.GetCompleteMissions
+local NewTicker = C_Timer.NewTicker
+local IsToyUsable = C_ToyBox.IsToyUsable
 
 local FollowerType_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0_GarrisonFollower
 local FollowerType_9_0 = Enum.GarrisonFollowerType.FollowerType_9_0_GarrisonFollower
@@ -170,7 +170,7 @@ local function AddDoubleLineForItem(itemID, prefix)
 		return
 	end
 
-	local texture = GetItemIcon(itemID)
+	local texture = GetItemIconByID(itemID)
 	local icon = format(IconString .. ":255:255:255|t", texture)
 	local startTime, duration = GetItemCooldown(itemID)
 	local cooldownTime = startTime + duration - GetTime()
@@ -331,20 +331,20 @@ local ButtonTypes = {
 			local numBNOnlineFriend = select(2, BNGetNumFriends())
 
 			if module and module.db and module.db.friends and module.db.friends.showAllFriends then
-				local friendsOnline = C_FriendList_GetNumFriends() or 0
+				local friendsOnline = GetNumFriends() or 0
 				local totalOnline = friendsOnline + numBNOnlineFriend
 				return totalOnline
 			end
 
-			local number = C_FriendList_GetNumOnlineFriends() or 0
+			local number = GetNumOnlineFriends() or 0
 
 			for i = 1, numBNOnlineFriend do
-				local accountInfo = C_BattleNet_GetFriendAccountInfo(i)
+				local accountInfo = GetFriendAccountInfo(i)
 				if accountInfo and accountInfo.gameAccountInfo and accountInfo.gameAccountInfo.isOnline then
-					local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(i)
+					local numGameAccounts = GetFriendNumGameAccounts(i)
 					if numGameAccounts and numGameAccounts > 0 then
 						for j = 1, numGameAccounts do
-							local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
+							local gameAccountInfo = GetFriendGameAccountInfo(i, j)
 							if gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" then
 								number = number + 1
 							end
@@ -441,7 +441,7 @@ local ButtonTypes = {
 			AddDoubleLineForItem(module.db.home.right, RightButtonIcon)
 			DT.tooltip:Show()
 
-			button.tooltipsUpdateTimer = C_Timer_NewTicker(1, function()
+			button.tooltipsUpdateTimer = NewTicker(1, function()
 				DT.tooltip:ClearLines()
 				DT.tooltip:SetText(L["Home"])
 				DT.tooltip:AddLine("\n")
@@ -465,8 +465,7 @@ local ButtonTypes = {
 			end,
 		},
 		additionalText = function()
-			local numMissions = #C_Garrison_GetCompleteMissions(FollowerType_9_0)
-				+ #C_Garrison_GetCompleteMissions(FollowerType_8_0)
+			local numMissions = #GetCompleteMissions(FollowerType_9_0) + #GetCompleteMissions(FollowerType_8_0)
 			if numMissions == 0 then
 				numMissions = ""
 			end
@@ -561,22 +560,22 @@ local ButtonTypes = {
 		icon = I.Media.Icons.Volume,
 		click = {
 			LeftButton = function()
-				local vol = C_CVar_GetCVar("Sound_MasterVolume")
+				local vol = GetCVar("Sound_MasterVolume")
 				vol = vol and tonumber(vol) or 0
 				C_CVar_SetCVar("Sound_MasterVolume", min(vol + 0.1, 1))
 			end,
 			MiddleButton = function()
-				local enabled = tonumber(C_CVar_GetCVar("Sound_EnableAllSound")) == 1
+				local enabled = tonumber(GetCVar("Sound_EnableAllSound")) == 1
 				C_CVar_SetCVar("Sound_EnableAllSound", enabled and 0 or 1)
 			end,
 			RightButton = function()
-				local vol = C_CVar_GetCVar("Sound_MasterVolume")
+				local vol = GetCVar("Sound_MasterVolume")
 				vol = vol and tonumber(vol) or 0
 				C_CVar_SetCVar("Sound_MasterVolume", max(vol - 0.1, 0))
 			end,
 		},
 		tooltips = function(button)
-			local vol = C_CVar_GetCVar("Sound_MasterVolume")
+			local vol = GetCVar("Sound_MasterVolume")
 			vol = vol and tonumber(vol) or 0
 			DT.tooltip:ClearLines()
 			DT.tooltip:SetText(L["Volume"] .. format(": %d%%", vol * 100))
@@ -586,8 +585,8 @@ local ButtonTypes = {
 			DT.tooltip:AddLine(ScrollButtonIcon .. " " .. L["Sound ON/OFF"], 1, 1, 1)
 			DT.tooltip:Show()
 
-			button.tooltipsUpdateTimer = C_Timer_NewTicker(0.3, function()
-				local vol = C_CVar_GetCVar("Sound_MasterVolume")
+			button.tooltipsUpdateTimer = NewTicker(0.3, function()
+				local vol = GetCVar("Sound_MasterVolume")
 				vol = vol and tonumber(vol) or 0
 				DT.tooltip:ClearLines()
 				DT.tooltip:SetText(L["Volume"] .. format(": %d%%", vol * 100))
@@ -719,14 +718,14 @@ function module:ConstructTimeArea()
 
 	self:UpdateTimeFormat()
 	self:UpdateTime()
-	self.timeAreaUpdateTimer = C_Timer_NewTicker(self.db.time.interval, function()
+	self.timeAreaUpdateTimer = NewTicker(self.db.time.interval, function()
 		module:UpdateTime()
 	end)
 
 	DT.RegisteredDataTexts["System"].onUpdate(self.bar.middlePanel, 10)
 
 	if self.db.time.alwaysSystemInfo then
-		self.alwaysSystemInfoTimer = C_Timer_NewTicker(1, function()
+		self.alwaysSystemInfoTimer = NewTicker(1, function()
 			DT.RegisteredDataTexts["System"].onUpdate(self.bar.middlePanel, 10)
 		end)
 	end
@@ -754,14 +753,14 @@ function module:ConstructTimeArea()
 		if IsModifierKeyDown() then
 			DT.RegisteredDataTexts["System"].eventFunc()
 			DT.RegisteredDataTexts["System"].onEnter()
-			self.tooltipTimer = C_Timer_NewTicker(1, function()
+			self.tooltipTimer = NewTicker(1, function()
 				DT.RegisteredDataTexts["System"].onUpdate(panel, 10)
 				DT.RegisteredDataTexts["System"].eventFunc()
 				DT.RegisteredDataTexts["System"].onEnter()
 			end)
 		else
 			self:ShowAdvancedTimeTooltip(panel)
-			self.tooltipTimer = C_Timer_NewTicker(1, function()
+			self.tooltipTimer = NewTicker(1, function()
 				DT.RegisteredDataTexts["System"].onUpdate(panel, 10)
 			end)
 		end
@@ -785,7 +784,7 @@ function module:ConstructTimeArea()
 	self.bar.middlePanel:SetScript("OnClick", function(_, mouseButton)
 		if IsShiftKeyDown() then
 			if IsControlKeyDown() then
-				C_CVar_SetCVar("scriptProfile", C_CVar_GetCVarBool("scriptProfile") and 0 or 1)
+				SetCVar("scriptProfile", GetCVarBool("scriptProfile") and 0 or 1)
 				ReloadUI()
 			else
 				collectgarbage("collect")
@@ -807,7 +806,7 @@ end
 
 function module:UpdateTimeTicker()
 	self.timeAreaUpdateTimer:Cancel()
-	self.timeAreaUpdateTimer = C_Timer_NewTicker(self.db.time.interval, function()
+	self.timeAreaUpdateTimer = NewTicker(self.db.time.interval, function()
 		module:UpdateTime()
 	end)
 end
@@ -899,7 +898,7 @@ function module:UpdateTimeArea()
 		DT.RegisteredDataTexts["System"].onUpdate(panel, 10)
 		panel.text:SetAlpha(1)
 		if not self.alwaysSystemInfoTimer or self.alwaysSystemInfoTimer:IsCancelled() then
-			self.alwaysSystemInfoTimer = C_Timer_NewTicker(1, function()
+			self.alwaysSystemInfoTimer = NewTicker(1, function()
 				DT.RegisteredDataTexts["System"].onUpdate(panel, 10)
 			end)
 		end
@@ -1116,7 +1115,7 @@ function module:UpdateButton(button, buttonType)
 				tinsert(button.registeredEvents, event)
 			end
 		else
-			button.additionalTextTimer = C_Timer_NewTicker(self.db.additionalText.slowMode and 10 or 1, function()
+			button.additionalTextTimer = NewTicker(self.db.additionalText.slowMode and 10 or 1, function()
 				button.additionalText:SetFormattedText(
 					button.additionalTextFormat,
 					config.additionalText and config.additionalText() or ""
@@ -1271,7 +1270,7 @@ function module:PLAYER_ENTERING_WORLD()
 end
 
 function module:UpdateReknown()
-	local covenantID = C_Covenants_GetActiveCovenantID()
+	local covenantID = GetActiveCovenantID()
 	if not covenantID or covenantID == 0 then
 		return
 	end
@@ -1284,7 +1283,7 @@ function module:UpdateReknown()
 		self.covenantCache[E.myrealm][E.myname] = {}
 	end
 
-	local renownLevel = C_CovenantSanctumUI_GetRenownLevel()
+	local renownLevel = GetRenownLevel()
 	if renownLevel then
 		self.covenantCache[E.myrealm][E.myname][tostring(covenantID)] = renownLevel
 	end
@@ -1428,7 +1427,7 @@ function module:UpdateHearthStoneTable()
 			and self.covenantCache[E.myrealm][E.myname]
 			and self.covenantCache[E.myrealm][E.myname][tostring(i)]
 		local toyID = specialHearthstones[i]
-		local hasToy = PlayerHasToy(toyID) and C_ToyBox_IsToyUsable(toyID)
+		local hasToy = PlayerHasToy(toyID) and IsToyUsable(toyID)
 
 		-- here we don't check the current active covenant.
 		-- because `/castrandom` cannot the current active covenant hearthstone.
@@ -1447,7 +1446,7 @@ function module:UpdateHearthStoneTable()
 			itemEngine:ContinueOnItemLoad(function()
 				local id = itemEngine:GetItemID()
 				if hearthstonesTable[id] then
-					if GetItemCount(id) >= 1 or PlayerHasToy(id) and C_ToyBox_IsToyUsable(id) then
+					if GetItemCount(id) >= 1 or PlayerHasToy(id) and IsToyUsable(id) then
 						tinsert(availableHearthstones, id)
 					end
 				end

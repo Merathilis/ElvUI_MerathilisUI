@@ -1,7 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc")
 
-local C_Timer_After = C_Timer.After
+local _G = _G
 
 local talentsHooked = false
 

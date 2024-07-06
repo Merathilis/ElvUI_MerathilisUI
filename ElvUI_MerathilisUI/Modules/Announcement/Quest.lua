@@ -6,13 +6,13 @@ local format = format
 local pairs = pairs
 local strfind = strfind
 
+local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards
 local GetQuestLink = GetQuestLink
 local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
 
-local C_QuestLog_GetInfo = C_QuestLog.GetInfo
-local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
-local C_QuestLog_GetQuestTagInfo = C_QuestLog.GetQuestTagInfo
+local GetInfo = C_QuestLog.GetInfo
+local GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 
 local lastList
 
@@ -24,8 +24,8 @@ local ignoreTagIDs = {
 local function GetQuests()
 	local quests = {}
 
-	for questIndex = 1, C_QuestLog_GetNumQuestLogEntries() do
-		local questInfo = C_QuestLog_GetInfo(questIndex)
+	for questIndex = 1, GetNumQuestLogEntries() do
+		local questInfo = GetInfo(questIndex)
 		if questInfo then
 			local skip = questInfo.isHeader or questInfo.isBounty or questInfo.isHidden
 

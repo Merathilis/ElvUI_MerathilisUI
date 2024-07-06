@@ -6,13 +6,12 @@ local S = MER:GetModule("MER_Skins")
 local unpack, type, pairs = unpack, type, pairs
 local table = table
 local tinsert, tremove = table.insert, table.remove
-local find, gsub = string.find, string.gsub
 
 local CreateFrame = CreateFrame
 local UnitIsAFK = UnitIsAFK
-local C_Texture_GetAtlasInfo = C_Texture.GetAtlasInfo
+local GetAtlasInfo = C_Texture.GetAtlasInfo
 local PlaySound = PlaySound
-local C_Timer = C_Timer
+local After = C_Timer.After
 local CreateAnimationGroup = CreateAnimationGroup
 local SlashCmdList = SlashCmdList
 
@@ -113,7 +112,7 @@ function module:HideToast(toast)
 	end
 	tinsert(toasts, toast)
 	toast:Hide()
-	C_Timer.After(0.1, function()
+	After(0.1, function()
 		self:RefreshToasts()
 	end)
 end
@@ -126,7 +125,7 @@ function module:CreateToast()
 	local toast = tremove(toasts, 1)
 	local db = E.db.mui.notification
 
-	toast = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
+	toast = CreateFrame("Frame", MER.Title .. "Toast", E.UIParent, "BackdropTemplate")
 	toast:SetFrameStrata("HIGH")
 	toast:SetSize(bannerWidth, bannerHeight)
 	toast:SetPoint("TOP", E.UIParent, "TOP")
@@ -229,7 +228,7 @@ function module:DisplayToast(name, message, clickFunc, texture, ...)
 	end
 
 	if texture then
-		if C_Texture_GetAtlasInfo(texture) then
+		if GetAtlasInfo(texture) then
 			toast.icon:SetAtlas(texture)
 		else
 			toast.icon:SetTexture(texture)

@@ -16,7 +16,7 @@ local UnitName = UnitName
 local UIParent = UIParent
 local UNKNOWN = UNKNOWN
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local function Getcolor()
 	local reaction = UnitReaction("mouseover", "player") or 5
@@ -64,7 +64,7 @@ local function AddTargetInfos(self, unit)
 end
 
 function module:NameHover()
-	if not E.db.mui.nameHover.enable or C_AddOns_IsAddOnLoaded("bdNameHover") then
+	if not E.db.mui.nameHover.enable or IsAddOnLoaded("bdNameHover") then
 		return
 	end
 
