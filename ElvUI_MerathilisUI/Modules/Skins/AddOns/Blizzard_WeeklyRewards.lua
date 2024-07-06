@@ -18,10 +18,7 @@ function module:Blizzard_WeeklyRewards()
 	module:CreateShadow(frame)
 
 	header:StripTextures()
-	header.Left:SetAlpha(0)
-	header.Right:SetAlpha(0)
-	header.Middle:SetAlpha(0)
-	header:SetTemplate("Transparent")
+	header:SetPoint("TOP", 1, -42)
 end
 
 module:AddCallbackForAddon("Blizzard_WeeklyRewards")
