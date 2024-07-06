@@ -32,7 +32,7 @@ local CreateFromMixins = CreateFromMixins
 local GetGameTime = GetGameTime
 local GetItemCooldown = C_Item and C_Item.GetItemCooldown
 local GetItemCount = C_Item and C_Item.GetItemCount
-local GetItemIcon = C_Item and C_Item.GetItemIcon
+local GetItemIconByID = C_Item.GetItemIconByID
 local GetNumGuildMembers = GetNumGuildMembers
 local GetTime = GetTime
 local HideUIPanel = HideUIPanel
@@ -169,7 +169,7 @@ local function AddDoubleLineForItem(itemID, prefix)
 		return
 	end
 
-	local texture = GetItemIcon(itemID)
+	local texture = GetItemIconByID(itemID)
 	local icon = format(IconString .. ":255:255:255|t", texture)
 	local startTime, duration = GetItemCooldown(itemID)
 	local cooldownTime = startTime + duration - GetTime()
@@ -439,16 +439,16 @@ local ButtonTypes = {
 			DT.tooltip:ClearLines()
 			DT.tooltip:SetText(L["Home"])
 			DT.tooltip:AddLine("\n")
-			-- AddDoubleLineForItem(module.db.home.left, LeftButtonIcon)
-			-- AddDoubleLineForItem(module.db.home.right, RightButtonIcon)
+			AddDoubleLineForItem(module.db.home.left, LeftButtonIcon)
+			AddDoubleLineForItem(module.db.home.right, RightButtonIcon)
 			DT.tooltip:Show()
 
 			button.tooltipsUpdateTimer = NewTicker(1, function()
 				DT.tooltip:ClearLines()
 				DT.tooltip:SetText(L["Home"])
 				DT.tooltip:AddLine("\n")
-				-- AddDoubleLineForItem(module.db.home.left, LeftButtonIcon)
-				-- AddDoubleLineForItem(module.db.home.right, RightButtonIcon)
+				AddDoubleLineForItem(module.db.home.left, LeftButtonIcon)
+				AddDoubleLineForItem(module.db.home.right, RightButtonIcon)
 				DT.tooltip:Show()
 			end)
 		end,
