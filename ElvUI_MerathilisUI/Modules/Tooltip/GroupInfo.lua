@@ -10,9 +10,9 @@ local ipairs = ipairs
 	Credits: ElvUI_Windtools - fang2hou
 --]]
 
-local C_LFGList_GetActivityInfoTable = C_LFGList.GetActivityInfoTable
-local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local GetActivityInfoTable = C_LFGList.GetActivityInfoTable
+local GetSearchResultInfo = C_LFGList.GetSearchResultInfo
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local scoreFormat = F.String.Grey("(%s) |r%s")
 
@@ -71,10 +71,9 @@ end
 
 function module:ShowLeaderOverallScore(self)
 	local resultID = self.resultID
-	local searchResultInfo = resultID and C_LFGList_GetSearchResultInfo(resultID)
+	local searchResultInfo = resultID and GetSearchResultInfo(resultID)
 	if searchResultInfo then
-		local activityInfo =
-			C_LFGList_GetActivityInfoTable(searchResultInfo.activityID, nil, searchResultInfo.isWarMode)
+		local activityInfo = GetActivityInfoTable(searchResultInfo.activityID, nil, searchResultInfo.isWarMode)
 		if activityInfo then
 			local showScore = activityInfo.isMythicPlusActivity and searchResultInfo.leaderOverallDungeonScore
 				or activityInfo.isRatedPvpActivity
@@ -108,7 +107,7 @@ function module:ShowLeaderOverallScore(self)
 end
 
 function module:GroupInfo()
-	if C_AddOns_IsAddOnLoaded("PremadeGroupsFilter") then
+	if IsAddOnLoaded("PremadeGroupsFilter") then
 		if E.db.mui.tooltip.groupInfo.enable then
 			F.Print(
 				format(

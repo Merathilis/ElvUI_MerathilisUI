@@ -2,15 +2,11 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc")
 local S = MER:GetModule("MER_Skins")
 
--- This is a changed version of ElvUIs StatusReport
--- Credits to ElvUI's Team
--- File: Core/StatusReport.lua
-
 local wipe, sort, format = wipe, sort, string.format
 local next, pairs, ipairs, tinsert = next, pairs, ipairs, tinsert
 
 local CreateFrame = CreateFrame
-local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata
+local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local GetRealZoneText = GetRealZoneText
 local GetSpecialization = GetSpecialization
 local GetSpecializationInfo = GetSpecializationInfo

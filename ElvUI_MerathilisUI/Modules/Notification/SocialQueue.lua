@@ -8,10 +8,10 @@ local format = string.format
 
 local SocialQueueUtil_GetQueueName = SocialQueueUtil_GetQueueName
 local SocialQueueUtil_GetRelationshipInfo = SocialQueueUtil_GetRelationshipInfo
-local C_SocialQueue_GetGroupMembers = C_SocialQueue and C_SocialQueue.GetGroupMembers
-local C_SocialQueue_GetGroupQueues = C_SocialQueue and C_SocialQueue.GetGroupQueues
-local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
-local C_LFGList_GetActivityInfoTable = C_LFGList.GetActivityInfoTable
+local GetGroupMembers = C_SocialQueue.GetGroupMembers
+local GetGroupQueues = C_SocialQueue.GetGroupQueues
+local GetSearchResultInfo = C_LFGList.GetSearchResultInfo
+local GetActivityInfoTable = C_LFGList.GetActivityInfoTable
 local InCombatLockdown = InCombatLockdown
 local UNKNOWN = UNKNOWN
 local LFG_LIST_AND_MORE = LFG_LIST_AND_MORE
@@ -27,7 +27,7 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 		return
 	end
 
-	local players = C_SocialQueue_GetGroupMembers(guid)
+	local players = GetGroupMembers(guid)
 	if not players then
 		return
 	end
@@ -43,7 +43,7 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 		coloredName = format("{%s%s}", UNKNOWN, extraCount)
 	end
 
-	local queues = C_SocialQueue_GetGroupQueues(guid)
+	local queues = GetGroupQueues(guid)
 	local firstQueue = queues and queues[1]
 	local isLFGList = firstQueue and firstQueue.queueData and firstQueue.queueData.queueType == "lfglist"
 
@@ -51,7 +51,7 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 		local activityID, activityInfo, name, leaderName, isLeader
 
 		if firstQueue.queueData.lfgListID then
-			local searchResultInfo = C_LFGList_GetSearchResultInfo(firstQueue.queueData.lfgListID)
+			local searchResultInfo = GetSearchResultInfo(firstQueue.queueData.lfgListID)
 			if searchResultInfo then
 				activityID, name, leaderName =
 					searchResultInfo.activityID, searchResultInfo.name, searchResultInfo.leaderName
@@ -60,7 +60,7 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 		end
 
 		if activityID or firstQueue.queueData.activityID then
-			activityInfo = C_LFGList_GetActivityInfoTable(activityID or firstQueue.queueData.activityID)
+			activityInfo = GetActivityInfoTable(activityID or firstQueue.queueData.activityID)
 		end
 
 		if name then

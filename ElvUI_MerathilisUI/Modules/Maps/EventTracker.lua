@@ -20,12 +20,12 @@ local GetServerTime = GetServerTime
 local hooksecurefunc = hooksecurefunc
 local PlaySoundFile = PlaySoundFile
 
-local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
-local C_Map_GetMapInfo = C_Map.GetMapInfo
-local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
-local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
-local C_Timer_NewTicker = C_Timer.NewTicker
-local C_NamePlate_GetNamePlates = C_NamePlate.GetNamePlates
+local GetBestMapForUnit = C_Map.GetBestMapForUnit
+local GetMapInfo = C_Map.GetMapInfo
+local GetPlayerMapPosition = C_Map.GetPlayerMapPosition
+local IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
+local NewTicker = C_Timer.NewTicker
+local GetNamePlates = C_NamePlate.GetNamePlates
 
 local eventList = {
 	"CommunityFeast",
@@ -171,7 +171,7 @@ local functionFactory = {
 				local completed = 0
 				if self.args.questIDs and (type(self.args.questIDs) == "table") then
 					for _, questID in pairs(self.args.questIDs) do
-						if C_QuestLog_IsQuestFlaggedCompleted(questID) then
+						if IsQuestFlaggedCompleted(questID) then
 							completed = completed + 1
 						end
 					end
@@ -378,7 +378,7 @@ local functionFactory = {
 		ticker = {
 			interval = 0.3,
 			dateUpdater = function(self)
-				if not C_QuestLog_IsQuestFlaggedCompleted(70871) then
+				if not IsQuestFlaggedCompleted(70871) then
 					self.netTable = nil
 					return
 				end
@@ -652,11 +652,11 @@ local eventData = {
 			interval = 1.5 * 60 * 60,
 			barColor = colorPlatte.blue,
 			eventName = L["Community Feast"],
-			location = C_Map_GetMapInfo(2024).name,
+			location = GetMapInfo(2024).name,
 			label = L["Feast"],
 			runningText = L["Cooking"],
 			filter = function(args)
-				if args.stopAlertIfPlayerNotEnteredDragonlands and not C_QuestLog_IsQuestFlaggedCompleted(67700) then
+				if args.stopAlertIfPlayerNotEnteredDragonlands and not IsQuestFlaggedCompleted(67700) then
 					return false
 				end
 				return true
@@ -691,11 +691,11 @@ local eventData = {
 			interval = 2 * 60 * 60,
 			eventName = L["Siege On Dragonbane Keep"],
 			label = L["Dragonbane Keep"],
-			location = C_Map_GetMapInfo(2022).name,
+			location = GetMapInfo(2022).name,
 			barColor = colorPlatte.red,
 			runningText = L["In Progress"],
 			filter = function(args)
-				if args.stopAlertIfPlayerNotEnteredDragonlands and not C_QuestLog_IsQuestFlaggedCompleted(67700) then
+				if args.stopAlertIfPlayerNotEnteredDragonlands and not IsQuestFlaggedCompleted(67700) then
 					return false
 				end
 				return true
@@ -731,11 +731,11 @@ local eventData = {
 			interval = 1 * 60 * 60,
 			eventName = L["Researchers Under Fire"],
 			label = L["Researchers Under Fire"],
-			location = C_Map_GetMapInfo(2133).name,
+			location = GetMapInfo(2133).name,
 			barColor = colorPlatte.green,
 			runningText = L["In Progress"],
 			filter = function(args)
-				if args.stopAlertIfPlayerNotEnteredDragonlands and not C_QuestLog_IsQuestFlaggedCompleted(67700) then
+				if args.stopAlertIfPlayerNotEnteredDragonlands and not IsQuestFlaggedCompleted(67700) then
 					return false
 				end
 				return true
@@ -770,11 +770,11 @@ local eventData = {
 			interval = 1 * 60 * 60,
 			eventName = L["Time Rift"],
 			label = L["Time Rift"],
-			location = C_Map_GetMapInfo(2025).name,
+			location = GetMapInfo(2025).name,
 			barColor = colorPlatte.bronze,
 			runningText = L["In Progress"],
 			filter = function(args)
-				if args.stopAlertIfPlayerNotEnteredDragonlands and not C_QuestLog_IsQuestFlaggedCompleted(67700) then
+				if args.stopAlertIfPlayerNotEnteredDragonlands and not IsQuestFlaggedCompleted(67700) then
 					return false
 				end
 				return true
@@ -809,11 +809,11 @@ local eventData = {
 			interval = 1 * 60 * 60,
 			eventName = L["Superbloom"],
 			label = L["Superbloom"],
-			location = C_Map_GetMapInfo(2200).name,
+			location = GetMapInfo(2200).name,
 			barColor = colorPlatte.green,
 			runningText = L["In Progress"],
 			filter = function(args)
-				if args.stopAlertIfPlayerNotEnteredDragonlands and not C_QuestLog_IsQuestFlaggedCompleted(67700) then
+				if args.stopAlertIfPlayerNotEnteredDragonlands and not IsQuestFlaggedCompleted(67700) then
 					return false
 				end
 				return true
@@ -848,11 +848,11 @@ local eventData = {
 			interval = 1 * 60 * 60,
 			eventName = L["The Big Dig"],
 			label = L["Big Dig"],
-			location = C_Map_GetMapInfo(2024).name,
+			location = GetMapInfo(2024).name,
 			barColor = colorPlatte.purple,
 			runningText = L["In Progress"],
 			filter = function(args)
-				if args.stopAlertIfPlayerNotEnteredDragonlands and not C_QuestLog_IsQuestFlaggedCompleted(67700) then
+				if args.stopAlertIfPlayerNotEnteredDragonlands and not IsQuestFlaggedCompleted(67700) then
 					return false
 				end
 				return true
@@ -882,7 +882,7 @@ local eventData = {
 			icon = 2159815,
 			type = "triggerTimer",
 			filter = function()
-				return C_QuestLog_IsQuestFlaggedCompleted(70871)
+				return IsQuestFlaggedCompleted(70871)
 			end,
 			barColor = colorPlatte.purple,
 			eventName = L["Iskaaran Fishing Net"],
@@ -895,12 +895,12 @@ local eventData = {
 							return
 						end
 
-						local map = C_Map_GetBestMapForUnit("player")
+						local map = GetBestMapForUnit("player")
 						if not map then
 							return
 						end
 
-						local position = C_Map_GetPlayerMapPosition(map, "player")
+						local position = GetPlayerMapPosition(map, "player")
 
 						if not position then
 							return
@@ -935,7 +935,7 @@ local eventData = {
 							end
 						elseif spellID == 377883 then -- Set Net
 							E:Delay(0.5, function()
-								local namePlates = C_NamePlate_GetNamePlates(true)
+								local namePlates = GetNamePlates(true)
 								if #namePlates > 0 then
 									for _, namePlate in ipairs(namePlates) do
 										if
@@ -1004,7 +1004,7 @@ function trackers:get(event)
 		end
 
 		if functions.ticker then
-			frame.tickerInstance = C_Timer_NewTicker(functions.ticker.interval, function()
+			frame.tickerInstance = NewTicker(functions.ticker.interval, function()
 				if not (module and module.db and module.db.enable) then
 					return
 				end
@@ -1244,12 +1244,12 @@ MER:RegisterModule(module:GetName())
 
 MER:AddCommand("EVENT_TRACKER", { "/wtet" }, function(msg)
 	if msg == "forceUpdate" then
-		local map = C_Map_GetBestMapForUnit("player")
+		local map = GetBestMapForUnit("player")
 		if not map then
 			return
 		end
 
-		local position = C_Map_GetPlayerMapPosition(map, "player")
+		local position = GetPlayerMapPosition(map, "player")
 
 		if not position then
 			return
@@ -1279,7 +1279,7 @@ MER:AddCommand("EVENT_TRACKER", { "/wtet" }, function(msg)
 
 		local db = module:GetPlayerDB("iskaaranFishingNet")
 
-		local namePlates = C_NamePlate_GetNamePlates(true)
+		local namePlates = GetNamePlates(true)
 		if #namePlates > 0 then
 			for _, namePlate in ipairs(namePlates) do
 				if namePlate and namePlate.UnitFrame and namePlate.UnitFrame.WidgetContainer then
@@ -1302,18 +1302,18 @@ MER:AddCommand("EVENT_TRACKER", { "/wtet" }, function(msg)
 	end
 
 	if msg == "findNet" then
-		local map = C_Map_GetBestMapForUnit("player")
+		local map = GetBestMapForUnit("player")
 		if not map then
 			return
 		end
 
-		local position = C_Map_GetPlayerMapPosition(map, "player")
+		local position = GetPlayerMapPosition(map, "player")
 
 		if not position then
 			return
 		end
 
-		local namePlates = C_NamePlate_GetNamePlates(true)
+		local namePlates = GetNamePlates(true)
 		if #namePlates > 0 then
 			for _, namePlate in ipairs(namePlates) do
 				if namePlate and namePlate.UnitFrame and namePlate.UnitFrame.WidgetContainer then
@@ -1323,7 +1323,7 @@ MER:AddCommand("EVENT_TRACKER", { "/wtet" }, function(msg)
 							if widget.Bar and widget.Bar.value then
 								F.Print("------------")
 								F.Print("mapID", map)
-								F.Print("mapName", C_Map_GetMapInfo(map).name)
+								F.Print("mapName", GetMapInfo(map).name)
 								F.Print("position", position.x, position.y)
 								F.Print("widgetID", id)
 								F.Print("timeLeft", widget.Bar.value, secondToTime(widget.Bar.value))

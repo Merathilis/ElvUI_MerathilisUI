@@ -61,20 +61,20 @@ local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitIsUnit = UnitIsUnit
 local UnitName = UnitName
 
-local C_BattleNet_GetAccountInfoByID = C_BattleNet and C_BattleNet.GetAccountInfoByID
-local C_BattleNet_GetFriendAccountInfo = C_BattleNet and C_BattleNet.GetFriendAccountInfo
-local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet and C_BattleNet.GetFriendGameAccountInfo
-local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet and C_BattleNet.GetFriendNumGameAccounts
-local C_ChatInfo_GetChannelRuleset = C_ChatInfo.GetChannelRuleset
-local C_ChatInfo_GetChannelShortcutForChannelID = C_ChatInfo.GetChannelShortcutForChannelID
-local C_ChatInfo_IsChannelRegionalForChannelID = C_ChatInfo.IsChannelRegionalForChannelID
-local C_ChatInfo_IsChatLineCensored = C_ChatInfo.IsChatLineCensored
-local C_Club_GetClubInfo = C_Club.GetClubInfo
-local C_Club_GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityChatLine
-local C_PartyInfo_InviteUnit = C_PartyInfo and C_PartyInfo.InviteUnit
-local GetTitleIconTexture = C_Texture and C_Texture.GetTitleIconTexture
+local GetAccountInfoByID = C_BattleNet.GetAccountInfoByID
+local GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
+local GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
+local GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
+local GetChannelRuleset = C_ChatInfo.GetChannelRuleset
+local GetChannelShortcutForChannelID = C_ChatInfo.GetChannelShortcutForChannelID
+local IsChannelRegionalForChannelID = C_ChatInfo.IsChannelRegionalForChannelID
+local IsChatLineCensored = C_ChatInfo.IsChatLineCensored
+local GetClubInfo = C_Club.GetClubInfo
+local GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityChatLine
+local InviteUnit = C_PartyInfo.InviteUnit
+local GetTitleIconTexture = C_Texture.GetTitleIconTexture
 local GetClientTexture = _G.BNet_GetClientEmbeddedAtlas or _G.BNet_GetClientEmbeddedTexture
-local C_Timer_After = C_Timer.After
+local After = C_Timer.After
 
 local CHATCHANNELRULESET_MENTOR = Enum.ChatChannelRuleset.Mentor
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
@@ -630,11 +630,11 @@ local function ChatFrame_CheckAddChannel(chatFrame, eventType, channelID)
 	end
 
 	-- Only add regional channels
-	if not C_ChatInfo_IsChannelRegionalForChannelID(channelID) then
+	if not IsChannelRegionalForChannelID(channelID) then
 		return false
 	end
 
-	return _G.ChatFrame_AddChannel(chatFrame, C_ChatInfo_GetChannelShortcutForChannelID(channelID)) ~= nil
+	return _G.ChatFrame_AddChannel(chatFrame, GetChannelShortcutForChannelID(channelID)) ~= nil
 end
 
 local function updateGuildPlayerCache(_, event)
@@ -809,7 +809,7 @@ function CT:ShortChannel()
 		if name then
 			local communityID = strmatch(name, "Community:(%d+):")
 			if communityID then
-				local communityInfo = C_Club_GetClubInfo(communityID)
+				local communityInfo = GetClubInfo(communityID)
 
 				if communityInfo.clubType == 0 then
 					if communityInfo.name and CT.db and CT.db.customAbbreviation then
@@ -1402,7 +1402,7 @@ function CT:ChatFrame_MessageEventHandler(
 			local accessID = _G.ChatHistory_GetAccessID(chatGroup, arg8)
 			local typeID = _G.ChatHistory_GetAccessID(infoType, arg8, arg12)
 
-			if arg1 == "YOU_CHANGED" and C_ChatInfo_GetChannelRuleset(arg8) == CHATCHANNELRULESET_MENTOR then
+			if arg1 == "YOU_CHANGED" and GetChannelRuleset(arg8) == CHATCHANNELRULESET_MENTOR then
 				_G.ChatFrame_UpdateDefaultChatTarget(frame)
 				_G.ChatEdit_UpdateNewcomerEditBoxHint(frame.editBox)
 			else
@@ -1454,7 +1454,7 @@ function CT:ChatFrame_MessageEventHandler(
 			elseif arg1 == "FRIEND_REMOVED" or arg1 == "BATTLETAG_FRIEND_REMOVED" then
 				message = format(globalstring, arg2)
 			elseif arg1 == "FRIEND_ONLINE" or arg1 == "FRIEND_OFFLINE" then
-				local accountInfo = C_BattleNet_GetAccountInfoByID(arg13)
+				local accountInfo = GetAccountInfoByID(arg13)
 				local gameInfo = accountInfo.gameAccountInfo
 
 				if gameInfo.clientProgram and gameInfo.clientProgram ~= "" then
@@ -1554,8 +1554,7 @@ function CT:ChatFrame_MessageEventHandler(
 			-- The message formatter is captured so that the original message can be reformatted when a censored message
 			-- is approved to be shown. We only need to pack the event args if the line was censored, as the message transformation
 			-- step is the only code that needs these arguments. See ItemRef.lua "censoredmessage".
-			local isChatLineCensored, eventArgs, msgFormatter = C_ChatInfo_IsChatLineCensored
-				and C_ChatInfo_IsChatLineCensored(arg11) -- arg11: lineID
+			local isChatLineCensored, eventArgs, msgFormatter = IsChatLineCensored and IsChatLineCensored(arg11) -- arg11: lineID
 			if isChatLineCensored then
 				eventArgs = _G.SafePack(
 					arg1,
@@ -1786,7 +1785,7 @@ function CT:MessageFormatter(
 	local playerName, lineID, bnetIDAccount = (nameWithRealm ~= arg2 and nameWithRealm) or arg2, arg11, arg13
 	if isCommunityType then
 		local isBattleNetCommunity = bnetIDAccount ~= nil and bnetIDAccount ~= 0
-		local messageInfo, clubId, streamId = C_Club_GetInfoFromLastCommunityChatLine()
+		local messageInfo, clubId, streamId = GetInfoFromLastCommunityChatLine()
 
 		if messageInfo ~= nil then
 			if isBattleNetCommunity then
@@ -2102,7 +2101,7 @@ function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage
 
 	if not cache[achievementID] then
 		cache[achievementID] = {}
-		C_Timer_After(0.1, function()
+		After(0.1, function()
 			local players = {}
 			for k in pairs(cache[achievementID]) do
 				tinsert(players, k)
@@ -2119,7 +2118,7 @@ function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage
 
 				if not self.waitForAchievementMessage then
 					self.waitForAchievementMessage = true
-					C_Timer_After(0.2, function()
+					After(0.2, function()
 						self:SendAchivementMessage()
 						self.waitForAchievementMessage = false
 					end)
@@ -2207,7 +2206,7 @@ function CT:BetterSystemMessage()
 			if strsub(data, 1, 8) == "wtinvite" then
 				local player = strmatch(data, "wtinvite:(.+)")
 				if player then
-					C_PartyInfo_InviteUnit(player)
+					InviteUnit(player)
 					return
 				end
 			end
@@ -2234,7 +2233,7 @@ local function getElementNumberOfTable(t)
 end
 
 local function UpdateBattleNetFriendStatus(friendIndex)
-	local friendInfo = friendIndex and C_BattleNet_GetFriendAccountInfo(friendIndex)
+	local friendInfo = friendIndex and GetFriendAccountInfo(friendIndex)
 	if not friendInfo then
 		return
 	end
@@ -2251,10 +2250,10 @@ local function UpdateBattleNetFriendStatus(friendIndex)
 		end
 	end
 
-	local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(friendIndex)
+	local numGameAccounts = GetFriendNumGameAccounts(friendIndex)
 	if numGameAccounts and numGameAccounts > 0 then
 		for accountIndex = 1, numGameAccounts do
-			local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(friendIndex, accountIndex)
+			local gameAccountInfo = GetFriendGameAccountInfo(friendIndex, accountIndex)
 			if gameAccountInfo.wowProjectID == WOW_PROJECT_MAINLINE and gameAccountInfo.characterName then
 				numberOfCharacters = numberOfCharacters + 1
 				characters[gameAccountInfo.characterName] = {

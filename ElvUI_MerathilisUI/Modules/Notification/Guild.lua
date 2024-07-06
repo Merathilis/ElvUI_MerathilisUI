@@ -3,26 +3,27 @@ local module = MER.Modules.Notification
 
 local _G = _G
 
-local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
-local C_Calendar_GetNumGuildEvents = C_Calendar and C_Calendar.GetNumGuildEvents
-local C_Calendar_GetGuildEventInfo = C_Calendar and C_Calendar.GetGuildEventInfo
-local C_Calendar_GetNumDayEvents = C_Calendar and C_Calendar.GetNumDayEvents
-local C_Calendar_GetDayEvent = C_Calendar and C_Calendar.GetDayEvent
-local C_Calendar_GetNumPendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
-local LoadAddOn = LoadAddOn
+local GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
+local GetNumGuildEvents = C_Calendar.GetNumGuildEvents
+local GetGuildEventInfo = C_Calendar.GetGuildEventInfo
+local GetNumDayEvents = C_Calendar.GetNumDayEvents
+local GetDayEvent = C_Calendar.GetDayEvent
+local GetNumPendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
+local LoadAddOn = C_AddOns.LoadAddOn
+local After = C_Timer.After
 local ShowUIPanel = ShowUIPanel
 
 local numInvites = 0
 local function GetGuildInvites()
 	local numGuildInvites = 0
-	local date = C_DateAndTime_GetCurrentCalendarTime()
-	for index = 1, C_Calendar_GetNumGuildEvents() do
-		local info = C_Calendar_GetGuildEventInfo(index)
+	local date = GetCurrentCalendarTime()
+	for index = 1, GetNumGuildEvents() do
+		local info = GetGuildEventInfo(index)
 		local monthOffset = info.month - date.month
-		local numDayEvents = C_Calendar_GetNumDayEvents(monthOffset, info.monthDay)
+		local numDayEvents = GetNumDayEvents(monthOffset, info.monthDay)
 
 		for i = 1, numDayEvents do
-			local event = C_Calendar_GetDayEvent(monthOffset, info.monthDay, i)
+			local event = GetDayEvent(monthOffset, info.monthDay, i)
 			if event.inviteStatus == _G.CALENDAR_INVITESTATUS_NOT_SIGNEDUP then
 				numGuildInvites = numGuildInvites + 1
 			end
@@ -48,7 +49,7 @@ local function alertEvents()
 		return
 	end
 
-	local num = C_Calendar_GetNumPendingInvites()
+	local num = GetNumPendingInvites()
 	if num ~= numInvites then
 		if num > 0 then
 			module:DisplayToast(
@@ -92,6 +93,6 @@ local function LoginCheck()
 end
 
 function module:PLAYER_ENTERING_WORLD()
-	C_Timer.After(7, LoginCheck)
+	After(7, LoginCheck)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end

@@ -7,9 +7,9 @@ local format = string.format
 local tinsert = table.insert
 local random = random
 
-local C_ToyBox_GetToyInfo = C_ToyBox and C_ToyBox.GetToyInfo
-local C_ToyBox_IsToyUsable = C_ToyBox and C_ToyBox.IsToyUsable
-local GetItemCooldown = GetItemCooldown
+local GetToyInfo = C_ToyBox.GetToyInfo
+local IsToyUsable = C_ToyBox.IsToyUsable
+local GetItemCooldown = C_Item.GetItemCooldown
 local CreateMacro = CreateMacro
 local EditMacro = EditMacro
 local GetMacroInfo = GetMacroInfo
@@ -23,7 +23,7 @@ local macroName = "RANDOMTOY"
 local macroTemplate = "#showtooltip %s\n" .. "/randomtoy check\n" .. "/cast %s"
 
 local function IsMyToyUsable(itemID)
-	local startTime, duration, enable = GetItemCooldown(itemID)
+	local _, duration, enable = GetItemCooldown(itemID)
 
 	if enable == 1 and duration > 0 then
 		return false
@@ -41,18 +41,18 @@ function module:UpdateMacro()
 		return self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	end
 
-	local macroIcon = select(2, C_ToyBox_GetToyInfo(130209)) or ""
+	local macroIcon = select(2, GetToyInfo(130209)) or ""
 	local toyname = ""
 	local templist = {}
 
 	for k, v in pairs(E.db.mui.misc.randomToy.toyList) do
-		if v and PlayerHasToy(k) and C_ToyBox_IsToyUsable(k) and IsMyToyUsable(k) and C_ToyBox_GetToyInfo(k) then
+		if v and PlayerHasToy(k) and IsToyUsable(k) and IsMyToyUsable(k) and GetToyInfo(k) then
 			tinsert(templist, k)
 		end
 	end
 
 	if #templist > 0 then
-		toyname = select(2, C_ToyBox_GetToyInfo(templist[random(#templist)]))
+		toyname = select(2, GetToyInfo(templist[random(#templist)]))
 	else
 		F.Print(L["It seems that this toy are on cooldown"])
 	end

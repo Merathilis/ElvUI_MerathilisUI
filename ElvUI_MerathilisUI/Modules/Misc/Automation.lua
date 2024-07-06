@@ -11,7 +11,7 @@ local UnitExists = UnitExists
 local PlayerCanTeleport = PlayerCanTeleport
 local StaticPopup_Hide = StaticPopup_Hide
 
-local C_SummonInfo_ConfirmSummon = C_SummonInfo.ConfirmSummon
+local ConfirmSummon = C_SummonInfo.ConfirmSummon
 
 local confirmSummonAfterCombat = false
 
@@ -34,7 +34,7 @@ function module:CONFIRM_SUMMON()
 	end
 
 	E:Delay(0.6, function()
-		C_SummonInfo_ConfirmSummon()
+		ConfirmSummon()
 		StaticPopup_Hide("CONFIRM_SUMMON")
 	end)
 end

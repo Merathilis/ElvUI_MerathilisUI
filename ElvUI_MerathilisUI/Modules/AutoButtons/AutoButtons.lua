@@ -24,21 +24,21 @@ local GameTooltip = _G.GameTooltip
 local GetBindingKey = GetBindingKey
 local GetInventoryItemCooldown = GetInventoryItemCooldown
 local GetInventoryItemID = GetInventoryItemID
-local GetItemCooldown = C_Item and C_Item.GetItemCooldown
-local GetItemCount = C_Item and C_Item.GetItemCount
+local GetItemCooldown = C_Item.GetItemCooldown
+local GetItemCount = C_Item.GetItemCount
 local GetQuestLogSpecialItemCooldown = GetQuestLogSpecialItemCooldown
 local GetQuestLogSpecialItemInfo = GetQuestLogSpecialItemInfo
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
-local IsItemInRange = C_Item and C_Item.IsItemInRange
-local IsUsableItem = C_Item and C_Item.IsUsableItem
+local IsItemInRange = C_Item.IsItemInRange
+local IsUsableItem = C_Item.IsUsableItem
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
-local GetNumQuestLogEntries = C_QuestLog and C_QuestLog.GetNumQuestLogEntries
-local NewTicker = C_Timer and C_Timer.NewTicker
-local GetItemCraftedQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemCraftedQualityByItemInfo
-local GetItemReagentQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemReagentQualityByItemInfo
+local GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
+local NewTicker = C_Timer.NewTicker
+local GetItemCraftedQualityByItemInfo = C_TradeSkillUI.GetItemCraftedQualityByItemInfo
+local GetItemReagentQualityByItemInfo = C_TradeSkillUI.GetItemReagentQualityByItemInfo
 
 module.bars = {}
 

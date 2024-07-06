@@ -6,7 +6,7 @@ local pairs = pairs
 local tonumber = tonumber
 
 local SpellActivationOverlay_ShowOverlay = SpellActivationOverlay_ShowOverlay
-local C_CVar_GetCVar = C_CVar.GetCVar
+local GetCVar = C_CVar.GetCVar
 
 function module:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
@@ -23,7 +23,7 @@ function module:Update()
 		scale = E.db.mui.misc.spellAlert.scale or scale
 	end
 
-	local opacity = tonumber(C_CVar_GetCVar("spellActivationOverlayOpacity"))
+	local opacity = tonumber(GetCVar("spellActivationOverlayOpacity"))
 
 	_G.SpellActivationOverlayFrame:SetAlpha(opacity)
 	_G.SpellActivationOverlayFrame:SetScale(scale)

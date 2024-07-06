@@ -4,12 +4,11 @@ local MM = E:GetModule("Minimap")
 
 local _G = _G
 local abs, ceil, floor = abs, ceil, floor
-local format, next, unpack = format, next, unpack
+local format = format
 
 local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown
-
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 function RM:HereBeDragons_Pins_AddMinimapIconMap(_, _, icon)
 	if icon.SetPoint then
@@ -150,7 +149,7 @@ function RM:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("ADDON_LOADED")
 
-	if C_AddOns_IsAddOnLoaded("HandyNotes") then
+	if IsAddOnLoaded("HandyNotes") then
 		self:HandyNotesFix()
 	end
 end

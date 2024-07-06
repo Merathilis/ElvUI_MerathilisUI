@@ -4,7 +4,7 @@ local module = MER:GetModule("MER_Announcement")
 local gsub = gsub
 local tostring = tostring
 
-local GetSpellLink = C_Spell and C_Spell.GetSpellLink
+local GetSpellLink = C_Spell.GetSpellLink
 
 local BotList = {
 	[22700] = true,

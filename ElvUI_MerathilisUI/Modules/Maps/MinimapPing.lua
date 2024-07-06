@@ -10,8 +10,6 @@ local UnitClass = UnitClass
 local UnitName = UnitName
 local InCombatLockdown = InCombatLockdown
 
-local C_Timer_After = C_Timer.After
-
 local hideTimes = 0
 function module:TryFadeOut()
 	if hideTimes == 1 then

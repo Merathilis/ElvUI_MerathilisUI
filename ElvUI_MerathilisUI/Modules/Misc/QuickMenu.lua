@@ -2,14 +2,19 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc")
 local S = MER:GetModule("MER_Skins")
 
+local _G = _G
+local unpack = unpack
+
 local ChatEdit_ActivateChat = ChatEdit_ActivateChat
 local ChatEdit_ChooseBoxForSend = ChatEdit_ChooseBoxForSend
 local ChatFrame_SendTell = ChatFrame_SendTell
-
-local C_FriendList_AddFriend = C_FriendList.AddFriend
+local GuildInvite = C_GuildInfo.Invite
+local AddFriend = C_FriendList.AddFriend
+local UnitIsPlayer = UnitIsPlayer
+local hooksecurefunc = hooksecurefunc
 
 function module:MenuButton_AddFriend()
-	C_FriendList_AddFriend(module.MenuButtonName)
+	AddFriend(module.MenuButtonName)
 end
 
 function module:MenuButton_CopyName()

@@ -10,10 +10,10 @@ local tinsert, tremove = table.insert, table.remove
 
 local CreateFrame = CreateFrame
 local GetPetActionInfo = GetPetActionInfo
-local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
-local GetSpellTexture = C_Spell and C_Spell.GetSpellTexture or GetSpellTexture
-local GetSpellCooldown = C_Spell and C_Spell.GetSpellCooldown or GetSpellCooldown
-local GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
+local GetSpellInfo = GetSpellInfo
+local GetSpellTexture = GetSpellTexture
+local GetSpellCooldown = GetSpellCooldown
+local GetItemInfo = C_Item.GetItemInfo
 local GetPetActionCooldown = GetPetActionCooldown
 local IsInInstance = IsInInstance
 local GetActionInfo = GetActionInfo
@@ -23,9 +23,9 @@ local GetInventoryItemTexture = GetInventoryItemTexture
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local hooksecurefunc = hooksecurefunc
 
-local GetItemCooldown = C_Container and C_Container.GetItemCooldown or GetItemCooldown
-local GetContainerItemID = C_Container and C_Container.GetContainerItemID or GetContainerItemID
-local C_VoiceChat_SpeakText = C_VoiceChat.SpeakText
+local GetItemCooldown = C_Container.GetItemCooldown
+local GetContainerItemID = C_Container.GetContainerItemID
+local SpeakText = C_VoiceChat.SpeakText
 
 local ignoredSpells, invertIgnored
 module.cooldowns, module.animating, module.watching = {}, {}, {}
@@ -212,7 +212,7 @@ local function OnUpdate(_, update)
 				if module.db.tts then
 					local tts = GetSpellInfo(module.animating[1][3])
 					if module.db.ttsvoice and tts then
-						C_VoiceChat_SpeakText(
+						SpeakText(
 							module.db.ttsvoice,
 							tts,
 							Enum.VoiceTtsDestination.LocalPlayback,
@@ -381,7 +381,7 @@ function module:TestMode()
 
 	if module.db.tts then
 		local tts = GetSpellInfo(33786)
-		C_VoiceChat_SpeakText(module.db.ttsvoice, tts, Enum.VoiceTtsDestination.LocalPlayback, 0, module.db.ttsvolume)
+		SpeakText(module.db.ttsvoice, tts, Enum.VoiceTtsDestination.LocalPlayback, 0, module.db.ttsvolume)
 	end
 end
 

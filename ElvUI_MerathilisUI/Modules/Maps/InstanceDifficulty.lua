@@ -12,13 +12,13 @@ local GetInstanceInfo = GetInstanceInfo
 local MinimapCluster = MinimapCluster
 local IsInInstance = IsInInstance
 
-local C_ChallengeMode_GetActiveKeystoneInfo = C_ChallengeMode.GetActiveKeystoneInfo
+local GetActiveKeystoneInfo = C_ChallengeMode.GetActiveKeystoneInfo
 
 function module:UpdateFrame()
 	local inInstance, instanceType = IsInInstance()
 	local difficulty = select(3, GetInstanceInfo())
 	local numplayers = select(9, GetInstanceInfo())
-	local mplusdiff = select(1, C_ChallengeMode_GetActiveKeystoneInfo()) or ""
+	local mplusdiff = select(1, GetActiveKeystoneInfo()) or ""
 
 	if instanceType == "party" or instanceType == "raid" or instanceType == "scenario" then
 		local text = module:GetTextForDifficulty(difficulty, false)

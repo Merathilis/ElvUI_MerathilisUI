@@ -8,7 +8,7 @@ local xpcall = xpcall
 local tinsert = table.insert
 local strsplit = strsplit
 
-local C_ChallengeMode_GetDungeonScoreRarityColor = C_ChallengeMode.GetDungeonScoreRarityColor
+local GetDungeonScoreRarityColor = C_ChallengeMode.GetDungeonScoreRarityColor
 
 module.load = {}
 module.updateProfile = {}
@@ -179,7 +179,7 @@ function ET.GameTooltip_OnTooltipSetUnit(...)
 end
 
 function module.GetDungeonScore(score)
-	local color = C_ChallengeMode_GetDungeonScoreRarityColor(score) or HIGHLIGHT_FONT_COLOR
+	local color = GetDungeonScoreRarityColor(score) or HIGHLIGHT_FONT_COLOR
 	return color:WrapTextInColorCode(score)
 end
 

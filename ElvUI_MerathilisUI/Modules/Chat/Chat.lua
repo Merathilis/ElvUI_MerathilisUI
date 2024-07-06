@@ -6,8 +6,11 @@ local LO = E:GetModule("Layout")
 local S = E:GetModule("Skins")
 
 local _G = _G
+local format = string.format
 
-local format = format
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+local InCombatLockdown = InCombatLockdown
 
 function module:StyleVoicePanel()
 	if _G.ElvUIChatVoicePanel then

@@ -23,20 +23,20 @@ local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 local InCombatLockdown = InCombatLockdown
-local LoadAddOn = C_AddOns and C_AddOns.LoadAddOn
+local LoadAddOn = C_AddOns.LoadAddOn
 local DoReadyCheck = DoReadyCheck
 local InitiateRolePoll = InitiateRolePoll
 local SlashCmdList = SlashCmdList
 local HasLFGRestrictions = HasLFGRestrictions
 local issecurevariable = issecurevariable
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local C_PartyInfo_ConvertToParty = C_PartyInfo.ConvertToParty
-local C_PartyInfo_ConvertToRaid = C_PartyInfo.ConvertToRaid
-local C_PartyInfo_DoCountdown = C_PartyInfo.DoCountdown
-local C_PartyInfo_SetRestrictPings = C_PartyInfo.SetRestrictPings
-local C_PartyInfo_GetRestrictPings = C_PartyInfo.GetRestrictPings
-local C_Timer_After = C_Timer.After
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local ConvertToParty = C_PartyInfo.ConvertToParty
+local ConvertToRaid = C_PartyInfo.ConvertToRaid
+local DoCountdown = C_PartyInfo.DoCountdown
+local SetRestrictPings = C_PartyInfo.SetRestrictPings
+local GetRestrictPings = C_PartyInfo.GetRestrictPings
+local After = C_Timer.After
 
 local GameTooltip = GameTooltip
 local ToggleFriendsFrame = ToggleFriendsFrame
@@ -272,14 +272,14 @@ end
 function module:OnClick_RestrictPings()
 	if module:HasPermission() then
 		PlaySound(IG_MAINMENU_OPTION_CHECKBOX_ON)
-		C_PartyInfo_SetRestrictPings(self:GetChecked())
+		SetRestrictPings(self:GetChecked())
 	else
-		self:SetChecked(C_PartyInfo_GetRestrictPings())
+		self:SetChecked(GetRestrictPings())
 	end
 end
 
 function module:OnEvent_RestrictPings()
-	module:SetEnabled(self, C_PartyInfo_GetRestrictPings(), module:HasPermission())
+	module:SetEnabled(self, GetRestrictPings(), module:HasPermission())
 end
 
 function module:OnEvent_ReadyCheckButton()
@@ -312,14 +312,14 @@ end
 local reset = true
 function module:OnClick_RaidCountdownButton()
 	if module:InGroup() then
-		if C_AddOns_IsAddOnLoaded("DBM-Core") then
+		if IsAddOnLoaded("DBM-Core") then
 			if reset then
 				SlashCmdList["DEADLYBOSSMODS"]("pull " .. E.db.mui.raidmanager.count)
 			else
 				SlashCmdList["DEADLYBOSSMODS"]("pull 0")
 			end
 			reset = not reset
-		elseif C_AddOns_IsAddOnLoaded("BigWigs") then
+		elseif IsAddOnLoaded("BigWigs") then
 			if not SlashCmdList["BIGWIGSPULL"] then
 				LoadAddOn("BigWigs_Plugins")
 			end
@@ -331,7 +331,7 @@ function module:OnClick_RaidCountdownButton()
 			end
 			reset = not reset
 		else
-			C_PartyInfo_DoCountdown(E.db.mui.raidmanager.count)
+			DoCountdown(E.db.mui.raidmanager.count)
 		end
 	end
 end
@@ -518,7 +518,7 @@ function module:Initialize()
 
 	local BUTTON_WIDTH = PANEL_WIDTH / 2 - 20
 
-	local hasCountdown = C_PartyInfo_DoCountdown
+	local hasCountdown = DoCountdown
 	local countdownHeight = hasCountdown and 0 or 25
 
 	-- Main Frame
@@ -687,9 +687,9 @@ function module:Initialize()
 
 	ConvertGroupButton:SetScript("OnClick", function(self)
 		if IsInRaid() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
-			C_PartyInfo_ConvertToParty()
+			ConvertToParty()
 		elseif IsInGroup() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
-			C_PartyInfo_ConvertToRaid()
+			ConvertToRaid()
 		else
 			_G.UIErrorsFrame:AddMessage(F.String.MERATHILISUI(_G.ERR_NOT_LEADER))
 		end
@@ -711,7 +711,7 @@ function module:Initialize()
 		module.OnClick_EveryoneAssist
 	)
 
-	if C_PartyInfo_SetRestrictPings then
+	if SetRestrictPings then
 		local RestrictPings = module:CreateCheckBox(
 			"RaidManagerFrame_RestrictPings",
 			RaidManagerFrame,
@@ -867,7 +867,7 @@ function module:Initialize()
 	res.Timer:FontTemplate(nil, 16, "SHADOWOUTLINE")
 	res.Timer:SetText("00:00")
 	res.Timer:ClearAllPoints()
-	res.Timer:SetPoint("RIGHT", res, "LEFT", -5, 0)
+	res.Timer:SetPoint("LEFT", res.Count, "RIGHT", 5, 0)
 
 	res:SetScript("OnUpdate", function(self, elapsed)
 		self.elapsed = (self.elapsed or 0) + elapsed
@@ -935,7 +935,7 @@ function module:Initialize()
 			else
 				rc:SetTextColor(1, 0, 0)
 			end
-			C_Timer_After(5, hideRCFrame)
+			After(5, hideRCFrame)
 		else
 			count, total = 0, 0
 			self:Show()

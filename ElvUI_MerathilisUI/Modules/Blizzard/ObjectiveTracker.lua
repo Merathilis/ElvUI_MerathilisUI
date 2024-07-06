@@ -10,6 +10,7 @@ local max = max
 local strmatch = strmatch
 
 local CreateColor = CreateColor
+local GetTitleForQuestID = C_QuestLog.GetTitleForQuestID
 local CreateFrame = CreateFrame
 
 local MAX_QUESTS = 35

@@ -8,14 +8,13 @@ local byte = string.byte
 local tinsert, twipe = table.insert, table.wipe
 local format = string.format
 
-local C_EquipmentSet = C_EquipmentSet
-local C_EquipmentSet_GetEquipmentSetID = C_EquipmentSet.GetEquipmentSetID
-local C_EquipmentSet_GetEquipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs
-local C_EquipmentSet_GetNumEquipmentSets = C_EquipmentSet.GetNumEquipmentSets
-local C_EquipmentSet_GetEquipmentSetInfo = C_EquipmentSet.GetEquipmentSetInfo
-local C_EquipmentSet_GetItemLocations = C_EquipmentSet.GetItemLocations
+local GetEquipmentSetID = C_EquipmentSet.GetEquipmentSetID
+local GetEquipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs
+local GetNumEquipmentSets = C_EquipmentSet.GetNumEquipmentSets
+local GetEquipmentSetInfo = C_EquipmentSet.GetEquipmentSetInfo
+local GetItemLocations = C_EquipmentSet.GetItemLocations
 local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
-local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
+local GetContainerNumSlots = C_Container.GetContainerNumSlots
 
 -- Credits Shadow & Light - Darth & Repooc
 
@@ -80,13 +79,13 @@ local function BuildEquipmentMap(clear)
 	end
 
 	local name, player, bank, bags, slot, bag, key
-	local equipmentSetIDs = C_EquipmentSet_GetEquipmentSetIDs()
+	local equipmentSetIDs = GetEquipmentSetIDs()
 
-	for index = 1, C_EquipmentSet_GetNumEquipmentSets() do
-		name = C_EquipmentSet_GetEquipmentSetInfo(equipmentSetIDs[index])
-		local equipmentSetID = C_EquipmentSet_GetEquipmentSetID(name)
+	for index = 1, GetNumEquipmentSets() do
+		name = GetEquipmentSetInfo(equipmentSetIDs[index])
+		local equipmentSetID = GetEquipmentSetID(name)
 		if equipmentSetID then
-			local SetInfoTable = C_EquipmentSet_GetItemLocations(equipmentSetID)
+			local SetInfoTable = GetItemLocations(equipmentSetID)
 			for _, location in pairs(SetInfoTable) do
 				if type(location) == "number" and (location < -1 or location > 1) then
 					player, bank, bags, _, slot, bag = EquipmentManager_UnpackLocation(location)
@@ -131,7 +130,7 @@ local function UpdateBagInformation(clear)
 	BuildEquipmentMap(clear)
 	for _, container in pairs(module.containers) do
 		for _, bagID in ipairs(container.BagIDs) do
-			for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
+			for slotID = 1, GetContainerNumSlots(bagID) do
 				UpdateContainerFrame(container.Bags[bagID][slotID], bagID, slotID)
 			end
 		end

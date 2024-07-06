@@ -15,7 +15,7 @@ local GetBuybackItemLink = GetBuybackItemLink
 local GetCurrentGuildBankTab = GetCurrentGuildBankTab
 local GetGuildBankItemInfo = GetGuildBankItemInfo
 local GetGuildBankItemLink = GetGuildBankItemLink
-local GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
+local GetItemInfo = C_Item.GetItemInfo
 local GetMerchantItemInfo = GetMerchantItemInfo
 local GetMerchantItemLink = GetMerchantItemLink
 local GetMerchantNumItems = GetMerchantNumItems
@@ -23,12 +23,12 @@ local GetNumBuybackItems = GetNumBuybackItems
 local SetItemButtonDesaturated = SetItemButtonDesaturated
 local SetItemButtonTextureVertexColor = SetItemButtonTextureVertexColor
 
-local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
-local GetNumCollectedInfo = C_PetJournal and C_PetJournal.GetNumCollectedInfo or GetNumCollectedInfo
-local GetGuildBankItem = C_TooltipInfo and C_TooltipInfo.GetGuildBankItem or GetGuildBankItem
-local GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink or GetHyperlink
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local GetNumCollectedInfo = C_PetJournal.GetNumCollectedInfo
+local GetGuildBankItem = C_TooltipInfo.GetGuildBankItem
+local GetHyperlink = C_TooltipInfo.GetHyperlink
 
-local Enum_ItemClass_Battlepet = Enum.ItemClass.Battlepet
+local ItemClass_Battlepet = Enum.ItemClass.Battlepet
 
 local BUYBACK_ITEMS_PER_PAGE = BUYBACK_ITEMS_PER_PAGE
 local COLLECTED = COLLECTED
@@ -70,7 +70,7 @@ local function IsAlreadyKnown(link, index)
 			return
 		end
 
-		if itemClassID == Enum_ItemClass_Battlepet and index then
+		if itemClassID == ItemClass_Battlepet and index then
 			local data = GetGuildBankItem(GetCurrentGuildBankTab(), index)
 			if data then
 				return data.battlePetSpeciesID and isPetCollected(data.battlePetSpeciesID)

@@ -5,7 +5,7 @@ local _G = _G
 local select, unpack = select, unpack
 
 local hooksecurefunc = hooksecurefunc
-local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
+local GetSourceInfo = C_TransmogCollection.GetSourceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
@@ -282,7 +282,7 @@ function module:Blizzard_Collections()
 		end
 
 		if itemFrame.collected then
-			local quality = C_TransmogCollection_GetSourceInfo(itemFrame.sourceID).quality
+			local quality = GetSourceInfo(itemFrame.sourceID).quality
 			local color = _G.BAG_ITEM_QUALITY_COLORS[quality or 1]
 			ic.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 		else

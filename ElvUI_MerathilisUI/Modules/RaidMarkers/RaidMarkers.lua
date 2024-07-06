@@ -18,7 +18,7 @@ local RegisterStateDriver = RegisterStateDriver
 local SetRaidTarget = SetRaidTarget
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local lastClear = 0
 
@@ -232,10 +232,10 @@ function module:UpdateCountDownButton()
 	end
 
 	local button = self.bar.buttons[11]
-	if C_AddOns_IsAddOnLoaded("BigWigs") then
+	if IsAddOnLoaded("BigWigs") then
 		button:SetAttribute("macrotext1", "/pull " .. self.db.countDownTime)
 		button:SetAttribute("macrotext2", "/pull 0")
-	elseif C_AddOns_IsAddOnLoaded("DBM-Core") then
+	elseif IsAddOnLoaded("DBM-Core") then
 		button:SetAttribute("macrotext1", "/dbm pull " .. self.db.countDownTime)
 		button:SetAttribute("macrotext2", "/dbm pull 0")
 	else
@@ -315,10 +315,10 @@ function module:CreateButtons()
 			tex:SetTexture("Interface\\Icons\\Spell_unused2")
 			tex:SetTexCoord(0.25, 0.8, 0.2, 0.75)
 			button:SetAttribute("type*", "macro")
-			if C_AddOns_IsAddOnLoaded("BigWigs") then
+			if IsAddOnLoaded("BigWigs") then
 				button:SetAttribute("macrotext1", "/pull " .. module.db.countDownTime)
 				button:SetAttribute("macrotext2", "/pull 0")
-			elseif C_AddOns_IsAddOnLoaded("DBM-Core") then
+			elseif IsAddOnLoaded("DBM-Core") then
 				button:SetAttribute("macrotext1", "/dbm pull " .. module.db.countDownTime)
 				button:SetAttribute("macrotext2", "/dbm pull 0")
 			else

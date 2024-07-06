@@ -11,7 +11,7 @@ local format = string.format
 local CreateFrame = CreateFrame
 local IsCurrentSpell = IsCurrentSpell
 
-local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local tabs, spells = {}, {}
 

@@ -15,9 +15,9 @@ local UnitLevel = UnitLevel
 local UnitSex = UnitSex
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
-local IsCosmeticItem = C_Item and C_Item.IsCosmeticItem or IsCosmeticItem
-local GetMinItemLevel = C_PaperDollInfo and C_PaperDollInfo.GetMinItemLevel or GetMinItemLevel
+local GetItemInfo = C_Item.GetItemInfo
+local IsCosmeticItem = C_Item.IsCosmeticItem
+local GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
 local ENUM_ITEM_CLASS_WEAPON = _G.Enum.ItemClass.Weapon
 
 local ClassSymbolFrame

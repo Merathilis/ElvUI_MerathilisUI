@@ -11,12 +11,11 @@ local strsplit = strsplit
 local tinsert = tinsert
 local tonumber = tonumber
 
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local GetExploredMapTextures = C_MapExplorationInfo.GetExploredMapTextures
+local GetMapArtID = C_Map.GetMapArtID
+local GetMapArtLayers = C_Map.GetMapArtLayers
 local TexturePool_HideAndClearAnchors = TexturePool_HideAndClearAnchors
-
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local C_MapExplorationInfo_GetExploredMapTextures = C_MapExplorationInfo.GetExploredMapTextures
-local C_Map_GetMapArtID = C_Map.GetMapArtID
-local C_Map_GetMapArtLayers = C_Map.GetMapArtLayers
 
 local overlayTextures = {}
 
@@ -27,14 +26,14 @@ function module:HandleMap(map, fullUpdate)
 		return
 	end
 
-	local artID = C_Map_GetMapArtID(mapID)
+	local artID = GetMapArtID(mapID)
 	if not artID or not module.RevealDatabase[artID] then
 		return
 	end
 	local zone = module.RevealDatabase[artID]
 
 	local TileExists = {}
-	local exploredMapTextures = C_MapExplorationInfo_GetExploredMapTextures(mapID)
+	local exploredMapTextures = GetExploredMapTextures(mapID)
 	if exploredMapTextures then
 		for i, tex in ipairs(exploredMapTextures) do
 			local key = tex.textureWidth .. ":" .. tex.textureHeight .. ":" .. tex.offsetX .. ":" .. tex.offsetY
@@ -43,7 +42,7 @@ function module:HandleMap(map, fullUpdate)
 	end
 
 	map.layerIndex = map:GetMap():GetCanvasContainer():GetCurrentLayerIndex()
-	local layers = C_Map_GetMapArtLayers(mapID)
+	local layers = GetMapArtLayers(mapID)
 	local layerInfo = layers and layers[map.layerIndex]
 	if not layerInfo then
 		return
@@ -166,7 +165,7 @@ function module:Initialize()
 		return
 	end
 
-	if C_AddOns_IsAddOnLoaded("Mapster") then
+	if IsAddOnLoaded("Mapster") then
 		self.StopRunning = "Mapster"
 		return
 	end

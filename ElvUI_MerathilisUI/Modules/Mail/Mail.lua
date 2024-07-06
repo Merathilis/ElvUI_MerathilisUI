@@ -21,21 +21,21 @@ local GameTooltip = _G.GameTooltip
 local GetClassColor = GetClassColor
 local GetInboxItem = GetInboxItem
 local GetInboxNumItems = GetInboxNumItems
-local GetItemQualityColor = C_Item and C_Item.GetItemQualityColor
-local GetItemInfo = C_Item and C_Item.GetItemInfo
+local GetItemQualityColor = C_Item.GetItemQualityColor
+local GetItemInfo = C_Item.GetItemInfo
 local InboxItemCanDelete = InboxItemCanDelete
 local IsInGuild = IsInGuild
 local hooksecurefunc = hooksecurefunc
 
-local C_BattleNet_GetFriendAccountInfo = C_BattleNet and C_BattleNet.GetFriendAccountInfo
-local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet and C_BattleNet.GetFriendGameAccountInfo
-local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet and C_BattleNet.GetFriendNumGameAccounts
-local C_FriendList_GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
-local C_FriendList_GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
+local GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
+local GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
+local GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
+local GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
+local GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
 local GetInboxHeaderInfo = GetInboxHeaderInfo
-local C_Mail_IsCommandPending = C_Mail.IsCommandPending
-local C_Mail_HasInboxMoney = C_Mail.HasInboxMoney
-local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
+local IsCommandPending = C_Mail.IsCommandPending
+local HasInboxMoney = C_Mail.HasInboxMoney
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local GetMoney = GetMoney
 local GetSendMailPrice = GetSendMailPrice
 local TakeInboxMoney = TakeInboxMoney
@@ -512,9 +512,9 @@ function module:BuildFriendsData()
 	data = {}
 
 	local tempKey = {}
-	local numWoWFriend = C_FriendList_GetNumOnlineFriends()
+	local numWoWFriend = GetNumOnlineFriends()
 	for i = 1, numWoWFriend do
-		local info = C_FriendList_GetFriendInfoByIndex(i)
+		local info = GetFriendInfoByIndex(i)
 		if info.connected then
 			local name, realm = F.SplitString("-", info.name)
 			realm = realm or E.myrealm
@@ -529,12 +529,12 @@ function module:BuildFriendsData()
 	local numBNOnlineFriend = select(2, BNGetNumFriends())
 
 	for i = 1, numBNOnlineFriend do
-		local accountInfo = C_BattleNet_GetFriendAccountInfo(i)
+		local accountInfo = GetFriendAccountInfo(i)
 		if accountInfo and accountInfo.gameAccountInfo and accountInfo.gameAccountInfo.isOnline then
-			local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(i)
+			local numGameAccounts = GetFriendNumGameAccounts(i)
 			if numGameAccounts and numGameAccounts > 0 then
 				for j = 1, numGameAccounts do
-					local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
+					local gameAccountInfo = GetFriendGameAccountInfo(i, j)
 					if
 						gameAccountInfo.clientProgram
 						and gameAccountInfo.clientProgram == "WoW"
@@ -686,8 +686,8 @@ end
 
 function module:MailBox_CollectGold()
 	if mailIndex > 0 then
-		if not C_Mail_IsCommandPending() then
-			if C_Mail_HasInboxMoney(mailIndex) then
+		if not IsCommandPending() then
+			if HasInboxMoney(mailIndex) then
 				TakeInboxMoney(mailIndex)
 			end
 			mailIndex = mailIndex - 1

@@ -3,19 +3,16 @@ local module = MER:GetModule("MER_Misc")
 local S = MER:GetModule("MER_Skins")
 
 local pairs, tinsert, select = pairs, tinsert, select
-local GetSpellCooldown, GetSpellInfo = GetSpellCooldown, GetSpellInfo
-local IsPassiveSpell, IsCurrentSpell, IsPlayerSpell = IsPassiveSpell, IsCurrentSpell, IsPlayerSpell
-local GetItemCooldown = C_Item and C_Item.GetItemCooldown
-local GetItemCount = C_Item and C_Item.GetItemCount
-local GetItemInfo = C_Item and C_Item.GetItemInfo
-local UseItemByName = C_Item and C_Item.UseItemByName
+local GetSpellCooldown, GetSpellInfo, GetItemCooldown, GetItemCount, GetItemInfo =
+	GetSpellCooldown, GetSpellInfo, C_Item.GetItemCooldown, C_Item.GetItemCount, C_Item.GetItemInfo
+local IsPassiveSpell, IsCurrentSpell, IsPlayerSpell, UseItemByName =
+	IsPassiveSpell, IsCurrentSpell, IsPlayerSpell, C_Item.UseItemByName
 local GetProfessions, GetProfessionInfo, GetSpellBookItemInfo = GetProfessions, GetProfessionInfo, GetSpellBookItemInfo
-local PlayerHasToy, C_ToyBox_IsToyUsable, C_ToyBox_GetToyInfo = PlayerHasToy, C_ToyBox.IsToyUsable, C_ToyBox.GetToyInfo
-
-local GetOnlyShowSkillUpRecipes = C_TradeSkillUI and C_TradeSkillUI.GetOnlyShowSkillUpRecipes
-local SetOnlyShowSkillUpRecipes = C_TradeSkillUI and C_TradeSkillUI.SetOnlyShowSkillUpRecipes
-local GetOnlyShowMakeableRecipes = C_TradeSkillUI and C_TradeSkillUI.GetOnlyShowMakeableRecipes
-local SetOnlyShowMakeableRecipes = C_TradeSkillUI and C_TradeSkillUI.SetOnlyShowMakeableRecipes
+local PlayerHasToy, IsToyUsable, GetToyInfo = PlayerHasToy, C_ToyBox.IsToyUsable, C_ToyBox.GetToyInfo
+local GetOnlyShowSkillUpRecipes, SetOnlyShowSkillUpRecipes =
+	C_TradeSkillUI.GetOnlyShowSkillUpRecipes, C_TradeSkillUI.SetOnlyShowSkillUpRecipes
+local GetOnlyShowMakeableRecipes, SetOnlyShowMakeableRecipes =
+	C_TradeSkillUI.GetOnlyShowMakeableRecipes, C_TradeSkillUI.SetOnlyShowMakeableRecipes
 
 local BOOKTYPE_PROFESSION = BOOKTYPE_PROFESSION
 local RUNEFORGING_ID = 53428
@@ -68,7 +65,7 @@ function module:UpdateProfessions()
 		end
 	end
 
-	if isCook and PlayerHasToy(CHEF_HAT) and C_ToyBox_IsToyUsable(CHEF_HAT) then
+	if isCook and PlayerHasToy(CHEF_HAT) and IsToyUsable(CHEF_HAT) then
 		module:TradeTabs_Create(nil, CHEF_HAT)
 	end
 	if GetItemCount(THERMAL_ANVIL) > 0 then
@@ -118,7 +115,7 @@ local index = 1
 function module:TradeTabs_Create(spellID, toyID, itemID)
 	local name, _, texture
 	if toyID then
-		_, name, texture = C_ToyBox_GetToyInfo(toyID)
+		_, name, texture = GetToyInfo(toyID)
 	elseif itemID then
 		name, _, _, _, _, _, _, _, _, texture = GetItemInfo(itemID)
 	else
