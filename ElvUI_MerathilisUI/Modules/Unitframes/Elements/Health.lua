@@ -164,8 +164,8 @@ end
 
 local forced = false
 function module:Configure_GradientHealthColor(unit)
-	local colorDB = E.db.mui.gradient
-	if not colorDB.enable then
+	local db = E.db.mui and E.db.mui.gradient
+	if not db.enable then
 		return
 	end
 

@@ -2450,10 +2450,10 @@ function MER:DeveloperSettings()
 	SetCVar("showTutorials", 0)
 	SetCVar("showNPETutorials", 0)
 	SetCVar("hideAdventureJournalAlerts", 1)
-	SetCVar("uiScale", 0.71111111111111)
+	SetCVar("uiScale", E:PixelBestSize())
 
 	-- General
-	E.global["general"]["UIScale"] = 0.71111111111111
+	E.global["general"]["UIScale"] = E:PixelBestSize()
 	E.private["general"]["chatBubbles"] = "nobackdrop"
 	E.db["general"]["cropIcon"] = 0
 	E.db["general"]["autoRepair"] = "GUILD"
