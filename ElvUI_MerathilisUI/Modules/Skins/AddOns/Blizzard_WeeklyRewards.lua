@@ -13,8 +13,6 @@ function module:Blizzard_WeeklyRewards()
 	local header = frame.HeaderFrame
 
 	frame:StripTextures()
-	frame.NineSlice:Kill()
-	frame.BackgroundTile:SetAlpha(0)
 	module:CreateShadow(frame)
 
 	header:StripTextures()
