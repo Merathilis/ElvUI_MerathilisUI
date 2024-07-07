@@ -141,8 +141,7 @@ for _, v in ipairs(SupportedProfiles) do
 			elseif addon == "ElvUI_mMediaTag" then
 				module:ApplymMediaTagProfile()
 			elseif addon == "OmniCD" then
-				module:LoadOmniCDProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
+				module:ApplyOmniCDProfile()
 			end
 		end,
 		disabled = function()
