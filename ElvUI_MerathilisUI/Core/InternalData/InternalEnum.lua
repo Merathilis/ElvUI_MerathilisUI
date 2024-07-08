@@ -8,6 +8,8 @@ I.Enum.Colors = F.Enum({
 	"BIGWIGS",
 	"OMNICD",
 	"WT",
+	"AS",
+	"FCT",
 	"ELVUI",
 	"ELVUI_VALUE",
 	"CLASS",

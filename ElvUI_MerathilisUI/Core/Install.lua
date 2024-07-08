@@ -2440,6 +2440,55 @@ function MER:SetupDts()
 	PluginInstallStepComplete:Show()
 end
 
+local addonNames = {}
+local profilesFailed =
+	format("|cff00c0fa%s |r", L["MerathilisUI didn't find any supported addons for profile creation"])
+
+MER.isInstallerRunning = false
+function MER:SetupAddOns()
+	--AddOnSkins
+	if E:IsAddOnEnabled("AddOnSkins") then
+		PF:ApplyAddOnSkinsProfile()
+		tinsert(addonNames, "|cff16C3F2AddOn|r|cFFFFFFFFSkins|r")
+	end
+
+	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
+		PF:ApplymMediaTagProfile()
+		tinsert(
+			addonNames,
+			"|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r"
+		)
+	end
+
+	if E:IsAddOnEnabled("ElvUI_FCT") then
+		MER:ApplyFCTProfile()
+		tinsert(addonNames, "|cff16C3F2AddOn|r|cFFFFFFFFSkins|r")
+	end
+
+	if checkTable(addonNames) ~= nil then
+		local profileString =
+			format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"] .. "\n")
+
+		tsort(addonNames, function(a, b)
+			return a < b
+		end)
+		local names = tconcat(addonNames, ", ")
+		profileString = profileString .. names
+
+		PluginInstallFrame.Desc4:SetText(profileString .. ".")
+	else
+		PluginInstallFrame.Desc4:SetText(profilesFailed)
+	end
+
+	MER.isInstallerRunning = true -- don't print when applying profile that doesn't exist
+
+	PluginInstallStepComplete.message = MER.Title .. L["Addons Set"]
+	PluginInstallStepComplete:Show()
+	twipe(addonNames)
+
+	E:StaggeredUpdateAll(nil, true)
+end
+
 function MER:DeveloperSettings()
 	if not F.IsDeveloper() then
 		return
@@ -2911,6 +2960,60 @@ MER.installTable = {
 		[10] = function()
 			MER:Resize(nil)
 
+			PluginInstallFrame.SubTitle:SetText(L["Plugins"])
+			PluginInstallFrame.Desc1:SetText(
+				L["This part of the installation process will apply changes to ElvUI Plugins"]
+			)
+			PluginInstallFrame.Desc2:SetText(
+				"Currently supported AddOns: "
+					.. F.String.FCT()
+					.. ", "
+					.. F.String.AS()
+					.. ", "
+					.. "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r"
+			)
+			if
+				not E:IsAddOnEnabled("ElvUI_mMediaTag")
+				and not E:IsAddOnEnabled("AddonSkins")
+				and not E:IsAddOnEnabled("ElvUI_FCT")
+			then
+				PluginInstallFrame.Desc3:SetText(
+					F.String.Warning("Warning: ")
+						.. "Looks like you don't have any of the extra AddOns installed. Don't worry, you can still fully experience "
+						.. MER.Title
+						.. "!"
+				)
+			else
+				PluginInstallFrame.Option1:Show()
+				PluginInstallFrame.Option1:SetScript("OnClick", function()
+					PF:ApplyFCTProfile()
+				end)
+				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
+				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
+				PluginInstallFrame.Option1:SetText(F.String.FCT())
+
+				PluginInstallFrame.Option2:Show()
+				PluginInstallFrame.Option2:SetScript("OnClick", function()
+					PF:ApplyAddOnSkinsProfile()
+				end)
+				PluginInstallFrame.Option2:SetScript("OnEnter", nil)
+				PluginInstallFrame.Option2:SetScript("OnLeave", nil)
+				PluginInstallFrame.Option2:SetText(F.String.AS())
+
+				PluginInstallFrame.Option3:Show()
+				PluginInstallFrame.Option3:SetScript("OnClick", function()
+					PF:ApplymMediaTagProfile()
+				end)
+				PluginInstallFrame.Option3:SetScript("OnEnter", nil)
+				PluginInstallFrame.Option3:SetScript("OnLeave", nil)
+				PluginInstallFrame.Option3:SetText(
+					"|CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r"
+				)
+			end
+		end,
+		[11] = function()
+			MER:Resize(nil)
+
 			if E:IsAddOnEnabled("BigWigs") then
 				PluginInstallFrame.SubTitle:SetText(F.String.BigWigs(L["BigWigs"]))
 				PluginInstallFrame.Desc1:SetText(
@@ -2926,17 +3029,17 @@ MER.installTable = {
 				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 				PluginInstallFrame.Option1:SetText("BigWigs")
 			else
-				installFrame.SubTitle:SetText(F.String.BigWigs("BigWigs"))
+				PluginInstallFrame.SubTitle:SetText(F.String.BigWigs("BigWigs"))
 
-				installFrame.Desc1:SetText(
+				PluginInstallFrame.Desc1:SetText(
 					F.String.Warning("Oops, looks like you don't have " .. F.String.BigWigs("BigWigs") .. " installed!")
 				)
-				installFrame.Desc2:SetText(
+				PluginInstallFrame.Desc2:SetText(
 					"If you're a new player, we recommend installing " .. F.String.BigWigs("BigWigs") .. "!"
 				)
 			end
 		end,
-		[11] = function()
+		[12] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("Details") then
@@ -2955,13 +3058,15 @@ MER.installTable = {
 				end)
 				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
 				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-				PluginInstallFrame.Option1:SetText("Details")
+				PluginInstallFrame.Option1:SetText(L["Details"])
 			else
-				installFrame.Desc1:SetText(F.String.Warning("Oops, looks like you don't have Details installed!"))
-				installFrame.Desc2:SetText("Please install Details and restart the installer!")
+				PluginInstallFrame.Desc1:SetText(
+					F.String.Warning("Oops, looks like you don't have " .. F.String.Details() .. " installed!")
+				)
+				PluginInstallFrame.Desc2:SetText("Please install Details and restart the installer!")
 			end
 		end,
-		[12] = function()
+		[13] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("OmniCD") then
@@ -2974,13 +3079,15 @@ MER.installTable = {
 				end)
 				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
 				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-				PluginInstallFrame.Option1:SetText("OmniCD")
+				PluginInstallFrame.Option1:SetText(L["OmniCD"])
 			else
-				installFrame.Desc1:SetText(F.String.Warning("Oops, looks like you don't have OmniCD installed!"))
-				installFrame.Desc2:SetText("Please install OmniCD and restart the installer!")
+				PluginInstallFrame.Desc1:SetText(
+					F.String.Warning("Oops, looks like you don't have " .. F.String.OmniCD() .. " installed!")
+				)
+				PluginInstallFrame.Desc2:SetText("Please install OmniCD and restart the installer!")
 			end
 		end,
-		[13] = function()
+		[14] = function()
 			MER:Resize(nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
@@ -3017,7 +3124,7 @@ MER.installTable = {
 				InstallStepComplete:Show()
 			end
 		end,
-		[F.IsDeveloper() and 14] = function()
+		[F.IsDeveloper() and 15] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
@@ -3050,11 +3157,12 @@ MER.installTable = {
 		[7] = L["ActionBars"],
 		[8] = L["NamePlates"],
 		[9] = L["UnitFrames"],
-		[10] = L["BigWigs"],
-		[11] = L["Details"],
-		[12] = L["OmniCD"],
-		[13] = L["Installation Complete"],
-		[F.IsDeveloper() and 14] = L["Developer Settings"],
+		[10] = L["Plugins"],
+		[11] = L["BigWigs"],
+		[12] = L["Details"],
+		[13] = L["OmniCD"],
+		[14] = L["Installation Complete"],
+		[F.IsDeveloper() and 15] = L["Developer Settings"],
 	},
 	StepTitlesColor = { 1, 1, 1 },
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],

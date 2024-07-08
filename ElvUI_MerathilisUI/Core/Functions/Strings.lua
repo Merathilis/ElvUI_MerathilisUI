@@ -425,7 +425,7 @@ end
 
 function F.String.Details(msg)
 	if not msg or msg == "" then
-		return F.String.Color("Details", I.Enum.Colors.DETAILS)
+		return F.String.Color(L["Details"], I.Enum.Colors.DETAILS)
 	end
 
 	return F.String.Color(msg, I.Enum.Colors.DETAILS)
@@ -433,7 +433,7 @@ end
 
 function F.String.BigWigs(msg)
 	if not msg or msg == "" then
-		return F.String.Color("BigWigs", I.Enum.Colors.BIGWIGS)
+		return F.String.Color(L["BigWigs"], I.Enum.Colors.BIGWIGS)
 	end
 
 	return F.String.Color(msg, I.Enum.Colors.BIGWIGS)
@@ -441,7 +441,7 @@ end
 
 function F.String.OmniCD(msg)
 	if not msg or msg == "" then
-		return F.String.Color("OmniCD", I.Enum.Colors.OMNICD)
+		return F.String.Color(L["OmniCD"], I.Enum.Colors.OMNICD)
 	end
 
 	return F.String.Color(msg, I.Enum.Colors.OMNICD)
@@ -449,15 +449,31 @@ end
 
 function F.String.WindTools(msg)
 	if not msg or msg == "" then
-		return F.String.Color("WindTools", I.Enum.Colors.WT)
+		return F.String.Color(L["WindTools"], I.Enum.Colors.WT)
 	end
 
 	return F.String.Color(msg, I.Enum.Colors.WT)
 end
 
+function F.String.FCT(msg)
+	if not msg or msg == "" then
+		return F.String.Color(L["FCT"], I.Enum.Colors.FCT)
+	end
+
+	return F.String.Color(msg, I.Enum.Colors.FCT)
+end
+
+function F.String.AS(msg)
+	if not msg or msg == "" then
+		return F.String.Color(L["AddOnSkins"], I.Enum.Colors.AS)
+	end
+
+	return F.String.Color(msg, I.Enum.Colors.AS)
+end
+
 function F.String.ElvUI(msg)
 	if not msg or msg == "" then
-		return F.String.Color("ElvUI", I.Enum.Colors.ELVUI)
+		return F.String.Color(L["ElvUI"], I.Enum.Colors.ELVUI)
 	end
 
 	return F.String.Color(msg, I.Enum.Colors.ELVUI)
