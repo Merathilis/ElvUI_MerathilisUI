@@ -2444,51 +2444,6 @@ local addonNames = {}
 local profilesFailed =
 	format("|cff00c0fa%s |r", L["MerathilisUI didn't find any supported addons for profile creation"])
 
-MER.isInstallerRunning = false
-function MER:SetupAddOns()
-	--AddOnSkins
-	if E:IsAddOnEnabled("AddOnSkins") then
-		PF:ApplyAddOnSkinsProfile()
-		tinsert(addonNames, "|cff16C3F2AddOn|r|cFFFFFFFFSkins|r")
-	end
-
-	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
-		PF:ApplymMediaTagProfile()
-		tinsert(
-			addonNames,
-			"|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r"
-		)
-	end
-
-	if E:IsAddOnEnabled("ElvUI_FCT") then
-		MER:ApplyFCTProfile()
-		tinsert(addonNames, "|cff16C3F2AddOn|r|cFFFFFFFFSkins|r")
-	end
-
-	if checkTable(addonNames) ~= nil then
-		local profileString =
-			format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"] .. "\n")
-
-		tsort(addonNames, function(a, b)
-			return a < b
-		end)
-		local names = tconcat(addonNames, ", ")
-		profileString = profileString .. names
-
-		PluginInstallFrame.Desc4:SetText(profileString .. ".")
-	else
-		PluginInstallFrame.Desc4:SetText(profilesFailed)
-	end
-
-	MER.isInstallerRunning = true -- don't print when applying profile that doesn't exist
-
-	PluginInstallStepComplete.message = MER.Title .. L["Addons Set"]
-	PluginInstallStepComplete:Show()
-	twipe(addonNames)
-
-	E:StaggeredUpdateAll(nil, true)
-end
-
 function MER:DeveloperSettings()
 	if not F.IsDeveloper() then
 		return
