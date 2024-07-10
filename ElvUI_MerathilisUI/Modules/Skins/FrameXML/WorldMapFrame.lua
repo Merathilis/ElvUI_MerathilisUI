@@ -22,7 +22,7 @@ function module:WorldMapFrame()
 
 	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
 	frame:Size(230, 20)
-	frame:SetPoint("TOP", 0, 21)
+	frame:SetPoint("BOTTOM", _G.QuestScrollFrame.SearchBox, "TOP", 0, 0)
 
 	frame.text = frame:CreateFontString(nil, "ARTWORK")
 	frame.text:FontTemplate()
