@@ -379,8 +379,15 @@ function module:StatusReportUpdate()
 		for _, addOn in ipairs({ "BigWigs", "Details", "ElvUI", "OmniCD", "WeakAuras" }) do
 			if E:IsAddOnEnabled(addOn) then
 				local data = {}
-				data.name = F.String.Strip(GetAddOnMetadata(addOn, "Title")) or UNKNOWN
-				data.version = F.String.Strip(GetAddOnMetadata(addOn, "Version")) or UNKNOWN
+				local name = GetAddOnMetadata(addOn, "Title")
+				local version = GetAddOnMetadata(addOn, "Version")
+				if addOn == "Details" then
+					name = "Details!"
+					version = Details.GetVersionString()
+				end
+
+				data.name = F.String.Strip(name) or UNKNOWN
+				data.version = F.String.Strip(version) or UNKNOWN
 
 				if data.version == UNKNOWN and addOn == "Details" then
 					data.version = Details and Details.version or UNKNOWN
