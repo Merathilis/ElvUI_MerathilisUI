@@ -218,6 +218,23 @@ function module:SetButtonMouseOver(button, frame, rawhook)
 	end
 end
 
+local RemoveTextureID = { [136430] = true, [136467] = true, [136477] = true, [136468] = true, [130924] = true }
+local RemoveTextureFile = { "interface/characterframe", "border", "background", "alphamask", "highlight" }
+function module:RemoveTexture(texture)
+	if type(texture) == "string" then
+		for _, path in next, RemoveTextureFile do
+			if
+				strfind(texture, path)
+				or (strfind(texture, "interface/minimap") and not strfind(texture, "interface/minimap/tracking"))
+			then
+				return true
+			end
+		end
+	else
+		return RemoveTextureID[texture]
+	end
+end
+
 function module:SkinButton(frame)
 	tinsert(IgnoreList.full, "GameTimeFrame")
 
@@ -339,40 +356,38 @@ function module:SkinButton(frame)
 
 			frame.original = original
 
-			-- TODO: Handling calendar
-			if region:IsObjectType("Texture") then
-				local t = region:GetTexture()
-
-				-- Remove rings and backdrops of LibDBIcon icons
-				if t and strsub(name, 1, strlen("LibDBIcon")) == "LibDBIcon" then
-					if region ~= frame.icon then
-						region:SetTexture(nil)
-					end
+			if region.IsObjectType and region:IsObjectType("Texture") then
+				local t = region.GetTextureFileID and region:GetTextureFileID()
+				if not t then
+					t = strlower(tostring(region:GetTexture()))
 				end
 
-				if
-					t
-					and type(t) ~= "number"
-					and (strfind(t, "Border") or strfind(t, "Background") or strfind(t, "AlphaMask"))
-				then
-					region:SetTexture(nil)
+				if module:RemoveTexture(t) then
+					region:SetTexture()
+					region:SetAlpha(0)
 				else
-					if name == "BagSync_MinimapButton" then
-						region:SetTexture("Interface\\AddOns\\BagSync\\media\\icon")
-					end
-
-					if not TexCoordIgnoreList[name] then
-						region:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-					end
-
 					region:ClearAllPoints()
-					region:SetPoint("TOPLEFT", frame, "TOPLEFT", 2, -2)
-					region:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -2, 2)
 					region:SetDrawLayer("ARTWORK")
+					region:SetInside()
 
-					if name == "PS_MinimapButton" then
-						region.SetPoint = E.noop
+					local ULx, ULy, LLx, LLy, URx, URy, LRx, LRy = region:GetTexCoord()
+					if
+						ULx == 0
+						and ULy == 0
+						and LLx == 0
+						and LLy == 1
+						and URx == 1
+						and URy == 0
+						and LRx == 1
+						and LRy == 1
+					then
+						region:SetTexCoord(unpack(E.TexCoords))
+						frame:HookScript("OnLeave", function()
+							region:SetTexCoord(unpack(E.TexCoords))
+						end)
 					end
+
+					region.SetPoint = E.noop
 				end
 			end
 		end

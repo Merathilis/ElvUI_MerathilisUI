@@ -6,9 +6,7 @@ local _G = _G
 local getn = getn
 
 local hooksecurefunc = hooksecurefunc
-
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local C_TimerAfter = C_Timer.After
+local After = C_Timer.After
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 local MAX_STATIC_POPUPS = 4
@@ -70,7 +68,7 @@ function module:BlizzMisc()
 			end
 		end
 	end
-	C_TimerAfter(1, StylePopups)
+	After(1, StylePopups)
 
 	-- What's New
 	_G.SplashFrame:CreateBackdrop("Transparent")

@@ -376,7 +376,7 @@ function module:StatusReportUpdate()
 	do
 		wipe(addOnData)
 
-		for _, addOn in ipairs({ "ElvUI", "Details", "BigWigs", "WeakAuras" }) do
+		for _, addOn in ipairs({ "BigWigs", "Details", "ElvUI", "OmniCD", "WeakAuras" }) do
 			if E:IsAddOnEnabled(addOn) then
 				local data = {}
 				data.name = F.String.Strip(GetAddOnMetadata(addOn, "Title")) or UNKNOWN
@@ -404,8 +404,13 @@ function module:StatusReportUpdate()
 
 			for i = 1, count do
 				local data = addOnData[i]
-				local name = data.title or data.name
-				AddOnSection.Content["Line" .. i].Text:SetFormattedText("%s %s", name, F.String.Good(data.version))
+				local color = data.old and "ff3333" or "33ff33"
+				AddOnSection.Content["Line" .. i].Text:SetFormattedText(
+					"%s |cff888888v|r|cff%s%s|r",
+					data.title or data.name,
+					color,
+					data.version
+				)
 			end
 
 			AddOnSection:SetHeight(count * 25)
@@ -434,11 +439,13 @@ function module:StatusReportUpdate()
 
 			for i = 1, count do
 				local data = pluginData[i]
-				local name = F.String.Strip(data.title or data.name) or UNKNOWN
-				local version = F.String.Strip(data.version) or UNKNOWN
-				local versionString = (data.old or version == UNKNOWN) and F.String.Error(version)
-					or F.String.Good(version)
-				PluginSection.Content["Line" .. i].Text:SetFormattedText("%s %s", name, versionString)
+				local color = data.old and "ff3333" or "33ff33"
+				PluginSection.Content["Line" .. i].Text:SetFormattedText(
+					"%s |cff888888v|r|cff%s%s|r",
+					data.title or data.name,
+					color,
+					data.version
+				)
 			end
 
 			PluginSection:SetHeight(count * 25)

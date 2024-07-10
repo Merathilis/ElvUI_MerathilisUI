@@ -44,11 +44,9 @@ function module:Blizzard_Communities()
 	module:CreateShadow(CommunitiesFrame.RosterTab)
 	module:CreateShadow(CommunitiesFrame.GuildBenefitsTab)
 	module:CreateShadow(CommunitiesFrame.GuildInfoTab)
+	module:CreateShadow(_G.CommunitiesGuildLogFrame)
 	module:CreateBackdropShadow(CommunitiesFrame.GuildMemberDetailFrame)
 	module:CreateBackdropShadow(CommunitiesFrame.ClubFinderInvitationFrame)
-	if _G.CommunitiesGuildLogFrame then
-		module:CreateBackdropShadow(_G.CommunitiesGuildLogFrame)
-	end
 
 	-- Add Community Button
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetAddCommunity", function(self)

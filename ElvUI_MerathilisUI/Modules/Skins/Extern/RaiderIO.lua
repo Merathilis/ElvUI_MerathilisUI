@@ -15,9 +15,7 @@ function module:RaiderIO_DelayedSkinning()
 
 	skinned = true
 	if RaiderIO_ProfileTooltip then
-		RaiderIO_ProfileTooltip:StripTextures()
-		RaiderIO_ProfileTooltip.NineSlice:Kill()
-		RaiderIO_ProfileTooltip:SetTemplate("Transparent")
+		-- SetTemplate/Shadow is handled with tt:SetStyle: FrameXML/GameTooltip
 		local point, relativeTo, relativePoint, xOffset, yOffset = RaiderIO_ProfileTooltip:GetPoint()
 		if xOffset and yOffset and xOffset == 0 and yOffset == 0 then
 			RaiderIO_ProfileTooltip.__SetPoint = RaiderIO_ProfileTooltip.SetPoint

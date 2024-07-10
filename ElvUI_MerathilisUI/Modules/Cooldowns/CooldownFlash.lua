@@ -4,7 +4,8 @@ local MERS = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
 
 local GetTime = GetTime
-local select, pairs, bit, unpack = select, pairs, bit, unpack
+local select, pairs, unpack = select, pairs, unpack
+local band = bit.band
 local wipe = wipe
 local tinsert, tremove = table.insert, table.remove
 
@@ -301,9 +302,8 @@ end
 
 function DCP:COMBAT_LOG_EVENT_UNFILTERED()
 	local _, eventType, _, _, _, sourceFlags, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
-	local isPet = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_TYPE_PET) == _G.COMBATLOG_OBJECT_TYPE_PET
-	local isMine = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_AFFILIATION_MINE)
-		== _G.COMBATLOG_OBJECT_AFFILIATION_MINE
+	local isPet = band(sourceFlags, _G.COMBATLOG_OBJECT_TYPE_PET) == _G.COMBATLOG_OBJECT_TYPE_PET
+	local isMine = band(sourceFlags, _G.COMBATLOG_OBJECT_AFFILIATION_MINE) == _G.COMBATLOG_OBJECT_AFFILIATION_MINE
 
 	if eventType == "SPELL_CAST_SUCCESS" then
 		if isPet and isMine then
