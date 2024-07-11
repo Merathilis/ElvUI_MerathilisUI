@@ -351,9 +351,6 @@ function module:Blizzard_Collections()
 	WardrobeTransmogFrame.ModelScene:SetPoint("TOP", WardrobeTransmogFrame, "TOP", 20, 10)
 	WardrobeTransmogFrame.ModelScene:SetAllPoints(WardrobeTransmogFrame)
 
-	_G.WardrobeOutfitDropdown:ClearAllPoints()
-	_G.WardrobeOutfitDropdown:SetPoint("TOPLEFT", WardrobeTransmogFrame, "TOPLEFT", 0, 50)
-
 	WardrobeTransmogFrame.HeadButton:ClearAllPoints()
 	WardrobeTransmogFrame.HeadButton:SetPoint("TOPLEFT", WardrobeTransmogFrame, "TOPLEFT", 20, 0)
 
@@ -394,9 +391,6 @@ function module:Blizzard_Collections()
 		0,
 		-28
 	)
-
-	WardrobeTransmogFrame.SpecButton:ClearAllPoints()
-	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
 end
 
 module:AddCallbackForAddon("Blizzard_Collections")
