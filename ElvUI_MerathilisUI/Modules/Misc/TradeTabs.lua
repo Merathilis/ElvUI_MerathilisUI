@@ -3,8 +3,16 @@ local module = MER:GetModule("MER_Misc")
 local S = MER:GetModule("MER_Skins")
 
 local pairs, tinsert, select = pairs, tinsert, select
-local GetSpellCooldown, GetSpellInfo, GetItemCooldown, GetItemCount, GetItemInfo =
-	GetSpellCooldown, GetSpellInfo, C_Item.GetItemCooldown, C_Item.GetItemCount, C_Item.GetItemInfo
+local GetSpellInfo, GetItemCooldown, GetItemCount, GetItemInfo =
+	GetSpellInfo, C_Item.GetItemCooldown, C_Item.GetItemCount, C_Item.GetItemInfo
+local GetSpellCooldown = C_Spell.GetSpellCooldown
+		and function(spell)
+			local c = C_Spell.GetSpellCooldown(spell)
+			if c then
+				return c.startTime, c.duration, c.isEnabled, c.modRate
+			end
+		end
+	or GetSpellCooldown
 local IsPassiveSpell, IsCurrentSpell, IsPlayerSpell, UseItemByName =
 	IsPassiveSpell, IsCurrentSpell, IsPlayerSpell, C_Item.UseItemByName
 local GetProfessions, GetProfessionInfo, GetSpellBookItemInfo = GetProfessions, GetProfessionInfo, GetSpellBookItemInfo

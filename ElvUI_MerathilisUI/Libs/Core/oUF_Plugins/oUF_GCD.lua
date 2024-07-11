@@ -1,5 +1,7 @@
 -- just bail out on classic
-if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then return end
+if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then
+	return
+end
 
 local oUF = ElvUF or oUF
 
@@ -26,29 +28,36 @@ local GetSpellBookItemName = GetSpellBookItemName
 local GetSpellInfo = GetSpellInfo
 
 local referenceSpells = {
-	49998,			-- Death Strike (Death Knight)
-	193455,			-- Cobra Shoot (Hunter)
-	585,			-- Smite (Priest)
-	35395,			-- Crusader Strike (Paladin)
-	275779,			-- Judgment (Paladin)
-	172,			-- Corruption (Warlock)
-	133,			-- Fireball (Mage)
-	116,			-- Frostbolt (Mage)
-	1464,			-- Slam (Warrior)
-	188196,			-- Lightning Bold (Shaman)
-	1752,			-- Sinister Strike (Rogue)
-	53,				-- Backstab (Rogue)
-	200758,			-- Gloomblade (Rogue)
-	5176,			-- Wrath (Druid)
-	100780,			-- Tiger Palm (Monk)
-	162243,			-- Demon's Bite (Demon Hunter)
-	203555,			-- Demon Blades (Demon Hunter)
-	361469, 		-- Living Flame (Evoker)
+	49998, -- Death Strike (Death Knight)
+	193455, -- Cobra Shoot (Hunter)
+	585, -- Smite (Priest)
+	35395, -- Crusader Strike (Paladin)
+	275779, -- Judgment (Paladin)
+	172, -- Corruption (Warlock)
+	133, -- Fireball (Mage)
+	116, -- Frostbolt (Mage)
+	1464, -- Slam (Warrior)
+	188196, -- Lightning Bold (Shaman)
+	1752, -- Sinister Strike (Rogue)
+	53, -- Backstab (Rogue)
+	200758, -- Gloomblade (Rogue)
+	5176, -- Wrath (Druid)
+	100780, -- Tiger Palm (Monk)
+	162243, -- Demon's Bite (Demon Hunter)
+	203555, -- Demon Blades (Demon Hunter)
+	361469, -- Living Flame (Evoker)
 }
 
 local GetTime = GetTime
 local BOOKTYPE_SPELL = BOOKTYPE_SPELL
-local GetSpellCooldown = GetSpellCooldown
+local GetSpellCooldown = C_Spell.GetSpellCooldown
+		and function(spell)
+			local c = C_Spell.GetSpellCooldown(spell)
+			if c then
+				return c.startTime, c.duration, c.isEnabled, c.modRate
+			end
+		end
+	or GetSpellCooldown
 
 local spellid = nil
 
@@ -59,9 +68,9 @@ local Init = function()
 	local FindInSpellbook = function(spell)
 		for tab = 1, 4 do
 			local _, _, offset, numSpells = GetSpellTabInfo(tab)
-			for i = (1+offset), (offset + numSpells) do
+			for i = (1 + offset), (offset + numSpells) do
 				local bspell = GetSpellBookItemName(i, BOOKTYPE_SPELL)
-				if (bspell == spell) then
+				if bspell == spell then
 					return i
 				end
 			end
@@ -70,7 +79,7 @@ local Init = function()
 	end
 
 	for _, lspell in pairs(referenceSpells) do
-		local na = GetSpellInfo (lspell)
+		local na = GetSpellInfo(lspell)
 		local x = FindInSpellbook(na)
 		if x ~= nil then
 			spellid = lspell
@@ -99,11 +108,11 @@ local OnUpdateGCD = function(self)
 end
 
 local OnHideGCD = function(self)
-	self:SetScript('OnUpdate', nil)
+	self:SetScript("OnUpdate", nil)
 end
 
 local OnShowGCD = function(self)
-	self:SetScript('OnUpdate', OnUpdateGCD)
+	self:SetScript("OnUpdate", OnUpdateGCD)
 end
 
 local Update = function(self, event, unit)
@@ -116,10 +125,14 @@ local Update = function(self, event, unit)
 
 		local start, dur = GetSpellCooldown(spellid)
 
-		if (not start) then return end
-		if (not dur) then dur = 0 end
+		if not start then
+			return
+		end
+		if not dur then
+			dur = 0
+		end
 
-		if (dur == 0) then
+		if dur == 0 then
 			self.GCD:Hide()
 		else
 			self.GCD.starttime = start
@@ -130,23 +143,23 @@ local Update = function(self, event, unit)
 end
 
 local Enable = function(self)
-	if (self.GCD) then
+	if self.GCD then
 		self.GCD:Hide()
 		self.GCD.starttime = 0
 		self.GCD.duration = 0
 		self.GCD:SetMinMaxValues(0, 1)
 
-		self:RegisterEvent('ACTIONBAR_UPDATE_COOLDOWN', Update, true)
-		self.GCD:SetScript('OnHide', OnHideGCD)
-		self.GCD:SetScript('OnShow', OnShowGCD)
+		self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN", Update, true)
+		self.GCD:SetScript("OnHide", OnHideGCD)
+		self.GCD:SetScript("OnShow", OnShowGCD)
 	end
 end
 
 local Disable = function(self)
-	if (self.GCD) then
-		self:UnregisterEvent('ACTIONBAR_UPDATE_COOLDOWN')
+	if self.GCD then
+		self:UnregisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
 		self.GCD:Hide()
 	end
 end
 
-oUF:AddElement('GCD', Update, Enable, Disable)
+oUF:AddElement("GCD", Update, Enable, Disable)

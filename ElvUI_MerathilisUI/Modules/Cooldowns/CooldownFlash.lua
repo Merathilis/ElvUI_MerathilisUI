@@ -11,9 +11,16 @@ local tinsert, tremove = table.insert, table.remove
 
 local CreateFrame = CreateFrame
 local GetPetActionInfo = GetPetActionInfo
-local GetSpellInfo = GetSpellInfo
-local GetSpellTexture = GetSpellTexture
-local GetSpellCooldown = GetSpellCooldown
+local GetSpellInfo = C_Spell.GetSpellInfo or GetSpellInfo
+local GetSpellTexture = C_Spell.GetSpellTexture or GetSpellTexture
+local GetSpellCooldown = C_Spell.GetSpellCooldown
+		and function(spell)
+			local c = C_Spell.GetSpellCooldown(spell)
+			if c then
+				return c.startTime, c.duration, c.isEnabled, c.modRate
+			end
+		end
+	or GetSpellCooldown
 local GetItemInfo = C_Item.GetItemInfo
 local GetPetActionCooldown = GetPetActionCooldown
 local IsInInstance = IsInInstance
