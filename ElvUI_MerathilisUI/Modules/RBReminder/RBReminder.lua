@@ -361,8 +361,8 @@ function module:Initialize()
 
 	-- Anchor
 	self.Anchor = CreateFrame("Frame", "MER_RaidBuffAnchor", E.UIParent)
-	self.Anchor:SetWidth((E.db.mui.raidBuffs.size * 8) + 15)
-	self.Anchor:SetHeight(E.db.mui.raidBuffs.size)
+	self.Anchor:SetWidth((E.db.mui.raidBuffs.size * 8) + 26)
+	self.Anchor:SetHeight(E.db.mui.raidBuffs.size + 6)
 	self.Anchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 11, -15)
 
 	self.frame = CreateFrame("Frame", "RaidBuffReminder", E.UIParent)
@@ -409,7 +409,7 @@ function module:Initialize()
 	self.frame:SetScript("OnEvent", OnAuraChange)
 
 	E:CreateMover(
-		self.frame,
+		self.Anchor,
 		"MER_RaidBuffReminderMover",
 		MER.Title .. L["Raid Buffs Reminder"],
 		nil,
