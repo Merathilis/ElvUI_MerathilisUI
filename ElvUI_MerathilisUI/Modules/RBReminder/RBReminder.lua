@@ -360,18 +360,18 @@ function module:Initialize()
 	end
 
 	-- Anchor
-	self.Anchor = CreateFrame("Frame", "RaidBuffAnchor", E.UIParent)
-	self.Anchor:SetWidth((E.db.mui.raidBuffs.size * 6) + 15)
+	self.Anchor = CreateFrame("Frame", "MER_RaidBuffAnchor", E.UIParent)
+	self.Anchor:SetWidth((E.db.mui.raidBuffs.size * 8) + 15)
 	self.Anchor:SetHeight(E.db.mui.raidBuffs.size)
 	self.Anchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 11, -15)
 
 	self.frame = CreateFrame("Frame", "RaidBuffReminder", E.UIParent)
 	self.frame:CreatePanel(
 		"Invisible",
-		(E.db.mui.raidBuffs.size * 6) + 15,
-		E.db.mui.raidBuffs.size + 4,
+		(E.db.mui.raidBuffs.size * 8) + 26,
+		E.db.mui.raidBuffs.size + 6,
 		"TOPLEFT",
-		RaidBuffAnchor,
+		_G.MER_RaidBuffAnchor,
 		"TOPLEFT",
 		0,
 		4

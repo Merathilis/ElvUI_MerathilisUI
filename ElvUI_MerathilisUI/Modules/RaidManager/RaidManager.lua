@@ -464,7 +464,7 @@ function module:CreateRoleIcons()
 	RoleIcons:Point("LEFT", RaidManagerFrame, "RIGHT", 3, 0)
 	RoleIcons:Size(36, RaidManagerFrame:GetHeight())
 	RoleIcons:CreateBackdrop("Transparent")
-	S:CreateShadowModule(RoleIcons.backdrop)
+	S:CreateBackdropShadow(RoleIcons.backdrop)
 
 	RoleIcons:RegisterEvent("PLAYER_ENTERING_WORLD")
 	RoleIcons:RegisterEvent("GROUP_ROSTER_UPDATE")
@@ -542,7 +542,7 @@ function module:Initialize()
 	RaidManagerFrame:EnableMouse(true)
 
 	RaidManagerFrame:CreateBackdrop("Transparent")
-	S:CreateShadowModule(RaidManagerFrame.backdrop)
+	S:CreateBackdropShadow(RaidManagerFrame.backdrop)
 
 	-- Top Title
 	RaidManagerFrame.title = RaidManagerFrame:CreateFontString(nil, "OVERLAY")
@@ -735,7 +735,7 @@ function module:Initialize()
 	RaidMarkFrame:SetFrameStrata("HIGH")
 	RaidMarkFrame:Hide()
 	RaidMarkFrame:CreateBackdrop("Transparent")
-	S:CreateShadowModule(RaidMarkFrame.backdrop)
+	S:CreateBackdropShadow(RaidMarkFrame.backdrop)
 
 	RaidMarkFrame:RegisterForDrag("LeftButton")
 	RaidMarkFrame:SetScript("OnDragStart", function(self)
@@ -757,7 +757,7 @@ function module:Initialize()
 	header:CreateBackdrop("Transparent")
 	header.backdrop:SetAllPoints()
 	header.backdrop:SetBackdropColor(0, 0, 0, 0.3)
-	S:CreateShadowModule(header.backdrop)
+	S:CreateBackdropShadow(header.backdrop)
 	E.FrameLocks[header] = true
 
 	E:CreateMover(
@@ -905,7 +905,7 @@ function module:Initialize()
 
 	rcFrame:CreateBackdrop("Transparent")
 	rcFrame.backdrop:SetAllPoints()
-	S:CreateShadowModule(rcFrame.backdrop)
+	S:CreateBackdropShadow(rcFrame.backdrop)
 
 	rcFrame.Text = rcFrame:CreateFontString(nil, "OVERLAY")
 	rcFrame.Text:FontTemplate(nil, 14, "SHADOWOUTLINE")
