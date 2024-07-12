@@ -1,11 +1,10 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER.Modules.Skins
-local S = E:GetModule("Skins")
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 local select = select
 
-local function LoadSkin()
+function module:QuestMapFrame()
 	if not module:CheckDB("quest", "quest") then
 		return
 	end
@@ -106,4 +105,4 @@ local function LoadSkin()
 	_G.QuestMapFrame.CampaignOverview.BG:SetAlpha(0)
 end
 
-S:AddCallback("QuestMapFrame", LoadSkin)
+module:AddCallback("QuestMapFrame")
