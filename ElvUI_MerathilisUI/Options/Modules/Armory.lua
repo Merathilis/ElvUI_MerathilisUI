@@ -177,7 +177,7 @@ options.armory = {
 					order = 1,
 					type = "group",
 					inline = true,
-					name = L["Enchant Font"],
+					name = L["Name Text"],
 					get = function(info)
 						return E.db.mui.armory.nameText[info[#info]]
 					end,
@@ -264,7 +264,7 @@ options.armory = {
 					order = 2,
 					type = "group",
 					inline = true,
-					name = L["Title Font"],
+					name = L["Title Text"],
 					get = function(info)
 						return E.db.mui.armory.titleText[info[#info]]
 					end,
@@ -351,7 +351,7 @@ options.armory = {
 					order = 3,
 					type = "group",
 					inline = true,
-					name = L["Level Title Font"],
+					name = L["Level Title Text"],
 					get = function(info)
 						return E.db.mui.armory.levelTitleText[info[#info]]
 					end,
@@ -443,7 +443,7 @@ options.armory = {
 					order = 4,
 					type = "group",
 					inline = true,
-					name = L["Level Font"],
+					name = L["Level Text"],
 					get = function(info)
 						return E.db.mui.armory.levelText[info[#info]]
 					end,

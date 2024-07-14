@@ -727,7 +727,7 @@ P.armory = {
 			g = 1,
 			b = 1,
 		},
-		offsetX = 0,
+		offsetX = 12,
 		offsetY = 0,
 	},
 
