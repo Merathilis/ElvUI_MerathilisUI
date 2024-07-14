@@ -10,6 +10,7 @@ I.Fonts = {
 	Primary = "- Expressway",
 	GothamRaid = "- GothamNarrow-Black",
 	Runescape = "- Runescape",
+	Icons = "- Icons",
 }
 
 I.FontNames = {

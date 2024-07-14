@@ -11,17 +11,16 @@ local GetInventoryItemID = GetInventoryItemID
 local GetInventoryItemTexture = GetInventoryItemTexture
 local GetSpecialization = GetSpecialization
 local GetSpecializationInfo = GetSpecializationInfo
+local GetCurrentTitle = GetCurrentTitle
+local GetTitleName = GetTitleName
 local UnitLevel = UnitLevel
 local UnitSex = UnitSex
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local GetItemInfo = C_Item.GetItemInfo
 local IsCosmeticItem = C_Item.IsCosmeticItem
 local GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
 local ENUM_ITEM_CLASS_WEAPON = _G.Enum.ItemClass.Weapon
-
-local ClassSymbolFrame
-local CharacterText
 
 module.enumDirection = F.Enum({ "LEFT", "RIGHT", "BOTTOM" })
 module.colors = {
@@ -178,6 +177,17 @@ module.characterSlots = {
 	},]]
 }
 
+function module:GetPrimaryTalentIndex()
+	local primaryTalentTreeIdx = 0
+	local primaryTalentTree = GetSpecialization()
+
+	if primaryTalentTree then
+		primaryTalentTreeIdx = GetSpecializationInfo(primaryTalentTree) or 0
+	end
+
+	return primaryTalentTreeIdx
+end
+
 function module:GetSlotNameByID(slotId)
 	for slot, options in pairs(module.characterSlots) do
 		if options.id == slotId then
@@ -324,84 +334,6 @@ local function SkinAdditionalStats()
 	end
 end
 
-function module:AddCharacterIcon()
-	local CharacterFrameTitleText = _G.CharacterFrameTitleText
-	local CharacterLevelText = _G.CharacterLevelText
-
-	-- Class Icon Holder
-	local ClassIconHolder = CreateFrame("Frame", "MER_ClassIcon", _G.PaperDollFrame)
-	ClassIconHolder:SetSize(20, 20)
-
-	local ClassIconTexture = ClassIconHolder:CreateTexture()
-	ClassIconTexture:SetAllPoints(ClassIconHolder)
-
-	CharacterLevelText:SetWidth(300)
-
-	ClassSymbolFrame = ("|T" .. (MER.ClassIcons[E.myclass] .. ".tga:0:0:0:0|t"))
-
-	hooksecurefunc("PaperDollFrame_SetLevel", function()
-		CharacterFrameTitleText:SetDrawLayer("OVERLAY")
-		CharacterFrameTitleText:SetFont(
-			E.LSM:Fetch("font", E.db.general.font),
-			E.db.general.fontSize + 2,
-			E.db.general.fontStyle
-		)
-
-		CharacterLevelText:SetDrawLayer("OVERLAY")
-	end)
-
-	local titleText, coloredTitleText
-
-	local function colorTitleText()
-		CharacterText = CharacterFrameTitleText:GetText()
-		coloredTitleText = E:TextGradient(
-			CharacterText,
-			F.ClassGradient[E.myclass]["r1"],
-			F.ClassGradient[E.myclass]["g1"],
-			F.ClassGradient[E.myclass]["b1"],
-			F.ClassGradient[E.myclass]["r2"],
-			F.ClassGradient[E.myclass]["g2"],
-			F.ClassGradient[E.myclass]["b2"]
-		)
-		if not CharacterText:match("|T") then
-			titleText = ClassSymbolFrame .. " " .. coloredTitleText
-		end
-		CharacterFrameTitleText:SetText(titleText)
-	end
-
-	hooksecurefunc("CharacterFrame_Collapse", function()
-		if _G.PaperDollFrame:IsShown() then
-			colorTitleText()
-		end
-	end)
-
-	hooksecurefunc("CharacterFrame_Expand", function()
-		if _G.PaperDollFrame:IsShown() then
-			colorTitleText()
-		end
-	end)
-
-	hooksecurefunc("ReputationFrame_Update", function()
-		if _G.ReputationFrame:IsShown() then
-			colorTitleText()
-		end
-	end)
-
-	hooksecurefunc("TokenFrame_Update", function()
-		if _G.TokenFrame:IsShown() then
-			colorTitleText()
-		end
-	end)
-
-	hooksecurefunc(_G.CharacterFrame, "SetTitle", function()
-		colorTitleText()
-	end)
-
-	if E.db.general.itemLevel.displayCharacterInfo then
-		M:UpdatePageInfo(_G.CharacterFrame, "Character")
-	end
-end
-
 function module:SkinCharacterFrame()
 	-- Remove the background
 	local modelScene = module.frameModel
@@ -476,7 +408,7 @@ function module:SkinCharacterFrame()
 		end
 	end)
 
-	if not C_AddOns_IsAddOnLoaded("DejaCharacterStats") then
+	if not IsAddOnLoaded("DejaCharacterStats") then
 		local pane = CharacterStatsPane
 		pane.ClassBackground:Hide()
 		pane.ItemLevelFrame.Corruption:SetPoint("RIGHT", 22, -8)
@@ -523,7 +455,7 @@ function module:SkinCharacterFrame()
 		CharacterStatFrameCategoryTemplate(pane.AttributesCategory)
 		CharacterStatFrameCategoryTemplate(pane.EnhancementsCategory)
 
-		ColorizeStatPane(pane.ItemLevelFrame)
+		-- ColorizeStatPane(pane.ItemLevelFrame)
 
 		E:Delay(0.2, SkinAdditionalStats)
 
@@ -544,8 +476,6 @@ function module:SkinCharacterFrame()
 			end
 		end)
 	end
-
-	module:AddCharacterIcon()
 end
 
 function module:UpdateItemLevel()
@@ -597,6 +527,141 @@ function module:UpdateItemLevel()
 	else
 		module.frame.ItemLevelText:SetText(itemLevelText)
 	end
+end
+
+function module:UpdateTitle()
+	F.SetFontDB(self.nameText, module.db.nameText)
+	F.SetFontDB(self.titleText, module.db.titleText)
+	F.SetFontDB(self.levelTitleText, module.db.levelTitleText)
+	F.SetFontDB(self.levelText, module.db.levelText)
+	F.SetFontDB(self.classText, module.db.classText)
+	F.SetFontDB(self.specIcon, module.db.specIcon)
+
+	local titleId = GetCurrentTitle()
+	local titleName = GetTitleName(titleId) or ""
+	local classNames = LOCALIZED_CLASS_NAMES_MALE
+	local playerLevel = UnitLevel("player")
+	local playerEffectiveLevel = UnitEffectiveLevel("player")
+
+	if playerEffectiveLevel ~= playerLevel then
+		playerLevel = EFFECTIVE_LEVEL_FORMAT:format(playerEffectiveLevel, playerLevel)
+	end
+
+	local currentClass = E.myclass
+	if UnitSex("player") == 3 then
+		classNames = LOCALIZED_CLASS_NAMES_FEMALE
+	end
+
+	local primaryTalentTreeIdx = module:GetPrimaryTalentIndex()
+
+	-- Those cannot be empty
+	if not currentClass or not playerLevel then
+		return
+	end
+
+	local classColorNormal = E.db.mui.themes.classColorMap[I.Enum.GradientMode.Color.NORMAL][currentClass]
+
+	if module.db.nameText.fontColor == "GRADIENT" then
+		self.nameText:SetText(F.String.FastGradient(E.myname, 0, 0.6, 1, 0, 0.9, 1))
+	elseif module.db.nameText.fontColor == "CLASS" then
+		self.nameText:SetText(F.String.GradientClass(E.myname))
+	else
+		self.nameText:SetText(E.myname)
+		F.SetFontColorDB(self.nameText, module.db.nameText.color)
+	end
+
+	self.classSymbol:SetTexture(MER.ClassIcons[E.myclass])
+
+	if module.db.titleText.fontColor == "GRADIENT" then
+		self.titleText:SetText(F.String.FastGradient(titleName, 0, 0.9, 1, 0, 0.6, 1))
+	else
+		self.titleText:SetText(titleName)
+		F.SetFontColorDB(self.titleText, module.db.titleText.color)
+	end
+
+	if module.db.levelTitleText.short then
+		self.levelTitleText:SetText("Lv")
+	else
+		self.levelTitleText:SetText("Level")
+	end
+	self.levelText:SetText(playerLevel)
+
+	local fontIcon = E.db.mui.armory.icons[primaryTalentTreeIdx] or E.db.mui.armory.icons[0]
+	if module.db.specIcon.fontColor == "CLASS" then
+		self.specIcon:SetText(F.String.RGB(fontIcon, classColorNormal))
+	else
+		self.specIcon:SetText(fontIcon)
+		F.SetFontColorDB(self.specIcon, module.db.specIcon.color)
+	end
+
+	if module.db.classText.fontColor == "CLASS" then
+		self.classText:SetText(F.String.GradientClass(classNames[currentClass], nil, true))
+	else
+		self.classText:SetText(classNames[currentClass])
+		F.SetFontColorDB(self.classText, module.db.classText.color)
+	end
+
+	self.nameText:ClearAllPoints()
+	self.nameText:SetPoint("TOP", self.frameModel, self.db.nameText.offsetX, 59 + self.db.nameText.offsetY)
+	self.nameText:SetJustifyH("CENTER")
+	self.nameText:SetJustifyV("BOTTOM")
+
+	self.classSymbol:ClearAllPoints()
+	self.classSymbol:SetSize(16, 16)
+	self.classSymbol:SetPoint("RIGHT", self.nameText, "LEFT", -5, 0)
+
+	self.titleText:ClearAllPoints()
+	self.titleText:SetPoint("LEFT", self.nameText, "RIGHT", self.db.titleText.offsetX, self.db.titleText.offsetY)
+	self.titleText:SetJustifyH("LEFT")
+	self.titleText:SetJustifyV("BOTTOM")
+
+	local iconPadding = 10
+	local textPadding = 2
+
+	local leftWidth = self.levelText:GetStringWidth() + self.levelTitleText:GetStringWidth() + textPadding
+	local rightWidth = self.classText:GetStringWidth()
+	local iconWidth = self.specIcon:GetStringWidth() + (iconPadding * 2)
+	local totalWidth = leftWidth + rightWidth + iconWidth
+	local anchorWidth = totalWidth - (leftWidth + (iconWidth / 2))
+	local centerOffset = (totalWidth / 2) - anchorWidth
+
+	self.specIcon:ClearAllPoints()
+	self.specIcon:SetPoint("TOP", module.frameModel, centerOffset, 30)
+	self.specIcon:SetJustifyH("CENTER")
+	self.specIcon:SetJustifyV("BOTTOM")
+
+	self.levelText:ClearAllPoints()
+	self.levelText:SetPoint(
+		"RIGHT",
+		self.specIcon,
+		"LEFT",
+		(-iconPadding + self.db.levelText.offsetX),
+		self.db.levelText.offsetY
+	)
+	self.levelText:SetJustifyH("LEFT")
+	self.levelText:SetJustifyV("BOTTOM")
+
+	self.levelTitleText:ClearAllPoints()
+	self.levelTitleText:SetPoint(
+		"RIGHT",
+		self.levelText,
+		"LEFT",
+		(-textPadding + self.db.levelTitleText.offsetX),
+		self.db.levelTitleText.offsetY
+	)
+	self.levelTitleText:SetJustifyH("LEFT")
+	self.levelTitleText:SetJustifyV("BOTTOM")
+
+	self.classText:ClearAllPoints()
+	self.classText:SetPoint(
+		"LEFT",
+		self.specIcon,
+		"RIGHT",
+		(iconPadding + self.db.classText.offsetX),
+		self.db.classText.offsetY
+	)
+	self.classText:SetJustifyH("RIGHT")
+	self.classText:SetJustifyV("BOTTOM")
 end
 
 function module:UpdatePageInfo(_, _, which)
@@ -779,7 +844,13 @@ function module:HandleEvent(event, unit)
 		return
 	end
 
-	if event == "PLAYER_AVG_ITEM_LEVEL_UPDATE" then
+	if event == "UNIT_NAME_UPDATE" then
+		if unit == "player" then
+			self:UpdateTitle()
+		end
+	elseif (event == "PLAYER_PVP_RANK_CHANGED") or (event == "PLAYER_TALENT_UPDATE") then
+		self:UpdateTitle()
+	elseif event == "PLAYER_AVG_ITEM_LEVEL_UPDATE" then
 		module:UpdateItemLevel()
 	end
 end
@@ -862,7 +933,7 @@ function module:UpdateLines()
 end
 
 function module:KillBlizzard()
-	local killList = { "CharacterModelFrameBackgroundOverlay" }
+	local killList = { "CharacterLevelText", "CharacterFrameTitleText", "CharacterModelFrameBackgroundOverlay" }
 	for _, frame in ipairs(killList) do
 		if _G[frame] then
 			_G[frame]:Kill()
@@ -893,6 +964,7 @@ function module:UpdateCharacterArmory()
 	module:KillBlizzard()
 	-- module:UpdateBackground()
 	module:UpdateLines()
+	module:UpdateTitle()
 	module:UpdatePageInfo()
 
 	M:UpdateCharacterInfo()
@@ -907,8 +979,15 @@ function module:CreateElements()
 	module.frame = _G.CharacterFrame
 	module.frameModel = _G.CharacterModelScene
 	module.frameName = module.frame:GetName()
-
 	module.frameHolder = CreateFrame("FRAME", nil, module.frameModel)
+
+	local nameText = module.frameHolder:CreateFontString(nil, "OVERLAY")
+	local classSymbol = module.frameHolder:CreateTexture()
+	local titleText = module.frameHolder:CreateFontString(nil, "OVERLAY")
+	local levelTitleText = module.frameHolder:CreateFontString(nil, "OVERLAY")
+	local levelText = module.frameHolder:CreateFontString(nil, "OVERLAY")
+	local specIcon = module.frameHolder:CreateFontString(nil, "OVERLAY")
+	local classText = module.frameHolder:CreateFontString(nil, "OVERLAY")
 
 	local frameHeight, frameWidth = module.frame:GetSize()
 	local cutOffPercentage = (1 - (frameHeight / frameWidth))
@@ -926,7 +1005,6 @@ function module:CreateElements()
 	local topLine = CreateFrame("Frame", nil, module.frameHolder)
 	local bottomLine = CreateFrame("Frame", nil, module.frameHolder)
 	local classColor = E:ClassColor(E.myclass, true)
-	local r, g, b = classColor.r, classColor.g, classColor.b
 
 	topLine:SetHeight(lineHeight)
 	bottomLine:SetHeight(lineHeight)
@@ -943,6 +1021,14 @@ function module:CreateElements()
 	module.frame.bottomLine = bottomLine
 
 	module:UpdateLineColors()
+
+	module.nameText = nameText
+	module.classSymbol = classSymbol
+	module.titleText = titleText
+	module.levelTitleText = levelTitleText
+	module.levelText = levelText
+	module.specIcon = specIcon
+	module.classText = classText
 end
 
 function module:Initialize()
@@ -966,7 +1052,16 @@ function module:Initialize()
 	hooksecurefunc(M, "CreateSlotStrings", module.UpdatePageInfo)
 	hooksecurefunc(M, "UpdatePageStrings", module.UpdatePageStrings)
 
-	module:RegisterEvent("PLAYER_AVG_ITEM_LEVEL_UPDATE", module.HandleEvent)
+	-- Register Events
+	F.Event.RegisterFrameEventAndCallback("UNIT_NAME_UPDATE", self.HandleEvent, self, "UNIT_NAME_UPDATE")
+	F.Event.RegisterFrameEventAndCallback("PLAYER_PVP_RANK_CHANGED", self.HandleEvent, self, "PLAYER_PVP_RANK_CHANGED")
+	F.Event.RegisterFrameEventAndCallback(
+		"PLAYER_AVG_ITEM_LEVEL_UPDATE",
+		self.HandleEvent,
+		self,
+		"PLAYER_AVG_ITEM_LEVEL_UPDATE"
+	)
+	F.Event.RegisterFrameEventAndCallback("PLAYER_TALENT_UPDATE", self.HandleEvent, self, "PLAYER_TALENT_UPDATE")
 
 	module:UpdateCharacterArmory()
 
