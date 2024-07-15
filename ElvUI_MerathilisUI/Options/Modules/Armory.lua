@@ -382,35 +382,6 @@ options.armory = {
 							max = 60,
 							step = 1,
 						},
-						-- fontColor = {
-						-- order = 4,
-						-- type = "select",
-						-- name = L["Font Color"],
-						-- values = {
-						-- ["GRADIENT"] = F.String.FastGradient(L["Gradient"], 0, 0.6, 1, 0, 0.9, 1),
-						-- ["CLASS"] = F.String.Class(L["Class Gradient"]),
-						-- ["CUSTOM"] = L["Custom"],
-						-- },
-						-- },
-						-- color = {
-						-- order = 5,
-						-- type = "color",
-						-- name = L["Custom Color"],
-						-- hasAlpha = false,
-						-- hidden = function()
-						-- return E.db.mui.armory.levelTitleText.fontColor ~= "CUSTOM"
-						-- end,
-						-- get = function(info)
-						-- local db = E.db.mui.armory.levelTitleText[info[#info]]
-						-- local default = P.armory.levelTitleText[info[#info]]
-						-- return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
-						-- end,
-						-- set = function(info, r, g, b)
-						-- local db = E.db.mui.armory.levelTitleText[info[#info]]
-						-- db.r, db.g, db.b = r, g, b
-						-- E:StaticPopup_Show("CONFIG_RL")
-						-- end,
-						-- },
 						spacer = {
 							order = 6,
 							type = "description",
@@ -474,34 +445,6 @@ options.armory = {
 							max = 60,
 							step = 1,
 						},
-						-- fontColor = {
-						-- order = 4,
-						-- type = "select",
-						-- name = L["Font Color"],
-						-- values = {
-						-- ["CLASS"] = F.String.Class(L["Class Gradient"]),
-						-- ["CUSTOM"] = L["Custom"],
-						-- },
-						-- },
-						-- color = {
-						-- order = 5,
-						-- type = "color",
-						-- name = L["Custom Color"],
-						-- hasAlpha = false,
-						-- hidden = function()
-						-- return E.db.mui.armory.levelText.fontColor ~= "CUSTOM"
-						-- end,
-						-- get = function(info)
-						-- local db = E.db.mui.armory.levelText[info[#info]]
-						-- local default = P.armory.levelText[info[#info]]
-						-- return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
-						-- end,
-						-- set = function(info, r, g, b)
-						-- local db = E.db.mui.armory.levelText[info[#info]]
-						-- db.r, db.g, db.b = r, g, b
-						-- E:StaticPopup_Show("CONFIG_RL")
-						-- end,
-						-- },
 						spacer = {
 							order = 6,
 							type = "description",
