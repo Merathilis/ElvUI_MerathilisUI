@@ -166,7 +166,7 @@ function module:ElvUIFont()
 				fonts = {
 					enable = true,
 					font = F.FontOverride(I.Fonts.Primary),
-					fontSize = F.FontSizeScaled(20),
+					fontSize = F.FontSizeScaled(10),
 					fontOutline = F.FontStyleOverride(I.Fonts.Primary, "SHADOWOUTLINE"),
 				},
 			},
@@ -177,7 +177,7 @@ function module:ElvUIFont()
 			fontOutline = F.FontStyleOverride(I.Fonts.Primary, "SHADOWOUTLINE"),
 
 			tabFont = F.FontOverride(I.Fonts.Primary),
-			tabFontSize = F.FontSizeScaled(9, 10),
+			tabFontSize = F.FontSizeScaled(10),
 			tabFontOutline = F.FontStyleOverride(I.Fonts.Primary, "SHADOWOUTLINE"),
 		},
 
