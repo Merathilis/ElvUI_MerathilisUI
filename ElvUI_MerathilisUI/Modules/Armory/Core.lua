@@ -602,7 +602,7 @@ function module:UpdateTitle()
 	end
 
 	self.nameText:ClearAllPoints()
-	self.nameText:SetPoint("TOP", self.frameModel, self.db.nameText.offsetX, 59 + self.db.nameText.offsetY)
+	self.nameText:SetPoint("TOP", self.frameModel, module.db.nameText.offsetX, 59 + module.db.nameText.offsetY)
 	self.nameText:SetJustifyH("CENTER")
 	self.nameText:SetJustifyV("BOTTOM")
 
@@ -611,7 +611,7 @@ function module:UpdateTitle()
 	self.classSymbol:SetPoint("RIGHT", self.nameText, "LEFT", -5, 0)
 
 	self.titleText:ClearAllPoints()
-	self.titleText:SetPoint("LEFT", self.nameText, "RIGHT", self.db.titleText.offsetX, self.db.titleText.offsetY)
+	self.titleText:SetPoint("LEFT", self.nameText, "RIGHT", module.db.titleText.offsetX, module.db.titleText.offsetY)
 	self.titleText:SetJustifyH("LEFT")
 	self.titleText:SetJustifyV("BOTTOM")
 
@@ -635,8 +635,8 @@ function module:UpdateTitle()
 		"RIGHT",
 		self.specIcon,
 		"LEFT",
-		(-iconPadding + self.db.levelText.offsetX),
-		self.db.levelText.offsetY
+		(-iconPadding + module.db.levelText.offsetX),
+		module.db.levelText.offsetY
 	)
 	self.levelText:SetJustifyH("LEFT")
 	self.levelText:SetJustifyV("BOTTOM")
@@ -646,8 +646,8 @@ function module:UpdateTitle()
 		"RIGHT",
 		self.levelText,
 		"LEFT",
-		(-textPadding + self.db.levelTitleText.offsetX),
-		self.db.levelTitleText.offsetY
+		(-textPadding + module.db.levelTitleText.offsetX),
+		module.db.levelTitleText.offsetY
 	)
 	self.levelTitleText:SetJustifyH("LEFT")
 	self.levelTitleText:SetJustifyV("BOTTOM")
@@ -657,8 +657,8 @@ function module:UpdateTitle()
 		"LEFT",
 		self.specIcon,
 		"RIGHT",
-		(iconPadding + self.db.classText.offsetX),
-		self.db.classText.offsetY
+		(iconPadding + module.db.classText.offsetX),
+		module.db.classText.offsetY
 	)
 	self.classText:SetJustifyH("RIGHT")
 	self.classText:SetJustifyV("BOTTOM")
@@ -1044,13 +1044,11 @@ function module:Initialize()
 	end
 
 	module:CreateElements()
-	module:SkinCharacterFrame()
 
-	hooksecurefunc(M, "UpdateCharacterInfo", module.UpdateItemLevel)
-	hooksecurefunc(M, "UpdateAverageString", module.UpdateItemLevel)
-	hooksecurefunc(M, "UpdatePageInfo", module.UpdatePageInfo)
-	hooksecurefunc(M, "CreateSlotStrings", module.UpdatePageInfo)
-	hooksecurefunc(M, "UpdatePageStrings", module.UpdatePageStrings)
+	module:SecureHook(M, "UpdateCharacterInfo", F.Event.GenerateClosure(module.UpdateItemLevel, self))
+	module:SecureHook(M, "UpdateAverageString", F.Event.GenerateClosure(module.UpdateItemLevel, self))
+	module:SecureHook(M, "UpdatePageStrings", F.Event.GenerateClosure(module.UpdatePageStrings, self))
+	module:SecureHook(M, "CreateSlotStrings", F.Event.GenerateClosure(module.UpdatePageInfo, self))
 
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("UNIT_NAME_UPDATE", self.HandleEvent, self, "UNIT_NAME_UPDATE")
@@ -1063,6 +1061,7 @@ function module:Initialize()
 	)
 	F.Event.RegisterFrameEventAndCallback("PLAYER_TALENT_UPDATE", self.HandleEvent, self, "PLAYER_TALENT_UPDATE")
 
+	module:SkinCharacterFrame()
 	module:UpdateCharacterArmory()
 
 	module.initialized = true
