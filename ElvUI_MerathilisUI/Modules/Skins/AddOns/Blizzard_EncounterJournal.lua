@@ -202,24 +202,6 @@ function module:Blizzard_EncounterJournal()
 		end
 	end)
 
-	hooksecurefunc(EncounterJournal.encounter.info.LootContainer.ScrollBox, "Update", function(self)
-		for _, child in next, { self.ScrollTarget:GetChildren() } do
-			if not child.IsSkinned then
-				if child.boss then
-					child.boss:SetTextColor(1, 1, 1)
-				end
-				if child.slot then
-					child.slot:SetTextColor(1, 1, 1)
-				end
-				if child.armorType then
-					child.armorType:SetTextColor(1, 1, 1)
-				end
-
-				child.IsSkinned = true
-			end
-		end
-	end)
-
 	-- Monthly activities
 	local ActivitiesFrame = _G.EncounterJournalMonthlyActivitiesFrame
 	if ActivitiesFrame then
