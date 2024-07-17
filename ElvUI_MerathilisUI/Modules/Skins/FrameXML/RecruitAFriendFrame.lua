@@ -1,12 +1,11 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER.Modules.Skins
-local S = E:GetModule("Skins")
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
 local CreateFrame = CreateFrame
 
-local function LoadSkin()
+function module:RecruitAFriendFrame()
 	if not module:CheckDB("friends", "friends") then
 		return
 	end
@@ -46,4 +45,4 @@ local function LoadSkin()
 	module:CreateBackdropShadow(Recruit)
 end
 
-S:AddCallback("RecruitAFriendFrame", LoadSkin)
+module:AddCallback("RecruitAFriendFrame")

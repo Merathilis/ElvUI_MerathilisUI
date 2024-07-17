@@ -1292,6 +1292,15 @@ L["Change the color of the name to the in-playing game style."] =
 L["Use Class Color"] = "직업 색상 사용"
 L["Font Setting"] = "글꼴 설정"
 
+-- Vehicle Bar
+L["VehicleBar"] = true
+L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] = true
+L["Thrill Color"] = true
+L["The color for vigor bar's speed text when you are regaining vigor."] = true
+L["Animations"] = true
+L["Animation Speed"] = true
+L["Skyriding Bar"] = true
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 

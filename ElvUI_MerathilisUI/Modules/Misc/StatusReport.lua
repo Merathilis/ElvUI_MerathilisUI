@@ -381,6 +381,11 @@ function module:StatusReportUpdate()
 				local data = {}
 				local name = GetAddOnMetadata(addOn, "Title")
 				local version = GetAddOnMetadata(addOn, "Version")
+
+				if addOn == "ElvUI" then
+					version = E.versionString
+				end
+
 				if addOn == "Details" then
 					name = "Details!"
 					version = Details.GetVersionString()
@@ -408,16 +413,10 @@ function module:StatusReportUpdate()
 				AddOnSection.Header,
 				AddOnSection.Content
 			)
-
 			for i = 1, count do
 				local data = addOnData[i]
-				local color = data.old and "ff3333" or "33ff33"
-				AddOnSection.Content["Line" .. i].Text:SetFormattedText(
-					"%s |cff888888v|r|cff%s%s|r",
-					data.title or data.name,
-					color,
-					data.version
-				)
+				local name = data.title or data.name
+				AddOnSection.Content["Line" .. i].Text:SetFormattedText("%s %s", name, F.String.Good(data.version))
 			end
 
 			AddOnSection:SetHeight(count * 25)
@@ -446,13 +445,11 @@ function module:StatusReportUpdate()
 
 			for i = 1, count do
 				local data = pluginData[i]
-				local color = data.old and "ff3333" or "33ff33"
-				PluginSection.Content["Line" .. i].Text:SetFormattedText(
-					"%s |cff888888v|r|cff%s%s|r",
-					data.title or data.name,
-					color,
-					data.version
-				)
+				local name = data.title or data.name or UNKNOWN
+				local version = F.String.Strip(data.version) or UNKNOWN
+				local versionString = (data.old or version == UNKNOWN) and F.String.Error(version)
+					or F.String.Good(version)
+				PluginSection.Content["Line" .. i].Text:SetFormattedText("%s %s", name, versionString)
 			end
 
 			PluginSection:SetHeight(count * 25)

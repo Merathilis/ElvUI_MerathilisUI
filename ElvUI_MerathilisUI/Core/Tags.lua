@@ -1,21 +1,12 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local ElvUF = E.oUF
 assert(ElvUF, "ElvUI was unable to locate oUF.")
-local Translit = E.Libs.Translit
-local translitMark = "!"
 
-local abs, ceil, type, tonumber = math.abs, ceil, type, tonumber
-local format, gsub, gmatch, len = string.format, string.gsub, string.gmatch, string.len
-local strfind, strmatch, strsplit, utf8lower, utf8sub, utf8len =
-	strfind, strmatch, strsplit, string.utf8lower, string.utf8sub, string.utf8len
+local abs, type, tonumber = math.abs, type, tonumber
+local format, len = string.format, string.len
 
-local UnitIsDead = UnitIsDead
-local UnitIsGhost = UnitIsGhost
-local UnitIsConnected = UnitIsConnected
-local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax
 local UnitName = UnitName
 local UnitPower = UnitPower
-local IsResting = IsResting
 
 local function shortenNumber(number)
 	if type(number) ~= "number" then

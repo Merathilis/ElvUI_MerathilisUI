@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local error = error
 local type, unpack = type, unpack
+local char = string.char
 local strbyte, strfind, strlen, strsub = strbyte, strfind, strlen, strsub
 local utf8len, utf8lower, utf8sub, utf8upper = string.utf8len, string.utf8lower, string.utf8sub, string.utf8upper
 local tinsert = tinsert
@@ -517,4 +518,18 @@ end
 
 function F.String.Grey(msg)
 	return F.String.Color(msg, I.Enum.Colors.GREY)
+end
+
+-- Credits to WunderUI
+function F.String.ConvertGlyph(unicode)
+	if unicode <= 0x7F then
+		return char(unicode)
+	end
+	if unicode <= 0x7FF then
+		return char(0xC0 + floor(unicode / 0x40), 0x80 + (unicode % 0x40))
+	end
+	if unicode <= 0xFFFF then
+		return char(0xE0 + floor(unicode / 0x1000), 0x80 + (floor(unicode / 0x40) % 0x40), 0x80 + (unicode % 0x40))
+	end
+	error(L["Could not convert unicode "] .. tostring(unicode))
 end

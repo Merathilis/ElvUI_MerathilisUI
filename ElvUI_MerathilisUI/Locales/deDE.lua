@@ -1419,6 +1419,15 @@ L["Custom Unitframes Colors"] = "Benutzerdefinierte Einheitsfenster Farben"
 L["Custom Power Colors"] = "Benutzerdefinierte Kraft Farben"
 L["Runic Power"] = "Runenkraft"
 
+--Vehicle Bar
+L["VehicleBar"] = "Fahrzeugleiste"
+L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] = "Ändere die Schaltflächenbreite der Fahrzeugleiste. Die Höhe wird entsprechend im Seitenverhältnis 4:3 skaliert."
+L["Thrill Color"] = "Nervenkitzel Farbe"
+L["The color for vigor bar's speed text when you are regaining vigor."] = "Farbe für den Geschwindigkeitstext der Flugeiste, wenn Du Elan zurückgewinnst."
+L["Animations"] = "Animationen"
+L["Animation Speed"] = "Animations Geschwindigkeit"
+L["Skyriding Bar"] = "Flugleiste"
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.
 

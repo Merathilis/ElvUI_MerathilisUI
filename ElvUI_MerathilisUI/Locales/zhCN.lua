@@ -1313,6 +1313,15 @@ L["Change the color of the name to the in-playing game style."] =
 L["Use Class Color"] = "使用职业颜色"
 L["Font Setting"] = "字体设定"
 
+-- Vehicle Bar
+L["VehicleBar"] = true
+L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] = true
+L["Thrill Color"] = true
+L["The color for vigor bar's speed text when you are regaining vigor."] = true
+L["Animations"] = true
+L["Animation Speed"] = true
+L["Skyriding Bar"] = true
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.
 

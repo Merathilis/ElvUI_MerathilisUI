@@ -6,38 +6,6 @@ local _G = _G
 
 local CreateColor = CreateColor
 
-local function ReskinHeader(header)
-	header.flashAnim.Play = E.noop
-	for i = 4, 18 do
-		select(i, header.button:GetRegions()):SetTexture()
-	end
-	S:HandleButton(header.button)
-	header.descriptionBG:SetAlpha(0)
-	header.descriptionBGBottom:SetAlpha(0)
-	header.description:SetTextColor(1, 1, 1)
-	header.button.title:SetTextColor(1, 1, 1)
-	header.button.title.SetTextColor = E.noop
-	header.button.expandedIcon:SetWidth(20)
-end
-
-local function ReskinSectionHeader()
-	local index = 1
-	while true do
-		local header = _G["EncounterJournalInfoHeader" .. index]
-		if not header then
-			return
-		end
-		if not header.IsSkinned then
-			ReskinHeader(header)
-			S:HandleIcon(header.button.abilityIcon)
-
-			header.IsSkinned = true
-		end
-
-		index = index + 1
-	end
-end
-
 local function ReplaceBlackColor(text, r, g, b)
 	if r == 0 and g == 0 and b == 0 then
 		text:SetTextColor(0.7, 0.7, 0.7)
@@ -221,15 +189,6 @@ function module:Blizzard_EncounterJournal()
 			end
 		end
 	end)
-	hooksecurefunc("EncounterJournal_ToggleHeaders", ReskinSectionHeader)
-
-	hooksecurefunc("EncounterJournal_SetUpOverview", function(self, _, index)
-		local header = self.overviews[index]
-		if not header.styled then
-			ReskinHeader(header)
-			header.styled = true
-		end
-	end)
 
 	hooksecurefunc("EncounterJournal_SetBullets", function(object)
 		local parent = object:GetParent()
@@ -239,29 +198,6 @@ function module:Blizzard_EncounterJournal()
 					bullet.Text:SetTextColor("P", 1, 1, 1)
 					bullet.styled = true
 				end
-			end
-		end
-	end)
-
-	hooksecurefunc(EncounterJournal.encounter.info.LootContainer.ScrollBox, "Update", function(self)
-		for i = 1, self.ScrollTarget:GetNumChildren() do
-			local child = select(i, self.ScrollTarget:GetChildren())
-			if not child.IsSkinned then
-				if child.boss then
-					child.boss:SetTextColor(1, 1, 1)
-				end
-				if child.slot then
-					child.slot:SetTextColor(1, 1, 1)
-				end
-				if child.armorType then
-					child.armorType:SetTextColor(1, 1, 1)
-				end
-
-				if child.backdrop then
-					module:CreateGradient(child.backdrop)
-				end
-
-				child.IsSkinned = true
 			end
 		end
 	end)

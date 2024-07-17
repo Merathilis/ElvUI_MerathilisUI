@@ -9,7 +9,7 @@ function module:Blizzard_TimeManager()
 	end
 
 	local TimeManagerFrame = _G.TimeManagerFrame
-	module:CreateBackdropShadow(TimeManagerFrame)
+	module:CreateShadow(TimeManagerFrame)
 
 	local StopwatchFrame = _G.StopwatchFrame
 	module:CreateBackdropShadow(StopwatchFrame)

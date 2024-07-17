@@ -624,18 +624,23 @@ function module:WeakAuras_ShowOptions()
 		end
 	end
 
-	if frame.iconPicker.frame then
-		for _, child in pairs({ frame.iconPicker.frame:GetChildren() }) do
-			if child.GetObjectType and child:GetObjectType() == "EditBox" then
-				child.Left:Kill()
-				child.Middle:Kill()
-				child.Right:Kill()
-				child:CreateBackdrop()
-			end
-		end
+	frame.MERStyle = true
+end
+
+function postHookPrivate(method, postHook)
+	if not _G.WeakAuras or not _G.WeakAuras.OptionsPrivate then
+		return
 	end
 
-	frame.MERStyle = true
+	local oldConstructor = _G.WeakAuras.OptionsPrivate[method]
+	_G.WeakAuras.OptionsPrivate[method] = function(...)
+		local widget = oldConstructor(...)
+		if widget and not widget.__MERSkin then
+			postHook(widget)
+			widget.__MERSkin = true
+		end
+		return widget
+	end
 end
 
 function module:WeakAuras_TextEditor()
@@ -678,6 +683,41 @@ function module:WeakAurasOptions()
 	end
 
 	module:SecureHook(_G.WeakAuras, "ShowOptions", "WeakAuras_ShowOptions")
+
+	local generalEditBoxSkinner = function(skip, element)
+		if skip then
+			return
+		end
+		if element and element.GetObjectType and element:GetObjectType() == "EditBox" then
+			element.Left:Kill()
+			element.Middle:Kill()
+			element.Right:Kill()
+			element:CreateBackdrop()
+			return true
+		end
+	end
+
+	local generalButtonSkinner = function(skip, element)
+		if skip then
+			return
+		end
+		if element and element.GetObjectType and element:GetObjectType() == "Button" then
+			S:HandleButton(element)
+			return true
+		end
+	end
+
+	for _, mod in ipairs({ "UpdateFrame", "IconPicker", "ImportExport" }) do
+		postHookPrivate(mod, function(widget)
+			for _, child in pairs({ widget.frame:GetChildren() }) do
+				if child.GetObjectType then
+					local skip = false
+					skip = generalEditBoxSkinner(skip, child)
+					generalButtonSkinner(skip, child)
+				end
+			end
+		end)
+	end
 end
 
 function module:WeakAuras_CreateTemplateView(Private, frame)

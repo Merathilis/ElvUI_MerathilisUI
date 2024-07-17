@@ -1,6 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER.Modules.Skins
-local S = E:GetModule("Skins")
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 local unpack = unpack
@@ -58,7 +57,7 @@ local function ElvUI_SkinMoverPopup()
 	module:CreateShadow(_G.ElvUIMoverPopupWindow.header)
 end
 
-local function Skin_ElvUI_Options()
+function module:Skin_ElvUI_Options()
 	if not E.private.mui.skins.enable then
 		return
 	end
@@ -76,4 +75,4 @@ local function Skin_ElvUI_Options()
 	module:SecureHook(E, "ToggleMoveMode", ElvUI_SkinMoverPopup)
 end
 
-S:AddCallback("ElvUI_Options", Skin_ElvUI_Options)
+module:AddCallback("ElvUI_Options", module.Skin_ElvUI_Options)

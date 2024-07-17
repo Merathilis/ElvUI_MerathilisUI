@@ -1,6 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER.Modules.Skins
-local S = E:GetModule("Skins")
+local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 local next, pairs, select, unpack = next, pairs, select, unpack
@@ -9,8 +8,6 @@ local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards
 local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
-local GetNumQuestLogRewardSpells = GetNumQuestLogRewardSpells
-local GetNumRewardSpells = GetNumRewardSpells
 local C_QuestLog_GetNextWaypointText = C_QuestLog.GetNextWaypointText
 local C_QuestLog_GetSelectedQuest = C_QuestLog.GetSelectedQuest
 local GetQuestID = GetQuestID
@@ -147,7 +144,7 @@ local function SetTextColor_White(font)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_White)
 end
 
-local function LoadSkin()
+function module:QuestInfo()
 	if not module:CheckDB("quest", "quest") then
 		return
 	end
@@ -315,4 +312,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallback("QuestInfo", LoadSkin)
+module:AddCallback("QuestInfo")

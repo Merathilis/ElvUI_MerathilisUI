@@ -715,6 +715,132 @@ P.armory = {
 			style = "SHADOWOUTLINE",
 		},
 	},
+
+	nameText = {
+		name = I.Fonts.Primary,
+		size = 16,
+		style = "SHADOWOUTLINE",
+		fontColor = "CLASS", -- CLASS, CUSTOM, GRADIENT
+		color = {
+			r = 1,
+			g = 1,
+			b = 1,
+		},
+		offsetX = 12,
+		offsetY = 0,
+	},
+
+	titleText = {
+		name = I.Fonts.Primary,
+		size = 10,
+		style = "SHADOWOUTLINE",
+		fontColor = "CUSTOM", -- CUSTOM, GRADIENT
+		color = {
+			r = 1,
+			g = 1,
+			b = 1,
+		},
+		offsetX = 5,
+		offsetY = -2,
+	},
+
+	levelTitleText = {
+		name = I.Fonts.Primary,
+		size = 14,
+		style = "SHADOWOUTLINE",
+		fontColor = "CUSTOM", -- CLASS, CUSTOM, GRADIENT
+		color = {
+			r = 1,
+			g = 1,
+			b = 1,
+		},
+		offsetX = 0,
+		offsetY = -1,
+		short = true,
+	},
+
+	levelText = {
+		name = I.Fonts.Primary,
+		size = 16,
+		style = "SHADOWOUTLINE",
+		fontColor = "CLASS", -- CLASS, CUSTOM, GRADIENT
+		color = {
+			r = 1,
+			g = 1,
+			b = 1,
+		},
+		offsetX = 0,
+		offsetY = -1,
+	},
+
+	specIcon = {
+		name = I.Fonts.Icons,
+		size = 18,
+		style = "SHADOWOUTLINE",
+		fontColor = "CLASS", -- CLASS, CUSTOM
+		color = {
+			r = 1,
+			g = 1,
+			b = 1,
+		},
+	},
+
+	classText = {
+		name = I.Fonts.Primary,
+		size = 14,
+		style = "SHADOWOUTLINE",
+		fontColor = "CLASS", -- CLASS, CUSTOM
+		color = {
+			r = 1,
+			g = 1,
+			b = 1,
+		},
+		offsetX = 0,
+		offsetY = -2,
+	},
+
+	icons = {
+		[0] = F.String.ConvertGlyph(59712), -- Unknown
+		[62] = F.String.ConvertGlyph(59660), -- Mage Arcane
+		[63] = F.String.ConvertGlyph(59661), -- Mage Fire
+		[64] = F.String.ConvertGlyph(59662), -- Mage Frost
+		[65] = F.String.ConvertGlyph(59666), -- Paladin Holy
+		[66] = F.String.ConvertGlyph(59667), -- Paladin Protection
+		[70] = F.String.ConvertGlyph(59668), -- Paladin Retribution
+		[71] = F.String.ConvertGlyph(59681), -- Warrior Arms
+		[72] = F.String.ConvertGlyph(59682), -- Warrior Fury
+		[73] = F.String.ConvertGlyph(59683), -- Warrior Protection
+		[102] = F.String.ConvertGlyph(59653), -- Druid Balance
+		[103] = F.String.ConvertGlyph(59654), -- Druid Feral
+		[104] = F.String.ConvertGlyph(59655), -- Druid Guardian
+		[105] = F.String.ConvertGlyph(59656), -- Druid Restoration
+		[250] = F.String.ConvertGlyph(59648), -- Death Knight Blood
+		[251] = F.String.ConvertGlyph(59649), -- Death Knight Frost
+		[252] = F.String.ConvertGlyph(59650), -- Death Knight Unholy
+		[253] = F.String.ConvertGlyph(59657), -- Hunter Beast Master
+		[254] = F.String.ConvertGlyph(59658), -- Hunter Marksmanship
+		[255] = F.String.ConvertGlyph(59659), -- Hunter Survival
+		[256] = F.String.ConvertGlyph(59669), -- Priest Discipline
+		[257] = F.String.ConvertGlyph(59670), -- Priest Holy
+		[258] = F.String.ConvertGlyph(59671), -- Priest Shadow
+		[259] = F.String.ConvertGlyph(59672), -- Rogue Assassination
+		[260] = F.String.ConvertGlyph(59673), -- Rogue Outlaw
+		[261] = F.String.ConvertGlyph(59674), -- Rogue Subtlety
+		[262] = F.String.ConvertGlyph(59675), -- Shaman Elemental
+		[263] = F.String.ConvertGlyph(59676), -- Shaman Enhancement
+		[264] = F.String.ConvertGlyph(59677), -- Shaman Restoration
+		[265] = F.String.ConvertGlyph(59678), -- Warlock Affliction
+		[266] = F.String.ConvertGlyph(59679), -- Warlock Demonology
+		[267] = F.String.ConvertGlyph(59680), -- Warlock Destruction
+		[268] = F.String.ConvertGlyph(59663), -- Monk Brewmaster
+		[269] = F.String.ConvertGlyph(59665), -- Monk Windwalker
+		[270] = F.String.ConvertGlyph(59664), -- Monk Mistweaver
+		[577] = F.String.ConvertGlyph(59651), -- Demon Hunter Havoc
+		[581] = F.String.ConvertGlyph(59652), -- Demon Hunter Vengeance
+		[1467] = F.String.ConvertGlyph(59725), -- Evoker Devastation
+		[1468] = F.String.ConvertGlyph(59726), -- Evoker Preservation
+		[1473] = F.String.ConvertGlyph(59727), -- Evoker Augmentation
+	},
 }
 
 P.notification = {

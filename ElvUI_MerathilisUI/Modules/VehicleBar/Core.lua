@@ -124,9 +124,7 @@ function module:Enable()
 	-- Unregister/Register State Driver
 	UnregisterStateDriver(self.bar, "visibility")
 	UnregisterStateDriver(self.ab["handledBars"]["bar1"], "visibility")
-	UnregisterStateDriver(self.bar, "visibility")
 	UnregisterStateDriver(self.ab["handledBars"]["bar2"], "visibility")
-	UnregisterStateDriver(self.bar, "visibility")
 	UnregisterStateDriver(self.ab["handledBars"]["bar3"], "visibility")
 
 	RegisterStateDriver(
@@ -135,8 +133,8 @@ function module:Enable()
 		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide", "[bonusbar:5]")
 	)
 	RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
-	RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
-	RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
+	RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", visibility .. E.db.actionbar["bar2"].visibility)
+	RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", visibility .. E.db.actionbar["bar3"].visibility)
 
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self.OnCombatEvent, self, false)
