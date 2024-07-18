@@ -422,8 +422,6 @@ L["This will add the 'DELETE' text to the Item Delete Dialog."] =
 L["Quick Menu"] = "Schnelles Menu"
 L["Shows additional Buttons on your Dropdown for quick actions."] =
 	"Zeigt zusätzliche Schaltflächen in Deinem Dropdown-Menü für schnelle Aktionen an."
-L["Trade Tabs"] = "Händler Tabs"
-L["Creates additional tabs on the Profession Frame"] = "Erstellt zusätzliche Registerkarten im Berufsfenster"
 L["Missing Stats"] = "Fehlende Statistiken"
 L["Show all stats on the Character Frame"] = "Alle Werte im Charakterfenster anzeigen."
 L["Block Join Requests"] = "Beitrittsanfragen blockieren"
@@ -1421,9 +1419,11 @@ L["Runic Power"] = "Runenkraft"
 
 --Vehicle Bar
 L["VehicleBar"] = "Fahrzeugleiste"
-L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] = "Ändere die Schaltflächenbreite der Fahrzeugleiste. Die Höhe wird entsprechend im Seitenverhältnis 4:3 skaliert."
+L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] =
+	"Ändere die Schaltflächenbreite der Fahrzeugleiste. Die Höhe wird entsprechend im Seitenverhältnis 4:3 skaliert."
 L["Thrill Color"] = "Nervenkitzel Farbe"
-L["The color for vigor bar's speed text when you are regaining vigor."] = "Farbe für den Geschwindigkeitstext der Flugeiste, wenn Du Elan zurückgewinnst."
+L["The color for vigor bar's speed text when you are regaining vigor."] =
+	"Farbe für den Geschwindigkeitstext der Flugeiste, wenn Du Elan zurückgewinnst."
 L["Animations"] = "Animationen"
 L["Animation Speed"] = "Animations Geschwindigkeit"
 L["Skyriding Bar"] = "Flugleiste"
