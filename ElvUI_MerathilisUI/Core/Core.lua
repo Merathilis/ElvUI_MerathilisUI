@@ -22,9 +22,9 @@ end
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvUIVersion"))
 
-MER.IsRetail = select(4, GetBuildInfo()) >= 100206
-MER.IsNewPatch = select(4, GetBuildInfo()) >= 100000 -- 10.0
-MER.IsPTR = select(4, GetBuildInfo()) == 100002 -- 10.0.2
+MER.IsRetail = select(4, GetBuildInfo()) >= 100207
+MER.IsNewPatch = select(4, GetBuildInfo()) >= 110000 -- 11.0
+MER.IsPTR = select(4, GetBuildInfo()) == 102007 -- 10.2.7
 
 MER.Locale = GetLocale()
 MER.ChineseLocale = strsub(MER.Locale, 0, 2) == "zh"
@@ -122,22 +122,17 @@ function MER:InitializeModules()
 	self:LoadCommands()
 
 	local function onAllEvents()
-		-- Weait until ElvUI is done Updating
 		F.Event.ContinueAfterElvUIUpdate(function()
 			-- Set initialized
 			self.initialized = true
 			F.Event.TriggerEvent("MER.Initialized")
 
-			-- Run those delayed after init
 			F.Event.RunNextFrame(function()
-				-- Mark MER has entered world
 				self.DelayedWorldEntered = true
 
-				-- Print all delayed messages
 				F.Developer.PrintDelayedMessages()
 			end, 5)
 
-			-- Set initialized safe after combat ends
 			F.Event.ContinueOutOfCombat(function()
 				self.initializedSafe = true
 				F.Event.TriggerEvent("MER.InitializedSafe")

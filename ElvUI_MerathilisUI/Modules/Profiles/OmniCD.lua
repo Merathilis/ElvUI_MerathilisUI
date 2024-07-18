@@ -8,50 +8,6 @@ function module:LoadOmniCDProfile()
 	local profile = db.DB.profile
 
 	F.Table.Crush(pf, {
-		General = {
-			fonts = {
-				statusBar = {
-					font = I.Fonts.Primary,
-					flag = "SHADOWOUTLINE",
-				},
-				icon = {
-					font = I.Fonts.Primary,
-					flag = "SHADOWOUTLINE",
-				},
-				anchor = {
-					font = I.Fonts.Primary,
-					flag = "SHADOWOUTLINE",
-				},
-			},
-			textures = {
-				statusBar = {
-					BG = "ElvUI Norm1",
-					bar = "ElvUI Norm1",
-				},
-			},
-			notifyNew = true,
-		},
-
-		Default = {
-			Party = {
-				party = {
-					general = {
-						showPlayer = true,
-					},
-					manualPos = {
-						raidCDBar = {
-							y = 384.3555214597109,
-							x = 682.3111276328564,
-						},
-						interruptBar = {
-							y = 384.3555214597109,
-							x = 682.3111276328564,
-						},
-					},
-				},
-			},
-		},
-
 		Party = {
 			noneZoneSetting = "party",
 			party = {
@@ -60,20 +16,29 @@ function module:LoadOmniCDProfile()
 						enabled = false,
 					},
 					raidBar0 = {
-						scale = 0.6000000000000001,
-						statusBarWidth = 280,
 						showRaidTargetMark = true,
-						locked = true,
 						manualPos = {
 							raidBar0 = {
 								y = 131.9110817531737,
 								x = 437.6887692789205,
 							},
 						},
+						scale = 0.6000000000000001,
 						hideSpark = true,
+						locked = true,
+						statusBarWidth = 280,
+					},
+					raidBar1 = {
+						manualPos = {
+							raidBar1 = {
+								y = 133.3333148605288,
+								x = 437.6888560844782,
+							},
+						},
+						locked = true,
 					},
 					interruptBar = {
-						barColors = {
+						barColor = {
 							useClassColor = {
 								inactiv = true,
 							},
@@ -87,6 +52,19 @@ function module:LoadOmniCDProfile()
 						locked = true,
 						statusBarWidth = 220,
 					},
+				},
+				icons = {
+					scale = 1,
+				},
+				general = {
+					showPlayerEx = false,
+				},
+				position = {
+					offsetX = 2,
+					paddingY = 0,
+					columns = 5,
+					paddingX = 2,
+					uf = "ElvUI",
 				},
 				manualPos = {
 					[5] = {
@@ -102,23 +80,13 @@ function module:LoadOmniCDProfile()
 						x = 436.9776147478115,
 					},
 				},
-				icons = {
-					scale = 1,
-					showTooltip = false,
-				},
-				position = {
-					columns = 5,
-					paddingX = 2,
-					uf = "ElvUI",
-					offsetX = 2,
-					paddingY = 0,
-				},
-				general = {
-					showPlayerEx = false,
-					showPlayer = true,
-				},
 			},
-
+			visibilit = {
+				arena = false,
+				scenario = true,
+				finder = false,
+			},
+			scenarioZoneSetting = "party",
 			arena = {
 				manualPos = {
 					raidCDBar = {
@@ -135,22 +103,56 @@ function module:LoadOmniCDProfile()
 					showTooltip = true,
 				},
 				position = {
-					attach = "TOPLEFT",
-					preset = "TOPLEFT",
 					offsetX = 3,
 					anchor = "TOPRIGHT",
+					attach = "TOPLEFT",
+					preset = "TOPLEFT",
 				},
 				general = {
-					showPlayer = true,
 					zoneSelected = "party",
 				},
 			},
-			visibilit = {
-				scenario = true,
-				finder = false,
-				arena = false,
+		},
+		General = {
+			fonts = {
+				statusBar = {
+					font = "- Expressway",
+					flag = "OUTLINE",
+				},
+				icon = {
+					font = "- Expressway",
+				},
+				anchor = {
+					font = "- Expressway",
+					flag = "OUTLINE",
+				},
 			},
-			scenarioZoneSetting = "party",
+			textures = {
+				statusBar = {
+					BG = "ElvUI Norm1",
+					bar = "ElvUI Norm1",
+				},
+			},
+			notifyNew = true,
+		},
+		Default = {
+			Party = {
+				party = {
+					general = {
+						showPlayer = true,
+					},
+					manualPos = {
+						interruptBar = {
+							y = 384.3555214597109,
+							x = 682.3111276328564,
+						},
+						raidCDBar = {
+							y = 384.3555214597109,
+							x = 682.3111276328564,
+						},
+					},
+				},
+			},
 		},
 	})
 
