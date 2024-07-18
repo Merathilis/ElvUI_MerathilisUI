@@ -122,22 +122,17 @@ function MER:InitializeModules()
 	self:LoadCommands()
 
 	local function onAllEvents()
-		-- Weait until ElvUI is done Updating
 		F.Event.ContinueAfterElvUIUpdate(function()
 			-- Set initialized
 			self.initialized = true
 			F.Event.TriggerEvent("MER.Initialized")
 
-			-- Run those delayed after init
 			F.Event.RunNextFrame(function()
-				-- Mark MER has entered world
 				self.DelayedWorldEntered = true
 
-				-- Print all delayed messages
 				F.Developer.PrintDelayedMessages()
 			end, 5)
 
-			-- Set initialized safe after combat ends
 			F.Event.ContinueOutOfCombat(function()
 				self.initializedSafe = true
 				F.Event.TriggerEvent("MER.InitializedSafe")
