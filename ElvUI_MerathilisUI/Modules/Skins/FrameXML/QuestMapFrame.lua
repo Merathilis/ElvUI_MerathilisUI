@@ -9,26 +9,8 @@ function module:QuestMapFrame()
 		return
 	end
 
-	-- Stop here if parchment reomover is enabled.
-	if E.private.skins.parchmentRemoverEnable then
-		return
-	end
-
 	local QuestMapFrame = _G.QuestMapFrame
-	QuestMapFrame.Background:SetAlpha(0)
-
-	-- Quest scroll frame
-	local QuestScrollFrame = _G.QuestScrollFrame
-
-	QuestMapFrame.VerticalSeparator:SetAlpha(0)
-	QuestScrollFrame.DetailFrame.TopDetail:SetAlpha(0)
-	QuestScrollFrame.DetailFrame.BottomDetail:SetAlpha(0)
-	QuestScrollFrame.Contents.Separator:SetAlpha(0)
-
-	-- Quest details
 	local DetailsFrame = QuestMapFrame.DetailsFrame
-	local RewardsFrame = DetailsFrame.RewardsFrame
-	local CompleteQuestFrame = DetailsFrame.CompleteQuestFrame
 
 	DetailsFrame:StripTextures()
 	DetailsFrame.Bg:SetAlpha(0)
@@ -48,23 +30,12 @@ function module:QuestMapFrame()
 	DetailsFrame.TrackButton:SetPoint("LEFT", DetailsFrame.ShareButton, "RIGHT", 1, 0)
 	DetailsFrame.TrackButton:SetWidth(96)
 
-	-- Rewards frame
-	RewardsFrame.Background:SetAlpha(0)
-	select(2, RewardsFrame:GetRegions()):SetAlpha(0)
-
-	-- Complete quest frame
-	CompleteQuestFrame:GetRegions():SetAlpha(0)
-	select(2, CompleteQuestFrame:GetRegions()):SetAlpha(0)
-	select(6, CompleteQuestFrame.CompleteButton:GetRegions()):SetAlpha(0)
-	select(7, CompleteQuestFrame.CompleteButton:GetRegions()):SetAlpha(0)
-
 	_G.QuestLogPopupDetailFrameScrollFrame:HookScript("OnUpdate", function(self)
 		if _G.QuestLogPopupDetailFrameScrollFrame.backdrop then
 			_G.QuestLogPopupDetailFrameScrollFrame.backdrop:Hide()
 		end
 		_G.QuestLogPopupDetailFrameInset:Hide()
 		_G.QuestLogPopupDetailFrameBg:Hide()
-		-- self:CreateBackdrop("Transparent")
 
 		module:CreateShadow(_G.QuestLogPopupDetailFrame)
 
