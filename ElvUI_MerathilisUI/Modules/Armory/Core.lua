@@ -1045,10 +1045,11 @@ function module:Initialize()
 
 	module:CreateElements()
 
-	module:SecureHook(M, "UpdateCharacterInfo", F.Event.GenerateClosure(module.UpdateItemLevel, self))
-	module:SecureHook(M, "UpdateAverageString", F.Event.GenerateClosure(module.UpdateItemLevel, self))
-	module:SecureHook(M, "UpdatePageStrings", F.Event.GenerateClosure(module.UpdatePageStrings, self))
-	module:SecureHook(M, "CreateSlotStrings", F.Event.GenerateClosure(module.UpdatePageInfo, self))
+	hooksecurefunc(M, "UpdateCharacterInfo", module.UpdateItemLevel)
+	hooksecurefunc(M, "UpdateAverageString", module.UpdateItemLevel)
+	hooksecurefunc(M, "UpdatePageInfo", module.UpdatePageInfo)
+	hooksecurefunc(M, "CreateSlotStrings", module.UpdatePageInfo)
+	hooksecurefunc(M, "UpdatePageStrings", module.UpdatePageStrings)
 
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("UNIT_NAME_UPDATE", self.HandleEvent, self, "UNIT_NAME_UPDATE")
