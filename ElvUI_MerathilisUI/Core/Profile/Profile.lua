@@ -1489,10 +1489,6 @@ P.unitframes = {
 		tcolor = { r = 0.65, g = 0.63, b = 0.35 },
 		ocolor = { r = 0, g = 0.5, b = 1 },
 	},
-	gcd = {
-		enable = false,
-		color = { r = 0.8, g = 0.8, b = 0.8 },
-	},
 	counterBar = {
 		enable = true,
 	},
@@ -1925,7 +1921,7 @@ P.scale = {
 		scale = 1,
 	},
 
-	spellbook = {
+	professionsBook = {
 		scale = 1,
 	},
 

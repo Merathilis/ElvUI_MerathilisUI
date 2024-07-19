@@ -628,7 +628,6 @@ L["Creates a weapon Swing Bar"] = true
 L["Main-Hand Color"] = true
 L["Off-Hand Color"] = true
 L["Two-Hand Color"] = true
-L["GCD Bar"] = true
 L["Creates a Global Cooldown Bar"] = true
 L["UnitFrame Style"] = true
 L["Adds my styling to the Unitframes if you use transparent health."] = true

@@ -2,7 +2,6 @@
 	<Script file="CastBar.lua"/>
 	<Script file="CounterBar.lua"/>
 	<Script file="DeathIndicator.lua"/>
-	<Script file="Gcd.lua"/>
 	<Script file="Health.lua"/>
 	<Script file="HealPrediction.lua"/>
 	<Script file="OfflineIndicator.lua"/>

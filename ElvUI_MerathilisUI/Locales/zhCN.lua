@@ -648,7 +648,6 @@ L["Creates a weapon Swing Bar"] = "创建一个普攻计时条"
 L["Main-Hand Color"] = "主手颜色"
 L["Off-Hand Color"] = "副手颜色"
 L["Two-Hand Color"] = "双手颜色"
-L["GCD Bar"] = "公共CD条"
 L["Creates a Global Cooldown Bar"] = "创建一个公共CD计时条"
 L["UnitFrame Style"] = "头像样式"
 L["Adds my styling to the Unitframes if you use transparent health."] =

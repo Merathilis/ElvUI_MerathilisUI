@@ -695,7 +695,6 @@ L["Creates a weapon Swing Bar"] = "Erstellt eine Waffenschwungleiste"
 L["Main-Hand Color"] = "Haupthand Farbe"
 L["Off-Hand Color"] = "Schildhand Farbe"
 L["Two-Hand Color"] = "Zweihand Farbe"
-L["GCD Bar"] = "GCD Leiste"
 L["Creates a Global Cooldown Bar"] = "Erstellt eine globale Leiste mit Abklingzeiten"
 L["UnitFrame Style"] = "Einheitenfenster Stil"
 L["Adds my styling to the Unitframes if you use transparent health."] =

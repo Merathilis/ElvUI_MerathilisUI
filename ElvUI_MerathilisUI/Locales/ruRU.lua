@@ -711,7 +711,6 @@ L["Creates a weapon Swing Bar"] = "Создает качающееся пане�
 L["Main-Hand Color"] = "Цвет основной руки"
 L["Off-Hand Color"] = "Цвет левой руки"
 L["Two-Hand Color"] = "Цвет двуручного"
-L["GCD Bar"] = "ГКД панель"
 L["Creates a Global Cooldown Bar"] = "Создает глобальную полосу перезарядки"
 L["UnitFrame Style"] = "Стиль юнитфреймов"
 L["Adds my styling to the Unitframes if you use transparent health."] =

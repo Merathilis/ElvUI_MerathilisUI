@@ -2489,7 +2489,6 @@ function MER:DeveloperSettings()
 	E.db["mui"]["pvp"]["duels"]["pet"] = true
 	E.db["mui"]["pvp"]["duels"]["announce"] = true
 	E.private["mui"]["skins"]["shadowOverlay"] = true
-	E.db["mui"]["unitframes"]["gcd"]["enable"] = true
 	E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
 	E.db["mui"]["tooltip"]["gradientName"] = true
 	E.db["mui"]["nameHover"]["gradient"] = true

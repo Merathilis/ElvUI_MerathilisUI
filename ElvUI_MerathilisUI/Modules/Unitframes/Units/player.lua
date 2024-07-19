@@ -12,10 +12,6 @@ function module:Update_PlayerFrame(frame)
 		module:Construct_CounterBar(frame)
 	end
 
-	if not frame.GCD then
-		module:Construct_GCD(frame)
-	end
-
 	if not frame.__MERAnim then
 		module:CreateAnimatedBars(frame.Power)
 	end
@@ -29,16 +25,6 @@ function module:Update_PlayerFrame(frame)
 	else
 		if frame:IsElementEnabled("Swing_MER") then
 			frame:DisableElement("Swing_MER")
-		end
-	end
-
-	if db.gcd.enable then
-		if not frame:IsElementEnabled("GCD") then
-			frame:EnableElement("GCD")
-		end
-	else
-		if frame:IsElementEnabled("GCD") then
-			frame:DisableElement("GCD")
 		end
 	end
 
