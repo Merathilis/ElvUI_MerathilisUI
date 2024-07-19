@@ -440,6 +440,23 @@ L["Show the spell icon along with the name."] = "Show the spell icon along with 
 L["Show the rank of shards."] = true
 L["Pet Battle"] = true
 L["Tooltip Icons"] = true
+L["Pet Icon"] = true
+L["Pet ID"] = true
+L["Add an icon for indicating the type of the pet."] = true
+L["Show battle pet species ID in tooltips."] = true
+L["The modifer key to show additional information from %s."] = true
+L["Display TargetTarget"] = true
+L["Gradient Color"] = true
+L["Colors the player names in a gradient instead of class color"] = true
+L["Health Bar Y-Offset"] = true
+L["Change the postion of the health bar."] = true
+L["Health Text Y-Offset"] = true
+L["Change the postion of the health text."] = true
+L["Class Icon Style"] = true
+L["Reference"]  = true
+L["Preview"] = true
+L["Template"] = true
+L["Please click the button below to read reference."] = true
 
 -- Notification
 L["Notification"] = true

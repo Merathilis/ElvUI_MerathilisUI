@@ -438,6 +438,23 @@ L["Show the spell icon along with the name."] = "Show the spell icon along with 
 L["Show the rank of shards."] = true
 L["Pet Battle"] = true
 L["Tooltip Icons"] = true
+L["Pet Icon"] = true
+L["Pet ID"] = true
+L["Add an icon for indicating the type of the pet."] = true
+L["Show battle pet species ID in tooltips."] = true
+L["The modifer key to show additional information from %s."] = true
+L["Display TargetTarget"] = true
+L["Gradient Color"] = true
+L["Colors the player names in a gradient instead of class color"] = true
+L["Health Bar Y-Offset"] = true
+L["Change the postion of the health bar."] = true
+L["Health Text Y-Offset"] = true
+L["Change the postion of the health text."] = true
+L["Class Icon Style"] = true
+L["Reference"]  = true
+L["Preview"] = true
+L["Template"] = true
+L["Please click the button below to read reference."] = true
 
 -- Notification
 L["Notification"] = true
@@ -1306,6 +1323,14 @@ L["Choose the module you would like to |cff00ff00use|r"] = true
 L["If you find the %s module conflicts with another addon, alert me via Discord."] = true
 L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = true
 L["Complete"] = true
+
+-- Profiles
+L[" Apply"] = true
+L[" Reset"] = true
+L["This group allows to update all fonts used in the "] = true
+L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] = true
+L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
+L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 
 -- Debug
 L["Usage"] = true
