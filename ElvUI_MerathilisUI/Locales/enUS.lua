@@ -173,10 +173,6 @@ L["Extends the merchant page to show more items."] = true
 L["Number of Pages"] = true
 L["The number of pages shown in the merchant frame."] = true
 
--- FlightPoint
-L["Flight Point"] = true
-L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
-
 -- Shadows
 L["Shadows"] = true
 L["Increase Size"] = true

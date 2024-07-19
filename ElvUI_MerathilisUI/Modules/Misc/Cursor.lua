@@ -8,37 +8,41 @@ local GetCursorPosition = GetCursorPosition
 local GetEffectiveScale = GetEffectiveScale
 local UIParent = UIParent
 
-local x = 0
-local y = 0
-local speed = 0
+local x, y, speed = 0, 0, 0
+local MAX_SPEED = 1024
+local SPEED_DECAY = 2048
+local SIZE_MODIFIER = 6
+local MIN_SIZE = 16
+
+local function isNan(value)
+	return value ~= value
+end
 
 local function OnUpdate(_, elapsed)
-	if speed + 1 == speed then
+	if isNan(speed) then
 		speed = 0
 	end
-	if x + 1 == x then
+	if isNan(x) then
 		x = 0
 	end
-	if y + 1 == y then
+	if isNan(y) then
 		y = 0
 	end
 
-	local dX = x
-	local dY = y
-
+	local prevX, prevY = x, y
 	x, y = GetCursorPosition()
-	dX = x - dX
-	dY = y - dY
+	local dX, dY = x - prevX, y - prevY
 
-	local weight = 2048 ^ -elapsed
-	speed = min(weight * speed + (1 - weight) * sqrt(dX * dX + dY * dY) / elapsed, 1024)
+	local distance = sqrt(dX * dX + dY * dY)
+	local decayFactor = SPEED_DECAY ^ -elapsed
+	speed = min(decayFactor * speed + (1 - decayFactor) * distance / elapsed, MAX_SPEED)
 
-	local size = speed / 6 - 16
+	local size = speed / SIZE_MODIFIER - MIN_SIZE
 	if size > 0 then
 		local scale = UIParent:GetEffectiveScale()
-		module.Texture:Height(size)
-		module.Texture:Width(size)
-		module.Texture:Point("CENTER", UIParent, "BOTTOMLEFT", (x + 0.5 * dX) / scale, (y + 0.5 * dY) / scale)
+		module.Texture:SetHeight(size)
+		module.Texture:SetWidth(size)
+		module.Texture:SetPoint("CENTER", E.UIParent, "BOTTOMLEFT", (x + 0.5 * dX) / scale, (y + 0.5 * dY) / scale)
 		module.Texture:Show()
 	else
 		module.Texture:Hide()

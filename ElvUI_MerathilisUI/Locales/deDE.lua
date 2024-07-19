@@ -193,11 +193,6 @@ L["Extends the merchant page to show more items."] = "Erweitert die Händlerseit
 L["Number of Pages"] = "Anzahl der Seiten"
 L["The number of pages shown in the merchant frame."] = "Die Anzahl der im Händlerfenster angezeigten Seiten."
 
--- FlightPoint
-L["Flight Point"] = "Flugpunkt"
-L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] =
-	"Aktivert/Deaktiviert die MerathilisUI Flugpunkte auf der Flugkarte."
-
 -- Shadows
 L["Shadows"] = "Schatten"
 L["Increase Size"] = "Größe"

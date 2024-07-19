@@ -7,8 +7,6 @@
 	<Script file="Automation.lua"/>
 	<Script file="BossBanner.lua"/>
 	<Script file="Cursor.lua"/>
-	<Script file="FlightPoint.lua"/>
-	<Include file="FlightPoint.xml" />
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
 	<Script file="HotKey.lua"/>

@@ -10,6 +10,7 @@ local pairs, select, type = pairs, select, type
 local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
 local Item = Item
 local ItemLocation = ItemLocation
+local GetItemInfo = C_Item.GetItemInfo
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local DoesItemExist = C_Item.DoesItemExist
 

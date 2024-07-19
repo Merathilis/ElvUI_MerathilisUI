@@ -16,7 +16,6 @@ P.general = {
 	GameMenu = true,
 	splashScreen = true,
 	AFK = true,
-	FlightPoint = true,
 	fontScale = 0,
 
 	fontOverride = {

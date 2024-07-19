@@ -203,11 +203,6 @@ L["Number of Pages"] = "Количество страниц"
 L["The number of pages shown in the merchant frame."] =
 	"Количество страниц, отображаемых в рамке продавца."
 
--- FlightPoint
-L["Flight Point"] = "Точка полета"
-L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] =
-	"Включить/отключить точки полета MerathilisUI на карте полета."
-
 -- Shadows
 L["Shadows"] = "Тени"
 L["Increase Size"] = "Увеличить размер"
