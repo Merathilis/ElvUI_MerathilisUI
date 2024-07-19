@@ -107,7 +107,7 @@ P.blizzard = {
 		},
 		cosmeticBar = {
 			enable = true,
-			texture = "Asphyxia",
+			texture = "ElvUI Norm1",
 			widthMode = "ABSOLUTE",
 			heightMode = "ABSOLUTE",
 			width = 212,
@@ -216,52 +216,6 @@ P.CombatAlert = {
 	},
 }
 
-P.cvars = {
-	general = {
-		alwaysCompareItems = false,
-		breakUpLargeNumbers = true,
-		scriptErrors = true,
-		trackQuestSorting = "top",
-		autoLootDefault = false,
-		autoDismountFlying = true,
-		removeChatDelay = true,
-		screenshotQuality = 10,
-		showTutorials = false,
-		cameraFov = 90,
-	},
-	combatText = {
-		worldTextScale = 0.75,
-		targetCombatText = {
-			floatingCombatTextCombatDamage = false,
-			floatingCombatTextCombatLogPeriodicSpells = false,
-			floatingCombatTextPetMeleeDamage = true,
-			floatingCombatTextPetSpellDamage = true,
-			floatingCombatTextCombatDamageDirectionalScale = 1,
-			floatingCombatTextCombatHealing = false,
-			floatingCombatTextCombatHealingAbsorbTarget = false,
-			floatingCombatTextSpellMechanics = false,
-			floatingCombatTextSpellMechanicsOther = false,
-		},
-		playerCombatText = {
-			enableFloatingCombatText = false,
-			floatingCombatTextFloatMode = 1,
-			floatingCombatTextDodgeParryMiss = false,
-			floatingCombatTextCombatHealingAbsorbSelf = true,
-			floatingCombatTextDamageReduction = false,
-			floatingCombatTextLowManaHealth = true,
-			floatingCombatTextRepChanges = false,
-			floatingCombatTextEnergyGains = false,
-			floatingCombatTextComboPoints = false,
-			floatingCombatTextReactives = true,
-			floatingCombatTextPeriodicEnergyGains = false,
-			floatingCombatTextFriendlyHealers = false,
-			floatingCombatTextHonorGains = false,
-			floatingCombatTextCombatState = false,
-			floatingCombatTextAuras = false,
-		},
-	},
-}
-
 P.chat = {
 	enable = true,
 	chatButton = true,
@@ -324,7 +278,7 @@ P.chat = {
 		buttonHeight = 5,
 		spacing = 5,
 		orientation = "HORIZONTAL",
-		tex = "Asphyxia",
+		tex = "ElvUI Norm1",
 		font = {
 			name = E.db.general.font,
 			size = 12,
@@ -727,7 +681,7 @@ P.armory = {
 			g = 1,
 			b = 1,
 		},
-		offsetX = 12,
+		offsetX = 0,
 		offsetY = 0,
 	},
 
