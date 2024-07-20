@@ -8,12 +8,12 @@ local strlower = strlower
 local strsub = strsub
 local wipe = table.wipe
 
-local SetCVar = C_CVar and C_CVar.SetCVar
-local Reload = C_UI and C_UI.Reload
-local GetAddOnInfo = C_AddOns and C_AddOns.GetAddOnInfo
-local DisableAddOn = C_AddOns and C_AddOns.DisableAddOn
-local EnableAddOn = C_AddOns and C_AddOns.EnableAddOn
-local GetNumAddOns = C_AddOns and C_AddOns.GetNumAddOns
+local SetCVar = C_CVar.SetCVar
+local Reload = C_UI.Reload
+local GetAddOnInfo = C_AddOns.GetAddOnInfo
+local DisableAddOn = C_AddOns.DisableAddOn
+local EnableAddOn = C_AddOns.EnableAddOn
+local GetNumAddOns = C_AddOns.GetNumAddOns
 
 function MER:AddCommand(name, keys, func)
 	if not _G.SlashCmdList["MERATHILISUI_" .. name] then
