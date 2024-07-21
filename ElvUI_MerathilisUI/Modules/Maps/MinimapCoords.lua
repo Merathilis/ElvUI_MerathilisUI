@@ -115,13 +115,10 @@ function module:Enable()
 end
 
 function module:DatabaseUpdate()
-	-- Disable
 	self:Disable()
 
-	-- Set db
 	self.db = E.db.mui.maps.minimap.coords
 
-	-- Enable only out of combat
 	F.Event.ContinueOutOfCombat(function()
 		if self.db and self.db.enable then
 			self:Enable()
@@ -130,7 +127,6 @@ function module:DatabaseUpdate()
 end
 
 function module:Initialize()
-	-- Don't init second time
 	if self.Initialized then
 		return
 	end
@@ -139,12 +135,11 @@ function module:Initialize()
 	self.mapInfoY = 0
 	self.updateClosure = F.Event.GenerateClosure(self.UpdateCoords, self)
 
-	-- Register for updates
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
 	F.Event.RegisterCallback("MiniMapCoords.DatabaseUpdate", self.DatabaseUpdate, self)
 	F.Event.RegisterCallback("MiniMapCoords.SettingsUpdate", self.SettingsUpdate, self)
-	print(module)
+
 	self.Initialized = true
 end
 
