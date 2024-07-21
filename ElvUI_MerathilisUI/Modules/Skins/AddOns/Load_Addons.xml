@@ -24,6 +24,7 @@
 	<Script file="Blizzard_CovenantSanctum.lua"/>
 	<Script file="Blizzard_CovenantRenown.lua"/>
 	<Script file="Blizzard_DeathRecap.lua"/>
+	<Script file="Blizzard_Delves.lua"/>
 	<Script file="Blizzard_EventTrace.lua"/>
 	<Script file="Blizzard_EncounterJournal.lua"/>
 	<Script file="Blizzard_ExpansionLandingPage.lua"/>
