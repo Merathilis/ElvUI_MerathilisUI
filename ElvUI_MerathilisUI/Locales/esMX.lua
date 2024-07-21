@@ -416,14 +416,32 @@ L["Keystone"] = true
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
 L["Title Color"] = true
 L["Change the color of the title in the Tooltip."] = true
-L["FACTION"] = "Fazione"
+L["FACTION"] = "Faction"
 L["Only Icons"] = true
 L["Use the new style tooltip."] = "Use the new style tooltip."
 L["Display in English"] = "Display in English"
 L["Show icon"] = "Show icon"
 L["Show the spell icon along with the name."] = "Show the spell icon along with the name."
+L["Show the rank of shards."] = true
 L["Pet Battle"] = true
 L["Tooltip Icons"] = true
+L["Pet Icon"] = true
+L["Pet ID"] = true
+L["Add an icon for indicating the type of the pet."] = true
+L["Show battle pet species ID in tooltips."] = true
+L["The modifer key to show additional information from %s."] = true
+L["Display TargetTarget"] = true
+L["Gradient Color"] = true
+L["Colors the player names in a gradient instead of class color"] = true
+L["Health Bar Y-Offset"] = true
+L["Change the postion of the health bar."] = true
+L["Health Text Y-Offset"] = true
+L["Change the postion of the health text."] = true
+L["Class Icon Style"] = true
+L["Reference"]  = true
+L["Preview"] = true
+L["Template"] = true
+L["Please click the button below to read reference."] = true
 
 -- Notification
 L["Notification"] = true
@@ -1252,6 +1270,12 @@ L["Skyriding Bar"] = true
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 
 |cffff0000WARNING:|r It will overwrite/delete existing Profiles. If you don't want to apply my Profiles please don't press the Buttons below.]]
+L[" Apply"] = true
+L[" Reset"] = true
+L["This group allows to update all fonts used in the "] = true
+L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] = true
+L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
+L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 
 -- Advanced Settings
 L["Advanced Settings"] = true

@@ -428,31 +428,32 @@ L["Adds descriptions for mythic keystone properties to their tooltips."] =
 L["Title Color"] = "标题颜色"
 L["Change the color of the title in the Tooltip."] = "改变鼠标提示中标题的颜色"
 L["FACTION"] = "阵营"
-L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "已激活的艾泽里特之力"
 L["Only Icons"] = "仅图标"
-L["I"] = "1 级"
-L["II"] = "2 级"
-L["III"] = "3 级"
 L["Use the new style tooltip."] = "使用新的鼠标提示外观，将腐蚀特效名称显示到腐蚀属性后。"
 L["Display in English"] = "显示英语腐化特效名称"
 L["Show icon"] = "显示图标"
 L["Show the spell icon along with the name."] = "在腐化特效名称前显示其图标。"
 L["Domination Rank"] = "統御等級"
 L["Show the rank of shards."] = "显示统御碎片的等级."
-L["Covenant: <Not in Group>"] = true
-L["Covenant: <Checking...>"] = true
-L["Covenant: <None - Too low>"] = true
-L["Covenant"] = "盟约"
-L["Covenant: "] = true
-L["Shows the Players Covenant on the Tooltip."] = true
-L["Show not in group"] = true
-L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
-L["Kyrian"] = "格里恩"
-L["Venthyr"] = "温西尔"
-L["NightFae"] = "法夜"
-L["Necrolord"] = "通灵领主"
 L["Pet Battle"] = true
 L["Tooltip Icons"] = true
+L["Pet Icon"] = true
+L["Pet ID"] = true
+L["Add an icon for indicating the type of the pet."] = true
+L["Show battle pet species ID in tooltips."] = true
+L["The modifer key to show additional information from %s."] = true
+L["Display TargetTarget"] = true
+L["Gradient Color"] = true
+L["Colors the player names in a gradient instead of class color"] = true
+L["Health Bar Y-Offset"] = true
+L["Change the postion of the health bar."] = true
+L["Health Text Y-Offset"] = true
+L["Change the postion of the health text."] = true
+L["Class Icon Style"] = true
+L["Reference"]  = true
+L["Preview"] = true
+L["Template"] = true
+L["Please click the button below to read reference."] = true
 
 -- Notification
 L["Notification"] = "通知"
@@ -1318,6 +1319,12 @@ L["Skyriding Bar"] = true
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.
 
 |cffff0000警告:|r 它将覆盖/删除已经存在的配置文件. 如果你不想应用我的配置，请不要按下面的按钮.]]
+L[" Apply"] = true
+L[" Reset"] = true
+L["This group allows to update all fonts used in the "] = true
+L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] = true
+L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
+L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 
 -- Advanced Settings
 L["Advanced Settings"] = true

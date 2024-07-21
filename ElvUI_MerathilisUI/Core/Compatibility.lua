@@ -9,7 +9,7 @@ local strlen, strsplit = strlen, strsplit
 
 local CreateFrame = CreateFrame
 
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 
@@ -202,7 +202,7 @@ local function GetDatabaseRealValue(path)
 end
 
 local function GetCheckCompatibilityFunction(targetAddonName, targetAddonLocales)
-	if not C_AddOns_IsAddOnLoaded(targetAddonName) then
+	if not IsAddOnLoaded(targetAddonName) then
 		return E.noop
 	end
 

@@ -1551,6 +1551,18 @@ P.maps = {
 				style = "SHADOWOUTLINE",
 			},
 		},
+		coords = {
+			enable = true,
+			xOffset = 0,
+			yOffset = 80,
+			format = "%.0f",
+
+			font = {
+				name = E.db.general.font,
+				size = 12,
+				style = "SHADOWOUTLINE",
+			},
+		},
 	},
 	instanceDifficulty = {
 		enable = true,

@@ -488,9 +488,6 @@ L["Change the color of the title in the Tooltip."] =
 L["FACTION"] = "Фракция"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Активные азеритовые таланты"
 L["Only Icons"] = "Только значки"
-L["I"] = "1 ур."
-L["II"] = "2 ур."
-L["III"] = "3 ур."
 L["Display in English"] = "Отображать английские названия"
 L["Show icon"] = "Показать значок"
 L["Show the spell icon along with the name."] =
@@ -498,6 +495,26 @@ L["Show the spell icon along with the name."] =
 L["Show the rank of shards."] = "Показать ранг осколков."
 L["Pet Battle"] = "Битва питомцев"
 L["Tooltip Icons"] = "Значки подсказок"
+L["Use the new style tooltip."] = "Use the new style tooltip."
+L["Pet Battle"] = true
+L["Tooltip Icons"] = true
+L["Pet Icon"] = true
+L["Pet ID"] = true
+L["Add an icon for indicating the type of the pet."] = true
+L["Show battle pet species ID in tooltips."] = true
+L["The modifer key to show additional information from %s."] = true
+L["Display TargetTarget"] = true
+L["Gradient Color"] = true
+L["Colors the player names in a gradient instead of class color"] = true
+L["Health Bar Y-Offset"] = true
+L["Change the postion of the health bar."] = true
+L["Health Text Y-Offset"] = true
+L["Change the postion of the health text."] = true
+L["Class Icon Style"] = true
+L["Reference"]  = true
+L["Preview"] = true
+L["Template"] = true
+L["Please click the button below to read reference."] = true
 
 -- Notification
 L["Notification"] = "Уведомления"
@@ -1460,6 +1477,12 @@ L["Skyriding Bar"] = true
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 
 |cffff0000WARNING:|r It will overwrite/delete existing Profiles. If you don't want to apply my Profiles please don't press the Buttons below.]]
+L[" Apply"] = true
+L[" Reset"] = true
+L["This group allows to update all fonts used in the "] = true
+L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] = true
+L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
+L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 
 -- Advanced Settings
 L["Advanced Settings"] = true

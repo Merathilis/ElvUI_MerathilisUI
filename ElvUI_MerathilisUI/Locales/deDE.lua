@@ -488,6 +488,23 @@ L["Show icon"] = "Symbol anzeigen"
 L["Show the spell icon along with the name."] = "Das Zaubersymbol zusammen mit dem Namen anzeigen."
 L["Pet Battle"] = "Haustierkampf"
 L["Tooltip Icons"] = "Tooltip Symbole"
+L["Pet Icon"] = "Haustier Symbol"
+L["Pet ID"] = "Haustier ID"
+L["Add an icon for indicating the type of the pet."] = "Füge ein Symbol hinzu, um den Typ des Haustiers anzuzeigen."
+L["Show battle pet species ID in tooltips."] = "Art-ID des Kampfhaustiers in Tooltips anzeigen."
+L["The modifer key to show additional information from %s."] = "Die Modifikatortaste zum Anzeigen zusätzlicher Informationen von %s."
+L["Display TargetTarget"] = "Ziel vom Ziel anzeigen"
+L["Gradient Color"] = "Farbverlauf"
+L["Colors the player names in a gradient instead of class color"] = "Färbt die Spielernamen in einem Farbverlauf statt in der Klassenfarbe"
+L["Health Bar Y-Offset"] = "Gesundheitsbalken Y-Versatz"
+L["Change the postion of the health bar."] = "Ändere die Position der Gesundheitsleiste."
+L["Health Text Y-Offset"] = "Gesundheitstext Y-Versatz"
+L["Change the postion of the health text."] = "Ändere die Position des Gesundheitstextes."
+L["Class Icon Style"] = "Klassensymbol Stil"
+L["Reference"]  = "Referenz"
+L["Preview"] = "Vorschau"
+L["Template"] = "Vorlage"
+L["Please click the button below to read reference."] = "Klicke bitte auf die Schaltfläche unten, um die Referenz zu lesen."
 
 -- Notification
 L["Notification"] = "Benachrichtigungen"
@@ -1452,6 +1469,14 @@ L["If you find the %s module conflicts with another addon, alert me via Discord.
 L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] =
 	"Du kannst die Kompatibilitätsprüfung über die Option unten in [MerathilisUI]-[Informationen] deaktivieren/aktivieren."
 L["Complete"] = "Komplett"
+
+-- Profiles
+L[" Apply"] = "Anwenden"
+L[" Reset"] = "Zurücksetzen"
+L["This group allows to update all fonts used in the "] = "Diese Gruppe ermöglicht die Aktualisierung aller Schriftarten in "
+L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] = "ACHTUNG: Einige Schriftarten sehen möglicherweise trotzdem nicht optimal aus! Die Ergebnisse werden nicht optimal sein, aber es sollte Dir helfen, die Schriftarten anzupassen :)\n"
+L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = "Wendet alle |cffffffffMerathilis|r|cffff7d0aUI|r Schriftart Einstellungen an."
+L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = "Setzt alle |cffffffffMerathilis|r|cffff7d0aUI|r Schriftart Einstellungen zurück."
 
 -- Debug
 L["Usage"] = "Verwendungszweck"

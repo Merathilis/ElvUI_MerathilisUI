@@ -5,7 +5,7 @@ local LSM = E.Libs.LSM
 
 options.vehicleBar = {
 	type = "group",
-	name = E.NewSign .. L["VehicleBar"],
+	name = L["VehicleBar"],
 	childGroups = "tab",
 	get = function(info)
 		return E.db.mui.vehicleBar[info[#info]]
