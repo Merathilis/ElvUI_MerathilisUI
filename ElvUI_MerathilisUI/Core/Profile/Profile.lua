@@ -522,11 +522,6 @@ P.misc = {
 	quest = {
 		selectQuestReward = true,
 	},
-	cursor = {
-		enable = false,
-		colorType = "CLASS",
-		customColor = { r = 0, g = 0.75, b = 0.98 },
-	},
 	spellAlert = {
 		enable = true,
 		scale = 0.65,

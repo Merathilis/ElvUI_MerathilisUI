@@ -249,8 +249,6 @@ L[" members"] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
 L["Double Click to Undress"] = true
-L["Flashing Cursor"] = true
-L["Lights up the cursor to make it easier to see."] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
@@ -448,7 +446,7 @@ L["Change the postion of the health bar."] = true
 L["Health Text Y-Offset"] = true
 L["Change the postion of the health text."] = true
 L["Class Icon Style"] = true
-L["Reference"]  = true
+L["Reference"] = true
 L["Preview"] = true
 L["Template"] = true
 L["Please click the button below to read reference."] = true
@@ -1317,7 +1315,8 @@ L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 L[" Apply"] = true
 L[" Reset"] = true
 L["This group allows to update all fonts used in the "] = true
-L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] = true
+L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] =
+	true
 L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 

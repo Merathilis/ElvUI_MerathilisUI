@@ -46,33 +46,6 @@ function module:QuestMapFrame()
 
 	QuestLogPopupDetailFrame.SealMaterialBG:SetAlpha(0)
 
-	-- Show map button
-	local ShowMapButton = _G.QuestLogPopupDetailFrame.ShowMapButton
-
-	ShowMapButton.Texture:SetAlpha(0)
-	ShowMapButton.Highlight:SetTexture("")
-	ShowMapButton.Highlight:SetTexture("")
-
-	ShowMapButton:SetSize(ShowMapButton.Text:GetStringWidth() + 14, 22)
-	ShowMapButton.Text:ClearAllPoints()
-	ShowMapButton.Text:SetPoint("CENTER", 1, 0)
-
-	ShowMapButton:ClearAllPoints()
-	ShowMapButton:SetPoint("TOPRIGHT", _G.QuestLogPopupDetailFrame, -30, -25)
-
-	ShowMapButton:HookScript("OnEnter", function(self)
-		self.Text:SetTextColor(_G.GameFontHighlight:GetTextColor())
-	end)
-
-	ShowMapButton:HookScript("OnLeave", function(self)
-		self.Text:SetTextColor(_G.GameFontNormal:GetTextColor())
-	end)
-
-	-- Bottom buttons
-	_G.QuestLogPopupDetailFrame.ShareButton:ClearAllPoints()
-	_G.QuestLogPopupDetailFrame.ShareButton:SetPoint("LEFT", _G.QuestLogPopupDetailFrame.AbandonButton, "RIGHT", 1, 0)
-	_G.QuestLogPopupDetailFrame.ShareButton:SetPoint("RIGHT", _G.QuestLogPopupDetailFrame.TrackButton, "LEFT", -1, 0)
-
 	_G.QuestMapFrame.CampaignOverview.BG:SetAlpha(0)
 end
 

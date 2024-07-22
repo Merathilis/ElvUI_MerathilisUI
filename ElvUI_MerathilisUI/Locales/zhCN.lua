@@ -254,8 +254,6 @@ L[" members"] = " 会员"
 L["Name Hover"] = "名字悬停"
 L["Shows the Unit Name on the mouse."] = "显示鼠标指向的单位名称."
 L["Double Click to Undress"] = true
-L["Flashing Cursor"] = "鼠标闪光"
-L["Lights up the cursor to make it easier to see."] = true
 L["Accept Quest"] = "接受任务"
 L["Placed Item"] = "放置物品"
 L["Stranger"] = "陌生人"
@@ -450,7 +448,7 @@ L["Change the postion of the health bar."] = true
 L["Health Text Y-Offset"] = true
 L["Change the postion of the health text."] = true
 L["Class Icon Style"] = true
-L["Reference"]  = true
+L["Reference"] = true
 L["Preview"] = true
 L["Template"] = true
 L["Please click the button below to read reference."] = true
@@ -1322,7 +1320,8 @@ L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.
 L[" Apply"] = true
 L[" Reset"] = true
 L["This group allows to update all fonts used in the "] = true
-L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] = true
+L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] =
+	true
 L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 
