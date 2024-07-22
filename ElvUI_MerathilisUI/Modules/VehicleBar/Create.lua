@@ -24,6 +24,14 @@ function module:CreateVigorBar()
 		self:UpdateSpeedText()
 	end)
 
+	vigorBar:UnregisterAllEvents()
+	vigorBar:RegisterEvent("UPDATE_UI_WIDGET")
+	vigorBar:SetScript("OnEvent", function(_, event)
+		if event == "UPDATE_UI_WIDGET" and self:IsVigorAvailable() and self.vigorBar then
+			self:UpdateVigorBar()
+		end
+	end)
+
 	self.vigorBar = vigorBar
 	self.vigorBar.segments = {}
 

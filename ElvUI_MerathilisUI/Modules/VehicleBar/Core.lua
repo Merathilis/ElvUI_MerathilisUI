@@ -1,8 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
 
--- Globals
-local CreateFrame = CreateFrame
 local format = string.format
 
 local InCombatLockdown = InCombatLockdown
@@ -89,18 +87,6 @@ function module:Enable()
 	end
 
 	self:UpdateBar()
-
-	if not self.eventScriptSet and self.vigorBar then
-		local eventFrame = CreateFrame("Frame")
-		eventFrame:RegisterEvent("UPDATE_UI_WIDGET")
-		eventFrame:SetScript("OnEvent", function(_, event)
-			if event == "UPDATE_UI_WIDGET" and self:IsVigorAvailable() and self.vigorBar then
-				self:UpdateVigorBar()
-			end
-		end)
-
-		self.eventScriptSet = true
-	end
 
 	local visibility =
 		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s hide;", "[bonusbar:5]")
@@ -197,7 +183,6 @@ function module:Initialize()
 	self.previousBarWidth = nil
 	self.vigorHeight = 10
 	self.spacing = 2
-	self.eventScriptSet = false
 
 	-- Register for updates
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
