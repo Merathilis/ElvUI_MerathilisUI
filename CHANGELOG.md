@@ -1,5 +1,9 @@
 ### Changes ###
 
+  * 11.0 PATCH - Expect things to go boom!!
+
+  * [Patch]: Changes due to 11.0 API changes
+  * [Minimap]: Added Minimap Coords
   * [Skins]: Fix some skins loading
   * [Raider.io Skin]: Don't skin the Tooltip twice
   * [RBReminder]: Fix the mover size
