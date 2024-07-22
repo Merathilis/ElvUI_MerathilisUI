@@ -80,6 +80,7 @@ function module:GetTextForDifficulty(difficulty, useDefault)
 		[45] = db["PvP"],
 		[147] = db["Warfronts Normal"],
 		[149] = db["Warfronts Heroic"],
+		[208] = db["Delves"],
 	}
 
 	return text[difficulty]
@@ -93,14 +94,8 @@ function module:ConstructFrame()
 	end
 
 	local frame = CreateFrame("Frame", "MER_InstanceDifficultyFrame", _G.Minimap)
-	frame:Size(64, 32)
-	frame:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -45)
-
-	local texture = frame:CreateTexture(nil, "BACKGROUND")
-	texture:SetAllPoints()
-	texture:SetTexture(I.Media.Textures.Difficulty)
-	texture:SetVertexColor(0, 0.75, 0.98, 0.45)
-	frame.texture = texture
+	frame:Size(30, 20)
+	frame:Point("TOPRIGHT", MM.MapHolder, "TOPRIGHT", -10, -5)
 
 	local text = frame:CreateFontString(nil, "OVERLAY")
 	F.SetFontDB(text, self.db.font)
@@ -145,8 +140,9 @@ function module:Initialize()
 	local instanceFrame = difficulty.Instance
 	local guildFrame = difficulty.Guild
 	local challengeModeFrame = difficulty.ChallengeMode
+	local default = difficulty.Default
 
-	for _, frame in pairs({ instanceFrame, guildFrame, challengeModeFrame }) do
+	for _, frame in pairs({ instanceFrame, guildFrame, challengeModeFrame, default }) do
 		if frame then
 			frame:Hide()
 			self:SecureHook(frame, "SetShown", "HideBlizzardDifficulty")

@@ -6,6 +6,7 @@ local norm = format("|cff1eff00%s|r", L["[ABBR] Normal"])
 local hero = format("|cff0070dd%s|r", L["[ABBR] Heroic"])
 local myth = format("|cffa335ee%s|r", L["[ABBR] Mythic"])
 local lfr = format("|cffff8000%s|r", L["[ABBR] Looking for Raid"])
+local delv = format("|cff0020C2%s|r", L["[ABBR] Delves"])
 
 P.core = {
 	installed = nil,
@@ -1596,6 +1597,7 @@ P.maps = {
 			["Mythic Scenario"] = format("%s %s", myth, L["[ABBR] Scenario"]),
 			["Warfronts Normal"] = L["[ABBR] Warfronts"],
 			["Warfronts Heroic"] = format("|cffff7d0aH|r%s", L["[ABBR] Warfronts"]),
+			["Delves"] = "1" .. delv,
 		},
 	},
 	rectangleMinimap = {
