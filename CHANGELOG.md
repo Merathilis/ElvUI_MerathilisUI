@@ -1,6 +1,7 @@
 ### Changes ###
 
   * 11.0 PATCH - Expect things to go boom!!
+  * IF YOU ARE ON EU AND UPDATED TOO EARLY ITS YOUR OWN FAULT!!
 
   * [Patch]: Changes due to 11.0 API changes
   * [Minimap]: Added Minimap Coords

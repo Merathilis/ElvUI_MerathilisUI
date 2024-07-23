@@ -1,9 +1,10 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
-MER.Changelog[999] = {
-	RELEASE_DATE = "TBD",
+MER.Changelog[619] = {
+	RELEASE_DATE = "23.07.2024",
 	FIXES = {
 		"11.0 PATCH - Expect things to go boom!!",
+		"IF YOU ARE ON EU AND UPDATED TOO EARLY ITS YOUR OWN FAULT!!",
 
 		"[Skins]: Fix some skins loading",
 		"[Raider.io Skin]: Don't skin the Tooltip twice",
