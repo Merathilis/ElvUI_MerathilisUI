@@ -8,12 +8,12 @@ local strlower = strlower
 local strsub = strsub
 local wipe = table.wipe
 
-local SetCVar = C_CVar and C_CVar.SetCVar
-local Reload = C_UI and C_UI.Reload
-local GetAddOnInfo = C_AddOns and C_AddOns.GetAddOnInfo
-local DisableAddOn = C_AddOns and C_AddOns.DisableAddOn
-local EnableAddOn = C_AddOns and C_AddOns.EnableAddOn
-local GetNumAddOns = C_AddOns and C_AddOns.GetNumAddOns
+local SetCVar = C_CVar.SetCVar
+local Reload = C_UI.Reload
+local GetAddOnInfo = C_AddOns.GetAddOnInfo
+local DisableAddOn = C_AddOns.DisableAddOn
+local EnableAddOn = C_AddOns.EnableAddOn
+local GetNumAddOns = C_AddOns.GetNumAddOns
 
 function MER:AddCommand(name, keys, func)
 	if not _G.SlashCmdList["MERATHILISUI_" .. name] then
@@ -95,6 +95,15 @@ do
 	end
 end
 
+function MER:ShowStatusReport()
+	if not F.IsMERProfile() then
+		F.Developer.LogInfo("You are not using a " .. MER.Title .. " Profile")
+		return
+	end
+
+	self:GetModule("MER_Misc"):StatusReportShow()
+end
+
 function MER:HandleChatCommand(msg)
 	local category = self:GetArgs(msg)
 
@@ -104,8 +113,12 @@ function MER:HandleChatCommand(msg)
 		E:ToggleOptions("mui,changelog")
 	elseif category == "settings" then
 		E:ToggleOptions("mui")
+	elseif (category == "status" or category == "info") and F.IsMERProfile() then
+		self:ShowStatusReport()
 	elseif category == "install" or category == "i" then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
+	elseif F.IsMERProfile() then
+		self:LogInfo("Usage: /tx cl; changelog; install; i; info; settings; status; wb; debug")
 	else
 		F.Developer.LogWarning("Usage: /mer cl; changelog; install; i; settings")
 	end

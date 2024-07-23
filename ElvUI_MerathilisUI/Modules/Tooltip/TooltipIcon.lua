@@ -3,14 +3,13 @@ local T = MER:GetModule("MER_Tooltip")
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
-local select = select
+local select, tonumber, unpack = select, tonumber, unpack
 local strfind = strfind
 local tinsert = tinsert
-local unpack = unpack
 
 local GetAchievementInfo = GetAchievementInfo
-local GetItemIcon = GetItemIcon
-local GetSpellTexture = GetSpellTexture
+local GetItemIconByID = C_Item.GetItemIconByID
+local GetSpellTexture = C_Spell.GetSpellTexture
 local UnitBattlePetSpeciesID = UnitBattlePetSpeciesID
 local UnitBattlePetType = UnitBattlePetType
 local UnitFactionGroup = UnitFactionGroup
@@ -20,17 +19,17 @@ local UnitIsWildBattlePet = UnitIsWildBattlePet
 
 local TooltipDataProcessor_AddTooltipPostCall = TooltipDataProcessor.AddTooltipPostCall
 
-local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
-local C_EquipmentSet_GetEquipmentSetInfo = C_EquipmentSet.GetEquipmentSetInfo
-local C_MountJournal_GetMountInfoByID = C_MountJournal.GetMountInfoByID
+local GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local GetEquipmentSetInfo = C_EquipmentSet.GetEquipmentSetInfo
+local GetMountInfoByID = C_MountJournal.GetMountInfoByID
 
-local Enum_TooltipDataType_Achievement = Enum.TooltipDataType.Achievement
-local Enum_TooltipDataType_Item = Enum.TooltipDataType.Item
-local Enum_TooltipDataType_Spell = Enum.TooltipDataType.Spell
-local Enum_TooltipDataType_Toy = Enum.TooltipDataType.Toy
-local Enum_TooltipDataType_Mount = Enum.TooltipDataType.Mount
-local Enum_TooltipDataType_Currency = Enum.TooltipDataType.Currency
-local Enum_TooltipDataType_EquipmentSet = Enum.TooltipDataType.EquipmentSet
+local TooltipDataType_Achievement = Enum.TooltipDataType.Achievement
+local TooltipDataType_Item = Enum.TooltipDataType.Item
+local TooltipDataType_Spell = Enum.TooltipDataType.Spell
+local TooltipDataType_Toy = Enum.TooltipDataType.Toy
+local TooltipDataType_Mount = Enum.TooltipDataType.Mount
+local TooltipDataType_Currency = Enum.TooltipDataType.Currency
+local TooltipDataType_EquipmentSet = Enum.TooltipDataType.EquipmentSet
 
 local tooltips = {
 	"GameTooltip",
@@ -46,27 +45,27 @@ _G.BONUS_OBJECTIVE_REWARD_WITH_COUNT_FORMAT = "|T%1$s:16:16:0:0:64:64:5:59:5:59|
 _G.BONUS_OBJECTIVE_REWARD_FORMAT = "|T%1$s:16:16:0:0:64:64:5:59:5:59|t %2$s"
 
 local iconFunctions = {
-	[Enum_TooltipDataType_Achievement] = function(data)
+	[TooltipDataType_Achievement] = function(data)
 		return select(10, GetAchievementInfo(tonumber(data.id)))
 	end,
-	[Enum_TooltipDataType_Item] = function(data)
-		return GetItemIcon(data.id)
+	[TooltipDataType_Item] = function(data)
+		return GetItemIconByID(data.id)
 	end,
-	[Enum_TooltipDataType_Spell] = function(data)
+	[TooltipDataType_Spell] = function(data)
 		return GetSpellTexture(data.id)
 	end,
-	[Enum_TooltipDataType_Toy] = function(data)
-		return GetItemIcon(data.id)
+	[TooltipDataType_Toy] = function(data)
+		return GetItemIconByID(data.id)
 	end,
-	[Enum_TooltipDataType_Mount] = function(data)
-		return select(3, C_MountJournal_GetMountInfoByID(data.id))
+	[TooltipDataType_Mount] = function(data)
+		return select(3, GetMountInfoByID(data.id))
 	end,
-	[Enum_TooltipDataType_Currency] = function(data)
-		local info = C_CurrencyInfo_GetCurrencyInfo(data.id)
+	[TooltipDataType_Currency] = function(data)
+		local info = GetCurrencyInfo(data.id)
 		return info and info.iconFileID
 	end,
-	[Enum_TooltipDataType_EquipmentSet] = function(data)
-		return select(2, C_EquipmentSet_GetEquipmentSetInfo(data.id))
+	[TooltipDataType_EquipmentSet] = function(data)
+		return select(2, GetEquipmentSetInfo(data.id))
 	end,
 }
 
@@ -194,13 +193,13 @@ end
 
 function T:Icons()
 	if E.db.mui.tooltip.icon then
-		handle(Enum_TooltipDataType_Achievement)
-		handle(Enum_TooltipDataType_Item)
-		handle(Enum_TooltipDataType_Spell)
-		handle(Enum_TooltipDataType_Toy)
-		handle(Enum_TooltipDataType_Mount)
-		handle(Enum_TooltipDataType_Currency)
-		handle(Enum_TooltipDataType_EquipmentSet)
+		handle(TooltipDataType_Achievement)
+		handle(TooltipDataType_Item)
+		handle(TooltipDataType_Spell)
+		handle(TooltipDataType_Toy)
+		handle(TooltipDataType_Mount)
+		handle(TooltipDataType_Currency)
+		handle(TooltipDataType_EquipmentSet)
 
 		_G.ShoppingTooltip1.__SetPoint = _G.ShoppingTooltip1.SetPoint
 		hooksecurefunc(_G.ShoppingTooltip1, "SetPoint", alignShoppingTooltip)

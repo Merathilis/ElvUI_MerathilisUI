@@ -1,9 +1,13 @@
 ### Changes ###
 
-  * [Install]: Fix some install whoopsi's
-  * [LocPanel]: Removed LocPanel due to old and wobby code structure
-  * [DataTexts]: Added an new DataText Panel (MER_TopPanel) if ElvUI_mMedia Tag is loaded
-  * [Chat]: Added new Chat Commands: /mer cl; changelog; install; i; settings
-  * [Profiles]: Created an own Option section for AddOn Profiles
-  * [Profiles]: Created an own Option to apply most of the Fonts (WIP)
-  * [BigWigs Profile]: Use new BigWigs API to apply my Profile
+  * 11.0 PATCH - Expect things to go boom!!
+  * IF YOU ARE ON EU AND UPDATED TOO EARLY ITS YOUR OWN FAULT!!
+
+  * [Patch]: Changes due to 11.0 API changes
+  * [Minimap]: Added Minimap Coords
+  * [Skins]: Fix some skins loading
+  * [Raider.io Skin]: Don't skin the Tooltip twice
+  * [RBReminder]: Fix the mover size
+  * [Install]: Some additional AddOn steps in my installer
+  * [StatusReport]: Added an own StatusReport based on ElvUI's & Toxi's
+  * [Armory]: More font options

@@ -193,11 +193,6 @@ L["Extends the merchant page to show more items."] = "Erweitert die Händlerseit
 L["Number of Pages"] = "Anzahl der Seiten"
 L["The number of pages shown in the merchant frame."] = "Die Anzahl der im Händlerfenster angezeigten Seiten."
 
--- FlightPoint
-L["Flight Point"] = "Flugpunkt"
-L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] =
-	"Aktivert/Deaktiviert die MerathilisUI Flugpunkte auf der Flugkarte."
-
 -- Shadows
 L["Shadows"] = "Schatten"
 L["Increase Size"] = "Größe"
@@ -273,8 +268,6 @@ L[" members"] = " Mitglieder"
 L["Name Hover"] = "Namen MouseOver"
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Double Click to Undress"] = "Doppel klicken um Auszuziehen"
-L["Flashing Cursor"] = "Blinkender Mauszeiger"
-L["Lights up the cursor to make it easier to see."] = "Läßt den Cursor aufleuchten um ihn besser zu erkennen."
 L["Accept Quest"] = "Quest annehmen"
 L["Placed Item"] = "Platzierter Gegenstand"
 L["Stranger"] = "Fremder"
@@ -422,8 +415,6 @@ L["This will add the 'DELETE' text to the Item Delete Dialog."] =
 L["Quick Menu"] = "Schnelles Menu"
 L["Shows additional Buttons on your Dropdown for quick actions."] =
 	"Zeigt zusätzliche Schaltflächen in Deinem Dropdown-Menü für schnelle Aktionen an."
-L["Trade Tabs"] = "Händler Tabs"
-L["Creates additional tabs on the Profession Frame"] = "Erstellt zusätzliche Registerkarten im Berufsfenster"
 L["Missing Stats"] = "Fehlende Statistiken"
 L["Show all stats on the Character Frame"] = "Alle Werte im Charakterfenster anzeigen."
 L["Block Join Requests"] = "Beitrittsanfragen blockieren"
@@ -495,6 +486,26 @@ L["Show icon"] = "Symbol anzeigen"
 L["Show the spell icon along with the name."] = "Das Zaubersymbol zusammen mit dem Namen anzeigen."
 L["Pet Battle"] = "Haustierkampf"
 L["Tooltip Icons"] = "Tooltip Symbole"
+L["Pet Icon"] = "Haustier Symbol"
+L["Pet ID"] = "Haustier ID"
+L["Add an icon for indicating the type of the pet."] = "Füge ein Symbol hinzu, um den Typ des Haustiers anzuzeigen."
+L["Show battle pet species ID in tooltips."] = "Art-ID des Kampfhaustiers in Tooltips anzeigen."
+L["The modifer key to show additional information from %s."] =
+	"Die Modifikatortaste zum Anzeigen zusätzlicher Informationen von %s."
+L["Display TargetTarget"] = "Ziel vom Ziel anzeigen"
+L["Gradient Color"] = "Farbverlauf"
+L["Colors the player names in a gradient instead of class color"] =
+	"Färbt die Spielernamen in einem Farbverlauf statt in der Klassenfarbe"
+L["Health Bar Y-Offset"] = "Gesundheitsbalken Y-Versatz"
+L["Change the postion of the health bar."] = "Ändere die Position der Gesundheitsleiste."
+L["Health Text Y-Offset"] = "Gesundheitstext Y-Versatz"
+L["Change the postion of the health text."] = "Ändere die Position des Gesundheitstextes."
+L["Class Icon Style"] = "Klassensymbol Stil"
+L["Reference"] = "Referenz"
+L["Preview"] = "Vorschau"
+L["Template"] = "Vorlage"
+L["Please click the button below to read reference."] =
+	"Klicke bitte auf die Schaltfläche unten, um die Referenz zu lesen."
 
 -- Notification
 L["Notification"] = "Benachrichtigungen"
@@ -697,7 +708,6 @@ L["Creates a weapon Swing Bar"] = "Erstellt eine Waffenschwungleiste"
 L["Main-Hand Color"] = "Haupthand Farbe"
 L["Off-Hand Color"] = "Schildhand Farbe"
 L["Two-Hand Color"] = "Zweihand Farbe"
-L["GCD Bar"] = "GCD Leiste"
 L["Creates a Global Cooldown Bar"] = "Erstellt eine globale Leiste mit Abklingzeiten"
 L["UnitFrame Style"] = "Einheitenfenster Stil"
 L["Adds my styling to the Unitframes if you use transparent health."] =
@@ -1419,6 +1429,17 @@ L["Custom Unitframes Colors"] = "Benutzerdefinierte Einheitsfenster Farben"
 L["Custom Power Colors"] = "Benutzerdefinierte Kraft Farben"
 L["Runic Power"] = "Runenkraft"
 
+--Vehicle Bar
+L["VehicleBar"] = "Fahrzeugleiste"
+L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] =
+	"Ändere die Schaltflächenbreite der Fahrzeugleiste. Die Höhe wird entsprechend im Seitenverhältnis 4:3 skaliert."
+L["Thrill Color"] = "Nervenkitzel Farbe"
+L["The color for vigor bar's speed text when you are regaining vigor."] =
+	"Farbe für den Geschwindigkeitstext der Flugeiste, wenn Du Elan zurückgewinnst."
+L["Animations"] = "Animationen"
+L["Animation Speed"] = "Animations Geschwindigkeit"
+L["Skyriding Bar"] = "Flugleiste"
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.
 
@@ -1450,6 +1471,18 @@ L["You can disable/enable compatibility check via the option in the bottom of [M
 	"Du kannst die Kompatibilitätsprüfung über die Option unten in [MerathilisUI]-[Informationen] deaktivieren/aktivieren."
 L["Complete"] = "Komplett"
 
+-- Profiles
+L[" Apply"] = "Anwenden"
+L[" Reset"] = "Zurücksetzen"
+L["This group allows to update all fonts used in the "] =
+	"Diese Gruppe ermöglicht die Aktualisierung aller Schriftarten in "
+L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] =
+	"ACHTUNG: Einige Schriftarten sehen möglicherweise trotzdem nicht optimal aus! Die Ergebnisse werden nicht optimal sein, aber es sollte Dir helfen, die Schriftarten anzupassen :)\n"
+L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
+	"Wendet alle |cffffffffMerathilis|r|cffff7d0aUI|r Schriftart Einstellungen an."
+L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
+	"Setzt alle |cffffffffMerathilis|r|cffff7d0aUI|r Schriftart Einstellungen zurück."
+
 -- Debug
 L["Usage"] = "Verwendungszweck"
 L["Enable debug mode"] = "Debug Modus aktivieren"
@@ -1475,6 +1508,7 @@ L["[ABBR] Back"] = "Rücken"
 L["[ABBR] Chest"] = "Brust"
 L["[ABBR] Community"] = "C"
 L["[ABBR] Court of Stars"] = "CoS"
+L["[ABBR] Delves"] = "D"
 L["[ABBR] Dragonflight Keystone Hero: Season One"] = "Keystone Hero S1"
 L["[ABBR] Dragonflight Keystone Master: Season One"] = "Keystone Master S1"
 L["[ABBR] Emote"] = "E"

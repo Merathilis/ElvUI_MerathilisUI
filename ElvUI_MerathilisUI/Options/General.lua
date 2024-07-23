@@ -38,14 +38,5 @@ options.name = {
 			name = L["GameMenu"],
 			desc = L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"],
 		},
-		FlightPoint = {
-			order = 5,
-			type = "toggle",
-			name = L["Flight Point"],
-			desc = L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."],
-			hidden = function()
-				return C_AddOns_IsAddOnLoaded("WorldFlightMap")
-			end,
-		},
 	},
 }

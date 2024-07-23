@@ -19,9 +19,10 @@ function module:CharacterFrame()
 
 	-- Token
 	module:CreateShadow(_G.TokenFramePopup)
+	module:CreateShadow(_G.CurrencyTransferLog)
 
 	-- Reputation
-	module:CreateShadow(_G.ReputationDetailFrame)
+	module:CreateShadow(_G.ReputationFrame.ReputationDetailFrame)
 end
 
 module:AddCallback("CharacterFrame")

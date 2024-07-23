@@ -4,8 +4,7 @@ local module = MER:GetModule("MER_Announcement")
 local gsub = gsub
 local tostring = tostring
 
-local GetSpellLink = GetSpellLink
-local InCombatLockdown = InCombatLockdown
+local GetSpellLink = C_Spell.GetSpellLink
 
 local BotList = {
 	[22700] = true,
@@ -197,6 +196,7 @@ function module:Utility(event, sourceName, spellId)
 		if TryAnnounce(spellId, sourceName, nil, BotList, "bots") then
 			return
 		end
+
 		if TryAnnounce(spellId, sourceName, 261602) then
 			return
 		end

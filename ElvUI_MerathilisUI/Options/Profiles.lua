@@ -30,13 +30,13 @@ options.generalGroup = {
 		desc = {
 			order = 1,
 			type = "description",
-			name = "This group allows to update all fonts used in the "
+			name = L["This group allows to update all fonts used in the "]
 				.. MER.Title
 				.. " "
 				.. F.String.ElvUI()
 				.. " Profile.\n\n"
 				.. F.String.Error(
-					"WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"
+					L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"]
 				),
 			fontSize = "medium",
 		},
@@ -49,7 +49,7 @@ options.generalGroup = {
 			order = 3,
 			type = "execute",
 			name = Ok .. F.String.Good(L[" Apply"]),
-			desc = "Applies all " .. MER.Title .. " font settings.",
+			desc = L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."],			
 			func = function()
 				module:ApplyFontChange()
 			end,
@@ -58,7 +58,7 @@ options.generalGroup = {
 			order = 4,
 			type = "execute",
 			name = No .. F.String.Error(L[" Reset"]),
-			desc = "Resets all " .. MER.Title .. " font settings.",
+			desc = L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."],
 			func = function()
 				E:CopyTable(E.db.mui.general.fontOverride, P.general.fontOverride)
 				E:CopyTable(E.db.mui.general.fontStyleOverride, P.general.fontStyleOverride)
@@ -141,8 +141,7 @@ for _, v in ipairs(SupportedProfiles) do
 			elseif addon == "ElvUI_mMediaTag" then
 				module:ApplymMediaTagProfile()
 			elseif addon == "OmniCD" then
-				module:LoadOmniCDProfile()
-				E:StaticPopup_Show("PRIVATE_RL")
+				module:ApplyOmniCDProfile()
 			end
 		end,
 		disabled = function()

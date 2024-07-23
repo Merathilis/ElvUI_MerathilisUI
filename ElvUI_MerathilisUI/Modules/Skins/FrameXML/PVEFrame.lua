@@ -29,7 +29,7 @@ function module:PVEFrame()
 		end
 	end
 
-	for i = 1, 3 do
+	for i = 1, 4 do
 		module:ReskinTab(_G["PVEFrameTab" .. i])
 	end
 

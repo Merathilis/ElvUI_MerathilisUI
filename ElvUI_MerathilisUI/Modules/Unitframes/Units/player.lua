@@ -1,8 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_UnitFrames")
-local UF = E:GetModule("UnitFrames")
-
-local hooksecurefunc = hooksecurefunc
 
 function module:Update_PlayerFrame(frame)
 	local db = E.db.mui.unitframes
@@ -13,10 +10,6 @@ function module:Update_PlayerFrame(frame)
 
 	if not frame.CounterBar then
 		module:Construct_CounterBar(frame)
-	end
-
-	if not frame.GCD then
-		module:Construct_GCD(frame)
 	end
 
 	if not frame.__MERAnim then
@@ -32,16 +25,6 @@ function module:Update_PlayerFrame(frame)
 	else
 		if frame:IsElementEnabled("Swing_MER") then
 			frame:DisableElement("Swing_MER")
-		end
-	end
-
-	if db.gcd.enable then
-		if not frame:IsElementEnabled("GCD") then
-			frame:EnableElement("GCD")
-		end
-	else
-		if frame:IsElementEnabled("GCD") then
-			frame:DisableElement("GCD")
 		end
 	end
 

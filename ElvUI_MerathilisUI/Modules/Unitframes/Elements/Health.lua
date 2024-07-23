@@ -1,7 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_UnitFrames")
 local UF = E:GetModule("UnitFrames")
-local S = MER:GetModule("MER_Skins")
 
 local buttonclass
 
@@ -164,8 +163,8 @@ end
 
 local forced = false
 function module:Configure_GradientHealthColor(unit)
-	local colorDB = E.db.mui.gradient
-	if not colorDB.enable then
+	local db = E.db.mui and E.db.mui.gradient
+	if not db.enable then
 		return
 	end
 

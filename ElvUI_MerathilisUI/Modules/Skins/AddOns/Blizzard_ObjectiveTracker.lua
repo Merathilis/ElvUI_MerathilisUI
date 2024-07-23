@@ -7,6 +7,19 @@ local pairs, select, unpack = pairs, select, unpack
 local InCombatLockdown = InCombatLockdown
 local C_ChallengeMode_GetAffixInfo = C_ChallengeMode.GetAffixInfo
 
+local trackers = {
+	_G.ScenarioObjectiveTracker,
+	_G.UIWidgetObjectiveTracker,
+	_G.CampaignQuestObjectiveTracker,
+	_G.QuestObjectiveTracker,
+	_G.AdventureObjectiveTracker,
+	_G.AchievementObjectiveTracker,
+	_G.MonthlyActivitiesObjectiveTracker,
+	_G.ProfessionsRecipeTracker,
+	_G.BonusObjectiveTracker,
+	_G.WorldQuestObjectiveTracker,
+}
+
 function module:SkinOjectiveTrackerHeaders()
 	local frame = _G.ObjectiveTrackerFrame.MODULES
 	if frame then
@@ -28,15 +41,6 @@ function module:SkinItemButton(block)
 		return
 	end
 	module:CreateShadow(item)
-end
-
-function module:SkinFindGroupButton(block)
-	if block.hasGroupFinderButton and block.groupFinderButton then
-		if block.groupFinderButton and not block.groupFinderButton.MERStyle then
-			module:CreateShadow(block.groupFinderButton)
-			block.groupFinderButton.MERStyle = true
-		end
-	end
 end
 
 function module:SkinProgressBars(_, _, line)
@@ -177,27 +181,24 @@ function module:ScenarioStageWidgetContainer()
 	end
 end
 
-function module:ObjectiveTracker()
+function module:Blizzard_ObjectiveTracker()
 	if not module:CheckDB("objectiveTracker", "objectiveTracker") then
 		return
 	end
 
-	module:SecureHook("ObjectiveTracker_Update", "SkinOjectiveTrackerHeaders")
-	module:SecureHook("QuestObjectiveSetupBlockButton_FindGroup", "SkinFindGroupButton")
-	module:SecureHook("QuestObjectiveSetupBlockButton_Item", "SkinItemButton")
-	module:SecureHook(_G.BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", "SkinProgressBars")
-	module:SecureHook(_G.WORLD_QUEST_TRACKER_MODULE, "AddProgressBar", "SkinProgressBars")
-	module:SecureHook(_G.DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", "SkinProgressBars")
-	module:SecureHook(_G.SCENARIO_TRACKER_MODULE, "AddProgressBar", "SkinProgressBars")
-	module:SecureHook(_G.CAMPAIGN_QUEST_TRACKER_MODULE, "AddProgressBar", "SkinProgressBars")
-	module:SecureHook(_G.QUEST_TRACKER_MODULE, "AddProgressBar", "SkinProgressBars")
-	module:SecureHook(_G.QUEST_TRACKER_MODULE, "AddTimerBar", "SkinTimerBars")
-	module:SecureHook(_G.SCENARIO_TRACKER_MODULE, "AddTimerBar", "SkinTimerBars")
-	module:SecureHook(_G.ACHIEVEMENT_TRACKER_MODULE, "AddTimerBar", "SkinTimerBars")
+	for _, tracker in pairs(trackers) do
+		if tracker then
+			hooksecurefunc(tracker, "AddBlock", SkinItemButton)
+			hooksecurefunc(tracker, "GetProgressBar", SkinProgressBars)
+			hooksecurefunc(tracker, "GetTimerBar", SkinTimerBars)
+		end
+	end
 
-	module:SecureHook("ScenarioStage_CustomizeBlock")
-	module:SecureHook("Scenario_ChallengeMode_ShowBlock")
-	module:SecureHook(_G.SCENARIO_CONTENT_TRACKER_MODULE, "Update", "ScenarioStageWidgetContainer")
+	-- module:SecureHook("ObjectiveTracker_Update", "SkinOjectiveTrackerHeaders")
+
+	-- module:SecureHook("ScenarioStage_CustomizeBlock")
+	-- module:SecureHook("Scenario_ChallengeMode_ShowBlock")
+	-- module:SecureHook(_G.SCENARIO_CONTENT_TRACKER_MODULE, "Update", "ScenarioStageWidgetContainer")
 end
 
-module:AddCallback("ObjectiveTracker")
+module:AddCallbackForAddon("Blizzard_ObjectiveTracker")

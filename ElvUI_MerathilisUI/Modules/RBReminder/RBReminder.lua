@@ -7,7 +7,7 @@ local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
 local CreateFrame = CreateFrame
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 local GetWeaponEnchantInfo = GetWeaponEnchantInfo
 local GetInventoryItemTexture = GetInventoryItemTexture
@@ -60,7 +60,7 @@ module.ReminderBuffs = {
 	},
 	AttackPower = {
 		6673, -- Battle Shout
-		264761, -- War-Scroll of Battle
+		-- 264761, -- War-Scroll of Battle
 	},
 	Versatility = {
 		1126, -- Mark of the Wild
@@ -360,18 +360,18 @@ function module:Initialize()
 	end
 
 	-- Anchor
-	self.Anchor = CreateFrame("Frame", "RaidBuffAnchor", E.UIParent)
-	self.Anchor:SetWidth((E.db.mui.raidBuffs.size * 6) + 15)
-	self.Anchor:SetHeight(E.db.mui.raidBuffs.size)
+	self.Anchor = CreateFrame("Frame", "MER_RaidBuffAnchor", E.UIParent)
+	self.Anchor:SetWidth((E.db.mui.raidBuffs.size * 8) + 26)
+	self.Anchor:SetHeight(E.db.mui.raidBuffs.size + 6)
 	self.Anchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 11, -15)
 
 	self.frame = CreateFrame("Frame", "RaidBuffReminder", E.UIParent)
 	self.frame:CreatePanel(
 		"Invisible",
-		(E.db.mui.raidBuffs.size * 6) + 15,
-		E.db.mui.raidBuffs.size + 4,
+		(E.db.mui.raidBuffs.size * 8) + 26,
+		E.db.mui.raidBuffs.size + 6,
 		"TOPLEFT",
-		RaidBuffAnchor,
+		_G.MER_RaidBuffAnchor,
 		"TOPLEFT",
 		0,
 		4
@@ -406,10 +406,10 @@ function module:Initialize()
 	self.frame:RegisterEvent("CHARACTER_POINTS_CHANGED")
 	self.frame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	self.frame:RegisterEvent("GROUP_ROSTER_UPDATE")
-	self.frame:SetScript("OnEvent", OnAuraChange)
+	-- self.frame:SetScript("OnEvent", OnAuraChange) -- 11.0 FIX ME
 
 	E:CreateMover(
-		self.frame,
+		self.Anchor,
 		"MER_RaidBuffReminderMover",
 		MER.Title .. L["Raid Buffs Reminder"],
 		nil,

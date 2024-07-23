@@ -1,8 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
 
--- Globals
-local CreateFrame = CreateFrame
 local format = string.format
 
 local InCombatLockdown = InCombatLockdown
@@ -90,18 +88,6 @@ function module:Enable()
 
 	self:UpdateBar()
 
-	if not self.eventScriptSet and self.vigorBar then
-		local eventFrame = CreateFrame("Frame")
-		eventFrame:RegisterEvent("UPDATE_UI_WIDGET")
-		eventFrame:SetScript("OnEvent", function(_, event)
-			if event == "UPDATE_UI_WIDGET" and self:IsVigorAvailable() and self.vigorBar then
-				self:UpdateVigorBar()
-			end
-		end)
-
-		self.eventScriptSet = true
-	end
-
 	local visibility =
 		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s hide;", "[bonusbar:5]")
 
@@ -124,9 +110,7 @@ function module:Enable()
 	-- Unregister/Register State Driver
 	UnregisterStateDriver(self.bar, "visibility")
 	UnregisterStateDriver(self.ab["handledBars"]["bar1"], "visibility")
-	UnregisterStateDriver(self.bar, "visibility")
 	UnregisterStateDriver(self.ab["handledBars"]["bar2"], "visibility")
-	UnregisterStateDriver(self.bar, "visibility")
 	UnregisterStateDriver(self.ab["handledBars"]["bar3"], "visibility")
 
 	RegisterStateDriver(
@@ -135,8 +119,8 @@ function module:Enable()
 		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide", "[bonusbar:5]")
 	)
 	RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
-	RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
-	RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
+	RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", visibility .. E.db.actionbar["bar2"].visibility)
+	RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", visibility .. E.db.actionbar["bar3"].visibility)
 
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self.OnCombatEvent, self, false)
@@ -199,7 +183,6 @@ function module:Initialize()
 	self.previousBarWidth = nil
 	self.vigorHeight = 10
 	self.spacing = 2
-	self.eventScriptSet = false
 
 	-- Register for updates
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))

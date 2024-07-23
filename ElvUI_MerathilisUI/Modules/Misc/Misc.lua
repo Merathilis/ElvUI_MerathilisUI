@@ -6,10 +6,13 @@ local _G = _G
 local hooksecurefunc = hooksecurefunc
 local GetNumGroupMembers = GetNumGroupMembers
 local GetSpecialization = GetSpecialization
+local IsFriend = C_FriendList.IsFriend
 local IsGuildMember = IsGuildMember
 local UnitLevel = UnitLevel
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitSetRole = UnitSetRole
+
+local GetGameAccountInfoByGUID = C_BattleNet.GetGameAccountInfoByGUID
 
 function module:SetRole()
 	local spec = GetSpecialization()
@@ -36,7 +39,7 @@ function module:BlockRequest()
 		return
 	end
 
-	if not (C_BattleNet.GetGameAccountInfoByGUID(guid) or C_FriendList.IsFriend(guid) or IsGuildMember(guid)) then
+	if not (GetGameAccountInfoByGUID(guid) or IsFriend(guid) or IsGuildMember(guid)) then
 		RespondToInviteConfirmation(guid, false)
 		StaticPopup_Hide("GROUP_INVITE_CONFIRMATION")
 	end

@@ -100,7 +100,6 @@ function module:UpdateVigorBar()
 	end
 
 	self:UpdateVigorSegments()
-	self:UpdateSpeedText()
 end
 
 function module:UpdateBar()

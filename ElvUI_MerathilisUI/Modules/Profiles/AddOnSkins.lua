@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_Profiles")
 
 local unpack = unpack
 
-local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 function module:LoadAddOnSkinsProfile()
 	local AS = unpack(AddOnSkins)

@@ -14,7 +14,7 @@ local strmatch, strtrim = strmatch, strtrim
 local CreateFrame = CreateFrame
 local ChatEdit_ActivateChat = ChatEdit_ActivateChat
 local ChatEdit_ChooseBoxForSend = ChatEdit_ChooseBoxForSend
-local C_Club_GetMessageInfo = C_Club.GetMessageInfo
+local GetMessageInfo = C_Club.GetMessageInfo
 local InCombatLockdown = InCombatLockdown
 local UISpecialFrames = UISpecialFrames
 
@@ -165,7 +165,7 @@ end
 
 function module:LoadChatEmote()
 	function C_Club.GetMessageInfo(clubId, streamId, messageId)
-		local message = C_Club_GetMessageInfo(clubId, streamId, messageId)
+		local message = GetMessageInfo(clubId, streamId, messageId)
 		message.content = CH:GetSmileyReplacementText(message.content)
 		return message
 	end

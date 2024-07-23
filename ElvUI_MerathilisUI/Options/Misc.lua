@@ -86,31 +86,25 @@ options.general = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
-		tradeTabs = {
-			order = 9,
-			type = "toggle",
-			name = L["Trade Tabs"],
-			desc = L["Creates additional tabs on the Profession Frame"],
-		},
 		spacer = {
-			order = 10,
+			order = 9,
 			type = "description",
 			name = " ",
 		},
 		missingStats = {
-			order = 11,
+			order = 10,
 			type = "toggle",
 			name = L["Missing Stats"],
 			desc = L["Show all stats on the Character Frame"],
 		},
 		blockRequest = {
-			order = 12,
+			order = 13,
 			type = "toggle",
 			name = L["Block Join Requests"],
 			desc = L["|nIf checked, only popout join requests from friends and guild members."],
 		},
 		hotKey = {
-			order = 13,
+			order = 14,
 			type = "toggle",
 			name = L["HotKey Above CD"],
 			desc = format(
@@ -439,69 +433,6 @@ options.scale = {
 					end,
 				},
 			},
-		},
-	},
-}
-
-options.cursor = {
-	order = 4,
-	type = "group",
-	name = L["Flashing Cursor"],
-	get = function(info)
-		return E.db.mui.misc.cursor[info[#info]]
-	end,
-	set = function(info, value)
-		E.db.mui.misc.cursor[info[#info]] = value
-		MI:UpdateColor()
-	end,
-	args = {
-		header = {
-			order = 1,
-			type = "header",
-			name = F.cOption(L["Flashing Cursor"], "orange"),
-		},
-		enable = {
-			order = 2,
-			type = "toggle",
-			name = L["Enable"],
-			set = function(info, value)
-				E.db.mui.misc.cursor[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-		},
-		colorType = {
-			order = 3,
-			name = L["Color Type"],
-			type = "select",
-			disabled = function()
-				return not E.db.mui.misc.cursor.enable
-			end,
-			set = function(info, value)
-				E.db.mui.misc.cursor[info[#info]] = value
-			end,
-			values = {
-				["DEFAULT"] = L["Default"],
-				["CLASS"] = L["Class"],
-				["CUSTOM"] = L["Custom"],
-			},
-		},
-		customColor = {
-			type = "color",
-			order = 4,
-			name = L["Custom Color"],
-			disabled = function()
-				return not E.db.mui.misc.cursor.enable or E.db.mui.misc.cursor.colorType ~= "CUSTOM"
-			end,
-			get = function(info)
-				local t = E.db.mui.misc.cursor[info[#info]]
-				local d = P.misc.cursor[info[#info]]
-				return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-			end,
-			set = function(info, r, g, b)
-				E.db.mui.misc.cursor[info[#info]] = {}
-				local t = E.db.mui.misc.cursor[info[#info]]
-				t.r, t.g, t.b = r, g, b
-			end,
 		},
 	},
 }

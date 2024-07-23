@@ -13,15 +13,10 @@ function module:Blizzard_WeeklyRewards()
 	local header = frame.HeaderFrame
 
 	frame:StripTextures()
-	frame.NineSlice:Kill()
-	frame.BackgroundTile:SetAlpha(0)
 	module:CreateShadow(frame)
 
 	header:StripTextures()
-	header.Left:SetAlpha(0)
-	header.Right:SetAlpha(0)
-	header.Middle:SetAlpha(0)
-	header:SetTemplate("Transparent")
+	header:SetPoint("TOP", 1, -42)
 end
 
 module:AddCallbackForAddon("Blizzard_WeeklyRewards")

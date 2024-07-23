@@ -24,21 +24,21 @@ local GameTooltip = _G.GameTooltip
 local GetBindingKey = GetBindingKey
 local GetInventoryItemCooldown = GetInventoryItemCooldown
 local GetInventoryItemID = GetInventoryItemID
-local GetItemCooldown = GetItemCooldown
-local GetItemCount = GetItemCount
+local GetItemCooldown = C_Item.GetItemCooldown
+local GetItemCount = C_Item.GetItemCount
 local GetQuestLogSpecialItemCooldown = GetQuestLogSpecialItemCooldown
 local GetQuestLogSpecialItemInfo = GetQuestLogSpecialItemInfo
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
-local IsItemInRange = IsItemInRange -- Blizzard seems to protected this in Combat
-local IsUsableItem = IsUsableItem
+local IsItemInRange = C_Item.IsItemInRange
+local IsUsableItem = C_Item.IsUsableItem
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
-local C_QuestLog_GetNumQuestLogEntries = C_QuestLog and C_QuestLog.GetNumQuestLogEntries
-local C_Timer_NewTicker = C_Timer.NewTicker
-local C_TradeSkillUI_GetItemCraftedQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemCraftedQualityByItemInfo
-local C_TradeSkillUI_GetItemReagentQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemReagentQualityByItemInfo
+local GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
+local NewTicker = C_Timer.NewTicker
+local GetItemCraftedQualityByItemInfo = C_TradeSkillUI.GetItemCraftedQualityByItemInfo
+local GetItemReagentQualityByItemInfo = C_TradeSkillUI.GetItemReagentQualityByItemInfo
 
 module.bars = {}
 
@@ -1275,7 +1275,7 @@ local seeds = {
 local questItemList = {}
 local function UpdateQuestItemList()
 	wipe(questItemList)
-	for questLogIndex = 1, C_QuestLog_GetNumQuestLogEntries() do
+	for questLogIndex = 1, GetNumQuestLogEntries() do
 		local link = GetQuestLogSpecialItemInfo(questLogIndex)
 		if link then
 			local itemID = tonumber(strmatch(link, "|Hitem:(%d+):"))
@@ -1373,8 +1373,7 @@ function module:CreateButton(name, barDB)
 	button.cooldown = cooldown
 
 	button.SetTier = function(self, itemIDOrLink)
-		local level = C_TradeSkillUI_GetItemReagentQualityByItemInfo(itemIDOrLink)
-			or C_TradeSkillUI_GetItemCraftedQualityByItemInfo(itemIDOrLink)
+		local level = GetItemReagentQualityByItemInfo(itemIDOrLink) or GetItemCraftedQualityByItemInfo(itemIDOrLink)
 
 		if not level or level == 0 then
 			self.qualityTier:SetText("")
@@ -1852,7 +1851,7 @@ function module:UpdateBar(id)
 		bar.waitGroup = nil
 	end
 
-	bar.waitGroup.ticker = C_Timer_NewTicker(0.1, function()
+	bar.waitGroup.ticker = NewTicker(0.1, function()
 		if not bar.waitGroup or bar.waitGroup.count == 0 then
 			updateAlpha()
 		end

@@ -6,10 +6,10 @@ local format = string.format
 local GetTime = GetTime
 local utf8sub = utf8sub
 
-local C_Texture_GetAtlasInfo = C_Texture.GetAtlasInfo
-local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
-local C_VignetteInfo_GetVignetteInfo = C_VignetteInfo and C_VignetteInfo.GetVignetteInfo
-local C_VignetteInfo_GetVignettePosition = C_VignetteInfo and C_VignetteInfo.GetVignettePosition
+local GetAtlasInfo = C_Texture.GetAtlasInfo
+local GetBestMapForUnit = C_Map.GetBestMapForUnit
+local GetVignetteInfo = C_VignetteInfo.GetVignetteInfo
+local GetVignettePosition = C_VignetteInfo.GetVignettePosition
 local InCombatLockdown = InCombatLockdown
 local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
 local PlaySound = PlaySound
@@ -34,7 +34,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 		db and not db.enable
 		or (not db.vignette or not db.vignette.enable)
 		or InCombatLockdown()
-		or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")]
+		or VignetteExclusionMapIDs[GetBestMapForUnit("player")]
 	then
 		return
 	end
@@ -45,12 +45,12 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	end
 
 	if onMinimap then
-		local vignetteInfo = C_VignetteInfo_GetVignetteInfo(vignetteGUID)
+		local vignetteInfo = GetVignetteInfo(vignetteGUID)
 		if not vignetteInfo then
 			return
 		end
 
-		local atlasInfo = C_Texture_GetAtlasInfo(vignetteInfo.atlasName)
+		local atlasInfo = GetAtlasInfo(vignetteInfo.atlasName)
 		if not atlasInfo then
 			return
 		end
@@ -78,8 +78,8 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 			if db.vignette and db.vignette.enable and db.vignette.print then
 				local currentTime = E.db.chat.timeStampFormat == 1 and "|cff00ff00[" .. date("%H:%M:%S") .. "]|r" or ""
 				local nameString
-				local mapID = C_Map_GetBestMapForUnit("player")
-				local position = mapID and C_VignetteInfo_GetVignettePosition(vignetteInfo.vignetteGUID, mapID)
+				local mapID = GetBestMapForUnit("player")
+				local position = mapID and GetVignettePosition(vignetteInfo.vignetteGUID, mapID)
 				if position then
 					local x, y = position:GetXY()
 					nameString = format(

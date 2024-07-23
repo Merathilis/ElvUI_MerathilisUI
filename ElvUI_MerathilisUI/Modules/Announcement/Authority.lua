@@ -10,8 +10,8 @@ local tonumber = tonumber
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
 
-local C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePrefix
-local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
+local RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePrefix
+local SendAddonMessage = C_ChatInfo.SendAddonMessage
 
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
@@ -43,7 +43,7 @@ local function GetBestChannel()
 end
 
 function module:InitializeAuthority()
-	local successfulRequest = C_ChatInfo_RegisterAddonMessagePrefix(self.prefix)
+	local successfulRequest = RegisterAddonMessagePrefix(self.prefix)
 	assert(successfulRequest, L["The addon message prefix registration is failed."])
 
 	local guidSplitted = { strsplit("-", E.myguid) }
@@ -67,7 +67,7 @@ function module:SendMyLevel(key, value)
 	end
 
 	local message = format("%s=%s;%d;%d", key, value, myServerID, myPlayerUID)
-	C_ChatInfo_SendAddonMessage(self.prefix, message, GetBestChannel())
+	SendAddonMessage(self.prefix, message, GetBestChannel())
 end
 
 function module:ReceiveLevel(message)
@@ -115,7 +115,7 @@ function module:ResetAuthority()
 		return
 	end
 
-	C_ChatInfo_SendAddonMessage(self.prefix, "RESET_AUTHORITY", GetBestChannel())
+	SendAddonMessage(self.prefix, "RESET_AUTHORITY", GetBestChannel())
 end
 
 do

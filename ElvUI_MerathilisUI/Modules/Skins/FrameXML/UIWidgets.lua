@@ -204,22 +204,6 @@ function module:UIWidgets()
 	hooksecurefunc(_G.ObjectiveTrackerUIWidgetContainer, "UpdateWidgetLayout", ReskinPowerBarWidget)
 	ReskinPowerBarWidget(_G.ObjectiveTrackerUIWidgetContainer)
 
-	hooksecurefunc(_G.TopScenarioWidgetContainerBlock.WidgetContainer, "UpdateWidgetLayout", ReskinPowerBarWidget)
-
-	hooksecurefunc(_G.BottomScenarioWidgetContainerBlock.WidgetContainer, "UpdateWidgetLayout", function(self)
-		if not self.widgetFrames then
-			return
-		end
-
-		for _, widgetFrame in pairs(self.widgetFrames) do
-			if widgetFrame.widgetType == Type_SpellDisplay then
-				if not widgetFrame:IsForbidden() then
-					ReskinSpellDisplayWidget(widgetFrame.Spell)
-				end
-			end
-		end
-	end)
-
 	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, "Setup", function(self)
 		ReskinWidgetStatusBar(self.Bar)
 	end)

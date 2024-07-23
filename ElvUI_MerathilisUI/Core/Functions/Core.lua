@@ -26,6 +26,11 @@ local GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
 local GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
 
 -- Profile
+function F.IsMERProfile()
+	local releaseVersion = F.GetDBFromPath("mui.core.lastLayoutVersion")
+	return not (not releaseVersion or releaseVersion == 0)
+end
+
 function F.GetDBFromPath(path, dbRef)
 	local paths = { strsplit(".", path) }
 	local length = #paths
@@ -353,6 +358,14 @@ function F.Round(n, q)
 	end
 
 	return int * q
+end
+
+function F.AlmostEqual(a, b)
+	if not a or not b then
+		return false
+	end
+
+	return abs(a - b) <= 0.001
 end
 
 function F.cOption(name, color)

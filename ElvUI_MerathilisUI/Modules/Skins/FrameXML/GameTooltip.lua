@@ -64,12 +64,23 @@ function module:StyleTooltipsIcons(tt)
 	end
 end
 
+-- Style Tooltips which are not affected by SetStyle
+local tooltips = {
+	_G.FriendsTooltip,
+}
+
 function module:GameTooltip()
 	if not module:CheckDB("tooltip", "tooltip") then
 		return
 	end
 
 	module:CreateShadow(_G.FloatingBattlePetTooltip)
+
+	for _, f in pairs(tooltips) do
+		if f then
+			module:CreateShadow(f)
+		end
+	end
 
 	module:SecureHook(TT, "SetStyle", "SetTooltipStyle")
 	module:SecureHook(TT, "GameTooltip_SetDefaultAnchor", "TTGameTooltip_SetDefaultAnchor")

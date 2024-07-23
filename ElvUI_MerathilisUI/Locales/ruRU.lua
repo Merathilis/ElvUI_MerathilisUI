@@ -203,11 +203,6 @@ L["Number of Pages"] = "Количество страниц"
 L["The number of pages shown in the merchant frame."] =
 	"Количество страниц, отображаемых в рамке продавца."
 
--- FlightPoint
-L["Flight Point"] = "Точка полета"
-L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] =
-	"Включить/отключить точки полета MerathilisUI на карте полета."
-
 -- Shadows
 L["Shadows"] = "Тени"
 L["Increase Size"] = "Увеличить размер"
@@ -286,9 +281,6 @@ L["Name Hover"] = "Имя"
 L["Shows the Unit Name on the mouse."] = "Показывает имя юнита на мышке."
 L["Undress"] = "Раздеться"
 L["Double Click to Undress"] = "Двойной щелчок, чтобы снять экипировку"
-L["Flashing Cursor"] = "Мигающий курсор"
-L["Lights up the cursor to make it easier to see."] =
-	"Курсор подсвечивается, чтобы его было лучше видно."
 L["Accept Quest"] = "Принять задание"
 L["Placed Item"] = "Размещенный предмет"
 L["Stranger"] = "Незнакомец"
@@ -435,8 +427,6 @@ L["Quick Delete"] = true
 L["This will add the 'DELETE' text to the Item Delete Dialog."] = true
 L["Quick Menu"] = true
 L["Shows additional Buttons on your Dropdown for quick actions."] = true
-L["Trade Tabs"] = true
-L["Creates additional tabs on the Profession Frame"] = true
 L["Missing Stats"] = true
 L["Show all stats on the Character Frame"] = true
 L["Block Join Requests"] = true
@@ -495,9 +485,6 @@ L["Change the color of the title in the Tooltip."] =
 L["FACTION"] = "Фракция"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Активные азеритовые таланты"
 L["Only Icons"] = "Только значки"
-L["I"] = "1 ур."
-L["II"] = "2 ур."
-L["III"] = "3 ур."
 L["Display in English"] = "Отображать английские названия"
 L["Show icon"] = "Показать значок"
 L["Show the spell icon along with the name."] =
@@ -505,6 +492,26 @@ L["Show the spell icon along with the name."] =
 L["Show the rank of shards."] = "Показать ранг осколков."
 L["Pet Battle"] = "Битва питомцев"
 L["Tooltip Icons"] = "Значки подсказок"
+L["Use the new style tooltip."] = "Use the new style tooltip."
+L["Pet Battle"] = true
+L["Tooltip Icons"] = true
+L["Pet Icon"] = true
+L["Pet ID"] = true
+L["Add an icon for indicating the type of the pet."] = true
+L["Show battle pet species ID in tooltips."] = true
+L["The modifer key to show additional information from %s."] = true
+L["Display TargetTarget"] = true
+L["Gradient Color"] = true
+L["Colors the player names in a gradient instead of class color"] = true
+L["Health Bar Y-Offset"] = true
+L["Change the postion of the health bar."] = true
+L["Health Text Y-Offset"] = true
+L["Change the postion of the health text."] = true
+L["Class Icon Style"] = true
+L["Reference"] = true
+L["Preview"] = true
+L["Template"] = true
+L["Please click the button below to read reference."] = true
 
 -- Notification
 L["Notification"] = "Уведомления"
@@ -713,7 +720,6 @@ L["Creates a weapon Swing Bar"] = "Создает качающееся пане�
 L["Main-Hand Color"] = "Цвет основной руки"
 L["Off-Hand Color"] = "Цвет левой руки"
 L["Two-Hand Color"] = "Цвет двуручного"
-L["GCD Bar"] = "ГКД панель"
 L["Creates a Global Cooldown Bar"] = "Создает глобальную полосу перезарядки"
 L["UnitFrame Style"] = "Стиль юнитфреймов"
 L["Adds my styling to the Unitframes if you use transparent health."] =
@@ -1455,10 +1461,26 @@ L["Change the color of the name to the in-playing game style."] =
 L["Use Class Color"] = "Использовать цвет класса"
 L["Font Setting"] = "Настройка шрифта"
 
+-- Vehicle Bar
+L["VehicleBar"] = true
+L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] = true
+L["Thrill Color"] = true
+L["The color for vigor bar's speed text when you are regaining vigor."] = true
+L["Animations"] = true
+L["Animation Speed"] = true
+L["Skyriding Bar"] = true
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 
 |cffff0000WARNING:|r It will overwrite/delete existing Profiles. If you don't want to apply my Profiles please don't press the Buttons below.]]
+L[" Apply"] = true
+L[" Reset"] = true
+L["This group allows to update all fonts used in the "] = true
+L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] =
+	true
+L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
+L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 
 -- Advanced Settings
 L["Advanced Settings"] = true
@@ -1529,6 +1551,7 @@ L["[ABBR] Back"] = "Спина"
 L["[ABBR] Chest"] = "Грудь"
 L["[ABBR] Community"] = "С"
 L["[ABBR] Court of Stars"] = "КЗ"
+L["[ABBR] Delves"] = "D"
 L["[ABBR] Dragonflight Keystone Hero: Season One"] = "Герой ключей: 1-й сезон"
 L["[ABBR] Dragonflight Keystone Master: Season One"] = "Властелин ключей: 1-й сезон"
 L["[ABBR] Emote"] = "E"

@@ -3,6 +3,7 @@ local module = MER:GetModule("MER_Panels")
 local S = MER:GetModule("MER_Skins")
 
 local CreateFrame = CreateFrame
+local CreateColor = CreateColor
 
 function module:SkinPanel(panel)
 	local color = { r = 1, g = 1, b = 1 }
@@ -183,8 +184,6 @@ end
 
 function module:UpdateColors()
 	local panelSize = E.db.mui.panels.panelSize or 427
-	local topPanelHeight = E.db.mui.panels.topPanelHeight or 15
-	local bottomPanelHeight = E.db.mui.panels.bottomPanelHeight or 15
 
 	local color = { r = 1, g = 1, b = 1 }
 	if E.db.mui.panels.colorType == "CUSTOM" then

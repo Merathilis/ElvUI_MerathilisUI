@@ -28,14 +28,18 @@ function module:ChangeHealthBarPosition(_, tt)
 				tt.StatusBar:ClearAllPoints()
 				tt.StatusBar:SetPoint("TOPLEFT", tt, "BOTTOMLEFT", E.Border, -(E.Spacing * 3) + barOffset)
 				tt.StatusBar:SetPoint("TOPRIGHT", tt, "BOTTOMRIGHT", -E.Border, -(E.Spacing * 3) + barOffset)
-				tt.StatusBar.text:SetPoint("CENTER", tt.StatusBar, 0, textOffset)
+				if tt.StatusBar.text then
+					tt.StatusBar.text:SetPoint("CENTER", tt.StatusBar, 0, textOffset)
+				end
 			end
 		else
 			if tt.StatusBar.anchoredToTop then
 				tt.StatusBar:ClearAllPoints()
 				tt.StatusBar:SetPoint("BOTTOMLEFT", tt, "TOPLEFT", E.Border, (E.Spacing * 3) + barOffset)
 				tt.StatusBar:SetPoint("BOTTOMRIGHT", tt, "TOPRIGHT", -E.Border, (E.Spacing * 3) + barOffset)
-				tt.StatusBar.text:SetPoint("CENTER", tt.StatusBar, 0, textOffset)
+				if tt.StatusBar.text then
+					tt.StatusBar.text:SetPoint("CENTER", tt.StatusBar, 0, textOffset)
+				end
 			end
 		end
 	end

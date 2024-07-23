@@ -10,6 +10,7 @@
 	<Script file='LipDropdown.lua'/>
 	<Script file='LootRoll.lua'/>
 	<Script file='Misc.lua'/>
+	<Script file='StatusReport.lua'/>
 	<Script file='Options.lua'/>
 	<Script file='UnitFrames.lua'/>
 </Ui>

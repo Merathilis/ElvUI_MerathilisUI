@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local MM = MER:GetModule("MER_Minimap")
 local MP = MER:GetModule("MER_MiniMapPing")
+local CO = MER:GetModule("MER_MiniMapCoords")
 local SMB = MER:GetModule("MER_MiniMapButtons")
 local RM = MER:GetModule("MER_RectangleMinimap")
 local WM = MER:GetModule("MER_WorldMap")
@@ -801,7 +802,7 @@ options.maps = {
 			},
 		},
 		instanceDifficulty = {
-			order = 6,
+			order = 8,
 			type = "group",
 			name = L["Instance Difficulty"],
 			get = function(info)
@@ -916,7 +917,7 @@ options.maps = {
 			},
 		},
 		eventTracker = {
-			order = 7,
+			order = 9,
 			type = "group",
 			name = L["Event Tracker"],
 			get = function(info)
@@ -1595,6 +1596,96 @@ options.maps = {
 							hidden = function(info)
 								return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
 							end,
+						},
+					},
+				},
+			},
+		},
+		coords = {
+			order = 10,
+			type = "group",
+			name = E.NewSign .. L["Minimap Coords"],
+			get = function(info)
+				return E.db.mui.maps.minimap.coords[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.maps.minimap.coords[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				desc = {
+					order = 0,
+					type = "group",
+					inline = true,
+					name = L["Description"],
+					args = {
+						feature = {
+							order = 1,
+							type = "description",
+							name = L["Add coords to your Minimap."],
+							fontSize = "medium",
+						},
+					},
+				},
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				spacer = {
+					order = 2,
+					type = "description",
+					name = "",
+				},
+				xOffset = {
+					order = 3,
+					type = "range",
+					name = L["X-Offset"],
+					min = -300,
+					max = 300,
+					step = 1,
+				},
+				yOffset = {
+					order = 3,
+					type = "range",
+					name = L["Y-Offset"],
+					min = -300,
+					max = 300,
+					step = 1,
+				},
+				font = {
+					order = 7,
+					type = "group",
+					inline = true,
+					name = L["Font"],
+					get = function(info)
+						return E.db.mui.maps.minimap.coords.font[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.maps.minimap.coords.font[info[#info]] = value
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font"),
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = MER.Values.FontFlags,
+							sortByValue = true,
+						},
+						size = {
+							order = 3,
+							name = L["Size"],
+							type = "range",
+							min = 5,
+							max = 60,
+							step = 1,
 						},
 					},
 				},

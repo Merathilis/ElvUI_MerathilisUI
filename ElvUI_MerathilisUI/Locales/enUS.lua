@@ -173,10 +173,6 @@ L["Extends the merchant page to show more items."] = true
 L["Number of Pages"] = true
 L["The number of pages shown in the merchant frame."] = true
 
--- FlightPoint
-L["Flight Point"] = true
-L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
-
 -- Shadows
 L["Shadows"] = true
 L["Increase Size"] = true
@@ -252,8 +248,6 @@ L[" members"] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
 L["Double Click to Undress"] = true
-L["Flashing Cursor"] = true
-L["Lights up the cursor to make it easier to see."] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
@@ -378,8 +372,6 @@ L["Quick Delete"] = true
 L["This will add the 'DELETE' text to the Item Delete Dialog."] = true
 L["Quick Menu"] = true
 L["Shows additional Buttons on your Dropdown for quick actions."] = true
-L["Trade Tabs"] = true
-L["Creates additional tabs on the Profession Frame"] = true
 L["Missing Stats"] = true
 L["Show all stats on the Character Frame"] = true
 L["Block Join Requests"] = true
@@ -438,6 +430,23 @@ L["Show the spell icon along with the name."] = "Show the spell icon along with 
 L["Show the rank of shards."] = true
 L["Pet Battle"] = true
 L["Tooltip Icons"] = true
+L["Pet Icon"] = true
+L["Pet ID"] = true
+L["Add an icon for indicating the type of the pet."] = true
+L["Show battle pet species ID in tooltips."] = true
+L["The modifer key to show additional information from %s."] = true
+L["Display TargetTarget"] = true
+L["Gradient Color"] = true
+L["Colors the player names in a gradient instead of class color"] = true
+L["Health Bar Y-Offset"] = true
+L["Change the postion of the health bar."] = true
+L["Health Text Y-Offset"] = true
+L["Change the postion of the health text."] = true
+L["Class Icon Style"] = true
+L["Reference"] = true
+L["Preview"] = true
+L["Template"] = true
+L["Please click the button below to read reference."] = true
 
 -- Notification
 L["Notification"] = true
@@ -626,7 +635,6 @@ L["Creates a weapon Swing Bar"] = true
 L["Main-Hand Color"] = true
 L["Off-Hand Color"] = true
 L["Two-Hand Color"] = true
-L["GCD Bar"] = true
 L["Creates a Global Cooldown Bar"] = true
 L["UnitFrame Style"] = true
 L["Adds my styling to the Unitframes if you use transparent health."] = true
@@ -1253,6 +1261,15 @@ L["Change the color of the name to the in-playing game style."] = true
 L["Use Class Color"] = true
 L["Font Setting"] = true
 
+-- Vehicle Bar
+L["VehicleBar"] = true
+L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] = true
+L["Thrill Color"] = true
+L["The color for vigor bar's speed text when you are regaining vigor."] = true
+L["Animations"] = true
+L["Animation Speed"] = true
+L["Skyriding Bar"] = true
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 
@@ -1298,6 +1315,15 @@ L["If you find the %s module conflicts with another addon, alert me via Discord.
 L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = true
 L["Complete"] = true
 
+-- Profiles
+L[" Apply"] = true
+L[" Reset"] = true
+L["This group allows to update all fonts used in the "] = true
+L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] =
+	true
+L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
+L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
+
 -- Debug
 L["Usage"] = true
 L["Enable debug mode"] = true
@@ -1318,6 +1344,7 @@ L["[ABBR] Back"] = "Back"
 L["[ABBR] Chest"] = "Chest"
 L["[ABBR] Community"] = "C"
 L["[ABBR] Court of Stars"] = "CoS"
+L["[ABBR] Delves"] = "D"
 L["[ABBR] Dragonflight Keystone Hero: Season One"] = "Keystone Hero S1"
 L["[ABBR] Dragonflight Keystone Master: Season One"] = "Keystone Master S1"
 L["[ABBR] Emote"] = "E"

@@ -92,38 +92,6 @@ function module:Blizzard_InspectUI()
 		button.icon:SetShown(button.hasItem)
 	end)
 
-	-- Talents
-	local inspectSpec = _G.InspectTalentFrame.InspectSpec
-	inspectSpec.ring:Hide()
-
-	for i = 1, 7 do
-		local row = _G.InspectTalentFrame.InspectTalents["tier" .. i]
-		for j = 1, 3 do
-			local bu = row["talent" .. j]
-
-			bu.Slot:Hide()
-			bu.border:SetTexture("")
-
-			bu.icon:SetDrawLayer("ARTWORK")
-			bu.icon:SetTexCoord(unpack(E.TexCoords))
-
-			module:CreateBG(bu.icon)
-		end
-	end
-
-	inspectSpec.specIcon:SetTexCoord(unpack(E.TexCoords))
-	module:CreateBG(inspectSpec.specIcon)
-
-	inspectSpec:HookScript("OnShow", updateIcon)
-	_G.InspectTalentFrame:HookScript("OnEvent", function(self, event, unit)
-		if not _G.InspectFrame:IsShown() then
-			return
-		end
-		if event == "INSPECT_READY" and _G.InspectFrame.unit and UnitGUID(_G.InspectFrame.unit) == unit then
-			updateIcon(self.InspectSpec)
-		end
-	end)
-
 	for i = 1, 4 do
 		local tab = _G["InspectFrameTab" .. i]
 		if tab then

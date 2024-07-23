@@ -166,8 +166,100 @@ function module:ElvUIFont()
 				fonts = {
 					enable = true,
 					font = F.FontOverride(I.Fonts.Primary),
-					fontSize = F.FontSizeScaled(20),
+					fontSize = F.FontSizeScaled(10),
 					fontOutline = F.FontStyleOverride(I.Fonts.Primary, "SHADOWOUTLINE"),
+				},
+			},
+		},
+		-- Chat
+		chat = {
+			font = F.FontOverride(I.Fonts.Primary),
+			fontOutline = F.FontStyleOverride(I.Fonts.Primary, "SHADOWOUTLINE"),
+
+			tabFont = F.FontOverride(I.Fonts.Primary),
+			tabFontSize = F.FontSizeScaled(10),
+			tabFontOutline = F.FontStyleOverride(I.Fonts.Primary, "SHADOWOUTLINE"),
+		},
+
+		-- Auras
+		auras = {
+			-- Buffs
+			buffs = {
+				countFont = F.FontOverride(I.Fonts.GothamRaid),
+				countFontSize = F.FontSizeScaled(11),
+				countFontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+
+				timeFont = F.FontOverride(I.Fonts.GothamRaid),
+				timeFontSize = F.FontSizeScaled(11),
+				timeFontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+			},
+
+			-- Debuffs
+			debuffs = {
+				countFont = F.FontOverride(I.Fonts.GothamRaid),
+				countFontSize = F.FontSizeScaled(12),
+				countFontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+
+				timeFont = F.FontOverride(I.Fonts.GothamRaid),
+				timeFontSize = F.FontSizeScaled(12),
+				timeFontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+			},
+		},
+
+		-- UnitFrames
+		unitframe = {
+			font = F.FontOverride(I.Fonts.GothamRaid),
+			fontSize = F.FontSizeScaled(10),
+			fontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+
+			cooldown = {
+				fonts = {
+					enable = true,
+					font = F.FontOverride(I.Fonts.GothamRaid),
+					fontSize = F.FontSizeScaled(16),
+					fontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+				},
+			},
+
+			units = {
+				player = {
+					customTexts = customTextSize({
+						{ "BigName", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
+						{ "Group", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
+						{ "Life", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
+						{ "MERMana", I.Fonts.GothamRaid, 12, "SHADOWOUTLINE" },
+						{ "MERPower", I.Fonts.GothamRaid, 12, "SHADOWOUTLINE" },
+						{ "Percent", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
+					}),
+
+					buffs = {
+						countFont = F.FontOverride(I.Fonts.Primary),
+						countFontSize = F.FontSizeScaled(9),
+					},
+
+					debuffs = {
+						countFont = F.FontOverride(I.Fonts.Primary),
+						countFontSize = F.FontSizeScaled(9),
+					},
+				},
+
+				target = {
+					customTexts = customTextSize({
+						{ "BigName", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
+						{ "Life", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
+						{ "MERPower", I.Fonts.GothamRaid, 12, "SHADOWOUTLINE" },
+						{ "Percent", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
+					}),
+
+					buffs = {
+						countFont = F.FontOverride(I.Fonts.Primary),
+						countFontSize = F.FontSizeScaled(9),
+					},
+
+					debuffs = {
+						countFont = F.FontOverride(I.Fonts.Primary),
+						countFontSize = F.FontSizeScaled(9),
+					},
 				},
 			},
 		},

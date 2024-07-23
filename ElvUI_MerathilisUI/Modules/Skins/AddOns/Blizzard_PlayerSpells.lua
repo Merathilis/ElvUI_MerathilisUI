@@ -3,12 +3,12 @@ local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
-function module:Blizzard_ClassTalentUI()
+function module:Blizzard_PlayerSpells()
 	if not module:CheckDB("talent", "talent") then
 		return
 	end
 
-	local frame = _G.ClassTalentFrame
+	local frame = _G.PlayerSpellsFrame
 	self:CreateShadow(frame)
 
 	for _, tab in next, { frame.TabSystem:GetChildren() } do
@@ -19,4 +19,4 @@ function module:Blizzard_ClassTalentUI()
 	self:CreateBackdropShadow(_G.ClassTalentLoadoutEditDialog)
 end
 
-module:AddCallbackForAddon("Blizzard_ClassTalentUI")
+module:AddCallbackForAddon("Blizzard_PlayerSpells")

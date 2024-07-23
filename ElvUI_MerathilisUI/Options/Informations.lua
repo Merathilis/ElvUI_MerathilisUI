@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.information.args
 
+local unpack = unpack
 local tconcat, tsort = table.concat, table.sort
 
 local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
@@ -41,7 +42,7 @@ local DONATORS = {
 	"Andrey",
 	"Jake",
 	"Jiberish",
-	"徐​德华",
+	"Xu Dehua",
 }
 tsort(DONATORS, SortList)
 local DONATOR_STRING = tconcat(DONATORS, ", ")
@@ -187,24 +188,6 @@ options.name = {
 					type = "description",
 					fontSize = "medium",
 					name = format("|cff009fffPayPal: |r|cffffffff%s\n|r", DONATOR_STRING),
-				},
-			},
-		},
-		version = {
-			order = 10,
-			type = "group",
-			name = F.cOption(L["Version"], "orange"),
-			guiInline = true,
-			args = {
-				version = {
-					order = 1,
-					type = "description",
-					name = MER.Title .. F.cOption(MER.Version, "blue"),
-				},
-				build = {
-					order = 2,
-					type = "description",
-					name = L["WoW Build"] .. ": " .. F.cOption(format("%s (%s)", E.wowpatch, E.wowbuild), "blue"),
 				},
 			},
 		},

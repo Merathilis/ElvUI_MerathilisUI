@@ -5,7 +5,7 @@ local LSM = E.Libs.LSM
 
 options.vehicleBar = {
 	type = "group",
-	name = E.NewSign .. L["VehicleBar"],
+	name = L["VehicleBar"],
 	childGroups = "tab",
 	get = function(info)
 		return E.db.mui.vehicleBar[info[#info]]
@@ -45,7 +45,6 @@ options.vehicleBar = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["Toggling this on enables the " .. MER.Title .. " Vehicle Bar."],
 				},
 				buttonWidth = {
 					order = 2,
@@ -74,7 +73,6 @@ options.vehicleBar = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["Toggling this on enables the " .. MER.Title .. " Vehicle Bar Animations."],
 					get = function()
 						return E.db.mui.vehicleBar.animations
 					end,
@@ -112,7 +110,6 @@ options.vehicleBar = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["Toggling this on enables the " .. MER.Title .. " Skyriding Bar."],
 					get = function(_)
 						return E.db.mui.vehicleBar.vigorBar.enable
 					end,

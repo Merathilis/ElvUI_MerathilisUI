@@ -2,8 +2,9 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local error = error
 local type, unpack = type, unpack
+local char = string.char
 local strbyte, strfind, strlen, strsub = strbyte, strfind, strlen, strsub
-local utf8len, utf8lower, utf8sub = string.utf8len, string.utf8lower, string.utf8sub
+local utf8len, utf8lower, utf8sub, utf8upper = string.utf8len, string.utf8lower, string.utf8sub, string.utf8upper
 local tinsert = tinsert
 
 F.String = {}
@@ -188,6 +189,13 @@ function F.String.RGB(msg, colors)
 	else
 		return F.String.Color(msg, F.String.FastRGB(colors[1], colors[2], colors[3]))
 	end
+end
+
+function F.String.ColorFirstLetter(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return F.String.MERATHILISUI(utf8upper(utf8sub(text, 1, 1))) .. "|cfff5feff" .. utf8sub(text, 2) .. "|r"
 end
 
 function F.String.StripTexture(text)
@@ -418,7 +426,7 @@ end
 
 function F.String.Details(msg)
 	if not msg or msg == "" then
-		return F.String.Color("Details", I.Enum.Colors.DETAILS)
+		return F.String.Color(L["Details"], I.Enum.Colors.DETAILS)
 	end
 
 	return F.String.Color(msg, I.Enum.Colors.DETAILS)
@@ -426,7 +434,7 @@ end
 
 function F.String.BigWigs(msg)
 	if not msg or msg == "" then
-		return F.String.Color("BigWigs", I.Enum.Colors.BIGWIGS)
+		return F.String.Color(L["BigWigs"], I.Enum.Colors.BIGWIGS)
 	end
 
 	return F.String.Color(msg, I.Enum.Colors.BIGWIGS)
@@ -434,7 +442,7 @@ end
 
 function F.String.OmniCD(msg)
 	if not msg or msg == "" then
-		return F.String.Color("OmniCD", I.Enum.Colors.OMNICD)
+		return F.String.Color(L["OmniCD"], I.Enum.Colors.OMNICD)
 	end
 
 	return F.String.Color(msg, I.Enum.Colors.OMNICD)
@@ -442,15 +450,31 @@ end
 
 function F.String.WindTools(msg)
 	if not msg or msg == "" then
-		return F.String.Color("WindTools", I.Enum.Colors.WT)
+		return F.String.Color(L["WindTools"], I.Enum.Colors.WT)
 	end
 
 	return F.String.Color(msg, I.Enum.Colors.WT)
 end
 
+function F.String.FCT(msg)
+	if not msg or msg == "" then
+		return F.String.Color(L["FCT"], I.Enum.Colors.FCT)
+	end
+
+	return F.String.Color(msg, I.Enum.Colors.FCT)
+end
+
+function F.String.AS(msg)
+	if not msg or msg == "" then
+		return F.String.Color(L["AddOnSkins"], I.Enum.Colors.AS)
+	end
+
+	return F.String.Color(msg, I.Enum.Colors.AS)
+end
+
 function F.String.ElvUI(msg)
 	if not msg or msg == "" then
-		return F.String.Color("ElvUI", I.Enum.Colors.ELVUI)
+		return F.String.Color(L["ElvUI"], I.Enum.Colors.ELVUI)
 	end
 
 	return F.String.Color(msg, I.Enum.Colors.ELVUI)
@@ -494,4 +518,18 @@ end
 
 function F.String.Grey(msg)
 	return F.String.Color(msg, I.Enum.Colors.GREY)
+end
+
+-- Credits to WunderUI
+function F.String.ConvertGlyph(unicode)
+	if unicode <= 0x7F then
+		return char(unicode)
+	end
+	if unicode <= 0x7FF then
+		return char(0xC0 + floor(unicode / 0x40), 0x80 + (unicode % 0x40))
+	end
+	if unicode <= 0xFFFF then
+		return char(0xE0 + floor(unicode / 0x1000), 0x80 + (floor(unicode / 0x40) % 0x40), 0x80 + (unicode % 0x40))
+	end
+	error(L["Could not convert unicode "] .. tostring(unicode))
 end

@@ -6,9 +6,6 @@
 	<Script file="AlreadyKnown.lua"/>
 	<Script file="Automation.lua"/>
 	<Script file="BossBanner.lua"/>
-	<Script file="Cursor.lua"/>
-	<Script file="FlightPoint.lua"/>
-	<Include file="FlightPoint.xml" />
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
 	<Script file="HotKey.lua"/>
@@ -18,8 +15,8 @@
 	<Script file="Quest.lua"/>
 	<Script file="QuickMenu.lua"/>
 	<Script file="SpellAlerts.lua"/>
+	<Script file="StatusReport.lua"/>
 	<Script file="RandomToy.lua"/>
-	<Script file="TradeTabs.lua"/>
 	<Script file="WAAnchor.lua"/>
 	<Script file="WoWHeadLinks.lua"/>
 

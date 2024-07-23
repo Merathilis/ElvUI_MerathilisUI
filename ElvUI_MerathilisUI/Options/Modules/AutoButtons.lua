@@ -10,9 +10,6 @@ local format = string.format
 local pairs = pairs
 local tonumber = tonumber
 
-local C_Item_GetItemIconByID = C_Item.GetItemIconByID
-local C_Item_GetItemNameByID = C_Item.GetItemNameByID
-
 local customListSelected1
 local customListSelected2
 

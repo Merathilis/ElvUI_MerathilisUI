@@ -4,7 +4,6 @@ local module = MER:GetModule("MER_FriendsList")
 local _G = _G
 local format = format
 local pairs = pairs
-local strmatch = strmatch
 local strsplit = strsplit
 
 local BNConnected = BNConnected
@@ -13,9 +12,9 @@ local FriendsFrame_Update = FriendsFrame_Update
 local GetQuestDifficultyColor = GetQuestDifficultyColor
 local TimerunningUtil_AddSmallIcon = TimerunningUtil.AddSmallIcon
 
-local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
-local C_ClassColor_GetClassColor = C_ClassColor.GetClassColor
-local C_FriendList_GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
+local GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
+local GetClassColor = C_ClassColor.GetClassColor
+local GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
 
 local BNET_FRIEND_TOOLTIP_WOW_CLASSIC = BNET_FRIEND_TOOLTIP_WOW_CLASSIC
 local FRIENDS_BUTTON_TYPE_BNET = FRIENDS_BUTTON_TYPE_BNET
@@ -219,17 +218,17 @@ local regionLocales = {
 	[5] = L["China"],
 }
 
-local function GetClassColor(className)
+local function GetClassColors(className)
 	for class, localizedName in pairs(LOCALIZED_CLASS_NAMES_MALE) do
 		if className == localizedName then
-			return C_ClassColor_GetClassColor(class)
+			return GetClassColor(class)
 		end
 	end
 
 	if MER.Locale == "deDE" or MER.Locale == "frFR" then
 		for class, localizedName in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
 			if className == localizedName then
-				return C_ClassColor_GetClassColor(class)
+				return GetClassColor(class)
 			end
 		end
 	end
@@ -258,7 +257,7 @@ function module:UpdateFriendButton(button)
 		-- WoW friends
 		wowID = WOW_PROJECT_MAINLINE
 		gameName = projectCodes["WOW"]
-		local friendInfo = C_FriendList_GetFriendInfoByIndex(button.id)
+		local friendInfo = GetFriendInfoByIndex(button.id)
 		name, server = strsplit("-", friendInfo.name) -- server is nil if it's not a cross-realm friend
 		level = friendInfo.level
 		class = friendInfo.className
@@ -279,7 +278,7 @@ function module:UpdateFriendButton(button)
 		end
 	elseif button.buttonType == FRIENDS_BUTTON_TYPE_BNET and BNConnected() then
 		-- Battle.net friends
-		local friendAccountInfo = C_BattleNet_GetFriendAccountInfo(button.id)
+		local friendAccountInfo = GetFriendAccountInfo(button.id)
 		if friendAccountInfo then
 			realID = friendAccountInfo.accountName
 			note = friendAccountInfo.note
@@ -353,7 +352,7 @@ function module:UpdateFriendButton(button)
 		local realIDString = realID and clientColor and F.CreateColorString(realID, clientColor) or realID
 
 		-- name
-		local classColor = module.db.useClassColor and GetClassColor(class)
+		local classColor = module.db.useClassColor and GetClassColors(class)
 		local nameString = name and classColor and F.CreateColorString(name, classColor) or name
 		if timerunningSeasonID ~= "" and nameString ~= nil then
 			nameString = TimerunningUtil_AddSmallIcon(nameString) or nameString

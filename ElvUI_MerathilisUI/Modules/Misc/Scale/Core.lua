@@ -1,7 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc")
 
-local C_Timer_After = C_Timer.After
+local _G = _G
 
 local talentsHooked = false
 
@@ -110,7 +110,7 @@ function module:Scale()
 
 	module:SetElementScale("characterFrame", "CharacterFrame")
 	module:SetElementScale("dressingRoom", "DressUpFrame")
-	module:SetElementScale("spellbook", "SpellBookFrame")
+	-- module:SetElementScale("professionsBook", "ProfessionsBookFrame") -- FIX ME
 
 	module:AddCallbackOrScale("Blizzard_InspectUI", self.ScaleInspectUI)
 	module:AddCallbackOrScale("Blizzard_ClassTalentUI", self.ScaleTalents)

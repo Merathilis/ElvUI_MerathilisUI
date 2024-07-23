@@ -157,8 +157,473 @@ options.armory = {
 				},
 			},
 		},
-		enchantGroup = {
+		headerGroup = {
 			order = 11,
+			type = "group",
+			name = L["Header"],
+			disabled = function()
+				return not E.db.mui.armory.enable
+			end,
+			hidden = function()
+				return not E.db.general.itemLevel.displayCharacterInfo
+			end,
+			args = {
+				desc = {
+					order = 0,
+					type = "description",
+					name = L["Settings for different font strings"],
+				},
+				nameText = {
+					order = 1,
+					type = "group",
+					inline = true,
+					name = L["Name Text"],
+					get = function(info)
+						return E.db.mui.armory.nameText[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.armory.nameText[info[#info]] = value
+						E:StaticPopup_Show("CONFIG_RL")
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font"),
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = MER.Values.FontFlags,
+							sortByValue = true,
+						},
+						size = {
+							order = 3,
+							name = L["Size"],
+							type = "range",
+							min = 5,
+							max = 60,
+							step = 1,
+						},
+						fontColor = {
+							order = 4,
+							type = "select",
+							name = L["Font Color"],
+							values = {
+								["GRADIENT"] = F.String.FastGradient(L["Gradient"], 0, 0.6, 1, 0, 0.9, 1),
+								["CLASS"] = F.String.Class(L["Class Gradient"]),
+								["CUSTOM"] = L["Custom"],
+							},
+						},
+						color = {
+							order = 5,
+							type = "color",
+							name = L["Custom Color"],
+							hasAlpha = false,
+							hidden = function()
+								return E.db.mui.armory.nameText.fontColor ~= "CUSTOM"
+							end,
+							get = function(info)
+								local db = E.db.mui.armory.nameText[info[#info]]
+								local default = P.armory.nameText[info[#info]]
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+							end,
+							set = function(info, r, g, b)
+								local db = E.db.mui.armory.nameText[info[#info]]
+								db.r, db.g, db.b = r, g, b
+								E:StaticPopup_Show("CONFIG_RL")
+							end,
+						},
+						spacer = {
+							order = 6,
+							type = "description",
+							name = " ",
+						},
+						offsetX = {
+							order = 7,
+							type = "range",
+							name = L["X-Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+						offsetY = {
+							order = 8,
+							type = "range",
+							name = L["Y-Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+					},
+				},
+				titleText = {
+					order = 2,
+					type = "group",
+					inline = true,
+					name = L["Title Text"],
+					get = function(info)
+						return E.db.mui.armory.titleText[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.armory.titleText[info[#info]] = value
+						E:StaticPopup_Show("CONFIG_RL")
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font"),
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = MER.Values.FontFlags,
+							sortByValue = true,
+						},
+						size = {
+							order = 3,
+							name = L["Size"],
+							type = "range",
+							min = 5,
+							max = 60,
+							step = 1,
+						},
+						fontColor = {
+							order = 4,
+							type = "select",
+							name = L["Font Color"],
+							values = {
+								["GRADIENT"] = F.String.FastGradient(L["Gradient"], 0, 0.6, 1, 0, 0.9, 1),
+								["CLASS"] = F.String.Class(L["Class Gradient"]),
+								["CUSTOM"] = L["Custom"],
+							},
+						},
+						color = {
+							order = 5,
+							type = "color",
+							name = L["Custom Color"],
+							hasAlpha = false,
+							hidden = function()
+								return E.db.mui.armory.titleText.fontColor ~= "CUSTOM"
+							end,
+							get = function(info)
+								local db = E.db.mui.armory.titleText[info[#info]]
+								local default = P.armory.titleText[info[#info]]
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+							end,
+							set = function(info, r, g, b)
+								local db = E.db.mui.armory.titleText[info[#info]]
+								db.r, db.g, db.b = r, g, b
+								E:StaticPopup_Show("CONFIG_RL")
+							end,
+						},
+						spacer = {
+							order = 6,
+							type = "description",
+							name = " ",
+						},
+						offsetX = {
+							order = 7,
+							type = "range",
+							name = L["X-Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+						offsetY = {
+							order = 8,
+							type = "range",
+							name = L["Y-Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+					},
+				},
+				levelTitleText = {
+					order = 3,
+					type = "group",
+					inline = true,
+					name = L["Level Title Text"],
+					get = function(info)
+						return E.db.mui.armory.levelTitleText[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.armory.levelTitleText[info[#info]] = value
+						E:StaticPopup_Show("CONFIG_RL")
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font"),
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = MER.Values.FontFlags,
+							sortByValue = true,
+						},
+						size = {
+							order = 3,
+							name = L["Size"],
+							type = "range",
+							min = 5,
+							max = 60,
+							step = 1,
+						},
+						spacer = {
+							order = 6,
+							type = "description",
+							name = " ",
+						},
+						offsetX = {
+							order = 7,
+							type = "range",
+							name = L["X-Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+						offsetY = {
+							order = 8,
+							type = "range",
+							name = L["Y-Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+						short = {
+							order = 9,
+							type = "toggle",
+							name = L["Short Display"],
+						},
+					},
+				},
+				levelText = {
+					order = 4,
+					type = "group",
+					inline = true,
+					name = L["Level Text"],
+					get = function(info)
+						return E.db.mui.armory.levelText[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.armory.levelText[info[#info]] = value
+						E:StaticPopup_Show("CONFIG_RL")
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font"),
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = MER.Values.FontFlags,
+							sortByValue = true,
+						},
+						size = {
+							order = 3,
+							name = L["Size"],
+							type = "range",
+							min = 5,
+							max = 60,
+							step = 1,
+						},
+						spacer = {
+							order = 6,
+							type = "description",
+							name = " ",
+						},
+						offsetX = {
+							order = 7,
+							type = "range",
+							name = L["X-Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+						offsetY = {
+							order = 8,
+							type = "range",
+							name = L["Y-Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+					},
+				},
+				specIcon = {
+					order = 5,
+					type = "group",
+					inline = true,
+					name = L["Spec Icon"],
+					get = function(info)
+						return E.db.mui.armory.specIcon[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.armory.specIcon[info[#info]] = value
+						E:StaticPopup_Show("CONFIG_RL")
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font"),
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = MER.Values.FontFlags,
+							sortByValue = true,
+						},
+						size = {
+							order = 3,
+							name = L["Size"],
+							type = "range",
+							min = 5,
+							max = 60,
+							step = 1,
+						},
+						fontColor = {
+							order = 4,
+							type = "select",
+							name = L["Font Color"],
+							values = {
+								["GRADIENT"] = F.String.FastGradient(L["Gradient"], 0, 0.6, 1, 0, 0.9, 1),
+								["CLASS"] = F.String.Class(L["Class Gradient"]),
+								["CUSTOM"] = L["Custom"],
+							},
+						},
+						color = {
+							order = 5,
+							type = "color",
+							name = L["Custom Color"],
+							hasAlpha = false,
+							hidden = function()
+								return E.db.mui.armory.specIcon.fontColor ~= "CUSTOM"
+							end,
+							get = function(info)
+								local db = E.db.mui.armory.specIcon[info[#info]]
+								local default = P.armory.specIcon[info[#info]]
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+							end,
+							set = function(info, r, g, b)
+								local db = E.db.mui.armory.specIcon[info[#info]]
+								db.r, db.g, db.b = r, g, b
+								E:StaticPopup_Show("CONFIG_RL")
+							end,
+						},
+					},
+				},
+				classText = {
+					order = 6,
+					type = "group",
+					inline = true,
+					name = L["Class Text Font"],
+					get = function(info)
+						return E.db.mui.armory.classText[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.armory.classText[info[#info]] = value
+						E:StaticPopup_Show("CONFIG_RL")
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font"),
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = MER.Values.FontFlags,
+							sortByValue = true,
+						},
+						size = {
+							order = 3,
+							name = L["Size"],
+							type = "range",
+							min = 5,
+							max = 60,
+							step = 1,
+						},
+						fontColor = {
+							order = 4,
+							type = "select",
+							name = L["Font Color"],
+							values = {
+								["CLASS"] = F.String.Class(L["Class Gradient"]),
+								["CUSTOM"] = L["Custom"],
+							},
+						},
+						color = {
+							order = 5,
+							type = "color",
+							name = L["Custom Color"],
+							hasAlpha = false,
+							hidden = function()
+								return E.db.mui.armory.classText.fontColor ~= "CUSTOM"
+							end,
+							get = function(info)
+								local db = E.db.mui.armory.classText[info[#info]]
+								local default = P.armory.classText[info[#info]]
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+							end,
+							set = function(info, r, g, b)
+								local db = E.db.mui.armory.classText[info[#info]]
+								db.r, db.g, db.b = r, g, b
+								E:StaticPopup_Show("CONFIG_RL")
+							end,
+						},
+						spacer = {
+							order = 6,
+							type = "description",
+							name = " ",
+						},
+						offsetX = {
+							order = 7,
+							type = "range",
+							name = L["X-Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+						offsetY = {
+							order = 8,
+							type = "range",
+							name = L["Y-Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+					},
+				},
+			},
+		},
+		enchantGroup = {
+			order = 12,
 			type = "group",
 			name = L["Enchant & Socket Strings"],
 			get = function(info)
@@ -258,7 +723,7 @@ options.armory = {
 			},
 		},
 		slotItemLevelGroup = {
-			order = 12,
+			order = 13,
 			type = "group",
 			name = L["Slot Item Level"],
 			get = function(info)
@@ -340,7 +805,7 @@ options.armory = {
 			},
 		},
 		gradientGroup = {
-			order = 13,
+			order = 14,
 			type = "group",
 			name = L["Item Quality Gradient"],
 			get = function(info)
@@ -409,7 +874,7 @@ options.armory = {
 			},
 		},
 		lineGroup = {
-			order = 14,
+			order = 15,
 			type = "group",
 			name = L["Decorative Lines"],
 			get = function(info)

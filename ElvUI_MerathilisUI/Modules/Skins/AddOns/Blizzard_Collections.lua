@@ -5,7 +5,7 @@ local _G = _G
 local select, unpack = select, unpack
 
 local hooksecurefunc = hooksecurefunc
-local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
+local GetSourceInfo = C_TransmogCollection.GetSourceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
@@ -282,7 +282,7 @@ function module:Blizzard_Collections()
 		end
 
 		if itemFrame.collected then
-			local quality = C_TransmogCollection_GetSourceInfo(itemFrame.sourceID).quality
+			local quality = GetSourceInfo(itemFrame.sourceID).quality
 			local color = _G.BAG_ITEM_QUALITY_COLORS[quality or 1]
 			ic.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 		else
@@ -294,7 +294,7 @@ function module:Blizzard_Collections()
 	local WardrobeFrame = _G.WardrobeFrame
 	local WardrobeTransmogFrame = _G.WardrobeTransmogFrame
 
-	module:CreateBDFrame(_G.WardrobeOutfitFrame, 0.25)
+	-- module:CreateBDFrame(_G.WardrobeOutfitFrame, 0.25)
 	module:CreateShadow(WardrobeFrame)
 
 	local slots = {
@@ -351,9 +351,6 @@ function module:Blizzard_Collections()
 	WardrobeTransmogFrame.ModelScene:SetPoint("TOP", WardrobeTransmogFrame, "TOP", 20, 10)
 	WardrobeTransmogFrame.ModelScene:SetAllPoints(WardrobeTransmogFrame)
 
-	_G.WardrobeOutfitDropDown:ClearAllPoints()
-	_G.WardrobeOutfitDropDown:SetPoint("TOPLEFT", WardrobeTransmogFrame, "TOPLEFT", 0, 50)
-
 	WardrobeTransmogFrame.HeadButton:ClearAllPoints()
 	WardrobeTransmogFrame.HeadButton:SetPoint("TOPLEFT", WardrobeTransmogFrame, "TOPLEFT", 20, 0)
 
@@ -394,9 +391,6 @@ function module:Blizzard_Collections()
 		0,
 		-28
 	)
-
-	WardrobeTransmogFrame.SpecButton:ClearAllPoints()
-	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
 end
 
 module:AddCallbackForAddon("Blizzard_Collections")

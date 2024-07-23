@@ -179,11 +179,6 @@ L["Extends the merchant page to show more items."] = true
 L["Number of Pages"] = true
 L["The number of pages shown in the merchant frame."] = true
 
--- FlightPoint
-L["Flight Point"] = "飞行点"
-L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] =
-	"在飞行地图上启用/禁用MerathilisUI飞行点."
-
 -- Shadows
 L["Shadows"] = true
 L["Increase Size"] = "增大尺寸"
@@ -259,8 +254,6 @@ L[" members"] = " 会员"
 L["Name Hover"] = "名字悬停"
 L["Shows the Unit Name on the mouse."] = "显示鼠标指向的单位名称."
 L["Double Click to Undress"] = true
-L["Flashing Cursor"] = "鼠标闪光"
-L["Lights up the cursor to make it easier to see."] = true
 L["Accept Quest"] = "接受任务"
 L["Placed Item"] = "放置物品"
 L["Stranger"] = "陌生人"
@@ -385,8 +378,6 @@ L["Quick Delete"] = true
 L["This will add the 'DELETE' text to the Item Delete Dialog."] = true
 L["Quick Menu"] = true
 L["Shows additional Buttons on your Dropdown for quick actions."] = true
-L["Trade Tabs"] = true
-L["Creates additional tabs on the Profession Frame"] = true
 L["Missing Stats"] = true
 L["Show all stats on the Character Frame"] = true
 L["Block Join Requests"] = true
@@ -435,31 +426,32 @@ L["Adds descriptions for mythic keystone properties to their tooltips."] =
 L["Title Color"] = "标题颜色"
 L["Change the color of the title in the Tooltip."] = "改变鼠标提示中标题的颜色"
 L["FACTION"] = "阵营"
-L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "已激活的艾泽里特之力"
 L["Only Icons"] = "仅图标"
-L["I"] = "1 级"
-L["II"] = "2 级"
-L["III"] = "3 级"
 L["Use the new style tooltip."] = "使用新的鼠标提示外观，将腐蚀特效名称显示到腐蚀属性后。"
 L["Display in English"] = "显示英语腐化特效名称"
 L["Show icon"] = "显示图标"
 L["Show the spell icon along with the name."] = "在腐化特效名称前显示其图标。"
 L["Domination Rank"] = "統御等級"
 L["Show the rank of shards."] = "显示统御碎片的等级."
-L["Covenant: <Not in Group>"] = true
-L["Covenant: <Checking...>"] = true
-L["Covenant: <None - Too low>"] = true
-L["Covenant"] = "盟约"
-L["Covenant: "] = true
-L["Shows the Players Covenant on the Tooltip."] = true
-L["Show not in group"] = true
-L["Keep the Covenant Line when not in a group. Showing: <Not in Group>"] = true
-L["Kyrian"] = "格里恩"
-L["Venthyr"] = "温西尔"
-L["NightFae"] = "法夜"
-L["Necrolord"] = "通灵领主"
 L["Pet Battle"] = true
 L["Tooltip Icons"] = true
+L["Pet Icon"] = true
+L["Pet ID"] = true
+L["Add an icon for indicating the type of the pet."] = true
+L["Show battle pet species ID in tooltips."] = true
+L["The modifer key to show additional information from %s."] = true
+L["Display TargetTarget"] = true
+L["Gradient Color"] = true
+L["Colors the player names in a gradient instead of class color"] = true
+L["Health Bar Y-Offset"] = true
+L["Change the postion of the health bar."] = true
+L["Health Text Y-Offset"] = true
+L["Change the postion of the health text."] = true
+L["Class Icon Style"] = true
+L["Reference"] = true
+L["Preview"] = true
+L["Template"] = true
+L["Please click the button below to read reference."] = true
 
 -- Notification
 L["Notification"] = "通知"
@@ -650,7 +642,6 @@ L["Creates a weapon Swing Bar"] = "创建一个普攻计时条"
 L["Main-Hand Color"] = "主手颜色"
 L["Off-Hand Color"] = "副手颜色"
 L["Two-Hand Color"] = "双手颜色"
-L["GCD Bar"] = "公共CD条"
 L["Creates a Global Cooldown Bar"] = "创建一个公共CD计时条"
 L["UnitFrame Style"] = "头像样式"
 L["Adds my styling to the Unitframes if you use transparent health."] =
@@ -1313,10 +1304,26 @@ L["Change the color of the name to the in-playing game style."] =
 L["Use Class Color"] = "使用职业颜色"
 L["Font Setting"] = "字体设定"
 
+-- Vehicle Bar
+L["VehicleBar"] = true
+L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] = true
+L["Thrill Color"] = true
+L["The color for vigor bar's speed text when you are regaining vigor."] = true
+L["Animations"] = true
+L["Animation Speed"] = true
+L["Skyriding Bar"] = true
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.
 
 |cffff0000警告:|r 它将覆盖/删除已经存在的配置文件. 如果你不想应用我的配置，请不要按下面的按钮.]]
+L[" Apply"] = true
+L[" Reset"] = true
+L["This group allows to update all fonts used in the "] = true
+L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] =
+	true
+L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
+L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 
 -- Advanced Settings
 L["Advanced Settings"] = true
@@ -1386,6 +1393,7 @@ L["[ABBR] Back"] = "披"
 L["[ABBR] Chest"] = "胸"
 L["[ABBR] Community"] = "群"
 L["[ABBR] Court of Stars"] = "群星"
+L["[ABBR] Delves"] = "D"
 L["[ABBR] Dragonflight Keystone Hero: Season One"] = "钥石英雄 第一季"
 L["[ABBR] Dragonflight Keystone Master: Season One"] = "钥石大师 第一季"
 L["[ABBR] Emote"] = "情"

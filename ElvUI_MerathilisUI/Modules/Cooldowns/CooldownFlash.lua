@@ -4,28 +4,36 @@ local MERS = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
 
 local GetTime = GetTime
-local select, pairs, bit, unpack = select, pairs, bit, unpack
+local select, pairs, unpack = select, pairs, unpack
+local band = bit.band
 local wipe = wipe
 local tinsert, tremove = table.insert, table.remove
 
 local CreateFrame = CreateFrame
 local GetPetActionInfo = GetPetActionInfo
-local GetSpellInfo = GetSpellInfo
-local GetSpellTexture = GetSpellTexture
-local GetSpellCooldown = GetSpellCooldown
-local GetItemInfo = GetItemInfo
+local GetSpellInfo = C_Spell.GetSpellInfo or GetSpellInfo
+local GetSpellTexture = C_Spell.GetSpellTexture or GetSpellTexture
+local GetSpellCooldown = C_Spell.GetSpellCooldown
+		and function(spell)
+			local c = C_Spell.GetSpellCooldown(spell)
+			if c then
+				return c.startTime, c.duration, c.isEnabled, c.modRate
+			end
+		end
+	or GetSpellCooldown
+local GetItemInfo = C_Item.GetItemInfo
 local GetPetActionCooldown = GetPetActionCooldown
 local IsInInstance = IsInInstance
 local GetActionInfo = GetActionInfo
-local GetActionTexture = GetActionTexture
+local GetActionTexture = C_Spell and C_Spell.GetActionTexture or GetActionTexture
 local GetInventoryItemID = GetInventoryItemID
 local GetInventoryItemTexture = GetInventoryItemTexture
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local hooksecurefunc = hooksecurefunc
 
-local GetItemCooldown = C_Container and C_Container.GetItemCooldown or GetItemCooldown
-local GetContainerItemID = C_Container and C_Container.GetContainerItemID or GetContainerItemID
-local C_VoiceChat_SpeakText = C_VoiceChat.SpeakText
+local GetItemCooldown = C_Container.GetItemCooldown
+local GetContainerItemID = C_Container.GetContainerItemID
+local SpeakText = C_VoiceChat.SpeakText
 
 local ignoredSpells, invertIgnored
 module.cooldowns, module.animating, module.watching = {}, {}, {}
@@ -212,7 +220,7 @@ local function OnUpdate(_, update)
 				if module.db.tts then
 					local tts = GetSpellInfo(module.animating[1][3])
 					if module.db.ttsvoice and tts then
-						C_VoiceChat_SpeakText(
+						SpeakText(
 							module.db.ttsvoice,
 							tts,
 							Enum.VoiceTtsDestination.LocalPlayback,
@@ -301,9 +309,8 @@ end
 
 function DCP:COMBAT_LOG_EVENT_UNFILTERED()
 	local _, eventType, _, _, _, sourceFlags, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
-	local isPet = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_TYPE_PET) == _G.COMBATLOG_OBJECT_TYPE_PET
-	local isMine = _G.bit.band(sourceFlags, _G.COMBATLOG_OBJECT_AFFILIATION_MINE)
-		== _G.COMBATLOG_OBJECT_AFFILIATION_MINE
+	local isPet = band(sourceFlags, _G.COMBATLOG_OBJECT_TYPE_PET) == _G.COMBATLOG_OBJECT_TYPE_PET
+	local isMine = band(sourceFlags, _G.COMBATLOG_OBJECT_AFFILIATION_MINE) == _G.COMBATLOG_OBJECT_AFFILIATION_MINE
 
 	if eventType == "SPELL_CAST_SUCCESS" then
 		if isPet and isMine then
@@ -381,7 +388,7 @@ function module:TestMode()
 
 	if module.db.tts then
 		local tts = GetSpellInfo(33786)
-		C_VoiceChat_SpeakText(module.db.ttsvoice, tts, Enum.VoiceTtsDestination.LocalPlayback, 0, module.db.ttsvolume)
+		SpeakText(module.db.ttsvoice, tts, Enum.VoiceTtsDestination.LocalPlayback, 0, module.db.ttsvolume)
 	end
 end
 

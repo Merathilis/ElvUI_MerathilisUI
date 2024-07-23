@@ -254,46 +254,6 @@ options.unitframes = {
 						},
 					},
 				},
-				gcd = {
-					order = 13,
-					type = "group",
-					name = F.cOption(L["GCD Bar"], "orange"),
-					guiInline = true,
-					get = function(info)
-						return E.db.mui.unitframes.gcd[info[#info]]
-					end,
-					set = function(info, value)
-						E.db.mui.unitframes.gcd[info[#info]] = value
-						E:StaticPopup_Show("CONFIG_RL")
-					end,
-					args = {
-						enable = {
-							order = 1,
-							type = "toggle",
-							name = L["Enable"],
-							desc = L["Creates a Global Cooldown Bar"],
-						},
-						color = {
-							order = 2,
-							type = "color",
-							name = _G.COLOR,
-							hasAlpha = false,
-							disabled = function()
-								return not E.db.mui.unitframes.gcd.enable
-							end,
-							get = function(info)
-								local t = E.db.mui.unitframes.gcd[info[#info]]
-								local d = P.unitframes.gcd[info[#info]]
-								return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-							end,
-							set = function(info, r, g, b, a)
-								local t = E.db.mui.unitframes.gcd[info[#info]]
-								t.r, t.g, t.b, t.a = r, g, b, a
-								E:StaticPopup_Show("CONFIG_RL")
-							end,
-						},
-					},
-				},
 				swing = {
 					order = 14,
 					type = "group",

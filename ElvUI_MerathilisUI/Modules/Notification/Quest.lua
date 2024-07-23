@@ -1,7 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Notification
 
-local C_QuestLog_GetLogIndexForQuestID = C_QuestLog.GetLogIndexForQuestID
+local GetLogIndexForQuestID = C_QuestLog.GetLogIndexForQuestID
 local GetFactionInfoByID = GetFactionInfoByID
 local GetQuestLogCompletionText = GetQuestLogCompletionText
 local PlaySound = PlaySound
@@ -61,7 +61,7 @@ function module:QUEST_ACCEPTED(_, questID)
 
 	if module.db.paragon and PARAGON_QUEST_ID[questID] then
 		local name = format("|cff00c0fa%s|r", GetFactionInfoByID(PARAGON_QUEST_ID[questID][1])) or UNKNOWN
-		local text = GetQuestLogCompletionText(C_QuestLog_GetLogIndexForQuestID(questID))
+		local text = GetQuestLogCompletionText(GetLogIndexForQuestID(questID))
 		PlaySound(618, "Master") -- QUEST ADDED
 		self:DisplayToast(name, text, nil, "Interface\\Icons\\Achievement_Quests_Completed_08", 0.08, 0.92, 0.08, 0.92)
 	end

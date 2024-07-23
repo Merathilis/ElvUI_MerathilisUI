@@ -8,15 +8,15 @@ local strmatch = strmatch
 
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 local GetAchievementInfo = GetAchievementInfo
-local GetItemInfoInstant = GetItemInfoInstant
+local GetItemNameByID = C_Item.GetItemNameByID
+local GetItemInfoInstant = C_Item.GetItemInfoInstant
 local GetPvpTalentInfoByID = GetPvpTalentInfoByID
 local GetSpellTexture = GetSpellTexture
 local GetTalentInfoByID = GetTalentInfoByID
 
-local C_ChallengeMode_GetMapUIInfo = C_ChallengeMode and C_ChallengeMode.GetMapUIInfo
-local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo
-local C_Soulbinds_GetConduitCollectionData = C_Soulbinds and C_Soulbinds.GetConduitCollectionData
-local C_Item_GetItemNameByID = C_Item.GetItemNameByID
+local GetMapUIInfo = C_ChallengeMode.GetMapUIInfo
+local GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local GetConduitCollectionData = C_Soulbinds.GetConduitCollectionData
 
 local ICON_STRING = "|T%s:16:18:0:0:64:64:4:60:7:57:255:255:255|t"
 
@@ -63,7 +63,7 @@ local function AddItemInfo(link)
 	end
 
 	if module.db.translateItem then
-		local localizedName = C_Item_GetItemNameByID(itemID)
+		local localizedName = GetItemNameByID(itemID)
 		if localizedName then
 			local professionIcon = strmatch(link, "|A:Professions.-|a")
 			if professionIcon then
@@ -133,7 +133,7 @@ local function AddKeystoneIcon(link)
 	end
 
 	if module.db.icon then
-		local texture = select(4, C_ChallengeMode_GetMapUIInfo(tonumber(mapID)))
+		local texture = select(4, GetMapUIInfo(tonumber(mapID)))
 		local icon = texture and format(ICON_STRING, texture)
 		if icon then
 			link = icon .. " " .. link
@@ -150,7 +150,7 @@ local function AddConduitIcon(link)
 	end
 
 	if module.db.icon then
-		local conduitCollectionData = C_Soulbinds_GetConduitCollectionData(conduitID)
+		local conduitCollectionData = GetConduitCollectionData(conduitID)
 		local conduitItemID = conduitCollectionData and conduitCollectionData.conduitItemID
 
 		if conduitItemID then
@@ -263,7 +263,7 @@ local function AddCurrencyInfo(link)
 	end
 
 	if module.db.icon then
-		local info = C_CurrencyInfo_GetCurrencyInfo(id)
+		local info = GetCurrencyInfo(id)
 		local icon = info and info.iconFileID and format(ICON_STRING, info.iconFileID)
 		if icon then
 			link = icon .. " " .. link

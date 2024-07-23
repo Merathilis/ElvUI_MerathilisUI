@@ -15,7 +15,7 @@
 	<Script file="Blizzard_ChallengesUI.lua"/>
 	<Script file="Blizzard_Channels.lua"/>
 	<Script file="Blizzard_ChromieTimeUI.lua"/>
-	<Script file="Blizzard_ClassTalentUI.lua"/>
+	<Script file="Blizzard_PlayerSpells.lua"/>
 	<Script file="Blizzard_ClickBindingUI.lua"/>
 	<Script file="Blizzard_Collections.lua"/>
 	<Script file="Blizzard_Communities.lua"/>
@@ -24,6 +24,7 @@
 	<Script file="Blizzard_CovenantSanctum.lua"/>
 	<Script file="Blizzard_CovenantRenown.lua"/>
 	<Script file="Blizzard_DeathRecap.lua"/>
+	<Script file="Blizzard_Delves.lua"/>
 	<Script file="Blizzard_EventTrace.lua"/>
 	<Script file="Blizzard_EncounterJournal.lua"/>
 	<Script file="Blizzard_ExpansionLandingPage.lua"/>
@@ -47,6 +48,7 @@
 	<Script file="Blizzard_MajorFactions.lua"/>
 	<Script file="Blizzard_NewPlayerExperienceGuide.lua"/>
 	<Script file="Misc.lua"/>
+	<Script file="Blizzard_ObjectiveTracker.lua"/>
 	<Script file="Blizzard_OrderHallUI.lua"/>
 	<Script file="Blizzard_PerksProgram.lua"/>
 	<Script file="Blizzard_PlayerChoice.lua"/>

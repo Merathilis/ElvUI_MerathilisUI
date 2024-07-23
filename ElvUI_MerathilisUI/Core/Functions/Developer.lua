@@ -29,6 +29,9 @@ MER.IsDev = {
 	["Jahzzy"] = true,
 	["Dâmara"] = true,
 	["Meravoker"] = true,
+
+	-- Beta
+	["Jalenna"] = true,
 }
 
 -- Don't forget to update realm name(s) if we ever transfer realms.
@@ -40,8 +43,7 @@ MER.IsDevRealm = {
 	["Garrosh"] = true,
 
 	-- Beta
-	["The Maw"] = true,
-	["Torghast"] = true,
+	["Turnips Delight"] = true,
 
 	-- PTR
 	["Broxigar"] = true,

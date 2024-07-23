@@ -9,7 +9,6 @@ local L = E.Libs.ACL:GetLocale("ElvUI", E.global.general.locale)
 local _G = _G
 local next, type = next, type
 local print = print
-
 local collectgarbage = collectgarbage
 
 local MER = AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
@@ -34,7 +33,7 @@ _G[addon] = Engine
 
 do
 	-- when packager packages a new version for release
-	-- '@project-version@' is replaced with the version number
+	-- "@project-version@" is replaced with the version number
 	-- which is the latest tag
 	Engine.version = "@project-version@"
 
@@ -44,7 +43,7 @@ do
 
 	MER.Version = Engine.version
 	MER.IsDevelop = MER.Version == "development"
-
+	MER.AddOnName = addon
 	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 end
 
@@ -86,6 +85,7 @@ MER.Modules.Mail = MER:NewModule("MER_Mail", "AceHook-3.0")
 MER.Modules.MicroBar = MER:NewModule("MER_MicroBar", "AceEvent-3.0", "AceHook-3.0")
 MER.Modules.MiniMap = MER:NewModule("MER_Minimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.MiniMapButtons = MER:NewModule("MER_MiniMapButtons", "AceHook-3.0", "AceEvent-3.0")
+MER.Modules.MiniMapCoords = MER:NewModule("MER_MiniMapCoords", "AceHook-3.0")
 MER.Modules.MiniMapPing = MER:NewModule("MER_MiniMapPing", "AceEvent-3.0")
 MER.Modules.Misc = MER:NewModule("MER_Misc", "AceEvent-3.0", "AceHook-3.0")
 MER.Modules.NamePlates = MER:NewModule("MER_NamePlates", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")

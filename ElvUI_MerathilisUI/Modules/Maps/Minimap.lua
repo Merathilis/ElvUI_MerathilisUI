@@ -7,8 +7,8 @@ local LCG = E.Libs.CustomGlow
 local _G = _G
 local unpack = unpack
 
-local GetNumPendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
-local HasGarrison = C_Garrison and C_Garrison.HasGarrison
+local GetNumPendingInvites = C_Calendar.GetNumPendingInvites
+local HasGarrison = C_Garrison.HasGarrison
 local Minimap = _G.Minimap
 local MinimapCluster = _G.MinimapCluster
 local MiniMapMailFrame = _G.MiniMapMailFrame
@@ -85,36 +85,6 @@ module.ExpansionMenuList = {
 	},
 }
 
-function module:CreateExpansionLandingButton()
-	local button = _G.ExpansionLandingPageMinimapButton
-
-	if not button then
-		return
-	end
-
-	button:HookScript("OnMouseDown", function(self, btn)
-		if btn == "RightButton" then
-			if _G.GarrisonLandingPage and _G.GarrisonLandingPage:IsShown() then
-				HideUIPanel(_G.GarrisonLandingPage)
-			end
-
-			if _G.ExpansionLandingPage and _G.ExpansionLandingPage:IsShown() then
-				HideUIPanel(_G.ExpansionLandingPage)
-			end
-
-			EasyMenu(module.ExpansionMenuList, F.EasyMenu, self, -80, 0, "MENU", 1)
-		end
-	end)
-
-	button:SetScript("OnEnter", function(self)
-		_G.GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-		_G.GameTooltip:SetText(self.title, 1, 1, 1)
-		_G.GameTooltip:AddLine(self.description, nil, nil, nil, true)
-		_G.GameTooltip:AddLine(L["Right click to switch expansion"], nil, nil, nil, true)
-		_G.GameTooltip:Show()
-	end)
-end
-
 function module:Initialize()
 	if not E.private.general.minimap.enable then
 		return
@@ -126,7 +96,6 @@ function module:Initialize()
 	end
 
 	self:StyleMinimap()
-	self:CreateExpansionLandingButton()
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
 	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")
