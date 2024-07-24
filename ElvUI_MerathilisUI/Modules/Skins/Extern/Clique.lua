@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
-local pairs = pairs
+local pairs, unpack = pairs, unpack
 
 local function SkinFrame()
 	local mainFrame = _G.CliqueUIBindingFrame
@@ -56,6 +56,33 @@ local function SkinFrame()
 	end
 end
 
+local function SkinTabButton()
+	local tab = _G.Clique.spellbookTab
+	if not _G.Clique.spellbookTab then
+		return
+	end
+
+	if tab then
+		S:HandleFrame(tab)
+
+		tab:SetNormalTexture(I.General.MediaPath .. "Textures\\clique") --override the Texture to take account for Simpy's Icon pack
+		tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+		tab:GetNormalTexture():SetInside()
+
+		tab:SetPushedTexture(I.General.MediaPath .. "Textures\\clique") -- override the Texture to take account for Simpy's Icon pack
+		tab:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
+		tab:GetPushedTexture():SetInside()
+
+		tab:SetHighlightTexture(I.General.MediaPath .. "Textures\\clique") -- override the Texture to take account for Simpy's Icon pack
+		tab:GetHighlightTexture():SetTexCoord(unpack(E.TexCoords))
+		tab:GetHighlightTexture():SetInside()
+
+		tab:CreateBackdrop("Transparent")
+		tab.backdrop:SetAllPoints()
+		tab:StyleButton()
+	end
+end
+
 function module:Clique()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.cl then
 		return
@@ -64,6 +91,7 @@ function module:Clique()
 	module:DisableAddOnSkins("Clique", false)
 
 	hooksecurefunc(_G.Clique, "ShowBindingConfig", SkinFrame)
+	hooksecurefunc(_G.Clique, "ShowSpellBookButton", SkinTabButton)
 end
 
 module:AddCallbackForAddon("Clique")
