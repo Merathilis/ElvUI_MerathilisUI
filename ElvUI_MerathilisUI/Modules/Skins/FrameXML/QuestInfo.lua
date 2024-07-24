@@ -8,13 +8,13 @@ local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards
 local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
-local C_QuestLog_GetNextWaypointText = C_QuestLog.GetNextWaypointText
-local C_QuestLog_GetSelectedQuest = C_QuestLog.GetSelectedQuest
+local GetNextWaypointText = C_QuestLog.GetNextWaypointText
+local GetSelectedQuest = C_QuestLog.GetSelectedQuest
 local GetQuestID = GetQuestID
 
 local function QuestInfo_GetQuestID()
 	if _G.QuestInfoFrame.questLog then
-		return C_QuestLog_GetSelectedQuest()
+		return GetSelectedQuest()
 	else
 		return GetQuestID()
 	end
@@ -28,7 +28,7 @@ local function ColorObjectivesText()
 	local questID = QuestInfo_GetQuestID()
 	local numVisibleObjectives = 0
 
-	local waypointText = C_QuestLog_GetNextWaypointText(questID)
+	local waypointText = GetNextWaypointText(questID)
 	if waypointText then
 		numVisibleObjectives = numVisibleObjectives + 1
 		local objective = _G["QuestInfoObjective" .. numVisibleObjectives]
@@ -50,6 +50,7 @@ local function ColorObjectivesText()
 			end
 		end
 	end
+	_G.QuestInfoAccountCompletedNotice:SetTextColor(1, 0.8, 0.1)
 end
 
 local function ReplaceTextColor(object, r)
@@ -232,6 +233,7 @@ function module:QuestInfo()
 		_G.QuestInfoDescriptionHeader,
 		_G.QuestInfoObjectivesHeader,
 		_G.QuestInfoRewardsFrame.Header,
+		_G.QuestInfoAccountCompletedNotice,
 	}
 
 	for _, font in pairs(yellowish) do
