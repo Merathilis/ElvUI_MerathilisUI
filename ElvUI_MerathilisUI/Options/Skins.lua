@@ -1442,11 +1442,11 @@ options.blizzard = {
 			type = "description",
 			name = "",
 		},
-		spellbook = {
+		professionBook = {
 			type = "toggle",
-			name = L["Spellbook"],
+			name = L["Professions Book"],
 			disabled = function()
-				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.spellbook
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.professionBook
 			end,
 		},
 		character = {

@@ -170,7 +170,7 @@ function RM:ProfileUpdate()
 
 	if self.db.enable then
 		self:SetUpdateHook()
-	else
+	elseif self.initialized then
 		self:ChangeShape()
 	end
 end

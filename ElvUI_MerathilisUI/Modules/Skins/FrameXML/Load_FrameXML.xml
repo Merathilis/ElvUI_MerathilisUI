@@ -24,7 +24,6 @@
 	<Script file="MailFrame.lua"/>
 	<Script file="MerchantFrame.lua"/>
 	<Script file="PaperDollFrame.lua"/>
-	<Script file="ProfessionsBookFrame.lua"/>
 	<Script file="PVEFrame.lua"/>
 	<Script file="QuestFrame.lua"/>
 	<Script file="QuestInfo.lua"/>

@@ -3,8 +3,8 @@ local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
-function module:ProfessionsBookFrame()
-	if not module:CheckDB("spellbook", "spellbook") then
+function module:Blizzard_ProfessionsBook()
+	if not module:CheckDB("spellbook", "professionBook") then
 		return
 	end
 
@@ -12,4 +12,4 @@ function module:ProfessionsBookFrame()
 	module:CreateShadow(ProfessionsBookFrame)
 end
 
-module:AddCallback("ProfessionsBookFrame")
+module:AddCallbackForAddon("Blizzard_ProfessionsBook")
