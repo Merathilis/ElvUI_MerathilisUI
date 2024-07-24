@@ -73,11 +73,11 @@ function module:ScaleInspectUI()
 end
 
 function module:HookRetailTalentsWindow()
-	_G.ClassTalentFrame:HookScript("OnShow", function()
+	_G.PlayerSpellsFrame:HookScript("OnShow", function()
 		module:ScaleTalents()
 	end)
 
-	_G.ClassTalentFrame:HookScript("OnEvent", function()
+	_G.PlayerSpellsFrame:HookScript("OnEvent", function()
 		module:ScaleTalents()
 	end)
 
@@ -85,7 +85,7 @@ function module:HookRetailTalentsWindow()
 end
 
 function module:ScaleTalents()
-	local frameName = "ClassTalentFrame"
+	local frameName = "PlayerSpellsFrame"
 	if not talentsHooked then
 		module:HookRetailTalentsWindow()
 	else
@@ -113,7 +113,7 @@ function module:Scale()
 	-- module:SetElementScale("professionsBook", "ProfessionsBookFrame") -- FIX ME
 
 	module:AddCallbackOrScale("Blizzard_InspectUI", self.ScaleInspectUI)
-	module:AddCallbackOrScale("Blizzard_ClassTalentUI", self.ScaleTalents)
+	module:AddCallbackOrScale("Blizzard_PlayerSpells", self.ScaleTalents)
 	module:AddCallbackOrScale("Blizzard_AuctionHouseUI", self.ScaleAuctionHouse)
 	module:AddCallbackOrScale("Blizzard_Collections", self.ScaleCollections)
 	module:AddCallbackOrScale("Blizzard_Collections", self.AdjustTransmogFrame)

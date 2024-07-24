@@ -340,23 +340,8 @@ options.scale = {
 				return not E.db.mui.scale.enable
 			end,
 			args = {
-				spellbook = {
-					order = 1,
-					type = "range",
-					name = L["Spellbook"],
-					get = function(_)
-						return E.db.mui.scale.spellbook.scale
-					end,
-					set = function(_, value)
-						E.db.mui.scale.spellbook.scale = value
-						MI:Scale()
-					end,
-					min = 0.5,
-					max = 2,
-					step = 0.05,
-				},
 				talents = {
-					order = 2,
+					order = 1,
 					type = "range",
 					name = L["Talents"],
 					get = function(_)
@@ -371,7 +356,7 @@ options.scale = {
 					step = 0.05,
 				},
 				collections = {
-					order = 3,
+					order = 2,
 					type = "range",
 					name = L["Collections"],
 					get = function(_)
