@@ -58,7 +58,7 @@ end
 
 local function SkinTabButton()
 	local tab = _G.Clique.spellbookTab
-	if not _G.Clique.spellbookTab then
+	if not tab then
 		return
 	end
 
