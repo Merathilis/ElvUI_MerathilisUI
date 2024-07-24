@@ -16,7 +16,7 @@ function module:Blizzard_TokenUI()
 		return
 	end
 
-	hooksecurefunc("TokenFrame_Update", UpdateToken)
+	-- hooksecurefunc("TokenFrame_Update", UpdateToken)
 	-- hooksecurefunc(_G.TokenFrameContainer, "update", UpdateToken)
 end
 
