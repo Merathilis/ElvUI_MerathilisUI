@@ -110,11 +110,11 @@ local function OnAuraChange(_, event, arg1)
 	module.db = E.db.mui.raidBuffs
 
 	if flaskbuffs and flaskbuffs[1] then
-		FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs[1]).spellID))
+		FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs[1])))
 		for i, flaskbuffs in pairs(flaskbuffs) do
 			local spellname = select(1, GetSpellInfo(flaskbuffs).name)
 			if AuraUtil_FindAuraByName(spellname, "player") then
-				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs).spellID))
+				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs)))
 				FlaskFrame:SetAlpha(module.db.alpha)
 				LCG.PixelGlow_Stop(FlaskFrame)
 				break
