@@ -273,26 +273,17 @@ local function CharacterStatFrameCategoryTemplate(frame)
 end
 
 local function ColorizeStatPane(frame)
+	frame.Background:SetAlpha(0)
+
+	local gradientFrom, gradientTo = CreateColor(F.r, F.g, F.b, 0.75), CreateColor(F.r, F.g, F.b, 0)
+
 	if frame.leftGrad then
-		frame.leftGrad:StripTextures()
+		frame.leftGrad:SetGradient("Horizontal", gradientFrom, gradientTo)
 	end
+
 	if frame.rightGrad then
-		frame.rightGrad:StripTextures()
+		frame.rightGrad:SetGradient("Horizontal", gradientTo, gradientFrom)
 	end
-
-	frame.leftGrad = frame:CreateTexture(nil, "BORDER")
-	frame.leftGrad:SetWidth(80)
-	frame.leftGrad:SetHeight(frame:GetHeight())
-	frame.leftGrad:SetPoint("LEFT", frame, "CENTER")
-	frame.leftGrad:SetTexture(E.media.blankTex)
-	frame.leftGrad:SetGradient("Horizontal", CreateColor(F.r, F.g, F.b, 0.75), CreateColor(F.r, F.g, F.b, 0))
-
-	frame.rightGrad = frame:CreateTexture(nil, "BORDER")
-	frame.rightGrad:SetWidth(80)
-	frame.rightGrad:SetHeight(frame:GetHeight())
-	frame.rightGrad:SetPoint("RIGHT", frame, "CENTER")
-	frame.rightGrad:SetTexture(E.media.blankTex)
-	frame.rightGrad:SetGradient("Horizontal", CreateColor(F.r, F.g, F.b, 0), CreateColor(F.r, F.g, F.b, 0.75))
 end
 
 -- needed for Shadow&Light
@@ -331,6 +322,18 @@ local function SkinAdditionalStats()
 		end
 		StatsPane("DefenseCategory")
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenseCategory)
+	end
+end
+
+local function Update_PaperdollStats()
+	for frame in _G.CharacterStatsPane.statsFramePool:EnumerateActive() do
+		if frame.leftGrad then -- Check if the ElvUI Element is there
+			ColorizeStatPane(frame)
+		end
+
+		local shown = frame.Background:IsShown()
+		frame.leftGrad:SetShown(shown)
+		frame.rightGrad:SetShown(shown)
 	end
 end
 
@@ -455,26 +458,9 @@ function module:SkinCharacterFrame()
 		CharacterStatFrameCategoryTemplate(pane.AttributesCategory)
 		CharacterStatFrameCategoryTemplate(pane.EnhancementsCategory)
 
-		-- ColorizeStatPane(pane.ItemLevelFrame)
-
+		ColorizeStatPane(pane.ItemLevelFrame)
 		E:Delay(0.2, SkinAdditionalStats)
-
-		hooksecurefunc("PaperDollFrame_UpdateStats", function()
-			for _, Table in ipairs({ pane.statsFramePool:EnumerateActive() }) do
-				if type(Table) == "table" then
-					for statFrame in pairs(Table) do
-						ColorizeStatPane(statFrame)
-						if statFrame.Background:IsShown() then
-							statFrame.leftGrad:Show()
-							statFrame.rightGrad:Show()
-						else
-							statFrame.leftGrad:Hide()
-							statFrame.rightGrad:Hide()
-						end
-					end
-				end
-			end
-		end)
+		hooksecurefunc("PaperDollFrame_UpdateStats", Update_PaperdollStats)
 	end
 end
 
