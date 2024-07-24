@@ -20,6 +20,7 @@ function module:CharacterFrame()
 	-- Token
 	module:CreateShadow(_G.TokenFramePopup)
 	module:CreateShadow(_G.CurrencyTransferLog)
+	module:CreateShadow(_G.CurrencyTransferMenu)
 
 	-- Reputation
 	module:CreateShadow(_G.ReputationFrame.ReputationDetailFrame)
