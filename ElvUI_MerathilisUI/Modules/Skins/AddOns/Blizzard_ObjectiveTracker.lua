@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
@@ -31,20 +32,50 @@ function module:SkinOjectiveTrackerHeaders()
 	end
 end
 
-function module:SkinItemButton(block)
-	if InCombatLockdown() then
+local function HandleQuestIcon(button)
+	if not button then
+		return
+	end
+	if not button.SetNormalTexture then
 		return
 	end
 
-	local item = block and block.itemButton
-	if not item then
-		return
+	if not button.IsSkinned then
+		button:SetSize(24, 24)
+		button:SetNormalTexture(0)
+		button:SetPushedTexture(0)
+		button:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.25)
+		local icon = button.icon or button.Icon
+		if icon then
+			S:HandleIcon(icon, true)
+		end
+		module:CreateShadow(button)
+
+		button.IsSkinned = true
 	end
-	module:CreateShadow(item)
 end
 
-function module:SkinProgressBars(_, _, line)
-	local progressBar = line and line.ProgressBar
+function module:SkinItemButton(_, block)
+	if not block then
+		return
+	end
+
+	HandleQuestIcon(block.ItemButton) -- isWW
+	HandleQuestIcon(block.itemButton)
+	HandleQuestIcon(block.groupFinderButton)
+
+	local check = block.currentLine and block.currentLine.Check
+	if check and not check.IsSkinned then
+		check:SetAtlas("checkmark-minimal")
+		check:SetDesaturated(true)
+		check:SetVertexColor(0, 1, 0)
+
+		check.IsSkinned = true
+	end
+end
+
+function module:SkinProgressBars(self, key)
+	local progressBar = self.usedProgressBars[key]
 	local bar = progressBar and progressBar.Bar
 	if not bar or progressBar.MERStyle then
 		return
@@ -58,7 +89,7 @@ function module:SkinProgressBars(_, _, line)
 	-- Adjust the font position
 	if icon then
 		module:CreateBackdropShadow(progressBar)
-		icon:Point("LEFT", bar, "RIGHT", E.PixelMode and 7 or 11, 0)
+		-- icon:Point("LEFT", bar, "RIGHT", E.PixelMode and 7 or 11, 0)
 	end
 
 	-- Fix font position
@@ -76,8 +107,8 @@ function module:SkinProgressBars(_, _, line)
 	progressBar.MERStyle = true
 end
 
-function module:SkinTimerBars(_, _, line)
-	local timerBar = line and line.TimerBar
+function module:SkinTimerBars(self, key)
+	local timerBar = self.usedTimerBars[key]
 	local bar = timerBar and timerBar.Bar
 	if bar.MERStyle then
 		return
@@ -188,17 +219,11 @@ function module:Blizzard_ObjectiveTracker()
 
 	for _, tracker in pairs(trackers) do
 		if tracker then
-			hooksecurefunc(tracker, "AddBlock", SkinItemButton)
-			hooksecurefunc(tracker, "GetProgressBar", SkinProgressBars)
-			hooksecurefunc(tracker, "GetTimerBar", SkinTimerBars)
+			hooksecurefunc(tracker, "AddBlock", module.SkinItemButton)
+			hooksecurefunc(tracker, "GetProgressBar", module.SkinProgressBars)
+			hooksecurefunc(tracker, "GetTimerBar", module.SkinTimerBars)
 		end
 	end
-
-	-- module:SecureHook("ObjectiveTracker_Update", "SkinOjectiveTrackerHeaders")
-
-	-- module:SecureHook("ScenarioStage_CustomizeBlock")
-	-- module:SecureHook("Scenario_ChallengeMode_ShowBlock")
-	-- module:SecureHook(_G.SCENARIO_CONTENT_TRACKER_MODULE, "Update", "ScenarioStageWidgetContainer")
 end
 
 module:AddCallbackForAddon("Blizzard_ObjectiveTracker")
