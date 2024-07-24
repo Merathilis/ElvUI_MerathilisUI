@@ -5,8 +5,6 @@ local _G = _G
 local unpack = unpack
 local format = format
 
-local C_Timer_NewTicker = C_Timer.NewTicker
-
 local pool = {
 	spark = {},
 	backdrops = {},
