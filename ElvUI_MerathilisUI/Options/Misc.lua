@@ -400,8 +400,23 @@ options.scale = {
 					max = 2,
 					step = 0.05,
 				},
-				transmog = {
+				professionsBook = {
 					order = 5,
+					type = "range",
+					name = L["Professions Book"],
+					get = function(_)
+						return E.db.mui.scale.professionsBook.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.professionsBook.scale = value
+						MI:Scale()
+					end,
+					min = 0.5,
+					max = 2,
+					step = 0.05,
+				},
+				transmog = {
+					order = 6,
 					type = "toggle",
 					name = L["Transmog Frame"],
 					desc = L["Makes the transmogrification frame bigger. Credits to Kayr for code."],
