@@ -249,11 +249,11 @@ function module:Initialize()
 	self:SecureHook("EquipmentFlyout_UpdateItems", "FlyoutButton")
 
 	-- ScrappingMachine
-	if not IsAddOnLoaded("Blizzard_ScrappingMachineUI") then
-		self:RegisterEvent("ADDON_LOADED")
-	else
-		self:HookScrappingMachine()
-	end
+	-- if not IsAddOnLoaded("Blizzard_ScrappingMachineUI") then
+	-- self:RegisterEvent("ADDON_LOADED")
+	-- else
+	-- self:HookScrappingMachine()
+	-- end
 
 	-- MerchantFrame
 	if self.db.merchantFrame.enable then

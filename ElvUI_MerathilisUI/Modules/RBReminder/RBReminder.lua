@@ -362,11 +362,11 @@ function module:Visibility()
 			module.db.visibility == "CUSTOM" and module.db.customVisibility
 				or module.VisibilityStates[module.db.visibility]
 		)
-		E:EnableMover(self.frame.mover:GetName())
+		E:EnableMover(self.Anchor.mover:GetName())
 	else
 		UnregisterStateDriver(self.frame, "visibility")
 		self.frame:Hide()
-		E:DisableMover(self.frame.mover:GetName())
+		E:DisableMover(self.Anchor.mover:GetName())
 	end
 end
 
