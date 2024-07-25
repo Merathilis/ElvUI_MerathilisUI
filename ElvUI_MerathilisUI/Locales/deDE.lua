@@ -989,16 +989,6 @@ L["Shows all the class specific raid buffs."] = "Zeigt alle klassenspezifischen 
 L["Change the alpha level of the icons."] = "Ändert den Alphawert der Symbole"
 L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fehlenden klassenspezifischen Buff."
 
--- Raid Manager
-L["Raid Manager"] = "Schlachtzugsmanager"
-L["This will disable the ElvUI Raid Control and replace it with my own."] =
-	"Dieser Menüpunkt deaktiviert die ElvUI Schlachtzugssteuerung und ersetzt sie mit meiner eigenen."
-L["Open Raid Manager"] = "Öffnet den Raidmanager"
-L["Pull Timer Count"] = "Pulltimer Zähler"
-L["Change the Pulltimer for DBM or BigWigs"] = "Ändert den Pulltimer für DBM, oder BigWigs"
-L["Only accept values format with '', e.g.: '5', '8', '10' etc."] =
-	"Akzeptiert nur Zahlenformate mit '', z.B. '5', '8', '10' etc."
-
 -- Reminder
 L["Reminder"] = "Erinnerung"
 L["Reminds you on self Buffs."] = "Erinnert Dich an eigene Buffs."

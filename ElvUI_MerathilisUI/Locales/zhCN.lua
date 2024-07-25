@@ -906,15 +906,6 @@ L["Shows all the class specific raid buffs."] = "显示所有的职业专精团�
 L["Change the alpha level of the icons."] = "改变图标的透明等级."
 L["Shows the pixel glow on missing raidbuffs."] = "为丢失的团队BUFF显示一个像素发光."
 
--- Raid Manager
-L["Raid Manager"] = "团队管理"
-L["This will disable the ElvUI Raid Control and replace it with my own."] =
-	"这将禁用ElvUI的团队管理，替换为Merathilis的"
-L["Open Raid Manager"] = "打开团队管理"
-L["Pull Timer Count"] = "倒数计时"
-L["Change the Pulltimer for DBM or BigWigs"] = "修改DBM和BigWigs的倒数计时"
-L["Only accept values format with '', e.g.: '5', '8', '10' etc."] = "仅识别数字"
-
 -- Reminder
 L["Reminder"] = "常驻BUFF提醒"
 L["Reminds you on self Buffs."] = "提醒你自己的BUFF"

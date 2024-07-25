@@ -1782,12 +1782,6 @@ P.raidmarkers = {
 	inverse = false,
 }
 
-P.raidmanager = {
-	enable = true,
-	unlockraidmarks = false,
-	count = "10",
-}
-
 P.pvp = {
 	duels = {
 		regular = false,

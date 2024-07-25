@@ -1030,16 +1030,6 @@ L["Change the alpha level of the icons."] = "Измените прозрачно
 L["Shows the pixel glow on missing raidbuffs."] =
 	"Показывает свечение пикселей на отсутствующих рейдбаффах."
 
--- Raid Manager
-L["Raid Manager"] = "Рейд-менеджер"
-L["This will disable the ElvUI Raid Control and replace it with my own."] =
-	"Это отключит ElvUI управление рейдом и заменит его моим собственным."
-L["Open Raid Manager"] = "Открыть рейд-менеджер"
-L["Pull Timer Count"] = "Отсчет таймера пулла"
-L["Change the Pulltimer for DBM or BigWigs"] = "Измените таймер пулла для DBM или BigWigs"
-L["Only accept values format with '', e.g.: '5', '8', '10' etc."] =
-	"Принимайте только формат значений с '', например: '5', '8', '10' и т. д."
-
 -- Reminder
 L["Reminder"] = "Напоминание"
 L["Reminds you on self Buffs."] = "Напоминает вам о собственных баффах."
