@@ -10,7 +10,7 @@ local GetInventoryItemID = GetInventoryItemID
 local UnitAttackSpeed = UnitAttackSpeed
 local UnitRangedDamage = UnitRangedDamage
 
-local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 
 local meleeing, rangeing, lasthit
 local MainhandID = GetInventoryItemID("player", 16)

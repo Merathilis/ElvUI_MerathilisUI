@@ -3,6 +3,25 @@ local S = MER:GetModule("MER_Skins")
 
 -- Credits: FreeUI (andromeda)
 
+local GetSpellInfo = GetSpellInfo
+	or function(spellID)
+		if not spellID then
+			return nil
+		end
+
+		local spellInfo = C_Spell.GetSpellInfo(spellID)
+		if spellInfo then
+			return spellInfo.name,
+				nil,
+				spellInfo.iconID,
+				spellInfo.castTime,
+				spellInfo.minRange,
+				spellInfo.maxRange,
+				spellInfo.spellID,
+				spellInfo.originalIconID
+		end
+	end
+
 local keyFeedback = CreateFrame("Frame", MER.Title .. "KeyFeedback", E.UIParent)
 keyFeedback:SetScript("OnEvent", function(self, event, ...)
 	return self[event](self, event, ...)

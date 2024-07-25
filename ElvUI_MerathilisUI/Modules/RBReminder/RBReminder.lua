@@ -7,10 +7,27 @@ local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
 local CreateFrame = CreateFrame
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
-local GetSpellInfo = C_Spell.GetSpellInfo
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 local GetWeaponEnchantInfo = GetWeaponEnchantInfo
 local GetInventoryItemTexture = GetInventoryItemTexture
+local GetSpellInfo = GetSpellInfo
+	or function(spellID)
+		if not spellID then
+			return nil
+		end
+
+		local spellInfo = C_Spell.GetSpellInfo(spellID)
+		if spellInfo then
+			return spellInfo.name,
+				nil,
+				spellInfo.iconID,
+				spellInfo.castTime,
+				spellInfo.minRange,
+				spellInfo.maxRange,
+				spellInfo.spellID,
+				spellInfo.originalIconID
+		end
+	end
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 local color = { r, g, b, 1 }
@@ -112,7 +129,7 @@ local function OnAuraChange(_, event, arg1)
 	if flaskbuffs and flaskbuffs[1] then
 		FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs[1])))
 		for i, flaskbuffs in pairs(flaskbuffs) do
-			local spellname = select(1, GetSpellInfo(flaskbuffs).name)
+			local spellname = select(1, GetSpellInfo(flaskbuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs)))
 				FlaskFrame:SetAlpha(module.db.alpha)
@@ -130,7 +147,7 @@ local function OnAuraChange(_, event, arg1)
 	if foodbuffs and foodbuffs[1] then
 		FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs[1])))
 		for i, foodbuffs in pairs(foodbuffs) do
-			local spellname = select(1, GetSpellInfo(foodbuffs).name)
+			local spellname = select(1, GetSpellInfo(foodbuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
 				FoodFrame:SetAlpha(module.db.alpha)
@@ -149,7 +166,7 @@ local function OnAuraChange(_, event, arg1)
 	if darunebuffs and darunebuffs[1] then
 		DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs[1])))
 		for i, darunebuffs in pairs(darunebuffs) do
-			local spellname = select(1, GetSpellInfo(darunebuffs).name)
+			local spellname = select(1, GetSpellInfo(darunebuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs)))
 				DARuneFrame:SetAlpha(module.db.alpha)
@@ -169,7 +186,7 @@ local function OnAuraChange(_, event, arg1)
 		if intellectbuffs and intellectbuffs[1] then
 			IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs[1])))
 			for i, intellectbuffs in pairs(intellectbuffs) do
-				local spellname = select(1, GetSpellInfo(intellectbuffs).name)
+				local spellname = select(1, GetSpellInfo(intellectbuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs)))
 					IntellectFrame:SetAlpha(module.db.alpha)
@@ -188,7 +205,7 @@ local function OnAuraChange(_, event, arg1)
 		if staminabuffs and staminabuffs[1] then
 			StaminaFrame.t:SetTexture(select(3, GetSpellInfo(staminabuffs[1])))
 			for i, staminabuffs in pairs(staminabuffs) do
-				local spellname = select(1, GetSpellInfo(staminabuffs).name)
+				local spellname = select(1, GetSpellInfo(staminabuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					StaminaFrame.t:SetTexture(select(3, GetSpellInfo(staminabuffs)))
 					StaminaFrame:SetAlpha(module.db.alpha)
@@ -207,7 +224,7 @@ local function OnAuraChange(_, event, arg1)
 		if attackpowerbuffs and attackpowerbuffs[1] then
 			AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(attackpowerbuffs[1])))
 			for i, attackpowerbuffs in pairs(attackpowerbuffs) do
-				local spellname = select(1, GetSpellInfo(attackpowerbuffs).name)
+				local spellname = select(1, GetSpellInfo(attackpowerbuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(attackpowerbuffs)))
 					AttackPowerFrame:SetAlpha(module.db.alpha)
@@ -226,7 +243,7 @@ local function OnAuraChange(_, event, arg1)
 		if versatilitybuffs and versatilitybuffs[1] then
 			VersatilityFrame.t:SetTexture(select(3, GetSpellInfo(versatilitybuffs[1])))
 			for i, versatilitybuffs in pairs(versatilitybuffs) do
-				local spellname = select(1, GetSpellInfo(versatilitybuffs).name)
+				local spellname = select(1, GetSpellInfo(versatilitybuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					VersatilityFrame.t:SetTexture(select(3, GetSpellInfo(versatilitybuffs)))
 					VersatilityFrame:SetAlpha(module.db.alpha)
@@ -245,7 +262,7 @@ local function OnAuraChange(_, event, arg1)
 		if cooldowns and cooldowns[1] then
 			CooldownFrame.t:SetTexture(select(3, GetSpellInfo(cooldowns[1])))
 			for i, cooldowns in pairs(cooldowns) do
-				local spellname = select(1, GetSpellInfo(cooldowns).name)
+				local spellname = select(1, GetSpellInfo(cooldowns))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					CooldownFrame.t:SetTexture(select(3, GetSpellInfo(cooldowns)))
 					CooldownFrame:SetAlpha(module.db.alpha)
