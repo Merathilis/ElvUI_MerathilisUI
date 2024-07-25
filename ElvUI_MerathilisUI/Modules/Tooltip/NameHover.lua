@@ -3,7 +3,6 @@ local module = MER:GetModule("MER_Tooltip")
 
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
-local GetMouseFocus = GetMouseFoci or GetMouseFocus
 local UnitCanAttack = UnitCanAttack
 local UnitClass = UnitClass
 local UnitExists = UnitExists
@@ -16,7 +15,14 @@ local UnitName = UnitName
 local UIParent = UIParent
 local UNKNOWN = UNKNOWN
 
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+-- Fallback to GetMouseFocus
+local GetMouseFocus = GetMouseFocus
+if not GetMouseFocus then
+	local GetMouseFoci = GetMouseFoci
+	GetMouseFocus = function()
+		return GetMouseFoci()[1]
+	end
+end
 
 local function Getcolor()
 	local reaction = UnitReaction("mouseover", "player") or 5
@@ -64,7 +70,7 @@ local function AddTargetInfos(self, unit)
 end
 
 function module:NameHover()
-	if not E.db.mui.nameHover.enable or IsAddOnLoaded("bdNameHover") then
+	if not E.db.mui.nameHover.enable then
 		return
 	end
 
@@ -174,4 +180,4 @@ function module:NameHover()
 end
 
 -- FIX ME 11.0
--- module:AddCallback("NameHover")
+module:AddCallback("NameHover")
