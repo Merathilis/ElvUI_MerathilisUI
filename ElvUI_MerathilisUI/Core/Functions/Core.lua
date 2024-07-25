@@ -99,6 +99,10 @@ function F.UpdateDBFromPathRGB(db, path)
 	F.UpdateDBFromPath(db, path, "a")
 end
 
+function F.IsSkyriding()
+	return (IsMounted() or GetShapeshiftForm() ~= 0) and HasBonusActionBar()
+end
+
 function F.ChooseForGradient(normalValue, gradientValue)
 	if E.db.mui.gradient.enable then
 		return gradientValue

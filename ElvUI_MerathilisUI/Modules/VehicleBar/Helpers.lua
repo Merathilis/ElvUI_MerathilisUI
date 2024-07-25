@@ -10,7 +10,7 @@ local GetFillUpFramesWidgetVisualizationInfo = C_UIWidgetManager
 	and C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo
 
 function module:IsVigorAvailable()
-	if E:IsDragonRiding() or (IsMounted() and HasBonusActionBar()) then
+	if F.IsSkyriding() then
 		return true
 	else
 		return false
