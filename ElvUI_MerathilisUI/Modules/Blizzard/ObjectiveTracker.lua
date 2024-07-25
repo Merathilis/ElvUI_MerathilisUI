@@ -10,7 +10,7 @@ local max = max
 local strmatch = strmatch
 
 local CreateColor = CreateColor
-local GetTitleForQuestID = C_QuestLog.GetTitleForQuestID
+local GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 local CreateFrame = CreateFrame
 
 local MAX_QUESTS = 35
@@ -148,38 +148,33 @@ function module:CosmeticBar(header)
 	bar:Show()
 end
 
-function module:ChangeQuestHeaderStyle()
-	local frame = _G.ObjectiveTrackerFrame.MODULES
-	local NumQuests = select(2, C_QuestLog.GetNumQuestLogEntries())
-	if not self.db or not self.db.header or not frame then
+function module:ChangeQuestHeaderStyle(header)
+	if not header then
 		return
 	end
 
-	local Text = _G.ObjectiveTrackerBlocksFrame
-		and _G.ObjectiveTrackerBlocksFrame.QuestHeader
-		and _G.ObjectiveTrackerBlocksFrame.QuestHeader.Text
+	local NumQuests = select(2, GetNumQuestLogEntries())
+	if not self.db or not self.db.header then
+		return
+	end
+
+	local Text = header.Text
 	if Text then
 		if NumQuests >= (MAX_QUESTS - 5) then
 			Text:SetText(format("|Cffff0000%d/%d|r - %s", NumQuests, MAX_QUESTS, _G.QUESTS_LABEL))
 		end
-	end
 
-	for i = 1, #frame do
-		local modules = frame[i]
-		if modules and modules.Header and modules.Header.Text then
-			self:CosmeticBar(modules.Header)
-			F.SetFontDB(modules.Header.Text, self.db.header)
-			modules.Header.Text:SetShadowColor(0, 0, 0, 0)
-			modules.Header.Text.SetShadowColor = E.noop
+		self:CosmeticBar(header)
+		F.SetFontDB(Text, self.db.header)
+		Text:SetShadowColor(0, 0, 0, 0)
+		Text.SetShadowColor = E.noop
+		local r = self.db.header.classColor and F.r or self.db.header.color.r
+		local g = self.db.header.classColor and F.g or self.db.header.color.g
+		local b = self.db.header.classColor and F.b or self.db.header.color.b
+		header.Text:SetTextColor(r, g, b)
 
-			local r = self.db.header.classColor and F.r or self.db.header.color.r
-			local g = self.db.header.classColor and F.g or self.db.header.color.g
-			local b = self.db.header.classColor and F.b or self.db.header.color.b
-
-			modules.Header.Text:SetTextColor(r, g, b)
-			if self.db.header.shortHeader then
-				modules.Header.Text:SetText(self:ShortTitle(modules.Header.Text:GetText()))
-			end
+		if self.db.header.shortHeader then
+			Text:SetText(self:ShortTitle(header.Text:GetText()))
 		end
 	end
 end
@@ -388,44 +383,33 @@ function module:Initialize()
 	end
 
 	self:UpdateTextWidth()
-	self:UpdateBackdrop()
+	-- self:UpdateBackdrop() -- FIX ME
 
 	if not self.initialized then
 		local trackerModules = {
-			_G.UI_WIDGET_TRACKER_MODULE,
-			_G.BONUS_OBJECTIVE_TRACKER_MODULE,
-			_G.WORLD_QUEST_TRACKER_MODULE,
-			_G.CAMPAIGN_QUEST_TRACKER_MODULE,
-			_G.QUEST_TRACKER_MODULE,
-			_G.ACHIEVEMENT_TRACKER_MODULE,
-			_G.PROFESSION_RECIPE_TRACKER_MODULE,
-			_G.MONTHLY_ACTIVITIES_TRACKER_MODULE,
-			_G.ADVENTURE_TRACKER_MODULE,
+			_G.ScenarioObjectiveTracker,
+			_G.UIWidgetObjectiveTracker,
+			_G.CampaignQuestObjectiveTracker,
+			_G.QuestObjectiveTracker,
+			_G.AdventureObjectiveTracker,
+			_G.AchievementObjectiveTracker,
+			_G.MonthlyActivitiesObjectiveTracker,
+			_G.ProfessionsRecipeTracker,
+			_G.BonusObjectiveTracker,
+			_G.WorldQuestObjectiveTracker,
 		}
 
-		for _, module in pairs(trackerModules) do
-			self:SecureHook(module, "AddObjective", "ChangeQuestFontStyle")
-		end
+		local MainHeader = _G.ObjectiveTrackerFrame.Header
+		self:ChangeQuestHeaderStyle(MainHeader)
+		-- self:HandleMenuText(MainHeader) -- FIX ME
 
-		self:SecureHook("ObjectiveTracker_Update", "ChangeQuestHeaderStyle")
-		self:SecureHook(_G.SCENARIO_CONTENT_TRACKER_MODULE, "UpdateCriteria", "ScenarioObjectiveBlock_UpdateCriteria")
+		for _, tracker in pairs(trackerModules) do
+			self:SecureHook(tracker, "AddBlock", "ChangeQuestFontStyle")
+			self:ChangeQuestHeaderStyle(tracker.Header)
+		end
 
 		self.initialized = true
 	end
-
-	E:Delay(1, function()
-		for _, child in pairs({ _G.ObjectiveTrackerBlocksFrame:GetChildren() }) do
-			if child and child.HeaderText then
-				SetTextColorHook(child.HeaderText)
-			end
-		end
-	end)
-
-	if _G.ObjectiveTrackerFrame.HeaderMenu then
-		self:HandleMenuText(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
-	end
-
-	ObjectiveTracker_Update()
 end
 
--- MER:RegisterModule(module:GetName())
+MER:RegisterModule(module:GetName())

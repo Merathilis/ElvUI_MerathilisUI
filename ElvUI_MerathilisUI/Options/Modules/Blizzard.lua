@@ -7,7 +7,6 @@ local LSM = E.Libs.LSM
 
 local format = string.format
 
-local ObjectiveTracker_Update = ObjectiveTracker_Update
 local FriendsFrame_Update = FriendsFrame_Update
 
 options.blizzard = {
@@ -37,7 +36,6 @@ options.blizzard.args.objectiveTracker = {
 	end,
 	set = function(info, value)
 		E.db.mui.blizzard.objectiveTracker[info[#info]] = value
-		ObjectiveTracker_Update()
 	end,
 	args = {
 		name = {
