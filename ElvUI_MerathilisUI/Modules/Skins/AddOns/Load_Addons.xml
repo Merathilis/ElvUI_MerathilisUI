@@ -59,6 +59,7 @@
 	<Script file="Blizzard_PVPMatchUI.lua"/>
 	<Script file="Blizzard_QuestChoice.lua"/>
 	<Script file="Blizzard_RaidUI.lua"/>
+	<Script file="Blizzard_ScenarioObjectiveTracker.lua"/>
 	<Script file="Blizzard_ScrappingMachineUI.lua"/>
 	<Script file="Blizzard_Soulbinds.lua"/>
 	<Script file="Blizzard_TimeManager.lua"/>
