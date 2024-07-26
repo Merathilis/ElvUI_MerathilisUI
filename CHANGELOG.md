@@ -1,13 +1,10 @@
 ### Changes ###
 
-  * 11.0 PATCH - Expect things to go boom!!
-  * IF YOU ARE ON EU AND UPDATED TOO EARLY ITS YOUR OWN FAULT!!
-
-  * [Patch]: Changes due to 11.0 API changes
-  * [Minimap]: Added Minimap Coords
-  * [Skins]: Fix some skins loading
-  * [Raider.io Skin]: Don't skin the Tooltip twice
-  * [RBReminder]: Fix the mover size
-  * [Install]: Some additional AddOn steps in my installer
-  * [StatusReport]: Added an own StatusReport based on ElvUI's & Toxi's
-  * [Armory]: More font options
+  * [RBReminder]: Use the new API on it to make it work again
+  * [NameHover]: Use here also the new API to work again
+  * [Objective Tracker]: Is partiality working, some options may not work
+  * [Skins]: Fix some error on Skins
+  * [RaidManager]: Removed my own RaidManager, the ElvUIs own one is now pretty good
+  * [Character Skin]: More Color on the StatsPane again
+  * [VehicleBar]: Use am own function to check if skyriding or not
+  * [Item Level]: Update ItemLevel display on some frames
