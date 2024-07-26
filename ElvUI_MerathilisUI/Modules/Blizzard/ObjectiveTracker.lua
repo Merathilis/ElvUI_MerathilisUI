@@ -268,8 +268,8 @@ function module:ChangeQuestFontStyle(_, block)
 end
 
 function module:ScenarioObjectiveBlock_UpdateCriteria()
-	if _G.ScenarioObjectiveBlock then
-		local childs = { _G.ScenarioObjectiveBlock:GetChildren() }
+	if _G.ScenarioObjectiveTracker and _G.ScenarioObjectiveTracker.ContentsFrame then
+		local childs = { _G.ScenarioObjectiveTracker.ContentsFrame:GetChildren() }
 		for _, child in pairs(childs) do
 			if child.Text then
 				self:HandleInfoText(child.Text)
@@ -402,6 +402,8 @@ function module:Initialize()
 		local MainHeader = _G.ObjectiveTrackerFrame.Header
 		self:ChangeQuestHeaderStyle(MainHeader)
 		-- self:HandleMenuText(MainHeader) -- FIX ME
+
+		self:SecureHook(_G.ScenarioObjectiveTracker, "UpdateCriteria", "ScenarioObjectiveBlock_UpdateCriteria") -- Do i work?
 
 		for _, tracker in pairs(trackerModules) do
 			self:SecureHook(tracker, "AddBlock", "ChangeQuestFontStyle")
