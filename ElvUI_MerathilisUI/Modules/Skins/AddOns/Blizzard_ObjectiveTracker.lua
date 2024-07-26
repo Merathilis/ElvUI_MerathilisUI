@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs = pairs
@@ -29,7 +30,7 @@ function module:SkinOjectiveTrackerHeader(header)
 	F.SetFontOutline(header.Text)
 end
 
-function module:SkinQuestIcon(_, block)
+function module:ReskinBlock(_, block)
 	for _, button in pairs({ block.ItemButton, block.itemButton }) do
 		if button then
 			if button.backdrop then
@@ -39,14 +40,22 @@ function module:SkinQuestIcon(_, block)
 			end
 		end
 	end
-end
 
-function module:SkinFindGroupButton(block)
-	if block.hasGroupFinderButton and block.groupFinderButton then
-		if block.groupFinderButton and not block.groupFinderButton.__MERSkin then
-			self:CreateShadow(block.groupFinderButton)
-			block.groupFinderButton.__MERSkin = true
-		end
+	if block.AddRightEdgeFrame then
+		hooksecurefunc(block, "AddRightEdgeFrame", function(self)
+			local frame = self.rightEdgeFrame
+			if frame and frame.used then
+				if frame.template == "QuestObjectiveFindGroupButtonTemplate" and not frame.__MERSkin then
+					frame:GetNormalTexture():SetAlpha(0)
+					frame:GetPushedTexture():SetAlpha(0)
+					frame:GetHighlightTexture():SetAlpha(0)
+					S:HandleButton(frame, nil, nil, nil, true)
+					frame.backdrop:SetInside(frame, 4, 4)
+					module:CreateBackdropShadow(frame)
+					frame.__MERSkin = true
+				end
+			end
+		end)
 	end
 end
 
@@ -94,7 +103,11 @@ function module:Blizzard_ObjectiveTracker()
 		if tracker then
 			self:SkinOjectiveTrackerHeader(tracker.Header)
 
-			self:SecureHook(tracker, "AddBlock", "SkinQuestIcon")
+			for _, block in pairs(tracker.usedBlocks or {}) do
+				self:ReskinBlock(tracker, block)
+			end
+
+			self:SecureHook(tracker, "AddBlock", "ReskinBlock")
 			self:SecureHook(tracker, "GetProgressBar", "SkinProgressBar")
 			self:SecureHook(tracker, "GetTimerBar", "SkinTimerBar")
 		end
