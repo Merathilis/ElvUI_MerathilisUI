@@ -184,13 +184,7 @@ function module:CosmeticBar(header)
 end
 
 function module:ObjectiveTrackerModule_Update(tracker)
-	local NumQuests = select(2, GetNumQuestLogEntries())
-
 	if tracker and tracker.Header and tracker.Header.Text then
-		if NumQuests >= (MAX_QUESTS - 5) then
-			tracker.Header.Text:SetText(format("|Cffff0000%d/%d|r - %s", NumQuests, MAX_QUESTS, _G.QUESTS_LABEL))
-		end
-
 		self:CosmeticBar(tracker.Header)
 		F.SetFontDB(tracker.Header.Text, self.db.header)
 		tracker.Header.Text:SetShadowColor(0, 0, 0, 0)
@@ -264,6 +258,8 @@ function module:HandleInfoText(text)
 		else
 			dash:Show()
 		end
+
+		text:SetWordWrap(true)
 		text:ClearAllPoints()
 		text:Point("TOPLEFT", dash, "TOPRIGHT", -1, 0)
 	end
