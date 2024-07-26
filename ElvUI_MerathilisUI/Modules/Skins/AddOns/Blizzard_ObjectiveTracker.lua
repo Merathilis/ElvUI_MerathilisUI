@@ -70,7 +70,7 @@ function module:SkinProgressBar(tracker, key)
 	end
 
 	-- change font style of header
-	if not E.private.WT.quest.objectiveTracker.menuTitle.enable then
+	if not E.db.mui.blizzard.objectiveTracker.menuTitle.enable then
 		F.SetFontOutline(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
 	end
 
