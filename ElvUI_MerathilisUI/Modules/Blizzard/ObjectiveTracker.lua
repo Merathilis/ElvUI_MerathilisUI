@@ -13,7 +13,6 @@ local CreateColor = CreateColor
 local GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 local SortQuestWatches = C_QuestLog.SortQuestWatches
 local CreateFrame = CreateFrame
-local ObjectiveTracker_Update = ObjectiveTracker_Update
 
 local MAX_QUESTS = 35
 local classColor = _G.RAID_CLASS_COLORS[E.myclass]
@@ -40,8 +39,8 @@ do
 		end
 
 		title = F.String.Replace(title, {
-			["，"] = ", ",
-			["。"] = ".",
+			["\239\188\140"] = ", ",
+			["\239\188\141"] = ".",
 		})
 
 		for longName, shortName in pairs(replaceRule) do
@@ -236,46 +235,54 @@ function module:HandleMenuText(text)
 	end
 end
 
-function module:HandleInfoText(text)
-	-- Sometimes Blizzard not use dash icon, just put a dash in front of text
-	if self.db.noDash and text and text.GetText then
-		rawText = text:GetText()
+function module:HandleObjectiveLine(line)
+	if not line or not line.Text or not self.db then
+		return
+	end
 
-		if rawText and rawText ~= "" and strfind(rawText, "^%- ") then
-			text:SetText(gsub(rawText, "^%- ", ""))
+	if line.objectiveKey == 0 then -- World Quest Title
+		self:HandleTitleText(line.Text)
+		return
+	end
+
+	F.SetFontDB(line.Text, self.db.info)
+
+	if self.db.noDash then
+		if line.Dash then
+			line.Dash:Hide()
+			line.Dash:SetText(nil)
 		end
 	end
 
-	self:ColorfulProgression(text)
-	F.SetFontDB(text, self.db.info)
-	text:SetHeight(text:GetStringHeight())
-
-	local line = text:GetParent()
-	local dash = line.Dash or line.Icon
-
-	if self.db.noDash and dash then
-		dash:Hide()
-		text:ClearAllPoints()
-		text:Point("TOPLEFT", dash, "TOPLEFT", 0, 0)
-	else
-		if dash.SetText then
-			F.SetFontDB(dash, self.db.info)
-		end
-		if line.Check and line.Check:IsShown() or line.state and line.state == "COMPLETED" or line.dashStyle == 2 then
-			dash:Hide()
-		else
-			dash:Show()
+	if line.Text.GetText then
+		local rawText = line.Text:GetText()
+		if self.db.noDash then
+			-- Sometimes Blizzard not use dash icon, just put a dash in front of text
+			-- We need to force update the text first
+			if rawText and rawText ~= "" and strfind(rawText, "^%- ") then
+				rawText = gsub(rawText, "^%- ", "")
+			end
 		end
 
-		text:SetWordWrap(true)
-		text:ClearAllPoints()
-		text:Point("TOPLEFT", dash, "TOPRIGHT", -1, 0)
+		line.Text:SetText(rawText)
 	end
+
+	self:ColorfulProgression(line.Text)
+	line:SetHeight(line.Text:GetHeight())
 end
 
-function module:ScenarioObjectiveTracker_UpdateCriteria(tracker)
-	for _, child in pairs({ tracker:GetChildren() }) do
-		self:HandleInfoText(child.Text)
+function module:ObjectiveTrackerBlock_AddObjective(block)
+	self:HandleObjectiveLine(block.lastRegion)
+end
+
+function module:ScenarioObjectiveTracker_UpdateCriteria(tracker, numCriteria)
+	if not self.db or not self.db.noDash then
+		return
+	end
+	local objectivesBlock = self.ObjectivesBlock
+	for criteriaIndex = 1, numCriteria do
+		local existingLine = objectivesBlock:GetExistingLine(criteriaIndex)
+		existingLine.Icon:Hide()
 	end
 end
 
@@ -371,11 +378,7 @@ function module:ReskinTextInsideBlock(_, block)
 	end
 
 	for _, line in pairs(block.usedLines or {}) do
-		if line.objectiveKey == 0 then -- World Quest Title
-			self:HandleTitleText(line.Text)
-		else
-			self:HandleInfoText(line.Text)
-		end
+		self:HandleObjectiveLine(line)
 	end
 end
 
@@ -388,48 +391,45 @@ function module:RefreshAllCosmeticBars()
 	SortQuestWatches()
 end
 
+function module:ObjectiveTrackerModule_AddBlock(_, block)
+	if block.__MERHooked then
+		return
+	end
+
+	self:ReskinTextInsideBlock(nil, block)
+	if block.AddObjective then
+		self:SecureHook(block, "AddObjective", "ObjectiveTrackerBlock_AddObjective")
+	end
+
+	block.__MERHooked = true
+end
+
 function module:Initialize()
-	E:Delay(3, function()
-		self.db = E.db.mui.blizzard.objectiveTracker
-		if not self.db.enable then
-			return
-		end
+	self.db = E.db.mui.blizzard.objectiveTracker
+	if not self.db.enable then
+		return
+	end
 
-		self:UpdateTextWidth()
-		self:UpdateBackdrop()
+	self:UpdateTextWidth()
+	self:UpdateBackdrop()
 
-		if not self.initialized then
-			for _, tracker in pairs(trackers) do
-				self:SecureHook(tracker, "Update", "ObjectiveTrackerModule_Update")
-				self:SecureHook(tracker, "LayoutBlock", "ReskinTextInsideBlock")
+	if not self.initialized then
+		for _, tracker in pairs(trackers) do
+			for _, block in pairs(tracker.usedBlocks or {}) do
+				self:ObjectiveTrackerModule_AddBlock(nil, block)
 			end
-
-			self:SecureHook(_G.ScenarioObjectiveTracker, "UpdateCriteria", "ScenarioObjectiveTracker_UpdateCriteria")
-
-			self.initialized = true
+			self:SecureHook(tracker, "Update", "ObjectiveTrackerModule_Update")
+			self:SecureHook(tracker, "AddBlock", "ObjectiveTrackerModule_AddBlock")
 		end
 
-		-- E:Delay(
-		--     1,
-		--     function()
-		--         for _, child in pairs {_G.ObjectiveTrackerBlocksFrame:GetChildren()} do
-		--             if child and child.HeaderText then
-		--                 SetTextColorHook(child.HeaderText)
-		--             end
-		--         end
-		--     end
-		-- )
+		self:SecureHook(_G.ScenarioObjectiveTracker, "UpdateCriteria", "ScenarioObjectiveTracker_UpdateCriteria")
 
-		-- if _G.ObjectiveTrackerFrame.HeaderMenu then
-		--     self:HandleMenuText(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
-		-- end
+		self.initialized = true
+	end
+
+	-- Force update all modules once we get into the game
+	E:Delay(0.5, function()
 		SortQuestWatches()
-		E:Delay(0.1, function()
-			SortQuestWatches()
-		end)
-		E:Delay(0.2, function()
-			SortQuestWatches()
-		end)
 	end)
 end
 

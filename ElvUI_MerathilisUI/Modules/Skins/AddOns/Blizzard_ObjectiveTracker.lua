@@ -18,7 +18,7 @@ local trackers = {
 	_G.WorldQuestObjectiveTracker,
 }
 
-function module:SkinOjectiveTrackerHeader(header)
+function module:ReskinOjectiveTrackerHeader(header)
 	if not header or not header.Text then
 		return
 	end
@@ -30,7 +30,24 @@ function module:SkinOjectiveTrackerHeader(header)
 	F.SetFontOutline(header.Text)
 end
 
-function module:ReskinBlock(_, block)
+function module:ReskinObjectiveTrackerBlockRightEdgeButton(_, block)
+	local frame = block.rightEdgeFrame
+	if not frame then
+		return
+	end
+
+	if frame.template == "QuestObjectiveFindGroupButtonTemplate" and not frame.__MERSkin then
+		frame:GetNormalTexture():SetAlpha(0)
+		frame:GetPushedTexture():SetAlpha(0)
+		frame:GetHighlightTexture():SetAlpha(0)
+		S:HandleButton(frame, nil, nil, nil, true)
+		frame.backdrop:SetInside(frame, 4, 4)
+		self:CreateBackdropShadow(frame)
+		frame.__MERSkin = true
+	end
+end
+
+function module:ReskinObjectiveTrackerBlock(_, block)
 	for _, button in pairs({ block.ItemButton, block.itemButton }) do
 		if button then
 			if button.backdrop then
@@ -41,21 +58,11 @@ function module:ReskinBlock(_, block)
 		end
 	end
 
-	if block.AddRightEdgeFrame then
-		hooksecurefunc(block, "AddRightEdgeFrame", function(self)
-			local frame = self.rightEdgeFrame
-			if frame and frame.used then
-				if frame.template == "QuestObjectiveFindGroupButtonTemplate" and not frame.__MERSkin then
-					frame:GetNormalTexture():SetAlpha(0)
-					frame:GetPushedTexture():SetAlpha(0)
-					frame:GetHighlightTexture():SetAlpha(0)
-					S:HandleButton(frame, nil, nil, nil, true)
-					frame.backdrop:SetInside(frame, 4, 4)
-					module:CreateBackdropShadow(frame)
-					frame.__MERSkin = true
-				end
-			end
-		end)
+	self:ReskinObjectiveTrackerBlockRightEdgeButton(_, block)
+
+	if block.AddRightEdgeFrame and not block.__MERRightEdgeHooked then
+		self:SecureHook(block, "AddRightEdgeFrame", "ReskinObjectiveTrackerBlockRightEdgeButton")
+		block.__MERRightEdgeHooked = true
 	end
 end
 
@@ -79,9 +86,7 @@ function module:SkinProgressBar(tracker, key)
 	end
 
 	-- change font style of header
-	if not E.db.mui.blizzard.objectiveTracker.menuTitle.enable then
-		F.SetFontOutline(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
-	end
+	F.SetFontOutline(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
 
 	progressBar.__MERSkin = true
 end
@@ -97,20 +102,18 @@ function module:Blizzard_ObjectiveTracker()
 	end
 
 	local MainHeader = _G.ObjectiveTrackerFrame.Header
-	self:SkinOjectiveTrackerHeader(MainHeader)
+	self:ReskinOjectiveTrackerHeader(MainHeader)
 
 	for _, tracker in pairs(trackers) do
-		if tracker then
-			self:SkinOjectiveTrackerHeader(tracker.Header)
+		self:ReskinOjectiveTrackerHeader(tracker.Header)
 
-			for _, block in pairs(tracker.usedBlocks or {}) do
-				self:ReskinBlock(tracker, block)
-			end
-
-			self:SecureHook(tracker, "AddBlock", "ReskinBlock")
-			self:SecureHook(tracker, "GetProgressBar", "SkinProgressBar")
-			self:SecureHook(tracker, "GetTimerBar", "SkinTimerBar")
+		for _, block in pairs(tracker.usedBlocks or {}) do
+			self:ReskinObjectiveTrackerBlock(tracker, block)
 		end
+
+		self:SecureHook(tracker, "AddBlock", "ReskinObjectiveTrackerBlock")
+		self:SecureHook(tracker, "GetProgressBar", "SkinProgressBar")
+		self:SecureHook(tracker, "GetTimerBar", "SkinTimerBar")
 	end
 end
 
