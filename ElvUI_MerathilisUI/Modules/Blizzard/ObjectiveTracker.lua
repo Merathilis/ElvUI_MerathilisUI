@@ -219,10 +219,6 @@ end
 
 function module:HandleMenuText(text)
 	F.SetFontDB(text, self.db.menuTitle.font)
-	local height = text:GetStringHeight() + 2
-	if height ~= text:GetHeight() then
-		text:SetHeight(height)
-	end
 
 	if not text.IsHooked then
 		text.IsHooked = true
@@ -324,13 +320,6 @@ function module:ColorfulProgression(text)
 	text:SetText(info)
 end
 
-function module:UpdateTextWidth()
-	if self.db.noDash then
-		_G.OBJECTIVE_DASH_STYLE_SHOW = 2
-	else
-		_G.OBJECTIVE_DASH_STYLE_SHOW = 1
-	end
-end
 function module:UpdateBackdrop()
 	if not _G.ObjectiveTrackerFrame then
 		return
@@ -410,7 +399,6 @@ function module:Initialize()
 		return
 	end
 
-	self:UpdateTextWidth()
 	self:UpdateBackdrop()
 
 	if not self.initialized then
@@ -423,6 +411,7 @@ function module:Initialize()
 		end
 
 		self:SecureHook(_G.ScenarioObjectiveTracker, "UpdateCriteria", "ScenarioObjectiveTracker_UpdateCriteria")
+		self:HandleMenuText(_G.ObjectiveTrackerFrame.Header.Text)
 
 		self.initialized = true
 	end
