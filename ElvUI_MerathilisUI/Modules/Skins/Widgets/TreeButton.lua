@@ -88,6 +88,8 @@ function WS:HandleTreeGroup(widget)
 						self:SecureHookScript(frame, "OnLeave", button.MERAnimation.onLeave)
 					end
 				end)
+
+				module:CreateGradient(button)
 			end
 
 			if db.selected.enable then

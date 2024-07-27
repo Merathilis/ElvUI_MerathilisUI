@@ -75,6 +75,8 @@ function WS:HandleTab(_, tab, noBackdrop, template)
 				self:SecureHookScript(frame, "OnLeave", tab.MERAnimation.onLeave)
 			end
 		end)
+
+		module:CreateGradient(tab)
 	end
 
 	tab.MERSkinned = true

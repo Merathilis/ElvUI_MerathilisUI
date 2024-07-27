@@ -89,6 +89,8 @@ function WS:HandleCheckBox(_, check)
 			end
 		end
 
+		module:CreateGradient(check)
+
 		check.MERSkin = true
 	end
 end
