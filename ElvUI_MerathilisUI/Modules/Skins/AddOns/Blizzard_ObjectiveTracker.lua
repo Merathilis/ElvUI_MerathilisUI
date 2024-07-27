@@ -86,7 +86,9 @@ function module:SkinProgressBar(tracker, key)
 	end
 
 	-- change font style of header
-	F.SetFontOutline(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
+	if _G.ObjectiveTrackerFrame and _G.ObjectiveTrackerFrame.HeaderMenu then
+		F.SetFontOutline(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
+	end
 
 	progressBar.__MERSkin = true
 end
