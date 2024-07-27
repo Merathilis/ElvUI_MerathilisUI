@@ -1327,6 +1327,32 @@ local moduleList = {
 	["MOPREMIX"] = mopRemix,
 }
 
+do
+	local fakeButton = {
+		HotKey = {
+			text = "",
+			SetText = function(self, text)
+				self.text = text
+			end,
+			GetText = function(self)
+				return self.text
+			end,
+		},
+	}
+
+	function module:GetBindingKeyWithElvUI(key)
+		local keybind = GetBindingKey(key)
+
+		if not keybind or keybind == "" then
+			return ""
+		end
+
+		fakeButton.HotKey:SetText(keybind)
+		AB:FixKeybindText(fakeButton)
+		return fakeButton.HotKey:GetText()
+	end
+end
+
 function module:CreateButton(name, barDB)
 	local button = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate")
 	button:Size(barDB.buttonWidth, barDB.buttonHeight)
@@ -1917,12 +1943,7 @@ function module:UpdateBinding()
 			local button = module.bars[i].buttons[j]
 			if button then
 				local bindingName = format("CLICK AutoButtonBar%dButton%d:LeftButton", i, j)
-				local bindingText = GetBindingKey(bindingName) or ""
-				bindingText = gsub(bindingText, "ALT--", "A")
-				bindingText = gsub(bindingText, "CTRL--", "C")
-				bindingText = gsub(bindingText, "SHIFT--", "S")
-
-				button.bind:SetText(bindingText)
+				button.bind:SetText(self:GetBindingKeyWithElvUI(bindingName))
 			end
 		end
 	end

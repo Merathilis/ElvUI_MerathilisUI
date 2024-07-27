@@ -498,7 +498,7 @@ local ButtonTypes = {
 		click = {
 			LeftButton = function()
 				if not InCombatLockdown() then
-					ToggleSpellBook(_G.BOOKTYPE_PROFESSION)
+					_G.ToggleProfessionsBook()
 				else
 					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
 				end
@@ -533,11 +533,9 @@ local ButtonTypes = {
 		click = {
 			LeftButton = function()
 				if not InCombatLockdown() then
-					if PlayerSpellsUtil then
-						PlayerSpellsUtil.ToggleSpellBookFrame()
-					else
-						ToggleFrame(_G.SpellBookFrame)
-					end
+					_G.PlayerSpellsUtil.ToggleSpellBookFrame()
+				else
+					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
 				end
 			end,
 		},
@@ -551,11 +549,9 @@ local ButtonTypes = {
 		click = {
 			LeftButton = function()
 				if not InCombatLockdown() then
-					if PlayerSpellsUtil then
-						PlayerSpellsUtil.ToggleClassTalentFrame()
-					else
-						_G.ToggleTalentFrame()
-					end
+					_G.PlayerSpellsUtil.ToggleClassTalentFrame()
+				else
+					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
 				end
 			end,
 		},
