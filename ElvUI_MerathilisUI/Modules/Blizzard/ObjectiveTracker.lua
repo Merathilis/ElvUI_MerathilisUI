@@ -276,9 +276,11 @@ function module:ScenarioObjectiveTracker_UpdateCriteria(tracker, numCriteria)
 		return
 	end
 	local objectivesBlock = self.ObjectivesBlock
-	for criteriaIndex = 1, numCriteria do
-		local existingLine = objectivesBlock:GetExistingLine(criteriaIndex)
-		existingLine.Icon:Hide()
+	if objectivesBlock then
+		for criteriaIndex = 1, numCriteria do
+			local existingLine = objectivesBlock:GetExistingLine(criteriaIndex)
+			existingLine.Icon:Hide()
+		end
 	end
 end
 

@@ -6,9 +6,9 @@ local _G = _G
 local pairs, unpack = pairs, unpack
 
 local function SkinFrame()
-	local mainFrame = _G.CliqueUIBindingFrame
-	S:HandlePortraitFrame(mainFrame)
-	module:CreateShadow(mainFrame)
+	local BindingFrame = _G.CliqueUIBindingFrame
+	S:HandlePortraitFrame(BindingFrame)
+	module:CreateShadow(BindingFrame)
 
 	local scrollFrame = _G.CliqeUIConfigUIScrollFrame
 
