@@ -5,13 +5,36 @@ local _G = _G
 local select = select
 
 local CreateFrame = CreateFrame
-local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
-local C_QuestLog_GetMaxNumQuestsCanAccept = C_QuestLog.GetMaxNumQuestsCanAccept
+local GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
+local GetMaxNumQuestsCanAccept = C_QuestLog.GetMaxNumQuestsCanAccept
 local hooksecurefunc = hooksecurefunc
 
 local MAX_QUESTS = 35 -- manually increase it
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
+
+local function SkinDialog(_, dialog)
+	if not dialog.__MERSkin then
+		module:CreateBackdropShadow(dialog)
+		dialog.__MERSkin = true
+	end
+end
+
+local function SkinQuestLogQuests()
+	for button in _G.QuestScrollFrame.headerFramePool:EnumerateActive() do
+		if button.backdrop and not button.__MERSkin then
+			module:CreateGradient(button.backdrop)
+			button.__MERSkin = true
+		end
+	end
+
+	for header in _G.QuestScrollFrame.campaignHeaderMinimalFramePool:EnumerateActive() do
+		if header.backdrop and not header.__MERSkin then
+			module:CreateGradient(header)
+			header.__MERSkin = true
+		end
+	end
+end
 
 function module:WorldMapFrame()
 	if not module:CheckDB("worldmap", "worldmap") then
@@ -30,8 +53,8 @@ function module:WorldMapFrame()
 	frame.text:SetAllPoints()
 
 	frame.text:SetText(
-		select(2, C_QuestLog_GetNumQuestLogEntries())
-			.. "/" --[[C_QuestLog_GetMaxNumQuestsCanAccept()]]
+		select(2, GetNumQuestLogEntries())
+			.. "/" --[[GetMaxNumQuestsCanAccept()]]
 			.. MAX_QUESTS
 			.. " "
 			.. L["Quests"]
@@ -39,8 +62,8 @@ function module:WorldMapFrame()
 
 	frame:SetScript("OnEvent", function(self, event)
 		frame.text:SetText(
-			select(2, C_QuestLog_GetNumQuestLogEntries())
-				.. "/" --[[C_QuestLog_GetMaxNumQuestsCanAccept()]]
+			select(2, GetNumQuestLogEntries())
+				.. "/" --[[GetMaxNumQuestsCanAccept()]]
 				.. MAX_QUESTS
 				.. " "
 				.. L["Quests"]
@@ -62,12 +85,8 @@ function module:WorldMapFrame()
 		end
 	end
 
-	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", function(_, dialog)
-		if not dialog.__MERSkin then
-			module:CreateBackdropShadow(dialog)
-			dialog.__MERSkin = true
-		end
-	end)
+	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", SkinDialog)
+	hooksecurefunc("QuestLogQuests_Update", SkinQuestLogQuests)
 end
 
 module:AddCallback("WorldMapFrame")
