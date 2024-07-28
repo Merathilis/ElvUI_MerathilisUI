@@ -11,8 +11,8 @@ local tinsert, tremove = table.insert, table.remove
 
 local CreateFrame = CreateFrame
 local GetPetActionInfo = GetPetActionInfo
-local GetSpellInfo = C_Spell.GetSpellInfo or GetSpellInfo
-local GetSpellTexture = C_Spell.GetSpellTexture or GetSpellTexture
+local GetSpellName = C_Spell.GetSpellName
+local GetSpellTexture = C_Spell.GetSpellTexture
 local GetSpellCooldown = C_Spell.GetSpellCooldown
 		and function(spell)
 			local c = C_Spell.GetSpellCooldown(spell)
@@ -132,7 +132,7 @@ local function OnUpdate(_, update)
 					getCooldownDetails = memoize(function()
 						local start, duration, enabled = GetSpellCooldown(v[3])
 						return {
-							name = GetSpellInfo(v[3]),
+							name = GetSpellName(v[3]),
 							texture = GetSpellTexture(v[3]),
 							start = start,
 							duration = duration,
@@ -218,7 +218,7 @@ local function OnUpdate(_, update)
 					DCPT:SetVertexColor(unpack(module.db.petOverlay))
 				end
 				if module.db.tts then
-					local tts = GetSpellInfo(module.animating[1][3])
+					local tts = GetSpellName(module.animating[1][3])
 					if module.db.ttsvoice and tts then
 						SpeakText(
 							module.db.ttsvoice,
@@ -314,7 +314,7 @@ function DCP:COMBAT_LOG_EVENT_UNFILTERED()
 
 	if eventType == "SPELL_CAST_SUCCESS" then
 		if isPet and isMine then
-			local name = GetSpellInfo(spellID)
+			local name = GetSpellName(spellID)
 			local index = GetPetActionIndexByName(name)
 			if index and not select(7, GetPetActionInfo(index)) then
 				module.watching[spellID] = { GetTime(), "pet", index }
@@ -387,7 +387,7 @@ function module:TestMode()
 	DCP:SetScript("OnUpdate", OnUpdate)
 
 	if module.db.tts then
-		local tts = GetSpellInfo(33786)
+		local tts = GetSpellName(33786)
 		SpeakText(module.db.ttsvoice, tts, Enum.VoiceTtsDestination.LocalPlayback, 0, module.db.ttsvolume)
 	end
 end

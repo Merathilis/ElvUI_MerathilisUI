@@ -12,7 +12,7 @@ local strsub = strsub
 local tinsert, tremove = tinsert, tremove
 
 local CreateFrame = CreateFrame
-local GetSpellInfo = GetSpellInfo
+local GetSpellTexture = C_Spell.GetSpellTexture
 local InCombatLockdown = InCombatLockdown
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
@@ -306,7 +306,7 @@ function module:SkinButton(frame)
 	if name == "DBMMinimapButton" then
 		frame:SetNormalTexture("Interface\\Icons\\INV_Helmet_87")
 	elseif name == "SmartBuff_MiniMapButton" then
-		frame:SetNormalTexture(select(3, GetSpellInfo(12051)))
+		frame:SetNormalTexture(GetSpellTexture(12051))
 	elseif name == "ExpansionLandingPageMinimapButton" then
 		if self.db.garrison then
 			if not frame.isMERMinimapButton then

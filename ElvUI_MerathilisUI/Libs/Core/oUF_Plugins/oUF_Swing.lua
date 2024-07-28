@@ -10,7 +10,7 @@ local GetInventoryItemID = GetInventoryItemID
 local UnitAttackSpeed = UnitAttackSpeed
 local UnitRangedDamage = UnitRangedDamage
 
-local GetSpellInfo = C_Spell.GetSpellInfo
+local GetSpellName = C_Spell.GetSpellName
 
 local meleeing, rangeing, lasthit
 local MainhandID = GetInventoryItemID("player", 16)
@@ -59,7 +59,7 @@ do
 	local checkelapsed = 0
 	local slamelapsed = 0
 	local slamtime = 0
-	local slam = GetSpellInfo(1464)
+	local slam = GetSpellName(1464)
 	function OnDurationUpdate(self, elapsed)
 		local now = GetTime()
 

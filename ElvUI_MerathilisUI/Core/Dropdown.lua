@@ -9,7 +9,7 @@ local tinsert = table.insert
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
 local GetItemInfo = GetItemInfo
-local GetSpellInfo = GetSpellInfo
+local GetSpellName = C_Spell.GetSpellName
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local ToggleFrame = ToggleFrame
@@ -146,7 +146,7 @@ function module:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, 
 					local name = GetItemInfo(btn.secure.ID)
 					btn:SetAttribute("item", name)
 				elseif btn.secure.buttonType == "spell" then
-					local name = GetSpellInfo(btn.secure.ID)
+					local name = GetSpellName(btn.secure.ID)
 					btn:SetAttribute("spell", name)
 				elseif btn.secure.buttonType == "macro" then
 					btn:SetAttribute("macrotext", btn.secure.ID)

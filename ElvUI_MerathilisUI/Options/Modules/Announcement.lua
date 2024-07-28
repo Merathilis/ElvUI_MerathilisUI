@@ -7,25 +7,8 @@ local gsub = gsub
 local pairs = pairs
 local tonumber = tonumber
 
-local GetSpellLink = C_Spell and C_Spell.GetSpellLink
-local GetSpellInfo = GetSpellInfo
-	or function(spellID)
-		if not spellID then
-			return nil
-		end
-
-		local spellInfo = C_Spell.GetSpellInfo(spellID)
-		if spellInfo then
-			return spellInfo.name,
-				nil,
-				spellInfo.iconID,
-				spellInfo.castTime,
-				spellInfo.minRange,
-				spellInfo.maxRange,
-				spellInfo.spellID,
-				spellInfo.originalIconID
-		end
-	end
+local GetSpellLink = C_Spell.GetSpellLink
+local GetSpellName = C_Spell.GetSpellName
 
 local function ImportantColorString(string)
 	return F.CreateColorString(string, { r = 0.204, g = 0.596, b = 0.859 })
@@ -492,7 +475,7 @@ do
 		local groupName, groupOrder, exampleSpellId
 		local id = tonumber(categoryOrId)
 		if id then
-			groupName = GetSpellInfo(id)
+			groupName = GetSpellName(id)
 			exampleSpellId = id
 			groupOrder = spellOrder
 			spellOrder = spellOrder + 1

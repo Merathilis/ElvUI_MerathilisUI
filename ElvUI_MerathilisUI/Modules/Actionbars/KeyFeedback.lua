@@ -2,25 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = MER:GetModule("MER_Skins")
 
 -- Credits: FreeUI (andromeda)
-
-local GetSpellInfo = GetSpellInfo
-	or function(spellID)
-		if not spellID then
-			return nil
-		end
-
-		local spellInfo = C_Spell.GetSpellInfo(spellID)
-		if spellInfo then
-			return spellInfo.name,
-				nil,
-				spellInfo.iconID,
-				spellInfo.castTime,
-				spellInfo.minRange,
-				spellInfo.maxRange,
-				spellInfo.spellID,
-				spellInfo.originalIconID
-		end
-	end
+local GetSpellTexture = C_Spell.GetSpellTexture
 
 local keyFeedback = CreateFrame("Frame", MER.Title .. "KeyFeedback", E.UIParent)
 keyFeedback:SetScript("OnEvent", function(self, event, ...)
@@ -239,7 +221,7 @@ function keyFeedback:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellID)
 
 		if self.db.enableCastLine then
 			local frame = self.iconPool:Acquire()
-			local texture = select(3, GetSpellInfo(spellID))
+			local texture = GetSpellTexture(spellID)
 			frame.icon:SetTexture(texture)
 			frame.icon:SetTexCoord(unpack(E.TexCoords))
 			frame:Show()
