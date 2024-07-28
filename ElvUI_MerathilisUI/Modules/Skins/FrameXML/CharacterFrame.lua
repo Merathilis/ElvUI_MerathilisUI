@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
-function module:CharacterFrame()
+function module:Blizzard_UIPanels_Game()
 	if not module:CheckDB("character", "character") then
 		return
 	end
@@ -26,4 +26,4 @@ function module:CharacterFrame()
 	module:CreateShadow(_G.ReputationFrame.ReputationDetailFrame)
 end
 
-module:AddCallback("CharacterFrame")
+module:AddCallbackForAddon("Blizzard_UIPanels_Game")
