@@ -533,6 +533,7 @@ P.misc = {
 	hideBossBanner = false,
 	quickDelete = true,
 	quickMenu = true,
+	tradeTabs = true,
 	alreadyKnown = {
 		enable = true,
 		mode = "COLOR",

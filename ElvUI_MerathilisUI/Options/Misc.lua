@@ -74,7 +74,7 @@ options.general = {
 			desc = L["Shows additional Buttons on your Dropdown for quick actions."],
 		},
 		selectQuestReward = {
-			order = 8,
+			order = 9,
 			type = "toggle",
 			name = L["Highest Quest Reward"],
 			desc = L["Automatically select the item with the highest reward."],
@@ -86,13 +86,19 @@ options.general = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
+		tradeTabs = {
+			order = 10,
+			type = "toggle",
+			name = L["Trade Tabs"],
+			desc = L["Enable Tabs on the Profession Frames"],
+		},
 		spacer = {
-			order = 9,
+			order = 11,
 			type = "description",
 			name = " ",
 		},
 		missingStats = {
-			order = 10,
+			order = 12,
 			type = "toggle",
 			name = L["Missing Stats"],
 			desc = L["Show all stats on the Character Frame"],
