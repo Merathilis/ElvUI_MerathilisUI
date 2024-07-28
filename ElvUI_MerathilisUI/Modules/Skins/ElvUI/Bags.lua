@@ -1,11 +1,13 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local S = MER:GetModule("MER_Skins")
+local module = MER:GetModule("MER_Skins")
 local B = E:GetModule("Bags")
 
 local _G = _G
 local pairs = pairs
 
-function S:ElvUI_Bags()
+local NUM_CONTAINER_FRAMES = NUM_CONTAINER_FRAMES
+
+function module:ElvUI_ContainerFrames()
 	if not E.private.bags.enable then
 		return
 	end
@@ -16,28 +18,35 @@ function S:ElvUI_Bags()
 	self:CreateShadow(B.BankFrame.ContainerHolder)
 end
 
-function S:ElvUI_BagBar()
-	if not E.private.bags.enable then
+function module:ContainerFrame()
+	print("hitsss")
+	if E.private.bags.enable then
 		return
 	end
 
-	if E.private.bags.bagBar and B.BagBar and B.BagBar.buttons then
-		for _, buttons in pairs(B.BagBar.buttons) do
-			self:CreateShadow(buttons)
+	for bagID = 1, NUM_CONTAINER_FRAMES do
+		local container = _G["ContainerFrame" .. bagID]
+		if container and container.template then
+			self:CreateShadow(container)
+		end
+		print(container)
+	end
+
+	self:CreateShadow(_G.ContainerFrameCombinedBags)
+
+	-- Bank
+	self:CreateShadow(_G.BankFrame)
+
+	for _, frame in pairs({ _G.BankSlotsFrame, _G.ReagentBankFrame, _G.AccountBankPanel }) do
+		if frame and frame.EdgeShadows then
+			frame.EdgeShadows:SetAlpha(0)
 		end
 	end
-end
 
-function S:ElvUI_BagSell()
-	if not E.private.bags.enable then
-		return
-	end
-
-	if B and B.SellFrame then
-		self:CreateBackdropShadow(B.SellFrame)
+	for _, tab in pairs(_G.BankFrame.Tabs) do
+		self:ReskinTab(tab)
 	end
 end
 
-S:AddCallback("ElvUI_Bags")
-S:AddCallback("ElvUI_BagBar")
-S:AddCallback("ElvUI_BagSell")
+module:AddCallback("ContainerFrame")
+module:AddCallback("ElvUI_ContainerFrames")

@@ -79,16 +79,6 @@ function module:BlizzMisc()
 		module:CreateShadow(_G.ChatConfigFrame)
 	end
 
-	-- Mirror Timers
-	if E.private.skins.blizzard.mirrorTimers then
-		hooksecurefunc(_G.MirrorTimerContainer, "SetupTimer", function(container, timer)
-			local bar = container:GetAvailableTimer(timer)
-			if bar then
-				module:CreateShadow(bar)
-			end
-		end)
-	end
-
 	if _G.ActionStatus.Text then
 		F.SetFontDB(_G.ActionStatus.Text, E.private.mui.skins.actionStatus)
 	end
