@@ -1016,3 +1016,11 @@ function module:RefreshToggleDirection()
 		module:SetToggleDirection(frame)
 	end
 end
+
+function module:Reposition(frame, target, border, top, bottom, left, right)
+	frame:ClearAllPoints()
+	frame:SetPoint("TOPLEFT", target, "TOPLEFT", -left - border, top + border)
+	frame:SetPoint("TOPRIGHT", target, "TOPRIGHT", right + border, top + border)
+	frame:SetPoint("BOTTOMLEFT", target, "BOTTOMLEFT", -left - border, -bottom - border)
+	frame:SetPoint("BOTTOMRIGHT", target, "BOTTOMRIGHT", right + border, -bottom - border)
+end
