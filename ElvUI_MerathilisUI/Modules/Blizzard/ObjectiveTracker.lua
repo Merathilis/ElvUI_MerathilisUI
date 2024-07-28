@@ -275,12 +275,11 @@ function module:ScenarioObjectiveTracker_UpdateCriteria(tracker, numCriteria)
 	if not self.db or not self.db.noDash then
 		return
 	end
-	local objectivesBlock = self.ObjectivesBlock
-	if objectivesBlock then
-		for criteriaIndex = 1, numCriteria do
-			local existingLine = objectivesBlock:GetExistingLine(criteriaIndex)
-			existingLine.Icon:Hide()
-		end
+
+	local objectivesBlock = tracker.ObjectivesBlock
+	for criteriaIndex = 1, numCriteria do
+		local existingLine = objectivesBlock:GetExistingLine(criteriaIndex)
+		existingLine.Icon:Hide()
 	end
 end
 
