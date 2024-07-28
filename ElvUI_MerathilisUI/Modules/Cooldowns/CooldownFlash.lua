@@ -14,13 +14,6 @@ local GetPetActionInfo = GetPetActionInfo
 local GetSpellName = C_Spell.GetSpellName
 local GetSpellTexture = C_Spell.GetSpellTexture
 local GetSpellCooldown = C_Spell.GetSpellCooldown
-		and function(spell)
-			local c = C_Spell.GetSpellCooldown(spell)
-			if c then
-				return c.startTime, c.duration, c.isEnabled, c.modRate
-			end
-		end
-	or GetSpellCooldown
 local GetItemInfo = C_Item.GetItemInfo
 local GetPetActionCooldown = GetPetActionCooldown
 local IsInInstance = IsInInstance
@@ -130,13 +123,14 @@ local function OnUpdate(_, update)
 				local getCooldownDetails
 				if v[2] == "spell" then
 					getCooldownDetails = memoize(function()
-						local start, duration, enabled = GetSpellCooldown(v[3])
+						local cooldownInfo = GetSpellCooldown(v[3])
 						return {
 							name = GetSpellName(v[3]),
 							texture = GetSpellTexture(v[3]),
-							start = start,
-							duration = duration,
-							enabled = enabled,
+							start = cooldownInfo.startTime,
+							duration = cooldownInfo.duration,
+							enabled = cooldownInfo.enabled,
+							modRate = cooldownInfo.modRate,
 						}
 					end)
 				elseif v[2] == "item" then
