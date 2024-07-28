@@ -22,10 +22,6 @@ function module:ElvUI_MinimapPanels()
 		self:ResizeMinimapPanels()
 	end
 
-	if E.db.datatexts.panels.MinimapPanel.backdrop then
-		self:CreateShadow(_G.MinimapPanel)
-	end
-
 	hooksecurefunc(LO, "ToggleChatPanels", module.ResizeMinimapPanels)
 	hooksecurefunc(M, "UpdateSettings", module.ResizeMinimapPanels)
 end

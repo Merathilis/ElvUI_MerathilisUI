@@ -53,7 +53,7 @@ end
 
 function module:CreateCoordsFrame()
 	self.coordsHolder = CreateFrame("Frame", "MER_CoordsHolder", _G.Minimap)
-	self.coordsHolder:SetFrameLevel(_G.Minimap:GetFrameLevel() + 10)
+	self.coordsHolder:SetFrameLevel(_G.Minimap:GetFrameLevel() + 20)
 	self.coordsHolder:SetFrameStrata(_G.Minimap:GetFrameStrata())
 	self.coordsHolder:SetScript("OnUpdate", self.updateClosure)
 

@@ -12,7 +12,7 @@ local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 function RM:HereBeDragons_Pins_AddMinimapIconMap(_, _, icon)
 	if icon.SetPoint then
-		hooksecurefunc(icon, "SetPoint", function(pin, arg1, _, arg3, _, arg5)
+		hooksecurefunc(icon, "SetPoint", function(pin, arg1, arg2, arg3, arg4, arg5)
 			if self.db and self.db.enable and self.effectiveHeight and self.effectiveHeight > 0 then
 				if arg1 and arg1 == "CENTER" and arg3 and arg3 == "CENTER" then
 					if arg5 and abs(arg5) > self.effectiveHeight / 2 then
@@ -38,17 +38,13 @@ function RM:HandyNotesFix()
 end
 
 function RM:ChangeShape()
-	if not self.db then
-		return
-	end
-
-	if InCombatLockdown() then
+	if not self.db or InCombatLockdown() then
 		return
 	end
 
 	local Minimap = _G.Minimap
-	local MinimapPanel = _G.MinimapPanel
-	local MinimapBackdrop = _G.MinimapBackdrop
+	local holder = MM.MapHolder
+	local panel = _G.MinimapPanel
 
 	local fileID = self.db.enable and self.db.heightPercentage and floor(self.db.heightPercentage * 128) or 128
 	local texturePath = format(I.General.MediaPath .. "Textures\\MinimapMasks\\%d.tga", fileID)
@@ -57,17 +53,41 @@ function RM:ChangeShape()
 	local diff = E.MinimapSize - newHeight
 	local halfDiff = ceil(diff / 2)
 
-	Minimap:SetClampedToScreen(true)
-	Minimap:SetMaskTexture(texturePath)
-	Minimap:Size(E.MinimapSize, E.MinimapSize)
-	Minimap:SetHitRectInsets(0, 0, halfDiff * E.mult, halfDiff * E.mult)
-	Minimap:SetClampRectInsets(0, 0, 0, 0)
-	_G.MinimapMover:SetClampRectInsets(0, 0, halfDiff * E.mult, -halfDiff * E.mult)
-	Minimap:ClearAllPoints()
-	Minimap:SetPoint("TOPLEFT", MM.MapHolder, "TOPLEFT", E.Border, -E.Border + halfDiff)
-	Minimap.backdrop:SetOutside(Minimap, 1, -halfDiff + 1)
-	MinimapBackdrop:SetOutside(Minimap.backdrop)
+	local mmOffset = E.PixelMode and 1 or 3
+	local mmScale = E.db.general.minimap.scale
 
+	-- First, update the size and position of the ElvUI Minimap holder and mover
+	self.effectiveHeight = newHeight
+	self:UpdateMiniMapHolderAndMover()
+
+	-- Update the size and position of the panel
+	if panel:IsShown() then
+		panel:ClearAllPoints()
+		panel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", -E.Border, (E.PixelMode and 0 or -3) + halfDiff * mmScale)
+		panel:Point("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", E.Border, -23 + halfDiff * mmScale)
+	end
+
+	-- Do not allow the Minimap to be dragged off screen because the canvas cannot go off screen
+	Minimap:SetClampedToScreen(true)
+	Minimap:SetClampRectInsets(0, 0, 0, 0)
+	Minimap:ClearAllPoints()
+	Minimap:Point("TOPRIGHT", holder, -mmOffset / mmScale, -mmOffset / mmScale + halfDiff)
+
+	-- Update mask
+	Minimap:SetMaskTexture(texturePath)
+	Minimap:SetHitRectInsets(0, 0, halfDiff, halfDiff)
+
+	-- Update the size and position of the Minimap
+	Minimap.backdrop:ClearAllPoints()
+	Minimap.backdrop:SetOutside(Minimap, mmOffset, -halfDiff * mmScale + mmOffset)
+
+	-- Update the size and position of the Minimap location text
+	if Minimap.location then
+		Minimap.location:ClearAllPoints()
+		Minimap.location:Point("TOP", Minimap, 0, -4 - halfDiff * mmScale)
+	end
+
+	-- HybridMinimap support
 	if _G.HybridMinimap then
 		local mapCanvas = _G.HybridMinimap.MapCanvas
 		local rectangleMask = _G.HybridMinimap:CreateMaskTexture()
@@ -77,67 +97,44 @@ function RM:ChangeShape()
 		mapCanvas:SetMaskTexture(rectangleMask)
 		mapCanvas:SetUseMaskTexture(true)
 	end
-
-	if Minimap.location then
-		Minimap.location:ClearAllPoints()
-		Minimap.location:SetPoint("TOP", MM.MapHolder, "TOP", 0, -5)
-	end
-
-	if MinimapPanel:IsShown() then
-		MinimapPanel:ClearAllPoints()
-		MinimapPanel:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", -E.Border, (E.PixelMode and 0 or -3) + halfDiff)
-		MinimapPanel:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", E.Border, -23 + halfDiff)
-	end
-
-	self:Minimap_Holder_Size()
-	self.effectiveHeight = newHeight
 end
 
-do
-	local isRunning
-	function RM:Minimap_Holder_Size()
-		if isRunning then
-			return
-		end
+function RM:UpdateMiniMapHolderAndMover()
+	local panel = _G.MinimapPanel
+	local holder = MM.MapHolder
+	local mover = _G.MinimapMover
+	local scale = E.db.general.minimap.scale
 
-		isRunning = true
+	local mWidth, mHeight = _G.Minimap:GetWidth(), self.effectiveHeight
+	local bWidth, bHeight = E:Scale(E.PixelMode and 2 or 6), E:Scale(E.PixelMode and 2 or 8)
+	local panelSize, joinPanel = (panel:IsShown() and panel:GetHeight()) or E:Scale(E.PixelMode and 1 or -1), E:Scale(1)
+	local HEIGHT, WIDTH = (mHeight * scale) + (panelSize - joinPanel), mWidth * scale
 
-		local MinimapPanel = _G.MinimapPanel
-
-		local fileID = self.db.enable and self.db.heightPercentage and floor(self.db.heightPercentage * 128) or 128
-		local newHeight = E.MinimapSize * fileID / 128
-
-		local borderWidth, borderHeight = E.PixelMode and 2 or 6, E.PixelMode and 2 or 8
-		local panelSize, joinPanel =
-			(MinimapPanel:IsShown() and MinimapPanel:GetHeight()) or (E.PixelMode and 1 or -1), 1
-		local holderHeight = newHeight + (panelSize - joinPanel)
-
-		MM.MapHolder:Size(E.MinimapSize + borderWidth, holderHeight + borderHeight)
-		_G.MinimapMover:Size(E.MinimapSize + borderWidth, holderHeight + borderHeight)
-		isRunning = false
-	end
+	holder:SetSize(WIDTH + bWidth, HEIGHT + bHeight)
+	mover:SetSize(WIDTH + bWidth, HEIGHT + bHeight)
 end
 
 function RM:SetUpdateHook()
-	if not self.initialized then
+	if not self.initialized and MM.Initialized then
 		self:SecureHook(MM, "SetGetMinimapShape", "ChangeShape")
 		self:SecureHook(MM, "UpdateSettings", "ChangeShape")
-		self:SecureHook(MM, "Initialize", "ChangeShape")
-		self:SecureHook(E, "UpdateAll", "ChangeShape")
-		self:SecureHook(MM.MapHolder, "Size", "Minimap_Holder_Size")
 		self.initialized = true
 	end
+
 	self:ChangeShape()
-	E:Delay(1, self.ChangeShape, self)
+end
+
+function RM:Blizzard_Minimap_Loaded()
+	self:SetUpdateHook()
+end
+
+function RM:Blizzard_HybridMinimap_Loaded()
+	self:SetUpdateHook()
 end
 
 function RM:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-	if self.initialized then
-		E:Delay(1, self.ChangeShape, self)
-	else
-		self:SetUpdateHook()
-	end
+	self:SetUpdateHook()
 end
 
 function RM:Initialize()
@@ -146,17 +143,37 @@ function RM:Initialize()
 		return
 	end
 
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	self:RegisterEvent("ADDON_LOADED")
-
 	if IsAddOnLoaded("HandyNotes") then
 		self:HandyNotesFix()
 	end
+
+	self.addonLoadedCallbacks = {}
+	if not IsAddOnLoaded("Blizzard_Minimap") then
+		tinsert(self.addonLoadedCallbacks, { "Blizzard_Minimap", self.Blizzard_Minimap_Loaded })
+	end
+
+	if not IsAddOnLoaded("Blizzard_HybridMinimap") then
+		tinsert(self.addonLoadedCallbacks, { "Blizzard_HybridMinimap", self.Blizzard_HybridMinimap_Loaded })
+	end
+
+	if #self.addonLoadedCallbacks > 0 then
+		self:RegisterEvent("ADDON_LOADED")
+	end
+
+	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 function RM:ADDON_LOADED(_, addon)
-	if addon == "Blizzard_HybridMinimap" then
-		self:ChangeShape()
+	for i = 1, #self.addonLoadedCallbacks do
+		local callback = self.addonLoadedCallbacks[i]
+		if callback[1] == addon then
+			callback[2](self)
+			tremove(self.addonLoadedCallbacks, i)
+			break
+		end
+	end
+
+	if #self.addonLoadedCallbacks == 0 then
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 end

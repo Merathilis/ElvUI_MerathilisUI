@@ -9,6 +9,7 @@
 	<Script file='DataTexts.lua'/>
 	<Script file='LipDropdown.lua'/>
 	<Script file='LootRoll.lua'/>
+	<Script file='MiniMap.lua'/>
 	<Script file='Misc.lua'/>
 	<Script file='StatusReport.lua'/>
 	<Script file='Options.lua'/>

@@ -313,12 +313,12 @@ function MER:SetupLayout()
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 	E.db["general"]["interruptAnnounce"] = "RAID"
-	E.db["general"]["minimap"]["clusterDisable"] = true
+	E.db["general"]["minimap"]["clusterDisable"] = false
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
-	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPLEFT"
-	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.6
+	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.5
 	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 0
+	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 85
+	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "BOTTOMLEFT"
 	E.db["general"]["minimap"]["icons"]["mail"]["texture"] = "Mail2"
 	E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"
 	E.db["general"]["minimap"]["icons"]["mail"]["scale"] = 1
@@ -331,10 +331,13 @@ function MER:SetupLayout()
 	E.private["general"]["minimap"]["hideTracking"] = true
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
-	E.db["general"]["minimap"]["size"] = 180
+	E.db["general"]["minimap"]["size"] = 222
 	E.db["general"]["minimap"]["locationFontSize"] = 10
 	E.db["general"]["minimap"]["locationFontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["minimap"]["locationFont"] = I.Fonts.Primary
+	E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
+	E.db["mui"]["maps"]["rectangleMinimap"]["heightPercentage"] = 0.65
+
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["bottomPanel"] = false
 	E.db["general"]["topPanel"] = false
@@ -389,10 +392,10 @@ function MER:SetupLayout()
 		E.db["auras"]["buffs"]["keepSizeRatio"] = false
 		E.db["auras"]["buffs"]["height"] = 28
 		E.db["auras"]["buffs"]["size"] = 36
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-18"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
 	else
 		E.db["auras"]["buffs"]["size"] = 32
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-18"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
 	end
 	E.db["auras"]["buffs"]["countFont"] = I.Fonts.GothamRaid
 	E.db["auras"]["buffs"]["countFontSize"] = 11
@@ -404,10 +407,10 @@ function MER:SetupLayout()
 		E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 		E.db["auras"]["debuffs"]["height"] = 30
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-184"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
 	else
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-189,-184"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
 	end
 	E.db["auras"]["debuffs"]["countFont"] = I.Fonts.GothamRaid
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
@@ -550,7 +553,7 @@ function MER:SetupLayout()
 	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,268,-15"
 	E.db["movers"]["MER_MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
 	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-70"
-	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-222"
+	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-210"
 
 	--[[----------------------------------
 	--	Movers - Layout
@@ -638,7 +641,7 @@ function MER:SetupLayout()
 	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,1"
 	E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,470,1"
 	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,62"
-	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-17"
+	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
 
@@ -2495,22 +2498,6 @@ function MER:DeveloperSettings()
 	E.db["mui"]["scale"]["enable"] = true
 	E.db["mui"]["scale"]["talents"]["scale"] = 0.9
 	E.db["mui"]["armory"]["stats"]["itemLevelFont"]["itemLevelFontColor"] = "GRADIENT"
-
-	-- Rectangle Settings
-	E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
-	E.db["mui"]["maps"]["rectangleMinimap"]["heightPercentage"] = 0.65
-	E.db["general"]["minimap"]["clusterDisable"] = false
-	E.db["general"]["minimap"]["size"] = 222
-	E.db["mui"]["smb"]["buttonSize"] = 23
-	E.db["mui"]["smb"]["buttonsPerRow"] = 9
-	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.5
-	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 85
-	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "BOTTOMLEFT"
-	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
-	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
-	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
-	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-210"
 
 	-- Chat
 	E.db["chat"]["timeStampFormat"] = "%H:%M "

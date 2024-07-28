@@ -110,7 +110,7 @@ P.blizzard = {
 			texture = "ElvUI Norm1",
 			widthMode = "ABSOLUTE",
 			heightMode = "ABSOLUTE",
-			width = 212,
+			width = 250,
 			height = 2,
 			offsetX = 0,
 			offsetY = -13,
@@ -1550,7 +1550,7 @@ P.maps = {
 		coords = {
 			enable = true,
 			xOffset = 0,
-			yOffset = 80,
+			yOffset = 70,
 			format = "%.0f",
 
 			font = {
@@ -1614,7 +1614,7 @@ P.maps = {
 		},
 	},
 	rectangleMinimap = {
-		enable = false,
+		enable = true,
 		heightPercentage = 0.8,
 	},
 	superTracker = {
