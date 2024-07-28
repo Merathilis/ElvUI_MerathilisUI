@@ -129,7 +129,7 @@ local function OnUpdate(_, update)
 							texture = GetSpellTexture(v[3]),
 							start = cooldownInfo.startTime,
 							duration = cooldownInfo.duration,
-							enabled = cooldownInfo.enabled,
+							enabled = cooldownInfo.isEnabled,
 							modRate = cooldownInfo.modRate,
 						}
 					end)
