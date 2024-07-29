@@ -121,10 +121,10 @@ local function UpdateBlock(block)
 
 			local bar = widgetFrame.TimerBar
 			if bar and not bar.__MERSkin then
-				bar.__SetStatusBarTexture = bar.SetStatusBarTexture
+				bar.__MERSetStatusBarTexture = bar.SetStatusBarTexture
 				hooksecurefunc(bar, "SetStatusBarTexture", function(frame)
-					if frame.__SetStatusBarTexture then
-						frame:__SetStatusBarTexture(E.media.normTex)
+					if frame.__MERSetStatusBarTexture then
+						frame:__MERSetStatusBarTexture(E.media.normTex)
 						frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
 					end
 				end)
