@@ -30,12 +30,18 @@ local THERMAL_ANVIL = 87216
 local tabList = {}
 
 local onlyPrimary = {
+	[164] = true, -- Blacksmithing
+	[165] = true, -- Leatherworking
 	[171] = true, -- Alchemy
 	[182] = true, -- Herbalism
 	[186] = true, -- Mining
+	[197] = true, -- Tailoring
 	[202] = true, -- Engineering
+	[333] = true, -- Enchanting
 	[356] = true, -- Fishing
 	[393] = true, -- Skinning
+	[755] = true, -- Jewelcrafting
+	[773] = true, -- Inscription
 }
 
 function module:UpdateProfessions()
@@ -81,8 +87,8 @@ end
 
 function module:TradeTabs_Update()
 	for _, tab in pairs(tabList) do
-		local spellID = tab.spellID
-		local itemID = tab.itemID
+		local spellID = tab.spellID or 0
+		local itemID = tab.itemID or 0
 
 		if IsCurrentSpell(spellID) then
 			tab:SetChecked(true)
