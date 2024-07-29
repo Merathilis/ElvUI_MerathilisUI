@@ -80,7 +80,8 @@ function RM:ChangeShape()
 
 	-- Update the size and position of the Minimap
 	Minimap.backdrop:ClearAllPoints()
-	Minimap.backdrop:SetOutside(Minimap, mmOffset, -halfDiff * mmScale + mmOffset)
+	-- Minimap.backdrop:SetOutside(Minimap, mmOffset, -halfDiff * mmScale + mmOffset) -- Original
+	Minimap.backdrop:SetOutside(Minimap, mmOffset, -halfDiff * mmScale + mmOffset + 1)
 
 	-- Update the size and position of the Minimap location text
 	if Minimap.location then
