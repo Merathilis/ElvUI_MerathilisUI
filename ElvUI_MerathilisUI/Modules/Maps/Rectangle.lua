@@ -52,9 +52,8 @@ function RM:ChangeShape()
 	local newHeight = E.MinimapSize * heightPct
 	local diff = E.MinimapSize - newHeight
 	local halfDiff = ceil(diff / 2)
-	local PANEL_HEIGHT = 25
 
-	local mmOffset = E.PixelMode and 2 or 4
+	local mmOffset = E.PixelMode and 1 or 3
 	local mmScale = E.db.general.minimap.scale
 
 	-- First, update the size and position of the ElvUI Minimap holder and mover
@@ -64,7 +63,8 @@ function RM:ChangeShape()
 	-- Update the size and position of the panel
 	if panel:IsShown() then
 		panel:ClearAllPoints()
-		panel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", -E.Border, (E.PixelMode and 2 or -4) + halfDiff * mmScale)
+		-- panel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", -E.Border, (E.PixelMode and 0 or -3) + halfDiff * mmScale) -- Original
+		panel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", -E.Border, -3 + halfDiff * mmScale)
 		panel:Point("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", E.Border, -23 + halfDiff * mmScale)
 	end
 

@@ -48,11 +48,6 @@ function module:Initialize()
 		return
 	end
 
-	-- Add a check if the backdrop is there
-	if not Minimap.backdrop then
-		Minimap:CreateBackdrop("Default", true)
-	end
-
 	self:StyleMinimap()
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckStatus")
