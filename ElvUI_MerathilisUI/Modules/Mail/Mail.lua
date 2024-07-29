@@ -787,7 +787,7 @@ function module:MailBox_CollectCurrent()
 	end
 
 	local currentID = _G.InboxFrame.openMailID
-	if C_Mail_HasInboxMoney(currentID) then
+	if HasInboxMoney(currentID) then
 		TakeInboxMoney(currentID)
 	end
 	module:MailBox_CollectAttachment()
@@ -930,8 +930,7 @@ function OpenAllMail:AdvanceToNextItem()
 		local itemID = select(2, GetInboxItem(self.mailIndex, self.attachmentIndex))
 		local hasBlacklistedItem = self:IsItemBlacklisted(itemID)
 		local hasCOD = CODAmount and CODAmount > 0
-		local hasMoneyOrItem = C_Mail.HasInboxMoney(self.mailIndex)
-			or HasInboxItem(self.mailIndex, self.attachmentIndex)
+		local hasMoneyOrItem = HasInboxMoney(self.mailIndex) or HasInboxItem(self.mailIndex, self.attachmentIndex)
 		if not hasBlacklistedItem and not isGM and not hasCOD and hasMoneyOrItem then
 			foundAttachment = true
 		else
