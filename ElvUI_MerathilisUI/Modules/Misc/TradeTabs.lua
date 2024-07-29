@@ -87,8 +87,8 @@ end
 
 function module:TradeTabs_Update()
 	for _, tab in pairs(tabList) do
-		local spellID = tab.spellID or 0
-		local itemID = tab.itemID or 0
+		local spellID = tab.spellID
+		local itemID = tab.itemID
 
 		if IsCurrentSpell(spellID) then
 			tab:SetChecked(true)
