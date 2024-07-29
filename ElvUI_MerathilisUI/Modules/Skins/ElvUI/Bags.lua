@@ -19,7 +19,6 @@ function module:ElvUI_ContainerFrames()
 end
 
 function module:ContainerFrame()
-	print("hitsss")
 	if E.private.bags.enable then
 		return
 	end

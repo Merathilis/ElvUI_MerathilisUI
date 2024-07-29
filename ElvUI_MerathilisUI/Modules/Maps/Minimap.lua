@@ -8,7 +8,6 @@ local _G = _G
 local unpack = unpack
 
 local GetNumPendingInvites = C_Calendar.GetNumPendingInvites
-local HasGarrison = C_Garrison.HasGarrison
 local Minimap = _G.Minimap
 local MinimapCluster = _G.MinimapCluster
 local MiniMapMailFrame = _G.MiniMapMailFrame
@@ -28,62 +27,21 @@ function module:CheckStatus()
 	local crafting = craftingFrame:IsShown() and true or false
 
 	if inv > 0 and mail and crafting then -- New invites and mail and crafting orders
-		LCG.PixelGlow_Start(MM.MapHolder, { 1, 0, 0, 1 }, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(Minimap.backdrop, { 1, 0, 0, 1 }, 8, -0.25, nil, 1)
 	elseif inv > 0 and not mail and not crafting then -- New invites and no mail and no crafting orders
-		LCG.PixelGlow_Start(MM.MapHolder, { 1, 1, 0, 1 }, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(Minimap.backdrop, { 1, 1, 0, 1 }, 8, -0.25, nil, 1)
 	elseif inv == 0 and mail and not crafting then -- No invites and new mail and no crafting orders
-		LCG.PixelGlow_Start(MM.MapHolder, { r, g, b, 1 }, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(Minimap.backdrop, { r, g, b, 1 }, 8, -0.25, nil, 1)
 	elseif inv == 0 and not mail and crafting then -- No invites and no mail and new crafting orders
-		LCG.PixelGlow_Start(MM.MapHolder, { 0, 0.75, 0.98, 1 }, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(Minimap.backdrop, { 0, 0.75, 0.98, 1 }, 8, -0.25, nil, 1)
 	else -- None of the above
-		LCG.PixelGlow_Stop(MM.MapHolder)
+		LCG.PixelGlow_Stop(Minimap.backdrop)
 	end
 end
 
 function module:StyleMinimap()
 	S:CreateBackdropShadow(Minimap)
 end
-
-local function toggleExpansionLandingPageButton(_, ...)
-	if InCombatLockdown() then
-		_G.UIErrorsFrame:AddMessage(F.String.Error(_G.ERR_NOT_IN_COMBAT))
-		return
-	end
-
-	if not HasGarrison(...) then
-		_G.UIErrorsFrame:AddMessage(F.String.Error(_G.CONTRIBUTION_TOOLTIP_UNLOCKED_WHEN_ACTIVE))
-		return
-	end
-
-	ShowGarrisonLandingPage(...)
-end
-
-module.ExpansionMenuList = {
-	{
-		text = _G.GARRISON_TYPE_9_0_LANDING_PAGE_TITLE,
-		func = toggleExpansionLandingPageButton,
-		arg1 = Enum.GarrisonType.Type_9_0,
-		notCheckable = true,
-	},
-	{
-		text = _G.WAR_CAMPAIGN,
-		func = toggleExpansionLandingPageButton,
-		arg1 = Enum.GarrisonType.Type_8_0,
-		notCheckable = true,
-	},
-	{
-		text = _G.ORDER_HALL_LANDING_PAGE_TITLE,
-		func = toggleExpansionLandingPageButton,
-		arg1 = Enum.GarrisonType.Type_7_0,
-		notCheckable = true,
-	},
-	{
-		text = _G.GARRISON_LANDING_PAGE_TITLE,
-		func = toggleExpansionLandingPageButton,
-		arg1 = Enum.GarrisonType.Type_6_0,
-		notCheckable = true,
-	},
-}
 
 function module:Initialize()
 	if not E.private.general.minimap.enable then
