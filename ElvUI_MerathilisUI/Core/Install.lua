@@ -407,10 +407,10 @@ function MER:SetupLayout()
 		E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 		E.db["auras"]["debuffs"]["height"] = 30
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-167"
 	else
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-229,-167"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-167"
 	end
 	E.db["auras"]["debuffs"]["countFont"] = I.Fonts.GothamRaid
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
