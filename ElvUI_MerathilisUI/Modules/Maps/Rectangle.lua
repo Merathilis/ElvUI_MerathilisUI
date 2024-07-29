@@ -64,7 +64,7 @@ function RM:ChangeShape()
 	-- Update the size and position of the panel
 	if panel:IsShown() then
 		panel:ClearAllPoints()
-		panel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", -E.Border, (E.PixelMode and 2 or -3) + halfDiff * mmScale)
+		panel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", -E.Border, (E.PixelMode and 2 or -4) + halfDiff * mmScale)
 		panel:Point("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", E.Border, -23 + halfDiff * mmScale)
 	end
 

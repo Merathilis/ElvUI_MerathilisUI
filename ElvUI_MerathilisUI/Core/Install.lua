@@ -365,7 +365,7 @@ function MER:SetupLayout()
 	E.db["general"]["lootRoll"]["nameFontSize"] = 12
 	E.db["general"]["lootRoll"]["nameFontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["addonCompartment"]["font"] = I.Fonts.Primary
-	E.db["general"]["addonCompartment"]["fontSize"] = 13
+	E.db["general"]["addonCompartment"]["fontSize"] = 12
 	E.db["general"]["addonCompartment"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["guildBank"]["countFont"] = I.Fonts.Primary
 	E.db["general"]["guildBank"]["countFontSize"] = 9
@@ -571,6 +571,7 @@ function MER:SetupLayout()
 	E.db["movers"]["TotemTrackerMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,457,13"
 	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
 	E.db["movers"]["AddonCompartmentMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-213,-17"
+	E.db["movers"]["QueueStatusMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-9,-150"
 
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
