@@ -88,13 +88,12 @@ function WS:HandleTreeGroup(widget)
 						self:SecureHookScript(frame, "OnLeave", button.MERAnimation.onLeave)
 					end
 				end)
-
-				module:CreateGradient(button)
 			end
 
 			if db.selected.enable then
 				button:CreateBackdrop()
 				button.backdrop:SetInside(button, 2, 0)
+				module:CreateGradient(button.backdrop)
 				local borderColor = db.selected.borderClassColor and module.ClassColor or db.selected.borderColor
 				local backdropColor = db.selected.backdropClassColor and module.ClassColor or db.selected.backdropColor
 				button.backdrop.Center:SetTexture(LSM:Fetch("statusbar", db.selected.texture) or E.media.glossTex)

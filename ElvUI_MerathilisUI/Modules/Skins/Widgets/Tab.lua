@@ -62,8 +62,11 @@ function WS:HandleTab(_, tab, noBackdrop, template)
 
 		self:SecureHookScript(tab, "OnEnter", tab.MERAnimation.onEnter)
 		self:SecureHookScript(tab, "OnLeave", tab.MERAnimation.onLeave)
-		self:SecureHook(tab, "Disable", tab.MERAnimation.onStatusChange)
-		self:SecureHook(tab, "Enable", tab.MERAnimation.onStatusChange)
+
+		if tab.Disable and tab.Enable then
+			self:SecureHook(tab, "Disable", tab.MERAnimation.onStatusChange)
+			self:SecureHook(tab, "Enable", tab.MERAnimation.onStatusChange)
+		end
 
 		-- Avoid the hook is flushed
 		self:SecureHook(tab, "SetScript", function(frame, scriptType)
@@ -76,7 +79,7 @@ function WS:HandleTab(_, tab, noBackdrop, template)
 			end
 		end)
 
-		module:CreateGradient(tab)
+		module:CreateGradient(parentFrame)
 	end
 
 	tab.MERSkinned = true

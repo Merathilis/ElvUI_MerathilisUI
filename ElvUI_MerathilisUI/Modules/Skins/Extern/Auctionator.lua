@@ -440,66 +440,6 @@ local function buyCommodity(frame)
 	end
 end
 
-local function groupsCustomiseDuration(frame)
-	for _, child in pairs({ frame.Short, frame.Medium, frame.Long, frame.Default }) do
-		if child then
-			S:HandleRadioButton(child)
-		end
-	end
-end
-
-local function groupsCustomise(frame)
-	frame:StripTextures()
-	frame:SetTemplate("Transparent")
-	module:CreateShadow(frame)
-
-	S:HandleCloseButton(frame.CloseButton)
-	S:HandleButton(frame.BackButton)
-	S:HandleButton(frame.NewGroupButton)
-	S:HandleTrimScrollBar(frame.View.ScrollBar)
-	frame.View.ScrollBox:CreateBackdrop("Transparent")
-end
-
-local function groupsCustomiseGroup(frame)
-	for i, child in pairs({
-		frame.FocusButton,
-		frame.RenameButton,
-		frame.DeleteButton,
-		frame.HideButton,
-		frame.ShiftUpButton,
-		frame.ShiftDownButton,
-	}) do
-		if child then
-			S:HandleButton(child)
-
-			if i == 1 then
-				-- adjust the points
-				local p1, anchor, p2, x, y = child:GetPoint()
-				child:SetPoint(p1, anchor, p2, x, y + 1)
-			end
-		end
-	end
-
-	if frame.DividerContainer then
-		frame.DividerContainer:StripTextures()
-	end
-
-	if frame.Quantity and frame.Quantity.Quantity then
-		S:HandleEditBox(frame.Quantity.Quantity)
-		frame.Quantity.Quantity:SetTextInsets(0, 0, 0, 0)
-	end
-
-	local focused = frame.FocussedBackground
-	if focused then
-		focused:SetDrawLayer("BACKGROUND", -2)
-	end
-
-	local hover = frame.FocussedHoverBackground
-	if hover then
-		hover:SetDrawLayer("BACKGROUND", -1)
-	end
-end
-
 local function tryPostHook(...)
 	local frame, method, hookFunc = ...
 	if frame and method and _G[frame] and _G[frame][method] then
@@ -522,7 +462,6 @@ function module:Auctionator()
 	module:DisableAddOnSkins("Auctionator", false)
 
 	-- widgets
-	tryPostHook("GroupsCustomiseDurationMixin", "OnLoad", groupsCustomiseDuration)
 	tryPostHook("AuctionatorBuyIconNameTemplateMixin", "SetItem", buyIconName)
 	tryPostHook("AuctionatorGroupsViewGroupMixin", "SetName", viewGroup)
 	tryPostHook("AuctionatorGroupsViewItemMixin", "SetItemInfo", viewItem)
@@ -563,8 +502,6 @@ function module:Auctionator()
 	tryPostHook("AuctionatorShoppingItemMixin", "OnLoad", shoppingItem)
 	tryPostHook("AuctionatorSplashScreenMixin", "OnLoad", splashFrame)
 	tryPostHook("AuctionatorBuyCommodityFrameTemplateMixin", "OnLoad", buyCommodity)
-	tryPostHook("AuctionatorGroupsCustomiseMixin", "OnLoad", groupsCustomise)
-	tryPostHook("AuctionatorGroupsCustomiseGroupMixin", "OnLoad", groupsCustomiseGroup)
 end
 
 module:AddCallbackForAddon("Auctionator")
