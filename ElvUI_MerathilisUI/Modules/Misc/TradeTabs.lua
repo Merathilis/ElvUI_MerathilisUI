@@ -30,18 +30,18 @@ local THERMAL_ANVIL = 87216
 local tabList = {}
 
 local onlyPrimary = {
-	[164] = true, -- Blacksmithing
-	[165] = true, -- Leatherworking
+	-- [164] = true, -- Blacksmithing
+	-- [165] = true, -- Leatherworking
 	[171] = true, -- Alchemy
 	[182] = true, -- Herbalism
 	[186] = true, -- Mining
-	[197] = true, -- Tailoring
+	-- [197] = true, -- Tailoring
 	[202] = true, -- Engineering
-	[333] = true, -- Enchanting
+	-- [333] = true, -- Enchanting
 	[356] = true, -- Fishing
 	[393] = true, -- Skinning
-	[755] = true, -- Jewelcrafting
-	[773] = true, -- Inscription
+	-- [755] = true, -- Jewelcrafting
+	-- [773] = true, -- Inscription
 }
 
 function module:UpdateProfessions()
@@ -80,6 +80,7 @@ function module:UpdateProfessions()
 	if isCook and PlayerHasToy(CHEF_HAT) and IsToyUsable(CHEF_HAT) then
 		module:TradeTabs_Create(nil, CHEF_HAT)
 	end
+
 	if GetItemCount(THERMAL_ANVIL) > 0 then
 		module:TradeTabs_Create(nil, nil, THERMAL_ANVIL)
 	end
