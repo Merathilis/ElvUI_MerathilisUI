@@ -526,11 +526,11 @@ function module:UpdateTitle()
 	local titleId = GetCurrentTitle()
 	local titleName = GetTitleName(titleId) or ""
 	local classNames = LOCALIZED_CLASS_NAMES_MALE
-	local playerLevel = UnitLevel("player")
+	local level = UnitLevel("player")
 	local playerEffectiveLevel = UnitEffectiveLevel("player")
 
-	if playerEffectiveLevel ~= playerLevel then
-		playerLevel = EFFECTIVE_LEVEL_FORMAT:format(playerEffectiveLevel, playerLevel)
+	if playerEffectiveLevel ~= level then
+		level = EFFECTIVE_LEVEL_FORMAT:format(playerEffectiveLevel, level)
 	end
 
 	local currentClass = E.myclass
@@ -541,7 +541,7 @@ function module:UpdateTitle()
 	local primaryTalentTreeIdx = module:GetPrimaryTalentIndex()
 
 	-- Those cannot be empty
-	if not currentClass or not playerLevel then
+	if not currentClass or not level then
 		return
 	end
 
@@ -570,7 +570,8 @@ function module:UpdateTitle()
 	else
 		self.levelTitleText:SetText("Level")
 	end
-	self.levelText:SetText(playerLevel)
+
+	self.levelText:SetText(level)
 
 	local fontIcon = E.db.mui.armory.icons[primaryTalentTreeIdx] or E.db.mui.armory.icons[0]
 	if module.db.specIcon.fontColor == "CLASS" then
@@ -834,6 +835,8 @@ function module:HandleEvent(event, unit)
 		if unit == "player" then
 			self:UpdateTitle()
 		end
+	elseif event == "UNIT_LEVEL" then
+		self:UpdateTitle()
 	elseif (event == "PLAYER_PVP_RANK_CHANGED") or (event == "PLAYER_TALENT_UPDATE") then
 		self:UpdateTitle()
 	elseif event == "PLAYER_AVG_ITEM_LEVEL_UPDATE" then
@@ -1039,6 +1042,7 @@ function module:Initialize()
 
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("UNIT_NAME_UPDATE", self.HandleEvent, self, "UNIT_NAME_UPDATE")
+	F.Event.RegisterFrameEventAndCallback("UNIT_LEVEL", self.HandleEvent, self, "UNIT_LEVEL")
 	F.Event.RegisterFrameEventAndCallback("PLAYER_PVP_RANK_CHANGED", self.HandleEvent, self, "PLAYER_PVP_RANK_CHANGED")
 	F.Event.RegisterFrameEventAndCallback(
 		"PLAYER_AVG_ITEM_LEVEL_UPDATE",
