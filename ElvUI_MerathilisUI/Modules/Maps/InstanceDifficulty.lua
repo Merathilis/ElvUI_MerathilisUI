@@ -111,7 +111,7 @@ function module:ConstructFrame()
 
 	local frame = CreateFrame("Frame", "MER_InstanceDifficultyFrame", _G.Minimap)
 	frame:Size(30, 20)
-	frame:Point("TOPRIGHT", MM.MapHolder, "TOPRIGHT", -10, -5)
+	frame:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -40)
 
 	local text = frame:CreateFontString(nil, "OVERLAY")
 	F.SetFontDB(text, self.db.font)
