@@ -104,7 +104,12 @@ function module:LoadLSProfile()
 end
 
 function module:ApplyLSProfile()
-	module:Wrap("Applying ls Profile ...", function()
+	if not E:IsAddOnEnabled("ls_Toasts") then
+		F.Developer.LogWarning("ls_Toasts is not enabled. Will not apply profile.")
+		return
+	end
+
+	module:Wrap("Applying ls_Toasts Profile ...", function()
 		-- Apply Fonts
 		self:LoadLSProfile()
 

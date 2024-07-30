@@ -20,6 +20,7 @@ local SupportedProfiles = {
 	{ "ElvUI_mMediaTag", "mMediaTag & Tools" },
 	{ "ls_Toasts", "ls_Toasts" },
 	{ "OmniCD", "OmniCD" },
+	{ "TomTom", "TomTom" },
 }
 
 options.generalGroup = {
@@ -49,7 +50,7 @@ options.generalGroup = {
 			order = 3,
 			type = "execute",
 			name = Ok .. F.String.Good(L[" Apply"]),
-			desc = L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."],			
+			desc = L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."],
 			func = function()
 				module:ApplyFontChange()
 			end,
@@ -142,6 +143,8 @@ for _, v in ipairs(SupportedProfiles) do
 				module:ApplymMediaTagProfile()
 			elseif addon == "OmniCD" then
 				module:ApplyOmniCDProfile()
+			elseif addon == "TomTom" then
+				module:ApplyTomTomProfile()
 			end
 		end,
 		disabled = function()
