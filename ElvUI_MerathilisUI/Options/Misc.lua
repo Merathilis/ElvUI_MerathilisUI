@@ -67,14 +67,8 @@ options.general = {
 			name = L["Quick Delete"],
 			desc = L["This will add the 'DELETE' text to the Item Delete Dialog."],
 		},
-		quickMenu = {
-			order = 8,
-			type = "toggle",
-			name = L["Quick Menu"],
-			desc = L["Shows additional Buttons on your Dropdown for quick actions."],
-		},
 		selectQuestReward = {
-			order = 9,
+			order = 8,
 			type = "toggle",
 			name = L["Highest Quest Reward"],
 			desc = L["Automatically select the item with the highest reward."],
@@ -87,30 +81,30 @@ options.general = {
 			end,
 		},
 		tradeTabs = {
-			order = 10,
+			order = 9,
 			type = "toggle",
 			name = L["Trade Tabs"],
 			desc = L["Enable Tabs on the Profession Frames"],
 		},
 		spacer = {
-			order = 11,
+			order = 10,
 			type = "description",
 			name = " ",
 		},
 		missingStats = {
-			order = 12,
+			order = 11,
 			type = "toggle",
 			name = L["Missing Stats"],
 			desc = L["Show all stats on the Character Frame"],
 		},
 		blockRequest = {
-			order = 13,
+			order = 12,
 			type = "toggle",
 			name = L["Block Join Requests"],
 			desc = L["|nIf checked, only popout join requests from friends and guild members."],
 		},
 		hotKey = {
-			order = 14,
+			order = 13,
 			type = "toggle",
 			name = L["HotKey Above CD"],
 			desc = format(

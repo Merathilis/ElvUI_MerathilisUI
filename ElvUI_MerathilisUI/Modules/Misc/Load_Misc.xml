@@ -13,7 +13,6 @@
 	<Script file="MissingStats.lua"/>
 	<Script file="Mute.lua"/>
 	<Script file="Quest.lua"/>
-	<Script file="QuickMenu.lua"/>
 	<Script file="SpellAlerts.lua"/>
 	<Script file="StatusReport.lua"/>
 	<Script file="RandomToy.lua"/>

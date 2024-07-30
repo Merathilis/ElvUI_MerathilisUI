@@ -532,7 +532,6 @@ P.misc = {
 	respec = true,
 	hideBossBanner = false,
 	quickDelete = true,
-	quickMenu = true,
 	tradeTabs = true,
 	alreadyKnown = {
 		enable = true,
