@@ -304,7 +304,6 @@ function module:Initialize()
 	module:StyleVoicePanel()
 	module:UpdateSeperators()
 	module:CreateChatButtons()
-	module:ChatFilter()
 	module:UpdateEditboxAnchors()
 	hooksecurefunc(CH, "UpdateEditboxAnchors", module.UpdateEditboxAnchors)
 end

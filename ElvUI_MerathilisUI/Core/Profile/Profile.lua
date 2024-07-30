@@ -250,12 +250,6 @@ P.chat = {
 		weaponCategory = true,
 		compatibile = true,
 	},
-	filter = {
-		enable = true,
-		keywords = "",
-		blockAddOnAlerts = true,
-		damagemeter = false,
-	},
 	chatFade = {
 		enable = false,
 		minAlpha = 0.33,

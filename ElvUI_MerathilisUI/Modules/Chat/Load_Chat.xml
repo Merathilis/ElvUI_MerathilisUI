@@ -5,5 +5,4 @@
 	<Script file="ChatLinks.lua"/>
 	<Script file="ChatText.lua"/>
 	<Script file="Emotes.lua"/>
-	<Script file='Filters.lua'/>
 </Ui>

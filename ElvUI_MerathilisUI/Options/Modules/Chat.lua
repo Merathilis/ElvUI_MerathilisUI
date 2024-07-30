@@ -256,29 +256,6 @@ options.chat = {
 				},
 			},
 		},
-		filter = {
-			order = 20,
-			type = "group",
-			name = F.cOption(L["Filter"], "orange"),
-			disabled = function()
-				return not E.db.mui.chat.enable
-			end,
-			get = function(info)
-				return E.db.mui.chat.filter[info[#info]]
-			end,
-			set = function(info, value)
-				E.db.mui.chat.filter[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			args = {
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Filters some messages out of your chat, that some Spam AddOns use."],
-				},
-			},
-		},
 		chatBar = {
 			order = 30,
 			type = "group",
