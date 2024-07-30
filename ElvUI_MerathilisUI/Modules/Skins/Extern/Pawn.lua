@@ -95,7 +95,6 @@ function module:Pawn()
 	S:HandleScrollBar(_G.PawnUIGemScrollFrameScrollBar)
 
 	-- Tooltips
-	_G.PawnCommon.ColorTooltipBorder = false
 	hooksecurefunc("PawnUI_OnSocketUpdate", function()
 		if _G.PawnSocketingTooltip then
 			_G.PawnSocketingTooltip:StripTextures()
