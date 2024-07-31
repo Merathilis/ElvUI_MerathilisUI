@@ -22,7 +22,6 @@ function module:Construct_OfflineIndicator(frame)
 end
 
 function module:Configure_OfflineIndicator(frame)
-	-- print('Configure_OfflineIndicator: ', frame:GetName())
 	local OfflineIndicator = frame.OfflineIndicator
 	local db = E.db.mui.unitframes.offlineIndicator
 

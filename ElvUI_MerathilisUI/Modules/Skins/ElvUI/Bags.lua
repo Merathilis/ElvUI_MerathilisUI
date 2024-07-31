@@ -28,7 +28,6 @@ function module:ContainerFrame()
 		if container and container.template then
 			self:CreateShadow(container)
 		end
-		print(container)
 	end
 
 	self:CreateShadow(_G.ContainerFrameCombinedBags)
