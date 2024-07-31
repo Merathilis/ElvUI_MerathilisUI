@@ -652,7 +652,7 @@ function module:UpdateTitle()
 end
 
 function module:UpdatePageInfo(_, _, which)
-	if not module:CheckOptions("Character") then
+	if (which ~= nil) and (which ~= "Character") then
 		return
 	end
 
@@ -844,18 +844,6 @@ function module:HandleEvent(event, unit)
 	end
 end
 
-function module:CheckOptions(which)
-	if not E.private.skins.blizzard.enable then
-		return false
-	end
-
-	if which == "Character" and not E.private.skins.blizzard.character then
-		return false
-	end
-
-	return true
-end
-
 function module:UpdateLineColors()
 	local orientation = "HORIZONTAL"
 	local white = CreateColor(1, 1, 1, 1)
@@ -956,7 +944,15 @@ function module:UpdateCharacterArmory()
 	module:UpdateTitle()
 	module:UpdatePageInfo()
 
-	M:UpdateCharacterInfo()
+	if module.frame:IsShown() then
+		M:UpdateCharacterInfo()
+	end
+end
+
+function module:OpenCharacterArmory()
+	E:Delay(0.01, function()
+		module:UpdateCharacterArmory()
+	end)
 end
 
 function module:CreateElements()
@@ -1023,7 +1019,7 @@ end
 function module:Initialize()
 	module.db = E.db.mui.armory
 
-	if not module.db.enable or not module:CheckOptions() or module.initialized then
+	if not module.db.enable or module.initialized then
 		return
 	end
 
@@ -1053,7 +1049,8 @@ function module:Initialize()
 	F.Event.RegisterFrameEventAndCallback("PLAYER_TALENT_UPDATE", self.HandleEvent, self, "PLAYER_TALENT_UPDATE")
 
 	module:SkinCharacterFrame()
-	module:UpdateCharacterArmory()
+
+	self:SecureHookScript(module.frame, "OnShow", "OpenCharacterArmory")
 
 	module.initialized = true
 end
