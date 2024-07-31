@@ -337,6 +337,38 @@ local function Update_PaperdollStats()
 	end
 end
 
+local function UpdateHighlight(self)
+	local highlight = self:GetHighlightTexture()
+	highlight:SetColorTexture(1, 1, 1, 0.25)
+	highlight:SetInside(self.bg)
+end
+
+local function UpdateCosmetic(self)
+	local itemLink = GetInventoryItemLink("player", self:GetID())
+	self.IconOverlay:SetShown(itemLink and IsCosmeticItem(itemLink))
+end
+
+local slots = {
+	"Head",
+	"Neck",
+	"Shoulder",
+	"Shirt",
+	"Chest",
+	"Waist",
+	"Legs",
+	"Feet",
+	"Wrist",
+	"Hands",
+	"Finger0",
+	"Finger1",
+	"Trinket0",
+	"Trinket1",
+	"Back",
+	"MainHand",
+	"SecondaryHand",
+	"Tabard",
+}
+
 function module:SkinCharacterFrame()
 	-- Remove the background
 	local modelScene = module.frameModel
@@ -344,38 +376,6 @@ function module:SkinCharacterFrame()
 	modelScene:DisableDrawLayer("BORDER")
 	modelScene:DisableDrawLayer("OVERLAY")
 	modelScene.backdrop:Kill()
-
-	local function UpdateHighlight(self)
-		local highlight = self:GetHighlightTexture()
-		highlight:SetColorTexture(1, 1, 1, 0.25)
-		highlight:SetInside(self.bg)
-	end
-
-	local function UpdateCosmetic(self)
-		local itemLink = GetInventoryItemLink("player", self:GetID())
-		self.IconOverlay:SetShown(itemLink and IsCosmeticItem(itemLink))
-	end
-
-	local slots = {
-		"Head",
-		"Neck",
-		"Shoulder",
-		"Shirt",
-		"Chest",
-		"Waist",
-		"Legs",
-		"Feet",
-		"Wrist",
-		"Hands",
-		"Finger0",
-		"Finger1",
-		"Trinket0",
-		"Trinket1",
-		"Back",
-		"MainHand",
-		"SecondaryHand",
-		"Tabard",
-	}
 
 	for i = 1, #slots do
 		local slot = _G["Character" .. slots[i] .. "Slot"]
@@ -1029,6 +1029,7 @@ function module:Initialize()
 	end
 
 	module:CreateElements()
+	module:SkinCharacterFrame()
 
 	hooksecurefunc(M, "UpdateCharacterInfo", module.UpdateItemLevel)
 	hooksecurefunc(M, "UpdateAverageString", module.UpdateItemLevel)
@@ -1047,8 +1048,6 @@ function module:Initialize()
 		"PLAYER_AVG_ITEM_LEVEL_UPDATE"
 	)
 	F.Event.RegisterFrameEventAndCallback("PLAYER_TALENT_UPDATE", self.HandleEvent, self, "PLAYER_TALENT_UPDATE")
-
-	module:SkinCharacterFrame()
 
 	self:SecureHookScript(module.frame, "OnShow", "OpenCharacterArmory")
 
