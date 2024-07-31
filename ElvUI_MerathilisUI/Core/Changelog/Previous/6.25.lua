@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[625] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "31.07.2024",
 	FIXES = {
 		"[Armory]: Fix an issue with the Lvl not updating correctly",
 		"[World Map]: Update Map Reveal, it seems still to be a bit borked >.>",
