@@ -74,7 +74,7 @@ function module:SkinProgressBar(tracker, key)
 
 	self:CreateBackdropShadow(progressBar.Bar)
 
-	if progressBar.Bar.Icon then
+	if progressBar.Bar.Icon and progressBar.Bar.Icon.backdrop then
 		self:CreateBackdropShadow(progressBar.Bar.Icon)
 	end
 
