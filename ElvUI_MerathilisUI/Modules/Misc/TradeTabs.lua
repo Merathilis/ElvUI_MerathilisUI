@@ -91,24 +91,26 @@ function module:TradeTabs_Update()
 		local spellID = tab.spellID
 		local itemID = tab.itemID
 
-		if IsCurrentSpell(spellID) then
-			tab:SetChecked(true)
-			tab.cover:Show()
-		else
-			tab:SetChecked(false)
-			tab.cover:Hide()
-		end
+		if spellID then -- safe check cause spell id could be nil
+			if IsCurrentSpell(spellID) then
+				tab:SetChecked(true)
+				tab.cover:Show()
+			else
+				tab:SetChecked(false)
+				tab.cover:Hide()
+			end
 
-		local start, duration
-		if itemID then
-			start, duration = GetItemCooldown(itemID)
-		else
-			local cooldownInfo = GetSpellCooldown(spellID)
-			start = cooldownInfo and cooldownInfo.startTime
-			duration = cooldownInfo and cooldownInfo.duration
-		end
-		if start and duration and duration > 1.5 then
-			tab.CD:SetCooldown(start, duration)
+			local start, duration
+			if itemID then
+				start, duration = GetItemCooldown(itemID)
+			else
+				local cooldownInfo = GetSpellCooldown(spellID)
+				start = cooldownInfo and cooldownInfo.startTime
+				duration = cooldownInfo and cooldownInfo.duration
+			end
+			if start and duration and duration > 1.5 then
+				tab.CD:SetCooldown(start, duration)
+			end
 		end
 	end
 end
