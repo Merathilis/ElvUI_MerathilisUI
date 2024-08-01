@@ -541,6 +541,7 @@ P.misc = {
 		mount = {
 			[63796] = false,
 			[229385] = false,
+			[229386] = false,
 			[339588] = false,
 			[312762] = false,
 		},
