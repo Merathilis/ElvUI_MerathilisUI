@@ -17,6 +17,26 @@ function module:OnShowEvent()
 		if defaultVigorBar then
 			defaultVigorBar:Hide()
 		end
+
+		local widgetInfo = self:GetWidgetInfo()
+		if self.vigorBar.segments and widgetInfo then
+			-- Check if we have the correct amount of segments. If not, recreate the segments.
+			if #self.vigorBar.segments < widgetInfo.numTotalFrames then
+				F.Developer.LogDebug("Amount of segments is wrong ~ recreating segments.")
+				F.Developer.LogDebug(
+					"Segments: " .. #self.vigorBar.segments .. "; Total: " .. widgetInfo.numTotalFrames
+				)
+
+				-- Clear existing segments
+				for _, segment in ipairs(self.vigorBar.segments) do
+					segment:Kill()
+				end
+				self.vigorBar.segments = {} -- Clear the table
+
+				-- Create new segments
+				self:CreateVigorSegments()
+			end
+		end
 	end
 
 	local animationsAllowed = self.db.animations and (not InCombatLockdown()) and not self.combatLock

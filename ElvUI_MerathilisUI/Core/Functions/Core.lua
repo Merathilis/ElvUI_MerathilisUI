@@ -100,7 +100,9 @@ function F.UpdateDBFromPathRGB(db, path)
 end
 
 function F.IsSkyriding()
-	return (IsMounted() or GetShapeshiftForm() ~= 0) and HasBonusActionBar()
+	return E:Delay(0.01, function()
+		return (IsMounted() or GetShapeshiftForm() ~= 0) and HasBonusActionBar()
+	end)
 end
 
 function F.ChooseForGradient(normalValue, gradientValue)

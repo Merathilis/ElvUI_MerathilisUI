@@ -42,6 +42,7 @@ function module:CreateVigorBar()
 end
 
 function module:CreateVigorSegments()
+	local segments = {}
 	local widgetInfo = self:GetWidgetInfo()
 	if not widgetInfo then
 		return
@@ -85,12 +86,14 @@ function module:CreateVigorSegments()
 		if i == 1 then
 			segment:SetPoint("LEFT", self.vigorBar, "LEFT", self.spacing, 0)
 		else
-			segment:SetPoint("LEFT", self.vigorBar.segments[i - 1], "RIGHT", self.spacing * 2, 0)
+			segment:SetPoint("LEFT", segments[i - 1], "RIGHT", self.spacing * 2, 0)
 		end
 
 		segment:SetMinMaxValues(0, 1)
 		S:CreateShadow(segment)
 
-		tinsert(self.vigorBar.segments, segment)
+		tinsert(segments, segment)
 	end
+
+	self.vigorBar.segments = segments
 end
