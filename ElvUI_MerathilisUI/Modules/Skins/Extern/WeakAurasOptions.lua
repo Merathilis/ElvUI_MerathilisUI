@@ -678,7 +678,7 @@ function module:WeakAurasOptions()
 		return
 	end
 
-	if not WeakAuras or not WeakAuras.Private then
+	if not _G.WeakAuras or not _G.WeakAuras.Private then
 		return
 	end
 
@@ -707,17 +707,43 @@ function module:WeakAurasOptions()
 		end
 	end
 
-	for _, mod in ipairs({ "UpdateFrame", "IconPicker", "ImportExport" }) do
-		postHookPrivate(mod, function(widget)
-			for _, child in pairs({ widget.frame:GetChildren() }) do
-				if child.GetObjectType then
-					local skip = false
-					skip = generalEditBoxSkinner(skip, child)
-					generalButtonSkinner(skip, child)
-				end
+	local skinChildren = function(widget)
+		local frame = widget.frame or widget
+		for _, child in pairs({ frame:GetChildren() }) do
+			if child.GetObjectType then
+				local skip = false
+				skip = generalEditBoxSkinner(skip, child)
+				generalButtonSkinner(skip, child)
 			end
-		end)
+		end
 	end
+
+	for _, mod in pairs({ "UpdateFrame", "IconPicker", "ImportExport" }) do
+		postHookPrivate(mod, skinChildren)
+	end
+
+	postHookPrivate("TextEditor", function(widget)
+		skinChildren(widget)
+
+		if _G.WASettingsButton then
+			S:HandleButton(_G.WASettingsButton)
+		end
+
+		if _G.WeakAurasAPISearchFrame then
+			S:HandleFrame(_G.WeakAurasAPISearchFrame, true, "Transparent")
+			self:CreateShadow(_G.WeakAurasAPISearchFrame)
+
+			if _G.WeakAurasAPISearchFilterInput then
+				S:HandleEditBox(_G.WeakAurasAPISearchFilterInput)
+			end
+		end
+
+		if _G.WeakAurasSnippets then
+			S:HandleFrame(_G.WeakAurasSnippets, true, "Transparent")
+			self:CreateShadow(_G.WeakAurasSnippets)
+			skinChildren(_G.WeakAurasSnippets)
+		end
+	end)
 end
 
 function module:WeakAuras_CreateTemplateView(Private, frame)
