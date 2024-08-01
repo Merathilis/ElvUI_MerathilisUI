@@ -103,9 +103,6 @@ function module:Blizzard_ObjectiveTracker()
 		return
 	end
 
-	local MainHeader = _G.ObjectiveTrackerFrame.Header
-	self:ReskinOjectiveTrackerHeader(MainHeader)
-
 	for _, tracker in pairs(trackers) do
 		self:ReskinOjectiveTrackerHeader(tracker.Header)
 

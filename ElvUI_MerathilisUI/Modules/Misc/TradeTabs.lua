@@ -91,7 +91,7 @@ function module:TradeTabs_Update()
 		local spellID = tab.spellID
 		local itemID = tab.itemID
 
-		if IsCurrentSpell(spellID) then
+		if spellID and IsCurrentSpell(spellID) then
 			tab:SetChecked(true)
 			tab.cover:Show()
 		else
