@@ -325,18 +325,6 @@ local function SkinAdditionalStats()
 	end
 end
 
-local function Update_PaperdollStats()
-	for frame in _G.CharacterStatsPane.statsFramePool:EnumerateActive() do
-		if frame.leftGrad then -- Check if the ElvUI Element is there
-			ColorizeStatPane(frame)
-		end
-
-		local shown = frame.Background:IsShown()
-		frame.leftGrad:SetShown(shown)
-		frame.rightGrad:SetShown(shown)
-	end
-end
-
 local function UpdateHighlight(self)
 	local highlight = self:GetHighlightTexture()
 	highlight:SetColorTexture(1, 1, 1, 0.25)
@@ -460,7 +448,6 @@ function module:SkinCharacterFrame()
 
 		ColorizeStatPane(pane.ItemLevelFrame)
 		E:Delay(0.2, SkinAdditionalStats)
-		hooksecurefunc("PaperDollFrame_UpdateStats", Update_PaperdollStats)
 	end
 end
 
@@ -826,6 +813,37 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 	end
 end
 
+function module:UpdateCharacterStats()
+	if not module.frame:IsShown() then
+		return
+	end
+
+	local characterStatsPane = _G.CharacterStatsPane
+	local titlePane = _G.PaperDollFrame.TitleManagerPane
+	local equipmentPane = _G.PaperDollFrame.EquipmentManagerPane
+	local sidebarTabs = _G.PaperDollSidebarTabs
+	if not characterStatsPane then
+		return
+	end
+
+	local strataFrames = { characterStatsPane, titlePane, equipmentPane, sidebarTabs }
+	for _, frame in ipairs(strataFrames) do
+		if frame then
+			frame:SetFrameStrata("HIGH")
+		end
+	end
+
+	for frame in CharacterStatsPane.statsFramePool:EnumerateActive() do
+		if frame.leftGrad then -- Check if the ElvUI Element is there
+			ColorizeStatPane(frame)
+		end
+
+		local shown = frame.Background:IsShown()
+		frame.leftGrad:SetShown(shown)
+		frame.rightGrad:SetShown(shown)
+	end
+end
+
 function module:HandleEvent(event, unit)
 	if not module.frame:IsShown() then
 		return
@@ -943,6 +961,7 @@ function module:UpdateCharacterArmory()
 	module:UpdateLines()
 	module:UpdateTitle()
 	module:UpdatePageInfo()
+	module:UpdateCharacterStats()
 
 	if module.frame:IsShown() then
 		M:UpdateCharacterInfo()
@@ -1019,6 +1038,10 @@ end
 function module:Initialize()
 	module.db = E.db.mui.armory
 
+	if self:IsHooked(_G, "PaperDollFrame_UpdateStats") then
+		return
+	end
+
 	if not module.db.enable or module.initialized then
 		return
 	end
@@ -1028,14 +1051,15 @@ function module:Initialize()
 		return
 	end
 
-	module:CreateElements()
-	module:SkinCharacterFrame()
+	self:CreateElements()
+	self:SkinCharacterFrame()
 
-	hooksecurefunc(M, "UpdateCharacterInfo", module.UpdateItemLevel)
-	hooksecurefunc(M, "UpdateAverageString", module.UpdateItemLevel)
-	hooksecurefunc(M, "UpdatePageInfo", module.UpdatePageInfo)
-	hooksecurefunc(M, "CreateSlotStrings", module.UpdatePageInfo)
-	hooksecurefunc(M, "UpdatePageStrings", module.UpdatePageStrings)
+	hooksecurefunc(M, "UpdateCharacterInfo", self.UpdateItemLevel)
+	hooksecurefunc(M, "UpdateAverageString", self.UpdateItemLevel)
+	hooksecurefunc(M, "UpdatePageInfo", self.UpdatePageInfo)
+	hooksecurefunc(M, "CreateSlotStrings", self.UpdatePageInfo)
+	hooksecurefunc(M, "UpdatePageStrings", self.UpdatePageStrings)
+	hooksecurefunc("PaperDollFrame_UpdateStats", self.UpdateCharacterStats)
 
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("UNIT_NAME_UPDATE", self.HandleEvent, self, "UNIT_NAME_UPDATE")
