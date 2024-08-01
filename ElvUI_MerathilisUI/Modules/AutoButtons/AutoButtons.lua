@@ -615,17 +615,6 @@ local foodDragonflightVendor = {
 }
 
 local conjuredManaFood = {
-	22044, -- mana gem TBC
-	33312, -- mana gem WRATH
-	36892, -- healthstone WRATH
-	36893, -- healthstone WRATH
-	36894, -- healthstone WRATH
-	36891, -- healthstone WRATH
-	36890, -- healthstone WRATH
-	36889, -- healthstone WRATH
-	22105, -- healthstone TBC
-	22104, -- healthstone TBC
-	22103, -- healthstone TBC
 	34062,
 	43518,
 	43523,
@@ -672,9 +661,6 @@ local utilities = {
 	198164,
 	198165,
 	199414,
-
-	34721, -- First Aid bandage WRATH
-	34722, -- First Aid bandage WRATH
 }
 
 local openableItems = {
@@ -1272,6 +1258,32 @@ local seeds = {
 	208067,
 }
 
+local engineerItems = {
+	11821,
+	18232,
+	18984,
+	18986,
+	30542,
+	30544,
+	34113,
+	37863,
+	40769,
+	48933,
+	49040,
+	87214,
+	87215,
+	112059,
+	132514,
+	144341,
+	151652,
+	168667,
+	168807,
+	168808,
+	172924,
+	198156,
+	265225,
+}
+
 local questItemList = {}
 local function UpdateQuestItemList()
 	wipe(questItemList)
@@ -1325,6 +1337,7 @@ local moduleList = {
 	["SEEDS"] = seeds,
 	["BIGDIG"] = bigDig,
 	["MOPREMIX"] = mopRemix,
+	["ENGINEER"] = engineerItems,
 }
 
 do

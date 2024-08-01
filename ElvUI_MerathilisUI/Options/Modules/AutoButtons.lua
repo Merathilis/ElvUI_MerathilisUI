@@ -531,6 +531,7 @@ for i = 1, 5 do
 					desc("PROF", L["Profession Items"]),
 					desc("SEEDS", L["Dream Seeds"]),
 					desc("BIGDIG", L["Big Dig"]),
+					desc("ENGINEER", L["Engineer Items"]),
 					desc("CUSTOM", L["Custom Items"])
 				),
 				width = "full",
