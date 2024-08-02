@@ -648,8 +648,8 @@ local eventData = {
 			type = "loopTimer",
 			questIDs = { 70893 },
 			hasWeeklyReward = true,
-			duration = 16 * 60,
-			interval = 1.5 * 60 * 60,
+			duration = 900,
+			interval = 5400,
 			barColor = colorPlatte.blue,
 			eventName = L["Community Feast"],
 			location = GetMapInfo(2024).name,
@@ -668,7 +668,6 @@ local eventData = {
 					[3] = 1679749200, -- EU
 					[4] = 1679747400, -- TW
 					[5] = 1679747400, -- CN
-					[72] = 1675767600, -- TR -- Adjust me
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -687,8 +686,8 @@ local eventData = {
 			type = "loopTimer",
 			questIDs = { 70866 },
 			hasWeeklyReward = true,
-			duration = 10 * 60,
-			interval = 2 * 60 * 60,
+			duration = 600,
+			interval = 7200,
 			eventName = L["Siege On Dragonbane Keep"],
 			label = L["Dragonbane Keep"],
 			location = GetMapInfo(2022).name,
@@ -702,12 +701,11 @@ local eventData = {
 			end,
 			startTimestamp = (function()
 				local timestampTable = {
-					[1] = 1670770800, -- NA
-					[2] = 1670770800, -- KR
-					[3] = 1670774400, -- EU
-					[4] = 1670770800, -- TW
-					[5] = 1670770800, -- CN
-					[72] = 1670770800, -- TR -- Adjust me
+					[1] = 1670338860, -- NA
+					[2] = 1670698860, -- KR
+					[3] = 1670342460, -- EU
+					[4] = 1670698860, -- TW
+					[5] = 1670677260, -- CN
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -722,13 +720,12 @@ local eventData = {
 	ResearchersUnderFire = {
 		dbKey = "researchersUnderFire",
 		args = {
-			--icon = 3922918,
-			icon = 5140835,
+			icon = 514277,
 			type = "loopTimer",
 			questIDs = { 75627, 75628, 75629, 75630 },
 			hasWeeklyReward = true,
-			duration = 25 * 60,
-			interval = 1 * 60 * 60,
+			duration = 1500,
+			interval = 3600,
 			eventName = L["Researchers Under Fire"],
 			label = L["Researchers Under Fire"],
 			location = GetMapInfo(2133).name,
@@ -742,12 +739,11 @@ local eventData = {
 			end,
 			startTimestamp = (function()
 				local timestampTable = {
-					[1] = 1670333460, -- NA
-					[2] = 1702240245, -- KR
-					[3] = 1683804640, -- EU
-					[4] = 1670704240, -- TW
+					[1] = 1670333400, -- NA
+					[2] = 1670703300, -- KR
+					[3] = 1683804600, -- EU
+					[4] = 1670702400, -- TW
 					[5] = 1670702460, -- CN
-					[72] = 1670702460, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -762,12 +758,12 @@ local eventData = {
 	TimeRiftThaldraszus = {
 		dbKey = "timeRiftThaldraszus",
 		args = {
-			icon = 609811,
+			icon = 2026009,
 			type = "loopTimer",
 			questIDs = { 77236 },
 			hasWeeklyReward = true,
-			duration = 15 * 60,
-			interval = 1 * 60 * 60,
+			duration = 900,
+			interval = 3600,
 			eventName = L["Time Rift"],
 			label = L["Time Rift"],
 			location = GetMapInfo(2025).name,
@@ -781,12 +777,11 @@ local eventData = {
 			end,
 			startTimestamp = (function()
 				local timestampTable = {
-					[1] = 1701831615, -- NA
-					[2] = 1701853215, -- KR
-					[3] = 1701828015, -- EU
-					[4] = 1701824400, -- TW
+					[1] = 1701831600, -- NA
+					[2] = 1701853200, -- KR
+					[3] = 1689274800, -- EU
+					[4] = 1701849600, -- TW
 					[5] = 1701824400, -- CN
-					[72] = 1701852315, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -801,12 +796,12 @@ local eventData = {
 	SuperBloom = {
 		dbKey = "superBloom",
 		args = {
-			icon = 3939983,
+			icon = 133940,
 			type = "loopTimer",
 			questIDs = { 78319 },
 			hasWeeklyReward = true,
-			duration = 15 * 60,
-			interval = 1 * 60 * 60,
+			duration = 900,
+			interval = 3600,
 			eventName = L["Superbloom"],
 			label = L["Superbloom"],
 			location = GetMapInfo(2200).name,
@@ -820,12 +815,11 @@ local eventData = {
 			end,
 			startTimestamp = (function()
 				local timestampTable = {
-					[1] = 1701831615, -- NA
+					[1] = 1699462800, -- NA
 					[2] = 1701853215, -- KR
-					[3] = 1701828015, -- EU
+					[3] = 1699462800, -- EU
 					[4] = 1701824400, -- TW
 					[5] = 1701824400, -- CN
-					[72] = 1701852315, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -840,12 +834,12 @@ local eventData = {
 	BigDig = {
 		dbKey = "bigDig",
 		args = {
-			icon = 4549135,
+			icon = 1362650,
 			type = "loopTimer",
 			questIDs = { 79226 }, -- probably more id's
 			hasWeeklyReward = true,
-			duration = 15 * 60,
-			interval = 1 * 60 * 60,
+			duration = 600,
+			interval = 3600,
 			eventName = L["The Big Dig"],
 			label = L["Big Dig"],
 			location = GetMapInfo(2024).name,
@@ -859,12 +853,11 @@ local eventData = {
 			end,
 			startTimestamp = (function()
 				local timestampTable = { -- need more accurate Timers
-					[1] = 1701826200, -- NA
+					[1] = 1705595400, -- NA
 					[2] = 1701826200, -- KR
-					[3] = 1701826200, -- EU
+					[3] = 1705595400, -- EU
 					[4] = 1701826200, -- TW
 					[5] = 1701826200, -- CN
-					[72] = 1701826200, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
