@@ -101,7 +101,8 @@ end
 
 function F.IsSkyriding()
 	return E:Delay(0.01, function()
-		return (IsMounted() or GetShapeshiftForm() ~= 0) and HasBonusActionBar()
+		return ((IsMounted() or GetShapeshiftForm() ~= 0) and HasBonusActionBar())
+			or UnitPowerBarID("player") == I.Constants.VIGOR_BAR_ID
 	end)
 end
 
