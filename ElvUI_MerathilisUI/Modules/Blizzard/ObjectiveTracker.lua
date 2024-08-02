@@ -348,10 +348,16 @@ function module:UpdateBackdrop()
 	backdrop:Show()
 	backdrop:SetTemplate(db.transparent and "Transparent")
 	backdrop:ClearAllPoints()
-	backdrop:SetPoint("TOPLEFT", _G.ObjectiveTrackerFrame, "TOPLEFT", db.topLeftOffsetX - 20, db.topLeftOffsetY + 10)
+	backdrop:SetPoint(
+		"TOPLEFT",
+		_G.ObjectiveTrackerFrame.NineSlice,
+		"TOPLEFT",
+		db.topLeftOffsetX - 20,
+		db.topLeftOffsetY + 10
+	)
 	backdrop:SetPoint(
 		"BOTTOMRIGHT",
-		_G.ObjectiveTrackerFrame,
+		_G.ObjectiveTrackerFrame.NineSlice,
 		"BOTTOMRIGHT",
 		db.bottomRightOffsetX + 10,
 		db.bottomRightOffsetY - 10
