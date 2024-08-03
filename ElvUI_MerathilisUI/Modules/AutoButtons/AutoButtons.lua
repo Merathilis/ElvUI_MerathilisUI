@@ -1286,6 +1286,7 @@ end
 -- Usable Items beeing ignored for some reasons
 local forceUsableItems = {
 	[193634] = true, -- Burgeoning Seed
+	[206448] = true, -- Fyr'alath the Dreamrender
 }
 
 local equipmentList = {}
