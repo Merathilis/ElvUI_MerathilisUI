@@ -19,6 +19,7 @@ function module:LoadmMediaTagProfile()
 	E.db["mMT"]["interruptoncd"]["enable"] = true
 	E.db["mMT"]["portraits"]["general"]["enable"] = true
 	E.db["mMT"]["portraits"]["general"]["style"] = "metal"
+	E.db["mMT"]["portraits"]["general"]["mui"] = true
 	E.db["mMT"]["portraits"]["offset"]["SQ"] = 5.4
 	E.db["mMT"]["portraits"]["offset"]["RA"] = 5.4
 	E.db["mMT"]["portraits"]["colors"]["WARRIOR"]["a"]["b"] = 0.09019608050584793
