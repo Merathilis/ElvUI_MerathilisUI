@@ -6,6 +6,7 @@ local _G = _G
 local AnimateTexCoords = AnimateTexCoords
 local hooksecurefunc = hooksecurefunc
 local CreateColor = CreateColor
+local GetWhoInfo = C_FriendList.GetWhoInfo
 
 function FriendsCount_OnLoad(self)
 	self:RegisterEvent("BN_FRIEND_LIST_SIZE_CHANGED")
@@ -116,7 +117,17 @@ function module:FriendsFrame()
 	module:SecureHook("FriendsFrame_UpdateFriendButton", UpdateFriendsButton)
 
 	-- Who Frame
-	local columnTable = {}
+	local columnTable = {
+		["zone"] = "",
+		["guild"] = "",
+		["race"] = "",
+	}
+
+	local currentType = "zone"
+	hooksecurefunc(C_FriendList, "SortWho", function(sortType)
+		currentType = sortType
+	end)
+
 	hooksecurefunc(_G.WhoFrame.ScrollBox, "Update", function(self)
 		local playerZone = GetRealZoneText()
 		local playerGuild = GetGuildInfo("player")
@@ -129,7 +140,7 @@ function module:FriendsFrame()
 			local levelText = button.Level
 			local variableText = button.Variable
 
-			local info = C_FriendList.GetWhoInfo(button.index)
+			local info = GetWhoInfo(button.index)
 			local guild, level, race, zone, class =
 				info.fullGuildName, info.level, info.raceStr, info.area, info.filename
 			if zone == playerZone then
@@ -142,14 +153,13 @@ function module:FriendsFrame()
 				race = "|cff00ff00" .. race
 			end
 
-			wipe(columnTable)
-			tinsert(columnTable, zone)
-			tinsert(columnTable, guild)
-			tinsert(columnTable, race)
+			columnTable.zone = zone or ""
+			columnTable.guild = guild or ""
+			columnTable.race = race or ""
 
 			nameText:SetTextColor(ClassColor(class, true))
 			levelText:SetText(DiffColor(level) .. level)
-			variableText:SetText(columnTable[UIDropDownMenu_GetSelectedID(_G.WhoFrameDropDown)])
+			variableText:SetText(columnTable[currentType])
 		end
 	end)
 end
