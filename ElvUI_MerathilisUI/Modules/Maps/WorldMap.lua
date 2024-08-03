@@ -2665,10 +2665,16 @@ local RevealDatabase = {
 	},
 }
 
-local overlayTextures = {}
+local overlayTextures, TileExists, storedTextures = {}, {}, {}
 
 function module:HandleMap(map, fullUpdate)
-	overlayTextures = {}
+	wipe(overlayTextures)
+	wipe(TileExists)
+	for _, tex in pairs(storedTextures) do
+		tex:SetVertexColor(1, 1, 1)
+	end
+	wipe(storedTextures)
+
 	local mapID = _G.WorldMapFrame.mapID
 	if not mapID then
 		return
@@ -2679,10 +2685,9 @@ function module:HandleMap(map, fullUpdate)
 	end
 	local zone = RevealDatabase[artID]
 
-	local TileExists = {}
 	local exploredMapTextures = GetExploredMapTextures(mapID)
 	if exploredMapTextures then
-		for i, tex in ipairs(exploredMapTextures) do
+		for _, tex in ipairs(exploredMapTextures) do
 			local key = tex.textureWidth .. ":" .. tex.textureHeight .. ":" .. tex.offsetX .. ":" .. tex.offsetY
 			TileExists[key] = true
 		end
@@ -2720,6 +2725,7 @@ function module:HandleMap(map, fullUpdate)
 				end
 				for k = 1, numTexturesWide do
 					local texture = map.overlayTexturePool:Acquire()
+					tinsert(storedTextures, texture)
 					if k < numTexturesWide then
 						texturePixelWidth = TILE_SIZE_WIDTH
 						textureFileWidth = TILE_SIZE_WIDTH
