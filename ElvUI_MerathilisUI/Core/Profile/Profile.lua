@@ -802,6 +802,7 @@ P.notification = {
 		debugPrint = false,
 		blacklist = {
 			[5485] = true,
+			[6149] = true,
 		},
 	},
 	titleFont = {
