@@ -48,15 +48,15 @@ function module:ReskinObjectiveTrackerBlockRightEdgeButton(_, block)
 end
 
 function module:ReskinObjectiveTrackerBlock(_, block)
-	-- for _, button in pairs({ block.ItemButton, block.itemButton }) do
-	-- if button then
-	-- if button.backdrop then
-	-- self:CreateBackdropShadow(button)
-	-- else
-	-- self:CreateShadow(button)
-	-- end
-	-- end
-	-- end
+	for _, button in pairs({ block.ItemButton, block.itemButton }) do
+		if button then
+			if button.backdrop then
+				self:CreateBackdropShadow(button)
+			else
+				self:CreateShadow(button)
+			end
+		end
+	end
 
 	self:ReskinObjectiveTrackerBlockRightEdgeButton(_, block)
 
