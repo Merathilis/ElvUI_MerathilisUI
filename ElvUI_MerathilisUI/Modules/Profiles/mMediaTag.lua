@@ -31,6 +31,7 @@ function module:LoadmMediaTagProfile()
 	E.db["mMT"]["portraits"]["player"]["y"] = 14
 	E.db["mMT"]["portraits"]["player"]["x"] = 3
 	E.db["mMT"]["portraits"]["player"]["size"] = 60
+	E.db["mMT"]["portraits"]["player"]["cast"] = true
 	E.db["mMT"]["portraits"]["target"]["y"] = 14
 	E.db["mMT"]["portraits"]["target"]["x"] = -3
 	E.db["mMT"]["portraits"]["target"]["size"] = 60
