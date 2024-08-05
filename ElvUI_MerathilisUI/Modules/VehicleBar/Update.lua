@@ -64,7 +64,8 @@ function module:UpdateKeybinds()
 			local keybind = GetBindingKey("ACTIONBUTTON" .. buttonIndex)
 			if keybind then
 				button.HotKey:SetTextColor(1, 1, 1)
-				button.HotKey:SetText(self:FormatKeybind(GetBindingText(keybind, "KEY_")))
+				button.HotKey:SetText(self:FormatKeybind(keybind))
+				button.HotKey:Width(button:GetWidth())
 				button.HotKey:Show()
 			else
 				button.HotKey:Hide()
@@ -236,7 +237,7 @@ function module:UpdateBar()
 		if not self.vigorBar and self.vdb.enable then
 			self:CreateVigorBar()
 		end
-
-		self:UpdateKeybinds()
 	end
+
+	self:UpdateKeybinds()
 end
