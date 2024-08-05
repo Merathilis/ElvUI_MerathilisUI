@@ -98,7 +98,7 @@ function module:ScaleAuctionHouse()
 end
 
 function module:ScaleProfessions()
-	module:SetElementScale("professionsBook", "ProfessionsBookFrame")
+	module:SetElementScale("professions", "ProfessionsBookFrame")
 end
 
 function module:Scale()

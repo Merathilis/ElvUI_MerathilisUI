@@ -1932,7 +1932,7 @@ P.scale = {
 		scale = 1,
 	},
 
-	professionsBook = {
+	professions = {
 		scale = 1,
 	},
 

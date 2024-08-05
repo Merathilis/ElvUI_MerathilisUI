@@ -400,15 +400,15 @@ options.scale = {
 					max = 2,
 					step = 0.05,
 				},
-				professionsBook = {
+				professions = {
 					order = 5,
 					type = "range",
 					name = L["Professions Book"],
 					get = function(_)
-						return E.db.mui.scale.professionsBook.scale
+						return E.db.mui.scale.professions.scale
 					end,
 					set = function(_, value)
-						E.db.mui.scale.professionsBook.scale = value
+						E.db.mui.scale.professions.scale = value
 						MI:Scale()
 					end,
 					min = 0.5,
