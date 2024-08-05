@@ -13,7 +13,7 @@ function module:LoadLSProfile()
 					["x"] = 0,
 					["y"] = -210,
 				},
-				["scale"] = 1.2,
+				["scale"] = 1,
 			},
 		},
 		["font"] = {
