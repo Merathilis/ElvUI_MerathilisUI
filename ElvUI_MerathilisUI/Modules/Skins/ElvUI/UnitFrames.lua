@@ -13,9 +13,7 @@ function module:ElvUI_UnitFrames_UpdateNameSettings(_, f)
 	end
 
 	if f.Health.backdrop and not f.Health.backdrop.MERshadow then
-		self:CreateBackdropShadow(f.Health, true)
-		f.Health.backdrop.MERshadow:ClearAllPoints()
-		f.Health.backdrop.MERshadow:SetAllPoints(f.TargetGlow)
+		self:CreateBackdropShadow(f.Health, true) -- only gets created on the Health Element, might look like shit with Power/InfoPanel enabled
 	end
 end
 
