@@ -195,6 +195,7 @@ function F.String.ColorFirstLetter(text)
 	if type(text) ~= "string" then
 		return text
 	end
+
 	return F.String.MERATHILISUI(utf8upper(utf8sub(text, 1, 1))) .. "|cfff5feff" .. utf8sub(text, 2) .. "|r"
 end
 

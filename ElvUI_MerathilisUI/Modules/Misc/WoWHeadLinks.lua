@@ -46,7 +46,7 @@ end
 
 local selfText
 StaticPopupDialogs.WATCHFRAME_URL = {
-	text = MER.Title .. L["Wowhead Links"],
+	text = MER.Title .. F.String.ColorFirstLetter(L["Wowhead Links"]),
 	button1 = OKAY,
 	timeout = 0,
 	whileDead = true,
@@ -99,21 +99,21 @@ function module:WowheadLinks()
 	end
 
 	Menu.ModifyMenu("MENU_QUEST_OBJECTIVE_TRACKER", function(_, rootDescription)
-		rootDescription:CreateButton(E.InfoColor .. L["Wowhead Links"], function()
+		rootDescription:CreateButton(F.String.ColorFirstLetter(L["Wowhead Links"]), function()
 			local text = linkQuest:format(ID)
 			StaticPopup_Show("WATCHFRAME_URL", _, _, text)
 		end)
 	end)
 
 	Menu.ModifyMenu("MENU_BONUS_OBJECTIVE_TRACKER", function(_, rootDescription)
-		rootDescription:CreateButton(E.InfoColor .. L["Wowhead Links"], function()
+		rootDescription:CreateButton(F.String.ColorFirstLetter(L["Wowhead Links"]), function()
 			local text = linkQuest:format(ID)
 			StaticPopup_Show("WATCHFRAME_URL", _, _, text)
 		end)
 	end)
 
 	Menu.ModifyMenu("MENU_ACHIEVEMENT_TRACKER", function(_, rootDescription)
-		rootDescription:CreateButton(E.InfoColor .. L["Wowhead Links"], function()
+		rootDescription:CreateButton(F.String.ColorFirstLetter(L["Wowhead Links"]), function()
 			local text = linkAchievement:format(ID)
 			StaticPopup_Show("WATCHFRAME_URL", _, _, text)
 		end)
