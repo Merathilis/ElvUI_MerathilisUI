@@ -46,8 +46,8 @@ function module:UpdateCoordinatesPosition()
 		"CENTER",
 		_G.Minimap,
 		"CENTER",
-		F.Dpi(self.db.xOffset),
-		F.Dpi(self.db.yOffset)
+		F.Dpi(self.db.xOffset or 0),
+		F.Dpi(self.db.yOffset or 0)
 	)
 end
 
