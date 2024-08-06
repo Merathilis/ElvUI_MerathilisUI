@@ -47,7 +47,13 @@ end
 function module:ElvUI_UnitFrames_Configure_Power(_, f)
 	if f.USE_POWERBAR then
 		local shadow = f.Power.backdrop.MERshadow
-		if f.POWERBAR_DETACHED or f.USE_POWERBAR_OFFSET then
+		if f.USE_MINI_POWERBAR or f.USE_POWERBAR_OFFSET then
+			if not shadow then
+				self:CreateBackdropShadow(f, true)
+			else
+				shadow:Show()
+			end
+		elseif f.USE_INSET_POWERBAR or f.POWERBAR_DETACHED then
 			if not shadow then
 				self:CreateBackdropShadow(f.Power, true)
 			else
