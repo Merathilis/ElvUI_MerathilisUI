@@ -610,6 +610,9 @@ P.nameHover = {
 
 P.armory = {
 	enable = true,
+	general = {
+		hideControls = false,
+	},
 	lines = {
 		enable = false,
 		alpha = 0.6,

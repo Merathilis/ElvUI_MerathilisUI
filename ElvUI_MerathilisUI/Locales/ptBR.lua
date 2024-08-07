@@ -545,6 +545,10 @@ L["Bags Item Level"] = true
 L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."] = true
 L["Format"] = true
 L["Decimal format"] = true
+L["Move Sockets"] = true
+L["Crops and moves sockets above enchant text."] = true
+L["Hide Controls"] = true
+L["Hides the camera controls when hovering the character model."] = true
 
 -- AutoButtons
 L["AutoButtons"] = true

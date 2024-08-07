@@ -614,6 +614,10 @@ L["Enabling this will show the maximum possible item level you can achieve with 
 	"Wenn Du dies aktivierst, wird die maximal mögliche Gegenstandsstufe angezeigt, die Du mit den Gegenständen, die sich derzeit in Deinen Taschen befinden, erreichen könntest."
 L["Format"] = true -- no need to translate
 L["Decimal format"] = "Dezimalformat"
+L["Move Sockets"] = "Bewege Sockel"
+L["Crops and moves sockets above enchant text."] = "Verschiebt die Sockel über den Verzauberungstext"
+L["Hide Controls"] = "Verstecke Kamerakontrolle"
+L["Hides the camera controls when hovering the character model."] = "Versteckt die Kamera"
 
 -- AutoButtons
 L["AutoButtons"] = "Autom. Tasten"

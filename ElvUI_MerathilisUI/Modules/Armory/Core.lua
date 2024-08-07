@@ -902,6 +902,19 @@ function module:HandleEvent(event, unit)
 	end
 end
 
+local isHooked = false
+function module:UpdateBackground()
+	if module.db.general.hideControls then
+		local controlFrame = _G.CharacterModelScene and _G.CharacterModelScene.ControlFrame
+		if controlFrame and not isHooked then
+			controlFrame:SetScript("OnShow", function(frame)
+				frame:Hide()
+			end)
+			isHooked = true
+		end
+	end
+end
+
 function module:UpdateLineColors()
 	local orientation = "HORIZONTAL"
 	local white = CreateColor(1, 1, 1, 1)
@@ -997,7 +1010,7 @@ function module:UpdateCharacterArmory()
 	end
 
 	module:KillBlizzard()
-	-- module:UpdateBackground()
+	module:UpdateBackground()
 	module:UpdateLines()
 	module:UpdateTitle()
 	module:UpdatePageInfo()

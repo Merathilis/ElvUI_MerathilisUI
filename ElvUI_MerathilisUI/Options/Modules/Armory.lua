@@ -45,6 +45,36 @@ options.armory = {
 			name = L["Enable"],
 			desc = L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."],
 		},
+		generalGroup = {
+			order = 5,
+			type = "group",
+			name = L["General"],
+			get = function(info)
+				return E.db.mui.armory.general[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.armory.general[info[#info]] = value
+				M:UpdatePageInfo(_G.CharacterFrame, "Character")
+
+				if not E.db.general.itemLevel.displayCharacterInfo then
+					M:ClearPageInfo(_G.CharacterFrame, "Character")
+				end
+			end,
+			args = {
+				hideControls = {
+					order = 1,
+					type = "toggle",
+					name = E.NewSign .. L["Hide Controls"],
+					desc = L["Hides the camera controls when hovering the character model."],
+					set = function(_, value)
+						E.db.mui.armory.general.hideControls = value
+						if value == false then
+							E:StaticPopup_Show("CONFIG_RL")
+						end
+					end,
+				},
+			},
+		},
 		itemLevelGroup = {
 			order = 10,
 			type = "group",
