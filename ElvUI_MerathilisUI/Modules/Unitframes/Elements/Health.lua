@@ -140,7 +140,7 @@ function module:ApplyUnitGradient(unit, name)
 end
 
 function module:ApplyGroupGradient(button)
-	if UnitIsPlayer(button.unit) then
+	if UnitIsPlayer(button.unit) or UnitInPartyIsAI(button.unit) then
 		_, buttonclass = UnitClass(button.unit)
 	else
 		buttonclass = "NPCFRIENDLY"

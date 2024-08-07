@@ -65,7 +65,7 @@ E:AddTag("name:gradient", "UNIT_NAME_UPDATE", function(unit)
 		end)
 	end
 
-	if UnitIsPlayer(unit) then
+	if UnitIsPlayer(unit) or UnitInPartyIsAI(unit) then
 		return F.GradientName(name, unitClass, isTarget)
 	elseif not UnitIsPlayer(unit) then
 		local reaction = UnitReaction(unit, "player")
