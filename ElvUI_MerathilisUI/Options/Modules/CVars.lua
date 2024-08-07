@@ -29,9 +29,8 @@ options.cvars = {
 					order = 1,
 					type = "description",
 					name = format(
-						"%s\n%s |cffff3860%s|r %s",
+						"%s |cffff3860%s|r %s",
 						L["A simple editor for CVars."],
-						E.NewSign,
 						format(L["%s never lock the CVars."], MER.Title),
 						L["If you found the CVars changed automatically, please check other addons."]
 					),

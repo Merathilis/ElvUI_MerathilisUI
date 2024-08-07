@@ -647,6 +647,46 @@ function module:UpdatePageInfo(_, _, which)
 		if (options.id ~= 4) and (options.id ~= 18) then
 			local slotFrame = _G["Character" .. slot]
 
+			if module.db.pageInfo.moveSockets then
+				local slotWidth, slotHeight = slotFrame:GetWidth(), slotFrame:GetHeight()
+
+				for i = 1, 3 do
+					local socket = slotFrame["textureSlot" .. i]
+					local socketWidth, socketHeight = 16, 8
+					socket:SetSize(socketWidth, socketHeight)
+					local left, right, top, bottom = E:CropRatio(socket)
+					socket:SetTexCoord(left, right, top, bottom)
+					socket:ClearAllPoints()
+
+					if i == 1 then
+						if options.direction == module.enumDirection.LEFT then
+							socket:SetPoint(
+								"BOTTOMLEFT",
+								slotFrame,
+								"BOTTOMLEFT",
+								slotWidth + 10,
+								slotHeight - socketHeight - E.Border
+							)
+						elseif options.direction == module.enumDirection.RIGHT then
+							socket:SetPoint(
+								"BOTTOMRIGHT",
+								slotFrame,
+								"BOTTOMRIGHT",
+								-(slotWidth + 10),
+								slotHeight - socketHeight - E.Border
+							)
+						end
+					else
+						local prevSocket = slotFrame["textureSlot" .. i - 1]
+						if options.direction == module.enumDirection.LEFT then
+							socket:SetPoint("BOTTOMLEFT", prevSocket, "BOTTOMRIGHT", 0, 0)
+						elseif options.direction == module.enumDirection.RIGHT then
+							socket:SetPoint("BOTTOMRIGHT", prevSocket, "BOTTOMLEFT", 0, 0)
+						end
+					end
+				end
+			end
+
 			-- ItemLevel Slot Text
 			if slotFrame.iLvlText then
 				F.SetFontDB(slotFrame.iLvlText, module.db.pageInfo.iLvLFont)

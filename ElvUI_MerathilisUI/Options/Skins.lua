@@ -2546,7 +2546,7 @@ options.advancedSettings = {
 				detailsIcons = {
 					order = 6,
 					type = "execute",
-					name = E.NewSign .. F.cOption(L["Open Details"], "gradient"),
+					name = F.cOption(L["Open Details"], "gradient"),
 					disabled = function()
 						return not E:IsAddOnEnabled("Details")
 					end,

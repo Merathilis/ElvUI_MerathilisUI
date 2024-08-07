@@ -635,6 +635,8 @@ P.armory = {
 		itemLevelTextEnabled = true,
 		iconsEnabled = true,
 
+		moveSockets = false,
+
 		enchantTextEnabled = true,
 		abbreviateEnchantText = true,
 		useEnchantClassColor = false,

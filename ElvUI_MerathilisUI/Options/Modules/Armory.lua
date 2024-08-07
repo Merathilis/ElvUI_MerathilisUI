@@ -679,13 +679,25 @@ options.armory = {
 					name = L["Class Color"],
 					desc = L["Use class color for the enchant strings."],
 				},
-				spacer = {
+				moveSockets = {
 					order = 6,
+					type = "toggle",
+					name = E.NewSign .. L["Move Sockets"],
+					desc = L["Crops and moves sockets above enchant text."],
+					set = function(_, value)
+						E.db.mui.armory.pageInfo.moveSockets = value
+						if value == false then
+							E:StaticPopup_Show("CONFIG_RL")
+						end
+					end,
+				},
+				spacer = {
+					order = 7,
 					type = "description",
 					name = "",
 				},
 				enchantFont = {
-					order = 7,
+					order = 8,
 					type = "group",
 					inline = true,
 					name = L["Enchant Font"],

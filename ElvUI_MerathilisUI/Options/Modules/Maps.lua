@@ -1604,7 +1604,7 @@ options.maps = {
 		coords = {
 			order = 10,
 			type = "group",
-			name = E.NewSign .. L["Minimap Coords"],
+			name = L["Minimap Coords"],
 			get = function(info)
 				return E.db.mui.maps.minimap.coords[info[#info]]
 			end,
