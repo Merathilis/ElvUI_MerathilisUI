@@ -2707,7 +2707,7 @@ function module:MapExplorationPin_RefreshOverlays(pin, fullUpdate, mapFrame, cac
 
 	-- Get the sizes
 	pin.layerIndex = pin:GetMap():GetCanvasContainer():GetCurrentLayerIndex()
-	local layers = C_Map_GetMapArtLayers(mapID)
+	local layers = GetMapArtLayers(mapID)
 	local layerInfo = layers and layers[pin.layerIndex]
 	if not layerInfo then
 		return
