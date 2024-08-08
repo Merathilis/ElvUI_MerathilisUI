@@ -2705,16 +2705,6 @@ function module:MapExplorationPin_RefreshOverlays(pin, fullUpdate, mapFrame, cac
 	local TILE_SIZE_WIDTH = layerInfo.tileWidth
 	local TILE_SIZE_HEIGHT = layerInfo.tileHeight
 
-	-- Get the sizes
-	pin.layerIndex = pin:GetMap():GetCanvasContainer():GetCurrentLayerIndex()
-	local layers = GetMapArtLayers(mapID)
-	local layerInfo = layers and layers[pin.layerIndex]
-	if not layerInfo then
-		return
-	end
-	local TILE_SIZE_WIDTH = layerInfo.tileWidth
-	local TILE_SIZE_HEIGHT = layerInfo.tileHeight
-
 	-- Get the map type (needed to make sure only zone maps are tinted)
 	local mapType = GetMapInfo(mapID).mapType or 0
 
