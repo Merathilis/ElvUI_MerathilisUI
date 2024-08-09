@@ -244,6 +244,12 @@ for i = 1, 5 do
 						type = "toggle",
 						name = L["Tooltip"],
 					},
+					visibility = {
+						order = 7,
+						type = "input",
+						name = L["Visibility"],
+						width = "full",
+					},
 				},
 			},
 			backdrop = {
