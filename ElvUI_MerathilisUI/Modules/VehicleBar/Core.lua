@@ -160,6 +160,10 @@ function module:Disable()
 		UnregisterStateDriver(self.bar, "visibility")
 		UnregisterStateDriver(self.ab["handledBars"]["bar1"], "visibility")
 		RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", E.db.actionbar["bar1"].visibility)
+		UnregisterStateDriver(self.ab["handledBars"]["bar2"], "visibility")
+		RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", E.db.actionbar["bar2"].visibility)
+		UnregisterStateDriver(self.ab["handledBars"]["bar3"], "visibility")
+		RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", E.db.actionbar["bar3"].visibility)
 
 		self.bar:Hide()
 
