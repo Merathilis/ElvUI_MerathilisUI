@@ -46,8 +46,20 @@ options.vehicleBar = {
 					type = "toggle",
 					name = L["Enable"],
 				},
-				buttonWidth = {
+				elvuiBars = {
 					order = 2,
+					type = "toggle",
+					name = L["Hide ElvUI Bars"],
+					get = function()
+						return E.db.mui.vehicleBar.hideElvUIBars
+					end,
+					set = function(_, value)
+						E.db.mui.vehicleBar.hideElvUIBars = value
+						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
+					end,
+				},
+				buttonWidth = {
+					order = 3,
 					type = "range",
 					name = L["Button Width"],
 					desc = L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."],

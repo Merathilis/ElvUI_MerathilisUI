@@ -113,15 +113,15 @@ function module:Enable()
 
 	self:Hook(self.ab, "PositionAndSizeBar", function(_, barName)
 		local bar = self.ab["handledBars"][barName]
-		if E.db.actionbar[barName].enable and (barName == "bar1") then
+		if E.db.mui.vehicleBar.hideElvUIBars and E.db.actionbar[barName].enable and (barName == "bar1") then
 			UnregisterStateDriver(bar, "visibility")
 			RegisterStateDriver(bar, "visibility", visibility .. E.db.actionbar[barName].visibility)
 		end
-		if E.db.actionbar[barName].enable and (barName == "bar2") then
+		if E.db.mui.vehicleBar.hideElvUIBars and E.db.actionbar[barName].enable and (barName == "bar2") then
 			UnregisterStateDriver(bar, "visibility")
 			RegisterStateDriver(bar, "visibility", visibility .. E.db.actionbar[barName].visibility)
 		end
-		if E.db.actionbar[barName].enable and (barName == "bar3") then
+		if E.db.mui.vehicleBar.hideElvUIBars and E.db.actionbar[barName].enable and (barName == "bar3") then
 			UnregisterStateDriver(bar, "visibility")
 			RegisterStateDriver(bar, "visibility", visibility .. E.db.actionbar[barName].visibility)
 		end
@@ -138,9 +138,12 @@ function module:Enable()
 		"visibility",
 		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide", "[bonusbar:5]")
 	)
-	RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
-	RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", visibility .. E.db.actionbar["bar2"].visibility)
-	RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", visibility .. E.db.actionbar["bar3"].visibility)
+
+	if E.db.mui.vehicleBar.hideElvUIBars then
+		RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
+		RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", visibility .. E.db.actionbar["bar2"].visibility)
+		RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", visibility .. E.db.actionbar["bar3"].visibility)
+	 end
 
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self.OnCombatEvent, self, false)
@@ -157,21 +160,23 @@ function module:Disable()
 	if self.bar then
 		self:StopAllAnimations()
 
-		UnregisterStateDriver(self.bar, "visibility")
-		UnregisterStateDriver(self.ab["handledBars"]["bar1"], "visibility")
-		RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", E.db.actionbar["bar1"].visibility)
-		UnregisterStateDriver(self.ab["handledBars"]["bar2"], "visibility")
-		RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", E.db.actionbar["bar2"].visibility)
-		UnregisterStateDriver(self.ab["handledBars"]["bar3"], "visibility")
-		RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", E.db.actionbar["bar3"].visibility)
+		if E.db.mui.vehicleBar.hideElvUIBars then
+			UnregisterStateDriver(self.bar, "visibility")
+			UnregisterStateDriver(self.ab["handledBars"]["bar1"], "visibility")
+			RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", E.db.actionbar["bar1"].visibility)
+			UnregisterStateDriver(self.ab["handledBars"]["bar2"], "visibility")
+			RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", E.db.actionbar["bar2"].visibility)
+			UnregisterStateDriver(self.ab["handledBars"]["bar3"], "visibility")
+			RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", E.db.actionbar["bar3"].visibility)
+		end
 
 		self.bar:Hide()
+	end
 
-		if self.vigorBar then
-			self.vigorBar:Hide()
-			if self.vigorBar.speedText then
-				self.vigorBar.speedText:Hide()
-			end
+	if self.vigorBar then
+		self.vigorBar:Hide()
+		if self.vigorBar.speedText then
+			self.vigorBar.speedText:Hide()
 		end
 	end
 

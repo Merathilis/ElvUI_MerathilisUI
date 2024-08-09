@@ -191,23 +191,25 @@ function module:UpdateBar()
 		end
 	end
 
-	-- Update Paging
-	local pageState = format(
-		"[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13; %s",
-		GetOverrideBarIndex(),
-		GetVehicleBarIndex(),
-		GetVehicleBarIndex(),
-		"[bonusbar:5] 11;"
-	)
-	local pageAttribute = self.ab:GetPage("bar1", 1, pageState)
-	RegisterStateDriver(bar, "page", pageAttribute)
-	self.bar:SetAttribute("page", pageAttribute)
+	if E.db.mui.vehicleBar.hideElvUIBars then
+		-- Update Paging
+		local pageState = format(
+			"[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13; %s",
+			GetOverrideBarIndex(),
+			GetVehicleBarIndex(),
+			GetVehicleBarIndex(),
+			"[bonusbar:5] 11;"
+		)
+		local pageAttribute = self.ab:GetPage("bar1", 1, pageState)
+		RegisterStateDriver(bar, "page", pageAttribute)
+		self.bar:SetAttribute("page", pageAttribute)
 
-	-- ElvUI Bar config
-	self.ab:UpdateButtonConfig("bar1", "ACTIONBUTTON")
-	self.ab:PositionAndSizeBar("bar1")
-	self.ab:PositionAndSizeBar("bar2")
-	self.ab:PositionAndSizeBar("bar3")
+		-- ElvUI Bar config
+		self.ab:UpdateButtonConfig("bar1", "ACTIONBUTTON")
+		self.ab:PositionAndSizeBar("bar1")
+		self.ab:PositionAndSizeBar("bar2")
+		self.ab:PositionAndSizeBar("bar3")
+	end
 
 	-- Hook for animation
 	self:SecureHookScript(bar, "OnShow", "OnShowEvent")
