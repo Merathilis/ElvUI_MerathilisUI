@@ -7,7 +7,7 @@ local pairs, unpack, tinsert = pairs, unpack, tinsert
 
 local GetItemCooldown = C_Item.GetItemCooldown
 local GetSpellCooldown = C_Spell.GetSpellCooldown
-local IsPassiveSpell = C_Spell.IsSpellPassive
+local IsSpellBookItemPassive = C_SpellBook.IsSpellBookItemPassive
 local IsCurrentSpell = C_Spell.IsCurrentSpell
 local GetSpellBookItemInfo = C_SpellBook.GetSpellBookItemInfo
 local GetItemCount = C_Item.GetItemCount
@@ -59,7 +59,7 @@ function module:UpdateProfessions()
 		if numSpells > 0 then
 			for i = 1, numSpells do
 				local slotID = i + spelloffset
-				if not IsPassiveSpell(slotID, BOOKTYPE_PROFESSION) then
+				if not IsSpellBookItemPassive(slotID, BOOKTYPE_PROFESSION) then
 					local spellID = GetSpellBookItemInfo(slotID, BOOKTYPE_PROFESSION).spellID
 					if i == 1 then
 						module:TradeTabs_Create(spellID)
