@@ -787,6 +787,11 @@ L["The spacing between the tracker and the world map."] = true
 L["The spacing between trackers."] = true
 L["The width of the tracker."] = true
 L["Vertical Spacing"] = true
+L["Click to show location"] = true
+L["Current Location"] = true
+L["Echoes"] = true
+L["Next Location"] = true
+L["Radiant Echoes"] = true
 
 -- SMB
 L["Minimap Buttons"] = true

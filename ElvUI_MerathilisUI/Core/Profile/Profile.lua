@@ -1674,6 +1674,16 @@ P.maps = {
 			scale = 1,
 			outline = "SHADOWOUTLINE",
 		},
+		radiantEchoes = {
+			enable = true,
+			desaturate = false,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Surprise",
+			second = 600,
+			stopAlertIfCompleted = true,
+			stopAlertIfPlayerNotEnteredDragonlands = true,
+		},
 		communityFeast = {
 			enable = true,
 			desaturate = false,

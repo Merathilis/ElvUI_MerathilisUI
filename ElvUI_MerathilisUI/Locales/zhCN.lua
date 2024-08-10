@@ -811,6 +811,11 @@ L["The spacing between the tracker and the world map."] = true
 L["The spacing between trackers."] = true
 L["The width of the tracker."] = true
 L["Vertical Spacing"] = true
+L["Click to show location"] = true
+L["Current Location"] = "当前位置"
+L["Echoes"] = "回响"
+L["Next Location"] = "下次位置"
+L["Radiant Echoes"] = "光耀回响"
 
 -- SMB
 L["Minimap Buttons"] = "小地图按钮"
