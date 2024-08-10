@@ -113,15 +113,15 @@ function module:Enable()
 
 	self:Hook(self.ab, "PositionAndSizeBar", function(_, barName)
 		local bar = self.ab["handledBars"][barName]
-		if E.db.mui.vehicleBar.hideElvUIBars and E.db.actionbar[barName].enable and (barName == "bar1") then
+		if self.db.hideElvUIBars and E.db.actionbar[barName].enable and (barName == "bar1") then
 			UnregisterStateDriver(bar, "visibility")
 			RegisterStateDriver(bar, "visibility", visibility .. E.db.actionbar[barName].visibility)
 		end
-		if E.db.mui.vehicleBar.hideElvUIBars and E.db.actionbar[barName].enable and (barName == "bar2") then
+		if self.db.hideElvUIBars and E.db.actionbar[barName].enable and (barName == "bar2") then
 			UnregisterStateDriver(bar, "visibility")
 			RegisterStateDriver(bar, "visibility", visibility .. E.db.actionbar[barName].visibility)
 		end
-		if E.db.mui.vehicleBar.hideElvUIBars and E.db.actionbar[barName].enable and (barName == "bar3") then
+		if self.db.hideElvUIBars and E.db.actionbar[barName].enable and (barName == "bar3") then
 			UnregisterStateDriver(bar, "visibility")
 			RegisterStateDriver(bar, "visibility", visibility .. E.db.actionbar[barName].visibility)
 		end
@@ -139,7 +139,7 @@ function module:Enable()
 		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide", "[bonusbar:5]")
 	)
 
-	if E.db.mui.vehicleBar.hideElvUIBars then
+	if self.db.hideElvUIBars then
 		RegisterStateDriver(
 			self.ab["handledBars"]["bar1"],
 			"visibility",
@@ -172,7 +172,7 @@ function module:Disable()
 	if self.bar then
 		self:StopAllAnimations()
 
-		if E.db.mui.vehicleBar.hideElvUIBars then
+		if self.db.hideElvUIBars then
 			UnregisterStateDriver(self.bar, "visibility")
 			UnregisterStateDriver(self.ab["handledBars"]["bar1"], "visibility")
 			RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", E.db.actionbar["bar1"].visibility)
