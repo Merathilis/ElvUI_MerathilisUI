@@ -1111,6 +1111,7 @@ P.autoButtons = {
 
 P.vehicleBar = {
 	enable = false,
+	hideElvUIBars = true,
 	buttonWidth = 34,
 	animations = true,
 	animationsMult = 1,
