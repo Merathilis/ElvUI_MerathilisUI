@@ -55,7 +55,7 @@ options.vehicleBar = {
 					end,
 					set = function(_, value)
 						E.db.mui.vehicleBar.hideElvUIBars = value
-						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
+						E:StaticPopup_Show("CONFIG_RL")
 					end,
 				},
 				buttonWidth = {

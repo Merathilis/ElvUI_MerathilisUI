@@ -10,6 +10,7 @@ function module:Blizzard_AchievementUI()
 
 	local AchievementFrame = _G.AchievementFrame
 	module:CreateShadow(AchievementFrame)
+	module:CreateBackdropShadow(_G.AchievementFrameComparisonHeader)
 
 	for i = 1, 3 do
 		local tab = _G["AchievementFrameTab" .. i]

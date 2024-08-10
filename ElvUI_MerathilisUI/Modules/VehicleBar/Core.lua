@@ -140,10 +140,22 @@ function module:Enable()
 	)
 
 	if E.db.mui.vehicleBar.hideElvUIBars then
-		RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", visibility .. E.db.actionbar["bar1"].visibility)
-		RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", visibility .. E.db.actionbar["bar2"].visibility)
-		RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", visibility .. E.db.actionbar["bar3"].visibility)
-	 end
+		RegisterStateDriver(
+			self.ab["handledBars"]["bar1"],
+			"visibility",
+			visibility .. E.db.actionbar["bar1"].visibility
+		)
+		RegisterStateDriver(
+			self.ab["handledBars"]["bar2"],
+			"visibility",
+			visibility .. E.db.actionbar["bar2"].visibility
+		)
+		RegisterStateDriver(
+			self.ab["handledBars"]["bar3"],
+			"visibility",
+			visibility .. E.db.actionbar["bar3"].visibility
+		)
+	end
 
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self.OnCombatEvent, self, false)
