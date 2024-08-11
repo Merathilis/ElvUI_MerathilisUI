@@ -208,6 +208,12 @@ function module:Blizzard_EncounterJournal()
 		hooksecurefunc(ActivitiesFrame.ScrollBox, "Update", function(self)
 			self:ForEachFrame(HandleText)
 		end)
+
+		ActivitiesFrame.ShadowLeft:SetAlpha(0)
+		ActivitiesFrame.ShadowRight:SetAlpha(0)
+
+		ActivitiesFrame.FilterList:SetTemplate("Transparent")
+		ActivitiesFrame.ScrollBox:SetTemplate("Transparent")
 	end
 end
 
