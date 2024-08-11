@@ -109,7 +109,11 @@ function module:ApplyUnitGradient(unit, name)
 								:SetGradient("HORIZONTAL", F.GradientColors(classunit, false, true))
 						end
 					else
-						if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
+						if UnitInPartyIsAI(unit) then
+							unitframe.Health
+								:GetStatusBarTexture()
+								:SetGradient("HORIZONTAL", F.GradientColors(classunit, true, true))
+						elseif UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
 							unitframe.Health
 								:GetStatusBarTexture()
 								:SetGradient("HORIZONTAL", F.GradientColors("TAPPED", true, true))

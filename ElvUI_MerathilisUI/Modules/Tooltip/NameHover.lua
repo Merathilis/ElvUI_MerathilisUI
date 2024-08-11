@@ -27,7 +27,7 @@ end
 local function Getcolor()
 	local reaction = UnitReaction("mouseover", "player") or 5
 
-	if UnitIsPlayer("mouseover") then
+	if UnitIsPlayer("mouseover") or UnitInPartyIsAI("mouseover") then
 		local _, class = UnitClass("mouseover")
 		local color = E:ClassColor(class)
 		return color.r, color.g, color.b
@@ -54,7 +54,7 @@ local function AddTargetInfos(self, unit)
 	local unitTarget = unit .. "target"
 	if unit ~= "player" and UnitExists(unitTarget) then
 		local targetColor
-		if UnitIsPlayer(unitTarget) and not UnitHasVehicleUI(unitTarget) then
+		if UnitIsPlayer(unitTarget) and not UnitHasVehicleUI(unitTarget) or UnitInPartyIsAI(unitTarget) then
 			local _, class = UnitClass(unitTarget)
 			targetColor = E:ClassColor(class) or _G.PRIEST_COLOR
 		else
@@ -131,7 +131,7 @@ function module:NameHover()
 		end
 
 		if (colorDB and colorDB.enable) and nameHover.gradient then
-			if UnitIsPlayer("mouseover") and UnitClass then
+			if UnitIsPlayer("mouseover") and UnitClass or UnitInPartyIsAI("mouseover") then
 				if colorDB.customColor.enable then
 					tt.text:SetText(prefix .. F.GradientNameCustom(text, UnitClass))
 				else
