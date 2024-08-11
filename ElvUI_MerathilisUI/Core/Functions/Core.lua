@@ -14,7 +14,7 @@ local tcontains = tContains
 local CreateFrame = CreateFrame
 local GetContainerItemID = C_Container and C_Container.GetContainerItemID
 local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots
-local UnitBuff = UnitBuff
+local GetBuffDataByIndex = C_UnitAuras.GetBuffDataByIndex
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 local IsEveryoneAssistant = IsEveryoneAssistant
@@ -768,7 +768,7 @@ end
 
 function F.CheckPlayerBuff(spell)
 	for i = 1, 40 do
-		local name, _, _, _, _, _, unitCaster = UnitBuff("player", i)
+		local name, _, _, _, _, _, unitCaster = GetBuffDataByIndex("player", i)
 		if not name then
 			break
 		end
