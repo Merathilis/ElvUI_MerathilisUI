@@ -253,19 +253,18 @@ function module:UpdateBar()
 
 	if self.db.channels.world.enable then
 		local db = self.db.channels.world
-		local name = db.name
 
-		if not name or name == "" then
+		if not db.name or db.name == "" then
 			self:DisableButton("WORLD")
 		else
 			local chatFunc = function(self, mouseButton)
-				local channelId = GetChannelName(name)
+				local channelId = GetChannelName(db.name)
 				if mouseButton == "LeftButton" then
 					local autoJoined = false
 					if channelId == 0 and db.autoJoin then
-						JoinPermanentChannel(name)
-						ChatFrame_AddChannel(DefaultChatFrame, name)
-						channelId = GetChannelName(name)
+						JoinPermanentChannel(db.name)
+						ChatFrame_AddChannel(DefaultChatFrame, db.name)
+						channelId = GetChannelName(db.name)
 						autoJoined = true
 					end
 					if channelId == 0 then
@@ -282,10 +281,10 @@ function module:UpdateBar()
 					end
 				elseif mouseButton == "RightButton" then
 					if channelId == 0 then
-						JoinPermanentChannel(name)
-						ChatFrame_AddChannel(DefaultChatFrame, name)
+						JoinPermanentChannel(db.name)
+						ChatFrame_AddChannel(DefaultChatFrame, db.name)
 					else
-						LeaveChannelByName(name)
+						LeaveChannelByName(db.name)
 					end
 				end
 			end
