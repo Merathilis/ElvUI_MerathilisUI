@@ -49,14 +49,27 @@ end
 
 function module:ReskinObjectiveTrackerBlock(_, block)
 	for _, button in pairs({ block.ItemButton, block.itemButton }) do
-		if button then
-			if not button.backdrop then
-				button.backdrop = CreateFrame("Frame", nil, E.UIParent)
-				button.backdrop:SetFrameStrata("BACKGROUND")
-				button.backdrop:SetFrameLevel(button:GetFrameLevel() - 2)
-				button.backdrop:SetAllPoints(button)
-			end
-			self:CreateBackdropShadow(button)
+		if not self.questItemButtons[button] then
+			-- Do not touch the button, it is so dangerous to cause taint
+			local backdrop = CreateFrame("Frame", nil, E.UIParent)
+			backdrop:SetFrameStrata("BACKGROUND")
+			backdrop:SetFrameLevel(button:GetFrameLevel() - 2)
+			backdrop:SetAllPoints(button)
+			self:CreateShadow(backdrop)
+
+			hooksecurefunc(button, "Hide", function()
+				if backdrop:IsShown() then
+					backdrop:Hide()
+				end
+			end)
+
+			hooksecurefunc(button, "Show", function()
+				if not backdrop:IsShown() then
+					backdrop:Show()
+				end
+			end)
+
+			self.questItemButtons[button] = backdrop
 		end
 	end
 
