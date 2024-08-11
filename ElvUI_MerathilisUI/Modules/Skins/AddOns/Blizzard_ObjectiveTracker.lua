@@ -50,7 +50,7 @@ end
 function module:ReskinObjectiveTrackerBlock(_, block)
 	for _, button in pairs({ block.ItemButton, block.itemButton }) do
 		if not self.questItemButtons[button] then
-			-- Do not touch the button, it is so dangerous to cause taint
+			-- Do not touch the button, it cause a taint
 			local backdrop = CreateFrame("Frame", nil, E.UIParent)
 			backdrop:SetFrameStrata("BACKGROUND")
 			backdrop:SetFrameLevel(button:GetFrameLevel() - 2)
