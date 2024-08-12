@@ -22,21 +22,27 @@ function module:BtWQuests()
 	S:HandleNextPrevButton(QuestFrame.NavHere, "up", nil, true)
 
 	QuestFrame.NavBack:ClearAllPoints()
-	QuestFrame.NavBack:SetPoint("TOPLEFT", QuestFrame, "TOPLEFT", 2, -2)
+	QuestFrame.NavBack:Point("TOPLEFT", QuestFrame, "TOPLEFT", 2, -2)
 	QuestFrame.NavForward:ClearAllPoints()
-	QuestFrame.NavForward:SetPoint("LEFT", QuestFrame.NavBack, "RIGHT", 1, 0)
+	QuestFrame.NavForward:Point("LEFT", QuestFrame.NavBack, "RIGHT", 1, 0)
 	QuestFrame.NavHere:ClearAllPoints()
-	QuestFrame.NavHere:SetPoint("LEFT", QuestFrame.NavForward, "RIGHT", 1, 0)
+	QuestFrame.NavHere:Point("LEFT", QuestFrame.NavForward, "RIGHT", 1, 0)
 
 	QuestFrame.CharacterDropDown:CreateBackdrop()
-	QuestFrame.CharacterDropDown.backdrop:SetPoint("TOPLEFT", QuestFrame.CharacterDropDown, "TOPLEFT", 18, -5)
-	QuestFrame.CharacterDropDown.backdrop:SetPoint("BOTTOMRIGHT", QuestFrame.CharacterDropDown, "BOTTOMRIGHT", 5, 11)
+	QuestFrame.CharacterDropDown.backdrop:Point("TOPLEFT", QuestFrame.CharacterDropDown, "TOPLEFT", 18, -5)
+	QuestFrame.CharacterDropDown.backdrop:Point("BOTTOMRIGHT", QuestFrame.CharacterDropDown, "BOTTOMRIGHT", 5, 11)
 
-	F.Reskin(QuestFrame.OptionsButton)
+	QuestFrame.OptionsButton:ClearAllPoints()
+	QuestFrame.OptionsButton:Point("RIGHT", QuestFrame.CloseButton, "LEFT", -1, 0)
+	S:HandleButton(QuestFrame.OptionsButton, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, true, "right")
+	QuestFrame.OptionsButton:Size(18)
 
-	S:HandleButton(_G.BtWQuestsFrameHomeButton, true)
-	_G.BtWQuestsFrameHomeButton.xoffset = 1
-	_G.BtWQuestsFrameHomeButton.isSkinned = true
+	if not _G.BtWQuestsFrameHomeButton.IsSkinned then
+		S:HandleButton(_G.BtWQuestsFrameHomeButton, true)
+		_G.BtWQuestsFrameHomeButton.xoffset = 1
+
+		_G.BtWQuestsFrameHomeButton.IsSkinned = true
+	end
 
 	S:HandleScrollBar(_G.BtWQuestsChainScrollFrameScrollBar)
 	S:HandleScrollBar(_G.BtWQuestsFrameCategoryScrollBar)
