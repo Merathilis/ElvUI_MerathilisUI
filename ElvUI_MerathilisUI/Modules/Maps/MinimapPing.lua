@@ -111,7 +111,7 @@ function module:Initialize()
 end
 
 function module:ProfileUpdate()
-	self.db = E.db.WT.maps.whoClicked
+	self.db = E.db.mui.maps.minimap.ping
 
 	if self.db and self.db.enable then
 		self:UpdateText()
