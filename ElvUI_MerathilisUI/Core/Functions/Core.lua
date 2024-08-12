@@ -12,8 +12,8 @@ local len, utf8sub = string.len, string.utf8sub
 local tcontains = tContains
 
 local CreateFrame = CreateFrame
-local GetContainerItemID = C_Container and C_Container.GetContainerItemID
-local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots
+local GetContainerItemID = C_Container.GetContainerItemID
+local GetContainerNumSlots = C_Container.GetContainerNumSlots
 local GetBuffDataByIndex = C_UnitAuras.GetBuffDataByIndex
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
@@ -21,9 +21,9 @@ local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
 
-local GetInventoryItem = C_TooltipInfo and C_TooltipInfo.GetInventoryItem
-local GetBagItem = C_TooltipInfo and C_TooltipInfo.GetBagItem
-local GetHyperlink = C_TooltipInfo and C_TooltipInfo.GetHyperlink
+local GetInventoryItem = C_TooltipInfo.GetInventoryItem
+local GetBagItem = C_TooltipInfo.GetBagItem
+local GetHyperlink = C_TooltipInfo.GetHyperlink
 
 -- Profile
 function F.IsMERProfile()
