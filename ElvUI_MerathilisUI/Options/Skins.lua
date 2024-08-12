@@ -15,6 +15,7 @@ local DecorAddons = {
 	{ "ActionBarProfiles", L["ActonBarProfiles"], "abp" },
 	{ "Auctionator", L["Auctionator"], "au" },
 	{ "BagSync", L["BagSync"], "bSync" },
+	{ "BtWQuests", L["BtWQuests"], "btwQ" },
 	{ "cargBags_Nivaya", L["cargBags_Nivaya"], "cbn" },
 	{ "Clique", L["Clique"], "cl" },
 	{ "ElvUI_BenikUI", L["BenikUI"], "bui" },

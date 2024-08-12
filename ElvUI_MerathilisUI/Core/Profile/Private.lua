@@ -221,6 +221,7 @@ V.skins = {
 		ace3DropdownBackdrop = true,
 		abp = true,
 		xiv = true,
+		btwQ = true,
 		bui = true,
 		bs = true,
 		pa = true,

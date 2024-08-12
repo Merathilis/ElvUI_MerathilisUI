@@ -1,14 +1,15 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file='Ace3.lua'/>
-	<Script file='ACP.lua'/>
+	<Script file="Ace3.lua"/>
+	<Script file="ACP.lua"/>
 	<Script file="ActionBarProfiles.lua"/>
 	<Script file="Auctionator.lua"/>
 	<Script file="BagSync.lua"/>
-	<Script file='BigWigs.lua'/>
-	<Script file='BugSack.lua'/>
+	<Script file="BigWigs.lua"/>
+	<Script file="BtWQuests.lua"/>
+	<Script file="BugSack.lua"/>
 	<Script file="Clique.lua"/>
-	<Script file='Details.lua'/>
-	<Script file='DetailsIcons.lua'/>
+	<Script file="Details.lua"/>
+	<Script file="DetailsIcons.lua"/>
 	<Script file="GlobalIgnoreList.lua"/>
 	<Script file="Immersion.lua"/>
 	<Script file="ls_Toasts.lua"/>
@@ -19,6 +20,6 @@
 	<Script file="RaiderIO.lua"/>
 	<Script file="SimpleAddonManager.lua"/>
 	<Script file="stAddOnManager.lua"/>
-	<Script file='WeakAuras.lua'/>
-	<Script file='WeakAurasOptions.lua'/>
+	<Script file="WeakAuras.lua"/>
+	<Script file="WeakAurasOptions.lua"/>
 </Ui>

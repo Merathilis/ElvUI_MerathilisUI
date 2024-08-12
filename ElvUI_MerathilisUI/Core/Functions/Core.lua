@@ -801,14 +801,6 @@ function F.Reset(group)
 	E:UpdateAll()
 end
 
---[[----------------------------------
---	Dropdown Menu
---]]
-----------------------------------
-do
-	F.EasyMenu = CreateFrame("Frame", MER.Title .. "EasyMenu", E.UIParent, "UIDropDownMenuTemplate")
-end
-
 -- Inform us of the patch info we play on.
 MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
 MER.WoWBuild = select(2, GetBuildInfo())
