@@ -6,8 +6,8 @@ local securecallfunction = securecallfunction
 local secureexecuterange = secureexecuterange
 
 local CreateFrame = CreateFrame
-local C_Timer_After = C_Timer and C_Timer.After
-local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
+local C_Timer_After = C_Timer.After
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local InCombatLockdown = InCombatLockdown
 
 F.Event = {}
