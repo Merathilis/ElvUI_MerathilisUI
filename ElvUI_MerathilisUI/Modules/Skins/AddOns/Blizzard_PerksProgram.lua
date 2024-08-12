@@ -28,8 +28,8 @@ function module:Blizzard_PerksProgram()
 			footer.ToggleMountSpecial,
 		}) do
 			module:CreateShadow(button)
-			if button.shadow then
-				button.shadow:SetAllPoints()
+			if button.MERshadow then
+				button.MERshadow:SetAllPoints()
 			end
 
 			F.SetFontOutline(button.Text)
