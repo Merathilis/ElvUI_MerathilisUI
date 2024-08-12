@@ -45,7 +45,7 @@ options.actionbars = {
 				enable = {
 					order = 1,
 					type = "toggle",
-					name = L["Enable"],
+					name = F:IsNewFeature(L["Enable"]),
 					disabled = function()
 						return not E.private.actionbar.enable
 					end,

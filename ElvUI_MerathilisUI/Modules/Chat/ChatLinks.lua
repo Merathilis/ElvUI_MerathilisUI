@@ -11,7 +11,7 @@ local GetAchievementInfo = GetAchievementInfo
 local GetItemNameByID = C_Item.GetItemNameByID
 local GetItemInfoInstant = C_Item.GetItemInfoInstant
 local GetPvpTalentInfoByID = GetPvpTalentInfoByID
-local GetSpellTexture = GetSpellTexture
+local GetSpellTexture = C_Spell.GetSpellTexture
 local GetTalentInfoByID = GetTalentInfoByID
 
 local GetMapUIInfo = C_ChallengeMode.GetMapUIInfo

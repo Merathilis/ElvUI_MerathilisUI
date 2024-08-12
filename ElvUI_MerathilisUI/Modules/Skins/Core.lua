@@ -3,6 +3,8 @@ local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
 module.updateProfile = {}

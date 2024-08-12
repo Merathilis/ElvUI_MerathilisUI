@@ -8,7 +8,7 @@ local tinsert = table.insert
 
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
-local GetItemInfo = GetItemInfo
+local GetItemInfo = C_Item.GetItemInfo
 local GetSpellName = C_Spell.GetSpellName
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown

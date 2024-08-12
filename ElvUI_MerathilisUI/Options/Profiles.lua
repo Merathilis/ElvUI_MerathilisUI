@@ -6,8 +6,8 @@ local ipairs, unpack = ipairs, unpack
 
 local CreateSimpleTextureMarkup = CreateSimpleTextureMarkup
 local CreateAtlasMarkup = CreateAtlasMarkup
-local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata
-local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
+local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local Ok = F.GetIconString(I.Media.Icons.Ok, 14, 14)
 local No = F.GetIconString(I.Media.Icons.No, 14, 14)

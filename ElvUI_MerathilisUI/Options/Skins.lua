@@ -8,7 +8,7 @@ local ipairs, pairs, unpack = ipairs, pairs, unpack
 local format = string.format
 local tinsert = table.insert
 
-local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local DecorAddons = {
 	{ "ACP", L["AddOn Control Panel"], "acp" },

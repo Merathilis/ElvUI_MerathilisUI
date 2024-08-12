@@ -5,7 +5,7 @@ local format, pairs, print, type = format, pairs, print, type
 local strjoin, strlen, strlower, strrep = strjoin, strlen, strlower, strrep
 local tostring = tostring
 
-local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 F.Developer = {}
 
