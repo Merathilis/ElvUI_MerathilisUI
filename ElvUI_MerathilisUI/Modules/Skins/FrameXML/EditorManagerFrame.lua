@@ -19,6 +19,9 @@ function module:EditorManagerFrame()
 
 	local dialog = _G.EditModeSystemSettingsDialog
 	module:CreateBackdropShadow(dialog)
+
+	local settingsDialog = _G.EditModeSystemSettingsDialog
+	module:CreateBackdropShadow(settingsDialog)
 end
 
 module:AddCallback("EditorManagerFrame")

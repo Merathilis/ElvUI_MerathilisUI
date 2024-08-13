@@ -6,27 +6,25 @@ local _G = _G
 local sub = string.sub
 
 local function colorizeKey(text, colorHex)
-    if #text > 1 then
-        local baseText = text:sub(1, #text - 1)
-        local lastChar = text:sub(-1)
+	if #text > 1 then
+		local baseText = text:sub(1, #text - 1)
+		local lastChar = text:sub(-1)
 
-        -- check if the last character is a known character
-        if lastChar:match("[ß´]") then
-            baseText = text:sub(1, #text - 2)
-            lastChar = text:sub(-2)
-        elseif not lastChar:match("[%w%s%p]") then
-            -- check for alphanumeric character & remove unknown characters (boxes/asccicode?)
-            lastChar = ""
-        end
+		-- check if the last character is a known character
+		if lastChar:match("[ß´]") then
+			baseText = text:sub(1, #text - 2)
+			lastChar = text:sub(-2)
+		elseif not lastChar:match("[%w%s%p]") then
+			-- check for alphanumeric character & remove unknown characters (boxes/asccicode?)
+			lastChar = ""
+		end
 
-        local coloredText = "|cff" .. colorHex .. baseText .. "|r" .. lastChar
-        return coloredText
-    else
-        return text
-    end
+		local coloredText = "|cff" .. colorHex .. baseText .. "|r" .. lastChar
+		return coloredText
+	else
+		return text
+	end
 end
-
-
 
 function module:ColorKeybinds(button)
 	local text = button.HotKey:GetText()
