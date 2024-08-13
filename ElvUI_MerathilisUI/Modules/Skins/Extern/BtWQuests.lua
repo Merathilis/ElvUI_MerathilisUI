@@ -44,8 +44,25 @@ function module:BtWQuests()
 		_G.BtWQuestsFrameHomeButton.IsSkinned = true
 	end
 
+	S:HandleEditBox(QuestFrame.SearchBox)
+
 	S:HandleScrollBar(_G.BtWQuestsChainScrollFrameScrollBar)
 	S:HandleScrollBar(_G.BtWQuestsFrameCategoryScrollBar)
+
+	local ExpansionList = QuestFrame.ExpansionList
+	local expansions = {
+		ExpansionList.Expansion1,
+		ExpansionList.Expansion2,
+	}
+
+	for _, frame in pairs(expansions) do
+		if frame then
+			frame:StripTextures(true)
+			frame:CreateBackdrop("Transparent")
+			frame.backdrop:SetAllPoints()
+			module:CreateGradient(frame.backdrop)
+		end
+	end
 end
 
 module:AddCallbackForAddon("BtWQuests")
