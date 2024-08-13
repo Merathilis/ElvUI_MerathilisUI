@@ -29,7 +29,7 @@ function module:ACP()
 	S:HandleFrame(_G.ACP_AddonList_ScrollFrame)
 	module:CreateBackdropShadow(_G.ACP_AddonList)
 
-	S:HandleDropDownBox(_G.ACP_AddonListSortDropDown)
+	-- S:HandleDropDownBox(_G.ACP_AddonListSortDropDown, 120) -- :thinking:
 	S:HandleScrollBar(_G.ACP_AddonList_ScrollFrameScrollBar)
 
 	S:HandleButton(_G.ACP_AddonListSetButton)
