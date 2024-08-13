@@ -1,13 +1,15 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
+local AB = MER:GetModule("MER_Actionbars")
+
+local sub = string.utf8sub
+local len = strlenutf8
 
 local C_UIWidgetManager = C_UIWidgetManager
-
-local GetPlayerAuraBySpellID = C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID
-local GetPowerBarWidgetSetID = C_UIWidgetManager and C_UIWidgetManager.GetPowerBarWidgetSetID
-local GetAllWidgetsBySetID = C_UIWidgetManager and C_UIWidgetManager.GetAllWidgetsBySetID
-local GetFillUpFramesWidgetVisualizationInfo = C_UIWidgetManager
-	and C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo
+local GetPlayerAuraBySpellID = C_UnitAuras.GetPlayerAuraBySpellID
+local GetPowerBarWidgetSetID = C_UIWidgetManager.GetPowerBarWidgetSetID
+local GetAllWidgetsBySetID = C_UIWidgetManager.GetAllWidgetsBySetID
+local GetFillUpFramesWidgetVisualizationInfo = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo
 
 function module:IsVigorAvailable()
 	if F.IsSkyriding() then
@@ -61,15 +63,10 @@ end
 function module:FormatKeybind(keybind)
 	local text = self:FixKeybindText(keybind)
 
-	local modifier, key = text:match("^([^%d]+)(.+)$")
-	if modifier and key then
-		if E.db.mui.actionbars.colorModifier.enable then
-			local color = E:ClassColor(E.myclass, true)
-			local r, g, b = color.r, color.g, color.b
-			return format("|cff%02x%02x%02x%s|r%s", r * 255, g * 255, b * 255, modifier, key)
-		else
-			return modifier .. key
-		end
+	if text and text ~= _G.RANGE_INDICATOR and len(text) > 1 and E.db.mui.actionbars.colorModifier then
+		local colorHex = sub(E:ClassColor(E.myclass, true).colorStr, 3)
+		text = AB:ColorizeKey(text, colorHex)
+		return text
 	else
 		return text
 	end

@@ -3,22 +3,27 @@ local module = MER:GetModule("MER_Actionbars")
 local AB = E:GetModule("ActionBars")
 
 local _G = _G
-local sub = string.sub
+local sub = string.utf8sub
+local len = strlenutf8
 
-local function colorizeKey(text, colorHex)
-	if #text > 1 then
-		local baseText = text:sub(1, #text - 1)
-		local lastChar = text:sub(-1)
+function module:ColorizeKey(text, colorHex)
+	if len(text) > 1 then
+		local baseText, lastChar
 
-		-- check if the last character is a known character
-		if lastChar:match("[ß´]") then
-			baseText = text:sub(1, #text - 2)
-			lastChar = text:sub(-2)
-		elseif not lastChar:match("[%w%s%p]") then
-			-- check for alphanumeric character & remove unknown characters (boxes/asccicode?)
-			lastChar = ""
+		-- Check if the last characters are digits
+		local lastDigitMatch = text:match("(%d+)$")
+
+		if lastDigitMatch and len(lastDigitMatch) > 1 then
+			-- If there is more than one digit, treat all digits as lastChar
+			baseText = sub(text, 1, len(text) - #lastDigitMatch)
+			lastChar = lastDigitMatch
+		else
+			-- Otherwise, the last character is just the last character
+			baseText = sub(text, 1, len(text) - 1)
+			lastChar = sub(text, -1)
 		end
 
+		-- Colorize the baseText, leave lastChar as is
 		local coloredText = "|cff" .. colorHex .. baseText .. "|r" .. lastChar
 		return coloredText
 	else
@@ -28,13 +33,13 @@ end
 
 function module:ColorKeybinds(button)
 	local text = button.HotKey:GetText()
-	local colorHex = "b3b3b3"
-	if E.myclass ~= "PRIEST" then
-		colorHex = sub(E:ClassColor(E.myclass, true).colorStr, 3)
-	end
+	local colorHex = sub(E:ClassColor(E.myclass, true).colorStr, 3)
 
-	if text and text ~= _G.RANGE_INDICATOR and #text > 1 then
-		text = colorizeKey(text, colorHex)
+	-- Set keybind width same as button
+	button.HotKey:Width(button:GetWidth())
+
+	if text and text ~= _G.RANGE_INDICATOR and len(text) > 1 then
+		text = module:ColorizeKey(text, colorHex)
 		button.HotKey:SetText(text)
 	end
 end
