@@ -1,4 +1,4 @@
-## Interface: 110000, 110002
+## Interface: 110002
 ## Author: Merathilis
 ## Version: @project-version@
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
@@ -12,7 +12,7 @@
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, BigWigs, ls_Toasts, WeakAuras, WeakAurasOptions
 ## X-Credits: Simpy, Benik, Azilroka, Darth Predator, fang2hou, fgprodigal, siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
-## X-Interface: 110000
+## X-Interface: 110002
 ## X-ElvUIVersion: 13.73
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589

@@ -1,8 +1,9 @@
 ### Changes ###
 
-  * [ObjectiveTracker]: Try to prevent a taint
-  * [Trade Tabs]: Fix an API call
-  * [Event Tracker]: Added Radiant Echos Timer. Credits fang2hou
-  * [VehicleBar]: Added an option to hide/show ElvUI Bars. Thx Blinkii
-  * [AutoButtons]: Added Visibility settings to the Options
-  * [WorldMap]: Update Map Reveal Code
+  * [EventTracker]: Fix flashing on the Event Tracker
+  * [Gradient]: More fixes for UnitInPartyIsAI (follower dungeons)
+  * [Minimap Ping]: Fix a copy & pasta
+  * [ActionBars]: Fix Color Modifier for non-english chars
+  * [BtWQuests Skin]: Added initial skin support
+  * [ObjectiveTracker]: Don't let blizzard override the font style
+  * [Skins]: Small updated to a few skins
