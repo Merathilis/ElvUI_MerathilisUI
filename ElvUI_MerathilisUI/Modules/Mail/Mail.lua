@@ -16,7 +16,6 @@ local unpack = unpack
 local BNGetNumFriends = BNGetNumFriends
 local CreateFrame = CreateFrame
 local DeleteInboxItem = DeleteInboxItem
-local EasyMenu = EasyMenu
 local GameTooltip = _G.GameTooltip
 local GetClassColor = GetClassColor
 local GetInboxItem = GetInboxItem
