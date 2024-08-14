@@ -48,6 +48,19 @@ function module:PremadeGroupsFilter()
 		"PvPRating",
 	}
 
+	local function HandleDropdown(drop)
+		drop:StripTextures()
+
+		drop:CreateBackdrop()
+		drop.backdrop:SetPoint("TOPLEFT", 16, -4)
+		drop.backdrop:SetPoint("BOTTOMRIGHT", -18, 8)
+
+		local down = drop.Button
+		down:ClearAllPoints()
+		down:SetPoint("RIGHT", drop.backdrop, -2, 0)
+		module:ReskinArrow(down, "down")
+	end
+
 	local function handleGroup(panel)
 		for _, name in pairs(names) do
 			local frame = panel.Group[name]
@@ -64,7 +77,7 @@ function module:PremadeGroupsFilter()
 					S:HandleEditBox(frame.Max)
 				end
 				if frame.DropDown then
-					S:HandleDropDownBox(frame.DropDown)
+					HandleDropdown(frame.DropDown)
 				end
 			end
 		end

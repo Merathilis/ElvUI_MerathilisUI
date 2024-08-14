@@ -81,23 +81,22 @@ function module:UpdateVigorBar()
 
 	local currentBarWidth = self.bar:GetWidth()
 	if currentBarWidth ~= self.previousBarWidth then
-		local widgetInfo = self:GetWidgetInfo()
-
 		local width = currentBarWidth - self.spacing
 		self.vigorBar:SetWidth(width)
 
-		if not widgetInfo then
-			return
-		end
+		self.previousBarWidth = currentBarWidth
+	end
+
+	local widgetInfo = self:GetWidgetInfo()
+
+	if widgetInfo and widgetInfo.numTotalFrames then
 		local maxVigor = widgetInfo.numTotalFrames
 
 		local segmentWidth = (self.vigorBar:GetWidth() / maxVigor) - (self.spacing * 2)
 
 		for _, segment in ipairs(self.vigorBar.segments) do
-			segment:SetWidth(segmentWidth)
+			segment:SetWidth(segmentWidth) -- Update the width of each segment
 		end
-
-		self.previousBarWidth = currentBarWidth
 	end
 
 	self:UpdateVigorSegments()
