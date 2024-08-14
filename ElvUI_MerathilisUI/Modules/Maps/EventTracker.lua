@@ -741,11 +741,11 @@ local eventData = {
 			end,
 			startTimestamp = (function()
 				local timestampTable = {
-					[1] = 1723269640, -- NA
-					[2] = 1723266040, -- KR
-					[3] = 1723262440, -- EU
-					[4] = 1723266040, -- TW
-					[5] = 1723266040, -- CN
+					[1] = 1722281440 - 1800, -- NA
+					[2] = 1722472240 - 1800, -- KR
+					[3] = 1722290440 + 3600, -- EU
+					[4] = 1722488440 + 3600, -- TW
+					[5] = 1722488440 + 3600, -- CN
 				}
 
 				local region = GetCurrentRegion()
