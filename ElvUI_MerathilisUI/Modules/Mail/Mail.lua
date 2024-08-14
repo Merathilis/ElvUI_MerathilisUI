@@ -42,6 +42,7 @@ local TakeInboxItem = TakeInboxItem
 
 local GetNumGuildMembers = GetNumGuildMembers
 local GetGuildRosterInfo = GetGuildRosterInfo
+local CreateContextMenu = MenuUtil.CreateContextMenu
 
 local LOCALIZED_CLASS_NAMES_FEMALE = LOCALIZED_CLASS_NAMES_FEMALE
 local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
@@ -110,55 +111,50 @@ local function SetButtonTooltip(button, text)
 	end)
 end
 
+function module:RepositionWithPostal()
+	if not self.frame or not _G.Postal_QuickAttachButton1 then
+		return
+	end
+
+	local width = _G.Postal_QuickAttachButton1:IsShown() and _G.Postal_QuickAttachButton1:GetWidth()
+	width = width and width + 2 or 0
+
+	self.frame:ClearAllPoints()
+	self.frame:SetPoint("TOPLEFT", _G.MailFrame, "TOPRIGHT", 3 + width, -1)
+	self.frame:SetPoint("BOTTOMRIGHT", _G.MailFrame, "BOTTOMRIGHT", 153 + width, 1)
+end
+
 function module:ShowContextText(button)
 	if not button.name then
 		return
 	end
 
-	local menu = {
-		{
-			text = button.name,
-			isTitle = true,
-			notCheckable = true,
-		},
-	}
+	CreateContextMenu(button, function(ownerRegion, rootDescription)
+		rootDescription:CreateTitle(button.name)
 
-	if not button.class then
-		tinsert(menu, {
-			text = L["Remove From Favorites"],
-			func = function()
+		if not button.class then -- My favoirite do not have it
+			rootDescription:CreateButton(L["Remove From Favorites"], function()
 				if button.realm then
 					E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = nil
 					self:ChangeCategory("FAVORITE")
 				end
-			end,
-			notCheckable = true,
-		})
-	else
-		if button.dType and button.dType == "alt" then
-			tinsert(menu, {
-				text = L["Remove This Alt"],
-				func = function()
+			end)
+		else
+			if button.dType and button.dType == "alt" then
+				rootDescription:CreateButton(L["Remove This Alt"], function()
 					E.global.mui.mail.contacts.alts[button.realm][button.faction][button.name] = nil
 					self:BuildAltsData()
 					self:UpdatePage(currentPageIndex)
-				end,
-				notCheckable = true,
-			})
-		end
+				end)
+			end
 
-		tinsert(menu, {
-			text = L["Add To Favorites"],
-			func = function()
+			rootDescription:CreateButton(L["Add To Favorites"], function()
 				if button.realm then
 					E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = true
 				end
-			end,
-			notCheckable = true,
-		})
-	end
-
-	E:ComplicatedMenu(menu, self.contextMenuFrame, "cursor", 0, 0, "MENU")
+			end)
+		end
+	end)
 end
 
 function module:ConstructFrame()
@@ -174,6 +170,35 @@ function module:ConstructFrame()
 	frame:EnableMouse(true)
 
 	self.frame = frame
+
+	if IsAddOnLoaded("Postal") then
+		self:RepositionWithPostal()
+
+		if _G.Postal_QuickAttachButton1 then
+			if not self.postalHooked then
+				self:SecureHook(_G.Postal_QuickAttachButton1, "Show", "RepositionWithPostal")
+				self:SecureHook(_G.Postal_QuickAttachButton1, "Hide", "RepositionWithPostal")
+				self.postalHooked = true
+			end
+		else
+			local Postal = _G.LibStub("AceAddon-3.0"):GetAddon("Postal")
+			local Postal_QuickAttach = Postal and Postal:GetModule("QuickAttach")
+			if Postal_QuickAttach and Postal_QuickAttach.OnEnable then
+				self:SecureHook(Postal_QuickAttach, "OnEnable", function()
+					self:RepositionWithPostal()
+					if not self.postalHooked then
+						self:SecureHook(_G.Postal_QuickAttachButton1, "Show", "RepositionWithPostal")
+						self:SecureHook(_G.Postal_QuickAttachButton1, "Hide", "RepositionWithPostal")
+						self.postalHooked = true
+					end
+				end)
+
+				self:SecureHook(Postal_QuickAttach, "OnDisable", function()
+					self:RepositionWithPostal()
+				end)
+			end
+		end
+	end
 
 	self.contextMenuFrame = CreateFrame("Frame", "MER_ContactsContextMenu", E.UIParent, "UIDropDownMenuTemplate")
 end
