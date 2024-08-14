@@ -2498,6 +2498,7 @@ function MER:DeveloperSettings()
 	E.db["mui"]["nameHover"]["gradient"] = true
 	E.db["mui"]["scale"]["enable"] = true
 	E.db["mui"]["scale"]["talents"]["scale"] = 0.9
+	E.db["mui"]["scale"]["auctionHouse"]["scale"] = 1.15
 	E.db["mui"]["armory"]["stats"]["itemLevelFont"]["itemLevelFontColor"] = "GRADIENT"
 
 	-- Chat
