@@ -10,43 +10,19 @@ function module:Blizzard_ExpansionLandingPage()
 	end
 
 	local frame = _G.ExpansionLandingPage
-	local panel
-
 	module:CreateShadow(frame)
 
-	if frame.Overlay then
-		for i = 1, frame.Overlay:GetNumChildren() do
-			local child = select(i, frame.Overlay:GetChildren())
-			child:StripTextures()
-			child:SetTemplate("Transparent")
-			module:CreateShadow(child)
+	if frame.Overlay.DragonflightLandingOverlay.Header and frame.Overlay.DragonflightLandingOverlay.Header.Title then
+		frame.Overlay.DragonflightLandingOverlay.Header.Title:FontTemplate(nil, 30)
+	end
 
-			if child.DragonridingPanel then
-				panel = child
-				break
-			end
+	if frame.Overlay.DragonflightLandingOverlay.DragonridingPanel then
+		if frame.Overlay.DragonflightLandingOverlay.DragonridingPanel.Title then
+			frame.Overlay.DragonflightLandingOverlay.DragonridingPanel.Title:FontTemplate(nil, 26)
 		end
-	end
-
-	if not panel then
-		return
-	end
-
-	panel.NineSlice:SetAlpha(0)
-	panel.Background:SetAlpha(0)
-
-	if panel.MajorFactionList then
-		hooksecurefunc(panel.MajorFactionList.ScrollBox, "Update", function(self)
-			for i = 1, self.ScrollTarget:GetNumChildren() do
-				local child = select(i, self.ScrollTarget:GetChildren())
-				if child.UnlockedState and not child.IsSkinned then
-					child.UnlockedState.WatchFactionButton:SetSize(28, 28)
-					S:HandleCheckBox(child.UnlockedState.WatchFactionButton)
-					child.UnlockedState.WatchFactionButton.Label:SetFontObject(Game20Font)
-					child.IsSkinned = true
-				end
-			end
-		end)
+		if frame.Overlay.DragonflightLandingOverlay.DragonridingPanel.Subtitle then
+			frame.Overlay.DragonflightLandingOverlay.DragonridingPanel.Subtitle:FontTemplate(nil, 18)
+		end
 	end
 end
 
