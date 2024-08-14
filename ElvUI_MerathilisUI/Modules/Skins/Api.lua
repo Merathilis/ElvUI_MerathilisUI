@@ -481,7 +481,7 @@ function module:SetupArrow(self, direction)
 		return
 	end
 
-	self:SetTexture(I.Media.Textures.arrowUp)
+	self:SetTexture(E.Media.Textures.ArrowUp)
 	self:SetRotation(rad(arrowDegree[direction]))
 end
 
@@ -497,7 +497,7 @@ function module:ReskinArrow(self, direction)
 
 	local tex = self:CreateTexture(nil, "ARTWORK")
 	tex:SetAllPoints()
-	-- module.SetupArrow(tex, direction)
+	module.SetupArrow(tex, direction)
 	self.__texture = tex
 
 	self:HookScript("OnEnter", F.Texture_OnEnter)
