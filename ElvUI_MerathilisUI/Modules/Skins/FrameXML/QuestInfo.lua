@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local next, pairs, select, unpack = next, pairs, select, unpack
@@ -53,11 +54,13 @@ local function ColorObjectivesText()
 	_G.QuestInfoAccountCompletedNotice:SetTextColor(1, 0.8, 0.1)
 end
 
+local defaultColor = GetMaterialTextColors("Default")
+local completedColor = QUEST_OBJECTIVE_COMPLETED_FONT_COLOR:GetRGB()
 local function ReplaceTextColor(object, r)
-	if r == 0 then
+	if r == 0 or r == defaultColor[1] then
 		object:SetTextColor(1, 1, 1)
-	elseif r == 0.2 then
-		object:SetTextColor(0.8, 0.8, 0.8)
+	elseif r == completedColor then
+		object:SetTextColor(0.7, 0.7, 0.7)
 	end
 end
 
@@ -80,35 +83,19 @@ local function RestyleSpellButton(bu)
 	bg:CreateBackdrop("Transparent")
 end
 
-local function RestyleRewardButton(bu)
-	if bu.Icon then
-		bu.Icon:SetTexCoord(unpack(E.TexCoords))
-		bu.Icon:SetDrawLayer("OVERLAY")
-	end
-
-	if bu.NameFrame then
-		bu.NameFrame:SetAlpha(0)
-	end
-
-	if bu.Count then
-		bu.Count:ClearAllPoints()
-		bu.Count:SetPoint("BOTTOMRIGHT", bu.Icon, "BOTTOMRIGHT", 2, 0)
-		bu.Count:SetDrawLayer("OVERLAY")
-	end
-
-	if bu.RewardAmount then
-		bu.RewardAmount:ClearAllPoints()
-		bu.RewardAmount:SetPoint("BOTTOMRIGHT", bu.Icon, "BOTTOMRIGHT", 2, 0)
-		bu.RewardAmount:SetDrawLayer("OVERLAY")
-	end
+local function ReskinRewardButton(bu)
+	bu.NameFrame:Hide()
+	S:HandleIcon(bu.Icon, true)
 
 	bu:CreateBackdrop("Transparent")
-	bu.backdrop:SetFrameStrata("BACKGROUND")
+	bu.backdrop:Point("TOPLEFT", bu.Icon.backdrop, "TOPRIGHT", 2, 0)
+	bu.backdrop:Point("BOTTOMRIGHT", bu.Icon.backdrop, 100, 0)
 	module:CreateGradient(bu.backdrop)
+	bu.textBG = bu.backdrop
 end
 
 local function ReskinRewardButtonWithSize(bu, isMapQuestInfo)
-	RestyleRewardButton(bu)
+	ReskinRewardButton(bu)
 
 	if isMapQuestInfo then
 		bu.backdrop:SetPoint("TOPLEFT", bu.NameFrame, 1, 1)
@@ -243,7 +230,6 @@ function module:QuestInfo()
 	local whitish = {
 		_G.QuestInfoDescriptionText,
 		_G.QuestInfoObjectivesText,
-		_G.QuestInfoQuestType,
 		_G.QuestInfoGroupSize,
 		_G.QuestInfoRewardText,
 		_G.QuestInfoTimerText,
@@ -257,6 +243,21 @@ function module:QuestInfo()
 	for _, font in pairs(whitish) do
 		SetTextColor_White(font)
 	end
+
+	-- Replace seal signature string
+	local replacedSealColor = {
+		["480404"] = "c20606",
+		["042c54"] = "1c86ee",
+	}
+	hooksecurefunc(QuestInfoSealFrame.Text, "SetText", function(self, text)
+		if text and text ~= "" then
+			local colorStr, rawText = strmatch(text, "|c[fF][fF](%x%x%x%x%x%x)(.-)|r")
+			if colorStr and rawText then
+				colorStr = replacedSealColor[colorStr] or "99ccff"
+				self:SetFormattedText("|cff%s%s|r", colorStr, rawText)
+			end
+		end
+	end)
 
 	-- Others
 	hooksecurefunc("QuestInfo_Display", function()
@@ -292,26 +293,35 @@ function module:QuestInfo()
 					portrait.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
 				end
 			end
-
 			-- Spell Rewards
-			-- for spellReward in rewardsFrame.spellRewardPool:EnumerateActive() do
-			-- if not spellReward.styled then
-			-- RestyleRewardButton(spellReward)
-			--
-			-- spellReward.styled = true
-			-- end
-			-- end
+			for spellReward in rewardsFrame.spellRewardPool:EnumerateActive() do
+				if not spellReward.styled then
+					ReskinRewardButton(spellReward)
+
+					spellReward.styled = true
+				end
+			end
 		end
 
 		-- Reputation Rewards
 		for repReward in rewardsFrame.reputationRewardPool:EnumerateActive() do
 			if not repReward.styled then
-				RestyleRewardButton(repReward)
+				ReskinRewardButton(repReward)
 
 				repReward.styled = true
 			end
 		end
 	end)
+
+	hooksecurefunc(QuestInfoQuestType, "SetTextColor", function(text, r, g, b)
+		if not (r == 1 and g == 1 and b == 1) then
+			text:SetTextColor(1, 1, 1)
+		end
+	end)
+
+	-- Change text colors
+	hooksecurefunc(QuestInfoRequiredMoneyText, "SetTextColor", ReplaceTextColor)
+	hooksecurefunc(QuestInfoSpellObjectiveLearnLabel, "SetTextColor", ReplaceTextColor)
 end
 
 module:AddCallback("QuestInfo")
