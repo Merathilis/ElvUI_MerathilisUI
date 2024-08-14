@@ -159,7 +159,7 @@ function module:ShowContextText(button)
 		})
 	end
 
-	EasyMenu(menu, self.contextMenuFrame, "cursor", 0, 0, "MENU")
+	E:ComplicatedMenu(menu, self.contextMenuFrame, "cursor", 0, 0, "MENU")
 end
 
 function module:ConstructFrame()
