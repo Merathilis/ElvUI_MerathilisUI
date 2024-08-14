@@ -9,8 +9,6 @@ function module:Blizzard_ArchaeologyUI()
 	end
 
 	local ArchaeologyFrame = _G.ArchaeologyFrame
-	ArchaeologyFrame:DisableDrawLayer("BACKGROUND") -- Hide the Parchment
-
 	module:CreateShadow(ArchaeologyFrame)
 
 	_G.ArchaeologyFrameSummaryPageTitle:SetTextColor(1, 1, 1)
