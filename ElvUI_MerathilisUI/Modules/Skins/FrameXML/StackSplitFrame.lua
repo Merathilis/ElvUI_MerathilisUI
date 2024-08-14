@@ -12,4 +12,4 @@ function module:StackSplitFrame()
 	local StackSplitFrame = _G.StackSplitFrame
 end
 
-module:AddCallback("StackSplitFrame", LoadSkin)
+module:AddCallback("StackSplitFrame")

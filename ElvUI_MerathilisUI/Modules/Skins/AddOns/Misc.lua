@@ -35,6 +35,21 @@ function module:BlizzMisc()
 		end
 	end
 
+	-- Chat Menus
+	local chatMenus = { "ChatMenu", "EmoteMenu", "LanguageMenu", "VoiceMacroMenu" }
+
+	for _, menu in pairs(chatMenus) do
+		local target = _G[menu] and _G[menu].NineSlice
+		if target then
+			self:SecureHookScript(target, "OnShow", "CreateShadow")
+		end
+	end
+
+	-- Chat Config
+	if E.private.skins.blizzard.blizzardOptions then
+		module:CreateShadow(_G.ChatConfigFrame)
+	end
+
 	--DropDownMenu
 	hooksecurefunc("UIDropDownMenu_CreateFrames", function(level, index)
 		local listFrame = _G["DropDownList" .. level]
@@ -59,6 +74,15 @@ function module:BlizzMisc()
 		module:CreateShadow(DropDown)
 	end
 
+	-- Dropdown Menu
+	for i = 1, UIDROPDOWNMENU_MAXLEVELS, 1 do
+		local f = _G["DropDownList" .. i .. "Backdrop"]
+		self:CreateShadow(f)
+
+		f = _G["DropDownList" .. i .. "MenuBackdrop"]
+		self:CreateShadow(f)
+	end
+
 	local function StylePopups()
 		for i = 1, MAX_STATIC_POPUPS do
 			local frame = _G["ElvUI_StaticPopup" .. i]
@@ -73,11 +97,6 @@ function module:BlizzMisc()
 	-- What's New
 	_G.SplashFrame:CreateBackdrop("Transparent")
 	module:CreateShadow(_G.SplashFrame)
-
-	-- Chat Config
-	if E.private.skins.blizzard.blizzardOptions then
-		module:CreateShadow(_G.ChatConfigFrame)
-	end
 
 	if _G.ActionStatus.Text then
 		F.SetFontDB(_G.ActionStatus.Text, E.private.mui.skins.actionStatus)
