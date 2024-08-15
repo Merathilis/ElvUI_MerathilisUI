@@ -73,6 +73,10 @@ P.themes = {
 	},
 }
 
+P.style = {
+	enable = true,
+}
+
 P.bags = {
 	equipOverlay = true,
 }

@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Emotes")
 local S = MER:GetModule("MER_Skins")
+local Style = MER:GetModule("MER_Style")
 local CH = E:GetModule("Chat")
 local ES = E:GetModule("Skins")
 
@@ -101,7 +102,7 @@ local function CreateEmoteTableFrame()
 
 	frame.line = CreateFrame("Frame", nil, frame)
 	frame.line:Point("BOTTOM", frame, "TOP", 0, 0)
-	MER:CreateGradientFrame(
+	Style:CreateGradientFrame(
 		frame.line,
 		(column * (width + space) + 24),
 		2,

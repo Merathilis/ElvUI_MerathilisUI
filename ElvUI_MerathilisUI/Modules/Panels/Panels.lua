@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Panels")
+local Style = MER:GetModule("MER_Style")
 local S = MER:GetModule("MER_Skins")
 
 local CreateFrame = CreateFrame
@@ -197,8 +198,8 @@ function module:UpdateColors()
 	module:SkinPanel(MER_TopRightStyle)
 	module:SkinPanel(MER_BottomRightStyle)
 
-	MER:CreateGradientFrame(MER_TopLeftExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, 0.5, 0, 0, 0, 0)
-	MER:CreateGradientFrame(
+	Style:CreateGradientFrame(MER_TopLeftExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, 0.5, 0, 0, 0, 0)
+	Style:CreateGradientFrame(
 		MER_TopLeftExtraStyle1,
 		panelSize,
 		E.mult,
@@ -212,8 +213,8 @@ function module:UpdateColors()
 		color.b,
 		0
 	)
-	MER:CreateGradientFrame(MER_BottomLeftExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, 0.5, 0, 0, 0, 0)
-	MER:CreateGradientFrame(
+	Style:CreateGradientFrame(MER_BottomLeftExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, 0.5, 0, 0, 0, 0)
+	Style:CreateGradientFrame(
 		MER_BottomLeftStylePanel1,
 		panelSize,
 		E.mult,
@@ -227,8 +228,8 @@ function module:UpdateColors()
 		color.b,
 		0
 	)
-	MER:CreateGradientFrame(MER_TopRightExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, 0, 0, 0, 0, 0.5)
-	MER:CreateGradientFrame(
+	Style:CreateGradientFrame(MER_TopRightExtraStyle, panelSize, 36, "Horizontal", 0, 0, 0, 0, 0, 0, 0, 0.5)
+	Style:CreateGradientFrame(
 		MER_TopRightStylePanel1,
 		panelSize,
 		E.mult,
@@ -242,8 +243,8 @@ function module:UpdateColors()
 		color.b,
 		0.7
 	)
-	MER:CreateGradientFrame(MER_BottomRightExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, 0, 0, 0, 0, 0.5)
-	MER:CreateGradientFrame(
+	Style:CreateGradientFrame(MER_BottomRightExtraStyle, panelSize, 28, "Horizontal", 0, 0, 0, 0, 0, 0, 0, 0.5)
+	Style:CreateGradientFrame(
 		MER_BottomRightStylePanel1,
 		panelSize,
 		E.mult,

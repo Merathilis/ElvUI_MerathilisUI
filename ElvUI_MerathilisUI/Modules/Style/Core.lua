@@ -1,11 +1,11 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Style")
 local S = MER:GetModule("MER_Skins")
 
-local _G = _G
 local assert = assert
 local EnumerateFrames = EnumerateFrames
 local getmetatable = getmetatable
-local pairs, select, unpack = pairs, select, unpack
+local unpack = pairs
 
 local CreateFrame = CreateFrame
 local CreateColor = CreateColor
@@ -13,7 +13,7 @@ local CreateColor = CreateColor
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
 local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
 
-function MER:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
+function module:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 	assert(frame, "doesn't exist!")
 
 	frame:Size(w, h)
@@ -25,7 +25,7 @@ function MER:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 	gf:SetGradient(o, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
 end
 
-local function CreateOverlay(f)
+function module:CreateOverlay(f)
 	if f.overlay then
 		return
 	end
@@ -38,7 +38,7 @@ local function CreateOverlay(f)
 	f.overlay = overlay
 end
 
-local function CreateBorder(f, i, o)
+function module:CreateBorder(f, i, o)
 	if i then
 		if f.iborder then
 			return
@@ -65,7 +65,7 @@ local function CreateBorder(f, i, o)
 	end
 end
 
-local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
+function module:CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f:Width(w)
 	f:Height(h)
 	f:SetFrameLevel(3)
@@ -75,11 +75,11 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 
 	if t == "Transparent" then
 		backdropa = 0.45
-		f:CreateBorder(true, true)
+		module:CreateBorder(f, true, true)
 		S:CreateBackdropShadow(f.backdrop)
 	elseif t == "Overlay" then
 		backdropa = 1
-		f:CreateOverlay()
+		module:CreateOverlay(f)
 		S:CreateBackdropShadow(f.backdrop)
 	elseif t == "Invisible" then
 		backdropa = 0
@@ -92,33 +92,106 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
-local function addapi(object)
+function module:API(object)
 	local mt = getmetatable(object).__index
 
 	if not object.CreateOverlay then
-		mt.CreateOverlay = CreateOverlay
+		mt.CreateOverlay = module.CreateOverlay
 	end
 	if not object.CreateBorder then
-		mt.CreateBorder = CreateBorder
+		mt.CreateBorder = module.CreateBorder
 	end
 	if not object.CreatePanel then
-		mt.CreatePanel = CreatePanel
+		mt.CreatePanel = module.CreatePanel
 	end
 end
 
-local handled = { ["Frame"] = true }
-local object = CreateFrame("Frame")
-addapi(object)
-addapi(object:CreateTexture())
-addapi(object:CreateFontString())
-addapi(object:CreateMaskTexture())
+function module:ForceRefresh()
+	-- Refresh Templates
+	E:UpdateFrameTemplates()
 
-object = EnumerateFrames()
-while object do
-	if not object:IsForbidden() and not handled[object:GetObjectType()] then
-		addapi(object)
-		handled[object:GetObjectType()] = true
+	-- Refresh all media
+	E:UpdateMediaItems(true)
+end
+
+function module:MetatableScan()
+	local handled = {
+		Frame = true,
+	}
+
+	local object = CreateFrame("Frame")
+	self:API(object)
+	self:API(object:CreateTexture())
+	self:API(object:CreateFontString())
+	self:API(object:CreateMaskTexture())
+
+	object = EnumerateFrames()
+	while object do
+		if not object:IsForbidden() and not handled[object:GetObjectType()] then
+			self:API(object)
+			handled[object:GetObjectType()] = true
+		end
+
+		object = EnumerateFrames(object)
+	end
+end
+
+function module:Disable()
+	if not self.Initialized then
+		return
 	end
 
-	object = EnumerateFrames(object)
+	self.isEnabled = false
+
+	if self.Initialized and self.db and not self.db.enable then
+		self:ForceRefresh()
+	end
+
+	self:UnhookAll()
 end
+
+function module:Enable()
+	if not self.Initialized then
+		return
+	end
+
+	self.isEnabled = true
+
+	self:MetatableScan()
+	self:ForceRefresh()
+end
+
+function module:DatabaseUpdate()
+	-- Set db
+	self.db = F.GetDBFromPath("mui.style")
+
+	local shouldBeEnabled = self.db and self.db.enable
+	if self.isEnabled == shouldBeEnabled then
+		return
+	end
+
+	F.Event.ContinueOutOfCombat(function()
+		-- Enable/disable only out of combat
+		if shouldBeEnabled then
+			self:Enable()
+		else
+			self:Disable()
+		end
+	end)
+end
+
+function module:Initialize()
+	if self.Initialized then
+		return
+	end
+
+	self.isEnabled = false
+
+	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
+	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
+	F.Event.RegisterCallback("module.DatabaseUpdate", self.DatabaseUpdate, self)
+
+	self.Initialized = true
+end
+
+MER:RegisterModule(module:GetName())
