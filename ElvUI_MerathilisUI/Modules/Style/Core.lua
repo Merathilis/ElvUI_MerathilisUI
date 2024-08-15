@@ -92,8 +92,56 @@ function module:CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
+function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitFrameElement, isNamePlateElement)
+	template = template or frame.template or "Default"
+	glossTex = glossTex or frame.glossTex or nil
+	ignoreUpdates = ignoreUpdates or frame.ignoreUpdates or false
+
+	if ignoreUpdates then
+		return
+	end
+
+	local isStatusBar = false
+	local isFrame = false
+	local parent = frame:GetParent()
+
+	if parent then
+		if parent.IsObjectType and (parent:IsObjectType("Texture") or parent:IsObjectType("Statusbar")) then
+			isStatusBar = true
+		elseif E.statusBars[parent] ~= nil then
+			isStatusBar = true
+		elseif parent.IsObjectType and parent:IsObjectType("Frame") then
+			isFrame = true
+		end
+	end
+
+	local skinForUnitFrame = isUnitFrameElement and not isNamePlateElement
+	local skinForTransparent = (template == "Transparent") and not isNamePlateElement and not isStatusBar
+	local skinForTexture = (template == "Default" and not glossTex)
+		and not isUnitFrameElement
+		and not isNamePlateElement
+		and not isStatusBar
+		and not isFrame
+
+	if (skinForTransparent or skinForTexture) and (self.db and self.db.enable) then
+		if not frame.CreateStyle then
+			return F.Developer.LogDebug("API functions not found!", "MERCreateStyle", not frame.CreateStyle)
+		end
+
+		frame:CreateStyle()
+	else
+		if frame.MERStyle then
+			frame.MERStyle:Hide()
+		end
+	end
+end
+
 function module:API(object)
 	local mt = getmetatable(object).__index
+
+	if not mt or not mt.SetTemplate then
+		return
+	end
 
 	if not object.CreateOverlay then
 		mt.CreateOverlay = module.CreateOverlay
@@ -104,13 +152,19 @@ function module:API(object)
 	if not object.CreatePanel then
 		mt.CreatePanel = module.CreatePanel
 	end
+
+	if not object.CreateStyle then
+		mt.CreateStyle = F.CreateStyle
+	end
+
+	-- Hook elvui template
+	if not self:IsHooked(mt, "SetTemplate") then
+		self:SecureHook(mt, "SetTemplate", "SetTemplate")
+	end
 end
 
 function module:ForceRefresh()
-	-- Refresh Templates
 	E:UpdateFrameTemplates()
-
-	-- Refresh all media
 	E:UpdateMediaItems(true)
 end
 
@@ -171,7 +225,6 @@ function module:DatabaseUpdate()
 	end
 
 	F.Event.ContinueOutOfCombat(function()
-		-- Enable/disable only out of combat
 		if shouldBeEnabled then
 			self:Enable()
 		else

@@ -23,7 +23,7 @@ function module:SkinButton(i)
 	item:CreateBackdrop("Transparent")
 	item.backdrop:Point("TOPLEFT", -1, 3)
 	item.backdrop:Point("BOTTOMRIGHT", 2, -3)
-	MERS:CreateGradient(item.backdrop)
+	-- MERS:CreateGradient(item.backdrop)
 
 	local slot = _G["MerchantItem" .. i .. "SlotTexture"]
 	item.Name:Point("LEFT", slot, "RIGHT", -5, 5)
@@ -58,7 +58,7 @@ function module:UpdateBuybacks()
 
 		if item.backdrop then
 			item.backdrop:SetTemplate("Transparent")
-			MERS:CreateGradient(item.backdrop)
+			-- MERS:CreateGradient(item.backdrop)
 		end
 	end
 end

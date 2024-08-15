@@ -60,7 +60,6 @@ function module:BtWQuests()
 			frame:StripTextures(true)
 			frame:CreateBackdrop("Transparent")
 			frame.backdrop:SetAllPoints()
-			module:CreateGradient(frame.backdrop)
 		end
 	end
 end

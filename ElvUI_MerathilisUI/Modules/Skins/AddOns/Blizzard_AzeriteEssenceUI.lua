@@ -21,7 +21,6 @@ function module:Blizzard_AzeriteEssenceUI()
 	for _, button in pairs(AzeriteEssenceUI.EssenceList.buttons) do
 		if button.backdrop then
 			button.backdrop:SetTemplate("Transparent")
-			module:CreateGradient(button.backdrop)
 		end
 	end
 end

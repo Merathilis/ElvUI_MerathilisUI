@@ -137,7 +137,6 @@ local function SetupInstance(instance)
 
 	instance.baseframe:CreateBackdrop("Transparent")
 	instance.baseframe.backdrop:SetPoint("TOPLEFT", -1, 18)
-	module:CreateGradient(instance.baseframe.backdrop)
 	module:CreateBackdropShadow(instance.baseframe)
 
 	if instance:GetId() < 4 then

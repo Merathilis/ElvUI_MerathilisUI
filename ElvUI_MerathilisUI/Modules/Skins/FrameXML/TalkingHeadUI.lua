@@ -10,7 +10,6 @@ function module:TalkingHeadUI()
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
 	if TalkingHeadFrame and not TalkingHeadFrame.__MERSkin then
-		module:CreateGradient(TalkingHeadFrame)
 		module:CreateShadow(TalkingHeadFrame)
 
 		TalkingHeadFrame.BackgroundFrame.TextBackground:SetAtlas(nil)

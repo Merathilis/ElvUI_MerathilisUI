@@ -14,7 +14,6 @@ local function SkinChatBubble(chatbubble)
 		frame:CreateBackdrop("Transparent")
 		frame.backdrop:SetScale(UIParent:GetEffectiveScale())
 		frame.backdrop:SetInside(frame, 4, 4)
-		module:CreateGradient(frame.backdrop)
 		module:CreateTex(frame.backdrop)
 		module:CreateBackdropShadow(frame)
 

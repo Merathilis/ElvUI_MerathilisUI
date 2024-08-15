@@ -46,7 +46,6 @@ function module:LFGList()
 		if bu then
 			if not bu.__MERSkin then
 				bu.Icon:SetTexCoord(0.01, 0.99, 0.01, 0.99)
-				module:CreateGradient(bu)
 				bu.__MERSkin = true
 			end
 		end

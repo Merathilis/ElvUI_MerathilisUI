@@ -37,14 +37,8 @@ function module:TradeFrame()
 		if _G["TradePlayerItem" .. i .. "ItemButton"].bg then
 			_G["TradePlayerItem" .. i .. "ItemButton"].bg:SetTemplate("Transparent")
 		end
-		if _G["TradePlayerItem" .. i .. "ItemButton"].bg then
-			module:CreateGradient(_G["TradePlayerItem" .. i .. "ItemButton"].bg)
-		end
 		if _G["TradeRecipientItem" .. i .. "ItemButton"].bg then
 			_G["TradeRecipientItem" .. i .. "ItemButton"].bg:SetTemplate("Transparent")
-		end
-		if _G["TradeRecipientItem" .. i .. "ItemButton"].bg then
-			module:CreateGradient(_G["TradeRecipientItem" .. i .. "ItemButton"].bg)
 		end
 
 		ReskinButton(_G["TradePlayerItem" .. i .. "ItemButton"])

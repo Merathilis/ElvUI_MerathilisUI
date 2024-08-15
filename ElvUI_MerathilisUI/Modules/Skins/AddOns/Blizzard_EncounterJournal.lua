@@ -49,7 +49,6 @@ function module:Blizzard_EncounterJournal()
 	if suggestion1 then
 		suggestion1.bg:Hide()
 		suggestion1:SetTemplate("Transparent")
-		module:CreateGradient(suggestion1)
 		suggestion1.icon:SetPoint("TOPLEFT", 135, -15)
 
 		local centerDisplay = suggestion1.centerDisplay
@@ -65,7 +64,6 @@ function module:Blizzard_EncounterJournal()
 
 		suggestion.bg:Hide()
 		suggestion:SetTemplate("Transparent")
-		module:CreateGradient(suggestion)
 		suggestion.icon:SetPoint("TOPLEFT", 10, -10)
 
 		local centerDisplay = suggestion.centerDisplay
@@ -111,7 +109,6 @@ function module:Blizzard_EncounterJournal()
 	for _, name in next, { "overviewTab", "modelTab", "bossTab", "lootTab" } do
 		local info = _G.EncounterJournal.encounter.info
 		local tab = info[name]
-		module:CreateGradient(tab)
 		module:CreateBackdropShadow(tab)
 
 		tab:ClearAllPoints()

@@ -14,7 +14,6 @@ function module:GhostFrame()
 		select(i, GhostFrame:GetRegions()):Hide()
 	end
 
-	module:CreateGradient(GhostFrame)
 	GhostFrame:SetHighlightTexture(E.media.normTex)
 	GhostFrame:GetHighlightTexture():SetVertexColor(F.r, F.g, F.b, 0.35)
 end

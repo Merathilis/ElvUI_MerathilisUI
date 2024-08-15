@@ -16,13 +16,6 @@ function module:Blizzard_AchievementUI()
 		local tab = _G["AchievementFrameTab" .. i]
 		module:ReskinTab(tab)
 	end
-
-	for i = 1, 7 do
-		local bu = _G["AchievementFrameAchievementsContainerButton" .. i]
-		if bu then
-			module:CreateGradient(bu)
-		end
-	end
 end
 
 module:AddCallbackForAddon("Blizzard_AchievementUI")

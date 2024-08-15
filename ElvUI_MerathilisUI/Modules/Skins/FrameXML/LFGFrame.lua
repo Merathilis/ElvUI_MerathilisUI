@@ -38,7 +38,6 @@ local function StyleRewardButton(button)
 	button.bg2:SetPoint("BOTTOMRIGHT", na, "BOTTOMRIGHT", -1, 0)
 	button.bg2:SetFrameStrata("BACKGROUND")
 	button.bg2:CreateBackdrop("Transparent")
-	module:CreateGradient(button.bg2)
 end
 
 function module:LFGFrame()

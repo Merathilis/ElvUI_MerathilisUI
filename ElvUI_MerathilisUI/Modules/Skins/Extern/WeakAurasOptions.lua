@@ -143,7 +143,6 @@ function module:WeakAurasDisplayButton(Constructor)
 		local widget = Constructor()
 		if widget.background then
 			S:HandleButton(widget.frame, nil, nil, nil, true, "Transparent")
-			module:CreateGradient(widget.frame)
 			widget.frame.background:SetAlpha(0)
 			widget.frame.backdrop:SetFrameLevel(widget.frame:GetFrameLevel())
 			widget.frame.backdrop.color = { widget.frame.backdrop.Center:GetVertexColor() }

@@ -79,8 +79,6 @@ function WS:HandleButton(_, button)
 		if db.backdrop.removeBorderEffect then
 			parentFrame.SetBackdropBorderColor = E.noop
 		end
-
-		module:CreateGradient(parentFrame)
 	end
 
 	button.MERSkin = true

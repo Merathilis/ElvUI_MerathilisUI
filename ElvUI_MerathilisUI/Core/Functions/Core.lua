@@ -106,6 +106,50 @@ function F.IsSkyriding()
 	end)
 end
 
+function F.CreateStyle(frame, useStripes, useShadow, useGradient)
+	local holder = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	holder:SetInside(frame)
+	holder:SetFrameStrata(frame:GetFrameStrata())
+	holder:SetFrameLevel(frame:GetFrameLevel() or 1)
+
+	if not useStripes then
+		local stripes = frame.MERstripes
+			or frame:CreateTexture(frame:GetName() and frame:GetName() .. "Overlay" or nil, "BORDER")
+		stripes:ClearAllPoints()
+		stripes:Point("TOPLEFT", 1, -1)
+		stripes:Point("BOTTOMRIGHT", -1, 1)
+		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\stripes]], true, true)
+		stripes:SetHorizTile(true)
+		stripes:SetVertTile(true)
+		stripes:SetBlendMode("ADD")
+
+		frame.MERstripes = stripes
+	end
+
+	if not useShadow then
+		local mshadow = frame.mShadow
+			or frame:CreateTexture(frame:GetName() and frame:GetName() .. "Overlay" or nil, "BORDER")
+		mshadow:SetInside(frame, 0, 0)
+		mshadow:Width(33)
+		mshadow:Height(33)
+		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Overlay]])
+		mshadow:SetVertexColor(1, 1, 1, 0.6)
+
+		frame.mShadow = mshadow
+	end
+
+	if not useGradient then
+		local tex = frame.MERgradient or frame:CreateTexture(nil, "BORDER")
+		tex:SetInside(frame)
+		tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\gradient.tga]])
+		tex:SetVertexColor(0.3, 0.3, 0.3, 0.15)
+
+		frame.MERgradient = tex
+	end
+
+	frame.MERStyle = holder
+end
+
 function F.ChooseForGradient(normalValue, gradientValue)
 	if E.db.mui.gradient.enable then
 		return gradientValue

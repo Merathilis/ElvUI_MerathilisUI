@@ -10,18 +10,6 @@ function module:Blizzard_TrainerUI()
 
 	local ClassTrainerFrame = _G.ClassTrainerFrame
 	module:CreateShadow(ClassTrainerFrame)
-
-	hooksecurefunc(ClassTrainerFrame.ScrollBox, "Update", function(self)
-		for i = 1, self.ScrollTarget:GetNumChildren() do
-			local button = select(i, self.ScrollTarget:GetChildren())
-			if not button.isStyled then
-				if button and button.backdrop then
-					module:CreateGradient(button.backdrop)
-				end
-				button.isStyled = true
-			end
-		end
-	end)
 end
 
 module:AddCallbackForAddon("Blizzard_TrainerUI")

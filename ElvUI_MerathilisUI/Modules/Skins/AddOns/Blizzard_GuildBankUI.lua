@@ -39,7 +39,6 @@ function module:Blizzard_GuildBankUI()
 			local button = _G["GuildBankColumn" .. i .. "Button" .. j]
 			if button then
 				button:SetTemplate("Transparent")
-				module:CreateGradient(button)
 			end
 		end
 	end

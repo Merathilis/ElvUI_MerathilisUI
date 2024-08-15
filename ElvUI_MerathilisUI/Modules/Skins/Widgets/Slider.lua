@@ -28,7 +28,6 @@ function WS:HandleSliderFrame(_, slider)
 		slider.SetThumbTexture_ = slider.SetThumbTexture
 		slider.SetThumbTexture = E.noop
 
-		module:CreateGradient(slider)
 		slider.MERSkinned = true
 	end
 

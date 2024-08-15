@@ -48,14 +48,6 @@ function module:Blizzard_Communities()
 	module:CreateBackdropShadow(CommunitiesFrame.GuildMemberDetailFrame)
 	module:CreateBackdropShadow(CommunitiesFrame.ClubFinderInvitationFrame)
 
-	-- Add Community Button
-	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetAddCommunity", function(self)
-		if self.bg and self.bg.backdrop and not self.__MERSkin then
-			module:CreateGradient(self.bg.backdrop)
-			self.__MERSkin = true
-		end
-	end)
-
 	for _, name in next, { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab" } do
 		local tab = CommunitiesFrame[name]
 		tab:GetRegions():Hide()

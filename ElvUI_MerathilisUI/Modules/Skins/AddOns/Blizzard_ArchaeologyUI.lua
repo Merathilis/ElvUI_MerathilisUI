@@ -36,7 +36,6 @@ function module:Blizzard_ArchaeologyUI()
 		select(4, bu:GetRegions()):SetTextColor(1, 1, 1)
 		select(5, bu:GetRegions()):SetTextColor(1, 1, 1)
 		bu:SetTemplate("Transparent")
-		module:CreateGradient(bu)
 	end
 
 	_G.ArchaeologyFrameArtifactPageIcon:SetTexCoord(unpack(E.TexCoords))

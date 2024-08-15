@@ -9,19 +9,6 @@ local GetSourceInfo = C_TransmogCollection.GetSourceInfo
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function reskinFrameButton(self)
-	for i = 1, self.ScrollTarget:GetNumChildren() do
-		local child = select(i, self.ScrollTarget:GetChildren())
-		if not child.MERSkin then
-			if child then
-				module:CreateGradient(child)
-			end
-
-			child.MERSkin = true
-		end
-	end
-end
-
 function module:Blizzard_Collections()
 	if not module:CheckDB("collections", "collections") then
 		return
@@ -63,12 +50,6 @@ function module:Blizzard_Collections()
 	MountJournal.MountCount:SetTemplate("Transparent")
 	PetJournal.PetCount:SetTemplate("Transparent")
 	MountJournal.MountDisplay.ModelScene:SetTemplate("Transparent")
-
-	-- Mount list
-	hooksecurefunc(MountJournal.ScrollBox, "Update", reskinFrameButton)
-
-	-- Pet list
-	hooksecurefunc(PetJournal.ScrollBox, "Update", reskinFrameButton)
 
 	_G.PetJournalHealPetButtonBorder:Hide()
 	_G.PetJournalHealPetButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
@@ -222,7 +203,6 @@ function module:Blizzard_Collections()
 		bg:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, -2)
 		bg:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 0, 2)
 		bg:SetPoint("RIGHT", button.name, "RIGHT", 0, 0)
-		module:CreateGradient(bg)
 	end
 
 	-- [[ Heirlooms ]]
@@ -238,7 +218,6 @@ function module:Blizzard_Collections()
 			bg:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, -2)
 			bg:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 0, 2)
 			bg:SetPoint("RIGHT", button.name, "RIGHT", 2, 0)
-			module:CreateGradient(bg)
 			button.__MERSkin = true
 		end
 	end)

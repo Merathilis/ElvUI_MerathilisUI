@@ -55,14 +55,14 @@ do
 	end
 end
 
-function module:CreateShadow(frame, size, r, g, b, force, useStripes, useShadow)
+function module:CreateShadow(frame, size, r, g, b, force)
 	if not force then
 		if not E.private.mui.skins.enable or not E.private.mui.skins.shadow.enable then
 			return
 		end
 	end
 
-	if not frame or frame.__MERshadow or frame.MERshadow and frame.shadow.__MER then
+	if not frame or frame.__MERshadow or frame.MERshadow then
 		return
 	end
 
@@ -84,31 +84,6 @@ function module:CreateShadow(frame, size, r, g, b, force, useStripes, useShadow)
 	shadow:SetBackdrop({ edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(size + 1) })
 	shadow:SetBackdropColor(r, g, b, 0)
 	shadow:SetBackdropBorderColor(r, g, b, 0.618)
-
-	if not useStripes then
-		local stripes = frame:CreateTexture(frame:GetName() and frame:GetName() .. "Overlay" or nil, "BORDER")
-		stripes:ClearAllPoints()
-		stripes:Point("TOPLEFT", 1, -1)
-		stripes:Point("BOTTOMRIGHT", -1, 1)
-		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\stripes]], true, true)
-		stripes:SetHorizTile(true)
-		stripes:SetVertTile(true)
-		stripes:SetBlendMode("ADD")
-
-		shadow.stripes = stripes
-	end
-
-	if not useShadow then
-		local mshadow = frame:CreateTexture(frame:GetName() and frame:GetName() .. "Overlay" or nil, "BORDER")
-		mshadow:SetInside(frame, 0, 0)
-		mshadow:Width(33)
-		mshadow:Height(33)
-		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Overlay]])
-		mshadow:SetVertexColor(1, 1, 1, 0.6)
-
-		shadow.mshadow = mshadow
-	end
-
 	shadow.__MER = true
 
 	frame.MERshadow = shadow
@@ -311,18 +286,6 @@ function module:CreateBG(frame)
 	return bg
 end
 
--- Gradient Texture
-function module:CreateGradient(f)
-	assert(f, "doesn't exist!")
-
-	local tex = f:CreateTexture(nil, "BORDER")
-	tex:SetInside(f)
-	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\gradient.tga]])
-	tex:SetVertexColor(0.3, 0.3, 0.3, 0.15)
-
-	return tex
-end
-
 function module:CreateBackdrop(frame)
 	if frame.backdrop then
 		return
@@ -360,7 +323,7 @@ function module:CreateBDFrame(f)
 	return bg
 end
 
-function module:SetBD(f, x, y, x2, y2, gradient)
+function module:SetBD(f, x, y, x2, y2)
 	assert(f, "doesn't exist!")
 
 	local bg = module:CreateBDFrame(f)
@@ -370,10 +333,6 @@ function module:SetBD(f, x, y, x2, y2, gradient)
 	end
 	module:CreateSD(bg)
 	module:CreateTex(bg)
-
-	if gradient then
-		module:CreateGradient(bg)
-	end
 
 	return bg
 end
@@ -476,7 +435,7 @@ local arrowDegree = {
 	["left"] = 90,
 	["right"] = -90,
 }
-function module:SetupArrow(self, direction)
+function module:SetupArrow(direction)
 	if not self then
 		return
 	end
@@ -863,7 +822,6 @@ do
 		eb:FontTemplate(nil, E.db.general.fontSize + 2)
 		eb:CreateBackdrop("Transparent")
 		eb.backdrop:SetAllPoints()
-		module:CreateGradient(eb.backdrop)
 		eb:SetScript("OnEscapePressed", editBoxClearFocus)
 		eb:SetScript("OnEnterPressed", editBoxClearFocus)
 

@@ -20,22 +20,6 @@ local function SkinDialog(_, dialog)
 	end
 end
 
-local function SkinQuestLogQuests()
-	for button in _G.QuestScrollFrame.headerFramePool:EnumerateActive() do
-		if button.backdrop and not button.__MERSkin then
-			module:CreateGradient(button.backdrop)
-			button.__MERSkin = true
-		end
-	end
-
-	for header in _G.QuestScrollFrame.campaignHeaderMinimalFramePool:EnumerateActive() do
-		if header.backdrop and not header.__MERSkin then
-			module:CreateGradient(header)
-			header.__MERSkin = true
-		end
-	end
-end
-
 function module:WorldMapFrame()
 	if not module:CheckDB("worldmap", "worldmap") then
 		return
@@ -75,18 +59,15 @@ function module:WorldMapFrame()
 	end
 	if _G.QuestScrollFrame.DetailFrame and _G.QuestScrollFrame.DetailFrame.backdrop then
 		_G.QuestScrollFrame.DetailFrame.backdrop:SetTemplate("Transparent")
-		module:CreateGradient(_G.QuestScrollFrame.DetailFrame.backdrop)
 	end
 
 	if _G.QuestMapFrame.DetailsFrame then
 		if _G.QuestMapFrame.DetailsFrame.backdrop then
 			_G.QuestMapFrame.DetailsFrame.backdrop:SetTemplate("Transparent")
-			module:CreateGradient(_G.QuestMapFrame.DetailsFrame.backdrop)
 		end
 	end
 
 	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", SkinDialog)
-	hooksecurefunc("QuestLogQuests_Update", SkinQuestLogQuests)
 end
 
 module:AddCallback("WorldMapFrame")

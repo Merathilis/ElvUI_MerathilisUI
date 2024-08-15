@@ -90,7 +90,6 @@ local function ReskinRewardButton(bu)
 	bu:CreateBackdrop("Transparent")
 	bu.backdrop:Point("TOPLEFT", bu.Icon.backdrop, "TOPRIGHT", 2, 0)
 	bu.backdrop:Point("BOTTOMRIGHT", bu.Icon.backdrop, 100, 0)
-	module:CreateGradient(bu.backdrop)
 	bu.textBG = bu.backdrop
 end
 
