@@ -209,7 +209,6 @@ local function Initialize()
 		AFK.AFKMode.Panel:Size((GetScreenWidth() / 2), 80)
 		AFK.AFKMode.Panel:CreateBackdrop("Transparent")
 		AFK.AFKMode.Panel:SetFrameStrata("FULLSCREEN")
-		MER:CreateInnerNoise(AFK.AFKMode.Panel)
 		S:CreateBackdropShadow(AFK.AFKMode.Panel)
 
 		E["frames"][AFK.AFKMode.Panel] = true

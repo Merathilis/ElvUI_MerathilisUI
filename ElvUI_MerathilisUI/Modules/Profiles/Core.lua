@@ -17,7 +17,6 @@ function module:CreateSplashFrame()
 	module.backgroundFade:SetAlpha(1)
 	module.backgroundFade:Hide()
 
-	MER:CreateInnerNoise(module.backgroundFade)
 	S:CreateShadow(module.backgroundFade)
 
 	local bg = F.Table.HexToRGB("#282828cc")

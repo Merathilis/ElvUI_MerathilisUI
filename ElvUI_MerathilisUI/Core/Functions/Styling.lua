@@ -130,21 +130,6 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
-function MER:CreateInnerNoise(frame)
-	local edgeSize = E.twoPixelsPlease and 2 or 1
-
-	local innerNoise = frame.MERInnerNoise or frame:CreateTexture(nil, "BACKGROUND", nil, 2)
-	innerNoise:SetInside(frame, edgeSize, edgeSize)
-	innerNoise:SetTexture(I.Media.Textures.noiseInner, "REPEAT", "REPEAT")
-	innerNoise:SetHorizTile(true)
-	innerNoise:SetVertTile(true)
-	innerNoise:SetBlendMode("ADD")
-	innerNoise:SetVertexColor(1, 1, 1, 1)
-	innerNoise:Show()
-
-	frame.MERInnerNoise = innerNoise
-end
-
 function MER:CreateInnerShadow(frame, smallVersion)
 	local edgeSize = E.twoPixelsPlease and 2 or 1
 

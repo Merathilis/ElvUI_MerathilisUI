@@ -1,11 +1,13 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc")
+local S = MER:GetModule("MER_Skins")
 
 local _G = _G
 local random = random
 
 local CreateFrame = CreateFrame
 local CreateAnimationGroup = CreateAnimationGroup
+local EventRegistry = EventRegistry
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local UIFrameFadeIn = UIFrameFadeIn
 
@@ -63,6 +65,42 @@ local function NPC_Model(self)
 	UIFrameFadeIn(self, 1, self:GetAlpha(), 1)
 end
 
+function module:GameMenu_OnShow()
+	local iconsDb = E.db.mui.armory.icons
+
+	if GameMenuFrame.MUIbottomPanel.guildText and GameMenuFrame.MUIbottomPanel.levelText then
+		local guildName = GetGuildInfo("player")
+
+		local fallback = iconsDb and iconsDb[0] or ""
+		local specIcon
+
+		local _, classId = UnitClassBase("player")
+		local specIndex = GetSpecialization()
+		local id = GetSpecializationInfoForClassID(classId, specIndex)
+
+		if id and iconsDb then
+			specIcon = iconsDb[id]
+		end
+
+		GameMenuFrame.MUIbottomPanel.guildText:SetText(
+			guildName and F.String.FastGradientHex("<" .. guildName .. ">", "06c910", "33ff3d") or ""
+		)
+		GameMenuFrame.MUIbottomPanel.specIcon:SetText(F.String.Class(specIcon and specIcon or fallback))
+		GameMenuFrame.MUIbottomPanel.levelText:SetText("Lvl " .. E.mylevel)
+		GameMenuFrame.MUIbottomPanel.classText:SetText(F.String.GradientClass(E.myLocalizedClass, nil, true))
+	end
+end
+
+function module:GameMenu_OnHide()
+	if GameMenuFrame.MUIbottomPanel then
+		GameMenuFrame.MUIbottomPanel:Hide()
+	end
+
+	if GameMenuFrame.MUItopPanel then
+		GameMenuFrame.MUItopPanel:Hide()
+	end
+end
+
 function module:GameMenu()
 	if not E.db.mui.general.GameMenu then
 		return
@@ -76,7 +114,7 @@ function module:GameMenu()
 		bottomPanel:Point("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:Width(GetScreenWidth() + (E.Border * 2))
 		bottomPanel:CreateBackdrop("Transparent")
-		MER:CreateInnerNoise(bottomPanel)
+		S:CreateBackdropShadow(bottomPanel)
 
 		bottomPanel.ignoreFrameTemplates = true
 		bottomPanel.ignoreBackdropColors = true
@@ -92,10 +130,40 @@ function module:GameMenu()
 			self.anim.height:Play()
 		end)
 
-		bottomPanel.Logo = bottomPanel:CreateTexture(nil, "ARTWORK")
-		bottomPanel.Logo:Size(150)
-		bottomPanel.Logo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 0)
+		bottomPanel.Logo = bottomPanel:CreateTexture(nil, "OVERLAY")
+		bottomPanel.Logo:Size(100)
+		bottomPanel.Logo:SetPoint("CENTER", bottomPanel, "TOP", 0, -80)
 		bottomPanel.Logo:SetTexture(I.General.MediaPath .. "Textures\\mUI1.tga")
+
+		bottomPanel.nameText = bottomPanel:CreateFontString(nil, "OVERLAY")
+		bottomPanel.nameText:FontTemplate(nil, 26)
+		bottomPanel.nameText:SetTextColor(1, 1, 1, 1)
+		bottomPanel.nameText:SetPoint("TOP", bottomPanel.Logo, "BOTTOM", 0, -5)
+		bottomPanel.nameText:SetText(F.String.GradientClass(E.myname))
+
+		bottomPanel.guildText = bottomPanel:CreateFontString(nil, "OVERLAY")
+		bottomPanel.guildText:FontTemplate(nil, 16)
+		bottomPanel.guildText:SetPoint("TOP", bottomPanel.nameText, "BOTTOM", 0, 0)
+		bottomPanel.guildText:SetTextColor(1, 1, 1, 1)
+
+		bottomPanel.specIcon = bottomPanel:CreateFontString(nil, "OVERLAY")
+		bottomPanel.specIcon:SetFont(
+			"Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Fonts\\ToxiUIIcons.ttf",
+			20,
+			"OUTLINE"
+		)
+		bottomPanel.specIcon:SetPoint("TOP", bottomPanel.guildText, "BOTTOM", 0, -15)
+		bottomPanel.specIcon:SetTextColor(1, 1, 1, 1)
+
+		bottomPanel.levelText = bottomPanel:CreateFontString(nil, "OVERLAY")
+		bottomPanel.levelText:FontTemplate(nil, 20, "OUTLINE")
+		bottomPanel.levelText:SetPoint("RIGHT", bottomPanel.specIcon, "LEFT", -4, 0)
+		bottomPanel.levelText:SetTextColor(1, 1, 1, 1)
+
+		bottomPanel.classText = bottomPanel:CreateFontString(nil, "OVERLAY")
+		bottomPanel.classText:FontTemplate(nil, 20, "OUTLINE")
+		bottomPanel.classText:SetPoint("LEFT", bottomPanel.specIcon, "RIGHT", 4, 0)
+		bottomPanel.classText:SetTextColor(1, 1, 1, 1)
 	end
 
 	if not GameMenuFrame.MUItopPanel then
@@ -105,7 +173,7 @@ function module:GameMenu()
 		topPanel:Point("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:Width(GetScreenWidth() + (E.Border * 2))
 		topPanel:CreateBackdrop("Transparent")
-		MER:CreateInnerNoise(topPanel)
+		S:CreateBackdropShadow(topPanel)
 
 		topPanel.ignoreFrameTemplates = true
 		topPanel.ignoreBackdropColors = true
@@ -155,6 +223,8 @@ function module:GameMenu()
 		npcModel:SetScale(0.8)
 		npcModel:Show()
 	end
+
+	self:SecureHookScript(GameMenuFrame, "OnShow", module.GameMenu_OnShow)
 end
 
 module:AddCallback("GameMenu")
