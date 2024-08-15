@@ -102,7 +102,7 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 	end
 
 	local isStatusBar = false
-	local isFrame = false
+
 	local parent = frame:GetParent()
 
 	if parent then
@@ -110,8 +110,6 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 			isStatusBar = true
 		elseif E.statusBars[parent] ~= nil then
 			isStatusBar = true
-		elseif parent.IsObjectType and parent:IsObjectType("Frame") then
-			isFrame = true
 		end
 	end
 
@@ -121,7 +119,6 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 		and not isUnitFrameElement
 		and not isNamePlateElement
 		and not isStatusBar
-		and not isFrame
 
 	if (skinForTransparent or skinForTexture) and (self.db and self.db.enable) then
 		if not frame.CreateStyle then
@@ -152,7 +149,6 @@ function module:API(object)
 	if not object.CreatePanel then
 		mt.CreatePanel = module.CreatePanel
 	end
-
 	if not object.CreateStyle then
 		mt.CreateStyle = F.CreateStyle
 	end
@@ -216,7 +212,6 @@ function module:Enable()
 end
 
 function module:DatabaseUpdate()
-	-- Set db
 	self.db = F.GetDBFromPath("mui.style")
 
 	local shouldBeEnabled = self.db and self.db.enable
