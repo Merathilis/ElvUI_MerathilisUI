@@ -62,15 +62,6 @@ local env = {
 		[4203] = 1,
 		[4317] = 2,
 	},
-	radiantEchoesInterval = (function()
-		-- compare to TW region reset time (T_T always the last resion)
-		local isBeforeIntervalChange = GetServerTime() < 1723676384
-		-- 432000 = 5 days, US player if already reset, the interval should be updated to 30 minutes
-		if GetSecondsUntilWeeklyReset() > 5 * 24 * 60 * 60 then
-			isBeforeIntervalChange = false
-		end
-		return isBeforeIntervalChange and 60 * 60 or 30 * 60
-	end)(),
 	radiantEchoesZoneRotation = {
 		GetMapInfo(32),
 		GetMapInfo(70),
@@ -711,15 +702,48 @@ local eventData = {
 		args = {
 			icon = 3015740,
 			type = "loopTimer",
+			checkAllCompleted = true,
+			questProgress = {
+				{
+					questID = 78938,
+					mapID = 32,
+					label = function()
+						return format(
+							L["Daily Quest at %s"],
+							F.StringByTemplate(env.radiantEchoesZoneRotation[1].name, "info")
+						)
+					end,
+				},
+				{
+					questID = 82676,
+					mapID = 70,
+					label = function()
+						return format(
+							L["Daily Quest at %s"],
+							F.StringByTemplate(env.radiantEchoesZoneRotation[2].name, "info")
+						)
+					end,
+				},
+				{
+					questID = 82689,
+					mapID = 115,
+					label = function()
+						return format(
+							L["Daily Quest at %s"],
+							F.StringByTemplate(env.radiantEchoesZoneRotation[3].name, "info")
+						)
+					end,
+				},
+			},
 			questIDs = { 82676, 82689, 78938 },
-			-- hasWeeklyReward = true,
-			duration = env.radiantEchoesInterval, -- always on
-			interval = env.radiantEchoesInterval,
+			hasWeeklyReward = false,
+			duration = 60 * 60, -- always on
+			interval = 60 * 60,
 			barColor = colorPlatte.blue,
 			flash = false,
 			runningBarColor = colorPlatte.radiantEchoes,
 			eventName = L["Radiant Echoes"],
-			currentMapIndex = function(args) -- only exist for this event
+			currentMapIndex = function(args)
 				return floor((GetServerTime() - args.startTimestamp) / args.interval) % 3 + 1
 			end,
 			currentLocation = function(args)
@@ -731,7 +755,23 @@ local eventData = {
 			label = L["Echoes"],
 			runningText = L["In Progress"],
 			runningTextUpdater = function(args)
-				return env.radiantEchoesZoneRotation[args:currentMapIndex()].name
+				local map = env.radiantEchoesZoneRotation[args:currentMapIndex()]
+				local isCompleted = false
+				for _, data in pairs(args.questProgress) do
+					if data.mapID == map.mapID then
+						if IsQuestFlaggedCompleted(data.questID) then
+							isCompleted = true
+						end
+						break
+					end
+				end
+
+				if not isCompleted then
+					local iconTex = [[Interface\ICONS\Achievement_Quests_Completed_Daily_08]]
+					return map.name .. " " .. F.GetTextureString(iconTex, 14, 14, true)
+				end
+
+				return map.name
 			end,
 			filter = function(args)
 				if args.stopAlertIfPlayerNotEnteredDragonlands and not IsQuestFlaggedCompleted(67700) then
@@ -741,11 +781,11 @@ local eventData = {
 			end,
 			startTimestamp = (function()
 				local timestampTable = {
-					[1] = 1722281440 - 1800, -- NA
-					[2] = 1722472240 - 1800, -- KR
-					[3] = 1722290440 + 3600, -- EU
-					[4] = 1722488440 + 3600, -- TW
-					[5] = 1722488440 + 3600, -- CN
+					[1] = 1723269640, -- NA
+					[2] = 1723266040, -- KR
+					[3] = 1723262440, -- EU
+					[4] = 1723266040, -- TW
+					[5] = 1723266040, -- CN
 				}
 
 				local region = GetCurrentRegion()
