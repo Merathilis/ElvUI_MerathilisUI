@@ -132,7 +132,6 @@ function module:CreateToast()
 	toast:Hide()
 	toast:CreateBackdrop("Transparent")
 	S:CreateBackdropShadow(toast, true)
-	-- S:CreateGradient(toast.backdrop)
 	toast:CreateCloseButton(10)
 
 	local icon = toast:CreateTexture(nil, "OVERLAY")
