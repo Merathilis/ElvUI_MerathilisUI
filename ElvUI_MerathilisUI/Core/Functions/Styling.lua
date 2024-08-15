@@ -25,44 +25,6 @@ function MER:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 	gf:SetGradient(o, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
 end
 
-local BlizzardFrameRegions = {
-	"Inset",
-	"inset",
-	"LeftInset",
-	"RightInset",
-	"NineSlice",
-	"BorderFrame",
-	"bottomInset",
-	"BottomInset",
-	"bgLeft",
-	"bgRight",
-}
-
-local function StripFrame(Frame, Kill, Alpha)
-	local FrameName = Frame:GetName()
-	for _, Blizzard in pairs(BlizzardFrameRegions) do
-		local BlizzFrame = Frame[Blizzard] or FrameName and _G[FrameName .. Blizzard]
-		if BlizzFrame then
-			StripFrame(BlizzFrame, Kill, Alpha)
-		end
-	end
-	if Frame.GetNumRegions then
-		for i = 1, Frame:GetNumRegions() do
-			local Region = select(i, Frame:GetRegions())
-			if Region and Region:IsObjectType("Texture") then
-				if Kill then
-					Region:Hide()
-					Region.Show = MER.dummy
-				elseif Alpha then
-					Region:SetAlpha(0)
-				else
-					Region:SetTexture(nil)
-				end
-			end
-		end
-	end
-end
-
 local function CreateOverlay(f)
 	if f.overlay then
 		return
@@ -130,33 +92,9 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
-function MER:CreateInnerShadow(frame, smallVersion)
-	local edgeSize = E.twoPixelsPlease and 2 or 1
-
-	local innerShadow = frame.MERInnerShadow or frame:CreateTexture(nil, "BACKGROUND", nil, 1)
-	innerShadow:SetInside(frame, edgeSize, edgeSize)
-	innerShadow:SetTexture(smallVersion and I.Media.Textures.shadowInnerSmall or I.Media.Textures.shadowInner)
-	innerShadow:SetVertexColor(1, 1, 1, 0.5)
-	innerShadow:SetBlendMode("BLEND")
-	innerShadow:Show()
-
-	frame.MERInnerShadow = innerShadow
-end
-
-local function HideBackdrop(frame)
-	if frame.NineSlice then
-		frame.NineSlice:SetAlpha(0)
-	end
-	if frame.SetBackdrop then
-		frame:SetBackdrop(nil)
-	end
-end
-
 local function addapi(object)
 	local mt = getmetatable(object).__index
-	if not object.StripFrame then
-		mt.StripFrame = StripFrame
-	end
+
 	if not object.CreateOverlay then
 		mt.CreateOverlay = CreateOverlay
 	end
@@ -166,9 +104,6 @@ local function addapi(object)
 	if not object.CreatePanel then
 		mt.CreatePanel = CreatePanel
 	end
-	if not object.HideBackdrop then
-		mt.HideBackdrop = HideBackdrop
-	end
 end
 
 local handled = { ["Frame"] = true }
@@ -176,6 +111,7 @@ local object = CreateFrame("Frame")
 addapi(object)
 addapi(object:CreateTexture())
 addapi(object:CreateFontString())
+addapi(object:CreateMaskTexture())
 
 object = EnumerateFrames()
 while object do
