@@ -41,6 +41,7 @@ L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r est une extension d'ElvU
 But if you install another Layout over mine, you must adjust it manually.
 
 |cffff8000Newest additions are marked with: |r]=]
+L["Enables the stripes/gradient look on the frames"] = true
 
 -- Core Options
 L["Login Message"] = "Message de connexion"

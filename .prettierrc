@@ -1,9 +1,9 @@
 {
 	"tabWidth": 4,
+	"trailingComma": "none",
 	"useTabs": true,
 	"bracketSpacing": false,
 	"plugins": [
 		"@prettier/plugin-lua"
-	],
-	"printWidth": 69420
+	]
 }

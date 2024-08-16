@@ -44,6 +44,7 @@ L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r ist eine Erweiterung fü
 Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell anpassen.
 
 |cffff8000Neue Features sind markiert mit einem: |r]=]
+L["Enables the stripes/gradient look on the frames"] = true
 
 -- Core Options
 L["Login Message"] = "Login Nachricht"

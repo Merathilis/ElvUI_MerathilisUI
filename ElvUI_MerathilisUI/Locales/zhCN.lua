@@ -42,6 +42,7 @@ L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r 是ElvUI的扩展. 它�
 但是如果你在我的之外安装了另一个布局，你必须手动调整它。.
 
 |cffff8000Newest additions are marked with: |r]=]
+L["Enables the stripes/gradient look on the frames"] = true
 
 -- Core Options
 L["Login Message"] = "登陆信息"

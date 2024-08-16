@@ -23,7 +23,7 @@ options.name = {
 		style = {
 			order = 2,
 			type = "group",
-			name = MER.Title .. L["Style"],
+			name = E.NewSign .. MER.Title .. L["Style"],
 			guiInline = true,
 			get = function(info)
 				return E.db.mui.style[info[#info]]
@@ -37,7 +37,7 @@ options.name = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["Enables the gradient look and the stripe look on the frames"],
+					desc = L["Enables the stripes/gradient look on the frames"],
 				},
 			},
 		},
