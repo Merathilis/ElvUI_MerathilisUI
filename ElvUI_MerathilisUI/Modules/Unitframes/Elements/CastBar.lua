@@ -54,6 +54,7 @@ end
 
 function module:PostCast(unit, unitframe)
 	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
+	local gradient = E.db.mui and E.db.mui.gradient and E.db.mui.gradient.enable
 	local castTexture = E.LSM:Fetch("statusbar", db.texture)
 	local _, class = UnitClass(unit)
 
@@ -61,33 +62,37 @@ function module:PostCast(unit, unitframe)
 		self:SetStatusBarTexture(castTexture)
 	end
 
-	if not self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient(
-			"HORIZONTAL",
-			CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1),
-			CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
-		)
-	elseif self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient(
-			"HORIZONTAL",
-			CreateColor(
-				F.ClassGradient["BADTHREAT"].r2,
-				F.ClassGradient["BADTHREAT"].g2,
-				F.ClassGradient["BADTHREAT"].b2,
-				1
-			),
-			CreateColor(
-				F.ClassGradient["BADTHREAT"].r1,
-				F.ClassGradient["BADTHREAT"].g1,
-				F.ClassGradient["BADTHREAT"].b1,
-				1
+	if gradient then
+		if not self.notInterruptible then
+			self:GetStatusBarTexture():SetGradient(
+				"HORIZONTAL",
+				CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1),
+				CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
 			)
-		)
+		elseif self.notInterruptible then
+			self:GetStatusBarTexture():SetGradient(
+				"HORIZONTAL",
+				CreateColor(
+					F.ClassGradient["BADTHREAT"].r2,
+					F.ClassGradient["BADTHREAT"].g2,
+					F.ClassGradient["BADTHREAT"].b2,
+					1
+				),
+				CreateColor(
+					F.ClassGradient["BADTHREAT"].r1,
+					F.ClassGradient["BADTHREAT"].g1,
+					F.ClassGradient["BADTHREAT"].b1,
+					1
+				)
+			)
+		end
 	end
 end
 
 function module:PostCastInterruptible(unit)
 	local db = E.db.mui and E.db.mui.unitframes and E.db.mui.unitframes.castbar
+	local gradient = E.db.mui and E.db.mui.gradient and E.db.mui.gradient.enable
+
 	if unit == "vehicle" or unit == "player" then
 		return
 	end
@@ -99,28 +104,30 @@ function module:PostCastInterruptible(unit)
 		self:SetStatusBarTexture(castTexture)
 	end
 
-	if not self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient(
-			"HORIZONTAL",
-			CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1),
-			CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
-		)
-	elseif self.notInterruptible then
-		self:GetStatusBarTexture():SetGradient(
-			"HORIZONTAL",
-			CreateColor(
-				F.ClassGradient["BADTHREAT"].r2,
-				F.ClassGradient["BADTHREAT"].g2,
-				F.ClassGradient["BADTHREAT"].b2,
-				1
-			),
-			CreateColor(
-				F.ClassGradient["BADTHREAT"].r1,
-				F.ClassGradient["BADTHREAT"].g1,
-				F.ClassGradient["BADTHREAT"].b1,
-				1
+	if gradient then
+		if not self.notInterruptible then
+			self:GetStatusBarTexture():SetGradient(
+				"HORIZONTAL",
+				CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1),
+				CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
 			)
-		)
+		elseif self.notInterruptible then
+			self:GetStatusBarTexture():SetGradient(
+				"HORIZONTAL",
+				CreateColor(
+					F.ClassGradient["BADTHREAT"].r2,
+					F.ClassGradient["BADTHREAT"].g2,
+					F.ClassGradient["BADTHREAT"].b2,
+					1
+				),
+				CreateColor(
+					F.ClassGradient["BADTHREAT"].r1,
+					F.ClassGradient["BADTHREAT"].g1,
+					F.ClassGradient["BADTHREAT"].b1,
+					1
+				)
+			)
+		end
 	end
 end
 
