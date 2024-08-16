@@ -243,6 +243,7 @@ V.skins = {
 		pawn = true,
 		sam = true,
 		mmt = true,
+		mys = true,
 		bw = {
 			enable = true,
 			queueTimer = {

@@ -15,6 +15,7 @@
 	<Script file="LibUIDropDOwnMenu.lua"/>
 	<Script file="ls_Toasts.lua"/>
 	<Script file="mMediaTag.lua"/>
+	<Script file="Myslot.lua"/>
 	<Script file="OmniCD.lua"/>
 	<Script file="Pawn.lua"/>
 	<Script file="PremadeGroupsFilter.lua"/>

@@ -553,7 +553,7 @@ function module:UpdateTitle()
 	end
 
 	if module.db.levelTitleText.short then
-		self.levelTitleText:SetText("Lv")
+		self.levelTitleText:SetText("Lvl")
 	else
 		self.levelTitleText:SetText("Level")
 	end
