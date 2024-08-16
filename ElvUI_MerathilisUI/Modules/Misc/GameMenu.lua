@@ -133,7 +133,6 @@ function module:GameMenu()
 		bottomPanel.Logo = bottomPanel:CreateTexture(nil, "OVERLAY")
 		bottomPanel.Logo:Size(100)
 		bottomPanel.Logo:SetPoint("CENTER", bottomPanel, "TOP", 0, -80)
-		-- bottomPanel.Logo:SetTexture(I.General.MediaPath .. "Textures\\mUI1.tga")
 		bottomPanel.Logo:SetTexture(I.General.MediaPath .. "Textures\\mUI1_Shadow.tga")
 
 		bottomPanel.nameText = bottomPanel:CreateFontString(nil, "OVERLAY")
