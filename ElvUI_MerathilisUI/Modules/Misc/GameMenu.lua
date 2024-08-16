@@ -7,7 +7,6 @@ local random = random
 
 local CreateFrame = CreateFrame
 local CreateAnimationGroup = CreateAnimationGroup
-local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local UIFrameFadeIn = UIFrameFadeIn
 
 local GameMenuFrame = _G.GameMenuFrame
