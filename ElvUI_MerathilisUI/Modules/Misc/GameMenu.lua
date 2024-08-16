@@ -180,10 +180,7 @@ function module:GameMenu_OnShow()
 	self.mainFrame:Show()
 
 	self.modelHolder = modelHolder
-	self.modelHolder:Show()
-
 	self.npcHolder = npcHolder
-	self.npcHolder:Show()
 end
 
 function module:GameMenu_OnHide()
