@@ -26,7 +26,6 @@ function module:ACP()
 	module:DisableAddOnSkins("ACP", false)
 
 	S:HandleFrame(_G.ACP_AddonList, true, nil, 10, nil, -30)
-	S:HandleFrame(_G.ACP_AddonList_ScrollFrame)
 	module:CreateBackdropShadow(_G.ACP_AddonList)
 
 	-- S:HandleDropDownBox(_G.ACP_AddonListSortDropDown, 120) -- :thinking:
