@@ -107,10 +107,17 @@ function F.IsSkyriding()
 end
 
 function F.CreateStyle(frame, useStripes, useShadow, useGradient)
+	if not frame or frame.MERStyle then
+		return
+	end
+
+	if frame:GetObjectType() == "Texture" then
+		frame = frame:GetParent()
+	end
+
 	local holder = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-	holder:SetInside(frame)
-	holder:SetFrameStrata(frame:GetFrameStrata())
-	holder:SetFrameLevel(frame:GetFrameLevel() or 1)
+	holder:SetOutside(frame)
+	holder:SetFrameStrata("BACKGROUND")
 
 	if not useStripes then
 		local stripes = frame.MERstripes
