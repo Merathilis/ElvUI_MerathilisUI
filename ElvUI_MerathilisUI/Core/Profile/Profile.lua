@@ -446,6 +446,21 @@ P.announcement = {
 				raidWarning = false,
 				text = L["{rt1} %player% puts %spell% {rt1}"],
 			},
+			["384911"] = {
+				--Atomic Recalibrator
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["%player% used %spell%"],
+			},
+			["290154"] = {
+				-- Ethereal Transmorpher
+				enable = true,
+				includePlayer = true,
+				raidWarning = false,
+				text = L["%player% used %spell%"],
+			},
+
 			["261602"] = {
 				-- Stampwhistle
 				enable = true,

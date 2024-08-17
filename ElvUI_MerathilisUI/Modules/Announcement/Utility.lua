@@ -222,5 +222,12 @@ function module:Utility(event, sourceName, spellId)
 		if TryAnnounce(spellId, sourceName, nil, PortalList, "portals") then
 			return
 		end
+	elseif event == "UNIT_SPELLCAST_SUCCEEDED" then
+		if TryAnnounce(spellId, sourceName, 384911) then
+			return
+		end
+		if TryAnnounce(spellId, sourceName, 290154) then
+			return
+		end
 	end
 end

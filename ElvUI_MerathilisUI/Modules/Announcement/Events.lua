@@ -15,6 +15,7 @@ module.EventList = {
 	"ITEM_CHANGED",
 	"PLAYER_ENTERING_WORLD",
 	"QUEST_LOG_UPDATE",
+	"UNIT_SPELLCAST_SUCCEEDED",
 }
 
 -- CHAT_MSG_SYSTEM: text, playerName, languageName, channelName, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName, unused, lineID, guid, bnSenderID, isMobile, isSubtitle, hideSenderInLetterbox, supressRaidIcons
@@ -42,7 +43,9 @@ end
 
 function module:COMBAT_LOG_EVENT_UNFILTERED()
 	-- https://wow.gamepedia.com/COMBAT_LOG_EVENT#Base_Parameters
-	local _, event, _, _, sourceName, _, _, _, _, _, _, spellId, _, _, _ = CombatLogGetCurrentEventInfo()
+	local timestamp, event, _, sourceGUID, sourceName, _, _, destGUID, destName, _, _, spellId, _, _, extraSpellId =
+		CombatLogGetCurrentEventInfo()
+
 	if event == "SPELL_CAST_SUCCESS" then
 		self:Utility(event, sourceName, spellId)
 	elseif event == "SPELL_SUMMON" then
