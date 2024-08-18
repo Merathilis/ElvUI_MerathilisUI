@@ -61,7 +61,18 @@ function WS:HandleCheckBox(_, check)
 				F.SetVertexColorDB(tex, db.classColor and module.ClassColor or db.color)
 				tex.SetVertexColor_Changed = tex.SetVertexColor
 				tex.SetVertexColor = function(tex, ...)
-					if self.IsUglyYellow(...) then
+					local isDefaultColor = self.IsUglyYellow(...)
+					if tex.__MERColorOverride and type(tex.__MERColorOverride) == "function" then
+						local color = tex.__MERColorOverride(...)
+						if type(color) == "table" and color.r and color.g and color.b then
+							tex:SetVertexColor_Changed(color.r, color.g, color.b, color.a)
+							return
+						elseif type(color) == "string" and color == "DEFAULT" then
+							isDefaultColor = true
+						end
+					end
+
+					if isDefaultColor then
 						local color = db.classColor and module.ClassColor or db.color
 						tex:SetVertexColor_Changed(color.r, color.g, color.b, color.a)
 					else
