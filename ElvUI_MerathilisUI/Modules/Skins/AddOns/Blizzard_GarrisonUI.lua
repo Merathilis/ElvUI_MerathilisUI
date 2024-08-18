@@ -5,28 +5,6 @@ local S = E:GetModule("Skins")
 local _G = _G
 local pairs = pairs
 
-local function SkinMissionFrame(frame)
-	if not frame then
-		return
-	end
-
-	frame:StripTextures()
-	module:CreateShadow(frame)
-	S:HandleCloseButton(frame.CloseButton)
-	frame.GarrCorners:Hide()
-
-	if frame.OverlayElements then
-		frame.OverlayElements:SetAlpha(0)
-	end
-	if frame.ClassHallIcon then
-		frame.ClassHallIcon:Hide()
-	end
-
-	if frame.MapTab then
-		frame.MapTab.ScrollContainer.Child.TiledBackground:Hide()
-	end
-end
-
 function module:Blizzard_GarrisonUI()
 	if not module:CheckDB("garrison", "garrison") then
 		return
@@ -41,7 +19,6 @@ function module:Blizzard_GarrisonUI()
 		_G.OrderHallMissionFrame,
 		_G.OrderHallCommandBar,
 		_G.BFAMissionFrame,
-		_G.CovenantMissionFrame,
 	}
 
 	local tabs = {
@@ -74,8 +51,11 @@ function module:Blizzard_GarrisonUI()
 	end
 
 	local CovenantMissionFrame = _G.CovenantMissionFrame
-	CovenantMissionFrame.RaisedBorder:SetAlpha(0)
-	SkinMissionFrame(CovenantMissionFrame)
+	CovenantMissionFrame:StripTextures()
+	module:CreateShadow(CovenantMissionFrame)
+	CovenantMissionFrame:DisableDrawLayer("OVERLAY")
+	CovenantMissionFrame:DisableDrawLayer("BORDER")
+	CovenantMissionFrame:DisableDrawLayer("BACKGROUND")
 end
 
 module:AddCallbackForAddon("Blizzard_GarrisonUI")
