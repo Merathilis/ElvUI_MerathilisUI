@@ -26,6 +26,7 @@
 	<Include file="Panels\Load_Panels.xml"/>
 	<Include file="Profiles\Load_Profiles.xml" />
 	<Include file="PvP\Load_PvP.xml"/>
+	<Include file="Quest\Load_Quest.xml"/>
 	<Include file="RaidMarkers\Load_RaidMarkers.xml"/>
 	<Include file="RBReminder\Load_RBReminder.xml"/>
 	<Include file="Tooltip\Load_Tooltip.xml"/>

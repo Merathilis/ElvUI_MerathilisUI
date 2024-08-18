@@ -67,44 +67,31 @@ options.general = {
 			name = L["Quick Delete"],
 			desc = L["This will add the 'DELETE' text to the Item Delete Dialog."],
 		},
-		selectQuestReward = {
-			order = 8,
-			type = "toggle",
-			name = L["Highest Quest Reward"],
-			desc = L["Automatically select the item with the highest reward."],
-			get = function(info)
-				return E.db.mui.misc.quest[info[#info]]
-			end,
-			set = function(info, value)
-				E.db.mui.misc.quest[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-		},
 		tradeTabs = {
-			order = 9,
+			order = 8,
 			type = "toggle",
 			name = L["Trade Tabs"],
 			desc = L["Enable Tabs on the Profession Frames"],
 		},
 		spacer = {
-			order = 10,
+			order = 9,
 			type = "description",
 			name = " ",
 		},
 		missingStats = {
-			order = 11,
+			order = 10,
 			type = "toggle",
 			name = L["Missing Stats"],
 			desc = L["Show all stats on the Character Frame"],
 		},
 		blockRequest = {
-			order = 12,
+			order = 11,
 			type = "toggle",
 			name = L["Block Join Requests"],
 			desc = L["|nIf checked, only popout join requests from friends and guild members."],
 		},
 		hotKey = {
-			order = 13,
+			order = 12,
 			type = "toggle",
 			name = L["HotKey Above CD"],
 			desc = format(

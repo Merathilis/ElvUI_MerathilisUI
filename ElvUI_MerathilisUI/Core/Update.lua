@@ -40,17 +40,12 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion and profileVersion <= 6.09 then
-		-- if E.db.mui.notification and E.db.mui.notification.vignette and type(E.db.mui.notification.vignette) ~= 'table' then
-		-- E.db.mui.notification.vignette = {}
-		-- E.db.mui.notification.rarePrint = nil
-		-- end
-
-		if MER.Media and type(MER.Media) == "table" then
-			MER.Media = nil
+	if profileVersion and profileVersion <= 6.32 then
+		if E.db.mui.misc.quest and E.db.mui.misc.quest.selectQuestReward then
+			E.db.mui.misc.quest = nil
 		end
 
-		UpdateMessage(L["Media"] .. " - " .. L["Updated Media Table"], profileVersion)
+		UpdateMessage(L["Misc"] .. " - " .. L["Highest Quest Reward"], profileVersion)
 
 		updated = true
 	end

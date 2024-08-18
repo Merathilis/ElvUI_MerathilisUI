@@ -287,9 +287,6 @@ L["Press CTRL + C to copy."] = "Drücke STRG + C zum Kopieren."
 L["Wowhead Links"] = true -- no need to translate
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] =
 	"Fügt Wowhead Links dem Erfolgfenster und der Weltkarte hinzu."
-L["Highest Quest Reward"] = "Höchste Questbelohnung"
-L["Automatically select the item with the highest reward."] =
-	"Wählt automatisch den Gegenstand mit dem höchsten Wert aus."
 L["Item Alerts"] = "Gegenstandsalarm"
 L["Announce in chat when someone placed an usefull item."] =
 	"Kündigt im Chat an, wenn jemand einen nützlichen Gegenstand stellt."
@@ -1371,6 +1368,45 @@ L["Style"] = "Stil"
 L["Height Mode"] = "Höhenmodus"
 L["Menu Title"] = "Menütitel"
 L["it shows when objective tracker is collapsed."] = "Wird angezeigt, wenn der Ziel Tracker zusammengeklappt ist."
+
+-- Quest
+L["Switch Buttons"] = "Wechsel Tasten"
+L["Add a bar that contains buttons to enable/disable modules quickly."] =
+	"Das Hinzufügen einer Leiste enthält Schaltflächen zum schnellen Aktivieren / Deaktivieren von Modulen."
+L["Hide With Objective Tracker"] = "Verstecke mit Questtracker"
+L["Bar Backdrop"] = "Leistenhintergrund"
+L["Announcement"] = "Ankündigungen"
+L["Quest"] = true
+L["Turn In"] = "Annehmen"
+L["Make quest acceptance and completion automatically."] = "Quest automatisch annehmen und abschließen."
+L["Mode"] = "Auswahl"
+L["Only Accept"] = "Nur Angenommene"
+L["Only Complete"] = "Nur Abgeschlossene"
+L["Pause On Press"] = "Pause beim drücken"
+L["Pause the automation by pressing a modifier key."] =
+	"Unterbreche die Automatisierung, indem Du eine Modifizierertaste drückst."
+L["Reward"] = "Belohnung"
+L["Select Reward"] = "Wähle Belohnung"
+L["If there are multiple items in the reward list, it will select the reward with the highest sell price."] =
+	"Wenn die Belohnungsliste mehrere Artikel enthält, wird die Belohnung mit dem höchsten Verkaufspreis ausgewählt."
+L["Get Best Reward"] = "Beste Belohnung erhalten"
+L["Complete the quest with the most valuable reward."] = "Schließe die Quest mit der wertvollsten Belohnung ab."
+L["Smart Chat"] = "Intelligenter Chat"
+L["Chat with NPCs smartly. It will automatically select the best option for you."] =
+	"Chatte intelligent mit NPCs. Es wird automatisch die beste Option für Dich auswählen."
+L["Dark Moon"] = "Dunkelmond"
+L["Accept the teleportation from Darkmoon Faire Mystic Mage automatically."] =
+	"Akzeptiere die automatische Teleportation von Mystische Magierin des Dunkelmond-Jahrmarkts."
+L["Follower Assignees"] = "Begleiter Assignees"
+L["Open the window of follower recruit automatically."] = "Öffne das Fenster zum Begleiter rekrutieren automatisch."
+L["Ignored NPCs"] = "Ingnoriere NPC`s"
+L["If you add the NPC into the list, all automation will do not work for it."] =
+	"Wenn du den NPC zur Liste hinzufügen, funktioniert die gesamte Automatisierung nicht."
+L["Ignore List"] = "Ingnoriere Liste"
+L["Add Target"] = "Ziel hinzufügen"
+L["Make sure you select the NPC as your target."] = "Stelle sicher, dass du den NPC als Ziel auswählst."
+L["Delete"] = "Löschen"
+L["Delete the selected NPC."] = "Lösche den ausgewählten NPC."
 
 -- Filter
 L["Filter"] = true -- no need to translate

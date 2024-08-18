@@ -188,6 +188,33 @@ P.blizzard = {
 	},
 }
 
+P.quest = {
+	switchButtons = {
+		enable = true,
+		tooltip = true,
+		backdrop = false,
+		font = {
+			name = E.db.general.font,
+			size = 12,
+			style = "OUTLINE",
+			color = { r = 1, g = 0.82, b = 0 },
+		},
+		announcement = true,
+		turnIn = true,
+	},
+	turnIn = {
+		enable = true,
+		mode = "ALL",
+		smartChat = true,
+		selectReward = true,
+		getBestReward = false,
+		darkmoon = true,
+		followerAssignees = true,
+		pauseModifier = "SHIFT",
+		customIgnoreNPCs = {},
+	},
+}
+
 P.CombatAlert = {
 	enable = true,
 	font = {
@@ -533,9 +560,6 @@ P.announcement = {
 
 P.misc = {
 	gmotd = true,
-	quest = {
-		selectQuestReward = true,
-	},
 	spellAlert = {
 		enable = true,
 		scale = 0.65,

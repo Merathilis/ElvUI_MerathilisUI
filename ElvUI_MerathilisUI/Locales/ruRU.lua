@@ -301,8 +301,6 @@ L["Wowhead Links"] = "Ссылки на Wowhead"
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] =
 	"Добавляет ссылки Wowhead на рамку достижений и карты мира."
 L["Highest Quest Reward"] = "Наивысшая награда за задание"
-L["Automatically select the item with the highest reward."] =
-	"Автоматически выбирает предмет с самой высокой наградой."
 L["Item Alerts"] = "Оповещения о предметах"
 L["Announce in chat when someone placed an usefull item."] =
 	"Сообщите в чат, когда кто-то разместил полезный предмет."
@@ -1422,6 +1420,39 @@ L["Height Mode"] = "Режим высоты"
 L["Menu Title"] = "Название меню"
 L["it shows when objective tracker is collapsed."] =
 	"он показывает, когда объектный трекер свернут."
+
+-- Quest
+L["Switch Buttons"] = true
+L["Add a bar that contains buttons to enable/disable modules quickly."] = true
+L["Hide With Objective Tracker"] = true
+L["Bar Backdrop"] = true
+L["Announcement"] = true
+L["Quest"] = true
+L["Turn In"] = true
+L["Make quest acceptance and completion automatically."] = true
+L["Mode"] = true
+L["Only Accept"] = true
+L["Only Complete"] = true
+L["Pause On Press"] = true
+L["Pause the automation by pressing a modifier key."] = true
+L["Reward"] = true
+L["Select Reward"] = true
+L["If there are multiple items in the reward list, it will select the reward with the highest sell price."] = true
+L["Get Best Reward"] = true
+L["Complete the quest with the most valuable reward."] = true
+L["Smart Chat"] = true
+L["Chat with NPCs smartly. It will automatically select the best option for you."] = true
+L["Dark Moon"] = true
+L["Accept the teleportation from Darkmoon Faire Mystic Mage automatically."] = true
+L["Follower Assignees"] = true
+L["Open the window of follower recruit automatically."] = true
+L["Ignored NPCs"] = true
+L["If you add the NPC into the list, all automation will do not work for it."] = true
+L["Ignore List"] = true
+L["Add Target"] = true
+L["Make sure you select the NPC as your target."] = true
+L["Delete"] = true
+L["Delete the selected NPC."] = true
 
 -- Filter
 L["Filter"] = "Фильтр"

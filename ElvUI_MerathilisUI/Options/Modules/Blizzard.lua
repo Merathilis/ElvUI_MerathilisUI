@@ -2,6 +2,8 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local OT = MER:GetModule("MER_ObjectiveTracker")
 local FL = MER:GetModule("MER_FriendsList")
 local FT = MER:GetModule("MER_Filter")
+local TI = MER:GetModule("MER_TurnIn")
+local SB = MER:GetModule("MER_SwitchButtons")
 local options = MER.options.modules.args
 local LSM = E.Libs.LSM
 
@@ -1144,6 +1146,355 @@ options.blizzard.args.friendsList = {
 							end,
 						},
 					},
+				},
+			},
+		},
+	},
+}
+
+options.blizzard.args.turnIn = {
+	order = 7,
+	type = "group",
+	name = L["Turn In"],
+	get = function(info)
+		return E.db.mui.quest.turnIn[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.quest.turnIn[info[#info]] = value
+	end,
+	args = {
+		desc = {
+			order = 1,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = L["Make quest acceptance and completion automatically."],
+					fontSize = "medium",
+				},
+			},
+		},
+		enable = {
+			order = 2,
+			type = "toggle",
+			name = L["Enable"],
+			set = function(info, value)
+				E.db.mui.quest.turnIn[info[#info]] = value
+				TI:ProfileUpdate()
+				SB:ProfileUpdate()
+			end,
+			width = "full",
+		},
+		mode = {
+			order = 3,
+			type = "select",
+			name = L["Mode"],
+			disabled = function()
+				return not E.db.mui.quest.turnIn.enable
+			end,
+			values = {
+				ALL = L["All"],
+				ACCEPT = L["Only Accept"],
+				COMPLETE = L["Only Complete"],
+			},
+		},
+		pauseModifier = {
+			order = 4,
+			type = "select",
+			name = L["Pause On Press"],
+			desc = L["Pause the automation by pressing a modifier key."],
+			disabled = function()
+				return not E.db.mui.quest.turnIn.enable
+			end,
+			values = {
+				ANY = L["Any"],
+				ALT = L["Alt Key"],
+				CTRL = L["Ctrl Key"],
+				SHIFT = L["Shift Key"],
+				NONE = L["None"],
+			},
+		},
+		reward = {
+			order = 5,
+			type = "group",
+			inline = true,
+			name = L["Reward"],
+			disabled = function()
+				return not E.db.mui.quest.turnIn.enable
+			end,
+			args = {
+				selectReward = {
+					order = 1,
+					type = "toggle",
+					name = L["Select Reward"],
+					desc = L["If there are multiple items in the reward list, it will select the reward with the highest sell price."],
+					disabled = function()
+						return not E.db.mui.quest.turnIn.enable or E.db.mui.quest.turnIn.mode == "ACCEPT"
+					end,
+				},
+				getBestReward = {
+					order = 2,
+					type = "toggle",
+					name = L["Get Best Reward"],
+					desc = L["Complete the quest with the most valuable reward."],
+					disabled = function()
+						return not E.db.mui.quest.turnIn.enable
+							or E.db.mui.quest.turnIn.mode == "ACCEPT"
+							or not E.db.mui.quest.turnIn.selectReward
+					end,
+				},
+			},
+		},
+		smartChat = {
+			order = 6,
+			type = "group",
+			inline = true,
+			name = L["Smart Chat"],
+			disabled = function()
+				return not E.db.mui.quest.turnIn.enable
+			end,
+			args = {
+				smartChat = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Chat with NPCs smartly. It will automatically select the best option for you."],
+					disabled = function()
+						return not E.db.mui.quest.turnIn.enable
+					end,
+				},
+				darkmoon = {
+					order = 2,
+					type = "toggle",
+					name = L["Dark Moon"],
+					desc = L["Accept the teleportation from Darkmoon Faire Mystic Mage automatically."],
+					disabled = function()
+						return not E.db.mui.quest.turnIn.enable or not E.db.mui.quest.turnIn.smartChat
+					end,
+				},
+				followerAssignees = {
+					order = 3,
+					type = "toggle",
+					name = L["Follower Assignees"],
+					desc = L["Open the window of follower recruit automatically."],
+					disabled = function()
+						return not E.db.mui.quest.turnIn.enable or not E.db.mui.quest.turnIn.smartChat
+					end,
+				},
+			},
+		},
+		ignore = {
+			order = 7,
+			type = "group",
+			inline = true,
+			name = L["Ignored NPCs"],
+			disabled = function()
+				return not E.db.mui.quest.turnIn.enable
+			end,
+			args = {
+				description = {
+					order = 1,
+					type = "description",
+					name = "\n" .. L["If you add the NPC into the list, all automation will do not work for it."],
+					width = "full",
+				},
+				list = {
+					order = 2,
+					type = "select",
+					name = L["Ignore List"],
+					get = function()
+						return customListSelected
+					end,
+					set = function(_, value)
+						customListSelected = value
+					end,
+					values = function()
+						local list = E.db.mui.quest.turnIn.customIgnoreNPCs
+						local result = {}
+						for key, value in pairs(list) do
+							result[tostring(key)] = value
+						end
+						return result
+					end,
+				},
+				addButton = {
+					order = 3,
+					type = "execute",
+					name = L["Add Target"],
+					desc = L["Make sure you select the NPC as your target."],
+					func = function()
+						TI:AddTargetToBlacklist()
+					end,
+				},
+				deleteButton = {
+					order = 4,
+					type = "execute",
+					name = L["Delete"],
+					desc = L["Delete the selected NPC."],
+					func = function()
+						if customListSelected then
+							local list = E.db.mui.quest.turnIn.customIgnoreNPCs
+							list[tonumber(customListSelected)] = nil
+						end
+					end,
+				},
+			},
+		},
+	},
+}
+
+options.blizzard.args.switchButtons = {
+	order = 8,
+	type = "group",
+	name = L["Switch Buttons"],
+	get = function(info)
+		return E.db.mui.quest.switchButtons[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.quest.switchButtons[info[#info]] = value
+		SB:ProfileUpdate()
+	end,
+	args = {
+		desc = {
+			order = 1,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = L["Add a bar that contains buttons to enable/disable modules quickly."],
+					fontSize = "medium",
+				},
+			},
+		},
+		enable = {
+			order = 2,
+			type = "toggle",
+			name = L["Enable"],
+			width = "full",
+		},
+		hideWithObjectiveTracker = {
+			order = 3,
+			type = "toggle",
+			name = L["Hide With Objective Tracker"],
+			disabled = function()
+				return not E.db.mui.quest.switchButtons.enable
+			end,
+			width = 1.5,
+		},
+		tooltip = {
+			order = 4,
+			type = "toggle",
+			disabled = function()
+				return not E.db.mui.quest.switchButtons.enable
+			end,
+			name = L["Tooltip"],
+		},
+		backdrop = {
+			order = 5,
+			type = "toggle",
+			disabled = function()
+				return not E.db.mui.quest.switchButtons.enable
+			end,
+			name = L["Bar Backdrop"],
+		},
+		font = {
+			order = 6,
+			type = "group",
+			inline = true,
+			name = L["Font Setting"],
+			disabled = function()
+				return not E.db.mui.quest.switchButtons.enable
+			end,
+			get = function(info)
+				return E.db.mui.quest.switchButtons.font[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.quest.switchButtons.font[info[#info]] = value
+				SB:UpdateLayout()
+			end,
+			args = {
+				name = {
+					order = 1,
+					type = "select",
+					dialogControl = "LSM30_Font",
+					name = L["Font"],
+					values = LSM:HashTable("font"),
+				},
+				style = {
+					order = 2,
+					type = "select",
+					name = L["Outline"],
+					values = {
+						NONE = L["None"],
+						OUTLINE = L["OUTLINE"],
+						THICKOUTLINE = L["THICKOUTLINE"],
+						SHADOW = L["SHADOW"],
+						SHADOWOUTLINE = L["SHADOWOUTLINE"],
+						SHADOWTHICKOUTLINE = L["SHADOWTHICKOUTLINE"],
+						MONOCHROME = L["MONOCHROME"],
+						MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+						MONOCHROMETHICKOUTLINE = L["MONOCHROMETHICKOUTLINE"],
+					},
+				},
+				size = {
+					order = 3,
+					name = L["Size"],
+					type = "range",
+					min = 5,
+					max = 60,
+					step = 1,
+				},
+				color = {
+					order = 4,
+					type = "color",
+					name = L["Color"],
+					hasAlpha = false,
+					get = function(_)
+						local db = E.db.mui.quest.switchButtons.font.color
+						local default = P.quest.switchButtons.font.color
+						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+					end,
+					set = function(_, r, g, b)
+						local db = E.db.mui.quest.switchButtons.font.color
+						db.r, db.g, db.b = r, g, b
+						SB:UpdateLayout()
+					end,
+				},
+			},
+		},
+		modules = {
+			order = 6,
+			type = "group",
+			inline = true,
+			name = L["Modules"],
+			disabled = function()
+				return not E.db.mui.quest.switchButtons.enable
+			end,
+			get = function(info)
+				return E.db.mui.quest.switchButtons[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.quest.switchButtons[info[#info]] = value
+				SB:UpdateLayout()
+			end,
+			args = {
+				announcement = {
+					order = 1,
+					type = "toggle",
+					name = L["Announcement"] .. " (" .. L["Quest"] .. ")",
+					width = 1.667,
+				},
+				turnIn = {
+					order = 2,
+					type = "toggle",
+					name = L["Turn In"],
+					width = 1.667,
 				},
 			},
 		},

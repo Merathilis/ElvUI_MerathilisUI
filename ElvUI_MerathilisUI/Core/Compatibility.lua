@@ -423,6 +423,20 @@ function MER:CheckCompatibility()
 		"db.WT.social.chatText.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["Quest"], L["Turn In"]),
+		format("%s-%s", L["Quest"], L["Turn In"]),
+		"db.mui.quest.turnIn.enable",
+		"db.WT.quest.turnIn.enable"
+	)
+
+	CheckWindtools(
+		format("%s-%s", L["Quest"], L["Switch Buttons"]),
+		format("%s-%s", L["Quest"], L["Switch Buttons"]),
+		"db.mui.quest.switchButtons.enable",
+		"db.WT.quest.switchButtons.enable"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],
