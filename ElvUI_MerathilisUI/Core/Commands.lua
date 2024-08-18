@@ -118,9 +118,12 @@ function MER:HandleChatCommand(msg)
 	elseif category == "install" or category == "i" then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	elseif F.IsMERProfile() then
-		self:LogInfo("Usage: /tx cl; changelog; install; i; info; settings; status; wb; debug")
+		F.Developer.LogInfo("Usage: /mer cl; changelog; install; i; info; settings; status")
 	else
-		F.Developer.LogWarning("Usage: /mer cl; changelog; install; i; settings")
+		F.Developer.LogInfo(
+			"You are not using a " .. MER.Title .. " profile. Please install " .. MER.Title .. " first."
+		)
+		F.Developer.LogInfo("Usage: /mer cl; changelog; install; i; settings")
 	end
 end
 
