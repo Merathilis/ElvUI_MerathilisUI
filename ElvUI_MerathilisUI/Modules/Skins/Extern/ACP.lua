@@ -18,6 +18,19 @@ local function cbResize(self, event, ...)
 	end
 end
 
+local function HandleDropdown(frame)
+	frame:Width(200)
+	frame:Height(32)
+	frame:StripTextures()
+	frame:CreateBackdrop()
+	frame:SetFrameLevel(frame:GetFrameLevel() + 2)
+	frame.backdrop:Point("TOPLEFT", 20, 1)
+	frame.backdrop:Point("BOTTOMRIGHT", frame.Button, "BOTTOMRIGHT", 2, -2)
+	S:HandleNextPrevButton(frame.Button, "down")
+	frame.Text:ClearAllPoints()
+	frame.Text:Point("RIGHT", frame.Button, "LEFT", -2, 0)
+end
+
 function module:ACP()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.acp then
 		return
@@ -28,7 +41,7 @@ function module:ACP()
 	S:HandleFrame(_G.ACP_AddonList, true, nil, 10, nil, -30)
 	module:CreateBackdropShadow(_G.ACP_AddonList)
 
-	-- S:HandleDropDownBox(_G.ACP_AddonListSortDropDown, 120) -- :thinking:
+	HandleDropdown(_G.ACP_AddonListSortDropDown)
 	S:HandleScrollBar(_G.ACP_AddonList_ScrollFrameScrollBar)
 
 	S:HandleButton(_G.ACP_AddonListSetButton)
