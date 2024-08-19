@@ -437,6 +437,20 @@ function MER:CheckCompatibility()
 		"db.WT.quest.switchButtons.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["Tooltip"], L["Race Icon"]),
+		format("%s-%s-%s-%s", L["Tooltips"], L["General"], L["ElvUI Tooltip Tweaks"], L["Race Icon"]),
+		"db.mui.tooltip.raceIcon",
+		"db.WT.tooltips.elvUITweaks.raceIcon"
+	)
+
+	CheckWindtools(
+		format("%s-%s", L["Tooltip"], L["Spec Icon"]),
+		format("%s-%s-%s-%s", L["Tooltips"], L["General"], L["ElvUI Tooltip Tweaks"], L["Spec Icon"]),
+		"db.mui.tooltip.specIcon",
+		"db.WT.tooltips.elvUITweaks.specIcon"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],

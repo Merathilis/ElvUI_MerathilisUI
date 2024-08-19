@@ -6,15 +6,16 @@ local pairs = pairs
 local pcall = pcall
 local tinsert = table.insert
 
-local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata
+local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
 local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown
 
-local GetCVarBool = C_CVar and C_CVar.GetCVarBool
-local IsPlayerAuthenticatedForLFG = C_LFGList and C_LFGList.IsPlayerAuthenticatedForLFG
-local GetPlaystyleString = C_LFGList and C_LFGList.GetPlaystyleString
-local GetLfgCategoryInfo = C_LFGList and C_LFGList.GetLfgCategoryInfo
+local GetCVarBool = C_CVar.GetCVarBool
+local IsPlayerAuthenticatedForLFG = C_LFGList.IsPlayerAuthenticatedForLFG
+local GetPlaystyleString = C_LFGList.GetPlaystyleString
+local GetLfgCategoryInfo = C_LFGList.GetLfgCategoryInfo
+local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
 
 MER.dummy = function()
 	return
@@ -228,5 +229,21 @@ function MER:FixGame()
 				E:StaticPopup_Show("MERATHILISUI_BUTTON_FIX_RELOAD")
 			end
 		end)
+	end
+end
+
+MER.SpecializationInfo = {}
+
+function MER:InitializeMetadata()
+	for classID = 1, 13 do
+		local class = {}
+		for specIndex = 1, 4 do
+			local data = { GetSpecializationInfoForClassID(classID, specIndex) }
+			if #data > 0 then
+				tinsert(class, { specID = data[1], name = data[2], icon = data[4], role = data[5] })
+			end
+		end
+
+		tinsert(MER.SpecializationInfo, class)
 	end
 end

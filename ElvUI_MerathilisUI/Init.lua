@@ -188,6 +188,7 @@ function MER:Initialize()
 	self:InitializeModules()
 
 	self:AddMoverCategories()
+	self:InitializeMetadata()
 
 	EP:RegisterPlugin(addon, MER.OptionsCallback)
 	self:SecureHook(E, "UpdateAll", "UpdateModules")

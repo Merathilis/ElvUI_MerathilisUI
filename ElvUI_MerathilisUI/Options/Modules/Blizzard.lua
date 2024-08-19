@@ -1155,7 +1155,7 @@ options.blizzard.args.friendsList = {
 options.blizzard.args.turnIn = {
 	order = 7,
 	type = "group",
-	name = L["Turn In"],
+	name = E.NewSign .. L["Turn In"],
 	get = function(info)
 		return E.db.mui.quest.turnIn[info[#info]]
 	end,
@@ -1349,7 +1349,7 @@ options.blizzard.args.turnIn = {
 options.blizzard.args.switchButtons = {
 	order = 8,
 	type = "group",
-	name = L["Switch Buttons"],
+	name = E.NewSign .. L["Switch Buttons"],
 	get = function(info)
 		return E.db.mui.quest.switchButtons[info[#info]]
 	end,
