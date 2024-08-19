@@ -107,7 +107,7 @@ function F.IsSkyriding()
 end
 
 function F.CreateStyle(frame, useStripes, useShadow, useGradient)
-	if not frame or frame.MERStyle then
+	if not frame or frame.__MERStyle or frame.MERStyle then
 		return
 	end
 
@@ -118,10 +118,11 @@ function F.CreateStyle(frame, useStripes, useShadow, useGradient)
 	local holder = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 	holder:SetOutside(frame)
 	holder:SetFrameStrata("BACKGROUND")
+	holder:SetFrameLevel(frame:GetFrameLevel() or 1)
 
 	if not useStripes then
-		local stripes = frame.MERstripes
-			or frame:CreateTexture(frame:GetName() and frame:GetName() .. "Overlay" or nil, "BORDER")
+		local stripes = holder.MERstripes
+			or holder:CreateTexture(holder:GetName() and holder:GetName() .. "Overlay" or nil, "BORDER")
 		stripes:ClearAllPoints()
 		stripes:Point("TOPLEFT", 1, -1)
 		stripes:Point("BOTTOMRIGHT", -1, 1)
@@ -130,31 +131,32 @@ function F.CreateStyle(frame, useStripes, useShadow, useGradient)
 		stripes:SetVertTile(true)
 		stripes:SetBlendMode("ADD")
 
-		frame.MERstripes = stripes
+		holder.MERstripes = stripes
 	end
 
 	if not useShadow then
-		local mshadow = frame.mShadow
-			or frame:CreateTexture(frame:GetName() and frame:GetName() .. "Overlay" or nil, "BORDER")
-		mshadow:SetInside(frame, 0, 0)
+		local mshadow = holder.mShadow
+			or holder:CreateTexture(holder:GetName() and holder:GetName() .. "Overlay" or nil, "BORDER")
+		mshadow:SetInside(holder)
 		mshadow:Width(33)
 		mshadow:Height(33)
 		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Overlay]])
 		mshadow:SetVertexColor(1, 1, 1, 0.6)
 
-		frame.mShadow = mshadow
+		holder.mShadow = mshadow
 	end
 
 	if not useGradient then
-		local tex = frame.MERgradient or frame:CreateTexture(nil, "BORDER")
-		tex:SetInside(frame)
+		local tex = holder.MERgradient or holder:CreateTexture(nil, "BORDER")
+		tex:SetInside(holder)
 		tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\gradient.tga]])
 		tex:SetVertexColor(0.3, 0.3, 0.3, 0.15)
 
-		frame.MERgradient = tex
+		holder.MERgradient = tex
 	end
 
 	frame.MERStyle = holder
+	frame.__MERStyle = 1
 end
 
 function F.ChooseForGradient(normalValue, gradientValue)
