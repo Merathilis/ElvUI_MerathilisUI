@@ -451,6 +451,13 @@ function MER:CheckCompatibility()
 		"db.WT.tooltips.elvUITweaks.specIcon"
 	)
 
+	CheckWindtools(
+		L["Delete Item"],
+		format("%s-%s", L["Item"], L["Delete Item"]),
+		"db.mui.item.delete.enable",
+		"db.WT.item.delete.enable"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],
