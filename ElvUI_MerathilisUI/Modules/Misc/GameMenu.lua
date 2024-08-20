@@ -37,8 +37,7 @@ function module:GameMenu_OnShow()
 	local iconsDb = E.db.mui.armory.icons
 	local guildName = GetGuildInfo("player")
 
-	local fallback = iconsDb and iconsDb[0] or ""
-	local specIcon
+	local specIcon = ""
 
 	local _, classId = UnitClassBase("player")
 	local specIndex = GetSpecialization()
@@ -93,7 +92,7 @@ function module:GameMenu_OnShow()
 	bottomPanel.specIcon:SetFont("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Fonts\\ToxiUIIcons.ttf", 20, "OUTLINE")
 	bottomPanel.specIcon:SetPoint("TOP", bottomPanel.guildText, "BOTTOM", 0, -15)
 	bottomPanel.specIcon:SetTextColor(1, 1, 1, 1)
-	bottomPanel.specIcon:SetText(F.String.Class(specIcon and specIcon or fallback))
+	bottomPanel.specIcon:SetText(F.String.Class(specIcon))
 
 	bottomPanel.levelText = bottomPanel:CreateFontString(nil, "OVERLAY")
 	bottomPanel.levelText:FontTemplate(nil, 20, "OUTLINE")

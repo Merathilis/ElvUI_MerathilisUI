@@ -191,7 +191,7 @@ function module:SetUnitText(_, tt, unit, isPlayerUnit)
 	end
 
 	local db = self.db
-	if not db or db.specIcon and not db.raceIcon then
+	if not db or not db.specIcon and not db.raceIcon then
 		return
 	end
 
@@ -241,8 +241,6 @@ function module:SetUnitText(_, tt, unit, isPlayerUnit)
 			local nameColor = E:ClassColor(class) or _G.RAID_CLASS_COLORS_PRIEST
 
 			local specIcon
-
-			-- Because inspect need some extra time, we can extract the sepcialization info just from the text
 			if db.specIcon and classID and MER.SpecializationInfo[classID] then
 				for _, spec in next, MER.SpecializationInfo[classID] do
 					if strfind(specText, spec.name) then
