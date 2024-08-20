@@ -16,6 +16,7 @@
 	<Include file="Datatexts\Load_Datatexts.xml"/>
 	<Include file="Databars\Load_Databars.xml"/>
 	<Include file="ExtendedVendor\Load_ExtendedVendor.xml"/>
+	<Include file="Item\Load_Item.xml"/>
 	<Include file="ItemLevel\Load_ItemLevel.xml"/>
 	<Include file="Mail\Load_Mail.xml"/>
 	<Include file="Maps\Load_Maps.xml"/>

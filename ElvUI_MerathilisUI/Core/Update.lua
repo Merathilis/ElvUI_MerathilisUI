@@ -47,6 +47,12 @@ function MER:UpdateScripts() -- DB Convert
 
 		UpdateMessage(L["Misc"] .. " - " .. L["Highest Quest Reward"], profileVersion)
 
+		if E.db.mui.misc.quickDelete then
+			E.db.mui.misc.quickDelete = nil
+		end
+
+		UpdateMessage(L["Misc"] .. " - " .. L["Quick Delete"], profileVersion)
+
 		updated = true
 	end
 

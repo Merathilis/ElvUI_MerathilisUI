@@ -1473,6 +1473,20 @@ L["Animations"] = "Animationen"
 L["Animation Speed"] = "Animations Geschwindigkeit"
 L["Skyriding Bar"] = "Flugleiste"
 
+-- Delete Item
+L["Delete Item"] = "Lösche Item"
+L["This module provides several easy-to-use methods of deleting items."] =
+	"Dieses Modul bietet verschiedene benutzerfreundliche Methoden zum Löschen von Elementen."
+L["Use Delete Key"] = "Verwende Löschtaste"
+L["Allow you to use Delete Key for confirming deleting."] =
+	"Ermöglicht die Verwendung der Entf-Taste zum Bestätigen des Löschens."
+L["Fill In"] = "Füllen"
+L["Disable"] = "Deaktivieren"
+L["Fill by click"] = "Mit Klick einfügen"
+L["Auto Fill"] = "Auto Einfügen"
+L["Press the |cffffd200Delete|r key as confirmation."] = "Drücke zur Bestätigung die Taste |cffffd200Entfernen|r."
+L["Click to confirm"] = "Klicke zur Bestätigung"
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.
 

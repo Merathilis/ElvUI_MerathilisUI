@@ -48,16 +48,6 @@ end
 function module:Misc()
 	self.db = E.db.mui.misc
 
-	-- Quick delete
-	local deleteDialog = StaticPopupDialogs["DELETE_GOOD_ITEM"]
-	if deleteDialog.OnShow then
-		hooksecurefunc(deleteDialog, "OnShow", function(self)
-			if E.db.mui.misc.quickDelete then
-				self.editBox:SetText(_G.DELETE_ITEM_CONFIRM_STRING)
-			end
-		end)
-	end
-
 	E.RegisterCallback(module, "RoleChanged", "SetRole")
 	module:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
 	module:RegisterEvent("GROUP_INVITE_CONFIRMATION", "BlockRequest")

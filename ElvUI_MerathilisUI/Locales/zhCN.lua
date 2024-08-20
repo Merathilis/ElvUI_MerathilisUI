@@ -1343,6 +1343,18 @@ L["Animations"] = true
 L["Animation Speed"] = true
 L["Skyriding Bar"] = true
 
+-- Delete Item
+L["Delete Item"] = true
+L["This module provides several easy-to-use methods of deleting items."] = true
+L["Use Delete Key"] = true
+L["Allow you to use Delete Key for confirming deleting."] = true
+L["Fill In"] = true
+L["Disable"] = true
+L["Fill by click"] = true
+L["Auto Fill"] = true
+L["Press the |cffffd200Delete|r key as confirmation."] = true
+L["Click to confirm"] = true
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.
 

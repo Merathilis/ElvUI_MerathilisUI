@@ -568,7 +568,6 @@ P.misc = {
 	wowheadlinks = true,
 	respec = true,
 	hideBossBanner = false,
-	quickDelete = true,
 	tradeTabs = true,
 	alreadyKnown = {
 		enable = true,
@@ -1886,6 +1885,14 @@ P.tooltip = {
 		mode = "NORMAL",
 		classIconStyle = "flat",
 		template = "{{classIcon:18}} {{specIcon:14,18}} {{classColorStart}}{{className}} ({{specName}}){{classColorEnd}}{{amountStart}} x {{amount}}{{amountEnd}}",
+	},
+}
+
+P.item = {
+	delete = {
+		enable = true,
+		delKey = true,
+		fillIn = "CLICK",
 	},
 }
 
