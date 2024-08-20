@@ -1986,6 +1986,10 @@ P.scale = {
 		scale = 1,
 	},
 
+	groupFinder = {
+		scale = 1,
+	},
+
 	wardrobe = {
 		scale = 1,
 	},

@@ -102,7 +102,6 @@ function module:ScaleProfessions()
 end
 
 function module:Scale()
-	-- Check if the db exist
 	if not E.db and not E.db.mui then
 		F.Developer.LogDebug("Scaling >> Database not found. Scalling is not loaded!")
 		return
@@ -114,6 +113,7 @@ function module:Scale()
 
 	module:SetElementScale("characterFrame", "CharacterFrame")
 	module:SetElementScale("dressingRoom", "DressUpFrame")
+	module:SetElementScale("groupFinder", "PVEFrame")
 
 	module:AddCallbackOrScale("Blizzard_InspectUI", self.ScaleInspectUI)
 	module:AddCallbackOrScale("Blizzard_PlayerSpells", self.ScaleTalents)

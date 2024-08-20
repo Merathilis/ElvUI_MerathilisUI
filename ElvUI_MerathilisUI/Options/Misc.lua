@@ -202,9 +202,6 @@ options.spellAlert = {
 				SA:Update()
 				SA:Preview()
 			end,
-			disabled = function()
-				return not E.db.mui.misc.spellAlert.enable
-			end,
 		},
 	},
 }
@@ -418,6 +415,21 @@ options.scale = {
 							E:StaticPopup_Show("CONFIG_RL")
 						end
 					end,
+				},
+				groupFinder = {
+					order = 7,
+					type = "range",
+					name = L["Group Finder"],
+					get = function(_)
+						return E.db.mui.scale.groupFinder.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.groupFinder.scale = value
+						MI:Scale()
+					end,
+					min = 0.5,
+					max = 3,
+					step = 0.05,
 				},
 			},
 		},
