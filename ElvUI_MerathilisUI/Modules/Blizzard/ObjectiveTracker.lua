@@ -199,9 +199,9 @@ function module:ObjectiveTrackerModule_Update(tracker)
 		tracker.Header.Text:SetShadowOffset(1, -1)
 		tracker.Header.Text:SetShadowColor(0, 0, 0)
 
-		local r = self.db.header.classColor and MER.ClassColor.r or self.db.header.color.r
-		local g = self.db.header.classColor and MER.ClassColor.g or self.db.header.color.g
-		local b = self.db.header.classColor and MER.ClassColor.b or self.db.header.color.b
+		local r = self.db and self.db.header and self.db.header.classColor and MER.ClassColor.r or self.db.header.color.r
+		local g = self.db and self.db.header and self.db.header.classColor and MER.ClassColor.g or self.db.header.color.g
+		local b = self.db and self.db.header and self.db.header.classColor and MER.ClassColor.b or self.db.header.color.b
 
 		tracker.Header.Text:SetTextColor(r, g, b)
 		if self.db.header.shortHeader then
