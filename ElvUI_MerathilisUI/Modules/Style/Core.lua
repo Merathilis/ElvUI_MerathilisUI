@@ -185,12 +185,7 @@ end
 
 function module:MetatableScan()
 	local handled = {
-		Region = true,
-		Texture = true,
-		Cooldown = true,
-		Slider = true,
-		ScrollFrame = true,
-		ModelScene = true,
+		Frame = true,
 	}
 
 	local object = CreateFrame("Frame")
