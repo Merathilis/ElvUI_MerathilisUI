@@ -4,6 +4,10 @@ I.General = {
 	AddOnPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\",
 	MediaPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\",
 	ElvUIMediaPath = "Interface\\Addons\\ElvUI\\Core\\Media\\",
+
+	DefaultFont = "- Expressway",
+	DefaultFontSize = 10,
+	DefaultFontOutline = "SHADOWOUTLINE",
 }
 
 I.Fonts = {

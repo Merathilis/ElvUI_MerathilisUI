@@ -117,14 +117,7 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 			isStatusBar = true
 		elseif E.statusBars[parent] ~= nil then
 			isStatusBar = true
-		elseif
-			parent.IsObjectType
-			and (
-				parent:IsObjectType("EditBox")
-				or parent:IsObjectType("Slider")
-				or parent:IsObjectType("CheckButton") and frame.mask
-			)
-		then
+		elseif parent.IsObjectType and (parent:IsObjectType("EditBox") or parent:IsObjectType("Slider")) then
 			return
 		end
 	end
