@@ -92,6 +92,13 @@ function module:CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
+function module:UpdateTemplateStrata(frame)
+	if frame.MERStyle then
+		frame.MERStyle:SetFrameLevel(frame:GetFrameLevel())
+		frame.MERStyle:SetFrameStrata(frame:GetFrameStrata())
+	end
+end
+
 function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitFrameElement, isNamePlateElement)
 	template = template or frame.template or "Default"
 	glossTex = glossTex or frame.glossTex or nil
@@ -110,7 +117,14 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 			isStatusBar = true
 		elseif E.statusBars[parent] ~= nil then
 			isStatusBar = true
-		elseif parent.IsObjectType and (parent:IsObjectType("EditBox") or parent:IsObjectType("Slider")) then
+		elseif
+			parent.IsObjectType
+			and (
+				parent:IsObjectType("EditBox")
+				or parent:IsObjectType("Slider")
+				or parent:IsObjectType("CheckButton") and frame.mask
+			)
+		then
 			return
 		end
 	end
@@ -159,6 +173,16 @@ function module:API(object)
 	if not self:IsHooked(mt, "SetTemplate") then
 		self:SecureHook(mt, "SetTemplate", "SetTemplate")
 	end
+
+	-- Hook FrameLevel
+	if mt.SetFrameLevel and (not self:IsHooked(mt, "SetFrameLevel")) then
+		self:SecureHook(mt, "SetFrameLevel", "UpdateTemplateStrata")
+	end
+
+	-- Hook FrameStrata
+	if mt.SetFrameStrata and (not self:IsHooked(mt, "SetFrameStrata")) then
+		self:SecureHook(mt, "SetFrameStrata", "UpdateTemplateStrata")
+	end
 end
 
 function module:ForceRefresh()
@@ -168,7 +192,12 @@ end
 
 function module:MetatableScan()
 	local handled = {
-		Frame = true,
+		Region = true,
+		Texture = true,
+		Cooldown = true,
+		Slider = true,
+		ScrollFrame = true,
+		ModelScene = true,
 	}
 
 	local object = CreateFrame("Frame")

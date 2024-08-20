@@ -115,10 +115,11 @@ function F.CreateStyle(frame, useStripes, useShadow, useGradient)
 		frame = frame:GetParent()
 	end
 
-	local holder = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	local holder = frame.MERStyle or CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	holder:SetFrameLevel(frame:GetFrameLevel())
+	holder:SetFrameStrata(frame:GetFrameStrata())
 	holder:SetOutside(frame)
-	holder:SetFrameStrata("BACKGROUND")
-	holder:SetFrameLevel(frame:GetFrameLevel() or 1)
+	holder:Show()
 
 	if not useStripes then
 		local stripes = holder.MERstripes
