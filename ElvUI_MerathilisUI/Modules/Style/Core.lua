@@ -109,16 +109,16 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 	end
 
 	local isStatusBar = false
-
 	local parent = frame:GetParent()
 
 	if parent then
-		if parent.IsObjectType and (parent:IsObjectType("Texture") or parent:IsObjectType("Statusbar")) then
+		if
+			parent.IsObjectType
+			and (parent:IsObjectType("Texture") or parent:IsObjectType("Statusbar") or parent:IsObjectType("EditBox"))
+		then
 			isStatusBar = true
 		elseif E.statusBars[parent] ~= nil then
 			isStatusBar = true
-		elseif parent.IsObjectType and (parent:IsObjectType("EditBox") or parent:IsObjectType("Slider")) then
-			return
 		end
 	end
 
@@ -129,7 +129,7 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 		and not isNamePlateElement
 		and not isStatusBar
 
-	if (skinForTransparent or skinForTexture) and (self.db and self.db.enable) then
+	if (skinForTransparent or skinForTexture or skinForUnitFrame) and (self.db and self.db.enable) then
 		if not frame.CreateStyle then
 			return F.Developer.LogDebug("API functions not found!", "MERCreateStyle", not frame.CreateStyle)
 		end
