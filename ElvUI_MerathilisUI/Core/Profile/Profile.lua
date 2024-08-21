@@ -1195,6 +1195,7 @@ P.microBar = {
 	tooltipsAnchor = "ANCHOR_BOTTOM",
 	friends = {
 		showAllFriends = false,
+		countSubAccounts = true,
 	},
 	time = {
 		localTime = true,

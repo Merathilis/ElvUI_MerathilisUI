@@ -446,6 +446,12 @@ options.microBar = {
 					name = L["Show All Friends"],
 					desc = L["Show all friends rather than only friends who currently playing WoW."],
 				},
+				countSubAccounts = {
+					order = 2,
+					type = "toggle",
+					name = L["Count Sub Accounts"],
+					desc = L["Count active WoW sub accounts rather than Battle.net Accounts."],
+				},
 			},
 		},
 		home = {

@@ -327,34 +327,35 @@ local ButtonTypes = {
 			end,
 		},
 		additionalText = function()
-			local numBNOnlineFriend = select(2, BNGetNumFriends())
+			local numBNOnline, numWoWOnline = 0, 0
 
-			if module and module.db and module.db.friends and module.db.friends.showAllFriends then
-				local friendsOnline = GetNumFriends() or 0
-				local totalOnline = friendsOnline + numBNOnlineFriend
-				return totalOnline
-			end
-
-			local number = GetNumOnlineFriends() or 0
-
-			for i = 1, numBNOnlineFriend do
+			for i = 1, BNGetNumFriends() do
 				local accountInfo = GetFriendAccountInfo(i)
 				if accountInfo and accountInfo.gameAccountInfo and accountInfo.gameAccountInfo.isOnline then
 					local numGameAccounts = GetFriendNumGameAccounts(i)
+					numBNOnline = numBNOnline + 1
 					if numGameAccounts and numGameAccounts > 0 then
 						for j = 1, numGameAccounts do
 							local gameAccountInfo = GetFriendGameAccountInfo(i, j)
 							if gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" then
-								number = number + 1
+								numWoWOnline = numWoWOnline + 1
 							end
 						end
 					elseif accountInfo.gameAccountInfo.clientProgram == "WoW" then
-						number = number + 1
+						numWoWOnline = numWoWOnline + 1
 					end
 				end
 			end
 
-			return number > 0 and number or ""
+			local result
+			if module and module.db and module.db.friends and module.db.friends.showAllFriends then
+				local friendsOnline = GetNumFriends() or 0
+				result = friendsOnline + numBNOnline
+			else
+				result = numWoWOnline
+			end
+
+			return result > 0 and result or ""
 		end,
 		tooltips = "Friends",
 		events = {
