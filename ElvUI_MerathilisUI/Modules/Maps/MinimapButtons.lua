@@ -84,6 +84,26 @@ local acceptedFrames = {
 
 local moveButtons = {}
 
+function module:OnButtonSetShown(button, shown)
+	local btnName = button:GetName()
+
+	for i, moveButtonName in pairs(moveButtons) do
+		if btnName == moveButtonName then
+			if shown then
+				return -- already in the list
+			end
+			tremove(moveButtons, i)
+			break
+		end
+	end
+
+	if shown then
+		tinsert(moveButtons, btnName)
+	end
+
+	self:UpdateLayout()
+end
+
 function module:HandleLibDBIconButton(button, name)
 	if not strsub(name, 1, strlen("LibDBIcon")) == "LibDBIcon" then
 		return true
@@ -94,26 +114,14 @@ function module:HandleLibDBIconButton(button, name)
 	end
 
 	self:SecureHook(button, "Hide", function()
-		for i, moveButtonName in pairs(moveButtons) do
-			if name == moveButtonName then
-				tremove(moveButtons, i)
-				break
-			end
-		end
-
-		self:UpdateLayout()
+		self:OnButtonSetShown(button, false)
 	end)
 
 	self:SecureHook(button, "Show", function()
-		for _, moveButtonName in pairs(moveButtons) do
-			if name == moveButtonName then
-				return
-			end
-		end
-
-		tinsert(moveButtons, name)
-		self:UpdateLayout()
+		self:OnButtonSetShown(button, true)
 	end)
+
+	self:SecureHook(button, "SetShown", "OnButtonSetShown")
 
 	return button:IsShown()
 end
