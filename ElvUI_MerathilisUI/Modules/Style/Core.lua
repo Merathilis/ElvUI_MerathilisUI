@@ -181,11 +181,16 @@ end
 function module:ForceRefresh()
 	E:UpdateFrameTemplates()
 	E:UpdateMediaItems(true)
+	E:StaggeredUpdateAll()
 end
 
 function module:MetatableScan()
 	local handled = {
 		Frame = true,
+		Button = true,
+		ModelScene = true,
+		Slider = true,
+		ScrollFrame = true,
 	}
 
 	local object = CreateFrame("Frame")
