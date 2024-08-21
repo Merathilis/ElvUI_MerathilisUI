@@ -640,6 +640,15 @@ P.misc = {
 		confirmSummon = false,
 	},
 	hotKey = true,
+	contextMenu = {
+		enable = true,
+		sectionTitle = true,
+		armory = MER.Locale ~= "zhCN",
+		armoryOverride = {},
+		guildInvite = true,
+		who = true,
+		reportStats = false,
+	},
 }
 
 P.nameHover = {

@@ -452,6 +452,23 @@ L["It will also affect the crying sound of all female Blood Elves."] =
 	"Es beeinflusst auch das Weinen aller weiblichen Blutelfen."
 L["Class"] = "Klasse"
 L["The class icon of the player's class"] = "Das Klassensymbol der Spielerklasse"
+L["Context Menu"] = "Kontextmenü"
+L["Add features to the context menu."] = "Fügt einige features zum Kontextmenü hinzu."
+L["Section Title"] = "Abschnitt Titel"
+L["Add a styled section title to the context menu."] = "Fügt einen Abschnittstitel zum Kontextmenü hinzu."
+L["Guild Invite"] = "Gildeneinladung"
+L["Who"] = "Wer"
+L["Report Stats"] = "Werte berichten"
+L["Armory"] = true
+L["Set Region"] = "Region auswählen"
+L["If the game language is different from the primary language in this server, you need to specify which area you play on."] =
+	"Wenn sich die Spielsprache von der Primärsprache auf diesem Server unterscheidet, mußt Du angeben, in welchem Bereich Du spielst."
+L["Auto-detect"] = "Auto Erkennung"
+L["Taiwan"] = true
+L["Korea"] = true
+L["Americas & Oceania"] = true
+L["Europe"] = true
+L["Server List"] = "Serverliste"
 
 -- Nameplates
 L["NamePlates"] = "Namensplaketten"

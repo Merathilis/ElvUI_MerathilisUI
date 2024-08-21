@@ -403,6 +403,23 @@ L["It will affect the cry emote sound."] = true
 L["It will also affect the crying sound of all female Blood Elves."] = true
 L["Class"] = true
 L["The class icon of the player's class"] = true
+L["Context Menu"] = true
+L["Add features to the context menu."] = true
+L["Section Title"] = true
+L["Add a styled section title to the context menu."] = true
+L["Guild Invite"] = true
+L["Who"] = true
+L["Report Stats"] = true
+L["Armory"] = true
+L["Set Region"] = true
+L["If the game language is different from the primary language in this server, you need to specify which area you play on."] =
+	true
+L["Auto-detect"] = true
+L["Taiwan"] = true
+L["Korea"] = true
+L["Americas & Oceania"] = true
+L["Europe"] = true
+L["Server List"] = true
 
 -- Nameplates
 L["NamePlates"] = true

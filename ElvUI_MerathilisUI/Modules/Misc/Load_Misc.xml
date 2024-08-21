@@ -6,6 +6,7 @@
 	<Script file="AlreadyKnown.lua"/>
 	<Script file="Automation.lua"/>
 	<Script file="BossBanner.lua"/>
+	<Script file="ContextMenu.lua"/>
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
 	<Script file="HotKey.lua"/>

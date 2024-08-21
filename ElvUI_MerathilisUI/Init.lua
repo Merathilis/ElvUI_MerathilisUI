@@ -45,6 +45,7 @@ do
 	MER.IsDevelop = MER.Version == "development"
 	MER.AddOnName = addon
 	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
+	MER.PlainTitle = gsub(MER.Title, "|c........([^|]+)|r", "%1")
 end
 
 -- Modules
@@ -64,6 +65,7 @@ MER.Modules.ChatBar = MER:NewModule("MER_ChatBar", "AceEvent-3.0", "AceHook-3.0"
 MER.Modules.ChatFade = MER:NewModule("MER_ChatFade", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 MER.Modules.ChatLink = MER:NewModule("MER_ChatLink", "AceEvent-3.0")
 MER.Modules.ChatText = MER:NewModule("MER_ChatText", "AceEvent-3.0")
+MER.Modules.ContextMenu = MER:NewModule("MER_ContextMenu", "AceHook-3.0")
 MER.Modules.Cooldown = MER:NewModule("MER_Cooldown", "AceHook-3.0")
 MER.Modules.CombatText = MER:NewModule("MER_CombatText", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.CVars = MER:NewModule("MER_CVars")

@@ -4,6 +4,7 @@ local AK = MER:GetModule("MER_AlreadyKnown")
 local AM = MER:GetModule("MER_Automation")
 local MI = MER:GetModule("MER_Misc")
 local SA = MER:GetModule("MER_SpellAlert")
+local CM = MER:GetModule("MER_ContextMenu")
 local async = MER.Utilities.Async
 local LSM = E.LSM
 
@@ -858,6 +859,173 @@ options.automation = {
 				return not E.db.mui.misc.automation.enable
 			end,
 			width = 1.5,
+		},
+	},
+}
+
+options.contextMenu = {
+	order = 15,
+	type = "group",
+	name = E.NewSign .. L["Context Menu"],
+	get = function(info)
+		return E.db.mui.misc.contextMenu[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.misc.contextMenu[info[#info]] = value
+		CM:ProfileUpdate()
+	end,
+	args = {
+		desc = {
+			order = 0,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = L["Add features to the context menu."],
+					fontSize = "medium",
+				},
+			},
+		},
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+		},
+		sectionTitle = {
+			order = 2,
+			type = "toggle",
+			name = L["Section Title"],
+			desc = L["Add a styled section title to the context menu."],
+		},
+		align = {
+			order = 3,
+			type = "description",
+			name = " ",
+			width = "full",
+		},
+		normalConfig = {
+			order = 4,
+			type = "group",
+			inline = true,
+			name = L["General"],
+			disabled = function()
+				return not E.db.mui.misc.contextMenu.enable
+			end,
+			args = {
+				guildInvite = {
+					order = 1,
+					type = "toggle",
+					name = L["Guild Invite"],
+				},
+				who = {
+					order = 2,
+					type = "toggle",
+					name = L["Who"],
+				},
+				reportStats = {
+					order = 3,
+					type = "toggle",
+					name = L["Report Stats"],
+				},
+			},
+		},
+		armoryConfig = {
+			order = 5,
+			type = "group",
+			inline = true,
+			name = L["Armory"],
+			disabled = function()
+				return not E.db.mui.misc.contextMenu.enable
+			end,
+			args = {
+				armory = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					get = function(info)
+						return E.db.mui.misc.contextMenu[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.misc.contextMenu[info[#info]] = value
+						CM:ProfileUpdate()
+					end,
+				},
+				setArea = {
+					order = 2,
+					type = "select",
+					name = L["Set Region"],
+					desc = L["If the game language is different from the primary language in this server, you need to specify which area you play on."],
+					get = function()
+						local list = E.db.mui.misc.contextMenu.armoryOverride
+						if list[E.myrealm] then
+							return list[E.myrealm]
+						else
+							return "NONE"
+						end
+					end,
+					set = function(_, value)
+						local list = E.db.mui.misc.contextMenu.armoryOverride
+						if value == "NONE" then
+							list[E.myrealm] = nil
+						else
+							list[E.myrealm] = value
+						end
+					end,
+					values = {
+						NONE = L["Auto-detect"],
+						tw = L["Taiwan"],
+						kr = L["Korea"],
+						us = L["Americas & Oceania"],
+						eu = L["Europe"],
+					},
+				},
+				list = {
+					order = 3,
+					type = "select",
+					name = L["Server List"],
+					get = function()
+						return customListSelected
+					end,
+					set = function(_, value)
+						customListSelected = value
+					end,
+					values = function()
+						local list = E.db.mui.misc.contextMenu.armoryOverride
+
+						local displayName = {
+							tw = L["Taiwan"],
+							kr = L["Korea"],
+							us = L["Americas & Oceania"],
+							eu = L["Europe"],
+						}
+
+						local result = {}
+						for key, value in pairs(list) do
+							result[key] = key .. " > " .. displayName[value]
+						end
+
+						return result
+					end,
+					width = 2,
+				},
+				deleteButton = {
+					order = 4,
+					type = "execute",
+					name = L["Delete"],
+					desc = L["Delete the selected NPC."],
+					func = function()
+						if customListSelected then
+							local list = E.db.mui.misc.contextMenu.armoryOverride
+							if list[customListSelected] then
+								list[customListSelected] = nil
+							end
+						end
+					end,
+				},
+			},
 		},
 	},
 }
