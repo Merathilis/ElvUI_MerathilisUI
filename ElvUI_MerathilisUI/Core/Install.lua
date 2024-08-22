@@ -331,7 +331,7 @@ function MER:SetupLayout()
 	E.private["general"]["minimap"]["hideTracking"] = true
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
-	E.db["general"]["minimap"]["size"] = 222
+	E.db["general"]["minimap"]["size"] = 225
 	E.db["general"]["minimap"]["locationFontSize"] = 10
 	E.db["general"]["minimap"]["locationFontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["minimap"]["locationFont"] = "- Expressway"
@@ -407,10 +407,10 @@ function MER:SetupLayout()
 		E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 		E.db["auras"]["debuffs"]["height"] = 30
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-167"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-233,-167"
 	else
 		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-167"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-233,-167"
 	end
 	E.db["auras"]["debuffs"]["countFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
@@ -553,7 +553,7 @@ function MER:SetupLayout()
 	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,268,-15"
 	E.db["movers"]["MER_MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
 	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-70"
-	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-210"
+	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-211"
 	E.db["movers"]["MER_InstanceDifficultyFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-10,-40"
 
 	--[[----------------------------------
