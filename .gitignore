@@ -81,6 +81,8 @@ build/
 *.code-workspace
 *.psd
 *.exe
+*.vscode/settings.json
+*.vscode/extensions.json
 
 # Visual C++ cache files
 ipch/

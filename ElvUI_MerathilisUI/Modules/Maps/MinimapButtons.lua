@@ -72,6 +72,7 @@ local IgnoreList = {
 local TexCoordIgnoreList = {
 	["Narci_MinimapButton"] = true,
 	["ZygorGuidesViewerMapIcon"] = true,
+	["LibDBIcon10_IRememberYou"] = true,
 }
 
 local whiteList = {
@@ -229,7 +230,7 @@ end
 local RemoveTextureID = { [136430] = true, [136467] = true, [136477] = true, [136468] = true, [130924] = true }
 local RemoveTextureFile = { "interface/characterframe", "border", "background", "alphamask", "highlight" }
 function module:RemoveTexture(texture)
-	if type(texture) == "string" then
+	if type(texture) ~= "number" then
 		for _, path in next, RemoveTextureFile do
 			if
 				strfind(texture, path)
@@ -382,6 +383,21 @@ function module:SkinButton(frame)
 					region:SetTexture()
 					region:SetAlpha(0)
 				else
+					if not TexCoordIgnoreList[name] then
+						if region.GetNumMaskTextures and region.RemoveMaskTexture and region.GetMaskTexture then
+							local numMaskTextures = region:GetNumMaskTextures()
+							if numMaskTextures and numMaskTextures > 0 then
+								for i = 1, numMaskTextures do
+									region:RemoveMaskTexture(region:GetMaskTexture(i))
+								end
+							end
+						elseif region.SetMask then
+							region:SetMask("")
+						end
+
+						region:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+					end
+
 					region:ClearAllPoints()
 					region:SetDrawLayer("ARTWORK")
 					region:SetInside()

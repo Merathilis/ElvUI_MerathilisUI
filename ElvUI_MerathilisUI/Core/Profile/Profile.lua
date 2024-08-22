@@ -1211,7 +1211,7 @@ P.microBar = {
 	},
 	home = {
 		left = "6948",
-		right = "141605",
+		right = "140192",
 	},
 	additionalText = {
 		enable = true,
