@@ -181,7 +181,6 @@ end
 function module:ForceRefresh()
 	E:UpdateFrameTemplates()
 	E:UpdateMediaItems(true)
-	E:StaggeredUpdateAll()
 end
 
 function module:MetatableScan()

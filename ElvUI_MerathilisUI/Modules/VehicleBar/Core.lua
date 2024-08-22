@@ -98,6 +98,42 @@ function module:OnCombatEvent(toggle)
 		self:StopAllAnimations()
 	end
 end
+
+function module:Disable()
+	if not self.Initialized then
+		return
+	end
+
+	self:UnhookAll()
+
+	if self.bar then
+		self:StopAllAnimations()
+
+		if E.db.mui.vehicleBar.hideElvUIBars then
+			print("huh?")
+			UnregisterStateDriver(self.bar, "visibility")
+			UnregisterStateDriver(self.ab["handledBars"]["bar1"], "visibility")
+			RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", E.db.actionbar["bar1"].visibility)
+			UnregisterStateDriver(self.ab["handledBars"]["bar2"], "visibility")
+			RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", E.db.actionbar["bar2"].visibility)
+			UnregisterStateDriver(self.ab["handledBars"]["bar3"], "visibility")
+			RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", E.db.actionbar["bar3"].visibility)
+		end
+
+		self.bar:Hide()
+	end
+
+	if self.vigorBar then
+		self.vigorBar:Hide()
+		if self.vigorBar.speedText then
+			self.vigorBar.speedText:Hide()
+		end
+	end
+
+	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self)
+	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_DISABLED", self)
+end
+
 function module:Enable()
 	if not self.Initialized and E.private.actionbar.enable then
 		return
@@ -157,40 +193,6 @@ function module:Enable()
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self.OnCombatEvent, self, false)
 	F.Event.RegisterFrameEventAndCallback("PLAYER_REGEN_DISABLED", self.OnCombatEvent, self, true)
-end
-
-function module:Disable()
-	if not self.Initialized then
-		return
-	end
-
-	self:UnhookAll()
-
-	if self.bar then
-		self:StopAllAnimations()
-
-		if self.db.hideElvUIBars then
-			UnregisterStateDriver(self.bar, "visibility")
-			UnregisterStateDriver(self.ab["handledBars"]["bar1"], "visibility")
-			RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", E.db.actionbar["bar1"].visibility)
-			UnregisterStateDriver(self.ab["handledBars"]["bar2"], "visibility")
-			RegisterStateDriver(self.ab["handledBars"]["bar2"], "visibility", E.db.actionbar["bar2"].visibility)
-			UnregisterStateDriver(self.ab["handledBars"]["bar3"], "visibility")
-			RegisterStateDriver(self.ab["handledBars"]["bar3"], "visibility", E.db.actionbar["bar3"].visibility)
-		end
-
-		self.bar:Hide()
-	end
-
-	if self.vigorBar then
-		self.vigorBar:Hide()
-		if self.vigorBar.speedText then
-			self.vigorBar.speedText:Hide()
-		end
-	end
-
-	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self)
-	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_DISABLED", self)
 end
 
 function module:DatabaseUpdate()
