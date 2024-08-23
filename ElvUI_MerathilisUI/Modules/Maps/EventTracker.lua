@@ -1298,7 +1298,6 @@ function module:GetPlayerDB(key)
 end
 
 function module:UpdateTrackers()
-	self:UnhookAll()
 	self:ConstructFrame()
 
 	self.frame:ClearAllPoints()
@@ -1407,8 +1406,8 @@ function module:Initialize()
 	EventRegistry:RegisterCallback("WorldMapOnShow", self.UpdateTrackers, self)
 	EventRegistry:RegisterCallback("WorldMapMinimized", E.Delay, E, 0.1, self.UpdateTrackers, self)
 	EventRegistry:RegisterCallback("WorldMapMaximized", E.Delay, E, 0.1, self.UpdateTrackers, self)
-	self:SecureHook(_G.QuestMapFrame, "Show", "UpdateTrackers")
-	self:SecureHook(_G.QuestMapFrame, "Hide", "UpdateTrackers")
+	-- self:SecureHook(_G.QuestMapFrame, "Show", "UpdateTrackers")
+	-- self:SecureHook(_G.QuestMapFrame, "Hide", "UpdateTrackers")
 end
 
 function module:ProfileUpdate()

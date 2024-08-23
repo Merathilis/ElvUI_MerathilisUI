@@ -2590,7 +2590,6 @@ function module:Initialize()
 		return
 	end
 
-	_G.QuestMapFrame:SetScript("OnHide", nil) -- fix potential toggle taint with HandyNotes or any other WQ AddOn
 	self:Scale()
 	self:Reveal()
 end

@@ -62,37 +62,31 @@ options.general = {
 			name = L["Hide Boss Banner"],
 			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
 		},
-		quickDelete = {
-			order = 7,
-			type = "toggle",
-			name = L["Quick Delete"],
-			desc = L["This will add the 'DELETE' text to the Item Delete Dialog."],
-		},
 		tradeTabs = {
-			order = 8,
+			order = 7,
 			type = "toggle",
 			name = L["Trade Tabs"],
 			desc = L["Enable Tabs on the Profession Frames"],
 		},
 		spacer = {
-			order = 9,
+			order = 8,
 			type = "description",
 			name = " ",
 		},
 		missingStats = {
-			order = 10,
+			order = 9,
 			type = "toggle",
 			name = L["Missing Stats"],
 			desc = L["Show all stats on the Character Frame"],
 		},
 		blockRequest = {
-			order = 11,
+			order = 10,
 			type = "toggle",
 			name = L["Block Join Requests"],
 			desc = L["|nIf checked, only popout join requests from friends and guild members."],
 		},
 		hotKey = {
-			order = 12,
+			order = 11,
 			type = "toggle",
 			name = L["HotKey Above CD"],
 			desc = format(
