@@ -67,6 +67,7 @@ local function SetupCVars()
 	SetCVar("floatingCombatTextCombatState", "1")
 	SetCVar("minimapTrackingShowAll", 1)
 	SetCVar("fstack_preferParentKeys", 0)
+	SetCVar("questTextContrast", 4) -- Black Parchment
 
 	-- Nameplates
 	SetCVar("ShowClassColorInNameplate", 1)
