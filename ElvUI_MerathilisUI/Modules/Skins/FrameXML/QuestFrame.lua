@@ -3,12 +3,12 @@ local module = MER.Modules.Skins
 local S = E:GetModule("Skins")
 
 local _G = _G
-local unpack = unpack
 local strfind = strfind
 local gsub = string.gsub
 
-local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
+local GetQuestItemInfo = GetQuestItemInfo
+local GetQuestRequiredCurrencyInfo = C_QuestOffer.GetQuestRequiredCurrencyInfo
 
 -- Copied from ElvUI
 local function UpdateGreetingFrame()
@@ -19,6 +19,24 @@ local function UpdateGreetingFrame()
 			Button:GetFontString():SetText(gsub(Text, "|cff000000", "|cffffe519"))
 		end
 	end
+end
+
+local function UpdateProgressItemQuality(self)
+	local button = self.__owner
+	local index = button:GetID()
+	local buttonType = button.type
+	local objectType = button.objectType
+
+	local quality
+	if objectType == "item" then
+		quality = select(4, GetQuestItemInfo(buttonType, index))
+	elseif objectType == "currency" then
+		local info = GetQuestRequiredCurrencyInfo(index)
+		quality = info and info.quality
+	end
+
+	local color = E.QualityColors[quality or 1]
+	button.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
 end
 
 function module:QuestFrame()
@@ -36,49 +54,6 @@ function module:QuestFrame()
 		return
 	end
 
-	------------------------
-	--- QuestDetailFrame ---
-	------------------------
-	_G.QuestDetailScrollFrame:StripTextures(true)
-	_G.QuestDetailScrollFrame:HookScript("OnUpdate", function(self)
-		self:DisableDrawLayer("BACKGROUND")
-		if self.backdrop then
-			self.backdrop:Hide()
-		end
-	end)
-
-	if _G.QuestDetailScrollFrame.spellTex then
-		if not E.private.skins.parchmentRemoverEnable then
-			_G.QuestDetailScrollFrame.spellTex:SetTexture("")
-		end
-	end
-
-	------------------------
-	--- QuestFrameReward ---
-	------------------------
-	hooksecurefunc(S, "QuestInfo_StyleScrollFrame", function(S, scrollFrame, widthOverride, heightOverride, inset)
-		if scrollFrame.spellTex then
-			scrollFrame.spellTex:SetTexture(nil)
-		end
-
-		if scrollFrame.backdrop then
-			scrollFrame.backdrop:Hide()
-		end
-	end)
-
-	--------------------------
-	--- QuestFrameProgress ---
-	--------------------------
-	_G.QuestProgressScrollFrame:HookScript("OnShow", function(self)
-		if self.backdrop then
-			self.backdrop:Hide()
-		end
-		if not E.private.skins.parchmentRemoverEnable then
-			self.spellTex:SetTexture("")
-			self:Height(self:GetHeight() - 2)
-		end
-	end)
-
 	--------------------------
 	--- QuestGreetingFrame ---
 	--------------------------
@@ -87,7 +62,14 @@ function module:QuestFrame()
 
 	hooksecurefunc("QuestFrameProgressItems_Update", function()
 		_G.QuestProgressRequiredItemsText:SetTextColor(1, 0.8, 0.1)
-		_G.QuestProgressRequiredMoneyText:SetTextColor(1, 1, 1)
+	end)
+
+	hooksecurefunc(_G.QuestProgressRequiredMoneyText, "SetTextColor", function(self, r)
+		if r == 0 then
+			self:SetTextColor(0.8, 0.8, 0.8)
+		elseif r == 0.2 then
+			self:SetTextColor(1, 1, 1)
+		end
 	end)
 
 	hooksecurefunc("QuestFrame_SetTitleTextColor", function(fontString)
@@ -96,17 +78,6 @@ function module:QuestFrame()
 
 	hooksecurefunc("QuestFrame_SetTextColor", function(fontString)
 		fontString:SetTextColor(1, 1, 1)
-	end)
-
-	hooksecurefunc("QuestInfo_ShowRequiredMoney", function()
-		local requiredMoney = GetQuestLogRequiredMoney()
-		if requiredMoney > 0 then
-			if requiredMoney > GetMoney() then
-				_G.QuestInfoRequiredMoneyText:SetTextColor(0.63, 0.09, 0.09)
-			else
-				_G.QuestInfoRequiredMoneyText:SetTextColor(1, 0.8, 0.1)
-			end
-		end
 	end)
 
 	local QuestInfoRewardsFrame = _G.QuestInfoRewardsFrame
@@ -142,24 +113,12 @@ function module:QuestFrame()
 	end)
 
 	for i = 1, _G.MAX_REQUIRED_ITEMS do
-		local bu = _G["QuestProgressItem" .. i]
-		local ic = _G["QuestProgressItem" .. i .. "IconTexture"]
-		local na = _G["QuestProgressItem" .. i .. "NameFrame"]
-		local co = _G["QuestProgressItem" .. i .. "Count"]
+		local button = _G["QuestProgressItem" .. i]
+		button.NameFrame:Hide()
 
-		ic:SetSize(40, 40)
-		ic:SetTexCoord(unpack(E.TexCoords))
-		ic:SetDrawLayer("OVERLAY")
-
-		bu:CreateBackdrop("Transparent")
-
-		na:Hide()
-		co:SetDrawLayer("OVERLAY")
-
-		local line = CreateFrame("Frame", nil, bu)
-		line:SetSize(1, 40)
-		line:SetPoint("RIGHT", ic, 1, 0)
-		line:CreateBackdrop("Transparent")
+		S:HandleIcon(button.Icon, true)
+		button.Icon.__owner = button
+		hooksecurefunc(button.Icon, "SetTexture", UpdateProgressItemQuality)
 	end
 
 	_G.QuestDetailScrollFrame:SetWidth(302) -- else these buttons get cut off
