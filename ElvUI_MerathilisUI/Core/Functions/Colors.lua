@@ -670,7 +670,7 @@ function F.RGBToHex(r, g, b)
 				r, g, b = unpack(r)
 			end
 		end
-		return format("%02x%02x%02x", r * 255, g * 255, b * 255)
+		return format("|cff%02x%02x%02x", r * 255, g * 255, b * 255)
 	end
 end
 
