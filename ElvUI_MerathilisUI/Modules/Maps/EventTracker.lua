@@ -1298,6 +1298,7 @@ function module:GetPlayerDB(key)
 end
 
 function module:UpdateTrackers()
+	self:UnhookAll()
 	self:ConstructFrame()
 
 	self.frame:ClearAllPoints()
