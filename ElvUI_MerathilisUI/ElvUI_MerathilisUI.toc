@@ -11,9 +11,9 @@
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, BigWigs, ls_Toasts, WeakAuras, WeakAurasOptions
-## X-Credits: Simpy, Benik, Azilroka, Darth Predator, fang2hou, fgprodigal, siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
+## X-Credits: Simpy, Benik, Azilroka, Darth Predator, fang2hou, fgprodigal, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
 ## X-Interface: 110002
-## X-ElvUIVersion: 13.74
+## X-ElvUIVersion: 13.75
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
 ## X-WoWI-ID: 24117
