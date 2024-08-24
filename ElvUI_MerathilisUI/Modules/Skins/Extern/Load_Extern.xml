@@ -2,6 +2,7 @@
 	<Script file="Ace3.lua"/>
 	<Script file="ACP.lua"/>
 	<Script file="ActionBarProfiles.lua"/>
+	<Script file="AngrierWorldQuests.lua"/>
 	<Script file="Auctionator.lua"/>
 	<Script file="BagSync.lua"/>
 	<Script file="BigWigs.lua"/>

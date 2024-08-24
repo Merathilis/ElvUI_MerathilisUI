@@ -13,6 +13,7 @@ local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local DecorAddons = {
 	{ "ACP", L["AddOn Control Panel"], "acp" },
 	{ "ActionBarProfiles", L["ActonBarProfiles"], "abp" },
+	{ "AngrierWorldQuests", L["Angrier World Quests"], "awq" },
 	{ "Auctionator", L["Auctionator"], "au" },
 	{ "BagSync", L["BagSync"], "bSync" },
 	{ "BtWQuests", L["BtWQuests"], "btwQ" },

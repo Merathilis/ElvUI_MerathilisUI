@@ -257,6 +257,7 @@ V.skins = {
 		sam = true,
 		mmt = true,
 		mys = true,
+		awq = true,
 		bw = {
 			enable = true,
 			queueTimer = {
