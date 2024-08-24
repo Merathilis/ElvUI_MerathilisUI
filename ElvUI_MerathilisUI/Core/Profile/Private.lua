@@ -224,6 +224,7 @@ V.skins = {
 		blizzardOptions = true,
 		editor = true,
 		perksProgram = true,
+		uiWidget = true,
 	},
 
 	addonSkins = {
