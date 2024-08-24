@@ -518,7 +518,9 @@ local ButtonTypes = {
 				Screenshot()
 			end,
 			RightButton = function()
-				E:Delay(2, Screenshot)
+				E:Delay(2, function()
+					Screenshot()
+				end)
 			end,
 		},
 		tooltips = {

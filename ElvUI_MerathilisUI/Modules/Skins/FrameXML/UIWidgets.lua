@@ -79,8 +79,8 @@ function module:BlizzardUIWidget()
 	end)
 
 	self:SecureHook(S, "SkinDoubleStatusBarWidget", function(_, widget)
-		ReskinBar(_G.widgetFrame.LeftBar)
-		ReskinBar(_G.widgetFrame.RightBar)
+		ReskinBar(widget.LeftBar)
+		ReskinBar(widget.RightBar)
 	end)
 
 	S.SkinTextWithStateWidget = E.noop -- Use Blizzard default color
