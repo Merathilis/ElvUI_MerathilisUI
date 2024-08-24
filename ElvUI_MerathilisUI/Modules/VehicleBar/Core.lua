@@ -110,7 +110,6 @@ function module:Disable()
 		self:StopAllAnimations()
 
 		if E.db.mui.vehicleBar.hideElvUIBars then
-			print("huh?")
 			UnregisterStateDriver(self.bar, "visibility")
 			UnregisterStateDriver(self.ab["handledBars"]["bar1"], "visibility")
 			RegisterStateDriver(self.ab["handledBars"]["bar1"], "visibility", E.db.actionbar["bar1"].visibility)
