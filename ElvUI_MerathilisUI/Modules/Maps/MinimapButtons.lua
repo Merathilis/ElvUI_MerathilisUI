@@ -81,6 +81,7 @@ local whiteList = {
 
 local acceptedFrames = {
 	"BagSync_MinimapButton",
+	"WIM3MinimapButton",
 }
 
 local moveButtons = {}
@@ -450,8 +451,6 @@ function module:SkinButton(frame)
 				_G["TomCats-MinimapButtonIcon"]:SetInside(frame.backdrop)
 				_G["TomCats-MinimapButtonIcon"].SetPoint = E.noop
 			end
-		elseif name == "WIM3MinimapButton" then
-			_G["WIM3MinimapButton"]:SetParent(Minimap)
 		end
 
 		frame.isSkinned = true
