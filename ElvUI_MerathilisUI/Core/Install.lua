@@ -2685,9 +2685,6 @@ end
 
 function MER:Resize(firstPage, lastPage)
 	PluginInstallFrame:SetSize(860, 512)
-	if E.db.mui.core and E.db.mui.core.installed == nil then
-		PluginInstallFrame:SetScale(1.25)
-	end
 	PluginInstallFrame.Desc1:ClearAllPoints()
 	PluginInstallFrame.Desc1:SetPoint("TOP", PluginInstallFrame.SubTitle, "BOTTOM", 0, -30)
 
