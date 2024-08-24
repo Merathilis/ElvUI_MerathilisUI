@@ -1,7 +1,7 @@
 ### Changes ###
 
-  * [Who Frame]: Fix a typo on the Level Display
-  * [Context Menu]: Added a new Menu Point in the Context Menu
-  * [Styling]: My style should be apply now also on the UFs again
-  * [Minimap Button]: Small code improvements
-  * [Event Tracker]: Disable some Events by default now
+  * [Skins]: Fix an error on ExpansionLandingPage
+  * [RaidBuffReminder]: It was broken for some obv. reason
+  * [Misc]: Avoid a rare case on low lvl. chars on Exiles Reach
+  * [Install]: Don't scale the install Frame on first install
+  * [Widgets]: Updated Animation on the Widgets Skins
