@@ -43,8 +43,10 @@ function module:GameMenu_OnShow()
 	local specIndex = GetSpecialization()
 	local id = GetSpecializationInfoForClassID(classId, specIndex)
 
-	if id and iconsDb then
+	if id and id ~= 0 and iconsDb then
 		specIcon = iconsDb[id]
+	else
+		specIcon = ""
 	end
 
 	local mainFrame = CreateFrame("Frame", nil, E.UIParent)
