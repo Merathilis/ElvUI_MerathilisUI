@@ -76,6 +76,9 @@ module.ReminderBuffs = {
 	Custom = {
 		-- spellID,	-- Spell name
 	},
+	Mastery = {
+		462854, -- Skyfury
+	},
 }
 
 module.Weapon_Enchants = {
@@ -102,6 +105,7 @@ local intellectbuffs = module.ReminderBuffs["Intellect"]
 local staminabuffs = module.ReminderBuffs["Stamina"]
 local attackpowerbuffs = module.ReminderBuffs["AttackPower"]
 local versatilitybuffs = module.ReminderBuffs["Versatility"]
+local masterybuffs = module.ReminderBuffs["Mastery"]
 local custombuffs = module.ReminderBuffs["Custom"]
 local weaponEnch = module.ReminderBuffs["Weapon"]
 
@@ -261,6 +265,25 @@ local function OnAuraChange(_, event, arg1)
 				end
 			end
 		end
+
+		if masterybuffs and masterybuffs[1] then
+			MasteryFrame.t:SetTexture(GetSpellTexture(masterybuffs[1]))
+			for i, masterybuffs in pairs(masterybuffs) do
+				local spellname = GetSpellName(masterybuffs)
+				if AuraUtil_FindAuraByName(spellname, "player") then
+					MasteryFrame.t:SetTexture(GetSpellTexture(masterybuffs))
+					MasteryFrame:SetAlpha(module.db.alpha)
+					LCG.PixelGlow_Stop(MasteryFrame)
+					break
+				else
+					MasteryFrame:SetAlpha(1)
+					MasteryFrame.t:SetTexture(GetSpellTexture(462854))
+					if module.db.glow then
+						LCG.PixelGlow_Start(MasteryFrame, color, nil, -0.25, nil, 1)
+					end
+				end
+			end
+		end
 	end
 
 	--[[
@@ -391,14 +414,16 @@ function module:Initialize()
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 		self:CreateIconBuff("CooldownFrame", FoodFrame, false)
 		self:CreateIconBuff("DARuneFrame", CooldownFrame, false)
+		self:CreateIconBuff("MasteryFrame", DARuneFrame, false)
 		-- self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
-		self:CreateIconBuff("CustomFrame", DARuneFrame, false)
+		self:CreateIconBuff("CustomFrame", MasteryFrame, false)
 	else
 		self:CreateIconBuff("FlaskFrame", RaidBuffReminder, true)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 		self:CreateIconBuff("DARuneFrame", FoodFrame, false)
+		self:CreateIconBuff("MasteryFrame", DARuneFrame, false)
 		-- self:CreateIconBuff("WeaponFrame", DARuneFrame, false)
-		self:CreateIconBuff("CustomFrame", DARuneFrame, false)
+		self:CreateIconBuff("CustomFrame", MasteryFrame, false)
 	end
 
 	self.frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
