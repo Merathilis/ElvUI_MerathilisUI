@@ -16,6 +16,9 @@ function module:Blizzard_AchievementUI()
 		local tab = _G["AchievementFrameTab" .. i]
 		module:ReskinTab(tab)
 	end
+
+	module:CreateBackdropShadow(_G.AchievementFrame.SearchPreviewContainer)
+	module:CreateBackdropShadow(_G.AchievementFrame.SearchResults)
 end
 
 module:AddCallbackForAddon("Blizzard_AchievementUI")
