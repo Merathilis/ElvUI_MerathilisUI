@@ -1,8 +1,8 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local LSM = E.Libs.LSM
-local module = MER.Modules.Skins
+local module = MER:GetModule("MER_Skins")
 local WS = module.Widgets
-local S = E.Skins
+local S = E:GetModule("Skins")
+local LSM = E.Libs.LSM
 
 local _G = _G
 local unpack = unpack
@@ -57,27 +57,29 @@ function WS:HandleTab(_, tab, noBackdrop, template)
 
 		F.SetVertexColorDB(bg, db.backdrop.classColor and MER.ClassColor or db.backdrop.color)
 
-		tab.MERAnimation =
-			self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
-
-		self:SecureHookScript(tab, "OnEnter", tab.MERAnimation.onEnter)
-		self:SecureHookScript(tab, "OnLeave", tab.MERAnimation.onLeave)
+		tab.MERAnimation = self.Animation(bg, db.backdrop.animation)
+		tab.__MERAnimationIsTab = true
+		self.SetAnimationMetadata(tab, tab.MERAnimation)
+		self:SecureHookScript(tab, "OnEnter", tab.MERAnimation.OnEnter)
+		self:SecureHookScript(tab, "OnLeave", tab.MERAnimation.OnLeave)
 
 		if tab.Disable and tab.Enable then
-			self:SecureHook(tab, "Disable", tab.MERAnimation.onStatusChange)
-			self:SecureHook(tab, "Enable", tab.MERAnimation.onStatusChange)
+			self:SecureHook(tab, "Disable", tab.MERAnimation.OnStatusChange)
+			self:SecureHook(tab, "Enable", tab.MERAnimation.OnStatusChange)
 		end
 
 		-- Avoid the hook is flushed
-		self:SecureHook(tab, "SetScript", function(frame, scriptType)
-			if scriptType == "OnEnter" then
-				self:Unhook(frame, "OnEnter")
-				self:SecureHookScript(frame, "OnEnter", tab.MERAnimation.onEnter)
-			elseif scriptType == "OnLeave" then
-				self:Unhook(frame, "OnLeave")
-				self:SecureHookScript(frame, "OnLeave", tab.MERAnimation.onLeave)
-			end
-		end)
+		if tab.SetScript then
+			self:SecureHook(tab, "SetScript", function(frame, scriptType)
+				if scriptType == "OnEnter" then
+					self:Unhook(frame, "OnEnter")
+					self:SecureHookScript(frame, "OnEnter", tab.MERAnimation.OnEnter)
+				elseif scriptType == "OnLeave" then
+					self:Unhook(frame, "OnLeave")
+					self:SecureHookScript(frame, "OnLeave", tab.MERAnimation.OnLeave)
+				end
+			end)
+		end
 	end
 
 	tab.MERSkinned = true

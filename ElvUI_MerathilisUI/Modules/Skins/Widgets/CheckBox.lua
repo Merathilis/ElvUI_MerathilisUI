@@ -1,8 +1,8 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local LSM = E.Libs.LSM
-local module = MER.Modules.Skins
+local module = MER:GetModule("MER_Skins")
 local WS = module.Widgets
-local S = E.Skins
+local S = E:GetModule("Skins")
+local LSM = E.Libs.LSM
 
 function WS:HandleAce3CheckBox(check)
 	if not E.private.skins.checkBoxSkin then

@@ -1,8 +1,8 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local LSM = E.Libs.LSM
-local module = MER.Modules.Skins
+local module = MER:GetModule("MER_Skins")
 local WS = module.Widgets
-local S = E.Skins
+local S = E:GetModule("Skins")
+local LSM = E.Libs.LSM
 
 local _G = _G
 
@@ -51,28 +51,27 @@ function WS:HandleButton(_, button)
 
 		F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
 
-		button.MERAnimation =
-			self.Animation(bg, db.backdrop.animationType, db.backdrop.animationDuration, db.backdrop.alpha)
-
-		self:SecureHookScript(button, "OnEnter", button.MERAnimation.onEnter)
-		self:SecureHookScript(button, "OnLeave", button.MERAnimation.onLeave)
+		button.MERAnimation = self.Animation(bg, db.backdrop.animation)
+		self.SetAnimationMetadata(button, button.MERAnimation)
+		self:SecureHookScript(button, "OnEnter", button.MERAnimation.OnEnter)
+		self:SecureHookScript(button, "OnLeave", button.MERAnimation.OnLeave)
 
 		if button.Disable then
-			self:SecureHook(button, "Disable", button.MERAnimation.onStatusChange)
+			self:SecureHook(button, "Disable", button.MERAnimation.OnStatusChange)
 		end
 
 		if button.Enable then
-			self:SecureHook(button, "Enable", button.MERAnimation.onStatusChange)
+			self:SecureHook(button, "Enable", button.MERAnimation.OnStatusChange)
 		end
 
 		-- Avoid the hook is flushed
 		self:SecureHook(button, "SetScript", function(frame, scriptType)
 			if scriptType == "OnEnter" then
 				self:Unhook(frame, "OnEnter")
-				self:SecureHookScript(frame, "OnEnter", button.MERAnimation.onEnter)
+				self:SecureHookScript(frame, "OnEnter", button.MERAnimation.OnEnter)
 			elseif scriptType == "OnLeave" then
 				self:Unhook(frame, "OnLeave")
-				self:SecureHookScript(frame, "OnLeave", button.MERAnimation.onLeave)
+				self:SecureHookScript(frame, "OnLeave", button.MERAnimation.OnLeave)
 			end
 		end)
 
