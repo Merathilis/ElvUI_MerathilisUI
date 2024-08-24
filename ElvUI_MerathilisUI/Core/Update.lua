@@ -40,18 +40,21 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	local updated = false
-	if profileVersion and profileVersion <= 6.32 then
-		if E.db.mui.misc.quest and E.db.mui.misc.quest.selectQuestReward then
-			E.db.mui.misc.quest = nil
+	if profileVersion and profileVersion <= 6.34 then
+		if E.private.mui.skins then
+			for _, widget in pairs({
+				"button",
+				"tab",
+				"treeGroupButton",
+			}) do
+				if E.private.mui.skins.widgets[widget] and E.private.mui.skins.widgets[widget].backdrop then
+					E.private.mui.skins.widgets[widget].backdrop.alpha = nil
+					E.private.mui.skins.widgets[widget].backdrop.animationType = nil
+					E.private.mui.skins.widgets[widget].backdrop.animationDuration = nil
+				end
+			end
+			UpdateMessage(L["Skins"] .. " - " .. L["Widgets"] .. ": " .. L["Update Database"], privateVersion)
 		end
-
-		UpdateMessage(L["Misc"] .. " - " .. L["Highest Quest Reward"], profileVersion)
-
-		if E.db.mui.misc.quickDelete then
-			E.db.mui.misc.quickDelete = nil
-		end
-
-		UpdateMessage(L["Misc"] .. " - " .. L["Quick Delete"], profileVersion)
 
 		updated = true
 	end
