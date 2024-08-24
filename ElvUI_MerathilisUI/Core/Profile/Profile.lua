@@ -639,7 +639,6 @@ P.misc = {
 		acceptCombatResurrect = false,
 		confirmSummon = false,
 	},
-	hotKey = true,
 	contextMenu = {
 		enable = true,
 		sectionTitle = true,

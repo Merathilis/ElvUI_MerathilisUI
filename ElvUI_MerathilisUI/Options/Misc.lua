@@ -85,16 +85,6 @@ options.general = {
 			name = L["Block Join Requests"],
 			desc = L["|nIf checked, only popout join requests from friends and guild members."],
 		},
-		hotKey = {
-			order = 11,
-			type = "toggle",
-			name = L["HotKey Above CD"],
-			desc = format(
-				"%s\n %s",
-				L["Show hotkeys above the ElvUI cooldown animation."],
-				F.CreateColorString(L["Only works with ElvUI action bar and ElvUI cooldowns."], E.db.general.valuecolor)
-			),
-		},
 		randomtoy = {
 			order = 20,
 			type = "input",

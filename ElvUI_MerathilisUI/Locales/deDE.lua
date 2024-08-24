@@ -415,10 +415,6 @@ L["Show all stats on the Character Frame"] = "Alle Werte im Charakterfenster anz
 L["Block Join Requests"] = "Beitrittsanfragen blockieren"
 L["|nIf checked, only popout join requests from friends and guild members."] =
 	"|nWenn aktiviert, werden nur Beitrittsanfragen von Freunden und Gildenmitgliedern angezeigt."
-L["HotKey Above CD"] = "HotKey über CD"
-L["Show hotkeys above the ElvUI cooldown animation."] = "Hotkeys über der ElvUI-Abklinganimation anzeigen."
-L["Only works with ElvUI action bar and ElvUI cooldowns."] =
-	"Funktioniert nur mit der ElvUI-Aktionsleiste und ElvUI-Abklingzeiten."
 L["Random Toy Macro"] = "Zufälliges Spielzeug Makro"
 L["Creates a random toy macro."] = "Erzeugt ein zufälliges Spielzeugmakro."
 L["Spell activation alert frame customizations."] = "Anpassungen des Warnfensters bei Zauberaktivierung."
