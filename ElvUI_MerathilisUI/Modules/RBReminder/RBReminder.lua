@@ -2,7 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_RaidBuffs")
 local LCG = E.Libs.CustomGlow
 
-local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
+local ipairs, pairs, unpack = ipairs, pairs, unpack
 
 local CreateFrame = CreateFrame
 local RegisterStateDriver = RegisterStateDriver
@@ -309,7 +309,8 @@ function module:CreateIconBuff(name, relativeTo, firstbutton)
 	local button = CreateFrame("Button", name, module.frame)
 
 	if firstbutton == true then
-		button:CreatePanel(
+		F.CreatePanel(
+			button,
 			"Transparent",
 			E.db.mui.raidBuffs.size,
 			E.db.mui.raidBuffs.size,
@@ -320,7 +321,8 @@ function module:CreateIconBuff(name, relativeTo, firstbutton)
 			0
 		)
 	else
-		button:CreatePanel(
+		F.CreatePanel(
+			button,
 			"Transparent",
 			E.db.mui.raidBuffs.size,
 			E.db.mui.raidBuffs.size,
@@ -368,7 +370,8 @@ function module:Initialize()
 	self.Anchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 11, -15)
 
 	self.frame = CreateFrame("Frame", "RaidBuffReminder", E.UIParent)
-	self.frame:CreatePanel(
+	F.CreatePanel(
+		self.frame,
 		"Invisible",
 		(E.db.mui.raidBuffs.size * 8) + 26,
 		E.db.mui.raidBuffs.size + 6,

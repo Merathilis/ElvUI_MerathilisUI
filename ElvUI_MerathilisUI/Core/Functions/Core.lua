@@ -25,6 +25,9 @@ local GetInventoryItem = C_TooltipInfo.GetInventoryItem
 local GetBagItem = C_TooltipInfo.GetBagItem
 local GetHyperlink = C_TooltipInfo.GetHyperlink
 
+local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
+local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
+
 -- Profile
 function F.IsMERProfile()
 	local releaseVersion = F.GetDBFromPath("mui.core.lastLayoutVersion")
@@ -158,6 +161,73 @@ function F.CreateStyle(frame, useStripes, useShadow, useGradient)
 
 	frame.MERStyle = holder
 	frame.__MERStyle = 1
+end
+
+function F.CreateOverlay(f)
+	if f.overlay then
+		return
+	end
+
+	local overlay = f:CreateTexture("$parentOverlay", "BORDER", f)
+	overlay:Point("TOPLEFT", 2, -2)
+	overlay:Point("BOTTOMRIGHT", -2, 2)
+	overlay:SetTexture(E["media"].blankTex)
+	overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
+	f.overlay = overlay
+end
+
+function F.CreateBorder(f, i, o)
+	if i then
+		if f.iborder then
+			return
+		end
+		local border = CreateFrame("Frame", "$parentInnerBorder", f)
+		border:Point("TOPLEFT", E.mult, -E.mult)
+		border:Point("BOTTOMRIGHT", -E.mult, E.mult)
+		border:CreateBackdrop()
+		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		f.iborder = border
+	end
+
+	if o then
+		if f.oborder then
+			return
+		end
+		local border = CreateFrame("Frame", "$parentOuterBorder", f)
+		border:Point("TOPLEFT", -E.mult, E.mult)
+		border:Point("BOTTOMRIGHT", E.mult, -E.mult)
+		border:SetFrameLevel(f:GetFrameLevel() + 1)
+		border:CreateBackdrop()
+		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		f.oborder = border
+	end
+end
+
+function F.CreatePanel(f, t, w, h, a1, p, a2, x, y)
+	f:Width(w)
+	f:Height(h)
+	f:SetFrameLevel(3)
+	f:SetFrameStrata("BACKGROUND")
+	f:Point(a1, p, a2, x, y)
+	f:CreateBackdrop()
+
+	if t == "Transparent" then
+		backdropa = 0.45
+		F.CreateBorder(f, true, true)
+		S:CreateBackdropShadow(f.backdrop)
+	elseif t == "Overlay" then
+		backdropa = 1
+		F.CreateOverlay(f)
+		S:CreateBackdropShadow(f.backdrop)
+	elseif t == "Invisible" then
+		backdropa = 0
+		bordera = 0
+	else
+		backdropa = 1
+	end
+
+	f.backdrop:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
+	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
 function F.ChooseForGradient(normalValue, gradientValue)
