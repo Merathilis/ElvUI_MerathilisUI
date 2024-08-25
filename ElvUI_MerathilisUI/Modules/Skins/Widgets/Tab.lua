@@ -92,6 +92,11 @@ do
 			return S.Ace3_TabSetSelected_MER(tab, selected)
 		end
 
+		if tab.MERAnimation then
+			tab.__MERAnimationIsSelected = selected
+			tab.MERAnimation.OnStatusChange(tab)
+		end
+
 		if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.tab.enable then
 			return S.Ace3_TabSetSelected_MER(tab, selected)
 		end
