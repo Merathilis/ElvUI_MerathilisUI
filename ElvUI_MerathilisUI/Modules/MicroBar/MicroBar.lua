@@ -29,6 +29,7 @@ local CloseAllWindows = CloseAllWindows
 local CloseMenus = CloseMenus
 local CreateFrame = CreateFrame
 local CreateFromMixins = CreateFromMixins
+local GenerateClosure = GenerateClosure
 local GetGameTime = GetGameTime
 local GetItemCooldown = C_Item.GetItemCooldown
 local GetItemCount = C_Item.GetItemCount
@@ -80,6 +81,8 @@ local ScrollButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:
 
 local friendOnline = gsub(_G.ERR_FRIEND_ONLINE_SS, "\124Hplayer:%%s\124h%[%%s%]\124h", "")
 local friendOffline = gsub(_G.ERR_FRIEND_OFFLINE_S, "%%s", "")
+
+module.AnimationManager = { frame = nil, groups = nil }
 
 local hearthstones = {
 	6948,
@@ -150,6 +153,130 @@ local hearthstoneAndToyIDList = {
 
 local hearthstonesAndToysData
 local availableHearthstones
+
+local function copyRGB(color, target)
+	target.r = color.r
+	target.g = color.g
+	target.b = color.b
+end
+
+function module.AnimationManager:Drop()
+	self.frame = nil
+	self.groups = nil
+end
+
+function module.AnimationManager:DropIfMatched(frame, group)
+	if frame and self.frame == frame or self.groups and tContains(self.groups, group) then
+		self:Drop()
+	end
+end
+
+function module.AnimationManager:SetCurrent(frame, groups)
+	if self.frame and self.frame ~= frame or self.groups and tContains(self.groups, groups[1]) then
+		E:Delay(0.01, module.AnimationOnLeave, module, self.frame)
+	end
+	self.frame = frame
+	self.groups = groups
+end
+
+local function animationReset(self)
+	self.StartR, self.StartG, self.StartB = module.normalRGB.r, module.normalRGB.g, module.normalRGB.b
+	self.EndR, self.EndG, self.EndB = module.mouseOverRGB.r, module.mouseOverRGB.g, module.mouseOverRGB.b
+	self:SetChange(self.EndR - self.StartR, self.EndG - self.StartG, self.EndB - self.StartB)
+	self:SetDuration(module.animationDuration)
+	self:SetEasing(module.animationInEase)
+	self:Reset()
+end
+
+local function animationSwitch(self, isEnterMode)
+	local elapsed = min(max(0, self:GetProgressByTimer()), module.animationDuration)
+	self.Timer = isEnterMode == self.isEnterMode and elapsed or (module.animationDuration - elapsed)
+	local startRGB = isEnterMode and module.normalRGB or module.mouseOverRGB
+	local endRGB = isEnterMode and module.mouseOverRGB or module.normalRGB
+	self.StartR, self.StartG, self.StartB = startRGB.r, startRGB.g, startRGB.b
+	self.EndR, self.EndG, self.EndB = endRGB.r, endRGB.g, endRGB.b
+	self:SetChange(endRGB.r, endRGB.g, endRGB.b)
+	self:SetEasing(isEnterMode and module.animationInEase or module.animationOutEase)
+	self.isEnterMode = isEnterMode
+end
+
+local function copyAnimationData(self, target)
+	target.StartR, target.StartG, target.StartB = self.StartR, self.StartG, self.StartB
+	target.EndR, target.EndG, target.EndB = self.EndR, self.EndG, self.EndB
+	target:SetChange(self:GetChange())
+	target:SetDuration(self:GetDuration())
+	target:SetEasing(self:GetEasing())
+	target.Timer = self.Timer
+	target.isEnterMode = self.isEnterMode
+end
+
+local function animationSetFinished(anim)
+	anim:SetScript("OnFinished", function(self)
+		if not self.isEnterMode then
+			module.AnimationManager:DropIfMatched(nil, self.Group)
+		end
+	end)
+end
+
+function module:AnimationOnEnter(button)
+	if button.mainTex then
+		local group, anim = button.mainTex.group, button.mainTex.group.anim
+		if group:IsPlaying() then
+			group:Pause()
+		end
+
+		animationSwitch(anim, true)
+		group:Play()
+
+		self.AnimationManager:SetCurrent(button, { group })
+		return
+	end
+
+	if button.hour and button.minutes then
+		local group1, anim1 = button.hour.group, button.hour.group.anim
+		local group2, anim2 = button.minutes.group, button.minutes.group.anim
+		if group1:IsPlaying() then
+			group1:Pause()
+		end
+		if group2:IsPlaying() then
+			group2:Pause()
+		end
+
+		animationSwitch(anim1, true)
+		copyAnimationData(anim1, anim2)
+		group1:Play()
+		group2:Play()
+
+		self.AnimationManager:SetCurrent(button, { group1, group2 })
+	end
+end
+function module:AnimationOnLeave(button)
+	if button.mainTex then
+		local group, anim = button.mainTex.group, button.mainTex.group.anim
+		if group:IsPlaying() then
+			group:Pause()
+		end
+
+		animationSwitch(anim, false)
+		group:Play()
+	end
+
+	if button.hour and button.minutes then
+		local group1, anim1 = button.hour.group, button.hour.group.anim
+		local group2, anim2 = button.minutes.group, button.minutes.group.anim
+		if group1:IsPlaying() then
+			group1:Pause()
+		end
+		if group2:IsPlaying() then
+			group2:Pause()
+		end
+
+		animationSwitch(anim1, false)
+		animationSwitch(anim2, false)
+		group1:Play()
+		group2:Play()
+	end
+end
 
 local function AddDoubleLineForItem(itemID, prefix)
 	local isRandomHearthstone
@@ -603,10 +730,10 @@ local ButtonTypes = {
 			DT.tooltip:Show()
 
 			button.tooltipsUpdateTimer = NewTicker(0.3, function()
-				local vol = GetCVar("Sound_MasterVolume")
-				vol = vol and tonumber(vol) or 0
+				local _vol = GetCVar("Sound_MasterVolume")
+				_vol = _vol and tonumber(_vol) or 0
 				DT.tooltip:ClearLines()
-				DT.tooltip:SetText(L["Volume"] .. format(": %d%%", vol * 100))
+				DT.tooltip:SetText(L["Volume"] .. format(": %d%%", _vol * 100))
 				DT.tooltip:AddLine("\n")
 				DT.tooltip:AddLine(LeftButtonIcon .. " " .. L["Increase the volume"] .. " (+10%)", 1, 1, 1)
 				DT.tooltip:AddLine(RightButtonIcon .. " " .. L["Decrease the volume"] .. " (-10%)", 1, 1, 1)
@@ -635,6 +762,18 @@ function module:ShowAdvancedTimeTooltip(panel)
 	-- DT.tooltip:Show()
 end
 
+function module:OnEnter()
+	if self.db and self.db.mouseOver then
+		E:UIFrameFadeIn(self.bar, self.db.fadeTime, self.bar:GetAlpha(), 1)
+	end
+end
+
+function module:OnLeave()
+	if self.db and self.db.mouseOver then
+		E:UIFrameFadeOut(self.bar, self.db.fadeTime, self.bar:GetAlpha(), 0)
+	end
+end
+
 function module:ConstructBar()
 	if self.bar then
 		return
@@ -645,17 +784,8 @@ function module:ConstructBar()
 	bar:SetPoint("TOP", 0, -20)
 	bar:SetFrameStrata("MEDIUM")
 
-	bar:SetScript("OnEnter", function(bar)
-		if self.db and self.db.mouseOver then
-			E:UIFrameFadeIn(bar, self.db.fadeTime, bar:GetAlpha(), 1)
-		end
-	end)
-
-	bar:SetScript("OnLeave", function(bar)
-		if self.db and self.db.mouseOver then
-			E:UIFrameFadeOut(bar, self.db.fadeTime, bar:GetAlpha(), 0)
-		end
-	end)
+	bar:SetScript("OnEnter", GenerateClosure(self.OnEnter, self))
+	bar:SetScript("OnLeave", GenerateClosure(self.OnLeave, self))
 
 	local middlePanel = CreateFrame("Button", "MicroBarMiddlePanel", bar, "SecureActionButtonTemplate")
 	middlePanel:SetSize(81, 50)
@@ -708,22 +838,19 @@ function module:ConstructTimeArea()
 	hour:SetPoint("RIGHT", colon, "LEFT", 1, 0)
 	self.bar.middlePanel.hour = hour
 
-	local hourHover = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	F.SetFontDB(hourHover, self.db.time.font)
-	hourHover:SetPoint("RIGHT", colon, "LEFT", 1, 0)
-	hourHover:SetAlpha(0)
-	self.bar.middlePanel.hourHover = hourHover
+	hour.group = _G.CreateAnimationGroup(hour)
+	hour.group.anim = hour.group:CreateAnimation("color")
+	hour.group.anim:SetColorType("text")
+	animationSetFinished(hour.group.anim)
 
 	local minutes = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	F.SetFontDB(minutes, self.db.time.font)
 	minutes:SetPoint("LEFT", colon, "RIGHT", 0, 0)
 	self.bar.middlePanel.minutes = minutes
 
-	local minutesHover = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
-	F.SetFontDB(minutesHover, self.db.time.font)
-	minutesHover:SetPoint("LEFT", colon, "RIGHT", 0, 0)
-	minutesHover:SetAlpha(0)
-	self.bar.middlePanel.minutesHover = minutesHover
+	minutes.group = _G.CreateAnimationGroup(minutes)
+	minutes.group.anim = minutes.group:CreateAnimation("color")
+	minutes.group.anim:SetColorType("text")
 
 	local text = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	F.SetFontDB(text, self.db.additionalText.font)
@@ -733,7 +860,6 @@ function module:ConstructTimeArea()
 
 	self.bar.middlePanel:SetSize(self.db.timeAreaWidth, self.db.timeAreaHeight)
 
-	self:UpdateTimeFormat()
 	self:UpdateTime()
 	self.timeAreaUpdateTimer = NewTicker(self.db.time.interval, function()
 		module:UpdateTime()
@@ -748,14 +874,10 @@ function module:ConstructTimeArea()
 	end
 
 	self:HookScript(self.bar.middlePanel, "OnEnter", function(panel)
-		if self.db and self.db.mouseOver then
-			E:UIFrameFadeIn(self.bar, self.db.fadeTime, self.bar:GetAlpha(), 1)
-		end
+		self:OnEnter()
+		self:AnimationOnEnter(panel)
 
 		DT.RegisteredDataTexts["System"].onUpdate(panel, 10)
-
-		E:UIFrameFadeIn(panel.hourHover, self.db.fadeTime, panel.hourHover:GetAlpha(), 1)
-		E:UIFrameFadeIn(panel.minutesHover, self.db.fadeTime, panel.minutesHover:GetAlpha(), 1)
 
 		if not self.db.time.alwaysSystemInfo then
 			E:UIFrameFadeIn(panel.text, self.db.fadeTime, panel.text:GetAlpha(), 1)
@@ -784,11 +906,9 @@ function module:ConstructTimeArea()
 	end)
 
 	self:HookScript(self.bar.middlePanel, "OnLeave", function(panel)
-		if self.db and self.db.mouseOver then
-			E:UIFrameFadeOut(self.bar, self.db.fadeTime, self.bar:GetAlpha(), 0)
-		end
-		E:UIFrameFadeOut(panel.hourHover, self.db.fadeTime, panel.hourHover:GetAlpha(), 0)
-		E:UIFrameFadeOut(panel.minutesHover, self.db.fadeTime, panel.minutesHover:GetAlpha(), 0)
+		self:OnLeave()
+		self:AnimationOnLeave(panel)
+
 		if not self.db.time.alwaysSystemInfo then
 			E:UIFrameFadeOut(panel.text, self.db.fadeTime, panel.text:GetAlpha(), 0)
 		end
@@ -828,82 +948,52 @@ function module:UpdateTimeTicker()
 	end)
 end
 
-function module:UpdateTimeFormat()
-	local normalColor = { r = 1, g = 1, b = 1 }
-	local hoverColor = { r = 1, g = 1, b = 1 }
-
-	if self.db.normalColor == "CUSTOM" then
-		normalColor = self.db.customNormalColor
-	elseif self.db.normalColor == "CLASS" then
-		normalColor = E:ClassColor(E.myclass, true)
-	elseif self.db.normalColor == "VALUE" then
-		normalColor = {
-			r = E.media.rgbvaluecolor[1],
-			g = E.media.rgbvaluecolor[2],
-			b = E.media.rgbvaluecolor[3],
-		}
-	end
-
-	if self.db.hoverColor == "CUSTOM" then
-		hoverColor = self.db.customHoverColor
-	elseif self.db.hoverColor == "CLASS" then
-		hoverColor = E:ClassColor(E.myclass, true)
-	elseif self.db.hoverColor == "VALUE" then
-		hoverColor = {
-			r = E.media.rgbvaluecolor[1],
-			g = E.media.rgbvaluecolor[2],
-			b = E.media.rgbvaluecolor[3],
-		}
-	end
-
-	self.bar.middlePanel.hour.format = F.CreateColorString("%s", normalColor)
-	self.bar.middlePanel.hourHover.format = F.CreateColorString("%s", hoverColor)
-	self.bar.middlePanel.minutes.format = F.CreateColorString("%s", normalColor)
-	self.bar.middlePanel.minutesHover.format = F.CreateColorString("%s", hoverColor)
-	self.bar.middlePanel.colon:SetText(F.CreateColorString(":", hoverColor))
-end
-
 function module:UpdateTime()
 	local panel = self.bar.middlePanel
 	if not panel or not self.db then
 		return
 	end
 
-	local hour, min
+	F.SetFontDB(panel.hour, self.db.time.font)
+	F.SetFontDB(panel.minutes, self.db.time.font)
+	F.SetFontDB(panel.colon, self.db.time.font)
+	F.SetFontDB(panel.text, self.db.additionalText.font)
+
+	panel.hour.group:Stop()
+	animationReset(panel.hour.group.anim)
+	panel.hour.group.anim.isEnterMode = true
+
+	panel.minutes.group:Stop()
+	animationReset(panel.minutes.group.anim)
+	panel.minutes.group.anim.isEnterMode = true
+
+	local hour, minute
 
 	if self.db.time then
 		if self.db.time.localTime then
 			hour = self.db.time.twentyFour and date("%H") or date("%I")
-			min = date("%M")
+			minute = date("%M")
 		else
-			hour, min = GetGameTime()
+			hour, minute = GetGameTime()
 			hour = self.db.time.twentyFour and hour or mod(hour, 12)
 			hour = format("%02d", hour)
-			min = format("%02d", min)
+			minute = format("%02d", min)
 		end
 	else
 		return
 	end
 
-	panel.hour:SetFormattedText(panel.hour.format, hour)
-	panel.hourHover:SetFormattedText(panel.hourHover.format, hour)
-	panel.minutes:SetFormattedText(panel.minutes.format, min)
-	panel.minutesHover:SetFormattedText(panel.minutesHover.format, min)
-
+	panel.colon:SetText(F.CreateColorString(":", self.mouseOverRGB))
+	panel.hour:SetText(hour)
+	panel.minutes:SetText(minute)
 	panel.colon:ClearAllPoints()
+
 	local offset = (panel.hour:GetStringWidth() - panel.minutes:GetStringWidth()) / 2
 	panel.colon:SetPoint("CENTER", offset, -1)
 end
 
 function module:UpdateTimeArea()
 	local panel = self.bar.middlePanel
-
-	F.SetFontDB(panel.hour, self.db.time.font)
-	F.SetFontDB(panel.hourHover, self.db.time.font)
-	F.SetFontDB(panel.minutes, self.db.time.font)
-	F.SetFontDB(panel.minutesHover, self.db.time.font)
-	F.SetFontDB(panel.colon, self.db.time.font)
-	F.SetFontDB(panel.text, self.db.additionalText.font)
 
 	if self.db.time.flash then
 		E:Flash(panel.colon, 1, true)
@@ -930,10 +1020,8 @@ function module:UpdateTimeArea()
 end
 
 function module:ButtonOnEnter(button)
-	if self.db and self.db.mouseOver then
-		E:UIFrameFadeIn(self.bar, self.db.fadeTime, self.bar:GetAlpha(), 1)
-	end
-	E:UIFrameFadeIn(button.hoverTex, self.db.fadeTime, button.hoverTex:GetAlpha(), 1)
+	self:AnimationOnEnter(button)
+	self:OnEnter()
 	if button.tooltips then
 		if self.db.tooltipsAnchor == "ANCHOR_TOP" then
 			DT.tooltip:SetOwner(button, "ANCHOR_TOP", 0, 20)
@@ -975,10 +1063,8 @@ function module:ButtonOnEnter(button)
 end
 
 function module:ButtonOnLeave(button)
-	if self.db and self.db.mouseOver then
-		E:UIFrameFadeOut(self.bar, self.db.fadeTime, self.bar:GetAlpha(), 0)
-	end
-	E:UIFrameFadeOut(button.hoverTex, self.db.fadeTime, button.hoverTex:GetAlpha(), 0)
+	self:AnimationOnLeave(button)
+	self:OnLeave()
 	DT.tooltip:Hide()
 	if button.tooltipsLeave then
 		button.tooltipsLeave(button)
@@ -994,16 +1080,14 @@ function module:ConstructButton()
 	button:SetSize(self.db.buttonSize, self.db.buttonSize)
 	button:RegisterForClicks(MER.UseKeyDown and "AnyDown" or "AnyUp")
 
-	local normalTex = button:CreateTexture(nil, "ARTWORK")
-	normalTex:SetPoint("CENTER")
-	normalTex:SetSize(self.db.buttonSize, self.db.buttonSize)
-	button.normalTex = normalTex
-
-	local hoverTex = button:CreateTexture(nil, "ARTWORK")
-	hoverTex:SetPoint("CENTER")
-	hoverTex:SetSize(self.db.buttonSize, self.db.buttonSize)
-	hoverTex:SetAlpha(0)
-	button.hoverTex = hoverTex
+	local mainTex = button:CreateTexture(nil, "ARTWORK")
+	mainTex:SetPoint("CENTER")
+	mainTex:SetSize(self.db.buttonSize, self.db.buttonSize)
+	mainTex.group = _G.CreateAnimationGroup(mainTex)
+	mainTex.group.anim = mainTex.group:CreateAnimation("color")
+	mainTex.group.anim:SetColorType("vertex")
+	animationSetFinished(mainTex.group.anim)
+	button.mainTex = mainTex
 
 	local notificationTex = button:CreateTexture(nil, "OVERLAY")
 	notificationTex:SetTexture(I.Media.Icons.Notification)
@@ -1063,42 +1147,11 @@ function module:UpdateButton(button, buttonType)
 	end
 
 	-- Normal
-	local r, g, b = 1, 1, 1
-	if self.db.normalColor == "CUSTOM" then
-		r = self.db.customNormalColor.r
-		g = self.db.customNormalColor.g
-		b = self.db.customNormalColor.b
-	elseif self.db.normalColor == "CLASS" then
-		local classColor = E:ClassColor(E.myclass, true)
-		r = classColor.r
-		g = classColor.g
-		b = classColor.b
-	elseif self.db.normalColor == "VALUE" then
-		r, g, b = unpack(E.media.rgbvaluecolor)
-	end
-
-	button.normalTex:SetTexture(config.icon)
-	button.normalTex:SetSize(self.db.buttonSize, self.db.buttonSize)
-	button.normalTex:SetVertexColor(r, g, b)
-
-	-- Mouseover
-	r, g, b = 1, 1, 1
-	if self.db.hoverColor == "CUSTOM" then
-		r = self.db.customHoverColor.r
-		g = self.db.customHoverColor.g
-		b = self.db.customHoverColor.b
-	elseif self.db.hoverColor == "CLASS" then
-		local classColor = E:ClassColor(E.myclass, true)
-		r = classColor.r
-		g = classColor.g
-		b = classColor.b
-	elseif self.db.hoverColor == "VALUE" then
-		r, g, b = unpack(E.media.rgbvaluecolor)
-	end
-
-	button.hoverTex:SetTexture(config.icon)
-	button.hoverTex:SetSize(self.db.buttonSize, self.db.buttonSize)
-	button.hoverTex:SetVertexColor(r, g, b)
+	button.mainTex.group:Stop()
+	button.mainTex:SetTexture(config.icon)
+	button.mainTex:SetSize(self.db.buttonSize, self.db.buttonSize)
+	animationReset(button.mainTex.group.anim)
+	button.mainTex.group.anim.isEnterMode = true
 
 	-- Additional text
 	if button.registeredEvents then
@@ -1115,7 +1168,7 @@ function module:UpdateButton(button, buttonType)
 		button.additionalTextTimer:Cancel()
 	end
 
-	button.additionalTextFormat = F.CreateColorString("%s", { r = r, g = g, b = b })
+	button.additionalTextFormat = F.CreateColorString("%s", self.mouseOverRGB)
 
 	if config.additionalText and self.db.additionalText.enable then
 		button.additionalText:SetFormattedText(
@@ -1158,9 +1211,11 @@ function module:UpdateButton(button, buttonType)
 			local c = config.notificationColor
 			button.notificationTex:SetVertexColor(c.r, c.g, c.b, c.a)
 		else
-			button.notificationTex:SetVertexColor(r, g, b, 1)
+			button.notificationTex:SetVertexColor(self.normalRGB.r, self.normalRGB.g, self.normalRGB.b, 1)
 		end
 	end
+
+	button:Show()
 end
 
 function module:ConstructButtons()
@@ -1179,6 +1234,7 @@ function module:UpdateButtons()
 		self:UpdateButton(self.buttons[i], self.db.left[i])
 		self:UpdateButton(self.buttons[i + NUM_PANEL_BUTTONS], self.db.right[i])
 	end
+
 	self:UpdateGuildButton()
 end
 
@@ -1195,6 +1251,7 @@ function module:UpdateLayout()
 
 	local numLeftButtons, numRightButtons = 0, 0
 
+	-- Left Panel
 	local lastButton = nil
 	for i = 1, NUM_PANEL_BUTTONS do
 		local button = self.buttons[i]
@@ -1325,6 +1382,7 @@ function module:Initialize()
 		end
 	end
 
+	self:UpdateMetadata()
 	self:UpdateReknown()
 	self:UpdateHearthStoneTable()
 	self:ConstructBar()
@@ -1347,6 +1405,37 @@ function module:Initialize()
 	self.initialized = true
 end
 
+function module:UpdateMetadata()
+	self.normalRGB = self.normalRGB or { r = 1, g = 1, b = 1 }
+	if self.db.normalColor == "CUSTOM" then
+		copyRGB(self.db.customNormalColor, self.normalRGB)
+	elseif self.db.normalColor == "CLASS" then
+		copyRGB(E:ClassColor(E.myclass, true), self.normalRGB)
+	elseif self.db.normalColor == "VALUE" then
+		copyRGB(E.media.rgbvaluecolor, self.normalRGB)
+	else
+		copyRGB({ r = 1, g = 1, b = 1 }, self.normalRGB)
+	end
+
+	self.mouseOverRGB = self.mouseOverRGB or { r = 1, g = 1, b = 1 }
+	if self.db.hoverColor == "CUSTOM" then
+		copyRGB(self.db.customHoverColor, self.mouseOverRGB)
+	elseif self.db.hoverColor == "CLASS" then
+		copyRGB(E:ClassColor(E.myclass, true), self.mouseOverRGB)
+	elseif self.db.hoverColor == "VALUE" then
+		copyRGB(E.media.rgbvaluecolor, self.mouseOverRGB)
+	else
+		copyRGB({ r = 1, g = 1, b = 1 }, self.mouseOverRGB)
+	end
+
+	self.animationDuration = self.db.animation.duration
+	self.animationInEase = "in-" .. self.db.animation.ease
+	self.animationOutEase = "out-" .. self.db.animation.ease
+	if self.db.animation.easeInvert then
+		self.animationInEase, self.animationOutEase = self.animationOutEase, self.animationInEase
+	end
+end
+
 function module:ProfileUpdate()
 	self.db = E.db.mui.microBar
 	if not self.db then
@@ -1354,10 +1443,10 @@ function module:ProfileUpdate()
 	end
 
 	if self.db.enable then
+		self:UpdateMetadata()
 		if self.initialized then
 			self.bar:Show()
 			self:UpdateHomeButton()
-			self:UpdateTimeFormat()
 			self:UpdateTimeArea()
 			self:UpdateTime()
 			self:UpdateButtons()
