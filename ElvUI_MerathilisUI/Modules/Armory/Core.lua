@@ -475,12 +475,12 @@ function module:UpdateItemLevel()
 	end
 
 	if module.db.stats.itemLevelFont.itemLevelFontColor == "GRADIENT" then
-		local epicComplete = select(13, GetAchievementInfo(18977))
+		local epicComplete = select(13, GetAchievementInfo(40147))
 
 		if epicComplete then
 			module.frame.ItemLevelText:SetText(F.String.FastGradient(itemLevelText, 0.78, 0.13, 0.57, 0.42, 0.08, 0.82))
 		else
-			local rareComplete = select(13, GetAchievementInfo(18976))
+			local rareComplete = select(13, GetAchievementInfo(40146))
 
 			if rareComplete then
 				module.frame.ItemLevelText:SetText(
