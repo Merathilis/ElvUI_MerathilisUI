@@ -106,8 +106,8 @@ options.microBar = {
 			end,
 			set = function(info, value)
 				E.db.mui.microBar[info[#info]] = value
+				MB:UpdateMetadata()
 				MB:UpdateButtons()
-				MB:UpdateTimeFormat()
 				MB:UpdateTime()
 			end,
 			args = {
@@ -163,6 +163,51 @@ options.microBar = {
 						},
 					},
 				},
+				animation = {
+					order = 2,
+					type = "group",
+					name = L["Animation"],
+					inline = true,
+					get = function(info)
+						return E.db.mui.microBar[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.microBar[info[#info - 1]][info[#info]] = value
+						MB:UpdateMetadata()
+						MB:UpdateButtons()
+						MB:UpdateTime()
+					end,
+					args = {
+						duration = {
+							order = 1,
+							type = "range",
+							name = L["Duration"],
+							desc = L["The duration of the animation in seconds."],
+							min = 0,
+							max = 3,
+							step = 0.01,
+						},
+						ease = {
+							order = 2,
+							type = "select",
+							name = L["Ease"],
+							desc = L["The easing function used for colorize the button."]
+								.. "\n"
+								.. L["You can preview the ease type in https://easings.net/"],
+							values = MER.AnimationEaseTable,
+						},
+						easeInvert = {
+							order = 3,
+							type = "toggle",
+							name = L["Invert Ease"],
+							desc = L["When enabled, this option inverts the easing function."]
+								.. " "
+								.. L["(e.g., 'in-quadratic' becomes 'out-quadratic' and vice versa)"]
+								.. "\n"
+								.. L["Generally, enabling this option makes the value increase faster in the first half of the animation."],
+						},
+					},
+				},
 				normal = {
 					order = 3,
 					type = "group",
@@ -174,7 +219,7 @@ options.microBar = {
 							type = "select",
 							name = L["Mode"],
 							values = {
-								NONE = L["None"],
+								DEFAULT = L["Default"],
 								CLASS = L["Class Color"],
 								VALUE = L["Value Color"],
 								CUSTOM = L["Custom"],
@@ -196,6 +241,9 @@ options.microBar = {
 							set = function(info, r, g, b, a)
 								local db = E.db.mui.microBar[info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, a
+								MB:UpdateMetadata()
+								MB:UpdateButtons()
+								MB:UpdateTime()
 							end,
 						},
 					},
@@ -211,7 +259,7 @@ options.microBar = {
 							type = "select",
 							name = L["Mode"],
 							values = {
-								NONE = L["None"],
+								DEFAULT = L["Default"],
 								CLASS = L["Class Color"],
 								VALUE = L["Value Color"],
 								CUSTOM = L["Custom"],
@@ -233,6 +281,9 @@ options.microBar = {
 							set = function(info, r, g, b, a)
 								local db = E.db.mui.microBar[info[#info]]
 								db.r, db.g, db.b, db.a = r, g, b, a
+								MB:UpdateMetadata()
+								MB:UpdateButtons()
+								MB:UpdateTime()
 							end,
 						},
 					},
@@ -394,7 +445,6 @@ options.microBar = {
 					end,
 					set = function(info, value)
 						E.db.mui.microBar.time[info[#info - 1]][info[#info]] = value
-						MB:UpdateTimeFormat()
 						MB:UpdateTimeArea()
 					end,
 					args = {

@@ -156,3 +156,15 @@ function MER:OptionsCallback()
 	async.WithItemIDTable(E.db.mui.autoButtons.blackList, "key")
 	async.WithItemIDTable(E.db.mui.autoButtons.customList, "value")
 end
+
+MER.AnimationEaseTable = {
+	["linear"] = L["Linear"],
+	["quadratic"] = L["Quadratic"],
+	["cubic"] = L["Cubic"],
+	["quartic"] = L["Quartic"],
+	["quintic"] = L["Quintic"],
+	["sinusoidal"] = L["Sinusoidal"],
+	["exponential"] = L["Exponential"],
+	["circular"] = L["Circular"],
+	["bounce"] = L["Bounce"],
+}
