@@ -7,8 +7,8 @@ local secureexecuterange = secureexecuterange
 
 local CreateFrame = CreateFrame
 local C_Timer_After = C_Timer.After
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local InCombatLockdown = InCombatLockdown
+local EventUtil = EventUtil
 
 F.Event = {}
 
@@ -288,13 +288,7 @@ do
 	end
 
 	function F.Event.ContinueOnAddOnLoaded(addOnName, callback)
-		local _, isLoaded = IsAddOnLoaded(addOnName)
-		if isLoaded then
-			callback()
-			return
-		end
-
-		F.Event.RegisterOnceFrameEventAndCallback("ADDON_LOADED", callback, addOnName)
+		EventUtil.ContinueOnAddOnLoaded(addOnName, callback)
 	end
 
 	function F.Event.ContinueOutOfCombat(callback)
