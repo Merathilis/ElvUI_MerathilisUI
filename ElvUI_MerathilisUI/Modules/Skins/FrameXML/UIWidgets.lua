@@ -18,7 +18,7 @@ end
 
 local function ReskinBar(bar)
 	if bar and bar.backdrop then
-		S:CreateBackdropShadow(bar)
+		module:CreateBackdropShadow(bar)
 		ReskinLabel(bar.Label)
 	end
 end
