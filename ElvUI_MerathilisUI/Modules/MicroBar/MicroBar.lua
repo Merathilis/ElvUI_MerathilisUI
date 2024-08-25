@@ -65,7 +65,6 @@ local GetCVar = C_CVar.GetCVar
 local GetCVarBool = C_CVar.GetCVarBool
 local SetCVar = C_CVar.SetCVar
 local GetNumFriends = C_FriendList.GetNumFriends
-local GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
 local GetCompleteMissions = C_Garrison.GetCompleteMissions
 local NewTicker = C_Timer.NewTicker
 local IsToyUsable = C_ToyBox.IsToyUsable

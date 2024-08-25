@@ -7,7 +7,6 @@ module.Widgets = WS
 local abs = abs
 local pcall = pcall
 local pairs, type = pairs, type
-local strlower = strlower
 local wipe = wipe
 
 WS.LazyLoadTable = {}

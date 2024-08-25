@@ -1187,6 +1187,11 @@ L["Advanced Skin Settings"] = true
 L["Queue Timer"] = true
 L["Gradient Bars"] = true
 L["Open Details"] = true
+L["Ease"] = true
+L["Generally, enabling this option makes the value increase faster in the first half of the animation."] = true
+L["Invert Ease"] = true
+L["The easing function used for colorize the button."] = true
+L["UI Widget"] = true
 
 -- Panels
 L["Panels"] = true

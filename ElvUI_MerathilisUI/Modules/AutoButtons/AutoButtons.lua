@@ -919,26 +919,11 @@ local openableItems = {
 	217242,
 	217243,
 	217728,
-}
-
-local mopRemix = {
-	211279,
-	217722,
-	219264,
-	219273,
-	219282,
-	223904,
-	223905,
-	223906,
-	223907,
-	223908,
-	223909,
-	223910,
-	223911,
-	226142,
-	226143,
-	226144,
-	226145,
+	-- TWW
+	225249,
+	227450,
+	228361,
+	228741,
 }
 
 local bigDig = {
@@ -1323,7 +1308,6 @@ local moduleList = {
 	["FOODDF"] = foodDragonflight,
 	["SEEDS"] = seeds,
 	["BIGDIG"] = bigDig,
-	["MOPREMIX"] = mopRemix,
 	["ENGINEER"] = engineerItems,
 }
 

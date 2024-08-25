@@ -963,7 +963,7 @@ P.autoButtons = {
 				b = 1,
 			},
 		},
-		include = "QUEST,BANNER,EQUIP,PROF,MOPREMIX,OPENABLE",
+		include = "QUEST,BANNER,EQUIP,PROF,OPENABLE",
 	},
 	bar2 = {
 		enable = true,

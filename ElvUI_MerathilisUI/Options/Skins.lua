@@ -1338,7 +1338,7 @@ for _, widget in pairs({ "button", "treeGroupButton", "tab" }) do
 				order = 4,
 				type = "select",
 				name = L["Ease"],
-				width = 1.2,
+				width = 1.3,
 				desc = L["The easing function used for fading the backdrop."]
 					.. "\n"
 					.. L["You can preview the ease type in https://easings.net/"],
@@ -1352,7 +1352,7 @@ for _, widget in pairs({ "button", "treeGroupButton", "tab" }) do
 					.. " "
 					.. L["(e.g., 'in-quadratic' becomes 'out-quadratic' and vice versa)"]
 					.. "\n"
-					.. L["Generally, enabling this option makes the texture appear sooner in the animation."],
+					.. L["Generally, enabling this option makes the value increase faster in the first half of the animation."],
 			},
 		},
 	}

@@ -1313,6 +1313,13 @@ L["Advanced Skin Settings"] = "Erweiterte Skin Einstellungen"
 L["Queue Timer"] = "Warteschlangen Timer"
 L["Gradient Bars"] = "Farbverlaufsleisten"
 L["Open Details"] = "Öffne Details"
+L["Ease"] = "Übergang"
+L["Generally, enabling this option makes the value increase faster in the first half of the animation."] =
+	"Im Allgemeinen führt das Aktivieren dieser Option dazu, dass der Wert in der ersten Hälfte der Animation schneller ansteigt."
+L["Invert Ease"] = "Übergang umkehren"
+L["The easing function used for colorize the button."] =
+	"Die Übergangs Funktion, die zum Einfärben der Schaltfläche verwendet wird."
+L["UI Widget"] = true -- no need to translate
 
 -- Panels
 L["Panels"] = "Leisten"
