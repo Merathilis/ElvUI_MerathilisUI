@@ -10,8 +10,6 @@ local function SkinFrame()
 	S:HandlePortraitFrame(BindingFrame)
 	module:CreateShadow(BindingFrame)
 
-	local scrollFrame = _G.CliqeUIConfigUIScrollFrame
-
 	local browsePage = _G.CliqueConfigUIBindingFrameBrowsePage
 	S:HandleButton(browsePage.AddButton)
 	S:HandleButton(browsePage.EditButton)
@@ -27,6 +25,16 @@ local function SkinFrame()
 	actionCatalog:Point("LEFT", _G.CliqueUIBindingFrame, "RIGHT", 2, 0)
 	S:HandleEditBox(_G.CliqueConfigUISpellbookSearch)
 	S:HandleButton(_G.CliqueConfigUISpellbookFilterButton)
+	S:HandleCloseButton(_G.CliqueConfigUISpellbookFilterButtonReset)
+	_G.CliqueConfigUISpellbookFilterButtonReset:ClearAllPoints()
+	_G.CliqueConfigUISpellbookFilterButtonReset:Point(
+		"CENTER",
+		_G.CliqueConfigUISpellbookFilterButton,
+		"TOPRIGHT",
+		0,
+		0
+	)
+
 	S:HandleNextPrevButton(actionCatalog.prev)
 	S:HandleNextPrevButton(actionCatalog.next)
 
@@ -54,6 +62,22 @@ local function SkinFrame()
 			S:HandleCheckBox(checkBox)
 		end
 	end
+
+	local scrollFrame = _G.CliqueConfigUIScrollFrame
+	hooksecurefunc(scrollFrame, "Update", function(frame)
+		for _, child in next, { frame.ScrollTarget:GetChildren() } do
+			if not child.IsSkinned then
+				S:HandleButton(child)
+				S:HandleIcon(child.Icon)
+
+				if child.DeleteButton then
+					S:HandleCloseButton(child.DeleteButton)
+				end
+
+				child.IsSkinned = true
+			end
+		end
+	end)
 end
 
 local function SkinTabButton()
