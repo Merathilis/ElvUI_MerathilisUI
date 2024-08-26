@@ -9,7 +9,6 @@ local tinsert = tinsert
 
 local AcceptQuest = AcceptQuest
 local AcknowledgeAutoAcceptQuest = AcknowledgeAutoAcceptQuest
-local AutoQuestPopupTracker_RemovePopUp = AutoQuestPopupTracker_RemovePopUp
 local CloseQuest = CloseQuest
 local CompleteQuest = CompleteQuest
 local GetActiveQuestID = GetActiveQuestID
@@ -62,6 +61,7 @@ local C_QuestLog_IsQuestTrivial = C_QuestLog.IsQuestTrivial
 local C_QuestLog_IsWorldQuest = C_QuestLog.IsWorldQuest
 
 local Enum_GossipOptionRecFlags_QuestLabelPrepend = Enum.GossipOptionRecFlags.QuestLabelPrepend
+local QUEST_STRING = "cFF0000FF.-" .. TRANSMOG_SOURCE_2
 
 local choiceQueue = nil
 
@@ -321,7 +321,7 @@ function module:GOSSIP_SHOW()
 
 	local numActiveQuests = C_GossipInfo_GetNumActiveQuests()
 	if numActiveQuests > 0 then
-		for index, gossipQuestUIInfo in ipairs(C_GossipInfo_GetActiveQuests()) do
+		for _, gossipQuestUIInfo in ipairs(C_GossipInfo_GetActiveQuests()) do
 			local isWorldQuest = gossipQuestUIInfo.questID and C_QuestLog_IsWorldQuest(gossipQuestUIInfo.questID)
 			if gossipQuestUIInfo.isComplete and not isWorldQuest then
 				if not self:IsPaused("COMPLETE") then
@@ -333,7 +333,7 @@ function module:GOSSIP_SHOW()
 
 	local numAvailableQuests = C_GossipInfo_GetNumAvailableQuests()
 	if numAvailableQuests > 0 then
-		for index, gossipQuestUIInfo in ipairs(C_GossipInfo_GetAvailableQuests()) do
+		for _, gossipQuestUIInfo in ipairs(C_GossipInfo_GetAvailableQuests()) do
 			if not gossipQuestUIInfo.isTrivial or IsTrackingHidden() or npcID == 64437 then
 				if not self:IsPaused("ACCEPT") then
 					C_GossipInfo_SelectAvailableQuest(gossipQuestUIInfo.questID)
@@ -384,7 +384,7 @@ function module:GOSSIP_SHOW()
 				gossipOption.name
 				and (
 					gossipOption.flags == Enum_GossipOptionRecFlags_QuestLabelPrepend
-					or strfind(gossipOption.name, "^|cFF0000FF")
+					or strfind(gossipOption.name, QUEST_STRING)
 				)
 			then
 				tinsert(maybeQuestIndexes, index)
