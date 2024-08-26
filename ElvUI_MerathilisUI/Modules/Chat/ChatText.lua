@@ -242,25 +242,28 @@ do --this can save some main file locals
 			return t
 		end
 
-		--Simpys: Spring Green (2EFF7E), Vivid Sky Blue (52D9FF), Medium Purple (8D63DB), Ticke Me Pink (FF8EB6), Yellow Orange (FFAF53)
+		--Simpys: Turquoise (49CAF5), Sea Green (80C661), Khaki (FFF461), Salmon (F6885F), Orchid (CD84B9), Light Sky Blue (58CCF5)
 		local SimpyColors = function(t)
 			return specialText(
 				t,
-				0.18,
-				1.00,
-				0.49,
-				0.32,
-				0.85,
-				1.00,
-				0.55,
+				0.28,
+				0.79,
+				0.96,
+				0.50,
+				0.77,
 				0.38,
-				0.85,
 				1.00,
-				0.55,
-				0.71,
-				1.00,
-				0.68,
-				0.32
+				0.95,
+				0.38,
+				0.96,
+				0.53,
+				0.37,
+				0.80,
+				0.51,
+				0.72,
+				0.34,
+				0.80,
+				0.96
 			)
 		end
 		--Detroit Lions: Honolulu Blue to Silver [Elv: I stoles it @Simpy]
@@ -412,6 +415,7 @@ do --this can save some main file locals
 			z["Sliceoflife-Andorhal"] = itsPooc -- [Horde] Rogue
 			-- Simpy (1168: Cenarius, 125: Cenarion Circle)
 			z["Player-1168-069A1283"] = itsSimpy -- Hunter:	Arieva
+			z["Player-1168-0AD89000"] = itsSimpy -- Hunter:	Nibble
 			z["Player-1168-0698394A"] = itsSimpy -- Rogue:	Buddercup
 			z["Player-1168-069A3A12"] = itsSimpy -- Paladin:	Cutepally
 			z["Player-1168-0AD0F035"] = itsSimpy -- DH:		Puddle
@@ -660,14 +664,13 @@ local function updateGuildPlayerCache(_, event)
 		return
 	end
 
-	if not IsInGuild() then
-		return
-	end
-
-	for i = 1, GetNumGuildMembers() do
-		local name, _, _, _, _, _, _, _, _, _, className = GetGuildRosterInfo(i)
-		name = Ambiguate(name, "none")
-		guildPlayerCache[name] = className
+	if IsInGuild() then
+		for i = 1, GetNumGuildMembers() do
+			local name, _, _, _, _, _, _, _, _, _, className = GetGuildRosterInfo(i)
+			if name and className then
+				guildPlayerCache[Ambiguate(name, "none")] = className
+			end
+		end
 	end
 end
 
@@ -1509,7 +1512,6 @@ function CT:ChatFrame_MessageEventHandler(
 								end
 							end
 						end)
-
 						return
 					else
 						local clientTexture = GetClientTexture(gameInfo.clientProgram, 14)
