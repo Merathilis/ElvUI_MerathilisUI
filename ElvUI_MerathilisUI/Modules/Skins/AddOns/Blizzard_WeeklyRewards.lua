@@ -17,6 +17,10 @@ function module:Blizzard_WeeklyRewards()
 
 	header:StripTextures()
 	header:SetPoint("TOP", 1, -42)
+
+	if _G.WeeklyRewardExpirationWarningDialog then
+		module:CreateShadow(_G.WeeklyRewardExpirationWarningDialog.NineSlice)
+	end
 end
 
 module:AddCallbackForAddon("Blizzard_WeeklyRewards")
