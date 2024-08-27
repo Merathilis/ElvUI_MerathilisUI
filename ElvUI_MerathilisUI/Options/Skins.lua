@@ -1992,12 +1992,18 @@ options.blizzard = {
 				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.perks
 			end,
 		},
-
 		uiWidgets = {
 			type = "toggle",
 			name = L["UI Widgets"],
 			disabled = function()
 				return not E.private.skins.blizzard.enable
+			end,
+		},
+		delves = {
+			type = "toggle",
+			name = L["Delves"],
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfg
 			end,
 		},
 	},

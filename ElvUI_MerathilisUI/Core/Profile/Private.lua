@@ -225,6 +225,7 @@ V.skins = {
 		editor = true,
 		perksProgram = true,
 		uiWidget = true,
+		delves = true,
 	},
 
 	addonSkins = {
