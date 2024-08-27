@@ -18,6 +18,13 @@ function module:Blizzard_ExpansionLandingPage()
 			end
 		end
 	end
+
+	local WarWithinOverlay = overlay.WarWithinLandingOverlay
+	if WarWithinOverlay then
+		if WarWithinOverlay.Header then
+			WarWithinOverlay.Header.Title:FontTemplate(nil, 30)
+		end
+	end
 end
 
 module:AddCallbackForAddon("Blizzard_ExpansionLandingPage")
