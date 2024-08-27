@@ -9,22 +9,12 @@ function module:Blizzard_ExpansionLandingPage()
 		return
 	end
 
-	local frame = _G.ExpansionLandingPage
-	module:CreateShadow(frame)
-
-	if frame.Overlay and frame.Overlay.DragonflightLandingOverlay then
-		if
-			frame.Overlay.DragonflightLandingOverlay.Header and frame.Overlay.DragonflightLandingOverlay.Header.Title
-		then
-			frame.Overlay.DragonflightLandingOverlay.Header.Title:FontTemplate(nil, 30)
-		end
-
-		if frame.Overlay.DragonflightLandingOverlay.DragonridingPanel then
-			if frame.Overlay.DragonflightLandingOverlay.DragonridingPanel.Title then
-				frame.Overlay.DragonflightLandingOverlay.DragonridingPanel.Title:FontTemplate(nil, 26)
-			end
-			if frame.Overlay.DragonflightLandingOverlay.DragonridingPanel.Subtitle then
-				frame.Overlay.DragonflightLandingOverlay.DragonridingPanel.Subtitle:FontTemplate(nil, 18)
+	local overlay = _G.ExpansionLandingPage.Overlay
+	if overlay then
+		local clean = E.private.skins.parchmentRemoverEnable
+		for _, child in next, { overlay:GetChildren() } do
+			if clean then
+				self:CreateShadow(child)
 			end
 		end
 	end
