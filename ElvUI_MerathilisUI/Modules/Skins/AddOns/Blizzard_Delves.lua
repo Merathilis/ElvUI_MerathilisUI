@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER.Modules.Skins
+local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("skins")
 
 local _G = _G
 
@@ -21,6 +22,17 @@ function module:Blizzard_DelvesDashboardUI() end
 
 module:AddCallbackForAddon("Blizzard_DelvesDashboardUI")
 
+local function HandleRewards(self)
+	for rewardFrame in self.rewardPool:EnumerateActive() do
+		if not rewardFrame.backdrop then
+			rewardFrame:CreateBackdrop("Transparent")
+			rewardFrame.NameFrame:SetAlpha(0)
+			S:HandleIcon(rewardFrame.Icon, true)
+			S:HandleIconBorder(rewardFrame.IconBorder, rewardFrame.Icon.backdrop)
+		end
+	end
+end
+
 function module:Blizzard_DelvesDifficultyPicker()
 	if not self:CheckDB("lfg", "delves") then
 		return
@@ -31,6 +43,9 @@ function module:Blizzard_DelvesDifficultyPicker()
 		self:CreateShadow(DifficultyPickerFrame)
 		DifficultyPickerFrame.CloseButton:ClearAllPoints()
 		DifficultyPickerFrame.CloseButton:SetPoint("TOPRIGHT", DifficultyPickerFrame, "TOPRIGHT", -3, -3)
+
+		DifficultyPickerFrame.DelveRewardsContainerFrame:HookScript("OnShow", HandleRewards)
+		hooksecurefunc(DifficultyPickerFrame.DelveRewardsContainerFrame, "SetRewards", HandleRewards)
 	end
 end
 
