@@ -5,9 +5,6 @@ local _G = _G
 
 function module:Blizzard_DelvesCompanionConfiguration()
 	local CompanionConfigurationFrame = _G.DelvesCompanionConfigurationFrame
-	if not CompanionConfigurationFrame.backdrop then
-		CompanionConfigurationFrame:CreateBackdrop()
-	end
 	module:CreateShadow(CompanionConfigurationFrame)
 
 	local CompanionAbilityListFrame = _G.DelvesCompanionAbilityListFrame
