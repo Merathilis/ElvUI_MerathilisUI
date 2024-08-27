@@ -31,7 +31,7 @@ module.colors = {
 module.characterSlots = {
 	["HeadSlot"] = {
 		id = 1,
-		needsEnchant = true,
+		needsEnchant = false,
 		needsSocket = false,
 		direction = module.enumDirection.LEFT,
 	},
@@ -97,7 +97,7 @@ module.characterSlots = {
 	},
 	["WaistSlot"] = {
 		id = 6,
-		needsEnchant = true,
+		needsEnchant = false,
 		needsSocket = false,
 		direction = module.enumDirection.RIGHT,
 	},
@@ -125,7 +125,7 @@ module.characterSlots = {
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
-		needsSocket = false,
+		needsSocket = true,
 		direction = module.enumDirection.RIGHT,
 	},
 	["Finger1Slot"] = {
@@ -134,7 +134,7 @@ module.characterSlots = {
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
-		needsSocket = false,
+		needsSocket = true,
 		direction = module.enumDirection.RIGHT,
 	},
 	["Trinket0Slot"] = {
@@ -722,8 +722,25 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 
 	-- Enchant/Socket Text Handling
 	if module.db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
-		if slotInfo.enchantColors and next(slotInfo.enchantColors) then
-			if slotInfo.enchantText and (slotInfo.enchantText ~= "") then
+		if module.db.pageInfo.missingSocketText and slotOptions.needsSocket then
+			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
+				local missingGemSlots = 2 - #slotInfo.gems
+				if missingGemSlots > 0 then
+					local text = format("Add %d sockets", missingGemSlots)
+					local missingColor = {
+						F.String.FastColorGradientHex(
+							missingGemSlots / 2,
+							module.colors.LIGHT_GREEN,
+							module.colors.RED
+						),
+					}
+					slotItem.enchantText:SetText(F.String.RGB(text, missingColor))
+				end
+			else
+				slotItem.enchantText:SetText("")
+			end
+		elseif slotInfo.enchantColors and next(slotInfo.enchantColors) then
+			if slotInfo.enchantText and slotInfo.enchantText ~= "" then
 				local text = slotInfo.enchantTextShort
 				-- Strip color
 				text = F.String.StripColor(text)
@@ -738,25 +755,8 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 				end
 			end
 		elseif module.db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
-			if not slotOptions.warningCondition or (module:CheckMessageCondition(slotOptions)) then
-				slotItem.enchantText:SetText(F.String.Error("Missing"))
-			else
-				slotItem.enchantText:SetText("")
-			end
-		elseif module.db.pageInfo.missingSocketText and slotOptions.needsSocket then
-			if not slotOptions.warningCondition or (module:CheckMessageCondition(slotOptions)) then
-				local missingGemSlots = 3 - #slotInfo.gems
-				if missingGemSlots > 0 then
-					local text = format("Missing %d", missingGemSlots)
-					local missingColor = {
-						F.String.FastColorGradientHex(
-							missingGemSlots / 3,
-							module.colors.LIGHT_GREEN,
-							module.colors.RED
-						),
-					}
-					slotItem.enchantText:SetText(F.String.RGB(text, missingColor))
-				end
+			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
+				slotItem.enchantText:SetText(F.String.Error("Add enchant"))
 			else
 				slotItem.enchantText:SetText("")
 			end
