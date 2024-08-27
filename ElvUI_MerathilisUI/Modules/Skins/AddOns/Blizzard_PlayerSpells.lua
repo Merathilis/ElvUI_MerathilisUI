@@ -17,6 +17,16 @@ function module:Blizzard_PlayerSpells()
 
 	self:CreateBackdropShadow(_G.ClassTalentLoadoutImportDialog)
 	self:CreateBackdropShadow(_G.ClassTalentLoadoutEditDialog)
+
+	local TalentsSelect = _G.HeroTalentsSelectionDialog
+	if TalentsSelect then
+		self:CreateShadow(TalentsSelect)
+		TalentsSelect:SetTemplate("Transparent")
+		if TalentsSelect.Center then
+			TalentsSelect.Center:SetAlpha(0.8)
+			TalentsSelect.Center.SetAlpha = E.noop
+		end
+	end
 end
 
 module:AddCallbackForAddon("Blizzard_PlayerSpells")
