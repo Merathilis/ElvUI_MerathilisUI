@@ -1,6 +1,5 @@
 ### Changes ###
 
-  * [Skins]: Fixed an typ in UI Widgets Skin
-  * [AngrierWorldQuests]: Added skin for it
-  * [AutoButtons]: Added some new openables
-  * [Widgets/MicroBar]: Updated Animations
+  * [Armory]: Updates to Armory
+  * [Skins]: Various skin tweaks & updates
+  * [Chat Text]: Sync with ElvUI changes
