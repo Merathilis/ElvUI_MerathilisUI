@@ -221,11 +221,24 @@ function module:StatusReportCreate()
 	logoTop:Size(128)
 	titleLogoFrame.LogoTop = logoTop
 
+	local mainSectionWidth = 400
+	local mainSectionPadding = 40
+	local sideSectionWidth = 280
+
 	-- Sections
-	statusFrame.Section1 =
-		self:StatusReportCreateSection(300, (4 * 30) + 10, nil, 30, statusFrame, "TOP", statusFrame, "TOP", -90)
+	statusFrame.Section1 = self:StatusReportCreateSection(
+		mainSectionWidth,
+		(4 * 30) + 10,
+		nil,
+		30,
+		statusFrame,
+		"TOP",
+		statusFrame,
+		"TOP",
+		-90
+	)
 	statusFrame.Section2 = self:StatusReportCreateSection(
-		300,
+		mainSectionWidth,
 		(3 * 30) + 10,
 		nil,
 		30,
@@ -236,7 +249,7 @@ function module:StatusReportCreate()
 		0
 	)
 	statusFrame.Section3 = self:StatusReportCreateSection(
-		300,
+		mainSectionWidth,
 		(5 * 30) + 10,
 		nil,
 		30,
@@ -247,7 +260,7 @@ function module:StatusReportCreate()
 		0
 	)
 	statusFrame.Section4 = self:StatusReportCreateSection(
-		300,
+		mainSectionWidth,
 		(6 * 30) + 10,
 		nil,
 		30,
@@ -258,19 +271,44 @@ function module:StatusReportCreate()
 		0
 	)
 	pluginFrame.SectionA =
-		self:StatusReportCreateSection(280, nil, nil, 30, pluginFrame, "TOP", pluginFrame, "TOP", -10)
-	pluginFrame.SectionP =
-		self:StatusReportCreateSection(280, nil, nil, 30, pluginFrame, "TOP", pluginFrame.SectionA, "BOTTOM", -30)
+		self:StatusReportCreateSection(sideSectionWidth, nil, nil, 30, pluginFrame, "TOP", pluginFrame, "TOP", -10)
+	pluginFrame.SectionP = self:StatusReportCreateSection(
+		sideSectionWidth,
+		nil,
+		nil,
+		30,
+		pluginFrame,
+		"TOP",
+		pluginFrame.SectionA,
+		"BOTTOM",
+		-30
+	)
 
 	-- Section content
-	statusFrame.Section1.Content =
-		self:StatusReportCreateContent(4, 260, statusFrame.Section1, statusFrame.Section1.Header)
-	statusFrame.Section2.Content =
-		self:StatusReportCreateContent(3, 260, statusFrame.Section2, statusFrame.Section2.Header)
-	statusFrame.Section3.Content =
-		self:StatusReportCreateContent(5, 260, statusFrame.Section3, statusFrame.Section3.Header)
-	statusFrame.Section4.Content =
-		self:StatusReportCreateContent(6, 260, statusFrame.Section4, statusFrame.Section4.Header)
+	statusFrame.Section1.Content = self:StatusReportCreateContent(
+		4,
+		mainSectionWidth - mainSectionPadding,
+		statusFrame.Section1,
+		statusFrame.Section1.Header
+	)
+	statusFrame.Section2.Content = self:StatusReportCreateContent(
+		3,
+		mainSectionWidth - mainSectionPadding,
+		statusFrame.Section2,
+		statusFrame.Section2.Header
+	)
+	statusFrame.Section3.Content = self:StatusReportCreateContent(
+		5,
+		mainSectionWidth - mainSectionPadding,
+		statusFrame.Section3,
+		statusFrame.Section3.Header
+	)
+	statusFrame.Section4.Content = self:StatusReportCreateContent(
+		6,
+		mainSectionWidth - mainSectionPadding,
+		statusFrame.Section4,
+		statusFrame.Section4.Header
+	)
 
 	-- Content lines
 	statusFrame.Section3.Content.Line1.Text:SetFormattedText(
@@ -376,7 +414,7 @@ function module:StatusReportUpdate()
 	do
 		wipe(addOnData)
 
-		for _, addOn in ipairs({ "BigWigs", "Details", "ElvUI", "OmniCD", "WeakAuras" }) do
+		for _, addOn in ipairs({ "BigWigs", "Details", "ElvUI", "OmniCD", "WeakAuras", "BugGrabber", "BugSack" }) do
 			if E:IsAddOnEnabled(addOn) then
 				local data = {}
 				local name = GetAddOnMetadata(addOn, "Title")
