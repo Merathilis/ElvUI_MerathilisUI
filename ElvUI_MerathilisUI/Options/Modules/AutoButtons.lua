@@ -240,8 +240,8 @@ for i = 1, 5 do
 						name = L["Reset"],
 						desc = L["Reset the button groups of this bar."],
 						func = function()
-							E.db.WT.item.extraItemsBar["bar" .. i].include = P.item.extraItemsBar["bar" .. i].include
-							EB:UpdateBar(i)
+							E.db.mui.autoButtons["bar" .. i].include = P.autoButtons["bar" .. i].include
+							module:UpdateBar(i)
 						end,
 					},
 				},

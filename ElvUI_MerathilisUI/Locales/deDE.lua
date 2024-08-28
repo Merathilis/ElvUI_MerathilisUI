@@ -663,6 +663,7 @@ L["Anchor Point"] = "Ankerpunkt"
 L["The first button anchors itself to this point on the bar."] =
 	"Die erste Taste verankert sich an diesem Punkt auf der Leiste."
 L["Dream Seeds"] = "Traum Saat"
+L["Reset the button groups of this bar."] = "Setze die Tastengruppen dieser Leiste zurück."
 
 -- Media
 L["Zone Text"] = "Gebietstext"
