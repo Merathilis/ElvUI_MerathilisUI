@@ -879,7 +879,13 @@ local openableItems = {
 	-- TWW https://www.wowhead.com/items/miscellaneous?filter=11:166;1:11;0:0
 	217011,
 	217013,
+	220767,
+	220773,
+	220776,
+	221268,
 	221269,
+	221373,
+	221375,
 	221502,
 	221503,
 	224573,
