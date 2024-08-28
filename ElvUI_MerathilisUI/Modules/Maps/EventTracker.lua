@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_EventTracker")
 local S = MER:GetModule("MER_Skins")
+local C = MER.Utilities.Color
 local LSM = E.Libs.LSM
 
 local _G = _G
@@ -226,12 +227,12 @@ local functionFactory = {
 
 				if self.isRunning then
 					-- event ending tracking timer
-					self.timerText:SetText(F.StringByTemplate(secondToTime(self.timeLeft), "success"))
+					self.timerText:SetText(C.StringByTemplate(secondToTime(self.timeLeft), "success"))
 					self.statusBar:SetMinMaxValues(0, self.args.duration)
 					self.statusBar:SetValue(self.timeOver)
 					local tex = self.statusBar:GetStatusBarTexture()
 					local platte = self.args.runningBarColor or colorPlatte.running
-					tex:SetGradient("HORIZONTAL", F.CreateColorFromTable(platte[1]), F.CreateColorFromTable(platte[2]))
+					tex:SetGradient("HORIZONTAL", C.CreateColorFromTable(platte[1]), C.CreateColorFromTable(platte[2]))
 					if self.args.runningTextUpdater then
 						self.runningTip:SetText(self.args:runningTextUpdater())
 					end
@@ -251,8 +252,8 @@ local functionFactory = {
 						local tex = self.statusBar:GetStatusBarTexture()
 						tex:SetGradient(
 							"HORIZONTAL",
-							F.CreateColorFromTable(self.args.barColor[1]),
-							F.CreateColorFromTable(self.args.barColor[2])
+							C.CreateColorFromTable(self.args.barColor[1]),
+							C.CreateColorFromTable(self.args.barColor[2])
 						)
 					end
 
@@ -343,20 +344,20 @@ local functionFactory = {
 				if self.isRunning then
 					_G.GameTooltip:AddDoubleLine(
 						L["Status"],
-						F.StringByTemplate(self.args.runningText, "success"),
+						C.StringByTemplate(self.args.runningText, "success"),
 						1,
 						1,
 						1
 					)
 				else
-					_G.GameTooltip:AddDoubleLine(L["Status"], F.StringByTemplate(L["Waiting"], "greyLight"), 1, 1, 1)
+					_G.GameTooltip:AddDoubleLine(L["Status"], C.StringByTemplate(L["Waiting"], "greyLight"), 1, 1, 1)
 				end
 
 				if self.args.hasWeeklyReward then
 					if self.isCompleted then
 						_G.GameTooltip:AddDoubleLine(
 							L["Weekly Reward"],
-							F.StringByTemplate(L["Completed"], "success"),
+							C.StringByTemplate(L["Completed"], "success"),
 							1,
 							1,
 							1
@@ -364,7 +365,7 @@ local functionFactory = {
 					else
 						_G.GameTooltip:AddDoubleLine(
 							L["Weekly Reward"],
-							F.StringByTemplate(L["Not Completed"], "danger"),
+							C.StringByTemplate(L["Not Completed"], "danger"),
 							1,
 							1,
 							1
@@ -480,13 +481,13 @@ local functionFactory = {
 				local tip = ""
 
 				if #done == #env.fishingNetPosition then
-					tip = F.StringByTemplate(L["All nets can be collected"], "success")
+					tip = C.StringByTemplate(L["All nets can be collected"], "success")
 					self.timerText:SetText("")
 
 					self.statusBar:GetStatusBarTexture():SetGradient(
 						"HORIZONTAL",
-						F.CreateColorFromTable(colorPlatte.running[1]),
-						F.CreateColorFromTable(colorPlatte.running[2])
+						C.CreateColorFromTable(colorPlatte.running[1]),
+						C.CreateColorFromTable(colorPlatte.running[2])
 					)
 					self.statusBar:SetMinMaxValues(0, 1)
 					self.statusBar:SetValue(1)
@@ -501,7 +502,7 @@ local functionFactory = {
 								netsText = netsText .. ", "
 							end
 						end
-						tip = F.StringByTemplate(format(L["Net %s can be collected"], netsText), "success")
+						tip = C.StringByTemplate(format(L["Net %s can be collected"], netsText), "success")
 					else
 						tip = L["Waiting"]
 					end
@@ -518,8 +519,8 @@ local functionFactory = {
 					else
 						self.statusBar:GetStatusBarTexture():SetGradient(
 							"HORIZONTAL",
-							F.CreateColorFromTable(self.args.barColor[1]),
-							F.CreateColorFromTable(self.args.barColor[2])
+							C.CreateColorFromTable(self.args.barColor[1]),
+							C.CreateColorFromTable(self.args.barColor[2])
 						)
 					end
 
@@ -532,8 +533,8 @@ local functionFactory = {
 					self.timerText:SetText("")
 					self.statusBar:GetStatusBarTexture():SetGradient(
 						"HORIZONTAL",
-						F.CreateColorFromTable(colorPlatte.running[1]),
-						F.CreateColorFromTable(colorPlatte.running[2])
+						C.CreateColorFromTable(colorPlatte.running[1]),
+						C.CreateColorFromTable(colorPlatte.running[2])
 					)
 					self.statusBar:SetMinMaxValues(0, 1)
 
@@ -545,10 +546,10 @@ local functionFactory = {
 								netsText = netsText .. ", "
 							end
 						end
-						tip = F.StringByTemplate(format(L["Net %s can be collected"], netsText), "success")
+						tip = C.StringByTemplate(format(L["Net %s can be collected"], netsText), "success")
 						self.statusBar:SetValue(1)
 					else
-						tip = F.StringByTemplate(L["No Nets Set"], "danger")
+						tip = C.StringByTemplate(L["No Nets Set"], "danger")
 						self.statusBar:SetValue(0)
 					end
 
@@ -636,7 +637,7 @@ local functionFactory = {
 				_G.GameTooltip:AddLine(" ")
 
 				if not self.netTable or #self.netTable == 0 then
-					_G.GameTooltip:AddLine(F.StringByTemplate(L["No Nets Set"], "danger"))
+					_G.GameTooltip:AddLine(C.StringByTemplate(L["No Nets Set"], "danger"))
 					_G.GameTooltip:Show()
 					return
 				end
@@ -651,9 +652,9 @@ local functionFactory = {
 					local text
 					if type(timeData) == "table" then
 						if timeData.left <= 0 then
-							text = F.StringByTemplate(L["Can be collected"], "success")
+							text = C.StringByTemplate(L["Can be collected"], "success")
 						else
-							text = F.StringByTemplate(secondToTime(timeData.left), "info")
+							text = C.StringByTemplate(secondToTime(timeData.left), "info")
 						end
 
 						-- only show latest bonus net
@@ -663,7 +664,7 @@ local functionFactory = {
 						end
 					else
 						if timeData == "NOT_STARTED" then
-							text = F.StringByTemplate(L["Can be set"], "warning")
+							text = C.StringByTemplate(L["Can be set"], "warning")
 						end
 					end
 
@@ -679,7 +680,7 @@ local functionFactory = {
 				if bonusNetStatus then
 					_G.GameTooltip:AddDoubleLine(L["Bonus Net"], bonusNetStatus)
 				else -- no bonus net
-					_G.GameTooltip:AddDoubleLine(L["Bonus Net"], F.StringByTemplate(L["Not Set"], "danger"))
+					_G.GameTooltip:AddDoubleLine(L["Bonus Net"], C.StringByTemplate(L["Not Set"], "danger"))
 				end
 
 				if self.args.onClickHelpText then
@@ -710,7 +711,7 @@ local eventData = {
 					label = function()
 						return format(
 							L["Daily Quest at %s"],
-							F.StringByTemplate(env.radiantEchoesZoneRotation[1].name, "info")
+							C.StringByTemplate(env.radiantEchoesZoneRotation[1].name, "info")
 						)
 					end,
 				},
@@ -720,7 +721,7 @@ local eventData = {
 					label = function()
 						return format(
 							L["Daily Quest at %s"],
-							F.StringByTemplate(env.radiantEchoesZoneRotation[2].name, "info")
+							C.StringByTemplate(env.radiantEchoesZoneRotation[2].name, "info")
 						)
 					end,
 				},
@@ -730,7 +731,7 @@ local eventData = {
 					label = function()
 						return format(
 							L["Daily Quest at %s"],
-							F.StringByTemplate(env.radiantEchoesZoneRotation[3].name, "info")
+							C.StringByTemplate(env.radiantEchoesZoneRotation[3].name, "info")
 						)
 					end,
 				},

@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
+local C = MER.Utilities.Color
 
 local _G = _G
 
@@ -60,7 +61,7 @@ local function ClassColor(class, showRGB)
 end
 
 local function DiffColor(level)
-	return F.RGBToHex(GetQuestDifficultyColor(level))
+	return C.RGBToHex(GetQuestDifficultyColor(level))
 end
 
 function module:FriendsFrame()

@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
 local module = MER:GetModule("MER_Announcement")
+local C = MER.Utilities.Color
 
 local format = format
 local gsub = gsub
@@ -738,7 +739,7 @@ options.announcement.args.general = {
 			name = L["Emote Format"],
 			desc = L["The text template used in emote channel."]
 				.. "\n"
-				.. format(L["Default is %s."], F.StringByTemplate(": %s", "info")),
+				.. format(L["Default is %s."], C.StringByTemplate(": %s", "info")),
 			width = 2,
 		},
 		betterAlign = {

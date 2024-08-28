@@ -7,6 +7,7 @@ local RM = MER:GetModule("MER_RectangleMinimap")
 local WM = MER:GetModule("MER_WorldMap")
 local ET = MER:GetModule("MER_EventTracker")
 local options = MER.options.modules.args
+local C = MER.Utilities.Color
 local LSM = E.LSM
 
 local _G = _G
@@ -1025,8 +1026,8 @@ do
 					desc = format(
 						"%s\n%s\n%s\n\n%s\n%s",
 						L["Placeholders"] .. ":",
-						format("%s - %s", F.StringByTemplate("%mplus%", "info"), L["M+ Level"]),
-						format("%s - %s", F.StringByTemplate("%numPlayers%", "info"), L["Number of Players"]),
+						format("%s - %s", C.StringByTemplate("%mplus%", "info"), L["M+ Level"]),
+						format("%s - %s", C.StringByTemplate("%numPlayers%", "info"), L["Number of Players"]),
 						L["Custom color can be used by adding the following code"] .. ":",
 						format("\124\124cff|cffff0000rr|r|cff00ff00gg|r|cff0000ffbb|r%s\124\124r", L["Custom String"])
 					),

@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
 local options = MER.options.skins.args
+local C = MER.Utilities.Color
 local LSM = E.Libs.LSM
 
 local _G = _G
@@ -2176,10 +2177,10 @@ options.advancedSettings = {
 					type = "description",
 					name = function()
 						if not IsAddOnLoaded("BigWigs") then
-							return F.StringByTemplate(format(L["%s is not loaded."], L["BigWigs"]), "danger")
+							return C.StringByTemplate(format(L["%s is not loaded."], L["BigWigs"]), "danger")
 						end
 
-						return F.StringByTemplate(
+						return C.StringByTemplate(
 							format(
 								"%s\n%s\n\n",
 								format(L["The options below are only for BigWigs %s bar style."], MER.Title),
@@ -2511,7 +2512,7 @@ options.advancedSettings = {
 					type = "description",
 					name = function()
 						if not IsAddOnLoaded("Details") then
-							return F.StringByTemplate(format(L["%s is not loaded."], L["Details"]), "danger")
+							return C.StringByTemplate(format(L["%s is not loaded."], L["Details"]), "danger")
 						end
 
 						return format(

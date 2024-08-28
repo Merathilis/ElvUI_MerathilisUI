@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local CT = MER:GetModule("MER_ChatText")
 local CH = E:GetModule("Chat")
+local C = MER.Utilities.Color
 local LSM = E.Libs.LSM
 
 local _G = _G
@@ -2205,13 +2206,13 @@ function CT:ElvUIChat_GuildMemberStatusMessageHandler(frame, msg)
 				resultText = format(onlineMessageTemplate, link, classIcon, coloredName)
 				if CT.db.guildMemberStatusInviteLink then
 					local windInviteLink =
-						format("|Hwtinvite:%s|h%s|h", link, F.StringByTemplate(format("[%s]", L["Invite"]), "info"))
+						format("|Hwtinvite:%s|h%s|h", link, C.StringByTemplate(format("[%s]", L["Invite"]), "info"))
 					resultText = resultText .. " " .. windInviteLink
 				end
-				frame:AddMessage(resultText, F.RGBFromTemplate("success"))
+				frame:AddMessage(resultText, C.RGBFromTemplate("success"))
 			else
 				resultText = format(offlineMessageTemplate, classIcon, coloredName)
-				frame:AddMessage(resultText, F.RGBFromTemplate("danger"))
+				frame:AddMessage(resultText, C.RGBFromTemplate("danger"))
 			end
 
 			return true
@@ -2410,7 +2411,7 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture, noRetry)
 		sendMessage(
 			bnetFriendOnlineMessageTemplate,
 			strjoin(", ", unpack(onlineCharacters)),
-			F.RGBFromTemplate("success")
+			C.RGBFromTemplate("success")
 		)
 	end
 
@@ -2418,7 +2419,7 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture, noRetry)
 		sendMessage(
 			bnetFriendOfflineMessageTemplate,
 			strjoin(", ", unpack(offlineCharacters)),
-			F.RGBFromTemplate("danger")
+			C.RGBFromTemplate("danger")
 		)
 	end
 end

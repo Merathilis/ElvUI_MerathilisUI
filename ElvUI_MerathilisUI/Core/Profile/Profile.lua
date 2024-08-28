@@ -963,7 +963,7 @@ P.autoButtons = {
 				b = 1,
 			},
 		},
-		include = "QUEST,BANNER,EQUIP,PROF,OPENABLE",
+		include = "QUEST,BANNER,EQUIP,PROF,OPENABLE,DELVE",
 	},
 	bar2 = {
 		enable = true,
@@ -1011,7 +1011,7 @@ P.autoButtons = {
 				b = 1,
 			},
 		},
-		include = "POTIONDF,FLASKDF,RUNE,UTILITY",
+		include = "POTIONTWW,FLASKTWW,VANTUSTWW,UTILITY",
 	},
 	bar3 = {
 		enable = true,
@@ -1059,7 +1059,7 @@ P.autoButtons = {
 				b = 1,
 			},
 		},
-		include = "MAGEFOOD,FOODVENDOR,FOODDF,BIGDIG,SEEDS,CUSTOM",
+		include = "MAGEFOOD,FOODVENDOR,FOODTWW,RUNETWW,CUSTOM",
 	},
 	bar4 = {
 		enable = false,

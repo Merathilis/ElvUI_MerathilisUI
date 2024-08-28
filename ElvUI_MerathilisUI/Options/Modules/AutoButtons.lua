@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_AutoButtons")
 local options = MER.options.modules.args
 local async = MER.Utilities.Async
+local C = MER.Utilities.Color
 local LSM = E.LSM
 
 local tinsert = table.insert
@@ -10,15 +11,10 @@ local format = string.format
 local pairs = pairs
 local tonumber = tonumber
 
-local customListSelected1
-local customListSelected2
-
-local function ImportantColorString(string)
-	return F.CreateColorString(string, { r = 0.204, g = 0.596, b = 0.859 })
-end
+local customListSelected1, customListSelected2
 
 local function desc(code, helpText)
-	return ImportantColorString(code) .. " = " .. helpText
+	return C.StringByTemplate(code, "primary") .. " = " .. helpText
 end
 
 options.autoButtons = {
@@ -84,10 +80,9 @@ options.autoButtons = {
 						customListSelected1 = value
 					end,
 					values = function()
-						local list = E.db.mui.autoButtons.customList
 						local result = {}
-						for key, value in pairs(list) do
-							async.WithItemID(value, function(item)
+						for key in pairs(E.db.mui.autoButtons.customList) do
+							async.WithItemID(key, function(item)
 								local name = item:GetItemName() or L["Unknown"]
 								local tex = item:GetItemIcon()
 								result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
@@ -195,8 +190,64 @@ for i = 1, 5 do
 				type = "toggle",
 				name = L["Enable"],
 			},
-			visibility = {
+			groupSetting = {
 				order = 2,
+				type = "group",
+				inline = true,
+				name = L["Button Groups"],
+				args = {
+					include = {
+						order = 15,
+						type = "input",
+						name = L["Button Groups"],
+						desc = format(
+							"%s %s\n" .. strrep("\n%s", 24),
+							L["Set the type and order of button groups."],
+							L["You can separate the groups with a comma."],
+							desc("QUEST", L["Quest Items"]),
+							desc("EQUIP", L["Equipments"]),
+							desc("POTION", L["Potions"]),
+							desc("POTIONSL", format("%s |cffffdd57[%s]|r", L["Potions"], L["Shadowlands"])),
+							desc("POTIONDF", format("%s |cffffdd57[%s]|r", L["Potions"], L["Dragonflight"])),
+							desc("FLASK", L["Flasks"]),
+							desc("FLASKSL", format("%s |cffffdd57[%s]|r", L["Flasks"], L["Shadowlands"])),
+							desc("FLASKDF", format("%s |cffffdd57[%s]|r", L["Flasks"], L["Dragonflight"])),
+							desc("RUNE", L["Runes"]),
+							desc("RUNEDF", format("%s |cffffdd57[%s]|r", L["Runes"], L["Dragonflight"])),
+							desc("FOOD", L["Crafted Food"]),
+							desc("FOODSL", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Shadowlands"])),
+							desc("FOODDF", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Dragonflight"])),
+							desc(
+								"FOODVENDOR",
+								format("%s (%s) |cffffdd57[%s]|r", L["Food"], L["Sold by vendor"], L["Dragonflight"])
+							),
+							desc("MAGEFOOD", format("%s (%s)|r", L["Food"], L["Crafted by mage"])),
+							desc("BANNER", L["Banners"]),
+							desc("UTILITY", L["Utilities"]),
+							desc("OPENABLE", L["Openable Items"]),
+							desc("PROF", L["Profession Items"]),
+							desc("SEEDS", L["Dream Seeds"]),
+							desc("BIGDIG", L["Big Dig"]),
+							desc("ENGINEER", L["Engineer Items"]),
+							desc("DELVE", L["Delves"]),
+							desc("CUSTOM", L["Custom Items"])
+						),
+						width = "full",
+					},
+					reset = {
+						order = 16,
+						type = "execute",
+						name = L["Reset"],
+						desc = L["Reset the button groups of this bar."],
+						func = function()
+							E.db.WT.item.extraItemsBar["bar" .. i].include = P.item.extraItemsBar["bar" .. i].include
+							EB:UpdateBar(i)
+						end,
+					},
+				},
+			},
+			visibility = {
+				order = 3,
 				type = "group",
 				inline = true,
 				name = L["Visibility"],
@@ -253,13 +304,13 @@ for i = 1, 5 do
 				},
 			},
 			backdrop = {
-				order = 3,
+				order = 4,
 				type = "toggle",
 				name = L["Bar Backdrop"],
 				desc = L["Show a backdrop of the bar."],
 			},
 			anchor = {
-				order = 4,
+				order = 5,
 				type = "select",
 				name = L["Anchor Point"],
 				desc = L["The first button anchors itself to this point on the bar."],
@@ -271,7 +322,7 @@ for i = 1, 5 do
 				},
 			},
 			backdropSpacing = {
-				order = 5,
+				order = 6,
 				type = "range",
 				name = L["Backdrop Spacing"],
 				desc = L["The spacing between the backdrop and the buttons."],
@@ -280,7 +331,7 @@ for i = 1, 5 do
 				step = 1,
 			},
 			spacing = {
-				order = 6,
+				order = 7,
 				type = "range",
 				name = L["Button Spacing"],
 				desc = L["The spacing between buttons."],
@@ -289,13 +340,13 @@ for i = 1, 5 do
 				step = 1,
 			},
 			betterOption2 = {
-				order = 7,
+				order = 8,
 				type = "description",
 				name = " ",
 				width = "full",
 			},
 			numButtons = {
-				order = 8,
+				order = 9,
 				type = "range",
 				name = L["Buttons"],
 				min = 1,
@@ -303,7 +354,7 @@ for i = 1, 5 do
 				step = 1,
 			},
 			buttonWidth = {
-				order = 9,
+				order = 10,
 				type = "range",
 				name = L["Button Width"],
 				desc = L["The width of the buttons."],
@@ -312,7 +363,7 @@ for i = 1, 5 do
 				step = 1,
 			},
 			buttonHeight = {
-				order = 10,
+				order = 11,
 				type = "range",
 				name = L["Button Height"],
 				desc = L["The height of the buttons."],
@@ -321,7 +372,7 @@ for i = 1, 5 do
 				step = 1,
 			},
 			buttonsPerRow = {
-				order = 11,
+				order = 12,
 				type = "range",
 				name = L["Buttons Per Row"],
 				min = 1,
@@ -329,7 +380,7 @@ for i = 1, 5 do
 				step = 1,
 			},
 			qualityTier = {
-				order = 12,
+				order = 13,
 				type = "group",
 				inline = true,
 				name = L["Crafting Quality Tier"],
@@ -368,7 +419,7 @@ for i = 1, 5 do
 				},
 			},
 			countFont = {
-				order = 13,
+				order = 14,
 				type = "group",
 				inline = true,
 				name = L["Counter"],
@@ -437,7 +488,7 @@ for i = 1, 5 do
 				},
 			},
 			bindFont = {
-				order = 14,
+				order = 15,
 				type = "group",
 				inline = true,
 				name = L["Key Binding"],
@@ -504,43 +555,6 @@ for i = 1, 5 do
 						end,
 					},
 				},
-			},
-			include = {
-				order = 15,
-				type = "input",
-				name = L["Button Groups"],
-				desc = format(
-					"%s %s\n" .. strrep("\n%s", 22),
-					L["Set the type and order of button groups."],
-					L["You can separate the groups with a comma."],
-					desc("QUEST", L["Quest Items"]),
-					desc("EQUIP", L["Equipments"]),
-					desc("POTION", L["Potions"]),
-					desc("POTIONSL", format("%s |cffffdd57[%s]|r", L["Potions"], L["Shadowlands"])),
-					desc("POTIONDF", format("%s |cffffdd57[%s]|r", L["Potions"], L["Dragonflight"])),
-					desc("FLASK", L["Flasks"]),
-					desc("FLASKSL", format("%s |cffffdd57[%s]|r", L["Flasks"], L["Shadowlands"])),
-					desc("FLASKDF", format("%s |cffffdd57[%s]|r", L["Flasks"], L["Dragonflight"])),
-					desc("RUNE", L["Runes"]),
-					desc("RUNEDF", format("%s |cffffdd57[%s]|r", L["Runes"], L["Dragonflight"])),
-					desc("FOOD", L["Crafted Food"]),
-					desc("FOODSL", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Shadowlands"])),
-					desc("FOODDF", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Dragonflight"])),
-					desc(
-						"FOODVENDOR",
-						format("%s (%s) |cffffdd57[%s]|r", L["Food"], L["Sold by vendor"], L["Dragonflight"])
-					),
-					desc("MAGEFOOD", format("%s (%s)|r", L["Food"], L["Crafted by mage"])),
-					desc("BANNER", L["Banners"]),
-					desc("UTILITY", L["Utilities"]),
-					desc("OPENABLE", L["Openable Items"]),
-					desc("PROF", L["Profession Items"]),
-					desc("SEEDS", L["Dream Seeds"]),
-					desc("BIGDIG", L["Big Dig"]),
-					desc("ENGINEER", L["Engineer Items"]),
-					desc("CUSTOM", L["Custom Items"])
-				),
-				width = "full",
 			},
 		},
 	}

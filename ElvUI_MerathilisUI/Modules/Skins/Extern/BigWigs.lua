@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
+local C = MER.Utilities.Color
 
 local _G = _G
 local unpack = unpack
@@ -93,8 +94,8 @@ local function modifyStyle(frame)
 
 		statusBarTexture:SetGradient(
 			"HORIZONTAL",
-			F.CreateColorFromTable(db.colorLeft),
-			F.CreateColorFromTable(db.colorRight)
+			C.CreateColorFromTable(db.colorLeft),
+			C.CreateColorFromTable(db.colorRight)
 		)
 	else
 		if barColor then
@@ -296,8 +297,8 @@ function module:BigWigs_QueueTimer()
 				statusBarTexture:SetTexture(E.media.normTex)
 				statusBarTexture:SetGradient(
 					"HORIZONTAL",
-					F.CreateColorFromTable(db.colorLeft),
-					F.CreateColorFromTable(db.colorRight)
+					C.CreateColorFromTable(db.colorLeft),
+					C.CreateColorFromTable(db.colorRight)
 				)
 
 				if db.spark then
