@@ -9,14 +9,14 @@ local mod = mod
 local pairs = pairs
 local strsplit = strsplit
 local tinsert = tinsert
-local tonumber = tonumber
 
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local GetExploredMapTextures = C_MapExplorationInfo.GetExploredMapTextures
 local GetMapArtID = C_Map.GetMapArtID
 local GetMapArtLayers = C_Map.GetMapArtLayers
 local GetMapInfo = C_Map.GetMapInfo
-local TexturePool_HideAndClearAnchors = TexturePool_HideAndClearAnchors
+
+local Pool_HideAndClearAnchors = Pool_HideAndClearAnchors
 
 -- STRUCTURE:
 -- UiMapArtID = {
@@ -2532,10 +2532,10 @@ function module:MapExplorationPin_RefreshOverlays(pin, fullUpdate, mapFrame, cac
 end
 
 -- from Leatrix_Maps
-local function TexturePool_ResetVertexColor(pool, texture)
+local function MER_Pool_HideAndClearAnchors(pool, texture)
 	texture:SetVertexColor(1, 1, 1)
 	texture:SetAlpha(1)
-	return TexturePool_HideAndClearAnchors(pool, texture)
+	return Pool_HideAndClearAnchors(pool, texture)
 end
 
 -- Reveal features are modified based on Leatrix_Maps
@@ -2551,17 +2551,17 @@ function module:Reveal()
 	end
 
 	for pin in _G.WorldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
-		hooksecurefunc(pin, "RefreshOverlays", function(pin, fullUpdate)
-			module:MapExplorationPin_RefreshOverlays(pin, fullUpdate, _G.WorldMapFrame, worldMapCache)
+		hooksecurefunc(pin, "RefreshOverlays", function(MER_pin, fullUpdate)
+			module:MapExplorationPin_RefreshOverlays(MER_pin, fullUpdate, _G.WorldMapFrame, worldMapCache)
 		end)
-		pin.overlayTexturePool.resetterFunc = TexturePool_ResetVertexColor
+		pin.overlayTexturePool.resetterFunc = MER_Pool_HideAndClearAnchors
 	end
 
 	for pin in _G.BattlefieldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
-		hooksecurefunc(pin, "RefreshOverlays", function(pin, fullUpdate)
-			module:MapExplorationPin_RefreshOverlays(pin, fullUpdate, _G.BattlefieldMapFrame, battleFieldMapCache)
+		hooksecurefunc(pin, "RefreshOverlays", function(MER_pin, fullUpdate)
+			module:MapExplorationPin_RefreshOverlays(MER_pin, fullUpdate, _G.BattlefieldMapFrame, battleFieldMapCache)
 		end)
-		pin.overlayTexturePool.resetterFunc = TexturePool_ResetVertexColor
+		pin.overlayTexturePool.resetterFunc = MER_Pool_HideAndClearAnchors
 	end
 end
 
