@@ -234,6 +234,18 @@ end
 
 MER.SpecializationInfo = {}
 
+MER.RealRegion = (function()
+	local region = GetCurrentRegionName()
+	if region == "KR" and MER.ChineseLocale then
+		region = "TW" -- Fix taiwan server region issue
+	end
+
+	return region
+end)()
+
+MER.CurrentRealmID = GetRealmID()
+MER.CurrentRealmName = GetRealmName()
+
 function MER:InitializeMetadata()
 	for classID = 1, 13 do
 		local class = {}
