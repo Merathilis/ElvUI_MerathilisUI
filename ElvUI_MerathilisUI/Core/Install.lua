@@ -2433,6 +2433,7 @@ function MER:SetupDts()
 			["height"] = 20,
 			["numPoints"] = 1,
 			["backdrop"] = false,
+			["visibility"] = "[petbattle][combat] hide;show",
 			["name"] = "MER_TopPanel",
 		}
 	end
