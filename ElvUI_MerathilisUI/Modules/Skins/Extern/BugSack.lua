@@ -11,7 +11,7 @@ function module:BugSack_InterfaceOptionOnShow(frame)
 
 	if _G.BugSackFontSize then
 		local dropdown = _G.BugSackFontSize
-		S:HandleDropDownBox(dropdown)
+		S:HandleDropDownBox(dropdown, nil, nil, true)
 
 		local point, relativeTo, relativePoint, xOffset, yOffset = dropdown:GetPoint(1)
 		dropdown:ClearAllPoints()
@@ -22,7 +22,7 @@ function module:BugSack_InterfaceOptionOnShow(frame)
 
 	if _G.BugSackSoundDropdown then
 		local dropdown = _G.BugSackSoundDropdown
-		S:HandleDropDownBox(dropdown)
+		S:HandleDropDownBox(dropdown, nil, nil, true)
 
 		local point, relativeTo, relativePoint = dropdown:GetPoint(1)
 		dropdown:ClearAllPoints()
