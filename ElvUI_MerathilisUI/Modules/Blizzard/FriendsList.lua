@@ -125,62 +125,36 @@ local clientData = {
 	},
 }
 
-for code, name in pairs(projectCodes) do
-	if clientData[name] then
-		if code ~= "PRO-ZHCN" then -- There is a special Overwatch Chinese version
-			clientData[name]["icon"] = {
-				modern = MediaPath .. "GameIcons\\" .. code,
-				blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", code),
-			}
-		end
-	end
-end
-
 local expansionData = {
 	[WOW_PROJECT_MAINLINE] = {
 		name = "Retail",
 		suffix = nil,
 		maxLevel = GetMaxLevelForPlayerExpansion(),
-		icon = {
-			modern = MediaPath .. "GameIcons\\WOW_Retail",
-			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
-		},
+		icon = MediaPath .. "GameIcons\\WOW_Retail",
 	},
 	[WOW_PROJECT_CLASSIC] = {
 		name = "Classic",
 		suffix = "Classic",
 		maxLevel = 60,
-		icon = {
-			modern = MediaPath .. "GameIcons\\WOW_Classic",
-			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
-		},
+		icon = MediaPath .. "GameIcons\\WOW_Classic",
 	},
 	[WOW_PROJECT_BURNING_CRUSADE_CLASSIC] = {
 		name = "TBC",
 		suffix = "TBC",
 		maxLevel = 70,
-		icon = {
-			modern = MediaPath .. "GameIcons\\WOW_TBC",
-			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
-		},
+		icon = MediaPath .. "GameIcons\\WOW_TBC",
 	},
 	[WOW_PROJECT_WRATH_CLASSIC] = {
 		name = "WotLK",
 		suffix = "WotLK",
 		maxLevel = 80,
-		icon = {
-			modern = MediaPath .. "GameIcons\\WOW_WotLK",
-			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
-		},
+		icon = MediaPath .. "GameIcons\\WOW_WotLK",
 	},
 	[WOW_PROJECT_CATACLYSM_CLASSIC] = {
 		name = "Catalysm",
 		suffix = "Catalysm",
 		maxLevel = 85,
-		icon = {
-			modern = MediaPath .. "GameIcons\\WOW_Cata",
-			blizzard = BNet_GetClientAtlas("Battlenet-ClientIcon-", "WoW"),
-		},
+		icon = MediaPath .. "GameIcons\\WOW_Cata",
 	},
 }
 
@@ -208,14 +182,6 @@ local statusIcons = {
 		DND = MediaPath .. "StatusIcons\\D3\\DND",
 		AFK = MediaPath .. "StatusIcons\\D3\\AFK",
 	},
-}
-
-local regionLocales = {
-	[1] = L["America"],
-	[2] = L["Korea"],
-	[3] = L["Europe"],
-	[4] = L["Taiwan"],
-	[5] = L["China"],
 }
 
 local function GetClassColors(className)
@@ -251,7 +217,7 @@ function module:UpdateFriendButton(button)
 		return
 	end
 
-	local gameName, realID, name, server, class, area, level, note, faction, status, isInCurrentRegion, regionID, wowID, timerunningSeasonID
+	local gameName, realID, name, server, class, area, level, note, faction, status, wowID, timerunningSeasonID
 
 	if button.buttonType == FRIENDS_BUTTON_TYPE_WOW then
 		-- WoW friends
@@ -307,8 +273,6 @@ function module:UpdateFriendButton(button)
 				faction = gameAccountInfo.factionName or nil
 				class = gameAccountInfo.className or ""
 				area = gameAccountInfo.areaName or ""
-				isInCurrentRegion = gameAccountInfo.isInCurrentRegion or false
-				regionID = gameAccountInfo.regionID or false
 				timerunningSeasonID = gameAccountInfo.timerunningSeasonID or ""
 
 				if wowID and wowID ~= 1 and expansionData[wowID] then
@@ -404,29 +368,24 @@ function module:UpdateFriendButton(button)
 		end
 
 		-- game icon
-		local texOrAtlas = clientData[gameName] and clientData[gameName]["icon"][module.db.textures.client]
+		if self.db.textures.gameIcon ~= "BLIZZARD" then
+			local texOrAtlas
 
-		if wowID then
-			texOrAtlas = expansionData[wowID]["icon"][module.db.textures.client]
-		end
+			if self.db.textures.gameIcon == "PATCH" and wowID and expansionData[wowID] then
+				texOrAtlas = expansionData[wowID].icon
+			end
 
-		if module.db.textures.factionIcon then
-			if faction and factionIcons[faction] then
+			if self.db.textures.gameIcon == "FACTION" and faction and factionIcons[faction] then
 				texOrAtlas = factionIcons[faction]
 			end
-		end
 
-		if texOrAtlas then
-			if module.db.textures.client == "blizzard" then
-				button.gameIcon:SetAtlas(texOrAtlas)
-				button.gameIcon:SetTexCoord(0, 1, 0, 1)
-			else
+			if texOrAtlas then
 				button.gameIcon:SetTexture(texOrAtlas)
-				button.gameIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				button.gameIcon:SetTexCoord(0.15, 0.85, 0.15, 0.85)
 			end
 		end
 	else
-		if module.db.useNoteAsName and note and note ~= "" then
+		if self.db.useNoteAsName and note and note ~= "" then
 			button.name:SetText(note)
 		end
 	end

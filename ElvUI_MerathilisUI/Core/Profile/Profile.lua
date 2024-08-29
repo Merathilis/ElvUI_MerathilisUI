@@ -166,9 +166,7 @@ P.blizzard = {
 		useClientColor = true,
 		useNoteAsName = false,
 		textures = {
-			client = "modern",
 			status = "square",
-			factionIcon = false,
 		},
 		areaColor = {
 			r = 1,

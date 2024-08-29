@@ -5,9 +5,13 @@ local FT = MER:GetModule("MER_Filter")
 local TI = MER:GetModule("MER_TurnIn")
 local SB = MER:GetModule("MER_SwitchButtons")
 local options = MER.options.modules.args
+local C = MER.Utilities.Color
 local LSM = E.Libs.LSM
 
+local _G = _G
 local format = string.format
+local tremove = tremove
+local wipe = wipe
 
 local FriendsFrame_Update = FriendsFrame_Update
 
@@ -971,7 +975,7 @@ options.blizzard.args.friendsList = {
 			order = 2,
 			type = "group",
 			inline = true,
-			name = L["Enhanced Texture"],
+			name = L["Texture Replacement"],
 			get = function(info)
 				return E.db.mui.blizzard.friendsList.textures[info[#info]]
 			end,
@@ -983,30 +987,27 @@ options.blizzard.args.friendsList = {
 				return not E.db.mui.blizzard.friendsList.enable
 			end,
 			args = {
-				client = {
-					name = L["Game Icons"],
-					order = 1,
-					type = "select",
-					values = {
-						blizzard = L["Blizzard"],
-						modern = L["Modern"],
-					},
-				},
 				status = {
 					name = L["Status Icon Pack"],
-					order = 2,
+					order = 1,
 					type = "select",
+
 					values = {
 						default = L["Default"],
 						d3 = L["Diablo 3"],
 						square = L["Square"],
 					},
 				},
-				factionIcon = {
-					order = 3,
-					type = "toggle",
-					name = L["Faction Icon"],
-					desc = L["Use faction icon instead of WoW icon."],
+				gameIcon = {
+					name = L["Game Icon Style for WoW"],
+					order = 2,
+					type = "select",
+					width = 1.2,
+					values = {
+						BLIZZARD = L["Default Blizzard Style"],
+						FACTION = L["Use faction icon"],
+						PATCH = L["Use patch icon"],
+					},
 				},
 			},
 		},
