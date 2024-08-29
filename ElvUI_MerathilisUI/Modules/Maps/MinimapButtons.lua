@@ -391,6 +391,8 @@ function module:SkinButton(frame)
 								for i = 1, numMaskTextures do
 									region:RemoveMaskTexture(region:GetMaskTexture(i))
 								end
+							else
+								region:SetMask("")
 							end
 						elseif region.SetMask then
 							region:SetMask("")

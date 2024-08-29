@@ -402,12 +402,12 @@ for feature, featureConfig in pairs(module.Features) do
 end
 
 function module:GetArmoryBaseURL()
-	local language = strlower(W.Locale)
+	local language = strlower(MER.Locale)
 	if language == "zhcn" then
 		language = "zhtw" -- There is no simplified Chinese armory
 	end
 
-	local region = self.db and self.db.armoryOverride[E.myrealm] or W.RealRegion
+	local region = self.db and self.db.armoryOverride[E.myrealm] or MER.RealRegion
 	if region == "CN" then
 		region = "TW" -- Fix taiwan server region issue
 	end
