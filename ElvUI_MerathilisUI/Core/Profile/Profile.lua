@@ -167,6 +167,7 @@ P.blizzard = {
 		useNoteAsName = false,
 		textures = {
 			status = "square",
+			gameIcon = "PATCH",
 		},
 		areaColor = {
 			r = 1,
@@ -365,8 +366,7 @@ P.chat = {
 			},
 			world = {
 				enable = false,
-				autoJoin = true,
-				name = "",
+				config = {},
 				color = { r = 0.2, g = 0.6, b = 0.86, a = 1 },
 				abbr = L["World"],
 			},
@@ -380,7 +380,7 @@ P.chat = {
 				enable = true,
 				icon = true,
 				color = { r = 0.56, g = 0.56, b = 0.56, a = 1 },
-				abbr = _G.ROLL,
+				abbr = L["Roll"],
 			},
 		},
 	},

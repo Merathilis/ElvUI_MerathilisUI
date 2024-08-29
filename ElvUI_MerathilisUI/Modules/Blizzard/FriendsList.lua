@@ -342,21 +342,11 @@ function module:UpdateFriendButton(button)
 		-- area
 		if area then
 			if area and area ~= "" and server and server ~= "" and server ~= E.myrealm then
-				buttonText = F.CreateColorString(area .. " - " .. server, module.db.areaColor)
+				buttonText = F.CreateColorString(area .. " - " .. server, self.db.areaColor)
 			elseif area and area ~= "" then
-				buttonText = F.CreateColorString(area, module.db.areaColor)
+				buttonText = F.CreateColorString(area, self.db.areaColor)
 			else
 				buttonText = server or ""
-			end
-
-			if
-				not isInCurrentRegion
-				and regionLocales[regionID]
-				and not E.db.mui.blizzard.filter.unblockProfanityFilter
-			then
-				-- Unblocking profanity filter will change the region
-				local regionText = format("[%s]", regionLocales[regionID])
-				buttonText = buttonText .. " " .. F.CreateColorString(regionText, { r = 0.62, g = 0.62, b = 0.62 })
 			end
 
 			button.info:SetText(buttonText)

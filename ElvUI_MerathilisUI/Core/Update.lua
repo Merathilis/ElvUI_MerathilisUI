@@ -39,24 +39,21 @@ function MER:UpdateScripts() -- DB Convert
 
 	isFirstLine = true
 
-	local updated = false
-	if profileVersion and profileVersion <= 6.34 then
-		if E.private.mui.skins then
-			for _, widget in pairs({
-				"button",
-				"tab",
-				"treeGroupButton",
-			}) do
-				if E.private.mui.skins.widgets[widget] and E.private.mui.skins.widgets[widget].backdrop then
-					E.private.mui.skins.widgets[widget].backdrop.alpha = nil
-					E.private.mui.skins.widgets[widget].backdrop.animationType = nil
-					E.private.mui.skins.widgets[widget].backdrop.animationDuration = nil
-				end
-			end
-			UpdateMessage(L["Skins"] .. " - " .. L["Widgets"] .. ": " .. L["Update Database"], privateVersion)
+	if profileVersion and profileVersion <= 6.37 then
+		if E.db.mui.blizzard.friendsList then
+			E.db.mui.blizzard.friendsList.client = nil
+			E.db.mui.blizzard.friendsList.factionIcon = nil
+
+			UpdateMessage(L["Friend List"] .. " - " .. L["Update Database"], profileVersion)
 		end
 
-		updated = true
+		if E.db.mui.chat.chatBar and E.db.mui.chat.chatBar.channels and E.db.mui.chat.chatBar.channels.world then
+			E.db.mui.chat.chatBar.channels.world.enable = false
+			E.db.mui.chat.chatBar.channels.world.autoJoin = nil
+			E.db.mui.chat.chatBar.channels.world.name = nil
+
+			UpdateMessage(L["Chat Bar"] .. " - " .. L["Update Database"], profileVersion)
+		end
 	end
 
 	if not isFirstLine then
