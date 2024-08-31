@@ -10,10 +10,25 @@ function module:Blizzard_DelvesCompanionConfiguration()
 	end
 
 	local CompanionConfigurationFrame = _G.DelvesCompanionConfigurationFrame
-	module:CreateShadow(CompanionConfigurationFrame)
+	if CompanionConfigurationFrame then
+		self:CreateShadow(CompanionConfigurationFrame)
+		CompanionConfigurationFrame.CloseButton:ClearAllPoints()
+		CompanionConfigurationFrame.CloseButton:SetPoint("TOPRIGHT", CompanionConfigurationFrame, "TOPRIGHT", -3, -3)
+
+		for _, frame in pairs({
+			CompanionConfigurationFrame.CompanionCombatRoleSlot,
+			CompanionConfigurationFrame.CompanionUtilityTrinketSlot,
+			CompanionConfigurationFrame.CompanionCombatTrinketSlot,
+		}) do
+			self:CreateShadow(frame.OptionsList)
+			self:HighAlphaTransparent(frame)
+		end
+	end
 
 	local CompanionAbilityListFrame = _G.DelvesCompanionAbilityListFrame
-	module:CreateShadow(CompanionAbilityListFrame)
+	if CompanionAbilityListFrame then
+		self:CreateShadow(CompanionAbilityListFrame)
+	end
 end
 
 module:AddCallbackForAddon("Blizzard_DelvesCompanionConfiguration")
