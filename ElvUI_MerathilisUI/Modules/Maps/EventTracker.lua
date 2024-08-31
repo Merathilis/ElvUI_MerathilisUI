@@ -720,7 +720,6 @@ local eventData = {
 					[3] = 1724976005, -- EU
 					[4] = 1724976005, -- TW
 					[5] = 1724976005, -- CN
-					[72] = 1724976000,
 				}
 
 				local region = GetCurrentRegion()
