@@ -183,6 +183,7 @@ function module:CosmeticBar(header)
 end
 
 function module:ObjectiveTrackerModule_Update(tracker)
+	local db = E.db.mui.blizzard.objectiveTracker
 	local NumQuests = select(2, GetNumQuestLogEntries())
 
 	if tracker and tracker.Header and tracker.Header.Text then
@@ -193,19 +194,19 @@ function module:ObjectiveTrackerModule_Update(tracker)
 			tracker.Header.Text:SetText(format("|Cffff0000%d/%d|r - %s", NumQuests, MAX_QUESTS, _G.QUESTS_LABEL))
 		end
 		self:CosmeticBar(tracker.Header)
-		F.SetFontDB(tracker.Header.Text, self.db.header)
+		F.SetFontDB(tracker.Header.Text, db.header)
 		if not tracker.Header.Text.__MERUnbind then
 			tracker.Header.Text.__MERUnbind = true
 			tracker.Header.Text:SetFontObject(nil)
 			tracker.Header.Text.SetFontObject = E.noop
 		end
 
-		local r = self.db.header.classColor and MER.ClassColor.r or self.db.header.color.r
-		local g = self.db.header.classColor and MER.ClassColor.g or self.db.header.color.g
-		local b = self.db.header.classColor and MER.ClassColor.b or self.db.header.color.b
+		local r = db and db.header.classColor and MER.ClassColor.r or db.header.color.r
+		local g = db and db.header.classColor and MER.ClassColor.g or db.header.color.g
+		local b = db and db.header.classColor and MER.ClassColor.b or db.header.color.b
 
 		tracker.Header.Text:SetTextColor(r, g, b)
-		if self.db.header.shortHeader then
+		if db and db.header.shortHeader then
 			tracker.Header.Text:SetText(self:ShortTitle(tracker.Header.Text:GetText()))
 		end
 	end

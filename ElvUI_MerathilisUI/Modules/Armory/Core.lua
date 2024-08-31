@@ -703,6 +703,7 @@ function module:UpdatePageInfo(_, _, which)
 end
 
 function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
+	local db = E.db.mui.armory
 	if which ~= "Character" then
 		return
 	end
@@ -721,8 +722,8 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 	end
 
 	-- Enchant/Socket Text Handling
-	if module.db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
-		if module.db.pageInfo.missingSocketText and slotOptions.needsSocket then
+	if db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
+		if db.pageInfo.missingSocketText and slotOptions.needsSocket then
 			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
 				local missingGemSlots = 2 - #slotInfo.gems
 				if missingGemSlots > 0 then
@@ -744,17 +745,17 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 				local text = slotInfo.enchantTextShort
 				-- Strip color
 				text = F.String.StripColor(text)
-				if module.db.pageInfo.abbreviateEnchantText then
+				if db.pageInfo.abbreviateEnchantText then
 					text = module:EnchantAbbreviate(slotInfo.enchantText)
 				end
 
-				if module.db.pageInfo.useEnchantClassColor then
+				if db.pageInfo.useEnchantClassColor then
 					slotItem.enchantText:SetText(F.String.Class(text))
 				else
 					slotItem.enchantText:SetText(text)
 				end
 			end
-		elseif module.db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
+		elseif db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
 			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
 				slotItem.enchantText:SetText(F.String.Error("Add enchant"))
 			else
@@ -794,10 +795,7 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 		end
 
 		-- Update Size
-		slotItem.MERGradient:SetSize(
-			module.db.pageInfo.itemQualityGradientWidth,
-			module.db.pageInfo.itemQualityGradientHeight
-		)
+		slotItem.MERGradient:SetSize(db.pageInfo.itemQualityGradientWidth, db.pageInfo.itemQualityGradientHeight)
 
 		-- Update Colors
 		if slotOptions.direction == module.enumDirection.LEFT then
@@ -807,11 +805,11 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 				r,
 				g,
 				b,
-				module.db.pageInfo.itemQualityGradientStartAlpha,
+				db.pageInfo.itemQualityGradientStartAlpha,
 				r,
 				g,
 				b,
-				module.db.pageInfo.itemQualityGradientEndAlpha
+				db.pageInfo.itemQualityGradientEndAlpha
 			)
 		elseif slotOptions.direction == module.enumDirection.RIGHT then
 			F.SetGradientRGB(
@@ -820,15 +818,15 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 				r,
 				g,
 				b,
-				module.db.pageInfo.itemQualityGradientEndAlpha,
+				db.pageInfo.itemQualityGradientEndAlpha,
 				r,
 				g,
 				b,
-				module.db.pageInfo.itemQualityGradientStartAlpha
+				db.pageInfo.itemQualityGradientStartAlpha
 			)
 		end
 
-		if module.db.pageInfo.itemQualityGradientEnabled then
+		if db.pageInfo.itemQualityGradientEnabled then
 			slotItem.MERGradient:Show()
 		else
 			slotItem.MERGradient:Hide()
@@ -836,12 +834,12 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 	end
 
 	-- iLvL Text Handling
-	if not module.db.pageInfo.itemLevelTextEnabled then
+	if not db.pageInfo.itemLevelTextEnabled then
 		slotItem.iLvlText:SetText("")
 	end
 
 	-- Icons Handling
-	if not module.db.pageInfo.itemLevelTextEnabled or not module.db.pageInfo.iconsEnabled then
+	if not db.pageInfo.itemLevelTextEnabled or not db.pageInfo.iconsEnabled then
 		for x = 1, 10 do
 			local essenceType = slotItem["textureSlotEssenceType" .. x]
 			if essenceType then
