@@ -899,6 +899,8 @@ L["The spacing between the tracker and the world map."] = "Der Abstand zwischen 
 L["The spacing between trackers."] = "Der Abstand zwischen Trackern"
 L["The width of the tracker."] = "Die Breite der Tracker"
 L["Vertical Spacing"] = "Vertikaler Abstand"
+L["Performing"] = "Aufführung"
+L["Theater Troupe"] = "Theatertruppe"
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

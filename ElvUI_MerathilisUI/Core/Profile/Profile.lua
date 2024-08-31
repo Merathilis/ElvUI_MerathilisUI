@@ -1729,6 +1729,15 @@ P.maps = {
 			scale = 1,
 			outline = "SHADOWOUTLINE",
 		},
+		theaterTroupe = {
+			enable = true,
+			desaturate = true,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Surprise",
+			second = 600,
+			stopAlertIfCompleted = true,
+		},
 		radiantEchoes = {
 			enable = true,
 			desaturate = true,

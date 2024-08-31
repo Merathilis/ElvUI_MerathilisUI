@@ -817,6 +817,8 @@ L["Current Location"] = "當前位置"
 L["Echoes"] = "回音"
 L["Next Location"] = "下次位置"
 L["Radiant Echoes"] = "璀璨回音"
+L["Performing"] = true
+L["Theater Troupe"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地圖按鍵"

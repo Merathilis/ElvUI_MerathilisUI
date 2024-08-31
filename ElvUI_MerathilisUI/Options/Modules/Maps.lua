@@ -1199,8 +1199,75 @@ options.maps.args.eventTracker = {
 				},
 			},
 		},
-		radiantEchoes = {
+		theaterTroupe = {
 			order = 5,
+			type = "group",
+			inline = true,
+			name = L["Theater Troupe"],
+			get = function(info)
+				return E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]] = value
+				ET:ProfileUpdate()
+			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				desaturate = {
+					order = 2,
+					type = "toggle",
+					name = L["Desaturate"],
+					desc = L["Desaturate icon if the event is completed in this week."],
+				},
+				alert = {
+					order = 3,
+					type = "toggle",
+					name = L["Alert"],
+				},
+				sound = {
+					order = 4,
+					type = "toggle",
+					name = L["Alert Sound"],
+					hidden = function(info)
+						return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+					end,
+					desc = L["Play sound when the alert is triggered."],
+				},
+				soundFile = {
+					order = 5,
+					type = "select",
+					dialogControl = "LSM30_Sound",
+					name = L["Sound File"],
+					hidden = function(info)
+						return not E.db.mui.maps.eventTracker[info[#info - 1]].alert
+							or not E.db.mui.maps.eventTracker[info[#info - 1]].sound
+					end,
+					values = LSM:HashTable("sound"),
+				},
+				second = {
+					order = 6,
+					type = "range",
+					name = L["Alert Second"],
+					desc = L["Alert will be triggered when the remaining time is less than the set value."],
+					min = 0,
+					max = 3600,
+					step = 1,
+				},
+				stopAlertIfCompleted = {
+					order = 7,
+					type = "toggle",
+					name = L["Stop Alert if Completed"],
+					desc = L["Stop alert when the event is completed in this week."],
+					width = 1.5,
+				},
+			},
+		},
+		radiantEchoes = {
+			order = 6,
 			type = "group",
 			inline = true,
 			name = L["Radiant Echoes"],
@@ -1283,7 +1350,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		bigDig = {
-			order = 6,
+			order = 7,
 			type = "group",
 			inline = true,
 			name = L["The Big Dig"],
@@ -1356,7 +1423,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		superBloom = {
-			order = 7,
+			order = 8,
 			type = "group",
 			inline = true,
 			name = L["Superbloom"],
@@ -1439,7 +1506,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		timeRiftThaldraszus = {
-			order = 8,
+			order = 9,
 			type = "group",
 			inline = true,
 			name = L["Time Rift Thaldraszus"],
@@ -1516,7 +1583,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		researchersUnderFire = {
-			order = 9,
+			order = 10,
 			type = "group",
 			inline = true,
 			name = L["Researchers Under Fire"],
@@ -1599,7 +1666,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		siegeOnDragonbaneKeep = {
-			order = 10,
+			order = 11,
 			type = "group",
 			inline = true,
 			name = L["Siege On Dragonbane Keep"],
@@ -1682,7 +1749,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		communityFeast = {
-			order = 11,
+			order = 12,
 			type = "group",
 			inline = true,
 			name = L["Community Feast"],
@@ -1765,7 +1832,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		iskaaranFishingNet = {
-			order = 12,
+			order = 13,
 			type = "group",
 			inline = true,
 			name = L["Iskaaran Fishing Net"],

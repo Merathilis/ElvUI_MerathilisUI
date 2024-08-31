@@ -815,6 +815,8 @@ L["Current Location"] = true
 L["Echoes"] = true
 L["Next Location"] = true
 L["Radiant Echoes"] = true
+L["Performing"] = true
+L["Theater Troupe"] = true
 
 -- SMB
 L["Minimap Buttons"] = true
