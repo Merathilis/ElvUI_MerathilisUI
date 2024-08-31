@@ -223,6 +223,15 @@ function module:CreateShadowModule(frame)
 	end
 end
 
+function module:HighAlphaTransparent(frame)
+	frame.MER_SetBackdropColor = frame.SetBackdropColor
+	frame.SetBackdropColor = function(f, r, g, b, a)
+		frame.MER_SetBackdropColor(f, r, g, b, 0.8)
+	end
+
+	frame:SetTemplate("Transparent")
+end
+
 function module:CreateTex(f)
 	assert(f, "doesn't exist!")
 
