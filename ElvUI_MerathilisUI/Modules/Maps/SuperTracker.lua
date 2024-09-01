@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_SuperTracker")
+local C = MER.Utilities.Color
 
 local _G = _G
 
@@ -8,6 +9,7 @@ local tinsert = tinsert
 
 local ClearUserWaypoint = C_Map.ClearUserWaypoint
 local GetBestMapForUnit = C_Map.GetBestMapForUnit
+local GetMapInfo = C_Map.GetMapInfo
 local HasUserWaypoint = C_Map.HasUserWaypoint
 local CanSetUserWaypointOnMap = C_Map.CanSetUserWaypointOnMap
 local GetDistance = C_Navigation.GetDistance
@@ -131,6 +133,11 @@ function module.commandHandler(msg, isPreview)
 		["于"] = " ",
 	})
 
+	local mapID = strmatch(msg, "#(%d+)")
+	msg = gsub(msg, "#%d+", "")
+
+	mapID = mapID or _G.WorldMapFrame:IsShown() and _G.WorldMapFrame:GetMapID() or GetBestMapForUnit("player")
+
 	local numbers = {}
 	local words = { F.String.Split(msg .. " ", " ") }
 
@@ -174,21 +181,29 @@ function module.commandHandler(msg, isPreview)
 		if numbers[3] then
 			waypointString = waypointString .. ", " .. numbers[3]
 		end
-		return true, waypointString
+
+		local mapData = GetMapInfo(mapID) or GetMapInfo(GetBestMapForUnit("player"))
+		return true, mapData.name .. " (" .. waypointString .. ")"
 	else
-		module:SetWaypoint(unpack(numbers))
+		module:SetWaypoint(mapID, unpack(numbers))
 	end
 end
 
-function module:SetWaypoint(x, y, z)
-	local mapID = GetBestMapForUnit("player")
+function module:SetWaypoint(mapID, x, y, z)
+	mapID = mapID or _G.WorldMapFrame:IsShown() and _G.WorldMapFrame:GetMapID() or GetBestMapForUnit("player")
 
 	-- colored waypoint string
-	local waypointString = "|cff209cee(" .. x .. ", " .. y
-	if z then
-		waypointString = waypointString .. ", " .. z
+	local mapData = GetMapInfo(mapID)
+	if not mapData then
+		mapID = GetBestMapForUnit("player")
+		mapData = GetMapInfo(mapID)
 	end
-	waypointString = waypointString .. ")|r"
+	local mapName = mapData.name
+	local location = format("%s, %s", x, y)
+	if z then
+		location = location .. ", " .. z
+	end
+	local waypointString = C.StringByTemplate(format("%s (%s)", mapName, location), "primary")
 
 	-- if not scaled, just do it here
 	if x > 1 and y > 1 then
