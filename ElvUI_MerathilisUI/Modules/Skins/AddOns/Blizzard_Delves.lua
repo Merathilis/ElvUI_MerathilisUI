@@ -21,7 +21,7 @@ function module:Blizzard_DelvesCompanionConfiguration()
 			CompanionConfigurationFrame.CompanionCombatTrinketSlot,
 		}) do
 			self:CreateShadow(frame.OptionsList)
-			self:HighAlphaTransparent(frame)
+			self:HighAlphaTransparent(frame.OptionsList)
 		end
 	end
 
