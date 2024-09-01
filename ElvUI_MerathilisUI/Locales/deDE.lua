@@ -901,6 +901,12 @@ L["The width of the tracker."] = "Die Breite der Tracker"
 L["Vertical Spacing"] = "Vertikaler Abstand"
 L["Performing"] = "Aufführung"
 L["Theater Troupe"] = "Theatertruppe"
+L["Khaz Algar Emissary"] = true
+L["Professions Weekly"] = true
+L["Ringing Deeps"] = true
+L["Spreading The Light"] = true
+L["Underworld Operative"] = true
+L["World Soul"] = true
 
 -- SMB
 L["Minimap Buttons"] = "Minimap Tasten"

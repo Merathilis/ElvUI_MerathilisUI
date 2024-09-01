@@ -814,6 +814,12 @@ L["Next Location"] = true
 L["Radiant Echoes"] = true
 L["Performing"] = true
 L["Theater Troupe"] = true
+L["Khaz Algar Emissary"] = true
+L["Professions Weekly"] = true
+L["Ringing Deeps"] = true
+L["Spreading The Light"] = true
+L["Underworld Operative"] = true
+L["World Soul"] = true
 
 -- SMB
 L["Minimap Buttons"] = true

@@ -819,6 +819,12 @@ L["Next Location"] = "下次位置"
 L["Radiant Echoes"] = "璀璨回音"
 L["Performing"] = true
 L["Theater Troupe"] = true
+L["Khaz Algar Emissary"] = true
+L["Professions Weekly"] = true
+L["Ringing Deeps"] = true
+L["Spreading The Light"] = true
+L["Underworld Operative"] = true
+L["World Soul"] = true
 
 -- SMB
 L["Minimap Buttons"] = "小地圖按鍵"
