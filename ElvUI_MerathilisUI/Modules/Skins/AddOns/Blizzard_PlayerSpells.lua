@@ -20,7 +20,12 @@ function module:Blizzard_PlayerSpells()
 
 	local TalentsSelect = _G.HeroTalentsSelectionDialog
 	if TalentsSelect then
-		self:HighAlphaTransparent(TalentsSelect)
+		hooksecurefunc(TalentsSelect, "ShowDialog", function(frame)
+			if not frame.__MERSkin then
+				frame.__MERSkin = true
+				self:HighAlphaTransparent(TalentsSelect)
+			end
+		end)
 	end
 end
 
