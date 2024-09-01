@@ -83,3 +83,7 @@ end
 function module:GROUP_ROSTER_UPDATE()
 	self:ResetAuthority()
 end
+
+function module:UNIT_SPELLCAST_SUCCEEDED(event, unitTarget, castGUID, spellId)
+	self:Utility(event, UnitName(unitTarget), spellId)
+end
