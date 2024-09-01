@@ -56,6 +56,15 @@ function MER:UpdateScripts() -- DB Convert
 		end
 	end
 
+	if profileVersion and profileVersion <= 6.38 then
+		if E.db.mui.maps.eventTracker then
+			if E.db.mui.maps.eventTracker.iskaaranFishingNet then
+				E.db.mui.maps.eventTracker.iskaaranFishingNet.enable = false
+				UpdateMessage(L["Event Tracker"] .. ": " .. L["Update Database"], profileVersion)
+			end
+		end
+	end
+
 	if not isFirstLine then
 		F.PrintGradientLine()
 	end
