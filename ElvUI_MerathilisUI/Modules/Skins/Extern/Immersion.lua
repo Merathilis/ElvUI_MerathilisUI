@@ -8,7 +8,7 @@ local pairs = pairs
 function module:Immersion_ReskinTitleButton(frame)
 	for _, button in pairs({ frame.TitleButtons:GetChildren() }) do
 		if button and not button.__MERSkin then
-			S:HandleButton(button, true, nil, nil, true, "Transparent")
+			S:HandleButton(button, nil, nil, nil, true, "Transparent")
 			button.backdrop:ClearAllPoints()
 			button.backdrop:SetPoint("TOPLEFT", button, "TOPLEFT", 3, -3)
 			button.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -10, 3)

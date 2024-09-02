@@ -1330,6 +1330,17 @@ local delveItem = {
 	229353,
 }
 
+local fishItems = {
+	220139,
+	220135,
+	220152,
+	220146,
+	220134,
+	220137,
+	220138,
+	220136,
+}
+
 local function createList(base, ...)
 	local list = {}
 	for _, key in pairs({ ... }) do
@@ -1374,4 +1385,5 @@ module.moduleList = {
 	["BIGDIG"] = bigDig,
 	["ENGINEER"] = engineerItems,
 	["DELVE"] = delveItem,
+	["FISHING"] = fishItems,
 }
