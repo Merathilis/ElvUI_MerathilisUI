@@ -385,7 +385,7 @@ end
 function module:RefreshAllCosmeticBars()
 	for _, tracker in pairs(trackers) do
 		if tracker.Header then
-			self:CosmeticBar(tracker.Header)
+			module:CosmeticBar(tracker.Header)
 		end
 	end
 	SortQuestWatches()
@@ -423,6 +423,7 @@ function module:Initialize()
 
 		self:SecureHook(_G.ScenarioObjectiveTracker, "UpdateCriteria", "ScenarioObjectiveTracker_UpdateCriteria")
 		self:HandleMenuText(_G.ObjectiveTrackerFrame.Header.Text)
+		self:RegisterEvent("PLAYER_ENTERING_WORLD", module.RefreshAllCosmeticBars)
 
 		self.initialized = true
 	end
