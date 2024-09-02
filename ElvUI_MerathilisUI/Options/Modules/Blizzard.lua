@@ -1097,6 +1097,19 @@ options.blizzard.args.friendsList = {
 				return not E.db.mui.blizzard.friendsList.enable
 			end,
 			args = {
+				hideRealm = {
+					order = 1,
+					type = "toggle",
+					name = L["Hide Realm"],
+					desc = L["Hide the realm name of friends."],
+					get = function()
+						return E.db.mui.blizzard.friendsList.hideRealm
+					end,
+					set = function(_, value)
+						E.db.mui.blizzard.friendsList.hideRealm = value
+						FriendsFrame_Update()
+					end,
+				},
 				font = {
 					order = 2,
 					type = "group",

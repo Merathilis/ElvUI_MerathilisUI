@@ -165,6 +165,7 @@ P.blizzard = {
 		useGameColor = true,
 		useClientColor = true,
 		useNoteAsName = false,
+		hideRealm = false,
 		textures = {
 			status = "square",
 			gameIcon = "PATCH",
