@@ -12,6 +12,7 @@ local GetVignetteInfo = C_VignetteInfo.GetVignetteInfo
 local GetVignettePosition = C_VignetteInfo.GetVignettePosition
 local InCombatLockdown = InCombatLockdown
 local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
+local IsPartyWalkIn = C_PartyInfo.IsPartyWalkIn
 local PlaySound = PlaySound
 
 local function isUsefulAtlas(info)
@@ -39,7 +40,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 		return
 	end
 
-	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
+	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG() or IsPartyWalkIn()
 	if inGroup or inRaid or inPartyLFG then
 		return
 	end
