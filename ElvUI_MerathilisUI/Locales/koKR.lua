@@ -1357,6 +1357,8 @@ L["Change the color of the name to the in-playing game style."] =
 	"이름 색상을 플레이 중인 게임 스타일로 변경합니다."
 L["Use Class Color"] = "직업 색상 사용"
 L["Font Setting"] = "글꼴 설정"
+L["Hide Realm"] = true
+L["Hide the realm name of friends."] = true
 
 -- Vehicle Bar
 L["VehicleBar"] = true

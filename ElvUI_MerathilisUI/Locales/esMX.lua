@@ -1313,6 +1313,8 @@ L["Use Game Color"] = true
 L["Change the color of the name to the in-playing game style."] = true
 L["Use Class Color"] = true
 L["Font Setting"] = true
+L["Hide Realm"] = true
+L["Hide the realm name of friends."] = true
 
 -- Vehicle Bar
 L["VehicleBar"] = true

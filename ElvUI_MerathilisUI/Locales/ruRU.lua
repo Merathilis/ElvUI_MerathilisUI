@@ -1517,6 +1517,8 @@ L["Change the color of the name to the in-playing game style."] =
 	"Изменить цвет имени на стиль игры."
 L["Use Class Color"] = "Использовать цвет класса"
 L["Font Setting"] = "Настройка шрифта"
+L["Hide Realm"] = true
+L["Hide the realm name of friends."] = true
 
 -- Vehicle Bar
 L["VehicleBar"] = true
