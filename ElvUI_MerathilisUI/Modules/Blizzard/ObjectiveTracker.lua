@@ -93,10 +93,6 @@ end
 function module:CosmeticBar(header)
 	local bar = header.MERCosmeticBar
 
-	if not self.db or not self.db.cosmeticBar then
-		return
-	end
-
 	if not self.db.cosmeticBar.enable then
 		if bar then
 			bar:Hide()
@@ -429,8 +425,7 @@ function module:Initialize()
 
 	-- Force update all modules once we get into the game
 	E:Delay(0.5, function()
-		module:RefreshAllCosmeticBars()
-		-- SortQuestWatches()
+		SortQuestWatches()
 	end)
 end
 
