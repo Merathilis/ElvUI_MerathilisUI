@@ -186,6 +186,28 @@ E.media.roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\UI-LFG-
 E.media.checked = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\checked]]
 
 do
+	function F.GetRoleTexCoord(role)
+		if role == "TANK" then
+			return 0.32 / 9.03, 2.04 / 9.03, 2.65 / 9.03, 4.3 / 9.03
+		elseif role == "DPS" or role == "DAMAGER" then
+			return 2.68 / 9.03, 4.4 / 9.03, 2.65 / 9.03, 4.34 / 9.03
+		elseif role == "HEALER" then
+			return 2.68 / 9.03, 4.4 / 9.03, 0.28 / 9.03, 1.98 / 9.03
+		elseif role == "LEADER" then
+			return 0.32 / 9.03, 2.04 / 9.03, 0.28 / 9.03, 1.98 / 9.03
+		elseif role == "READY" then
+			return 5.1 / 9.03, 6.76 / 9.03, 0.28 / 9.03, 1.98 / 9.03
+		elseif role == "PENDING" then
+			return 5.1 / 9.03, 6.76 / 9.03, 2.65 / 9.03, 4.34 / 9.03
+		elseif role == "REFUSE" then
+			return 2.68 / 9.03, 4.4 / 9.03, 5.02 / 9.03, 6.7 / 9.03
+		end
+	end
+
+	F.AddMedia("texture", "UI-LFG-ICON-ROLES", "ROLES")
+end
+
+do
 	local raceAtlasMap = {
 		["Human"] = {
 			["Male"] = "raceicon128-human-male",

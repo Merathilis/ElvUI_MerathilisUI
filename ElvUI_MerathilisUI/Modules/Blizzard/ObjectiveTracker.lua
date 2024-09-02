@@ -423,7 +423,6 @@ function module:Initialize()
 
 		self:SecureHook(_G.ScenarioObjectiveTracker, "UpdateCriteria", "ScenarioObjectiveTracker_UpdateCriteria")
 		self:HandleMenuText(_G.ObjectiveTrackerFrame.Header.Text)
-		self:RegisterEvent("PLAYER_ENTERING_WORLD", module.RefreshAllCosmeticBars)
 
 		self.initialized = true
 	end
