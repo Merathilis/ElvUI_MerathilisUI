@@ -385,7 +385,7 @@ end
 function module:RefreshAllCosmeticBars()
 	for _, tracker in pairs(trackers) do
 		if tracker.Header then
-			module:CosmeticBar(tracker.Header)
+			self:CosmeticBar(tracker.Header)
 		end
 	end
 	SortQuestWatches()
@@ -429,7 +429,8 @@ function module:Initialize()
 
 	-- Force update all modules once we get into the game
 	E:Delay(0.5, function()
-		SortQuestWatches()
+		module:RefreshAllCosmeticBars()
+		-- SortQuestWatches()
 	end)
 end
 

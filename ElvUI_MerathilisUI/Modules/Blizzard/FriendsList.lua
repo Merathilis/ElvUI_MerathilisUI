@@ -374,6 +374,7 @@ function module:UpdateFriendButton(button)
 			end
 
 			if texOrAtlas then
+				button.gameIcon:SetAlpha(1)
 				button.gameIcon:SetTexture(texOrAtlas)
 				button.gameIcon:SetTexCoord(0.15, 0.85, 0.15, 0.85)
 			end
