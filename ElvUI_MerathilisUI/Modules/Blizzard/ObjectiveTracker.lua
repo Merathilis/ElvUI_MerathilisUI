@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_ObjectiveTracker")
 local S = MER:GetModule("MER_Skins")
+local C = MER.Utilities.Color
 local LSM = E.LSM or E.Libs.LSM
 
 local _G = _G
@@ -53,40 +54,31 @@ do
 end
 
 local function SetTextColorHook(text)
-	if not text.IsHooked then
-		local SetTextColorOld = text.SetTextColor
+	if not text.MERHooked then
+		text.__MERSetTextColor = text.SetTextColor
 		text.SetTextColor = function(self, r, g, b, a)
-			if
-				r == _G.OBJECTIVE_TRACKER_COLOR["Header"].r
-				and g == _G.OBJECTIVE_TRACKER_COLOR["Header"].g
-				and b == _G.OBJECTIVE_TRACKER_COLOR["Header"].b
-			then
+			local rgbTable = { r = r, g = g, b = b, a = a }
+
+			if C.IsRGBEqual(_G.OBJECTIVE_TRACKER_COLOR["Header"], rgbTable) then
 				if module.db and module.db.enable and module.db.titleColor and module.db.titleColor.enable then
-					r = module.db.titleColor.classColor and classColor.r or module.db.titleColor.customColorNormal.r
-					g = module.db.titleColor.classColor and classColor.g or module.db.titleColor.customColorNormal.g
-					b = module.db.titleColor.classColor and classColor.b or module.db.titleColor.customColorNormal.b
+					r = module.db.titleColor.classColor and MER.ClassColor.r or module.db.titleColor.customColorNormal.r
+					g = module.db.titleColor.classColor and MER.ClassColor.g or module.db.titleColor.customColorNormal.g
+					b = module.db.titleColor.classColor and MER.ClassColor.b or module.db.titleColor.customColorNormal.b
 				end
-			elseif
-				r == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].r
-				and g == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].g
-				and b == _G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"].b
-			then
+			elseif C.IsRGBEqual(_G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"], rgbTable) then
 				if module.db and module.db.enable and module.db.titleColor and module.db.titleColor.enable then
-					r = module.db.titleColor.classColor and classColor.r or module.db.titleColor.customColorHighlight.r
-					g = module.db.titleColor.classColor and classColor.g or module.db.titleColor.customColorHighlight.g
-					b = module.db.titleColor.classColor and classColor.b or module.db.titleColor.customColorHighlight.b
+					r = module.db.titleColor.classColor and MER.ClassColor.r
+						or module.db.titleColor.customColorHighlight.r
+					g = module.db.titleColor.classColor and MER.ClassColor.g
+						or module.db.titleColor.customColorHighlight.g
+					b = module.db.titleColor.classColor and MER.ClassColor.b
+						or module.db.titleColor.customColorHighlight.b
 				end
 			end
-			SetTextColorOld(self, r, g, b, a)
+			self:__MERSetTextColor(r, g, b, a)
 		end
-		text:SetTextColor(
-			_G.OBJECTIVE_TRACKER_COLOR["Header"].r,
-			_G.OBJECTIVE_TRACKER_COLOR["Header"].g,
-			_G.OBJECTIVE_TRACKER_COLOR["Header"].b,
-			1
-		)
-
-		text.IsHooked = true
+		text:SetTextColor(C.ExtractColorFromTable(_G.OBJECTIVE_TRACKER_COLOR["Header"], { a = 1 }))
+		text.MERHooked = true
 	end
 end
 
@@ -218,14 +210,18 @@ function module:HandleTitleText(text)
 end
 
 function module:HandleMenuText(text)
+	if not self.db.menuTitle.enable then
+		return
+	end
+
 	F.SetFontDB(text, self.db.menuTitle.font)
 
-	if not text.IsHooked then
-		text.IsHooked = true
+	if not text.MERHooked then
+		text.MERHooked = true
 		if self.db.menuTitle.classColor then
-			text:SetTextColor(F.r, F.g, F.b)
+			text:SetTextColor(C.ExtractColorFromTable(MER.ClassColor))
 		else
-			text:SetTextColor(self.db.menuTitle.color.r, self.db.menuTitle.color.g, self.db.menuTitle.color.b)
+			text:SetTextColor(C.ExtractColorFromTable(self.db.menuTitle.color))
 		end
 		text.SetTextColor = E.noop
 	end
