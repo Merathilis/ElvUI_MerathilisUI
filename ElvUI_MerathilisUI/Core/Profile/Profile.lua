@@ -2066,4 +2066,32 @@ P.scale = {
 	transmog = {
 		enable = false,
 	},
+
+	itemUpgrade = {
+		scale = 1,
+	},
+
+	equipmentFlyout = {
+		scale = 2,
+	},
+
+	vendor = {
+		scale = 1,
+	},
+
+	gossip = {
+		scale = 1,
+	},
+
+	quest = {
+		scale = 1,
+	},
+
+	mailbox = {
+		scale = 1,
+	},
+
+	classTrainer = {
+		scale = 1,
+	},
 }

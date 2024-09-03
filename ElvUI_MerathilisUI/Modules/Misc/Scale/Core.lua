@@ -21,6 +21,16 @@ function module:ScaleCollections()
 	module:SetElementScale("wardrobe", "WardrobeFrame")
 end
 
+function module:ScaleItemUpgrade()
+	module:SetElementScale("itemUpgrade", "ItemUpgradeFrame")
+	module:SetElementScale("equipmentFlyout", "EquipmentFlyoutFrameButtons")
+end
+
+function module:ScaleCatalyst()
+	module:SetElementScale("itemUpgrade", "ItemInteractionFrame")
+	module:SetElementScale("equipmentFlyout", "EquipmentFlyoutFrameButtons")
+end
+
 -- Credits to Kayr
 function module:AdjustTransmogFrame()
 	if not E.db.mui.scale.transmog.enable then
@@ -114,6 +124,10 @@ function module:Scale()
 	module:SetElementScale("characterFrame", "CharacterFrame")
 	module:SetElementScale("dressingRoom", "DressUpFrame")
 	module:SetElementScale("groupFinder", "PVEFrame")
+	module:SetElementScale("vendor", "MerchantFrame")
+	module:SetElementScale("gossip", "GossipFrame")
+	module:SetElementScale("quest", "QuestFrame")
+	module:SetElementScale("mailbox", "MailFrame")
 
 	module:AddCallbackOrScale("Blizzard_InspectUI", self.ScaleInspectUI)
 	module:AddCallbackOrScale("Blizzard_PlayerSpells", self.ScaleTalents)
