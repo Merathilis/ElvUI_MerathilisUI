@@ -93,19 +93,5 @@ options.gameFix = {
 			end,
 			width = "full",
 		},
-		fixLFG = {
-			order = 2,
-			type = "toggle",
-			name = L["Fix LFG Frame error"],
-			desc = L["Fix a PlayerStyle lua error that can happen on the LFG Frame."],
-			get = function(info)
-				return E.global.mui.core.fixLFG
-			end,
-			set = function(info, value)
-				E.global.mui.core.fixLFG = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			width = "full",
-		},
 	},
 }

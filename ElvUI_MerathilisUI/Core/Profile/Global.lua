@@ -5,7 +5,6 @@ G.core = {
 	cvarAlert = false,
 	logLevel = 2,
 	loginMsg = true,
-	fixLFG = false,
 }
 
 G.mail = {

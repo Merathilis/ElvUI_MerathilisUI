@@ -190,38 +190,6 @@ function MER:CheckInstalledVersion()
 end
 
 function MER:FixGame()
-	-- fix playstyle string
-	-- from Premade Groups Filter & LFMPlus
-	if E.global.mui.core.fixLFG then
-		if IsPlayerAuthenticatedForLFG(703) then
-			function GetPlaystyleString(playstyle, activityInfo)
-				if
-					not (
-						activityInfo
-						and playstyle
-						and playstyle ~= 0
-						and GetLfgCategoryInfo(activityInfo.categoryID).showPlaystyleDropdown
-					)
-				then
-					return nil
-				end
-				local globalStringPrefix
-				if activityInfo.isMythicPlusActivity then
-					globalStringPrefix = "GROUP_FINDER_PVE_PLAYSTYLE"
-				elseif activityInfo.isRatedPvpActivity then
-					globalStringPrefix = "GROUP_FINDER_PVP_PLAYSTYLE"
-				elseif activityInfo.isCurrentRaidActivity then
-					globalStringPrefix = "GROUP_FINDER_PVE_RAID_PLAYSTYLE"
-				elseif activityInfo.isMythicActivity then
-					globalStringPrefix = "GROUP_FINDER_PVE_MYTHICZERO_PLAYSTYLE"
-				end
-				return globalStringPrefix and _G[globalStringPrefix .. tostring(playstyle)] or nil
-			end
-
-			_G.LFGListEntryCreation_SetTitleFromActivityInfo = function(_) end
-		end
-	end
-
 	-- Button Fix
 	if E.global.mui.core.cvarAlert then
 		self:RegisterEvent("CVAR_UPDATE", function(_, cvar, value)
