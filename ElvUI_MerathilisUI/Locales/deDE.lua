@@ -1469,7 +1469,7 @@ L["Change the color of the name to the in-playing game style."] = "Ändere die F
 L["Use Class Color"] = "Verwende Klassenfarbe"
 L["Font Setting"] = "Schrifteinstellungen"
 L["Hide Realm"] = "Server verstecken"
-L["Hide the realm name of friends."] = "Versteckt den Servername von Freunden."
+L["Hide the realm name of friends."] = "Versteckt den Servernamen von Freunden."
 
 -- Advanced Settings
 L["Advanced Settings"] = "Erweiterte Einstellungen"
