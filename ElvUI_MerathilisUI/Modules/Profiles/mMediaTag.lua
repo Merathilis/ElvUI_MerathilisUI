@@ -18,7 +18,7 @@ function module:LoadmMediaTagProfile()
 	E.db["mMT"]["afk"]["attributes"]["enable"] = false
 	E.db["mMT"]["interruptoncd"]["enable"] = true
 	E.db["mMT"]["portraits"]["general"]["enable"] = true
-	E.db["mMT"]["portraits"]["general"]["style"] = "metal"
+	E.db["mMT"]["portraits"]["general"]["style"] = "c"
 	E.db["mMT"]["portraits"]["general"]["mui"] = true
 	E.db["mMT"]["portraits"]["offset"]["SQ"] = 5.4
 	E.db["mMT"]["portraits"]["offset"]["RA"] = 5.4
@@ -30,10 +30,12 @@ function module:LoadmMediaTagProfile()
 	E.db["mMT"]["portraits"]["colors"]["WARRIOR"]["b"]["r"] = 0.5647059082984924
 	E.db["mMT"]["portraits"]["player"]["y"] = 14
 	E.db["mMT"]["portraits"]["player"]["x"] = 3
+	E.db["mMT"]["portraits"]["player"]["texture"] = "RO"
 	E.db["mMT"]["portraits"]["player"]["size"] = 60
 	E.db["mMT"]["portraits"]["player"]["cast"] = true
 	E.db["mMT"]["portraits"]["target"]["y"] = 14
 	E.db["mMT"]["portraits"]["target"]["x"] = -3
+	E.db["mMT"]["portraits"]["target"]["texture"] = "RO"
 	E.db["mMT"]["portraits"]["target"]["size"] = 60
 	E.db["mMT"]["portraits"]["target"]["cast"] = true
 	E.db["mMT"]["portraits"]["targettarget"]["enable"] = false
