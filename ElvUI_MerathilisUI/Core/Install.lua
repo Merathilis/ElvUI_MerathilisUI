@@ -462,7 +462,7 @@ function MER:SetupLayout()
 	E.db["bags"]["bagSize"] = 34
 	E.db["bags"]["bagWidth"] = 433
 	E.db["bags"]["bankSize"] = 34
-	E.db["bags"]["bankWidth"] = 427
+	E.db["bags"]["bankWidth"] = 600
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 1
 	E.db["bags"]["junkIcon"] = true
