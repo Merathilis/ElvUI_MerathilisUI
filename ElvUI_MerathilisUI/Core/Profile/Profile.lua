@@ -2055,7 +2055,7 @@ P.scale = {
 		scale = 1,
 	},
 
-	professions = {
+	profession = {
 		scale = 1,
 	},
 
