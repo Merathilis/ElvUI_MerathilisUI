@@ -161,7 +161,7 @@ function MER:Initialize()
 		)
 	end
 
-	for name, module in self:IterateModules() do
+	for _, module in self:IterateModules() do
 		Engine[2].Developer.InjectLogger(module)
 	end
 

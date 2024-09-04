@@ -18,6 +18,8 @@ local math_pow = math.pow
 local CreateFrame = CreateFrame
 local GetCurrentRegion = GetCurrentRegion
 local GetServerTime = GetServerTime
+local GetProfessions = GetProfessions
+local GetProfessionInfo = GetProfessionInfo
 local PlaySoundFile = PlaySoundFile
 
 local GetBestMapForUnit = C_Map.GetBestMapForUnit

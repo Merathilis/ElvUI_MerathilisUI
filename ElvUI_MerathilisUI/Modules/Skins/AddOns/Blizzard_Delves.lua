@@ -3,6 +3,7 @@ local module = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
+local pairs = pairs
 
 function module:Blizzard_DelvesCompanionConfiguration()
 	if not self:CheckDB("lfg", "delves") then
