@@ -548,6 +548,7 @@ local foods = {
 	},
 	crafted_tww = {
 		-- https://www.wowhead.com/items/consumables/food-and-drinks/name:Hearty?filter=166;11;0#50
+		212491,
 		222307,
 		222308,
 		222309,
