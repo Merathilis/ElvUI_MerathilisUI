@@ -452,7 +452,9 @@ function module:SkinCharacterFrame()
 end
 
 function module:UpdateItemLevel()
-	if not module.frame:IsShown() then
+	module.db = E.db.mui.armory
+
+	if not module.db or not module.frame:IsShown() then
 		return
 	end
 
