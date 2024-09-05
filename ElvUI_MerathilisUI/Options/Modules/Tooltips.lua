@@ -76,13 +76,13 @@ options.tooltip = {
 			order = 7,
 			type = "toggle",
 			name = E.NewSign .. L["Race Icon"],
-			desc = L["Add an icon for indicating the type of the pet."],
+			desc = L["Show the icon of the player race."],
 		},
 		petId = {
 			order = 8,
 			type = "toggle",
 			name = L["Pet ID"],
-			desc = L["Show the icon of the player race."],
+			desc = L["Show battle pet species ID in tooltips."]
 		},
 		gradientName = {
 			order = 9,

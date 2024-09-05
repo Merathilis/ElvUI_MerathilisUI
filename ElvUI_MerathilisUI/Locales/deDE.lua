@@ -514,6 +514,12 @@ L["Preview"] = "Vorschau"
 L["Template"] = "Vorlage"
 L["Please click the button below to read reference."] =
 	"Klicke bitte auf die Schaltfläche unten, um die Referenz zu lesen."
+L["Spec Icon"] = "Spezifikationssymbol"
+L["Show the icon of the specialization."] = "Zeigt das Symbol der Spezialisierung an."
+L["Race Icon"] = "Rassensymbol"
+L["Show the icon of the player race."] = "Zeigt das Symbol der Spielerrasse an."
+L["Health Bar"] = "Gesundheitsleiste"
+L["Group Info"] = "Gruppeninfo"	
 
 -- Notification
 L["Notification"] = "Benachrichtigungen"

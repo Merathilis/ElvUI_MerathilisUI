@@ -460,6 +460,12 @@ L["Reference"] = true
 L["Preview"] = true
 L["Template"] = true
 L["Please click the button below to read reference."] = true
+L["Spec Icon"] = true
+L["Show the icon of the specialization."] = true
+L["Race Icon"] = true
+L["Show the icon of the player race."] = true
+L["Health Bar"] = true
+L["Group Info"] = true
 
 -- Notification
 L["Notification"] = true
