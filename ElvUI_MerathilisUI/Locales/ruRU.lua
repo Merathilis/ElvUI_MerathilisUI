@@ -940,6 +940,17 @@ L["Ringing Deeps"] = true
 L["Spreading The Light"] = true
 L["Underworld Operative"] = true
 L["World Soul"] = true
+L["Rectangle Minimap"] = true
+L["Expansion Landing Page"] = true
+L["Instance Difficulty"] = true
+L["Reskin the instance diffculty in text style."] = true
+L["Text Align"] = true
+L["Hide Blizzard Indicator"] = true
+L["Left"] = true
+L["Center"] = true
+L["Right"] = true
+L["Minimap Coords"] = true
+L["Add coords to your Minimap."] = true
 
 -- SMB
 L["Minimap Buttons"] = "Кнопки миникарты"
