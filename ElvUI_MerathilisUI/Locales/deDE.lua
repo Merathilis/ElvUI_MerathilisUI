@@ -293,7 +293,7 @@ L["Announce in chat when someone placed an usefull item."] =
 L["Miscellaneous"] = "Sonstiges"
 L["Guild News Item Level"] = "Gildennachrichten Gegenstandsstufe"
 L["Add Item level Infos in Guild News"] = "Fügt den Gildennachrichten die Gegenstandsstufe an."
-L["Spell Alert Scale"] = "Zauberwarnung Skalierung"
+L["Spell Alert Scale"] = "Skalierung Zauberaktivierungswarnung"
 L["Add Title"] = "Titel hinzufügen"
 L["Display an additional title."] = "Zusätzlichen Titel anzeigen."
 L["Add LFG group info to tooltip."] = "LFG Gruppeninformationen zum Tooltip hinzufügen."
@@ -455,7 +455,7 @@ L["Add a styled section title to the context menu."] = "Fügt einen Abschnittsti
 L["Guild Invite"] = "Gildeneinladung"
 L["Who"] = "Wer"
 L["Report Stats"] = "Werte berichten"
-L["Armory"] = true
+L["Armory"] = "Rüstung"
 L["Set Region"] = "Region auswählen"
 L["If the game language is different from the primary language in this server, you need to specify which area you play on."] =
 	"Wenn sich die Spielsprache von der Primärsprache auf diesem Server unterscheidet, mußt Du angeben, in welchem Bereich Du spielst."
@@ -463,8 +463,18 @@ L["Auto-detect"] = "Auto Erkennung"
 L["Taiwan"] = true
 L["Korea"] = true
 L["Americas & Oceania"] = true
-L["Europe"] = true
+L["Europe"] = "Europa"
 L["Server List"] = "Serverliste"
+L["Trade Tabs"] = "Berufe Tabs"
+L["Enable Tabs on the Profession Frames"] = "Aktiviere die Tabs in den Berufsfenstern"
+L["Group Finder"] = "Gruppenfinder"
+L["Equipment Upgrade"] = "Gegenstandsverbesserung"
+L["Vendor"] = "Händler"
+L["Class Trainer"] = "Klassentrainer"
+L["Gossip"] = "Tratsch"
+L["Class Icon"] = "Klassensymbol"
+L["Deathknight"] = "Todesritter"
+L["Evoker"] = "Rufer"
 
 -- Nameplates
 L["NamePlates"] = "Namensplaketten"

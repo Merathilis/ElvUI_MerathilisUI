@@ -470,6 +470,16 @@ L["Korea"] = true
 L["Americas & Oceania"] = true
 L["Europe"] = true
 L["Server List"] = true
+L["Trade Tabs"] = true
+L["Enable Tabs on the Profession Frames"] = true
+L["Group Finder"] = true
+L["Equipment Upgrade"] = true
+L["Vendor"] = true
+L["Class Trainer"] = true
+L["Gossip"] = true
+L["Class Icon"] = true
+L["Deathknight"] = true
+L["Evoker"] = true
 
 -- Nameplates
 L["NamePlates"] = "Индикаторы здоровья"

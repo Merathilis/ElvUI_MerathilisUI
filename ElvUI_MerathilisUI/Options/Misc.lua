@@ -434,7 +434,7 @@ options.scale = {
 				equipmentFlyout = {
 					order = 9,
 					type = "range",
-					name = L["Item Upgrade"],
+					name = L["Equipment Upgrade"],
 					get = function(_)
 						return E.db.mui.scale.equipmentFlyout.scale
 					end,
