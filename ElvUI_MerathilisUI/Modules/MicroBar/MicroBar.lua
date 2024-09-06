@@ -961,7 +961,7 @@ end
 
 function module:UpdateTime()
 	local panel = self.bar.middlePanel
-	if not panel or not self.db then
+	if not panel or not self.db or not self.db.time then
 		return
 	end
 
