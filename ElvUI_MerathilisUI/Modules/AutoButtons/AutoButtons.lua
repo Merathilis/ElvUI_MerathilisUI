@@ -270,7 +270,7 @@ function module:SetUpButton(button, itemData, slotID, waitGroup)
 		end
 
 		if barDB.tooltip then
-			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
+			GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 2)
 			GameTooltip:ClearLines()
 
 			if self.slotID then
