@@ -387,6 +387,29 @@ P.chat = {
 	},
 }
 
+if MER.ChineseLocale then
+	P.chat.chatText.customAbbreviation[L["BigfootWorldChannel"]] = "世"
+	P.chat.chatText.customAbbreviation["尋求組隊"] = "世"
+	P.chat.chatText.customAbbreviation["組隊頻道"] = "世"
+
+	tinsert(P.chat.chatBar.channels.world.config, {
+		region = "TW",
+		faction = "Alliance",
+		realmID = 963,
+		realmName = L["Shadowmoon"],
+		name = "組隊頻道",
+		autoJoin = true,
+	})
+
+	tinsert(P.chat.chatBar.channels.world.config, {
+		region = "CN",
+		faction = "ALL",
+		realmID = "ALL",
+		name = L["BigfootWorldChannel"],
+		autoJoin = true,
+	})
+end
+
 P.colors = {
 	styleAlpha = 1,
 }
