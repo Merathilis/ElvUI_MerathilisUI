@@ -367,7 +367,7 @@ function module:Initialize()
 	self.Anchor = CreateFrame("Frame", "MER_RaidBuffAnchor", E.UIParent)
 	self.Anchor:SetWidth((E.db.mui.raidBuffs.size * 8) + 25)
 	self.Anchor:SetHeight(E.db.mui.raidBuffs.size)
-	self.Anchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 4, -19)
+	self.Anchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 2, -20)
 
 	self.frame = CreateFrame("Frame", "RaidBuffReminder", self.Anchor)
 	F.CreatePanel(
