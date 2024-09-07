@@ -100,21 +100,24 @@ local hearthstones = {
 	168907,
 	172179,
 	188952,
+	190196,
 	190237,
 	193588,
 	200630,
+	206195,
 	208704,
 	209035,
+	212337,
 }
 
 local hearthstoneAndToyIDList = {
+	-- Special Hearthstones
 	6948,
+	-- Hearthstones Toys
+	-- https://www.wowhead.com/items?filter=107:216:17;0:1:-2324;%3CHearthstone+Location%3E:0:0
 	54452,
 	64488,
 	93672,
-	110560,
-	140192,
-	141605,
 	142542,
 	162973,
 	163045,
@@ -130,14 +133,22 @@ local hearthstoneAndToyIDList = {
 	183716,
 	184353,
 	188952,
+	190196,
 	190237,
 	193588,
 	200630,
+	206195,
 	208704,
 	209035,
-	212337,
 	210455,
-	---------------------
+	212337,
+	-- Patch Items
+	110560,
+	140192,
+	141605,
+	180817,
+	-- Engineering Wormholes
+	-- https://www.wowhead.com/items/name:Generator?filter=86:195;5:2;0:0
 	48933,
 	87215,
 	132517,
@@ -146,9 +157,8 @@ local hearthstoneAndToyIDList = {
 	168807,
 	168808,
 	172924,
-	180817,
-	190196,
 	198156,
+	221966,
 }
 
 local hearthstonesAndToysData
@@ -291,23 +301,23 @@ local function AddDoubleLineForItem(itemID, prefix)
 
 	prefix = prefix and prefix .. " " or ""
 
-	local name = hearthstonesAndToysData[tostring(itemID)]
-	if not name then
+	local data = hearthstonesAndToysData[tostring(itemID)]
+	if not data then
 		return
 	end
 
-	local texture = GetItemIconByID(itemID)
-	local icon = format(IconString .. ":255:255:255|t", texture)
+	local icon = format(IconString .. ":255:255:255|t", data.icon)
 	local startTime, duration = GetItemCooldown(itemID)
 	local cooldownTime = startTime + duration - GetTime()
 	local canUse = cooldownTime <= 0
 	local cooldownTimeString
 	if not canUse then
-		local min = floor(cooldownTime / 60)
-		local sec = floor(mod(cooldownTime, 60))
-		cooldownTimeString = format("%02d:%02d", min, sec)
+		local m = floor(cooldownTime / 60)
+		local s = floor(mod(cooldownTime, 60))
+		cooldownTimeString = format("%02d:%02d", m, s)
 	end
 
+	local name = data.name
 	if itemID == 180817 then
 		local charge = GetItemCount(itemID, nil, true)
 		name = name .. format(" (%d)", charge)
@@ -1513,13 +1523,16 @@ end
 
 function module:UpdateHomeButton()
 	ButtonTypes.HOME.item = {
-		item1 = hearthstonesAndToysData[self.db.home.left],
-		item2 = hearthstonesAndToysData[self.db.home.right],
+		item1 = hearthstonesAndToysData[self.db.home.left].name,
+		item2 = hearthstonesAndToysData[self.db.home.right].name,
 	}
 end
 
 function module:UpdateHearthStoneTable()
-	hearthstonesAndToysData = { ["RANDOM"] = L["Random Hearthstone"] }
+	hearthstonesAndToysData = { ["RANDOM"] = {
+		name = L["Random Hearthstone"],
+		icon = 134400,
+	} }
 
 	local hearthstonesTable = {}
 	for i = 1, #hearthstones do
@@ -1527,7 +1540,7 @@ function module:UpdateHearthStoneTable()
 		hearthstonesTable[itemID] = true
 	end
 
-	local specialHearthstones = {
+	local covenantHearthstones = {
 		[1] = 184353,
 		[2] = 183716,
 		[3] = 180290,
@@ -1538,12 +1551,23 @@ function module:UpdateHearthStoneTable()
 		local level = self.covenantCache[E.myrealm]
 			and self.covenantCache[E.myrealm][E.myname]
 			and self.covenantCache[E.myrealm][E.myname][tostring(i)]
-		local toyID = specialHearthstones[i]
+		local toyID = covenantHearthstones[i]
 		local hasToy = PlayerHasToy(toyID) and IsToyUsable(toyID)
 
 		-- here we don't check the current active covenant.
 		-- because `/castrandom` cannot the current active covenant hearthstone.
 		hearthstonesTable[toyID] = (hasToy and level and level == 60) and true or false
+	end
+
+	local raceHeartstones = {
+		[210455] = {
+			["Draenei"] = true,
+			["LightforgedDraenei"] = true,
+		},
+	}
+
+	for itemID, acceptableRaces in pairs(raceHeartstones) do
+		hearthstonesTable[itemID] = acceptableRaces[E.myrace] and true or false
 	end
 
 	availableHearthstones = {}
@@ -1563,7 +1587,10 @@ function module:UpdateHearthStoneTable()
 					end
 				end
 
-				hearthstonesAndToysData[tostring(hearthstoneAndToyIDList[index])] = itemEngine:GetItemName()
+				hearthstonesAndToysData[tostring(hearthstoneAndToyIDList[index])] = {
+					name = itemEngine:GetItemName(),
+					icon = itemEngine:GetItemIcon(),
+				}
 				GetNextHearthStoneInfo()
 			end)
 		else
