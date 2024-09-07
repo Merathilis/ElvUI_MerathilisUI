@@ -1522,15 +1522,12 @@ function module:HandleRandomHomeButton(button, mouseButton, item)
 end
 
 function module:UpdateHomeButton()
-	local db = self.db and self.db.home
-	if not db then
-		F.Developer.LogDebug("Could not find db", db)
-		return
-	end
+	local left = hearthstonesAndToysData[self.db.home.left]
+	local right = hearthstonesAndToysData[self.db.home.right]
 
 	ButtonTypes.HOME.item = {
-		item1 = hearthstonesAndToysData[db.left].name,
-		item2 = hearthstonesAndToysData[db.right].name,
+		item1 = left and left.name,
+		item2 = right and right.name,
 	}
 end
 
