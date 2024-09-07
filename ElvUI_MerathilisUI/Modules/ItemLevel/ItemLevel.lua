@@ -216,6 +216,10 @@ local function ItemLevel_ReplaceGuildNews(button, _, text, name, link, ...)
 		return
 	end
 
+	if not _G.CommunitiesFrame or not _G.CommunitiesFrame.IsShown or not _G.CommunitiesFrame:IsShown() then
+		return
+	end
+
 	if not link or not strmatch(link, "|H(item:%d+:.-)|h.-|h") then
 		return
 	end
