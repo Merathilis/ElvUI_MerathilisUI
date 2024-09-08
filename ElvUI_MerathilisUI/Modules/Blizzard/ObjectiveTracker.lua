@@ -85,7 +85,7 @@ end
 function module:CosmeticBar(header)
 	local bar = header.MERCosmeticBar
 
-	if not self.db and not self.db.cosmeticBar.enable then
+	if not self.db.cosmeticBar.enable then
 		if bar then
 			bar:Hide()
 			bar.backdrop:Hide()
@@ -122,30 +122,15 @@ function module:CosmeticBar(header)
 
 	-- Color
 	if self.db.cosmeticBar.color.mode == "CLASS" then
-		bar:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		bar:SetVertexColor(C.ExtractColorFromTable(W.ClassColor))
 	elseif self.db.cosmeticBar.color.mode == "NORMAL" then
-		bar:SetVertexColor(
-			self.db.cosmeticBar.color.normalColor.r,
-			self.db.cosmeticBar.color.normalColor.g,
-			self.db.cosmeticBar.color.normalColor.b,
-			self.db.cosmeticBar.color.normalColor.a
-		)
+		bar:SetVertexColor(C.ExtractColorFromTable(self.db.cosmeticBar.color.normalColor))
 	elseif self.db.cosmeticBar.color.mode == "GRADIENT" then
-		bar:SetVertexColor(1, 1, 1, 1)
+		bar:SetVertexColor(1, 1, 1)
 		bar:SetGradient(
 			"HORIZONTAL",
-			CreateColor(
-				self.db.cosmeticBar.color.gradientColor1.r,
-				self.db.cosmeticBar.color.gradientColor1.g,
-				self.db.cosmeticBar.color.gradientColor1.b,
-				self.db.cosmeticBar.color.gradientColor1.a
-			),
-			CreateColor(
-				self.db.cosmeticBar.color.gradientColor2.r,
-				self.db.cosmeticBar.color.gradientColor2.g,
-				self.db.cosmeticBar.color.gradientColor2.b,
-				self.db.cosmeticBar.color.gradientColor2.a
-			)
+			C.CreateColorFromTable(self.db.cosmeticBar.color.gradientColor1),
+			C.CreateColorFromTable(self.db.cosmeticBar.color.gradientColor2)
 		)
 	end
 
