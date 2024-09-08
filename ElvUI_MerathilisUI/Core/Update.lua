@@ -40,25 +40,23 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	if profileVersion and profileVersion <= 6.37 then
-		if E.db.mui then
-			if E.db.mui.blizzard.friendsList then
-				E.db.mui.blizzard.friendsList.client = nil
-				E.db.mui.blizzard.friendsList.factionIcon = nil
+		if E.db.mui and E.db.mui.blizzard.friendsList then
+			E.db.mui.blizzard.friendsList.client = nil
+			E.db.mui.blizzard.friendsList.factionIcon = nil
 
-				UpdateMessage(L["Friend List"] .. " - " .. L["Update Database"], profileVersion)
-			end
+			UpdateMessage(L["Friend List"] .. " - " .. L["Update Database"], profileVersion)
+		end
 
-			if E.db.mui.chat.chatBar and E.db.mui.chat.chatBar.channels and E.db.mui.chat.chatBar.channels.world then
-				E.db.mui.chat.chatBar.channels.world.enable = false
-				E.db.mui.chat.chatBar.channels.world.autoJoin = nil
-				E.db.mui.chat.chatBar.channels.world.name = nil
+		if E.db.mui.chat.chatBar and E.db.mui.chat.chatBar.channels and E.db.mui.chat.chatBar.channels.world then
+			E.db.mui.chat.chatBar.channels.world.enable = false
+			E.db.mui.chat.chatBar.channels.world.autoJoin = nil
+			E.db.mui.chat.chatBar.channels.world.name = nil
 
-				UpdateMessage(L["Chat Bar"] .. " - " .. L["Update Database"], profileVersion)
-			end
+			UpdateMessage(L["Chat Bar"] .. " - " .. L["Update Database"], profileVersion)
 		end
 	end
 
-	if profileVersion <= 6.38 then
+	if profileVersion and profileVersion <= 6.38 then
 		if E.db.mui and E.db.mui.maps.eventTracker then
 			if E.db.mui.maps.eventTracker.iskaaranFishingNet then
 				E.db.mui.maps.eventTracker.iskaaranFishingNet.enable = false
@@ -67,7 +65,7 @@ function MER:UpdateScripts() -- DB Convert
 		end
 	end
 
-	if profileVersion < 6.39 then
+	if profileVersion and profileVersion < 6.39 then
 		if E.db.mui and E.db.mui.maps.eventTracker then
 			if E.db.mui.maps.eventTracker.worldSoul then
 				E.db.mui.maps.eventTracker.worldSoul = nil
@@ -76,7 +74,7 @@ function MER:UpdateScripts() -- DB Convert
 		end
 	end
 
-	if globalVersion < 6.39 then
+	if globalVersion and globalVersion < 6.39 then
 		if E.global.mui and E.global.mui.core then
 			E.global.mui.core.fixPlaystyle = nil
 			UpdateMessage(L["Core"] .. " - " .. L["Update Database"], globalVersion)
