@@ -1049,6 +1049,9 @@ local openableItems = {
 local professionItems = {
 	-- https://www.wowhead.com/items/miscellaneous/other?filter=166:98:111;11:1:2;0:0:1
 	-- https://www.wowhead.com/items/miscellaneous/other?filter=107;0;increase+your+Khaz+Algar
+	213779,
+	213780,
+	213781,
 	222546,
 	222547,
 	222548,
@@ -1058,6 +1061,7 @@ local professionItems = {
 	222552,
 	222553,
 	222554,
+	222621,
 	222649,
 	224007,
 	224023,
