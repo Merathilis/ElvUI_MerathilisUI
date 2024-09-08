@@ -1,9 +1,10 @@
 ### Changes ###
 
-  * [Armory/Objective Tracker]: Try to prevent some db errors on profile switch/dual profiles
-  * [Delves Skin]: Fix the shadow
-  * [Announcement]: Added an missing event
-  * [Event Tracker]: New weekly events
-  * [MicroBar]: Updated friends counter on MicroBar
-  * [SuperTracker]: Now also supports mapIDs
-  * [AutoButtons]: Added more items
+  * [Objective Tracker]: Fix an issue with Cosmetic Bars
+  * [Friends List]: Added an option to hide the realm on the Friends List
+  * [Scale]: More frames are now scaleable
+  * [AutoButtons]: Tooltip is now by default enable on Bar 1
+  * [AutoButtons]: A lot more items now on the AutoButtons
+  * [Event Tracker]: Use Icon instead of text on the Event Tracker
+  * [mMediaTag Profile]: Updated the Profile with the recent changes. Thx Blinkiiiiii <3
+  * [Locales]: deDe locale updates from Dlarge
