@@ -120,7 +120,7 @@ L["Level"] = "Level"
 L["Translate Item"] = "Übersetze Gegenstand"
 L["Translate the name in item links into your language."] = "Übersetze den Namen in Gegenstandlinks in Deiner Sprache."
 L["Icon"] = "Symbol"
-L["Armor Category"] = "Rüstungs Kategorie"
+L["Armor Category"] = "Arsenal Kategorie"
 L["Weapon Category"] = "Waffenkategorie"
 L["Filters some messages out of your chat, that some Spam AddOns use."] =
 	"Filtert einige Nachrichten von Spam AddOns aus deinem Chat."
@@ -455,7 +455,6 @@ L["Add a styled section title to the context menu."] = "Fügt einen Abschnittsti
 L["Guild Invite"] = "Gildeneinladung"
 L["Who"] = "Wer"
 L["Report Stats"] = "Werte berichten"
-L["Armory"] = "Rüstung"
 L["Set Region"] = "Region auswählen"
 L["If the game language is different from the primary language in this server, you need to specify which area you play on."] =
 	"Wenn sich die Spielsprache von der Primärsprache auf diesem Server unterscheidet, mußt Du angeben, in welchem Bereich Du spielst."
@@ -612,9 +611,9 @@ L["LEFT"] = "LINKS"
 L["RIGHT"] = "RECHTS"
 
 -- Armory
-L["Armory"] = "Rüstung"
+L["Armory"] = "Arsenal"
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] =
-	"Aktiviere/deaktiviere den Waffenkammermodus |cffff7d0aMerathilisUI|r."
+	"Aktiviere/deaktiviere den Arsernalmodus |cffff7d0aMerathilisUI|r."
 L["Enchant & Socket Strings"] = "Verzauberungs- und Sockel Strings"
 L["Settings for strings displaying enchant and socket info from the items"] =
 	"Einstellungen für Strings, die Verzauberungs- und Sockelinformationen der Gegenstände anzeigen"
