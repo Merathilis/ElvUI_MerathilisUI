@@ -955,7 +955,7 @@ options.automation = {
 options.contextMenu = {
 	order = 15,
 	type = "group",
-	name = E.NewSign .. L["Context Menu"],
+	name = L["Context Menu"],
 	get = function(info)
 		return E.db.mui.misc.contextMenu[info[#info]]
 	end,

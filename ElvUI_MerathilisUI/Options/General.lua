@@ -23,7 +23,7 @@ options.name = {
 		style = {
 			order = 2,
 			type = "group",
-			name = E.NewSign .. MER.Title .. L["Style"],
+			name = MER.Title .. L["Style"],
 			guiInline = true,
 			get = function(info)
 				return E.db.mui.style[info[#info]]

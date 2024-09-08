@@ -5,7 +5,7 @@ local LSM = E.LSM
 
 options.delete = {
 	type = "group",
-	name = E.NewSign .. L["Delete Item"],
+	name = L["Delete Item"],
 	get = function(info)
 		return E.db.mui.item.delete[info[#info]]
 	end,
