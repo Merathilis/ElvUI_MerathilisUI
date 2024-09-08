@@ -122,7 +122,7 @@ function module:CosmeticBar(header)
 
 	-- Color
 	if self.db.cosmeticBar.color.mode == "CLASS" then
-		bar:SetVertexColor(C.ExtractColorFromTable(W.ClassColor))
+		bar:SetVertexColor(C.ExtractColorFromTable(MER.ClassColor))
 	elseif self.db.cosmeticBar.color.mode == "NORMAL" then
 		bar:SetVertexColor(C.ExtractColorFromTable(self.db.cosmeticBar.color.normalColor))
 	elseif self.db.cosmeticBar.color.mode == "GRADIENT" then

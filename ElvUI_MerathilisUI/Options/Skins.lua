@@ -2007,6 +2007,13 @@ options.blizzard = {
 				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfg
 			end,
 		},
+		lossOfControl = {
+			type = "toggle",
+			name = L["LOSS_OF_CONTROL"],
+			disabled = function()
+				return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.losscontrol
+			end,
+		},
 	},
 }
 
