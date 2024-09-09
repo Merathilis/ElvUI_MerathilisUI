@@ -1649,6 +1649,7 @@ P.maps = {
 		},
 		coords = {
 			enable = true,
+			mouseOver = false,
 			xOffset = 0,
 			yOffset = 70,
 			format = "%.0f",

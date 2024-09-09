@@ -55,9 +55,30 @@ function module:CreateCoordsFrame()
 	self.coordsHolder = CreateFrame("Frame", "MER_CoordsHolder", _G.Minimap)
 	self.coordsHolder:SetFrameLevel(_G.Minimap:GetFrameLevel() + 20)
 	self.coordsHolder:SetFrameStrata(_G.Minimap:GetFrameStrata())
-	self.coordsHolder:SetScript("OnUpdate", self.updateClosure)
-
 	self.coordsHolder.playerCoords = self.coordsHolder:CreateFontString(nil, "OVERLAY")
+	self.coordsHolder:SetScript("OnUpdate", self.updateClosure)
+	E.FrameLocks[self.coordsHolder] = true
+
+	_G.Minimap:HookScript("OnEnter", function()
+		if
+			not E.db.mui.maps.minimap.coords.mouseOver
+			or not E.private.general.minimap.enable
+			or not E.db.mui.maps.minimap.coords.enable
+		then
+			return
+		end
+		self.coordsHolder:Show()
+	end)
+	_G.Minimap:HookScript("OnLeave", function()
+		if
+			not E.db.mui.maps.minimap.coords.mouseOver
+			or not E.private.general.minimap.enable
+			or not E.db.mui.maps.minimap.coords.enable
+		then
+			return
+		end
+		self.coordsHolder:Hide()
+	end)
 
 	self:UpdateCoordinatesPosition()
 end
@@ -74,6 +95,16 @@ function module:SettingsUpdate()
 
 	self.displayFormat = format("%s, %s", self.db.format or "%.0f", self.db.format or "%.0f")
 	self:UpdateCoordinatesPosition()
+
+	if
+		E.db.mui.maps.minimap.coords.mouseOver
+		or not E.private.general.minimap.enable
+		or not E.db.mui.maps.minimap.coords.enable
+	then
+		self.coordsHolder:Hide()
+	else
+		self.coordsHolder:Show()
+	end
 end
 
 function module:Disable()
@@ -89,7 +120,6 @@ function module:Disable()
 	F.Event.UnregisterFrameEventAndCallback("ZONE_CHANGED", self)
 
 	if self.coordsHolder then
-		self.coordsHolder:Hide()
 		self.coordsHolder:SetScript("OnUpdate", nil)
 	end
 end
@@ -102,7 +132,6 @@ function module:Enable()
 	self:SettingsUpdate()
 
 	if self.coordsHolder then
-		self.coordsHolder:Show()
 		self.coordsHolder:SetScript("OnUpdate", self.updateClosure)
 	end
 

@@ -969,6 +969,11 @@ options.maps = {
 					max = 300,
 					step = 1,
 				},
+				mouseOver = {
+					order = 4,
+					type = "toggle",
+					name = E.NewSign .. L["Mouse Over"],
+				},
 				font = {
 					order = 7,
 					type = "group",
