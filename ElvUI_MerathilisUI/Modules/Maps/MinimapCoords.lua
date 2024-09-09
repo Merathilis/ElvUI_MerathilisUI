@@ -72,8 +72,8 @@ function module:CreateCoordsFrame()
 	_G.Minimap:HookScript("OnLeave", function()
 		if
 			not E.db.mui.maps.minimap.coords.mouseOver
-			or not E.private.general.minimap.enable
 			or not E.db.mui.maps.minimap.coords.enable
+			or not E.private.general.minimap.enable
 		then
 			return
 		end
@@ -98,8 +98,8 @@ function module:SettingsUpdate()
 
 	if
 		E.db.mui.maps.minimap.coords.mouseOver
-		or not E.private.general.minimap.enable
 		or not E.db.mui.maps.minimap.coords.enable
+		or not E.private.general.minimap.enable
 	then
 		self.coordsHolder:Hide()
 	else
