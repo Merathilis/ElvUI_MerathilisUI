@@ -56,7 +56,7 @@ function module:GameMenu_OnShow()
 
 	local bottomPanel = CreateFrame("Frame", nil, mainFrame, "BackdropTemplate")
 	bottomPanel:Point("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
-	bottomPanel:Width(E.physicalWidth + (E.Border * 2))
+	bottomPanel:Width(E.screenWidth + (E.Border * 2))
 	bottomPanel:CreateBackdrop("Transparent")
 	S:CreateBackdropShadow(bottomPanel)
 
@@ -66,7 +66,7 @@ function module:GameMenu_OnShow()
 
 	bottomPanel.anim = CreateAnimationGroup(bottomPanel)
 	bottomPanel.anim.height = bottomPanel.anim:CreateAnimation("Height")
-	bottomPanel.anim.height:SetChange(E.physicalHeight * (1 / 4))
+	bottomPanel.anim.height:SetChange(E.screenHeight * (1 / 4))
 	bottomPanel.anim.height:SetDuration(0.6)
 	bottomPanel:Height(0)
 	bottomPanel.anim.height:Play()
@@ -110,7 +110,7 @@ function module:GameMenu_OnShow()
 
 	local topPanel = CreateFrame("Frame", nil, mainFrame, "BackdropTemplate")
 	topPanel:Point("TOP", E.UIParent, "TOP", 0, 0)
-	topPanel:Width(E.physicalWidth + (E.Border * 2))
+	topPanel:Width(E.screenWidth + (E.Border * 2))
 	topPanel:CreateBackdrop("Transparent")
 	S:CreateBackdropShadow(topPanel)
 
@@ -120,7 +120,7 @@ function module:GameMenu_OnShow()
 
 	topPanel.anim = CreateAnimationGroup(topPanel)
 	topPanel.anim.height = topPanel.anim:CreateAnimation("Height")
-	topPanel.anim.height:SetChange(E.physicalHeight * (1 / 4))
+	topPanel.anim.height:SetChange(E.screenHeight * (1 / 4))
 	topPanel.anim.height:SetDuration(0.6)
 	topPanel:Height(0)
 	topPanel.anim.height:Play()
@@ -140,7 +140,7 @@ function module:GameMenu_OnShow()
 
 	local playerModel = CreateFrame("PlayerModel", nil, modelHolder)
 	playerModel:Point("CENTER", modelHolder, "CENTER")
-	playerModel:Size(E.physicalWidth * 2, E.physicalHeight * 2) --YES, double screen size. This prevents clipping of models.
+	playerModel:Size(E.screenWidth * 2, E.screenHeight * 2) --YES, double screen size. This prevents clipping of models.
 	playerModel:SetScale(0.8)
 	playerModel:SetAlpha(1)
 	playerModel:ClearModel()
