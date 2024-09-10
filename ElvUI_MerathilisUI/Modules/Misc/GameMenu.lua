@@ -29,6 +29,11 @@ MER.NPCS = {
 	189152, -- Lubbins
 	191627, -- Lord Basilton
 	184285, -- Gnomelia Gearheart
+	-- The War Within
+	222078, -- Wriggle
+	222877, -- Ghostcap Menace
+	222532, -- Bouncer
+	223399, -- Tickler
 }
 
 local Sequences = { 26, 52, 69, 111, 225 }
