@@ -60,6 +60,7 @@ function module:GlobalIgnoreList()
 				GILFrame3SkipGuild,
 				GILFrame3SkipParty,
 				GILFrame3SkipPrivate,
+				GILFrame3SkipYourself,
 			}
 			for _, checkbox in next, checkBoxes do
 				if checkbox then
