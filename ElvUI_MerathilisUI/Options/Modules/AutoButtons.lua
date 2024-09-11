@@ -201,7 +201,7 @@ for i = 1, 5 do
 						type = "input",
 						name = L["Button Groups"],
 						desc = format(
-							"%s %s\n" .. strrep("\n%s", 25),
+							"%s %s\n" .. strrep("\n%s", 26),
 							L["Set the type and order of button groups."],
 							L["You can separate the groups with a comma."],
 							desc("QUEST", L["Quest Items"]),
@@ -231,6 +231,7 @@ for i = 1, 5 do
 							desc("ENGINEER", L["Engineer Items"]),
 							desc("DELVE", L["Delves"]),
 							desc("FISHING", L["Fishing"]),
+							desc("FISHINGTWW", format("%s |cffffdd57[%s]|r", L["Fishing"], L["The War Wihtin"])),
 							desc("CUSTOM", L["Custom Items"])
 						),
 						width = "full",

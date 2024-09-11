@@ -700,6 +700,31 @@ local foods = {
 	},
 }
 
+local fishings = {
+	general = {
+		6532,
+		136377,
+		202207,
+	},
+	tww = {
+		-- fish lure https://www.wowhead.com/cn/items/consumables/other/name:%E9%B1%BC%E9%A5%B5?filter=166;11;0
+		219002,
+		219003,
+		219004,
+		219005,
+		219006,
+		-- fish that can be used to get buff https://www.wowhead.com/items/trade-goods/meat?filter=166:69;11:1;0:0
+		220134,
+		220135,
+		220136,
+		220137,
+		220138,
+		220139,
+		220146,
+		220152,
+	},
+}
+
 local banners = {
 	18606,
 	18607,
@@ -1015,7 +1040,9 @@ local openableItems = {
 	226100,
 	226103,
 	226146,
+	226147,
 	226148,
+	226149,
 	226152,
 	226154,
 	226193,
@@ -1028,6 +1055,7 @@ local openableItems = {
 	226263,
 	226264,
 	226273,
+	226392,
 	226813,
 	227450,
 	227713,
@@ -1340,17 +1368,6 @@ local delveItem = {
 	229353,
 }
 
-local fishItems = {
-	220139,
-	220135,
-	220152,
-	220146,
-	220134,
-	220137,
-	220138,
-	220136,
-}
-
 local function createList(base, ...)
 	local list = {}
 	for _, key in pairs({ ... }) do
@@ -1387,6 +1404,8 @@ module.moduleList = {
 	["FOODTWW"] = createList(foods, "crafted_tww"),
 	["FOODVENDOR"] = createList(foods, "vendor"),
 	["MAGEFOOD"] = createList(foods, "mage"),
+	["FISHING"] = createList(fishings, "general", "tww"),
+	["FISHINGTWW"] = createList(fishings, "tww"),
 	["BANNER"] = banners,
 	["UTILITY"] = utilities,
 	["OPENABLE"] = openableItems,
@@ -1395,5 +1414,4 @@ module.moduleList = {
 	["BIGDIG"] = bigDig,
 	["ENGINEER"] = engineerItems,
 	["DELVE"] = delveItem,
-	["FISHING"] = fishItems,
 }
