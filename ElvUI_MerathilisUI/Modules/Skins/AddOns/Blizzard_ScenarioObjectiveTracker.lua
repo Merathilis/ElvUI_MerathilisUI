@@ -39,7 +39,8 @@ local function ScenarioObjectiveTrackerStage_UpdateStageBlock(block)
 	if not block.backdrop then
 		block:CreateBackdrop("Transparent")
 		block.backdrop:ClearAllPoints()
-		block.backdrop:SetInside(block.GlowTexture, 4, 2)
+		block.backdrop:SetPoint("TOPLEFT", block.GlowTexture, 7, -4)
+		block.backdrop:SetPoint("BOTTOMRIGHT", block.GlowTexture, 14, 2)
 		module:CreateShadow(block.backdrop)
 	end
 
