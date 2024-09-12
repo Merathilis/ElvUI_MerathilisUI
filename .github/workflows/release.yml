@@ -40,7 +40,8 @@ jobs:
                   id: ${{ secrets.DISCORD_WEBHOOK_ID }}
                   token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
                   title: "New *${{ github.event.repository.name }}* Version Released!"
-                  description: "[${{ github.event.sender.login }}](${{ github.event.sender.html_url }}) has released a new version of ${{ github.event.repository.name }}!
+                  description:
+                      "[${{ github.event.sender.login }}](${{ github.event.sender.html_url }}) has released a new version of ${{ github.event.repository.name }}!
                       If you use a wow addon client that can download from either wago addons or curse, then it is recommended that you use that to install/update the addon.  You can update how you see fit, even if you want to download manually and install it, go for it.  The can grab the addon from the links down below."
                   fields: '[{"name": "Released By:", "value": "[${{ github.event.sender.login }}](${{ github.event.sender.html_url }})", "inline": true}, {"name": "Issue Tracker:", "value": "[${{ github.event.repository.name }}](${{ github.event.repository.html_url }}/issues)", "inline": true}, {"name": "Version", "value": "${{ env.RELEASE_VERSION }}", "inline": true}, {"name": "Wago Addons", "value": "[Click Here](${{ env.WAGO_URL }})", "inline": true}, {"name": "Curseforge", "value": "[Click Here](${{ env.CF_URL }})", "inline": true}]'
                   footer: Addon by Merathilis

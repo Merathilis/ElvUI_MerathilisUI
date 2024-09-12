@@ -702,7 +702,10 @@ local foods = {
 
 local fishings = {
 	general = {
+		6529,
+		6530,
 		6532,
+		6533,
 		136377,
 		202207,
 	},
