@@ -11,9 +11,9 @@ local IsSpellBookItemPassive = C_SpellBook.IsSpellBookItemPassive
 local IsCurrentSpell = C_Spell.IsCurrentSpell
 local GetSpellBookItemInfo = C_SpellBook.GetSpellBookItemInfo
 local GetItemCount = C_Item.GetItemCount
-local GetItemInfo = C_Item.GetItemInfo
+local GetItemNameByID = C_Item.GetItemNameByID
+local GetItemIconByID = C_Item.GetItemIconByID
 local PlayerHasToy = PlayerHasToy
-local IsToyUsable = C_ToyBox.IsToyUsable
 local GetToyInfo = C_ToyBox.GetToyInfo
 local GetSpellName = C_Spell.GetSpellName
 local GetSpellTexture = C_Spell.GetSpellTexture
@@ -71,7 +71,7 @@ function module:UpdateProfessions()
 		end
 	end
 
-	if isCook and PlayerHasToy(CHEF_HAT) and IsToyUsable(CHEF_HAT) then
+	if isCook and PlayerHasToy(CHEF_HAT) then
 		module:TradeTabs_Create(nil, CHEF_HAT)
 	end
 
@@ -129,7 +129,7 @@ function module:TradeTabs_Create(spellID, toyID, itemID)
 	if toyID then
 		_, name, texture = GetToyInfo(toyID)
 	elseif itemID then
-		name, _, _, _, _, _, _, _, _, texture = GetItemInfo(itemID)
+		name, texture = GetItemNameByID(itemID), GetItemIconByID(itemID)
 	else
 		name, texture = GetSpellName(spellID), GetSpellTexture(spellID)
 	end
@@ -202,9 +202,9 @@ function module:TradeTabs_FilterIcons()
 		bu:SetSize(22, 22)
 		bu:SetPoint(
 			"BOTTOMRIGHT",
-			ProfessionsFrame.CraftingPage.RecipeList.FilterButton,
+			ProfessionsFrame.CraftingPage.RecipeList.FilterDropdown,
 			"TOPRIGHT",
-			-(index - 1) * 27,
+			-(index - 1) * 26 + 7,
 			10
 		)
 		S:PixelIcon(bu, value[1], true)
