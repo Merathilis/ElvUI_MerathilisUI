@@ -12,7 +12,7 @@ local BASE_MOVEMENT_SPEED = BASE_MOVEMENT_SPEED
 local GetOverrideBarIndex = GetOverrideBarIndex
 local GetVehicleBarIndex = GetVehicleBarIndex
 
-local GetGlidingInfo = C_PlayerInfo and C_PlayerInfo.GetGlidingInfo
+local GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
 
 function module:UpdateVigorSegments()
 	local widgetInfo = module:GetWidgetInfo()
