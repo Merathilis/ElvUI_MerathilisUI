@@ -55,10 +55,6 @@ MER.Values = {
 	FontFlags = E.Libs.ACH.FontValues,
 }
 
-local LBG = LibStub("LibButtonGlow-1.0")
-F.ShowOverlayGlow = LBG.ShowOverlayGlow
-F.HideOverlayGlow = LBG.HideOverlayGlow
-
 if not E.Retail then
 	E.PopupDialogs.WRONGWOWVERSION = {
 		text = MER.Title
