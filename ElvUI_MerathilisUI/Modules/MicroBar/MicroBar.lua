@@ -34,7 +34,6 @@ local GenerateClosure = GenerateClosure
 local GetGameTime = GetGameTime
 local GetItemCooldown = C_Item.GetItemCooldown
 local GetItemCount = C_Item.GetItemCount
-local GetItemIconByID = C_Item.GetItemIconByID
 local GetNumGuildMembers = GetNumGuildMembers
 local GetTime = GetTime
 local HideUIPanel = HideUIPanel
@@ -69,6 +68,7 @@ local GetNumFriends = C_FriendList.GetNumFriends
 local GetCompleteMissions = C_Garrison.GetCompleteMissions
 local NewTicker = C_Timer.NewTicker
 local IsToyUsable = C_ToyBox.IsToyUsable
+local Reload = C_UI.Reload
 
 local FollowerType_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0_GarrisonFollower
 local FollowerType_9_0 = Enum.GarrisonFollowerType.FollowerType_9_0_GarrisonFollower
@@ -958,6 +958,8 @@ function module:ConstructTimeArea()
 			end
 		elseif mouseButton == "RightButton" then
 			ToggleTimeManager()
+		elseif mouseButton == "MiddleButton" then
+			Reload()
 		end
 	end)
 end
