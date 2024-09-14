@@ -10,7 +10,6 @@ function module:Blizzard_ItemInteractionUI()
 
 	local ItemInteractionFrame = _G.ItemInteractionFrame
 	module:CreateShadow(ItemInteractionFrame)
-	ItemInteractionFrame.Background:SetAlpha(0.75)
 end
 
 module:AddCallbackForAddon("Blizzard_ItemInteractionUI")

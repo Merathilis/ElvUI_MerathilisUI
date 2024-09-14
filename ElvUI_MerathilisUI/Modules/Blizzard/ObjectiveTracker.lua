@@ -112,9 +112,19 @@ local function SetInfoTextColorHook(text)
 end
 
 function module:CosmeticBar(header)
+	local db = E.db.mui
+		and E.db.mui.blizzard
+		and E.db.mui.blizzard.objectiveTracker
+		and E.db.mui.blizzard.objectiveTracker.cosmeticBar
+
+	if not db then
+		F.Developer.LogDebug("CosmeticBar DB is nil")
+		return
+	end
+
 	local bar = header.MERCosmeticBar
 
-	if not self.db or not self.db.cosmeticBar.enable then
+	if not db.enable then
 		if bar then
 			bar:Hide()
 			bar.backdrop:Hide()
@@ -135,7 +145,7 @@ function module:CosmeticBar(header)
 	end
 
 	-- Border
-	if self.db.cosmeticBar.border == "NONE" then
+	if db.border == "NONE" then
 		bar.backdrop:Hide()
 	else
 		if self.db.cosmeticBar.border == "SHADOW" then
@@ -147,35 +157,35 @@ function module:CosmeticBar(header)
 	end
 
 	-- Texture
-	bar:SetTexture(LSM:Fetch("statusbar", self.db.cosmeticBar.texture) or E.media.normTex)
+	bar:SetTexture(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
 
 	-- Color
-	if self.db.cosmeticBar.color.mode == "CLASS" then
+	if db.color.mode == "CLASS" then
 		bar:SetVertexColor(C.ExtractColorFromTable(MER.ClassColor))
-	elseif self.db.cosmeticBar.color.mode == "NORMAL" then
-		bar:SetVertexColor(C.ExtractColorFromTable(self.db.cosmeticBar.color.normalColor))
-	elseif self.db.cosmeticBar.color.mode == "GRADIENT" then
+	elseif db.color.mode == "NORMAL" then
+		bar:SetVertexColor(C.ExtractColorFromTable(db.color.normalColor))
+	elseif db.color.mode == "GRADIENT" then
 		bar:SetVertexColor(1, 1, 1)
 		bar:SetGradient(
 			"HORIZONTAL",
-			C.CreateColorFromTable(self.db.cosmeticBar.color.gradientColor1),
-			C.CreateColorFromTable(self.db.cosmeticBar.color.gradientColor2)
+			C.CreateColorFromTable(db.color.gradientColor1),
+			C.CreateColorFromTable(db.color.gradientColor2)
 		)
 	end
 
-	bar.backdrop:SetAlpha(self.db.cosmeticBar.borderAlpha)
+	bar.backdrop:SetAlpha(db.borderAlpha)
 
 	-- Position
 	bar:ClearAllPoints()
-	bar:SetPoint("LEFT", header.Text, "LEFT", self.db.cosmeticBar.offsetX, self.db.cosmeticBar.offsetY)
+	bar:SetPoint("LEFT", header.Text, "LEFT", db.offsetX, db.offsetY)
 
 	-- Size
-	local width = self.db.cosmeticBar.width
-	local height = self.db.cosmeticBar.height
-	if self.db.cosmeticBar.widthMode == "DYNAMIC" then
+	local width = db.width
+	local height = db.height
+	if db.widthMode == "DYNAMIC" then
 		width = width + header.Text:GetStringWidth()
 	end
-	if self.db.cosmeticBar.heightMode == "DYNAMIC" then
+	if db.heightMode == "DYNAMIC" then
 		height = height + header.Text:GetStringHeight()
 	end
 
