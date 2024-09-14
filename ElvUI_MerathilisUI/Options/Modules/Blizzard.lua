@@ -681,12 +681,12 @@ options.blizzard.args.objectiveTracker = {
 					name = L["Normal Color"],
 					hasAlpha = false,
 					get = function(info)
-						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorNormal
-						local default = V.blizzard.objectiveTracker.titleColor.customColorNormal
+						local db = E.db.mui.blizzard.objectiveTracker.infoColor.customColorNormal
+						local default = P.blizzard.objectiveTracker.infoColor.customColorNormal
 						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 					end,
 					set = function(info, r, g, b)
-						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorNormal
+						local db = E.db.mui.blizzard.objectiveTracker.infoColor.customColorNormal
 						db.r, db.g, db.b = r, g, b
 					end,
 				},
@@ -696,12 +696,12 @@ options.blizzard.args.objectiveTracker = {
 					name = L["Highlight Color"],
 					hasAlpha = false,
 					get = function(info)
-						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorHighlight
-						local default = V.bizzard.objectiveTracker.titleColor.customColorHighlight
+						local db = E.db.mui.blizzard.objectiveTracker.infoColor.customColorHighlight
+						local default = P.blizzard.objectiveTracker.infoColor.customColorHighlight
 						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 					end,
 					set = function(info, r, g, b)
-						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorHighlight
+						local db = E.db.mui.blizzard.objectiveTracker.infoColor.customColorHighlight
 						db.r, db.g, db.b = r, g, b
 					end,
 				},
