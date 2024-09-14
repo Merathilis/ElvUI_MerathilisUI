@@ -108,6 +108,7 @@ local hearthstones = {
 	208704,
 	209035,
 	212337,
+	228940,
 }
 
 local hearthstoneAndToyIDList = {
@@ -142,6 +143,7 @@ local hearthstoneAndToyIDList = {
 	209035,
 	210455,
 	212337,
+	228940,
 	-- Patch Items
 	110560,
 	140192,
@@ -149,8 +151,13 @@ local hearthstoneAndToyIDList = {
 	180817,
 	-- Engineering Wormholes
 	-- https://www.wowhead.com/items/name:Generator?filter=86:195;5:2;0:0
+	18984,
+	18986,
+	30542,
+	30544,
 	48933,
 	87215,
+	112059,
 	132517,
 	132524,
 	151652,
