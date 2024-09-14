@@ -10,7 +10,6 @@ local unpack = unpack
 local GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local Minimap = _G.Minimap
 local MinimapCluster = _G.MinimapCluster
-local MiniMapMailFrame = _G.MiniMapMailFrame
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
@@ -21,8 +20,8 @@ function module:CheckStatus()
 
 	local inv = GetNumPendingInvites()
 	local indicator = MinimapCluster.IndicatorFrame
-	local mailFrame = (indicator and indicator.MailFrame) or MiniMapMailFrame
-	local craftingFrame = (indicator and indicator.CraftingOrderFrame)
+	local mailFrame = indicator and indicator.MailFrame
+	local craftingFrame = indicator and indicator.CraftingOrderFrame
 	local mail = mailFrame:IsShown() and true or false
 	local crafting = craftingFrame:IsShown() and true or false
 
