@@ -53,7 +53,7 @@ do
 	end
 end
 
-local function SetTextColorHook(text)
+local function SetHeaderTextColorHook(text)
 	if not text.MERHooked then
 		text.__MERSetTextColor = text.SetTextColor
 		text.SetTextColor = function(self, r, g, b, a)
@@ -82,10 +82,39 @@ local function SetTextColorHook(text)
 	end
 end
 
+local function SetInfoTextColorHook(text)
+	if not text.MERHooked then
+		text.__MERSetTextColor = text.SetTextColor
+		text.SetTextColor = function(self, r, g, b, a)
+			local rgbTable = { r = r, g = g, b = b, a = a }
+
+			if C.IsRGBEqual(_G.OBJECTIVE_TRACKER_COLOR["Normal"], rgbTable) then
+				if module.db and module.db.enable and module.db.infoColor and module.db.infoColor.enable then
+					r = module.db.infoColor.classColor and MER.ClassColor.r or module.db.infoColor.customColorNormal.r
+					g = module.db.infoColor.classColor and MER.ClassColor.g or module.db.infoColor.customColorNormal.g
+					b = module.db.infoColor.classColor and MER.ClassColor.b or module.db.infoColor.customColorNormal.b
+				end
+			elseif C.IsRGBEqual(_G.OBJECTIVE_TRACKER_COLOR["NormalHighlight"], rgbTable) then
+				if module.db and module.db.enable and module.db.infoColor and module.db.infoColor.enable then
+					r = module.db.infoColor.classColor and MER.ClassColor.r
+						or module.db.infoColor.customColorHighlight.r
+					g = module.db.infoColor.classColor and MER.ClassColor.g
+						or module.db.infoColor.customColorHighlight.g
+					b = module.db.infoColor.classColor and MER.ClassColor.b
+						or module.db.infoColor.customColorHighlight.b
+				end
+			end
+			self:__MERSetTextColor(r, g, b, a)
+		end
+		text:SetTextColor(C.ExtractColorFromTable(_G.OBJECTIVE_TRACKER_COLOR["Normal"], { a = 1 }))
+		text.MERHooked = true
+	end
+end
+
 function module:CosmeticBar(header)
 	local bar = header.MERCosmeticBar
 
-	if not self.db.cosmeticBar.enable then
+	if not self.db or not self.db.cosmeticBar.enable then
 		if bar then
 			bar:Hide()
 			bar.backdrop:Hide()
@@ -191,7 +220,7 @@ function module:HandleTitleText(text)
 	if height ~= text:GetHeight() then
 		text:SetHeight(height)
 	end
-	SetTextColorHook(text)
+	SetHeaderTextColorHook(text)
 end
 
 function module:HandleMenuText(text)
@@ -243,6 +272,8 @@ function module:HandleObjectiveLine(line)
 
 		line.Text:SetText(rawText)
 	end
+
+	SetInfoTextColorHook(line.Text)
 
 	self:ColorfulProgression(line.Text)
 	line:SetHeight(line.Text:GetHeight())

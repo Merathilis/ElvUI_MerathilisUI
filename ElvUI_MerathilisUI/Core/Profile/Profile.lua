@@ -143,6 +143,12 @@ P.blizzard = {
 			customColorNormal = { r = 0, g = 0.752, b = 0.980 },
 			customColorHighlight = { r = 0.282, g = 0.859, b = 0.984 },
 		},
+		infoColor = {
+			enable = false,
+			classColor = false,
+			customColorNormal = { r = 0.842, g = 0.815, b = 0.677 },
+			customColorHighlight = { r = 0.992, g = 0.965, b = 0.827 },
+		},
 		menuTitle = {
 			enable = true,
 			classColor = false,

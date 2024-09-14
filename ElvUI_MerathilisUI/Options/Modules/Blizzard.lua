@@ -648,8 +648,67 @@ options.blizzard.args.objectiveTracker = {
 				},
 			},
 		},
-		info = {
+		infoColor = {
 			order = 8,
+			type = "group",
+			inline = true,
+			name = L["Info Color"],
+			disabled = function()
+				return not E.db.mui.blizzard.objectiveTracker.enable
+			end,
+			get = function(info)
+				return E.db.mui.blizzard.objectiveTracker.infoColor[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.blizzard.objectiveTracker.infoColor[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Change the color of quest titles."],
+				},
+				classColor = {
+					order = 2,
+					type = "toggle",
+					name = L["Use Class Color"],
+				},
+				customColorNormal = {
+					order = 3,
+					type = "color",
+					name = L["Normal Color"],
+					hasAlpha = false,
+					get = function(info)
+						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorNormal
+						local default = V.blizzard.objectiveTracker.titleColor.customColorNormal
+						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+					end,
+					set = function(info, r, g, b)
+						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorNormal
+						db.r, db.g, db.b = r, g, b
+					end,
+				},
+				customColorHighlight = {
+					order = 4,
+					type = "color",
+					name = L["Highlight Color"],
+					hasAlpha = false,
+					get = function(info)
+						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorHighlight
+						local default = V.bizzard.objectiveTracker.titleColor.customColorHighlight
+						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+					end,
+					set = function(info, r, g, b)
+						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorHighlight
+						db.r, db.g, db.b = r, g, b
+					end,
+				},
+			},
+		},
+		info = {
+			order = 9,
 			type = "group",
 			inline = true,
 			name = L["Information"],
@@ -689,7 +748,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		backdrop = {
-			order = 9,
+			order = 10,
 			type = "group",
 			inline = true,
 			name = L["Backdrop"],
@@ -785,7 +844,7 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		menuTitle = {
-			order = 10,
+			order = 11,
 			type = "group",
 			inline = true,
 			name = L["Menu Title"] .. " (" .. L["it shows when objective tracker is collapsed."] .. ")",
