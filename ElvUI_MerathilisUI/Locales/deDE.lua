@@ -3,8 +3,8 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 
 -- Core
 L["Enable"] = "Eingeschaltet"
-L[" is loaded. For any issues or suggestions, please visit "] =
-	" wurde geladen. Für Fehler oder Vorschläge besuche bitte: "
+L[" is loaded. For any issues or suggestions, please join my discord: "] =
+	" wurde geladen. Um Fehler zu melden oder mir Vorschläge zu unterbreiten joined bitte meinen Discord: "
 L["Font"] = "Schriftart"
 L["Size"] = "Größe"
 L["Width"] = "Breite"
@@ -528,7 +528,7 @@ L["Show the icon of the specialization."] = "Zeigt das Symbol der Spezialisierun
 L["Race Icon"] = "Rassensymbol"
 L["Show the icon of the player race."] = "Zeigt das Symbol der Spielerrasse an."
 L["Health Bar"] = "Gesundheitsleiste"
-L["Group Info"] = "Gruppeninfo"	
+L["Group Info"] = "Gruppeninfo"
 
 -- Notification
 L["Notification"] = "Benachrichtigungen"

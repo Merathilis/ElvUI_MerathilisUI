@@ -3,7 +3,7 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhCN")
 
 -- Core
 L["Enable"] = "启用"
-L[" is loaded. For any issues or suggestions, please visit "] = " 已加载。如有任何问题或建议，请访问 "
+L[" is loaded. For any issues or suggestions, please join my discord: "] = true
 L["Font"] = true
 L["Size"] = true
 L["Width"] = true
