@@ -17,7 +17,6 @@ local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitInParty = UnitInParty
 local UnitInRaid = UnitInRaid
-local IsPartyWalkIn = C_PartyInfo.IsPartyWalkIn
 
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
@@ -25,10 +24,6 @@ local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
 --[[ Credits to this belongs to fang2hou - Windtools ]]
 
 module.history = {}
-
-local function IsRandomGroup()
-	return IsPartyLFG() or IsPartyWalkIn()
-end
 
 function module:AddHistory(text, channel)
 	if not self.db.sameMessageInterval or self.db.sameMessageInterval == 0 then
@@ -110,7 +105,7 @@ end
 ]]
 function module:GetChannel(channelDB)
 	if
-		(IsRandomGroup or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) or IsInRaid(LE_PARTY_CATEGORY_INSTANCE))
+		(IsPartyLFG() or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) or IsInRaid(LE_PARTY_CATEGORY_INSTANCE))
 		and channelDB.instance
 	then
 		return channelDB.instance
