@@ -1,10 +1,8 @@
 ### Changes ###
 
-  * [Objective Tracker]: Fix an issue with Cosmetic Bars
-  * [Friends List]: Added an option to hide the realm on the Friends List
-  * [Scale]: More frames are now scaleable
-  * [AutoButtons]: Tooltip is now by default enable on Bar 1
-  * [AutoButtons]: A lot more items now on the AutoButtons
-  * [Event Tracker]: Use Icon instead of text on the Event Tracker
-  * [mMediaTag Profile]: Updated the Profile with the recent changes. Thx Blinkiiiiii <3
-  * [Locales]: deDe locale updates from Dlarge
+  * [GameMenu]: Use the real screen width/heigth values instead of the physical ones
+  * [Minimap]: Added a mouseover option for the coords
+  * [Objective Tracker]: Added an option to change the objective Text color
+  * [MicroBar]: Added an middle click reload feature on the time area
+  * [AutoButtons]: Added lot of new items
+  * [AutoButtons]: Updated the fishing category
