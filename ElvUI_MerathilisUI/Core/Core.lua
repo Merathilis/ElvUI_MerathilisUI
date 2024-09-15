@@ -185,6 +185,12 @@ function MER:CheckInstalledVersion()
 	end
 end
 
+function MER:UpdateProfiles(_)
+	self:UpdateScripts()
+
+	F.Event.TriggerEvent("MER.DatabaseUpdate")
+end
+
 function MER:FixGame()
 	-- Button Fix
 	if E.global.mui.core.cvarAlert then

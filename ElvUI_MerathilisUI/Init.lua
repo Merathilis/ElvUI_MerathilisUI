@@ -196,6 +196,10 @@ function MER:Initialize()
 	EP:RegisterPlugin(addon, MER.OptionsCallback)
 	self:SecureHook(E, "UpdateAll", "UpdateModules")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateProfiles")
+	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateProfiles")
+	E.data.RegisterCallback(self, "OnProfileReset", "UpdateProfiles")
 end
 
 do

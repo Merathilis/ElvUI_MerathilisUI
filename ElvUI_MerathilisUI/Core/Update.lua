@@ -23,6 +23,10 @@ function MER:UpdateScripts() -- DB Convert
 	local currentVersion = tonumber(MER.Version) -- Installed MerathilisUI Version
 	local globalVersion = tonumber(E.global.mui.version or "0") -- Version in ElvUI Global
 
+	local db = E.db.mui
+	local private = E.private.mui
+	local global = E.global.mui
+
 	-- changelog display
 	if globalVersion == 0 or globalVersion ~= currentVersion then
 		self.showChangeLog = true
@@ -40,43 +44,43 @@ function MER:UpdateScripts() -- DB Convert
 	isFirstLine = true
 
 	if profileVersion and profileVersion <= 6.37 then
-		if E.db.mui and E.db.mui.blizzard.friendsList then
-			E.db.mui.blizzard.friendsList.client = nil
-			E.db.mui.blizzard.friendsList.factionIcon = nil
+		if db and db.blizzard.friendsList then
+			db.blizzard.friendsList.client = nil
+			db.blizzard.friendsList.factionIcon = nil
 
 			UpdateMessage(L["Friend List"] .. " - " .. L["Update Database"], profileVersion)
 		end
 
-		if E.db.mui.chat.chatBar and E.db.mui.chat.chatBar.channels and E.db.mui.chat.chatBar.channels.world then
-			E.db.mui.chat.chatBar.channels.world.enable = false
-			E.db.mui.chat.chatBar.channels.world.autoJoin = nil
-			E.db.mui.chat.chatBar.channels.world.name = nil
+		if db.chat.chatBar and db.chat.chatBar.channels and db.chat.chatBar.channels.world then
+			db.chat.chatBar.channels.world.enable = false
+			db.chat.chatBar.channels.world.autoJoin = nil
+			db.chat.chatBar.channels.world.name = nil
 
 			UpdateMessage(L["Chat Bar"] .. " - " .. L["Update Database"], profileVersion)
 		end
 	end
 
 	if profileVersion and profileVersion <= 6.38 then
-		if E.db.mui and E.db.mui.maps.eventTracker then
-			if E.db.mui.maps.eventTracker.iskaaranFishingNet then
-				E.db.mui.maps.eventTracker.iskaaranFishingNet.enable = false
+		if db and db.maps.eventTracker then
+			if db.maps.eventTracker.iskaaranFishingNet then
+				db.maps.eventTracker.iskaaranFishingNet.enable = false
 				UpdateMessage(L["Event Tracker"] .. ": " .. L["Update Database"], profileVersion)
 			end
 		end
 	end
 
 	if profileVersion and profileVersion < 6.39 then
-		if E.db.mui and E.db.mui.maps.eventTracker then
-			if E.db.mui.maps.eventTracker.worldSoul then
-				E.db.mui.maps.eventTracker.worldSoul = nil
+		if db and db.maps.eventTracker then
+			if db.maps.eventTracker.worldSoul then
+				db.maps.eventTracker.worldSoul = nil
 				UpdateMessage(L["Event Tracker"] .. " - " .. L["Update Database"], profileVersion)
 			end
 		end
 	end
 
 	if globalVersion and globalVersion < 6.39 then
-		if E.global.mui and E.global.mui.core then
-			E.global.mui.core.fixPlaystyle = nil
+		if global and global.core then
+			global.core.fixPlaystyle = nil
 			UpdateMessage(L["Core"] .. " - " .. L["Update Database"], globalVersion)
 		end
 	end
