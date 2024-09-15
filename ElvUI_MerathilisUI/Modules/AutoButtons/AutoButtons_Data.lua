@@ -1335,12 +1335,6 @@ local bigDig = {
 	213429,
 }
 
-local seeds = {
-	208047,
-	208066,
-	208067,
-}
-
 local engineerItems = {
 	11821,
 	18232,
@@ -1355,8 +1349,6 @@ local engineerItems = {
 
 local delveItem = {
 	218129,
-	228582,
-	228984,
 	225897,
 	225898,
 	225899,
@@ -1368,7 +1360,16 @@ local delveItem = {
 	225905,
 	225906,
 	225907,
+	225908,
+	228582,
+	228984,
 	229353,
+}
+
+local seeds = {
+	208047,
+	208066,
+	208067,
 }
 
 local function createList(base, ...)

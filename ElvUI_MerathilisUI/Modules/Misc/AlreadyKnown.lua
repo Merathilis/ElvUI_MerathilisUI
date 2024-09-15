@@ -16,6 +16,7 @@ local GetCurrentGuildBankTab = GetCurrentGuildBankTab
 local GetGuildBankItemInfo = GetGuildBankItemInfo
 local GetGuildBankItemLink = GetGuildBankItemLink
 local GetItemInfo = C_Item.GetItemInfo
+local IsCosmeticItem = C_Item.IsCosmeticItem
 local GetMerchantItemInfo = GetMerchantItemInfo
 local GetMerchantItemLink = GetMerchantItemLink
 local GetMerchantNumItems = GetMerchantNumItems
@@ -79,7 +80,7 @@ local function IsAlreadyKnown(link, index)
 			if knowns[link] then
 				return true
 			end
-			if not knowables[itemClassID] then
+			if not knowables[itemClassID] and not IsCosmeticItem(link) then
 				return
 			end
 
