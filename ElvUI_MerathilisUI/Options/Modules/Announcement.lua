@@ -458,7 +458,6 @@ do
 		bots = L["Bots"],
 		toys = L["Toys"],
 		portals = L["Portals"],
-		hero = L["Heroism/Bloodlust"],
 	}
 
 	local specialExampleSpell = {
@@ -466,7 +465,6 @@ do
 		bots = 67826,
 		toys = 61031,
 		portals = 10059,
-		hero = 32182,
 	}
 
 	local spellOptions = options.announcement.args.utility.args

@@ -108,26 +108,6 @@ local ToyList = {
 	[49844] = true,
 }
 
-local HeroList = {
-	[2825] = true, -- Bloodlust
-	[32182] = true, -- Heroism
-	[80353] = true, -- Time Warp
-	[264667] = true, -- Primal Rage
-	[390386] = true, -- Fury of the Aspects(Dracthyr Evoker DF)
-	[1626] = true, -- Primal Rage
-	[275200] = true, -- Primal Rage
-	[204276] = true, -- Primal Rage
-	[357650] = true, -- Primal Rage | Raiva Primeva(PTBR)
-	[272678] = true, -- Primal Rage
-	[293076] = true, -- Mallet of Thunderous Skins
-
-	[178207] = true, -- Drums of Fury
-	[256740] = true, -- Drums of the Maelstrom
-	[230935] = true, -- Drums of the Mountain
-	[309658] = true, -- Drums of Deathly Ferocity
-	[146613] = true, -- Drums of Rage
-}
-
 local function FormatMessage(message, name, id)
 	message = gsub(message, "%%player%%", name)
 	message = gsub(message, "%%spell%%", GetSpellLink(id))
@@ -187,9 +167,6 @@ function module:Utility(event, sourceName, spellId)
 			return
 		end
 		if TryAnnounce(spellId, sourceName, nil, FeastList, "feasts") then
-			return
-		end
-		if TryAnnounce(spellId, sourceName, nil, HeroList, "hero") then
 			return
 		end
 	elseif event == "SPELL_SUMMON" then
