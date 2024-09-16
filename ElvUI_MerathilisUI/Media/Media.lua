@@ -178,8 +178,8 @@ F.AddMedia("texture", "MER_Stripes", "MER_Stripes", "statusbar")
 F.AddMedia("texture", "WorldState-Score", "WorldStateScore", "statusbar")
 
 -- Sounds
-LSM:Register("sound", "warning", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Sounds\warning.ogg]])
 LSM:Register("sound", "OnePlus Light", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Sounds\OnePlusLight.ogg]])
+LSM:Register("sound", "OnePlus Surprise", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Sounds\OnePlusSurprise.ogg]])
 
 -- Custom Textures
 E.media.roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\UI-LFG-ICON-ROLES]]
