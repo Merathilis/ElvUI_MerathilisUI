@@ -10,9 +10,8 @@ local LSM = E.Libs.LSM
 
 local _G = _G
 local format = string.format
-local tremove = tremove
-local wipe = wipe
 
+local SortQuestWatches = C_QuestLog.SortQuestWatches
 local FriendsFrame_Update = FriendsFrame_Update
 
 options.blizzard = {
@@ -38,20 +37,15 @@ options.blizzard.args.objectiveTracker = {
 	type = "group",
 	name = L["Objective Tracker"],
 	get = function(info)
-		return E.db.mui.blizzard.objectiveTracker[info[#info]]
+		return E.private.mui.quest.objectiveTracker[info[#info]]
 	end,
 	set = function(info, value)
-		E.db.mui.blizzard.objectiveTracker[info[#info]] = value
-		C_QuestLog.SortQuestWatches()
+		E.private.mui.quest.objectiveTracker[info[#info]] = value
+		SortQuestWatches()
 	end,
 	args = {
-		name = {
+		desc = {
 			order = 0,
-			type = "header",
-			name = F.cOption(L["Objective Tracker"], "orange"),
-		},
-		description = {
-			order = 1,
 			type = "group",
 			inline = true,
 			name = L["Description"],
@@ -71,14 +65,21 @@ options.blizzard.args.objectiveTracker = {
 			},
 		},
 		enable = {
-			order = 2,
+			order = 1,
 			type = "toggle",
 			name = L["Enable"],
-			width = "full",
 			set = function(info, value)
-				E.db.mui.blizzard.objectiveTracker[info[#info]] = value
+				E.private.mui.quest.objectiveTracker[info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
+		},
+		warning = {
+			order = 2,
+			type = "description",
+			name = C.StringByTemplate(
+				L["This module may prevent clicking quest items in the objective tracker due to taint."],
+				"danger"
+			),
 		},
 		progress = {
 			order = 3,
@@ -86,14 +87,14 @@ options.blizzard.args.objectiveTracker = {
 			inline = true,
 			name = L["Progress"],
 			disabled = function()
-				return not E.db.mui.blizzard.objectiveTracker.enable
+				return not E.private.mui.quest.objectiveTracker.enable
 			end,
 			args = {
 				noDash = {
 					order = 1,
 					type = "toggle",
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
+						return not E.private.mui.quest.objectiveTracker.enable
 					end,
 					name = L["No Dash"],
 				},
@@ -122,13 +123,13 @@ options.blizzard.args.objectiveTracker = {
 			inline = true,
 			name = L["Cosmetic Bar"],
 			disabled = function()
-				return not E.db.mui.blizzard.objectiveTracker.enable
+				return not E.private.mui.quest.objectiveTracker.enable
 			end,
 			get = function(info)
-				return E.db.mui.blizzard.objectiveTracker.cosmeticBar[info[#info]]
+				return E.private.mui.quest.objectiveTracker.cosmeticBar[info[#info]]
 			end,
 			set = function(info, value)
-				E.db.mui.blizzard.objectiveTracker.cosmeticBar[info[#info]] = value
+				E.private.mui.quest.objectiveTracker.cosmeticBar[info[#info]] = value
 				OT:RefreshAllCosmeticBars()
 			end,
 			args = {
@@ -143,8 +144,8 @@ options.blizzard.args.objectiveTracker = {
 					inline = true,
 					name = L["Style"],
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.cosmeticBar.enable
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.cosmeticBar.enable
 					end,
 					args = {
 						texture = {
@@ -180,8 +181,8 @@ options.blizzard.args.objectiveTracker = {
 					inline = true,
 					name = L["Position"],
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.cosmeticBar.enable
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.cosmeticBar.enable
 					end,
 					args = {
 						widthMode = {
@@ -248,14 +249,14 @@ options.blizzard.args.objectiveTracker = {
 					inline = true,
 					name = L["Color"],
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.cosmeticBar.enable
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.cosmeticBar.enable
 					end,
 					get = function(info)
-						return E.db.mui.blizzard.objectiveTracker.cosmeticBar.color[info[#info]]
+						return E.private.mui.quest.objectiveTracker.cosmeticBar.color[info[#info]]
 					end,
 					set = function(info, value)
-						E.db.mui.blizzard.objectiveTracker.cosmeticBar.color[info[#info]] = value
+						E.private.mui.quest.objectiveTracker.cosmeticBar.color[info[#info]] = value
 						OT:RefreshAllCosmeticBars()
 					end,
 					args = {
@@ -275,17 +276,17 @@ options.blizzard.args.objectiveTracker = {
 							name = L["Normal Color"],
 							hasAlpha = true,
 							hidden = function()
-								if E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.mode ~= "NORMAL" then
+								if E.private.mui.quest.objectiveTracker.cosmeticBar.color.mode ~= "NORMAL" then
 									return true
 								end
 							end,
 							get = function(info)
-								local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.normalColor
-								local default = P.blizzard.objectiveTracker.cosmeticBar.color.normalColor
+								local db = E.private.mui.quest.objectiveTracker.cosmeticBar.color.normalColor
+								local default = V.quest.objectiveTracker.cosmeticBar.color.normalColor
 								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
 							end,
 							set = function(info, r, g, b, a)
-								local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.normalColor
+								local db = E.private.mui.quest.objectiveTracker.cosmeticBar.color.normalColor
 								db.r, db.g, db.b, db.a = r, g, b, a
 								OT:RefreshAllCosmeticBars()
 							end,
@@ -296,17 +297,17 @@ options.blizzard.args.objectiveTracker = {
 							name = L["Gradient Color 1"],
 							hasAlpha = true,
 							hidden = function()
-								if E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.mode ~= "GRADIENT" then
+								if E.private.mui.quest.objectiveTracker.cosmeticBar.color.mode ~= "GRADIENT" then
 									return true
 								end
 							end,
 							get = function(info)
-								local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.gradientColor1
-								local default = P.blizzard.objectiveTracker.cosmeticBar.color.gradientColor1
+								local db = E.private.mui.quest.objectiveTracker.cosmeticBar.color.gradientColor1
+								local default = V.quest.objectiveTracker.cosmeticBar.color.gradientColor1
 								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
 							end,
 							set = function(info, r, g, b, a)
-								local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.gradientColor1
+								local db = E.private.mui.quest.objectiveTracker.cosmeticBar.color.gradientColor1
 								db.r, db.g, db.b, db.a = r, g, b, a
 								OT:RefreshAllCosmeticBars()
 							end,
@@ -317,17 +318,17 @@ options.blizzard.args.objectiveTracker = {
 							name = L["Gradient Color 2"],
 							hasAlpha = true,
 							hidden = function()
-								if E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.mode ~= "GRADIENT" then
+								if E.private.mui.quest.objectiveTracker.cosmeticBar.color.mode ~= "GRADIENT" then
 									return true
 								end
 							end,
 							get = function(info)
-								local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.gradientColor2
-								local default = P.blizzard.objectiveTracker.cosmeticBar.color.gradientColor2
+								local db = E.private.mui.quest.objectiveTracker.cosmeticBar.color.gradientColor2
+								local default = V.quest.objectiveTracker.cosmeticBar.color.gradientColor2
 								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
 							end,
 							set = function(info, r, g, b, a)
-								local db = E.db.mui.blizzard.objectiveTracker.cosmeticBar.color.gradientColor2
+								local db = E.private.mui.quest.objectiveTracker.cosmeticBar.color.gradientColor2
 								db.r, db.g, db.b, db.a = r, g, b, a
 								OT:RefreshAllCosmeticBars()
 							end,
@@ -340,8 +341,8 @@ options.blizzard.args.objectiveTracker = {
 					inline = true,
 					name = L["Presets"],
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.cosmeticBar.enable
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.cosmeticBar.enable
 					end,
 					args = {
 						tip = {
@@ -354,11 +355,11 @@ options.blizzard.args.objectiveTracker = {
 							type = "execute",
 							name = L["Default"],
 							func = function()
-								local db = E.db.mui.blizzard.objectiveTracker
-								db.header.style = "SHADOWOUTLINE"
+								local db = E.private.mui.quest.objectiveTracker
+								db.header.style = "OUTLINE"
 								db.header.color = { r = 1, g = 1, b = 1 }
 								db.header.size = E.db.general.fontSize + 2
-								db.cosmeticBar.texture = "Asphyxia"
+								db.cosmeticBar.texture = "WindTools Glow"
 								db.cosmeticBar.widthMode = "ABSOLUTE"
 								db.cosmeticBar.heightMode = "ABSOLUTE"
 								db.cosmeticBar.width = 212
@@ -379,7 +380,7 @@ options.blizzard.args.objectiveTracker = {
 							type = "execute",
 							name = format(L["Preset %d"], 1),
 							func = function()
-								local db = E.db.mui.blizzard.objectiveTracker
+								local db = E.private.mui.quest.objectiveTracker
 								db.header.style = "NONE"
 								db.header.color = { r = 1, g = 1, b = 1 }
 								db.header.size = E.db.general.fontSize
@@ -404,7 +405,7 @@ options.blizzard.args.objectiveTracker = {
 							type = "execute",
 							name = format(L["Preset %d"], 2),
 							func = function()
-								local db = E.db.mui.blizzard.objectiveTracker
+								local db = E.private.mui.quest.objectiveTracker
 								db.header.style = "NONE"
 								db.header.size = E.db.general.fontSize - 2
 								db.header.color = { r = 1, g = 1, b = 1 }
@@ -429,7 +430,7 @@ options.blizzard.args.objectiveTracker = {
 							type = "execute",
 							name = format(L["Preset %d"], 3),
 							func = function()
-								local db = E.db.mui.blizzard.objectiveTracker
+								local db = E.private.mui.quest.objectiveTracker
 								db.header.style = "OUTLINE"
 								db.header.color = { r = 1, g = 1, b = 1 }
 								db.header.size = E.db.general.fontSize + 2
@@ -454,8 +455,8 @@ options.blizzard.args.objectiveTracker = {
 							type = "execute",
 							name = format(L["Preset %d"], 4),
 							func = function()
-								local db = E.db.mui.blizzard.objectiveTracker
-								db.header.style = "SHADOWOUTLINE"
+								local db = E.private.mui.quest.objectiveTracker
+								db.header.style = "OUTLINE"
 								db.header.color = { r = 1, g = 1, b = 1 }
 								db.header.size = E.db.general.fontSize + 3
 								db.cosmeticBar.texture = "Solid"
@@ -484,13 +485,13 @@ options.blizzard.args.objectiveTracker = {
 			inline = true,
 			name = L["Header"],
 			disabled = function()
-				return not E.db.mui.blizzard.objectiveTracker.enable
+				return not E.private.mui.quest.objectiveTracker.enable
 			end,
 			get = function(info)
-				return E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+				return E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]]
 			end,
 			set = function(info, value)
-				E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]] = value
+				E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
@@ -505,8 +506,17 @@ options.blizzard.args.objectiveTracker = {
 					order = 2,
 					type = "select",
 					name = L["Outline"],
-					values = MER.Values.FontFlags,
-					sortByValue = true,
+					values = {
+						NONE = L["None"],
+						OUTLINE = L["OUTLINE"],
+						THICKOUTLINE = L["THICKOUTLINE"],
+						SHADOW = L["SHADOW"],
+						SHADOWOUTLINE = L["SHADOWOUTLINE"],
+						SHADOWTHICKOUTLINE = L["SHADOWTHICKOUTLINE"],
+						MONOCHROME = L["MONOCHROME"],
+						MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+						MONOCHROMETHICKOUTLINE = L["MONOCHROMETHICKOUTLINE"],
+					},
 				},
 				size = {
 					order = 3,
@@ -525,7 +535,7 @@ options.blizzard.args.objectiveTracker = {
 				classColor = {
 					order = 5,
 					type = "toggle",
-					name = L["Class Color"],
+					name = L["Use Class Color"],
 				},
 				color = {
 					order = 6,
@@ -533,16 +543,16 @@ options.blizzard.args.objectiveTracker = {
 					name = L["Color"],
 					hasAlpha = false,
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or E.db.mui.blizzard.objectiveTracker.header.classColor
+						return not E.private.mui.quest.objectiveTracker.enable
+							or E.private.mui.quest.objectiveTracker.header.classColor
 					end,
 					get = function(info)
-						local db = E.db.mui.blizzard.objectiveTracker.header.color
-						local default = P.blizzard.objectiveTracker.header.color
+						local db = E.private.mui.quest.objectiveTracker.header.color
+						local default = V.quest.objectiveTracker.header.color
 						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 					end,
 					set = function(info, r, g, b)
-						local db = E.db.mui.blizzard.objectiveTracker.header.color
+						local db = E.private.mui.quest.objectiveTracker.header.color
 						db.r, db.g, db.b = r, g, b
 						OT:RefreshAllCosmeticBars()
 					end,
@@ -555,13 +565,13 @@ options.blizzard.args.objectiveTracker = {
 			inline = true,
 			name = L["Title Color"],
 			disabled = function()
-				return not E.db.mui.blizzard.objectiveTracker.enable
+				return not E.private.mui.quest.objectiveTracker.enable
 			end,
 			get = function(info)
-				return E.db.mui.blizzard.objectiveTracker.titleColor[info[#info]]
+				return E.private.mui.quest.objectiveTracker.titleColor[info[#info]]
 			end,
 			set = function(info, value)
-				E.db.mui.blizzard.objectiveTracker.titleColor[info[#info]] = value
+				E.private.mui.quest.objectiveTracker.titleColor[info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
@@ -582,12 +592,12 @@ options.blizzard.args.objectiveTracker = {
 					name = L["Normal Color"],
 					hasAlpha = false,
 					get = function(info)
-						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorNormal
-						local default = P.blizzard.objectiveTracker.titleColor.customColorNormal
+						local db = E.private.mui.quest.objectiveTracker.titleColor.customColorNormal
+						local default = V.quest.objectiveTracker.titleColor.customColorNormal
 						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 					end,
 					set = function(info, r, g, b)
-						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorNormal
+						local db = E.private.mui.quest.objectiveTracker.titleColor.customColorNormal
 						db.r, db.g, db.b = r, g, b
 					end,
 				},
@@ -597,12 +607,12 @@ options.blizzard.args.objectiveTracker = {
 					name = L["Highlight Color"],
 					hasAlpha = false,
 					get = function(info)
-						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorHighlight
-						local default = P.blizzard.objectiveTracker.titleColor.customColorHighlight
+						local db = E.private.mui.quest.objectiveTracker.titleColor.customColorHighlight
+						local default = V.quest.objectiveTracker.titleColor.customColorHighlight
 						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 					end,
 					set = function(info, r, g, b)
-						local db = E.db.mui.blizzard.objectiveTracker.titleColor.customColorHighlight
+						local db = E.private.mui.quest.objectiveTracker.titleColor.customColorHighlight
 						db.r, db.g, db.b = r, g, b
 					end,
 				},
@@ -614,13 +624,13 @@ options.blizzard.args.objectiveTracker = {
 			inline = true,
 			name = L["Title"],
 			disabled = function()
-				return not E.db.mui.blizzard.objectiveTracker.enable
+				return not E.private.mui.quest.objectiveTracker.enable
 			end,
 			get = function(info)
-				return E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+				return E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]]
 			end,
 			set = function(info, value)
-				E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]] = value
+				E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
@@ -635,8 +645,17 @@ options.blizzard.args.objectiveTracker = {
 					order = 2,
 					type = "select",
 					name = L["Outline"],
-					values = MER.Values.FontFlags,
-					sortByValue = true,
+					values = {
+						NONE = L["None"],
+						OUTLINE = L["OUTLINE"],
+						THICKOUTLINE = L["THICKOUTLINE"],
+						SHADOW = L["SHADOW"],
+						SHADOWOUTLINE = L["SHADOWOUTLINE"],
+						SHADOWTHICKOUTLINE = L["SHADOWTHICKOUTLINE"],
+						MONOCHROME = L["MONOCHROME"],
+						MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+						MONOCHROMETHICKOUTLINE = L["MONOCHROMETHICKOUTLINE"],
+					},
 				},
 				size = {
 					order = 3,
@@ -652,15 +671,15 @@ options.blizzard.args.objectiveTracker = {
 			order = 8,
 			type = "group",
 			inline = true,
-			name = L["Info Color"],
+			name = L["Information Color"],
 			disabled = function()
-				return not E.db.mui.blizzard.objectiveTracker.enable
+				return not E.private.mui.quest.objectiveTracker.enable
 			end,
 			get = function(info)
-				return E.db.mui.blizzard.objectiveTracker.infoColor[info[#info]]
+				return E.private.mui.quest.objectiveTracker.infoColor[info[#info]]
 			end,
 			set = function(info, value)
-				E.db.mui.blizzard.objectiveTracker.infoColor[info[#info]] = value
+				E.private.mui.quest.objectiveTracker.infoColor[info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
@@ -681,12 +700,12 @@ options.blizzard.args.objectiveTracker = {
 					name = L["Normal Color"],
 					hasAlpha = false,
 					get = function(info)
-						local db = E.db.mui.blizzard.objectiveTracker.infoColor.customColorNormal
-						local default = P.blizzard.objectiveTracker.infoColor.customColorNormal
+						local db = E.private.mui.quest.objectiveTracker.infoColor.customColorNormal
+						local default = V.quest.objectiveTracker.infoColor.customColorNormal
 						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 					end,
 					set = function(info, r, g, b)
-						local db = E.db.mui.blizzard.objectiveTracker.infoColor.customColorNormal
+						local db = E.private.mui.quest.objectiveTracker.infoColor.customColorNormal
 						db.r, db.g, db.b = r, g, b
 					end,
 				},
@@ -696,12 +715,12 @@ options.blizzard.args.objectiveTracker = {
 					name = L["Highlight Color"],
 					hasAlpha = false,
 					get = function(info)
-						local db = E.db.mui.blizzard.objectiveTracker.infoColor.customColorHighlight
-						local default = P.blizzard.objectiveTracker.infoColor.customColorHighlight
+						local db = E.private.mui.quest.objectiveTracker.infoColor.customColorHighlight
+						local default = V.quest.objectiveTracker.infoColor.customColorHighlight
 						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 					end,
 					set = function(info, r, g, b)
-						local db = E.db.mui.blizzard.objectiveTracker.infoColor.customColorHighlight
+						local db = E.private.mui.quest.objectiveTracker.infoColor.customColorHighlight
 						db.r, db.g, db.b = r, g, b
 					end,
 				},
@@ -713,13 +732,13 @@ options.blizzard.args.objectiveTracker = {
 			inline = true,
 			name = L["Information"],
 			disabled = function()
-				return not E.db.mui.blizzard.objectiveTracker.enable
+				return not E.private.mui.quest.objectiveTracker.enable
 			end,
 			get = function(info)
-				return E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+				return E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]]
 			end,
 			set = function(info, value)
-				E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]] = value
+				E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
@@ -734,8 +753,17 @@ options.blizzard.args.objectiveTracker = {
 					order = 2,
 					type = "select",
 					name = L["Outline"],
-					values = MER.Values.FontFlags,
-					sortByValue = true,
+					values = {
+						NONE = L["None"],
+						OUTLINE = L["OUTLINE"],
+						THICKOUTLINE = L["THICKOUTLINE"],
+						SHADOW = L["SHADOW"],
+						SHADOWOUTLINE = L["SHADOWOUTLINE"],
+						SHADOWTHICKOUTLINE = L["SHADOWTHICKOUTLINE"],
+						MONOCHROME = L["MONOCHROME"],
+						MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+						MONOCHROMETHICKOUTLINE = L["MONOCHROMETHICKOUTLINE"],
+					},
 				},
 				size = {
 					order = 3,
@@ -753,13 +781,13 @@ options.blizzard.args.objectiveTracker = {
 			inline = true,
 			name = L["Backdrop"],
 			disabled = function()
-				return not E.db.mui.blizzard.objectiveTracker.enable
+				return not E.private.mui.quest.objectiveTracker.enable
 			end,
 			get = function(info)
-				return E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+				return E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]]
 			end,
 			set = function(info, value)
-				E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]] = value
+				E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]] = value
 				OT:UpdateBackdrop()
 			end,
 			args = {
@@ -773,8 +801,8 @@ options.blizzard.args.objectiveTracker = {
 					type = "toggle",
 					name = L["Transparent"],
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.backdrop.enable
 					end,
 				},
 				betterAlign1 = {
@@ -786,8 +814,8 @@ options.blizzard.args.objectiveTracker = {
 				topLeftOffsetX = {
 					order = 4,
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.backdrop.enable
 					end,
 					name = L["Top Left Offset X"],
 					type = "range",
@@ -799,8 +827,8 @@ options.blizzard.args.objectiveTracker = {
 				topLeftOffsetY = {
 					order = 5,
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.backdrop.enable
 					end,
 					name = L["Top Left Offset Y"],
 					type = "range",
@@ -818,8 +846,8 @@ options.blizzard.args.objectiveTracker = {
 				bottomRightOffsetX = {
 					order = 7,
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.backdrop.enable
 					end,
 					name = L["Bottom Right Offset X"],
 					type = "range",
@@ -831,8 +859,8 @@ options.blizzard.args.objectiveTracker = {
 				bottomRightOffsetY = {
 					order = 8,
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.backdrop.enable
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.backdrop.enable
 					end,
 					name = L["Bottom Right Offset Y"],
 					type = "range",
@@ -847,15 +875,15 @@ options.blizzard.args.objectiveTracker = {
 			order = 11,
 			type = "group",
 			inline = true,
-			name = L["Menu Title"] .. " (" .. L["it shows when objective tracker is collapsed."] .. ")",
+			name = L["Menu Title"] .. " (" .. L["it shows when objective tracker be collapsed."] .. ")",
 			disabled = function()
-				return not E.db.mui.blizzard.objectiveTracker.enable
+				return not E.private.mui.quest.objectiveTracker.enable
 			end,
 			get = function(info)
-				return E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+				return E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]]
 			end,
 			set = function(info, value)
-				E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]] = value
+				E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
@@ -870,8 +898,8 @@ options.blizzard.args.objectiveTracker = {
 					type = "toggle",
 					name = L["Use Class Color"],
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.menuTitle.enable
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.menuTitle.enable
 					end,
 				},
 				color = {
@@ -880,17 +908,17 @@ options.blizzard.args.objectiveTracker = {
 					name = L["Color"],
 					hasAlpha = false,
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.menuTitle.enable
-							or E.db.mui.blizzard.objectiveTracker.menuTitle.classColor
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.menuTitle.enable
+							or E.private.mui.quest.objectiveTracker.menuTitle.classColor
 					end,
 					get = function(info)
-						local db = E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
-						local default = P.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+						local db = E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]]
+						local default = V.quest.objectiveTracker[info[#info - 1]][info[#info]]
 						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
 					end,
 					set = function(info, r, g, b)
-						local db = E.db.mui.blizzard.objectiveTracker[info[#info - 1]][info[#info]]
+						local db = E.private.mui.quest.objectiveTracker[info[#info - 1]][info[#info]]
 						db.r, db.g, db.b = r, g, b
 					end,
 				},
@@ -900,14 +928,14 @@ options.blizzard.args.objectiveTracker = {
 					inline = true,
 					name = L["Font"],
 					disabled = function()
-						return not E.db.mui.blizzard.objectiveTracker.enable
-							or not E.db.mui.blizzard.objectiveTracker.menuTitle.enable
+						return not E.private.mui.quest.objectiveTracker.enable
+							or not E.private.mui.quest.objectiveTracker.menuTitle.enable
 					end,
 					get = function(info)
-						return E.db.mui.blizzard.objectiveTracker[info[#info - 2]][info[#info - 1]][info[#info]]
+						return E.private.mui.quest.objectiveTracker[info[#info - 2]][info[#info - 1]][info[#info]]
 					end,
 					set = function(info, value)
-						E.db.mui.blizzard.objectiveTracker[info[#info - 2]][info[#info - 1]][info[#info]] = value
+						E.private.mui.quest.objectiveTracker[info[#info - 2]][info[#info - 1]][info[#info]] = value
 						E:StaticPopup_Show("PRIVATE_RL")
 					end,
 					args = {
@@ -922,8 +950,17 @@ options.blizzard.args.objectiveTracker = {
 							order = 2,
 							type = "select",
 							name = L["Outline"],
-							values = MER.Values.FontFlags,
-							sortByValue = true,
+							values = {
+								NONE = L["None"],
+								OUTLINE = L["OUTLINE"],
+								THICKOUTLINE = L["THICKOUTLINE"],
+								SHADOW = L["SHADOW"],
+								SHADOWOUTLINE = L["SHADOWOUTLINE"],
+								SHADOWTHICKOUTLINE = L["SHADOWTHICKOUTLINE"],
+								MONOCHROME = L["MONOCHROME"],
+								MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"],
+								MONOCHROMETHICKOUTLINE = L["MONOCHROMETHICKOUTLINE"],
+							},
 						},
 						size = {
 							order = 3,

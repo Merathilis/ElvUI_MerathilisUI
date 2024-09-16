@@ -2,21 +2,19 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_ObjectiveTracker")
 local S = MER:GetModule("MER_Skins")
 local C = MER.Utilities.Color
-local LSM = E.LSM or E.Libs.LSM
+local LSM = E.Libs.LSM
 
 local _G = _G
-local pairs, tonumber = pairs, tonumber
 local format = format
+local gsub = gsub
 local max = max
+local pairs = pairs
+local strfind = strfind
 local strmatch = strmatch
+local tonumber = tonumber
 
-local CreateColor = CreateColor
-local GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
-local SortQuestWatches = C_QuestLog.SortQuestWatches
 local CreateFrame = CreateFrame
-
-local MAX_QUESTS = 35
-local classColor = _G.RAID_CLASS_COLORS[E.myclass]
+local SortQuestWatches = C_QuestLog.SortQuestWatches
 
 local trackers = {
 	_G.ScenarioObjectiveTracker,
@@ -112,19 +110,9 @@ local function SetInfoTextColorHook(text)
 end
 
 function module:CosmeticBar(header)
-	local db = E.db.mui
-		and E.db.mui.blizzard
-		and E.db.mui.blizzard.objectiveTracker
-		and E.db.mui.blizzard.objectiveTracker.cosmeticBar
-
-	if not db then
-		F.Developer.LogDebug("CosmeticBar DB is nil")
-		return
-	end
-
 	local bar = header.MERCosmeticBar
 
-	if not db.enable then
+	if not self.db.cosmeticBar.enable then
 		if bar then
 			bar:Hide()
 			bar.backdrop:Hide()
@@ -145,7 +133,7 @@ function module:CosmeticBar(header)
 	end
 
 	-- Border
-	if db.border == "NONE" then
+	if self.db.cosmeticBar.border == "NONE" then
 		bar.backdrop:Hide()
 	else
 		if self.db.cosmeticBar.border == "SHADOW" then
@@ -157,35 +145,35 @@ function module:CosmeticBar(header)
 	end
 
 	-- Texture
-	bar:SetTexture(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
+	bar:SetTexture(LSM:Fetch("statusbar", self.db.cosmeticBar.texture) or E.media.normTex)
 
 	-- Color
-	if db.color.mode == "CLASS" then
+	if self.db.cosmeticBar.color.mode == "CLASS" then
 		bar:SetVertexColor(C.ExtractColorFromTable(MER.ClassColor))
-	elseif db.color.mode == "NORMAL" then
-		bar:SetVertexColor(C.ExtractColorFromTable(db.color.normalColor))
-	elseif db.color.mode == "GRADIENT" then
+	elseif self.db.cosmeticBar.color.mode == "NORMAL" then
+		bar:SetVertexColor(C.ExtractColorFromTable(self.db.cosmeticBar.color.normalColor))
+	elseif self.db.cosmeticBar.color.mode == "GRADIENT" then
 		bar:SetVertexColor(1, 1, 1)
 		bar:SetGradient(
 			"HORIZONTAL",
-			C.CreateColorFromTable(db.color.gradientColor1),
-			C.CreateColorFromTable(db.color.gradientColor2)
+			C.CreateColorFromTable(self.db.cosmeticBar.color.gradientColor1),
+			C.CreateColorFromTable(self.db.cosmeticBar.color.gradientColor2)
 		)
 	end
 
-	bar.backdrop:SetAlpha(db.borderAlpha)
+	bar.backdrop:SetAlpha(self.db.cosmeticBar.borderAlpha)
 
 	-- Position
 	bar:ClearAllPoints()
-	bar:SetPoint("LEFT", header.Text, "LEFT", db.offsetX, db.offsetY)
+	bar:SetPoint("LEFT", header.Text, "LEFT", self.db.cosmeticBar.offsetX, self.db.cosmeticBar.offsetY)
 
 	-- Size
-	local width = db.width
-	local height = db.height
-	if db.widthMode == "DYNAMIC" then
+	local width = self.db.cosmeticBar.width
+	local height = self.db.cosmeticBar.height
+	if self.db.cosmeticBar.widthMode == "DYNAMIC" then
 		width = width + header.Text:GetStringWidth()
 	end
-	if db.heightMode == "DYNAMIC" then
+	if self.db.cosmeticBar.heightMode == "DYNAMIC" then
 		height = height + header.Text:GetStringHeight()
 	end
 
@@ -195,30 +183,21 @@ function module:CosmeticBar(header)
 end
 
 function module:ObjectiveTrackerModule_Update(tracker)
-	local db = E.db.mui.blizzard.objectiveTracker
-	local NumQuests = select(2, GetNumQuestLogEntries())
-
 	if tracker and tracker.Header and tracker.Header.Text then
-		if
-			(_G.QuestObjectiveTracker and (tracker.Header == _G.QuestObjectiveTracker.Header))
-			and NumQuests >= (MAX_QUESTS - 5)
-		then
-			tracker.Header.Text:SetText(format("|Cffff0000%d/%d|r - %s", NumQuests, MAX_QUESTS, _G.QUESTS_LABEL))
-		end
 		self:CosmeticBar(tracker.Header)
-		F.SetFontDB(tracker.Header.Text, db.header)
+		F.SetFontDB(tracker.Header.Text, self.db.header)
 		if not tracker.Header.Text.__MERUnbind then
 			tracker.Header.Text.__MERUnbind = true
 			tracker.Header.Text:SetFontObject(nil)
 			tracker.Header.Text.SetFontObject = E.noop
 		end
 
-		local r = db and db.header.classColor and MER.ClassColor.r or db.header.color.r
-		local g = db and db.header.classColor and MER.ClassColor.g or db.header.color.g
-		local b = db and db.header.classColor and MER.ClassColor.b or db.header.color.b
+		local r = self.db.header.classColor and MER.ClassColor.r or self.db.header.color.r
+		local g = self.db.header.classColor and MER.ClassColor.g or self.db.header.color.g
+		local b = self.db.header.classColor and MER.ClassColor.b or self.db.header.color.b
 
 		tracker.Header.Text:SetTextColor(r, g, b)
-		if db and db.header.shortHeader then
+		if self.db.header.shortHeader then
 			tracker.Header.Text:SetText(self:ShortTitle(tracker.Header.Text:GetText()))
 		end
 	end
@@ -238,7 +217,7 @@ function module:HandleMenuText(text)
 		return
 	end
 
-	F.SetFontDB(text, self.db.menuTitle.font)
+	F.SetFontWithDB(text, self.db.menuTitle.font)
 
 	if not text.MERHooked then
 		text.MERHooked = true
@@ -297,7 +276,6 @@ function module:ScenarioObjectiveTracker_UpdateCriteria(tracker, numCriteria)
 	if not self.db or not self.db.noDash then
 		return
 	end
-
 	local objectivesBlock = tracker.ObjectivesBlock
 	for criteriaIndex = 1, numCriteria do
 		local existingLine = objectivesBlock:GetExistingLine(criteriaIndex)
@@ -355,7 +333,6 @@ function module:UpdateBackdrop()
 		if backdrop then
 			backdrop:Hide()
 		end
-
 		return
 	end
 
@@ -370,16 +347,10 @@ function module:UpdateBackdrop()
 	backdrop:Show()
 	backdrop:SetTemplate(db.transparent and "Transparent")
 	backdrop:ClearAllPoints()
-	backdrop:SetPoint(
-		"TOPLEFT",
-		_G.ObjectiveTrackerFrame.NineSlice,
-		"TOPLEFT",
-		db.topLeftOffsetX - 20,
-		db.topLeftOffsetY + 10
-	)
+	backdrop:SetPoint("TOPLEFT", _G.ObjectiveTrackerFrame, "TOPLEFT", db.topLeftOffsetX - 20, db.topLeftOffsetY + 10)
 	backdrop:SetPoint(
 		"BOTTOMRIGHT",
-		_G.ObjectiveTrackerFrame.NineSlice,
+		_G.ObjectiveTrackerFrame,
 		"BOTTOMRIGHT",
 		db.bottomRightOffsetX + 10,
 		db.bottomRightOffsetY - 10
@@ -413,17 +384,15 @@ function module:ObjectiveTrackerModule_AddBlock(_, block)
 	if block.__MERHooked then
 		return
 	end
-
 	self:ReskinTextInsideBlock(nil, block)
 	if block.AddObjective then
 		self:SecureHook(block, "AddObjective", "ObjectiveTrackerBlock_AddObjective")
 	end
-
 	block.__MERHooked = true
 end
 
 function module:Initialize()
-	self.db = E.db.mui.blizzard.objectiveTracker
+	self.db = E.private.mui.quest.objectiveTracker
 	if not self.db.enable then
 		return
 	end
@@ -441,7 +410,6 @@ function module:Initialize()
 
 		self:SecureHook(_G.ScenarioObjectiveTracker, "UpdateCriteria", "ScenarioObjectiveTracker_UpdateCriteria")
 		self:HandleMenuText(_G.ObjectiveTrackerFrame.Header.Text)
-
 		self.initialized = true
 	end
 

@@ -85,6 +85,13 @@ function MER:UpdateScripts() -- DB Convert
 		end
 	end
 
+	if profileVersion and profileVersion < 6.41 then
+		if db and db.blizzard and db.blizzard.objectiveTracker then
+			db.blizzard.objectiveTracker = nil
+			UpdateMessage(L["Objective Tracker"] .. " - " .. L["Update Database"], profileVersion)
+		end
+	end
+
 	if not isFirstLine then
 		F.PrintGradientLine()
 	end

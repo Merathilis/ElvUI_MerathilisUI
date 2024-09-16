@@ -23,7 +23,7 @@ function module:ReskinOjectiveTrackerHeader(header)
 		return
 	end
 
-	if E.db and E.db.mui and E.db.mui.blizzard.objectiveTracker.enable then
+	if E.private and E.private.mui and E.private.mui.quest.objectiveTracker.enable then
 		return
 	end
 
