@@ -10,13 +10,12 @@ function module:Blizzard_Professions()
 
 	local ProfessionsFrame = _G.ProfessionsFrame
 	module:CreateShadow(ProfessionsFrame)
+	module:CreateShadow(ProfessionsFrame.OrdersPage.OrderView.CraftingOutputLog)
+	module:CreateShadow(ProfessionsFrame.CraftingPage.CraftingOutputLog)
 
 	for _, tab in next, { ProfessionsFrame.TabSystem:GetChildren() } do
 		module:ReskinTab(tab)
 	end
-
-	module:CreateShadow(ProfessionsFrame.OrdersPage.OrderView.CraftingOutputLog)
-	module:CreateShadow(ProfessionsFrame.CraftingPage.CraftingOutputLog)
 
 	ProfessionsFrame.CraftingPage.RecipeList.BackgroundNineSlice:SetAlpha(0.45)
 	ProfessionsFrame.CraftingPage.SchematicForm.Background:SetAlpha(0.45)
