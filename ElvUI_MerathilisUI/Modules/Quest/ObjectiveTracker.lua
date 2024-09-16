@@ -217,7 +217,7 @@ function module:HandleMenuText(text)
 		return
 	end
 
-	F.SetFontWithDB(text, self.db.menuTitle.font)
+	F.SetFontDB(text, self.db.menuTitle.font)
 
 	if not text.MERHooked then
 		text.MERHooked = true
