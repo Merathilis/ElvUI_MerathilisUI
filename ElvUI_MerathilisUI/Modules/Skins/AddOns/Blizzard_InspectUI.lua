@@ -5,26 +5,6 @@ local _G = _G
 local select, unpack = select, unpack
 
 local hooksecurefunc = hooksecurefunc
-local GetInspectSpecialization = GetInspectSpecialization
-local GetSpecializationRoleByID = GetSpecializationRoleByID
-local GetSpecializationInfoByID = GetSpecializationInfoByID
-local UnitGUID = UnitGUID
-
-local function updateIcon(self)
-	local spec = nil
-
-	if INSPECTED_UNIT ~= nil then
-		spec = GetInspectSpecialization(INSPECTED_UNIT)
-	end
-
-	if spec ~= nil and spec > 0 then
-		local role1 = GetSpecializationRoleByID(spec)
-		if role1 ~= nil then
-			local _, _, _, icon = GetSpecializationInfoByID(spec)
-			self.specIcon:SetTexture(icon)
-		end
-	end
-end
 
 function module:Blizzard_InspectUI()
 	if not module:CheckDB("inspect", "inspect") then
@@ -34,6 +14,8 @@ function module:Blizzard_InspectUI()
 	_G.InspectModelFrame:DisableDrawLayer("OVERLAY")
 
 	module:CreateShadow(_G.InspectFrame)
+	module:CreateShadow(_G.InspectPaperDollFrame.ViewButton)
+	module:CreateShadow(_G.InspectPaperDollItemsFrame.InspectTalents)
 
 	for i = 1, 4 do
 		module:ReskinTab(_G["InspectFrameTab" .. i])
