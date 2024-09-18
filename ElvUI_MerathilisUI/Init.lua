@@ -214,7 +214,7 @@ do
 						.. ""
 						.. self.Title
 						.. format("|cff00c0fa%s|r", self.Version)
-						.. L[" is loaded. For any issues or suggestions, please join my discord: "]
+						.. L[" is loaded. For any issues or suggestions join my discord: "]
 						.. Engine[2].PrintURL("https://discord.gg/28We6esE9v")
 				)
 			end

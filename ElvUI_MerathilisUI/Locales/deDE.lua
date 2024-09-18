@@ -3,8 +3,8 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 
 -- Core
 L["Enable"] = "Eingeschaltet"
-L[" is loaded. For any issues or suggestions, please join my discord: "] =
-	" wurde geladen. Um Fehler zu melden oder mir Vorschläge zu unterbreiten joined bitte meinen Discord: "
+L[" is loaded. For any issues or suggestions join my discord: "] =
+	" wurde geladen. Um Fehler zu melden oder mir Vorschläge zu unterbreiten joined meinen Discord: "
 L["Font"] = "Schriftart"
 L["Size"] = "Größe"
 L["Width"] = "Breite"

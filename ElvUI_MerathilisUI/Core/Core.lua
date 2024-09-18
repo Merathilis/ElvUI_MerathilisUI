@@ -2,7 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 local format = string.format
-local pairs = pairs
+local pairs, select = pairs, select
 local pcall = pcall
 local tinsert = table.insert
 
@@ -10,11 +10,7 @@ local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
 local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown
-
 local GetCVarBool = C_CVar.GetCVarBool
-local IsPlayerAuthenticatedForLFG = C_LFGList.IsPlayerAuthenticatedForLFG
-local GetPlaystyleString = C_LFGList.GetPlaystyleString
-local GetLfgCategoryInfo = C_LFGList.GetLfgCategoryInfo
 local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
 
 MER.dummy = function()

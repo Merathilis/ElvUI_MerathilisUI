@@ -6,7 +6,7 @@ end
 
 -- Core
 L["Enable"] = true
-L[" is loaded. For any issues or suggestions, please join my discord: "] = true
+L[" is loaded. For any issues or suggestions join my discord: "] = true
 L["Font"] = true
 L["Size"] = true
 L["Width"] = true

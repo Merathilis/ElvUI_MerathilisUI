@@ -880,6 +880,7 @@ P.autoButtons = {
 		[183040] = true,
 		[193757] = true,
 		[200563] = true,
+		[219381] = true,
 	},
 	bar1 = {
 		enable = true,

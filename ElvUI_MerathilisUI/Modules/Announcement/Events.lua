@@ -84,6 +84,8 @@ function module:GROUP_ROSTER_UPDATE()
 	self:ResetAuthority()
 end
 
+module.GROUP_ROSTER_UPDATE = F.DelvesEventFix(module.GROUP_ROSTER_UPDATE)
+
 function module:UNIT_SPELLCAST_SUCCEEDED(event, unitTarget, castGUID, spellId)
 	self:Utility(event, UnitName(unitTarget), spellId)
 end

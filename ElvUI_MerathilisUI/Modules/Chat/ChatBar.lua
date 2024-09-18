@@ -443,6 +443,8 @@ function module:PLAYER_REGEN_ENABLED()
 	self:UnregisterEvent("PLAYER_REGEN_ENABLED")
 end
 
+module.GROUP_ROSTER_UPDATE = F.DelvesEventFix(module.UpdateBar)
+
 function module:Initialize()
 	self.db = E.db.mui.chat.chatBar
 
@@ -458,7 +460,7 @@ function module:Initialize()
 	end, "mui,modules,chat,chatBar")
 
 	if self.db.autoHide then
-		self:RegisterEvent("GROUP_ROSTER_UPDATE", "UpdateBar")
+		self:RegisterEvent("GROUP_ROSTER_UPDATE")
 		self:RegisterEvent("PLAYER_GUILD_UPDATE", "UpdateBar")
 	end
 end
@@ -480,10 +482,10 @@ function module:ProfileUpdate()
 	self.bar:Show()
 
 	if self.db.autoHide then
-		self:RegisterEvent("GROUP_ROSTER_UPDATE", "UpdateBar")
+		self:RegisterEvent("GROUP_ROSTER_UPDATE")
 		self:RegisterEvent("PLAYER_GUILD_UPDATE", "UpdateBar")
 	else
-		self:UnregisterEvent("GROUP_ROSTER_UPDATE", "UpdateBar")
+		self:UnregisterEvent("GROUP_ROSTER_UPDATE")
 		self:UnregisterEvent("PLAYER_GUILD_UPDATE", "UpdateBar")
 	end
 end

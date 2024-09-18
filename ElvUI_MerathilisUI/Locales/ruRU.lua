@@ -3,7 +3,7 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "ruRU")
 
 -- Core
 L["Enable"] = "Включить"
-L[" is loaded. For any issues or suggestions, please join my discord: "] = true
+L[" is loaded. For any issues or suggestions join my discord: "] = true
 L["Font"] = "Шрифт"
 L["Size"] = "Размер"
 L["Width"] = "Ширина"

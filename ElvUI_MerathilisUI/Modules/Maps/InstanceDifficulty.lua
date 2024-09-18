@@ -1,6 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_InstanceDifficulty")
-local MM = E:GetModule("Minimap")
 
 local _G = _G
 local format = format
@@ -154,6 +153,8 @@ function module:ADDON_LOADED(_, addon)
 	end
 end
 
+module.GROUP_ROSTER_UPDATE = F.DelvesEventFix(module.UpdateFrame)
+
 function module:Initialize()
 	self.db = E.db.mui.maps.instanceDifficulty
 
@@ -170,7 +171,7 @@ function module:Initialize()
 	self:RegisterEvent("PLAYER_DIFFICULTY_CHANGED", "UpdateFrame")
 	self:RegisterEvent("GUILD_PARTY_STATE_UPDATED", "UpdateFrame")
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "UpdateFrame")
-	self:RegisterEvent("GROUP_ROSTER_UPDATE", "UpdateFrame")
+	self:RegisterEvent("GROUP_ROSTER_UPDATE")
 
 	if IsAddOnLoaded("Blizzard_Minimap") then
 		self:ADDON_LOADED("ADDON_LOADED", "Blizzard_Minimap")

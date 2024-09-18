@@ -4,22 +4,25 @@ local LSM = E.LSM
 
 local _G = _G
 local ipairs, pairs, pcall, print, select, tonumber, type = ipairs, pairs, pcall, print, select, tonumber, type
-local format, gsub, match, split, strfind = string.format, string.gsub, string.match, string.split, strfind
-local strmatch, strlen, strsub = strmatch, strlen, strsub
+local format, gsub, match = string.format, string.gsub, string.match
+local strfind, strmatch, strsplit, strlen, strsub = strfind, strmatch, strsplit, strlen, strsub
 local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
 local max, min, modf = math.max, math.min, math.modf
 local len, utf8sub = string.len, string.utf8sub
 local tcontains = tContains
 
 local CreateFrame = CreateFrame
+local GenerateFlatClosure = GenerateFlatClosure
 local GetContainerItemID = C_Container.GetContainerItemID
 local GetContainerNumSlots = C_Container.GetContainerNumSlots
 local GetBuffDataByIndex = C_UnitAuras.GetBuffDataByIndex
+local GetInstanceInfo = GetInstanceInfo
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
+local RunNextFrame = RunNextFrame
 
 local GetInventoryItem = C_TooltipInfo.GetInventoryItem
 local GetBagItem = C_TooltipInfo.GetBagItem
@@ -1564,5 +1567,32 @@ function F.ProcessMovers(dbRef)
 				)
 			end
 		end
+	end
+end
+
+function F.DelvesEventFix(original, func)
+	local isWaiting = false
+
+	return function(...)
+		local difficulty = select(3, GetInstanceInfo())
+		if not difficulty or difficulty ~= 208 then
+			return original(...)
+		end
+
+		if isWaiting then
+			return
+		end
+
+		local f = GenerateFlatClosure(original, ...)
+
+		RunNextFrame(function()
+			if not isWaiting then
+				isWaiting = true
+				E:Delay(3, function()
+					f()
+					isWaiting = false
+				end)
+			end
+		end)
 	end
 end
