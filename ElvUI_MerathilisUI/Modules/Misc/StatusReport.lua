@@ -348,7 +348,11 @@ function module:StatusReportUpdate()
 	statusFrame.Section4.Header.Text:SetText(F.String.ColorFirstLetter("Character Info"))
 
 	-- Section #1
-	statusFrame.Section1.Content.Line1.Text:SetFormattedText("Version of %s: %s", MER.Title, F.String.Good(MER.Version))
+	statusFrame.Section1.Content.Line1.Text:SetFormattedText(
+		"Version of %s: %s",
+		MER.Title,
+		F.String.Good(MER.DisplayVersion)
+	)
 
 	do
 		local version = (not E.db.mui.core.lastLayoutVersion or E.db.mui.core.lastLayoutVersion == 0)

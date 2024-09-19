@@ -74,7 +74,7 @@ MER.options = {
 
 function MER:OptionsCallback()
 	local icon = F.GetIconString(I.Media.Textures.pepeSmall, 14)
-	E.Options.name = E.Options.name .. " + " .. icon .. " " .. MER.Title .. format(": |cFF00c0fa%s|r", MER.Version)
+	E.Options.name = format("%s + %s %s |cFF00c0fa%s|r", E.Options.name, icon, MER.Title, MER.DisplayVersion)
 
 	-- Main options
 	E.Options.args.mui = {

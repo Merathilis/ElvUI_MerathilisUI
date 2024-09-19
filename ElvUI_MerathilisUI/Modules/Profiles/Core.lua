@@ -5,7 +5,7 @@ local S = MER:GetModule("MER_Skins")
 local CreateFrame = CreateFrame
 local CreateSimpleTextureMarkup = CreateSimpleTextureMarkup
 local CreateAtlasMarkup = CreateAtlasMarkup
-local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata
+local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
 function module:CreateSplashFrame()
 	module.backgroundFade = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")

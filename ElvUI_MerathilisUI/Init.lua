@@ -11,6 +11,8 @@ local next, type = next, type
 local print = print
 local collectgarbage = collectgarbage
 
+local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
+
 local MER = AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 
 --Setting up table to unpack.
@@ -31,17 +33,51 @@ Engine[7] = G.mui
 Engine[8] = L
 _G[addon] = Engine
 
+local function getVersion()
+	local versionString = GetAddOnMetadata(addon, "Version")
+	local xVersionString = GetAddOnMetadata(addon, "X-Version")
+	local version, variant, subversion
+
+	-- Git
+	if versionString == "@project-version@" then
+		return xVersionString, "git", nil
+	end
+
+	version, variant = strmatch(versionString, "^(%d+%.%d+)(.*)$")
+
+	if not version then
+		return xVersionString, nil, nil
+	end
+
+	if not variant or variant == "" then
+		return version, nil, nil
+	end
+
+	local variantName, subversionNum = strmatch(variant, "^%-([%w]+)%-?(%d*)$")
+	if variantName and subversionNum then
+		variant = variantName
+		subversion = subversionNum ~= "" and subversionNum or nil
+	end
+
+	return version, variant, subversion
+end
+
+MER.Version, MER.Variant, MER.SubVersion = getVersion()
+
+MER.DisplayVersion = MER.Version
+if MER.Variant then
+	MER.DisplayVersion = format("%s-%s", MER.DisplayVersion, MER.Variant)
+	if MER.SubVersion then
+		MER.DisplayVersion = format("%s-%s", MER.DisplayVersion, MER.SubVersion)
+	end
+end
+
 do
 	-- when packager packages a new version for release
 	-- "@project-version@" is replaced with the version number
 	-- which is the latest tag
 	Engine.version = "@project-version@"
 
-	if strfind(Engine.version, "project%-version") then
-		Engine.version = "development"
-	end
-
-	MER.Version = Engine.version
 	MER.IsDevelop = MER.Version == "development"
 	MER.AddOnName = addon
 	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
@@ -193,7 +229,7 @@ function MER:Initialize()
 	self:AddMoverCategories()
 	self:InitializeMetadata()
 
-	EP:RegisterPlugin(addon, MER.OptionsCallback)
+	EP:RegisterPlugin(addon, MER.OptionsCallback, false, MER.Version)
 	self:SecureHook(E, "UpdateAll", "UpdateModules")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 

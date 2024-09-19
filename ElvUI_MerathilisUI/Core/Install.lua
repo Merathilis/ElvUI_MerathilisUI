@@ -28,8 +28,8 @@ local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoi
 local LOOT = LOOT
 local VOICE = VOICE
 
-local Reload = C_UI and C_UI.Reload
-local SetCVar = C_CVar and C_CVar.SetCVar
+local Reload = C_UI.Reload
+local SetCVar = C_CVar.SetCVar
 
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
 
@@ -42,7 +42,7 @@ local function InstallComplete(fishished)
 	MERDataPerChar = MER.Version
 
 	if fishished then
-		E.db.mui.core.lastLayoutVersion = MER.Version
+		E.db.mui.core.lastLayoutVersion = MER.DisplayVersion
 
 		IsInstalled = true
 	end
