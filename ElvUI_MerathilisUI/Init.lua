@@ -9,6 +9,7 @@ local L = E.Libs.ACL:GetLocale("ElvUI", E.global.general.locale)
 local _G = _G
 local next, type = next, type
 local print = print
+local strfind, strmatch = strfind, strmatch
 local collectgarbage = collectgarbage
 
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
@@ -39,7 +40,7 @@ local function getVersion()
 	local version, variant, subversion
 
 	-- Git
-	if versionString == "@project-version@" then
+	if strfind(versionString, "project%-version") then
 		return xVersionString, "git", nil
 	end
 
