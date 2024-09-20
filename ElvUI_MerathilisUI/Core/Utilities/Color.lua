@@ -46,6 +46,19 @@ function U.HexToRGB(hex)
 	return tonumber(rhex, 16) / 255, tonumber(ghex, 16) / 255, tonumber(bhex, 16) / 255
 end
 
+function U.HexRGB(r, g, b)
+	if r then
+		if type(r) == "table" then
+			if r.r then
+				r, g, b = r.r, r.g, r.b
+			else
+				r, g, b = unpack(r)
+			end
+		end
+		return format("|cff%02x%02x%02x", r * 255, g * 255, b * 255)
+	end
+end
+
 function U.RGBToHex(r, g, b)
 	return format("%02x%02x%02x", r * 255, g * 255, b * 255)
 end

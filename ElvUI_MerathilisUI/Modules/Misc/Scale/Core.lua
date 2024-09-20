@@ -143,6 +143,7 @@ function module:Scale()
 	module:SetElementScale("gossip", "GossipFrame")
 	module:SetElementScale("quest", "QuestFrame")
 	module:SetElementScale("mailbox", "MailFrame")
+	module:SetElementScale("friends", "FriendsFrame")
 
 	module:AddCallbackOrScale("Blizzard_InspectUI", self.ScaleInspectUI)
 	module:AddCallbackOrScale("Blizzard_PlayerSpells", self.ScaleTalents)

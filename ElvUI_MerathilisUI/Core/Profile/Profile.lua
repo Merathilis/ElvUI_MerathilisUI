@@ -2057,4 +2057,8 @@ P.scale = {
 	classTrainer = {
 		scale = 1,
 	},
+
+	friends = {
+		scale = 1,
+	},
 }

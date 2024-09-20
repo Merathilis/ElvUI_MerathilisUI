@@ -61,7 +61,7 @@ local function ClassColor(class, showRGB)
 end
 
 local function DiffColor(level)
-	return C.RGBToHex(GetQuestDifficultyColor(level))
+	return C.HexRGB(GetQuestDifficultyColor(level))
 end
 
 function module:FriendsFrame()

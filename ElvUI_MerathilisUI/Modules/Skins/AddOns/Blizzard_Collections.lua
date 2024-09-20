@@ -147,7 +147,7 @@ function module:Blizzard_Collections()
 			select(i, bu.xpBar:GetRegions()):Hide()
 		end
 
-		bu.xpBar:SetStatusBarTexture(E["media"].normTex)
+		bu.xpBar:SetStatusBarTexture(E.media.normTex)
 		module:CreateBDFrame(bu.xpBar, 0.25)
 
 		_G["PetJournalLoadoutPet" .. i .. "HealthFramehealthStatusBarLeft"]:Hide()

@@ -521,6 +521,21 @@ options.scale = {
 					max = 3,
 					step = 0.05,
 				},
+				friends = {
+					order = 15,
+					type = "range",
+					name = L["Friends"],
+					get = function(_)
+						return E.db.mui.scale.friends.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.friends.scale = value
+						MI:Scale()
+					end,
+					min = 0.5,
+					max = 3,
+					step = 0.05,
+				},
 			},
 		},
 	},
