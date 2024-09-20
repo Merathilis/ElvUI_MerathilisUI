@@ -3,7 +3,8 @@ local S = MER:GetModule("MER_Skins")
 local LSM = E.LSM
 
 local _G = _G
-local ipairs, pairs, pcall, print, select, tonumber, type = ipairs, pairs, pcall, print, select, tonumber, type
+local ipairs, pairs, pcall, print, select, tonumber, type, unpack =
+	ipairs, pairs, pcall, print, select, tonumber, type, unpack
 local format, gsub, match = string.format, string.gsub, string.match
 local strfind, strmatch, strsplit, strlen, strsub = strfind, strmatch, strsplit, strlen, strsub
 local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
@@ -1608,4 +1609,24 @@ function F.WaitFor(condition, callback, interval, leftTimes)
 		return
 	end
 	E:Delay(interval, F.WaitFor, condition, callback, interval, leftTimes)
+end
+
+function F.MoveFrameWithOffset(frame, x, y)
+	if not frame or not frame.ClearAllPoints then
+		return
+	end
+
+	local pointsData = {}
+
+	for i = 1, frame:GetNumPoints() do
+		local point, relativeTo, relativePoint, xOfs, yOfs = frame:GetPoint(i)
+		pointsData[i] = { point, relativeTo, relativePoint, xOfs, yOfs }
+	end
+
+	frame:ClearAllPoints()
+
+	for _, data in pairs(pointsData) do
+		local point, relativeTo, relativePoint, xOfs, yOfs = unpack(data)
+		frame:SetPoint(point, relativeTo, relativePoint, xOfs + x, yOfs + y)
+	end
 end

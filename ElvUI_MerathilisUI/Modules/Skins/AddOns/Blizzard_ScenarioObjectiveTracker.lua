@@ -4,6 +4,7 @@ local module = MER:GetModule("MER_Skins")
 local _G = _G
 local unpack = unpack
 
+local GetInstanceInfo = GetInstanceInfo
 local GetAffixInfo = C_ChallengeMode.GetAffixInfo
 
 local function SkinMawBuffsContainer(container)
@@ -120,17 +121,17 @@ local function UpdateBlock(block)
 				widgetFrame.Frame:SetAlpha(0)
 			end
 
-			local bar = widgetFrame.TimerBar
-			if bar and not bar.__MERSkin then
-				bar.__MERSetStatusBarTexture = bar.SetStatusBarTexture
-				hooksecurefunc(bar, "SetStatusBarTexture", function(frame)
-					if frame.__MERSetStatusBarTexture then
-						frame:__MERSetStatusBarTexture(E.media.normTex)
+			local timeBar = widgetFrame.TimerBar
+			if timeBar and not timeBar.__MERSkin then
+				timeBar.__SetStatusBarTexture = timeBar.SetStatusBarTexture
+				hooksecurefunc(timeBar, "SetStatusBarTexture", function(frame)
+					if frame.__SetStatusBarTexture then
+						frame:__SetStatusBarTexture(E.media.normTex)
 						frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
 					end
 				end)
-				bar:CreateBackdrop("Transparent")
-				bar.__MERSkin = true
+				timeBar:CreateBackdrop("Transparent")
+				timeBar.__MERSkin = true
 			end
 
 			if widgetFrame.CurrencyContainer then
@@ -140,6 +141,19 @@ local function UpdateBlock(block)
 						currencyFrame.__MERSkin = true
 					end
 				end
+			end
+
+			-- Awakening the Machine
+			local mapID = select(8, GetInstanceInfo())
+			if mapID and mapID == 2710 and not widgetFrame.__MERSkinMoved then
+				if widgetFrame.Bar and widgetFrame.Label then
+					widgetFrame.Label:Hide()
+					F.MoveFrameWithOffset(widgetFrame, 15, 0)
+				else
+					F.MoveFrameWithOffset(widgetFrame, 10, 0)
+				end
+
+				widgetFrame.__MERSkinMoved = true
 			end
 		end
 	end
