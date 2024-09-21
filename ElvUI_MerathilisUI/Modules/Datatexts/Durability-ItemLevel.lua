@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local DT = E:GetModule("DataTexts")
 
 local _G = _G
+local tonumber = tonumber
 local format = format
 local pi = math.pi
 
@@ -89,7 +90,14 @@ local function OnEnter(self)
 
 	DT.tooltip:AddLine(" ")
 	DT.tooltip:AddLine(L["|cffFFFFFFLeft Click:|r Open Character Frame"])
-	DT.tooltip:AddLine(L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"])
+	local mountID = tonumber(E.db.mui.datatexts.durabilityIlevel.repairMount)
+	if mountID then
+		local name, _, icon, _, isUsable = GetMountInfoByID(mountID)
+		local iconStr = F.GetIconString(icon, 12, 12) or ""
+		if name and isUsable then
+			DT.tooltip:AddLine("|cffFFFFFFRight Click:|r Summon " .. iconStr .. " " .. name)
+		end
+	end
 	DT.tooltip:Show()
 end
 
@@ -157,9 +165,12 @@ local function OnClick(_, button)
 		if button == "LeftButton" then
 			_G.ToggleCharacter("PaperDollFrame")
 		elseif button == "RightButton" then
-			local mount = GetMountInfoByID(460)
-			if mount then
-				SummonByID(460)
+			local mountID = tonumber(E.db.mui.datatexts.durabilityIlevel.repairMount)
+			if mountID then
+				local _, _, _, _, isUsable = GetMountInfoByID(mountID)
+				if isUsable then
+					SummonByID(mountID)
+				end
 			end
 		end
 	end

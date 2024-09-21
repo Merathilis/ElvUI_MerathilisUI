@@ -842,6 +842,7 @@ P.datatexts = {
 	durabilityIlevel = {
 		icon = true,
 		text = true,
+		repairMount = 460,
 	},
 }
 

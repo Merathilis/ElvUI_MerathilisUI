@@ -2,6 +2,30 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
 local DT = E:GetModule("DataTexts")
 
+local GetMountInfoByID = C_MountJournal.GetMountInfoByID
+
+local function GetRepairMounts()
+	local repairMounts = {}
+
+	local mountIDs = {
+		2237, -- Grizzly Hills Packmaster
+		460, -- Grand Expedition Yak
+		284, -- Traveler's Tundra Mammoth (Horde)
+		280, -- Traveler's Tundra Mammoth (Alliance)
+		1039, -- Mighty Caravan Brutosaur
+	}
+
+	for _, mountID in ipairs(mountIDs) do
+		local name, _, icon, _, isUsable = GetMountInfoByID(mountID)
+		local iconStr = F.GetIconString(icon, 14, 14) or ""
+		if isUsable then
+			repairMounts[mountID] = iconStr .. name
+		end
+	end
+
+	return repairMounts
+end
+
 options.datatexts = {
 	type = "group",
 	name = L["DataTexts"],
@@ -51,6 +75,23 @@ options.datatexts = {
 					end,
 					set = function(info, value)
 						E.db.mui.datatexts.durabilityIlevel.text = value
+						DT:ForceUpdate_DataText("DurabilityItemLevel")
+					end,
+				},
+				repairMount = {
+					order = 3,
+					name = E.NewSign .. L["Repair Mount"],
+					type = "select",
+					values = GetRepairMounts(),
+					sortByValue = true,
+					hidden = function()
+						return F.Table.IsEmpty(GetRepairMounts())
+					end,
+					get = function(info)
+						return E.db.mui.datatexts.durabilityIlevel.repairMount
+					end,
+					set = function(info, value)
+						E.db.mui.datatexts.durabilityIlevel.repairMount = value
 						DT:ForceUpdate_DataText("DurabilityItemLevel")
 					end,
 				},
