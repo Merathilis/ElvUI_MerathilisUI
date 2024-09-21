@@ -7,8 +7,7 @@ local GetQuestLogCompletionText = GetQuestLogCompletionText
 local PlaySound = PlaySound
 
 -- Credits: Paragon Reputation
-local PARAGON_QUEST_ID = {
-	--War Within
+local PARAGON_DATA = {
 	[79219] = { -- Council of Dornogal
 		factionID = 2590,
 		cache = 225239,
@@ -45,8 +44,8 @@ function module:QUEST_ACCEPTED(_, arg1)
 		return
 	end
 
-	if module.db.paragon and PARAGON_QUEST_ID[arg1] then
-		local data = GetFactionInfoByID(PARAGON_QUEST_ID[arg1].factionID)
+	if module.db.paragon and PARAGON_DATA[arg1] then
+		local data = GetFactionInfoByID(PARAGON_DATA[arg1].factionID)
 		local text = GetQuestLogCompletionText(GetLogIndexForQuestID(arg1))
 		PlaySound(618, "Master") -- QUEST ADDED
 		self:DisplayToast(
