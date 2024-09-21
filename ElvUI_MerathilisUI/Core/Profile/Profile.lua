@@ -928,7 +928,7 @@ P.autoButtons = {
 				b = 1,
 			},
 		},
-		include = "QUEST,BANNER,EQUIP,PROF,OPENABLE,DELVE,FISHING",
+		include = "QUEST,BANNER,EQUIP,PROF,HOLIDAY,OPENABLE,DELVE,FISHING",
 	},
 	bar2 = {
 		enable = true,

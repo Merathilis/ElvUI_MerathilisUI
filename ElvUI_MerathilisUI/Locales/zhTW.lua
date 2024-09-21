@@ -609,6 +609,7 @@ L["Anchor Point"] = true
 L["The first button anchors itself to this point on the bar."] = true
 L["Dream Seeds"] = true
 L["Reset the button groups of this bar."] = true
+L["Holiday Reward Boxes"] = true
 
 -- Media
 L["Zone Text"] = true

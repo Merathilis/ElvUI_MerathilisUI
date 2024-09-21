@@ -694,6 +694,7 @@ L["The first button anchors itself to this point on the bar."] =
 	"Первая кнопка привязывается к этой точке на панели."
 L["Dream Seeds"] = true
 L["Reset the button groups of this bar."] = true
+L["Holiday Reward Boxes"] = true
 
 -- Media
 L["Zone Text"] = "Текст зоны"

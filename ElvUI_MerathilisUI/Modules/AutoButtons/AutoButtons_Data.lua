@@ -1374,6 +1374,18 @@ local seeds = {
 	208067,
 }
 
+local holidayRewards = {
+	54536,
+	54537,
+	117392,
+	117393,
+	117394,
+	149503,
+	149574,
+	147907,
+	216874,
+}
+
 local function createList(base, ...)
 	local list = {}
 	for _, key in pairs({ ... }) do
@@ -1420,4 +1432,5 @@ module.moduleList = {
 	["BIGDIG"] = bigDig,
 	["ENGINEER"] = engineerItems,
 	["DELVE"] = delveItem,
+	["HOLIDAY"] = holidayRewards,
 }
