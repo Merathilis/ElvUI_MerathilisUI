@@ -53,7 +53,7 @@ local function ReskinPartitionFrame(partitionFrame)
 	end
 
 	hooksecurefunc(partitionFrame.Tex, "SetAtlas", function(self, atlas)
-		if atlas == "widgetstatusbar-BorderTick" then
+		if strlower(atlas) == "widgetstatusbar-bordertick" then
 			self:SetTexture(E.media.blankTex)
 			self:SetTexCoord(0, 1, 0, 1)
 			self:SetVertexColor(1, 1, 1)
@@ -68,16 +68,15 @@ local function ReskinPartitionFrame(partitionFrame)
 	partitionFrame.__MERSkin = true
 end
 
-function module:BlizzardUIWidget()
-	if not module:CheckDB("misc", "uiWidget") then
-		return
-	end
-
-	self:SecureHook(_G.UIWidgetBaseStatusBarTemplateMixin, "InitPartitions", function(widget)
+do
+	local hookedWidget = {}
+	function module:ReskinWidgetPartition(widget)
 		local pool = widget.partitionPool
-		if not pool then
+		if not pool or hookedWidget[widget] then
 			return
 		end
+
+		hookedWidget[widget] = true
 
 		for partitionFrame in pool:EnumerateActive() do
 			ReskinPartitionFrame(partitionFrame)
@@ -88,7 +87,18 @@ function module:BlizzardUIWidget()
 				ReskinPartitionFrame(partitionFrame)
 			end
 		end)
-	end)
+	end
+end
+
+function module:BlizzardUIWidget()
+	if not module:CheckDB("misc", "uiWidget") then
+		return
+	end
+
+	-- Partitions
+	self:SecureHook(_G.UIWidgetBaseStatusBarTemplateMixin, "InitPartitions", "ReskinWidgetPartition")
+
+	self:SecureHook(_G.UIWidgetTemplateUnitPowerBarMixin, "InitPartitions", "ReskinWidgetPartition")
 
 	self:SecureHook(_G.UIWidgetTemplateStatusBarMixin, "Setup", function(widget)
 		if widget:IsForbidden() or widget.widgetSetID and widget.widgetSetID == 283 then

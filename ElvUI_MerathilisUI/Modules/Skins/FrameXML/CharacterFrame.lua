@@ -23,7 +23,10 @@ function module:Blizzard_UIPanels_Game()
 	module:CreateShadow(_G.CurrencyTransferMenu)
 
 	-- Reputation
+	module:CreateShadow(_G.ReputationDetailFrame)
 	module:CreateShadow(_G.ReputationFrame.ReputationDetailFrame)
+	_G.ReputationFrame.ReputationDetailFrame:ClearAllPoints()
+	_G.ReputationFrame.ReputationDetailFrame:Point("TOPLEFT", _G.ReputationFrame, "TOPRIGHT", 3, 0)
 end
 
 module:AddCallbackForAddon("Blizzard_UIPanels_Game")
