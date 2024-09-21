@@ -17,9 +17,6 @@ function module:Blizzard_UIPanels_Game()
 		module:ReskinTab(_G["CharacterFrameTab" .. i])
 	end
 
-	-- Token
-	module:CreateShadow(_G.TokenFramePopup)
-
 	-- Reputation
 	module:CreateShadow(_G.ReputationFrame.ReputationDetailFrame)
 	_G.ReputationFrame.ReputationDetailFrame:ClearAllPoints()

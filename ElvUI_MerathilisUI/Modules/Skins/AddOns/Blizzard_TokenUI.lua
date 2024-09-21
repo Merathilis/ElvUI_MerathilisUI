@@ -10,6 +10,9 @@ function module:Blizzard_TokenUI()
 
 	module:CreateShadow(_G.CurrencyTransferLog)
 	module:CreateShadow(_G.CurrencyTransferMenu)
+
+	-- Token
+	module:CreateShadow(_G.TokenFramePopup)
 end
 
 module:AddCallbackForAddon("Blizzard_TokenUI")

@@ -1172,7 +1172,7 @@ function module:UpdateButton(button, buttonType)
 		button:SetAttribute("macrotext1", config.macro.LeftButton or "")
 		button:SetAttribute("macrotext2", config.macro.RightButton or config.macro.LeftButton or "")
 	elseif config.click then
-		function button:Click(mouseButton)
+		button.Click = function(_, mouseButton)
 			local func = mouseButton and config.click[mouseButton] or config.click.LeftButton
 			func(module.bar.middlePanel)
 		end
@@ -1258,7 +1258,7 @@ function module:ConstructButtons()
 	end
 
 	self.buttons = {}
-	for i = 1, NUM_PANEL_BUTTONS * 2 do
+	for _ = 1, NUM_PANEL_BUTTONS * 2 do
 		self:ConstructButton()
 	end
 end
