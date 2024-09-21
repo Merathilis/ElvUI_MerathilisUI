@@ -17,9 +17,9 @@ local function GetRepairMounts()
 
 	for _, mountID in ipairs(mountIDs) do
 		local name, _, icon, _, isUsable = GetMountInfoByID(mountID)
-		local iconStr = F.GetIconString(icon, 14, 14) or ""
+		local iconStr = icon and F.GetIconString(icon, 14, 14)
 		if isUsable then
-			repairMounts[mountID] = iconStr .. name
+			repairMounts[mountID] = iconStr .. " " .. name
 		end
 	end
 
@@ -82,7 +82,7 @@ options.datatexts = {
 					order = 3,
 					name = E.NewSign .. L["Repair Mount"],
 					type = "select",
-					values = GetRepairMounts(),
+					values = GetRepairMounts,
 					sortByValue = true,
 					hidden = function()
 						return F.Table.IsEmpty(GetRepairMounts())
