@@ -3,21 +3,13 @@ local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
-local hooksecurefunc = hooksecurefunc
-
-local function UpdateToken()
-	local TokenFramePopup = _G.TokenFramePopup
-
-	module:CreateShadow(TokenFramePopup)
-end
-
 function module:Blizzard_TokenUI()
-	if not module:CheckDB("auctionhouse", "auctionhouse") then
+	if not self:CheckDB("character") then
 		return
 	end
 
-	-- hooksecurefunc("TokenFrame_Update", UpdateToken)
-	-- hooksecurefunc(_G.TokenFrameContainer, "update", UpdateToken)
+	module:CreateShadow(_G.CurrencyTransferLog)
+	module:CreateShadow(_G.CurrencyTransferMenu)
 end
 
 module:AddCallbackForAddon("Blizzard_TokenUI")

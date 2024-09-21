@@ -19,11 +19,8 @@ function module:Blizzard_UIPanels_Game()
 
 	-- Token
 	module:CreateShadow(_G.TokenFramePopup)
-	module:CreateShadow(_G.CurrencyTransferLog)
-	module:CreateShadow(_G.CurrencyTransferMenu)
 
 	-- Reputation
-	module:CreateShadow(_G.ReputationDetailFrame)
 	module:CreateShadow(_G.ReputationFrame.ReputationDetailFrame)
 	_G.ReputationFrame.ReputationDetailFrame:ClearAllPoints()
 	_G.ReputationFrame.ReputationDetailFrame:Point("TOPLEFT", _G.ReputationFrame, "TOPRIGHT", 3, 0)
