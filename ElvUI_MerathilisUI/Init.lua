@@ -34,9 +34,10 @@ Engine[7] = G.mui
 Engine[8] = L
 _G[addon] = Engine
 
+local versionString = GetAddOnMetadata(addon, "Version")
+local xVersionString = GetAddOnMetadata(addon, "X-Version")
+
 local function getVersion()
-	local versionString = GetAddOnMetadata(addon, "Version")
-	local xVersionString = GetAddOnMetadata(addon, "X-Version")
 	local version, variant, subversion
 
 	-- Git
@@ -230,7 +231,7 @@ function MER:Initialize()
 	self:AddMoverCategories()
 	self:InitializeMetadata()
 
-	EP:RegisterPlugin(addon, MER.OptionsCallback, false, MER.Version)
+	EP:RegisterPlugin(addon, MER.OptionsCallback, false, xVersionString)
 	self:SecureHook(E, "UpdateAll", "UpdateModules")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 
