@@ -7,15 +7,7 @@ local GetMountInfoByID = C_MountJournal.GetMountInfoByID
 local function GetRepairMounts()
 	local repairMounts = {}
 
-	local mountIDs = {
-		2237, -- Grizzly Hills Packmaster
-		460, -- Grand Expedition Yak
-		284, -- Traveler's Tundra Mammoth (Horde)
-		280, -- Traveler's Tundra Mammoth (Alliance)
-		1039, -- Mighty Caravan Brutosaur
-	}
-
-	for _, mountID in ipairs(mountIDs) do
+	for _, mountID in ipairs(I.RepairMounts) do
 		local name, _, icon, _, isUsable = GetMountInfoByID(mountID)
 		local iconStr = icon and F.GetIconString(icon, 14, 14)
 		if isUsable then

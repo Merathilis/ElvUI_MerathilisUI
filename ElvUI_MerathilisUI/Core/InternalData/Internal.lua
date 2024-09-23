@@ -73,3 +73,11 @@ I.ProfileNames = {
 	["Default"] = MER.Title,
 	["Development"] = MER.Title .. "Dev",
 }
+
+I.RepairMounts = {
+	2237, -- Grizzly Hills Packmaster
+	460, -- Grand Expedition Yak
+	284, -- Traveler's Tundra Mammoth (Horde)
+	280, -- Traveler's Tundra Mammoth (Alliance)
+	1039, -- Mighty Caravan Brutosaur
+}
