@@ -317,7 +317,7 @@ function MER:CheckCompatibility()
 	CheckWindtools(
 		L["Objective Tracker"],
 		L["Objective Tracker"],
-		"db.mui.blizzard.objectiveTracker.enable",
+		"private.mui.quest.objectiveTracker.enable",
 		"private.WT.quest.objectiveTracker.enable"
 	)
 
@@ -477,7 +477,7 @@ function MER:CheckCompatibility()
 	CheckShadowAndLight(
 		format("%s-%s", L["Objective Tracker"], L["Cosmetic Bar"]),
 		format("%s-%s", L["Skins"], L["Underline"]),
-		"db.mui.blizzard.objectiveTracker.enable",
+		"private.mui.quest.objectiveTracker.enable",
 		"db.sle.skins.objectiveTracker.underline"
 	)
 
