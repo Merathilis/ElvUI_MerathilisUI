@@ -10,10 +10,10 @@ local UnregisterStateDriver = UnregisterStateDriver
 
 function module:OnShowEvent()
 	self:StopAllAnimations()
+	local defaultVigorBar = _G["UIWidgetPowerBarContainerFrame"]
 
 	if self.vigorBar and self:IsVigorAvailable() then
 		-- Hide the Default Vigor Bar
-		local defaultVigorBar = _G["UIWidgetPowerBarContainerFrame"]
 		if defaultVigorBar then
 			defaultVigorBar:Hide()
 		end
@@ -33,6 +33,8 @@ function module:OnShowEvent()
 
 				self:CreateVigorSegments()
 			end
+		elseif defaultVigorBar and not defaultVigorBar:IsShown() then
+			defaultVigorBar:Show()
 		end
 	end
 
