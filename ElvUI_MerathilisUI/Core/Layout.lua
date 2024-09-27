@@ -24,8 +24,8 @@ end
 function module:CreateLayout()
 	-- dummy frame for chat/threat (left)
 	MER_DCHAT:SetFrameStrata("LOW")
-	MER_DCHAT:Point("TOPLEFT", LeftChatPanel, "BOTTOMLEFT", 0, -SPACING)
-	MER_DCHAT:Point("BOTTOMRIGHT", LeftChatPanel, "BOTTOMRIGHT", 0, -PANEL_HEIGHT - SPACING)
+	MER_DCHAT:Point("TOPLEFT", _G.LeftChatPanel, "BOTTOMLEFT", 0, -SPACING)
+	MER_DCHAT:Point("BOTTOMRIGHT", _G.LeftChatPanel, "BOTTOMRIGHT", 0, -PANEL_HEIGHT - SPACING)
 end
 
 function module:Initialize()

@@ -6,6 +6,19 @@ local LSM = E.LSM
 
 local _G = _G
 
+local GetItemInfo = C_Item.GetItemInfo
+
+local socketItem = nil
+local socketTexture = nil
+
+if GetItemInfo then
+	local itemName, _, _, _, _, _, _, _, _, itemTexture = GetItemInfo(213777)
+	if itemName then
+		socketItem = itemName
+		socketTexture = itemTexture
+	end
+end
+
 options.armory = {
 	type = "group",
 	name = L["Armory"],
@@ -695,7 +708,15 @@ options.armory = {
 					order = 3,
 					type = "toggle",
 					name = L["Missing Sockets"],
-					desc = L["Shows a warning when you're missing sockets on your necklace."],
+					desc = L["Shows a warning when you're missing sockets on your necklace."]
+						.. (
+							socketItem
+								and socketTexture
+								and (L[" Sockets can be added with "] .. F.GetIconString(socketTexture, 14, 14, true) .. " " .. F.String.Epic(
+									socketItem
+								))
+							or ""
+						),
 				},
 				abbreviateEnchantText = {
 					order = 4,
