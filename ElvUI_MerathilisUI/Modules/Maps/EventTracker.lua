@@ -957,6 +957,7 @@ local eventData = {
 				82516,
 				82659,
 				82678,
+				82679,
 				82708,
 			},
 			hasWeeklyReward = true,
