@@ -142,8 +142,17 @@ function module:Enable()
 
 	self:UpdateBar()
 
+	local page = format(
+		"[overridebar] %d; [vehicleui][possessbar] %d; [bonusbar:5] 11; [shapeshift] %d;",
+		GetOverrideBarIndex(),
+		GetVehicleBarIndex(),
+		GetTempShapeshiftBarIndex()
+	)
+
+	RegisterStateDriver(self.bar, "page", page)
+
 	local visibility =
-		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s hide;", "[bonusbar:5]")
+		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s hide;", "[bonusbar:5]" or "")
 
 	self:Hook(self.ab, "PositionAndSizeBar", function(_, barName)
 		local bar = self.ab["handledBars"][barName]
@@ -170,7 +179,7 @@ function module:Enable()
 	RegisterStateDriver(
 		self.bar,
 		"visibility",
-		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide", "[bonusbar:5]")
+		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide", "[bonusbar:5]" or "")
 	)
 
 	if self.db.hideElvUIBars then
