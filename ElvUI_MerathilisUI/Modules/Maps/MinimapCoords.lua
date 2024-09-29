@@ -42,7 +42,7 @@ end
 
 function module:UpdateCoordinatesPosition()
 	self.coordsHolder.playerCoords:ClearAllPoints()
-	self.coordsHolder.playerCoords:SetPoint("CENTER", _G.Minimap, "CENTER", self.db.xOffset or 0, self.db.yOffset or 70)
+	self.coordsHolder.playerCoords:SetPoint("CENTER", _G.Minimap, "CENTER", self.db.xOffset or 0, self.db.yOffset or 65)
 end
 
 function module:CreateCoordsFrame()

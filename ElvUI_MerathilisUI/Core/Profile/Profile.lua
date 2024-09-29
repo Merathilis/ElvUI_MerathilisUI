@@ -1580,7 +1580,7 @@ P.maps = {
 			enable = true,
 			mouseOver = false,
 			xOffset = 0,
-			yOffset = 70,
+			yOffset = 65,
 			format = "%.0f",
 
 			font = {
