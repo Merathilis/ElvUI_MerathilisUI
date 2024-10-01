@@ -2923,31 +2923,37 @@ MER.installTable = {
 						.. "!"
 				)
 			else
-				PluginInstallFrame.Option1:Show()
-				PluginInstallFrame.Option1:SetScript("OnClick", function()
-					PF:ApplyFCTProfile()
-				end)
-				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-				PluginInstallFrame.Option1:SetText(F.String.FCT())
+				if E:IsAddOnEnabled("ElvUI_FCT") then
+					PluginInstallFrame.Option1:Show()
+					PluginInstallFrame.Option1:SetScript("OnClick", function()
+						PF:ApplyFCTProfile()
+					end)
+					PluginInstallFrame.Option1:SetScript("OnEnter", nil)
+					PluginInstallFrame.Option1:SetScript("OnLeave", nil)
+					PluginInstallFrame.Option1:SetText(F.String.FCT())
+				end
 
-				PluginInstallFrame.Option2:Show()
-				PluginInstallFrame.Option2:SetScript("OnClick", function()
-					PF:ApplyAddOnSkinsProfile()
-				end)
-				PluginInstallFrame.Option2:SetScript("OnEnter", nil)
-				PluginInstallFrame.Option2:SetScript("OnLeave", nil)
-				PluginInstallFrame.Option2:SetText(F.String.AS())
+				if E:IsAddOnEnabled("AddonSkins") then
+					PluginInstallFrame.Option2:Show()
+					PluginInstallFrame.Option2:SetScript("OnClick", function()
+						PF:ApplyAddOnSkinsProfile()
+					end)
+					PluginInstallFrame.Option2:SetScript("OnEnter", nil)
+					PluginInstallFrame.Option2:SetScript("OnLeave", nil)
+					PluginInstallFrame.Option2:SetText(F.String.AS())
+				end
 
-				PluginInstallFrame.Option3:Show()
-				PluginInstallFrame.Option3:SetScript("OnClick", function()
-					PF:ApplymMediaTagProfile()
-				end)
-				PluginInstallFrame.Option3:SetScript("OnEnter", nil)
-				PluginInstallFrame.Option3:SetScript("OnLeave", nil)
-				PluginInstallFrame.Option3:SetText(
-					"|CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r"
-				)
+				if E:IsAddOnEnabled("ElvUI_mMediaTag") then
+					PluginInstallFrame.Option3:Show()
+					PluginInstallFrame.Option3:SetScript("OnClick", function()
+						PF:ApplymMediaTagProfile()
+					end)
+					PluginInstallFrame.Option3:SetScript("OnEnter", nil)
+					PluginInstallFrame.Option3:SetScript("OnLeave", nil)
+					PluginInstallFrame.Option3:SetText(
+						"|CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r"
+					)
+				end
 			end
 		end,
 		[11] = function()
