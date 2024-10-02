@@ -555,7 +555,7 @@ function MER:SetupLayout()
 	E.db["movers"]["MER_MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
 	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-70"
 	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-211"
-	E.db["movers"]["MER_InstanceDifficultyFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-10,-40"
+	E.db["movers"]["MER_InstanceDifficultyFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-15,-40"
 
 	--[[----------------------------------
 	--	Movers - Layout
