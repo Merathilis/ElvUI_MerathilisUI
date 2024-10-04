@@ -46,6 +46,7 @@ function module:PremadeGroupsFilter()
 		"Defeated",
 		"MatchingId",
 		"PvPRating",
+		"NotDeclined",
 	}
 
 	local function HandleDropdown(drop)
