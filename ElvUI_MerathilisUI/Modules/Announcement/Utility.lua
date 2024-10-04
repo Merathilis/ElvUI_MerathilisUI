@@ -71,6 +71,13 @@ local FeastList = {
 	[382423] = true,
 	[382427] = true,
 	[383063] = true,
+	[432877] = true,
+	[433292] = true,
+	[455960] = true,
+	[457285] = true,
+	[457302] = true,
+	[462212] = true,
+	[462213] = true,
 }
 
 local PortalList = {
@@ -101,6 +108,7 @@ local PortalList = {
 	[224871] = true,
 	[344597] = true,
 	[395289] = true,
+	[446534] = true,
 }
 
 local ToyList = {
