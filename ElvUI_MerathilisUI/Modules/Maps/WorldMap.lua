@@ -16,6 +16,7 @@ local GetMapArtID = C_Map.GetMapArtID
 local GetMapArtLayers = C_Map.GetMapArtLayers
 local GetMapInfo = C_Map.GetMapInfo
 
+local EventRegistry = EventRegistry
 local Pool_HideAndClearAnchors = Pool_HideAndClearAnchors
 
 -- STRUCTURE:
@@ -2572,6 +2573,9 @@ function module:Scale()
 
 	_G.WorldMapFrame:SetClampedToScreen(true)
 	_G.WorldMapFrame:SetScale(self.db.scale.size)
+
+	EventRegistry:RegisterCallback("WorldMapMinimized", _G.WorldMapFrame.SetScale, _G.WorldMapFrame, self.db.scale.size)
+	EventRegistry:RegisterCallback("WorldMapMaximized", _G.WorldMapFrame.SetScale, _G.WorldMapFrame, 1)
 end
 
 function module:Initialize()
