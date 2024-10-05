@@ -362,13 +362,21 @@ function module:ReskinTextInsideBlock(_, block)
 		return
 	end
 
+	local totalHeight = 0
 	if block.HeaderText then
+		totalHeight = totalHeight + block.HeaderText:GetHeight()
+
 		self:HandleTitleText(block.HeaderText)
 	end
 
 	for _, line in pairs(block.usedLines or {}) do
+		totalHeight = totalHeight + line:GetHeight()
+
 		self:HandleObjectiveLine(line)
 	end
+
+	local spacing = 2
+	block:SetHeight(totalHeight + spacing)
 end
 
 function module:RefreshAllCosmeticBars()
