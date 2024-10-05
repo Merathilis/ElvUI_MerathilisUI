@@ -364,8 +364,6 @@ function module:ReskinTextInsideBlock(_, block)
 
 	local totalHeight = 0
 	if block.HeaderText then
-		totalHeight = totalHeight + block.HeaderText:GetHeight()
-
 		self:HandleTitleText(block.HeaderText)
 	end
 
