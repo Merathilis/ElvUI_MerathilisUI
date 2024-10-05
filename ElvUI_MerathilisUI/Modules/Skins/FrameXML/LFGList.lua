@@ -67,12 +67,12 @@ function module:LFGList()
 	SearchPanel.ResultsInset.Bg:Hide()
 	SearchPanel.ResultsInset:DisableDrawLayer("BORDER")
 
+	SearchPanel.RefreshButton:SetSize(24, 24)
+	SearchPanel.RefreshButton.Icon:SetPoint("CENTER")
+	SearchPanel.ResultsInset:Hide()
+
 	-- Auto complete frame
-	SearchPanel.AutoCompleteFrame.BottomLeftBorder:Hide()
-	SearchPanel.AutoCompleteFrame.BottomRightBorder:Hide()
-	SearchPanel.AutoCompleteFrame.BottomBorder:Hide()
-	SearchPanel.AutoCompleteFrame.LeftBorder:Hide()
-	SearchPanel.AutoCompleteFrame.RightBorder:Hide()
+	SearchPanel.AutoCompleteFrame:StripTextures()
 
 	local numResults = 1
 	hooksecurefunc("LFGListSearchPanel_UpdateAutoComplete", function(self)
