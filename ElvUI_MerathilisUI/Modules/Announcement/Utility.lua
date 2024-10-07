@@ -36,6 +36,7 @@ local BotList = {
 	[256230] = true,
 	[298926] = true,
 	[324029] = true,
+	[453942] = true,
 }
 
 local FeastList = {
