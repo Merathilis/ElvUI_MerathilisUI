@@ -25,6 +25,7 @@ local DecorAddons = {
 	{ "BugSack", L["BugSack"], "bs" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "Immersion", L["Immersion"], "imm" },
+	{ "MythicDungeonTools", L["Mythic Dungeon Tools"], "mdt" },
 	{ "Myslot", L["Myslot"], "mys" },
 	{ "OmniCD", L["OmniCD"], "omniCD" },
 	{ "Pawn", L["Pawn"], "pawn" },
