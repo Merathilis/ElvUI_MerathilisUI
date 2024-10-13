@@ -110,17 +110,17 @@ module.Features = {
 			if contextData.bnetIDAccount then
 				local numBNOnlineFriend = select(2, BNGetNumFriends())
 				for i = 1, numBNOnlineFriend do
-					local accountInfo = GetFriendAccountInfo(i)
+					local accountInfo = C_BattleNet_GetFriendAccountInfo(i)
 					if
 						accountInfo
 						and accountInfo.bnetAccountID == contextData.bnetIDAccount
 						and accountInfo.gameAccountInfo
 						and accountInfo.gameAccountInfo.isOnline
 					then
-						local numGameAccounts = GetFriendNumGameAccounts(i)
+						local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(i)
 						if numGameAccounts and numGameAccounts > 0 then
 							for j = 1, numGameAccounts do
-								local gameAccountInfo = GetFriendGameAccountInfo(i, j)
+								local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, j)
 								if
 									gameAccountInfo.clientProgram
 									and gameAccountInfo.clientProgram == "WoW"

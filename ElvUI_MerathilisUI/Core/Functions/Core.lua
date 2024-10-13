@@ -664,7 +664,7 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 	local slotData = { gems = {}, gemsColor = {} }
 	function F.GetItemLevel(link, arg1, arg2, fullScan)
 		if fullScan then
-			local data = C_TooltipInfo_GetInventoryItem(arg1, arg2)
+			local data = GetInventoryItem(arg1, arg2)
 			if not data then
 				return
 			end

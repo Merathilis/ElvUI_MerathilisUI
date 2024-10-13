@@ -45,7 +45,7 @@ function module:PLAYER_REGEN_ENABLED()
 	if confirmSummonAfterCombat then
 		confirmSummonAfterCombat = false
 		if self.db and self.db.confirmSummon then
-			C_SummonInfo_ConfirmSummon()
+			ConfirmSummon()
 			StaticPopup_Hide("CONFIRM_SUMMON")
 		end
 	end
