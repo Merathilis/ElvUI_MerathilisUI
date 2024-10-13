@@ -80,9 +80,10 @@ options.autoButtons = {
 						customListSelected1 = value
 					end,
 					values = function()
+						local list = E.db.mui.autoButtons.customList
 						local result = {}
-						for key in pairs(E.db.mui.autoButtons.customList) do
-							async.WithItemID(key, function(item)
+						for key, value in pairs(list) do
+							async.WithItemID(value, function(item)
 								local name = item:GetItemName() or L["Unknown"]
 								local tex = item:GetItemIcon()
 								result[key] = F.GetIconString(tex, 14, 18, true) .. " " .. name
