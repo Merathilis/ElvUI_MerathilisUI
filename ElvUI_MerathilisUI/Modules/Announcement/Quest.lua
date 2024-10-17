@@ -13,6 +13,7 @@ local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
 
 local GetInfo = C_QuestLog.GetInfo
 local GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
+local GetQuestTagInfo = C_QuestLog.GetQuestTagInfo
 
 local lastList
 
@@ -28,6 +29,7 @@ local function GetQuests()
 		local questInfo = GetInfo(questIndex)
 		if questInfo then
 			local skip = questInfo.isHeader or questInfo.isBounty or questInfo.isHidden
+            local tagInfo = GetQuestTagInfo(questInfo.questID)
 
 			if tagInfo and ignoreTagIDs[tagInfo.tagID] then
 				skip = true
