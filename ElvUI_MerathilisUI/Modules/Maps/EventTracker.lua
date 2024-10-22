@@ -993,6 +993,7 @@ local eventData = {
 					[3] = 1724976005, -- EU
 					[4] = 1724976005, -- TW
 					[5] = 1724976005, -- CN
+					[72] = 1724976000,
 				}
 
 				local region = GetCurrentRegion()
@@ -1146,6 +1147,7 @@ local eventData = {
 					[3] = 1723262440, -- EU
 					[4] = 1723266040, -- TW
 					[5] = 1723266040, -- CN
+					[72] = 1675767600,
 				}
 
 				local region = GetCurrentRegion()
@@ -1190,6 +1192,7 @@ local eventData = {
 					[3] = 1679749200, -- EU
 					[4] = 1679747400, -- TW
 					[5] = 1679747400, -- CN
+					[72] = 1675767600,
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -1231,6 +1234,7 @@ local eventData = {
 					[3] = 1670342460, -- EU
 					[4] = 1670698860, -- TW
 					[5] = 1670677260, -- CN
+					[72] = 1670770800, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -1272,6 +1276,7 @@ local eventData = {
 					[3] = 1683804600, -- EU
 					[4] = 1670702400, -- TW
 					[5] = 1670704240, -- CN
+					[72] = 1670702460, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -1313,6 +1318,7 @@ local eventData = {
 					[3] = 1689274800, -- EU
 					[4] = 1701849600, -- TW
 					[5] = 1701824400, -- CN
+					[72] = 1701852315, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -1354,6 +1360,7 @@ local eventData = {
 					[3] = 1699462800, -- EU
 					[4] = 1701824400, -- TW
 					[5] = 1701824400, -- CN
+					[72] = 1701828010, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
@@ -1395,6 +1402,7 @@ local eventData = {
 					[3] = 1705595400, -- EU
 					[4] = 1701826200, -- TW
 					[5] = 1701826200, -- CN
+					[72] = 1701826200, -- TR
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
