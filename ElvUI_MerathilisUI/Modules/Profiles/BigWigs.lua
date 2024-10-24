@@ -13,7 +13,7 @@ function module:LoadBigWigsProfile()
 
 	-- Profile import
 	-- Arg 1: AddOn name, Arg 2: Profile string, Arg 3: Profile name
-	BigWigsAPI:ImportProfileString(MER.Title, ProfileString, ProfileName)
+	BigWigsAPI.RegisterProfile(MER.Title, ProfileString, ProfileName)
 
 	-- No chat print here
 	-- BigWigs will print a message with all important information after the import
