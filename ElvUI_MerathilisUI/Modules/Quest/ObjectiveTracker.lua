@@ -259,7 +259,12 @@ function module:HandleObjectiveLine(line)
 			end
 		end
 
+		line.Text:SetHeight(0) -- force a clear of internals or GetHeight() might return an incorrect value
+
+		local height = line.Text:GetHeight()
+		line.Text:SetHeight(height)
 		line.Text:SetText(rawText)
+		line:SetHeight(height)
 	end
 
 	SetInfoTextColorHook(line.Text)
@@ -362,19 +367,13 @@ function module:ReskinTextInsideBlock(_, block)
 		return
 	end
 
-	local totalHeight = 0
 	if block.HeaderText then
 		self:HandleTitleText(block.HeaderText)
 	end
 
 	for _, line in pairs(block.usedLines or {}) do
-		totalHeight = totalHeight + line:GetHeight()
-
 		self:HandleObjectiveLine(line)
 	end
-
-	local spacing = 2
-	block:SetHeight(totalHeight + spacing)
 end
 
 function module:RefreshAllCosmeticBars()
@@ -390,10 +389,13 @@ function module:ObjectiveTrackerModule_AddBlock(_, block)
 	if block.__MERHooked then
 		return
 	end
+
 	self:ReskinTextInsideBlock(nil, block)
+
 	if block.AddObjective then
 		self:SecureHook(block, "AddObjective", "ObjectiveTrackerBlock_AddObjective")
 	end
+
 	block.__MERHooked = true
 end
 
