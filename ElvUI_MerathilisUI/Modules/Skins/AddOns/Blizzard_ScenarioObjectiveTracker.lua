@@ -82,7 +82,8 @@ local function ScenarioObjectiveTrackerChallengeMode_Activate(block)
 
 	block:CreateBackdrop("Transparent")
 	block.backdrop:ClearAllPoints()
-	block.backdrop:SetInside(block, 6, 2)
+	block.backdrop:SetPoint("TOPLEFT", block.TimerBGBack, 6, -2)
+	block.backdrop:SetPoint("BOTTOMRIGHT", block.TimerBGBack, -6, -5)
 	module:CreateBackdropShadow(block)
 
 	-- Time bar
@@ -90,7 +91,7 @@ local function ScenarioObjectiveTrackerChallengeMode_Activate(block)
 	block.StatusBar.backdrop:SetBackdropBorderColor(0.2, 0.2, 0.2, 0.6)
 	block.StatusBar:SetStatusBarTexture(E.media.normTex)
 	block.StatusBar:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
-	block.StatusBar:SetHeight(12)
+	block.StatusBar:SetHeight(10)
 
 	select(3, block:GetRegions()):Hide()
 

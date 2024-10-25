@@ -106,7 +106,7 @@ function module:Blizzard_ObjectiveTracker()
 
 		self:SecureHook(tracker, "AddBlock", "ReskinObjectiveTrackerBlock")
 		self:SecureHook(tracker, "GetProgressBar", "SkinProgressBar")
-		-- self:SecureHook(tracker, "GetTimerBar", "SkinTimerBar")
+		self:SecureHook(tracker, "GetTimerBar", "SkinTimerBar")
 	end
 end
 

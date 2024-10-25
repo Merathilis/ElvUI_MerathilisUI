@@ -235,6 +235,8 @@ function module:HandleObjectiveLine(line)
 		return
 	end
 
+	line.Text:SetHeight(0) -- force a clear of internals or GetHeight() might return an incorrect value
+
 	if line.objectiveKey == 0 then -- World Quest Title
 		self:HandleTitleText(line.Text)
 		return
@@ -259,18 +261,16 @@ function module:HandleObjectiveLine(line)
 			end
 		end
 
-		line.Text:SetHeight(0) -- force a clear of internals or GetHeight() might return an incorrect value
-
-		local height = line.Text:GetHeight()
-		line.Text:SetHeight(height)
 		line.Text:SetText(rawText)
-		line:SetHeight(height)
 	end
 
 	SetInfoTextColorHook(line.Text)
 
 	self:ColorfulProgression(line.Text)
-	line:SetHeight(line.Text:GetHeight())
+
+	local height = line.Text:GetHeight()
+	line.Text:SetHeight(height)
+	line:SetHeight(height)
 end
 
 function module:ObjectiveTrackerBlock_AddObjective(block)
