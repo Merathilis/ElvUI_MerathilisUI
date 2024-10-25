@@ -1728,10 +1728,10 @@ P.maps = {
 			desaturate = true,
 		},
 		radiantEchoes = {
-			enable = true,
+			enable = false,
 			desaturate = true,
 			alert = false,
-			sound = true,
+			sound = false,
 			soundFile = "OnePlus Surprise",
 			second = 600,
 			stopAlertIfCompleted = true,
