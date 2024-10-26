@@ -265,7 +265,6 @@ function module:HandleObjectiveLine(line)
 	end
 
 	SetInfoTextColorHook(line.Text)
-
 	self:ColorfulProgression(line.Text)
 
 	local height = line.Text:GetHeight()
