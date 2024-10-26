@@ -166,6 +166,7 @@ local hearthstoneAndToyIDList = {
 	172924,
 	198156,
 	221966,
+	228940,
 }
 
 local hearthstonesAndToysData
