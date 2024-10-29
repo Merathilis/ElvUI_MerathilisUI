@@ -77,6 +77,10 @@ function module:API(object)
 		return
 	end
 
+	if type(mt) == "function" then
+		return
+	end
+
 	if not object.CreateStyle then
 		mt.CreateStyle = F.CreateStyle
 	end
