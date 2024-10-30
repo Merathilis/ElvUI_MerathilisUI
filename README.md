@@ -1,6 +1,6 @@
 <div align="center">
 <img src="https://raw.githubusercontent.com/Merathilis/ElvUI_MerathilisUI/development/m4.png"/><br>
-<img src="https://img.shields.io/badge/ElvUI-13.79-blue.svg?longCache=true&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/ElvUI-13.80-blue.svg?longCache=true&style=for-the-badge"/>
 <img src="https://img.shields.io/badge/Version-6.43-orange.svg?longCache=true&style=for-the-badge"/>
 </div>
 
