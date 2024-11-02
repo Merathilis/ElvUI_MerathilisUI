@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local select, unpack = select, unpack
@@ -88,33 +89,15 @@ function module:Blizzard_Collections()
 
 	card.PetInfo.level:SetFontObject(_G.GameFontNormal)
 	card.PetInfo.level:SetTextColor(1, 1, 1)
-
-	card.PetInfo.icon:SetTexCoord(unpack(E.TexCoords))
-	card.PetInfo.icon.bg = module:CreateBG(card.PetInfo.icon)
+	S:HandleIcon(card.PetInfo.icon, true)
+	card.PetInfo.icon.backdrop:SetOutside(card.PetInfo.icon, 2, 2)
+	S:HandleIconBorder(card.PetInfo.qualityBorder, card.PetInfo.icon.backdrop)
 
 	for i = 2, 12 do
 		select(i, card.xpBar:GetRegions()):Hide()
 	end
 
 	module:CreateBDFrame(card.xpBar, 0.25)
-
-	for i = 1, 6 do
-		local bu = card["spell" .. i]
-		module:ReskinIcon(bu.icon)
-	end
-
-	hooksecurefunc("PetJournal_UpdatePetCard", function(self)
-		local border = self.PetInfo.qualityBorder
-		local r, g, b
-
-		if border:IsShown() then
-			r, g, b = self.PetInfo.qualityBorder:GetVertexColor()
-		else
-			r, g, b = 0, 0, 0
-		end
-
-		self.PetInfo.icon.bg:SetVertexColor(r, g, b)
-	end)
 
 	-- Pet loadout
 	for i = 1, 3 do
