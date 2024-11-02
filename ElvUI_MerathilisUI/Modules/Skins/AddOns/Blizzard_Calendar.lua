@@ -23,8 +23,16 @@ function module:Blizzard_Calendar()
 
 	for index in next, _G.CLASS_SORT_ORDER do
 		local button = _G["CalendarClassButton" .. index]
+
 		if button then
-			module:CreateShadow(button)
+			if not button.backdrop then
+				button:CreateBackdrop()
+			end
+			self:CreateBackdropShadow(button)
+		end
+
+		if index == 1 then
+			F.MoveFrameWithOffset(button, 10, -5)
 		end
 	end
 
