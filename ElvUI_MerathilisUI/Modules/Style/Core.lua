@@ -40,10 +40,7 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 	local parent = frame:GetParent()
 
 	if parent then
-		if
-			parent.IsObjectType
-			and (parent:IsObjectType("Texture") or parent:IsObjectType("Statusbar") or parent:IsObjectType("EditBox"))
-		then
+		if parent.IsObjectType and (parent:IsObjectType("Texture") or parent:IsObjectType("Statusbar")) then
 			isStatusBar = true
 		elseif E.statusBars[parent] ~= nil then
 			isStatusBar = true
@@ -57,7 +54,11 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 		and not isNamePlateElement
 		and not isStatusBar
 
-	if (skinForTransparent or skinForTexture or skinForUnitFrame) and (self.db and self.db.enable) then
+	if (skinForTransparent or skinForTexture) and (self.db and self.db.enable) then
+		if frame.Center ~= nil then
+			frame.Center:SetDrawLayer("BACKGROUND", -7)
+		end
+
 		if not frame.CreateStyle then
 			return F.Developer.LogDebug("API functions not found!", "MERCreateStyle", not frame.CreateStyle)
 		end
@@ -107,6 +108,8 @@ function module:ForceRefresh()
 end
 
 function module:MetatableScan()
+	self.MERStyle = {}
+
 	local handled = {
 		Frame = true,
 		Button = true,
@@ -138,6 +141,8 @@ function module:Disable()
 	end
 
 	self.isEnabled = false
+
+	self.MERStyle = {}
 
 	if self.Initialized and self.db and not self.db.enable then
 		self:ForceRefresh()
