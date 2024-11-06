@@ -132,6 +132,11 @@ local function UpdateBlock(block)
 						frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
 					end
 				end)
+				hooksecurefunc(timeBar, "SetWidth", function(frame, width)
+					if width ~= 200 then
+						frame:SetWidth(200)
+					end
+				end)
 				timeBar:CreateBackdrop("Transparent")
 				timeBar.__MERSkin = true
 			end

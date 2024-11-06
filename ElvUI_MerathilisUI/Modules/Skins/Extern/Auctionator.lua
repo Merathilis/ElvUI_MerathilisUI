@@ -427,7 +427,11 @@ local function tryPostHook(...)
 end
 
 function module:Auctionator()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.au then
+	if
+		not E.private.skins.blizzard.auctionhouse
+		or not E.private.mui.skins.addonSkins.enable
+		or not E.private.mui.skins.addonSkins.au
+	then
 		return
 	end
 
