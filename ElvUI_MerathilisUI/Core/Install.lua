@@ -317,8 +317,8 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["clusterDisable"] = false
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
 	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.75
-	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
-	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 45
+	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = -3
+	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 48
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "BOTTOMLEFT"
 	E.db["general"]["minimap"]["icons"]["mail"]["texture"] = "Mail2"
 	E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"
