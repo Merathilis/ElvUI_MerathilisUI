@@ -21,8 +21,12 @@ end
 
 function module:OmniCD_Party_Icon()
 	local O = _G.OmniCD[1]
-	hooksecurefunc(O.Party, "SetBorder", function(_, icon)
-		module:CreateShadow(icon)
+	hooksecurefunc(O.Party, "AcquireIcon", function(_, barFrame, iconIndex, unitBar)
+		local icon = barFrame.icons[iconIndex]
+		if icon and not icon.__MERSkin then
+			self:CreateShadow(icon)
+			icon.__MERSkin = true
+		end
 	end)
 end
 
@@ -30,19 +34,19 @@ function module:OmniCD_Party_ExtraBars()
 	local O = _G.OmniCD[1]
 	local colorDB = E.db.mui.gradient
 
-	hooksecurefunc(O.Party, "GetStatusBar", function(_, icon)
+	hooksecurefunc(O.Party, "AcquireStatusBar", function(_, icon)
 		if icon.statusBar then
-			if not icon.statusBar.__MER then
-				icon.statusBar.__MER = CreateFrame("Frame", nil, icon.statusBar)
-				icon.statusBar.__MER:SetFrameLevel(icon.statusBar:GetFrameLevel() - 1)
+			if not icon.statusBar.__MERSkin then
+				icon.statusBar.__MERSkin = CreateFrame("Frame", nil, icon.statusBar)
+				icon.statusBar.__MERSkin:SetFrameLevel(icon.statusBar:GetFrameLevel() - 1)
 			end
 
-			local x, _ = icon:GetSize()
+			local x = icon:GetSize()
 
-			icon.statusBar.__MER:ClearAllPoints()
-			icon.statusBar.__MER:SetPoint("TOPLEFT", icon.statusBar, "TOPLEFT", -x - 1, 0)
-			icon.statusBar.__MER:SetPoint("BOTTOMRIGHT", icon.statusBar, "BOTTOMRIGHT", 0, 0)
-			module:CreateShadow(icon.statusBar.__MER)
+			icon.statusBar.__MERSkin:ClearAllPoints()
+			icon.statusBar.__MERSkin:SetPoint("TOPLEFT", icon.statusBar, "TOPLEFT", -x - 1, 0)
+			icon.statusBar.__MERSkin:SetPoint("BOTTOMRIGHT", icon.statusBar, "BOTTOMRIGHT", 0, 0)
+			module:CreateShadow(icon.statusBar.__MERSkin)
 
 			if icon.statusBar.CastingBar then
 				S:HandleStatusBar(icon.statusBar.CastingBar)
