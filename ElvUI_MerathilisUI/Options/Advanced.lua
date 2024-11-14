@@ -93,5 +93,19 @@ options.gameFix = {
 			end,
 			width = "full",
 		},
+		guildNews = {
+			order = 1,
+			type = "toggle",
+			name = L["Guild News"],
+			desc = L["This will fix the current Guild News jam."],
+			get = function(info)
+				return E.global.mui.core.guildNews
+			end,
+			set = function(info, value)
+				E.global.mui.core.guildNews = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			width = "full",
+		},
 	},
 }

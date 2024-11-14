@@ -3,6 +3,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 G.core = {
 	compatibilityCheck = true,
 	cvarAlert = false,
+	guildNews = true,
 	logLevel = 2,
 	loginMsg = true,
 }

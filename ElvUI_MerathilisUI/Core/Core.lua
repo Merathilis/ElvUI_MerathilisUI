@@ -196,6 +196,26 @@ function MER:FixGame()
 			end
 		end)
 	end
+
+	if E.global.mui.core.guildNews then
+		do
+			local lastTime, timeGap = 0, 1.5
+			local function updateGuildNews(self, event)
+				if event == "PLAYER_ENTERING_WORLD" then
+					QueryGuildNews()
+				else
+					if self:IsVisible() then
+						local nowTime = GetTime()
+						if nowTime - lastTime > timeGap then
+							CommunitiesGuildNews_Update(self)
+							lastTime = nowTime
+						end
+					end
+				end
+			end
+			_G.CommunitiesFrameGuildDetailsFrameNews:SetScript("OnEvent", updateGuildNews)
+		end
+	end
 end
 
 MER.SpecializationInfo = {}
