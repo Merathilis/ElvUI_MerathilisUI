@@ -198,23 +198,28 @@ function MER:FixGame()
 	end
 
 	if E.global.mui.core.guildNews then
-		do
-			local lastTime, timeGap = 0, 1.5
-			local function updateGuildNews(self, event)
-				if event == "PLAYER_ENTERING_WORLD" then
-					QueryGuildNews()
+		-- https://nga.178.com/read.php?tid=42399961
+		local BLZCommunitiesGuildNewsFrame_OnEvent = CommunitiesGuildNewsFrame_OnEvent
+		local newsRequireUpdate, newsTimer
+		_G.CommunitiesFrameGuildDetailsFrameNews:SetScript("OnEvent", function(frame, event)
+			if event == "GUILD_NEWS_UPDATE" then
+				if newsTimer then
+					newsRequireUpdate = true
 				else
-					if self:IsVisible() then
-						local nowTime = GetTime()
-						if nowTime - lastTime > timeGap then
-							CommunitiesGuildNews_Update(self)
-							lastTime = nowTime
+					BLZCommunitiesGuildNewsFrame_OnEvent(frame, event)
+
+					-- After 1 second, if guild news still need to be updated, update again
+					newsTimer = C_Timer.NewTimer(1, function()
+						if newsRequireUpdate then
+							BLZCommunitiesGuildNewsFrame_OnEvent(frame, event)
 						end
-					end
+						newsTimer = nil
+					end)
 				end
+			else
+				BLZCommunitiesGuildNewsFrame_OnEvent(frame, event)
 			end
-			_G.CommunitiesFrameGuildDetailsFrameNews:SetScript("OnEvent", updateGuildNews)
-		end
+		end)
 	end
 end
 
