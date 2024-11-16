@@ -63,7 +63,7 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 }
 
 E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
-	text = format(L["Welcome to %s %s!"], MER.Title, MER.Version),
+	text = format(L["Welcome to %s %s!"], MER.Title, MER.DisplayVersion),
 	button1 = L["Open Changelog"],
 	button2 = CANCEL,
 	OnAccept = function()

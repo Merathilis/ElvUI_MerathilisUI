@@ -253,6 +253,8 @@ function module:WaypointParse()
 		eb:ClearFocus()
 	end)
 
+	module.WorldMapInput = editBox
+
 	editBox:SetPoint("TOPLEFT", _G.WorldMapFrame, "TOPLEFT", 3, -8)
 	editBox:SetAutoFocus(false)
 
