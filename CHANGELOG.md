@@ -1,7 +1,5 @@
 ### Changes ###
 
-  * [Announcement]: Fixed an undefined local function. Thx @DakJaniels
-  * [BigWigs]: Use new API to register a Profile
-  * [Event Tracker]: Disable the Radient Echo Event by default
-  * [OmniCD]: Fix latest changes to it
-  * [Skins]: Various tweaks
+  * [Guild]: Added a workauround to let the guild message not spam around
+  * [OmniCD]: Sync some borders with the skin
+  * [Changelog]: Let the changelog show the display version
