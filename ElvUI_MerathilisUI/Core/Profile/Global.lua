@@ -4,6 +4,7 @@ G.core = {
 	compatibilityCheck = true,
 	cvarAlert = false,
 	guildNews = true,
+	advancedCLEU_Etrace = false,
 	logLevel = 2,
 	loginMsg = true,
 }

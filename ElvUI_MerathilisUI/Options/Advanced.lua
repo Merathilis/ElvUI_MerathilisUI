@@ -94,7 +94,7 @@ options.gameFix = {
 			width = "full",
 		},
 		guildNews = {
-			order = 1,
+			order = 2,
 			type = "toggle",
 			name = L["Guild News"],
 			desc = L["This will fix the current Guild News jam."],
@@ -103,6 +103,20 @@ options.gameFix = {
 			end,
 			set = function(info, value)
 				E.global.mui.core.guildNews = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			width = "full",
+		},
+		advancedCLEU_Etrace = {
+			order = 3,
+			type = "toggle",
+			name = L["Advanced CLEU Etrace"],
+			desc = L["Enhanced Combat Log Events in /etrace frame."],
+			get = function(info)
+				return E.global.mui.core.advancedCLEU_Etrace
+			end,
+			set = function(info, value)
+				E.global.mui.core.advancedCLEU_Etrace = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			width = "full",
