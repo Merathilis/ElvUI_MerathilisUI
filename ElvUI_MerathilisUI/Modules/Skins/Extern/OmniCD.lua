@@ -21,6 +21,11 @@ end
 
 function module:OmniCD_Party_Icon()
 	local O = _G.OmniCD[1]
+
+	if not O.Party or not O.Party.AcquireIcon then
+		return
+	end
+
 	hooksecurefunc(O.Party, "AcquireIcon", function(_, barFrame, iconIndex, unitBar)
 		local icon = barFrame.icons[iconIndex]
 		if icon and not icon.__MERSkin then
@@ -42,6 +47,10 @@ end
 function module:OmniCD_Party_ExtraBars()
 	local O = _G.OmniCD[1]
 	local colorDB = E.db.mui.gradient
+
+	if not O.Party or not O.Party.AcquireStatusBar then
+		return
+	end
 
 	hooksecurefunc(O.Party, "AcquireStatusBar", function(_, icon)
 		if icon.statusBar then
