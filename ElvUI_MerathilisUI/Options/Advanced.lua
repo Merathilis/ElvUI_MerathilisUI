@@ -107,16 +107,16 @@ options.gameFix = {
 			end,
 			width = "full",
 		},
-		advancedCLEU_Etrace = {
+		advancedCLEUEventTrace = {
 			order = 3,
 			type = "toggle",
 			name = L["Advanced CLEU Etrace"],
 			desc = L["Enhanced Combat Log Events in /etrace frame."],
 			get = function(info)
-				return E.global.mui.core.advancedCLEU_Etrace
+				return E.global.mui.core.advancedCLEUEventTrace
 			end,
 			set = function(info, value)
-				E.global.mui.core.advancedCLEU_Etrace = value
+				E.global.mui.core.advancedCLEUEventTrace = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			width = "full",

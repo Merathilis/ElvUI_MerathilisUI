@@ -6,12 +6,16 @@ local pairs, select = pairs, select
 local pcall = pcall
 local tinsert = table.insert
 
+local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
+local GetCurrentCombatTextEventInfo = GetCurrentCombatTextEventInfo
 local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown
 local GetCVarBool = C_CVar.GetCVarBool
 local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
+
+local C_Timer_NewTimer = C_Timer.NewTimer
 
 MER.dummy = function()
 	return
@@ -199,30 +203,29 @@ function MER:FixGame()
 
 	if E.global.mui.core.guildNews then
 		-- https://nga.178.com/read.php?tid=42399961
-		local BLZCommunitiesGuildNewsFrame_OnEvent = CommunitiesGuildNewsFrame_OnEvent
 		local newsRequireUpdate, newsTimer
 		_G.CommunitiesFrameGuildDetailsFrameNews:SetScript("OnEvent", function(frame, event)
 			if event == "GUILD_NEWS_UPDATE" then
 				if newsTimer then
 					newsRequireUpdate = true
 				else
-					BLZCommunitiesGuildNewsFrame_OnEvent(frame, event)
+					_G.CommunitiesGuildNewsFrame_OnEvent(frame, event)
 
 					-- After 1 second, if guild news still need to be updated, update again
-					newsTimer = C_Timer.NewTimer(1, function()
+					newsTimer = C_Timer_NewTimer(1, function()
 						if newsRequireUpdate then
-							BLZCommunitiesGuildNewsFrame_OnEvent(frame, event)
+							_G.CommunitiesGuildNewsFrame_OnEvent(frame, event)
 						end
 						newsTimer = nil
 					end)
 				end
 			else
-				BLZCommunitiesGuildNewsFrame_OnEvent(frame, event)
+				_G.CommunitiesGuildNewsFrame_OnEvent(frame, event)
 			end
 		end)
 	end
 
-	if E.global.mui.core.advancedCLEU_Etrace then
+	if E.global.mui.core.advancedCLEUEventTrace then
 		local function LogEvent(self, event, ...)
 			if event == "COMBAT_LOG_EVENT_UNFILTERED" or event == "COMBAT_LOG_EVENT" then
 				self:LogEvent_Original(event, CombatLogGetCurrentEventInfo())
