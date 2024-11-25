@@ -35,6 +35,7 @@ local DecorAddons = {
 	{ "SimpleAddonManager", L["Simple Addon Manager"], "sam" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
 	{ "TLDRMissions", L["TLDRMissions"], "tldr" },
+	{ "TomTom", L["TomTom"], "tom" },
 }
 if F.IsDeveloper() then
 	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "wa" })

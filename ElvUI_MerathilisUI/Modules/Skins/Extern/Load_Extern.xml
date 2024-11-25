@@ -24,6 +24,7 @@
 	<Script file="RaiderIO.lua"/>
 	<Script file="SimpleAddonManager.lua"/>
 	<Script file="stAddOnManager.lua"/>
+	<Script file="TomTom.lua"/>
 	<Script file="WeakAuras.lua"/>
 	<Script file="WeakAurasOptions.lua"/>
 </Ui>
