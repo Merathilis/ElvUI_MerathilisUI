@@ -38,6 +38,13 @@ function module:Blizzard_PerksProgram()
 		module:CreateBackdropShadow(footer.RotateButtonContainer.RotateLeftButton)
 		module:CreateBackdropShadow(footer.RotateButtonContainer.RotateRightButton)
 
+		hooksecurefunc(GlowEmitterFactory, "Show", function(frame, target, show)
+			local button = footer.PurchaseButton
+			if button and target == button and show then
+				frame:Hide(target)
+			end
+		end)
+
 		module:CreateBackdropShadow(footer.LeaveButton)
 		module:CreateBackdropShadow(footer.PurchaseButton)
 		module:CreateBackdropShadow(footer.RefundButton)
