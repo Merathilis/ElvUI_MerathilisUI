@@ -1477,9 +1477,9 @@ function CT:ChatFrame_MessageEventHandler(
 				message = format(globalstring, arg2)
 			elseif arg1 == "FRIEND_ONLINE" or arg1 == "FRIEND_OFFLINE" then
 				local accountInfo = GetAccountInfoByID(arg13)
-				local gameInfo = accountInfo.gameAccountInfo
+				local gameInfo = accountInfo and accountInfo.gameAccountInfo
 
-				if gameInfo.clientProgram and gameInfo.clientProgram ~= "" then
+				if gameInfo and gameInfo.clientProgram and gameInfo.clientProgram ~= "" then
 					if GetTitleIconTexture then
 						GetTitleIconTexture(gameInfo.clientProgram, TitleIconVersion_Small, function(success, texture)
 							if success then

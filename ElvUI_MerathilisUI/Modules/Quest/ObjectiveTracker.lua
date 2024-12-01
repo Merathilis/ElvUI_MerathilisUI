@@ -111,6 +111,7 @@ end
 
 function module:CosmeticBar(header)
 	local bar = header.MERCosmeticBar
+	self.db = E.private.mui.quest.objectiveTracker
 
 	if not self.db.cosmeticBar.enable then
 		if bar then
