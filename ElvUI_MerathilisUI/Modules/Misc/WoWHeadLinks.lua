@@ -10,38 +10,38 @@ local Menu = _G.Menu
 -- Get localised Wowhead URL
 local linkQuest, linkAchievement
 if E.locale == "deDE" then
-	linkQuest = "http://de.wowhead.com/quest=%d#comments"
-	linkAchievement = "http://de.wowhead.com/achievement=%d#comments"
+	linkQuest = "http://de.wowhead.com/quest=%d#english-comments"
+	linkAchievement = "http://de.wowhead.com/achievement=%d#english-comments"
 elseif E.locale == "esMX" then
-	linkQuest = "http://es.wowhead.com/quest=%d#comments"
-	linkAchievement = "http://es.wowhead.com/achievement=%d#comments"
+	linkQuest = "http://es.wowhead.com/quest=%d#english-comments"
+	linkAchievement = "http://es.wowhead.com/achievement=%d#english-comments"
 elseif E.locale == "esES" then
-	linkQuest = "http://es.wowhead.com/quest=%d#comments"
-	linkAchievement = "http://es.wowhead.com/achievement=%d#comments"
+	linkQuest = "http://es.wowhead.com/quest=%d#english-comments"
+	linkAchievement = "http://es.wowhead.com/achievement=%d#english-comments"
 elseif E.locale == "frFR" then
-	linkQuest = "http://fr.wowhead.com/quest=%d#comments"
-	linkAchievement = "http://fr.wowhead.com/achievement=%d#comments"
+	linkQuest = "http://fr.wowhead.com/quest=%d#english-comments"
+	linkAchievement = "http://fr.wowhead.com/achievement=%d#english-comments"
 elseif E.locale == "itIT" then
-	linkQuest = "http://it.wowhead.com/quest=%d#comments"
-	linkAchievement = "http://it.wowhead.com/achievement=%d#comments"
+	linkQuest = "http://it.wowhead.com/quest=%d#english-comments"
+	linkAchievement = "http://it.wowhead.com/achievement=%d#english-comments"
 elseif E.locale == "ptBR" then
-	linkQuest = "http://pt.wowhead.com/quest=%d#comments"
-	linkAchievement = "http://pt.wowhead.com/achievement=%d#comments"
+	linkQuest = "http://pt.wowhead.com/quest=%d#english-comments"
+	linkAchievement = "http://pt.wowhead.com/achievement=%d#english-comments"
 elseif E.locale == "ruRU" then
-	linkQuest = "http://ru.wowhead.com/quest=%d#comments"
-	linkAchievement = "http://ru.wowhead.com/achievement=%d#comments"
+	linkQuest = "http://ru.wowhead.com/quest=%d#english-comments"
+	linkAchievement = "http://ru.wowhead.com/achievement=%d#english-comments"
 elseif E.locale == "koKR" then
-	linkQuest = "http://ko.wowhead.com/quest=%d#comments"
-	linkAchievement = "http://ko.wowhead.com/achievement=%d#comments"
+	linkQuest = "http://ko.wowhead.com/quest=%d#english-comments"
+	linkAchievement = "http://ko.wowhead.com/achievement=%d#english-comments"
 elseif E.locale == "zhCN" then
-	linkQuest = "http://cn.wowhead.com/quest=%d#comments"
-	linkAchievement = "http://cn.wowhead.com/achievement=%d#comments"
+	linkQuest = "http://cn.wowhead.com/quest=%d#english-comments"
+	linkAchievement = "http://cn.wowhead.com/achievement=%d#english-comments"
 elseif E.locale == "zhTW" then
-	linkQuest = "http://cn.wowhead.com/quest=%d#comments"
-	linkAchievement = "http://cn.wowhead.com/achievement=%d#comments"
+	linkQuest = "http://cn.wowhead.com/quest=%d#english-comments"
+	linkAchievement = "http://cn.wowhead.com/achievement=%d#english-comments"
 else
-	linkQuest = "http://www.wowhead.com/quest=%d#comments"
-	linkAchievement = "http://www.wowhead.com/achievement=%d#comments"
+	linkQuest = "http://www.wowhead.com/quest=%d#english-commentss"
+	linkAchievement = "http://www.wowhead.com/achievement=%d#english-comments"
 end
 
 local selfText
