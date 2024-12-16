@@ -2,14 +2,20 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = MER:GetModule("MER_Skins")
 
 -- Credits: FreeUI (andromeda)
-local GetSpellTexture = C_Spell.GetSpellTexture
-
 local keyFeedback = CreateFrame("Frame", MER.Title .. "KeyFeedback", E.UIParent)
 keyFeedback:SetScript("OnEvent", function(self, event, ...)
 	return self[event](self, event, ...)
 end)
 
 keyFeedback:RegisterEvent("PLAYER_LOGIN")
+keyFeedback:RegisterEvent("PLAYER_LOGOUT")
+
+local getSpellInfo = function(spellId)
+	local info = C_Spell.GetSpellInfo(spellId)
+	if info then
+		return info.name, nil, info.iconID
+	end
+end
 
 function keyFeedback:PLAYER_LOGIN()
 	if not E.db.mui.actionbars.keyfeedback then
@@ -30,8 +36,8 @@ function keyFeedback:PLAYER_LOGIN()
 		self:HookDefaultBindings()
 	end
 
-	local GetActionSpellID = function(action)
-		local actionType, id, subType = GetActionInfo(action)
+	local getActionSpellID = function(action)
+		local actionType, id = GetActionInfo(action)
 		if actionType == "spell" then
 			return id
 		elseif actionType == "macro" then
@@ -71,7 +77,7 @@ function keyFeedback:PLAYER_LOGIN()
 		if
 			keyFeedback.db.enableCast
 			and self.castSpellID
-			and self.castSpellID == GetActionSpellID(action)
+			and self.castSpellID == getActionSpellID(action)
 			and castDuration > cooldownDuration
 		then
 			cooldownFrame:SetDrawEdge(true)
@@ -112,7 +118,6 @@ function keyFeedback.UNIT_SPELLCAST_START(self, _, unit, _, spellID)
 end
 
 keyFeedback.UNIT_SPELLCAST_DELAYED = keyFeedback.UNIT_SPELLCAST_START
-
 function keyFeedback.UNIT_SPELLCAST_CHANNEL_START(self, _, unit, _, spellID)
 	local _, _, _, startTime, endTime, _, castID, _ = UnitChannelInfo(unit)
 	local mirror = self.mirror
@@ -127,7 +132,6 @@ function keyFeedback.UNIT_SPELLCAST_CHANNEL_START(self, _, unit, _, spellID)
 end
 
 keyFeedback.UNIT_SPELLCAST_CHANNEL_UPDATE = keyFeedback.UNIT_SPELLCAST_CHANNEL_START
-
 function keyFeedback.UNIT_SPELLCAST_STOP(self, _, _, _, _)
 	local mirror = self.mirror
 	mirror.castSpellID = nil
@@ -148,7 +152,7 @@ function keyFeedback:SPELL_UPDATE_COOLDOWN()
 	self.mirror:UpdateAction(true)
 end
 
-local MirrorActionButtonDown = function(action)
+local function mirrorActionButtonDown(action)
 	if not HasAction(action) then
 		return
 	end
@@ -183,7 +187,7 @@ local MirrorActionButtonDown = function(action)
 	end
 end
 
-local MirrorActionButtonUp = function()
+local function mirrorActionButtonUp(action)
 	local mirror = keyFeedback.mirror
 
 	if mirror:GetButtonState() == "PUSHED" then
@@ -196,24 +200,24 @@ function keyFeedback:HookDefaultBindings()
 	hooksecurefunc("ActionButtonDown", function(id)
 		local button = GetActionButtonForID(id)
 		if button then
-			return MirrorActionButtonDown(button.action)
+			return mirrorActionButtonDown(button.action)
 		end
 	end)
-	hooksecurefunc("ActionButtonUp", MirrorActionButtonUp)
+	hooksecurefunc("ActionButtonUp", mirrorActionButtonUp)
 	hooksecurefunc("MultiActionButtonDown", function(bar, id)
 		local button = _G[bar .. "Button" .. id]
-		return MirrorActionButtonDown(button.action)
+		return mirrorActionButtonDown(button.action)
 	end)
-	hooksecurefunc("MultiActionButtonUp", MirrorActionButtonUp)
+	hooksecurefunc("MultiActionButtonUp", mirrorActionButtonUp)
 end
 
 function keyFeedback:HookUseAction()
 	hooksecurefunc("UseAction", function(action)
-		return MirrorActionButtonDown(action)
+		return mirrorActionButtonDown(action)
 	end)
 end
 
-function keyFeedback:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellID)
+function keyFeedback:UNIT_SPELLCAST_SUCCEEDED(event, unit, lineID, spellID)
 	if IsPlayerSpell(spellID) then
 		if spellID == 75 then
 			return
@@ -221,7 +225,7 @@ function keyFeedback:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellID)
 
 		if self.db.enableCastLine then
 			local frame = self.iconPool:Acquire()
-			local texture = GetSpellTexture(spellID)
+			local texture = select(3, getSpellInfo(spellID))
 			frame.icon:SetTexture(texture)
 			frame.icon:SetTexCoord(unpack(E.TexCoords))
 			frame:Show()
@@ -251,7 +255,7 @@ function keyFeedback:RefreshSettings()
 
 		local pool = self.iconPool
 		pool:ReleaseAll()
-		for _, f in pool:EnumerateInactive() do
+		for _, f in ipairs(pool.inactiveObjects) do
 			-- f:SetHeight(db.lineIconSize)
 			-- f:SetWidth(db.lineIconSize)
 			pool:resetterFunc(f)
@@ -291,20 +295,21 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 	local mirror = CreateFrame("Button", MER.Title .. "KeyFeedbackMirror", self, "ActionButtonTemplate")
 	mirror:SetHeight(db.mirrorSize or 32)
 	mirror:SetWidth(db.mirrorSize or 32)
-	mirror.NormalTexture:ClearAllPoints()
 
-	local bg = S:CreateBDFrame(mirror)
-	bg:SetBackdropBorderColor(0, 0, 0, 1)
-	S:CreateShadow(bg)
-
+	if mirror.SetNormalTexture then
+		mirror:SetNormalTexture(0)
+	end
 	if mirror.SetPushedTexture then
 		mirror:SetPushedTexture(0)
 	end
 
 	mirror.cooldown:SetEdgeTexture("Interface\\Cooldown\\edge")
-	mirror.cooldown:SetSwipeColor(0, 0, 0)
-	mirror.cooldown:SetHideCountdownNumbers(false)
-	mirror.cooldown:SetAllPoints(mirror)
+	mirror.cooldown:SetSwipeColor(0, 0, 0, 0)
+	mirror.cooldown:SetHideCountdownNumbers(true)
+
+	local bg = S:CreateBDFrame(mirror)
+	bg:SetBackdropBorderColor(0, 0, 0, 1)
+	S:CreateShadow(bg)
 
 	mirror:Show()
 	mirror._elapsed = 0
@@ -322,12 +327,6 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 
 	local ag = glow:CreateAnimationGroup()
 	glow.blink = ag
-
-	-- local a1 = ag:CreateAnimation("Alpha")
-	-- a1:SetFromAlpha(0)
-	-- a1:SetToAlpha(1)
-	-- a1:SetDuration(0.14)
-	-- a1:SetOrder(1)
 
 	local a2 = ag:CreateAnimation("Alpha")
 	a2:SetFromAlpha(1)
@@ -426,7 +425,7 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 	return mirror
 end
 
-local PoolIconCreationFunc = function(pool)
+local function createPoolIcon(pool)
 	local db = keyFeedback.db
 
 	local hdr = pool.parent
@@ -506,7 +505,7 @@ local PoolIconCreationFunc = function(pool)
 	return f
 end
 
-local function PoolIconResetterFunc(pool, f)
+local function resetPoolIcon(pool, f)
 	local db = keyFeedback.db
 
 	f:SetHeight(db.lineIconSize)
@@ -547,12 +546,70 @@ local function PoolIconResetterFunc(pool, f)
 	f:SetPoint(scaleOrigin, parent, revOrigin, 0, 0)
 end
 
+local framePool = {
+	-- creationFunc = function(self)
+	--     return self.parent:CreateMaskTexture()
+	-- end,
+	-- resetterFunc = function(self, mask)
+	--     mask:Hide()
+	--     mask:ClearAllPoints()
+	-- end,
+	AddObject = function(self, object)
+		local dummy = true
+		self.activeObjects[object] = dummy
+		self.activeObjectCount = self.activeObjectCount + 1
+	end,
+	ReclaimObject = function(self, object)
+		tinsert(self.inactiveObjects, object)
+		self.activeObjects[object] = nil
+		self.activeObjectCount = self.activeObjectCount - 1
+	end,
+	Release = function(self, object)
+		local active = self.activeObjects[object] ~= nil
+		if active then
+			self:resetterFunc(object)
+			self:ReclaimObject(object)
+		end
+		return active
+	end,
+	Acquire = function(self)
+		local object = tremove(self.inactiveObjects)
+		local new = object == nil
+		if new then
+			object = self:creationFunc()
+			self:resetterFunc(object, new)
+		end
+		self:AddObject(object)
+		return object, new
+	end,
+	ReleaseAll = function(self)
+		for obj in pairs(self.activeObjects) do
+			self:Release(obj)
+		end
+	end,
+	Init = function(self, parent)
+		self.activeObjects = {}
+		self.inactiveObjects = {}
+		self.activeObjectCount = 0
+		self.parent = parent
+	end,
+}
+local function createFramePool(frameType, parent, frameTemplate, resetterFunc, frameInitFunc)
+	local self = setmetatable({}, { __index = framePool })
+	self:Init(parent)
+	self.frameType = frameType
+	-- self.parent = parent
+	self.frameTemplate = frameTemplate
+
+	return self
+end
+
 function keyFeedback:CreateLastSpellIconLine(parent)
 	local template = nil
-	local resetterFunc = PoolIconResetterFunc
-	local iconPool = CreateFramePool("Frame", parent, template, resetterFunc)
-	iconPool.creationFunc = PoolIconCreationFunc
-	iconPool.resetterFunc = PoolIconResetterFunc
+	local resetterFunc = resetPoolIcon
+	local iconPool = createFramePool("Frame", parent, template, resetterFunc)
+	iconPool.creationFunc = createPoolIcon
+	iconPool.resetterFunc = resetPoolIcon
 	iconPool.idCounter = 1
 
 	return iconPool
