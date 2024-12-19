@@ -73,7 +73,7 @@ function module:ShowLeaderOverallScore(self)
 	local resultID = self.resultID
 	local searchResultInfo = resultID and GetSearchResultInfo(resultID)
 	if searchResultInfo then
-		local activityInfo = GetActivityInfoTable(searchResultInfo.activityID, nil, searchResultInfo.isWarMode)
+		local activityInfo = GetActivityInfoTable(searchResultInfo.activityIDs[1])
 		if activityInfo then
 			local showScore = activityInfo.isMythicPlusActivity and searchResultInfo.leaderOverallDungeonScore
 				or activityInfo.isRatedPvpActivity
