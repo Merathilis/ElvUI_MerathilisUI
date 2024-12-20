@@ -1077,9 +1077,11 @@ local openableItems = {
 	229006,
 	229129,
 	229130,
+	232372,
 	232471,
 	232472,
 	232473,
+	235548,
 }
 
 local professionItems = {
@@ -1382,8 +1384,10 @@ local seeds = {
 }
 
 local holidayRewards = {
+	17726,
 	54536,
 	54537,
+	116762,
 	117392,
 	117393,
 	117394,
