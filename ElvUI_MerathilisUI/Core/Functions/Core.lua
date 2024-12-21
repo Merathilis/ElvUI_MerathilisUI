@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = MER:GetModule("MER_Skins")
+local ES = E:GetModule("Skins")
 local LSM = E.LSM
 
 local _G = _G
@@ -1629,4 +1630,32 @@ function F.MoveFrameWithOffset(frame, x, y)
 		local point, relativeTo, relativePoint, xOfs, yOfs = unpack(data)
 		frame:SetPoint(point, relativeTo, relativePoint, xOfs + x, yOfs + y)
 	end
+end
+
+function F:ReskinNavBar(bar)
+	if bar.navBarStyled then
+		return
+	end
+
+	local homeButton = bar.homeButton
+	local overflowButton = bar.overflowButton
+
+	bar:GetRegions():Hide()
+	bar:DisableDrawLayer("BORDER")
+	bar.overlay:Hide()
+	homeButton:GetRegions():Hide()
+	ES:HandleButton(homeButton)
+	ES:HandleButton(overflowButton, true)
+
+	local tex = overflowButton:CreateTexture(nil, "ARTWORK")
+	tex:Size(14)
+	tex:Point("CENTER")
+	tex:SetTexture(E.Media.Textures.ArrowUp)
+	-- tex:SetRotation(S.ArrowRotation.down)
+	overflowButton.__texture = tex
+
+	overflowButton:HookScript("OnEnter", F.Texture_OnEnter)
+	overflowButton:HookScript("OnLeave", F.Texture_OnLeave)
+
+	bar.navBarStyled = true
 end

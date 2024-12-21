@@ -25,6 +25,7 @@
 	<Script file="MailFrame.lua"/>
 	<Script file="MerchantFrame.lua"/>
 	<Script file="MirrorTimers.lua"/>
+	<Script file="NavigationBar.lua"/>
 	<Script file="PaperDollFrame.lua"/>
 	<Script file="PVEFrame.lua"/>
 	<Script file="QuestFrame.lua"/>
