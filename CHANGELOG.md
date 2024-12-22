@@ -1,4 +1,5 @@
 ### Changes ###
 
-  * [Group Info]: C_LFGList.GetActivityInfoTable got changed with 11.0.7
-
+  * [World Map]: Updated the Navigation Bar look on the top
+  * [World Map]: Updated the Map Reveal Data
+  * [AutoButtons]: Add more reward boxes
