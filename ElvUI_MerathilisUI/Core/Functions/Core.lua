@@ -1643,19 +1643,24 @@ function F:ReskinNavBar(bar)
 	bar:GetRegions():Hide()
 	bar:DisableDrawLayer("BORDER")
 	bar.overlay:Hide()
-	homeButton:GetRegions():Hide()
-	ES:HandleButton(homeButton)
-	ES:HandleButton(overflowButton, true)
 
-	local tex = overflowButton:CreateTexture(nil, "ARTWORK")
-	tex:Size(14)
-	tex:Point("CENTER")
-	tex:SetTexture(E.Media.Textures.ArrowUp)
-	-- tex:SetRotation(S.ArrowRotation.down)
-	overflowButton.__texture = tex
+	if homeButton then
+		homeButton:GetRegions():Hide()
+		ES:HandleButton(homeButton)
+	end
 
-	overflowButton:HookScript("OnEnter", F.Texture_OnEnter)
-	overflowButton:HookScript("OnLeave", F.Texture_OnLeave)
+	if overflowButton then
+		ES:HandleButton(overflowButton, true)
+
+		local tex = overflowButton:CreateTexture(nil, "ARTWORK")
+		tex:Size(14)
+		tex:Point("CENTER")
+		tex:SetTexture(E.Media.Textures.ArrowUp)
+		-- tex:SetRotation(S.ArrowRotation.down)
+
+		overflowButton:HookScript("OnEnter", F.Texture_OnEnter)
+		overflowButton:HookScript("OnLeave", F.Texture_OnLeave)
+	end
 
 	bar.navBarStyled = true
 end

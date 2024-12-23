@@ -76,7 +76,7 @@ local function handleNavButton(navButton)
 end
 
 function module:NavigationBar()
-	hooksecurefunc("NavBar_Initialize", F.ReskinNavBar)
+	-- hooksecurefunc("NavBar_Initialize", F.ReskinNavBar) -- monitor this
 
 	hooksecurefunc("NavBar_AddButton", function(self)
 		F:ReskinNavBar(self)
