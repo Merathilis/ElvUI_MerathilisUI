@@ -10,21 +10,6 @@ function module:TalkingHeadUI()
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
 	if TalkingHeadFrame and not TalkingHeadFrame.__MERSkin then
-		module:CreateShadow(TalkingHeadFrame)
-
-		TalkingHeadFrame.BackgroundFrame.TextBackground:SetAtlas(nil)
-		TalkingHeadFrame.PortraitFrame.Portrait:SetAtlas(nil)
-		TalkingHeadFrame.MainFrame.Model.PortraitBg:SetAtlas(nil)
-		TalkingHeadFrame.BackgroundFrame.TextBackground.SetAtlas = MER.dummy
-		TalkingHeadFrame.PortraitFrame.Portrait.SetAtlas = MER.dummy
-		TalkingHeadFrame.MainFrame.Model.PortraitBg.SetAtlas = MER.dummy
-
-		TalkingHeadFrame.MainFrame.Model.ModelShadow =
-			TalkingHeadFrame.MainFrame.Model:CreateTexture(nil, "OVERLAY", nil, 2)
-		TalkingHeadFrame.MainFrame.Model.ModelShadow:SetAtlas("Artifacts-BG-Shadow")
-		TalkingHeadFrame.MainFrame.Model.ModelShadow:SetOutside()
-		TalkingHeadFrame.MainFrame.Model.PortraitBg:Hide()
-
 		TalkingHeadFrame.MainFrame.CloseButton:ClearAllPoints()
 		TalkingHeadFrame.MainFrame.CloseButton:Point("TOPRIGHT", TalkingHeadFrame.BackgroundFrame, "TOPRIGHT", 0, -2)
 
@@ -39,6 +24,7 @@ function module:TalkingHeadUI()
 		TalkingHeadFrame.TextFrame.Text:SetShadowOffset(2, -2)
 
 		TalkingHeadFrame.__MERSkin = true
+		print("blub")
 	end
 end
 
