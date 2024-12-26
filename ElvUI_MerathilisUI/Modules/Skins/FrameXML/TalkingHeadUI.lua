@@ -24,7 +24,6 @@ function module:TalkingHeadUI()
 		TalkingHeadFrame.TextFrame.Text:SetShadowOffset(2, -2)
 
 		TalkingHeadFrame.__MERSkin = true
-		print("blub")
 	end
 end
 
