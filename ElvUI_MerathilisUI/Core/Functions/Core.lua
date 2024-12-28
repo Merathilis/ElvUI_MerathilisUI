@@ -156,7 +156,8 @@ function F.CreateStyle(frame, useStripes, useShadow, useGradient)
 	end
 
 	if not useGradient then
-		local tex = holder.MERgradient or holder:CreateTexture(nil, "BORDER")
+		local tex = holder.MERgradient
+			or holder:CreateTexture(holder:GetName() and holder:GetName() .. "Overlay" or nil, "BORDER")
 		tex:SetInside(holder)
 		tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\gradient.tga]])
 		tex:SetVertexColor(0.3, 0.3, 0.3, 0.15)

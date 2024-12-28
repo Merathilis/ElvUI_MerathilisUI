@@ -54,7 +54,7 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 		and not isNamePlateElement
 		and not isStatusBar
 
-	if (skinForTransparent or skinForTexture) and (self.db and self.db.enable) then
+	if (skinForTransparent or skinForUnitFrame or isStatusBar or skinForTexture) and (self.db and self.db.enable) then
 		if frame.Center ~= nil then
 			frame.Center:SetDrawLayer("BACKGROUND", -7)
 		end
