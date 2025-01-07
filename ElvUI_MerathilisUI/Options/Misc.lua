@@ -1133,3 +1133,37 @@ options.contextMenu = {
 		},
 	},
 }
+
+options.singingSockets = {
+	order = 16,
+	type = "group",
+	name = E.NewSign .. L["Singing Sockets"],
+	get = function(info)
+		return E.db.mui.misc.singingSockets[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.misc.singingSockets[info[#info]] = value
+		E:StaticPopup_Show("CONFIG_RL")
+	end,
+	args = {
+		desc = {
+			order = 0,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = L["Adds a Singing sockets selection tool on the Socketing Frame."],
+					fontSize = "medium",
+				},
+			},
+		},
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+		},
+	},
+}

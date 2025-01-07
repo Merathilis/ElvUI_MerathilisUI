@@ -474,6 +474,9 @@ L["Gossip"] = "Tratsch"
 L["Class Icon"] = "Klassensymbol"
 L["Deathknight"] = "Todesritter"
 L["Evoker"] = "Rufer"
+L["Singing Sockets"] = "Singende Sockel"
+L["Adds a Singing sockets selection tool on the Socketing Frame."] =
+	"Fügt ein Auswahlwerkzeug für singende Sockel im Sockelfenster hinzu."
 
 -- Nameplates
 L["NamePlates"] = "Namensplaketten"

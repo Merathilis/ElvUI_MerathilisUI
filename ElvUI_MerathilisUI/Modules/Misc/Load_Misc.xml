@@ -15,6 +15,7 @@
 	<Script file="SpellAlerts.lua"/>
 	<Script file="StatusReport.lua"/>
 	<Script file="RandomToy.lua"/>
+	<Script file="SingingSockets.lua"/>
 	<Script file="TradeTabs.lua"/>
 	<Script file="WAAnchor.lua"/>
 	<Script file="WoWHeadLinks.lua"/>

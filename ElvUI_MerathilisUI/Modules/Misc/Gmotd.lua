@@ -101,10 +101,12 @@ function module:CreateGMOTD()
 end
 
 function module:GMOTD()
-	if E.db.mui.misc.gmotd then
-		self:CreateGMOTD()
-		tinsert(UISpecialFrames, "module.CreateGMOTD")
+	if not E.db.mui.misc.gmotd then
+		return
 	end
+
+	self:CreateGMOTD()
+	tinsert(UISpecialFrames, "module.CreateGMOTD")
 end
 
 module:AddCallback("GMOTD")

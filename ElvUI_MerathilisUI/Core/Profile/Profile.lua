@@ -612,6 +612,9 @@ P.misc = {
 		who = true,
 		reportStats = false,
 	},
+	singingSockets = {
+		enable = true,
+	},
 }
 
 P.nameHover = {

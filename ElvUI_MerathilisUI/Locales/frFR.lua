@@ -424,6 +424,8 @@ L["Gossip"] = true
 L["Class Icon"] = true
 L["Deathknight"] = true
 L["Evoker"] = true
+L["Singing Sockets"] = true
+L["Adds a Singing sockets selection tool on the Socketing Frame."] = true
 
 -- Nameplates
 L["NamePlates"] = true
