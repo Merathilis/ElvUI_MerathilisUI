@@ -29,12 +29,14 @@ local function GetGemLink(gemID)
 	end
 	return info
 end
+
 function module:Socket_OnEnter()
 	GameTooltip:ClearLines()
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 0, 3)
 	GameTooltip:SetHyperlink(GetGemLink(self.gemID))
 	GameTooltip:Show()
 end
+
 function module:Socket_OnClick()
 	local BAG_ID, SLOT_ID
 	for bagID = 0, 4 do
@@ -66,6 +68,7 @@ function module:CreateSingingSockets()
 		frame:SetPoint("TOP", _G["ItemSocketingSocket" .. i], "BOTTOM", 0, -40)
 		frame:CreateBackdrop("Transparent")
 		module.SingingFrames[i] = frame
+
 		local index = 0
 		for _, gemID in next, gemsInfo[i] do
 			local button = S.CreateButton(frame, iconSize, iconSize, true, C_Item_GetItemIconByID(gemID))
@@ -79,7 +82,7 @@ function module:CreateSingingSockets()
 		end
 	end
 end
-function module:SetupSingingSokcets()
+function module:SetupSingingSockets()
 	if not E.db.mui.misc.singingSockets.enable then
 		return
 	end
@@ -100,4 +103,4 @@ function module:SetupSingingSokcets()
 	end)
 end
 
-module:AddCallback("SetupSingingSokcets")
+module:AddCallback("SetupSingingSockets")
