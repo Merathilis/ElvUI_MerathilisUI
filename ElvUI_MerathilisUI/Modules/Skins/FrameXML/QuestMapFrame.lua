@@ -45,8 +45,6 @@ function module:QuestMapFrame()
 	end)
 
 	QuestLogPopupDetailFrame.SealMaterialBG:SetAlpha(0)
-
-	_G.QuestMapFrame.CampaignOverview.BG:SetAlpha(0)
 end
 
 module:AddCallback("QuestMapFrame")
