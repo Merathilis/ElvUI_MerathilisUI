@@ -18,7 +18,7 @@ function module:Blizzard_PVPUI()
 	local ConquestFrame = _G.ConquestFrame
 
 	local iconSize = 56 - 2 * E.mult
-	for i = 1, 3 do
+	for i = 1, 4 do
 		local bu = PVPQueueFrame["CategoryButton" .. i]
 		local cu = bu.CurrencyDisplay
 
