@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs, unpack = pairs, unpack
@@ -55,6 +56,21 @@ function module:Blizzard_PVPUI()
 			PlunderstormFrame:CreateBackdrop("Transparent")
 			PlunderstormFrame.backdrop:SetPoint("TOPLEFT", PlunderstormFrame, "TOPLEFT", 3, 1)
 			PlunderstormFrame.backdrop:SetPoint("BOTTOMRIGHT", PlunderstormFrame, "BOTTOMRIGHT", -4, 25)
+		end
+
+		local panel = PVPQueueFrame.HonorInset.PlunderstormPanel
+		if panel then
+			S:HandleButton(panel.PlunderstoreButton)
+			F.ReplaceIconString(panel.PlunderDisplay)
+			hooksecurefunc(panel.PlunderDisplay, "SetText", F.ReplaceIconString)
+		end
+
+		local popup = _G.PlunderstormFramePopup
+		if popup then
+			popup:StripTextures()
+			popup:CreateBackdrop("Transparent")
+			S:HandleButton(popup.AcceptButton)
+			S:HandleButton(popup.DeclineButton)
 		end
 	end
 
