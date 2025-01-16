@@ -16,6 +16,7 @@ function module:Blizzard_PVPUI()
 	local PVPQueueFrame = _G.PVPQueueFrame
 	local HonorFrame = _G.HonorFrame
 	local ConquestFrame = _G.ConquestFrame
+	local PlunderstormFrame = _G.PlunderstormFrame
 
 	local iconSize = 56 - 2 * E.mult
 	for i = 1, 4 do
@@ -39,6 +40,21 @@ function module:Blizzard_PVPUI()
 			ic:SetTexCoord(unpack(E.TexCoords))
 			ic.bg = module:CreateBG(ic)
 			ic.bg:SetDrawLayer("BACKGROUND", 1)
+		end
+	end
+
+	local HonorInset = PVPQueueFrame.HonorInset
+
+	if not HonorInset.backdrop then
+		HonorInset:CreateBackdrop("Transparent")
+		HonorInset.backdrop:SetOutside(HonorInset)
+	end
+
+	if PlunderstormFrame then
+		if not PlunderstormFrame.backdrop then
+			PlunderstormFrame:CreateBackdrop("Transparent")
+			PlunderstormFrame.backdrop:SetPoint("TOPLEFT", PlunderstormFrame, "TOPLEFT", 3, 1)
+			PlunderstormFrame.backdrop:SetPoint("BOTTOMRIGHT", PlunderstormFrame, "BOTTOMRIGHT", -4, 25)
 		end
 	end
 
