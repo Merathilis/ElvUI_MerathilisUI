@@ -10,10 +10,6 @@ function module:TalkingHeadUI()
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
 	if TalkingHeadFrame and not TalkingHeadFrame.__MERSkin then
-		if not TalkingHeadFrame.backdrop then
-			TalkingHeadFrame:CreateBackdrop("Transparent")
-		end
-
 		TalkingHeadFrame.MainFrame.CloseButton:ClearAllPoints()
 		TalkingHeadFrame.MainFrame.CloseButton:Point("TOPRIGHT", TalkingHeadFrame.BackgroundFrame, "TOPRIGHT", 0, -2)
 
