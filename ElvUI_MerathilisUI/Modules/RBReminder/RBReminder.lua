@@ -25,33 +25,20 @@ module.VisibilityStates = {
 
 module.ReminderBuffs = {
 	Flask = {
-		-- Dragonflight
-		370652, -- Phial of Static Empowerment
-		370661, -- Phial of Icy Preservation
-		371172, -- Phial of Tepid Versatility
-		371186, -- Charged Phial of Alacrity
-		371204, -- Phial of Still Air
-		371339, -- Phial of Elemental Chaos
-		371354, -- Phial of the Eye in the Storm
-		371386, -- Phial of Charged Isolation
-		373257, -- Phial of Glacial Fury
-		374000, -- Iced Phial of Corrupting Rage
+		-- TWW
+		431971, -- Flask of Tempered Aggression
+		431972, -- Flask of Tempered Swiftness
+		431973, -- Flask of Tempered Versatility
+		431974, -- Flask of Tempered Mastery
+		432021, -- Flask of Alchemical Chaos
+		432021, -- Flask of Alchemical Chaos
+		432473, -- Flask of Saving Graces
 	},
 	DefiledAugmentRune = {
 		393438, -- Dreambound Augment Rune
 	},
 	Food = {
 		104280, -- Well Fed
-
-		-- Shadowlands
-		259455, -- Well Fed
-		308434, -- Well Fed
-		308488, -- Well Fed
-		308506, -- Well Fed
-		308514, -- Well Fed
-		308637, -- Well Fed
-		327715, -- Well Fed
-		327851, -- Well Fed
 	},
 	Intellect = {
 		1459, -- Arcane Intellect

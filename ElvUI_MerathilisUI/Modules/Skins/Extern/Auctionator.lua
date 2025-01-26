@@ -177,7 +177,7 @@ local function configMinMax(frame)
 end
 
 local function filterKeySelector(frame)
-	S:HandleDropDownBox(frame, frame:GetWidth(), nil, true)
+	-- S:HandleDropDownBox(frame, frame:GetWidth(), nil, true)
 end
 
 local function undercutScan(frame)
@@ -295,6 +295,7 @@ local function configTab(frame)
 	S:HandleButton(frame.OptionsButton)
 	S:HandleButton(frame.ScanButton)
 
+	S:HandleEditBox(frame.ContributeLink.InputBox)
 	S:HandleEditBox(frame.DiscordLink.InputBox)
 	S:HandleEditBox(frame.BugReportLink.InputBox)
 end
@@ -448,7 +449,7 @@ function module:Auctionator()
 	tryPostHook("AuctionatorConfigNumericInputMixin", "OnLoad", configNumericInput)
 	tryPostHook("AuctionatorConfigRadioButtonGroupMixin", "SetupRadioButtons", configRadioButtonGroup)
 	tryPostHook("AuctionatorDropDownInternalMixin", "Initialize", dropDownInternal)
-	tryPostHook("AuctionatorFilterKeySelectorMixin", "OnLoad", filterKeySelector)
+	-- tryPostHook("AuctionatorFilterKeySelectorMixin", "OnLoad", filterKeySelector)
 	tryPostHook("AuctionatorKeyBindingConfigMixin", "OnLoad", keyBindingConfig)
 	tryPostHook("AuctionatorResultsListingMixin", "OnShow", resultsListing)
 	tryPostHook("AuctionatorSaleItemMixin", "OnLoad", saleItem)
