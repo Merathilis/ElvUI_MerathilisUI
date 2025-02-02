@@ -1386,6 +1386,7 @@ local seeds = {
 
 local holidayRewards = {
 	17726,
+	21746,
 	54536,
 	54537,
 	116762,
@@ -1407,6 +1408,7 @@ local holidayRewards = {
 	232598,
 	232877,
 	233014,
+	235505,
 }
 
 local function createList(base, ...)
