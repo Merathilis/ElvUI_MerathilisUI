@@ -1,5 +1,4 @@
 ### Changes ###
 
-  * [Skins]: Take account to the new Plunderstorm tab on the PVP Frame
-  * [Skins]: Fix errors with latest Auctionator changes
-  * [Layout]: Small micro adjustments
+  * [Objective Tracker]: Fix typo in the options
+  * [Wowhead Links]: Now also works with monthly activities
