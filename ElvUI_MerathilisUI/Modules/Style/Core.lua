@@ -112,6 +112,10 @@ function module:MetatableScan()
 
 	local handled = {
 		Frame = true,
+		Button = true,
+		ModelScene = true,
+		Slider = true,
+		ScrollFrame = true,
 	}
 
 	local object = CreateFrame("Frame")
