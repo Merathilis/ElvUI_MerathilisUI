@@ -112,10 +112,6 @@ function module:MetatableScan()
 
 	local handled = {
 		Frame = true,
-		Button = true,
-		ModelScene = true,
-		Slider = true,
-		ScrollFrame = true,
 	}
 
 	local object = CreateFrame("Frame")
@@ -126,9 +122,10 @@ function module:MetatableScan()
 
 	object = EnumerateFrames()
 	while object do
-		if not object:IsForbidden() and not handled[object:GetObjectType()] then
+		local objType = object:GetObjectType()
+		if not object:IsForbidden() and not handled[objType] then
 			self:API(object)
-			handled[object:GetObjectType()] = true
+			handled[objType] = true
 		end
 
 		object = EnumerateFrames(object)
