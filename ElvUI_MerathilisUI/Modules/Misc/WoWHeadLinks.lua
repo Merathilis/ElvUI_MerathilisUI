@@ -12,47 +12,47 @@ local linkQuest, linkAchievement, linkMonthlyActivities
 if E.locale == "deDE" then
 	linkQuest = "http://de.wowhead.com/quest=%d#english-comments"
 	linkAchievement = "http://de.wowhead.com/achievement=%d#english-comments"
-	linkMonthlyActivities = "http://de.wowhead.com/trading-post-activity=%d#english-comments"
+	linkMonthlyActivities = "http://de.wowhead.com/trading-post-activity/%d#english-comments"
 elseif E.locale == "esMX" then
 	linkQuest = "http://es.wowhead.com/quest=%d#english-comments"
 	linkAchievement = "http://es.wowhead.com/achievement=%d#english-comments"
-	linkMonthlyActivities = "http://es.wowhead.com/trading-post-activity=%d#english-comments"
+	linkMonthlyActivities = "http://es.wowhead.com/trading-post-activity/%d#english-comments"
 elseif E.locale == "esES" then
 	linkQuest = "http://es.wowhead.com/quest=%d#english-comments"
 	linkAchievement = "http://es.wowhead.com/achievement=%d#english-comments"
-	linkMonthlyActivities = "http://es.wowhead.com/trading-post-activity=%d#english-comments"
+	linkMonthlyActivities = "http://es.wowhead.com/trading-post-activity/%d#english-comments"
 elseif E.locale == "frFR" then
 	linkQuest = "http://fr.wowhead.com/quest=%d#english-comments"
 	linkAchievement = "http://fr.wowhead.com/achievement=%d#english-comments"
-	linkMonthlyActivities = "http://fr.wowhead.com/trading-post-activity=%d#english-comments"
+	linkMonthlyActivities = "http://fr.wowhead.com/trading-post-activity/%d#english-comments"
 elseif E.locale == "itIT" then
 	linkQuest = "http://it.wowhead.com/quest=%d#english-comments"
 	linkAchievement = "http://it.wowhead.com/achievement=%d#english-comments"
-	linkMonthlyActivities = "http://it.wowhead.com/trading-post-activity=%d#english-comments"
+	linkMonthlyActivities = "http://it.wowhead.com/trading-post-activity/%d#english-comments"
 elseif E.locale == "ptBR" then
 	linkQuest = "http://pt.wowhead.com/quest=%d#english-comments"
 	linkAchievement = "http://pt.wowhead.com/achievement=%d#english-comments"
-	linkMonthlyActivities = "http://pt.wowhead.com/trading-post-activity=%d#english-comments"
+	linkMonthlyActivities = "http://pt.wowhead.com/trading-post-activity/%d#english-comments"
 elseif E.locale == "ruRU" then
 	linkQuest = "http://ru.wowhead.com/quest=%d#english-comments"
 	linkAchievement = "http://ru.wowhead.com/achievement=%d#english-comments"
-	linkMonthlyActivities = "http://ru.wowhead.com/trading-post-activity=%d#english-comments"
+	linkMonthlyActivities = "http://ru.wowhead.com/trading-post-activity/%d#english-comments"
 elseif E.locale == "koKR" then
 	linkQuest = "http://ko.wowhead.com/quest=%d#english-comments"
 	linkAchievement = "http://ko.wowhead.com/achievement=%d#english-comments"
-	linkMonthlyActivities = "http://ko.wowhead.com/trading-post-activity=%d#english-comments"
+	linkMonthlyActivities = "http://ko.wowhead.com/trading-post-activity/%d#english-comments"
 elseif E.locale == "zhCN" then
 	linkQuest = "http://cn.wowhead.com/quest=%d#english-comments"
 	linkAchievement = "http://cn.wowhead.com/achievement=%d#english-comments"
-	linkMonthlyActivities = "http://cn.wowhead.com/trading-post-activity=%d#english-comments"
+	linkMonthlyActivities = "http://cn.wowhead.com/trading-post-activity/%d#english-comments"
 elseif E.locale == "zhTW" then
 	linkQuest = "http://cn.wowhead.com/quest=%d#english-comments"
 	linkAchievement = "http://cn.wowhead.com/achievement=%d#english-comments"
-	linkMonthlyActivities = "http://cn.wowhead.com/trading-post-activity=%d#english-comments"
+	linkMonthlyActivities = "http://cn.wowhead.com/trading-post-activity/%d#english-comments"
 else
 	linkQuest = "http://www.wowhead.com/quest=%d#english-commentss"
 	linkAchievement = "http://www.wowhead.com/achievement=%d#english-comments"
-	linkMonthlyActivities = "http://wowhead.com/trading-post-activity=%d#english-comments"
+	linkMonthlyActivities = "http://wowhead.com/trading-post-activity/%d#english-comments"
 end
 
 local selfText
@@ -128,7 +128,7 @@ function module:WowheadLinks()
 		end)
 	end)
 
-	Menu.ModifyMenu("MENU_MONTHLY_ACTIVITIES_TRACKER", function(_, rootDescription)
+	Menu.ModifyMenu("MENU_MONTHLY_ACTVITIES_TRACKER", function(_, rootDescription)
 		rootDescription:CreateButton(F.String.ColorFirstLetter(L["Wowhead Links"]), function()
 			local text = linkMonthlyActivities:format(ID)
 			StaticPopup_Show("WATCHFRAME_URL", _, _, text)

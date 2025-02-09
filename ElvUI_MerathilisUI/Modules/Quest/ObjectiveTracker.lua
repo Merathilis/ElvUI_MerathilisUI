@@ -401,7 +401,7 @@ end
 
 function module:Initialize()
 	self.db = E.private.mui.quest.objectiveTracker
-	if not self.db and self.db.enable then
+	if not self.db or not self.db.enable then
 		return
 	end
 
