@@ -74,31 +74,31 @@ end
 function module:API(object)
 	local mt = getmetatable(object).__index
 
-	if not mt or not mt.SetTemplate then
+	if not mt or type(mt) == "function" then
 		return
 	end
 
-	if type(mt) == "function" then
-		return
-	end
+	if mt.SetTemplate and not mt.MERSkin then
+		if not object.CreateStyle then
+			mt.CreateStyle = F.CreateStyle
+		end
 
-	if not object.CreateStyle then
-		mt.CreateStyle = F.CreateStyle
-	end
+		-- Hook elvui template
+		if not self:IsHooked(mt, "SetTemplate") then
+			self:SecureHook(mt, "SetTemplate", "SetTemplate")
+		end
 
-	-- Hook elvui template
-	if not self:IsHooked(mt, "SetTemplate") then
-		self:SecureHook(mt, "SetTemplate", "SetTemplate")
-	end
+		-- Hook FrameLevel
+		if mt.SetFrameLevel and (not self:IsHooked(mt, "SetFrameLevel")) then
+			self:SecureHook(mt, "SetFrameLevel", "UpdateTemplateStrata")
+		end
 
-	-- Hook FrameLevel
-	if mt.SetFrameLevel and (not self:IsHooked(mt, "SetFrameLevel")) then
-		self:SecureHook(mt, "SetFrameLevel", "UpdateTemplateStrata")
-	end
+		-- Hook FrameStrata
+		if mt.SetFrameStrata and (not self:IsHooked(mt, "SetFrameStrata")) then
+			self:SecureHook(mt, "SetFrameStrata", "UpdateTemplateStrata")
+		end
 
-	-- Hook FrameStrata
-	if mt.SetFrameStrata and (not self:IsHooked(mt, "SetFrameStrata")) then
-		self:SecureHook(mt, "SetFrameStrata", "UpdateTemplateStrata")
+		mt.MERSkin = true
 	end
 end
 
@@ -107,18 +107,18 @@ function module:ForceRefresh()
 	E:UpdateMediaItems(true)
 end
 
+local object = CreateFrame("Frame")
+local handled = {
+	Frame = true,
+	Button = true,
+	ModelScene = true,
+	Slider = true,
+	ScrollFrame = true,
+}
+
 function module:MetatableScan()
 	self.MERStyle = {}
 
-	local handled = {
-		Frame = true,
-		Button = true,
-		ModelScene = true,
-		Slider = true,
-		ScrollFrame = true,
-	}
-
-	local object = CreateFrame("Frame")
 	self:API(object)
 	self:API(object:CreateTexture())
 	self:API(object:CreateFontString())
