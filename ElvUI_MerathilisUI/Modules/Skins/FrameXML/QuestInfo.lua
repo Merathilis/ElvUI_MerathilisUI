@@ -51,7 +51,6 @@ local function ColorObjectivesText()
 			end
 		end
 	end
-	_G.QuestInfoAccountCompletedNotice:SetTextColor(1, 0.8, 0.1)
 end
 
 local defaultColor = GetMaterialTextColors("Default")
