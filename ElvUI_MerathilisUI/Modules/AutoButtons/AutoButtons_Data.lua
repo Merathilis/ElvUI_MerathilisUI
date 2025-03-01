@@ -1084,6 +1084,9 @@ local openableItems = {
 	234425,
 	234816,
 	235548,
+	236756, -- need confirmation
+	236757,
+	236758,
 }
 
 local professionItems = {
