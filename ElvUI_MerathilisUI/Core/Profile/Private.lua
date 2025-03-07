@@ -303,6 +303,7 @@ V.skins = {
 		uiWidget = true,
 		delves = true,
 		lossOfControl = true,
+		petBattle = true,
 	},
 
 	addonSkins = {
