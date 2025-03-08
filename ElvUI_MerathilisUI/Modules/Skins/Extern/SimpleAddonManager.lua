@@ -38,7 +38,7 @@ local function ReskinModules(frame)
 	S:HandleEditBox(frame.SearchBox)
 
 	-- AddonListFrame
-	S:HandleScrollBar(frame.ScrollFrame.ScrollBar)
+	S:HandleScrollBar(frame.AddonListFrame.ScrollFrame.ScrollBar)
 
 	-- CategoryFrame
 	S:HandleButton(frame.CategoryFrame.NewButton)
@@ -58,7 +58,7 @@ local function ReskinModules(frame)
 
 	-- Misc
 	hooksecurefunc("HybridScrollFrame_CreateButtons", ReskinScrollFrameItems)
-	ReskinScrollFrameItems(frame.ScrollFrame, "SimpleAddonManagerAddonItem")
+	ReskinScrollFrameItems(frame.AddonListFrame.ScrollFrame, "SimpleAddonManagerAddonItem")
 	ReskinScrollFrameItems(frame.CategoryFrame.ScrollFrame, "SimpleAddonManagerCategoryItem")
 end
 

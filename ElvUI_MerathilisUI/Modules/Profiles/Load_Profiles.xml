@@ -4,6 +4,7 @@
 
 	<Script file="AddOnSkins.lua"/>
 	<Script file="BigWigs.lua"/>
+	<Script file="Capping.lua"/>
 	<Script file="Details.lua"/>
 	<Script file="FCT.lua"/>
 	<Script file="ls_Toasts.lua"/>

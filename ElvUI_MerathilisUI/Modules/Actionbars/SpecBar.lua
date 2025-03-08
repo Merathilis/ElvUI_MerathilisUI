@@ -11,7 +11,7 @@ local GetSpecialization = GetSpecialization
 local GetSpecializationInfo = GetSpecializationInfo
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local SetLootSpecialization = SetLootSpecialization
-local SetSpecialization = SetSpecialization
+local SetSpecialization = C_SpecializationInfo.SetSpecialization
 
 function module:CreateSpecBar()
 	local db = E.db.mui.actionbars.specBar
