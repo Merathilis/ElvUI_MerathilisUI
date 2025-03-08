@@ -9,6 +9,7 @@
 	<Script file="BtWQuests.lua"/>
 	<Script file="BugSack.lua"/>
 	<Script file="Clique.lua"/>
+	<Script file="Capping.lua"/>
 	<Script file="Details.lua"/>
 	<Script file="DetailsIcons.lua"/>
 	<Script file="GlobalIgnoreList.lua"/>
