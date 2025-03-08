@@ -14,6 +14,7 @@ local No = F.GetIconString(I.Media.Icons.No, 14, 14)
 
 local SupportedProfiles = {
 	{ "AddOnSkins", "AddOnSkins" },
+	{ "Capping", "Capping" },
 	{ "BigWigs", "BigWigs" },
 	{ "Details", "Details" },
 	{ "ElvUI_FCT", "FCT" },
@@ -131,6 +132,8 @@ for _, v in ipairs(SupportedProfiles) do
 		func = function()
 			if addon == "BigWigs" then
 				module:ApplyBigWigsProfile()
+			elseif addon == "Capping" then
+				module:ApplyCappingProfile()
 			elseif addon == "Details" then
 				module:ApplyDetailsProfile()
 			elseif addon == "AddOnSkins" then

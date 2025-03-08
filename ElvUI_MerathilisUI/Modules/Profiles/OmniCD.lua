@@ -5,8 +5,6 @@ function module:LoadOmniCDProfile()
 	local pf = {}
 	local db = _G.OmniCD and _G.OmniCD[1]
 
-	local profile = db.DB.profile
-
 	F.Table.Crush(pf, {
 		Party = {
 			noneZoneSetting = "party",
