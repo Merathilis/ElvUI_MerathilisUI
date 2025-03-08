@@ -227,6 +227,7 @@ local DEVELOPER = {
 	"siweia",
 	"|cff1784d1Eltreum|r",
 	"|cff18a8ffToxi|r",
+	"mcc1",
 }
 
 local nameString = strjoin(", ", unpack(DEVELOPER))
