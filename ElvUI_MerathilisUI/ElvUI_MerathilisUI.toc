@@ -1,4 +1,4 @@
-## Interface: 110100, 110105
+## Interface: 110105
 ## Author: Merathilis
 ## Version: @project-version@
 ## X-Version: 6.55
