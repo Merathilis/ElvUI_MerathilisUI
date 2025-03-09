@@ -24,7 +24,6 @@ function module:Capping()
 	end
 
 	local frame = _G.CappingFrame
-
 	frame:HookScript("OnUpdate", OnUpdate)
 end
 
