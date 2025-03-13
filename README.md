@@ -10,7 +10,7 @@
 
 ![Image of MerathilsUI](https://i.imgur.com/NOIoOyl.jpeg)
 
-<p align="center"; style="font-size:10px";>Image shows other AddOns and WeakAuras</p>
+<p align="center"; style="color:red;font-size:8px">Image shows other AddOns and WeakAuras</p>
 
 ---
 
