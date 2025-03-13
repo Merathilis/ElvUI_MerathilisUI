@@ -8,7 +8,9 @@
 
 <br>
 
-![Image of MerathilsUI](https://i.imgur.com/6IRHNhn.jpg)
+![Image of MerathilsUI](https://i.imgur.com/NOIoOyl.jpeg)
+
+<p align="center">Image shows other AddOns and WeakAuras</p>
 
 ---
 
