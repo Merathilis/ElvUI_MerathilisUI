@@ -17,7 +17,7 @@ local function SkinDialog(_, dialog)
 	end
 end
 
-function module.UpdateQuestMapFrame()
+function module:UpdateQuestMapFrame()
 	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
 	QuestMapFrame.QuestCountFrame = frame
 
@@ -47,7 +47,7 @@ function module:WorldMapFrame()
 	end
 
 	module:CreateBackdropShadow(_G.WorldMapFrame)
-	self.UpdateQuestMapFrame()
+	self:UpdateQuestMapFrame()
 
 	if _G.QuestScrollFrame.Background then
 		_G.QuestScrollFrame.Background:Kill()
