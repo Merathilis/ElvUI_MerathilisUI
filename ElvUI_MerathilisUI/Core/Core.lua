@@ -254,6 +254,20 @@ function MER:FixGame()
 			end)
 		end
 	end
+
+	if E.global.mui.core.forceDisableCPUProfiler then
+		local function EnableCheck()
+			local enabled = E.global.mui.core.forceDisableCPUProfiler == true
+			C_CVar.SetCVar("addonProfilerEnabled", enabled and 0 or 1) -- We want to force disable it. So its a reverse check
+		end
+
+		local frame = CreateFrame("Frame")
+		frame:RegisterEvent("PLAYER_LOGIN")
+		frame:SetScript("OnEvent", EnableCheck)
+
+		C_CVar.RegisterCVar("addonProfilerEnabled", 1)
+		EnableCheck()
+	end
 end
 
 MER.SpecializationInfo = {}

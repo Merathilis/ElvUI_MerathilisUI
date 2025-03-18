@@ -5,6 +5,7 @@ G.core = {
 	cvarAlert = false,
 	guildNews = true,
 	advancedCLEUEventTrace = false,
+	forceDisableCPUProfiler = true,
 	logLevel = 2,
 	loginMsg = true,
 }
