@@ -1,7 +1,6 @@
 ### Changes ###
 
-  * [Simple AddOn Manager]: Fix an error with the latest code changes
-  * [World Map]: Updated MapData to 11.1
-  * [World Map]: Reenable Event Tracker
-  * [AutoButtons]: Add more openables
-  * [Misc]: Small code cleanups
+  * [Capping]: Added an profile for the AddOn Capping
+  * [Capping]: Skin support for the AddOn Capping
+  * [Blizz Fixes]: Added an option to disable the Blizzard CPU Profiling.
+  * [AutoButtons]: Added more openables
