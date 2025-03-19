@@ -2,10 +2,6 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 G.core = {
 	compatibilityCheck = true,
-	cvarAlert = false,
-	guildNews = true,
-	advancedCLEUEventTrace = false,
-	forceDisableCPUProfiler = true,
 	logLevel = 2,
 	loginMsg = true,
 }
@@ -28,4 +24,11 @@ G.bags = {
 
 G.maps = {
 	eventTracker = {},
+}
+
+G.advancedOptions = {
+	advancedCLEUEventTrace = false,
+	cpuProfiler = true,
+	cvarAlert = false,
+	guildNews = true,
 }

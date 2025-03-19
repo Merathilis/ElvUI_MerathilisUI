@@ -85,10 +85,10 @@ options.gameFix = {
 				"|cff209ceeActionButtonUseKeyDown|r"
 			),
 			get = function(info)
-				return E.global.mui.core.cvarAlert
+				return E.global.mui.advancedOptions.cvarAlert
 			end,
 			set = function(info, value)
-				E.global.mui.core.cvarAlert = value
+				E.global.mui.advancedOptions.cvarAlert = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			width = "full",
@@ -99,10 +99,10 @@ options.gameFix = {
 			name = L["Guild News"],
 			desc = L["This will fix the current Guild News jam."],
 			get = function(info)
-				return E.global.mui.core.guildNews
+				return E.global.mui.advancedOptions.guildNews
 			end,
 			set = function(info, value)
-				E.global.mui.core.guildNews = value
+				E.global.mui.advancedOptions.guildNews = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			width = "full",
@@ -113,24 +113,24 @@ options.gameFix = {
 			name = L["Advanced CLEU Etrace"],
 			desc = L["Enhanced Combat Log Events in /etrace frame."],
 			get = function(info)
-				return E.global.mui.core.advancedCLEUEventTrace
+				return E.global.mui.advancedOptions.advancedCLEUEventTrace
 			end,
 			set = function(info, value)
-				E.global.mui.core.advancedCLEUEventTrace = value
+				E.global.mui.advancedOptions.advancedCLEUEventTrace = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			width = "full",
 		},
-		forceDisableCPUProfiler = {
+		cpuProfiler = {
 			order = 4,
 			type = "toggle",
-			name = E.NewSign .. L["Disable CPU Profiling"],
+			name = E.NewSign .. L["CPU Profiling"],
 			desc = L["If enable it will disable the CPU Profiling CVar. Which can cause some performance issues and should not be enabled by default."],
 			get = function(info)
-				return E.global.mui.core.forceDisableCPUProfiler
+				return E.global.mui.advancedOptions.cpuProfiler
 			end,
 			set = function(info, value)
-				E.global.mui.core.forceDisableCPUProfiler = value
+				E.global.mui.core.cpuProfiler = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			width = "full",

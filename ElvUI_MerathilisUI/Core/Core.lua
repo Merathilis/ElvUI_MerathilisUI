@@ -17,6 +17,10 @@ local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
 
 local C_Timer_NewTimer = C_Timer.NewTimer
 
+local RegisterCVar = C_CVar.RegisterCVar
+local SetCVar = C_CVar.SetCVar
+local IsEnabled = C_AddOnProfiler.IsEnabled
+
 MER.dummy = function()
 	return
 end
@@ -191,9 +195,33 @@ function MER:UpdateProfiles(_)
 	F.Event.TriggerEvent("MER.DatabaseUpdate")
 end
 
+function MER:Performance()
+	local db = E.global.mui.advancedOptions
+
+	RegisterCVar("addonProfilerEnabled", "1")
+	SetCVar("addonProfilerEnabled", db.cpuProfiler and 0 or 1)
+
+	local cpuProfiler = IsEnabled()
+	local profilerState = L["Profiler not found"]
+
+	if cpuProfiler == true then
+		profilerState = F.String.Error("ON")
+	end
+	if cpuProfiler == false then
+		profilerState = F.String.Good("OFF")
+	end
+
+	F.Developer.LogInfo(L["Blizzard AddOn profiling is: "] .. profilerState)
+end
+
 function MER:FixGame()
+	local db = E.global.mui.advancedOptions
+	if not db then
+		return
+	end
+
 	-- Button Fix
-	if E.global.mui.core.cvarAlert then
+	if db.cvarAlert then
 		self:RegisterEvent("CVAR_UPDATE", function(_, cvar, value)
 			if cvar == "ActionButtonUseKeyDown" and MER.UseKeyDown ~= (value == "1") then
 				E:StaticPopup_Show("MERATHILISUI_BUTTON_FIX_RELOAD")
@@ -201,7 +229,7 @@ function MER:FixGame()
 		end)
 	end
 
-	if E.global.mui.core.guildNews then
+	if db.guildNews then
 		-- https://nga.178.com/read.php?tid=42399961
 		local newsRequireUpdate, newsTimer
 		_G.CommunitiesFrameGuildDetailsFrameNews:SetScript("OnEvent", function(frame, event)
@@ -225,7 +253,7 @@ function MER:FixGame()
 		end)
 	end
 
-	if E.global.mui.core.advancedCLEUEventTrace then
+	if db.advancedCLEUEventTrace then
 		local function LogEvent(self, event, ...)
 			if event == "COMBAT_LOG_EVENT_UNFILTERED" or event == "COMBAT_LOG_EVENT" then
 				self:LogEvent_Original(event, CombatLogGetCurrentEventInfo())
@@ -255,19 +283,7 @@ function MER:FixGame()
 		end
 	end
 
-	if E.global.mui.core.forceDisableCPUProfiler then
-		local function EnableCheck()
-			local enabled = E.global.mui.core.forceDisableCPUProfiler == true
-			C_CVar.SetCVar("addonProfilerEnabled", enabled and 0 or 1) -- We want to force disable it. So its a reverse check
-		end
-
-		local frame = CreateFrame("Frame")
-		frame:RegisterEvent("PLAYER_LOGIN")
-		frame:SetScript("OnEvent", EnableCheck)
-
-		C_CVar.RegisterCVar("addonProfilerEnabled", 1)
-		EnableCheck()
-	end
+	self:Performance()
 end
 
 MER.SpecializationInfo = {}
