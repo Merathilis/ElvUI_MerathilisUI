@@ -5,11 +5,8 @@ local _G = _G
 local select = select
 
 local CreateFrame = CreateFrame
-local GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
-local GetMaxNumQuestsCanAccept = C_QuestLog.GetMaxNumQuestsCanAccept
+local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 local hooksecurefunc = hooksecurefunc
-
-local MAX_QUESTS = 35 -- manually increase it
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
@@ -20,39 +17,37 @@ local function SkinDialog(_, dialog)
 	end
 end
 
+function module:UpdateQuestMapFrame()
+	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
+	QuestMapFrame.QuestCountFrame = frame
+
+	frame:RegisterEvent("QUEST_LOG_UPDATE")
+	frame:Size(240, 20)
+	frame:SetPoint("BOTTOM", _G.QuestScrollFrame.SearchBox, "TOP", 0, 0)
+
+	local text = frame:CreateFontString(nil, "ARTWORK")
+	text:FontTemplate(E.LSM:Fetch("font", E.db.general.font), 12, "SHADOWOUTLINE")
+	text:SetTextColor(r, g, b)
+	text:SetAllPoints()
+
+	frame.text = text
+	local str = "%d / 35" .. " " .. L["Quests"]
+	frame.text:SetFormattedText(str, select(2, C_QuestLog_GetNumQuestLogEntries()))
+
+	frame:SetScript("OnEvent", function()
+		local _, quests = C_QuestLog_GetNumQuestLogEntries()
+
+		frame.text:SetFormattedText(str, quests)
+	end)
+end
+
 function module:WorldMapFrame()
 	if not module:CheckDB("worldmap", "worldmap") then
 		return
 	end
 
 	module:CreateBackdropShadow(_G.WorldMapFrame)
-
-	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
-	frame:Size(230, 20)
-	frame:SetPoint("BOTTOM", _G.QuestScrollFrame.SearchBox, "TOP", 0, 0)
-
-	frame.text = frame:CreateFontString(nil, "ARTWORK")
-	frame.text:FontTemplate()
-	frame.text:SetTextColor(r, g, b)
-	frame.text:SetAllPoints()
-
-	frame.text:SetText(
-		select(2, GetNumQuestLogEntries())
-			.. "/" --[[GetMaxNumQuestsCanAccept()]]
-			.. MAX_QUESTS
-			.. " "
-			.. L["Quests"]
-	)
-
-	frame:SetScript("OnEvent", function(self, event)
-		frame.text:SetText(
-			select(2, GetNumQuestLogEntries())
-				.. "/" --[[GetMaxNumQuestsCanAccept()]]
-				.. MAX_QUESTS
-				.. " "
-				.. L["Quests"]
-		)
-	end)
+	self:UpdateQuestMapFrame()
 
 	if _G.QuestScrollFrame.Background then
 		_G.QuestScrollFrame.Background:Kill()

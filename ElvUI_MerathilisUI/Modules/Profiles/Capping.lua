@@ -8,14 +8,20 @@ function module:LoadCappingProfile()
 		["outline"] = "OUTLINE",
 		["font"] = "- Expressway",
 		["lock"] = true,
-		["spacing"] = 1,
+		["spacing"] = 2,
 		["barTexture"] = "ElvUI Norm1",
 		["autoTurnIn"] = false,
 		["position"] = {
 			"RIGHT",
 			"RIGHT",
-			-335.9999084472656,
-			214.9999237060547,
+			-335,
+			215,
+		},
+		["colorBarBackground"] = {
+			nil,
+			nil,
+			nil,
+			0.35,
 		},
 	}
 end

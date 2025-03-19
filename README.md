@@ -1,14 +1,16 @@
 <div align="center">
 <img src="https://raw.githubusercontent.com/Merathilis/ElvUI_MerathilisUI/development/m4.png"/><br>
-<img src="https://img.shields.io/badge/ElvUI-13.86-blue.svg?longCache=true&style=for-the-badge"/>
-<img src="https://img.shields.io/badge/Version-6.55-orange.svg?longCache=true&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/ElvUI-13.87-blue.svg?longCache=true&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Version-6.56-orange.svg?longCache=true&style=for-the-badge"/>
 </div>
 
 ---
 
 <br>
 
-![Image of MerathilsUI](https://i.imgur.com/6IRHNhn.jpg)
+![Image of MerathilsUI](https://i.imgur.com/NOIoOyl.jpeg)
+
+<p align="center"; style="color:red;font-size:8px">Image shows other AddOns and WeakAuras</p>
 
 ---
 
