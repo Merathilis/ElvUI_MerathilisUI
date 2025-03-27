@@ -1,8 +1,32 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Actionbars")
 local S = MER:GetModule("MER_Skins")
 
--- Credits: FreeUI (andromeda)
-local keyFeedback = CreateFrame("Frame", MER.Title .. "KeyFeedback", E.UIParent)
+local _G = _G
+local unpack = unpack
+local select = select
+local tinsert = tinsert
+local tremove = tremove
+local setmetatable = setmetatable
+
+local UnitCastingInfo = UnitCastingInfo
+local UnitChannelInfo = UnitChannelInfo
+local GetActionInfo = GetActionInfo
+local GetActionTexture = GetActionTexture
+local GetMacroSpell = GetMacroSpell
+local GetActionCooldown = GetActionCooldown
+local HasAction = HasAction
+local IsPlayerSpell = IsPlayerSpell
+local GetSpellInfo = C_Spell.GetSpellInfo
+local CooldownFrame_Set = CooldownFrame_Set
+
+local CreateFrame = CreateFrame
+local UIParent = UIParent
+local hooksecurefunc = hooksecurefunc
+
+-- Credits: https://github.com/rgd87/NugKeyFeedback
+module.keyFeedback = CreateFrame("Frame", MER.Title .. "KeyFeedback", UIParent)
+local keyFeedback = module.keyFeedback
 keyFeedback:SetScript("OnEvent", function(self, event, ...)
 	return self[event](self, event, ...)
 end)
@@ -11,22 +35,21 @@ keyFeedback:RegisterEvent("PLAYER_LOGIN")
 keyFeedback:RegisterEvent("PLAYER_LOGOUT")
 
 local getSpellInfo = function(spellId)
-	local info = C_Spell.GetSpellInfo(spellId)
+	local info = GetSpellInfo(spellId)
 	if info then
 		return info.name, nil, info.iconID
 	end
 end
 
 function keyFeedback:PLAYER_LOGIN()
-	if not E.db.mui.actionbars.keyfeedback then
-		E.db.mui.actionbars.keyfeedback = {}
+	self.db = E.db.mui.actionbars.keyfeedback
+	if not E.db.mui or not E.db.mui.actionbars or not self.db then
+		self.db = {}
 	end
 
-	if not E.private.actionbar.enable or not E.db.mui.actionbars.keyfeedback.enable then
+	if not E.private.actionbar.enable or not self.db.enable then
 		return
 	end
-
-	self.db = E.db.mui.actionbars.keyfeedback
 
 	if self.db.forceUseActionHook then
 		self.mirror = self:CreateFeedbackButton(true)
@@ -69,6 +92,7 @@ function keyFeedback:PLAYER_LOGIN()
 			return
 		end
 
+		local isCastingLastSpell = self.castSpellID == getActionSpellID(action)
 		local cooldownStartTime, cooldownDuration, enable, modRate = GetActionCooldown(action)
 
 		local cooldownFrame = self.cooldown
@@ -92,8 +116,8 @@ function keyFeedback:PLAYER_LOGIN()
 		end
 	end
 
-	self:SetSize(30, 30)
-	self:SetPoint("CENTER", _G.UIParent, 0, -270)
+	self:SetSize(32, 32)
+	self:SetPoint("CENTER", UIParent, 0, -270)
 
 	E:CreateMover(self, "SpellFeedback", L["SpellFeedback"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function()
 		return E.db.mui.actionbars.keyfeedback
@@ -101,11 +125,18 @@ function keyFeedback:PLAYER_LOGIN()
 	self:RefreshSettings()
 end
 
-function keyFeedback.UNIT_SPELLCAST_START(self, _, unit, _, spellID)
-	local _, _, _, startTime, endTime, _, castID, _ = UnitCastingInfo(unit)
+function keyFeedback:PLAYER_LOGOUT()
+	if self.iconPool then
+		self.iconPool:ReleaseAll()
+	end
+end
+
+function keyFeedback.UNIT_SPELLCAST_START(self, event, unit, _castID, spellID)
+	local name, text, texture, startTime, endTime, isTradeSkill, castID, notInterruptible = UnitCastingInfo(unit)
 	if not startTime then
 		return
-	end -- With heavy lags it's nil sometimes
+	end
+
 	local mirror = self.mirror
 	mirror.castInverted = false
 	mirror.castID = castID
@@ -118,8 +149,8 @@ function keyFeedback.UNIT_SPELLCAST_START(self, _, unit, _, spellID)
 end
 
 keyFeedback.UNIT_SPELLCAST_DELAYED = keyFeedback.UNIT_SPELLCAST_START
-function keyFeedback.UNIT_SPELLCAST_CHANNEL_START(self, _, unit, _, spellID)
-	local _, _, _, startTime, endTime, _, castID, _ = UnitChannelInfo(unit)
+function keyFeedback.UNIT_SPELLCAST_CHANNEL_START(self, event, unit, _castID, spellID)
+	local name, text, texture, startTime, endTime, isTradeSkill, castID, notInterruptible = UnitChannelInfo(unit)
 	local mirror = self.mirror
 	mirror.castInverted = true
 	mirror.castID = castID
@@ -224,7 +255,7 @@ function keyFeedback:UNIT_SPELLCAST_SUCCEEDED(event, unit, lineID, spellID)
 		end -- Autoshot
 
 		if self.db.enableCastLine then
-			local frame = self.iconPool:Acquire()
+			local frame, isNew = self.iconPool:Acquire()
 			local texture = select(3, getSpellInfo(spellID))
 			frame.icon:SetTexture(texture)
 			frame.icon:SetTexCoord(unpack(E.TexCoords))

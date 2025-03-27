@@ -31,6 +31,7 @@ local WOW_PROJECT_CLASSIC = 2
 local WOW_PROJECT_MAINLINE = WOW_PROJECT_MAINLINE
 local WOW_PROJECT_WRATH_CLASSIC = 11
 local WOW_PROJECT_CATACLYSM_CLASSIC = 14
+local WOW_PROJECT_MISTS_CLASSIC = 19
 
 local MediaPath = I.General.MediaPath .. "FriendList\\"
 
@@ -42,7 +43,7 @@ local cache = {}
 
 -- Manully code the atlas "battlenetclienticon"
 -- note: Destiny 2 is not included
-local projectCodes = {
+module.projectCodes = {
 	["ANBS"] = "Diablo Immortal",
 	["Hero"] = "Heroes of the Storm",
 	["OSI"] = "Diablo II",
@@ -63,7 +64,14 @@ local projectCodes = {
 	["WOW"] = "World of Warcraft",
 	["PRO"] = "Overwatch",
 	["PRO-ZHCN"] = "Overwatch",
+	["CLNT"] = "Battle.net Client",
 }
+
+setmetatable(module.projectCodes, {
+	__index = function(t, k)
+		return rawget(t, k) or ("Unknown: %s"):format(k)
+	end,
+})
 
 local clientData = {
 	["Diablo Immortal"] = {
@@ -156,6 +164,12 @@ local expansionData = {
 		maxLevel = 85,
 		icon = MediaPath .. "GameIcons\\WOW_Cata",
 	},
+	[WOW_PROJECT_MISTS_CLASSIC] = {
+		name = "Mist",
+		suffix = "Mist",
+		maxLevel = 90,
+		icon = MediaPath .. "GameIcons\\WOW_Mist",
+	},
 }
 
 local factionIcons = {
@@ -222,7 +236,7 @@ function module:UpdateFriendButton(button)
 	if button.buttonType == FRIENDS_BUTTON_TYPE_WOW then
 		-- WoW friends
 		wowID = WOW_PROJECT_MAINLINE
-		gameName = projectCodes["WOW"]
+		gameName = module.projectCodes["WOW"]
 		local friendInfo = GetFriendInfoByIndex(button.id)
 		name, server = strsplit("-", friendInfo.name) -- server is nil if it's not a cross-realm friend
 		level = friendInfo.level
@@ -250,8 +264,7 @@ function module:UpdateFriendButton(button)
 			note = friendAccountInfo.note
 
 			local gameAccountInfo = friendAccountInfo.gameAccountInfo
-			game = gameAccountInfo.clientProgram
-			gameName = projectCodes[strupper(gameAccountInfo.clientProgram)]
+			gameName = module.projectCodes[strupper(gameAccountInfo.clientProgram)]
 
 			if gameAccountInfo.isOnline then
 				if friendAccountInfo.isAFK or gameAccountInfo.isGameAFK then

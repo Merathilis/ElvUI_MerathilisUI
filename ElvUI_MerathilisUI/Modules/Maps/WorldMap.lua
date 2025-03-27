@@ -2922,6 +2922,14 @@ function module:Scale()
 	EventRegistry:RegisterCallback("WorldMapMaximized", _G.WorldMapFrame.SetScale, _G.WorldMapFrame, 1)
 end
 
+function module:MapFunc()
+	WorldMapFrame:SetAttribute("UIPanelLayout-area", nil)
+	WorldMapFrame:SetAttribute("UIPanelLayout-enabled", false)
+	WorldMapFrame:SetAttribute("UIPanelLayout-allowOtherPanels", true)
+	tinsert(UISpecialFrames, "WorldMapFrame")
+	MER:UnregisterEvent("PLAYER_ENTERING_WORLD", self.MapFunc)
+end
+
 function module:Initialize()
 	if not E.private.general.worldMap then
 		return
@@ -2940,6 +2948,7 @@ function module:Initialize()
 
 	self:Scale()
 	self:Reveal()
+	MER:RegisterEvent("PLAYER_ENTERING_WORLD", self.MapFunc)
 end
 
 MER:RegisterModule(module:GetName())
