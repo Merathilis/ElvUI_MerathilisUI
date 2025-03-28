@@ -1,187 +1,47 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc")
-local S = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 
 local _G = _G
-local pairs, unpack, tinsert = pairs, unpack, tinsert
+local unpack = unpack
 
-local GetItemCooldown = C_Item.GetItemCooldown
-local GetSpellCooldown = C_Spell.GetSpellCooldown
-local IsSpellBookItemPassive = C_SpellBook.IsSpellBookItemPassive
-local IsCurrentSpell = C_Spell.IsCurrentSpell
-local GetSpellBookItemInfo = C_SpellBook.GetSpellBookItemInfo
-local GetItemCount = C_Item.GetItemCount
-local GetItemNameByID = C_Item.GetItemNameByID
-local GetItemIconByID = C_Item.GetItemIconByID
-local PlayerHasToy = PlayerHasToy
-local GetToyInfo = C_ToyBox.GetToyInfo
-local GetSpellName = C_Spell.GetSpellName
-local GetSpellTexture = C_Spell.GetSpellTexture
-local GetOnlyShowSkillUpRecipes, SetOnlyShowSkillUpRecipes =
-	C_TradeSkillUI.GetOnlyShowSkillUpRecipes, C_TradeSkillUI.SetOnlyShowSkillUpRecipes
-local GetOnlyShowMakeableRecipes, SetOnlyShowMakeableRecipes =
-	C_TradeSkillUI.GetOnlyShowMakeableRecipes, C_TradeSkillUI.SetOnlyShowMakeableRecipes
+local CreateFrame = CreateFrame
 
-local BOOKTYPE_PROFESSION = BOOKTYPE_PROFESSION or 0
-local RUNEFORGING_ID = 53428
-local PICK_LOCK = 1804
-local CHEF_HAT = 134020
-local THERMAL_ANVIL = 87216
-local tabList = {}
+local GetProfessionInfo = GetProfessionInfo
+local InCombatLockdown = InCombatLockdown
 
-local onlyPrimary = {
-	[171] = true, -- Alchemy
-	[182] = true, -- Herbalism
-	[186] = true, -- Mining
-	[202] = true, -- Engineering
-	[356] = true, -- Fishing
-	[393] = true, -- Skinning
-}
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
+local C_Spell_IsCurrentSpell = C_Spell.IsCurrentSpell
+local C_SpellBook_GetSpellBookItemName = C_SpellBook.GetSpellBookItemName
+local C_SpellBook_GetSpellBookItemTexture = C_SpellBook.GetSpellBookItemTexture
+local C_SpellBook_GetSpellBookItemInfo = C_SpellBook.GetSpellBookItemInfo
+local C_TradeSkillUI_GetOnlyShowSkillUpRecipes = C_TradeSkillUI.GetOnlyShowSkillUpRecipes
+local C_TradeSkillUI_SetOnlyShowSkillUpRecipes = C_TradeSkillUI.SetOnlyShowSkillUpRecipes
+local C_TradeSkillUI_GetOnlyShowMakeableRecipes = C_TradeSkillUI.GetOnlyShowMakeableRecipes
+local C_TradeSkillUI_SetOnlyShowMakeableRecipes = C_TradeSkillUI.SetOnlyShowMakeableRecipes
+local C_ToyBox_IsToyUsable = C_ToyBox.IsToyUsable
 
-function module:UpdateProfessions()
-	local prof1, prof2, _, fish, cook = GetProfessions()
-	local profs = { prof1, prof2, fish, cook }
+local tabs, spells = {}, {}
 
-	if E.myclass == "DEATHKNIGHT" then
-		module:TradeTabs_Create(RUNEFORGING_ID)
-	elseif E.myclass == "ROGUE" and IsPlayerSpell(PICK_LOCK) then
-		module:TradeTabs_Create(PICK_LOCK)
-	end
+local handler = CreateFrame("Frame")
+handler:SetScript("OnEvent", function(self, event)
+	self[event](self, event)
+end)
 
-	local isCook
-	for _, prof in pairs(profs) do
-		local _, _, _, _, numSpells, spelloffset, skillLine = GetProfessionInfo(prof)
-		if skillLine == 185 then
-			isCook = true
-		end
-
-		numSpells = onlyPrimary[skillLine] and 1 or numSpells
-		if numSpells > 0 then
-			for i = 1, numSpells do
-				local slotID = i + spelloffset
-				if not IsSpellBookItemPassive(slotID, BOOKTYPE_PROFESSION) then
-					local spellID = GetSpellBookItemInfo(slotID, BOOKTYPE_PROFESSION).spellID
-					if i == 1 then
-						module:TradeTabs_Create(spellID)
-					else
-						module:TradeTabs_Create(spellID)
-					end
-				end
-			end
-		end
-	end
-
-	if isCook and PlayerHasToy(CHEF_HAT) then
-		module:TradeTabs_Create(nil, CHEF_HAT)
-	end
-
-	if GetItemCount(THERMAL_ANVIL) > 0 then
-		module:TradeTabs_Create(nil, nil, THERMAL_ANVIL)
-	end
-end
-
-function module:TradeTabs_Update()
-	for _, tab in pairs(tabList) do
-		local spellID = tab.spellID
-		local itemID = tab.itemID
-
-		if spellID and IsCurrentSpell(spellID) then
-			tab:SetChecked(true)
-			tab.cover:Show()
-		else
-			tab:SetChecked(false)
-			tab.cover:Hide()
-		end
-
-		local start, duration
-		if itemID then
-			start, duration = GetItemCooldown(itemID)
-		else
-			local cooldownInfo = GetSpellCooldown(spellID)
-			start = cooldownInfo and cooldownInfo.startTime
-			duration = cooldownInfo and cooldownInfo.duration
-		end
-		if start and duration and duration > 1.5 then
-			tab.CD:SetCooldown(start, duration)
-		end
-	end
-end
-
-function module:TradeTabs_Reskin()
-	for _, tab in pairs(tabList) do
-		tab:CreateBackdrop()
-		tab.backdrop:SetAllPoints()
-		tab:StyleButton(true)
-
-		local normalTexture = tab:GetNormalTexture()
-		if normalTexture then
-			normalTexture:ClearAllPoints()
-			normalTexture:SetPoint("TOPLEFT", 2, -2)
-			normalTexture:SetPoint("BOTTOMRIGHT", -2, 2)
-			normalTexture:SetTexCoord(unpack(E.TexCoords))
-		end
-	end
-end
-
-local index = 1
-function module:TradeTabs_Create(spellID, toyID, itemID)
-	local name, _, texture
-	if toyID then
-		_, name, texture = GetToyInfo(toyID)
-	elseif itemID then
-		name, texture = GetItemNameByID(itemID), GetItemIconByID(itemID)
-	else
-		name, texture = GetSpellName(spellID), GetSpellTexture(spellID)
-	end
-	if not name then
-		return
-	end -- precaution
-
-	local tab = CreateFrame("CheckButton", nil, ProfessionsFrame, "SecureActionButtonTemplate")
-	tab:SetSize(32, 32)
-	tab.tooltip = name
-	tab.spellID = spellID
-	tab.itemID = toyID or itemID
-	tab.type = (toyID and "toy") or (itemID and "item") or "spell"
-	tab:RegisterForClicks("AnyDown")
-	if spellID == 818 then -- cooking fire
-		tab:SetAttribute("type", "macro")
-		tab:SetAttribute("macrotext", "/cast [@player]" .. name)
-	else
-		tab:SetAttribute("type", tab.type)
-		tab:SetAttribute(tab.type, spellID or name)
-	end
-	tab:SetNormalTexture(texture)
-	tab:SetHighlightTexture(E.media.normTex)
-	tab:GetHighlightTexture():SetVertexColor(1, 1, 1, 0.25)
-	tab:Show()
-
-	tab.CD = CreateFrame("Cooldown", nil, tab, "CooldownFrameTemplate")
-	tab.CD:SetAllPoints()
-
-	tab.cover = CreateFrame("Frame", nil, tab)
-	tab.cover:SetAllPoints()
-	tab.cover:EnableMouse(true)
-
-	tab:SetPoint("TOPLEFT", ProfessionsFrame, "TOPRIGHT", 3, -index * 42)
-
-	tinsert(tabList, tab)
-	index = index + 1
-end
-
-function module:TradeTabs_FilterIcons()
+local function FilterIcons()
 	local buttonList = {
 		[1] = {
-			"Atlas:bags-greenarrow",
+			"Professions-Icon-Skill-High",
 			TRADESKILL_FILTER_HAS_SKILL_UP,
-			GetOnlyShowSkillUpRecipes,
-			SetOnlyShowSkillUpRecipes,
+			C_TradeSkillUI_GetOnlyShowSkillUpRecipes,
+			C_TradeSkillUI_SetOnlyShowSkillUpRecipes,
 		},
 		[2] = {
 			"Interface\\RAIDFRAME\\ReadyCheck-Ready",
 			CRAFT_IS_MAKEABLE,
-			GetOnlyShowMakeableRecipes,
-			SetOnlyShowMakeableRecipes,
+			C_TradeSkillUI_GetOnlyShowMakeableRecipes,
+			C_TradeSkillUI_SetOnlyShowMakeableRecipes,
 		},
 	}
 
@@ -189,70 +49,290 @@ function module:TradeTabs_FilterIcons()
 		local value = self.__value
 		if value[3]() then
 			value[4](false)
-			self.backdrop:SetBackdropBorderColor(0, 0, 0)
+			self:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		else
 			value[4](true)
-			self.backdrop:SetBackdropBorderColor(1, 0.8, 0)
+			self:SetBackdropBorderColor(1, 0.8, 0)
 		end
 	end
 
 	local buttons = {}
 	for index, value in pairs(buttonList) do
-		local bu = CreateFrame("Button", nil, ProfessionsFrame.CraftingPage.RecipeList, "BackdropTemplate")
-		bu:SetSize(22, 22)
-		bu:SetPoint(
+		local button = CreateFrame("Button", nil, ProfessionsFrame.CraftingPage.RecipeList, "BackdropTemplate")
+		button:Size(22)
+		button:Point(
 			"BOTTOMRIGHT",
-			ProfessionsFrame.CraftingPage.RecipeList.FilterDropdown,
+			ProfessionsFrame.CraftingPage.RecipeList.FilterButton,
 			"TOPRIGHT",
-			-(index - 1) * 26 + 7,
+			-(index - 1) * 27,
 			10
 		)
-		S:PixelIcon(bu, value[1], true)
-		F.AddTooltip(bu, "ANCHOR_TOP", value[2])
-		bu.__value = value
-		bu:SetScript("OnClick", filterClick)
 
-		buttons[index] = bu
+		button.Icon = button:CreateTexture(nil, "OVERLAY")
+		if index == 1 then
+			button.Icon:SetAtlas(value[1])
+		else
+			button.Icon:SetTexture(value[1])
+		end
+		button.Icon:Point("TOPLEFT", button, 2, -2)
+		button.Icon:Point("BOTTOMRIGHT", button, -2, 2)
+
+		local tooltip_hide = function()
+			GameTooltip:Hide()
+		end
+
+		local tooltip_show = function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 3)
+			GameTooltip:ClearLines()
+			GameTooltip:SetText(value[2])
+		end
+		button:SetScript("OnEnter", tooltip_show)
+		button:SetScript("OnLeave", tooltip_hide)
+
+		button.__value = value
+		button:SetScript("OnClick", filterClick)
+
+		buttons[index] = button
 	end
 
-	local function updateFilterStatus()
+	function handler:TRADE_SKILL_LIST_UPDATE()
 		for index, value in pairs(buttonList) do
 			if value[3]() then
-				buttons[index].backdrop:SetBackdropBorderColor(1, 0.8, 0)
+				buttons[index]:SetBackdropBorderColor(1, 0.8, 0)
 			else
-				buttons[index].backdrop:SetBackdropBorderColor(0, 0, 0)
+				buttons[index]:SetBackdropBorderColor(unpack(E.media.bordercolor))
 			end
 		end
 	end
-	MER:RegisterEvent("TRADE_SKILL_LIST_UPDATE", updateFilterStatus)
+	handler:RegisterEvent("TRADE_SKILL_LIST_UPDATE")
 end
 
-local init
-function module:TradeTabs_OnLoad()
-	init = true
+local defaults = {
+	-- Primary Professions
+	[171] = { true, false }, -- Alchemy
+	[164] = { true, false }, -- Blacksmithing
+	[333] = { true, true }, -- Enchanting
+	[202] = { true, false }, -- Engineering
+	[182] = { false, false }, -- Herbalism
+	[773] = { true, true }, -- Inscription
+	[755] = { true, true }, -- Jewelcrafting
+	[165] = { true, false }, -- Leatherworking
+	[186] = { true, false }, -- Mining
+	[393] = { false, false }, -- Skinning
+	[197] = { true, false }, -- Tailoring
 
-	module:UpdateProfessions()
+	-- Secondary Professions
+	[794] = { false, false }, -- Archaeology
+	[185] = { true, true }, -- Cooking
+	[356] = { false, false }, -- Fishing
+}
 
-	module:TradeTabs_Reskin()
-	module:TradeTabs_Update()
-	MER:RegisterEvent("TRADE_SKILL_SHOW", module.TradeTabs_Update)
-	MER:RegisterEvent("TRADE_SKILL_CLOSE", module.TradeTabs_Update)
-	MER:RegisterEvent("CURRENT_SPELL_CAST_CHANGED", module.TradeTabs_Update)
-
-	module:TradeTabs_FilterIcons()
-
-	MER:UnregisterEvent("PLAYER_REGEN_ENABLED", module.TradeTabs_OnLoad)
+if E.myclass == "DEATHKNIGHT" then
+	spells[#spells + 1] = 53428 -- Runeforging
+end
+if E.myclass == "ROGUE" then
+	spells[#spells + 1] = 1804 -- Pick Lock
 end
 
-local function LoadTradeTabs()
-	if init then
-		return
+local function UpdateSelectedTabs(object)
+	if not handler:IsEventRegistered("CURRENT_SPELL_CAST_CHANGED") then
+		handler:RegisterEvent("CURRENT_SPELL_CAST_CHANGED")
 	end
 
-	if InCombatLockdown() then
-		MER:RegisterEvent("PLAYER_REGEN_ENABLED", module.TradeTabs_OnLoad)
+	for index = 1, #tabs[object] do
+		local tab = tabs[object][index]
+		if tab.spellID and C_Spell_IsCurrentSpell(tab.spellID) then
+			tab:Disable()
+			tab:SetChecked(true)
+		else
+			tab:Enable()
+			tab:SetChecked(false)
+		end
+	end
+end
+
+local function ResetTabs(object)
+	for index = 1, #tabs[object] do
+		tabs[object][index]:Hide()
+	end
+
+	tabs[object].index = 0
+end
+
+local function UpdateTab(object, name, texture, spellID)
+	local index = tabs[object].index + 1
+	local tab = tabs[object][index]
+		or CreateFrame("CheckButton", "ProTabs" .. tabs[object].index, object, "SecureActionButtonTemplate")
+	tab:RegisterForClicks("LeftButtonUp", "LeftButtonDown")
+
+	tab:SetSize(36, 36)
+	tab:ClearAllPoints()
+
+	if not tab.icon then
+		tab.icon = tab:CreateTexture("$parentIcon")
+		tab.icon:SetAllPoints()
+
+		tab:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square")
+		tab:GetHighlightTexture():SetBlendMode("ADD")
+		tab:SetCheckedTexture("Interface\\Buttons\\CheckButtonHilight")
+		tab:GetCheckedTexture():SetBlendMode("ADD")
+	end
+
+	tab:StyleButton()
+	tab:SetPoint("TOPLEFT", object, "TOPRIGHT", 1, (-44 * index) + 44)
+	tab.icon:ClearAllPoints()
+	tab.icon:SetPoint("TOPLEFT", 2, -2)
+	tab.icon:SetPoint("BOTTOMRIGHT", -2, 2)
+	tab.icon:SetTexture(texture)
+
+	if texture == 236571 then -- Chef's Hat
+		tab:SetAttribute("type", "toy")
+		tab:SetAttribute("toy", 134020)
+	elseif texture == 135805 then -- Cooking Fire
+		tab:SetAttribute("type", "macro")
+		tab:SetAttribute("macrotext", "/cast [@player]" .. name)
 	else
-		module:TradeTabs_OnLoad()
+		tab:SetAttribute("type", "spell")
+		tab:SetAttribute("spell", spellID or name)
+	end
+
+	tab:Show()
+
+	tab.name = name
+	tab.spellID = spellID
+
+	tab:SetScript("OnEnter", function(self)
+		if not name then
+			return
+		end
+
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 5, -7)
+		GameTooltip:SetText(name)
+		GameTooltip:Show()
+	end)
+
+	tab:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+
+	tabs[object][index] = tabs[object][index] or tab
+	tabs[object].index = tabs[object].index + 1
+end
+
+local function HandleProfession(object, professionID, hat)
+	if professionID then
+		local _, _, _, _, numAbilities, offset, skillID = GetProfessionInfo(professionID)
+
+		if defaults[skillID] then
+			for index = 1, numAbilities do
+				if defaults[skillID][index] then
+					local name = C_SpellBook_GetSpellBookItemName(offset + index, 0)
+					local texture = C_SpellBook_GetSpellBookItemTexture(offset + index, 0)
+					local spellID = C_SpellBook_GetSpellBookItemInfo(offset + index, 0).spellID
+
+					if name and texture then
+						UpdateTab(object, name, texture, spellID)
+					end
+				end
+			end
+		end
+
+		if hat and PlayerHasToy(134020) and C_ToyBox_IsToyUsable(134020) then -- Need an update on the Frame
+			UpdateTab(object, select(2, C_Spell_GetSpellInfo(67556)) or L["Chef's Hat"], 236571, 134020)
+		end
+	end
+end
+
+local function HandleTabs(object)
+	if not object then
+		return
+	end
+	tabs[object] = tabs[object] or {}
+
+	if InCombatLockdown() then
+		handler:RegisterEvent("PLAYER_REGEN_ENABLED")
+	else
+		local firstProfession, secondProfession, archaeology, fishing, cooking = GetProfessions()
+
+		ResetTabs(object)
+
+		HandleProfession(object, firstProfession)
+		HandleProfession(object, secondProfession)
+		HandleProfession(object, archaeology)
+		HandleProfession(object, fishing)
+		HandleProfession(object, cooking, true)
+
+		-- Runuforging and Pick Lock
+		for index = 1, #spells do
+			if IsSpellKnown(spells[index]) then
+				local name, _, texture = C_Spell_GetSpellInfo(spells[index])
+				UpdateTab(object, name, texture, spells[index])
+			end
+		end
+	end
+
+	UpdateSelectedTabs(object)
+end
+
+local isLoaded
+function handler:TRADE_SKILL_SHOW(event)
+	local owner = ATSWFrame or MRTSkillFrame or SkilletFrame or ProfessionsFrame
+
+	if C_AddOns_IsAddOnLoaded("TradeSkillDW") and owner == ProfessionsFrame then
+		self:UnregisterEvent(event)
+	else
+		HandleTabs(owner)
+		UpdateSelectedTabs(owner)
+		if not isLoaded then
+			FilterIcons()
+			isLoaded = true
+		end
+	end
+end
+
+function handler:TRADE_SKILL_CLOSE()
+	for object in next, tabs do
+		if object:IsShown() then
+			UpdateSelectedTabs(object)
+		end
+	end
+end
+
+function handler:TRADE_SHOW(event)
+	local owner = TradeFrame
+
+	HandleTabs(owner)
+	self[event] = function()
+		UpdateSelectedTabs(owner)
+	end
+end
+
+function handler:PLAYER_REGEN_ENABLED(event)
+	self:UnregisterEvent(event)
+
+	for object in next, tabs do
+		HandleTabs(object)
+	end
+end
+
+function handler:SKILL_LINES_CHANGED()
+	for object in next, tabs do
+		HandleTabs(object)
+	end
+end
+
+function handler:CURRENT_SPELL_CAST_CHANGED(event)
+	local numShown = 0
+
+	for object in next, tabs do
+		if object:IsShown() then
+			numShown = numShown + 1
+			UpdateSelectedTabs(object)
+		end
+	end
+
+	if numShown == 0 then
+		self:UnregisterEvent(event)
 	end
 end
 
@@ -261,15 +341,11 @@ function module:TradeTabs()
 		return
 	end
 
-	if ProfessionsFrame then
-		ProfessionsFrame:HookScript("OnShow", LoadTradeTabs)
-	else
-		MER:RegisterEvent("ADDON_LOADED", function(_, addon)
-			if addon == "Blizzard_Professions" then
-				LoadTradeTabs()
-			end
-		end)
-	end
+	handler:RegisterEvent("TRADE_SKILL_SHOW")
+	handler:RegisterEvent("TRADE_SKILL_CLOSE")
+	handler:RegisterEvent("TRADE_SHOW")
+	handler:RegisterEvent("SKILL_LINES_CHANGED")
+	handler:RegisterEvent("CURRENT_SPELL_CAST_CHANGED")
 end
 
 module:AddCallback("TradeTabs")

@@ -701,9 +701,9 @@ function CT:UpdateRoleIcons()
 			DAMAGER = E:TextureString(I.Media.RoleIcons.SunUIDPS, sizeString),
 		}
 
-		_G.INLINE_TANK_ICON = roleIcons.TANK
-		_G.INLINE_HEALER_ICON = roleIcons.HEALER
-		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+		INLINE_TANK_ICON = roleIcons.TANK
+		INLINE_HEALER_ICON = roleIcons.HEALER
+		INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "LYNUI" then
 		roleIcons = {
 			TANK = E:TextureString(I.Media.RoleIcons.LynUITank, sizeString),
@@ -711,9 +711,9 @@ function CT:UpdateRoleIcons()
 			DAMAGER = E:TextureString(I.Media.RoleIcons.LynUIDPS, sizeString),
 		}
 
-		_G.INLINE_TANK_ICON = roleIcons.TANK
-		_G.INLINE_HEALER_ICON = roleIcons.HEALER
-		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+		INLINE_TANK_ICON = roleIcons.TANK
+		INLINE_HEALER_ICON = roleIcons.HEALER
+		INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "SVUI" then
 		roleIcons = {
 			TANK = E:TextureString(I.Media.RoleIcons.SVUITank, sizeString),
@@ -721,9 +721,9 @@ function CT:UpdateRoleIcons()
 			DAMAGER = E:TextureString(I.Media.RoleIcons.SVUIDPS, sizeString),
 		}
 
-		_G.INLINE_TANK_ICON = roleIcons.TANK
-		_G.INLINE_HEALER_ICON = roleIcons.HEALER
-		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+		INLINE_TANK_ICON = roleIcons.TANK
+		INLINE_HEALER_ICON = roleIcons.HEALER
+		INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "DEFAULT" then
 		roleIcons = {
 			TANK = E:TextureString(CT.cache.elvuiRoleIconsPath.Tank, sizeString .. ":0:0:64:64:2:56:2:56"),
@@ -731,9 +731,9 @@ function CT:UpdateRoleIcons()
 			DAMAGER = E:TextureString(CT.cache.elvuiRoleIconsPath.DPS, sizeString),
 		}
 
-		_G.INLINE_TANK_ICON = CT.cache.blizzardRoleIcons.Tank
-		_G.INLINE_HEALER_ICON = CT.cache.blizzardRoleIcons.Healer
-		_G.INLINE_DAMAGER_ICON = CT.cache.blizzardRoleIcons.DPS
+		INLINE_TANK_ICON = CT.cache.blizzardRoleIcons.Tank
+		INLINE_HEALER_ICON = CT.cache.blizzardRoleIcons.Healer
+		INLINE_DAMAGER_ICON = CT.cache.blizzardRoleIcons.DPS
 	elseif pack == "BLIZZARD" then
 		roleIcons = {
 			TANK = gsub(CT.cache.blizzardRoleIcons.Tank, ":16:16", sizeString),
@@ -741,9 +741,9 @@ function CT:UpdateRoleIcons()
 			DAMAGER = gsub(CT.cache.blizzardRoleIcons.DPS, ":16:16", sizeString),
 		}
 
-		_G.INLINE_TANK_ICON = CT.cache.blizzardRoleIcons.Tank
-		_G.INLINE_HEALER_ICON = CT.cache.blizzardRoleIcons.Healer
-		_G.INLINE_DAMAGER_ICON = CT.cache.blizzardRoleIcons.DPS
+		INLINE_TANK_ICON = CT.cache.blizzardRoleIcons.Tank
+		INLINE_HEALER_ICON = CT.cache.blizzardRoleIcons.Healer
+		INLINE_DAMAGER_ICON = CT.cache.blizzardRoleIcons.DPS
 	elseif pack == "CUSTOM" then
 		roleIcons = {
 			TANK = E:TextureString(I.Media.RoleIcons.CustomTank, sizeString),
@@ -751,9 +751,9 @@ function CT:UpdateRoleIcons()
 			DAMAGER = E:TextureString(I.Media.RoleIcons.CustomDPS, sizeString),
 		}
 
-		_G.INLINE_TANK_ICON = roleIcons.TANK
-		_G.INLINE_HEALER_ICON = roleIcons.HEALER
-		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+		INLINE_TANK_ICON = roleIcons.TANK
+		INLINE_HEALER_ICON = roleIcons.HEALER
+		INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "GLOW" then
 		roleIcons = {
 			TANK = E:TextureString(I.Media.RoleIcons.GlowTank, sizeString),
@@ -761,9 +761,9 @@ function CT:UpdateRoleIcons()
 			DAMAGER = E:TextureString(I.Media.RoleIcons.GlowDPS, sizeString),
 		}
 
-		_G.INLINE_TANK_ICON = roleIcons.TANK
-		_G.INLINE_HEALER_ICON = roleIcons.HEALER
-		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+		INLINE_TANK_ICON = roleIcons.TANK
+		INLINE_HEALER_ICON = roleIcons.HEALER
+		INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "GRAVED" then
 		roleIcons = {
 			TANK = E:TextureString(I.Media.RoleIcons.GravedTank, sizeString),
@@ -771,9 +771,9 @@ function CT:UpdateRoleIcons()
 			DAMAGER = E:TextureString(I.Media.RoleIcons.GravedDPS, sizeString),
 		}
 
-		_G.INLINE_TANK_ICON = roleIcons.TANK
-		_G.INLINE_HEALER_ICON = roleIcons.HEALER
-		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+		INLINE_TANK_ICON = roleIcons.TANK
+		INLINE_HEALER_ICON = roleIcons.HEALER
+		INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "MAIN" then
 		roleIcons = {
 			TANK = E:TextureString(I.Media.RoleIcons.MainTank, sizeString),
@@ -781,9 +781,9 @@ function CT:UpdateRoleIcons()
 			DAMAGER = E:TextureString(I.Media.RoleIcons.MainDPS, sizeString),
 		}
 
-		_G.INLINE_TANK_ICON = roleIcons.TANK
-		_G.INLINE_HEALER_ICON = roleIcons.HEALER
-		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+		INLINE_TANK_ICON = roleIcons.TANK
+		INLINE_HEALER_ICON = roleIcons.HEALER
+		INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "WHITE" then
 		roleIcons = {
 			TANK = E:TextureString(I.Media.RoleIcons.WhiteTank, sizeString),
@@ -791,9 +791,9 @@ function CT:UpdateRoleIcons()
 			DAMAGER = E:TextureString(I.Media.RoleIcons.WhiteDPS, sizeString),
 		}
 
-		_G.INLINE_TANK_ICON = roleIcons.TANK
-		_G.INLINE_HEALER_ICON = roleIcons.HEALER
-		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+		INLINE_TANK_ICON = roleIcons.TANK
+		INLINE_HEALER_ICON = roleIcons.HEALER
+		INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	elseif pack == "MATERIAL" then
 		roleIcons = {
 			TANK = E:TextureString(I.Media.RoleIcons.MaterialTank, sizeString),
@@ -801,9 +801,9 @@ function CT:UpdateRoleIcons()
 			DAMAGER = E:TextureString(I.Media.RoleIcons.MaterialDPS, sizeString),
 		}
 
-		_G.INLINE_TANK_ICON = roleIcons.TANK
-		_G.INLINE_HEALER_ICON = roleIcons.HEALER
-		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+		INLINE_TANK_ICON = roleIcons.TANK
+		INLINE_HEALER_ICON = roleIcons.HEALER
+		INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	end
 end
 
@@ -832,19 +832,20 @@ function CT:ShortChannel()
 			local communityID = strmatch(name, "Community:(%d+):")
 			if communityID then
 				local communityInfo = GetClubInfo(communityID)
-
-				if communityInfo.clubType == 0 then
-					if communityInfo.name and CT.db and CT.db.customAbbreviation then
-						abbr = CT.db.customAbbreviation[communityInfo.name]
+				if communityInfo then
+					if communityInfo.clubType == 0 then
+						if communityInfo.name and CT.db and CT.db.customAbbreviation then
+							abbr = CT.db.customAbbreviation[communityInfo.name]
+						end
+						abbr = abbr or strupper(utf8sub(communityInfo.name, 1, 2))
+						abbr = E:TextGradient(abbr, 0.000, 0.592, 0.902, 0.000, 0.659, 1.000)
+					elseif communityInfo.clubType == 1 then
+						if CT.db and CT.db.customAbbreviation then
+							abbr = CT.db.customAbbreviation[communityInfo.name]
+						end
+						abbr = abbr or communityInfo.shortName or strupper(utf8sub(communityInfo.name, 1, 2))
+						abbr = F.CreateColorString(abbr, { r = 0.902, g = 0.494, b = 0.133 })
 					end
-					abbr = abbr or strupper(utf8sub(communityInfo.name, 1, 2))
-					abbr = E:TextGradient(abbr, 0.000, 0.592, 0.902, 0.000, 0.659, 1.000)
-				elseif communityInfo.clubType == 1 then
-					if CT.db and CT.db.customAbbreviation then
-						abbr = CT.db.customAbbreviation[communityInfo.name]
-					end
-					abbr = abbr or communityInfo.shortName or strupper(utf8sub(communityInfo.name, 1, 2))
-					abbr = F.CreateColorString(abbr, { r = 0.902, g = 0.494, b = 0.133 })
 				end
 			else
 				if CT.db and CT.db.customAbbreviation then
@@ -1774,7 +1775,7 @@ function CT:MessageFormatter(
 	local showLink = 1
 	local bossMonster = strsub(chatType, 1, 9) == "RAID_BOSS" or strsub(chatType, 1, 7) == "MONSTER"
 	if bossMonster then
-		showLink = nil
+		showLink = 0
 
 		-- fix blizzard formatting errors from localization strings
 		arg1 = gsub(arg1, "(%d%%)([^%%%a])", "%1%%%2") -- escape percentages that need it [broken since SL?]
@@ -2296,13 +2297,15 @@ local function UpdateBattleNetFriendStatus(friendIndex)
 	if numGameAccounts and numGameAccounts > 0 then
 		for accountIndex = 1, numGameAccounts do
 			local gameAccountInfo = GetFriendGameAccountInfo(friendIndex, accountIndex)
-			if gameAccountInfo.wowProjectID == WOW_PROJECT_MAINLINE and gameAccountInfo.characterName then
-				numberOfCharacters = numberOfCharacters + 1
-				characters[gameAccountInfo.characterName] = {
-					faction = gameAccountInfo.factionName,
-					realm = gameAccountInfo.realmDisplayName,
-					class = E:UnlocalizedClassName(gameAccountInfo.className),
-				}
+			if gameAccountInfo then
+				if gameAccountInfo.wowProjectID == WOW_PROJECT_MAINLINE and gameAccountInfo.characterName then
+					numberOfCharacters = numberOfCharacters + 1
+					characters[gameAccountInfo.characterName] = {
+						faction = gameAccountInfo.factionName,
+						realm = gameAccountInfo.realmDisplayName,
+						class = E:UnlocalizedClassName(gameAccountInfo.className),
+					}
+				end
 			end
 		end
 	end

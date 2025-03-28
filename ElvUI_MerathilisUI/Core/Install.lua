@@ -5,10 +5,9 @@ local PF = MER:GetModule("MER_Profiles")
 
 local _G = _G
 local ipairs, next = ipairs, next
-local format, checkTable = string.format, next
-local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
+local format = string.format
+local tinsert = table.insert
 
-local ADDONS = ADDONS
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
 local FCF_SetWindowName = FCF_SetWindowName
 local FCF_ResetChatWindows = FCF_ResetChatWindows
@@ -32,6 +31,11 @@ local Reload = C_UI.Reload
 local SetCVar = C_CVar.SetCVar
 
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
+
+local PluginInstallStepComplete = _G.PluginInstallStepComplete
+local PluginInstallFrame = _G.PluginInstallFrame
+local PluginInstallTutorialImage = _G.PluginInstallTutorialImage
+local InstallStepComplete = _G.InstallStepComplete
 
 local IsInstalled = false
 local function InstallComplete(fishished)
