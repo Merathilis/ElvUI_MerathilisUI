@@ -39,17 +39,16 @@ module.ReminderBuffs = {
 	},
 	Food = {
 		104280, -- Well Fed
+		462210, -- Hearty Well Fed
 	},
 	Intellect = {
 		1459, -- Arcane Intellect
-		264760, -- War-Scroll of Intellect
 	},
 	Stamina = {
 		21562, -- Power Word: Fortitude
 	},
 	AttackPower = {
 		6673, -- Battle Shout
-		-- 264761, -- War-Scroll of Battle
 	},
 	Versatility = {
 		1126, -- Mark of the Wild
