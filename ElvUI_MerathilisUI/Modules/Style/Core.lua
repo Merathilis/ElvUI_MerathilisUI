@@ -71,6 +71,10 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 	end
 end
 
+function module:SetTemplateAS(_, frame, template, _)
+	self:SetTemplate(frame, template)
+end
+
 function module:API(object)
 	local mt = getmetatable(object).__index
 
@@ -158,6 +162,19 @@ function module:Enable()
 	end
 
 	self.isEnabled = true
+
+	-- AddOnSkins Skinning
+	F.Event.ContinueOnAddOnLoaded("AddOnSkins", function()
+		local AS = _G.AddOnSkins and _G.AddOnSkins[1]
+		if not AS then
+			return
+		end
+
+		if not self:IsHooked(AS, "SetTemplate") then
+			self:SecureHook(AS, "SetTemplate", "SetTemplateAS")
+			AS:UpdateSettings()
+		end
+	end)
 
 	self:MetatableScan()
 	self:ForceRefresh()

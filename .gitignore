@@ -222,3 +222,6 @@ pip-log.txt
 
 # Luacheck's Cache
 .luacheckcache
+
+# Wow Lua Erros
+crash.txt

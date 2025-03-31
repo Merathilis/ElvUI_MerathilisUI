@@ -6,7 +6,7 @@ local unpack = unpack
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 function module:LoadAddOnSkinsProfile()
-	local AS = unpack(AddOnSkins)
+	local AS = _G.AddOnSkins and _G.AddOnSkins[1]
 	local profileName = I.ProfileNames.Default
 
 	AS.data:SetProfile(profileName)
@@ -16,6 +16,7 @@ function module:LoadAddOnSkinsProfile()
 	AS.db["EmbedCoolLine"] = false
 	AS.db["EmbedSexyCooldown"] = false
 	AS.db["TransparentEmbed"] = false
+	AS.db["Shadows"] = false
 	AS.db["EmbedIsHidden"] = false
 	AS.db["EmbedFrameStrata"] = "3-MEDIUM"
 	AS.db["EmbedFrameLevel"] = 50
@@ -40,6 +41,7 @@ function module:LoadAddOnSkinsProfile()
 	AS.db["EmbedSystemMessage"] = false
 	AS.db["ElvUISkinModule"] = true
 	AS.db["ThinBorder"] = false
+	AS.db["CropIcons"] = false
 	AS.db["BackgroundTexture"] = "ElvUI Norm1"
 	AS.db["StatusBarTexture"] = "ElvUI Norm1"
 	AS.db["Clique"] = false
@@ -47,24 +49,9 @@ function module:LoadAddOnSkinsProfile()
 	AS.db["Pawn"] = false
 	AS.db["BagSync"] = false
 
-	-- embeded settings
-	if IsAddOnLoaded("Details") then
-		AS.db["EmbedSystem"] = false
-		AS.db["EmbedSystemDual"] = false
-		AS.db["EmbedBelowTop"] = false
-		AS.db["EmbedMain"] = "Details"
-		AS.db["EmbedLeft"] = ""
-		AS.db["EmbedRight"] = ""
-	end
-
-	if IsAddOnLoaded("Skada") then
-		AS.db["EmbedSystem"] = true
-		AS.db["EmbedSystemDual"] = false
-		AS.db["EmbedBelowTop"] = true
-		AS.db["EmbedMain"] = "Skada"
-		AS.db["EmbedLeft"] = ""
-		AS.db["EmbedRight"] = ""
-	end
+	AS.db["EmbedSystem"] = false
+	AS.db["EmbedSystemDual"] = false
+	AS.db["EmbedBelowTop"] = false
 
 	if IsAddOnLoaded("BugSack") then
 		AS.db["BugSack"] = false
