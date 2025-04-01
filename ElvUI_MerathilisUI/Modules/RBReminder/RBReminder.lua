@@ -38,8 +38,18 @@ module.ReminderBuffs = {
 		393438, -- Dreambound Augment Rune
 	},
 	Food = {
-		104280, -- Well Fed
-		462210, -- Hearty Well Fed
+		-- Well Fed
+		104280,
+		461957, -- (Mastery)
+		461958, -- (Vers)
+		461959, -- (Crit)
+		461960, -- (Haste)
+		-- Hearty Well Fed
+		462180, -- (Haste)
+		462181, -- (Crit)
+		462182, -- (Vers)
+		462183, -- (Mastery)
+		462210, -- (Primary Stat)
 	},
 	Intellect = {
 		1459, -- Arcane Intellect
