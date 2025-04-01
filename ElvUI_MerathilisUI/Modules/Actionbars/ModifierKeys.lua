@@ -36,7 +36,9 @@ function module:ColorKeybinds(button)
 	local colorHex = sub(E:ClassColor(E.myclass, true).colorStr, 3)
 
 	-- Set keybind width same as button
-	button.HotKey:Width(button:GetWidth())
+	if button.GetWidth then
+		button.HotKey:Width(button:GetWidth())
+	end
 
 	if text and text ~= _G.RANGE_INDICATOR and len(text) > 1 then
 		text = module:ColorizeKey(text, colorHex)
