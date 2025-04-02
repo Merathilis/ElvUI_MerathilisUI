@@ -32,11 +32,6 @@ local SetCVar = C_CVar.SetCVar
 
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
 
-local PluginInstallStepComplete = _G.PluginInstallStepComplete
-local PluginInstallFrame = _G.PluginInstallFrame
-local PluginInstallTutorialImage = _G.PluginInstallTutorialImage
-local InstallStepComplete = _G.InstallStepComplete
-
 local IsInstalled = false
 local function InstallComplete(fishished)
 	E.private.install_complete = E.version
