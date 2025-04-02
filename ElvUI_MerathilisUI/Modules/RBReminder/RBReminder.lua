@@ -38,18 +38,27 @@ module.ReminderBuffs = {
 		393438, -- Dreambound Augment Rune
 	},
 	Food = {
-		104280, -- Well Fed
+		-- Well Fed
+		104280,
+		461957, -- (Mastery)
+		461958, -- (Vers)
+		461959, -- (Crit)
+		461960, -- (Haste)
+		-- Hearty Well Fed
+		462180, -- (Haste)
+		462181, -- (Crit)
+		462182, -- (Vers)
+		462183, -- (Mastery)
+		462210, -- (Primary Stat)
 	},
 	Intellect = {
 		1459, -- Arcane Intellect
-		264760, -- War-Scroll of Intellect
 	},
 	Stamina = {
 		21562, -- Power Word: Fortitude
 	},
 	AttackPower = {
 		6673, -- Battle Shout
-		-- 264761, -- War-Scroll of Battle
 	},
 	Versatility = {
 		1126, -- Mark of the Wild

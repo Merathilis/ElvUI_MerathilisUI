@@ -137,7 +137,7 @@ do
 			return
 		end
 
-		local delimiter = delimiterList[W.Locale] or "'s"
+		local delimiter = delimiterList[MER.Locale] or "'s"
 		local raw = { F.String.Split(details, delimiter) }
 
 		local owner, role = raw[1], raw[#raw]

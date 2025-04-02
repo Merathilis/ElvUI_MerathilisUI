@@ -417,6 +417,7 @@ L["Europe"] = true
 L["Server List"] = true
 L["Trade Tabs"] = true
 L["Enable Tabs on the Profession Frames"] = true
+L["Chef's Hat"] = true
 L["Group Finder"] = true
 L["Equipment Upgrade"] = true
 L["Vendor"] = true
