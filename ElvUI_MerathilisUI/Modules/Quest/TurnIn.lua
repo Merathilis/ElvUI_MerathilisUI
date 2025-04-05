@@ -369,14 +369,11 @@ function module:GOSSIP_SHOW()
 
 			local _, instance, _, _, _, _, _, mapID = GetInstanceInfo()
 			if instance ~= "raid" and not ignoreGossipNPC[npcID] and not ignoreInstances[mapID] then
-				local status = gossipOptions[1] and gossipOptions[1].status
-				local name = gossipOptions[1].name
-				local invalidName = name and strfind(name, "cFF0000FF") and not strfind(name, QUEST_STRING)
-				local invalidNameDelve = name and not strfind(name, DELVE_STRING)
-				if status and status == 0 then
-					if not invalidName then
-						return C_GossipInfo_SelectOption(firstGossipOptionID)
-					elseif not invalidNameDelve then
+				local name, status = gossipOptions[1].name, gossipOptions[1].status
+				if name and status and status == 0 then
+					local questNameFound = strfind(name, "cFF0000FF") and strfind(name, QUEST_STRING)
+					local delveNameFound = strfind(name, DELVE_STRING)
+					if questNameFound or delveNameFound then
 						return C_GossipInfo_SelectOption(firstGossipOptionID)
 					end
 				end
