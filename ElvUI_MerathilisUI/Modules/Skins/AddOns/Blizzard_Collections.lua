@@ -19,7 +19,7 @@ function module:Blizzard_Collections()
 
 	module:CreateShadow(CollectionsJournal)
 
-	for i = 1, 5 do
+	for i = 1, 6 do
 		module:ReskinTab(_G["CollectionsJournalTab" .. i])
 	end
 
