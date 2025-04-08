@@ -37,17 +37,6 @@ function module:Blizzard_Collections()
 		select(i, PetJournal.PetCount:GetRegions()):Hide()
 	end
 
-	MountJournal.LeftInset:Hide()
-	MountJournal.RightInset:Hide()
-	PetJournal.LeftInset:Hide()
-	PetJournal.RightInset:Hide()
-	PetJournal.PetCardInset:Hide()
-	PetJournal.loadoutBorder:Hide()
-	MountJournal.MountDisplay.YesMountsTex:SetAlpha(0)
-	MountJournal.MountDisplay.NoMountsTex:SetAlpha(0)
-	MountJournal.MountDisplay.ShadowOverlay:Hide()
-	_G.PetJournalTutorialButton.Ring:Hide()
-
 	MountJournal.MountCount:SetTemplate("Transparent")
 	PetJournal.PetCount:SetTemplate("Transparent")
 	MountJournal.MountDisplay.ModelScene:SetTemplate("Transparent")
@@ -79,14 +68,6 @@ function module:Blizzard_Collections()
 
 	-- Pet card
 	local card = _G.PetJournalPetCard
-
-	_G.PetJournalPetCardBG:Hide()
-	card.PetInfo.levelBG:SetAlpha(0)
-	card.PetInfo.qualityBorder:SetAlpha(0)
-	card.AbilitiesBG1:SetAlpha(0)
-	card.AbilitiesBG2:SetAlpha(0)
-	card.AbilitiesBG3:SetAlpha(0)
-
 	card.PetInfo.level:SetFontObject(_G.GameFontNormal)
 	card.PetInfo.level:SetTextColor(1, 1, 1)
 	S:HandleIcon(card.PetInfo.icon, true)
@@ -163,9 +144,6 @@ function module:Blizzard_Collections()
 			bu.dragButton:SetEnabled(not bu.helpFrame:IsShown())
 		end
 	end)
-
-	PetJournal.SpellSelect.BgEnd:Hide()
-	PetJournal.SpellSelect.BgTiled:Hide()
 
 	-- [[ Toy box ]]
 	local ToyBox = _G.ToyBox
