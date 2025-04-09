@@ -144,11 +144,6 @@ function module:Initialize()
 	-- RoleIcons
 	module:Configure_RoleIcons()
 
-	--Auras
-	if db.auras then
-		module:SecureHook(UF, "PostUpdateAura", "ElvUI_PostUpdateDebuffs")
-	end
-
 	self:RegisterEvent("ADDON_LOADED")
 end
 

@@ -2895,18 +2895,20 @@ function module:Reveal()
 		RevealDatabase[542]["267:257:336:327"] = gsub(RevealDatabase[542]["267:257:336:327"], "1003342", "")
 	end
 
-	for pin in _G.WorldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
+	for pin in WorldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
 		hooksecurefunc(pin, "RefreshOverlays", function(MER_pin, fullUpdate)
-			module:MapExplorationPin_RefreshOverlays(MER_pin, fullUpdate, _G.WorldMapFrame, worldMapCache)
+			module:MapExplorationPin_RefreshOverlays(MER_pin, fullUpdate, WorldMapFrame, worldMapCache)
 		end)
 		pin.overlayTexturePool.resetterFunc = MER_Pool_HideAndClearAnchors
 	end
 
-	for pin in _G.BattlefieldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
-		hooksecurefunc(pin, "RefreshOverlays", function(MER_pin, fullUpdate)
-			module:MapExplorationPin_RefreshOverlays(MER_pin, fullUpdate, _G.BattlefieldMapFrame, battleFieldMapCache)
-		end)
-		pin.overlayTexturePool.resetterFunc = MER_Pool_HideAndClearAnchors
+	if BattlefieldMapFrame then
+		for pin in BattlefieldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
+			hooksecurefunc(pin, "RefreshOverlays", function(MER_pin, fullUpdate)
+				module:MapExplorationPin_RefreshOverlays(MER_pin, fullUpdate, BattlefieldMapFrame, battleFieldMapCache)
+			end)
+			pin.overlayTexturePool.resetterFunc = MER_Pool_HideAndClearAnchors
+		end
 	end
 end
 

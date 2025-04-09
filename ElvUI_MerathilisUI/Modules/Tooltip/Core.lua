@@ -277,8 +277,6 @@ function module:Initialize()
 	module:SecureHook(ET, "RemoveTrashLines", "ElvUIRemoveTrashLines")
 	module:SecureHookScript(GameTooltip, "OnTooltipCleared", "ClearInspectInfo")
 
-	module:ReskinTooltipIcons()
-
 	module.initialized = true
 end
 

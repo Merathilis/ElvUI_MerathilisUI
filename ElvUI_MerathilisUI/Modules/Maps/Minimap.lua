@@ -53,10 +53,9 @@ function module:Initialize()
 	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckStatus")
 	self:RegisterEvent("CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS", "CheckStatus")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckStatus")
-	self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckStatus")
-	self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckStatus")
-
-	self:MinimapPing()
+	local MinimapMailFrame = MinimapCluster.IndicatorFrame.MailFrame
+	self:HookScript(MinimapMailFrame, "OnShow", "CheckStatus")
+	self:HookScript(MinimapMailFrame, "OnHide", "CheckStatus")
 end
 
 MER:RegisterModule(module:GetName())
