@@ -25,9 +25,6 @@ function module:TradeFrame()
 
 	local TradeFrame = _G.TradeFrame
 
-	_G.TradePlayerInputMoneyFrameSilver:SetPoint("LEFT", _G.TradePlayerInputMoneyFrameGold, "RIGHT", 1, 0)
-	_G.TradePlayerInputMoneyFrameCopper:SetPoint("LEFT", _G.TradePlayerInputMoneyFrameSilver, "RIGHT", 1, 0)
-
 	for i = 1, _G.MAX_TRADE_ITEMS do
 		_G["TradePlayerItem" .. i .. "SlotTexture"]:Hide()
 		_G["TradePlayerItem" .. i .. "NameFrame"]:Hide()
@@ -63,7 +60,7 @@ function module:TradeFrame()
 		local text = "|cffff0000" .. L["Stranger"]
 		if C_BattleNet_GetGameAccountInfoByGUID(guid) or C_FriendList_IsFriend(guid) then
 			text = "|cffffff00" .. _G.FRIEND
-		elseif IsGuildMember(guid) then
+		elseif IsGuildMember() then
 			text = "|cff00ff00" .. _G.GUILD
 		end
 		TradeFrame.text:SetText(text)
