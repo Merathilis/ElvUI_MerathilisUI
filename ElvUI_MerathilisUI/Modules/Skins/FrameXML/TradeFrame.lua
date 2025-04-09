@@ -60,7 +60,7 @@ function module:TradeFrame()
 		local text = "|cffff0000" .. L["Stranger"]
 		if C_BattleNet_GetGameAccountInfoByGUID(guid) or C_FriendList_IsFriend(guid) then
 			text = "|cffffff00" .. _G.FRIEND
-		elseif IsGuildMember() then
+		elseif IsGuildMember(guid) then
 			text = "|cff00ff00" .. _G.GUILD
 		end
 		TradeFrame.text:SetText(text)
