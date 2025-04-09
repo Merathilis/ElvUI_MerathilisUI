@@ -25,9 +25,6 @@ function module:TradeFrame()
 
 	local TradeFrame = _G.TradeFrame
 
-	_G.TradePlayerInputMoneyFrameSilver:SetPoint("LEFT", _G.TradePlayerInputMoneyFrameGold, "RIGHT", 1, 0)
-	_G.TradePlayerInputMoneyFrameCopper:SetPoint("LEFT", _G.TradePlayerInputMoneyFrameSilver, "RIGHT", 1, 0)
-
 	for i = 1, _G.MAX_TRADE_ITEMS do
 		_G["TradePlayerItem" .. i .. "SlotTexture"]:Hide()
 		_G["TradePlayerItem" .. i .. "NameFrame"]:Hide()

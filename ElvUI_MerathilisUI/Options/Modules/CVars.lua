@@ -1,17 +1,17 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
 
-local GetCVarBool = C_CVar.GetCVarBool
-local SetCVar = C_CVar.SetCVar
+local C_CVar_GetCVarBool = C_CVar.GetCVarBool
+local C_CVar_SetCVar = C_CVar.SetCVar
 
 options.cvars = {
 	type = "group",
 	name = L["CVars"],
 	get = function(info)
-		return GetCVarBool(info[#info])
+		return C_CVar_GetCVarBool(info[#info])
 	end,
 	set = function(info, value)
-		SetCVar(info[#info], value and "1" or "0")
+		C_CVar_SetCVar(info[#info], value and "1" or "0")
 	end,
 	args = {
 		header = {

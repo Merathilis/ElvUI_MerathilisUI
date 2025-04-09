@@ -113,12 +113,12 @@ local defaults = {
 	[164] = { true, false }, -- Blacksmithing
 	[333] = { true, true }, -- Enchanting
 	[202] = { true, false }, -- Engineering
-	[182] = { false, false }, -- Herbalism
+	[182] = { true, false }, -- Herbalism
 	[773] = { true, true }, -- Inscription
 	[755] = { true, true }, -- Jewelcrafting
 	[165] = { true, false }, -- Leatherworking
 	[186] = { true, false }, -- Mining
-	[393] = { false, false }, -- Skinning
+	[393] = { true, false }, -- Skinning
 	[197] = { true, false }, -- Tailoring
 
 	-- Secondary Professions

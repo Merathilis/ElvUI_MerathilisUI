@@ -285,7 +285,7 @@ function module:BigWigs_QueueTimer()
 	if _G.BigWigsLoader then
 		_G.BigWigsLoader.RegisterMessage("MerathilisUI", "BigWigs_FrameCreated", function(_, frame, name)
 			local db = E.private.mui.skins.addonSkins.bw.queueTimer
-			if name == "QueueTimer" then
+			if frame and (name == "QueueTimer") and not frame.__MERSkin then
 				local parent = frame:GetParent()
 				frame:StripTextures()
 				frame:CreateBackdrop("Transparent")
@@ -318,6 +318,8 @@ function module:BigWigs_QueueTimer()
 				F.SetFontDB(frame.text, db.countDown)
 				frame.text:ClearAllPoints()
 				frame.text:SetPoint("TOP", frame, "TOP", db.countDown.offsetX, db.countDown.offsetY)
+
+				frame.__MERSkin = true
 			end
 		end)
 
