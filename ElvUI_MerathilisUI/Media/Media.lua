@@ -167,6 +167,7 @@ F.AddMedia("font", "ToxiUIIcons.ttf", I.Fonts.Icons, nil, allLocaleBits)
 
 -- Statusbars
 F.AddMedia("texture", "Empty", "- Empty", "statusbar")
+F.AddMedia("texture", "Clean", "- Clean", "statusbar")
 F.AddMedia("texture", "Lyn", "Lyn", "statusbar")
 F.AddMedia("texture", "SkullflowerLight", "SkullflowerLight", "statusbar")
 F.AddMedia("texture", "Duffed", "Duffed", "statusbar")
