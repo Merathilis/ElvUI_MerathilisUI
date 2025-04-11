@@ -14,7 +14,10 @@ P.core = {
 }
 
 P.general = {
-	GameMenu = true,
+	GameMenu = {
+		enable = true,
+		bgColor = F.Table.HexToRGB("#00000080"),
+	},
 	splashScreen = true,
 	AFK = true,
 	fontScale = 0,
