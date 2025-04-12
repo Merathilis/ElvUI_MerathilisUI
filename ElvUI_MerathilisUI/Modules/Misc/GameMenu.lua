@@ -255,6 +255,8 @@ function module:GameMenu_OnShow()
 	self.mainFrame = mainFrame
 	self.mainFrame:Show()
 
+	self.textHolder = textHolder
+
 	self.modelHolder = modelHolder
 	self.npcHolder = npcHolder
 end
