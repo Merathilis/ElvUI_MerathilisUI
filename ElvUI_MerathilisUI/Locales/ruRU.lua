@@ -194,6 +194,11 @@ L["Reset all %s modules."] = "Сбросить все %s модули."
 L["GameMenu"] = "Меню игры"
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] =
 	"Включить/отключить стиль MerathilisUI в игровом меню Blizzard. (например, Пепе, Логотип, Бары)"
+L["Achievements: "] = true
+L["Achievement Points: "] = true
+L["Mounts: "] = true
+L["Pets: "] = true
+L["Toys: "] = true
 
 -- Extended Vendor
 L["Extended Vendor"] = "Расширенный продавец"

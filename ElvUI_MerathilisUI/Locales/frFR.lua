@@ -163,6 +163,11 @@ L["Reset all %s modules."] = "Réinitialiser tous les modules %s."
 -- GameMenu
 L["GameMenu"] = true
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] = true
+L["Achievements: "] = true
+L["Achievement Points: "] = true
+L["Mounts: "] = true
+L["Pets: "] = true
+L["Toys: "] = true
 
 -- Extended Vendor
 L["Extended Vendor"] = true

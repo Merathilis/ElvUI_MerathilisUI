@@ -67,7 +67,6 @@ function module:GameMenu_OnShow()
 	mainFrame.bg = mainFrame:CreateTexture(nil, "BACKGROUND")
 	mainFrame.bg:SetAllPoints(mainFrame)
 	mainFrame.bg:SetTexture(I.Media.Textures.Clean)
-	-- mainFrame.bg:SetFrameStrata(GameMenuFrame:GetFrameStrata() - 1)
 
 	local bgColor = E.db.mui.general.GameMenu.bgColor
 	local alpha = E.db.mui.general.GameMenu.bgColor.a
@@ -144,16 +143,23 @@ function module:GameMenu_OnShow()
 	topPanel:Height(0)
 	topPanel.anim.height:Play()
 
+	local textHolder = CreateFrame("Frame", nil, topPanel)
+	textHolder:Point("LEFT", topPanel, "BOTTOMLEFT", 5, 0)
+	textHolder:Width(E.screenWidth * 0.5)
+	textHolder:Height(E.screenHeight * (1 / 4) - 20)
+
 	topPanel.factionLogo = topPanel:CreateTexture(nil, "ARTWORK")
 	topPanel.factionLogo:Point("CENTER", topPanel, "CENTER", 0, 0)
 	topPanel.factionLogo:Size(186, 186)
 	topPanel.factionLogo:SetTexture(I.General.MediaPath .. "Textures\\ClassBanner\\CLASS-" .. E.myclass)
 
-	topPanel.collections = topPanel:CreateFontString(nil, "ARTWORK")
-	topPanel.collections:Point("LEFT", topPanel, "TOPLEFT", 5, -30)
-	topPanel.collections:FontTemplate(nil, 24, "SHADOWOUTLINE")
-	topPanel.collections:SetTextColor(1, 1, 1, 1)
-	topPanel.collections:SetText(F.String.GradientClass("Collections"))
+	textHolder.collections = textHolder:CreateFontString(nil, "ARTWORK")
+	textHolder.collections:Point("TOPLEFT", textHolder)
+	textHolder.collections:FontTemplate(nil, 24, "SHADOWOUTLINE")
+	textHolder.collections:SetTextColor(1, 1, 1, 1)
+	textHolder.collections:SetText(F.String.GradientClass(L["Collections"]))
+	textHolder.collections:SetJustifyH("LEFT")
+	textHolder.collections:SetJustifyV("TOP")
 
 	local collectedMounts = 0
 	if E.MountIDs then
@@ -165,32 +171,40 @@ function module:GameMenu_OnShow()
 		end
 	end
 
-	topPanel.collections.mount = topPanel:CreateFontString(nil, "ARTWORK")
-	topPanel.collections.mount:Point("TOPLEFT", topPanel.collections, "BOTTOMLEFT", 2, -10)
-	topPanel.collections.mount:FontTemplate(nil, 16, "SHADOWOUTLINE")
-	topPanel.collections.mount:SetTextColor(1, 1, 1, 1)
-	topPanel.collections.mount:SetText(L["Mounts: "] .. F.String.MERATHILISUI(collectedMounts))
+	textHolder.collections.mount = textHolder:CreateFontString(nil, "ARTWORK")
+	textHolder.collections.mount:Point("TOPLEFT", textHolder.collections, "BOTTOMLEFT", 2, -10)
+	textHolder.collections.mount:FontTemplate(nil, 16, "SHADOWOUTLINE")
+	textHolder.collections.mount:SetTextColor(1, 1, 1, 1)
+	textHolder.collections.mount:SetText(L["Mounts: "] .. F.String.MERATHILISUI(collectedMounts))
+	textHolder.collections.mount:SetJustifyH("LEFT")
+	textHolder.collections.mount:SetJustifyV("TOP")
 
-	topPanel.collections.toys = topPanel:CreateFontString(nil, "OVERLAY")
-	topPanel.collections.toys:FontTemplate(nil, 16, "SHADOWOUTLINE")
-	topPanel.collections.toys:Point("TOPLEFT", topPanel.collections.mount, "BOTTOMLEFT", 2, -4)
-	topPanel.collections.toys:SetTextColor(1, 1, 1, 1)
-	topPanel.collections.toys:SetText(L["Toys: "] .. F.String.MERATHILISUI(C_ToyBox_GetNumLearnedDisplayedToys()))
+	textHolder.collections.toys = textHolder:CreateFontString(nil, "OVERLAY")
+	textHolder.collections.toys:FontTemplate(nil, 16, "SHADOWOUTLINE")
+	textHolder.collections.toys:Point("TOPLEFT", textHolder.collections.mount, "BOTTOMLEFT", 2, -4)
+	textHolder.collections.toys:SetTextColor(1, 1, 1, 1)
+	textHolder.collections.toys:SetText(L["Toys: "] .. F.String.MERATHILISUI(C_ToyBox_GetNumLearnedDisplayedToys()))
+	textHolder.collections.toys:SetJustifyH("LEFT")
+	textHolder.collections.toys:SetJustifyV("TOP")
 
 	local _, petsOwned = C_PetJournal_GetNumPets()
-	topPanel.collections.pets = topPanel:CreateFontString(nil, "OVERLAY")
-	topPanel.collections.pets:Point("TOPLEFT", topPanel.collections.toys, "BOTTOMLEFT", 0, -4)
-	topPanel.collections.pets:FontTemplate(nil, 16, "SHADOWOUTLINE")
-	topPanel.collections.pets:SetTextColor(1, 1, 1, 1)
-	topPanel.collections.pets:SetText(L["Pets: "] .. F.String.MERATHILISUI(petsOwned))
+	textHolder.collections.pets = textHolder:CreateFontString(nil, "OVERLAY")
+	textHolder.collections.pets:Point("TOPLEFT", textHolder.collections.toys, "BOTTOMLEFT", 0, -4)
+	textHolder.collections.pets:FontTemplate(nil, 16, "SHADOWOUTLINE")
+	textHolder.collections.pets:SetTextColor(1, 1, 1, 1)
+	textHolder.collections.pets:SetText(L["Pets: "] .. F.String.MERATHILISUI(petsOwned))
+	textHolder.collections.pets:SetJustifyH("LEFT")
+	textHolder.collections.pets:SetJustifyV("TOP")
 
-	topPanel.collections.achievs = topPanel:CreateFontString(nil, "OVERLAY")
-	topPanel.collections.achievs:SetPoint("TOPLEFT", topPanel.collections.pets, "BOTTOMLEFT", 0, -4)
-	topPanel.collections.achievs:FontTemplate(nil, 16, "SHADOWOUTLINE")
-	topPanel.collections.achievs:SetTextColor(1, 1, 1, 1)
-	topPanel.collections.achievs:SetText(
+	textHolder.collections.achievs = textHolder:CreateFontString(nil, "OVERLAY")
+	textHolder.collections.achievs:SetPoint("TOPLEFT", textHolder.collections.pets, "BOTTOMLEFT", 0, -4)
+	textHolder.collections.achievs:FontTemplate(nil, 16, "SHADOWOUTLINE")
+	textHolder.collections.achievs:SetTextColor(1, 1, 1, 1)
+	textHolder.collections.achievs:SetText(
 		L["Achievement Points: "] .. F.String.MERATHILISUI(E:FormatLargeNumber(GetTotalAchievementPoints(), ","))
 	)
+	textHolder.collections.achievs:SetJustifyH("LEFT")
+	textHolder.collections.achievs:SetJustifyV("TOP")
 
 	-- Use this frame to control the position of the model - taken from ElvUI
 	local modelHolder = CreateFrame("Frame", nil, mainFrame)
