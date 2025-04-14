@@ -1,4 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+F.String = {}
 
 local error = error
 local type, unpack = type, unpack
@@ -6,8 +7,6 @@ local char = string.char
 local strbyte, strfind, strlen, strsub = strbyte, strfind, strlen, strsub
 local utf8len, utf8lower, utf8sub, utf8upper = string.utf8len, string.utf8lower, string.utf8sub, string.utf8upper
 local tinsert = tinsert
-
-F.String = {}
 
 function F.String.Color(msg, color)
 	if not msg then

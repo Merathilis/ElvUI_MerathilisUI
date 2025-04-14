@@ -729,7 +729,7 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
 				local missingGemSlots = 2 - #slotInfo.gems
 				if missingGemSlots > 0 then
-					local text = format("Add %d sockets", missingGemSlots)
+					local text = format(L["Add %d sockets"], missingGemSlots)
 					local missingColor = {
 						F.String.FastColorGradientHex(
 							missingGemSlots / 2,
@@ -759,7 +759,7 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 			end
 		elseif db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
 			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
-				slotItem.enchantText:SetText(F.String.Error("Add enchant"))
+				slotItem.enchantText:SetText(F.String.Error(L["Add enchant"]))
 			else
 				slotItem.enchantText:SetText("")
 			end
@@ -801,7 +801,7 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 
 		-- Update Colors
 		if slotOptions.direction == module.enumDirection.LEFT then
-			F.SetGradientRGB(
+			F.Color.SetGradientRGB(
 				slotItem.MERGradient.Texture,
 				"HORIZONTAL",
 				r,
@@ -814,7 +814,7 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 				db.pageInfo.itemQualityGradientEndAlpha
 			)
 		elseif slotOptions.direction == module.enumDirection.RIGHT then
-			F.SetGradientRGB(
+			F.Color.SetGradientRGB(
 				slotItem.MERGradient.Texture,
 				"HORIZONTAL",
 				r,

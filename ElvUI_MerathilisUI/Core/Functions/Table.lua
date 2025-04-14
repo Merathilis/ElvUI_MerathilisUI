@@ -1,10 +1,9 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+F.Table = {}
 
 local pairs, next, type, select, unpack = pairs, next, type, select, unpack
 local tinsert, tsort = table.insert, table.sort
 local setmetatable = setmetatable
-
-F.Table = {}
 
 function F.Table.Print(tbl, indent)
 	if not indent then
