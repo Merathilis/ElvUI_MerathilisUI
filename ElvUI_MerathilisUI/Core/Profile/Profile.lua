@@ -630,14 +630,21 @@ P.nameHover = {
 
 P.armory = {
 	enable = true,
-	general = {
-		hideControls = false,
+	animations = true,
+	animationsMult = 3.3333,
+
+	background = {
+		enable = false,
+		alpha = 0.5,
+		style = 2,
+		class = true,
+		hideControls = true,
 	},
 	lines = {
-		enable = false,
-		alpha = 0.6,
+		enable = true,
+		alpha = 0.85,
 		height = 1,
-		color = "CLASS",
+		color = "GRADIENT",
 	},
 	stats = {
 		showAvgItemLevel = false,
@@ -651,6 +658,160 @@ P.armory = {
 				r = 1,
 				g = 1,
 				b = 1,
+			},
+		},
+		iconFont = {
+			name = I.Fonts.Icons,
+			size = 14,
+			style = "SHADOWOUTLINE",
+			iconFontColor = "GRADIENT",
+			color = {
+				r = 1,
+				g = 1,
+				b = 1,
+			},
+			showIcons = false,
+		},
+		headerFont = {
+			name = I.Fonts.Primary,
+			size = 14,
+			style = "SHADOWOUTLINE",
+			headerFontColor = "CLASS", -- GRADIENT, CLASS, CUSTOM
+			color = {
+				r = 1,
+				g = 1,
+				b = 1,
+			},
+		},
+		labelFont = {
+			name = I.Fonts.Primary,
+			size = 11,
+			style = "SHADOWOUTLINE",
+			labelFontColor = "GRADIENT",
+			color = {
+				r = 1,
+				g = 1,
+				b = 1,
+			},
+			abbreviateLabels = true,
+		},
+		valueFont = {
+			name = I.Fonts.Primary,
+			size = 11,
+			style = "SHADOWOUTLINE",
+		},
+
+		alternatingBackgroundEnabled = true, -- Enabled by default
+		alternatingBackgroundAlpha = 0.75,
+
+		-- Sets the mode for stats
+		-- 0 (Hide), 1 (Smart/Blizzard), 2 (Always Show if not 0), 3 (Always Show)
+		mode = {
+			-- Attributes Category
+			STRENGTH = {
+				mode = 1,
+				icon = F.String.ConvertGlyph(59728),
+			},
+			AGILITY = {
+				mode = 1,
+				icon = F.String.ConvertGlyph(59729),
+			},
+			INTELLECT = {
+				mode = 1,
+				icon = F.String.ConvertGlyph(59730),
+			},
+			STAMINA = {
+				mode = 1,
+				icon = F.String.ConvertGlyph(59731),
+			},
+			HEALTH = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59731),
+			},
+			POWER = {
+				mode = 0,
+			},
+			ARMOR = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59737),
+			},
+			STAGGER = {
+				mode = 0,
+			},
+			MANAREGEN = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59739),
+			},
+			ENERGY_REGEN = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59739),
+			},
+			RUNE_REGEN = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59739),
+			},
+			FOCUS_REGEN = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59739),
+			},
+			MOVESPEED = {
+				mode = 1,
+				icon = F.String.ConvertGlyph(59732),
+			},
+
+			-- Enhancements Category
+			ATTACK_DAMAGE = {
+				mode = 0,
+			},
+			ATTACK_AP = {
+				mode = 0,
+			},
+			ATTACK_ATTACKSPEED = {
+				mode = 0,
+			},
+			SPELLPOWER = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59730),
+			},
+			CRITCHANCE = {
+				mode = 1,
+				icon = F.String.ConvertGlyph(59733),
+			},
+			HASTE = {
+				mode = 1,
+				icon = F.String.ConvertGlyph(59734),
+			},
+			MASTERY = {
+				mode = 1,
+				icon = F.String.ConvertGlyph(59735),
+			},
+			VERSATILITY = {
+				mode = 1,
+				icon = F.String.ConvertGlyph(59736),
+			},
+			LIFESTEAL = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59738),
+			},
+			AVOIDANCE = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59740),
+			},
+			SPEED = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59732),
+			},
+			DODGE = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59740),
+			},
+			PARRY = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59712),
+			},
+			BLOCK = {
+				mode = 0,
+				icon = F.String.ConvertGlyph(59683),
 			},
 		},
 	},

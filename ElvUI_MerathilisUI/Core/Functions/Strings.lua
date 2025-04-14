@@ -195,6 +195,43 @@ function F.String.RGB(msg, colors)
 	end
 end
 
+function F.String.Uppercase(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return utf8upper(text)
+end
+
+function F.String.Lowercase(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return utf8lower(text)
+end
+
+function F.String.UppercaseFirstLetter(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return utf8upper(utf8sub(text, 1, 1)) .. utf8sub(text, 2)
+end
+
+function F.String.UppercaseFirstLetterOnly(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return utf8upper(utf8sub(text, 1, 1)) .. utf8lower(utf8sub(text, 2))
+end
+
+function F.String.LowercaseEnum(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return strtrim(text):gsub("_", " "):gsub("(%a)([%w_']*)", function(a, b)
+		return F.String.Uppercase(a) .. F.String.Lowercase(b)
+	end)
+end
+
 function F.String.ColorFirstLetter(text)
 	if type(text) ~= "string" then
 		return text
