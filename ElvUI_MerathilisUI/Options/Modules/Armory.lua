@@ -100,8 +100,8 @@ options.armory = {
 						class = {
 							order = 4,
 							type = "toggle",
-							name = "Class Background",
-							desc = "Use class specific backgrounds.",
+							name = L["Class Background"],
+							desc = L["Use class specific backgrounds."],
 							disabled = function()
 								return not E.db.mui.armory.background.enable
 							end,

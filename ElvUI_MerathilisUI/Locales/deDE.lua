@@ -653,6 +653,20 @@ L["Move Sockets"] = "Bewege Sockel"
 L["Crops and moves sockets above enchant text."] = "Verschiebt die Sockel über den Verzauberungstext"
 L["Hide Controls"] = "Verstecke Kamerakontrolle"
 L["Hides the camera controls when hovering the character model."] = "Versteckt die Kamera"
+L["Add %d sockets"] = "Füge %d Sockel hinzu"
+L["Add enchant"] = "Füge Verzauberung hinzu"
+L["Attributes"] = "Attribute"
+L["Background"] = "Hintergrund"
+L["Alpha"] = true
+L["Style"] = "Stil"
+L["Change the Background image."] = "Ändere das Hintergrundbild."
+L["Class Background"] = "Klassen Hintergrund"
+L["Use class specific backgrounds."] = "Verwende Klassen spezifische Hintergründe."
+L["Hide Controls"] = "Verstecke Steuerungstasten"
+L["Hides the camera controls when hovering the character model."] =
+	"Versteckt die Kamera Steuerungstasten, wenn Du mit der Maus über das Charaktermodell fährst."
+L["Animation"] = true
+L["Animation Multiplier"] = "Animationsmultiplikator"
 
 -- AutoButtons
 L["AutoButtons"] = "Autom. Tasten"

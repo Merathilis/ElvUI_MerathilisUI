@@ -587,6 +587,19 @@ L["Move Sockets"] = true
 L["Crops and moves sockets above enchant text."] = true
 L["Hide Controls"] = true
 L["Hides the camera controls when hovering the character model."] = true
+L["Add %d sockets"] = true
+L["Add enchant"] = true
+L["Attributes"] = true
+L["Background"] = true
+L["Alpha"] = true
+L["Style"] = true
+L["Change the Background image."] = true
+L["Class Background"] = true
+L["Use class specific backgrounds."] = true
+L["Hide Controls"] = true
+L["Hides the camera controls when hovering the character model."] = true
+L["Animation"] = true
+L["Animation Multiplier"] = true
 
 -- AutoButtons
 L["AutoButtons"] = true
