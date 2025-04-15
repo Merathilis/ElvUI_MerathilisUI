@@ -47,33 +47,116 @@ options.armory = {
 			name = L["Enable"],
 			desc = L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."],
 		},
-		generalGroup = {
-			order = 5,
+		general = {
+			order = 3,
 			type = "group",
-			name = L["General"],
-			get = function(info)
-				return E.db.mui.armory.general[info[#info]]
-			end,
-			set = function(info, value)
-				E.db.mui.armory.general[info[#info]] = value
-				M:UpdatePageInfo(_G.CharacterFrame, "Character")
-
-				if not E.db.general.itemLevel.displayCharacterInfo then
-					M:ClearPageInfo(_G.CharacterFrame, "Character")
-				end
-			end,
+			name = E.NewSign .. L["General"],
 			args = {
-				hideControls = {
+				backgroundGroup = {
 					order = 1,
-					type = "toggle",
-					name = L["Hide Controls"],
-					desc = L["Hides the camera controls when hovering the character model."],
-					set = function(_, value)
-						E.db.mui.armory.general.hideControls = value
-						if value == false then
-							E:StaticPopup_Show("CONFIG_RL")
+					type = "group",
+					name = E.NewSign .. L["Background"],
+					get = function(info)
+						return E.db.mui.armory.background[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.armory.background[info[#info]] = value
+						M:UpdatePageInfo(_G.CharacterFrame, "Character")
+
+						if not E.db.general.itemLevel.displayCharacterInfo then
+							M:ClearPageInfo(_G.CharacterFrame, "Character")
 						end
 					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+							desc = L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."],
+						},
+						alpha = {
+							order = 2,
+							type = "range",
+							name = L["Alpha"],
+							min = 0,
+							max = 1,
+							step = 0.01,
+							isPercent = true,
+						},
+						style = {
+							order = 3,
+							type = "select",
+							name = L["Style"],
+							desc = L["Change the Background image."],
+							values = {
+								[1] = "1. Priory of the Sacred Flame",
+								[2] = "2. Azj-Kahet",
+								[3] = "3. Draenor",
+							},
+							disabled = function()
+								return E.db.mui.armory.background.class
+							end,
+						},
+						class = {
+							order = 4,
+							type = "toggle",
+							name = L["Class Background"],
+							desc = L["Use class specific backgrounds."],
+							disabled = function()
+								return not E.db.mui.armory.background.enable
+							end,
+							width = 1.2,
+						},
+						hideControls = {
+							order = 1,
+							type = "toggle",
+							name = L["Hide Controls"],
+							desc = L["Hides the camera controls when hovering the character model."],
+							set = function(_, value)
+								E.db.mui.armory.background.hideControls = value
+								if value == false then
+									E:StaticPopup_Show("CONFIG_RL")
+								end
+							end,
+							disabled = function()
+								return not E.db.mui.armory.background.enable
+							end,
+						},
+					},
+				},
+				animationGroup = {
+					order = 2,
+					type = "group",
+					name = E.NewSign .. L["Animation"],
+					args = {
+						animations = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+							set = function(_, value)
+								E.db.mui.armory.animations = value
+								E:StaticPopup_Show("CONFIG_RL")
+							end,
+						},
+						animationsMult = {
+							order = 2,
+							type = "range",
+							name = L["Animation Multiplier"],
+							min = 0.1,
+							max = 2,
+							step = 0.1,
+							isPercent = true,
+							get = function()
+								return 1 / E.db.mui.armory.animationsMult
+							end,
+							set = function(_, value)
+								E.db.mui.armory.animationsMult = 1 / value
+							end,
+							disabled = function()
+								return not E.db.mui.armory.animations
+							end,
+						},
+					},
 				},
 			},
 		},
@@ -991,5 +1074,247 @@ options.armory = {
 				},
 			},
 		},
+		attributesGroup = {
+			order = 16,
+			type = "group",
+			name = E.NewSign .. L["Attributes"],
+			get = function(info)
+				return E.db.mui.armory.stats[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.armory.stats[info[#info]] = value
+				F.Event.TriggerEvent("Armory.SettingsUpdate")
+			end,
+			disabled = function()
+				return not E.db.mui.armory.enable
+			end,
+			hidden = function()
+				return not E.db.general.itemLevel.displayCharacterInfo
+			end,
+			args = {
+				alternatingBackgroundEnabled = {
+					order = 1,
+					type = "toggle",
+					name = L["Background Bars"],
+					desc = L["Toggles the blue bars behind every second number."],
+				},
+				alternatingBackgroundAlpha = {
+					order = 2,
+					type = "range",
+					name = L["Background Alpha"],
+					min = 0,
+					max = 1,
+					step = 0.01,
+					isPercent = true,
+					disabled = function()
+						return not E.db.mui.armory.stats.alternatingBackgroundEnabled
+					end,
+				},
+				fontGroup = {
+					order = 3,
+					type = "group",
+					name = L["Fonts"],
+					inline = true,
+					args = {
+						headerFont = {
+							order = 1,
+							type = "group",
+							name = L["Header Font"],
+							get = function(info)
+								return E.db.mui.armory.stats.headerFont[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.armory.stats.headerFont[info[#info]] = value
+							end,
+							args = {
+								name = {
+									order = 1,
+									type = "select",
+									dialogControl = "LSM30_Font",
+									name = L["Font"],
+									values = LSM:HashTable("font"),
+								},
+								style = {
+									order = 2,
+									type = "select",
+									name = L["Outline"],
+									values = MER.Values.FontFlags,
+									sortByValue = true,
+								},
+								size = {
+									order = 3,
+									name = L["Size"],
+									type = "range",
+									min = 5,
+									max = 60,
+									step = 1,
+								},
+								headerFontColor = {
+									order = 4,
+									type = "select",
+									name = L["Font Color"],
+									values = {
+										["GRADIENT"] = F.String.FastGradient(L["Gradient"], 0, 0.6, 1, 0, 0.9, 1),
+										["CLASS"] = F.String.Class(L["Class Gradient"]),
+										["CUSTOM"] = L["Custom"],
+									},
+								},
+								color = {
+									order = 6,
+									type = "color",
+									name = L["Custom Color"],
+									hasAlpha = false,
+									disabled = function()
+										return E.db.mui.armory.stats.headerFont.headerFontColor ~= "CUSTOM"
+									end,
+									get = function(info)
+										local db = E.db.mui.armory.stats.headerFont[info[#info]]
+										local default = P.armory.stats.headerFont[info[#info]]
+										return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+									end,
+									set = function(info, r, g, b)
+										local db = E.db.mui.armory.stats.headerFont[info[#info]]
+										db.r, db.g, db.b = r, g, b
+										F.Event.TriggerEvent("Armory.SettingsUpdate")
+									end,
+								},
+							},
+						},
+						labelFont = {
+							order = 2,
+							type = "group",
+							name = L["Label Font"],
+							get = function(info)
+								return E.db.mui.armory.stats.labelFont[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.armory.stats.labelFont[info[#info]] = value
+							end,
+							args = {
+								name = {
+									order = 1,
+									type = "select",
+									dialogControl = "LSM30_Font",
+									name = L["Font"],
+									values = LSM:HashTable("font"),
+								},
+								style = {
+									order = 2,
+									type = "select",
+									name = L["Outline"],
+									values = MER.Values.FontFlags,
+									sortByValue = true,
+								},
+								size = {
+									order = 3,
+									name = L["Size"],
+									type = "range",
+									min = 5,
+									max = 60,
+									step = 1,
+								},
+								labelFontColor = {
+									order = 4,
+									type = "select",
+									name = L["Font Color"],
+									values = {
+										["GRADIENT"] = F.String.FastGradient(L["Gradient"], 0, 0.6, 1, 0, 0.9, 1),
+										["CLASS"] = F.String.Class(L["Class Gradient"]),
+										["CUSTOM"] = L["Custom"],
+									},
+								},
+								color = {
+									order = 6,
+									type = "color",
+									name = L["Custom Color"],
+									hasAlpha = false,
+									disabled = function()
+										return E.db.mui.armory.stats.labelFont.labelFontColor ~= "CUSTOM"
+									end,
+									get = function(info)
+										local db = E.db.mui.armory.stats.labelFont[info[#info]]
+										local default = P.armory.stats.labelFont[info[#info]]
+										return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+									end,
+									set = function(info, r, g, b)
+										local db = E.db.mui.armory.stats.labelFont[info[#info]]
+										db.r, db.g, db.b = r, g, b
+										F.Event.TriggerEvent("Armory.SettingsUpdate")
+									end,
+								},
+								abbreviateLabels = {
+									order = 7,
+									type = "toggle",
+									name = L["Short Labels"],
+									desc = L["Shorten and abbreviate attribute labels."],
+								},
+							},
+						},
+						valueFont = {
+							order = 3,
+							type = "group",
+							name = L["Value Font"],
+							get = function(info)
+								return E.db.mui.armory.stats.valueFont[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.armory.stats.valueFont[info[#info]] = value
+							end,
+							args = {
+								name = {
+									order = 1,
+									type = "select",
+									dialogControl = "LSM30_Font",
+									name = L["Font"],
+									values = LSM:HashTable("font"),
+								},
+								size = {
+									order = 2,
+									name = L["Size"],
+									type = "range",
+									min = 5,
+									max = 60,
+									step = 1,
+								},
+								style = {
+									order = 3,
+									type = "select",
+									name = L["Outline"],
+									values = MER.Values.FontFlags,
+									sortByValue = true,
+								},
+							},
+						},
+					},
+				},
+				statsGroup = {
+					order = 4,
+					type = "group",
+					name = L["Attribute Visibility"],
+					inline = true,
+					args = {},
+				},
+			},
+		},
 	},
 }
+
+for stat, _ in pairs(P.armory.stats.mode) do
+	options.armory.args.attributesGroup.args.statsGroup.args[stat] = {
+		type = "select",
+		name = F.String.LowercaseEnum(stat),
+		values = {
+			[0] = "Hide",
+			[1] = "Show Only Relevant",
+			[2] = "Show Above 0",
+			[3] = "Always Show",
+		},
+		get = function(info)
+			return E.db.mui.armory.stats.mode[info[#info]].mode
+		end,
+		set = function(info, value)
+			E.db.mui.armory.stats.mode[info[#info]].mode = value
+			F.Event.TriggerEvent("Armory.SettingsUpdate")
+		end,
+	}
+end

@@ -1,4 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+F.String = {}
 
 local error = error
 local type, unpack = type, unpack
@@ -6,8 +7,6 @@ local char = string.char
 local strbyte, strfind, strlen, strsub = strbyte, strfind, strlen, strsub
 local utf8len, utf8lower, utf8sub, utf8upper = string.utf8len, string.utf8lower, string.utf8sub, string.utf8upper
 local tinsert = tinsert
-
-F.String = {}
 
 function F.String.Color(msg, color)
 	if not msg then
@@ -194,6 +193,43 @@ function F.String.RGB(msg, colors)
 	else
 		return F.String.Color(msg, F.String.FastRGB(colors[1], colors[2], colors[3]))
 	end
+end
+
+function F.String.Uppercase(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return utf8upper(text)
+end
+
+function F.String.Lowercase(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return utf8lower(text)
+end
+
+function F.String.UppercaseFirstLetter(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return utf8upper(utf8sub(text, 1, 1)) .. utf8sub(text, 2)
+end
+
+function F.String.UppercaseFirstLetterOnly(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return utf8upper(utf8sub(text, 1, 1)) .. utf8lower(utf8sub(text, 2))
+end
+
+function F.String.LowercaseEnum(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	return strtrim(text):gsub("_", " "):gsub("(%a)([%w_']*)", function(a, b)
+		return F.String.Uppercase(a) .. F.String.Lowercase(b)
+	end)
 end
 
 function F.String.ColorFirstLetter(text)

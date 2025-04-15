@@ -32,7 +32,7 @@ function module:CreateSplashFrame()
 	module.backgroundFade.gradient:Size(F.PerfectScale(E.screenWidth), 40)
 	module.backgroundFade.gradient:SetTexture(I.Media.Textures.WorldStateScore)
 	module.backgroundFade.gradient:SetVertexColor(1, 1, 1, 1)
-	F.SetGradientRGB(
+	F.Color.SetGradientRGB(
 		module.backgroundFade.gradient,
 		I.Enum.GradientMode.Mode[I.Enum.GradientMode.Mode.VERTICAL],
 		gr.r,

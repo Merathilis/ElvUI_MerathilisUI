@@ -48,6 +48,7 @@ I.MediaKeys = {
 	icon = "Icons",
 	role = "RoleIcons",
 	logo = "Logos",
+	armory = "Armory",
 }
 
 I.MediaPaths = {
@@ -57,6 +58,7 @@ I.MediaPaths = {
 	icon = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Icons\]],
 	role = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\RoleIcons\]],
 	logo = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Logos\]],
+	armory = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Backgrounds\Armory\]],
 }
 
 -- Inside Media/Core.lua
@@ -67,6 +69,7 @@ I.Media = {
 	Icons = {},
 	RoleIcons = {},
 	Logos = {},
+	Armory = {},
 }
 
 I.ProfileNames = {

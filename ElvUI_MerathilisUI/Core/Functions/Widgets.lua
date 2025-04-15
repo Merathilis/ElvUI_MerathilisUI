@@ -1,6 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = E:GetModule("Skins")
-
 F.Widgets = {}
 
 local function createButton(parent, text, width, height, onClick)

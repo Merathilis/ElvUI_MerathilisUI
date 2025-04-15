@@ -150,7 +150,7 @@ function module:StatusReportCreateSection(
 	leftDivider:Point("RIGHT", section.Header.Text, "LEFT", -5, 0)
 	leftDivider:SetTexture(E.media.blankTex)
 	leftDivider:SetVertexColor(1, 1, 1, 1)
-	F.SetGradientRGB(
+	F.Color.SetGradientRGB(
 		leftDivider,
 		"HORIZONTAL",
 		I.Strings.Branding.ColorRGBA.r,
@@ -170,7 +170,7 @@ function module:StatusReportCreateSection(
 	rightDivider:Point("LEFT", section.Header.Text, "RIGHT", 5, 0)
 	rightDivider:SetTexture(E.media.blankTex)
 	rightDivider:SetVertexColor(1, 1, 1, 1)
-	F.SetGradientRGB(
+	F.Color.SetGradientRGB(
 		rightDivider,
 		"HORIZONTAL",
 		I.Strings.Branding.ColorRGBA.r,

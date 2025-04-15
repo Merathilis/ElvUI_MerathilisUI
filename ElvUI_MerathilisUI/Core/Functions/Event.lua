@@ -1,4 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+F.Event = {}
 
 local next, pairs, select, type, unpack = next, pairs, select, type, unpack
 local rawset = rawset
@@ -9,8 +10,6 @@ local CreateFrame = CreateFrame
 local C_Timer_After = C_Timer.After
 local InCombatLockdown = InCombatLockdown
 local EventUtil = EventUtil
-
-F.Event = {}
 
 do
 	local closureGeneration = {

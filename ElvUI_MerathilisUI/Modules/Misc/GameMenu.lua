@@ -6,8 +6,12 @@ local _G = _G
 local random = random
 
 local CreateFrame = CreateFrame
-local CreateAnimationGroup = CreateAnimationGroup
 local UIFrameFadeIn = UIFrameFadeIn
+local GetTotalAchievementPoints = GetTotalAchievementPoints
+
+local C_MountJournal_GetMountInfoByID = C_MountJournal.GetMountInfoByID
+local C_ToyBox_GetNumLearnedDisplayedToys = C_ToyBox.GetNumLearnedDisplayedToys
+local C_PetJournal_GetNumPets = C_PetJournal.GetNumPets
 
 local GameMenuFrame = _G.GameMenuFrame
 
@@ -56,8 +60,17 @@ function module:GameMenu_OnShow()
 
 	local mainFrame = CreateFrame("Frame", nil, E.UIParent)
 	mainFrame:SetAllPoints(E.UIParent)
-	mainFrame:SetFrameStrata("TOOLTIP")
-	mainFrame:SetFrameLevel(GameMenuFrame:GetFrameLevel())
+	mainFrame:SetFrameStrata("HIGH")
+	mainFrame:SetFrameLevel(GameMenuFrame:GetFrameLevel() - 1)
+	mainFrame:EnableMouse(true)
+
+	mainFrame.bg = mainFrame:CreateTexture(nil, "BACKGROUND")
+	mainFrame.bg:SetAllPoints(mainFrame)
+	mainFrame.bg:SetTexture(I.Media.Textures.Clean)
+
+	local bgColor = E.db.mui.general.GameMenu.bgColor
+	local alpha = E.db.mui.general.GameMenu.bgColor.a
+	mainFrame.bg:SetVertexColor(bgColor.r, bgColor.g, bgColor.b, alpha)
 
 	local bottomPanel = CreateFrame("Frame", nil, mainFrame, "BackdropTemplate")
 	bottomPanel:Point("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
@@ -69,7 +82,7 @@ function module:GameMenu_OnShow()
 	bottomPanel.ignoreBackdropColors = true
 	E["frames"][bottomPanel] = true
 
-	bottomPanel.anim = CreateAnimationGroup(bottomPanel)
+	bottomPanel.anim = _G.CreateAnimationGroup(bottomPanel)
 	bottomPanel.anim.height = bottomPanel.anim:CreateAnimation("Height")
 	bottomPanel.anim.height:SetChange(E.screenHeight * (1 / 4))
 	bottomPanel.anim.height:SetDuration(0.6)
@@ -78,18 +91,18 @@ function module:GameMenu_OnShow()
 
 	bottomPanel.Logo = bottomPanel:CreateTexture(nil, "OVERLAY")
 	bottomPanel.Logo:Size(100)
-	bottomPanel.Logo:SetPoint("CENTER", bottomPanel, "TOP", 0, -80)
+	bottomPanel.Logo:Point("CENTER", bottomPanel, "TOP", 0, -80)
 	bottomPanel.Logo:SetTexture(I.General.MediaPath .. "Textures\\mUI1_Shadow.tga")
 
 	bottomPanel.nameText = bottomPanel:CreateFontString(nil, "OVERLAY")
 	bottomPanel.nameText:FontTemplate(nil, 26)
 	bottomPanel.nameText:SetTextColor(1, 1, 1, 1)
-	bottomPanel.nameText:SetPoint("TOP", bottomPanel.Logo, "BOTTOM", 0, -5)
+	bottomPanel.nameText:Point("TOP", bottomPanel.Logo, "BOTTOM", 0, -5)
 	bottomPanel.nameText:SetText(F.String.GradientClass(E.myname))
 
 	bottomPanel.guildText = bottomPanel:CreateFontString(nil, "OVERLAY")
 	bottomPanel.guildText:FontTemplate(nil, 16)
-	bottomPanel.guildText:SetPoint("TOP", bottomPanel.nameText, "BOTTOM", 0, 0)
+	bottomPanel.guildText:Point("TOP", bottomPanel.nameText, "BOTTOM", 0, 0)
 	bottomPanel.guildText:SetTextColor(1, 1, 1, 1)
 	bottomPanel.guildText:SetText(
 		guildName and F.String.FastGradientHex("<" .. guildName .. ">", "06c910", "33ff3d") or ""
@@ -97,19 +110,19 @@ function module:GameMenu_OnShow()
 
 	bottomPanel.specIcon = bottomPanel:CreateFontString(nil, "OVERLAY")
 	bottomPanel.specIcon:SetFont("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Fonts\\ToxiUIIcons.ttf", 20, "OUTLINE")
-	bottomPanel.specIcon:SetPoint("TOP", bottomPanel.guildText, "BOTTOM", 0, -15)
+	bottomPanel.specIcon:Point("TOP", bottomPanel.guildText, "BOTTOM", 0, -15)
 	bottomPanel.specIcon:SetTextColor(1, 1, 1, 1)
 	bottomPanel.specIcon:SetText(F.String.Class(specIcon))
 
 	bottomPanel.levelText = bottomPanel:CreateFontString(nil, "OVERLAY")
 	bottomPanel.levelText:FontTemplate(nil, 20, "OUTLINE")
-	bottomPanel.levelText:SetPoint("RIGHT", bottomPanel.specIcon, "LEFT", -4, 0)
+	bottomPanel.levelText:Point("RIGHT", bottomPanel.specIcon, "LEFT", -4, 0)
 	bottomPanel.levelText:SetTextColor(1, 1, 1, 1)
 	bottomPanel.levelText:SetText("Lvl " .. E.mylevel)
 
 	bottomPanel.classText = bottomPanel:CreateFontString(nil, "OVERLAY")
 	bottomPanel.classText:FontTemplate(nil, 20, "OUTLINE")
-	bottomPanel.classText:SetPoint("LEFT", bottomPanel.specIcon, "RIGHT", 4, 0)
+	bottomPanel.classText:Point("LEFT", bottomPanel.specIcon, "RIGHT", 4, 0)
 	bottomPanel.classText:SetTextColor(1, 1, 1, 1)
 	bottomPanel.classText:SetText(F.String.GradientClass(E.myLocalizedClass, nil, true))
 
@@ -123,17 +136,75 @@ function module:GameMenu_OnShow()
 	topPanel.ignoreBackdropColors = true
 	E["frames"][topPanel] = true
 
-	topPanel.anim = CreateAnimationGroup(topPanel)
+	topPanel.anim = _G.CreateAnimationGroup(topPanel)
 	topPanel.anim.height = topPanel.anim:CreateAnimation("Height")
 	topPanel.anim.height:SetChange(E.screenHeight * (1 / 4))
 	topPanel.anim.height:SetDuration(0.6)
 	topPanel:Height(0)
 	topPanel.anim.height:Play()
 
+	local textHolder = CreateFrame("Frame", nil, topPanel)
+	textHolder:Point("LEFT", topPanel, "BOTTOMLEFT", 5, 0)
+	textHolder:Width(E.screenWidth * 0.5)
+	textHolder:Height(E.screenHeight * (1 / 4) - 20)
+
 	topPanel.factionLogo = topPanel:CreateTexture(nil, "ARTWORK")
 	topPanel.factionLogo:Point("CENTER", topPanel, "CENTER", 0, 0)
 	topPanel.factionLogo:Size(186, 186)
 	topPanel.factionLogo:SetTexture(I.General.MediaPath .. "Textures\\ClassBanner\\CLASS-" .. E.myclass)
+
+	textHolder.collections = textHolder:CreateFontString(nil, "ARTWORK")
+	textHolder.collections:Point("TOPLEFT", textHolder)
+	textHolder.collections:FontTemplate(nil, 24, "SHADOWOUTLINE")
+	textHolder.collections:SetTextColor(1, 1, 1, 1)
+	textHolder.collections:SetText(F.String.GradientClass(L["Collections"]))
+	textHolder.collections:SetJustifyH("LEFT")
+	textHolder.collections:SetJustifyV("TOP")
+
+	local collectedMounts = 0
+	if E.MountIDs then
+		for _, value in pairs(E.MountIDs) do
+			local _, _, _, _, _, _, _, _, _, _, isCollected = C_MountJournal_GetMountInfoByID(value)
+			if isCollected then
+				collectedMounts = collectedMounts + 1
+			end
+		end
+	end
+
+	textHolder.collections.mount = textHolder:CreateFontString(nil, "ARTWORK")
+	textHolder.collections.mount:Point("TOPLEFT", textHolder.collections, "BOTTOMLEFT", 2, -10)
+	textHolder.collections.mount:FontTemplate(nil, 16, "SHADOWOUTLINE")
+	textHolder.collections.mount:SetTextColor(1, 1, 1, 1)
+	textHolder.collections.mount:SetText(L["Mounts: "] .. F.String.MERATHILISUI(collectedMounts))
+	textHolder.collections.mount:SetJustifyH("LEFT")
+	textHolder.collections.mount:SetJustifyV("TOP")
+
+	textHolder.collections.toys = textHolder:CreateFontString(nil, "OVERLAY")
+	textHolder.collections.toys:FontTemplate(nil, 16, "SHADOWOUTLINE")
+	textHolder.collections.toys:Point("TOPLEFT", textHolder.collections.mount, "BOTTOMLEFT", 2, -4)
+	textHolder.collections.toys:SetTextColor(1, 1, 1, 1)
+	textHolder.collections.toys:SetText(L["Toys: "] .. F.String.MERATHILISUI(C_ToyBox_GetNumLearnedDisplayedToys()))
+	textHolder.collections.toys:SetJustifyH("LEFT")
+	textHolder.collections.toys:SetJustifyV("TOP")
+
+	local _, petsOwned = C_PetJournal_GetNumPets()
+	textHolder.collections.pets = textHolder:CreateFontString(nil, "OVERLAY")
+	textHolder.collections.pets:Point("TOPLEFT", textHolder.collections.toys, "BOTTOMLEFT", 0, -4)
+	textHolder.collections.pets:FontTemplate(nil, 16, "SHADOWOUTLINE")
+	textHolder.collections.pets:SetTextColor(1, 1, 1, 1)
+	textHolder.collections.pets:SetText(L["Pets: "] .. F.String.MERATHILISUI(petsOwned))
+	textHolder.collections.pets:SetJustifyH("LEFT")
+	textHolder.collections.pets:SetJustifyV("TOP")
+
+	textHolder.collections.achievs = textHolder:CreateFontString(nil, "OVERLAY")
+	textHolder.collections.achievs:SetPoint("TOPLEFT", textHolder.collections.pets, "BOTTOMLEFT", 0, -4)
+	textHolder.collections.achievs:FontTemplate(nil, 16, "SHADOWOUTLINE")
+	textHolder.collections.achievs:SetTextColor(1, 1, 1, 1)
+	textHolder.collections.achievs:SetText(
+		L["Achievement Points: "] .. F.String.MERATHILISUI(E:FormatLargeNumber(GetTotalAchievementPoints(), ","))
+	)
+	textHolder.collections.achievs:SetJustifyH("LEFT")
+	textHolder.collections.achievs:SetJustifyV("TOP")
 
 	-- Use this frame to control the position of the model - taken from ElvUI
 	local modelHolder = CreateFrame("Frame", nil, mainFrame)
@@ -184,6 +255,8 @@ function module:GameMenu_OnShow()
 	self.mainFrame = mainFrame
 	self.mainFrame:Show()
 
+	self.textHolder = textHolder
+
 	self.modelHolder = modelHolder
 	self.npcHolder = npcHolder
 end
@@ -195,7 +268,8 @@ function module:GameMenu_OnHide()
 end
 
 function module:GameMenu()
-	if not E.db.mui.general.GameMenu then
+	self.db = E.db.mui.general.GameMenu
+	if not self.db or not self.db.enable then
 		return
 	end
 

@@ -1,11 +1,10 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+F.Color = {}
 
 local _G = _G
-local pairs, select, tonumber, unpack = pairs, select, tonumber, unpack
+local pairs, select = pairs, select
 local abs = abs
 local min = min
-local format = format
-local strsub = strsub
 
 local CreateColor = CreateColor
 local GetClassColor = GetClassColor
@@ -403,6 +402,7 @@ end
 
 function F.UnitColor(unit)
 	local r, g, b = 1, 1, 1
+
 	if UnitIsPlayer(unit) then
 		local class = select(2, UnitClass(unit))
 		if class then
@@ -625,19 +625,49 @@ function F.GradientNameCustom(name, unitclass, isTarget)
 	end
 end
 
-function F.SetGradient(obj, orientation, minColor, maxColor)
+function F.Color.SetGradient(obj, orientation, minColor, maxColor)
 	if not obj then
 		return
 	end
 
-	local min = minColor or "#000000"
-	local max = maxColor or "#FFFFFF"
+	if not minColor.r or not minColor.g or not minColor.b then
+		return
+	end
+	if not maxColor.r or not maxColor.g or not maxColor.b then
+		return
+	end
 
-	obj:SetGradient(orientation, min, max)
+	obj:SetGradient(orientation, minColor, maxColor)
 end
 
-function F.SetGradientRGB(obj, orientation, r1, g1, b1, a1, r2, g2, b2, a2)
-	F.SetGradient(obj, orientation, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
+function F.Color.SetGradientRGB(obj, orientation, r1, g1, b1, a1, r2, g2, b2, a2)
+	F.Color.SetGradient(obj, orientation, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
+end
+
+function F.Color.UpdateGradient(obj, perc, minColor, maxColor)
+	if not minColor.r or not minColor.g or not minColor.b then
+		return
+	end
+	if not maxColor.r or not maxColor.g or not maxColor.b then
+		return
+	end
+
+	if perc >= 1 then
+		local r, g, b = maxColor:GetRGBA()
+		obj:SetRGBA(r, g, b, 1)
+		return
+	elseif perc <= 0 then
+		local r, g, b = minColor:GetRGBA()
+		obj:SetRGBA(r, g, b, 1)
+		return
+	end
+
+	obj:SetRGBA(
+		(maxColor.r * perc) + (minColor.r * (1 - perc)),
+		(maxColor.g * perc) + (minColor.g * (1 - perc)),
+		(maxColor.b * perc) + (minColor.b * (1 - perc)),
+		1
+	)
 end
 
 local progressColor = {

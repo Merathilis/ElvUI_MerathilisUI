@@ -278,6 +278,103 @@ function F:Interval(value, minValue, maxValue)
 	return max(minValue, min(maxValue, value))
 end
 
+function F.RemoveFontTemplate(fs)
+	E.texts[fs] = nil
+end
+
+function F.GetFontColorFromDB(db, prefix)
+	-- Vars
+	if prefix == nil then
+		prefix = ""
+	end
+	local fontColor
+	local useDB = (db and prefix) and true or false
+	local colorSwitch = (useDB and db[prefix .. "color"]) or I.General.DefaultFontColor
+
+	-- Switch
+	if colorSwitch == "CUSTOM" then
+		fontColor = (useDB and db[prefix .. "color"]) or I.General.DefaultFontCustomColor
+	elseif colorSwitch == "MER" then
+		fontColor = I.Strings.Branding.ColorRGBA
+	elseif colorSwitch == "CLASS" then
+		local classColor = E:ClassColor(E.myclass, true)
+		fontColor = {
+			r = classColor.r,
+			g = classColor.g,
+			b = classColor.b,
+			a = 1,
+		}
+	elseif colorSwitch == "VALUE" then
+		fontColor = {
+			r = E.media.rgbvaluecolor[1],
+			g = E.media.rgbvaluecolor[2],
+			b = E.media.rgbvaluecolor[3],
+			a = 1,
+		}
+	else
+		fontColor = {
+			r = 1,
+			g = 1,
+			b = 1,
+			a = 1,
+		}
+	end
+
+	return fontColor
+end
+
+function F.SetFontColorFromDB(db, prefix, fs)
+	local fontColor = F.GetFontColorFromDB(db, prefix)
+	F.RemoveFontTemplate(fs)
+	fs:SetTextColor(fontColor.r, fontColor.g, fontColor.b, fontColor.a)
+end
+
+function F.SetFontScaledFromDB(db, prefix, fs, color, fontOverwrite)
+	F.SetFontFromDB(db, prefix, fs, color, fontOverwrite, true)
+end
+
+function F.GetFontPath(font)
+	font = font or I.General.DefaultFont
+
+	local lsmFont = LSM:Fetch("font", F.FontOverride(font))
+	if not lsmFont then
+		lsmFont = LSM:Fetch("font", font)
+	end -- backup to non-override font
+	if not lsmFont then
+		lsmFont = LSM:Fetch("font", I.General.DefaultFont)
+	end -- backup to normal font if not found
+	if not lsmFont then
+		lsmFont = E.media.normFont
+	end -- backup to elvui font if not found
+
+	return lsmFont
+end
+
+function F.SetFontFromDB(db, prefix, fs, color, fontOverwrite, useScaling)
+	local useDB = (db and prefix) and true or false
+	local font = (useDB and db[prefix .. "name"]) or I.General.DefaultFont
+	local size = (useDB and db[prefix .. "size"]) or I.General.DefaultFontSize
+	local outline = (useDB and db[prefix .. "style"]) or I.General.DefaultFontOutline
+
+	if fontOverwrite then
+		font = fontOverwrite
+	end
+	local lsmFont = F.GetFontPath(font)
+
+	outline = F.FontStyleOverride(font, outline)
+
+	if outline == "NONE" then
+		outline = ""
+	end
+
+	F.RemoveFontTemplate(fs)
+	fs:SetFont(lsmFont, useScaling and F.FontSizeScaled(size) or size, (not shadow and outline) or "")
+
+	if (color == nil) or (color == true) then
+		F.SetFontColorFromDB(db, prefix, fs)
+	end
+end
+
 function F.SetFontDB(text, db)
 	if not text or not text.GetFont then
 		F.Developer.LogDebug("Functions.SetFontDB: text not found")

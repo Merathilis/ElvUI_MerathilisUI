@@ -168,6 +168,11 @@ L["Reset all %s modules."] = "모든 %s 모듈을 리셋합니다."
 -- GameMenu
 L["GameMenu"] = true
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] = true
+L["Achievements: "] = true
+L["Achievement Points: "] = true
+L["Mounts: "] = true
+L["Pets: "] = true
+L["Toys: "] = true
 
 -- Extended Vendor
 L["Extended Vendor"] = true
@@ -582,6 +587,19 @@ L["Move Sockets"] = true
 L["Crops and moves sockets above enchant text."] = true
 L["Hide Controls"] = true
 L["Hides the camera controls when hovering the character model."] = true
+L["Add %d sockets"] = true
+L["Add enchant"] = true
+L["Attributes"] = true
+L["Background"] = true
+L["Alpha"] = true
+L["Style"] = true
+L["Change the Background image."] = true
+L["Class Background"] = true
+L["Use class specific backgrounds."] = true
+L["Hide Controls"] = true
+L["Hides the camera controls when hovering the character model."] = true
+L["Animation"] = true
+L["Animation Multiplier"] = true
 
 -- AutoButtons
 L["AutoButtons"] = true
