@@ -660,18 +660,6 @@ P.armory = {
 				b = 1,
 			},
 		},
-		iconFont = {
-			name = I.Fonts.Icons,
-			size = 14,
-			style = "SHADOWOUTLINE",
-			iconFontColor = "GRADIENT",
-			color = {
-				r = 1,
-				g = 1,
-				b = 1,
-			},
-			showIcons = false,
-		},
 		headerFont = {
 			name = I.Fonts.Primary,
 			size = 14,
@@ -710,53 +698,42 @@ P.armory = {
 			-- Attributes Category
 			STRENGTH = {
 				mode = 1,
-				icon = F.String.ConvertGlyph(59728),
 			},
 			AGILITY = {
 				mode = 1,
-				icon = F.String.ConvertGlyph(59729),
 			},
 			INTELLECT = {
 				mode = 1,
-				icon = F.String.ConvertGlyph(59730),
 			},
 			STAMINA = {
 				mode = 1,
-				icon = F.String.ConvertGlyph(59731),
 			},
 			HEALTH = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59731),
 			},
 			POWER = {
 				mode = 0,
 			},
 			ARMOR = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59737),
 			},
 			STAGGER = {
 				mode = 0,
 			},
 			MANAREGEN = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59739),
 			},
 			ENERGY_REGEN = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59739),
 			},
 			RUNE_REGEN = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59739),
 			},
 			FOCUS_REGEN = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59739),
 			},
 			MOVESPEED = {
 				mode = 1,
-				icon = F.String.ConvertGlyph(59732),
 			},
 
 			-- Enhancements Category
@@ -771,47 +748,36 @@ P.armory = {
 			},
 			SPELLPOWER = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59730),
 			},
 			CRITCHANCE = {
 				mode = 1,
-				icon = F.String.ConvertGlyph(59733),
 			},
 			HASTE = {
 				mode = 1,
-				icon = F.String.ConvertGlyph(59734),
 			},
 			MASTERY = {
 				mode = 1,
-				icon = F.String.ConvertGlyph(59735),
 			},
 			VERSATILITY = {
 				mode = 1,
-				icon = F.String.ConvertGlyph(59736),
 			},
 			LIFESTEAL = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59738),
 			},
 			AVOIDANCE = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59740),
 			},
 			SPEED = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59732),
 			},
 			DODGE = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59740),
 			},
 			PARRY = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59712),
 			},
 			BLOCK = {
 				mode = 0,
-				icon = F.String.ConvertGlyph(59683),
 			},
 		},
 	},

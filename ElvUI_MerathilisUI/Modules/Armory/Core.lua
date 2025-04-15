@@ -562,8 +562,7 @@ function module:EnchantAbbreviate(str)
 	return utf8sub(short, 1, 18)
 end
 
-function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
-	local db = E.db.mui.armory
+function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 	if which ~= "Character" then
 		return
 	end
@@ -582,8 +581,8 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 	end
 
 	-- Enchant/Socket Text Handling
-	if db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
-		if db.pageInfo.missingSocketText and slotOptions.needsSocket then
+	if self.db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
+		if self.db.pageInfo.missingSocketText and slotOptions.needsSocket then
 			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
 				local missingGemSlots = 2 - #slotInfo.gems
 				if missingGemSlots > 0 then
@@ -605,17 +604,17 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 				local text = slotInfo.enchantTextShort
 				-- Strip color
 				text = F.String.StripColor(text)
-				if db.pageInfo.abbreviateEnchantText then
+				if self.db.pageInfo.abbreviateEnchantText then
 					text = module:EnchantAbbreviate(slotInfo.enchantText)
 				end
 
-				if db.pageInfo.useEnchantClassColor then
+				if self.db.pageInfo.useEnchantClassColor then
 					slotItem.enchantText:SetText(F.String.Class(text))
 				else
 					slotItem.enchantText:SetText(text)
 				end
 			end
-		elseif db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
+		elseif self.db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
 			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
 				slotItem.enchantText:SetText(F.String.Error(L["Add enchant"]))
 			else
@@ -654,8 +653,21 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 			end
 		end
 
+		-- Setup Animations
+		self:SetupGrowAnimation(slotItem.MERGradient)
+
 		-- Update Size
-		slotItem.MERGradient:SetSize(db.pageInfo.itemQualityGradientWidth, db.pageInfo.itemQualityGradientHeight)
+		slotItem.MERGradient:SetSize(
+			self.db.pageInfo.itemQualityGradientWidth,
+			self.db.pageInfo.itemQualityGradientHeight
+		)
+
+		-- Update Size
+		slotItem.MERGradient.GrowIn.Grow:SetChange(E:Scale(self.db.pageInfo.itemQualityGradientWidth))
+		slotItem.MERGradient:SetSize(
+			self.db.pageInfo.itemQualityGradientWidth,
+			self.db.pageInfo.itemQualityGradientHeight
+		)
 
 		-- Update Colors
 		if slotOptions.direction == module.enumDirection.LEFT then
@@ -665,11 +677,11 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 				r,
 				g,
 				b,
-				db.pageInfo.itemQualityGradientStartAlpha,
+				self.db.pageInfo.itemQualityGradientStartAlpha,
 				r,
 				g,
 				b,
-				db.pageInfo.itemQualityGradientEndAlpha
+				self.db.pageInfo.itemQualityGradientEndAlpha
 			)
 		elseif slotOptions.direction == module.enumDirection.RIGHT then
 			F.Color.SetGradientRGB(
@@ -678,15 +690,15 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 				r,
 				g,
 				b,
-				db.pageInfo.itemQualityGradientEndAlpha,
+				self.db.pageInfo.itemQualityGradientEndAlpha,
 				r,
 				g,
 				b,
-				db.pageInfo.itemQualityGradientStartAlpha
+				self.db.pageInfo.itemQualityGradientStartAlpha
 			)
 		end
 
-		if db.pageInfo.itemQualityGradientEnabled then
+		if self.db.pageInfo.itemQualityGradientEnabled then
 			slotItem.MERGradient:Show()
 		else
 			slotItem.MERGradient:Hide()
@@ -694,12 +706,12 @@ function module:UpdatePageStrings(slotId, _, slotItem, slotInfo, which)
 	end
 
 	-- iLvL Text Handling
-	if not db.pageInfo.itemLevelTextEnabled then
+	if not self.db.pageInfo.itemLevelTextEnabled then
 		slotItem.iLvlText:SetText("")
 	end
 
 	-- Icons Handling
-	if not db.pageInfo.itemLevelTextEnabled or not db.pageInfo.iconsEnabled then
+	if not self.db.pageInfo.itemLevelTextEnabled or not self.db.pageInfo.iconsEnabled then
 		for x = 1, 10 do
 			local essenceType = slotItem["textureSlotEssenceType" .. x]
 			if essenceType then
@@ -935,30 +947,6 @@ function module:UpdateCharacterStat(frame, showGradient)
 
 		if module.db.stats.labelFont.abbreviateLabels then
 			labelString = E:ShortenString(E.TagFunctions.Abbrev(labelString), 12)
-		end
-
-		if module.db.stats.iconFont.showIcons and module.db.stats.mode[frame.stringId] then
-			if not frame.Icon then
-				frame.Icon = frame:CreateFontString(nil, "OVERLAY")
-				frame.Icon:Point("RIGHT", frame.Label, "LEFT", 0, 0)
-				frame.Icon:SetTextColor(1, 1, 1, 1)
-			end
-
-			local icon = module.db.stats.mode[frame.stringId].icon or ""
-			F.SetFontDB(frame.Icon, module.db.stats.iconFont)
-
-			if module.db.stats.iconFont.iconFontColor == "GRADIENT" then
-				frame.Icon:SetText(F.String.FastGradient(icon, 0, 0.6, 1, 0, 0.9, 1))
-			elseif module.db.stats.iconFont.iconFontColor == "CLASS" then
-				frame.Icon:SetText(F.String.GradientClass(icon, nil, true))
-			else
-				frame.Icon:SetText(icon)
-				F.SetFontColorDB(frame.Icon, module.db.stats.iconFont.color)
-			end
-		else
-			if frame.Icon then
-				frame.Icon:SetText("")
-			end
 		end
 
 		if module.db.stats.labelFont.labelFontColor == "GRADIENT" then
@@ -1596,6 +1584,14 @@ function module:CreateElements()
 	module.classText = classText
 end
 
+function module:ElvOptionsCheck()
+	if not E.db.general.itemLevel.displayCharacterInfo then
+		E.db.general.itemLevel.displayCharacterInfo = true
+		M:ToggleItemLevelInfo(false)
+		self:UpdateItemLevel()
+	end
+end
+
 function module:HandleEvent(event, unit)
 	if not module.frame:IsShown() then
 		return
@@ -1647,6 +1643,7 @@ function module:Enable()
 	self:SecureHook(m, "UpdateAverageString", F.Event.GenerateClosure(self.UpdateItemLevel, self))
 	self:SecureHook(m, "UpdatePageStrings", F.Event.GenerateClosure(self.UpdatePageStrings, self))
 	self:SecureHook(m, "CreateSlotStrings", F.Event.GenerateClosure(self.UpdatePageInfo, self))
+	self:SecureHook(m, "ToggleItemLevelInfo", F.Event.GenerateClosure(self.ElvOptionsCheck, self))
 	self:SecureHook(_G, "PaperDollFrame_UpdateStats", F.Event.GenerateClosure(self.UpdateCharacterStats, self))
 
 	-- Register Events
@@ -1668,6 +1665,9 @@ function module:Enable()
 
 	-- Apply our custom stat categories
 	self:ApplyCustomStatCategories()
+
+	-- Check ElvUI Options
+	self:ElvOptionsCheck()
 
 	-- Update instantly if frame is currently open
 	if self.frame:IsShown() then

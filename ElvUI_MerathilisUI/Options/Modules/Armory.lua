@@ -50,12 +50,12 @@ options.armory = {
 		general = {
 			order = 3,
 			type = "group",
-			name = L["General"],
+			name = E.NewSign .. L["General"],
 			args = {
 				backgroundGroup = {
 					order = 1,
 					type = "group",
-					name = L["Background"],
+					name = E.NewSign .. L["Background"],
 					get = function(info)
 						return E.db.mui.armory.background[info[#info]]
 					end,
@@ -127,7 +127,7 @@ options.armory = {
 				animationGroup = {
 					order = 2,
 					type = "group",
-					name = L["Animation"],
+					name = E.NewSign .. L["Animation"],
 					args = {
 						animations = {
 							order = 1,
@@ -1077,7 +1077,7 @@ options.armory = {
 		attributesGroup = {
 			order = 16,
 			type = "group",
-			name = L["Attributes"],
+			name = E.NewSign .. L["Attributes"],
 			get = function(info)
 				return E.db.mui.armory.stats[info[#info]]
 			end,
@@ -1250,74 +1250,8 @@ options.armory = {
 								},
 							},
 						},
-						iconFont = {
-							order = 3,
-							type = "group",
-							name = L["Icon Font"],
-							get = function(info)
-								return E.db.mui.armory.stats.iconFont[info[#info]]
-							end,
-							set = function(info, value)
-								E.db.mui.armory.stats.iconFont[info[#info]] = value
-							end,
-							disabled = function()
-								return E.db.mui.armory.enable -- Currently disabled
-							end,
-							args = {
-								showIcons = {
-									order = 1,
-									type = "toggle",
-									name = L["Show Icons"],
-									desc = L["Show icons next to the attribute names."],
-								},
-								style = {
-									order = 3,
-									type = "select",
-									name = L["Outline"],
-									values = MER.Values.FontFlags,
-									sortByValue = true,
-								},
-								size = {
-									order = 4,
-									name = L["Size"],
-									type = "range",
-									min = 5,
-									max = 60,
-									step = 1,
-								},
-								iconFontColor = {
-									order = 5,
-									type = "select",
-									name = L["Font Color"],
-									values = {
-										CUSTOM = L["Custom"],
-										CLASS = F.String.Class("Class Color"),
-										["GRADIENT"] = F.String.FastGradient(L["Gradient"], 0, 0.6, 1, 0, 0.9, 1),
-									},
-								},
-								color = {
-									order = 6,
-									type = "color",
-									name = L["Custom Color"],
-									hasAlpha = false,
-									hidden = function()
-										return E.db.mui.armory.stats.iconFont.iconFontColor ~= "CUSTOM"
-									end,
-									get = function(info)
-										local db = E.db.mui.armory.stats.iconFont[info[#info]]
-										local default = P.armory.stats.iconFont[info[#info]]
-										return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
-									end,
-									set = function(info, r, g, b)
-										local db = E.db.mui.armory.stats.iconFont[info[#info]]
-										db.r, db.g, db.b = r, g, b
-										F.Event.TriggerEvent("Armory.SettingsUpdate")
-									end,
-								},
-							},
-						},
 						valueFont = {
-							order = 4,
+							order = 3,
 							type = "group",
 							name = L["Value Font"],
 							get = function(info)
