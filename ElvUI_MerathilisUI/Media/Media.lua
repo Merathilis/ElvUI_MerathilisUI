@@ -163,10 +163,29 @@ F.AddMedia("font", "Runescape.ttf", I.Fonts.Runescape, nil, westAndRUBits)
 F.AddMedia("font", "ToxiUIIcons.ttf", I.Fonts.Icons, nil, allLocaleBits)
 
 -- Backgrounds
+F.AddMedia("armory", "BG1")
+F.AddMedia("armory", "BG2")
+F.AddMedia("armory", "BG3")
+
+-- Class Armory Backgrounds
+F.AddMedia("armory", "MERATHILISUI-DEATHKNIGHT")
+F.AddMedia("armory", "MERATHILISUI-DEMONHUNTER")
+F.AddMedia("armory", "MERATHILISUI-DRUID")
+F.AddMedia("armory", "MERATHILISUI-EVOKER")
+F.AddMedia("armory", "MERATHILISUI-HUNTER")
+F.AddMedia("armory", "MERATHILISUI-MAGE")
+F.AddMedia("armory", "MERATHILISUI-MONK")
+F.AddMedia("armory", "MERATHILISUI-PALADIN")
+F.AddMedia("armory", "MERATHILISUI-PRIEST")
+F.AddMedia("armory", "MERATHILISUI-ROGUE")
+F.AddMedia("armory", "MERATHILISUI-SHAMAN")
+F.AddMedia("armory", "MERATHILISUI-WARLOCK")
+F.AddMedia("armory", "MERATHILISUI-WARRIOR")
 -- Border
 
 -- Statusbars
 F.AddMedia("texture", "Empty", "- Empty", "statusbar")
+F.AddMedia("texture", "Clean", "- Clean", "statusbar")
 F.AddMedia("texture", "Lyn", "Lyn", "statusbar")
 F.AddMedia("texture", "SkullflowerLight", "SkullflowerLight", "statusbar")
 F.AddMedia("texture", "Duffed", "Duffed", "statusbar")

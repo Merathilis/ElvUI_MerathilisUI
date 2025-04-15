@@ -1,4 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+F.Developer = {}
 
 local _G = _G
 local format, pairs, print, type = format, pairs, print, type
@@ -6,8 +7,6 @@ local strjoin, strlen, strlower, strrep = strjoin, strlen, strlower, strrep
 local tostring = tostring
 
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-
-F.Developer = {}
 
 MER.IsDev = {
 	["Asragoth"] = true,
