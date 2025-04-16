@@ -39,8 +39,6 @@ function MER:UpdateScripts() -- DB Convert
 		return
 	end
 
-	print(globalVersion, profileVersion, privateVersion, currentVersion)
-
 	isFirstLine = true
 
 	if profileVersion and profileVersion < 6.60 then
