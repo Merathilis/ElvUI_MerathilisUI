@@ -43,52 +43,12 @@ function MER:UpdateScripts() -- DB Convert
 
 	isFirstLine = true
 
-	if profileVersion and profileVersion <= 6.37 then
-		if db and db.blizzard.friendsList then
-			db.blizzard.friendsList.client = nil
-			db.blizzard.friendsList.factionIcon = nil
-
-			UpdateMessage(L["Friend List"] .. " - " .. L["Update Database"], profileVersion)
-		end
-
-		if db.chat.chatBar and db.chat.chatBar.channels and db.chat.chatBar.channels.world then
-			db.chat.chatBar.channels.world.enable = false
-			db.chat.chatBar.channels.world.autoJoin = nil
-			db.chat.chatBar.channels.world.name = nil
-
-			UpdateMessage(L["Chat Bar"] .. " - " .. L["Update Database"], profileVersion)
-		end
-	end
-
-	if profileVersion and profileVersion <= 6.38 then
-		if db and db.maps.eventTracker then
-			if db.maps.eventTracker.iskaaranFishingNet then
-				db.maps.eventTracker.iskaaranFishingNet.enable = false
-				UpdateMessage(L["Event Tracker"] .. ": " .. L["Update Database"], profileVersion)
+	if profileVersion and profileVersion < 6.60 then
+		if db and db.armory and db.armory.specIcon and db.armory.specIcon.name then
+			if db.armory.specIcon.name ~= I.Fonts.Icons then
+				db.armory.specIcon.name = I.Fonts.Icons
+				UpdateMessage(L["Armory"] .. " - " .. L["Update Database"], profileVersion)
 			end
-		end
-	end
-
-	if profileVersion and profileVersion < 6.39 then
-		if db and db.maps.eventTracker then
-			if db.maps.eventTracker.worldSoul then
-				db.maps.eventTracker.worldSoul = nil
-				UpdateMessage(L["Event Tracker"] .. " - " .. L["Update Database"], profileVersion)
-			end
-		end
-	end
-
-	if globalVersion and globalVersion < 6.39 then
-		if global and global.core then
-			global.core.fixPlaystyle = nil
-			UpdateMessage(L["Core"] .. " - " .. L["Update Database"], globalVersion)
-		end
-	end
-
-	if profileVersion and profileVersion < 6.41 then
-		if db and db.blizzard and db.blizzard.objectiveTracker then
-			db.blizzard.objectiveTracker = nil
-			UpdateMessage(L["Objective Tracker"] .. " - " .. L["Update Database"], profileVersion)
 		end
 	end
 

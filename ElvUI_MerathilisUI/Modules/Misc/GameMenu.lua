@@ -225,8 +225,6 @@ function module:GameMenu_OnShow()
 		textHolderRight.delves:Point("TOPRIGHT", textHolderRight)
 		textHolderRight.delves:SetTextColor(1, 1, 1, 1)
 		textHolderRight.delves:SetText(F.String.GradientClass(L["Weekly Delves Keys"]))
-		textHolderRight.delves:SetJustifyH("RIGHT")
-		textHolderRight.delves:SetJustifyV("TOP")
 
 		local coloredCurrentKeys
 		if currentKeys == maxKeys then
@@ -239,8 +237,6 @@ function module:GameMenu_OnShow()
 		textHolderRight.delvesInfo:FontTemplate(nil, 16, "SHADOWOUTLINE")
 		textHolderRight.delvesInfo:Point("TOPRIGHT", textHolderRight.delves, "BOTTOMRIGHT", -2, -5)
 		textHolderRight.delvesInfo:SetText(keyName .. ": " .. format("%s/%d", coloredCurrentKeys, #delvesKeys))
-		textHolderRight.delvesInfo:SetJustifyH("RIGHT")
-		textHolderRight.delvesInfo:SetJustifyV("TOP")
 	end
 
 	-- Use this frame to control the position of the model - taken from ElvUI

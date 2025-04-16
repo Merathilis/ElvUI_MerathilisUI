@@ -109,6 +109,7 @@ local hearthstones = {
 	209035,
 	212337,
 	228940,
+	236687,
 }
 
 local hearthstoneAndToyIDList = {
@@ -144,6 +145,7 @@ local hearthstoneAndToyIDList = {
 	210455,
 	212337,
 	228940,
+	236687,
 	-- Patch Items
 	110560,
 	140192,
