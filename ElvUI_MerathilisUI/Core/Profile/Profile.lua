@@ -40,6 +40,7 @@ P.gameMenu = {
 	enable = true,
 	bgColor = F.Table.HexToRGB("#00000080"),
 	showCollections = true,
+	showWeeklyDevles = true,
 }
 
 P.themes = {

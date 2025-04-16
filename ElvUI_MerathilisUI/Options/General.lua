@@ -102,6 +102,11 @@ options.name = {
 							type = "toggle",
 							name = L["Show Collections"],
 						},
+						showWeeklyDevles = {
+							order = 2,
+							type = "toggle",
+							name = L["Show Weekly Delve Progress"],
+						},
 					},
 				},
 			},

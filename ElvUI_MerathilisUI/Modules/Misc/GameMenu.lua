@@ -13,6 +13,7 @@ local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local C_MountJournal_GetMountInfoByID = C_MountJournal.GetMountInfoByID
 local C_ToyBox_GetNumLearnedDisplayedToys = C_ToyBox.GetNumLearnedDisplayedToys
 local C_PetJournal_GetNumPets = C_PetJournal.GetNumPets
+local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 
 local GameMenuFrame = _G.GameMenuFrame
 
@@ -181,8 +182,6 @@ function module:GameMenu_OnShow()
 		textHolderLeft.collections.mount:FontTemplate(nil, 16, "SHADOWOUTLINE")
 		textHolderLeft.collections.mount:SetTextColor(1, 1, 1, 1)
 		textHolderLeft.collections.mount:SetText(L["Mounts: "] .. F.String.MERATHILISUI(collectedMounts))
-		textHolderLeft.collections.mount:SetJustifyH("LEFT")
-		textHolderLeft.collections.mount:SetJustifyV("TOP")
 
 		textHolderLeft.collections.toys = textHolderLeft:CreateFontString(nil, "OVERLAY")
 		textHolderLeft.collections.toys:FontTemplate(nil, 16, "SHADOWOUTLINE")
@@ -191,8 +190,6 @@ function module:GameMenu_OnShow()
 		textHolderLeft.collections.toys:SetText(
 			L["Toys: "] .. F.String.MERATHILISUI(C_ToyBox_GetNumLearnedDisplayedToys())
 		)
-		textHolderLeft.collections.toys:SetJustifyH("LEFT")
-		textHolderLeft.collections.toys:SetJustifyV("TOP")
 
 		local _, petsOwned = C_PetJournal_GetNumPets()
 		textHolderLeft.collections.pets = textHolderLeft:CreateFontString(nil, "OVERLAY")
@@ -200,8 +197,6 @@ function module:GameMenu_OnShow()
 		textHolderLeft.collections.pets:FontTemplate(nil, 16, "SHADOWOUTLINE")
 		textHolderLeft.collections.pets:SetTextColor(1, 1, 1, 1)
 		textHolderLeft.collections.pets:SetText(L["Pets: "] .. F.String.MERATHILISUI(petsOwned))
-		textHolderLeft.collections.pets:SetJustifyH("LEFT")
-		textHolderLeft.collections.pets:SetJustifyV("TOP")
 
 		textHolderLeft.collections.achievs = textHolderLeft:CreateFontString(nil, "OVERLAY")
 		textHolderLeft.collections.achievs:SetPoint("TOPLEFT", textHolderLeft.collections.pets, "BOTTOMLEFT", 0, -4)
@@ -210,14 +205,43 @@ function module:GameMenu_OnShow()
 		textHolderLeft.collections.achievs:SetText(
 			L["Achievement Points: "] .. F.String.MERATHILISUI(E:FormatLargeNumber(GetTotalAchievementPoints(), ","))
 		)
-		textHolderLeft.collections.achievs:SetJustifyH("LEFT")
-		textHolderLeft.collections.achievs:SetJustifyV("TOP")
 	end
 
 	local textHolderRight = CreateFrame("Frame", nil, topPanel)
 	textHolderRight:Point("RIGHT", topPanel, "BOTTOMRIGHT", -5, 0)
 	textHolderRight:Width(E.screenWidth * 0.5)
 	textHolderRight:Height(E.screenHeight * (1 / 4) - 20)
+
+	local currentKeys, maxKeys = 0, #delvesKeys
+	for _, questID in pairs(delvesKeys) do
+		if C_QuestLog_IsQuestFlaggedCompleted(questID) then
+			currentKeys = currentKeys + 1
+		end
+	end
+
+	if module.db and module.db.showWeeklyDevles and currentKeys > 0 then
+		textHolderRight.delves = textHolderRight:CreateFontString(nil, "ARTWORK")
+		textHolderRight.delves:FontTemplate(nil, 24, "SHADOWOUTLINE")
+		textHolderRight.delves:Point("TOPRIGHT", textHolderRight)
+		textHolderRight.delves:SetTextColor(1, 1, 1, 1)
+		textHolderRight.delves:SetText(F.String.GradientClass(L["Weekly Delves Keys"]))
+		textHolderRight.delves:SetJustifyH("RIGHT")
+		textHolderRight.delves:SetJustifyV("TOP")
+
+		local coloredCurrentKeys
+		if currentKeys == maxKeys then
+			coloredCurrentKeys = "|cffFF0000" .. currentKeys .. "|r"
+		else
+			coloredCurrentKeys = "|cff00FF00" .. currentKeys .. "|r"
+		end
+
+		textHolderRight.delvesInfo = textHolderRight:CreateFontString(nil, "ARTWORK")
+		textHolderRight.delvesInfo:FontTemplate(nil, 16, "SHADOWOUTLINE")
+		textHolderRight.delvesInfo:Point("TOPRIGHT", textHolderRight.delves, "BOTTOMRIGHT", -2, -5)
+		textHolderRight.delvesInfo:SetText(keyName .. ": " .. format("%s/%d", coloredCurrentKeys, #delvesKeys))
+		textHolderRight.delvesInfo:SetJustifyH("RIGHT")
+		textHolderRight.delvesInfo:SetJustifyV("TOP")
+	end
 
 	-- Use this frame to control the position of the model - taken from ElvUI
 	local modelHolder = CreateFrame("Frame", nil, mainFrame)
