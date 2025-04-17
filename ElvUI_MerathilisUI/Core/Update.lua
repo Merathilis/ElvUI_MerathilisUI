@@ -41,7 +41,7 @@ function MER:UpdateScripts() -- DB Convert
 
 	isFirstLine = true
 
-	if profileVersion and profileVersion < 6.60 then
+	if profileVersion and profileVersion <= 6.60 then
 		if db and db.armory and db.armory.specIcon and db.armory.specIcon.name then
 			if db.armory.specIcon.name ~= I.Fonts.Icons then
 				db.armory.specIcon.name = I.Fonts.Icons
