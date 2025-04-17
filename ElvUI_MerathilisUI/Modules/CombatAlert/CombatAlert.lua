@@ -22,11 +22,13 @@ function module:CreateAlert()
 	alert.Bg:SetSize(400, 60)
 	alert.Bg:SetTexCoord(0, 400 / 512, 341 / 512, 407 / 512)
 	alert.Bg:SetVertexColor(1, 1, 1, 0.4)
+	alert.Bg:Hide()
 
 	alert.text = alert:CreateFontString(nil)
 	alert.text:Point("CENTER", 0, -1)
 
 	self.alert = alert
+	self.alert.Bg = alert.Bg
 end
 
 function module:RefreshAlert()
@@ -36,12 +38,6 @@ function module:RefreshAlert()
 
 	F.SetFontDB(self.alert.text, self.db.font)
 	self.alert:SetScale(self.db.style.scale or 0.8)
-
-	if self.db.style.backdrop then
-		self.alert.Bg:Show()
-	else
-		self.alert.Bg:Hide()
-	end
 end
 
 function module:FadeIn(second, func)
@@ -128,6 +124,9 @@ function module:PLAYER_REGEN_DISABLED()
 			self.db.custom_text.enabled and self.db.custom_text.custom_enter_text or L["Enter Combat"]
 		)
 		self.alert.text:SetTextColor(color.r, color.g, color.b, color.a)
+		if self.db.style.backdrop then
+			self.alert.Bg:Show()
+		end
 	end)
 end
 
@@ -140,6 +139,9 @@ function module:PLAYER_REGEN_ENABLED()
 			self.db.custom_text.enabled and self.db.custom_text.custom_leave_text or L["Leave Combat"]
 		)
 		self.alert.text:SetTextColor(color.r, color.g, color.b, color.a)
+		if self.db.style.backdrop then
+			self.alert.Bg:Show()
+		end
 	end)
 end
 
