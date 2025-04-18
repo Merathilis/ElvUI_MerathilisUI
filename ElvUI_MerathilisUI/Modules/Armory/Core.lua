@@ -1543,6 +1543,7 @@ function module:CreateElements()
 	local levelText = module.frameHolder:CreateFontString(nil, "OVERLAY")
 	local specIcon = module.frameHolder:CreateFontString(nil, "OVERLAY")
 	local classText = module.frameHolder:CreateFontString(nil, "OVERLAY")
+	local waterMark = module.frameHolder:CreateTexture(nil, "BACKGROUND")
 
 	local frameHeight, frameWidth = module.frame:GetSize()
 	local cutOffPercentage = (1 - (frameHeight / frameWidth))
@@ -1554,6 +1555,13 @@ function module:CreateElements()
 	background.Texture:SetTexCoord(0, 1, cutOffPercentage, 1)
 
 	module.frame.MERBackground = background
+
+	waterMark:SetPoint("BOTTOMRIGHT", module.frame, "BOTTOMRIGHT", 0, 0)
+	waterMark:Size(72)
+	waterMark:SetTexture(I.Media.Logos.Logo)
+	waterMark:SetAlpha(0.35)
+
+	module.waterMark = waterMark
 
 	local lineHeight = 1
 	local topLine = CreateFrame("Frame", nil, module.frameHolder)
