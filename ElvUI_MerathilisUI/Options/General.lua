@@ -105,7 +105,45 @@ options.name = {
 						showWeeklyDevles = {
 							order = 2,
 							type = "toggle",
-							name = L["Show Weekly Delve Progress"],
+							name = L["Show Weekly Delves Keys"],
+						},
+						mythic = {
+							order = 3,
+							type = "group",
+							name = L["Mythic+"],
+							args = {
+								showMythicKey = {
+									order = 1,
+									type = "toggle",
+									name = L["Show Mythic+ Infos"],
+								},
+								showMythicScore = {
+									order = 2,
+									type = "toggle",
+									name = L["Show Mythic+ Score"],
+									disabled = function()
+										return not E.db.mui.gameMenu.enable or not E.db.mui.gameMenu.showMythicKey
+									end,
+								},
+								mythicHistoryLimit = {
+									order = 3,
+									type = "range",
+									name = L["History Limit"],
+									desc = L["Number of Mythic+ dungeons shown in the latest runs."],
+									min = 1,
+									max = 10,
+									step = 1,
+									get = function()
+										return E.db.mui.gameMenu.mythicHistoryLimit
+									end,
+									set = function(_, value)
+										E.db.mui.gameMenu.mythicHistoryLimit = value
+									end,
+									disabled = function()
+										return not E.db.mui.gameMenu.enable or not E.db.mui.gameMenu.showMythicKey
+									end,
+								},
+							},
 						},
 					},
 				},
