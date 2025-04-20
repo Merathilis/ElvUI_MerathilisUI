@@ -6,7 +6,6 @@ local _G = _G
 local InCombatLockdown = InCombatLockdown
 local C_Container_GetContainerNumFreeSlots = C_Container.GetContainerNumFreeSlots
 
-local alertBagsFull
 local shouldAlert = false
 local last = 0
 
