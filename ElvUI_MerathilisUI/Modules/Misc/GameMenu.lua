@@ -34,22 +34,17 @@ MER.NPCS = {
 	86470, -- Pepe
 	-- Shadowlands
 	172854, -- Dredger Butler
-	175783, -- Digallo
-	171716, -- Indigo
-	173586, -- Leafadore
 	173992, -- Torghast Lurker
 	-- Dragonflight
-	183638, -- Ichabod
 	188844, -- Humduck Livingsworth the Third
-	188861, -- Secretive Frogduck
-	189152, -- Lubbins
-	191627, -- Lord Basilton
 	184285, -- Gnomelia Gearheart
 	-- The War Within
 	222078, -- Wriggle
 	222877, -- Ghostcap Menace
 	222532, -- Bouncer
 	223399, -- Tickler
+	231713, -- Bluedoo
+	237715, -- Swabbie
 }
 
 local Sequences = { 26, 52, 69, 111, 225 }
@@ -117,7 +112,7 @@ function module:GameMenu_OnShow()
 	bottomPanel.Logo:SetTexture(I.General.MediaPath .. "Textures\\mUI1_Shadow.tga")
 
 	bottomPanel.nameText = bottomPanel:CreateFontString(nil, "OVERLAY")
-	bottomPanel.nameText:FontTemplate(nil, 26)
+	bottomPanel.nameText:FontTemplate(nil, 32)
 	bottomPanel.nameText:SetTextColor(1, 1, 1, 1)
 	bottomPanel.nameText:Point("TOP", bottomPanel.Logo, "BOTTOM", 0, -5)
 	bottomPanel.nameText:SetText(F.String.GradientClass(E.myname))
