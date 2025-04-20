@@ -279,6 +279,7 @@ function module:GameMenu_OnShow()
 		end
 
 		mythic.latestRuns = bottomTextHolderLeft:CreateFontString(nil, "OVERLAY")
+   mythic.latestRuns:FontTemplate(nil, 16, "SHADOWOUTLINE")
 		mythic.latestRuns:Point(
 			"TOPLEFT",
 			module.db.showMythicScore and mythic.score or mythic.keystone,
