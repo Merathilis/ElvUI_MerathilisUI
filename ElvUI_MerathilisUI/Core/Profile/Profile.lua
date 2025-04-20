@@ -953,6 +953,7 @@ P.notification = {
 	paragon = true,
 	quickJoin = true,
 	callToArms = false,
+	bags = true,
 	vignette = {
 		enable = true,
 		print = true,

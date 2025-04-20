@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER.Modules.Notification
+local module = MER:GetModule("MER_Notification")
 
 local _G = _G
 
