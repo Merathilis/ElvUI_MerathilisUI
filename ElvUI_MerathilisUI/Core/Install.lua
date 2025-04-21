@@ -2402,6 +2402,9 @@ function MER:SetupDts()
 	E.db["chat"]["RightChatDataPanelAnchor"] = "ABOVE_CHAT"
 	E.db["chat"]["LeftChatDataPanelAnchor"] = "ABOVE_CHAT"
 
+	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
+	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
+
 	E.db["datatexts"]["panels"]["MinimapPanel"] = {
 		enable = true,
 		backdrop = true,
@@ -2440,9 +2443,6 @@ function MER:SetupDts()
 		}
 		E.DataTexts:UpdatePanelInfo("MER_TopPanel")
 	end
-
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
 
 	E:StaggeredUpdateAll(nil, true)
 
