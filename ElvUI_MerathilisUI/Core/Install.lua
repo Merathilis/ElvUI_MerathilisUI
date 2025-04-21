@@ -2411,6 +2411,7 @@ function MER:SetupDts()
 		"DurabilityItemLevel",
 		"Gold",
 	}
+
 	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
 		E.db["datatexts"]["panels"]["MER_TopPanel"] = {
 			[1] = "mTeleports",
@@ -2428,12 +2429,16 @@ function MER:SetupDts()
 				["fontSize"] = 10,
 				["fontOutline"] = "SHADOWOUTLINE",
 			},
-			-- ["height"] = 20,
+			["height"] = 20,
+			["width"] = 100,
 			["numPoints"] = 1,
 			["backdrop"] = false,
 			["visibility"] = "[petbattle][combat] hide;show",
 			["name"] = "MER_TopPanel",
+			["frameStrata"] = "LOW",
+			["frameLevel"] = 1,
 		}
+		E.DataTexts:UpdatePanelInfo("MER_TopPanel")
 	end
 
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
@@ -2445,10 +2450,6 @@ function MER:SetupDts()
 	PluginInstallStepComplete:Show()
 end
 
-local addonNames = {}
-local profilesFailed =
-	format("|cff00c0fa%s |r", L["MerathilisUI didn't find any supported addons for profile creation"])
-
 function MER:DeveloperSettings()
 	if not F.IsDeveloper() then
 		return
@@ -2456,7 +2457,8 @@ function MER:DeveloperSettings()
 
 	-- CVars
 	SetCVar("taintLog", 1)
-	SetCVar("LowLatencyMode", 3)
+	SetCVar("LowLatencyMode", 2)
+	SetCVar("ffxAntiAliasingMode", 3)
 	SetCVar("maxFPS", 165)
 	SetCVar("maxFPSBk", 60)
 	SetCVar("maxFPSLoading", 30)
