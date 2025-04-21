@@ -267,19 +267,19 @@ function module:GameMenu_OnShow()
 		mythic:SetText(F.String.GradientClass(L["Mythic+"]))
 
 		mythic.keystone = bottomTextHolderLeft:CreateFontString(nil, "OVERLAY")
-		mythic.keystone:Point("TOPLEFT", mythic, "BOTTOMLEFT", 0, m(-6))
 		mythic.keystone:FontTemplate(nil, 16, "SHADOWOUTLINE")
+		mythic.keystone:Point("TOPLEFT", mythic, "BOTTOMLEFT", 0, m(-6))
 		mythic.keystone:SetTextColor(1, 1, 1, 1)
 
 		if module.db.showMythicScore then
 			mythic.score = bottomTextHolderLeft:CreateFontString(nil, "OVERLAY")
-			mythic.score:Point("TOPLEFT", mythic.keystone, "BOTTOMLEFT", 0, m(-1))
 			mythic.score:FontTemplate(nil, 16, "SHADOWOUTLINE")
+			mythic.score:Point("TOPLEFT", mythic.keystone, "BOTTOMLEFT", 0, m(-1))
 			mythic.score:SetTextColor(1, 1, 1, 1)
 		end
 
 		mythic.latestRuns = bottomTextHolderLeft:CreateFontString(nil, "OVERLAY")
-   mythic.latestRuns:FontTemplate(nil, 16, "SHADOWOUTLINE")
+		mythic.latestRuns:FontTemplate(nil, 16, "SHADOWOUTLINE")
 		mythic.latestRuns:Point(
 			"TOPLEFT",
 			module.db.showMythicScore and mythic.score or mythic.keystone,
@@ -372,7 +372,6 @@ function module:GameMenu_OnShow()
 				local colorObj = C_ChallengeMode_GetKeystoneLevelRarityColor(keystoneLevel)
 				local levelText = "+" .. keystoneLevel
 
-				-- Safely get hex color
 				local levelColored = levelText
 				if colorObj and colorObj.GenerateHexColor then
 					levelColored = F.String.Color(levelText, colorObj:GenerateHexColor())
@@ -417,14 +416,7 @@ function module:GameMenu_OnShow()
 						end
 
 						local historyDungeonName = C_ChallengeMode_GetMapUIInfo(historyRun.mapChallengeModeID)
-							or L["Unknown"]
-						local colorObj = C_ChallengeMode_GetKeystoneLevelRarityColor(historyRun.level)
-						local levelText = "+" .. historyRun.level
-						local levelColored = levelText
-						if colorObj and colorObj.GenerateHexColor then
-							levelColored = F.String.Color(levelText, colorObj:GenerateHexColor())
-						end
-						local output = ("%s (%s)"):format(historyDungeonName, levelColored)
+						local output = ("%s (+%d)"):format(historyDungeonName, historyRun.level)
 						historyFrame:SetText(historyRun.completed and F.String.Good(output) or F.String.Error(output))
 					else
 						historyFrame:SetText("")
