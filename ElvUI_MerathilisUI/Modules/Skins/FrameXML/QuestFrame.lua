@@ -35,7 +35,7 @@ local function UpdateProgressItemQuality(self)
 		quality = info and info.quality
 	end
 
-	local color = E.QualityColors[quality or 1]
+	local color = E:GetItemQualityColor(quality or 1)
 	button.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
 end
 
