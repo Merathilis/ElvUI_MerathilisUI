@@ -1,7 +1,7 @@
 ## Interface: 110105
 ## Author: Merathilis
 ## Version: @project-version@
-## X-Version: 6.60
+## X-Version: 6.60-fix1
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
 ## AddonCompartmentFunc: MerathilisUI_OnAddonCompartmentClick
 ## IconTexture: Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\m2
@@ -14,7 +14,7 @@
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, BigWigs, ls_Toasts, WeakAuras, WeakAurasOptions
 ## X-Credits: Simpy, Benik, Azilroka, Darth Predator, fang2hou, fgprodigal, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
-## X-ElvUIVersion: 13.87
+## X-ElvUIVersion: 13.88
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
 ## X-WoWI-ID: 24117

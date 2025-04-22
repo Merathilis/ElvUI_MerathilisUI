@@ -1,13 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
 
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-
 function module:LoadmMediaTagProfile()
-	if not IsAddOnLoaded("ElvUI_mMediaTag") then
-		return
-	end
-
 	E.db["mMT"]["general"]["greeting"] = false
 	E.db["mMT"]["nameplate"]["executemarker"]["enable"] = true
 	E.db["mMT"]["afk"]["misc"]["enable"] = false
@@ -20,8 +14,6 @@ function module:LoadmMediaTagProfile()
 	E.db["mMT"]["portraits"]["general"]["enable"] = true
 	E.db["mMT"]["portraits"]["general"]["style"] = "c"
 	E.db["mMT"]["portraits"]["general"]["mui"] = true
-	E.db["mMT"]["portraits"]["offset"]["SQ"] = 5.4
-	E.db["mMT"]["portraits"]["offset"]["RA"] = 5.4
 	E.db["mMT"]["portraits"]["colors"]["WARRIOR"]["a"]["b"] = 0.09019608050584793
 	E.db["mMT"]["portraits"]["colors"]["WARRIOR"]["a"]["g"] = 0.1372549086809158
 	E.db["mMT"]["portraits"]["colors"]["WARRIOR"]["a"]["r"] = 0.4274510145187378
@@ -47,8 +39,12 @@ function module:LoadmMediaTagProfile()
 end
 
 function module:ApplymMediaTagProfile()
+	if not E:IsAddOnEnabled("ElvUI_mMediaTag") then
+		F.Developer.LogWarning(L["ElvUI_mMediaTag is not enabled. Will not apply profile."])
+		return
+	end
+
 	module:Wrap("Applying mMediaTag Profile ...", function()
-		-- Apply Fonts
 		self:LoadmMediaTagProfile()
 
 		E:UpdateMedia()

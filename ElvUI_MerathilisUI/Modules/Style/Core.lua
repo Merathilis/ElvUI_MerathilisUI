@@ -111,7 +111,6 @@ function module:ForceRefresh()
 	E:UpdateMediaItems(true)
 end
 
-local object = CreateFrame("Frame")
 local handled = {
 	Frame = true,
 	Button = true,
@@ -123,10 +122,13 @@ local handled = {
 function module:MetatableScan()
 	self.MERStyle = {}
 
+	local object = CreateFrame("Frame")
 	self:API(object)
 	self:API(object:CreateTexture())
 	self:API(object:CreateFontString())
 	self:API(object:CreateMaskTexture())
+	self:API(_G.GameFontNormal)
+	self:API(CreateFrame("ScrollFrame"))
 
 	object = EnumerateFrames()
 	while object do
