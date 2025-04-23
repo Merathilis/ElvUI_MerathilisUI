@@ -41,8 +41,8 @@ P.gameMenu = {
 	bgColor = F.Table.HexToRGB("#00000080"),
 	showCollections = true,
 	showWeeklyDevles = true,
-	showMythicKey = true,
-	showMythicScore = true,
+	showMythicKey = false,
+	showMythicScore = false,
 	mythicHistoryLimit = 4,
 }
 
