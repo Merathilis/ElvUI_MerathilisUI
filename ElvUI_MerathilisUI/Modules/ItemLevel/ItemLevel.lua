@@ -190,7 +190,7 @@ function module:ItemLevel_UpdateMerchant(link)
 	local quality = link and select(3, GetItemInfo(link)) or nil
 	if quality and quality > 1 then
 		local level = F.GetItemLevel(link)
-		local color = E:GetItemQualityColor(quality)
+		local color = E:GetQualityColor(quality)
 		self.iLvl:SetText(level)
 		self.iLvl:SetTextColor(color.r, color.g, color.b)
 	else
