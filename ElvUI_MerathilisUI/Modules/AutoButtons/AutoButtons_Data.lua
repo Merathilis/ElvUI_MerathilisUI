@@ -1135,6 +1135,11 @@ local openableItems = {
 	239125,
 	239126,
 	239128,
+
+	237743,
+	237759,
+	237760,
+	239004,
 }
 
 local professionItems = {

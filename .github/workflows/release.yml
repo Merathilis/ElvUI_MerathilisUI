@@ -35,6 +35,12 @@ jobs:
             - name: Release Job
               uses: BigWigsMods/packager@master
 
+            - name: Upload to Github Actions
+              uses: actions/upload-artifact@v4
+              with:
+                  name: ElvUI_MerathilisUI
+                  path: .release/*.zip
+
             - name: Send status to Discord
               uses: repooc/djs-actions@my_changes
               with:
