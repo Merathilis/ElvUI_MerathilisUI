@@ -192,6 +192,15 @@ L["Achievement Points: "] = "Erfolgspunkte: "
 L["Mounts: "] = "Reittiere: "
 L["Pets: "] = "Haustiere: "
 L["Toys: "] = "Spielzeuge: "
+L["Current Keystone: "] = "Aktueller Schlüsselstein: "
+L["M+ Score: "] = "M+ Wertung: "
+L["Show Weekly Delves Keys"] = "Zeige wöchentliche Tiefenschlüssel"
+L["Mythic+"] = true -- no need to translate
+L["Show Mythic+ Infos"] = "Zeige M+ Infos"
+L["Show Mythic+ Score"] = "Zeige M+ Wertung"
+L["History Limit"] = "Historienlimit"
+L["Number of Mythic+ dungeons shown in the latest runs."] =
+	"Anzahl der M+ Dungeons, die in den letzten Runs angezeigt werden."
 
 -- Extended Vendor
 L["Extended Vendor"] = "Erweiterter Händler"

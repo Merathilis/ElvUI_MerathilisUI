@@ -40,6 +40,10 @@ P.gameMenu = {
 	enable = true,
 	bgColor = F.Table.HexToRGB("#00000080"),
 	showCollections = true,
+	showWeeklyDevles = true,
+	showMythicKey = false,
+	showMythicScore = false,
+	mythicHistoryLimit = 4,
 }
 
 P.themes = {
@@ -949,6 +953,7 @@ P.notification = {
 	paragon = true,
 	quickJoin = true,
 	callToArms = false,
+	bags = true,
 	vignette = {
 		enable = true,
 		print = true,

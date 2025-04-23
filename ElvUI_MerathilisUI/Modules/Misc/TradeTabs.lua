@@ -1,18 +1,18 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc")
-local S = E:GetModule("Skins")
 
 local _G = _G
-local unpack = unpack
+local next, pairs, unpack = next, pairs, unpack
 
 local CreateFrame = CreateFrame
-
+local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
-local InCombatLockdown = InCombatLockdown
+local PlayerHasToy = PlayerHasToy
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
 local C_Spell_IsCurrentSpell = C_Spell.IsCurrentSpell
+local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
+local C_Spell_GetSpellTexture = C_Spell.GetSpellTexture
 local C_SpellBook_GetSpellBookItemName = C_SpellBook.GetSpellBookItemName
 local C_SpellBook_GetSpellBookItemTexture = C_SpellBook.GetSpellBookItemTexture
 local C_SpellBook_GetSpellBookItemInfo = C_SpellBook.GetSpellBookItemInfo
@@ -33,13 +33,13 @@ local function FilterIcons()
 	local buttonList = {
 		[1] = {
 			"Professions-Icon-Skill-High",
-			TRADESKILL_FILTER_HAS_SKILL_UP,
+			_G.TRADESKILL_FILTER_HAS_SKILL_UP,
 			C_TradeSkillUI_GetOnlyShowSkillUpRecipes,
 			C_TradeSkillUI_SetOnlyShowSkillUpRecipes,
 		},
 		[2] = {
 			"Interface\\RAIDFRAME\\ReadyCheck-Ready",
-			CRAFT_IS_MAKEABLE,
+			_G.CRAFT_IS_MAKEABLE,
 			C_TradeSkillUI_GetOnlyShowMakeableRecipes,
 			C_TradeSkillUI_SetOnlyShowMakeableRecipes,
 		},
@@ -58,33 +58,39 @@ local function FilterIcons()
 
 	local buttons = {}
 	for index, value in pairs(buttonList) do
-		local button = CreateFrame("Button", nil, ProfessionsFrame.CraftingPage.RecipeList, "BackdropTemplate")
-		button:Size(22)
-		button:Point(
+		local button = CreateFrame("Button", nil, _G.ProfessionsFrame.CraftingPage.RecipeList, "BackdropTemplate")
+		button:SetSize(22, 22)
+		button:SetPoint(
 			"BOTTOMRIGHT",
-			ProfessionsFrame.CraftingPage.RecipeList.FilterButton,
+			_G.ProfessionsFrame.CraftingPage.RecipeList.FilterButton,
 			"TOPRIGHT",
 			-(index - 1) * 27,
 			10
 		)
-
+		button:CreateBackdrop()
 		button.Icon = button:CreateTexture(nil, "OVERLAY")
 		if index == 1 then
 			button.Icon:SetAtlas(value[1])
 		else
 			button.Icon:SetTexture(value[1])
 		end
-		button.Icon:Point("TOPLEFT", button, 2, -2)
-		button.Icon:Point("BOTTOMRIGHT", button, -2, 2)
+		button.Icon:SetPoint("TOPLEFT", button, 2, -2)
+		button.Icon:SetPoint("BOTTOMRIGHT", button, -2, 2)
 
-		local tooltip_hide = function()
+		local tooltip_hide = function(self)
 			GameTooltip:Hide()
+			if self.backdrop then
+				self.backdrop:SetVertexColor(0.1, 0.1, 0.1, 1)
+			end
 		end
 
 		local tooltip_show = function(self)
 			GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 3)
 			GameTooltip:ClearLines()
 			GameTooltip:SetText(value[2])
+			if self.backdrop then
+				self.backdrop:SetVertexColor(1, 1, 1, 0.3)
+			end
 		end
 		button:SetScript("OnEnter", tooltip_show)
 		button:SetScript("OnLeave", tooltip_hide)
@@ -128,11 +134,11 @@ local defaults = {
 }
 
 if E.myclass == "DEATHKNIGHT" then
-	spells[#spells + 1] = 53428 -- Runeforging
-end
+	spells[#spells + 1] = 53428
+end -- Runeforging
 if E.myclass == "ROGUE" then
-	spells[#spells + 1] = 1804 -- Pick Lock
-end
+	spells[#spells + 1] = 1804
+end -- Pick Lock
 
 local function UpdateSelectedTabs(object)
 	if not handler:IsEventRegistered("CURRENT_SPELL_CAST_CHANGED") then
@@ -178,11 +184,14 @@ local function UpdateTab(object, name, texture, spellID)
 		tab:GetCheckedTexture():SetBlendMode("ADD")
 	end
 
-	tab:StyleButton()
 	tab:SetPoint("TOPLEFT", object, "TOPRIGHT", 1, (-44 * index) + 44)
+	tab:SetTemplate()
+	tab:StyleButton()
+	tab.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	tab.icon:ClearAllPoints()
 	tab.icon:SetPoint("TOPLEFT", 2, -2)
 	tab.icon:SetPoint("BOTTOMRIGHT", -2, 2)
+
 	tab.icon:SetTexture(texture)
 
 	if texture == 236571 then -- Chef's Hat
@@ -202,10 +211,6 @@ local function UpdateTab(object, name, texture, spellID)
 	tab.spellID = spellID
 
 	tab:SetScript("OnEnter", function(self)
-		if not name then
-			return
-		end
-
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 5, -7)
 		GameTooltip:SetText(name)
 		GameTooltip:Show()
@@ -237,8 +242,8 @@ local function HandleProfession(object, professionID, hat)
 			end
 		end
 
-		if hat and PlayerHasToy(134020) and C_ToyBox_IsToyUsable(134020) then -- Need an update on the Frame
-			UpdateTab(object, select(2, C_Spell_GetSpellInfo(67556)) or L["Chef's Hat"], 236571, 134020)
+		if hat and PlayerHasToy(134020) and C_ToyBox_IsToyUsable(134020) then
+			UpdateTab(object, E:GetSpellInfo(67556), C_Spell_GetSpellTexture(67556), 134020)
 		end
 	end
 end
@@ -265,7 +270,8 @@ local function HandleTabs(object)
 		-- Runuforging and Pick Lock
 		for index = 1, #spells do
 			if IsSpellKnown(spells[index]) then
-				local name, _, texture = C_Spell_GetSpellInfo(spells[index])
+				local name = E:GetSpellInfo(spells[index])
+				local texture = C_Spell_GetSpellTexture(spells[index])
 				UpdateTab(object, name, texture, spells[index])
 			end
 		end
@@ -276,9 +282,9 @@ end
 
 local isLoaded
 function handler:TRADE_SKILL_SHOW(event)
-	local owner = ATSWFrame or MRTSkillFrame or SkilletFrame or ProfessionsFrame
+	local owner = ATSWFrame or MRTSkillFrame or SkilletFrame or _G.ProfessionsFrame
 
-	if C_AddOns_IsAddOnLoaded("TradeSkillDW") and owner == ProfessionsFrame then
+	if C_AddOns_IsAddOnLoaded("TradeSkillDW") and owner == _G.ProfessionsFrame then
 		self:UnregisterEvent(event)
 	else
 		HandleTabs(owner)
@@ -299,7 +305,7 @@ function handler:TRADE_SKILL_CLOSE()
 end
 
 function handler:TRADE_SHOW(event)
-	local owner = TradeFrame
+	local owner = _G.TradeFrame
 
 	HandleTabs(owner)
 	self[event] = function()

@@ -28,7 +28,6 @@ G.maps = {
 
 G.advancedOptions = {
 	advancedCLEUEventTrace = false,
-	cpuProfiler = true,
 	cvarAlert = false,
 	guildNews = true,
 }

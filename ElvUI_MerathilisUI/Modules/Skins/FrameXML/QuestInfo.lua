@@ -284,7 +284,7 @@ function module:QuestInfo()
 			for reward in rewardsFrame.followerRewardPool:EnumerateActive() do
 				local portrait = reward.PortraitFrame
 				if portrait then
-					local color = E.QualityColors[portrait.quality or 1]
+					local color = E:GetItemQualityColor(portrait.quality or 1)
 					portrait.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
 				end
 			end

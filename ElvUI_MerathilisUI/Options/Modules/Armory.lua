@@ -596,22 +596,15 @@ options.armory = {
 						E:StaticPopup_Show("CONFIG_RL")
 					end,
 					args = {
-						name = {
-							order = 1,
-							type = "select",
-							dialogControl = "LSM30_Font",
-							name = L["Font"],
-							values = LSM:HashTable("font"),
-						},
 						style = {
-							order = 2,
+							order = 1,
 							type = "select",
 							name = L["Outline"],
 							values = MER.Values.FontFlags,
 							sortByValue = true,
 						},
 						size = {
-							order = 3,
+							order = 2,
 							name = L["Size"],
 							type = "range",
 							min = 5,
@@ -619,7 +612,7 @@ options.armory = {
 							step = 1,
 						},
 						fontColor = {
-							order = 4,
+							order = 3,
 							type = "select",
 							name = L["Font Color"],
 							values = {
@@ -629,7 +622,7 @@ options.armory = {
 							},
 						},
 						color = {
-							order = 5,
+							order = 4,
 							type = "color",
 							name = L["Custom Color"],
 							hasAlpha = false,

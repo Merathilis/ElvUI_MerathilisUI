@@ -172,6 +172,14 @@ L["Achievement Points: "] = true
 L["Mounts: "] = true
 L["Pets: "] = true
 L["Toys: "] = true
+L["Current Keystone: "] = true
+L["M+ Score: "] = true
+L["Show Weekly Delves Keys"] = true
+L["Mythic+"] = true
+L["Show Mythic+ Infos"] = true
+L["Show Mythic+ Score"] = true
+L["History Limit"] = true
+L["Number of Mythic+ dungeons shown in the latest runs."] = true
 
 -- Extended Vendor
 L["Extended Vendor"] = true

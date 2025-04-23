@@ -53,7 +53,7 @@ function module:ItemLevel_FlyoutUpdate(bag, slot, quality)
 		level = F.GetItemLevel(link, "player", slot)
 	end
 
-	local color = E.QualityColors[quality or 0]
+	local color = E:GetItemQualityColor(quality or 0)
 	self.iLvl:SetText(level)
 	self.iLvl:SetTextColor(color.r, color.g, color.b)
 end
@@ -113,7 +113,7 @@ function module:ItemLevel_ScrappingUpdate()
 		quality = self.item:GetItemQuality()
 	end
 	local level = F.GetItemLevel(self.itemLink)
-	local color = E.QualityColors[quality]
+	local color = E:GetItemQualityColor(quality)
 	self.iLvl:SetText(level)
 	self.iLvl:SetTextColor(color.r, color.g, color.b)
 end
@@ -190,7 +190,7 @@ function module:ItemLevel_UpdateMerchant(link)
 	local quality = link and select(3, GetItemInfo(link)) or nil
 	if quality and quality > 1 then
 		local level = F.GetItemLevel(link)
-		local color = E.QualityColors[quality]
+		local color = E:GetQualityColor(quality)
 		self.iLvl:SetText(level)
 		self.iLvl:SetTextColor(color.r, color.g, color.b)
 	else

@@ -195,25 +195,6 @@ function MER:UpdateProfiles(_)
 	F.Event.TriggerEvent("MER.DatabaseUpdate")
 end
 
-function MER:Performance()
-	local db = E.global.mui.advancedOptions
-
-	RegisterCVar("addonProfilerEnabled", "1")
-	SetCVar("addonProfilerEnabled", db.cpuProfiler and 0 or 1)
-
-	local cpuProfiler = IsEnabled()
-	local profilerState = L["Profiler not found"]
-
-	if cpuProfiler == true then
-		profilerState = F.String.Error("ON")
-	end
-	if cpuProfiler == false then
-		profilerState = F.String.Good("OFF")
-	end
-
-	F.Developer.LogInfo(L["Blizzard AddOn profiling is: "] .. profilerState)
-end
-
 function MER:FixGame()
 	local db = E.global.mui.advancedOptions
 	if not db then
@@ -282,8 +263,6 @@ function MER:FixGame()
 			end)
 		end
 	end
-
-	self:Performance()
 end
 
 MER.SpecializationInfo = {}

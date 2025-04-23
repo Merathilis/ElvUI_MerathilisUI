@@ -123,7 +123,7 @@ function module:PetBattleUI()
 		end
 		if self.Icon.backdrop then
 			local quality = C_PetBattles_GetBreedQuality(self.petOwner, self.petIndex) or 1
-			local color = E.QualityColors[quality]
+			local color = E:GetQualityColor(quality)
 			self.Icon.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
 		end
 	end)

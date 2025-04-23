@@ -161,6 +161,7 @@ function module:UpdateWidget(lib, name, oldFunc)
 		self.aceWidgets[name] = nil
 	end
 end
+
 do
 	local alreadyWidgetHooked = false
 	local alreadyDialogSkined = false
