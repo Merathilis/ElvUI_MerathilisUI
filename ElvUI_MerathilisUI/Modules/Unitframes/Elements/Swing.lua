@@ -16,7 +16,7 @@ function module:Construct_Swing(frame)
 	local bar = CreateFrame("StatusBar", frame:GetName() .. "_Swing", frame)
 	bar:SetSize(width, 3)
 	bar:SetPoint("TOP", frame.Castbar.Holder, "BOTTOM", 0, 1)
-	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel() + 1)
+	bar:OffsetFrameLevel(1, frame.Castbar.Holder)
 	bar:CreateBackdrop("Transparent")
 	MER:SmoothBar(bar)
 

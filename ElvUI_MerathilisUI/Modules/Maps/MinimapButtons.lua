@@ -363,7 +363,7 @@ function module:SkinButton(frame)
 			original.Point, original.relativeTo, original.relativePoint, original.xOfs, original.yOfs = frame:GetPoint()
 			original.Parent = frame:GetParent()
 			original.FrameStrata = frame:GetFrameStrata()
-			original.FrameLevel = frame:GetFrameLevel()
+			original.FrameLevel = frame:OffsetFrameLevel()
 			original.Scale = frame:GetScale()
 			if frame:HasScript("OnDragStart") then
 				original.DragStart = frame:GetScript("OnDragStart")

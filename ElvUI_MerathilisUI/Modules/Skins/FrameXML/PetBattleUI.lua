@@ -85,7 +85,7 @@ function module:PetBattleUI()
 		unit.ActualHealthBar.backdrop:SetPoint("TOPLEFT", unit.ActualHealthBar, -E.mult, E.mult)
 		unit.ActualHealthBar.backdrop:SetPoint("BOTTOMLEFT", unit.ActualHealthBar, -E.mult, -E.mult)
 		unit.ActualHealthBar.backdrop:SetWidth(unit.healthBarWidth + 2 * E.mult)
-		unit.ActualHealthBar.backdrop:SetFrameLevel(unit:GetFrameLevel())
+		unit.ActualHealthBar.backdrop:OffsetFrameLevel(nil, unit)
 
 		if index < 3 then
 			unit.ActualHealthBar:SetGradient("VERTICAL", CreateColor(0.26, 1, 0.22, 1), CreateColor(0.13, 0.5, 0.11, 1))

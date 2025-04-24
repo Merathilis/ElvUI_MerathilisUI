@@ -16,7 +16,7 @@ function module:ElvUI_UnitFrames_SkinCastBar(_, frame)
 	if not frame.Castbar.MERShadowBackdrop then
 		frame.Castbar.MERShadowBackdrop = CreateFrame("Frame", nil, frame.Castbar)
 		frame.Castbar.MERShadowBackdrop:SetFrameStrata(frame.Castbar.backdrop:GetFrameStrata())
-		frame.Castbar.MERShadowBackdrop:SetFrameLevel(frame.Castbar.backdrop:GetFrameLevel() or 1)
+		frame.Castbar.MERShadowBackdrop:OffsetFrameLevel(1, frame.Castbar.backdrop)
 	end
 
 	local MERBg = frame.Castbar.MERShadowBackdrop

@@ -35,7 +35,7 @@ function module:Blizzard_BlackMarketUI()
 		local bg = CreateFrame("Frame", nil, header)
 		bg:SetPoint("TOPLEFT", 2, 0)
 		bg:SetPoint("BOTTOMRIGHT", -1, 0)
-		bg:SetFrameLevel(header:GetFrameLevel() - 1)
+		bg:OffsetFrameLevel(-1, header)
 		bg:SetTemplate("Transparent")
 	end
 

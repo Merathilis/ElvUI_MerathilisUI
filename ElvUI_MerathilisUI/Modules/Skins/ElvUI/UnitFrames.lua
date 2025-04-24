@@ -97,7 +97,7 @@ function module:ElvUI_UnitFrames_Construct_AuraBars(_, f)
 
 	f.MERShadowBackdrop = CreateFrame("Frame", nil, f)
 	f.MERShadowBackdrop:SetFrameStrata(f:GetFrameStrata())
-	f.MERShadowBackdrop:SetFrameLevel(f:GetFrameLevel() or 1)
+	f.MERShadowBackdrop:OffsetFrameLevel(1, f)
 
 	-- |-- Icon --| --------------- Status Bar ---------------|
 	-- |----------------- MERShadowBackdrop ------------------|

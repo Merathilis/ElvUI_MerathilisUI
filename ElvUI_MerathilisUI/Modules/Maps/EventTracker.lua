@@ -135,7 +135,7 @@ local function secondToTime(second)
 end
 
 local function reskinStatusBar(bar)
-	bar:SetFrameLevel(bar:GetFrameLevel() + 1)
+	bar:OffsetFrameLevel(1)
 	bar:StripTextures()
 	bar:CreateBackdrop("Transparent")
 	bar:SetStatusBarTexture(E.media.normTex)

@@ -22,7 +22,7 @@ end
 
 function module:UpdateTemplateStrata(frame)
 	if frame.MERStyle then
-		frame.MERStyle:SetFrameLevel(frame:GetFrameLevel())
+		frame.MERStyle:OffsetFrameLevel(nil, frame)
 		frame.MERStyle:SetFrameStrata(frame:GetFrameStrata())
 	end
 end

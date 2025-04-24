@@ -639,7 +639,7 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 		-- Create Gradient if it doesen't exist
 		if not slotItem.MERGradient then
 			slotItem.MERGradient = CreateFrame("Frame", nil, slotItem)
-			slotItem.MERGradient:SetFrameLevel(module.frameModel:GetFrameLevel() - 1)
+			slotItem.MERGradient:OffsetFrameLevel(-1, module.frameModel)
 
 			slotItem.MERGradient.Texture = slotItem.MERGradient:CreateTexture(nil, "OVERLAY")
 			slotItem.MERGradient.Texture:SetInside()
@@ -1549,7 +1549,7 @@ function module:CreateElements()
 	local cutOffPercentage = (1 - (frameHeight / frameWidth))
 
 	background:SetInside(module.frame)
-	background:SetFrameLevel(module.frameModel:GetFrameLevel() - 1)
+	background:OffsetFrameLevel(-1, module.frameModel)
 	background.Texture = background:CreateTexture(nil, "BACKGROUND")
 	background.Texture:SetInside()
 	background.Texture:SetTexCoord(0, 1, cutOffPercentage, 1)

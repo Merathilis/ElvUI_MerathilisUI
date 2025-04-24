@@ -31,7 +31,7 @@ function module:CreateSeparators()
 	--Left Chat Tab Separator
 	local ltabseparator = CreateFrame("Frame", "LeftChatTabSeparator", _G.LeftChatPanel, "BackdropTemplate")
 	ltabseparator:SetFrameStrata("BACKGROUND")
-	ltabseparator:SetFrameLevel(_G.LeftChatPanel:GetFrameLevel() + 2)
+	ltabseparator:OffsetFrameLevel(2, _G.LeftChatPanel)
 	ltabseparator:Height(1)
 	ltabseparator:Point("TOPLEFT", _G.LeftChatPanel, 5, -24)
 	ltabseparator:Point("TOPRIGHT", _G.LeftChatPanel, -5, -24)
@@ -42,7 +42,7 @@ function module:CreateSeparators()
 	--Right Chat Tab Separator
 	local rtabseparator = CreateFrame("Frame", "RightChatTabSeparator", _G.RightChatPanel, "BackdropTemplate")
 	rtabseparator:SetFrameStrata("BACKGROUND")
-	rtabseparator:SetFrameLevel(_G.RightChatPanel:GetFrameLevel() + 2)
+	rtabseparator:OffsetFrameLevel(2, _G.RightChatPanel)
 	rtabseparator:Height(1)
 	rtabseparator:Point("TOPLEFT", _G.RightChatPanel, 5, -24)
 	rtabseparator:Point("TOPRIGHT", _G.RightChatPanel, -5, -24)
@@ -115,7 +115,7 @@ function module:CreateChatButtons()
 	else
 		ChatButton:SetAlpha(0.55)
 	end
-	ChatButton:SetFrameLevel(_G["LeftChatPanel"]:GetFrameLevel() + 5)
+	ChatButton:OffsetFrameLevel(5, _G.LeftChatPanel)
 
 	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
 	ChatButton.tex:SetInside()

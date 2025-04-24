@@ -63,7 +63,7 @@ function module:CreateSpecBar()
 		Button:SetID(i)
 		Button.SpecID = SpecID
 		Button:CreateBackdrop()
-		Button:SetFrameLevel(specBar:GetFrameLevel() + 1)
+		Button:OffsetFrameLevel(nil, specBar)
 		Button:StyleButton()
 		Button:SetNormalTexture(Icon)
 		Button:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)

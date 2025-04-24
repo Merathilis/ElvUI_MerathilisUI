@@ -25,7 +25,7 @@ function module:ConstructTextures(frame)
 	if not frame.MERAbsorb then
 		local absorbFrame = CreateFrame("Frame", nil, frame)
 		absorbFrame:SetFrameStrata(frame.HealthPrediction.absorbBar:GetFrameStrata())
-		absorbFrame:SetFrameLevel(frame.HealthPrediction.absorbBar:GetFrameLevel() + 1)
+		absorbFrame:OffsetFrameLevel(1, frame.HealthPrediction.absorbBar)
 		frame.MERAbsorb = absorbFrame
 	end
 

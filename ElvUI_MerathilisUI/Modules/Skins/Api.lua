@@ -79,7 +79,7 @@ function module:CreateShadow(frame, size, r, g, b, force)
 
 	local shadow = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 	shadow:SetFrameStrata(frame:GetFrameStrata())
-	shadow:SetFrameLevel(frame:GetFrameLevel() or 1)
+	shadow:OffsetFrameLevel(1, frame)
 	shadow:SetOutside(frame, size, size)
 	shadow:SetBackdrop({ edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(size + 1) })
 	shadow:SetBackdropColor(r, g, b, 0)
@@ -101,7 +101,7 @@ function module:CreateLowerShadow(frame, force)
 	if frame.shadow and frame.SetFrameStrata and frame.SetFrameLevel then
 		local function refreshFrameLevel()
 			local parentFrameLevel = frame:GetFrameLevel()
-			frame.shadow:SetFrameLevel(parentFrameLevel > 0 and parentFrameLevel - 1 or 0)
+			frame.shadow:OffsetFrameLevel(parentFrameLevel > 0 and parentFrameLevel - 1 or 0)
 		end
 
 		-- avoid the shadow level is reset when the frame strata/level is changed
@@ -307,7 +307,7 @@ function module:CreateBackdrop(frame)
 	backdrop:SetTemplate("Transparent")
 
 	if (parent:GetFrameLevel() - 1) >= 0 then
-		backdrop:SetFrameLevel(parent:GetFrameLevel() - 1)
+		backdrop:OffsetFrameLevel(-1, parent)
 	else
 		backdrop:SetFrameLevel(0)
 	end
@@ -323,7 +323,7 @@ function module:CreateBDFrame(f)
 	local bg = CreateFrame("Frame", nil, parent, "BackdropTemplate")
 	bg:SetOutside(f)
 	if (parent:GetFrameLevel() - 1) >= 0 then
-		bg:SetFrameLevel(parent:GetFrameLevel() - 1)
+		bg:OffsetFrameLevel(-1, parent)
 	else
 		bg:SetFrameLevel(0)
 	end

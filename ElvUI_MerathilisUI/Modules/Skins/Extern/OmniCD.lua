@@ -56,7 +56,7 @@ function module:OmniCD_Party_ExtraBars()
 		if icon.statusBar then
 			if not icon.statusBar.__MERSkin then
 				icon.statusBar.__MERSkin = CreateFrame("Frame", nil, icon.statusBar)
-				icon.statusBar.__MERSkin:SetFrameLevel(icon.statusBar:GetFrameLevel() - 1)
+				icon.statusBar.__MERSkin:OffsetFrameLevel(-1, icon.statusBar)
 
 				-- bind the visibility to the original borders
 				if icon.statusBar.borderTop then

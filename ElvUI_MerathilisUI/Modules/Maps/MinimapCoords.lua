@@ -47,7 +47,7 @@ end
 
 function module:CreateCoordsFrame()
 	self.coordsHolder = CreateFrame("Frame", "MER_CoordsHolder", _G.Minimap)
-	self.coordsHolder:SetFrameLevel(_G.Minimap:GetFrameLevel() + 20)
+	self.coordsHolder:OffsetFrameLevel(20, _G.Minimap)
 	self.coordsHolder:SetFrameStrata(_G.Minimap:GetFrameStrata())
 	self.coordsHolder.playerCoords = self.coordsHolder:CreateFontString(nil, "OVERLAY")
 	self.coordsHolder:SetScript("OnUpdate", self.updateClosure)

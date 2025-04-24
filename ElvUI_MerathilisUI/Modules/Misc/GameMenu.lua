@@ -78,7 +78,7 @@ function module:GameMenu_OnShow()
 	local mainFrame = CreateFrame("Frame", nil, E.UIParent)
 	mainFrame:SetAllPoints(E.UIParent)
 	mainFrame:SetFrameStrata("HIGH")
-	mainFrame:SetFrameLevel(GameMenuFrame:GetFrameLevel() - 1)
+	mainFrame:OffsetFrameLevel(-1, GameMenuFrame)
 	mainFrame:EnableMouse(true)
 
 	mainFrame.bg = mainFrame:CreateTexture(nil, "BACKGROUND")

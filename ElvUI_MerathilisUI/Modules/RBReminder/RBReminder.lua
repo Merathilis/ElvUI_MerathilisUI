@@ -352,7 +352,7 @@ function module:CreateIconBuff(name, relativeTo, firstbutton)
 			0
 		)
 	end
-	button:SetFrameLevel(_G.RaidBuffReminder:GetFrameLevel() + 2)
+	button:OffsetFrameLevel(2, _G.RaidBuffReminder)
 
 	button.t = button:CreateTexture(name .. ".t", "OVERLAY")
 	button.t:SetTexCoord(unpack(E.TexCoords))

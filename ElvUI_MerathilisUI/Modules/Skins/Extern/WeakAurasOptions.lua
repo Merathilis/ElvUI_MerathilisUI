@@ -110,7 +110,7 @@ function module:WeakAurasMultiLineEditBox(Constructor)
 		widget.editBox:DisableDrawLayer("BACKGROUND")
 		widget.frame:CreateBackdrop()
 		widget.frame.backdrop:ClearAllPoints()
-		widget.frame.backdrop:SetFrameLevel(widget.frame:GetFrameLevel())
+		widget.frame.backdrop:OffsetFrameLevel(nil, widget.frame)
 		widget.frame.backdrop:SetPoint("TOPLEFT", widget.scrollFrame, "TOPLEFT", -5, 2)
 		widget.frame.backdrop:SetPoint("BOTTOMRIGHT", widget.scrollFrame, "BOTTOMRIGHT", 0, 0)
 
@@ -144,7 +144,7 @@ function module:WeakAurasDisplayButton(Constructor)
 		if widget.background then
 			S:HandleButton(widget.frame, nil, nil, nil, true, "Transparent")
 			widget.frame.background:SetAlpha(0)
-			widget.frame.backdrop:SetFrameLevel(widget.frame:GetFrameLevel())
+			widget.frame.backdrop:OffsetFrameLevel(nil, widget.frame)
 			widget.frame.backdrop.color = { widget.frame.backdrop.Center:GetVertexColor() }
 
 			hooksecurefunc(widget.frame.background, "Hide", function()

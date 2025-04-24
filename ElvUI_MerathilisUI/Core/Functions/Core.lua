@@ -124,7 +124,7 @@ function F.CreateStyle(frame, useStripes, useShadow, useGradient)
 	end
 
 	local holder = frame.MERStyle or CreateFrame("Frame", nil, frame, "BackdropTemplate")
-	holder:SetFrameLevel(frame:GetFrameLevel())
+	holder:OffsetFrameLevel(nil, holder)
 	holder:SetFrameStrata(frame:GetFrameStrata())
 	holder:SetOutside(frame)
 	holder:Show()
@@ -202,7 +202,7 @@ function F.CreateBorder(f, i, o)
 		local border = CreateFrame("Frame", "$parentOuterBorder", f)
 		border:Point("TOPLEFT", -E.mult, E.mult)
 		border:Point("BOTTOMRIGHT", E.mult, -E.mult)
-		border:SetFrameLevel(f:GetFrameLevel() + 1)
+		border:OffsetFrameLevel(1)
 		border:CreateBackdrop()
 		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		f.oborder = border
@@ -1086,7 +1086,7 @@ function F.ReskinRole(self, role)
 
 	local checkButton = self.checkButton or self.CheckButton or self.CheckBox
 	if checkButton then
-		checkButton:SetFrameLevel(self:GetFrameLevel() + 2)
+		checkButton:OffsetFrameLevel(2)
 		checkButton:Point("BOTTOMLEFT", -2, -2)
 	end
 
