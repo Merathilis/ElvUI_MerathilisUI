@@ -124,7 +124,7 @@ function F.CreateStyle(frame, useStripes, useShadow, useGradient)
 	end
 
 	local holder = frame.MERStyle or CreateFrame("Frame", nil, frame, "BackdropTemplate")
-	holder:OffsetFrameLevel(nil, holder)
+	holder:OffsetFrameLevel(nil, frame)
 	holder:SetFrameStrata(frame:GetFrameStrata())
 	holder:SetOutside(frame)
 	holder:Show()
