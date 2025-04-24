@@ -199,46 +199,45 @@ function module:GuildBank(frame)
 	end
 end
 
-local function AuctionHouse_Update(child)
-	if not module.db.enable then
+function module:AuctionHouse(frame)
+	if not self.db.enable then
 		return
 	end
 
-	if child.cells then
-		local button = child.cells[2]
-		local itemKey = button and button.rowData and button.rowData.itemKey
-		if itemKey and itemKey.itemID then
-			local itemLink
-			if itemKey.itemID == 82800 then
-				itemLink = format("|Hbattlepet:%d::::::|h[Dummy]|h", itemKey.battlePetSpeciesID)
-			else
-				itemLink = format("|Hitem:%d", itemKey.itemID)
-			end
-
-			if itemLink and IsAlreadyKnown(itemLink) then
-				if module.db.mode == "MONOCHROME" then
-					button.Icon:SetDesaturated(true)
+	for i = 1, frame.ScrollTarget:GetNumChildren() do
+		local child = select(i, frame.ScrollTarget:GetChildren())
+		if child.cells then
+			local button = child.cells[2]
+			local itemKey = button and button.rowData and button.rowData.itemKey
+			if itemKey and itemKey.itemID then
+				local itemLink
+				if itemKey.itemID == 82800 then
+					itemLink = format("|Hbattlepet:%d::::::|h[Dummy]|h", itemKey.battlePetSpeciesID)
 				else
-					local r, g, b = module.db.color.r, module.db.color.g, module.db.color.b
-					child.SelectedHighlight:Show()
-					child.SelectedHighlight:SetVertexColor(r, g, b)
-					child.SelectedHighlight:SetAlpha(0.25)
-					button.Icon:SetVertexColor(r, g, b)
-					button.IconBorder:SetVertexColor(r, g, b)
+					itemLink = format("|Hitem:%d", itemKey.itemID)
+				end
+
+				if itemLink and IsAlreadyKnown(itemLink) then
+					if self.db.mode == "MONOCHROME" then
+						button.Icon:SetDesaturated(true)
+					else
+						local r, g, b = self.db.color.r, self.db.color.g, self.db.color.b
+						child.SelectedHighlight:Show()
+						child.SelectedHighlight:SetVertexColor(r, g, b)
+						child.SelectedHighlight:SetAlpha(0.25)
+						button.Icon:SetVertexColor(r, g, b)
+						button.IconBorder:SetVertexColor(r, g, b)
+						button.Icon:SetDesaturated(false)
+					end
+				else
+					child.SelectedHighlight:SetVertexColor(1, 1, 1)
+					button.Icon:SetVertexColor(1, 1, 1)
+					button.IconBorder:SetVertexColor(1, 1, 1)
 					button.Icon:SetDesaturated(false)
 				end
-			else
-				child.SelectedHighlight:SetVertexColor(1, 1, 1)
-				button.Icon:SetVertexColor(1, 1, 1)
-				button.IconBorder:SetVertexColor(1, 1, 1)
-				button.Icon:SetDesaturated(false)
 			end
 		end
 	end
-end
-
-function module:AuctionHouse(frame)
-	frame:ForEachFrame(AuctionHouse_Update)
 end
 
 do
