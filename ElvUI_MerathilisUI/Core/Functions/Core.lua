@@ -202,7 +202,7 @@ function F.CreateBorder(f, i, o)
 		local border = CreateFrame("Frame", "$parentOuterBorder", f)
 		border:Point("TOPLEFT", -E.mult, E.mult)
 		border:Point("BOTTOMRIGHT", E.mult, -E.mult)
-		border:OffsetFrameLevel(1)
+		border:OffsetFrameLevel(1, f)
 		border:CreateBackdrop()
 		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		f.oborder = border
@@ -1086,7 +1086,7 @@ function F.ReskinRole(self, role)
 
 	local checkButton = self.checkButton or self.CheckButton or self.CheckBox
 	if checkButton then
-		checkButton:OffsetFrameLevel(2)
+		checkButton:OffsetFrameLevel(2, self)
 		checkButton:Point("BOTTOMLEFT", -2, -2)
 	end
 
