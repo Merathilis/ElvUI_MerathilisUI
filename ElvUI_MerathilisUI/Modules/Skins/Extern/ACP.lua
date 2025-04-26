@@ -42,6 +42,8 @@ function module:ACP()
 	module:CreateBackdropShadow(_G.ACP_AddonList)
 
 	HandleDropdown(_G.ACP_AddonListSortDropDown)
+
+	_G.ACP_AddonList_ScrollFrame:StripTextures()
 	S:HandleScrollBar(_G.ACP_AddonList_ScrollFrameScrollBar)
 
 	S:HandleButton(_G.ACP_AddonListSetButton)
