@@ -384,7 +384,7 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["timeFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["buffs"]["timeFontSize"] = 11
 	E.db["auras"]["buffs"]["timeFontOutline"] = "SHADOWOUTLINE"
-	E.db["auras"]["buffs"]["timeYOffset"] = 34
+	E.db["auras"]["buffs"]["timeYOffset"] = 13
 	E.db["auras"]["buffs"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 4
 	E.db["auras"]["buffs"]["verticalSpacing"] = 10

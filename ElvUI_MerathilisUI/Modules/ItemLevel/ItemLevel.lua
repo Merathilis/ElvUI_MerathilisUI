@@ -53,7 +53,7 @@ function module:ItemLevel_FlyoutUpdate(bag, slot, quality)
 		level = F.GetItemLevel(link, "player", slot)
 	end
 
-	local color = E:GetQualityColor(quality or 0)
+	local color = E:GetQualityColor(quality)
 	self.iLvl:SetText(level)
 	self.iLvl:SetTextColor(color.r, color.g, color.b)
 end
