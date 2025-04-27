@@ -19,12 +19,7 @@ local function onUpdate(self, elapsed)
 	end
 end
 
-function module:BAG_UPDATE()
-	module.db = E.db.mui.notification
-	if not module.db.enable or not module.db.bags or InCombatLockdown() then
-		return
-	end
-
+function module:AlertFullBags(self)
 	local totalFree = 0
 	for i = _G.BACKPACK_CONTAINER, _G.NUM_BAG_SLOTS do
 		local freeSlots, bagFamily = C_Container_GetContainerNumFreeSlots(i)
@@ -52,4 +47,13 @@ function module:BAG_UPDATE()
 	else
 		shouldAlert = false
 	end
+end
+
+function module:BAG_UPDATE()
+	module.db = E.db.mui.notification
+	if not module.db.enable or not module.db.bags or InCombatLockdown() then
+		return
+	end
+
+	module:AlertFullBags(self)
 end
