@@ -81,12 +81,10 @@ function module:CreateSpecBar()
 		Button:SetScript("OnLeave", GameTooltip_Hide)
 		Button:SetScript("OnClick", function(self, button)
 			if button == "LeftButton" then
-				print("LeftButton")
 				if self:GetID() ~= self.Spec then
 					SetSpecialization(self:GetID())
 				end
 			elseif button == "RightButton" then
-				print("RightButton")
 				SetLootSpecialization(self.LootID == self.SpecID and 0 or self.SpecID)
 			end
 		end)
