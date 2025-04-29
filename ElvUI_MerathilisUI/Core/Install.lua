@@ -2416,15 +2416,6 @@ function MER:SetupDts()
 	}
 
 	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
-		E.db["datatexts"]["panels"]["MER_TopPanel"] = {
-			[1] = "mTeleports",
-			[2] = "",
-			[3] = "",
-			["battleground"] = false,
-			["enable"] = true,
-		}
-		E.db["movers"]["DTPanelMER_TopPanelMover"] = "TOP,ElvUIParent,TOP,0,0"
-
 		E.global["datatexts"]["customPanels"]["MER_TopPanel"] = {
 			["fonts"] = {
 				["enable"] = true,
@@ -2442,6 +2433,15 @@ function MER:SetupDts()
 			["frameLevel"] = 1,
 		}
 		E.DataTexts:UpdatePanelInfo("MER_TopPanel")
+
+		E.db["datatexts"]["panels"]["MER_TopPanel"] = {
+			[1] = "mTeleports",
+			[2] = "",
+			[3] = "",
+			["battleground"] = false,
+			["enable"] = true,
+		}
+		E.db["movers"]["DTPanelMER_TopPanelMover"] = "TOP,ElvUIParent,TOP,0,0"
 	end
 
 	E:StaggeredUpdateAll(nil, true)
