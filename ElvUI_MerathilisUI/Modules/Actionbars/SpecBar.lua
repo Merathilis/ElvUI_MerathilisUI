@@ -23,9 +23,9 @@ function module:CreateSpecBar()
 	local Spacing, Mult = 4, 1
 	local Size = E.db.mui.actionbars.specBar.size or 24
 
-	local specBar = CreateFrame("Frame", nil, E.UIParent)
+	local specBar = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
 	specBar:SetFrameStrata(db.frameStrata or "BACKGROUND")
-	specBar:SetFrameLevel(db.frameLevel or 1)
+	specBar:OffsetFrameLevel(db.frameLevel or 1)
 	specBar:Size(40, 40)
 	specBar:CreateBackdrop("Transparent")
 	specBar:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 177)
@@ -63,7 +63,7 @@ function module:CreateSpecBar()
 		Button:SetID(i)
 		Button.SpecID = SpecID
 		Button:CreateBackdrop()
-		Button:OffsetFrameLevel(nil, specBar)
+		Button:OffsetFrameLevel(1, specBar)
 		Button:StyleButton()
 		Button:SetNormalTexture(Icon)
 		Button:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
@@ -81,10 +81,12 @@ function module:CreateSpecBar()
 		Button:SetScript("OnLeave", GameTooltip_Hide)
 		Button:SetScript("OnClick", function(self, button)
 			if button == "LeftButton" then
+				print("LeftButton")
 				if self:GetID() ~= self.Spec then
 					SetSpecialization(self:GetID())
 				end
 			elseif button == "RightButton" then
+				print("RightButton")
 				SetLootSpecialization(self.LootID == self.SpecID and 0 or self.SpecID)
 			end
 		end)
