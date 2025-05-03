@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
+local M = E:GetModule("Misc")
 
 local pairs, GetCVarBool = pairs, GetCVarBool
 local C_ChatBubbles_GetAllChatBubbles = C_ChatBubbles.GetAllChatBubbles
@@ -22,6 +23,18 @@ local function SkinChatBubble(chatbubble)
 	end
 
 	chatbubble.skinned = true
+end
+
+-- reparent the name to the frame. needed for my skin
+function module:SkinBubble(frame)
+	local option = E.private.general.chatBubbles
+	if option ~= "nobackdrop" then
+		return
+	end
+
+	if frame.Name then
+		frame.Name:SetParent(frame)
+	end
 end
 
 function module:ChatBubbles()
@@ -60,6 +73,8 @@ function module:ChatBubbles()
 		end
 	end)
 	bubbleHook:Hide()
+
+	hooksecurefunc(M, "SkinBubble", module.SkinBubble)
 end
 
 module:AddCallback("ChatBubbles")
