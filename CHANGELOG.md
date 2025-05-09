@@ -1,6 +1,7 @@
 ### Changes ###
 
-  * [Core]: Changes due to 11.1.5
-  * [Combat Alert]: Fix backdrop
-  * [Notification]: Add an alert for full bags
-  * [GameMenu]: Some more info's on the GameMenu
+  * [ItemLevel]: Fixed an error in ItemLevel Code for Flyouts
+  * [AutoButtons]: Added more openable Items
+  * [Core]: Use new ElvUI API for 'SetFrameLevel'
+  * [ACP Skin]: Skin a scrollBar in the ACP Skin
+  * [ChatBubbles]: Partly revert some ElvUI changes to the ChatBubble skin
