@@ -116,7 +116,7 @@ function MER:InitializeModules()
 	for _, moduleName in pairs(MER.RegisteredModules) do
 		local module = self:GetModule(moduleName)
 		if module.Initialize then
-			xpcall(module.Initialize, geterrorhandler(), module)
+			pcall(module.Initialize, module)
 		end
 	end
 
@@ -153,7 +153,7 @@ function MER:UpdateModules()
 	for _, moduleName in pairs(self.RegisteredModules) do
 		local module = MER:GetModule(moduleName)
 		if module.ProfileUpdate then
-			xpcall(module.ProfileUpdate, geterrorhandler(), module)
+			pcall(module.ProfileUpdate, module)
 		end
 	end
 end

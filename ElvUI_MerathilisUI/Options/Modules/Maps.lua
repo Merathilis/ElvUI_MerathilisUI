@@ -1,7 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local MM = MER:GetModule("MER_Minimap")
 local MP = MER:GetModule("MER_MiniMapPing")
-local CO = MER:GetModule("MER_MiniMapCoords")
 local SMB = MER:GetModule("MER_MiniMapButtons")
 local RM = MER:GetModule("MER_RectangleMinimap")
 local WM = MER:GetModule("MER_WorldMap")

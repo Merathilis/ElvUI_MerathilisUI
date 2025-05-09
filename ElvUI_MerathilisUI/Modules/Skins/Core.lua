@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
@@ -199,12 +199,12 @@ function module:Initialize()
 	end
 
 	for index, func in next, self.nonAddonsToLoad do
-		xpcall(func, errorhandler, self)
+		xpcall(func, F.Developer.ThrowError, self)
 		self.nonAddonsToLoad[index] = nil
 	end
 
 	for addonName, object in pairs(self.addonsToLoad) do
-		local isLoaded, isFinished = IsAddOnLoaded(addonName)
+		local isLoaded, isFinished = C_AddOns_IsAddOnLoaded(addonName)
 		if isLoaded and isFinished then
 			self:CallLoadedAddon(addonName, object)
 		end
