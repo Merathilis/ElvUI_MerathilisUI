@@ -53,6 +53,11 @@ local RoleIconTextures = {
 		HEALER = I.Media.RoleIcons.MaterialHealer,
 		DAMAGER = I.Media.RoleIcons.MaterialDPS,
 	},
+	ElvUIOld = {
+		TANK = I.Media.RoleIcons.ElvUITank,
+		HEALER = I.Media.RoleIcons.ElvUIHealer,
+		DAMAGER = I.Media.RoleIcons.ElvUIDPS,
+	},
 }
 
 function module:Configure_RoleIcons()

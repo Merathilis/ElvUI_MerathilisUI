@@ -147,6 +147,10 @@ F.AddMedia("role", "MaterialTank")
 F.AddMedia("role", "MaterialHealer")
 F.AddMedia("role", "MaterialDPS")
 
+F.AddMedia("role", "ElvUITank")
+F.AddMedia("role", "ElvUIHealer")
+F.AddMedia("role", "ElvUIDPS")
+
 F.AddMedia("texture", "EmptyTex")
 F.AddMedia("texture", "GlowTex")
 

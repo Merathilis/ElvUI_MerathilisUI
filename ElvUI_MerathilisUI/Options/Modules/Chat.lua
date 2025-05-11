@@ -940,6 +940,12 @@ do
 	icons = icons .. E:TextureString(I.Media.RoleIcons.MaterialHealer, ":16:16") .. " "
 	icons = icons .. E:TextureString(I.Media.RoleIcons.MaterialDPS, ":16:16")
 	SampleStrings.material = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(I.Media.RoleIcons.ElvUITank, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.ElvUIHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.ElvUIDPS, ":16:16")
+	SampleStrings.elvui_old = icons
 end
 
 do
@@ -1133,6 +1139,7 @@ do
 							WHITE = SampleStrings.white,
 							MATERIAL = SampleStrings.material,
 							BLIZZARD = SampleStrings.blizzard,
+							ELVUI_OLD = SampleStrings.elvui_old,
 							DEFAULT = SampleStrings.elvui,
 						},
 					},

@@ -804,6 +804,16 @@ function CT:UpdateRoleIcons()
 		INLINE_TANK_ICON = roleIcons.TANK
 		INLINE_HEALER_ICON = roleIcons.HEALER
 		INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+	elseif pack == "ELVUI_OLD" then
+		roleIcons = {
+			TANK = E:TextureString(I.Media.RoleIcons.ElvUITank, sizeString),
+			HEALER = E:TextureString(I.Media.RoleIcons.ElvUIHealer, sizeString),
+			DAMAGER = E:TextureString(I.Media.RoleIcons.ElvUIDPS, sizeString),
+		}
+
+		INLINE_TANK_ICON = roleIcons.TANK
+		INLINE_HEALER_ICON = roleIcons.HEALER
+		INLINE_DAMAGER_ICON = roleIcons.DAMAGER
 	end
 end
 
