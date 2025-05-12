@@ -51,6 +51,8 @@ module.ReminderBuffs = {
 		462182, -- (Vers)
 		462183, -- (Mastery)
 		462210, -- (Primary Stat)
+		-- Delve
+		442522,
 	},
 	Intellect = {
 		1459, -- Arcane Intellect
@@ -432,7 +434,7 @@ function module:Initialize()
 	self.frame:RegisterEvent("CHARACTER_POINTS_CHANGED")
 	self.frame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	self.frame:RegisterEvent("GROUP_ROSTER_UPDATE")
-	self.frame:SetScript("OnEvent", OnAuraChange) -- 11.0 FIX ME
+	self.frame:SetScript("OnEvent", OnAuraChange)
 
 	E:CreateMover(
 		self.Anchor,
