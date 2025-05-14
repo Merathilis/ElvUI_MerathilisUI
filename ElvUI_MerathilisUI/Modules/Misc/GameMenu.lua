@@ -129,7 +129,9 @@ function module:GameMenu_OnShow()
 	bottomPanel.specIcon:SetFont("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Fonts\\ToxiUIIcons.ttf", 20, "OUTLINE")
 	bottomPanel.specIcon:Point("TOP", bottomPanel.guildText, "BOTTOM", 0, -15)
 	bottomPanel.specIcon:SetTextColor(1, 1, 1, 1)
-	bottomPanel.specIcon:SetText(F.String.Class(specIcon))
+	if specIcon then
+		bottomPanel.specIcon:SetText(F.String.Class(specIcon))
+	end
 
 	bottomPanel.levelText = bottomPanel:CreateFontString(nil, "OVERLAY")
 	bottomPanel.levelText:FontTemplate(nil, 20, "OUTLINE")
