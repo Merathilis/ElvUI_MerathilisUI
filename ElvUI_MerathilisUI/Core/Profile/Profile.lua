@@ -623,6 +623,9 @@ P.misc = {
 	singingSockets = {
 		enable = true,
 	},
+	focuser = {
+		enable = true,
+	},
 }
 
 P.nameHover = {

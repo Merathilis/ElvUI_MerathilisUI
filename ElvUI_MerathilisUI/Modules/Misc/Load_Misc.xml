@@ -7,10 +7,10 @@
 	<Script file="Automation.lua"/>
 	<Script file="BossBanner.lua"/>
 	<Script file="ContextMenu.lua"/>
+	<Script file="Focus.lua"/>
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
 	<Script file="Loot.lua"/>
-	<!-- <Script file="MissingStats.lua"/> -->
 	<Script file="Mute.lua"/>
 	<Script file="SpellAlerts.lua"/>
 	<Script file="StatusReport.lua"/>

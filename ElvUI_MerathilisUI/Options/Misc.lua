@@ -85,6 +85,19 @@ options.general = {
 			name = L["Block Join Requests"],
 			desc = L["|nIf checked, only popout join requests from friends and guild members."],
 		},
+		focuser = {
+			order = 11,
+			type = "toggle",
+			name = E.NewSign .. L["SHIFT - Focus"],
+			desc = L["Hold SHIFT and click to set focus on the NamePlate."],
+			get = function(info)
+				return E.db.mui.misc.focuser.enable
+			end,
+			set = function(info, value)
+				E.db.mui.misc.focuser.enable = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+		},
 		randomtoy = {
 			order = 20,
 			type = "input",
