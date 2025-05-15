@@ -73,20 +73,14 @@ options.general = {
 			type = "description",
 			name = " ",
 		},
-		missingStats = {
-			order = 9,
-			type = "toggle",
-			name = L["Missing Stats"],
-			desc = L["Show all stats on the Character Frame"],
-		},
 		blockRequest = {
-			order = 10,
+			order = 9,
 			type = "toggle",
 			name = L["Block Join Requests"],
 			desc = L["|nIf checked, only popout join requests from friends and guild members."],
 		},
 		focuser = {
-			order = 11,
+			order = 10,
 			type = "toggle",
 			name = E.NewSign .. L["SHIFT - Focus"],
 			desc = L["Hold SHIFT and click to set focus on the NamePlate."],

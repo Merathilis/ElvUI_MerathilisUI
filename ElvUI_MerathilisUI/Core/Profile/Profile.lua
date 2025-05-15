@@ -568,7 +568,6 @@ P.misc = {
 			["Jewelcrafting"] = false,
 		},
 	},
-	missingStats = true,
 	blockRequest = false,
 	randomToy = {
 		enable = true,

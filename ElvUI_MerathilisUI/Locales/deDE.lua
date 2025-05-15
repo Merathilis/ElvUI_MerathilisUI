@@ -424,7 +424,6 @@ L["Confirm summon from other player automatically."] =
 L["Quick Delete"] = "Schnelles Löschen"
 L["This will add the 'DELETE' text to the Item Delete Dialog."] =
 	"Dadurch wird dem Element löschen Dialogfeld der Text 'LÖSCHEN' hinzugefügt."
-L["Missing Stats"] = "Fehlende Statistiken"
 L["Show all stats on the Character Frame"] = "Alle Werte im Charakterfenster anzeigen."
 L["Block Join Requests"] = "Beitrittsanfragen blockieren"
 L["|nIf checked, only popout join requests from friends and guild members."] =

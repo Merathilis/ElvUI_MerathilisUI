@@ -436,7 +436,6 @@ L["Confirm Summon"] = true
 L["Confirm summon from other player automatically."] = true
 L["Quick Delete"] = true
 L["This will add the 'DELETE' text to the Item Delete Dialog."] = true
-L["Missing Stats"] = true
 L["Show all stats on the Character Frame"] = true
 L["Block Join Requests"] = true
 L["|nIf checked, only popout join requests from friends and guild members."] = true
