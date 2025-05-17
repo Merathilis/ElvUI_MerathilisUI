@@ -86,6 +86,12 @@ do
 	MER.PlainTitle = gsub(MER.Title, "|c........([^|]+)|r", "%1")
 end
 
+MER.MetaFlavor = GetAddOnMetadata("ElvUI_MerathilisUI", "X-Flavor")
+
+MER.IsVanilla = MER.MetaFlavor == "Vanilla"
+MER.IsCata = MER.MetaFlavor == "Cata"
+MER.IsRetail = MER.MetaFlavor == "Mainline"
+
 -- Modules
 MER.Modules = {}
 MER.Modules.ActionBars = MER:NewModule("MER_Actionbars", "AceEvent-3.0", "AceHook-3.0")
@@ -188,9 +194,20 @@ _G.MerathilisUI_OnAddonCompartmentClick = function()
 end
 
 function MER:Initialize()
+	if self.initialized then
+		return
+	end
+
 	if not self:CheckElvUIVersion() then
 		return
 	end
+
+	local flavorMap = {
+		["Mainline"] = I.Enum.Flavor.RETAIL,
+		["MOP"] = I.Enum.Flavor.MOP,
+	}
+
+	self.Flavor = flavorMap[self.MetaFlavor] or I.Enum.Flavor.RETAIL
 
 	if MER.IsDevelop then
 		Engine[2].DebugPrint(
