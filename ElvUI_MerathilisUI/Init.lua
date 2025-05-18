@@ -88,8 +88,7 @@ end
 
 MER.MetaFlavor = GetAddOnMetadata("ElvUI_MerathilisUI", "X-Flavor")
 
-MER.IsVanilla = MER.MetaFlavor == "Vanilla"
-MER.IsCata = MER.MetaFlavor == "Cata"
+MER.IsMOP = MER.MetaFlavor == "Mists"
 MER.IsRetail = MER.MetaFlavor == "Mainline"
 
 -- Modules
@@ -206,7 +205,6 @@ function MER:Initialize()
 		["Mainline"] = I.Enum.Flavor.RETAIL,
 		["MOP"] = I.Enum.Flavor.MOP,
 	}
-
 	self.Flavor = flavorMap[self.MetaFlavor] or I.Enum.Flavor.RETAIL
 
 	if MER.IsDevelop then

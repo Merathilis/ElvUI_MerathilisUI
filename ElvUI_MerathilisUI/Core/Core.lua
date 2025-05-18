@@ -17,10 +17,6 @@ local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
 
 local C_Timer_NewTimer = C_Timer.NewTimer
 
-local RegisterCVar = C_CVar.RegisterCVar
-local SetCVar = C_CVar.SetCVar
-local IsEnabled = C_AddOnProfiler.IsEnabled
-
 MER.dummy = function()
 	return
 end
