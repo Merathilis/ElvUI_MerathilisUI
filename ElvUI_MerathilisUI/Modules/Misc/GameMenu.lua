@@ -418,7 +418,14 @@ function module:GameMenu_OnShow()
 						end
 
 						local historyDungeonName = C_ChallengeMode_GetMapUIInfo(historyRun.mapChallengeModeID)
-						local output = ("%s (+%d)"):format(historyDungeonName, historyRun.level)
+							or "Unknown"
+						local colorObj = C_ChallengeMode_GetKeystoneLevelRarityColor(historyRun.level)
+						local levelText = "+" .. historyRun.level
+						local levelColored = levelText
+						if colorObj and colorObj.GenerateHexColor then
+							levelColored = F.String.Color(levelText, colorObj:GenerateHexColor())
+						end
+						local output = ("%s (%s)"):format(historyDungeonName, levelColored)
 						historyFrame:SetText(historyRun.completed and F.String.Good(output) or F.String.Error(output))
 					else
 						historyFrame:SetText("")
