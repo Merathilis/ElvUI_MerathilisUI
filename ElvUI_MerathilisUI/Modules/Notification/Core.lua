@@ -312,7 +312,8 @@ function module:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("QUEST_ACCEPTED")
-	self:RegisterEvent("BAG_UPDATE")
+
+	self:AlertFullBags()
 
 	self.lastMinimapRare = { time = 0, id = nil }
 end
